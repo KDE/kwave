@@ -157,4 +157,26 @@ void MultiTrackWriter::cancel()
 }
 
 //***************************************************************************
+unsigned int MultiTrackWriter::last()
+{
+    unsigned int last = 0;
+    const unsigned int tracks = count();
+    for (unsigned int track=0; track < tracks; ++track) {
+	SampleWriter *w = (*this)[track];
+	if (w && w->last() > last) last = w->last();
+    }
+    return last;
+}
+
+//***************************************************************************
+void MultiTrackWriter::flush()
+{
+    const unsigned int tracks = count();
+    for (unsigned int track=0; track < tracks; ++track) {
+	SampleWriter *w = (*this)[track];
+	if (w) w->flush();
+    }
+}
+
+//***************************************************************************
 //***************************************************************************

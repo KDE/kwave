@@ -67,10 +67,23 @@ signals:
 public slots:
     /**
      * Advances the progress to a given position within the file.
-     * @param pos position within the file [0...m_size-1]
+     * @param pos position within the file, in samples
      */
     void setValue(unsigned int pos);
 
+    /**
+     * Like setValue, but takes position in bytes as argument
+     * @param pos position within the file, in bytes [0...m_size-1]
+     */
+    void setBytePosition(unsigned int pos);
+
+    /**
+     * Updates the length information, needed in stream mode.
+     * @param samples total number of samples, must be divided through
+     *        the number of tracks for getting the real length
+     */
+    void setLength(unsigned int samples);
+    
 protected slots:
 
     /**
@@ -129,6 +142,9 @@ protected:
     /** label with the url, shortened when too long */
     QLabel *m_lbl_url;
 
+    /** label with length info, changes in streaming mode */
+    QLabel *m_lbl_length;
+    
     /** progress bar */
     KProgress *m_progress;
 
@@ -149,6 +165,13 @@ protected:
 
     /** number of bits per sample */
     unsigned int m_bits_per_sample;
+
+    /** number of samples per second, used for output */
+    double m_sample_rate;
+
+    /** number of tracks */
+    unsigned int m_tracks;
+    
 };
 
 #endif /* _FILE_PROGRESS_H_ */

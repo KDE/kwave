@@ -43,13 +43,16 @@ FileProgress::FileProgress(QWidget *parent,
     m_url(url),
     m_size(size),
     m_lbl_url(0),
+    m_lbl_length(0),
     m_progress(0),
     m_stat_transfer(0),
     m_stat_bytes(0),
     m_time(),
     m_cancelled(true),
     m_last_percent(0),
-    m_bits_per_sample(bits)
+    m_bits_per_sample(bits),
+    m_sample_rate(rate),
+    m_tracks(tracks)
 {
     QString text;
 
@@ -80,16 +83,10 @@ FileProgress::FileProgress(QWidget *parent,
 
     // label with "length"
     if (!addInfoLabel(info_layout, i18n("length: "), 1, 0)) return;
-
-    // length in samples -> h:m:s
-    if (rate) {
-	// length in ms
-	text = KwavePlugin::ms2string((float)samples/(float)rate*1000.0);
-    } else {
-	// fallback if no rate: length in samples
-        text = i18n("%1 samples").arg(samples);
-    }
-    if (!addInfoLabel(info_layout, text, 1, 1)) return;
+    
+    m_lbl_length = addInfoLabel(info_layout, "", 1, 1);
+    if (!m_lbl_length) return;
+    setLength(samples*tracks);
 
     // label with "rate:"
     if (!addInfoLabel(info_layout, i18n("sample rate: "), 2, 0)) return;
@@ -279,10 +276,14 @@ void FileProgress::updateStatistics(double rate, double rest,
 //***************************************************************************
 void FileProgress::setValue(unsigned int pos)
 {
-    if (!m_progress) return;
-
     // position is in samples, we need bytes
-    pos *= (m_bits_per_sample >> 3);
+    setBytePosition(pos * (m_bits_per_sample >> 3));
+}
+
+//***************************************************************************
+void FileProgress::setBytePosition(unsigned int pos)
+{
+    if (!m_progress) return;
 
     // the easiest part: the progress bar and the caption
     int percent = (int)((double)pos / (double)m_size * 100.0);
@@ -316,6 +317,23 @@ void FileProgress::setValue(unsigned int pos)
 
     // better be nice to other processes and let them also play a bit :)
     sched_yield();
+}
+
+//***************************************************************************
+void FileProgress::setLength(unsigned int samples)
+{
+    QString text;
+    
+    // length in samples -> h:m:s
+    if (m_sample_rate) {
+	// length in ms
+	text = KwavePlugin::ms2string((float)(samples/m_tracks)/
+	                              (float)m_sample_rate*1000.0);
+    } else {
+	// fallback if no rate: length in samples
+        text = i18n("%1 samples").arg(samples);
+    }
+    m_lbl_length->setText(text);
 }
 
 //***************************************************************************

@@ -60,6 +60,12 @@ public:
 	return QVector<SampleWriter>::count();
     };
 
+    /** Returns the last sample index of all streams */
+    unsigned int last();
+
+    /** Flushes all streams */
+    void flush();
+    
     /** @see QVector::clear() */
     inline virtual void clear() { QVector<SampleWriter>::clear(); };
 

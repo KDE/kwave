@@ -82,6 +82,16 @@ public:
      */
     virtual QString whatContains(const KURL &url);
 
+signals:
+
+    /**
+     * Can be used to signal the current position within the source
+     * when a stream without info about the resulting signal is
+     * processed.
+     * @param pos current position within the source, in bytes!
+     */
+    void sourceProcessed(unsigned int pos);
+    
 protected:
 
     /** information about the file */

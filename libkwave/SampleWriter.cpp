@@ -111,7 +111,7 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 	    unsigned int cnt = s->append(buffer, count);
 	    ASSERT(cnt == count);
 	    m_position += count;
-	    ASSERT(m_position <= m_last+1);
+	    if (m_position+1 > m_last) m_last = m_position-1;
 	    break;
 	}
 	case Insert: {

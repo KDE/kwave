@@ -245,11 +245,9 @@ unsigned int Signal::length()
     SharedLockGuard lock(m_lock_tracks, false);
 
     unsigned int max = 0;
-    unsigned int len;
-
     QListIterator<Track> it(m_tracks);
     for ( ; it.current(); ++it) {
-	len = it.current()->length();
+	unsigned int len = it.current()->length();
 	if (len > max) max = len;
     }
     return max;

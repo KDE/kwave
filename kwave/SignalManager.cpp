@@ -125,6 +125,7 @@ SignalManager::SignalManager(QWidget *parent)
 int SignalManager::loadFile(const KURL &url)
 {
     int res = 0;
+    FileProgress *dialog = 0;
     m_name = url.filename();
 
     // enter and stay in not modified state
@@ -160,6 +161,9 @@ int SignalManager::loadFile(const KURL &url)
 	// get the file info from the decoder
 	m_file_info = decoder->info();
 	
+	// detect stream mode. if so, use one sample as display
+	bool streaming = (!m_file_info.length());
+	
 	// we must change to open state to see the file while
 	// it is loaded
 	m_closed = false;
@@ -170,11 +174,10 @@ int SignalManager::loadFile(const KURL &url)
 	const unsigned int tracks = decoder->info().tracks();
 	const unsigned int length = decoder->info().length();
 	ASSERT(tracks);
-	ASSERT(length);
 	for (track=0; track < tracks; ++track) {
 	    Track *t = m_signal.appendTrack(length);
 	    ASSERT(t);
-	    if (!t || t->length() != length) {
+	    if (!t || (t->length() != length)) {
 		warning("out of memory");
 		res = -ENOMEM;
 		break;
@@ -184,16 +187,36 @@ int SignalManager::loadFile(const KURL &url)
 	
 	// create the multitrack writer as destination
 	MultiTrackWriter writers;
-	openMultiTrackWriter(writers, allTracks(), Overwrite, 0, length-1);
+
+	// if length was zero -> append mode / decode a stream ?
+	InsertMode mode = (streaming) ? Append : Overwrite;
+	openMultiTrackWriter(writers, allTracks(), mode, 0,
+	    (length) ? length-1 : 0);
+
+	// try to calculate the resulting length, but if this is
+	// not possible, we try to use the source length instead
+	FileInfo &info = decoder->info();
+	unsigned int resulting_size = info.tracks() * info.length() *
+	                              (info.bits() >> 3);
+	bool use_src_size = (!resulting_size);
+	if (use_src_size) resulting_size = src.size();
 	
 	//prepare and show the progress dialog
-	FileInfo &info = decoder->info();
-	FileProgress *dialog = new FileProgress(m_parent_widget,
-	    filename, info.tracks()*info.length()*(info.bits() >> 3),
+	dialog = new FileProgress(m_parent_widget,
+	    filename, resulting_size,
 	    info.length(), info.rate(), info.bits(), info.tracks());
 	ASSERT(dialog);
-	QObject::connect(&writers, SIGNAL(progress(unsigned int)),
-	                 dialog, SLOT(setValue(unsigned int)));
+	if (use_src_size) {
+	    // use source size for progress / stream mode
+	    QObject::connect(decoder, SIGNAL(sourceProcessed(unsigned int)),
+	                     dialog, SLOT(setBytePosition(unsigned int)));
+	    QObject::connect(&writers, SIGNAL(progress(unsigned int)),
+	                     dialog, SLOT(setLength(unsigned int)));
+	} else {
+	    // use resulting size for progress
+	    QObject::connect(&writers, SIGNAL(progress(unsigned int)),
+	                     dialog, SLOT(setValue(unsigned int)));
+	}
 	QObject::connect(dialog, SIGNAL(cancelled()),
 	                 &writers, SLOT(cancel()));
 	
@@ -203,8 +226,25 @@ int SignalManager::loadFile(const KURL &url)
 	    warning("decoding failed.");
 	    res = -EIO;
 	}
+	
 	decoder->close();
-	if (dialog) delete dialog;
+	
+	// check for length info in stream mode
+	if (!res && streaming) {
+	    // source was opened in stream mode -> now we have the length
+	    writers.flush();
+	    unsigned int new_length = writers.last();
+	    if (new_length) new_length++;
+	    debug("SignalManager::loadFile(): stream length = %u samples",
+	        new_length);
+	    m_file_info.setLength(new_length);
+	}
+	
+	// update the length info in the progress dialog if needed
+	if (dialog && use_src_size) {
+	    dialog->setLength(m_file_info.length() * m_file_info.tracks());
+	    dialog->setBytePosition(src.size());
+	}
 	
 	emitStatusInfo();
 	break;
@@ -225,7 +265,9 @@ int SignalManager::loadFile(const KURL &url)
     // modified can change from now on
     enableModifiedChange(true);
 
+    if (dialog) delete dialog;
     if (res) close();
+    
     return res;
 }
 

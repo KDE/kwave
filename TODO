@@ -24,15 +24,9 @@ o find the reason for the warnings about multiple definitions of
 
 o apply the GNU coding style
 
-o change selected bits_per_sample menu entry after loading a wav file
-
 o get the plugins working with compilers other than egcs
 
 o playback in stereo
-
-o disable Save and SaveAs menu entries if no signal is present
-
-o check dependencies/Makefiles
 
 o fix bug in Fx->Periodic Silence (segmentation fault)
 

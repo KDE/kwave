@@ -831,6 +831,28 @@ AC_DEFUN(KDE_CREATE_LIBS_ALIASES,
    AC_SUBST(LIB_KFILE)
 ])
 
+AC_DEFUN(AC_PATH_KWAVELIB,
+[
+AC_REQUIRE([AC_PATH_QT])dnl
+AC_MSG_CHECKING([for libkwave])
+
+kwave_libdirs="/usr/local/lib /usr/lib /usr/local/kde/lib /opt/kde/lib"
+
+AC_FIND_FILE(libkwave.la, $kwave_libdirs, kwave_libdir)
+ac_kwave_libraries=$kwave_libdir
+
+if test "$ac_kwave_libraries" = NO;
+then
+  ac_cv_have_kwavelib="have_kwave=no"
+else
+  ac_cv_have_kwavelib="have_kwave=yes ac_kwave_libraries=$ac_kwave_libraries"
+fi
+
+eval "$ac_cv_have_kwavelib"
+
+ AC_MSG_RESULT(["in" $kwave_libdir])
+])
+
 AC_DEFUN(AC_PATH_KDE,
 [
   AC_BASE_PATH_KDE

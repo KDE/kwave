@@ -1,0 +1,78 @@
+# Installs in /usr/X11R6/bin
+Summary: KDE Video4Linux Stream Capture Viewer
+Name: kwave
+Version: @VERSION@
+Release: 1
+Source0: kwave-%{version}.tgz
+Group: X11/Applications/Sound
+Copyright: GNU GENERAL PUBLIC LICENSE
+URL: ftp://ftp.kde.org/pub/kde/unstable/apps/multimedia/sound
+Vendor: Martin Wilz> <mwilz@ernie.mi.uni-koeln.de>
+BuildRoot: /tmp/kwave-%{version}.root
+
+%description
+A sound editor for KDE
+
+%prep
+%setup 
+./configure --with-install-root=$RPM_BUILD_ROOT
+
+%build
+#CFLAGS="$RPM_OPT_FLAGS" ./configure
+make
+
+%install
+make R="$RPM_BUILD_ROOT" SUID_ROOT="" install
+
+%files
+#binaries
+/opt/kde/bin/kwave
+%attr(755, root, root) /opt/kde/bin/kwave
+###icons
+##/opt/kde/share/apps/kwintv/pics/delete.xpm
+##/opt/kde/share/apps/kwintv/pics/down.xpm
+##/opt/kde/share/apps/kwintv/pics/editcut.xpm
+##/opt/kde/share/apps/kwintv/pics/editpaste.xpm
+##/opt/kde/share/apps/kwintv/pics/exit.xpm
+##/opt/kde/share/apps/kwintv/pics/kwintv_16x16.xpm
+##/opt/kde/share/apps/kwintv/pics/kwintv_24x24.xpm
+##/opt/kde/share/apps/kwintv/pics/kwintv_48x48.xpm
+##/opt/kde/share/apps/kwintv/pics/kwintv_capture.xpm
+##/opt/kde/share/apps/kwintv/pics/kwintv_cs.xpm
+##/opt/kde/share/apps/kwintv/pics/kwintv_mute.xpm
+##/opt/kde/share/apps/kwintv/pics/kwintv_mute_off.xpm
+##/opt/kde/share/apps/kwintv/pics/kwintv_mute_on.xpm
+##/opt/kde/share/apps/kwintv/pics/kwintv_snap.xpm
+##/opt/kde/share/apps/kwintv/pics/kwintv_title.xpm
+##/opt/kde/share/apps/kwintv/pics/kwintv_vol_down.xpm
+##/opt/kde/share/apps/kwintv/pics/kwintv_vol_up.xpm
+##/opt/kde/share/apps/kwintv/pics/mix_bass.xpm
+##/opt/kde/share/apps/kwintv/pics/mix_treble.xpm
+##/opt/kde/share/apps/kwintv/pics/mix_volume.xpm
+##/opt/kde/share/apps/kwintv/pics/transform.xpm
+##/opt/kde/share/apps/kwintv/pics/up.xpm
+##/opt/kde/share/apps/kwintv/pics/viewmag.xpm
+### logo icons
+##/opt/kde/share/icons/kwintv_48x48.xpm
+##/opt/kde/share/icons/mini/kwintv_16x16.xpm
+###fonts
+##/usr/X11R6/lib/X11/fonts/kwintv/led-fixed.pcf
+##/usr/X11R6/lib/X11/fonts/kwintv/vtx10x12.vtxfont
+##/usr/X11R6/lib/X11/fonts/kwintv/vtx15x18.vtxfont
+##/usr/X11R6/lib/X11/fonts/kwintv/vtx20x24.vtxfont
+###application link (multimedia)
+##/opt/kde/share/applnk/Multimedia/kwintv.kdelnk
+
+%doc CHANGES README TODO kwave.lsm
+
+%post
+##[ -f /usr/sbin/chkfontpath ] && /usr/sbin/chkfontpath -q -a /usr/X11R6/lib/X11/fonts/kwintv
+##cd /usr/X11R6/lib/X11/fonts/kwintv
+##mkfontdir
+##xset fp rehash || true
+
+%postun
+##if [ "$1" = "0" ]; then
+##        /usr/sbin/chkfontpath -q -r /usr/X11R6/lib/X11/fonts/kwintv
+##fi  
+

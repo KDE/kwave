@@ -30,10 +30,10 @@ dist=true
 install=false
 type=SOURCE
 [Workspace_1]
-openfiles=Unbenannt.h,Unbenannt.cpp,
+openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.h,
 show_outputview=false
 show_treeview=true
-header_file=Unbenannt.h
+header_file=/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.h
 cpp_file=Unbenannt.cpp
 browser_file=file:/usr/src/packages/development/kdelibdocs-0.3/kdeui/KMenuBar.html
 [libgui/TimeLine.h]

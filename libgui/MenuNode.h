@@ -59,32 +59,32 @@ public:
     /**
      * Returns the (non-localized) name of the node.
      */
-    inline const char *getName() {return name;};
+    const char *getName() {return name;};
 
     /**
      * Returns the command of the node.
      */
-    inline const char *getCommand() {return command;};
+    const char *getCommand() {return command;};
 
     /**
      * Returns the menu id of the node.
      */
-    inline int getId() {return this->id;};
+    int getId() {return this->id;};
 
     /**
      * Returns the unique id string of the node.
      */
-    inline char *getUID() { return this->uid;};
+    char *getUID() { return this->uid;};
 
     /**
      * Sets the unique id string of the node
      */
-    inline void setUID(char *uid);
+    void setUID(char *uid);
 
     /**
      * Returns the bitmask of the keyboard shortcut.
      */
-    inline int getKey() { return this->key;};
+    int getKey() { return this->key;};
 
     /**
      * Sets the bitmask of the keyboard shortcut.

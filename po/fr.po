@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-11-03 22:08+0100\n"
-"PO-Revision-Date: 2002-11-04 11:45GMT\n"
+"PO-Revision-Date: 2002-11-04 13:12GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -164,11 +164,11 @@ msgstr "MPEG niveau III"
 
 #: libkwave/CompressionType.cpp:80
 msgid "Ogg/Vorbis"
-msgstr "Ogg/Vorbis"
+msgstr "Ogg / Vorbis"
 
 #: libkwave/FileInfo.cpp:29
 msgid "Album"
-msgstr "Album"
+msgstr "Album "
 
 #: libkwave/FileInfo.cpp:30
 msgid ""
@@ -183,20 +183,19 @@ msgid "Annotation"
 msgstr "Annotation"
 
 #: libkwave/FileInfo.cpp:34
-#, fuzzy
 msgid ""
 "Provides general comments about the file or the subject of \n"
 "the file. If the comment is several sentences long, end \n"
 "each sentence with a period. Do not include newline \n"
 "characters!"
 msgstr ""
-"Donne des commentaires d'ordre général sur le fichier ou sur le sujet du "
-"fichier. Si le commentaire est constitué de plusieurs phrases, séparés les "
-"par des point. N'utilisez pas de retour chariot !"
+"Donne des commentaires d'ordre général sur le fichier ou sur \n"
+"le sujet du fichier. Si le commentaire est constitué de plusieurs phrases,\n"
+"séparés les par des point. N'utilisez pas de retour chariot !"
 
 #: libkwave/FileInfo.cpp:39
 msgid "Archival location"
-msgstr "Emplacement pour l'archivage"
+msgstr "Emplacement pour l'archivage "
 
 #: libkwave/FileInfo.cpp:40
 msgid "Indicates where the subject of the file is archived."
@@ -204,16 +203,15 @@ msgstr "Indique l'emplacement où le fichier sera archivé."
 
 #: libkwave/FileInfo.cpp:42
 msgid "Author"
-msgstr "Auteur"
+msgstr "Auteur "
 
 #: libkwave/FileInfo.cpp:43
-#, fuzzy
 msgid ""
 "Identifies the name of the author of the original\n"
 "subject of the file.\n"
 "Example: 'van Beethoven, Ludwig'"
 msgstr ""
-"Identifie le nom de l'auteur du fichier.\n"
+"Identifie le nom de l'auteur du fichier original.\n"
 "Exemple : «van Beethoven, Ludwig»"
 
 #: libkwave/FileInfo.cpp:47
@@ -226,7 +224,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:50
 msgid "Bitrate"
-msgstr "Débit"
+msgstr "Débit "
 
 #: libkwave/FileInfo.cpp:51
 msgid "Nominal bitrate of the audio stream in bits per second"
@@ -242,7 +240,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:56
 msgid "CD"
-msgstr "CD"
+msgstr "CD "
 
 #: libkwave/FileInfo.cpp:57
 msgid ""
@@ -290,7 +288,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:73
 msgid "Contact"
-msgstr "Contact"
+msgstr "Contact "
 
 #: libkwave/FileInfo.cpp:74
 msgid ""
@@ -301,7 +299,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:78
 msgid "Copyright"
-msgstr "Droits d'auteur"
+msgstr "Droits d'auteur "
 
 #: libkwave/FileInfo.cpp:79
 msgid ""
@@ -316,41 +314,38 @@ msgstr ""
 "Exemple : «Copyright Linux community 2002»"
 
 #: libkwave/FileInfo.cpp:84
-#, fuzzy
 msgid "Copyrighted"
-msgstr "Droits d'auteur"
+msgstr "Droits d'auteur "
 
 #: libkwave/FileInfo.cpp:85
-#, fuzzy
 msgid "Indicates whether the file is protected by copyright or not."
-msgstr "Indique l'emplacement où le fichier sera archivé."
+msgstr "Indique si le fichier est protégé par des droits d'auteur ou non."
 
 #: libkwave/FileInfo.cpp:88
 msgid "Date"
-msgstr "Date"
+msgstr "Date "
 
 #: libkwave/FileInfo.cpp:89
-#, fuzzy
 msgid ""
 "Specifies the date the subject of the file was created. \n"
 "Example: '2001-12-24'"
 msgstr ""
-"Décrit la source d'origine du fichier (enregistrement).\n"
-"Exemple : «orchestre»."
+"Spécifie la date de création du fichier. \n"
+"Exemple : «24-12-2001»."
 
 #: libkwave/FileInfo.cpp:92
 msgid "Engineer"
-msgstr "Ingénieur"
+msgstr "Ingénieur "
 
 #: libkwave/FileInfo.cpp:93
-#, fuzzy
 msgid ""
 "Shows the name of the engineer who worked on the file.\n"
 "If there are multiple engineers, separate the names by\n"
 "a semicolon and a blank."
 msgstr ""
-"Affiche le nom de l'ingénieur qui a travaillé sur le fichier. S'il y a "
-"plusieurs ingénieurs, séparés les noms par un point virgule et un espace."
+"Affiche le nom de l'ingénieur qui a travaillé sur le fichier. \n"
+"S'il y a plusieurs ingénieurs, séparés les noms par un point \n"
+"virgule et un espace."
 
 #: libkwave/FileInfo.cpp:97
 msgid "Filename"
@@ -370,7 +365,7 @@ msgstr "Taille du fichier en octets"
 
 #: libkwave/FileInfo.cpp:103
 msgid "Genre"
-msgstr "Genre"
+msgstr "Genre "
 
 #: libkwave/FileInfo.cpp:104
 msgid ""
@@ -382,7 +377,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:107
 msgid "ISRC"
-msgstr "ISRC"
+msgstr "ISRC "
 
 #: libkwave/FileInfo.cpp:108
 msgid ""
@@ -393,21 +388,19 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:112 plugins/fileinfo/KeywordWidgetBase.uic.cpp:29
 msgid "Keywords"
-msgstr "Mots-clefs"
+msgstr "Mots-clefs :"
 
 #: libkwave/FileInfo.cpp:113
-#, fuzzy
 msgid ""
 "Provides a list of keywords that refer to the\n"
 "file or subject of the file."
 msgstr ""
-"Donne une liste de mots-clefs pour identifier le fichier sujet ou le sujet "
-"du fichier. Séparez plusieurs mots-clefs par des points virgules et des "
-"espaces."
+"Donne une liste de mots-clefs pour identifier le fichier\n"
+"ou le sujet du fichier."
 
 #: libkwave/FileInfo.cpp:116
 msgid "License"
-msgstr "Licence"
+msgstr "Licence "
 
 #: libkwave/FileInfo.cpp:117
 msgid ""
@@ -424,14 +417,14 @@ msgid "Medium"
 msgstr "Média d'origine"
 
 #: libkwave/FileInfo.cpp:125
-#, fuzzy
 msgid ""
 "Describes the original subject of the file,\n"
 "where it was first recorded.\n"
 "Example: 'orchester'"
 msgstr ""
-"Décrit la source d'origine du fichier (enregistrement).\n"
-"Exemple : «orchestre»."
+"Décrit le sujet d'origine du fichier,\n"
+"lorqu'il a été pour la première fois enregistré.\n"
+"Exemple : «orchestre»"
 
 #: libkwave/FileInfo.cpp:129
 msgid "Mime Type"
@@ -443,11 +436,11 @@ msgstr "Le type Mime correspondant au format du fichier"
 
 #: libkwave/FileInfo.cpp:132
 msgid "Emphasis"
-msgstr ""
+msgstr "Mise en valeur "
 
 #: libkwave/FileInfo.cpp:133
 msgid "Audio emphasis mode"
-msgstr ""
+msgstr "Mode de mise en valeur de l'audio "
 
 #: libkwave/FileInfo.cpp:135
 msgid "Layer"
@@ -459,7 +452,7 @@ msgstr "MPEG niveau I, II ou III"
 
 #: libkwave/FileInfo.cpp:138
 msgid "Mode Extension"
-msgstr "Mode étendu"
+msgstr "Mode étendu "
 
 #: libkwave/FileInfo.cpp:139
 msgid "MPEG Mode Extension (only if Joint Stereo)"
@@ -494,15 +487,16 @@ msgid ""
 "Name of the organization producing the track\n"
 "(i.e. the 'record label')"
 msgstr ""
+"Nom de l'organisation qui a produit le morceau\n"
+"(tel que le «label d'enregistrement»)"
 
 #: libkwave/FileInfo.cpp:152
 msgid "Original"
 msgstr "Original "
 
 #: libkwave/FileInfo.cpp:153
-#, fuzzy
 msgid "Indicates whether the file is an original or a copy"
-msgstr "Indique l'emplacement où le fichier sera archivé."
+msgstr "Indique si le fichier est un original ou une copie"
 
 #: libkwave/FileInfo.cpp:155
 msgid "Performer"
@@ -517,25 +511,23 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:160
 msgid "Private"
-msgstr ""
+msgstr "Confidentiel"
 
 #: libkwave/FileInfo.cpp:161
-#, fuzzy
 msgid "Indicates whether the subject is private"
-msgstr "Indique l'emplacement où le fichier sera archivé."
+msgstr "Indique si le sujet est confidentiel"
 
 #: libkwave/FileInfo.cpp:163
 msgid "Product"
-msgstr "Sujet de production"
+msgstr "Sujet de production "
 
 #: libkwave/FileInfo.cpp:164
-#, fuzzy
 msgid ""
 "Specifies the name or the title the file was\n"
 "originally intended for.\n"
 "Example: 'Linux audio collection'"
 msgstr ""
-"Spécifie le nom ou le titre du sujet de production pour le fichier.\n"
+"Spécifie le nom ou le titre du fichier prévu à l'origine.\n"
 "Exemple : «Collection audio sous Linux»"
 
 #: libkwave/FileInfo.cpp:168
@@ -552,50 +544,47 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:172
 msgid "Software"
-msgstr "Logiciel"
+msgstr "Logiciel "
 
 #: libkwave/FileInfo.cpp:173
-#, fuzzy
 msgid ""
 "Identifies the name of the software package\n"
 "used to create the file. \n"
 "Example: 'Kwave v0.6.4-1'"
 msgstr ""
-"Identifi le nom des logiciels qui ont été utilisés pour créer le fichier.\n"
+"Identifie le nom du logiciel qui a été utilisé pour créer le fichier.\n"
 "Exemple : «Kwave v0.6.4-1»."
 
 #: libkwave/FileInfo.cpp:177 plugins/fileinfo/FileInfoDlg.uic.cpp:952
 msgid "Source"
-msgstr "Source"
+msgstr "Source "
 
 #: libkwave/FileInfo.cpp:178
-#, fuzzy
 msgid ""
 "Identifies the name of the person or organization\n"
 "who supplied the original subject of the file.\n"
 "Example: 'Chaotic Sound Research'"
 msgstr ""
-"Identifie le nom de la personne ou de l'organisation qui a fourni le "
-"fichier.\n"
+"Identifie le nom de la personne ou de l'organisation \n"
+"qui a fourni le fichier.\n"
 "Exemple: «Chaotic Sound Research»."
 
 #: libkwave/FileInfo.cpp:182
 msgid "Source form"
-msgstr "Type de source"
+msgstr "Type de source "
 
 #: libkwave/FileInfo.cpp:183
-#, fuzzy
 msgid ""
 "Identifies the original form of the material\n"
 "that was digitized.\n"
 "Examples: 'Record/Vinyl/90RPM', 'Audio DAT', 'tape/CrO2/60min'"
 msgstr ""
-"Identifie le type original de materiel de numérisation.\n"
-"Exemple : «Enregistrement/Vinyl/90t/min», 'DAT', 'Cassette/CrO2/60min»"
+"Identifie le type de materiel d'origine pour la numérisation.\n"
+"Exemples : «Enregistrement/Vinyl/90t/min», 'DAT', 'Cassette/CrO2/60min»"
 
 #: libkwave/FileInfo.cpp:188
 msgid "Subject"
-msgstr "Sujet"
+msgstr "Sujet "
 
 #: libkwave/FileInfo.cpp:189
 msgid ""
@@ -607,7 +596,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:192
 msgid "Technican"
-msgstr "Technicien"
+msgstr "Technicien "
 
 #: libkwave/FileInfo.cpp:193
 msgid ""
@@ -618,13 +607,12 @@ msgstr ""
 "Exemple: «Linus Torvalds»."
 
 #: libkwave/FileInfo.cpp:196
-#, fuzzy
 msgid "Track"
-msgstr "Pis&te"
+msgstr "Piste "
 
 #: libkwave/FileInfo.cpp:197
 msgid "Track of the CD if the source was a CDROM."
-msgstr ""
+msgstr "Piste du CD si la source est un CDROM."
 
 #: libkwave/FileInfo.cpp:200
 msgid ""
@@ -635,540 +623,511 @@ msgstr ""
 
 #: libkwave/GenreType.cpp:76
 msgid "Blues"
-msgstr ""
+msgstr "Blues"
 
 #: libkwave/GenreType.cpp:77
 msgid "Classic Rock"
-msgstr ""
+msgstr "Rock classique"
 
 #: libkwave/GenreType.cpp:78
 msgid "Country"
-msgstr ""
+msgstr "Country"
 
 #: libkwave/GenreType.cpp:79
-#, fuzzy
 msgid "Dance"
-msgstr "Date"
+msgstr "Dance"
 
 #: libkwave/GenreType.cpp:80
-#, fuzzy
 msgid "Disco"
-msgstr "&Distortion"
+msgstr "Disco"
 
 #: libkwave/GenreType.cpp:81
 msgid "Funk"
-msgstr ""
+msgstr "Funk"
 
 #: libkwave/GenreType.cpp:82
 msgid "Grunge"
-msgstr ""
+msgstr "Grunge"
 
 #: libkwave/GenreType.cpp:83
 msgid "Hip-Hop"
-msgstr ""
+msgstr "Hip-Hop"
 
 #: libkwave/GenreType.cpp:84
 msgid "Jazz"
-msgstr ""
+msgstr "Jazz"
 
 #: libkwave/GenreType.cpp:85
 msgid "Metal"
-msgstr ""
+msgstr "Metal"
 
 #: libkwave/GenreType.cpp:86
-#, fuzzy
 msgid "New Age"
-msgstr "Nouveau fichier"
+msgstr "New Age"
 
 #: libkwave/GenreType.cpp:87
 msgid "Oldies"
-msgstr ""
+msgstr "Ancienne morceau"
 
 #: libkwave/GenreType.cpp:88
 msgid "Other"
-msgstr ""
+msgstr "Autre"
 
 #: libkwave/GenreType.cpp:89
 msgid "Pop"
-msgstr ""
+msgstr "Pop"
 
 #: libkwave/GenreType.cpp:90
 msgid "R&B"
-msgstr ""
+msgstr "R&B"
 
 #: libkwave/GenreType.cpp:91
 msgid "Rap"
-msgstr ""
+msgstr "Rap"
 
 #: libkwave/GenreType.cpp:92
-#, fuzzy
 msgid "Reggae"
-msgstr "&négatif"
+msgstr "Reggae"
 
 #: libkwave/GenreType.cpp:93
 msgid "Rock"
-msgstr ""
+msgstr "Rock"
 
 #: libkwave/GenreType.cpp:94
-#, fuzzy
 msgid "Techno"
-msgstr "Technicien"
+msgstr "Techno"
 
 #: libkwave/GenreType.cpp:95
 msgid "Industrial"
-msgstr ""
+msgstr "Industriel"
 
 #: libkwave/GenreType.cpp:96
 msgid "Alternative"
-msgstr ""
+msgstr "Alternatif"
 
 #: libkwave/GenreType.cpp:97
 msgid "Ska"
-msgstr ""
+msgstr "Ska"
 
 #: libkwave/GenreType.cpp:98
 msgid "Death Metal"
-msgstr ""
+msgstr "Death Metal"
 
 #: libkwave/GenreType.cpp:99
-#, fuzzy
 msgid "Pranks"
-msgstr "Pistes : "
+msgstr "Pranks"
 
 #: libkwave/GenreType.cpp:100
-#, fuzzy
 msgid "Soundtrack"
-msgstr "ajouter une piste"
+msgstr "Musique de film"
 
 #: libkwave/GenreType.cpp:101
 msgid "Euro-Techno"
-msgstr ""
+msgstr "Euro-Techno"
 
 #: libkwave/GenreType.cpp:102
-#, fuzzy
 msgid "Ambient"
-msgstr "bits"
+msgstr "Ambiance"
 
 #: libkwave/GenreType.cpp:103
 msgid "Trip-Hop"
-msgstr ""
+msgstr "Trip-Hop"
 
 #: libkwave/GenreType.cpp:104
 msgid "Vocal"
-msgstr ""
+msgstr "Vocal"
 
 #: libkwave/GenreType.cpp:105
 msgid "Jazz+Funk"
-msgstr ""
+msgstr "Jazz+Funk"
 
 #: libkwave/GenreType.cpp:106
 msgid "Fusion"
-msgstr ""
+msgstr "Fusion"
 
 #: libkwave/GenreType.cpp:107
-#, fuzzy
 msgid "Trance"
-msgstr "Pis&te"
+msgstr "Trance"
 
 #: libkwave/GenreType.cpp:108
 msgid "Classical"
-msgstr ""
+msgstr "Classique"
 
 #: libkwave/GenreType.cpp:109
 msgid "Instrumental"
-msgstr ""
+msgstr "Instrumentale"
 
 #: libkwave/GenreType.cpp:110
 msgid "Acid"
-msgstr ""
+msgstr "Acid"
 
 #: libkwave/GenreType.cpp:111
-#, fuzzy
 msgid "House"
-msgstr "Heures"
+msgstr "House"
 
 #: libkwave/GenreType.cpp:112
-#, fuzzy
 msgid "Game"
-msgstr "Nom"
+msgstr "Jeu"
 
 #: libkwave/GenreType.cpp:113
 msgid "Sound Clip"
-msgstr ""
+msgstr "Effet sonore"
 
 #: libkwave/GenreType.cpp:114
 msgid "Gospel"
-msgstr ""
+msgstr "Gospel"
 
 #: libkwave/GenreType.cpp:115
-#, fuzzy
 msgid "Noise"
-msgstr "&Bruit"
+msgstr "Bruit"
 
 #: libkwave/GenreType.cpp:116
 msgid "AlternRock"
-msgstr ""
+msgstr "AlternRock"
 
 #: libkwave/GenreType.cpp:117
 msgid "Bass"
-msgstr ""
+msgstr "Bass"
 
 #: libkwave/GenreType.cpp:118
-#, fuzzy
 msgid "Soul"
-msgstr "Source"
+msgstr "Soul"
 
 #: libkwave/GenreType.cpp:119
 msgid "Punk"
-msgstr ""
+msgstr "Punk"
 
 #: libkwave/GenreType.cpp:120
 msgid "Space"
-msgstr "Espace"
+msgstr "Space"
 
 #: libkwave/GenreType.cpp:121
 msgid "Meditative"
-msgstr ""
+msgstr "Meditative"
 
 #: libkwave/GenreType.cpp:122
 msgid "Instrumental Pop"
-msgstr ""
+msgstr "Pop Instrumentale"
 
 #: libkwave/GenreType.cpp:123
 msgid "Instrumental Rock"
-msgstr ""
+msgstr "Rock Instrumentale"
 
 #: libkwave/GenreType.cpp:124
 msgid "Ethnic"
-msgstr ""
+msgstr "Ethnique"
 
 #: libkwave/GenreType.cpp:125
 msgid "Gothic"
-msgstr ""
+msgstr "Gothique"
 
 #: libkwave/GenreType.cpp:126
 msgid "Darkwave"
-msgstr ""
+msgstr "Darkwave"
 
 #: libkwave/GenreType.cpp:127
 msgid "Techno-Industrial"
-msgstr ""
+msgstr "Techno-Industriel"
 
 #: libkwave/GenreType.cpp:128
-#, fuzzy
 msgid "Electronic"
-msgstr "Sélection"
+msgstr "Electronique"
 
 #: libkwave/GenreType.cpp:129
 msgid "Pop-Folk"
-msgstr ""
+msgstr "Pop-Folk"
 
 #: libkwave/GenreType.cpp:130
 msgid "Eurodance"
-msgstr ""
+msgstr "Eurodance"
 
 #: libkwave/GenreType.cpp:131
 msgid "Dream"
-msgstr ""
+msgstr "Dream"
 
 #: libkwave/GenreType.cpp:132
 msgid "Southern Rock"
-msgstr ""
+msgstr "Southern Rock"
 
 #: libkwave/GenreType.cpp:133
 msgid "Comedy"
-msgstr ""
+msgstr "Comedie"
 
 #: libkwave/GenreType.cpp:134
-#, fuzzy
 msgid "Cult"
-msgstr "Co&uper"
+msgstr "Culte"
 
 #: libkwave/GenreType.cpp:135
 msgid "Gangsta"
-msgstr ""
+msgstr "Gangsta"
 
 #: libkwave/GenreType.cpp:136
 msgid "Top 40"
-msgstr ""
+msgstr "Top 40"
 
 #: libkwave/GenreType.cpp:137
 msgid "Christian Rap"
-msgstr ""
+msgstr "Christian Rap"
 
 #: libkwave/GenreType.cpp:138
 msgid "Pop/Funk"
-msgstr ""
+msgstr "Pop/Funk"
 
 #: libkwave/GenreType.cpp:139
 msgid "Jungle"
-msgstr ""
+msgstr "Jungle"
 
 #: libkwave/GenreType.cpp:140
 msgid "Native American"
-msgstr ""
+msgstr "Americaine native"
 
 #: libkwave/GenreType.cpp:141
 msgid "Cabaret"
-msgstr ""
+msgstr "Cabaret"
 
 #: libkwave/GenreType.cpp:142
-#, fuzzy
 msgid "New Wave"
-msgstr "Nouveau fichier"
+msgstr "New Wave"
 
 #: libkwave/GenreType.cpp:143
 msgid "Psychadelic"
-msgstr ""
+msgstr "Psychédélique"
 
 #: libkwave/GenreType.cpp:144
-#, fuzzy
 msgid "Rave"
-msgstr "S&auvegarder"
+msgstr "Rave"
 
 #: libkwave/GenreType.cpp:145
 msgid "Showtunes"
-msgstr ""
+msgstr "Showtunes"
 
 #: libkwave/GenreType.cpp:146
 msgid "Trailer"
-msgstr ""
+msgstr "Trailer"
 
 #: libkwave/GenreType.cpp:147
 msgid "Lo-Fi"
-msgstr ""
+msgstr "Lo-Fi"
 
 #: libkwave/GenreType.cpp:148
-#, fuzzy
 msgid "Tribal"
-msgstr "Triangulaire"
+msgstr "Tribal"
 
 #: libkwave/GenreType.cpp:149
 msgid "Acid Punk"
-msgstr ""
+msgstr "Acid Punk"
 
 #: libkwave/GenreType.cpp:150
 msgid "Acid Jazz"
-msgstr ""
+msgstr "Acid Jazz"
 
 #: libkwave/GenreType.cpp:151
-#, fuzzy
 msgid "Polka"
-msgstr "&Jouer"
+msgstr "Polka"
 
 #: libkwave/GenreType.cpp:152
-#, fuzzy
 msgid "Retro"
-msgstr "Zéro"
+msgstr "Rétro"
 
 #: libkwave/GenreType.cpp:153
 msgid "Musical"
-msgstr ""
+msgstr "Musique"
 
 #: libkwave/GenreType.cpp:154
 msgid "Rock & Roll"
-msgstr ""
+msgstr "Rock & Roll"
 
 #: libkwave/GenreType.cpp:155
 msgid "Hard Rock"
-msgstr ""
+msgstr "Hard Rock"
 
 #: libkwave/GenreType.cpp:158
 msgid "Folk"
-msgstr ""
+msgstr "Folk"
 
 #: libkwave/GenreType.cpp:159
 msgid "Folk-Rock"
-msgstr ""
+msgstr "Folk-Rock"
 
 #: libkwave/GenreType.cpp:160
 msgid "National Folk"
-msgstr ""
+msgstr "National Folk"
 
 #: libkwave/GenreType.cpp:161
-#, fuzzy
 msgid "Swing"
-msgstr "Sinusoïde"
+msgstr "Swing"
 
 #: libkwave/GenreType.cpp:162
-#, fuzzy
 msgid "Fast Fusion"
-msgstr "derniére action"
+msgstr "Fast Fusion"
 
 #: libkwave/GenreType.cpp:163
 msgid "Bebob"
-msgstr ""
+msgstr "Bebob"
 
 #: libkwave/GenreType.cpp:164
 msgid "Latin"
-msgstr ""
+msgstr "Latine"
 
 #: libkwave/GenreType.cpp:165
 msgid "Revival"
-msgstr ""
+msgstr "Revival"
 
 #: libkwave/GenreType.cpp:166
 msgid "Celtic"
-msgstr ""
+msgstr "Celtique"
 
 #: libkwave/GenreType.cpp:167
 msgid "Bluegrass"
-msgstr ""
+msgstr "Bluegrass"
 
 #: libkwave/GenreType.cpp:168
 msgid "Avantgarde"
-msgstr ""
+msgstr "Avantgarde"
 
 #: libkwave/GenreType.cpp:169
 msgid "Gothic Rock"
-msgstr ""
+msgstr "Rock Gothique"
 
 #: libkwave/GenreType.cpp:170
 msgid "Progressive Rock"
-msgstr ""
+msgstr "Rock progressif"
 
 #: libkwave/GenreType.cpp:171
 msgid "Psychedelic Rock"
-msgstr ""
+msgstr "Rock psychédélique"
 
 #: libkwave/GenreType.cpp:172
 msgid "Symphonic Rock"
-msgstr ""
+msgstr "Rock symphonique"
 
 #: libkwave/GenreType.cpp:173
 msgid "Slow Rock"
-msgstr ""
+msgstr "Rock lent"
 
 #: libkwave/GenreType.cpp:174
 msgid "Big Band"
-msgstr ""
+msgstr "Big Band"
 
 #: libkwave/GenreType.cpp:175
-#, fuzzy
 msgid "Chorus"
-msgstr "Auteurs"
+msgstr "Choeurs"
 
 #: libkwave/GenreType.cpp:176
 msgid "Easy Listening"
-msgstr ""
+msgstr "Écoute facile"
 
 #: libkwave/GenreType.cpp:177
 msgid "Acoustic"
-msgstr ""
+msgstr "Acoustique"
 
 #: libkwave/GenreType.cpp:178
-#, fuzzy
 msgid "Humour"
-msgstr "Heures"
+msgstr "Humeur"
 
 #: libkwave/GenreType.cpp:179
 msgid "Speech"
-msgstr ""
+msgstr "Discourt"
 
 #: libkwave/GenreType.cpp:180
-#, fuzzy
 msgid "Chanson"
-msgstr "Remerciements à"
+msgstr "Chanson"
 
 #: libkwave/GenreType.cpp:181
-#, fuzzy
 msgid "Opera"
-msgstr "&Ouvrir"
+msgstr "Opéra"
 
 #: libkwave/GenreType.cpp:182
 msgid "Chamber Music"
-msgstr ""
+msgstr "Musique de chambre"
 
 #: libkwave/GenreType.cpp:183
-#, fuzzy
 msgid "Sonata"
-msgstr "&Sonagramme"
+msgstr "Sonate"
 
 #: libkwave/GenreType.cpp:184
 msgid "Symphony"
-msgstr ""
+msgstr "Symphonie"
 
 #: libkwave/GenreType.cpp:185
 msgid "Booty Bass"
-msgstr ""
+msgstr "Booty Bass"
 
 #: libkwave/GenreType.cpp:186
 msgid "Primus"
-msgstr ""
+msgstr "Primus"
 
 #: libkwave/GenreType.cpp:187
 msgid "Porn Groove"
-msgstr ""
+msgstr "Groove pornographique"
 
 #: libkwave/GenreType.cpp:188
-#, fuzzy
 msgid "Satire"
-msgstr "Date"
+msgstr "Satire"
 
 #: libkwave/GenreType.cpp:189
 msgid "Slow Jam"
-msgstr ""
+msgstr "Jam lent"
 
 #: libkwave/GenreType.cpp:190
 msgid "Club"
-msgstr ""
+msgstr "Club"
 
 #: libkwave/GenreType.cpp:191
 msgid "Tango"
-msgstr ""
+msgstr "Tango"
 
 #: libkwave/GenreType.cpp:192
 msgid "Samba"
-msgstr ""
+msgstr "Samba"
 
 #: libkwave/GenreType.cpp:193
 msgid "Folklore"
-msgstr ""
+msgstr "Folklore"
 
 #: libkwave/GenreType.cpp:194
 msgid "Ballad"
-msgstr ""
+msgstr "Ballade"
 
 #: libkwave/GenreType.cpp:195
 msgid "Power Ballad"
-msgstr ""
+msgstr "Ballade puissante"
 
 #: libkwave/GenreType.cpp:196
 msgid "Rhythmic Soul"
-msgstr ""
+msgstr "Soul rythmique"
 
 #: libkwave/GenreType.cpp:197
 msgid "Freestyle"
-msgstr ""
+msgstr "Style libre"
 
 #: libkwave/GenreType.cpp:198
 msgid "Duet"
-msgstr ""
+msgstr "Duo"
 
 #: libkwave/GenreType.cpp:199
 msgid "Punk Rock"
-msgstr ""
+msgstr "Punk Rock"
 
 #: libkwave/GenreType.cpp:200
 msgid "Drum Solo"
-msgstr ""
+msgstr "Batterie en solo"
 
 #: libkwave/GenreType.cpp:201
 msgid "Acapella"
-msgstr ""
+msgstr "Acapella"
 
 #: libkwave/GenreType.cpp:202
 msgid "Euro-House"
-msgstr ""
+msgstr "Euro-House"
 
 #: libkwave/GenreType.cpp:203
 msgid "Dance Hall"
-msgstr ""
+msgstr "Dance Hall"
 
 #: libkwave/GenreType.cpp:212
-#, fuzzy
 msgid "Unknown"
-msgstr "inconnu"
+msgstr "Inconnu"
 
 #: libkwave/WindowFunction.cpp:54 plugins/fileinfo/FileInfoDlg.uic.cpp:655
 msgid "None"
@@ -1197,6 +1156,9 @@ msgid ""
 "%1\n"
 "Do you still want to continue?"
 msgstr ""
+"L'enregistrement dans ce format fera perdre le(s) attribut()s du fichier suivant(s) :\n"
+"%1\n"
+"Voulez vous continuer ?"
 
 #: kwave/SignalManager.cpp:365
 msgid "An error occurred while saving the file!"
@@ -1243,13 +1205,12 @@ msgid "last action"
 msgstr "derniére action"
 
 #: kwave/SignalManager.cpp:1531
-#, fuzzy
 msgid "modify file info"
-msgstr "modifier les échantillons"
+msgstr "modifier les informations du fichier"
 
 #: kwave/UndoFileInfo.cpp:36
 msgid "modify file information"
-msgstr ""
+msgstr "modifier les informations du fichier"
 
 #: kwave/TopWidget.cpp:107
 msgid "New File"
@@ -1832,9 +1793,8 @@ msgid "to be done..."
 msgstr "terminés..."
 
 #: kwave/menus_config_i18n.cpp:116
-#, fuzzy
 msgid "to &End"
-msgstr "&Fin"
+msgstr "à la &Fin"
 
 #: kwave/menus_config_i18n.cpp:117
 msgid "to &Maximum"
@@ -1845,9 +1805,8 @@ msgid "&to new Window"
 msgstr "&Dans une mouvelle fenêtre"
 
 #: kwave/menus_config_i18n.cpp:119
-#, fuzzy
 msgid "to &Start"
-msgstr "&Au début"
+msgstr "Au débu&t"
 
 #: kwave/menus_config_i18n.cpp:120
 msgid "&Track"
@@ -2054,6 +2013,8 @@ msgid ""
 "One or more encoding parameters are not supported. Please change the "
 "settings and try again..."
 msgstr ""
+"Un ou plusieurs paramètres pour l'encodeur ne sont pas supportés. "
+"Veuillez modifier le paramètrage en réessayer..."
 
 #: plugins/codec_ogg/OggEncoder.cpp:213 plugins/codec_wav/WavEncoder.cpp:144
 msgid "Unable to open the file for saving!"
@@ -2061,7 +2022,7 @@ msgstr "Impossible d'ouvrir le fichier pour l'enregistrer !"
 
 #: plugins/codec_ogg/OggEncoder.cpp:223 plugins/codec_wav/WavEncoder.cpp:126
 msgid " for KDE "
-msgstr ""
+msgstr " pour KDE "
 
 #: plugins/codec_ogg/OggDecoder.cpp:97
 msgid "Input does not appear to be an Ogg bitstream."
@@ -3150,14 +3111,12 @@ msgid "Tracks"
 msgstr "Pistes "
 
 #: plugins/fileinfo/FileInfoDialog.cpp:185
-#, fuzzy
 msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
 msgstr ""
-"<b>Nombre de Pistes sonores</b><br>Paramétre le nombre de pistes sonores "
-"pour un nouveau fichier. Si vous n'étes pas sur maintenant, vous pourrez "
-"ajouter ou supprimer une piste plus tard dans le programme."
+"Affiche le nombre de pistes sonores du morceau.\n"
+"Vous pouvez ajouter ou supprimer une piste via le menu «Édition»."
 
 #: plugins/fileinfo/FileInfoDialog.cpp:198
 msgid ""

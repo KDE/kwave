@@ -127,8 +127,8 @@ unsigned int Stripe::resize(unsigned int length)
 
 //	debug("Stripe::resize() from %d to %d samples", old_length, length);
 	resizeStorage(length);
-	ASSERT(length == m_samples.size());
-	if (length < m_samples.size()) {
+	ASSERT(m_samples.size() >= length);
+	if (m_samples.size() < length) {
 	    warning("Stripe::resize(%u) failed, out of memory ?", length);
 	}
 

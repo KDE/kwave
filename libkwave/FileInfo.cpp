@@ -25,6 +25,10 @@
 /***************************************************************************/
 void FileInfo::PropertyTypesMap::fill()
 {
+    append(INF_ALBUM, 0,
+        i18n("Album"),
+        i18n("Name of the album if the source is an album that consist "
+             "of more medias."));
     append(INF_ANNOTATION, 0,
         i18n("Annotation"),
         i18n("Provides general comments about the file or the subject of "
@@ -43,6 +47,9 @@ void FileInfo::PropertyTypesMap::fill()
         i18n("Identifies the name of the author of the original "
              "subject of the file."
              "\nExample: 'van Beethoven, Ludwig'"));
+    append(INF_CD, 0,
+        i18n("CD"),
+        i18n("Number of the CD, if the source is an album of more CDROMs"));
     append(INF_COMMISSIONED, 0,
         i18n("Commisioned"),
         i18n("Lists the name of the person or organization that commissioned "
@@ -86,9 +93,8 @@ void FileInfo::PropertyTypesMap::fill()
              "\nExamples: 'classic', 'pop'"));
     append(INF_KEYWORDS, 0,
         i18n("Keywords"),
-        i18n("Provides a list of keywords that refer to the file or "
-             "subject of the file. Separate multiple keywords with "
-             "a semicolon and a blank."));
+        i18n("Provides a list of keywords that refer to the "
+             "file or subject of the file."));
     append(INF_MEDIUM, 0,
         i18n("Medium"),
         i18n("Describes the original subject of the file, where it "
@@ -134,6 +140,9 @@ void FileInfo::PropertyTypesMap::fill()
         i18n("Technican"),
         i18n("Identifies the technican who digitized the subject file. "
              "\nExample: 'Torvalds, Linus'"));
+    append(INF_TRACK, 0,
+        i18n("Track"),
+        i18n("Track of the CD if the source was a CDROM."));
 
     // please do not extend here, sort in alphabetically instead...
 

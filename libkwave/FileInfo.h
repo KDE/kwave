@@ -32,10 +32,12 @@
  */
 typedef enum {
     // please sort in new items alphabetically...
-    INF_ANNOTATION = 0,      /**< annotation/comment */
+    INF_ALBUM = 0,           /**< name of the album */
+    INF_ANNOTATION,          /**< annotation/comment */
     INF_ARCHIVAL,            /**< archival location */
     INF_ARTIST,              /**< name ot the artist */
     INF_AUTHOR,              /**< name of the author/artist */
+    INF_CD,                  /**< number of the CD in an album */
     INF_COMMISSIONED,        /**< commissioned */
     INF_COMMENTS,            /**< comments */
     INF_COMPRESSION,         /**< compression mode (libaudiofile) */
@@ -55,7 +57,8 @@ typedef enum {
     INF_SOURCE,              /**< source */
     INF_SOURCE_FORM,         /**< source form */
     INF_SUBJECT,             /**< subject */
-    INF_TECHNICAN            /**< technican */
+    INF_TECHNICAN,           /**< technican */
+    INF_TRACK                /**< track of the CD */
 } FileProperty;
 
 /**

@@ -200,6 +200,9 @@
             <para>0.6.7 [2003-06-28]</para>
             <itemizedlist>
                 <listitem><para>
+                    fix some problems in the codec plugins with the parsing of empty or corrupted audio files
+                </para></listitem>
+                <listitem><para>
                     added a splashscreen by Gilles Caulier
                 </para></listitem>
                 <listitem><para>

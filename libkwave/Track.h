@@ -84,8 +84,11 @@ public:
      * Deletes a range of samples
      * @param offset index of the first sample
      * @param length number of samples
+     * @param make_gap if true, make a gap into the list of stripes
+     *                 instead of moving the stuff from right to left
      */
-    void deleteRange(unsigned int offset, unsigned int length);
+    void deleteRange(unsigned int offset, unsigned int length,
+                     bool make_gap = false);
 
     /** Returns the "selected" flag. */
     inline bool selected() { return m_selected; };
@@ -150,12 +153,11 @@ private slots:
 
     /**
      * Connected to each stripe's sigSamplesModified
-     * @param src source stripe of the signal
      * @param offset position from which the data was modified
      * @param length number of samples modified
      * @internal
      */
-    void slotSamplesModified(Stripe &src, unsigned int offset,
+    void slotSamplesModified(unsigned int offset,
                              unsigned int length);
 
 private:
@@ -163,9 +165,81 @@ private:
      * Returns the current length of the stripe in samples. This
      * function uses no locks and is therefore reserved for internal
      * usage from within locked functions.
-     * @note this must be private, it dows no locking !
+     * @note this must be private, it does no locking !
      */
     unsigned int unlockedLength();
+
+    /**
+     * Append samples after a given stripe.
+     *
+     * @param stripe the stripe after which to instert. Null pointer is
+     *               allowed, in this case a new stripe is created
+     * @param offset position where the new data should start
+     * @param buffer array with samples
+     * @param buf_offset offset within the buffer
+     * @param length number of samples to write
+     */
+    void appendAfter(Stripe *stripe, unsigned int offset,
+                     const QMemArray<sample_t> &buffer,
+                     unsigned int buf_offset, unsigned int length);
+
+    /**
+     * Move all stripes after an offset to the right. Only looks at the
+     * start position of the stripes, comparing with ">=", if the start
+     * of a stripe is at the given offset, it will not be moved!
+     *
+     * @param offset position after which everything is moved right
+     * @param length distance of the shift [samples]
+     */
+    void moveRight(unsigned int offset, unsigned int shift);
+
+    /**
+     * Connect all signals of the stripe to us
+     *
+     * @param s pointer to the stripe to be connected
+     */
+    void connectStripe(Stripe *s);
+
+    /**
+     * Append a new stripe with a given length.
+     *
+     * @param length number of samples, zero is allowed
+     */
+    Stripe *appendStripe(unsigned int length);
+
+    /**
+     * Split a stripe into two stripes. The new stripe will be created
+     * from the right portion of the given stripe and the original
+     * stripe will be shrinked to it's new size. The newly created stripe
+     * will be inserted into m_stripes after the old one.
+     *
+     * @param stripe the stripe to be split
+     * @param offset the offset within the stripe, which becomes the first
+     *               sample in the new stripe
+     */
+    void Track::splitStripe(Stripe *stripe, unsigned int offset);
+
+protected:
+
+    friend class SampleWriter;
+
+    /**
+     * Write a block of samples. If necessary it starts, appends to,
+     * or splits a stripe.
+     *
+     * @param mode a InsertMode (append/overwrite/insert)
+     * @param offset position where to start the write operation
+     * @param buffer array with samples
+     * @param buf_offset offset within the buffer
+     * @param length number of samples to write
+     */
+    void writeSamples(InsertMode mode,
+                      unsigned int offset,
+                      const QMemArray<sample_t> &buffer,
+                      unsigned int buf_offset,
+                      unsigned int length);
+
+private:
 
     /**
      * Creates a new stripe with a start position and a length.

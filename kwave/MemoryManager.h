@@ -109,6 +109,9 @@ protected:
     /** Returns a new swap file name */
     QString nextSwapFileName();
 
+    /** Convert a physical memory block into a new larger pagefile */
+    void *convertToVirtual(void *block, size_t old_size, size_t new_size);
+
     /** Tries to allocate physical memory */
     void *allocatePhysical(size_t size);
 

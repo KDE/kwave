@@ -240,24 +240,52 @@ void *MemoryManager::allocateVirtual(size_t size)
 }
 
 //***************************************************************************
+void *MemoryManager::convertToVirtual(void *block, size_t old_size,
+                                      size_t new_size)
+{
+    size_t current_size = m_physical_size[block];
+    ASSERT(current_size);
+    void *new_block = allocateVirtual(new_size);
+    if (!new_block) return 0;
+
+    // copy old stuff to new location
+    ::memcpy(new_block, block, old_size);
+
+    // remove old memory
+    m_physical_size[block] = 0;
+    void *b = block;
+    ::free(b);
+    m_physical_size.remove(block);
+
+    return new_block;
+}
+
+//***************************************************************************
 void *MemoryManager::resize(void *block, size_t size)
 {
     MutexGuard lock(m_lock);
 
     if (m_physical_size.contains(block)) {
+	// if we are increasing: check if we get too large
+	size_t current_size = m_physical_size[block];
+	if ((size > current_size) && (physicalUsed() +
+	    ((size - current_size) >> 20) > m_physical_limit))
+	{
+	    // too large -> move to virtual memory
+	    debug("MemoryManager::resize(%uMB) -> moving to swap", size>>20);
+	    return convertToVirtual(block, current_size, size);
+	}
+    
 	// try to resize the physical memory
 	void *new_block = ::realloc(block, size);
 	if (new_block) {
 	    m_physical_size.remove(block);
 	    m_physical_size.insert(new_block, size);
 	    return new_block;
+	} else {
+	    // resizing failed, try to allocate virtual memory for it
+	    return convertToVirtual(block, current_size, size);
 	}
-	
-	// resizing failed, try to allocate virtual memory for it
-	/**
-	 * @todo try to allocate virtual memory and copy
-	 * if resizing physical failed
-	 */
     }
 
     if (m_swap_files.contains(block)) {

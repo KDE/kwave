@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-02-09 11:22+0100\n"
-"PO-Revision-Date: 2002-02-09 11:28GMT\n"
+"POT-Creation-Date: 2002-02-17 20:55+0100\n"
+"PO-Revision-Date: 2002-02-17 21:00GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -14,16 +14,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.5\n"
 
-#: kwave/menus_config_i18n.cpp:13 plugins/playback/PlayBackDialog.cpp:130
+#: kwave/menus_config_i18n.cpp:13 plugins/playback/PlayBackDialog.cpp:129
 msgid "1&6 Bit"
 msgstr "1&6 Bits"
 
-#: kwave/menus_config_i18n.cpp:14 plugins/playback/PlayBackDialog.cpp:139
+#: kwave/menus_config_i18n.cpp:14 plugins/playback/PlayBackDialog.cpp:138
 msgid "2&4 Bit"
 msgstr "2&4 Bits"
 
-#: kwave/menus_config_i18n.cpp:15 plugins/playback/PlayBackDialog.cpp:120
-#: plugins/playback/PlayBackDialog.cpp:123
+#: kwave/menus_config_i18n.cpp:15 plugins/playback/PlayBackDialog.cpp:119
+#: plugins/playback/PlayBackDialog.cpp:122
 msgid "&8 Bit"
 msgstr "&8 Bits"
 
@@ -456,6 +456,34 @@ msgstr "modifier les échantillons"
 #: kwave/SignalWidget.cpp:1792 kwave/SignalWidget.cpp:1824
 msgid "drag and drop"
 msgstr "tirer et lacher"
+
+#: kwave/main.cpp:60
+msgid "project leader since 2000, core development"
+msgstr "Coordinateur du projet depuis 2000 et developpeur principal."
+
+#: kwave/main.cpp:64
+msgid "creator of the project, development 1998-2000"
+msgstr "Créateur du projet et developpeur principal entre 1998 et 2000"
+
+#: kwave/main.cpp:68
+msgid "creator of this dialog"
+msgstr "Concepteur de cette boîte de dialogue."
+
+#: kwave/main.cpp:72
+msgid "french translation"
+msgstr "Traductions Française."
+
+#: kwave/main.cpp:78
+msgid "Kwave homepage and german online help"
+msgstr "Site internet de kwave et documentation en allemand."
+
+#: kwave/main.cpp:82
+msgid "tester"
+msgstr "Testeurs."
+
+#: kwave/main.cpp:114
+msgid "sound editor for KDE2"
+msgstr "Editeurs de sons pour KDE2"
 
 #: kwave/TopWidget.cpp:103
 msgid "New File"
@@ -1008,24 +1036,24 @@ msgstr "silence"
 msgid "Choose Line of distortion :"
 msgstr "Choisir la ligne de distorsion :"
 
-#: plugins/playback/PlayBackDialog.cpp:55
-#: plugins/sonagram/SonagramDialog.cpp:54
+#: plugins/playback/PlayBackDialog.cpp:54
+#: plugins/sonagram/SonagramDialog.cpp:53
 msgid "sonagram"
 msgstr "sonagramme"
 
-#: plugins/sonagram/SonagramDialog.cpp:78
+#: plugins/sonagram/SonagramDialog.cpp:77
 msgid "Set FFT/time resolution parameter"
 msgstr "Paramètrer la résolution de FFT/temps"
 
-#: plugins/sonagram/SonagramDialog.cpp:112
+#: plugins/sonagram/SonagramDialog.cpp:111
 msgid "FFT settings"
 msgstr "Paramètrer la FFT"
 
-#: plugins/sonagram/SonagramDialog.cpp:119
+#: plugins/sonagram/SonagramDialog.cpp:118
 msgid "Number of FFT points:"
 msgstr "Nombre de points de la FFT :"
 
-#: plugins/sonagram/SonagramDialog.cpp:128
+#: plugins/sonagram/SonagramDialog.cpp:127
 msgid ""
 "Try to choose numbers with small prime-factors, if choosing big window "
 "sizes.\n"
@@ -1036,7 +1064,7 @@ msgstr ""
 "avec des facteurs de premier ordre de faible valeur. Les calculs seront "
 "alors plus rapides !"
 
-#: plugins/sonagram/SonagramDialog.cpp:145
+#: plugins/sonagram/SonagramDialog.cpp:144
 msgid ""
 "Choose windowing function here. If fourier transformation should stay "
 "reversible, use the type <none>"
@@ -1045,39 +1073,39 @@ msgstr ""
 "doit restée\n"
 "reversible, utilisez le type <aucun>"
 
-#: plugins/averagefft/module.cpp:39 plugins/sonagram/SonagramDialog.cpp:158
+#: plugins/averagefft/module.cpp:39 plugins/sonagram/SonagramDialog.cpp:157
 msgid "Window Function :"
 msgstr "Fonction de la fenêtre :"
 
-#: plugins/sonagram/SonagramDialog.cpp:232
+#: plugins/sonagram/SonagramDialog.cpp:231
 msgid "display"
 msgstr "affichage"
 
-#: plugins/sonagram/SonagramDialog.cpp:243
+#: plugins/sonagram/SonagramDialog.cpp:242
 msgid "use colors"
 msgstr "utilisation des couleurs"
 
-#: plugins/sonagram/SonagramDialog.cpp:247
+#: plugins/sonagram/SonagramDialog.cpp:246
 msgid "use different colors for amplitude"
 msgstr "utilisation de différentes couleurs pour l'amplitude"
 
-#: plugins/sonagram/SonagramDialog.cpp:252
+#: plugins/sonagram/SonagramDialog.cpp:251
 msgid "greyscale"
 msgstr "nuances de gris"
 
-#: plugins/sonagram/SonagramDialog.cpp:255
+#: plugins/sonagram/SonagramDialog.cpp:254
 msgid "use greyscale only for amplitude"
 msgstr "utilisation des nuances de gris pour l'amplitude"
 
-#: plugins/sonagram/SonagramDialog.cpp:264
+#: plugins/sonagram/SonagramDialog.cpp:263
 msgid "update"
 msgstr "mise à jour"
 
-#: plugins/sonagram/SonagramDialog.cpp:275
+#: plugins/sonagram/SonagramDialog.cpp:274
 msgid "on modifications"
 msgstr "dans les modifications"
 
-#: plugins/sonagram/SonagramDialog.cpp:279
+#: plugins/sonagram/SonagramDialog.cpp:278
 msgid ""
 "automatically update the sonagram\n"
 "if the signal data has modified"
@@ -1085,11 +1113,11 @@ msgstr ""
 "met à jour automatiquement le sonogramme\n"
 "si le la piste sonore à été modifiée."
 
-#: plugins/sonagram/SonagramDialog.cpp:285
+#: plugins/sonagram/SonagramDialog.cpp:284
 msgid "follow selection"
 msgstr "suivre la sélection"
 
-#: plugins/sonagram/SonagramDialog.cpp:289
+#: plugins/sonagram/SonagramDialog.cpp:288
 msgid ""
 "automatically update the sonagram if the selection\n"
 "has been enlarged, reduced or moved"
@@ -1097,11 +1125,11 @@ msgstr ""
 "met à jour automatiquement le sonogramme sila sélection\n"
 "a été élargie, réduite, ou déplacée."
 
-#: plugins/sonagram/SonagramDialog.cpp:416
+#: plugins/sonagram/SonagramDialog.cpp:415
 msgid "( resulting window size: %1 )"
 msgstr "( taille de la fenêtre résultat : %1 )"
 
-#: plugins/sonagram/SonagramDialog.cpp:419
+#: plugins/sonagram/SonagramDialog.cpp:418
 #, c-format
 msgid "size of bitmap: %1x%2"
 msgstr "taille du Bitmap : %1x%2"
@@ -1163,14 +1191,6 @@ msgstr "Fréquence : %d Hz"
 msgid "Amplitude: %d %%"
 msgstr "Amplitude : %d %%"
 
-#: plugins/about/AboutDialog.cpp:106
-msgid "About Kwave"
-msgstr "A propos de Kwave"
-
-#: plugins/about/AboutDialog.cpp:145 plugins/sweep/module.cpp:88
-msgid "Ok"
-msgstr "Ok"
-
 #: plugins/delay/module.cpp:24
 msgid "Choose Length and Rate :"
 msgstr "Choisir la largeur et le taux :"
@@ -1224,6 +1244,10 @@ msgstr "de"
 #: plugins/sweep/module.cpp:83
 msgid "to"
 msgstr "à"
+
+#: plugins/sweep/module.cpp:88
+msgid "Ok"
+msgstr "Ok"
 
 #: plugins/sweep/module.cpp:170
 msgid "could not open file !\n"
@@ -1534,16 +1558,16 @@ msgstr "Choisir une nouvelle résolution virtuelle"
 msgid "Number of quantisation steps"
 msgstr "Nombre de pas pour la numérisation"
 
-#: plugins/playback/PlayBackDialog.cpp:75
+#: plugins/playback/PlayBackDialog.cpp:74
 msgid "Playback Options :"
 msgstr "Options de lecture :"
 
+#: plugins/playback/PlayBackDialog.cpp:102
 #: plugins/playback/PlayBackDialog.cpp:103
-#: plugins/playback/PlayBackDialog.cpp:104
 msgid "Resolution"
 msgstr "Résolution"
 
-#: plugins/playback/PlayBackDialog.cpp:127
+#: plugins/playback/PlayBackDialog.cpp:126
 msgid ""
 "Set Playback-Mode to 8 Bit (poor quality)\n"
 "should be supported by all sound hardware !"
@@ -1551,7 +1575,7 @@ msgstr ""
 "Paramètre le mode de lecture en 8 Bits (faible qualité)\n"
 "Ce mode est normalement supporté par tous les périphériques sonores !"
 
-#: plugins/playback/PlayBackDialog.cpp:136
+#: plugins/playback/PlayBackDialog.cpp:135
 msgid ""
 "Set Playback-Mode to 16 Bit (CD-like quality)\n"
 "not supported by all sound hardware !"
@@ -1559,7 +1583,7 @@ msgstr ""
 "Paramètre le mode de lecture en 16 Bits (qualité CD)\n"
 "Ce mode n'est pas supporté par tous les périphériques sonores !"
 
-#: plugins/playback/PlayBackDialog.cpp:145
+#: plugins/playback/PlayBackDialog.cpp:144
 msgid ""
 "Set Playback-Mode to 24 Bit (high quality)\n"
 "only supported by some new sound hardware !"
@@ -1567,15 +1591,15 @@ msgstr ""
 "Paramètre le mode de lecture en 24 Bits (haute qualité)\n"
 "Ce mode est supporté que par les périphériques sonores récents!"
 
-#: plugins/playback/PlayBackDialog.cpp:150
+#: plugins/playback/PlayBackDialog.cpp:149
 msgid "Playback Device :"
 msgstr "Périphérique de lecture :"
 
-#: plugins/playback/PlayBackDialog.cpp:172
+#: plugins/playback/PlayBackDialog.cpp:171
 msgid "se&lect..."
 msgstr "se&lectionné..."
 
-#: plugins/playback/PlayBackDialog.cpp:176
+#: plugins/playback/PlayBackDialog.cpp:175
 msgid ""
 "Select a playback device not listed\n"
 "in the standard selection.\n"
@@ -1585,7 +1609,7 @@ msgstr ""
 "dans la sélection standard.\n"
 "(désolé, pas encore implémenté !)"
 
-#: plugins/playback/PlayBackDialog.cpp:195
+#: plugins/playback/PlayBackDialog.cpp:194
 msgid ""
 "This is the size of the buffer used for communication with the sound driver\n"
 "If your computer is rather slow select a big buffer"
@@ -1594,15 +1618,15 @@ msgstr ""
 "périphérique sonore. Si votre ordinateur est lent, selectionnez un buffer de "
 "grande taille"
 
-#: plugins/playback/PlayBackDialog.cpp:204
+#: plugins/playback/PlayBackDialog.cpp:203
 msgid "&stereo playback"
 msgstr "lecture en &stéréo"
 
-#: plugins/playback/PlayBackDialog.cpp:231
+#: plugins/playback/PlayBackDialog.cpp:230
 msgid "&test settings"
 msgstr "paramétrages de &test"
 
-#: plugins/playback/PlayBackDialog.cpp:235
+#: plugins/playback/PlayBackDialog.cpp:234
 msgid ""
 "Try to play a short sound\n"
 "using the current settings.\n"
@@ -1612,7 +1636,7 @@ msgstr ""
 "en utilisant les paramètres courrant.\n"
 "(désolé,  pas encore implémenté !)"
 
-#: plugins/playback/PlayBackDialog.cpp:306
+#: plugins/playback/PlayBackDialog.cpp:305
 #, c-format
 msgid "Buffer Size : %5d samples"
 msgstr "Taille du buffer : %5d échantillons"

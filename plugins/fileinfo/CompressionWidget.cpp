@@ -99,7 +99,7 @@ void CompressionWidget::enableABR(bool enable, bool lowest, bool highest)
     rbABR->setEnabled(enable);
     if (!enable) rbABR->setChecked(false);
     
-    if (!rbABR->isChecked()) {
+    if (!rbABR->isChecked() || !enable) {
 	lblCompressionNominalBitrate->setEnabled(false);
 	abrBitrate->setEnabled(false);
 	abrHighestBitrate->setEnabled(false);
@@ -118,7 +118,7 @@ void CompressionWidget::enableVBR(bool enable)
     rbVBR->setEnabled(enable);
     if (!enable) rbVBR->setChecked(false);
 
-    if (!rbVBR->isChecked()) {
+    if (!rbVBR->isChecked() || !enable) {
 	lblCompressionBaseQuality->setEnabled(false);
 	sbBaseQuality->setEnabled(false);
 	slBaseQuality->setEnabled(false);
@@ -210,14 +210,28 @@ CompressionWidget::Mode CompressionWidget::mode()
 //***************************************************************************
 void CompressionWidget::setMode(CompressionWidget::Mode mode)
 {
+    bool abr = rbABR->isEnabled();
+    bool vbr = rbVBR->isEnabled();
     switch (mode) {
 	case ABR_MODE:
 	    rbVBR->setChecked(false);
+	    rbVBR->setChecked(true);
+	    rbVBR->setChecked(false);
+	    
 	    rbABR->setChecked(true);
+	    rbABR->setChecked(false);
+	    rbABR->setChecked(true);
+	    rbABR->setChecked(abr);
 	    break;
 	case VBR_MODE:
 	    rbABR->setChecked(false);
+	    rbABR->setChecked(true);
+	    rbABR->setChecked(false);
+	    
 	    rbVBR->setChecked(true);
+	    rbVBR->setChecked(false);
+	    rbVBR->setChecked(true);
+	    rbVBR->setChecked(vbr);
 	    break;
     }
 }

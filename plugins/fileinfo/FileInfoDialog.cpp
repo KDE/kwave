@@ -265,19 +265,19 @@ void FileInfoDialog::setupCompressionTab(KConfig &cfg)
     // ABR bitrate settings
     int abr_bitrate = m_info.contains(INF_BITRATE_NOMINAL) ?
                   QVariant(m_info.get(INF_BITRATE_NOMINAL)).toInt() :
-                  cfg.readNumEntry("default_abr_nominal_bitrate", 0);
+                  cfg.readNumEntry("default_abr_nominal_bitrate", -1);
     int min_bitrate = m_info.contains(INF_BITRATE_LOWER) ?
                   QVariant(m_info.get(INF_BITRATE_LOWER)).toInt() :
-                  cfg.readNumEntry("default_abr_lower_bitrate",0);
+                  cfg.readNumEntry("default_abr_lower_bitrate",-1);
     int max_bitrate = m_info.contains(INF_BITRATE_UPPER) ?
                   QVariant(m_info.get(INF_BITRATE_UPPER)).toInt() :
-                  cfg.readNumEntry("default_abr_upper_bitrate",0);
+                  cfg.readNumEntry("default_abr_upper_bitrate",-1);
     compressionWidget->setBitrates(abr_bitrate, min_bitrate, max_bitrate);
 
     // VBR base quality
     int quality = m_info.contains(INF_VBR_QUALITY) ?
               QVariant(m_info.get(INF_VBR_QUALITY)).toInt() :
-              cfg.readNumEntry("default_vbr_quality", 0);
+              cfg.readNumEntry("default_vbr_quality", -1);
     compressionWidget->setQuality(quality);
 
     compressionWidget->init(m_info);

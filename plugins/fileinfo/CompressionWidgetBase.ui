@@ -79,6 +79,9 @@ with optional upper and lower limit.</string>
                     <property name="name">
                         <cstring>chkLowestBitrate</cstring>
                     </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
                     <property name="text">
                         <string>lowest</string>
                     </property>
@@ -102,6 +105,9 @@ The bitrate is selected by an average quality.</string>
                     <property name="name">
                         <cstring>chkHighestBitrate</cstring>
                     </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
                     <property name="text">
                         <string>highest</string>
                     </property>
@@ -109,6 +115,9 @@ The bitrate is selected by an average quality.</string>
                 <widget class="QLabel" row="0" column="1">
                     <property name="name">
                         <cstring>lblCompressionNominalBitrate</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
                     </property>
                     <property name="frameShape">
                         <enum>MShape</enum>
@@ -123,6 +132,9 @@ The bitrate is selected by an average quality.</string>
                 <widget class="BitrateWidget" row="0" column="2">
                     <property name="name">
                         <cstring>abrBitrate</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
                     </property>
                     <property name="minimumSize">
                         <size>

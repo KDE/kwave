@@ -139,21 +139,21 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
     const long sample_rate = (long)info.rate();
 
     // ABR bitrates
-    unsigned int bitrate_nominal = info.contains(INF_BITRATE_NOMINAL) ?
-        QVariant(info.get(INF_BITRATE_NOMINAL)).toUInt() : 0;
-    unsigned int bitrate_lower = info.contains(INF_BITRATE_LOWER) ?
-        QVariant(info.get(INF_BITRATE_LOWER)).toInt() : bitrate_nominal;
-    unsigned int bitrate_upper = info.contains(INF_BITRATE_UPPER) ?
-        QVariant(info.get(INF_BITRATE_UPPER)).toUInt() : bitrate_nominal;
+    int bitrate_nominal = info.contains(INF_BITRATE_NOMINAL) ?
+        QVariant(info.get(INF_BITRATE_NOMINAL)).toInt() : -1;
+    int bitrate_lower = info.contains(INF_BITRATE_LOWER) ?
+        QVariant(info.get(INF_BITRATE_LOWER)).toInt() : -1;
+    int bitrate_upper = info.contains(INF_BITRATE_UPPER) ?
+        QVariant(info.get(INF_BITRATE_UPPER)).toInt() : -1;
 
     // VBR quality
     int vbr_quality = info.contains(INF_VBR_QUALITY) ?
-        QVariant(info.get(INF_VBR_QUALITY)).toInt() : 0;
+        QVariant(info.get(INF_VBR_QUALITY)).toInt() : -1;
 
     qDebug("OggEncoder: ABR=%d...%d...%d Bits/s, VBR=%d%%",
            bitrate_lower,bitrate_nominal,bitrate_upper,vbr_quality);
 
-    if (!vbr_quality && (!bitrate_nominal || !(bitrate_lower && bitrate_upper))) {
+    if ((vbr_quality < 0) && (bitrate_nominal <= 0)) {
 	// no quality and no bitrate given -> complain !
 	if (KMessageBox::warningContinueCancel(widget,
 	    i18n("You have not selected any bitrate for the encoding. "
@@ -164,8 +164,8 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	    return false; // <- Cancelled
 	
 	bitrate_nominal = DEFAULT_BITRATE;
-	bitrate_lower = bitrate_nominal;
-	bitrate_upper = bitrate_nominal;
+	bitrate_lower = -1;
+	bitrate_upper = -1;
     }
     
     // some checks first
@@ -175,7 +175,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
     /********** Encode setup ************/
     vorbis_info_init(&vi);
 
-    if (bitrate_lower != bitrate_upper) {
+    if ((bitrate_lower > 0) || (bitrate_upper > 0)) {
 	// Encoding using ABR mode.
 	bitrate_nominal = (bitrate_upper + bitrate_lower) / 2;
 	ret = vorbis_encode_init(&vi, tracks, sample_rate,
@@ -184,14 +184,14 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	                         bitrate_lower);
 	qDebug("OggEncoder: ABR with %d...%d...%d Bits/s",
 	       bitrate_lower, bitrate_nominal, bitrate_upper);
-    } else if (!vbr_quality && bitrate_nominal) {
+    } else if ((vbr_quality < 0) && (bitrate_nominal > 0)) {
 	// Encoding using constant bitrate in ABR mode
 	ret = (vorbis_encode_setup_managed(&vi, tracks, sample_rate,
 	      -1, bitrate_nominal, -1) ||
               vorbis_encode_ctl(&vi,OV_ECTL_RATEMANAGE_AVG,NULL) ||
               vorbis_encode_setup_init(&vi));
 	qDebug("OggEncoder: CBR with %d Bits/s", bitrate_nominal);
-    } else if (vbr_quality) {
+    } else if (vbr_quality >= 0) {
 	// Encoding using VBR mode.
 	ret = vorbis_encode_init_vbr(&vi, tracks, sample_rate,
 	                             (float)vbr_quality / 100.0);

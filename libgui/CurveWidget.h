@@ -104,14 +104,13 @@ public slots:
 
     void savePreset();
 
-protected slots:
-
     /**
      * Loads an existing preset.
      * @param id the id of the corresponding menu entry
      */
     void loadPreset(int id);
 
+protected slots:
 
     void mousePressEvent(QMouseEvent * );
     void mouseReleaseEvent(QMouseEvent * );

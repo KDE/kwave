@@ -49,7 +49,7 @@ DEP_FILES	+= $(uic_sources:.cpp=.d)
 
 %.uic.o: %.uic.cpp
 	@echo plugin \"$(MODNAME)\": compiling dialog "'"$<"'"
-	@ @CXX@ $(CXXFLAGS) -Di18n\(x\)=QObject::tr\(x\) ${INCLUDES} -c $< -o $@
+	@ @CXX@ $(CXXFLAGS)  ${INCLUDES} -c $< -o $@
 
 %.o: %.cpp
 	@echo plugin \"$(MODNAME)\": compiling "'"$<"'"

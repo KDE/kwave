@@ -1,8 +1,9 @@
 <!DOCTYPE UI><UI>
 <class>AmplifyFreeDlg</class>
 <author>Thomas Eschenbacher &lt;Thomas.Eschenbacher@gmx.de&gt;</author>
-<include location="global">libgui/ScaleWidget.h</include>
+<include location="global">klocale.h</include>
 <include location="global">libgui/CurveWidget.h</include>
+<include location="global">libgui/ScaleWidget.h</include>
 <widget>
     <class>QDialog</class>
     <property stdset="1">
@@ -14,7 +15,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>580</width>
+            <width>576</width>
             <height>480</height>
         </rect>
     </property>

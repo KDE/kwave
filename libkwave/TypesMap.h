@@ -19,6 +19,7 @@
 #define _TYPES_MAP_H_
 
 #include <qmap.h>
+#include <qobject.h>
 #include <qstring.h>
 #include <klocale.h>
 #include "libkwave/Triple.h"

@@ -1,6 +1,7 @@
 <!DOCTYPE UI><UI>
 <class>NewSigDlg</class>
 <author>Thomas Eschenbacher &lt;Thomas.Eschenbacher@gmx.de&gt;</author>
+<include location="global">klocale.h</include>
 <include location="global">knuminput.h</include>
 <widget>
     <class>QDialog</class>
@@ -13,7 +14,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>496</width>
+            <width>488</width>
             <height>512</height>
         </rect>
     </property>

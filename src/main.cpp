@@ -12,7 +12,7 @@
 #include <libkwave/fileloader.h>
 #include "../libgui/kwavedialog.h"
 
-struct Global      globals;
+extern Global globals;
 QList<TopWidget>   topwidgetlist; 
 QStrList           recentFiles; 
 //*****************************************************************************

@@ -139,6 +139,8 @@ void SignalManager::loadWav (int channel)
 	int	 length;
       };
 
+      printf ("begin loading ...");
+
       sigin->open(IO_ReadOnly);
       int num=sigin->readBlock (rheader,sizeof(wavheader));
       if (num==sizeof(struct wavheader))
@@ -486,10 +488,15 @@ void  SignalManager::loadStereo16Bit (QFile *sigin)
 {
   //the current object should be the first channel....
 
+  printf ("loadstereo16bit...\n");
+
   signal[0]=new KwaveSignal (length,rate);
   int *sample = signal[0]->getSample();
 
+  printf ("second channel coming up\n");
+
   signal[1]=new KwaveSignal (length,rate);
+  printf ("signal is %p\n",signal[1]);  
   int *lsample = signal[1]->getSample();
 
   unsigned char *loadbuffer = new unsigned char[PROGRESS_SIZE*4];

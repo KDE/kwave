@@ -2,13 +2,13 @@ dnl without this order in this file, autoconf will not work!
 dnl the argument is a source file out of your sources. But
 dnl acinclude.m4 makes the job for all programs ;-)
 
-AC_INIT([kwave],[0.7.1-3])
+AC_INIT([kwave],[0.7.2-pre1])
 AC_CONFIG_SRCDIR([admin/acinclude.m4.in])
 AC_CONFIG_AUX_DIR(admin)
 unset CDPATH            dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
 AC_CANONICAL_TARGET([]) dnl Checking host/target/build systems, for make, install etc.
 AC_ARG_PROGRAM          dnl Perform program name transformation
-AM_INIT_AUTOMAKE([kwave],[0.7.1-3])
+AM_INIT_AUTOMAKE([kwave],[0.7.2-pre1])
 AC_PREREQ(2.50)         dnl Require Autoconf 2.50 or higher
 
 KDE_SET_PREFIX
@@ -487,9 +487,12 @@ AC_SUBST(LIBCOMPAT)
 
 AC_MSG_CHECKING([whether a target optimized memcpy() for $target_cpu is available])
 case $target_cpu in
-  i?86 | x86_64 | athlon | athlon-* | pentium | pentium-* )
+  i?86 | athlon | athlon-* | pentium | pentium-* )
     AC_MSG_RESULT([yes])
     AC_DEFINE(ARCH_X86,1,[use ix86 target optimizations (from xine)]) ;;
+  x86_64 )
+    AC_MSG_RESULT([yes])
+    AC_DEFINE(ARCH_X86_64,1,[use X86_64 target optimizations (from xine)]) ;;
   ppc )
     AC_MSG_RESULT([yes])
     AC_DEFINE(ARCH_PPC,1,[use ppc target optimizations (from xine)]) ;;

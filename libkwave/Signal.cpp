@@ -72,6 +72,7 @@ Signal::Signal(unsigned int tracks, unsigned int length)
 //***************************************************************************
 Signal::~Signal()
 {
+    close();
 }
 
 //***************************************************************************
@@ -84,6 +85,8 @@ void Signal::close()
     while (m_tracks.count()) {
 	m_tracks.remove(m_tracks.last());
     }
+    m_bits = 0;
+    m_rate = 0;
 }
 
 //***************************************************************************
@@ -134,6 +137,20 @@ SampleWriter *Signal::openSampleWriter(unsigned int track,
     }
 
     return m_tracks.at(track)->openSampleWriter(mode, left, right);
+}
+
+//***************************************************************************
+SampleReader *Signal::openSampleReader(unsigned int track,
+	unsigned int left, unsigned int right)
+{
+    MutexGuard lock(m_lock_tracks);
+
+    ASSERT(track < m_tracks.count());
+    if (track >= m_tracks.count()) {
+	return 0; // track does not exist !
+    }
+
+    return m_tracks.at(track)->openSampleReader(left, right);
 }
 
 //***************************************************************************

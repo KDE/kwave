@@ -70,6 +70,17 @@ public:
 	unsigned int left = 0, unsigned int right = 0);
 
     /**
+     * Opens a stream for reading samples. If the the last position
+     * is omitted, the value UINT_MAX will be used.
+     * @param track index of the track. If the track does not exist, this
+     *        function will fail and return 0
+     * @param left first offset to be read (default = 0)
+     * @param right last position to read (default = UINT_MAX)
+     */
+    SampleReader *openSampleReader(unsigned int track, unsigned int left = 0,
+	unsigned int right = UINT_MAX);
+
+    /**
      * Returns the number of tracks.
      */
     unsigned int tracks();

@@ -61,16 +61,4 @@ void MouseMark::update(int x)
 }
 
 //****************************************************************************
-bool MouseMark::checkPosition(int x, int tol)
-{
-    if ((x > initial - (tol)) && (x < initial + tol))
-	return true;
-
-    if ((x < last + tol) && (x > last - tol))
-	return true;
-
-    return false;
-}
-
-//****************************************************************************
 //****************************************************************************

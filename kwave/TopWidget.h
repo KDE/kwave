@@ -4,6 +4,12 @@
     begin                : 1999
     copyright            : (C) 1999 by Martin Wilz
     email                : Martin Wilz <mwilz@ernie.mi.uni-koeln.de>
+
+    $Log$
+    Revision 1.9  2001/05/08 20:19:25  the
+    loading/saving in wav format works again
+
+
  ***************************************************************************/
 
 /***************************************************************************
@@ -120,10 +126,11 @@ private slots:
 
     /**
      * Called if a new zoom factor has been set in order to update
-     * the status display.
+     * the status display and the content of the zomm selection
+     * combo box.
      * @note This method can not be called to *set* a new zoom factor.
      */
-    void setZoom(double zoom);
+    void setZoomInfo(double zoom);
 
     /**
      * Called if the status information of the signal has been changed

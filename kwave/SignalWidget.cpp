@@ -178,7 +178,6 @@ bool SignalWidget::isOK()
 SignalWidget::~SignalWidget()
 {
 //    debug("SignalWidget::~SignalWidget()");
-
     close();
 
     m_refresh_timer.stop();
@@ -200,8 +199,8 @@ SignalWidget::~SignalWidget()
 }
 
 //***************************************************************************
-void SignalWidget::saveSignal(const char *filename, int bits,
-			      int type, bool selection)
+void SignalWidget::saveFile(const QString &filename, unsigned int bits,
+			    int type, bool selection)
 {
     if (type == ASCII) {
 	m_signal_manager.exportAscii(filename);
@@ -332,16 +331,12 @@ bool SignalWidget::executeCommand(const QString &command)
 ////	const char *name = parser.getFirstParam();
 ////	debug("SignalWidget::executeCommand(): loading dialog %s", name);
 ////	showDialog(name);
-//    CASE_COMMAND("refresh")
-//	refreshAllLayers();
     CASE_COMMAND("newsignal")
 	createSignal(command);
     } else if (executeNavigationCommand(command)) {
 	return true;
     } else {
-	bool res = m_signal_manager.executeCommand(command);
-//	selectRange(signalmanage->getLMarker(), signalmanage->getRMarker());
-	return res;
+	return m_signal_manager.executeCommand(command);
     };
 
     return true;
@@ -514,12 +509,6 @@ void SignalWidget::createSignal(const char */*str*/)
 }
 
 //***************************************************************************
-void SignalWidget::estimateRange(int l, int r)
-{
-    emit selectedTimeInfo(samples2ms(r - l + 1));
-}
-
-//***************************************************************************
 void SignalWidget::setSignal(SignalManager */*sigs*/)
 {
 //    closeSignal();
@@ -621,7 +610,7 @@ void SignalWidget::setZoom(double new_zoom)
 
     m_zoom = new_zoom;
     fixZoomAndOffset();
-    if (m_zoom == old_zoom) return;
+    if (m_zoom == old_zoom) return; // nothing to do
 
     // forward the zoom and offset to all track pixmaps
     unsigned int n_tracks = m_track_pixmaps.count();
@@ -648,8 +637,6 @@ void SignalWidget::fixZoomAndOffset()
     double max_zoom;
     double min_zoom;
     unsigned int length;
-//    double last_zoom = m_zoom;
-//    int last_offset = m_offset;
 
     length = m_signal_manager.length();
 
@@ -699,8 +686,6 @@ void SignalWidget::fixZoomAndOffset()
     if (m_zoom < min_zoom) m_zoom = min_zoom;
     if (m_zoom > max_zoom) m_zoom = max_zoom;
 
-//    if ((m_zoom != last_zoom) || (m_offset != last_offset))
-//	emit zoomInfo(m_zoom);
 }
 
 //***************************************************************************
@@ -778,17 +763,16 @@ void SignalWidget::inhibitRepaint()
 }
 
 //***************************************************************************
-void SignalWidget::allowRepaint()
+void SignalWidget::allowRepaint(bool repaint)
 {
     ASSERT(m_inhibit_repaint);
     if (!m_inhibit_repaint) return;
 
     // decrease the number of repaint locks
     m_inhibit_repaint--;
-//    debug("SignalWidget::allowRepaint(): count=%u", m_inhibit_repaint);
 
-    // if the number reached zero, *do* the repaint
-    if (!m_inhibit_repaint) repaint(false);
+    // if the number reached zero, *do* the repaint if allowed
+    if (!m_inhibit_repaint && repaint) this->repaint(false);
 }
 
 //***************************************************************************
@@ -796,23 +780,11 @@ void SignalWidget::refreshAllLayers()
 {
     InhibitRepaintGuard inhibit(*this);
 
-//    debug("SignalWidget::refreshAllLayers()");
-
     for (int i=0; i < 3; i++) {
 	m_update_layer[i] = true;
     }
 
     fixZoomAndOffset();
-
-//    int rate = m_signal_manager.getRate() : 0;
-//    int length = m_signal_manager.getLength() : 0;
-//
-//    if (rate) emit timeInfo(samples2ms(length));
-//
-//    int maxofs = pixels2samples(width - 1) + 1;
-//    emit viewInfo(m_offset, maxofs, length);
-//    emit zoomInfo(m_zoom);
-
     redraw = true;
 };
 
@@ -831,20 +803,23 @@ void SignalWidget::refreshLayer(int layer)
 }
 
 //***************************************************************************
-//void SignalWidget::timedRepaint()
-//{
-//    if (m_timer.isActive()) return;
-//    m_timer.start(300, true);
-//}
-
-//***************************************************************************
 bool SignalWidget::checkPosition(int x)
 {
     ASSERT(m_selection);
     if (!m_selection) return false;
 
-    // 2 % of width tolerance
-    return m_selection->checkPosition(x, pixels2samples(width / 50));
+    // use 2 % of widget width [pixels] as tolerance
+    int tol = width / 50;
+
+    unsigned int first = m_signal_manager.selection().first();
+    if ((first > m_offset) && (x < samples2pixels(first-m_offset)+tol) &&
+        (x+tol > samples2pixels(first-m_offset))) return true;
+
+    unsigned int last = m_signal_manager.selection().last();
+    if ((last > m_offset) && (x < samples2pixels(last-m_offset)+tol) &&
+        (x+tol > samples2pixels(last-m_offset))) return true;
+
+    return false;
 }
 
 //***************************************************************************
@@ -864,10 +839,9 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
     if (e->button() == LeftButton) {
 	int x = m_offset + pixels2samples(e->pos().x());
 	down = true;
-	(checkPosition(x)) ? m_selection->grep(x) : m_selection->set(x, x);
+	(checkPosition(e->pos().x())) ? m_selection->grep(x) :
+	                                m_selection->set(x, x);
     }
-
-//    if (e->button() == RightButton) lasty = e->pos().y();
 }
 
 //***************************************************************************
@@ -911,27 +885,6 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
     // abort if no signal is loaded
     if (!m_signal_manager.length()) return;
 
-
-////    if ( (e->state() == RightButton) && height) {
-////	//zooming on y axis... not very useful, will perhaps be replaced by
-////	//more useful funcitonality...
-////	//also very time consuming, because the hole viewable range of signal
-////	//has to be redisplayed with every mousemove...
-////	double old = zoomy;
-////
-////	zoomy += (double (e->pos().y() - lasty)) * 2 / height;
-////
-////	if (zoomy < 1) zoomy = 1;
-////	if (zoomy > 10) zoomy = 10;
-////
-////	lasty = e->pos().y();
-////
-////	if (zoomy != old) {
-////	    redraw = true;
-////	    repaint();
-////	}
-////    }
-
     if (down) {
 	// in move mode, a new selection was created or an old one grabbed
 	// this does the changes with every mouse move...
@@ -946,16 +899,15 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 	selectRange(m_selection->left(), len);
     } else {
 	// yes, this code gives the nifty cursor change....
-	if (checkPosition(m_offset+pixels2samples(e->pos().x())))
-	    setCursor(sizeHorCursor);
-	else
-	    setCursor(arrowCursor);
+	setCursor(checkPosition(e->pos().x()) ? sizeHorCursor : arrowCursor);
     }
 }
 
 //***************************************************************************
 void SignalWidget::paintEvent(QPaintEvent *)
 {
+    InhibitRepaintGuard inhibit(*this, false); // avoid recursion
+
 //    debug("SignalWidget::paintEvent()");
 ////#ifdef DEBUG
 //    static struct timeval t_start;
@@ -996,6 +948,9 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	pixmap = 0;
 	update_pixmap = true;
 	
+	// check and correct m_zoom and m_offset
+	setZoom(m_zoom);
+	
 	lastWidth = width;
 	lastHeight = height;
     }
@@ -1010,9 +965,6 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //	debug("SignalWidget::paintEvent(): - redraw of signal layer -");
 	p.begin(m_layer[LAYER_SIGNAL]);
 	p.setRasterOp(CopyROP);
-	
-	// check and correct m_zoom and m_offset
-	fixZoomAndOffset();
 	
 	// all black if empty
 	if (!n_tracks) p.fillRect(0, 0, width, height, black);
@@ -1056,7 +1008,6 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	
 	// ### nothing to do yet
 	
-//	p.flush();
 	p.end();
 	
 	m_update_layer[LAYER_MARKERS] = false;
@@ -1219,32 +1170,6 @@ LabelType *findMarkerType (const char */*txt*/)
 //    }
 //    warning("could not find Labeltype %s\n", txt);
     return 0;
-}
-//***************************************************************************
-void SignalWidget::signalinserted(int /*start*/, int /*len*/)
-{
-//    Label *tmp;
-//    for (tmp = labels->first(); tmp; tmp = labels->next())
-//	if (tmp->pos > start) tmp->pos += len;
-//    setRange (start, start + len);
-//    refreshAllLayers();
-}
-
-//***************************************************************************
-void SignalWidget::signaldeleted(int /*start*/, int /*len*/)
-{
-//    Label *tmp;
-//    for (tmp = labels->first(); tmp; tmp = labels->next()) {
-//	if ((tmp->pos > start) && (tmp->pos < start + len)) //if Label position is within selected boundaries
-//	{
-//	    labels->remove ();
-//	    tmp = labels->first();
-//	}
-//	if (tmp->pos >= start + len) tmp->pos -= len;     //if it is greater correct position
-//    }
-//
-//    setRange (start, start);
-//    refreshAllLayers();
 }
 
 ////***************************************************************************
@@ -1813,24 +1738,24 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track &track)
 }
 
 //***************************************************************************
-void SignalWidget::slotSamplesInserted(unsigned int track,
-    unsigned int offset, unsigned int length)
+void SignalWidget::slotSamplesInserted(unsigned int /*track*/,
+    unsigned int /*offset*/, unsigned int /*length*/)
 {
 //    debug("SignalWidget(): slotSamplesInserted(%u, %u,%u)", track,
 //	offset, length);
 }
 
 //***************************************************************************
-void SignalWidget::slotSamplesDeleted(unsigned int track,
-    unsigned int offset, unsigned int length)
+void SignalWidget::slotSamplesDeleted(unsigned int /*track*/,
+    unsigned int /*offset*/, unsigned int /*length*/)
 {
 //    debug("SignalManager(): slotSamplesDeleted(%u, %u,%u)", track,
 //	offset, length);
 }
 
 //***************************************************************************
-void SignalWidget::slotSamplesModified(unsigned int track,
-    unsigned int offset, unsigned int length)
+void SignalWidget::slotSamplesModified(unsigned int /*track*/,
+    unsigned int /*offset*/, unsigned int /*length*/)
 {
 //    debug("SignalWidget(): slotSamplesModified(%u, %u,%u)", track,
 //	offset, length);

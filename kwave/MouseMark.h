@@ -56,15 +56,6 @@ public:
     void grep(int x);
 
     /**
-     * Returns true if x is in the border range between
-     * selected and unselected.
-     * @param x position to be checked
-     * @param tol tolerance
-     * @return true if the position is in range
-     */
-    bool checkPosition(int x, int tol);
-
-    /**
      * Returns the left border of the selection.
      */
     int left();

@@ -43,6 +43,7 @@
 #include "libkwave/FileFormat.h"
 #include "libkwave/Parser.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 
@@ -132,7 +133,10 @@ void SignalManager::close()
     m_empty = true;
     m_name = "";
     m_signal.close();
+
     m_closed = true;
+    m_rate = 0;
+    m_selection.select(0,0);
     emitStatusInfo();
 }
 
@@ -524,28 +528,29 @@ void SignalManager::commandDone()
 }
 
 //***************************************************************************
-void SignalManager::slotTrackInserted(unsigned int index, Track &track)
+void SignalManager::slotTrackInserted(unsigned int /*index*/,
+	Track &/*track*/)
 {
     emitStatusInfo();
 }
 
 //***************************************************************************
-void SignalManager::slotSamplesInserted(unsigned int track, unsigned int offset,
-	unsigned int length)
+void SignalManager::slotSamplesInserted(unsigned int /*track*/,
+	unsigned int /*offset*/, unsigned int /*length*/)
 {
     emitStatusInfo();
 }
 
 //***************************************************************************
-void SignalManager::slotSamplesDeleted(unsigned int track, unsigned int offset,
-	unsigned int length)
+void SignalManager::slotSamplesDeleted(unsigned int /*track*/,
+	unsigned int /*offset*/, unsigned int /*length*/)
 {
     emitStatusInfo();
 }
 
 //***************************************************************************
-void SignalManager::slotSamplesModified(unsigned int track,
-	unsigned int offset, unsigned int length)
+void SignalManager::slotSamplesModified(unsigned int /*track*/,
+	unsigned int /*offset*/, unsigned int /*length*/)
 {
 }
 
@@ -812,182 +817,180 @@ void SignalManager::exportAscii(const char */*name*/)
 }
 
 //***************************************************************************
-int SignalManager::writeWavChunk(FILE */*sigout*/, unsigned int/* begin*/,
-                                 unsigned int /*length*/, int /*bits*/)
+int SignalManager::writeWavChunk(QFile &sigout, unsigned int offset,
+                                 unsigned int length, unsigned int bits)
 {
-// ### not ported yet ###
-//    unsigned int bufsize = 16 * 1024 * sizeof(int);
-//    unsigned char *savebuffer = 0;
-//    sample_t **sample = 0;    // array of pointers to samples
-//    int bytes = bits / 8;
-//    int bytes_per_sample = bytes * m_channels;
-//    bufsize -= bufsize % bytes_per_sample;
-//
-//    // try to allocate memory for the save buffer
-//    // if failed, try again with the half buffer size as long
-//    // as <1kB is not reached (then we are really out of memory)
-//    while (savebuffer == 0) {
-//	if (bufsize < 1024) {
-//	    debug("SignalManager::writeWavSignal:not enough memory for buffer");
-//	    return -ENOMEM;
-//	}
-//	savebuffer = new unsigned char[bufsize];
-//	if (!savebuffer) {
-//	    bufsize >>= 1;
-//	    bufsize -= bufsize % bytes_per_sample;
-//	}
-//    }
-//
-//    //prepare and show the progress dialog
-//    char progress_title[256];
-//    char str_channels[128];
-//    if (m_channels == 1)
-//	strncpy(str_channels, i18n("Mono"), sizeof(str_channels));
-//    else if (m_channels == 2)
-//	strncpy(str_channels, i18n("Stereo"), sizeof(str_channels));
-//    else
-//	snprintf(str_channels, sizeof(str_channels), "%d-channel", m_channels);
-//
-//    snprintf(progress_title, sizeof(progress_title), "Saving %d-Bit-%s File :",
-//	    bits, str_channels);
-//
-//    QString title = i18n(progress_title);
-//    ProgressDialog *dialog = new ProgressDialog (100, title);
-//    if (dialog) dialog->show();
-//
-//    // prepare the store loop
-//    int percent_count = length / 200;
-//    unsigned int shift = 24-bits;
-//
-//    sample = new (int*)[m_channels];
-//    for (unsigned int channel = 0; channel < m_channels; channel++) {
-//	sample[channel] = signal.at(channel)->getSample();
-//	ASSERT(sample[channel]);
-//	if (!sample[channel]) {
-//	    KMessageBox::error(m_parent_widget,
-//		i18n("empty channel detected, channel count reduced by one"),
-//		i18n("Warning"), 2);
-//	    m_channels--;
-//	}
-//    }
-//
-//    // loop for writing data
-//    for (unsigned int pos = begin; pos < length; ) {
-//	unsigned char *buf = savebuffer;
-//	unsigned int nsamples = 0;
-//
-//	while (pos < length && (nsamples < bufsize / bytes_per_sample)) {
-//	    for (unsigned int channel = 0; channel < m_channels; channel++) {
-//		int *smp = sample[channel] + pos;
-//		int act = (*smp) >> shift;
-//		if (bytes == 1) {
-//		    // 8 bits -> unsigned
-//		    *(buf++) = (char)((act - 128) & 0xFF);
-//		} else {
-//		    // >= 16 bits -> signed
-//		    for (register int byte = bytes; byte; byte--) {
-//			*(buf++) = (char)(act & 0xFF);
-//			act >>= 8;
-//		    }
-//		}
-//	    }
-//	    nsamples++;
-//	    pos++;
-//	}
-//
-//	int written_bytes = fwrite(savebuffer,
-//				   bytes_per_sample, nsamples, sigout);
-//
-//	percent_count -= written_bytes;
-//	if (dialog && (percent_count <= 0)) {
-//	    percent_count = length / 200;
-//	    float percent = (float)pos;
-//	    percent /= (float)length;
-//	    percent *= 100.0;
-//	    dialog->setProgress (percent);
-//	}
-//    }
-//
-//    if (sample) delete[] sample;
-//    if (dialog) delete dialog;
-//    if (savebuffer) delete[] savebuffer;
+    unsigned int bufsize = 16 * 1024 * sizeof(int);
+    unsigned char *savebuffer = 0;
+    int bytes = bits / 8;
+    unsigned int tracks = this->tracks();
+    int bytes_per_sample = bytes * tracks;
+    bufsize -= bufsize % bytes_per_sample;
+
+    // try to allocate memory for the save buffer
+    // if failed, try again with the half buffer size as long
+    // as <1kB is not reached (then we are really out of memory)
+    while (savebuffer == 0) {
+	if (bufsize < 1024) {
+	    warning("SignalManager::writeWavChunk:no memory for buffer");
+	    return -ENOMEM;
+	}
+	savebuffer = new unsigned char[bufsize];
+	if (!savebuffer) {
+	    bufsize >>= 1;
+	    bufsize -= bufsize % bytes_per_sample;
+	}
+    }
+
+    // prepare and show the progress dialog
+    unsigned int file_rest = tracks * length * bytes_per_sample;
+    FileProgress *dialog = new FileProgress(m_parent_widget,
+	m_name, file_rest, length, m_rate, bits, tracks);
+    ASSERT(dialog);
+
+    // prepare the store loop
+    int percent_count = length / 200;
+    unsigned int shift = 24-bits;
+
+    QList<SampleReader> samples;
+    samples.setAutoDelete(true);
+    for (unsigned int track = 0; track < tracks; track++) {
+	SampleReader *s = m_signal.openSampleReader(track,
+	    offset, offset+length-1);
+	ASSERT(s);
+	if (!s) {
+	    KMessageBox::sorry(m_parent_widget, i18n("Out of Memory!"));
+	    return -ENOMEM;
+	}
+	samples.append(s);
+    }
+
+    // loop for writing data
+    for (unsigned int pos = offset; pos < offset+length; ) {
+	unsigned char *buf = savebuffer;
+	unsigned int nsamples = 0;
+	
+	while (pos < offset+length &&
+	      (nsamples < (bufsize/bytes_per_sample)))
+	{
+	    for (unsigned int track = 0; track < tracks; track++) {
+		SampleReader *stream = samples.at(track);
+		sample_t act;
+		(*stream) >> act;
+		act >>= shift;
+		if (bytes == 1) {
+		    // 8 bits -> unsigned
+		    *(buf++) = (char)((act - 128) & 0xFF);
+		} else {
+		    // >= 16 bits -> signed
+		    for (register int byte = bytes; byte; byte--) {
+			*(buf++) = (char)(act & 0xFF);
+			act >>= 8;
+		    }
+		}
+	    }
+	    nsamples++;
+	    pos++;
+	}
+	
+	int written_bytes = sigout.writeBlock(
+	    reinterpret_cast<char *>(savebuffer),
+	    bytes_per_sample * nsamples);
+	
+	percent_count -= written_bytes;
+	if (dialog && (percent_count <= 0)) {
+	    percent_count = length / 200;
+	    dialog->setValue(pos*tracks*bytes_per_sample);
+	}
+    }
+
+    if (dialog) delete dialog;
+    if (savebuffer) delete[] savebuffer;
+
+    // close all SampleReaders
+    samples.clear();
+
     return 0;
 }
 
 //***************************************************************************
-void SignalManager::save(const char */*filename*/, int /*bits*/, bool /*selection*/)
+void SignalManager::save(const QString &filename, unsigned int bits,
+                         bool selection)
 {
-// ### not ported yet ###
-//    debug("SignalManager::save(): %d Bit to %s ,%d", bits, filename, selection);
-//
-//    __uint32_t begin = 0;
-//    __uint32_t length = this->getLength();
-//    wav_header_t header;
-//
-//    ASSERT(filename);
-//    if (!filename) return;
-//
-//    if (selection && (lmarker != rmarker)) {
-//	begin = lmarker;
-//	length = rmarker - lmarker + 1;
-//    }
-//
-//    FILE *sigout = fopen(filename, "w");
-//    if (name) delete[] name;
-//    name = duplicateString(filename);
-//    ASSERT(name);
-//    if (!name) return;
-//
-//    if (!m_channels) KMsgBox(0, i18n("info"),
-//	i18n("Signal is empty, nothing to save !"), 2);
-//
-//    if (sigout) {
-//	__uint32_t datalen = (bits >> 3) * length * m_channels;
-//
-//	strncpy((char*)&(header.riffid), "RIFF", 4);
-//	strncpy((char*)&(header.wavid), "WAVE", 4);
-//	strncpy((char*)&(header.fmtid), "fmt ", 4);
-//	header.filelength = datalen + sizeof(struct wavheader);
-//	header.fmtlength = 16;
-//	header.mode = 1;
-//	header.channels = m_channels;
-//	header.rate = rate;
-//	header.AvgBytesPerSec = rate * (bits >> 3) * m_channels;
-//	header.BlockAlign = (bits >> 3) * m_channels;
-//	header.bitspersample = bits;
-//
-//#if defined(IS_BIG_ENDIAN)
-//	header.filelength = bswap_32(header.filelength);
-//	header.fmtlength = bswap_32(header.fmtlength);
-//	header.mode = bswap_16(header.mode);
-//	header.channels = bswap_16(header.channels);
-//	header.rate = bswap_32(header.rate);
-//	header.AvgBytesPerSec = bswap_32(header.AvgBytesPerSec);
-//	header.BlockAlign = bswap_16(header.BlockAlign);
-//	header.bitspersample = bswap_16(header.bitspersample);
-//	datalen = bswap_32(datalen);
-//#endif
-//
-//	fseek (sigout, 0, SEEK_SET);
-//	fwrite ((char *) &header, 1, sizeof (struct wavheader), sigout);
-//	fwrite ("data", 1, 4, sigout);
-//	fwrite ((char *)&datalen, 1, 4, sigout);
-//
-//	switch (bits) {
-//	    case 8:
-//	    case 16:
-//	    case 24:
-//		writeWavChunk(sigout, begin, length, bits);
-//		break;
-//	    default:
-//		KMsgBox::message(m_parent_widget, i18n("Info"),
-//		    i18n("Sorry only 8/16/24 Bits per Sample are supported !"),
-//		    2);
-//	    break;
-//	}
-//
-//	fclose(sigout);
-//    }
+    debug("SignalManager::save(): %u Bit to %s ,%d",
+    	bits, filename.data(), selection);
+
+    __uint32_t ofs = 0;
+    __uint32_t len = length();
+    unsigned int tracks = this->tracks();
+    wav_header_t header;
+
+    ASSERT(filename);
+    if (!filename) return;
+
+    if (selection) {
+	if (m_selection.length() == 0) return; // zero-length -> nothing to do
+	ofs = m_selection.offset();
+	len = m_selection.length();
+    }
+
+    if (!tracks || !len) {
+	KMessageBox::error(m_parent_widget,
+	    i18n("Signal is empty, nothing to save !"));
+	return;
+    }
+
+    QFile sigout(filename);
+    if (!sigout.open(IO_WriteOnly | IO_Truncate)) {
+	KMessageBox::error(m_parent_widget,
+	    i18n("Opening the file for writing failed!"));
+	return;
+    };
+
+    __uint32_t datalen = (bits >> 3) * len * tracks;
+    strncpy((char*)&(header.riffid), "RIFF", 4);
+    strncpy((char*)&(header.wavid), "WAVE", 4);
+    strncpy((char*)&(header.fmtid), "fmt ", 4);
+    header.filelength = datalen + sizeof(wav_header_t);
+    header.fmtlength = 16;
+    header.mode = 1;
+    header.channels = tracks;
+    header.rate = m_rate;
+    header.AvgBytesPerSec = m_rate * (bits >> 3) * tracks;
+    header.BlockAlign = (bits >> 3) * tracks;
+    header.bitspersample = bits;
+
+#if defined(IS_BIG_ENDIAN)
+    header.filelength = bswap_32(header.filelength);
+    header.fmtlength = bswap_32(header.fmtlength);
+    header.mode = bswap_16(header.mode);
+    header.channels = bswap_16(header.channels);
+    header.rate = bswap_32(header.rate);
+    header.AvgBytesPerSec = bswap_32(header.AvgBytesPerSec);
+    header.BlockAlign = bswap_16(header.BlockAlign);
+    header.bitspersample = bswap_16(header.bitspersample);
+    datalen = bswap_32(datalen);
+#endif
+
+    sigout.at(0);
+    sigout.writeBlock((char *) &header, sizeof(wav_header_t));
+    sigout.writeBlock("data", 4);
+    sigout.writeBlock((char *)&datalen, 4);
+
+    switch (bits) {
+	case 8:
+	case 16:
+	case 24:
+	    writeWavChunk(sigout, ofs, len, bits);
+	    break;
+	default:
+	    KMessageBox::sorry(m_parent_widget,
+		i18n("Sorry only 8/16/24 Bits per Sample are supported !"));
+	break;
+    }
+
+    sigout.close();
+
 }
 
 //***************************************************************************

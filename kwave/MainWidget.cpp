@@ -315,12 +315,12 @@ void MainWidget::refreshOverView()
 }
 
 //**********************************************************
-void MainWidget::saveSignal(const char *filename, int bits,
-                            int type, bool selection)
+void MainWidget::saveFile(const QString &filename, unsigned int bits,
+                          int type, bool selection)
 {
     ASSERT(m_signal_widget);
     if (m_signal_widget)
-    	m_signal_widget->saveSignal(filename, bits, type, selection);
+    	m_signal_widget->saveFile(filename, bits, type, selection);
 }
 
 //***************************************************************************

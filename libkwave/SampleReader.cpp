@@ -4,6 +4,11 @@
     begin                : Apr 25 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
+
+    $Log$
+    Revision 1.3  2001/05/08 20:19:25  the
+    loading/saving in wav format works again
+
  ***************************************************************************/
 
 /***************************************************************************
@@ -25,7 +30,8 @@
 SampleReader::SampleReader(Track &track, QList<Stripe> &stripes,
 	SampleLock *lock, unsigned int left, unsigned int right)
     :m_track(track), m_stripes(stripes), m_lock(lock),
-    m_position(left), m_last(right)
+    m_position(left), m_last(right), m_buffer(16*1024),
+    m_buffer_used(0), m_buffer_position(0), m_eof(false)
 {
 }
 
@@ -36,18 +42,16 @@ SampleReader::~SampleReader()
 }
 
 //***************************************************************************
-unsigned int SampleReader::read(QArray<sample_t> &buffer,
-	unsigned int dstoff, unsigned int length)
+void SampleReader::fillBuffer()
 {
-//    debug("SampleReader::read(buffer,%u,%u)", dstoff, length); // ###
-    unsigned int count = 0;
-    if (m_position >= m_last) return 0; // already done
+    m_buffer_used = 0;
+    m_buffer_position = 0;
 
-    // just a sanity check
-    ASSERT(dstoff < buffer.size());
-    if (dstoff >= buffer.size()) return 0;
+    if (m_position > m_last) m_eof = true;
+    if (m_eof) return;
 
     QListIterator<Stripe> it(m_stripes);
+    unsigned int length = m_buffer.size();
 
     for (; it.current(); ++it) {
 	Stripe *s = it.current();
@@ -59,21 +63,41 @@ unsigned int SampleReader::read(QArray<sample_t> &buffer,
 	
 	if (m_position >= st) {
 	    unsigned int offset = m_position - st;
-	    unsigned int cnt;
-	    if (length > (len-offset)) length = len - offset;
+	    if (offset+length > len) length = len - offset;
 	
 	    // read from the stripe
-//	    debug("SampleReader::read(): s->read(dstoff=%u, offset=%u, length=%u)",
-//	        dstoff, offset, length); // ###
-	    cnt = s->read(buffer, dstoff, offset, length);
-//	    debug("SampleReader::read(): cnt=%u", cnt); // ###
-	
-	    count += cnt;
+	    unsigned int cnt = s->read(m_buffer, 0, offset, length);
+	    m_buffer_used += cnt;
 	    m_position += cnt;
 	}
     }
+}
 
-    return count;
+//***************************************************************************
+unsigned int SampleReader::read(QArray<sample_t> &buffer,
+	unsigned int dstoff, unsigned int length)
+{
+    if (m_eof) return 0; // already done
+
+    // just a sanity check
+    ASSERT(dstoff < buffer.size());
+    if (dstoff >= buffer.size()) return 0;
+
+    unsigned int start = dstoff;
+    while (!m_eof && length--) {
+	(*this) >> buffer[dstoff++];
+    }
+    return (dstoff-start);
+}
+
+//***************************************************************************
+SampleReader &SampleReader::operator >> (sample_t &sample)
+{
+    // get new buffer if end of last buffer reached
+    if (m_buffer_position >= m_buffer_used) fillBuffer();
+    sample = (m_buffer_position < m_buffer_used) ?
+	      m_buffer[m_buffer_position++] : 0;
+    return *this;
 }
 
 //***************************************************************************

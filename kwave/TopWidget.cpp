@@ -4,6 +4,12 @@
     begin                : 1999
     copyright            : (C) 1999 by Martin Wilz
     email                : Martin Wilz <mwilz@ernie.mi.uni-koeln.de>
+
+    $Log$
+    Revision 1.18  2001/05/08 20:19:25  the
+    loading/saving in wav format works again
+
+
  ***************************************************************************/
 
 /***************************************************************************
@@ -86,12 +92,19 @@
  */
 #define CASE_COMMAND(x) } else if (parser.command() == x) {
 
+
+#define STATUS_ID_SIZE     1 /**< index of status item for size [samples,ms]*/
+#define STATUS_ID_MODE     2 /**< index of status item for mode */
+#define STATUS_ID_SELECTED 3 /**< index of status item for selection */
+
+
 //***************************************************************************
 //***************************************************************************
 TopWidget::ZoomListPrivate::ZoomListPrivate()
 :QStringList()
 {
     clear();
+    append("800 %");
     append("400 %");
     append("200 %");
     append("100 %");
@@ -100,6 +113,7 @@ TopWidget::ZoomListPrivate::ZoomListPrivate()
     append("3 %");
     append("1 %");
     append("0.1 %");
+    append("0.01 %");
 };
 
 /** list of predefined zoom factors */
@@ -151,11 +165,10 @@ TopWidget::TopWidget(KwaveApp &main_app)
     KStatusBar *status_bar = statusBar();
     ASSERT(status_bar);
     if (!status_bar) return;
-    status_bar->insertItem(i18n("Length: 0 ms           "), 1);
-    status_bar->insertItem(i18n("Rate: 0 kHz         "), 2);
-    status_bar->insertItem(i18n("Samples: 0             "), 3);
-    status_bar->insertItem(i18n("selected: 0 ms        "), 4);
-    status_bar->insertItem(i18n("Clipboard: 0 ms      "), 5);
+    status_bar->insertItem("", STATUS_ID_SIZE);
+    status_bar->insertItem("", STATUS_ID_MODE);
+    status_bar->insertItem("", STATUS_ID_SELECTED);
+    setStatusInfo(SAMPLE_MAX,99,196000,24);
 
     // connect clicked menu entries with main communication channel of kwave
     connect(m_menu_manager, SIGNAL(sigMenuCommand(const QString &)),
@@ -361,7 +374,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	this, SLOT(selectZoom(int)), true,
 	i18n("select zoom factor"));
     connect(m_main_widget, SIGNAL(sigZoomChanged(double)),
-            this, SLOT(setZoom(double)));
+            this, SLOT(setZoomInfo(double)));
     m_zoomselect = m_toolbar->getCombo(m_id_zoomselect);
     ASSERT(m_zoomselect);
     if (!m_zoomselect) return;
@@ -426,6 +439,8 @@ TopWidget::TopWidget(KwaveApp &main_app)
     w = max(w, m_toolbar->sizeHint().width());
     h = max(m_main_widget->sizeHint().height(), w*6/10);
     resize(w, h);
+
+    setStatusInfo(0,0,0,0);
 
     debug("TopWidget::TopWidget(): done."); // ###
 }
@@ -670,7 +685,9 @@ void TopWidget::openFile()
 
     filename = KFileDialog::getOpenFileName(dir, "*.wav", this);
     if (filename.length()) {
-	KwaveApp::setDefaultOpenDir(filename);
+	QFileInfo path(filename);
+	KwaveApp::setDefaultOpenDir(path.dirPath());
+	
 	loadFile(filename, WAV);
     }
 }
@@ -683,7 +700,9 @@ void TopWidget::importAsciiFile()
 
     filename = KFileDialog::getOpenFileName(dir, "*.asc", this);
     if (filename.length()) {
-	KwaveApp::setDefaultOpenDir(filename);
+	QFileInfo path(filename);
+	KwaveApp::setDefaultOpenDir(path.dirPath());
+	
 	loadFile(filename, ASCII);
     }
 }
@@ -691,13 +710,15 @@ void TopWidget::importAsciiFile()
 //***************************************************************************
 void TopWidget::exportAsciiFile()
 {
-    QString filename;
+    QString name;
     QString dir = KwaveApp::defaultOpenDir();
 
-    filename = KFileDialog::getSaveFileName(dir, "*.asc", this);
-    if (filename.length()) {
-	KwaveApp::setDefaultSaveDir(filename);
-	m_main_widget->saveSignal(filename, m_save_bits, ASCII, false);
+    name = KFileDialog::getSaveFileName(dir, "*.asc", this);
+    if (name.length()) {
+	QFileInfo path(name);
+	KwaveApp::setDefaultSaveDir(path.dirPath());
+	
+	m_main_widget->saveFile(name, m_save_bits, ASCII, false);
     }
 }
 
@@ -708,11 +729,13 @@ void TopWidget::saveFile()
     if (!m_main_widget) return;
 
     if (m_filename.length()) {
-	KwaveApp::setDefaultSaveDir(m_filename);
-	m_main_widget->saveSignal(m_filename, m_save_bits, 0, false);
+	QFileInfo path(m_filename);
+	KwaveApp::setDefaultSaveDir(path.dirPath());
+	
+	m_main_widget->saveFile(m_filename, m_save_bits, 0, false);
 	setCaption(m_filename);
 	updateMenu();
-    } else saveFileAs (false);
+    } else saveFileAs(false);
 }
 
 //***************************************************************************
@@ -724,10 +747,11 @@ void TopWidget::saveFileAs(bool selection)
     QString dir = KwaveApp::defaultSaveDir();
     QString name = KFileDialog::getSaveFileName(dir, "*.wav", m_main_widget);
     if (!name.isNull()) {
-	KwaveApp::setDefaultSaveDir(name);
-
+	QFileInfo path(name);
+	KwaveApp::setDefaultSaveDir(path.dirPath());
+	
 	m_filename = name;
-	m_main_widget->saveSignal(m_filename, m_save_bits, 0, selection);
+	m_main_widget->saveFile(m_filename, m_save_bits, 0, selection);
 	setCaption(m_filename);
 	m_app.addRecentFile(m_filename);
 	updateMenu();
@@ -754,13 +778,19 @@ void TopWidget::selectZoom(int index)
     QStringList::Iterator text = zoom_factors.at(index);
     new_zoom = (text != 0) ? (*text).toDouble() : 0.0;
     if (new_zoom != 0.0) new_zoom = (100.0 / new_zoom);
+
     m_main_widget->setZoom(new_zoom);
+
+    // force the zoom factor to be set, maybe the current selection
+    // has been changed/corrected to the previous value so that we
+    // don't get a signal.
+    setZoomInfo(m_main_widget->zoom());
 }
 
 //***************************************************************************
-void TopWidget::setZoom(double zoom)
+void TopWidget::setZoomInfo(double zoom)
 {
-//    debug("void TopWidget::setZoom(%0.5f)", zoom);
+//    debug("void TopWidget::setZoomInfo(%0.5f)", zoom);
     ASSERT(zoom >= 0);
     ASSERT(m_zoomselect);
 
@@ -788,17 +818,20 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
     QString txt;
 
     // length in milliseconds
-    txt = " "+i18n("Length: %1")+" ";
-    ms = (rate) ? (((double)length / (double)rate) * 1E3) : 0;
-    statusBar()->changeItem(txt.arg(KwavePlugin::ms2string(ms)), 1);
+    if (length) {
+	txt = " "+i18n("Length: %1")+" "+i18n("(%2 samples)")+" ";
+	ms = (rate) ? (((double)length / (double)rate) * 1E3) : 0;
+	txt = txt.arg(KwavePlugin::ms2string(ms));
+	txt = txt.arg(length);
+    } else txt = "";
+    statusBar()->changeItem(txt, STATUS_ID_SIZE);
 
     // sample rate and resolution
-    txt = " "+i18n("Mode: %u bit@%0.3f kHz")+" ";
-    statusBar()->changeItem(txt.sprintf(txt, bits, (double)rate *1E-3), 2);
-
-    // number of samples
-    txt = " "+i18n("Samples: %1")+" ";
-    statusBar()->changeItem(txt.arg(length), 3);
+    if (bits) {
+	txt = " "+i18n("Mode: %u bit@%0.3f kHz")+" ";
+	txt = txt.sprintf(txt, bits, (double)rate *1E-3);
+    } else txt = "";
+    statusBar()->changeItem(txt, STATUS_ID_MODE);
 }
 
 //***************************************************************************
@@ -808,7 +841,13 @@ void TopWidget::setSelectedTimeInfo(double ms)
     if (!statusBar()) return;
 
     QString txt = " "+i18n("Selected: %1")+" ";
-    statusBar()->changeItem(txt.arg(KwavePlugin::ms2string(ms)), 4);
+    SignalManager *mgr = signalManager();
+    txt = txt.arg(KwavePlugin::ms2string(ms));
+    if (mgr && mgr->rate()) {
+	txt += i18n("(%2 samples)")+" ";
+	txt = txt.arg((unsigned int)(ms*1E-3* mgr->rate()));
+    }
+    statusBar()->message(txt, 2000);
 }
 
 //***************************************************************************

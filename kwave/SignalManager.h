@@ -177,7 +177,14 @@ public:
     int averageSample(unsigned int offset,
                       const QArray<unsigned int> *channels = 0);
 
-    void save(const char *filename, int bits, bool selection);
+    /**
+     * Saves the signal to a file with a given resolution. If the file
+     * already exists, it will be overwritten.
+     * @param filename name of the file to be saved.
+     * @param bits number of bits per sample
+     * @param selection if true, only the selected range will be saved
+     */
+    void save(const QString &filename, unsigned int bits, bool selection);
 
     /**
      * Exports ascii file with one sample per line and only one channel.
@@ -366,7 +373,7 @@ private:
      * a new empty Signal for each channel and fills it with
      * data read from an opened file. The file's actual position
      * must already be set to the correct position.
-     * @param sigin pointer to the already opened file
+     * @param sigin reference to the already opened file
      * @param length number of samples to be read
      * @param channels number of channels [1..n]
      * @param number of bits per sample [8,16,24,...]
@@ -378,14 +385,14 @@ private:
     /**
      * Writes the chunk with the signal to a .wav file (not including
      * the header!).
-     * @param sigout pointer to the already opened file
+     * @param sigout reference to the already opened file
+     * @param offset start position from where to save
      * @param length number of samples to be written
-     * @param channels number of channels [1..n]
-     * @param number of bits per sample [8,16,24,...]
+     * @param bits number of bits per sample [8,16,24,...]
      * @return 0 if succeeded or error number if failed
      */
-    int writeWavChunk(FILE *sigout, unsigned int begin, unsigned int length,
-                      int bits);
+    int writeWavChunk(QFile &sigout, unsigned int offset, unsigned int length,
+                      unsigned int bits);
 
 private:
 

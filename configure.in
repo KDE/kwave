@@ -203,5 +203,5 @@ AC_SUBST(RPM_BUILDROOT)
 AC_SUBST(LD_VERSION_INFO)
 
 dnl add here all your Makefiles
-dnl AC_OUTPUT(Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/template/Makefile po/Makefile doxy.cfg doc/Makefile )
-AC_OUTPUT(    Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/template/Makefile po/Makefile doxy.cfg doc/Makefile )
+dnl AC_OUTPUT(Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/template/Makefile po/Makefile doxy.cfg kwave.spec doc/Makefile )
+AC_OUTPUT(    Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/template/Makefile po/Makefile doxy.cfg kwave.spec doc/Makefile )

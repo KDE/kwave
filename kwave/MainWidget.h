@@ -68,12 +68,16 @@ public:
     /**
      * @todo: re-implementation
      */
-    void saveSignal(const char *filename, int bits, int type, bool selection);
+    void saveFile(const QString &filename, unsigned int bits,
+                  int type, bool selection);
 
     /**
      * Closes the current signal.
      */
     void closeSignal();
+
+    /** Returns the current zoom factor. */
+    double zoom();
 
     /**
      * Returns the current number of tracks of the signal or 0 if
@@ -109,9 +113,6 @@ public slots:
     void resetChannels();
 
     void parseKey(int key);
-
-    /** returns the current zoom factor */
-    double zoom();
 
     /** calls setZoom() of the signal widget */
     void setZoom(double new_zoom);
@@ -220,4 +221,5 @@ private:
     unsigned int lastChannels;
 
 };
+
 #endif // _MAIN_WIDGET_H_

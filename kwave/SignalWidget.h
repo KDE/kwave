@@ -86,8 +86,8 @@ public:
     void loadFile(const QString  &filename, int type);
 
     /** @todo (re)implementation */
-    void saveSignal (const char *filename, int bits,
-		     int type, bool selection = false);
+    void saveFile(const QString &filename, unsigned int bits,
+		  int type, bool selection = false);
 
     /** @todo (re)implementation */
     void saveBlocks (int);
@@ -162,10 +162,6 @@ public slots:
 
     void forwardCommand(const QString &command);
 
-    void signalinserted(int, int);
-    void signaldeleted(int, int);
-    void estimateRange(int, int);
-
     void toggleChannel(int);
 
     void playback_time();
@@ -230,7 +226,7 @@ protected slots:
      * @see m_inhibit_repaint
      * @see inhibitRepaint()
      */
-    void allowRepaint();
+    void allowRepaint(bool repaint);
 
 private slots:
 
@@ -336,19 +332,22 @@ protected:
     {
     public:
         /** Constructor, inhibits repaints */
-	InhibitRepaintGuard(SignalWidget &widget)
-	    :m_widget(widget)
+	InhibitRepaintGuard(SignalWidget &widget, bool repaint=true)
+	    :m_widget(widget), m_repaint(repaint)
 	{
 	    m_widget.inhibitRepaint();
 	};
 	
 	/** Destructor, allows repaints */
 	~InhibitRepaintGuard() {
-	    m_widget.allowRepaint();
+	    m_widget.allowRepaint(m_repaint);
 	};
 	
 	/** reference to our owner */
 	SignalWidget &m_widget;
+	
+	/** true if repaint is needed after allow */
+	bool m_repaint;
     };
 
     /**

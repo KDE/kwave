@@ -4,6 +4,11 @@
     begin                : Apr 25 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
+
+    $Log$
+    Revision 1.3  2001/05/08 20:19:25  the
+    loading/saving in wav format works again
+
  ***************************************************************************/
 
 /***************************************************************************
@@ -49,6 +54,9 @@ public:
     /** Destructor */
     virtual ~SampleReader();
 
+    /** Returns true if the end of the input range has been reached */
+    inline bool eof() { return (m_eof); };
+
     /**
      * Reads samples into a buffer.
      * @param buffer the destination buffer to receive the samples
@@ -59,8 +67,17 @@ public:
     unsigned int read(QArray<sample_t> &buffer, unsigned int dstoff,
 	unsigned int length);
 
-private:
+    /**
+     * Reads one single sample.
+     */
+    SampleReader& operator >> (sample_t &sample);
 
+protected:
+
+    /** Fills the sample buffer */
+    void fillBuffer();
+
+private:
     /** the track to which we belong */
     Track &m_track;
 
@@ -75,6 +92,18 @@ private:
 
     /** last sample index */
     unsigned int m_last;
+
+    /** intermediate buffer for the input data */
+    QArray<sample_t> m_buffer;
+
+    /** number of used elements in the buffer */
+    unsigned int m_buffer_used;
+
+    /** read position within the buffer */
+    unsigned int m_buffer_position;
+
+    /** set to true if the end of data has been reached */
+    bool m_eof;
 
 };
 

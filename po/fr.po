@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-02-03 16:40+0100\n"
-"PO-Revision-Date: 2002-02-05 21:03GMT\n"
+"PO-Revision-Date: 2002-02-06 23:36GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -596,7 +596,7 @@ msgstr "&Insertion de labels..."
 
 #: kwave/menus_config_i18n.cpp:60
 msgid "&Invert Selection"
-msgstr "&Invertion de la selection"
+msgstr "&Invertion de la sélection"
 
 #: kwave/menus_config_i18n.cpp:61
 msgid "Label by &Intensity"
@@ -744,15 +744,15 @@ msgstr "Déplacer à &droite"
 
 #: kwave/menus_config_i18n.cpp:105
 msgid "&Select all"
-msgstr "&Selectionner tout"
+msgstr "&Sélectionner tout"
 
 #: kwave/menus_config_i18n.cpp:106
 msgid "&Selection"
-msgstr "&Selection"
+msgstr "&Sélection"
 
 #: kwave/menus_config_i18n.cpp:107
 msgid "&Selection..."
-msgstr "&Selection..."
+msgstr "&Sélection..."
 
 #: kwave/menus_config_i18n.cpp:108
 msgid "&Silence"
@@ -993,7 +993,7 @@ msgstr "Niveau maximum du silence en %"
 
 #: plugins/freqmult/module.cpp:17
 msgid "Select Function :"
-msgstr "Selectionner une fonction :"
+msgstr "Slectionner une fonction :"
 
 #: plugins/freqmult/module.cpp:36
 msgid "Freq. in Hz"
@@ -1576,7 +1576,7 @@ msgstr "Filtre passe-haut"
 
 #: plugins/pitch/module.cpp:23
 msgid "Select frequency range :"
-msgstr "Selectionner une plage de fréquences :"
+msgstr "Sélectionner une plage de fréquences :"
 
 #: plugins/pitch/module.cpp:31
 msgid "Highest Freq. in Hz"
@@ -1747,7 +1747,7 @@ msgstr "taille du Bitmap : %1x%2"
 
 #: plugins/savelabel/module.cpp:22
 msgid "Select label types to be saved :"
-msgstr "Selectionnez le type de label à sauvegarder :"
+msgstr "Sélectionnez le type de label à sauvegarder :"
 
 #: plugins/envelope/module.cpp:27
 msgid "Choose Envelope Parameters"
@@ -1871,7 +1871,7 @@ msgid ""
 "<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
 "you are not sure now, you can add or delete tracks later in the program."
 msgstr ""
-"<b>Nombre de pistes</b><br>Selectionne un nombre de pistes sonores pour les "
+"<b>Nombre de pistes</b><br>Sélectionne un nombre de pistes sonores pour les "
 "données de travail. Si vous n'étes pas sure maintenant, vous pourrez ajouter "
 "ou supprimer des pistes plus tard avec le programme."
 
@@ -1881,7 +1881,7 @@ msgid ""
 "saved. However, Kwave always uses 24 bits as it's own internal resolution to "
 "give the best results when processing the audio data."
 msgstr ""
-"<b>Résolution</b><br>Selectionne une résolution en bits pour chaque fichiers "
+"<b>Résolution</b><br>Sélectionne une résolution en bits pour chaque fichiers "
 "qui seront sauvegarder. Remarque : Kwave utilise toujours 24 bits comme "
 "résolution interne pour donner les meilleurs résultats sur les opérations "
 "qui sont effectuées sur les pistes."

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-10-25 20:29+0200\n"
+"POT-Creation-Date: 2002-10-30 07:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1101,7 +1101,7 @@ msgstr ""
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:321
+#: kwave/SignalManager.cpp:324
 #, ycp-format
 msgid ""
 "Saving in this format will loose the following additional file attribute"
@@ -1110,51 +1110,51 @@ msgid ""
 "Do you still want to continue?"
 msgstr ""
 
-#: kwave/SignalManager.cpp:362
+#: kwave/SignalManager.cpp:365
 msgid "An error occurred while saving the file!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:371
+#: kwave/SignalManager.cpp:374
 msgid "The file has been truncated and might be corrupted!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:378
+#: kwave/SignalManager.cpp:381
 msgid "Sorry, the file type is not supported!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:592
+#: kwave/SignalManager.cpp:595
 msgid "cut"
 msgstr ""
 
-#: kwave/SignalManager.cpp:595
+#: kwave/SignalManager.cpp:598
 msgid "crop"
 msgstr ""
 
-#: kwave/SignalManager.cpp:661
+#: kwave/SignalManager.cpp:664
 msgid "paste"
 msgstr ""
 
-#: kwave/SignalManager.cpp:704
+#: kwave/SignalManager.cpp:707
 msgid "append track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:711 kwave/UndoInsertTrack.cpp:39
+#: kwave/SignalManager.cpp:714 kwave/UndoInsertTrack.cpp:39
 msgid "insert track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:745 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:748 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:828 kwave/UndoDeleteAction.cpp:36
+#: kwave/SignalManager.cpp:831 kwave/UndoDeleteAction.cpp:36
 msgid "delete"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1302 kwave/SignalManager.cpp:1309
+#: kwave/SignalManager.cpp:1305 kwave/SignalManager.cpp:1312
 msgid "last action"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1528
+#: kwave/SignalManager.cpp:1531
 msgid "modify file info"
 msgstr ""
 
@@ -1764,18 +1764,22 @@ msgid "&Visible area"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:125
-msgid "with &Clipboard"
+msgid "&Volume"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:126
-msgid "Zoom &In"
+msgid "with &Clipboard"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:127
-msgid "Zoom &Out"
+msgid "Zoom &In"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:128
+msgid "Zoom &Out"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:129
 msgid "Zoom to &Selection"
 msgstr ""
 
@@ -1909,6 +1913,56 @@ msgstr ""
 msgid "%1 samples"
 msgstr ""
 
+#: plugins/volume/VolumeDlg.uic.cpp:36 plugins/volume/VolumeDlg.uic.cpp:132
+msgid "Volume"
+msgstr ""
+
+#: plugins/volume/VolumeDlg.uic.cpp:68
+msgid "Mode"
+msgstr ""
+
+#: plugins/volume/VolumeDlg.uic.cpp:77
+msgid "&Factor"
+msgstr ""
+
+#: plugins/volume/VolumeDlg.uic.cpp:78
+msgid ""
+"Increments or decrements the volume by a factor. \n"
+"For example: \"x1\", \"x2\", \"/ 4\""
+msgstr ""
+
+#: plugins/volume/VolumeDlg.uic.cpp:84
+msgid "&Percentage"
+msgstr ""
+
+#: plugins/volume/VolumeDlg.uic.cpp:85
+msgid ""
+"Sets the volume to a relative percentage of the original level. \n"
+"For example: \"50 %\", \"75%\" or \"125%\""
+msgstr ""
+
+#: plugins/volume/VolumeDlg.uic.cpp:91
+msgid "&Logarithmic"
+msgstr ""
+
+#: plugins/volume/VolumeDlg.uic.cpp:93
+msgid ""
+"Increments or decrements the volume in logarithmic scale (decibel). \n"
+"For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
+msgstr ""
+
+#: plugins/volume/VolumeDlg.uic.cpp:111
+msgid "+"
+msgstr ""
+
+#: plugins/volume/VolumeDlg.uic.cpp:112
+msgid " dB"
+msgstr ""
+
+#: plugins/volume/VolumePlugin.cpp:114
+msgid "volume"
+msgstr ""
+
 #: plugins/codec_ogg/OggEncoder.cpp:148
 #, ycp-format
 msgid ""
@@ -1979,14 +2033,14 @@ msgstr ""
 msgid "Amplify Free"
 msgstr ""
 
-#: plugins/playback/PlayBack-OSS.cpp:85
+#: plugins/playback/PlayBack-OSS.cpp:86
 msgid ""
 "i/o error, maybe the driver\n"
 "is not present in your kernel or it is not\n"
 "properly configured."
 msgstr ""
 
-#: plugins/playback/PlayBack-OSS.cpp:91
+#: plugins/playback/PlayBack-OSS.cpp:92
 #, ycp-format
 msgid ""
 "The device is busy. Maybe an other application is \n"
@@ -1996,31 +2050,31 @@ msgid ""
 "on the command line.)"
 msgstr ""
 
-#: plugins/playback/PlayBack-OSS.cpp:109
+#: plugins/playback/PlayBack-OSS.cpp:110
 #, ycp-format
 msgid "The device '%1' cannot be opened in the correct mode."
 msgstr ""
 
-#: plugins/playback/PlayBack-OSS.cpp:117
+#: plugins/playback/PlayBack-OSS.cpp:118
 #, ycp-format
 msgid "%1 bits per sample are not supported"
 msgstr ""
 
-#: plugins/playback/PlayBack-OSS.cpp:123
+#: plugins/playback/PlayBack-OSS.cpp:124
 msgid "stereo playback is not supported"
 msgstr ""
 
-#: plugins/playback/PlayBack-OSS.cpp:128
+#: plugins/playback/PlayBack-OSS.cpp:130
 #, ycp-format
 msgid "playback rate %1 Hz is not supported"
 msgstr ""
 
-#: plugins/playback/PlayBack-OSS.cpp:137
+#: plugins/playback/PlayBack-OSS.cpp:139
 #, c-format, ycp-format
 msgid "unusable buffer size: %1"
 msgstr ""
 
-#: plugins/playback/PlayBackPlugin.cpp:237
+#: plugins/playback/PlayBackPlugin.cpp:232
 #, ycp-format
 msgid "unable to open '%1'"
 msgstr ""
@@ -2033,7 +2087,7 @@ msgstr ""
 msgid "Playback Options :"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:173
+#: plugins/fileinfo/FileInfoDialog.cpp:174
 #: plugins/playback/PlayBackDialog.cpp:109
 #: plugins/playback/PlayBackDialog.cpp:110
 msgid "Resolution"
@@ -2126,33 +2180,33 @@ msgstr ""
 msgid "Select Playback Device"
 msgstr ""
 
-#: plugins/playback/PlayBack-aRts.cpp:88
+#: plugins/playback/PlayBack-aRts.cpp:89
 msgid "unable to open aRts playback stream"
 msgstr ""
 
-#: plugins/playback/PlayBack-aRts.cpp:201
+#: plugins/playback/PlayBack-aRts.cpp:202
 msgid ""
 "Can't connect to aRts soundserver. Maybe it is not properly installed or not "
 "running."
 msgstr ""
 
-#: plugins/playback/PlayBack-aRts.cpp:205
+#: plugins/playback/PlayBack-aRts.cpp:206
 msgid ""
 "Loading the aRts backend library failed. This might be due to a problem with "
 "your aRts installation."
 msgstr ""
 
-#: plugins/playback/PlayBack-aRts.cpp:210
+#: plugins/playback/PlayBack-aRts.cpp:211
 msgid "The aRts output stream is invalid."
 msgstr ""
 
-#: plugins/playback/PlayBack-aRts.cpp:213
+#: plugins/playback/PlayBack-aRts.cpp:214
 msgid ""
 "aRts output is not available because the initialization of the aRts output "
 "has failed or not been done."
 msgstr ""
 
-#: plugins/playback/PlayBack-aRts.cpp:218
+#: plugins/playback/PlayBack-aRts.cpp:219
 msgid ""
 "The required aRts function is not yet implemented. Maybe you should get a "
 "newer version of aRts or upgrade the kdelibs package."
@@ -2206,7 +2260,7 @@ msgstr ""
 msgid "Select Range..."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:194
+#: plugins/fileinfo/FileInfoDialog.cpp:195
 #: plugins/newsignal/NewSigDlg.uic.cpp:367
 #: plugins/selectrange/SelectRangeDlg.uic.cpp:273
 msgid "Length"
@@ -2737,8 +2791,8 @@ msgstr ""
 msgid "Layer III"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:404
-#: plugins/fileinfo/FileInfoDialog.cpp:410
+#: plugins/fileinfo/FileInfoDialog.cpp:411
+#: plugins/fileinfo/FileInfoDialog.cpp:417
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:635
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:739
 msgid "yes"
@@ -2917,101 +2971,101 @@ msgstr ""
 msgid "List of keywords."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:128
+#: plugins/fileinfo/FileInfoDialog.cpp:129
 #, ycp-format
 msgid "%1 bytes"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:130
+#: plugins/fileinfo/FileInfoDialog.cpp:131
 #, ycp-format
 msgid "%1 kB (%2 byte)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:133
+#: plugins/fileinfo/FileInfoDialog.cpp:134
 #, ycp-format
 msgid "%1 MB (%2 byte)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:164
+#: plugins/fileinfo/FileInfoDialog.cpp:165
 msgid "Sample Rate"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:167
+#: plugins/fileinfo/FileInfoDialog.cpp:168
 msgid ""
 "Here you can select one of the predefined\n"
 "well-known sample rates or you can enter\n"
 "any sample rate on your own."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:176
+#: plugins/fileinfo/FileInfoDialog.cpp:177
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:181
+#: plugins/fileinfo/FileInfoDialog.cpp:182
 msgid "Tracks"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:184
+#: plugins/fileinfo/FileInfoDialog.cpp:185
 msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:197
+#: plugins/fileinfo/FileInfoDialog.cpp:198
 msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:203
+#: plugins/fileinfo/FileInfoDialog.cpp:204
 #, ycp-format
 msgid "%1 (%2 samples)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:207
+#: plugins/fileinfo/FileInfoDialog.cpp:208
 #, ycp-format
 msgid "%2 samples"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:277
-#: plugins/fileinfo/FileInfoDialog.cpp:278
+#: plugins/fileinfo/FileInfoDialog.cpp:284
+#: plugins/fileinfo/FileInfoDialog.cpp:285
 msgid "no limit"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:373
+#: plugins/fileinfo/FileInfoDialog.cpp:380
 msgid "bands 0 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:374
+#: plugins/fileinfo/FileInfoDialog.cpp:381
 msgid "bands 8 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:375
+#: plugins/fileinfo/FileInfoDialog.cpp:382
 msgid "bands 12 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:376
+#: plugins/fileinfo/FileInfoDialog.cpp:383
 msgid "bands 16 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:404
-#: plugins/fileinfo/FileInfoDialog.cpp:410
+#: plugins/fileinfo/FileInfoDialog.cpp:411
+#: plugins/fileinfo/FileInfoDialog.cpp:417
 msgid "no"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:519
+#: plugins/fileinfo/FileInfoDialog.cpp:526
 #: plugins/newsignal/NewSignalDialog.cpp:321
 msgid "(Mono)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:522
+#: plugins/fileinfo/FileInfoDialog.cpp:529
 #: plugins/newsignal/NewSignalDialog.cpp:324
 msgid "(Stereo)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:525
+#: plugins/fileinfo/FileInfoDialog.cpp:532
 #: plugins/newsignal/NewSignalDialog.cpp:327
 msgid "(Quadro)"
 msgstr ""

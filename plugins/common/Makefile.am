@@ -13,6 +13,9 @@
 
 SUFFIXES= .h .cpp .o .d .moc .dm .ui .cc .idl .cxx
 
+# produced errors with SuSE 8.0's automake ???
+# DISTCLEANFILES = Makefile.in Makefile
+
 # set the include path for X, qt and KDE
 INCLUDES  = -I${topdir} @all_includes@ @ARTS_INCLUDES@
 
@@ -43,17 +46,15 @@ OUT_FILES	+= $(uic_files:.uic.cpp=.uic.o)
 OUT_FILES	+= $(h_files:.h=.moc.o)
 OUT_FILES	+= $(idl_files:.idl=.o)
 
-DEP_FILES	:= $(h_files:.h=.dm)
-DEP_FILES	+= $(cpp_sources:.cpp=.d)
-DEP_FILES	+= $(uic_sources:.cpp=.d)
+PLUGINDEP_FILES	:= $(h_files:.h=.dm)
+PLUGINDEP_FILES	+= $(cpp_sources:.cpp=.d)
+PLUGINDEP_FILES	+= $(uic_sources:.cpp=.d)
 
 h_files  	+= ${idl_header}
 
 CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm \
 			.depend *.uih.h *.uic.cpp \
 			$(idl_header) $(idl_impl)
-
-DISTCLEANFILES	 = Makefile.in Makefile
 
 %.uic.o: %.uic.cpp
 	@echo plugin \"$(MODNAME)\": compiling dialog "'"$<"'"
@@ -106,12 +107,12 @@ DISTCLEANFILES	 = Makefile.in Makefile
         # then the .d/.dm files then the .o
 ${idl_header}: ${idl_files}
 ${idl_impl}:   ${idl_files}
-${DEP_FILES}:  ${uih_files} ${idl_header}
-${OUT_FILES}:  ${DEP_FILES} ${moc_files}
+${PLUGINDEP_FILES}:  ${uih_files} ${idl_header}
+${OUT_FILES}:  ${PLUGINDEP_FILES} ${moc_files}
 
-.depend: ${DEP_FILES}
+.depend: ${PLUGINDEP_FILES}
 	@echo plugin \"$(MODNAME)\": merging dependencies into $@
-	@ cat ${DEP_FILES} > $@
+	@ cat ${PLUGINDEP_FILES} > $@
 
 #
 # include dependency file if it exists

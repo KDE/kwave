@@ -51,15 +51,12 @@ html-clean:
 
 help_de.po: help_en.pot
 	$(MSGMERGE) -o help_de.po help_de.po help_en.pot
-	# kbabel -nofork help_de.po
 
 help_fr.po: help_en.pot
 	$(MSGMERGE) -o help_fr.po help_fr.po help_en.pot
-	# kbabel -nofork help_fr.po
 
 help_it.po: help_en.pot
 	$(MSGMERGE) -o help_it.po help_it.po help_en.pot
-	# kbabel -nofork help_it.po
 
 help_de.docbook: help_en.docbook help_en.pot
 	${MAKE} help_de.po

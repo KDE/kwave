@@ -31,6 +31,7 @@
 #include <kmessagebox.h>
 
 #include "mt/Mutex.h"
+#include "mt/ThreadsafeX11Guard.h"
 
 #include "libkwave/Matrix.h"
 #include "libkwave/Sample.h"
@@ -62,7 +63,7 @@ KWAVE_PLUGIN(PlayBackPlugin,"playback","Thomas Eschenbacher");
 #define MAGIC_ARTS "aRts"
 
 ///** Mutex for the aRts daemon, it seems to be not threadsafe */
-//static Mutex g_arts_lock;
+static Mutex *g_arts_lock;
 
 #ifndef min
 #define min(x,y) (( (x) < (y) ) ? (x) : (y) )
@@ -194,8 +195,13 @@ void PlayBackPlugin::openDevice()
 
     // here comes the switch for different playback devices...
     if (m_playback_params.device.contains(MAGIC_ARTS)) {
-	static Mutex g_arts_lock;
-	m_device = new PlayBackArts(g_arts_lock);
+	ThreadsafeX11Guard x11_guard;
+
+	// if no mutex exists: make a new one, parent is the global app!
+	if (!g_arts_lock) g_arts_lock = new Mutex();
+	ASSERT(g_arts_lock);
+	
+	m_device = new PlayBackArts(*g_arts_lock);
     } else {
 	// default is OSS or similar device
 	m_device = new PlayBackOSS();
@@ -220,16 +226,15 @@ void PlayBackPlugin::openDevice()
     if (result.length()) {
 	warning("PlayBackPlugin::openDevice(): "\
 	        "opening the device failed.");
-	
+
 	// delete the device if it did not open
 	delete m_device;
 	m_device = 0;
-	
+
 	// show an error message box
 	KMessageBox::error(parentWidget(), result,
 	    i18n("unable to open '%1'").arg(
 	    m_playback_params.device));
-	return;
     }
 }
 
@@ -239,7 +244,7 @@ void PlayBackPlugin::closeDevice()
     MutexGuard lock_for_delete(m_lock_device);
 
     if (!m_device) return; // already closed
-    if (m_device) delete m_device;
+    delete m_device;
     m_device = 0;
     m_old_first = 0;
     m_old_last = 0;
@@ -271,7 +276,7 @@ void PlayBackPlugin::startDevicePlayBack()
 		// something selected -> set new range
 		m_playback_controller.setStartPos(first);
 		m_playback_controller.setEndPos(last);
-		
+
 		unsigned int pos = m_playback_controller.currentPos();
 		if ((pos < first) || (pos > last)) {
 		    // completely new area selected, or the right margin
@@ -304,7 +309,8 @@ void PlayBackPlugin::startDevicePlayBack()
     m_old_last = last;
     m_stop = false;
 
-    static QStringList empty_list;
+    QStringList empty_list;
+    use(); // ###
     execute(empty_list);
 }
 
@@ -346,16 +352,16 @@ void PlayBackPlugin::run(QStringList)
 	unsigned int m1, m2;
 	m1 = y * audible_count;
 	m2 = (y+1) * audible_count;
-	
+
 	for (x=0; x < audible_count; x++) {
 	    unsigned int n1, n2;
 	    n1 = x * out_channels;
 	    n2 = n1 + out_channels;
-	
+
 	    // get the common area of [n1..n2] and [m1..m2]
 	    unsigned int l  = max(n1, m1);
 	    unsigned int r = min(n2, m2);
-	
+
 	    matrix[x][y] = (r > l) ?
 		(double)(r-l) / (double)audible_count : 0.0;
 	}
@@ -381,7 +387,7 @@ void PlayBackPlugin::run(QStringList)
 		if (stream) stream->skip(pos-first);
 	    }
 	}
-	
+
 	while ((pos++ <= last) && !m_stop) {
 	    unsigned int x;
 	    for (x=0; x < audible_count; x++) {
@@ -389,12 +395,12 @@ void PlayBackPlugin::run(QStringList)
 		SampleReader *stream = input[x];
 		ASSERT(stream);
 		if (!stream) continue;
-		
+
 		sample_t act;
 		(*stream) >> act;
 		in_samples[x] = act;
 	    }
-		
+
 	    // multiply matrix with input to get output
 	    unsigned int y;
 	    for (y=0; y < out_channels; y++) {
@@ -404,14 +410,14 @@ void PlayBackPlugin::run(QStringList)
 		}
 		out_samples[y] = (sample_t)sum;
 	    }
-	
+
 	    // write samples to the playback device
 	    int result = m_device->write(out_samples);
 	    if (result) {
 		m_stop = true;
 		pos = last;
 	    }
-	
+
 	    // update the playback position if timer elapsed
 	    if (!pos_countdown) {
 		pos_countdown = (unsigned int)ceil(m_playback_params.rate /
@@ -421,7 +427,7 @@ void PlayBackPlugin::run(QStringList)
 		--pos_countdown;
 	    }
 	}
-	
+
 	// maybe we loop. in this case the playback starts
 	// again from the left marker
 	if (m_playback_controller.loop() && !m_stop) {
@@ -441,7 +447,7 @@ void PlayBackPlugin::run(QStringList)
 
     // playback is done
     playbackDone();
-    debug("PlayBackPlugin::run() done.");
+//    debug("PlayBackPlugin::run() done.");
 }
 
 //***************************************************************************

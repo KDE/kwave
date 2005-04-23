@@ -146,6 +146,11 @@ void Curve::deleteSecondPoint()
 //***************************************************************************
 void Curve::insert(double x, double y)
 {
+    if ((x < 0.0) || (x > 1.0)) {
+	qWarning("Curve::insert(%0.2f,%0.2f): out of range !",x,y);
+	return;
+    }
+
     if (m_points.isEmpty()) {
 	// add the first point
 	append(x, y);
@@ -160,10 +165,15 @@ void Curve::insert(double x, double y)
 
     // linear search for position
     Point *tmp = m_points.first();
-    while (tmp->x < x) tmp = m_points.next();
+    while ((tmp) && tmp->x < x) tmp = m_points.next();
 
-    if (tmp) m_points.insert(m_points.at(), ins);
-    else qWarning("Curve::insert(%0.2f,%0.2f): out of range !",x,y);
+    if (tmp) {
+	// insert before some other point
+	m_points.insert(m_points.at(), ins);
+    } else {
+	// append to the end of the list
+	m_points.append(ins);
+    }
 }
 
 //***************************************************************************

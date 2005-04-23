@@ -39,6 +39,10 @@ void CurveStreamAdapter_impl::calculateBlock(unsigned long samples)
 	y = m_interpolation.singleInterpolation(x);
 	output[offset] = y;
 	m_position++;
+
+	// wrap-around, for periodic signals
+	if (m_position > m_length)
+	    m_position = 0;
     }
 }
 

@@ -1,10 +1,16 @@
 
-0.7.2-2 [2005-01-??]
+0.7.3 [2005-04-??]
 
- * smoother signal display in overview mode (no gaps) and improved
-   polyline mode
+ * playback via ALSA
+ * completely new playback settings dialog, with support for aRts,
+   ALSA and OSS
+ * playback plugin: play a test sound
  * record plugin: detect when device is alread open, now no longer
    blocks. Show an error message.
+ * smoother signal display in overview mode (no gaps) and improved
+   polyline mode
+ * replaced some of Kwave's multithreading classes with classes
+   from Qt
 
 0.7.2 [2004-12-31]
 

@@ -128,12 +128,12 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     RIFFParser parser(src, main_chunks, m_known_chunks);
 
     // prepare a progress dialog
-    QProgressDialog progress(widget, "Auto-Repair", true);
+    QProgressDialog progress(widget, i18n("Auto-Repair"), true);
     progress.setMinimumDuration(0);
     progress.setTotalSteps(100);
     progress.setAutoClose(true);
     progress.setProgress(0);
-    progress.setLabelText("reading...");
+    progress.setLabelText(i18n("reading..."));
     connect(&parser,   SIGNAL(progress(int)),
             &progress, SLOT(setProgress(int)));
     connect(&parser,   SIGNAL(action(const QString &)),

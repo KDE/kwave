@@ -458,7 +458,9 @@ int PlayBackALSA::write(QMemArray<sample_t> &samples)
 {
     Q_ASSERT (m_buffer_used < m_buffer_size);
     if (m_buffer_used >= m_buffer_size) {
-	qWarning("PlayBackALSA::write(): buffer overflow ?!");
+	qWarning("PlayBackALSA::write(): buffer overflow ?! (%u/%u",
+	         m_buffer_used, m_buffer_size);
+	m_buffer_used = 0;
 	return -EIO;
     }
 

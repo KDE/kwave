@@ -79,6 +79,11 @@ public slots:
      */
     void stopDevicePlayBack();
 
+    /**
+     * Plays a sample sound for testing the playback
+     */
+    void testPlayBack();
+
 private slots:
 
     /**

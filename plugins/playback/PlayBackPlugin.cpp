@@ -23,12 +23,16 @@
 #include <stdlib.h>
 #include <errno.h>
 
+#include <arts/artsmodulessynth.h>
+
 #include <qcursor.h>
 #include <qmemarray.h>
 #include <qfile.h>
 #include <qmutex.h>
+#include <qprogressdialog.h>
 #include <qptrvector.h>
 #include <qstring.h>
+#include <qdatetime.h>
 
 #include <kapp.h>
 #include <kconfig.h>
@@ -36,12 +40,18 @@
 
 #include "mt/ThreadsafeX11Guard.h"
 
+#include "libkwave/ArtsMultiPlaybackSink.h"
+#include "libkwave/ArtsMultiTrackSource.h"
+#include "libkwave/ArtsNativeMultiTrackFilter.h"
+#include "libkwave/Curve.h"
+#include "libkwave/CurveStreamAdapter_impl.h"
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/Matrix.h"
+#include "libkwave/MultiTrackReader.h"
+#include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
-#include "libkwave/MultiTrackReader.h"
 
 #include "kwave/PlaybackController.h"
 #include "kwave/PluginManager.h"
@@ -183,6 +193,8 @@ QStringList *PlayBackPlugin::setup(QStringList &previous_params)
             this, SLOT(setMethod(playback_method_t)));
     connect(m_dialog, SIGNAL(sigDeviceChanged(const QString &)),
             this, SLOT(setDevice(const QString &)));
+    connect(m_dialog, SIGNAL(sigTestPlayback()),
+            this, SLOT(testPlayBack()));
 
     // activate the playback method
     setMethod(m_playback_params.method);
@@ -677,6 +689,140 @@ void PlayBackPlugin::playbackDone()
 {
     // generate a "playback done" event through the signal proxy
     m_spx_playback_done.AsyncHandler();
+}
+
+//***************************************************************************
+void PlayBackPlugin::testPlayBack()
+{
+    const float t_sweep        =   1.0; /* seconds per speaker */
+    const float freq           = 440.0; /* test frequency [Hz] */
+    const unsigned int periods =     3; /* number of periods to play */
+
+    qDebug("PlayBackPlugin::testPlayBack()");
+
+    Q_ASSERT(m_device);
+    if (!m_device) return;
+
+    if (m_dialog) m_playback_params = m_dialog->params();
+
+    QString open_result = m_device->open(
+	m_playback_params.device,
+	m_playback_params.rate,
+	m_playback_params.channels,
+	m_playback_params.bits_per_sample,
+	m_playback_params.bufbase);
+    if (open_result.length()) {
+	qWarning("open failed: %s", open_result.data());
+	return;
+    }
+    unsigned int tracks = m_playback_params.channels;
+    Q_ASSERT(tracks);
+    if (!tracks) return;
+
+    Arts::Dispatcher *dispatcher = manager().artsDispatcher();
+    Q_ASSERT(dispatcher);
+    if (!dispatcher) close();
+    dispatcher->lock();
+
+    float t_period = t_sweep * tracks;
+    unsigned int curve_length =
+	(unsigned int)(t_period * m_playback_params.rate);
+
+    Curve curve;
+    curve.insert(0.0, 0.0);
+    if (tracks <= 2) {
+	// mono and stereo
+	curve.insert(0.5, 1.0);
+    } else {
+	// all above
+	curve.insert(1.0 / (float)tracks, 1.0);
+	curve.insert(2.0 / (float)tracks, 0.0);
+    }
+    curve.insert(1.0, 0.0);
+
+    CurveStreamAdapter curve_adapter = CurveStreamAdapter::_from_base(
+	new CurveStreamAdapter_impl(curve, curve_length)
+    );
+
+    // create all objects
+
+    // curve -> delay --.
+    //                  |
+    //                  v
+    //                 mul -> sink
+    //                  ^
+    //                  |
+    //            osc --'
+
+    ArtsNativeMultiTrackFilter delay(tracks, "Arts::Synth_CDELAY");
+    for (unsigned int i=0; i < tracks; i++) {
+	std::string command;
+	command = "_set_time";
+	Arts::Object &object(*(delay[i]));
+	Arts::DynamicRequest(object).method(
+	    command).param(i * t_sweep).invoke();
+    }
+
+    ArtsNativeMultiTrackFilter osc(tracks, "Arts::Synth_OSC");
+    osc.setAttribute("frequency", freq);
+
+    ArtsNativeMultiTrackFilter mul(tracks, "Arts::Synth_MUL");
+
+    // create the multi track playback sink
+    ArtsMultiPlaybackSink sink(tracks, m_device);
+
+    // connect them
+    delay.connectInput(curve_adapter, "output", "invalue");
+    mul.connectInput(delay, "outvalue", "invalue1");
+    mul.connectInput(osc,   "outvalue", "invalue2");
+    mul.connectOutput(sink, "sink",     "outvalue");
+
+    // start all
+    curve_adapter.start();
+    delay.start();
+    osc.start();
+    mul.start();
+    sink.start();
+
+    // show a progress dialog
+    QProgressDialog *progress = 0;
+    if (m_dialog) {
+	progress = new QProgressDialog(m_dialog, i18n("Playback Test"), true);
+	Q_ASSERT(progress);
+	if (progress) {
+	    progress->setMinimumDuration(0);
+	    progress->setTotalSteps(100);
+	    progress->setAutoClose(true);
+	    progress->setProgress(0);
+	    progress->setLabelText(
+		i18n("you should hear a %1Hz test tone...").arg((int)freq));
+	}
+    }
+
+    // transport the samples
+    QTime time;
+    time.start();
+    int t_max = periods * (int)t_period * 1000;
+    while ((time.elapsed() < t_max) && (!sink.done())) {
+	sink.goOn();
+	if (progress) {
+	    progress->setProgress((100 * time.elapsed()) / t_max);
+	    if (progress->wasCancelled()) break;
+	}
+    }
+
+    if (progress) delete progress;
+    progress = 0;
+
+    // shutdown
+    sink.stop();
+    mul.stop();
+    osc.stop();
+    delay.stop();
+    curve_adapter.stop();
+    dispatcher->unlock();
+
+    m_device->close();
 }
 
 //***************************************************************************

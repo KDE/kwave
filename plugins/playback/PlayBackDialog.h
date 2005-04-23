@@ -78,6 +78,9 @@ signals:
     /** emits changes in the currently selected device name */
     void sigDeviceChanged(const QString &device);
 
+    /** emitted when the user clicked on the "Test..." button */
+    void sigTestPlayback();
+
 public slots:
 
     /** set the file filter used for the "Select..." dialog */
@@ -112,6 +115,9 @@ private slots:
 
     /** selection in the bits per sample combo box has changed */
     void bitsPerSampleSelected(const QString &text);
+
+    /** forward 'sigTestPlayback()' when the "Test..." button was clicked */
+    void forwardSigTestPlayback();
 
 private:
 

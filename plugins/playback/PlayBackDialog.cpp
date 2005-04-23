@@ -74,6 +74,8 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
             SLOT(selectPlaybackDevice()));
     connect(listDevices, SIGNAL(selectionChanged(QListViewItem *)),
             SLOT(listEntrySelected(QListViewItem *)));
+    connect(btTest, SIGNAL(clicked()),
+            SLOT(forwardSigTestPlayback()));
 
     // fix the dialog size
     setFixedHeight(sizeHint().height());
@@ -472,6 +474,12 @@ void PlayBackDialog::selectPlaybackDevice()
 
     // selected new device
     if (cbDevice) cbDevice->setEditText(new_device);
+}
+
+//***************************************************************************
+void PlayBackDialog::forwardSigTestPlayback()
+{
+    emit sigTestPlayback();
 }
 
 //***************************************************************************

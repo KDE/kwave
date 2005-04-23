@@ -48,6 +48,12 @@
                     <verstretch>100</verstretch>
                 </sizepolicy>
             </property>
+            <property name="frameShape">
+                <enum>GroupBoxPanel</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Sunken</enum>
+            </property>
             <property name="title">
                 <string>Playback Settings</string>
             </property>
@@ -548,9 +554,6 @@ playback. Depending on the compilation options you can select one of the followi
                 <widget class="KPushButton">
                     <property name="name">
                         <cstring>btTest</cstring>
-                    </property>
-                    <property name="enabled">
-                        <bool>false</bool>
                     </property>
                     <property name="sizePolicy">
                         <sizepolicy>

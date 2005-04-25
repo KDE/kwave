@@ -256,7 +256,7 @@ AC_CHECK_HEADER(mad.h,,[AC_MSG_ERROR([
 ])])
 
 dnl check for the GSL library
-AM_PATH_GSL([1.4],,[AC_MSG_ERROR([
+AM_PATH_GSL([1.3],,[AC_MSG_ERROR([
 
     could not find required version of GSL (GNU Scientific Library)
     please install the GSL and it's -devel package!

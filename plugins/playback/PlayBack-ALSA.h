@@ -21,6 +21,13 @@
 #include "config.h"
 #ifdef HAVE_ALSA_SUPPORT
 
+/* 
+ * use the new ALSA HW/SW params API, needed to compile under SuSE-9.0 
+ * (workaround as seen in http://www.linuxjournal.com/article/6735)
+ */
+#define ALSA_PCM_NEW_HW_PARAMS_API
+#define ALSA_PCM_NEW_SW_PARAMS_API
+
 #include <alsa/asoundlib.h>
 #include <qstring.h>
 #include <qmap.h>

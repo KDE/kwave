@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2004-12-31</date>
+<date>2005-04-23</date>
 <releaseinfo>0.7.1
 </releaseinfo>
 
@@ -189,6 +189,33 @@
 	 helper scripts -->
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
+        <listitem>
+            <para>0.7.3 [2005-04-??]</para>
+            <itemizedlist>
+                <listitem><para>
+                    playback via ALSA
+                </para></listitem>
+                <listitem><para>
+                    completely new playback settings dialog, with support for aRts,
+                      ALSA and OSS
+                </para></listitem>
+                <listitem><para>
+                    playback plugin: play a test sound
+                </para></listitem>
+                <listitem><para>
+                    record plugin: detect when device is alread open, now no longer
+                      blocks. Show an error message.
+                </para></listitem>
+                <listitem><para>
+                    smoother signal display in overview mode (no gaps) and improved
+                      polyline mode
+                </para></listitem>
+                <listitem><para>
+                    replaced some of Kwave's multithreading classes with classes
+                      from Qt
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
         <listitem>
             <para>0.7.2 [2004-12-31]</para>
             <itemizedlist>
@@ -452,7 +479,7 @@
                     new plugin "noise"
                 </para></listitem>
                 <listitem><para>
-                     new aRts plugin adapter framework 
+                     new aRts plugin adapter framework
                       now Kwave is able to use existing aRts plugins in it's own plugins
                       for sound processing
                 </para></listitem>
@@ -489,7 +516,7 @@
             <para>0.6.1 [2001-08-24]</para>
             <itemizedlist>
                 <listitem><para>
-                     USE OF VIRTUAL MEMORY 
+                     USE OF VIRTUAL MEMORY
                 </para></listitem>
                 <listitem><para>
                     changed Makefiles: html docu stays in distribution due to too much
@@ -518,7 +545,7 @@
             <para>0.6.0 [2001-07-29]</para>
             <itemizedlist>
                 <listitem><para>
-                     PORTED TO QT-2 AND KDE2 
+                     PORTED TO QT-2 AND KDE2
                 </para></listitem>
                 <listitem><para>
                     completely new internal architecture
@@ -737,7 +764,7 @@
                     found out that we need ALSA support for 24 and 32 bits/sample
                 </para></listitem>
                 <listitem><para>
-                     playback in stereo 
+                     playback in stereo
                 </para></listitem>
                 <listitem><para>
                     selected channels (x) are mixed to the output device's channels (y)
@@ -885,7 +912,7 @@
                     bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)
                 </para></listitem>
                 <listitem><para>
-                     COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE 
+                     COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE
                     <itemizedlist>
                     <listitem><para>
                          made use of a combination of signals/slots and string messages
@@ -951,8 +978,8 @@
             <para>0.5.1-4</para>
             <itemizedlist>
                 <listitem><para>
-                     now compiles and runns under RedHat 6.1 / Halloween IV 
-                       as well as under SuSE 6.2                              
+                     now compiles and runns under RedHat 6.1 / Halloween IV
+                       as well as under SuSE 6.2
                 </para></listitem>
                 <listitem><para>
                     version info of libkwavegui.so is set to the package's version
@@ -973,7 +1000,7 @@
                     configure-parameter --enable-debug has effect again
                 </para></listitem>
                 <listitem><para>
-                     ASCII import and export works now (mono only) 
+                     ASCII import and export works now (mono only)
                 </para></listitem>
                 <listitem><para>
                     bugfixes in some plugins, all compile now without warnings/errors
@@ -1799,7 +1826,7 @@
 	Then log in into the CVS server. As I guess that you want to do that
 	as normal user, you log in as anonymous:
 <screen width="75" format="linespecific">
-<prompt>% </prompt><command>cvs -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/kwave login</command>
+<prompt>% </prompt><command>cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/kwave login</command>
 </screen>
 	Then the server asks you for a password. Simply press enter, as we
 	do not have a password for anonymous access.
@@ -1807,7 +1834,7 @@
 
     <listitem><para>
 <screen width="75" format="linespecific">
-<prompt>% </prompt><command>cvs -z3 -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/kwave co kwave</command>
+<prompt>% </prompt><command>cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/kwave co kwave</command>
 </screen>
     </para></listitem>
 

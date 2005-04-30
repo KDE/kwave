@@ -101,6 +101,7 @@ PIXMAPS=\
  fade_in.png\
  fade_out.png\
  filesave.xpm\
+ go.png\
  knife.xpm\
  knob.xpm\
  kwave-splash.png\

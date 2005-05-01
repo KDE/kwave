@@ -23,6 +23,7 @@
 #include <qslider.h>
 #include <qstringlist.h>
 
+#include <kapplication.h> // for invokeHelp
 #include <kfiledialog.h>
 #include <kiconloader.h>
 #include <kicontheme.h>
@@ -76,6 +77,8 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
             SLOT(listEntrySelected(QListViewItem *)));
     connect(btTest, SIGNAL(clicked()),
             SLOT(forwardSigTestPlayback()));
+    connect(btHelp, SIGNAL(clicked()),
+            this,   SLOT(invokeHelp()));
 
     // fix the dialog size
     setFixedHeight(sizeHint().height());
@@ -480,6 +483,12 @@ void PlayBackDialog::selectPlaybackDevice()
 void PlayBackDialog::forwardSigTestPlayback()
 {
     emit sigTestPlayback();
+}
+
+//***************************************************************************
+void PlayBackDialog::invokeHelp()
+{
+    kapp->invokeHelp("playback");
 }
 
 //***************************************************************************

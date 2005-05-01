@@ -119,6 +119,9 @@ private slots:
     /** forward 'sigTestPlayback()' when the "Test..." button was clicked */
     void forwardSigTestPlayback();
 
+    /** invoke the online help */
+    void invokeHelp();
+
 private:
 
     /** all parameters needed for playback */

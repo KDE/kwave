@@ -20,6 +20,7 @@
 
 #include <errno.h>
 #include <math.h>
+#include <pthread.h>
 #include <klocale.h>
 
 #include "mt/ThreadsafeX11Guard.h"

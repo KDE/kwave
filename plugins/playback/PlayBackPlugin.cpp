@@ -23,8 +23,6 @@
 #include <stdlib.h>
 #include <errno.h>
 
-#include <arts/artsmodulessynth.h>
-
 #include <qcursor.h>
 #include <qmemarray.h>
 #include <qfile.h>

@@ -164,9 +164,9 @@ $(MODNAME): ${OUT_FILES}
 
 all: $(MODNAME)
 
-# if you "make distclean", this files get removed. If you want to remove
-# them while "make clean", use CLEANFILES
-DISTCLEANFILES = ${CLEANFILES} .deps/* `@FIND@ . -type l` *.moc *.moc.cxx
+clean-local:
+	-rm -f ${CLEANFILES} .deps/* `@FIND@ . -type l` *.moc *.moc.cxx
+	-rm -f .depend *.dm *.d
 
 install-data-local:
 	$(mkinstalldirs) $(PLUGINDIR)

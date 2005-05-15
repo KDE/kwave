@@ -22,13 +22,13 @@ dirs=`@FIND@ . -type d -a ! -empty -mindepth 1 -maxdepth 1 \
 
 DISTCLEANFILES = Makefile.in Makefile
 
-distclean-generic:
+distclean-generic: clean
 	-rm -fv `@FIND@ . -name \*.d -o -name \*.dm -o -name .depend`
 	-rm -f $(CONFIG_CLEAN_FILES)
 	-rm -f stamp-h stamp-h[0-9]*
 	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
-install uninstall clean distclean-local all rpm:
+install uninstall clean all rpm:
 	@set fnord $(MAKEFLAGS); amf=$$2; \
 	echo linking Makefiles
 	@list=$(dirs); for subdir in $$list; do \

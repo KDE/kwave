@@ -30,6 +30,10 @@ EBUILD		 = kwave-@RPM_SHORT_VERSION@.ebuild
 CLEANFILES	 = *~ *.d *.dm *.moc *.moc.c?? *.ii \#* *.dep .depend
 
 DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \
+	QT-DIR aclocal.m4 config.h.in configure make.log admin/config.guess \
+	admin/config.sub admin/ltmain.sh \
+	libaudiofile/Makefile.in libaudiofile/modules/Makefile.in \
+	plugins/common/Makefile plugins/common/Makefile.in \
 	`find . -type l` autom4*.cache/* ${EBUILD}
 
 nodist_pkgdata_DATA = ${EBUILD}

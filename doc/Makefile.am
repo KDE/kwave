@@ -17,7 +17,10 @@
 
 MAINTAINERCLEANFILES = de/*.html en/*.html
 CLEANFILES = core *~ .deps/* doc/*~ *.orig changes.docbook de/*.html en/*.html help_en-shifted.docbook
-DISTCLEANFILES = Makefile.in Makefile
+DISTCLEANFILES = Makefile.in Makefile help_en.pot \
+	help_de.docbook \
+	help_fr.docbook \
+	help_it.docbook
 
 LANGUAGES = en de fr
 SUFFIXES = .docbook .po .pot

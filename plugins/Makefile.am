@@ -28,13 +28,13 @@ distclean-generic:
 	-rm -f stamp-h stamp-h[0-9]*
 	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
-install uninstall clean distclean all rpm:
+install uninstall clean distclean-local all rpm:
 	@set fnord $(MAKEFLAGS); amf=$$2; \
 	echo linking Makefiles
 	@list=$(dirs); for subdir in $$list; do \
 	for template in Makefile.am Makefile.in Makefile; do \
 	  if test ! -e $$subdir/$$template; then \
-	ln -sfv ../common/$$template $$subdir; fi; \
+	ln -s -f ../common/$$template $$subdir; fi; \
 	done\
 	done
 	@list=$(dirs); for subdir in $$list; do \

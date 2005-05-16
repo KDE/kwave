@@ -121,8 +121,7 @@ logged:
 		${CONFIGURE_OPTS} \
 		CXXFLAGS="${RPM_OPT_FLAGS}" \
 		CFLAGS="${RPM_OPT_FLAGS}"
-	- @ ${MAKE} clean-generic 2>/dev/null 1>/dev/null
-	- @ ${MAKE} clean 2>/dev/null 1>/dev/null
+	- @ ${MAKE} clean 2>/dev/null 1>/dev/null || echo -n " "
 	# now you can run "make"
 
 all:

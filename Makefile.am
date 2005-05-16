@@ -36,7 +36,9 @@ DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \
 	plugins/common/Makefile plugins/common/Makefile.in \
 	`find . -type l` autom4*.cache/* ${EBUILD}
 
-nodist_pkgdata_DATA = ${EBUILD}
+# treat the ebuild file like a generated source:
+# do not distribute it, but generate it
+BUILT_SOURCES = ${EBUILD}
 
 ${EBUILD}: VERSION kwave.ebuild
 	@ cp -v kwave.ebuild ${EBUILD}
@@ -66,6 +68,7 @@ clean-generic:
 	-rm -fv `find . -name \.inslog\*`
 	-rm -fv `find . -name \.ix\*`
 	-rm -Rf doc/api
+	-rm -f ${EBUILD}
 
 backup: ${PACKAGE}.spec
 	@ cp ${PACKAGE}.spec ${PACKAGE}.spec.saved ; \

@@ -582,7 +582,7 @@ dnl autom4te: /usr/bin/m4 failed with exit status: 1
 dnl
 
 AC_CONFIG_FILES(Makefile)
-if test "${USE_BUILTIN_LIBAUDIOFILE}" = "1"; then
+if test "${USE_BUILTIN_LIBAUDIOFILE}" = "yes"; then
     AC_CONFIG_FILES(libaudiofile/Makefile)
     AC_CONFIG_FILES(libaudiofile/modules/Makefile)
 fi

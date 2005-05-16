@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 RESTRICT="nomirror"
 
 LICENSE="GPL-2"
-IUSE="kdeenablefinal debug mmx"
+IUSE="kdeenablefinal debug mmx builtin-libaudiofile"
 SLOT="0"
 KEYWORDS="~x86"
 
@@ -44,6 +44,7 @@ src_compile() {
 	local myconf
 	myconf=" "
 
+	use builtin-libaudiofile && myconf="${myconf} --with-builtin-libaudiofile"
 	use kdeenablefinal && myconf="${myconf} --enable-final"
 	use debug && myconf="${myconf} --enable-debug"
 	use mmx && append-flags -mmmx

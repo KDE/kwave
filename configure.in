@@ -212,8 +212,12 @@ AC_ARG_WITH(builtin-libaudiofile,
     [USE_BUILTIN_LIBAUDIOFILE=no]
 )
 if test "${USE_BUILTIN_LIBAUDIOFILE}" = "no"; then
-    AC_CHECK_LIB(audiofile, afOpenVirtualFile,,USE_BUILTIN_LIBAUDIOFILE=yes,)
-    AC_CHECK_LIB(audiofile, af_virtual_file_new,,USE_BUILTIN_LIBAUDIOFILE=yes,)
+    AC_CHECK_LIB(audiofile, afOpenVirtualFile,
+	USE_BUILTIN_LIBAUDIOFILE=no,
+	USE_BUILTIN_LIBAUDIOFILE=yes,)
+    AC_CHECK_LIB(audiofile, af_virtual_file_new, 
+	USE_BUILTIN_LIBAUDIOFILE=no,
+	USE_BUILTIN_LIBAUDIOFILE=yes,)
 fi
 
 dnl if the system libaudiofile is usable, check if the

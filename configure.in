@@ -205,27 +205,40 @@ AC_CHECK_HEADER(pthread.h,,[AC_MSG_ERROR([
     ])])
 
 dnl check if the host system's libaudiofile is usable
-AC_CHECK_LIB(audiofile, afOpenVirtualFile,
-     USE_BUILTIN_LIBAUDIOFILE=0,
-     USE_BUILTIN_LIBAUDIOFILE=1,
-     )
+
+AC_ARG_WITH(builtin-libaudiofile,
+    AC_HELP_STRING([--with-builtin-libaudiofile],[use the builtin libaudiofile [default=no]]),
+    [USE_BUILTIN_LIBAUDIOFILE=$withval],
+    [USE_BUILTIN_LIBAUDIOFILE=no]
+)
+if test "${USE_BUILTIN_LIBAUDIOFILE}" = "no"; then
+    AC_CHECK_LIB(audiofile, afOpenVirtualFile,,USE_BUILTIN_LIBAUDIOFILE=yes,)
+    AC_CHECK_LIB(audiofile, af_virtual_file_new,,USE_BUILTIN_LIBAUDIOFILE=yes,)
+fi
+
 dnl if the system libaudiofile is usable, check if the
 dnl corresponding header files are installed too
-if test "${USE_BUILTIN_LIBAUDIOFILE}" = "0"; then
+if test "${USE_BUILTIN_LIBAUDIOFILE}" = "no"; then
     AC_CHECK_HEADER(audiofile.h,,[AC_MSG_ERROR([
 
     the header files of libaudiofile are missing.
-    please install the audiofile-devel package!
+    please install the audiofile-devel package
+    or pass the following option to Makefile.dist:
+
+    make -f Makefile.dist CONFIGURE_OPTS="--with-builtin-libaudiofile"
 
     ])])
 fi
 
-if test "${USE_BUILTIN_LIBAUDIOFILE}" = "1"; then
+AC_MSG_CHECKING(which libaudiofile should be used)
+if test "${USE_BUILTIN_LIBAUDIOFILE}" = "yes"; then
+    AC_MSG_RESULT(builtin)
     AC_DEFINE(USE_BUILTIN_LIBAUDIOFILE,1,[use own copy of libaudiofile])
     LIBAUDIOFILE_LDFLAGS="-L../libaudiofile"
     LIBAUDIOFILE_LIBADD="../libaudiofile/libaudiofile.la"
     LIBAUDIOFILE_SUBDIR="libaudiofile"
 else
+    AC_MSG_RESULT(from host system)
     LIBAUDIOFILE_REQUIRE="Requires:	audiofile > 0.2.3"
     LIBAUDIOFILE_LDFLAGS="-laudiofile"
     LIBAUDIOFILE_LIBADD=""

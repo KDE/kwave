@@ -16,7 +16,7 @@
 ############################################################################
 
 # make sure all subdirs get a makefile....
-dirs=`@FIND@ . -type d -a ! -empty -mindepth 1 -maxdepth 1 \
+dirs=`@FIND@ . -mindepth 1 -maxdepth 1 -type d -a ! -empty \
 	-a ! -name common -a ! -name CVS | \
 	@SED@ s+^\\\.\\\/++g | @SORT@`
 

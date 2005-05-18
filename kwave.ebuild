@@ -39,6 +39,10 @@ DEPEND="sys-apps/sed
 		>=media-libs/id3lib-3.8.1
 		>=sci-libs/gsl-1.4"
 
+cflag_setup() {
+	use mmx && append-flags "-mmmx"
+}
+
 src_compile() {
 
 	local myconf
@@ -47,7 +51,6 @@ src_compile() {
 	use builtin-libaudiofile && myconf="${myconf} --with-builtin-libaudiofile"
 	use kdeenablefinal && myconf="${myconf} --enable-final"
 	use debug && myconf="${myconf} --enable-debug"
-	use mmx && append-flags -mmmx
 
 	# avoid sandbox warnings
 	addpredict ${QTDIR}/etc/settings/.qtrc.lock

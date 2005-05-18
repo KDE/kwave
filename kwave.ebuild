@@ -53,9 +53,11 @@ src_compile() {
 	use debug && myconf="${myconf} --enable-debug"
 
 	# avoid sandbox warnings
-	addpredict ${QTDIR}/etc/settings/.qtrc.lock
-	addpredict ${QTDIR}/etc/settings/.qt_plugins_*
-	addpredict /var/lib/rpm/__db.Providename
+	# (the following two would be fine, but did not work :-(
+	# addpredict "${QTDIR}/etc/settings/.qtrc.lock"
+	# addpredict "${QTDIR}/etc/settings/.qt_plugins_*"
+	addpredict "${QTDIR}/etc/settings"
+	addpredict "/var/lib/rpm/__db.Providename"
 
 	# configure
 	make -f Makefile.dist \

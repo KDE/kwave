@@ -704,7 +704,8 @@ next_card:
 
     // per default: offer the dmix plugin if slave devices exist
     if (!m_device_list.isEmpty())
-        m_device_list.insert(i18n("DMIX plugin|sound_note"), "plug:dmix");
+        m_device_list.insert(i18n("DMIX plugin")+QString("|sound_note"),
+                             "plug:dmix");
 
     snd_config_update_free_global();
 }

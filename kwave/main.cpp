@@ -69,7 +69,7 @@ void addDataStrings(KAboutData& aboutdata)
                     "rwaspe@web.de",
                     0);
     aboutdata.addAuthor("Caulier Gilles",
-                     i18n("french translations, splashscreen, tests and bugsfix"),
+                     i18n("french translations, splashscreen, tests and bugfixes"),
                      "caulier.gilles@free.fr",
                      "http://caulier.gilles.free.fr");
     aboutdata.addAuthor("Dave Flogeras",
@@ -129,7 +129,7 @@ int main( int argc, char **argv )
 	PACKAGE_VERSION,
 	i18n("sound editor for KDE3"),
 	KAboutData::License_GPL_V2,
-        "(c) 2004, Thomas Eschenbacher",
+        "(c) 2005, Thomas Eschenbacher",
 	"", //TODO : i18n("");
 	"http://kwave.sourceforge.net",
 	"Thomas.Eschenbacher@gmx.de"

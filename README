@@ -74,15 +74,15 @@ Installing the rpm package normally requires root permissions.
 2.1 Building a binary rpm from archive file:
 -------------------------------------------
 
-Simply get the source archive (for example kwave-0.7.2.tar.gz) and
+Simply get the source archive (for example kwave-0.7.3.tar.gz) and
 then type:
 
-rpmbuild -ta kwave-0.7.2.tar.gz
+rpmbuild -ta kwave-0.7.3.tar.gz
 
 If you want to build for a different architecture than your current, you
 might want to add the parameter "--target ...", for example:
 
-rpmbuild -ta --target i586 kwave-0.7.2.tar.gz
+rpmbuild -ta --target i586 kwave-0.7.3.tar.gz
 
 compiles for pentium architecture.
 
@@ -118,11 +118,11 @@ location (like for example /usr/local) and install it on an other system
 and/or into a different directory.
 
 For example: you got the binary rpm from a friend who has a SuSE system
-(where the KDE base dir is /opt/kde2 or /opt/kde3) and want to install it
+(where the KDE base dir is /opt/kde3) and want to install it
 on RedHat (where the KDE base dir is /usr). Then just give a different
 prefix when installing the rpm:
 
-rpm -Uvh --prefix=/usr kwave-0.7.2.i386.rpm
+rpm -Uvh --prefix=/usr kwave-0.7.3.i586.rpm
 
 This modifies the path where the program is installed and it is strongly
 recommended that this is a directory that is contained in the KDEDIRS
@@ -278,11 +278,18 @@ made running and what I had to install additionally:
 	libjack-devel
 
 * Debian / Sid (supported by Aurelien Jarno):
-	 make imagemagick gettext gcc g++ recode libtool automake1.6
+	 make imagemagick gettext gcc g++ recode libtool automake1.8
 	 xlibs-dev kdelibs4-dev kdemultimedia-dev poxml
 	 khelpcenter libflac-dev libflac++-dev
- 	 libgsl0 libgsl0-dev
+	 libgsl0 libgsl0-dev
 	 (had to do: 'apt-get install -t testing libid3-3.8.3-dev')
+
+* Debian / Woody
+	 automake1.8, flac
+	 apt-get install -t unstable libflac++-dev
+	 apt-get install -t unstable arts
+	 apt-get install -t unstable kdelibs4
+	 apt-get install -t unstable kdelibs4-dev
 
 * RedHat-8.0 / 9.0:
 	 ImageMagick, recode, id3lib, audiofile, audiofile-devel
@@ -341,6 +348,16 @@ made running and what I had to install additionally:
   This is quite "normal", because some tools are not aware of the
   UTF-8 encoding that is used in the .docbook and the .po files.
 
+* hint: compiling in parallel with distcc:
+  ---------------------------------------
+  I successfully compiled Kwave on many systems with the following
+  method:
+
+  make -f Makefile.dist CC=distcc CXX="distcc g++"
+  make -j <JOBS>
+
+  (replace <JOBS> with a number of parallel jobs, for example the
+   number of CPUs on all hosts + number of distcc hosts)
 
 8. SOME HISTORY:
 ===============

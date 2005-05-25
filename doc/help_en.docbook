@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2005-04-23</date>
+<date>2005-05-24</date>
 <releaseinfo>0.7.1
 </releaseinfo>
 
@@ -83,6 +83,9 @@
 	</para></listitem> -->
     	<listitem><para>
 	    Recording functionality, including pre-recording
+	</para></listitem>
+    	<listitem><para>
+	    Playback via aRts, ALSA and OSS
 	</para></listitem>
     	<listitem><para>
 	    MP3 import
@@ -190,7 +193,7 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.7.3 [2005-04-??]</para>
+            <para>0.7.3 [2005-05-26]</para>
             <itemizedlist>
                 <listitem><para>
                     playback via ALSA
@@ -213,6 +216,12 @@
                 <listitem><para>
                     replaced some of Kwave's multithreading classes with classes
                       from Qt
+                </para></listitem>
+                <listitem><para>
+                    compiles under SuSE-9.3
+                </para></listitem>
+                <listitem><para>
+                    ebuild file for Gentoo Linux
                 </para></listitem>
             </itemizedlist>
         </listitem>
@@ -2835,16 +2844,31 @@
     <sect1 id="playback"><title>Playback</title>
 
     <para>
-        &kapp; is able to play sounds trough the KDE sound daemon aRts,
-	or through direct access to your sound card. However, in most
-	cases when you are using aRts for playback, direct access to
-	your sound card's playback device is locked by aRts and thus
-	not available for &kapp;. So in most cases you will do playback
-	through aRts, only if you have configured aRts not to use your
-	soundcard or if your soundcard has an additional playback channel,
-	which is not used by aRts, you can play back through another
-	device.
+        Depending on the compilation options &kapp; is able to play sounds
+	trough one of the following playback methods:
     </para>
+    <para><itemizedlist>
+	<listitem><para>
+	OSS (Open Sound System):
+	The oldest linux implementation, capable of mono and stereo output.
+	Deprecated since linux kernel 2.6, but still wide spread.
+	Might collide with aRts from KDE or other sound applications, only
+	one application at a time can use OSS playback !
+	</para></listitem>
+	<listitem><para>
+	ALSA (Advanced Linux Sound Architecture):
+	Supercedes OSS, supports more features and more hardware. Might
+	collide with aRts or other applications like OSS does, but has a
+	plugin called "dmix" as a way out.
+	</para></listitem>
+	<listitem><para>
+	aRts (Analog Realtime Synthesizer):
+	The preferred
+	way of doing playback in KDE, the sound server KDE uses itself.
+	Multiple applications can play at the same time.
+	It must be configured in the KDE control center.
+	</para></listitem>
+    </itemizedlist></para>
 
     <para>
         Before trying to play sounds, you should take a look on the
@@ -2872,7 +2896,7 @@
 	well as a limitation in the aRts sound system.
     </para>
     <para>
-	If your sound file uses more channels than the
+	If your sound file uses more or less channels than the
 	playback allows, all channels will be mixed together during playback.
 	For example if you have a file with three channels and you use
 	stereo playback, the left channel will play channel 0 (upper)
@@ -2886,6 +2910,11 @@
 	size here. But the bigger you set the buffer, the bigger is the
 	latency between the audible sound and the display of the playback
 	position in the signal display.
+    </para>
+    <para>
+	The playback settings dialog also provides a button for playing a
+	simple test sound. You should hear a 440Hz tone that wanders over all
+	speakers, from one to the next.
     </para>
     <para>
         Once you have configured playback, you can use the playback controls
@@ -3637,6 +3666,13 @@
 		    Aurelien Jarno
 		    <email>aurel32@debian.org</email>
 		    (<ulink url="http://www.debian.org">debian</ulink> packager)
+		</para>
+	    </listitem>
+	    <listitem>
+	        <para>
+		    Michael Frommberger
+		    <email>frommi@users.sourceforge.net</email>
+		    (<ulink url="http://www.gentoo.org">Gentoo</ulink> packager)
 		</para>
 	    </listitem>
 <!--

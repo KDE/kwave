@@ -1,5 +1,5 @@
 
-0.7.3 [2005-04-??]
+0.7.3 [2005-05-26]
 
  * playback via ALSA
  * completely new playback settings dialog, with support for aRts,
@@ -11,6 +11,8 @@
    polyline mode
  * replaced some of Kwave's multithreading classes with classes
    from Qt
+ * compiles under SuSE-9.3
+ * ebuild file for Gentoo Linux
 
 0.7.2 [2004-12-31]
 

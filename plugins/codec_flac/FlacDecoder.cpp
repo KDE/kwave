@@ -158,10 +158,10 @@ void FlacDecoder::parseVorbisComments(
         const FLAC::Metadata::VorbisComment &vorbis_comments)
 {
     // first of all: the vendor string, specifying the software
-    if (vorbis_comments.get_vendor_string().is_valid())
-    {
+#ifdef FLAC_API_VERSION_1_1_1_OR_OLDER
+    if (vorbis_comments.get_vendor_string().is_valid()) {
 	const FLAC::Metadata::VorbisComment::Entry &entry =
-	    vorbis_comments.get_vendor_string();
+	vorbis_comments.get_vendor_string();
 
 	QString s = QString::fromUtf8(
 		entry.get_field(),
@@ -169,11 +169,18 @@ void FlacDecoder::parseVorbisComments(
 	m_info.set(INF_SOFTWARE, s);
 	qDebug("Encoded by: '%s'\n\n", s.local8Bit().data());
     }
-
+#else
+    QString vendor = QString::fromUtf8(reinterpret_cast<const char *>(
+	vorbis_comments.get_vendor_string()));
+    if (vendor.length()) {
+	m_info.set(INF_SOFTWARE, vendor);
+	qDebug("Encoded by: '%s'\n\n", vendor.local8Bit().data());
+    }
+#endif
 
     // parse all vorbis comments into Kwave file properties
     for (unsigned int i=0; i < vorbis_comments.get_num_comments(); i++) {
-	const FLAC::Metadata::VorbisComment::Entry comment =
+	FLAC::Metadata::VorbisComment::Entry comment =
 	    vorbis_comments.get_comment(i);
 	Q_ASSERT(comment.is_valid());
 	if (!comment.is_valid()) continue;

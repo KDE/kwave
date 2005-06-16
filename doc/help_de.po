@@ -1,6 +1,4 @@
 # translation of help_de.po to Deutsch
-# translation of help_de.po to español
-# translation of help_de.po to deutsch
 # Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>, 2003, 2004, 2005.
 msgid ""
 msgstr ""
@@ -238,7 +236,7 @@ msgstr ""
 #: help_en.docbook:134
 #, no-c-format
 msgid "&kapp; Resources"
-msgstr "&kapp; Resourcen"
+msgstr "&kapp; Ressourcen"
 
 #. Tag: para
 #: help_en.docbook:136
@@ -399,7 +397,7 @@ msgstr "einige von Kwave's Multithreading-Klassen durch Klassen von Qt ersetzt"
 #: help_en.docbook:220
 #, no-c-format
 msgid "compiles under SuSE-9.3"
-msgstr "Compiliert unter SuSE-9.3"
+msgstr "Kompiliert unter SuSE-9.3"
 
 #. Tag: para
 #: help_en.docbook:223
@@ -422,8 +420,8 @@ msgid ""
 "512MB file before: over 350 sec, now: about 25 sec (on my system)"
 msgstr ""
 "Weitreichende Überarbeitung der internen Streaming- und Speicher-"
-"Mechanismen, Support für mehrere Stripes. Bewirkt eine grosse Beschleunigung "
-"beim Umgang mit grossen Dateien! z.B. Erzeugen einer 512MB-Datei vorher: "
+"Mechanismen, Support für mehrere Stripes. Bewirkt eine große Beschleunigung "
+"beim Umgang mit großen Dateien! z.B. Erzeugen einer 512MB-Datei vorher: "
 "über 350 Sekunden, jetzt: ca. 25 Sekunden (auf meinem System)."
 
 #. Tag: para
@@ -556,7 +554,7 @@ msgid ""
 "and speed up the creation of plugins"
 msgstr ""
 "Makefile-Abhängigkeiten der Plugin-Makefiles verbessert, paralleles "
-"Generieren zum Reduzieren der Compilierzeit wird unterstützt"
+"Generieren zum Reduzieren der Kompilierzeit wird unterstützt"
 
 #. Tag: para
 #: help_en.docbook:303
@@ -659,7 +657,7 @@ msgid ""
 "RedHat, Gentoo and SuSE"
 msgstr ""
 "einige Verbesserungen am Generierungs-System. Lässt sich jetzt auch unter "
-"Debian, Mandrake, RedHat, Gentoo und SuSE compilieren."
+"Debian, Mandrake, RedHat, Gentoo und SuSE kompilieren."
 
 #. Tag: para
 #: help_en.docbook:355
@@ -675,7 +673,7 @@ msgid ""
 "KDE3's geometry management. example: \"kwave -geometry 800x600\""
 msgstr ""
 "Xt Toolkit-Optionen für Fenstergeometrie funktionieren wieder, "
-"einschliesslich Workaround für einen Bug im Fenstermanagement von KDE3. "
+"einschließlich Workaround für einen Bug im Fenstermanagement von KDE3. "
 "Beispiel: \"kwave -geometry 800x600\""
 
 #. Tag: para
@@ -1036,7 +1034,7 @@ msgstr ""
 #: help_en.docbook:538
 #, no-c-format
 msgid "fixed compile problem with gcc-2.96 / gcc-3.0"
-msgstr "Compilier-Problem mit gcc-2.96/gcc-3.0 behoben"
+msgstr "Kompilier-Problem mit gcc-2.96/gcc-3.0 behoben"
 
 #. Tag: para
 #: help_en.docbook:541
@@ -1273,7 +1271,7 @@ msgid ""
 "removed the \"get\" prefix from all member functions. This is the new KDE/QT "
 "coding style."
 msgstr ""
-"Prefix \"get\" von allen Member-Funktionen entfernt. Dies ist der neue KDE/"
+"Präfix \"get\" von allen Member-Funktionen entfernt. Dies ist der neue KDE/"
 "QT Coding-Style."
 
 #. Tag: para
@@ -1611,7 +1609,7 @@ msgid ""
 msgstr ""
 "Unterstützung des Fehlerdetektions- und Speicher-Debugging-Tools \"Insure++ "
 "Lite 4.1\" (und Tests). (./configure --enable-insure=yes ...) -> Dank an "
-"ParaSoft Corporation daß sie diese eingeschränkte Version verfügbar gemacht "
+"ParaSoft Corporation dass sie diese eingeschränkte Version verfügbar gemacht "
 "haben (http://www.parasoft.com)"
 
 #. Tag: para
@@ -1845,7 +1843,7 @@ msgid ""
 "rpm package should now be installable without conflicts and compile without "
 "any previous installation of kwave"
 msgstr ""
-"rpm-Paket sollte sich ohne vorherige Installation von Kwave compilieren und "
+"rpm-Paket sollte sich ohne vorherige Installation von Kwave kompilieren und "
 "installieren lassen"
 
 #. Tag: para
@@ -1935,7 +1933,7 @@ msgid ""
 "now compiles and runns under RedHat 6.1 / Halloween IV as well as under SuSE "
 "6.2"
 msgstr ""
-"läßt sich nun unter RedHat 6.1 / Halloween IV genauso compilieren und "
+"lässt sich nun unter RedHat 6.1 / Halloween IV genauso kompilieren und "
 "starten wie unter SuSE 6.2"
 
 #. Tag: para
@@ -1958,7 +1956,7 @@ msgstr ""
 #: help_en.docbook:1000
 #, no-c-format
 msgid "compiler flags are passed through to plugin compilation"
-msgstr "Compiler-Flags werden beim Compilieren der Plugins weitergegeben"
+msgstr "Compiler-Flags werden beim Kompilieren der Plugins weitergegeben"
 
 #. Tag: para
 #: help_en.docbook:1003
@@ -1968,8 +1966,8 @@ msgid ""
 "libraries of RedHat that seem to contain no rtti. As a side effect all "
 "warnings on linking programs/libs disappeared :-)"
 msgstr ""
-"compiliert mit --no-rtti. Das war notwendig um mit den KDE-Bibliotheken von "
-"RedHat zu compilieren, die anscheinend keine RTTI enthalten. Als Nebeneffekt "
+"kompiliert mit --no-rtti. Das war notwendig um mit den KDE-Bibliotheken von "
+"RedHat zu kompilieren, die anscheinend keine RTTI enthalten. Als Nebeneffekt "
 "verschwanden alle Warnungen beim Linken der Programme/Bibliotheken :-)"
 
 #. Tag: para
@@ -1988,7 +1986,7 @@ msgstr "ASCII Import und Export funktioniert jetzt (nur Mono)"
 #: help_en.docbook:1014
 #, no-c-format
 msgid "bugfixes in some plugins, all compile now without warnings/errors"
-msgstr "Bugfixes in einigen Plugins, jetzt compilieren alle ohne Warnungen/Fehler"
+msgstr "Bugfixes in einigen Plugins, jetzt kompilieren alle ohne Warnungen/Fehler"
 
 #. Tag: para
 #: help_en.docbook:1017
@@ -2000,7 +1998,7 @@ msgstr "Plugins werden in alphabetischer Reihenfolge bearbeitet"
 #: help_en.docbook:1020
 #, no-c-format
 msgid "all plugins are automatically found and compiled"
-msgstr "alle Plugins werden automatisch gefunden und compiliert"
+msgstr "alle Plugins werden automatisch gefunden und kompiliert"
 
 #. Tag: para
 #: help_en.docbook:1023
@@ -2537,7 +2535,7 @@ msgid ""
 msgstr ""
 "neues Aufrufschema über String-Kommandos. Dies wir Scripting und Makro-"
 "Definitionen ermöglichen. Multithreading wird um einiges einfacher weil nur "
-"ein String übergeben werden muß und die Parameter in erst im jeweiligen "
+"ein String übergeben werden muss und die Parameter in erst im jeweiligen "
 "Thread extrahiert werden."
 
 #. Tag: para
@@ -2634,7 +2632,7 @@ msgstr ""
 "Entwicklung geht etwas langsamer, diese Release ist nicht so vollständig wie "
 "ich das gewünscht hatte, aber nachdem bei 0.29.2 bei einem Destructor "
 "Parameter aus versehen übrig geblieben sind und sich somit nicht auf allen "
-"Systemen compilieren läßt -> hier nochmal..."
+"Systemen kompilieren lässt -> hier nochmal..."
 
 #. Tag: para
 #: help_en.docbook:1358
@@ -2684,7 +2682,7 @@ msgstr "0.29.2"
 #: help_en.docbook:1380
 #, no-c-format
 msgid "moved clipboard functionality to its own class"
-msgstr "Zwichenablage-Funktionalität in eigene Klasse verschoben"
+msgstr "Zwischenablage-Funktionalität in eigene Klasse verschoben"
 
 #. Tag: para
 #: help_en.docbook:1383
@@ -2800,7 +2798,7 @@ msgid ""
 "configure script (change Makefile for not linking libpthread and doing a "
 "define)"
 msgstr ""
-"Wrapper für Systeme ohne POSIX-Threads hinzugefügt -> muß aber immer noch "
+"Wrapper für Systeme ohne POSIX-Threads hinzugefügt -> muss aber immer noch "
 "vom configure-Skript berücksichtigt werden (Makefile ändern um libpthread "
 "nicht zu linken und einen define)"
 
@@ -2976,13 +2974,13 @@ msgstr "ein Source-RPM der letzten stabilen Version herunterladen, "
 msgid ""
 "compile on your own, from a .tar.gz archive with the source code of the "
 "latest stable version,"
-msgstr "selbst aus einem tar.gz-Archiv der letzten stabilen Verstion compilieren,"
+msgstr "selbst aus einem tar.gz-Archiv der letzten stabilen Version kompilieren,"
 
 #. Tag: para
 #: help_en.docbook:1545
 #, no-c-format
 msgid "compile on your own, from the latest CVS source."
-msgstr "aus den per CVS abgerufenen Sourcen selbst compilieren."
+msgstr "aus den per CVS abgerufenen Sourcen selbst kompilieren."
 
 #. Tag: para
 #: help_en.docbook:1551
@@ -2991,7 +2989,7 @@ msgid ""
 "Don't be afraid, compiling Kwave should be quite simple even if you are not "
 "a programmer. It just needs some developer packages to be installed."
 msgstr ""
-"Schrecken Sie nicht davor zurück, Kwave selbst zu compilieren, auch wenn Sie "
+"Schrecken Sie nicht davor zurück, Kwave selbst zu kompilieren, auch wenn Sie "
 "kein Programmierer sind. Es müssen nur einige Entwickler-Pakete installiert "
 "sein."
 
@@ -3088,14 +3086,14 @@ msgstr ""
 "kwave/kwave/README?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup\"> "
 "\"http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README\"</"
 "ulink>. Diese Datei enthält auch einige Tips um &kapp; unter anderen "
-"Distributionen zum Laufen zu bekommen oder zu compilieren."
+"Distributionen zum Laufen zu bekommen oder zu kompilieren."
 
 #. Tag: para
 #: help_en.docbook:1610
 #, no-c-format
 msgid "If you intend to compile &kapp; from the sources, you will need at least:"
 msgstr ""
-"Wenn Sie vorhaben, &kapp; aus den Quellen zu compilieren, brauchen Sie "
+"Wenn Sie vorhaben, &kapp; aus den Quellen zu kompilieren, brauchen Sie "
 "zusätzlich mindestens:"
 
 #. Tag: para
@@ -3115,8 +3113,8 @@ msgid ""
 "The glibc2 (libc-6) development environment. On SuSE systems the package is "
 "called \"libc\", on other systems it might be called \"libc-devel\"."
 msgstr ""
-"Die glibc2 (libc-6) Entwicklungsumgebung. Auf SuSE-Systemen heisst das Paket "
-"\"libc\", auf anderen Systemen könnte es \"libc-devel\" heissen."
+"Die glibc2 (libc-6) Entwicklungsumgebung. Auf SuSE-Systemen heißt das Paket "
+"\"libc\", auf anderen Systemen könnte es \"libc-devel\" heißen."
 
 #. Tag: para
 #: help_en.docbook:1622
@@ -3135,7 +3133,7 @@ msgid ""
 "The Qt development environment, the package is normally called \"qt3-devel\" "
 "or similar."
 msgstr ""
-"Die Qt-Entwicklungsumgebung, das Paket heisst normalerweise \"qt3-devel\" "
+"Die Qt-Entwicklungsumgebung, das Paket heißt normalerweise \"qt3-devel\" "
 "oder ähnlich."
 
 #. Tag: para
@@ -3176,7 +3174,7 @@ msgstr ""
 #: help_en.docbook:1654
 #, no-c-format
 msgid "Manual Compilation and installation"
-msgstr "Compilierung und Installation"
+msgstr "Kompilierung und Installation"
 
 #. Tag: para
 #: help_en.docbook:1656
@@ -3185,7 +3183,7 @@ msgid ""
 "In order to compile and install &kapp; on your system, type the following in "
 "the base directory of the source distribution:"
 msgstr ""
-"Um &kapp; auf ihrem System zu compilieren und zu installieren, geben Sie die "
+"Um &kapp; auf Ihrem System zu kompilieren und zu installieren, geben Sie die "
 "folgenden Befehle in dem Hauptverzeichnis der Quellcodes an:"
 
 #. Tag: screen
@@ -3213,7 +3211,7 @@ msgid ""
 "linkend=\"mailing-list\">mailing list</link>."
 msgstr ""
 "Da &kapp; autoconf und automake benutzt, sollten Sie keine Probleme mit dem "
-"Compilieren haben. Falls Sie dennoch auf Probleme stossen, berichten Sie "
+"Kompilieren haben. Falls Sie dennoch auf Probleme stoßen, berichten Sie "
 "bitte der &kapp; <link linkend=\"mailing-list\">Mailing-Liste</link>."
 
 #. Tag: para
@@ -3226,7 +3224,7 @@ msgid ""
 "installation and try again. For example:"
 msgstr ""
 "Wenn Sie ein System mit alten Qt-1 oder Qt-2 Bibliotheken parallel zu Qt-3.x "
-"besitzen, werden Sie möglicherweise auf Probleme beim Compilieren stossen. "
+"besitzen, werden Sie möglicherweise auf Probleme beim Kompilieren stoßen. "
 "In diesem Fall setzen Sie bitte folgende Umgebungsvariable um den korrekten "
 "Pfad ihrer Qt-Installation zu setzen und versuchen Sie es erneut. Zum "
 "Beispiel:"
@@ -3422,7 +3420,7 @@ msgid ""
 "<literal>-ba</literal>, or just <literal>-bs</literal> to build only a "
 "source package."
 msgstr ""
-"Lassen Sie rpm den Compiliervorgang und die Generierung des &kapp; RPMs "
+"Lassen Sie rpm den Kompiliervorgang und die Generierung des &kapp; RPMs "
 "ausführen. Wenn Sie nur ein binary Paket erstellen wollen, dann können Sie "
 "<literal>-bb</literal> anstelle von <literal>-ba</literal> angeben, oder "
 "einfach <literal>-bs</literal> um nur ein Source-Paket zu erstellen."
@@ -3580,7 +3578,7 @@ msgstr ""
 "und machen Sie folgendes: <screen width=\"75\" format=\"linespecific\">\n"
 "<prompt>% </prompt><command>make distclean</command>\n"
 "<prompt>% </prompt><command>cvs update -dP -C</command>\n"
-"</screen> Gehen Sie dann zum nächsten Abschnitt über und compilieren Sie wie "
+"</screen> Gehen Sie dann zum nächsten Abschnitt über und kompilieren Sie wie "
 "gewöhnlich."
 
 #. Tag: para
@@ -3594,7 +3592,7 @@ msgid ""
 msgstr ""
 "Wenn der Inhalt Ihres lokalen &kapp;-Quellenverzeichnisses durcheinander "
 "geraten ist, oder wenn es beim Aktualisieren Konflikte gegeben hat, so "
-"können Sie alle Dateien und Unterverzeichnisse <emphasis>ausser dem "
+"können Sie alle Dateien und Unterverzeichnisse <emphasis>außer dem "
 "<filename>CVS</filename>-Verzeichnis </emphasis> löschen und nochmals "
 "versuchen."
 
@@ -3602,7 +3600,7 @@ msgstr ""
 #: help_en.docbook:1850
 #, no-c-format
 msgid "Compiling"
-msgstr "Compilieren"
+msgstr "Kompilieren"
 
 #. Tag: para
 #: help_en.docbook:1851
@@ -3708,7 +3706,7 @@ msgstr ""
 "Das bedeudet, dass Sie das Paket auf einem System mit beliebigem Standard "
 "KDE3-Verzeichnis erzeugen und es auf einem anderen System und/oder in einem "
 "anderen Verzeichnis installieren können. Diese Eigenschaft ist sehr nützlich "
-"um ein für SuSE compiliertes Paket auf einem RedHat System zu installieren "
+"um ein für SuSE kompiliertes Paket auf einem RedHat System zu installieren "
 "und umgekehrt."
 
 #. Tag: para
@@ -3725,7 +3723,7 @@ msgstr ""
 "System bekommen (wo das KDE3-Verzeichnis <filename>/usr</filename> ist) und "
 "wollen es auf einem SuSE System installieren (wo das KDE3-Verzeichnis "
 "<filename>/opt/kde3</filename> ist). Dann geben Sie einfach einen "
-"unterschiedlichen Prefix bei der Installtion des rpms an. Beispiel:"
+"unterschiedlichen Präfix bei der Installation des rpms an. Beispiel:"
 
 #. Tag: screen
 #: help_en.docbook:1915
@@ -3825,7 +3823,7 @@ msgid ""
 "html</ulink>. Thanks to Matthias Düsterhöft!)."
 msgstr ""
 "Sie können relativ einfach ein für Athlon, Athlon-XP, Pentium und Pentium "
-"Pro (oder einige andere CPUs) optimiertes Paket compilieren, indem Sie "
+"Pro (oder einige andere CPUs) optimiertes Paket kompilieren, indem Sie "
 "einige Definitionen in Ihrer rpmrc Datei setzen. Sie können auch Ihre "
 "systemweite /etc/rpmrc Datei oder die .rpmrc Datei in ihrem Home-Verzeichnis "
 "verändern. Dort können Sie zum Beispiel folgende Options-Zeilen angeben: "
@@ -3859,7 +3857,7 @@ msgid ""
 msgstr ""
 "Das bedeutet, dass auf einer <literal>K7-Architektur</literal> das rpm Paket "
 "unter Benutzung von <literal>-O3 -march=athlon-xp -mcpu=athlon-xp -DNDEBUG -"
-"fomit-frame-pointer</literal> als Compiler Option compiliert wird. Sie "
+"fomit-frame-pointer</literal> als Compiler Option kompiliert wird. Sie "
 "sollten dies für Ihre eigenen Bedürfnisse erweitern oder anpassen. Die "
 "Einstellungen sind für alle vorhergehenden Sektionen anwendbar, wo ein "
 "<command>rpmbuild -ta</command> benutzt wurde oder ein binary RPM mittels "
@@ -3876,10 +3874,10 @@ msgid ""
 "\"manual_compilation\">Manual compilation</link>, you can set this variable "
 "manually and get the same effect. For example:"
 msgstr ""
-"Die hier spezifizierten Optionen werden während der Compilierung in die "
+"Die hier spezifizierten Optionen werden während der Kompilierung in die "
 "Umgebungsvariable RPM_OPT_FLAGS geschrieben. Falls Sie also keine rpm-"
-"basierte Umgebung haben und kompilieren müssen wie in Kaptitel <link linkend="
-"\"manual_compilation\">Compilierung und Installation</link> beschrieben, "
+"basierte Umgebung haben und kompilieren müssen wie in Kapitel <link linkend="
+"\"manual_compilation\">Kompilierung und Installation</link> beschrieben, "
 "können Sie diese Variable \"per Hand\" setzen und erzielen den gleichen "
 "Effekt. Zum Beispiel:"
 
@@ -3999,10 +3997,10 @@ msgid ""
 "from digital to analogue normally is the reversion of the way from analogue "
 "to digital, we only describe the way from analogue to digital."
 msgstr ""
-"Zuerst muß man sich im klaren sein, daß die Welt <emphasis>analog</emphasis> "
+"Zuerst muss man sich im klaren sein, dass die Welt <emphasis>analog</emphasis> "
 "ist - Computer jedoch <emphasis>digital</emphasis> arbeiten. Es gibt also "
 "mehrere Wege um Audio von analog nach digital und umgekehrt umzuwandeln. "
-"Nachdem die Umsetzung von von digital nach analog die Umkehrung der "
+"Nachdem die Umsetzung von digital nach analog die Umkehrung der "
 "Umsetzung von analog nach digital ist, beschreiben wir nur letzteres."
 
 #. Tag: phrase
@@ -4062,7 +4060,7 @@ msgid ""
 "At this stage, the electrical signal has three limitations that one should "
 "keep in mind:"
 msgstr ""
-"An dieser Stelle sollte man im Hinterkopf behalten, daß das elektrische "
+"An dieser Stelle sollte man im Hinterkopf behalten, dass das elektrische "
 "Signal drei Beschränkungen unterliegt:"
 
 #. Tag: para
@@ -4101,7 +4099,7 @@ msgstr ""
 "Der <emphasis>Frequenzbereich</emphasis> ist ebenfalls begrenzt. Aufgrund "
 "der mechanischen Einschränkungen von Mikrophonen und dem begrenzten "
 "Frequenzbereich von Verstärkern ist auch der Frequenzbereich eines Signals "
-"begrenzt. Es gibt dabei keine harten Grenzen ausserhalb derer das Signal "
+"begrenzt. Es gibt dabei keine harten Grenzen außerhalb derer das Signal "
 "abrupt verschwindet, aber unterhalb und oberhalb bestimmter Grenzen nimmt "
 "die Amplitude des Signals immer mehr ab. Die Existenz einer maximalen "
 "Frequenz lässt sich mit der begrenzen Geschwindigkeit erklären mit der ein "
@@ -4130,7 +4128,7 @@ msgstr ""
 "unangenehmste Feind eines jeden der Audiosignale in irgendeiner Art und "
 "Weise bearbeiten muss. Rauschen ist ein typischer analoger Effekt, der das "
 "Audiosignal \"unscharf\" macht und stört, es ist immer vorhanden und kann "
-"nicht vermieden werden. Man kann lediglich verrsuchen, durch den Einsatz von "
+"nicht vermieden werden. Man kann lediglich versuchen, durch den Einsatz von "
 "qualitativ hochwertigen Komponenten so wenig Rauschen wie möglich zu "
 "erzeugen, so dass man es nicht hörbar wahrnehmen kann. Normalerweise besitzt "
 "das Rauschen eine gewisse Lautstärke, so dass das interessierende Signal im "
@@ -4281,7 +4279,7 @@ msgid ""
 "logarithmic amplification curves, used in digital telephony (ITU G.711 "
 "standard)."
 msgstr ""
-"Eine Massnahme zur Reduzierung des Einflusses des Rauschens ist "
+"Eine Maßnahme zur Reduzierung des Einflusses des Rauschens ist "
 "<emphasis>nicht-lineare</emphasis> Kodierung. Dies bedeudet, dass kleinere "
 "Amplituden vor der Verarbeitung angehoben werden. Indem kleinere Amplituden "
 "verstärkt werden, nimmt ihr Abstand zum Rauschen zu und die Qualität "
@@ -4496,7 +4494,7 @@ msgstr ""
 "wegnehmen, was bedeudet dass Speicher auf die Festplatte ausgelagert "
 "(geswappt) wird, was ziemlich langsam ist. Wenn Sie das Limit zu niedrig "
 "einstellen, verlieren Sie unter Umständen Performance beim Bearbeiten "
-"grosser Dateien, weil Sie weniger physikalischen Speicher verwenden als "
+"großer Dateien, weil Sie weniger physikalischen Speicher verwenden als "
 "möglich wäre."
 
 #. Tag: para
@@ -4511,7 +4509,7 @@ msgid ""
 "should be on your local hard disk."
 msgstr ""
 "Wenn Sie <emphasis>virtuellen Speicher</emphasis> verwenden, kann &kapp; "
-"Dateien laden und bearbeiten, die grösser sind als dies der installierte "
+"Dateien laden und bearbeiten, die größer sind als dies der installierte "
 "physikalische Speicher zulassen würde. &kapp; verwendet in diesem Fall "
 "temporäre Dateien in einem einstellbaren Verzeichnis, was um einiges "
 "schneller und kooperativer zu anderen Programmen ist als das Auslagern des "
@@ -4538,7 +4536,7 @@ msgstr ""
 "Dateien angeben, die geöffnet werden sollen. Die erste angegebene Datei wird "
 "dabei zuerst geöffnet und dann die anderen. Jede Datei wird dabei in einem "
 "neuen eigenen Fenster der selben &kapp; Instanz geöffnet. Wenn Sie "
-"Jokerzeichen verwenden, können Sie eine grosse Anzahl von Dateien auf einmal "
+"Jokerzeichen verwenden, können Sie eine große Anzahl von Dateien auf einmal "
 "öffnen."
 
 #. Tag: para
@@ -4572,7 +4570,7 @@ msgid ""
 msgstr ""
 "Zusätzlich zu einer Dateiliste können Sie noch eine Liste von <emphasis>Xt "
 "toolkit</emphasis> Optionen wie <literal>-geometry</literal> angeben, um die "
-"Grösse und/oder die Position des ersten geöffneten &kapp; Fenster zu "
+"Größe und/oder die Position des ersten geöffneten &kapp; Fenster zu "
 "spezifizieren. Eine weitere Option ist <literal>-display</literal>, die "
 "&kapp; auf einem anderen Bildschirm startet."
 
@@ -4790,7 +4788,7 @@ msgid ""
 "url=\"http://www.spies.com/Sox/\">http://www.spies.com/Sox/</ulink>.)"
 msgstr ""
 "Im Moment ist es am besten, zum Bearbeiten von Formaten die nicht von &kapp; "
-"unterstützt werden, ein externes Konverter-Programm zu benutzen.Eine gute "
+"unterstützt werden, ein externes Konverter-Programm zu benutzen. Eine gute "
 "Auswahl von Werkzeugen dafür finden Sie im <ulink url=\"http://sox."
 "sourceforge.net/\">SoX</ulink> Paket, dort finden Sie auch gute "
 "Dokumentation! (Die Original-Homepage liegt auf <ulink url=\"http://www."
@@ -5089,7 +5087,7 @@ msgid ""
 msgstr ""
 "Wenn die Vorab-Aufnahme aktiviert wurde und ein Triggerpegel gesetzt wurde, "
 "wartet &kapp; nach dem ersten Klicken auf das Erreichen des Triggerpegels. "
-"Währen dem Warten können Sie den Start der Aufnahme erzwingen indem Sie den "
+"Während dem Warten können Sie den Start der Aufnahme erzwingen indem Sie den "
 "Aufnahmebutton nochmals klicken, ansonsten startet die Aufnahme sobald der "
 "Triggerpegel erreicht wurde."
 
@@ -5116,7 +5114,7 @@ msgid ""
 "Depending on the compilation options &kapp; is able to play sounds trough "
 "one of the following playback methods:"
 msgstr ""
-"Je nachdem welche Optionen zur Compilierzeit gesetzt waren, kann &kapp; mit "
+"Je nachdem welche Optionen zur Kompilierzeit gesetzt waren, kann &kapp; mit "
 "Hilfe folgender Wiedergabe-Methoden abspielen:"
 
 #. Tag: para
@@ -5456,7 +5454,7 @@ msgid ""
 "that single sample."
 msgstr ""
 "Wenn Sei einen Sample-Bereich in &kapp; auswählen, wird dieser Bereich "
-"<emphasis>inclusive</emphasis> sein. Das heisst, dass das erste und das "
+"<emphasis>inclusive</emphasis> sein. Das heißt, dass das erste und das "
 "letzte ausgewählte Sample mit zur Auswahl gehören und benutzt werden für die "
 "folgenden Aktionen. Deshalb wird, selbst wenn Sie keinen <emphasis>Bereich</"
 "emphasis> sondern nur ein einzelnes Sample ausgewählt haben, die Auswahl "
@@ -5526,7 +5524,7 @@ msgid ""
 "guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>All</guimenuitem> </"
 "menuchoice>"
 msgstr ""
-"Auswahl des gesammten Signals: <menuchoice> "
+"Auswahl des gesamten Signals: <menuchoice> "
 "<shortcut><keycombo><keycap>Strg</keycap><keycap>A</keycap></keycombo></"
 "shortcut> <guimenu>Bearbeiten</guimenu><guimenuitem>Auswahl</"
 "guimenuitem><guimenuitem>Alles</guimenuitem> </menuchoice>"
@@ -5791,7 +5789,7 @@ msgstr "Fragen und Antworten"
 #: help_en.docbook:3297
 #, no-c-format
 msgid "What do I need to compile &kapp;?"
-msgstr "Was brauche ich um &kapp; zu compilieren?"
+msgstr "Was brauche ich um &kapp; zu kompilieren?"
 
 #. Tag: para
 #: help_en.docbook:3302
@@ -5801,7 +5799,7 @@ msgid ""
 "It compiles with gcc-2.95 and gcc-3.3 as well."
 msgstr ""
 "Lesen Sie im vorhergehenden <link linkend=\"requirements\">Kapitel</link> "
-"nach. Das Compilieren funktioniert sowohl mit gcc-2.95 als auch mit gcc-3.3."
+"nach. Das Kompilieren funktioniert sowohl mit gcc-2.95 als auch mit gcc-3.3."
 
 #. Tag: para
 #: help_en.docbook:3313
@@ -5851,7 +5849,7 @@ msgid ""
 "Why does &kapp; consume more memory than it can be expected from the size of "
 "the opened file?"
 msgstr ""
-"Warum verbraucht &kapp; mehr Speicher als es die Grösse der geöffneten Datei "
+"Warum verbraucht &kapp; mehr Speicher als es die Größe der geöffneten Datei "
 "erwarten lässt?"
 
 #. Tag: para
@@ -5866,7 +5864,7 @@ msgid ""
 msgstr ""
 "Der Grund dafür liegt im internen Speichersystem von &kapp;, in dem alle "
 "Samples in 32-bit Ganzzahlen (Integers) gespeichert werden. Dies war einfach "
-"zu programmieren, machte die Anwendung schneller und ein bischen "
+"zu programmieren, machte die Anwendung schneller und ein bisschen "
 "betriebsicherer. Deshalb werden 8-Bit Dateien mit rund einem Megabyte um die "
 "vier Megabyte im Speicher belegen. Vielleicht werden wir das irgendwann in "
 "der Zunkunft ändern..."
@@ -5887,7 +5885,7 @@ msgid ""
 "formats like Ogg/Vorbis and MP3 (read-only)."
 msgstr ""
 "&kapp; unterstützt zur Zeit .wav Dateien mit 8, 16 und 24 bits pro Sample, "
-"mit beliebiger Anzahl von Kanälen (einschliesslich Mono und Stereo "
+"mit beliebiger Anzahl von Kanälen (einschließlich Mono und Stereo "
 "natürlich). Zusätzlich unterstützt es alle Dateiformate von libaudiofile "
 "sowie andere wie Ogg/Vorbis und MP3 (nur Import)."
 
@@ -5927,7 +5925,7 @@ msgid ""
 "increase the bits per sample and stereo playback step by step. Note that "
 "some playback rates are not at all supported by some sound hardware."
 msgstr ""
-"Vielleicht haben Sie eine Kombination von Playbackrate und Samplegrösse "
+"Vielleicht haben Sie eine Kombination von Playbackrate und Samplegröße "
 "gewählt, die nicht von ihrem Soundtreiber und / oder ihrer Soundhardware "
 "unterstützt wird. Versuchen Sie zuerst Playback mit 8 bits pro Sample und "
 "Mono, dies sollte immer funktionieren. Dann versuchen Sie die Bits pro "
@@ -5977,7 +5975,7 @@ msgid ""
 "You should increase the size of the playback buffer to get a \"smoother\" "
 "playback (this also makes the playback control reacting a bit slower)."
 msgstr ""
-"Sie sollten die Grösse des Wiedergabe Buffers erhöhen um eine \"glattere\" "
+"Sie sollten die Größe des Wiedergabe Buffers erhöhen um eine \"glattere\" "
 "Wiedergabe zu bekommen (dies führt auch zu einer langsameren Reaktion der "
 "Wiedergabe- Kontrolle)."
 
@@ -5985,7 +5983,7 @@ msgstr ""
 #: help_en.docbook:3464
 #, no-c-format
 msgid "The playback does not stop if I immediately press the stop button?"
-msgstr "Die Widergabe hält nicht an, wenn ich sofort die Stop-Taste drücke?"
+msgstr "Die Wiedergabe hält nicht an, wenn ich sofort die Stop-Taste drücke?"
 
 #. Tag: para
 #: help_en.docbook:3470
@@ -5998,7 +5996,7 @@ msgid ""
 msgstr ""
 "Der Grund dafür ist, dass der Soundtreiber, in dem Moment in dem Sie die "
 "Stop-Taste drücken, bereits Wiedergabedaten von &kapp; erhalten hat. "
-"Verringern Sie die Grösse des Wiedergabe Buffers und die Reaktion sollte "
+"Verringern Sie die Größe des Wiedergabe Buffers und die Reaktion sollte "
 "schneller einsetzen (dabei werden aber Aussetzer wahrscheinlicher)."
 
 #. Tag: para
@@ -6015,7 +6013,7 @@ msgid ""
 "0.6 &kapp; has support for <ulink url=\"http://www.arts-project.org/\">aRts</"
 "ulink>, which can use ALSA."
 msgstr ""
-"Sorry, im Moment haben wir keine direkte Untersttzung für ALSA, aber seit "
+"Sorry, im Moment haben wir keine direkte Unterstützung für ALSA, aber seit "
 "Version 0.6 unterstützt &kapp; die Ausgabe über <ulink url=\"http://www.arts-"
 "project.org/\">aRts</ulink>, der widerum ALSA verwenden kann."
 
@@ -6036,7 +6034,7 @@ msgid ""
 msgstr ""
 "Dies ist ein weiteres Feature, das wahrscheinlich in <ulink url=\"http://www."
 "arts-project.org/\">aRts</ulink> implementiert wird, somit warten wir bis "
-"die Untersttzung von aRts vorhanden ist."
+"die Unterstützung von aRts vorhanden ist."
 
 #. Tag: para
 #: help_en.docbook:3514

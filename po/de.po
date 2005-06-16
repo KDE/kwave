@@ -1,8 +1,4 @@
-# translation of de.po to
-# translation of de.po to
 # translation of de.po to Deutsch
-# translation of de.po to español
-# translation of de.po to deutsch
 # Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>, 2003, 2004, 2005.
 msgid ""
 msgstr ""
@@ -1175,7 +1171,7 @@ msgid ""
 "a semicolon and a blank."
 msgstr ""
 "Nennt den Namen des Ton-Technikers der die Datei bearbeitet hat.\n"
-"Bei mehreren Technikern sind die Namen duch ein Semikolon\n"
+"Bei mehreren Technikern sind die Namen durch ein Semikolon\n"
 "und ein Leerzeichen zu trennen."
 
 #: libkwave/FileInfo.cpp:97
@@ -1217,7 +1213,7 @@ msgid ""
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 msgstr ""
 "ISRC-Nummer des Stücks. Für weitere Informationen über ISRC-\n"
-"Numern siehe die ISRC-Einführungs-Seite unter:\n"
+"Nummern siehe die ISRC-Einführungs-Seite unter:\n"
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 
 #: libkwave/FileInfo.cpp:112 plugins/fileinfo/KeywordWidgetBase.uic.cpp:79
@@ -2253,7 +2249,7 @@ msgid ""
 "audio data are before they get processed by the pitch shift. If your audio "
 "data sounds interrupted, you might get better result with higher values."
 msgstr ""
-"<b>Zerhacker-Frequenz</b><br>Diese Einstellung bestimmt wie gross die "
+"<b>Zerhacker-Frequenz</b><br>Diese Einstellung bestimmt wie groß die "
 "Einheiten sind in die das Ausgangssignal zerteilt wird bevor der "
 "Tonverschiebungs-Effekt angewendet wird. Wenn sich das Ergebnis zerhackt "
 "anhört, bekommen Sie möglicherweise bessere Resultate mit höheren Werten."
@@ -3673,7 +3669,7 @@ msgid ""
 "result, so you can just leave it as it is."
 msgstr ""
 "<b>Sample-Format</b><br> Hier können Sie ein Sample-Format auswählen, das "
-"von Ihrer Soundkarte unterstützt wird. Dies hat normalerweise keinen grossen "
+"von Ihrer Soundkarte unterstützt wird. Dies hat normalerweise keinen großen "
 "Einfluss auf das Resultat, so dass Sie diese Einstellung so lassen können "
 "wie sie ist."
 
@@ -3686,7 +3682,7 @@ msgid ""
 "<b>Resolution</b><br>Select a resolution in bits in which the file will be "
 "recorded. Higher values give better quality but also more system load."
 msgstr ""
-"<b>Auflösung</b><br>Wähen Sie hier eine Auflösung in Bits pro Sample in die "
+"<b>Auflösung</b><br>Wählen Sie hier eine Auflösung in Bits pro Sample in die "
 "Aufnahme durchgeführt werden soll. Höhere Werte geben bessere Qualität, aber "
 "auch höhere Systemlast."
 
@@ -3803,7 +3799,7 @@ msgstr "Sie haben noch kein Aufnahmegerät ausgewählt."
 
 #: plugins/record/RecordPlugin.cpp:236
 msgid "The device %1 seems not to exist."
-msgstr "Das Gerät %1 scheint nicht zu exisitieren."
+msgstr "Das Gerät %1 scheint nicht zu existieren."
 
 #: plugins/record/RecordPlugin.cpp:240
 msgid ""
@@ -3832,7 +3828,7 @@ msgid ""
 "The record device '%1' does not work properly, determining the number of "
 "supported channels failed."
 msgstr ""
-"Das Aufnahmegerät '%1' funktioniert nicht ordnungsgemäss; die Anzahl der "
+"Das Aufnahmegerät '%1' funktioniert nicht ordnungsgemäß; die Anzahl der "
 "unterstützten Kanäle konnte nicht bestimmt werden."
 
 #: plugins/record/RecordPlugin.cpp:330
@@ -3902,7 +3898,7 @@ msgid ""
 "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
 "Buffer-Überlauf. Bitte erhöhen Sie die Anzahl der Buffer und/oder vergrößern "
-"Sie die Buffergrösse."
+"Sie die Buffergröße."
 
 #: plugins/record/RecordPlugin.cpp:775
 msgid "The recording device seems to be busy!"
@@ -3966,7 +3962,7 @@ msgid ""
 "Increments or decrements the volume in logarithmic scale (decibel). \n"
 "For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 msgstr ""
-"Erhöht oder senkt die Lautstärke im logarithmischen Masstab (Dezibel). \n"
+"Erhöht oder senkt die Lautstärke im logarithmischen Maßstab (Dezibel). \n"
 "Zum Beispiel: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 
 #: plugins/codec_ogg/OggEncoder.cpp:158
@@ -4193,7 +4189,7 @@ msgid ""
 "suitable for the choosen playback method. If your device is not listed here, "
 "you can enter a device name on your own or search through the filesystem.</p>"
 msgstr ""
-"<b>Gerät::</b><p>Zeigt eine Auswahl bekannter Widergabe-Geräte, passend zu "
+"<b>Gerät::</b><p>Zeigt eine Auswahl bekannter Wiedergabe-Geräte, passend zu "
 "Ihrer Wiedergabe-Methode.</p>"
 
 #: plugins/playback/PlayBackDlg.uic.cpp:246
@@ -4210,7 +4206,7 @@ msgid ""
 "not already listed in the list of devices.</p>"
 msgstr ""
 "<b>Auswahl...</b><p>Wählen Sie eine Gerätedatei innerhalb des Dateisystems "
-"falls Ihr Widergabe-Gerät nicht gelistet ist.</p>"
+"falls Ihr Wiedergabe-Gerät nicht gelistet ist.</p>"
 
 #: plugins/playback/PlayBackDlg.uic.cpp:249
 msgid "method or system used for playback"
@@ -4272,12 +4268,12 @@ msgid ""
 "update of the playback position and the real sound output. If you encounter "
 "dropouts you should increase this setting a bit.</p>"
 msgstr ""
-"<b>Puffer-Grösse:</b><p>Wählen Sie eine Puffer-Grösse für die Wiedergabe. "
-"Sie sollten diese Grösse so klein wie möglich halten, und die Latenz bei der "
+"<b>Puffer-Größe:</b><p>Wählen Sie eine Puffer-Größe für die Wiedergabe. "
+"Sie sollten diese Größe so klein wie möglich halten, und die Latenz bei der "
 "Wiedergabe zu verringern. Die Latenz ist die Verzögerung zwischen Aktionen "
 "der Benutzer-Schnittstelle wie z.B. Starten oder Stoppen der Wiedergabe, "
 "Aktualisierung der Wiedergabeposition, und der wirklichen Ausgabe zum "
-"Lautsprecher.Wenn Sie Aussetzer hören, sollten Sie einen etwas höheren Wert "
+"Lautsprecher. Wenn Sie Aussetzer hören, sollten Sie einen etwas höheren Wert "
 "einstellen.</p>"
 
 #: plugins/playback/PlayBackDlg.uic.cpp:261
@@ -4373,7 +4369,7 @@ msgid ""
 "the program by calling: \"fuser -v %1\" \n"
 "on the command line.)"
 msgstr ""
-"Das Gerät is gerade belegt. Möglicherweise wird es gerade\n"
+"Das Gerät ist gerade belegt. Möglicherweise wird es gerade\n"
 "von einem andern Programm verwendet. Versuchen Sie es\n"
 "am besten zu einem späteren Zeitpunkt nochmal.\n"
 "(Tip: versuchen Sie, in der Kommandozeile folgendes\n"
@@ -4391,7 +4387,7 @@ msgstr "%1 Bits/Sample werden nicht unterstützt"
 
 #: plugins/playback/PlayBack-OSS.cpp:134
 msgid "stereo playback is not supported"
-msgstr "Stereo-Widergabe wird nicht unterstützt"
+msgstr "Stereo-Wiedergabe wird nicht unterstützt"
 
 #: plugins/playback/PlayBack-OSS.cpp:140
 msgid "playback rate %1 Hz is not supported"
@@ -4515,7 +4511,7 @@ msgid ""
 "saved. However, Kwave always uses 24 bits as it's own internal resolution to "
 "give the best results when processing the audio data."
 msgstr ""
-"<b>Auflösung</b><br>Wähen Sie hier eine Auflösung in Bits pro Sample in der "
+"<b>Auflösung</b><br>Wählen Sie hier eine Auflösung in Bits pro Sample in der "
 "die Datei gespeichert werden soll. Wie auch immer, Kwave verwendet intern 24 "
 "Bit um die besten Resultate bei der Bearbeitung der Audio-Daten zu erhalten."
 

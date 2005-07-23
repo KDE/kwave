@@ -72,7 +72,7 @@ h_files  	+= ${idl_header}
 
 GENERATED_FILES := ${uih_files} ${uic_files} ${idl_header} ${idl_impl} ${moc_files}
 
-CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm \
+CLEANFILES	 = core *~ *.o ${MODNAME}_plugin ${MODNAME} *.moc.cxx *.moc *.d *.dm \
 			.depend *.uih.h *.uic.cpp \
 			${GENERATED_FILES} \
 			timestamp.depend
@@ -157,12 +157,12 @@ timestamp.depend: ${GENERATED_FILES} .depend
 ${PLUGINDEP_FILES}: | ${GENERATED_FILES}
 ${OUT_FILES}: | timestamp.depend
 
-$(MODNAME): ${OUT_FILES}
+$(MODNAME)_plugin: ${OUT_FILES}
 	@echo plugin \"$(MODNAME)\": linking \"${OUT_FILES}\" to \"$@\"
 	@ @CXX@ $(CXXFLAGS) ${OUT_FILES} ${LD_FLAGS} \
-	  ${EXTRA_LIBDIRS} ${EXTRA_LDFLAGS} -o ${MODNAME}
+	  ${EXTRA_LIBDIRS} ${EXTRA_LDFLAGS} -o ${MODNAME}_plugin
 
-all: $(MODNAME)
+all: $(MODNAME)_plugin
 
 clean-local:
 	-rm -f ${CLEANFILES} .deps/* `@FIND@ . -type l` *.moc *.moc.cxx
@@ -170,7 +170,7 @@ clean-local:
 
 install-data-local:
 	$(mkinstalldirs) $(PLUGINDIR)
-	$(INSTALL) -m 755 $(MODNAME) $(PLUGINDIR)
+	$(INSTALL) -m 755 $(MODNAME)_plugin $(PLUGINDIR)/$(MODNAME)
 
 uninstall-local:
 	-rm -f $(PLUGINDIR)/$(MODNAME)

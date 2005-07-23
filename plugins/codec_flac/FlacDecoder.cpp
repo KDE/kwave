@@ -161,7 +161,7 @@ void FlacDecoder::parseVorbisComments(
 #ifdef FLAC_API_VERSION_1_1_1_OR_OLDER
     if (vorbis_comments.get_vendor_string().is_valid()) {
 	const FLAC::Metadata::VorbisComment::Entry &entry =
-	vorbis_comments.get_vendor_string();
+		vorbis_comments.get_vendor_string();
 
 	QString s = QString::fromUtf8(
 		entry.get_field(),

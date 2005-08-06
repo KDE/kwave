@@ -966,11 +966,9 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
     }
 }
 
-//***************************************************************************
 void SignalWidget::paintEvent(QPaintEvent *)
 {
     InhibitRepaintGuard inhibit(*this, false); // avoid recursion
-    QPainter p;
 
 //    qDebug("SignalWidget::paintEvent()");
 //#ifdef DEBUG
@@ -979,6 +977,8 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //    double t_elapsed;
 //    gettimeofday(&t_start,0);
 //#endif
+
+    QPixmap::setDefaultOptimization(QPixmap::BestOptim);
 
     unsigned int n_tracks = m_signal_manager.isClosed() ? 0 : tracks();
     bool update_pixmap = false;
@@ -990,7 +990,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
     m_width = QWidget::width();
     m_height = QWidget::height();
 
-//    qDebug("SignalWidget::paintEvent(): width=%d, height=%d",m_width,m_height);
+//     qDebug("SignalWidget::paintEvent(): width=%d, height=%d",m_width,m_height);
 
     // --- detect size changes and refresh the whole display ---
     if ((m_width != m_last_width) || (m_height != m_last_height)) {
@@ -1019,12 +1019,10 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	Q_ASSERT(m_layer[LAYER_SIGNAL]);
 	if (!m_layer[LAYER_SIGNAL]) return;
 
-//	qDebug("SignalWidget::paintEvent(): - redraw of signal layer -");
-	p.begin(m_layer[LAYER_SIGNAL]);
-	p.setRasterOp(CopyROP);
+// 	qDebug("SignalWidget::paintEvent(): - redraw of signal layer -");
 
 	// all black if empty
-	if (!n_tracks) p.fillRect(0, 0, m_width, m_height, black);
+ 	if (!n_tracks) m_layer[LAYER_SIGNAL]->fill(black);
 
 	int track_height = (n_tracks) ? (m_height / n_tracks) : 0;
 	int top = 0;
@@ -1048,8 +1046,6 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	    top += track_height;
 	}
 
-	p.end();
-
 	m_update_layer[LAYER_SIGNAL] = false;
 	update_pixmap = true;
     }
@@ -1062,12 +1058,11 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	if (!m_layer[LAYER_MARKERS]) return;
 
 //	qDebug("SignalWidget::paintEvent(): - redraw of markers layer -");
-	p.begin(m_layer[LAYER_MARKERS]);
-	p.fillRect(0, 0, m_width, m_height, black);
+	m_layer[LAYER_MARKERS]->fill(black);
 
+// 	p.begin(m_layer[LAYER_MARKERS]);
 	// ### nothing to do yet
-
-	p.end();
+// 	p.end();
 
 	m_update_layer[LAYER_MARKERS] = false;
 	update_pixmap = true;
@@ -1080,11 +1075,12 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	Q_ASSERT(m_layer[LAYER_SELECTION]);
 	if (!m_layer[LAYER_SELECTION]) return;
 
-//	qDebug("SignalWidget::paintEvent(): - redraw of selection layer -");
+	qDebug("SignalWidget::paintEvent(): - redraw of selection layer -");
 
-	p.begin(m_layer[LAYER_SELECTION]);
-	p.fillRect(0, 0, m_width, m_height, black);
-	p.setRasterOp(CopyROP);
+	m_layer[LAYER_SELECTION]->fill(black);
+
+	QPainter p;
+ 	p.begin(m_layer[LAYER_SELECTION]);
 
 	if (n_tracks) {
 	    unsigned int left  = m_signal_manager.selection().first();
@@ -1120,8 +1116,12 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	if (!m_pixmap) return;
 	update_pixmap = true;
     }
+    Q_ASSERT(m_pixmap->width() == m_width);
+    Q_ASSERT(m_pixmap->height() == m_height);
 
+    // bitBlt all layers together
     if (update_pixmap) {
+	m_pixmap->fill(black);
 	for (int i=0; i < 3; i++) {
 	    if (!m_layer[i]) continue;
 	    bitBlt(m_pixmap, 0, 0, m_layer[i], 0, 0,
@@ -1135,6 +1135,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	m_signal_manager.playbackController().currentPos() - m_offset);
 
     if (n_tracks) {
+	QPainter p;
 	p.begin(m_pixmap);
 	p.setPen(yellow);
 	p.setRasterOp(XorROP);

@@ -19,6 +19,18 @@
  *   changed "popl %0" to "pop %0", patch supplied by
  *   Kurt Roeckx <Q@ping.be> to fix compilation under amd64
  *   (closes: debian bug#288781)
+ *
+ * 2005-08-13, Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+ *   applied the following patch (idea), to fix AMD64 push/pop
+ *   problems. Original comment from the author:
+ *       2004-12-30
+ *       As is stated on http://www.tortall.net/projects/yasm/wiki/AMD64 :
+ *       "Instructions that modify the stack (push, pop, call, ret, enter,
+ *       and leave) are implicitly 64-bit. Their 32-bit counterparts are not
+ *       available, but their 16-bit counterparts are."
+ *       Adjusted the failing popl %0 commands when compiling on AMD64/X86_64
+ *       by Robert M. Stockmann <stock@stokkie.net>
+ *   (closes: sourceforge bug #1244320)
  */
 
 #ifdef HAVE_CONFIG_H
@@ -48,6 +60,30 @@ int mm_support(void)
     int rval;
     int eax, ebx, ecx, edx;
 
+#if defined(ARCH_X86_64)
+    /* use 64bit pushq / popq */
+    __asm__ __volatile__ (
+                          /* See if CPUID instruction is supported ... */
+                          /* ... Get copies of EFLAGS into eax and ecx */
+                          "pushf\n\t"
+                          "popq %0\n\t"
+                          "movl %0, %1\n\t"
+
+                          /* ... Toggle the ID bit in one copy and store */
+                          /*     to the EFLAGS reg */
+                          "xorl $0x200000, %0\n\t"
+                          "pushq %0\n\t"
+                          "popf\n\t"
+
+                          /* ... Get the (hopefully modified) EFLAGS */
+                          "pushf\n\t"
+                          "popq %0\n\t"
+                          : "=a" (eax), "=c" (ecx)
+                          :
+                          : "cc"
+                          );
+#else
+    /* use 32bit push / pop */
     __asm__ __volatile__ (
                           /* See if CPUID instruction is supported ... */
                           /* ... Get copies of EFLAGS into eax and ecx */
@@ -68,6 +104,7 @@ int mm_support(void)
                           :
                           : "cc"
                           );
+#endif
 
     if (eax == ecx)
         return 0; /* CPUID not supported */

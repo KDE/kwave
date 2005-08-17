@@ -734,7 +734,6 @@ void SignalWidget::allowRepaint(bool repaint)
 	    m_repaint_timer.start(REPAINT_INTERVAL, true);
 	}
     }
-
 }
 
 //***************************************************************************
@@ -970,15 +969,13 @@ void SignalWidget::paintEvent(QPaintEvent *)
 {
     InhibitRepaintGuard inhibit(*this, false); // avoid recursion
 
-//    qDebug("SignalWidget::paintEvent()");
+//     qDebug("SignalWidget::paintEvent()");
 //#ifdef DEBUG
 //    static struct timeval t_start;
 //    static struct timeval t_end;
 //    double t_elapsed;
 //    gettimeofday(&t_start,0);
 //#endif
-
-    QPixmap::setDefaultOptimization(QPixmap::BestOptim);
 
     unsigned int n_tracks = m_signal_manager.isClosed() ? 0 : tracks();
     bool update_pixmap = false;
@@ -1075,7 +1072,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	Q_ASSERT(m_layer[LAYER_SELECTION]);
 	if (!m_layer[LAYER_SELECTION]) return;
 
-	qDebug("SignalWidget::paintEvent(): - redraw of selection layer -");
+// 	qDebug("SignalWidget::paintEvent(): - redraw of selection layer -");
 
 	m_layer[LAYER_SELECTION]->fill(black);
 

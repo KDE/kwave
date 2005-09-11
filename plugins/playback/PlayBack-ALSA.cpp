@@ -65,8 +65,7 @@ PlayBackALSA::PlayBackALSA()
     m_buffer_size(0),
     m_buffer_used(0),
     m_format(),
-    m_chunk_size(0)//,
-//     m_device_list()
+    m_chunk_size(0)
 {
 }
 
@@ -734,7 +733,6 @@ QStringList PlayBackALSA::supportedDevices()
     QStringList list;
 
     // re-validate the list if necessary
-//     alsaDeviceName(m_device_name);
     scanDevices();
 
     QMap<QString, QString>::Iterator it;
@@ -844,7 +842,6 @@ int PlayBackALSA::detectChannels(const QString &device,
     // close the device if *we* opened it
     if (pcm != m_handle) snd_pcm_close(pcm);
 
-//     qDebug("PlayBackALSA::detectTracks, min=%u, max=%u", min, max);
     return 0;
 }
 

@@ -263,7 +263,7 @@ int SignalManager::loadFile(const KURL &url)
     }
     if (!decoder) {
 	qWarning("unknown file type");
-	res = -EMEDIUMTYPE;
+	res = -EINVAL;
     } else {
 	delete decoder;
     }
@@ -426,7 +426,7 @@ int SignalManager::save(const KURL &url, bool selection)
     } else {
 	KMessageBox::error(m_parent_widget,
 	    i18n("Sorry, the file type is not supported!"));
-	res = -EMEDIUMTYPE;
+	res = -EINVAL;
     }
 
     if (!res) {

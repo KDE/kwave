@@ -866,7 +866,7 @@ int TopWidget::saveFile()
 
 	// if saving in current format is not possible (no encoder),
 	// then try to "save/as" instead...
-	if (res == -EMEDIUMTYPE) res = saveFileAs(false);
+	if (res == -EINVAL) res = saveFileAs(false);
     } else res = saveFileAs(false);
 
     updateCaption();

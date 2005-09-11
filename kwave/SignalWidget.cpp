@@ -421,7 +421,7 @@ int SignalWidget::loadFile(const KURL &url)
 		reason = i18n("unable to open '%1'").arg(
 		    url.prettyURL());
 		break;
-	    case -EMEDIUMTYPE:
+	    case -EINVAL:
 		reason = i18n("invalid or unknown file type: '%1'").arg(
 		              url.prettyURL());
 		break;

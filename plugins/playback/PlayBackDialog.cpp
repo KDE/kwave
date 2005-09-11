@@ -139,7 +139,6 @@ void PlayBackDialog::setSupportedDevices(QStringList devices)
 
     cbDevice->clearEdit();
     cbDevice->clear();
-    cbDevice->insertStringList(devices);
     listDevices->clear();
 
     if (devices.contains("#EDIT#")) {
@@ -236,6 +235,7 @@ void PlayBackDialog::setSupportedDevices(QStringList devices)
 	}
     } else {
 	// combo box mode
+	cbDevice->insertStringList(devices);
 	cbDevice->show();
 	listDevices->setEnabled(false);
 

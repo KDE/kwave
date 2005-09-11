@@ -31,6 +31,10 @@
  *       Adjusted the failing popl %0 commands when compiling on AMD64/X86_64
  *       by Robert M. Stockmann <stock@stokkie.net>
  *   (closes: sourceforge bug #1244320)
+ *
+ * 2005-09-11, Kurt Roeckx <kurt@roeckx.be>
+ *   use 64 bit int for 64bit push/pop
+ *   (closes: debian bug #327501)
  */
 
 #ifdef HAVE_CONFIG_H
@@ -58,20 +62,20 @@ int mm_support(void);
 int mm_support(void)
 {
     int rval;
-    int eax, ebx, ecx, edx;
 
 #if defined(ARCH_X86_64)
     /* use 64bit pushq / popq */
+    int64_t eax, ebx, ecx, edx;
     __asm__ __volatile__ (
                           /* See if CPUID instruction is supported ... */
                           /* ... Get copies of EFLAGS into eax and ecx */
                           "pushf\n\t"
                           "popq %0\n\t"
-                          "movl %0, %1\n\t"
+                          "movq %0, %1\n\t"
 
                           /* ... Toggle the ID bit in one copy and store */
                           /*     to the EFLAGS reg */
-                          "xorl $0x200000, %0\n\t"
+                          "xorq $0x200000, %0\n\t"
                           "pushq %0\n\t"
                           "popf\n\t"
 
@@ -84,6 +88,7 @@ int mm_support(void)
                           );
 #else
     /* use 32bit push / pop */
+    int eax, ebx, ecx, edx;
     __asm__ __volatile__ (
                           /* See if CPUID instruction is supported ... */
                           /* ... Get copies of EFLAGS into eax and ecx */

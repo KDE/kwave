@@ -133,10 +133,12 @@ unsigned int MemoryManager::totalPhysical()
     }
 
     // check ulimit of total (physical+virtual) system memory
+#ifdef RLIMIT_AS
     if (getrlimit(RLIMIT_AS, &limit) == 0) {
 	unsigned int total_ulimit = limit.rlim_cur >> 20;
 	if (total_ulimit < total) total = total_ulimit;
     }
+#endif
 #endif
 
     return total;

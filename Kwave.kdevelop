@@ -14,6 +14,7 @@
       <language>Bash</language>
       <language>C</language>
     </secondaryLanguages>
+    <versioncontrol/>
   </general>
   <kdevcustomproject>
     <run>
@@ -23,7 +24,7 @@
       <envvars>
         <envvar value="libkwave/.libs:mt/.libs:libgui/.libs" name="LD_LIBRARY_PATH" />
       </envvars>
-      <directoryradio>executable</directoryradio>
+      <directoryradio>build</directoryradio>
       <customdirectory>/</customdirectory>
       <autocompile>true</autocompile>
     </run>
@@ -109,8 +110,8 @@
       <group pattern="*.h" name="Headers" />
       <group pattern="*.cpp;*.c" name="Sources" />
       <group pattern="README;*.lsm;TODO;INSTALL;Chang*" name="GNU files" />
-      <hidenonprojectfiles>false</hidenonprojectfiles>
-      <hidenonlocation>false</hidenonlocation>
+      <hidenonprojectfiles>true</hidenonprojectfiles>
+      <hidenonlocation>true</hidenonlocation>
     </groups>
     <tree>
       <hidepatterns>*.o,*.lo,CVS</hidepatterns>
@@ -166,4 +167,8 @@
       <usermanualurl/>
     </projectdoc>
   </kdevdocumentation>
+  <ctagspart>
+    <customArguments/>
+    <customTagfilePath/>
+  </ctagspart>
 </kdevelop>

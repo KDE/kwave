@@ -157,7 +157,7 @@ void RecordThread::run()
 	char *p = buffer;
 	while (len) {
 	    // read raw data from the record device
-	    int result = m_device->read(p, len);
+	    int result = (m_device) ? m_device->read(p, len) : -EBADF;
 
 	    if (result == -EBADF) {
 		// file open has failed
@@ -185,7 +185,7 @@ void RecordThread::run()
 	}
 
 	// fill remaining space with zeroes
-	if (len) bzero(p, len);
+	if (len && p) bzero(p, len);
 
 	// enqueue the buffer for the application
 	m_full_queue.enqueue(buffer);

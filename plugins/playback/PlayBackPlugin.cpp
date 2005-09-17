@@ -373,6 +373,7 @@ void PlayBackPlugin::setDevice(const QString &device)
 
     // set the device in the dialog
     if (m_dialog) m_dialog->setDevice(device);
+    m_playback_params.device = device;
 
     QValueList<unsigned int> supported_bits;
     if (m_device) supported_bits = m_device->supportedBits(device);
@@ -382,7 +383,6 @@ void PlayBackPlugin::setDevice(const QString &device)
     unsigned int max = 0;
     if (m_device) m_device->detectChannels(device, min, max);
     if (m_dialog) m_dialog->setSupportedChannels(min, max);
-
 }
 
 //***************************************************************************

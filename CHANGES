@@ -1,4 +1,17 @@
 
+0.7.4 [2005-??-??]
+
+ * recording via ALSA
+ * support for the silently changed API of libFLAC++ v1.1.2
+   (closes sourceforge bug #1243707 + debian bug #289953)
+ * fixed support of MMX / SSE detection on X64_64 architecture
+   (closes sourceforge bug #1244320 and debian bugs #288781 +
+   #327501)
+ * decided to support gstreamer as streaming engine
+   in future versions (will make v0.8 if Kwave is aRts-free)
+ * fixed some German translations
+   (closes debian bug #313790 and bug #314000)
+
 0.7.3 [2005-05-26]
 
  * playback via ALSA

@@ -17,6 +17,9 @@ o finish recording support
 o bugfix: start plugin (e.g. Sonagram) while playback leads to
   lock situation
 
+o replace "AF_SAMPFMT_xxx" with enum "SampleFormat::yyy" in WavEncoder.cpp,
+  WavDecoder.cpp and PlayBack-OSS.cpp
+
 o more precise handling of the playback pointer
   -> use the delay information from aRts
 

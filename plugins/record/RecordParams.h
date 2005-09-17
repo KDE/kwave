@@ -21,6 +21,26 @@
 #include "config.h"
 #include <qstringlist.h>
 
+#include "libkwave/SampleFormat.h"
+
+/**
+ * enum for the known recording methods
+ */
+typedef enum {
+    RECORD_NONE = 0, /**< none selected */
+    RECORD_ARTS,     /**< aRts sound daemon */
+    RECORD_OSS,      /**< OSS native or ALSA OSS emulation */
+    RECORD_ALSA,     /**< ALSA native */
+    RECORD_JACK,     /**< Jack sound daemon */
+    RECORD_INVALID   /**< (keep this the last entry, EOL delimiter) */
+} record_method_t;
+
+/** post-increment operator for the record method */
+inline record_method_t &operator ++(record_method_t &m) {
+    return (m = (m < RECORD_INVALID) ?
+                (record_method_t)((int)(m) + 1) : m);
+}
+
 class RecordParams {
 
 public:
@@ -40,6 +60,8 @@ public:
 
     /** Parse into a QStringList */
     virtual QStringList toList() const;
+
+    record_method_t method;             /** method/class for recording */
 
     bool pre_record_enabled;		/**< pre-record: feature enabled */
     unsigned int pre_record_time;	/**< pre-record: time in seconds */
@@ -67,7 +89,7 @@ public:
     double sample_rate;			/**< sample rate in samples/second */
     int compression;			/**< compression index or -1 */
     unsigned int bits_per_sample;	/**< resolution in bits per sample */
-    int sample_format;			/**< sample format index */
+    SampleFormat::sample_format_t sample_format; /**< sample format */
 
     unsigned int buffer_count;		/**< number of buffers */
     unsigned int buffer_size;		/**< power of the record buffer size */

@@ -21,7 +21,8 @@
 
 //***************************************************************************
 RecordParams::RecordParams()
-   :pre_record_enabled(false),     pre_record_time(20),
+   :method(RECORD_OSS),
+    pre_record_enabled(false),     pre_record_time(20),
     record_time_limited(false),    record_time(5*60),
     record_trigger_enabled(false), record_trigger(30),
     amplification_enabled(false),  amplification(+3),
@@ -33,7 +34,7 @@ RecordParams::RecordParams()
     sample_rate(44100.0),
     compression(0),
     bits_per_sample(16),
-    sample_format(0),
+    sample_format(SampleFormat::Unknown),
     buffer_count(32),
     buffer_size(13), /* (1 << 13) == 8192 bytes */
     display_level_meter(false),
@@ -58,7 +59,7 @@ int RecordParams::fromList(const QStringList &list)
 {
     bool ok;
 
-    if (list.size() != 26) return -EINVAL;
+    if ((list.size() != 26) && (list.size() != 27)) return -EINVAL;
 
     // pre-record
     GET( 0, pre_record_enabled, toUInt);
@@ -96,7 +97,10 @@ int RecordParams::fromList(const QStringList &list)
     GET(16, sample_rate, toDouble);
     GET(17, compression, toUInt);
     GET(18, bits_per_sample, toUInt);
-    GET(19, sample_format, toUInt);
+
+    int sf;
+    GET(19, sf, toInt);
+    sample_format = static_cast<SampleFormat::sample_format_t>(sf);
 
     // buffer count and power of buffer size
     GET(20, buffer_count, toUInt);
@@ -107,6 +111,14 @@ int RecordParams::fromList(const QStringList &list)
     GET(23, display_oscilloscope, toUInt);
     GET(24, display_fft, toUInt);
     GET(25, display_overview, toUInt);
+
+    // if we have 27 entries: new version, we have a recording method
+    if (list.size() == 27) {
+	unsigned int method_index;
+	GET(26, method_index, toUInt);
+	method = (method_index < RECORD_INVALID) ?
+	         (record_method_t)(method_index) : RECORD_INVALID;
+    }
 
     return 0;
 }
@@ -155,7 +167,7 @@ QStringList RecordParams::toList() const
     PUT(sample_rate);
     PUT(compression);
     PUT(bits_per_sample);
-    PUT(sample_format);
+    PUT(static_cast<int>(sample_format));
 
     // buffer count and power of buffer size
     PUT(buffer_count);
@@ -166,6 +178,9 @@ QStringList RecordParams::toList() const
     PUT(display_oscilloscope);
     PUT(display_fft);
     PUT(display_overview);
+
+    // record method
+    PUT(static_cast<unsigned int>(method));
 
     return list;
 }

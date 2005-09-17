@@ -25,12 +25,13 @@
 class SampleFormat: public TypesMap<int, int>
 {
 public:
-    enum {
-	LinearTwosComplement = AF_SAMPFMT_TWOSCOMP,
-	UnsignedInteger = AF_SAMPFMT_UNSIGNED,
-	Float = AF_SAMPFMT_FLOAT,
-	Double = AF_SAMPFMT_DOUBLE
-    };
+    typedef enum {
+	Unknown  = -1,
+	Signed   = AF_SAMPFMT_TWOSCOMP,
+	Unsigned = AF_SAMPFMT_UNSIGNED,
+	Float    = AF_SAMPFMT_FLOAT,
+	Double   = AF_SAMPFMT_DOUBLE
+    } sample_format_t;
 
     /** Constructor */
     SampleFormat();

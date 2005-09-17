@@ -25,6 +25,7 @@
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleFormat.h"
 #include "RecordController.h"
 #include "RecordParams.h"
 #include "RecordState.h"
@@ -117,8 +118,14 @@ private slots:
 
     // setup functions
 
+    /**
+     * Change the recording method
+     * @param method the new recording method
+     */
+    void setMethod(record_method_t method);
+
     /** select a new record device */
-    void changeDevice(const QString &dev);
+    void setDevice(const QString &device);
 
     /** select a new number of tracks (channels) */
     void changeTracks(unsigned int new_tracks);
@@ -133,7 +140,7 @@ private slots:
     void changeBitsPerSample(unsigned int new_bits);
 
     /** select a new sample format */
-    void changeSampleFormat(int new_format);
+    void changeSampleFormat(SampleFormat::sample_format_t new_format);
 
     /** process a raw audio buffer */
     void processBuffer(QByteArray buffer);
@@ -191,6 +198,12 @@ private:
 
 private:
 
+    /** last recording method */
+    record_method_t m_method;
+
+    /** last record device */
+    QString m_device_name;
+
     /** controller for the recording engine */
     RecordController m_controller;
 
@@ -227,6 +240,7 @@ private:
     /** recursion level for inhibiting recording */
     unsigned int m_inhibit_count;
 
+    /** buffer for trigger values */
     QMemArray<double> m_trigger_value;
 
 };

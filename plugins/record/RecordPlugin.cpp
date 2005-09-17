@@ -20,12 +20,15 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <qcursor.h>
 #include <qdatetime.h>
 #include <qstringlist.h>
 #include <qvaluelist.h>
 #include <qvariant.h>
+
 #include <kapplication.h>
 #include <kaboutdata.h>
+#include <kconfig.h>
 #include <kglobal.h>
 #include <kmessagebox.h>
 
@@ -47,12 +50,14 @@
 #include "RecordThread.h"
 #include "SampleDecoder.h"
 #include "SampleDecoderLinear.h"
+#include "Record-ALSA.h"
+#include "Record-OSS.h"
 
 KWAVE_PLUGIN(RecordPlugin,"record","Thomas Eschenbacher");
 
 //***************************************************************************
 RecordPlugin::RecordPlugin(const PluginContext &context)
-    :KwavePlugin(context), m_controller(),
+    :KwavePlugin(context), m_method(), m_device_name(), m_controller(),
      m_state(REC_EMPTY), m_device(0),
      m_dialog(0), m_thread(0), m_decoder(0), m_prerecording_queue(),
      m_writers(), m_buffers_recorded(0), m_inhibit_count(0),
@@ -102,8 +107,11 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     }
 
     // connect some signals of the setup dialog
-    connect(m_dialog, SIGNAL(deviceChanged(const QString &)),
-            this,     SLOT(changeDevice(const QString &)));
+    connect(m_dialog, SIGNAL(sigMethodChanged(record_method_t)),
+            this,     SLOT(setMethod(record_method_t)));
+    connect(m_dialog, SIGNAL(sigDeviceChanged(const QString &)),
+            this,     SLOT(setDevice(const QString &)));
+
     connect(m_dialog, SIGNAL(sigTracksChanged(unsigned int)),
             this,     SLOT(changeTracks(unsigned int)));
     connect(m_dialog, SIGNAL(sampleRateChanged(double)),
@@ -112,8 +120,10 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
             this,     SLOT(changeCompression(int)));
     connect(m_dialog, SIGNAL(sigBitsPerSampleChanged(unsigned int)),
             this,     SLOT(changeBitsPerSample(unsigned int)));
-    connect(m_dialog, SIGNAL(sigSampleFormatChanged(int)),
-            this,     SLOT(changeSampleFormat(int)));
+    connect(m_dialog,
+	    SIGNAL(sigSampleFormatChanged(SampleFormat::sample_format_t)),
+            this,
+	    SLOT(changeSampleFormat(SampleFormat::sample_format_t)));
     connect(m_dialog, SIGNAL(sigBuffersChanged()),
             this,     SLOT(buffersChanged()));
     connect(this,     SIGNAL(sigRecordedSamples(unsigned int)),
@@ -148,8 +158,11 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     // dummy init -> disable format settings
     m_dialog->setSupportedTracks(0, 0);
 
+    // activate the playback method
+    setMethod(m_dialog->params().method);
+
     // select the record device
-    changeDevice(m_dialog->params().device_name);
+    setDevice(m_dialog->params().device_name);
 
     QStringList *list = new QStringList();
     Q_ASSERT(list);
@@ -192,117 +205,158 @@ void RecordPlugin::closeDevice()
 }
 
 //***************************************************************************
-void RecordPlugin::changeDevice(const QString &dev)
+void RecordPlugin::setMethod(record_method_t method)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
-    qDebug("RecordPlugin::changeDevice(%s)", dev.local8Bit().data());
+
+    KConfig *cfg = KGlobal::config();
+    Q_ASSERT(cfg);
+//     RecordParams &record_params = m_dialog->params();
+
+    qDebug("RecordPlugin::setMethod(%d)", (int)method);
+
+    // change the recording method (class RecordDevice)
+    if ((method != m_method) || !m_device) {
+	if (m_device) delete m_device;
+	m_device = 0;
+	bool searching = false;
+
+	// set hourglass cursor
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+	// remember the device selection, just for the GUI
+	// for the next time this method gets selected
+	// change in method -> save the current device and use
+	// the previous one
+	if (cfg) {
+	    QString device = "";
+	    cfg->setGroup("plugin "+name());
+
+	    // save the current device
+	    cfg->writeEntry(QString("last_device_%1").arg(
+		static_cast<int>(m_method)),
+		m_device_name);
+	    qDebug(">>> %d -> '%s'",
+	           static_cast<int>(m_method),
+	           m_device_name.data());
+	    cfg->sync();
+
+	    // restore the previous one
+	    device = cfg->readEntry(
+	        QString("last_device_%1").arg(static_cast<int>(method)));
+	    qDebug("<<< %d -> '%s'", static_cast<int>(method), device.data());
+	    m_device_name = device;
+	    m_dialog->setDevice(m_device_name);
+	}
+
+	do {
+	    switch (method) {
+#ifdef HAVE_OSS_SUPPORT
+		case RECORD_OSS:
+		    m_device = new RecordOSS();
+		    Q_ASSERT(m_device);
+		    break;
+#endif /* HAVE_OSS_SUPPORT */
+
+#ifdef HAVE_ALSA_SUPPORT
+		case RECORD_ALSA:
+		    m_device = new RecordALSA();
+		    Q_ASSERT(m_device);
+		    break;
+#endif /* HAVE_ALSA_SUPPORT */
+		default:
+		    qDebug("unsupported recording method (%d)", (int)method);
+		    if (!searching) {
+			// start trying out all other methods
+			searching = true;
+			method = RECORD_NONE;
+			++method;
+			continue;
+		    } else {
+			// try next method
+			++method;
+		    }
+		    qDebug("unsupported recording method - trying next (%d)",
+		           (int)method);
+		    if (method != RECORD_INVALID) continue;
+	    }
+	    break;
+	} while (true);
+    }
+    Q_ASSERT(m_device);
+
+    // if we found no recording method
+    if (method == RECORD_INVALID) {
+	qWarning("found no valid recording method");
+    }
+
+    // take the change in the method
+    m_method = method;
+
+    // activate the cange in the dialog
+    m_dialog->setMethod(method);
+
+    // set list of supported devices
+    QStringList supported_devices;
+    Q_ASSERT(m_device);
+    if (m_device) supported_devices = m_device->supportedDevices();
+    m_dialog->setSupportedDevices(supported_devices);
+
+    // set current device (again), no matter if supported or not,
+    // the dialog will take care of this.
+    setDevice(m_device_name);
+
+    // check the filter for the "select..." dialog. If it is
+    // empty, the "select" dialog will be disabled
+    QString file_filter;
+    if (m_device) file_filter = m_device->fileFilter();
+    m_dialog->setFileFilter(file_filter);
+
+    // remove hourglass
+    QApplication::restoreOverrideCursor();
+}
+
+//***************************************************************************
+void RecordPlugin::setDevice(const QString &device)
+{
+    Q_ASSERT(m_dialog);
+    Q_ASSERT(m_device);
+    if (!m_dialog || !m_device) return;
+    qDebug("RecordPlugin::setDevice(%s)", device.local8Bit().data());
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
 
-    // open the new device
-    if (m_device) m_device->close();
-    // TODO: currently we only have OSS support, so forget about
-    // the following lines for now
-//     if (m_device && !m_device->supportsDevice(dev)) {
+    // open and initialize the device
+    int result = m_device->open(device);
+    if (result < 0) {
+	qWarning("RecordPlugin::openDevice(): "\
+	        "opening the device failed.");
+
+// 	// delete the device if it did not open
 // 	delete m_device;
-// 	// find out which device subclass supports our "dev" and
-// 	// then create a new one
-//     }
-
-    if (m_device) delete m_device;
-    m_device = new RecordDevice();
-
-    Q_ASSERT(m_device);
-    if (!m_device) {
-	KMessageBox::sorry(m_dialog, i18n("Out of memory"));
-	return;
+// 	m_device = 0;
+//
+// 	// show an error message box
+// 	KMessageBox::error(parentWidget(), result,
+// 	    i18n("unable to open '%1'").arg(
+// 	    m_device_name));
     }
 
-    // check the settings of the device and set new parameters if necessary
-    int res = !dev.isEmpty() ? m_device->open(dev) : -1;
-    if (res < 0) {
-	qWarning("---- res=%d ----", res);
-    }
+    // set the device in the dialog
+    m_dialog->setDevice(device);
+    m_device_name = m_dialog->params().device_name;
 
-    if (res == -1) {
-	// no device selected / name is empty
-	KMessageBox::sorry(m_dialog,
-		i18n("You have not yet selected a recording device."));
-	closeDevice();
-    } else if (res == -ENOENT) {
-	// "file not found", invalid entry in the combo box :-(
-	KMessageBox::sorry(m_dialog,
-		i18n("The device %1 seems not to exist.").arg(dev));
-	closeDevice();
-    } else if ((res == -EPERM) || (res == -EACCES)) {
-	KMessageBox::sorry(m_dialog,
-		i18n("You do not have sufficient permissions to open "
-		     "the device %1 for reading.").arg(dev));
-	closeDevice();
-    } else if (res == -EBUSY) {
-	// 1. find out where "lsof" is
-	// 2. create a subprocess to call it
-	// 3. evaluate the return values
-	// 4. show PID, user, program, access mode and device name
-	KMessageBox::sorry(m_dialog,
-		i18n("The device %1 seems to be in use by another "
-		     "application.").arg(dev));
-    } else if (res < 0) {
-	// snap back to the previous device
-	// ASSUMPTION: the previous device already worked !?
-	QString old_dev = m_dialog->params().device_name;
-	res = m_device->open(old_dev);
-	if (res < 0) {
-	    // oops: previous device did also not work
-	    if (!dev.isEmpty()) KMessageBox::sorry(m_dialog,
-		i18n("Opening the device %1 failed, "
-		     "please select a different one.").arg(
-		     dev));
-	    closeDevice();
-	} else {
-	    KMessageBox::sorry(m_dialog,
-		i18n("Opening the device %1 failed, reverting to %2.").arg(
-		dev).arg(old_dev));
-	    m_dialog->setDevice(old_dev);
-	    return; /* recursion! */
-	}
-    }
+//     QValueList<unsigned int> supported_bits;
+//     supported_bits = m_device->supportedBits();
+//     m_dialog->setSupportedBits(supported_bits);
 
-    // detect minimum and maximm number of tracks
-    unsigned int min_tracks = 0;
-    unsigned int max_tracks  =0;
-    res = (m_device) ? m_device->detectTracks(min_tracks, max_tracks) : 0;
-    if (res < 0) {
-	// determining the number of tracks failed
-	// -> snap back to the previous device
-	// ASSUMPTION: the previous device already worked !?
-	KMessageBox::sorry(m_dialog,
-	    i18n("The record device '%1' does not work properly, "\
-	    "determining the number of supported channels failed.").arg(
-	    dev));
-	res = m_device->open(m_dialog->params().device_name);
-	if (res < 0) {
-	    // oops: previous device did also not work
-	    m_device->close();
-	    m_dialog->setDevice("");
-	}
-	return;
-    }
+    unsigned int min = 0;
+    unsigned int max = 0;
+    m_device->detectTracks(min, max);
+    m_dialog->setSupportedTracks(min, max);
 
-    // opening the device succeeded, take it :-)
-    m_dialog->setDevice(dev);
-
-    m_dialog->setSupportedTracks(min_tracks, max_tracks);
-    if (m_device) {
-	// start with setting the number of tracks, the rest
-	// comes automatically:
-	// tracks -> sample rate -> bits per sample -> sample format
-	changeTracks(m_dialog->params().tracks);
-    } else {
-	// no device -> disable some settings
-	changeTracks(0);
-    }
+    changeTracks(m_dialog->params().tracks);
 }
 
 //***************************************************************************
@@ -311,6 +365,7 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
 
+    qDebug("RecordPlugin::changeTracks(%u)", new_tracks);
     InhibitRecordGuard _lock(*this); // don't record while settings change
 
     if (!m_device || !new_tracks) {
@@ -339,6 +394,7 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
 //***************************************************************************
 void RecordPlugin::changeSampleRate(double new_rate)
 {
+    qDebug("RecordPlugin::changeSampleRate(%u)", (unsigned int)new_rate);
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
 
@@ -366,9 +422,11 @@ void RecordPlugin::changeSampleRate(double new_rate)
 
 	const QString sr1(m_dialog->rate2string(new_rate));
 	const QString sr2(m_dialog->rate2string(rate));
-	if (new_rate > 0) KMessageBox::sorry(m_dialog,
-	    i18n("The sample rate %1Hz is not supported, using %2Hz instead."
-	    ).arg(sr1).arg(sr2));
+	if (((int)new_rate > 0) && ((int)rate > 0) &&
+	    ((int)new_rate != (int)rate))
+	    KMessageBox::sorry(m_dialog,
+		i18n("The sample rate %1Hz is not supported, "\
+		     "using %2Hz instead.").arg(sr1).arg(sr2));
     }
     m_dialog->setSupportedSampleRates(supported_rates);
 
@@ -380,9 +438,11 @@ void RecordPlugin::changeSampleRate(double new_rate)
 
 	const QString sr1(m_dialog->rate2string(new_rate));
 	const QString sr2(m_dialog->rate2string(rate));
-	if (new_rate > 0) KMessageBox::sorry(m_dialog,
-	    i18n("Setting the sample rate %1Hz failed, "\
-		 "using %2Hz instead.").arg(sr1).arg(sr2));
+	if (((int)new_rate > 0) && ((int)rate > 0) &&
+	    ((int)new_rate != (int)rate))
+	    KMessageBox::sorry(m_dialog,
+		i18n("Setting the sample rate %1Hz failed, "\
+		     "using %2Hz instead.").arg(sr1).arg(sr2));
     }
     m_dialog->setSampleRate(rate);
 
@@ -419,11 +479,14 @@ void RecordPlugin::changeCompression(int new_compression)
 	    // -> take the first supported one
 	    compression = supported_comps[0];
 	}
-	const QString c1(types.name(types.findFromData(new_compression)));
-	const QString c2(types.name(types.findFromData(compression)));
-	KMessageBox::sorry(m_dialog,
-	    i18n("The compression '%1' is not supported, "\
-	         "using '%2' instead.").arg(c1).arg(c2));
+
+	if (compression != new_compression) {
+	    const QString c1(types.name(types.findFromData(new_compression)));
+	    const QString c2(types.name(types.findFromData(compression)));
+	    KMessageBox::sorry(m_dialog,
+		i18n("The compression '%1' is not supported, "\
+		     "using '%2' instead.").arg(c1).arg(c2));
+	}
     }
     m_dialog->setSupportedCompressions(supported_comps);
 
@@ -433,13 +496,15 @@ void RecordPlugin::changeCompression(int new_compression)
 	// revert to the current device setting if failed
 	compression = m_device->compression();
 
-	CompressionType types;
-	const QString c1(types.name(types.findFromData(compression)));
-	const QString c2(types.name(types.findFromData(
+	if (compression != m_device->compression()) {
+	    CompressionType types;
+	    const QString c1(types.name(types.findFromData(compression)));
+	    const QString c2(types.name(types.findFromData(
 	                 m_device->compression())));
-	KMessageBox::sorry(m_dialog,
-	    i18n("Setting the compression type %1 failed, "\
-		 "using %2 instead.").arg(c1).arg(c2));
+	    KMessageBox::sorry(m_dialog,
+		i18n("Setting the compression type %1 failed, "\
+		     "using %2 instead.").arg(c1).arg(c2));
+	}
     }
     m_dialog->setCompression(compression);
 
@@ -450,6 +515,8 @@ void RecordPlugin::changeCompression(int new_compression)
 //***************************************************************************
 void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 {
+    qDebug("RecordPlugin::changeBitsPerSample(%u)", new_bits);
+
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
 
@@ -458,14 +525,14 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
     if (!m_device || !new_bits) {
 	// no device -> dummy/shortcut
 	m_dialog->setBitsPerSample(0);
-	changeSampleFormat(-1);
+	changeSampleFormat(SampleFormat::Unknown);
 	return;
     }
 
     // check the supported resolution in bits per sample
-    QValueList<unsigned int> supported_bits = m_device->detectBitsPerSample();
+    QValueList<unsigned int> supported_bits = m_device->supportedBits();
     int bits = new_bits;
-    if (!supported_bits.contains(bits)) {
+    if (!supported_bits.contains(bits) && !supported_bits.isEmpty()) {
 	// find the nearest resolution
 	int nearest = supported_bits.last();
 	QValueList<unsigned int>::Iterator it;
@@ -475,19 +542,19 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 	}
 	bits = nearest;
 
-	if (new_bits) KMessageBox::sorry(m_dialog,
+	if (((int)new_bits > 0) && (bits > 0)) KMessageBox::sorry(m_dialog,
 	    i18n("The resolution %1 bits per sample is not supported, "\
 	         "using %2 bits per sample instead.").arg(
 		 (int)new_bits).arg(bits));
     }
-    m_dialog->setSupportedBitsPerSample(supported_bits);
+    m_dialog->setSupportedBits(supported_bits);
 
     // try to activate the resolution
     int err = m_device->setBitsPerSample(bits);
     if (err < 0) {
 	// revert to the current device setting if failed
 	bits = m_device->bitsPerSample();
-	if (new_bits) KMessageBox::sorry(m_dialog,
+	if ((new_bits> 0) && (bits > 0)) KMessageBox::sorry(m_dialog,
 	    i18n("Setting the resolution %1 bits per sample failed, "\
 		 "using %2 bits per sample instead.").arg(
 		 (int)new_bits).arg(bits));
@@ -499,8 +566,10 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 }
 
 //***************************************************************************
-void RecordPlugin::changeSampleFormat(int new_format)
+void RecordPlugin::changeSampleFormat(
+    SampleFormat::sample_format_t new_format)
 {
+    qDebug("RecordPlugin::changeSampleFormat(%d)", new_format);
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
 
@@ -508,23 +577,31 @@ void RecordPlugin::changeSampleFormat(int new_format)
 
     if (!m_device || (new_format < 0)) {
 	// no device -> dummy/shortcut
-	m_dialog->setSampleFormat(-1);
+	m_dialog->setSampleFormat(SampleFormat::Unknown);
 	return;
     }
 
     // check the supported sample formats
-    QValueList<int> supported_formats = m_device->detectSampleFormats();
-    int format = new_format;
-    if (!supported_formats.contains(format)) {
+    QValueList<SampleFormat::sample_format_t> supported_formats =
+	m_device->detectSampleFormats();
+    SampleFormat::sample_format_t format = new_format;
+    if (!supported_formats.contains(format) && !supported_formats.isEmpty()) {
 	// use the device default instead
 	format = m_device->sampleFormat();
 
-	SampleFormat types;
-	const QString s1 = types.name(types.findFromData(new_format));
-	const QString s2 = types.name(types.findFromData(format));
-	if (new_format != -1) KMessageBox::sorry(m_dialog,
-	    i18n("The sample format '%1' is not supported, "\
-	         "using '%2' instead.").arg(s1).arg(s2));
+	// if this was also not supported -> stupid device !?
+	if (!supported_formats.contains(format)) {
+	    format = supported_formats.first(); // just take the first one :-o
+	}
+
+	SampleFormat sf;
+	const QString s1 = sf.name(sf.findFromData(new_format));
+	const QString s2 = sf.name(sf.findFromData(format));
+	if ((new_format != -1) && (new_format != format)) {
+	    KMessageBox::sorry(m_dialog,
+		i18n("The sample format '%1' is not supported, "\
+		     "using '%2' instead.").arg(s1).arg(s2));
+	}
     }
     m_dialog->setSupportedSampleFormats(supported_formats);
 
@@ -534,10 +611,10 @@ void RecordPlugin::changeSampleFormat(int new_format)
 	// use the device default instead
 	format = m_device->sampleFormat();
 
-	SampleFormat types;
-	const QString s1 = types.name(types.findFromData(new_format));
-	const QString s2 = types.name(types.findFromData(format));
-	KMessageBox::sorry(m_dialog,
+	SampleFormat sf;
+	const QString s1 = sf.name(sf.findFromData(new_format));
+	const QString s2 = sf.name(sf.findFromData(format));
+	if (format > 0) KMessageBox::sorry(m_dialog,
 	    i18n("Setting the sample format '%1' failed, "\
 	         "using '%2' instead.").arg(s1).arg(s2));
     }
@@ -556,7 +633,7 @@ void RecordPlugin::enterInhibit()
 {
     m_inhibit_count++;
     if ((m_inhibit_count == 1) && m_thread) {
-	qDebug("RecordPlugin::enterInhibit() - STOPPING");
+// 	qDebug("RecordPlugin::enterInhibit() - STOPPING");
 	m_thread->stop();
 	Q_ASSERT(!m_thread->running());
     }
@@ -566,9 +643,14 @@ void RecordPlugin::enterInhibit()
 void RecordPlugin::leaveInhibit()
 {
     Q_ASSERT(m_inhibit_count);
+    Q_ASSERT(m_dialog);
+
     if (m_inhibit_count) m_inhibit_count--;
-    if (!m_inhibit_count && m_thread && m_device) {
+    if (!m_inhibit_count && m_thread && m_device && m_dialog) {
 	qDebug("RecordPlugin::leaveInhibit() - STARTING");
+	qDebug("    %d channels, %d bits",
+               m_dialog->params().tracks,
+	       m_dialog->params().bits_per_sample);
 
 	Q_ASSERT(!m_thread->running());
 	if (m_thread->running()) return;
@@ -623,12 +705,13 @@ void RecordPlugin::setupRecordThread()
     switch (params.compression) {
 	case AF_COMPRESSION_NONE:
 	    switch (params.sample_format) {
-		case AF_SAMPFMT_UNSIGNED:
-		case AF_SAMPFMT_TWOSCOMP:
+		case SampleFormat::Unsigned:
+		case SampleFormat::Signed:
 		    // decoder for all linear formats
 		    m_decoder = new SampleDecoderLinear(
-			params.sample_format,
-			params.bits_per_sample
+			m_device->sampleFormat(),
+			m_device->bitsPerSample(),
+			m_device->endianness()
 		    );
 		    break;
 		default:
@@ -702,6 +785,8 @@ void RecordPlugin::startRecording()
 	unsigned int tracks = m_dialog->params().tracks;
 	unsigned int samples = 0;
 	unsigned int bits = m_dialog->params().bits_per_sample;
+
+	if (!tracks) return;
 
 	/*
 	 * if tracks or sample rate has changed
@@ -1016,10 +1101,9 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 {
     bool recording_done = false;
 
-//    qDebug("RecordPlugin::processBuffer()");
+//     qDebug("RecordPlugin::processBuffer()");
     Q_ASSERT(m_dialog);
     Q_ASSERT(m_thread);
-    Q_ASSERT(m_decoder);
     if (!m_dialog || !m_thread || !m_decoder) return;
 
     // we received a buffer -> update the progress bar

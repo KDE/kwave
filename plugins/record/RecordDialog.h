@@ -26,8 +26,10 @@
 #include "RecordDlg.uih.h"
 #include "RecordParams.h"
 #include "RecordState.h"
+#include "RecordTypesMap.h"
 
 #include "libkwave/Sample.h"
+#include "libkwave/SampleFormat.h"
 
 class QWidget;
 
@@ -44,11 +46,17 @@ public:
     /** Destructor */
     virtual ~RecordDialog();
 
-    /** Returns the list of record parameters, for the next time */
-    const RecordParams &params() const;
+    /** returns the list of record parameters, for the next time */
+    RecordParams &params();
 
-    /** selects a new record device */
-    void setDevice(const QString &dev);
+    /** selects a new recording method */
+    void setMethod(record_method_t method);
+
+    /**
+     * Sets the list of supported devices, just entries
+     * for the device selection combo box.
+     */
+    void setSupportedDevices(QStringList devices);
 
     /** sets the range of supported tracks */
     void setSupportedTracks(unsigned int min, unsigned int max);
@@ -79,7 +87,7 @@ public:
     void setCompression(int compression);
 
     /** sets a list of supported number of bits per sample */
-    void setSupportedBitsPerSample(const QValueList<unsigned int> &bits);
+    void setSupportedBits(const QValueList<unsigned int> &bits);
 
     /** sets a new resolution in bits per sample */
     void setBitsPerSample(unsigned int bits);
@@ -97,14 +105,15 @@ public:
      * sets the list of supported sample formats
      * @param comps list of supported sample formats, must not be empty
      */
-    void setSupportedSampleFormats(const QValueList<int> &formats);
+    void setSupportedSampleFormats(
+	const QValueList<SampleFormat::sample_format_t> &formats);
 
     /**
      * sets a new sample format
      * @param sample_format format of the samples, like signed/unsigned
      * @see SampleFormat
      */
-    void setSampleFormat(int sample_format);
+    void setSampleFormat(SampleFormat::sample_format_t sample_format);
 
     /**
      * updates the progress bar with the buffer fill state.
@@ -122,8 +131,11 @@ public:
 
 signals:
 
+    /** emits changes in the currently selected record method */
+    void sigMethodChanged(record_method_t method);
+
     /** emitted when a new record device has been selected */
-    void deviceChanged(const QString &device);
+    void sigDeviceChanged(const QString &device);
 
     /** emitted when the number of tracks has changed */
     void sigTracksChanged(unsigned int tracks);
@@ -138,7 +150,7 @@ signals:
     void sigBitsPerSampleChanged(unsigned int bits);
 
     /** emitted when the sample format has changed */
-    void sigSampleFormatChanged(int sample_format);
+    void sigSampleFormatChanged(SampleFormat::sample_format_t sample_format);
 
     /** emitted when the number and/or size of buffers has changed */
     void sigBuffersChanged();
@@ -154,10 +166,23 @@ signals:
 
 public slots:
 
+    /** selects a new record device */
+    void setDevice(const QString &device);
+
+    /** set the file filter used for the "Select..." dialog */
+    void setFileFilter(const QString &filter);
+
     /** updates the number of recorded samples */
     void setRecordedSamples(unsigned int samples_recorded);
 
 private slots:
+
+    /**
+     * called when a new recording method has been selected
+     * from the combo box
+     * @param index the position within the combo box
+     */
+    void methodSelected(int index);
 
     /** updates the record buffer count */
     void sourceBufferCountChanged(int value);
@@ -168,11 +193,8 @@ private slots:
     /** show a "file open" dialog for selecting a record device */
     void selectRecordDevice();
 
-    /** forwards a deviceChanged signal */
-    void forwardDeviceChanged(const QString &dev);
-
-    /** called when the user finished editing the device name */
-    void forwardDeviceEditFinished();
+    /** selection in the device list view has changed */
+    void listEntrySelected(QListViewItem *item);
 
     /** forwards a sigTracksChanged signal */
     void tracksChanged(int tracks);
@@ -237,6 +259,15 @@ private:
 
 private:
 
+    /** map of playback methods/types */
+    RecordTypesMap m_methods_map;
+
+    /** file filter for the "Select..." dialog (optional) */
+    QString m_file_filter;
+
+    /** map for items in the list view */
+    QMap<QListViewItem *, QString> m_devices_list_map;
+
     /** state of the record plugin */
     RecordState m_state;
 
@@ -264,6 +295,9 @@ private:
      * or not. Only of interest if recording time is limit.
      */
     unsigned int m_samples_recorded;
+
+    /** if false, do nothing in setDevice */
+    bool m_enable_setDevice;
 
 };
 

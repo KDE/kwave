@@ -21,6 +21,7 @@
 #include <qcheckbox.h>
 #include <qgroupbox.h>
 #include <qlabel.h>
+#include <qlistview.h>
 #include <qpixmap.h>
 #include <qprogressbar.h>
 #include <qslider.h>
@@ -29,6 +30,8 @@
 #include <kapplication.h> // for invokeHelp
 #include <kcombobox.h>
 #include <kglobal.h>
+#include <kiconloader.h>
+#include <kicontheme.h>
 #include <klocale.h>
 #include <kpushbutton.h>
 #include <knuminput.h>
@@ -63,35 +66,16 @@
 	STD_SETUP(enabled,property,control); \
 	sl##control->setEnabled(sb##control->isEnabled());
 
-/** list pf well-known audio devices */
-static const char *well_known_devices[] = {
-#ifdef ARTS_CAN_RECORD
-    "[aRts sound daemon]",
-#endif
-    "/dev/dsp",
-    "/dev/dsp0",
-    "/dev/dsp1",
-    "/dev/dsp2",
-    "/dev/audio",
-    "/dev/adsp",
-    "/dev/adsp0",
-    "/dev/adsp1",
-    "/dev/adsp2",
-    "/dev/sound/dsp",
-    "/dev/sound/dsp0",
-    "/dev/sound/dsp1",
-    "/dev/sound/dsp2",
-    "/dev/dio",
-    0
-};
-
 //***************************************************************************
 RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
                            RecordController *controller)
-    :RecordDlg(parent,0), m_state(REC_EMPTY), m_params(),
+    :RecordDlg(parent,0), m_methods_map(),
+     m_file_filter(), m_devices_list_map(),
+     m_state(REC_EMPTY), m_params(),
      m_supported_resolutions(), m_buffer_progress_count(0),
      m_buffer_progress_total(0), m_buffer_progress_timer(this),
-     m_record_enabled(true), m_samples_recorded(0)
+     m_record_enabled(true), m_samples_recorded(0),
+     m_enable_setDevice(true)
 {
     /* get initial parameters */
     m_params.fromList(params);
@@ -101,6 +85,13 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     btStop->setIconSet(  QIconSet(QPixmap(xpm_stop)));
     btPause->setIconSet( QIconSet(QPixmap(xpm_pause)));
     btRecord->setIconSet(QIconSet(QPixmap(xpm_krec_record)));
+
+    // fill the combo box with playback methods
+    unsigned int index=0;
+    for (index=0; index < m_methods_map.count(); index++) {
+	cbMethod->insertItem(m_methods_map.description(index, true));
+    }
+    cbMethod->setEnabled(cbMethod->count() > 1);
 
     /* --- set up all controls with their default/startup values --- */
 
@@ -149,6 +140,9 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     /* --- connect some missing lowlevel gui functionality --- */
 
+    connect(cbMethod, SIGNAL(activated(int)),
+            this, SLOT(methodSelected(int)));
+
     // record buffer size and count
     slSourceBufferCount->setValue(m_params.buffer_count);
     slSourceBufferSize->setValue(m_params.buffer_size);
@@ -157,20 +151,17 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     connect(slSourceBufferCount, SIGNAL(valueChanged(int)),
             this, SLOT(sourceBufferCountChanged(int)));
 
-    // device combo box
-    cbSourceDevice->setEditable(true);
-    cbSourceDevice->insertStrList(well_known_devices, -1);
-    cbSourceDevice->setCurrentItem(m_params.device_name);
-    cbSourceDevice->setEditText(m_params.device_name);
-    cbSourceDevice->setMinimumWidth(cbSourceDevice->sizeHint().width()+10);
+    // device treeview
+    connect(listDevices, SIGNAL(selectionChanged(QListViewItem *)),
+            SLOT(listEntrySelected(QListViewItem *)));
 
     // "select device..." button
     connect(btSourceSelect, SIGNAL(clicked()),
             this, SLOT(selectRecordDevice()));
-    connect(cbSourceDevice, SIGNAL(activated(const QString &)),
-            this, SLOT(forwardDeviceChanged(const QString &)));
-    connect(cbSourceDevice->lineEdit(), SIGNAL(lostFocus()),
-            this, SLOT(forwardDeviceEditFinished()));
+    connect(cbDevice, SIGNAL(activated(const QString &)),
+            this, SLOT(setDevice(const QString &)));
+//     connect(cbDevice->lineEdit(), SIGNAL(lostFocus()),
+//             this, SLOT(setDevice(const QString &)));
 
     // visualizations
     connect(chkDisplayLevelMeter, SIGNAL(toggled(bool)),
@@ -243,9 +234,228 @@ RecordDialog::~RecordDialog()
 }
 
 //***************************************************************************
-const RecordParams &RecordDialog::params() const
+RecordParams &RecordDialog::params()
 {
     return m_params;
+}
+
+//***************************************************************************
+void RecordDialog::setMethod(record_method_t method)
+{
+    m_params.method = method;
+    cbMethod->setCurrentItem(m_methods_map.findFromData(
+        m_params.method));
+}
+
+//***************************************************************************
+void RecordDialog::methodSelected(int index)
+{
+    record_method_t method = m_methods_map.data(index);
+    qDebug("RecordDialog::methodSelected(%d) - %d", index, (int)method);
+
+    Q_ASSERT(method > RECORD_NONE);
+    Q_ASSERT(method < RECORD_INVALID);
+    if (method <= RECORD_NONE) return;
+    if (method >= RECORD_INVALID) return;
+
+    if (method != m_params.method) {
+	setMethod(method);
+	emit sigMethodChanged(method);
+    }
+}
+
+//***************************************************************************
+void RecordDialog::setSupportedDevices(QStringList devices)
+{
+    qDebug("RecordDialog::setSupportedDevices(QStringList devices)"); // ###
+    Q_ASSERT(cbDevice);
+    Q_ASSERT(listDevices);
+    if (!cbDevice || !listDevices) return;
+    QString current_device = m_params.device_name;
+
+    // disable all that noisy stuff that comes from modifying the
+    // device controls...
+    m_enable_setDevice = false;
+
+    KIconLoader icon_loader;
+
+    cbDevice->clearEdit();
+    cbDevice->clear();
+    listDevices->clear();
+
+    if (devices.contains("#EDIT#")) {
+	devices.remove("#EDIT#");
+	cbDevice->setEditable(true);
+    } else {
+	cbDevice->setEditable(false);
+    }
+
+    if (devices.contains("#SELECT#")) {
+	devices.remove("#SELECT#");
+	btSourceSelect->setEnabled(true);
+	btSourceSelect->show();
+    } else {
+	btSourceSelect->setEnabled(false);
+	btSourceSelect->hide();
+    }
+
+    if (devices.contains("#TREE#")) {
+	// treeview mode
+	devices.remove("#TREE#");
+	listDevices->setEnabled(true);
+	cbDevice->setEnabled(false);
+	cbDevice->hide();
+	m_devices_list_map.clear();
+
+	// build a tree with all nodes in the list
+	for (QStringList::Iterator it=devices.begin();
+	     it != devices.end(); ++it)
+	{
+	    QString dev_id = *it;
+	    QListViewItem *parent = 0;
+
+	    QStringList list;
+	    list = QStringList::split("||", dev_id, true);
+	    for (QStringList::Iterator it=list.begin();
+	         it != list.end(); ++it)
+	    {
+		QString token = *it;
+		QListViewItem *item = 0;
+
+		// split the icon name from the token
+		QString icon_name;
+		int pos = token.find('|');
+		if (pos > 0) {
+		    icon_name = token.mid(pos+1);
+		    token     = token.left(pos);
+		}
+
+		// find the first item with the same text
+		// and the same root
+		for (QListViewItem *node = (parent) ? parent->firstChild() :
+		     listDevices->firstChild(); (node);
+		     node = node->nextSibling())
+		{
+		    if (node->text(0) == token) {
+			item = node;
+			break;
+		    }
+		}
+
+		if (item) {
+		    // already in the list
+		    parent = item;
+		} else if (parent) {
+		    // new leaf, add to the parent
+		    item = new QListViewItem(parent, token);
+		    Q_ASSERT(item);
+		    if (item) m_devices_list_map.insert(item, dev_id);
+
+		    parent->setOpen(true);
+		    parent->setSelectable(false);
+		    parent->setExpandable(true);
+		    if (m_devices_list_map.contains(parent)) {
+			// make the parent not selectable
+			m_devices_list_map.remove(parent);
+		    }
+		} else {
+		    // new root node
+		    item = new QListViewItem(listDevices, token);
+		    Q_ASSERT(item);
+		    if (item) m_devices_list_map.insert(item, dev_id);
+		}
+
+		if (icon_name.length()) {
+		    QPixmap icon = icon_loader.loadIcon(icon_name,
+		                                        KIcon::User);
+		    item->setPixmap(0, icon);
+		}
+
+		// use the current item as parent for the next pass
+		parent = item;
+	    }
+	}
+    } else {
+	// combo box mode
+	cbDevice->insertStringList(devices);
+	cbDevice->show();
+	listDevices->setEnabled(false);
+
+	if (devices.contains(current_device)) {
+	    // current device is in the list
+	    cbDevice->setCurrentText(current_device);
+	} else {
+	    if (cbDevice->editable()) {
+		// user defined device name
+		cbDevice->setEditText(current_device);
+	    } else if (devices.count()) {
+		// one or more other possibilities -> take the first one
+		cbDevice->setCurrentItem(0);
+	    } else {
+		// empty list of possibilities
+		cbDevice->clearEdit();
+		cbDevice->clear();
+	    }
+	}
+	cbDevice->setEnabled(devices.count() > 1);
+    }
+
+    // enable changes in the device controls again
+    m_enable_setDevice = true;
+}
+
+//***************************************************************************
+void RecordDialog::listEntrySelected(QListViewItem *item)
+{
+    Q_ASSERT(item);
+    Q_ASSERT(listDevices);
+    if (!item || !listDevices) return;
+
+    if (m_devices_list_map.contains(item))
+	setDevice(m_devices_list_map[item]);
+}
+
+//***************************************************************************
+void RecordDialog::setDevice(const QString &device)
+{
+    Q_ASSERT(cbDevice);
+    Q_ASSERT(listDevices);
+    if (!cbDevice || !listDevices) return;
+
+    if (!m_enable_setDevice) return;
+    qDebug("RecordDialog::setDevice(%s)", device.local8Bit().data());
+
+    if (listDevices->isEnabled()) {
+	// treeview mode
+	QListViewItemIterator it(listDevices);
+	while (it.current()) {
+	    QListViewItem *node = it.current();
+	    if (m_devices_list_map.contains(node)) {
+		if (m_devices_list_map[node] == device) {
+		    listDevices->setSelected(node, true);
+		}
+	    }
+	    ++it;
+	}
+    } else if (cbDevice->editable() && device.length()) {
+	// user defined device name
+	if (cbDevice->currentText() != device) {
+	    cbDevice->setCurrentText(device);
+	    cbDevice->setEditText(device);
+	}
+    } else {
+	// just take one from the list
+	if (cbDevice->listBox()->findItem(device)) {
+	    cbDevice->setCurrentText(device);
+	} else if (cbDevice->count()) {
+	    cbDevice->setCurrentItem(0);
+	}
+    }
+
+    if (m_params.device_name != device) {
+	m_params.device_name = device;
+	emit sigDeviceChanged(device);
+    }
 }
 
 //***************************************************************************
@@ -282,8 +492,17 @@ void RecordDialog::sourceBufferSizeChanged(int value)
 }
 
 //***************************************************************************
+void RecordDialog::setFileFilter(const QString &filter)
+{
+    m_file_filter = filter;
+    if (btSourceSelect) btSourceSelect->setEnabled(m_file_filter.length());
+}
+
+//***************************************************************************
 void RecordDialog::selectRecordDevice()
 {
+    if (!m_enable_setDevice) return;
+
     QString filter;
     filter += QString("dsp*|") + i18n("OSS record device (dsp*)");
     filter += QString("\nadsp*|") + i18n("ALSA record device (adsp*)");
@@ -302,30 +521,7 @@ void RecordDialog::selectRecordDevice()
 
     // selected new device
     QString new_device = dlg.selectedFile();
-    if (new_device != m_params.device_name) emit deviceChanged(new_device);
-}
-
-//***************************************************************************
-void RecordDialog::forwardDeviceChanged(const QString &dev)
-{
-    emit deviceChanged(dev);
-}
-
-//***************************************************************************
-void RecordDialog::forwardDeviceEditFinished()
-{
-    if (cbSourceDevice->lineEdit()->isModified())
-	emit deviceChanged(cbSourceDevice->currentText());
-}
-
-//***************************************************************************
-void RecordDialog::setDevice(const QString &dev)
-{
-    m_params.device_name = dev;
-    cbSourceDevice->setEditText(dev);
-
-    // update the state, maybe we changed from invalid to valid
-    setState(m_state);
+    if (new_device != m_params.device_name) emit sigDeviceChanged(new_device);
 }
 
 //***************************************************************************
@@ -398,17 +594,12 @@ void RecordDialog::setSupportedTracks(unsigned int min, unsigned int max)
 //***************************************************************************
 void RecordDialog::setTracks(unsigned int tracks)
 {
+//     qDebug("+++ RecordDialog::setTracks(%u)", tracks);
     Q_ASSERT(sbFormatTracks);
     if (!sbFormatTracks) return;
+    if (!tracks) return;
 
-    if (!tracks) {
-	sbFormatTracks->setEnabled(false);
-	return;
-    } else {
-	sbFormatTracks->setEnabled(true);
-	qDebug("+++ RecordDialog::setTracks(%u)", tracks); // ###
-	m_params.tracks = tracks;
-    }
+    m_params.tracks = tracks;
 
     switch (tracks) {
 	case 1:
@@ -544,19 +735,19 @@ void RecordDialog::compressionChanged(const QString &name)
 }
 
 //***************************************************************************
-void RecordDialog::setSupportedBitsPerSample(
-                   const QValueList<unsigned int> &bits)
+void RecordDialog::setSupportedBits(const QValueList<unsigned int> &bits)
 {
     Q_ASSERT(sbFormatResolution);
     if (!sbFormatResolution) return;
 
-    sbFormatResolution->setMinValue(bits.first());
-    sbFormatResolution->setMaxValue(bits.last());
     m_supported_resolutions = bits;
+    if (bits.count()) {
+	sbFormatResolution->setMinValue(bits.first());
+	sbFormatResolution->setMaxValue(bits.last());
+    }
 
     // enable only if there is a choice
-    sbFormatResolution->setEnabled((bits.first() != bits.last()) &&
-                                   !bits.isEmpty());
+    sbFormatResolution->setEnabled(bits.count() > 1);
 }
 
 //***************************************************************************
@@ -565,13 +756,11 @@ void RecordDialog::setBitsPerSample(unsigned int bits)
     Q_ASSERT(sbFormatResolution);
     if (!sbFormatResolution) return;
 
-    if (!bits) {
+    if (!bits ) {
 	sbFormatResolution->setEnabled(false);
 	return;
     } else {
-	bool have_choice = sbFormatResolution->minValue() !=
-	                   sbFormatResolution->maxValue();
-	sbFormatResolution->setEnabled(have_choice);
+	sbFormatResolution->setEnabled(m_supported_resolutions.count());
 	m_params.bits_per_sample = bits;
     }
 
@@ -582,32 +771,29 @@ void RecordDialog::setBitsPerSample(unsigned int bits)
 void RecordDialog::bitsPerSampleChanged(int bits)
 {
     if (bits < 1) return; // no device
-    if (bits == (int)m_params.bits_per_sample) return;
+    int last = m_params.bits_per_sample;
+    if (bits == last) return;
 
     // round up or down to the next supported resolution in bits per sample
     if (!m_supported_resolutions.isEmpty()) {
-	unsigned int last = m_params.bits_per_sample;
-	if (bits < (int)last) {
+	if (bits > last) {
 	    // step up to the next supported value
 	    QValueList<unsigned int>::Iterator it;
-	    for (it=m_supported_resolutions.begin();
-	        (it != m_supported_resolutions.end());
-		++it)
-	    {
-		bits = *it;
-		if ((int)(*it) >= bits) break;
+	    it=m_supported_resolutions.begin();
+	    while (it != m_supported_resolutions.end()) {
+		bits = *(it++);
+		if (bits > last) break;
 	    }
+	    if (bits < last) bits = m_supported_resolutions.last();
 	} else {
 	    // step down to the next supported value
 	    QValueList<unsigned int>::Iterator it;
-	    for (it=m_supported_resolutions.end();
-	        (it != m_supported_resolutions.begin()); )
-	    {
-		--it;
-		bits = *it;
-		if ((int)(*it) <= bits) break;
+	    it=m_supported_resolutions.end();
+	    while (it != m_supported_resolutions.begin()) {
+		bits = *(--it);
+		if (bits < last) break;
 	    }
-	    if ((int)(*it) > bits) bits = m_supported_resolutions.first();
+	    if (bits > last) bits = m_supported_resolutions.first();
 	}
     }
 
@@ -620,7 +806,8 @@ void RecordDialog::bitsPerSampleChanged(int bits)
 }
 
 //***************************************************************************
-void RecordDialog::setSupportedSampleFormats(const QValueList<int> &formats)
+void RecordDialog::setSupportedSampleFormats(
+    const QValueList<SampleFormat::sample_format_t> &formats)
 {
     Q_ASSERT(cbFormatSampleFormat);
     if (!cbFormatSampleFormat) return;
@@ -628,7 +815,7 @@ void RecordDialog::setSupportedSampleFormats(const QValueList<int> &formats)
     cbFormatSampleFormat->clear();
     SampleFormat types;
 
-    QValueList<int>::ConstIterator it;
+    QValueList<SampleFormat::sample_format_t>::ConstIterator it;
     for (it=formats.begin(); it != formats.end(); ++it) {
 	int index = types.findFromData(*it);
 	cbFormatSampleFormat->insertItem(types.name(index));
@@ -639,12 +826,12 @@ void RecordDialog::setSupportedSampleFormats(const QValueList<int> &formats)
 }
 
 //***************************************************************************
-void RecordDialog::setSampleFormat(int sample_format)
+void RecordDialog::setSampleFormat(SampleFormat::sample_format_t sample_format)
 {
     Q_ASSERT(cbFormatSampleFormat);
     if (!cbFormatSampleFormat) return;
 
-    if (sample_format < 0) {
+    if (sample_format == SampleFormat::Unknown) {
 	cbFormatSampleFormat->setEnabled(false);
 	return;
     } else {
@@ -664,7 +851,8 @@ void RecordDialog::sampleFormatChanged(const QString &name)
 {
     SampleFormat types;
     int index = types.findFromName(name);
-    int format = types.data(index);
+    SampleFormat::sample_format_t format =
+	static_cast<SampleFormat::sample_format_t>(types.data(index));
     if (format == m_params.sample_format) return;
 
     emit sigSampleFormatChanged(format);

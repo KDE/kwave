@@ -31,13 +31,13 @@ SampleFormat::~SampleFormat()
 //***************************************************************************
 void SampleFormat::fill()
 {
-    append(0, AF_SAMPFMT_TWOSCOMP,
+    append(0, Signed,
            i18n("linear two's complement"), 0);
-    append(1, AF_SAMPFMT_UNSIGNED,
+    append(1, Unsigned,
            i18n("unsigned integer"), 0);
-    append(2, AF_SAMPFMT_FLOAT,
+    append(2, Float,
            i18n("32-bit IEEE floating-point"), 0);
-    append(3, AF_SAMPFMT_DOUBLE,
+    append(3, Double,
            i18n("64-bit IEEE double-precision floating-point"), 0);
 }
 

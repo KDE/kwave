@@ -4,15 +4,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-25 18:58+0200\n"
-"PO-Revision-Date: 2005-05-25 18:55+0200\n"
+"POT-Creation-Date: 2005-09-17 17:28+0200\n"
+"PO-Revision-Date: 2005-09-17 17:32+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Revision-Date: 2001-05-21 18:58+GMT\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.10.1\n"
 
 #: kwave/menus_config_i18n.cpp:13
 msgid "About &KDE"
@@ -246,6 +246,10 @@ msgstr "&Neu..."
 #: kwave/menus_config_i18n.cpp:77
 msgid "New &Window"
 msgstr "Neues &Fenster"
+
+#: kwave/menus_config_i18n.cpp:78
+msgid "&Next"
+msgstr "&Nächstes"
 
 #: kwave/menus_config_i18n.cpp:79
 msgid "&Next Page"
@@ -500,9 +504,8 @@ msgstr "Track einfügen"
 msgid "modify samples"
 msgstr "Samples ändern"
 
-#: kwave/SignalWidget.cpp:418 plugins/record/RecordPlugin.cpp:218
-#: plugins/record/RecordPlugin.cpp:652 plugins/record/RecordPlugin.cpp:670
-#: plugins/record/RecordPlugin.cpp:725
+#: kwave/SignalWidget.cpp:418 plugins/record/RecordPlugin.cpp:735
+#: plugins/record/RecordPlugin.cpp:753 plugins/record/RecordPlugin.cpp:810
 msgid "Out of memory"
 msgstr "Zu wenig Speicher"
 
@@ -514,7 +517,7 @@ msgstr "'%1' kann nicht geöffnet werden"
 msgid "invalid or unknown file type: '%1'"
 msgstr "Ungültiger oder unbekannter Dateityp: '%1'"
 
-#: kwave/SignalWidget.cpp:1824 kwave/SignalWidget.cpp:1863
+#: kwave/SignalWidget.cpp:1822 kwave/SignalWidget.cpp:1861
 msgid "drag and drop"
 msgstr "Drag & Drop"
 
@@ -578,7 +581,7 @@ msgstr "Ersteller der 'sndfile'-Bibliothek"
 msgid "sound editor for KDE3"
 msgstr "Sound-Editor für KDE3"
 
-#: kwave/TopWidget.cpp:108 plugins/record/RecordDlg.uic.cpp:611
+#: kwave/TopWidget.cpp:108 plugins/record/RecordDlg.uic.cpp:635
 msgid "New File"
 msgstr "Neue Datei"
 
@@ -685,8 +688,7 @@ msgstr ""
 
 #: kwave/TopWidget.cpp:911
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
-msgstr ""
-"Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
+msgstr "Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
 
 #: kwave/TopWidget.cpp:1067
 msgid "Length: %1"
@@ -741,7 +743,7 @@ msgstr ""
 "%1\n"
 "Wollen Sie trotzdem fortsetzen?"
 
-#: kwave/SignalManager.cpp:376 plugins/record/RecordPlugin.cpp:744
+#: kwave/SignalManager.cpp:376 plugins/record/RecordPlugin.cpp:829
 msgid " for KDE "
 msgstr " für KDE "
 
@@ -751,8 +753,7 @@ msgstr "Beim Speichern der Datei ist ein Fehler aufgetreten!"
 
 #: kwave/SignalManager.cpp:421
 msgid "The file has been truncated and might be corrupted!"
-msgstr ""
-"Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
+msgstr "Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
 
 #: kwave/SignalManager.cpp:428
 msgid "Sorry, the file type is not supported!"
@@ -870,8 +871,8 @@ msgstr " Std"
 msgid " min"
 msgstr "Min"
 
-#: libgui/HMSTimeWidgetBase.uic.cpp:69 plugins/record/RecordDlg.uic.cpp:629
-#: plugins/record/RecordDlg.uic.cpp:630
+#: libgui/HMSTimeWidgetBase.uic.cpp:69 plugins/record/RecordDlg.uic.cpp:653
+#: plugins/record/RecordDlg.uic.cpp:654
 msgid " sec"
 msgstr "Sec"
 
@@ -935,8 +936,8 @@ msgstr "%1 MB von %2 MB erledigt"
 msgid "(%1%) %2"
 msgstr "(%1%) %2"
 
-#: libgui/FileProgress.cpp:334 plugins/record/RecordDlg.uic.cpp:652
-#: plugins/record/RecordDialog.cpp:278
+#: libgui/FileProgress.cpp:334 plugins/record/RecordDlg.uic.cpp:682
+#: plugins/record/RecordDialog.cpp:488
 msgid "%1 samples"
 msgstr "%1 Samples"
 
@@ -1144,8 +1145,7 @@ msgstr "Copyright"
 
 #: libkwave/FileInfo.cpp:85
 msgid "Indicates whether the file is protected by copyright or not."
-msgstr ""
-"Gibt an ob der Inhalt der Datei urheberrechtlich geschützt ist oder nicht."
+msgstr "Gibt an ob der Inhalt der Datei urheberrechtlich geschützt ist oder nicht."
 
 #: libkwave/FileInfo.cpp:88
 msgid "Date"
@@ -1397,7 +1397,7 @@ msgstr ""
 "Beispiel: 'Kwave v0.6.4-1'"
 
 #: libkwave/FileInfo.cpp:177 plugins/fileinfo/FileInfoDlg.uic.cpp:841
-#: plugins/record/RecordDlg.uic.cpp:647 plugins/record/RecordDlg.uic.cpp:653
+#: plugins/record/RecordDlg.uic.cpp:671 plugins/record/RecordDlg.uic.cpp:685
 msgid "Source"
 msgstr "Quelle"
 
@@ -2330,7 +2330,7 @@ msgstr "Parameter der FFT/Zeit-Auflösung setzen"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:185
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:855 plugins/memory/MemDlg.uic.cpp:189
-#: plugins/record/RecordDlg.uic.cpp:663
+#: plugins/record/RecordDlg.uic.cpp:695
 #: plugins/playback/PlayBackDlg.uic.cpp:270
 #: plugins/newsignal/NewSigDlg.uic.cpp:335
 msgid "Alt+H"
@@ -2366,8 +2366,7 @@ msgstr "bei Veränderungen"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:197
 msgid "automatically update the sonagram <br>if the signal data has changed"
-msgstr ""
-"aktualisiert das Sonagram automatisch<br>wenn das Signal verändert wurde"
+msgstr "aktualisiert das Sonagram automatisch<br>wenn das Signal verändert wurde"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:198
 msgid "follow selection"
@@ -2610,11 +2609,11 @@ msgstr "Der FLAC-Encoder konnte nicht geöffnet werden!"
 msgid "Out of memory!"
 msgstr "Zu wenig Speicher!"
 
-#: plugins/codec_flac/FlacDecoder.cpp:274
+#: plugins/codec_flac/FlacDecoder.cpp:281
 msgid "opening the FLAC bitstream failed."
 msgstr "Der FLAC-Bitstrom konnte nicht geöffnet werden."
 
-#: plugins/codec_flac/FlacDecoder.cpp:284
+#: plugins/codec_flac/FlacDecoder.cpp:291
 #, c-format
 msgid "error while parsing FLAC metadata. (%s)"
 msgstr "Fehler beim Parsen der FLAC-Metadaten. (%s)"
@@ -2805,14 +2804,14 @@ msgid "#"
 msgstr "#"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:748
-#: plugins/record/RecordDlg.uic.cpp:638
+#: plugins/record/RecordDlg.uic.cpp:662
 #: plugins/newsignal/NewSigDlg.uic.cpp:314
 #: plugins/newsignal/NewSigDlg.uic.cpp:333
 msgid "%1"
 msgstr "%1"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:752
-#: plugins/record/RecordDlg.uic.cpp:645
+#: plugins/record/RecordDlg.uic.cpp:669
 #: plugins/newsignal/NewSigDlg.uic.cpp:313
 msgid "bit"
 msgstr "Bit"
@@ -2868,7 +2867,7 @@ msgid "96000"
 msgstr "96000"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:765
-#: plugins/record/RecordDlg.uic.cpp:634
+#: plugins/record/RecordDlg.uic.cpp:658
 #: plugins/newsignal/NewSigDlg.uic.cpp:310
 msgid "samples per second"
 msgstr "Samples pro Sekunde"
@@ -3137,7 +3136,7 @@ msgid "Nominal Bitrate"
 msgstr "Nominale Bitrate"
 
 #: plugins/fileinfo/CompressionWidgetBase.uic.cpp:170
-#: plugins/record/RecordDlg.uic.cpp:619
+#: plugins/record/RecordDlg.uic.cpp:643
 msgid " %"
 msgstr " %"
 
@@ -3229,18 +3228,18 @@ msgstr "Bänder 16 bis 31"
 msgid "no"
 msgstr "Nein"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:519 plugins/record/RecordDialog.cpp:415
+#: plugins/fileinfo/FileInfoDialog.cpp:519 plugins/record/RecordDialog.cpp:606
 #: plugins/newsignal/NewSignalDialog.cpp:323
 msgid "(Mono)"
 msgstr "(Mono)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:522 plugins/record/RecordDialog.cpp:418
+#: plugins/fileinfo/FileInfoDialog.cpp:522 plugins/record/RecordDialog.cpp:609
 #: plugins/playback/PlayBackDlg.uic.cpp:267
 #: plugins/newsignal/NewSignalDialog.cpp:326
 msgid "(Stereo)"
 msgstr "(Stereo)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:525 plugins/record/RecordDialog.cpp:421
+#: plugins/fileinfo/FileInfoDialog.cpp:525 plugins/record/RecordDialog.cpp:612
 #: plugins/newsignal/NewSignalDialog.cpp:329
 msgid "(Quadro)"
 msgstr "(Quadro)"
@@ -3505,23 +3504,29 @@ msgstr "Megabytes in Auslagerungsdateien"
 msgid "memory"
 msgstr "Speichereinstellungen"
 
-#: plugins/record/RecordDlg.uic.cpp:599
+#: plugins/record/RecordDlg.uic.cpp:446 plugins/record/RecordDlg.uic.cpp:684
+#: plugins/playback/PlayBackDlg.uic.cpp:162
+#: plugins/playback/PlayBackDlg.uic.cpp:268
+msgid "Device"
+msgstr "Gerät"
+
+#: plugins/record/RecordDlg.uic.cpp:623
 msgid "Record"
 msgstr "Aufnehmen"
 
-#: plugins/record/RecordDlg.uic.cpp:600
+#: plugins/record/RecordDlg.uic.cpp:624
 msgid "Record Control"
 msgstr "Aufnahmekontrolle"
 
-#: plugins/record/RecordDlg.uic.cpp:601
+#: plugins/record/RecordDlg.uic.cpp:625
 msgid "Pre-Record:"
 msgstr "Vorab-Aufnahme:"
 
-#: plugins/record/RecordDlg.uic.cpp:602
+#: plugins/record/RecordDlg.uic.cpp:626
 msgid "enable pre-recording"
 msgstr "Vorab-Aufnahme aktivieren"
 
-#: plugins/record/RecordDlg.uic.cpp:603
+#: plugins/record/RecordDlg.uic.cpp:627
 msgid ""
 "When using <b>pre-recording</b>, Kwave already internall records before the "
 "real recording starts. This feature is useful if you want some few seconds "
@@ -3534,15 +3539,15 @@ msgstr ""
 "einige Sekunden aufgenommen haben möchte. <i>(zum Beispiel wenn man vom "
 "Radio aufnimmt)</i>"
 
-#: plugins/record/RecordDlg.uic.cpp:604
-msgid "Record Time:"
-msgstr "Aufnahmezeit:"
+#: plugins/record/RecordDlg.uic.cpp:628
+msgid "Record &Time:"
+msgstr "Aufnahme-&Zeit:"
 
-#: plugins/record/RecordDlg.uic.cpp:605
+#: plugins/record/RecordDlg.uic.cpp:629
 msgid "Limit the recording time"
 msgstr "Aufnahmezeit begrenzen"
 
-#: plugins/record/RecordDlg.uic.cpp:606
+#: plugins/record/RecordDlg.uic.cpp:630
 msgid ""
 "If checked, the <b>record time</b> is limited and recording will "
 "automatically stop when the selected time is reached."
@@ -3550,15 +3555,15 @@ msgstr ""
 "Wenn aktiviert, wird die <b>Aufnahmedauer</b> begrenzt und die Aufnahme wird "
 "automatisch zur eingestellten Zeit beendet."
 
-#: plugins/record/RecordDlg.uic.cpp:607
+#: plugins/record/RecordDlg.uic.cpp:631
 msgid "Record Trigger:"
 msgstr "Trigger-Pegel:"
 
-#: plugins/record/RecordDlg.uic.cpp:608
+#: plugins/record/RecordDlg.uic.cpp:632
 msgid "trigger level"
 msgstr "Triggerpegel"
 
-#: plugins/record/RecordDlg.uic.cpp:609
+#: plugins/record/RecordDlg.uic.cpp:633
 msgid ""
 "If the <b>record trigger</b> is enabled, recording will start as soon as the "
 "volume of the input signal goes over the selected level."
@@ -3567,64 +3572,64 @@ msgstr ""
 "wenn die Lautstärke des Eingangssignals den eingestellten Pegel "
 "überschreitet."
 
-#: plugins/record/RecordDlg.uic.cpp:613
+#: plugins/record/RecordDlg.uic.cpp:637
 msgid "Stop Recording"
 msgstr "Aufnahme beenden"
 
-#: plugins/record/RecordDlg.uic.cpp:615
+#: plugins/record/RecordDlg.uic.cpp:639
 msgid "Pause/Continue"
 msgstr "Anhalten/Fortsetzen"
 
-#: plugins/record/RecordDlg.uic.cpp:617
+#: plugins/record/RecordDlg.uic.cpp:641
 msgid "Record!"
 msgstr "Aufnehmen!"
 
-#: plugins/record/RecordDlg.uic.cpp:618
+#: plugins/record/RecordDlg.uic.cpp:642
 msgid " s"
 msgstr " s"
 
-#: plugins/record/RecordDlg.uic.cpp:620
+#: plugins/record/RecordDlg.uic.cpp:644
 msgid "Recording"
 msgstr "Aufnehmen"
 
-#: plugins/record/RecordDlg.uic.cpp:621 plugins/record/RecordDlg.uic.cpp:631
+#: plugins/record/RecordDlg.uic.cpp:645 plugins/record/RecordDlg.uic.cpp:655
 msgid "Level"
 msgstr "Pegel"
 
-#: plugins/record/RecordDlg.uic.cpp:622
+#: plugins/record/RecordDlg.uic.cpp:646
 msgid "AGC:"
 msgstr "AGC:"
 
-#: plugins/record/RecordDlg.uic.cpp:623
+#: plugins/record/RecordDlg.uic.cpp:647
 msgid "Amplify:"
 msgstr "Verstärkung:"
 
-#: plugins/record/RecordDlg.uic.cpp:624
+#: plugins/record/RecordDlg.uic.cpp:648
 msgid " dB"
 msgstr " dB"
 
-#: plugins/record/RecordDlg.uic.cpp:625
+#: plugins/record/RecordDlg.uic.cpp:649
 msgid " ms"
 msgstr " ms"
 
-#: plugins/record/RecordDlg.uic.cpp:626
+#: plugins/record/RecordDlg.uic.cpp:650
 msgid "Fading"
 msgstr "Ein-/Ausblenden"
 
-#: plugins/record/RecordDlg.uic.cpp:627
+#: plugins/record/RecordDlg.uic.cpp:651
 msgid "Fade In"
 msgstr "Einblenden"
 
-#: plugins/record/RecordDlg.uic.cpp:628
+#: plugins/record/RecordDlg.uic.cpp:652
 msgid "Fade Out"
 msgstr "Ausblenden"
 
-#: plugins/record/RecordDlg.uic.cpp:632 plugins/record/RecordDlg.uic.cpp:646
+#: plugins/record/RecordDlg.uic.cpp:656
 #: plugins/newsignal/NewSigDlg.uic.cpp:295
 msgid "Format"
 msgstr "Format"
 
-#: plugins/record/RecordDlg.uic.cpp:633
+#: plugins/record/RecordDlg.uic.cpp:657
 msgid ""
 "<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
 "sample rates that your sound card supports."
@@ -3632,17 +3637,17 @@ msgstr ""
 "<b>Sample-Rate</b><br>Hier können Sie eine der allgemein bekannten Sample-"
 "Raten auswählen die von Ihrer Soundkarte unterstützt wird."
 
-#: plugins/record/RecordDlg.uic.cpp:635
+#: plugins/record/RecordDlg.uic.cpp:659
 #: plugins/newsignal/NewSigDlg.uic.cpp:309
 msgid "Sample Rate:"
 msgstr "Abtastrate:"
 
-#: plugins/record/RecordDlg.uic.cpp:636
+#: plugins/record/RecordDlg.uic.cpp:660
 #: plugins/newsignal/NewSigDlg.uic.cpp:311
 msgid "Tracks:"
 msgstr "Tracks: "
 
-#: plugins/record/RecordDlg.uic.cpp:637
+#: plugins/record/RecordDlg.uic.cpp:661
 msgid ""
 "<b>Number of Tracks</b><br>Select a number of tracks, e.g. for mono or "
 "stereo recording."
@@ -3650,11 +3655,11 @@ msgstr ""
 "<b>Anzahl der Tracks</b><br>Wählen Sie die Anzahl der Tracks, beispielsweise "
 "Mono oder Stereo."
 
-#: plugins/record/RecordDlg.uic.cpp:639
+#: plugins/record/RecordDlg.uic.cpp:663
 msgid "Compression:"
 msgstr "Kompression:"
 
-#: plugins/record/RecordDlg.uic.cpp:640
+#: plugins/record/RecordDlg.uic.cpp:664
 msgid ""
 "<b>Compression</b><br>Here you can select one of the compression types if "
 "your audio hardware supports it."
@@ -3662,7 +3667,7 @@ msgstr ""
 "<b>Kompression</b><br>Hier können Sie eine der von Ihrer Soundkarte "
 "unterstützten Kompressionsarten auswählen."
 
-#: plugins/record/RecordDlg.uic.cpp:641
+#: plugins/record/RecordDlg.uic.cpp:665
 msgid ""
 "<b>Sample Format</b><br>Here you can select one of the sample formats that "
 "your audio hardware supports. This normally has no big influence on the "
@@ -3673,11 +3678,11 @@ msgstr ""
 "Einfluss auf das Resultat, so dass Sie diese Einstellung so lassen können "
 "wie sie ist."
 
-#: plugins/record/RecordDlg.uic.cpp:642
+#: plugins/record/RecordDlg.uic.cpp:666
 msgid "Sample Format:"
 msgstr "Sample-Format:"
 
-#: plugins/record/RecordDlg.uic.cpp:643
+#: plugins/record/RecordDlg.uic.cpp:667
 msgid ""
 "<b>Resolution</b><br>Select a resolution in bits in which the file will be "
 "recorded. Higher values give better quality but also more system load."
@@ -3686,179 +3691,215 @@ msgstr ""
 "Aufnahme durchgeführt werden soll. Höhere Werte geben bessere Qualität, aber "
 "auch höhere Systemlast."
 
-#: plugins/record/RecordDlg.uic.cpp:644
+#: plugins/record/RecordDlg.uic.cpp:668
 #: plugins/newsignal/NewSigDlg.uic.cpp:312
 msgid "Resolution:"
 msgstr "Auflösung:"
 
-#: plugins/record/RecordDlg.uic.cpp:648
-#: plugins/playback/PlayBackDlg.uic.cpp:256
-msgid "Device:"
-msgstr "Gerät:"
+#: plugins/record/RecordDlg.uic.cpp:670
+msgid "For&mat"
+msgstr "For&mat"
 
-#: plugins/record/RecordDlg.uic.cpp:649
-msgid "Select..."
-msgstr "Auswählen..."
-
-#: plugins/record/RecordDlg.uic.cpp:650
-msgid "Buffer Count:"
-msgstr "Buffer-Anzahl:"
-
-#: plugins/record/RecordDlg.uic.cpp:651
+#: plugins/record/RecordDlg.uic.cpp:672
 #: plugins/playback/PlayBackDlg.uic.cpp:260
 msgid "Buffer Size:"
 msgstr "Buffer-Größe:"
 
-#: plugins/record/RecordDlg.uic.cpp:654
+#: plugins/record/RecordDlg.uic.cpp:673
+msgid "Buffer Count:"
+msgstr "Buffer-Anzahl:"
+
+#: plugins/record/RecordDlg.uic.cpp:674
+#: plugins/playback/PlayBackDlg.uic.cpp:249
+msgid "method or system used for playback"
+msgstr "Methode / System für die Wiedergabe"
+
+#: plugins/record/RecordDlg.uic.cpp:675
+#: plugins/playback/PlayBackDlg.uic.cpp:250
+msgid ""
+"<b>Playback Method:</b><p>Choose a method or system used for\n"
+"playback. Depending on the compilation options you can select one of the "
+"following methods:</p>\n"
+"<p><b><i>OSS (Open Sound System)</i></b>: The oldest linux implementation, "
+"capable of mono and stereo output. Deprecated since linux kernel 2.6, but "
+"still wide spread. Might collide with aRts from KDE or other sound "
+"applications, only one application at a time can use OSS playback !</p>\n"
+"<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes OSS, "
+"supports more features and more hardware. Might collide with aRts or other "
+"applications like OSS does, but has a plugin called <i>dmix</i> as a way out."
+"</p>\n"
+"<p><b><i>aRts (Analog Realtime Synthesizer)</i></b>: The preferred way of "
+"doing playback in KDE, the sound server KDE uses itself. Multiple "
+"applications can play at the same time. Must be configured in KDE.</p>"
+msgstr ""
+"<b>Wiedergabe-Metode:</b><p>Wählen Sie eine Methode bzw. ein System für "
+"die \n"
+"Wiedergabe. Abhängig von den Compilier-Optionen können Sie eine der "
+"folgenden\n"
+"Methoden wählen:</p>\n"
+"<p><b><i>OSS (Open Sound System)</i></b>: Die älteste Linux-Implementierung, "
+"nur Mono und Stereo. Veraltet seit Linux-Kernel 2.6, aber immer noch weit "
+"verbreitet. Kann mit aRts von KDE oder anderen Sound-Applikationen "
+"kollidieren. OSS kann immer nur von einem einzigen Programm gleichzeitig "
+"verwendet werden !</p>\n"
+"<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Löst OSS ab, "
+"unterstützt mehr Funktionen und mehr Hardware. Kann mit aRts und anderen "
+"Sound-Applikationen kollidieren, bietet jedoch als Ausweg ein Plugin namens "
+"<i>dmix</i> an.</p>\n"
+"<p><b><i>aRts (Analog Realtime Synthesizer)</i></b>: Die bevorzugte Methode "
+"für Wiedergabe unter KDE, diese ist der Sound-Server der von KDE selbst "
+"verwendet wird. Mehrere Programme können gleichzeitig die Wiedergabe "
+"benutzen. Muss im KDE konfiguriert werden.</p>"
+
+#: plugins/record/RecordDlg.uic.cpp:680
+msgid "Recording Method:"
+msgstr "Aufnahme-Methode:"
+
+#: plugins/record/RecordDlg.uic.cpp:681
+msgid "Selec&t..."
+msgstr "Aus&wählen..."
+
+#: plugins/record/RecordDlg.uic.cpp:683
+#: plugins/playback/PlayBackDlg.uic.cpp:256
+msgid "Device:"
+msgstr "Gerät:"
+
+#: plugins/record/RecordDlg.uic.cpp:686
 msgid "Visualization"
 msgstr "Visualisierung"
 
-#: plugins/record/RecordDlg.uic.cpp:655
+#: plugins/record/RecordDlg.uic.cpp:687
 msgid "Level Meter"
 msgstr "Aussteuerungsanzeige"
 
-#: plugins/record/RecordDlg.uic.cpp:656
+#: plugins/record/RecordDlg.uic.cpp:688
 msgid "Oscilloscope"
 msgstr "Oszilloskop"
 
-#: plugins/record/RecordDlg.uic.cpp:657
+#: plugins/record/RecordDlg.uic.cpp:689
 msgid "FFT"
 msgstr "FFT"
 
-#: plugins/record/RecordDlg.uic.cpp:658
+#: plugins/record/RecordDlg.uic.cpp:690
 msgid "Overview"
 msgstr "Übersicht"
 
-#: plugins/record/RecordDlg.uic.cpp:659
+#: plugins/record/RecordDlg.uic.cpp:691
 msgid "Display"
 msgstr "Anzeige"
 
-#: plugins/record/RecordDlg.uic.cpp:660
+#: plugins/record/RecordDlg.uic.cpp:692
 msgid "Buffer:"
 msgstr "Buffer:"
 
-#: plugins/record/RecordDlg.uic.cpp:661
+#: plugins/record/RecordDlg.uic.cpp:693
 msgid "Level:"
 msgstr "Pegel:"
 
-#: plugins/record/RecordDlg.uic.cpp:665
+#: plugins/record/RecordDlg.uic.cpp:697
 msgid "STATE"
 msgstr "STATE"
 
-#: plugins/record/RecordDialog.cpp:288
-msgid "OSS record device (dsp*)"
+#: plugins/record/Record-OSS.cpp:181
+msgid "OSS recording device (dsp*)"
 msgstr "OSS-Aufnahmegerät (dsp*)"
 
-#: plugins/record/RecordDialog.cpp:289
-msgid "ALSA record device (adsp*)"
+#: plugins/record/Record-OSS.cpp:184
+msgid "ALSA recording device (adsp*)"
 msgstr "ALSA-Aufnahmegerät (adsp*)"
 
-#: plugins/record/RecordDialog.cpp:290 plugins/playback/PlayBack-OSS.cpp:259
+#: plugins/record/Record-OSS.cpp:187 plugins/record/RecordDialog.cpp:509
+#: plugins/playback/PlayBack-OSS.cpp:259
 msgid "Any device (*)"
 msgstr "Anderes Wiedergabegerät (*)"
 
-#: plugins/record/RecordDialog.cpp:296
+#: plugins/record/Record-ALSA.cpp:984 plugins/record/Record-ALSA.cpp:998
+#: plugins/playback/PlayBack-ALSA.cpp:675
+#: plugins/playback/PlayBack-ALSA.cpp:689
+msgid "card %1: "
+msgstr "Karte %1: "
+
+#: plugins/record/Record-ALSA.cpp:986 plugins/record/Record-ALSA.cpp:999
+#: plugins/playback/PlayBack-ALSA.cpp:677
+#: plugins/playback/PlayBack-ALSA.cpp:690
+msgid "device %2: "
+msgstr "Gerät %2: "
+
+#: plugins/record/Record-ALSA.cpp:988 plugins/playback/PlayBack-ALSA.cpp:679
+msgid "subdevice %3: "
+msgstr "Subgerät %3: "
+
+#: plugins/record/RecordDialog.cpp:507
+msgid "OSS record device (dsp*)"
+msgstr "OSS-Aufnahmegerät (dsp*)"
+
+#: plugins/record/RecordDialog.cpp:508
+msgid "ALSA record device (adsp*)"
+msgstr "ALSA-Aufnahmegerät (adsp*)"
+
+#: plugins/record/RecordDialog.cpp:515
 msgid "Select Record Device"
 msgstr "Auswahl des Aufnahmegeräts"
 
-#: plugins/record/RecordDialog.cpp:686
+#: plugins/record/RecordDialog.cpp:874
 msgid "(empty)"
 msgstr "(leer)"
 
-#: plugins/record/RecordDialog.cpp:695
+#: plugins/record/RecordDialog.cpp:883
 msgid "buffering..."
 msgstr "buffern..."
 
-#: plugins/record/RecordDialog.cpp:704
+#: plugins/record/RecordDialog.cpp:892
 msgid "prerecording..."
 msgstr "Vorab-Aufnahme..."
 
-#: plugins/record/RecordDialog.cpp:713
+#: plugins/record/RecordDialog.cpp:901
 msgid "waiting for trigger..."
 msgstr "warte auf Trigger..."
 
-#: plugins/record/RecordDialog.cpp:722
+#: plugins/record/RecordDialog.cpp:910
 msgid "recording..."
 msgstr "Aufnahme läuft..."
 
-#: plugins/record/RecordDialog.cpp:731
+#: plugins/record/RecordDialog.cpp:919
 msgid "paused"
 msgstr "Angehalten"
 
-#: plugins/record/RecordDialog.cpp:740
+#: plugins/record/RecordDialog.cpp:928
 msgid "done."
 msgstr "Fertig."
 
-#: plugins/record/RecordPlugin.cpp:62
+#: plugins/record/RecordPlugin.cpp:67
 msgid "record"
 msgstr "Aufnahme"
 
-#: plugins/record/RecordPlugin.cpp:231
-msgid "You have not yet selected a recording device."
-msgstr "Sie haben noch kein Aufnahmegerät ausgewählt."
-
-#: plugins/record/RecordPlugin.cpp:236
-msgid "The device %1 seems not to exist."
-msgstr "Das Gerät %1 scheint nicht zu existieren."
-
-#: plugins/record/RecordPlugin.cpp:240
-msgid ""
-"You do not have sufficient permissions to open the device %1 for reading."
-msgstr ""
-"Sie haben keine ausreichende Berechtigung um das Gerät %1 zum Lesen zu "
-"öffnen."
-
-#: plugins/record/RecordPlugin.cpp:249
-msgid "The device %1 seems to be in use by another application."
-msgstr ""
-"Das Gerät %1 scheint bereits von einem anderen Programm geöffnet zu sein."
-
-#: plugins/record/RecordPlugin.cpp:259
-msgid "Opening the device %1 failed, please select a different one."
-msgstr ""
-"Öffnen des Gerätes '%1' ist fehlgeschlagen. Bitte wählen Sie eine andere "
-"Aufnahmequelle."
-
-#: plugins/record/RecordPlugin.cpp:265
-msgid "Opening the device %1 failed, reverting to %2."
-msgstr "Das Öffnen des Gerätes '%1' ist fehlgeschlagen, verwende wieder '%2'."
-
-#: plugins/record/RecordPlugin.cpp:281
-msgid ""
-"The record device '%1' does not work properly, determining the number of "
-"supported channels failed."
-msgstr ""
-"Das Aufnahmegerät '%1' funktioniert nicht ordnungsgemäß; die Anzahl der "
-"unterstützten Kanäle konnte nicht bestimmt werden."
-
-#: plugins/record/RecordPlugin.cpp:330
+#: plugins/record/RecordPlugin.cpp:385
 msgid "Recording with %1 track(s) failed, using %2 track(s) instead."
 msgstr "Aufnahme mit %1 Tracks ist fehlgeschlagen, verwende %2 Tracks."
 
-#: plugins/record/RecordPlugin.cpp:370
+#: plugins/record/RecordPlugin.cpp:428
 msgid "The sample rate %1Hz is not supported, using %2Hz instead."
 msgstr ""
 "Aufnahme mit Sample-Rate %1 Hz wird nicht unterstützt, verwende %2Hz "
 "stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:384
+#: plugins/record/RecordPlugin.cpp:444
 msgid "Setting the sample rate %1Hz failed, using %2Hz instead."
 msgstr ""
 "Die Sample-Rate %1Hz konnte nicht eingestellt werden, verwende %2Hz "
 "stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:425
+#: plugins/record/RecordPlugin.cpp:487
 msgid "The compression '%1' is not supported, using '%2' instead."
-msgstr ""
-"Die Kompressionsart '%1' wird nicht unterstützt, verwende '%2' stattdessen."
+msgstr "Die Kompressionsart '%1' wird nicht unterstützt, verwende '%2' stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:441
+#: plugins/record/RecordPlugin.cpp:505
 msgid "Setting the compression type %1 failed, using %2 instead."
 msgstr ""
 "Die Kompressionsart '%1' konnte nicht eingestellt werden, verwende '%2' "
 "stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:479
+#: plugins/record/RecordPlugin.cpp:546
 msgid ""
 "The resolution %1 bits per sample is not supported, using %2 bits per sample "
 "instead."
@@ -3866,7 +3907,7 @@ msgstr ""
 "Die Auflösung %1 Bits pro Sample wird nicht unterstützt, verwende %2 Bits "
 "pro Sample stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:491
+#: plugins/record/RecordPlugin.cpp:558
 msgid ""
 "Setting the resolution %1 bits per sample failed, using %2 bits per sample "
 "instead."
@@ -3874,39 +3915,47 @@ msgstr ""
 "Die Auflösung %1 Bit pro Sample konnte nicht eingestellt werden, verwende %2 "
 "Bit pro Sample stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:526
+#: plugins/record/RecordPlugin.cpp:602
 msgid "The sample format '%1' is not supported, using '%2' instead."
-msgstr ""
-"Das Sample-Format '%1' wird nicht unterstützt, verwende '%2' stattdessen."
+msgstr "Das Sample-Format '%1' wird nicht unterstützt, verwende '%2' stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:541
+#: plugins/record/RecordPlugin.cpp:618
 msgid "Setting the sample format '%1' failed, using '%2' instead."
 msgstr ""
 "Das Sample-Format '%1' konnte nicht eingestellt werden, verwende '%2' "
 "stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:636
+#: plugins/record/RecordPlugin.cpp:719
 msgid "The current sample format is not supported!"
 msgstr "Das aktuelle Sample-Format wird nicht unterstützt!"
 
-#: plugins/record/RecordPlugin.cpp:646
+#: plugins/record/RecordPlugin.cpp:729
 msgid "The current compression type is not supported!"
 msgstr "Die aktuelle Kompressionsart wird nicht unterstützt!"
 
-#: plugins/record/RecordPlugin.cpp:771
-msgid ""
-"Buffer overrun. Please increase the number and/or size of the record buffers."
+#: plugins/record/RecordPlugin.cpp:856
+msgid "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
 "Buffer-Überlauf. Bitte erhöhen Sie die Anzahl der Buffer und/oder vergrößern "
 "Sie die Buffergröße."
 
-#: plugins/record/RecordPlugin.cpp:775
+#: plugins/record/RecordPlugin.cpp:860
 msgid "The recording device seems to be busy!"
 msgstr "Das Aufnahmegerät scheint belegt zu sein!"
 
-#: plugins/record/RecordPlugin.cpp:778
+#: plugins/record/RecordPlugin.cpp:863
 msgid "Reading from the recording device failed, error number = %1 (%2)"
 msgstr "Vom Aufnahmegerät konnte nicht gelesen werden, Fehler Nummer %1 (%2)"
+
+#: plugins/record/RecordTypesMap.cpp:43
+#: plugins/playback/PlayBackTypesMap.cpp:43
+msgid "ALSA (Advanced Linux Sound Architecture)"
+msgstr "ALSA (Advanced Linux Sound Architecture)"
+
+#: plugins/record/RecordTypesMap.cpp:51
+#: plugins/playback/PlayBackTypesMap.cpp:51
+msgid "OSS (Open Sound System)"
+msgstr "OSS (Open Sound System)"
 
 #: plugins/volume/VolumePlugin.cpp:114
 msgid "volume"
@@ -4012,8 +4061,7 @@ msgstr "Dateiende vor dem Einlesen aller Vorbis-Header!"
 
 #: plugins/codec_ogg/OggDecoder.cpp:351
 msgid "Corrupt or missing data in bitstream; continuing..."
-msgstr ""
-"Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
+msgstr "Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
 
 #: plugins/codec_ogg/OggCodecPlugin.cpp:33
 msgid "codec_ogg"
@@ -4152,8 +4200,7 @@ msgid "Select Playback Device"
 msgstr "Auswahl des Wiedergabegeräts"
 
 #: plugins/playback/PlayBackPlugin.cpp:172
-msgid ""
-"Playback is currently running.Please stop playback first and then try again"
+msgid "Playback is currently running.Please stop playback first and then try again"
 msgstr ""
 "Die Wiedergabe läuft momentan. Bitte stoppen Sie zuerst die Wiedergabe und "
 "versuchen Sie es danach nochmal."
@@ -4165,11 +4212,6 @@ msgstr "Wiedergabe-Test"
 #: plugins/playback/PlayBackPlugin.cpp:796
 msgid "you should hear a %1Hz test tone..."
 msgstr "Sie sollten jetzt eine %1Hz Testsignal hören..."
-
-#: plugins/playback/PlayBackDlg.uic.cpp:162
-#: plugins/playback/PlayBackDlg.uic.cpp:268
-msgid "Device"
-msgstr "Gerät"
 
 #: plugins/playback/PlayBackDlg.uic.cpp:241
 msgid "Playback"
@@ -4208,46 +4250,6 @@ msgstr ""
 "<b>Auswahl...</b><p>Wählen Sie eine Gerätedatei innerhalb des Dateisystems "
 "falls Ihr Wiedergabe-Gerät nicht gelistet ist.</p>"
 
-#: plugins/playback/PlayBackDlg.uic.cpp:249
-msgid "method or system used for playback"
-msgstr "Methode / System für die Wiedergabe"
-
-#: plugins/playback/PlayBackDlg.uic.cpp:250
-msgid ""
-"<b>Playback Method:</b><p>Choose a method or system used for\n"
-"playback. Depending on the compilation options you can select one of the "
-"following methods:</p>\n"
-"<p><b><i>OSS (Open Sound System)</i></b>: The oldest linux implementation, "
-"capable of mono and stereo output. Deprecated since linux kernel 2.6, but "
-"still wide spread. Might collide with aRts from KDE or other sound "
-"applications, only one application at a time can use OSS playback !</p>\n"
-"<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes OSS, "
-"supports more features and more hardware. Might collide with aRts or other "
-"applications like OSS does, but has a plugin called <i>dmix</i> as a way out."
-"</p>\n"
-"<p><b><i>aRts (Analog Realtime Synthesizer)</i></b>: The preferred way of "
-"doing playback in KDE, the sound server KDE uses itself. Multiple "
-"applications can play at the same time. Must be configured in KDE.</p>"
-msgstr ""
-"<b>Wiedergabe-Metode:</b><p>Wählen Sie eine Methode bzw. ein System für "
-"die \n"
-"Wiedergabe. Abhängig von den Compilier-Optionen können Sie eine der "
-"folgenden\n"
-"Methoden wählen:</p>\n"
-"<p><b><i>OSS (Open Sound System)</i></b>: Die älteste Linux-Implementierung, "
-"nur Mono und Stereo. Veraltet seit Linux-Kernel 2.6, aber immer noch weit "
-"verbreitet. Kann mit aRts von KDE oder anderen Sound-Applikationen "
-"kollidieren. OSS kann immer nur von einem einzigen Programm gleichzeitig "
-"verwendet werden !</p>\n"
-"<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Löst OSS ab, "
-"unterstützt mehr Funktionen und mehr Hardware. Kann mit aRts und anderen "
-"Sound-Applikationen kollidieren, bietet jedoch als Ausweg ein Plugin namens "
-"<i>dmix</i> an.</p>\n"
-"<p><b><i>aRts (Analog Realtime Synthesizer)</i></b>: Die bevorzugte Methode "
-"für Wiedergabe unter KDE, diese ist der Sound-Server der von KDE selbst "
-"verwendet wird. Mehrere Programme können gleichzeitig die Wiedergabe "
-"benutzen. Muss im KDE konfiguriert werden.</p>"
-
 #: plugins/playback/PlayBackDlg.uic.cpp:255
 msgid "Playback Method:"
 msgstr "Wiedergabe-Methode:"
@@ -4268,8 +4270,8 @@ msgid ""
 "update of the playback position and the real sound output. If you encounter "
 "dropouts you should increase this setting a bit.</p>"
 msgstr ""
-"<b>Puffer-Größe:</b><p>Wählen Sie eine Puffer-Größe für die Wiedergabe. "
-"Sie sollten diese Größe so klein wie möglich halten, und die Latenz bei der "
+"<b>Puffer-Größe:</b><p>Wählen Sie eine Puffer-Größe für die Wiedergabe. Sie "
+"sollten diese Größe so klein wie möglich halten, und die Latenz bei der "
 "Wiedergabe zu verringern. Die Latenz ist die Verzögerung zwischen Aktionen "
 "der Benutzer-Schnittstelle wie z.B. Starten oder Stoppen der Wiedergabe, "
 "Aktualisierung der Wiedergabeposition, und der wirklichen Ausgabe zum "
@@ -4350,7 +4352,7 @@ msgstr ""
 msgid "Alt+C"
 msgstr "Alt+C"
 
-#: plugins/playback/PlayBack-OSS.cpp:96 plugins/playback/PlayBack-ALSA.cpp:417
+#: plugins/playback/PlayBack-OSS.cpp:96 plugins/playback/PlayBack-ALSA.cpp:416
 msgid ""
 "i/o error, maybe the driver\n"
 "is not present in your kernel or it is not\n"
@@ -4361,7 +4363,7 @@ msgstr ""
 "korrekt konfiguriert."
 
 #: plugins/playback/PlayBack-OSS.cpp:102
-#: plugins/playback/PlayBack-ALSA.cpp:423
+#: plugins/playback/PlayBack-ALSA.cpp:422
 msgid ""
 "The device is busy. Maybe an other application is \n"
 "currently using it. Please try again later. \n"
@@ -4409,14 +4411,6 @@ msgstr "ALSA-Wiedergabegerät (adsp*)"
 msgid "aRts (Analog Realtime Synthesizer)"
 msgstr "aRts (Analog Realtime Synthesizer)"
 
-#: plugins/playback/PlayBackTypesMap.cpp:43
-msgid "ALSA (Advanced Linux Sound Architecture)"
-msgstr "ALSA (Advanced Linux Sound Architecture)"
-
-#: plugins/playback/PlayBackTypesMap.cpp:51
-msgid "OSS (Open Sound System)"
-msgstr "OSS (Open Sound System)"
-
 #: plugins/playback/PlayBack-aRts.cpp:93
 msgid "unable to open aRts playback stream"
 msgstr "aRts-Stream für Wiedergabe konnte nicht geöffnet werden"
@@ -4462,25 +4456,11 @@ msgstr ""
 msgid "[aRts sound daemon]"
 msgstr "[aRts Sound-Daemon]"
 
-#: plugins/playback/PlayBack-ALSA.cpp:431
+#: plugins/playback/PlayBack-ALSA.cpp:430
 msgid "Opening the device '%1' failed: %2"
 msgstr "Öffnen des Gerätes '%1' ist fehlgeschlagen: %2"
 
-#: plugins/playback/PlayBack-ALSA.cpp:676
-#: plugins/playback/PlayBack-ALSA.cpp:690
-msgid "card %1: "
-msgstr "Karte %1: "
-
-#: plugins/playback/PlayBack-ALSA.cpp:678
-#: plugins/playback/PlayBack-ALSA.cpp:691
-msgid "device %2: "
-msgstr "Gerät %2: "
-
-#: plugins/playback/PlayBack-ALSA.cpp:680
-msgid "subdevice %3: "
-msgstr "Subgerät %3: "
-
-#: plugins/playback/PlayBack-ALSA.cpp:707
+#: plugins/playback/PlayBack-ALSA.cpp:706
 msgid "DMIX plugin"
 msgstr "DMIX-Plugin"
 
@@ -4545,8 +4525,7 @@ msgstr "Maximum"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:329
 msgid "sets the file size by the percentage of the possible maximum"
-msgstr ""
-"Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
+msgstr "Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
 
 #: plugins/newsignal/NewSignalDialog.cpp:354
 msgid "(Resulting file size: %1 MB)"
@@ -4555,3 +4534,4 @@ msgstr "(Resultierende Dateigröße: %1 MB)"
 #: plugins/newsignal/NewSignalPlugin.cpp:33
 msgid "newsignal"
 msgstr "Neues Signal"
+

@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2005-05-24</date>
+<date>2005-09-11</date>
 <releaseinfo>0.7.1
 </releaseinfo>
 
@@ -192,6 +192,31 @@
 	 helper scripts -->
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
+        <listitem>
+            <para>0.7.4 [2005-??-??]</para>
+            <itemizedlist>
+                <listitem><para>
+                    recording via ALSA
+                </para></listitem>
+                <listitem><para>
+                    support for the silently changed API of libFLAC++ v1.1.2
+                      (closes sourceforge bug #1243707 + debian bug #289953)
+                </para></listitem>
+                <listitem><para>
+                    fixed support of MMX / SSE detection on X64_64 architecture
+                      (closes sourceforge bug #1244320 and debian bugs #288781 +
+                      #327501)
+                </para></listitem>
+                <listitem><para>
+                    decided to support gstreamer as streaming engine
+                      in future versions (will make v0.8 if Kwave is aRts-free)
+                </para></listitem>
+                <listitem><para>
+                    fixed some German translations
+                      (closes debian bug #313790 and bug #314000)
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
         <listitem>
             <para>0.7.3 [2005-05-26]</para>
             <itemizedlist>
@@ -488,7 +513,7 @@
                     new plugin "noise"
                 </para></listitem>
                 <listitem><para>
-                     new aRts plugin adapter framework
+                     new aRts plugin adapter framework 
                       now Kwave is able to use existing aRts plugins in it's own plugins
                       for sound processing
                 </para></listitem>
@@ -525,7 +550,7 @@
             <para>0.6.1 [2001-08-24]</para>
             <itemizedlist>
                 <listitem><para>
-                     USE OF VIRTUAL MEMORY
+                     USE OF VIRTUAL MEMORY 
                 </para></listitem>
                 <listitem><para>
                     changed Makefiles: html docu stays in distribution due to too much
@@ -554,7 +579,7 @@
             <para>0.6.0 [2001-07-29]</para>
             <itemizedlist>
                 <listitem><para>
-                     PORTED TO QT-2 AND KDE2
+                     PORTED TO QT-2 AND KDE2 
                 </para></listitem>
                 <listitem><para>
                     completely new internal architecture
@@ -773,7 +798,7 @@
                     found out that we need ALSA support for 24 and 32 bits/sample
                 </para></listitem>
                 <listitem><para>
-                     playback in stereo
+                     playback in stereo 
                 </para></listitem>
                 <listitem><para>
                     selected channels (x) are mixed to the output device's channels (y)
@@ -921,7 +946,7 @@
                     bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)
                 </para></listitem>
                 <listitem><para>
-                     COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE
+                     COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE 
                     <itemizedlist>
                     <listitem><para>
                          made use of a combination of signals/slots and string messages
@@ -987,8 +1012,8 @@
             <para>0.5.1-4</para>
             <itemizedlist>
                 <listitem><para>
-                     now compiles and runns under RedHat 6.1 / Halloween IV
-                       as well as under SuSE 6.2
+                     now compiles and runns under RedHat 6.1 / Halloween IV 
+                       as well as under SuSE 6.2                              
                 </para></listitem>
                 <listitem><para>
                     version info of libkwavegui.so is set to the package's version
@@ -1009,7 +1034,7 @@
                     configure-parameter --enable-debug has effect again
                 </para></listitem>
                 <listitem><para>
-                     ASCII import and export works now (mono only)
+                     ASCII import and export works now (mono only) 
                 </para></listitem>
                 <listitem><para>
                     bugfixes in some plugins, all compile now without warnings/errors

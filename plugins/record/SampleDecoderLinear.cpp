@@ -50,20 +50,28 @@ static inline u_int32_t shl(const u_int32_t v, const int s)
  * variant and does nice loop optimizing!
  * @param src array with raw data
  * @param dst array that receives the samples in Kwave's format
- * @param count returns the number of samples to be decoded
+ * @param count the number of samples to be decoded
  */
-template<const unsigned int bits, const bool is_signed>
+template<const unsigned int bits, const bool is_signed,
+         const bool is_little_endian>
 void decode_linear(char *src, sample_t *dst, unsigned int count)
 {
     const int shift = (SAMPLE_BITS - bits);
     const u_int32_t sign = 1 << (SAMPLE_BITS-1);
     const u_int32_t negative = ~(sign - 1);
+    const u_int32_t bytes = (bits+7) >> 3;
 
     while (count--) {
-	// read from source buffer, assume little endian
+	// read from source buffer
 	register u_int32_t s = 0;
-	for (unsigned int byte=0; byte < ((bits+7)>>3); ++byte) {
-	    s |= (unsigned char)(*(src++)) << (byte << 3);
+	if (is_little_endian) {
+	    for (unsigned int byte=0; byte < bytes; ++byte) {
+		s |= (unsigned char)(*(src++)) << (byte << 3);
+	    }
+	} else {
+	    for (int byte=bytes-1; byte >= 0; --byte) {
+		s |= (unsigned char)(*(src++)) << (byte << 3);
+	    }
 	}
 
 	// convert to signed
@@ -81,45 +89,49 @@ void decode_linear(char *src, sample_t *dst, unsigned int count)
 }
 
 //***************************************************************************
-SampleDecoderLinear::SampleDecoderLinear(int sample_format,
-                                         unsigned int bits_per_sample)
+#define MAKE_DECODER(bits) \
+if (sample_format == SampleFormat::Signed) { \
+    if (endianness == LittleEndian) { \
+	m_decoder = decode_linear<bits, true, true>; \
+    } else { \
+	m_decoder = decode_linear<bits, true, false>; \
+    } \
+} else { \
+    if (endianness == LittleEndian) { \
+	m_decoder = decode_linear<bits, false, true>; \
+    } else { \
+	m_decoder = decode_linear<bits, false, false>; \
+    } \
+}
+
+//***************************************************************************
+SampleDecoderLinear::SampleDecoderLinear(
+    SampleFormat::sample_format_t sample_format,
+    unsigned int bits_per_sample,
+    byte_order_t endianness
+)
     :SampleDecoder(),
     m_bytes_per_sample((bits_per_sample + 7) >> 3),
     m_decoder(decode_NULL)
 {
-    switch (sample_format) {
-	case AF_SAMPFMT_UNSIGNED:
-	    switch (m_bytes_per_sample) {
-	        case 1:
-		    m_decoder = decode_linear<8, false>;
-		    break;
-		case 2:
-		    m_decoder = decode_linear<16, false>;
-		    break;
-		case 3:
-		    m_decoder = decode_linear<24, false>;
-		    break;
-		case 4:
-		    m_decoder = decode_linear<32, false>;
-		    break;
-	    }
-	    break;
+    // sanity checks: we support only signed/unsigned and big/little endian
+    Q_ASSERT((sample_format == SampleFormat::Signed) ||
+             (sample_format == SampleFormat::Unsigned));
+    if ((sample_format != SampleFormat::Signed) &&
+        (sample_format != SampleFormat::Unsigned)) return;
 
-	case AF_SAMPFMT_TWOSCOMP:
-	    switch (m_bytes_per_sample) {
-	        case 1:
-		    m_decoder = decode_linear<8, true>;
-		    break;
-		case 2:
-		    m_decoder = decode_linear<16, true>;
-		    break;
-		case 3:
-		    m_decoder = decode_linear<24, true>;
-		    break;
-		case 4:
-		    m_decoder = decode_linear<32, true>;
-		    break;
-	    }
+    switch (m_bytes_per_sample) {
+	case 1:
+	    MAKE_DECODER(8);
+	    break;
+	case 2:
+	    MAKE_DECODER(16);
+	    break;
+	case 3:
+	    MAKE_DECODER(24);
+	    break;
+	case 4:
+	    MAKE_DECODER(32);
 	    break;
     }
 }

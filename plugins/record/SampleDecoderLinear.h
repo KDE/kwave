@@ -19,17 +19,23 @@
 #define _SAMPLE_DECODER_LINEAR_H_
 
 #include "config.h"
+#include "libkwave/ByteOrder.h"
+#include "libkwave/SampleFormat.h"
 #include "SampleDecoder.h"
 
 class SampleDecoderLinear: public SampleDecoder
 {
 public:
+
     /**
      * Constructor
      * @param sample_format index of the sample format (signed/unsigned)
      * @param bits_per_sample number of bits per sample in the raw data
+     * @param endianness either SOURCE_LITTLE_ENDIAN or SOURCE_BIG_ENDIAN
      */
-    SampleDecoderLinear(int sample_format, unsigned int bits_per_sample);
+    SampleDecoderLinear(SampleFormat::sample_format_t sample_format,
+                        unsigned int bits_per_sample,
+                        byte_order_t endianness);
 
     /** Destructor */
     virtual ~SampleDecoderLinear();

@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>RecordDlg</class>
 <widget class="QDialog">
     <property name="name">
@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>771</width>
-            <height>520</height>
+            <height>561</height>
         </rect>
     </property>
     <property name="caption">
@@ -76,7 +76,7 @@
                                     <bool>true</bool>
                                 </property>
                                 <property name="text">
-                                    <string>Record Time:</string>
+                                    <string>Record &amp;Time:</string>
                                 </property>
                                 <property name="checked">
                                     <bool>false</bool>
@@ -633,7 +633,7 @@
                     <cstring>tab</cstring>
                 </property>
                 <attribute name="title">
-                    <string>Format</string>
+                    <string>For&amp;mat</string>
                 </attribute>
                 <vbox>
                     <property name="name">
@@ -1019,11 +1019,11 @@
                 <attribute name="title">
                     <string>Source</string>
                 </attribute>
-                <vbox>
+                <grid>
                     <property name="name">
                         <cstring>unnamed</cstring>
                     </property>
-                    <widget class="QGroupBox">
+                    <widget class="QGroupBox" row="0" column="0">
                         <property name="name">
                             <cstring>grpSource</cstring>
                         </property>
@@ -1034,15 +1034,60 @@
                             <property name="name">
                                 <cstring>unnamed</cstring>
                             </property>
-                            <widget class="QLabel" row="0" column="0">
+                            <widget class="QLabel" row="4" column="0">
                                 <property name="name">
-                                    <cstring>textLabel1</cstring>
+                                    <cstring>textLabel2</cstring>
                                 </property>
                                 <property name="text">
-                                    <string>Device:</string>
+                                    <string>Buffer Size:</string>
                                 </property>
                             </widget>
-                            <widget class="QLayoutWidget" row="0" column="1">
+                            <widget class="QLabel" row="3" column="0">
+                                <property name="name">
+                                    <cstring>textLabel1_4</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Buffer Count:</string>
+                                </property>
+                            </widget>
+                            <widget class="KComboBox" row="0" column="1">
+                                <property name="name">
+                                    <cstring>cbMethod</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>7</hsizetype>
+                                        <vsizetype>5</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>130</width>
+                                        <height>30</height>
+                                    </size>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>method or system used for playback</string>
+                                </property>
+                                <property name="whatsThis" stdset="0">
+                                    <string>&lt;b&gt;Playback Method:&lt;/b&gt;&lt;p&gt;Choose a method or system used for
+playback. Depending on the compilation options you can select one of the following methods:&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;&lt;i&gt;OSS (Open Sound System)&lt;/i&gt;&lt;/b&gt;: The oldest linux implementation, capable of mono and stereo output. Deprecated since linux kernel 2.6, but still wide spread. Might collide with aRts from KDE or other sound applications, only one application at a time can use OSS playback !&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;&lt;i&gt;ALSA (Advanced Linux Sound Architecture)&lt;/i&gt;&lt;/b&gt;: Supercedes OSS, supports more features and more hardware. Might collide with aRts or other applications like OSS does, but has a plugin called &lt;i&gt;dmix&lt;/i&gt; as a way out.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;&lt;i&gt;aRts (Analog Realtime Synthesizer)&lt;/i&gt;&lt;/b&gt;: The preferred way of doing playback in KDE, the sound server KDE uses itself. Multiple applications can play at the same time. Must be configured in KDE.&lt;/p&gt;</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="0" column="0">
+                                <property name="name">
+                                    <cstring>textLabel1_5</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Recording Method:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLayoutWidget" row="1" column="1">
                                 <property name="name">
                                     <cstring>layout4</cstring>
                                 </property>
@@ -1052,7 +1097,7 @@
                                     </property>
                                     <widget class="KComboBox">
                                         <property name="name">
-                                            <cstring>cbSourceDevice</cstring>
+                                            <cstring>cbDevice</cstring>
                                         </property>
                                     </widget>
                                     <widget class="QPushButton">
@@ -1060,7 +1105,7 @@
                                             <cstring>btSourceSelect</cstring>
                                         </property>
                                         <property name="text">
-                                            <string>Select...</string>
+                                            <string>Selec&amp;t...</string>
                                         </property>
                                     </widget>
                                     <spacer>
@@ -1082,23 +1127,7 @@
                                     </spacer>
                                 </hbox>
                             </widget>
-                            <widget class="QLabel" row="1" column="0">
-                                <property name="name">
-                                    <cstring>textLabel1_4</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>Buffer Count:</string>
-                                </property>
-                            </widget>
-                            <widget class="QLabel" row="2" column="0">
-                                <property name="name">
-                                    <cstring>textLabel2</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>Buffer Size:</string>
-                                </property>
-                            </widget>
-                            <widget class="QLayoutWidget" row="1" column="1" rowspan="2" colspan="1">
+                            <widget class="QLayoutWidget" row="3" column="1" rowspan="2" colspan="1">
                                 <property name="name">
                                     <cstring>layout10</cstring>
                                 </property>
@@ -1182,9 +1211,53 @@
                                     </widget>
                                 </grid>
                             </widget>
+                            <widget class="QLabel" row="1" column="0">
+                                <property name="name">
+                                    <cstring>textLabel1</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Device:</string>
+                                </property>
+                            </widget>
+                            <widget class="QListView" row="2" column="0" rowspan="1" colspan="2">
+                                <column>
+                                    <property name="text">
+                                        <string>Device</string>
+                                    </property>
+                                    <property name="clickable">
+                                        <bool>true</bool>
+                                    </property>
+                                    <property name="resizable">
+                                        <bool>true</bool>
+                                    </property>
+                                </column>
+                                <property name="name">
+                                    <cstring>listDevices</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>7</hsizetype>
+                                        <vsizetype>3</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>100</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>0</width>
+                                        <height>120</height>
+                                    </size>
+                                </property>
+                                <property name="itemMargin">
+                                    <number>4</number>
+                                </property>
+                                <property name="resizeMode">
+                                    <enum>AllColumns</enum>
+                                </property>
+                            </widget>
                         </grid>
                     </widget>
-                </vbox>
+                </grid>
             </widget>
             <widget class="QWidget">
                 <property name="name">
@@ -1632,8 +1705,10 @@
     <tabstop>cbFormatCompression</tabstop>
     <tabstop>sbFormatResolution</tabstop>
     <tabstop>cbFormatSampleFormat</tabstop>
-    <tabstop>cbSourceDevice</tabstop>
+    <tabstop>cbMethod</tabstop>
+    <tabstop>cbDevice</tabstop>
     <tabstop>btSourceSelect</tabstop>
+    <tabstop>listDevices</tabstop>
     <tabstop>sbSourceBuffer</tabstop>
     <tabstop>slSourceBufferCount</tabstop>
     <tabstop>slSourceBufferSize</tabstop>

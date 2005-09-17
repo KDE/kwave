@@ -1,5 +1,5 @@
 /*************************************************************************
-         RecordDevice.h  -  device for audio recording, currently only OSS
+         RecordDevice.h  -  base class for audio recording devices
                              -------------------
     begin                : Wed Sep 17 2003
     copyright            : (C) 2003 by Thomas Eschenbacher
@@ -20,24 +20,28 @@
 
 #include "config.h"
 #include <qvaluelist.h>
-class QString;
+#include <qstring.h>
+#include <qstringlist.h>
+
+#include "libkwave/ByteOrder.h"
+#include "libkwave/SampleFormat.h"
 
 class RecordDevice
 {
 public:
 
     /** Constructor */
-    RecordDevice();
+    RecordDevice() {};
 
     /** Destructor */
-    virtual ~RecordDevice();
+    virtual ~RecordDevice() {};
 
     /**
      * Open the record device.
      * @param dev path of the record device
      * @return file descriptor >= 0 or negative error code if failed
      */
-    virtual int open(const QString &dev);
+    virtual int open(const QString &dev) = 0;
 
     /**
      * Read the raw audio data from the record device.
@@ -45,11 +49,20 @@ public:
      * @param length size of the buffer
      * @return number of bytes read, zero or negative if failed
      */
-    virtual int read(char *buffer, unsigned int length);
+    virtual int read(char *buffer, unsigned int length) = 0;
 
 
     /** Close the device */
-    virtual int close();
+    virtual int close() = 0;
+
+    /** return a string list with supported device names */
+    virtual QStringList supportedDevices() {
+	QStringList empty;
+	return empty;
+    };
+
+    /** return a string suitable for a "File Open..." dialog */
+    virtual QString fileFilter() { return ""; };
 
     /**
      * Detect the minimum and maximum number of tracks.
@@ -58,7 +71,7 @@ public:
      * @param max receives the highest supported number of tracks
      * @return zero or positive number if ok, negative error number if failed
      */
-    virtual int detectTracks(unsigned int &min, unsigned int &max);
+    virtual int detectTracks(unsigned int &min, unsigned int &max) = 0;
 
     /**
      * Try to set a new number of tracks.
@@ -68,13 +81,13 @@ public:
      *        underlying driver supports that.
      * @return zero on success, negative error code if failed
      */
-    virtual int setTracks(unsigned int &tracks);
+    virtual int setTracks(unsigned int &tracks) = 0;
 
     /** Returns the current number of tracks */
-    virtual int tracks();
+    virtual int tracks() = 0;
 
     /** get a list of supported sample rates */
-    virtual QValueList<double> detectSampleRates();
+    virtual QValueList<double> detectSampleRates() = 0;
 
     /**
      * Try to set a new sample rate.
@@ -83,16 +96,16 @@ public:
      *        sample rate if the underlying driver supports that.
      * @return zero on success, negative error code if failed
      */
-    virtual int setSampleRate(double &new_rate);
+    virtual int setSampleRate(double &new_rate) = 0;
 
     /** Returns the current sample rate of the device */
-    virtual double sampleRate();
+    virtual double sampleRate() = 0;
 
     /**
      * Gets a list of supported compression types. If no compression is
      * supported, the list might be empty.
      */
-    virtual QValueList<int> detectCompressions();
+    virtual QValueList<int> detectCompressions() = 0;
 
     /**
      * Try to set a new compression type.
@@ -100,35 +113,35 @@ public:
      * @return zero on success, negative error code if failed
      * @see class CompressionType
      */
-    virtual int setCompression(int new_compression);
+    virtual int setCompression(int new_compression) = 0;
 
     /** Returns the current compression type (0==none) */
-    virtual int compression();
+    virtual int compression() = 0;
 
     /**
      * Detect a list of supported bits per sample.
      * @note this depends on the compression type
      * @return a list of bits per sample, empty if failed
      */
-    virtual QValueList <unsigned int> detectBitsPerSample();
+    virtual QValueList <unsigned int> supportedBits() = 0;
 
     /**
      * Set the resolution in bits per sample
      * @param new_bits resolution [bits/sample]
      */
-    virtual int setBitsPerSample(unsigned int new_bits);
+    virtual int setBitsPerSample(unsigned int new_bits) = 0;
 
     /**
      * Returns the current resolution in bits per sample or a negative
      * error code if failed
      */
-    virtual int bitsPerSample();
+    virtual int bitsPerSample() = 0;
 
     /**
      * Gets a list of supported sample formats.
      * @note this depends on the current setting of the compression!
      */
-    virtual QValueList<int> detectSampleFormats();
+    virtual QValueList<SampleFormat::sample_format_t> detectSampleFormats()=0;
 
     /**
      * Try to set a new sample format (signed/unsigned)
@@ -136,42 +149,13 @@ public:
      * @return zero on success, negative error code if failed
      * @see class SampleFormat
      */
-    virtual int setSampleFormat(int new_format);
+    virtual int setSampleFormat(SampleFormat::sample_format_t new_format) = 0;
 
     /** Returns the current sample format (signed/unsigned) */
-    virtual int sampleFormat();
+    virtual SampleFormat::sample_format_t sampleFormat() = 0;
 
-private:
-
-    /**
-     * split a device format bitmask into it's parameters.
-     * @param format the device specific format
-     * @param compression receives a compression type
-     * @see CompressionType
-     * @param bits receives the number of bits per sample, related
-     *        to the decoded stream
-     * @param sample_format receives the sample format, as defined in
-     *        libaudiofile (signed or unsigned)
-     */
-    void format2mode(int format, int &compression,
-                     int &bits, int &sample_format);
-
-    /**
-     * create a device format bitmask from it's parameters.
-     * @param compression the compression type
-     * @see CompressionType
-     * @param bits the number of bits per sample, related
-     *        to the decoded stream
-     * @param sample_format the sample format, as defined in
-     *        libaudiofile (signed or unsigned)
-     * @return the device specific format
-     */
-    int mode2format(int compression, int bits, int sample_format);
-
-private:
-
-    /** file descriptor of the device or -1 if not open */
-    int m_fd;
+    /** Returns the current endianness (big/little) */
+    virtual byte_order_t endianness() = 0;
 
 };
 

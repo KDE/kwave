@@ -26,15 +26,7 @@
 /** initializer for the list of devices */
 QMap<QString, QString> RecordALSA::m_device_list;
 
-/** list of known formats */
-typedef struct alsa_sample_format_t {
-    snd_pcm_format_t alsa_format;      /**< ALSA format identifier          */
-    SampleFormat sample_format;        /**< sample format                   */
-    unsigned int bits_per_sample;      /**< resolution [bits/sample]        */
-    unsigned int bytes_per_sample;     /**< bytes per sample, for storage   */
-    byte_order_t endian;               /**< endianness, big/little/cpu      */
-    int compression;                   /**< compression mode                */
-} alsa_sample_format_t;
+//***************************************************************************
 
 /* define some endian dependend symbols that are missing in ALSA */
 #if defined(ENDIANESS_BIG)
@@ -70,131 +62,54 @@ typedef struct alsa_sample_format_t {
  *       - endianness:       cpu -> little -> big
  *       - bytes per sample: ascending
  */
-static const alsa_sample_format_t _known_formats[] =
+static const snd_pcm_format_t _known_formats[] =
 {
     /* 8 bit */
-    { SND_PCM_FORMAT_S8, SampleFormat::Signed,   8, 1,
-                         CpuEndian, AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_U8, SampleFormat::Unsigned, 8, 1,
-                         CpuEndian, AF_COMPRESSION_NONE },
+    SND_PCM_FORMAT_S8,
+    SND_PCM_FORMAT_U8,
 
     /* 16 bit */
-    { SND_PCM_FORMAT_S16,    SampleFormat::Signed,   16, 2,
-                             CpuEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_S16_LE, SampleFormat::Signed,   16, 2,
-                             LittleEndian,      AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_S16_BE, SampleFormat::Signed,   16, 2,
-                             BigEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_U16,    SampleFormat::Unsigned, 16, 2,
-                             CpuEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_U16_LE, SampleFormat::Unsigned, 16, 2,
-                             LittleEndian,      AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_U16_BE, SampleFormat::Unsigned, 16, 2,
-                             BigEndian,         AF_COMPRESSION_NONE },
+    SND_PCM_FORMAT_S16, SND_PCM_FORMAT_S16_LE, SND_PCM_FORMAT_S16_BE,
+    SND_PCM_FORMAT_U16, SND_PCM_FORMAT_U16_LE, SND_PCM_FORMAT_U16_BE,
 
     /* 18 bit / 3 byte */
-    { _SND_PCM_FORMAT_S18_3,  SampleFormat::Signed,   18, 3,
-                              CpuEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_S18_3LE, SampleFormat::Signed,   18, 3,
-                              LittleEndian,      AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_S18_3BE, SampleFormat::Signed,   18, 3,
-                              BigEndian,         AF_COMPRESSION_NONE },
-    { _SND_PCM_FORMAT_U18_3,  SampleFormat::Unsigned, 18, 3,
-                              CpuEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_U18_3LE, SampleFormat::Unsigned, 18, 3,
-                              LittleEndian,      AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_U18_3BE, SampleFormat::Unsigned, 18, 3,
-                              BigEndian,         AF_COMPRESSION_NONE },
+    _SND_PCM_FORMAT_S18_3, SND_PCM_FORMAT_S18_3LE, SND_PCM_FORMAT_S18_3BE,
+    _SND_PCM_FORMAT_U18_3, SND_PCM_FORMAT_U18_3LE, SND_PCM_FORMAT_U18_3BE,
 
     /* 20 bit / 3 byte */
-    { _SND_PCM_FORMAT_S20_3,  SampleFormat::Signed,   20, 3,
-                              CpuEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_S20_3LE, SampleFormat::Signed,   20, 3,
-                              LittleEndian,      AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_S20_3BE, SampleFormat::Signed,   20, 3,
-                              BigEndian,         AF_COMPRESSION_NONE },
-    { _SND_PCM_FORMAT_U20_3,  SampleFormat::Unsigned, 20, 3,
-                              CpuEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_U20_3LE, SampleFormat::Unsigned, 20, 3,
-                              LittleEndian,      AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_U20_3BE, SampleFormat::Unsigned, 20, 3,
-                              BigEndian,         AF_COMPRESSION_NONE },
+    _SND_PCM_FORMAT_S20_3, SND_PCM_FORMAT_S20_3LE, SND_PCM_FORMAT_S20_3BE,
+    _SND_PCM_FORMAT_U20_3, SND_PCM_FORMAT_U20_3LE, SND_PCM_FORMAT_U20_3BE,
 
     /* 24 bit / 3 byte */
-    { _SND_PCM_FORMAT_S24_3,  SampleFormat::Signed,   24, 3,
-                              CpuEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_S24_3LE, SampleFormat::Signed,   24, 3,
-                              LittleEndian,      AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_S24_3BE, SampleFormat::Signed,   24, 3,
-                              BigEndian,         AF_COMPRESSION_NONE },
-    { _SND_PCM_FORMAT_U24_3,  SampleFormat::Unsigned, 24, 3,
-                              CpuEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_U24_3LE, SampleFormat::Unsigned, 24, 3,
-                              LittleEndian,      AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_U24_3BE, SampleFormat::Unsigned, 24, 3,
-                              BigEndian,         AF_COMPRESSION_NONE },
+    _SND_PCM_FORMAT_S24_3, SND_PCM_FORMAT_S24_3LE, SND_PCM_FORMAT_S24_3BE,
+    _SND_PCM_FORMAT_U24_3, SND_PCM_FORMAT_U24_3LE, SND_PCM_FORMAT_U24_3BE,
 
     /* 24 bit / 4 byte */
-    { SND_PCM_FORMAT_S24,    SampleFormat::Signed,   24, 4,
-                             CpuEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_S24_LE, SampleFormat::Signed,   24, 4,
-                             LittleEndian,      AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_S24_BE, SampleFormat::Signed,   24, 4,
-                             BigEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_U24,    SampleFormat::Unsigned, 24, 4,
-                             CpuEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_U24_LE, SampleFormat::Unsigned, 24, 4,
-                             LittleEndian,      AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_U24_BE, SampleFormat::Unsigned, 24, 4,
-                             BigEndian,         AF_COMPRESSION_NONE },
+    SND_PCM_FORMAT_S24, SND_PCM_FORMAT_S24_LE, SND_PCM_FORMAT_S24_BE,
+    SND_PCM_FORMAT_U24, SND_PCM_FORMAT_U24_LE, SND_PCM_FORMAT_U24_BE,
 
     /* 32 bit */
-    { SND_PCM_FORMAT_S32,    SampleFormat::Signed,   32, 4,
-                             CpuEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_S32_LE, SampleFormat::Signed,   32, 4,
-                             LittleEndian,      AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_S32_BE, SampleFormat::Signed,   32, 4,
-                             BigEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_U32,    SampleFormat::Unsigned, 32, 4,
-                             CpuEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_U32_LE, SampleFormat::Unsigned, 32, 4,
-                             LittleEndian,      AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_U32_BE, SampleFormat::Unsigned, 32, 4,
-                             BigEndian,         AF_COMPRESSION_NONE },
+    SND_PCM_FORMAT_S32, SND_PCM_FORMAT_S32_LE, SND_PCM_FORMAT_S32_BE,
+    SND_PCM_FORMAT_U32, SND_PCM_FORMAT_U32_LE, SND_PCM_FORMAT_U32_BE,
 
     /* float, 32 bit */
-    { SND_PCM_FORMAT_FLOAT,    SampleFormat::Float,   32, 4,
-                               CpuEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_FLOAT_LE, SampleFormat::Float,   32, 4,
-                               LittleEndian,      AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_FLOAT_BE, SampleFormat::Float,   32, 4,
-                               BigEndian,         AF_COMPRESSION_NONE },
+    SND_PCM_FORMAT_FLOAT, SND_PCM_FORMAT_FLOAT_LE, SND_PCM_FORMAT_FLOAT_BE,
 
     /* float, 64 bit */
-    { SND_PCM_FORMAT_FLOAT64,    SampleFormat::Double,  64, 8,
-                                 CpuEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_FLOAT64_LE, SampleFormat::Double,  64, 8,
-                                 LittleEndian,      AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_FLOAT64_BE, SampleFormat::Double,  64, 8,
-                                 BigEndian,         AF_COMPRESSION_NONE },
+    SND_PCM_FORMAT_FLOAT64,
+    SND_PCM_FORMAT_FLOAT64_LE, SND_PCM_FORMAT_FLOAT64_BE,
 
 #if 0
     /* IEC958 subframes (not supported) */
-    { SND_PCM_FORMAT_IEC958_SUBFRAME,    SampleFormat::Unknown, 0, 0,
-                                 CpuEndian,         AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_IEC958_SUBFRAME_LE, SampleFormat::Unknown, 0, 0,
-                                 LittleEndian, AF_COMPRESSION_NONE },
-    { SND_PCM_FORMAT_IEC958_SUBFRAME_BE, SampleFormat::Unknown, 0, 0,
-                                 BigEndian,         AF_COMPRESSION_NONE },
+    SND_PCM_FORMAT_IEC958_SUBFRAME,
+    SND_PCM_FORMAT_IEC958_SUBFRAME_LE, SND_PCM_FORMAT_IEC958_SUBFRAME_BE,
 #endif
 
     /* G711 ULAW */
-    { SND_PCM_FORMAT_MU_LAW, SampleFormat::Unknown, 0, 0,
-                             CpuEndian, AF_COMPRESSION_G711_ULAW },
+    SND_PCM_FORMAT_MU_LAW,
 
     /* G711 ALAW */
-    { SND_PCM_FORMAT_A_LAW, SampleFormat::Unknown, 0, 0,
-                            CpuEndian, AF_COMPRESSION_G711_ALAW },
+    SND_PCM_FORMAT_A_LAW,
 
     /*
      * some exotic formats, does anyone really use them
@@ -203,28 +118,79 @@ static const alsa_sample_format_t _known_formats[] =
      */
 #if 0
     /* IMA ADPCM, 3 or 4 bytes per sample (not supported) */
-    { SND_PCM_FORMAT_IMA_ADPCM, SampleFormat::Unknown, 0, 4,
-                                CpuEndian, AF_COMPRESSION_MS_ADPCM },
+    SND_PCM_FORMAT_IMA_ADPCM,
 
     /* MPEG (not supported) */
-    { SND_PCM_FORMAT_MPEG, SampleFormat::Unknown , 0, 0,
-                           CpuEndian, CompressionType::MPEG_LAYER_I },
+    SND_PCM_FORMAT_MPEG,
 
     /* GSM */
-    { SND_PCM_FORMAT_GSM, SampleFormat::Unknown , 0, 0,
-                          CpuEndian, AF_COMPRESSION_GSM },
+    SND_PCM_FORMAT_GSM,
 
     /* special (not supported) */
-    { SND_PCM_FORMAT_SPECIAL, SampleFormat::Unknown , 0, 0,
-                              CpuEndian, AF_COMPRESSION_NONE }
+    SND_PCM_FORMAT_SPECIAL,
 #endif
 };
+
+/** sleep seconds, used for recording */
+static const unsigned int g_sleep_min = 0;
+
+//***************************************************************************
+/** find out the SampleFormat of an ALSA format */
+static SampleFormat sample_format_of(snd_pcm_format_t fmt)
+{
+    if (snd_pcm_format_float(fmt)) {
+	if (snd_pcm_format_width(fmt) == 32)
+	    return SampleFormat::Float;
+	if (snd_pcm_format_width(fmt) == 64)
+	    return SampleFormat::Double;
+    } else if (snd_pcm_format_linear(fmt)) {
+	if (snd_pcm_format_signed(fmt) == 1)
+	    return SampleFormat::Signed;
+	else if (snd_pcm_format_unsigned(fmt) == 1)
+	    return SampleFormat::Unsigned;
+    }
+
+    return SampleFormat::Unknown;
+}
+
+//***************************************************************************
+/** find out the endianness of an ALSA format */
+static byte_order_t endian_of(snd_pcm_format_t fmt)
+{
+    if (snd_pcm_format_little_endian(fmt) == 1)
+	return LittleEndian;
+    if (snd_pcm_format_big_endian(fmt) == 1)
+	return BigEndian;
+    return CpuEndian;
+}
+
+//***************************************************************************
+static int compression_of(snd_pcm_format_t fmt)
+{
+    switch (fmt) {
+	case SND_PCM_FORMAT_MU_LAW:
+	    return AF_COMPRESSION_G711_ULAW;
+	case SND_PCM_FORMAT_A_LAW:
+	    return AF_COMPRESSION_G711_ALAW;
+	case SND_PCM_FORMAT_IMA_ADPCM:
+	    return AF_COMPRESSION_MS_ADPCM;
+	case SND_PCM_FORMAT_MPEG:
+	    return CompressionType::MPEG_LAYER_I;
+	case SND_PCM_FORMAT_GSM:
+	    return AF_COMPRESSION_GSM;
+	default:
+	    return AF_COMPRESSION_NONE;
+    }
+    return AF_COMPRESSION_NONE;
+}
 
 //***************************************************************************
 RecordALSA::RecordALSA()
     :RecordDevice(), m_handle(0), m_tracks(0), m_rate(0.0), m_compression(0),
-     m_bits_per_sample(0), m_sample_format(SampleFormat::Unknown),
-     m_supported_formats(), m_initialized(false)
+     m_bits_per_sample(0), m_bytes_per_sample(0),
+     m_sample_format(SampleFormat::Unknown), m_supported_formats(),
+     m_initialized(false), m_bufbase(0), m_buffer(), m_buffer_size(0),
+     m_buffer_used(0), m_chunk_size(0)
 {
 }
 
@@ -258,19 +224,19 @@ void RecordALSA::detectSupportedFormats()
 	sizeof(_known_formats) / sizeof(_known_formats[0]);
     for (unsigned int i=0; i < count; i++) {
 	// test the sample format
-	snd_pcm_format_t format = _known_formats[i].alsa_format;
+	snd_pcm_format_t format = _known_formats[i];
 	err = snd_pcm_hw_params_test_format(pcm, p, format);
 	if (err < 0) continue;
 
-	const alsa_sample_format_t *fmt = &(_known_formats[i]);
+	const snd_pcm_format_t *fmt = &(_known_formats[i]);
 
 	// eliminate duplicate alsa sample formats (e.g. BE/LE)
 	QValueListIterator<int> it;
 	for (it = m_supported_formats.begin();
 	     it != m_supported_formats.end(); ++it)
 	{
-	    const alsa_sample_format_t *f = &_known_formats[*it];
-	    if (f->alsa_format == fmt->alsa_format) {
+	    const snd_pcm_format_t *f = &_known_formats[*it];
+	    if (*f == *fmt) {
 		fmt = 0;
 		break;
 	    }
@@ -281,13 +247,15 @@ void RecordALSA::detectSupportedFormats()
 	SampleFormat::Map sf;
 	qDebug("#%2u, %2d, %2u bit [%u byte], %s, '%s', '%s'",
 	    i,
-	    fmt->alsa_format,
-	    fmt->bits_per_sample,
-	    fmt->bytes_per_sample,
-	    fmt->endian == CpuEndian ? "CPU" :
-	    (fmt->endian == LittleEndian ? "LE " : "BE "),
-	    sf.name(sf.findFromData(fmt->sample_format)).local8Bit().data(),
-	    t.name(t.findFromData(fmt->compression)).local8Bit().data());
+	    *fmt,
+	    snd_pcm_format_width(*fmt),
+	    (snd_pcm_format_physical_width(*fmt)+7) >> 3,
+	    endian_of(*fmt) == CpuEndian ? "CPU" :
+	    (endian_of(*fmt) == LittleEndian ? "LE " : "BE "),
+	    sf.name(sf.findFromData(sample_format_of(
+		*fmt))).local8Bit().data(),
+	    t.name(t.findFromData(compression_of(
+		*fmt))).local8Bit().data());
 
 	m_supported_formats.append(i);
     }
@@ -342,7 +310,7 @@ int RecordALSA::initialize()
 
     snd_pcm_hw_params_t *hw_params = 0;
     snd_pcm_sw_params_t *sw_params = 0;
-     snd_pcm_uframes_t buffer_size;
+    snd_pcm_uframes_t buffer_size;
     unsigned period_time = 0; // period time in us
     unsigned buffer_time = 0; // ring buffer length in us
     snd_pcm_uframes_t period_frames = 0;
@@ -356,9 +324,9 @@ int RecordALSA::initialize()
 
     qDebug("RecordALSA::initialize");
 
-//     m_bufbase     = bufbase;
-//     m_buffer_size = 0;
-//     m_buffer_used = 0;
+// ###    m_bufbase     = bufbase;
+    m_buffer_size = 0;
+    m_buffer_used = 0;
 
     Q_ASSERT(m_handle);
     if (!m_handle) return -EBADF; // file not opened
@@ -385,7 +353,7 @@ int RecordALSA::initialize()
     }
 
     int format_index = mode2format(m_compression, m_bits_per_sample,
-	m_sample_format);
+                                   m_sample_format);
     Q_ASSERT(format_index >= 0);
     if (format_index < 0) {
 	CompressionType t;
@@ -402,7 +370,9 @@ int RecordALSA::initialize()
     }
 
     Q_ASSERT(format_index >= 0);
-    snd_pcm_format_t alsa_format = _known_formats[format_index].alsa_format;
+    snd_pcm_format_t alsa_format = _known_formats[format_index];
+    m_bytes_per_sample = (snd_pcm_format_physical_width(
+	_known_formats[format_index])+7) >> 3;
 
     err = snd_pcm_hw_params_test_format(m_handle, hw_params, alsa_format);
     Q_ASSERT(!err);
@@ -484,93 +454,93 @@ int RecordALSA::initialize()
 	return err;
     }
 
-//     snd_pcm_hw_params_get_period_size(hw_params, &m_chunk_size, 0);
-//     snd_pcm_hw_params_get_buffer_size(hw_params, &buffer_size);
-//     if (m_chunk_size == buffer_size) {
-// 	qWarning("Can't use period equal to buffer size (%lu == %lu)",
-// 	         m_chunk_size, buffer_size);
-// 	snd_output_close(output);
-// 	return -EIO;
-//     }
-//
-//     /* set software parameters */
-//     snd_pcm_sw_params_alloca(&sw_params);
-//     err = snd_pcm_sw_params_current(m_handle, sw_params);
-//     if (err < 0) {
-// 	qWarning("Unable to determine current software parameters: %s",
-// 	         snd_strerror(err));
-// 	snd_output_close(output);
-// 	return err;
-//     }
-//
-//     err = snd_pcm_sw_params_get_xfer_align(sw_params, &xfer_align);
-//     if (err < 0) {
-// 	qWarning("Unable to obtain xfer align: %s", snd_strerror(err));
-// 	snd_output_close(output);
-// 	return err;
-//     }
-//     if (g_sleep_min) xfer_align = 1;
-//
-//     err = snd_pcm_sw_params_set_sleep_min(m_handle, sw_params, g_sleep_min);
-//     Q_ASSERT(err >= 0);
-//     if (avail_min < 0)
-// 	n = m_chunk_size;
-//     else
-// 	n = (snd_pcm_uframes_t)((double)rate * avail_min / 1000000);
-//
-//     err = snd_pcm_sw_params_set_avail_min(m_handle, sw_params, n);
-//
-//     /* round up to closest transfer boundary */
-//     n = (buffer_size / xfer_align) * xfer_align;
-//     start_threshold = (snd_pcm_uframes_t)
-//                       ((double)rate * start_delay / 1000000);
-//     if (start_delay <= 0) start_threshold += n;
-//
-//     if (start_threshold < 1) start_threshold = 1;
-//     if (start_threshold > n) start_threshold = n;
-//     err = snd_pcm_sw_params_set_start_threshold(m_handle, sw_params,
-//                                                 start_threshold);
-//     Q_ASSERT(err >= 0);
-//     stop_threshold = (snd_pcm_uframes_t)
-//                      ((double)rate * stop_delay / 1000000);
-//     if (stop_delay <= 0) stop_threshold += buffer_size;
-//
-//     err = snd_pcm_sw_params_set_stop_threshold(m_handle, sw_params,
-//                                                stop_threshold);
-//     Q_ASSERT(err >= 0);
-//
-//     err = snd_pcm_sw_params_set_xfer_align(m_handle, sw_params, xfer_align);
-//     Q_ASSERT(err >= 0);
-//
-//     // write the software parameters to the recording device
-//     err = snd_pcm_sw_params(m_handle, sw_params);
-//     if (err < 0) {
-// 	qDebug("   activating snd_pcm_sw_params FAILED");
-// 	snd_pcm_dump(m_handle, output);
-// 	qWarning("Unable to set software parameters: %s", snd_strerror(err));
-//     }
+    snd_pcm_hw_params_get_period_size(hw_params, &m_chunk_size, 0);
+    snd_pcm_hw_params_get_buffer_size(hw_params, &buffer_size);
+    if (m_chunk_size == buffer_size) {
+	qWarning("Can't use period equal to buffer size (%lu == %lu)",
+	         m_chunk_size, buffer_size);
+	snd_output_close(output);
+	return -EIO;
+    }
 
-//     // prepare the device for recording
-//     if ((err = snd_pcm_prepare(m_handle)) < 0) {
-// 	snd_pcm_dump(m_handle, output);
-// 	qWarning("cannot prepare interface for use: %s",snd_strerror(err));
-//     }
-//
-//     // resize our buffer and reset it
-//     Q_ASSERT(m_chunk_size);
-//     Q_ASSERT(m_bytes_per_sample);
-//     unsigned int chunk_bytes = m_chunk_size * m_bytes_per_sample;
-//     Q_ASSERT(chunk_bytes);
-//     if (!chunk_bytes) return 0;
-//     unsigned int n = (unsigned int)(ceil((float)(1 << m_bufbase) /
-//                                          (float)chunk_bytes));
-//     if (n < 1) n = 1;
-//     m_buffer_size = n * m_chunk_size * m_bytes_per_sample;
-//     m_buffer.resize(m_buffer_size);
-//     m_buffer_size = m_buffer.size();
-//
-//     qDebug("RecordALSA::open: OK, buffer resized to %u bytes",
-//            m_buffer_size);
+    /* set software parameters */
+    snd_pcm_sw_params_alloca(&sw_params);
+    err = snd_pcm_sw_params_current(m_handle, sw_params);
+    if (err < 0) {
+	qWarning("Unable to determine current software parameters: %s",
+	         snd_strerror(err));
+	snd_output_close(output);
+	return err;
+    }
+
+    err = snd_pcm_sw_params_get_xfer_align(sw_params, &xfer_align);
+    if (err < 0) {
+	qWarning("Unable to obtain xfer align: %s", snd_strerror(err));
+	snd_output_close(output);
+	return err;
+    }
+    if (g_sleep_min) xfer_align = 1;
+
+    err = snd_pcm_sw_params_set_sleep_min(m_handle, sw_params, g_sleep_min);
+    Q_ASSERT(err >= 0);
+    if (avail_min < 0)
+	n = m_chunk_size;
+    else
+	n = (snd_pcm_uframes_t)(m_rate * avail_min / 1000000);
+
+    err = snd_pcm_sw_params_set_avail_min(m_handle, sw_params, n);
+
+    /* round up to closest transfer boundary */
+    n = (buffer_size / xfer_align) * xfer_align;
+    start_threshold = (snd_pcm_uframes_t)
+                      (m_rate * start_delay / 1000000);
+    if (start_delay <= 0) start_threshold += n;
+
+    if (start_threshold < 1) start_threshold = 1;
+    if (start_threshold > n) start_threshold = n;
+    err = snd_pcm_sw_params_set_start_threshold(m_handle, sw_params,
+                                                start_threshold);
+    Q_ASSERT(err >= 0);
+    stop_threshold = (snd_pcm_uframes_t)
+                     (m_rate * stop_delay / 1000000);
+    if (stop_delay <= 0) stop_threshold += buffer_size;
+
+    err = snd_pcm_sw_params_set_stop_threshold(m_handle, sw_params,
+                                               stop_threshold);
+    Q_ASSERT(err >= 0);
+
+    err = snd_pcm_sw_params_set_xfer_align(m_handle, sw_params, xfer_align);
+    Q_ASSERT(err >= 0);
+
+    // write the software parameters to the recording device
+    err = snd_pcm_sw_params(m_handle, sw_params);
+    if (err < 0) {
+	qDebug("   activating snd_pcm_sw_params FAILED");
+	snd_pcm_dump(m_handle, output);
+	qWarning("Unable to set software parameters: %s", snd_strerror(err));
+    }
+
+    // prepare the device for recording
+    if ((err = snd_pcm_prepare(m_handle)) < 0) {
+	snd_pcm_dump(m_handle, output);
+	qWarning("cannot prepare interface for use: %s",snd_strerror(err));
+    }
+
+    // resize our buffer and reset it
+    Q_ASSERT(m_chunk_size);
+    Q_ASSERT(m_bytes_per_sample);
+    unsigned int chunk_bytes = m_chunk_size * m_bytes_per_sample;
+    Q_ASSERT(chunk_bytes);
+    if (!chunk_bytes) return 0;
+    n = (unsigned int)(ceil((float)(1 << m_bufbase) /
+                                         (float)chunk_bytes));
+    if (n < 1) n = 1;
+    m_buffer_size = n * m_chunk_size * m_bytes_per_sample;
+    m_buffer.resize(m_buffer_size);
+    m_buffer_size = m_buffer.size();
+
+    qDebug("RecordALSA::open: OK, buffer resized to %u bytes",
+           m_buffer_size);
 
     snd_pcm_dump(m_handle, output);
     snd_output_close(output);
@@ -745,11 +715,11 @@ int RecordALSA::mode2format(int compression, int bits,
          it != m_supported_formats.end(); ++it)
     {
 	const int index = *it;
-	const alsa_sample_format_t *fmt = &_known_formats[index];
+	const snd_pcm_format_t *fmt = &_known_formats[index];
 
-	if (fmt->compression != compression) continue;
-	if ((int)fmt->bits_per_sample != bits) continue;
-	if (!(fmt->sample_format == sample_format)) continue;
+	if (compression_of(*fmt) != compression) continue;
+	if (snd_pcm_format_width(*fmt) != bits) continue;
+	if (!(sample_format_of(*fmt) == sample_format)) continue;
 
 	// mode is compatible
 	// As the list of known formats is already sorted so that
@@ -773,8 +743,8 @@ QValueList<int> RecordALSA::detectCompressions()
     for (it = m_supported_formats.begin();
          it != m_supported_formats.end(); ++it)
     {
-	const alsa_sample_format_t *fmt = &(_known_formats[*it]);
-	int compression = fmt->compression;
+	const snd_pcm_format_t *fmt = &(_known_formats[*it]);
+	int compression = compression_of(*fmt);
 
 	// do not produce duplicates
 	if (list.contains(compression)) continue;
@@ -811,14 +781,14 @@ QValueList <unsigned int> RecordALSA::supportedBits()
     for (it = m_supported_formats.begin();
          it != m_supported_formats.end(); ++it)
     {
-	const alsa_sample_format_t *fmt = &(_known_formats[*it]);
-	const unsigned int bits = fmt->bits_per_sample;
+	const snd_pcm_format_t *fmt = &(_known_formats[*it]);
+	const unsigned int bits = snd_pcm_format_width(*fmt);
 
 	// 0  bits means invalid/does not apply
 	if (!bits) continue;
 
 	// only accept bits/sample if compression matches
-	if (fmt->compression != m_compression) continue;
+	if (compression_of(*fmt) != m_compression) continue;
 
 	// do not produce duplicates
 	if (list.contains(bits)) continue;
@@ -853,13 +823,14 @@ QValueList<SampleFormat> RecordALSA::detectSampleFormats()
     for (it = m_supported_formats.begin();
          it != m_supported_formats.end(); ++it)
     {
-	const alsa_sample_format_t *fmt = &(_known_formats[*it]);
-	const SampleFormat sample_format = fmt->sample_format;
+	const snd_pcm_format_t *fmt = &(_known_formats[*it]);
+	const SampleFormat sample_format = sample_format_of(*fmt);
 
 	// only accept bits/sample if compression types
 	// and bits per sample match
-	if (fmt->compression != m_compression) continue;
-	if (fmt->bits_per_sample != m_bits_per_sample) continue;
+	if (compression_of(*fmt) != m_compression) continue;
+	if (snd_pcm_format_width(*fmt) != (int)m_bits_per_sample)
+	    continue;
 
 	// do not produce duplicates
 	if (list.contains(sample_format)) continue;
@@ -891,7 +862,9 @@ SampleFormat RecordALSA::sampleFormat()
 byte_order_t RecordALSA::endianness()
 {
     int index = mode2format(m_compression, m_bits_per_sample, m_sample_format);
-    return (index >= 0) ? _known_formats[index].endian : UnknownEndian;
+    return (index >= 0) ?
+	endian_of(_known_formats[index]) :
+	UnknownEndian;
 }
 
 //***************************************************************************

@@ -21,8 +21,8 @@
 #include "config.h"
 #ifdef HAVE_ALSA_SUPPORT
 
-/* 
- * use the new ALSA HW/SW params API, needed to compile under SuSE-9.0 
+/*
+ * use the new ALSA HW/SW params API, needed to compile under SuSE-9.0
  * (workaround as seen in http://www.linuxjournal.com/article/6735)
  */
 #define ALSA_PCM_NEW_HW_PARAMS_API
@@ -182,7 +182,7 @@ private:
     /** sample format, used for ALSA */
     snd_pcm_format_t m_format;
 
-    /** number of sample per period */
+    /** number of samples per period */
     snd_pcm_uframes_t m_chunk_size;
 
     /**

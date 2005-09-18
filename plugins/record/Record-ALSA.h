@@ -37,9 +37,6 @@
 
 #include "RecordDevice.h"
 
-/* forward declaration, needed for list of supported formats */
-struct alsa_sample_format_t;
-
 class RecordALSA: public RecordDevice
 {
 public:
@@ -131,7 +128,7 @@ public:
      * @note this depends on the compression type
      * @return a list of bits per sample, empty if failed
      */
-    virtual QValueList <unsigned int> supportedBits();
+    virtual QValueList<unsigned int> supportedBits();
 
     /**
      * Set the resolution in bits per sample
@@ -229,6 +226,12 @@ private:
     /** resolution [bits per sample] */
     unsigned int m_bits_per_sample;
 
+    /**
+     * Number of bytes per sample, already multiplied with
+     * the number of channels (m_channels)
+     */
+    unsigned int m_bytes_per_sample;
+
     /** sample format (signed int, unsigned int, float, ... */
     SampleFormat m_sample_format;
 
@@ -242,6 +245,21 @@ private:
 
     /** true if initialize() has been successfully been run */
     bool m_initialized;
+
+    /** Exponent of the buffer size */
+    unsigned int m_bufbase;
+
+    /** buffer with raw device data */
+    QByteArray m_buffer;
+
+    /** size of the transfer buffer in bytes */
+    unsigned int m_buffer_size;
+
+    /** number of bytes in the buffer */
+    unsigned int m_buffer_used;
+
+    /** number of samples per period */
+    snd_pcm_uframes_t m_chunk_size;
 
 };
 

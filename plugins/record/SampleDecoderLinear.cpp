@@ -65,10 +65,12 @@ void decode_linear(char *src, sample_t *dst, unsigned int count)
 	// read from source buffer
 	register u_int32_t s = 0;
 	if (is_little_endian) {
+	    // little endian
 	    for (unsigned int byte=0; byte < bytes; ++byte) {
 		s |= (unsigned char)(*(src++)) << (byte << 3);
 	    }
 	} else {
+	    // big endian
 	    for (int byte=bytes-1; byte >= 0; --byte) {
 		s |= (unsigned char)(*(src++)) << (byte << 3);
 	    }
@@ -89,24 +91,24 @@ void decode_linear(char *src, sample_t *dst, unsigned int count)
 }
 
 //***************************************************************************
-#define MAKE_DECODER(bits) \
-if (sample_format == SampleFormat::Signed) { \
-    if (endianness == LittleEndian) { \
-	m_decoder = decode_linear<bits, true, true>; \
-    } else { \
-	m_decoder = decode_linear<bits, true, false>; \
-    } \
-} else { \
-    if (endianness == LittleEndian) { \
-	m_decoder = decode_linear<bits, false, true>; \
-    } else { \
+#define MAKE_DECODER(bits)                             \
+if (sample_format != SampleFormat::Signed) {           \
+    if (endianness != BigEndian) {                     \
+	m_decoder = decode_linear<bits, true, true>;   \
+    } else {                                           \
+	m_decoder = decode_linear<bits, true, false>;  \
+    }                                                  \
+} else {                                               \
+    if (endianness != BigEndian) {                     \
+	m_decoder = decode_linear<bits, false, true>;  \
+    } else {                                           \
 	m_decoder = decode_linear<bits, false, false>; \
-    } \
+    }                                                  \
 }
 
 //***************************************************************************
 SampleDecoderLinear::SampleDecoderLinear(
-    SampleFormat::sample_format_t sample_format,
+    SampleFormat sample_format,
     unsigned int bits_per_sample,
     byte_order_t endianness
 )
@@ -119,6 +121,17 @@ SampleDecoderLinear::SampleDecoderLinear(
              (sample_format == SampleFormat::Unsigned));
     if ((sample_format != SampleFormat::Signed) &&
         (sample_format != SampleFormat::Unsigned)) return;
+
+    // allow unknown endianness only with 8 bits
+    Q_ASSERT((endianness != UnknownEndian) || (m_bytes_per_sample == 1));
+    if ((endianness == UnknownEndian) && (m_bytes_per_sample != 1)) return;
+
+    // map cpu endianness to little or big
+#if defined(ENDIANESS_BIG)
+    if (endianness == CpuEndian) endianness = BigEndian;
+#else
+    if (endianness == CpuEndian) endianness = LittleEndian;
+#endif
 
     switch (m_bytes_per_sample) {
 	case 1:

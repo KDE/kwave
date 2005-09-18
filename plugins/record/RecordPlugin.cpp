@@ -121,9 +121,9 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     connect(m_dialog, SIGNAL(sigBitsPerSampleChanged(unsigned int)),
             this,     SLOT(changeBitsPerSample(unsigned int)));
     connect(m_dialog,
-	    SIGNAL(sigSampleFormatChanged(SampleFormat::sample_format_t)),
+	    SIGNAL(sigSampleFormatChanged(SampleFormat)),
             this,
-	    SLOT(changeSampleFormat(SampleFormat::sample_format_t)));
+	    SLOT(changeSampleFormat(SampleFormat)));
     connect(m_dialog, SIGNAL(sigBuffersChanged()),
             this,     SLOT(buffersChanged()));
     connect(this,     SIGNAL(sigRecordedSamples(unsigned int)),
@@ -212,7 +212,6 @@ void RecordPlugin::setMethod(record_method_t method)
 
     KConfig *cfg = KGlobal::config();
     Q_ASSERT(cfg);
-//     RecordParams &record_params = m_dialog->params();
 
     qDebug("RecordPlugin::setMethod(%d)", (int)method);
 
@@ -346,10 +345,6 @@ void RecordPlugin::setDevice(const QString &device)
     // set the device in the dialog
     m_dialog->setDevice(device);
     m_device_name = m_dialog->params().device_name;
-
-//     QValueList<unsigned int> supported_bits;
-//     supported_bits = m_device->supportedBits();
-//     m_dialog->setSupportedBits(supported_bits);
 
     unsigned int min = 0;
     unsigned int max = 0;
@@ -567,9 +562,9 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 
 //***************************************************************************
 void RecordPlugin::changeSampleFormat(
-    SampleFormat::sample_format_t new_format)
+    SampleFormat new_format)
 {
-    qDebug("RecordPlugin::changeSampleFormat(%d)", new_format);
+    qDebug("RecordPlugin::changeSampleFormat(%d)", (int)new_format);
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
 
@@ -582,9 +577,9 @@ void RecordPlugin::changeSampleFormat(
     }
 
     // check the supported sample formats
-    QValueList<SampleFormat::sample_format_t> supported_formats =
+    QValueList<SampleFormat> supported_formats =
 	m_device->detectSampleFormats();
-    SampleFormat::sample_format_t format = new_format;
+    SampleFormat format = new_format;
     if (!supported_formats.contains(format) && !supported_formats.isEmpty()) {
 	// use the device default instead
 	format = m_device->sampleFormat();
@@ -594,10 +589,10 @@ void RecordPlugin::changeSampleFormat(
 	    format = supported_formats.first(); // just take the first one :-o
 	}
 
-	SampleFormat sf;
+	SampleFormat::Map sf;
 	const QString s1 = sf.name(sf.findFromData(new_format));
 	const QString s2 = sf.name(sf.findFromData(format));
-	if ((new_format != -1) && (new_format != format)) {
+	if (!(new_format == -1) && !(new_format == format)) {
 	    KMessageBox::sorry(m_dialog,
 		i18n("The sample format '%1' is not supported, "\
 		     "using '%2' instead.").arg(s1).arg(s2));
@@ -611,7 +606,7 @@ void RecordPlugin::changeSampleFormat(
 	// use the device default instead
 	format = m_device->sampleFormat();
 
-	SampleFormat sf;
+	SampleFormat::Map sf;
 	const QString s1 = sf.name(sf.findFromData(new_format));
 	const QString s2 = sf.name(sf.findFromData(format));
 	if (format > 0) KMessageBox::sorry(m_dialog,
@@ -820,7 +815,8 @@ void RecordPlugin::startRecording()
 	fileInfo().setTracks(tracks);
 //	fileInfo().setLength(m_writers.last());
 	fileInfo().set(INF_MIMETYPE, "audio/vnd.wave");
-	fileInfo().set(INF_SAMPLE_FORMAT, m_dialog->params().sample_format);
+	fileInfo().set(INF_SAMPLE_FORMAT,
+	    m_dialog->params().sample_format.toInt());
 	fileInfo().set(INF_COMPRESSION, m_dialog->params().compression);
 
 	// add our Kwave Software tag

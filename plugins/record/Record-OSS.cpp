@@ -377,7 +377,7 @@ double RecordOSS::sampleRate()
 
 //***************************************************************************
 void RecordOSS::format2mode(int format, int &compression, int &bits,
-                            SampleFormat::sample_format_t &sample_format)
+                            SampleFormat &sample_format)
 {
 
     switch (format) {
@@ -440,7 +440,7 @@ void RecordOSS::format2mode(int format, int &compression, int &bits,
 
 //***************************************************************************
 int RecordOSS::mode2format(int compression, int bits,
-                           SampleFormat::sample_format_t sample_format)
+                           SampleFormat sample_format)
 {
     // first level: compression
     if (compression == AF_COMPRESSION_G711_ULAW) return AFMT_MU_LAW;
@@ -483,7 +483,7 @@ int RecordOSS::mode2format(int compression, int bits,
     }
 
     qWarning("RecordOSS: unknown format: sample_format=%d, bits=%d",
-             sample_format, bits);
+             static_cast<int>(sample_format), bits);
     return 0;
 }
 
@@ -516,7 +516,7 @@ int RecordOSS::setCompression(int new_compression)
 {
     Q_ASSERT(m_fd >= 0);
     int format, compression, bits;
-    SampleFormat::sample_format_t sample_format;
+    SampleFormat sample_format;
 
     // read back current format
     int err = ioctl(m_fd, SOUND_PCM_READ_BITS, &format);
@@ -543,7 +543,7 @@ int RecordOSS::compression()
     if (err < 0) return AF_COMPRESSION_NONE;
 
     int c, b;
-    SampleFormat::sample_format_t s;
+    SampleFormat s;
     format2mode(mask, c, b, s);
     return c;
 }
@@ -567,7 +567,7 @@ QValueList <unsigned int> RecordOSS::supportedBits()
 
 	// format is supported, split into compression, bits, sample format
 	int c, b;
-	SampleFormat::sample_format_t s;
+	SampleFormat s;
 	format2mode(1 << bit, c, b, s);
 	if (b < 0) continue; // unknown -> skip
 
@@ -590,7 +590,7 @@ int RecordOSS::setBitsPerSample(unsigned int new_bits)
 {
     Q_ASSERT(m_fd >= 0);
     int format, compression, bits;
-    SampleFormat::sample_format_t sample_format;
+    SampleFormat sample_format;
 
     // read back current format
     int err = ioctl(m_fd, SOUND_PCM_READ_BITS, &format);
@@ -617,16 +617,16 @@ int RecordOSS::bitsPerSample()
     if (err < 0) return err;
 
     int c, b;
-    SampleFormat::sample_format_t s;
+    SampleFormat s;
     format2mode(mask, c, b, s);
     return b;
 }
 
 //***************************************************************************
-QValueList<SampleFormat::sample_format_t> RecordOSS::detectSampleFormats()
+QValueList<SampleFormat> RecordOSS::detectSampleFormats()
 {
     Q_ASSERT(m_fd >= 0);
-    QValueList<SampleFormat::sample_format_t> formats;
+    QValueList<SampleFormat> formats;
     formats.clear();
     int err = 0;
     int mask = AFMT_QUERY;
@@ -643,7 +643,7 @@ QValueList<SampleFormat::sample_format_t> RecordOSS::detectSampleFormats()
 
 	// format is supported, split into compression, bits, sample format
 	int c, b;
-	SampleFormat::sample_format_t s;
+	SampleFormat s;
 	format2mode(1 << bit, c, b, s);
 	if (c < 0) continue; // unknown -> skip
 
@@ -657,11 +657,11 @@ QValueList<SampleFormat::sample_format_t> RecordOSS::detectSampleFormats()
 }
 
 //***************************************************************************
-int RecordOSS::setSampleFormat(SampleFormat::sample_format_t new_format)
+int RecordOSS::setSampleFormat(SampleFormat new_format)
 {
     Q_ASSERT(m_fd >= 0);
     int format, compression, bits;
-    SampleFormat::sample_format_t sample_format;
+    SampleFormat sample_format;
 
     // read back current format
     int err = ioctl(m_fd, SOUND_PCM_READ_BITS, &format);
@@ -680,7 +680,7 @@ int RecordOSS::setSampleFormat(SampleFormat::sample_format_t new_format)
 }
 
 //***************************************************************************
-SampleFormat::sample_format_t RecordOSS::sampleFormat()
+SampleFormat RecordOSS::sampleFormat()
 {
     Q_ASSERT(m_fd >= 0);
     int mask = 0;
@@ -688,7 +688,7 @@ SampleFormat::sample_format_t RecordOSS::sampleFormat()
     if (err < 0) return SampleFormat::Unknown;
 
     int c, b;
-    SampleFormat::sample_format_t s;
+    SampleFormat s;
     format2mode(mask, c, b, s);
     return s;
 }

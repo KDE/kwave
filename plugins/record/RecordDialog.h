@@ -105,15 +105,14 @@ public:
      * sets the list of supported sample formats
      * @param comps list of supported sample formats, must not be empty
      */
-    void setSupportedSampleFormats(
-	const QValueList<SampleFormat::sample_format_t> &formats);
+    void setSupportedSampleFormats(const QValueList<SampleFormat> &formats);
 
     /**
      * sets a new sample format
      * @param sample_format format of the samples, like signed/unsigned
      * @see SampleFormat
      */
-    void setSampleFormat(SampleFormat::sample_format_t sample_format);
+    void setSampleFormat(SampleFormat sample_format);
 
     /**
      * updates the progress bar with the buffer fill state.
@@ -150,7 +149,7 @@ signals:
     void sigBitsPerSampleChanged(unsigned int bits);
 
     /** emitted when the sample format has changed */
-    void sigSampleFormatChanged(SampleFormat::sample_format_t sample_format);
+    void sigSampleFormatChanged(SampleFormat sample_format);
 
     /** emitted when the number and/or size of buffers has changed */
     void sigBuffersChanged();

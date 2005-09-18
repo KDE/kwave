@@ -228,11 +228,12 @@ void FileInfoDialog::setupFileInfoTab()
     }
 
     /* sample format */
-    SampleFormat sample_formats;
+    SampleFormat::Map sf;
     initInfo(lblSampleFormat, cbSampleFormat, INF_SAMPLE_FORMAT);
-    cbSampleFormat->insertStringList(sample_formats.allNames());
-    int sample_format = QVariant(m_info.get(INF_SAMPLE_FORMAT)).toInt();
-    cbSampleFormat->setCurrentItem(sample_formats.findFromData(sample_format));
+    cbSampleFormat->insertStringList(sf.allNames());
+    SampleFormat format;
+    format.fromInt(QVariant(m_info.get(INF_SAMPLE_FORMAT)).toInt());
+    cbSampleFormat->setCurrentItem(sf.findFromData(format));
     if (m_is_mpeg || m_is_ogg) cbSampleFormat->setEnabled(false);
 
 }
@@ -665,12 +666,13 @@ void FileInfoDialog::accept()
     m_info.setRate(cbSampleRate->currentText().toDouble());
 
     /* sample format */
-    SampleFormat sample_formats;
-    int sample_format = sample_formats.data(cbSampleFormat->currentItem());
+    SampleFormat::Map sample_formats;
+    SampleFormat sample_format =
+	sample_formats.data(cbSampleFormat->currentItem());
     if (m_info.contains(INF_SAMPLE_FORMAT) ||
         (sample_format != sample_formats.data(0)))
     {
-	m_info.set(INF_SAMPLE_FORMAT, QVariant(sample_format));
+	m_info.set(INF_SAMPLE_FORMAT, QVariant(sample_format.toInt()));
     }
 
     /* compression */

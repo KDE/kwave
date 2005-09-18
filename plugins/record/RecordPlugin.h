@@ -140,7 +140,7 @@ private slots:
     void changeBitsPerSample(unsigned int new_bits);
 
     /** select a new sample format */
-    void changeSampleFormat(SampleFormat::sample_format_t new_format);
+    void changeSampleFormat(SampleFormat new_format);
 
     /** process a raw audio buffer */
     void processBuffer(QByteArray buffer);

@@ -100,7 +100,7 @@ int RecordParams::fromList(const QStringList &list)
 
     int sf;
     GET(19, sf, toInt);
-    sample_format = static_cast<SampleFormat::sample_format_t>(sf);
+    sample_format.fromInt(sf);
 
     // buffer count and power of buffer size
     GET(20, buffer_count, toUInt);
@@ -167,7 +167,7 @@ QStringList RecordParams::toList() const
     PUT(sample_rate);
     PUT(compression);
     PUT(bits_per_sample);
-    PUT(static_cast<int>(sample_format));
+    PUT(sample_format.toInt());
 
     // buffer count and power of buffer size
     PUT(buffer_count);

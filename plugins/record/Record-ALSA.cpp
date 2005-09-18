@@ -29,7 +29,7 @@ QMap<QString, QString> RecordALSA::m_device_list;
 /** list of known formats */
 typedef struct alsa_sample_format_t {
     snd_pcm_format_t alsa_format;      /**< ALSA format identifier          */
-    SampleFormat::sample_format_t sample_format; /**< sample format         */
+    SampleFormat sample_format;        /**< sample format                   */
     unsigned int bits_per_sample;      /**< resolution [bits/sample]        */
     unsigned int bytes_per_sample;     /**< bytes per sample, for storage   */
     byte_order_t endian;               /**< endianness, big/little/cpu      */
@@ -278,7 +278,7 @@ void RecordALSA::detectSupportedFormats()
 	if (!fmt) continue;
 
 	CompressionType t;
-	SampleFormat sf;
+	SampleFormat::Map sf;
 	qDebug("#%2u, %2d, %2u bit [%u byte], %s, '%s', '%s'",
 	    i,
 	    fmt->alsa_format,
@@ -342,7 +342,17 @@ int RecordALSA::initialize()
 
     snd_pcm_hw_params_t *hw_params = 0;
     snd_pcm_sw_params_t *sw_params = 0;
+     snd_pcm_uframes_t buffer_size;
+    unsigned period_time = 0; // period time in us
+    unsigned buffer_time = 0; // ring buffer length in us
+    snd_pcm_uframes_t period_frames = 0;
+    snd_pcm_uframes_t buffer_frames = 0;
     snd_pcm_uframes_t xfer_align;
+    size_t n;
+    snd_pcm_uframes_t start_threshold, stop_threshold;
+    const int avail_min = -1;
+    const int start_delay = 0;
+    const int stop_delay = 0;
 
     qDebug("RecordALSA::initialize");
 
@@ -379,7 +389,7 @@ int RecordALSA::initialize()
     Q_ASSERT(format_index >= 0);
     if (format_index < 0) {
 	CompressionType t;
-	SampleFormat sf;
+	SampleFormat::Map sf;
 
 	qWarning("RecordkALSA::setFormat(): no matching format for "\
 	         "compression '%s', %d bits/sample, format '%s'",
@@ -435,36 +445,36 @@ int RecordALSA::initialize()
     }
     m_rate = rrate;
 
-//     if ((buffer_time) == 0 && (buffer_frames) == 0) {
-// 	err = snd_pcm_hw_params_get_buffer_time_max(hw_params, &buffer_time, 0);
-// 	Q_ASSERT(err >= 0);
-// 	if (buffer_time > 500000) buffer_time = 500000;
-//     }
-//
-//     if ((period_time == 0) && (period_frames == 0)) {
-// 	if (buffer_time > 0)
-// 	    period_time = buffer_time / 4;
-// 	else
-// 	    period_frames = buffer_frames / 4;
-//     }
-//
-//     if (period_time > 0) {
-// 	err = snd_pcm_hw_params_set_period_time_near(m_handle, hw_params,
-// 	                                             &period_time, 0);
-//     } else {
-// 	err = snd_pcm_hw_params_set_period_size_near(m_handle, hw_params,
-// 	                                             &period_frames, 0);
-//     }
-//     Q_ASSERT(err >= 0);
-//     if (buffer_time > 0) {
-// 	err = snd_pcm_hw_params_set_buffer_time_near(m_handle, hw_params,
-// 	                                             &buffer_time, 0);
-//     } else {
-// 	err = snd_pcm_hw_params_set_buffer_size_near(m_handle, hw_params,
-// 	                                             &buffer_frames);
-//     }
-//     Q_ASSERT(err >= 0);
-//
+    if ((buffer_time) == 0 && (buffer_frames) == 0) {
+	err = snd_pcm_hw_params_get_buffer_time_max(hw_params, &buffer_time, 0);
+	Q_ASSERT(err >= 0);
+	if (buffer_time > 500000) buffer_time = 500000;
+    }
+
+    if ((period_time == 0) && (period_frames == 0)) {
+	if (buffer_time > 0)
+	    period_time = buffer_time / 4;
+	else
+	    period_frames = buffer_frames / 4;
+    }
+
+    if (period_time > 0) {
+	err = snd_pcm_hw_params_set_period_time_near(m_handle, hw_params,
+	                                             &period_time, 0);
+    } else {
+	err = snd_pcm_hw_params_set_period_size_near(m_handle, hw_params,
+	                                             &period_frames, 0);
+    }
+    Q_ASSERT(err >= 0);
+    if (buffer_time > 0) {
+	err = snd_pcm_hw_params_set_buffer_time_near(m_handle, hw_params,
+	                                             &buffer_time, 0);
+    } else {
+	err = snd_pcm_hw_params_set_buffer_size_near(m_handle, hw_params,
+	                                             &buffer_frames);
+    }
+    Q_ASSERT(err >= 0);
+
     qDebug("   setting hw_params");
     err = snd_pcm_hw_params(m_handle, hw_params);
     if (err < 0) {
@@ -726,7 +736,7 @@ double RecordALSA::sampleRate()
 
 //***************************************************************************
 int RecordALSA::mode2format(int compression, int bits,
-                            SampleFormat::sample_format_t sample_format)
+                            SampleFormat sample_format)
 {
     // loop over all supported formats and keep only those that are
     // compatible with the given compression, bits and sample format
@@ -739,7 +749,7 @@ int RecordALSA::mode2format(int compression, int bits,
 
 	if (fmt->compression != compression) continue;
 	if ((int)fmt->bits_per_sample != bits) continue;
-	if (fmt->sample_format != sample_format) continue;
+	if (!(fmt->sample_format == sample_format)) continue;
 
 	// mode is compatible
 	// As the list of known formats is already sorted so that
@@ -834,9 +844,9 @@ int RecordALSA::bitsPerSample()
 }
 
 //***************************************************************************
-QValueList<SampleFormat::sample_format_t> RecordALSA::detectSampleFormats()
+QValueList<SampleFormat> RecordALSA::detectSampleFormats()
 {
-    QValueList<SampleFormat::sample_format_t> list;
+    QValueList<SampleFormat> list;
 
     // try all known sample formats
     QValueListIterator<int> it;
@@ -844,7 +854,7 @@ QValueList<SampleFormat::sample_format_t> RecordALSA::detectSampleFormats()
          it != m_supported_formats.end(); ++it)
     {
 	const alsa_sample_format_t *fmt = &(_known_formats[*it]);
-	const SampleFormat::sample_format_t sample_format = fmt->sample_format;
+	const SampleFormat sample_format = fmt->sample_format;
 
 	// only accept bits/sample if compression types
 	// and bits per sample match
@@ -854,7 +864,7 @@ QValueList<SampleFormat::sample_format_t> RecordALSA::detectSampleFormats()
 	// do not produce duplicates
 	if (list.contains(sample_format)) continue;
 
-	SampleFormat sf;
+	SampleFormat::Map sf;
 	qDebug("found sample format %u ('%s')", (int)sample_format,
 		sf.name(sf.findFromData(sample_format)).local8Bit().data());
 
@@ -865,14 +875,14 @@ QValueList<SampleFormat::sample_format_t> RecordALSA::detectSampleFormats()
 }
 
 //***************************************************************************
-int RecordALSA::setSampleFormat(SampleFormat::sample_format_t new_format)
+int RecordALSA::setSampleFormat(SampleFormat new_format)
 {
     m_sample_format = new_format;
     return 0;
 }
 
 //***************************************************************************
-SampleFormat::sample_format_t RecordALSA::sampleFormat()
+SampleFormat RecordALSA::sampleFormat()
 {
     return m_sample_format;
 }

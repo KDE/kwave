@@ -141,7 +141,7 @@ public:
      * Gets a list of supported sample formats.
      * @note this depends on the current setting of the compression!
      */
-    virtual QValueList<SampleFormat::sample_format_t> detectSampleFormats()=0;
+    virtual QValueList<SampleFormat> detectSampleFormats()=0;
 
     /**
      * Try to set a new sample format (signed/unsigned)
@@ -149,10 +149,10 @@ public:
      * @return zero on success, negative error code if failed
      * @see class SampleFormat
      */
-    virtual int setSampleFormat(SampleFormat::sample_format_t new_format) = 0;
+    virtual int setSampleFormat(SampleFormat new_format) = 0;
 
     /** Returns the current sample format (signed/unsigned) */
-    virtual SampleFormat::sample_format_t sampleFormat() = 0;
+    virtual SampleFormat sampleFormat() = 0;
 
     /** Returns the current endianness (big/little) */
     virtual byte_order_t endianness() = 0;

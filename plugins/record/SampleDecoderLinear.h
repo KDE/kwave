@@ -33,7 +33,7 @@ public:
      * @param bits_per_sample number of bits per sample in the raw data
      * @param endianness either SOURCE_LITTLE_ENDIAN or SOURCE_BIG_ENDIAN
      */
-    SampleDecoderLinear(SampleFormat::sample_format_t sample_format,
+    SampleDecoderLinear(SampleFormat sample_format,
                         unsigned int bits_per_sample,
                         byte_order_t endianness);
 

@@ -149,7 +149,7 @@ public:
      * Gets a list of supported sample formats.
      * @note this depends on the current setting of the compression!
      */
-    virtual QValueList<SampleFormat::sample_format_t> detectSampleFormats();
+    virtual QValueList<SampleFormat> detectSampleFormats();
 
     /**
      * Try to set a new sample format (signed/unsigned)
@@ -157,10 +157,10 @@ public:
      * @return zero on success, negative error code if failed
      * @see class SampleFormat
      */
-    virtual int setSampleFormat(SampleFormat::sample_format_t new_format);
+    virtual int setSampleFormat(SampleFormat new_format);
 
     /** Returns the current sample format (signed/unsigned) */
-    virtual SampleFormat::sample_format_t sampleFormat();
+    virtual SampleFormat sampleFormat();
 
     /** Returns the current endianness (big/little) */
     virtual byte_order_t endianness();
@@ -193,7 +193,7 @@ private:
      *         of known formats, or -1 if no match was found
      */
     int mode2format(int compression, int bits,
-                    SampleFormat::sample_format_t sample_format);
+                    SampleFormat sample_format);
 
     /** scan all ALSA devices, re-creates m_device_list */
     void scanDevices();
@@ -230,7 +230,7 @@ private:
     unsigned int m_bits_per_sample;
 
     /** sample format (signed int, unsigned int, float, ... */
-    SampleFormat::sample_format_t m_sample_format;
+    SampleFormat m_sample_format;
 
     /**
      * list of supported formats of the current device, indices in

@@ -807,15 +807,15 @@ void RecordDialog::bitsPerSampleChanged(int bits)
 
 //***************************************************************************
 void RecordDialog::setSupportedSampleFormats(
-    const QValueList<SampleFormat::sample_format_t> &formats)
+    const QValueList<SampleFormat> &formats)
 {
     Q_ASSERT(cbFormatSampleFormat);
     if (!cbFormatSampleFormat) return;
 
     cbFormatSampleFormat->clear();
-    SampleFormat types;
+    SampleFormat::Map types;
 
-    QValueList<SampleFormat::sample_format_t>::ConstIterator it;
+    QValueList<SampleFormat>::ConstIterator it;
     for (it=formats.begin(); it != formats.end(); ++it) {
 	int index = types.findFromData(*it);
 	cbFormatSampleFormat->insertItem(types.name(index));
@@ -826,7 +826,7 @@ void RecordDialog::setSupportedSampleFormats(
 }
 
 //***************************************************************************
-void RecordDialog::setSampleFormat(SampleFormat::sample_format_t sample_format)
+void RecordDialog::setSampleFormat(SampleFormat sample_format)
 {
     Q_ASSERT(cbFormatSampleFormat);
     if (!cbFormatSampleFormat) return;
@@ -840,7 +840,7 @@ void RecordDialog::setSampleFormat(SampleFormat::sample_format_t sample_format)
 	m_params.sample_format = sample_format;
     }
 
-    SampleFormat types;
+    SampleFormat::Map types;
     int index = types.findFromData(sample_format);
     cbFormatSampleFormat->setCurrentItem(
         (sample_format != -1) ? types.name(index) : "", true);
@@ -849,10 +849,9 @@ void RecordDialog::setSampleFormat(SampleFormat::sample_format_t sample_format)
 //***************************************************************************
 void RecordDialog::sampleFormatChanged(const QString &name)
 {
-    SampleFormat types;
+    SampleFormat::Map types;
     int index = types.findFromName(name);
-    SampleFormat::sample_format_t format =
-	static_cast<SampleFormat::sample_format_t>(types.data(index));
+    SampleFormat format = types.data(index);
     if (format == m_params.sample_format) return;
 
     emit sigSampleFormatChanged(format);

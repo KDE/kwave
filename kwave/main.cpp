@@ -69,7 +69,7 @@ void addDataStrings(KAboutData& aboutdata)
                     "rwaspe@web.de",
                     0);
     aboutdata.addAuthor("Caulier Gilles",
-                     i18n("french translations, splashscreen, tests and bugfixes"),
+	        i18n("french translations, splashscreen, tests and bugfixes"),
                      "caulier.gilles@free.fr",
                      "http://caulier.gilles.free.fr");
     aboutdata.addAuthor("Dave Flogeras",
@@ -89,10 +89,6 @@ void addDataStrings(KAboutData& aboutdata)
     aboutdata.addCredit("Aurelien Jarno",
                      i18n("debian packager"),
                      "aurel32@debian.org",
-                     0);
-    aboutdata.addCredit("Michael Frommberger",
-                     i18n("Gentoo packager"),
-                     "frommi@users.sourceforge.net",
                      0);
     aboutdata.addCredit("Robert M. Stockmann",
                      i18n("packaging for Mandrake / X86_64"),
@@ -127,7 +123,7 @@ int main( int argc, char **argv )
 	PACKAGE,
 	"Kwave",
 	PACKAGE_VERSION,
-	i18n("sound editor for KDE3"),
+	i18n("sound editor for KDE"),
 	KAboutData::License_GPL_V2,
         "(c) 2005, Thomas Eschenbacher",
 	"", //TODO : i18n("");
@@ -149,7 +145,6 @@ int main( int argc, char **argv )
 	exit(0);
     }
 #endif // UNIQUE_APP
-
 
     KwaveApp app;
 

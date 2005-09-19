@@ -464,6 +464,7 @@ int PlayBackALSA::write(QMemArray<sample_t> &samples)
     }
 
     // convert into byte stream
+    /* ### TODO handling for big endian machines ### */
     unsigned int channel;
     for (channel=0; channel < m_channels; channel++) {
 	sample_t sample = samples[channel];

@@ -515,7 +515,7 @@ int PlayBackALSA::flush()
 	unsigned int buffer_samples = m_buffer_size / m_bytes_per_sample;
 	unsigned int timeout = (m_rate > 0) ?
 	    3 * ((1000 * buffer_samples) / (unsigned int)m_rate) : 1000U;
-	unsigned char *p = reinterpret_cast<unsigned char *>(m_buffer.data());
+	u_int8_t *p = reinterpret_cast<u_int8_t *>(m_buffer.data());
 	int r;
 
 	// pad the buffer with silence if necessary

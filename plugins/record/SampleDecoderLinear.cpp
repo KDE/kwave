@@ -92,7 +92,7 @@ void decode_linear(char *src, sample_t *dst, unsigned int count)
 
 //***************************************************************************
 #define MAKE_DECODER(bits)                             \
-if (sample_format != SampleFormat::Signed) {           \
+if (sample_format != SampleFormat::Unsigned) {           \
     if (endianness != BigEndian) {                     \
 	m_decoder = decode_linear<bits, true, true>;   \
     } else {                                           \

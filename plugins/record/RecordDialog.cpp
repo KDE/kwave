@@ -160,8 +160,6 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
             this, SLOT(selectRecordDevice()));
     connect(cbDevice, SIGNAL(activated(const QString &)),
             this, SLOT(setDevice(const QString &)));
-//     connect(cbDevice->lineEdit(), SIGNAL(lostFocus()),
-//             this, SLOT(setDevice(const QString &)));
 
     // visualizations
     connect(chkDisplayLevelMeter, SIGNAL(toggled(bool)),
@@ -251,7 +249,7 @@ void RecordDialog::setMethod(record_method_t method)
 void RecordDialog::methodSelected(int index)
 {
     record_method_t method = m_methods_map.data(index);
-    qDebug("RecordDialog::methodSelected(%d) - %d", index, (int)method);
+//     qDebug("RecordDialog::methodSelected(%d) - %d", index, (int)method);
 
     Q_ASSERT(method > RECORD_NONE);
     Q_ASSERT(method < RECORD_INVALID);
@@ -267,7 +265,7 @@ void RecordDialog::methodSelected(int index)
 //***************************************************************************
 void RecordDialog::setSupportedDevices(QStringList devices)
 {
-    qDebug("RecordDialog::setSupportedDevices(QStringList devices)"); // ###
+//     qDebug("RecordDialog::setSupportedDevices(QStringList devices)");
     Q_ASSERT(cbDevice);
     Q_ASSERT(listDevices);
     if (!cbDevice || !listDevices) return;
@@ -422,8 +420,10 @@ void RecordDialog::setDevice(const QString &device)
     Q_ASSERT(listDevices);
     if (!cbDevice || !listDevices) return;
 
-    if (!m_enable_setDevice) return;
-    qDebug("RecordDialog::setDevice(%s)", device.local8Bit().data());
+    bool device_changed = (device != m_params.device_name);
+    if (!device_changed) return;
+    m_params.device_name = device;
+//     qDebug("RecordDialog::setDevice(%s)", device.local8Bit().data());
 
     if (listDevices->isEnabled()) {
 	// treeview mode
@@ -452,10 +452,7 @@ void RecordDialog::setDevice(const QString &device)
 	}
     }
 
-    if (m_params.device_name != device) {
-	m_params.device_name = device;
-	emit sigDeviceChanged(device);
-    }
+    if (device_changed) emit sigDeviceChanged(device);
 }
 
 //***************************************************************************
@@ -624,6 +621,7 @@ void RecordDialog::tracksChanged(int tracks)
     if (tracks < 1) return; // no device
     if (tracks == (int)m_params.tracks) return;
 
+    m_params.tracks = tracks;
     emit sigTracksChanged(tracks);
 }
 
@@ -676,6 +674,7 @@ void RecordDialog::sampleRateChanged(const QString &rate)
     double sample_rate = string2rate(rate);
     if (sample_rate == m_params.sample_rate) return;
 
+    m_params.sample_rate = sample_rate;
     emit sampleRateChanged(sample_rate);
 }
 

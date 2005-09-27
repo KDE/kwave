@@ -19,6 +19,7 @@
 #define _RECORD_DEVICE_H_
 
 #include "config.h"
+#include <qcstring.h>
 #include <qvaluelist.h>
 #include <qstring.h>
 #include <qstringlist.h>
@@ -45,12 +46,12 @@ public:
 
     /**
      * Read the raw audio data from the record device.
-     * @param buffer pointer to the array of bytes to receive the audio data
-     * @param length size of the buffer
+     * @param buffer array of bytes to receive the audio data
+     *        might be resized for alignment
+     * @param offset offset in bytes within the buffer
      * @return number of bytes read, zero or negative if failed
      */
-    virtual int read(char *buffer, unsigned int length) = 0;
-
+    virtual int read(QByteArray &buffer, unsigned int offset) = 0;
 
     /** Close the device */
     virtual int close() = 0;

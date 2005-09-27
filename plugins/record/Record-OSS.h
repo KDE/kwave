@@ -41,12 +41,12 @@ public:
 
     /**
      * Read the raw audio data from the record device.
-     * @param buffer pointer to the array of bytes to receive the audio data
-     * @param length size of the buffer
+     * @param buffer array of bytes to receive the audio data
+     *        might be resized for alignment
+     * @param offset offset in bytes within the buffer
      * @return number of bytes read, zero or negative if failed
      */
-    virtual int read(char *buffer, unsigned int length);
-
+    virtual int read(QByteArray &buffer, unsigned int offset);
 
     /** Close the device */
     virtual int close();

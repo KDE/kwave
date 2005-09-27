@@ -56,12 +56,12 @@ public:
 
     /**
      * Read the raw audio data from the record device.
-     * @param buffer pointer to the array of bytes to receive the audio data
-     * @param length size of the buffer
+     * @param buffer array of bytes to receive the audio data
+     *        might be resized for alignment
+     * @param offset offset in bytes within the buffer
      * @return number of bytes read, zero or negative if failed
      */
-    virtual int read(char *buffer, unsigned int length);
-
+    virtual int read(QByteArray &buffer, unsigned int offset);
 
     /** Close the device */
     virtual int close();
@@ -246,17 +246,8 @@ private:
     /** true if initialize() has been successfully been run */
     bool m_initialized;
 
-    /** Exponent of the buffer size */
-    unsigned int m_bufbase;
-
-    /** buffer with raw device data */
-    QByteArray m_buffer;
-
     /** size of the transfer buffer in bytes */
     unsigned int m_buffer_size;
-
-    /** number of bytes in the buffer */
-    unsigned int m_buffer_used;
 
     /** number of samples per period */
     snd_pcm_uframes_t m_chunk_size;
@@ -265,4 +256,4 @@ private:
 
 #endif /* HAVE_ALSA_SUPPORT */
 
-#endif /* _RECORD_OSS_H_ */
+#endif /* _RECORD_ALSA_H_ */

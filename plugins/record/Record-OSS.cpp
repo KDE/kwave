@@ -67,17 +67,25 @@ int RecordOSS::open(const QString &dev)
 }
 
 //***************************************************************************
-int RecordOSS::read(char *buffer, unsigned int length)
+int RecordOSS::read(QByteArray &buffer, unsigned int offset)
 {
     fd_set rfds;
     struct timeval tv;
     int retval;
     int read_bytes = 0;
+    unsigned int length = buffer.size();
 
-//  Q_ASSERT(m_fd >= 0);
-    Q_ASSERT(buffer);
+//     qDebug("RecordOSS::read(), offset=%d, length=%d", offset, length);
+    Q_ASSERT(m_fd >= 0);
+    Q_ASSERT(buffer.size());
+    Q_ASSERT(length);
+    Q_ASSERT(offset < length);
     if (m_fd < 0) return -EBADF; // file not opened
-    if (!buffer) return -EINVAL; // buffer is null pointer
+    if (buffer.isEmpty()) return -EINVAL; // buffer is null pointer
+    if (!length) return -EINVAL;
+    if (offset >= length) return -EINVAL;
+
+    length -= offset;
 
 //     int blocksize = length;
 //     int err = ioctl(m_fd, SNDCTL_DSP_GETBLKSIZE, &blocksize);
@@ -95,6 +103,7 @@ int RecordOSS::read(char *buffer, unsigned int length)
     if (rate < 1) rate = 1;
     unsigned int timeout = (length / rate) * 2;
     if (timeout < 2) timeout = 2;
+    u_int8_t *buf = reinterpret_cast<u_int8_t *>(buffer.data()) + offset;
 
     while (length) {
 	FD_ZERO(&rfds);
@@ -112,7 +121,8 @@ int RecordOSS::read(char *buffer, unsigned int length)
 	             errno, strerror(errno));
 	    return -errno;
 	} else if (retval) {
-	    int res = ::read(m_fd, buffer, length);
+	    int res = ::read(m_fd, buf, length);
+
 	    if ((res == -1) && (errno == EINTR))
 		return -errno; // interrupted, return without warning
 
@@ -126,7 +136,7 @@ int RecordOSS::read(char *buffer, unsigned int length)
 	    }
 	    read_bytes += res;
 	    length -= res;
-	    buffer += res;
+	    buf += res;
 	} else {
 	    printf("No data within 5 seconds.\n");
 	    return -EIO;

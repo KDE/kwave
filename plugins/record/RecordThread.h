@@ -96,10 +96,10 @@ private:
     RecordDevice *m_device;
 
     /** queue with empty buffers for raw input data */
-    QPtrQueue<char>m_empty_queue;
+    QPtrQueue<QByteArray>m_empty_queue;
 
     /** queue with filled buffers with raw input data */
-    QPtrQueue<char>m_full_queue;
+    QPtrQueue<QByteArray>m_full_queue;
 
     /** number of buffers to allocate */
     unsigned int m_buffer_count;

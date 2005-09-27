@@ -65,8 +65,8 @@ int RecordThread::setBuffers(unsigned int count, unsigned int size)
     // de-queue and delete all empty buffers if the buffer size has changed
     if (m_buffer_size != size) {
 	while (!m_empty_queue.isEmpty()) {
-	    char *buffer = m_empty_queue.dequeue();
-	    free(buffer);
+	    QByteArray *buffer = m_empty_queue.dequeue();
+	    if (buffer) delete buffer;
 	}
     }
 
@@ -76,25 +76,25 @@ int RecordThread::setBuffers(unsigned int count, unsigned int size)
 
     // remove superflous buffers
     while (m_empty_queue.count() > m_buffer_count) {
-	char *buffer = m_empty_queue.dequeue();
-	free(buffer);
+	QByteArray *buffer = m_empty_queue.dequeue();
+	if (buffer) delete buffer;
     }
 
     // enqueue empty buffers until the required amount has been reached
     while (m_empty_queue.count() < m_buffer_count) {
-	char *buffer = (char *)malloc(size);
+	QByteArray *buffer = new QByteArray(size);
 	Q_ASSERT(buffer);
 	if (!buffer) break;
 
 	// write to the buffer with dummy data to probably
 	// make it physically mapped
-	bzero(buffer, size);
+	buffer->fill(0x00);
 
 	m_empty_queue.enqueue(buffer);
     }
 
     // return number of buffers or -ENOMEM if not even two allocated
-    return (m_empty_queue.count() < 2) ?
+    return (m_empty_queue.count() >= 2) ?
            (int)m_empty_queue.count() : -ENOMEM;
 }
 
@@ -118,8 +118,9 @@ QByteArray RecordThread::dequeue()
 
     if (m_full_queue.count()) {
 	// de-queue the buffer from the full list
-	char *buf = (char *)m_full_queue.dequeue();
-	buffer.duplicate(buf, m_buffer_size);
+	QByteArray *buf = m_full_queue.dequeue();
+	Q_ASSERT(buf);
+	if (buf) buffer.duplicate(*buf);
 
 	// put the buffer back to the empty list
 	m_empty_queue.enqueue(buf);
@@ -135,11 +136,12 @@ void RecordThread::run()
            m_buffer_count, m_buffer_size);
     int result = 0;
     bool interrupted = false;
+    unsigned int offset = 0;
 
     // read data until we receive a close signal
     while (!shouldStop() && !interrupted) {
 	// dequeue a buffer from the "empty" queue
-	char *buffer = 0;
+	QByteArray *buffer = 0;
 
 //	qDebug(">>> %u <<<", m_empty_queue.count()); // ###
 	Q_ASSERT(!m_empty_queue.isEmpty());
@@ -152,14 +154,27 @@ void RecordThread::run()
 	    break;
 	}
 
-	// read into the current buffer
-	unsigned int len = m_buffer_size;
-	char *p = buffer;
-	while (len) {
-	    // read raw data from the record device
-	    int result = (m_device) ? m_device->read(p, len) : -EBADF;
+	int len = buffer->size();
+	Q_ASSERT(buffer->size());
+	if (!len) {
+	    result = -ENOBUFS;
+	    break;
+	}
 
-	    if (result == -EBADF) {
+	// read into the current buffer
+	offset = 0;
+	while (len && !interrupted && !shouldStop()) {
+	    // read raw data from the record device
+	    result =  (m_device) ?
+		m_device->read(*buffer, offset) : -EBADF;
+
+	    if ((result < 0) && (result != -EAGAIN))
+		qWarning("RecordThread: result = %d (%s)",
+		         result, strerror(-result));
+
+	    if (result == -EAGAIN) {
+		continue;
+	    } else if (result == -EBADF) {
 		// file open has failed
 		interrupted = true;
 		break;
@@ -169,23 +184,23 @@ void RecordThread::run()
 		break;
 	    } else if (result < 1) {
 		// something went wrong !?
+		interrupted = true;
 		qWarning("RecordThread::run(): read returned %d", result);
 		break;
 	    } else {
-		if (result != (int)len) {
-		    qDebug("RecordThread::run(): (Interrupted?)");
+		if (result < (int)len) {
+		    qDebug("RecordThread::run(): (Interrupted?) %u/%u",
+		           result, len);
 		    interrupted = true;
 		    break;
 		}
 
-		Q_ASSERT(result <= (int)len);
-		len = ((int)len > result) ? (len - result) : 0;
-		p += len;
+		offset += result;
+		len = buffer->size() - offset;
+		Q_ASSERT(len >= 0);
+		if (len < 0) len = 0;
 	    }
 	}
-
-	// fill remaining space with zeroes
-	if (len && p) bzero(p, len);
 
 	// enqueue the buffer for the application
 	m_full_queue.enqueue(buffer);
@@ -193,6 +208,11 @@ void RecordThread::run()
 	// inform the application that there is something to dequeue
 	m_spx_buffer_full.AsyncHandler();
     }
+
+    // do not evaluate the result of the last operation if there
+    // was the external request to stop
+    if (shouldStop() || interrupted)
+	result = 0;
 
     if (result) m_spx_stopped.enqueue(result);
     qDebug("RecordThread::run() - done");

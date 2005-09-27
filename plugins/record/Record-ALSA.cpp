@@ -52,7 +52,7 @@ QMap<QString, QString> RecordALSA::m_device_list;
 /**
  * Global list of all known sample formats.
  * @note this list should be sorted so that the most preferable formats
- *       comes first in the list. When searching for a format that matches
+ *       come first in the list. When searching for a format that matches
  *       a given set of parameters, the first entry is taken.
  *
  *       The sort order should be:
@@ -189,8 +189,7 @@ RecordALSA::RecordALSA()
     :RecordDevice(), m_handle(0), m_tracks(0), m_rate(0.0), m_compression(0),
      m_bits_per_sample(0), m_bytes_per_sample(0),
      m_sample_format(SampleFormat::Unknown), m_supported_formats(),
-     m_initialized(false), m_bufbase(0), m_buffer(), m_buffer_size(0),
-     m_buffer_used(0), m_chunk_size(0)
+     m_initialized(false), m_buffer_size(0), m_chunk_size(0)
 {
 }
 
@@ -219,7 +218,7 @@ void RecordALSA::detectSupportedFormats()
     if (!snd_pcm_hw_params_any(pcm, p) < 0) return;
 
     // try all known formats
-    qDebug("--- list of supported formats --- ");
+//     qDebug("--- list of supported formats --- ");
     const unsigned int count =
 	sizeof(_known_formats) / sizeof(_known_formats[0]);
     for (unsigned int i=0; i < count; i++) {
@@ -243,23 +242,23 @@ void RecordALSA::detectSupportedFormats()
 	}
 	if (!fmt) continue;
 
-	CompressionType t;
-	SampleFormat::Map sf;
-	qDebug("#%2u, %2d, %2u bit [%u byte], %s, '%s', '%s'",
-	    i,
-	    *fmt,
-	    snd_pcm_format_width(*fmt),
-	    (snd_pcm_format_physical_width(*fmt)+7) >> 3,
-	    endian_of(*fmt) == CpuEndian ? "CPU" :
-	    (endian_of(*fmt) == LittleEndian ? "LE " : "BE "),
-	    sf.name(sf.findFromData(sample_format_of(
-		*fmt))).local8Bit().data(),
-	    t.name(t.findFromData(compression_of(
-		*fmt))).local8Bit().data());
+// 	CompressionType t;
+// 	SampleFormat::Map sf;
+// 	qDebug("#%2u, %2d, %2u bit [%u byte], %s, '%s', '%s'",
+// 	    i,
+// 	    *fmt,
+// 	    snd_pcm_format_width(*fmt),
+// 	    (snd_pcm_format_physical_width(*fmt)+7) >> 3,
+// 	    endian_of(*fmt) == CpuEndian ? "CPU" :
+// 	    (endian_of(*fmt) == LittleEndian ? "LE " : "BE "),
+// 	    sf.name(sf.findFromData(sample_format_of(
+// 		*fmt))).local8Bit().data(),
+// 	    t.name(t.findFromData(compression_of(
+// 		*fmt))).local8Bit().data());
 
 	m_supported_formats.append(i);
     }
-    qDebug("--------------------------------- ");
+//     qDebug("--------------------------------- ");
 
 }
 
@@ -268,11 +267,10 @@ int RecordALSA::open(const QString &device)
 {
     int err;
 
-    qDebug("RecordALSA::open(%s)", device.local8Bit().data());
+//     qDebug("RecordALSA::open(%s)", device.local8Bit().data());
 
     // close the previous device
-    if (m_handle) snd_pcm_close(m_handle);
-    m_handle = 0;
+    if (m_handle) close();
 
     // translate verbose name to internal ALSA name
     QString alsa_device = alsaDeviceName(device);
@@ -286,8 +284,8 @@ int RecordALSA::open(const QString &device)
 
     // open the device in case it's not already open
     err = snd_pcm_open(&m_handle, alsa_device.local8Bit().data(),
-	                   SND_PCM_STREAM_CAPTURE,
-	                   SND_PCM_NONBLOCK);
+	               SND_PCM_STREAM_CAPTURE,
+	               SND_PCM_NONBLOCK);
     if (err < 0) {
 	m_handle = 0;
 	qWarning("RecordALSA::openDevice('%s') - failed, err=%d (%s)",
@@ -326,7 +324,7 @@ int RecordALSA::initialize()
 
 // ###    m_bufbase     = bufbase;
     m_buffer_size = 0;
-    m_buffer_used = 0;
+//     m_buffer_used = 0;
 
     Q_ASSERT(m_handle);
     if (!m_handle) return -EBADF; // file not opened
@@ -526,51 +524,132 @@ int RecordALSA::initialize()
 	qWarning("cannot prepare interface for use: %s",snd_strerror(err));
     }
 
+    if ((err = snd_pcm_start(m_handle)) < 0) {
+	snd_pcm_dump(m_handle, output);
+	qWarning("cannot start interface: %s",snd_strerror(err));
+    }
+
     // resize our buffer and reset it
     Q_ASSERT(m_chunk_size);
     Q_ASSERT(m_bytes_per_sample);
-    unsigned int chunk_bytes = m_chunk_size * m_bytes_per_sample;
-    Q_ASSERT(chunk_bytes);
-    if (!chunk_bytes) return 0;
-    n = (unsigned int)(ceil((float)(1 << m_bufbase) /
-                                         (float)chunk_bytes));
-    if (n < 1) n = 1;
-    m_buffer_size = n * m_chunk_size * m_bytes_per_sample;
-    m_buffer.resize(m_buffer_size);
-    m_buffer_size = m_buffer.size();
+//     unsigned int chunk_bytes = m_chunk_size * m_bytes_per_sample;
+//     Q_ASSERT(chunk_bytes);
+//     if (!chunk_bytes) return 0;
+//     n = (unsigned int)(ceil((float)(1 << m_bufbase) /
+//                                          (float)chunk_bytes));
+//     if (n < 1) n = 1;
+//     m_buffer_size = n * m_chunk_size * m_bytes_per_sample;
+//     m_buffer.resize(m_buffer_size);
+//     m_buffer_size = m_buffer.size();
+//
+//     qDebug("RecordALSA::open: OK, buffer resized to %u bytes",
+//            m_buffer_size);
 
-    qDebug("RecordALSA::open: OK, buffer resized to %u bytes",
-           m_buffer_size);
-
-    snd_pcm_dump(m_handle, output);
+//     snd_pcm_dump(m_handle, output);
     snd_output_close(output);
 
     return 0;
 }
 
 //***************************************************************************
-int RecordALSA::read(char *buffer, unsigned int length)
+int RecordALSA::read(QByteArray &buffer, unsigned int offset)
 {
-    if (!m_handle) return -EBADF; // file not opened
-    Q_ASSERT(buffer);
-    if (!buffer)   return -EINVAL; // buffer is null pointer
-    if (!length)   return 0;       // no buffer, nothing to do
+    unsigned int length = buffer.size();
+    int read_bytes = 0;
 
-    // we configure our device at a later stage, not on the fly
+    if (!m_handle) return -EBADF; // file not opened
+    if (!length)   return 0;      // no buffer, nothing to do
+
+    // we configure our device at a late stage, not on the fly like in OSS
     if (!m_initialized) {
 	int err = initialize();
 	if (err < 0) return err;
+	m_initialized = true;
     }
 
-    /* ### TODO ### */
-    return -EBADF;
+    Q_ASSERT(m_chunk_size);
+    if (!m_chunk_size) return 0;
+
+    unsigned int chunk_bytes = m_chunk_size * m_bytes_per_sample;
+    Q_ASSERT(chunk_bytes);
+    if (!chunk_bytes) return 0;
+
+    unsigned int n = length / chunk_bytes;
+    if (length != (n * chunk_bytes)) {
+	n++;
+	length = n * chunk_bytes;
+	qDebug("resizing buffer %p from %u to %u bytes",
+	       buffer.data(), buffer.size(), length);
+	buffer.resize(length);
+    }
+
+    u_int8_t *p = reinterpret_cast<u_int8_t *>(buffer.data()) + offset;
+
+    Q_ASSERT(length >= offset);
+    Q_ASSERT(m_rate > 0);
+    unsigned int samples = (length - offset) / m_bytes_per_sample;
+    unsigned int timeout = (m_rate > 0) ?
+	(((1000 * samples) / 2) / (unsigned int)m_rate) : 100U;
+
+    while (samples > 0) {
+	// try to read as much as the device accepts
+	int r = snd_pcm_readi(m_handle, p, samples);
+
+	if ((r == -EAGAIN) || ((r >= 0) && (r < (int)samples))) {
+	    snd_pcm_wait(m_handle, timeout);
+	    return -EAGAIN;
+	} else if (r == -EPIPE) {
+	    // underrun -> start again
+	    qWarning("RecordALSA::flush(), underrun");
+	    r = snd_pcm_prepare(m_handle);
+	    if (r < 0) {
+		qWarning("RecordALSA::flush(), "\
+			    "resume after underrun failed: %s",
+			    snd_strerror(r));
+		return r;
+	    }
+	    qWarning("RecordALSA::flush(), after underrun: resuming");
+	    continue; // try again
+	} else if (r == -ESTRPIPE) {
+	    qWarning("RecordALSA::flush(), suspended. "\
+			"trying to resume...");
+	    while ((r = snd_pcm_resume(m_handle)) == -EAGAIN)
+		sleep(1); /* wait until suspend flag is released */
+	    if (r < 0) {
+		qWarning("RecordALSA::flush(), resume failed, "\
+			"restarting stream.");
+		if ((r = snd_pcm_prepare(m_handle)) < 0) {
+		    qWarning("RecordALSA::flush(), resume error: %s",
+				snd_strerror(r));
+		    return r;
+		}
+	    }
+	    qWarning("PlayBackALSA::flush(), after suspend: resuming");
+	    continue; // try again
+	} else if (r < 0) {
+	    qWarning("RecordALSA: read error: %s", snd_strerror(r));
+	    return r;
+	} else {
+	    // advance in the buffer
+	    qDebug("<<< after read, r=%d", r);
+	    p          += r * m_bytes_per_sample;
+	    read_bytes += r * m_bytes_per_sample;
+	    offset     += r * m_bytes_per_sample;
+	    samples     = buffer.size() - offset;
+	}
+    }
+
+    return read_bytes;
 }
 
 //***************************************************************************
 int RecordALSA::close()
 {
     // close the device handle
-    if (m_handle) snd_pcm_close(m_handle);
+    if (m_handle) {
+	snd_pcm_drop(m_handle);
+	snd_pcm_close(m_handle);
+    }
     m_handle = 0;
 
     // we need to re-initialize the next time
@@ -684,7 +763,7 @@ QValueList<double> RecordALSA::detectSampleRates()
 	// do not produce duplicates
 	if (list.contains(rate)) continue;
 
-	qDebug("found rate %u Hz", rate);
+// 	qDebug("found rate %u Hz", rate);
 	list.append(rate);
     }
 
@@ -750,8 +829,8 @@ QValueList<int> RecordALSA::detectCompressions()
 	if (list.contains(compression)) continue;
 
 	CompressionType t;
-	qDebug("found compression %d '%s'", compression,
-	       t.name(t.findFromData(compression)).local8Bit().data());
+// 	qDebug("found compression %d '%s'", compression,
+// 	       t.name(t.findFromData(compression)).local8Bit().data());
 	list.append(compression);
     }
 
@@ -793,7 +872,7 @@ QValueList <unsigned int> RecordALSA::supportedBits()
 	// do not produce duplicates
 	if (list.contains(bits)) continue;
 
-	qDebug("found bits/sample %u", bits);
+// 	qDebug("found bits/sample %u", bits);
 	list.append(bits);
     }
 
@@ -836,8 +915,8 @@ QValueList<SampleFormat> RecordALSA::detectSampleFormats()
 	if (list.contains(sample_format)) continue;
 
 	SampleFormat::Map sf;
-	qDebug("found sample format %u ('%s')", (int)sample_format,
-		sf.name(sf.findFromData(sample_format)).local8Bit().data());
+// 	qDebug("found sample format %u ('%s')", (int)sample_format,
+// 		sf.name(sf.findFromData(sample_format)).local8Bit().data());
 
 	list.append(sample_format);
     }
@@ -902,7 +981,7 @@ void RecordALSA::scanDevices()
 	return;
     }
 
-    qDebug("**** List of RECORD Hardware Devices ****");
+//     qDebug("**** List of RECORD Hardware Devices ****");
     while (card >= 0) {
 	QString name;
 	name = "hw:%1";
@@ -981,7 +1060,7 @@ void RecordALSA::scanDevices()
 		    i18n("card %1: ") + card_name + "|sound_card||" +
 		    i18n("device %2: ") + device_name + "|sound_subdevice"
 		).arg(card).arg(dev);
-		qDebug("# '%s' -> '%s'", hw_device.data(), name.data());
+// 		qDebug("# '%s' -> '%s'", hw_device.data(), name.data());
 		m_device_list.insert(name, hw_device);
 	    }
 	}

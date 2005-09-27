@@ -161,8 +161,8 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     // activate the playback method
     setMethod(m_dialog->params().method);
 
-    // select the record device
-    setDevice(m_dialog->params().device_name);
+//     // select the record device
+//     setDevice(m_dialog->params().device_name);
 
     QStringList *list = new QStringList();
     Q_ASSERT(list);
@@ -209,10 +209,10 @@ void RecordPlugin::setMethod(record_method_t method)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
-
     KConfig *cfg = KGlobal::config();
     Q_ASSERT(cfg);
 
+    InhibitRecordGuard _lock(*this); // don't record while settings change
     qDebug("RecordPlugin::setMethod(%d)", (int)method);
 
     // change the recording method (class RecordDevice)
@@ -221,8 +221,8 @@ void RecordPlugin::setMethod(record_method_t method)
 	m_device = 0;
 	bool searching = false;
 
-	// set hourglass cursor
-	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+// 	// set hourglass cursor
+// 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
 	// remember the device selection, just for the GUI
 	// for the next time this method gets selected
@@ -236,17 +236,17 @@ void RecordPlugin::setMethod(record_method_t method)
 	    cfg->writeEntry(QString("last_device_%1").arg(
 		static_cast<int>(m_method)),
 		m_device_name);
-	    qDebug(">>> %d -> '%s'",
-	           static_cast<int>(m_method),
-	           m_device_name.data());
+// 	    qDebug(">>> %d -> '%s'",
+// 	           static_cast<int>(m_method),
+// 	           m_device_name.data());
 	    cfg->sync();
 
 	    // restore the previous one
 	    device = cfg->readEntry(
 	        QString("last_device_%1").arg(static_cast<int>(method)));
-	    qDebug("<<< %d -> '%s'", static_cast<int>(method), device.data());
+// 	    qDebug("<<< %d -> '%s'", static_cast<int>(method), device.data());
 	    m_device_name = device;
-	    m_dialog->setDevice(m_device_name);
+// 	    m_dialog->setDevice(m_device_name);
 	}
 
 	do {
@@ -313,7 +313,7 @@ void RecordPlugin::setMethod(record_method_t method)
     m_dialog->setFileFilter(file_filter);
 
     // remove hourglass
-    QApplication::restoreOverrideCursor();
+//     QApplication::restoreOverrideCursor();
 }
 
 //***************************************************************************
@@ -322,15 +322,15 @@ void RecordPlugin::setDevice(const QString &device)
     Q_ASSERT(m_dialog);
     Q_ASSERT(m_device);
     if (!m_dialog || !m_device) return;
-    qDebug("RecordPlugin::setDevice(%s)", device.local8Bit().data());
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
+    qDebug("RecordPlugin::setDevice(%s)", device.local8Bit().data());
 
     // open and initialize the device
     int result = m_device->open(device);
     if (result < 0) {
 	qWarning("RecordPlugin::openDevice(): "\
-	        "opening the device failed.");
+	         "opening the device failed.");
 
 // 	// delete the device if it did not open
 // 	delete m_device;
@@ -343,8 +343,8 @@ void RecordPlugin::setDevice(const QString &device)
     }
 
     // set the device in the dialog
+    m_device_name = device;
     m_dialog->setDevice(device);
-    m_device_name = m_dialog->params().device_name;
 
     unsigned int min = 0;
     unsigned int max = 0;
@@ -360,8 +360,8 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
 
-    qDebug("RecordPlugin::changeTracks(%u)", new_tracks);
     InhibitRecordGuard _lock(*this); // don't record while settings change
+    qDebug("RecordPlugin::changeTracks(%u)", new_tracks);
 
     if (!m_device || !new_tracks) {
 	// no device -> dummy/shortcut
@@ -389,11 +389,11 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
 //***************************************************************************
 void RecordPlugin::changeSampleRate(double new_rate)
 {
-    qDebug("RecordPlugin::changeSampleRate(%u)", (unsigned int)new_rate);
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
+    qDebug("RecordPlugin::changeSampleRate(%u)", (unsigned int)new_rate);
 
     if (!m_device || (new_rate <= 0)) {
 	// no device -> dummy/shortcut
@@ -510,12 +510,11 @@ void RecordPlugin::changeCompression(int new_compression)
 //***************************************************************************
 void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 {
-    qDebug("RecordPlugin::changeBitsPerSample(%u)", new_bits);
-
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
+    qDebug("RecordPlugin::changeBitsPerSample(%u)", new_bits);
 
     if (!m_device || !new_bits) {
 	// no device -> dummy/shortcut
@@ -564,11 +563,11 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 void RecordPlugin::changeSampleFormat(
     SampleFormat new_format)
 {
-    qDebug("RecordPlugin::changeSampleFormat(%d)", (int)new_format);
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
+    qDebug("RecordPlugin::changeSampleFormat(%d)", (int)new_format);
 
     if (!m_device || (new_format < 0)) {
 	// no device -> dummy/shortcut
@@ -628,7 +627,10 @@ void RecordPlugin::enterInhibit()
 {
     m_inhibit_count++;
     if ((m_inhibit_count == 1) && m_thread) {
-// 	qDebug("RecordPlugin::enterInhibit() - STOPPING");
+	// set hourglass cursor
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+	qDebug("RecordPlugin::enterInhibit() - STOPPING");
 	m_thread->stop();
 	Q_ASSERT(!m_thread->running());
     }
@@ -642,8 +644,8 @@ void RecordPlugin::leaveInhibit()
 
     if (m_inhibit_count) m_inhibit_count--;
     if (!m_inhibit_count && m_thread && m_device && m_dialog) {
-	qDebug("RecordPlugin::leaveInhibit() - STARTING");
-	qDebug("    %d channels, %d bits",
+	qDebug("RecordPlugin::leaveInhibit() - STARTING ("\
+	       "%d channels, %d bits)\n",
                m_dialog->params().tracks,
 	       m_dialog->params().bits_per_sample);
 
@@ -655,14 +657,17 @@ void RecordPlugin::leaveInhibit()
 
 	// and let the thread run (again)
 	m_thread->start();
+
+	// take back the hourglass cursor
+	QApplication::restoreOverrideCursor();
     }
 }
 
 //***************************************************************************
 void RecordPlugin::resetRecording(bool &accepted)
 {
-    qDebug("RecordPlugin::resetRecording()");
     InhibitRecordGuard _lock(*this);
+    qDebug("RecordPlugin::resetRecording()");
 
     TopWidget &topwidget = this->manager().topWidget();
     accepted = topwidget.closeFile();
@@ -772,8 +777,8 @@ void RecordPlugin::startRecording()
     Q_ASSERT(m_device);
     if (!m_dialog || !m_thread || !m_device) return;
 
+//     InhibitRecordGuard _lock(*this); // don't record while settings change
     qDebug("RecordPlugin::startRecording()");
-    InhibitRecordGuard _lock(*this); // don't record while settings change
 
     if ((m_state != REC_PAUSED) || !m_decoder) {
 	double rate = m_dialog->params().sample_rate;
@@ -858,7 +863,7 @@ void RecordPlugin::recordStopped(int reason)
 	default:
 	    description = i18n("Reading from the recording device failed, "\
 	                       "error number = %1 (%2)").arg(-reason).arg(
-			       strerror(-reason));
+			       QString::fromLocal8Bit(strerror(-reason)));
     }
     KMessageBox::error(m_dialog, description);
 

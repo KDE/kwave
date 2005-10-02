@@ -11,11 +11,10 @@ o related to above: app crashes on shutdown when a plugin is still running
 
 o crashes at startup when no aRts server can be connected (seen on Mandrake-9)
 
-o finish recording support
-  -> currently work in progress
-
 o bugfix: start plugin (e.g. Sonagram) while playback leads to
   lock situation
+
+o handling of big endian in PlayBack-OSS.cpp and PlayBack-ALSA.cpp
 
 o replace "AF_SAMPFMT_xxx" with enum "SampleFormat::yyy" in WavEncoder.cpp,
   WavDecoder.cpp and PlayBack-OSS.cpp
@@ -45,8 +44,6 @@ o volume plugin: implement a "normalize to maximum" button
 o auto-detect pause and set markers, for splitting recorded stuff into several
   parts and then save them to disc as separate files
   (feature requested by Stefan Macher)
-
-o record plugin: free selectable sample rates
 
 o record plugin: support for ALSA, important for kernel 2.6 support!
 
@@ -94,8 +91,6 @@ o resample signal before inserting into a signal with a different sample
   rate (when doing copy/paste)
 
 o optimized cut/paste, at zero-crossing
-
-o channel mixing dialog
 
 o amplifymax does not work
   -> aRts ?

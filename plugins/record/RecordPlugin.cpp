@@ -328,6 +328,11 @@ void RecordPlugin::setDevice(const QString &device)
 
     // open and initialize the device
     int result = m_device->open(device);
+
+    // set the device in the dialog
+    m_device_name = device;
+    m_dialog->setDevice(device);
+
     if (result < 0) {
 	qWarning("RecordPlugin::openDevice(): "\
 	         "opening the device failed.");
@@ -340,11 +345,9 @@ void RecordPlugin::setDevice(const QString &device)
 // 	KMessageBox::error(parentWidget(), result,
 // 	    i18n("unable to open '%1'").arg(
 // 	    m_device_name));
+	changeTracks(0);
+	return;
     }
-
-    // set the device in the dialog
-    m_device_name = device;
-    m_dialog->setDevice(device);
 
     unsigned int min = 0;
     unsigned int max = 0;
@@ -560,8 +563,7 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 }
 
 //***************************************************************************
-void RecordPlugin::changeSampleFormat(
-    SampleFormat new_format)
+void RecordPlugin::changeSampleFormat(SampleFormat new_format)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
@@ -1111,10 +1113,18 @@ void RecordPlugin::processBuffer(QByteArray buffer)
     updateBufferProgressBar();
 
     const RecordParams &params = m_dialog->params();
+
     const unsigned int tracks = params.tracks;
     Q_ASSERT(tracks);
+    if (!tracks) return;
+
     const unsigned int bytes_per_sample = m_decoder->rawBytesPerSample();
+    Q_ASSERT(bytes_per_sample);
+    if (!bytes_per_sample) return;
+
     unsigned int samples = buffer.size() / bytes_per_sample / tracks;
+    Q_ASSERT(samples);
+    if (!samples) return;
 
     // check for reached recording time limit if enabled
     if (params.record_time_limited) {
@@ -1144,7 +1154,7 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 
     // check for trigger
     // note: this might change the state, which affects the
-    //       processing all tracks !
+    //       processing of all tracks !
     if ((m_state == REC_WAITING_FOR_TRIGGER) ||
         ((m_state == REC_PRERECORDING) && (params.record_trigger_enabled)))
     {

@@ -421,7 +421,6 @@ void RecordDialog::setDevice(const QString &device)
     if (!cbDevice || !listDevices) return;
 
     bool device_changed = (device != m_params.device_name);
-    if (!device_changed) return;
     m_params.device_name = device;
 //     qDebug("RecordDialog::setDevice(%s)", device.local8Bit().data());
 

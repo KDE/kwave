@@ -169,7 +169,7 @@ void RecordThread::run()
 		m_device->read(*buffer, offset) : -EBADF;
 
 	    if ((result < 0) && (result != -EAGAIN))
-		qWarning("RecordThread: result = %d (%s)",
+		qWarning("RecordThread: read result = %d (%s)",
 		         result, strerror(-result));
 
 	    if (result == -EAGAIN) {
@@ -202,6 +202,13 @@ void RecordThread::run()
 	    }
 	}
 
+	// return buffer into the empty queue and abort on errors
+	// do not use it
+	if (interrupted && (result < 0)) {
+	    if (buffer) m_empty_queue.enqueue(buffer);
+	    break;
+	}
+
 	// enqueue the buffer for the application
 	m_full_queue.enqueue(buffer);
 
@@ -211,7 +218,7 @@ void RecordThread::run()
 
     // do not evaluate the result of the last operation if there
     // was the external request to stop
-    if (shouldStop() || interrupted)
+    if (shouldStop() || (interrupted && (result > 0)))
 	result = 0;
 
     if (result) m_spx_stopped.enqueue(result);

@@ -205,8 +205,11 @@ private:
 
 private:
 
-    /** Handle of the source device or zero if not open */
+    /** Handle of the source device or null if not open */
     snd_pcm_t *m_handle;
+
+    /** result of the "open" call, of interest when m_handle == 0 */
+    int m_open_result;
 
     /**
      * dictionary for translating verbose device names

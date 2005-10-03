@@ -320,7 +320,7 @@ int RecordALSA::initialize()
     const int start_delay = 0;
     const int stop_delay = 0;
 
-    qDebug("RecordALSA::initialize");
+//     qDebug("RecordALSA::initialize");
     Q_ASSERT(!m_initialized);
 
     m_buffer_size = 0;
@@ -330,6 +330,7 @@ int RecordALSA::initialize()
 
     // close the device if it was previously open
     snd_pcm_drop(m_handle);
+    snd_pcm_reset(m_handle);
 
     err = snd_output_stdio_attach(&output, stderr, 0);
     if (err < 0) {
@@ -406,7 +407,7 @@ int RecordALSA::initialize()
 	snd_output_close(output);
 	return -EINVAL;
     }
-    qDebug("   real rate = %u", rrate);
+//     qDebug("   real rate = %u", rrate);
     if (m_rate * 1.05 < rrate || m_rate * 0.95 > rrate) {
 	qWarning("rate is not accurate (requested = %iHz, got = %iHz)",
 	         (int)m_rate, (int)rrate);
@@ -443,7 +444,7 @@ int RecordALSA::initialize()
     }
     Q_ASSERT(err >= 0);
 
-    qDebug("   setting hw_params");
+//     qDebug("   setting hw_params");
     err = snd_pcm_hw_params(m_handle, hw_params);
     if (err < 0) {
 	snd_pcm_dump(m_handle, output);
@@ -543,7 +544,6 @@ int RecordALSA::initialize()
 int RecordALSA::read(QByteArray &buffer, unsigned int offset)
 {
     unsigned int length = buffer.size();
-    int read_bytes = 0;
 
     if (!m_handle) return m_open_result; // file not opened / open has failed
     if (!length)   return 0;             // no buffer, nothing to do
@@ -562,7 +562,8 @@ int RecordALSA::read(QByteArray &buffer, unsigned int offset)
     Q_ASSERT(chunk_bytes);
     if (!chunk_bytes) return 0;
 
-    unsigned int n = length / chunk_bytes;
+    // align the buffer size to the chunk size if necessary
+    unsigned int n = (length / chunk_bytes);
     if (length != (n * chunk_bytes)) {
 	n++;
 	length = n * chunk_bytes;
@@ -571,68 +572,102 @@ int RecordALSA::read(QByteArray &buffer, unsigned int offset)
 	buffer.resize(length);
     }
 
-    u_int8_t *p = reinterpret_cast<u_int8_t *>(buffer.data()) + offset;
-
     Q_ASSERT(length >= offset);
     Q_ASSERT(m_rate > 0);
     unsigned int samples = (length - offset) / m_bytes_per_sample;
-    unsigned int timeout = (m_rate > 0) ?
-	(((1000 * samples) / 4) / (unsigned int)m_rate) : 100U;
 
-    while (samples > 0) {
-	// try to read as much as the device accepts
-	int r = snd_pcm_readi(m_handle, p, samples);
+    // do not read more than one chunk at a time
+    if (samples > m_chunk_size) samples = m_chunk_size;
+    Q_ASSERT(samples == m_chunk_size);
 
-	if ((r == -EAGAIN) || ((r >= 0) && (r < (int)samples))) {
-	    snd_pcm_wait(m_handle, timeout);
-	    return -EAGAIN;
-	} else if (r == -EPIPE) {
-	    // underrun -> start again
-	    qWarning("RecordALSA::read(), underrun");
-	    r = snd_pcm_prepare(m_handle);
-	    if (r < 0) {
-		qWarning("RecordALSA::read(), "\
-			    "resume after underrun failed: %s",
+#if 0
+    // just for debugging: detect state changes of the device
+    static snd_pcm_state_t last_state = SND_PCM_STATE_DISCONNECTED;
+    snd_pcm_state_t state = snd_pcm_state(m_handle);
+    if (state != last_state) {
+	switch (state) {
+	    case SND_PCM_STATE_OPEN:
+		qDebug("SND_PCM_STATE_OPEN");
+		break;
+	    case SND_PCM_STATE_SETUP:
+		qDebug("SND_PCM_STATE_SETUP");
+		break;
+	    case SND_PCM_STATE_PREPARED:
+		qDebug("ND_PCM_STATE_PREPARED");
+		break;
+	    case SND_PCM_STATE_RUNNING:
+		qDebug("SND_PCM_STATE_RUNNING");
+		break;
+	    case SND_PCM_STATE_XRUN:
+		qDebug("SND_PCM_STATE_XRUN");
+		break;
+	    case SND_PCM_STATE_DRAINING:
+		qDebug("SND_PCM_STATE_DRAINING");
+		break;
+	    case SND_PCM_STATE_PAUSED:
+		qDebug("SND_PCM_STATE_PAUSED");
+		break;
+	    case SND_PCM_STATE_SUSPENDED:
+		qDebug("SND_PCM_STATE_SUSPENDED");
+		break;
+	    case SND_PCM_STATE_DISCONNECTED:
+		qDebug("SND_PCM_STATE_DISCONNECTED");
+		break;
+	}
+	last_state = state;
+    }
+#endif
+
+    // try to read as much as the device accepts
+    int r = snd_pcm_readi(m_handle, &(buffer[offset]), samples);
+
+    // handle all negative result codes
+    if (r == -EAGAIN) {
+	unsigned int timeout = (m_rate > 0) ?
+	    (((1000 * samples) / 4) / (unsigned int)m_rate) : 10U;
+	snd_pcm_wait(m_handle, timeout);
+	return -EAGAIN;
+    } else if (r == -EPIPE) {
+	// underrun -> start again
+	qWarning("RecordALSA::read(), underrun");
+	r = snd_pcm_prepare(m_handle);
+	r = snd_pcm_start(m_handle);
+	if (r < 0) {
+	    qWarning("RecordALSA::read(), "\
+		     "resume after underrun failed: %s",
+		     snd_strerror(r));
+	    return r;
+	}
+	qWarning("RecordALSA::read(), after underrun: resuming");
+	return -EAGAIN; // try again
+    } else if (r == -ESTRPIPE) {
+	qWarning("RecordALSA::read(), suspended. "\
+		    "trying to resume...");
+	while ((r = snd_pcm_resume(m_handle)) == -EAGAIN)
+	    return -EAGAIN; /* wait until suspend flag is released */
+	if (r < 0) {
+	    qWarning("RecordALSA::read(), resume failed, "\
+		    "restarting stream.");
+	    if ((r = snd_pcm_prepare(m_handle)) < 0) {
+		qWarning("RecordALSA::read(), resume error: %s",
 			    snd_strerror(r));
 		return r;
 	    }
-	    qWarning("RecordALSA::read(), after underrun: resuming");
-	    return -EAGAIN; // try again
-	} else if (r == -ESTRPIPE) {
-	    qWarning("RecordALSA::read(), suspended. "\
-			"trying to resume...");
-	    while ((r = snd_pcm_resume(m_handle)) == -EAGAIN)
-		return -EAGAIN; /* wait until suspend flag is released */
-	    if (r < 0) {
-		qWarning("RecordALSA::read(), resume failed, "\
-			"restarting stream.");
-		if ((r = snd_pcm_prepare(m_handle)) < 0) {
-		    qWarning("RecordALSA::read(), resume error: %s",
-				snd_strerror(r));
-		    return r;
-		}
-	    }
-	    qWarning("PlayBackALSA::read(), after suspend: resuming");
-	    continue; // try again
-	} else if (r < 0) {
-	    qWarning("RecordALSA: read error: %s", snd_strerror(r));
-	    return r;
-	} else {
-	    // advance in the buffer
-	    qDebug("<<< after read [%p], r=%d", p, r);
-	    Q_ASSERT(r <= (int)samples);
-	    if (r > (int)samples) r = samples;
-	    unsigned int bytes = r * m_bytes_per_sample;
-	    Q_ASSERT(offset + bytes <= buffer.size());
-
-	    p          += bytes;
-	    read_bytes += bytes;
-	    offset     += bytes;
-	    samples    -= r;
 	}
+	qWarning("PlayBackALSA::read(), after suspend: resuming");
+	return -EAGAIN; // try again
+    } else if (r < 0) {
+	qWarning("RecordALSA: read error: %s", snd_strerror(r));
+	return r;
     }
 
-    return read_bytes;
+    // no error, successfully read something:
+    // advance in the buffer
+//     qDebug("<<< after read, r=%d", r);
+    Q_ASSERT(r <= (int)samples);
+    if (r > (int)samples) r = samples;
+
+    return (r * m_bytes_per_sample);
 }
 
 //***************************************************************************
@@ -677,7 +712,7 @@ int RecordALSA::detectTracks(unsigned int &min, unsigned int &max)
 		     snd_strerror(err));
     }
 
-//  qDebug("RecordALSA::detectChannels, min=%u, max=%u", min, max);
+    qDebug("RecordALSA::detectTracks, min=%u, max=%u", min, max);
     return 0;
 }
 
@@ -800,7 +835,7 @@ int RecordALSA::mode2format(int compression, int bits,
 	// As the list of known formats is already sorted so that
 	// the simplest formats come first, we don't have a lot
 	// of work -> just take the first entry ;-)
-	qDebug("RecordALSA::mode2format -> %d", index);
+// 	qDebug("RecordALSA::mode2format -> %d", index);
 	return index;
     }
 
@@ -1057,7 +1092,7 @@ void RecordALSA::scanDevices()
 		    i18n("card %1: ") + card_name + "|sound_card||" +
 		    i18n("device %2: ") + device_name + "|sound_subdevice"
 		).arg(card).arg(dev);
-// 		qDebug("# '%s' -> '%s'", hw_device.data(), name.data());
+		qDebug("# '%s' -> '%s'", hw_device.data(), name.data());
 		m_device_list.insert(name, hw_device);
 	    }
 	}

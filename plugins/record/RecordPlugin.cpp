@@ -337,10 +337,6 @@ void RecordPlugin::setDevice(const QString &device)
 	qWarning("RecordPlugin::openDevice(): "\
 	         "opening the device failed.");
 
-// 	// delete the device if it did not open
-// 	delete m_device;
-// 	m_device = 0;
-//
 // 	// show an error message box
 // 	KMessageBox::error(parentWidget(), result,
 // 	    i18n("unable to open '%1'").arg(
@@ -348,11 +344,6 @@ void RecordPlugin::setDevice(const QString &device)
 	changeTracks(0);
 	return;
     }
-
-    unsigned int min = 0;
-    unsigned int max = 0;
-    m_device->detectTracks(min, max);
-    m_dialog->setSupportedTracks(min, max);
 
     changeTracks(m_dialog->params().tracks);
 }
@@ -373,8 +364,25 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
 	return;
     }
 
-    // try to activate the new number of tracks
+    // check the supported tracks
+    unsigned int min = 0;
+    unsigned int max = 0;
+    m_device->detectTracks(min, max);
     unsigned int tracks = new_tracks;
+    if ((tracks < min) || (tracks > max)) {
+	// clip to the supported number of tracks
+	if (tracks < min) tracks = min;
+	if (tracks > max) tracks = max;
+
+	if ((new_tracks && tracks) && (new_tracks != tracks)) {
+	    KMessageBox::sorry(m_dialog,
+		i18n("This device does not support %1 track(s), using "\
+		     "%2 track(s) instead.").arg(new_tracks).arg(tracks));
+	}
+    }
+    m_dialog->setSupportedTracks(min, max);
+
+    // try to activate the new number of tracks
     int err = m_device->setTracks(tracks);
     if (err < 0) {
 	// revert to the current device setting if failed
@@ -396,7 +404,7 @@ void RecordPlugin::changeSampleRate(double new_rate)
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-    qDebug("RecordPlugin::changeSampleRate(%u)", (unsigned int)new_rate);
+//     qDebug("RecordPlugin::changeSampleRate(%u)", (unsigned int)new_rate);
 
     if (!m_device || (new_rate <= 0)) {
 	// no device -> dummy/shortcut
@@ -517,7 +525,7 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-    qDebug("RecordPlugin::changeBitsPerSample(%u)", new_bits);
+//     qDebug("RecordPlugin::changeBitsPerSample(%u)", new_bits);
 
     if (!m_device || !new_bits) {
 	// no device -> dummy/shortcut
@@ -569,7 +577,7 @@ void RecordPlugin::changeSampleFormat(SampleFormat new_format)
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-    qDebug("RecordPlugin::changeSampleFormat(%d)", (int)new_format);
+//     qDebug("RecordPlugin::changeSampleFormat(%d)", (int)new_format);
 
     if (!m_device || (new_format < 0)) {
 	// no device -> dummy/shortcut
@@ -647,7 +655,7 @@ void RecordPlugin::leaveInhibit()
     if (m_inhibit_count) m_inhibit_count--;
     if (!m_inhibit_count && m_thread && m_device && m_dialog) {
 	qDebug("RecordPlugin::leaveInhibit() - STARTING ("\
-	       "%d channels, %d bits)\n",
+	       "%d channels, %d bits)",
                m_dialog->params().tracks,
 	       m_dialog->params().bits_per_sample);
 

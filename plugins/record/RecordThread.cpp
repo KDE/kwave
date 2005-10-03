@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-
 #include "config.h"
 #include <errno.h>
 #include <stdlib.h>
@@ -53,7 +52,7 @@ void RecordThread::setRecordDevice(RecordDevice *device)
 //***************************************************************************
 int RecordThread::setBuffers(unsigned int count, unsigned int size)
 {
-    qDebug("RecordThread::setBuffers(%u,%u)", count, size);
+//     qDebug("RecordThread::setBuffers(%u,%u)", count, size);
     Q_ASSERT(!running());
     if (running()) return -EBUSY;
 
@@ -188,13 +187,6 @@ void RecordThread::run()
 		qWarning("RecordThread::run(): read returned %d", result);
 		break;
 	    } else {
-		if (result < (int)len) {
-		    qDebug("RecordThread::run(): (Interrupted?) %u/%u",
-		           result, len);
-		    interrupted = true;
-		    break;
-		}
-
 		offset += result;
 		len = buffer->size() - offset;
 		Q_ASSERT(len >= 0);

@@ -758,7 +758,7 @@ void RecordDialog::setBitsPerSample(unsigned int bits)
 	sbFormatResolution->setEnabled(false);
 	return;
     } else {
-	sbFormatResolution->setEnabled(m_supported_resolutions.count());
+	sbFormatResolution->setEnabled(m_supported_resolutions.count() > 1);
 	m_params.bits_per_sample = bits;
     }
 

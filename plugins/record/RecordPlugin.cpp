@@ -40,6 +40,8 @@
 #include "libkwave/SampleFormat.h"
 #include "libkwave/SampleWriter.h"
 
+#include "libgui/Notice.h"
+
 #include "kwave/PluginManager.h"
 #include "kwave/SignalManager.h"
 #include "kwave/TopWidget.h"
@@ -195,6 +197,15 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
 }
 
 //***************************************************************************
+void RecordPlugin::notice(QString message)
+{
+    Q_ASSERT(m_dialog);
+    if (!m_dialog) return;
+
+    (void) new Notice(m_dialog, message);
+}
+
+//***************************************************************************
 void RecordPlugin::closeDevice()
 {
     if (m_device) {
@@ -221,32 +232,16 @@ void RecordPlugin::setMethod(record_method_t method)
 	m_device = 0;
 	bool searching = false;
 
-// 	// set hourglass cursor
-// 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
-	// remember the device selection, just for the GUI
-	// for the next time this method gets selected
-	// change in method -> save the current device and use
-	// the previous one
+	// use the previous device
 	if (cfg) {
 	    QString device = "";
 	    cfg->setGroup("plugin "+name());
 
-	    // save the current device
-	    cfg->writeEntry(QString("last_device_%1").arg(
-		static_cast<int>(m_method)),
-		m_device_name);
-// 	    qDebug(">>> %d -> '%s'",
-// 	           static_cast<int>(m_method),
-// 	           m_device_name.data());
-	    cfg->sync();
-
-	    // restore the previous one
+	    // restore the previous device
 	    device = cfg->readEntry(
 	        QString("last_device_%1").arg(static_cast<int>(method)));
 // 	    qDebug("<<< %d -> '%s'", static_cast<int>(method), device.data());
 	    m_device_name = device;
-// 	    m_dialog->setDevice(m_device_name);
 	}
 
 	do {
@@ -311,9 +306,6 @@ void RecordPlugin::setMethod(record_method_t method)
     QString file_filter;
     if (m_device) file_filter = m_device->fileFilter();
     m_dialog->setFileFilter(file_filter);
-
-    // remove hourglass
-//     QApplication::restoreOverrideCursor();
 }
 
 //***************************************************************************
@@ -332,6 +324,18 @@ void RecordPlugin::setDevice(const QString &device)
     // set the device in the dialog
     m_device_name = device;
     m_dialog->setDevice(device);
+
+    // remember the device selection, just for the GUI
+    // for the next change in the method
+    KConfig *cfg = KGlobal::config();
+    if (cfg) {
+	cfg->setGroup("plugin "+name());
+	cfg->writeEntry(QString("last_device_%1").arg(
+	    static_cast<int>(m_method)), m_device_name);
+// 	qDebug(">>> %d -> '%s'", static_cast<int>(m_method),
+// 	    m_device_name.data());
+	cfg->sync();
+    }
 
     if (result < 0) {
 	qWarning("RecordPlugin::openDevice(): "\
@@ -375,9 +379,25 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
 	if (tracks > max) tracks = max;
 
 	if ((new_tracks && tracks) && (new_tracks != tracks)) {
-	    KMessageBox::sorry(m_dialog,
-		i18n("This device does not support %1 track(s), using "\
-		     "%2 track(s) instead.").arg(new_tracks).arg(tracks));
+	    QString s1;
+	    switch (new_tracks) {
+		case 1: s1 = i18n("Mono");   break;
+		case 2: s1 = i18n("Stereo"); break;
+		case 4: s1 = i18n("Quadro"); break;
+		default:
+		    s1 = i18n("%1 tracks").arg(new_tracks);
+	    }
+	    QString s2;
+	    switch (tracks) {
+		case 1: s2 = i18n("Mono");   break;
+		case 2: s2 = i18n("Stereo"); break;
+		case 4: s2 = i18n("Quadro"); break;
+		default:
+		    s2 = i18n("%1 tracks").arg(tracks);
+	    }
+
+	    notice(i18n("This device does not support recording with %1, "\
+		        "using %2 instead.").arg(s1).arg(s2));
 	}
     }
     m_dialog->setSupportedTracks(min, max);
@@ -387,7 +407,7 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
     if (err < 0) {
 	// revert to the current device setting if failed
 	tracks = m_device->tracks();
-	if (new_tracks && (tracks > 0)) KMessageBox::sorry(m_dialog,
+	if (new_tracks && (tracks > 0)) notice(
 	    i18n("Recording with %1 track(s) failed, "\
 		 "using %2 track(s) instead.").arg(new_tracks).arg(tracks));
     }
@@ -430,9 +450,8 @@ void RecordPlugin::changeSampleRate(double new_rate)
 	const QString sr2(m_dialog->rate2string(rate));
 	if (((int)new_rate > 0) && ((int)rate > 0) &&
 	    ((int)new_rate != (int)rate))
-	    KMessageBox::sorry(m_dialog,
-		i18n("The sample rate %1Hz is not supported, "\
-		     "using %2Hz instead.").arg(sr1).arg(sr2));
+	    notice(i18n("The sample rate %1Hz is not supported, "\
+		        "using %2Hz instead.").arg(sr1).arg(sr2));
     }
     m_dialog->setSupportedSampleRates(supported_rates);
 
@@ -446,9 +465,8 @@ void RecordPlugin::changeSampleRate(double new_rate)
 	const QString sr2(m_dialog->rate2string(rate));
 	if (((int)new_rate > 0) && ((int)rate > 0) &&
 	    ((int)new_rate != (int)rate))
-	    KMessageBox::sorry(m_dialog,
-		i18n("Setting the sample rate %1Hz failed, "\
-		     "using %2Hz instead.").arg(sr1).arg(sr2));
+	    notice(i18n("Setting the sample rate %1Hz failed, "\
+		        "using %2Hz instead.").arg(sr1).arg(sr2));
     }
     m_dialog->setSampleRate(rate);
 
@@ -489,9 +507,8 @@ void RecordPlugin::changeCompression(int new_compression)
 	if (compression != new_compression) {
 	    const QString c1(types.name(types.findFromData(new_compression)));
 	    const QString c2(types.name(types.findFromData(compression)));
-	    KMessageBox::sorry(m_dialog,
-		i18n("The compression '%1' is not supported, "\
-		     "using '%2' instead.").arg(c1).arg(c2));
+	    notice(i18n("The compression '%1' is not supported, "\
+		        "using '%2' instead.").arg(c1).arg(c2));
 	}
     }
     m_dialog->setSupportedCompressions(supported_comps);
@@ -507,9 +524,8 @@ void RecordPlugin::changeCompression(int new_compression)
 	    const QString c1(types.name(types.findFromData(compression)));
 	    const QString c2(types.name(types.findFromData(
 	                 m_device->compression())));
-	    KMessageBox::sorry(m_dialog,
-		i18n("Setting the compression type %1 failed, "\
-		     "using %2 instead.").arg(c1).arg(c2));
+	    notice(i18n("Setting the compression type %1 failed, "\
+		        "using %2 instead.").arg(c1).arg(c2));
 	}
     }
     m_dialog->setCompression(compression);
@@ -547,7 +563,7 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 	}
 	bits = nearest;
 
-	if (((int)new_bits > 0) && (bits > 0)) KMessageBox::sorry(m_dialog,
+	if (((int)new_bits > 0) && (bits > 0)) notice(
 	    i18n("The resolution %1 bits per sample is not supported, "\
 	         "using %2 bits per sample instead.").arg(
 		 (int)new_bits).arg(bits));
@@ -559,7 +575,7 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
     if (err < 0) {
 	// revert to the current device setting if failed
 	bits = m_device->bitsPerSample();
-	if ((new_bits> 0) && (bits > 0)) KMessageBox::sorry(m_dialog,
+	if ((new_bits> 0) && (bits > 0)) notice(
 	    i18n("Setting the resolution %1 bits per sample failed, "\
 		 "using %2 bits per sample instead.").arg(
 		 (int)new_bits).arg(bits));
@@ -602,9 +618,8 @@ void RecordPlugin::changeSampleFormat(SampleFormat new_format)
 	const QString s1 = sf.name(sf.findFromData(new_format));
 	const QString s2 = sf.name(sf.findFromData(format));
 	if (!(new_format == -1) && !(new_format == format)) {
-	    KMessageBox::sorry(m_dialog,
-		i18n("The sample format '%1' is not supported, "\
-		     "using '%2' instead.").arg(s1).arg(s2));
+	    notice(i18n("The sample format '%1' is not supported, "\
+		        "using '%2' instead.").arg(s1).arg(s2));
 	}
     }
     m_dialog->setSupportedSampleFormats(supported_formats);
@@ -618,7 +633,7 @@ void RecordPlugin::changeSampleFormat(SampleFormat new_format)
 	SampleFormat::Map sf;
 	const QString s1 = sf.name(sf.findFromData(new_format));
 	const QString s2 = sf.name(sf.findFromData(format));
-	if (format > 0) KMessageBox::sorry(m_dialog,
+	if (format > 0) notice(
 	    i18n("Setting the sample format '%1' failed, "\
 	         "using '%2' instead.").arg(s1).arg(s2));
     }
@@ -725,9 +740,9 @@ void RecordPlugin::setupRecordThread()
 		    );
 		    break;
 		default:
-		    KMessageBox::sorry(m_dialog, i18n(
-			"The current sample format is not supported!"
-		    ));
+		    notice(
+			i18n("The current sample format is not supported!")
+		    );
 	    }
 	    break;
 	case AF_COMPRESSION_G711_ALAW:
@@ -735,8 +750,9 @@ void RecordPlugin::setupRecordThread()
 	case CompressionType::MPEG_LAYER_II:
 	case AF_COMPRESSION_MS_ADPCM:
 	default:
-	    KMessageBox::sorry(m_dialog, i18n(
-		"The current compression type is not supported!"));
+	    notice(
+		i18n("The current compression type is not supported!")
+	    );
 	    return;
     }
 

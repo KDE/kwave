@@ -153,6 +153,13 @@ private:
     /** close m_device and delete it */
     void closeDevice();
 
+    /**
+     * show a short notice which disappears automatically,
+     * e.g. if something is not supported and has been substituted
+     * @param message the notice that should pop up
+     */
+    void notice(QString message);
+
     /** set up the recorder thread and record device (again) */
     void setupRecordThread();
 

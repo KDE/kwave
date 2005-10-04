@@ -36,6 +36,7 @@ BUILTSOURCES=\
  MenuRoot.moc.cpp\
  MenuManager.moc.cpp \
  MultiStateWidget.moc.cpp\
+ Notice.moc.cpp\
  OverViewCache.moc.cpp\
  OverViewWidget.moc.cpp\
  SelectTimeWidgetBase.uih.h \
@@ -62,6 +63,7 @@ libkwavegui_la_SOURCES =\
  MenuRoot.cpp\
  MenuManager.cpp\
  MultiStateWidget.cpp\
+ Notice.cpp\
  OverViewCache.cpp\
  OverViewWidget.cpp\
  ScaleWidget.cpp\

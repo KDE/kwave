@@ -1069,14 +1069,13 @@
                                     </size>
                                 </property>
                                 <property name="toolTip" stdset="0">
-                                    <string>method or system used for playback</string>
+                                    <string>method or system used for recording</string>
                                 </property>
                                 <property name="whatsThis" stdset="0">
-                                    <string>&lt;b&gt;Playback Method:&lt;/b&gt;&lt;p&gt;Choose a method or system used for
-playback. Depending on the compilation options you can select one of the following methods:&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;&lt;i&gt;OSS (Open Sound System)&lt;/i&gt;&lt;/b&gt;: The oldest linux implementation, capable of mono and stereo output. Deprecated since linux kernel 2.6, but still wide spread. Might collide with aRts from KDE or other sound applications, only one application at a time can use OSS playback !&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;&lt;i&gt;ALSA (Advanced Linux Sound Architecture)&lt;/i&gt;&lt;/b&gt;: Supercedes OSS, supports more features and more hardware. Might collide with aRts or other applications like OSS does, but has a plugin called &lt;i&gt;dmix&lt;/i&gt; as a way out.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;&lt;i&gt;aRts (Analog Realtime Synthesizer)&lt;/i&gt;&lt;/b&gt;: The preferred way of doing playback in KDE, the sound server KDE uses itself. Multiple applications can play at the same time. Must be configured in KDE.&lt;/p&gt;</string>
+                                    <string>&lt;b&gt;Recording Method:&lt;/b&gt;&lt;p&gt;Choose a method or system used for
+recording. Depending on the compilation options you can select one of the following methods:&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;&lt;i&gt;OSS (Open Sound System)&lt;/i&gt;&lt;/b&gt;: The oldest linux implementation, only capable of mono and stereo input. Deprecated since linux kernel 2.6, but still wide spread.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;&lt;i&gt;ALSA (Advanced Linux Sound Architecture)&lt;/i&gt;&lt;/b&gt;: Supercedes OSS, supports more features and more hardware.&lt;/p&gt;</string>
                                 </property>
                             </widget>
                             <widget class="QLabel" row="0" column="0">
@@ -1107,6 +1106,15 @@ playback. Depending on the compilation options you can select one of the followi
                                                 <verstretch>0</verstretch>
                                             </sizepolicy>
                                         </property>
+                                        <property name="editable">
+                                            <bool>true</bool>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>recording device</string>
+                                        </property>
+                                        <property name="whatsThis" stdset="0">
+                                            <string>&lt;b&gt;Device:&lt;/b&gt;&lt;p&gt;This list shows a selection of some known recording devices suitable for the choosen recording method. If your device is not listed here, you can enter a device name on your own or search through the filesystem.&lt;/p&gt;</string>
+                                        </property>
                                     </widget>
                                     <widget class="QPushButton">
                                         <property name="name">
@@ -1125,6 +1133,12 @@ playback. Depending on the compilation options you can select one of the followi
                                         </property>
                                         <property name="accel">
                                             <string>Alt+T</string>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>search on the filesystem for a device</string>
+                                        </property>
+                                        <property name="whatsThis" stdset="0">
+                                            <string>&lt;b&gt;Select...&lt;/b&gt;&lt;p&gt;Choose a device name on the harddisk, if your device is not already listed in the list of devices.&lt;/p&gt;</string>
                                         </property>
                                     </widget>
                                 </hbox>
@@ -1725,6 +1739,7 @@ playback. Depending on the compilation options you can select one of the followi
 <layoutdefaults spacing="10" margin="10"/>
 <includehints>
     <includehint>hmstimewidget.h</includehint>
+    <includehint>klineedit.h</includehint>
     <includehint>levelmeter.h</includehint>
 </includehints>
 </UI>

@@ -1,5 +1,5 @@
 
-0.7.4 [2005-??-??]
+0.7.4 [2005-10-16]
 
  * recording via ALSA
  * support for the silently changed API of libFLAC++ v1.1.2

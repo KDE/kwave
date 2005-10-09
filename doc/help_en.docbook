@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2005-09-11</date>
+<date>2005-10-09</date>
 <releaseinfo>0.7.1
 </releaseinfo>
 
@@ -88,10 +88,16 @@
 	    Playback via aRts, ALSA and OSS
 	</para></listitem>
     	<listitem><para>
+	    Recording via ALSA and OSS
+	</para></listitem>
+    	<listitem><para>
 	    MP3 import
 	</para></listitem>
     	<listitem><para>
 	    Ogg/Vorbis import/export
+	</para></listitem>
+    	<listitem><para>
+	    FLAC import/export
 	</para></listitem>
     	<listitem><para>
 	    some analysis functions such as Sonagram <!-- or Fourier Transformation -->
@@ -193,7 +199,7 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.7.4 [2005-??-??]</para>
+            <para>0.7.4 [2005-10-16]</para>
             <itemizedlist>
                 <listitem><para>
                     recording via ALSA
@@ -1616,6 +1622,9 @@
 		mad-0.15 or higher (for MP3 import)
 	    </para></listitem>
 	    <listitem><para>
+		flac-1.1.0 higher
+	    </para></listitem>
+	    <listitem><para>
 		about 32 MB memory for starting &kapp; (but this may
 		vary depending on your platform and configuration)
 	    </para></listitem>
@@ -1659,6 +1668,9 @@
 		mad-devel-0.15 or higher
 	    </para></listitem>
 	    <listitem><para>
+		flac-devel-1.1.0 higher
+	    </para></listitem>
+	    <listitem><para>
 		If you intend to use CVS, you will also need a current
 		cvs package.
 	    </para></listitem>
@@ -1696,8 +1708,7 @@
 	them to the &kapp; <link linkend="mailing-list">mailing list</link>.
     </para>
     <note><para>
-	If you have a system with old Qt-1 or Qt-2 libraries installed
-	parallel to Qt-3.x, you might get
+	If you have a system with a special version of Qt, you might get
 	problems when compiling. Then you should set the following
 	environment variable to specify the correct paths of your
 	Qt installation and try again. For example:
@@ -1840,7 +1851,7 @@
 
     <para>
 	For initially checking out the sources you will need some disk space
-	(about 70 megabytes) in a directory of your choice, the cvs package
+	(about 32 megabytes) in a directory of your choice, the cvs package
 	of your favorite distribution and full access to the internet. If you
 	get error messages about rejected connections you either have typed
 	something wrong or your provider doesn't give you full access.
@@ -2697,21 +2708,21 @@
     </para>
     <para>
 	<screenshot>
-    	    <screeninfo>
+	    <screeninfo>
 		Here's a screenshot of &kapp;'s new file dialog
 	    </screeninfo>
-    	    <mediaobject>
+	    <mediaobject>
 		<imageobject>
 	    	    <imagedata fileref="kwave-newfile.png" format="PNG"/>
 		</imageobject>
 		<textobject>
-	    	    <phrase>Screenshot of the File New Dialog</phrase>
+		    <phrase>Screenshot of the File New Dialog</phrase>
 		</textobject>
 	    </mediaobject>
 	</screenshot>
     </para>
     <para>
-        You can select the sample rate, resolution in bits per sample and
+	You can select the sample rate, resolution in bits per sample and
 	the number of tracks. Per default the file format will be ".wav",
 	but it can still be changed at the time when the file is saved.
     </para>
@@ -2733,9 +2744,8 @@
         &kapp; is able to record audio data from various sources, with all
 	sample rates, sample formats and other modes that your sound
 	hardware supports. Currently &kapp; records through the old OSS
-	sound interface, later versions should also be able to record through
-	the newer and more powerful ALSA interface that is the preferred choice
-	for linux kernel 2.6.
+	sound interface, and since v0.7.4 also the newer and more powerful
+	ALSA interface that is the preferred choice for linux kernel 2.6.
     </para>
     <para>
        The recording can be reached from the menu under
@@ -2752,15 +2762,15 @@
     </para>
     <para>
 	<screenshot>
-    	    <screeninfo>
+	    <screeninfo>
 		Here's a screenshot of &kapp;'s record dialog
 	    </screeninfo>
-    	    <mediaobject>
+	    <mediaobject>
 		<imageobject>
-	    	    <imagedata fileref="kwave-record.png" format="PNG"/>
+		    <imagedata fileref="kwave-record.png" format="PNG"/>
 		</imageobject>
 		<textobject>
-	    	    <phrase>Screenshot of the Record Dialog</phrase>
+		    <phrase>Screenshot of the Record Dialog</phrase>
 		</textobject>
 	    </mediaobject>
 	</screenshot>
@@ -2917,8 +2927,8 @@
 
     <para>
         Currently &kapp; supports only 8 and 16 bit playback, with mono or
-	stereo output, which is a limitation of the OSS sound interface as
-	well as a limitation in the aRts sound system.
+	stereo output through the OSS and the aRts interface, but many also
+	all modes your sound hardware supports through the ALSA interface.
     </para>
     <para>
 	If your sound file uses more or less channels than the
@@ -3386,7 +3396,7 @@
 		    Read in the
 		    <link linkend="requirements">chapter</link>
 		    mentioned before. It compiles with
-		    gcc-2.95 and gcc-3.3 as well.
+		    gcc-2.95 and gcc-3.x as well.
 		</para>
 	    </answer>
 	</qandaentry>
@@ -3402,7 +3412,7 @@
 		    &kapp; does not need support for any special sound card.
 		    The sound card only has to be supported by your
 		    operating system and &kapp; uses it's interface to the
-		    operating system's sound driver through a standard
+		    operating system's sound driver through a OSS or ALSA
 		    interface. So &kapp; can play on any sound card that
 		    KDE is able to play on.
 		</para>
@@ -3568,10 +3578,7 @@
 	    </question>
     	    <answer>
 	    	<para>
-		    Sorry, currently we don't have direct support for ALSA, but
-		    since version 0.6 &kapp; has support
-		    for <ulink url="http://www.arts-project.org/">aRts</ulink>,
-		    which can use ALSA.
+		    Yes, since v0.7.4 for playback and recording
 		</para>
 	    </answer>
 	</qandaentry>
@@ -3585,9 +3592,8 @@
 	    </question>
     	    <answer>
 	    	<para>
-		    This is another feature that might get implemented
-		    in <ulink url="http://www.arts-project.org/">aRts</ulink>,
-		    so we wait for aRts to support it.
+		    This is possible through the ALSA interface,
+		    since v0.7.4.
 		</para>
 	    </answer>
 	</qandaentry>
@@ -3600,8 +3606,8 @@
 	    </question>
     	    <answer>
 	    	<para>
-		    Not for the moment, but maybe MP3 import / export already
-		    is on the TODO list at a very high position.
+		    Well, as long as there are patent issues, we support only MP3
+		    import through the mad library. No export, sorry...
 		</para>
 	    </answer>
 	</qandaentry>
@@ -3693,13 +3699,6 @@
 		    (<ulink url="http://www.debian.org">debian</ulink> packager)
 		</para>
 	    </listitem>
-	    <listitem>
-	        <para>
-		    Michael Frommberger
-		    <email>frommi@users.sourceforge.net</email>
-		    (<ulink url="http://www.gentoo.org">Gentoo</ulink> packager)
-		</para>
-	    </listitem>
 <!--
 	    <listitem><para>Juhana Kouhia</para></listitem>
     	    <listitem><para>Gerhard Zintel</para></listitem>
@@ -3776,7 +3775,7 @@
     </para>
 
     <para>
-    	Documentation copyright (C) 2000 Thomas Eschenbacher
+	Documentation copyright (C) 2000 Thomas Eschenbacher
 	<email>thomas.eschenbacher@gmx.de</email>
     </para>
 
@@ -3808,5 +3807,3 @@ GNU Scientific Library project
 </chapter>
 
 </book>
-
-

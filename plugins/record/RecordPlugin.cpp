@@ -669,10 +669,10 @@ void RecordPlugin::leaveInhibit()
 
     if (m_inhibit_count) m_inhibit_count--;
     if (!m_inhibit_count && m_thread && m_device && m_dialog) {
-	qDebug("RecordPlugin::leaveInhibit() - STARTING ("\
-	       "%d channels, %d bits)",
-               m_dialog->params().tracks,
-	       m_dialog->params().bits_per_sample);
+// 	qDebug("RecordPlugin::leaveInhibit() - STARTING ("+
+// 	       "%d channels, %d bits)",
+//                m_dialog->params().tracks,
+// 	       m_dialog->params().bits_per_sample);
 
 	Q_ASSERT(!m_thread->running());
 	if (m_thread->running()) return;

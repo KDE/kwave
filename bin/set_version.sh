@@ -66,7 +66,7 @@ echo $NEW_VERSION > VERSION
 # update the file kwave.lsm
 #
 cat kwave.lsm | awk -v newver=$NEW_VERSION \
-	-v newdate=`date --date=$NEW_DATE +%d%b%Y` '{ 
+	-v newdate=`LC_ALL=en_EN date --date=$NEW_DATE +%d%b%Y` '{ 
 	split($0, a, ":") } {
 	if (a[1] == "Version") {
 	    printf("Version:\t%s\n", newver)

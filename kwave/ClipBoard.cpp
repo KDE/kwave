@@ -1,3 +1,20 @@
+/***************************************************************************
+          ClipBoard.cpp  -  the Kwave clipboard
+			     -------------------
+    begin                : Tue Jun 26, 2001
+    copyright            : (C) 2001 by Thomas Eschenbacher
+    email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
+
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 
 #include "mt/SharedLock.h"
 #include "mt/SharedLockGuard.h"
@@ -46,12 +63,12 @@ void ClipBoard::copy(Signal &signal,
 	Track *t = new Track(length);
 	Q_ASSERT(t);
 	if (!t) continue;
-	
-	// transfer with sample reader and writer	
+
+	// transfer with sample reader and writer
 	SampleWriter *writer = t->openSampleWriter(Overwrite, 0, length-1);
 	Q_ASSERT(writer);
 	if (!writer) continue;
-	
+
 	SampleReader *reader = signal.openSampleReader(track_list[i],
 	                       offset, offset+length-1);
 	Q_ASSERT(reader);
@@ -61,7 +78,7 @@ void ClipBoard::copy(Signal &signal,
 	    delete reader;
 	}
 	delete writer;
-	
+
 	// append the track to the buffer
 	m_buffer.append(t);
     }
@@ -84,7 +101,7 @@ void ClipBoard::openMultiTrackReader(MultiTrackReader &readers)
 	Track *track = it.current();
 	Q_ASSERT(track);
 	if (!track) continue;
-	
+
 	SampleReader *reader = track->openSampleReader(0, length()-1);
 	Q_ASSERT(reader);
 	if (reader) readers.insert(i++, reader);
@@ -121,7 +138,7 @@ unsigned int ClipBoard::length()
 	Track *track = it.current();
 	Q_ASSERT(track);
 	if (!track) continue;
-	
+
 	unsigned int len = track->length();
 	if (len > max_len) max_len = len;
     }

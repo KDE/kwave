@@ -7,7 +7,6 @@ Summary:	@RPM_SUMMARY@
 Name:		@RPM_NAME@
 Version: 	@RPM_SHORT_VERSION@
 Release: 	@RPM_RELEASE@
-License:	GPL
 Source0: 	kwave-@RPM_FULL_VERSION@.tar.gz
 Group:  	Productivity/Multimedia/Sound/Editors
 Copyright:	@RPM_COPYRIGHT@

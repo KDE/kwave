@@ -7,8 +7,9 @@ Summary:	@RPM_SUMMARY@
 Name:		@RPM_NAME@
 Version: 	@RPM_SHORT_VERSION@
 Release: 	@RPM_RELEASE@
+License:	GPL
 Source0: 	kwave-@RPM_FULL_VERSION@.tar.gz
-Group:  	@RPM_GROUP@
+Group:  	Productivity/Multimedia/Sound/Editors
 Copyright:	@RPM_COPYRIGHT@
 URL:		@RPM_URL@
 Vendor: 	@RPM_VENDOR@
@@ -29,7 +30,13 @@ Conflicts: 	libkwave
 Obsoletes: 	libkwave
 
 %description
-@RPM_DESCRIPTION@
+With Kwave you can edit many sorts of wav-files
+including multi-channel files. You are able to
+alter and play back each channel on its own.
+Kwave also includes many plugins (most are
+still under development) to transform the
+wave-file in several ways and presents a
+graphical view with a complete zoom-and scroll capability.
 
 %prep
 

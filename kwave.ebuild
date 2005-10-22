@@ -1,75 +1,47 @@
-# Copyright 1999-2004 Gentoo Foundation
+# Copyright 1999-2005 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 # $Header$
 
-inherit eutils
+inherit kde flag-o-matic
 
-DESCRIPTION="A sound editor for KDE3."
-HOMEPAGE="http://kwave.sourceforge.net"
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
-RESTRICT="nomirror"
+DESCRIPTION="Kwave is a sound editor for KDE."
+HOMEPAGE="http://kwave.sourceforge.net/"
+SRC_URI="mirror://sourceforge/kwave/${P}.tar.gz"
 
-LICENSE="GPL-2"
-IUSE="kdeenablefinal debug mmx builtin-libaudiofile"
 SLOT="0"
+LICENSE="GPL-2"
 KEYWORDS="~x86"
+IUSE="mmx"
 
-DEPEND="sys-apps/sed
-		sys-apps/gawk
-		sys-apps/coreutils
-		sys-apps/findutils
-		>=sys-devel/autoconf-2.50
-		>=sys-devel/automake-1.7.32
-		>=sys-devel/gcc-3.2
-		>=sys-devel/make-3.80
-		>=sys-libs/glibc-2.2.5
-		>=sys-devel/gettext-0.11.5
-		media-gfx/imagemagick
-		app-text/recode
-		>=x11-libs/qt-3.0.5
-		>=kde-base/kdelibs-3.0.4
-		>=kde-base/kdemultimedia-3.0.4
-		>=kde-base/kdesdk-3.0.4
-		>=kde-base/arts-1.0.4
-		>=media-libs/flac-1.1.0
-		>=media-libs/libmad-0.14
-		>=media-libs/libogg-1.0
-		>=media-libs/libvorbis-1.0
-		>=media-libs/id3lib-3.8.1
-		>=sci-libs/gsl-1.4"
-
-cflag_setup() {
-	use mmx && append-flags "-mmmx"
-}
+RDEPEND="kde-base/arts
+	media-libs/alsa-lib
+	media-libs/audiofile
+	media-libs/id3lib
+	media-libs/libmad
+	media-libs/libogg
+	media-libs/libvorbis
+	media-libs/flac
+	sci-libs/gsl"
+DEPEND="${RDEPEND}
+	|| ( kde-base/kdesdk-misc kde-base/kdesdk )
+	sys-apps/sed
+	sys-apps/gawk
+	sys-apps/coreutils
+	sys-apps/findutils
+	app-text/recode
+	media-gfx/imagemagick"
+need-kde 3.4
 
 src_compile() {
+	libtoolize --copy --force
+	aclocal-1.9 -I ./admin
+	autoheader
+	automake-1.9 --foreign --add-missing --copy --include-deps
+	autoconf
 
-	local myconf
-	myconf=" "
+	local myconf="--without-builtin-libaudiofile"
 
-	use builtin-libaudiofile && myconf="${myconf} --with-builtin-libaudiofile"
-	use kdeenablefinal && myconf="${myconf} --enable-final"
-	use debug && myconf="${myconf} --enable-debug"
+	use mmx && append-flags "-mmmx"
 
-	# avoid sandbox warnings
-	# (the following two would be fine, but did not work :-(
-	# addpredict "${QTDIR}/etc/settings/.qtrc.lock"
-	# addpredict "${QTDIR}/etc/settings/.qt_plugins_*"
-	addpredict "${QTDIR}/etc/settings"
-	addpredict "/var/lib/rpm/__db.Providename"
-
-	# configure
-	make -f Makefile.dist \
-		RPM_OPT_FLAGS="${CFLAGS}" \
-		CONFIGURE_OPTS="${myconf} ${CONFIGURE_OPTS}" \
-		|| die "./configure failed"
-
-	# compile
-	MAKE_FLAGS="${MAKEOPTS}" emake || die "emake failed"
-}
-
-src_install() {
-	# install
-	make DESTDIR=${D} install || die
+	kde_src_compile
 }

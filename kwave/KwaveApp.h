@@ -50,7 +50,7 @@ public:
     virtual bool isOK();
 
     /** Destructor. */
-    ~KwaveApp();
+    virtual ~KwaveApp();
 
     /**
      * Returns the name of the application
@@ -131,7 +131,7 @@ protected:
      * @see #saveRecentFiles()
      */
     void saveConfig();
-    
+
     /** Initialises the aRts daemon */
     void initArts();
 

@@ -36,7 +36,10 @@ public:
      * Default constructor. Must be overwritten to initialize
      * the list with useful values.
      */
-    TypesMap() {};
+    TypesMap()
+	:m_list()
+    {
+    };
 
     /** Destructor */
     virtual ~TypesMap()

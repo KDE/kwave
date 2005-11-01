@@ -211,7 +211,8 @@ void FileInfo::PropertyTypesMap::fill()
 /***************************************************************************/
 /***************************************************************************/
 FileInfo::FileInfo()
-    :m_length(), m_rate(0.0), m_bits(0), m_tracks(0), m_properties()
+    :m_length(), m_rate(0.0), m_bits(0), m_tracks(0), m_properties(),
+     m_property_map()
 {
 }
 
@@ -224,6 +225,7 @@ FileInfo::FileInfo(const FileInfo &inf)
 /***************************************************************************/
 FileInfo::~FileInfo()
 {
+    clear();
 }
 
 /***************************************************************************/
@@ -307,10 +309,10 @@ void FileInfo::dump()
     qDebug("other properties:");
     QMap<FileProperty, QVariant>::Iterator it;
     for (it = m_properties.begin(); it != m_properties.end(); ++it) {
-        FileProperty key = it.key();
-        QVariant val = it.data();
-        QString name = m_property_map.name(key);
-        qDebug("   '%s' = '%s'", name.local8Bit().data(),
+	FileProperty key = it.key();
+	QVariant val = it.data();
+	QString name = m_property_map.name(key);
+	qDebug("   '%s' = '%s'", name.local8Bit().data(),
 	                         val.toString().local8Bit().data());
     }
     qDebug("-------------------------");

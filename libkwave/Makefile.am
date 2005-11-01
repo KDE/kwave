@@ -15,7 +15,7 @@
 #                                                                          #
 ############################################################################
 
-INCLUDES= @all_includes@ @ARTS_INCLUDES@
+INCLUDES= @all_includes@ @ARTS_INCLUDES@ @GST_CFLAGS@
 
 #if ! USE_SYSTEM_LIB_AUDIOFILE
 INCLUDES+=-I ../libaudiofile

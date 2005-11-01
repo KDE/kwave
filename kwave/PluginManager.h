@@ -248,7 +248,7 @@ public:
      * Unregisters a PlaybackDeviceFactory
      */
     void unregisterPlaybackDeviceFactory(PlaybackDeviceFactory *factory);
-    
+
 signals:
     /**
      * Forwards commands to the parent TopWidget execute a command
@@ -267,6 +267,11 @@ signals:
     void sigSignalNameChanged(const QString &name);
 
 public slots:
+
+    /**
+     * Notify all plugins that the signal or file is to be closed
+     */
+    void signalClosed();
 
     /**
      * Will be connected to the plugin's "closed" signal.
@@ -309,10 +314,10 @@ private:
     public:
         /** Constructor, stores data for later removal */
 	PluginDeleter(KwavePlugin *plugin, void *handle);
-	
+
 	/** Destructor, deletes and unloads the plugin */
 	virtual ~PluginDeleter();
-	
+
     private:
 	KwavePlugin *m_plugin; /**< Plugin to be deleted */
 	void *m_handle;        /**< Handle of the shared object */

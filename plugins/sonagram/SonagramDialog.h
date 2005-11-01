@@ -31,8 +31,11 @@ class SonagramDialog : public SonagramDlg
     Q_OBJECT
 
 public:
+    /** Constructor */
     SonagramDialog(KwavePlugin &p);
-    ~SonagramDialog();
+
+    /** Destructor */
+    virtual ~SonagramDialog();
 
     /**
      * Fills the current parameters into a parameter list.

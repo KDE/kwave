@@ -43,7 +43,7 @@ public:
     KeywordWidget(QWidget *parent, const char *name);
 
     /** Destructor */
-    ~KeywordWidget();
+    virtual ~KeywordWidget();
 
     /** Returns the list of keywords (sorted) */
     QStringList keywords();

@@ -31,7 +31,7 @@ public:
     BitrateSpinBox(QWidget *parent, const char *name);
 
     /** Destructor */
-    ~BitrateSpinBox();
+    virtual ~BitrateSpinBox();
 
     /** sets a list of allowed bitrates */
     virtual void allowRates(const QValueList<int> &list);
@@ -40,12 +40,12 @@ signals:
 
     /** emitted when the value changed and snapped in to a bitrate */
     void snappedIn(int bitrate);
-    
+
 public slots:
 
     /** snaps in to a new value */
     virtual void snapIn(int value);
-    
+
     /** select the next higher bitrate */
     virtual void stepUp();
 
@@ -61,7 +61,7 @@ private:
 
     /** list of allowed bitrates, sorted ascending */
     QValueList<int> m_rates;
-    
+
 };
 
 #endif /* _BITRATE_SPIN_BOX_H_ */

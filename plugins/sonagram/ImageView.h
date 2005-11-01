@@ -45,7 +45,7 @@ public:
     /**
      * Destructor
      */
-    ~ImageView();
+    virtual ~ImageView();
 
     /**
      * Sets a new QImage for displaying.

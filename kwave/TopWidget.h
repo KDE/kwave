@@ -65,7 +65,7 @@ public:
     /**
      * Destructor.
      */
-    ~TopWidget();
+    virtual ~TopWidget();
 
     /**
      * Loads a new file and updates the widget's title, menu, status bar

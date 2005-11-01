@@ -13,8 +13,11 @@ class MultiStateWidget : public QWidget
 
 public:
 
-    MultiStateWidget (QWidget *parent = 0, int = 0, int = 2);
-    ~MultiStateWidget ();
+    /** Constructor */
+    MultiStateWidget(QWidget *parent = 0, int = 0, int = 2);
+
+    /** Destructor */
+    virtual ~MultiStateWidget ();
 
     /**
      * Sets the number that will passed as argument to the

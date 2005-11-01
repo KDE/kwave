@@ -32,10 +32,8 @@ public:
      */
     MenuManager(QWidget *parent, KMenuBar &bar);
 
-    /**
-     * Destructor.
-     */
-    ~MenuManager();
+    /** Destructor. */
+    virtual ~MenuManager();
 
     /**
      * Executes menu commands.

@@ -17,7 +17,7 @@
 
 # this 10 paths are KDE specific. Use them:
 # kde_htmldir       Where your docs should go to. (contains lang subdirs)
-# kde_appsdir       Where your application file (.kdelnk) should go to. 
+# kde_appsdir       Where your application file (.kdelnk) should go to.
 # kde_icondir       Where your icon should go to.
 # kde_minidir       Where your mini icon should go to.
 # kde_datadir       Where you install application data. (Use a subdir)
@@ -30,7 +30,7 @@ APPSDIR= $(DESTDIR)$(kde_appsdir)/Multimedia
 CONFDIR= $(DESTDIR)$(kde_datadir)/$(PACKAGE)
 PIXDIR = $(DESTDIR)$(kde_datadir)/$(PACKAGE)/pics
 # set the include path for X, qt and KDE
-INCLUDES= -I${topdir} @all_includes@ @ARTS_INCLUDES@
+INCLUDES= -I${topdir} @all_includes@ @ARTS_INCLUDES@ @GST_CFLAGS@
 ICONDIR = $(DESTDIR)$(kde_icondir)
 
 mimedir = $(kde_mimedir)/audio
@@ -127,12 +127,14 @@ PIXMAPS=\
 
 # the library search path
 kwave_LDFLAGS = -L../libkwave -L../libgui \
-	`$(ARTSCCONFIG) --libs` @all_libraries@ -export-dynamic -dy
+	`$(ARTSCCONFIG) --libs` @all_libraries@ \
+	-export-dynamic -dy
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
 kwave_LDADD   =  -lkwavegui -lkwave \
 	@KDE_VERSION_SPECIFIC_LIBS@ \
+	@GST_LIBS@ \
 	-lX11 -lXext -lpthread -ldl -lm
 
 # if you "make distclean", this files get removed. If you want to remove
@@ -170,7 +172,7 @@ icons: $(ICONS)
 # the binary itself is already installed from automake
 # use mkinstalldirs, not "install -d"
 # don't install a list of file. Just one file per install.
-# if you have more of them, create a subdirectory with an extra Makefile 
+# if you have more of them, create a subdirectory with an extra Makefile
 
 install-data-local: icons
 	$(mkinstalldirs) $(APPSDIR)

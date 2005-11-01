@@ -44,7 +44,7 @@ public:
     Functions();
 
     /** Destructor */
-    ~Functions();
+    virtual ~Functions();
 
     /** Returns the number of functions */
     unsigned int count();

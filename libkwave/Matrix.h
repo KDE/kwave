@@ -50,7 +50,7 @@ public:
 	   unsigned sx, unsigned sy, unsigned mx, unsigned my);
 
     /** The destructor. */
-    ~Matrix();
+    virtual ~Matrix();
 
     unsigned x() const {
 	return mX;

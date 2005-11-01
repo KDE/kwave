@@ -37,7 +37,7 @@ public:
     LineParser(const QByteArray &init);
 
     /** Destructor. */
-    ~LineParser ();
+    virtual ~LineParser ();
 
     /**
      * Parses one line and returns the line without trailing

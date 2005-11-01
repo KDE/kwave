@@ -43,7 +43,7 @@ public:
     /**
      * Destructor.
      */
-    ~Signal();
+    virtual ~Signal();
 
     /**
      * Closes the signal by removing all tracks.

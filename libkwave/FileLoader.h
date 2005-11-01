@@ -32,10 +32,10 @@ public:
      * like a large string.
      * @param name path to the file to be loaded.
      */
-    FileLoader (const QString &name);
+    FileLoader(const QString &name);
 
     /** Destructor, frees the buffer with the content of the file */
-    ~FileLoader ();
+    virtual ~FileLoader();
 
     /** Returns the buffer with the file's content. */
     const QByteArray &buffer();

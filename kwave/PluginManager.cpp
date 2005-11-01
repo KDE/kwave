@@ -115,6 +115,9 @@ PluginManager::~PluginManager()
     // inform all plugins and client windows that we close now
     emit sigClosed();
 
+    // wait until all plugins are really closed
+    this->sync();
+
     // release all unique plugins
     QPtrListIterator<KwavePlugin> itu(m_unique_plugins);
     for (itu.toLast() ; itu.current(); ) {
@@ -387,14 +390,14 @@ void PluginManager::sync()
 {
     bool one_is_running = true;
     while (one_is_running) {
-	QPtrListIterator<KwavePlugin> it(m_loaded_plugins);
 	one_is_running = false;
 
+	QPtrListIterator<KwavePlugin> it(m_loaded_plugins);
 	for (; it.current(); ++it) {
 	    KwavePlugin *plugin = it.current();
 	    if (plugin->isRunning()) {
-		qDebug("waiting for plugin '%s'",
-		       plugin->name().local8Bit().data());
+// 		qDebug("waiting for plugin '%s'",
+// 		       plugin->name().local8Bit().data());
 		one_is_running = true;
 		break;
 	    }
@@ -402,7 +405,7 @@ void PluginManager::sync()
 
 	if (one_is_running) {
 	    qApp->processEvents();
-	    sleep(1000);
+	    pthread_yield();
 	}
     }
 }
@@ -633,6 +636,12 @@ void PluginManager::forwardCommand()
 }
 
 //***************************************************************************
+void PluginManager::signalClosed()
+{
+    emit sigClosed();
+}
+
+//***************************************************************************
 void PluginManager::pluginClosed(KwavePlugin *p)
 {
     Q_ASSERT(p);
@@ -786,7 +795,6 @@ void PluginManager::registerPlaybackDeviceFactory(
     PlaybackDeviceFactory *factory)
 {
     m_playback_factories.append(factory);
-
 }
 
 //****************************************************************************

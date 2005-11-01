@@ -1,18 +1,20 @@
 
-o possible bug/problem: start of a plugin while another plugin is
-  still running -> leads to SEGFAULT!
-  -> use pid()/waitpid() for detecting thread termination
-  + some precautions that the thread's pid already is valid,
-  maybe initialize with parent pid [ppid()]
-  PROBLEM: is this garantized to work with other threading packages
-           than pthread under linux?
+o use gstreamer as internal streaming engine
 
-o related to above: app crashes on shutdown when a plugin is still running
+o get rid of aRts
+
+o use LADSPA
+
+o support for sample rate conversion, libsamplerate
+
+o bug: defaults for record plugin if opened the first time
+  -> leads to buffer underrun
+
+o problem with SignalWidget / XOR mode, fails on Nvidia
+
+o app crashes on shutdown when a plugin is still running
 
 o crashes at startup when no aRts server can be connected (seen on Mandrake-9)
-
-o bugfix: start plugin (e.g. Sonagram) while playback leads to
-  lock situation
 
 o handling of big endian in PlayBack-OSS.cpp and PlayBack-ALSA.cpp
 
@@ -45,11 +47,6 @@ o auto-detect pause and set markers, for splitting recorded stuff into several
   parts and then save them to disc as separate files
   (feature requested by Stefan Macher)
 
-o record plugin: support for ALSA, important for kernel 2.6 support!
-
-o record plugin: support for aRts
-  currently aRts has no working recording support :-(
-
 o virtual memory: multiple swap directories
 
 o change from id3lib to taglib
@@ -81,8 +78,6 @@ o fileinfo plugin: auto-generate filename from "track - title"
 
 o Filter: class needs to be tested
 
-o Signal::resample should use lowpass interpolation instead of spline
-
 o MainWidget: re-enable accelerator keys for 0..9
 
 o use a MenuManager in the plugins (e.g. sonagram)
@@ -93,13 +88,13 @@ o resample signal before inserting into a signal with a different sample
 o optimized cut/paste, at zero-crossing
 
 o amplifymax does not work
-  -> aRts ?
+  -> normalizer ?
 
 o amplifyclip does not work
-  -> aRts ?
+  -> gstreamer/LADSPA ?
 
 o feature "pulse train" is not yet implemented
-  -> aRts ?
+  -> gstreamer/LADSPA ?
 
 o move label handling to class LabelManager
 
@@ -124,13 +119,13 @@ o SonagramWindow::toSignal()
 o rework of the FFTWidget
 
 o bugfix: crash on "additive synthesis"
-  -> aRts ?
+  -> gstreamer/LADSPA ?
 
 o some commands do not work: fft, averagefft, distort
-  -> aRts ?
+  -> gstreamer/LADSPA ?
 
 o bugfix: channel mixer dialog causes segmentation fault -> disabled
-  -> aRts ?
+  -> gstreamer/LADSPA ?
 
 o use standard KDE accelerators (see KStdAccel)
 

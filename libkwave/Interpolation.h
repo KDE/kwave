@@ -31,7 +31,7 @@ public:
     Interpolation(interpolation_t type = INTPOL_LINEAR);
 
     /** Destructor. */
-    virtual ~Interpolation ();
+    virtual ~Interpolation();
 
     bool prepareInterpolation(Curve *points);
 

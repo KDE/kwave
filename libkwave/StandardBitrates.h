@@ -29,7 +29,7 @@ public:
 
     /** Destructor */
     virtual ~StandardBitrates();
-    
+
     /** returns a const reference to the list of bitrates */
     static const StandardBitrates &instance();
 
@@ -39,7 +39,7 @@ public:
      * @return nearest bitrate in [bits/second]
      */
     virtual int nearest(int rate) const;
-    
+
 };
 
 #endif /* _STANDARD_BITRATES_H_ */

@@ -101,7 +101,7 @@ public:
     bool equals(const FileInfo &other);
 
     /** Assignment operator */
-    inline FileInfo operator = (const FileInfo &source) {
+    inline FileInfo & operator = (const FileInfo &source) {
 	copy(source);
 	return *this;
     };

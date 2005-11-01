@@ -49,7 +49,6 @@ public:
 
     /** assignment operator */
     Triple<T1,T2,T3> &operator = (const Triple<T1,T2,T3> &t2) {
-	qDebug("Triple<T1,T2,T3> operator = (const Triple<T1,T2,T3> &t2)");
 	m_first  = t2.first();
 	m_second = t2.second();
 	m_third  = t2.third();

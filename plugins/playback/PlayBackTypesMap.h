@@ -24,6 +24,9 @@
 class PlayBackTypesMap: public TypesMap<unsigned int, playback_method_t>
 {
 public:
+    /** Destructor */
+    virtual ~PlayBackTypesMap() {};
+
     /** fill function for the map */
     virtual void fill();
 };

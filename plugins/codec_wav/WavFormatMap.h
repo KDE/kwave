@@ -29,6 +29,9 @@ public:
     /** Constructor, fills the map with all known types */
     WavFormatMap();
 
+    /** Destructor */
+    virtual ~WavFormatMap() {};
+
     /** Returns the name of an id, or "unknown" if not found. */
     const QString &findName(unsigned int id);
 

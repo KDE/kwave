@@ -34,6 +34,9 @@ public:
     /** Constructor */
     AboutPlugin(const PluginContext &c);
 
+    /** Destructor */
+    virtual ~AboutPlugin() {};
+
     /**
      * shows the about dialog,
      * @see KwavePlugin::start()

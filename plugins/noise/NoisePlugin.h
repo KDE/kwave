@@ -32,6 +32,9 @@ public:
     /** Constructor */
     NoisePlugin(const PluginContext &c);
 
+    /** Destructor */
+    virtual ~NoisePlugin() {};
+
     /** Fills the selected area with noise */
     virtual void run(QStringList);
 

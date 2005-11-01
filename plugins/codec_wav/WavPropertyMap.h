@@ -29,6 +29,9 @@ public:
     /** Default constructor, with initializing */
     WavPropertyMap();
 
+    /** Destructor */
+    virtual ~WavPropertyMap() {};
+
     /**
      * Returns the chunk name of a property or an empty string
      * if nothing found (reverse lookup).

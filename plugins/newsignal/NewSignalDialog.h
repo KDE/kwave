@@ -43,6 +43,9 @@ public:
                     unsigned int rate, unsigned int bits,
                     unsigned int tracks, bool by_time);
 
+    /** Destructor */
+    virtual ~NewSignalDialog() {};
+
     /**
      * Wrapper for the QDialog's exec() function, returns if any
      * of the dialog's pointer is null.

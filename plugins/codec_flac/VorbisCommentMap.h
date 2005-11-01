@@ -29,6 +29,9 @@ public:
     /** Default constructor, with initializing */
     VorbisCommentMap();
 
+    /** Destructor */
+    virtual ~VorbisCommentMap() {};
+
     /**
      * Returns the vorbis comment name of a property or an empty string
      * if nothing found (reverse lookup).

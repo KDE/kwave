@@ -24,6 +24,9 @@
 class RecordTypesMap: public TypesMap<unsigned int, record_method_t>
 {
 public:
+    /** Destructor */
+    virtual ~RecordTypesMap() {};
+
     /** fill function for the map */
     virtual void fill();
 };

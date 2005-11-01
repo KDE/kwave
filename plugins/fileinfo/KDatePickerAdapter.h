@@ -34,6 +34,10 @@ public:
     KDatePickerAdapter(QWidget *parent, const char *)
         :KDatePicker(parent)
     {};
+
+    /** Destructor */
+    virtual ~KDatePickerAdapter() {};
+
 };
 
 #endif /* _K_DATE_PICKER_ADAPTER_H_ */

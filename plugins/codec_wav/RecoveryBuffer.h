@@ -33,7 +33,10 @@ public:
      */
     RecoveryBuffer(unsigned int offset, unsigned int length, char *buffer);
 
-    /** implementation of Recoverysource::read */
+    /** Destructor */
+    virtual ~RecoveryBuffer() {};
+
+    /** implementation of RecoverySource::read */
     virtual unsigned int read(unsigned int offset, char *data,
                               unsigned int bytes);
 

@@ -28,7 +28,11 @@ template <class T>
 class SignalProxy: public AsyncSync
 {
 public:
+    /** Constructor */
     SignalProxy(QObject *owner, const char *slot);
+
+    /** Destructor */
+    virtual ~SignalProxy() {};
 };
 
 //***************************************************************************

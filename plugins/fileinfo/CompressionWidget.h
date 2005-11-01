@@ -35,7 +35,7 @@ public:
 	ABR_MODE = 0, /**< average bitrate mode */
 	VBR_MODE      /**< variable bitrate mode */
     } Mode;
-    
+
     /** Constructor */
     CompressionWidget(QWidget *parent, const char *name);
 
@@ -56,9 +56,9 @@ public:
     virtual void enableABR(bool enable, bool lowest, bool highest);
 
     /** Enable or disable VBR mode */
-    virtual void enableVBR(bool enable);    
+    virtual void enableVBR(bool enable);
 
-   
+
     /**
      * Sets the bitrates in ABR mode
      * @param nominal the nominal bitrate or zero if not used
@@ -71,7 +71,7 @@ public:
      * Sets the VBR base quality or zero if unused.
      */
     virtual void setQuality(int quality);
-    
+
     /** Returns the current bitrate mode: ABR or VBR */
     virtual Mode mode();
 
@@ -83,7 +83,7 @@ public:
 
     /** Returns the state of the "use highest" checkbox */
     virtual bool highestEnabled();
-    
+
     /**
      * Returns the bitrate settings of ABR mode
      * @param nominal receives the nominal bitrate
@@ -114,7 +114,7 @@ private slots:
 
     /** called when the "highest bitrate" slider has changed */
     virtual void highestChanged(int value);
-    
+
     /** called when the "highest bitrate" checkbox has been toggled */
     virtual void highestToggled(bool on);
 

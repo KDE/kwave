@@ -41,6 +41,7 @@ public:
      */
     MenuRoot(KMenuBar &bar);
 
+    /** Destructor */
     virtual ~MenuRoot();
 
     /**

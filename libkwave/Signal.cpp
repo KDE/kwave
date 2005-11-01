@@ -286,42 +286,6 @@ void Signal::selectTrack(unsigned int track, bool select)
 //    return max;
 //}
 ////*********************************************************
-//void Signal::resample (const char *) {
-//    int newrate = 44100;
-//    // ### WRONG: BETTER USE LOWPASS INTERPOLATION !!! ###
-//    Interpolation interpolation(INTPOL_SPLINE);   //get Spline Interpolation
-//    Curve *points = new Curve;
-//
-//    //  int oldmax=getChannelMaximum();
-//
-//    int newlen = (int)((double)length * (double)newrate / rate);
-//    int *newsample = getNewMem(newlen);
-//
-//    if (newsample && points) {
-//	for (int i = 0; i < length; i++)
-//	    points->append (((double) i) / length, (double) sample[i]);
-//
-//	QMemArray<double> *y = interpolation.interpolation(points, newlen);
-//	if (y) {
-//	    delete points;
-//	    points = 0;
-//
-//	    getridof (sample);
-//
-//	    sample = newsample;
-//	    for (int i = 0; i < newlen; i++) newsample[i] = (int)*y[i];
-//
-//	    length = newlen;
-//	    begin = 0;
-//	    len = length;
-//	    //      amplifyChannelMax (oldmax);
-//	    rate = newrate;
-//	    delete y;
-//	} else getridof (newsample);
-//    } else getridof (newsample);
-//    if (points) delete points;
-//}
-////*********************************************************
 //int getMaxPrimeFactor (int len) {
 //    int max = 1;
 //    int tst = len;

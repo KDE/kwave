@@ -35,6 +35,9 @@ public:
     /** Constructor */
     MouseMark();
 
+    /** Destructor */
+    virtual ~MouseMark() { };
+
     /**
      * Sets the selection to a new range.
      * @param l start position

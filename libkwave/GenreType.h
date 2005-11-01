@@ -31,6 +31,10 @@ private:
     GenreType();
 
 public:
+
+    /** Destructor */
+    virtual ~GenreType() {};
+
     /** get the localized name from the id */
     static QString name(int id);
 
@@ -39,7 +43,7 @@ public:
 
     /** try to find the numeric id from the name */
     static int id(const QString &name);
-    
+
 protected:
 
     /** fills the map if it is empty */
@@ -49,7 +53,7 @@ private:
 
     /** map with numeric ids and names */
     static QMap<int, QString> m_map;
-            
+
 };
 
 #endif /* _GENRE_TYPE_H_ */

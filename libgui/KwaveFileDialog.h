@@ -42,11 +42,14 @@ public:
                     QWidget *parent, const char *name, bool modal,
                     const QString last_url = 0, const QString last_ext = 0);
 
+    /** Destructor */
+    virtual ~KwaveFileDialog() {} ;
+
     /**
      * Returns the last used extension, including "*."
      */
     QString selectedExtension();
-    
+
 protected:
 
     /** load last settings */

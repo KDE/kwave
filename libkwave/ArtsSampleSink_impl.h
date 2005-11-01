@@ -35,6 +35,9 @@ public:
     /** Default constructor. Should never be used */
     ArtsSampleSink_impl();
 
+    /** Destructor */
+    virtual ~ArtsSampleSink_impl() {};
+
     /**
      * Constructor.
      * @param writer a SampleWriter to receive the aRts output

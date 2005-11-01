@@ -38,6 +38,9 @@ public:
      */
     CurveStreamAdapter_impl(Curve &curve, unsigned int length);
 
+    /** Destructor */
+    virtual ~CurveStreamAdapter_impl() {};
+
     /** @see aRts documentation */
     void calculateBlock(unsigned long samples);
 

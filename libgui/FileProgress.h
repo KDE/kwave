@@ -50,6 +50,9 @@ public:
 	unsigned int samples, double rate, unsigned int bits,
 	unsigned int tracks);
 
+    /** Destructor */
+    virtual ~FileProgress() {};
+
     /**
      * Returns true if the dialog is unusable or the user
      * has pressed the "cancel" button.
@@ -83,7 +86,7 @@ public slots:
      *        the number of tracks for getting the real length
      */
     void setLength(unsigned int samples);
-    
+
 protected slots:
 
     /**
@@ -144,7 +147,7 @@ protected:
 
     /** label with length info, changes in streaming mode */
     QLabel *m_lbl_length;
-    
+
     /** progress bar */
     KProgress *m_progress;
 
@@ -171,7 +174,7 @@ protected:
 
     /** number of tracks */
     unsigned int m_tracks;
-    
+
 };
 
 #endif /* _FILE_PROGRESS_H_ */

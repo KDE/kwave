@@ -28,6 +28,8 @@ class ArtsMultiTrackFilter
 {
 
 public:
+    /** Destructor */
+    virtual ~ArtsMultiTrackFilter() {};
 
     /**
      * Returns a pointer to one of the filter objects. (normally used for

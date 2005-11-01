@@ -42,6 +42,9 @@ public:
       */
      ArtsSampleSource_impl(SampleReader *rdr);
 
+    /** Destructor */
+    virtual ~ArtsSampleSource_impl() {};
+
     /**
      * Receiver and data processing function.
      * @see aRts/MCOP documentation

@@ -37,6 +37,9 @@ public:
     UndoDeleteAction(unsigned int track, unsigned int offset,
                      unsigned int length);
 
+    /** Destructor */
+    virtual ~UndoDeleteAction() { };
+
     /** @see UndoAction::description() */
     virtual QString description();
 

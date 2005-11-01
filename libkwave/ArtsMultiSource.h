@@ -24,6 +24,10 @@
 class ArtsMultiSource
 {
 public:
+
+    /** Destructor */
+    virtual ~ArtsMultiSource() {};
+
     /**
      * Returns a pointer to one of the aRts sample sources. (Used for
      * connecting to the internal aRts streams)

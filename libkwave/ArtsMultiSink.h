@@ -25,6 +25,10 @@
 class ArtsMultiSink
 {
 public:
+
+    /** Destructor */
+    virtual ~ArtsMultiSink() {};
+
     /**
      * Returns a pointer to one of the aRts sample sinks. (Used for
      * connecting to the internal aRts streams)

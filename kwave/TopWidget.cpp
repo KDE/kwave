@@ -776,10 +776,14 @@ int TopWidget::revert()
 //***************************************************************************
 bool TopWidget::closeFile()
 {
-    ThreadsafeX11Guard x11_guard;
+    if (m_plugin_manager && m_plugin_manager->onePluginRunning()) {
+	qWarning("TopWidget::closeFile() - currently not possible, "\
+	         "a plugin is running :-(");
+	return false;
+    }
 
-    Q_ASSERT(m_main_widget);
     if (signalManager().isModified()) {
+	ThreadsafeX11Guard x11_guard;
 	int res =  KMessageBox::warningYesNoCancel(this,
 	    i18n("This file has been modified.\nDo you want to save it?"));
 	if (res == KMessageBox::Cancel) return false;
@@ -791,6 +795,13 @@ bool TopWidget::closeFile()
 	}
     }
 
+    // close all plugins that still might use the current signal
+    if (m_plugin_manager) {
+	m_plugin_manager->sync();
+	m_plugin_manager->signalClosed();
+    }
+
+    Q_ASSERT(m_main_widget);
     if (m_main_widget) m_main_widget->closeSignal();
 
     m_url = KURL();

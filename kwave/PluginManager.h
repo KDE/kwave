@@ -89,6 +89,9 @@ public:
      */
     int executePlugin(const QString &name, QStringList *params);
 
+    /** Returns true if at least one plugin is currently running */
+    bool onePluginRunning();
+
     /**
      * Waits until all currently running acions have completed.
      */

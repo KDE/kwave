@@ -386,27 +386,22 @@ int PluginManager::executePlugin(const QString &name, QStringList *params)
 }
 
 //***************************************************************************
+bool PluginManager::onePluginRunning()
+{
+    QPtrListIterator<KwavePlugin> it(m_loaded_plugins);
+    for (; it.current(); ++it) {
+	KwavePlugin *plugin = it.current();
+	if (plugin->isRunning()) return true;
+    }
+    return false;
+}
+
+//***************************************************************************
 void PluginManager::sync()
 {
-    bool one_is_running = true;
-    while (one_is_running) {
-	one_is_running = false;
-
-	QPtrListIterator<KwavePlugin> it(m_loaded_plugins);
-	for (; it.current(); ++it) {
-	    KwavePlugin *plugin = it.current();
-	    if (plugin->isRunning()) {
-// 		qDebug("waiting for plugin '%s'",
-// 		       plugin->name().local8Bit().data());
-		one_is_running = true;
-		break;
-	    }
-	}
-
-	if (one_is_running) {
-	    qApp->processEvents();
-	    pthread_yield();
-	}
+    while (onePluginRunning()) {
+	qApp->processEvents();
+	pthread_yield();
     }
 }
 

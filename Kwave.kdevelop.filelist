@@ -467,8 +467,6 @@ kwave/ClipBoard.cpp
 kwave/ClipBoard.h
 kwave/CodecManager.cpp
 kwave/CodecManager.h
-kwave/Kimg2mpgSplash.cpp
-kwave/Kimg2mpgSplash.h
 kwave/kwave.desktop
 kwave/KwaveApp.cpp
 kwave/KwaveApp.h
@@ -710,10 +708,7 @@ doc/de/common/logotp3.png
 bin/beautify-source
 bin/changes-to-docbook.sh
 bin/distribute
-bin/docbook2xml
 bin/get_lsm_entry.sh
-bin/increment_patchlevel.sh
-bin/increment_release.sh
 bin/insert-changes.sh
 bin/make_patch.sh
 bin/menusconfig2cpp.sh

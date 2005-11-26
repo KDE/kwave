@@ -104,7 +104,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
 		"(Hint: you might find out the name and process id of \n"\
 		"the program by calling: \"fuser -v %1\" \n"\
 		"on the command line.)").arg(
-		m_device_name);
+		m_device_name.section('|',0,0));
 		break;
 	    default:
 		reason = strerror(errno);
@@ -118,7 +118,8 @@ QString PlayBackOSS::open(const QString &device, double rate,
     if (fcntl(m_handle, F_GETFL) & O_NONBLOCK) {
 	// resetting O:NONBLOCK failed
 	return i18n("The device '%1' cannot be opened "\
-	            "in the correct mode.").arg(m_device_name);
+	            "in the correct mode.").arg(
+	            m_device_name.section('|',0,0));
     }
 
     int format = (m_bits == 8) ? AFMT_U8 : AFMT_S16_LE;

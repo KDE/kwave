@@ -428,7 +428,8 @@ QString PlayBackALSA::open(const QString &device, double rate,
 		break;
 	    default:
 		reason = i18n("Opening the device '%1' failed: %2").arg(
-	            device).arg(QString::fromLocal8Bit(snd_strerror(err)));
+	            device.section('|',0,0)).arg(
+		    QString::fromLocal8Bit(snd_strerror(err)));
 	}
 	return reason;
     }

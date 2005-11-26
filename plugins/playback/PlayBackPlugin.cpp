@@ -436,7 +436,7 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 	// show an error message box
 	KMessageBox::error(parentWidget(), result,
 	    i18n("unable to open '%1'").arg(
-	    params.device));
+	    params.device.section('|',0,0)));
     }
 
     return m_device;

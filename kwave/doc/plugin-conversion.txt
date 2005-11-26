@@ -1,3 +1,19 @@
+############################################################################
+# plugin-conversion.txt  -  just some notes about how to convert old plugins
+#                            -------------------
+#   begin                : Sat Jul 28 2001
+#   copyright            : (C) 2001 by Thomas Eschenbacher
+#   email                : Thomas.Eschenbacher@gmx.de
+############################################################################
+#
+############################################################################
+#                                                                          #
+#    This program is free software; you can redistribute it and/or modify  #
+#    it under the terms of the GNU General Public License as published by  #
+#    the Free Software Foundation; either version 2 of the License, or     #
+#    (at your option) any later version.                                   #
+#                                                                          #
+############################################################################
 
 - use one file per class
 
@@ -24,3 +40,5 @@
 - do not include kwave header files with <...>, use "..." instead
 
 - remove the prefix "get" from the name of all methods that return a value
+
+### EOF ###

@@ -1,31 +1,43 @@
 #!/bin/sh
+############################################################################
+#   set_version.sh - script to set version numbers of a project
+#                            -------------------
+#   begin                : Sat Feb 20 1999
+#   copyright            : (C) 1999 by Thomas Eschenbacher
+#   email                : Thomas.Eschenbacher@gmx.de
+############################################################################
 #
-# set_version - script to set version numbers of a project
-# 
-# 20.02.1999 by Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de> (THE)
+############################################################################
+#                                                                          #
+#    This program is free software; you can redistribute it and/or modify  #
+#    it under the terms of the GNU General Public License as published by  #
+#    the Free Software Foundation; either version 2 of the License, or     #
+#    (at your option) any later version.                                   #
+#                                                                          #
+############################################################################
 #
 # parameters:
 # $1 = project root directory
 # $2 = new version number
 # $3 = new version's date+time
 #
-# All version numbers consist of major.minor.revision (e.g. 0.4.2) Only the 
-# last number, the release will be incremented. Any suffix (patchlevel) 
+# All version numbers consist of major.minor.revision (e.g. 0.4.2) Only the
+# last number, the release will be incremented. Any suffix (patchlevel)
 # will be removed.
 #
-# the updated files are: 
+# the updated files are:
 # - VERSION
 # - kwave.lsm
 # - plugins/about/AboutDialog.cpp
 #
-# NOTE: - this should be considered a quick hack, no error 
+# NOTE: - this should be considered a quick hack, no error
 #         checking is performed !!!
 #       - there must be no additional spaces at the VERSION line
 #         between the word "VERSION" and the "=".
 #
 # 1999-11-08 THE, adapted the script to work for the kwave project
 #
-# 1999-11-12 Martin Wilz, added date for .lsm file and changed file 
+# 1999-11-12 Martin Wilz, added date for .lsm file and changed file
 #            permissions of configure script back to executable
 #
 # 1999-12-26 THE, split the former "make_release" script into four parts:
@@ -66,13 +78,13 @@ echo $NEW_VERSION > VERSION
 # update the file kwave.lsm
 #
 cat kwave.lsm | awk -v newver=$NEW_VERSION \
-	-v newdate=`LC_ALL=en_EN date --date=$NEW_DATE +%d%b%Y` '{ 
+	-v newdate=`LC_ALL=en_EN date --date=$NEW_DATE +%d%b%Y` '{
 	split($0, a, ":") } {
 	if (a[1] == "Version") {
 	    printf("Version:\t%s\n", newver)
 	} else if (a[1] == "Entered-date") {
 	    printf("Entered-date:\t%s\n", toupper(newdate))
-	} else 
+	} else
 	    print $0
 	}' > kwave.lsm.new
 mv kwave.lsm /tmp/kwave.lsm.old
@@ -82,7 +94,7 @@ mv kwave.lsm.new kwave.lsm
 # update the file configure.in
 #
 cat configure.in | \
-	awk -v newver=$NEW_VERSION '{ 
+	awk -v newver=$NEW_VERSION '{
 	split($0, a, "(") } {
 	if (a[1] == "AC_INIT") {
 	    printf("AC_INIT([kwave],[%s])\n", newver)

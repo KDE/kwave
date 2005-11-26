@@ -1,7 +1,21 @@
 #!/bin/sh
+############################################################################
+#   menusconfig2cpp - stores entries menusconfig into a cpp file
+#                            -------------------
+#   begin                : Tue Mar 14 2000
+#   copyright            : (C) 2000 by Thomas Eschenbacher
+#   email                : Thomas.Eschenbacher@gmx.de
+############################################################################
 #
-# menusconfig2cpp - stores entries menusconfig into a cpp file
-# 
+############################################################################
+#                                                                          #
+#    This program is free software; you can redistribute it and/or modify  #
+#    it under the terms of the GNU General Public License as published by  #
+#    the Free Software Foundation; either version 2 of the License, or     #
+#    (at your option) any later version.                                   #
+#                                                                          #
+############################################################################
+#
 # 2000-03-14 by Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
 # 2002-02-08 fixed support for macros
 #
@@ -15,7 +29,7 @@
 # $1 full path to the "menus.config" file
 # $2 output file
 #
-# NOTE: this should be regarded to be a quick hack, only few error checking 
+# NOTE: this should be regarded to be a quick hack, only few error checking
 #       is performed !!!
 
 # uncomment this for debugging

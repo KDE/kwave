@@ -1,14 +1,28 @@
 #!/bin/sh
+############################################################################
+#        beautify-source  -  adjust coding style to the one of Kwave
+#                            -------------------
+#   begin                : Fri May 05 2000
+#   copyright            : (C) 2000 by Thomas Eschenbacher
+#   email                : Thomas.Eschenbacher@gmx.de
+############################################################################
+#
+############################################################################
+#                                                                          #
+#    This program is free software; you can redistribute it and/or modify  #
+#    it under the terms of the GNU General Public License as published by  #
+#    the Free Software Foundation; either version 2 of the License, or     #
+#    (at your option) any later version.                                   #
+#                                                                          #
+############################################################################
 #
 # Beautifies all C/C++ header and source files according to my
 # personally favorite coding style. It makes use of the "Artistic Style"
-# package available at "http://astyle.sourceforge.net/" 
+# package available at "http://astyle.sourceforge.net/"
 # or as rpm named "astyle"
 #
 # Thanks to Tal Davidson, Israel (E-mail: davidsont@bigfoot.com)
 # for writing it :-)
-#
-# 2000-05-05 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
 #
 
 function Format_File() {
@@ -30,7 +44,7 @@ function Format_File() {
 };
 
 #
-# uncomment the 7 lines below if your source comes from 
+# uncomment the 7 lines below if your source comes from
 # a DOS / Windooze environment...
 #
 # for file in `find -type f | grep -E .S$\|.s$\|.cpp$\|.c$\|.h$\|?akefile\|.orig$`; do

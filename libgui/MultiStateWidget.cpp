@@ -1,6 +1,21 @@
-//provides methods of multistateWidget a Class that switches the image it
-// displays on clicking, used for the channel enable/disable lamps...
+/***************************************************************************
+  MultiStateWidget.cpp  -  provides methods of multistateWidget a Class that
+                           switches the image it, displays on clicking, used
+                           for the channel enable/disable lamps...
+			     -------------------
+    begin                : Sun Jun 04 2000
+    copyright            : (C) 2000 by Martin Wilz
+    email                : martin@wilz.de
+ ***************************************************************************/
 
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 #include "config.h"
 #include <qdir.h>
 #include <qimage.h>

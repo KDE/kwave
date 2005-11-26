@@ -1,3 +1,19 @@
+/***************************************************************************
+      Interpolation.cpp  -  Interpolation types
+			     -------------------
+    begin                : Sat Feb 03 2001
+    copyright            : (C) 2001 by Thomas Eschenbacher
+    email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 
 #include "klocale.h"
 
@@ -103,20 +119,20 @@ double Interpolation::singleInterpolation(double input)
 		unsigned int i = 1;
 		while ((m_x[i] < input) && (i < count))
 		    i++;
-		
+
 		double dif1 = m_x[i] - m_x[i-1];  //!=0 per definition
 		double dif2 = input - m_x[i-1];
-		
+
 		return (m_y[i-1] + ((m_y[i] - m_y[i-1])*dif2 / dif1));
 	    }
 	case INTPOL_SPLINE:
 	    {
 		double a, b, diff;
 		unsigned int j = 1;
-		
+
 		while ((m_x[j] < input) && (j < count))
 		    j++;
-		
+
 		diff = m_x[j] - m_x[j-1];
 
 		a = (m_x[j] - input) / diff;    //div should not be 0
@@ -147,21 +163,21 @@ double Interpolation::singleInterpolation(double input)
 	    break;
 	case INTPOL_POLYNOMIAL7:
 	    degree = 7;
-	    break;		
+	    break;
     }
-	
+
     if (degree && (degree <= 7)) {
 	// use polynom
 	double ny;
 	QMemArray<double> ax(7);
 	QMemArray<double> ay(7);
-	
+
 	unsigned int i = 1;
 	while ((m_x[i] < input) && (i < count))
 	    i++;
-	
+
 	createPolynom(m_curve, ax, ay, i - 1 - degree/2, degree);
-	
+
 	ny = ay[0];
 	for (unsigned int j = 1; j < degree; j++)
 	    ny = ny * (input - ax[j]) + ay[j];
@@ -240,16 +256,16 @@ QMemArray<double> Interpolation::interpolation(Curve *points,
 		if (tmp) {
 		    lx = tmp->x;
 		    ly = tmp->y;
-		
+
 		    for (tmp = points->next(tmp); tmp; tmp = points->next(tmp)) {
 			x = tmp->x;
 			y = tmp->y;
-		
+
 			double dify = (y - ly);
 			int difx = (int) ((x - lx) * len);
 			int min = (int)(lx * len);
 			double h;
-		
+
 			for (int i = (int)(lx * len); i < (int)(x*len); i++) {
 			    h = (double(i - min)) / difx;
 			    y_out[i] = ly + (h * dify);
@@ -264,7 +280,7 @@ QMemArray<double> Interpolation::interpolation(Curve *points,
 	    {
 		int t = 1;
 		unsigned int count = points->count();
-		
+
 		double ny = 0;
 		QMemArray<double> der(count + 1);
 		QMemArray<double> x(count + 1);
@@ -286,18 +302,18 @@ QMemArray<double> Interpolation::interpolation(Curve *points,
 		    for (int i = start; i < ent; i++) {
 			double xin = ((double) i) / len;
 			double h, b, a;
-			
+
 			h = x[j] - x[j - 1];
-			
+
 			if (h != 0) {
 			    a = (x[j] - xin) / h;
 			    b = (xin - x[j - 1]) / h;
-			
+
 			    ny = (a * y[j - 1] + b * y[j] +
 			         ((a * a * a - a) * der[j - 1] +
 			         (b * b * b - b) * der[j]) * (h * h) / 6.0);
 			}
-			
+
 			y_out[i] = ny;
 			start = ent;
 		    }
@@ -316,23 +332,23 @@ QMemArray<double> Interpolation::interpolation(Curve *points,
 		QMemArray<double> x(7);
 		QMemArray<double> y(7);
 		double ent, start;
-		
+
 		tmp = points->first();
 		if (tmp) {
 		    for (unsigned int px = 0; px < count - 1; px++) {
 			createPolynom (points, x, y, px - degree / 2, degree);
 			start = points->at(px)->x;
-			
+
 			if (px >= count - degree / 2 + 1)
 			    ent = 1;
 			else
 			    ent = points->at(px + 1)->x;
-			
+
 			for (int i=(int)(start*len); i<(int)(ent*len); i++) {
 			    ny = y[0];
 			    for (unsigned int j = 1; j < degree; j++)
 				ny = ny * (((double)i) / len - x[j]) + y[j];
-			
+
 			    y_out[i] = ny;
 			}
 		    }
@@ -343,24 +359,24 @@ QMemArray<double> Interpolation::interpolation(Curve *points,
 	    {
 		double ny;
 		int count = points->count();
-		
+
 		tmp = points->first();
 		if (tmp != 0) {
 		    QMemArray<double> x(count+1);
 		    QMemArray<double> y(count+1);
 		    double px;
-		
+
 		    createFullPolynom(points, x, y);
-		
+
 		    for (unsigned int i = 1; i < len; i++) {
 			px = (double)(i) / len;
-		
+
 			ny = y[0];
 			for (int j = 1; j < count; j++)
 			    ny = ny * (px - x[j]) + y[j];
-		
+
 			y_out[i] = ny;
-		
+
 		    }
 		}
 		break;
@@ -368,19 +384,19 @@ QMemArray<double> Interpolation::interpolation(Curve *points,
 	case INTPOL_SAH:
 	    {
 		double lx, ly, x, y;
-		
+
 		tmp = points->first();
 		if (tmp) {
 		    lx = tmp->x;
 		    ly = tmp->y;
-		
+
 		    for (tmp = points->next(tmp); tmp; tmp=points->next(tmp)) {
 			x = tmp->x;
 			y = tmp->y;
-			
+
 			for (int i = (int)(lx * len); i < (int)(x*len); i++)
 			    y_out[i] = ly;
-			
+
 			lx = x;
 			ly = y;
 		    }

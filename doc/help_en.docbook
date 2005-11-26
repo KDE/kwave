@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2005-10-09</date>
+<date>2005-11-26</date>
 <releaseinfo>0.7.1
 </releaseinfo>
 
@@ -198,6 +198,19 @@
 	 helper scripts -->
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
+        <listitem>
+            <para>0.7.5 [2005-12-??]</para>
+            <itemizedlist>
+                <listitem><para>
+                    bugfix: solved deadlock situation when starting a plugin
+                      while another plugin was still running
+                </para></listitem>
+                <listitem><para>
+                    workaround for deadlock when trying to close the current
+                      file while a plugin is still running
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
         <listitem>
             <para>0.7.4 [2005-10-16]</para>
             <itemizedlist>

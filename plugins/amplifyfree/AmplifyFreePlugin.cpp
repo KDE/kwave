@@ -98,7 +98,7 @@ QStringList *AmplifyFreePlugin::setup(QStringList &previous_params)
 
     if (dialog) delete dialog;
     return list;
-};
+}
 
 //***************************************************************************
 void AmplifyFreePlugin::run(QStringList params)

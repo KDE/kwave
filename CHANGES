@@ -1,4 +1,11 @@
 
+0.7.5 [2005-12-??]
+
+ * bugfix: solved deadlock situation when starting a plugin
+   while another plugin was still running
+ * workaround for deadlock when trying to close the current
+   file while a plugin is still running
+
 0.7.4 [2005-10-16]
 
  * recording via ALSA

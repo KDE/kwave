@@ -175,6 +175,10 @@ int SonagramPlugin::start(QStringList &params)
     Q_ASSERT(m_sonagram_window);
     if (!m_sonagram_window) return -ENOMEM;
 
+    // if the signal closes, close the sonagram window too
+    QObject::connect(&manager(), SIGNAL(sigClosed()),
+                     m_sonagram_window, SLOT(close()));
+
     unsigned int input_length = selection(&m_first_sample, &m_last_sample);
     if (m_first_sample == m_last_sample) {
 	input_length = signalLength()-1;

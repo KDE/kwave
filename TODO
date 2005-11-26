@@ -5,6 +5,8 @@ o get rid of aRts
 
 o use LADSPA
 
+o automatic defragmentation of stripes
+
 o support for sample rate conversion, libsamplerate
 
 o bug: defaults for record plugin if opened the first time
@@ -12,7 +14,8 @@ o bug: defaults for record plugin if opened the first time
 
 o problem with SignalWidget / XOR mode, fails on Nvidia
 
-o app crashes on shutdown when a plugin is still running
+o find a better solution for deadlock when closing the current file while
+  a plugin is still running, instead of refusing the request to close
 
 o crashes at startup when no aRts server can be connected (seen on Mandrake-9)
 
@@ -29,6 +32,9 @@ o function for "Edit/Selection/Insert at..." or a "goto position" function
 o add "All Files" to the file open type selection combo box
 
 o hourglass and process indicators for longer processes
+  -> use a progress bar/dialog with a "Cancel" button and make it a modal
+     window -> maybe this solves the problem with the deadlock when closing
+     the file while a plugin is still running...
 
 o ruler that shows the current cursor position as time
 
@@ -128,8 +134,6 @@ o bugfix: channel mixer dialog causes segmentation fault -> disabled
   -> gstreamer/LADSPA ?
 
 o use standard KDE accelerators (see KStdAccel)
-
-o playback with 24 and 32 bit (or 18, 20 bits) -> maybe needs ALSA support
 
 o import of multi-channel ASCII files
 

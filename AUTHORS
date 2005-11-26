@@ -1,0 +1,56 @@
+/***************************************************************************
+         AUTHORS  -  list of authors and contributors of Kwave
+                             -------------------
+    begin                : Sat Nov 26 2005
+    copyright            : (C) 2005 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+This is the list of people who have contributed code to the Kwave
+project. If you think that you should be listed here, or the
+description of what you have done needs is incorrect or incomplete,
+please let us know!
+
+Developers
+==========
+
+Martin Wilz <martin@wilz.de>
+	* creator of the project, active development 1998-2000
+
+Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+	* maintainer since 2000, core development
+
+Contributors
+============
+
+Ralf Waspe <rwaspe@web.de>
+	* Help/About dialog
+
+Gilles Caulier <caulier.gilles@free.fr>
+	* french translations
+	* splashscreen
+	* tests and minor bugfixes
+
+Dave Flogeras <d.flogeras@unb.ca>
+	* notch filter plugin
+
+Sven-Steffen Arndt <ssa29@gmx.de>
+	* Kwave homepage
+	* german online help
+
+Aurelien Jarno <aurel32@debian.org>
+	* debian packager
+
+Robert M. Stockmann <stock@stokkie.net>
+	* packaging for Mandrake / X86_64
+
+### EOF ###

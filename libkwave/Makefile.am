@@ -70,7 +70,6 @@ libkwave_la_SOURCES=\
  KwaveFilterPlugin.cpp\
  KwavePlugin.cpp\
  Label.cpp\
- LabelType.cpp\
  LabelList.cpp\
  LineParser.cpp\
  memcpy.c\

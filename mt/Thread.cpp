@@ -47,6 +47,11 @@
 
 #include "mt/Thread.h"
 
+#undef DEBUG_FIND_DEADLOCKS
+#ifdef DEBUG_FIND_DEADLOCKS
+#include <execinfo.h> // for backtrace()
+#endif
+
 /** lock for protecting SIGHUP <-> thread exit */
 static QMutex g_lock_sighup;
 
@@ -184,6 +189,15 @@ int Thread::stop(unsigned int timeout)
 	wait(timeout/10);
 	if (!running()) return 0;
     }
+
+#ifdef DEBUG_FIND_DEADLOCKS
+    if (running()) {
+	qDebug("Thread::stop(): pthread_self()=%08X", (unsigned int)pthread_self());
+	void *buf[256];
+	size_t n = backtrace(buf, 256);
+	backtrace_symbols_fd(buf, n, 2);
+    }
+#endif
 
     qDebug("Thread::stop(): canceling thread");
     int res = pthread_cancel(m_tid);

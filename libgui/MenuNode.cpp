@@ -1,5 +1,5 @@
 /***************************************************************************
-			  MenuNode.cpp  -  description
+			  MenuNode.cpp  -  generic menu node type
 			     -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher

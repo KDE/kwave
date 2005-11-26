@@ -23,7 +23,6 @@
 #include <pthread.h>
 #include <klocale.h>
 
-#include "mt/ThreadsafeX11Guard.h"
 #include "PlayBack-aRts.h"
 
 /** use at least 2^8 = 256 bytes for playback buffer */

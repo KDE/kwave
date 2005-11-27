@@ -93,18 +93,33 @@ issue #3: license of the icons
 	-> maybe most are LGPL, but might depend from case to case !!!
 
 #	doc/en/audio-1.png				??? UNKNOWN ???
+	-> kdeclassic/32x32/apps/kblackbox.png
+	   + kdeclassic/64x64/mimetypes/binary2.png
+	   + kdeclassic/32x32/apps/kmix.png
+	   + kdeclassic/32x32/actions/forward.png
+	   + ???
+	   + ???
 #	doc/en/audio2signal.png				??? UNKNOWN ???
-#	doc/en/caution.png				??? UNKNOWN ???
-#	doc/en/important.png				??? UNKNOWN ???
+	-> kdeclassic/32x32/apps/kmix.png
+	   + kdeclassic/32x32/actions/forward.png
+	   + ???
+	   + ???
+
+#	doc/en/caution.png				??? UNKNOWN ??? -> ksgmltools
+#	doc/en/important.png				??? UNKNOWN ??? -> ksgmltools
+#	doc/en/note.png					??? UNKNOWN ??? -> ksgmltools
+#	doc/en/tip.png					??? UNKNOWN ??? -> ksgmltools
+#	doc/en/warning.png				??? UNKNOWN ??? -> ksgmltools
+
 #	doc/en/in-progress.png				??? UNKNOWN ???
 #	doc/en/krec_record.png				??? UNKNOWN ??? -> krecord ?
-#	doc/en/logotp3.png				??? UNKNOWN ??? -> KDE ?
+#	doc/en/logotp3.png				??? UNKNOWN ??? -> KDE 2 ?
 #	doc/en/nonlinear.png				??? UNKNOWN ???
-#	doc/en/note.png					??? UNKNOWN ???
+	-> kdeclassic/32x32/actions/forward.png
 #	doc/en/record_new.png				??? UNKNOWN ??? -> KDE ?
-#	doc/en/tip.png					??? UNKNOWN ???
+	-> kdeclassic/16x16/actions/14_layer_newlayer.png
 #	doc/en/under-construction.png			??? UNKNOWN ???
-#	doc/en/warning.png				??? UNKNOWN ???
+
 #	kwave/pics/delete.xpm				??? UNKNOWN ??? -> KDE ?
 #	kwave/pics/exit.xpm				??? UNKNOWN ??? -> KDE ?
 #	kwave/pics/filesave.xpm				??? UNKNOWN ??? -> KDE ?
@@ -119,27 +134,6 @@ issue #3: license of the icons
 #	kwave/pics/sound_note.png			??? UNKNOWN ??? -> KDE ?
 #	kwave/pics/sound_subdevice.png			??? UNKNOWN ??? -> KDE ?
 #	kwave/pics/xspeaker.xpm				??? UNKNOWN ??? -> KDE ?
-#	kwave/toolbar/delete.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/editcopy.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/editcut.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/editpaste.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/eraser.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/exit.xpm				??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/filefloppy.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/filenew.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/fileopen.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/filesaveas.xpm			??? UNKNOWN ???
-#	kwave/toolbar/help.xpm				??? UNKNOWN ???
-#	kwave/toolbar/redo.xpm				??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/reload.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/undo.xpm				??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/viewmag+.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/zoomall.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/zoomin.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/zoomnormal.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/zoomout.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/zoomrange.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	plugins/record/filenew.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
 
 issue #4: license of some files is unknown or problematic / author known
 ------------------------------------------------------------------------
@@ -149,24 +143,24 @@ issue #4: license of some files is unknown or problematic / author known
 #	admin/Makefile.common				??? UNKNOWN ??? / KDE developers ?
 #	kwave/pics/kwave-splash.png			??? UNKNOWN ??? / Gilles Caulier
 #	libaudiofile/extended.c				??? UNKNOWN ??? / Apple Computer, Inc.
-#	libkwave/cputest.c				GPL2+ / !!! H. Dietz + R. Fisher + Fabrice Bellard
-#	libkwave/memcpy.c				GPL2+ / !!! xine
-#	libkwave/ppcasm_string.h			GPL2+ / !!! Paul Mackerras ???
-#	libkwave/ppcasm_string.S			GPL2+ / !!! Paul Mackerras ???
-#	libkwave/ppc_asm.tmpl				GPL2+ / !!! Paul Mackerras ???
+#	libkwave/cputest.c				GPL2+ / H. Dietz + R. Fisher + Fabrice Bellard
+#	libkwave/memcpy.c				GPL2+ / xine
+#	libkwave/ppcasm_string.h			GPL2+ / Paul Mackerras ???
+#	libkwave/ppcasm_string.S			GPL2+ / Paul Mackerras ???
+#	libkwave/ppc_asm.tmpl				GPL2+ / Paul Mackerras ???
 #	mt/Asynchronous_Object.h			??? UNKNOWN ??? / Oliver M. Kellogg <Oliver.Kellogg@vs.dasa.de>
 #	mt/AsyncSync.cpp				??? / Brian Theodore <theodore@std.saic.com>
 #	mt/AsyncSync.h					??? / Brian Theodore <theodore@std.saic.com>
 #	mt/Thread.cpp					??? / Oliver M. Kellogg <Oliver.Kellogg@vs.dasa.de>
-#	plugins/lowpass/c_filter_stuff.c		GPL2+ / !!! Juhana Sadeharju <kouhia@nic.funet.fi>
-#	plugins/lowpass/c_filter_stuff.h		GPL2+ / !!! Juhana Sadeharju <kouhia@nic.funet.fi>
-#	plugins/notch_filter/c_filter_stuff.c		GPL2+ / !!! Juhana Sadeharju <kouhia@nic.funet.fi>
-#	plugins/notch_filter/c_filter_stuff.h		GPL2+ / !!! Juhana Sadeharju <kouhia@nic.funet.fi>
-#	plugins/pitch_shift/synth_pitch_shift_bugfixed.idl	GPL2+ / !!! Stefan Westerfeld + Matthias Kretz + Arnold Krille
-#	plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h	GPL2+ / !!! Stefan Westerfeld + Jeff Tranter
-#	plugins/playback/PlayBack-ALSA.cpp		GPL2+ / !!! Jaroslav Kysela
-#	plugins/record/LevelMeter.cpp			GPL2+ / !!! Rik Hemsley
-#	plugins/record/LevelMeter.h			GPL2+ / !!! Rik Hemsley
+#	plugins/lowpass/c_filter_stuff.c		GPL2+ / Juhana Sadeharju <kouhia@nic.funet.fi>
+#	plugins/lowpass/c_filter_stuff.h		GPL2+ / Juhana Sadeharju <kouhia@nic.funet.fi>
+#	plugins/notch_filter/c_filter_stuff.c		GPL2+ / Juhana Sadeharju <kouhia@nic.funet.fi>
+#	plugins/notch_filter/c_filter_stuff.h		GPL2+ / Juhana Sadeharju <kouhia@nic.funet.fi>
+#	plugins/pitch_shift/synth_pitch_shift_bugfixed.idl	GPL2+ / Stefan Westerfeld + Matthias Kretz + Arnold Krille
+#	plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h	GPL2+ / Stefan Westerfeld + Jeff Tranter
+#	plugins/playback/PlayBack-ALSA.cpp		GPL2+ / Jaroslav Kysela
+#	plugins/record/LevelMeter.cpp			GPL2+ / Rik Hemsley
+#	plugins/record/LevelMeter.h			GPL2+ / Rik Hemsley
 
 issue #5: some files have neither license nor author
 ----------------------------------------------------
@@ -421,26 +415,11 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 #	kwave/pics/sound_subdevice.png			??? UNKNOWN ??? -> KDE ?
 #	kwave/pics/xspeaker.xpm				??? UNKNOWN ??? -> KDE ?
 
-#	kwave/toolbar/delete.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/editcopy.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/editcut.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/editpaste.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/eraser.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/exit.xpm				??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/filefloppy.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/filenew.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/fileopen.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/filesaveas.xpm			??? UNKNOWN ???
-#	kwave/toolbar/help.xpm				??? UNKNOWN ???
-#	kwave/toolbar/redo.xpm				??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/reload.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/undo.xpm				??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/viewmag+.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/zoomall.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/zoomin.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/zoomnormal.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/zoomout.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
-#	kwave/toolbar/zoomrange.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
+	kwave/toolbar/zoomall.xpm			(should be GPL2+)
+	kwave/toolbar/zoomin.xpm			(should be GPL2+)
+	kwave/toolbar/zoomnormal.xpm			(should be GPL2+)
+	kwave/toolbar/zoomout.xpm			(should be GPL2+)
+	kwave/toolbar/zoomrange.xpm			(should be GPL2+)
 
 #	libaudiofile/ACKNOWLEDGEMENTS			??? UNKNOWN ???
 	libaudiofile/aes.c				LGPL2+
@@ -593,7 +572,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/CodecBase.h				GPL2+
 	libkwave/CompressionType.cpp			GPL2+
 	libkwave/CompressionType.h			GPL2+
-#	libkwave/cputest.c				GPL2+ / !!! H. Dietz + R. Fisher + Fabrice Bellard
+#	libkwave/cputest.c				GPL2+ / H. Dietz + R. Fisher + Fabrice Bellard
 	libkwave/cputest.h				GPL2+
 	libkwave/Curve.cpp				GPL2+
 	libkwave/Curve.h				GPL2+
@@ -633,7 +612,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/LineParser.h				GPL2+
 	libkwave/Makefile.am				GPL2+
 	libkwave/Matrix.h				GPL2+
-#	libkwave/memcpy.c				GPL2+ / !!! xine
+#	libkwave/memcpy.c				GPL2+ / xine
 	libkwave/memcpy.h				GPL2+
 	libkwave/MultiTrackReader.cpp			GPL2+
 	libkwave/MultiTrackReader.h			GPL2+
@@ -644,9 +623,9 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/PlaybackDeviceFactory.h		GPL2+
 	libkwave/PlayBackDevice.h			GPL2+
 	libkwave/PluginContext.h			GPL2+
-#	libkwave/ppcasm_string.h			GPL2+ / !!! Paul Mackerras ???
-#	libkwave/ppcasm_string.S			GPL2+ / !!! Paul Mackerras ???
-#	libkwave/ppc_asm.tmpl				GPL2+ / !!! Paul Mackerras ???
+#	libkwave/ppcasm_string.h			GPL2+ / Paul Mackerras
+#	libkwave/ppcasm_string.S			GPL2+ / Paul Mackerras
+#	libkwave/ppc_asm.tmpl				GPL2+ / Paul Mackerras
 	libkwave/SampleFIFO.cpp				GPL2+
 	libkwave/SampleFIFO.h				GPL2+
 	libkwave/SampleFormat.cpp			GPL2+
@@ -788,8 +767,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/fileinfo/SelectDateDialog.h		GPL2+
 	plugins/fileinfo/SelectDateDlg.ui		(should be GPL2+)
 
-#	plugins/lowpass/c_filter_stuff.c		GPL2+ / !!! Juhana Sadeharju <kouhia@nic.funet.fi>
-#	plugins/lowpass/c_filter_stuff.h		GPL2+ / !!! Juhana Sadeharju <kouhia@nic.funet.fi>
+#	plugins/lowpass/c_filter_stuff.c		GPL2+ / Juhana Sadeharju <kouhia@nic.funet.fi>
+#	plugins/lowpass/c_filter_stuff.h		GPL2+ / Juhana Sadeharju <kouhia@nic.funet.fi>
 	plugins/lowpass/LowPassDialog.cpp		GPL2+
 	plugins/lowpass/LowPassDialog.h			GPL2+
 	plugins/lowpass/LowPassDlg.ui			(should be GPL2+)
@@ -813,8 +792,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/noise/NoisePlugin.cpp			GPL2+
 	plugins/noise/NoisePlugin.h			GPL2+
 
-#	plugins/notch_filter/c_filter_stuff.c		GPL2+ / !!! Juhana Sadeharju <kouhia@nic.funet.fi>
-#	plugins/notch_filter/c_filter_stuff.h		GPL2+ / !!! Juhana Sadeharju <kouhia@nic.funet.fi>
+#	plugins/notch_filter/c_filter_stuff.c		GPL2+ / Juhana Sadeharju <kouhia@nic.funet.fi>
+#	plugins/notch_filter/c_filter_stuff.h		GPL2+ / Juhana Sadeharju <kouhia@nic.funet.fi>
 	plugins/notch_filter/NotchFilter.cpp		GPL2+ / Dave Flogeras
 	plugins/notch_filter/NotchFilterDialog.cpp	GPL2+ / Dave Flogeras
 	plugins/notch_filter/NotchFilterDialog.h	GPL2+ / Dave Flogeras
@@ -830,11 +809,11 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/pitch_shift/PitchShiftDlg.ui		(should be GPL2+)
 	plugins/pitch_shift/PitchShiftPlugin.cpp	GPL2+
 	plugins/pitch_shift/PitchShiftPlugin.h		GPL2+
-#	plugins/pitch_shift/synth_pitch_shift_bugfixed.idl	GPL2+ / !!! Stefan Westerfeld + Matthias Kretz + Arnold Krille
-#	plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h	GPL2+ / !!! Stefan Westerfeld + Jeff Tranter
+#	plugins/pitch_shift/synth_pitch_shift_bugfixed.idl	GPL2+ / Stefan Westerfeld + Matthias Kretz + Arnold Krille
+#	plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h	GPL2+ / Stefan Westerfeld + Jeff Tranter
 
 	plugins/playback/Makefile.plugin		GPL2+
-#	plugins/playback/PlayBack-ALSA.cpp		GPL2+ / !!! Jaroslav Kysela
+#	plugins/playback/PlayBack-ALSA.cpp		GPL2+ / Jaroslav Kysela
 	plugins/playback/PlayBack-ALSA.h		GPL2+
 	plugins/playback/PlayBack-aRts.cpp		GPL2+
 	plugins/playback/PlayBack-aRts.h		GPL2+
@@ -849,10 +828,9 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/playback/PlayBackTypesMap.cpp		GPL2+
 	plugins/playback/PlayBackTypesMap.h		GPL2+
 
-#	plugins/record/filenew.xpm			??? UNKNOWN ??? -> KDE, Mark Donohoe
 	plugins/record/krec_record.xpm			(should be GPL2+)
-#	plugins/record/LevelMeter.cpp			GPL2+ / !!! Rik Hemsley
-#	plugins/record/LevelMeter.h			GPL2+ / !!! Rik Hemsley
+#	plugins/record/LevelMeter.cpp			GPL2+ / Rik Hemsley
+#	plugins/record/LevelMeter.h			GPL2+ / Rik Hemsley
 	plugins/record/Makefile.plugin			GPL2+
 	plugins/record/Record-ALSA.cpp			GPL2+
 	plugins/record/Record-ALSA.h			GPL2+

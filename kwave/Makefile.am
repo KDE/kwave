@@ -96,8 +96,6 @@ kwave_SOURCES =\
 # some pixmaps to be installed in the data dir
 PIXMAPS=\
  amplify_free.png\
- delete.xpm\
- exit.xpm\
  fade_in.png\
  fade_out.png\
  filesave.xpm\

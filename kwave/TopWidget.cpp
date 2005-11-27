@@ -64,17 +64,6 @@
 #include "PluginManager.h"
 #include "SignalWidget.h" // for MouseMode
 
-//#include "toolbar/filenew.xpm"
-//#include "toolbar/fileopen.xpm"
-//#include "toolbar/filefloppy.xpm"
-//#include "toolbar/filesaveas.xpm"
-
-//#include "toolbar/editcut.xpm"
-//#include "toolbar/editcopy.xpm"
-//#include "toolbar/editpaste.xpm"
-//#include "toolbar/eraser.xpm"
-//#include "toolbar/delete.xpm"
-
 #include "pics/playback_loop.xpm"
 #include "pics/playback_pause.xpm"
 #include "pics/playback_pause2.xpm"
@@ -307,13 +296,13 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	i18n("insert the content of clipboard"));
 
     m_toolbar->insertButton(
-	icon_loader.loadIcon("eraser.png", KIcon::Toolbar),
+	icon_loader.loadIcon("editclear.png", KIcon::Toolbar),
 	-1, SIGNAL(clicked()),
 	this, SLOT(toolbarEditErase()), true,
 	i18n("mute the current selection"));
 
     m_toolbar->insertButton(
-	icon_loader.loadIcon("edittrash.png", KIcon::Toolbar),
+	icon_loader.loadIcon("editdelete.png", KIcon::Toolbar),
 	-1, SIGNAL(clicked()),
 	this, SLOT(toolbarEditDelete()), true,
 	i18n("delete the current selection"));

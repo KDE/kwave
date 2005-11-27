@@ -47,7 +47,6 @@
 #include "RecordParams.h"
 #include "RecordState.h"
 
-#include "filenew.xpm"
 #include "record_stop.xpm"
 #include "record_pause.xpm"
 #include "krec_record.xpm"
@@ -81,7 +80,9 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     m_params.fromList(params);
 
     /* set the icons of the record control buttons */
-    btNew->setIconSet(   QIconSet(QPixmap(xpm_filenew)));
+    KIconLoader icon_loader;
+    btNew->setIconSet(   QIconSet(QPixmap(icon_loader.loadIcon(
+	                 "filenew.png", KIcon::Toolbar))));
     btStop->setIconSet(  QIconSet(QPixmap(xpm_stop)));
     btPause->setIconSet( QIconSet(QPixmap(xpm_pause)));
     btRecord->setIconSet(QIconSet(QPixmap(xpm_krec_record)));

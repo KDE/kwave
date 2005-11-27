@@ -98,9 +98,7 @@ PIXMAPS=\
  amplify_free.png\
  fade_in.png\
  fade_out.png\
- filesave.xpm\
  go.png\
- knife.xpm\
  knob.xpm\
  kwave-splash.png\
  light_off.xpm\

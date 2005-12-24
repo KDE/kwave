@@ -30,7 +30,6 @@
 #include <kcmdlineargs.h>
 
 #include <arts/artsflow.h>
-#include <gst/gst.h>
 
 #include "KwaveApp.h"
 #include "KwaveSplash.h"
@@ -77,8 +76,16 @@ void addDataStrings(KAboutData& aboutdata)
                      i18n("notch filter plugin"),
                      "d.flogeras@unb.ca",
                      0);
+    aboutdata.addAuthor("Rik Hemsley",
+                     i18n("level meter"),
+                     "rik@kde.org",
+                     "http://rikkus.info/esoundlevelmeter.html");
 
     // people who helped
+    aboutdata.addCredit("Stefan Westerfeld",
+		     i18n("author of aRts"),
+		     "stefan@space.twc.de",
+		     0);
     aboutdata.addCredit("Sven-Steffen Arndt",
                      i18n("Kwave homepage and german online help"),
                      "ssa29@gmx.de",
@@ -140,15 +147,6 @@ int main( int argc, char **argv )
     QString version_text = QString(i18n("This is %1 (using KDE %2)")).arg(
 	kwave_version).arg(kde_version);
     printf("\n%s\n", version_text.local8Bit().data());
-
-    /* initialize the GStreamer library */
-    gst_init(&argc, &argv);
-
-    guint major, minor, micro;
-    gst_version (&major, &minor, &micro);
-    printf("\t%s\n\n", QString(
-	i18n("linked against GStreamer %1.%2.%3")).arg(
-	major).arg(minor).arg(micro).local8Bit().data());
 
     /* process all interesting commandline parameters */
     KCmdLineArgs::init(argc, argv, &about);

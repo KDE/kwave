@@ -411,6 +411,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     int h = m_zoomselect->sizeHint().height();
     m_zoomselect->setFocusPolicy(QWidget::NoFocus);
+    m_zoomselect->setMinimumWidth(h*5);
 
     m_toolbar->setMinimumHeight(max(m_zoomselect->sizeHint().height()+2,
 	m_toolbar->sizeHint().height()));

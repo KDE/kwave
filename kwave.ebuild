@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header$
 
-inherit kde flag-o-matic
+inherit kde flag-o-matic eutils
 
 DESCRIPTION="Kwave is a sound editor for KDE."
 HOMEPAGE="http://kwave.sourceforge.net/"
@@ -24,13 +24,20 @@ RDEPEND="kde-base/arts
 	sci-libs/gsl"
 DEPEND="${RDEPEND}
 	|| ( kde-base/kdesdk-misc kde-base/kdesdk )
-	sys-apps/sed
-	sys-apps/gawk
-	sys-apps/coreutils
-	sys-apps/findutils
 	app-text/recode
 	media-gfx/imagemagick"
 need-kde 3.4
+
+pkg_setup() {
+	if ! built_with_use kdelibs arts ; then
+		eerror "KWave needs aRts, please rebuild kdelibs with arts use flag enabled."
+		die
+	fi
+	if use debug ; then
+		eerror "KWave fails with debug use flag enabled."
+		die
+	fi
+}
 
 src_compile() {
 	libtoolize --copy --force

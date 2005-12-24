@@ -15,7 +15,7 @@
 #                                                                          #
 ############################################################################
 
-INCLUDES= @all_includes@ @ARTS_INCLUDES@ @GST_CFLAGS@
+INCLUDES= @all_includes@ @ARTS_INCLUDES@
 
 #if ! USE_SYSTEM_LIB_AUDIOFILE
 INCLUDES+=-I ../libaudiofile
@@ -90,7 +90,7 @@ libkwave_la_SOURCES=\
  VirtualAudioFile.cpp\
  WindowFunction.cpp
 
-libkwave_la_LDFLAGS = @ALSA_LDFLAGS@ @LIBAUDIOFILE_LDFLAGS@ @GSL_LIBS@ \
+libkwave_la_LDFLAGS = @ALSA_LDFLAGS@ @LIBAUDIOFILE_LDFLAGS@ \
 	-version-info @LD_VERSION_INFO@ \
 	--dynamic --export-dynamic
 

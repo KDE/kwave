@@ -1,6 +1,6 @@
 
 here the results of a licensing investigation
-(2005-11-26)
+(2005-12-04)
 
 LIST OF LICENSES FOUND IN THE SOURCES
 =====================================
@@ -49,46 +49,7 @@ LIST OF LICENSES FOUND IN THE SOURCES
 LICENSE ISSUES
 ==============
 
-issue #1: GStreamer requires either LGPL or a modified GPL variant
-------------------------------------------------------------------
-
-	from http://gstreamer.freedesktop.org/data/doc/gstreamer/head/faq/html/chapter-legal.html
-
-	Q: Can someone distribute the combination of
-	- GStreamer, the LGPL library
-	- Totem, a GPL playback application
-	- The binary-only Sorenson decoder
-	together in one distribution/operating system ? If not, what needs to
-	be changed to make this possible ?
-
-	A: This would be a problem, because the GStreamer and Totem licenses
-	would forbid it. In order to link GStreamer to Totem, you need to
-	use section 3 of the LGPL to convert GStreamer to GPL. The GPL version
-	of GStreamer forbids linking to the Sorenson decoder. Anyway, the
-	Totem GPL license forbids this. If the authors of Totem want to
-	permit this, we have an exception for them: the controlled interface
-	exception from the FAQ. The idea of this is that you can't get around
-	the GPL just by including a LGPL bit in the middle.
-
-issue #2: all LGPL code must go into a library, not into application or a plugin
---------------------------------------------------------------------------------
-	  => checked, OK, only libaudiofile uses LGPL
-
-LGPL:   3. You may opt to apply the terms of the ordinary GNU General
-	Public License instead of this License to a given copy of the Library.
-	To do this, you must alter all the notices that refer to this License,
-	so that they refer to the ordinary GNU General Public License, version 2,
-	instead of to this License. (If a newer version than version 2 of the
-	ordinary GNU General Public License has appeared, then you can specify
-	that version instead if you wish.) Do not make any other change in these
-	notices.
-	Once this change is made in a given copy, it is irreversible for that
-	copy, so the ordinary GNU General Public License applies to all subsequent
-	copies and derivative works made from that copy.
-	This option is useful when you wish to copy part of the code of the
-	Library into a program that is not a library.
-
-issue #3: license of the icons
+issue #1: license of the icons
 ------------------------------
 	-> maybe most are LGPL, but might depend from case to case !!!
 
@@ -123,41 +84,33 @@ issue #3: license of the icons
 #	kwave/pics/lspeaker.xpm				??? UNKNOWN ??? -> KDE ?
 #	kwave/pics/minifont.xpm				??? UNKNOWN ??? -> KDE ?
 #	kwave/pics/rspeaker.xpm				??? UNKNOWN ??? -> KDE ?
-#	kwave/pics/sound_arts.png			??? UNKNOWN ??? -> KDE ?
+
+	kwave/pics/sound_arts.png			free / KDE
+	-> icons/Locolor/16x16/apps/arts.png
+
 #	kwave/pics/sound_card.png			??? UNKNOWN ??? -> KDE ?
-#	kwave/pics/sound_device.png			??? UNKNOWN ??? -> KDE ?
-#	kwave/pics/sound_note.png			??? UNKNOWN ??? -> KDE ?
+
+	kwave/pics/sound_device.png			free / KDE
+	-> icons/Locolor/32x32/mimetypes/sound.png
+	kwave/pics/sound_note.png			free / KDE
+	-> icons/Locolor/16x16/apps/kcm_note.png
+
 #	kwave/pics/sound_subdevice.png			??? UNKNOWN ??? -> KDE ?
 #	kwave/pics/xspeaker.xpm				??? UNKNOWN ??? -> KDE ?
 
-issue #4: license of some files is unknown or problematic / author known
+issue #2: license of some files is unknown or problematic / author known
 ------------------------------------------------------------------------
 
-#	kwave.ebuild					GPL2 Gentoo
 #	admin/gsl.m4					??? UNKNOWN ??? -> author: Christopher R. Gabriel <cgabriel@linux.it>
 #	admin/Makefile.common				??? UNKNOWN ??? / KDE developers ?
 #	kwave/pics/kwave-splash.png			??? UNKNOWN ??? / Gilles Caulier
 #	libaudiofile/extended.c				??? UNKNOWN ??? / Apple Computer, Inc.
-#	libkwave/cputest.c				GPL2 / H. Dietz + R. Fisher + Fabrice Bellard
-#	libkwave/memcpy.c				GPL2 / xine
-#	libkwave/ppcasm_string.h			GPL2 / Paul Mackerras ???
-#	libkwave/ppcasm_string.S			GPL2 / Paul Mackerras ???
-#	libkwave/ppc_asm.tmpl				GPL2 / Paul Mackerras ???
 #	mt/Asynchronous_Object.h			??? UNKNOWN ??? / Oliver M. Kellogg <Oliver.Kellogg@vs.dasa.de>
 #	mt/AsyncSync.cpp				??? / Brian Theodore <theodore@std.saic.com>
 #	mt/AsyncSync.h					??? / Brian Theodore <theodore@std.saic.com>
 #	mt/Thread.cpp					??? / Oliver M. Kellogg <Oliver.Kellogg@vs.dasa.de>
-#	plugins/lowpass/c_filter_stuff.c		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
-#	plugins/lowpass/c_filter_stuff.h		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
-#	plugins/notch_filter/c_filter_stuff.c		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
-#	plugins/notch_filter/c_filter_stuff.h		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
-#	plugins/pitch_shift/synth_pitch_shift_bugfixed.idl	GPL2 / Stefan Westerfeld + Matthias Kretz + Arnold Krille
-#	plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h	GPL2 / Stefan Westerfeld + Jeff Tranter
-#	plugins/playback/PlayBack-ALSA.cpp		GPL2 / Jaroslav Kysela
-#	plugins/record/LevelMeter.cpp			GPL2 / Rik Hemsley
-#	plugins/record/LevelMeter.h			GPL2 / Rik Hemsley
 
-issue #5: some files have neither license nor author
+issue #3: some files have neither license nor author
 ----------------------------------------------------
 
 #	stamp-h.in					??? UNKNOWN ???
@@ -194,9 +147,9 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	AUTHORS						GPL2
 	CHANGES						(should be GPL2)
 	configure.in					GPL2
-	doxy.cfg.in					GPL2
+	doxy.cfg.in					(should be GPL2)
 	GNU-LICENSE					free
-#	kwave.ebuild					GPL2 Gentoo
+	kwave.ebuild					GPL2 Gentoo
 	Kwave.kdevelop					(should be GPL2)
 	Kwave.kdevelop.filelist				(should be GPL2)
 	kwave.lsm					(should be GPL2)
@@ -397,10 +350,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/pics/playback_stop.xpm			(should be GPL2)
 #	kwave/pics/rspeaker.xpm				??? UNKNOWN ??? -> KDE ?
 	kwave/pics/selectedknob.xpm			(should be GPL2 / Martin Wilz)
-#	kwave/pics/sound_arts.png			??? UNKNOWN ??? -> KDE ?
+	kwave/pics/sound_arts.png			free / KDE
 #	kwave/pics/sound_card.png			??? UNKNOWN ??? -> KDE ?
-#	kwave/pics/sound_device.png			??? UNKNOWN ??? -> KDE ?
-#	kwave/pics/sound_note.png			??? UNKNOWN ??? -> KDE ?
+	kwave/pics/sound_device.png			free / KDE
+	kwave/pics/sound_note.png			free / KDE
 #	kwave/pics/sound_subdevice.png			??? UNKNOWN ??? -> KDE ?
 #	kwave/pics/xspeaker.xpm				??? UNKNOWN ??? -> KDE ?
 
@@ -561,7 +514,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/CodecBase.h				GPL2
 	libkwave/CompressionType.cpp			GPL2
 	libkwave/CompressionType.h			GPL2
-#	libkwave/cputest.c				GPL2 / H. Dietz + R. Fisher + Fabrice Bellard
+	libkwave/cputest.c				GPL2 / H. Dietz + R. Fisher + Fabrice Bellard
 	libkwave/cputest.h				GPL2
 	libkwave/Curve.cpp				GPL2
 	libkwave/Curve.h				GPL2
@@ -601,7 +554,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/LineParser.h				GPL2
 	libkwave/Makefile.am				GPL2
 	libkwave/Matrix.h				GPL2
-#	libkwave/memcpy.c				GPL2 / xine
+	libkwave/memcpy.c				GPL2 / xine
 	libkwave/memcpy.h				GPL2
 	libkwave/MultiTrackReader.cpp			GPL2
 	libkwave/MultiTrackReader.h			GPL2
@@ -612,9 +565,9 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/PlaybackDeviceFactory.h		GPL2
 	libkwave/PlayBackDevice.h			GPL2
 	libkwave/PluginContext.h			GPL2
-#	libkwave/ppcasm_string.h			GPL2 / Paul Mackerras
-#	libkwave/ppcasm_string.S			GPL2 / Paul Mackerras
-#	libkwave/ppc_asm.tmpl				GPL2 / Paul Mackerras
+	libkwave/ppcasm_string.h			GPL2 / Paul Mackerras
+	libkwave/ppcasm_string.S			GPL2 / Paul Mackerras
+	libkwave/ppc_asm.tmpl				GPL2 / Paul Mackerras
 	libkwave/SampleFIFO.cpp				GPL2
 	libkwave/SampleFIFO.h				GPL2
 	libkwave/SampleFormat.cpp			GPL2
@@ -756,8 +709,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/fileinfo/SelectDateDialog.h		GPL2
 	plugins/fileinfo/SelectDateDlg.ui		(should be GPL2)
 
-#	plugins/lowpass/c_filter_stuff.c		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
-#	plugins/lowpass/c_filter_stuff.h		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
+	plugins/lowpass/c_filter_stuff.c		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
+	plugins/lowpass/c_filter_stuff.h		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
 	plugins/lowpass/LowPassDialog.cpp		GPL2
 	plugins/lowpass/LowPassDialog.h			GPL2
 	plugins/lowpass/LowPassDlg.ui			(should be GPL2)
@@ -781,8 +734,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/noise/NoisePlugin.cpp			GPL2
 	plugins/noise/NoisePlugin.h			GPL2
 
-#	plugins/notch_filter/c_filter_stuff.c		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
-#	plugins/notch_filter/c_filter_stuff.h		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
+	plugins/notch_filter/c_filter_stuff.c		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
+	plugins/notch_filter/c_filter_stuff.h		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
 	plugins/notch_filter/NotchFilter.cpp		GPL2 / Dave Flogeras
 	plugins/notch_filter/NotchFilterDialog.cpp	GPL2 / Dave Flogeras
 	plugins/notch_filter/NotchFilterDialog.h	GPL2 / Dave Flogeras
@@ -798,11 +751,11 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/pitch_shift/PitchShiftDlg.ui		(should be GPL2)
 	plugins/pitch_shift/PitchShiftPlugin.cpp	GPL2
 	plugins/pitch_shift/PitchShiftPlugin.h		GPL2
-#	plugins/pitch_shift/synth_pitch_shift_bugfixed.idl	GPL2 / Stefan Westerfeld + Matthias Kretz + Arnold Krille
-#	plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h	GPL2 / Stefan Westerfeld + Jeff Tranter
+	plugins/pitch_shift/synth_pitch_shift_bugfixed.idl	GPL2 / Stefan Westerfeld + Matthias Kretz + Arnold Krille
+	plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h	GPL2 / Stefan Westerfeld + Jeff Tranter
 
 	plugins/playback/Makefile.plugin		GPL2
-#	plugins/playback/PlayBack-ALSA.cpp		GPL2 / Jaroslav Kysela
+	plugins/playback/PlayBack-ALSA.cpp		GPL2 / (parts from) Jaroslav Kysela
 	plugins/playback/PlayBack-ALSA.h		GPL2
 	plugins/playback/PlayBack-aRts.cpp		GPL2
 	plugins/playback/PlayBack-aRts.h		GPL2
@@ -818,8 +771,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/playback/PlayBackTypesMap.h		GPL2
 
 	plugins/record/krec_record.xpm			(should be GPL2)
-#	plugins/record/LevelMeter.cpp			GPL2 / Rik Hemsley
-#	plugins/record/LevelMeter.h			GPL2 / Rik Hemsley
+	plugins/record/LevelMeter.cpp			GPL2 / Rik Hemsley
+	plugins/record/LevelMeter.h			GPL2 / Rik Hemsley
 	plugins/record/Makefile.plugin			GPL2
 	plugins/record/Record-ALSA.cpp			GPL2
 	plugins/record/Record-ALSA.h			GPL2

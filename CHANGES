@@ -5,6 +5,8 @@
    while another plugin was still running
  * workaround for deadlock when trying to close the current
    file while a plugin is still running
+ * thrown over board the idea of using gstreamer due to serious license
+   issues, we will wait until KDEMM is out (KDE-4) instead.
 
 0.7.4 [2005-10-16]
 

@@ -1,7 +1,7 @@
 
-o use gstreamer as internal streaming engine
-
 o get rid of aRts
+
+o use KDEMM instead of aRts as soon as it is available
 
 o use LADSPA
 
@@ -12,7 +12,11 @@ o support for sample rate conversion, libsamplerate
 o bug: defaults for record plugin if opened the first time
   -> leads to buffer underrun
 
-o problem with SignalWidget / XOR mode, fails on Nvidia
+o use the host's native libaudiofile. current state:
+	SuSE	-> builtin
+	Gentoo	-> native
+	Debian	-> native
+	Crux	-> native
 
 o find a better solution for deadlock when closing the current file while
   a plugin is still running, instead of refusing the request to close
@@ -159,6 +163,9 @@ o navigation buttons on the overview widget
 o use MemoryManager for undo actions
 
 o TrackPixmap: different color sets if selected/deselected
+
+o problem with SignalWidget / XOR mode, fails on Nvidia
+  -> vanished since last update, but keep this point as a reminder...
 
 o somewhere in far future: compile on architectures with a different
   size of int (not 32-bit), handle data in original data width

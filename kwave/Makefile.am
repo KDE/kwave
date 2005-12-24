@@ -30,7 +30,7 @@ APPSDIR= $(DESTDIR)$(kde_appsdir)/Multimedia
 CONFDIR= $(DESTDIR)$(kde_datadir)/$(PACKAGE)
 PIXDIR = $(DESTDIR)$(kde_datadir)/$(PACKAGE)/pics
 # set the include path for X, qt and KDE
-INCLUDES= -I${topdir} @all_includes@ @ARTS_INCLUDES@ @GST_CFLAGS@
+INCLUDES= -I${topdir} @all_includes@ @ARTS_INCLUDES@
 ICONDIR = $(DESTDIR)$(kde_icondir)
 
 mimedir = $(kde_mimedir)/audio
@@ -98,7 +98,6 @@ PIXMAPS=\
  amplify_free.png\
  fade_in.png\
  fade_out.png\
- go.png\
  knob.xpm\
  kwave-splash.png\
  light_off.xpm\
@@ -113,7 +112,6 @@ PIXMAPS=\
  playback_pause.xpm\
  playback_pause2.xpm\
  rspeaker.xpm\
- selectedknob.xpm\
  sound_arts.png \
  sound_device.png \
  sound_subdevice.png \
@@ -130,7 +128,6 @@ kwave_LDFLAGS = -L../libkwave -L../libgui \
 # that depend on the following ones.
 kwave_LDADD   =  -lkwavegui -lkwave \
 	@KDE_VERSION_SPECIFIC_LIBS@ \
-	@GST_LIBS@ \
 	-lX11 -lXext -lpthread -ldl -lm
 
 # if you "make distclean", this files get removed. If you want to remove

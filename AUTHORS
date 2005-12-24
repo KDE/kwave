@@ -59,8 +59,6 @@ Others, authors and copyright holders
 Stefan Westerfeld <stefan@space.twc.de>
 	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed.idl
 	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h
-	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed.idl
-	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h
 
 Mark Donohoe (KDE) <donohoe@kde.org>
 	* some icons and bitmaps for toolbar and GUI

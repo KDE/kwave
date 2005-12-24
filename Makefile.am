@@ -17,7 +17,7 @@
 
 AUTOMAKE_OPTIONS = 1.7.1   # Require Automake 1.7.1 or better.
 
-.PHONY: doc version-labels
+.PHONY: backup ebuild rpm rpm_prep doc apidoc src.rpm version-labels
 
 srcdir  	 = $(shell pwd)
 
@@ -28,6 +28,8 @@ SRC_PREFIX 	 = ${PACKAGE}
 SUBDIRS  	 = @LIBAUDIOFILE_SUBDIR@ mt libgui libkwave kwave plugins po doc
 EBUILD		 = kwave-@RPM_SHORT_VERSION@.ebuild
 CLEANFILES	 = *~ *.d *.dm *.moc *.moc.c?? *.ii \#* *.dep .depend
+
+EXTRA_DIST	 = AUTHORS LICENSES TODO CHANGES GNU-LICENSE README
 
 DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \
 	QT-DIR aclocal.m4 config.h.in configure make.log admin/config.guess \
@@ -79,30 +81,10 @@ backup: ${PACKAGE}.spec
 	${SRC_PREFIX} ) && \
 	echo source backed up to ${PACKAGE}-${VERSION}-backup.tgz
 
-patch:	${PACKAGE}.spec
-	@ cp ${PACKAGE}.spec ${PACKAGE}.spec.saved ; \
-	${MAKE} distclean ; \
-	mv ${PACKAGE}.spec.saved ${PACKAGE}.spec ; \
-	(cd ${srcdir}/..; \
-	tar -czh -f ${ARCHIVE_DIR}/${PACKAGE}-${VERSION}.tar.gz ${SRC_PREFIX} ) && \
-	echo source backed up to ${PACKAGE}-${VERSION}.tar.gz
-	@ $(srcdir)/bin/make_patch.sh ${PACKAGE} `cat $(srcdir)/VERSION` \
-		${ARCHIVE_DIR} ${SRC_DIR} ${SRC_PREFIX}
-
 version-labels:
 	$(srcdir)/bin/set_version.sh $(srcdir) \
 	`cat $(srcdir)/VERSION` \
 	`date --iso`
-
-patchlevel:
-	$(srcdir)/bin/increment_patchlevel.sh ${srcdir}
-	${MAKE} doc
-	${MAKE} patch
-
-release:
-	@ $(srcdir)/bin/increment_release.sh ${srcdir}
-	( cd doc ; ${MAKE} doc )
-	${MAKE} patch
 
 package-messages: all
 	rm -f po/*.gmo

@@ -42,20 +42,34 @@
  */
 #define INTERPOLATION_ZOOM 0.10
 
+
+static TrackPixmap::color_set_t color_set_normal =
+{
+    background   : Qt::black,
+    sample       : Qt::white,
+    interpolated : Qt::lightGray,
+    zero         : Qt::green,
+    zero_unused  : Qt::darkGray
+};
+
+static TrackPixmap::color_set_t color_set_disabled =
+{
+    background   : Qt::darkGray.dark(300),
+    sample       : color_set_normal.sample.dark(),
+    interpolated : color_set_normal.interpolated.dark(),
+    zero         : Qt::darkGreen,
+    zero_unused  : Qt::black
+};
+
 //***************************************************************************
 TrackPixmap::TrackPixmap(Track &track)
     :QPixmap(), m_track(track), m_offset(0), m_zoom(0.0),
     m_minmax_mode(false),
     m_sample_buffer(), m_min_buffer(), m_max_buffer(),
     m_modified(false), m_valid(0), m_lock_buffer(),
-    m_interpolation_order(0), m_interpolation_alpha(0)
+    m_interpolation_order(0), m_interpolation_alpha(0),
+    m_colors(color_set_normal)
 {
-    // set the default colors
-    m_color_background   = black;
-    m_color_sample       = white;
-    m_color_interpolated = lightGray;
-    m_color_zero         = green;
-    m_color_zero_unused  = darkGray;
 
     // connect all the notification signals of the track
     connect(&track, SIGNAL(sigSamplesInserted(Track&,unsigned int,
@@ -385,10 +399,16 @@ void TrackPixmap::repaint()
 
     if (!w || !h) return; // not valid yet
 
+    if (m_track.selected()) {
+	m_colors = color_set_normal;
+    } else {
+	m_colors = color_set_disabled;
+    }
+
     QPainter p(this);
     p.setRasterOp(CopyROP);
 
-    p.fillRect(0, 0, w, h, m_color_background);
+    p.fillRect(0, 0, w, h, m_colors.background);
 
     if (m_zoom ) {
 	// first make the buffer valid
@@ -407,12 +427,12 @@ void TrackPixmap::repaint()
 
 	// draw the zero-line
 	int last = samples2pixels(m_track.length()-1 - m_offset);
-	p.setPen(m_color_zero);
+	p.setPen(m_colors.zero);
 	if (last >= w) {
 	    p.drawLine(0, h>>1, w-1, h>>1);
 	} else {
 	    p.drawLine(0, h>>1, last, h>>1);
-	    p.setPen(m_color_zero_unused);
+	    p.setPen(m_colors.zero_unused);
 	    p.drawLine(last, h>>1, w, h>>1);
 	}
     }
@@ -440,7 +460,7 @@ void TrackPixmap::drawOverview(QPainter &p, int middle, int height,
     double scale_y = (double)height / (1 << 24);
     int max = 0, min = 0;
 
-    p.setPen(m_color_sample);
+    p.setPen(m_colors.sample);
     int last_min = (int)(m_min_buffer[first] * scale_y);
     int last_max = (int)(m_max_buffer[first] * scale_y);
     for (int i = first; i <= last; i++) {
@@ -597,14 +617,14 @@ void TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     }
 
     // display the filter's interpolated output
-    p.setPen(m_color_interpolated);
+    p.setPen(m_colors.interpolated);
     p.drawPolyline(*points, 0, i);
 
     // display the original samples
     sample = 0;
     x = samples2pixels(sample);
     sig = sig_buffer + (N / 2);
-    p.setPen(m_color_sample);
+    p.setPen(m_colors.sample);
     i = 0;
     while (x < width) {
 	if ((x >= 0) && (x < width)) {

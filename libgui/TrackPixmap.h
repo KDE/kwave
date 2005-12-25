@@ -59,6 +59,7 @@ class TrackPixmap : public QObject, public QPixmap
     Q_OBJECT
 
 public:
+
     /** Default constructor */
     TrackPixmap(Track &track);
 
@@ -85,6 +86,9 @@ public:
      * be re-painted.
      */
     bool isModified();
+
+    /** Sets the internal "modified" flag */
+    void setModified() { m_modified = true; };
 
 signals:
 
@@ -142,6 +146,25 @@ private slots:
      */
     void slotSamplesModified(Track &src, unsigned int offset,
                              unsigned int length);
+
+public:
+
+    typedef struct {
+	/** Background color */
+	QColor background;
+
+	/** Color for samples */
+	QColor sample;
+
+	/** Color for interpolated samples */
+	QColor interpolated;
+
+	/** Color for the zero line, used areas */
+	QColor zero;
+
+	/** Color of the zero line, unused areas */
+	QColor zero_unused;
+    } color_set_t;
 
 private:
 
@@ -309,20 +332,8 @@ private:
      */
     float *m_interpolation_alpha;
 
-    /** Background color */
-    QColor m_color_background;
-
-    /** Color for samples */
-    QColor m_color_sample;
-
-    /** Color for interpolated samples */
-    QColor m_color_interpolated;
-
-    /** Color for the zero line, used areas */
-    QColor m_color_zero;
-
-    /** Color of the zero line, unused areas */
-    QColor m_color_zero_unused;
+    /** set of colors for drawing */
+    color_set_t m_colors;
 
 };
 

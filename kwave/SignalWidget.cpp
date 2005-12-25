@@ -234,6 +234,13 @@ void SignalWidget::toggleTrackSelection(int track)
     unsigned int t = static_cast<unsigned int>(track);
     bool select = !m_signal_manager.trackSelected(t);
     m_signal_manager.selectTrack(t, select);
+
+    // redraw the track pixmap with a different color set
+    TrackPixmap *pix = m_track_pixmaps.at(track);
+    if (pix) {
+	pix->setModified();
+	refreshLayer(LAYER_SIGNAL);
+    }
 }
 
 //***************************************************************************
@@ -1019,7 +1026,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 // 	qDebug("SignalWidget::paintEvent(): - redraw of signal layer -");
 
 	// all black if empty
- 	if (!n_tracks) m_layer[LAYER_SIGNAL]->fill(black);
+	if (!n_tracks) m_layer[LAYER_SIGNAL]->fill(black);
 
 	int track_height = (n_tracks) ? (m_height / n_tracks) : 0;
 	int top = 0;
@@ -1033,7 +1040,6 @@ void SignalWidget::paintEvent(QPaintEvent *)
 		pix->resize(m_width, track_height);
 	    }
 	    if (pix->isModified()) {
-//		qDebug("SignalWidget::paintEvent(): track %d",i); // ###
 		pix->repaint();
 	    }
 

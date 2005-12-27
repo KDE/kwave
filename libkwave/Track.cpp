@@ -351,6 +351,15 @@ void Track::deleteRange(unsigned int offset, unsigned int length,
 }
 
 //***************************************************************************
+void Track::select(bool selected)
+{
+    if (m_selected == selected) return;
+
+    m_selected = selected;
+    emit sigSelected(m_selected);
+}
+
+//***************************************************************************
 void Track::slotSamplesInserted(Stripe &src, unsigned int offset,
                                 unsigned int length)
 {

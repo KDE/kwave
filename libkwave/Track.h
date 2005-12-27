@@ -94,7 +94,7 @@ public:
     inline bool selected() { return m_selected; };
 
     /** Sets the "selected" flag. */
-    inline void select(bool select) { m_selected = select; };
+    void select(bool select);
 
 signals:
 
@@ -126,6 +126,12 @@ signals:
      */
     void sigSamplesModified(Track &src, unsigned int offset,
                             unsigned int length);
+
+    /**
+     * Emitted whenever the selection of the track has changed.
+     * @param bool selected the current state of the selection
+     */
+     void sigSelected(bool selected);
 
 private slots:
 

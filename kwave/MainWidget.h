@@ -119,6 +119,9 @@ protected:
      */
     virtual void resizeEvent(QResizeEvent *);
 
+protected slots:
+
+    /** refresh the state of the lamps */
     void refreshChannelControls();
 
 public slots:

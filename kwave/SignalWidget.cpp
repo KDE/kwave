@@ -40,6 +40,7 @@
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
+#include "libkwave/Track.h"
 
 #include "libgui/MenuManager.h"
 #include "libgui/TrackPixmap.h"
@@ -234,13 +235,6 @@ void SignalWidget::toggleTrackSelection(int track)
     unsigned int t = static_cast<unsigned int>(track);
     bool select = !m_signal_manager.trackSelected(t);
     m_signal_manager.selectTrack(t, select);
-
-    // redraw the track pixmap with a different color set
-    TrackPixmap *pix = m_track_pixmaps.at(track);
-    if (pix) {
-	pix->setModified();
-	refreshLayer(LAYER_SIGNAL);
-    }
 }
 
 //***************************************************************************
@@ -1751,7 +1745,13 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track &track)
     if (pix->isModified()) refreshSignalLayer();
 
     // connect all signals
-    connect(pix, SIGNAL(sigModified()), this, SLOT(refreshSignalLayer()));
+    connect(pix, SIGNAL(sigModified()),
+            this, SLOT(refreshSignalLayer()));
+
+    connect(&track, SIGNAL(sigSelectionChanged()),
+	    this, SIGNAL(sigTrackSeclecionChanged()));
+    connect(&track, SIGNAL(sigSelectionChanged()),
+            this, SLOT(refreshSignalLayer()));
 }
 
 //***************************************************************************

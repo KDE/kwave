@@ -392,6 +392,9 @@ signals:
      */
     void sigTrackDeleted(unsigned int track);
 
+    /** The selection state of at least one track has changed */
+    void sigTrackSeclecionChanged();
+
 protected:
 
     /**

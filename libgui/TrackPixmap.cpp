@@ -70,7 +70,6 @@ TrackPixmap::TrackPixmap(Track &track)
     m_interpolation_order(0), m_interpolation_alpha(0),
     m_colors(color_set_normal)
 {
-
     // connect all the notification signals of the track
     connect(&track, SIGNAL(sigSamplesInserted(Track&,unsigned int,
 	unsigned int)), this, SLOT(slotSamplesInserted(Track&,
@@ -81,6 +80,8 @@ TrackPixmap::TrackPixmap(Track &track)
     connect(&track, SIGNAL(sigSamplesModified(Track&,unsigned int,
 	unsigned int)), this, SLOT(slotSamplesModified(Track&,
 	unsigned int, unsigned int)));
+    connect(&track, SIGNAL(sigSelectionChanged()),
+            this, SLOT(selectionChanged()));
 }
 
 //***************************************************************************
@@ -446,6 +447,13 @@ bool TrackPixmap::isModified()
 {
     QMutexLocker lock(&m_lock_buffer);
     return m_modified;
+}
+
+//***************************************************************************
+void TrackPixmap::selectionChanged()
+{
+    QMutexLocker lock(&m_lock_buffer);
+    m_modified = true;
 }
 
 //***************************************************************************

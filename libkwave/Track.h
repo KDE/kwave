@@ -131,7 +131,7 @@ signals:
      * Emitted whenever the selection of the track has changed.
      * @param bool selected the current state of the selection
      */
-     void sigSelected(bool selected);
+     void sigSelectionChanged();
 
 private slots:
 

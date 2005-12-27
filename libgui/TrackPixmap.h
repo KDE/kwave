@@ -147,6 +147,12 @@ private slots:
     void slotSamplesModified(Track &src, unsigned int offset,
                              unsigned int length);
 
+    /**
+     * Sets the state of the pixmap to "modified" whenever the
+     * selection of the track has changed
+     */
+    void selectionChanged();
+
 public:
 
     typedef struct {

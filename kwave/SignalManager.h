@@ -386,14 +386,6 @@ signals:
     void sigCommand(const QString &command);
 
     /**
-     * Signals that a track has been selected or deselected.
-     * @param track index of the track
-     * @param select true if the track has been selected,
-     *               false if deselected
-     */
-    void sigTrackSelected(unsigned int track, bool select);
-
-    /**
      * Emitted if the state or description of undo/redo has changed. If
      * undo or redo is unavailable the description will be zero.
      * @see emitUndoRedoInfo

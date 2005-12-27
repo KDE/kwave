@@ -921,7 +921,7 @@ bool SignalManager::deleteRange(unsigned int offset, unsigned int length,
 //***************************************************************************
 bool SignalManager::deleteRange(unsigned int offset, unsigned int length)
 {
-    return deleteRange(offset, length, allTracks());
+    return deleteRange(offset, length, selectedTracks());
 }
 
 //***************************************************************************
@@ -946,7 +946,6 @@ void SignalManager::selectTracks(QMemArray<unsigned int> &track_list)
 	bool new_select = track_list.contains(track);
 	if (new_select != old_select) {
 	    m_signal.selectTrack(track, new_select);
-	    emit sigTrackSelected(track, new_select);
 	}
     }
 }
@@ -957,7 +956,6 @@ void SignalManager::selectTrack(unsigned int track, bool select)
     bool old_select = m_signal.trackSelected(track);
     if (select != old_select) {
 	m_signal.selectTrack(track, select);
-	emit sigTrackSelected(track, select);
 
 	// if selection changed during playback, reload with pause/continue
 	if (m_playback_controller.running()) {

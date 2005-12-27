@@ -193,6 +193,8 @@ MainWidget::MainWidget(QWidget *parent)
 	    this, SLOT(slotTrackInserted(unsigned int)));
     connect(&m_signal_widget, SIGNAL(sigTrackDeleted(unsigned int)),
 	    this, SLOT(slotTrackDeleted(unsigned int)));
+    connect(&m_signal_widget, SIGNAL(sigTrackSeclecionChanged()),
+	    this, SLOT(refreshChannelControls()));
 
     connect(&m_signal_widget, SIGNAL(sigMouseChanged(int)),
 	    this, SLOT(forwardMouseChanged(int)));
@@ -470,6 +472,8 @@ void MainWidget::refreshChannelControls()
 //	if (!m_speakers.at(i)) continue;
 
 	m_lamps.at(i)->setNumber(i);
+	m_lamps.at(i)->setState(
+	    signalManager().trackSelected(i) ? 0 : 1);
 //	m_speakers.at(i)->setNumber(i);
     }
 

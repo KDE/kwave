@@ -162,8 +162,6 @@ o navigation buttons on the overview widget
 
 o use MemoryManager for undo actions
 
-o TrackPixmap: different color sets if selected/deselected
-
 o problem with SignalWidget / XOR mode, fails on Nvidia
   -> vanished since last update, but keep this point as a reminder...
 

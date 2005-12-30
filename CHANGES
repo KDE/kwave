@@ -1,10 +1,12 @@
 
-0.7.5 [2005-12-??]
+0.7.5 [2005-12-31]
 
+ * draw signal in a different color set when not selected
  * bugfix: solved deadlock situation when starting a plugin
    while another plugin was still running
  * workaround for deadlock when trying to close the current
    file while a plugin is still running
+ * bugfix: delete range only in selected tracks
  * thrown over board the idea of using gstreamer due to serious license
    issues, we will wait until KDEMM is out (KDE-4) instead.
 

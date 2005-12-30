@@ -33,10 +33,6 @@ pkg_setup() {
 		eerror "KWave needs aRts, please rebuild kdelibs with arts use flag enabled."
 		die
 	fi
-	if use debug ; then
-		eerror "KWave fails with debug use flag enabled."
-		die
-	fi
 }
 
 src_compile() {

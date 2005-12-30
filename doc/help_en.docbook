@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2005-11-26</date>
+<date>2005-12-30</date>
 <releaseinfo>0.7.1
 </releaseinfo>
 
@@ -199,8 +199,11 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.7.5 [2005-12-??]</para>
+            <para>0.7.5 [2005-12-31]</para>
             <itemizedlist>
+                <listitem><para>
+                    draw signal in a different color set when not selected
+                </para></listitem>
                 <listitem><para>
                     bugfix: solved deadlock situation when starting a plugin
                       while another plugin was still running
@@ -208,6 +211,13 @@
                 <listitem><para>
                     workaround for deadlock when trying to close the current
                       file while a plugin is still running
+                </para></listitem>
+                <listitem><para>
+                    bugfix: delete range only in selected tracks
+                </para></listitem>
+                <listitem><para>
+                    thrown over board the idea of using gstreamer due to serious license
+                      issues, we will wait until KDEMM is out (KDE-4) instead.
                 </para></listitem>
             </itemizedlist>
         </listitem>

@@ -4,15 +4,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-08 12:23+0200\n"
-"PO-Revision-Date: 2005-10-08 12:29+0200\n"
+"POT-Creation-Date: 2005-12-30 23:18+0100\n"
+"PO-Revision-Date: 2005-12-30 22:17+0100\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
-"MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Revision-Date: 2001-05-21 18:58+GMT\n"
-"X-Generator: KBabel 1.10.1\n"
+"X-Generator: KBabel 1.11\n"
 
 #: kwave/menus_config_i18n.cpp:13
 msgid "About &KDE"
@@ -439,15 +439,15 @@ msgstr "Ver&kleinern"
 msgid "Zoom to &Selection"
 msgstr "Zoom auf &Auswahl"
 
-#: kwave/PluginManager.cpp:212
+#: kwave/PluginManager.cpp:215
 msgid "oops, plugin '%1' is unknown or invalid!"
 msgstr "Hoppla, Plugin '%1' ist unbekannt oder ungültig!"
 
-#: kwave/PluginManager.cpp:215 kwave/PluginManager.cpp:227
+#: kwave/PluginManager.cpp:218 kwave/PluginManager.cpp:230
 msgid "error on loading plugin"
 msgstr "Fehler beim Laden des Plugins"
 
-#: kwave/PluginManager.cpp:223
+#: kwave/PluginManager.cpp:226
 msgid ""
 "unable to load the file \n"
 "'%1'\n"
@@ -457,16 +457,16 @@ msgstr ""
 "mit dem Plugin '%2' \n"
 "konnte nicht geladen werden !"
 
-#: kwave/PluginManager.cpp:245 kwave/PluginManager.cpp:252
+#: kwave/PluginManager.cpp:248 kwave/PluginManager.cpp:255
 msgid "(unknown)"
 msgstr "(unbekannt)"
 
-#: kwave/PluginManager.cpp:772
+#: kwave/PluginManager.cpp:776
 #, c-format
 msgid "%16s %5s written by %s"
 msgstr "%16s %5s geschrieben von %s"
 
-#: kwave/PluginManager.cpp:776
+#: kwave/PluginManager.cpp:780
 #, c-format
 msgid ""
 "error in '%s':\n"
@@ -475,7 +475,7 @@ msgstr ""
 "Fehler in '%s':\n"
 "\t %s"
 
-#: kwave/PluginManager.cpp:781
+#: kwave/PluginManager.cpp:785
 #, c-format
 msgid ""
 "--- \n"
@@ -504,20 +504,20 @@ msgstr "Track einfügen"
 msgid "modify samples"
 msgstr "Samples ändern"
 
-#: kwave/SignalWidget.cpp:418 plugins/record/RecordPlugin.cpp:761
+#: kwave/SignalWidget.cpp:419 plugins/record/RecordPlugin.cpp:761
 #: plugins/record/RecordPlugin.cpp:779 plugins/record/RecordPlugin.cpp:836
 msgid "Out of memory"
 msgstr "Zu wenig Speicher"
 
-#: kwave/SignalWidget.cpp:421 plugins/playback/PlayBackPlugin.cpp:438
+#: kwave/SignalWidget.cpp:422 plugins/playback/PlayBackPlugin.cpp:438
 msgid "unable to open '%1'"
 msgstr "'%1' kann nicht geöffnet werden"
 
-#: kwave/SignalWidget.cpp:425
+#: kwave/SignalWidget.cpp:426
 msgid "invalid or unknown file type: '%1'"
 msgstr "Ungültiger oder unbekannter Dateityp: '%1'"
 
-#: kwave/SignalWidget.cpp:1822 kwave/SignalWidget.cpp:1861
+#: kwave/SignalWidget.cpp:1828 kwave/SignalWidget.cpp:1867
 msgid "drag and drop"
 msgstr "Drag & Drop"
 
@@ -541,119 +541,131 @@ msgstr "Französische Übersetzung, Begrüssungsbildschirm, Tests und Bugfixes"
 msgid "notch filter plugin"
 msgstr "Kerbfilter Plugin"
 
-#: kwave/main.cpp:82
+#: kwave/main.cpp:80
+msgid "level meter"
+msgstr "Aussteuerungsanzeige"
+
+#: kwave/main.cpp:86
+msgid "author of aRts"
+msgstr "Autor von aRts"
+
+#: kwave/main.cpp:90
 msgid "Kwave homepage and german online help"
 msgstr "Kwave Homepage und deutsche Online-Hilfe"
 
-#: kwave/main.cpp:86
+#: kwave/main.cpp:94
 msgid "tester"
 msgstr "Tester"
 
-#: kwave/main.cpp:90
+#: kwave/main.cpp:98
 msgid "debian packager"
 msgstr "Debian-Packager"
 
-#: kwave/main.cpp:94
+#: kwave/main.cpp:102
 msgid "packaging for Mandrake / X86_64"
 msgstr "Packager für Mandrake / X86_64"
 
-#: kwave/main.cpp:98
+#: kwave/main.cpp:106
 msgid "author of the 'mad' mp3 decoder library"
 msgstr "Autor der 'mad' MP3-Decoder-Bibliothek"
 
-#: kwave/main.cpp:102
+#: kwave/main.cpp:110
 msgid "maintainers of the 'id3lib' library"
 msgstr "Betreuer der 'id3lib'-Bibliothek"
 
-#: kwave/main.cpp:106
+#: kwave/main.cpp:114
 msgid "author of the 'audiofile' library"
 msgstr "Ersteller der 'audiofile'-Bibliothek"
 
-#: kwave/main.cpp:110
+#: kwave/main.cpp:118
 msgid "author of the 'sndfile' library"
 msgstr "Ersteller der 'sndfile'-Bibliothek"
 
-#: kwave/main.cpp:126
+#: kwave/main.cpp:134
 msgid "sound editor for KDE"
 msgstr "Sound-Editor für KDE"
 
-#: kwave/TopWidget.cpp:108 plugins/record/RecordDlg.uic.cpp:636
+#: kwave/main.cpp:147
+msgid "This is %1 (using KDE %2)"
+msgstr "Dies ist %1 (für KDE-%2)"
+
+#: kwave/TopWidget.cpp:97 plugins/record/RecordDlg.uic.cpp:636
 msgid "New File"
 msgstr "Neue Datei"
 
-#: kwave/TopWidget.cpp:251
+#: kwave/TopWidget.cpp:240
 msgid "create a new empty file"
 msgstr "neue leere Datei erzeugen"
 
-#: kwave/TopWidget.cpp:257
+#: kwave/TopWidget.cpp:246
 msgid "open an existing file"
 msgstr "existierende Datei öffnen"
 
-#: kwave/TopWidget.cpp:263
+#: kwave/TopWidget.cpp:252
 msgid "save the current file"
 msgstr "aktuelle Datei speichern"
 
-#: kwave/TopWidget.cpp:295
+#: kwave/TopWidget.cpp:284
 msgid "cut the current selection and move it to the clipboard"
 msgstr "Auswahl ausschneiden und in Zwischenablage speichern"
 
-#: kwave/TopWidget.cpp:301
+#: kwave/TopWidget.cpp:290
 msgid "copy the current selection to the clipboard"
 msgstr "Auswahl in die Zwischenablage kopieren"
 
-#: kwave/TopWidget.cpp:307
+#: kwave/TopWidget.cpp:296
 msgid "insert the content of clipboard"
 msgstr "Inhalt der Zwischenablage einfügen"
 
-#: kwave/TopWidget.cpp:313
+#: kwave/TopWidget.cpp:302
 msgid "mute the current selection"
 msgstr "Auswahl auf Null setzen"
 
-#: kwave/TopWidget.cpp:319
+#: kwave/TopWidget.cpp:308
 msgid "delete the current selection"
 msgstr "Auswahl löschen"
 
-#: kwave/TopWidget.cpp:344
+#: kwave/TopWidget.cpp:333
 msgid "start playback"
 msgstr "Wiedergabe starten"
 
-#: kwave/TopWidget.cpp:350
+#: kwave/TopWidget.cpp:339
 msgid "start playback and loop"
 msgstr "Wiedergabe mit Wiederholung"
 
-#: kwave/TopWidget.cpp:356
+#: kwave/TopWidget.cpp:345
 msgid "pause playback"
 msgstr "Wiedergabe anhalten"
 
-#: kwave/TopWidget.cpp:362
+#: kwave/TopWidget.cpp:351
 msgid "stop playback or loop"
 msgstr "Wiedergabe beenden"
 
-#: kwave/TopWidget.cpp:380
+#: kwave/TopWidget.cpp:369
 msgid "zoom to selection"
 msgstr "auf Auswahl vergrößern"
 
-#: kwave/TopWidget.cpp:387
+#: kwave/TopWidget.cpp:376
 msgid "zoom in"
 msgstr "Vergrößern"
 
-#: kwave/TopWidget.cpp:394
+#: kwave/TopWidget.cpp:383
 msgid "zoom out"
 msgstr "Verkleinern"
 
-#: kwave/TopWidget.cpp:400
+#: kwave/TopWidget.cpp:389
 msgid "zoom to 100%"
 msgstr "auf 100% vergrößern"
 
-#: kwave/TopWidget.cpp:406
+#: kwave/TopWidget.cpp:395
 msgid "zoom to all"
 msgstr "auf gesamtes Signal vergrößern"
 
-#: kwave/TopWidget.cpp:416
+#: kwave/TopWidget.cpp:405
 msgid "select zoom factor"
 msgstr "Vergrößerungsfaktor auswählen"
 
-#: kwave/TopWidget.cpp:503
+#: kwave/TopWidget.cpp:493
 msgid ""
 "<b>Sorry, but since version 0.6.2 you need a running aRts sound server for "
 "using kwave.</b><br>You can setup aRts through the KDE control panel. For "
@@ -666,15 +678,15 @@ msgstr ""
 "mitgelieferte Dokumentation oder besuchen Sie <a href=http://www.arts-"
 "project.org> http://www.arts-project.org</a>."
 
-#: kwave/TopWidget.cpp:516
+#: kwave/TopWidget.cpp:506
 msgid "Loading plugins..."
 msgstr "Lade Plugins..."
 
-#: kwave/TopWidget.cpp:518
+#: kwave/TopWidget.cpp:508
 msgid "Ready."
 msgstr "Bereit."
 
-#: kwave/TopWidget.cpp:784
+#: kwave/TopWidget.cpp:778
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
@@ -682,40 +694,41 @@ msgstr ""
 "Diese Datei wurde verändert.\n"
 "Wollen Sie sie speichern?"
 
-#: kwave/TopWidget.cpp:911
+#: kwave/TopWidget.cpp:912
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
-msgstr "Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
+msgstr ""
+"Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
 
-#: kwave/TopWidget.cpp:1067
+#: kwave/TopWidget.cpp:1068
 msgid "Length: %1"
 msgstr "Länge: %1"
 
-#: kwave/TopWidget.cpp:1067
+#: kwave/TopWidget.cpp:1068
 msgid "(%2 samples)"
 msgstr "(%2 Samples)"
 
-#: kwave/TopWidget.cpp:1076
+#: kwave/TopWidget.cpp:1077
 #, c-format
 msgid "Mode: %0.3f kHz@%u bit"
 msgstr "Format: %0.3f kHz@%u Bit"
 
-#: kwave/TopWidget.cpp:1117
+#: kwave/TopWidget.cpp:1118
 msgid "Selected"
 msgstr "Ausgewählt"
 
-#: kwave/TopWidget.cpp:1121
+#: kwave/TopWidget.cpp:1122
 msgid "samples"
 msgstr "Samples"
 
-#: kwave/TopWidget.cpp:1176
+#: kwave/TopWidget.cpp:1177
 msgid "U&ndo"
 msgstr "&Rückgängig"
 
-#: kwave/TopWidget.cpp:1182
+#: kwave/TopWidget.cpp:1183
 msgid "R&edo"
 msgstr "Wieder&herstellen"
 
-#: kwave/TopWidget.cpp:1382
+#: kwave/TopWidget.cpp:1383
 msgid " (modified)"
 msgstr " (geändert)"
 
@@ -749,7 +762,8 @@ msgstr "Beim Speichern der Datei ist ein Fehler aufgetreten!"
 
 #: kwave/SignalManager.cpp:421
 msgid "The file has been truncated and might be corrupted!"
-msgstr "Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
+msgstr ""
+"Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
 
 #: kwave/SignalManager.cpp:428
 msgid "Sorry, the file type is not supported!"
@@ -775,11 +789,11 @@ msgstr "Track anhängen"
 msgid "delete track"
 msgstr "Track löschen"
 
-#: kwave/SignalManager.cpp:1360 kwave/SignalManager.cpp:1367
+#: kwave/SignalManager.cpp:1358 kwave/SignalManager.cpp:1365
 msgid "last action"
 msgstr "letzte Aktion"
 
-#: kwave/SignalManager.cpp:1593
+#: kwave/SignalManager.cpp:1591
 msgid "modify file info"
 msgstr "Datei-Information ändern"
 
@@ -937,7 +951,7 @@ msgid "(%1%) %2"
 msgstr "(%1%) %2"
 
 #: libgui/FileProgress.cpp:334 plugins/record/RecordDlg.uic.cpp:687
-#: plugins/record/RecordDialog.cpp:484
+#: plugins/record/RecordDialog.cpp:485
 msgid "%1 samples"
 msgstr "%1 Samples"
 
@@ -1145,7 +1159,8 @@ msgstr "Copyright"
 
 #: libkwave/FileInfo.cpp:85
 msgid "Indicates whether the file is protected by copyright or not."
-msgstr "Gibt an ob der Inhalt der Datei urheberrechtlich geschützt ist oder nicht."
+msgstr ""
+"Gibt an ob der Inhalt der Datei urheberrechtlich geschützt ist oder nicht."
 
 #: libkwave/FileInfo.cpp:88
 msgid "Date"
@@ -2128,47 +2143,47 @@ msgstr "Hanning"
 msgid "Blackman"
 msgstr "Blackman"
 
-#: libkwave/Interpolation.cpp:32
+#: libkwave/Interpolation.cpp:48
 msgid "linear"
 msgstr "Linear"
 
-#: libkwave/Interpolation.cpp:33
+#: libkwave/Interpolation.cpp:49
 msgid "spline"
 msgstr "Spline"
 
-#: libkwave/Interpolation.cpp:34
+#: libkwave/Interpolation.cpp:50
 msgid "n-polynom"
 msgstr "n-Polynom"
 
-#: libkwave/Interpolation.cpp:35
+#: libkwave/Interpolation.cpp:51
 msgid "3-polynom"
 msgstr "3-Polynom"
 
-#: libkwave/Interpolation.cpp:36
+#: libkwave/Interpolation.cpp:52
 msgid "5-polynom"
 msgstr "5-Polynom"
 
-#: libkwave/Interpolation.cpp:37
+#: libkwave/Interpolation.cpp:53
 msgid "7-polynom"
 msgstr "7-Polynom"
 
-#: libkwave/Interpolation.cpp:38
+#: libkwave/Interpolation.cpp:54
 msgid "polynom, nth degree"
 msgstr "Polynom, n-ter Grad"
 
-#: libkwave/Interpolation.cpp:39
+#: libkwave/Interpolation.cpp:55
 msgid "polynom, 3rd degree"
 msgstr "Polynom, dritter Grad"
 
-#: libkwave/Interpolation.cpp:40
+#: libkwave/Interpolation.cpp:56
 msgid "polynom, 5th degree"
 msgstr "Polynom, 5ter Grad"
 
-#: libkwave/Interpolation.cpp:41
+#: libkwave/Interpolation.cpp:57
 msgid "polynom, 7th degree"
 msgstr "Polynom, 7ter Grad"
 
-#: libkwave/Interpolation.cpp:42
+#: libkwave/Interpolation.cpp:58
 msgid "sample and hold"
 msgstr "Sample + Hold"
 
@@ -2366,7 +2381,8 @@ msgstr "bei Veränderungen"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:197
 msgid "automatically update the sonagram <br>if the signal data has changed"
-msgstr "aktualisiert das Sonagram automatisch<br>wenn das Signal verändert wurde"
+msgstr ""
+"aktualisiert das Sonagram automatisch<br>wenn das Signal verändert wurde"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:198
 msgid "follow selection"
@@ -3228,18 +3244,18 @@ msgstr "Bänder 16 bis 31"
 msgid "no"
 msgstr "Nein"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:520 plugins/record/RecordDialog.cpp:602
+#: plugins/fileinfo/FileInfoDialog.cpp:520 plugins/record/RecordDialog.cpp:603
 #: plugins/newsignal/NewSignalDialog.cpp:323
 msgid "(Mono)"
 msgstr "(Mono)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:523 plugins/record/RecordDialog.cpp:605
+#: plugins/fileinfo/FileInfoDialog.cpp:523 plugins/record/RecordDialog.cpp:606
 #: plugins/playback/PlayBackDlg.uic.cpp:267
 #: plugins/newsignal/NewSignalDialog.cpp:326
 msgid "(Stereo)"
 msgstr "(Stereo)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:526 plugins/record/RecordDialog.cpp:608
+#: plugins/fileinfo/FileInfoDialog.cpp:526 plugins/record/RecordDialog.cpp:609
 #: plugins/newsignal/NewSignalDialog.cpp:329
 msgid "(Quadro)"
 msgstr "(Quadro)"
@@ -3724,10 +3740,8 @@ msgid ""
 "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes OSS, "
 "supports more features and more hardware.</p>"
 msgstr ""
-"<b>Aufnahme-Metode:</b><p>Wählen Sie eine Methode bzw. ein System für "
-"die \n"
-"Aufnahme. Abhängig von den Compilier-Optionen können Sie eine der "
-"folgenden\n"
+"<b>Aufnahme-Metode:</b><p>Wählen Sie eine Methode bzw. ein System für die \n"
+"Aufnahme. Abhängig von den Compilier-Optionen können Sie eine der folgenden\n"
 "Methoden wählen:</p>\n"
 "<p><b><i>OSS (Open Sound System)</i></b>: Die älteste Linux-Implementierung, "
 "nur Mono und Stereo. Veraltet seit Linux-Kernel 2.6, aber immer noch weit "
@@ -3751,8 +3765,9 @@ msgid ""
 "filesystem.</p>"
 msgstr ""
 "<b>Gerät::</b><p>Zeigt eine Auswahl bekannter Aufnahme-Geräte, passend zu "
-"Ihrer Aufnahme-Methode. Wenn Ihr Gerät nicht in der Liste enthalten ist, können "
-"Sie einen Gerätenamen manuell eintragen oder im Dateisystem suchen.</p>"
+"Ihrer Aufnahme-Methode. Wenn Ihr Gerät nicht in der Liste enthalten ist, "
+"können Sie einen Gerätenamen manuell eintragen oder im Dateisystem suchen.</"
+"p>"
 
 #: plugins/record/RecordDlg.uic.cpp:683
 msgid "Selec&t..."
@@ -3826,64 +3841,64 @@ msgstr "OSS-Aufnahmegerät (dsp*)"
 msgid "ALSA recording device (adsp*)"
 msgstr "ALSA-Aufnahmegerät (adsp*)"
 
-#: plugins/record/Record-OSS.cpp:197 plugins/record/RecordDialog.cpp:505
-#: plugins/playback/PlayBack-OSS.cpp:259
+#: plugins/record/Record-OSS.cpp:197 plugins/record/RecordDialog.cpp:506
+#: plugins/playback/PlayBack-OSS.cpp:260
 msgid "Any device (*)"
 msgstr "Anderes Wiedergabegerät (*)"
 
 #: plugins/record/Record-ALSA.cpp:1078 plugins/record/Record-ALSA.cpp:1092
-#: plugins/playback/PlayBack-ALSA.cpp:676
-#: plugins/playback/PlayBack-ALSA.cpp:690
+#: plugins/playback/PlayBack-ALSA.cpp:677
+#: plugins/playback/PlayBack-ALSA.cpp:691
 msgid "card %1: "
 msgstr "Karte %1: "
 
 #: plugins/record/Record-ALSA.cpp:1080 plugins/record/Record-ALSA.cpp:1093
-#: plugins/playback/PlayBack-ALSA.cpp:678
-#: plugins/playback/PlayBack-ALSA.cpp:691
+#: plugins/playback/PlayBack-ALSA.cpp:679
+#: plugins/playback/PlayBack-ALSA.cpp:692
 msgid "device %2: "
 msgstr "Gerät %2: "
 
-#: plugins/record/Record-ALSA.cpp:1082 plugins/playback/PlayBack-ALSA.cpp:680
+#: plugins/record/Record-ALSA.cpp:1082 plugins/playback/PlayBack-ALSA.cpp:681
 msgid "subdevice %3: "
 msgstr "Subgerät %3: "
 
-#: plugins/record/RecordDialog.cpp:503
+#: plugins/record/RecordDialog.cpp:504
 msgid "OSS record device (dsp*)"
 msgstr "OSS-Aufnahmegerät (dsp*)"
 
-#: plugins/record/RecordDialog.cpp:504
+#: plugins/record/RecordDialog.cpp:505
 msgid "ALSA record device (adsp*)"
 msgstr "ALSA-Aufnahmegerät (adsp*)"
 
-#: plugins/record/RecordDialog.cpp:511
+#: plugins/record/RecordDialog.cpp:512
 msgid "Select Record Device"
 msgstr "Auswahl des Aufnahmegeräts"
 
-#: plugins/record/RecordDialog.cpp:871
+#: plugins/record/RecordDialog.cpp:872
 msgid "(empty)"
 msgstr "(leer)"
 
-#: plugins/record/RecordDialog.cpp:880
+#: plugins/record/RecordDialog.cpp:881
 msgid "buffering..."
 msgstr "buffern..."
 
-#: plugins/record/RecordDialog.cpp:889
+#: plugins/record/RecordDialog.cpp:890
 msgid "prerecording..."
 msgstr "Vorab-Aufnahme..."
 
-#: plugins/record/RecordDialog.cpp:898
+#: plugins/record/RecordDialog.cpp:899
 msgid "waiting for trigger..."
 msgstr "warte auf Trigger..."
 
-#: plugins/record/RecordDialog.cpp:907
+#: plugins/record/RecordDialog.cpp:908
 msgid "recording..."
 msgstr "Aufnahme läuft..."
 
-#: plugins/record/RecordDialog.cpp:916
+#: plugins/record/RecordDialog.cpp:917
 msgid "paused"
 msgstr "Angehalten"
 
-#: plugins/record/RecordDialog.cpp:925
+#: plugins/record/RecordDialog.cpp:926
 msgid "done."
 msgstr "Fertig."
 
@@ -3909,7 +3924,8 @@ msgstr "%1 Stimmen"
 
 #: plugins/record/RecordPlugin.cpp:399
 msgid "This device does not support recording with %1, using %2 instead."
-msgstr "Die Aufnahme mit '%1' wird nicht unterstützt, verwende '%2' stattdessen."
+msgstr ""
+"Die Aufnahme mit '%1' wird nicht unterstützt, verwende '%2' stattdessen."
 
 #: plugins/record/RecordPlugin.cpp:411
 msgid "Recording with %1 track(s) failed, using %2 track(s) instead."
@@ -3929,7 +3945,8 @@ msgstr ""
 
 #: plugins/record/RecordPlugin.cpp:510
 msgid "The compression '%1' is not supported, using '%2' instead."
-msgstr "Die Kompressionsart '%1' wird nicht unterstützt, verwende '%2' stattdessen."
+msgstr ""
+"Die Kompressionsart '%1' wird nicht unterstützt, verwende '%2' stattdessen."
 
 #: plugins/record/RecordPlugin.cpp:527
 msgid "Setting the compression type %1 failed, using %2 instead."
@@ -3955,7 +3972,8 @@ msgstr ""
 
 #: plugins/record/RecordPlugin.cpp:621
 msgid "The sample format '%1' is not supported, using '%2' instead."
-msgstr "Das Sample-Format '%1' wird nicht unterstützt, verwende '%2' stattdessen."
+msgstr ""
+"Das Sample-Format '%1' wird nicht unterstützt, verwende '%2' stattdessen."
 
 #: plugins/record/RecordPlugin.cpp:637
 msgid "Setting the sample format '%1' failed, using '%2' instead."
@@ -3972,7 +3990,8 @@ msgid "The current compression type is not supported!"
 msgstr "Die aktuelle Kompressionsart wird nicht unterstützt!"
 
 #: plugins/record/RecordPlugin.cpp:883
-msgid "Buffer overrun. Please increase the number and/or size of the record buffers."
+msgid ""
+"Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
 "Buffer-Überlauf. Bitte erhöhen Sie die Anzahl der Buffer und/oder vergrößern "
 "Sie die Buffergröße."
@@ -4099,7 +4118,8 @@ msgstr "Dateiende vor dem Einlesen aller Vorbis-Header!"
 
 #: plugins/codec_ogg/OggDecoder.cpp:351
 msgid "Corrupt or missing data in bitstream; continuing..."
-msgstr "Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
+msgstr ""
+"Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
 
 #: plugins/codec_ogg/OggCodecPlugin.cpp:33
 msgid "codec_ogg"
@@ -4238,7 +4258,8 @@ msgid "Select Playback Device"
 msgstr "Auswahl des Wiedergabegeräts"
 
 #: plugins/playback/PlayBackPlugin.cpp:172
-msgid "Playback is currently running.Please stop playback first and then try again"
+msgid ""
+"Playback is currently running.Please stop playback first and then try again"
 msgstr ""
 "Die Wiedergabe läuft momentan. Bitte stoppen Sie zuerst die Wiedergabe und "
 "versuchen Sie es danach nochmal."
@@ -4249,7 +4270,7 @@ msgstr "Wiedergabe-Test"
 
 #: plugins/playback/PlayBackPlugin.cpp:796
 msgid "you should hear a %1Hz test tone..."
-msgstr "Sie sollten jetzt eine %1Hz Testsignal hören..."
+msgstr "Sie sollten jetzt ein %1Hz Testsignal hören..."
 
 #: plugins/playback/PlayBackDlg.uic.cpp:241
 msgid "Playback"
@@ -4375,7 +4396,7 @@ msgid "Number of channels: mono, stereo..."
 msgstr "Anzahl der Kanäle: Mono, Stereo, ..."
 
 #: plugins/playback/PlayBackDlg.uic.cpp:266
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "<b>Channels:</b><p>Number of channels used for playback. This does not "
 "necessarily have to be the same as the number of tracks in your current "
@@ -4445,27 +4466,27 @@ msgstr ""
 msgid "The device '%1' cannot be opened in the correct mode."
 msgstr "Das Gerät '%1' kann nicht im geforderten Modus geöffnet werden."
 
-#: plugins/playback/PlayBack-OSS.cpp:128
+#: plugins/playback/PlayBack-OSS.cpp:129
 msgid "%1 bits per sample are not supported"
 msgstr "%1 Bits/Sample werden nicht unterstützt"
 
-#: plugins/playback/PlayBack-OSS.cpp:134
+#: plugins/playback/PlayBack-OSS.cpp:135
 msgid "stereo playback is not supported"
 msgstr "Stereo-Wiedergabe wird nicht unterstützt"
 
-#: plugins/playback/PlayBack-OSS.cpp:140
+#: plugins/playback/PlayBack-OSS.cpp:141
 msgid "playback rate %1 Hz is not supported"
 msgstr "Wiedergabe-Rate %1 Hz wird nicht unterstützt"
 
-#: plugins/playback/PlayBack-OSS.cpp:149
+#: plugins/playback/PlayBack-OSS.cpp:150
 msgid "unusable buffer size: %1"
 msgstr "Puffer-Größe kann nicht verwendet werden: %1"
 
-#: plugins/playback/PlayBack-OSS.cpp:253
+#: plugins/playback/PlayBack-OSS.cpp:254
 msgid "OSS playback device (dsp*)"
 msgstr "OSS-Wiedergabegerät (dsp*)"
 
-#: plugins/playback/PlayBack-OSS.cpp:256
+#: plugins/playback/PlayBack-OSS.cpp:257
 msgid "ALSA playback device (adsp*)"
 msgstr "ALSA-Wiedergabegerät (adsp*)"
 
@@ -4473,11 +4494,11 @@ msgstr "ALSA-Wiedergabegerät (adsp*)"
 msgid "aRts (Analog Realtime Synthesizer)"
 msgstr "aRts (Analog Realtime Synthesizer)"
 
-#: plugins/playback/PlayBack-aRts.cpp:93
+#: plugins/playback/PlayBack-aRts.cpp:92
 msgid "unable to open aRts playback stream"
 msgstr "aRts-Stream für Wiedergabe konnte nicht geöffnet werden"
 
-#: plugins/playback/PlayBack-aRts.cpp:211
+#: plugins/playback/PlayBack-aRts.cpp:210
 msgid ""
 "Can't connect to aRts soundserver. Maybe it is not properly installed or not "
 "running."
@@ -4485,7 +4506,7 @@ msgstr ""
 "Die Verbindung zum aRts Soundserver konnt nicht hergestellt werden. "
 "Möglicherweise ist dieser nicht richtig installiert oder er läuft nicht."
 
-#: plugins/playback/PlayBack-aRts.cpp:215
+#: plugins/playback/PlayBack-aRts.cpp:214
 msgid ""
 "Loading the aRts backend library failed. This might be due to a problem with "
 "your aRts installation."
@@ -4493,11 +4514,11 @@ msgstr ""
 "Die aRts backend-Bibliothek konnte nicht geladen werden. Dies könnte ein "
 "Problem mit Ihrer aRts-Installation sein."
 
-#: plugins/playback/PlayBack-aRts.cpp:220
+#: plugins/playback/PlayBack-aRts.cpp:219
 msgid "The aRts output stream is invalid."
 msgstr "Der aRts-Ausgabestrom ist ungültig."
 
-#: plugins/playback/PlayBack-aRts.cpp:223
+#: plugins/playback/PlayBack-aRts.cpp:222
 msgid ""
 "aRts output is not available because the initialization of the aRts output "
 "has failed or not been done."
@@ -4505,7 +4526,7 @@ msgstr ""
 "Die aRts-Ausgabe ist nicht verfügbar weil die Initialisierung der aRts-"
 "Ausgabe fehlschlug oder nicht durchgeführt wurde."
 
-#: plugins/playback/PlayBack-aRts.cpp:228
+#: plugins/playback/PlayBack-aRts.cpp:227
 msgid ""
 "The required aRts function is not yet implemented. Maybe you should get a "
 "newer version of aRts or upgrade the kdelibs package."
@@ -4514,7 +4535,7 @@ msgstr ""
 "versuchen, eine neuere Version von aRts zu installieren oder das kdelibs-"
 "Paket zu aktualisieren."
 
-#: plugins/playback/PlayBack-aRts.cpp:244
+#: plugins/playback/PlayBack-aRts.cpp:243
 msgid "[aRts sound daemon]"
 msgstr "[aRts Sound-Daemon]"
 
@@ -4522,7 +4543,7 @@ msgstr "[aRts Sound-Daemon]"
 msgid "Opening the device '%1' failed: %2"
 msgstr "Öffnen des Gerätes '%1' ist fehlgeschlagen: %2"
 
-#: plugins/playback/PlayBack-ALSA.cpp:707
+#: plugins/playback/PlayBack-ALSA.cpp:708
 msgid "DMIX plugin"
 msgstr "DMIX-Plugin"
 
@@ -4587,7 +4608,8 @@ msgstr "Maximum"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:329
 msgid "sets the file size by the percentage of the possible maximum"
-msgstr "Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
+msgstr ""
+"Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
 
 #: plugins/newsignal/NewSignalDialog.cpp:354
 msgid "(Resulting file size: %1 MB)"
@@ -4596,4 +4618,3 @@ msgstr "(Resultierende Dateigröße: %1 MB)"
 #: plugins/newsignal/NewSignalPlugin.cpp:33
 msgid "newsignal"
 msgstr "Neues Signal"
-

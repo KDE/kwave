@@ -90,10 +90,6 @@ void addDataStrings(KAboutData& aboutdata)
                      i18n("Kwave homepage and german online help"),
                      "ssa29@gmx.de",
                      0);
-    aboutdata.addCredit("Martin Kuball",
-                     i18n("tester"),
-                     "makube@user.sourceforge.net",
-                     0);
     aboutdata.addCredit("Aurelien Jarno",
                      i18n("debian packager"),
                      "aurel32@debian.org",
@@ -101,6 +97,14 @@ void addDataStrings(KAboutData& aboutdata)
     aboutdata.addCredit("Robert M. Stockmann",
                      i18n("packaging for Mandrake / X86_64"),
                      "stock@stokkie.net",
+                     0);
+    aboutdata.addCredit("Diederick de Vries",
+                     i18n("packaging for Crux Linux"),
+                     "diederick76@gmail.com",
+                     "http://crux.nu/portdb/?command=viewport&repo=diederick&name=kwave");
+    aboutdata.addCredit("Martin Kuball",
+                     i18n("tester"),
+                     "makube@user.sourceforge.net",
                      0);
     aboutdata.addCredit("Robert Leslie",
                      i18n("author of the 'mad' mp3 decoder library"),

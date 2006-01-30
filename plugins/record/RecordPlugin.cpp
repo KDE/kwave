@@ -595,7 +595,7 @@ void RecordPlugin::changeSampleFormat(SampleFormat new_format)
     InhibitRecordGuard _lock(*this); // don't record while settings change
 //     qDebug("RecordPlugin::changeSampleFormat(%d)", (int)new_format);
 
-    if (!m_device || (new_format < 0)) {
+    if (!m_device) {
 	// no device -> dummy/shortcut
 	m_dialog->setSampleFormat(SampleFormat::Unknown);
 	return;

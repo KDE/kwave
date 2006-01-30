@@ -1,4 +1,6 @@
 
+o BUG: Kwave crashes when the record device does not exist!
+
 o get rid of aRts
 
 o use KDEMM instead of aRts as soon as it is available

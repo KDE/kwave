@@ -1738,8 +1738,8 @@ recording. Depending on the compilation options you can select one of the follow
 </includes>
 <layoutdefaults spacing="10" margin="10"/>
 <includehints>
-    <includehint>hmstimewidget.h</includehint>
+    <includehint>HMSTimeWidget.h</includehint>
     <includehint>klineedit.h</includehint>
-    <includehint>levelmeter.h</includehint>
+    <includehint>LevelMeter.h</includehint>
 </includehints>
 </UI>

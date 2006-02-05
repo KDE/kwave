@@ -2569,7 +2569,7 @@
 </includes>
 <layoutdefaults spacing="10" margin="10"/>
 <includehints>
-    <includehint>compressionwidget.h</includehint>
-    <includehint>keywordwidget.h</includehint>
+    <includehint>CompressionWidget.h</includehint>
+    <includehint>KeywordWidget.h</includehint>
 </includehints>
 </UI>

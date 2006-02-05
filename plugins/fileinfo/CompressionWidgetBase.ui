@@ -346,9 +346,7 @@ The bitrate is selected by an average quality.</string>
 </connections>
 <layoutdefaults spacing="10" margin="10"/>
 <includehints>
-    <includehint>bitratewidget.h</includehint>
-    <includehint>bitratewidget.h</includehint>
-    <includehint>bitratewidget.h</includehint>
+    <includehint>BitrateWidget.h</includehint>
     <includehint>knuminput.h</includehint>
 </includehints>
 </UI>

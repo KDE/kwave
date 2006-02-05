@@ -469,7 +469,7 @@ and scroll capability.</string>
 </slots>
 <layoutdefaults spacing="10" margin="10"/>
 <includehints>
-    <includehint>logowidget.h</includehint>
+    <includehint>LogoWidget.h</includehint>
     <includehint>qscrollview.h</includehint>
     <includehint>qscrollview.h</includehint>
     <includehint>qscrollview.h</includehint>

@@ -182,7 +182,6 @@
 </includes>
 <layoutdefaults spacing="10" margin="10"/>
 <includehints>
-    <includehint>selecttimewidget.h</includehint>
-    <includehint>selecttimewidget.h</includehint>
+    <includehint>SelectTimeWidget.h</includehint>
 </includehints>
 </UI>

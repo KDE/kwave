@@ -272,6 +272,8 @@ int RecordALSA::open(const QString &device)
     if (m_handle) close();
     m_initialized = false;
 
+    if (!device.length()) return -1; // no device name
+
     // translate verbose name to internal ALSA name
     QString alsa_device = alsaDeviceName(device);
     qDebug("RecordALSA::open -> '%s'", alsa_device.local8Bit().data());

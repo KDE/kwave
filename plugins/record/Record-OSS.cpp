@@ -52,7 +52,7 @@ int RecordOSS::open(const QString &dev)
     // close the device if it is still open
     Q_ASSERT(m_fd < 0);
     if (m_fd >= 0) close();
-    if (dev.isEmpty()) return -1; // no device name
+    if (!dev.length()) return -1; // no device name
 
     // first of all: try to open the device itself
     int fd = ::open(dev.ascii(), O_RDONLY | O_NONBLOCK);

@@ -37,7 +37,7 @@ RecordParams::RecordParams()
     sample_format(SampleFormat::Unknown),
     buffer_count(32),
     buffer_size(13), /* (1 << 13) == 8192 bytes */
-    display_level_meter(false),
+    display_level_meter(true),
     display_oscilloscope(false),
     display_fft(false),
     display_overview(false)

@@ -21,8 +21,12 @@
 #include "config.h"
 
 typedef enum {
+
+    /** Settings are not valid yet, cannot open device etc... */
+    REC_UNINITIALIZED = 0,
+
     /** Empty, nothing recorded yet and no recording started */
-    REC_EMPTY = 0,
+    REC_EMPTY,
 
     /**
      * Buffering data for pre-recording, if pre-recording is enabled.

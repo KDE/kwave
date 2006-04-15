@@ -35,7 +35,17 @@ public:
     /** Destructor */
     virtual ~RecordController();
 
+    /** returns the name of a state */
+    const char *stateName(const RecordState state);
+
 public slots:
+
+    /**
+     * Informs the controller whether the recording engine has been
+     * successfully been initialized or recording cannot be started.
+     * @param initialized if true, recording can be started
+     */
+    void setInitialized(bool initialized);
 
     /**
      *Informs the controller whether the signal is empty or not
@@ -46,7 +56,7 @@ public slots:
     /**
      * Enable the prerecording. Has to be called before any status
      * change to enable/disable the prerecording mode
-     * 
+     *
      * @param enable if true, enable prerecording
      */
     void enablePrerecording(bool enable);

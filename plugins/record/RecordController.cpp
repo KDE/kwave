@@ -20,23 +20,8 @@
 #include "RecordState.h"
 
 //***************************************************************************
-static const char *state2str(const RecordState state)
-{
-    switch (state) {
-	case REC_EMPTY:			return "REC_EMPTY";
-	case REC_BUFFERING:		return "REC_BUFFERING";
-	case REC_WAITING_FOR_TRIGGER:	return "REC_WAITING_FOR_TRIGGER";
-	case REC_PRERECORDING:		return "REC_PRERECORDING";
-	case REC_RECORDING:		return "REC_RECORDING";
-	case REC_PAUSED:		return "REC_PAUSED";
-	case REC_DONE:			return "REC_DONE";
-    }
-    return "-INVALID-";
-}
-
-//***************************************************************************
 RecordController::RecordController()
-    :QObject(), m_state(REC_EMPTY), m_next_state(REC_EMPTY),
+    :QObject(), m_state(REC_UNINITIALIZED), m_next_state(REC_EMPTY),
      m_trigger_set(false), m_enable_prerecording(false),
      m_empty(true)
 {
@@ -45,6 +30,20 @@ RecordController::RecordController()
 //***************************************************************************
 RecordController::~RecordController()
 {
+}
+
+//***************************************************************************
+void RecordController::setInitialized(bool initialized)
+{
+    qDebug("RecordController::setInitialized(%d)", initialized);
+
+    if (initialized) {
+	m_next_state = (m_empty) ? REC_EMPTY : REC_DONE;
+	emit stateChanged(m_state = REC_EMPTY);
+    } else {
+	m_next_state = REC_UNINITIALIZED;
+	emit stateChanged(REC_UNINITIALIZED);
+    }
 }
 
 //***************************************************************************
@@ -65,6 +64,7 @@ void RecordController::actionReset()
     qDebug("RecordController::actionReset()");
 
     switch (m_state) {
+	case REC_UNINITIALIZED:
 	case REC_EMPTY:
 	    // already empty, nothing to do
 	    break;
@@ -93,6 +93,7 @@ void RecordController::actionStop()
 {
     qDebug("RecordController::actionStop");
     switch (m_state) {
+	case REC_UNINITIALIZED:
 	case REC_EMPTY:
 	case REC_DONE:
 	    // already stopped, nothing to do
@@ -117,6 +118,7 @@ void RecordController::actionPause()
 {
     qDebug("RecordController::actionPause");
     switch (m_state) {
+	case REC_UNINITIALIZED:
 	case REC_EMPTY:
 	case REC_DONE:
 	    // what do you want ?
@@ -126,7 +128,7 @@ void RecordController::actionPause()
 	case REC_PRERECORDING:
 	    // this should never happen
 	    qWarning("RecordController::actionPause(): "
-	             "state = %s ???", state2str(m_state));
+	             "state = %s ???", stateName(m_state));
 	    break;
 	case REC_RECORDING:
 	    // pause recording
@@ -144,6 +146,8 @@ void RecordController::actionStart()
 {
     qDebug("RecordController::actionStart");
     switch (m_state) {
+	case REC_UNINITIALIZED:
+	    break; // impossible
 	case REC_EMPTY:
 	case REC_DONE:
 	    // interprete this as manual trigger
@@ -174,6 +178,8 @@ void RecordController::deviceRecordStarted()
 {
     qDebug("RecordController::deviceRecordStarted");
     switch (m_state) {
+	case REC_UNINITIALIZED:
+	    break; // impossible
 	case REC_EMPTY:
 	case REC_PAUSED:
 	case REC_DONE:
@@ -188,7 +194,7 @@ void RecordController::deviceRecordStarted()
 	case REC_RECORDING:
 	    // this should never happen
 	    qWarning("RecordController::deviceRecordStarted(): "
-	             "state = %s ???", state2str(m_state));
+	             "state = %s ???", stateName(m_state));
 	    break;
     }
 }
@@ -198,6 +204,8 @@ void RecordController::deviceBufferFull()
 {
     qDebug("RecordController::deviceBufferFull");
     switch (m_state) {
+	case REC_UNINITIALIZED:
+	    break; // impossible
 	case REC_EMPTY:
 	    // we are only "recording" for updating the level
 	    // meters and other effects -> no state change
@@ -207,7 +215,7 @@ void RecordController::deviceBufferFull()
 	case REC_RECORDING:
 	    // this should never happen
 	    qWarning("RecordController::deviceBufferFull(): "
-	             "state = %s ???", state2str(m_state));
+	             "state = %s ???", stateName(m_state));
 	    break;
 	case REC_PAUSED: /* == buffering again after pause */
 	    // -> will change to "REC_BUFFERING" soon...
@@ -250,6 +258,7 @@ void RecordController::deviceTriggerReached()
 {
     qDebug("RecordController::deviceTriggerReached");
     switch (m_state) {
+	case REC_UNINITIALIZED:
 	case REC_EMPTY:
 	case REC_BUFFERING:
 	case REC_RECORDING:
@@ -257,7 +266,7 @@ void RecordController::deviceTriggerReached()
 	case REC_DONE:
 	    // this should never happen
 	    qWarning("RecordController::deviceTriggerReached(): "
-	             "state = %s ???", state2str(m_state));
+	             "state = %s ???", stateName(m_state));
 	    break;
 	case REC_PRERECORDING:
 	case REC_WAITING_FOR_TRIGGER:
@@ -286,6 +295,7 @@ void RecordController::deviceRecordStopped(int)
 {
     qDebug("RecordController::deviceRecordStopped()");
     switch (m_state) {
+	case REC_UNINITIALIZED:
 	case REC_EMPTY:
 	case REC_DONE:
 	    // this could happen when an abort occurs during buffering
@@ -330,7 +340,7 @@ void RecordController::deviceRecordStopped(int)
 		    break;
 		default:
 		    qWarning("RecordController::deviceRecordStopped(): "
-		             "next state = %s ???", state2str(m_next_state));
+		             "next state = %s ???", stateName(m_next_state));
 	    }
 	    break;
 	case REC_PAUSED:
@@ -339,6 +349,22 @@ void RecordController::deviceRecordStopped(int)
 	    emit stateChanged(m_state = REC_DONE);
 	    break;
     }
+}
+
+//***************************************************************************
+const char *RecordController::stateName(const RecordState state)
+{
+    switch (state) {
+	case REC_UNINITIALIZED:		return "REC_UNINITIALIZED";
+	case REC_EMPTY:			return "REC_EMPTY";
+	case REC_BUFFERING:		return "REC_BUFFERING";
+	case REC_WAITING_FOR_TRIGGER:	return "REC_WAITING_FOR_TRIGGER";
+	case REC_PRERECORDING:		return "REC_PRERECORDING";
+	case REC_RECORDING:		return "REC_RECORDING";
+	case REC_PAUSED:		return "REC_PAUSED";
+	case REC_DONE:			return "REC_DONE";
+    }
+    return "-INVALID-";
 }
 
 //***************************************************************************

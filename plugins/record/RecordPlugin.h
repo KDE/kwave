@@ -148,6 +148,9 @@ private slots:
     /** restart recorder with new buffer settings */
     void buffersChanged();
 
+    /** the prerecording checkbos has changed */
+    void prerecordingChanged(bool enable);
+
 private:
 
     /** close m_device and delete it */
@@ -202,6 +205,12 @@ private:
      * @see m_writers
      */
     void flushPrerecordingQueue();
+
+    /**
+     * Returns true if all parameters are valid and the recording
+     * (thread) could be started.
+     */
+    bool paramsValid();
 
 private:
 

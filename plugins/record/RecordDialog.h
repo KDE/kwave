@@ -27,6 +27,7 @@
 #include "RecordParams.h"
 #include "RecordState.h"
 #include "RecordTypesMap.h"
+#include "StatusWidget.h"
 
 #include "libkwave/Sample.h"
 #include "libkwave/SampleFormat.h"
@@ -174,6 +175,9 @@ public slots:
     /** updates the number of recorded samples */
     void setRecordedSamples(unsigned int samples_recorded);
 
+    /** show a message in the status bar */
+    void message(const QString &message);
+
 private slots:
 
     /**
@@ -297,6 +301,9 @@ private:
 
     /** if false, do nothing in setDevice */
     bool m_enable_setDevice;
+
+    /** widget with a icon in the status bar */
+    StatusWidget *m_state_icon_widget;
 
 };
 

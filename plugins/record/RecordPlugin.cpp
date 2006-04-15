@@ -40,8 +40,6 @@
 #include "libkwave/SampleFormat.h"
 #include "libkwave/SampleWriter.h"
 
-#include "libgui/Notice.h"
-
 #include "kwave/PluginManager.h"
 #include "kwave/SignalManager.h"
 #include "kwave/TopWidget.h"
@@ -135,6 +133,8 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     m_controller.enableTrigger(m_dialog->params().record_trigger_enabled);
     connect(m_dialog, SIGNAL(sigPreRecordingChanged(bool)),
             &m_controller, SLOT(enablePrerecording(bool)));
+    connect(m_dialog, SIGNAL(sigPreRecordingChanged(bool)),
+            this, SLOT(prerecordingChanged(bool)));
     m_controller.enablePrerecording(m_dialog->params().pre_record_enabled);
 
     // connect the record controller and this
@@ -200,9 +200,7 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
 void RecordPlugin::notice(QString message)
 {
     Q_ASSERT(m_dialog);
-    if (!m_dialog) return;
-
-    (void) new Notice(m_dialog, message);
+    if (m_dialog) m_dialog->message(message);
 }
 
 //***************************************************************************
@@ -316,7 +314,7 @@ void RecordPlugin::setDevice(const QString &device)
     if (!m_dialog || !m_device) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-    qDebug("RecordPlugin::setDevice(%s)", device.local8Bit().data());
+    qDebug("RecordPlugin::setDevice('%s')", device.local8Bit().data());
 
     // open and initialize the device
     int result = m_device->open(device);
@@ -337,15 +335,47 @@ void RecordPlugin::setDevice(const QString &device)
 	cfg->sync();
     }
 
-    if (result < 0) {
-	qWarning("RecordPlugin::openDevice(): "\
-	         "opening the device failed.");
+    if (result >= 0) {
+	m_controller.setInitialized(true);
+    } else {
+	qWarning("RecordPlugin::openDevice('%s'): "\
+	         "opening the device failed. error=%d",
+	         device.local8Bit().data(), result);
 
-// 	// show an error message box
-// 	KMessageBox::error(parentWidget(), result,
+	m_controller.setInitialized(false);
+
+	// show an error message box
+// 	QString reason;
+// 	if (!m_device_name.length()) {
+// 	    reason = i18n(
+// 		"please select a recording device first");
+// 	}
+// 	else
+// 	switch (result) {
+// 	    case ENOENT:
+// 	    case ENODEV:
+// 	    case ENXIO:
+// 	    case EIO:
+// 		reason = i18n("i/o error, maybe the driver\n"\#
+// 		"is not present in your kernel or it is not\n"\#
+// 		"properly configured.");
+// 		break;
+// 	    case EBUSY:
+// 		reason = i18n(
+// 		"The device is busy. Maybe an other application is \n"\#
+// 		"currently using it. Please try again later. \n");
+// 		break;
+// 	    default:
+// 		reason = strerror(errno);
+// 	}
+//
+// 	KMessageBox::error(parentWidget(), reason,
 // 	    i18n("unable to open '%1'").arg(
 // 	    m_device_name));
+
+	m_device_name = QString::null;
 	changeTracks(0);
+
 	return;
     }
 
@@ -361,8 +391,9 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
     InhibitRecordGuard _lock(*this); // don't record while settings change
     qDebug("RecordPlugin::changeTracks(%u)", new_tracks);
 
-    if (!m_device || !new_tracks) {
+    if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
+	m_dialog->setSupportedTracks(0,0);
 	m_dialog->setTracks(0);
 	changeSampleRate(0);
 	return;
@@ -396,8 +427,7 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
 		    s2 = i18n("%1 tracks").arg(tracks);
 	    }
 
-	    notice(i18n("This device does not support recording with %1, "\
-		        "using %2 instead.").arg(s1).arg(s2));
+	    notice(i18n("%1 is not supported, using %2").arg(s1).arg(s2));
 	}
     }
     m_dialog->setSupportedTracks(min, max);
@@ -409,7 +439,7 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
 	tracks = m_device->tracks();
 	if (new_tracks && (tracks > 0)) notice(
 	    i18n("Recording with %1 track(s) failed, "\
-		 "using %2 track(s) instead.").arg(new_tracks).arg(tracks));
+		 "using %2 track(s)").arg(new_tracks).arg(tracks));
     }
     m_dialog->setTracks(tracks);
 
@@ -426,10 +456,10 @@ void RecordPlugin::changeSampleRate(double new_rate)
     InhibitRecordGuard _lock(*this); // don't record while settings change
 //     qDebug("RecordPlugin::changeSampleRate(%u)", (unsigned int)new_rate);
 
-    if (!m_device || (new_rate <= 0)) {
+    if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
 	m_dialog->setSampleRate(0);
-	changeCompression(0);
+	changeCompression(-1);
 	return;
     }
 
@@ -441,7 +471,7 @@ void RecordPlugin::changeSampleRate(double new_rate)
 	double nearest = supported_rates.last();
 	QValueList<double>::Iterator it;
 	for (it=supported_rates.begin(); it != supported_rates.end(); ++it) {
-	    if (fabs(*it - nearest) <= fabs(rate - nearest))
+	    if (fabs(*it - rate) <= fabs(nearest - rate))
 	        nearest = *it;
 	}
 	rate = nearest;
@@ -450,8 +480,8 @@ void RecordPlugin::changeSampleRate(double new_rate)
 	const QString sr2(m_dialog->rate2string(rate));
 	if (((int)new_rate > 0) && ((int)rate > 0) &&
 	    ((int)new_rate != (int)rate))
-	    notice(i18n("The sample rate %1Hz is not supported, "\
-		        "using %2Hz instead.").arg(sr1).arg(sr2));
+	    notice(i18n("Sample rate %1Hz is not supported, "\
+		        "using %2Hz").arg(sr1).arg(sr2));
     }
     m_dialog->setSupportedSampleRates(supported_rates);
 
@@ -465,8 +495,8 @@ void RecordPlugin::changeSampleRate(double new_rate)
 	const QString sr2(m_dialog->rate2string(rate));
 	if (((int)new_rate > 0) && ((int)rate > 0) &&
 	    ((int)new_rate != (int)rate))
-	    notice(i18n("Setting the sample rate %1Hz failed, "\
-		        "using %2Hz instead.").arg(sr1).arg(sr2));
+	    notice(i18n("Sample rate %1Hz failed, "\
+		        "using %2Hz").arg(sr1).arg(sr2));
     }
     m_dialog->setSampleRate(rate);
 
@@ -481,8 +511,9 @@ void RecordPlugin::changeCompression(int new_compression)
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
+//     qDebug("RecordPlugin::changeCompression(%d)", (int)new_compression);
 
-    if (!m_device || (new_compression < 0)) {
+    if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
 	m_dialog->setCompression(-1);
 	changeBitsPerSample(0);
@@ -507,8 +538,8 @@ void RecordPlugin::changeCompression(int new_compression)
 	if (compression != new_compression) {
 	    const QString c1(types.name(types.findFromData(new_compression)));
 	    const QString c2(types.name(types.findFromData(compression)));
-	    notice(i18n("The compression '%1' is not supported, "\
-		        "using '%2' instead.").arg(c1).arg(c2));
+	    notice(i18n("compression '%1' is not supported, "\
+		        "using '%2'").arg(c1).arg(c2));
 	}
     }
     m_dialog->setSupportedCompressions(supported_comps);
@@ -524,8 +555,7 @@ void RecordPlugin::changeCompression(int new_compression)
 	    const QString c1(types.name(types.findFromData(compression)));
 	    const QString c2(types.name(types.findFromData(
 	                 m_device->compression())));
-	    notice(i18n("Setting the compression type %1 failed, "\
-		        "using %2 instead.").arg(c1).arg(c2));
+	    notice(i18n("compression %1 failed, using %2.").arg(c1).arg(c2));
 	}
     }
     m_dialog->setCompression(compression);
@@ -541,9 +571,9 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-//     qDebug("RecordPlugin::changeBitsPerSample(%u)", new_bits);
+//     qDebug("RecordPlugin::changeBitsPerSample(%d)", (int)new_bits);
 
-    if (!m_device || !new_bits) {
+    if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
 	m_dialog->setBitsPerSample(0);
 	changeSampleFormat(SampleFormat::Unknown);
@@ -564,8 +594,8 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 	bits = nearest;
 
 	if (((int)new_bits > 0) && (bits > 0)) notice(
-	    i18n("The resolution %1 bits per sample is not supported, "\
-	         "using %2 bits per sample instead.").arg(
+	    i18n("%1 bits per sample is not supported, "\
+	         "using %2 bits per sample").arg(
 		 (int)new_bits).arg(bits));
     }
     m_dialog->setSupportedBits(supported_bits);
@@ -576,8 +606,8 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 	// revert to the current device setting if failed
 	bits = m_device->bitsPerSample();
 	if ((new_bits> 0) && (bits > 0)) notice(
-	    i18n("Setting the resolution %1 bits per sample failed, "\
-		 "using %2 bits per sample instead.").arg(
+	    i18n("%1 bits per sample failed, "\
+		 "using %2 bits per sample").arg(
 		 (int)new_bits).arg(bits));
     }
     m_dialog->setBitsPerSample(bits);
@@ -595,7 +625,7 @@ void RecordPlugin::changeSampleFormat(SampleFormat new_format)
     InhibitRecordGuard _lock(*this); // don't record while settings change
 //     qDebug("RecordPlugin::changeSampleFormat(%d)", (int)new_format);
 
-    if (!m_device) {
+    if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
 	m_dialog->setSampleFormat(SampleFormat::Unknown);
 	return;
@@ -618,8 +648,8 @@ void RecordPlugin::changeSampleFormat(SampleFormat new_format)
 	const QString s1 = sf.name(sf.findFromData(new_format));
 	const QString s2 = sf.name(sf.findFromData(format));
 	if (!(new_format == -1) && !(new_format == format)) {
-	    notice(i18n("The sample format '%1' is not supported, "\
-		        "using '%2' instead.").arg(s1).arg(s2));
+	    notice(i18n("sample format '%1' is not supported, "\
+		        "using '%2'").arg(s1).arg(s2));
 	}
     }
     m_dialog->setSupportedSampleFormats(supported_formats);
@@ -634,8 +664,7 @@ void RecordPlugin::changeSampleFormat(SampleFormat new_format)
 	const QString s1 = sf.name(sf.findFromData(new_format));
 	const QString s2 = sf.name(sf.findFromData(format));
 	if (format > 0) notice(
-	    i18n("Setting the sample format '%1' failed, "\
-	         "using '%2' instead.").arg(s1).arg(s2));
+	    i18n("sample format '%1' failed, using '%2'").arg(s1).arg(s2));
     }
     m_dialog->setSampleFormat(format);
 }
@@ -668,24 +697,38 @@ void RecordPlugin::leaveInhibit()
     Q_ASSERT(m_dialog);
 
     if (m_inhibit_count) m_inhibit_count--;
-    if (!m_inhibit_count && m_thread && m_device && m_dialog) {
-// 	qDebug("RecordPlugin::leaveInhibit() - STARTING ("+
-// 	       "%d channels, %d bits)",
-//                m_dialog->params().tracks,
-// 	       m_dialog->params().bits_per_sample);
+
+    while (!m_inhibit_count && paramsValid()) {
+	qDebug("RecordPlugin::leaveInhibit() - STARTING ("\
+	       "%d channels, %d bits)",
+	       m_dialog->params().tracks,
+	       m_dialog->params().bits_per_sample);
 
 	Q_ASSERT(!m_thread->running());
-	if (m_thread->running()) return;
+	if (m_thread->running()) break;
 
 	// set new parameters for the recorder
 	setupRecordThread();
 
 	// and let the thread run (again)
 	m_thread->start();
-
-	// take back the hourglass cursor
-	QApplication::restoreOverrideCursor();
+	break;
     }
+
+    // take back the hourglass cursor
+    if (!m_inhibit_count) QApplication::restoreOverrideCursor();
+}
+
+//***************************************************************************
+bool RecordPlugin::paramsValid()
+{
+    if (!m_thread || !m_device || !m_dialog) return false;
+    if (m_device_name.isNull()) return false;
+
+    const RecordParams &params = m_dialog->params();
+    if (params.tracks < 1) return false;
+
+    return true;
 }
 
 //***************************************************************************
@@ -698,7 +741,6 @@ void RecordPlugin::resetRecording(bool &accepted)
     accepted = topwidget.closeFile();
     if (!accepted) return;
 
-    m_writers.flush();
     m_writers.resize(0);
     m_buffers_recorded = 0;
 
@@ -712,7 +754,7 @@ void RecordPlugin::setupRecordThread()
     Q_ASSERT(m_thread);
     Q_ASSERT(m_dialog);
     Q_ASSERT(m_device);
-    if (!m_thread || !m_dialog || !m_device) return;
+    if (!paramsValid()) return;
 
     // stop the thread if necessary (should never happen)
     Q_ASSERT(!m_thread->running());
@@ -725,6 +767,7 @@ void RecordPlugin::setupRecordThread()
 
     // our own reference to the record parameters
     const RecordParams &params = m_dialog->params();
+    if (!paramsValid()) return;
 
     // create a decoder for the current sample format
     switch (params.compression) {
@@ -803,7 +846,7 @@ void RecordPlugin::startRecording()
     Q_ASSERT(m_device);
     if (!m_dialog || !m_thread || !m_device) return;
 
-//     InhibitRecordGuard _lock(*this); // don't record while settings change
+    InhibitRecordGuard _lock(*this); // don't record while settings change
     qDebug("RecordPlugin::startRecording()");
 
     if ((m_state != REC_PAUSED) || !m_decoder) {
@@ -904,10 +947,11 @@ void RecordPlugin::recordStopped(int reason)
 //***************************************************************************
 void RecordPlugin::stateChanged(RecordState state)
 {
-    qDebug("RecordPlugin::stateChanged(%d)", (int)state);
+    qDebug("RecordPlugin::stateChanged(%s)", m_controller.stateName(state));
 
     m_state = state;
     switch (m_state) {
+	case REC_UNINITIALIZED:
 	case REC_EMPTY:
 	case REC_PAUSED:
 	case REC_DONE:
@@ -1216,6 +1260,7 @@ void RecordPlugin::processBuffer(QByteArray buffer)
     RecordState state = m_state;
     for (unsigned int track=0; track < tracks; ++track) {
 	switch (state) {
+	    case REC_UNINITIALIZED:
 	    case REC_EMPTY:
 		break;
 	    case REC_BUFFERING:
@@ -1254,6 +1299,13 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 	return;
     }
 
+}
+
+//***************************************************************************
+void RecordPlugin::prerecordingChanged(bool enable)
+{
+    (void)enable;
+    InhibitRecordGuard _lock(*this); // activate the change
 }
 
 //***************************************************************************

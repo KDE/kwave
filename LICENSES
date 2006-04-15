@@ -475,8 +475,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/MenuSub.h				GPL2
 	libgui/MultiStateWidget.cpp			GPL2
 	libgui/MultiStateWidget.h			GPL2
-	libgui/Notice.cpp				GPL2
-	libgui/Notice.h					GPL2
 	libgui/OverViewCache.cpp			GPL2
 	libgui/OverViewCache.h				GPL2
 	libgui/OverViewWidget.cpp			GPL2
@@ -798,9 +796,27 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/record/RecordThread.h			GPL2
 	plugins/record/RecordTypesMap.cpp		GPL2
 	plugins/record/RecordTypesMap.h			GPL2
+	plugins/record/StatusWidget.h			GPL2
+	plugins/record/StatusWidget.cpp			GPL2
 	plugins/record/SampleDecoder.h			GPL2
 	plugins/record/SampleDecoderLinear.cpp		GPL2
 	plugins/record/SampleDecoderLinear.h		GPL2
+	plugins/record/stop_hand.xpm			free / KDE
+	-> icons/ikons/16x16/actions/stop_hand.png
+	plugins/record/ok.xpm				free / KDE
+	-> icons/crystalsvg/16x16/actions/ok.png
+	plugins/record/ledgreen.xpm			GPL2 (kdelirc)
+	plugins/record/ledlightgreen.xpm		GPL2 (kdelirc)
+	plugins/record/ledred.xpm			GPL2 (kdelirc)
+	plugins/record/ledyellow.xpm			GPL2 (kdelirc)
+	plugins/record/walk_r1.xpm			GPL2 (amor)
+	plugins/record/walk_r2.xpm			GPL2 (amor)
+	plugins/record/walk_r3.xpm			GPL2 (amor)
+	plugins/record/walk_r4.xpm			GPL2 (amor)
+	plugins/record/walk_r5.xpm			GPL2 (amor)
+	plugins/record/walk_r6.xpm			GPL2 (amor)
+	plugins/record/walk_r7.xpm			GPL2 (amor)
+	plugins/record/walk_r8.xpm			GPL2 (amor)
 
 	plugins/selectrange/SelectRangeDialog.cpp	GPL2
 	plugins/selectrange/SelectRangeDialog.h		GPL2

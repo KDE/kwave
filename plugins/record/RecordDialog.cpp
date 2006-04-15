@@ -26,6 +26,7 @@
 #include <qprogressbar.h>
 #include <qslider.h>
 #include <qtabwidget.h>
+#include <qstatusbar.h>
 
 #include <kapplication.h> // for invokeHelp
 #include <kcombobox.h>
@@ -35,6 +36,7 @@
 #include <klocale.h>
 #include <kpushbutton.h>
 #include <knuminput.h>
+#include <kstatusbar.h>
 
 #include "libkwave/CompressionType.h"
 #include "libkwave/SampleFormat.h"
@@ -51,6 +53,22 @@
 #include "record_pause.xpm"
 #include "krec_record.xpm"
 
+// status bar icons
+#include "stop_hand.xpm"
+#include "ok.xpm"
+#include "ledred.xpm"
+#include "ledgreen.xpm"
+#include "ledlightgreen.xpm"
+#include "ledyellow.xpm"
+#include "walk_r1.xpm"
+#include "walk_r2.xpm"
+#include "walk_r3.xpm"
+#include "walk_r4.xpm"
+#include "walk_r5.xpm"
+#include "walk_r6.xpm"
+#include "walk_r7.xpm"
+#include "walk_r8.xpm"
+
 /* some macros, for laziness ;-) */
 #define SETUP(enabled,property,check,value) \
 	check->setChecked(m_params.enabled); \
@@ -65,6 +83,15 @@
 	STD_SETUP(enabled,property,control); \
 	sl##control->setEnabled(sb##control->isEnabled());
 
+
+enum {
+    ID_ICON=1,          /**< status bar id: state icon */
+    ID_STATE,           /**< status bar id: state text */
+    ID_SAMPLE_RATE,     /**< status bar id: sample rate */
+    ID_BITS_PER_SAMPLE, /**< status bar id: number of tracks */
+    ID_TRACKS           /**< status bar id: number of tracks */
+};
+
 //***************************************************************************
 RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
                            RecordController *controller)
@@ -74,7 +101,7 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
      m_supported_resolutions(), m_buffer_progress_count(0),
      m_buffer_progress_total(0), m_buffer_progress_timer(this),
      m_record_enabled(true), m_samples_recorded(0),
-     m_enable_setDevice(true)
+     m_enable_setDevice(true), m_state_icon_widget(0)
 {
     /* get initial parameters */
     m_params.fromList(params);
@@ -215,10 +242,29 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     connect(btHelp, SIGNAL(clicked()),
             this,   SLOT(invokeHelp()));
 
+    // status bar
+    m_state_icon_widget = new StatusWidget(this);
+    Q_ASSERT(m_state_icon_widget);
+    if (!m_state_icon_widget) return;
+
+    m_state_icon_widget->setFixedSize(16, 16);
+    lbl_state->addWidget(m_state_icon_widget);
+
+    lbl_state->insertItem(" ", ID_STATE, 100);
+    lbl_state->setItemAlignment(ID_STATE, AlignLeft | AlignVCenter);
+    lbl_state->insertItem(" ", ID_SAMPLE_RATE);
+    lbl_state->setItemAlignment(ID_SAMPLE_RATE, AlignRight | AlignVCenter);
+    lbl_state->insertItem(" ", ID_BITS_PER_SAMPLE);
+    lbl_state->setItemAlignment(ID_BITS_PER_SAMPLE, AlignRight | AlignVCenter);
+    lbl_state->insertItem(" ", ID_TRACKS);
+    lbl_state->setItemAlignment(ID_TRACKS, AlignRight | AlignVCenter);
+
+    m_state_icon_widget->setFixedSize(16, lbl_state->childrenRect().height());
+
     // set the initial state of the dialog to "Reset/Empty"
     setState(REC_EMPTY);
 
-    // disable the "level" tab, it it not implemented yet
+    // disable the "level" tab, it is not implemented yet
     tabRecord->setCurrentPage(1);
     QWidget *page = tabRecord->currentPage();
     tabRecord->setCurrentPage(0);
@@ -410,6 +456,9 @@ void RecordDialog::listEntrySelected(QListViewItem *item)
     Q_ASSERT(listDevices);
     if (!item || !listDevices) return;
 
+    qDebug("RecordDialog::listEntrySelected('%s')",
+           m_devices_list_map[item].data());
+
     if (m_devices_list_map.contains(item))
 	setDevice(m_devices_list_map[item]);
 }
@@ -449,6 +498,8 @@ void RecordDialog::setDevice(const QString &device)
 	    cbDevice->setCurrentText(device);
 	} else if (cbDevice->count()) {
 	    cbDevice->setCurrentItem(0);
+	    emit sigDeviceChanged(cbDevice->currentText());
+	    device_changed = false;
 	}
     }
 
@@ -597,20 +648,27 @@ void RecordDialog::setTracks(unsigned int tracks)
     if (!tracks) return;
 
     m_params.tracks = tracks;
+    QString tracks_str;
 
     switch (tracks) {
 	case 1:
-	    lblTracksVerbose->setText(i18n("(Mono)"));
+	    tracks_str = i18n("Mono");
 	    break;
 	case 2:
-	    lblTracksVerbose->setText(i18n("(Stereo)"));
+	    tracks_str = i18n("Stereo");
 	    break;
 	case 4:
-	    lblTracksVerbose->setText(i18n("(Quadro)"));
+	    tracks_str = i18n("Quadro");
 	    break;
 	default:
-	    lblTracksVerbose->setText("");
+	    tracks_str = "";
     }
+    lblTracksVerbose->setText("("+tracks_str+")");
+
+    if (tracks_str.length())
+	lbl_state->changeItem(tracks_str, ID_TRACKS);
+    else
+	lbl_state->changeItem(i18n("%1 tracks").arg(tracks), ID_TRACKS);
 
     sbFormatTracks->setValue(tracks);
 }
@@ -665,6 +723,7 @@ void RecordDialog::setSampleRate(double new_rate)
     QString rate;
     rate = rate2string(new_rate);
     cbFormatSampleRate->setCurrentItem(rate, true);
+    lbl_state->changeItem(i18n("%1 Hz").arg(rate), ID_SAMPLE_RATE);
 }
 
 //***************************************************************************
@@ -763,6 +822,7 @@ void RecordDialog::setBitsPerSample(unsigned int bits)
 	m_params.bits_per_sample = bits;
     }
 
+    lbl_state->changeItem(i18n("%1 bit").arg(bits), ID_BITS_PER_SAMPLE);
     sbFormatResolution->setValue(bits);
 }
 
@@ -865,73 +925,108 @@ void RecordDialog::setState(RecordState state)
     bool enable_record = false;
     bool enable_settings = false;
     bool enable_trigger = false;
+    QString state_text = "";
+    QValueVector<QPixmap> pixmaps;
+    unsigned int animation_time = 500;
 
     m_state = state;
     switch (state) {
+	case REC_UNINITIALIZED:
+	    state_text = i18n("please check the source device settings...");
+	    enable_new      = true;
+	    enable_pause    = false;
+	    enable_stop     = false;
+	    enable_record   = false;
+	    enable_settings = true;
+	    enable_trigger  = true;
+	    pixmaps.push_back(QPixmap(stop_hand_xpm));
+	    pixmaps.push_back(QPixmap(ledred_xpm));
+	    break;
 	case REC_EMPTY:
-	    lbl_state->setText(i18n("(empty)"));
+	    state_text = i18n("(empty)");
 	    enable_new      = true;
 	    enable_pause    = false;
 	    enable_stop     = false;
 	    enable_record   = m_params.device_name.length();
 	    enable_settings = true;
 	    enable_trigger  = true;
+	    pixmaps.push_back(QPixmap(ledgreen_xpm));
 	    break;
 	case REC_BUFFERING:
-	    lbl_state->setText(i18n("buffering..."));
+	    state_text = i18n("buffering...");
 	    enable_new      = true; /* throw away current FIFO content */
 	    enable_pause    = false;
 	    enable_stop     = true;
 	    enable_record   = true; /* acts as "trigger now" */
 	    enable_settings = false;
 	    enable_trigger  = true;
+	    pixmaps.push_back(QPixmap(ledgreen_xpm));
+	    pixmaps.push_back(QPixmap(ledlightgreen_xpm));
 	    break;
 	case REC_PRERECORDING:
-	    lbl_state->setText(i18n("prerecording..."));
+	    state_text = i18n("prerecording...");
 	    enable_new      = false;
 	    enable_pause    = false;
 	    enable_stop     = true;
 	    enable_record   = true;
 	    enable_settings = false;
 	    enable_trigger  = true;
+	    pixmaps.push_back(QPixmap(ledgreen_xpm));
+	    pixmaps.push_back(QPixmap(ledlightgreen_xpm));
 	    break;
 	case REC_WAITING_FOR_TRIGGER:
-	    lbl_state->setText(i18n("waiting for trigger..."));
+	    state_text = i18n("waiting for trigger...");
 	    enable_new      = false;
 	    enable_pause    = false;
 	    enable_stop     = true;
 	    enable_record   = true; /* acts as "trigger now" */
 	    enable_settings = false;
 	    enable_trigger  = true;
+	    pixmaps.push_back(QPixmap(ledgreen_xpm));
+	    pixmaps.push_back(QPixmap(ledlightgreen_xpm));
 	    break;
 	case REC_RECORDING:
-	    lbl_state->setText(i18n("recording..."));
+	    state_text = i18n("recording...");
 	    enable_new      = false;
 	    enable_pause    = true;
 	    enable_stop     = true;
 	    enable_record   = false;
 	    enable_settings = false;
 	    enable_trigger  = false;
+	    pixmaps.push_back(QPixmap(walk_r1_xpm));
+	    pixmaps.push_back(QPixmap(walk_r2_xpm));
+	    pixmaps.push_back(QPixmap(walk_r3_xpm));
+	    pixmaps.push_back(QPixmap(walk_r4_xpm));
+	    pixmaps.push_back(QPixmap(walk_r5_xpm));
+	    pixmaps.push_back(QPixmap(walk_r6_xpm));
+	    pixmaps.push_back(QPixmap(walk_r7_xpm));
+	    pixmaps.push_back(QPixmap(walk_r8_xpm));
+	    animation_time = 100;
 	    break;
 	case REC_PAUSED:
-	    lbl_state->setText(i18n("paused"));
+	    state_text = i18n("paused");
 	    enable_new      = true; /* start again */
 	    enable_pause    = true; /* used for "continue" */
 	    enable_stop     = true;
 	    enable_record   = true; /* used for "continue" */
 	    enable_settings = false;
 	    enable_trigger  = false;
+	    pixmaps.push_back(QPixmap(ledgreen_xpm));
+	    pixmaps.push_back(QPixmap(ledyellow_xpm));
 	    break;
 	case REC_DONE:
-	    lbl_state->setText(i18n("done."));
+	    state_text = i18n("done");
 	    enable_new      = true;
 	    enable_pause    = false;
 	    enable_stop     = false;
 	    enable_record   = true;
 	    enable_settings = true;
 	    enable_trigger  = true;
+	    pixmaps.push_back(QPixmap(ok_xpm));
 	    break;
     }
+    lbl_state->changeItem(state_text, ID_STATE);
+    m_state_icon_widget->setPixmaps(pixmaps, animation_time);
 
     // enable/disable the record control buttons
     btNew->setEnabled(enable_new);
@@ -1021,6 +1116,7 @@ void RecordDialog::recordTimeChanged(int limit)
 void RecordDialog::triggerChecked(bool enabled)
 {
     m_params.record_trigger_enabled = enabled;
+    emit sigTriggerChanged(enabled);
 }
 
 //***************************************************************************
@@ -1094,6 +1190,12 @@ void RecordDialog::updateRecordButton()
 void RecordDialog::invokeHelp()
 {
     kapp->invokeHelp("recording");
+}
+
+//***************************************************************************
+void RecordDialog::message(const QString &message)
+{
+    if (lbl_state) lbl_state->message(message, 3000);
 }
 
 //***************************************************************************

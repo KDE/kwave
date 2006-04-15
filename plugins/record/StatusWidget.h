@@ -34,6 +34,9 @@ public:
     /** Constructor */
     StatusWidget(QWidget *parent = 0);
 
+    /** Destructor */
+    virtual ~StatusWidget();
+
     /**
      * Set a new list of pixmaps
      *

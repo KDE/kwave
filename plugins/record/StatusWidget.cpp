@@ -27,6 +27,13 @@ StatusWidget::StatusWidget(QWidget *parent)
 }
 
 //***************************************************************************
+StatusWidget::~StatusWidget()
+{
+    m_timer.stop();
+    m_pixmaps.clear();
+}
+
+//***************************************************************************
 void StatusWidget::paintEvent(QPaintEvent *)
 {
     if (!m_pixmaps.count()) return;

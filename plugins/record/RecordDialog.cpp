@@ -663,12 +663,14 @@ void RecordDialog::setTracks(unsigned int tracks)
 	default:
 	    tracks_str = "";
     }
-    lblTracksVerbose->setText("("+tracks_str+")");
 
-    if (tracks_str.length())
+    if (tracks_str.length()) {
+	lblTracksVerbose->setText("("+tracks_str+")");
 	lbl_state->changeItem(tracks_str, ID_TRACKS);
-    else
+    } else {
+	lblTracksVerbose->setText("");
 	lbl_state->changeItem(i18n("%1 tracks").arg(tracks), ID_TRACKS);
+    }
 
     sbFormatTracks->setValue(tracks);
 }
@@ -1196,6 +1198,12 @@ void RecordDialog::invokeHelp()
 void RecordDialog::message(const QString &message)
 {
     if (lbl_state) lbl_state->message(message, 3000);
+}
+
+//***************************************************************************
+void RecordDialog::showDevicePage()
+{
+    if (tabRecord) tabRecord->setCurrentPage(2);
 }
 
 //***************************************************************************

@@ -129,6 +129,12 @@ public:
      */
     void updateEffects(unsigned int track, QMemArray<sample_t> &buffer);
 
+    /**
+     * Show the "source" device tab, usually if the setup was
+     * not successful.
+     */
+    void showDevicePage();
+
 signals:
 
     /** emits changes in the currently selected record method */

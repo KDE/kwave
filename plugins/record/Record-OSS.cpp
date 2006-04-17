@@ -219,7 +219,6 @@ QStringList RecordOSS::supportedDevices()
 
     scanDirectory(list, "/dev");
     scanDirectory(list, "/dev/sound");
-    addIfExists(list, "/dev/dio%1");
     list.append("#EDIT#");
     list.append("#SELECT#");
 

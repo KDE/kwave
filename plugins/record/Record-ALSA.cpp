@@ -278,11 +278,11 @@ int RecordALSA::open(const QString &device)
     QString alsa_device = alsaDeviceName(device);
     qDebug("RecordALSA::open -> '%s'", alsa_device.local8Bit().data());
 
-    if (!alsa_device.length()) return 0;
+    if (!alsa_device.length()) return -ENOENT;
 
     // workaround for bug in ALSA
     // if the device name ends with "," -> invalid name
-    if (alsa_device.endsWith(",")) return 0;
+    if (alsa_device.endsWith(",")) return -ENOENT;
 
     // open the device in case it's not already open
     m_open_result = snd_pcm_open(&m_handle, alsa_device.local8Bit().data(),
@@ -714,7 +714,7 @@ int RecordALSA::detectTracks(unsigned int &min, unsigned int &max)
 		     snd_strerror(err));
     }
 
-    qDebug("RecordALSA::detectTracks, min=%u, max=%u", min, max);
+//     qDebug("RecordALSA::detectTracks, min=%u, max=%u", min, max);
     return 0;
 }
 
@@ -1108,10 +1108,11 @@ next_card:
 	}
     }
 
-//     // per default: offer the dmix plugin if slave devices exist
-//     if (!m_device_list.isEmpty())
-//         m_device_list.insert(i18n("DMIX plugin")+QString("|sound_note"),
-//                              "plug:dmix");
+    // per default: offer the dsnoop plugin if any slave devices exist
+    if (!m_device_list.isEmpty()) {
+	m_device_list.insert(i18n("DSNOOP plugin")+QString("|sound_note"),
+	                     "plug:dsnoop");
+    }
 
     snd_config_update_free_global();
 }

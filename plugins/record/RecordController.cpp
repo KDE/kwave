@@ -35,8 +35,6 @@ RecordController::~RecordController()
 //***************************************************************************
 void RecordController::setInitialized(bool initialized)
 {
-    qDebug("RecordController::setInitialized(%d)", initialized);
-
     if (initialized) {
 	m_next_state = (m_empty) ? REC_EMPTY : REC_DONE;
 	emit stateChanged(m_state = REC_EMPTY);

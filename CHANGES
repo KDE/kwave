@@ -1,4 +1,15 @@
 
+0.7.6 [2006-05-??]
+
+ * bugfix: recording setup when calling for the first time
+ * bugfix: do no longer crash when recording device is not
+   present or opening failed
+ * record plugin: added a fancy status bar
+ * record plugin: added autodetect/scanning for OSS devices
+ * record plugin: added dsnoop plugin as ALSA source
+ * record plugin: less annoying message boxes, show short
+   notices in the status bar instead for some seconds
+
 0.7.5 [2005-12-31]
 
  * draw signal in a different color set when not selected

@@ -27,6 +27,9 @@
 #include <math.h>
 #include <errno.h>
 
+#include <qdir.h>
+#include <qfile.h>
+
 #include "libkwave/CompressionType.h"
 #include "libkwave/SampleFormat.h"
 
@@ -157,25 +160,66 @@ int RecordOSS::close()
 }
 
 //***************************************************************************
+static bool addIfExists(QStringList &list, const QString &name)
+{
+    QFile file;
+
+    if (name.contains("%1")) {
+	// test for the name without suffix first
+	addIfExists(list, name.arg(""));
+
+	// loop over the list and try until a suffix does not exist
+	for (unsigned int index=0; index < 64; index++)
+	    addIfExists(list, name.arg(index));
+    } else {
+	// check a single name
+	file.setName(name);
+	if (!file.exists())
+	    return false;
+
+	if (!list.contains(name))
+	    list.append(name);
+    }
+
+    return true;
+}
+
+//***************************************************************************
+static void scanFiles(QStringList &list, const QString &dirname,
+                      const QString &mask)
+{
+    QStringList files;
+    QDir dir;
+
+    dir.setPath(dirname);
+    dir.setNameFilter(mask);
+    dir.setFilter(QDir::Files | QDir::Readable | QDir::System);
+    dir.setSorting(QDir::Name);
+    files = dir.entryList();
+
+    for (QStringList::Iterator it=files.begin(); it != files.end(); ++it) {
+	QString devicename = dirname + QDir::separator() + (*it);
+	addIfExists(list, devicename);
+    }
+}
+
+//***************************************************************************
+static void scanDirectory(QStringList &list, const QString &dir)
+{
+    scanFiles(list, dir, "*audio*");
+    scanFiles(list, dir, "adsp*");
+    scanFiles(list, dir, "dsp*");
+    scanFiles(list, dir, "dio*");
+}
+
+//***************************************************************************
 QStringList RecordOSS::supportedDevices()
 {
     QStringList list;
 
-    list.append("/dev/dsp");
-    list.append("/dev/dsp0");
-    list.append("/dev/dsp1");
-    list.append("/dev/dsp2");
-    list.append("/dev/audio");
-    list.append("/dev/sound/dsp");
-    list.append("/dev/sound/dsp0");
-    list.append("/dev/sound/dsp1");
-    list.append("/dev/sound/dsp2");
-    list.append("/dev/sound/audio");
-    list.append("/dev/adsp");
-    list.append("/dev/adsp0");
-    list.append("/dev/adsp1");
-    list.append("/dev/adsp2");
-    list.append("/dev/dio");
+    scanDirectory(list, "/dev");
+    scanDirectory(list, "/dev/sound");
+    addIfExists(list, "/dev/dio%1");
     list.append("#EDIT#");
     list.append("#SELECT#");
 
@@ -188,6 +232,7 @@ QString RecordOSS::fileFilter()
     QString filter;
 
     if (filter.length()) filter += "\n";
+    filter += QString("audio*|") + i18n("OSS recording device (audio*)");
     filter += QString("dsp*|") + i18n("OSS recording device (dsp*)");
 
     if (filter.length()) filter += "\n";

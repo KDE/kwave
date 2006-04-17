@@ -335,51 +335,56 @@ void RecordPlugin::setDevice(const QString &device)
 	cfg->sync();
     }
 
-    if (result >= 0) {
-	m_controller.setInitialized(true);
-    } else {
+    if (result < 0) {
 	qWarning("RecordPlugin::openDevice('%s'): "\
 	         "opening the device failed. error=%d",
 	         device.local8Bit().data(), result);
 
 	m_controller.setInitialized(false);
+	m_dialog->showDevicePage();
 
-	// show an error message box
-// 	QString reason;
-// 	if (!m_device_name.length()) {
-// 	    reason = i18n(
-// 		"please select a recording device first");
-// 	}
-// 	else
-// 	switch (result) {
-// 	    case ENOENT:
-// 	    case ENODEV:
-// 	    case ENXIO:
-// 	    case EIO:
-// 		reason = i18n("i/o error, maybe the driver\n"\#
-// 		"is not present in your kernel or it is not\n"\#
-// 		"properly configured.");
-// 		break;
-// 	    case EBUSY:
-// 		reason = i18n(
-// 		"The device is busy. Maybe an other application is \n"\#
-// 		"currently using it. Please try again later. \n");
-// 		break;
-// 	    default:
-// 		reason = strerror(errno);
-// 	}
-//
-// 	KMessageBox::error(parentWidget(), reason,
-// 	    i18n("unable to open '%1'").arg(
-// 	    m_device_name));
+	if (m_device_name.length()) {
+	    // build a short device name for showing to the user
+	    QString short_device_name = m_device_name;
+	    if (m_device_name.contains("|")) {
+		// tree syntax: extract card + device
+		short_device_name = m_device_name.section("|", 0, 0) +
+		    i18n(", ") + m_device_name.section("|", 3, 3);
+	    }
+
+	    // show an error message box
+	    QString reason;
+	    switch (result) {
+		case -ENOENT:
+		case -ENODEV:
+		case -ENXIO:
+		case -EIO:
+		    reason = i18n(
+			"Kwave was unable to open the device '%1'.\n"\
+			"Maybe your system lacks support for the driver "\
+			"or the hardware is not connected."
+		    ).arg(short_device_name);
+		    break;
+		case -EBUSY:
+		    reason = i18n(
+			"The device '%1' seems to be occupied by another "\
+			"application.\n"\
+			"Please try again later."
+		    ).arg(short_device_name);
+		    break;
+	    }
+
+	    if (reason.length()) KMessageBox::sorry(parentWidget(), reason,
+		i18n("unable to open the recording device"));
+	}
 
 	m_device_name = QString::null;
 	changeTracks(0);
-
-	return;
+    } else {
+	m_controller.setInitialized(true);
+	changeTracks(m_dialog->params().tracks);
     }
 
-    changeTracks(m_dialog->params().tracks);
 }
 
 //***************************************************************************
@@ -389,7 +394,7 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-    qDebug("RecordPlugin::changeTracks(%u)", new_tracks);
+//     qDebug("RecordPlugin::changeTracks(%u)", new_tracks);
 
     if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
@@ -480,7 +485,7 @@ void RecordPlugin::changeSampleRate(double new_rate)
 	const QString sr2(m_dialog->rate2string(rate));
 	if (((int)new_rate > 0) && ((int)rate > 0) &&
 	    ((int)new_rate != (int)rate))
-	    notice(i18n("Sample rate %1Hz is not supported, "\
+	    notice(i18n("%1Hz is not supported, "\
 		        "using %2Hz").arg(sr1).arg(sr2));
     }
     m_dialog->setSupportedSampleRates(supported_rates);
@@ -495,8 +500,7 @@ void RecordPlugin::changeSampleRate(double new_rate)
 	const QString sr2(m_dialog->rate2string(rate));
 	if (((int)new_rate > 0) && ((int)rate > 0) &&
 	    ((int)new_rate != (int)rate))
-	    notice(i18n("Sample rate %1Hz failed, "\
-		        "using %2Hz").arg(sr1).arg(sr2));
+	    notice(i18n("%1Hz failed, using %2Hz").arg(sr1).arg(sr2));
     }
     m_dialog->setSampleRate(rate);
 
@@ -538,8 +542,8 @@ void RecordPlugin::changeCompression(int new_compression)
 	if (compression != new_compression) {
 	    const QString c1(types.name(types.findFromData(new_compression)));
 	    const QString c2(types.name(types.findFromData(compression)));
-	    notice(i18n("compression '%1' is not supported, "\
-		        "using '%2'").arg(c1).arg(c2));
+	    notice(i18n("compression '%1' not supported, using '%2'").arg(
+                        c1).arg(c2));
 	}
     }
     m_dialog->setSupportedCompressions(supported_comps);
@@ -684,7 +688,7 @@ void RecordPlugin::enterInhibit()
 	// set hourglass cursor
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-	qDebug("RecordPlugin::enterInhibit() - STOPPING");
+// 	qDebug("RecordPlugin::enterInhibit() - STOPPING");
 	m_thread->stop();
 	Q_ASSERT(!m_thread->running());
     }
@@ -699,10 +703,10 @@ void RecordPlugin::leaveInhibit()
     if (m_inhibit_count) m_inhibit_count--;
 
     while (!m_inhibit_count && paramsValid()) {
-	qDebug("RecordPlugin::leaveInhibit() - STARTING ("\
-	       "%d channels, %d bits)",
-	       m_dialog->params().tracks,
-	       m_dialog->params().bits_per_sample);
+// 	qDebug("RecordPlugin::leaveInhibit() - STARTING ("+
+// 	       "%d channels, %d bits)",
+// 	       m_dialog->params().tracks,
+// 	       m_dialog->params().bits_per_sample);
 
 	Q_ASSERT(!m_thread->running());
 	if (m_thread->running()) break;
@@ -735,7 +739,6 @@ bool RecordPlugin::paramsValid()
 void RecordPlugin::resetRecording(bool &accepted)
 {
     InhibitRecordGuard _lock(*this);
-    qDebug("RecordPlugin::resetRecording()");
 
     TopWidget &topwidget = this->manager().topWidget();
     accepted = topwidget.closeFile();

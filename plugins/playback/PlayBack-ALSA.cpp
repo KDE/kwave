@@ -802,12 +802,15 @@ QValueList<unsigned int> PlayBackALSA::supportedBits(const QString &device)
 	// check only "signed int" formats...
 	if (!snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S8 ))
 	    bits.append( 8);
-	if (!snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S16))
+	if (!snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S16_LE) ||
+            !snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S16_BE))
 	    bits.append(16);
 	if (!snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S24) ||
+	    !snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S24_3BE) ||
 	    !snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S24_3LE))
 	    bits.append(24);
-	if (!snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S32))
+	if (!snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S32_LE) ||
+            !snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S32_BE))
 	    bits.append(32);
     }
 

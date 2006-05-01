@@ -793,7 +793,10 @@ void PlayBackPlugin::testPlayBack()
 	    progress->setAutoClose(true);
 	    progress->setProgress(0);
 	    progress->setLabelText(
-		i18n("you should hear a %1Hz test tone...").arg((int)freq));
+		i18n("you should now hear a %1Hz test tone...\n\n"\
+		     "(if you hear clicks or dropouts, "\
+		     "please increase the buffer size "\
+		     "and try again)").arg((int)freq));
 	}
     }
 

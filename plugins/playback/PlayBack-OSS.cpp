@@ -32,10 +32,13 @@
 #include <qfile.h>
 #include <klocale.h>
 
+#include "libkwave/memcpy.h"
+#include "libkwave/ByteOrder.h"
 #include "libkwave/CompressionType.h"
 #include "libkwave/SampleFormat.h"
 
 #include "PlayBack-OSS.h"
+#include "SampleEncoderLinear.h"
 
 /** use at least 2^8 = 256 bytes for playback buffer !!! */
 #define MIN_PLAYBACK_BUFFER 8
@@ -56,8 +59,10 @@ PlayBackOSS::PlayBackOSS()
     m_bits(0),
     m_bufbase(0),
     m_buffer(),
+    m_raw_buffer(),
     m_buffer_size(0),
-    m_buffer_used(0)
+    m_buffer_used(0),
+    m_encoder(0)
 {
 }
 
@@ -155,7 +160,22 @@ QString PlayBackOSS::open(const QString &device, double rate,
     // get the real buffer size in bytes
     ioctl(m_handle, SNDCTL_DSP_GETBLKSIZE, &m_buffer_size);
 
-    // resize our buffer and reset it
+    // create the sample encoder
+    // we assume that OSS is always little endian
+    // and understands 8 bit/unsigned or 16 bit / signed format only
+    if (m_encoder) delete m_encoder;
+    m_encoder = new SampleEncoderLinear(
+	(m_bits == 8) ? SampleFormat::Unsigned : SampleFormat::Signed,
+	(m_bits <= 8) ? 8 : 16,
+	LittleEndian);
+    Q_ASSERT(m_encoder);
+    if (!m_encoder) return i18n("out of memory");
+
+    // resize the raw buffer
+    m_raw_buffer.resize(m_buffer_size);
+
+    // resize our buffer (size in samples) and reset it
+    m_buffer_size /= m_encoder->rawBytesPerSample();
     m_buffer.resize(m_buffer_size);
 
     return 0;
@@ -164,41 +184,33 @@ QString PlayBackOSS::open(const QString &device, double rate,
 //***************************************************************************
 int PlayBackOSS::write(QMemArray<sample_t> &samples)
 {
-    Q_ASSERT (m_buffer_used < m_buffer_size);
-    if (m_buffer_used >= m_buffer_size) {
+    Q_ASSERT (m_buffer_used <= m_buffer_size);
+    if (m_buffer_used > m_buffer_size) {
 	qWarning("PlayBackOSS::write(): buffer overflow ?!");
+	m_buffer_used = m_buffer_size;
+	flush();
 	return -EIO;
     }
 
-    // convert into byte stream
-    unsigned int channel;
-    for (channel=0; channel < m_channels; channel++) {
-	sample_t sample = samples[channel];
+    // number of samples left in the buffer
+    unsigned int remaining = samples.count();
+    unsigned int offset    = 0;
+    while (remaining) {
+	unsigned int length = remaining;
+	if (m_buffer_used + length > m_buffer_size)
+	    length = m_buffer_size - m_buffer_used;
 
-	switch (m_bits) {
-	    case 8:
-		sample += 1 << 23;
-		m_buffer[m_buffer_used++] = sample >> 16;
-		break;
-	    case 16:
-		sample += 1 << 23;
-		m_buffer[m_buffer_used++] = sample >> 8;
-		m_buffer[m_buffer_used++] = (sample >> 16) + 128;
-		break;
-	    case 24:
-		// play in 32 bit format
-		m_buffer[m_buffer_used++] = 0x00;
-		m_buffer[m_buffer_used++] = sample & 0x0FF;
-		m_buffer[m_buffer_used++] = sample >> 8;
-		m_buffer[m_buffer_used++] = (sample >> 16) + 128;
-		break;
-	    default:
-		return -EINVAL;
-	}
+	MEMCPY(&(m_buffer[m_buffer_used]),
+	       &(samples[offset]),
+	       length * sizeof(sample_t));
+	m_buffer_used += length;
+	offset        += length;
+	remaining     -= length;
+
+	// write buffer to device if it has become full
+	if (m_buffer_used >= m_buffer_size)
+	    flush();
     }
-
-    // write buffer to device if full
-    if (m_buffer_used >= m_buffer_size) flush();
 
     return 0;
 }
@@ -206,8 +218,15 @@ int PlayBackOSS::write(QMemArray<sample_t> &samples)
 //***************************************************************************
 void PlayBackOSS::flush()
 {
-    if (!m_buffer_used) return; // nothing to do
-    if (m_handle) ::write(m_handle, m_buffer.data(), m_buffer_used);
+    if (!m_buffer_used || !m_encoder) return; // nothing to do
+
+    // convert into byte stream
+    unsigned int bytes = m_buffer_used * m_encoder->rawBytesPerSample();
+    m_encoder->encode(m_buffer, m_buffer_used, m_raw_buffer);
+
+    if (m_handle)
+	::write(m_handle, m_raw_buffer.data(), bytes);
+
     m_buffer_used = 0;
 }
 
@@ -218,6 +237,11 @@ int PlayBackOSS::close()
 
     // close the device handle
     if (m_handle) ::close(m_handle);
+
+    // get rid of the old encoder
+    if (m_encoder) delete m_encoder;
+    m_encoder = 0;
+
     return 0;
 }
 

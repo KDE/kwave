@@ -21,9 +21,12 @@
 #include "config.h"
 #ifdef HAVE_OSS_SUPPORT
 
+#include <qmemarray.h>
 #include <qstring.h>
 
 #include "libkwave/PlayBackDevice.h"
+
+class SampleEncoder;
 
 class PlayBackOSS: public PlayBackDevice
 {
@@ -128,14 +131,20 @@ protected:
     /** Exponent of the buffer size */
     unsigned int m_bufbase;
 
-    /** buffer with raw device data */
-    QByteArray m_buffer;
+    /** buffer with samples data */
+    QMemArray<sample_t> m_buffer;
+
+    /** buffer with raw data */
+    QByteArray m_raw_buffer;
 
     /** Buffer size on bytes */
     unsigned int m_buffer_size;
 
     /** number of bytes in the buffer */
     unsigned int m_buffer_used;
+
+    /** encoder for converting from samples to raw format */
+    SampleEncoder *m_encoder;
 
 };
 

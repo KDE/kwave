@@ -35,7 +35,7 @@ install uninstall clean all rpm:
 	for template in Makefile.am Makefile.in Makefile; do \
 	  if test ! -e $$subdir/$$template; then \
 	ln -s -f ../common/$$template $$subdir; fi; \
-	done\
+	done ; \
 	done
 	@list=$(dirs); for subdir in $$list; do \
 	target=`echo $@ | sed s/-recursive//`; \

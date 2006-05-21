@@ -19,13 +19,13 @@ dnl without this order in this file, autoconf will not work!
 dnl the argument is a source file out of your sources. But
 dnl acinclude.m4 makes the job for all programs ;-)
 
-AC_INIT([kwave],[0.7.5])
+AC_INIT([kwave],[0.7.6])
 AC_CONFIG_SRCDIR([admin/acinclude.m4.in])
 AC_CONFIG_AUX_DIR(admin)
 unset CDPATH            dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
 AC_CANONICAL_TARGET([]) dnl Checking host/target/build systems, for make, install etc.
 AC_ARG_PROGRAM          dnl Perform program name transformation
-AM_INIT_AUTOMAKE([kwave],[0.7.5])
+AM_INIT_AUTOMAKE([kwave],[0.7.6])
 AC_PREREQ(2.50)         dnl Require Autoconf 2.50 or higher
 
 KDE_SET_PREFIX
@@ -276,7 +276,10 @@ dnl determine the name of the package that contains libmad
 dnl on RPM based systems
 if ! test -z ${RPM}; then {
     AC_MSG_CHECKING([which RPM package provides libmad.so.0])
-    RPM_REQUIRE_LIBMAD=`${RPM} -q --whatprovides libmad.so.0 2>/dev/null | cut -d \- -f 1`
+    RPM_REQUIRE_LIBMAD=""
+    if ${RPM} -q --whatprovides libmad.so.0 ; then {
+        RPM_REQUIRE_LIBMAD=`${RPM} -q --whatprovides libmad.so.0 2>/dev/null | cut -d \- -f 1`
+    } fi
     AC_MSG_RESULT([${RPM_REQUIRE_LIBMAD}])
 } fi
 if test -z ${RPM_REQUIRE_LIBMAD}; then {

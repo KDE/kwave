@@ -376,6 +376,6 @@ For example: "x1", "x2", "/ 4"</string>
 </includes>
 <layoutdefaults spacing="10" margin="10"/>
 <includehints>
-    <includehint>InvertableSpinBox.h</includehint>
+    <includehint>libgui/InvertableSpinBox.h</includehint>
 </includehints>
 </UI>

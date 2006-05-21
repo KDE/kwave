@@ -333,7 +333,7 @@ frequencies will be cut off.</string>
 <layoutdefaults spacing="6" margin="11"/>
 <includehints>
     <includehint>knuminput.h</includehint>
-    <includehint>ScaleWidget.h</includehint>
-    <includehint>FrequencyResponseWidget.h</includehint>
+    <includehint>libgui/ScaleWidget.h</includehint>
+    <includehint>libgui/FrequencyResponseWidget.h</includehint>
 </includehints>
 </UI>

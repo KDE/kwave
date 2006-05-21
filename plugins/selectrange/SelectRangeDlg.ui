@@ -182,6 +182,6 @@
 </includes>
 <layoutdefaults spacing="10" margin="10"/>
 <includehints>
-    <includehint>SelectTimeWidget.h</includehint>
+    <includehint>libgui/SelectTimeWidget.h</includehint>
 </includehints>
 </UI>

@@ -32,7 +32,7 @@ void encode_NULL(const sample_t *src, u_int8_t *dst, unsigned int count)
     (void)src;
     (void)dst;
     (void)count;
-    qWarning("call to encode_NULL");
+//     qWarning("call to encode_NULL");
 }
 
 //***************************************************************************
@@ -48,35 +48,40 @@ template<const unsigned int bits, const bool is_signed,
          const bool is_little_endian>
 void encode_linear(const sample_t *src, u_int8_t *dst, unsigned int count)
 {
-    const u_int8_t sign = (is_signed) ? 128 : 0;
-
     while (count--) {
 	// read from source buffer
 	register sample_t s = *(src++);
 
-	// convert raw values with less than 24 bits to unsigned first
-	if (bits < SAMPLE_BITS)
+	// convert to unsigned if necessary
+	if (!is_signed)
 	    s += 1 << (SAMPLE_BITS-1);
+
+	// shrink 18/20 bits and similar down, otherwise it does not work
+	// with ALSA for some dubious reason !?
+	if (bits == 20)
+	    s >>= 4;
+	if (bits == 18) // don't ask me why... !!!???
+	    s >>= 6;
 
 	if (is_little_endian) {
 	    // little endian
-	    if (bits > 32)
+	    if (bits > 24)
 		*(dst++) = 0x00;
-	    if (bits >= 24)
-		*(dst++) = (s & 0xFF);
-	    if (bits >= 16)
+	    if (bits > 16)
+		*(dst++) = s & 0xFF;
+	    if (bits > 8)
 		*(dst++) = (s >> 8);
 	    if (bits >= 8)
-		*(dst++) = (s >> 16) + sign;
+		*(dst++) = (s >> 16);
 	} else {
 	    // big endian
 	    if (bits >= 8)
-		*(dst++) = (s >> 16) + sign;
-	    if (bits >= 16)
+		*(dst++) = (s >> 16);
+	    if (bits > 8)
 		*(dst++) = (s >> 8);
-	    if (bits >= 24)
+	    if (bits > 16)
 		*(dst++) = (s & 0xFF);
-	    if (bits >= 32)
+	    if (bits > 24)
 		*(dst++) = 0x00;
 	}
     }
@@ -125,20 +130,34 @@ SampleEncoderLinear::SampleEncoderLinear(
     if (endianness == CpuEndian) endianness = LittleEndian;
 #endif
 
-    switch (m_bytes_per_sample) {
-	case 1:
+    qDebug("SampleEncoderLinear::SampleEncoderLinear(fmt=%s, "\
+           "%u bit [%u bytes], endian=%s)",
+           (sample_format == SampleFormat::Signed) ? "signed" : "unsigned",
+           bits_per_sample, m_bytes_per_sample,
+           (endianness == BigEndian) ? "BE" : "LE");
+
+    switch (bits_per_sample) {
+	case 8:
 	    MAKE_ENCODER(8);
 	    break;
-	case 2:
+	case 16:
 	    MAKE_ENCODER(16);
 	    break;
-	case 3:
+	case 18:
+	    MAKE_ENCODER(18);
+	    break;
+	case 20:
+	    MAKE_ENCODER(20);
+	    break;
+	case 24:
 	    MAKE_ENCODER(24);
 	    break;
-	case 4:
+	case 32:
 	    MAKE_ENCODER(32);
 	    break;
     }
+
+    Q_ASSERT(m_encoder != encode_NULL);
 }
 
 //***************************************************************************

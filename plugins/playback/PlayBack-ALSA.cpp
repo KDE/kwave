@@ -39,17 +39,119 @@
 #include <math.h>
 #include <errno.h>
 
+#include <qcstring.h>
 #include <klocale.h>
 
 #include "libkwave/CompressionType.h"
+#include "libkwave/memcpy.h"
 #include "libkwave/SampleFormat.h"
 
 #include "PlayBack-ALSA.h"
+#include "SampleEncoderLinear.h"
 
 /** sleep seconds, only used for recording, not used here */
 static const unsigned int g_sleep_min = 0;
 
 QMap<QString, QString> PlayBackALSA::m_device_list;
+
+//***************************************************************************
+
+/* define some endian dependend symbols that are missing in ALSA */
+#if defined(ENDIANESS_BIG)
+// big endian
+#define _SND_PCM_FORMAT_S18_3 SND_PCM_FORMAT_S18_3BE
+#define _SND_PCM_FORMAT_U18_3 SND_PCM_FORMAT_U18_3BE
+#define _SND_PCM_FORMAT_U20_3 SND_PCM_FORMAT_U20_3BE
+#define _SND_PCM_FORMAT_S20_3 SND_PCM_FORMAT_S20_3BE
+#define _SND_PCM_FORMAT_U24_3 SND_PCM_FORMAT_U24_3BE
+#define _SND_PCM_FORMAT_S24_3 SND_PCM_FORMAT_S24_3BE
+
+#else
+// little endian
+#define _SND_PCM_FORMAT_S18_3 SND_PCM_FORMAT_S18_3LE
+#define _SND_PCM_FORMAT_U18_3 SND_PCM_FORMAT_U18_3LE
+#define _SND_PCM_FORMAT_U20_3 SND_PCM_FORMAT_U20_3LE
+#define _SND_PCM_FORMAT_S20_3 SND_PCM_FORMAT_S20_3LE
+#define _SND_PCM_FORMAT_U24_3 SND_PCM_FORMAT_U24_3LE
+#define _SND_PCM_FORMAT_S24_3 SND_PCM_FORMAT_S24_3LE
+
+#endif
+
+/**
+ * Global list of all known sample formats.
+ * @note this list should be sorted so that the most preferable formats
+ *       come first in the list. When searching for a format that matches
+ *       a given set of parameters, the first entry is taken.
+ *
+ *       The sort order should be:
+ *       - compression:      none -> ulaw -> alaw -> adpcm -> mpeg ...
+ *       - bits per sample:  ascending
+ *       - sample format:    signed -> unsigned -> float -> double ...
+ *       - endianness:       cpu -> little -> big
+ *       - bytes per sample: ascending
+ */
+static const snd_pcm_format_t _known_formats[] =
+{
+    /* 8 bit */
+    SND_PCM_FORMAT_S8,
+    SND_PCM_FORMAT_U8,
+
+    /* 16 bit */
+    SND_PCM_FORMAT_S16, SND_PCM_FORMAT_S16_LE, SND_PCM_FORMAT_S16_BE,
+    SND_PCM_FORMAT_U16, SND_PCM_FORMAT_U16_LE, SND_PCM_FORMAT_U16_BE,
+
+    /* 18 bit / 3 byte */
+    _SND_PCM_FORMAT_S18_3, SND_PCM_FORMAT_S18_3LE, SND_PCM_FORMAT_S18_3BE,
+    _SND_PCM_FORMAT_U18_3, SND_PCM_FORMAT_U18_3LE, SND_PCM_FORMAT_U18_3BE,
+
+    /* 20 bit / 3 byte */
+    _SND_PCM_FORMAT_S20_3, SND_PCM_FORMAT_S20_3LE, SND_PCM_FORMAT_S20_3BE,
+    _SND_PCM_FORMAT_U20_3, SND_PCM_FORMAT_U20_3LE, SND_PCM_FORMAT_U20_3BE,
+
+    /* 24 bit / 3 byte */
+    _SND_PCM_FORMAT_S24_3, SND_PCM_FORMAT_S24_3LE, SND_PCM_FORMAT_S24_3BE,
+    _SND_PCM_FORMAT_U24_3, SND_PCM_FORMAT_U24_3LE, SND_PCM_FORMAT_U24_3BE,
+
+    /* 24 bit / 4 byte */
+    SND_PCM_FORMAT_S24, SND_PCM_FORMAT_S24_LE, SND_PCM_FORMAT_S24_BE,
+    SND_PCM_FORMAT_U24, SND_PCM_FORMAT_U24_LE, SND_PCM_FORMAT_U24_BE,
+
+    /* 32 bit */
+    SND_PCM_FORMAT_S32, SND_PCM_FORMAT_S32_LE, SND_PCM_FORMAT_S32_BE,
+    SND_PCM_FORMAT_U32, SND_PCM_FORMAT_U32_LE, SND_PCM_FORMAT_U32_BE,
+
+};
+
+//***************************************************************************
+/** find out the SampleFormat of an ALSA format */
+static SampleFormat sample_format_of(snd_pcm_format_t fmt)
+{
+    if (snd_pcm_format_float(fmt)) {
+	if (snd_pcm_format_width(fmt) == 32)
+	    return SampleFormat::Float;
+	if (snd_pcm_format_width(fmt) == 64)
+	    return SampleFormat::Double;
+    } else if (snd_pcm_format_linear(fmt)) {
+	if (snd_pcm_format_signed(fmt) == 1)
+	    return SampleFormat::Signed;
+	else if (snd_pcm_format_unsigned(fmt) == 1)
+	    return SampleFormat::Unsigned;
+    }
+
+    return SampleFormat::Unknown;
+}
+
+//***************************************************************************
+/** find out the endianness of an ALSA format */
+static byte_order_t endian_of(snd_pcm_format_t fmt)
+{
+    if (snd_pcm_format_little_endian(fmt) == 1)
+	return LittleEndian;
+    if (snd_pcm_format_big_endian(fmt) == 1)
+	return BigEndian;
+    return CpuEndian;
+}
+
 
 //***************************************************************************
 PlayBackALSA::PlayBackALSA()
@@ -65,7 +167,9 @@ PlayBackALSA::PlayBackALSA()
     m_buffer_size(0),
     m_buffer_used(0),
     m_format(),
-    m_chunk_size(0)
+    m_chunk_size(0),
+    m_supported_formats(),
+    m_encoder(0)
 {
 }
 
@@ -78,78 +182,135 @@ PlayBackALSA::~PlayBackALSA()
 //***************************************************************************
 int PlayBackALSA::setFormat(snd_pcm_hw_params_t *hw_params, unsigned int bits)
 {
-//     qDebug("PlayBackALSA::setFormat(..., bits=%u)", bits);
+    qDebug("PlayBackALSA::setFormat(..., bits=%u)", bits);
+    m_format = SND_PCM_FORMAT_UNKNOWN;
+    m_bits = 0;
+    m_bytes_per_sample = 0;
+    if (m_encoder) delete m_encoder;
+    m_encoder = 0;
 
-    // round the number of effectively used bits up to whole bytes
-    if (bits & 0x03) bits = (bits & ~0x3) + 8;
-
-    switch (bits) {
-	case 8:
-	    m_bits = 8;
-	    m_format = SND_PCM_FORMAT_U8;
-	    m_bytes_per_sample = 1 * m_channels;
-	    break;
-	case 16:
-	    m_bits = 16;
-	    m_format = SND_PCM_FORMAT_S16_LE;
-	    m_bytes_per_sample = 2 * m_channels;
-	    break;
-	case 24:
-	    if (!snd_pcm_hw_params_test_format(m_handle, hw_params,
-	        SND_PCM_FORMAT_S24_3LE))
-	    {
-		m_bits = 24;
-		m_format = SND_PCM_FORMAT_S24_3LE;
-		m_bytes_per_sample = 3 * m_channels;
-	    } else if (!snd_pcm_hw_params_test_format(m_handle, hw_params,
-	        SND_PCM_FORMAT_S24))
-	    {
-		m_bits = 24;
-		m_format = SND_PCM_FORMAT_S24_LE;
-		m_bytes_per_sample = 4 * m_channels;
-	    } else {
-		m_bits = 0;
-		m_format = SND_PCM_FORMAT_UNKNOWN;
-		m_bytes_per_sample = 0;
-	    }
-	    break;
-	case 32:
-	    m_bits = 32;
-	    m_format = SND_PCM_FORMAT_S32_LE;
-	    m_bytes_per_sample = 4 * m_channels;
-	    break;
-	default:
-	    m_bits = 0;
-	    m_format = SND_PCM_FORMAT_UNKNOWN;
-	    m_bytes_per_sample = 0;
-    }
-    Q_ASSERT(m_bits);
-    Q_ASSERT(m_bytes_per_sample);
-    Q_ASSERT(m_format != SND_PCM_FORMAT_UNKNOWN);
-
-    int err;
-
-    // check if the format really is okay
-    if (m_format == SND_PCM_FORMAT_UNKNOWN) {
+    // get a format that matches the number of bits
+    int format_index = mode2format(bits);
+    if (format_index < 0) {
 	qWarning("PlayBackALSA::setFormat(): %u bit is not supported", bits);
 	return -EINVAL;
     }
 
-    err = snd_pcm_hw_params_test_format(m_handle, hw_params, m_format);
-    Q_ASSERT(!err);
-    if (err) {
-	qWarning("PlayBackALSA::setFormat(): %u bit is not supported", bits);
-	m_bits = 0;
-	m_format = SND_PCM_FORMAT_UNKNOWN;
-	m_bytes_per_sample = 0;
-	return -EINVAL;
+    m_format = _known_formats[format_index];
+    m_bits = snd_pcm_format_width(m_format);
+    m_bytes_per_sample =
+	((snd_pcm_format_physical_width(m_format) + 7) >> 3) * m_channels;
+
+    m_encoder = new SampleEncoderLinear(
+	sample_format_of(m_format),
+	m_bits,
+	endian_of(m_format)
+    );
+    Q_ASSERT(m_encoder);
+    if (!m_encoder) {
+	qWarning("PlayBackALSA: out of memory");
+	return -ENOMEM;
     }
 
     // activate the settings
-    err = snd_pcm_hw_params_set_format(m_handle, hw_params, m_format);
+    Q_ASSERT(m_bits);
+    Q_ASSERT(m_bytes_per_sample);
+    Q_ASSERT(m_format != SND_PCM_FORMAT_UNKNOWN);
+    int err = snd_pcm_hw_params_set_format(m_handle, hw_params, m_format);
     Q_ASSERT(!err);
 
     return err;
+}
+
+//***************************************************************************
+int PlayBackALSA::mode2format(int bits)
+{
+    // loop over all supported formats and keep only those that are
+    // compatible with the given compression, bits and sample format
+    QValueListIterator<int> it;
+    for (it = m_supported_formats.begin();
+         it != m_supported_formats.end(); ++it)
+    {
+	const int index = *it;
+	const snd_pcm_format_t *fmt = &_known_formats[index];
+
+	if (snd_pcm_format_width(*fmt) != bits) continue;
+
+	// mode is compatible
+	// As the list of known formats is already sorted so that
+	// the simplest formats come first, we don't have a lot
+	// of work -> just take the first entry ;-)
+// 	qDebug("PlayBackALSA::mode2format -> %d", index);
+	return index;
+    }
+
+    qWarning("PlayBackALSA::mode2format -> no match found !?");
+    return -1;
+}
+
+//***************************************************************************
+QValueList<int> PlayBackALSA::detectSupportedFormats(const QString &device)
+{
+    // start with an empty list
+    QValueList<int> supported_formats;
+
+    int err;
+    snd_pcm_hw_params_t *p;
+
+    snd_pcm_hw_params_alloca(&p);
+    if (!p) return supported_formats;
+
+    snd_pcm_t *pcm = openDevice(device);
+    if (!pcm) return supported_formats;
+
+    if (!snd_pcm_hw_params_any(pcm, p) < 0) {
+	if (pcm != m_handle) snd_pcm_close(pcm);
+	return supported_formats;
+    }
+
+    // try all known formats
+//     qDebug("--- list of supported formats --- ");
+    const unsigned int count =
+	sizeof(_known_formats) / sizeof(_known_formats[0]);
+    for (unsigned int i=0; i < count; i++) {
+	// test the sample format
+	snd_pcm_format_t format = _known_formats[i];
+	err = snd_pcm_hw_params_test_format(pcm, p, format);
+	if (err < 0) continue;
+
+	const snd_pcm_format_t *fmt = &(_known_formats[i]);
+
+	// eliminate duplicate alsa sample formats (e.g. BE/LE)
+	QValueListIterator<int> it;
+	for (it = m_supported_formats.begin();
+	     it != m_supported_formats.end(); ++it)
+	{
+	    const snd_pcm_format_t *f = &_known_formats[*it];
+	    if (*f == *fmt) {
+		fmt = 0;
+		break;
+	    }
+	}
+	if (!fmt) continue;
+
+// 	CompressionType t;
+// 	SampleFormat::Map sf;
+// 	qDebug("#%2u, %2d, %2u bit [%u byte], %s, '%s'",
+// 	    i,
+// 	    *fmt,
+// 	    snd_pcm_format_width(*fmt),
+// 	    (snd_pcm_format_physical_width(*fmt)+7) >> 3,
+// 	    endian_of(*fmt) == CpuEndian ? "CPU" :
+// 	    (endian_of(*fmt) == LittleEndian ? "LE " : "BE "),
+// 	    sf.name(sf.findFromData(sample_format_of(
+// 		*fmt))).local8Bit().data());
+
+	supported_formats.append(i);
+    }
+//     qDebug("--------------------------------- ");
+
+    if (pcm != m_handle) snd_pcm_close(pcm);
+    return supported_formats;
 }
 
 //***************************************************************************
@@ -173,11 +334,14 @@ int PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     const int stop_delay = 0;
 
     m_chunk_size = 0;
+    if (m_handle) snd_pcm_close(m_handle);
+    m_handle = 0;
 
     // translate verbose name to internal ALSA name
     QString alsa_device = alsaDeviceName(device);
-    qDebug("PlayBackALSA::openDevice() - opening ALSA device '%s'",
-           alsa_device.data());
+    qDebug("PlayBackALSA::openDevice() - opening ALSA device '%s', "\
+           "%dHz %d channels, %u bit",
+           alsa_device.data(), rate, channels, bits);
 
     // workaround for bug in ALSA
     // if the device name ends with "," -> invalid name
@@ -385,8 +549,8 @@ int PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 
 //***************************************************************************
 QString PlayBackALSA::open(const QString &device, double rate,
-                          unsigned int channels, unsigned int bits,
-                          unsigned int bufbase)
+                           unsigned int channels, unsigned int bits,
+                           unsigned int bufbase)
 {
     qDebug("PlayBackALSA::open(device=%s,rate=%0.1f,channels=%u,"\
 	"bits=%u, bufbase=%u)", device.local8Bit().data(), rate, channels,
@@ -404,6 +568,11 @@ QString PlayBackALSA::open(const QString &device, double rate,
     // close the previous device
     if (m_handle) snd_pcm_close(m_handle);
     m_handle = 0;
+    if (m_encoder) delete m_encoder;
+    m_encoder = 0;
+
+    // initialize the list of supported formats
+    m_supported_formats = detectSupportedFormats(device);
 
     int err = openDevice(device, (unsigned int)rate, channels, bits);
     if (err) {
@@ -456,46 +625,22 @@ QString PlayBackALSA::open(const QString &device, double rate,
 //***************************************************************************
 int PlayBackALSA::write(QMemArray<sample_t> &samples)
 {
-    Q_ASSERT (m_buffer_used < m_buffer_size);
-    if (m_buffer_used >= m_buffer_size) {
-	qWarning("PlayBackALSA::write(): buffer overflow ?! (%u/%u",
+    Q_ASSERT(m_encoder);
+    if (!m_encoder) return -EIO;
+
+    unsigned int bytes = m_bytes_per_sample;
+    Q_ASSERT (m_buffer_used + bytes <= m_buffer_size);
+    if (m_buffer_used + bytes > m_buffer_size) {
+	qWarning("PlayBackALSA::write(): buffer overflow ?! (%u/%u)",
 	         m_buffer_used, m_buffer_size);
 	m_buffer_used = 0;
 	return -EIO;
     }
 
-    // convert into byte stream
-    /* ### TODO handling for big endian machines ### */
-    unsigned int channel;
-    for (channel=0; channel < m_channels; channel++) {
-	sample_t sample = samples[channel];
-
-	switch (m_format) {
-	    case SND_PCM_FORMAT_S8:
-		m_buffer[m_buffer_used++] = sample >> 16;
-		break;
-	    case SND_PCM_FORMAT_S16:
-		m_buffer[m_buffer_used++] = sample >> 8;
-		m_buffer[m_buffer_used++] = sample >> 16;
-		break;
-	    case SND_PCM_FORMAT_S24_3LE:
-		// play in 24 bit format, 3 bytes per sample
-		m_buffer[m_buffer_used++] = sample & 0x0FF;
-		m_buffer[m_buffer_used++] = sample >> 8;
-		m_buffer[m_buffer_used++] = sample >> 16;
-		break;
-	    case SND_PCM_FORMAT_S24:
-	    case SND_PCM_FORMAT_S32:
-		// play in 24 or 32 bit format, 4 bytes per sample
-		m_buffer[m_buffer_used++] = 0x00;
-		m_buffer[m_buffer_used++] = sample & 0x0FF;
-		m_buffer[m_buffer_used++] = sample >> 8;
-		m_buffer[m_buffer_used++] = sample >> 16;
-		break;
-	    default:
-		return -EINVAL;
-	}
-    }
+    QByteArray raw(bytes);
+    m_encoder->encode(samples, m_channels, raw);
+    MEMCPY(&(m_buffer[m_buffer_used]), raw.data(), bytes);
+    m_buffer_used += bytes;
 
     // write buffer to device if full
     if (m_buffer_used >= m_buffer_size) return flush();
@@ -589,6 +734,13 @@ int PlayBackALSA::close()
     // close the device handle
     if (m_handle) snd_pcm_close(m_handle);
     m_handle = 0;
+
+    // get rid of the old sample encoder
+    if (m_encoder) delete m_encoder;
+    m_encoder = 0;
+
+    // clear the list of supported formats, nothing open -> nothing supported
+    m_supported_formats.clear();
 
     return 0;
 }
@@ -787,37 +939,29 @@ snd_pcm_t *PlayBackALSA::openDevice(const QString &device)
 //***************************************************************************
 QValueList<unsigned int> PlayBackALSA::supportedBits(const QString &device)
 {
-    QValueList <unsigned int> bits;
-//     qDebug("PlayBackALSA::supportedBits(%s)", device.local8Bit().data());
+    QValueList<unsigned int> list;
+    QValueList<int> supported_formats;
 
-    snd_pcm_hw_params_t *p;
+    // try all known sample formats
+    supported_formats = detectSupportedFormats(device);
+    QValueListIterator<int> it;
+    for (it = supported_formats.begin();
+         it != supported_formats.end(); ++it)
+    {
+	const snd_pcm_format_t *fmt = &(_known_formats[*it]);
+	const unsigned int bits = snd_pcm_format_width(*fmt);
 
-    snd_pcm_hw_params_alloca(&p);
-    if (!p) return bits;
+	// 0  bits means invalid/does not apply
+	if (!bits) continue;
 
-    snd_pcm_t *pcm = openDevice(device);
-    if (!pcm) return bits;
+	// do not produce duplicates
+	if (list.contains(bits)) continue;
 
-    if (snd_pcm_hw_params_any(pcm, p) >= 0) {
-	// check only "signed int" formats...
-	if (!snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S8 ))
-	    bits.append( 8);
-	if (!snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S16_LE) ||
-            !snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S16_BE))
-	    bits.append(16);
-	if (!snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S24) ||
-	    !snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S24_3BE) ||
-	    !snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S24_3LE))
-	    bits.append(24);
-	if (!snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S32_LE) ||
-            !snd_pcm_hw_params_test_format(pcm, p, SND_PCM_FORMAT_S32_BE))
-	    bits.append(32);
+	qDebug("found bits/sample %u", bits);
+	list.append(bits);
     }
 
-    // close the device if *we* opened it
-    if (pcm != m_handle) snd_pcm_close(pcm);
-
-    return bits;
+    return list;
 }
 
 //***************************************************************************

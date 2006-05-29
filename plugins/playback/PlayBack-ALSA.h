@@ -31,8 +31,11 @@
 #include <alsa/asoundlib.h>
 #include <qstring.h>
 #include <qmap.h>
+#include <qvaluelist.h>
 
 #include "libkwave/PlayBackDevice.h"
+
+class SampleEncoder;
 
 class PlayBackALSA: public PlayBackDevice
 {
@@ -146,6 +149,23 @@ protected:
 
 private:
 
+    /**
+     * Walk through the list of all known formats and collect the
+     * ones that are supported into "m_supported_formats".
+     */
+    QValueList<int> detectSupportedFormats(const QString &device);
+
+    /**
+     * create a ALSA device format (enum) from parameters.
+     * @param bits the number of bits per sample, related
+     *        to the decoded stream
+     * @return the index of the best matching format within the list
+     *         of known formats, or -1 if no match was found
+     */
+    int mode2format(int bits);
+
+private:
+
     /** Name of the output device */
     QString m_device_name;
 
@@ -190,6 +210,17 @@ private:
      * into ALSA hardware device names
      */
     static QMap<QString, QString> m_device_list;
+
+    /**
+     * list of supported formats of the current device, indices in
+     * the global list of known formats.
+     * Only valid after a successful call to "open()",
+     * otherwise empty
+     */
+    QValueList<int> m_supported_formats;
+
+    /** encoder for conversion from samples to raw */
+    SampleEncoder *m_encoder;
 
 };
 

@@ -93,11 +93,11 @@ void ScaleWidget::paintText(QPainter &p, int x, int y, int ofs,
 	pos = (reverse) ? (len-1-i) : i;
 	int c = text.at(pos).latin1();
 
-	pos = 40; // default = space	
+	pos = 40; // default = space
 	switch (c) {
 	    case '\'':  pos = 36; break;
 	    case '"':   pos = 37; break;
-	    case '°':   pos = 38; break;
+	    case 176:   pos = 38; break;
 	    case '.':   pos = 39; break;
 	    case ' ':   pos = 40; break;
 	    case '%':   pos = 41; break;
@@ -107,9 +107,9 @@ void ScaleWidget::paintText(QPainter &p, int x, int y, int ofs,
 		if ((c > 96) && (c < 123)) pos = c-97;    // letter
 		if ((c > 47) && (c < 58))  pos = c-48+26; // number
 	}
-	
+
 	p.drawPixmap(x, y, m_scalefont, pos*FONTSIZE, 0, FONTSIZE, FONTSIZE);
-	
+
 	x += (reverse) ? (-ofs) : (+ofs);
     }
 }
@@ -120,7 +120,7 @@ void ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
     // only use base 10 for now, tested with others too,
     // but not configurable through a property
     const int base = 10;
-    
+
     int dir = (inverse) ? -1 : +1;
 
     p.setPen (colorGroup().dark());
@@ -134,7 +134,7 @@ void ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
 
     Q_ASSERT(m_low >= 0);
     Q_ASSERT(m_high > m_low);
-    
+
     int dec_lo = (m_low) ? (int)floor(log(m_low)/log(base)) : 0;
     int dec_hi = (int)ceil(log(m_high)/log(base));
     int decades = abs(dec_hi - dec_lo) + 1;
@@ -142,7 +142,7 @@ void ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
     // check if we have enough space for the small lines within a decade
     int w1 = (int)(w / decades); // pixels per decade
     bool small_lines = (w1 - (int)((double)w1 * log(base-1)/log(base))) > 1;
-    
+
     // print the lines
     for (a = 0; a < decades; a++) {
 	// big line, for each decade
@@ -226,7 +226,7 @@ void ScaleWidget::paintEvent(QPaintEvent *)
 	p.rotate(-90);
 	h = width();
 	w = height();
-	
+
 	inverse = true;
     }
 

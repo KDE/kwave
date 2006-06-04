@@ -108,6 +108,12 @@ protected:
      */
     virtual bool dequeue(unsigned int track, float &fast, float &peak);
 
+    /**
+     * Draw some scale into the meter, using 3dB steps
+     * @param p an already opened QPainter
+     */
+    void drawScale(QPainter &p);
+
 private:
 
     /** number of tracks */
@@ -140,14 +146,14 @@ private:
     /** pixmap for avoiding flicker */
     QPixmap *m_pixmap;
 
-    /** color for the empty area (background) */
-    QColor m_empty_color;
+    /** color for low levels, below -3dB */
+    QColor m_color_low;
 
-    /** color for the fast value */
-    QColor m_value_color;
+    /** color for normal levels, -3dB...-1.5dB */
+    QColor m_color_normal;
 
-    /** color for the peak value */
-    QColor m_peak_color;
+    /** color high levels, above -1.5dB */
+    QColor m_color_high;
 
 };
 

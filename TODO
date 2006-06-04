@@ -1,6 +1,4 @@
 
-o BUG: Kwave crashes when the record device does not exist!
-
 o get rid of aRts
 
 o use KDEMM instead of aRts as soon as it is available
@@ -11,21 +9,20 @@ o automatic defragmentation of stripes
 
 o support for sample rate conversion, libsamplerate
 
-o bug: defaults for record plugin if opened the first time
-  -> leads to buffer underrun
-
 o use the host's native libaudiofile. current state:
 	SuSE	-> builtin
 	Gentoo	-> native
 	Debian	-> native
 	Crux	-> native
 
+o ALSA record/playback: also detect devices configured in the .asoundrc,
+  and not only hardware devices
+
 o find a better solution for deadlock when closing the current file while
   a plugin is still running, instead of refusing the request to close
 
-o crashes at startup when no aRts server can be connected (seen on Mandrake-9)
-
-o handling of big endian in PlayBack-OSS.cpp and PlayBack-ALSA.cpp
+o crashes at startup when no aRts server can be connected
+  (only seen on Mandrake-9, v0.7.3 or earlier?)
 
 o replace "AF_SAMPFMT_xxx" with enum "SampleFormat::yyy" in WavEncoder.cpp,
   WavDecoder.cpp and PlayBack-OSS.cpp
@@ -43,6 +40,8 @@ o hourglass and process indicators for longer processes
      the file while a plugin is still running...
 
 o ruler that shows the current cursor position as time
+
+o display of the current cursor position in the status bar, if nothing selected
 
 o display of the current position in playback mode
 
@@ -166,9 +165,6 @@ o use MemoryManager for undo actions
 
 o problem with SignalWidget / XOR mode, fails on Nvidia
   -> vanished since last update, but keep this point as a reminder...
-
-o somewhere in far future: compile on architectures with a different
-  size of int (not 32-bit), handle data in original data width
 
 o switch to use float as sample_t (requires much work...)
 

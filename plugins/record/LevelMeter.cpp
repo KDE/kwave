@@ -19,11 +19,15 @@
 
 #include <math.h>
 
+#include <qapplication.h>
 #include <qbrush.h>
 #include <qcolor.h>
+#include <qfont.h>
+#include <qimage.h>
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qtimer.h>
+#include <klocale.h>
 
 #include "LevelMeter.h"
 
@@ -48,11 +52,10 @@ LevelMeter::LevelMeter(QWidget *parent, const char *name)
              WRepaintNoErase | WResizeNoErase | WPaintUnclipped),
     m_tracks(0), m_sample_rate(0), m_yf(), m_yp(),
     m_fast_queue(), m_peak_queue(),
-    m_current_fast(), m_current_peak(), m_timer(0),
-    m_pixmap(0),
-    m_empty_color(colorGroup().background()),
-    m_value_color(colorGroup().highlight()),
-    m_peak_color(colorGroup().foreground())
+    m_current_fast(), m_current_peak(), m_timer(0), m_pixmap(0),
+    m_color_low(Qt::green),
+    m_color_normal(Qt::yellow),
+    m_color_high(Qt::red)
 {
     m_timer = new QTimer(this);
     Q_ASSERT(m_timer);
@@ -262,6 +265,95 @@ void LevelMeter::timedUpdate()
 }
 
 //***************************************************************************
+void LevelMeter::drawScale(QPainter &p)
+{
+    // draw the levels in 3dB steps, like -12dB -9dB  -6dB  -3dB and 0dB
+    QFont f = qApp->font(this);
+    QFontMetrics fm = p.fontMetrics();
+    QRect rect = fm.boundingRect(i18n("-999 dB"));
+
+    const int border = 4;
+    const int w = width() - 2*border;
+    const int tw = rect.width();
+    const int th = rect.height();
+    const int y = ((height() - th) / 2) + th;
+    int db = 0;
+    int right = this->width();
+    const QColor textcolor = colorGroup().buttonText();
+
+    QImage img = m_pixmap->convertToImage();
+    while (right > tw + border) {
+	// find the first position in dB which is not overlapping
+	// the last output position
+	QString txt;
+	int x;
+	do {
+	    txt = i18n("%1 dB").arg(db);
+	    x = (int)((double)w * pow10((double)db/(double)20.0));
+	    db -= 3; // one step left == -3dB
+	} while ((x > right) && (x >= tw));
+	if (x < tw) break;
+
+	// calculate the text position
+	int text_width = fm.boundingRect(txt).width();
+	x += border;
+	x -= text_width + 3;
+
+	// create the text background mask, a rounded rectangle, by drawing
+	// directly into the original pixmap. This area is later replaced
+	// with the transparent text background, so it is ok to destroy the
+	// original pixmap.
+	const int r=5;
+	QPixmap mask(r+text_width+r, r+th+r);
+	mask.fill(colorGroup().background());
+	QPainter p2;
+	p2.begin(&mask);
+	QBrush brush(textcolor);
+	p2.setBrush(brush);
+	p2.setPen(Qt::NoPen);
+	p2.drawRoundRect(0, 0, text_width+2*r, th+2*r,
+	                 (200*r)/th, (200*r)/th);
+	p2.end();
+	QImage img2 = mask.convertToImage();
+
+	// draw the text background back into the image, using a 50%
+	// transparency (pixel by pixel as Qt currently does not support
+	// drawing transparent rounded rectangles)
+	QColor c2 = colorGroup().background();
+	int r2,g2,b2;
+	c2.getRgb(&r2, &g2, &b2);
+	for (int y1=y-th-r; y1 < y+r; y1++) {
+	    for (int x1=x-r; x1 < x+text_width+r; x1++) {
+		QColor c1 = img2.pixel(x1-(x-r), y1-(y-th-r));
+		if (c1 != textcolor)
+		    continue;
+
+		c1 = img.pixel(x1, y1);
+		int r1,g1,b1;
+		c1.getRgb(&r1, &g1, &b1);
+		r1 = (r1 + r2) / 2;
+		g1 = (g1 + g2) / 2;
+		b1 = (b1 + b2) / 2;
+		c1.setRgb(r1, g1, b1);
+		img.setPixel(x1, y1, c1.rgb());
+	    }
+	}
+	// replace the area in the pixmap that has been destroyed by
+	// creating the mask with the image which contains the original
+	// pixmap overlaid with 50% transparent text background
+	p.drawImage(x-r, y-th-r, img, x-r, y-th-r, text_width+2*r, th+2*r);
+
+	// draw the text, right/center aligned
+	p.setPen(textcolor);
+	p.drawText(x, y, txt);
+
+	// new right border == one character left from last one
+	right = x - th;
+    }
+
+}
+
+//***************************************************************************
 /*
   Original idea:
   Copyright 2002 Rik Hemsley (rikkus) <rik@kde.org>
@@ -285,39 +377,67 @@ void LevelMeter::drawContents()
     Q_ASSERT(height() > 0);
 
     // if pixmap has to be resized ...
+    if (m_pixmap && m_pixmap->size() != size()) {
+	delete m_pixmap;
+	m_pixmap = 0;
+    }
     if (!m_pixmap) m_pixmap = new QPixmap(size());
     Q_ASSERT(m_pixmap);
     if (!m_pixmap) return;
 
     p.begin(m_pixmap);
-    p.fillRect(rect(), m_empty_color);
+
+    // fill the background
+    p.fillRect(rect(), colorGroup().background());
 
     const unsigned int border = 4;
     const unsigned int cell = 3;
     const unsigned int w = width() - border * 2 - cell * 2;
     const unsigned int h = (height() - border) / (m_tracks ? m_tracks : 1);
 
+    const unsigned int w_low  = (int)(w * 0.7);  // -3 dB
+    const unsigned int w_high = (int)(w * 0.85); // -1.5dB
+
     for (track=0; track < m_tracks; track++) {
 	// show a bar up to the "fast" value
 	const unsigned int fast = (unsigned int)(m_current_fast[track] * w);
 	for (unsigned int i = 0; i < w; i += cell * 2) {
+	    QColor color;
+	    if (i >= w_high)
+		color = m_color_high;
+	    else if (i >= w_low)
+		color = m_color_normal;
+	    else
+		color = m_color_low;
+
 	    p.fillRect(
 		border + cell + i,
 		border + (track*h),
 		cell, h-border,
-		(i < fast) ? m_value_color : m_empty_color
+		(i > fast) ? color.dark() : color
 	    );
 	}
 
 	// draw the peak value
 	unsigned int peak = (unsigned int)(m_current_peak[track] * w);
+	QColor peak_color;
+	if (peak >= w_high)
+	    peak_color = m_color_high;
+	else if (peak >= w_low)
+	    peak_color = m_color_normal;
+	else
+	    peak_color = m_color_low;
+
 	p.fillRect(
 	    border + cell + peak,
 	    border + (track*h),
 	    cell, h-border,
-	    m_peak_color
+	    peak_color.light()
 	);
     }
+
+    // draw the scale / dB numbers
+    drawScale(p);
 
     p.end();
     bitBlt(this, 0, 0, m_pixmap);

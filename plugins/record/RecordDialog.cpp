@@ -160,6 +160,7 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     // various displays: level meter, oscilloscope, FFT, Overview
     chkDisplayLevelMeter->setChecked(m_params.display_level_meter);
+    displayLevelMeterChecked(m_params.display_level_meter);
     chkDisplayOscilloscope->setChecked(m_params.display_oscilloscope);
     chkDisplayFFT->setChecked(m_params.display_fft);
     chkDisplayOverview->setChecked(m_params.display_overview);
@@ -1133,12 +1134,17 @@ void RecordDialog::displayLevelMeterChecked(bool enabled)
     m_params.display_level_meter = enabled;
 
     Q_ASSERT(level_meter);
-    if (!level_meter) return;
-    if (!enabled) {
+    Q_ASSERT(lbl_level_meter);
+    if (!level_meter || !lbl_level_meter) return;
+    if (enabled) {
+	level_meter->show();
+	lbl_level_meter->show();
+    } else {
 	level_meter->setTracks(0);
 	level_meter->reset();
+	level_meter->hide();
+	lbl_level_meter->hide();
     }
-    level_meter->setEnabled(enabled);
 }
 
 //***************************************************************************

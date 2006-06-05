@@ -1,14 +1,20 @@
 
-0.7.6 [2006-05-??]
+0.7.6 [2006-06-05]
 
- * bugfix: recording setup when calling for the first time
+ * bugfix: recording setup crashed when called for the first time
  * bugfix: do no longer crash when recording device is not
    present or opening failed
+ * bugfix: fixed generation of rpm dependency for libmad
+ * bugfix: update the size of the level meter if the dialog size has changed
  * record plugin: added a fancy status bar
  * record plugin: added autodetect/scanning for OSS devices
  * record plugin: added dsnoop plugin as ALSA source
- * record plugin: less annoying message boxes, show short
-   notices in the status bar instead for some seconds
+ * record plugin: fewer annoying message boxes, instead show
+   a short notice in the status bar for some seconds
+ * record plugin: add logarithmic scale to the level meter and use 3 colors
+ * playback plugin: added autodetect/scanning for OSS devices
+ * playback plugin / ALSA: support for 18 and 20 bits/sample
+ * playback plugin / ALSA: support for big endian
 
 0.7.5 [2005-12-31]
 

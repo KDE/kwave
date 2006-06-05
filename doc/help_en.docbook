@@ -26,12 +26,12 @@
 </authorgroup>
 
 <copyright><year>1998-2000</year><holder>Martin Wilz</holder></copyright>
-<copyright><year>2000</year><holder>Thomas Eschenbacher</holder></copyright>
+<copyright><year>2006</year><holder>Thomas Eschenbacher</holder></copyright>
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2005-12-30</date>
-<releaseinfo>0.7.1
+<date>2006-06-05</date>
+<releaseinfo>0.7.6
 </releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -44,6 +44,8 @@
 <keyword>Kwave</keyword>
 <keyword>wav</keyword>
 <keyword>editor</keyword>
+<keyword>record</keyword>
+<keyword>playback</keyword>
 <keyword>sonagram</keyword>
 <keyword>FFT</keyword>
 <keyword>Linux</keyword>
@@ -198,6 +200,49 @@
 	 helper scripts -->
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
+        <listitem>
+            <para>0.7.6 [2006-06-05]</para>
+            <itemizedlist>
+                <listitem><para>
+                    bugfix: recording setup crashed when called for the first time
+                </para></listitem>
+                <listitem><para>
+                    bugfix: do no longer crash when recording device is not
+                      present or opening failed
+                </para></listitem>
+                <listitem><para>
+                    bugfix: fixed generation of rpm dependency for libmad
+                </para></listitem>
+                <listitem><para>
+                    bugfix: update the size of the level meter if the dialog size has changed
+                </para></listitem>
+                <listitem><para>
+                    record plugin: added a fancy status bar
+                </para></listitem>
+                <listitem><para>
+                    record plugin: added autodetect/scanning for OSS devices
+                </para></listitem>
+                <listitem><para>
+                    record plugin: added dsnoop plugin as ALSA source
+                </para></listitem>
+                <listitem><para>
+                    record plugin: fewer annoying message boxes, instead show
+                      a short notice in the status bar for some seconds
+                </para></listitem>
+                <listitem><para>
+                    record plugin: add logarithmic scale to the level meter and use 3 colors
+                </para></listitem>
+                <listitem><para>
+                    playback plugin: added autodetect/scanning for OSS devices
+                </para></listitem>
+                <listitem><para>
+                    playback plugin / ALSA: support for 18 and 20 bits/sample
+                </para></listitem>
+                <listitem><para>
+                    playback plugin / ALSA: support for big endian
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
         <listitem>
             <para>0.7.5 [2005-12-31]</para>
             <itemizedlist>
@@ -542,7 +587,7 @@
                     new plugin "noise"
                 </para></listitem>
                 <listitem><para>
-                     new aRts plugin adapter framework 
+                     new aRts plugin adapter framework
                       now Kwave is able to use existing aRts plugins in it's own plugins
                       for sound processing
                 </para></listitem>
@@ -579,7 +624,7 @@
             <para>0.6.1 [2001-08-24]</para>
             <itemizedlist>
                 <listitem><para>
-                     USE OF VIRTUAL MEMORY 
+                     USE OF VIRTUAL MEMORY
                 </para></listitem>
                 <listitem><para>
                     changed Makefiles: html docu stays in distribution due to too much
@@ -608,7 +653,7 @@
             <para>0.6.0 [2001-07-29]</para>
             <itemizedlist>
                 <listitem><para>
-                     PORTED TO QT-2 AND KDE2 
+                     PORTED TO QT-2 AND KDE2
                 </para></listitem>
                 <listitem><para>
                     completely new internal architecture
@@ -827,7 +872,7 @@
                     found out that we need ALSA support for 24 and 32 bits/sample
                 </para></listitem>
                 <listitem><para>
-                     playback in stereo 
+                     playback in stereo
                 </para></listitem>
                 <listitem><para>
                     selected channels (x) are mixed to the output device's channels (y)
@@ -975,7 +1020,7 @@
                     bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)
                 </para></listitem>
                 <listitem><para>
-                     COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE 
+                     COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE
                     <itemizedlist>
                     <listitem><para>
                          made use of a combination of signals/slots and string messages
@@ -1041,8 +1086,8 @@
             <para>0.5.1-4</para>
             <itemizedlist>
                 <listitem><para>
-                     now compiles and runns under RedHat 6.1 / Halloween IV 
-                       as well as under SuSE 6.2                              
+                     now compiles and runns under RedHat 6.1 / Halloween IV
+                       as well as under SuSE 6.2
                 </para></listitem>
                 <listitem><para>
                     version info of libkwavegui.so is set to the package's version
@@ -1063,7 +1108,7 @@
                     configure-parameter --enable-debug has effect again
                 </para></listitem>
                 <listitem><para>
-                     ASCII import and export works now (mono only) 
+                     ASCII import and export works now (mono only)
                 </para></listitem>
                 <listitem><para>
                     bugfixes in some plugins, all compile now without warnings/errors
@@ -1658,8 +1703,8 @@
 	For a more complete and up-to-date list, please consult the
 	README file that is included in the source distribution or
 	can be found here: <ulink
-	url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">
-	"http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README"</ulink>.
+	url="http://kwave.cvs.sourceforge.net/kwave/kwave/README?view=markup">
+	"http://kwave.cvs.sourceforge.net/kwave/kwave/README?view=markup"</ulink>.
 	This file also contains some special hints for getting &kapp; running and/or
 	building &kapp; under some distributions.
     </para>
@@ -1699,7 +1744,7 @@
 	    </para></listitem>
 	    <listitem><para>
 		...many other packages, please take a look at the
-		<ulink url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">
+		<ulink url="http://kwave.cvs.sourceforge.net/kwave/kwave/README?view=markup">
 		"README"</ulink> file included in the source package.
 	    </para></listitem>
 	</itemizedlist>
@@ -1894,7 +1939,7 @@
 	Then log in into the CVS server. As I guess that you want to do that
 	as normal user, you log in as anonymous:
 <screen width="75" format="linespecific">
-<prompt>% </prompt><command>cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/kwave login</command>
+<prompt>% </prompt><command>cvs -d:pserver:anonymous@kwave.cvs.sourceforge.net:/cvsroot/kwave login</command>
 </screen>
 	Then the server asks you for a password. Simply press enter, as we
 	do not have a password for anonymous access.
@@ -1902,7 +1947,7 @@
 
     <listitem><para>
 <screen width="75" format="linespecific">
-<prompt>% </prompt><command>cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/kwave co kwave</command>
+<prompt>% </prompt><command>cvs -z3 -d:pserver:anonymous@kwave.cvs.sourceforge.net:/cvsroot/kwave co kwave</command>
 </screen>
     </para></listitem>
 
@@ -2009,7 +2054,7 @@
 	<filename>/opt/kde3</filename>). Then just
         give a different prefix when installing the rpm. Example:
 <screen width="40" format="linespecific">
-<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde3 <replaceable>kwave-0.6.7.i386.rpm</replaceable></command>
+<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde3 <replaceable>kwave-0.7.6.i386.rpm</replaceable></command>
 </screen>
     </para>
 
@@ -3609,7 +3654,7 @@
     	<qandaentry>
 	    <question>
 	    	<para>
-		    What about playback with 24 and 32 bits per sample
+		    What about playback with 18, 20, 24 or 32 bits per sample
 		    or more than two channels?
 		</para>
 	    </question>
@@ -3798,7 +3843,7 @@
     </para>
 
     <para>
-	Documentation copyright (C) 2000 Thomas Eschenbacher
+	Documentation copyright (C) 2006 Thomas Eschenbacher
 	<email>thomas.eschenbacher@gmx.de</email>
     </para>
 
@@ -3817,7 +3862,7 @@
 -->
 
 <para>
-The current code contains some FFT routines and code fragments from the
+Older code might contain some FFT routines and code fragments from the
 GNU Scientific Library project
 <ulink url="http://sources.redhat.com/gsl/">http://sources.redhat.com/gsl/</ulink>.
 </para>

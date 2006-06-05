@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header$
 
-inherit kde flag-o-matic eutils
+inherit kde flag-o-matic
 
 DESCRIPTION="Kwave is a sound editor for KDE."
 HOMEPAGE="http://kwave.sourceforge.net/"
@@ -24,6 +24,7 @@ RDEPEND="kde-base/arts
 	sci-libs/gsl"
 DEPEND="${RDEPEND}
 	|| ( kde-base/kdesdk-misc kde-base/kdesdk )
+	|| ( kde-base/kdemultimedia-arts kde-base/kdemultimedia )
 	app-text/recode
 	media-gfx/imagemagick"
 need-kde 3.4

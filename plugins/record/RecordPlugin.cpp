@@ -349,7 +349,7 @@ void RecordPlugin::setDevice(const QString &device)
 	    if (m_device_name.contains("|")) {
 		// tree syntax: extract card + device
 		short_device_name = m_device_name.section("|", 0, 0) +
-		    i18n(", ") + m_device_name.section("|", 3, 3);
+		    ", " + m_device_name.section("|", 3, 3);
 	    }
 
 	    // show an error message box
@@ -361,8 +361,8 @@ void RecordPlugin::setDevice(const QString &device)
 		case -EIO:
 		    reason = i18n(
 			"Kwave was unable to open the device '%1'.\n"\
-			"Maybe your system lacks support for the driver "\
-			"or the hardware is not connected."
+			"Maybe your system lacks support for the corresponding "\
+			" hardware or the hardware is not connected."
 		    ).arg(short_device_name);
 		    break;
 		case -EBUSY:

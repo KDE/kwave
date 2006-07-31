@@ -65,7 +65,7 @@ void addDataStrings(KAboutData& aboutdata)
                     "martin@wilz.de",
                     "http://www.wilz.de");
     aboutdata.addAuthor("Ralf Waspe" ,
-                    i18n("creator of this dialog"),
+                    i18n("creator of the Help/About dialog"),
                     "rwaspe@web.de",
                     0);
     aboutdata.addAuthor("Caulier Gilles",
@@ -97,6 +97,14 @@ void addDataStrings(KAboutData& aboutdata)
     aboutdata.addCredit("Robert M. Stockmann",
                      i18n("packaging for Mandrake / X86_64"),
                      "stock@stokkie.net",
+                     0);
+    aboutdata.addCredit("Jorge Luis Arzola",
+                     i18n("packaging for SuSE Linux"),
+                     "arzolacub@gmx.de",
+                     0);
+    aboutdata.addCredit("Michael Favreau",
+                     i18n("packaging for Arch Linux"),
+                     "michel.favreau@free.fr",
                      0);
     aboutdata.addCredit("Diederick de Vries",
                      i18n("packaging for Crux Linux"),
@@ -137,7 +145,7 @@ int main( int argc, char **argv )
 	PACKAGE_VERSION,
 	i18n("sound editor for KDE"),
 	KAboutData::License_GPL_V2,
-        "(c) 2005, Thomas Eschenbacher",
+        "(c) 2006, Thomas Eschenbacher",
 	"", //TODO : i18n("");
 	"http://kwave.sourceforge.net",
 	"Thomas.Eschenbacher@gmx.de"

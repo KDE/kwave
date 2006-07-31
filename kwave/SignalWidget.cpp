@@ -20,8 +20,11 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <qbitmap.h>
 #include <qdragobject.h>
+#include <qevent.h>
 #include <qstrlist.h>
+#include <qtooltip.h>
 
 #include <kcursor.h>
 #include <kglobal.h>
@@ -80,6 +83,9 @@
 /** number of milliseconds between repaints */
 #define REPAINT_INTERVAL 333
 
+/** number of milliseconds until the position widget disappears */
+#define POSITION_WIDGET_TIME 5000
+
 //***************************************************************************
 //***************************************************************************
 class KwaveFileDrag: public QUriDrag
@@ -110,7 +116,8 @@ SignalWidget::SignalWidget(QWidget *parent)
     m_signal_manager(this),
     m_track_pixmaps(), m_pixmap(0),
     m_mouse_mode(MouseNormal),
-    m_mouse_down_x(0), m_repaint_timer()
+    m_mouse_down_x(0), m_repaint_timer(this),
+    m_position_widget(this), m_position_widget_timer(this)
 {
 //    qDebug("SignalWidget::SignalWidget()");
 
@@ -155,6 +162,10 @@ SignalWidget::SignalWidget(QWidget *parent)
     // connect repaint timer
     connect(&m_repaint_timer, SIGNAL(timeout()),
             this, SLOT(timedRepaint()));
+
+    // connect the timer of the position widget
+    connect(&m_position_widget_timer, SIGNAL(timeout()),
+            &m_position_widget, SLOT(hide()));
 
 //    labels = new LabelList();
 //    Q_ASSERT(labels);
@@ -791,16 +802,19 @@ int SignalWidget::selectionPosition(const int x)
     const int rl = (r > tol) ? (r-tol) : 0;
     const int rr = r + tol;
 
-    // position is in the selection while left and right tolerance
-    // areas overlap or leave an area that is smaller than the
-    // tolerance ?
-    if ((rl-lr < tol) && (x >= l) && (x <= r)) return Selection;
-
     // the simple cases...
     int pos = None;
-    if ((x >= ll) && (x <= lr)) pos = LeftBorder;
-    if ((x >= rl) && (x <= rr)) pos = RightBorder;
+    if ((x >= ll) && (x <= lr) && (x <= r)) pos |= LeftBorder;
+    if ((x >= rl) && (x <= rr) && (x >= l)) pos |= RightBorder;
     if ((x >   l) && (x <   r)) pos |= Selection;
+
+    if ((pos & LeftBorder) && (pos & RightBorder)) {
+	// special case: determine which border is nearer
+	if ((x - l) < (r - x))
+	    pos &= ~RightBorder; // more on the left
+	else
+	    pos &= ~LeftBorder;  // more on the right
+    }
 
     return pos;
 }
@@ -811,7 +825,7 @@ bool SignalWidget::isSelectionBorder(int x)
     SelectionPos pos = static_cast<SignalWidget::SelectionPos>(
 	selectionPosition(x) & ~Selection);
 
-    return ((pos == LeftBorder) || (pos == RightBorder));
+    return ((pos & LeftBorder) || (pos & RightBorder));
 }
 
 //***************************************************************************
@@ -897,6 +911,7 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
 	    selectRange(m_selection->left(), len);
 
 	    setMouseMode(MouseNormal);
+	    showPosition(0, 0, 0, QPoint(-1,-1));
 	    break;
 	}
 	case MouseInSelection: {
@@ -906,15 +921,252 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
 		     (e->pos().x() <= m_mouse_down_x+dmin)) )
 	    {
 		// deselect if only clicked without moving
-		unsigned int x = m_offset + pixels2samples(e->pos().x());
-		selectRange(x, 0);
+		unsigned int pos = m_offset + pixels2samples(e->pos().x());
+		selectRange(pos, 0);
 		setMouseMode(MouseNormal);
+		showPosition(0, 0, 0, QPoint(-1,-1));
 	    }
 	    break;
 	}
 	default: ;
     }
 
+}
+
+//***************************************************************************
+SignalWidget::PositionWidget::PositionWidget(QWidget *parent)
+    :QWidget(parent), m_label(0), m_alignment(0),
+     m_radius(10), m_arrow_length(30)
+{
+    m_label = new QLabel(this);
+    Q_ASSERT(m_label);
+    if (!m_label) return;
+
+    m_label->setFrameStyle(QFrame::Panel | QFrame::Plain);
+    m_label->setPalette(QToolTip::palette()); // use same colors as a QToolTip
+    m_label->setFocusPolicy(QWidget::NoFocus);
+    m_label->setMouseTracking(true);
+    m_label->setLineWidth(0);
+
+    setPalette(QToolTip::palette()); // use same colors as a QToolTip
+    setFocusPolicy(QWidget::NoFocus);
+    setMouseTracking(true);
+
+    hide();
+}
+
+//***************************************************************************
+SignalWidget::PositionWidget::~PositionWidget()
+{
+    if (m_label) delete m_label;
+    m_label = 0;
+}
+
+//***************************************************************************
+void SignalWidget::PositionWidget::setText(const QString &text, int alignment)
+{
+    if (!m_label) return;
+
+    m_alignment = alignment;
+
+    m_label->setText(text);
+    m_label->setAlignment(m_alignment);
+    m_label->resize(m_label->sizeHint());
+
+    switch (m_alignment) {
+	case AlignLeft:
+	    resize(m_arrow_length + m_radius + m_label->width() + m_radius,
+	           m_radius + m_label->height() + m_radius);
+	    m_label->move(m_arrow_length + m_radius, m_radius);
+	    break;
+	case AlignRight:
+	    resize(m_radius + m_label->width() + m_radius + m_arrow_length,
+	           m_radius + m_label->height() + m_radius);
+	    m_label->move(m_radius, m_radius);
+	    break;
+	case AlignHCenter:
+	    resize(m_radius + m_label->width() + m_radius,
+	           m_arrow_length + m_radius + m_label->height() + m_radius);
+	    m_label->move(m_radius, m_arrow_length + m_radius);
+	    break;
+	default:
+	    ;
+    }
+}
+
+//***************************************************************************
+bool SignalWidget::PositionWidget::event(QEvent *e)
+{
+    if (!e) return false;
+
+    // ignore any kind of event that might be of interest
+    // for the parent widget (in our case the SignalWidget)
+    switch (e->type()) {
+	case QEvent::MouseButtonPress:
+	case QEvent::MouseButtonRelease:
+	case QEvent::MouseButtonDblClick:
+	case QEvent::MouseMove:
+	case QEvent::KeyPress:
+	case QEvent::KeyRelease:
+	case QEvent::Accel:
+	case QEvent::Wheel:
+	case QEvent::Clipboard:
+	case QEvent::Speech:
+	case QEvent::DragEnter:
+	case QEvent::DragMove:
+	case QEvent::DragLeave:
+	case QEvent::Drop:
+	case QEvent::DragResponse:
+	case QEvent::TabletMove:
+	case QEvent::TabletPress:
+	case QEvent::TabletRelease:
+	    return false;
+	default:
+	    ;
+    }
+
+    // everything else: let it be handled by QLabel
+    return QWidget::event(e);
+}
+
+//***************************************************************************
+void SignalWidget::PositionWidget::paintEvent(QPaintEvent *)
+{
+    QPainter p;
+
+    QBitmap bmp(size());
+    bmp.fill(Qt::color0);
+    p.begin(&bmp);
+
+    QBrush brush(Qt::color1);
+    p.setBrush(brush);
+    p.setPen(Qt::color1);
+
+    const int h = height();
+    const int w = width();
+    QPointArray poly;
+
+    switch (m_alignment) {
+	case AlignLeft:
+	    poly.putPoints(0, 8,
+		m_arrow_length, 0,
+		w-1, 0,
+		w-1, h-1,
+		m_arrow_length, h-1,
+		m_arrow_length, 2*h/3,
+		0, h/2,
+		m_arrow_length, h/3,
+		m_arrow_length, 0
+	    );
+	    break;
+	case AlignRight:
+	    poly.putPoints(0, 8,
+		0, 0,
+		w-1-m_arrow_length, 0,
+		w-1-m_arrow_length, h/3,
+		w-1, h/2,
+		w-1-m_arrow_length, 2*h/3,
+		w-1-m_arrow_length, h-1,
+		0, h-1,
+		0, 0
+	    );
+	    break;
+	case AlignHCenter:
+	    break;
+	default:
+	    ;
+    }
+
+    p.drawPolygon(poly);
+    p.end();
+    setMask(bmp);
+
+    p.begin(this);
+    p.fillRect(rect(), colorGroup().background());
+    p.drawPolyline(poly);
+    p.end();
+}
+
+//***************************************************************************
+void SignalWidget::showPosition(const QString &text, unsigned int pos,
+                                double ms, const QPoint &mouse)
+{
+    int x = mouse.x();
+    int y = mouse.y();
+
+    // x/y == -1/-1 -> reset/hide the position
+    if ((x < 0) && (y < 0)) {
+	m_position_widget_timer.stop();
+	m_position_widget.hide();
+	return;
+    }
+
+    unsigned int t, h, m, s, tms;
+    t = (unsigned int)rint(ms * 10.0);
+    tms = t % 10000;
+    t /= 10000;
+    s = t % 60;
+    t /= 60;
+    m = t % 60;
+    t /= 60;
+    h = t;
+    QString hms;
+    hms.sprintf("%02u:%02u:%02u.%04u", h, m, s, tms);
+    QString txt = QString("%1\n%2\n%3").arg(text).arg(pos).arg(hms);
+
+    switch (selectionPosition(mouse.x()) & ~Selection) {
+	case RightBorder:
+	    m_position_widget.setText(txt, AlignLeft);
+	    x = samples2pixels(pos - m_offset);
+	    if (x + m_position_widget.width() > width()) {
+		// switch to right aligned mode
+		m_position_widget.setText(txt, AlignRight);
+		x = samples2pixels(pos - m_offset) - m_position_widget.width();
+	    }
+	    break;
+	case LeftBorder:
+	    m_position_widget.setText(txt, AlignRight);
+	    x = samples2pixels(pos - m_offset) - m_position_widget.width();
+	    if (x < 0) {
+		// switch to left aligned mode
+		m_position_widget.setText(txt, AlignLeft);
+		x = samples2pixels(pos - m_offset);
+	    }
+	    break;
+	default:
+	    // something like a marker ?
+	    m_position_widget.setText(txt, AlignHCenter);
+	    x = samples2pixels(pos - m_offset) - m_position_widget.width() / 2;
+	    if (x < 0) {
+		// switch to left aligned mode
+		m_position_widget.setText(txt, AlignLeft);
+		x = samples2pixels(pos - m_offset);
+	    }
+	    if (x + m_position_widget.width() > width()) {
+		// switch to right aligned mode
+		m_position_widget.setText(txt, AlignRight);
+		x = samples2pixels(pos - m_offset) - m_position_widget.width();
+	    }
+    }
+
+    // adjust the position to avoid vertical clipping
+    int lh = m_position_widget.height();
+    if (y - lh/2 < 0) {
+	y = 0;
+    } else if (y + lh/2 > height()) {
+	y = height() - lh;
+    } else {
+	y -= lh/2;
+    }
+
+    m_position_widget.move(x, y);
+
+    if (!m_position_widget.isVisible())
+	m_position_widget.show();
+    m_position_widget.repaint(false);
+
+    m_position_widget_timer.stop();
+    m_position_widget_timer.start(POSITION_WIDGET_TIME, true);
 }
 
 //***************************************************************************
@@ -930,42 +1182,75 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
     // abort if no signal is loaded
     if (!m_signal_manager.length()) return;
 
+    // there seems to be a BUG in Qt, sometimes e->pos() produces flicker/wrong
+    // coordinates on the start of a fast move!?
+    // globalPos() seems not to have this effect
+    int mouse_x = mapFromGlobal(e->globalPos()).x();
+    int mouse_y = mapFromGlobal(e->globalPos()).y();
+    if (mouse_x < 0) mouse_x = 0;
+    if (mouse_y < 0) mouse_y = 0;
+    if (mouse_x >= width())  mouse_x = width()  - 1;
+    if (mouse_y >= height()) mouse_y = height() - 1;
+    QPoint pos(mouse_x, mouse_y);
+
+    // bail out if the position did not change
+    static int last_x = -1;
+    static int last_y = -1;
+    if ((mouse_x == last_x) && (mouse_y == last_y))
+	return;
+    last_x = mouse_x;
+    last_y = mouse_y;
+
     switch (m_mouse_mode) {
 	case MouseSelect: {
 	    // in move mode, a new selection was created or an old one grabbed
 	    // this does the changes with every mouse move...
-	    int mx = e->pos().x();
-	    if (mx < 0) mx = 0;
-	    if (mx >= m_width) mx = m_width-1;
-
-	    unsigned int x = m_offset + pixels2samples(mx);
+	    unsigned int x = m_offset + pixels2samples(mouse_x);
 	    m_selection->update(x);
 
 	    unsigned int len = m_selection->right() - m_selection->left() + 1;
 	    selectRange(m_selection->left(), len);
+
+	    showPosition(i18n("selection"), x, samples2ms(x), pos);
 	    break;
 	}
 	default: {
 	    // yes, this code gives the nifty cursor change....
-	    int x = e->pos().x();
-	    if (isSelectionBorder(x)) {
+	    if (isSelectionBorder(mouse_x)) {
 		setMouseMode(MouseAtSelectionBorder);
-	    } else if (isInSelection(x)) {
+		switch (selectionPosition(mouse_x) & ~Selection) {
+		    case LeftBorder:
+			showPosition(i18n("selection, left border"),
+			    m_selection->left(),
+			    samples2ms(m_selection->left()), pos);
+			break;
+		    case RightBorder:
+			showPosition(i18n("selection, right border"),
+			    m_selection->right(),
+			    samples2ms(m_selection->right()), pos);
+			break;
+		    default:
+			showPosition(0, 0, 0, QPoint(-1,-1));
+		}
+	    } else if (isInSelection(mouse_x)) {
 		setMouseMode(MouseInSelection);
+		showPosition(0, 0, 0, QPoint(-1,-1));
                 int dmin = KGlobalSettings::dndEventDelay();
 		if ((e->state() & Qt::LeftButton) &&
-		    ((e->pos().x() < m_mouse_down_x-dmin) ||
-		     (e->pos().x() > m_mouse_down_x+dmin)) )
+		    ((mouse_x < m_mouse_down_x - dmin) ||
+		     (mouse_x > m_mouse_down_x + dmin)) )
 		{
 		    startDragging();
 		}
 	    } else {
 		setMouseMode(MouseNormal);
+		showPosition(0, 0, 0, QPoint(-1,-1));
 	    }
 	}
     }
 }
 
+//***************************************************************************
 void SignalWidget::paintEvent(QPaintEvent *)
 {
     InhibitRepaintGuard inhibit(*this, false); // avoid recursion
@@ -1091,8 +1376,8 @@ void SignalWidget::paintEvent(QPaintEvent *)
 		if (right >= (unsigned int)(m_width)) right=m_width-1;
 		if (left > right) left = right;
 
+		p.setPen(yellow);
 		if (left == right) {
-		    p.setPen (green);
 		    p.drawLine(left, 0, left, m_height);
 		} else {
 		    p.setBrush(yellow);

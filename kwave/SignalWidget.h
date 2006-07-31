@@ -20,6 +20,7 @@
 
 #include "config.h"
 #include <qdragobject.h>
+#include <qlabel.h>
 #include <qptrlist.h>
 #include <qtimer.h>
 #include <qpainter.h>
@@ -441,6 +442,45 @@ protected:
 	bool m_repaint;
     };
 
+    class PositionWidget: public QWidget
+    {
+    public:
+	/** Constructor */
+	PositionWidget(QWidget *parent);
+
+	/** Destructor */
+	virtual ~PositionWidget();
+
+	/**
+	 * set a new label text and alignment
+	 * @param text the text of the label, can be multiline and rtf/html
+	 * @param alignment the alignment of the label and the widget,
+	 *                  can be AlignLeft, AlignRight or AlignHCenter
+	 */
+	virtual void setText(const QString &text, int alignment);
+
+    protected:
+	/** event filter */
+	virtual bool event(QEvent *e);
+
+	/** paint event: draws the text and the arrow */
+	virtual void paintEvent(QPaintEvent *);
+
+    private:
+
+	/** the label that contains the text */
+	QLabel *m_label;
+
+	/** alignment of the label / text */
+	int m_alignment;
+
+	/** the radius of the corners [pixel] */
+	int m_radius;
+
+	/** the length of the arrows [pixel] */
+	int m_arrow_length;
+    };
+
     /**
      * Returns the zoom value that will be used to fit the whole signal
      * into the current window.
@@ -525,6 +565,17 @@ private:
      */
     void setMouseMode(MouseMode mode);
 
+    /**
+     * Shows the current cursor position as a tooltip
+     * @param text description of the position
+     * @param pos marker position [samples]
+     * @param ms marker position in milliseconds
+     * @param mouse the coordinates of the mouse cursor,
+     *              relative to this widget [pixel]
+     */
+    void showPosition(const QString &text, unsigned int pos, double ms,
+                      const QPoint &mouse);
+
 private:
 
     /** Pixmaps for buffering each layer */
@@ -603,6 +654,12 @@ private:
 
     /** timer for limiting the number of repaints per second */
     QTimer m_repaint_timer;
+
+    /** small widget for showing the mouse cursor position */
+    PositionWidget m_position_widget;
+
+    /** timer for automatic hiding */
+    QTimer m_position_widget_timer;
 
 };
 

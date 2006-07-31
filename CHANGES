@@ -1,4 +1,9 @@
 
+0.7.7 [2006-??-??]
+
+  * new feature: implemented a small widget that shows the current
+    selection position and the selection borders
+
 0.7.6 [2006-06-05]
 
  * bugfix: recording setup crashed when called for the first time

@@ -41,8 +41,6 @@ o hourglass and process indicators for longer processes
 
 o ruler that shows the current cursor position as time
 
-o display of the current cursor position in the status bar, if nothing selected
-
 o display of the current position in playback mode
 
 o audible/silent mode of tracks (speakers)

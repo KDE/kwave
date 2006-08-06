@@ -288,6 +288,16 @@ public:
     /** Returns true if undo/redo is currently enabled */
     inline bool undoEnabled() { return m_undo_enabled; };
 
+    /** Return true if undo is possible */
+    inline bool canUndo() {
+	return !m_undo_buffer.isEmpty() && undoEnabled();
+    };
+
+    /** Return true if redo is possible */
+    inline bool canRedo() {
+	return !m_redo_buffer.isEmpty() && undoEnabled();
+    };
+
     /**
      * Enables undo and redo. If undo/redo is already enabled, nothing
      * will be done.

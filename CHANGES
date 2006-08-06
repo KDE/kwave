@@ -3,6 +3,8 @@
 
   * new feature: implemented a small widget that shows the current
     selection position and the selection borders
+  * new feature: context menu for the signal widget (right mouse button)
+  * bugfix: error in handling of mouse selection
 
 0.7.6 [2006-06-05]
 

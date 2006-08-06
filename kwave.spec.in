@@ -7,6 +7,7 @@ Summary:	@RPM_SUMMARY@
 Name:		@RPM_NAME@
 Version: 	@RPM_SHORT_VERSION@
 Release: 	@RPM_RELEASE@
+License:	GPL and others, see LICENSES file
 Source0: 	kwave-@RPM_FULL_VERSION@.tar.gz
 Group:  	Productivity/Multimedia/Sound/Editors
 Copyright:	@RPM_COPYRIGHT@
@@ -23,7 +24,16 @@ Requires:	libvorbisenc.so.2 >= 2.0.0
 Requires:	libogg.so.0 >= 0.4.0
 Requires:	@RPM_REQUIRE_LIBMAD@ > 0.14
 @LIBAUDIOFILE_REQUIRE@
-Requires:	gsl >= 1.3
+Requires:	gsl >= 1.4
+Requires:	flac
+BuildRequires:	flac-devel
+BuildRequires:	id3lib-devel >= 3.8.1
+BuildRequires:	kdemultimedia3-devel
+BuildRequires:	libogg-devel >= 1
+BuildRequires:	audiofile > 0.2.3
+BuildRequires:	libvorbis >= 1
+BuildRequires:	gsl >= 1.4
+BuildRequires:	kdesdk3-translate
 
 Conflicts: 	libkwave
 Obsoletes: 	libkwave
@@ -57,7 +67,8 @@ rm -rf "$RPM_BUILD_ROOT"
 make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
 
 cd "$RPM_BUILD_ROOT"
-find . -type d | sed '1,2d;s,^\.,\%attr(-\,root\,root) \%dir ,' > "$RPM_BUILD_DIR"/%{filelist}
+echo "%defattr(-,root,root)" > "$RPM_BUILD_DIR"/%{filelist}
+find . -type d | sed '1,2d;s,^\.,\%attr(-\,root\,root) \%dir ,' >> "$RPM_BUILD_DIR"/%{filelist}
 find . -type f | sed 's,^\.,\%attr(-\,root\,root) \%dir ,' >> "$RPM_BUILD_DIR"/%{filelist}
 find . -type l | sed 's,^\.,\%attr(-\,root\,root) \%dir ,' >> "$RPM_BUILD_DIR"/%{filelist}
 # remove files/directories that should not get into the package

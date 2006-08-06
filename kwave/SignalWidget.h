@@ -258,6 +258,9 @@ protected slots:
      */
     void allowRepaint(bool repaint);
 
+    /** Handler for context menus */
+    void contextMenuEvent(QContextMenuEvent *e);
+
 private slots:
 
     /**
@@ -339,6 +342,21 @@ private slots:
      * elapsed and the signal has to be repainted
      */
     void timedRepaint();
+
+    /** conect menu: "edit/undo" */
+    void contextMenuEditUndo()   { forwardCommand("undo()"); };
+
+    /** conect menu: "edit/redo" */
+    void contextMenuEditRedo()   { forwardCommand("redo()"); };
+
+    /** conect menu: "edit/cut" */
+    void contextMenuEditCut()    { forwardCommand("cut()"); };
+
+    /** conect menu: "edit/copy" */
+    void contextMenuEditCopy()   { forwardCommand("copy()"); };
+
+    /** conect menu: "edit/paste" */
+    void contextMenuEditPaste()  { forwardCommand("paste()"); };
 
 signals:
 

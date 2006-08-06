@@ -23,6 +23,7 @@
 #include <qbitmap.h>
 #include <qdragobject.h>
 #include <qevent.h>
+#include <qpopupmenu.h>
 #include <qstrlist.h>
 #include <qtooltip.h>
 
@@ -32,6 +33,7 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <kfiledialog.h>
+#include <kiconloader.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/KwaveDrag.h"
@@ -365,15 +367,6 @@ bool SignalWidget::executeCommand(const QString &command)
 void SignalWidget::selectRange(unsigned int offset, unsigned int length)
 {
     m_signal_manager.selectRange(offset, length);
-
-    // if the selection has been changed through a command we also
-    // have to update the mouse selection
-    if ( (m_selection->left()  != m_signal_manager.selection().first()) ||
-         (m_selection->right() != m_signal_manager.selection().last()))
-    {
-	m_selection->set(m_signal_manager.selection().first(),
-	                 m_signal_manager.selection().last());
-    }
 }
 
 //***************************************************************************
@@ -783,9 +776,6 @@ void SignalWidget::refreshLayer(int layer)
 //***************************************************************************
 int SignalWidget::selectionPosition(const int x)
 {
-    Q_ASSERT(m_selection);
-    if (!m_selection) return None;
-
     /** @todo selection tolerance should depend on some KDE setting,
               but which ? */
     const int tol = 10;
@@ -853,12 +843,14 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 	if (mx < 0) mx = 0;
 	if (mx >= m_width) mx = m_width-1;
 	unsigned int x = m_offset + pixels2samples(mx);
-	unsigned int len = m_selection->right() - m_selection->left() + 1;
+	unsigned int len = m_signal_manager.selection().length();
 	switch (e->state() & KeyButtonMask) {
 	    case ShiftButton: {
 		// expand the selection to "here"
-		selectRange(m_selection->left(), len);
+		m_selection->set(m_signal_manager.selection().first(),
+		                 m_signal_manager.selection().last());
 		m_selection->grep(x);
+		selectRange(m_selection->left(), m_selection->length());
 		setMouseMode(MouseSelect);
 		break;
 	    }
@@ -872,7 +864,10 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 	    case 0: {
 		if (isSelectionBorder(e->pos().x())) {
 		    // modify selection border
+		    m_selection->set(m_signal_manager.selection().first(),
+			             m_signal_manager.selection().last());
 		    m_selection->grep(x);
+		    selectRange(m_selection->left(), m_selection->length());
 		    setMouseMode(MouseSelect);
 		} else if (isInSelection(e->pos().x()) && (len > 1)) {
 		    // store the x position for later drag&drop
@@ -880,12 +875,77 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 		} else {
 		    // start a new selection
 		    m_selection->set(x, x);
+		    selectRange(x, 0);
 		    setMouseMode(MouseSelect);
 		}
 		break;
 	    }
 	}
     }
+}
+
+//***************************************************************************
+void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
+{
+    KIconLoader icon_loader;
+
+    Q_ASSERT(e);
+    if (!e) return;
+
+    QPopupMenu *context_menu = new QPopupMenu(this);
+    Q_ASSERT(context_menu);
+    if (!context_menu) return;
+
+    int mx = e->pos().x();
+    if (mx < 0) mx = 0;
+    if (mx >= m_width) mx = m_width-1;
+//     unsigned int x = m_offset + pixels2samples(mx);
+    unsigned int len = m_signal_manager.selection().length();
+
+    SignalManager *manager = &signalManager();
+
+    /* menu items common to all cases */
+
+    // undo/redo
+    int id;
+    id = context_menu->insertItem(
+	icon_loader.loadIcon("undo.png", KIcon::Toolbar),
+	i18n("&Undo"), this, SLOT(contextMenuEditUndo()), CTRL+Key_Z);
+    if (!manager->canUndo())
+	context_menu->setItemEnabled(id, false);
+
+    id = context_menu->insertItem(
+	icon_loader.loadIcon("redo.png", KIcon::Toolbar),
+	i18n("&Redo"), this, SLOT(contextMenuEditRedo()), CTRL+Key_Y);
+    if (!manager->canRedo())
+	context_menu->setItemEnabled(id, false);
+    context_menu->insertSeparator();
+
+    // cut/copy/paste
+    id = context_menu->insertItem(
+	icon_loader.loadIcon("editcut.png", KIcon::Toolbar),
+	i18n("Cu&t"), this, SLOT(contextMenuEditCut()), CTRL+Key_X);
+    id = context_menu->insertItem(
+	icon_loader.loadIcon("editcopy.png", KIcon::Toolbar),
+	i18n("&Copy"), this, SLOT(contextMenuEditCopy()), CTRL+Key_C);
+    id = context_menu->insertItem(
+	icon_loader.loadIcon("editpaste.png", KIcon::Toolbar),
+	i18n("&Paste"), this, SLOT(contextMenuEditPaste()), CTRL+Key_V);
+    context_menu->insertSeparator();
+
+//     if (isSelectionBorder(e->pos().x())) {
+// 	// context menu: do something with the selection border
+// 	qDebug("context menu: do something with the selection border");
+//     } else if (isInSelection(e->pos().x()) && (len > 1)) {
+// 	// context menu: do something with the selection
+// 	qDebug("context menu: do something with the selection");
+//     } else {
+// 	// context menu: whole signal
+// 	qDebug("context menu: whole signal");
+//     }
+
+    context_menu->exec(QCursor::pos());
+    delete context_menu;
 }
 
 //***************************************************************************
@@ -906,10 +966,7 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
 	case MouseSelect: {
 	    unsigned int x = m_offset + pixels2samples(e->pos().x());
 	    m_selection->update(x);
-
-	    unsigned int len = m_selection->right() - m_selection->left() + 1;
-	    selectRange(m_selection->left(), len);
-
+	    selectRange(m_selection->left(), m_selection->length());
 	    setMouseMode(MouseNormal);
 	    showPosition(0, 0, 0, QPoint(-1,-1));
 	    break;
@@ -1207,10 +1264,7 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 	    // this does the changes with every mouse move...
 	    unsigned int x = m_offset + pixels2samples(mouse_x);
 	    m_selection->update(x);
-
-	    unsigned int len = m_selection->right() - m_selection->left() + 1;
-	    selectRange(m_selection->left(), len);
-
+	    selectRange(m_selection->left(), m_selection->length());
 	    showPosition(i18n("selection"), x, samples2ms(x), pos);
 	    break;
 	}
@@ -1221,13 +1275,15 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 		switch (selectionPosition(mouse_x) & ~Selection) {
 		    case LeftBorder:
 			showPosition(i18n("selection, left border"),
-			    m_selection->left(),
-			    samples2ms(m_selection->left()), pos);
+			    m_signal_manager.selection().first(),
+			    samples2ms(m_signal_manager.selection().first()),
+			    pos);
 			break;
 		    case RightBorder:
 			showPosition(i18n("selection, right border"),
-			    m_selection->right(),
-			    samples2ms(m_selection->right()), pos);
+			    m_signal_manager.selection().last(),
+			    samples2ms(m_signal_manager.selection().last()),
+			    pos);
 			break;
 		    default:
 			showPosition(0, 0, 0, QPoint(-1,-1));

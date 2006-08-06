@@ -70,6 +70,13 @@ public:
      */
     unsigned int right();
 
+    /**
+     * Returns the lenght of the selection
+     */
+    inline unsigned int length() {
+	return right() - left() + 1;
+    };
+
 private:
     /** initial position of the mouse */
     unsigned int initial;

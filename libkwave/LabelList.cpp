@@ -1,8 +1,8 @@
 /***************************************************************************
           LabelList.cpp  -  list of labels
                              -------------------
-    begin                : Sat Feb 03 2001
-    copyright            : (C) 2001 by Thomas Eschenbacher
+    begin                : Sat Aug 05 2006
+    copyright            : (C) 2006 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -15,29 +15,31 @@
  *                                                                         *
  ***************************************************************************/
 
-//#include <math.h>
-//#include "LabelList.h"
-//
-//LabelList::LabelList()
-//{
-//}
-//
-////****************************************************************************
-//LabelList::~LabelList()
-//{
-//    clear();
-//}
-//
-////****************************************************************************
-//int LabelList::compareItems(Label *a, Label *b)
-//{
-//    Label *c = (Label *)a;
-//    Label *d = (Label *)b;
-//    Q_ASSERT(c);
-//    Q_ASSERT(d);
-//    if (!c || !d) return -1;
-//
-//    double res = (c->pos - d->pos);
-//    if (res > 0) return (int) ceil (c->pos - d->pos);
-//    else return (int) floor (c->pos - d->pos);
-//}
+#include "LabelList.h"
+
+//***************************************************************************
+LabelList::LabelList()
+    :QPtrList<Label>()
+{
+    setAutoDelete(true);
+}
+
+//***************************************************************************
+LabelList::~LabelList()
+{
+    clear();
+}
+
+//***************************************************************************
+int LabelList::compareItems(Label *a, Label *b)
+{
+    Q_ASSERT(a);
+    Q_ASSERT(b);
+    if (!a || !b) return -1; /* not allowed! */
+
+    if (a->pos() == b->pos()) return 0;
+    return (a->pos() < b->pos()) ? -1 : +1;
+}
+
+//***************************************************************************
+//***************************************************************************

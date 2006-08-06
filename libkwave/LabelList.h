@@ -1,8 +1,8 @@
 /***************************************************************************
             LabelList.h  -  list of labels
                              -------------------
-    begin                : Sat Feb 03 2001
-    copyright            : (C) 2001 by Thomas Eschenbacher
+    begin                : Sat Aug 05 2006
+    copyright            : (C) 2006 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -17,18 +17,26 @@
 #ifndef _LABEL_LIST_H_
 #define _LABEL_LIST_H_
 
-//#include <qptrlist.h>
-//
-//#include "Label.h"
-//
-//// Class for list of Labels has to inherit from QPtrList to implement own
-//// compareItems method for sorting
-//class LabelList: public QPtrList<Label>
-//{
-//public:
-//    LabelList();
-//    ~LabelList();
-//    int compareItems (Label *a, Label *b);
-//};
+#include <config.h>
+#include <qptrlist.h>
+
+#include "Label.h"
+
+class LabelList: public QPtrList<Label>
+{
+public:
+    /** Constructor */
+    LabelList();
+
+    /** Destructor */
+    virtual ~LabelList();
+
+protected:
+    /**
+     * compare two labels, for sorting
+     * @see QPtrList::compareItems
+     */
+    int compareItems(Label *a, Label *b);
+};
 
 #endif /* _LABEL_LIST_H_ */

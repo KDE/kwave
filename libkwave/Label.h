@@ -1,8 +1,8 @@
 /***************************************************************************
                 Label.h  -  representation of a label within a signal
                              -------------------
-    begin                : Sat Feb 03 2001
-    copyright            : (C) 2001 by Thomas Eschenbacher
+    begin                : Mon Jul 31 2006
+    copyright            : (C) 2006 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -17,30 +17,48 @@
 #ifndef _LABEL_H_
 #define _LABEL_H_
 
-//class LabelType;
-////***********************************************************
-//class Label
-//	    //Label Class is for marking positions in the signal
-//{
-//public:
-//    Label (double, LabelType *, const char *name = 0);
-//    Label (const char *);
-//    ~Label();
-//    void setName (const char *);
-//    const char *getCommand ();
-//    inline const char *getName () {
-//	return name;
-//    };
-//    inline LabelType *getType () {
-//	return type;
-//    };
-//
-//    double pos;                           //position in ms
-//private:
-//    char* name;                          //pointer to name
-//    LabelType *type;                          //pointer to type
-//    char *comstr;
-//};
+#include "config.h"
+#include <qstring.h>
 
-//***********************************************************
+class Label
+{
+public:
+    /**
+     * Constructor
+     *
+     * @param position the label position [samples]
+     * @param name the name of the label, user defined
+     */
+    Label(unsigned int position, const QString &name);
+
+    /** destructor */
+    virtual ~Label();
+
+    /**
+     * Set a new position of the label
+     * @param pos the new position [samples]
+     */
+    virtual void moveTo(unsigned int position);
+
+    /** Returns the label's position [samples] */
+    virtual unsigned int pos() const;
+
+    /**
+     * change the name of the label
+     * @param name the new name, user defined
+     */
+    virtual void rename(const QString &name);
+
+    /** returns the name of the string */
+    virtual QString name() const;
+
+private:
+
+    /** position of the label [samples] */
+    unsigned int m_position;
+
+    /** name of the label, user defined */
+    QString m_name;
+};
+
 #endif /* _LABEL_H_ */

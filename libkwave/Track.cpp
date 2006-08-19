@@ -104,8 +104,6 @@ void Track::connectStripe(Stripe *s)
     Q_ASSERT(s);
     if (!s) return;
 
-    connect(s, SIGNAL(sigSamplesDeleted(Stripe&, unsigned int, unsigned int)),
-	this, SLOT(slotSamplesDeleted(Stripe&, unsigned int, unsigned int)));
     connect(s, SIGNAL(sigSamplesInserted(Stripe&, unsigned int, unsigned int)),
 	this, SLOT( slotSamplesInserted(Stripe&, unsigned int, unsigned int)));
     connect(s, SIGNAL(sigSamplesModified(unsigned int, unsigned int)),
@@ -122,7 +120,10 @@ Stripe *Track::newStripe(unsigned int start, unsigned int length)
 
     connectStripe(s);
 
-    if (length) s->resize(length);
+    if (length) {
+	s->resize(length);
+	emit sigSamplesInserted(*this, start, length);
+    }
 
     return s;
 }
@@ -132,10 +133,6 @@ void Track::deleteStripe(Stripe *s)
 {
     if (!s) return;
 
-    disconnect(s, SIGNAL(sigSamplesDeleted(Stripe&, unsigned int,
-	    unsigned int)),
-	    this, SLOT(slotSamplesDeleted(Stripe&, unsigned int,
-	    unsigned int)));
     disconnect(s, SIGNAL(sigSamplesInserted(Stripe&, unsigned int,
 	    unsigned int)),
 	    this, SLOT( slotSamplesInserted(Stripe&, unsigned int,
@@ -363,13 +360,6 @@ void Track::slotSamplesInserted(Stripe &src, unsigned int offset,
                                 unsigned int length)
 {
     emit sigSamplesInserted(*this, src.start()+offset, length);
-}
-
-//***************************************************************************
-void Track::slotSamplesDeleted(Stripe &src, unsigned int offset,
-                               unsigned int length)
-{
-    emit sigSamplesDeleted(*this, src.start()+offset, length);
 }
 
 //***************************************************************************

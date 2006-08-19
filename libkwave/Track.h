@@ -147,17 +147,6 @@ private slots:
                              unsigned int length);
 
     /**
-     * Connected to each stripe's sigSamplesDeleted.
-     * @param src source stripe of the signal
-     * @param offset position from which the data was removed
-     * @param length number of samples deleted
-     * @see Stripe::sigSamplesDeleted
-     * @internal
-     */
-    void slotSamplesDeleted(Stripe &src, unsigned int offset,
-                            unsigned int length);
-
-    /**
      * Connected to each stripe's sigSamplesModified
      * @param offset position from which the data was modified
      * @param length number of samples modified

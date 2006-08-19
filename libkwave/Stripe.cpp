@@ -295,14 +295,10 @@ unsigned int Stripe::resize(unsigned int length, bool initialize)
 	}
     }
 
-    if (length < old_length) {
-	// something has been deleted from the end
-	unsigned int change = old_length - length;
-	emit sigSamplesDeleted(*this, length, change);
-    } else if (length > old_length) {
+    if (length > old_length) {
 	// something has been added to the end
 	unsigned int change = length - old_length;
-	emit sigSamplesInserted(*this, old_length, change);
+	emit sigSamplesInserted(*this, m_start + old_length, change);
     }
 
     return length;
@@ -433,8 +429,6 @@ void Stripe::deleteRange(unsigned int offset, unsigned int length)
 	// resize the buffer to it's new size
 	resizeStorage(size - length);
     }
-
-    // sigSamplesDeleted will be emitted in the Track, not here
 }
 
 //***************************************************************************

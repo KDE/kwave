@@ -177,15 +177,6 @@ signals:
                             unsigned int length);
 
     /**
-     * Emitted if data has been removed from the stripe.
-     * @param src source stripe of the signal (*this)
-     * @param offset position from which the data was removed
-     * @param length number of samples deleted
-     */
-    void sigSamplesDeleted(Stripe &src, unsigned int offset,
-                           unsigned int length);
-
-    /**
      * Emitted if some data within the stripe has been modified.
      * @param offset position from which the data was modified
      * @param length number of samples modified

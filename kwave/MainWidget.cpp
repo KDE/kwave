@@ -193,7 +193,7 @@ MainWidget::MainWidget(QWidget *parent)
 	    this, SLOT(slotTrackInserted(unsigned int)));
     connect(&m_signal_widget, SIGNAL(sigTrackDeleted(unsigned int)),
 	    this, SLOT(slotTrackDeleted(unsigned int)));
-    connect(&m_signal_widget, SIGNAL(sigTrackSeclecionChanged()),
+    connect(&m_signal_widget, SIGNAL(sigTrackSelectionChanged()),
 	    this, SLOT(refreshChannelControls()));
 
     connect(&m_signal_widget, SIGNAL(sigMouseChanged(int)),

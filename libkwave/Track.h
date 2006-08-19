@@ -136,17 +136,6 @@ signals:
 private slots:
 
     /**
-     * Connected to each stripe's sigSamplesInserted.
-     * @param src source stripe of the signal (*this)
-     * @param offset position from which the data was inserted
-     * @param length number of samples inserted
-     * @see Stripe::sigSamplesInserted
-     * @internal
-     */
-    void slotSamplesInserted(Stripe &src, unsigned int offset,
-                             unsigned int length);
-
-    /**
      * Connected to each stripe's sigSamplesModified
      * @param offset position from which the data was modified
      * @param length number of samples modified

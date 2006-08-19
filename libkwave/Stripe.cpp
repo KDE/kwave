@@ -329,10 +329,6 @@ unsigned int Stripe::append(const QMemArray<sample_t> &samples,
 	    / sizeof(sample_t);
     }
 //     qDebug("Stripe::append(): resized to %d", m_length);
-
-    // something has been added to the end
-    if (appended) emit sigSamplesInserted(*this, old_length, appended);
-
     return appended;
 }
 

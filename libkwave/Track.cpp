@@ -105,8 +105,6 @@ void Track::connectStripe(Stripe *s)
     Q_ASSERT(s);
     if (!s) return;
 
-    connect(s, SIGNAL(sigSamplesInserted(Stripe&, unsigned int, unsigned int)),
-	this, SLOT( slotSamplesInserted(Stripe&, unsigned int, unsigned int)));
     connect(s, SIGNAL(sigSamplesModified(unsigned int, unsigned int)),
 	this, SLOT(slotSamplesModified(unsigned int, unsigned int)));
 }
@@ -130,10 +128,6 @@ void Track::deleteStripe(Stripe *s)
 {
     if (!s) return;
 
-    disconnect(s, SIGNAL(sigSamplesInserted(Stripe&, unsigned int,
-	    unsigned int)),
-	    this, SLOT( slotSamplesInserted(Stripe&, unsigned int,
-	    unsigned int)));
     disconnect(s, SIGNAL(sigSamplesModified(unsigned int,
 	                                    unsigned int)),
 	    this, SLOT(slotSamplesModified(unsigned int,
@@ -353,13 +347,6 @@ void Track::select(bool selected)
 }
 
 //***************************************************************************
-void Track::slotSamplesInserted(Stripe &src, unsigned int offset,
-                                unsigned int length)
-{
-    emit sigSamplesInserted(*this, src.start()+offset, length);
-}
-
-//***************************************************************************
 void Track::slotSamplesModified(unsigned int offset,
                                 unsigned int length)
 {
@@ -386,6 +373,7 @@ void Track::appendAfter(Stripe *stripe,  unsigned int offset,
 // 	qDebug("Track::appendAfter(): appending %u samples to %p",
 // 	       len, stripe);
 	stripe->append(buffer, buf_offset, len);
+	emit sigSamplesInserted(*this, offset, len);
 
 	offset     += len;
 	length     -= len;
@@ -407,7 +395,10 @@ void Track::appendAfter(Stripe *stripe,  unsigned int offset,
 	if (!new_stripe) break;
 
 	// append to the new stripe
-	new_stripe->append(buffer, buf_offset, len);
+	len = new_stripe->append(buffer, buf_offset, len);
+	if (!len) break;
+	emit sigSamplesInserted(*this, offset, len);
+
 	qDebug("new stripe: [%u ... %u]", new_stripe->start(),
 	       new_stripe->end());
 

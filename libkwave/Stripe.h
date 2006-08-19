@@ -112,17 +112,6 @@ public:
                         unsigned int count);
 
     /**
-     * Inserts an array of samples into the stripe.
-     * @param samples array with the samples
-     * @param offset position within the stripe, relative to the start of
-     *        the stripe [0...length()-1]
-     * @param count number of samples in the array
-     * @return number of samples appended
-     */
-    unsigned int insert(const QMemArray<sample_t> &samples,
-                        unsigned int offset, unsigned int count);
-
-    /**
      * Deletes a range of samples
      * @param offset index of the first sample, relative to the start of
      *        the stripe [0...length()-1]

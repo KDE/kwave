@@ -337,52 +337,6 @@ unsigned int Stripe::append(const QMemArray<sample_t> &samples,
 }
 
 //***************************************************************************
-unsigned int Stripe::insert(const QMemArray<sample_t> &samples,
-                            unsigned int offset, unsigned int count)
-{
-    unsigned int old_length;
-    unsigned int inserted = 0;
-
-    {
-	QMutexLocker lock(&m_lock_samples);
-
-	if (!count || !m_length) return 0; // nothing to do
-	Q_ASSERT(offset + count <= samples.size());
-	if (offset + count > samples.size()) return 0;
-
-	qDebug("Stripe::insert: inserting %d samples", count);
-
-	old_length = m_length;
-	unsigned int new_length = old_length + count;
-	if (resizeStorage(new_length) != new_length) {
-	    qWarning("Stripe::insert(): m_length=%u, old=%u, wanted=%u",
-		m_length, old_length, new_length);
-	    return 0;
-	}
-
-	if (offset < old_length) {
-	    // move old samples right
-	    MappedArray _samples(*this, m_length);
-
-	    unsigned int src = offset;
-	    unsigned int dst = offset + count;
-	    if (!_samples.copy(dst, src, old_length - offset)) return 0;
-	}
-
-	// insert the new samples at the given offset
-	MappedArray _samples(*this, m_length);
-	inserted = _samples.copy(offset, samples, 0, count);
-    }
-
-    qDebug("Stripe::insert(): resized to %d", m_length);
-
-    // something has been inserted
-    if (inserted) emit sigSamplesInserted(*this, offset, inserted);
-
-    return inserted;
-}
-
-//***************************************************************************
 void Stripe::deleteRange(unsigned int offset, unsigned int length)
 {
     qDebug("    Stripe::deleteRange(offset=%u, length=%u)", offset, length);

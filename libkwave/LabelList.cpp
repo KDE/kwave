@@ -31,14 +31,18 @@ LabelList::~LabelList()
 }
 
 //***************************************************************************
-int LabelList::compareItems(Label *a, Label *b)
+int LabelList::compareItems(QPtrCollection::Item a, QPtrCollection::Item b)
 {
     Q_ASSERT(a);
     Q_ASSERT(b);
-    if (!a || !b) return -1; /* not allowed! */
+    if (!a || !b) return -1; // not allowed!
+    if (a == b) return 0;    // simple case: compare with itself
 
-    if (a->pos() == b->pos()) return 0;
-    return (a->pos() < b->pos()) ? -1 : +1;
+    Label *label_a = reinterpret_cast<Label *>(a);
+    Label *label_b = reinterpret_cast<Label *>(b);
+
+    if (label_a->pos() == label_b->pos()) return 0;
+    return (label_a->pos() < label_b->pos()) ? -1 : +1;
 }
 
 //***************************************************************************

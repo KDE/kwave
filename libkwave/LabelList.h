@@ -36,7 +36,7 @@ protected:
      * compare two labels, for sorting
      * @see QPtrList::compareItems
      */
-    int compareItems(Label *a, Label *b);
+    virtual int compareItems(QPtrCollection::Item a, QPtrCollection::Item b);
 };
 
 #endif /* _LABEL_LIST_H_ */

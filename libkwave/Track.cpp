@@ -89,6 +89,7 @@ Stripe *Track::appendStripe(unsigned int length)
 
 	s = newStripe(start, len);
 	if (!s) break;
+	if (len) emit sigSamplesInserted(*this, start, len);
 
 	length -= len;
 	start  += len;
@@ -119,11 +120,7 @@ Stripe *Track::newStripe(unsigned int start, unsigned int length)
     if (!s) return 0;
 
     connectStripe(s);
-
-    if (length) {
-	s->resize(length);
-	emit sigSamplesInserted(*this, start, length);
-    }
+    s->resize(length);
 
     return s;
 }

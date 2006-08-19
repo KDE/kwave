@@ -295,12 +295,6 @@ unsigned int Stripe::resize(unsigned int length, bool initialize)
 	}
     }
 
-    if (length > old_length) {
-	// something has been added to the end
-	unsigned int change = length - old_length;
-	emit sigSamplesInserted(*this, m_start + old_length, change);
-    }
-
     return length;
 }
 

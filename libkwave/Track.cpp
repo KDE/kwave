@@ -348,7 +348,6 @@ void Track::appendAfter(Stripe *stripe,  unsigned int offset,
 	qDebug("Track::appendAfter(): appending %u samples to %p",
 	       len, stripe);
 	stripe->append(buffer, buf_offset, len);
-	emit sigSamplesInserted(*this, offset, len);
 
 	offset     += len;
 	length     -= len;
@@ -370,9 +369,8 @@ void Track::appendAfter(Stripe *stripe,  unsigned int offset,
 	if (!new_stripe) break;
 
 	// append to the new stripe
-	len = new_stripe->append(buffer, buf_offset, len);
-	if (!len) break;
-	emit sigSamplesInserted(*this, offset, len);
+	new_stripe->append(buffer, buf_offset, len);
+// 	emit sigSamplesInserted(*this, offset, len);
 
 	qDebug("new stripe: [%u ... %u]", new_stripe->start(),
 	       new_stripe->end());
@@ -421,6 +419,7 @@ void Track::writeSamples(InsertMode mode,
 	case Append: {
 // 	    qDebug("writeSamples() - Append");
 	    appendAfter(m_stripes.last(), offset, buffer, buf_offset, length);
+	    emit sigSamplesInserted(*this, offset, length);
 	    break;
 	}
 	case Insert: {
@@ -464,6 +463,7 @@ void Track::writeSamples(InsertMode mode,
 		moveRight(offset, length);
 		appendAfter(stripe_before, offset, buffer,
 		            buf_offset, length);
+		emit sigSamplesInserted(*this, offset, length);
 		break;
 	    }
 
@@ -474,6 +474,7 @@ void Track::writeSamples(InsertMode mode,
 		moveRight(offset, length);
 		appendAfter(stripe_before, offset, buffer,
 		            buf_offset, length);
+		emit sigSamplesInserted(*this, offset, length);
 	    } else {
 	        // split the target stripe and insert the samples
 		// between the two new ones
@@ -481,6 +482,7 @@ void Track::writeSamples(InsertMode mode,
 		moveRight(offset, length);
 		appendAfter(target_stripe, offset, buffer,
 		            buf_offset, length);
+		emit sigSamplesInserted(*this, offset, length);
 	    }
 
 	    break;
@@ -494,6 +496,7 @@ void Track::writeSamples(InsertMode mode,
 		// -> append mode
 		qDebug("- no stripes -> appending at zero");
 		appendAfter(0, offset, buffer, buf_offset, length);
+		emit sigSamplesInserted(*this, offset, length);
 		break;
 	    }
 
@@ -621,6 +624,10 @@ void Track::writeSamples(InsertMode mode,
 		stripe_before = 0;
 
 	    appendAfter(stripe_before, left, buffer, buf_offset, length);
+	    if (stripe_before == m_stripes.last())
+		emit sigSamplesInserted(*this, offset, length);
+	    else
+		emit sigSamplesModified(*this, offset, length);
 
 	    // look for possible fragmentation at the left side
 

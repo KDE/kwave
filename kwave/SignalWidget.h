@@ -26,6 +26,8 @@
 #include <qpainter.h>
 #include <qwidget.h>
 
+#include "libkwave/LabelList.h"
+
 #include "PlaybackController.h"
 #include "SignalManager.h"
 
@@ -155,6 +157,42 @@ public:
 
     /** Returns the playback controller */
     PlaybackController &playbackController();
+
+    /**
+     * add a new label
+     * @param pos position of the label [samples]
+     * @param with_undo if true, create undo info
+     */
+    void addLabel(unsigned int pos, bool with_undo);
+
+    /**
+     * add a new label, without undo
+     * @param pos position of the label [samples]
+     * @param name the name of the label
+     * @return pointer to the new created label
+     */
+    Label *addLabel(unsigned int pos, const QString &name);
+
+    /**
+     * delete an existing label
+     * @param index the index of the label [0...N-1]
+     * @param with_undo if true, create undo info
+     */
+    void deleteLabel(int index, bool with_undo);
+
+    /**
+     * find a label by it's index
+     * @param index the index of the label [0...N-1]
+     * @return pointer to the label or null pointer if not found
+     */
+    Label *labelAtIndex(int index);
+
+    /**
+     * Returns the index of a label, counting from zero
+     * @param label pointer to a Label
+     * @return index [0...N-1] or -1 if label is a null pointer
+     */
+    int labelIndex(const Label *label) const;
 
 public slots:
 
@@ -343,20 +381,32 @@ private slots:
      */
     void timedRepaint();
 
-    /** conect menu: "edit/undo" */
+    /** context menu: "edit/undo" */
     void contextMenuEditUndo()   { forwardCommand("undo()"); };
 
-    /** conect menu: "edit/redo" */
+    /** context menu: "edit/redo" */
     void contextMenuEditRedo()   { forwardCommand("redo()"); };
 
-    /** conect menu: "edit/cut" */
+    /** context menu: "edit/cut" */
     void contextMenuEditCut()    { forwardCommand("cut()"); };
 
-    /** conect menu: "edit/copy" */
+    /** context menu: "edit/copy" */
     void contextMenuEditCopy()   { forwardCommand("copy()"); };
 
-    /** conect menu: "edit/paste" */
+    /** context menu: "edit/paste" */
     void contextMenuEditPaste()  { forwardCommand("paste()"); };
+
+    /** context menu: "save selection" */
+    void contextMenuSaveSelection()  { forwardCommand("saveselect()"); };
+
+    /** context menu: "label / new" */
+    void contextMenuLabelNew();
+
+    /** context menu: "label / delete" */
+    void contextMenuLabelDelete();
+
+    /** context menu: "label / properties..." */
+    void contextMenuLabelProperties();
 
 signals:
 
@@ -412,7 +462,7 @@ signals:
     void sigTrackDeleted(unsigned int track);
 
     /** The selection state of at least one track has changed */
-    void sigTrackSeclecionChanged();
+    void sigTrackSelectionChanged();
 
 protected:
 
@@ -521,16 +571,35 @@ protected:
     /** slot for repainting the widget or portions of it */
     void paintEvent(QPaintEvent *);
 
+    /**
+     * Returns the label that is nearest to the given mouse position
+     * and is visible or null if none found.
+     * @param x mouse position, X coordinate, relative to the widget
+     * @return nearest label or null if none found.
+     */
+    Label *findLabelNearMouse(int x) const;
+
+    /**
+     * returns the label at a given exact position
+     * @param pos position of the label [samples]
+     * @return the label at the position or null if not found
+     */
+    Label *findLabel(unsigned int pos) const;
+
+    /**
+     * Opens a dialog for editing the properties of a label
+     * @param label a Label that should be edited
+     */
+    void labelProperties(Label *label);
+
 //    void loadLabel ();
 //    void appendLabel ();
 //    void deleteLabel ();
 //    void saveLabel (const char *);
-//    void addLabel (const char *);
 //    void jumptoLabel ();
 //    void markSignal (const char *);
 //    void markPeriods (const char *);
 //    void savePeriods ();
-//    bool executeLabelCommand(const QString &command);
 
     /**
      * Handles commands for navigation and selection.
@@ -560,7 +629,7 @@ private:
      * @param pixels pixel offset
      * @return index of the sample
      */
-    unsigned int pixels2samples(int pixels);
+    unsigned int pixels2samples(int pixels) const;
 
     /**
      * Converts a pixel offset into a sample index using the current zoom
@@ -568,7 +637,7 @@ private:
      * @param samples number of samples to be converted
      * @return pixel offset
      */
-    int samples2pixels(int samples);
+    int samples2pixels(int samples) const;
 
     /**
      * Fixes the zoom and the offset of the display so that no non-existing
@@ -655,11 +724,11 @@ private:
     /** list of track pixmaps */
     QPtrList<TrackPixmap> m_track_pixmaps;
 
+    /** list of labels */
+    LabelList m_labels;
+
     /** pixmap for avoiding flicker */
     QPixmap *m_pixmap;
-
-//    LabelList *labels;           //linked list of markers
-//    LabelType *markertype;       //selected marker type
 
     /** mode of the mouse cursor */
     MouseMode m_mouse_mode;

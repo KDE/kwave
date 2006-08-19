@@ -55,6 +55,9 @@
 #include "SignalManager.h"
 #include "MouseMark.h"
 #include "UndoTransactionGuard.h"
+#include "UndoAddLabelAction.h"
+#include "UndoDeleteLabelAction.h"
+#include "UndoModifyLabelAction.h"
 
 #ifdef DEBUG
 #include <time.h>
@@ -88,6 +91,13 @@
 /** number of milliseconds until the position widget disappears */
 #define POSITION_WIDGET_TIME 5000
 
+/**
+ * tolerance in pixel for snapping to a label or selection border
+ * @todo selection tolerance should depend on some KDE setting,
+ *        but which ?
+ */
+#define SELECTION_TOLERANCE 10
+
 //***************************************************************************
 //***************************************************************************
 class KwaveFileDrag: public QUriDrag
@@ -116,7 +126,7 @@ SignalWidget::SignalWidget(QWidget *parent)
     m_zoom(0.0), m_playpointer(-1), m_last_playpointer(-1), m_redraw(false),
     m_inhibit_repaint(0), m_selection(0),
     m_signal_manager(this),
-    m_track_pixmaps(), m_pixmap(0),
+    m_track_pixmaps(), m_labels(), m_pixmap(0),
     m_mouse_mode(MouseNormal),
     m_mouse_down_x(0), m_repaint_timer(this),
     m_position_widget(this), m_position_widget_timer(this)
@@ -169,11 +179,6 @@ SignalWidget::SignalWidget(QWidget *parent)
     connect(&m_position_widget_timer, SIGNAL(timeout()),
             &m_position_widget, SLOT(hide()));
 
-//    labels = new LabelList();
-//    Q_ASSERT(labels);
-//    if (!labels) return;
-//    labels->setAutoDelete (true);
-
 //    m_menu_manager.clearNumberedMenu("ID_LABELS_TYPE");
 //    for (LabelType *tmp = globals.markertypes.first(); tmp;
 //         tmp = globals.markertypes.next())
@@ -221,8 +226,7 @@ SignalWidget::~SignalWidget()
     if (m_pixmap) delete m_pixmap;
     m_pixmap = 0;
 
-////    if (labels) delete labels;
-////    labels = 0;
+    m_labels.clear();
 
     if (m_selection) delete m_selection;
     m_selection = 0;
@@ -304,15 +308,13 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 	selectRange(m_offset, pixels2samples(m_width) - 1);
     CASE_COMMAND("selectnone")
 	selectRange(m_offset, 0);
-    } else return false;
-
-    return true;
-}
-
-//***************************************************************************
-//bool SignalWidget::executeLabelCommand(const QString &command)
-//{
-//    if (false) {
+    // label commands
+    CASE_COMMAND("label")
+	unsigned int pos = parser.toUInt();
+	addLabel(pos, true);
+    CASE_COMMAND("deletelabel")
+	int index = parser.toInt();
+	deleteLabel(index, true);
 //    CASE_COMMAND("chooselabel")
 //	Parser parser(command);
 //	markertype = globals.markertypes.at(parser.toInt());
@@ -320,32 +322,22 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 //	markSignal(command);
 //    CASE_COMMAND("pitch")
 //	markPeriods(command);
-////    CASE_COMMAND("labeltopitch")
-////      convertMarkstoPitch(command);
-//    CASE_COMMAND("deletelabel")
-//	deleteLabel();
-//    CASE_COMMAND("insertlabel")
-//	appendLabel();
+//    CASE_COMMAND("labeltopitch")
+//      convertMarkstoPitch(command);
 //    CASE_COMMAND("loadlabel")
 //	loadLabel();
 //    CASE_COMMAND("savelabel")
 //	saveLabel(command);
-//    CASE_COMMAND("label")
-//	addLabel(command);
-//    CASE_COMMAND("newlabeltype")
-//	addLabelType(command);
 //    CASE_COMMAND("expandtolabel")
 //	jumptoLabel();
-//    CASE_COMMAND("mark")
-//	markSignal(command);
 //    CASE_COMMAND("markperiod")
 //	markPeriods(command);
 //    CASE_COMMAND("saveperiods")
 //	savePeriods();
-//    } else return false;
-//
-//    return true;
-//}
+    } else return false;
+
+    return true;
+}
 
 //***************************************************************************
 bool SignalWidget::executeCommand(const QString &command)
@@ -463,6 +455,9 @@ void SignalWidget::close()
     // first stop playback
     m_signal_manager.playbackController().playbackStop();
     m_signal_manager.playbackController().reset();
+
+    // remove all layers
+    m_labels.clear();
 
     // clear the display
     m_track_pixmaps.setAutoDelete(true);
@@ -776,9 +771,7 @@ void SignalWidget::refreshLayer(int layer)
 //***************************************************************************
 int SignalWidget::selectionPosition(const int x)
 {
-    /** @todo selection tolerance should depend on some KDE setting,
-              but which ? */
-    const int tol = 10;
+    const int tol = SELECTION_TOLERANCE;
     const unsigned int first = m_signal_manager.selection().first();
     const unsigned int last  = m_signal_manager.selection().last();
     const unsigned int ofs   = m_offset;
@@ -887,22 +880,20 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 //***************************************************************************
 void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 {
-    KIconLoader icon_loader;
-
     Q_ASSERT(e);
-    if (!e) return;
+    Q_ASSERT(m_selection);
+    if (!e || !m_selection) return;
 
     QPopupMenu *context_menu = new QPopupMenu(this);
     Q_ASSERT(context_menu);
     if (!context_menu) return;
 
-    int mx = e->pos().x();
-    if (mx < 0) mx = 0;
-    if (mx >= m_width) mx = m_width-1;
-//     unsigned int x = m_offset + pixels2samples(mx);
-    unsigned int len = m_signal_manager.selection().length();
+    QPopupMenu *submenu_label = new QPopupMenu(this);
+    Q_ASSERT(submenu_label);
+    if (!submenu_label) return;
 
     SignalManager *manager = &signalManager();
+    KIconLoader icon_loader;
 
     /* menu items common to all cases */
 
@@ -933,19 +924,84 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 	i18n("&Paste"), this, SLOT(contextMenuEditPaste()), CTRL+Key_V);
     context_menu->insertSeparator();
 
-//     if (isSelectionBorder(e->pos().x())) {
-// 	// context menu: do something with the selection border
-// 	qDebug("context menu: do something with the selection border");
-//     } else if (isInSelection(e->pos().x()) && (len > 1)) {
-// 	// context menu: do something with the selection
-// 	qDebug("context menu: do something with the selection");
-//     } else {
-// 	// context menu: whole signal
-// 	qDebug("context menu: whole signal");
-//     }
+    int mouse_x = mapFromGlobal(e->globalPos()).x();
+    if (mouse_x < 0) mouse_x = 0;
+    if (mouse_x >= width())  mouse_x = width()  - 1;
+    unsigned int len = manager->selection().length();
+
+    // label handling
+    int id_label_new = submenu_label->insertItem(
+	i18n("&New"), this, SLOT(contextMenuLabelNew()));
+    int id_label_delete = submenu_label->insertItem(
+	i18n("&Delete"), this, SLOT(contextMenuLabelDelete()));
+    submenu_label->setItemEnabled(id_label_delete, false);
+    int id_label_properties = submenu_label->insertItem(
+	i18n("&Properties..."), this, SLOT(contextMenuLabelProperties()));
+    submenu_label->setItemEnabled(id_label_properties, false);
+
+    // store the menu position in the mouse selection
+    unsigned int pos = m_offset + pixels2samples(mouse_x);
+    m_selection->set(pos, pos);
+
+    Label *label = 0;
+    if (label = findLabelNearMouse(mouse_x)) {
+	// delete label ?
+	// label properties ?
+	submenu_label->setItemEnabled(id_label_new, false);
+	submenu_label->setItemEnabled(id_label_properties, true);
+	submenu_label->setItemEnabled(id_label_delete, true);
+
+	pos = label->pos();
+	m_selection->set(pos, pos);
+    } else if (isSelectionBorder(mouse_x)) {
+	// context menu: do something with the selection border
+
+	// expand to next marker (right) ?
+	// expand to next marker (left) ?
+    } else if (isInSelection(mouse_x) && (len > 1)) {
+	// context menu: do something with the selection
+
+	id = context_menu->insertItem(
+	    i18n("&Save selection..."), this,
+	    SLOT(contextMenuSaveSelection()));
+
+	// convert selection to markers ?
+    }
+
+    context_menu->insertItem("&Label", submenu_label);
 
     context_menu->exec(QCursor::pos());
     delete context_menu;
+}
+
+//***************************************************************************
+void SignalWidget::contextMenuLabelNew()
+{
+    Q_ASSERT(m_selection);
+    if (!m_selection) return;
+
+    forwardCommand(QString("label(%1)").arg(m_selection->left()));
+}
+
+//***************************************************************************
+void SignalWidget::contextMenuLabelDelete()
+{
+    Q_ASSERT(m_selection);
+    if (!m_selection) return;
+
+    Label *label = findLabel(m_selection->left());
+    int index = labelIndex(label);
+    forwardCommand(QString("deletelabel(%1)").arg(index));
+}
+
+//***************************************************************************
+void SignalWidget::contextMenuLabelProperties()
+{
+    Q_ASSERT(m_selection);
+    if (!m_selection) return;
+
+    Label *label = findLabel(m_selection->left());
+    labelProperties(label);
 }
 
 //***************************************************************************
@@ -1172,15 +1228,6 @@ void SignalWidget::showPosition(const QString &text, unsigned int pos,
     QString txt = QString("%1\n%2\n%3").arg(text).arg(pos).arg(hms);
 
     switch (selectionPosition(mouse.x()) & ~Selection) {
-	case RightBorder:
-	    m_position_widget.setText(txt, AlignLeft);
-	    x = samples2pixels(pos - m_offset);
-	    if (x + m_position_widget.width() > width()) {
-		// switch to right aligned mode
-		m_position_widget.setText(txt, AlignRight);
-		x = samples2pixels(pos - m_offset) - m_position_widget.width();
-	    }
-	    break;
 	case LeftBorder:
 	    m_position_widget.setText(txt, AlignRight);
 	    x = samples2pixels(pos - m_offset) - m_position_widget.width();
@@ -1190,20 +1237,16 @@ void SignalWidget::showPosition(const QString &text, unsigned int pos,
 		x = samples2pixels(pos - m_offset);
 	    }
 	    break;
+	case RightBorder:
 	default:
-	    // something like a marker ?
-	    m_position_widget.setText(txt, AlignHCenter);
-	    x = samples2pixels(pos - m_offset) - m_position_widget.width() / 2;
-	    if (x < 0) {
-		// switch to left aligned mode
-		m_position_widget.setText(txt, AlignLeft);
-		x = samples2pixels(pos - m_offset);
-	    }
+	    m_position_widget.setText(txt, AlignLeft);
+	    x = samples2pixels(pos - m_offset);
 	    if (x + m_position_widget.width() > width()) {
 		// switch to right aligned mode
 		m_position_widget.setText(txt, AlignRight);
 		x = samples2pixels(pos - m_offset) - m_position_widget.width();
 	    }
+	    break;
     }
 
     // adjust the position to avoid vertical clipping
@@ -1269,21 +1312,43 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 	    break;
 	}
 	default: {
+	    unsigned int first = m_signal_manager.selection().first();
+	    unsigned int last  = m_signal_manager.selection().last();
+	    Label *label = findLabelNearMouse(mouse_x);
+
+	    // find out what is nearer: label or selection border ?
+	    if (label && (first != last) && isSelectionBorder(mouse_x)) {
+		const unsigned int pos = m_offset + pixels2samples(mouse_x);
+		const unsigned int d_label = (pos > label->pos()) ?
+		    (pos - label->pos()) : (label->pos() - pos);
+		const unsigned int d_left = (pos > first) ?
+		    (pos - first) : (first - pos);
+		const unsigned int d_right = (pos > last) ?
+		    (pos - last) : (last - pos);
+		if ( ((d_label ^ 2) > (d_left ^ 2)) &&
+		     ((d_label ^ 2) > (d_right ^ 2)) )
+		{
+		    // selection borders are nearer
+		    label = 0;
+		}
+	    }
+
 	    // yes, this code gives the nifty cursor change....
-	    if (isSelectionBorder(mouse_x)) {
+	    if (label) {
+		setMouseMode(MouseAtSelectionBorder);
+		showPosition(i18n("label #%1").arg(labelIndex(label)),
+		    label->pos(), samples2ms(label->pos()), pos);
+		break;
+	    } else if ((first != last) && isSelectionBorder(mouse_x)) {
 		setMouseMode(MouseAtSelectionBorder);
 		switch (selectionPosition(mouse_x) & ~Selection) {
 		    case LeftBorder:
 			showPosition(i18n("selection, left border"),
-			    m_signal_manager.selection().first(),
-			    samples2ms(m_signal_manager.selection().first()),
-			    pos);
+			    first, samples2ms(first), pos);
 			break;
 		    case RightBorder:
 			showPosition(i18n("selection, right border"),
-			    m_signal_manager.selection().last(),
-			    samples2ms(m_signal_manager.selection().last()),
-			    pos);
+			    last, samples2ms(last), pos);
 			break;
 		    default:
 			showPosition(0, 0, 0, QPoint(-1,-1));
@@ -1395,12 +1460,27 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	Q_ASSERT(m_layer[LAYER_MARKERS]);
 	if (!m_layer[LAYER_MARKERS]) return;
 
-//	qDebug("SignalWidget::paintEvent(): - redraw of markers layer -");
+	qDebug("SignalWidget::paintEvent(): - redraw of markers layer -");
 	m_layer[LAYER_MARKERS]->fill(black);
 
-// 	p.begin(m_layer[LAYER_MARKERS]);
-	// ### nothing to do yet
-// 	p.end();
+	QPainter p;
+	p.begin(m_layer[LAYER_MARKERS]);
+
+	QPtrListIterator<Label> it(m_labels);
+	Label *label;
+	while (label = it.current()) {
+	    ++it;
+	    unsigned int pos = label->pos();
+	    if (pos < m_offset) continue; // outside left
+	    int x = samples2pixels(pos - m_offset);
+	    if (x >= m_width) continue; // outside right
+
+	    p.setPen(Qt::cyan);
+	    p.setRasterOp(XorROP);
+	    p.drawLine(x, 0, x, m_height);
+	}
+
+	p.end();
 
 	m_update_layer[LAYER_MARKERS] = false;
 	update_pixmap = true;
@@ -1520,14 +1600,14 @@ double SignalWidget::samples2ms(unsigned int samples)
 }
 
 //***************************************************************************
-unsigned int SignalWidget::pixels2samples(int pixels)
+unsigned int SignalWidget::pixels2samples(int pixels) const
 {
     if ((pixels < 0) || (m_zoom <= 0.0)) return 0;
     return (unsigned int)rint((double)pixels * m_zoom);
 }
 
 //***************************************************************************
-int SignalWidget::samples2pixels(int samples)
+int SignalWidget::samples2pixels(int samples) const
 {
     if (m_zoom==0.0) return 0;
     return (int)rint((double)samples / m_zoom);
@@ -1540,14 +1620,70 @@ int SignalWidget::displaySamples()
 }
 
 //***************************************************************************
-void selectMarkers(const char */*command*/)
+Label *SignalWidget::findLabelNearMouse(int x) const
 {
-//    Parser parser(command);
+    const int tol = SELECTION_TOLERANCE;
+    unsigned int pos = m_offset + pixels2samples(x);
+    Label *nearest = 0;
+    int dmin = pixels2samples(SELECTION_TOLERANCE) ^ 2;
+
+    QPtrListIterator<Label> it(m_labels);
+    Label *label;
+    while (label = it.current()) {
+	++it;
+	unsigned int lp = label->pos();
+	if (lp < m_offset) continue; // outside left
+	int lx = samples2pixels(lp - m_offset);
+	if (lx >= m_width) continue; // outside right
+
+	if ((lx + tol < x) || (lx > x + tol))
+	    continue; // out of tolerance
+
+	int dist = (pos - label->pos()) ^ 2;
+	if (dist < dmin) {
+	    // found a new "nearest" label
+	    dmin = dist;
+	    nearest = label;
+	}
+    }
+
+    return nearest;
 }
 
 //***************************************************************************
-LabelType *findMarkerType (const char */*txt*/)
+Label *SignalWidget::findLabel(unsigned int pos) const
 {
+    QPtrListIterator<Label> it(m_labels);
+    Label *label;
+    while (label = it.current()) {
+	if (label->pos() == pos) return label; // found it
+	++it;
+    }
+    return 0; // nothing found
+}
+
+//***************************************************************************
+int SignalWidget::labelIndex(const Label *label) const
+{
+    int index = 0;
+    QPtrListIterator<Label> it(m_labels);
+    while (const Label *l = it.current()) {
+	if (l == label) return index; // found it
+	index++;
+ 	++it;
+    }
+    return -1; // nothing found*/
+}
+
+//***************************************************************************
+Label *SignalWidget::labelAtIndex(int index)
+{
+    return m_labels.at(index);
+}
+
+//***************************************************************************
+// LabelType *findMarkerType (const char */*txt*/)
+// {
 //    int cnt = 0;
 //    LabelType *act;
 //
@@ -1556,8 +1692,8 @@ LabelType *findMarkerType (const char */*txt*/)
 //	cnt++;
 //    }
 //    qWarning("could not find Labeltype %s\n", txt);
-    return 0;
-}
+//     return 0;
+// }
 
 ////***************************************************************************
 //void SignalWidget::deleteLabel ()
@@ -1638,52 +1774,101 @@ LabelType *findMarkerType (const char */*txt*/)
 //	fclose (out);
 //    }
 //}
-//
-////****************************************************************************
-//void SignalWidget::addLabel (const char *params)
-//{
-//    if (signalmanage && markertype) {
-//	Parser parser(params);
-//	Label *newmark;
-//
-//	if (parser.countParams() > 0) {
-//	    newmark = new Label (params);
-//	} else {
-//	    double pos = ((double)signalmanage->getLMarker()) * 1000 / signalmanage->getRate();
-//	    newmark = new Label (pos, markertype);
-//
-//	    //should it need a name ?
-//	    if (markertype->named) {
-//		Dialog *dialog =
-//		    DynamicLoader::getDialog ("stringenter", new DialogOperation("Enter name of label :", true));    //create a modal dialog
-//
-//		if (dialog) {
-//		    dialog->show ();
-//
-//		    if (dialog->result()) {
-//			printf ("dialog:%s\n", dialog->getCommand());
-//			newmark->setName (dialog->getCommand());
-//			delete dialog;
-//		    } else {
-//			delete newmark;
-//			newmark = 0;
-//		    }
-//		} else {
-//		    KMessageBox::message (this, "Error", i18n("Dialog not loaded !"));
-//		    delete newmark;
-//		    newmark = 0;
-//		}
-//	    }
-//	}
-//
-//	if (newmark) {
-//	    labels->inSort (newmark);
-//
-//	    refreshLayer(LAYER_MARKERS);
-//	}
-//    }
-//}
-//
+
+//***************************************************************************
+void SignalWidget::labelProperties(Label *label)
+{
+    if (!label) return;
+    qDebug("--- edit label properties ---");
+}
+
+//***************************************************************************
+void SignalWidget::addLabel(unsigned int pos, bool with_undo)
+{
+    // if there already is a label at the given position, do nothing
+    if (findLabel(pos)) return;
+
+    // create a new label
+    Label *label = new Label(pos, "");
+    Q_ASSERT(label);
+    if (!label) {
+	KMessageBox::sorry(this, i18n("Out of memory"));
+	return;
+    }
+
+    // put the label into the list
+    m_labels.inSort(label);
+
+    // register the undo action
+    if (with_undo) {
+	UndoTransactionGuard undo(m_signal_manager, i18n("add label"));
+	UndoAddLabelAction *undo_add =
+	    new UndoAddLabelAction(*this, labelIndex(label));
+	if (!m_signal_manager.registerUndoAction(undo_add)) {
+	    delete undo_add;
+	    m_labels.remove(label);
+	    return;
+	}
+    }
+
+    // edit the label's properties...
+    labelProperties(label);
+
+    refreshLayer(LAYER_MARKERS);
+    showPosition(0, 0, 0, QPoint(-1,-1));
+}
+
+//***************************************************************************
+Label *SignalWidget::addLabel(unsigned int pos, const QString &name)
+{
+    // if there already is a label at the given position, do nothing
+    if (findLabel(pos)) return 0;
+
+    // create a new label
+    Label *label = new Label(pos, name);
+    Q_ASSERT(label);
+    if (!label) {
+	KMessageBox::sorry(this, i18n("Out of memory"));
+	return 0;
+    }
+
+    // put the label into the list
+    m_labels.inSort(label);
+    refreshLayer(LAYER_MARKERS);
+    showPosition(0, 0, 0, QPoint(-1,-1));
+
+    return label;
+}
+
+//***************************************************************************
+void SignalWidget::deleteLabel(int index, bool with_undo)
+{
+    qDebug("SignalWidget::deleteLabel(index=%d,...)",index);
+    Q_ASSERT(index >= 0);
+    Q_ASSERT(index < (int)m_labels.count());
+    if ((index < 0) || (index >= (int)m_labels.count())) return;
+
+    Label *label = m_labels.at(index);
+    Q_ASSERT(label);
+    if (!label) return;
+
+    // register the undo action
+    if (with_undo) {
+	UndoTransactionGuard undo(m_signal_manager, i18n("delete label"));
+	UndoDeleteLabelAction *undo_del =
+	    new UndoDeleteLabelAction(*this, *label);
+	if (!m_signal_manager.registerUndoAction(undo_del)) {
+	    delete undo_del;
+	    delete label;
+	    return;
+	}
+    }
+
+    m_labels.remove(label);
+    refreshLayer(LAYER_MARKERS);
+    showPosition(0, 0, 0, QPoint(-1,-1));
+}
+
 ////****************************************************************************
 //void SignalWidget::jumptoLabel ()
 // another fine function contributed by Gerhard Zintel
@@ -2090,7 +2275,7 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track &track)
             this, SLOT(refreshSignalLayer()));
 
     connect(&track, SIGNAL(sigSelectionChanged()),
-	    this, SIGNAL(sigTrackSeclecionChanged()));
+	    this, SIGNAL(sigTrackSelectionChanged()));
     connect(&track, SIGNAL(sigSelectionChanged()),
             this, SLOT(refreshSignalLayer()));
 }
@@ -2110,19 +2295,61 @@ void SignalWidget::slotTrackDeleted(unsigned int index)
 }
 
 //***************************************************************************
-void SignalWidget::slotSamplesInserted(unsigned int /*track*/,
-    unsigned int /*offset*/, unsigned int /*length*/)
+void SignalWidget::slotSamplesInserted(unsigned int track,
+    unsigned int offset, unsigned int length)
 {
-//    qDebug("SignalWidget(): slotSamplesInserted(%u, %u,%u)", track,
-//	offset, length);
+    qDebug("SignalWidget(): slotSamplesInserted(%u, %u,%u)", track,
+	offset, length);
+
+    // only adjust the labels once per operation
+    if (track != m_signal_manager.selectedTracks().first()) return;
+
+    unsigned int modified = 0;
+    QPtrListIterator<Label> it(m_labels);
+    while (Label *label = it.current()) {
+	unsigned int pos = label->pos();
+	if (pos >= offset) {
+	    label->moveTo(pos + length);
+	    modified++;
+	}
+	++it;
+    }
+
+    if (modified)
+	refreshLayer(LAYER_MARKERS);
 }
 
 //***************************************************************************
-void SignalWidget::slotSamplesDeleted(unsigned int /*track*/,
-    unsigned int /*offset*/, unsigned int /*length*/)
+void SignalWidget::slotSamplesDeleted(unsigned int track,
+    unsigned int offset, unsigned int length)
 {
-//    qDebug("SignalManager(): slotSamplesDeleted(%u, %u,%u)", track,
-//	offset, length);
+   qDebug("SignalWidget(): slotSamplesDeleted(%u, %u...%u)", track,
+	offset, offset+length-1);
+
+    // only adjust the labels once per operation
+    if (track != m_signal_manager.selectedTracks().first()) return;
+
+    unsigned int modified = 0;
+    QPtrListIterator<Label> it(m_labels);
+    while (Label *label = it.current()) {
+	unsigned int pos = label->pos();
+	if (pos >= offset + length) {
+	    // move label left
+	    qDebug("-> moving to %u", pos-length);
+	    label->moveTo(pos - length);
+	    modified++;
+	} else if ((pos >= offset) && (pos < offset+length)) {
+	    // delete the label
+	    qDebug("-> deleting label at %u", pos);
+	    deleteLabel(labelIndex(label), true);
+	    modified++;
+	    continue;
+	}
+	++it;
+    }
+
+    if (modified)
+	refreshLayer(LAYER_MARKERS);
 }
 
 //***************************************************************************

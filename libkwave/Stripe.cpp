@@ -380,16 +380,11 @@ void Stripe::overwrite(unsigned int offset,
 	const QMemArray<sample_t> &source,
 	unsigned int srcoff, unsigned int srclen)
 {
-    unsigned int count = srclen;
-    {
-	QMutexLocker lock(&m_lock_samples);
+    QMutexLocker lock(&m_lock_samples);
 
-	count = MemoryManager::instance().writeTo(m_storage,
-	    offset * sizeof(sample_t),
-	    &source[srcoff], count * sizeof(sample_t)) / sizeof(sample_t);
-    }
-
-    if (count) emit sigSamplesModified(m_start + offset, count);
+    MemoryManager::instance().writeTo(m_storage,
+	offset * sizeof(sample_t),
+	&source[srcoff], srclen * sizeof(sample_t)) / sizeof(sample_t);
 }
 
 //***************************************************************************

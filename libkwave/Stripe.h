@@ -152,16 +152,6 @@ public:
      */
     Stripe &operator << (const QMemArray<sample_t> &samples);
 
-signals:
-
-    /**
-     * Emitted if some data within the stripe has been modified.
-     * @param offset position from which the data was modified
-     * @param length number of samples modified
-     */
-    void sigSamplesModified(unsigned int offset,
-                            unsigned int length);
-
 protected:
 
     /**

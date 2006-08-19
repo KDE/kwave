@@ -133,17 +133,6 @@ signals:
      */
      void sigSelectionChanged();
 
-private slots:
-
-    /**
-     * Connected to each stripe's sigSamplesModified
-     * @param offset position from which the data was modified
-     * @param length number of samples modified
-     * @internal
-     */
-    void slotSamplesModified(unsigned int offset,
-                             unsigned int length);
-
 private:
     /**
      * Returns the current length of the stripe in samples. This
@@ -176,13 +165,6 @@ private:
      * @param length distance of the shift [samples]
      */
     void moveRight(unsigned int offset, unsigned int shift);
-
-    /**
-     * Connect all signals of the stripe to us
-     *
-     * @param s pointer to the stripe to be connected
-     */
-    void connectStripe(Stripe *s);
 
     /**
      * Append a new stripe with a given length.

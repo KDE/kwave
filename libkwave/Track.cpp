@@ -100,24 +100,13 @@ Stripe *Track::appendStripe(unsigned int length)
 }
 
 //***************************************************************************
-void Track::connectStripe(Stripe *s)
-{
-    Q_ASSERT(s);
-    if (!s) return;
-
-    connect(s, SIGNAL(sigSamplesModified(unsigned int, unsigned int)),
-	this, SLOT(slotSamplesModified(unsigned int, unsigned int)));
-}
-
-//***************************************************************************
 Stripe *Track::newStripe(unsigned int start, unsigned int length)
 {
     Stripe *s = new Stripe(start);
     Q_ASSERT(s);
-//  qDebug("Track::newStripe(%u, %u): new stripe at %p", start, length, s);
     if (!s) return 0;
+//  qDebug("Track::newStripe(%u, %u): new stripe at %p", start, length, s);
 
-    connectStripe(s);
     s->resize(length);
 
     return s;
@@ -127,11 +116,6 @@ Stripe *Track::newStripe(unsigned int start, unsigned int length)
 void Track::deleteStripe(Stripe *s)
 {
     if (!s) return;
-
-    disconnect(s, SIGNAL(sigSamplesModified(unsigned int,
-	                                    unsigned int)),
-	    this, SLOT(slotSamplesModified(unsigned int,
-	                                   unsigned int)));
 
     m_stripes.setAutoDelete(true);
     m_stripes.remove(s);
@@ -155,8 +139,6 @@ void Track::splitStripe(Stripe *stripe, unsigned int offset)
 
     qDebug("Track::splitStripe(%p, %u): new stripe at [%u ... %u] (%u)",
            stripe, offset, s->start(), s->end(), s->length());
-
-    connectStripe(s);
 
     qDebug("    inserting at list index %u", m_stripes.findRef(stripe)+1);
     m_stripes.insert(m_stripes.findRef(stripe)+1, s);
@@ -347,13 +329,6 @@ void Track::select(bool selected)
 }
 
 //***************************************************************************
-void Track::slotSamplesModified(unsigned int offset,
-                                unsigned int length)
-{
-    emit sigSamplesModified(*this, offset, length);
-}
-
-//***************************************************************************
 void Track::appendAfter(Stripe *stripe,  unsigned int offset,
                         const QMemArray<sample_t> &buffer,
                         unsigned int buf_offset, unsigned int length)
@@ -370,8 +345,8 @@ void Track::appendAfter(Stripe *stripe,  unsigned int offset,
 	if (len + stripe->length() > STRIPE_LENGTH_MAXIMUM)
 	    len = STRIPE_LENGTH_MAXIMUM - stripe->length();
 
-// 	qDebug("Track::appendAfter(): appending %u samples to %p",
-// 	       len, stripe);
+	qDebug("Track::appendAfter(): appending %u samples to %p",
+	       len, stripe);
 	stripe->append(buffer, buf_offset, len);
 	emit sigSamplesInserted(*this, offset, len);
 
@@ -559,6 +534,7 @@ void Track::writeSamples(InsertMode mode,
 //		qDebug("L: [%u ....... %u]",start, end);
 //		qDebug("    [%u ... %u]", left, left+len-1);
 		s->overwrite(left-start, buffer, buf_offset, len);
+		emit sigSamplesModified(*this, left, len);
 //		qDebug("L: overwrite done.");
 
 		buf_offset += len;
@@ -601,6 +577,7 @@ void Track::writeSamples(InsertMode mode,
 // 		qDebug("R: [%u ....... %u]",start, end);
 // 		qDebug("R:     [%u ... %u]", end-len+1, end);
 		s->overwrite(0, buffer, buf_offset + (start-left), len); // ###
+		emit sigSamplesModified(*this,start, len);
 // 		qDebug("R: overwrite done.");
 
 		buf_offset += len;

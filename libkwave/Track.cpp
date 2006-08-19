@@ -504,26 +504,13 @@ void Track::writeSamples(InsertMode mode,
 		break;
 	    }
 
+	    // if no stripe was found, create a new one and
+	    // insert it between the existing ones
 	    if (!target_stripe) {
 		// insert somewhere before, between or after stripes
 		moveRight(offset, length);
 		appendAfter(stripe_before, offset, buffer,
 		            buf_offset, length);
-		break;
-	    }
-
-	    // if no stripe was found, create a new one and
-	    // insert it between the existing ones
-	    if (!target_stripe) {
-		target_stripe = newStripe(offset, 0);
-		Q_ASSERT(target_stripe);
-		if (!target_stripe) return;
-
-		// insert into our stripes, if the stripe before
-		// is null, the new one will be prepended
-		moveRight(offset, length);
-		int index = m_stripes.findRef(stripe_before) + 1;
-		m_stripes.insert(index, target_stripe);
 	    } else {
 	        // split the target stripe and insert the samples
 		// between the two new ones

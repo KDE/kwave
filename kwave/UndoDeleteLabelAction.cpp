@@ -1,0 +1,90 @@
+/***************************************************************************
+ UndoAddLabelAction.cpp  -  Undo action for deleting labels
+			     -------------------
+    begin                : Wed Aug 16 2006
+    copyright            : (C) 2006 by Thomas Eschenbacher
+    email                : Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+#include <klocale.h>
+
+#include "libkwave/Label.h"
+#include "SignalWidget.h"
+#include "UndoAddLabelAction.h"
+#include "UndoDeleteLabelAction.h"
+
+//***************************************************************************
+UndoDeleteLabelAction::UndoDeleteLabelAction(SignalWidget &signal_widget,
+                                             Label &label)
+    :UndoAction(), m_signal_widget(signal_widget), m_label(0)
+{
+    m_label = new Label(label);
+    Q_ASSERT(m_label);
+}
+
+//***************************************************************************
+UndoDeleteLabelAction::~UndoDeleteLabelAction()
+{
+    delete m_label;
+}
+
+//***************************************************************************
+QString UndoDeleteLabelAction::description()
+{
+    return i18n("delete label");
+}
+
+//***************************************************************************
+unsigned int UndoDeleteLabelAction::undoSize()
+{
+    return sizeof(*this) + sizeof(Label);
+}
+
+//***************************************************************************
+int UndoDeleteLabelAction::redoSize()
+{
+    return sizeof(Label);
+}
+
+//***************************************************************************
+void UndoDeleteLabelAction::store(SignalManager &)
+{
+    // nothing to do, all data has already
+    // been stored in the constructor
+}
+
+//***************************************************************************
+UndoAction *UndoDeleteLabelAction::undo(SignalManager &manager,
+                                        bool with_redo)
+{
+    Q_ASSERT(m_label);
+    if (!m_label) return 0;
+
+    UndoAction *redo = 0;
+
+    // add a new label to the signal manager
+    Label *label = m_signal_widget.addLabel(m_label->pos(), m_label->name());
+
+    // store data for redo
+    if (with_redo) {
+	int index = m_signal_widget.labelIndex(label);
+	redo = new UndoAddLabelAction(m_signal_widget, index);
+	Q_ASSERT(redo);
+	if (redo) redo->store(manager);
+    }
+
+    return redo;
+}
+
+//***************************************************************************
+//***************************************************************************

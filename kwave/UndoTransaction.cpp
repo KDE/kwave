@@ -1,5 +1,5 @@
 /***************************************************************************
-      UndoTransaction.h  -  groups mulitple UndoAction objects together
+    UndoTransaction.cpp  -  groups mulitple UndoAction objects together
 			     -------------------
     begin                : Fri May 25 2001
     copyright            : (C) 2001 by Thomas Eschenbacher

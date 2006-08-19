@@ -41,6 +41,7 @@ class ClipBoard;
 class KURL;
 class MultiTrackReader;
 class MultiTrackWriter;
+class SignalWidget;
 class Track;
 class UndoAction;
 class UndoTransaction;
@@ -511,6 +512,7 @@ protected:
 
     friend class UndoTransactionGuard;
     friend class PluginManager;
+    friend class SignalWidget;
 
     /**
      * Tries to free memory for a new undo action and stores all needed

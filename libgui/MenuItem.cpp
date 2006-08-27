@@ -86,11 +86,10 @@ bool MenuItem::specialCommand(const QString &command)
 	    QPixmap icon = loader.loadIcon(filename,
 		KIcon::Small,0,KIcon::DefaultState,0L,true);
 
-            Q_ASSERT(!icon.isNull());
 	    if (!icon.isNull()) {
 		setIcon(icon);
 	    } else {
-		qDebug("MenuItem '%s': icon '%s' not found !",
+		qWarning("MenuItem '%s': icon '%s' not found !",
 		    name(), filename.local8Bit().data());
 	    }
 	}

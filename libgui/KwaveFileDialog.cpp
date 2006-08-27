@@ -52,24 +52,30 @@ KwaveFileDialog::KwaveFileDialog(const QString &startDir,
 	QFileInfo fi(last_url);
 	setSelection(fi.baseName(true));
     }
-    
+
     // put the last extension to the top of the list
     // and thus make it selected
     if (m_last_ext.length() && filter.length()) {
 	QStringList filter_list = QStringList::split("\n", filter);
 	QStringList::Iterator it;
+	QStringList::Iterator best = filter_list.end();
 	for (it = filter_list.begin(); it != filter_list.end(); ++it) {
 	    QString f = (*it);
 	    if (f.contains("|")) f = f.left(f.find("|"));
 	    QStringList extensions = QStringList::split(" ", f);
 	    if (extensions.contains(m_last_ext)) {
 		f = (*it);
-		filter_list.remove(it);
-		filter_list.prepend(f);
-		QString new_filter = filter_list.join("\n");
-		setFilter(new_filter);
-		break;
+		if ((best == filter_list.end()) ||
+		    (f.length() < (*best).length()))
+		    best = it;
 	    }
+	}
+	if (best != filter_list.end()) {
+	    QString f = (*best);
+	    filter_list.remove(best);
+	    filter_list.prepend(f);
+	    QString new_filter = filter_list.join("\n");
+	    setFilter(new_filter);
 	}
     }
 
@@ -123,10 +129,8 @@ void KwaveFileDialog::saveConfig()
 		break;
 	    }
 	}
-	if (!m_last_ext.length()) {
-	    // no extension given -> use the first of the filter
-	    m_last_ext = *(masks.begin());
-	}
+// 	if (!m_last_ext.length())
+// 	    no extension given -> since 0.7.7 this is allowed
     }
 
     cfg->setGroup(m_config_group);

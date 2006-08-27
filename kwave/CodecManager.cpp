@@ -178,6 +178,8 @@ QString CodecManager::decodingFilter()
 {
     QPtrListIterator<Decoder> it(m_decoders);
     QStringList list;
+    QStringList all_extensions;
+
     for (; it.current(); ++it) {
 	Decoder *d = it.current();
 
@@ -192,6 +194,7 @@ QString CodecManager::decodingFilter()
 	    if (list.join("\n").contains(extensions)) continue;
 
 	    // otherwise append to the list
+	    all_extensions += type->patterns();
 	    QString entry = extensions;
 	    QString comment = type->comment().replace(QRegExp("/"), ",");
 	    entry += "|" + comment;
@@ -199,6 +202,9 @@ QString CodecManager::decodingFilter()
 	}
     }
     list.sort();
+    list.prepend("*|" + i18n("All Files"));
+    list.prepend(all_extensions.join(" ") + "|" + i18n("All Supported Files"));
+
     QString str_list = list.join("\n");
     Q_ASSERT(!str_list.contains('/'));
     if (str_list.contains('/')) {

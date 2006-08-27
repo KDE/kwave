@@ -847,7 +847,7 @@ int TopWidget::openRecent(const QString &str)
 int TopWidget::openFile()
 {
     KwaveFileDialog dlg(":<kwave_open_dir>", CodecManager::decodingFilter(),
-        this, "Kwave open file", true, 0, "*.wav");
+        this, "Kwave open file", true, 0, 0);
     dlg.setMode(static_cast<KFile::Mode>(KFile::File | KFile::ExistingOnly));
     dlg.setOperationMode(KFileDialog::Opening);
     dlg.setCaption(i18n("Open"));

@@ -21,7 +21,7 @@
 
 #include "config.h"
 #include <qstring.h>
-#include "kwave/UndoAction.h"
+#include "UndoAction.h"
 
 class Label;
 class SignalWidget;
@@ -59,6 +59,9 @@ public:
 
     /** @see UndoAction::undo() */
     virtual UndoAction *undo(SignalManager &manager, bool with_redo);
+
+    /** @see UndoAction::group() */
+    virtual UndoGroupID group() const { return LabelCommands; };
 
 protected:
 

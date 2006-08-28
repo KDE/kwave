@@ -316,7 +316,7 @@ int SignalManager::save(const KURL &url, bool selection)
 	// maybe we now have a new mime type
 	m_file_info.set(INF_MIMETYPE, mimetype_name);
 
-	// check if we loose information and as the user if this would
+	// check if we loose information and ask the user if this would
 	// be acceptable if so
 	QValueList<FileProperty> supported = encoder->supportedProperties();
 	QMap<FileProperty, QVariant> properties(m_file_info.properties());
@@ -1411,7 +1411,7 @@ void SignalManager::undo()
     // produce inconsistent data -> remove all of them !
     if (!redo_transaction) {
 	flushRedoBuffer();
-	qDebug("SignalManager::undo(): redo buffer flushed!"); // ###
+	qDebug("SignalManager::undo(): redo buffer flushed!");
     } else {
 	m_redo_buffer.prepend(redo_transaction);
     }
@@ -1423,9 +1423,9 @@ void SignalManager::undo()
 	UndoAction *redo_action;
 
 	// unqueue the undo action
-	undo_action = undo_transaction->last();
+	undo_action = undo_transaction->nextUndo();
 	undo_transaction->setAutoDelete(false);
-	undo_transaction->removeLast();
+	undo_transaction->remove(undo_action);
 	undo_transaction->setAutoDelete(true);
 	Q_ASSERT(undo_action);
 	if (!undo_action) continue;
@@ -1522,9 +1522,9 @@ void SignalManager::redo()
 	UndoAction *redo_action;
 
 	// unqueue the undo action
-	redo_action = redo_transaction->first();
+	redo_action = redo_transaction->nextRedo();
 	redo_transaction->setAutoDelete(false);
-	redo_transaction->removeFirst();
+	redo_transaction->remove(redo_action);
 	redo_transaction->setAutoDelete(true);
 	Q_ASSERT(redo_action);
 	if (!redo_action) continue;

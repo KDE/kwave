@@ -60,6 +60,20 @@ public:
      */
     QString description();
 
+    /**
+     * Returns the next undo action that can be processed, from the end
+     * of the list, within the lowest undo action group.
+     * @return first UndoAction in the lowest undo action group
+     */
+    UndoAction *nextUndo();
+
+    /**
+     * Returns the next undo action that can be processed, from the start
+     * of the list, within the highest undo action group.
+     * @return first UndoAction in the highest undo action group
+     */
+    UndoAction *nextRedo();
+
 private:
     /** name of the action */
     QString m_description;

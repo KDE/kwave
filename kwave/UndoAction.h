@@ -39,6 +39,12 @@ class UndoAction
 
 public:
 
+    /** IDs for gouping undo actions */
+    enum UndoGroupID {
+	Default = 0,         /**< default, no special order */
+	LabelCommands = 100  /**< label commands: have to be undone later */
+    };
+
     /** Destructor */
     virtual ~UndoAction() {};
 
@@ -80,6 +86,12 @@ public:
      *       UndoAction object after undo.
      */
     virtual UndoAction *undo(SignalManager &manager, bool with_redo) = 0;
+
+    /**
+     * Returns the group in which the undo action has to be sorted in
+     * @return the numeric id of the group
+     */
+    virtual UndoGroupID group() const { return Default; };
 
 };
 

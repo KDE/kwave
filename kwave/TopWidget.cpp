@@ -947,7 +947,7 @@ int TopWidget::saveFileAs(bool selection)
 	    // mimetype
 	    Q_ASSERT(m_plugin_manager);
 	    res = (m_plugin_manager) ?
-	        res = m_plugin_manager->setupPlugin("fileinfo") : -1;
+	        m_plugin_manager->setupPlugin("fileinfo") : -1;
 
 	    // restore the mime type and the filename
 	    signalManager().fileInfo().set(INF_MIMETYPE,

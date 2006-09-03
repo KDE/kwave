@@ -47,6 +47,7 @@
 #include "libkwave/Signal.h"
 #include "libkwave/Track.h"
 
+#include "libgui/LabelPropertiesWidget.h"
 #include "libgui/MenuManager.h"
 #include "libgui/TrackPixmap.h"
 
@@ -944,7 +945,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     m_selection->set(pos, pos);
 
     Label *label = 0;
-    if (label = findLabelNearMouse(mouse_x)) {
+    if ((label = findLabelNearMouse(mouse_x))) {
 	// delete label ?
 	// label properties ?
 	submenu_label->setItemEnabled(id_label_new, false);
@@ -1336,8 +1337,11 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 	    // yes, this code gives the nifty cursor change....
 	    if (label) {
 		setMouseMode(MouseAtSelectionBorder);
-		showPosition(i18n("label #%1").arg(labelIndex(label)),
-		    label->pos(), samples2ms(label->pos()), pos);
+		QString text = i18n("label #%1").arg(labelIndex(label));
+		if (label->name().length())
+		    text += i18n(" (%1)").arg(label->name());
+		showPosition(text, label->pos(), samples2ms(label->pos()),
+		    pos);
 		break;
 	    } else if ((first != last) && isSelectionBorder(mouse_x)) {
 		setMouseMode(MouseAtSelectionBorder);
@@ -1468,7 +1472,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 
 	QPtrListIterator<Label> it(m_labels);
 	Label *label;
-	while (label = it.current()) {
+	while ((label = it.current())) {
 	    ++it;
 	    unsigned int pos = label->pos();
 	    if (pos < m_offset) continue; // outside left
@@ -1629,7 +1633,7 @@ Label *SignalWidget::findLabelNearMouse(int x) const
 
     QPtrListIterator<Label> it(m_labels);
     Label *label;
-    while (label = it.current()) {
+    while ((label = it.current())) {
 	++it;
 	unsigned int lp = label->pos();
 	if (lp < m_offset) continue; // outside left
@@ -1655,7 +1659,7 @@ Label *SignalWidget::findLabel(unsigned int pos) const
 {
     QPtrListIterator<Label> it(m_labels);
     Label *label;
-    while (label = it.current()) {
+    while ((label = it.current())) {
 	if (label->pos() == pos) return label; // found it
 	++it;
     }
@@ -1776,10 +1780,34 @@ Label *SignalWidget::labelAtIndex(int index)
 //}
 
 //***************************************************************************
-void SignalWidget::labelProperties(Label *label)
+bool SignalWidget::labelProperties(Label *label)
 {
-    if (!label) return;
-    qDebug("--- edit label properties ---");
+    if (!label) return false;
+
+    LabelPropertiesWidget *dlg =
+	new LabelPropertiesWidget(this, "Label Properties");
+    Q_ASSERT(dlg);
+    if (!dlg) return false;
+
+    dlg->setLabelIndex(labelIndex(label));
+    dlg->setLabelPosition(label->pos(), m_signal_manager.length(),
+	m_signal_manager.rate());
+    dlg->setLabelName(label->name());
+
+    bool accepted = (dlg->exec() == QDialog::Accepted);
+    if (accepted) {
+	// move the label and change the name if possible
+	label->moveTo(dlg->labelPosition());
+	label->rename(dlg->labelName());
+	dlg->saveSettings();
+
+	// NOTE: moving might also change the index, so the complete
+	//       markers layer has to be refreshed
+	refreshLayer(LAYER_MARKERS);
+    }
+    delete dlg;
+
+    return accepted;
 }
 
 //***************************************************************************
@@ -2302,7 +2330,7 @@ void SignalWidget::slotSamplesInserted(unsigned int track,
 	offset, length);
 
     // only adjust the labels once per operation
-    if (track != m_signal_manager.selectedTracks().first()) return;
+    if (track != m_signal_manager.selectedTracks().at(0)) return;
 
     unsigned int modified = 0;
     QPtrListIterator<Label> it(m_labels);
@@ -2327,7 +2355,7 @@ void SignalWidget::slotSamplesDeleted(unsigned int track,
 	offset, offset+length-1);
 
     // only adjust the labels once per operation
-    if (track != m_signal_manager.selectedTracks().first()) return;
+    if (track != m_signal_manager.selectedTracks().at(0)) return;
 
     unsigned int modified = 0;
     QPtrListIterator<Label> it(m_labels);
@@ -2335,12 +2363,10 @@ void SignalWidget::slotSamplesDeleted(unsigned int track,
 	unsigned int pos = label->pos();
 	if (pos >= offset + length) {
 	    // move label left
-	    qDebug("-> moving to %u", pos-length);
 	    label->moveTo(pos - length);
 	    modified++;
 	} else if ((pos >= offset) && (pos < offset+length)) {
 	    // delete the label
-	    qDebug("-> deleting label at %u", pos);
 	    deleteLabel(labelIndex(label), true);
 	    modified++;
 	    continue;

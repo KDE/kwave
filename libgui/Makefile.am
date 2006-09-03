@@ -29,18 +29,22 @@ BUILTSOURCES=\
  IntValidatorProxy.moc.cpp\
  InvertableSpinBox.moc.cpp\
  KwaveFileDialog.moc.cpp\
+ LabelPropertiesWidget.moc.cpp\
+ LabelPropertiesWidgetBase.uih.h\
+ LabelPropertiesWidgetBase.uih.moc.cpp\
+ LabelPropertiesWidgetBase.uic.cpp\
  MenuNode.moc.cpp\
  MenuGroup.moc.cpp \
  MenuItem.moc.cpp\
  MenuSub.moc.cpp\
  MenuRoot.moc.cpp\
- MenuManager.moc.cpp \
+ MenuManager.moc.cpp\
  MultiStateWidget.moc.cpp\
  OverViewCache.moc.cpp\
  OverViewWidget.moc.cpp\
- SelectTimeWidgetBase.uih.h \
- SelectTimeWidgetBase.uih.moc.cpp \
- SelectTimeWidgetBase.uic.cpp \
+ SelectTimeWidgetBase.uih.h\
+ SelectTimeWidgetBase.uih.moc.cpp\
+ SelectTimeWidgetBase.uic.cpp\
  SelectTimeWidget.moc.cpp\
  TrackPixmap.moc.cpp
 
@@ -55,6 +59,7 @@ libkwavegui_la_SOURCES =\
  IntValidatorProxy.cpp\
  InvertableSpinBox.cpp\
  KwaveFileDialog.cpp\
+ LabelPropertiesWidget.cpp\
  MenuNode.cpp\
  MenuGroup.cpp \
  MenuItem.cpp\

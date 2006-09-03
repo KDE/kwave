@@ -589,8 +589,10 @@ protected:
     /**
      * Opens a dialog for editing the properties of a label
      * @param label a Label that should be edited
+     * @return true if the dialog has been accepted,
+     *         otherwise false (canceled)
      */
-    void labelProperties(Label *label);
+    bool labelProperties(Label *label);
 
 //    void loadLabel ();
 //    void appendLabel ();

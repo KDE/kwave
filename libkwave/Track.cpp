@@ -370,7 +370,6 @@ void Track::appendAfter(Stripe *stripe,  unsigned int offset,
 
 	// append to the new stripe
 	new_stripe->append(buffer, buf_offset, len);
-// 	emit sigSamplesInserted(*this, offset, len);
 
 	qDebug("new stripe: [%u ... %u]", new_stripe->start(),
 	       new_stripe->end());

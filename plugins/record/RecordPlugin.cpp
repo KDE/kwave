@@ -1245,30 +1245,35 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 	flushPrerecordingQueue();
     }
 
-    // decode and care for all special effects, meters and so on
+    // use a copy of the state, in case it changes below ;-)
+    RecordState state = m_state;
     for (unsigned int track=0; track < tracks; ++track) {
+	// decode and care for all special effects, meters and so on
 	// split off and decode buffer with current track
 	split(buffer, buf, bytes_per_sample, track, tracks);
 	m_decoder->decode(buf, decoded);
 
 	// update the level meter and other effects
 	m_dialog->updateEffects(track, decoded);
-    }
 
-    // if the first buffer is full -> leave REC_BUFFERING
-    if ((m_state==REC_BUFFERING) && (m_buffers_recorded > 1) && buffer.size())
+	// if the first buffer is full -> leave REC_BUFFERING
+	// limit state transitions to a point before the first track is
+	// processed (avoid asymmetry)
+	if ((track == 0) && (m_state == REC_BUFFERING) &&
+	    (m_buffers_recorded > 1))
+	{
 	    m_controller.deviceBufferFull();
+	    state = m_state; // might have changed!
+	}
 
-    // use a copy of the state, in case it changes below ;-)
-    RecordState state = m_state;
-    for (unsigned int track=0; track < tracks; ++track) {
 	switch (state) {
 	    case REC_UNINITIALIZED:
 	    case REC_EMPTY:
-		break;
+	    case REC_PAUSED:
+	    case REC_DONE:
 	    case REC_BUFFERING:
 	    case REC_WAITING_FOR_TRIGGER:
-		// already handled before...
+		// already handled before or nothing to do...
 		break;
 	    case REC_PRERECORDING:
 		// enqueue the buffers into a FIFO
@@ -1286,10 +1291,6 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 
 		break;
 	    }
-	    case REC_PAUSED:
-		break;
-	    case REC_DONE:
-		break;
 	}
     }
 
@@ -1299,7 +1300,6 @@ void RecordPlugin::processBuffer(QByteArray buffer)
     // if this was the last received buffer, change state
     if (recording_done && (m_state != REC_DONE) && (m_state != REC_EMPTY)) {
 	m_controller.actionStop();
-	return;
     }
 
 }

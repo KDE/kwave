@@ -1,6 +1,7 @@
 
-0.7.7 [2006-??-??]
-
+0.7.7 [2006-09-??]
+  * bugfix: recording only used the first channel
+    (closes sourceforge bug #1551050)
   * new feature: implemented a small widget that shows the current
     selection position and the selection borders
   * new feature: context menu for the signal widget (right mouse button)

@@ -59,7 +59,7 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
     edSamples->setRange(0, m_length-m_offset, 1, false);
 
     // set range of time controls
-    int t = (int)ceil((m_length * 1E3) / m_rate);
+    int t = (int)rint((m_length * 1E3) / m_rate);
     sbMilliseconds->setMaxValue(t);
     t /= 1000;
     sbSeconds->setMaxValue(t);
@@ -193,7 +193,6 @@ void SelectTimeWidget::setMode(Mode new_mode)
     rbPercents->setChecked(false);
 
     // then enable the selected one
-    m_mode = new_mode;
     switch (new_mode) {
 	case byTime:
 	    rbTime->setChecked(true);
@@ -205,6 +204,7 @@ void SelectTimeWidget::setMode(Mode new_mode)
 	    rbPercents->setChecked(true);
 	    break;
     }
+    Q_ASSERT(m_mode == new_mode);
 
 }
 
@@ -303,6 +303,7 @@ void SelectTimeWidget::timeChanged(int)
     unsigned int samples = (unsigned int)ceil((double)ms * m_rate * 1E-3);
     Q_ASSERT(samples <= INT_MAX);
     if (samples > INT_MAX) samples = INT_MAX;
+    edSamples->setValue((int)samples);
     sbPercents->setValue((int)(100.0 * (double)ms / (m_length/m_rate*1E3)));
 
     // set range in byTime mode [ms]
@@ -335,7 +336,7 @@ void SelectTimeWidget::samplesChanged(int)
     if (samples > max_samples) samples = max_samples;
 
     // update the other widgets
-    unsigned int t = (unsigned int)ceil((double)samples * 1E3 / m_rate);
+    unsigned int t = (unsigned int)rint((double)samples * 1E3 / m_rate);
     sbMilliseconds->setValue(t % 1000);
     t /= 1000;
     sbSeconds->setValue(t % 60);
@@ -344,8 +345,8 @@ void SelectTimeWidget::samplesChanged(int)
     t /= 60;
     sbHours->setValue(t);
 
-    double percents = 100.0*(double)samples/(double)(m_length);
-    sbPercents->setValue((int)percents);
+    double percents = (100.0 * (double)samples) / (double)(m_length);
+    sbPercents->setValue((int)rint(percents));
 
     // update in samples mode
     m_range = samples;

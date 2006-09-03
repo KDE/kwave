@@ -45,7 +45,7 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
     m_rate  = sample_rate;
     m_offset = offset;
     m_length = signal_length;
-    
+
     Q_ASSERT(m_rate);
     Q_ASSERT(m_length);
     Q_ASSERT(rbTime);
@@ -79,8 +79,6 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
 	    sbMilliseconds->setValue(t % 1000);
 	    t /= 1000;
 	    sbSeconds->setValue(t % 60);
-	    t /= 60;
-	    sbMinutes->setValue(t % 60);
 	    t /= 60;
 	    sbMinutes->setValue(t % 60);
 	    t /= 60;
@@ -160,7 +158,7 @@ void SelectTimeWidget::connect()
     // connect the timer for the sample edit
     QObject::connect(&m_timer, SIGNAL(timeout()),
                      this, SLOT(checkNewSampleEdit()));
-                     
+
 }
 
 //***************************************************************************
@@ -227,7 +225,7 @@ void SelectTimeWidget::modeChanged(int enable)
 	rbTime->setChecked(false);
 	rbPercents->setChecked(false);
 	samplesChanged(0); // (sets m_range)
-	
+
 	if (rbTime->isChecked()) {
 	    m_timer.stop();
 	} else {
@@ -365,7 +363,7 @@ void SelectTimeWidget::percentsChanged(int p)
 {
     if (m_mode != byPercents) return;
     disconnect();
-    
+
     // get value
     double percents = p;
 
@@ -426,7 +424,7 @@ void SelectTimeWidget::setOffset(unsigned int offset)
 
     // update all widgets
     disconnect();
-    
+
     int t = (int)ceil(((double)samples * 1E3) / m_rate);
     sbMilliseconds->setValue(t);
     t /= 1000;

@@ -26,6 +26,9 @@ class QString;
 class PlaybackDeviceFactory
 {
 public:
+    /** virtual destructor, just to satisfy gcc */
+    virtual ~PlaybackDeviceFactory()
+    {};
 
     /**
      * Opens and initializes the playback device. If the initialization
@@ -52,8 +55,8 @@ public:
      * @see openDevice
      */
     virtual bool supportsDevice(const QString &name) = 0;
-  
-	
+
+
 };
 
 #endif /* _PLAYBACK_DEVICE_FACTORY_H_ */

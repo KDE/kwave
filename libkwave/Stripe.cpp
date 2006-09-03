@@ -384,7 +384,7 @@ void Stripe::overwrite(unsigned int offset,
 
     MemoryManager::instance().writeTo(m_storage,
 	offset * sizeof(sample_t),
-	&source[srcoff], srclen * sizeof(sample_t)) / sizeof(sample_t);
+	&source[srcoff], srclen * sizeof(sample_t));
 }
 
 //***************************************************************************

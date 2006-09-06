@@ -212,6 +212,12 @@ void SignalWidget::refreshSignalLayer()
 }
 
 //***************************************************************************
+void SignalWidget::refreshMarkersLayer()
+{
+    refreshLayer(LAYER_MARKERS);
+}
+
+//***************************************************************************
 bool SignalWidget::isOK()
 {
 ////    Q_ASSERT(labels);
@@ -312,7 +318,7 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
     // label commands
     CASE_COMMAND("label")
 	unsigned int pos = parser.toUInt();
-	addLabel(pos, true);
+	addLabel(pos);
     CASE_COMMAND("deletelabel")
 	int index = parser.toInt();
 	deleteLabel(index, true);
@@ -1796,22 +1802,35 @@ bool SignalWidget::labelProperties(Label *label)
 
     bool accepted = (dlg->exec() == QDialog::Accepted);
     if (accepted) {
+	UndoTransactionGuard undo(m_signal_manager, i18n("modify label"));
+	UndoModifyLabelAction *undo_modify =
+	    new UndoModifyLabelAction(*this, *label);
+	if (!m_signal_manager.registerUndoAction(undo_modify)) {
+	    delete undo_modify;
+	    delete dlg;
+	    return false;
+	}
+
 	// move the label and change the name if possible
 	label->moveTo(dlg->labelPosition());
 	label->rename(dlg->labelName());
 	dlg->saveSettings();
 
+	// now store the label's current position,
+	// for finding it again later
+	undo_modify->setLastPosition(label->pos());
+
 	// NOTE: moving might also change the index, so the complete
 	//       markers layer has to be refreshed
 	refreshLayer(LAYER_MARKERS);
     }
-    delete dlg;
 
+    delete dlg;
     return accepted;
 }
 
 //***************************************************************************
-void SignalWidget::addLabel(unsigned int pos, bool with_undo)
+void SignalWidget::addLabel(unsigned int pos)
 {
     // if there already is a label at the given position, do nothing
     if (findLabel(pos)) return;
@@ -1828,18 +1847,16 @@ void SignalWidget::addLabel(unsigned int pos, bool with_undo)
     m_labels.inSort(label);
 
     // register the undo action
-    if (with_undo) {
-	UndoTransactionGuard undo(m_signal_manager, i18n("add label"));
-	UndoAddLabelAction *undo_add =
-	    new UndoAddLabelAction(*this, labelIndex(label));
-	if (!m_signal_manager.registerUndoAction(undo_add)) {
-	    delete undo_add;
-	    m_labels.remove(label);
-	    return;
-	}
+    UndoTransactionGuard undo(m_signal_manager, i18n("add label"));
+    UndoAddLabelAction *undo_add =
+	new UndoAddLabelAction(*this, labelIndex(label));
+    if (!m_signal_manager.registerUndoAction(undo_add)) {
+	delete undo_add;
+	m_labels.remove(label);
+	return;
     }
 
-    // edit the label's properties...
+    // edit the label's properties
     labelProperties(label);
 
     refreshLayer(LAYER_MARKERS);

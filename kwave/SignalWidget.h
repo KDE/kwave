@@ -161,9 +161,8 @@ public:
     /**
      * add a new label
      * @param pos position of the label [samples]
-     * @param with_undo if true, create undo info
      */
-    void addLabel(unsigned int pos, bool with_undo);
+    void addLabel(unsigned int pos);
 
     /**
      * add a new label, without undo
@@ -284,6 +283,20 @@ protected:
 
     /** @see Qt XDND documentation */
     virtual void dragMoveEvent(QDragMoveEvent *event);
+
+protected:
+
+    friend class UndoModifyLabelAction;
+
+    /**
+     * returns the label at a given exact position
+     * @param pos position of the label [samples]
+     * @return the label at the position or null if not found
+     */
+    Label *findLabel(unsigned int pos) const;
+
+    /** Refreshes the layer with the markers */
+    void refreshMarkersLayer();
 
 protected slots:
 
@@ -578,13 +591,6 @@ protected:
      * @return nearest label or null if none found.
      */
     Label *findLabelNearMouse(int x) const;
-
-    /**
-     * returns the label at a given exact position
-     * @param pos position of the label [samples]
-     * @return the label at the position or null if not found
-     */
-    Label *findLabel(unsigned int pos) const;
 
     /**
      * Opens a dialog for editing the properties of a label

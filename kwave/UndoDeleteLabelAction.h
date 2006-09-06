@@ -27,7 +27,7 @@ class Label;
 class SignalWidget;
 
 /**
- * Undo action for inserting a label.
+ * Undo action for deleting a label.
  */
 class UndoDeleteLabelAction :public UndoAction
 {
@@ -68,7 +68,7 @@ protected:
     /** reference to the signal widget */
     SignalWidget &m_signal_widget;
 
-    /** the inserted label */
+    /** the deleted label */
     Label *m_label;
 
 };

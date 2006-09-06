@@ -42,6 +42,7 @@ public:
     /** IDs for gouping undo actions */
     enum UndoGroupID {
 	Default = 0,         /**< default, no special order */
+	LabelEdit     =  99, /**< label edit: before label command */
 	LabelCommands = 100  /**< label commands: have to be undone later */
     };
 

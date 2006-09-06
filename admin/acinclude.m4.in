@@ -2893,7 +2893,7 @@ AC_DEFUN([AC_CHECK_COMPILERS],
   if test "$GCC" = "yes"; then
     if test "$kde_use_debug_code" != "no"; then
       if test $kde_use_debug_code = "full"; then
-        CFLAGS="-g3 -fno-inline $CFLAGS"
+        CFLAGS="-g3 -O0 -fno-inline $CFLAGS"
       else
         CFLAGS="-g -O2 $CFLAGS"
       fi
@@ -2926,7 +2926,7 @@ AC_DEFUN([AC_CHECK_COMPILERS],
         CXXFLAGS="+K0 -Wall -pedantic -W -Wpointer-arith -Wwrite-strings $CXXFLAGS"
       else
         if test "$kde_use_debug_code" = "full"; then
-          CXXFLAGS="-g3 -fno-inline $CXXFLAGS"
+          CXXFLAGS="-g3 -O0 -fno-inline $CXXFLAGS"
         else
           CXXFLAGS="-g -O2 $CXXFLAGS"
         fi

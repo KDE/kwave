@@ -1,12 +1,14 @@
 
-0.7.7 [2006-09-??]
-  * bugfix: recording only used the first channel
-    (closes sourceforge bug #1551050)
-  * new feature: implemented a small widget that shows the current
-    selection position and the selection borders
-  * new feature: context menu for the signal widget (right mouse button)
-  * improved file open dialog: show "All Files" and "All Supported Files"
-  * bugfix: error in handling of mouse selection
+0.7.7 [2006-09-17]
+ * new feature: implemented a small widget that shows the current
+   selection position and the selection borders
+ * new feature: context menu for the signal widget (right mouse button)
+ * improved file open dialog: show "All Files" and "All Supported Files"
+ * bugfix: error in handling of mouse selection
+ * bugfix: recording only used the first channel
+   (closes sourceforge bug #1551050)
+ * install plugins kde_moduledir/plugins/kwave instead of
+   kde_datadir/kwave/plugins
 
 0.7.6 [2006-06-05]
 

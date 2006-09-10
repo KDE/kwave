@@ -15,6 +15,8 @@ o use the host's native libaudiofile. current state:
 	Debian	-> native
 	Crux	-> native
 
+o fix compiler warnings in MP3 decoder (since gcc-4.1)
+
 o ALSA record/playback: also detect devices configured in the .asoundrc,
   and not only hardware devices
 
@@ -105,8 +107,6 @@ o amplifyclip does not work
 o feature "pulse train" is not yet implemented
   -> gstreamer/LADSPA ?
 
-o move label handling to class LabelManager
-
 o SignalProxy1 implementation is very inefficient for simple data types
   like bool, char, int etc. Uses too much new/delete.
 
@@ -120,8 +120,6 @@ o document how to do an optimized build, for example:
 o speed up MP3 import by blockwise operation
 
 o storage/handling of extra info "labels", "cue list"...
-
-o SignalWidget::appendLabel()
 
 o SonagramWindow::toSignal()
 
@@ -139,9 +137,6 @@ o bugfix: channel mixer dialog causes segmentation fault -> disabled
 o use standard KDE accelerators (see KStdAccel)
 
 o import of multi-channel ASCII files
-
-o label handling doesn't work (currently disabled), work on LabelManager
-  has not been started
 
 o vertical zoom, maybe with right mouse button or zoom tool
 

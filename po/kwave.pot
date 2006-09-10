@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-05 09:49+0200\n"
+"POT-Creation-Date: 2006-09-10 09:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,7 +105,7 @@ msgstr ""
 msgid "&Crop"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:38
+#: kwave/menus_config_i18n.cpp:38 kwave/SignalWidget.cpp:925
 msgid "Cu&t"
 msgstr ""
 
@@ -479,6 +479,10 @@ msgid ""
 " found %d plugins\n"
 msgstr ""
 
+#: kwave/UndoModifyLabelAction.cpp:51 kwave/SignalWidget.cpp:1805
+msgid "modify label"
+msgstr ""
+
 #: kwave/UndoInsertAction.cpp:35
 msgid "insert"
 msgstr ""
@@ -499,20 +503,57 @@ msgstr ""
 msgid "modify samples"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:419 plugins/record/RecordPlugin.cpp:807
+#: kwave/SignalWidget.cpp:422 kwave/SignalWidget.cpp:1842
+#: kwave/SignalWidget.cpp:1876 plugins/record/RecordPlugin.cpp:807
 #: plugins/record/RecordPlugin.cpp:825 plugins/record/RecordPlugin.cpp:882
 msgid "Out of memory"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:422 plugins/playback/PlayBackPlugin.cpp:438
+#: kwave/SignalWidget.cpp:425 plugins/playback/PlayBackPlugin.cpp:438
 msgid "unable to open '%1'"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:426
+#: kwave/SignalWidget.cpp:429
 msgid "invalid or unknown file type: '%1'"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1828 kwave/SignalWidget.cpp:1867
+#: kwave/SignalWidget.cpp:941
+msgid "&New"
+msgstr ""
+
+#: kwave/SignalWidget.cpp:972
+msgid "&Save selection..."
+msgstr ""
+
+#: kwave/SignalWidget.cpp:1318 kwave/UndoSelection.cpp:39
+msgid "selection"
+msgstr ""
+
+#: kwave/SignalWidget.cpp:1346
+msgid "label #%1"
+msgstr ""
+
+#: kwave/SignalWidget.cpp:1348
+msgid " (%1)"
+msgstr ""
+
+#: kwave/SignalWidget.cpp:1356
+msgid "selection, left border"
+msgstr ""
+
+#: kwave/SignalWidget.cpp:1360
+msgid "selection, right border"
+msgstr ""
+
+#: kwave/SignalWidget.cpp:1850 kwave/UndoAddLabelAction.cpp:42
+msgid "add label"
+msgstr ""
+
+#: kwave/SignalWidget.cpp:1902 kwave/UndoDeleteLabelAction.cpp:44
+msgid "delete label"
+msgstr ""
+
+#: kwave/SignalWidget.cpp:2439 kwave/SignalWidget.cpp:2478
 msgid "drag and drop"
 msgstr ""
 
@@ -525,7 +566,7 @@ msgid "creator of the project, development 1998-2000"
 msgstr ""
 
 #: kwave/main.cpp:68
-msgid "creator of this dialog"
+msgid "creator of the Help/About dialog"
 msgstr ""
 
 #: kwave/main.cpp:72
@@ -557,34 +598,42 @@ msgid "packaging for Mandrake / X86_64"
 msgstr ""
 
 #: kwave/main.cpp:102
-msgid "packaging for Crux Linux"
+msgid "packaging for SuSE Linux"
 msgstr ""
 
 #: kwave/main.cpp:106
-msgid "tester"
+msgid "packaging for Arch Linux"
 msgstr ""
 
 #: kwave/main.cpp:110
-msgid "author of the 'mad' mp3 decoder library"
+msgid "packaging for Crux Linux"
 msgstr ""
 
 #: kwave/main.cpp:114
-msgid "maintainers of the 'id3lib' library"
+msgid "tester"
 msgstr ""
 
 #: kwave/main.cpp:118
-msgid "author of the 'audiofile' library"
+msgid "author of the 'mad' mp3 decoder library"
 msgstr ""
 
 #: kwave/main.cpp:122
+msgid "maintainers of the 'id3lib' library"
+msgstr ""
+
+#: kwave/main.cpp:126
+msgid "author of the 'audiofile' library"
+msgstr ""
+
+#: kwave/main.cpp:130
 msgid "author of the 'sndfile' library"
 msgstr ""
 
-#: kwave/main.cpp:138
+#: kwave/main.cpp:146
 msgid "sound editor for KDE"
 msgstr ""
 
-#: kwave/main.cpp:151
+#: kwave/main.cpp:159
 msgid "This is %1 (using KDE %2)"
 msgstr ""
 
@@ -723,8 +772,12 @@ msgstr ""
 msgid " (modified)"
 msgstr ""
 
-#: kwave/UndoSelection.cpp:39
-msgid "selection"
+#: kwave/CodecManager.cpp:205
+msgid "All Files"
+msgstr ""
+
+#: kwave/CodecManager.cpp:206
+msgid "All Supported Files"
 msgstr ""
 
 #: kwave/SignalManager.cpp:304
@@ -870,6 +923,77 @@ msgstr ""
 #: libgui/HMSTimeWidgetBase.uic.cpp:69 plugins/record/RecordDlg.uic.cpp:661
 #: plugins/record/RecordDlg.uic.cpp:662
 msgid " sec"
+msgstr ""
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:118
+msgid "Label Properties..."
+msgstr ""
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:119
+msgid ""
+"<b>label position:</b><br>\n"
+"Here you can set the position of the label, either by time, by percentage of "
+"the whole file or by an absolute sample position. However, internally Kwave "
+"always uses the position in samples."
+msgstr ""
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:121
+msgid "Description:"
+msgstr ""
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:122
+msgid "some description of the label (optional)"
+msgstr ""
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:123
+msgid ""
+"<b>label description:</b><br>\n"
+"Here you can enter some short text to describe the label."
+msgstr ""
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:125
+msgid "Position:"
+msgstr ""
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:126
+msgid "Index:"
+msgstr ""
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:127
+msgid "index of the label"
+msgstr ""
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:128
+msgid ""
+"<b>label index</b><br>\n"
+"This is just a numeric index of the label, starting with zero, sorted by "
+"position. Lower index means 'left', higher index means 'right'. You cannot "
+"change the index itself, but change the label's position."
+msgstr ""
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:131
+#: plugins/sonagram/SonagramDlg.uic.cpp:186
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:855 plugins/memory/MemDlg.uic.cpp:189
+#: plugins/record/RecordDlg.uic.cpp:707
+#: plugins/playback/PlayBackDlg.uic.cpp:271
+#: plugins/newsignal/NewSigDlg.uic.cpp:335
+msgid "Alt+H"
+msgstr ""
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:132
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:90
+#: plugins/newsignal/NewSigDlg.uic.cpp:336
+msgid "O&K"
+msgstr ""
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:133
+msgid "Alt+K"
+msgstr ""
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:135
+#: plugins/record/RecordDlg.uic.cpp:709
+#: plugins/playback/PlayBackDlg.uic.cpp:279
+msgid "Alt+C"
 msgstr ""
 
 #: libgui/ConfirmCancelProxy.cpp:50
@@ -2238,14 +2362,6 @@ msgstr ""
 msgid "Set FFT/time resolution parameters"
 msgstr ""
 
-#: plugins/sonagram/SonagramDlg.uic.cpp:186
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:855 plugins/memory/MemDlg.uic.cpp:189
-#: plugins/record/RecordDlg.uic.cpp:707
-#: plugins/playback/PlayBackDlg.uic.cpp:271
-#: plugins/newsignal/NewSigDlg.uic.cpp:335
-msgid "Alt+H"
-msgstr ""
-
 #: plugins/sonagram/SonagramDlg.uic.cpp:191
 msgid "display"
 msgstr ""
@@ -3142,11 +3258,6 @@ msgstr ""
 msgid "Select Range..."
 msgstr ""
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:90
-#: plugins/newsignal/NewSigDlg.uic.cpp:336
-msgid "O&K"
-msgstr ""
-
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:55
 msgid "NeXT,Sun Audio"
 msgstr ""
@@ -3617,11 +3728,6 @@ msgstr ""
 
 #: plugins/record/RecordDlg.uic.cpp:705
 msgid "Level:"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:709
-#: plugins/playback/PlayBackDlg.uic.cpp:279
-msgid "Alt+C"
 msgstr ""
 
 #: plugins/record/Record-OSS.cpp:234

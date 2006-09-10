@@ -810,3 +810,11 @@ plugins/record/walk_r5.xpm
 plugins/record/walk_r6.xpm
 plugins/record/walk_r7.xpm
 plugins/record/walk_r8.xpm
+kwave/UndoAddLabelAction.cpp
+kwave/UndoAddLabelAction.h
+kwave/UndoDeleteLabelAction.cpp
+kwave/UndoDeleteLabelAction.h
+kwave/UndoModifyLabelAction.cpp
+kwave/UndoModifyLabelAction.h
+libgui/LabelPropertiesWidget.cpp
+libgui/LabelPropertiesWidget.h

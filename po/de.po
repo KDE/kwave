@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-05 09:49+0200\n"
-"PO-Revision-Date: 2006-06-05 09:15+0200\n"
+"POT-Creation-Date: 2006-09-10 09:36+0200\n"
+"PO-Revision-Date: 2006-09-10 09:37+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 
 #: kwave/menus_config_i18n.cpp:13
 msgid "About &KDE"
-msgstr "About &KDE"
+msgstr "Über &KDE"
 
 #: kwave/menus_config_i18n.cpp:14
 msgid "&About Kwave"
@@ -103,7 +103,7 @@ msgstr "&Typ erzeugen"
 msgid "&Crop"
 msgstr "Z&uschneiden"
 
-#: kwave/menus_config_i18n.cpp:38
+#: kwave/menus_config_i18n.cpp:38 kwave/SignalWidget.cpp:925
 msgid "Cu&t"
 msgstr "&Ausschneiden"
 
@@ -484,6 +484,10 @@ msgstr ""
 "--- \n"
 " %d Plugins gefunden\n"
 
+#: kwave/UndoModifyLabelAction.cpp:51 kwave/SignalWidget.cpp:1805
+msgid "modify label"
+msgstr "Marker bearbeiten"
+
 #: kwave/UndoInsertAction.cpp:35
 msgid "insert"
 msgstr "Einfügen"
@@ -504,20 +508,57 @@ msgstr "Track einfügen"
 msgid "modify samples"
 msgstr "Samples ändern"
 
-#: kwave/SignalWidget.cpp:419 plugins/record/RecordPlugin.cpp:807
+#: kwave/SignalWidget.cpp:422 kwave/SignalWidget.cpp:1842
+#: kwave/SignalWidget.cpp:1876 plugins/record/RecordPlugin.cpp:807
 #: plugins/record/RecordPlugin.cpp:825 plugins/record/RecordPlugin.cpp:882
 msgid "Out of memory"
 msgstr "Zu wenig Speicher"
 
-#: kwave/SignalWidget.cpp:422 plugins/playback/PlayBackPlugin.cpp:438
+#: kwave/SignalWidget.cpp:425 plugins/playback/PlayBackPlugin.cpp:438
 msgid "unable to open '%1'"
 msgstr "'%1' kann nicht geöffnet werden"
 
-#: kwave/SignalWidget.cpp:426
+#: kwave/SignalWidget.cpp:429
 msgid "invalid or unknown file type: '%1'"
 msgstr "Ungültiger oder unbekannter Dateityp: '%1'"
 
-#: kwave/SignalWidget.cpp:1828 kwave/SignalWidget.cpp:1867
+#: kwave/SignalWidget.cpp:941
+msgid "&New"
+msgstr "&Neu"
+
+#: kwave/SignalWidget.cpp:972
+msgid "&Save selection..."
+msgstr "Ausahl &Speichern..."
+
+#: kwave/SignalWidget.cpp:1318 kwave/UndoSelection.cpp:39
+msgid "selection"
+msgstr "Auswahl"
+
+#: kwave/SignalWidget.cpp:1346
+msgid "label #%1"
+msgstr "Marker #%1"
+
+#: kwave/SignalWidget.cpp:1348
+msgid " (%1)"
+msgstr " (%1%)"
+
+#: kwave/SignalWidget.cpp:1356
+msgid "selection, left border"
+msgstr "Auswahl, linker Rand"
+
+#: kwave/SignalWidget.cpp:1360
+msgid "selection, right border"
+msgstr "Auswahl, rechter Rand"
+
+#: kwave/SignalWidget.cpp:1850 kwave/UndoAddLabelAction.cpp:42
+msgid "add label"
+msgstr "Marker hinzufügen"
+
+#: kwave/SignalWidget.cpp:1902 kwave/UndoDeleteLabelAction.cpp:44
+msgid "delete label"
+msgstr "Marker löschen"
+
+#: kwave/SignalWidget.cpp:2439 kwave/SignalWidget.cpp:2478
 msgid "drag and drop"
 msgstr "Drag & Drop"
 
@@ -530,8 +571,8 @@ msgid "creator of the project, development 1998-2000"
 msgstr "Gründer des Projekts, Entwicklung von 1998-2000"
 
 #: kwave/main.cpp:68
-msgid "creator of this dialog"
-msgstr "Ersteller dieses Dialogs"
+msgid "creator of the Help/About dialog"
+msgstr "Ersteller des Hilfe/Über-Dialogs"
 
 #: kwave/main.cpp:72
 msgid "french translations, splashscreen, tests and bugfixes"
@@ -562,34 +603,42 @@ msgid "packaging for Mandrake / X86_64"
 msgstr "Packager für Mandrake / X86_64"
 
 #: kwave/main.cpp:102
+msgid "packaging for SuSE Linux"
+msgstr "Packager für SuSE Linux"
+
+#: kwave/main.cpp:106
+msgid "packaging for Arch Linux"
+msgstr "Packager für Arch Linux"
+
+#: kwave/main.cpp:110
 msgid "packaging for Crux Linux"
 msgstr "Packager für Crux Linux"
 
-#: kwave/main.cpp:106
+#: kwave/main.cpp:114
 msgid "tester"
 msgstr "Tester"
 
-#: kwave/main.cpp:110
+#: kwave/main.cpp:118
 msgid "author of the 'mad' mp3 decoder library"
 msgstr "Autor der 'mad' MP3-Decoder-Bibliothek"
 
-#: kwave/main.cpp:114
+#: kwave/main.cpp:122
 msgid "maintainers of the 'id3lib' library"
 msgstr "Betreuer der 'id3lib'-Bibliothek"
 
-#: kwave/main.cpp:118
+#: kwave/main.cpp:126
 msgid "author of the 'audiofile' library"
 msgstr "Ersteller der 'audiofile'-Bibliothek"
 
-#: kwave/main.cpp:122
+#: kwave/main.cpp:130
 msgid "author of the 'sndfile' library"
 msgstr "Ersteller der 'sndfile'-Bibliothek"
 
-#: kwave/main.cpp:138
+#: kwave/main.cpp:146
 msgid "sound editor for KDE"
 msgstr "Sound-Editor für KDE"
 
-#: kwave/main.cpp:151
+#: kwave/main.cpp:159
 msgid "This is %1 (using KDE %2)"
 msgstr "Dies ist %1 (für KDE-%2)"
 
@@ -700,8 +749,7 @@ msgstr ""
 
 #: kwave/TopWidget.cpp:912
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
-msgstr ""
-"Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
+msgstr "Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
 
 #: kwave/TopWidget.cpp:1068
 msgid "Length: %1"
@@ -736,9 +784,13 @@ msgstr "Wieder&herstellen"
 msgid " (modified)"
 msgstr " (geändert)"
 
-#: kwave/UndoSelection.cpp:39
-msgid "selection"
-msgstr "Auswahl"
+#: kwave/CodecManager.cpp:205
+msgid "All Files"
+msgstr "Alle Dateien"
+
+#: kwave/CodecManager.cpp:206
+msgid "All Supported Files"
+msgstr "Alle unterstützten Dateien"
 
 #: kwave/SignalManager.cpp:304
 msgid "Signal is empty, nothing to save !"
@@ -766,8 +818,7 @@ msgstr "Beim Speichern der Datei ist ein Fehler aufgetreten!"
 
 #: kwave/SignalManager.cpp:421
 msgid "The file has been truncated and might be corrupted!"
-msgstr ""
-"Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
+msgstr "Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
 
 #: kwave/SignalManager.cpp:428
 msgid "Sorry, the file type is not supported!"
@@ -889,6 +940,88 @@ msgstr "Min"
 #: plugins/record/RecordDlg.uic.cpp:662
 msgid " sec"
 msgstr "Sec"
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:118
+msgid "Label Properties..."
+msgstr "Marker Eigenschaften..."
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:119
+msgid ""
+"<b>label position:</b><br>\n"
+"Here you can set the position of the label, either by time, by percentage of "
+"the whole file or by an absolute sample position. However, internally Kwave "
+"always uses the position in samples."
+msgstr ""
+"<b>Marker-Position:</b><br>\n"
+"Hier können Sie die Position des Markers setzen, entweder als Zeit, als "
+"Prozentsatz der gesamten Datei, oder als eine absolute Sample- Position. "
+"Unabhängig davon verwendet Kwave intern immer die Position in Samples."
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:121
+msgid "Description:"
+msgstr "Beschreibung:"
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:122
+msgid "some description of the label (optional)"
+msgstr "eine kurze Beschreibung des Markers (optional)"
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:123
+msgid ""
+"<b>label description:</b><br>\n"
+"Here you can enter some short text to describe the label."
+msgstr ""
+"<b>Beschreibung des Markers</b><br>\n"
+"Hier können Sie einen kurzen Text als Beschreibung des Markers angeben."
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:125
+msgid "Position:"
+msgstr "Position:"
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:126
+msgid "Index:"
+msgstr "Index:"
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:127
+msgid "index of the label"
+msgstr "Index des Markers"
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:128
+msgid ""
+"<b>label index</b><br>\n"
+"This is just a numeric index of the label, starting with zero, sorted by "
+"position. Lower index means 'left', higher index means 'right'. You cannot "
+"change the index itself, but change the label's position."
+msgstr ""
+"<b>Marker-Index</b><br>\n"
+"Dies ist lediglich ein numerischer Index des Markers, beginnend bei Null, "
+"sortiert nach Position. Kleinere Indizes sind links, grössere sind rechts. "
+"Sie können den Index selbst nicht verändern, aber Sie können die Position "
+"des Markers verändern."
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:131
+#: plugins/sonagram/SonagramDlg.uic.cpp:186
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:855 plugins/memory/MemDlg.uic.cpp:189
+#: plugins/record/RecordDlg.uic.cpp:707
+#: plugins/playback/PlayBackDlg.uic.cpp:271
+#: plugins/newsignal/NewSigDlg.uic.cpp:335
+msgid "Alt+H"
+msgstr "Alt+H"
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:132
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:90
+#: plugins/newsignal/NewSigDlg.uic.cpp:336
+msgid "O&K"
+msgstr "O&K"
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:133
+msgid "Alt+K"
+msgstr "Alt+K"
+
+#: libgui/LabelPropertiesWidgetBase.uic.cpp:135
+#: plugins/record/RecordDlg.uic.cpp:709
+#: plugins/playback/PlayBackDlg.uic.cpp:279
+msgid "Alt+C"
+msgstr "Alt+C"
 
 #: libgui/ConfirmCancelProxy.cpp:50
 msgid "Do you really want to abort the current action?"
@@ -1159,8 +1292,7 @@ msgstr "Copyright"
 
 #: libkwave/FileInfo.cpp:85
 msgid "Indicates whether the file is protected by copyright or not."
-msgstr ""
-"Gibt an ob der Inhalt der Datei urheberrechtlich geschützt ist oder nicht."
+msgstr "Gibt an ob der Inhalt der Datei urheberrechtlich geschützt ist oder nicht."
 
 #: libkwave/FileInfo.cpp:88
 msgid "Date"
@@ -2343,14 +2475,6 @@ msgstr "Tonverschiebung"
 msgid "Set FFT/time resolution parameters"
 msgstr "Parameter der FFT/Zeit-Auflösung setzen"
 
-#: plugins/sonagram/SonagramDlg.uic.cpp:186
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:855 plugins/memory/MemDlg.uic.cpp:189
-#: plugins/record/RecordDlg.uic.cpp:707
-#: plugins/playback/PlayBackDlg.uic.cpp:271
-#: plugins/newsignal/NewSigDlg.uic.cpp:335
-msgid "Alt+H"
-msgstr "Alt+H"
-
 #: plugins/sonagram/SonagramDlg.uic.cpp:191
 msgid "display"
 msgstr "Anzeige"
@@ -2381,8 +2505,7 @@ msgstr "bei Veränderungen"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:198
 msgid "automatically update the sonagram <br>if the signal data has changed"
-msgstr ""
-"aktualisiert das Sonagram automatisch<br>wenn das Signal verändert wurde"
+msgstr "aktualisiert das Sonagram automatisch<br>wenn das Signal verändert wurde"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:199
 msgid "follow selection"
@@ -3301,11 +3424,6 @@ msgstr "Bereich auswählen"
 msgid "Select Range..."
 msgstr "Bereich auswählen..."
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:90
-#: plugins/newsignal/NewSigDlg.uic.cpp:336
-msgid "O&K"
-msgstr "O&K"
-
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:55
 msgid "NeXT,Sun Audio"
 msgstr "NeXT,Sun Audio"
@@ -3838,11 +3956,6 @@ msgstr "Buffer:"
 msgid "Level:"
 msgstr "Pegel:"
 
-#: plugins/record/RecordDlg.uic.cpp:709
-#: plugins/playback/PlayBackDlg.uic.cpp:279
-msgid "Alt+C"
-msgstr "Alt+C"
-
 #: plugins/record/Record-OSS.cpp:234
 msgid "OSS recording device (audio*)"
 msgstr "OSS-Aufnahmegerät (audio*)"
@@ -4008,8 +4121,7 @@ msgstr "%1 Bits pro Sample wird nicht unterstützt, verwende %2 Bits pro Sample"
 
 #: plugins/record/RecordPlugin.cpp:613
 msgid "%1 bits per sample failed, using %2 bits per sample"
-msgstr ""
-"%1 Bit pro Sample konnte nicht eingestellt werden, verwende %2 Bit pro Sample"
+msgstr "%1 Bit pro Sample konnte nicht eingestellt werden, verwende %2 Bit pro Sample"
 
 #: plugins/record/RecordPlugin.cpp:655
 msgid "sample format '%1' is not supported, using '%2'"
@@ -4028,8 +4140,7 @@ msgid "The current compression type is not supported!"
 msgstr "Die aktuelle Kompressionsart wird nicht unterstützt!"
 
 #: plugins/record/RecordPlugin.cpp:929
-msgid ""
-"Buffer overrun. Please increase the number and/or size of the record buffers."
+msgid "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
 "Buffer-Überlauf. Bitte erhöhen Sie die Anzahl der Buffer und/oder vergrößern "
 "Sie die Buffergröße."
@@ -4156,8 +4267,7 @@ msgstr "Dateiende vor dem Einlesen aller Vorbis-Header!"
 
 #: plugins/codec_ogg/OggDecoder.cpp:351
 msgid "Corrupt or missing data in bitstream; continuing..."
-msgstr ""
-"Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
+msgstr "Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
 
 #: plugins/codec_ogg/OggCodecPlugin.cpp:33
 msgid "codec_ogg"
@@ -4296,8 +4406,7 @@ msgid "Select Playback Device"
 msgstr "Auswahl des Wiedergabegeräts"
 
 #: plugins/playback/PlayBackPlugin.cpp:172
-msgid ""
-"Playback is currently running.Please stop playback first and then try again"
+msgid "Playback is currently running.Please stop playback first and then try again"
 msgstr ""
 "Die Wiedergabe läuft momentan. Bitte stoppen Sie zuerst die Wiedergabe und "
 "versuchen Sie es danach nochmal."
@@ -4442,7 +4551,7 @@ msgid "Number of channels: mono, stereo..."
 msgstr "Anzahl der Kanäle: Mono, Stereo, ..."
 
 #: plugins/playback/PlayBackDlg.uic.cpp:267
-#, c-format
+#, no-c-format
 msgid ""
 "<b>Channels:</b><p>Number of channels used for playback. This does not "
 "necessarily have to be the same as the number of tracks in your current "
@@ -4651,8 +4760,7 @@ msgstr "Maximum"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:329
 msgid "sets the file size by the percentage of the possible maximum"
-msgstr ""
-"Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
+msgstr "Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
 
 #: plugins/newsignal/NewSignalDialog.cpp:354
 msgid "(Resulting file size: %1 MB)"
@@ -4661,3 +4769,4 @@ msgstr "(Resultierende Dateigröße: %1 MB)"
 #: plugins/newsignal/NewSignalPlugin.cpp:33
 msgid "newsignal"
 msgstr "Neues Signal"
+

@@ -28,7 +28,6 @@ UndoAddLabelAction::UndoAddLabelAction(SignalWidget &signal_widget,
                                        int index)
     :UndoAction(), m_signal_widget(signal_widget), m_index(index)
 {
-    qDebug("UndoAddLabelAction::UndoAddLabelAction(%d)", index);
 }
 
 //***************************************************************************
@@ -66,7 +65,6 @@ UndoAction *UndoAddLabelAction::undo(SignalManager &manager, bool with_redo)
 {
     UndoAction *redo = 0;
     Label *label = m_signal_widget.labelAtIndex(m_index);
-    qDebug("label=%p, m_index=%d",label,m_index);
 
     // store data for redo
     if (with_redo && label) {

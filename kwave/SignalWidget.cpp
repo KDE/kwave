@@ -220,9 +220,8 @@ void SignalWidget::refreshMarkersLayer()
 //***************************************************************************
 bool SignalWidget::isOK()
 {
-////    Q_ASSERT(labels);
     Q_ASSERT(m_selection);
-    return ( /* labels && */ m_selection );
+    return ( m_selection );
 }
 
 //***************************************************************************
@@ -1470,7 +1469,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	Q_ASSERT(m_layer[LAYER_MARKERS]);
 	if (!m_layer[LAYER_MARKERS]) return;
 
-	qDebug("SignalWidget::paintEvent(): - redraw of markers layer -");
+// 	qDebug("SignalWidget::paintEvent(): - redraw of markers layer -");
 	m_layer[LAYER_MARKERS]->fill(black);
 
 	QPainter p;
@@ -1705,25 +1704,6 @@ Label *SignalWidget::labelAtIndex(int index)
 //     return 0;
 // }
 
-////***************************************************************************
-//void SignalWidget::deleteLabel ()
-//{
-//    if (!signalmanage) return ;
-//
-//    Label *tmp;
-//    int l = signalmanage->getLMarker();
-//    int r = signalmanage->getRMarker();
-//
-//    for (tmp = labels->first(); tmp; tmp = labels->next()) {
-//	int pos = ms2samples(tmp->pos);
-//	if ( (pos >= l) && (pos < r) ) {
-//	    labels->remove(tmp);
-//	    tmp = labels->first();
-//	}
-//    }
-//    refreshLayer(LAYER_MARKERS);
-//}
-//
 ////****************************************************************************
 //void SignalWidget::loadLabel()
 //{
@@ -1888,7 +1868,6 @@ Label *SignalWidget::addLabel(unsigned int pos, const QString &name)
 //***************************************************************************
 void SignalWidget::deleteLabel(int index, bool with_undo)
 {
-    qDebug("SignalWidget::deleteLabel(index=%d,...)",index);
     Q_ASSERT(index >= 0);
     Q_ASSERT(index < (int)m_labels.count());
     if ((index < 0) || (index >= (int)m_labels.count())) return;
@@ -2268,20 +2247,6 @@ void SignalWidget::deleteLabel(int index, bool with_undo)
 //	}
 //    return i;
 //}
-//
-////*****************************************************************************
-//void SignalWidget::addLabelType (LabelType *marker)
-//{
-//    globals.markertypes.append (marker);
-//    if (manage) manage->addNumberedMenuEntry ("ID_LABELS_TYPE", (char *)marker->name);
-//}
-//
-////*****************************************************************************
-//void SignalWidget::addLabelType (const char *str)
-//{
-//    LabelType *marker = new LabelType(str);
-//    if (marker) addLabelType (marker);
-//}
 
 //***************************************************************************
 void SignalWidget::playbackStopped()
@@ -2343,8 +2308,8 @@ void SignalWidget::slotTrackDeleted(unsigned int index)
 void SignalWidget::slotSamplesInserted(unsigned int track,
     unsigned int offset, unsigned int length)
 {
-    qDebug("SignalWidget(): slotSamplesInserted(%u, %u,%u)", track,
-	offset, length);
+//     qDebug("SignalWidget(): slotSamplesInserted(%u, %u,%u)", track,
+// 	offset, length);
 
     // only adjust the labels once per operation
     if (track != m_signal_manager.selectedTracks().at(0)) return;
@@ -2368,8 +2333,8 @@ void SignalWidget::slotSamplesInserted(unsigned int track,
 void SignalWidget::slotSamplesDeleted(unsigned int track,
     unsigned int offset, unsigned int length)
 {
-   qDebug("SignalWidget(): slotSamplesDeleted(%u, %u...%u)", track,
-	offset, offset+length-1);
+//    qDebug("SignalWidget(): slotSamplesDeleted(%u, %u...%u)", track,
+// 	offset, offset+length-1);
 
     // only adjust the labels once per operation
     if (track != m_signal_manager.selectedTracks().at(0)) return;

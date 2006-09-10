@@ -370,7 +370,7 @@ int PluginManager::executePlugin(const QString &name, QStringList *params)
 	    }
 	    delete params;
 	    command += ")";
-	    qDebug("PluginManager: command='%s'",command.data()); // ###
+//	    qDebug("PluginManager: command='%s'",command.data());
 	}
     }
 
@@ -755,8 +755,8 @@ void PluginManager::setSignalName(const QString &name)
 //***************************************************************************
 void PluginManager::findPlugins()
 {
-    QStringList files = KGlobal::dirs()->findAllResources("data",
-	    "kwave/plugins/*", false, true);
+    QStringList files = KGlobal::dirs()->findAllResources("module",
+	    "plugins/kwave/*", false, true);
 
     QStringList::Iterator it;
     for (it=files.begin(); it != files.end(); ++it) {

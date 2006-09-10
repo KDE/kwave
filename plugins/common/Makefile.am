@@ -31,7 +31,7 @@ SUFFIXES= .h .c .cpp .o .d .moc .dm .ui .cc .idl .cxx
 INCLUDES  = -I${topdir} @all_includes@ @ARTS_INCLUDES@ @GSL_CFLAGS@
 
 # Which sources should be compiled for kwave.
-PLUGINDIR=$(DESTDIR)$(kde_datadir)/$(PACKAGE)/plugins
+PLUGINDIR=$(DESTDIR)$(kde_moduledir)/plugins/$(PACKAGE)
 
 CXXFLAGS  += @GSL_CFLAGS@ -fPIC @CPPFLAGS@
 LD_FLAGS  = -shared -fPIC -rdynamic

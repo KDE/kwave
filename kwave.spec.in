@@ -10,7 +10,6 @@ Release: 	@RPM_RELEASE@
 License:	GPL and others, see LICENSES file
 Source0: 	kwave-@RPM_FULL_VERSION@.tar.gz
 Group:  	Productivity/Multimedia/Sound/Editors
-Copyright:	@RPM_COPYRIGHT@
 URL:		@RPM_URL@
 Vendor: 	@RPM_VENDOR@
 BuildRoot: 	@RPM_BUILDROOT@

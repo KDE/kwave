@@ -102,9 +102,9 @@ lib_LTLIBRARIES = libkwave.la
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
 
-CLEANFILES = $(BUILTSOURCES)
+CLEANFILES = $(BUILT_SOURCES)
 
-DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* Makefile.in Makefile
+DISTCLEANFILES = $(BUILT_SOURCES) core *~ .deps/* Makefile.in Makefile
 
 %.moc.cpp: %.h
 	${MOC} $< -o $@

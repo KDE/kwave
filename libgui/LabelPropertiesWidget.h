@@ -21,7 +21,7 @@
 #include "config.h"
 #include <qobject.h>
 #include <qdialog.h>
-#include "LabelPropertiesWidgetBase.uih.h"
+#include "libgui/LabelPropertiesWidgetBase.uih.h"
 
 class Label;
 

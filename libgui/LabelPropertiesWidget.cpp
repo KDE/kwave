@@ -23,7 +23,7 @@
 #include <kconfig.h>
 
 #include "libgui/SelectTimeWidget.h"
-#include "LabelPropertiesWidget.h"
+#include "libgui/LabelPropertiesWidget.h"
 
 /** name of the section in the config file */
 #define CONFIG_SECTION "LabelProperties"

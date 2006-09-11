@@ -17,7 +17,7 @@
 
 INCLUDES= -I${topdir} @all_includes@
 
-BUILTSOURCES=\
+BUILT_SOURCES=\
  ConfirmCancelProxy.moc.cpp\
  CurveWidget.moc.cpp\
  FileProgress.moc.cpp\
@@ -50,7 +50,7 @@ BUILTSOURCES=\
 
 # Which sources should be compiled for libgui.
 libkwavegui_la_SOURCES = \
- $(BUILTSOURCES) \
+ $(BUILT_SOURCES) \
  CurveWidget.cpp\
  ConfirmCancelProxy.cpp\
  FileProgress.cpp\
@@ -79,11 +79,11 @@ libkwavegui_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \
 
 lib_LTLIBRARIES = libkwavegui.la
 
-CLEANFILES:=$(CLEANFILES) $(BUILTSOURCES)
+CLEANFILES:=$(CLEANFILES) $(BUILT_SOURCES)
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
-DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* Makefile.in Makefile
+DISTCLEANFILES = $(BUILT_SOURCES) core *~ .deps/* Makefile.in Makefile
 
 %.moc.cpp: %.h
 	${MOC} -nw $< -o $@

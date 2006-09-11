@@ -201,6 +201,6 @@ uninstall-local:
 	-rmdir -p --ignore-fail-on-non-empty $(DESTDIR)$(bindir) >/dev/null 2>&1
 
 # dependencies for moc files
-%moc.cpp: %h
+%.moc.cpp: %.h
 	${MOC} -o $@ $<
 

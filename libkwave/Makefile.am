@@ -21,7 +21,7 @@ INCLUDES= @all_includes@ @ARTS_INCLUDES@
 INCLUDES+=-I ../libaudiofile
 #endif
 
-BUILTSOURCES=\
+BUILT_SOURCES=\
  KwaveDrag.moc.cpp\
  KwaveFilterPlugin.moc.cpp\
  KwavePlugin.moc.cpp\
@@ -48,7 +48,7 @@ BUILTSOURCES=\
 
 # Which sources should be compiled for kwave.
 libkwave_la_SOURCES=\
- ${BUILTSOURCES}\
+ ${BUILT_SOURCES}\
  ArtsMultiPlaybackSink.cpp\
  ArtsPlaybackSink_impl.cpp\
  ArtsSampleSource_impl.cpp\
@@ -106,13 +106,13 @@ CLEANFILES = $(BUILTSOURCES)
 
 DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* Makefile.in Makefile
 
-%moc.cpp: %h
+%.moc.cpp: %.h
 	${MOC} $< -o $@
 
-%cc: %idl
+%.cc: %.idl
 	${MCOPIDL} @MCOPIDL_INCLUDES@ $<
 
-%h: %idl
+%.h: %.idl
 	${MCOPIDL} @MCOPIDL_INCLUDES@ $<
 
 # end of Makefile.am

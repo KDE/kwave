@@ -29,12 +29,12 @@ BUILTSOURCES=\
  IntValidatorProxy.moc.cpp\
  InvertableSpinBox.moc.cpp\
  KwaveFileDialog.moc.cpp\
- LabelPropertiesWidget.moc.cpp\
  LabelPropertiesWidgetBase.uih.h\
  LabelPropertiesWidgetBase.uih.moc.cpp\
  LabelPropertiesWidgetBase.uic.cpp\
+ LabelPropertiesWidget.moc.cpp\
  MenuNode.moc.cpp\
- MenuGroup.moc.cpp \
+ MenuGroup.moc.cpp\
  MenuItem.moc.cpp\
  MenuSub.moc.cpp\
  MenuRoot.moc.cpp\
@@ -49,7 +49,7 @@ BUILTSOURCES=\
  TrackPixmap.moc.cpp
 
 # Which sources should be compiled for libgui.
-libkwavegui_la_SOURCES =\
+libkwavegui_la_SOURCES = \
  $(BUILTSOURCES) \
  CurveWidget.cpp\
  ConfirmCancelProxy.cpp\
@@ -61,7 +61,7 @@ libkwavegui_la_SOURCES =\
  KwaveFileDialog.cpp\
  LabelPropertiesWidget.cpp\
  MenuNode.cpp\
- MenuGroup.cpp \
+ MenuGroup.cpp\
  MenuItem.cpp\
  MenuSub.cpp\
  MenuRoot.cpp\
@@ -70,7 +70,7 @@ libkwavegui_la_SOURCES =\
  OverViewCache.cpp\
  OverViewWidget.cpp\
  ScaleWidget.cpp\
- SelectTimeWidget.cpp \
+ SelectTimeWidget.cpp\
  TrackPixmap.cpp
 
 #noinst_LIBRARIES = libkwavegui.a
@@ -85,8 +85,8 @@ CLEANFILES:=$(CLEANFILES) $(BUILTSOURCES)
 # them while "make clean", use CLEANFILES
 DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* Makefile.in Makefile
 
-%moc.cpp: %h
-	${MOC} $< -o $@
+%.moc.cpp: %.h
+	${MOC} -nw $< -o $@
 
 %.uih.h: %.ui
 	@UIC@ -o $@ -tr i18n $<

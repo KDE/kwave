@@ -74,15 +74,15 @@ Installing the rpm package normally requires root permissions.
 2.1 Building a binary rpm from archive file:
 -------------------------------------------
 
-Simply get the source archive (for example kwave-0.7.6.tar.gz) and
+Simply get the source archive (for example kwave-0.7.7.tar.gz) and
 then type:
 
-rpmbuild -ta kwave-0.7.6.tar.gz
+rpmbuild -ta kwave-0.7.7.tar.gz
 
 If you want to build for a different architecture than your current, you
 might want to add the parameter "--target ...", for example:
 
-rpmbuild -ta --target i586 kwave-0.7.6.tar.gz
+rpmbuild -ta --target i586 kwave-0.7.7.tar.gz
 
 compiles for pentium architecture.
 
@@ -122,7 +122,7 @@ For example: you got the binary rpm from a friend who has a SuSE system
 on RedHat (where the KDE base dir is /usr). Then just give a different
 prefix when installing the rpm:
 
-rpm -Uvh --prefix=/usr kwave-0.7.6.i586.rpm
+rpm -Uvh --prefix=/usr kwave-0.7.7-1.i586.rpm
 
 This modifies the path where the program is installed and it is strongly
 recommended that this is a directory that is contained in the KDEDIRS
@@ -232,30 +232,7 @@ packets should be sufficient for building:
 known distributions / architectures:
 ------------------------------------
 
-* Gentoo Linux / i686 (Athlon-XP)
-  [my current development system]
-
-* SuSE-9.1/9.2 / i386, i586, athlon-xp (with KDE-3.3.2)
-  [should work]
-
-* SuSE-9.0 / i386, i586, athlon-xp (with KDE-3.1.4)
-  [might still work my current development system]
-
-* SuSE-8.1/8.2 / i386, i686, athlon, k7 (with KDE-3.0 and KDE-3.1)
-  [might work, no longer supported,
-   needs libart_lgpl-devel for getting KDE-3.1 to work]
-
-* SuSE <= 8.0 / i386 (with KDE3 + autoconf/automake updated)
-  [might work, no longer supported]
-
-* Debian on alpha, arm, i386, ia64, m68k, mips, mipsel, powerpc, s390
-  and sparc (packages provided by Aurelien Jarno <aurelien@aurel32.net>)
-
-* Mandrake Linux 8.1, (packages provided by Gilles Caulier)
-  [no longer supported]
-
-* RedHat-6.1 (Halloween IV) / i386
-  [tested v0.5.x with it, but now no longer tested]
+see the Kwave homepage: http://kwave.sf.net/distributions.html
 
 Compilation might also work on many other distributions and different
 versions of compilers and libraries, or even on different architectures.
@@ -267,14 +244,19 @@ If the program does NOT compile, please let me know too - and/or consider
 an update of your system if your packages are older than those mentioned
 above.
 
-currently not well supported distributions:
+currently tested distributions:
 -------------------------------------------
 
 I have currently installed some distributions for testing purposes and
 for getting an impression how Kwave builds/behaves on them. Here what I
 made running and what I had to install additionally:
 
-* SuSE-9.2
+* Ubuntu
+	automake1.8 libtool g++ kdesdk recode
+	libgsl0-dev libid3-dev libflac++-dev kdemultimedia-dev
+	update-alternatives --set automake /usr/bin/automake-1.8
+
+* OpenSuSE-10.0
 	libjack-devel
 
 * Debian / Sid (supported by Aurelien Jarno):
@@ -283,32 +265,6 @@ made running and what I had to install additionally:
 	 khelpcenter libflac-dev libflac++-dev
 	 libgsl0 libgsl0-dev
 	 (had to do: 'apt-get install -t testing libid3-3.8.3-dev')
-
-* Debian / Woody
-	 automake1.8, flac
-	 apt-get install -t unstable libflac++-dev
-	 apt-get install -t unstable arts
-	 apt-get install -t unstable kdelibs4
-	 apt-get install -t unstable kdelibs4-dev
-
-* RedHat-8.0 / 9.0:
-	 ImageMagick, recode, id3lib, audiofile, audiofile-devel
-	 needs "export QTDIR=/usr/lib/qt-3.1" to compile
-
-* Mandrake-9.0:
-         kdelibs, kdelibs-devel, libqt3, libqt3-devel, libarts, libarts-devel,
-         audiofile, libaudiofile0, libarts, libarts-devel, kdesdk, libalsa2,
-         libalsa2-devel, libpng3-devel, autoconf2.5, recode, ImageMagick,
-         gettext, XFree86-devel, id3lib-3.8.2-1, id3lib-3.8.2-1-devel,
-         libogg0, libogg0-devel, libvorbis0, libvorbis0-devel, libvorbisfile3,
-         libvorbisenc2
-
-* Mandrake-10.0:
-	 kdemultimedia1-common-devel
-
-* Mandrake-9.1:
-	like Mandrake-9.0, but additionally:
-	libnas2, libnas2-devel, libfam0-devel, libpng3, libpng3-devel
 
 * Slackware 9.0:
 	(too many packages to mention here, I have given it up...)

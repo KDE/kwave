@@ -1,6 +1,6 @@
 
 here the results of a licensing investigation
-(2005-12-04)
+(2006-09-21)
 
 LIST OF LICENSES FOUND IN THE SOURCES
 =====================================
@@ -310,8 +310,12 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/TopWidget.cpp				GPL2 / Martin Wilz
 	kwave/TopWidget.h				GPL2 / Martin Wilz
 	kwave/UndoAction.h				GPL2
+	kwave/UndoAddLabelAction.cpp			GPL2
+	kwave/UndoAddLabelAction.h			GPL2
 	kwave/UndoDeleteAction.cpp			GPL2
 	kwave/UndoDeleteAction.h			GPL2
+	kwave/UndoDeleteLabelAction.cpp			GPL2
+	kwave/UndoDeleteLabelAction.h			GPL2
 	kwave/UndoDeleteTrack.cpp			GPL2
 	kwave/UndoDeleteTrack.h				GPL2
 	kwave/UndoFileInfo.cpp				GPL2
@@ -322,6 +326,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/UndoInsertTrack.h				GPL2
 	kwave/UndoModifyAction.cpp			GPL2
 	kwave/UndoModifyAction.h			GPL2
+	kwave/UndoModifyLabelAction.cpp			GPL2
+	kwave/UndoModifyLabelAction.h			GPL2
 	kwave/UndoSelection.cpp				GPL2
 	kwave/UndoSelection.h				GPL2
 	kwave/UndoTransaction.cpp			GPL2
@@ -460,6 +466,9 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/InvertableSpinBox.h			GPL2
 	libgui/KwaveFileDialog.cpp			GPL2
 	libgui/KwaveFileDialog.h			GPL2
+	libgui/LabelPropertiesWidget.cpp		GPL2
+	libgui/LabelPropertiesWidget.h			GPL2
+	libgui/LabelPropertiesWidgetBase.ui		GPL2
 	libgui/Makefile.am				GPL2
 	libgui/MenuGroup.cpp				GPL2
 	libgui/MenuGroup.h				GPL2

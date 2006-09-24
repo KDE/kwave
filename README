@@ -87,7 +87,7 @@ rpmbuild -ta --target i586 kwave-0.7.7.tar.gz
 compiles for pentium architecture.
 
 
-2.2 Building a source and binary rpm from the source tree (CVS):
+2.2 Building a source and binary rpm from the source tree (SVN):
 ---------------------------------------------------------------
 
 Assuming that you already have unpacked the source archive in some
@@ -99,11 +99,11 @@ make src.rpm          (and you get only a source rpm)
 ***OR***
 make rpm              (and you get both, a binary and a source rpm)
 
-Instructions on how to get the sources via CVS can be found in the
+Instructions on how to get the sources via SVN can be found in the
 Kwave handbook and on the Kwave project homepage at SourceForge
-(see "http://sourceforge.net/cvs/?group_id=6478").
+(see "http://sourceforge.net/svn/?group_id=6478").
 
-Please note that the online documentation in not included in CVS, so you
+Please note that the online documentation in not included in SVN, so you
 have to go to the "doc" subdirectory, remove the file "changes.docbook"
 and type "make" there. This requires a working docbook/sgml environment
 that is sometimes problematic (see below).
@@ -165,7 +165,7 @@ Then go to chapter 1 and do ./configure / make / make install...
 
 (NOTE: you don't have to do this if you have the sources from a
 tar.gz archive or source RPM - but it is the only way to get the
-online help if you checked out via CVS)
+online help if you checked out via SVN)
 
 Since version 0.6.3 you do no longer need the docbook utils :)
 Instead you will need

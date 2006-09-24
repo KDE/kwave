@@ -162,16 +162,17 @@
 	    "https://lists.sourceforge.net/lists/listinfo/kwave-devel"</ulink>.
 	</para></listitem>
 	<listitem><para>
-	CVS Repository<anchor id="cvs-repository"/></para><para>
-	    There also is a CVS repository, hosted by
+	    SVN Repository<anchor id="svn-repository"/>
+	</para>
+	<para>
+	    There also is a SVN repository, hosted by
 	    <ulink url="http://sourceforge.net">SourceForge</ulink> where
 	    you can get the sources of the latest development version.
 	    For instructions on how to get access to the repository, read
 	    in the chapter
-	    about <link linkend="building_rpm_from_cvs">building from CVS</link>,
-	    look at <ulink url="http://sourceforge.net/cvs/?group_id=6478">"http://sourceforge.net/cvs/?group_id=6478"</ulink>, or just
-	    browse through the CVS tree through a nice web interface.
-	    <emphasis>Anonymous CVS access is allowed!</emphasis>
+	    about <link linkend="building_rpm_from_svn">building from SVN</link>,
+	    look at <ulink url="http://sourceforge.net/svn/?group_id=6478">"http://sourceforge.net/svn/?group_id=6478"</ulink>, or just
+	    browse through the SVN tree through a nice web interface.
         </para></listitem>
     </itemizedlist>
 
@@ -612,7 +613,7 @@
                     new plugin "noise"
                 </para></listitem>
                 <listitem><para>
-                     new aRts plugin adapter framework 
+                     new aRts plugin adapter framework
                       now Kwave is able to use existing aRts plugins in it's own plugins
                       for sound processing
                 </para></listitem>
@@ -649,7 +650,7 @@
             <para>0.6.1 [2001-08-24]</para>
             <itemizedlist>
                 <listitem><para>
-                     USE OF VIRTUAL MEMORY 
+                     USE OF VIRTUAL MEMORY
                 </para></listitem>
                 <listitem><para>
                     changed Makefiles: html docu stays in distribution due to too much
@@ -678,7 +679,7 @@
             <para>0.6.0 [2001-07-29]</para>
             <itemizedlist>
                 <listitem><para>
-                     PORTED TO QT-2 AND KDE2 
+                     PORTED TO QT-2 AND KDE2
                 </para></listitem>
                 <listitem><para>
                     completely new internal architecture
@@ -897,7 +898,7 @@
                     found out that we need ALSA support for 24 and 32 bits/sample
                 </para></listitem>
                 <listitem><para>
-                     playback in stereo 
+                     playback in stereo
                 </para></listitem>
                 <listitem><para>
                     selected channels (x) are mixed to the output device's channels (y)
@@ -1045,7 +1046,7 @@
                     bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)
                 </para></listitem>
                 <listitem><para>
-                     COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE 
+                     COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE
                     <itemizedlist>
                     <listitem><para>
                          made use of a combination of signals/slots and string messages
@@ -1111,8 +1112,8 @@
             <para>0.5.1-4</para>
             <itemizedlist>
                 <listitem><para>
-                     now compiles and runns under RedHat 6.1 / Halloween IV 
-                       as well as under SuSE 6.2                              
+                     now compiles and runns under RedHat 6.1 / Halloween IV
+                       as well as under SuSE 6.2
                 </para></listitem>
                 <listitem><para>
                     version info of libkwavegui.so is set to the package's version
@@ -1133,7 +1134,7 @@
                     configure-parameter --enable-debug has effect again
                 </para></listitem>
                 <listitem><para>
-                     ASCII import and export works now (mono only) 
+                     ASCII import and export works now (mono only)
                 </para></listitem>
                 <listitem><para>
                     bugfixes in some plugins, all compile now without warnings/errors
@@ -1667,7 +1668,7 @@
 	    of the latest stable version,
 	</para></listitem>
 	<listitem><para>
-	    compile on your own, from the latest CVS source.
+	    compile on your own, from the latest SVN source.
 	</para></listitem>
 	</itemizedlist>
     </para>
@@ -1728,8 +1729,8 @@
 	For a more complete and up-to-date list, please consult the
 	README file that is included in the source distribution or
 	can be found here: <ulink
-	url="http://kwave.cvs.sourceforge.net/kwave/kwave/README?view=markup">
-	"http://kwave.cvs.sourceforge.net/kwave/kwave/README?view=markup"</ulink>.
+	url="http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup">
+	"http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup"</ulink>.
 	This file also contains some special hints for getting &kapp; running and/or
 	building &kapp; under some distributions.
     </para>
@@ -1764,12 +1765,12 @@
 		flac-devel-1.1.0 higher
 	    </para></listitem>
 	    <listitem><para>
-		If you intend to use CVS, you will also need a current
-		cvs package.
+		If you intend to use SVN, you will also need a current
+		subversion package.
 	    </para></listitem>
 	    <listitem><para>
 		...many other packages, please take a look at the
-		<ulink url="http://kwave.cvs.sourceforge.net/kwave/kwave/README?view=markup">
+		<ulink url="http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup">
 		"README"</ulink> file included in the source package.
 	    </para></listitem>
 	</itemizedlist>
@@ -1828,9 +1829,9 @@
 	package. First you should get the current source of &kapp;, either
 	as a tar.gz archive from the &kapp; download page or
 	check out an up-to-date copy via
-	<link linkend="cvs-repository">anonymous CVS</link> (like described in
-	the <link linkend="cvs_checkout">chapter about CVS</link>) and read the
-	<link linkend="building_rpm_from_cvs">next</link> chapter.
+	<link linkend="svn-repository">SVN</link> (like described in
+	the <link linkend="svn_checkout">chapter about SVN</link>) and read the
+	<link linkend="building_rpm_from_svn">next</link> chapter.
     </para>
 
     <para>
@@ -1934,17 +1935,17 @@
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: Building RPM packages from CVS                        +++ -->
+<!-- +++ Section: Building RPM packages from SVN                        +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="building_rpm_from_cvs">
-    <title>Building RPM packages from CVS</title>
+    <sect1 id="building_rpm_from_svn">
+    <title>Building RPM packages from SVN</title>
 
-    <sect2 id="cvs_checkout"><title>Checking out the sources</title>
+    <sect2 id="svn_checkout"><title>Checking out the sources</title>
 
     <para>
 	For initially checking out the sources you will need some disk space
-	(about 32 megabytes) in a directory of your choice, the cvs package
+	(about 32 megabytes) in a directory of your choice, the svn package
 	of your favorite distribution and full access to the internet. If you
 	get error messages about rejected connections you either have typed
 	something wrong or your provider doesn't give you full access.
@@ -1960,42 +1961,45 @@
 <prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>
 </screen>
     </para></listitem>
-    <listitem><para>
-	Then log in into the CVS server. As I guess that you want to do that
-	as normal user, you log in as anonymous:
+    <listitem>
+	<para>
+	    Then check out the latest sources from the SVN server:
 <screen width="75" format="linespecific">
-<prompt>% </prompt><command>cvs -d:pserver:anonymous@kwave.cvs.sourceforge.net:/cvsroot/kwave login</command>
+<prompt>% </prompt><command>svn checkout https://svn.sourceforge.net/svnroot/kwave/trunk kwave</command>
 </screen>
-	Then the server asks you for a password. Simply press enter, as we
-	do not have a password for anonymous access.
-    </para></listitem>
-
-    <listitem><para>
+	</para>
+	<para>
+	or you can check out a specific release with the following command:
 <screen width="75" format="linespecific">
-<prompt>% </prompt><command>cvs -z3 -d:pserver:anonymous@kwave.cvs.sourceforge.net:/cvsroot/kwave co kwave</command>
+<prompt>% </prompt><command>svn checkout https://svn.sourceforge.net/svnroot/kwave/tags/<replaceable>[release-tag]</replaceable> kwave</command>
 </screen>
-    </para></listitem>
-
+	You can look up the names of the release tags in the web svn page at
+	<ulink url="http://svn.sourceforge.net/viewvc/kwave/tags/">"http://svn.sourceforge.net/viewvc/kwave/tags/"</ulink>.
+	The release tags are always built out of the word <literal>Release-</literal> and
+	the version number of the release, with underscores instead of dots.
+	For example "<literal>Release-0_7_7</literal>" for v0.7.7.
+	</para>
+    </listitem>
     </orderedlist>
 
     <warning><para>
 	There <emphasis>must not</emphasis> be a directory named
 	<filename>kwave</filename> under
-	the directory you want to check out. Otherwise the cvs program will
+	the directory you want to check out. Otherwise the svn program will
 	complain about already existing files and the checkout will
 	not work.
     </para></warning>
 
     </sect2>
 
-    <sect2 id="cvs_update"><title>Updating sources from CVS</title>
+    <sect2 id="svn_update"><title>Updating sources from SVN</title>
     <para>
 	The procedure described in the previous section is only necessary
 	once. For further updates it is much easier. Just change into the
 	directory you want to update and do the following:
 <screen width="75" format="linespecific">
 <prompt>% </prompt><command>make distclean</command>
-<prompt>% </prompt><command>cvs update -dP -C</command>
+<prompt>% </prompt><command>svn update</command>
 </screen>
 	Then go on to the next section and compile as usual.
     </para>
@@ -2003,13 +2007,13 @@
     If you think that you have messed up your local source or if there
     are conflicts during updating, you can remove all files and
     directories from your &kapp; source directory, <emphasis>except
-    the <filename>CVS</filename> directory </emphasis>and then try again.
+    the <filename>.svn</filename> directory </emphasis>and then try again.
     </para></note>
     </sect2>
 
-    <sect2 id="cvs_compiling"><title>Compiling</title>
+    <sect2 id="svn_compiling"><title>Compiling</title>
     <para>
-	Building rpm package from a CVS snapshot is quite simple. The procedure
+	Building rpm package from a SVN snapshot is quite simple. The procedure
 	is nearly the same as described in the last section, so it unhappily also
 	has the same problem with the <command>rpmbuild -ta</command> command
 	our method internally uses.
@@ -2030,7 +2034,7 @@
 
     <para>
 	Assuming that
-	you are in the root of where you checked out from CVS, do the
+	you are in the root of where you checked out from SVN, do the
 	following to create a Makefile, the &kapp; package and
 	install it. If you already have a version of &kapp; installed,
 	please remove it first or use <command>rpm -U</command> instead
@@ -2194,7 +2198,7 @@
 	compiler.
     </para>
     <para>
-	If you build &kapp; from a source tree (unpacked tar.gz or from CVS)
+	If you build &kapp; from a source tree (unpacked tar.gz or from SVN)
 	the flags need to be specidied before the call
 	to <command>make -f Makefile.dist</command>. This might look like this:
 <screen>
@@ -3740,6 +3744,13 @@
     	Program copyright since 2000 Thomas Eschenbacher
 	<email>thomas.eschenbacher@gmx.de</email>
     </para>
+    <para>
+	For a complete list of authors and licenses of all files,
+	please see the <filename>LICENSES</filename> file, which is included in the sources.
+	It is also available online at
+	<ulink url="http://svn.sourceforge.net/viewvc/kwave/trunk/LICENSES?view=markup">
+	"http://svn.sourceforge.net/viewvc/kwave/trunk/LICENSES?view=markup"</ulink>.
+    </para>
 
     <para>
     	Contributors / Authors:
@@ -3780,18 +3791,12 @@
 	    </listitem>
 	    <listitem>
 	        <para>
-		    Martin Kuball
-		    <email>makube@user.sourceforge.net</email>
-		    (beta tester)
+		    Rik Hemsley
+		    <email>rik@kde.org</email>
+		    (<ulink url="http://rikkus.info/esoundlevelmeter.html">level meter</ulink>)
 		</para>
 	    </listitem>
-	    <listitem>
-	        <para>
-		    Aurelien Jarno
-		    <email>aurel32@debian.org</email>
-		    (<ulink url="http://www.debian.org">debian</ulink> packager)
-		</para>
-	    </listitem>
+
 <!--
 	    <listitem><para>Juhana Kouhia</para></listitem>
     	    <listitem><para>Gerhard Zintel</para></listitem>
@@ -3819,11 +3824,39 @@
 <!--	    <listitem><para>Frank Christian Stoffel</para></listitem> -->
 <!--	    <listitem><para>Achim Dahlhaus</para></listitem> -->
 	    <listitem>
+	        <para>
+		    Jorge Luis Arzola
+		    <email>arzolacub@gmx.de</email>
+		    (packaging for SuSE Linux)
+		</para>
+	    </listitem>
+	    <listitem>
 		<para>
 		    Matthias Düsterhöft
 		    <email>duesti@gmx.de</email>
 		    <emphasis> (for information about RPM optimization)
 		    </emphasis>
+		</para>
+	    </listitem>
+	    <listitem>
+	        <para>
+		    Michael Favreau
+		    <email>michel.favreau@free.fr</email>
+		    (packaging for Arch Linux)
+		</para>
+	    </listitem>
+	    <listitem>
+	        <para>
+		    Aurelien Jarno
+		    <email>aurel32@debian.org</email>
+		    (<ulink url="http://www.debian.org">debian</ulink> packager)
+		</para>
+	    </listitem>
+	    <listitem>
+	        <para>
+		    Martin Kuball
+		    <email>makube@user.sourceforge.net</email>
+		    (beta tester)
 		</para>
 	    </listitem>
 	    <listitem><para>my wife Ximena González<emphasis> (for
@@ -3864,6 +3897,20 @@
 		    library)
 		</para>
 	    </listitem>
+	    <listitem>
+	        <para>
+		    Robert M. Stockmann
+		    <email>stock@stokkie.net</email>
+		    (packaging for Mandrake / X86_64)
+		</para>
+	    </listitem>
+	    <listitem>
+	        <para>
+		    Diederick de Vries
+		    <email>diederick76@gmail.com</email>
+		    (packaging for Crux Linux)
+		</para>
+	    </listitem>
 	</itemizedlist>
     </para>
 
@@ -3887,7 +3934,7 @@
 -->
 
 <para>
-Older code might contain some FFT routines and code fragments from the
+Older code contained some FFT routines and code fragments from the
 GNU Scientific Library project
 <ulink url="http://sources.redhat.com/gsl/">http://sources.redhat.com/gsl/</ulink>.
 </para>

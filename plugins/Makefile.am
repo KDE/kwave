@@ -17,7 +17,7 @@
 
 # make sure all subdirs get a makefile....
 dirs=`@FIND@ . -mindepth 1 -maxdepth 1 -type d -a ! -empty \
-	-a ! -name common -a ! -name CVS | \
+	-a ! -name common -a ! -name \.svn -a ! -name CVS | \
 	@SED@ s+^\\\.\\\/++g | @SORT@`
 
 DISTCLEANFILES = Makefile.in Makefile

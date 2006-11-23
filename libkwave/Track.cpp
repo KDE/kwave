@@ -235,7 +235,8 @@ void Track::deleteRange(unsigned int offset, unsigned int length,
 	qDebug("Track::deleteRange() [%u ... %u] (%u)",
 	       left, right, right - left + 1);
 
-	for (it.toLast(); it.current(); --it) {
+	it.toLast();
+	while (it.current()) {
 	    Stripe *s = it.current();
 	    unsigned int start  = s->start();
 	    unsigned int end    = s->end();
@@ -245,8 +246,9 @@ void Track::deleteRange(unsigned int offset, unsigned int length,
 	    if ((left <= start) && (right >= end)) {
 		// total overlap -> delete whole stripe
 		qDebug("deleting stripe [%u ... %u]", start, end);
-		deleteStripe(s);
+		deleteStripe(s); // decrements the iterator !!!
 		if (m_stripes.isEmpty()) break;
+		continue;
 	    } else if (/* (end >= left) && */ (start <= right)) {
 		//        ^^^^^^^^^^^^ already checked above
 		// partial stripe overlap
@@ -277,23 +279,15 @@ void Track::deleteRange(unsigned int offset, unsigned int length,
 
 		// if deleted from start
 		if (ofs == start) {
-		    if (make_gap) {
-			// make gap -> move right
-			qDebug("shifting [%u ... %u] to %u",
-				start, s->end(), end+1);
-			s->setStart(end+1);
-		    } else {
-			// no gap -> move left
-			qDebug("shifting [%u ... %u] to %u (len=%u)",
-				start, s->end(),
-				start-length+end-ofs+1,
-				length+end-ofs+1);
-			s->setStart(start-length+end-ofs+1);
-		    }
+		    // make gap -> move right (maybe will get fixed later)
+		    qDebug("shifting [%u ... %u] to %u",
+			    start, s->end(), end+1);
+		    s->setStart(end+1);
 		}
 
 		Q_ASSERT(s->length());
 	    }
+	    --it; /* advance to the next stripe left of this one */
 	}
 
 	// loop over all remaining stripes and move them left
@@ -306,6 +300,7 @@ void Track::deleteRange(unsigned int offset, unsigned int length,
 		Stripe *s = it.current();
 // 		qDebug("checking for shift [%u ... %u]",
 // 		       s->start(), s->end());
+		Q_ASSERT(s->start() != right);
 		if (s->start() > right) {
 		    // move left
 // 		    qDebug("moving stripe %p [%u...%u] %u samples left",
@@ -345,8 +340,8 @@ void Track::appendAfter(Stripe *stripe,  unsigned int offset,
 	if (len + stripe->length() > STRIPE_LENGTH_MAXIMUM)
 	    len = STRIPE_LENGTH_MAXIMUM - stripe->length();
 
-	qDebug("Track::appendAfter(): appending %u samples to %p",
-	       len, stripe);
+// 	qDebug("Track::appendAfter(): appending %u samples to %p",
+// 	       len, stripe);
 	stripe->append(buffer, buf_offset, len);
 
 	offset     += len;
@@ -362,8 +357,8 @@ void Track::appendAfter(Stripe *stripe,  unsigned int offset,
 	if (len > STRIPE_LENGTH_MAXIMUM)
 	    len = STRIPE_LENGTH_MAXIMUM;
 
-	qDebug("Track::appendAfter: new stripe, ofs=%u, len=%u",
-	       offset, len); // ###
+// 	qDebug("Track::appendAfter: new stripe, ofs=%u, len=%u",
+// 	       offset, len);
 	Stripe *new_stripe = newStripe(offset, 0);
 	Q_ASSERT(new_stripe);
 	if (!new_stripe) break;

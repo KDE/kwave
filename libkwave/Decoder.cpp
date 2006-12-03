@@ -15,35 +15,12 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <kfile.h>
-#include <kmimetype.h>
-#include <kurl.h>
-
 #include <Decoder.h>
 
 /***************************************************************************/
 Decoder::Decoder()
     :QObject(), CodecBase()
 {
-}
-
-/***************************************************************************/
-QString Decoder::whatContains(const KURL &url)
-{
-    // get the extension of the file
-    QFileInfo file(url.fileName());
-    QString extension = file.extension(false);
-    if (!extension.length()) return KMimeType::defaultMimeType();
-    extension = "*."+extension;
-
-    // try to find in the list of supported mime types
-    QPtrListIterator<KMimeType> it(mimeTypes());
-    for (; it.current(); ++it) {
-	KMimeType &mime_type = *(it.current());
-	if (mime_type.patterns().contains(extension))
-	    return mime_type.name();
-    }
-    return KMimeType::defaultMimeType();
 }
 
 /***************************************************************************/

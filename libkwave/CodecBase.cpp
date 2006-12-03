@@ -19,6 +19,8 @@
 #include <qstring.h>
 #include <qstringlist.h>
 #include <kmimetype.h>
+#include <kfile.h>
+#include <kurl.h>
 
 #include "CodecBase.h"
 
@@ -47,7 +49,7 @@ void CodecBase::addMimeType(const QString &name, const QString &description,
 //	qWarning("mime type '"+name+"' not registered, using built-in!");
 	delete type;
 	type = 0;
-	
+
 	QStringList p = QStringList::split("; ", patterns, false);
 	type = new KMimeType(0, name, "sound", description, p);
     }
@@ -79,6 +81,25 @@ bool CodecBase::supports(const QString &mimetype_name)
 const QPtrList<KMimeType> &CodecBase::mimeTypes()
 {
     return m_supported_mime_types;
+}
+
+/***************************************************************************/
+QString CodecBase::whatContains(const KURL &url)
+{
+    // get the extension of the file
+    QFileInfo file(url.fileName());
+    QString extension = file.extension(false);
+    if (!extension.length()) return KMimeType::defaultMimeType();
+    extension = "*."+extension;
+
+    // try to find in the list of supported mime types
+    QPtrListIterator<KMimeType> it(mimeTypes());
+    for (; it.current(); ++it) {
+	KMimeType &mime_type = *(it.current());
+	if (mime_type.patterns().contains(extension))
+	    return mime_type.name();
+    }
+    return KMimeType::defaultMimeType();
 }
 
 /***************************************************************************/

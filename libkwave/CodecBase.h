@@ -20,9 +20,10 @@
 
 #include "config.h"
 #include <qptrlist.h>
+#include <qstring.h>
 
 class KMimeType;
-class QString;
+class KURL;
 
 class CodecBase
 {
@@ -57,6 +58,14 @@ public:
     virtual void addMimeType(const QString &name,
                              const QString &description,
                              const QString &patterns);
+
+    /**
+     * Tries to find the name of a mime type by a URL. If not found, it
+     * returns the default mime type, never an empty string.
+     * @param url a KURL, only the filename's extension will be inspected
+     * @return name of the mime type or the default mime type
+     */
+    virtual QString whatContains(const KURL &url);
 
 private:
     /** list of supported mime types */

@@ -74,14 +74,6 @@ public:
      */
     virtual inline FileInfo &info() { return m_info;};
 
-    /**
-     * Tries to find the name of a mime type by a URL. If not found, it
-     * returns the default mime type, never an empty string.
-     * @param url a KURL, only the filename's extension will be inspected
-     * @return name of the mime type or the default mime type
-     */
-    virtual QString whatContains(const KURL &url);
-
 signals:
 
     /**
@@ -91,7 +83,7 @@ signals:
      * @param pos current position within the source, in bytes!
      */
     void sourceProcessed(unsigned int pos);
-    
+
 protected:
 
     /** information about the file */

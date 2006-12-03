@@ -758,6 +758,10 @@ void PluginManager::findPlugins()
     QStringList files = KGlobal::dirs()->findAllResources("module",
 	    "plugins/kwave/*", false, true);
 
+    /* fallback: search also in the old location (useful for developers) */
+    files += KGlobal::dirs()->findAllResources("data",
+	    "kwave/plugins/*", false, true);
+
     QStringList::Iterator it;
     for (it=files.begin(); it != files.end(); ++it) {
 	QString file = *it;

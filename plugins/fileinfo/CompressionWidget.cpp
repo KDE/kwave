@@ -23,6 +23,7 @@
 #include <qtooltip.h>
 #include <qvaluelist.h>
 #include <qwhatsthis.h>
+#include <klocale.h>
 #include <knuminput.h>
 
 #include "libkwave/StandardBitrates.h"
@@ -39,7 +40,7 @@ CompressionWidget::CompressionWidget(QWidget *parent, const char *name)
     abrBitrate->allowRates(rates);
     abrHighestBitrate->allowRates(rates);
     abrLowestBitrate->allowRates(rates);
-    
+
     connect(rbABR, SIGNAL(toggled(bool)),
             this,  SLOT(selectABR(bool)));
     connect(chkLowestBitrate, SIGNAL(toggled(bool)),
@@ -89,8 +90,9 @@ void CompressionWidget::initInfo(QLabel *label, QWidget *widget,
                                  FileInfo &info)
 {
     Q_ASSERT(widget);
-    if (label) label->setText(info.name(property) + ":");
-    describeWidget(widget, info.name(property), info.description(property));
+    if (label) label->setText(i18n(info.name(property)) + ":");
+    describeWidget(widget, i18n(info.name(property)),
+                   info.description(property));
 }
 
 //***************************************************************************
@@ -98,7 +100,7 @@ void CompressionWidget::enableABR(bool enable, bool lowest, bool highest)
 {
     rbABR->setEnabled(enable);
     if (!enable) rbABR->setChecked(false);
-    
+
     if (!rbABR->isChecked() || !enable) {
 	lblCompressionNominalBitrate->setEnabled(false);
 	abrBitrate->setEnabled(false);
@@ -217,7 +219,7 @@ void CompressionWidget::setMode(CompressionWidget::Mode mode)
 	    rbVBR->setChecked(false);
 	    rbVBR->setChecked(true);
 	    rbVBR->setChecked(false);
-	    
+
 	    rbABR->setChecked(true);
 	    rbABR->setChecked(false);
 	    rbABR->setChecked(true);
@@ -227,7 +229,7 @@ void CompressionWidget::setMode(CompressionWidget::Mode mode)
 	    rbABR->setChecked(false);
 	    rbABR->setChecked(true);
 	    rbABR->setChecked(false);
-	    
+
 	    rbVBR->setChecked(true);
 	    rbVBR->setChecked(false);
 	    rbVBR->setChecked(true);

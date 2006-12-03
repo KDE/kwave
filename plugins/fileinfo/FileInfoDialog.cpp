@@ -43,6 +43,7 @@
 #include <kcombobox.h>
 #include <kdatewidget.h>
 #include <klistbox.h>
+#include <klocale.h>
 #include <kmimetype.h>
 #include <knuminput.h>
 
@@ -116,8 +117,8 @@ void FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
 {
     Q_ASSERT(label);
     Q_ASSERT(widget);
-    if (label) label->setText(m_info.name(property) + ":");
-    describeWidget(widget, m_info.name(property),
+    if (label) label->setText(i18n(m_info.name(property)) + ":");
+    describeWidget(widget, i18n(m_info.name(property)),
                    m_info.description(property));
 }
 
@@ -483,8 +484,8 @@ void FileInfoDialog::setupMiscellaneousTab()
     initInfoText(lblCommissioned, edCommissioned, INF_COMMISSIONED);
 
     /* list of keywords */
-    lblKeywords->setText(m_info.name(INF_KEYWORDS));
-    QWhatsThis::add(lstKeywords, "<b>"+m_info.name(INF_KEYWORDS)+
+    lblKeywords->setText(i18n(m_info.name(INF_KEYWORDS)));
+    QWhatsThis::add(lstKeywords, "<b>" + i18n(m_info.name(INF_KEYWORDS)) +
         "</b><br>"+m_info.description(INF_KEYWORDS));
     if (m_info.contains(INF_KEYWORDS)) {
 	QString keywords = QVariant(m_info.get(INF_KEYWORDS)).toString();

@@ -77,6 +77,12 @@ typedef enum {
     INF_VERSION              /**< version/remix */
 } FileProperty;
 
+/** increment operator for FileProperty */
+static inline FileProperty operator ++ (FileProperty &prop) {
+    prop = static_cast<FileProperty>(static_cast<unsigned int>(prop) + 1);
+    return prop;
+};
+
 /**
  * @class FileInfo
  * Holds various properties of a file.
@@ -187,6 +193,9 @@ public:
 	return m_properties;
     };
 
+    /** Returns a list of all known non-standard properties */
+    QValueList<FileProperty> allKnownProperties();
+
     /** Clears the list of all properties. */
     void clear();
 
@@ -216,7 +225,11 @@ private:
     class PropertyTypesMap: public TypesMap<FileProperty, int>
     {
     public:
-        virtual void fill();
+	/** fills the list with */
+	virtual void fill();
+
+	/** returns a list of all properties */
+	virtual QValueList<FileProperty> all();
     };
 
     /** map with properties and their names and descriptions */

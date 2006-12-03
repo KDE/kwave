@@ -330,7 +330,7 @@ int SignalManager::save(const KURL &url, bool selection)
 		qWarning("SignalManager::save(): unsupported property '%s'",
 		    m_file_info.name(it.key()).data());
 		all_supported = false;
-		lost_properties += m_file_info.name(it.key()) + "\n";
+		lost_properties += i18n(m_file_info.name(it.key())) + "\n";
 	    }
 	}
 	if (!all_supported) {

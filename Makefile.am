@@ -89,7 +89,7 @@ version-labels:
 package-messages: all
 	rm -f po/*.gmo
 	(cd kwave ; ${MAKE} menus_config_i18n.cpp )
-	@XGETTEXT@ -C -ki18n -x @KDE_POT_FILE@ \
+	@XGETTEXT@ -C -ki18n -ktr2i18n -kI18N_NOOP -x @KDE_POT_FILE@ \
 	`find . -name \*.h -o -name \*.cpp` -o $(srcdir)/po/${PACKAGE}.pot
 	(cd po ; ${MAKE} merge )
 

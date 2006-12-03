@@ -172,6 +172,22 @@ public:
 	return names;
     };
 
+    /**
+     * Returns a list with all keys
+     */
+    QValueList<IDX> allKeys()
+    {
+	IDX it = IDX(0);
+	unsigned int cnt = count();
+	QValueList<IDX> keys;
+	while (cnt--) {
+	    IDX key = it;
+	    keys.append(key);
+	    ++it;
+	}
+	return keys;
+    };
+
 private:
     /** map with index and triples of data, name and description */
     TripleMap m_list;

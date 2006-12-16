@@ -331,8 +331,10 @@ int RecordALSA::initialize()
     if (!m_handle) return -EBADF; // file not opened
 
     // close the device if it was previously open
+
+    /* caused SIGSEGV on my system for some dubious reason !?
+    snd_pcm_reset(m_handle); */
     snd_pcm_drop(m_handle);
-    snd_pcm_reset(m_handle);
 
     err = snd_output_stdio_attach(&output, stderr, 0);
     if (err < 0) {

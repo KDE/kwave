@@ -124,11 +124,17 @@ SwapFile *SwapFile::resize(size_t size)
 
     // resize the file
     //  qDebug("SwapFile::resize(%u)", size);
-    if (lseek(m_file.handle(), size, SEEK_SET) > 0) {
-	ftruncate(m_file.handle(), size);
+    m_file.at(size-1);
+    if (m_file.at() == size-1) {
+	if (size > m_size) {
+	    // growing: mark the new "last byte"
+	    m_file.putch(0);
+	} else {
+	    // shrinking: only truncate the file
+	    m_file.flush();
+	    ftruncate(m_file.handle(), size);
+	}
 
-	static char dummy = 0;
-	write(m_file.handle(), &dummy, 1);
 	m_size = size;
     } else {
 	qWarning("SwapFile::resize(): seek failed. DISK FULL !?");

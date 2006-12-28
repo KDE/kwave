@@ -156,7 +156,7 @@ private:
 
     /**
      * Expands the cache to hold less samples per entry. As this
-     * process looses accuracy, the cache must be "polished" in
+     * process loses accuracy, the cache must be "polished" in
      * a second step.
      */
     void scaleDown();

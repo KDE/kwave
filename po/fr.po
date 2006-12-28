@@ -758,7 +758,7 @@ msgstr "Le signal est vide, il n'y a rien à enregistrer !"
 
 #: kwave/SignalManager.cpp:339
 msgid ""
-"Saving in this format will loose the following additional file attribute"
+"Saving in this format will lose the following additional file attribute"
 "(s):\n"
 "%1\n"
 "Do you still want to continue?"

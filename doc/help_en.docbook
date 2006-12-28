@@ -2441,7 +2441,7 @@
     <para>Unsigned Format</para>
     <para>
 	As the
-	quantisation looses some accuracy, it produces noise, the so-called
+	quantisation loses some accuracy, it produces noise, the so-called
 	<emphasis>quantisation noise</emphasis>. That kind of noise has more effect
 	on low amplitudes, so this method of storing samples is not optimal, but
 	quite easy and very fast to handle (computers are fast in calculating with
@@ -2534,7 +2534,7 @@
 	If you set the limit too high, Linux will take memory from other
 	applications, which means that it swaps out memory of other programs
 	to the harddisk (swap), which is rather slow. If you set the limit
-	too low, you might loose some performance when working with big files,
+	too low, you might lose some performance when working with big files,
 	because you use less of the fast physical memory than you could.
     </para>
     <para>
@@ -3102,7 +3102,7 @@
 	within an audio file. It tries to import and export as much of
 	these informations as possible. For example, if you import an
 	MP3 file with ID3 tags, you can keep those informations when
-	exporting to a Wave file. If &kapp; would loose meta information
+	exporting to a Wave file. If &kapp; would lose meta information
 	when saving, it shows a warning.
     </para>
     <para>

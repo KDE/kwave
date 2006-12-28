@@ -316,7 +316,7 @@ int SignalManager::save(const KURL &url, bool selection)
 	// maybe we now have a new mime type
 	m_file_info.set(INF_MIMETYPE, mimetype_name);
 
-	// check if we loose information and ask the user if this would
+	// check if we lose information and ask the user if this would
 	// be acceptable if so
 	QValueList<FileProperty> supported = encoder->supportedProperties();
 	QMap<FileProperty, QVariant> properties(m_file_info.properties());
@@ -336,7 +336,7 @@ int SignalManager::save(const KURL &url, bool selection)
 	if (!all_supported) {
 	    // show a warning to the user and ask him if he wants to continue
 	    if (KMessageBox::warningContinueCancel(m_parent_widget,
-		i18n("Saving in this format will loose the following "
+		i18n("Saving in this format will lose the following "
 		     "additional file attribute(s):\n"
 		     "%1\n"
 		     "Do you still want to continue?").arg(

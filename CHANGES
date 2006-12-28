@@ -4,6 +4,7 @@
    the dsnoop plugin
  * bugfix: error in swap file handling, one sample was destroyed
    when resizing. Affects cut, delete, crop and many other functions.
+ * fixed the incorrect usage of the word "loose" (thanks to J.T. Hundley)
 
 0.7.7 [2006-09-17]
  * new feature: implemented a small widget that shows the current

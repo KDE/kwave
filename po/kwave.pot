@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-10 09:36+0200\n"
+"POT-Creation-Date: 2006-12-31 10:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,7 +105,7 @@ msgstr ""
 msgid "&Crop"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:38 kwave/SignalWidget.cpp:925
+#: kwave/menus_config_i18n.cpp:38 kwave/SignalWidget.cpp:927
 msgid "Cu&t"
 msgstr ""
 
@@ -460,26 +460,26 @@ msgstr ""
 msgid "(unknown)"
 msgstr ""
 
-#: kwave/PluginManager.cpp:776
+#: kwave/PluginManager.cpp:780
 #, c-format
 msgid "%16s %5s written by %s"
 msgstr ""
 
-#: kwave/PluginManager.cpp:780
+#: kwave/PluginManager.cpp:784
 #, c-format
 msgid ""
 "error in '%s':\n"
 "\t %s"
 msgstr ""
 
-#: kwave/PluginManager.cpp:785
+#: kwave/PluginManager.cpp:789
 #, c-format
 msgid ""
 "--- \n"
 " found %d plugins\n"
 msgstr ""
 
-#: kwave/UndoModifyLabelAction.cpp:51 kwave/SignalWidget.cpp:1805
+#: kwave/UndoModifyLabelAction.cpp:51 kwave/SignalWidget.cpp:1788
 msgid "modify label"
 msgstr ""
 
@@ -503,58 +503,62 @@ msgstr ""
 msgid "modify samples"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:422 kwave/SignalWidget.cpp:1842
-#: kwave/SignalWidget.cpp:1876 plugins/record/RecordPlugin.cpp:807
+#: kwave/SignalWidget.cpp:424 kwave/SignalWidget.cpp:1825
+#: kwave/SignalWidget.cpp:1859 plugins/record/RecordPlugin.cpp:807
 #: plugins/record/RecordPlugin.cpp:825 plugins/record/RecordPlugin.cpp:882
 msgid "Out of memory"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:425 plugins/playback/PlayBackPlugin.cpp:438
+#: kwave/SignalWidget.cpp:427 plugins/playback/PlayBackPlugin.cpp:438
 msgid "unable to open '%1'"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:429
+#: kwave/SignalWidget.cpp:431
 msgid "invalid or unknown file type: '%1'"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:941
+#: kwave/SignalWidget.cpp:943
 msgid "&New"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:972
+#: kwave/SignalWidget.cpp:974
 msgid "&Save selection..."
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1318 kwave/UndoSelection.cpp:39
+#: kwave/SignalWidget.cpp:1320 kwave/UndoSelection.cpp:39
 msgid "selection"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1346
+#: kwave/SignalWidget.cpp:1348
 msgid "label #%1"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1348
+#: kwave/SignalWidget.cpp:1350
 msgid " (%1)"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1356
+#: kwave/SignalWidget.cpp:1358
 msgid "selection, left border"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1360
+#: kwave/SignalWidget.cpp:1362
 msgid "selection, right border"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1850 kwave/UndoAddLabelAction.cpp:42
+#: kwave/SignalWidget.cpp:1833 kwave/UndoAddLabelAction.cpp:41
 msgid "add label"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1902 kwave/UndoDeleteLabelAction.cpp:44
+#: kwave/SignalWidget.cpp:1884 kwave/UndoDeleteLabelAction.cpp:44
 msgid "delete label"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:2439 kwave/SignalWidget.cpp:2478
+#: kwave/SignalWidget.cpp:2407 kwave/SignalWidget.cpp:2446
 msgid "drag and drop"
+msgstr ""
+
+#: kwave/main.cpp:39
+msgid "List of wav files."
 msgstr ""
 
 #: kwave/main.cpp:60
@@ -772,11 +776,11 @@ msgstr ""
 msgid " (modified)"
 msgstr ""
 
-#: kwave/CodecManager.cpp:205
+#: kwave/CodecManager.cpp:212
 msgid "All Files"
 msgstr ""
 
-#: kwave/CodecManager.cpp:206
+#: kwave/CodecManager.cpp:213
 msgid "All Supported Files"
 msgstr ""
 
@@ -786,8 +790,7 @@ msgstr ""
 
 #: kwave/SignalManager.cpp:339
 msgid ""
-"Saving in this format will lose the following additional file attribute"
-"(s):\n"
+"Saving in this format will lose the following additional file attribute(s):\n"
 "%1\n"
 "Do you still want to continue?"
 msgstr ""
@@ -841,7 +844,7 @@ msgid "frmLength"
 msgstr ""
 
 #: libgui/SelectTimeWidgetBase.uic.cpp:214
-#: plugins/fileinfo/FileInfoDialog.cpp:213
+#: plugins/fileinfo/FileInfoDialog.cpp:214
 #: plugins/newsignal/NewSigDlg.uic.cpp:317
 msgid "Length"
 msgstr ""
@@ -1105,21 +1108,21 @@ msgstr ""
 msgid "every 2nd Point"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:29
+#: libkwave/FileInfo.cpp:35
 msgid "Album"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:30
+#: libkwave/FileInfo.cpp:36
 msgid ""
 "Name of the album if the source is an album\n"
 "that consist of more medias."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:33
+#: libkwave/FileInfo.cpp:39
 msgid "Annotation"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:34
+#: libkwave/FileInfo.cpp:40
 msgid ""
 "Provides general comments about the file or the subject of \n"
 "the file. If the comment is several sentences long, end \n"
@@ -1127,74 +1130,74 @@ msgid ""
 "characters!"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:39
+#: libkwave/FileInfo.cpp:45
 msgid "Archival location"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:40
+#: libkwave/FileInfo.cpp:46
 msgid "Indicates where the subject of the file is archived."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:42
+#: libkwave/FileInfo.cpp:48
 msgid "Author"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:43
+#: libkwave/FileInfo.cpp:49
 msgid ""
 "Identifies the name of the author of the original\n"
 "subject of the file.\n"
 "Example: 'van Beethoven, Ludwig'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:47
+#: libkwave/FileInfo.cpp:53
 msgid "Lower Bitrate"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:48
+#: libkwave/FileInfo.cpp:54
 msgid "Specifies the lower limit in a VBR bitstream."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:50
+#: libkwave/FileInfo.cpp:56
 msgid "Bitrate"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:51
+#: libkwave/FileInfo.cpp:57
 msgid "Nominal bitrate of the audio stream in bits per second"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:53
+#: libkwave/FileInfo.cpp:59
 msgid "Upper Bitrate"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:54
+#: libkwave/FileInfo.cpp:60
 msgid "Specifies the upper limit in a VBR bitstream."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:56
+#: libkwave/FileInfo.cpp:62
 msgid "CD"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:57
+#: libkwave/FileInfo.cpp:63
 msgid ""
 "Number of the CD, if the source is \n"
 "an album of more CDROMs"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:59
+#: libkwave/FileInfo.cpp:65
 msgid "Commisioned"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:60
+#: libkwave/FileInfo.cpp:66
 msgid ""
 "Lists the name of the person or organization\n"
 "that commissioned the subject of the file."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:63
+#: libkwave/FileInfo.cpp:69
 msgid "Comments"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:64
+#: libkwave/FileInfo.cpp:70
 msgid ""
 "Provides general comments about the file or the subject of\n"
 "the file. If the comment is several sentences long, end\n"
@@ -1202,32 +1205,32 @@ msgid ""
 "characters!"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:69 plugins/fileinfo/FileInfoDlg.uic.cpp:771
+#: libkwave/FileInfo.cpp:75 plugins/fileinfo/FileInfoDlg.uic.cpp:771
 msgid "Compression"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:70
+#: libkwave/FileInfo.cpp:76
 msgid ""
 "Sets a mode for compressing the audio\n"
 "data to reduce disk space."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:73
+#: libkwave/FileInfo.cpp:79
 msgid "Contact"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:74
+#: libkwave/FileInfo.cpp:80
 msgid ""
 "Contact information for the creators or distributors of\n"
 "the track. This could be a URL, an email address, the\n"
 "physical address of the producing label."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:78
+#: libkwave/FileInfo.cpp:84
 msgid "Copyright"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:79
+#: libkwave/FileInfo.cpp:85
 msgid ""
 "Records the copyright information for the file. If there are\n"
 "multiple copyrights, separate them by a semicolon followed\n"
@@ -1235,87 +1238,87 @@ msgid ""
 "Example: 'Copyright Linux community 2002'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:84
+#: libkwave/FileInfo.cpp:90
 msgid "Copyrighted"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:85
+#: libkwave/FileInfo.cpp:91
 msgid "Indicates whether the file is protected by copyright or not."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:88
+#: libkwave/FileInfo.cpp:94
 msgid "Date"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:89
+#: libkwave/FileInfo.cpp:95
 msgid ""
 "Specifies the date the subject of the file was created. \n"
 "Example: '2001-12-24'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:92
+#: libkwave/FileInfo.cpp:98
 msgid "Engineer"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:93
+#: libkwave/FileInfo.cpp:99
 msgid ""
 "Shows the name of the engineer who worked on the file.\n"
 "If there are multiple engineers, separate the names by\n"
 "a semicolon and a blank."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:97
+#: libkwave/FileInfo.cpp:103
 msgid "Filename"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:98
+#: libkwave/FileInfo.cpp:104
 msgid "Name of the opened file"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:100
+#: libkwave/FileInfo.cpp:106
 msgid "File Size"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:101
+#: libkwave/FileInfo.cpp:107
 msgid "Size of the file in bytes"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:103
+#: libkwave/FileInfo.cpp:109
 msgid "Genre"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:104
+#: libkwave/FileInfo.cpp:110
 msgid ""
 "Describes the genre or style of the original work.\n"
 "Examples: 'classic', 'pop'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:107
+#: libkwave/FileInfo.cpp:113
 msgid "ISRC"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:108
+#: libkwave/FileInfo.cpp:114
 msgid ""
 "ISRC number for the track; see the ISRC intro page\n"
 "for more information on ISRC numbers.\n"
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:112 plugins/fileinfo/KeywordWidgetBase.uic.cpp:79
+#: libkwave/FileInfo.cpp:118 plugins/fileinfo/KeywordWidgetBase.uic.cpp:79
 msgid "Keywords"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:113
+#: libkwave/FileInfo.cpp:119
 msgid ""
 "Provides a list of keywords that refer to the\n"
 "file or subject of the file."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:116
+#: libkwave/FileInfo.cpp:122
 msgid "License"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:117
+#: libkwave/FileInfo.cpp:123
 msgid ""
 "License information, eg, 'All Rights Reserved',\n"
 "'Any Use Permitted', a URL to a license or the\n"
@@ -1325,197 +1328,197 @@ msgid ""
 "for details'), etc."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:124
+#: libkwave/FileInfo.cpp:130
 msgid "Medium"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:125
+#: libkwave/FileInfo.cpp:131
 msgid ""
 "Describes the original subject of the file,\n"
 "where it was first recorded.\n"
 "Example: 'orchester'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:129
+#: libkwave/FileInfo.cpp:135
 msgid "Mime Type"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:130
+#: libkwave/FileInfo.cpp:136
 msgid "Mime type of the file format"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:132
+#: libkwave/FileInfo.cpp:138
 msgid "Emphasis"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:133
+#: libkwave/FileInfo.cpp:139
 msgid "Audio emphasis mode"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:135
+#: libkwave/FileInfo.cpp:141
 msgid "Layer"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:136
+#: libkwave/FileInfo.cpp:142
 msgid "MPEG Layer, I, II or III"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:138
+#: libkwave/FileInfo.cpp:144
 msgid "Mode Extension"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:139
+#: libkwave/FileInfo.cpp:145
 msgid "MPEG Mode Extension (only if Joint Stereo)"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:141 libkwave/FileInfo.cpp:202
+#: libkwave/FileInfo.cpp:147 libkwave/FileInfo.cpp:208
 msgid "Version"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:142
+#: libkwave/FileInfo.cpp:148
 msgid "MPEG Version, 1, 2 or 2.5"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:144
+#: libkwave/FileInfo.cpp:150
 msgid "Name"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:145
+#: libkwave/FileInfo.cpp:151
 msgid ""
 "Stores the title of the subject of the file.\n"
 "Example: 'Symphony No.6, Op.68 \"Pastoral\"'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:148
+#: libkwave/FileInfo.cpp:154
 msgid "Organization"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:149
+#: libkwave/FileInfo.cpp:155
 msgid ""
 "Name of the organization producing the track\n"
 "(i.e. the 'record label')"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:152
+#: libkwave/FileInfo.cpp:158
 msgid "Original"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:153
+#: libkwave/FileInfo.cpp:159
 msgid "Indicates whether the file is an original or a copy"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:155
+#: libkwave/FileInfo.cpp:161
 msgid "Performer"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:156
+#: libkwave/FileInfo.cpp:162
 msgid ""
 "The artist(s) who performed the work. In classical\n"
 "music this would be the conductor, orchestra, soloists.\n"
 "In an audio book it would be the actor who did the reading."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:160
+#: libkwave/FileInfo.cpp:166
 msgid "Private"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:161
+#: libkwave/FileInfo.cpp:167
 msgid "Indicates whether the subject is private"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:163
+#: libkwave/FileInfo.cpp:169
 msgid "Product"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:164
+#: libkwave/FileInfo.cpp:170
 msgid ""
 "Specifies the name or the title the file was\n"
 "originally intended for.\n"
 "Example: 'Linux audio collection'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:168
+#: libkwave/FileInfo.cpp:174
 msgid "Sample Format"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:169
+#: libkwave/FileInfo.cpp:175
 msgid ""
 "Format used for storing the digitized audio samples.\n"
 "Example: '32-bit IEEE floating-point'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:172
+#: libkwave/FileInfo.cpp:178
 msgid "Software"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:173
+#: libkwave/FileInfo.cpp:179
 msgid ""
 "Identifies the name of the software package\n"
 "used to create the file. \n"
 "Example: 'Kwave v0.6.4-1'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:177 plugins/fileinfo/FileInfoDlg.uic.cpp:841
+#: libkwave/FileInfo.cpp:183 plugins/fileinfo/FileInfoDlg.uic.cpp:841
 #: plugins/record/RecordDlg.uic.cpp:679 plugins/record/RecordDlg.uic.cpp:697
 msgid "Source"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:178
+#: libkwave/FileInfo.cpp:184
 msgid ""
 "Identifies the name of the person or organization\n"
 "who supplied the original subject of the file.\n"
 "Example: 'Chaotic Sound Research'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:182
+#: libkwave/FileInfo.cpp:188
 msgid "Source form"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:183
+#: libkwave/FileInfo.cpp:189
 msgid ""
 "Identifies the original form of the material\n"
 "that was digitized.\n"
 "Examples: 'Record/Vinyl/90RPM', 'Audio DAT', 'tape/CrO2/60min'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:188
+#: libkwave/FileInfo.cpp:194
 msgid "Subject"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:189
+#: libkwave/FileInfo.cpp:195
 msgid ""
 "Describes the subject of the file.\n"
 "Example: 'Bird voices at early morning'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:192
+#: libkwave/FileInfo.cpp:198
 msgid "Technican"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:193
+#: libkwave/FileInfo.cpp:199
 msgid ""
 "Identifies the technican who digitized the subject file. \n"
 "Example: 'Torvalds, Linus'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:196
+#: libkwave/FileInfo.cpp:202
 msgid "Track"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:197
+#: libkwave/FileInfo.cpp:203
 msgid "Track of the CD if the source was a CDROM."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:199
+#: libkwave/FileInfo.cpp:205
 #: plugins/fileinfo/CompressionWidgetBase.uic.cpp:173
 msgid "Base Quality"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:200
+#: libkwave/FileInfo.cpp:206
 msgid "Base quality of the compression in VBR mode"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:203
+#: libkwave/FileInfo.cpp:209
 msgid ""
 "May be used to differentiate multiple versions\n"
 "of the same track title in a single collection.\n"
@@ -2222,11 +2225,11 @@ msgstr ""
 msgid "applying '%1' ..."
 msgstr ""
 
-#: plugins/zero/ZeroPlugin.cpp:35
+#: plugins/zero/ZeroPlugin.cpp:38
 msgid "zero"
 msgstr ""
 
-#: plugins/zero/ZeroPlugin.cpp:41
+#: plugins/zero/ZeroPlugin.cpp:47
 msgid "silence"
 msgstr ""
 
@@ -2604,8 +2607,9 @@ msgstr ""
 msgid "codec_flac"
 msgstr ""
 
-#: plugins/codec_flac/FlacEncoder.cpp:205 plugins/codec_ogg/OggEncoder.cpp:245
-#: plugins/codec_wav/WavEncoder.cpp:121
+#: plugins/codec_flac/FlacEncoder.cpp:205
+#: plugins/codec_ascii/AsciiEncoder.cpp:85
+#: plugins/codec_ogg/OggEncoder.cpp:245 plugins/codec_wav/WavEncoder.cpp:121
 msgid "Unable to open the file for saving!"
 msgstr ""
 
@@ -2898,8 +2902,8 @@ msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:782
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:819
-#: plugins/fileinfo/FileInfoDialog.cpp:405
-#: plugins/fileinfo/FileInfoDialog.cpp:411
+#: plugins/fileinfo/FileInfoDialog.cpp:406
+#: plugins/fileinfo/FileInfoDialog.cpp:412
 msgid "yes"
 msgstr ""
 
@@ -3128,96 +3132,96 @@ msgstr ""
 msgid " %"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:147
+#: plugins/fileinfo/FileInfoDialog.cpp:148
 msgid "%1 bytes"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:149
+#: plugins/fileinfo/FileInfoDialog.cpp:150
 msgid "%1 kB (%2 byte)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:152
+#: plugins/fileinfo/FileInfoDialog.cpp:153
 msgid "%1 MB (%2 byte)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:183
+#: plugins/fileinfo/FileInfoDialog.cpp:184
 msgid "Sample Rate"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:186
+#: plugins/fileinfo/FileInfoDialog.cpp:187
 msgid ""
 "Here you can select one of the predefined\n"
 "well-known sample rates or you can enter\n"
 "any sample rate on your own."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:192
+#: plugins/fileinfo/FileInfoDialog.cpp:193
 msgid "Resolution"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:195
+#: plugins/fileinfo/FileInfoDialog.cpp:196
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:200
+#: plugins/fileinfo/FileInfoDialog.cpp:201
 msgid "Tracks"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:203
+#: plugins/fileinfo/FileInfoDialog.cpp:204
 msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:216
+#: plugins/fileinfo/FileInfoDialog.cpp:217
 msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:222
+#: plugins/fileinfo/FileInfoDialog.cpp:223
 msgid "%1 (%2 samples)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:226
+#: plugins/fileinfo/FileInfoDialog.cpp:227
 msgid "%2 samples"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:374
+#: plugins/fileinfo/FileInfoDialog.cpp:375
 msgid "bands 0 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:375
+#: plugins/fileinfo/FileInfoDialog.cpp:376
 msgid "bands 8 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:376
+#: plugins/fileinfo/FileInfoDialog.cpp:377
 msgid "bands 12 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:377
+#: plugins/fileinfo/FileInfoDialog.cpp:378
 msgid "bands 16 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:405
-#: plugins/fileinfo/FileInfoDialog.cpp:411
+#: plugins/fileinfo/FileInfoDialog.cpp:406
+#: plugins/fileinfo/FileInfoDialog.cpp:412
 msgid "no"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:520
+#: plugins/fileinfo/FileInfoDialog.cpp:521
 #: plugins/newsignal/NewSignalDialog.cpp:323
 msgid "(Mono)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:523
+#: plugins/fileinfo/FileInfoDialog.cpp:524
 #: plugins/playback/PlayBackDlg.uic.cpp:268
 #: plugins/newsignal/NewSignalDialog.cpp:326
 msgid "(Stereo)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:526
+#: plugins/fileinfo/FileInfoDialog.cpp:527
 #: plugins/newsignal/NewSignalDialog.cpp:329
 msgid "(Quadro)"
 msgstr ""
@@ -3240,6 +3244,18 @@ msgstr ""
 
 #: plugins/fileinfo/FileInfoPlugin.cpp:82
 msgid "&Set Rate"
+msgstr ""
+
+#: plugins/codec_ascii/AsciiCodecPlugin.cpp:33
+msgid "codec_ascii"
+msgstr ""
+
+#: plugins/codec_ascii/AsciiCodecPlugin.h:59
+msgid "ASCII encoded audio"
+msgstr ""
+
+#: plugins/codec_ascii/AsciiDecoder.cpp:95
+msgid "not implemented yet"
 msgstr ""
 
 #: plugins/selectrange/SelectRangeDialog.cpp:38
@@ -3747,23 +3763,23 @@ msgstr ""
 msgid "Any device (*)"
 msgstr ""
 
-#: plugins/record/Record-ALSA.cpp:1080 plugins/record/Record-ALSA.cpp:1094
+#: plugins/record/Record-ALSA.cpp:1082 plugins/record/Record-ALSA.cpp:1096
 #: plugins/playback/PlayBack-ALSA.cpp:829
 #: plugins/playback/PlayBack-ALSA.cpp:843
 msgid "card %1: "
 msgstr ""
 
-#: plugins/record/Record-ALSA.cpp:1082 plugins/record/Record-ALSA.cpp:1095
+#: plugins/record/Record-ALSA.cpp:1084 plugins/record/Record-ALSA.cpp:1097
 #: plugins/playback/PlayBack-ALSA.cpp:831
 #: plugins/playback/PlayBack-ALSA.cpp:844
 msgid "device %2: "
 msgstr ""
 
-#: plugins/record/Record-ALSA.cpp:1084 plugins/playback/PlayBack-ALSA.cpp:833
+#: plugins/record/Record-ALSA.cpp:1086 plugins/playback/PlayBack-ALSA.cpp:833
 msgid "subdevice %3: "
 msgstr ""
 
-#: plugins/record/Record-ALSA.cpp:1113
+#: plugins/record/Record-ALSA.cpp:1115
 msgid "DSNOOP plugin"
 msgstr ""
 

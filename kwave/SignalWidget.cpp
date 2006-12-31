@@ -296,8 +296,11 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
     CASE_COMMAND("selectall")
 	selectRange(0, m_signal_manager.length());
     CASE_COMMAND("selectnext")
-	selectRange(m_signal_manager.selection().last()+1,
-	            m_signal_manager.selection().length());
+	if (m_signal_manager.selection().length())
+	    selectRange(m_signal_manager.selection().last()+1,
+	                m_signal_manager.selection().length());
+	else
+	    selectRange(m_signal_manager.length() - 1, 0);
     CASE_COMMAND("selectprev")
 	unsigned int ofs = m_signal_manager.selection().first();
 	unsigned int len = m_signal_manager.selection().length();

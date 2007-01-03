@@ -102,10 +102,6 @@ void addDataStrings(KAboutData& aboutdata)
                      i18n("packaging for SuSE Linux"),
                      "arzolacub@gmx.de",
                      0);
-    aboutdata.addCredit("Michael Favreau",
-                     i18n("packaging for Arch Linux"),
-                     "michel.favreau@free.fr",
-                     0);
     aboutdata.addCredit("Diederick de Vries",
                      i18n("packaging for Crux Linux"),
                      "diederick76@gmail.com",

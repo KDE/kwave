@@ -1,0 +1,25 @@
+/***************************************************************************
+    synth_notch_filter.idl  -  aRts plugin for a notch filter, IDL interface
+                             -------------------
+    begin                : Thu Jun 19 2003
+    copyright            : (C) 2003 by Dave Flogeras
+    email                : d.flogeras@unb.ca
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+#include <artsflow.idl>
+
+interface Synth_NOTCH_FILTER : Arts::SynthModule {
+	attribute float bw, frequency;
+	in audio stream invalue;
+	out audio stream outvalue;
+};
+

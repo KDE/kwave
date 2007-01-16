@@ -1,0 +1,174 @@
+
+o get rid of aRts
+
+o use KDEMM instead of aRts as soon as it is available
+
+o use LADSPA
+
+o automatic defragmentation of stripes
+
+o support for sample rate conversion, libsamplerate
+
+o use the host's native libaudiofile. current state:
+	SuSE	-> builtin
+	Gentoo	-> native
+	Debian	-> native
+	Crux	-> native
+
+o fix compiler warnings in MP3 decoder (since gcc-4.1)
+
+o ALSA record/playback: also detect devices configured in the .asoundrc,
+  and not only hardware devices
+
+o find a better solution for deadlock when closing the current file while
+  a plugin is still running, instead of refusing the request to close
+
+o crashes at startup when no aRts server can be connected
+  (only seen on Mandrake-9, v0.7.3 or earlier?)
+
+o replace "AF_SAMPFMT_xxx" with enum "SampleFormat::yyy" in WavEncoder.cpp,
+  WavDecoder.cpp and PlayBack-OSS.cpp
+
+o more precise handling of the playback pointer
+  -> use the delay information from aRts
+
+o function for "Edit/Selection/Insert at..." or a "goto position" function
+
+o hourglass and process indicators for longer processes
+  -> use a progress bar/dialog with a "Cancel" button and make it a modal
+     window -> maybe this solves the problem with the deadlock when closing
+     the file while a plugin is still running...
+
+o ruler that shows the current cursor position as time
+
+o display of the current position in playback mode
+
+o audible/silent mode of tracks (speakers)
+  speaker controls for "audible" mode
+
+o dithering/noise shaping when loading/saving
+
+o abillity to set recording start and stop times in advance
+  (feature requested by John David Thompson, 2006-12-20)
+
+o volume plugin: show a little "overview" for guessing the level
+
+o volume plugin: implement a "normalize to maximum" button
+
+o auto-detect pause and set markers, for splitting recorded stuff into several
+  parts and then save them to disc as separate files
+  (feature requested by Stefan Macher)
+
+o virtual memory: multiple swap directories
+
+o change from id3lib to taglib
+
+o install a new_handler() for cases in which we run out of memory
+
+o move undo classes into libkwave
+
+o move KwavePlugin from libgui to libkwave
+
+o implementation of locking, see SampleLock
+
+o open file dialog: add a preview widget that shows info about the file
+  and maybe has "playback/pause/stop" buttons
+
+o fast playback mode, playback with facor 1.5x, 3x, 5x, 7x...
+  -> look how noatun does that...
+
+o support for compressed wav files, like those found on www.montypython.net
+  -> MPEG 3 is still not supported by libaudiofile
+
+o TrackPixmap: implement usage of "extra_samples" for interpolated mode
+
+o support for Spex codec: http://www.speex.org/
+
+o fileinfo plugin: auto-generate filename from "track - title"
+
+o Filter: class needs to be tested
+
+o MainWidget: re-enable accelerator keys for 0..9
+
+o use a MenuManager in the plugins (e.g. sonagram)
+
+o resample signal before inserting into a signal with a different sample
+  rate (when doing copy/paste)
+
+o optimized cut/paste, at zero-crossing
+
+o amplifymax does not work
+  -> normalizer ?
+
+o amplifyclip does not work
+  -> gstreamer/LADSPA ?
+
+o feature "pulse train" is not yet implemented
+  -> gstreamer/LADSPA ?
+
+o SignalProxy1 implementation is very inefficient for simple data types
+  like bool, char, int etc. Uses too much new/delete.
+
+o check at program startup: does the help directory exist? If not, show
+  a message and make a symbolic link
+
+o document how to do an optimized build, for example:
+  make -f Makefile.dist RPM_OPT_FLAGS="-march=athlon-xp -mcpu=athlon-xp \
+  -O4 -Wall -pipe -DQT_CLEAN_NAMESPACE -DQT_NO_COMPAT -DQT_NO_TRANSLATION"
+
+o speed up MP3 import by blockwise operation
+
+o storage/handling of extra info "labels", "cue list"...
+
+o SonagramWindow::toSignal()
+
+o rework of the FFTWidget
+
+o bugfix: crash on "additive synthesis"
+  -> gstreamer/LADSPA ?
+
+o some commands do not work: fft, averagefft, distort
+  -> gstreamer/LADSPA ?
+
+o bugfix: channel mixer dialog causes segmentation fault -> disabled
+  -> gstreamer/LADSPA ?
+
+o use standard KDE accelerators (see KStdAccel)
+
+o import of multi-channel ASCII files
+
+o vertical zoom, maybe with right mouse button or zoom tool
+
+o use namespace "Kwave" for all Kwave components
+
+o splitting of i18n for kwave and each plugin
+
+o use the KDE's clipboard
+
+o support for KDE's session management
+
+o fix bug in Fx->Periodic Silence (segmentation fault)
+
+o macro recorder
+
+o navigation buttons on the overview widget
+
+o use MemoryManager for undo actions
+
+o user selectable color scheme
+  (feature requested by John David Thompson, 2006-12-20)
+
+o problem with SignalWidget / XOR mode, fails on Nvidia
+  -> vanished since last update, but keep this point as a reminder...
+
+o switch to use float as sample_t (requires much work...)
+
+o watch for new versions of Qt. maybe the Qt bug with submenues mentioned
+  in libgui/MenuSub.cpp disappears somewhere in future...
+
+o figure out how to work with exceptions:
+  - works if ALL libraries use rtti and we compile with -frtti
+  - does never work with --no-rtti
+  - the program doesn't link under RedHat with -frtti
+  => no rtti and no exceptions :-(
+

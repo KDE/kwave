@@ -1,0 +1,64 @@
+#!/bin/sh
+############################################################################
+#        beautify-source  -  adjust coding style to the one of Kwave
+#                            -------------------
+#   begin                : Fri May 05 2000
+#   copyright            : (C) 2000 by Thomas Eschenbacher
+#   email                : Thomas.Eschenbacher@gmx.de
+############################################################################
+#
+############################################################################
+#                                                                          #
+#    This program is free software; you can redistribute it and/or modify  #
+#    it under the terms of the GNU General Public License as published by  #
+#    the Free Software Foundation; either version 2 of the License, or     #
+#    (at your option) any later version.                                   #
+#                                                                          #
+############################################################################
+#
+# Beautifies all C/C++ header and source files according to my
+# personally favorite coding style. It makes use of the "Artistic Style"
+# package available at "http://astyle.sourceforge.net/"
+# or as rpm named "astyle"
+#
+# Thanks to Tal Davidson, Israel (E-mail: davidsont@bigfoot.com)
+# for writing it :-)
+#
+
+function Format_File() {
+    echo indenting $1
+    cat $1 | expand | astyle \
+	--style=kr \
+	--mode=c \
+	--brackets=attach \
+	--pad=oper \
+	--indent-switches \
+	--indent-cases \
+	--min-conditional=0 \
+	--max-instatement-indent=4 \
+	--indent=spaces=4  \
+	> /tmp/indent 2>/dev/null
+    cat /tmp/indent | unexpand > $1
+
+
+};
+
+#
+# uncomment the 7 lines below if your source comes from
+# a DOS / Windooze environment...
+#
+# for file in `find -type f | grep -E .S$\|.s$\|.cpp$\|.c$\|.h$\|?akefile\|.orig$`; do
+# {
+#     echo converting $file
+#     /usr/bin/recode --silent ibmpc:lat1 $file
+# };
+# done
+
+for file in `find . -name \*.cpp -o -name \*.h`; do
+{
+    Format_File $file
+};
+done
+
+exit 0
+

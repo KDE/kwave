@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=MimeType
+Comment=Compressed Audio Interchange Format
+Comment[de]=Compressed Audio Interchange Format
+Comment[fr]=Format audio compressé Interchange
+MimeType=audio/x-ircam
+Icon=sound
+Patterns=*.sf;*.SF

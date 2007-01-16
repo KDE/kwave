@@ -1,0 +1,34 @@
+/* XPM */
+/* Drawn  by Mark Donohoe for the K Desktop Environment */
+/* See http://www.kde.org */
+static const char *xpm_zoomrange[]={
+"22 22 6 1",
+"# c #000000",
+"c c #a0a0a4",
+"a c #dcdcdc",
+"b c #ffffff",
+"x c #7f7f7f",
+". c None",
+"......................",
+".xxxxxxx......xxxxxxx.",
+".xbbbbbx......xbbbbbx.",
+".xbxxxxx......xxxxxbx.",
+".xbx..............xbx.",
+".xbx...####.......xbx.",
+".xbx..#abba#......xbx.",
+".xbx.#abcbba#.....xbx.",
+".xbx.#bcbbbb#.....xbx.",
+".xbx.#bbbbbb#.....xbx.",
+".xbx.#abbbba#.....xbx.",
+".xbx..#abba##.....xbx.",
+".xbx...#######....xbx.",
+".xbx........###...xbx.",
+".xbx.........###..xbx.",
+".xbx..........###.xbx.",
+".xbx...........##.xbx.",
+".xbx..............xbx.",
+".xbxxxxx......xxxxxbx.",
+".xbbbbbx......xbbbbbx.",
+".xxxxxxx......xxxxxxx.",
+"......................"};
+

@@ -1,0 +1,119 @@
+/***************************************************************************
+         AUTHORS  -  list of authors and contributors of Kwave
+                             -------------------
+    begin                : Sat Nov 26 2005
+    copyright            : (C) 2005 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+This is the list of people who have contributed code to the Kwave
+project. If you think that you should be listed here, or the
+description of what you have done needs is incorrect or incomplete,
+please let us know!
+
+Developers
+==========
+
+Martin Wilz <martin@wilz.de>
+	* creator of the project, active development 1998-2000
+
+Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+	* maintainer since 2000, core development
+
+Contributors
+============
+
+Ralf Waspe <rwaspe@web.de>
+	* Help/About dialog
+
+Gilles Caulier <caulier.gilles@free.fr>
+	* french translations
+	* splashscreen
+	* tests and minor bugfixes
+
+Dave Flogeras <d.flogeras@unb.ca>
+	* notch filter plugin
+
+Sven-Steffen Arndt <ssa29@gmx.de>
+	* Kwave homepage
+	* german online help
+
+Aurelien Jarno <aurel32@debian.org>
+	* debian packager
+
+Robert M. Stockmann <stock@stokkie.net>
+	* packaging for Mandrake / X86_64
+
+Others, authors and copyright holders
+=====================================
+
+Stefan Westerfeld <stefan@space.twc.de>
+	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed.idl
+	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h
+
+Mark Donohoe (KDE) <donohoe@kde.org>
+	* some icons and bitmaps for toolbar and GUI
+
+Christopher R. Gabriel <cgabriel@linux.it>
+	* admin/gsl.m4
+
+Noah Friedman <friedman@prep.ai.mit.edu>
+	* admin/mkinstalldirs
+
+H. Dietz (mmx.h)
+R. Fisher (mmx.h)
+Fabrice Bellard (extracted)
+	* libkwave/cputest.c
+
+Paul Mackerras <paulus@samba.org>
+	* libkwave/ppcasm_string.h
+	* libkwave/ppcasm_string.S
+	* libkwave/ppc_asm.tmpl
+
+Oliver M. Kellogg <Oliver.Kellogg@vs.dasa.de>
+	* mt/Asynchronous_Object.h
+	* mt/Thread.cpp
+
+Brian Theodore <theodore@std.saic.com>
+	* mt/AsyncSync.cpp
+	* mt/AsyncSync.h
+
+Juhana Sadeharju <kouhia@nic.funet.fi>
+	* plugins/{lowpass,notch_filter}/c_filter_stuff.c
+
+Matthias Kretz + Arnold Krille
+	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed.idl
+
+Jeff Tranter
+	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h
+
+Jaroslav Kysela
+	* parts of plugins/playback/PlayBack-ALSA.cpp
+
+Rik Hemsley
+	* plugins/record/LevelMeter.cpp
+	* plugins/record/LevelMeter.h
+
+Stichting Mathematisch Centrum, Amsterdam
+	* libaudiofile/modules/adpcm.c
+
+Sun Microsystems, Inc.
+	* libaudiofile/g711.c
+	* libaudiofile/g711.h
+
+Malcolm Slaney and Ken Turkowski, Apple Computer, Inc.
+	* libaudiofile/extended.c
+
+Miguel Freitas
+	* parts of libkwave/memcpy.c
+
+### EOF ###

@@ -1,0 +1,139 @@
+############################################################################
+#    Kwave                - Makefile.dist
+#			     -------------------
+#    begin                : Sat Nov 11 2001
+#    copyright            : (C) 2000 by Thomas Eschenbacher
+#    email                : Thomas.Eschenbacher@gmx.de
+############################################################################
+
+############################################################################
+#                                                                          #
+#    This program is free software; you can redistribute it and/or modify  #
+#    it under the terms of the GNU General Public License as published by  #
+#    the Free Software Foundation; either version 2 of the License, or     #
+#    (at your option) any later version.                                   #
+#                                                                          #
+############################################################################
+
+#
+# >>> This is the Makefile you should use if you downloaded the <<<
+# >>> source distribution or checked out from CVS.              <<<
+#
+# just type:
+# make -f Makefile.dist
+
+.PHONY: all all-logged
+
+KDEBINDIRS=$(shell echo ${KDEDIRS}: | sed s-::-:-g | sed s-:-/bin/:-g )
+
+#
+# some extra paths, for guessing under different distributions
+#
+
+# SuSE
+KDEBINDIRS      := $(KDEBINDIRS)":/opt/kde*/bin"
+
+# Gentoo
+KDEBINDIRS      := $(KDEBINDIRS)":/usr/kde/*/bin"
+
+# RedHat/Mandrake
+KDEBINDIRS      := $(KDEBINDIRS)":/usr/bin"
+
+KDEDIR=$(shell PATH=${KDEBINDIRS}:${PATH} kde-config --prefix | sed s./$$..g)
+
+KDEQTVER=$(shell PATH=${KDEBINDIRS}:${PATH} kde-config --version | grep "Qt:" | \
+	cut -d ":" -f 2 | sed s-^\ --g)
+QTDIRVER=$(shell cat ${QTDIR}/include/qglobal.h 2>/dev/null | \
+	grep "\#define" | grep "QT_VERSION_STR" | \
+	cut -d \" -f 2 )
+
+default: all
+
+logged:
+	@ (PATH=${KDEBINDIRS}:${PATH} kde-config 2>/dev/null) || ( \
+	    echo "----------------------------------------";\
+	    echo ""; \
+	    echo "";\
+	    echo "sorry, but I cannot detect your KDE base directory."; \
+	    echo "";\
+	    echo "please make sure that either";\
+	    echo "";\
+	    echo -n "- the environment variable KDEDIRS is set and contains ";\
+	    echo      "your KDE directory," ; \
+	    echo "  (current setting: KDEDIRS=${KDEDIRS})";\
+	    echo "";\
+	    echo "- the program 'kde-config' is in your PATH";\
+	    echo "  (current setting: PATH=${PATH})";\
+	    echo -n "  calling 'kde-config --prefix' currently returns: "; \
+	    kde-config || true; \
+	    echo "";\
+	    echo "- you have at least KDE version 3.1.x";\
+	    echo "";\
+	    echo "----------------------------------------";\
+	    echo "";\
+	    exit -1; \
+	);
+	@ -rm -f config.h
+	@ -rm -f config.cache
+	@ -rm -f config.status
+	@ -rm -f `find . -name Makefile.in -o -name Makefile`
+	@ -rm -Rf `find . -name \.deps -o -name .depend`
+	@ -rm -f KDE-VERSION QT-DIR
+	@ -touch -c doc/help_{de,fr}.po      2>/dev/null 1>/dev/null
+	@ -touch -c doc/help_{de,fr}.docbook 2>/dev/null 1>/dev/null
+	@ echo "" ; echo "your system uses:"
+	@ PATH=${KDEBINDIRS}:${PATH} kde-config --version
+	@ echo ""
+	@ rm -f ./QT-DIR;
+	@ echo "${QTDIR}" > ./QT-DIR
+	@ echo "QTDIR=${QTDIR}"
+	@ if test -f ${QTDIR}/include/qglobal.h ; then { \
+	    if test "${QTDIRVER}" \< "${KDEQTVER}"; then { \
+		echo "QTDIR is set and seems to contain Qt version ${QTDIRVER}"; \
+		echo "this does not match your KDE's Qt version: ${KDEQTVER}"; \
+		echo ">>> forcing QTDIR=\"\" <<<"; \
+		rm -f ./QT-DIR; \
+		echo "" > ./QT-DIR; \
+		echo ""; \
+		echo "if your build fails, please verify that your QTDIR "; \
+		echo "environment variable is pointing to the correct "; \
+		echo "directory and try again."; \
+		sleep 5; \
+		echo ""; \
+	    } fi \
+	} fi
+	@ for dir in . ; do { \
+		cd $$dir; \
+		export WANT_AUTOMAKE_1_7=1  ; \
+		export WANT_AUTOCONF_2_5=1  ; \
+		export WANT_AUTOMAKE=1.7    ; \
+		export WANT_AUTOCONF=2.5    ; \
+		libtoolize --force --copy --automake ; \
+		aclocal -I ./admin; \
+		autoheader${AUTOCONF_SUFFIX} ; \
+		automake --foreign --add-missing --copy --include-deps ; \
+		autoconf${AUTOCONF_SUFFIX} ; \
+		cd - ; \
+	}; done;
+	QTDIR=`cat ./QT-DIR` KDEDIR=${KDEDIR} \
+	./configure --enable-debug=no --enable-final=yes \
+		--enable-static=no --enable-dynamic=yes \
+		${CONFIGURE_OPTS} \
+		CXXFLAGS="${RPM_OPT_FLAGS}" \
+		CFLAGS="${RPM_OPT_FLAGS}"
+	- @ ${MAKE} clean 2>/dev/null 1>/dev/null || echo -n " "
+	# now you can run "make"
+
+all:
+	-rm -f make.log
+	@ ( ${MAKE} -f Makefile.dist logged 2>&1 | tee make.log) || ( \
+	    echo "";\
+	    echo "======================================================";\
+	    echo "make failed. if you are not successful in solving the"; \
+	    echo "problem on your own, please write a e-mail to the";\
+	    echo "author(s) and include the file 'make.log' that has";\
+	    echo "been created.";\
+	    echo "======================================================";\
+	    echo "";\
+	    exit -1; \
+	);

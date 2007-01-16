@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=MimeType
+Comment=AIFF/Compressed Amiga audio
+Comment[de]=AIFF/Komprimiertes Amiga-Audio
+Comment[fr]=Format audio compressé Amiga AIFF
+MimeType=audio/x-aifc
+Icon=sound
+Patterns=*.aifc;*.AIFC

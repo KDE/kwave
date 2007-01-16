@@ -1,0 +1,56 @@
+/***************************************************************************
+  KwaveAboutContainer.h  -  Authors and thanks field in the about dialog
+                             -------------------
+    begin                : Sat Mar 9 2002
+    copyright            : (C) 2002 by Ralf Waspe
+    email                : rwaspe@web.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+#ifndef _KWAVE_ABOUT_CONTAINER_H_
+#define _KWAVE_ABOUT_CONTAINER_H_
+
+#include "config.h"
+#include <kaboutdata.h>
+#include <kaboutdialog.h>
+#include <qwidget.h>
+
+/**
+ *@author Ralf Waspe
+ */
+class KwaveAboutContainer : public KAboutContainer
+{
+    Q_OBJECT
+
+public:
+    /** Constructor */
+    KwaveAboutContainer(QWidget *parent = 0, const char *name = "");
+
+    /** Destructor */
+    virtual ~KwaveAboutContainer();
+
+public slots:
+
+    /**
+     * open webpage if url is clicked
+     * connect to :
+     * void  urlClick(const QString &url)
+     */
+    void openURL(const QString &url);
+    /** send email if email address is clicked
+      * connect to :
+      * void  mailClick(const QString &name,const QString &address)
+      */
+    void sendMail(const QString &name,const QString &address);
+
+};
+
+#endif /* _KWAVE_ABOUT_CONTAINER_H_ */

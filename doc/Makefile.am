@@ -1,0 +1,155 @@
+############################################################################
+#    Kwave                - doc/Makefile.am
+#			     -------------------
+#    begin                : Sat Nov 11 2001
+#    copyright            : (C) 2000 by Thomas Eschenbacher
+#    email                : Thomas.Eschenbacher@gmx.de
+############################################################################
+
+############################################################################
+#                                                                          #
+#    This program is free software; you can redistribute it and/or modify  #
+#    it under the terms of the GNU General Public License as published by  #
+#    the Free Software Foundation; either version 2 of the License, or     #
+#    (at your option) any later version.                                   #
+#                                                                          #
+############################################################################
+
+MAINTAINERCLEANFILES = de/*.html en/*.html
+CLEANFILES = core *~ .deps/* doc/*~ *.orig changes.docbook de/*.html en/*.html help_en-shifted.docbook
+DISTCLEANFILES = Makefile.in Makefile help_en.pot \
+	help_de.docbook \
+	help_fr.docbook \
+	help_it.docbook
+
+LANGUAGES = en de fr
+SUFFIXES = .docbook .po .pot
+SGMLDIR=$(kde_datadir)/ksgmltools2
+DOCDIR = $(DESTDIR)${kde_htmldir}
+
+# --- translated html help, not needed in distribution ---
+
+de/index.html: help_de.docbook
+	cd de ; @MEINPROC@ --check ../help_de.docbook
+	rm -Rf de/common
+	mkdir -p de/common
+	cp -R ${DOCDIR}/de/common/* de/common/
+	cd de ; ../fix-common
+
+fr/index.html: help_fr.docbook
+	cd fr ; @MEINPROC@ --check ../help_fr.docbook
+	rm -Rf fr/common
+	mkdir -p fr/common
+	cp -R ${DOCDIR}/fr/common/* fr/common/
+	cd fr ; ../fix-common
+
+it/index.html: help_it.docbook
+	cd it ; @MEINPROC@ --check ../help_it.docbook
+	rm -Rf it/common
+	mkdir -p it/common
+	cp -R ${DOCDIR}/it/common/* fr/common/
+	cd it ; ../fix-common
+
+# --------------------------------------------------------
+
+en/index.html: help_en.docbook
+	cd en ; @MEINPROC@ --check ../help_en.docbook
+	rm -Rf en/common
+	mkdir -p en/common
+	cp -R ${DOCDIR}/en/common/* en/common/
+	cd en/common ; mv gpl-license.html gpl-translated.html
+	cd en ; ../fix-common
+
+help_en.pot: help_en.docbook
+	@XML2POT@ help_en.docbook > help_en.pot
+
+html-doc: en/index.html de/index.html fr/index.html
+
+html-clean:
+	for lang in ${LANGUAGES}; do { \
+	    rm -Rfv $${lang}/*.html; rm -Rf $${lang}/common; \
+	}; done
+
+# --- translated docbook online help ---
+
+help_de.po: help_en.pot
+	@MSGMERGE@ -o help_de.po help_de.po help_en.pot
+
+help_fr.po: help_en.pot
+	@MSGMERGE@ -o help_fr.po help_fr.po help_en.pot
+
+help_it.po: help_en.pot
+	@MSGMERGE@ -o help_it.po help_it.po help_en.pot
+
+help_en-shifted.docbook: help_en.docbook
+	@CAT@ help_en.docbook | @EXPAND@ | @SED@ s/^[\ ]*// > help_en-shifted.docbook
+
+help_de.docbook: help_en.docbook help_de.po
+	${MAKE} help_en-shifted.docbook
+	@echo "converting german help"
+	@PO2XML@ help_en-shifted.docbook help_de.po | \
+	@SED@ s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ German\ /g > $@
+	@CHECKXML@ $@
+
+help_fr.docbook: help_en.docbook help_fr.po
+	${MAKE} help_en-shifted.docbook
+	@echo "converting french help"
+	@PO2XML@ help_en-shifted.docbook help_fr.po | \
+	@SED@ s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ French\ /g > $@
+	@CHECKXML@ $@
+
+help_it.docbook: help_en.docbook help_it.po
+	${MAKE} help_en-shifted.docbook
+	@echo "converting italian help"
+	@PO2XML@ help_en-shifted.docbook help_it.po | \
+	@SED@ s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ Italian\ /g > $@
+	@CHECKXML@ $@
+
+# --------------------------------------
+
+changes.docbook: ../CHANGES ../bin/changes-to-docbook.sh
+	@CAT@ ../CHANGES | @SED@ s/\>\>\>//g | @SED@ s/\<\<\<//g | \
+	../bin/changes-to-docbook.sh | @RECODE@ lat1..utf-8 > changes.docbook
+
+help_en.docbook: ../bin/insert-changes.sh ../VERSION ../CHANGES
+	${MAKE} changes.docbook
+	cp help_en.docbook help_en.docbook.orig
+	cat help_en.docbook.orig | \
+	../bin/insert-changes.sh  changes.docbook | \
+	@AWK@ -v newval=`date --iso` \
+	'{ sub(/<date>.*<\/date>/, \
+	"<date>"newval"</date>", $$0); print; }' | \
+	@AWK@ -v newval=`cat ../VERSION` \
+	'{ sub(/<releaseinfo>.*<\/releaseinfo>/, \
+	"<releaseinfo>"newval"</releaseinfo>", $$0); print; }' > \
+	help_en.docbook
+
+doc: help_en.docbook help_de.docbook help_fr.docbook
+
+all: doc
+
+install-data-local:
+	echo installing docs in $(DOCDIR)
+	for lang in ${LANGUAGES}; do \
+	{ \
+	    $(mkinstalldirs) ${DOCDIR}/$${lang}/$(PACKAGE); \
+	    $(INSTALL_DATA) help_$${lang}.docbook ${DOCDIR}/$${lang}/$(PACKAGE)/index.docbook; \
+	    $(INSTALL_DATA) $${lang}/*.png ${DOCDIR}/$${lang}/$(PACKAGE) ; \
+	    ( cd ${DOCDIR}/$${lang}/${PACKAGE} ; \
+	    for file in `ls ../../en/${PACKAGE}/*.png`; do \
+	    { \
+		if test ! -e `basename $${file}` ; then ln -sf $${file} . ; fi; \
+	    }; done ); \
+	    if test ! -e ${DOCDIR}/$${lang}/$(PACKAGE)/common ; then \
+	    rm -f ${DOCDIR}/$${lang}/$(PACKAGE)/common ; fi ; \
+	    ( cd ${DOCDIR}/$${lang}/${PACKAGE} ; ln -sf ../common . ) ; \
+	}; done
+	cd ${DOCDIR} ; \
+	if test ! -e default/$(PACKAGE) -a -e default ; then ln -sf ../en/$(PACKAGE) default; fi;
+
+uninstall-local:
+	for lang in ${LANGUAGES}; do { \
+	    rm -R -f ${DOCDIR}/$${lang}/${PACKAGE} ; \
+	    rmdir -p --ignore-fail-on-non-empty $(DOCDIR)/$$lang >/dev/null 2>&1; \
+	    if test -L ${DOCDIR}/default/$(PACKAGE); then rm -f ${DOCDIR}/default/$(PACKAGE); fi; \
+	}; done

@@ -43,11 +43,11 @@ bool LabelList::equals(const LabelList &other) const
     LabelListIterator it_other(other);
 
     for (; it_mine.current() && it_other.current(); ++it_mine, ++it_other) {
-    	Label *mine  = it_mine.current();
-    	Label *other = it_other.current();
+	Label *mine  = it_mine.current();
+	Label *other = it_other.current();
 
-    	if (mine->pos()  != other->pos())  return false;
-    	if (mine->name() != other->name()) return false;
+	if (mine->pos()  != other->pos())  return false;
+	if (mine->name() != other->name()) return false;
     }
 
     return true;
@@ -62,8 +62,8 @@ void LabelList::copy(const LabelList &source)
     // always make a deep copy, copy all elements
     LabelListIterator it(source);
     for (; it.current(); ++it) {
-    	Label *label = it.current();
-    	Q_ASSERT(label);
+	Label *label = it.current();
+	Q_ASSERT(label);
 	Label *copy  = new Label(*label);
 	Q_ASSERT(copy);
 	if (copy) append(copy);

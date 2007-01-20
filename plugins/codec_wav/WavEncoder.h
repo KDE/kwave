@@ -53,6 +53,24 @@ public:
 
 private:
 
+    /**
+     * write the INFO chunk with all known file properties
+     *
+     * @param dst file or other source to receive a stream of bytes
+     * @param info information about the file to be saved
+     */
+    void writeInfoChunk(QIODevice &dst, FileInfo &info);
+
+    /**
+     * write the 'cue list' and the label names (if any)
+     *
+     * @param dst file or other source to receive a stream of bytes
+     * @param info information about the file to be saved, including labels
+     */
+    void writeLabels(QIODevice &dst, FileInfo &info);
+
+private:
+
     /** map for translating chunk names to FileInfo properties */
     WavPropertyMap m_property_map;
 

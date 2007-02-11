@@ -120,7 +120,7 @@ void WavEncoder::writeInfoChunk(QIODevice &dst, FileInfo &info)
 	    dst.writeBlock(name.data(), 4); // chunk name
 	    u_int32_t size = value.length(); // length of the chunk
 	    if (size & 0x01) size++;
-	    size = CPU_TO_LE32(bswap_32(size));
+	    size = CPU_TO_LE32(size);
 	    dst.writeBlock((char *)&size, 4);
 	    dst.writeBlock(value.data(), value.length());
 	    if (value.length() & 0x01) {
@@ -177,6 +177,10 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
     size = CPU_TO_LE32(size_of_cue_list);
     dst.writeBlock((char *)&size, 4);
 
+    // number of entries
+    size = CPU_TO_LE32(labels_count);
+    dst.writeBlock((char *)&size, 4);
+
     for (index=0, it.toFirst(); it.current(); ++it, ++index) {
 	Label *label = it.current();
 	Q_ASSERT(label);
@@ -220,7 +224,7 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
 	 * } label_list_entry_t;
 	 */
         dst.writeBlock("labl", 4);                // dwChunkID
-        data = CPU_TO_LE32(name.size());
+        data = CPU_TO_LE32(name.size() + 4);
 	dst.writeBlock((char *)&data, 4);         // dwChunkSize
 	data = CPU_TO_LE32(index);
 	dst.writeBlock((char *)&data, 4);         // dwIdentifier
@@ -402,6 +406,8 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     // put the properties into the INFO chunk
     writeInfoChunk(dst, info);
 
+    // write the labels list
+    writeLabels(dst, info);
 
     // clean up the sample buffer
     if (buffer) free(buffer);

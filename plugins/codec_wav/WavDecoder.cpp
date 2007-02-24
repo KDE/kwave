@@ -37,6 +37,7 @@ extern "C" {
 
 #include "libkwave/byteswap.h"
 #include "libkwave/MultiTrackWriter.h"
+#include "libkwave/Label.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
@@ -52,6 +53,15 @@ extern "C" {
 #include "WavDecoder.h"
 #include "WavFileFormat.h"
 #include "WavFormatMap.h"
+
+// some byteswapping helper macros
+#if defined(ENDIANESS_BIG)
+#define CPU_TO_LE32(x) (bswap_32(x))
+#define LE32_TO_CPU(x) (bswap_32(x))
+#else
+#define CPU_TO_LE32(x) (x)
+#define LE32_TO_CPU(x) (x)
+#endif
 
 #define CHECK(cond) Q_ASSERT(cond); if (!(cond)) { src.close(); return false; }
 
@@ -151,9 +161,9 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     parser.dumpStructure();
 
     // check if there is a RIFF chunk at all...
-    RIFFChunk *riff_chunk = parser.findChunk("/RIFF");
-    RIFFChunk *fmt_chunk  = parser.findChunk("/RIFF/fmt ");
-    RIFFChunk *data_chunk = parser.findChunk("/RIFF/data");
+    RIFFChunk *riff_chunk = parser.findChunk("/RIFF:WAVE");
+    RIFFChunk *fmt_chunk  = parser.findChunk("/RIFF:WAVE/fmt ");
+    RIFFChunk *data_chunk = parser.findChunk("/RIFF:WAVE/data");
 
     if (!riff_chunk || !fmt_chunk || !data_chunk || !parser.isSane()) {
 	if (KMessageBox::warningContinueCancel(widget,
@@ -171,12 +181,12 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     }
 
     // collect all missing chunks
-    if (!riff_chunk) riff_chunk = parser.findMissingChunk("RIFF");
+    if (!riff_chunk) riff_chunk = parser.findMissingChunk("RIFF:WAVE");
     if (progress.wasCancelled()) return false;
 
     if (!fmt_chunk) {
 	parser.findMissingChunk("fmt ");
-	fmt_chunk = parser.findChunk("/RIFF/fmt ");
+	fmt_chunk = parser.findChunk("/RIFF:WAVE/fmt ");
 	if (progress.wasCancelled()) return false;
 	if (!fmt_chunk)  fmt_chunk  = parser.findChunk("fmt ");
 	need_repair = true;
@@ -184,7 +194,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     if (!data_chunk) {
 	parser.findMissingChunk("data");
-	data_chunk = parser.findChunk("/RIFF/data");
+	data_chunk = parser.findChunk("/RIFF:WAVE/data");
 	if (progress.wasCancelled()) return false;
 	if (!data_chunk) data_chunk = parser.findChunk("data");
 	need_repair = true;
@@ -196,12 +206,14 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	parser.dumpStructure();
 	parser.repair();
 	parser.dumpStructure();
-        if (progress.wasCancelled()) return false;
+	if (progress.wasCancelled()) return false;
 
-        if (!fmt_chunk)  fmt_chunk  = parser.findChunk("/RIFF/fmt ");
-        if (!fmt_chunk)  fmt_chunk  = parser.findChunk("fmt ");
-        if (!data_chunk) data_chunk = parser.findChunk("/RIFF/data");
-        if (!data_chunk) data_chunk = parser.findChunk("data");
+	if (!fmt_chunk)  fmt_chunk  = parser.findChunk("/RIFF:WAVE/fmt ");
+	if (!fmt_chunk)  fmt_chunk  = parser.findChunk("/RIFF/fmt ");
+	if (!fmt_chunk)  fmt_chunk  = parser.findChunk("fmt ");
+	if (!data_chunk) data_chunk = parser.findChunk("/RIFF:WAVE/data");
+	if (!data_chunk) data_chunk = parser.findChunk("/RIFF/data");
+	if (!data_chunk) data_chunk = parser.findChunk("data");
 	need_repair = true;
     }
 
@@ -369,8 +381,8 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     info().set(INF_COMPRESSION, compression);
 
     // read in all info from the LIST (INFO) chunk
-    RIFFChunk *info_chunk = parser.findChunk("/RIFF/LIST");
-    if (info_chunk && info_chunk->format() == "INFO") {
+    RIFFChunk *info_chunk = parser.findChunk("/RIFF:WAVE/LIST:INFO");
+    if (info_chunk) {
 	// found info chunk !
 	RIFFChunkList &list = info_chunk->subChunks();
 	QPtrListIterator<RIFFChunk> it(list);
@@ -394,6 +406,105 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	    info().set(prop, value);
 
 	    delete buffer;
+	}
+    }
+
+    // read in the Labels (cue list)
+    RIFFChunk *cue_chunk = parser.findChunk("/RIFF:WAVE/cue ");
+    if (cue_chunk) {
+	// found a cue list chunk !
+	unsigned int length = cue_chunk->dataLength();
+	u_int32_t count;
+
+	src.at(cue_chunk->dataStart());
+	src.readBlock((char *)&count, 4);
+	count = LE32_TO_CPU(count);
+	qDebug("cue list found: %u entries, %u bytes (should be: %u)",
+	    count, length, count * (6 * 4) + 4);
+
+	for (unsigned int i = 0; i < count; i++) {
+	    u_int32_t data, index, position;
+	    src.at(cue_chunk->dataStart() + 4 + ((6 * 4) * i));
+	    /*
+	     * typedef struct {
+	     *     u_int32_t dwIdentifier; <- index
+	     *     u_int32_t dwPosition;   <- 0
+	     *     u_int32_t fccChunk;     <- 'data'
+	     *     u_int32_t dwChunkStart; <- 0
+	     *     u_int32_t dwBlockStart; <- 0
+	     *     u_int32_t dwSampleOffset; <- label.pos()
+	     * } cue_list_entry_t;
+	     */
+	    src.readBlock((char *)&data, 4); /* dwIdentifier */
+	    index = LE32_TO_CPU(data);
+	    src.readBlock((char *)&data, 4); /* dwPosition (ignored) */
+	    src.readBlock((char *)&data, 4); /* fccChunk */
+	    /* we currently support only 'data' */
+	    if (qstrncmp((const char *)&data, "data", 4) != 0) {
+		qWarning("cue list entry %d refers to '%s', "\
+                         "which is not supported -> skipped",
+		         index, QCString((const char *)&data, 4).data());
+		continue;
+	    }
+	    src.readBlock((char *)&data, 4); /* dwChunkStart (must be 0) */
+	    if (data != 0) {
+		qWarning("cue list entry %d has dwChunkStart != 0 -> skipped",
+		         index);
+		continue;
+	    }
+	    src.readBlock((char *)&data, 4); /* dwBlockStart (must be 0) */
+	    if (data != 0) {
+		qWarning("cue list entry %d has dwBlockStart != 0 -> skipped",
+		         index);
+		continue;
+	    }
+
+	    src.readBlock((char *)&data, 4); /* dwSampleOffset */
+	    position = LE32_TO_CPU(data);
+
+	    // as we now have index and position, find out the name
+	    QCString name = "";
+	    RIFFChunk *adtl_chunk = parser.findChunk("/RIFF:WAVE/LIST:adtl");
+	    if (adtl_chunk) {
+		RIFFChunk *labl_chunk = 0;
+		QPtrListIterator<RIFFChunk> it(adtl_chunk->subChunks());
+		for (; it.current(); ++it) {
+		    u_int32_t data, labl_index;
+		    labl_chunk = it.current();
+		    /*
+		     * typedef struct {
+		     *     u_int32_t dwChunkID;    <- 'labl'
+		     *     u_int32_t dwChunkSize;  (without padding !)
+		     *     u_int32_t dwIdentifier; <- index
+		     *     char    dwText[];       <- label->name()
+		     * } label_list_entry_t;
+		     */
+		    src.at(labl_chunk->dataStart());
+		    src.readBlock((char *)&data, 4); /* dwIdentifier */
+		    labl_index = LE32_TO_CPU(data);
+		    if (labl_index == index)
+			break; /* found it! */
+		}
+		if (it.current()) {
+		    Q_ASSERT(labl_chunk);
+		    unsigned int length = labl_chunk->length() - 4;
+		    name.resize(length);
+		    src.at(labl_chunk->dataStart() + 4);
+		    src.readBlock((char *)name.data(), length);
+		    if (name[name.count()-1] != '\0')
+			name += '\0';
+		}
+	    }
+
+	    if (!name.length()) {
+		qDebug("cue list entry %d has no name", index);
+		name = "";
+	    }
+
+	    // put a new label into the list
+	    Label *label = new Label(position, name);
+	    Q_ASSERT(label);
+	    if (label) info().labels().inSort(label);
 	}
     }
 

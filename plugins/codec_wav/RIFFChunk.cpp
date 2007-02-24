@@ -78,6 +78,43 @@ u_int32_t RIFFChunk::physEnd()
 }
 
 //***************************************************************************
+const QCString RIFFChunk::path()
+{
+    QCString p = "";
+
+    if (m_parent) p += m_parent->path() + "/";
+    p += m_name;
+    if (m_type == Main) p += ":" + m_format;
+
+    if (m_parent) {
+	QPtrListIterator<RIFFChunk> it(m_parent->subChunks());
+	unsigned int before = 0;
+	unsigned int after  = 0;
+	RIFFChunk *chunk;
+	for (; (chunk = it.current()) && (it != this); ++it) {
+	    if (chunk->name() != m_name) continue;
+	    if (chunk->type() != m_type) continue;
+	    if ((m_type == Main) && (chunk->format() != m_format)) continue;
+	    before++;
+	}
+	if (it.current() == this) ++it;
+	for (; (chunk = it.current()) && (it != this); ++it) {
+	    if (chunk->name() != m_name) continue;
+	    if (chunk->type() != m_type) continue;
+	    if ((m_type == Main) && (chunk->format() != m_format)) continue;
+	    after++;
+	}
+	if (before + after != 0) {
+	    QCString index;
+	    index.setNum(before);
+	    p += "(" + index + ")";
+	}
+    }
+
+    return p;
+}
+
+//***************************************************************************
 u_int32_t RIFFChunk::dataStart()
 {
     return m_phys_offset + ((m_type == Main) ? 12 : 8);
@@ -167,12 +204,9 @@ void RIFFChunk::dumpStructure()
     }
 
     // dump this chunk
-    QCString p = path();
-    if (m_type == Main) p += " (" + m_format + ")";
-
     qDebug("[0x%08X-0x%08X] (%10u/%10u) %7s, '%s'",
           m_phys_offset, physEnd(), physLength(), length(),
-          t.local8Bit().data(), p.data()
+          t.local8Bit().data(), path().data()
     );
 
     // recursively dump all sub-chunks

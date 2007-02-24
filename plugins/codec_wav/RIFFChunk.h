@@ -99,10 +99,13 @@ public:
     /** Returns the pointer to the parent node */
     inline RIFFChunk *parent() { return m_parent; };
 
-    /** Returns the full path of this node. */
-    inline const QCString path() {
-        return (m_parent) ? (m_parent->path() + "/" + m_name) : m_name;
-    };
+    /**
+     * Returns the full path of this node. If the node is a "Main" chunk
+     * and has a format parameter, the format is appended, separated with
+     * a ":". If the chunk name is not unique within it's parents the
+     * zero based index is appended within round brackets.
+     */
+    const QCString path();
 
     /** Returns the offset where the chunk's data starts. */
     u_int32_t dataStart();

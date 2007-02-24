@@ -139,9 +139,7 @@ public:
      */
     bool isInSelection(int x);
 
-//    void addLabelType (LabelType *);
-//    void addLabelType (const char *);
-
+    /** Executes a Kwave text command */
     bool executeCommand(const QString &command);
 
     /**
@@ -409,6 +407,11 @@ private slots:
 
     /** context menu: "save selection" */
     void contextMenuSaveSelection()  { forwardCommand("saveselect()"); };
+
+    /** context menu: "expand to labels" */
+    void contextMenuSelectionExpandToLabels()  {
+	forwardCommand("expandtolabel()");
+    };
 
     /** context menu: "label / new" */
     void contextMenuLabelNew();

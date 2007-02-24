@@ -118,7 +118,7 @@ o document how to do an optimized build, for example:
 
 o speed up MP3 import by blockwise operation
 
-o storage/handling of extra info "labels", "cue list"...
+o import/export of labels as meta info in codecs other than wav
 
 o SonagramWindow::toSignal()
 

@@ -337,8 +337,30 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 //	loadLabel();
 //    CASE_COMMAND("savelabel")
 //	saveLabel(command);
-//    CASE_COMMAND("expandtolabel")
-//	jumptoLabel();
+    CASE_COMMAND("expandtolabel")
+	unsigned int selection_left  = m_signal_manager.selection().first();
+	unsigned int selection_right = m_signal_manager.selection().last();
+	LabelListIterator it(labels());
+	Label *label;
+	Label *label_left  = 0;
+	Label *label_right = 0;
+	while ((label = it.current())) {
+	    ++it;
+	    unsigned int lp = label->pos();
+	    if (lp <= selection_left)
+		label_left = label;
+	    if ((lp >= selection_right) && (!label_right)) {
+		label_right = label;
+		break;
+	    }
+	}
+	selection_left = (label_left) ?
+	    label_left->pos() : 0;
+	selection_right = (label_right) ?
+	    label_right->pos() : m_signal_manager.length() - 1;
+	unsigned int length = selection_right - selection_left + 1;
+	selectRange(selection_left, length);
+
 //    CASE_COMMAND("markperiod")
 //	markPeriods(command);
 //    CASE_COMMAND("saveperiods")
@@ -897,6 +919,10 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     Q_ASSERT(context_menu);
     if (!context_menu) return;
 
+    QPopupMenu *submenu_select = new QPopupMenu(this);
+    Q_ASSERT(submenu_select);
+    if (!submenu_select) return;
+
     QPopupMenu *submenu_label = new QPopupMenu(this);
     Q_ASSERT(submenu_label);
     if (!submenu_label) return;
@@ -938,6 +964,19 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     if (mouse_x >= width())  mouse_x = width()  - 1;
     unsigned int len = manager->selection().length();
 
+    // selection
+    int id_select_save = submenu_select->insertItem(
+	i18n("&Save..."), this, SLOT(contextMenuSaveSelection()));
+    submenu_select->setItemEnabled(id_select_save, (len != 0));
+    int id_select_expand_to_labels = submenu_select->insertItem(
+	i18n("&Expand to labels"), this,
+	SLOT(contextMenuSelectionExpandToLabels()));
+    submenu_select->setItemEnabled(id_select_expand_to_labels, (len != 0));
+//     menu (selectnext(),&Edit/&Selection/&Next,SHIFT+PLUS)
+//     menu (selectprev(),&Edit/&Selection/&Previous,SHIFT+MINUS)
+
+    context_menu->insertItem(i18n("&Selection"), submenu_select);
+
     // label handling
     int id_label_new = submenu_label->insertItem(
 	i18n("&New"), this, SLOT(contextMenuLabelNew()));
@@ -962,22 +1001,20 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
 	pos = label->pos();
 	m_selection->set(pos, pos);
-    } else if (isSelectionBorder(mouse_x)) {
+    }
+
+    if (isSelectionBorder(mouse_x)) {
 	// context menu: do something with the selection border
 
 	// expand to next marker (right) ?
 	// expand to next marker (left) ?
-    } else if (isInSelection(mouse_x) && (len > 1)) {
-	// context menu: do something with the selection
-
-	id = context_menu->insertItem(
-	    i18n("&Save selection..."), this,
-	    SLOT(contextMenuSaveSelection()));
-
-	// convert selection to markers ?
     }
 
-    context_menu->insertItem("&Label", submenu_label);
+//     if (isInSelection(mouse_x) && (len > 1)) {
+// 	// context menu: do something with the selection
+//     }
+
+    context_menu->insertItem(i18n("&Label"), submenu_label);
 
     context_menu->exec(QCursor::pos());
     delete context_menu;

@@ -855,10 +855,17 @@ next_card:
 	}
     }
 
-    // per default: offer the dmix plugin if slave devices exist
-    if (!m_device_list.isEmpty())
+    // per default: offer the dmix plugin and the default device
+    // if slave devices exist
+    if (!m_device_list.isEmpty()) {
         m_device_list.insert(i18n("DMIX plugin")+QString("|sound_note"),
                              "plug:dmix");
+        m_device_list.insert(i18n("default device")+QString("|sound_note"),
+                             "default");
+    } else {
+        m_device_list.insert(i18n("null device")+QString("|sound_note"),
+                             "null");
+    }
 
     snd_config_update_free_global();
 }

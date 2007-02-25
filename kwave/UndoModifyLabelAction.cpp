@@ -80,7 +80,7 @@ UndoAction *UndoModifyLabelAction::undo(SignalManager &manager,
 //     qDebug("undo: last pos=%u, current pos=%u",
 // 	   m_last_position, m_label->pos());
 
-    Label *label = m_signal_widget.findLabel(m_last_position);
+    Label *label = manager.findLabel(m_last_position);
     Q_ASSERT(label);
     if (!label) return 0;
 

@@ -24,7 +24,7 @@
 #include "UndoAction.h"
 
 class Label;
-class SignalWidget;
+class SignalManager;
 
 /**
  * Undo action for inserting a label.
@@ -35,10 +35,9 @@ public:
 
     /**
      * Constructor
-     * @param signal_widget reference to the SignalWidget
      * @param index numerical index of the inserted label
      */
-    UndoAddLabelAction(SignalWidget &signal_widget, int index);
+    UndoAddLabelAction(int index);
 
     /** Destructor */
     virtual ~UndoAddLabelAction();
@@ -64,9 +63,6 @@ public:
     virtual UndoGroupID group() const { return LabelCommands; };
 
 protected:
-
-    /** reference to the signal widget */
-    SignalWidget &m_signal_widget;
 
     /** index of the inserted label */
     unsigned int m_index;

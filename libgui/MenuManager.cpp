@@ -85,21 +85,23 @@ int MenuManager::parseToKeyCode(const QString &key_name)
 	}
 
 	// other known keys
-	if (name == "ESC")      keycode += Key_Escape;
-	if (name == "PLUS")     keycode += Key_Plus;
-	if (name == "MINUS")    keycode += Key_Minus;
-	if (name == "SPACE")    keycode += Key_Space;
-	if (name == "CTRL")     keycode += CTRL;
-	if (name == "PAGEUP")   keycode += Key_PageUp;
-	if (name == "PAGEDOWN") keycode += Key_PageDown;
-	if (name == "UP")       keycode += Key_Up;
-	if (name == "DEL")      keycode += Key_Delete;
-	if (name == "DOWN")     keycode += Key_Down;
-	if (name == "LEFT")     keycode += Key_Left;
-	if (name == "RIGHT")    keycode += Key_Right;
-	if (name == "SHIFT")    keycode += SHIFT;
-	if (name == "HOME")     keycode += Key_Home;
-	if (name == "END")      keycode += Key_End;
+	if (name == "ESC")      keycode += Qt::Key_Escape;
+	if (name == "PLUS")     keycode += Qt::Key_Plus;
+	if (name == "MINUS")    keycode += Qt::Key_Minus;
+	if (name == "SPACE")    keycode += Qt::Key_Space;
+	if (name == "PAGEUP")   keycode += Qt::Key_PageUp;
+	if (name == "PAGEDOWN") keycode += Qt::Key_PageDown;
+	if (name == "UP")       keycode += Qt::Key_Up;
+	if (name == "DEL")      keycode += Qt::Key_Delete;
+	if (name == "DOWN")     keycode += Qt::Key_Down;
+	if (name == "LEFT")     keycode += Qt::Key_Left;
+	if (name == "RIGHT")    keycode += Qt::Key_Right;
+	if (name == "HOME")     keycode += Qt::Key_Home;
+	if (name == "END")      keycode += Qt::Key_End;
+
+	if (name == "SHIFT")    keycode += Qt::SHIFT;
+	if (name == "CTRL")     keycode += Qt::CTRL;
+	if (name == "ALT")      keycode += Qt::ALT;
     }
     return keycode;
 }

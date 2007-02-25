@@ -174,6 +174,9 @@ private slots:
      */
     void mouseChanged(int mode);
 
+    /** Updates the menu by enabling/disabling some entries */
+    void updateMenu();
+
     /** updates all elements in the toolbar */
     void updateToolbar();
 
@@ -249,9 +252,6 @@ protected:
                   unsigned int bits, unsigned int tracks);
 
 protected:
-
-    /** Updates the menu by enabling/disabling some entries */
-    void updateMenu();
 
     /**
      * Discards all changes to the current file and loads

@@ -59,7 +59,9 @@
 #include "SignalManager.h"
 #include "SignalWidget.h"
 #include "UndoAction.h"
+#include "UndoAddLabelAction.h"
 #include "UndoDeleteAction.h"
+#include "UndoDeleteLabelAction.h"
 #include "UndoDeleteTrack.h"
 #include "UndoFileInfo.h"
 #include "UndoInsertAction.h"
@@ -1032,74 +1034,6 @@ void SignalManager::emitStatusInfo()
     emit sigStatusInfo(length(), tracks(), rate(), bits());
 }
 
-/* ### -> should go to a "codec_ascii" plugin...
-
-int SignalManager::exportAscii(const char *name)
-{
-    Q_ASSERT(name);
-    if (!name) return ;
-
-    unsigned int length = getLength();
-    Q_ASSERT(length);
-    if (!length) return;
-
-    Q_ASSERT(m_channels);
-    if (!m_channels) return;
-
-    FILE *sigout = fopen(name, "w");
-    Q_ASSERT(sigout);
-    if (!sigout) return;
-
-    //prepare and show the progress dialog
-    char progress_title[256];
-    char str_channels[128];
-    if (m_channels == 1)
-	strncpy(str_channels, i18n("Mono"), sizeof(str_channels));
-    else if (m_channels == 2)
-	strncpy(str_channels, i18n("Stereo"), sizeof(str_channels));
-    else
-	snprintf(str_channels, sizeof(str_channels), "%d-channel", m_channels);
-    snprintf(progress_title, sizeof(progress_title),
-	i18n("Exporting %s ASCII file :"),
-	str_channels);
-
-    QString title = i18n(progress_title);
-    ProgressDialog *dialog = new ProgressDialog(100, title);
-    delete[] title;
-    if (dialog) dialog->show();
-
-    // loop for writing data
-    int *sample;
-    int percent_count = 0;
-    const double scale_y = (1 << 23)-1;
-    for (unsigned int pos = 0; pos < length ; pos++) {
-	// loop over all channels
-	for (unsigned int channel=0; channel < m_channels; channel++) {
-	    sample = signal.at(channel)->getSample();
-	    if (!sample) continue;
-
-	    if (channel != 0) fprintf(sigout, ",");
-	    fprintf(sigout, "%0.8e", (double)sample[pos]/scale_y);
-	}
-	fprintf(sigout,"\n");
-
-	// update the progress bar
-	percent_count--;
-	if (dialog && (percent_count <= 0)) {
-	    percent_count = length / 200;
-	    float percent = (float)pos;
-	    percent /= (float)length;
-	    percent *= 100.0;
-	    dialog->setProgress (percent);
-	}
-    }
-
-    if (dialog) delete dialog;
-    fclose(sigout);
-    return -1;
-}
-### */
-
 //***************************************************************************
 PlaybackController &SignalManager::playbackController()
 {
@@ -1599,6 +1533,110 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
     setModified(true);
     emitStatusInfo();
     emitUndoRedoInfo();
+}
+
+//***************************************************************************
+Label *SignalManager::findLabel(unsigned int pos) const
+{
+    QPtrListIterator<Label> it(labels());
+    Label *label;
+    while ((label = it.current())) {
+	if (label->pos() == pos) return label; // found it
+	++it;
+    }
+    return 0; // nothing found
+}
+
+//***************************************************************************
+int SignalManager::labelIndex(const Label *label) const
+{
+    int index = 0;
+    QPtrListIterator<Label> it(labels());
+    while (const Label *l = it.current()) {
+	if (l == label) return index; // found it
+	index++;
+ 	++it;
+    }
+    return -1; // nothing found*/
+}
+
+//***************************************************************************
+Label *SignalManager::labelAtIndex(int index)
+{
+    return labels().at(index);
+}
+
+//***************************************************************************
+bool SignalManager::addLabel(unsigned int pos)
+{
+    // if there already is a label at the given position, do nothing
+    if (findLabel(pos)) return false;
+
+    // create a new label
+    Label *label = new Label(pos, "");
+    Q_ASSERT(label);
+    if (!label) return false;
+
+    // put the label into the list
+    labels().inSort(label);
+    emit sigLabelCountChanged();
+
+    // register the undo action
+    UndoTransactionGuard undo(*this, i18n("add label"));
+    UndoAddLabelAction *undo_add =
+	new UndoAddLabelAction(labelIndex(label));
+    if (!registerUndoAction(undo_add)) {
+	delete undo_add;
+	labels().remove(label);
+	emit sigLabelCountChanged();
+	return false;
+    }
+    return true;
+}
+
+//***************************************************************************
+Label *SignalManager::addLabel(unsigned int pos, const QString &name)
+{
+    // if there already is a label at the given position, do nothing
+    if (findLabel(pos)) return 0;
+
+    // create a new label
+    Label *label = new Label(pos, name);
+    Q_ASSERT(label);
+    if (!label) return 0;
+
+    // put the label into the list
+    labels().inSort(label);
+    emit sigLabelCountChanged();
+
+    return label;
+}
+
+//***************************************************************************
+void SignalManager::deleteLabel(int index, bool with_undo)
+{
+    Q_ASSERT(index >= 0);
+    Q_ASSERT(index < (int)labels().count());
+    if ((index < 0) || (index >= (int)labels().count())) return;
+
+    Label *label = labels().at(index);
+    Q_ASSERT(label);
+    if (!label) return;
+
+    // register the undo action
+    if (with_undo) {
+	UndoTransactionGuard undo(*this, i18n("delete label"));
+	UndoDeleteLabelAction *undo_del =
+	    new UndoDeleteLabelAction(*label);
+	if (!registerUndoAction(undo_del)) {
+	    delete undo_del;
+	    delete label;
+	    return;
+	}
+    }
+
+    labels().remove(label);
+    emit sigLabelCountChanged();
 }
 
 //***************************************************************************

@@ -24,7 +24,7 @@
 #include "UndoAction.h"
 
 class Label;
-class SignalWidget;
+class SignalManager;
 
 /**
  * Undo action for deleting a label.
@@ -35,10 +35,9 @@ public:
 
     /**
      * Constructor
-     * @param signal_widget reference to the SignalWidget
      * @param label reference to the label that should be deleted
      */
-    UndoDeleteLabelAction(SignalWidget &signal_widget, Label &label);
+    UndoDeleteLabelAction(Label &label);
 
     /** Destructor */
     virtual ~UndoDeleteLabelAction();
@@ -64,9 +63,6 @@ public:
     virtual UndoGroupID group() const { return LabelCommands; };
 
 protected:
-
-    /** reference to the signal widget */
-    SignalWidget &m_signal_widget;
 
     /** the deleted label */
     Label *m_label;

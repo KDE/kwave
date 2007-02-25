@@ -30,6 +30,7 @@
 
 #include "mt/SignalProxy.h"
 #include "libkwave/FileInfo.h"
+#include "libkwave/Label.h"
 #include "libkwave/Selection.h"
 #include "libkwave/Signal.h"
 
@@ -157,13 +158,6 @@ public:
      * @return zero if succeeded or negative error code
      */
     int save(const KURL &url, bool selection);
-
-    /**
-     * Exports ascii file with one sample per line and only one track.
-     * @param name the name of the file to be exported
-     * @return zero if succeeded or negative error code
-     */
-    int exportAscii(const char *name);
 
     /**
      * Deletes a range of samples and creates an undo action.
@@ -332,6 +326,49 @@ public:
      */
     void setFileInfo(FileInfo &new_info, bool with_undo = true);
 
+    /**
+     * add a new label
+     * @param pos position of the label [samples]
+     * @return true if successful, false if failed
+     */
+    bool addLabel(unsigned int pos);
+
+    /**
+     * add a new label, without undo
+     * @param pos position of the label [samples]
+     * @param name the name of the label
+     * @return pointer to the new created label
+     */
+    Label *addLabel(unsigned int pos, const QString &name);
+
+    /**
+     * delete an existing label
+     * @param index the index of the label [0...N-1]
+     * @param with_undo if true, create undo info
+     */
+    void deleteLabel(int index, bool with_undo);
+
+    /**
+     * find a label by it's index
+     * @param index the index of the label [0...N-1]
+     * @return pointer to the label or null pointer if not found
+     */
+    Label *labelAtIndex(int index);
+
+    /**
+     * Returns the index of a label, counting from zero
+     * @param label pointer to a Label
+     * @return index [0...N-1] or -1 if label is a null pointer
+     */
+    int labelIndex(const Label *label) const;
+
+    /**
+     * returns the label at a given exact position
+     * @param pos position of the label [samples]
+     * @return the label at the position or null if not found
+     */
+    Label *findLabel(unsigned int pos) const;
+
 signals:
 
     /**
@@ -415,6 +452,9 @@ signals:
      * @param modified true if now modified, false if no longer
      */
     void sigModified(bool modified);
+
+    /** Emitted whenever the numer of labels has changed */
+    void sigLabelCountChanged();
 
 public slots:
 
@@ -599,6 +639,12 @@ private:
      * @param en new value for m_modified_enabled
      */
     void enableModifiedChange(bool en);
+
+    /** Shortcut for accessing the label list @note can be modified */
+    inline LabelList &labels() { return m_file_info.labels(); };
+
+    /** Shortcut for accessing the label list @note cannot be modified */
+    inline const LabelList &labels() const { return m_file_info.labels(); };
 
 private:
 

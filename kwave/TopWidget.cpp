@@ -190,9 +190,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
     FileLoader loader(menufile);
     Q_ASSERT(loader.buffer());
     if (loader.buffer()) parseCommands(loader.buffer());
-    updateMenu();
-
-    updateRecentFiles();
 
     m_main_widget = new MainWidget(this);
     Q_ASSERT(m_main_widget);
@@ -440,6 +437,8 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
     connect(signal_manager, SIGNAL(sigModified(bool)),
             this, SLOT(modifiedChanged(bool)));
+    connect(signal_manager, SIGNAL(sigLabelCountChanged()),
+	    this, SLOT(updateMenu()));
 
     // set the MainWidget as the main view
     setCentralWidget(m_main_widget);
@@ -484,6 +483,8 @@ TopWidget::TopWidget(KwaveApp &main_app)
     setStatusInfo(0,0,0,0);
     setUndoRedoInfo(0,0);
     setSelectedTimeInfo(0,0,0);
+    updateMenu();
+    updateRecentFiles();
 
     // check if the aRts dispatcher is functional. if not, we better
     // should exit now, as most of the plugins would not work
@@ -1229,6 +1230,10 @@ void TopWidget::updateMenu()
     // enable/disable all items that depend on having a file
     bool have_file = (signalName().length() != 0);
     m_menu_manager->setItemEnabled("@NOT_CLOSED", have_file);
+
+    // enable/disable all items that depend on having a label
+    bool have_labels = (!signalManager().fileInfo().labels().isEmpty());
+    m_menu_manager->setItemEnabled("@LABELS", have_labels);
 }
 
 //***************************************************************************

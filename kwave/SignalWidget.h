@@ -21,6 +21,7 @@
 #include "config.h"
 #include <qdragobject.h>
 #include <qlabel.h>
+#include <qpoint.h>
 #include <qptrlist.h>
 #include <qtimer.h>
 #include <qpainter.h>
@@ -154,41 +155,6 @@ public:
     /** Returns the playback controller */
     PlaybackController &playbackController();
 
-    /**
-     * add a new label
-     * @param pos position of the label [samples]
-     */
-    void addLabel(unsigned int pos);
-
-    /**
-     * add a new label, without undo
-     * @param pos position of the label [samples]
-     * @param name the name of the label
-     * @return pointer to the new created label
-     */
-    Label *addLabel(unsigned int pos, const QString &name);
-
-    /**
-     * delete an existing label
-     * @param index the index of the label [0...N-1]
-     * @param with_undo if true, create undo info
-     */
-    void deleteLabel(int index, bool with_undo);
-
-    /**
-     * find a label by it's index
-     * @param index the index of the label [0...N-1]
-     * @return pointer to the label or null pointer if not found
-     */
-    Label *labelAtIndex(int index);
-
-    /**
-     * Returns the index of a label, counting from zero
-     * @param label pointer to a Label
-     * @return index [0...N-1] or -1 if label is a null pointer
-     */
-    int labelIndex(const Label *label) const;
-
 public slots:
 
     /**
@@ -280,16 +246,9 @@ protected:
     /** @see Qt XDND documentation */
     virtual void dragMoveEvent(QDragMoveEvent *event);
 
-protected:
+protected slots:
 
     friend class UndoModifyLabelAction;
-
-    /**
-     * returns the label at a given exact position
-     * @param pos position of the label [samples]
-     * @return the label at the position or null if not found
-     */
-    Label *findLabel(unsigned int pos) const;
 
     /** Refreshes the layer with the markers */
     void refreshMarkersLayer();
@@ -390,6 +349,11 @@ private slots:
      */
     void timedRepaint();
 
+    /** Hide the current position marker */
+    void hidePosition() {
+	showPosition(0, 0, 0, QPoint(-1,-1));
+    };
+
     /** context menu: "edit/undo" */
     void contextMenuEditUndo()   { forwardCommand("undo()"); };
 
@@ -411,6 +375,16 @@ private slots:
     /** context menu: "expand to labels" */
     void contextMenuSelectionExpandToLabels()  {
 	forwardCommand("expandtolabel()");
+    };
+
+    /** context menu: "select next labels" */
+    void contextMenuSelectionNextLabels()  {
+	forwardCommand("selectnextlabels()");
+    };
+
+    /** context menu: "select previous labels" */
+    void contextMenuSelectionPrevLabels()  {
+	forwardCommand("selectprevlabels()");
     };
 
     /** context menu: "label / new" */
@@ -681,6 +655,12 @@ private:
     inline const LabelList &labels() const {
 	return m_signal_manager.fileInfo().labels();
     };
+
+    /**
+     * add a new label
+     * @param pos position of the label [samples]
+     */
+    void addLabel(unsigned int pos);
 
 private:
 

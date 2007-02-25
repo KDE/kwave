@@ -19,14 +19,13 @@
 #include <klocale.h>
 
 #include "libkwave/Label.h"
-#include "SignalWidget.h"
+#include "SignalManager.h"
 #include "UndoAddLabelAction.h"
 #include "UndoDeleteLabelAction.h"
 
 //***************************************************************************
-UndoAddLabelAction::UndoAddLabelAction(SignalWidget &signal_widget,
-                                       int index)
-    :UndoAction(), m_signal_widget(signal_widget), m_index(index)
+UndoAddLabelAction::UndoAddLabelAction(int index)
+    :UndoAction(), m_index(index)
 {
 }
 
@@ -64,17 +63,17 @@ void UndoAddLabelAction::store(SignalManager &)
 UndoAction *UndoAddLabelAction::undo(SignalManager &manager, bool with_redo)
 {
     UndoAction *redo = 0;
-    Label *label = m_signal_widget.labelAtIndex(m_index);
+    Label *label = manager.labelAtIndex(m_index);
 
     // store data for redo
     if (with_redo && label) {
-	redo = new UndoDeleteLabelAction(m_signal_widget, *label);
+	redo = new UndoDeleteLabelAction(*label);
 	Q_ASSERT(redo);
 	if (redo) redo->store(manager);
     }
 
     // remove the label from the signal manager
-    m_signal_widget.deleteLabel(m_index, false);
+    manager.deleteLabel(m_index, false);
 
     return redo;
 }

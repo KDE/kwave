@@ -246,12 +246,6 @@ SignalWidget::~SignalWidget()
 }
 
 //***************************************************************************
-int SignalWidget::saveFile(const KURL &url, bool selection)
-{
-    return m_signal_manager.save(url, selection);
-}
-
-//***************************************************************************
 void SignalWidget::toggleTrackSelection(int track)
 {
     // here we have to convert to unsigned
@@ -2343,7 +2337,7 @@ void SignalWidget::slotSamplesDeleted(unsigned int track,
     if (track != m_signal_manager.selectedTracks().at(0)) return;
 
     unsigned int modified = 0;
-    QPtrListIterator<Label> it(labels());
+    LabelListIterator it(labels());
     while (Label *label = it.current()) {
 	unsigned int pos = label->pos();
 	if (pos >= offset + length) {

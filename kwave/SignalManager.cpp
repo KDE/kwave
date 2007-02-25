@@ -366,7 +366,6 @@ int SignalManager::save(const KURL &url, bool selection)
 	m_file_info.setRate(rate());
 	m_file_info.setBits(bits);
 	m_file_info.setTracks(tracks);
-	m_file_info.set(INF_FILENAME, filename);
 
 	if (!m_file_info.contains(INF_SOFTWARE) &&
 	    encoder->supportedProperties().contains(INF_SOFTWARE))
@@ -409,7 +408,38 @@ int SignalManager::save(const KURL &url, bool selection)
 	                 &src,   SLOT(cancel()));
 
 	// invoke the encoder...
-	if (!encoder->encode(m_parent_widget, src, dst, m_file_info)) {
+	bool encoded = false;
+
+	if (selection) {
+	    // we have to adjust all labels in the file info
+	    // use a copy, don't touch the original !
+	    FileInfo info = m_file_info;
+
+	    LabelList labels = info.labels();
+	    LabelListIterator it(labels);
+	    while (Label *label = it.current()) {
+		unsigned int pos = label->pos();
+		if ((pos < ofs) || (pos >= ofs + len)) {
+		    // out of the selected area -> remove
+		    labels.remove(label);
+		    continue;
+		} else {
+		    // move label left
+		    label->moveTo(pos - ofs);
+		}
+		++it;
+	    }
+
+	    // set the filename in the copy of the fileinfo, the original
+	    // file which is currently open keeps it's name
+	    info.set(INF_FILENAME, filename);
+	    encoded = encoder->encode(m_parent_widget, src, dst, info);
+	} else {
+	    // in case of a "save as" -> modify the current filename
+	    m_file_info.set(INF_FILENAME, filename);
+	    encoded = encoder->encode(m_parent_widget, src, dst, m_file_info);
+	}
+	if (!encoded) {
 	    KMessageBox::error(m_parent_widget,
 	        i18n("An error occurred while saving the file!"));
 	    res = -1;
@@ -965,68 +995,6 @@ void SignalManager::selectTrack(unsigned int track, bool select)
 	}
     }
 }
-
-//***************************************************************************
-/* ### -> should go to a "codec_ascii" plugin...
-
-int SignalManager::loadAscii()
-{
-    float value;
-    int cnt = 0;
-    float max = 0;
-    float amp;
-    int *sample = 0;
-
-    FILE *sigin = fopen(m_name.local8Bit(), "r");
-    if (!sigin) {
-	KMessageBox::error(0, i18n("File does not exist !"), i18n("Info"), 2);
-	return -ENOENT;
-    }
-
-    // scan in the first line for the sample rate
-    // ### to be done ###
-    rate = 44100;        //will be asked in requester
-
-    // scan for number of channels
-    m_channels = 1;
-
-    // loop over all samples in file to get maximum value
-    while (!feof(sigin)) {
-	if (fscanf (sigin, "%e\n", &value) == 1) {
-	    if ( value > max) max = value;
-	    if ( -value > max) max = -value;
-	    cnt++;
-	}
-    }
-    qDebug("SignalManager::loadAscii(): reading ascii file with %d samples",
-	  cnt);    // ###
-
-    // get the maximum and the scale
-    amp = (float)((1 << 23)-1) / max;
-    Signal *new_signal = new Signal(cnt, rate);
-    Q_ASSERT(new_signal);
-
-    if (new_signal) {
-	signal.append(new_signal);
-	new_signal->setBits(24);
-	sample = new_signal->getSample();
-    }
-
-    if (sample) {
-	fseek (sigin, 0, SEEK_SET);    //seek to beginning
-	cnt = 0;
-	while (!feof(sigin)) {
-	    if (fscanf(sigin, "%e\n", &value) == 1) {
-		sample[cnt++] = (int)(value * amp);
-	    }
-	}
-    }
-
-    fclose (sigin);
-
-    return 0;
-}
-### */
 
 //***************************************************************************
 void SignalManager::emitStatusInfo()

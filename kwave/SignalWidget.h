@@ -103,12 +103,6 @@ public:
     void newSignal(unsigned int samples, double rate,
                    unsigned int bits, unsigned int tracks);
 
-    /** @todo (re)implementation */
-    int saveFile(const KURL &url, bool selection = false);
-
-    /** @todo (re)implementation */
-    void saveBlocks (int);
-
     /**
      * Closes the current signal
      */
@@ -246,14 +240,13 @@ protected:
     /** @see Qt XDND documentation */
     virtual void dragMoveEvent(QDragMoveEvent *event);
 
-protected slots:
-
     friend class UndoModifyLabelAction;
+
+protected slots:
 
     /** Refreshes the layer with the markers */
     void refreshMarkersLayer();
 
-protected slots:
 
     /**
      * Allows repainting of the display by decrementing the repaint

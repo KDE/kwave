@@ -68,11 +68,6 @@ public:
      */
     int loadFile(const KURL &url);
 
-    /** @see SignalWidget::saveFile() */
-    inline int saveFile(const KURL &url, bool selection) {
-	return m_signal_widget.saveFile(url, selection);
-    };
-
     /**
      * Closes the current signal.
      */

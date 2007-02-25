@@ -864,7 +864,7 @@ int TopWidget::saveFile()
     if (!m_main_widget) return -EINVAL;
 
     if (signalName() != NEW_FILENAME) {
-	res = m_main_widget->saveFile(m_url, false);
+	res = signalManager().save(m_url, false);
 
 	// if saving in current format is not possible (no encoder),
 	// then try to "save/as" instead...
@@ -892,77 +892,77 @@ int TopWidget::saveFileAs(bool selection)
     if (dlg.exec() != QDialog::Accepted) return -1;
 
     KURL url = dlg.selectedURL();
-    if (!url.isEmpty()) {
-	QString name = url.path();
-	QFileInfo path(name);
+    if (url.isEmpty()) return 0;
 
-	// add the correct extension if necessary
-	if (!path.extension(false).length()) {
-	    QString ext = dlg.selectedExtension();
-	    QStringList extensions = QStringList::split(" ", ext);
-	    ext = extensions.first();
-	    name += ext.mid(1);
-	    path = name;
-	    url.setPath(name);
-	}
+    QString name = url.path();
+    QFileInfo path(name);
 
-	// check if the file exists and ask before overwriting it
-	// if it is not the old filename
-	if ((name != signalName()) && (path.exists())) {
-	    if (KMessageBox::warningYesNo(this,
-	        i18n("The file '%1' already exists. Do you really "\
-	        "want to overwrite it?").arg(name)) != KMessageBox::Yes)
-	    {
-		return -1;
-	    }
-	}
-
-	m_url = url;
-
-	// maybe we now have a new mime type
-	QString previous_mimetype_name = signalManager().fileInfo().get(
-	    INF_MIMETYPE).toString();
-
-	QString new_mimetype_name;
-	new_mimetype_name = CodecManager::whatContains(m_url);
-
-	if (new_mimetype_name != previous_mimetype_name) {
-	    // saving to a different mime type
-	    // now we have to do as if the mime type and file name
-	    // has already been selected to satisfy the fileinfo
-	    // plugin
-	    qDebug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
-		m_url.prettyURL().data(), new_mimetype_name.data(),
-		previous_mimetype_name.data() );
-
-	    // set the new mimetype
-	    signalManager().fileInfo().set(INF_MIMETYPE,
-	        new_mimetype_name);
-	    // save the old filename and set the new one
-	    QString old_filename = signalManager().fileInfo().get(
-	        INF_FILENAME).toString();
-	    signalManager().fileInfo().set(INF_FILENAME,
-	        m_url.prettyURL());
-
-	    // now call the fileinfo plugin with the new filename and
-	    // mimetype
-	    Q_ASSERT(m_plugin_manager);
-	    res = (m_plugin_manager) ?
-	        m_plugin_manager->setupPlugin("fileinfo") : -1;
-
-	    // restore the mime type and the filename
-	    signalManager().fileInfo().set(INF_MIMETYPE,
-	        previous_mimetype_name);
-	    signalManager().fileInfo().set(INF_FILENAME,
-	        m_url.prettyURL());
-	}
-
-	if (!res) res = m_main_widget->saveFile(m_url, selection);
-
-	updateCaption();
-	m_app.addRecentFile(signalName());
-	updateMenu();
+    // add the correct extension if necessary
+    if (!path.extension(false).length()) {
+	QString ext = dlg.selectedExtension();
+	QStringList extensions = QStringList::split(" ", ext);
+	ext = extensions.first();
+	name += ext.mid(1);
+	path = name;
+	url.setPath(name);
     }
+
+    // check if the file exists and ask before overwriting it
+    // if it is not the old filename
+    if ((name != signalName()) && (path.exists())) {
+	if (KMessageBox::warningYesNo(this,
+	    i18n("The file '%1' already exists. Do you really "\
+	    "want to overwrite it?").arg(name)) != KMessageBox::Yes)
+	{
+	    return -1;
+	}
+    }
+
+    if (!selection) m_url = url;
+
+    // maybe we now have a new mime type
+    QString previous_mimetype_name = signalManager().fileInfo().get(
+	INF_MIMETYPE).toString();
+
+    QString new_mimetype_name;
+    new_mimetype_name = CodecManager::whatContains(url);
+
+    if (new_mimetype_name != previous_mimetype_name) {
+	// saving to a different mime type
+	// now we have to do as if the mime type and file name
+	// has already been selected to satisfy the fileinfo
+	// plugin
+	qDebug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
+	    url.prettyURL().data(), new_mimetype_name.data(),
+	    previous_mimetype_name.data() );
+
+	// set the new mimetype
+	signalManager().fileInfo().set(INF_MIMETYPE,
+	    new_mimetype_name);
+	// save the old filename and set the new one
+	QString old_filename = signalManager().fileInfo().get(
+	    INF_FILENAME).toString();
+	signalManager().fileInfo().set(INF_FILENAME,
+	    url.prettyURL());
+
+	// now call the fileinfo plugin with the new filename and
+	// mimetype
+	Q_ASSERT(m_plugin_manager);
+	res = (m_plugin_manager) ?
+	    m_plugin_manager->setupPlugin("fileinfo") : -1;
+
+	// restore the mime type and the filename
+	signalManager().fileInfo().set(INF_MIMETYPE,
+	    previous_mimetype_name);
+	signalManager().fileInfo().set(INF_FILENAME,
+	    url.prettyURL());
+    }
+
+    if (!res) res = signalManager().save(url, selection);
+
+    updateCaption();
+    m_app.addRecentFile(signalName());
+    updateMenu();
 
     return res;
 }

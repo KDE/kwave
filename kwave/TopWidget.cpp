@@ -131,7 +131,7 @@ unsigned int TopWidget::ZoomListPrivate::ms(int index)
 //***************************************************************************
 //***************************************************************************
 TopWidget::TopWidget(KwaveApp &main_app)
-    :KMainWindow(), m_app(main_app), m_url()
+    :KMainWindow(), m_app(main_app)
 {
     int id=1000; // id of toolbar items
     KIconLoader icon_loader;
@@ -757,10 +757,10 @@ int TopWidget::parseCommands(const QByteArray &buffer)
 //***************************************************************************
 int TopWidget::revert()
 {
-    Q_ASSERT(m_url.isValid());
-    if (!m_url.isValid()) return -EINVAL;
+    KURL url(signalName());
+    Q_ASSERT(url.isValid());
+    if (!url.isValid()) return -EINVAL;
 
-    KURL url(m_url);
     return loadFile(url);
 }
 
@@ -795,7 +795,6 @@ bool TopWidget::closeFile()
     Q_ASSERT(m_main_widget);
     if (m_main_widget) m_main_widget->closeSignal();
 
-    m_url = KURL();
     updateCaption();
     m_zoomselect->clearEdit();
     emit sigSignalNameChanged(signalName());
@@ -824,7 +823,6 @@ int TopWidget::loadFile(const KURL &url)
 
     if (!m_main_widget->loadFile(url)) {
 	// succeeded
-	m_url = url;
 	updateCaption();
     } else {
 	// load failed
@@ -864,7 +862,9 @@ int TopWidget::saveFile()
     if (!m_main_widget) return -EINVAL;
 
     if (signalName() != NEW_FILENAME) {
-	res = signalManager().save(m_url, false);
+	KURL url;
+	url = signalName();
+	res = signalManager().save(url, false);
 
 	// if saving in current format is not possible (no encoder),
 	// then try to "save/as" instead...
@@ -884,8 +884,10 @@ int TopWidget::saveFileAs(bool selection)
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return -EINVAL;
 
+    KURL current_url;
+    current_url = signalName();
     KwaveFileDialog dlg(":<kwave_save_as>", CodecManager::encodingFilter(),
-        this, "Kwave save file", true, m_url.prettyURL(), "*.wav");
+        this, "Kwave save file", true, current_url.prettyURL(), "*.wav");
     // dlg.setKeepLocation(true);
     dlg.setOperationMode(KFileDialog::Saving);
     dlg.setCaption(i18n("Save As"));
@@ -917,8 +919,6 @@ int TopWidget::saveFileAs(bool selection)
 	    return -1;
 	}
     }
-
-    if (!selection) m_url = url;
 
     // maybe we now have a new mime type
     QString previous_mimetype_name = signalManager().fileInfo().get(
@@ -973,8 +973,6 @@ int TopWidget::newSignal(unsigned int samples, double rate,
 {
     // abort if the user pressed cancel
     if (!closeFile()) return -1;
-
-    m_url = "file:"+NEW_FILENAME;
     emit sigSignalNameChanged(signalName());
 
     m_main_widget->newSignal(samples, rate, bits, tracks);
@@ -989,7 +987,16 @@ int TopWidget::newSignal(unsigned int samples, double rate,
 //***************************************************************************
 QString TopWidget::signalName()
 {
-    return (m_url.isValid()) ? m_url.path() : QString("");
+    // if a file is loaded -> path of the URL if it has one
+    KURL url;
+    url = signalManager().fileInfo().get(INF_FILENAME).toString();
+    if (url.isValid()) return url.path();
+
+    // we have something, but no name yet
+    if (!signalManager().isClosed()) return QString(NEW_FILENAME);
+
+    // otherwise: closed, nothing loaded
+    return "";
 }
 
 //***************************************************************************

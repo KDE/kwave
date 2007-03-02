@@ -274,26 +274,34 @@ protected:
      */
     bool closeFile();
 
-    /** Saves the current file. */
+    /**
+     * Saves the current file.
+     * @return zero if succeeded, non-zero if failed
+     */
     int saveFile();
 
     /**
      * Opens a dialog for saving the current .wav file.
      * @param selection if set to true, only the current selection
      *        will be saved
+     * @return zero if succeeded, non-zero if failed
      */
     int saveFileAs(bool selection = false);
 
     /**
      * Opens a file contained in the list of recent files.
      * @param str the entry contained in the list
+     * @return zero if succeeded, non-zero if failed
      */
     int openRecent(const QString &str);
 
     /** Updates the caption with the filename */
     void updateCaption();
 
-    /** handle playback commands, like play/stop/pause etc... */
+    /**
+     * handle playback commands, like play/stop/pause etc...
+     * @return zero if succeeded, non-zero if failed
+     */
     int executePlaybackCommand(const QString &command);
 
 private:
@@ -337,9 +345,6 @@ private:
      * playback and zoom
      */
     KToolBar *m_toolbar;
-
-    /** URL of the current signal or file. Empty if nothing loaded */
-    KURL m_url;
 
     /** menu manager for this window */
     MenuManager *m_menu_manager;

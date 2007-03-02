@@ -1985,8 +1985,8 @@ bool SignalWidget::labelProperties(Label *label)
 //	}
 //    }
 //}
-//
-////****************************************************************************
+
+//****************************************************************************
 //void SignalWidget::saveBlocks (int bit)
 //{
 //    if (signalmanage) {
@@ -2029,7 +2029,7 @@ bool SignalWidget::labelProperties(Label *label)
 //	}
 //    }
 //}
-//
+
 ////****************************************************************************
 //void SignalWidget::markSignal (const char *str)
 //{
@@ -2307,23 +2307,11 @@ void SignalWidget::slotSamplesInserted(unsigned int track,
 {
 //     qDebug("SignalWidget(): slotSamplesInserted(%u, %u,%u)", track,
 // 	offset, length);
+    Q_UNUSED(track);
+    Q_UNUSED(offset);
+    Q_UNUSED(length);
 
-    // only adjust the labels once per operation
-    if (track != m_signal_manager.selectedTracks().at(0)) return;
-
-    unsigned int modified = 0;
-    QPtrListIterator<Label> it(labels());
-    while (Label *label = it.current()) {
-	unsigned int pos = label->pos();
-	if (pos >= offset) {
-	    label->moveTo(pos + length);
-	    modified++;
-	}
-	++it;
-    }
-
-    if (modified)
-	refreshLayer(LAYER_MARKERS);
+    refreshLayer(LAYER_MARKERS);
 }
 
 //***************************************************************************
@@ -2332,30 +2320,11 @@ void SignalWidget::slotSamplesDeleted(unsigned int track,
 {
 //    qDebug("SignalWidget(): slotSamplesDeleted(%u, %u...%u)", track,
 // 	offset, offset+length-1);
+    Q_UNUSED(track);
+    Q_UNUSED(offset);
+    Q_UNUSED(length);
 
-    // only adjust the labels once per operation
-    if (track != m_signal_manager.selectedTracks().at(0)) return;
-
-    unsigned int modified = 0;
-    LabelListIterator it(labels());
-    while (Label *label = it.current()) {
-	unsigned int pos = label->pos();
-	if (pos >= offset + length) {
-	    // move label left
-	    label->moveTo(pos - length);
-	    modified++;
-	} else if ((pos >= offset) && (pos < offset+length)) {
-	    // delete the label
-	    m_signal_manager.deleteLabel(m_signal_manager.labelIndex(label),
-		true);
-	    modified++;
-	    continue;
-	}
-	++it;
-    }
-
-    if (modified)
-	refreshLayer(LAYER_MARKERS);
+    refreshLayer(LAYER_MARKERS);
 }
 
 //***************************************************************************

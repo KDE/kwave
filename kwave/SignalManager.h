@@ -651,9 +651,6 @@ private:
     /** Parent widget, used for showing messages */
     QWidget *m_parent_widget;
 
-    /** name of the signal, normally equal to the filename */
-    QString m_name;
-
     /** true if the signal is closed */
     bool m_closed;
 

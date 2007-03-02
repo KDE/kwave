@@ -80,7 +80,6 @@
 SignalManager::SignalManager(QWidget *parent)
     :QObject(),
     m_parent_widget(parent),
-    m_name(""),
     m_closed(true),
     m_empty(true),
     m_modified(false),
@@ -129,7 +128,6 @@ int SignalManager::loadFile(const KURL &url)
 {
     int res = 0;
     FileProgress *dialog = 0;
-    m_name = url.filename();
 
     // enter and stay in not modified state
     enableModifiedChange(true);
@@ -523,9 +521,9 @@ void SignalManager::close()
     flushRedoBuffer();
 
     m_empty = true;
-    m_name = "";
     while (tracks()) deleteTrack(tracks()-1);
     m_signal.close();
+    m_file_info.clear();
 
     m_closed = true;
     m_selection.select(0,0);
@@ -877,6 +875,19 @@ void SignalManager::slotSamplesInserted(unsigned int track,
     m_last_length = m_signal.length();
 
     setModified(true);
+
+    // only adjust the labels once per operation
+    if (track == selectedTracks().at(0)) {
+	LabelListIterator it(labels());
+	while (Label *label = it.current()) {
+	    unsigned int pos = label->pos();
+	    if (pos >= offset) {
+		label->moveTo(pos + length);
+	    }
+	    ++it;
+	}
+    }
+
     emit sigSamplesInserted(track, offset, length);
     emitStatusInfo();
 }
@@ -891,6 +902,24 @@ void SignalManager::slotSamplesDeleted(unsigned int track,
     m_last_length = m_signal.length();
 
     setModified(true);
+
+    // only adjust the labels once per operation
+    if (track == selectedTracks().at(0)) {
+	LabelListIterator it(labels());
+	while (Label *label = it.current()) {
+	    unsigned int pos = label->pos();
+	    if (pos >= offset + length) {
+		// move label left
+		label->moveTo(pos - length);
+	    } else if ((pos >= offset) && (pos < offset+length)) {
+		// delete the label
+		deleteLabel(labelIndex(label), true);
+		continue;
+	    }
+	    ++it;
+	}
+    }
+
     emit sigSamplesDeleted(track, offset, length);
     emitStatusInfo();
 }

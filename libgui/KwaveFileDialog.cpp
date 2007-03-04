@@ -62,11 +62,12 @@ KwaveFileDialog::KwaveFileDialog(const QString &startDir,
 	for (it = filter_list.begin(); it != filter_list.end(); ++it) {
 	    QString f = (*it);
 	    if (f.contains("|")) f = f.left(f.find("|"));
+	    if (!f.length()) continue;
 	    QStringList extensions = QStringList::split(" ", f);
 	    if (extensions.contains(m_last_ext)) {
 		f = (*it);
 		if ((best == filter_list.end()) ||
-		    (f.length() < (*best).length()))
+		    (f.length() <= (*best).length()))
 		    best = it;
 	    }
 	}
@@ -101,6 +102,7 @@ void KwaveFileDialog::loadConfig(const QString &section)
 void KwaveFileDialog::saveConfig()
 {
     if (!m_config_group.length()) return;
+    if (!selectedURL().fileName().length()) return; // aborted
 
     KConfig *cfg = KApplication::kApplication()->config();
     Q_ASSERT(cfg);

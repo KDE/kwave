@@ -24,7 +24,6 @@
 
 #include "libgui/SelectTimeWidget.h"
 #include "SelectRangeDlg.uih.h"
-#include "SelectRangeDialog.h"
 
 class SelectRangeDialog: public SelectRangeDlg
 {

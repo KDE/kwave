@@ -1,0 +1,198 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>SaveBlocksWidgetBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>SaveBlocksWidgetBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>527</width>
+            <height>152</height>
+        </rect>
+    </property>
+    <property name="sizePolicy">
+        <sizepolicy>
+            <hsizetype>1</hsizetype>
+            <vsizetype>1</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+    </property>
+    <property name="caption">
+        <string>Form1</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <widget class="QCheckBox" row="3" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>chkSelectionOnly</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>3</hsizetype>
+                    <vsizetype>1</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="text">
+                <string>save selection only</string>
+            </property>
+            <property name="checked">
+                <bool>true</bool>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>If checked, &lt;b&gt;save only the blocks that overlap with the current selection&lt;/b&gt;, otherwise the whole file. &lt;br&gt;&lt;i&gt;Please note that this option is disabled if nothing is selected or the selection already covers the whole file.&lt;/i&gt;</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="2" column="0">
+            <property name="name">
+                <cstring>lblNumbering</cstring>
+            </property>
+            <property name="text">
+                <string>numbering:</string>
+            </property>
+        </widget>
+        <widget class="QComboBox" row="2" column="1">
+            <item>
+                <property name="text">
+                    <string>continue after highest index</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>always start with 0, overwrite if necessary</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>always start with 1, overwrite if necessary</string>
+                </property>
+            </item>
+            <property name="name">
+                <cstring>cbNumbering</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>3</hsizetype>
+                    <vsizetype>1</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="editable">
+                <bool>false</bool>
+            </property>
+            <property name="duplicatesEnabled">
+                <bool>false</bool>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>determines how the &lt;b&gt;numbering of the files&lt;/b&gt; should happen:&lt;ul&gt;
+&lt;li&gt;continue after the &lt;b&gt;highest index&lt;/b&gt; that can be found, avoiding collissions with existing files&lt;/li&gt;
+&lt;li&gt;always start numbering from &lt;b&gt;zero&lt;/b&gt;, possibly colliding with already existing files&lt;/li&gt;
+&lt;li&gt;same as above, but starting from &lt;b&gt;one&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;</string>
+            </property>
+        </widget>
+        <widget class="QLineEdit" row="1" column="1">
+            <property name="name">
+                <cstring>txtExample</cstring>
+            </property>
+            <property name="enabled">
+                <bool>true</bool>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>3</hsizetype>
+                    <vsizetype>1</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="readOnly">
+                <bool>true</bool>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>example of the first file name that will be saved, using the file name pattern above and the numbering below</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="1" column="0">
+            <property name="name">
+                <cstring>lblExample</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>1</hsizetype>
+                    <vsizetype>1</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="text">
+                <string>example:</string>
+            </property>
+        </widget>
+        <widget class="QComboBox" row="0" column="1">
+            <item>
+                <property name="text">
+                    <string>[%filename] - [%04nr]</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>[%04nr]-[%filename]</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>[%filename] part [%nr] of [%count]</string>
+                </property>
+            </item>
+            <property name="name">
+                <cstring>cbPattern</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>3</hsizetype>
+                    <vsizetype>1</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="editable">
+                <bool>false</bool>
+            </property>
+            <property name="duplicatesEnabled">
+                <bool>false</bool>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;p&gt;Select the pattern that is used to create the file name of each saved block. It currently understands the following placeholders:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;tt&gt;&lt;b&gt;[%filename]&lt;/b&gt;&lt;/tt&gt;name of the file, without the path&lt;/li&gt;
+&lt;li&gt;&lt;tt&gt;&lt;b&gt;[&lt;/b&gt;%&lt;i&gt;0&lt;/i&gt;&lt;/tt&gt;&lt;i&gt;N&lt;/i&gt;&lt;tt&gt;&lt;b&gt;nr]&lt;/b&gt;&lt;/tt&gt;the index of the file, optionally with leading zeroes (if &lt;tt&gt;'0&lt;/tt&gt;' prepended) and optionally a fixed number of digits (&lt;tt&gt;N&lt;/tt&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;tt&gt;&lt;b&gt;[%&lt;/b&gt;&lt;i&gt;0&lt;/i&gt;&lt;i&gt;N&lt;/i&gt;&lt;b&gt;count]&lt;/b&gt;&lt;/tt&gt;the number of files or the highest index&lt;/li&gt;
+&lt;/ul&gt;</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="0" column="0">
+            <property name="name">
+                <cstring>lblPattern</cstring>
+            </property>
+            <property name="text">
+                <string>file name pattern:</string>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<includes>
+    <include location="global" impldecl="in declaration">klocale.h</include>
+</includes>
+<layoutdefaults spacing="10" margin="10"/>
+</UI>

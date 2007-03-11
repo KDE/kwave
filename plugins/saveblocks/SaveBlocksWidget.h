@@ -53,6 +53,27 @@ public:
     /** returns true if only the selection should be saved */
     bool selectionOnly();
 
+signals:
+
+    /** emitted whenever one of the input controls has changed */
+    void somethingChanged();
+
+public slots:
+
+    /**
+     * update the filename preview
+     * @param example the example filename
+     */
+    void setNewExample(const QString &example);
+
+private slots:
+
+    /** calls somethingChanged() and ignores it's parameter */
+    void textChanged(const QString &);
+
+    /** calls somethingChanged() and ignores it's parameter */
+    void indexChanged(int);
+
 };
 
 #endif /* _SAVE_BLOCKS_WIDGET_H_ */

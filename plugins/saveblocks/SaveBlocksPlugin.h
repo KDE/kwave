@@ -60,8 +60,40 @@ public:
 
 protected:
 
-    /** Reads values from the parameter list */
+    /** reads values from the parameter list */
     int interpreteParameters(QStringList &params);
+
+    /**
+     * determines the first file name that matches the given filename,
+     * pattern, mode and selection
+     * @param filename the currently selected filename
+     * @param pattern the selected filename pattern
+     * @param the numbering mode
+     * @param selection_only if true: save only the selection
+     */
+    QString firstFileName(const QString &filename, const QString &pattern,
+	numbering_mode_t mode, bool selection_only);
+
+signals:
+
+    /** emitted by updateExample to update the filename preview */
+    void sigNewExample(const QString &example);
+
+private slots:
+
+    /**
+     * called whenever the selection has changed and a new example
+     * has to be shown.
+     * @param filename the currently selected filename
+     * @param pattern the selected filename pattern
+     * @param the numbering mode
+     * @param selection_only if true: save only the selection
+     */
+    void updateExample(
+	const QString &filename,
+	const QString &pattern,
+	SaveBlocksPlugin::numbering_mode_t mode,
+	bool selection_only);
 
 private:
 
@@ -73,6 +105,9 @@ private:
 
     /** if true, only save stuff within the selection */
     bool m_selection_only;
+
+    /** the number of selected blocks to save */
+    unsigned int m_selected_blocks;
 
 };
 

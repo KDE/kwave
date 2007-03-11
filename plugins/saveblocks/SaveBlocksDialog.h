@@ -23,6 +23,7 @@
 #include "libgui/KwaveFileDialog.h"
 #include "SaveBlocksPlugin.h"
 
+class KURL;
 class SaveBlocksWidget;
 
 class SaveBlocksDialog: public KwaveFileDialog
@@ -59,7 +60,7 @@ public:
     );
 
     /** Destructor */
-    virtual ~SaveBlocksDialog() {};
+    virtual ~SaveBlocksDialog();
 
     /** returns the file name pattern */
     QString pattern();
@@ -69,6 +70,38 @@ public:
 
     /** returns true if only the selection should be saved */
     bool selectionOnly();
+
+signals:
+
+    /**
+     * emitted whenever the selection has changed and a new example
+     * has to be shown.
+     * @param filename the currently selected filename
+     * @param pattern the selected filename pattern
+     * @param the numbering mode
+     * @param selection_only if true: save only the selection
+     */
+    void sigSelectionChanged(
+	const QString &filename,
+	const QString &pattern,
+	SaveBlocksPlugin::numbering_mode_t mode,
+	bool selection_only);
+
+public slots:
+
+    /**
+     * update the filename preview
+     * @param example the example filename
+     */
+    void setNewExample(const QString &example);
+
+protected slots:
+
+    /** collects all needed data and emits a sigSelectionChanged */
+    void emitUpdate();
+
+    /** calls emitUpdate() and ignores it's parameter */
+    void textChanged(const QString &);
 
 private:
 

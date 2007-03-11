@@ -18,9 +18,12 @@
 #include "config.h"
 #include "errno.h"
 #include <qstringlist.h>
+#include <qregexp.h>
 #include <klocale.h>
 #include <kmdcodec.h>
 
+#include "libkwave/FileInfo.h"
+#include "libkwave/Label.h"
 #include "kwave/CodecManager.h"
 #include "SaveBlocksDialog.h"
 #include "SaveBlocksPlugin.h"
@@ -30,7 +33,7 @@ KWAVE_PLUGIN(SaveBlocksPlugin,"saveblocks","Thomas Eschenbacher");
 //***************************************************************************
 SaveBlocksPlugin::SaveBlocksPlugin(const PluginContext &c)
     :KwavePlugin(c), m_pattern(), m_numbering_mode(CONTINUE),
-     m_selection_only(true)
+     m_selection_only(true), m_selected_blocks(0)
 {
     i18n("saveblocks");
 }
@@ -58,6 +61,23 @@ QStringList *SaveBlocksPlugin::setup(QStringList &previous_params)
     bool enable_selection_only = (selection_left != selection_right) &&
 	!((selection_left == 0) || (selection_right+1 >= signalLength()));
 
+    // determine the number of blocks to save
+    m_selected_blocks = 0;
+    unsigned int block_start;
+    unsigned int block_end = 0;
+    LabelListIterator it(fileInfo().labels());
+    Label *label = it.current();
+    selection(&selection_left, &selection_right, true);
+    for (;;) {
+	block_start = block_end;
+	block_end   = (label) ? label->pos() : signalLength();
+	if ((selection_left < block_end) && (selection_right > block_start))
+	    m_selected_blocks++;
+	if (!label) break;
+	++it;
+	label = it.current();
+    }
+
     SaveBlocksDialog *dialog = new SaveBlocksDialog(
 	":<kwave_save_blocks>", CodecManager::encodingFilter(),
 	parentWidget(), "Kwave save blocks", true,
@@ -69,6 +89,14 @@ QStringList *SaveBlocksPlugin::setup(QStringList &previous_params)
     );
     Q_ASSERT(dialog);
     if (!dialog) return 0;
+
+    // connect the signals/slots from the plugin and the dialog
+    connect(dialog, SIGNAL(sigSelectionChanged(const QString &,
+	const QString &, SaveBlocksPlugin::numbering_mode_t, bool)),
+	this, SLOT(updateExample(const QString &, const QString &,
+	SaveBlocksPlugin::numbering_mode_t, bool)));
+    connect(this, SIGNAL(sigNewExample(const QString &)),
+	dialog, SLOT(setNewExample(const QString &)));
 
     dialog->setOperationMode(KFileDialog::Saving);
     dialog->setCaption(i18n("Save Blocks"));
@@ -149,6 +177,82 @@ int SaveBlocksPlugin::interpreteParameters(QStringList &params)
     if (!ok) return -EINVAL;
 
     return 0;
+}
+
+//***************************************************************************
+QString SaveBlocksPlugin::firstFileName(const QString &filename,
+    const QString &pattern, SaveBlocksPlugin::numbering_mode_t mode,
+    bool selection_only)
+{
+    QFileInfo file(filename);
+    QString name = file.fileName();
+    QString base = file.baseName(true);
+    QString ext  = file.extension(false);
+
+    // convert the pattern into a regular expression in order to check if
+    // the current name already is produced by the current pattern
+    // \[%[0-9]?nr\]      -> \d+
+    // \[%[0-9]?count\]   -> \d+
+    // \[%filename\]       -> base
+    QString escaped_pattern = QRegExp::escape(pattern);
+//     qDebug("escaped='%s'", escaped_pattern.data());
+    QRegExp rx_nr("\\[\%\\d*nr\\]", false);
+    QRegExp rx_count("\\[\%\\d*count\\]", false);
+    QRegExp rx_filename("\\[\%filename\\]", false);
+
+    QString p = pattern;
+
+    int idx_nr = rx_nr.search(p);
+    int idx_count = rx_count.search(p);
+    int idx_filename = rx_filename.search(p);
+    p.replace(rx_nr, "(\\d+)");
+    p.replace(rx_count, "(\\d+)");
+    p.replace(rx_filename, "(.+)");
+
+//     qDebug("indices: nr=%d, count=%d, filename=%d", idx_nr, idx_count, idx_filename);
+    int max = 0;
+    for (unsigned int i=0; i < pattern.length(); i++) {
+	if (idx_nr       == max) max++;
+	if (idx_count    == max) max++;
+	if (idx_filename == max) max++;
+	if (idx_nr       > max) idx_nr--;
+	if (idx_count    > max) idx_count--;
+	if (idx_filename > max) idx_filename--;
+    }
+//     qDebug("indices: nr=%d, count=%d, filename=%d", idx_nr, idx_count, idx_filename);
+
+    p += "." + ext;
+//     qDebug("after replacing -> '%s'", p.data());
+    QRegExp rx_current(p, false);
+    if (rx_current.search(name) >= 0) {
+	// filename already produced by this pattern
+	base = rx_current.cap(idx_filename + 1);
+// 	qDebug("*** MATCH *** -> new base='%s'", base.data());
+// 	qDebug("cap[0]='%s'", rx_current.cap(0).data());
+// 	qDebug("cap[1]='%s'", rx_current.cap(1).data());
+// 	qDebug("cap[2]='%s'", rx_current.cap(2).data());
+// 	qDebug("cap[3]='%s'", rx_current.cap(3).data());
+	name = base + "." + ext;
+    }
+
+    // now we have a new name, base and extension
+    // -> find out the numbering, min/max etc...
+
+    // create the complete filename, using the pattern and numbers
+    name = pattern;
+    name.replace(rx_nr, "<nr>");
+    name.replace(rx_count, "<count>");
+    name.replace(rx_filename, base);
+    name += "." + ext;
+    return name;
+}
+
+//***************************************************************************
+void SaveBlocksPlugin::updateExample(const QString &filename,
+    const QString &pattern, SaveBlocksPlugin::numbering_mode_t mode,
+    bool selection_only)
+{
+    emit sigNewExample(firstFileName(filename, pattern, mode, selection_only));
 }
 
 //***************************************************************************

@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 #include "config.h"
+#include <kurlcombobox.h>
+#include <qcombobox.h>
+
 #include "SaveBlocksDialog.h"
 #include "SaveBlocksWidget.h"
 
@@ -36,17 +39,35 @@ SaveBlocksDialog::SaveBlocksDialog(const QString &startDir,
 	last_ext, m_widget = new SaveBlocksWidget(parent, filename_pattern,
 	numbering_mode, selection_only, have_selection))
 {
+    Q_ASSERT(m_widget);
+    connect(m_widget, SIGNAL(somethingChanged()),
+            this, SLOT(emitUpdate()));
+
+    // if something in the file selection changes
+    connect(this, SIGNAL(filterChanged(const QString &)),
+            this, SLOT(textChanged(const QString &)));
+    connect(locationEdit, SIGNAL(textChanged(const QString &)),
+            this, SLOT(textChanged(const QString &)));
+}
+
+//***************************************************************************
+SaveBlocksDialog::~SaveBlocksDialog()
+{
+    if (m_widget) delete m_widget;
+    m_widget = 0;
 }
 
 //***************************************************************************
 QString SaveBlocksDialog::pattern()
 {
+    Q_ASSERT(m_widget);
     return (m_widget) ? m_widget->pattern() : "";
 }
 
 //***************************************************************************
 SaveBlocksPlugin::numbering_mode_t SaveBlocksDialog::numberingMode()
 {
+    Q_ASSERT(m_widget);
     return (m_widget) ? m_widget->numberingMode() :
                         SaveBlocksPlugin::CONTINUE;
 }
@@ -54,7 +75,35 @@ SaveBlocksPlugin::numbering_mode_t SaveBlocksDialog::numberingMode()
 //***************************************************************************
 bool SaveBlocksDialog::selectionOnly()
 {
+    Q_ASSERT(m_widget);
     return (m_widget) ? m_widget->selectionOnly() : false;
+}
+
+//***************************************************************************
+void SaveBlocksDialog::setNewExample(const QString &example)
+{
+    Q_ASSERT(m_widget);
+    if (m_widget) m_widget->setNewExample(example);
+}
+
+//***************************************************************************
+void SaveBlocksDialog::emitUpdate()
+{
+    QString filename = locationEdit->currentText();
+    QFileInfo file(filename);
+    if (!file.extension().length()) {
+	// append the currently selected extension if it's missing
+	QString extension = selectedExtension().section(" ", 0, 0);
+	filename += extension.remove(0, 1);
+    }
+    emit sigSelectionChanged(filename, pattern(),
+	numberingMode(), selectionOnly());
+}
+
+//***************************************************************************
+void SaveBlocksDialog::textChanged(const QString &)
+{
+    emitUpdate();
 }
 
 //***************************************************************************

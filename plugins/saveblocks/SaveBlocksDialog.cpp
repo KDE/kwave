@@ -89,7 +89,8 @@ void SaveBlocksDialog::setNewExample(const QString &example)
 //***************************************************************************
 void SaveBlocksDialog::emitUpdate()
 {
-    QString filename = locationEdit->currentText();
+    QString path = baseURL().path(+1);
+    QString filename = path + locationEdit->currentText();
     QFileInfo file(filename);
     if (!file.extension().length()) {
 	// append the currently selected extension if it's missing

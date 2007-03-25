@@ -68,11 +68,6 @@
             </item>
             <item>
                 <property name="text">
-                    <string>always start with 0, overwrite if necessary</string>
-                </property>
-            </item>
-            <item>
-                <property name="text">
                     <string>always start with 1, overwrite if necessary</string>
                 </property>
             </item>
@@ -96,8 +91,7 @@
             <property name="whatsThis" stdset="0">
                 <string>determines how the &lt;b&gt;numbering of the files&lt;/b&gt; should happen:&lt;ul&gt;
 &lt;li&gt;continue after the &lt;b&gt;highest index&lt;/b&gt; that can be found, avoiding collissions with existing files&lt;/li&gt;
-&lt;li&gt;always start numbering from &lt;b&gt;zero&lt;/b&gt;, possibly colliding with already existing files&lt;/li&gt;
-&lt;li&gt;same as above, but starting from &lt;b&gt;one&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;always start numbering from &lt;b&gt;one&lt;/b&gt;, possibly colliding with already existing files&lt;/li&gt;
 &lt;/ul&gt;</string>
             </property>
         </widget>
@@ -191,6 +185,12 @@
         </widget>
     </grid>
 </widget>
+<tabstops>
+    <tabstop>cbPattern</tabstop>
+    <tabstop>txtExample</tabstop>
+    <tabstop>cbNumbering</tabstop>
+    <tabstop>chkSelectionOnly</tabstop>
+</tabstops>
 <includes>
     <include location="global" impldecl="in declaration">klocale.h</include>
 </includes>

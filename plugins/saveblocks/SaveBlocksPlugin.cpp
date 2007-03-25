@@ -16,7 +16,8 @@
  ***************************************************************************/
 
 #include "config.h"
-#include "errno.h"
+#include <errno.h>
+#include <qdir.h>
 #include <qstringlist.h>
 #include <qregexp.h>
 #include <klocale.h>
@@ -33,7 +34,7 @@ KWAVE_PLUGIN(SaveBlocksPlugin,"saveblocks","Thomas Eschenbacher");
 //***************************************************************************
 SaveBlocksPlugin::SaveBlocksPlugin(const PluginContext &c)
     :KwavePlugin(c), m_pattern(), m_numbering_mode(CONTINUE),
-     m_selection_only(true), m_selected_blocks(0)
+     m_selection_only(true)
 {
     i18n("saveblocks");
 }
@@ -60,23 +61,6 @@ QStringList *SaveBlocksPlugin::setup(QStringList &previous_params)
     // selected but not everything
     bool enable_selection_only = (selection_left != selection_right) &&
 	!((selection_left == 0) || (selection_right+1 >= signalLength()));
-
-    // determine the number of blocks to save
-    m_selected_blocks = 0;
-    unsigned int block_start;
-    unsigned int block_end = 0;
-    LabelListIterator it(fileInfo().labels());
-    Label *label = it.current();
-    selection(&selection_left, &selection_right, true);
-    for (;;) {
-	block_start = block_end;
-	block_end   = (label) ? label->pos() : signalLength();
-	if ((selection_left < block_end) && (selection_right > block_start))
-	    m_selected_blocks++;
-	if (!label) break;
-	++it;
-	label = it.current();
-    }
 
     SaveBlocksDialog *dialog = new SaveBlocksDialog(
 	":<kwave_save_blocks>", CodecManager::encodingFilter(),
@@ -166,7 +150,6 @@ int SaveBlocksPlugin::interpreteParameters(QStringList &params)
     Q_ASSERT(ok);
     if (!ok) return -EINVAL;
     if ((mode != CONTINUE) &&
-        (mode != START_AT_ZERO) &&
         (mode != START_AT_ONE)) return -EINVAL;
     m_numbering_mode = static_cast<numbering_mode_t>(mode);
 
@@ -180,11 +163,77 @@ int SaveBlocksPlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
+unsigned int SaveBlocksPlugin::blocksToSave(bool selection_only)
+{
+    unsigned int count = 0;
+    unsigned int selection_left, selection_right;
+
+    unsigned int block_start;
+    unsigned int block_end = 0;
+    LabelListIterator it(fileInfo().labels());
+    Label *label = it.current();
+
+    if (selection_only) {
+	selection(&selection_left, &selection_right, true);
+    } else {
+	selection_left = 0;
+	selection_right = signalLength() - 1;
+    }
+    for (;;) {
+	block_start = block_end;
+	block_end   = (label) ? label->pos() : signalLength();
+	if ((selection_left < block_end) && (selection_right > block_start))
+	    count++;
+	if (!label) break;
+	++it;
+	label = it.current();
+    }
+
+    return count;
+}
+
+//***************************************************************************
+QString SaveBlocksPlugin::createFileName(const QString &base,
+    const QString &ext, const QString &pattern,
+    unsigned int index, unsigned int count)
+{
+    QString p = pattern;
+    QString escaped_pattern = QRegExp::escape(p);
+    QString nr;
+
+    // format the "index" parameter
+    QRegExp rx_nr("(\\[\%\\d*nr\\])", false);
+    if (rx_nr.search(p) >= 0) {
+	QString format = rx_nr.cap(1);
+	format = format.mid(1, format.length() - 4) + "u";
+	p.replace(rx_nr, nr.sprintf(format, index));
+    }
+
+    // format the "count" parameter
+    QRegExp rx_count("(\\[\%\\d*count\\])", false);
+    while (rx_count.search(p) >= 0) {
+	QString format = rx_count.cap(1);
+	format = format.mid(1, format.length() - 7) + "u";
+	p.replace(rx_count, nr.sprintf(format, count));
+    }
+
+    // format the "filename" parameter
+    QRegExp rx_filename("\\[\%filename\\]", false);
+    if (rx_filename.search(p) >= 0) {
+	p.replace(rx_filename, base);
+    }
+
+    if (ext.length()) p += "." + ext;
+    return p;
+}
+
+//***************************************************************************
 QString SaveBlocksPlugin::firstFileName(const QString &filename,
     const QString &pattern, SaveBlocksPlugin::numbering_mode_t mode,
     bool selection_only)
 {
     QFileInfo file(filename);
+    QString path = file.dirPath(true);
     QString name = file.fileName();
     QString base = file.baseName(true);
     QString ext  = file.extension(false);
@@ -195,7 +244,6 @@ QString SaveBlocksPlugin::firstFileName(const QString &filename,
     // \[%[0-9]?count\]   -> \d+
     // \[%filename\]       -> base
     QString escaped_pattern = QRegExp::escape(pattern);
-//     qDebug("escaped='%s'", escaped_pattern.data());
     QRegExp rx_nr("\\[\%\\d*nr\\]", false);
     QRegExp rx_count("\\[\%\\d*count\\]", false);
     QRegExp rx_filename("\\[\%filename\\]", false);
@@ -208,8 +256,6 @@ QString SaveBlocksPlugin::firstFileName(const QString &filename,
     p.replace(rx_nr, "(\\d+)");
     p.replace(rx_count, "(\\d+)");
     p.replace(rx_filename, "(.+)");
-
-//     qDebug("indices: nr=%d, count=%d, filename=%d", idx_nr, idx_count, idx_filename);
     int max = 0;
     for (unsigned int i=0; i < pattern.length(); i++) {
 	if (idx_nr       == max) max++;
@@ -219,32 +265,37 @@ QString SaveBlocksPlugin::firstFileName(const QString &filename,
 	if (idx_count    > max) idx_count--;
 	if (idx_filename > max) idx_filename--;
     }
-//     qDebug("indices: nr=%d, count=%d, filename=%d", idx_nr, idx_count, idx_filename);
 
     p += "." + ext;
-//     qDebug("after replacing -> '%s'", p.data());
     QRegExp rx_current(p, false);
     if (rx_current.search(name) >= 0) {
 	// filename already produced by this pattern
 	base = rx_current.cap(idx_filename + 1);
-// 	qDebug("*** MATCH *** -> new base='%s'", base.data());
-// 	qDebug("cap[0]='%s'", rx_current.cap(0).data());
-// 	qDebug("cap[1]='%s'", rx_current.cap(1).data());
-// 	qDebug("cap[2]='%s'", rx_current.cap(2).data());
-// 	qDebug("cap[3]='%s'", rx_current.cap(3).data());
-	name = base + "." + ext;
     }
 
     // now we have a new name, base and extension
     // -> find out the numbering, min/max etc...
+    unsigned int count = blocksToSave(selection_only);
+    unsigned int first = 1;
+    QDir dir(path, "*");
+    QStringList files;
+    files = dir.entryList();
+    switch (mode) {
+	case START_AT_ONE:
+	    first = 1;
+	    break;
+	case CONTINUE:
+	    for (unsigned int i = first; i <= first+count; i++) {
+		QString name = createFileName(base, ext, pattern, i, count);
+		QRegExp rx("^(" + QRegExp::escape(name) + ")$", false);
+		QStringList matches = files.grep(rx);
+		if (matches.count() > 0) first = i + 1;
+	    }
+	    break;
+    }
 
-    // create the complete filename, using the pattern and numbers
-    name = pattern;
-    name.replace(rx_nr, "<nr>");
-    name.replace(rx_count, "<count>");
-    name.replace(rx_filename, base);
-    name += "." + ext;
-    return name;
+    // create the complete filename, including extension but without path
+    return createFileName(base, ext, pattern, first, count);
 }
 
 //***************************************************************************

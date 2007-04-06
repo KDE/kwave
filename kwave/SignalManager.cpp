@@ -413,19 +413,18 @@ int SignalManager::save(const KURL &url, bool selection)
 	    // use a copy, don't touch the original !
 	    FileInfo info = m_file_info;
 
-	    LabelList labels = info.labels();
+	    LabelList &labels = info.labels();
 	    LabelListIterator it(labels);
 	    while (Label *label = it.current()) {
 		unsigned int pos = label->pos();
+		++it;
 		if ((pos < ofs) || (pos >= ofs + len)) {
 		    // out of the selected area -> remove
 		    labels.remove(label);
-		    continue;
 		} else {
 		    // move label left
 		    label->moveTo(pos - ofs);
 		}
-		++it;
 	    }
 
 	    // set the filename in the copy of the fileinfo, the original

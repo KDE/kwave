@@ -21,6 +21,7 @@
 #include "config.h"
 #include <qobject.h>
 #include <qstring.h>
+#include <kurl.h>
 
 #include "libkwave/KwavePlugin.h"
 
@@ -39,14 +40,14 @@ public:
     virtual ~SaveBlocksPlugin();
 
     /**
-     * Shows a dialog for selecting the range and emits a command
-     * for applying the selection if OK has been pressed.
+     * Shows a file saving dialog and emits a command for saving the blocks
+     * when OK has been pressed.
      * @see KwavePlugin::setup
      */
     virtual QStringList *setup(QStringList &previous_params);
 
     /**
-     * selects the range
+     * Saves the files, using the settings made in "setup()"
      * @see KwavePlugin::start()
      */
     virtual int start(QStringList &params);
@@ -79,16 +80,43 @@ protected:
      * @param index the index of the current file
      * @param count the total number of files
      */
-    QString createFileName(const QString &base, const QString &pattern,
-                           const QString &ext,
+    QString createFileName(const QString &base, const QString &ext,
+                           const QString &pattern,
                            unsigned int index, unsigned int count);
+
+    /**
+     * determines the index of the first file name that matches the
+     * given filename, pattern and mode
+     * @param path the directory for saving
+     * @param base the base name, without indices, extension etc...
+     * @param ext the extension (zero-length is allowed)
+     * @param pattern the pattern for creating the filename
+     * @param mode the numbering mode
+     * @param count the total number of files
+     * @return the index of the first file, [1...count+X]
+     */
+    unsigned int firstIndex(const QString &path, const QString &base,
+                            const QString &ext, const QString &pattern,
+                            SaveBlocksPlugin::numbering_mode_t mode,
+                            unsigned int count);
+
+    /**
+     * Find out the base name out of a given file name, using a
+     * given filename pattern. If the given file name is already
+     * produced (matched) by this pattern, the base name will be
+     * cut out of the file name.
+     * @param filename the file name to check
+     * @param pattern the selected filename pattern
+     * @return the base name of the file, without path and extension
+     */
+    QString findBase(const QString &filename, const QString &pattern);
 
     /**
      * determines the first file name that matches the given filename,
      * pattern, mode and selection
      * @param filename the currently selected filename
      * @param pattern the selected filename pattern
-     * @param the numbering mode
+     * @param mode the numbering mode
      * @param selection_only if true: save only the selection
      */
     QString firstFileName(const QString &filename, const QString &pattern,
@@ -116,6 +144,9 @@ private slots:
 	bool selection_only);
 
 private:
+
+    /** the URL of the first file (user selection) */
+    KURL m_url;
 
     /** expression with the filename pattern */
     QString m_pattern;

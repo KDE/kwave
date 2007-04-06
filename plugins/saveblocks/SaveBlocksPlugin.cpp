@@ -22,6 +22,7 @@
 #include <qregexp.h>
 #include <klocale.h>
 #include <kmdcodec.h>
+#include <kmessagebox.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
@@ -29,11 +30,13 @@
 #include "SaveBlocksDialog.h"
 #include "SaveBlocksPlugin.h"
 
+#include "kwave/SignalManager.h"
+
 KWAVE_PLUGIN(SaveBlocksPlugin,"saveblocks","Thomas Eschenbacher");
 
 //***************************************************************************
 SaveBlocksPlugin::SaveBlocksPlugin(const PluginContext &c)
-    :KwavePlugin(c), m_pattern(), m_numbering_mode(CONTINUE),
+    :KwavePlugin(c), m_url(), m_pattern(), m_numbering_mode(CONTINUE),
      m_selection_only(true)
 {
     i18n("saveblocks");
@@ -59,8 +62,10 @@ QStringList *SaveBlocksPlugin::setup(QStringList &previous_params)
 
     // enable the "selection only" checkbox only if there is something
     // selected but not everything
-    bool enable_selection_only = (selection_left != selection_right) &&
-	!((selection_left == 0) || (selection_right+1 >= signalLength()));
+    bool selected_something = (selection_left != selection_right);
+    bool selected_all = ((selection_left == 0) &&
+                         (selection_right+1 >= signalLength()));
+    bool enable_selection_only = selected_something && !selected_all;
 
     SaveBlocksDialog *dialog = new SaveBlocksDialog(
 	":<kwave_save_blocks>", CodecManager::encodingFilter(),
@@ -90,20 +95,25 @@ QStringList *SaveBlocksPlugin::setup(QStringList &previous_params)
     Q_ASSERT(list);
     if (list) {
 	// user has pressed "OK"
-	QString pattern;
+	QString pattern, name;
+
+	name = KCodecs::base64Encode(QCString(
+	    dialog->selectedURL().prettyURL()), false);
 	pattern = KCodecs::base64Encode(QCString(dialog->pattern()), false);
 	int mode = static_cast<int>(dialog->numberingMode());
 	bool selection_only = (enable_selection_only) ?
 	    dialog->selectionOnly() : m_selection_only;
 
+	*list << name;
 	*list << pattern;
 	*list << QString::number(mode);
 	*list << QString::number(selection_only);
 
 	emitCommand("plugin:execute(saveblocks,"+
+	    name+","+
 	    pattern+","+
 	    QString::number(mode)+","+
-	    QString::number(selection_only)+","+
+	    QString::number(selection_only)+
 	    ")"
 	);
     } else {
@@ -119,12 +129,142 @@ QStringList *SaveBlocksPlugin::setup(QStringList &previous_params)
 //***************************************************************************
 int SaveBlocksPlugin::start(QStringList &params)
 {
+    qDebug("SaveBlocksPlugin::start()");
+
     // interprete the parameters
     int result = interpreteParameters(params);
     if (result) return result;
 
-    // ...
-    qDebug("SaveBlocksPlugin::start"); // ###
+    QString filename = m_url.pathOrURL();
+    QFileInfo file(filename);
+    QString path = file.dirPath(true);
+    QString name = file.fileName();
+    QString ext  = file.extension(false);
+    QString base = findBase(filename, m_pattern);
+
+    // determine the selection settings
+    unsigned int selection_left  = 0;
+    unsigned int selection_right = 0;
+    selection(&selection_left, &selection_right, false);
+
+    bool selected_something = (selection_left != selection_right);
+    bool selected_all = ((selection_left == 0) &&
+                         (selection_right+1 >= signalLength()));
+    bool enable_selection_only = selected_something && !selected_all;
+    bool selection_only = enable_selection_only && m_selection_only;
+
+    if (selection_only) {
+	selection(&selection_left, &selection_right, true);
+    } else {
+	selection_left  = 0;
+	selection_right = signalLength() - 1;
+    }
+
+    // get the index range
+    unsigned int count = blocksToSave(selection_only);
+    unsigned int first = firstIndex(path, base, ext, m_pattern,
+                                    m_numbering_mode, count);
+
+//     qDebug("m_url            = '%s'", m_url.prettyURL().local8Bit().data());
+//     qDebug("m_pattern        = '%s'", m_pattern.local8Bit().data());
+//     qDebug("m_numbering_mode = %d", (int)m_numbering_mode);
+//     qDebug("selection_only   = %d", selection_only);
+//     qDebug("indices          = %u...%u (count=%u)", first, first+count-1,count);
+
+    // check for filenames that might be overwritten
+    const unsigned int max_overwrite_list_length = 2;
+    QDir dir(path, "*");
+    QStringList files;
+    files = dir.entryList();
+    QStringList overwritten;
+    for (unsigned int i = first; i < first+count; i++) {
+	QString name = createFileName(base, ext, m_pattern, i, count);
+	QRegExp rx("^(" + QRegExp::escape(name) + ")$", false);
+	QStringList matches = files.grep(rx);
+	if (matches.count() > 0) {
+	    overwritten += name;
+	    if (overwritten.count() > max_overwrite_list_length)
+		break; // we have collected enough names...
+	}
+    }
+    if (overwritten.count()) {
+	// ask the user for confirmation if he really wants to overwrite...
+
+	QString list = "<br><br>";
+	unsigned int cnt = 0;
+	for (QStringList::Iterator it = overwritten.begin();
+	     it != overwritten.end() && (cnt <= max_overwrite_list_length);
+	     ++it, ++cnt)
+	{
+	    list += (*it);
+	    list += "<br>";
+	}
+	if (overwritten.count() > max_overwrite_list_length)
+	    list += i18n("...");
+	list += "<br>";
+
+	if (KMessageBox::warningYesNo(parentWidget(),
+	    "<html>" +
+	    i18n("This would overwrite the following files: %1" \
+	    "Do you really want to continue?"
+	    ).arg(list) + "</html>") != KMessageBox::Yes)
+	{
+	    return -1;
+	}
+    }
+
+    // save the current selection, we have to restore it afterwards!
+    unsigned int saved_selection_left  = 0;
+    unsigned int saved_selection_right = 0;
+    selection(&saved_selection_left, &saved_selection_right, false);
+
+    // now we can loop over all blocks and save them
+    unsigned int block_start;
+    unsigned int block_end = 0;
+    LabelList labels = fileInfo().labels();
+    LabelListIterator it(labels);
+    Label *label = it.current();
+
+    for (unsigned int index = first;;) {
+	block_start = block_end;
+	block_end   = (label) ? label->pos() : signalLength();
+
+	if ((selection_left < block_end) && (selection_right > block_start)) {
+	    // found a block to save...
+	    Q_ASSERT(index < first + count);
+
+	    unsigned int left  = block_start;
+	    unsigned int right = block_end - 1;
+	    if (left  < selection_left)  left  = selection_left;
+	    if (right > selection_right) right = selection_right;
+	    Q_ASSERT(right > left);
+	    if (right <= left) break; // zero-length ?
+
+	    // select the range of samples
+	    selectRange(left, right - left + 1);
+
+	    // determine the filename
+	    QString name = createFileName(base, ext, m_pattern, index, count);
+	    KURL url = m_url;
+	    url.setFileName(name);
+	    filename = url.pathOrURL();
+
+	    qDebug("saving %9u...%9u -> '%s'", left, right,
+		   filename.local8Bit().data());
+	    signalManager().save(url, true);
+
+	    // increment the index for the next filename
+	    index++;
+	}
+	if (!label) break;
+	++it;
+	label = it.current();
+    }
+
+    // restore the previous selection
+    selectRange(saved_selection_left,
+	(saved_selection_left != saved_selection_right) ?
+	(saved_selection_right - saved_selection_left + 1) : 0);
 
     return result;
 }
@@ -136,16 +276,20 @@ int SaveBlocksPlugin::interpreteParameters(QStringList &params)
     QString param;
 
     // evaluate the parameter list
-    if (params.count() != 3) {
+    if (params.count() != 4) {
 	return -EINVAL;
     }
 
+    // the selected URL
+    m_url = QString(KCodecs::base64Decode(QCString(params[0])));
+    if (!m_url.isValid()) return -EINVAL;
+
     // filename pattern
-    m_pattern = KCodecs::base64Decode(QCString(params[0]));
+    m_pattern = KCodecs::base64Decode(QCString(params[1]));
     if (!m_pattern.length()) return -EINVAL;
 
     // numbering mode
-    param = params[1];
+    param = params[2];
     int mode = param.toInt(&ok);
     Q_ASSERT(ok);
     if (!ok) return -EINVAL;
@@ -154,7 +298,7 @@ int SaveBlocksPlugin::interpreteParameters(QStringList &params)
     m_numbering_mode = static_cast<numbering_mode_t>(mode);
 
     // flag: save only the selection
-    param = params[2];
+    param = params[3];
     m_selection_only = (param.toUInt(&ok) != 0);
     Q_ASSERT(ok);
     if (!ok) return -EINVAL;
@@ -198,7 +342,6 @@ QString SaveBlocksPlugin::createFileName(const QString &base,
     unsigned int index, unsigned int count)
 {
     QString p = pattern;
-    QString escaped_pattern = QRegExp::escape(p);
     QString nr;
 
     // format the "index" parameter
@@ -228,9 +371,41 @@ QString SaveBlocksPlugin::createFileName(const QString &base,
 }
 
 //***************************************************************************
-QString SaveBlocksPlugin::firstFileName(const QString &filename,
-    const QString &pattern, SaveBlocksPlugin::numbering_mode_t mode,
-    bool selection_only)
+unsigned int SaveBlocksPlugin::firstIndex(const QString &path,
+    const QString &base, const QString &ext, const QString &pattern,
+    SaveBlocksPlugin::numbering_mode_t mode, unsigned int count)
+{
+    qDebug("firstIndex(path='%s', base='%s', ext='%s', pattern='%s'",
+	path.local8Bit().data(),
+	base.local8Bit().data(),
+	ext.local8Bit().data(),
+	pattern.local8Bit().data()
+    );
+    unsigned int first = 1;
+    switch (mode) {
+	case START_AT_ONE:
+	    first = 1;
+	    break;
+	case CONTINUE: {
+	    QDir dir(path, "*");
+	    QStringList files;
+	    files = dir.entryList();
+	    for (unsigned int i = first; i < first+count; i++) {
+		QString name = createFileName(base, ext, pattern, i, count);
+		QRegExp rx("^(" + QRegExp::escape(name) + ")$", false);
+		QStringList matches = files.grep(rx);
+		if (matches.count() > 0) first = i + 1;
+	    }
+	    break;
+	}
+    }
+
+    return first;
+}
+
+//***************************************************************************
+QString SaveBlocksPlugin::findBase(const QString &filename,
+                                   const QString &pattern)
 {
     QFileInfo file(filename);
     QString path = file.dirPath(true);
@@ -243,13 +418,11 @@ QString SaveBlocksPlugin::firstFileName(const QString &filename,
     // \[%[0-9]?nr\]      -> \d+
     // \[%[0-9]?count\]   -> \d+
     // \[%filename\]       -> base
-    QString escaped_pattern = QRegExp::escape(pattern);
     QRegExp rx_nr("\\[\%\\d*nr\\]", false);
     QRegExp rx_count("\\[\%\\d*count\\]", false);
     QRegExp rx_filename("\\[\%filename\\]", false);
 
     QString p = pattern;
-
     int idx_nr = rx_nr.search(p);
     int idx_count = rx_count.search(p);
     int idx_filename = rx_filename.search(p);
@@ -266,33 +439,31 @@ QString SaveBlocksPlugin::firstFileName(const QString &filename,
 	if (idx_filename > max) idx_filename--;
     }
 
-    p += "." + ext;
+    if (ext.length()) p += "." + ext;
     QRegExp rx_current(p, false);
     if (rx_current.search(name) >= 0) {
 	// filename already produced by this pattern
 	base = rx_current.cap(idx_filename + 1);
     }
 
+    return base;
+}
+
+//***************************************************************************
+QString SaveBlocksPlugin::firstFileName(const QString &filename,
+    const QString &pattern, SaveBlocksPlugin::numbering_mode_t mode,
+    bool selection_only)
+{
+    QFileInfo file(filename);
+    QString path = file.dirPath(true);
+    QString name = file.fileName();
+    QString ext  = file.extension(false);
+    QString base = findBase(filename, pattern);
+
     // now we have a new name, base and extension
     // -> find out the numbering, min/max etc...
     unsigned int count = blocksToSave(selection_only);
-    unsigned int first = 1;
-    QDir dir(path, "*");
-    QStringList files;
-    files = dir.entryList();
-    switch (mode) {
-	case START_AT_ONE:
-	    first = 1;
-	    break;
-	case CONTINUE:
-	    for (unsigned int i = first; i <= first+count; i++) {
-		QString name = createFileName(base, ext, pattern, i, count);
-		QRegExp rx("^(" + QRegExp::escape(name) + ")$", false);
-		QStringList matches = files.grep(rx);
-		if (matches.count() > 0) first = i + 1;
-	    }
-	    break;
-    }
+    unsigned int first = firstIndex(path, base, ext, pattern, mode, count);
 
     // create the complete filename, including extension but without path
     return createFileName(base, ext, pattern, first, count);

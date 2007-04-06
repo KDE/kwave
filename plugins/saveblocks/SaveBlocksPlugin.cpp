@@ -89,6 +89,7 @@ QStringList *SaveBlocksPlugin::setup(QStringList &previous_params)
 
     dialog->setOperationMode(KFileDialog::Saving);
     dialog->setCaption(i18n("Save Blocks"));
+    dialog->emitUpdate();
     if (dialog->exec() != QDialog::Accepted) return 0;
 
     QStringList *list = new QStringList();
@@ -172,7 +173,7 @@ int SaveBlocksPlugin::start(QStringList &params)
 //     qDebug("indices          = %u...%u (count=%u)", first, first+count-1,count);
 
     // check for filenames that might be overwritten
-    const unsigned int max_overwrite_list_length = 2;
+    const unsigned int max_overwrite_list_length = 7;
     QDir dir(path, "*");
     QStringList files;
     files = dir.entryList();
@@ -205,7 +206,7 @@ int SaveBlocksPlugin::start(QStringList &params)
 
 	if (KMessageBox::warningYesNo(parentWidget(),
 	    "<html>" +
-	    i18n("This would overwrite the following files: %1" \
+	    i18n("This would overwrite the following file(s): %1" \
 	    "Do you really want to continue?"
 	    ).arg(list) + "</html>") != KMessageBox::Yes)
 	{
@@ -375,12 +376,6 @@ unsigned int SaveBlocksPlugin::firstIndex(const QString &path,
     const QString &base, const QString &ext, const QString &pattern,
     SaveBlocksPlugin::numbering_mode_t mode, unsigned int count)
 {
-    qDebug("firstIndex(path='%s', base='%s', ext='%s', pattern='%s'",
-	path.local8Bit().data(),
-	base.local8Bit().data(),
-	ext.local8Bit().data(),
-	pattern.local8Bit().data()
-    );
     unsigned int first = 1;
     switch (mode) {
 	case START_AT_ONE:

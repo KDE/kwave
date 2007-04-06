@@ -95,10 +95,10 @@ public slots:
      */
     void setNewExample(const QString &example);
 
-protected slots:
-
     /** collects all needed data and emits a sigSelectionChanged */
     void emitUpdate();
+
+protected slots:
 
     /** calls emitUpdate() and ignores it's parameter */
     void textChanged(const QString &);

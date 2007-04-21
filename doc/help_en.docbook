@@ -30,8 +30,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2006-12-31</date>
-<releaseinfo>0.7.8</releaseinfo>
+<date>2007-04-21</date>
+<releaseinfo>0.7.9</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
 
@@ -201,6 +201,31 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
+            <para>0.7.9 [2007-05-01]</para>
+            <itemizedlist>
+                <listitem><para>
+                    playback via ALSA: offer the "default" device, if no devices found
+                      offer the "null" device
+                </para></listitem>
+                <listitem><para>
+                    implemented import and export of labels, currently only for uncompressed
+                      wav files
+                </para></listitem>
+                <listitem><para>
+                    new plugin for saving blocks between labels as separate files
+                </para></listitem>
+                <listitem><para>
+                    new function: expand selection to labels
+                </para></listitem>
+                <listitem><para>
+                    new function: select next/previous range between labels
+                </para></listitem>
+                <listitem><para>
+                    bugfix: don't change the file name when saving only the selection
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
             <para>0.7.8 [2006-12-31]</para>
             <itemizedlist>
                 <listitem><para>
@@ -227,6 +252,9 @@
                 <listitem><para>
                     fixed the macro functions "Fade Leadin" and "Fade Leadout", using the
                       new mode of the 'zero' plugin
+                </para></listitem>
+                <listitem><para>
+                    export of ASCII format files
                 </para></listitem>
             </itemizedlist>
         </listitem>

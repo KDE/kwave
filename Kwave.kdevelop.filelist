@@ -818,3 +818,9 @@ kwave/UndoModifyLabelAction.cpp
 kwave/UndoModifyLabelAction.h
 libgui/LabelPropertiesWidget.cpp
 libgui/LabelPropertiesWidget.h
+plugins/saveblocks/SaveBlocksPlugin.h
+plugins/saveblocks/SaveBlocksPlugin.cpp
+plugins/saveblocks/SaveBlocksDialog.h
+plugins/saveblocks/SaveBlocksDialog.cpp
+plugins/saveblocks/SaveBlocksWidget.h
+plugins/saveblocks/SaveBlocksWidget.cpp

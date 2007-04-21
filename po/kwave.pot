@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-31 10:50+0100\n"
+"POT-Creation-Date: 2007-04-21 21:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,7 +85,7 @@ msgstr ""
 msgid "Clip&board"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:32 plugins/codec_wav/WavDecoder.cpp:242
+#: kwave/menus_config_i18n.cpp:32 plugins/codec_wav/WavDecoder.cpp:254
 msgid "&Continue"
 msgstr ""
 
@@ -105,7 +105,7 @@ msgstr ""
 msgid "&Crop"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:38 kwave/SignalWidget.cpp:927
+#: kwave/menus_config_i18n.cpp:38 kwave/SignalWidget.cpp:1021
 msgid "Cu&t"
 msgstr ""
 
@@ -133,7 +133,7 @@ msgstr ""
 msgid "E&xecute"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:47
+#: kwave/menus_config_i18n.cpp:47 kwave/SignalWidget.cpp:1044
 msgid "&Expand to labels"
 msgstr ""
 
@@ -353,7 +353,7 @@ msgstr ""
 msgid "&Select all"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:111
+#: kwave/menus_config_i18n.cpp:111 kwave/SignalWidget.cpp:1062
 msgid "&Selection"
 msgstr ""
 
@@ -401,43 +401,51 @@ msgstr ""
 msgid "&to new Window"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:124
-msgid "to &Start"
+#: kwave/menus_config_i18n.cpp:124 kwave/SignalWidget.cpp:1050
+msgid "to next labels"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:125
-msgid "&Track"
+#: kwave/menus_config_i18n.cpp:125 kwave/SignalWidget.cpp:1057
+msgid "to previous labels"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:126
-msgid "Tri&m"
+msgid "to &Start"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:127
+msgid "&Track"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:128
-msgid "&Undo and Redo"
+msgid "Tri&m"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:130
-msgid "&Visible area"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:131
-msgid "&Volume"
+msgid "&Undo and Redo"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:132
-msgid "with &Clipboard"
+msgid "&Visible area"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:133
-msgid "Zoom &In"
+msgid "&Volume"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:134
-msgid "Zoom &Out"
+msgid "with &Clipboard"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:135
+msgid "Zoom &In"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:136
+msgid "Zoom &Out"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:137
 msgid "Zoom to &Selection"
 msgstr ""
 
@@ -479,7 +487,7 @@ msgid ""
 " found %d plugins\n"
 msgstr ""
 
-#: kwave/UndoModifyLabelAction.cpp:51 kwave/SignalWidget.cpp:1788
+#: kwave/UndoModifyLabelAction.cpp:51 kwave/SignalWidget.cpp:1866
 msgid "modify label"
 msgstr ""
 
@@ -491,11 +499,11 @@ msgstr ""
 msgid "modify file information"
 msgstr ""
 
-#: kwave/UndoDeleteAction.cpp:37 kwave/SignalManager.cpp:887
+#: kwave/UndoDeleteAction.cpp:37 kwave/SignalManager.cpp:947
 msgid "delete"
 msgstr ""
 
-#: kwave/UndoInsertTrack.cpp:39 kwave/SignalManager.cpp:766
+#: kwave/UndoInsertTrack.cpp:39 kwave/SignalManager.cpp:795
 msgid "insert track"
 msgstr ""
 
@@ -503,58 +511,57 @@ msgstr ""
 msgid "modify samples"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:424 kwave/SignalWidget.cpp:1825
-#: kwave/SignalWidget.cpp:1859 plugins/record/RecordPlugin.cpp:807
+#: kwave/SignalWidget.cpp:509 plugins/record/RecordPlugin.cpp:807
 #: plugins/record/RecordPlugin.cpp:825 plugins/record/RecordPlugin.cpp:882
 msgid "Out of memory"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:427 plugins/playback/PlayBackPlugin.cpp:438
+#: kwave/SignalWidget.cpp:512 plugins/playback/PlayBackPlugin.cpp:438
 msgid "unable to open '%1'"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:431
+#: kwave/SignalWidget.cpp:516
 msgid "invalid or unknown file type: '%1'"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:943
+#: kwave/SignalWidget.cpp:1039
+msgid "&Save..."
+msgstr ""
+
+#: kwave/SignalWidget.cpp:1066
 msgid "&New"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:974
-msgid "&Save selection..."
+#: kwave/SignalWidget.cpp:1101
+msgid "&Label"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1320 kwave/UndoSelection.cpp:39
+#: kwave/SignalWidget.cpp:1441 kwave/UndoSelection.cpp:39
 msgid "selection"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1348
+#: kwave/SignalWidget.cpp:1469
 msgid "label #%1"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1350
+#: kwave/SignalWidget.cpp:1472
 msgid " (%1)"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1358
+#: kwave/SignalWidget.cpp:1480
 msgid "selection, left border"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1362
+#: kwave/SignalWidget.cpp:1484
 msgid "selection, right border"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1833 kwave/UndoAddLabelAction.cpp:41
-msgid "add label"
-msgstr ""
-
-#: kwave/SignalWidget.cpp:1884 kwave/UndoDeleteLabelAction.cpp:44
-msgid "delete label"
-msgstr ""
-
-#: kwave/SignalWidget.cpp:2407 kwave/SignalWidget.cpp:2446
+#: kwave/SignalWidget.cpp:2371 kwave/SignalWidget.cpp:2410
 msgid "drag and drop"
+msgstr ""
+
+#: kwave/UndoDeleteLabelAction.cpp:43 kwave/SignalManager.cpp:1624
+msgid "delete label"
 msgstr ""
 
 #: kwave/main.cpp:39
@@ -606,38 +613,34 @@ msgid "packaging for SuSE Linux"
 msgstr ""
 
 #: kwave/main.cpp:106
-msgid "packaging for Arch Linux"
-msgstr ""
-
-#: kwave/main.cpp:110
 msgid "packaging for Crux Linux"
 msgstr ""
 
-#: kwave/main.cpp:114
+#: kwave/main.cpp:110
 msgid "tester"
 msgstr ""
 
-#: kwave/main.cpp:118
+#: kwave/main.cpp:114
 msgid "author of the 'mad' mp3 decoder library"
 msgstr ""
 
-#: kwave/main.cpp:122
+#: kwave/main.cpp:118
 msgid "maintainers of the 'id3lib' library"
 msgstr ""
 
-#: kwave/main.cpp:126
+#: kwave/main.cpp:122
 msgid "author of the 'audiofile' library"
 msgstr ""
 
-#: kwave/main.cpp:130
+#: kwave/main.cpp:126
 msgid "author of the 'sndfile' library"
 msgstr ""
 
-#: kwave/main.cpp:146
+#: kwave/main.cpp:142
 msgid "sound editor for KDE"
 msgstr ""
 
-#: kwave/main.cpp:159
+#: kwave/main.cpp:155
 msgid "This is %1 (using KDE %2)"
 msgstr ""
 
@@ -645,79 +648,79 @@ msgstr ""
 msgid "New File"
 msgstr ""
 
-#: kwave/TopWidget.cpp:240
+#: kwave/TopWidget.cpp:237
 msgid "create a new empty file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:246
+#: kwave/TopWidget.cpp:243
 msgid "open an existing file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:252
+#: kwave/TopWidget.cpp:249
 msgid "save the current file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:284
+#: kwave/TopWidget.cpp:281
 msgid "cut the current selection and move it to the clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:290
+#: kwave/TopWidget.cpp:287
 msgid "copy the current selection to the clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:296
+#: kwave/TopWidget.cpp:293
 msgid "insert the content of clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:302
+#: kwave/TopWidget.cpp:299
 msgid "mute the current selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:308
+#: kwave/TopWidget.cpp:305
 msgid "delete the current selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:333
+#: kwave/TopWidget.cpp:330
 msgid "start playback"
 msgstr ""
 
-#: kwave/TopWidget.cpp:339
+#: kwave/TopWidget.cpp:336
 msgid "start playback and loop"
 msgstr ""
 
-#: kwave/TopWidget.cpp:345
+#: kwave/TopWidget.cpp:342
 msgid "pause playback"
 msgstr ""
 
-#: kwave/TopWidget.cpp:351
+#: kwave/TopWidget.cpp:348
 msgid "stop playback or loop"
 msgstr ""
 
-#: kwave/TopWidget.cpp:369
+#: kwave/TopWidget.cpp:366
 msgid "zoom to selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:376
+#: kwave/TopWidget.cpp:373
 msgid "zoom in"
 msgstr ""
 
-#: kwave/TopWidget.cpp:383
+#: kwave/TopWidget.cpp:380
 msgid "zoom out"
 msgstr ""
 
-#: kwave/TopWidget.cpp:389
+#: kwave/TopWidget.cpp:386
 msgid "zoom to 100%"
 msgstr ""
 
-#: kwave/TopWidget.cpp:395
+#: kwave/TopWidget.cpp:392
 msgid "zoom to all"
 msgstr ""
 
-#: kwave/TopWidget.cpp:405
+#: kwave/TopWidget.cpp:402
 msgid "select zoom factor"
 msgstr ""
 
-#: kwave/TopWidget.cpp:493
+#: kwave/TopWidget.cpp:494
 msgid ""
 "<b>Sorry, but since version 0.6.2 you need a running aRts sound server for "
 "using kwave.</b><br>You can setup aRts through the KDE control panel. For "
@@ -725,55 +728,59 @@ msgid ""
 "href=http://www.arts-project.org>http://www.arts-project.org</a>."
 msgstr ""
 
-#: kwave/TopWidget.cpp:506
+#: kwave/TopWidget.cpp:507
 msgid "Loading plugins..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:508
+#: kwave/TopWidget.cpp:509
 msgid "Ready."
 msgstr ""
 
-#: kwave/TopWidget.cpp:778
+#: kwave/TopWidget.cpp:779
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:912
+#: kwave/TopWidget.cpp:916
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1068
+#: kwave/TopWidget.cpp:1076
 msgid "Length: %1"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1068
+#: kwave/TopWidget.cpp:1076
 msgid "(%2 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1077
+#: kwave/TopWidget.cpp:1085
 #, c-format
 msgid "Mode: %0.3f kHz@%u bit"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1118
+#: kwave/TopWidget.cpp:1126
 msgid "Selected"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1122
+#: kwave/TopWidget.cpp:1130
 msgid "samples"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1177
+#: kwave/TopWidget.cpp:1185
 msgid "U&ndo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1183
+#: kwave/TopWidget.cpp:1191
 msgid "R&edo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1383
+#: kwave/TopWidget.cpp:1395
 msgid " (modified)"
+msgstr ""
+
+#: kwave/UndoAddLabelAction.cpp:40 kwave/SignalManager.cpp:1581
+msgid "add label"
 msgstr ""
 
 #: kwave/CodecManager.cpp:212
@@ -795,47 +802,47 @@ msgid ""
 "Do you still want to continue?"
 msgstr ""
 
-#: kwave/SignalManager.cpp:376 plugins/record/RecordPlugin.cpp:902
+#: kwave/SignalManager.cpp:375 plugins/record/RecordPlugin.cpp:902
 msgid " for KDE "
 msgstr ""
 
-#: kwave/SignalManager.cpp:412
+#: kwave/SignalManager.cpp:441
 msgid "An error occurred while saving the file!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:421
+#: kwave/SignalManager.cpp:450
 msgid "The file has been truncated and might be corrupted!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:428
+#: kwave/SignalManager.cpp:457
 msgid "Sorry, the file type is not supported!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:647
+#: kwave/SignalManager.cpp:676
 msgid "cut"
 msgstr ""
 
-#: kwave/SignalManager.cpp:650
+#: kwave/SignalManager.cpp:679
 msgid "crop"
 msgstr ""
 
-#: kwave/SignalManager.cpp:716
+#: kwave/SignalManager.cpp:745
 msgid "paste"
 msgstr ""
 
-#: kwave/SignalManager.cpp:759
+#: kwave/SignalManager.cpp:788
 msgid "append track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:802 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:831 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1358 kwave/SignalManager.cpp:1365
+#: kwave/SignalManager.cpp:1288 kwave/SignalManager.cpp:1295
 msgid "last action"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1591
+#: kwave/SignalManager.cpp:1521
 msgid "modify file info"
 msgstr ""
 
@@ -1315,10 +1322,18 @@ msgid ""
 msgstr ""
 
 #: libkwave/FileInfo.cpp:122
-msgid "License"
+msgid "Labels"
 msgstr ""
 
 #: libkwave/FileInfo.cpp:123
+msgid "The list ob labels / markers."
+msgstr ""
+
+#: libkwave/FileInfo.cpp:125
+msgid "License"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:126
 msgid ""
 "License information, eg, 'All Rights Reserved',\n"
 "'Any Use Permitted', a URL to a license or the\n"
@@ -1328,197 +1343,197 @@ msgid ""
 "for details'), etc."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:130
+#: libkwave/FileInfo.cpp:133
 msgid "Medium"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:131
+#: libkwave/FileInfo.cpp:134
 msgid ""
 "Describes the original subject of the file,\n"
 "where it was first recorded.\n"
 "Example: 'orchester'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:135
+#: libkwave/FileInfo.cpp:138
 msgid "Mime Type"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:136
+#: libkwave/FileInfo.cpp:139
 msgid "Mime type of the file format"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:138
+#: libkwave/FileInfo.cpp:141
 msgid "Emphasis"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:139
+#: libkwave/FileInfo.cpp:142
 msgid "Audio emphasis mode"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:141
+#: libkwave/FileInfo.cpp:144
 msgid "Layer"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:142
+#: libkwave/FileInfo.cpp:145
 msgid "MPEG Layer, I, II or III"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:144
+#: libkwave/FileInfo.cpp:147
 msgid "Mode Extension"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:145
+#: libkwave/FileInfo.cpp:148
 msgid "MPEG Mode Extension (only if Joint Stereo)"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:147 libkwave/FileInfo.cpp:208
+#: libkwave/FileInfo.cpp:150 libkwave/FileInfo.cpp:211
 msgid "Version"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:148
+#: libkwave/FileInfo.cpp:151
 msgid "MPEG Version, 1, 2 or 2.5"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:150
+#: libkwave/FileInfo.cpp:153
 msgid "Name"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:151
+#: libkwave/FileInfo.cpp:154
 msgid ""
 "Stores the title of the subject of the file.\n"
 "Example: 'Symphony No.6, Op.68 \"Pastoral\"'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:154
+#: libkwave/FileInfo.cpp:157
 msgid "Organization"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:155
+#: libkwave/FileInfo.cpp:158
 msgid ""
 "Name of the organization producing the track\n"
 "(i.e. the 'record label')"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:158
+#: libkwave/FileInfo.cpp:161
 msgid "Original"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:159
+#: libkwave/FileInfo.cpp:162
 msgid "Indicates whether the file is an original or a copy"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:161
+#: libkwave/FileInfo.cpp:164
 msgid "Performer"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:162
+#: libkwave/FileInfo.cpp:165
 msgid ""
 "The artist(s) who performed the work. In classical\n"
 "music this would be the conductor, orchestra, soloists.\n"
 "In an audio book it would be the actor who did the reading."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:166
+#: libkwave/FileInfo.cpp:169
 msgid "Private"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:167
+#: libkwave/FileInfo.cpp:170
 msgid "Indicates whether the subject is private"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:169
+#: libkwave/FileInfo.cpp:172
 msgid "Product"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:170
+#: libkwave/FileInfo.cpp:173
 msgid ""
 "Specifies the name or the title the file was\n"
 "originally intended for.\n"
 "Example: 'Linux audio collection'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:174
+#: libkwave/FileInfo.cpp:177
 msgid "Sample Format"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:175
+#: libkwave/FileInfo.cpp:178
 msgid ""
 "Format used for storing the digitized audio samples.\n"
 "Example: '32-bit IEEE floating-point'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:178
+#: libkwave/FileInfo.cpp:181
 msgid "Software"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:179
+#: libkwave/FileInfo.cpp:182
 msgid ""
 "Identifies the name of the software package\n"
 "used to create the file. \n"
 "Example: 'Kwave v0.6.4-1'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:183 plugins/fileinfo/FileInfoDlg.uic.cpp:841
+#: libkwave/FileInfo.cpp:186 plugins/fileinfo/FileInfoDlg.uic.cpp:841
 #: plugins/record/RecordDlg.uic.cpp:679 plugins/record/RecordDlg.uic.cpp:697
 msgid "Source"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:184
+#: libkwave/FileInfo.cpp:187
 msgid ""
 "Identifies the name of the person or organization\n"
 "who supplied the original subject of the file.\n"
 "Example: 'Chaotic Sound Research'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:188
+#: libkwave/FileInfo.cpp:191
 msgid "Source form"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:189
+#: libkwave/FileInfo.cpp:192
 msgid ""
 "Identifies the original form of the material\n"
 "that was digitized.\n"
 "Examples: 'Record/Vinyl/90RPM', 'Audio DAT', 'tape/CrO2/60min'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:194
+#: libkwave/FileInfo.cpp:197
 msgid "Subject"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:195
+#: libkwave/FileInfo.cpp:198
 msgid ""
 "Describes the subject of the file.\n"
 "Example: 'Bird voices at early morning'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:198
+#: libkwave/FileInfo.cpp:201
 msgid "Technican"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:199
+#: libkwave/FileInfo.cpp:202
 msgid ""
 "Identifies the technican who digitized the subject file. \n"
 "Example: 'Torvalds, Linus'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:202
+#: libkwave/FileInfo.cpp:205
 msgid "Track"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:203
+#: libkwave/FileInfo.cpp:206
 msgid "Track of the CD if the source was a CDROM."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:205
+#: libkwave/FileInfo.cpp:208
 #: plugins/fileinfo/CompressionWidgetBase.uic.cpp:173
 msgid "Base Quality"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:206
+#: libkwave/FileInfo.cpp:209
 msgid "Base quality of the compression in VBR mode"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:209
+#: libkwave/FileInfo.cpp:212
 msgid ""
 "May be used to differentiate multiple versions\n"
 "of the same track title in a single collection.\n"
@@ -2599,6 +2614,132 @@ msgstr ""
 msgid "noise"
 msgstr ""
 
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:96
+#: plugins/fileinfo/BitrateWidgetBase.uic.cpp:64
+msgid "Form1"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:97
+msgid "save selection only"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:98
+msgid ""
+"If checked, <b>save only the blocks that overlap with the current selection</"
+"b>, otherwise the whole file. <br><i>Please note that this option is "
+"disabled if nothing is selected or the selection already covers the whole "
+"file.</i>"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:99
+msgid "numbering:"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:101
+msgid "continue after highest index"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:102
+msgid "always start with 1, overwrite if necessary"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:103
+msgid ""
+"determines how the <b>numbering of the files</b> should happen:<ul>\n"
+"<li>continue after the <b>highest index</b> that can be found, avoiding "
+"collissions with existing files</li>\n"
+"<li>always start numbering from <b>one</b>, possibly colliding with already "
+"existing files</li>\n"
+"</ul>"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:107
+msgid ""
+"example of the first file name that will be saved, using the file name "
+"pattern above and the numbering below"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:108
+msgid "example:"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:110
+#, c-format
+msgid "[%2nr] [%filename]"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:111
+#, c-format
+msgid "[%2nr]-[%filename]"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:112
+#, c-format
+msgid "[%02nr]-[%filename]"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:113
+#, c-format
+msgid "[%04nr]-[%filename]"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:114
+#, c-format
+msgid "[%02nr] of [%count] [%filename]"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:115
+#, c-format
+msgid "[%02nr] of [%total] [%filename]"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:116
+#, c-format
+msgid "[%filename] part [%nr] of [%total]"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:117
+#, c-format
+msgid "[%filename] - [%04nr]"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:118
+msgid ""
+"<p>Select the pattern that is used to create the file name of each saved "
+"block. It currently understands the following placeholders:</p>\n"
+"<ul>\n"
+"<li><tt><b>[%filename]</b></tt>name of the file, without the path</li>\n"
+"<li><tt><b>[</b>%<i>0</i></tt><i>N</i><tt><b>nr]</b></tt>the index of the "
+"file, optionally with leading zeroes (if <tt>'0</tt>' prepended) and "
+"optionally a fixed number of digits (<tt>N</tt>)</li>\n"
+"<li><tt><b>[%</b><i>0</i><i>N</i><b>count]</b></tt>the number of files that "
+"will be saved</li>\n"
+"<li><tt><b>[%</b><i>0</i><i>N</i><b>total]</b></tt>the highest index within "
+"the files that will be saved</li>\n"
+"</ul>"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksWidgetBase.uic.cpp:125
+msgid "file name pattern:"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:42
+msgid "saveblocks"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:91
+msgid "Save Blocks"
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:205
+msgid "..."
+msgstr ""
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:210
+msgid ""
+"This would overwrite the following file(s): %1Do you really want to continue?"
+msgstr ""
+
 #: plugins/codec_flac/FlacCodecPlugin.h:59
 msgid "FLAC audio"
 msgstr ""
@@ -2607,17 +2748,17 @@ msgstr ""
 msgid "codec_flac"
 msgstr ""
 
-#: plugins/codec_flac/FlacEncoder.cpp:205
+#: plugins/codec_flac/FlacEncoder.cpp:204
 #: plugins/codec_ascii/AsciiEncoder.cpp:85
-#: plugins/codec_ogg/OggEncoder.cpp:245 plugins/codec_wav/WavEncoder.cpp:121
+#: plugins/codec_ogg/OggEncoder.cpp:245 plugins/codec_wav/WavEncoder.cpp:295
 msgid "Unable to open the file for saving!"
 msgstr ""
 
-#: plugins/codec_flac/FlacEncoder.cpp:215
+#: plugins/codec_flac/FlacEncoder.cpp:214
 msgid "Unable to open the FLAC encoder!"
 msgstr ""
 
-#: plugins/codec_flac/FlacEncoder.cpp:255
+#: plugins/codec_flac/FlacEncoder.cpp:254
 msgid "Out of memory!"
 msgstr ""
 
@@ -2686,7 +2827,7 @@ msgstr ""
 
 #: plugins/decoder_mp3/MP3Decoder.cpp:474
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:114
-#: plugins/codec_wav/WavEncoder.cpp:145 plugins/codec_wav/WavDecoder.cpp:325
+#: plugins/codec_wav/WavEncoder.cpp:319 plugins/codec_wav/WavDecoder.cpp:337
 #: plugins/playback/PlayBack-OSS.cpp:172
 msgid "out of memory"
 msgstr ""
@@ -3077,10 +3218,6 @@ msgstr ""
 msgid "List of keywords."
 msgstr ""
 
-#: plugins/fileinfo/BitrateWidgetBase.uic.cpp:64
-msgid "Form1"
-msgstr ""
-
 #: plugins/fileinfo/CompressionWidgetBase.uic.cpp:157
 msgid "CompressionWidgetBase"
 msgstr ""
@@ -3291,37 +3428,37 @@ msgid "Berkeley,IRCAM,Carl Sound Format"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:111
-#: plugins/codec_wav/WavEncoder.cpp:141 plugins/codec_wav/WavDecoder.cpp:321
+#: plugins/codec_wav/WavEncoder.cpp:315 plugins/codec_wav/WavDecoder.cpp:333
 msgid "format or function is not implemented"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:117
-#: plugins/codec_wav/WavEncoder.cpp:148 plugins/codec_wav/WavDecoder.cpp:328
+#: plugins/codec_wav/WavEncoder.cpp:322 plugins/codec_wav/WavDecoder.cpp:340
 msgid "file header is damaged"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:120
-#: plugins/codec_wav/WavEncoder.cpp:151 plugins/codec_wav/WavDecoder.cpp:331
+#: plugins/codec_wav/WavEncoder.cpp:325 plugins/codec_wav/WavDecoder.cpp:343
 msgid "invalid codec type"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:123
-#: plugins/codec_wav/WavEncoder.cpp:155 plugins/codec_wav/WavDecoder.cpp:335
+#: plugins/codec_wav/WavEncoder.cpp:329 plugins/codec_wav/WavDecoder.cpp:347
 msgid "opening the file failed"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:126
-#: plugins/codec_wav/WavEncoder.cpp:158 plugins/codec_wav/WavDecoder.cpp:338
+#: plugins/codec_wav/WavEncoder.cpp:332 plugins/codec_wav/WavDecoder.cpp:350
 msgid "read access failed"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:129
-#: plugins/codec_wav/WavEncoder.cpp:161 plugins/codec_wav/WavDecoder.cpp:341
+#: plugins/codec_wav/WavEncoder.cpp:335 plugins/codec_wav/WavDecoder.cpp:353
 msgid "invalid sample format"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:135
-#: plugins/codec_wav/WavEncoder.cpp:167 plugins/codec_wav/WavDecoder.cpp:347
+#: plugins/codec_wav/WavEncoder.cpp:341 plugins/codec_wav/WavDecoder.cpp:359
 msgid ""
 "An error occurred while opening the file:\n"
 "'%1'"
@@ -4067,43 +4204,43 @@ msgstr ""
 msgid "searching for missing chunk '%1'..."
 msgstr ""
 
-#: plugins/codec_wav/WavEncoder.cpp:100
+#: plugins/codec_wav/WavEncoder.cpp:274
 msgid ""
 "Sorry, the currently selected compression type can not be used for saving. "
 "Do you want to use G711 ULAW compression instead?"
 msgstr ""
 
-#: plugins/codec_wav/WavEncoder.cpp:103
+#: plugins/codec_wav/WavEncoder.cpp:277
 msgid "&Yes, use G711"
 msgstr ""
 
-#: plugins/codec_wav/WavEncoder.cpp:104
+#: plugins/codec_wav/WavEncoder.cpp:278
 msgid "&No, store uncompressed"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:131
+#: plugins/codec_wav/WavDecoder.cpp:141
 msgid "Auto-Repair"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:136
+#: plugins/codec_wav/WavDecoder.cpp:146
 msgid "reading..."
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:160
+#: plugins/codec_wav/WavDecoder.cpp:170
 msgid ""
 "The file has been structurally damaged or is no .wav file.\n"
 "Should Kwave try to repair it?"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:163
+#: plugins/codec_wav/WavDecoder.cpp:173
 msgid "Kwave auto repair"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:164
+#: plugins/codec_wav/WavDecoder.cpp:174
 msgid "&Repair"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:222
+#: plugins/codec_wav/WavDecoder.cpp:234
 msgid ""
 "The opened file is no .WAV file or damaged:\n"
 "There is not enough valid sound data.\n"
@@ -4111,7 +4248,7 @@ msgid ""
 "It makes no sense to continue now..."
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:234
+#: plugins/codec_wav/WavDecoder.cpp:246
 msgid ""
 "The WAV file seems to be damaged: \n"
 "some chunks are duplicate or missing! \n"
@@ -4123,7 +4260,7 @@ msgid ""
 "and we will help you..."
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:241
+#: plugins/codec_wav/WavDecoder.cpp:253
 msgid "Kwave auto-repair"
 msgstr ""
 
@@ -4385,8 +4522,16 @@ msgstr ""
 msgid "Opening the device '%1' failed: %2"
 msgstr ""
 
-#: plugins/playback/PlayBack-ALSA.cpp:860
+#: plugins/playback/PlayBack-ALSA.cpp:861
 msgid "DMIX plugin"
+msgstr ""
+
+#: plugins/playback/PlayBack-ALSA.cpp:863
+msgid "default device"
+msgstr ""
+
+#: plugins/playback/PlayBack-ALSA.cpp:866
+msgid "null device"
 msgstr ""
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:294

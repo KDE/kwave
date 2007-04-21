@@ -3,6 +3,8 @@ o get rid of aRts
 
 o use KDEMM instead of aRts as soon as it is available
 
+o use Qt-4 for streaming as soon as possible
+
 o use LADSPA
 
 o automatic defragmentation of stripes
@@ -22,6 +24,7 @@ o ALSA record/playback: also detect devices configured in the .asoundrc,
 
 o find a better solution for deadlock when closing the current file while
   a plugin is still running, instead of refusing the request to close
+  -> might vanish with qt-4
 
 o crashes at startup when no aRts server can be connected
   (only seen on Mandrake-9, v0.7.3 or earlier?)

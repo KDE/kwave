@@ -136,7 +136,17 @@
         <widget class="QComboBox" row="0" column="1">
             <item>
                 <property name="text">
-                    <string>[%filename] - [%04nr]</string>
+                    <string>[%2nr] [%filename]</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>[%2nr]-[%filename]</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>[%02nr]-[%filename]</string>
                 </property>
             </item>
             <item>
@@ -146,7 +156,22 @@
             </item>
             <item>
                 <property name="text">
-                    <string>[%filename] part [%nr] of [%count]</string>
+                    <string>[%02nr] of [%count] [%filename]</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>[%02nr] of [%total] [%filename]</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>[%filename] part [%nr] of [%total]</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>[%filename] - [%04nr]</string>
                 </property>
             </item>
             <property name="name">
@@ -161,7 +186,7 @@
                 </sizepolicy>
             </property>
             <property name="editable">
-                <bool>false</bool>
+                <bool>true</bool>
             </property>
             <property name="duplicatesEnabled">
                 <bool>false</bool>
@@ -171,7 +196,8 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;tt&gt;&lt;b&gt;[%filename]&lt;/b&gt;&lt;/tt&gt;name of the file, without the path&lt;/li&gt;
 &lt;li&gt;&lt;tt&gt;&lt;b&gt;[&lt;/b&gt;%&lt;i&gt;0&lt;/i&gt;&lt;/tt&gt;&lt;i&gt;N&lt;/i&gt;&lt;tt&gt;&lt;b&gt;nr]&lt;/b&gt;&lt;/tt&gt;the index of the file, optionally with leading zeroes (if &lt;tt&gt;'0&lt;/tt&gt;' prepended) and optionally a fixed number of digits (&lt;tt&gt;N&lt;/tt&gt;)&lt;/li&gt;
-&lt;li&gt;&lt;tt&gt;&lt;b&gt;[%&lt;/b&gt;&lt;i&gt;0&lt;/i&gt;&lt;i&gt;N&lt;/i&gt;&lt;b&gt;count]&lt;/b&gt;&lt;/tt&gt;the number of files or the highest index&lt;/li&gt;
+&lt;li&gt;&lt;tt&gt;&lt;b&gt;[%&lt;/b&gt;&lt;i&gt;0&lt;/i&gt;&lt;i&gt;N&lt;/i&gt;&lt;b&gt;count]&lt;/b&gt;&lt;/tt&gt;the number of files that will be saved&lt;/li&gt;
+&lt;li&gt;&lt;tt&gt;&lt;b&gt;[%&lt;/b&gt;&lt;i&gt;0&lt;/i&gt;&lt;i&gt;N&lt;/i&gt;&lt;b&gt;total]&lt;/b&gt;&lt;/tt&gt;the highest index within the files that will be saved&lt;/li&gt;
 &lt;/ul&gt;</string>
             </property>
         </widget>

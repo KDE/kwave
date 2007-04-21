@@ -78,11 +78,12 @@ protected:
      * @param ext the extension (zero-length is allowed)
      * @param pattern the pattern for creating the filename
      * @param index the index of the current file
-     * @param count the total number of files
+     * @param count the number of files to save
+     * @param total the highest index to save (first + count - 1)
      */
     QString createFileName(const QString &base, const QString &ext,
                            const QString &pattern,
-                           unsigned int index, unsigned int count);
+                           unsigned int index, int count, int total);
 
     /**
      * determines the index of the first file name that matches the

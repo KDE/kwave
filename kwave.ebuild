@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/kwave/${P}.tar.gz"
 SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS="~x86"
-IUSE="mmx"
+IUSE="doc mmx"
 
 RDEPEND="kde-base/arts
 	media-libs/alsa-lib
@@ -45,6 +45,7 @@ src_compile() {
 
 	local myconf="--without-builtin-libaudiofile"
 
+	use doc || myconf+=" --enable-doc=no"
 	use mmx && append-flags "-mmmx"
 
 	kde_src_compile

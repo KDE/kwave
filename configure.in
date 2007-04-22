@@ -50,6 +50,23 @@ dnl Checks for some programs/tools
 AC_PROG_INSTALL
 AC_PROG_LN_S
 
+dnl check if the documentation should be generated
+
+AC_MSG_CHECKING(whether the online documentation should be generated)
+AC_ARG_ENABLE(
+  doc,
+  AC_HELP_STRING([--enable-doc],[generate the online documentation]),
+  GENERATE_DOC=$enableval,
+  GENERATE_DOC=yes
+)
+AC_MSG_RESULT(${GENERATE_DOC})
+if test "${GENERATE_DOC}" = "yes"; then
+    DOC_SUBDIR=doc
+else
+    DOC_SUBDIR=
+fi
+AC_SUBST(DOC_SUBDIR)
+
 dnl look if we have a rpm based system
 AC_PATH_PROG(RPM, rpm)
 
@@ -110,17 +127,19 @@ AC_SUBST(KDE_VERSION_SPECIFIC_LIBS)
 
 AC_PATH_KDE
 
-KDE_FIND_PATH(xml2pot, XML2POT, [$kde_default_bindirs], [KDE_MISSING_PROG_ERROR(xml2pot)])
-AC_SUBST(XML2POT)
+if test "${GENERATE_DOC}" = "yes"; then
+    KDE_FIND_PATH(xml2pot, XML2POT, [$kde_default_bindirs], [KDE_MISSING_PROG_ERROR(xml2pot)])
+    AC_SUBST(XML2POT)
 
-KDE_FIND_PATH(checkXML, CHECKXML, [$kde_default_bindirs], [KDE_MISSING_PROG_ERROR(checkXML)])
-AC_SUBST(CHECKXML)
+    KDE_FIND_PATH(checkXML, CHECKXML, [$kde_default_bindirs], [KDE_MISSING_PROG_ERROR(checkXML)])
+    AC_SUBST(CHECKXML)
 
-KDE_FIND_PATH(po2xml, PO2XML, [$kde_default_bindirs], [KDE_MISSING_PROG_ERROR(po2xml)])
-AC_SUBST(PO2XML)
+    KDE_FIND_PATH(po2xml, PO2XML, [$kde_default_bindirs], [KDE_MISSING_PROG_ERROR(po2xml)])
+    AC_SUBST(PO2XML)
 
-KDE_FIND_PATH(meinproc, MEINPROC, [$kde_default_bindirs], [KDE_MISSING_PROG_ERROR(meinproc)])
-AC_SUBST(MEINPROC)
+    KDE_FIND_PATH(meinproc, MEINPROC, [$kde_default_bindirs], [KDE_MISSING_PROG_ERROR(meinproc)])
+    AC_SUBST(MEINPROC)
+fi
 
 dnl check for the file with KDE's built-in translations
 AC_MSG_CHECKING(for kde.pot)
@@ -639,8 +658,11 @@ AC_CONFIG_FILES(plugins/Makefile)
 AC_CONFIG_FILES(plugins/common/Makefile)
 AC_CONFIG_FILES(po/Makefile)
 AC_CONFIG_FILES(doxy.cfg)
-AC_CONFIG_FILES(doc/Makefile)
 AC_CONFIG_FILES(kwave.spec)
+
+if test "${GENERATE_DOC}" = "yes"; then
+    AC_CONFIG_FILES(doc/Makefile)
+fi
 
 AC_OUTPUT
 

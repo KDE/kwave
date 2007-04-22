@@ -25,7 +25,7 @@ VERSION	 	 = $(shell cat ./VERSION)
 ARCHIVE_DIR	 = ${srcdir}/../ARCHIVE
 SRC_DIR   	 = ${srcdir}
 SRC_PREFIX 	 = ${PACKAGE}
-SUBDIRS  	 = @LIBAUDIOFILE_SUBDIR@ mt libgui libkwave kwave plugins po doc
+SUBDIRS  	 = @LIBAUDIOFILE_SUBDIR@ mt libgui libkwave kwave plugins po @DOC_SUBDIR@
 EBUILD		 = kwave-@RPM_SHORT_VERSION@.ebuild
 CLEANFILES	 = *~ *.d *.dm *.moc *.moc.c?? *.ii \#* *.dep .depend
 

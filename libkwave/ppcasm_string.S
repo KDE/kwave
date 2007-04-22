@@ -16,10 +16,18 @@
  *   cleanly within this new environment
  *   by Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
  *   had to include config.h and a big ifdef to compile it only under PPC
+ *
+ * 2007-04-22
+ *   added section note for non-executable stack
+ *   by Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
  */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
+
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
 #endif
 
 #if defined (ARCH_PPC)

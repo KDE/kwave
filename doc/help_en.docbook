@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2007-04-21</date>
+<date>2007-04-22</date>
 <releaseinfo>0.7.9</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -222,6 +222,10 @@
                 </para></listitem>
                 <listitem><para>
                     bugfix: don't change the file name when saving only the selection
+                </para></listitem>
+                <listitem><para>
+                    new configure option: --enable-doc=yes/no to enable/disable the
+                      generation of the online documentation (default=yes)
                 </para></listitem>
             </itemizedlist>
         </listitem>
@@ -2712,16 +2716,13 @@
             name) <filename>.wav</filename>. This format is very common to other
 	    "operating systems" and also is commonly used within the KDE environment.
 	</para></listitem>
-<!-- @TODO@ disabled, will be re-integrated in v0.6.5 or later...
-        <para>
-            The second format that &kapp; supports is "ASCII". You can import from
-            and export to ASCII, but always be aware that storing in this format
-            might produce very large files! Currently &kapp; only supports
-            ASCII files with only one channel (mono), support for multiple channels
-            will be added in some future version. The file format will be described
+	<listitem><para>
+            The second format that &kapp; supports is "ASCII". You can export to
+            ASCII, but currently not import from it (this is currently
+            not implemented). Please be aware that storing in this format
+            might produce very large files! The file format will be described
 	    <link linkend="ascii_format">below</link>.
-        </para>
--->
+	</para></listitem>
 	<listitem><para>
 	    <filename>.mp3</filename> and <filename>.mp2</filename> import
 	    is available through
@@ -2774,7 +2775,6 @@
         </para>
     </sect2>
 
-<!-- @TODO@ disabled
     <sect2 id="ascii_format"><title>Format of ASCII files</title>
 	<para>
 	    The ASCII format is quite useful for scientific and educational
@@ -2789,64 +2789,80 @@
 	</para>
 
         <para>
-            The format of an ASCII file is quite simple and has the following rules:
-            <orderedlist>
-            <listitem><para>
-		Each line represents one sample.
+	    The format of an ASCII file is quite simple and has the following rules:
+	    <orderedlist>
+	    <listitem><para>
+		At the start of the file comes a block of properties, with one
+		property per line.
 	    </para></listitem>
-            <listitem><para>
+	    <listitem><para>
+		Each property line starts with <literal>##</literal>.
+	    </para></listitem>
+	    <listitem><para>
+		After the properties comes a list of samples, with one sample per line.
+		When using multiple channels, the samples are separated by commas.
+	    </para></listitem>
+	    <listitem><para>
 		Lines might end with a carriage return and/or a line feed
 		character (so DOS files are supported too). But when saving,
 		files will always be saved with line feed character as the
 		end of the line.
 	    </para></listitem>
-            <listitem><para>
-		Empty lines are ignored.
+	    <listitem><para>
+		Empty lines and characters after a <literal>#</literal>
+		are treated as comments and are ignored.
 	    </para></listitem>
-            <listitem><para>
+	    <listitem><para>
 		Values can be are given in any format that the C library of
 		your system is able to read and interprete as a floating
 		point or integer number. But when saving, &kapp; will save
-		as in signed floating point format with 9 decimals.
-		</para><para>Example: <literal>-7.06999982e-01</literal>
-            </para></listitem>
-            <listitem><para>
+		as in signed integer format with a 24 bit range.
+	    </para></listitem>
+	    <listitem><para>
 		All values are expected to be in signed format. So if you
 		import a file with only positive values, you will only see
 		samples that are above the zero line.
-            </para></listitem>
-            <listitem><para>
-		Values can be specified in any range, &kapp; always
-		does a first pass over the file to get the highest absolute
-		value and defines that value as "100%" before really reading
-		in the file.
-            </para></listitem>
-            <listitem><para>
+	    </para></listitem>
+	    <listitem><para>
+		When importing, values can be specified in any range,
+		&kapp; always does a first pass over the file to get the
+		highest absolute value and defines that value as "100%" before
+		really reading in the file and scaling it.
+	    </para></listitem>
+	    <listitem><para>
 		Internally all values are stored with 24 bit precision (signed).
-            </para></listitem>
+	    </para></listitem>
 	    </orderedlist>
-        </para>
+	</para>
 
 	<para>
 	    Here is an example of a simple ASCII file that represents a
-	    sine wave with nine samples:
+	    sine wave with eleven samples:
 	    <example>
 		<title>content of an ASCII file with a single sine wave</title>
 		<screen>
- 0.000
- 0.707
- 1.000
- 0.707
- 0.000
--0.707
--1.000
--0.707
- 0.000
+## 'rate'=44100
+## 'tracks'=2
+## 'bits'=16
+## 'length'=11
+## 'Date'='2007-04-22'
+## 'Software'='Kwave-0.7.9 for KDE 3.5.5'
+  5930496,   5930496 #            0
+        0,   8388352 #            1
+ -5930752,   5930496 #            2
+ -8388608,         0 #            3
+ -5930752,  -5930752 #            4
+        0,  -8388608 #            5
+  5930496,  -5930752 #            6
+  8388352,         0 #            7
+  5930496,   5930496 #            8
+        0,   8388352 #            9
+ -5930752,   5930496 #           10
+# EOF
 		</screen>
 	    </example>
 	</para>
     </sect2>
--->
 
     </sect1>
 

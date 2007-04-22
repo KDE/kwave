@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-21 21:48+0200\n"
-"PO-Revision-Date: 2007-04-21 21:33+0200\n"
+"POT-Creation-Date: 2007-04-22 14:56+0200\n"
+"PO-Revision-Date: 2007-04-22 14:56+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2910,17 +2910,17 @@ msgstr "FLAC Audio"
 msgid "codec_flac"
 msgstr "FLAC-Codec"
 
-#: plugins/codec_flac/FlacEncoder.cpp:204
+#: plugins/codec_flac/FlacEncoder.cpp:205
 #: plugins/codec_ascii/AsciiEncoder.cpp:85
 #: plugins/codec_ogg/OggEncoder.cpp:245 plugins/codec_wav/WavEncoder.cpp:295
 msgid "Unable to open the file for saving!"
 msgstr "Datei konnte nicht zum Speichern geöffnet werden!"
 
-#: plugins/codec_flac/FlacEncoder.cpp:214
+#: plugins/codec_flac/FlacEncoder.cpp:215
 msgid "Unable to open the FLAC encoder!"
 msgstr "Der FLAC-Encoder konnte nicht geöffnet werden!"
 
-#: plugins/codec_flac/FlacEncoder.cpp:254
+#: plugins/codec_flac/FlacEncoder.cpp:255
 msgid "Out of memory!"
 msgstr "Zu wenig Speicher!"
 

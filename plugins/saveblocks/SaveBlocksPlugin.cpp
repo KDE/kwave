@@ -136,7 +136,7 @@ int SaveBlocksPlugin::start(QStringList &params)
     int result = interpreteParameters(params);
     if (result) return result;
 
-    QString filename = m_url.pathOrURL();
+    QString filename = m_url.prettyURL();
     QFileInfo file(filename);
     QString path = file.dirPath(true);
     QString name = file.fileName();
@@ -250,7 +250,7 @@ int SaveBlocksPlugin::start(QStringList &params)
                                           first + count - 1);
 	    KURL url = m_url;
 	    url.setFileName(name);
-	    filename = url.pathOrURL();
+	    filename = url.prettyURL();
 
 	    qDebug("saving %9u...%9u -> '%s'", left, right,
 		   filename.local8Bit().data());

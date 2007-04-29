@@ -99,7 +99,7 @@ rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
 	(cd ${srcdir} ; cp -R -a ./* /tmp/${PACKAGE}-@RPM_SHORT_VERSION@ )
 	(cd /tmp/ ; chmod -R a+rwX ${PACKAGE}-@RPM_SHORT_VERSION@ ; \
 	touch ${PACKAGE}-@RPM_SHORT_VERSION@/doc/help_{de,fr}.docbook ; \
-	find ${SRC_PREFIX}-@RPM_SHORT_VERSION@ -name CVS > \
+	find ${SRC_PREFIX}-@RPM_SHORT_VERSION@ -name .svn > \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
 	find ${SRC_PREFIX}-@RPM_SHORT_VERSION@ -name \.\* -type d >> \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \

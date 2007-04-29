@@ -1,9 +1,13 @@
 
 o get rid of aRts
 
-o use KDEMM instead of aRts as soon as it is available
+o maybe use Phonon instead of aRts as soon as it is available
+  (needs evaluation)
 
-o use Qt-4 for streaming as soon as possible
+o use Qt-4 for streaming as soon as possible (with KDE-4)
+  (needs evaluation)
+
+o convert build system to cmake
 
 o use LADSPA
 

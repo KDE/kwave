@@ -24,18 +24,18 @@
 #include "libkwave/Encoder.h"
 #include "CodecManager.h"
 
-/***************************************************************************/
+//***************************************************************************
 /* static initializers */
 QPtrList<Encoder> CodecManager::m_encoders;
 QPtrList<Decoder> CodecManager::m_decoders;
 
-/***************************************************************************/
-/***************************************************************************/
+//***************************************************************************
+//***************************************************************************
 CodecManager::CodecManager()
 {
 }
 
-/***************************************************************************/
+//***************************************************************************
 CodecManager::~CodecManager()
 {
     m_encoders.setAutoDelete(true);
@@ -44,21 +44,21 @@ CodecManager::~CodecManager()
     m_decoders.clear();
 }
 
-/***************************************************************************/
+//***************************************************************************
 void CodecManager::registerEncoder(const Encoder &encoder)
 {
     if (m_encoders.contains(&encoder)) return; /* already known */
     m_encoders.append(&encoder);
 }
 
-/***************************************************************************/
+//***************************************************************************
 void CodecManager::registerDecoder(const Decoder &decoder)
 {
     if (m_decoders.contains(&decoder)) return; /* already known */
     m_decoders.append(&decoder);
 }
 
-/***************************************************************************/
+//***************************************************************************
 bool CodecManager::canDecode(const KMimeType &mimetype)
 {
     QPtrListIterator<Decoder> it(m_decoders);
@@ -70,7 +70,7 @@ bool CodecManager::canDecode(const KMimeType &mimetype)
     return false;
 }
 
-/***************************************************************************/
+//***************************************************************************
 bool CodecManager::canDecode(const QString &mimetype_name)
 {
     QPtrListIterator<Decoder> it(m_decoders);
@@ -82,7 +82,7 @@ bool CodecManager::canDecode(const QString &mimetype_name)
     return false;
 }
 
-/***************************************************************************/
+//***************************************************************************
 QString CodecManager::whatContains(const KURL &url)
 {
     QPtrListIterator<Decoder> it_d(m_decoders);
@@ -101,7 +101,7 @@ QString CodecManager::whatContains(const KURL &url)
     return KMimeType::findByURL(url)->name();
 }
 
-/***************************************************************************/
+//***************************************************************************
 Decoder *CodecManager::decoder(const QString &mimetype_name)
 {
     QPtrListIterator<Decoder> it(m_decoders);
@@ -113,13 +113,13 @@ Decoder *CodecManager::decoder(const QString &mimetype_name)
     return 0;
 }
 
-/***************************************************************************/
+//***************************************************************************
 Decoder *CodecManager::decoder(const KMimeType &mimetype)
 {
     return decoder(mimetype.name());
 }
 
-/***************************************************************************/
+//***************************************************************************
 Decoder *CodecManager::decoder(const QMimeSource *mime_source)
 {
     if (!mime_source) return false;
@@ -133,7 +133,7 @@ Decoder *CodecManager::decoder(const QMimeSource *mime_source)
     return 0;
 }
 
-/***************************************************************************/
+//***************************************************************************
 Encoder *CodecManager::encoder(const QString &mimetype_name)
 {
     QPtrListIterator<Encoder> it(m_encoders);
@@ -145,7 +145,7 @@ Encoder *CodecManager::encoder(const QString &mimetype_name)
     return 0;
 }
 
-/***************************************************************************/
+//***************************************************************************
 QString CodecManager::encodingFilter()
 {
     QPtrListIterator<Encoder> it(m_encoders);
@@ -180,7 +180,8 @@ QString CodecManager::encodingFilter()
 
     return str_list;
 }
-/***************************************************************************/
+
+//***************************************************************************
 QString CodecManager::decodingFilter()
 {
     QPtrListIterator<Decoder> it(m_decoders);
@@ -222,5 +223,7 @@ QString CodecManager::decodingFilter()
     return str_list;
 }
 
-/***************************************************************************/
-/***************************************************************************/
+//***************************************************************************
+#include "CodecManager.moc"
+//***************************************************************************
+//***************************************************************************

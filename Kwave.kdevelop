@@ -14,12 +14,13 @@
       <language>Bash</language>
       <language>C</language>
     </secondaryLanguages>
-    <versioncontrol>kdevcvsservice</versioncontrol>
+    <versioncontrol>kdevsubversion</versioncontrol>
     <projectname>Kwave</projectname>
+    <defaultencoding/>
   </general>
   <kdevcustomproject>
     <run>
-      <mainprogram>kwave/.libs/lt-kwave</mainprogram>
+      <mainprogram>/usr/src/packages/multimedia/sound/kwave/kwave/.libs/lt-kwave</mainprogram>
       <programargs/>
       <terminal>false</terminal>
       <envvars>
@@ -28,6 +29,11 @@
       <directoryradio>build</directoryradio>
       <customdirectory>/</customdirectory>
       <autocompile>true</autocompile>
+      <globaldebugarguments/>
+      <globalcwd>/usr/src/packages/multimedia/sound/kwave</globalcwd>
+      <useglobalprogram>false</useglobalprogram>
+      <autoinstall>false</autoinstall>
+      <autokdesu>false</autokdesu>
     </run>
     <build>
       <buildtool>make</buildtool>
@@ -178,6 +184,11 @@
       <designer>/usr/qt/3/bin/designer</designer>
       <designerpluginpaths/>
     </qt>
+    <splitheadersource>
+      <enabled>false</enabled>
+      <synchronize>true</synchronize>
+      <orientation>Vertical</orientation>
+    </splitheadersource>
   </kdevcppsupport>
   <kdevcvsservice>
     <recursivewhenupdate>true</recursivewhenupdate>

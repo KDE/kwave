@@ -69,15 +69,15 @@ PluginManager::PluginDeleter::~PluginDeleter()
     dlclose(m_handle);
 }
 
-//****************************************************************************
-//****************************************************************************
+//***************************************************************************
+//***************************************************************************
 
 // static initializers
 QMap<QString, QString> PluginManager::m_plugin_files;
 QPtrList<KwavePlugin> PluginManager::m_unique_plugins;
 static QPtrList<PlaybackDeviceFactory> m_playback_factories;
 
-//****************************************************************************
+//***************************************************************************
 PluginManager::PluginManager(TopWidget &parent)
     :m_spx_name_changed(this, SLOT(emitNameChanged())),
      m_spx_command(this, SLOT(forwardCommand())),
@@ -103,13 +103,13 @@ PluginManager::PluginManager(TopWidget &parent)
     }
 }
 
-//****************************************************************************
+//***************************************************************************
 bool PluginManager::isOK()
 {
     return true;
 }
 
-//****************************************************************************
+//***************************************************************************
 PluginManager::~PluginManager()
 {
     // inform all plugins and client windows that we close now
@@ -179,7 +179,7 @@ void PluginManager::loadAllPlugins()
     }
 }
 
-//***************************************************************************/
+//***************************************************************************
 KwavePlugin *PluginManager::loadPlugin(const QString &name)
 {
 
@@ -693,7 +693,7 @@ void PluginManager::pluginDone(KwavePlugin *p)
     p->release();
 }
 
-//****************************************************************************
+//***************************************************************************
 void PluginManager::connectPlugin(KwavePlugin *plugin)
 {
     Q_ASSERT(plugin);
@@ -714,7 +714,7 @@ void PluginManager::connectPlugin(KwavePlugin *plugin)
 	    this, SLOT(pluginDone(KwavePlugin *)));
 }
 
-//****************************************************************************
+//***************************************************************************
 void PluginManager::disconnectPlugin(KwavePlugin *plugin)
 {
     Q_ASSERT(plugin);
@@ -735,7 +735,7 @@ void PluginManager::disconnectPlugin(KwavePlugin *plugin)
     }
 }
 
-//****************************************************************************
+//***************************************************************************
 void PluginManager::emitNameChanged()
 {
     const QString *name = m_spx_name_changed.dequeue();
@@ -746,7 +746,7 @@ void PluginManager::emitNameChanged()
     }
 }
 
-//****************************************************************************
+//***************************************************************************
 void PluginManager::setSignalName(const QString &name)
 {
     m_spx_name_changed.enqueue(name);
@@ -789,14 +789,14 @@ void PluginManager::findPlugins()
     qDebug(i18n("--- \n found %d plugins\n"), m_plugin_files.count());
 }
 
-//****************************************************************************
+//***************************************************************************
 void PluginManager::registerPlaybackDeviceFactory(
     PlaybackDeviceFactory *factory)
 {
     m_playback_factories.append(factory);
 }
 
-//****************************************************************************
+//***************************************************************************
 void PluginManager::unregisterPlaybackDeviceFactory(
     PlaybackDeviceFactory *factory)
 {
@@ -804,6 +804,7 @@ void PluginManager::unregisterPlaybackDeviceFactory(
     m_playback_factories.removeRef(factory);
 }
 
-//****************************************************************************
-//****************************************************************************
-/* end of PluginManager.cpp */
+//***************************************************************************
+#include "PluginManager.moc"
+//***************************************************************************
+//***************************************************************************

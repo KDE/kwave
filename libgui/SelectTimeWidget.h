@@ -23,7 +23,7 @@
 #include <qtimer.h>
 #include <qwidget.h>
 
-#include "SelectTimeWidgetBase.uih.h"
+#include "SelectTimeWidgetBase.h"
 
 class SelectTimeWidget: public SelectTimeWidgetBase
 {
@@ -84,8 +84,8 @@ public slots:
      * available range.
      * @param offset index of the first selected sample
      */
-    void setOffset(unsigned int offset);    
-    
+    void setOffset(unsigned int offset);
+
 private slots:
 
     /** called whenever one of the radio buttons changed it's state */
@@ -110,7 +110,7 @@ private:
 
     /** disconnect all widgets for avoiding recursion */
     void disconnect();
-    
+
 private:
 
     /** selectionMode: byTime, bySamples or byPercent */

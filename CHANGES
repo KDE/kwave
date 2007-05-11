@@ -1,4 +1,8 @@
 
+0.8.0 [2007-??-??]
+
+ * build system: using 'METASOURCES=AUTO' (which simplifies a lot)
+
 0.7.9 [2007-05-01]
 
  * playback via ALSA: offer the "default" device, if no devices found

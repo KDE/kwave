@@ -30,9 +30,7 @@ public:
      * @param offset index of the first item
      * @param length number of items
      */
-    Selection(unsigned int offset, unsigned int length)
-	:QObject(), m_offset(offset), m_length(length)
-    { };
+    Selection(unsigned int offset, unsigned int length);
 
     /** Destructor */
     virtual ~Selection() {};

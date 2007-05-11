@@ -1,6 +1,6 @@
 /**
  * \file  mt/Asynchronous_Object.h
- * \brief Template classes for making methods asynchronously callable 
+ * \brief Template classes for making methods asynchronously callable
  *
  * Thanks to Carlos O'Ryan (coryan@cs.wustl.edu) for elucidating
  * the Daemon_Adapter pattern on which this is closely based.
@@ -10,9 +10,9 @@
  * \date    12.08.1998, Oct. 1998
  *
  * \par NOTE:
- *      this code is taken from the following news article 
+ *      this code is taken from the following news article
  *      (found by www.dejanews.com):
- 
+
  \verbatim
   ----------------------------------------------------------------------------
   Author: Oliver M. Kellogg <Oliver.Kellogg@vs.dasa.de>
@@ -41,7 +41,6 @@
 
 template <class T>class Asynchronous_Object: public Thread
 {
-    Q_OBJECT
 public:
     typedef void (T::*PTMF) (void);
 
@@ -58,7 +57,7 @@ public:
 
     /*! Wrapper function to execute the object's method as a thread */
     void run() { (o_->*m_) (); }
-    
+
 private:
     T* o_;          /*!< pointer to the object */
     PTMF m_;        /*!< pointer to the member function within the object */

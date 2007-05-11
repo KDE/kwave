@@ -17,49 +17,21 @@
 
 INCLUDES= -I${topdir} @all_includes@
 
-BUILT_SOURCES=\
- ConfirmCancelProxy.moc.cpp\
- CurveWidget.moc.cpp\
- FileProgress.moc.cpp\
- FrequencyResponseWidget.moc.cpp\
- HMSTimeWidgetBase.uih.h\
- HMSTimeWidgetBase.uih.moc.cpp\
- HMSTimeWidgetBase.uic.cpp\
- HMSTimeWidget.moc.cpp\
- IntValidatorProxy.moc.cpp\
- InvertableSpinBox.moc.cpp\
- KwaveFileDialog.moc.cpp\
- LabelPropertiesWidgetBase.uih.h\
- LabelPropertiesWidgetBase.uih.moc.cpp\
- LabelPropertiesWidgetBase.uic.cpp\
- LabelPropertiesWidget.moc.cpp\
- MenuNode.moc.cpp\
- MenuGroup.moc.cpp\
- MenuItem.moc.cpp\
- MenuSub.moc.cpp\
- MenuRoot.moc.cpp\
- MenuManager.moc.cpp\
- MultiStateWidget.moc.cpp\
- OverViewCache.moc.cpp\
- OverViewWidget.moc.cpp\
- SelectTimeWidgetBase.uih.h\
- SelectTimeWidgetBase.uih.moc.cpp\
- SelectTimeWidgetBase.uic.cpp\
- SelectTimeWidget.moc.cpp\
- TrackPixmap.moc.cpp
+METASOURCES=AUTO
 
 # Which sources should be compiled for libgui.
 libkwavegui_la_SOURCES = \
- $(BUILT_SOURCES) \
  CurveWidget.cpp\
  ConfirmCancelProxy.cpp\
  FileProgress.cpp\
  FrequencyResponseWidget.cpp\
  HMSTimeWidget.cpp\
+ HMSTimeWidgetBase.ui\
  IntValidatorProxy.cpp\
  InvertableSpinBox.cpp\
  KwaveFileDialog.cpp\
  LabelPropertiesWidget.cpp\
+ LabelPropertiesWidgetBase.ui\
  MenuNode.cpp\
  MenuGroup.cpp\
  MenuItem.cpp\
@@ -71,6 +43,7 @@ libkwavegui_la_SOURCES = \
  OverViewWidget.cpp\
  ScaleWidget.cpp\
  SelectTimeWidget.cpp\
+ SelectTimeWidgetBase.ui\
  TrackPixmap.cpp
 
 #noinst_LIBRARIES = libkwavegui.a
@@ -79,19 +52,8 @@ libkwavegui_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \
 
 lib_LTLIBRARIES = libkwavegui.la
 
-CLEANFILES:=$(CLEANFILES) $(BUILT_SOURCES)
-
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
-DISTCLEANFILES = $(BUILT_SOURCES) core *~ .deps/* Makefile.in Makefile
-
-%.moc.cpp: %.h
-	${MOC} -nw $< -o $@
-
-%.uih.h: %.ui
-	@UIC@ -o $@ -tr i18n $<
-
-%.uic.cpp: %.ui
-	@UIC@ -o $@ -tr i18n -impl $*.uih.h $<
+DISTCLEANFILES = core *~ .deps/* Makefile.in Makefile
 
 # end of Makefile.am

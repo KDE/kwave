@@ -30,7 +30,7 @@
 QPtrList <QPixmap> *pixmaps = 0;
 QStringList *pixnames = 0;
 
-//**********************************************************
+//***************************************************************************
 MultiStateWidget::MultiStateWidget(QWidget *parent, int num, int count)
     :QWidget(parent)
 {
@@ -53,13 +53,13 @@ MultiStateWidget::MultiStateWidget(QWidget *parent, int num, int count)
     resize(20, 20);
 }
 
-//**********************************************************
+//***************************************************************************
 void MultiStateWidget::setNumber(int number)
 {
     this->number = number;
 }
 
-//**********************************************************
+//***************************************************************************
 int MultiStateWidget::addPixmap(const QString &filename)
 {
     Q_ASSERT(pixmaps);
@@ -85,14 +85,14 @@ int MultiStateWidget::addPixmap(const QString &filename)
     return -1;
 }
 
-//**********************************************************
+//***************************************************************************
 void MultiStateWidget::setStates(int *newstates)
 {
     for (int i = 0; i < count; i++)
 	states[i] = newstates[i];
 }
 
-//**********************************************************
+//***************************************************************************
 void MultiStateWidget::setState(int newstate)
 {
     act = newstate;
@@ -101,7 +101,7 @@ void MultiStateWidget::setState(int newstate)
     repaint();
 }
 
-//**********************************************************
+//***************************************************************************
 void MultiStateWidget::nextState()
 {
     act++;
@@ -109,7 +109,7 @@ void MultiStateWidget::nextState()
     repaint();
 }
 
-//**********************************************************
+//***************************************************************************
 void MultiStateWidget::mouseReleaseEvent( QMouseEvent *e)
 {
     Q_ASSERT(e);
@@ -121,13 +121,13 @@ void MultiStateWidget::mouseReleaseEvent( QMouseEvent *e)
     }
 }
 
-//**********************************************************
+//***************************************************************************
 MultiStateWidget::~MultiStateWidget()
 {
     if (states) delete[] states;
 }
 
-//**********************************************************
+//***************************************************************************
 void MultiStateWidget::paintEvent (QPaintEvent *)
 {
     Q_ASSERT(pixmaps);
@@ -140,5 +140,7 @@ void MultiStateWidget::paintEvent (QPaintEvent *)
                     img->width(), img->height(), CopyROP);
 }
 
-//**********************************************************
-//**********************************************************
+//***************************************************************************
+#include "MultiStateWidget.moc"
+//***************************************************************************
+//***************************************************************************

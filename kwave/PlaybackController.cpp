@@ -147,7 +147,7 @@ void PlaybackController::playbackDone()
 	emit sigDeviceStartPlayback();
 	m_paused = false;
 	m_playing = true;
-	
+
 	// leave the "reload" mode
 	m_reload_mode = false;
 	return;
@@ -239,5 +239,6 @@ unsigned long int PlaybackController::currentPos()
 }
 
 //***************************************************************************
+#include "PlaybackController.moc"
 //***************************************************************************
-/* end of PlaybackController.h */
+//***************************************************************************

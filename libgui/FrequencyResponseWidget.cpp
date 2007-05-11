@@ -77,17 +77,17 @@ void FrequencyResponseWidget::paintEvent(QPaintEvent*)
 //  const double m_frequency = m_f_max * 2/3;
     const int width  = this->width();
     const int height = this->height();
-    
+
     Q_ASSERT(width > 0);
     Q_ASSERT(height > 0);
     if ((width <= 0) || (height <= 0)) return;
-    
+
     if (!m_pixmap) m_pixmap = new QPixmap(width, height);
     Q_ASSERT(m_pixmap);
     if (!m_pixmap) return;
     if ((m_pixmap->width() != width) || (m_pixmap->height() != height))
 	m_pixmap->resize(width, height);
-    
+
     QPainter p;
     p.begin(m_pixmap);
     m_pixmap->fill(colorGroup().dark());
@@ -96,7 +96,7 @@ void FrequencyResponseWidget::paintEvent(QPaintEvent*)
     double min = pow(10.0, (double)m_db_min/10.0);
     double max = pow(10.0, (double)m_db_max/10.0);
     p.setPen(green);//colorGroup().text());
-    
+
     for (int x=0; x < width; x++) {
 	// transform x coordinate to frequency
 
@@ -105,7 +105,7 @@ void FrequencyResponseWidget::paintEvent(QPaintEvent*)
 
 	// linear frequency scale
 	double f = (m_f_max * (double)x / (double)width);
-	
+
 	// calculate the filter function's output at the given frequency
 	f = (f / m_f_max) * M_PI;
 	double a = (m_function) ? m_function->at(f): 1.0;
@@ -116,10 +116,10 @@ void FrequencyResponseWidget::paintEvent(QPaintEvent*)
 
 	// convert to logarithmic scale
 	double db = 10.0 * log10(a);
-	
+
 	// draw one line
 	int y = height - (int)((db - m_db_min) * scale);
-	
+
 	p.drawLine(x, y+1, x, height-1);
     }
 
@@ -132,5 +132,7 @@ void FrequencyResponseWidget::paintEvent(QPaintEvent*)
     bitBlt(this, 0, 0, m_pixmap);
 }
 
+//***************************************************************************
+#include "FrequencyResponseWidget.moc"
 //***************************************************************************
 //***************************************************************************

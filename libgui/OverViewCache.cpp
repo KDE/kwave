@@ -32,7 +32,7 @@
 
 #define CACHE_SIZE 8192           /* number of cache entries */
 
-//*****************************************************************************
+//***************************************************************************
 OverViewCache::OverViewCache(SignalManager &signal, unsigned int src_offset,
                              unsigned int src_length,
                              const QMemArray<unsigned int> *src_tracks)
@@ -76,7 +76,7 @@ OverViewCache::OverViewCache(SignalManager &signal, unsigned int src_offset,
     m_max.setAutoDelete(true);
 }
 
-//*****************************************************************************
+//***************************************************************************
 OverViewCache::~OverViewCache()
 {
     m_state.clear();
@@ -84,13 +84,13 @@ OverViewCache::~OverViewCache()
     m_max.clear();
 }
 
-//*****************************************************************************
+//***************************************************************************
 unsigned int OverViewCache::sourceLength()
 {
     return (m_src_length) ? m_src_length : m_signal.length();
 }
 
-//*****************************************************************************
+//***************************************************************************
 void OverViewCache::scaleUp()
 {
     Q_ASSERT(m_scale);
@@ -154,7 +154,7 @@ void OverViewCache::scaleUp()
     m_scale *= shrink;
 }
 
-//*****************************************************************************
+//***************************************************************************
 void OverViewCache::scaleDown()
 {
     const unsigned int len = sourceLength();
@@ -169,7 +169,7 @@ void OverViewCache::scaleDown()
     }
 }
 
-//*****************************************************************************
+//***************************************************************************
 int OverViewCache::trackIndex(unsigned int track_nr)
 {
     if (!m_src_tracks.isEmpty() || !m_src_deleted.isEmpty()) {
@@ -179,7 +179,7 @@ int OverViewCache::trackIndex(unsigned int track_nr)
     }
 }
 
-//*****************************************************************************
+//***************************************************************************
 void OverViewCache::invalidateCache(unsigned int track, unsigned int first,
                                     unsigned int last)
 {
@@ -198,7 +198,7 @@ void OverViewCache::invalidateCache(unsigned int track, unsigned int first,
     }
 }
 
-//*****************************************************************************
+//***************************************************************************
 void OverViewCache::slotTrackInserted(unsigned int index, Track &)
 {
     QMutexLocker lock(&m_lock);
@@ -271,7 +271,7 @@ void OverViewCache::slotTrackInserted(unsigned int index, Track &)
     emit changed();
 }
 
-//*****************************************************************************
+//***************************************************************************
 void OverViewCache::slotTrackDeleted(unsigned int index)
 {
     QMutexLocker lock(&m_lock);
@@ -311,7 +311,7 @@ void OverViewCache::slotTrackDeleted(unsigned int index)
     emit changed();
 }
 
-//*****************************************************************************
+//***************************************************************************
 void OverViewCache::slotSamplesInserted(unsigned int track,
     unsigned int offset, unsigned int length)
 {
@@ -352,7 +352,7 @@ void OverViewCache::slotSamplesInserted(unsigned int track,
     emit changed();
 }
 
-//*****************************************************************************
+//***************************************************************************
 void OverViewCache::slotSamplesDeleted(unsigned int track,
     unsigned int offset, unsigned int length)
 {
@@ -398,7 +398,7 @@ void OverViewCache::slotSamplesDeleted(unsigned int track,
     emit changed();
 }
 
-//*****************************************************************************
+//***************************************************************************
 void OverViewCache::slotSamplesModified(unsigned int track,
     unsigned int offset, unsigned int length)
 {
@@ -429,7 +429,7 @@ void OverViewCache::slotSamplesModified(unsigned int track,
     emit changed();
 }
 
-//*****************************************************************************
+//***************************************************************************
 QBitmap OverViewCache::getOverView(int width, int height)
 {
     QBitmap bitmap(width, height);
@@ -532,7 +532,7 @@ QBitmap OverViewCache::getOverView(int width, int height)
     return bitmap;
 }
 
-//*****************************************************************************
+//***************************************************************************
 void OverViewCache::dumpTracks()
 {
     QValueList<unsigned int>::Iterator it;
@@ -547,5 +547,7 @@ void OverViewCache::dumpTracks()
     qDebug("%s", list.local8Bit().data());
 }
 
-//*****************************************************************************
-//*****************************************************************************
+//***************************************************************************
+#include "OverViewCache.moc"
+//***************************************************************************
+//***************************************************************************

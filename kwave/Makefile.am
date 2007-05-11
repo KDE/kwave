@@ -53,18 +53,9 @@ ICONS = \
 # Which sources should be compiled for kwave.
 
 BUILTSOURCES=\
- CodecManager.moc.cpp\
- LabelManager.moc.cpp\
- KwaveApp.moc.cpp\
- KwaveSplash.moc.cpp\
- MainWidget.moc.cpp\
- PlaybackController.moc.cpp \
- PluginManager.moc.cpp\
- SignalManager.moc.cpp\
- SignalWidget.moc.cpp\
- TopWidget.moc.cpp\
- UndoInsertAction.moc.cpp \
  $(ICONS)
+
+METASOURCES=AUTO
 
 kwave_SOURCES =\
  main.cpp\
@@ -201,6 +192,6 @@ uninstall-local:
 	-rmdir -p --ignore-fail-on-non-empty $(DESTDIR)$(bindir) >/dev/null 2>&1
 
 # dependencies for moc files
-%.moc.cpp: %.h
+%.moc: %.h
 	${MOC} -o $@ $<
 

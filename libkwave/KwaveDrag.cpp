@@ -112,7 +112,7 @@ bool KwaveDrag::decode(QWidget *widget, const QMimeSource *e, Signal &sig)
     for (i=0; (format = e->format(i)); ++i) {
 	if (CodecManager::canDecode(format)) {
 	    QBuffer src(e->encodedData(format));
-	
+
 	    // open the mime source and get header information
 	    ok = decoder->open(widget, src);
 	    if (!ok) break;
@@ -124,7 +124,7 @@ bool KwaveDrag::decode(QWidget *widget, const QMimeSource *e, Signal &sig)
 	    MultiTrackWriter dst;
 	    sig.openMultiTrackWriter(dst, sig.allTracks(), Overwrite,
 	                             0, sig.length()-1);
-	
+
 	    ok = decoder->decode(widget, dst);
 	    break;
 	}
@@ -133,5 +133,7 @@ bool KwaveDrag::decode(QWidget *widget, const QMimeSource *e, Signal &sig)
     return ok;
 }
 
+//***************************************************************************
+#include "KwaveDrag.moc"
 //***************************************************************************
 //***************************************************************************

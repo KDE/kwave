@@ -40,7 +40,7 @@
 #define SLIDER_BACKGROUND colorGroup().background()
 #define SLIDER_FOREGROUND colorGroup().mid()
 
-//*****************************************************************************
+//***************************************************************************
 OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     :QWidget(parent), m_width(0), m_height(0), m_grabbed(0), m_mouse_pos(0),
      m_slider_width(0), m_view_width(0), m_view_length(0),m_view_offset(0),
@@ -61,14 +61,14 @@ OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     setBackgroundMode(NoBackground);
 }
 
-//*****************************************************************************
+//***************************************************************************
 OverViewWidget::~OverViewWidget()
 {
     m_timer.stop();
     if (m_pixmap) delete m_pixmap;
 }
 
-//*****************************************************************************
+//***************************************************************************
 void OverViewWidget::mousePressEvent(QMouseEvent *e)
 {
     Q_ASSERT(e);
@@ -95,7 +95,7 @@ void OverViewWidget::mousePressEvent(QMouseEvent *e)
     }
 }
 
-//****************************************************************************
+//***************************************************************************
 void OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
 {
     unsigned int old_offset = m_view_offset;
@@ -124,7 +124,7 @@ void OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
     }
 }
 
-//****************************************************************************
+//***************************************************************************
 void OverViewWidget::increase()
 {
     unsigned int old_offset = m_view_offset;
@@ -163,14 +163,14 @@ void OverViewWidget::increase()
     }
 }
 
-//****************************************************************************
+//***************************************************************************
 void OverViewWidget::mouseReleaseEvent(QMouseEvent *)
 {
     m_grabbed = -1;
     m_timer.stop();
 }
 
-//****************************************************************************
+//***************************************************************************
 int OverViewWidget::offset2pixels(unsigned int offset)
 {
     int res;
@@ -196,7 +196,7 @@ int OverViewWidget::offset2pixels(unsigned int offset)
     return min(res, m_width-1);
 }
 
-//****************************************************************************
+//***************************************************************************
 unsigned int OverViewWidget::pixels2offset(int pixels)
 {
     unsigned int res;
@@ -219,7 +219,7 @@ unsigned int OverViewWidget::pixels2offset(int pixels)
     return min(res, m_view_length-1);
 }
 
-//****************************************************************************
+//***************************************************************************
 void OverViewWidget::mouseMoveEvent( QMouseEvent *e)
 {
     Q_ASSERT(e);
@@ -246,14 +246,14 @@ void OverViewWidget::mouseMoveEvent( QMouseEvent *e)
     }
 }
 
-//*****************************************************************************
+//***************************************************************************
 void OverViewWidget::resizeEvent(QResizeEvent *)
 {
     setRange(m_view_offset, m_view_width, m_view_length);
     refreshBitmap();
 }
 
-//*****************************************************************************
+//***************************************************************************
 void OverViewWidget::setRange(unsigned int new_pos, unsigned int new_width,
 	unsigned int new_length)
 {
@@ -282,7 +282,7 @@ void OverViewWidget::setRange(unsigned int new_pos, unsigned int new_width,
 
 }
 
-//*****************************************************************************
+//***************************************************************************
 void OverViewWidget::setValue(unsigned int newval)
 {
     if (m_view_offset != newval) {
@@ -291,7 +291,7 @@ void OverViewWidget::setValue(unsigned int newval)
     }
 }
 
-//*****************************************************************************
+//***************************************************************************
 void OverViewWidget::paintEvent(QPaintEvent *)
 {
 //    qDebug("OverViewWidget::paintEvent(QPaintEvent *)");
@@ -357,19 +357,19 @@ void OverViewWidget::paintEvent(QPaintEvent *)
     bitBlt(this, 0, 0, m_pixmap);
 }
 
-//*****************************************************************************
+//***************************************************************************
 const QSize OverViewWidget::minimumSize()
 {
     return QSize(30, 30);
 }
 
-//*****************************************************************************
+//***************************************************************************
 const QSize OverViewWidget::sizeHint()
 {
     return minimumSize();
 }
 
-//*****************************************************************************
+//***************************************************************************
 void OverViewWidget::overviewChanged()
 {
     // repainting is inhibited -> wait until the
@@ -385,7 +385,7 @@ void OverViewWidget::overviewChanged()
     }
 }
 
-//*****************************************************************************
+//***************************************************************************
 void OverViewWidget::refreshBitmap()
 {
     // let the bitmap be updated from the cache
@@ -395,5 +395,7 @@ void OverViewWidget::refreshBitmap()
     repaint(false);
 }
 
-//*****************************************************************************
-//*****************************************************************************
+//***************************************************************************
+#include "OverViewWidget.moc"
+//***************************************************************************
+//***************************************************************************

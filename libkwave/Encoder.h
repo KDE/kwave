@@ -35,7 +35,7 @@ class Encoder: public QObject, public CodecBase
     Q_OBJECT
 public:
     /** Constructor */
-    Encoder() :QObject(), CodecBase() {};
+    Encoder();
 
     /** Destructor */
     virtual ~Encoder() {};

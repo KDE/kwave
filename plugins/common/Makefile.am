@@ -37,8 +37,9 @@ CXXFLAGS  += @GSL_CFLAGS@ -fPIC @CPPFLAGS@
 LD_FLAGS  = -shared -fPIC -rdynamic
 
 CFLAGS    = $(filter-out -Wnon-virtual-dtor ,  \
+            $(filter-out -Wno-non-virtual-dtor , \
             $(filter-out -fno-check-new , \
-            $(CXXFLAGS) ))
+            $(CXXFLAGS) )))
 
 MODDIR:=$(shell pwd)
 MODNAME=$(shell basename $(MODDIR))

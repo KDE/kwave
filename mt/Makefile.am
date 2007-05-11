@@ -20,25 +20,21 @@ noinst_LTLIBRARIES = libkwavemt.la
 # set the include path for X, qt and KDE
 INCLUDES= @all_includes@
 
-BUILTSOURCES=\
- AsyncSync.moc.cpp \
- Thread.moc.cpp \
- ThreadsafeX11Guard.moc.cpp
+METASOURCES=\
+ AsyncSync.moc \
+ Thread.moc \
+ ThreadsafeX11Guard.moc
 
 # Which sources should be compiled for libkwavemt.
 libkwavemt_la_SOURCES=\
- AsyncSync.cpp\
+ AsyncSync.cpp \
  SharedLock.cpp \
  SharedLockGuard.cpp \
  Thread.cpp \
- ThreadsafeX11Guard.cpp \
- $(BUILTSOURCES)
+ ThreadsafeX11Guard.cpp
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
 DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* Makefile.in Makefile
-
-%moc.cpp: %h
-	${MOC} $< -o $@
 
 # end of Makefile.am

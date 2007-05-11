@@ -83,7 +83,7 @@ FileProgress::FileProgress(QWidget *parent,
 
     // label with "length"
     if (!addInfoLabel(info_layout, i18n("length: "), 1, 0)) return;
-    
+
     m_lbl_length = addInfoLabel(info_layout, "", 1, 1);
     if (!m_lbl_length) return;
     setLength(samples*tracks);
@@ -323,7 +323,7 @@ void FileProgress::setBytePosition(unsigned int pos)
 void FileProgress::setLength(unsigned int samples)
 {
     QString text;
-    
+
     // length in samples -> h:m:s
     if (m_sample_rate) {
 	// length in ms
@@ -343,5 +343,7 @@ void FileProgress::cancel()
     if (m_cancelled) emit cancelled();
 }
 
+//***************************************************************************
+#include "FileProgress.moc"
 //***************************************************************************
 //***************************************************************************

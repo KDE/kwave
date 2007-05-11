@@ -21,7 +21,7 @@
 #include "config.h"
 #include <qobject.h>
 #include <qwidget.h>
-#include "HMSTimeWidgetBase.uih.h"
+#include "HMSTimeWidgetBase.h"
 
 class HMSTimeWidget: public HMSTimeWidgetBase
 {

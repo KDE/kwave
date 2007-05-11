@@ -111,12 +111,13 @@ logged:
 		libtoolize --force --copy --automake ; \
 		aclocal -I ./admin; \
 		autoheader${AUTOCONF_SUFFIX} ; \
-		automake --foreign --add-missing --copy --include-deps ; \
 		autoconf${AUTOCONF_SUFFIX} ; \
+		automake --foreign --add-missing --copy --include-deps ; \
 		cd - ; \
 	}; done;
+	perl admin/am_edit
 	QTDIR=`cat ./QT-DIR` KDEDIR=${KDEDIR} \
-	./configure --enable-debug=no --enable-final=yes \
+	./configure --enable-debug=no \
 		--enable-static=no --enable-dynamic=yes \
 		${CONFIGURE_OPTS} \
 		CXXFLAGS="${RPM_OPT_FLAGS}" \

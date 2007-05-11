@@ -21,20 +21,9 @@ INCLUDES= @all_includes@ @ARTS_INCLUDES@
 INCLUDES+=-I ../libaudiofile
 #endif
 
+METASOURCES=AUTO
+
 BUILT_SOURCES=\
- KwaveDrag.moc.cpp\
- KwaveFilterPlugin.moc.cpp\
- KwavePlugin.moc.cpp\
- MultiTrackReader.moc.cpp\
- MultiTrackWriter.moc.cpp\
- PlayBackDevice.moc.cpp\
- SampleReader.moc.cpp\
- SampleWriter.moc.cpp\
- Selection.moc.cpp\
- Signal.moc.cpp\
- Stripe.moc.cpp\
- Track.moc.cpp\
- TransmissionFunction.moc.cpp\
  ArtsPlaybackSink.h\
  ArtsPlaybackSink.cc\
  ArtsSampleSink.h\
@@ -42,13 +31,11 @@ BUILT_SOURCES=\
  ArtsSampleSource.h\
  ArtsSampleSource.cc\
  CurveStreamAdapter.h\
- CurveStreamAdapter.cc\
- Decoder.moc.cpp\
- Encoder.moc.cpp
+ CurveStreamAdapter.cc
 
 # Which sources should be compiled for kwave.
 libkwave_la_SOURCES=\
- ${BUILT_SOURCES}\
+ ${BUILT_SOURCES} \
  ArtsMultiPlaybackSink.cpp\
  ArtsPlaybackSink_impl.cpp\
  ArtsSampleSource_impl.cpp\
@@ -83,6 +70,7 @@ libkwave_la_SOURCES=\
  SampleReader.cpp\
  SampleWriter.cpp\
  SampleLock.cpp\
+ Selection.cpp\
  StandardBitrates.cpp\
  Stripe.cpp\
  Track.cpp\
@@ -104,10 +92,7 @@ lib_LTLIBRARIES = libkwave.la
 
 CLEANFILES = $(BUILT_SOURCES)
 
-DISTCLEANFILES = $(BUILT_SOURCES) core *~ .deps/* Makefile.in Makefile
-
-%.moc.cpp: %.h
-	${MOC} $< -o $@
+DISTCLEANFILES = core *~ .deps/* Makefile.in Makefile
 
 %.cc: %.idl
 	${MCOPIDL} @MCOPIDL_INCLUDES@ $<

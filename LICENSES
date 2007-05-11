@@ -1,6 +1,6 @@
 
 here the results of a licensing investigation
-(2006-09-21)
+(2007-05-11)
 
 LIST OF LICENSES FOUND IN THE SOURCES
 =====================================
@@ -147,6 +147,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	AUTHORS						GPL2
 	CHANGES						(should be GPL2)
 	configure.in					GPL2
+	config.h.cmake					GPL2
 	doxy.cfg.in					(should be GPL2)
 	GNU-LICENSE					free
 	kwave.ebuild					GPL2 Gentoo
@@ -160,6 +161,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 #	stamp-h.in					??? UNKNOWN ???
 	TODO						(should be GPL2)
 	VERSION						(should be GPL2)
+	CMakeLists.txt					GPL2
 
 	admin/acinclude.m4.in				LGPL2
 	admin/am_edit					free
@@ -194,6 +196,12 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	bin/insert-changes.sh				GPL2
 	bin/menusconfig2cpp.sh				GPL2
 	bin/set_version.sh				GPL2 / portions of Martin Wilz
+
+	cmake/COPYING-CMAKE-SCRIPTS			New BSD
+	cmake/FindARTS.cmake				New BSD
+	cmake/FindGettext.cmake				GPL2
+	cmake/FindKwaveVersion.cmake			GPL2
+	cmake/MCOP.cmake				GPL2
 
 	doc/Makefile.am					GPL2
 	doc/fix-common					GPL2
@@ -267,6 +275,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 
 	kwave/ClipBoard.cpp				GPL2
 	kwave/ClipBoard.h				GPL2
+	kwave/CMakeLists.txt				GPL2
 	kwave/CodecManager.cpp				GPL2
 	kwave/CodecManager.h				GPL2
 	kwave/KwaveApp.cpp				GPL2
@@ -374,6 +383,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libaudiofile/byteorder.h			LGPL2
 	libaudiofile/compression.c			LGPL2
 	libaudiofile/compression.h			LGPL2
+	libaudiofile/CMakeLists.txt			GPL2
 	libaudiofile/COPYING				(free)
 	libaudiofile/COPYING.GPL			(free)
 	libaudiofile/data.c				LGPL2
@@ -437,6 +447,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 #	libaudiofile/modules/rebuffer.h 		??? UNKNOWN ???
 #	libaudiofile/modules/rebuffer.template		??? UNKNOWN ???
 
+	libgui/CMakeLists.txt				GPL2
 	libgui/ConfirmCancelProxy.cpp			GPL2
 	libgui/ConfirmCancelProxy.h			GPL2
 	libgui/CurveWidget.cpp				GPL2
@@ -505,6 +516,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/ArtsSampleSource_impl.h		GPL2
 	libkwave/ByteOrder.h				GPL2
 	libkwave/byteswap.h				GPL2
+	libkwave/CMakeLists.txt				GPL2
 	libkwave/CodecBase.cpp				GPL2
 	libkwave/CodecBase.h				GPL2
 	libkwave/CompressionType.cpp			GPL2
@@ -518,6 +530,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/CurveStreamAdapter_impl.h		GPL2
 	libkwave/Decoder.cpp				GPL2
 	libkwave/Decoder.h				GPL2
+	libkwave/Encoder.cpp				GPL2
 	libkwave/Encoder.h				GPL2
 	libkwave/FileFormat.cpp				GPL2
 	libkwave/FileFormat.h				GPL2
@@ -575,6 +588,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/SampleWriter.cpp			GPL2
 	libkwave/SampleWriter.h				GPL2
 	libkwave/Selection.h				GPL2
+	libkwave/Selection.cpp				GPL2
 	libkwave/Signal.cpp				GPL2
 	libkwave/Signal.h				GPL2
 	libkwave/StandardBitrates.cpp			GPL2
@@ -595,6 +609,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 #	mt/Asynchronous_Object.h			??? UNKNOWN ??? / Oliver M. Kellogg <Oliver.Kellogg@vs.dasa.de>
 #	mt/AsyncSync.cpp				??? / Brian Theodore <theodore@std.saic.com>
 #	mt/AsyncSync.h					??? / Brian Theodore <theodore@std.saic.com>
+	mt/CMakeLists.txt				GPL2
 	mt/Makefile.am					GPL2
 	mt/MutexGuard.cpp				GPL2
 	mt/SharedLock.cpp				GPL2

@@ -1,0 +1,214 @@
+#############################################################################
+##    Kwave                - CMakeLists.txt
+##                           -------------------
+##    begin                : Tue May 01 2007
+##    copyright            : (C) 2007 by Thomas Eschenbacher
+##    email                : Thomas.Eschenbacher@gmx.de
+#############################################################################
+#
+#############################################################################
+##                                                                          #
+##    This program is free software; you can redistribute it and/or modify  #
+##    it under the terms of the GNU General Public License as published by  #
+##    the Free Software Foundation; either version 2 of the License, or     #
+##    (at your option) any later version.                                   #
+##                                                                          #
+#############################################################################
+
+#############################################################################
+### cmake includes                                                        ###
+
+INCLUDE_DIRECTORIES(
+    ${KDE3_INCLUDE_DIR}
+    ${QT_INCLUDE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_BINARY_DIR}
+)
+
+INCLUDE(CheckCCompilerFlag)
+INCLUDE(CheckCXXCompilerFlag)
+INCLUDE(cmake/FindKwaveVersion.cmake)
+
+#############################################################################
+
+PROJECT(kwave)
+SET(CMAKE_VERBOSE_MAKEFILE OFF)
+
+#############################################################################
+### toplevel compiler flags                                               ###
+
+CHECK_C_COMPILER_FLAG("-fPIC" C_HAVE_PIC)
+CHECK_CXX_COMPILER_FLAG("-fPIC" CXX_HAVE_PIC)
+IF (CXX_HAVE_PIC AND C_HAVE_PIC)
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+ELSE (CXX_HAVE_PIC AND C_HAVE_PIC)
+MESSAGE(FATAL_ERROR "-fPIC support is missing")
+ENDIF (CXX_HAVE_PIC AND C_HAVE_PIC)
+
+
+#############################################################################
+### KDE 3 support                                                         ###
+
+FIND_PACKAGE(KDE3 REQUIRED)
+ADD_DEFINITIONS(${QT_DEFINITIONS} ${KDE3_DEFINITIONS})
+LINK_DIRECTORIES(${KDE3_LIB_DIR})
+
+#############################################################################
+### optionally: builting libaudiofile                                     ###
+
+IF (NOT USE_SYSTEM_LIB_AUDIOFILE)
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/libaudiofile)
+LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libaudiofile)
+ENDIF (NOT USE_SYSTEM_LIB_AUDIOFILE)
+
+#############################################################################
+### cmake includes                                                        ###
+
+INCLUDE(cmake/FindARTS.cmake)
+INCLUDE(cmake/MCOP.cmake)
+
+#############################################################################
+
+CONFIGURE_FILE(
+    ${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/config.h
+)
+
+#############################################################################
+
+LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/mt)
+LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libgui)
+LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libkwave)
+
+#############################################################################
+### subdirs                                                               ###
+
+ADD_SUBDIRECTORY( libaudiofile )
+ADD_SUBDIRECTORY( mt )
+ADD_SUBDIRECTORY( libgui )
+ADD_SUBDIRECTORY( libkwave )
+ADD_SUBDIRECTORY( kwave )
+# ADD_SUBDIRECTORY( plugins )
+# ADD_SUBDIRECTORY( po )
+# ADD_SUBDIRECTORY( doc )
+
+#############################################################################
+### install files                                                         ###
+
+#original Makefile.am contents follow:
+
+#.PHONY: backup ebuild rpm rpm_prep doc apidoc src.rpm version-labels
+#
+#srcdir  	 = $(shell pwd)
+#
+#VERSION	 = $(shell cat ./VERSION)
+#ARCHIVE_DIR	 = ${srcdir}/../ARCHIVE
+#SRC_DIR   	 = ${srcdir}
+#SRC_PREFIX 	 = ${PACKAGE}
+#SUBDIRS  	 = @LIBAUDIOFILE_SUBDIR@ mt libgui libkwave kwave plugins po doc
+#EBUILD		 = kwave-@RPM_SHORT_VERSION@.ebuild
+#CLEANFILES	 = *~ *.d *.dm *.moc *.moc.c?? *.ii \#* *.dep .depend
+#
+#EXTRA_DIST	 = AUTHORS LICENSES TODO CHANGES GNU-LICENSE README
+#
+#DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \
+#	QT-DIR aclocal.m4 config.h.in configure make.log admin/config.guess \
+#	admin/config.sub admin/ltmain.sh \
+#	libaudiofile/Makefile.in libaudiofile/modules/Makefile.in \
+#	plugins/common/Makefile plugins/common/Makefile.in \
+#	`find . -type l` autom4*.cache/* ${EBUILD}
+#
+## treat the ebuild file like a generated source:
+## do not distribute it, but generate it
+#BUILT_SOURCES = ${EBUILD}
+#
+#${EBUILD}: VERSION kwave.ebuild
+#	@ cp -v kwave.ebuild ${EBUILD}
+#
+#ebuild: ${EBUILD}
+#
+#clean-generic:
+#	-rm -fv `find -size 0`
+#	-rm -fv `find . -name \*\~ -o -name \.\#\*`
+#	-rm -fv `find . -name \*.o`
+#	-rm -fv `find . -name \*.ii`
+#	-rm -fv `find . -name \*.lo`
+#	-rm -fv `find . -name \*.la`
+#	-rm -fv `find . -name \*.moc.c\?\?`
+#	-rm -fv `find . -name \*.moc`
+#	-rm -fv `find . -name \*.dep`
+#	-rm -fv `find . -name \*.d`
+#	-rm -fv `find . -name \*.dm`
+#	-rm -fv `find . -name .depend`
+#	-rm -fv `find . -name \*.uih.h`
+#	-rm -fv `find . -name \*.uic.cpp`
+#	-rm -fv `find . -name \.inslog\*`
+#	-rm -fv `find . -name \.ix\*`
+#	-rm -Rf doc/api
+#	-rm -f ${EBUILD}
+#
+#backup: ${PACKAGE}.spec
+#	@ cp ${PACKAGE}.spec ${PACKAGE}.spec.saved ; \
+#	${MAKE} distclean ; \
+#	mv ${PACKAGE}.spec.saved ${PACKAGE}.spec ; \
+#	(cd ${srcdir}/..; \
+#	tar -czh -f ${ARCHIVE_DIR}/${PACKAGE}-${VERSION}-backup.tgz \
+#	${SRC_PREFIX} ) && \
+#	echo source backed up to ${PACKAGE}-${VERSION}-backup.tgz
+#
+#version-labels:
+#	$(srcdir)/bin/set_version.sh $(srcdir) \
+#	`cat $(srcdir)/VERSION` \
+#	`date --iso`
+#
+#package-messages: all
+#	rm -f po/*.gmo
+#	(cd kwave ; ${MAKE} menus_config_i18n.cpp )
+#	@XGETTEXT@ -C -ki18n -ktr2i18n -kI18N_NOOP -x @KDE_POT_FILE@ \
+#	`find . -name \*.h -o -name \*.cpp` -o $(srcdir)/po/${PACKAGE}.pot
+#	(cd po ; ${MAKE} merge )
+#
+#rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
+#	rm -R -f /tmp/${PACKAGE}-@RPM_SHORT_VERSION@
+#	mkdir -p /tmp/${PACKAGE}-@RPM_SHORT_VERSION@
+#	(cd ${srcdir} ; cp -R -a ./* /tmp/${PACKAGE}-@RPM_SHORT_VERSION@ )
+#	(cd /tmp/ ; chmod -R a+rwX ${PACKAGE}-@RPM_SHORT_VERSION@ ; \
+#	touch ${PACKAGE}-@RPM_SHORT_VERSION@/doc/help_{de,fr}.docbook ; \
+#	find ${SRC_PREFIX}-@RPM_SHORT_VERSION@ -name CVS > \
+#		/tmp/${PACKAGE}-tar-excludes.lst ; \
+#	find ${SRC_PREFIX}-@RPM_SHORT_VERSION@ -name \.\* -type d >> \
+#		/tmp/${PACKAGE}-tar-excludes.lst ; \
+#	find ${SRC_PREFIX}-@RPM_SHORT_VERSION@ -name Makefile \
+#		-o -name Makefile.in -o -name aclocal.m4 \
+#		-o -name config.h.in -o -name config.h \
+#		-o -name libtool -o -name stamp-h -o -name configure \
+#		-o -name stamp-h1 -o -name \*.cache -o -name .depend \
+#		-o -name QT-KDIR -o -name KDE-VERSION \
+#		-o -name config.status -o -name .deps -o -name \*.log >> \
+#		/tmp/${PACKAGE}-tar-excludes.lst ; \
+#	echo "${SRC_PREFIX}-@RPM_SHORT_VERSION@/doc/api" >> \
+#		/tmp/${PACKAGE}-tar-excludes.lst ; \
+#	tar --exclude-from=/tmp/${PACKAGE}-tar-excludes.lst \
+#		--owner=root --group=root \
+#		-chzf ${PACKAGE}-@RPM_FULL_VERSION@.tar.gz \
+#		${SRC_PREFIX}-@RPM_SHORT_VERSION@ ; \
+#	 )
+#	- rm -f /tmp/${PACKAGE}-tar-excludes.lst
+#	- rm -R -f /tmp/${PACKAGE}-@RPM_SHORT_VERSION@
+#
+#rpm: rpm_prep
+#	@RPMBUILD@ -ta /tmp/${PACKAGE}-@RPM_FULL_VERSION@.tar.gz
+#
+#src.rpm: rpm_prep
+#	@RPMBUILD@ -ts /tmp/${PACKAGE}-@RPM_FULL_VERSION@.tar.gz
+#
+#doc:
+#	(cd ./doc ; ${MAKE} all )
+#
+#apidoc:
+#	-rm -Rf `find . -name \*.moc.cpp`
+#	doxygen doxy.cfg
+
+#############################################################################
+#############################################################################

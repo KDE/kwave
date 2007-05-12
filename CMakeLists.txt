@@ -16,7 +16,14 @@
 #############################################################################
 
 #############################################################################
+### project name                                                          ###
+
+PROJECT(kwave)
+
+#############################################################################
 ### cmake includes                                                        ###
+
+SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 INCLUDE_DIRECTORIES(
     ${KDE3_INCLUDE_DIR}
@@ -27,23 +34,22 @@ INCLUDE_DIRECTORIES(
 
 INCLUDE(CheckCCompilerFlag)
 INCLUDE(CheckCXXCompilerFlag)
-INCLUDE(cmake/FindKwaveVersion.cmake)
+INCLUDE(FindKwaveVersion)
 
 #############################################################################
 
-PROJECT(kwave)
 SET(CMAKE_VERBOSE_MAKEFILE OFF)
 
 #############################################################################
 ### toplevel compiler flags                                               ###
 
-CHECK_C_COMPILER_FLAG("-fPIC" C_HAVE_PIC)
-CHECK_CXX_COMPILER_FLAG("-fPIC" CXX_HAVE_PIC)
+CHECK_C_COMPILER_FLAG(" ${CMAKE_SHARED_LIBRARY_C_FLAGS}" C_HAVE_PIC)
+CHECK_CXX_COMPILER_FLAG(" ${CMAKE_SHARED_LIBRARY_C_FLAGS}" CXX_HAVE_PIC)
 IF (CXX_HAVE_PIC AND C_HAVE_PIC)
-SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CMAKE_SHARED_LIBRARY_C_FLAGS}")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_SHARED_LIBRARY_C_FLAGS}")
 ELSE (CXX_HAVE_PIC AND C_HAVE_PIC)
-MESSAGE(FATAL_ERROR "-fPIC support is missing")
+MESSAGE(FATAL_ERROR "shared library support is missing")
 ENDIF (CXX_HAVE_PIC AND C_HAVE_PIC)
 
 
@@ -65,8 +71,9 @@ ENDIF (NOT USE_SYSTEM_LIB_AUDIOFILE)
 #############################################################################
 ### cmake includes                                                        ###
 
-INCLUDE(cmake/FindARTS.cmake)
-INCLUDE(cmake/MCOP.cmake)
+INCLUDE(FindARTS)
+INCLUDE(MCOP)
+FIND_PACKAGE(Gettext REQUIRED)
 
 #############################################################################
 
@@ -90,7 +97,7 @@ ADD_SUBDIRECTORY( libgui )
 ADD_SUBDIRECTORY( libkwave )
 ADD_SUBDIRECTORY( kwave )
 # ADD_SUBDIRECTORY( plugins )
-# ADD_SUBDIRECTORY( po )
+ADD_SUBDIRECTORY( po )
 # ADD_SUBDIRECTORY( doc )
 
 #############################################################################
@@ -98,18 +105,7 @@ ADD_SUBDIRECTORY( kwave )
 
 #original Makefile.am contents follow:
 
-#.PHONY: backup ebuild rpm rpm_prep doc apidoc src.rpm version-labels
-#
-#srcdir  	 = $(shell pwd)
-#
-#VERSION	 = $(shell cat ./VERSION)
-#ARCHIVE_DIR	 = ${srcdir}/../ARCHIVE
-#SRC_DIR   	 = ${srcdir}
-#SRC_PREFIX 	 = ${PACKAGE}
-#SUBDIRS  	 = @LIBAUDIOFILE_SUBDIR@ mt libgui libkwave kwave plugins po doc
 #EBUILD		 = kwave-@RPM_SHORT_VERSION@.ebuild
-#CLEANFILES	 = *~ *.d *.dm *.moc *.moc.c?? *.ii \#* *.dep .depend
-#
 #EXTRA_DIST	 = AUTHORS LICENSES TODO CHANGES GNU-LICENSE README
 #
 #DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \

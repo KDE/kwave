@@ -26,6 +26,10 @@ LIST OF LICENSES FOUND IN THE SOURCES
 	  - admin/config.pl
 	  - admin/configure.in.min
 
+	* Kitware (cmake)
+	  - cmake/Copyright.txt
+	  - cmake/FindGettext.cmake
+
 	* FDL - Free Documentation License
 	  - documentation in doc
 	  - screenshots
@@ -197,9 +201,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	bin/menusconfig2cpp.sh				GPL2
 	bin/set_version.sh				GPL2 / portions of Martin Wilz
 
+	cmake/Copyright.txt				Kitware (cmake)
 	cmake/COPYING-CMAKE-SCRIPTS			New BSD
 	cmake/FindARTS.cmake				New BSD
-	cmake/FindGettext.cmake				GPL2
+	cmake/FindGettext.cmake				Kitware (cmake)
 	cmake/FindKwaveVersion.cmake			GPL2
 	cmake/MCOP.cmake				GPL2
 

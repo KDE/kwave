@@ -44,9 +44,9 @@ echo -e "\
 \n\
 #include <klocale.h> // (for i18n macro) \n\
 \n\
-static void dummy(const char *string_to_be_internationalized) { }\n\
+static void dummy(const char * /*string_to_be_internationalized */) { }\n\
 \n\
-static void internationalize_all()\n\
+void __menusconfig_2_cpp_internationalize_all()\n\
 {\n\
 "
 ) > $2

@@ -47,4 +47,18 @@ SET(KWAVE_SOVERSION "${KWAVE_VERSION_MAJOR}.${KWAVE_VERSION_MINOR}.${KWAVE_VERSI
 MESSAGE(STATUS "Building Kwave version ${KWAVE_VERSION_FULL}")
 
 #############################################################################
+### ISO formated date                                                     ###
+
+FIND_PACKAGE(RequiredProgram REQUIRED)
+FIND_REQUIRED_PROGRAM(DATE_EXECUTABLE date)
+
+EXECUTE_PROCESS(
+    COMMAND
+        ${DATE_EXECUTABLE} --iso
+    OUTPUT_VARIABLE
+        KWAVE_VERSION_DATE_ISO
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+#############################################################################
 #############################################################################

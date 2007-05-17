@@ -23,6 +23,17 @@ INCLUDE_DIRECTORIES(
 )
 
 #############################################################################
+### generate menus_config_i18n.cpp                                        ###
+
+ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
+    COMMAND ${PROJECT_SOURCE_DIR}/bin/menusconfig2cpp.sh
+        ${CMAKE_CURRENT_SOURCE_DIR}/menus.config
+        ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/menus.config
+    DEPENDS ${PROJECT_SOURCE_DIR}/bin/menusconfig2cpp.sh
+)
+
+#############################################################################
 
 SET(kwave_SRCS
     main.cpp
@@ -33,6 +44,7 @@ SET(kwave_SRCS
     LabelManager.cpp
     MainWidget.cpp
     MemoryManager.cpp
+    menus_config_i18n.cpp
     MouseMark.cpp
     PlaybackController.cpp
     PluginManager.cpp
@@ -69,11 +81,6 @@ TARGET_LINK_LIBRARIES(kwave_core
     kio
     artsc
     artsflow
-#     X11
-#     Xext
-#     pthread
-#     dl
-#     m
 )
 
 ADD_DEPENDENCIES(kwave_core libkwavegui libkwave)
@@ -170,10 +177,6 @@ SET_TARGET_PROPERTIES(kwave_core PROPERTIES OUTPUT_NAME "kwave")
 #DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* doc/*~ Makefile.in Makefile
 #
 #$(APPSDIR)/kwave.desktop:
-#
-## holds the content of menus.config for internationalization
-#menus_config_i18n.cpp: menus.config
-#	${topdir}/bin/menusconfig2cpp.sh menus.config menus_config_i18n.cpp
 #
 ## make messages.po. Move this one to ../po/ and "make merge" in po
 #messages:

@@ -298,7 +298,6 @@ plugins/about/LogoWidget.h
 mt/Asynchronous_Object.h
 mt/AsyncSync.cpp
 mt/AsyncSync.h
-mt/Makefile.am
 mt/Mutex.cpp
 mt/Mutex.h
 mt/MutexGuard.cpp
@@ -824,3 +823,4 @@ plugins/saveblocks/SaveBlocksDialog.h
 plugins/saveblocks/SaveBlocksDialog.cpp
 plugins/saveblocks/SaveBlocksWidget.h
 plugins/saveblocks/SaveBlocksWidget.cpp
+mt/CMakeLists.txt

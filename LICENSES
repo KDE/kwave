@@ -196,6 +196,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 
 	bin/beautify-source				GPL2
 	bin/changes-to-docbook.sh			GPL2
+	bin/changes-to-docbook.awk			GPL2
+	bin/date_release.awk				GPL2
 	bin/get_lsm_entry.sh				GPL2
 	bin/insert-changes.sh				GPL2
 	bin/menusconfig2cpp.sh				GPL2
@@ -206,8 +208,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	cmake/FindARTS.cmake				New BSD
 	cmake/FindGettext.cmake				Kitware (cmake)
 	cmake/FindKwaveVersion.cmake			GPL2
+	cmake/FindRequiredProgram.cmake			GPL2
 	cmake/MCOP.cmake				GPL2
 
+	doc/CMakeLists.txt				GPL2
 	doc/Makefile.am					GPL2
 	doc/fix-common					GPL2
 	doc/help_de.po					(should be FDL)

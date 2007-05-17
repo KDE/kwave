@@ -1,7 +1,7 @@
 #############################################################################
-##    Kwave                - po/CMakeLists.txt
+##    Kwave                - cmake/FindRequiredProgram.cmake
 ##                           -------------------
-##    begin                : Sat May 12 2007
+##    begin                : Mon May 14 2007
 ##    copyright            : (C) 2007 by Thomas Eschenbacher
 ##    email                : Thomas.Eschenbacher@gmx.de
 #############################################################################
@@ -15,10 +15,20 @@
 ##                                                                          #
 #############################################################################
 
-GETTEXT_CREATE_TRANSLATIONS(kwave.pot ALL
-    de.po
-    fr.po
-)
+# like FIND_PROGRAM, but show status message or abort if nothing found
+# usage: FIND_REQUIRED_PROGRAM(variable name1 [name2] ...)
+MACRO(FIND_REQUIRED_PROGRAM _variable)
+
+    FIND_PROGRAM(${_variable} NAMES ${ARGN})
+
+    IF (${_variable})
+        GET_FILENAME_COMPONENT(_basename ${${_variable}} NAME_WE)
+        MESSAGE(STATUS "Found ${_basename}: ${${_variable}}")
+    ELSE (${_variable})
+        MESSAGE(FATAL_ERROR "Unable to find executable for ${ARGN}")
+    ENDIF (${_variable})
+
+ENDMACRO(FIND_REQUIRED_PROGRAM)
 
 #############################################################################
 #############################################################################

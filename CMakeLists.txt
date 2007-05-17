@@ -71,9 +71,10 @@ ENDIF (NOT USE_SYSTEM_LIB_AUDIOFILE)
 #############################################################################
 ### cmake includes                                                        ###
 
+FIND_PACKAGE(RequiredProgram REQUIRED)
+FIND_PACKAGE(Gettext REQUIRED)
 INCLUDE(FindARTS)
 INCLUDE(MCOP)
-FIND_PACKAGE(Gettext REQUIRED)
 
 #############################################################################
 
@@ -98,7 +99,7 @@ ADD_SUBDIRECTORY( libkwave )
 ADD_SUBDIRECTORY( kwave )
 # ADD_SUBDIRECTORY( plugins )
 ADD_SUBDIRECTORY( po )
-# ADD_SUBDIRECTORY( doc )
+ADD_SUBDIRECTORY( doc )
 
 #############################################################################
 ### install files                                                         ###

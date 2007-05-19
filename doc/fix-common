@@ -17,7 +17,6 @@
 ############################################################################
 
 for file in *.html; do {
-	echo $file
 	cat $file | sed s+help:/common+./common+g > $file.new
 	mv $file.new $file
 } done

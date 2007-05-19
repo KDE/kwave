@@ -20,6 +20,13 @@
 
 PROJECT(kwave)
 
+SET(KWAVE_LINGUAS
+    en:English
+    de:Deutsch
+    fr:Francais
+    # <- add new languages here...
+)
+
 #############################################################################
 ### cmake includes                                                        ###
 
@@ -51,7 +58,6 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_SHARED_LIBRARY_C_FLAGS}")
 ELSE (CXX_HAVE_PIC AND C_HAVE_PIC)
 MESSAGE(FATAL_ERROR "shared library support is missing")
 ENDIF (CXX_HAVE_PIC AND C_HAVE_PIC)
-
 
 #############################################################################
 ### KDE 3 support                                                         ###

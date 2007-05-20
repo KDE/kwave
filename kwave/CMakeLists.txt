@@ -15,12 +15,16 @@
 ##                                                                          #
 #############################################################################
 
+FIND_PACKAGE(RequiredProgram REQUIRED)
+
 INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
     ${KDE3_INCLUDE_DIR}
     ${QT_INCLUDE_DIR}
 )
+
+FIND_REQUIRED_PROGRAM(CONVERT_EXECUTABLE convert)
 
 #############################################################################
 ### generate menus_config_i18n.cpp                                        ###
@@ -64,6 +68,66 @@ SET(kwave_SRCS
     UndoSelection.cpp
     UndoTransaction.cpp
     UndoTransactionGuard.cpp
+)
+
+#############################################################################
+### macro for scaling icons                                               ###
+
+MACRO(KWAVE_SCALE_ICONS _sources)
+    FOREACH(_size ${ARGN})
+        SET(_orig ${CMAKE_CURRENT_SOURCE_DIR}/pics/kwave.xpm)
+        SET(_scaled ${CMAKE_CURRENT_BINARY_DIR}/kwave-${_size}.png)
+
+        # generate the scaled version
+        ADD_CUSTOM_COMMAND(OUTPUT ${_scaled}
+            COMMAND ${CONVERT_EXECUTABLE}
+                -geometry ${_size} ${_orig} ${_scaled}
+            DEPENDS ${_orig}
+        )
+        SET(${_sources} ${${_sources}} ${_scaled})
+        SET_SOURCE_FILES_PROPERTIES(${_scaled} PROPERTIES GENERATED true)
+        SET_DIRECTORY_PROPERTIES(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES
+            "${_scaled}")
+    ENDFOREACH(_size)
+ENDMACRO(KWAVE_SCALE_ICONS)
+
+#############################################################################
+### scaled icons                                                          ###
+
+KWAVE_SCALE_ICONS(kwave_SRCS
+    16x16
+    22x22
+    32x32
+    48x48
+)
+
+#############################################################################
+### some pixmaps to be installed in the data dir                          ###
+
+SET(kwave_PIXMAPS
+    amplify_free.png
+    fade_in.png
+    fade_out.png
+    knob.xpm
+    kwave-splash.png
+    light_off.xpm
+    light_on.xpm
+    logo.xpm
+    lspeaker.xpm
+    minifont.xpm
+    noise.png
+    playback_loop.xpm
+    playback_start.xpm
+    playback_stop.xpm
+    playback_pause.xpm
+    playback_pause2.xpm
+    rspeaker.xpm
+    sound_arts.png
+    sound_device.png
+    sound_subdevice.png
+    sound_card.png
+    sound_note.png
+    xspeaker.xpm
 )
 
 #############################################################################
@@ -123,43 +187,8 @@ SET_TARGET_PROPERTIES(kwave_core PROPERTIES OUTPUT_NAME "kwave")
 ## use the correct directory when building a binary rpm package
 #bindir=$(prefix)/bin
 #
-## extra data, icons etc
-#ICONS = \
-# pics/$(PACKAGE)-16x16.png \
-# pics/$(PACKAGE)-22x22.png \
-# pics/$(PACKAGE)-32x32.png \
-# pics/$(PACKAGE)-48x48.png
-#
-## Which sources should be compiled for kwave.
-#
-#BUILTSOURCES=\
-# $(ICONS)
-#
 ## some pixmaps to be installed in the data dir
-#PIXMAPS=\
-# amplify_free.png\
-# fade_in.png\
-# fade_out.png\
-# knob.xpm\
-# kwave-splash.png\
-# light_off.xpm\
-# light_on.xpm\
-# logo.xpm\
-# lspeaker.xpm\
-# minifont.xpm\
-# noise.png\
-# playback_loop.xpm\
-# playback_start.xpm\
-# playback_stop.xpm\
-# playback_pause.xpm\
-# playback_pause2.xpm\
-# rspeaker.xpm\
-# sound_arts.png \
-# sound_device.png \
-# sound_subdevice.png \
-# sound_card.png \
-# sound_note.png \
-# xspeaker.xpm
+#PIXMAPS=...
 #
 ## the library search path
 #kwave_LDFLAGS = -L../libkwave -L../libgui \
@@ -172,32 +201,11 @@ SET_TARGET_PROPERTIES(kwave_core PROPERTIES OUTPUT_NAME "kwave")
 #	@KDE_VERSION_SPECIFIC_LIBS@ \
 #	-lX11 -lXext -lpthread -ldl -lm
 #
-## if you "make distclean", this files get removed. If you want to remove
-## them while "make clean", use CLEANFILES
-#DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* doc/*~ Makefile.in Makefile
-#
 #$(APPSDIR)/kwave.desktop:
 #
 ## make messages.po. Move this one to ../po/ and "make merge" in po
 #messages:
 #	$(XGETTEXT) -C -ktranslate $(kwave_SOURCES)
-#
-##
-## Rules for re-creating all icons in their various sizes
-#
-#pics/$(PACKAGE)-16x16.png: pics/$(PACKAGE).xpm
-#	$(CONVERT) -geometry 16x16 $< $@
-#
-#pics/$(PACKAGE)-22x22.png: pics/$(PACKAGE).xpm
-#	$(CONVERT) -geometry 22x22 $< $@
-#
-#pics/$(PACKAGE)-32x32.png: pics/$(PACKAGE).xpm
-#	$(CONVERT) -geometry 32x32 $< $@
-#
-#pics/$(PACKAGE)-48x48.png: pics/$(PACKAGE).xpm
-#	$(CONVERT) -geometry 48x48 $< $@
-#
-#icons: $(ICONS)
 #
 ## just install datas here. Use install-exec-data for scripts and etc.
 ## the binary itself is already installed from automake

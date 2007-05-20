@@ -27,16 +27,6 @@ SET(_changes ${PROJECT_SOURCE_DIR}/CHANGES)
 SET(_version ${PROJECT_SOURCE_DIR}/VERSION)
 SET(_changes_to_docbook ${PROJECT_SOURCE_DIR}/bin/changes-to-docbook.awk)
 
-# SET_SOURCE_FILES_PROPERTIES(${_changes_docbook} PROPERTIES GENERATED true)
-# SET_SOURCE_FILES_PROPERTIES(${_help_en_docbook} PROPERTIES GENERATED true)
-# SET_SOURCE_FILES_PROPERTIES(${_help_en_shifted} PROPERTIES GENERATED true)
-# SET_SOURCE_FILES_PROPERTIES(${_help_en_pot}     PROPERTIES GENERATED true)
-# SET_DIRECTORY_PROPERTIES(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "
-#     ${_help_en_docbook}
-#     ${_help_en_shifted}
-#     ${_changes_docbook}
-# ")
-
 FIND_REQUIRED_PROGRAM(CP_EXECUTABLE cp)
 FIND_REQUIRED_PROGRAM(RM_EXECUTABLE rm)
 FIND_REQUIRED_PROGRAM(AWK_EXECUTABLE gawk awk mawk)
@@ -183,23 +173,6 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
             DEPENDS ${_html_dir}/gpl-translated.html
             COMMENT STATUS "Generating HTML help for ${_lang} (${_lang_name})"
         )
-
-#         # cleanup of generated HTML help
-#         ADD_CUSTOM_TARGET(html_clean_${_lang}
-#             COMMAND ${RM_EXECUTABLE} -Rf ${html_dir}
-#             COMMENT STATUS "Cleaning HTML help for ${_lang} (${_lang_name})"
-#         )
-#         ADD_DEPENDENCIES(html_clean html_clean_${_lang})
-
-        # handling of generated sources / cleanups
-#         IF (NOT ${_lang} STREQUAL "en")
-# #             SET_SOURCE_FILES_PROPERTIES(${_po}      PROPERTIES GENERATED true)
-#             SET_SOURCE_FILES_PROPERTIES(${_docbook} PROPERTIES GENERATED true)
-# #         ENDIF (NOT ${_lang} STREQUAL "en")
-#         SET_SOURCE_FILES_PROPERTIES(${_html_dir} PROPERTIES GENERATED true)
-
-#         SET_DIRECTORY_PROPERTIES(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES
-#             "${_docbook} ${_html_dir}")
 
         SET(${_sources} ${${_sources}} ${_docbook} ${_html})
 

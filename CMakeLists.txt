@@ -62,9 +62,7 @@ ENDIF (CXX_HAVE_PIC AND C_HAVE_PIC)
 #############################################################################
 ### KDE 3 support                                                         ###
 
-FIND_PACKAGE(KDE3 REQUIRED)
-ADD_DEFINITIONS(${QT_DEFINITIONS} ${KDE3_DEFINITIONS})
-LINK_DIRECTORIES(${KDE3_LIB_DIR})
+INCLUDE(KwaveKDESupport)
 
 #############################################################################
 ### optionally: builting libaudiofile                                     ###
@@ -106,6 +104,11 @@ ADD_SUBDIRECTORY( kwave )
 # ADD_SUBDIRECTORY( plugins )
 ADD_SUBDIRECTORY( po )
 ADD_SUBDIRECTORY( doc )
+
+#############################################################################
+### target package-messages                                               ###
+
+INCLUDE(KwavePackageMessages)
 
 #############################################################################
 ### install files                                                         ###
@@ -164,13 +167,6 @@ ADD_SUBDIRECTORY( doc )
 #	$(srcdir)/bin/set_version.sh $(srcdir) \
 #	`cat $(srcdir)/VERSION` \
 #	`date --iso`
-#
-#package-messages: all
-#	rm -f po/*.gmo
-#	(cd kwave ; ${MAKE} menus_config_i18n.cpp )
-#	@XGETTEXT@ -C -ki18n -ktr2i18n -kI18N_NOOP -x @KDE_POT_FILE@ \
-#	`find . -name \*.h -o -name \*.cpp` -o $(srcdir)/po/${PACKAGE}.pot
-#	(cd po ; ${MAKE} merge )
 #
 #rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
 #	rm -R -f /tmp/${PACKAGE}-@RPM_SHORT_VERSION@

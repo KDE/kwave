@@ -120,8 +120,7 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
         GET_FILENAME_COMPONENT(_docbook_basename ${_docbook} NAME)
         SET(_html_dir ${CMAKE_CURRENT_BINARY_DIR}/${_lang})
         SET(_html ${_html_dir}/index.html)
-        SET(KDE3_HTMLDIR /usr/kde/3.5/share/doc/HTML/${_lang})
-        SET(_common_dir ${KDE3_HTMLDIR}/common)
+        SET(_common_dir ${KDE3_HTMLDIR}/${_lang}/common)
 
         # translation of the po and the docbook file not for english
         IF (NOT ${_lang} STREQUAL "en")
@@ -150,9 +149,9 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
 
         # special handling for the GPL license file
         IF (${_lang} STREQUAL "en")
-            SET(_gpl ${KDE3_HTMLDIR}/common/gpl-license.html)
+            SET(_gpl ${KDE3_HTMLDIR}/${_lang}/common/gpl-license.html)
         ELSE (${_lang} STREQUAL "en")
-            SET(_gpl ${KDE3_HTMLDIR}/docs/common/gpl-translated.html)
+            SET(_gpl ${KDE3_HTMLDIR}/${_lang}/docs/common/gpl-translated.html)
         ENDIF (${_lang} STREQUAL "en")
         ADD_CUSTOM_COMMAND(OUTPUT ${_html_dir}/gpl-translated.html
             COMMAND mkdir -p ${_html_dir}

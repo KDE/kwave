@@ -209,6 +209,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	cmake/FindGettext.cmake				Kitware (cmake)
 	cmake/FindKwaveVersion.cmake			GPL2
 	cmake/FindRequiredProgram.cmake			GPL2
+	cmake/KwaveKDESupport.cmake			GPL2
+	cmake/KwavePackageMessages.cmake		GPL2
 	cmake/MCOP.cmake				GPL2
 
 	doc/CMakeLists.txt				GPL2

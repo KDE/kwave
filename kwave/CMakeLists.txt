@@ -48,7 +48,6 @@ SET(kwave_SRCS
     LabelManager.cpp
     MainWidget.cpp
     MemoryManager.cpp
-    menus_config_i18n.cpp
     MouseMark.cpp
     PlaybackController.cpp
     PluginManager.cpp
@@ -68,6 +67,7 @@ SET(kwave_SRCS
     UndoSelection.cpp
     UndoTransaction.cpp
     UndoTransactionGuard.cpp
+    ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
 )
 
 #############################################################################

@@ -31,7 +31,7 @@ ADD_CUSTOM_TARGET(package-messages
         `${FIND_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR} -name \\*.h -o -name \\*.cpp`
         -o ${CMAKE_SOURCE_DIR}/po/kwave.pot
     COMMAND $(MAKE) translations
-    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/kwave/menus_config_i18n.cpp
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/kwave/menus.config
 )
 
 #############################################################################

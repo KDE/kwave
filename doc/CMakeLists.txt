@@ -19,7 +19,7 @@ FIND_PACKAGE(RequiredProgram REQUIRED)
 
 SET(_insert_changes ${PROJECT_SOURCE_DIR}/bin/insert-changes.sh)
 SET(_help_en_docbook_orig ${CMAKE_CURRENT_SOURCE_DIR}/help_en.docbook)
-SET(_help_en_docbook ${CMAKE_CURRENT_BINARY_DIR}/help_en.docbook)
+SET(_help_en_docbook ${CMAKE_CURRENT_BINARY_DIR}/help_en-tmp.docbook)
 SET(_help_en_shifted ${CMAKE_CURRENT_BINARY_DIR}/help_en-shifted.docbook)
 SET(_help_en_pot ${CMAKE_CURRENT_BINARY_DIR}/help_en.pot)
 SET(_changes_docbook ${CMAKE_CURRENT_BINARY_DIR}/changes.docbook)
@@ -27,17 +27,17 @@ SET(_changes ${PROJECT_SOURCE_DIR}/CHANGES)
 SET(_version ${PROJECT_SOURCE_DIR}/VERSION)
 SET(_changes_to_docbook ${PROJECT_SOURCE_DIR}/bin/changes-to-docbook.awk)
 
-SET_SOURCE_FILES_PROPERTIES(${_changes_docbook} PROPERTIES GENERATED true)
-SET_SOURCE_FILES_PROPERTIES(${_help_en_docbook} PROPERTIES GENERATED true)
-SET_SOURCE_FILES_PROPERTIES(${_help_en_shifted} PROPERTIES GENERATED true)
-SET_SOURCE_FILES_PROPERTIES(${_help_en_pot}     PROPERTIES GENERATED true)
-SET_DIRECTORY_PROPERTIES(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "
-    ${_help_en_docbook}
-    ${_help_en_shifted}
-    ${_changes_docbook}
-    ${_help_en_pot}
-")
+# SET_SOURCE_FILES_PROPERTIES(${_changes_docbook} PROPERTIES GENERATED true)
+# SET_SOURCE_FILES_PROPERTIES(${_help_en_docbook} PROPERTIES GENERATED true)
+# SET_SOURCE_FILES_PROPERTIES(${_help_en_shifted} PROPERTIES GENERATED true)
+# SET_SOURCE_FILES_PROPERTIES(${_help_en_pot}     PROPERTIES GENERATED true)
+# SET_DIRECTORY_PROPERTIES(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "
+#     ${_help_en_docbook}
+#     ${_help_en_shifted}
+#     ${_changes_docbook}
+# ")
 
+FIND_REQUIRED_PROGRAM(CP_EXECUTABLE cp)
 FIND_REQUIRED_PROGRAM(RM_EXECUTABLE rm)
 FIND_REQUIRED_PROGRAM(AWK_EXECUTABLE gawk awk mawk)
 FIND_REQUIRED_PROGRAM(CAT_EXECUTABLE cat)
@@ -50,18 +50,6 @@ FIND_REQUIRED_PROGRAM(CHECKXML_EXECUTABLE checkXML)
 FIND_REQUIRED_PROGRAM(MEINPROC_EXECUTABLE meinproc)
 
 #############################################################################
-### CHANGES -> changes.docbook                                            ###
-
-ADD_CUSTOM_COMMAND(OUTPUT ${_changes_docbook}
-    COMMAND ${CAT_EXECUTABLE} ${_changes} |
-        ${SED_EXECUTABLE} s/\\>\\>\\>//g |
-        ${SED_EXECUTABLE} s/\\<\\<\\<//g |
-        ${AWK_EXECUTABLE} -f ${_changes_to_docbook} |
-        ${RECODE_EXECUTABLE} lat1..utf-8 > ${_changes_docbook}
-    DEPENDS ${_changes} ${_changes_to_docbook}
-)
-
-#############################################################################
 ### update help_en.docbook                                                ###
 
 ADD_CUSTOM_COMMAND(OUTPUT ${_help_en_docbook}
@@ -72,13 +60,26 @@ ADD_CUSTOM_COMMAND(OUTPUT ${_help_en_docbook}
         -v newrelease=${KWAVE_VERSION_FULL}
         -f ${PROJECT_SOURCE_DIR}/bin/date_release.awk
         > ${_help_en_docbook}
-    COMMAND cp ${_help_en_docbook} ${_help_en_docbook_orig}
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${_help_en_docbook} ${_help_en_docbook_orig}
     DEPENDS ${_changes_docbook}
     DEPENDS ${_help_en_docbook_orig}
     DEPENDS ${_insert_changes}
     DEPENDS ${_changes}
     DEPENDS ${_version}
     COMMENT "Updating help_en.docbook"
+)
+
+#############################################################################
+### CHANGES -> changes.docbook                                            ###
+
+ADD_CUSTOM_COMMAND(OUTPUT ${_changes_docbook}
+    COMMAND ${CAT_EXECUTABLE} ${_changes} |
+        ${SED_EXECUTABLE} s/\\>\\>\\>//g |
+        ${SED_EXECUTABLE} s/\\<\\<\\<//g |
+        ${AWK_EXECUTABLE} -f ${_changes_to_docbook} |
+        ${RECODE_EXECUTABLE} lat1..utf-8 > ${_changes_docbook}
+    DEPENDS ${_changes} ${_changes_to_docbook}
 )
 
 #############################################################################
@@ -103,6 +104,7 @@ ADD_CUSTOM_COMMAND(OUTPUT ${_help_en_shifted}
 ### target for cleaning generated HTML help                               ###
 
 ADD_CUSTOM_TARGET(html_clean
+    COMMAND ${RM_EXECUTABLE} -R -f ${CMAKE_CURRENT_BINARY_DIR}/html
 )
 
 #############################################################################
@@ -114,24 +116,25 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
         STRING(REGEX MATCH "^[^:]+" _lang ${_lang_and_name})
         STRING(REGEX MATCH "[^:]+$$" _lang_name ${_lang_and_name})
 
-        SET(_po ${CMAKE_CURRENT_BINARY_DIR}/help_${_lang}.po)
+        SET(_po ${CMAKE_CURRENT_BINARY_DIR}/help_${_lang}-tmp.po)
         SET(_po_orig ${CMAKE_CURRENT_SOURCE_DIR}/help_${_lang}.po)
-        SET(_docbook ${CMAKE_CURRENT_BINARY_DIR}/help_${_lang}.docbook)
-        GET_FILENAME_COMPONENT(_docbook_basename ${_docbook} NAME)
-        SET(_html_dir ${CMAKE_CURRENT_BINARY_DIR}/${_lang})
+        SET(_html_dir ${CMAKE_CURRENT_BINARY_DIR}/html/${_lang})
         SET(_html ${_html_dir}/index.html)
         SET(_common_dir ${KDE3_HTMLDIR}/${_lang}/common)
 
         # translation of the po and the docbook file not for english
         IF (NOT ${_lang} STREQUAL "en")
             SET(_pot ${_help_en_pot})
+            SET(_docbook ${CMAKE_CURRENT_BINARY_DIR}/help_${_lang}.docbook)
+            GET_FILENAME_COMPONENT(_docbook_basename ${_docbook} NAME)
 
             # translated po file
             ADD_CUSTOM_COMMAND(OUTPUT ${_po}
                 COMMAND ${MSGMERGE_EXECUTABLE}
                     -o ${_po} ${_po_orig} ${_pot}
-                COMMAND ${CAT_EXECUTABLE} ${_po} > ${_po_orig}
-                DEPENDS ${_pot} ${_po_orig}
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                    ${_po} ${_po_orig}
+                DEPENDS ${_pot}
             )
 
             # translated docbook file
@@ -145,6 +148,9 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
                 DEPENDS ${_po}
                 COMMENT STATUS "Building ${_docbook_basename} (${_lang_name})"
             )
+        ELSE (NOT ${_lang} STREQUAL "en")
+            SET(_docbook ${_help_en_docbook})
+            GET_FILENAME_COMPONENT(_docbook_basename ${_docbook} NAME)
         ENDIF (NOT ${_lang} STREQUAL "en")
 
         # special handling for the GPL license file
@@ -153,9 +159,11 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
         ELSE (${_lang} STREQUAL "en")
             SET(_gpl ${KDE3_HTMLDIR}/${_lang}/docs/common/gpl-translated.html)
         ENDIF (${_lang} STREQUAL "en")
+
         ADD_CUSTOM_COMMAND(OUTPUT ${_html_dir}/gpl-translated.html
             COMMAND mkdir -p ${_html_dir}
-            COMMAND cp ${_gpl} ${_html_dir}/gpl-translated.html
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                ${_gpl} ${_html_dir}/gpl-translated.html
         )
         SET(${_sources} ${${_sources}} ${_html_dir}/gpl-translated.html)
 
@@ -166,32 +174,32 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
                     ${MEINPROC_EXECUTABLE} --check ${_docbook}
             COMMAND ${RM_EXECUTABLE} -Rf ${_html_dir}/common
             COMMAND mkdir -p ${_html_dir}/common
-            COMMAND cp -R ${CMAKE_CURRENT_SOURCE_DIR}/${_lang}/*.png
-                          ${_html_dir}
-            COMMAND cp -R ${_common_dir}/* ${_html_dir}/common/
+            COMMAND ${CP_EXECUTABLE}
+                ${CMAKE_CURRENT_SOURCE_DIR}/${_lang}/*.png ${_html_dir}
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+                ${_common_dir} ${_html_dir}/common/
             COMMAND cd ${_html_dir} && ${CMAKE_CURRENT_SOURCE_DIR}/fix-common
             DEPENDS ${_docbook}
             DEPENDS ${_html_dir}/gpl-translated.html
             COMMENT STATUS "Generating HTML help for ${_lang} (${_lang_name})"
         )
 
-        # cleanup of generated HTML help
-        ADD_CUSTOM_TARGET(html_clean_${_lang}
-            COMMAND ${RM_EXECUTABLE} -f ${CMAKE_CURRENT_BINARY_DIR}/${_lang}/*.html
-            COMMAND ${RM_EXECUTABLE} -Rf ${CMAKE_CURRENT_BINARY_DIR}/${_lang}/common
-            COMMENT STATUS "Cleaning HTML help for ${_lang} (${_lang_name})"
-        )
-        ADD_DEPENDENCIES(html_clean html_clean_${_lang})
+#         # cleanup of generated HTML help
+#         ADD_CUSTOM_TARGET(html_clean_${_lang}
+#             COMMAND ${RM_EXECUTABLE} -Rf ${html_dir}
+#             COMMENT STATUS "Cleaning HTML help for ${_lang} (${_lang_name})"
+#         )
+#         ADD_DEPENDENCIES(html_clean html_clean_${_lang})
 
         # handling of generated sources / cleanups
-        IF (NOT ${_lang} STREQUAL "en")
-            SET_SOURCE_FILES_PROPERTIES(${_po}      PROPERTIES GENERATED true)
-            SET_SOURCE_FILES_PROPERTIES(${_docbook} PROPERTIES GENERATED true)
-        ENDIF (NOT ${_lang} STREQUAL "en")
-        SET_SOURCE_FILES_PROPERTIES(${_html_dir} PROPERTIES GENERATED true)
+#         IF (NOT ${_lang} STREQUAL "en")
+# #             SET_SOURCE_FILES_PROPERTIES(${_po}      PROPERTIES GENERATED true)
+#             SET_SOURCE_FILES_PROPERTIES(${_docbook} PROPERTIES GENERATED true)
+# #         ENDIF (NOT ${_lang} STREQUAL "en")
+#         SET_SOURCE_FILES_PROPERTIES(${_html_dir} PROPERTIES GENERATED true)
 
-        SET_DIRECTORY_PROPERTIES(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES
-            "${_po} ${_docbook} ${_html_dir}")
+#         SET_DIRECTORY_PROPERTIES(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES
+#             "${_docbook} ${_html_dir}")
 
         SET(${_sources} ${${_sources}} ${_docbook} ${_html})
 

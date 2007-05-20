@@ -27,11 +27,13 @@ MACRO(KDE3_ADD_MCOP_IDL_FILES _sources)
         SET(_h   ${CMAKE_CURRENT_BINARY_DIR}/${_basename}.h)
         SET(_idl ${CMAKE_CURRENT_BINARY_DIR}/${_basename}.idl)
 
-        ADD_CUSTOM_COMMAND(OUTPUT ${_idl}
-            COMMAND cp
-            ARGS ${_tmp_FILE} ${_idl}
-            DEPENDS ${_tmp_FILE}
-        )
+        IF (NOT _tmp_FILE STREQUAL "${_idl}")
+            ADD_CUSTOM_COMMAND(OUTPUT ${_idl}
+                COMMAND cp
+                ARGS ${_tmp_FILE} ${_idl}
+                DEPENDS ${_tmp_FILE}
+            )
+        ENDIF (NOT _tmp_FILE STREQUAL "${_idl}")
 
         ADD_CUSTOM_COMMAND(OUTPUT ${_cc} ${_h}
             COMMAND ${KDE3_MCOPIDL_EXECUTABLE}
@@ -44,9 +46,8 @@ MACRO(KDE3_ADD_MCOP_IDL_FILES _sources)
 
         SET_SOURCE_FILES_PROPERTIES(${_cc}  PROPERTIES GENERATED true)
         SET_SOURCE_FILES_PROPERTIES(${_h}   PROPERTIES GENERATED true)
-        SET_SOURCE_FILES_PROPERTIES(${_idl} PROPERTIES GENERATED true)
         SET_DIRECTORY_PROPERTIES(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES
-            "${_cc} ${_h} ${_idl}")
+            "${_cc} ${_h}")
 
     ENDFOREACH (_current_FILE)
 

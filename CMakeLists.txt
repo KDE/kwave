@@ -53,10 +53,10 @@ SET(CMAKE_VERBOSE_MAKEFILE OFF)
 CHECK_C_COMPILER_FLAG(" ${CMAKE_SHARED_LIBRARY_C_FLAGS}" C_HAVE_PIC)
 CHECK_CXX_COMPILER_FLAG(" ${CMAKE_SHARED_LIBRARY_C_FLAGS}" CXX_HAVE_PIC)
 IF (CXX_HAVE_PIC AND C_HAVE_PIC)
-SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CMAKE_SHARED_LIBRARY_C_FLAGS}")
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_SHARED_LIBRARY_C_FLAGS}")
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CMAKE_SHARED_LIBRARY_C_FLAGS}")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_SHARED_LIBRARY_C_FLAGS}")
 ELSE (CXX_HAVE_PIC AND C_HAVE_PIC)
-MESSAGE(FATAL_ERROR "shared library support is missing")
+    MESSAGE(FATAL_ERROR "shared library support is missing")
 ENDIF (CXX_HAVE_PIC AND C_HAVE_PIC)
 
 #############################################################################
@@ -65,12 +65,9 @@ ENDIF (CXX_HAVE_PIC AND C_HAVE_PIC)
 INCLUDE(KwaveKDESupport)
 
 #############################################################################
-### optionally: builting libaudiofile                                     ###
+### optionally: builtin libaudiofile                                      ###
 
-IF (NOT USE_SYSTEM_LIB_AUDIOFILE)
-INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/libaudiofile)
-LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libaudiofile)
-ENDIF (NOT USE_SYSTEM_LIB_AUDIOFILE)
+INCLUDE(KwaveLibaudiofileSupport)
 
 #############################################################################
 ### cmake includes                                                        ###
@@ -96,7 +93,6 @@ LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libkwave)
 #############################################################################
 ### subdirs                                                               ###
 
-ADD_SUBDIRECTORY( libaudiofile )
 ADD_SUBDIRECTORY( mt )
 ADD_SUBDIRECTORY( libgui )
 ADD_SUBDIRECTORY( libkwave )

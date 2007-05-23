@@ -105,29 +105,29 @@ KWAVE_SCALE_ICONS(kwave_SRCS
 ### some pixmaps to be installed in the data dir                          ###
 
 SET(kwave_PIXMAPS
-    amplify_free.png
-    fade_in.png
-    fade_out.png
-    knob.xpm
-    kwave-splash.png
-    light_off.xpm
-    light_on.xpm
-    logo.xpm
-    lspeaker.xpm
-    minifont.xpm
-    noise.png
-    playback_loop.xpm
-    playback_start.xpm
-    playback_stop.xpm
-    playback_pause.xpm
-    playback_pause2.xpm
-    rspeaker.xpm
-    sound_arts.png
-    sound_device.png
-    sound_subdevice.png
-    sound_card.png
-    sound_note.png
-    xspeaker.xpm
+    pics/amplify_free.png
+    pics/fade_in.png
+    pics/fade_out.png
+    pics/knob.xpm
+    pics/kwave-splash.png
+    pics/light_off.xpm
+    pics/light_on.xpm
+    pics/logo.xpm
+    pics/lspeaker.xpm
+    pics/minifont.xpm
+    pics/noise.png
+    pics/playback_loop.xpm
+    pics/playback_start.xpm
+    pics/playback_stop.xpm
+    pics/playback_pause.xpm
+    pics/playback_pause2.xpm
+    pics/rspeaker.xpm
+    pics/sound_arts.png
+    pics/sound_device.png
+    pics/sound_subdevice.png
+    pics/sound_card.png
+    pics/sound_note.png
+    pics/xspeaker.xpm
 )
 
 #############################################################################
@@ -152,96 +152,26 @@ ADD_DEPENDENCIES(kwave_core libkwavegui libkwave)
 SET_TARGET_PROPERTIES(kwave_core PROPERTIES OUTPUT_NAME "kwave")
 
 #############################################################################
-########### install files ###############
+### install files                                                         ###
 
-# INSTALL_TARGETS(/bin kwave )
-# INSTALL_FILES( /share/mimelink/audio FILES  x-aifc.desktop x-ircam.desktop )
+# the main program
+INSTALL(TARGETS kwave_core     DESTINATION ${DESTDIR}${KDE3_EXEDIR})
 
-#original Makefile.am contents follow:
+# other files
+INSTALL(FILES kwave.desktop    DESTINATION ${KDE3_APPSDIR}/Multimedia)
+INSTALL(FILES menus.config     DESTINATION ${KDE3_CONFDIR}/kwave)
+INSTALL(FILES ${kwave_PIXMAPS} DESTINATION ${KDE3_DATADIR}/kwave/pics)
+INSTALL(FILES x-aifc.desktop x-ircam.desktop DESTINATION ${KDE3_MIMEDIR}/audio)
 
-## this 10 paths are KDE specific. Use them:
-## kde_htmldir       Where your docs should go to. (contains lang subdirs)
-## kde_appsdir       Where your application file (.kdelnk) should go to.
-## kde_icondir       Where your icon should go to.
-## kde_minidir       Where your mini icon should go to.
-## kde_datadir       Where you install application data. (Use a subdir)
-## kde_locale        Where translation files should go to.(contains lang subdirs)
-## kde_cgidir        Where cgi-bin executables should go to.
-## kde_confdir       Where config files should go to.
-## kde_mimedir       Where mimetypes should go to.
-#
-#APPSDIR= $(DESTDIR)$(kde_appsdir)/Multimedia
-#CONFDIR= $(DESTDIR)$(kde_datadir)/$(PACKAGE)
-#PIXDIR = $(DESTDIR)$(kde_datadir)/$(PACKAGE)/pics
-## set the include path for X, qt and KDE
-#INCLUDES= -I${topdir} @all_includes@ @ARTS_INCLUDES@
-#ICONDIR = $(DESTDIR)$(kde_icondir)
-#
-#mimedir = $(kde_mimedir)/audio
-#mime_DATA = x-aifc.desktop x-ircam.desktop
-#EXTRA_DIST = $(mime_DATA)
-#
-#bin_PROGRAMS  = kwave
-#
-## specifying the bindir is necessary in order to let make install
-## use the correct directory when building a binary rpm package
-#bindir=$(prefix)/bin
-#
-## some pixmaps to be installed in the data dir
-#PIXMAPS=...
-#
-## the library search path
-#kwave_LDFLAGS = -L../libkwave -L../libgui \
-#	`$(ARTSCCONFIG) --libs` @all_libraries@ \
-#	-export-dynamic -dy
-#
-## the libraries to link against. Be aware of the order. First the libraries,
-## that depend on the following ones.
-#kwave_LDADD   =  -lkwavegui -lkwave \
-#	@KDE_VERSION_SPECIFIC_LIBS@ \
-#	-lX11 -lXext -lpthread -ldl -lm
-#
-#$(APPSDIR)/kwave.desktop:
-#
-## make messages.po. Move this one to ../po/ and "make merge" in po
-#messages:
-#	$(XGETTEXT) -C -ktranslate $(kwave_SOURCES)
-#
-## just install datas here. Use install-exec-data for scripts and etc.
-## the binary itself is already installed from automake
-## use mkinstalldirs, not "install -d"
-## don't install a list of file. Just one file per install.
-## if you have more of them, create a subdirectory with an extra Makefile
-#
-#install-data-local: icons
-#	$(mkinstalldirs) $(APPSDIR)
-#	$(INSTALL_DATA) kwave.desktop $(APPSDIR)/kwave.desktop
-#	$(mkinstalldirs) $(PIXDIR)
-#	for pix in $(PIXMAPS); do { $(INSTALL_DATA) pics/$$pix $(PIXDIR) ; }; done;
-#	$(mkinstalldirs) $(CONFDIR)
-#	$(INSTALL_DATA) menus.config $(CONFDIR)/menus.config
-#	for col in locolor hicolor; do { \
-#	  for dim in 16x16 22x22 32x32 48x48; do { \
-#	    $(mkinstalldirs) $(ICONDIR)/$$col/$$dim/apps/; \
-#	    $(INSTALL_DATA) pics/${PACKAGE}-$$dim.png $(ICONDIR)/$$col/$$dim/apps/$(PACKAGE).png; \
-#	  }; done; \
-#	}; done;
-#
-## remove ALL you have installed in install-data-local or install-exec-local
-#uninstall-local:
-#	for col in locolor hicolor; do { \
-#	  for dim in 16x16 22x22 32x32 48x48; do { \
-#	    rm -f $(ICONDIR)/$$col/$$dim/apps/$(PACKAGE).png || true; \
-#	    (rmdir -p --ignore-fail-on-non-empty $(ICONDIR)/$$col/$$dim/apps/ >/dev/null 2>&1); \
-#	  }; done; \
-#	}; done;
-#	for pix in $(PIXMAPS); do { rm -fv $(PIXDIR)/$$pix ; }; done;
-#	-rm -f $(APPSDIR)/kwave.desktop
-#	-rm -f $(CONFDIR)/menus.config
-#	-rmdir -p --ignore-fail-on-non-empty $(APPSDIR) >/dev/null 2>&1
-#	-rmdir -p --ignore-fail-on-non-empty $(CONFDIR) >/dev/null 2>&1
-#	-rmdir -p --ignore-fail-on-non-empty $(PIXDIR) >/dev/null 2>&1
-#	-rmdir -p --ignore-fail-on-non-empty $(DESTDIR)$(bindir) >/dev/null 2>&1
+# scaled application icons
+FOREACH(_col locolor hicolor)
+    FOREACH(_dim 16x16 22x22 32x32 48x48)
+        INSTALL(
+            FILES ${CMAKE_CURRENT_BINARY_DIR}/kwave-${_dim}.png
+            DESTINATION ${KDE3_ICONDIR}/${_col}/${_dim}/apps/kwave.png
+        )
+    ENDFOREACH(_dim)
+ENDFOREACH(_col)
 
 #############################################################################
 #############################################################################

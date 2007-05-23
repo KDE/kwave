@@ -19,8 +19,18 @@ FIND_PACKAGE(KDE3 REQUIRED)
 ADD_DEFINITIONS(${QT_DEFINITIONS} ${KDE3_DEFINITIONS})
 LINK_DIRECTORIES(${KDE3_LIB_DIR})
 
-#############################################################################
+# these install paths are KDE specific:
+#
+# KDE3_HTMLDIR       Where your docs should go to. (contains lang subdirs)
+# KDE3_APPSDIR       Where your application file (.kdelnk) should go to.
+# KDE3_EXEDIR        Where your application binary should go to.
+# KDE3_ICONDIR       Where your icon should go to.
+# KDE3_DATADIR       Where you install application data. (Use a subdir)
+# KDE3_LOCALE        Where translation files should go to.(contains lang subdirs)
+# KDE3_MIMEDIR       Where mimetypes should go to.
+# KDE3_MODULEDIR     Where loadable modules should go to.
 
+#############################################################################
 EXECUTE_PROCESS(
     COMMAND
         ${KDECONFIG_EXECUTABLE} --expandvars --install html
@@ -28,6 +38,70 @@ EXECUTE_PROCESS(
         KDE3_HTMLDIR
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
+
+#############################################################################
+EXECUTE_PROCESS(
+    COMMAND
+        ${KDECONFIG_EXECUTABLE} --expandvars --install apps
+    OUTPUT_VARIABLE
+        KDE3_APPSDIR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+#############################################################################
+EXECUTE_PROCESS(
+    COMMAND
+        ${KDECONFIG_EXECUTABLE} --expandvars --install exe
+    OUTPUT_VARIABLE
+        KDE3_EXEDIR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+#############################################################################
+EXECUTE_PROCESS(
+    COMMAND
+        ${KDECONFIG_EXECUTABLE} --expandvars --install icon
+    OUTPUT_VARIABLE
+        KDE3_ICONDIR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+#############################################################################
+EXECUTE_PROCESS(
+    COMMAND
+        ${KDECONFIG_EXECUTABLE} --expandvars --install data
+    OUTPUT_VARIABLE
+        KDE3_DATADIR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+#############################################################################
+EXECUTE_PROCESS(
+    COMMAND
+        ${KDECONFIG_EXECUTABLE} --expandvars --install locale
+    OUTPUT_VARIABLE
+        KDE3_LOCALEDIR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+#############################################################################
+EXECUTE_PROCESS(
+    COMMAND
+        ${KDECONFIG_EXECUTABLE} --expandvars --install mime
+    OUTPUT_VARIABLE
+        KDE3_MIMEDIR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+#############################################################################
+EXECUTE_PROCESS(
+    COMMAND
+        ${KDECONFIG_EXECUTABLE} --expandvars --install config
+    OUTPUT_VARIABLE
+        KDE3_CONFDIR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
 
 #############################################################################
 #############################################################################

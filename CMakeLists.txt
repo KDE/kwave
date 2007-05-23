@@ -107,28 +107,26 @@ ADD_SUBDIRECTORY( doc )
 INCLUDE(KwavePackageMessages)
 
 #############################################################################
+### Gentoo support                                                        ###
+
+INCLUDE(KwaveEbuild)
+
+#############################################################################
 ### install files                                                         ###
+
+INSTALL(
+    FILES AUTHORS LICENSES TODO CHANGES GNU-LICENSE README
+    DESTINATION share/doc
+)
 
 #original Makefile.am contents follow:
 
-#EBUILD		 = kwave-@RPM_SHORT_VERSION@.ebuild
-#EXTRA_DIST	 = AUTHORS LICENSES TODO CHANGES GNU-LICENSE README
-#
 #DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \
 #	QT-DIR aclocal.m4 config.h.in configure make.log admin/config.guess \
 #	admin/config.sub admin/ltmain.sh \
 #	libaudiofile/Makefile.in libaudiofile/modules/Makefile.in \
 #	plugins/common/Makefile plugins/common/Makefile.in \
 #	`find . -type l` autom4*.cache/* ${EBUILD}
-#
-## treat the ebuild file like a generated source:
-## do not distribute it, but generate it
-#BUILT_SOURCES = ${EBUILD}
-#
-#${EBUILD}: VERSION kwave.ebuild
-#	@ cp -v kwave.ebuild ${EBUILD}
-#
-#ebuild: ${EBUILD}
 #
 #clean-generic:
 #	-rm -fv `find -size 0`

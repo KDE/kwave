@@ -116,7 +116,7 @@ INCLUDE(KwaveEbuild)
 
 INSTALL(
     FILES AUTHORS LICENSES TODO CHANGES GNU-LICENSE README
-    DESTINATION share/doc
+    DESTINATION ${KDE3_DOCDIR}/kwave-${KWAVE_VERSION_FULL}
 )
 
 #original Makefile.am contents follow:

@@ -104,4 +104,14 @@ EXECUTE_PROCESS(
 
 
 #############################################################################
+EXECUTE_PROCESS(
+    COMMAND
+        ${KDECONFIG_EXECUTABLE} --expandvars --install html
+    OUTPUT_VARIABLE
+        KDE3_DOCDIR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+STRING(REGEX REPLACE "HTML$" "" KDE3_DOCDIR ${KDE3_DOCDIR})
+
+#############################################################################
 #############################################################################

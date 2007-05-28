@@ -115,9 +115,26 @@ INCLUDE(KwaveEbuild)
 ### install files                                                         ###
 
 INSTALL(
-    FILES AUTHORS LICENSES TODO CHANGES GNU-LICENSE README
+    FILES AUTHORS TODO CHANGES README
     DESTINATION ${KDE3_DOCDIR}/kwave-${KWAVE_VERSION_FULL}
 )
+
+#############################################################################
+### uninstall support                                                     ###
+
+FIND_REQUIRED_PROGRAM(RMDIR_EXECUTABLE rmdir)
+
+CONFIGURE_FILE(
+    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/uninstall.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
+    @ONLY
+)
+
+ADD_CUSTOM_TARGET(uninstall
+    ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
+)
+
+#############################################################################
 
 #original Makefile.am contents follow:
 

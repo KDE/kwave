@@ -1,0 +1,60 @@
+#############################################################################
+##    Kwave                - cmake/uninstall.cmake.in
+##                           -------------------
+##    begin                : Sat May 26 2007
+##    copyright            : (C) 2007 by Thomas Eschenbacher
+##    email                : Thomas.Eschenbacher@gmx.de
+##
+##    based on             : cmake_uninstall.cmake.in from KDE
+##
+#############################################################################
+#
+#############################################################################
+##                                                                          #
+##    This program is free software; you can redistribute it and/or modify  #
+##    it under the terms of the GNU General Public License as published by  #
+##    the Free Software Foundation; either version 2 of the License, or     #
+##    (at your option) any later version.                                   #
+##                                                                          #
+#############################################################################
+
+# check if the install_manifest exists
+IF(NOT EXISTS "@CMAKE_CURRENT_BINARY_DIR@/install_manifest.txt")
+    MESSAGE(FATAL_ERROR "Cannot find install manifest: \"@CMAKE_CURRENT_BINARY_DIR@/install_manifest.txt\"")
+ENDIF(NOT EXISTS "@CMAKE_CURRENT_BINARY_DIR@/install_manifest.txt")
+
+# read in the install_manifest and convert it into a list
+FILE(READ "@CMAKE_CURRENT_BINARY_DIR@/install_manifest.txt" files)
+STRING(REGEX REPLACE "\n" ";" files "${files}")
+
+# loop over all files
+FOREACH(_file ${files})
+    # convert into absolute filename and prepend $DESTDIR
+    GET_FILENAME_COMPONENT(_file ${_file} ABSOLUTE)
+    SET(_file $ENV{DESTDIR}/${_file})
+
+    # uninstall the file
+    MESSAGE(STATUS "Uninstalling \"${_file}\"")
+    IF (EXISTS "${_file}")
+        EXEC_PROGRAM(
+            "@CMAKE_COMMAND@" ARGS "-E remove \"${_file}\""
+            OUTPUT_VARIABLE _rm_out
+            RETURN_VALUE _rm_retval
+        )
+        IF(NOT "${_rm_retval}" STREQUAL 0)
+            MESSAGE(FATAL_ERROR "Problem when removing \"${_file}\"")
+        ENDIF(NOT "${_rm_retval}" STREQUAL 0)
+    ENDIF(EXISTS "${_file}")
+
+    # clean up remainig empty directories
+    GET_FILENAME_COMPONENT(_dirname ${_file} PATH)
+    EXEC_PROGRAM(
+        "@RMDIR_EXECUTABLE@"
+        ARGS "--parents \"${_dirname}\""
+        OUTPUT_VARIABLE _rmdir_out
+    )
+
+ENDFOREACH(_file)
+
+#############################################################################
+#############################################################################

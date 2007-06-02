@@ -29,6 +29,8 @@ SET(_changes_to_docbook ${PROJECT_SOURCE_DIR}/bin/changes-to-docbook.awk)
 
 FIND_REQUIRED_PROGRAM(CP_EXECUTABLE cp)
 FIND_REQUIRED_PROGRAM(RM_EXECUTABLE rm)
+FIND_REQUIRED_PROGRAM(LS_EXECUTABLE ls)
+FIND_REQUIRED_PROGRAM(LN_EXECUTABLE ln)
 FIND_REQUIRED_PROGRAM(AWK_EXECUTABLE gawk awk mawk)
 FIND_REQUIRED_PROGRAM(CAT_EXECUTABLE cat)
 FIND_REQUIRED_PROGRAM(SED_EXECUTABLE sed)
@@ -176,15 +178,33 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
 
         SET(${_sources} ${${_sources}} ${_docbook} ${_html})
 
-        ADD_CUSTOM_TARGET(docbook_${_lang} ALL
-            DEPENDS ${_docbook}
-        )
-
+        # installation of the docbook file
+        ADD_CUSTOM_TARGET(docbook_${_lang} ALL DEPENDS ${_docbook})
         INSTALL(
             FILES ${_docbook}
-            DESTINATION $ENV{DESTDIR}/${KDE3_HTMLDIR}/${_lang}/kwave
+            DESTINATION ${KDE3_HTMLDIR}/${_lang}/kwave
             RENAME index.docbook
         )
+
+        # installation of the *.png files
+        EXEC_PROGRAM(${LS_EXECUTABLE}
+            ARGS "${CMAKE_CURRENT_SOURCE_DIR}/${_lang}/*.png"
+            OUTPUT_VARIABLE _png_files_${_lang}
+        )
+        STRING(REGEX REPLACE "\n" ";" _png_files_${_lang} "${_png_files_${_lang}}")
+        INSTALL(FILES ${_png_files_${_lang}}
+            DESTINATION ${KDE3_HTMLDIR}/${_lang}/kwave/
+        )
+
+        # install and uninstall of the symlinks to the "common" dirs
+        INSTALL(CODE "
+            EXEC_PROGRAM(${LN_EXECUTABLE}
+                $ENV{DESTDIR}${KDE3_HTMLDIR}/${_lang}/kwave
+                ARGS -sf ../common .
+                OUTPUT_VARIABLE _out
+            )
+        ")
+        SET(ENV{EXTRA_UNINSTALL_FILES} "$ENV{EXTRA_UNINSTALL_FILES}\;${KDE3_HTMLDIR}/${_lang}/kwave/common")
 
     ENDFOREACH(_lang_and_name)
 
@@ -197,28 +217,6 @@ KWAVE_TRANSLATE_DOC(_docs ${KWAVE_LINGUAS})
 ADD_CUSTOM_TARGET(html_doc
     DEPENDS ${_docs}
 )
-
-#############################################################################
-# DOCDIR = $(DESTDIR)${kde_htmldir}
-
-#install-data-local:
-#	echo installing docs in $(DOCDIR)
-#	for lang in ${LANGUAGES}; do \
-#	{ \
-#	    $(mkinstalldirs) ${DOCDIR}/$${lang}/$(PACKAGE); \
-#	    $(INSTALL_DATA) help_$${lang}.docbook ${DOCDIR}/$${lang}/$(PACKAGE)/index.docbook; \
-#	    $(INSTALL_DATA) $${lang}/*.png ${DOCDIR}/$${lang}/$(PACKAGE) ; \
-#	    ( cd ${DOCDIR}/$${lang}/${PACKAGE} ; \
-#	    for file in `ls ../../en/${PACKAGE}/*.png`; do \
-#	    { \
-#		if test ! -e `basename $${file}` ; then ln -sf $${file} . ; fi; \
-#	    }; done ); \
-#	    if test ! -e ${DOCDIR}/$${lang}/$(PACKAGE)/common ; then \
-#	    rm -f ${DOCDIR}/$${lang}/$(PACKAGE)/common ; fi ; \
-#	    ( cd ${DOCDIR}/$${lang}/${PACKAGE} ; ln -sf ../common . ) ; \
-#	}; done
-#	cd ${DOCDIR} ; \
-#	if test ! -e default/$(PACKAGE) -a -e default ; then ln -sf ../en/$(PACKAGE) default; fi;
 
 #############################################################################
 #############################################################################

@@ -26,6 +26,7 @@ ENDIF(NOT EXISTS "@CMAKE_CURRENT_BINARY_DIR@/install_manifest.txt")
 # read in the install_manifest and convert it into a list
 FILE(READ "@CMAKE_CURRENT_BINARY_DIR@/install_manifest.txt" files)
 STRING(REGEX REPLACE "\n" ";" files "${files}")
+SET(files "${files}$ENV{EXTRA_UNINSTALL_FILES}")
 
 # loop over all files
 FOREACH(_file ${files})

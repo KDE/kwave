@@ -20,7 +20,7 @@
 
 #include "config.h"
 #include <qobject.h>
-#include "KwaveAboutDialogBase.uih.h"
+#include "KwaveAboutDialogBase.h"
 
 class QWidget;
 

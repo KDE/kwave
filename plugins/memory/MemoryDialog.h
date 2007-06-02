@@ -20,7 +20,7 @@
 
 #include "config.h"
 #include <qobject.h>
-#include "MemDlg.uih.h"
+#include "MemDlg.h"
 
 class QStringList;
 

@@ -18,7 +18,7 @@
 #ifndef _SAVE_BLOCKS_WIDGET_H_
 #define _SAVE_BLOCKS_WIDGET_H_
 
-#include "SaveBlocksWidgetBase.uih.h"
+#include "SaveBlocksWidgetBase.h"
 #include "SaveBlocksPlugin.h"
 
 class SaveBlocksWidget: public SaveBlocksWidgetBase

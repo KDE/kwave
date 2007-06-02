@@ -23,7 +23,7 @@
 #include <qtimer.h>
 
 #include "libgui/SelectTimeWidget.h"
-#include "SelectRangeDlg.uih.h"
+#include "SelectRangeDlg.h"
 
 class SelectRangeDialog: public SelectRangeDlg
 {

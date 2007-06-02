@@ -21,7 +21,7 @@
 #include "config.h"
 #include <qtimer.h>
 #include <qwidget.h>
-#include "NewSigDlg.uih.h"
+#include "NewSigDlg.h"
 
 class QString;
 class QWidget;

@@ -37,7 +37,6 @@
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/WindowFunction.h"
 
-#include "SonagramDlg.uih.h"
 #include "SonagramDialog.h"
 
 //***************************************************************************
@@ -202,5 +201,7 @@ void SonagramDialog::invokeHelp()
     kapp->invokeHelp("sonagram");
 }
 
+//***************************************************************************
+#include "SonagramDialog.moc"
 //***************************************************************************
 //***************************************************************************

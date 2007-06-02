@@ -21,7 +21,7 @@
 #include "config.h"
 #include <qobject.h>
 #include "libkwave/FileInfo.h"
-#include "FileInfoDlg.uih.h"
+#include "FileInfoDlg.h"
 
 class KConfig;
 

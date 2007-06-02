@@ -69,7 +69,7 @@ void BitrateWidget::setSpecialValueText(const QString &text)
 void BitrateWidget::allowRates(const QValueList<int> &list)
 {
     int old_value = value();
-    
+
     m_rates.clear();
     m_rates += list;
     if (m_rates.isEmpty()) m_rates.append(0);
@@ -124,5 +124,7 @@ void BitrateWidget::snapInSlider()
     slider->setValue(m_rates[index]); // snap in
 }
 
-/***************************************************************************/
-/***************************************************************************/
+//***************************************************************************
+#include "BitrateWidget.moc"
+//***************************************************************************
+//***************************************************************************

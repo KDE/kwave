@@ -21,7 +21,7 @@
 #include "config.h"
 #include <qobject.h>
 #include <qstring.h>
-#include "VolumeDlg.uih.h"
+#include "VolumeDlg.h"
 
 class QStringList;
 
@@ -52,7 +52,7 @@ protected slots:
 
     /** called when the spinbox value has changed */
     void spinboxChanged(int pos);
-    
+
 protected:
 
     /**
@@ -70,8 +70,8 @@ protected:
 
     /** Update the slider position and the spinbox value */
     void updateDisplay(double value);
-    
-private:    
+
+private:
 
     /** amplification factor */
     double m_factor;

@@ -21,7 +21,7 @@
 #include "config.h"
 #include <qdatetime.h>
 #include <qobject.h>
-#include "SelectDateDlg.uih.h"
+#include "SelectDateDlg.h"
 
 class QWidget;
 

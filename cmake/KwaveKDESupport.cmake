@@ -96,6 +96,15 @@ EXECUTE_PROCESS(
 #############################################################################
 EXECUTE_PROCESS(
     COMMAND
+        ${KDECONFIG_EXECUTABLE} --expandvars --install module
+    OUTPUT_VARIABLE
+        KDE3_MODULEDIR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+#############################################################################
+EXECUTE_PROCESS(
+    COMMAND
         ${KDECONFIG_EXECUTABLE} --expandvars --install config
     OUTPUT_VARIABLE
         KDE3_CONFDIR

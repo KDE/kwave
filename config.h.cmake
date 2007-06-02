@@ -19,7 +19,7 @@
 #cmakedefine FLAC_API_VERSION_1_1_1_OR_OLDER
 
 /* new API from v1.1.2 and newer */
-#cmakedefine FLAC_API_VERSION_1_1_2_OR_NEWER
+#cmakedefine FLAC_API_VERSION_1_1_2
 
 /* support playback/recording via ALSA */
 #cmakedefine HAVE_ALSA_SUPPORT

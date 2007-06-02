@@ -64,12 +64,12 @@ LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
     // set up the low pass filter dunction
     m_filter = new LowPassFilter();
     freq_response->setFilter(m_filter);
-    
+
     // initialize the controls and the curve display
     slider->setValue((int)m_frequency);
     spinbox->setValue((int)m_frequency);
     updateDisplay();
-    
+
     // changes in the slider or spinbox
     connect(spinbox, SIGNAL(valueChanged(int)),
             this, SLOT(valueChanged(int)));
@@ -84,7 +84,7 @@ LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
     listenToggled(false);
     if (btListen->width() > btListen->minimumWidth())
         btListen->setMinimumWidth(btListen->width());
-        
+
     // set the initial size of the dialog
     int h = (width() * 3) / 5;
     if (height() < h) resize(width(), h);
@@ -170,5 +170,7 @@ void LowPassDialog::listenStopped()
     btListen->setOn(false);
 }
 
+//***************************************************************************
+#include "LowPassDialog.moc"
 //***************************************************************************
 //***************************************************************************

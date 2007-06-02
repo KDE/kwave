@@ -70,7 +70,8 @@ SET_TARGET_PROPERTIES(libkwavegui PROPERTIES
 
 #############################################################################
 ### install files                                                         ###
-# INSTALL(TARGETS kwavegui DESTINATION ${LIB_INSTALL_DIR} )
+
+INSTALL(TARGETS libkwavegui LIBRARY DESTINATION ${KDE3_LIB_DIR})
 
 #############################################################################
 #############################################################################

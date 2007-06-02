@@ -460,7 +460,7 @@ AC_LINK_IFELSE([
 	    }
 	],
 	AC_MSG_RESULT([ok. use v1.1.2 API])
-	AC_DEFINE(FLAC_API_VERSION_1_1_2_OR_NEWER, 1, [new API from v1.1.2 and newer])
+	AC_DEFINE(FLAC_API_VERSION_1_1_2, 1, [new API from v1.1.2])
 	,
 	[
 	AC_MSG_ERROR([unable to figure out a valid API])

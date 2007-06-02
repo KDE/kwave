@@ -23,7 +23,7 @@
 #include <qtimer.h>
 #include <qvaluelist.h>
 #include "RecordController.h"
-#include "RecordDlg.uih.h"
+#include "RecordDlg.h"
 #include "RecordParams.h"
 #include "RecordState.h"
 #include "RecordTypesMap.h"

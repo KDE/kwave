@@ -21,7 +21,7 @@
 
 #include "KeywordWidget.h"
 
-/***************************************************************************/
+//***************************************************************************
 KeywordWidget::KeywordWidget(QWidget *parent, const char *name)
     :KeywordWidgetBase(parent, name)
 {
@@ -55,19 +55,19 @@ KeywordWidget::KeywordWidget(QWidget *parent, const char *name)
     update();
 }
 
-/***************************************************************************/
+//***************************************************************************
 KeywordWidget::~KeywordWidget()
 {
 }
 
-/***************************************************************************/
+//***************************************************************************
 bool KeywordWidget::contained(const QString &item)
 {
     if (!item.length()) return false;
     return (lstKeywords->findItem(item, Qt::ExactMatch));
 }
 
-/***************************************************************************/
+//***************************************************************************
 QStringList KeywordWidget::keywords()
 {
     QStringList list;
@@ -78,7 +78,7 @@ QStringList KeywordWidget::keywords()
     return list;
 }
 
-/***************************************************************************/
+//***************************************************************************
 void KeywordWidget::setKeywords(const QStringList &keywords)
 {
     lstKeywords->clear();
@@ -96,7 +96,7 @@ void KeywordWidget::setKeywords(const QStringList &keywords)
     edKeyword->clear();
 }
 
-/***************************************************************************/
+//***************************************************************************
 void KeywordWidget::update()
 {
     QString edit = edKeyword->text().simplifyWhiteSpace();
@@ -116,7 +116,7 @@ void KeywordWidget::update()
     lstKeywords->ensureCurrentVisible();
 }
 
-/***************************************************************************/
+//***************************************************************************
 void KeywordWidget::editChanged(const QString &edit)
 {
     QString text = edit.simplifyWhiteSpace();
@@ -131,13 +131,13 @@ void KeywordWidget::editChanged(const QString &edit)
     }
 }
 
-/***************************************************************************/
+//***************************************************************************
 void KeywordWidget::returnPressed(const QString &)
 {
     add(); // means the same as pressing "Add"
 }
 
-/***************************************************************************/
+//***************************************************************************
 void KeywordWidget::add()
 {
     QString text = edKeyword->text().simplifyWhiteSpace();
@@ -159,7 +159,7 @@ void KeywordWidget::add()
     edKeyword->clear();
 }
 
-/***************************************************************************/
+//***************************************************************************
 void KeywordWidget::remove()
 {
     // remove the item from the list
@@ -175,25 +175,27 @@ void KeywordWidget::remove()
     update();
 }
 
-/***************************************************************************/
+//***************************************************************************
 void KeywordWidget::selected(const QString &selection)
 {
     edKeyword->setText(selection);
     update();
 }
 
-/***************************************************************************/
+//***************************************************************************
 void KeywordWidget::listClicked(QListBoxItem *item)
 {
     if (!item) return;
     selected(lstKeywords->text(lstKeywords->index(item)));
 }
 
-/***************************************************************************/
+//***************************************************************************
 void KeywordWidget::autoClicked()
 {
     emit autoGenerate();
 }
 
-/***************************************************************************/
-/***************************************************************************/
+//***************************************************************************
+#include "KeywordWidget.moc"
+//***************************************************************************
+//***************************************************************************

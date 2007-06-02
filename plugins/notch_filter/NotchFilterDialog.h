@@ -22,7 +22,7 @@
 #include <qobject.h>
 #include <qstring.h>
 #include "libkwave/KwavePluginSetupDialog.h"
-#include "NotchFilterDlg.uih.h"
+#include "NotchFilterDlg.h"
 
 class QStringList;
 class NotchFilter;
@@ -81,7 +81,7 @@ protected slots:
 
     /** called when the bw spinbox or slider value has changed */
     void bwValueChanged(int pos);
-    
+
     /**
      * called when the "Listen" button has been toggled,
      * to start or stop the pre-listen mode
@@ -105,7 +105,7 @@ private:
 
     /** the bw in Hz */
     double m_bw;
-    
+
     /** sample rate of the signal in samples/sec */
     double m_sample_rate;
 

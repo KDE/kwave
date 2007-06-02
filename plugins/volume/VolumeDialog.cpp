@@ -146,25 +146,25 @@ void VolumeDialog::updateDisplay(double value)
 		spinbox->setPrefix("x ");
 		spinbox->setSuffix("");
 		spinbox->setInverse(false);
-		
+
 		new_spinbox_value = new_value;
 		new_slider_value = new_value-1;
-		
+
 //		qDebug("VolumeDialog::updateDisplay(): factor = x%d", new_value); // ###
 	    } else {
 		// less than one -> divide
 		int new_value = (int)rint(-1.0 / value);
-		
+
 		spinbox->setPrefix("1/");
 		spinbox->setSuffix("");
 		spinbox->setInverse(true);
-		
+
 		new_spinbox_value = -1*new_value;
 		new_slider_value  = (new_value+1);
-		
+
 //		qDebug("VolumeDialog::updateDisplay(): factor = 1/%d", -1*new_value); // ###
 	    }
-	    
+
 	    m_enable_updates = old_enable_updates;
 	    break;
 	    // return;
@@ -196,7 +196,7 @@ void VolumeDialog::updateDisplay(double value)
 	}
     }
 
-    // update the spinbox    
+    // update the spinbox
     if (spinbox->value() != new_spinbox_value) spinbox->setValue(new_spinbox_value);
 
     // update the slider, it's inverse => top=maximum, bottom=minimum !
@@ -210,7 +210,7 @@ void VolumeDialog::updateDisplay(double value)
 void VolumeDialog::sliderChanged(int pos)
 {
     if (!m_enable_updates) return;
-    
+
     int sv = slider->maxValue() + slider->minValue() - pos;
 //    qDebug("sliderChanged(%d), sv=%d",pos,sv); // ###
     switch (m_mode) {
@@ -243,7 +243,7 @@ void VolumeDialog::spinboxChanged(int pos)
 //    qDebug("spinboxChanged(%d)",pos); // ###
 
     int sv = spinbox->value();
-    
+
     switch (m_mode) {
 	case MODE_FACTOR: {
 	    // multiply or divide by factor
@@ -269,7 +269,7 @@ void VolumeDialog::spinboxChanged(int pos)
 	    break;
 	}
     }
-    
+
     updateDisplay(m_factor);
 }
 
@@ -303,5 +303,7 @@ void VolumeDialog::setParams(QStringList &params)
     updateDisplay(factor);
 }
 
+//***************************************************************************
+#include "VolumeDialog.moc"
 //***************************************************************************
 //***************************************************************************

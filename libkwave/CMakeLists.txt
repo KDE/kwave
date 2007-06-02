@@ -103,12 +103,7 @@ SET_TARGET_PROPERTIES(libkwave PROPERTIES
 #############################################################################
 ### install files                                                         ###
 
-# INSTALL(TARGETS kwave DESTINATION ${LIB_INSTALL_DIR} )
-
-#libkwave_la_LDFLAGS = @ALSA_LDFLAGS@ @LIBAUDIOFILE_LDFLAGS@ @GSL_LIBS@ \
-#	-version-info @LD_VERSION_INFO@ \
-#	--dynamic --export-dynamic
-#
+INSTALL(TARGETS libkwave LIBRARY DESTINATION ${KDE3_LIB_DIR})
 
 #############################################################################
 #############################################################################

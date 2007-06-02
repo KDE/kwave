@@ -28,6 +28,17 @@ SET(KWAVE_LINGUAS
 )
 
 #############################################################################
+### build options:                                                        ###
+
+# OPTION(WITH_ALSA "enable playback/recording via ALSA [default=on]" ON)
+# OPTION(WITH_BUILTIN_LIBAUDIOFILE "use builtin libaudiofile [default=off]")
+# OPTION(WITH_DOC "build online documentation [default=on]" ON)
+# OPTION(WITH_FLAC "enable support for FLAC files [default=on]" ON)
+# OPTION(WITH_MP3 "enable support for mp3 files [default=on]" ON)
+# OPTION(WITH_OGG "enable support for ogg files [default=on]" ON)
+# OPTION(WITH_OSS "enable playback/recording via OSS [default=on]" ON)
+
+#############################################################################
 ### cmake includes                                                        ###
 
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
@@ -70,19 +81,18 @@ INCLUDE(KwaveKDESupport)
 INCLUDE(KwaveLibaudiofileSupport)
 
 #############################################################################
+### optionally: OSS and ALSA support for playback and recording           ###
+
+INCLUDE(KwaveOSSSupport)
+INCLUDE(KwaveALSASupport)
+
+#############################################################################
 ### cmake includes                                                        ###
 
 FIND_PACKAGE(RequiredProgram REQUIRED)
 FIND_PACKAGE(Gettext REQUIRED)
 INCLUDE(FindARTS)
 INCLUDE(MCOP)
-
-#############################################################################
-
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/config.h
-)
 
 #############################################################################
 
@@ -97,14 +107,25 @@ ADD_SUBDIRECTORY( mt )
 ADD_SUBDIRECTORY( libgui )
 ADD_SUBDIRECTORY( libkwave )
 ADD_SUBDIRECTORY( kwave )
-# ADD_SUBDIRECTORY( plugins )
+ADD_SUBDIRECTORY( plugins )
 ADD_SUBDIRECTORY( po )
-ADD_SUBDIRECTORY( doc )
+
+OPTION(WITH_DOC "build online documentation [default=on]" ON)
+IF (WITH_DOC)
+    ADD_SUBDIRECTORY( doc )
+ENDIF (WITH_DOC)
 
 #############################################################################
 ### target package-messages                                               ###
 
 INCLUDE(KwavePackageMessages)
+
+#############################################################################
+
+CONFIGURE_FILE(
+    ${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/config.h
+)
 
 #############################################################################
 ### Gentoo support                                                        ###

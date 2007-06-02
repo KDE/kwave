@@ -389,7 +389,7 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
     /* read all available ID3 tags */
     ID3_Tag tag;
     ID3_QIODeviceReader adapter(src);
-    tag.Link(adapter, ID3TT_ALL);
+    tag.Link(adapter, static_cast<flags_t>(ID3TT_ALL));
 
     qDebug("NumFrames = %d", tag.NumFrames());
     qDebug("Size = %d",      tag.Size());
@@ -631,7 +631,7 @@ static inline int32_t audio_linear_dither(unsigned int bits,
 enum mad_flow MP3Decoder::processOutput(void */*data*/,
     struct mad_header const */*header*/, struct mad_pcm *pcm)
 {
-    struct audio_dither dither;
+    static struct audio_dither dither;
     int32_t sample;
     QArray<sample_t> buffer(pcm->length);
 

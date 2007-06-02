@@ -44,7 +44,7 @@ SelectRangeDialog::SelectRangeDialog(QWidget *widget,
 
     connect(select_start, SIGNAL(valueChanged(unsigned int)),
             select_range, SLOT(setOffset(unsigned int)));
-        
+
     setMinimumSize(sizeHint());
     setFixedSize(sizeHint());
 }
@@ -60,5 +60,7 @@ void SelectRangeDialog::setMode(SelectTimeWidget::Mode new_mode)
     if (select_range) select_range->setMode(new_mode);
 }
 
+//***************************************************************************
+#include "SelectRangeDialog.moc"
 //***************************************************************************
 //***************************************************************************

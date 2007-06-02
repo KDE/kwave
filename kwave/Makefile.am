@@ -26,8 +26,8 @@
 # kde_confdir       Where config files should go to.
 # kde_mimedir       Where mimetypes should go to.
 
-APPSDIR= $(DESTDIR)$(kde_appsdir)/Multimedia
-CONFDIR= $(DESTDIR)$(kde_datadir)/$(PACKAGE)
+APPSDIR= $(kde_appsdir)/Multimedia
+CONFDIR= $(kde_datadir)/$(PACKAGE)
 PIXDIR = $(DESTDIR)$(kde_datadir)/$(PACKAGE)/pics
 # set the include path for X, qt and KDE
 INCLUDES= -I${topdir} @all_includes@ @ARTS_INCLUDES@
@@ -162,9 +162,9 @@ icons: $(ICONS)
 # if you have more of them, create a subdirectory with an extra Makefile
 
 install-data-local: icons
-	$(mkinstalldirs) $(APPSDIR)
+	$(mkinstalldirs) -m 755 $(APPSDIR)
 	$(INSTALL_DATA) kwave.desktop $(APPSDIR)/kwave.desktop
-	$(mkinstalldirs) $(PIXDIR)
+	$(mkinstalldirs) -m 755 $(PIXDIR)
 	for pix in $(PIXMAPS); do { $(INSTALL_DATA) pics/$$pix $(PIXDIR) ; }; done;
 	$(mkinstalldirs) $(CONFDIR)
 	$(INSTALL_DATA) menus.config $(CONFDIR)/menus.config

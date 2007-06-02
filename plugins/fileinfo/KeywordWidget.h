@@ -22,7 +22,7 @@
 #include <qobject.h>
 #include <qstringlist.h>
 
-#include "KeywordWidgetBase.uih.h"
+#include "KeywordWidgetBase.h"
 
 class QString;
 class QWidget;

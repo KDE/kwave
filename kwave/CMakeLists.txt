@@ -159,7 +159,7 @@ INSTALL(TARGETS kwave_core     DESTINATION ${DESTDIR}${KDE3_EXEDIR})
 
 # other files
 INSTALL(FILES kwave.desktop    DESTINATION ${KDE3_APPSDIR}/Multimedia)
-INSTALL(FILES menus.config     DESTINATION ${KDE3_CONFDIR}/kwave)
+INSTALL(FILES menus.config     DESTINATION ${KDE3_DATADIR}/kwave)
 INSTALL(FILES ${kwave_PIXMAPS} DESTINATION ${KDE3_DATADIR}/kwave/pics)
 INSTALL(FILES x-aifc.desktop x-ircam.desktop DESTINATION ${KDE3_MIMEDIR}/audio)
 
@@ -168,7 +168,8 @@ FOREACH(_col locolor hicolor)
     FOREACH(_dim 16x16 22x22 32x32 48x48)
         INSTALL(
             FILES ${CMAKE_CURRENT_BINARY_DIR}/kwave-${_dim}.png
-            DESTINATION ${KDE3_ICONDIR}/${_col}/${_dim}/apps/kwave.png
+            DESTINATION ${KDE3_ICONDIR}/${_col}/${_dim}/apps
+            RENAME kwave.png
         )
     ENDFOREACH(_dim)
 ENDFOREACH(_col)

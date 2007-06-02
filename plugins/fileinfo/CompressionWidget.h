@@ -21,7 +21,7 @@
 #include "config.h"
 #include <qobject.h>
 #include "libkwave/FileInfo.h"
-#include "CompressionWidgetBase.uih.h"
+#include "CompressionWidgetBase.h"
 
 class FileInfo;
 class QWidget;

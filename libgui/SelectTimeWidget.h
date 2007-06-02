@@ -23,7 +23,7 @@
 #include <qtimer.h>
 #include <qwidget.h>
 
-#include "SelectTimeWidgetBase.h"
+#include "libgui/SelectTimeWidgetBase.h"
 
 class SelectTimeWidget: public SelectTimeWidgetBase
 {

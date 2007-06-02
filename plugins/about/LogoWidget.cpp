@@ -30,7 +30,7 @@
 #include "logo.xpm"
 #include "LogoWidget.h"
 
-//**********************************************************
+//***************************************************************************
 LogoWidget::LogoWidget(QWidget *parent, const char *name)
     :QWidget(parent, name)
 {
@@ -59,7 +59,7 @@ LogoWidget::LogoWidget(QWidget *parent, const char *name)
     this->setBackgroundColor(black);
 }
 
-//**********************************************************
+//***************************************************************************
 void LogoWidget::doAnim()
 {
     double mul = 0.04131211+m_deg[MAXSIN-1] / 75;
@@ -77,7 +77,7 @@ void LogoWidget::doAnim()
     repaint(false);
 }
 
-//**********************************************************
+//***************************************************************************
 LogoWidget::~LogoWidget()
 {
     if (m_img) delete m_img;
@@ -85,7 +85,7 @@ LogoWidget::~LogoWidget()
     delete m_timer;
 }
 
-//**********************************************************
+//***************************************************************************
 void LogoWidget::paintEvent(QPaintEvent *)
 {
 
@@ -101,7 +101,7 @@ void LogoWidget::paintEvent(QPaintEvent *)
 	m_buffer = new QPixmap(size());
 	m_repaint = true;
     }
-	
+
     if ((m_repaint) && (m_pixmap)) {
 	QPainter p;
 	QPointArray si(20+3);
@@ -142,9 +142,12 @@ void LogoWidget::paintEvent(QPaintEvent *)
 	       m_img, 0, 0, m_img->width(), m_img->height(),
 	       CopyROP);
 	bitBlt(m_buffer, 0, 0, m_pixmap, 0, 0, m_width, m_height, XorROP);
-	
+
 	bitBlt(this, 0, 0, m_buffer, 0, 0, m_width, m_height, CopyROP);
     }
 }
 
-/* end of LogoWidget.cpp */
+//***************************************************************************
+#include "LogoWidget.moc"
+//***************************************************************************
+//***************************************************************************

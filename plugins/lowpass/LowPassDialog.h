@@ -22,7 +22,7 @@
 #include <qobject.h>
 #include <qstring.h>
 #include "libkwave/KwavePluginSetupDialog.h"
-#include "LowPassDlg.uih.h"
+#include "LowPassDlg.h"
 
 class QStringList;
 class LowPassFilter;
@@ -38,7 +38,7 @@ public:
      * @param parent parent widget
      * @param sample_rate sample rate of the audio data to be processed,
      *                    needed for determining the allowed range of
-     *                    the cutoff frequency 
+     *                    the cutoff frequency
      */
     LowPassDialog(QWidget *parent, double sample_rate);
 
@@ -72,7 +72,7 @@ protected slots:
 
     /** called when the spinbox or spinbox value has changed */
     void valueChanged(int pos);
-    
+
     /**
      * called when the "Listen" button has been toggled,
      * to start or stop the pre-listen mode
@@ -88,8 +88,8 @@ protected:
 
     /** Update the graphic display */
     void updateDisplay();
- 
-private:    
+
+private:
 
     /** the cutoff frequency in Hz */
     double m_frequency;
@@ -99,7 +99,7 @@ private:
 
     /** filter function for calculating the frequency response */
     LowPassFilter *m_filter;
-    
+
 };
 
 #endif /* _LOW_PASS_DIALOG_H_ */

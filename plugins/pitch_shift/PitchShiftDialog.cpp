@@ -90,12 +90,12 @@ void PitchShiftDialog::setMode(Mode mode)
     switch (m_mode) {
 	case MODE_FACTOR: {
 	    rbFactor->setChecked(true);
-	    
+
 	    slSpeed->setMinValue(-9);
 	    slSpeed->setMaxValue(+4);
 	    slSpeed->setPageStep(1);
 	    slSpeed->setTickInterval(1);
-	    
+
 	    sbSpeed->setMinValue(-10);
 	    sbSpeed->setMaxValue(+10);
 	    sbSpeed->setLineStep(1);
@@ -103,7 +103,7 @@ void PitchShiftDialog::setMode(Mode mode)
 	}
 	case MODE_PERCENT: {
 	    rbPercentage->setChecked(true);
-	    
+
 	    slSpeed->setMinValue(1);
 	    slSpeed->setMaxValue(400);
 	    slSpeed->setPageStep(10);
@@ -153,13 +153,13 @@ void PitchShiftDialog::updateSpeed(double speed)
 		sbSpeed->setPrefix("x ");
 		sbSpeed->setSuffix("");
 		sbSpeed->setInverse(false);
-		
+
 		new_spinbox_value = new_value;
 		new_slider_value = new_value-1;
 	    } else {
 		// less than one -> divide
 		int new_value = (int)(-1.0 / speed);
-		
+
 		sbSpeed->setPrefix("1/");
 		sbSpeed->setSuffix("");
 		sbSpeed->setInverse(true);
@@ -306,7 +306,7 @@ void PitchShiftDialog::listenToggled(bool listen)
 {
     Q_ASSERT(btListen);
     if (!btListen) return;
-    
+
     if (listen) {
 	// start pre-listen mode
 	emit startPreListen();
@@ -327,5 +327,7 @@ void PitchShiftDialog::listenStopped()
     btListen->setOn(false);
 }
 
+//***************************************************************************
+#include "PitchShiftDialog.moc"
 //***************************************************************************
 //***************************************************************************

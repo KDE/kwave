@@ -108,7 +108,7 @@ void ImageView::paintEvent(QPaintEvent *)
     Q_ASSERT(m_image->height());
     if (!m_image->width()) return;
     if (!m_image->height()) return;
-	
+
     QWMatrix matrix;
     QPixmap newmap;
     newmap.convertFromImage(*m_image, ColorOnly|ThresholdDither|AvoidDither);
@@ -136,5 +136,7 @@ void ImageView::paintEvent(QPaintEvent *)
 
 }
 
-//****************************************************************************
-//****************************************************************************
+//***************************************************************************
+#include "ImageView.moc"
+//***************************************************************************
+//***************************************************************************

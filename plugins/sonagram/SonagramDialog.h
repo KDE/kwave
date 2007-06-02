@@ -20,7 +20,7 @@
 
 #include "config.h"
 #include "libkwave/WindowFunction.h"
-#include "SonagramDlg.uih.h"
+#include "SonagramDlg.h"
 
 class QStringList;
 class KwavePlugin;

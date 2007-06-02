@@ -176,6 +176,16 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
 
         SET(${_sources} ${${_sources}} ${_docbook} ${_html})
 
+        ADD_CUSTOM_TARGET(docbook_${_lang} ALL
+            DEPENDS ${_docbook}
+        )
+
+        INSTALL(
+            FILES ${_docbook}
+            DESTINATION $ENV{DESTDIR}/${KDE3_HTMLDIR}/${_lang}/kwave
+            RENAME index.docbook
+        )
+
     ENDFOREACH(_lang_and_name)
 
 ENDMACRO(KWAVE_TRANSLATE_DOC)
@@ -189,9 +199,6 @@ ADD_CUSTOM_TARGET(html_doc
 )
 
 #############################################################################
-
-#original Makefile.am contents follow:
-#
 # DOCDIR = $(DESTDIR)${kde_htmldir}
 
 #install-data-local:
@@ -212,13 +219,6 @@ ADD_CUSTOM_TARGET(html_doc
 #	}; done
 #	cd ${DOCDIR} ; \
 #	if test ! -e default/$(PACKAGE) -a -e default ; then ln -sf ../en/$(PACKAGE) default; fi;
-#
-#uninstall-local:
-#	for lang in ${LANGUAGES}; do { \
-#	    rm -R -f ${DOCDIR}/$${lang}/${PACKAGE} ; \
-#	    rmdir -p --ignore-fail-on-non-empty $(DOCDIR)/$$lang >/dev/null 2>&1; \
-#	    if test -L ${DOCDIR}/default/$(PACKAGE); then rm -f ${DOCDIR}/default/$(PACKAGE); fi; \
-#	}; done
 
 #############################################################################
 #############################################################################

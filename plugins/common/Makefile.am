@@ -31,7 +31,7 @@ SUFFIXES= .h .c .cpp .o .d .moc .dm .ui .cc .idl .cxx
 INCLUDES  = -I${topdir} @all_includes@ @ARTS_INCLUDES@ @GSL_CFLAGS@
 
 # Which sources should be compiled for kwave.
-PLUGINDIR=$(DESTDIR)$(kde_moduledir)/plugins/$(PACKAGE)
+PLUGINDIR=$(kde_moduledir)/plugins/$(PACKAGE)
 
 CXXFLAGS  += @GSL_CFLAGS@ -fPIC @CPPFLAGS@
 LD_FLAGS  = -shared -fPIC -rdynamic
@@ -45,27 +45,26 @@ MODDIR:=$(shell pwd)
 MODNAME=$(shell basename $(MODDIR))
 
 ui_files	:= $(shell @FIND@ . -name \*.ui | @SORT@)
-uih_files	:= $(ui_files:.ui=.uih.h)
-uic_files	:= $(ui_files:.ui=.uic.cpp)
-
-h_files		:= $(shell @FIND@ . ! -name \*.uih.h -name \*.h | @SORT@)
-h_files   	+= ${uih_files}
-cpp_sources 	:= $(shell @FIND@ . ! -name \*.uic.cpp -name \*.cpp | @SORT@)
+uih_files	:= $(ui_files:.ui=.h)
+uic_files	:= $(ui_files:.ui=.cpp)
+h_files_raw	:= $(shell @FIND@ . -name \*.h | @SORT@)
+h_files		:= $(filter-out $(uih_files), $(h_files_raw))
+cpp_sources_raw	:= $(shell @FIND@ . -name \*.cpp | @SORT@)
+cpp_sources	:= $(filter-out $(uic_files), $(cpp_sources_raw))
 c_sources 	:= $(shell @FIND@ . -name \*.c | @SORT@)
 idl_files	:= $(shell @FIND@ . -name \*.idl | @SORT@)
 idl_header	:= $(idl_files:.idl=.h)
 idl_impl	:= $(idl_files:.idl=.cc)
 
-moc_files	:= $(h_files:.h=.moc.cxx)
+moc_files	:= $(h_files:.h=.moc)
+moc_files	+= $(uih_files:.h=.moc)
 
 OUT_FILES	:= $(cpp_sources:.cpp=.o)
 OUT_FILES	+= $(c_sources:.c=.o)
-OUT_FILES	+= $(uic_files:.uic.cpp=.uic.o)
-OUT_FILES	+= $(h_files:.h=.moc.o)
 OUT_FILES	+= $(idl_files:.idl=.o)
+OUT_FILES	+= $(uic_files:.cpp=.o)
 
-PLUGINDEP_FILES	:= $(h_files:.h=.dm)
-PLUGINDEP_FILES	+= $(cpp_sources:.cpp=.d)
+PLUGINDEP_FILES	:= $(cpp_sources:.cpp=.d)
 PLUGINDEP_FILES	+= $(c_sources:.c=.d)
 PLUGINDEP_FILES	+= $(uic_sources:.cpp=.d)
 
@@ -77,10 +76,6 @@ CLEANFILES	 = core *~ *.o ${MODNAME}_plugin ${MODNAME} *.moc.cxx *.moc *.d *.dm 
 			.depend *.uih.h *.uic.cpp \
 			${GENERATED_FILES} \
 			timestamp.depend
-
-%.uic.o: %.uic.cpp
-	@echo plugin \"$(MODNAME)\": compiling dialog "'"$<"'"
-	@ @CXX@ $(CXXFLAGS)  ${INCLUDES} -c $< -o $@
 
 %.o: %.cpp
 	@echo plugin \"$(MODNAME)\": compiling "'"$<"'"
@@ -94,11 +89,6 @@ CLEANFILES	 = core *~ *.o ${MODNAME}_plugin ${MODNAME} *.moc.cxx *.moc *.d *.dm 
 	@echo plugin \"$(MODNAME)\": compiling idl implementation "'"$<"'"
 	@ @CXX@ $(CXXFLAGS) ${INCLUDES} -c $< -o $@
 
-%.moc.o: %.moc.cxx
-	@echo plugin \"$(MODNAME)\": compiling "'"$<"'"
-	@ @CXX@ $(CXXFLAGS) ${INCLUDES} -x c++ -c $< -o $@
-	@ echo "" >> $@
-
 %.cc: %.idl
 	@echo plugin \"$(MODNAME)\": creating idl implementation "'"$<"'"
 	@ ${MCOPIDL} @MCOPIDL_INCLUDES@ $<
@@ -107,13 +97,13 @@ CLEANFILES	 = core *~ *.o ${MODNAME}_plugin ${MODNAME} *.moc.cxx *.moc *.d *.dm 
 	@echo plugin \"$(MODNAME)\": creating idl header "'"$<"'"
 	@ ${MCOPIDL} @MCOPIDL_INCLUDES@ $<
 
-%.uih.h: %.ui
+%.h: %.ui
 	@echo plugin \"$(MODNAME)\": generating header from $<
 	@ @UIC@ -o $@ -tr i18n $<
 
-%.uic.cpp: %.ui
+%.cpp: %.ui
 	@echo plugin \"$(MODNAME)\": generating implementation from $<
-	@ @UIC@ -o $@ -tr i18n -impl $*.uih.h $<
+	@ @UIC@ -o $@ -tr i18n -impl $*.h $<
 
 %.d: %.cpp
 	@echo plugin \"$(MODNAME)\": making dependencies for $<
@@ -127,13 +117,7 @@ CLEANFILES	 = core *~ *.o ${MODNAME}_plugin ${MODNAME} *.moc.cxx *.moc *.d *.dm 
 	@ @CC@ -M -MG ${INCLUDES} $(CFLAGS) $< | @GREP@ -v ^\# >> $@
 	@ echo "" >> $@
 
-%.dm: %.moc.cxx
-	@echo plugin \"$(MODNAME)\": making dependencies for $<
-	@ echo -n "$@ " > $@
-	@ @CXX@ -x c++ -M -MG ${INCLUDES} $(CXXFLAGS) $< | @GREP@ -v ^\# >> $@
-	@ echo "" >> $@
-
-%.moc.cxx: %.h
+%.moc: %.h
 	@echo plugin \"$(MODNAME)\": extracting code with MOC for $<
 	@ @MOC@ -nw $< -o $@
 
@@ -176,3 +160,6 @@ install-data-local:
 uninstall-local:
 	-rm -f $(PLUGINDIR)/$(MODNAME)
 	-rmdir -p --ignore-fail-on-non-empty $(PLUGINDIR) >/dev/null 2>&1
+
+############################################################################
+############################################################################

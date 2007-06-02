@@ -21,7 +21,7 @@
 #include "config.h"
 #include <qobject.h>
 #include <qstring.h>
-#include "AmplifyFreeDlg.uih.h"
+#include "AmplifyFreeDlg.h"
 
 class QStringList;
 

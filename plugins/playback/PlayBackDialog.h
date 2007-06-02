@@ -23,7 +23,7 @@
 #include <qmap.h>
 
 #include "PlayBackParam.h"
-#include "PlayBackDlg.uih.h"
+#include "PlayBackDlg.h"
 #include "PlayBackTypesMap.h"
 
 class QListViewItem;

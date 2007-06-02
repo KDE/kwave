@@ -22,7 +22,7 @@
 #include <qobject.h>
 #include <qstring.h>
 #include "libkwave/KwavePluginSetupDialog.h"
-#include "PitchShiftDlg.uih.h"
+#include "PitchShiftDlg.h"
 
 class QDialog;
 class QStringList;
@@ -47,7 +47,7 @@ public:
 
     /** retruns a pointer to this as a QDialog */
     virtual QDialog *dialog() { return this; };
-    
+
 signals:
 
     /**
@@ -59,10 +59,10 @@ signals:
 
     /** Pre-listen mode has been started */
     void startPreListen();
-    
+
     /** Pre-listen mode has been stopped */
     void stopPreListen();
-    
+
 protected slots:
 
     /** called when the mode radio buttons changed */
@@ -87,7 +87,7 @@ protected slots:
      * called when the pre-listen mode stopped/aborted
      */
     void listenStopped();
-            
+
 protected:
 
     /**
@@ -104,8 +104,8 @@ protected:
 
     /** Update the speed slider position and the speed spinbox value */
     void updateSpeed(double speed);
-    
-private:    
+
+private:
 
     /** speed factor */
     double m_speed;

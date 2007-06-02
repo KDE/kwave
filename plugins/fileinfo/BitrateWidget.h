@@ -21,7 +21,7 @@
 #include <config.h>
 #include <qobject.h>
 #include <qvaluelist.h>
-#include "BitrateWidgetBase.uih.h"
+#include "BitrateWidgetBase.h"
 
 class BitrateWidget: public BitrateWidgetBase
 {
@@ -41,7 +41,7 @@ public:
 
     /** set a new special value text */
     virtual void setSpecialValueText(const QString &text);
-    
+
     /** sets a list of allowed bitrates */
     virtual void allowRates(const QValueList<int> &list);
 
@@ -70,7 +70,7 @@ private:
 
     /** list of allowed bitrates, sorted ascending */
     QValueList<int> m_rates;
-        
-};    
+
+};
 
 #endif /* _BITRATE_WIDGET_H_ */

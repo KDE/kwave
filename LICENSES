@@ -210,6 +210,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	cmake/FindARTS.cmake				New BSD
 	cmake/FindGettext.cmake				Kitware (cmake)
 	cmake/FindKwaveVersion.cmake			GPL2
+	cmake/FindOggVorbis.cmake			BSD
 	cmake/FindRequiredProgram.cmake			GPL2
 	cmake/KwaveALSASupport.cmake			GPL2
 	cmake/KwaveEbuild.cmake				GPL2

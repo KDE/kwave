@@ -21,14 +21,19 @@ IF (WITH_OGG)
 #############################################################################
 ### check for Ogg/Vorbis headers and library                              ###
 
+    SET(OggVorbis_FIND_QUIETLY TRUE)
+    INCLUDE(FindOggVorbis)
+
     CHECK_INCLUDE_FILES("vorbis/codec.h;vorbis/vorbisenc.h" HAVE_OGG_VORBIS_HEADERS)
     IF (HAVE_OGG_VORBIS_HEADERS)
         SET(CMAKE_REQUIRED_LIBRARIES "vorbisenc;vorbis;ogg")
-        CHECK_LIBRARY_EXISTS(vorbis vorbis_bitrate_addblock "" HAVE_OGG_VORBIS)
+        IF (OGGVORBIS_VERSION GREATER 1)
+            SET(HAVE_OGG_VORBIS TRUE)
+        ENDIF (OGGVORBIS_VERSION GREATER 1)
     ENDIF (HAVE_OGG_VORBIS_HEADERS)
 
     IF (HAVE_OGG_VORBIS)
-        MESSAGE(STATUS "Found Ogg/Vorbis library")
+        MESSAGE(STATUS "Found Ogg/Vorbis library v2.x or newer")
     ELSE (HAVE_OGG_VORBIS)
         MESSAGE(FATAL_ERROR "
 

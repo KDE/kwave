@@ -36,12 +36,13 @@ FOREACH(_file ${files})
 
     # uninstall the file
     MESSAGE(STATUS "Uninstalling \"${_file}\"")
+    EXEC_PROGRAM(
+        "@CMAKE_COMMAND@" ARGS "-E remove \"${_file}\""
+        OUTPUT_VARIABLE _rm_out
+        RETURN_VALUE _rm_retval
+    )
+    # complain only if the file still exists
     IF (EXISTS "${_file}")
-        EXEC_PROGRAM(
-            "@CMAKE_COMMAND@" ARGS "-E remove \"${_file}\""
-            OUTPUT_VARIABLE _rm_out
-            RETURN_VALUE _rm_retval
-        )
         IF(NOT "${_rm_retval}" STREQUAL 0)
             MESSAGE(FATAL_ERROR "Problem when removing \"${_file}\"")
         ENDIF(NOT "${_rm_retval}" STREQUAL 0)

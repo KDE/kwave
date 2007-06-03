@@ -29,8 +29,6 @@ SET(_changes_to_docbook ${PROJECT_SOURCE_DIR}/bin/changes-to-docbook.awk)
 
 FIND_REQUIRED_PROGRAM(CP_EXECUTABLE cp)
 FIND_REQUIRED_PROGRAM(RM_EXECUTABLE rm)
-FIND_REQUIRED_PROGRAM(LS_EXECUTABLE ls)
-FIND_REQUIRED_PROGRAM(LN_EXECUTABLE ln)
 FIND_REQUIRED_PROGRAM(AWK_EXECUTABLE gawk awk mawk)
 FIND_REQUIRED_PROGRAM(CAT_EXECUTABLE cat)
 FIND_REQUIRED_PROGRAM(SED_EXECUTABLE sed)
@@ -187,23 +185,21 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
         )
 
         # installation of the *.png files
-        EXEC_PROGRAM(${LS_EXECUTABLE}
-            ARGS "${CMAKE_CURRENT_SOURCE_DIR}/${_lang}/*.png"
-            OUTPUT_VARIABLE _png_files_${_lang}
-        )
-        STRING(REGEX REPLACE "\n" ";" _png_files_${_lang} "${_png_files_${_lang}}")
+        FILE(GLOB _png_files_${_lang} "${CMAKE_CURRENT_SOURCE_DIR}/${_lang}/*.png")
         INSTALL(FILES ${_png_files_${_lang}}
             DESTINATION ${KDE3_HTMLDIR}/${_lang}/kwave/
         )
 
         # install and uninstall of the symlinks to the "common" dirs
         INSTALL(CODE "
-            EXEC_PROGRAM(${LN_EXECUTABLE}
-                $ENV{DESTDIR}${KDE3_HTMLDIR}/${_lang}/kwave
-                ARGS -sf ../common .
-                OUTPUT_VARIABLE _out
-            )
+            MESSAGE(STATUS \"Installing \$ENV{DESTDIR}${KDE3_HTMLDIR}/${_lang}/kwave/common\")
         ")
+        INSTALL(CODE "EXECUTE_PROCESS(COMMAND ${CMAKE_COMMAND}
+            -E create_symlink \"../common\"
+            \"\$ENV{DESTDIR}${KDE3_HTMLDIR}/${_lang}/kwave/common\"
+        )")
+
+        # add the symlink to the extra uninstall files
         SET(ENV{EXTRA_UNINSTALL_FILES} "$ENV{EXTRA_UNINSTALL_FILES}\;${KDE3_HTMLDIR}/${_lang}/kwave/common")
 
     ENDFOREACH(_lang_and_name)

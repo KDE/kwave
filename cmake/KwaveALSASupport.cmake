@@ -19,10 +19,12 @@ OPTION(WITH_ALSA "enable playback/recording via ALSA [default=on]" ON)
 
 IF (WITH_ALSA)
 
+    INCLUDE(FindAlsa)
     CHECK_INCLUDE_FILES(alsa/asoundlib.h HAVE_ASOUNDLIB_H)
 
     IF (HAVE_ASOUNDLIB_H)
-        MESSAGE(STATUS "Enabled ALSA for playbay and recording")
+        ALSA_VERSION_STRING(_alsa_version)
+        MESSAGE(STATUS "Found ALSA version ${_alsa_version}")
         SET(HAVE_ALSA_SUPPORT  ON CACHE BOOL "enable ALSA support")
     ELSE (HAVE_ASOUNDLIB_H)
         MESSAGE(FATAL_ERROR "Your system lacks ALSA support")

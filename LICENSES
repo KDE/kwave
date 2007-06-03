@@ -206,6 +206,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 
 	cmake/Copyright.txt				Kitware (cmake)
 	cmake/COPYING-CMAKE-SCRIPTS			New BSD
+	cmake/FindAlsa.cmake				BSD
 	cmake/FindARTS.cmake				New BSD
 	cmake/FindGettext.cmake				Kitware (cmake)
 	cmake/FindKwaveVersion.cmake			GPL2
@@ -641,8 +642,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 
 	plugins/CMakeLists.txt				GPL2
 	plugins/Makefile.am				GPL2
-
-	plugins/common/Makefile.am			GPL2
 
 	plugins/about/AboutKwaveDialog.cpp		GPL2 / Ralf Waspe & Gilles Caulier
 	plugins/about/AboutKwaveDialog.h		GPL2 / Ralf Waspe

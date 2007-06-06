@@ -208,15 +208,27 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	}
 
 	// initialize the FLAC stream, this already writes some meta info
-	FLAC::Encoder::Stream::State state = init();
-	if (state != FLAC__STREAM_ENCODER_OK) {
-	    qWarning("state = %s", state.as_cstring());
-	    KMessageBox::error(widget,
-		i18n("Unable to open the FLAC encoder!"));
-	    m_info = 0;
-	    result = false;
-	    break;
-	}
+#if defined(FLAC_API_VERSION_1_1_3)
+        FLAC__StreamEncoderInitStatus init_state = init();
+        if (init_state != FLAC__STREAM_ENCODER_INIT_STATUS_OK) {
+            qWarning("state = %d", (int)init_state);
+            KMessageBox::error(widget,
+                i18n("Unable to open the FLAC encoder!"));
+            m_info = 0;
+            result = false;
+            break;
+        }
+#else
+	FLAC::Encoder::Stream::State init_state = init();
+	if (init_state != FLAC__STREAM_ENCODER_OK) {
+            qWarning("state = %s", init_state.as_cstring());
+            KMessageBox::error(widget,
+                i18n("Unable to open the FLAC encoder!"));
+            m_info = 0;
+            result = false;
+            break;
+        }
+#endif
 
 	// allocate output buffers, with FLAC 32 bit format
 	unsigned int len = 8192; // samples

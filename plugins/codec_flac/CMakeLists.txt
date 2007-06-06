@@ -47,44 +47,65 @@ IF (WITH_FLAC)
     ENDIF (HAVE_FLAC_HEADERS)
 
     SET(_try_src_dir "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp")
-    SET(_try_flac_1_1_1 "${_try_src_dir}/cmake_try_flac_v1_1_1.cpp")
-    WRITE_FILE("${_try_flac_1_1_1}" "
-        #include <FLAC/format.h>
-        #include <FLAC++/decoder.h>
-        #include <FLAC++/metadata.h>
 
-        int main()
-        {
-            const FLAC::Metadata::VorbisComment vorbis_comments;
-            if (vorbis_comments.get_vendor_string().is_valid()) {
-                const FLAC::Metadata::VorbisComment::Entry &entry =
-                    vorbis_comments.get_vendor_string();
-                const char *field = entry.get_field();
-                unsigned int len  = entry.get_field_length();
-                if (!field || !len) return -1;
+#############################################################################
+### check for FLAC API v1.1.3                                             ###
+
+    IF (NOT FLAC_API_FOUND)
+        SET(_try_flac_1_1_3 "${_try_src_dir}/cmake_try_flac_v1_1_3.cpp")
+        WRITE_FILE("${_try_flac_1_1_3}" "
+            #include <FLAC/export.h>
+            #include <FLAC/format.h>
+            #include <FLAC++/decoder.h>
+            #include <FLAC++/encoder.h>
+            #include <FLAC++/metadata.h>
+
+            /* FLAC-1.1.3 has cur=8, rev=0 */
+            /* FLAC-1.1.4 has cur=8, rev=1 */
+            #if !defined(FLAC_API_VERSION_CURRENT) || \\
+                !defined(FLAC_API_VERSION_REVISION)
+                #error "FLAC\ API\ is\ much\ too\ old"
+            #endif
+
+            #if (FLAC_API_VERSION_CURRENT < 8)
+                #error "FLAC\ API\ is\ too\ old"
+            #endif
+
+            int main(int, char **)
+            {
+                FLAC__StreamEncoderInitStatus init_state_d =
+                        FLAC__STREAM_ENCODER_INIT_STATUS_OK;
+                FLAC__StreamDecoderInitStatus init_state_e =
+                        FLAC__STREAM_DECODER_INIT_STATUS_OK;
+                return 0;
             }
-            return 0;
-        }
-    ")
-    TRY_COMPILE(
-        FLAC_API_VERSION_1_1_1_OR_OLDER
-        ${CMAKE_BINARY_DIR}
-        ${_try_flac_1_1_1}
-        CMAKE_FLAGS -DLINK_LIBRARIES:STRING=FLAC++
-        OUTPUT_VARIABLE _out
-    )
-    IF (FLAC_API_VERSION_1_1_1_OR_OLDER)
-        MESSAGE(STATUS "Found FLAC API version 1.1.1 or older")
-        SET(FLAC_API_FOUND BOOL ON)
-    ELSE (FLAC_API_VERSION_1_1_1_OR_OLDER)
-        MESSAGE(STATUS "FLAC API v1.1.1 or older does not work")
-    ENDIF (FLAC_API_VERSION_1_1_1_OR_OLDER)
+        ")
+
+        TRY_COMPILE(
+            FLAC_API_VERSION_1_1_3
+            ${CMAKE_BINARY_DIR}
+            ${_try_flac_1_1_3}
+            CMAKE_FLAGS -DLINK_LIBRARIES:STRING=FLAC++
+            OUTPUT_VARIABLE _out
+        )
+        IF (FLAC_API_VERSION_1_1_3)
+            MESSAGE(STATUS "Found FLAC API version 1.1.3 or newer")
+            SET(FLAC_API_FOUND BOOL ON)
+        ELSE (FLAC_API_VERSION_1_1_3)
+#             MESSAGE(STATUS "FLAC API v1.1.3 does not work")
+#             MESSAGE(STATUS "${_out}")
+        ENDIF (FLAC_API_VERSION_1_1_3)
+    ENDIF (NOT FLAC_API_FOUND)
+
+#############################################################################
+### check for FLAC API v1.1.2                                             ###
 
     IF (NOT FLAC_API_FOUND)
         SET(_try_flac_1_1_2 "${_try_src_dir}/cmake_try_flac_v1_1_2.cpp")
         WRITE_FILE("${_try_flac_1_1_2}" "
             #include <FLAC/format.h>
             #include <FLAC++/decoder.h>
+            #include <FLAC++/encoder.h>
             #include <FLAC++/metadata.h>
 
             int main(int, char **)
@@ -92,6 +113,12 @@ IF (WITH_FLAC)
                 const FLAC::Metadata::VorbisComment vorbis_comments;
                 const FLAC__byte *vendor = vorbis_comments.get_vendor_string();
                 if (!vendor) return -1;
+
+                FLAC::Decoder::Stream *decoder = 0;
+                FLAC::Encoder::Stream *encoder = 0;
+                FLAC::Decoder::Stream::State init_state_d = decoder->init();
+                FLAC::Encoder::Stream::State init_state_e = encoder->init();
+
                 return 0;
             }
         ")
@@ -107,8 +134,50 @@ IF (WITH_FLAC)
             MESSAGE(STATUS "Found FLAC API version 1.1.2")
             SET(FLAC_API_FOUND BOOL ON)
         ELSE (FLAC_API_VERSION_1_1_2)
-            MESSAGE(STATUS "FLAC API v1.1.2 does not work")
+#             MESSAGE(STATUS "FLAC API v1.1.2 does not work")
+#             MESSAGE(STATUS "${_out}")
         ENDIF (FLAC_API_VERSION_1_1_2)
+    ENDIF (NOT FLAC_API_FOUND)
+
+#############################################################################
+### check for FLAC API v1.1.1 or older                                    ###
+
+    IF (NOT FLAC_API_FOUND)
+        SET(_try_flac_1_1_1 "${_try_src_dir}/cmake_try_flac_v1_1_1.cpp")
+        WRITE_FILE("${_try_flac_1_1_1}" "
+            #include <FLAC/format.h>
+            #include <FLAC++/decoder.h>
+            #include <FLAC++/metadata.h>
+
+            int main()
+            {
+                const FLAC::Metadata::VorbisComment vorbis_comments;
+                if (vorbis_comments.get_vendor_string().is_valid()) {
+                    const FLAC::Metadata::VorbisComment::Entry &entry =
+                        vorbis_comments.get_vendor_string();
+                    const char *field = entry.get_field();
+                    unsigned int len  = entry.get_field_length();
+                    if (!field || !len) return -1;
+                }
+                FLAC::Decoder::Stream::State state =
+                        FLAC__STREAM_DECODER_END_OF_STREAM;
+                return 0;
+            }
+        ")
+        TRY_COMPILE(
+            FLAC_API_VERSION_1_1_1_OR_OLDER
+            ${CMAKE_BINARY_DIR}
+            ${_try_flac_1_1_1}
+            CMAKE_FLAGS -DLINK_LIBRARIES:STRING=FLAC++
+            OUTPUT_VARIABLE _out
+        )
+        IF (FLAC_API_VERSION_1_1_1_OR_OLDER)
+            MESSAGE(STATUS "Found FLAC API version 1.1.1 or older")
+            SET(FLAC_API_FOUND BOOL ON)
+        ELSE (FLAC_API_VERSION_1_1_1_OR_OLDER)
+#             MESSAGE(STATUS "FLAC API v1.1.1 or older does not work")
+#             MESSAGE(STATUS "${_out}")
+        ENDIF (FLAC_API_VERSION_1_1_1_OR_OLDER)
     ENDIF (NOT FLAC_API_FOUND)
 
 #############################################################################

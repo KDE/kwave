@@ -169,7 +169,7 @@ void FlacDecoder::parseVorbisComments(
 	m_info.set(INF_SOFTWARE, s);
 	qDebug("Encoded by: '%s'\n\n", s.local8Bit().data());
     }
-#elif defined(FLAC_API_VERSION_1_1_2)
+#elif defined(FLAC_API_VERSION_1_1_2) || defined(FLAC_API_VERSION_1_1_3)
     QString vendor = QString::fromUtf8(reinterpret_cast<const char *>(
 	vorbis_comments.get_vendor_string()));
     if (vendor.length()) {
@@ -277,17 +277,26 @@ bool FlacDecoder::open(QWidget *widget, QIODevice &src)
     set_metadata_respond_all();
 
     // initialize the stream
-    FLAC::Decoder::Stream::State state = init();
-    if (state >= FLAC__STREAM_DECODER_END_OF_STREAM) {
-	KMessageBox::error(widget, i18n(
-	   "opening the FLAC bitstream failed."));
-	return false;
+#if defined(FLAC_API_VERSION_1_1_3)
+    FLAC__StreamDecoderInitStatus init_state = init();
+    if (init_state > FLAC__STREAM_DECODER_INIT_STATUS_OK) {
+        KMessageBox::error(widget, i18n(
+           "opening the FLAC bitstream failed."));
+        return false;
     }
+#else /* API v1.1.2 and older */
+    FLAC::Decoder::Stream::State init_state = init();
+    if (init_state >= FLAC__STREAM_DECODER_END_OF_STREAM) {
+        KMessageBox::error(widget, i18n(
+           "opening the FLAC bitstream failed."));
+        return false;
+    }
+#endif
 
     // read in all metadata
     process_until_end_of_metadata();
 
-    state = get_state();
+    FLAC::Decoder::Stream::State state = get_state();
     if (state >= FLAC__STREAM_DECODER_END_OF_STREAM) {
 	KMessageBox::error(widget, i18n(
 	   "error while parsing FLAC metadata. (%s)"),

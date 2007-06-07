@@ -15,11 +15,17 @@
 /* byte-order of the host machine */
 #cmakedefine ENDIANESS_LITTLE
 
-/* old API from v1.1.1 and before */
+/* FLAC API of v1.1.1 and before */
 #cmakedefine FLAC_API_VERSION_1_1_1_OR_OLDER
 
-/* new API from v1.1.2 and newer */
+/* FLAC API of v1.1.2 */
 #cmakedefine FLAC_API_VERSION_1_1_2
+
+/* FLAC API of v1.1.3 */
+#cmakedefine FLAC_API_VERSION_1_1_3
+
+/* FLAC API of v1.1.4 */
+#cmakedefine FLAC_API_VERSION_1_1_4
 
 /* support playback/recording via ALSA */
 #cmakedefine HAVE_ALSA_SUPPORT

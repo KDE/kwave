@@ -18,8 +18,7 @@
 FIND_PACKAGE(RequiredProgram REQUIRED)
 
 SET(_insert_changes ${PROJECT_SOURCE_DIR}/bin/insert-changes.sh)
-SET(_help_en_docbook_orig ${CMAKE_CURRENT_SOURCE_DIR}/help_en.docbook)
-SET(_help_en_docbook ${CMAKE_CURRENT_BINARY_DIR}/help_en-tmp.docbook)
+SET(_help_en_docbook ${CMAKE_CURRENT_SOURCE_DIR}/help_en.docbook)
 SET(_help_en_shifted ${CMAKE_CURRENT_BINARY_DIR}/help_en-shifted.docbook)
 SET(_help_en_pot ${CMAKE_CURRENT_BINARY_DIR}/help_en.pot)
 SET(_changes_docbook ${CMAKE_CURRENT_BINARY_DIR}/changes.docbook)
@@ -40,36 +39,27 @@ FIND_REQUIRED_PROGRAM(CHECKXML_EXECUTABLE checkXML)
 FIND_REQUIRED_PROGRAM(MEINPROC_EXECUTABLE meinproc)
 
 #############################################################################
-### update help_en.docbook                                                ###
+### update of the original docbook file                                   ###
 
 ADD_CUSTOM_COMMAND(OUTPUT ${_help_en_docbook}
-    COMMAND ${CAT_EXECUTABLE} ${_help_en_docbook_orig} |
-        ${_insert_changes} changes.docbook |
-        ${AWK_EXECUTABLE}
-        -v newdate=${KWAVE_VERSION_DATE_ISO}
-        -v newrelease=${KWAVE_VERSION_FULL}
-        -f ${PROJECT_SOURCE_DIR}/bin/date_release.awk
-        > ${_help_en_docbook}
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${_help_en_docbook} ${_help_en_docbook_orig}
-    DEPENDS ${_changes_docbook}
-    DEPENDS ${_help_en_docbook_orig}
-    DEPENDS ${_insert_changes}
-    DEPENDS ${_changes}
-    DEPENDS ${_version}
-    COMMENT "Updating help_en.docbook"
-)
-
-#############################################################################
-### CHANGES -> changes.docbook                                            ###
-
-ADD_CUSTOM_COMMAND(OUTPUT ${_changes_docbook}
     COMMAND ${CAT_EXECUTABLE} ${_changes} |
         ${SED_EXECUTABLE} s/\\>\\>\\>//g |
         ${SED_EXECUTABLE} s/\\<\\<\\<//g |
         ${AWK_EXECUTABLE} -f ${_changes_to_docbook} |
         ${RECODE_EXECUTABLE} lat1..utf-8 > ${_changes_docbook}
-    DEPENDS ${_changes} ${_changes_to_docbook}
+    COMMAND ${CAT_EXECUTABLE} ${_help_en_docbook} |
+        ${_insert_changes} ${_changes_docbook} |
+        ${AWK_EXECUTABLE}
+        -v newdate=${KWAVE_VERSION_DATE_ISO}
+        -v newrelease=${KWAVE_VERSION_FULL}
+        -f ${PROJECT_SOURCE_DIR}/bin/date_release.awk
+        > ${_help_en_docbook}.tmp
+    COMMAND ${CMAKE_COMMAND} -E copy
+        ${_help_en_docbook}.tmp ${_help_en_docbook}
+    COMMAND ${CMAKE_COMMAND} -E remove ${_help_en_docbook}.tmp
+    DEPENDS ${_changes}
+    DEPENDS ${_version}
+    COMMENT "Updating help_en.docbook"
 )
 
 #############################################################################
@@ -85,8 +75,8 @@ ADD_CUSTOM_COMMAND(OUTPUT ${_help_en_pot}
 
 ADD_CUSTOM_COMMAND(OUTPUT ${_help_en_shifted}
     COMMAND ${CAT_EXECUTABLE} ${_help_en_docbook} |
-        ${SED_EXECUTABLE} s/^[[:blank:]]*// >
-        ${_help_en_shifted}
+            ${SED_EXECUTABLE} s/^[[:blank:]]*// >
+            ${_help_en_shifted}
     DEPENDS ${_help_en_docbook}
 )
 
@@ -114,17 +104,15 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
 
         # translation of the po and the docbook file not for english
         IF (NOT ${_lang} STREQUAL "en")
-            SET(_pot ${_help_en_pot})
             SET(_docbook ${CMAKE_CURRENT_BINARY_DIR}/help_${_lang}.docbook)
             GET_FILENAME_COMPONENT(_docbook_basename ${_docbook} NAME)
 
             # translated po file
             ADD_CUSTOM_COMMAND(OUTPUT ${_po}
                 COMMAND ${MSGMERGE_EXECUTABLE}
-                    -o ${_po} ${_po_orig} ${_pot}
-                COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                    ${_po} ${_po_orig}
-                DEPENDS ${_pot}
+                    -o ${_po} ${_po_orig} ${_help_en_pot}
+                COMMAND ${CMAKE_COMMAND} -E copy ${_po} ${_po_orig}
+                DEPENDS ${_help_en_pot}
             )
 
             # translated docbook file
@@ -134,8 +122,8 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
                     s/^\\<\\!ENTITY\\ %\\ English\\ /\\<\\!ENTITY\\ %\\ ${_lang_name}\\ /g
                     > ${_docbook}
                 COMMAND ${CHECKXML_EXECUTABLE} ${_docbook}
-                DEPENDS ${_help_en_shifted}
                 DEPENDS ${_po}
+                DEPENDS ${_help_en_shifted}
                 COMMENT STATUS "Building ${_docbook_basename} (${_lang_name})"
             )
         ELSE (NOT ${_lang} STREQUAL "en")
@@ -177,12 +165,12 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
         SET(${_sources} ${${_sources}} ${_docbook} ${_html})
 
         # installation of the docbook file
-        ADD_CUSTOM_TARGET(docbook_${_lang} ALL DEPENDS ${_docbook})
         INSTALL(
             FILES ${_docbook}
             DESTINATION ${KDE3_HTMLDIR}/${_lang}/kwave
             RENAME index.docbook
         )
+        SET(_docbook_all ${_docbook_all} ${_docbook})
 
         # installation of the *.png files
         FILE(GLOB _png_files_${_lang} "${CMAKE_CURRENT_SOURCE_DIR}/${_lang}/*.png")
@@ -210,8 +198,18 @@ ENDMACRO(KWAVE_TRANSLATE_DOC)
 
 KWAVE_TRANSLATE_DOC(_docs ${KWAVE_LINGUAS})
 
+#############################################################################
+### "make html_doc"                                                       ###
+
 ADD_CUSTOM_TARGET(html_doc
     DEPENDS ${_docs}
+)
+
+#############################################################################
+### "make doc"                                                            ###
+
+ADD_CUSTOM_TARGET(doc ALL
+    DEPENDS ${_docbook_all}
 )
 
 #############################################################################

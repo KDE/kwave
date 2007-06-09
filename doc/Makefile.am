@@ -22,6 +22,8 @@ DISTCLEANFILES = Makefile.in Makefile help_en.pot \
 	help_fr.docbook \
 	help_it.docbook
 
+.NOTPARALLEL: doc
+
 LANGUAGES = en de fr
 SUFFIXES = .docbook .po .pot
 SGMLDIR=$(kde_datadir)/ksgmltools2

@@ -39,6 +39,23 @@ SET(KWAVE_LINGUAS
 # OPTION(WITH_OSS "enable playback/recording via OSS [default=on]" ON)
 
 #############################################################################
+### toplevel build targets:                                               ###
+
+# all            - default target, build all files
+# clean          - clean up the current build directory
+# doc            - generate docbook files for online help
+# html_doc       - generate HTML help (for the web)
+# install        - install the package, with support for DESTDIR
+# uninstall      - uninstall the package, with support for DESTDIR
+# version-labels - update all version numbers and build dates
+# tarball        - create a tar.gz file with the sources
+
+#############################################################################
+### check for the proper cmake version                                    ###
+
+CMAKE_MINIMUM_REQUIRED(VERSION 2.4.0 FATAL_ERROR)
+
+#############################################################################
 ### cmake includes                                                        ###
 
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
@@ -157,50 +174,30 @@ ADD_CUSTOM_TARGET(uninstall
 )
 
 #############################################################################
+### "make version-labels"                                                 ###
+
+ADD_CUSTOM_TARGET(version-labels
+    ${CMAKE_SOURCE_DIR}/bin/set_version.sh
+        ${CMAKE_SOURCE_DIR}
+        ${KWAVE_VERSION_FULL}
+        ${KWAVE_VERSION_DATE_ISO}
+)
+
+#############################################################################
+### "make tarball"                                                        ###
+
+SET(_tarball /tmp/kwave-${KWAVE_VERSION_FULL}.tar.gz)
+ADD_CUSTOM_TARGET(tarball
+    COMMAND tar -cv --exclude=.svn --show-stored-names
+        -C ${CMAKE_SOURCE_DIR}
+        --transform=s+^./+kwave-${KWAVE_VERSION_FULL}/+g
+        -z -f /tmp/kwave-${KWAVE_VERSION_FULL}.tar.gz
+        .
+    DEPENDS ${_tarball}
+)
 
 #original Makefile.am contents follow:
 
-#DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \
-#	QT-DIR aclocal.m4 config.h.in configure make.log admin/config.guess \
-#	admin/config.sub admin/ltmain.sh \
-#	libaudiofile/Makefile.in libaudiofile/modules/Makefile.in \
-#	plugins/common/Makefile plugins/common/Makefile.in \
-#	`find . -type l` autom4*.cache/* ${EBUILD}
-#
-#clean-generic:
-#	-rm -fv `find -size 0`
-#	-rm -fv `find . -name \*\~ -o -name \.\#\*`
-#	-rm -fv `find . -name \*.o`
-#	-rm -fv `find . -name \*.ii`
-#	-rm -fv `find . -name \*.lo`
-#	-rm -fv `find . -name \*.la`
-#	-rm -fv `find . -name \*.moc.c\?\?`
-#	-rm -fv `find . -name \*.moc`
-#	-rm -fv `find . -name \*.dep`
-#	-rm -fv `find . -name \*.d`
-#	-rm -fv `find . -name \*.dm`
-#	-rm -fv `find . -name .depend`
-#	-rm -fv `find . -name \*.uih.h`
-#	-rm -fv `find . -name \*.uic.cpp`
-#	-rm -fv `find . -name \.inslog\*`
-#	-rm -fv `find . -name \.ix\*`
-#	-rm -Rf doc/api
-#	-rm -f ${EBUILD}
-#
-#backup: ${PACKAGE}.spec
-#	@ cp ${PACKAGE}.spec ${PACKAGE}.spec.saved ; \
-#	${MAKE} distclean ; \
-#	mv ${PACKAGE}.spec.saved ${PACKAGE}.spec ; \
-#	(cd ${srcdir}/..; \
-#	tar -czh -f ${ARCHIVE_DIR}/${PACKAGE}-${VERSION}-backup.tgz \
-#	${SRC_PREFIX} ) && \
-#	echo source backed up to ${PACKAGE}-${VERSION}-backup.tgz
-#
-#version-labels:
-#	$(srcdir)/bin/set_version.sh $(srcdir) \
-#	`cat $(srcdir)/VERSION` \
-#	`date --iso`
-#
 #rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
 #	rm -R -f /tmp/${PACKAGE}-@RPM_SHORT_VERSION@
 #	mkdir -p /tmp/${PACKAGE}-@RPM_SHORT_VERSION@
@@ -235,11 +232,8 @@ ADD_CUSTOM_TARGET(uninstall
 #src.rpm: rpm_prep
 #	@RPMBUILD@ -ts /tmp/${PACKAGE}-@RPM_FULL_VERSION@.tar.gz
 #
-#doc:
-#	(cd ./doc ; ${MAKE} all )
-#
 #apidoc:
-#	-rm -Rf `find . -name \*.moc.cpp`
+#	-rm -Rf `find . -name \*.moc`
 #	doxygen doxy.cfg
 
 #############################################################################

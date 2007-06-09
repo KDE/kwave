@@ -47,11 +47,10 @@ MACRO(KWAVE_PLUGIN _plugin)
     INSTALL(
         FILES ${CMAKE_CURRENT_BINARY_DIR}/lib${_plugin}.so
         RENAME ${_plugin}
-        PERMISSIONS OWNER_EXECUTE OWNER_READ
-                    GROUP_EXECUTE GROUP_READ
-                    WORLD_EXECUTE WORLD_READ
         DESTINATION ${KDE3_DATADIR}/kwave/plugins
     )
+
+    ADD_DEPENDENCIES(plugin_${_plugin} libkwave libkwavegui)
 
 ENDMACRO(KWAVE_PLUGIN)
 

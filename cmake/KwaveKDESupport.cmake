@@ -29,6 +29,7 @@ LINK_DIRECTORIES(${KDE3_LIB_DIR})
 # KDE3_LOCALE        Where translation files should go to.(contains lang subdirs)
 # KDE3_MIMEDIR       Where mimetypes should go to.
 # KDE3_MODULEDIR     Where loadable modules should go to.
+# KDE3_PREFIX        The installation prefix of KDE
 
 #############################################################################
 EXECUTE_PROCESS(
@@ -121,6 +122,15 @@ EXECUTE_PROCESS(
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 STRING(REGEX REPLACE "HTML$" "" KDE3_DOCDIR ${KDE3_DOCDIR})
+
+#############################################################################
+EXECUTE_PROCESS(
+    COMMAND
+        ${KDECONFIG_EXECUTABLE} --expandvars --prefix
+    OUTPUT_VARIABLE
+        KDE3_PREFIX
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
 
 #############################################################################
 #############################################################################

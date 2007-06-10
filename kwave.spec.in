@@ -52,9 +52,7 @@ graphical view with a complete zoom-and scroll capability.
 rm -rf "$RPM_BUILD_ROOT"
 DESTDIR=""
 unset DESTDIR
-CONFIGURE_OPTS="--with-install-root=$RPM_BUILD_ROOT \
-	--enable-static=yes --enable-shared=yes ${CONFIGURE_OPTS}"
-make -f Makefile.dist
+cmake . ${CONFIGURE_OPTS}
 
 %build
 DESTDIR=""

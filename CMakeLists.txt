@@ -46,6 +46,9 @@ SET(KWAVE_LINGUAS
 # doc            - generate docbook files for online help
 # html_doc       - generate HTML help (for the web)
 # install        - install the package, with support for DESTDIR
+# rpm            - create a RPM package + a src.rpm file
+# src_rpm        - create the source RPM only
+# tarball        - create a tar.bz2 archive with the sources + specfile
 # uninstall      - uninstall the package, with support for DESTDIR
 # version-labels - update all version numbers and build dates
 # tarball        - create a tar.gz file with the sources
@@ -184,54 +187,12 @@ ADD_CUSTOM_TARGET(version-labels
 )
 
 #############################################################################
-### "make tarball"                                                        ###
+### RPM support                                                           ###
 
-SET(_tarball /tmp/kwave-${KWAVE_VERSION_FULL}.tar.gz)
-ADD_CUSTOM_TARGET(tarball
-    COMMAND tar -cv --exclude=.svn --show-stored-names
-        -C ${CMAKE_SOURCE_DIR}
-        --transform=s+^./+kwave-${KWAVE_VERSION_FULL}/+g
-        -z -f /tmp/kwave-${KWAVE_VERSION_FULL}.tar.gz
-        .
-    DEPENDS ${_tarball}
-)
+INCLUDE(KwaveRPMSupport)
 
 #original Makefile.am contents follow:
 
-#rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
-#	rm -R -f /tmp/${PACKAGE}-@RPM_SHORT_VERSION@
-#	mkdir -p /tmp/${PACKAGE}-@RPM_SHORT_VERSION@
-#	(cd ${srcdir} ; cp -R -a ./* /tmp/${PACKAGE}-@RPM_SHORT_VERSION@ )
-#	(cd /tmp/ ; chmod -R a+rwX ${PACKAGE}-@RPM_SHORT_VERSION@ ; \
-#	touch ${PACKAGE}-@RPM_SHORT_VERSION@/doc/help_{de,fr}.docbook ; \
-#	find ${SRC_PREFIX}-@RPM_SHORT_VERSION@ -name CVS > \
-#		/tmp/${PACKAGE}-tar-excludes.lst ; \
-#	find ${SRC_PREFIX}-@RPM_SHORT_VERSION@ -name \.\* -type d >> \
-#		/tmp/${PACKAGE}-tar-excludes.lst ; \
-#	find ${SRC_PREFIX}-@RPM_SHORT_VERSION@ -name Makefile \
-#		-o -name Makefile.in -o -name aclocal.m4 \
-#		-o -name config.h.in -o -name config.h \
-#		-o -name libtool -o -name stamp-h -o -name configure \
-#		-o -name stamp-h1 -o -name \*.cache -o -name .depend \
-#		-o -name QT-KDIR -o -name KDE-VERSION \
-#		-o -name config.status -o -name .deps -o -name \*.log >> \
-#		/tmp/${PACKAGE}-tar-excludes.lst ; \
-#	echo "${SRC_PREFIX}-@RPM_SHORT_VERSION@/doc/api" >> \
-#		/tmp/${PACKAGE}-tar-excludes.lst ; \
-#	tar --exclude-from=/tmp/${PACKAGE}-tar-excludes.lst \
-#		--owner=root --group=root \
-#		-chzf ${PACKAGE}-@RPM_FULL_VERSION@.tar.gz \
-#		${SRC_PREFIX}-@RPM_SHORT_VERSION@ ; \
-#	 )
-#	- rm -f /tmp/${PACKAGE}-tar-excludes.lst
-#	- rm -R -f /tmp/${PACKAGE}-@RPM_SHORT_VERSION@
-#
-#rpm: rpm_prep
-#	@RPMBUILD@ -ta /tmp/${PACKAGE}-@RPM_FULL_VERSION@.tar.gz
-#
-#src.rpm: rpm_prep
-#	@RPMBUILD@ -ts /tmp/${PACKAGE}-@RPM_FULL_VERSION@.tar.gz
-#
 #apidoc:
 #	-rm -Rf `find . -name \*.moc`
 #	doxygen doxy.cfg

@@ -63,16 +63,12 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.4.0 FATAL_ERROR)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-INCLUDE_DIRECTORIES(
-    ${KDE3_INCLUDE_DIR}
-    ${QT_INCLUDE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_BINARY_DIR}
-)
-
+INCLUDE(CheckIncludeFiles)
 INCLUDE(CheckCCompilerFlag)
 INCLUDE(CheckCXXCompilerFlag)
 INCLUDE(FindKwaveVersion)
+INCLUDE(CheckTypeSize)
+INCLUDE(TestBigEndian)
 
 #############################################################################
 
@@ -94,6 +90,76 @@ ENDIF (CXX_HAVE_PIC AND C_HAVE_PIC)
 ### KDE 3 support                                                         ###
 
 INCLUDE(KwaveKDESupport)
+
+INCLUDE_DIRECTORIES(
+    ${KDE3_INCLUDE_DIR}
+    ${QT_INCLUDE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_BINARY_DIR}
+)
+
+#############################################################################
+### checks for big/little endian                                          ###
+
+TEST_BIG_ENDIAN(ENDIANESS_BIG)
+IF (NOT ENDIANESS_BIG)
+SET(ENDIANESS_LITTLE 1)
+ENDIF(NOT ENDIANESS_BIG)
+
+#############################################################################
+### checks for needed header files                                        ###
+
+CHECK_INCLUDE_FILES(sys/times.h HAVE_SYS_TIMES_H)
+CHECK_INCLUDE_FILES(byteswap.h HAVE_BYTESWAP_H)
+CHECK_INCLUDE_FILES(unistd.h HAVE_UNISTD_H)
+SET(_inc dlfcn.h assert.h ctype.h endian.h errno.h
+    fcntl.h features.h float.h limits.h sched.h stdarg.h stddef.h
+    stdio.h stdlib.h string.h sys/ioctl.h sys/param.h limits.h
+    sys/time.h sys/types.h time.h pthread.h)
+CHECK_INCLUDE_FILES("${_inc}" REQUIRED_STD_HEADERS)
+IF (NOT REQUIRED_STD_HEADERS)
+    MESSAGE(FATAL_ERROR "
+        unable to find one or more of the following header files:
+        ${_inc}")
+ENDIF (NOT REQUIRED_STD_HEADERS)
+
+CHECK_INCLUDE_FILES(sys/types.h HAVE_SYS_TYPES_H)
+CHECK_INCLUDE_FILES(stdint.h HAVE_STDINT_H)
+CHECK_INCLUDE_FILES(stddef.h HAVE_STDDEF_H)
+
+#############################################################################
+### checks for some data types                                            ###
+
+CHECK_TYPE_SIZE("size_t" SIZEOF_SIZE_T)
+CHECK_TYPE_SIZE("long" SIZEOF_LONG)
+
+#############################################################################
+### checks for some functions                                             ###
+
+SET(_try_src_dir "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp")
+SET(_try_meminfo "${_try_src_dir}/cmake_try_meminfo.c")
+WRITE_FILE("${_try_meminfo}" "
+    #include <sys/sysinfo.h>
+    #include <linux/kernel.h>
+    int main()
+    {
+        struct sysinfo info;
+        unsigned int total;
+        sysinfo(&info);
+        total = info.totalram;
+        return 0;
+    }
+")
+TRY_COMPILE(HAVE_MEMINFO ${CMAKE_BINARY_DIR} ${_try_meminfo} OUTPUT_VARIABLE _out)
+IF (NOT HAVE_MEMINFO)
+    MESSAGE(STATUS "unable to get memory information through 'sysinfo'")
+    MESSAGE(STATUS
+        "!!! You might get inaccurate behaviour of the memory management !!!")
+ENDIF(NOT HAVE_MEMINFO)
+
+CHECK_FUNCTION_EXISTS(getrlimit HAVE_GETRLIMIT)
+CHECK_FUNCTION_EXISTS(mkstemp HAVE_MKSTEMP)
+CHECK_FUNCTION_EXISTS(unlink HAVE_UNLINK)
 
 #############################################################################
 ### optionally: builtin libaudiofile                                      ###
@@ -141,6 +207,11 @@ ENDIF (WITH_DOC)
 INCLUDE(KwavePackageMessages)
 
 #############################################################################
+### RPM support                                                           ###
+
+INCLUDE(KwaveRPMSupport)
+
+#############################################################################
 
 CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake
@@ -185,11 +256,6 @@ ADD_CUSTOM_TARGET(version-labels
         ${KWAVE_VERSION_FULL}
         ${KWAVE_VERSION_DATE_ISO}
 )
-
-#############################################################################
-### RPM support                                                           ###
-
-INCLUDE(KwaveRPMSupport)
 
 #original Makefile.am contents follow:
 

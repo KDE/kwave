@@ -41,6 +41,9 @@ ENDMACRO(GET_LSM)
 #############################################################################
 ### determine all variables in the kwave.spec.in                          ###
 
+SET(PACKAGE "kwave")
+SET(PACKAGE_VERSION "${KWAVE_VERSION_FULL}")
+
 SET(RPM_SHORT_VERSION "${KWAVE_VERSION_MAJOR}.${KWAVE_VERSION_MINOR}.${KWAVE_VERSION_RELEASE}")
 IF (KWAVE_VERSION_PATCHLEVEL)
     SET(RPM_RELEASE ${KWAVE_VERSION_PATCHLEVEL})

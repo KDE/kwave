@@ -218,6 +218,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	cmake/KwaveLibaudiofileSupport.cmake		GPL2
 	cmake/KwaveOSSSupport.cmake			GPL2
 	cmake/KwavePackageMessages.cmake		GPL2
+	cmake/KwaveRPMSupport.cmake			GPL2
 	cmake/MCOP.cmake				GPL2
 	cmake/uninstall.cmake.in			GPL2
 

@@ -22,6 +22,7 @@ INCLUDE(CheckLibraryExists)
 
 CHECK_INCLUDE_FILES("gsl/gsl_complex.h;gsl/gsl_fft.h;gsl/gsl_fft_complex.h" HAVE_GSL_HEADERS)
 
+SET(CMAKE_REQUIRED_LIBRARIES gsl gslcblas)
 IF (HAVE_GSL_HEADERS)
     CHECK_LIBRARY_EXISTS(gsl gsl_fft_complex_wavetable_alloc "" HAVE_GSL_1)
     IF (HAVE_GSL_1)
@@ -37,6 +38,7 @@ IF (HAVE_GSL_HEADERS)
         CHECK_LIBRARY_EXISTS(gsl gsl_fft_complex_forward "" HAVE_GSL)
     ENDIF (HAVE_GSL_3)
 ENDIF(HAVE_GSL_HEADERS)
+SET(CMAKE_REQUIRED_LIBRARIES "")
 
 IF (NOT HAVE_GSL)
     MESSAGE(FATAL_ERROR "
@@ -59,7 +61,7 @@ SET(plugin_sonagram_LIB_UI
 )
 
 SET(plugin_sonagram_LIBS
-    gsl
+    gsl gslcblas
 )
 
 KWAVE_PLUGIN(sonagram)

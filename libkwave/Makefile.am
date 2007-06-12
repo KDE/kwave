@@ -79,8 +79,7 @@ libkwave_la_SOURCES=\
  WindowFunction.cpp
 
 libkwave_la_LDFLAGS = @ALSA_LDFLAGS@ @LIBAUDIOFILE_LDFLAGS@ @GSL_LIBS@ \
-	-version-info @LD_VERSION_INFO@ \
-	--dynamic --export-dynamic
+	-version-info @LD_VERSION_INFO@ --export-dynamic
 
 libkwave_la_LIBADD = @LIBAUDIOFILE_LIBADD@ \
 	../mt/libkwavemt.la

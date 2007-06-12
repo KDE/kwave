@@ -64,7 +64,7 @@ ADD_LIBRARY(libkwavegui SHARED ${libkwavegui_LIB_SRCS})
 TARGET_LINK_LIBRARIES(libkwavegui  ${QT_AND_KDECORE_LIBS} )
 SET_TARGET_PROPERTIES(libkwavegui PROPERTIES OUTPUT_NAME "kwavegui")
 SET_TARGET_PROPERTIES(libkwavegui PROPERTIES LINK_FLAGS
-    "-Wl,--dynamic -Wl,--export-dynamic")
+    "-Wl,--export-dynamic")
 SET_TARGET_PROPERTIES(libkwavegui PROPERTIES
     VERSION ${KWAVE_SOVERSION} SOVERSION ${KWAVE_VERSION_MAJOR} )
 

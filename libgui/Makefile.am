@@ -47,8 +47,7 @@ libkwavegui_la_SOURCES = \
  TrackPixmap.cpp
 
 #noinst_LIBRARIES = libkwavegui.a
-libkwavegui_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \
-	--dynamic --export-dynamic
+libkwavegui_la_LDFLAGS = -version-info @LD_VERSION_INFO@ --export-dynamic
 
 lib_LTLIBRARIES = libkwavegui.la
 

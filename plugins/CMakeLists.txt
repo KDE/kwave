@@ -45,7 +45,7 @@ MACRO(KWAVE_PLUGIN _plugin)
     ### install                                                           ###
 
     INSTALL(
-        FILES ${CMAKE_CURRENT_BINARY_DIR}/lib${_plugin}.so
+        PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/lib${_plugin}.so
         RENAME ${_plugin}
         DESTINATION ${KDE3_DATADIR}/kwave/plugins
     )

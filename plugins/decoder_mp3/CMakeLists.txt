@@ -50,7 +50,7 @@ IF (WITH_MP3)
             HAVE_ID3_LIB
             ${CMAKE_BINARY_DIR}
             ${_try_id3lib}
-            CMAKE_FLAGS -DLINK_LIBRARIES:STRING=id3
+            CMAKE_FLAGS -DLINK_LIBRARIES:STRING=id3\;stdc++\;z
             OUTPUT_VARIABLE _out
         )
     ENDIF (HAVE_ID3_HEADERS)
@@ -95,7 +95,7 @@ IF (WITH_MP3)
     )
 
     SET(plugin_decoder_mp3_LIBS
-        mad id3
+        mad id3 stdc++ z
     )
 
     KWAVE_PLUGIN(decoder_mp3)

@@ -84,8 +84,7 @@ KDE3_ADD_MCOP_IDL_FILES(libkwave_LIB_SRCS
 KDE3_AUTOMOC(${libkwave_LIB_SRCS})
 ADD_LIBRARY(libkwave SHARED ${libkwave_LIB_SRCS})
 
-TARGET_LINK_LIBRARIES(libkwave kwavemt)
-ADD_DEPENDENCIES(libkwave kwavemt)
+ADD_DEPENDENCIES(libkwave libkwavemt)
 
 IF (NOT USE_SYSTEM_LIB_AUDIOFILE)
 TARGET_LINK_LIBRARIES(libkwave audiofile)
@@ -96,7 +95,7 @@ ENDIF (NOT USE_SYSTEM_LIB_AUDIOFILE)
 
 SET_TARGET_PROPERTIES(libkwave PROPERTIES OUTPUT_NAME "kwave")
 SET_TARGET_PROPERTIES(libkwave PROPERTIES LINK_FLAGS
-    "-Wl,--whole-archive -Wl,--export-dynamic")
+    "-Wl,--whole-archive -lkwavemt -Wl,-no-whole-archive -Wl,--export-dynamic")
 SET_TARGET_PROPERTIES(libkwave PROPERTIES
     VERSION ${KWAVE_SOVERSION} SOVERSION ${KWAVE_VERSION_MAJOR} )
 

@@ -54,7 +54,7 @@ Decoder *FlacDecoder::instance()
 
 //***************************************************************************
 ::FLAC__StreamDecoderReadStatus FlacDecoder::read_callback(
-        FLAC__byte buffer[], unsigned int *bytes)
+        FLAC__byte buffer[], size_t *bytes)
 {
     Q_ASSERT(bytes);
     Q_ASSERT(m_source);
@@ -67,7 +67,7 @@ Decoder *FlacDecoder::instance()
     }
 
     // read into application buffer
-    unsigned long int len = *bytes;
+    Q_LONG len = *bytes;
     *bytes = m_source->readBlock((char*)(&(buffer[0])), len);
 
     if (!*bytes) return FLAC__STREAM_DECODER_READ_STATUS_END_OF_STREAM;

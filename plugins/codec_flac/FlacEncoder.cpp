@@ -73,8 +73,8 @@ QValueList<FileProperty> FlacEncoder::supportedProperties()
 
 /***************************************************************************/
 ::FLAC__StreamEncoderWriteStatus FlacEncoder::write_callback(
-        const FLAC__byte buffer[], unsigned int bytes,
-        unsigned int /* samples */, unsigned int /* current_frame */)
+        const FLAC__byte buffer[], size_t bytes,
+        unsigned /* samples */, unsigned /* current_frame */)
 {
 //    qDebug("FlacEncoder::write_callback(%u)", samples); // ###
     Q_ASSERT(m_dst);

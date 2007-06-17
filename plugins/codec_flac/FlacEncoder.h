@@ -70,8 +70,8 @@ protected:
      * @return FLAC stream encoder write status
      */
     virtual ::FLAC__StreamEncoderWriteStatus write_callback(
-        const FLAC__byte buffer[], unsigned int bytes,
-        unsigned int samples, unsigned int current_frame);
+        const FLAC__byte buffer[], size_t bytes,
+        unsigned samples, unsigned current_frame);
 
     /**
      * Callback for encoding meta data

@@ -101,7 +101,7 @@ protected:
      * @return read state
      */
     virtual ::FLAC__StreamDecoderReadStatus read_callback(
-        FLAC__byte buffer[], unsigned int *bytes);
+        FLAC__byte buffer[], size_t *bytes);
 
     /**
      * FLAC decoder interface: write callback.

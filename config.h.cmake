@@ -16,15 +16,12 @@
  ***************************************************************************/
 
 /* use ppc target optimizations (from xine) */
-/* ### TODO ### */
 #cmakedefine ARCH_PPC
 
 /* use ix86 target optimizations (from xine) */
-/* ### TODO ### */
 #cmakedefine ARCH_X86
 
 /* use X86_64 target optimizations (from xine) */
-/* ### TODO ### */
 #cmakedefine ARCH_X86_64
 
 /* byte-order of the host machine */

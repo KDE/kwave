@@ -59,14 +59,49 @@ SET(KWAVE_LINGUAS
 CMAKE_MINIMUM_REQUIRED(VERSION 2.4.0 FATAL_ERROR)
 
 #############################################################################
-### cmake includes                                                        ###
+### path to additional cmake modules and includes                         ###
 
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+
+#############################################################################
+### Kwave version number                                                  ###
+
+INCLUDE(FindKwaveVersion)
+
+#############################################################################
+### check for the CPU we build for                                        ###
+
+EXECUTE_PROCESS(
+    COMMAND ${CMAKE_C_COMPILER} -dumpmachine
+    OUTPUT_VARIABLE MACHINE
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+MESSAGE(STATUS "Building for target ${MACHINE}")
+
+STRING(REGEX MATCH "(i?86-*)|(athlon-*)|(pentium-*)" _mach_x86 ${MACHINE})
+IF (_mach_x86)
+    MESSAGE(STATUS "Found target optimized memcpy() for X86 (from xine)")
+    SET(ARCH_X86 1)
+ENDIF (_mach_x86)
+
+STRING(REGEX MATCH "(x86_64-*)|(X86_64-*)" _mach_x86_64 ${MACHINE})
+IF (_mach_x86_64)
+    MESSAGE(STATUS "Found target optimized memcpy() for X86_64 (from xine)")
+    SET(ARCH_X86_64 1)
+ENDIF (_mach_x86_64)
+
+STRING(REGEX MATCH "(ppc-*)" _mach_ppc ${MACHINE})
+IF (_mach_ppc)
+    MESSAGE(STATUS "Found target optimized memcpy() for PPC (from xine)")
+    SET(ARCH_PPC 1)
+ENDIF (_mach_ppc)
+
+#############################################################################
+### cmake includes                                                        ###
 
 INCLUDE(CheckIncludeFiles)
 INCLUDE(CheckCCompilerFlag)
 INCLUDE(CheckCXXCompilerFlag)
-INCLUDE(FindKwaveVersion)
 INCLUDE(CheckTypeSize)
 INCLUDE(TestBigEndian)
 

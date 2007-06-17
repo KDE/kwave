@@ -42,6 +42,7 @@ Gilles Caulier <caulier.gilles@free.fr>
 
 Dave Flogeras <d.flogeras@unb.ca>
 	* notch filter plugin
+	* band pass plugin
 
 Sven-Steffen Arndt <ssa29@gmx.de>
 	* Kwave homepage
@@ -59,6 +60,11 @@ Others, authors and copyright holders
 Stefan Westerfeld <stefan@space.twc.de>
 	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed.idl
 	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h
+	* plugins/band_pass/synth_band_pass.idl
+	* plugins/band_pass/synth_band_pass_impl.h
+
+Arnold Krille, <arnold@arnoldarts.de>
+	* plugins/band_pass/synth_band_pass.idl
 
 Mark Donohoe (KDE) <donohoe@kde.org>
 	* some icons and bitmaps for toolbar and GUI
@@ -68,6 +74,19 @@ Christopher R. Gabriel <cgabriel@linux.it>
 
 Noah Friedman <friedman@prep.ai.mit.edu>
 	* admin/mkinstalldirs
+
+David Faure, <faure@kde.org>
+	* cmake/FindAlsa.cmake
+
+Matthias Kretz, <kretz@kde.org>
+	* cmake/FindAlsa.cmake
+	* plugins/band_pass/synth_band_pass.idl
+
+Andreas Schneider, <mail@cynapses.org>
+	* cmake/FindARTS.cmake
+
+Richard Laerkaeng, <richard@goteborg.utfors.se>
+	* cmake/FindOggVorbis.cmake
 
 H. Dietz (mmx.h)
 R. Fisher (mmx.h)
@@ -88,13 +107,14 @@ Brian Theodore <theodore@std.saic.com>
 	* mt/AsyncSync.h
 
 Juhana Sadeharju <kouhia@nic.funet.fi>
-	* plugins/{lowpass,notch_filter}/c_filter_stuff.c
+	* plugins/{band_pass,lowpass,notch_filter}/c_filter_stuff.c
 
 Matthias Kretz + Arnold Krille
 	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed.idl
 
 Jeff Tranter
 	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h
+	* plugins/band_pass/synth_band_pass_impl.h
 
 Jaroslav Kysela
 	* parts of plugins/playback/PlayBack-ALSA.cpp

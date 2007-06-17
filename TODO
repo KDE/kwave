@@ -9,6 +9,8 @@ o use Qt-4 for streaming as soon as possible (with KDE-4)
 
 o convert build system to cmake
 
+o recording plugin: show current recording time in status bar
+
 o use LADSPA
 
 o automatic defragmentation of stripes

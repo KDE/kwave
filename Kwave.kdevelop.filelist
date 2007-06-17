@@ -511,7 +511,6 @@ kwave/pics/rspeaker.xpm
 kwave/pics/xspeaker.xpm
 doc/fix-common
 doc/help_de.po
-doc/help_en.docbook
 doc/help_es.po
 doc/help_fr.po
 doc/Makefile.am

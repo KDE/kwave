@@ -60,6 +60,7 @@ SET(libaudiofile_STAT_SRCS
     track.c
     units.c
     util.c
+    wave.c
     wavewrite.c
     modules/adpcm.c
     modules.c

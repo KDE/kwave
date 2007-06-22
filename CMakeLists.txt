@@ -56,7 +56,7 @@ SET(KWAVE_LINGUAS
 #############################################################################
 ### check for the proper cmake version                                    ###
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.4.0 FATAL_ERROR)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.4.4 FATAL_ERROR)
 
 #############################################################################
 ### path to additional cmake modules and includes                         ###

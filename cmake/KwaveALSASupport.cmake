@@ -20,7 +20,7 @@ OPTION(WITH_ALSA "enable playback/recording via ALSA [default=on]" ON)
 IF (WITH_ALSA)
 
     INCLUDE(FindAlsa)
-    CHECK_INCLUDE_FILES(alsa/asoundlib.h HAVE_ASOUNDLIB_H)
+    FIND_PATH(HAVE_ASOUNDLIB_H alsa/asoundlib.h)
 
     IF (HAVE_ASOUNDLIB_H)
         ALSA_VERSION_STRING(_alsa_version)

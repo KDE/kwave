@@ -47,11 +47,14 @@ Hint: If you have a multiprocessor system, you can speed up the build
           easily build a rpm package of Kwave. Please skip this and
 	  advance to section 2.
 
-It's quite simple. First get the source archive, unpack it under your
-favorite source-code directory (or under /tmp), change to this directory
-and then type:
+It's quite simple. First get the source archive, unpack it in a driectory
+of your choice and then generate it in a separate build directory.
+For example:
 
-make -f Makefile.dist
+tar -xvzf kwave-0.7.9-2.tar.gz
+mkdir kwave-build
+cd kwave-build
+cmake ../kwave-0.7.9
 make
 make install
 
@@ -74,17 +77,17 @@ Installing the rpm package normally requires root permissions.
 2.1 Building a binary rpm from archive file:
 -------------------------------------------
 
-Simply get the source archive (for example kwave-0.7.8.tar.gz) and
+Simply get the source archive (for example kwave-0.7.9-2.tar.gz) and
 then type:
 
-rpmbuild -ta kwave-0.7.8.tar.gz
+rpmbuild -ta kwave-0.7.9-2.tar.gz
 
 If you want to build for a different architecture than your current, you
 might want to add the parameter "--target ...", for example:
 
-rpmbuild -ta --target i586 kwave-0.7.8.tar.gz
+rpmbuild -ta --target i586 kwave-0.7.9-2.tar.gz
 
-compiles for pentium architecture.
+compiles for i586 architecture.
 
 
 2.2 Building a source and binary rpm from the source tree (SVN):
@@ -93,7 +96,7 @@ compiles for pentium architecture.
 Assuming that you already have unpacked the source archive in some
 directory you can simply type
 
-make -f Makefile.dist
+cmake .
 
 make src.rpm          (and you get only a source rpm)
 ***OR***
@@ -122,7 +125,7 @@ For example: you got the binary rpm from a friend who has a SuSE system
 on RedHat (where the KDE base dir is /usr). Then just give a different
 prefix when installing the rpm:
 
-rpm -Uvh --prefix=/usr kwave-0.7.8-1.i586.rpm
+rpm -Uvh --prefix=/usr kwave-0.7.9-2.i586.rpm
 
 This modifies the path where the program is installed and it is strongly
 recommended that this is a directory that is contained in the KDEDIRS
@@ -133,7 +136,7 @@ configuration, plugins, preset files and so on...
 =======================
 
 Yes, you can compile the RPM packages for pentium and pentium pro by using
-some defines in your rpmrc file. There are also some instructions on how to
+some defines in your rpmmacros file. There are also some instructions on how to
 build optimized for AMDs Athlon in the online documentation (The Kwave
 Handbook).
 
@@ -150,14 +153,15 @@ This means that on an i586 architecture the rpm package will be compiled
 using -march=pentium and so on, you might extend or adapt these to your
 own needs.
 
-The options specified here are set into the environment variable
-RPM_OPT_FLAGS during compilation, so if you don't have an rpm based
+The options specified here are set into the environment variables
+CFLAGS and CXXFLAGS during compilation, so if you don't have an rpm based
 environment and have to compile like in (1) you can set this variable
 manually and get the same effect. For example:
 
-export RPM_OPT_FLAGS="-O2 -march=pentium -fomit-frame-pointer"
+export CFLAGS="-O2 -march=pentium -fomit-frame-pointer"
+export CXXFLAGS="-O2 -march=pentium -fomit-frame-pointer"
 
-Then go to chapter 1 and do ./configure / make / make install...
+Then go to chapter 1 and do "cmake . " / "make" / "make install"...
 
 
 5. REQUIREMENTS FOR BUILDING THE ONLINE HELP:
@@ -191,9 +195,7 @@ C/C++ compiler, the qt and the kde libraries.
 I am currently developing under a Gentoo Linux distribution
 (i586 architecture) using at least the following packages:
 
-* autoconf >= 2.50                   (always good for making trouble :-( )
-* automake >= 1.8                    (or at least version 1.7 ! )
-* libtool >= 1.5                     (needed for configure)
+* cmake >= 2.4.0                     (the cmake build system)
 * gcc >= 3.0                         (the C / C++ compiler)
 
 * make >= 3.80
@@ -251,24 +253,15 @@ I have currently installed some distributions for testing purposes and
 for getting an impression how Kwave builds/behaves on them. Here what I
 made running and what I had to install additionally:
 
-* Ubuntu
-	automake1.8 libtool g++ kdesdk recode
-	libgsl0-dev libid3-dev libflac++-dev kdemultimedia-dev
-	update-alternatives --set automake /usr/bin/automake-1.8
+* OpenSuSE-10.2
+	mad-0.15.1b-1.pm.3.i586.rpm
+	mad-devel-0.15.1b-1.pm.3.i586.rpm
+	had to build and update cmake-2.4.6 from source rpm,
+	for example with
+	ftp://rm.mirror.garr.it/mirrors/opensuse/opensuse/distribution/SL-OSS-factory/inst-source/suse/src
 
-* OpenSuSE-10.0
-	libjack-devel
-
-* Debian / Sid (supported by Aurelien Jarno):
-	 make imagemagick gettext gcc g++ recode libtool automake1.8
-	 xlibs-dev kdelibs4-dev kdemultimedia-dev poxml
-	 khelpcenter libflac-dev libflac++-dev
-	 libgsl0 libgsl0-dev
-	 (had to do: 'apt-get install -t testing libid3-3.8.3-dev')
-
-* Slackware 9.0:
-	(too many packages to mention here, I have given it up...)
-
+(other distributions should work out-of-the-box,
+ see http://kwave.sourceforge.net/distributions.html)
 
 7. KNOWN PROBLEMS / SOME HINTS:
 ==============================

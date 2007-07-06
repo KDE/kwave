@@ -1,7 +1,5 @@
 # KDevelop Custom Project File List
-acinclude.m4
 CHANGES
-configure.in
 doxy.cfg.in
 Doxyfile
 gentoo.txt
@@ -12,12 +10,8 @@ Kwave.kdevses
 kwave.lsm
 kwave.spec.in
 kwave.supp
-Makefile.am
-Makefile.dist
 README
 slackware.txt
-stamp-h
-stamp-h.in
 TODO
 VERSION
 testfiles/41_30secMP3Enc31.mp3
@@ -119,8 +113,6 @@ po/es.messages
 po/es.po
 po/fr.po
 po/kwave.pot
-po/Makefile.am
-plugins/Makefile.am
 plugins/zero/ZeroPlugin.cpp
 plugins/zero/ZeroPlugin.h
 plugins/volume/VolumeDialog.cpp
@@ -219,7 +211,6 @@ plugins/decoder_mp3/MP3Decoder.cpp
 plugins/decoder_mp3/MP3Decoder.h
 plugins/decoder_mp3/MP3DecoderPlugin.cpp
 plugins/decoder_mp3/MP3DecoderPlugin.h
-plugins/common/Makefile.am
 plugins/codec_wav/RecoveryBuffer.cpp
 plugins/codec_wav/RecoveryBuffer.h
 plugins/codec_wav/RecoveryMapping.cpp
@@ -243,7 +234,6 @@ plugins/codec_wav/WavFormatMap.cpp
 plugins/codec_wav/WavFormatMap.h
 plugins/codec_wav/WavPropertyMap.cpp
 plugins/codec_wav/WavPropertyMap.h
-plugins/codec_ogg/Makefile.plugin
 plugins/codec_ogg/OggCodecPlugin.cpp
 plugins/codec_ogg/OggCodecPlugin.h
 plugins/codec_ogg/OggDecoder.cpp
@@ -351,7 +341,6 @@ libkwave/LabelList.cpp
 libkwave/LabelList.h
 libkwave/LineParser.cpp
 libkwave/LineParser.h
-libkwave/Makefile.am
 libkwave/Matrix.h
 libkwave/MultiTrackReader.cpp
 libkwave/MultiTrackReader.h
@@ -405,7 +394,6 @@ libgui/InvertableSpinBox.cpp
 libgui/InvertableSpinBox.h
 libgui/KwaveFileDialog.cpp
 libgui/KwaveFileDialog.h
-libgui/Makefile.am
 libgui/MenuGroup.cpp
 libgui/MenuGroup.h
 libgui/MenuItem.cpp
@@ -445,7 +433,6 @@ kwave/LabelManager.h
 kwave/main.cpp
 kwave/MainWidget.cpp
 kwave/MainWidget.h
-kwave/Makefile.am
 kwave/MemoryManager.cpp
 kwave/MemoryManager.h
 kwave/menus.config
@@ -513,7 +500,6 @@ doc/fix-common
 doc/help_de.po
 doc/help_es.po
 doc/help_fr.po
-doc/Makefile.am
 doc/fr/building_rpm_from_cvs.html
 doc/fr/building_rpm_from_targz.html
 doc/fr/changes.html
@@ -601,33 +587,12 @@ doc/en/common/x11-license.html
 doc/en/common/xml.dcl
 doc/de/screenshot1.png
 bin/beautify-source
-bin/changes-to-docbook.sh
 bin/distribute
 bin/get_lsm_entry.sh
 bin/insert-changes.sh
 bin/menusconfig2cpp.sh
 bin/replace-function
 bin/set_version.sh
-admin/acinclude.m4.in
-admin/am_edit
-admin/compile
-admin/conf.change.pl
-admin/config.pl
-admin/configure.in.bot.end
-admin/configure.in.min
-admin/cvs-clean.pl
-admin/cvs.sh
-admin/debianrules
-admin/depcomp
-admin/detect-autoconf.sh
-admin/Doxyfile.am
-admin/Doxyfile.global
-admin/install-sh
-admin/libtool.m4.in
-admin/Makefile.common
-admin/missing
-admin/mkinstalldirs
-admin/ylwrap
 plugins/record/RecordState.h
 plugins/record/RecordController.h
 plugins/record/RecordController.cpp

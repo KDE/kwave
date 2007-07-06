@@ -1,6 +1,6 @@
 
 here the results of a licensing investigation
-(2007-05-11)
+(2007-06-17)
 
 LIST OF LICENSES FOUND IN THE SOURCES
 =====================================
@@ -10,22 +10,9 @@ LIST OF LICENSES FOUND IN THE SOURCES
 	  => this is Kwave's default license !
 	  => the intention of the authors is to keep Kwave under the GPL
 
-	* GPL2 with exception: same license as the application
-	  if autoconf / automake is used
-	  - admin/compile
-	  - admin/depcomp
-	  - admin/libtool.m4.in
-	  - admin/missing
-	  - admin/ylwrap
-
 	* LGPL2 - GNU Library General Public License, version 2 or newer
 	  - most stuff in libaudiofile
-	  - acinclude.m4
-	  - admin/acinclude.m4.in
-	  - admin/conf.change.pl
-	  - admin/config.pl
-	  - admin/configure.in.min
-	  - plugins/band_pass/synth_band_pass.idl
+	  - plugins/band_pass/synth_band_pass.idl (and other idl files)
 
 	* Kitware (cmake)
 	  - cmake/Copyright.txt
@@ -35,17 +22,7 @@ LIST OF LICENSES FOUND IN THE SOURCES
 	  - documentation in doc
 	  - screenshots
 
-	* BSD
-	  - admin/cvs-clean.pl
-
-	* free, MIT
-	  - admin/install-sh
-
-	* public domain, by statement in file header
-	  - admin/mkinstalldirs (Noah Friedman <friedman@prep.ai.mit.edu>)
-
 	* free, by statement in file header
-	  - admin/am_edit
 	  - libaudiofile/COPYING
 	  - libaudiofile/g711.c			(Sun Microsystems, Inc.)
 	  - libaudiofile/g711.h			(Sun Microsystems, Inc.)
@@ -106,8 +83,6 @@ issue #1: license of the icons
 issue #2: license of some files is unknown or problematic / author known
 ------------------------------------------------------------------------
 
-#	admin/gsl.m4					??? UNKNOWN ??? -> author: Christopher R. Gabriel <cgabriel@linux.it>
-#	admin/Makefile.common				??? UNKNOWN ??? / KDE developers ?
 #	kwave/pics/kwave-splash.png			??? UNKNOWN ??? / Gilles Caulier
 #	libaudiofile/extended.c				??? UNKNOWN ??? / Apple Computer, Inc.
 #	mt/Asynchronous_Object.h			??? UNKNOWN ??? / Oliver M. Kellogg <Oliver.Kellogg@vs.dasa.de>
@@ -118,40 +93,22 @@ issue #2: license of some files is unknown or problematic / author known
 issue #3: some files have neither license nor author
 ----------------------------------------------------
 
-#	stamp-h.in					??? UNKNOWN ???
-#	admin/bcheck.pl					??? UNKNOWN ???
-#	admin/configure.in.bot.end			??? UNKNOWN ???
-#	admin/cvs.sh					??? UNKNOWN ???
-#	admin/debianrules				??? UNKNOWN ???
-#	admin/deps.am					??? UNKNOWN ???
-#	admin/detect-autoconf.sh			??? UNKNOWN ???
-#	admin/Doxyfile.am				??? UNKNOWN ???
-#	admin/Doxyfile.global				??? UNKNOWN ???
-#	admin/libFLAC.m4				??? UNKNOWN ???
-#	admin/libFLAC++.m4				??? UNKNOWN ???
-#	admin/nmcheck					??? UNKNOWN ???
-
 #	libaudiofile/ACKNOWLEDGEMENTS			??? UNKNOWN ???
 #	libaudiofile/AUTHORS				??? UNKNOWN ???
-#	libaudiofile/Makefile.am			??? UNKNOWN ???
 #	libaudiofile/NEWS				??? UNKNOWN ???
 #	libaudiofile/NOTES				??? UNKNOWN ???
 #	libaudiofile/README				??? UNKNOWN ???
 #	libaudiofile/TODO				??? UNKNOWN ???
 #	libaudiofile/modules/adpcm.h			??? UNKNOWN ???
-#	libaudiofile/modules/Makefile.am		??? UNKNOWN ???
 #	libaudiofile/modules/rebuffer.c			??? UNKNOWN ???
 #	libaudiofile/modules/rebuffer.h 		??? UNKNOWN ???
 #	libaudiofile/modules/rebuffer.template		??? UNKNOWN ???
 
-
 COMPLETE LIST OF FILES AND THEIR LICENSE
 ========================================
 
-	acinclude.m4					LGPL2
 	AUTHORS						GPL2
 	CHANGES						(should be GPL2)
-	configure.in					GPL2
 	config.h.cmake					GPL2
 	doxy.cfg.in					(should be GPL2)
 	GNU-LICENSE					free
@@ -160,43 +117,12 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	Kwave.kdevelop.filelist				(should be GPL2)
 	kwave.lsm					(should be GPL2)
 	kwave.spec.in					(should be GPL2)
-	Makefile.am					GPL2
-	Makefile.dist					GPL2
 	README						(should be GPL2)
-#	stamp-h.in					??? UNKNOWN ???
 	TODO						(should be GPL2)
 	VERSION						(should be GPL2)
 	CMakeLists.txt					GPL2
 
-	admin/acinclude.m4.in				LGPL2
-	admin/am_edit					free
-#	admin/bcheck.pl					??? UNKNOWN ???
-	admin/compile					GPL2 with exception: same license as Kwave
-	admin/conf.change.pl				LGPL2
-	admin/config.pl					LGPL2
-#	admin/configure.in.bot.end			??? UNKNOWN ???
-	admin/configure.in.min				LGPL2
-	admin/cvs-clean.pl				BSD
-#	admin/cvs.sh					??? UNKNOWN ???
-#	admin/debianrules				??? UNKNOWN ???
-	admin/depcomp					GPL2 with exception: same license as Kwave
-#	admin/deps.am					??? UNKNOWN ???
-#	admin/detect-autoconf.sh			??? UNKNOWN ???
-#	admin/Doxyfile.am				??? UNKNOWN ???
-#	admin/Doxyfile.global				??? UNKNOWN ???
-#	admin/gsl.m4					??? UNKNOWN ??? -> author: Christopher R. Gabriel <cgabriel@linux.it>
-	admin/install-sh				free / MIT
-#	admin/libFLAC.m4				??? UNKNOWN ???
-#	admin/libFLAC++.m4				??? UNKNOWN ???
-	admin/libtool.m4.in				GPL2 with exception: same license as Kwave
-#	admin/Makefile.common				??? UNKNOWN ??? / KDE developers ?
-	admin/missing					GPL2 with exception: same license as Kwave
-	admin/mkinstalldirs				public domain / Noah Friedman <friedman@prep.ai.mit.edu>
-#	admin/nmcheck					??? UNKNOWN ???
-	admin/ylwrap					GPL2 with exception: same license as Kwave
-
 	bin/beautify-source				GPL2
-	bin/changes-to-docbook.sh			GPL2
 	bin/changes-to-docbook.awk			GPL2
 	bin/date_release.awk				GPL2
 	bin/get_lsm_entry.sh				GPL2
@@ -223,7 +149,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	cmake/uninstall.cmake.in			GPL2
 
 	doc/CMakeLists.txt				GPL2
-	doc/Makefile.am					GPL2
 	doc/fix-common					GPL2
 	doc/help_de.po					(should be FDL)
 	doc/help_en.docbook				(should be FDL)
@@ -308,7 +233,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/main.cpp					GPL2 / Martin Wilz
 	kwave/MainWidget.cpp				GPL2 / Martin Wilz
 	kwave/MainWidget.h				GPL2 / Martin Wilz
-	kwave/Makefile.am				GPL2
 	kwave/MemoryManager.cpp				GPL2
 	kwave/MemoryManager.h				GPL2
 	kwave/menus.config				GPL2
@@ -420,7 +344,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libaudiofile/ircam.h				LGPL2
 	libaudiofile/ircamwrite.c			LGPL2
 	libaudiofile/loop.c				LGPL2
-#	libaudiofile/Makefile.am			??? UNKNOWN ???
 	libaudiofile/marker.c				LGPL2
 	libaudiofile/marker.h				LGPL2
 	libaudiofile/misc.c				LGPL2
@@ -458,7 +381,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libaudiofile/modules/g711.h			LGPL2
 	libaudiofile/modules/ima.c			LGPL2
 	libaudiofile/modules/ima.h			LGPL2
-#	libaudiofile/modules/Makefile.am		??? UNKNOWN ???
 	libaudiofile/modules/msadpcm.c			LGPL2
 	libaudiofile/modules/msadpcm.h			LGPL2
 	libaudiofile/modules/pcm.c			LGPL2
@@ -488,7 +410,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/LabelPropertiesWidget.cpp		GPL2
 	libgui/LabelPropertiesWidget.h			GPL2
 	libgui/LabelPropertiesWidgetBase.ui		GPL2
-	libgui/Makefile.am				GPL2
 	libgui/MenuGroup.cpp				GPL2
 	libgui/MenuGroup.h				GPL2
 	libgui/MenuItem.cpp				GPL2
@@ -580,7 +501,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/LabelList.h				GPL2
 	libkwave/LineParser.cpp				GPL2
 	libkwave/LineParser.h				GPL2
-	libkwave/Makefile.am				GPL2
 	libkwave/Matrix.h				GPL2
 	libkwave/memcpy.c				GPL2 / xine
 	libkwave/memcpy.h				GPL2
@@ -630,7 +550,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 #	mt/AsyncSync.cpp				??? / Brian Theodore <theodore@std.saic.com>
 #	mt/AsyncSync.h					??? / Brian Theodore <theodore@std.saic.com>
 	mt/CMakeLists.txt				GPL2
-	mt/Makefile.am					GPL2
 	mt/MutexGuard.cpp				GPL2
 	mt/SharedLock.cpp				GPL2
 	mt/SharedLockGuard.cpp				GPL2
@@ -643,7 +562,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	mt/ThreadsafeX11Guard.h				GPL2
 
 	plugins/CMakeLists.txt				GPL2
-	plugins/Makefile.am				GPL2
 
 	plugins/about/AboutKwaveDialog.cpp		GPL2 / Ralf Waspe & Gilles Caulier
 	plugins/about/AboutKwaveDialog.h		GPL2 / Ralf Waspe
@@ -698,12 +616,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/codec_flac/FlacDecoder.h		GPL2
 	plugins/codec_flac/FlacEncoder.cpp		GPL2
 	plugins/codec_flac/FlacEncoder.h		GPL2
-	plugins/codec_flac/Makefile.plugin		GPL2
 	plugins/codec_flac/VorbisCommentMap.cpp		GPL2
 	plugins/codec_flac/VorbisCommentMap.h		GPL2
 
 	plugins/codec_ogg/CMakeLists.txt		GPL2
-	plugins/codec_ogg/Makefile.plugin		GPL2
 	plugins/codec_ogg/OggCodecPlugin.cpp		GPL2
 	plugins/codec_ogg/OggCodecPlugin.h		GPL2
 	plugins/codec_ogg/OggDecoder.cpp		GPL2
@@ -737,12 +653,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/codec_wav/WavPropertyMap.h		GPL2
 
 	plugins/common/CMakeList.txt.template		GPL2
-	plugins/common/Makefile.am			GPL2
 
 	plugins/decoder_mp3/CMakeLists.txt		GPL2
 	plugins/decoder_mp3/ID3_QIODeviceReader.cpp	GPL2
 	plugins/decoder_mp3/ID3_QIODeviceReader.h	GPL2
-	plugins/decoder_mp3/Makefile.plugin		GPL2
 	plugins/decoder_mp3/MP3Decoder.cpp		GPL2
 	plugins/decoder_mp3/MP3Decoder.h		GPL2
 	plugins/decoder_mp3/MP3DecoderPlugin.cpp	GPL2
@@ -822,7 +736,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h	GPL2 / Stefan Westerfeld + Jeff Tranter
 
 	plugins/playback/CMakeLists.txt			GPL2
-	plugins/playback/Makefile.plugin		GPL2
 	plugins/playback/PlayBack-ALSA.cpp		GPL2 / (parts from) Jaroslav Kysela
 	plugins/playback/PlayBack-ALSA.h		GPL2
 	plugins/playback/PlayBack-aRts.cpp		GPL2
@@ -842,7 +755,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/record/krec_record.xpm			(should be GPL2)
 	plugins/record/LevelMeter.cpp			GPL2 / Rik Hemsley
 	plugins/record/LevelMeter.h			GPL2 / Rik Hemsley
-	plugins/record/Makefile.plugin			GPL2
 	plugins/record/Record-ALSA.cpp			GPL2
 	plugins/record/Record-ALSA.h			GPL2
 	plugins/record/RecordController.cpp		GPL2
@@ -931,6 +843,5 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	po/de.po					(should be GPL2)
 	po/fr.po					(should be GPL2)
 	po/kwave.pot					(should be GPL2)
-	po/Makefile.am					GPL2
 
 ### EOF ###

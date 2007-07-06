@@ -84,7 +84,7 @@ IF (_mach_x86)
     SET(ARCH_X86 1)
 ENDIF (_mach_x86)
 
-STRING(REGEX MATCH "(x86_64-*)|(X86_64-*)" _mach_x86_64 ${MACHINE})
+STRING(REGEX MATCH "(x86_64-*)|(X86_64-*)|(AMD64-*)|(amd64-*)" _mach_x86_64 ${MACHINE})
 IF (_mach_x86_64)
     MESSAGE(STATUS "Found target optimized memcpy() for X86_64 (from xine)")
     SET(ARCH_X86_64 1)

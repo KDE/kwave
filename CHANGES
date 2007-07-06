@@ -4,7 +4,7 @@
  * build system: using 'METASOURCES=AUTO' (which simplifies a lot)
  * ported the build system to cmake
  * support for newer APIs of FLAC v1.1.3 and v1.1.4
-   (closes SF bug #1713655 + debian bugs #427747 and #426668)
+   (closes SF bug #1713655 + debian bugs #427747, #426668 and #431199)
 
 0.7.9 [2007-05-01]
 

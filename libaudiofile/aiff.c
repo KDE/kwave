@@ -17,6 +17,10 @@
 	License along with this library; if not, write to the
 	Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 	Boston, MA  02111-1307  USA.
+
+	2007-07-06, Bertrand Songis <bsongis@gmail.com>
+	            use functions from intfloat_readwrite.c instead of
+	            extended.c to work around license issues
 */
 
 /*
@@ -35,7 +39,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "extended.h"
+#include "intfloat_readwrite.h"
 #include "audiofile.h"
 #include "util.h"
 #include "afinternal.h"
@@ -343,7 +347,7 @@ static status ParseCOMM (AFfilehandle file, AFvirtualfile *fh, u_int32_t type,
 	u_int16_t	numChannels;
 	u_int32_t	numSampleFrames;
 	u_int16_t	sampleSize;
-	unsigned char	sampleRate[10];
+	AVExtFloat	sampleRate;
 
 	assert(!memcmp(&type, "COMM", 4));
 
@@ -358,8 +362,8 @@ static status ParseCOMM (AFfilehandle file, AFvirtualfile *fh, u_int32_t type,
 	af_fread(&sampleSize, sizeof (u_int16_t), 1, fh);
 	track->f.sampleWidth = BENDIAN_TO_HOST_INT16(sampleSize);
 
-	af_fread(sampleRate, 10, 1, fh);
-	track->f.sampleRate = _AFConvertFromIeeeExtended(sampleRate);
+	af_fread(&sampleRate, sizeof (AVExtFloat), 1, fh);
+	track->f.sampleRate = av_ext2dbl(sampleRate);
 
 	track->f.compressionType = AF_COMPRESSION_NONE;
 	track->f.sampleFormat = AF_SAMPFMT_TWOSCOMP;

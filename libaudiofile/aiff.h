@@ -16,6 +16,10 @@
 	License along with this library; if not, write to the
 	Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 	Boston, MA  02111-1307  USA.
+
+	2007-07-06, Bertrand Songis <bsongis@gmail.com>
+	            use functions from intfloat_readwrite.c instead of
+	            extended.c to work around license issues
 */
 
 /*
@@ -28,6 +32,8 @@
 #ifndef AIFF_H
 #define AIFF_H
 
+#include "intfloat_readwrite.h"
+
 #define _AF_AIFF_NUM_INSTPARAMS 9
 #define _AF_AIFF_NUM_COMPTYPES 2
 
@@ -38,15 +44,15 @@ enum
 
 struct _COMM
 {
-	short			numChannels;
-	long			numSampleFrames;
-	short			sampleSize;
-	unsigned char	sampleRate[10];
+	short		numChannels;
+	long		numSampleFrames;
+	short		sampleSize;
+	AVExtFloat	sampleRate;
 };
 
 struct _MARK
 {
-	short			numMarkers;
+	short		numMarkers;
 	struct _Marker	*markers;
 };
 

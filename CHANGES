@@ -5,6 +5,8 @@
  * ported the build system to cmake
  * support for newer APIs of FLAC v1.1.3 and v1.1.4
    (closes SF bug #1713655 + debian bugs #427747, #426668 and #431199)
+ * replaced problematic code in libaudiofile with new code under the
+   LGPL, contributed by Bertrand Songis (partially fixes debian bug #419124)
 
 0.7.9 [2007-05-01]
 

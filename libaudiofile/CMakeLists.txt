@@ -39,11 +39,11 @@ SET(libaudiofile_STAT_SRCS
     compression.c
     data.c
     error.c
-    extended.c
     format.c
     g711.c
     g711.h
     instrument.c
+    intfloat_readwrite.c
     ircam.c
     ircam.h
     ircamwrite.c

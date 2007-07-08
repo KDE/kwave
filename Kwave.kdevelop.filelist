@@ -710,8 +710,6 @@ libaudiofile/compression.h
 libaudiofile/data.c
 libaudiofile/error.c
 libaudiofile/error.h
-libaudiofile/extended.c
-libaudiofile/extended.h
 libaudiofile/format.c
 libaudiofile/g711.c
 libaudiofile/g711.h

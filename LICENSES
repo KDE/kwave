@@ -84,7 +84,6 @@ issue #2: license of some files is unknown or problematic / author known
 ------------------------------------------------------------------------
 
 #	kwave/pics/kwave-splash.png			??? UNKNOWN ??? / Gilles Caulier
-#	libaudiofile/extended.c				??? UNKNOWN ??? / Apple Computer, Inc.
 #	mt/Asynchronous_Object.h			??? UNKNOWN ??? / Oliver M. Kellogg <Oliver.Kellogg@vs.dasa.de>
 #	mt/AsyncSync.cpp				??? / Brian Theodore <theodore@std.saic.com>
 #	mt/AsyncSync.h					??? / Brian Theodore <theodore@std.saic.com>
@@ -333,13 +332,13 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libaudiofile/data.c				LGPL2
 	libaudiofile/error.c				LGPL2
 	libaudiofile/error.h				LGPL2
-#	libaudiofile/extended.c				??? UNKNOWN ??? / Apple Computer, Inc.
-	libaudiofile/extended.h				LGPL2
 	libaudiofile/format.c				LGPL2
 	libaudiofile/g711.c				free, Sun Microsystems, Inc.
 	libaudiofile/g711.h				free, Sun Microsystems, Inc.
 	libaudiofile/instrument.c			LGPL2
 	libaudiofile/instrument.h			LGPL2
+	intfloat_readwrite.c				LGPL2
+	intfloat_readwrite.h				LGPL2
 	libaudiofile/ircam.c				LGPL2
 	libaudiofile/ircam.h				LGPL2
 	libaudiofile/ircamwrite.c			LGPL2

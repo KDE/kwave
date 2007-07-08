@@ -17,6 +17,10 @@
 	License along with this library; if not, write to the
 	Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 	Boston, MA  02111-1307  USA.
+
+	2007-07-06, Bertrand Songis <bsongis@gmail.com>
+	            use functions from intfloat_readwrite.c instead of
+	            extended.c to work around license issues
 */
 
 /*
@@ -31,7 +35,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "extended.h"
+#include "intfloat_readwrite.h"
 #include "afinternal.h"
 #include "audiofile.h"
 #include "aiff.h"
@@ -142,7 +146,7 @@ static status WriteCOMM (const AFfilehandle file)
 
 	u_int16_t	sb;
 	u_int32_t	lb;
-	unsigned char	eb[10];
+	AVExtFloat	eb;
 
 	u_int8_t	compressionTag[4];
 	/* Pascal strings can occupy only 255 bytes (+ a size byte). */
@@ -237,8 +241,8 @@ static status WriteCOMM (const AFfilehandle file)
 	af_fwrite(&sb, 2, 1, file->fh);
 
 	/* sample rate, 10 bytes */
-	_AFConvertToIeeeExtended(track->f.sampleRate, eb);
-	af_fwrite(eb, 10, 1, file->fh);
+	eb = av_dbl2ext(track->f.sampleRate);
+	af_fwrite(&eb, sizeof(AVExtFloat), 1, file->fh);
 
 	if (file->fileFormat == AF_FILE_AIFFC)
 	{

@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2007-06-02</date>
+<date>2007-07-06</date>
 <releaseinfo>0.7.9</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -79,9 +79,9 @@
 <!-- @TODO@    	<listitem><para>
 	    a small editor for additive synthesis
 	</para></listitem> -->
-<!-- @TODO@    	<listitem><para>
+	<listitem><para>
 	    labeling of signals
-	</para></listitem> -->
+	</para></listitem>
     	<listitem><para>
 	    Recording functionality, including pre-recording
 	</para></listitem>
@@ -205,6 +205,17 @@
             <itemizedlist>
                 <listitem><para>
                     build system: using 'METASOURCES=AUTO' (which simplifies a lot)
+                </para></listitem>
+                <listitem><para>
+                    ported the build system to cmake
+                </para></listitem>
+                <listitem><para>
+                    support for newer APIs of FLAC v1.1.3 and v1.1.4
+                      (closes SF bug #1713655 + debian bugs #427747, #426668 and #431199)
+                </para></listitem>
+                <listitem><para>
+                    replaced problematic code in libaudiofile with new code under the
+                      LGPL, contributed by Bertrand Songis (affects debian bug #419124)
                 </para></listitem>
             </itemizedlist>
         </listitem>
@@ -683,7 +694,7 @@
                     new plugin "noise"
                 </para></listitem>
                 <listitem><para>
-                     new aRts plugin adapter framework 
+                     new aRts plugin adapter framework
                       now Kwave is able to use existing aRts plugins in it's own plugins
                       for sound processing
                 </para></listitem>
@@ -720,7 +731,7 @@
             <para>0.6.1 [2001-08-24]</para>
             <itemizedlist>
                 <listitem><para>
-                     USE OF VIRTUAL MEMORY 
+                     USE OF VIRTUAL MEMORY
                 </para></listitem>
                 <listitem><para>
                     changed Makefiles: html docu stays in distribution due to too much
@@ -749,7 +760,7 @@
             <para>0.6.0 [2001-07-29]</para>
             <itemizedlist>
                 <listitem><para>
-                     PORTED TO QT-2 AND KDE2 
+                     PORTED TO QT-2 AND KDE2
                 </para></listitem>
                 <listitem><para>
                     completely new internal architecture
@@ -968,7 +979,7 @@
                     found out that we need ALSA support for 24 and 32 bits/sample
                 </para></listitem>
                 <listitem><para>
-                     playback in stereo 
+                     playback in stereo
                 </para></listitem>
                 <listitem><para>
                     selected channels (x) are mixed to the output device's channels (y)
@@ -1116,7 +1127,7 @@
                     bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)
                 </para></listitem>
                 <listitem><para>
-                     COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE 
+                     COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE
                     <itemizedlist>
                     <listitem><para>
                          made use of a combination of signals/slots and string messages
@@ -1182,8 +1193,8 @@
             <para>0.5.1-4</para>
             <itemizedlist>
                 <listitem><para>
-                     now compiles and runns under RedHat 6.1 / Halloween IV 
-                       as well as under SuSE 6.2                              
+                     now compiles and runns under RedHat 6.1 / Halloween IV
+                       as well as under SuSE 6.2
                 </para></listitem>
                 <listitem><para>
                     version info of libkwavegui.so is set to the package's version
@@ -1204,7 +1215,7 @@
                     configure-parameter --enable-debug has effect again
                 </para></listitem>
                 <listitem><para>
-                     ASCII import and export works now (mono only) 
+                     ASCII import and export works now (mono only)
                 </para></listitem>
                 <listitem><para>
                     bugfixes in some plugins, all compile now without warnings/errors
@@ -1809,8 +1820,11 @@
     	If you intend to compile &kapp; from the sources, you will need at least:
 	<itemizedlist>
 	    <listitem><para>
+		<ulink url="http://www.cmake.org">cmake</ulink>-2.4.6 or newer
+	    </para></listitem>
+	    <listitem><para>
 		A C/C++ compiler. GCC-2.95.3 works fine, some older and any
-		newer version (like gcc-3.2 and newer) work too.
+		newer version (like gcc-4.1 and newer) work too.
 	    </para></listitem>
 	    <listitem><para>
 		The glibc2 (libc-6) development environment. On SuSE systems
@@ -1835,8 +1849,8 @@
 		flac-devel-1.1.0 higher
 	    </para></listitem>
 	    <listitem><para>
-		If you intend to use SVN, you will also need a current
-		subversion package.
+		If you intend to get the &kapp; sources via SVN, you will also
+		need a current subversion package.
 	    </para></listitem>
 	    <listitem><para>
 		...many other packages, please take a look at the
@@ -1855,32 +1869,105 @@
     <sect1 id="manual_compilation"><title>Manual Compilation and installation</title>
 
     <para>
-    	In order to compile and install &kapp; on your system, type the
-	following in the base directory of the source distribution:
-<screen width="40" format="linespecific">
-<prompt>% </prompt><command>cd kwave</command>
-<prompt>% </prompt><command>make -f Makefile.dist</command>
-<prompt>% </prompt><command>./configure</command>
-<prompt>% </prompt><command>make</command>
-<prompt>% </prompt><command>su root -c "make install"</command>
-</screen>
+	Since version 0.7.10 &kapp; uses
+	<ulink url="http://www.cmake.org">cmake</ulink>, the make system
+	that is also used by KDE itself. So if you can build other KDE
+	applications, you should also be able to build &kapp;.
+	If you run into problems please report them to
+	the &kapp; <link linkend="mailing-list">mailing list</link>.
     </para>
 
     <para>
-    	Since &kapp; uses autoconf and automake you should have no
-	trouble compiling it. Should you run into problems please report
-	them to the &kapp; <link linkend="mailing-list">mailing list</link>.
+	In order to compile and install &kapp; on your system, it is best
+	practice to do a <emphasis>out-of-tree</emphasis> build. This means
+	that you hold the sources of &kapp; in one directory and build the
+	package in another (temporary) directory.
     </para>
-    <note><para>
-	If you have a system with a special version of Qt, you might get
-	problems when compiling. Then you should set the following
-	environment variable to specify the correct paths of your
-	Qt installation and try again. For example:
-<screen width="30" format="linespecific">
-<prompt>% </prompt><command>export QTDIR=/usr/lib/qt3</command>
-</screen>
-    </para></note>
 
+    <para>
+	For example, assuming that your sources are already
+	unpacked in <filename><replaceable>$HOME/src/kwave-0.7.10</replaceable></filename>, you
+	can do the following:
+<screen width="40" format="linespecific">
+<prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
+<prompt>% </prompt><command>cd /tmp/kwave-build</command>
+<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave-0.7.10</replaceable> <replaceable>[build options]</replaceable></command>
+<prompt>% </prompt><command>make</command>
+<prompt>% </prompt><command>su root -c "make install"</command>
+</screen>
+	(Specifying build options is a way to enable or disable specific features.
+	See the following section for descriptions)
+    </para>
+
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Build options                                         +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="build_options"><title>Build options</title>
+
+	<para>
+	    By specifying build options, you can enable or disable some features
+	    of &kapp;, like excluding some components or plugins from the
+	    generated package. Here is a list of the available options:
+
+	    <itemizedlist>
+		<listitem><para>
+		    <literal>WITH_ALSA</literal>
+		    enable playback/recording via ALSA
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_BUILTIN_LIBAUDIOFILE</literal>
+		    force usage builtin libaudiofile, even if the one
+		    installed in the system is useable
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>off</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_DOC</literal>
+		    build online documentation
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_FLAC</literal>
+		    enable support for FLAC files
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_MP3</literal>
+		    enable support for mp3 files
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_OGG</literal>
+		    enable support for ogg files
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_OSS</literal>
+		    enable playback/recording via OSS
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+	    </itemizedlist>
+	</para>
+
+	<para>
+	    These options can be passed to <literal><command>cmake</command></literal>
+	    with <command><literal>-D</literal><replaceable>option</replaceable><literal>=</literal><replaceable>value</replaceable></command>.
+	    For example, if you want to leave out generation of the online documentation,
+	    you can pass the corresponding option as follows:
+<screen width="40" format="linespecific">
+<prompt>% </prompt><command>cmake <replaceable>[source directory]</replaceable> -DWITH_DOC=off <replaceable>[other options...]</replaceable></command>
+</screen>
+	</para>
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -2015,7 +2102,7 @@
 
     <para>
 	For initially checking out the sources you will need some disk space
-	(about 32 megabytes) in a directory of your choice, the svn package
+	(about 25 megabytes) in a directory of your choice, the svn package
 	of your favorite distribution and full access to the internet. If you
 	get error messages about rejected connections you either have typed
 	something wrong or your provider doesn't give you full access.
@@ -2035,19 +2122,19 @@
 	<para>
 	    Then check out the latest sources from the SVN server:
 <screen width="75" format="linespecific">
-<prompt>% </prompt><command>svn checkout https://svn.sourceforge.net/svnroot/kwave/trunk kwave</command>
+<prompt>% </prompt><command>svn checkout https://kwave.svn.sourceforge.net/svnroot/kwave/trunk kwave</command>
 </screen>
 	</para>
 	<para>
 	or you can check out a specific release with the following command:
 <screen width="75" format="linespecific">
-<prompt>% </prompt><command>svn checkout https://svn.sourceforge.net/svnroot/kwave/tags/<replaceable>[release-tag]</replaceable> kwave</command>
+<prompt>% </prompt><command>svn checkout https://kwave.svn.sourceforge.net/svnroot/kwave/tags/<replaceable>[release-tag]</replaceable> kwave</command>
 </screen>
 	You can look up the names of the release tags in the web svn page at
 	<ulink url="http://svn.sourceforge.net/viewvc/kwave/tags/">"http://svn.sourceforge.net/viewvc/kwave/tags/"</ulink>.
 	The release tags are always built out of the word <literal>Release-</literal> and
 	the version number of the release, with underscores instead of dots.
-	For example "<literal>Release-0_7_7</literal>" for v0.7.7.
+	For example "<literal>Release-0_7_9</literal>" for v0.7.9.
 	</para>
     </listitem>
     </orderedlist>
@@ -2066,9 +2153,8 @@
     <para>
 	The procedure described in the previous section is only necessary
 	once. For further updates it is much easier. Just change into the
-	directory you want to update and do the following:
+	directory where you have the checked out sources and do the following:
 <screen width="75" format="linespecific">
-<prompt>% </prompt><command>make distclean</command>
 <prompt>% </prompt><command>svn update</command>
 </screen>
 	Then go on to the next section and compile as usual.
@@ -2110,9 +2196,9 @@
 	please remove it first or use <command>rpm -U</command> instead
 	of <command>rpm -i</command> for updating instead of installing.
 <screen width="40" format="linespecific">
-<prompt>% </prompt><command>cd kwave</command>
-<prompt>% </prompt><command>make -f Makefile.dist</command>
-<prompt>% </prompt><command>./configure</command>
+<prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
+<prompt>% </prompt><command>cd /tmp/kwave-build</command>
+<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave</replaceable></command>
 <prompt>% </prompt><command>make rpm</command>
 <prompt>% </prompt><command>rpm -ivh /usr/src/redhat/BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
 </screen>
@@ -2153,7 +2239,7 @@
 	<filename>/opt/kde3</filename>). Then just
         give a different prefix when installing the rpm. Example:
 <screen width="40" format="linespecific">
-<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde3 <replaceable>kwave-0.7.6.i386.rpm</replaceable></command>
+<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde3 <replaceable>kwave-0.7.10.i586.rpm</replaceable></command>
 </screen>
     </para>
 
@@ -2205,11 +2291,11 @@
 	There you can specify option lines like these:
 
 <screen width="40" format="linespecific">
-<prompt moreinfo="none">% </prompt><userinput moreinfo="none">optflags: i586 -O2 -march=pentium -DNDEBUG -fomit-frame-pointer</userinput>
-<prompt moreinfo="none">% </prompt><userinput moreinfo="none">optflags: i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer</userinput>
-<prompt moreinfo="none">% </prompt><userinput moreinfo="none">optflags: athlon -O2 -march=athlon</userinput>
-<prompt moreinfo="none">% </prompt><userinput moreinfo="none">optflags: k6 -O3 -march=k6 -mcpu=k6 -DNDEBUG -fomit-frame-pointer</userinput>
-<prompt moreinfo="none">% </prompt><userinput moreinfo="none">optflags: k7 -O3 -march=athlon-xp -mcpu=athlon-xp -DNDEBUG -fomit-frame-pointer</userinput>
+<userinput moreinfo="none">optflags: i586 -O2 -march=pentium -DNDEBUG -fomit-frame-pointer</userinput>
+<userinput moreinfo="none">optflags: i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer</userinput>
+<userinput moreinfo="none">optflags: athlon -O2 -march=athlon -DNDEBUG -fomit-frame-pointer</userinput>
+<userinput moreinfo="none">optflags: k6 -O3 -march=k6 -DNDEBUG -fomit-frame-pointer</userinput>
+<userinput moreinfo="none">optflags: k7 -O3 -march=athlon-xp -DNDEBUG -fomit-frame-pointer</userinput>
 </screen>
 
 	(I found those nice tricks at
@@ -2224,7 +2310,7 @@
     <para>
 	This means that on an <literal>k7</literal> architecture the
 	rpm package will be compiled using
-	<literal>-O3 -march=athlon-xp -mcpu=athlon-xp -DNDEBUG
+	<literal>-O3 -march=athlon-xp -DNDEBUG
 	-fomit-frame-pointer</literal>
 	as compiler option and so
 	on, you might extend or adapt these to your own needs.
@@ -2232,19 +2318,6 @@
 	places where <command>rpmbuild -ta</command> is used or where a binary
 	RPM is to be created out of a source rpm using
 	<command>rpmbuild --rebuild</command>.
-    </para>
-
-    <para>
-	The options specified here are set into the environment variable
-	RPM_OPT_FLAGS during compilation, so if you don't have an rpm based
-	environment and have to compile like described in the chapter
-	<link linkend="manual_compilation">Manual compilation</link>, you
-	can set this variable manually and get the same effect.
-	For example:
-
-<screen width="40" format="linespecific">
-<prompt>% </prompt><command>export RPM_OPT_FLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe -fomit-frame-pointer"</command>
-</screen>
     </para>
 
     <note><para>
@@ -2258,22 +2331,27 @@
     </sect2>
 
     <sect2 id="optimize_invocation">
-    <title>How to pass optimizer options to the compiler</title>
+    <title>How to pass optimizer options to the compiler manually</title>
     <para>
 	The invocation of the compiler is quite simple. It normally
-	is sufficient to set the environment variable
-	<symbol>RPM_OPT_FLAGS</symbol>
+	is sufficient to set the environment variables
+	<literal><symbol>CFLAGS</symbol></literal> and <literal><symbol>CXXFLAGS</symbol></literal>
 	in the correct way and then compile as usual. For the best settings
 	please consult the documentation or homepage of the corresponding
 	compiler.
     </para>
     <para>
 	If you build &kapp; from a source tree (unpacked tar.gz or from SVN)
-	the flags need to be specidied before the call
-	to <command>make -f Makefile.dist</command>. This might look like this:
-<screen>
-<prompt>% </prompt><command><symbol>RPM_OPT_FLAGS</symbol>="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe" make -f Makefile.dist</command></screen>
+	the flags need to be specidied before the call. For example:
+
+	<screen width="40" format="linespecific">
+<prompt>% </prompt><command>CFLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe -fomit-frame-pointer" \
+  CXXFLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe -fomit-frame-pointer" \
+  cmake <replaceable>[source directory]</replaceable></command>
+</screen>
     </para>
+
+
     <para>
 	If you re-build &kapp; from a source rpm package, please follow
 	the instruction in the
@@ -2284,6 +2362,7 @@
     </sect1>
 
 </chapter>
+
 
 <!-- ###################################################################### -->
 <!-- ### Chapter: Basics about digital audio                            ### -->
@@ -3550,7 +3629,95 @@
 	Help is always welcome!
     </para>
 
-<!-- @@@ still to be done ... @@@ -->
+    <!-- @@@ most of this has still to be done ... @@@ -->
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Adding a new language                                 +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="add_new_language"><title>Adding support for a new Language</title>
+
+    <para>
+	<orderedlist>
+	    <listitem><para>
+		<emphasis>make system:</emphasis>
+		</para><para>
+		Edit the toplevel <filename>CMakeLists.txt</filename> and add
+		a new entry to the list of languages. Look for the variable
+		<literal><symbol>KWAVE_LINGUAS</symbol></literal> and add
+		a line for the new language. Each entry consists of a pair with
+		a language <emphasis>code</emphasis> and language
+		<emphasis>name</emphasis>, like this:
+<command><replaceable>&lt;code&gt;</replaceable><literal>:</literal><replaceable>&lt;name&gt;</replaceable></command>.
+		Example:
+<screen>
+	<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>
+</screen>
+
+	    </para><para>
+		The language code is a 2-letter code which is used for
+		directories and filenames, as it is also used in KDE.
+		The language name is used internally for the
+		docbook online documentation and the online help only.
+		For a list of available language codes and names, please
+		refer to the documentation of the international standard
+		<ulink url="http://www.loc.gov/standards/iso639-2/php/code_list.php">ISO 639-2</ulink>.
+	    </para></listitem>
+
+	    <listitem><para>
+		<emphasis>user interface:</emphasis>
+		</para><para>
+		Change into the subdirectory <filename>po</filename> and copy the
+		file <filename>kwave.pot</filename> to the corresponding <filename>.po</filename> file of
+		the language you want to add: <filename>"<replaceable>&lt;code&gt;</replaceable>.po"</filename>.
+		Example:
+<screen>
+<prompt>% </prompt><command>cd <parameter>po</parameter></command>
+<prompt>% </prompt><command>cp <parameter>kwave.pot</parameter> <parameter>fr.po</parameter></command>
+</screen>
+	    </para></listitem>
+
+	    <listitem><para>
+		<emphasis>online help:</emphasis>
+		</para><para>
+	    </para></listitem>
+
+	    <listitem><para>
+		<emphasis>screenshots:</emphasis>
+		</para><para>
+	    </para></listitem>
+
+	</orderedlist>
+    </para>
+
+    <para>
+	Useful links:
+	<itemizedlist>
+	    <listitem><para>
+		<ulink url="http://l10n.kde.org/">KDE Localization</ulink> contains
+		a lot of useful links for KDE translators.
+	    </para></listitem>
+	    <listitem><para>
+		<ulink url="http://kbabel.kde.org/">KBabel</ulink> is
+		<emphasis>the</emphasis> standard tool that helps you
+		translating <filename>.po</filename> files.
+	    </para></listitem>
+	</itemizedlist>
+    </para>
+
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Adding a new plugin                                   +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="add_new_plugin"><title>Adding a new Plugin</title>
+
+    <para>
+	blubb
+    </para>
+
+    </sect1>
 
 </chapter>
 

@@ -1,7 +1,6 @@
 %define ver @RPM_SHORT_VERSION@
 %define release @RPM_RELEASE@
 %define filelist %{name}-@RPM_SHORT_VERSION@/files.list.%{name}
-%define rpm_opt_flags ${RPM_OPT_FLAGS}
 
 Summary:	@RPM_SUMMARY@
 Name:		@RPM_NAME@
@@ -49,15 +48,16 @@ graphical view with a complete zoom-and scroll capability.
 %prep
 
 %setup
+
 rm -rf "$RPM_BUILD_ROOT"
 DESTDIR=""
 unset DESTDIR
-cmake . ${CONFIGURE_OPTS}
+CXXFLAGS="${CXXFLAGS} ${RPM_OPT_FLAGS}" CFLAGS="${CFLAGS} ${RPM_OPT_FLAGS}" cmake . ${CONFIGURE_OPTS}
 
 %build
 DESTDIR=""
 unset DESTDIR
-make $MAKE_FLAGS
+make $MAKE_FLAGS VERBOSE=1
 
 %install
 rm -rf "$RPM_BUILD_ROOT"

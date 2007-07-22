@@ -292,6 +292,10 @@ ADD_CUSTOM_TARGET(version-labels
         ${KWAVE_VERSION_DATE_ISO}
 )
 
+MESSAGE(STATUS "Using CFLAGS=${CMAKE_C_FLAGS}")
+MESSAGE(STATUS "Using CXXFLAGS=${CMAKE_CXX_FLAGS}")
+MESSAGE(STATUS "Using LDFLAGS=${LDFLAGS}")
+
 #original Makefile.am contents follow:
 
 #apidoc:

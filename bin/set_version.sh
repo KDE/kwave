@@ -55,6 +55,8 @@
 #
 # 2003-06-21 THE, also setting AM_INIT_AUTOMAKE in configure.in
 #
+# 2007-07-22 THE, removed modification of configure.in due to change to cmake
+#
 
 # uncomment the next line for debugging
 # set -x
@@ -89,22 +91,6 @@ cat kwave.lsm | awk -v newver=$NEW_VERSION \
 	}' > kwave.lsm.new
 mv kwave.lsm /tmp/kwave.lsm.old
 mv kwave.lsm.new kwave.lsm
-
-#
-# update the file configure.in
-#
-cat configure.in | \
-	awk -v newver=$NEW_VERSION '{
-	split($0, a, "(") } {
-	if (a[1] == "AC_INIT") {
-	    printf("AC_INIT([kwave],[%s])\n", newver)
-	} else if (a[1] == "AM_INIT_AUTOMAKE") {
-	    printf("AM_INIT_AUTOMAKE([kwave],[%s])\n", newver)
-	} else
-	    print $0
-	}' > configure.in.new
-mv configure.in /tmp/configure.in.old
-mv configure.in.new configure.in
 
 echo "new version numbers set."
 

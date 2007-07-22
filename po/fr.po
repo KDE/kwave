@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-17 21:02+0200\n"
+"POT-Creation-Date: 2007-07-11 07:47+0200\n"
 "PO-Revision-Date: 2007-06-17 21:05+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/CompressionWidgetBase.cpp:174
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:654
+#: /var/tmp/kwave-build/plugins/fileinfo/CompressionWidgetBase.cpp:174
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:654
 msgid " %"
 msgstr " %"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:91
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:90
 msgid " &Play"
 msgstr " &Jouer"
 
@@ -41,20 +41,20 @@ msgstr " (utilise KDE %1)"
 msgid " (modified)"
 msgstr " (modifié)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:182
-#: /usr/src/packages/multimedia/sound/kwave/plugins/band_pass/BandPassDlg.cpp:156
-#: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassDlg.cpp:145
-#: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDlg.cpp:156
-#: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDlg.cpp:169
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:182
+#: /var/tmp/kwave-build/plugins/band_pass/BandPassDlg.cpp:156
+#: /var/tmp/kwave-build/plugins/lowpass/LowPassDlg.cpp:145
+#: /var/tmp/kwave-build/plugins/notch_filter/NotchFilterDlg.cpp:156
+#: /var/tmp/kwave-build/plugins/notch_filter/NotchFilterDlg.cpp:169
 msgid " Hz"
 msgstr " Hz"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:174
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:189
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:174
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:189
 msgid " MB"
 msgstr " Mo"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:659
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:659
 msgid " dB"
 msgstr " dB"
 
@@ -63,67 +63,67 @@ msgstr " dB"
 msgid " for KDE "
 msgstr " pour KDE "
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/HMSTimeWidgetBase.cpp:70
+#: /var/tmp/kwave-build/libgui/HMSTimeWidgetBase.cpp:70
 msgid " h"
 msgstr " h"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/HMSTimeWidgetBase.cpp:71
+#: /var/tmp/kwave-build/libgui/HMSTimeWidgetBase.cpp:71
 msgid " min"
 msgstr " min"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:660
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:660
 msgid " ms"
 msgstr " ms"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:653
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:653
 msgid " s"
 msgstr " s"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/HMSTimeWidgetBase.cpp:72
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:664
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:665
+#: /var/tmp/kwave-build/libgui/HMSTimeWidgetBase.cpp:72
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:664
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:665
 msgid " sec"
 msgstr " sec"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:748
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:749
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:750
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:752
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:753
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:754
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:769
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:770
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:772
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:779
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:784
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:786
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:787
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:792
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:793
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:819
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:824
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:825
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:826
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:827
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:828
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:836
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:837
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:838
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:839
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:840
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:841
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:842
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:843
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:845
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:846
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:847
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:848
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:849
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:850
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:851
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:852
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:854
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:855
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:748
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:749
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:750
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:752
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:753
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:754
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:769
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:770
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:772
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:779
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:784
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:786
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:787
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:792
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:793
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:819
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:824
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:825
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:826
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:827
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:828
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:836
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:837
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:838
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:839
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:840
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:841
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:842
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:843
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:845
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:846
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:847
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:848
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:849
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:850
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:851
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:852
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:854
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:855
 msgid "#"
 msgstr "#"
 
@@ -131,10 +131,10 @@ msgstr "#"
 msgid "%"
 msgstr "%"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:751
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:673
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:317
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:336
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:751
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:673
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:317
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:336
 msgid "%1"
 msgstr "%1"
 
@@ -214,8 +214,8 @@ msgid "%1 kB (%2 byte)"
 msgstr "%1 ko/s (%2 restant)"
 
 #: /usr/src/packages/multimedia/sound/kwave/libgui/FileProgress.cpp:334
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:697
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:537
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:697
 msgid "%1 samples"
 msgstr "%1 échantillons "
 
@@ -250,69 +250,69 @@ msgstr ""
 msgid "%2 samples"
 msgstr "%2 échantillons"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:14
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:13
 msgid "&About Kwave"
 msgstr "&A propos de Kwave"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:15
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/KeywordWidgetBase.cpp:84
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:14
+#: /var/tmp/kwave-build/plugins/fileinfo/KeywordWidgetBase.cpp:84
 msgid "&Add"
 msgstr "&Ajouter"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:16
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:15
 msgid "&Additive Synthesis"
 msgstr "Synthèse &additionnelle"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:17
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:16
 msgid "&All"
 msgstr "&Tout"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:18
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:17
 msgid "&Amplify"
 msgstr "&Amplification"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:19
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:18
 msgid "&As..."
 msgstr "&Sous..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:20
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:19
 msgid "&Average spectrum"
 msgstr "Spectre des &moyennes"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:21
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:20
 msgid "&Band Pass"
 msgstr "Filtre passe &bande"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:22
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:21
 msgid "&Begin"
 msgstr "Dé&but"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:23
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:22
 msgid "&Blocks..."
 msgstr "&Blocs..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:24
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:23
 msgid "&Calculate"
 msgstr "&Calculer"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:25
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:24
 msgid "&Center Signal"
 msgstr "Signal &Centré"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:26
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:25
 msgid "&Change rate"
 msgstr "&Changer la période"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:27
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:26
 msgid "&Choose type"
 msgstr "&Choisir le type"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:28
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:27
 msgid "&Clipboard"
 msgstr "&Presse papier"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:32
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:254
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:31
 msgid "&Continue"
 msgstr "&Continuer"
 
@@ -320,40 +320,40 @@ msgstr "&Continuer"
 msgid "&Convert"
 msgstr "&Convertir"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:33
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:32
 msgid "&Convert label distance to pitch"
 msgstr "&Convertir la distance entre deux labels en un décalage fréquentiel"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:35
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:34
 msgid "&Create"
 msgstr "&Créer"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:37
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:36
 msgid "&Crop"
 msgstr "&Couper la sélection"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:41
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:40
 msgid "&Distort"
 msgstr "&Distortion"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:182
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:182
 msgid "&Enable usage of virtual memory"
 msgstr "Activ&er l'usage de la mémoire virtuelle"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:43
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:42
 msgid "&End"
 msgstr "&Fin"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:44
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:43
 msgid "&Enter Command"
 msgstr "&Entrée une commande"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:45
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:44
 msgid "&Envelope"
 msgstr "&Enveloppe"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:47
 #: /usr/src/packages/multimedia/sound/kwave/kwave/SignalWidget.cpp:1044
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:46
 msgid "&Expand to labels"
 msgstr "&Élargir par rapport aux labels"
 
@@ -361,39 +361,39 @@ msgstr "&Élargir par rapport aux labels"
 msgid "&Export to Bitmap ..."
 msgstr "&Exporter vers un fichier bitmap..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/volume/VolumeDlg.cpp:155
+#: /var/tmp/kwave-build/plugins/volume/VolumeDlg.cpp:155
 msgid "&Factor"
 msgstr "Coe&fficient"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:54
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:53
 msgid "&Filter"
 msgstr "&Filtre"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:55
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:54
 msgid "&Flip Phase"
 msgstr "&Mouvement de Phase"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:56
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:55
 msgid "&Flush"
 msgstr "&Vider"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:57
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:56
 msgid "&Free"
 msgstr "&Libre"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:58
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:57
 msgid "&Frequencies"
 msgstr "&Fréquences"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:60
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:59
 msgid "&Generate"
 msgstr "&Générer"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:62
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:61
 msgid "&Insert labels..."
 msgstr "&Insertion de labels..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:63
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:62
 msgid "&Invert Selection"
 msgstr "&Inversion de la sélection"
 
@@ -402,58 +402,58 @@ msgstr "&Inversion de la sélection"
 msgid "&Label"
 msgstr "&Labels"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:66
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:65
 msgid "&Labels"
 msgstr "&Labels"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:188
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:188
 msgid "&Limit to"
 msgstr "&Limitée à"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:170
 #: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDialog.cpp:317
 #: /usr/src/packages/multimedia/sound/kwave/plugins/band_pass/BandPassDialog.cpp:186
-#: /usr/src/packages/multimedia/sound/kwave/plugins/band_pass/BandPassDlg.cpp:160
 #: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassDialog.cpp:160
-#: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassDlg.cpp:152
-#: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDlg.cpp:176
 #: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDialog.cpp:190
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:170
+#: /var/tmp/kwave-build/plugins/band_pass/BandPassDlg.cpp:160
+#: /var/tmp/kwave-build/plugins/lowpass/LowPassDlg.cpp:152
+#: /var/tmp/kwave-build/plugins/notch_filter/NotchFilterDlg.cpp:176
 msgid "&Listen"
 msgstr "Écou&ter"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:68
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:67
 msgid "&Load labels..."
 msgstr "Chargement des &Labels..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/volume/VolumeDlg.cpp:163
+#: /var/tmp/kwave-build/plugins/volume/VolumeDlg.cpp:163
 msgid "&Logarithmic"
 msgstr "&Logarithmique"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:69
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:68
 msgid "&Loop"
 msgstr "Bouc&le"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:70
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:69
 msgid "&Low pass"
 msgstr "Fi&ltre passe-bas"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:71
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:70
 msgid "&Macro"
 msgstr "&Macro"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:72
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:71
 msgid "&Memory"
 msgstr "&Gestion de la mémoire"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:73
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:72
 msgid "&Mix"
 msgstr "&Mixer"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:74
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:73
 msgid "&Mix & Paste"
 msgstr "&Mixer & Coller"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:75
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:74
 msgid "&Moving Average"
 msgstr "Déplacer la &moyenne"
 
@@ -462,16 +462,16 @@ msgstr "Déplacer la &moyenne"
 msgid "&New"
 msgstr "&Nouveau..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:76
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:75
 msgid "&New..."
 msgstr "&Nouveau..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:78
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:77
 #, fuzzy
 msgid "&Next"
 msgstr "Page &suivante"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:79
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:78
 msgid "&Next Page"
 msgstr "Page &suivante"
 
@@ -479,71 +479,71 @@ msgstr "Page &suivante"
 msgid "&No, store uncompressed"
 msgstr "&Non, ne pas compresser"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:80
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:79
 msgid "&Noise"
 msgstr "&Bruit"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:81
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:80
 msgid "&Notch Filter"
 msgstr "&Filtre réjecteur"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:82
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:81
 msgid "&Nothing"
 msgstr "&Aucun"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:83
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:82
 msgid "&Open"
 msgstr "&Ouvrir"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:87
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:86
 msgid "&Pause"
 msgstr "&Pause"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SelectTimeWidgetBase.cpp:222
+#: /var/tmp/kwave-build/libgui/SelectTimeWidgetBase.cpp:222
 msgid "&Percent"
 msgstr "&Pourcentage"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/volume/VolumeDlg.cpp:159
+#: /var/tmp/kwave-build/plugins/volume/VolumeDlg.cpp:159
 msgid "&Percentage"
 msgstr "&Pourcentage"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:88
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:87
 msgid "&Periodic Silence"
 msgstr "Silence &périodique"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:169
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:169
 msgid "&Physical Memory"
 msgstr "&Mémoire physique"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:90
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:89
 msgid "&Pitch Shift"
 msgstr "Décalage fré&quentiel"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:92
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:91
 msgid "&Play"
 msgstr "&Jouer"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:93
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:92
 msgid "&Playback"
 msgstr "&Lecture"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:94
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:93
 msgid "&Presets"
 msgstr "&Pré-réglages"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:96
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:95
 msgid "&Previous Page"
 msgstr "Page &précédente"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:97
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:96
 msgid "&Pulse Train"
 msgstr "Train d'im&pulsions"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:99
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:98
 msgid "&Range"
 msgstr "&Plage d'échantillons"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:100
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:99
 msgid "&Record"
 msgstr "En&registrer"
 
@@ -551,15 +551,15 @@ msgstr "En&registrer"
 msgid "&Repair"
 msgstr "&Réparation"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:103
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:102
 msgid "&Resample"
 msgstr "&Re-échantillonner"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:104
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:103
 msgid "&Reverse"
 msgstr "Inve&rser"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SelectTimeWidgetBase.cpp:218
+#: /var/tmp/kwave-build/libgui/SelectTimeWidgetBase.cpp:218
 msgid "&Samples"
 msgstr "Écha&ntillons"
 
@@ -568,25 +568,25 @@ msgstr "Écha&ntillons"
 msgid "&Save..."
 msgstr "&Nouveau..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:186
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:186
 msgid "&Search..."
 msgstr "&Sélection..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:110
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:109
 msgid "&Select all"
 msgstr "&Sélectionner tout"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:829
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:249
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:829
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:249
 msgid "&Select..."
 msgstr "&Sélectionner..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:111
 #: /usr/src/packages/multimedia/sound/kwave/kwave/SignalWidget.cpp:1062
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:110
 msgid "&Selection"
 msgstr "&Sélection"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:112
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:111
 msgid "&Selection..."
 msgstr "&Sélection..."
 
@@ -594,16 +594,16 @@ msgstr "&Sélection..."
 msgid "&Set Rate"
 msgstr "&Paramétrer la période"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:113
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:112
 msgid "&Silence"
 msgstr "&Silence"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:114
 #: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:122
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:113
 msgid "&Sonagram"
 msgstr "&Sonagramme"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:117
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:116
 msgid "&Start recording"
 msgstr "Démarrer l'enregi&strement"
 
@@ -614,36 +614,36 @@ msgstr "Démarrer l'enregi&strement"
 msgid "&Stop"
 msgstr "Arrê&ter"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:275
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:275
 #, fuzzy
 msgid "&Test..."
 msgstr "&Sous..."
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SelectTimeWidgetBase.cpp:220
+#: /var/tmp/kwave-build/libgui/SelectTimeWidgetBase.cpp:220
 msgid "&Time"
 msgstr "&Temps"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:832
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:832
 msgid "&Today"
 msgstr "Au&jourd'hui"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:127
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:126
 msgid "&Track"
 msgstr "Pis&te"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:130
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:129
 msgid "&Undo and Redo"
 msgstr "&Défaire et refaire"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:176
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:176
 msgid "&Virtual Memory"
 msgstr "Mémoire &virtuelle"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:132
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:131
 msgid "&Visible area"
 msgstr "Région &visible"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:133
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:132
 msgid "&Volume"
 msgstr "&Volume"
 
@@ -651,7 +651,7 @@ msgstr "&Volume"
 msgid "&Yes, use G711"
 msgstr "&Oui, utiliser « G711 »"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:123
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:122
 msgid "&to new Window"
 msgstr "&Dans une nouvelle fenêtre"
 
@@ -682,8 +682,8 @@ msgid "(Resulting file size: %1 MB)"
 msgstr "(Taille du fichier cible : %1 Mo)"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDialog.cpp:524
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:271
 #: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSignalDialog.cpp:326
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:271
 msgid "(Stereo)"
 msgstr "(Stéréo)"
 
@@ -691,7 +691,7 @@ msgstr "(Stéréo)"
 msgid "(empty)"
 msgstr "(vide)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:330
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:330
 msgid "(file size)"
 msgstr "(taille du fichier)"
 
@@ -712,7 +712,7 @@ msgstr "(stéréo)"
 msgid "(unknown)"
 msgstr "(inconnu)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:795
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:795
 msgid "(variable)"
 msgstr "(variable)"
 
@@ -735,12 +735,12 @@ msgstr " dB"
 msgid "..."
 msgstr "&Sous..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:184
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:184
 msgid "/tmp"
 msgstr "/tmp"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SelectTimeWidgetBase.cpp:228
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:333
+#: /var/tmp/kwave-build/libgui/SelectTimeWidgetBase.cpp:228
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:333
 msgid "0%"
 msgstr "0%"
 
@@ -748,64 +748,64 @@ msgstr "0%"
 msgid "1 (mono)"
 msgstr "1 (mono)"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SelectTimeWidgetBase.cpp:230
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:335
+#: /var/tmp/kwave-build/libgui/SelectTimeWidgetBase.cpp:230
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:335
 msgid "100%"
 msgstr "100%"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:758
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:301
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:758
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:301
 msgid "10000"
 msgstr "10000"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:218
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:218
 msgid "1024"
 msgstr "1024"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:759
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:302
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:759
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:302
 msgid "11025"
 msgstr "11025"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:805
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:805
 msgid "112K"
 msgstr "112 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:760
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:303
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:760
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:303
 msgid "12000"
 msgstr "12000"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:215
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:215
 msgid "128"
 msgstr "128"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:806
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:806
 msgid "128K"
 msgstr "128 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:807
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:807
 msgid "144K"
 msgstr "144 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:761
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:304
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:761
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:304
 msgid "16000"
 msgstr "16000"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:808
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:808
 msgid "160K"
 msgstr "160 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:797
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:797
 msgid "16K"
 msgstr "16 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:809
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:809
 msgid "176K"
 msgstr "176 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:810
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:810
 msgid "192K"
 msgstr "192 K"
 
@@ -813,37 +813,37 @@ msgstr "192 K"
 msgid "2 (stereo)"
 msgstr "2 (stéréo)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:219
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:219
 msgid "2048"
 msgstr "2048"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:762
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:305
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:762
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:305
 msgid "22050"
 msgstr "22050"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:811
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:811
 msgid "224K"
 msgstr "224 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:798
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:798
 msgid "24K"
 msgstr "24 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:216
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:216
 msgid "256"
 msgstr "256"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:261
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:261
 #, fuzzy
 msgid "256 Bytes"
 msgstr "%1 octets"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:812
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:812
 msgid "256K"
 msgstr "256 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:813
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:813
 msgid "288K"
 msgstr "288 K"
 
@@ -855,24 +855,24 @@ msgstr "polynôme 3"
 msgid "32-bit IEEE floating-point"
 msgstr "Nombre à virgule flottante sur 32 bits au format IEEE"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:763
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:306
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:763
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:306
 msgid "32000"
 msgstr "32000"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:814
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:814
 msgid "320K"
 msgstr "320 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:799
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:799
 msgid "32K"
 msgstr "32 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:815
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:815
 msgid "352K"
 msgstr "352 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:816
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:816
 msgid "384K"
 msgstr "384 K"
 
@@ -880,29 +880,29 @@ msgstr "384 K"
 msgid "4 (quadro)"
 msgstr "4 (quadro)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:220
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:220
 msgid "4096"
 msgstr "4096"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:800
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:800
 msgid "40K"
 msgstr "40 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:817
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:817
 msgid "416K"
 msgstr "416 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:764
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:307
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:764
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:307
 msgid "44100"
 msgstr "44100"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:818
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:818
 msgid "448K"
 msgstr "448 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:765
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:308
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:765
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:308
 msgid "48000"
 msgstr "48000"
 
@@ -910,32 +910,33 @@ msgstr "48000"
 msgid "5-polynom"
 msgstr "polynôme 5"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SelectTimeWidgetBase.cpp:229
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:334
+#: /var/tmp/kwave-build/libgui/SelectTimeWidgetBase.cpp:229
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:334
 msgid "50%"
 msgstr "50%"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:790
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:790
 msgid "50/15ms"
 msgstr "50 / 15 ms"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:217
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:217
 msgid "512"
 msgstr "512"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:801
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:801
 msgid "56K"
 msgstr "56 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:214
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:214
 msgid "64"
 msgstr "64"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/SampleFormat.cpp:41
 msgid "64-bit IEEE double-precision floating-point"
-msgstr "Nombre à virgule flottante en double précision sur 64 bits au format IEEE"
+msgstr ""
+"Nombre à virgule flottante en double précision sur 64 bits au format IEEE"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:802
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:802
 msgid "64K"
 msgstr "64 K"
 
@@ -943,29 +944,29 @@ msgstr "64 K"
 msgid "7-polynom"
 msgstr "polynôme 7"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:757
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:300
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:757
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:300
 msgid "8000"
 msgstr "8000"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:803
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:803
 msgid "80K"
 msgstr "80 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:796
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:796
 msgid "8K"
 msgstr "8 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:766
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:309
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:766
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:309
 msgid "96000"
 msgstr "96000"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:804
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:804
 msgid "96K"
 msgstr "96 K"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/KeywordWidgetBase.cpp:87
+#: /var/tmp/kwave-build/plugins/fileinfo/KeywordWidgetBase.cpp:87
 msgid ""
 "<b>Auto-Generate Keywords</b><br>\n"
 "Create a list of keywords by going through all present file informations and "
@@ -976,7 +977,7 @@ msgstr ""
 "déjà présentent et en fusionnant celles çi avec la liste courante de mots "
 "clef."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/CompressionWidgetBase.cpp:164
+#: /var/tmp/kwave-build/plugins/fileinfo/CompressionWidgetBase.cpp:164
 msgid ""
 "<b>Average Bitrate Mode</b><br>\n"
 "Bitrate is set to an average value, \n"
@@ -986,7 +987,7 @@ msgstr ""
 "Le débit est positionné à une valeur moyenne, \n"
 "avec une limite supérieure et inférieure en option."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:268
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:268
 msgid ""
 "<b>Bits per Sample:</b><p>Here you can select one of the bit resolutions "
 "your playback device supports. This is not necessarily the same resolution "
@@ -995,7 +996,7 @@ msgid ""
 "better audio quality.</p>"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:263
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:263
 msgid ""
 "<b>Buffer Size:</b><p>Select a buffer size for the playback. You should set "
 "this numer as small as possible to reduce the playback latency. The latency "
@@ -1004,7 +1005,7 @@ msgid ""
 "dropouts you should increase this setting a bit.</p>"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:270
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:270
 #, c-format
 msgid ""
 "<b>Channels:</b><p>Number of channels used for playback. This does not "
@@ -1016,7 +1017,7 @@ msgid ""
 "second track and the third track.</p>"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:675
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:675
 msgid ""
 "<b>Compression</b><br>Here you can select one of the compression types if "
 "your audio hardware supports it."
@@ -1024,7 +1025,7 @@ msgstr ""
 "<b>Compression</b><br>Vous pouvez ici choisir un des types de "
 "compressionprédéfinie."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:177
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:177
 msgid ""
 "<b>Configure the usage of virtual memory (swap files).</b><br>\n"
 "\n"
@@ -1045,14 +1046,14 @@ msgstr ""
 "Bien sur vous pouvez aussi paramétrer une limite à la taille totale de votre "
 "mémoire virtuelle."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:248
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:248
 msgid ""
 "<b>Device:</b><p>This list shows a selection of some known playback devices "
 "suitable for the choosen playback method. If your device is not listed here, "
 "you can enter a device name on your own or search through the filesystem.</p>"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:692
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:692
 msgid ""
 "<b>Device:</b><p>This list shows a selection of some known recording devices "
 "suitable for the choosen recording method. If your device is not listed "
@@ -1060,7 +1061,7 @@ msgid ""
 "filesystem.</p>"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:170
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:170
 msgid ""
 "<b>Limit the usage of physical memory (RAM).</b><br>\n"
 "\n"
@@ -1075,8 +1076,8 @@ msgstr ""
 "pouvez pas paramétrer une valeur limite supérieure à la taille de la mémoire "
 "installée dans votre ordinateur."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:222
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:225
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:222
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:225
 msgid ""
 "<b>Number of FFT points:</b><p></p>Try to choose numbers with small prime-"
 "factors,<br>\n"
@@ -1089,7 +1090,7 @@ msgstr ""
 "valeur. <br>\n"
 "Les calculs seront alors plus rapides !"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:318
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:318
 msgid ""
 "<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
 "you are not sure now, you can add or delete tracks later in the program."
@@ -1098,7 +1099,7 @@ msgstr ""
 "pour un nouveau fichier. Si vous n'êtes pas sur maintenant, vous pourrez "
 "ajouter ou supprimer une piste plus tard dans le programme."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:672
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:672
 msgid ""
 "<b>Number of Tracks</b><br>Select a number of tracks, e.g. for mono or "
 "stereo recording."
@@ -1106,7 +1107,7 @@ msgstr ""
 "<b>Nombre de pistes sonores</b><br>Paramètre le nombre de pistes sonores "
 "pour un nouveau fichier, tel que pour un enregistrement mono ou stéréo."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:254
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:254
 msgid ""
 "<b>Playback Method:</b><p>Choose a method or system used for\n"
 "playback. Depending on the compilation options you can select one of the "
@@ -1124,7 +1125,7 @@ msgid ""
 "applications can play at the same time. Must be configured in KDE.</p>"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:686
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:686
 msgid ""
 "<b>Recording Method:</b><p>Choose a method or system used for\n"
 "recording. Depending on the compilation options you can select one of the "
@@ -1136,7 +1137,7 @@ msgid ""
 "supports more features and more hardware.</p>"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:678
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:678
 msgid ""
 "<b>Resolution</b><br>Select a resolution in bits in which the file will be "
 "recorded. Higher values give better quality but also more system load."
@@ -1145,7 +1146,7 @@ msgstr ""
 "fichier sera enregistré. Les grandes valeurs donne une meilleure qualité "
 "mais nécessite plus de ressources processeur."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:319
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:319
 msgid ""
 "<b>Resolution</b><br>Select a resolution in bits in which the file will be "
 "saved. However, Kwave always uses 24 bits as it's own internal resolution to "
@@ -1156,7 +1157,7 @@ msgstr ""
 "résolution interne pour obtenir les meilleurs résultats quand il effectue "
 "des calculs sur des fichiers sonores."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:676
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:676
 msgid ""
 "<b>Sample Format</b><br>Here you can select one of the sample formats that "
 "your audio hardware supports. This normally has no big influence on the "
@@ -1166,7 +1167,7 @@ msgstr ""
 "for;at échantillonnage prédéfinie. Ce parametre n'a pas une grande influence "
 "sur le résultat audio."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:311
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:311
 msgid ""
 "<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
 "sample rates or you can enter any sample rate on your own."
@@ -1175,7 +1176,7 @@ msgstr ""
 "périodes d'échantillonnage prédéfinie ou saisissez une période "
 "d'échantillonnage de votre choix."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:668
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:668
 msgid ""
 "<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
 "sample rates that your sound card supports."
@@ -1183,8 +1184,8 @@ msgstr ""
 "<b>Période d'échantillonnage</b><br>Vous pouvez ici choisir une des périodes "
 "d'échantillonnage prédéfinie."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:696
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:252
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:696
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:252
 msgid ""
 "<b>Select...</b><p>Choose a device name on the harddisk, if your device is "
 "not already listed in the list of devices.</p>"
@@ -1204,7 +1205,7 @@ msgstr ""
 "KDE ou à l'URL <a href=http://www.arts-project.org>http://www.arts-project."
 "org</a>."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:278
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:278
 #, fuzzy
 msgid ""
 "<b>Test...</b><p>Try to play a short sound using the current settings.</"
@@ -1214,7 +1215,7 @@ msgstr ""
 "en utilisant les paramètres courant.\n"
 "(désolé, cette fonction n'est pas encore implantée !)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/CompressionWidgetBase.cpp:170
+#: /var/tmp/kwave-build/plugins/fileinfo/CompressionWidgetBase.cpp:170
 msgid ""
 "<b>Variable Bitrate Mode</b><br>\n"
 "The bitrate is selected by an average quality."
@@ -1222,8 +1223,8 @@ msgstr ""
 "<b>Mode de débit variable</b><br>\n"
 "Le débit est positionné pour une qualité moyenne."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDlg.cpp:166
-#: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDlg.cpp:171
+#: /var/tmp/kwave-build/plugins/notch_filter/NotchFilterDlg.cpp:166
+#: /var/tmp/kwave-build/plugins/notch_filter/NotchFilterDlg.cpp:171
 msgid ""
 "<b>bandwidth</b>\n"
 "Determines the width of the frequency range that\n"
@@ -1233,8 +1234,8 @@ msgstr ""
 "Détermine la largeur de la bande de fréquences\n"
 "qui doivent être supprimées."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDlg.cpp:158
-#: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDlg.cpp:162
+#: /var/tmp/kwave-build/plugins/notch_filter/NotchFilterDlg.cpp:158
+#: /var/tmp/kwave-build/plugins/notch_filter/NotchFilterDlg.cpp:162
 msgid ""
 "<b>center frequency</b>\n"
 "Determines the center of the frequency range that\n"
@@ -1244,8 +1245,8 @@ msgstr ""
 "Détermine la fréquence centrale de la plage de fréquences\n"
 "qui doivent être supprimées."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:180
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:184
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:180
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:184
 msgid ""
 "<b>chopper frequency</b><br>This setting determines how small the pieces of "
 "audio data are before they get processed by the pitch shift. If your audio "
@@ -1256,8 +1257,8 @@ msgstr ""
 "données audio sont interrompues, vous pouvez obtenir un meilleur résultat "
 "avec des valeurs plus élevées."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassDlg.cpp:142
-#: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassDlg.cpp:147
+#: /var/tmp/kwave-build/plugins/lowpass/LowPassDlg.cpp:142
+#: /var/tmp/kwave-build/plugins/lowpass/LowPassDlg.cpp:147
 msgid ""
 "<b>cutoff frequency</b>\n"
 "Determines the highest audible frequency, higher\n"
@@ -1267,13 +1268,13 @@ msgstr ""
 "Détermine la fréquence audible la plus haute. Les fréquences\n"
 "qui sont au dessus seront coupées."
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/LabelPropertiesWidgetBase.cpp:126
+#: /var/tmp/kwave-build/libgui/LabelPropertiesWidgetBase.cpp:126
 msgid ""
 "<b>label description:</b><br>\n"
 "Here you can enter some short text to describe the label."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/LabelPropertiesWidgetBase.cpp:131
+#: /var/tmp/kwave-build/libgui/LabelPropertiesWidgetBase.cpp:131
 msgid ""
 "<b>label index</b><br>\n"
 "This is just a numeric index of the label, starting with zero, sorted by "
@@ -1281,7 +1282,7 @@ msgid ""
 "change the index itself, but change the label's position."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/LabelPropertiesWidgetBase.cpp:122
+#: /var/tmp/kwave-build/libgui/LabelPropertiesWidgetBase.cpp:122
 msgid ""
 "<b>label position:</b><br>\n"
 "Here you can set the position of the label, either by time, by percentage of "
@@ -1289,11 +1290,11 @@ msgid ""
 "always uses the position in samples."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/about/KwaveAboutDialogBase.cpp:168
+#: /var/tmp/kwave-build/plugins/about/KwaveAboutDialogBase.cpp:168
 msgid "<h1>Kwave - a sound editor for KDE</h1>"
 msgstr "<h1>Kwave - Un éditeur de sons pour KDE</h1>"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/about/KwaveAboutDialogBase.cpp:169
+#: /var/tmp/kwave-build/plugins/about/KwaveAboutDialogBase.cpp:169
 msgid ""
 "<h2>Kwave is a sound editor designed for the KDE-Desktop Environment. </"
 "h2><br>\n"
@@ -1322,7 +1323,7 @@ msgstr ""
 msgid "<nothing>"
 msgstr "<rien>"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:121
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:121
 msgid ""
 "<p>Select the pattern that is used to create the file name of each saved "
 "block. It currently understands the following placeholders:</p>\n"
@@ -1338,20 +1339,20 @@ msgid ""
 "</ul>"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:228
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:229
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:228
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:229
 msgid "?:"
 msgstr "?:"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/KeywordWidgetBase.cpp:85
+#: /var/tmp/kwave-build/plugins/fileinfo/KeywordWidgetBase.cpp:85
 msgid "A&uto"
 msgstr "A&uto"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/CompressionWidgetBase.cpp:162
+#: /var/tmp/kwave-build/plugins/fileinfo/CompressionWidgetBase.cpp:162
 msgid "ABR:"
 msgstr "ABR :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:657
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:657
 msgid "AGC:"
 msgstr "AGC :"
 
@@ -1376,11 +1377,11 @@ msgstr "Périphérique de lecture ALSA (adsp*)"
 msgid "ASCII encoded audio"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:13
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:12
 msgid "About &KDE"
 msgstr "A propos de &KDE"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/about/KwaveAboutDialogBase.cpp:167
+#: /var/tmp/kwave-build/plugins/about/KwaveAboutDialogBase.cpp:167
 msgid "About Kwave"
 msgstr "A propos de Kwave"
 
@@ -1416,47 +1417,47 @@ msgstr ""
 msgid "All Supported Files"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/LabelPropertiesWidgetBase.cpp:138
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:712
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:282
+#: /var/tmp/kwave-build/libgui/LabelPropertiesWidgetBase.cpp:138
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:712
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:282
 #, fuzzy
 msgid "Alt+C"
 msgstr "Alt+L"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/LabelPropertiesWidgetBase.cpp:134
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:189
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:858
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:192
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:710
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:274
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:338
+#: /var/tmp/kwave-build/libgui/LabelPropertiesWidgetBase.cpp:134
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:189
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:858
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:192
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:710
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:274
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:338
 msgid "Alt+H"
 msgstr "Alt+H"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/LabelPropertiesWidgetBase.cpp:136
+#: /var/tmp/kwave-build/libgui/LabelPropertiesWidgetBase.cpp:136
 #, fuzzy
 msgid "Alt+K"
 msgstr "Alt+L"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:171
-#: /usr/src/packages/multimedia/sound/kwave/plugins/band_pass/BandPassDlg.cpp:161
-#: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassDlg.cpp:153
-#: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDlg.cpp:177
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:171
+#: /var/tmp/kwave-build/plugins/band_pass/BandPassDlg.cpp:161
+#: /var/tmp/kwave-build/plugins/lowpass/LowPassDlg.cpp:153
+#: /var/tmp/kwave-build/plugins/notch_filter/NotchFilterDlg.cpp:177
 msgid "Alt+L"
 msgstr "Alt+L"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:860
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:280
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:860
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:280
 msgid "Alt+O"
 msgstr "Alt+O"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:250
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:250
 #, fuzzy
 msgid "Alt+S"
 msgstr "Alt+L"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:694
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:276
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:694
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:276
 msgid "Alt+T"
 msgstr "Alt+T"
 
@@ -1472,11 +1473,11 @@ msgstr "Alternatif"
 msgid "Ambient"
 msgstr "Ambiance"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/amplifyfree/AmplifyFreeDlg.cpp:104
+#: /var/tmp/kwave-build/plugins/amplifyfree/AmplifyFreeDlg.cpp:104
 msgid "Amplify Free"
 msgstr "Amplification libre"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:658
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:658
 msgid "Amplify:"
 msgstr "Amplification :"
 
@@ -1561,11 +1562,11 @@ msgstr "Mode de mise en valeur de l'audio "
 msgid "Author"
 msgstr "Auteur "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:853
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:853
 msgid "Author/Copyright"
 msgstr "Auteur et droits d'auteur"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/about/KwaveAboutDialogBase.cpp:180
+#: /var/tmp/kwave-build/plugins/about/KwaveAboutDialogBase.cpp:180
 msgid "Authors"
 msgstr "Auteurs"
 
@@ -1577,7 +1578,7 @@ msgstr "Réparation automatique"
 msgid "Avantgarde"
 msgstr "Avantgarde"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/CompressionWidgetBase.cpp:163
+#: /var/tmp/kwave-build/plugins/fileinfo/CompressionWidgetBase.cpp:163
 msgid "Average Bitrate Mode"
 msgstr "Mode de débit moyenné"
 
@@ -1585,12 +1586,12 @@ msgstr "Mode de débit moyenné"
 msgid "Ballad"
 msgstr "Ballade"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/band_pass/BandPassDlg.cpp:155
+#: /var/tmp/kwave-build/plugins/band_pass/BandPassDlg.cpp:155
 msgid "Band Pass"
 msgstr "Filtre passe bande"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:208
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/CompressionWidgetBase.cpp:176
+#: /var/tmp/kwave-build/plugins/fileinfo/CompressionWidgetBase.cpp:176
 msgid "Base Quality"
 msgstr "Qualité de base"
 
@@ -1618,7 +1619,7 @@ msgstr "Big Band"
 msgid "Bitrate"
 msgstr "Débit "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:266
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:266
 #, fuzzy
 msgid "Bits per Sample:"
 msgstr "%1 bits par échantillon"
@@ -1639,26 +1640,27 @@ msgstr "Blues"
 msgid "Booty Bass"
 msgstr "Booty Bass"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:684
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:684
 msgid "Buffer Count:"
 msgstr "Mémoire tampon :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:683
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:264
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:683
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:264
 msgid "Buffer Size:"
 msgstr "Taille de la mémoire tampon :"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:929
-msgid "Buffer overrun. Please increase the number and/or size of the record buffers."
+msgid ""
+"Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
 "Un vidage de la mémoire tampon est apparu. Veuillez augmenter le nombre ou "
 "la taille de la mémoire tampon pour l'enregistrement."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:707
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:707
 msgid "Buffer:"
 msgstr "Mémoire tampon :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:791
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:791
 msgid "CCIT J.17"
 msgstr "CCIT J.17"
 
@@ -1686,7 +1688,7 @@ msgstr "Celtique"
 msgid "Chamber Music"
 msgstr "Musique de chambre"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:265
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:265
 #, fuzzy
 msgid "Channels:"
 msgstr "Chanson"
@@ -1695,8 +1697,8 @@ msgstr "Chanson"
 msgid "Chanson"
 msgstr "Chanson"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:207
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:210
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:207
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:210
 msgid ""
 "Choose windowing function here.<br>\n"
 "If fourier transformation should stay reversible,<br>\n"
@@ -1722,7 +1724,7 @@ msgstr "Rock classique"
 msgid "Classical"
 msgstr "Classique"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:29
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:28
 msgid "Clip&board"
 msgstr "Pres&se papier"
 
@@ -1747,15 +1749,15 @@ msgid "Compressed Audio Interchange Format"
 msgstr "Format audio compressé Interchange"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:75
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:774
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:774
 msgid "Compression"
 msgstr "Compression "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:674
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:674
 msgid "Compression:"
 msgstr "Compression :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/CompressionWidgetBase.cpp:160
+#: /var/tmp/kwave-build/plugins/fileinfo/CompressionWidgetBase.cpp:160
 msgid "CompressionWidgetBase"
 msgstr "CompressionWidgetBase"
 
@@ -1773,7 +1775,7 @@ msgstr ""
 "du morceau. Cela peut être une URL, une adresse de courrier\n"
 "électronique, ou l'adresse postale du label de production."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:835
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:835
 msgid "Content"
 msgstr "Contenu"
 
@@ -1797,12 +1799,12 @@ msgstr "La seconde en-tête du fichier est corrompue. Fin du processus."
 msgid "Country"
 msgstr "Country"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:36
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:35
 msgid "Create &type"
 msgstr "Créer un &type"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:38
 #: /usr/src/packages/multimedia/sound/kwave/kwave/SignalWidget.cpp:1021
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:37
 msgid "Cu&t"
 msgstr "Co&uper"
 
@@ -1846,7 +1848,7 @@ msgstr "Darkwave"
 msgid "Date"
 msgstr "Date "
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:39
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:38
 msgid "De&lay"
 msgstr "Ret&ard"
 
@@ -1880,24 +1882,24 @@ msgstr ""
 "Décrit le sujet du fichier.\n"
 "Exemple: « Chants des oiseaux le matin »."
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/LabelPropertiesWidgetBase.cpp:124
+#: /var/tmp/kwave-build/libgui/LabelPropertiesWidgetBase.cpp:124
 #, fuzzy
 msgid "Description:"
 msgstr "Résolution :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:459
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:699
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:166
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:272
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:459
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:699
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:166
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:272
 msgid "Device"
 msgstr "Périphérique"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:698
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:260
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:698
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:260
 msgid "Device:"
 msgstr "Périphérique :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:183
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:183
 msgid "Directory:"
 msgstr "Dossier :"
 
@@ -1905,7 +1907,7 @@ msgstr "Dossier :"
 msgid "Disco"
 msgstr "Disco"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:706
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:706
 msgid "Display"
 msgstr "Affichage"
 
@@ -1937,7 +1939,7 @@ msgstr "Batterie en solo"
 msgid "Duet"
 msgstr "Duo"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:46
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:45
 msgid "E&xecute"
 msgstr "E&xécuter"
 
@@ -1953,7 +1955,7 @@ msgstr "Electronique"
 msgid "Emphasis"
 msgstr "Mise en valeur "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:773
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:773
 msgid "Encoding Mode:"
 msgstr "Mode d'encodage :"
 
@@ -1973,7 +1975,8 @@ msgstr "Erreur de lecture de la première page de données du flux « Ogg »."
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggDecoder.cpp:133
 msgid "Error reading initial header packet."
-msgstr "Erreur lors de la lecture du paquet correspondant à l'en-tête du fichier."
+msgstr ""
+"Erreur lors de la lecture du paquet correspondant à l'en-tête du fichier."
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/GenreType.cpp:124
 msgid "Ethnic"
@@ -1991,22 +1994,22 @@ msgstr "Euro-Techno"
 msgid "Eurodance"
 msgstr "Eurodance"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:59
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:58
 msgid "F&x"
 msgstr "Effe&ts"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:169
-#: /usr/src/packages/multimedia/sound/kwave/plugins/band_pass/BandPassDlg.cpp:159
-#: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassDlg.cpp:151
-#: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDlg.cpp:175
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:169
+#: /var/tmp/kwave-build/plugins/band_pass/BandPassDlg.cpp:159
+#: /var/tmp/kwave-build/plugins/lowpass/LowPassDlg.cpp:151
+#: /var/tmp/kwave-build/plugins/notch_filter/NotchFilterDlg.cpp:175
 msgid "F1"
 msgstr "F1"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:704
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:704
 msgid "FFT"
 msgstr "Transformée de Fourier rapide"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:204
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:204
 msgid "FFT settings"
 msgstr "Paramétres de la transformée de Fourier rapide (FFT)"
 
@@ -2022,31 +2025,31 @@ msgstr "FLAC audio"
 msgid "FS1016"
 msgstr "FS1016"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:48
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:47
 msgid "Fade &In"
 msgstr "Augmenter progress&ivement"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:51
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:50
 msgid "Fade &Out"
 msgstr "Affaiblir pr&ogressivement"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:662
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:662
 msgid "Fade In"
 msgstr "Augmenter progressivement"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:49
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:48
 msgid "Fade Intro"
 msgstr "Augmenter progressivement"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:50
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:49
 msgid "Fade Leadout"
 msgstr "Affaiblir progressivement"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:663
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:663
 msgid "Fade Out"
 msgstr "Affaiblir progressivement"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:661
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:661
 msgid "Fading"
 msgstr "Ajustement du volume"
 
@@ -2054,11 +2057,11 @@ msgstr "Ajustement du volume"
 msgid "Fast Fusion"
 msgstr "Fast Fusion"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:53
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:52
 msgid "File &Properties..."
 msgstr "&Propriétés du fichier..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:747
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:747
 msgid "File Info"
 msgstr "Informations sur le fichier"
 
@@ -2094,18 +2097,18 @@ msgstr "Folk-Rock"
 msgid "Folklore"
 msgstr "Folklore"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:681
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:681
 #, fuzzy
 msgid "For&mat"
 msgstr "Format"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:99
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/BitrateWidgetBase.cpp:67
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:99
+#: /var/tmp/kwave-build/plugins/fileinfo/BitrateWidgetBase.cpp:67
 msgid "Form1"
 msgstr "Nouveau fichier"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:667
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:298
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:667
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:298
 msgid "Format"
 msgstr "Format"
 
@@ -2121,7 +2124,7 @@ msgstr ""
 msgid "Freestyle"
 msgstr "Style libre"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:178
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:178
 msgid "Frequency:"
 msgstr "Fréquence :"
 
@@ -2198,7 +2201,7 @@ msgstr "Rock Gothique"
 msgid "Grunge"
 msgstr "Grunge"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/HMSTimeWidgetBase.cpp:69
+#: /var/tmp/kwave-build/libgui/HMSTimeWidgetBase.cpp:69
 msgid "HMSTimeWidgetBase"
 msgstr "HMSTimeWidgetBase"
 
@@ -2228,8 +2231,8 @@ msgstr ""
 msgid "Hip-Hop"
 msgstr "Hip-Hop"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SelectTimeWidgetBase.cpp:227
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:328
+#: /var/tmp/kwave-build/libgui/SelectTimeWidgetBase.cpp:227
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:328
 msgid "Hours"
 msgstr "Heures"
 
@@ -2307,7 +2310,7 @@ msgstr ""
 "Identifie le technicien qui a numérisé le fichier.\n"
 "Exemple: « Linus Torvalds »."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:101
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:101
 msgid ""
 "If checked, <b>save only the blocks that overlap with the current selection</"
 "b>, otherwise the whole file. <br><i>Please note that this option is "
@@ -2315,7 +2318,7 @@ msgid ""
 "file.</i>"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:641
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:641
 msgid ""
 "If checked, the <b>record time</b> is limited and recording will "
 "automatically stop when the selected time is reached."
@@ -2324,7 +2327,7 @@ msgstr ""
 "l'enregistrement sera automatiquement arrêter quand la durée choisi sera "
 "dépassée."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:644
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:644
 #, fuzzy
 msgid ""
 "If the <b>record trigger</b> is enabled, recording will start as soon as the "
@@ -2334,7 +2337,7 @@ msgstr ""
 "l'enregistrement sera automatiquement arrêter quand la durée choisi sera "
 "dépassée."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:194
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:194
 msgid ""
 "Increments or decrements the speed by a factor. \n"
 "For example: \"x1\", \"x2\", \"/ 4\""
@@ -2342,7 +2345,7 @@ msgstr ""
 "Augmente ou diminue le volume sonore à l'aide d'un coefficient.\n"
 "Par exemple : « x1 », « x2 », « x4 »"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/volume/VolumeDlg.cpp:157
+#: /var/tmp/kwave-build/plugins/volume/VolumeDlg.cpp:157
 msgid ""
 "Increments or decrements the volume by a factor. \n"
 "For example: \"x1\", \"x2\", \"/ 4\""
@@ -2350,7 +2353,7 @@ msgstr ""
 "Augmente ou diminue le volume sonore à l'aide d'un coefficient.\n"
 "Par exemple : « x1 », « x2 », « x4 »"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/volume/VolumeDlg.cpp:165
+#: /var/tmp/kwave-build/plugins/volume/VolumeDlg.cpp:165
 msgid ""
 "Increments or decrements the volume in logarithmic scale (decibel). \n"
 "For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
@@ -2359,7 +2362,7 @@ msgstr ""
 "(décibel).\n"
 "Par exemple : « +3 dB », « +6 dB », « -3 dB »."
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/LabelPropertiesWidgetBase.cpp:129
+#: /var/tmp/kwave-build/libgui/LabelPropertiesWidgetBase.cpp:129
 msgid "Index:"
 msgstr ""
 
@@ -2385,7 +2388,8 @@ msgstr "Industriel"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggDecoder.cpp:106
 msgid "Input does not appear to be an Ogg bitstream."
-msgstr "Le fichier d'entrée ne semble pas être un flux de données au format « Ogg »."
+msgstr ""
+"Le fichier d'entrée ne semble pas être un flux de données au format « Ogg »."
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/GenreType.cpp:109
 msgid "Instrumental"
@@ -2399,7 +2403,7 @@ msgstr "Pop Instrumentale"
 msgid "Instrumental Rock"
 msgstr "Rock Instrumentale"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:820
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:820
 msgid "Intensity Stereo"
 msgstr "Stéréo renforcé"
 
@@ -2424,7 +2428,7 @@ msgid "Jungle"
 msgstr "Jungle"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:118
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/KeywordWidgetBase.cpp:82
+#: /var/tmp/kwave-build/plugins/fileinfo/KeywordWidgetBase.cpp:82
 msgid "Keywords"
 msgstr "Mot-clefs :"
 
@@ -2447,16 +2451,16 @@ msgid ""
 "hardware is not connected."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/LabelPropertiesWidgetBase.cpp:121
+#: /var/tmp/kwave-build/libgui/LabelPropertiesWidgetBase.cpp:121
 #, fuzzy
 msgid "Label Properties..."
 msgstr "&Propriétés du fichier..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:64
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:63
 msgid "Label by &Intensity"
 msgstr "Label par &Intensité"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:65
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:64
 msgid "Label by &Period"
 msgstr "Label par &Période"
 
@@ -2465,7 +2469,7 @@ msgstr "Label par &Période"
 msgid "Labels"
 msgstr "&Labels"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:67
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:66
 msgid "Labels..."
 msgstr "Labels..."
 
@@ -2477,21 +2481,21 @@ msgstr "Latine"
 msgid "Layer"
 msgstr "Niveau "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:781
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:781
 msgid "Layer I"
 msgstr "Niveau I"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:782
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:782
 msgid "Layer II"
 msgstr "Niveau II"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:783
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:783
 msgid "Layer III"
 msgstr "Niveau III"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SelectTimeWidgetBase.cpp:217
 #: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDialog.cpp:214
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:320
+#: /var/tmp/kwave-build/libgui/SelectTimeWidgetBase.cpp:217
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:320
 msgid "Length"
 msgstr "Taille "
 
@@ -2499,16 +2503,16 @@ msgstr "Taille "
 msgid "Length: %1"
 msgstr "Taille : %1"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:656
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:666
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:656
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:666
 msgid "Level"
 msgstr "Niveau"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:702
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:702
 msgid "Level Meter"
 msgstr "Niveau du volume sonore"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:708
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:708
 msgid "Level:"
 msgstr "Niveau :"
 
@@ -2516,7 +2520,7 @@ msgstr "Niveau :"
 msgid "License"
 msgstr "Licence "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/about/KwaveAboutDialogBase.cpp:185
+#: /var/tmp/kwave-build/plugins/about/KwaveAboutDialogBase.cpp:185
 msgid "License agreement"
 msgstr "Accord de licence"
 
@@ -2535,15 +2539,15 @@ msgstr ""
 "http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
 "pour plus de détails)."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:173
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:173
 msgid "Limit &to"
 msgstr "Limi&tée à"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:640
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:640
 msgid "Limit the recording time"
 msgstr "Limiter le temps d'enregistrement"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/KeywordWidgetBase.cpp:89
+#: /var/tmp/kwave-build/plugins/fileinfo/KeywordWidgetBase.cpp:89
 msgid "List of keywords."
 msgstr "Liste de mots clef."
 
@@ -2576,7 +2580,7 @@ msgstr ""
 "Le chargement de la bibliothèque aRts à échoué. Ceci est probablement du à "
 "un problème avec l'installation de aRts."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassDlg.cpp:140
+#: /var/tmp/kwave-build/plugins/lowpass/LowPassDlg.cpp:140
 msgid "Low Pass"
 msgstr "Passe bas"
 
@@ -2584,7 +2588,7 @@ msgstr "Passe bas"
 msgid "Lower Bitrate"
 msgstr "Débit faible"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:823
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:823
 msgid "MPEG"
 msgstr "MPEG"
 
@@ -2608,15 +2612,15 @@ msgstr "MPEG niveau I, II ou III"
 msgid "MPEG Mode Extension (only if Joint Stereo)"
 msgstr "Mode étendu du format MPEG (seulement en stéréo)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:776
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:776
 msgid "MPEG Version 1 (ISO/IEC 11172-3)"
 msgstr "MPEG Version 1 (ISO / IEC 11172-3)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:777
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:777
 msgid "MPEG Version 2 (ISO/IEC 13818-3)"
 msgstr "MPEG Version 2 (ISO / IEC 13818-3)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:778
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:778
 msgid "MPEG Version 2.5 (unofficial)"
 msgstr "MPEG Version 2.5 (non officiel)"
 
@@ -2646,7 +2650,7 @@ msgstr "Format audio MPEG niveau 3"
 msgid "MS ADPCM"
 msgstr "MS ADPCM"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:821
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:821
 msgid "MS Stereo"
 msgstr "Stéréo MS"
 
@@ -2668,7 +2672,7 @@ msgstr "Meditative"
 msgid "Medium"
 msgstr "Média d'origine"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:168
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:168
 msgid "Memory Settings"
 msgstr "Paramétres pour la gestion de la mémoire"
 
@@ -2676,7 +2680,7 @@ msgstr "Paramétres pour la gestion de la mémoire"
 msgid "Metal"
 msgstr "Metal"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SelectTimeWidgetBase.cpp:225
+#: /var/tmp/kwave-build/libgui/SelectTimeWidgetBase.cpp:225
 msgid "Milliseconds"
 msgstr "Millisecondes"
 
@@ -2688,13 +2692,13 @@ msgstr "Type MIME "
 msgid "Mime type of the file format"
 msgstr "Le type MIME correspondant au format du fichier"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SelectTimeWidgetBase.cpp:224
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:327
+#: /var/tmp/kwave-build/libgui/SelectTimeWidgetBase.cpp:224
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:327
 msgid "Minutes"
 msgstr "Minutes"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:187
-#: /usr/src/packages/multimedia/sound/kwave/plugins/volume/VolumeDlg.cpp:154
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:187
+#: /var/tmp/kwave-build/plugins/volume/VolumeDlg.cpp:154
 msgid "Mode"
 msgstr "Mode"
 
@@ -2753,7 +2757,7 @@ msgstr "Americaine native"
 msgid "NeXT,Sun Audio"
 msgstr "NeXT, format audio Sun"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:77
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:76
 msgid "New &Window"
 msgstr "Nouvelle &fenêtre"
 
@@ -2762,11 +2766,11 @@ msgid "New Age"
 msgstr "New Age"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:97
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:646
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:646
 msgid "New File"
 msgstr "Nouveau fichier"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:297
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:297
 msgid "New Signal"
 msgstr "Nouveau signal audio"
 
@@ -2778,7 +2782,7 @@ msgstr "New Wave"
 msgid "Noise"
 msgstr "Bruit"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/CompressionWidgetBase.cpp:173
+#: /var/tmp/kwave-build/plugins/fileinfo/CompressionWidgetBase.cpp:173
 msgid "Nominal Bitrate"
 msgstr "Débit nominal"
 
@@ -2787,19 +2791,19 @@ msgid "Nominal bitrate of the audio stream in bits per second"
 msgstr "Débit nominal du flux audio en bits par seconde"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/WindowFunction.cpp:54
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:789
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:789
 msgid "None"
 msgstr "Aucun"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDlg.cpp:155
+#: /var/tmp/kwave-build/plugins/notch_filter/NotchFilterDlg.cpp:155
 msgid "Notch Filter"
 msgstr "Filtre réjecteur"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:205
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:205
 msgid "Number of FFT points:"
 msgstr "Nombre de points de la FFT :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:269
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:269
 msgid "Number of channels: mono, stereo..."
 msgstr ""
 
@@ -2811,9 +2815,9 @@ msgstr ""
 "Numéro du CD, si la source est\n"
 "un album de plusieurs CDROM"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/LabelPropertiesWidgetBase.cpp:135
-#: /usr/src/packages/multimedia/sound/kwave/plugins/selectrange/SelectRangeDlg.cpp:93
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:339
+#: /var/tmp/kwave-build/libgui/LabelPropertiesWidgetBase.cpp:135
+#: /var/tmp/kwave-build/plugins/selectrange/SelectRangeDlg.cpp:93
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:339
 msgid "O&K"
 msgstr "O&K"
 
@@ -2872,7 +2876,7 @@ msgstr ""
 "L'ouverture du périphérique « %1 » à échoué.\n"
 "Utilisation du périphérique « %2 » à la place."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:831
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:831
 msgid "Opens a dialog for selecting a date from the calendar."
 msgstr ""
 "Ouvre une boîte de dialogue pour la sélection de la date à partir d'un "
@@ -2890,7 +2894,7 @@ msgstr "Organisation "
 msgid "Original"
 msgstr "Original "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:703
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:703
 msgid "Oscilloscope"
 msgstr "Oscilloscope"
 
@@ -2909,11 +2913,11 @@ msgstr "Pas assez de mémoire"
 msgid "Out of memory!"
 msgstr "Pas assez de mémoire!"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:705
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:705
 msgid "Overview"
 msgstr "Aperçu"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:650
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:650
 msgid "Pause/Continue"
 msgstr "Pause / Continuer"
 
@@ -2921,25 +2925,25 @@ msgstr "Pause / Continuer"
 msgid "Performer"
 msgstr "Interprète "
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:89
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:88
 msgid "Periods..."
 msgstr "Périodes..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:167
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:167
 msgid "Pitch Shift"
 msgstr "Décalage fréquentiel"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:245
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:245
 #, fuzzy
 msgid "Playback"
 msgstr "&Lecture"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:259
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:259
 #, fuzzy
 msgid "Playback Method:"
 msgstr "Options de lecture :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:246
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:246
 #, fuzzy
 msgid "Playback Settings"
 msgstr "Options de lecture :"
@@ -2950,18 +2954,19 @@ msgid "Playback Test"
 msgstr "&Lecture"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:172
-msgid "Playback is currently running.Please stop playback first and then try again"
+msgid ""
+"Playback is currently running.Please stop playback first and then try again"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:267
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:267
 msgid "Playback resolution in bits per sample"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/about/KwaveAboutDialogBase.cpp:183
+#: /var/tmp/kwave-build/plugins/about/KwaveAboutDialogBase.cpp:183
 msgid "Plugins found:"
 msgstr "Nombre de modules externes trouvé :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/about/KwaveAboutDialogBase.cpp:184
+#: /var/tmp/kwave-build/plugins/about/KwaveAboutDialogBase.cpp:184
 msgid "Plugins info"
 msgstr "Modules externes"
 
@@ -2985,7 +2990,7 @@ msgstr "Pop / Funk"
 msgid "Porn Groove"
 msgstr "Groove pornographique"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/LabelPropertiesWidgetBase.cpp:128
+#: /var/tmp/kwave-build/libgui/LabelPropertiesWidgetBase.cpp:128
 #, fuzzy
 msgid "Position:"
 msgstr "Résolution :"
@@ -2998,7 +3003,7 @@ msgstr "Ballade puissante"
 msgid "Pranks"
 msgstr "Pranks"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:636
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:636
 msgid "Pre-Record:"
 msgstr "Pré-enregistrement :"
 
@@ -3091,7 +3096,7 @@ msgstr "Rap"
 msgid "Rave"
 msgstr "Rave"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:102
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:101
 msgid "Re&quantize"
 msgstr "Re-&quantifier"
 
@@ -3105,32 +3110,32 @@ msgstr ""
 msgid "Ready."
 msgstr "Prêt."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:634
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:634
 msgid "Record"
 msgstr "Enregistrer"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:639
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:639
 #, fuzzy
 msgid "Record &Time:"
 msgstr "Durée de l'enregistrement :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:635
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:635
 msgid "Record Control"
 msgstr "Contrôle de l'enregistrement"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:642
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:642
 msgid "Record Trigger:"
 msgstr "Seuil d'enregistrement :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:652
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:652
 msgid "Record!"
 msgstr "Enregistrer !"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:655
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:655
 msgid "Recording"
 msgstr "Enregistrement en cours"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:690
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:690
 #, fuzzy
 msgid "Recording Method:"
 msgstr "Mode d'encodage :"
@@ -3166,8 +3171,8 @@ msgstr "Reggae"
 msgid "Resolution"
 msgstr "Résolution "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:679
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:315
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:679
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:315
 msgid "Resolution:"
 msgstr "Résolution :"
 
@@ -3175,7 +3180,7 @@ msgstr "Résolution :"
 msgid "Retro"
 msgstr "Rétro"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:105
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:104
 msgid "Revert"
 msgstr "Rétablir"
 
@@ -3195,15 +3200,15 @@ msgstr "Rock"
 msgid "Rock & Roll"
 msgstr "Rock & Roll"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:107
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:106
 msgid "S&ave"
 msgstr "E&nregistrer..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:118
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:117
 msgid "S&top"
 msgstr "Arrê&ter"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:119
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:118
 msgid "S&top recording"
 msgstr "Arrê&ter l'enregistrement"
 
@@ -3215,7 +3220,7 @@ msgstr "Samba"
 msgid "Sample Format"
 msgstr "Format d'échantillonnage "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:677
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:677
 msgid "Sample Format:"
 msgstr "Format d'échantillonnage :"
 
@@ -3223,12 +3228,12 @@ msgstr "Format d'échantillonnage :"
 msgid "Sample Rate"
 msgstr "Période d'échantillonnage "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:670
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:312
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:670
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:312
 msgid "Sample Rate:"
 msgstr "Période d'échantillonnage : "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:324
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:324
 msgid "Samples"
 msgstr "Échantillons"
 
@@ -3259,25 +3264,25 @@ msgstr ""
 msgid "Sawtooth"
 msgstr "dents de scie"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:108
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:107
 msgid "Scroll &left"
 msgstr "Déplacer à &gauche"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:109
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:108
 msgid "Scroll &right"
 msgstr "Déplacer à &droite"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SelectTimeWidgetBase.cpp:226
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:326
+#: /var/tmp/kwave-build/libgui/SelectTimeWidgetBase.cpp:226
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:326
 msgid "Seconds"
 msgstr "Secondes"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:693
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:693
 #, fuzzy
 msgid "Selec&t..."
 msgstr "Sélectionner..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/SelectDateDlg.cpp:81
+#: /var/tmp/kwave-build/plugins/fileinfo/SelectDateDlg.cpp:81
 msgid "Select Date"
 msgstr "Sélectionner la date"
 
@@ -3285,7 +3290,7 @@ msgstr "Sélectionner la date"
 msgid "Select Playback Device"
 msgstr "Sélectionnez le périphérique de lecture"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/selectrange/SelectRangeDlg.cpp:91
+#: /var/tmp/kwave-build/plugins/selectrange/SelectRangeDlg.cpp:91
 msgid "Select Range..."
 msgstr "Sélectionner une plage d'échantillons..."
 
@@ -3293,7 +3298,7 @@ msgstr "Sélectionner une plage d'échantillons..."
 msgid "Select Record Device"
 msgstr "Sélectionnez le périphérique d'enregistrement"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:830
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:830
 msgid "Select a date from the calendar."
 msgstr "Permet de sélectionner une date dans le calendrier."
 
@@ -3301,18 +3306,19 @@ msgstr "Permet de sélectionner une date dans le calendrier."
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
-msgstr "Sélectionner une résolution en bits pour chaque fichier qui sera enregistré."
+msgstr ""
+"Sélectionner une résolution en bits pour chaque fichier qui sera enregistré."
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1126
 msgid "Selected"
 msgstr "Sélectionné"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:187
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:187
 msgid "Set FFT/time resolution parameters"
 msgstr "Paramètres de la résolution de la FFT / temps"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:833
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:834
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:833
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:834
 msgid "Set the date to today."
 msgstr "Mettre à la date d'aujourd'hui."
 
@@ -3324,7 +3330,7 @@ msgstr ""
 "Paramètre un mode de compression pour les données\n"
 "audio pour réduire l'espace utilisé sur le disque."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:190
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:190
 msgid ""
 "Sets the speed to a relative percentage of the original speed. \n"
 "For example: \"50 %\", \"75%\" or \"125%\""
@@ -3332,7 +3338,7 @@ msgstr ""
 "Paramètre le volume sonore à un pourcentage qui est relatif au niveau\n"
 "sonore d'origine. Par exemple : « 50 % », « 75 % », ou « 125 % »"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/volume/VolumeDlg.cpp:161
+#: /var/tmp/kwave-build/plugins/volume/VolumeDlg.cpp:161
 msgid ""
 "Sets the volume to a relative percentage of the original level. \n"
 "For example: \"50 %\", \"75%\" or \"125%\""
@@ -3432,9 +3438,9 @@ msgid "Soundtrack"
 msgstr "Musique de film"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:186
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:844
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:682
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:700
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:844
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:682
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:700
 msgid "Source"
 msgstr "Source "
 
@@ -3450,7 +3456,7 @@ msgstr "Southern Rock"
 msgid "Space"
 msgstr "Space"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:115
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:114
 msgid "Spe&ctrum"
 msgstr "Spe&ctre"
 
@@ -3483,12 +3489,12 @@ msgstr "Spécifie la limite haute d'un flux VBR."
 msgid "Speech"
 msgstr "Discourt"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:185
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:186
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:185
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:186
 msgid "Speed"
 msgstr "Vitesse"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:181
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:181
 msgid "Speed:"
 msgstr "Vitesse :"
 
@@ -3500,10 +3506,10 @@ msgstr "Sinusoïde au carré"
 msgid "Start"
 msgstr "Début"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:173
-#: /usr/src/packages/multimedia/sound/kwave/plugins/band_pass/BandPassDlg.cpp:163
-#: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassDlg.cpp:155
-#: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDlg.cpp:179
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:173
+#: /var/tmp/kwave-build/plugins/band_pass/BandPassDlg.cpp:163
+#: /var/tmp/kwave-build/plugins/lowpass/LowPassDlg.cpp:155
+#: /var/tmp/kwave-build/plugins/notch_filter/NotchFilterDlg.cpp:179
 msgid ""
 "Start or stop the pre-listening of the current settings. If pre-listening is "
 "enabled, you will nearly immediately hear any change in the selected "
@@ -3519,7 +3525,7 @@ msgstr ""
 msgid "Stereo"
 msgstr "Stéréo"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:648
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:648
 msgid "Stop Recording"
 msgstr "Arrêter l'enregistrement"
 
@@ -3563,7 +3569,7 @@ msgstr "Techno"
 msgid "Techno-Industrial"
 msgstr "Techno-Industriel"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/about/KwaveAboutDialogBase.cpp:181
+#: /var/tmp/kwave-build/plugins/about/KwaveAboutDialogBase.cpp:181
 msgid "Thanks To"
 msgstr "Remerciements à"
 
@@ -3723,14 +3729,15 @@ msgstr " (utilise KDE %1)"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksPlugin.cpp:210
 #, fuzzy
-msgid "This would overwrite the following file(s): %1Do you really want to continue?"
+msgid ""
+"This would overwrite the following file(s): %1Do you really want to continue?"
 msgstr ""
 "L'enregistrement du fichier dans ce format fera perdre le(s) attribut"
 "(s) suivant(s):\n"
 "%1\n"
 "Voulez vous continuer ?"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:322
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:322
 msgid "Time"
 msgstr "Temps"
 
@@ -3762,8 +3769,8 @@ msgstr "Piste du CD si la source est un CDROM."
 msgid "Tracks"
 msgstr "Pistes "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:671
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:314
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:671
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:314
 msgid "Tracks:"
 msgstr "Pistes : "
 
@@ -3779,7 +3786,7 @@ msgstr "Trance"
 msgid "Transform"
 msgstr "Transformer"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:128
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:127
 msgid "Tri&m"
 msgstr "&Arranger"
 
@@ -3821,11 +3828,11 @@ msgstr "Inconnu"
 msgid "Upper Bitrate"
 msgstr "Débit important"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/CompressionWidgetBase.cpp:168
+#: /var/tmp/kwave-build/plugins/fileinfo/CompressionWidgetBase.cpp:168
 msgid "VBR:"
 msgstr "VBR :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/CompressionWidgetBase.cpp:169
+#: /var/tmp/kwave-build/plugins/fileinfo/CompressionWidgetBase.cpp:169
 msgid "Variable Bitrate Mode"
 msgstr "Mode de débit variable"
 
@@ -3834,7 +3841,7 @@ msgstr "Mode de débit variable"
 msgid "Version"
 msgstr "Version "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:701
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:701
 msgid "Visualization"
 msgstr "Visualisation"
 
@@ -3842,13 +3849,13 @@ msgstr "Visualisation"
 msgid "Vocal"
 msgstr "Vocal"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/volume/VolumeDlg.cpp:151
-#: /usr/src/packages/multimedia/sound/kwave/plugins/volume/VolumeDlg.cpp:167
-#: /usr/src/packages/multimedia/sound/kwave/plugins/volume/VolumeDlg.cpp:168
+#: /var/tmp/kwave-build/plugins/volume/VolumeDlg.cpp:151
+#: /var/tmp/kwave-build/plugins/volume/VolumeDlg.cpp:167
+#: /var/tmp/kwave-build/plugins/volume/VolumeDlg.cpp:168
 msgid "Volume"
 msgstr "Volume"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:638
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:638
 msgid ""
 "When using <b>pre-recording</b>, Kwave already internall records before the "
 "real recording starts. This feature is useful if you want some few seconds "
@@ -3856,7 +3863,7 @@ msgid ""
 "when recording from radio)</i>"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:206
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:206
 msgid "Window Function:"
 msgstr "Fonction de la fenêtre:"
 
@@ -3887,54 +3894,54 @@ msgstr ""
 msgid "Zero"
 msgstr "Zéro"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:135
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:134
 msgid "Zoom &In"
 msgstr "Agrand&ir"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:136
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:135
 msgid "Zoom &Out"
 msgstr "&Rétrécir"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:137
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:136
 msgid "Zoom to &Selection"
 msgstr "Zoomer sur la &sélection"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:117
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:117
 #, c-format
 msgid "[%02nr] of [%count] [%filename]"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:118
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:118
 #, c-format
 msgid "[%02nr] of [%total] [%filename]"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:115
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:115
 #, c-format
 msgid "[%02nr]-[%filename]"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:116
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:116
 #, c-format
 msgid "[%04nr]-[%filename]"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:113
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:113
 #, c-format
 msgid "[%2nr] [%filename]"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:114
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:114
 #, c-format
 msgid "[%2nr]-[%filename]"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:120
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:120
 #, c-format
 msgid "[%filename] - [%04nr]"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:119
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:119
 #, c-format
 msgid "[%filename] part [%nr] of [%total]"
 msgstr ""
@@ -3965,7 +3972,7 @@ msgstr "à propos de"
 msgid "add label"
 msgstr "Chargement des &Labels..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:105
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:105
 msgid "always start with 1, overwrite if necessary"
 msgstr ""
 
@@ -4007,17 +4014,17 @@ msgstr "Auteur de la bibliothèque « sndfile »"
 msgid "authors"
 msgstr "auteurs"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/KeywordWidgetBase.cpp:86
+#: /var/tmp/kwave-build/plugins/fileinfo/KeywordWidgetBase.cpp:86
 msgid "auto-generate keywords"
 msgstr "Génération automatique de mots clef"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:201
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:201
 msgid "automatically update the sonagram <br>if the signal data has changed"
 msgstr ""
 "met à jour automatiquement le sonogramme<br>si le la piste sonore à été "
 "modifiée."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:203
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:203
 msgid ""
 "automatically update the sonagram if the selection<br>has been enlarged, "
 "reduced or moved"
@@ -4045,18 +4052,18 @@ msgstr "bandes de 16 à 31"
 msgid "bands 8 to 31"
 msgstr "bandes de 8 à 31"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDlg.cpp:165
-#: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDlg.cpp:170
+#: /var/tmp/kwave-build/plugins/notch_filter/NotchFilterDlg.cpp:165
+#: /var/tmp/kwave-build/plugins/notch_filter/NotchFilterDlg.cpp:170
 msgid "bandwidth"
 msgstr "Largeur de bande"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:755
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:680
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:316
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:755
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:680
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:316
 msgid "bit"
 msgstr "bits"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:187
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:187
 msgid "browse for a directory to hold page files"
 msgstr ""
 "Permet de choisir un dossier qui sera utilisé pour stocker les fichiers de "
@@ -4066,11 +4073,11 @@ msgstr ""
 msgid "buffering..."
 msgstr "Mise en mémoire tampon..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:192
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:192
 msgid "by Factor"
 msgstr "Par coefficient multiplicateur"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:188
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:188
 msgid "by Percentage"
 msgstr "En pourcentage"
 
@@ -4081,28 +4088,28 @@ msgstr "En pourcentage"
 msgid "card %1: "
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDlg.cpp:157
-#: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDlg.cpp:161
+#: /var/tmp/kwave-build/plugins/notch_filter/NotchFilterDlg.cpp:157
+#: /var/tmp/kwave-build/plugins/notch_filter/NotchFilterDlg.cpp:161
 msgid "center frequency"
 msgstr "fréquence centrale"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:193
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:193
 msgid "change speed by a factor"
 msgstr "Change la vitesse suivant un coefficient"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:189
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:189
 msgid "change speed by percentage"
 msgstr "Change la vitesse par pourcentages"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/volume/VolumeDlg.cpp:156
+#: /var/tmp/kwave-build/plugins/volume/VolumeDlg.cpp:156
 msgid "change volume by factor"
 msgstr "change le volume suivant un facteur"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/volume/VolumeDlg.cpp:160
+#: /var/tmp/kwave-build/plugins/volume/VolumeDlg.cpp:160
 msgid "change volume by percentage"
 msgstr "change le volume suivant un poucentage"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/volume/VolumeDlg.cpp:164
+#: /var/tmp/kwave-build/plugins/volume/VolumeDlg.cpp:164
 msgid "change volume in dB"
 msgstr "change le volume en décibels"
 
@@ -4110,8 +4117,8 @@ msgstr "change le volume en décibels"
 msgid "checksum error"
 msgstr "Erreur de somme de contrôle"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:179
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:183
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:179
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:183
 msgid "chopper frequency"
 msgstr "fréquence de découpage"
 
@@ -4150,7 +4157,7 @@ msgstr ""
 "La compression « %1 » n'est pas gérée.\n"
 "La compression « %2 » sera utilisé à la place."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:104
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:104
 msgid "continue after highest index"
 msgstr ""
 
@@ -4183,8 +4190,8 @@ msgstr "couper"
 msgid "cut the current selection and move it to the clipboard"
 msgstr "couper la sélection courante et la déplacer dans le presse papier"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassDlg.cpp:141
-#: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassDlg.cpp:146
+#: /var/tmp/kwave-build/plugins/lowpass/LowPassDlg.cpp:141
+#: /var/tmp/kwave-build/plugins/lowpass/LowPassDlg.cpp:146
 msgid "cutoff frequency"
 msgstr "fréquence de coupure"
 
@@ -4234,7 +4241,7 @@ msgstr "Détection de l'encodage des octets (recherche standard)..."
 msgid "detecting endianness (statistic search)..."
 msgstr "Détection de l'encodage des octets (recherche par statistique)..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:106
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:106
 msgid ""
 "determines how the <b>numbering of the files</b> should happen:<ul>\n"
 "<li>continue after the <b>highest index</b> that can be found, avoiding "
@@ -4252,11 +4259,12 @@ msgstr ""
 msgid "device %2: "
 msgstr "Périphérique :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:185
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:185
 msgid "directory for storing swap files"
-msgstr "Le dossier qui sera utilisé pour stocker les fichiers de la mémoire virtuelle"
+msgstr ""
+"Le dossier qui sera utilisé pour stocker les fichiers de la mémoire virtuelle"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:194
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:194
 msgid "display"
 msgstr "Affichage"
 
@@ -4270,7 +4278,7 @@ msgstr "enregistrement terminé."
 msgid "drag and drop"
 msgstr "glisser - déposer"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:637
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:637
 msgid "enable pre-recording"
 msgstr "activer le pré-enregistrement"
 
@@ -4297,13 +4305,13 @@ msgstr ""
 msgid "every 2nd Point"
 msgstr "Tous les 2 points"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:110
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:110
 msgid ""
 "example of the first file name that will be saved, using the file name "
 "pattern above and the numbering below"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:111
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:111
 #, fuzzy
 msgid "example:"
 msgstr "&Re-échantillonner"
@@ -4318,7 +4326,7 @@ msgstr "Le fichier contient des données non valables"
 msgid "file header is damaged"
 msgstr "L'en-tête du fichier est endommagée"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:128
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:128
 msgid "file name pattern:"
 msgstr ""
 
@@ -4326,7 +4334,7 @@ msgstr ""
 msgid "fileinfo"
 msgstr "informations sur les fichiers audio"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:202
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:202
 msgid "follow selection"
 msgstr "Suivre la sélection"
 
@@ -4338,17 +4346,18 @@ msgstr "Format ou fonction non implantée"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:72
 msgid "french translations, splashscreen, tests and bugfixes"
-msgstr "Traductions Françaises, logo de démarrage, tests et corrections de bogues"
+msgstr ""
+"Traductions Françaises, logo de démarrage, tests et corrections de bogues"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SelectTimeWidgetBase.cpp:216
+#: /var/tmp/kwave-build/libgui/SelectTimeWidgetBase.cpp:216
 msgid "frmLength"
 msgstr "frmLength"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:197
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:197
 msgid "greyscale"
 msgstr "Nuances de gris"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/CompressionWidgetBase.cpp:172
+#: /var/tmp/kwave-build/plugins/fileinfo/CompressionWidgetBase.cpp:172
 msgid "highest"
 msgstr "Grand"
 
@@ -4363,7 +4372,7 @@ msgstr ""
 "n'est pas présent dans le noyaux du système ou\n"
 "qu'il n'est pas correctement configuré."
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/LabelPropertiesWidgetBase.cpp:130
+#: /var/tmp/kwave-build/libgui/LabelPropertiesWidgetBase.cpp:130
 #, fuzzy
 msgid "index of the label"
 msgstr "Taille du fichier en octets"
@@ -4435,8 +4444,8 @@ msgstr "Linéaire avec complément à deux"
 msgid "low pass"
 msgstr "passe bas"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/CompressionWidgetBase.cpp:167
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/CompressionWidgetBase.cpp:175
+#: /var/tmp/kwave-build/plugins/fileinfo/CompressionWidgetBase.cpp:167
+#: /var/tmp/kwave-build/plugins/fileinfo/CompressionWidgetBase.cpp:175
 msgid "lowest"
 msgstr "Petit"
 
@@ -4448,15 +4457,15 @@ msgstr "filtre passe bas"
 msgid "maintainers of the 'id3lib' library"
 msgstr "Mainteneur de la bibliothèque « id3lib »"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:331
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:331
 msgid "maximum"
 msgstr "maximum"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:175
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:175
 msgid "megabytes of physical memory"
 msgstr "La taille en méga-octets de la mémoire physique"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemDlg.cpp:190
+#: /var/tmp/kwave-build/plugins/memory/MemDlg.cpp:190
 msgid "megabytes of virtual memory"
 msgstr "La taille en méga-octets de la mémoire virtuelle"
 
@@ -4464,15 +4473,15 @@ msgstr "La taille en méga-octets de la mémoire virtuelle"
 msgid "memory"
 msgstr "gestion de la mémoire"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:253
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:253
 msgid "method or system used for playback"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:685
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:685
 msgid "method or system used for recording"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:329
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:329
 msgid "minimum"
 msgstr "minimum"
 
@@ -4544,11 +4553,11 @@ msgstr "filtre réjecteur"
 msgid "null device"
 msgstr "Tous les périphériques (*)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:102
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:102
 msgid "numbering:"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:200
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:200
 msgid "on modifications"
 msgstr "Dans les modifications"
 
@@ -4612,7 +4621,7 @@ msgstr "décalage fréquentiel"
 msgid "pitch_shift"
 msgstr "décalage fréquentiel"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:277
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:277
 msgid "play a short test sound"
 msgstr ""
 
@@ -4621,7 +4630,7 @@ msgstr ""
 msgid "playback"
 msgstr "lecture"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:247
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:247
 #, fuzzy
 msgid "playback device"
 msgstr "Périphérique de lecture :"
@@ -4677,7 +4686,7 @@ msgstr "Point récemment sélectionné"
 msgid "record"
 msgstr "enregistreur de sons"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:691
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:691
 #, fuzzy
 msgid "recording device"
 msgstr "Périphérique de lecture OSS (dsp*)"
@@ -4716,13 +4725,13 @@ msgstr "Période d'échantillonnage : "
 msgid "samples"
 msgstr "échantillons"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:768
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:669
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:313
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:768
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:669
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:313
 msgid "samples per second"
 msgstr "échantillons par seconde"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksWidgetBase.cpp:100
+#: /var/tmp/kwave-build/plugins/saveblocks/SaveBlocksWidgetBase.cpp:100
 #, fuzzy
 msgid "save selection only"
 msgstr "&Sélection..."
@@ -4735,8 +4744,8 @@ msgstr "enregistre le fichier courant"
 msgid "saveblocks"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:695
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:251
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:695
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:251
 msgid "search on the filesystem for a device"
 msgstr ""
 
@@ -4744,15 +4753,15 @@ msgstr ""
 msgid "searching for missing chunk '%1'..."
 msgstr "Recherche pour le portion manquante « %1 »..."
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SelectTimeWidgetBase.cpp:219
+#: /var/tmp/kwave-build/libgui/SelectTimeWidgetBase.cpp:219
 msgid "select by number of samples"
 msgstr "Sélectionner comme nombre d'échantillons"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SelectTimeWidgetBase.cpp:223
+#: /var/tmp/kwave-build/libgui/SelectTimeWidgetBase.cpp:223
 msgid "select by percentage of the signal's length"
 msgstr "Paramètre la taille du fichier sonore par le pourcentage de sa taille"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SelectTimeWidgetBase.cpp:221
+#: /var/tmp/kwave-build/libgui/SelectTimeWidgetBase.cpp:221
 msgid "select by time"
 msgstr "Sélectionner du temps"
 
@@ -4760,11 +4769,11 @@ msgstr "Sélectionner du temps"
 msgid "select range"
 msgstr "Sélectionner une plage d'échantillons"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:325
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:325
 msgid "select this to enter the number of samples directly"
 msgstr "sélectionnez ici le nombre d'échantillons"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:323
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:323
 msgid "select this to set the length of the file by time"
 msgstr "sélectionnez ici la durée de votre fichier sonore"
 
@@ -4790,13 +4799,13 @@ msgstr ""
 msgid "selectrange"
 msgstr "sélection d'une plage d'échantillons"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/newsignal/NewSigDlg.cpp:332
+#: /var/tmp/kwave-build/plugins/newsignal/NewSigDlg.cpp:332
 msgid "sets the file size by the percentage of the possible maximum"
 msgstr ""
 "paramètre la taille du fichier sonore par le pourcentage de sa taille "
 "maximale possible"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SelectTimeWidgetBase.cpp:231
+#: /var/tmp/kwave-build/libgui/SelectTimeWidgetBase.cpp:231
 msgid "sets the selection by the percentage of the whole signal"
 msgstr "Sélectionner par le pourcentage de la taille complète du signal"
 
@@ -4808,12 +4817,12 @@ msgstr "silence"
 msgid "size of bitmap: %1x%2"
 msgstr "Taille du Bitmap : %1x%2"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackDlg.cpp:262
+#: /var/tmp/kwave-build/plugins/playback/PlayBackDlg.cpp:262
 #, fuzzy
 msgid "size of the playback buffer in bytes"
 msgstr "Taille du fichier en octets"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/LabelPropertiesWidgetBase.cpp:125
+#: /var/tmp/kwave-build/libgui/LabelPropertiesWidgetBase.cpp:125
 msgid "some description of the label (optional)"
 msgstr ""
 
@@ -4842,10 +4851,10 @@ msgstr "Démarre la lecture"
 msgid "start playback and loop"
 msgstr "Démarre la lecture en boucle"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/pitch_shift/PitchShiftDlg.cpp:172
-#: /usr/src/packages/multimedia/sound/kwave/plugins/band_pass/BandPassDlg.cpp:162
-#: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassDlg.cpp:154
-#: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDlg.cpp:178
+#: /var/tmp/kwave-build/plugins/pitch_shift/PitchShiftDlg.cpp:172
+#: /var/tmp/kwave-build/plugins/band_pass/BandPassDlg.cpp:162
+#: /var/tmp/kwave-build/plugins/lowpass/LowPassDlg.cpp:154
+#: /var/tmp/kwave-build/plugins/notch_filter/NotchFilterDlg.cpp:178
 msgid "start/stop pre-listening"
 msgstr "Arrêter / démarrer l'aperçu"
 
@@ -4870,30 +4879,30 @@ msgstr "Perte de synchronisation"
 msgid "tester"
 msgstr "Testeur"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:121
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:120
 msgid "to &End"
 msgstr "A la &Fin"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:122
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:121
 msgid "to &Maximum"
 msgstr "au &maximum"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:126
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:125
 msgid "to &Start"
 msgstr "Au débu&t"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:120
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:119
 msgid "to be done..."
 msgstr "terminés..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:124
 #: /usr/src/packages/multimedia/sound/kwave/kwave/SignalWidget.cpp:1050
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:123
 #, fuzzy
 msgid "to next labels"
 msgstr "&Insertion de labels..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:125
 #: /usr/src/packages/multimedia/sound/kwave/kwave/SignalWidget.cpp:1057
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:124
 #, fuzzy
 msgid "to previous labels"
 msgstr "Page &précédente"
@@ -4902,7 +4911,7 @@ msgstr "Page &précédente"
 msgid "tracks: "
 msgstr "Pistes :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDlg.cpp:643
+#: /var/tmp/kwave-build/plugins/record/RecordDlg.cpp:643
 msgid "trigger level"
 msgstr "niveau du seuil"
 
@@ -4943,19 +4952,19 @@ msgstr "Entier non signé"
 msgid "unusable buffer size: %1"
 msgstr "Taille de mémoire tampon inutilisable : %1"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:199
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:199
 msgid "update"
 msgstr "Mise à jour"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:195
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:195
 msgid "use colors"
 msgstr "Utilisation des couleurs"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:196
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:196
 msgid "use different colors for amplitude"
 msgstr "utilisation de différentes couleurs pour l'amplitude"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDlg.cpp:198
+#: /var/tmp/kwave-build/plugins/sonagram/SonagramDlg.cpp:198
 msgid "use greyscale only for amplitude"
 msgstr "utilisation des nuances de gris pour l'amplitude"
 
@@ -4977,14 +4986,14 @@ msgstr "attente de « trigger »..."
 msgid "wav audio"
 msgstr "wav audio"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/menus_config_i18n.cpp:134
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:133
 msgid "with &Clipboard"
 msgstr "avec le &presse-papiers"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:785
-#: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDlg.cpp:822
 #: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDialog.cpp:406
 #: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDialog.cpp:412
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:785
+#: /var/tmp/kwave-build/plugins/fileinfo/FileInfoDlg.cpp:822
 msgid "yes"
 msgstr "Oui"
 
@@ -5019,4 +5028,3 @@ msgstr "zoomer à l'ensemble de la piste"
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:366
 msgid "zoom to selection"
 msgstr "zoomer la sélection"
-

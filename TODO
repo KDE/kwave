@@ -7,8 +7,6 @@ o maybe use Phonon instead of aRts as soon as it is available
 o use Qt-4 for streaming as soon as possible (with KDE-4)
   (needs evaluation)
 
-o convert build system to cmake
-
 o recording plugin: show current recording time in status bar
 
 o use LADSPA
@@ -18,10 +16,8 @@ o automatic defragmentation of stripes
 o support for sample rate conversion, libsamplerate
 
 o use the host's native libaudiofile. current state:
-	SuSE	-> builtin
-	Gentoo	-> native
-	Debian	-> native
-	Crux	-> native
+	SuSE		-> builtin
+	all others	-> native
 
 o fix compiler warnings in MP3 decoder (since gcc-4.1)
 
@@ -122,8 +118,9 @@ o check at program startup: does the help directory exist? If not, show
   a message and make a symbolic link
 
 o document how to do an optimized build, for example:
-  make -f Makefile.dist RPM_OPT_FLAGS="-march=athlon-xp -mcpu=athlon-xp \
-  -O4 -Wall -pipe -DQT_CLEAN_NAMESPACE -DQT_NO_COMPAT -DQT_NO_TRANSLATION"
+  CFLAGS="-march=athlon-xp -mcpu=athlon-xp \
+  -O4 -Wall -pipe -DQT_CLEAN_NAMESPACE -DQT_NO_COMPAT -DQT_NO_TRANSLATION" \
+  CXXFLAGS=${CFLAGS} cmake ...
 
 o speed up MP3 import by blockwise operation
 

@@ -1,12 +1,14 @@
 
-0.8.0 [2007-??-??]
+0.7.10 [2007-07-??]
 
  * build system: using 'METASOURCES=AUTO' (which simplifies a lot)
  * ported the build system to cmake
  * support for newer APIs of FLAC v1.1.3 and v1.1.4
-   (closes SF bug #1713655 + debian bugs #427747, #426668 and #431199)
+   (closes SF bugs #1713655 and #1757716 + debian bugs #427747, #426668
+   and #431199)
  * replaced problematic code in libaudiofile with new code under the
    LGPL, contributed by Bertrand Songis (partially fixes debian bug #419124)
+ * update of the online documentation to reflect the change of the make system
 
 0.7.9 [2007-05-01]
 

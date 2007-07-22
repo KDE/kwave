@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2007-07-06</date>
+<date>2007-07-22</date>
 <releaseinfo>0.7.9</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -201,7 +201,7 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.8.0 [2007-??-??]</para>
+            <para>0.7.10 [2007-07-??]</para>
             <itemizedlist>
                 <listitem><para>
                     build system: using 'METASOURCES=AUTO' (which simplifies a lot)
@@ -211,11 +211,15 @@
                 </para></listitem>
                 <listitem><para>
                     support for newer APIs of FLAC v1.1.3 and v1.1.4
-                      (closes SF bug #1713655 + debian bugs #427747, #426668 and #431199)
+                      (closes SF bugs #1713655 and #1757716 + debian bugs #427747, #426668
+                      and #431199)
                 </para></listitem>
                 <listitem><para>
                     replaced problematic code in libaudiofile with new code under the
-                      LGPL, contributed by Bertrand Songis (affects debian bug #419124)
+                      LGPL, contributed by Bertrand Songis (partially fixes debian bug #419124)
+                </para></listitem>
+                <listitem><para>
+                    update of the online documentation to reflect the change of the make system
                 </para></listitem>
             </itemizedlist>
         </listitem>
@@ -694,7 +698,7 @@
                     new plugin "noise"
                 </para></listitem>
                 <listitem><para>
-                     new aRts plugin adapter framework
+                     new aRts plugin adapter framework 
                       now Kwave is able to use existing aRts plugins in it's own plugins
                       for sound processing
                 </para></listitem>
@@ -731,7 +735,7 @@
             <para>0.6.1 [2001-08-24]</para>
             <itemizedlist>
                 <listitem><para>
-                     USE OF VIRTUAL MEMORY
+                     USE OF VIRTUAL MEMORY 
                 </para></listitem>
                 <listitem><para>
                     changed Makefiles: html docu stays in distribution due to too much
@@ -760,7 +764,7 @@
             <para>0.6.0 [2001-07-29]</para>
             <itemizedlist>
                 <listitem><para>
-                     PORTED TO QT-2 AND KDE2
+                     PORTED TO QT-2 AND KDE2 
                 </para></listitem>
                 <listitem><para>
                     completely new internal architecture
@@ -979,7 +983,7 @@
                     found out that we need ALSA support for 24 and 32 bits/sample
                 </para></listitem>
                 <listitem><para>
-                     playback in stereo
+                     playback in stereo 
                 </para></listitem>
                 <listitem><para>
                     selected channels (x) are mixed to the output device's channels (y)
@@ -1127,7 +1131,7 @@
                     bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)
                 </para></listitem>
                 <listitem><para>
-                     COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE
+                     COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE 
                     <itemizedlist>
                     <listitem><para>
                          made use of a combination of signals/slots and string messages
@@ -1193,8 +1197,8 @@
             <para>0.5.1-4</para>
             <itemizedlist>
                 <listitem><para>
-                     now compiles and runns under RedHat 6.1 / Halloween IV
-                       as well as under SuSE 6.2
+                     now compiles and runns under RedHat 6.1 / Halloween IV 
+                       as well as under SuSE 6.2                              
                 </para></listitem>
                 <listitem><para>
                     version info of libkwavegui.so is set to the package's version
@@ -1215,7 +1219,7 @@
                     configure-parameter --enable-debug has effect again
                 </para></listitem>
                 <listitem><para>
-                     ASCII import and export works now (mono only)
+                     ASCII import and export works now (mono only) 
                 </para></listitem>
                 <listitem><para>
                     bugfixes in some plugins, all compile now without warnings/errors
@@ -2284,7 +2288,7 @@
     <para>
 	You can easily compile the RPM package optimized for Athlon,
 	Athlon-XP, Pentium and Pentium Pro
-	(ond some other CPUs) by using some defines in your rpmrc file.
+	(and some other CPUs) by using some defines in your <filename>rpmrc</filename> file.
 	You can either modify your system's <filename>rpmrc</filename>
 	file in <filename>/usr/lib/rpm</filename> or the
 	<filename>.rpmrc</filename> file in your home directory.
@@ -3667,24 +3671,99 @@
 	    <listitem><para>
 		<emphasis>user interface:</emphasis>
 		</para><para>
-		Change into the subdirectory <filename>po</filename> and copy the
+		Go to the source directory of &kapp; (not the build directory),
+		change into the subdirectory <filename>po</filename> and copy the
 		file <filename>kwave.pot</filename> to the corresponding <filename>.po</filename> file of
 		the language you want to add: <filename>"<replaceable>&lt;code&gt;</replaceable>.po"</filename>.
+		After that you can translate the file using your favorite tool, like
+		<filename>kbabel</filename>.
 		Example:
 <screen>
+<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
 <prompt>% </prompt><command>cd <parameter>po</parameter></command>
-<prompt>% </prompt><command>cp <parameter>kwave.pot</parameter> <parameter>fr.po</parameter></command>
+<prompt>% </prompt><command>cp <parameter>kwave.pot</parameter> <parameter><replaceable>fr.po</replaceable></parameter></command>
+<prompt>% </prompt><command>kbabel <parameter>fr.po</parameter></command>
 </screen>
 	    </para></listitem>
 
 	    <listitem><para>
 		<emphasis>online help:</emphasis>
 		</para><para>
+		This is similar to the procedure for the user interface, but requires
+		some extra steps because the master file is in <literal>docbook</literal>
+		format and the <filename>.pot</filename> template is a generated
+		file.
+		Go to the source directory of &kapp; (not the build directory),
+		change into the subdirectory <filename>doc</filename> and create
+		an empty <filename>.po</filename> file:
+<screen>
+<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
+<prompt>% </prompt><command>cd <parameter>doc</parameter></command>
+<prompt>% </prompt><command>touch <parameter><replaceable>help_fr.po</replaceable></parameter></command>
+</screen>
+		Then change your build directory (e.g. somewhere in <filename>/tmp</filename>),
+		prepare for building and then generate the <filename>.pot</filename> template (you
+		can safely ignore the error messages that come out at this stage).
+		This themplate has to be copied to the <filename>.po</filename> file in the source
+		directory of the online help.
+		Example:
+<screen>
+<prompt>% </prompt><command>mkdir <parameter>/tmp/kwave-build</parameter></command>
+<prompt>% </prompt><command>cd <parameter>/tmp/kwave-build</parameter></command>
+<prompt>% </prompt><command>cmake <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
+<prompt>% </prompt><command>make doc</command>
+<prompt>% </prompt><command>cp <parameter>doc/help_en.pot</parameter> <parameter><replaceable>$HOME/src/kwave/doc/help_fr.po</replaceable></parameter></command>
+</screen>
+	    Now you can translate the <filename>.po</filename> file, like above:
+<screen>
+<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
+<prompt>% </prompt><command>cd <parameter>doc</parameter></command>
+<prompt>% </prompt><command>kbabel <parameter><replaceable>help_fr.po</replaceable></parameter></command>
+</screen>
 	    </para></listitem>
 
 	    <listitem><para>
 		<emphasis>screenshots:</emphasis>
 		</para><para>
+		For the online documentation you also need screenshots that use the
+		translated messages. This requires a built and installed &kapp; package,
+		so you should follow the steps mentioned in the section about
+		<link linkend="manual_compilation">Manual Compilation and installation</link>.
+		Of course you <emphasis>must not</emphasis> pass the build
+		option <literal>WITH_DOC=no</literal> or any other build option that
+		removes functionality, otherwise you would not be able to get
+		screenshots of components that you have disabled.
+		</para><para>
+		For a list of screenshots you can look into one of the existing directories
+		in the source tree, for example in <filename>$HOME/doc/de</filename>.
+		All screenshots are in <emphasis><filename>.png</filename></emphasis> and
+		should follow the
+		<ulink url="http://l10n.kde.org/docs/screenshots.php">KDE
+		Documentation Screenshots Requirements</ulink>.
+		Here in short:
+		<itemizedlist>
+		    <listitem><para>
+			Window decoration: Plastik
+		    </para></listitem>
+		    <listitem><para>
+			Widget style: Plastik
+		    </para></listitem>
+		    <listitem><para>
+			Colors: KDE Default
+		    </para></listitem>
+		    <listitem><para>
+			Background: Flat color - Color must be white
+		    </para></listitem>
+		    <listitem><para>
+			Run X11 in 72dpi mode
+		    </para></listitem>
+		    <listitem><para>
+			Save the files in 8bpp
+		    </para></listitem>
+		    <listitem><para>
+			Try to keep the size of each file below 20kB
+		    </para></listitem>
+		</itemizedlist>
 	    </para></listitem>
 
 	</orderedlist>
@@ -3694,6 +3773,10 @@
 	Useful links:
 	<itemizedlist>
 	    <listitem><para>
+		<ulink url="http://www.ietf.org/rfc/rfc3066.txt">RFC 3066</ulink>
+		Tags for the Identification of Languages
+	    </para></listitem>
+	    <listitem><para>
 		<ulink url="http://l10n.kde.org/">KDE Localization</ulink> contains
 		a lot of useful links for KDE translators.
 	    </para></listitem>
@@ -3701,6 +3784,10 @@
 		<ulink url="http://kbabel.kde.org/">KBabel</ulink> is
 		<emphasis>the</emphasis> standard tool that helps you
 		translating <filename>.po</filename> files.
+	    </para></listitem>
+	    <listitem><para>
+		<ulink url="http://l10n.kde.org/docs/screenshots.php">KDE
+		Documentation Screenshots Requirements</ulink>.
 	    </para></listitem>
 	</itemizedlist>
     </para>
@@ -3711,13 +3798,15 @@
 <!-- +++ Section: Adding a new plugin                                   +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
+<!--
     <sect1 id="add_new_plugin"><title>Adding a new Plugin</title>
 
     <para>
-	blubb
+	to be written...
     </para>
 
     </sect1>
+-->
 
 </chapter>
 

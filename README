@@ -209,8 +209,15 @@ made running and what I had to install additionally:
 	mad-0.15.1b-1.pm.3.i586.rpm
 	mad-devel-0.15.1b-1.pm.3.i586.rpm
 	had to build and update cmake-2.4.6 from source rpm,
-	for example with
+	for example from
 	ftp://rm.mirror.garr.it/mirrors/opensuse/opensuse/distribution/SL-OSS-factory/inst-source/suse/src
+
+* Debian (e.g. ppc)
+	for getting a newer version of cmake (>= 2.4.6) I had to do:
+	apt-get source -b -t testing cmake 
+	dpkg --install cmake_2.4.6-1_powerpc.deb
+	apt-get install kdemultimedia-dev libflac++dev libid3-dev \
+		libgsl0-dev recode imagemagick kdesdk
 
 (other distributions should work out-of-the-box,
  see http://kwave.sourceforge.net/distributions.html)

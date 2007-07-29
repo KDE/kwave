@@ -90,7 +90,7 @@ IF (_mach_x86_64)
     SET(ARCH_X86_64 1)
 ENDIF (_mach_x86_64)
 
-STRING(REGEX MATCH "(ppc-*)" _mach_ppc ${MACHINE})
+STRING(REGEX MATCH "(ppc-*)|(powerpc-*)" _mach_ppc ${MACHINE})
 IF (_mach_ppc)
     MESSAGE(STATUS "Found target optimized memcpy() for PPC (from xine)")
     SET(ARCH_PPC 1)

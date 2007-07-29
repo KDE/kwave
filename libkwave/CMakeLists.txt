@@ -25,6 +25,16 @@ INCLUDE_DIRECTORIES(
 
 #############################################################################
 
+ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/ppcasm_string.o
+    COMMAND ${CMAKE_C_COMPILER} -I${CMAKE_BINARY_DIR} -Wall -O2
+        -DHAVE_CONFIG_H
+        -o ${CMAKE_CURRENT_BINARY_DIR}/ppcasm_string.o
+        -c ${CMAKE_CURRENT_SOURCE_DIR}/ppcasm_string.S
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/ppcasm_string.S
+)
+
+#############################################################################
+
 SET(libkwave_LIB_SRCS
     ArtsMultiPlaybackSink.cpp
     ArtsPlaybackSink_impl.cpp

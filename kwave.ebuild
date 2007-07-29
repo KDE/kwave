@@ -10,7 +10,7 @@ SRC_URI="mirror://sourceforge/kwave/${P}.tar.gz"
 
 SLOT="0"
 LICENSE="GPL-2"
-KEYWORDS="~x86"
+KEYWORDS="~x86 ~amd64 ~ppc"
 IUSE="alsa doc flac mp3 ogg oss mmx"
 
 RDEPEND="kde-base/arts

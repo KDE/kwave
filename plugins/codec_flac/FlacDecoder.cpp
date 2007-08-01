@@ -53,8 +53,13 @@ Decoder *FlacDecoder::instance()
 }
 
 //***************************************************************************
+#if defined(FLAC_API_VERSION_1_1_2) || defined(FLAC_API_VERSION_1_1_1_OR_OLDER)
+::FLAC__StreamDecoderReadStatus FlacDecoder::read_callback(
+        FLAC__byte buffer[], unsigned int *bytes)
+#else
 ::FLAC__StreamDecoderReadStatus FlacDecoder::read_callback(
         FLAC__byte buffer[], size_t *bytes)
+#endif
 {
     Q_ASSERT(bytes);
     Q_ASSERT(m_source);

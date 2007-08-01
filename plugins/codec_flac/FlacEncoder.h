@@ -69,9 +69,15 @@ protected:
      * @param current_frame index of the current frame
      * @return FLAC stream encoder write status
      */
+#if defined(FLAC_API_VERSION_1_1_2) || defined(FLAC_API_VERSION_1_1_1_OR_OLDER)
+    virtual ::FLAC__StreamEncoderWriteStatus write_callback(
+        const FLAC__byte buffer[], unsigned int bytes,
+        unsigned int samples, unsigned int current_frame);
+#else
     virtual ::FLAC__StreamEncoderWriteStatus write_callback(
         const FLAC__byte buffer[], size_t bytes,
         unsigned samples, unsigned current_frame);
+#endif
 
     /**
      * Callback for encoding meta data

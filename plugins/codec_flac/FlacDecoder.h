@@ -100,8 +100,13 @@ protected:
      *        can be modified
      * @return read state
      */
+#if defined(FLAC_API_VERSION_1_1_2) || defined(FLAC_API_VERSION_1_1_1_OR_OLDER)
+    virtual ::FLAC__StreamDecoderReadStatus read_callback(
+        FLAC__byte buffer[], unsigned int *bytes);
+#else
     virtual ::FLAC__StreamDecoderReadStatus read_callback(
         FLAC__byte buffer[], size_t *bytes);
+#edif
 
     /**
      * FLAC decoder interface: write callback.

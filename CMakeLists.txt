@@ -78,7 +78,7 @@ EXECUTE_PROCESS(
 )
 MESSAGE(STATUS "Building for target ${MACHINE}")
 
-STRING(REGEX MATCH "(i?86-*)|(athlon-*)|(pentium-*)" _mach_x86 ${MACHINE})
+STRING(REGEX MATCH "(i.86-*)|(athlon-*)|(pentium-*)" _mach_x86 ${MACHINE})
 IF (_mach_x86)
     MESSAGE(STATUS "Found target optimized memcpy() for X86 (from xine)")
     SET(ARCH_X86 1)

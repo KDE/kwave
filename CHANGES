@@ -1,5 +1,5 @@
 
-0.7.10 [2007-07-??]
+0.7.10 [2007-08-08]
 
  * build system: using 'METASOURCES=AUTO' (which simplifies a lot)
  * ported the build system to cmake

@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2007-07-22</date>
+<date>2007-08-08</date>
 <releaseinfo>0.7.9</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -201,7 +201,7 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.7.10 [2007-07-??]</para>
+            <para>0.7.10 [2007-08-08]</para>
             <itemizedlist>
                 <listitem><para>
                     build system: using 'METASOURCES=AUTO' (which simplifies a lot)

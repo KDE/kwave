@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2007-07-22 13:50+0000\n"
+"POT-Creation-Date: 2007-08-08 16:49+0000\n"
 "PO-Revision-Date: 2007-07-21 22:41+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -378,8 +378,8 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:204
-#, no-c-format
-msgid "0.7.10 [2007-07-??]"
+#, fuzzy, no-c-format
+msgid "0.7.10 [2007-08-08]"
 msgstr "0.7.10 [2007-07-??]"
 
 #. Tag: para

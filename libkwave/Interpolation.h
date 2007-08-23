@@ -38,6 +38,9 @@ interpolation_t &operator ++(interpolation_t &i);
 
 class Curve;
 
+/**
+ * Interpolation types
+ */
 class Interpolation
 {
 public:

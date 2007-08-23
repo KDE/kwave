@@ -23,6 +23,9 @@
 #include <qstring.h>
 #include "WavFileFormat.h"
 
+/**
+ * list of known wav file formats
+ */
 class WavFormatMap: public QMap<wav_format_id, QString>
 {
 public:

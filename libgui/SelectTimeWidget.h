@@ -25,6 +25,9 @@
 
 #include "libgui/SelectTimeWidgetBase.h"
 
+/**
+ * widget for selecting a time or range
+ */
 class SelectTimeWidget: public SelectTimeWidgetBase
 {
     Q_OBJECT

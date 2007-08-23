@@ -26,6 +26,9 @@
 class QPaintEvent;
 class TransmissionFunction;
 
+/**
+ * displays a frequency response
+ */
 class FrequencyResponseWidget: public QWidget
 {
     Q_OBJECT
@@ -49,7 +52,7 @@ public:
 
     /** Set a new transmission function and update the display */
     virtual void setFilter(TransmissionFunction *func);
-    
+
     /** @see QWidget::paintEvent() */
     virtual void paintEvent(QPaintEvent *);
 
@@ -66,13 +69,13 @@ private:
 
     /** number of decades, calculated from m_f_max */
     int m_decades;
-    
+
     /**
      * Pointer to a transmission function object, used for
      * painting the frequency response.
      */
     TransmissionFunction *m_function;
-    
+
     /** QPixmap to be blitted to screen (avoiding flicker) */
     QPixmap *m_pixmap;
 

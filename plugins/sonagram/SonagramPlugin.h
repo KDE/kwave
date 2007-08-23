@@ -33,6 +33,9 @@ class PluginContext;
 class SonagramWindow;
 class StripeInfoPrivate;
 
+/**
+ * plugin that shows a sonagram window
+ */
 class SonagramPlugin: public KwavePlugin
 {
     Q_OBJECT

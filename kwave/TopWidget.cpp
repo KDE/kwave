@@ -113,7 +113,7 @@ TopWidget::ZoomListPrivate::ZoomListPrivate()
     append("10 min", 10L*60L*1000L);
     append("30 min", 30L*60L*1000L);
     append("60 min", 60L*60L*1000L);
-};
+}
 
 //***************************************************************************
 void TopWidget::ZoomListPrivate::append(const char *text, unsigned int ms)
@@ -486,6 +486,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     updateMenu();
     updateRecentFiles();
 
+#ifdef HAVE_ARTS_SUPPORT
     // check if the aRts dispatcher is functional. if not, we better
     // should exit now, as most of the plugins would not work
     if (!m_plugin_manager->artsDispatcher()) {
@@ -502,6 +503,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	qApp->exit();
 	return;
     }
+#endif /* HAVE_ARTS_SUPPORT */
 
     // now we are initialized, load all plugins now
     statusBar()->message(i18n("Loading plugins..."));
@@ -540,8 +542,11 @@ bool TopWidget::isOK()
     Q_ASSERT(m_zoomselect);
 
     return ( m_menu_manager && m_main_widget &&
-	m_plugin_manager && m_toolbar && m_zoomselect &&
-        (m_plugin_manager->artsDispatcher()) );
+	m_plugin_manager && m_toolbar && m_zoomselect
+#ifdef HAVE_ARTS_SUPPORT
+	&& (m_plugin_manager->artsDispatcher())
+#endif /* HAVE_ARTS_SUPPORT */
+    );
 }
 
 //***************************************************************************

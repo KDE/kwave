@@ -29,7 +29,9 @@
 #include <klocale.h>
 #include <kcmdlineargs.h>
 
+#ifdef HAVE_ARTS_SUPPORT
 #include <arts/artsflow.h>
+#endif /* HAVE_ARTS_SUPPORT */
 
 #include "KwaveApp.h"
 #include "KwaveSplash.h"

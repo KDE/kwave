@@ -15,11 +15,6 @@
 ##                                                                          #
 #############################################################################
 
-### aRts is currently always on, will be configurable away later...
-SET(HAVE_ARTS_SUPPORT ON CACHE BOOL "enable ARTS support")
-
-#############################################################################
-
 IF (HAVE_ARTS_SUPPORT)
     SET(PLAYBACK_SOURCES ${PLAYBACK_SOURCES} PlayBack-aRts.cpp)
 ENDIF (HAVE_ARTS_SUPPORT)

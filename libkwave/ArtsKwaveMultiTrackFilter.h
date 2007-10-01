@@ -19,6 +19,8 @@
 #define _ARTS_KWAVE_MULTI_TRACK_FILTER_H_
 
 #include "config.h"
+#ifdef HAVE_ARTS_SUPPORT
+
 #include <string.h>
 #include <qglobal.h> // for qWarning()
 #include <qptrvector.h>
@@ -175,5 +177,9 @@ private:
     /** list of the filters */
     QPtrVector<FILTER> m_filter;
 };
+
+#else /* HAVE_ARTS_SUPPORT */
+#warning aRts support is disabled
+#endif /* HAVE_ARTS_SUPPORT */
 
 #endif /* _ARTS_KWAVE_MULTI_TRACK_FILTER_H_ */

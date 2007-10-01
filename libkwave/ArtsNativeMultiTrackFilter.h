@@ -19,6 +19,8 @@
 #define _ARTS_NATIVE_MULTI_TRACK_FILTER_H_
 
 #include "config.h"
+#ifdef HAVE_ARTS_SUPPORT
+
 #include <string.h>
 #include <qglobal.h> // for qWarning()
 #include <qptrvector.h>
@@ -46,7 +48,7 @@ public:
 	unsigned int i;
 	for (i=0; i < m_count; ++i) {
 	    m_filter.insert(i, 0);
-	
+
 	    Arts::Object object = Arts::Object::_from_base(
 		Arts::ObjectManager::the()->create(name));
 
@@ -54,7 +56,7 @@ public:
 		m_filter.insert(i, new Arts::SynthModule(
 		    Arts::DynamicCast(object)));
 	    }
-	
+
 	    if (!m_filter[i]) {
 		qWarning("ArtsMultiTrackFilter: filter creation failed!!!");
 		m_count = i;
@@ -163,7 +165,7 @@ public:
 	        command).param(value).invoke();
 	}
     };
- 
+
 
     /** Starts all filters. */
     virtual void start() {
@@ -184,5 +186,9 @@ private:
     QPtrVector<Arts::SynthModule> m_filter;
 
 };
+
+#else /* HAVE_ARTS_SUPPORT */
+#warning aRts support is disabled
+#endif /* HAVE_ARTS_SUPPORT */
 
 #endif /* _ARTS_NATIVE_MULTI_TRACK_FILTER_H_ */

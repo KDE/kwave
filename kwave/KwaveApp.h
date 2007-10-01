@@ -132,8 +132,10 @@ protected:
      */
     void saveConfig();
 
+#ifdef HAVE_ARTS_SUPPORT
     /** Initialises the aRts daemon */
     void initArts();
+#endif /* HAVE_ARTS_SUPPORT */
 
 private:
 

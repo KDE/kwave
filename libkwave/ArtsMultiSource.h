@@ -19,6 +19,8 @@
 #define _ARTS_MULTI_SOURCE_H_
 
 #include "config.h"
+#ifdef HAVE_ARTS_SUPPORT
+
 #include <arts/artsflow.h>
 
 class ArtsMultiSource
@@ -48,5 +50,9 @@ public:
     /** @see Arts::StdSynthModule::stop() */
     virtual void stop() {};
 };
+
+#else /* HAVE_ARTS_SUPPORT */
+#warning aRts support is disabled
+#endif /* HAVE_ARTS_SUPPORT */
 
 #endif /* _ARTS_MULTI_SOURCE_H_ */

@@ -62,8 +62,10 @@ KwaveApp::KwaveApp()
     m_topwidget_list.setAutoDelete(false);
     readConfig();
 
+#ifdef HAVE_ARTS_SUPPORT
     // initialize the aRts daemon, start him if necessary
     initArts();
+#endif /* HAVE_ARTS_SUPPORT */
 
     // load the list of plugins
     PluginManager::findPlugins();
@@ -277,6 +279,7 @@ KwaveApp::~KwaveApp()
 }
 
 //***************************************************************************
+#ifdef HAVE_ARTS_SUPPORT
 void KwaveApp::initArts()
 {
     arts_init();
@@ -304,6 +307,7 @@ void KwaveApp::initArts()
 	} while (time < 6 && !Arts::Dispatcher::the());
     }
 }
+#endif /* HAVE_ARTS_SUPPORT */
 
 //***************************************************************************
 #include "KwaveApp.moc"

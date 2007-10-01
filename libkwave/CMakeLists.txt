@@ -34,17 +34,23 @@ ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/ppcasm_string.o
 )
 
 #############################################################################
+IF(HAVE_ARTS_SUPPORT)
+    SET(libkwave_ARTS_SOURCES
+        ArtsMultiPlaybackSink.cpp
+        ArtsPlaybackSink_impl.cpp
+        ArtsSampleSource_impl.cpp
+        ArtsSampleSink_impl.cpp
+        CurveStreamAdapter_impl.cpp
+        KwaveFilterPlugin.cpp
+    )
+ENDIF(HAVE_ARTS_SUPPORT)
 
 SET(libkwave_LIB_SRCS
-    ArtsMultiPlaybackSink.cpp
-    ArtsPlaybackSink_impl.cpp
-    ArtsSampleSource_impl.cpp
-    ArtsSampleSink_impl.cpp
+    ${libkwave_ARTS_SOURCES}
     CodecBase.cpp
     CompressionType.cpp
     cputest.c
     Curve.cpp
-    CurveStreamAdapter_impl.cpp
     Decoder.cpp
     Encoder.cpp
     Filter.cpp
@@ -55,7 +61,6 @@ SET(libkwave_LIB_SRCS
     GenreType.cpp
     Interpolation.cpp
     KwaveDrag.cpp
-    KwaveFilterPlugin.cpp
     KwavePlugin.cpp
     Label.cpp
     LabelList.cpp
@@ -82,12 +87,14 @@ SET(libkwave_LIB_SRCS
 
 #############################################################################
 
+IF(HAVE_ARTS_SUPPORT)
 KDE3_ADD_MCOP_IDL_FILES(libkwave_LIB_SRCS
     ArtsPlaybackSink.idl
     ArtsSampleSink.idl
     ArtsSampleSource.idl
     CurveStreamAdapter.idl
 )
+ENDIF(HAVE_ARTS_SUPPORT)
 
 #############################################################################
 

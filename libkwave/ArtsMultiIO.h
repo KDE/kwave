@@ -19,6 +19,8 @@
 #define _ARTS_MULTI_IO_H_
 
 #include "config.h"
+#ifdef HAVE_ARTS_SUPPORT
+
 #include <qglobal.h> // for qWarning()
 #include <qptrvector.h>
 #include <arts/artsflow.h>
@@ -38,15 +40,15 @@ public:
 	:m_count(io.count()), m_ios(io.count())
     {
 	unsigned int t;
-	
+
 	for (t=0; t < m_count; t++) {
 	    m_ios.insert(t, 0);
-	
+
 	    ARTS_IMPL *r = new ARTS_IMPL(io[t]);
 	    Q_ASSERT(r);
 	    if (r) m_ios.insert(t, new ARTS_IO(
 		ARTS_IO::_from_base(r)));
-	
+
 	    Q_ASSERT(m_ios[t]);
 	    if (!m_ios[t]) {
 		qWarning("ArtsMultiIO: creation of adapter failed!!!");
@@ -96,5 +98,9 @@ protected:
     /** vector of aRts i/o objects */
     QPtrVector<ARTS_IO> m_ios;
 };
+
+#else /* HAVE_ARTS_SUPPORT */
+#warning aRts support is disabled
+#endif /* HAVE_ARTS_SUPPORT */
 
 #endif /* _ARTS_MULTI_IO_H_ */

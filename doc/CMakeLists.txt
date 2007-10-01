@@ -18,7 +18,8 @@
 FIND_PACKAGE(RequiredProgram REQUIRED)
 
 SET(_insert_changes ${PROJECT_SOURCE_DIR}/bin/insert-changes.sh)
-SET(_help_en_docbook ${CMAKE_CURRENT_SOURCE_DIR}/help_en.docbook)
+SET(_help_en_docbook_orig ${CMAKE_CURRENT_SOURCE_DIR}/help_en.docbook)
+SET(_help_en_docbook ${CMAKE_CURRENT_BINARY_DIR}/help_en-work.docbook)
 SET(_help_en_shifted ${CMAKE_CURRENT_BINARY_DIR}/help_en-shifted.docbook)
 SET(_help_en_pot ${CMAKE_CURRENT_BINARY_DIR}/help_en.pot)
 SET(_changes_docbook ${CMAKE_CURRENT_BINARY_DIR}/changes.docbook)
@@ -40,27 +41,27 @@ FIND_REQUIRED_PROGRAM(MEINPROC_EXECUTABLE meinproc)
 
 #############################################################################
 ### update of the original docbook file                                   ###
-
 ADD_CUSTOM_COMMAND(OUTPUT ${_help_en_docbook}
     COMMAND ${CAT_EXECUTABLE} ${_changes} |
         ${SED_EXECUTABLE} s/\\>\\>\\>//g |
         ${SED_EXECUTABLE} s/\\<\\<\\<//g |
         ${AWK_EXECUTABLE} -f ${_changes_to_docbook} |
         ${RECODE_EXECUTABLE} lat1..utf-8 > ${_changes_docbook}
-    COMMAND ${CAT_EXECUTABLE} ${_help_en_docbook} |
+    COMMAND ${CAT_EXECUTABLE} ${_help_en_docbook_orig} |
         ${_insert_changes} ${_changes_docbook} |
         ${AWK_EXECUTABLE}
         -v newdate=${KWAVE_VERSION_DATE_ISO}
         -v newrelease=${KWAVE_VERSION_FULL}
         -f ${PROJECT_SOURCE_DIR}/bin/date_release.awk
-        > ${_help_en_docbook}.tmp
-    COMMAND ${CMAKE_COMMAND} -E copy
-        ${_help_en_docbook}.tmp ${_help_en_docbook}
-    COMMAND ${CMAKE_COMMAND} -E remove ${_help_en_docbook}.tmp
+        > ${_help_en_docbook}
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${_help_en_docbook} ${_help_en_docbook_orig}
     DEPENDS ${_changes}
     DEPENDS ${_version}
+    DEPENDS ${_help_en_docbook_orig}
     COMMENT "Updating help_en.docbook"
 )
+SET_SOURCE_FILES_PROPERTIES(${_help_en_docbook} PROPERTIES GENERATED false)
 
 #############################################################################
 ### help_en.docbook -> help_en.pot                                        ###

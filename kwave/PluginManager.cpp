@@ -30,7 +30,10 @@
 
 #include "mt/SignalProxy.h"
 
+#ifdef HAVE_ARTS_SUPPORT
 #include "libkwave/ArtsMultiPlaybackSink.h"
+#endif /* HAVE_ARTS_SUPPORT */
+
 #include "libkwave/LineParser.h"
 #include "libkwave/FileLoader.h"
 #include "libkwave/KwavePlugin.h"
@@ -574,6 +577,7 @@ void PluginManager::openMultiTrackWriter(MultiTrackWriter &writers,
 }
 
 //***************************************************************************
+#ifdef HAVE_ARTS_SUPPORT
 ArtsMultiSink *PluginManager::openMultiTrackPlayback(unsigned int tracks,
                                                      const QString *name)
 {
@@ -607,6 +611,7 @@ ArtsMultiSink *PluginManager::openMultiTrackPlayback(unsigned int tracks,
 
     return sink;
 }
+#endif /* HAVE_ARTS_SUPPORT */
 
 //***************************************************************************
 PlaybackController &PluginManager::playbackController()

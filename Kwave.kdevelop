@@ -20,11 +20,11 @@
   </general>
   <kdevcustomproject>
     <run>
-      <mainprogram>/usr/src/packages/multimedia/sound/kwave/kwave/.libs/lt-kwave</mainprogram>
+      <mainprogram>/usr/src/packages/multimedia/sound/kwave</mainprogram>
       <programargs/>
       <terminal>false</terminal>
       <envvars>
-        <envvar value="libkwave/.libs:mt/.libs:libgui/.libs" name="LD_LIBRARY_PATH" />
+        <envvar value="libkwave:libgui" name="LD_LIBRARY_PATH" />
       </envvars>
       <directoryradio>build</directoryradio>
       <customdirectory>/</customdirectory>
@@ -37,11 +37,11 @@
     </run>
     <build>
       <buildtool>make</buildtool>
-      <builddir/>
+      <builddir>/var/tmp/kwave-build/</builddir>
     </build>
     <make>
       <abortonerror>true</abortonerror>
-      <numberofjobs>2</numberofjobs>
+      <numberofjobs>1</numberofjobs>
       <dontact>false</dontact>
       <makebin/>
       <environments>
@@ -78,6 +78,16 @@
       <path>Makefile</path>
       <path>mt/Makefile</path>
     </blacklist>
+    <other>
+      <prio>0</prio>
+      <otherbin/>
+      <defaulttarget/>
+      <otheroptions/>
+      <selectedenvironment>default</selectedenvironment>
+      <environments>
+        <default/>
+      </environments>
+    </other>
   </kdevcustomproject>
   <kdevdebugger>
     <general>
@@ -229,6 +239,7 @@
   </kdevdocumentation>
   <ctagspart>
     <customArguments/>
-    <customTagfilePath/>
+    <customTagfilePath>/usr/src/packages/multimedia/sound/kwave/tags</customTagfilePath>
+    <activeTagsFiles/>
   </ctagspart>
 </kdevelop>

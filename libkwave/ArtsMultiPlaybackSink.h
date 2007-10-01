@@ -19,6 +19,8 @@
 #define _ARTS_MULTI_PLAYBACK_SINK_H_
 
 #include "config.h"
+#ifdef HAVE_ARTS_SUPPORT
+
 #include <math.h>
 #include <qbitarray.h>
 #include <qmemarray.h>
@@ -90,7 +92,7 @@ protected:
      * data is available.
      */
     void playback(int track, float *buffer, unsigned long samples);
-    
+
 protected:
 
     /** device used for playback */
@@ -118,7 +120,11 @@ protected:
 
     /** output buffer for all samples */
     QMemArray<sample_t> m_out_buffer;
-    
+
 };
+
+#else /* HAVE_ARTS_SUPPORT */
+#warning aRts support is disabled
+#endif /* HAVE_ARTS_SUPPORT */
 
 #endif /* _ARTS_MULTI_PLAYBACK_SINK_H_ */

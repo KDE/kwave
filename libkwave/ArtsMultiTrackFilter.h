@@ -19,6 +19,8 @@
 #define _ARTS_MULTI_TRACK_FILTER_H_
 
 #include "config.h"
+#ifdef HAVE_ARTS_SUPPORT
+
 #include <string.h>
 #include "libkwave/ArtsMultiSource.h"
 #include "libkwave/ArtsMultiSink.h"
@@ -95,5 +97,9 @@ public:
     virtual void stop() = 0;
 
 };
+
+#else /* HAVE_ARTS_SUPPORT */
+#warning aRts support is disabled
+#endif /* HAVE_ARTS_SUPPORT */
 
 #endif /* _ARTS_MULTI_TRACK_FILTER_H_ */

@@ -19,6 +19,8 @@
 #define _KWAVE_FILTER_PLUGIN_H_
 
 #include "config.h"
+#ifdef HAVE_ARTS_SUPPORT
+
 #include <qobject.h>
 #include <qstring.h>
 #include "mt/SignalProxy.h"
@@ -150,5 +152,9 @@ private:
     bool m_pause;
 
 };
+
+#else /* HAVE_ARTS_SUPPORT */
+#warning aRts support is disabled
+#endif /* HAVE_ARTS_SUPPORT */
 
 #endif /* _KWAVE_FILTER_PLUGIN_H_ */

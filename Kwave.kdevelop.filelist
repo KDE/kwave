@@ -607,7 +607,6 @@ plugins/record/RecordTypesMap.cpp
 plugins/playback/PlayBack-aRts.h
 plugins/playback/PlayBackDialog.h
 plugins/playback/PlayBackDialog.cpp
-plugins/playback/Makefile.plugin
 plugins/playback/PlayBack-ALSA.cpp
 plugins/playback/PlayBack-ALSA.h
 plugins/playback/PlayBack-aRts.cpp

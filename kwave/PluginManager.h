@@ -25,7 +25,9 @@
 #include <qptrvector.h>
 #include <qmap.h>
 
+#ifdef HAVE_ARTS_SUPPORT
 #include <arts/artsflow.h>
+#endif /* HAVE_ARTS_SUPPORT */
 
 #include "mt/SignalProxy.h"
 #include "libkwave/InsertMode.h"
@@ -207,6 +209,7 @@ public:
     void openMultiTrackWriter(MultiTrackWriter &writers,
                               InsertMode mode);
 
+#ifdef HAVE_ARTS_SUPPORT
     /**
      * Opens a set of SampleWriters for playback purposes.
      * @param tracks number of tracks
@@ -216,6 +219,7 @@ public:
      */
     ArtsMultiSink *openMultiTrackPlayback(unsigned int tracks,
                                           const QString *name = 0);
+#endif /* HAVE_ARTS_SUPPORT */
 
     /**
      * Returns a reference to the current playback controller. This is
@@ -237,10 +241,12 @@ public:
      */
     static void findPlugins();
 
+#ifdef HAVE_ARTS_SUPPORT
     /** Returns a reference to the global aRts dispatcher */
     inline Arts::Dispatcher *artsDispatcher() {
 	return Arts::Dispatcher::the();
     };
+#endif /* HAVE_ARTS_SUPPORT */
 
     /**
      * Registers a PlaybackDeviceFactory

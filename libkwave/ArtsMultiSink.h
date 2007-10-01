@@ -19,6 +19,8 @@
 #define _ARTS_MULTI_SINK_H_
 
 #include "config.h"
+#ifdef HAVE_ARTS_SUPPORT
+
 #include <qglobal.h> // for qFatal(...)
 #include <arts/artsflow.h>
 
@@ -63,5 +65,9 @@ public:
     virtual void stop() {};
 
 };
+
+#else /* HAVE_ARTS_SUPPORT */
+#warning aRts support is disabled
+#endif /* HAVE_ARTS_SUPPORT */
 
 #endif /* _ARTS_MULTI_SINK_H_ */

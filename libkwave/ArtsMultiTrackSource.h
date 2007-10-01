@@ -19,6 +19,8 @@
 #define _ARTS_MULTI_TRACK_SOURCE_H_
 
 #include "config.h"
+#ifdef HAVE_ARTS_SUPPORT
+
 #include "libkwave/ArtsMultiSource.h"
 #include "libkwave/ArtsMultiIO.h"
 #include "libkwave/ArtsSampleSource.h"
@@ -52,5 +54,8 @@ public:
     };
 };
 
-#endif /* _ARTS_MULTI_TRACK_SOURCE_H_ */
+#else /* HAVE_ARTS_SUPPORT */
+#warning aRts support is disabled
+#endif /* HAVE_ARTS_SUPPORT */
 
+#endif /* _ARTS_MULTI_TRACK_SOURCE_H_ */

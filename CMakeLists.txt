@@ -37,6 +37,7 @@ SET(KWAVE_LINGUAS
 # OPTION(WITH_MP3 "enable support for mp3 files [default=on]" ON)
 # OPTION(WITH_OGG "enable support for ogg files [default=on]" ON)
 # OPTION(WITH_OSS "enable playback/recording via OSS [default=on]" ON)
+# OPTION(WITH_ARTS "use aRts for internal streaming [defalt=on]" ON)
 
 #############################################################################
 ### toplevel build targets:                                               ###
@@ -57,6 +58,7 @@ SET(KWAVE_LINGUAS
 ### check for the proper cmake version                                    ###
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.4.4 FATAL_ERROR)
+# set(CMAKE_SKIP_BUILD_RPATH OFF)
 
 #############################################################################
 ### path to additional cmake modules and includes                         ###
@@ -120,6 +122,12 @@ IF (CXX_HAVE_PIC AND C_HAVE_PIC)
 ELSE (CXX_HAVE_PIC AND C_HAVE_PIC)
     MESSAGE(FATAL_ERROR "shared library support is missing")
 ENDIF (CXX_HAVE_PIC AND C_HAVE_PIC)
+
+#############################################################################
+
+LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/mt)
+LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libgui)
+LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libkwave)
 
 #############################################################################
 ### KDE 3 support                                                         ###
@@ -214,12 +222,6 @@ FIND_PACKAGE(RequiredProgram REQUIRED)
 FIND_PACKAGE(Gettext REQUIRED)
 INCLUDE(FindARTS)
 INCLUDE(MCOP)
-
-#############################################################################
-
-LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/mt)
-LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libgui)
-LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libkwave)
 
 #############################################################################
 ### subdirs                                                               ###

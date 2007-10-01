@@ -99,7 +99,7 @@ QStringList *VolumePlugin::setup(QStringList &previous_params)
 
     if (dialog) delete dialog;
     return list;
-};
+}
 
 //***************************************************************************
 void VolumePlugin::run(QStringList params)

@@ -90,7 +90,7 @@ QStringList *KwaveFilterPlugin::setup(QStringList &previous_params)
 
     if (setup_dialog) delete setup_dialog;
     return list;
-};
+}
 
 //***************************************************************************
 void KwaveFilterPlugin::run(QStringList params)

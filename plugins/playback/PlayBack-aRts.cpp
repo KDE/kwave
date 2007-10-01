@@ -234,7 +234,7 @@ QString PlayBackArts::artsErrorText(int errorcode)
     };
 
     return text;
-};
+}
 
 //***************************************************************************
 QStringList PlayBackArts::supportedDevices()

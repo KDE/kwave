@@ -82,7 +82,7 @@ Interpolation &Curve::interpolation()
 {
     m_interpolation.prepareInterpolation(this);
     return m_interpolation;
-};
+}
 
 //***************************************************************************
 QMemArray<double> Curve::interpolation(unsigned int points)

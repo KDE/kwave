@@ -52,7 +52,7 @@ void setfilter_peaknotch2();
 double applyfilter();
 
 #ifdef __cplusplus
-};
+}
 #endif
 
 /*
@@ -65,7 +65,7 @@ double applyfilter();
 #define FALSE           0
 
 /* must be divisible by 6 and 8
- * max 2 items (ints or bytes) per sample value, 3 or 4 channels */ 
+ * max 2 items (ints or bytes) per sample value, 3 or 4 channels */
 #define MINBUFFSIZE 2*3*4
 #define BUFFSIZE 512*MINBUFFSIZE
 
@@ -99,7 +99,7 @@ double applyfilter();
  */
 
 typedef struct {
-  int afmethod; 
+  int afmethod;
   char *afname;
   FILE *affp;
   int affd;
@@ -127,7 +127,7 @@ typedef struct {
   /* all in memory
    *   int buflen;
    *   int *buf;
-   */ 
+   */
   /* buffer updating method info */
   int *modifiedbuf;
   int *bufpri;
@@ -141,7 +141,7 @@ typedef struct {
  * with highest priority (i.e. nobufs-1). When a buffer is swapped,
  * the priority is set to 1 and priorities of all other buffers are
  * lowered down by one.
- * When a sample is read, the priorities are set for each Nth read. 
+ * When a sample is read, the priorities are set for each Nth read.
  */
 
 typedef struct {

@@ -45,20 +45,20 @@
 
 static TrackPixmap::color_set_t color_set_normal =
 {
-    background   : Qt::black,
-    sample       : Qt::white,
-    interpolated : Qt::lightGray,
-    zero         : Qt::green,
-    zero_unused  : Qt::darkGray
+    /* background   : */ Qt::black,
+    /* sample       : */ Qt::white,
+    /* interpolated : */ Qt::lightGray,
+    /* zero         : */ Qt::green,
+    /* zero_unused  : */ Qt::darkGray
 };
 
 static TrackPixmap::color_set_t color_set_disabled =
 {
-    background   : Qt::darkGray.dark(300),
-    sample       : color_set_normal.sample.dark(),
-    interpolated : color_set_normal.interpolated.dark(),
-    zero         : Qt::darkGreen,
-    zero_unused  : Qt::black
+    /* background   : */ Qt::darkGray.dark(300),
+    /* sample       : */ color_set_normal.sample.dark(),
+    /* interpolated : */ color_set_normal.interpolated.dark(),
+    /* zero         : */ Qt::darkGreen,
+    /* zero_unused  : */ Qt::black
 };
 
 //***************************************************************************

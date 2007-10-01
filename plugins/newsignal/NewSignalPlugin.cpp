@@ -111,7 +111,7 @@ QStringList *NewSignalPlugin::setup(QStringList &previous_params)
 
     if (dialog) delete dialog;
     return list;
-};
+}
 
 //***************************************************************************
 #include "NewSignalPlugin.moc"

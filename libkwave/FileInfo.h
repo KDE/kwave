@@ -83,7 +83,7 @@ typedef enum {
 static inline FileProperty operator ++ (FileProperty &prop) {
     prop = static_cast<FileProperty>(static_cast<unsigned int>(prop) + 1);
     return prop;
-};
+}
 
 /**
  * @class FileInfo

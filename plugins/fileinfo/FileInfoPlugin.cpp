@@ -61,7 +61,7 @@ QStringList *FileInfoPlugin::setup(QStringList &)
 
     if (dialog) delete dialog;
     return list;
-};
+}
 
 //***************************************************************************
 void FileInfoPlugin::apply(FileInfo &new_info)

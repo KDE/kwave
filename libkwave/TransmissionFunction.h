@@ -24,7 +24,7 @@
 
 class TransmissionFunction: public QObject
 {
-    Q_OBJECT;
+    Q_OBJECT
 public:
 
     /** Constructor */

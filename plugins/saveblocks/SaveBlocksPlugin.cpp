@@ -433,10 +433,10 @@ QString SaveBlocksPlugin::findBase(const QString &filename,
     // \[%[0-9]?count\]   -> \d+
     // \[%[0-9]?total\]   -> \d+
     // \[%filename\]      -> base
-    QRegExp rx_nr("\\\\\\[\%\\d*nr\\\\\\]", false);
-    QRegExp rx_count("\\\\\\[\%\\d*count\\\\\\]", false);
-    QRegExp rx_total("\\\\\\[\%\\d*total\\\\\\]", false);
-    QRegExp rx_filename("\\\\\\[\%filename\\\\\\]", false);
+    QRegExp rx_nr("\\\\\\[%\\d*nr\\\\\\]", false);
+    QRegExp rx_count("\\\\\\[%\\d*count\\\\\\]", false);
+    QRegExp rx_total("\\\\\\[%\\d*total\\\\\\]", false);
+    QRegExp rx_filename("\\\\\\[%filename\\\\\\]", false);
 
     QString p = QRegExp::escape(pattern);
     int idx_nr = rx_nr.search(p);

@@ -639,7 +639,7 @@ int TopWidget::executeCommand(const QString &line)
 	qDebug("TopWidget::executeCommand(): loading plugin '%s'",
 	       name.local8Bit().data());
 	qDebug("TopWidget::executeCommand(): with %d parameter(s)",
-		(params) ? params->count() : 0);
+		(params) ? (int)params->count() : (int)0);
 	Q_ASSERT(m_plugin_manager);
 	if (m_plugin_manager)
 	    result = m_plugin_manager->executePlugin(name, params);

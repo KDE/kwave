@@ -237,7 +237,7 @@ SwapFile *MemoryManager::allocateVirtual(size_t size)
     if ((size >> 20) >= available) {
 	qDebug("MemoryManager::allocateVirtual(%u): out of memory, "\
 	       "(used: %uMB, available: %uMB, limit=%uMB)",
-	       size, used, available, limit);
+	       (unsigned int)size, used, available, limit);
         return 0;
     }
 
@@ -291,7 +291,8 @@ void *MemoryManager::resize(void *block, size_t size)
 	    ((size - current_size) >> 20) > m_physical_limit))
 	{
 	    // too large -> move to virtual memory
-	    qDebug("MemoryManager::resize(%uMB) -> moving to swap", size>>20);
+	    qDebug("MemoryManager::resize(%uMB) -> moving to swap",
+	           (unsigned int)(size >> 20));
 	    return convertToVirtual(block, current_size, size);
 	}
 

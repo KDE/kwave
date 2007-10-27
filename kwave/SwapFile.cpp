@@ -74,7 +74,7 @@ bool SwapFile::allocate(size_t size, const QString &filename)
     Q_ASSERT(fd >= 0);
     if (fd < 0) {
 	qDebug("SwapFile::allocate(%u) failed, instances: %u",
-	       size, g_instances);
+	       (unsigned int)size, g_instances);
 	return false;
     }
     m_file.open(IO_Raw | IO_ReadWrite, fd);
@@ -93,7 +93,7 @@ bool SwapFile::allocate(size_t size, const QString &filename)
     m_file.at(round_up(size, m_pagesize));
     if (m_file.at()+1 < size) {
 	qWarning("SwapFile::allocate(%d MB) failed, DISK FULL ?",
-	        size >> 20);
+	         (unsigned int)(size >> 20));
 	m_size = 0;
 	return false;
     }

@@ -29,6 +29,7 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "kwave/CodecManager.h"
+#include "kwave/SignalManager.h"
 
 // RFC 2361:
 #define WAVE_FORMAT_PCM "audio/vnd.wave" // ; codec=001"
@@ -97,7 +98,8 @@ bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src, FileInfo &info)
 }
 
 //***************************************************************************
-bool KwaveDrag::decode(QWidget *widget, const QMimeSource *e, Signal &sig)
+bool KwaveDrag::decode(QWidget *widget, const QMimeSource *e,
+                       SignalManager &sig)
 {
     // try to find a suitable decoder
     Decoder *decoder = CodecManager::decoder(e);
@@ -116,14 +118,10 @@ bool KwaveDrag::decode(QWidget *widget, const QMimeSource *e, Signal &sig)
 	    // open the mime source and get header information
 	    ok = decoder->open(widget, src);
 	    if (!ok) break;
-	    FileInfo &info = decoder->info();
 
 	    // prepare the signal
-	    while (sig.tracks() < info.tracks())
-		sig.appendTrack(info.length());
-	    MultiTrackWriter dst;
-	    sig.openMultiTrackWriter(dst, sig.allTracks(), Overwrite,
-	                             0, sig.length()-1);
+	    MultiTrackWriter dst(sig, sig.allTracks(), Overwrite,
+	                         0, sig.length()-1);
 
 	    ok = decoder->decode(widget, dst);
 	    break;

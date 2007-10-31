@@ -195,30 +195,6 @@ void Signal::openMultiTrackReader(MultiTrackReader &readers,
 }
 
 //***************************************************************************
-void Signal::openMultiTrackWriter(MultiTrackWriter &writers,
-    const QMemArray<unsigned int> &track_list, InsertMode mode,
-    unsigned int left, unsigned int right)
-{
-    unsigned int count = track_list.count();
-    unsigned int track;
-    writers.clear();
-
-    for (unsigned int i=0; i < count; i++) {
-	track = track_list[i];
-	SampleWriter *s = openSampleWriter(track, mode, left, right);
-	if (s) {
-	    writers.insert(i, s);
-	} else {
-	    // out of memory or aborted
-	    qDebug("Signal::openMultiTrackWriter: "\
-	          "out of memory or aborted");
-	    writers.clear();
-	    return;
-	}
-    }
-}
-
-//***************************************************************************
 const QMemArray<unsigned int> Signal::allTracks()
 {
     unsigned int track;

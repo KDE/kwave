@@ -30,7 +30,7 @@ class QWidget;
 
 class FileInfo;
 class MultiTrackReader;
-class Signal;
+class SignalManager;
 
 /**
  * Simple class for drag & drop of wav data.
@@ -87,7 +87,8 @@ public:
      * @param sig signal that receives the mime data
      * @return true if successful, false if failed
      */
-    static bool decode(QWidget *widget, const QMimeSource *e, Signal &sig);
+    static bool decode(QWidget *widget, const QMimeSource *e,
+                       SignalManager &sig);
 
 private:
 

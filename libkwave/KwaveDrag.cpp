@@ -75,8 +75,8 @@ bool KwaveDrag::canDecode(const QMimeSource* e)
 //***************************************************************************
 bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src, FileInfo &info)
 {
-    Q_ASSERT(src.count());
-    if (!src.count()) return false;
+    Q_ASSERT(src.tracks());
+    if (!src.tracks()) return false;
     Q_ASSERT(src[0]);
     if (!src[0]) return false;
 

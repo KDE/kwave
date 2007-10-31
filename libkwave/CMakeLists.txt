@@ -60,8 +60,11 @@ SET(libkwave_LIB_SRCS
     Functions.cpp
     GenreType.cpp
     Interpolation.cpp
+    KwaveConnect.cpp
     KwaveDrag.cpp
     KwavePlugin.cpp
+    KwaveSampleSink.cpp
+    KwaveSampleSource.cpp
     Label.cpp
     LabelList.cpp
     LineParser.cpp

@@ -22,21 +22,48 @@
 #include "config.h"
 #include <qobject.h>
 #include <qptrvector.h>
-#include "SampleWriter.h"
+#include "libkwave/SampleWriter.h"
+#include "libkwave/KwaveMultiTrackSink.h"
 
 class MultiTrackReader;
+class SignalManager;
 
 /**
  * A MultiTrackWriter encapsulates a set of <c>SampleWriter</c>s for
  * easier use of multi-track signals.
  */
-class MultiTrackWriter: public QObject, private QPtrVector<SampleWriter>
+class MultiTrackWriter:
+    public Kwave::MultiTrackSink<SampleWriter>
 {
     Q_OBJECT
 public:
 
-    /** Constructor */
+    /** Default constructor */
     MultiTrackWriter();
+
+    /**
+     * Constructor
+     * @param signal_manager reference to a SignalManager
+     * @param track_list array of indices of tracks for reading
+     * @param mode specifies where and how to insert
+     * @param left index of the first sample
+     * @param right index of the last sample
+     */
+    MultiTrackWriter(SignalManager &signal_manager,
+                     const QMemArray<unsigned int> &track_list,
+                     InsertMode mode,
+                     unsigned int left, unsigned int right);
+
+    /**
+     * Constructor that opens a set of SampleWriters using the currently
+     * selected list of tracks and the current selection. If nothing is
+     * selected, the whole signal will be selected.
+     *
+     * @param signal_manager reference to a SignalManager
+     * @param writers reference to a vector that receives all writers.
+     * @param mode specifies where and how to insert
+     */
+    MultiTrackWriter(SignalManager &signal_manager, InsertMode mode);
 
     /** Destructor */
     virtual ~MultiTrackWriter();
@@ -50,16 +77,6 @@ public:
      */
     MultiTrackWriter &operator << (const MultiTrackReader &source);
 
-    /** @see QPtrVector::operator[] */
-    inline virtual SampleWriter* operator[] (int i) const {
-	return QPtrVector<SampleWriter>::at(i);
-    };
-
-    /** @see QPtrVector::count() */
-    inline virtual unsigned int count() const {
-	return QPtrVector<SampleWriter>::count();
-    };
-
     /** Returns the last sample index of all streams */
     unsigned int last();
 
@@ -69,18 +86,8 @@ public:
     /** @see QPtrVector::clear() */
     virtual void clear();
 
-    /** @see QPtrVector::isEmpty() */
-    inline virtual bool isEmpty() {
-        return QPtrVector<SampleWriter>::isEmpty();
-    };
-
     /** @see QPtrVector::insert() */
-    virtual bool insert(unsigned int track, const SampleWriter *writer);
-
-    /** @see QPtrVector::resize() */
-    virtual bool resize(unsigned int size) {
-        return QPtrVector<SampleWriter>::resize(size);
-    };
+    virtual bool insert(unsigned int track, SampleWriter *writer);
 
     /** returns true if the transfer has been cancelled */
     inline bool isCancelled() { return m_cancelled; };

@@ -30,7 +30,8 @@
 //***************************************************************************
 SampleWriter::SampleWriter(Track &track, InsertMode mode,
     unsigned int left, unsigned int right)
-    :QObject(), m_first(left), m_last(right), m_mode(mode), m_track(track),
+    :Kwave::SampleSink(0,0),
+     m_first(left), m_last(right), m_mode(mode), m_track(track),
      m_position(left),
      m_buffer(BUFFER_SIZE), m_buffer_used(0)
 {
@@ -109,13 +110,13 @@ SampleWriter &SampleWriter::operator << (SampleReader &reader)
 void SampleWriter::flush(const QMemArray<sample_t> &buffer,
                          unsigned int &count)
 {
-    if (count == 0) return; // nothing to flush
-
     if ((m_mode == Overwrite) && (m_position + count > m_last)) {
 	// need clipping
 	count = m_last + 1 - m_position;
 // 	qDebug("SampleWriter::flush() clipped to count=%u", count);
     }
+
+    if (count == 0) return; // nothing to flush
 
     m_track.writeSamples(m_mode, m_position, buffer, 0, count);
     m_position += count;
@@ -137,6 +138,12 @@ SampleWriter &flush(SampleWriter &s)
 {
     s.flush();
     return s;
+}
+
+//***************************************************************************
+void SampleWriter::input(Kwave::SampleArray &data)
+{
+    if (data.size()) (*this) << data;
 }
 
 //***************************************************************************

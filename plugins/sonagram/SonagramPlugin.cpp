@@ -362,7 +362,7 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
     for (unsigned int j = 0; j < points; j++) {
 	double value = 0.0;
 	if (!(source.eof())) {
-	    unsigned int count = source.count();
+	    unsigned int count = source.tracks();
 	    unsigned int t;
 	    for (t=0; t < count; t++) {
 		sample_t s = 0;

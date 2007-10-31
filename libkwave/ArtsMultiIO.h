@@ -37,7 +37,7 @@ public:
      * @param io something like a MultiTrackReader or MultiTrackWriter
      */
     ArtsMultiIO(KWAVE_IO &io)
-	:m_count(io.count()), m_ios(io.count())
+	:m_count(io.tracks()), m_ios(io.tracks())
     {
 	unsigned int t;
 

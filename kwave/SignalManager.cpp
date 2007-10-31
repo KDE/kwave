@@ -192,11 +192,9 @@ int SignalManager::loadFile(const KURL &url)
 	if (track < tracks) break;
 
 	// create the multitrack writer as destination
-	MultiTrackWriter writers;
-
 	// if length was zero -> append mode / decode a stream ?
 	InsertMode mode = (streaming) ? Append : Overwrite;
-	openMultiTrackWriter(writers, allTracks(), mode, 0,
+	MultiTrackWriter writers(*this, allTracks(), mode, 0,
 	    (length) ? length-1 : 0);
 
 	// try to calculate the resulting length, but if this is
@@ -623,34 +621,6 @@ void SignalManager::openMultiTrackReader(MultiTrackReader &readers,
 }
 
 //***************************************************************************
-void SignalManager::openMultiTrackWriter(MultiTrackWriter &writers,
-    const QMemArray<unsigned int> &track_list, InsertMode mode,
-    unsigned int left, unsigned int right)
-{
-    UndoTransactionGuard guard(*this, 0);
-    unsigned int count = track_list.count();
-    unsigned int track;
-    writers.clear();
-    writers.resize(count);
-
-    for (unsigned int i=0; i < count; i++) {
-	track = track_list[i];
-	// NOTE: this function is *nearly* identical to the one in the
-	//       Signal class, except for undo support
-	SampleWriter *s = openSampleWriter(track, mode, left, right, true);
-	if (s) {
-	    writers.insert(i, s);
-	} else {
-	    // out of memory or aborted
-	    qDebug("Signal::openMultiTrackWriter: "\
-	          "out of memory or aborted");
-	    writers.clear();
-	    return;
-	}
-    }
-}
-
-//***************************************************************************
 bool SignalManager::executeCommand(const QString &command)
 {
     unsigned int offset = m_selection.offset();
@@ -767,10 +737,9 @@ void SignalManager::paste(ClipBoard &clipboard, unsigned int offset,
     }
 
     // open a stream into the signal
-    MultiTrackWriter dst;
-    openMultiTrackWriter(dst, selectedTracks(), Insert,
+    MultiTrackWriter dst(*this, selectedTracks(), Insert,
                          offset, offset+clipboard.length()-1);
-    if (dst.isEmpty()) {
+    if (dst.tracks() != selectedTracks().count()) {
 	abortUndoTransaction();
 	return;
     }

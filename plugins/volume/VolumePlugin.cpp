@@ -117,11 +117,10 @@ void VolumePlugin::run(QStringList params)
     interpreteParameters(params);
 
     MultiTrackReader source;
-    MultiTrackWriter sink;
 
     /*unsigned int input_length =*/ selection(&first, &last, true);
     manager().openMultiTrackReader(source, selectedTracks(), first, last);
-    manager().openMultiTrackWriter(sink, selectedTracks(), Overwrite,
+    MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
 	first, last);
 
     // create all objects

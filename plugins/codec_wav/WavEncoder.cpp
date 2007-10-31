@@ -261,8 +261,8 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     Q_ASSERT(tracks);
     Q_ASSERT(length);
     if ((!tracks) || (!length)) return false;
-    Q_ASSERT(src.count() == tracks);
-    if (src.count() != tracks) return false;
+    Q_ASSERT(src.tracks() == tracks);
+    if (src.tracks() != tracks) return false;
 
     // check if the choosen compression mode is supported for saving
     if ((compression != AF_COMPRESSION_NONE) &&

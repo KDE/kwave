@@ -26,8 +26,14 @@
 #include "kwave/UndoTransactionGuard.h"
 
 #include "NoisePlugin.h"
+#include "NoiseGenerator.h"
 
 KWAVE_PLUGIN(NoisePlugin,"noise","Thomas Eschenbacher");
+
+#include "libkwave/KwaveConnect.h"
+#include "libkwave/KwaveSampleSource.h"
+#include "libkwave/KwaveSampleSink.h"
+#include "libkwave/KwaveMultiTrackSource.h"
 
 //***************************************************************************
 NoisePlugin::NoisePlugin(const PluginContext &context)
@@ -39,47 +45,33 @@ NoisePlugin::NoisePlugin(const PluginContext &context)
 void NoisePlugin::run(QStringList)
 {
     unsigned int first, last;
-    MultiTrackWriter sink;
-
-    Arts::Dispatcher *dispatcher = manager().artsDispatcher();
-    dispatcher->lock();
-    Q_ASSERT(dispatcher);
-    if (!dispatcher) close();
 
     UndoTransactionGuard undo_guard(*this, i18n("noise"));
+
     m_stop = false;
-
     selection(&first, &last, true);
-    manager().openMultiTrackWriter(sink, selectedTracks(), Overwrite,
-	first, last);
-
-    // lock the dispatcher exclusively
-    dispatcher->lock();
 
     // create all objects
     unsigned int tracks = selectedTracks().count();
-    ArtsNativeMultiTrackFilter noise(tracks, "Arts::Synth_NOISE");
-    ArtsMultiTrackSink arts_sink(sink);
+    qDebug("tracks=%u", tracks);
+    Kwave::MultiTrackSource<NoiseGenerator> source(tracks);
+    MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
+        first, last);
 
     // connect them
-    noise.connectOutput(arts_sink, "sink", "outvalue");
-
-    // start all
-    noise.start();
-    arts_sink.start();
+    if (!Kwave::connect(source, SIGNAL(output(Kwave::SampleArray &)),
+                        sink,   SLOT(input(Kwave::SampleArray &))))
+    {
+	close();
+	return;
+    }
 
     // transport the samples
     qDebug("NoisePlugin: filter started...");
-    while (!m_stop && !(arts_sink.done())) {
-	arts_sink.goOn();
+    while (!m_stop && !(sink.done())) {
+	source.goOn();
     }
     qDebug("NoisePlugin: filter done.");
-
-    // shutdown
-    noise.stop();
-    arts_sink.stop();
-
-    dispatcher->unlock();
 
     close();
 }

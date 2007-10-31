@@ -2359,7 +2359,7 @@ void SignalWidget::startDragging()
     info.setLength(last - first + 1);
     info.setRate(rate);
     info.setBits(bits);
-    info.setTracks(src.count());
+    info.setTracks(src.tracks());
 
     if (!d->encode(this, src, info)) {
 	delete d;
@@ -2409,7 +2409,6 @@ void SignalWidget::dropEvent(QDropEvent* event)
     if (KwaveDrag::canDecode(event)) {
 	UndoTransactionGuard undo(m_signal_manager, i18n("drag and drop"));
 	MultiTrackReader src;
-	MultiTrackWriter dst;
 	Signal sig;
 
 	if (KwaveDrag::decode(this, event, sig)) {
@@ -2423,7 +2422,7 @@ void SignalWidget::dropEvent(QDropEvent* event)
 	     */
 
 	    sig.openMultiTrackReader(src, sig.allTracks(), 0, len-1);
-	    m_signal_manager.openMultiTrackWriter(dst,
+	    MultiTrackWriter dst(m_signal_manager,
 		m_signal_manager.selectedTracks(), Insert,
 		pos, pos+len-1);
 	    /** @todo add a converter if rate does not match */

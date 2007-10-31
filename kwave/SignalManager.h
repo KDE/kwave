@@ -271,21 +271,6 @@ public:
 	const QMemArray<unsigned int> &track_list,
 	unsigned int first, unsigned int last);
 
-    /**
-     * Opens a set of SampleWriters and internally handles the creation of
-     * needed undo information. This is useful for multi-channel operations.
-     * @param writers reference to a vector that receives all writers.
-     * @param track_list list of indices of tracks to be modified.
-     * @param mode specifies where and how to insert
-     * @param left start of the input (only useful in insert and
-     *             overwrite mode)
-     * @param right end of the input (only useful with overwrite mode)
-     * @see Signal::openMultiTrackWriter
-     */
-    void openMultiTrackWriter(MultiTrackWriter &writers,
-	const QMemArray<unsigned int> &track_list, InsertMode mode,
-	unsigned int left, unsigned int right);
-
     /** Returns true if undo/redo is currently enabled */
     inline bool undoEnabled() { return m_undo_enabled; };
 

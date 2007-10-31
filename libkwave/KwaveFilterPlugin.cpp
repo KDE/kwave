@@ -109,7 +109,7 @@ void KwaveFilterPlugin::run(QStringList params)
     if (!interpreteParameters(params)) m_params = params;
 
     MultiTrackReader source;
-    MultiTrackWriter sink;
+    MultiTrackWriter *sink = 0;
 
     selection(&first, &last, true);
     manager().openMultiTrackReader(source, selectedTracks(), first, last);
@@ -134,9 +134,14 @@ void KwaveFilterPlugin::run(QStringList params)
 	    close();
 	    return;
 	}
-	manager().openMultiTrackWriter(sink, selectedTracks(), Overwrite,
-	    first, last);
-	arts_sink = new ArtsMultiTrackSink(sink);
+	sink = new MultiTrackWriter(signalManager(), selectedTracks(),
+	    Overwrite, first, last);
+	Q_ASSERT(sink);
+	if (!sink) {
+	    close();
+	    return;
+	}
+	arts_sink = new ArtsMultiTrackSink(*sink);
     }
 
     Q_ASSERT(arts_sink);
@@ -144,6 +149,7 @@ void KwaveFilterPlugin::run(QStringList params)
 	if (filter)     delete filter;
 	if (arts_sink)  delete arts_sink;
 	if (undo_guard) delete undo_guard;
+	if (sink)       delete sink;
 	if (!m_listen) close();
 	return;
     }
@@ -223,6 +229,7 @@ void KwaveFilterPlugin::run(QStringList params)
     // cleanup
     delete arts_sink;
     if (undo_guard) delete undo_guard;
+    if (sink)       delete sink;
 
     m_pause  = false;
     m_stop   = false;

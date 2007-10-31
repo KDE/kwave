@@ -202,7 +202,6 @@ void Signal::openMultiTrackWriter(MultiTrackWriter &writers,
     unsigned int count = track_list.count();
     unsigned int track;
     writers.clear();
-    writers.resize(count);
 
     for (unsigned int i=0; i < count; i++) {
 	track = track_list[i];

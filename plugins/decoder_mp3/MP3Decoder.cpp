@@ -391,8 +391,8 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
     ID3_QIODeviceReader adapter(src);
     tag.Link(adapter, static_cast<flags_t>(ID3TT_ALL));
 
-    qDebug("NumFrames = %d", tag.NumFrames());
-    qDebug("Size = %d",      tag.Size());
+    qDebug("NumFrames = %d", (int)tag.NumFrames());
+    qDebug("Size = %d",      (int)tag.Size());
     qDebug("HasLyrics = %d", tag.HasLyrics());
     qDebug("HasV1Tag = %d",  tag.HasV1Tag());
     qDebug("HasV2Tag = %d",  tag.HasV2Tag());
@@ -636,7 +636,7 @@ enum mad_flow MP3Decoder::processOutput(void */*data*/,
     QArray<sample_t> buffer(pcm->length);
 
     // loop over all tracks
-    const unsigned int tracks = m_dest->count();
+    const unsigned int tracks = m_dest->tracks();
     for (unsigned int track = 0; track < tracks; ++track) {
 	unsigned int nsamples = pcm->length;
 	mad_fixed_t const *p = pcm->samples[track];

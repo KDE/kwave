@@ -49,7 +49,7 @@ public:
     };
 
     /** @see QPtrVector::count() */
-    inline virtual unsigned int count() const {
+    inline virtual unsigned int tracks() const {
 	return QPtrVector<SampleReader>::count();
     };
 

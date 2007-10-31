@@ -451,7 +451,7 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	m_src_offset+length-1);
 
     // loop over all min/max buffers and make their content valid
-    Q_ASSERT(m_state.count() == src.count());
+    Q_ASSERT(m_state.count() == src.tracks());
     for (unsigned int t=0; (t < m_state.count()) && !src.isEmpty(); ++t) {
 	unsigned int count = length / m_scale;
 	if (count > CACHE_SIZE) count = 0;

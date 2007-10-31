@@ -545,38 +545,6 @@ void PluginManager::openMultiTrackReader(MultiTrackReader &readers,
 }
 
 //***************************************************************************
-void PluginManager::openMultiTrackWriter(MultiTrackWriter &writers,
-    const QMemArray<unsigned int> &track_list, InsertMode mode,
-    unsigned int left, unsigned int right)
-{
-    SignalManager &manager = m_top_widget.signalManager();
-    manager.openMultiTrackWriter(writers, track_list, mode, left, right);
-}
-
-//***************************************************************************
-void PluginManager::openMultiTrackWriter(MultiTrackWriter &writers,
-                                         InsertMode mode)
-{
-    SignalManager &manager = m_top_widget.signalManager();
-    QMemArray<unsigned int> tracks = manager.selectedTracks();
-    unsigned int left = 0;
-    unsigned int right = 0;
-
-    if (signalLength()) {
-	// default if signal is present: current selection
-	left  = selectionStart();
-	right = selectionEnd();
-	if (left == right) {
-	    // if no selection: whole signal
-	    left  = 0;
-	    right = signalLength();
-	}
-    }
-
-    openMultiTrackWriter(writers, tracks, mode, left, right);
-}
-
-//***************************************************************************
 #ifdef HAVE_ARTS_SUPPORT
 ArtsMultiSink *PluginManager::openMultiTrackPlayback(unsigned int tracks,
                                                      const QString *name)

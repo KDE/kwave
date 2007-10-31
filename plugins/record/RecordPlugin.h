@@ -245,7 +245,7 @@ private:
     QPtrVector<SampleFIFO> m_prerecording_queue;
 
     /** sink for the audio data */
-    MultiTrackWriter m_writers;
+    MultiTrackWriter *m_writers;
 
     /**
      * number of recorded buffers since start or continue or the number of

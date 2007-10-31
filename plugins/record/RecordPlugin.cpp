@@ -60,7 +60,7 @@ RecordPlugin::RecordPlugin(const PluginContext &context)
     :KwavePlugin(context), m_method(), m_device_name(), m_controller(),
      m_state(REC_EMPTY), m_device(0),
      m_dialog(0), m_thread(0), m_decoder(0), m_prerecording_queue(),
-     m_writers(), m_buffers_recorded(0), m_inhibit_count(0),
+     m_writers(0), m_buffers_recorded(0), m_inhibit_count(0),
      m_trigger_value()
 {
     m_prerecording_queue.setAutoDelete(true);
@@ -744,7 +744,7 @@ void RecordPlugin::resetRecording(bool &accepted)
     accepted = topwidget.closeFile();
     if (!accepted) return;
 
-    m_writers.resize(0);
+    if (m_writers) m_writers->clear();
     m_buffers_recorded = 0;
 
     m_controller.setEmpty(true);
@@ -864,7 +864,8 @@ void RecordPlugin::startRecording()
 	 * if tracks or sample rate has changed
 	 * -> start over with a new signal and new settings
 	 */
-	if ((m_writers.count() != tracks) ||
+	if ((!m_writers) ||
+	    (m_writers->tracks() != tracks) ||
 	    (fileInfo().rate() != rate))
 	{
 	    // create a new and empty signal
@@ -876,9 +877,11 @@ void RecordPlugin::startRecording()
 	    signalManager().disableUndo();
 
 	    // create a sink for our audio data
-	    manager().openMultiTrackWriter(m_writers, Append);
-	    Q_ASSERT(m_writers.count() == tracks);
-	    if (m_writers.count() != tracks) {
+	    if (m_writers) delete m_writers;
+	    m_writers = new MultiTrackWriter(signalManager(), Append);
+	    Q_ASSERT(m_writers);
+	    Q_ASSERT((m_writers) && (m_writers->tracks() == tracks));
+	    if ((!m_writers) || (m_writers->tracks() != tracks)) {
 		KMessageBox::sorry(m_dialog, i18n("Out of memory"));
 		return;
 	    }
@@ -890,7 +893,6 @@ void RecordPlugin::startRecording()
 	fileInfo().setRate(rate);
 	fileInfo().setBits(bits);
 	fileInfo().setTracks(tracks);
-//	fileInfo().setLength(m_writers.last());
 	fileInfo().set(INF_MIMETYPE, "audio/vnd.wave");
 	fileInfo().set(INF_SAMPLE_FORMAT,
 	    m_dialog->params().sample_format.toInt());
@@ -939,9 +941,9 @@ void RecordPlugin::recordStopped(int reason)
     }
     KMessageBox::error(m_dialog, description);
 
-    m_writers.flush();
+    if (m_writers) m_writers->flush();
     qDebug("RecordPlugin::recordStopped(): wrote %u samples",
-           m_writers.last());
+           (m_writers) ? m_writers->last() : 0);
 
     // flush away all prerecording buffers
     m_prerecording_queue.clear();
@@ -1043,7 +1045,8 @@ bool RecordPlugin::checkTrigger(unsigned int track,
     Q_ASSERT(m_dialog);
     if (!m_dialog) return false;
     if (!buffer.size()) return false;
-    if (m_trigger_value.size() != m_writers.count()) return false;
+    if (!m_writers) return false;
+    if (m_trigger_value.size() != m_writers->tracks()) return false;
 
     // shortcut if no trigger has been set
     if (!m_dialog->params().record_trigger_enabled) return true;
@@ -1141,8 +1144,10 @@ void RecordPlugin::flushPrerecordingQueue()
     const unsigned int tracks = params.tracks;
     Q_ASSERT(tracks);
     if (!tracks) return;
-    Q_ASSERT(tracks == m_writers.count());
-    if (!tracks || (tracks != m_writers.count())) return;
+    Q_ASSERT(m_writers);
+    if (!m_writers) return;
+    Q_ASSERT(tracks == m_writers->tracks());
+    if (!tracks || (tracks != m_writers->tracks())) return;
 
     for (unsigned int track=0; track < tracks; ++track) {
 	SampleFIFO *fifo = m_prerecording_queue.at(track);
@@ -1152,7 +1157,7 @@ void RecordPlugin::flushPrerecordingQueue()
 	if (!fifo->length()) continue;
 
 	// push all buffers to the writer, starting at the tail
-	SampleWriter *writer = m_writers[track];
+	SampleWriter *writer = (*m_writers)[track];
 	Q_ASSERT(writer);
 	if (writer) {
 	    fifo->align();
@@ -1178,7 +1183,8 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 //     qDebug("RecordPlugin::processBuffer()");
     Q_ASSERT(m_dialog);
     Q_ASSERT(m_thread);
-    if (!m_dialog || !m_thread || !m_decoder) return;
+    Q_ASSERT(m_writers);
+    if (!m_dialog || !m_thread || !m_decoder || !m_writers) return;
 
     // we received a buffer -> update the progress bar
     updateBufferProgressBar();
@@ -1199,7 +1205,7 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 
     // check for reached recording time limit if enabled
     if (params.record_time_limited) {
-	const unsigned int already_recorded = m_writers.last()+1;
+	const unsigned int already_recorded = m_writers->last()+1;
 	const unsigned int limit = (unsigned int)rint(
 	    params.record_time * params.sample_rate);
 	if (already_recorded + samples >= limit) {
@@ -1281,10 +1287,10 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 		break;
 	    case REC_RECORDING: {
 		// put the decoded track data into the buffer
-		Q_ASSERT(tracks == m_writers.count());
-		if (!tracks || (tracks != m_writers.count())) break;
+		Q_ASSERT(tracks == m_writers->tracks());
+		if (!tracks || (tracks != m_writers->tracks())) break;
 
-		SampleWriter *writer = m_writers[track];
+		SampleWriter *writer = (*m_writers)[track];
 		Q_ASSERT(writer);
 		if (writer) (*writer) << decoded;
 		m_controller.setEmpty(false);
@@ -1295,7 +1301,7 @@ void RecordPlugin::processBuffer(QByteArray buffer)
     }
 
     // update the number of recorded samples
-    emit sigRecordedSamples(m_writers.last()+1);
+    emit sigRecordedSamples(m_writers->last()+1);
 
     // if this was the last received buffer, change state
     if (recording_done && (m_state != REC_DONE) && (m_state != REC_EMPTY)) {

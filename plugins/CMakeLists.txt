@@ -60,7 +60,6 @@ IF(HAVE_ARTS_SUPPORT)
     ADD_SUBDIRECTORY( amplifyfree )
     ADD_SUBDIRECTORY( band_pass )
     ADD_SUBDIRECTORY( lowpass )
-    ADD_SUBDIRECTORY( noise )
     ADD_SUBDIRECTORY( notch_filter )
     ADD_SUBDIRECTORY( pitch_shift )
     ADD_SUBDIRECTORY( playback )        # needs OSS, ALSA and/or aRts
@@ -77,6 +76,7 @@ ADD_SUBDIRECTORY( decoder_mp3 )     # needs libmad and id3lib
 ADD_SUBDIRECTORY( fileinfo )
 ADD_SUBDIRECTORY( memory )
 ADD_SUBDIRECTORY( newsignal )
+ADD_SUBDIRECTORY( noise )
 ADD_SUBDIRECTORY( record )          # needs OSS, ALSA and/or aRts
 ADD_SUBDIRECTORY( saveblocks )
 ADD_SUBDIRECTORY( selectrange )

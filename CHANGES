@@ -1,4 +1,10 @@
 
+0.8.0 [2007-11-??]
+
+ * started new internal streaming architecture, based on Qt instead of aRts
+ * aRts can now be configured away
+ * some minor bugfixes for x86_64 support
+
 0.7.10 [2007-08-08]
 
  * build system: using 'METASOURCES=AUTO' (which simplifies a lot)

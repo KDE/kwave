@@ -26,6 +26,9 @@
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 
+#include "kwave/SignalManager.h"
+#include "kwave/UndoTransactionGuard.h"
+
 #ifndef min
 #define min(x,y) (( (x) < (y) ) ? (x) : (y) )
 #endif
@@ -36,9 +39,62 @@
 
 //***************************************************************************
 MultiTrackWriter::MultiTrackWriter()
-    :QObject(), QPtrVector<SampleWriter>(), m_cancelled(false)
+    :Kwave::MultiTrackSink<SampleWriter>(0,0), m_cancelled(false)
 {
-    setAutoDelete(true);
+}
+
+//***************************************************************************
+MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
+    const QMemArray<unsigned int> &track_list, InsertMode mode,
+    unsigned int left, unsigned int right)
+    :Kwave::MultiTrackSink<SampleWriter>(track_list.count()),
+     m_cancelled(false)
+{
+    UndoTransactionGuard guard(signal_manager, 0);
+
+    const unsigned int count = track_list.count();
+    qDebug("count=%u", count);
+
+    for (unsigned int i=0; i < count; i++) {
+	unsigned int track = track_list[i];
+	// NOTE: this function is *nearly* identical to the one in the
+	//       Signal class, except for undo support
+	SampleWriter *s = signal_manager.openSampleWriter(
+	    track, mode, left, right, true);
+	Q_ASSERT(s);
+	if (s) {
+	    qDebug("writer[%u] = %p", i, s);
+	    insert(i, s);
+	} else {
+	    // out of memory or aborted
+	    qWarning("MultiTrackWriter constructor: "\
+	             "out of memory or aborted");
+	    clear();
+	    break;
+	}
+    }
+}
+
+//***************************************************************************
+MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
+    InsertMode mode)
+    :Kwave::MultiTrackSink<SampleWriter>(0,0), m_cancelled(false)
+{
+    QMemArray<unsigned int> tracks = signal_manager.selectedTracks();
+    unsigned int left = 0;
+    unsigned int right = 0;
+
+    if (signal_manager.length()) {
+	// default if signal is present: current selection
+	left  = signal_manager.selection().first();
+	right = signal_manager.selection().last();
+	if (left == right) {
+	    // if no selection: whole signal
+	    left  = 0;
+	    right = signal_manager.length();
+	}
+    }
+    MultiTrackWriter(signal_manager, tracks, mode, left, right);
 }
 
 //***************************************************************************
@@ -51,8 +107,8 @@ MultiTrackWriter::~MultiTrackWriter()
 MultiTrackWriter &MultiTrackWriter::operator << (
 	const MultiTrackReader &source)
 {
-    unsigned int src_tracks = source.count();
-    unsigned int dst_tracks = count();
+    unsigned int src_tracks = source.tracks();
+    unsigned int dst_tracks = tracks();
 
     Q_ASSERT(src_tracks);
     Q_ASSERT(dst_tracks);
@@ -135,12 +191,12 @@ MultiTrackWriter &MultiTrackWriter::operator << (
 }
 
 //***************************************************************************
-bool MultiTrackWriter::insert(unsigned int track, const SampleWriter *writer)
+bool MultiTrackWriter::insert(unsigned int track, SampleWriter *writer)
 {
     if (writer) {
         connect(writer, SIGNAL(proceeded()), this, SLOT(proceeded()));
     }
-    return QPtrVector<SampleWriter>::insert(track, writer);
+    return Kwave::MultiTrackSink<SampleWriter>::insert(track, writer);
 }
 
 //***************************************************************************
@@ -148,7 +204,7 @@ void MultiTrackWriter::proceeded()
 {
     unsigned int pos = 0;
     unsigned int track;
-    for (track=0; track < count(); ++track) {
+    for (track=0; track < tracks(); ++track) {
 	SampleWriter *w = at(track);
 	if (w) pos += (w->position() - w->first());
     }
@@ -165,7 +221,7 @@ void MultiTrackWriter::cancel()
 unsigned int MultiTrackWriter::last()
 {
     unsigned int last = 0;
-    const unsigned int tracks = count();
+    const unsigned int tracks = this->tracks();
     for (unsigned int track=0; track < tracks; ++track) {
 	SampleWriter *w = (*this)[track];
 	if (w && w->last() > last) last = w->last();
@@ -177,20 +233,13 @@ unsigned int MultiTrackWriter::last()
 void MultiTrackWriter::clear()
 {
     flush();
-    setAutoDelete(false);
-    while (!isEmpty()) {
-	unsigned int last = count()-1;
-	SampleWriter *writer = at(last);
-	remove(last);
-	resize(last);
-	if (writer) delete writer;
-    }
+    Kwave::MultiTrackSink<SampleWriter>::clear();
 }
 
 //***************************************************************************
 void MultiTrackWriter::flush()
 {
-    const unsigned int tracks = count();
+    const unsigned int tracks = this->tracks();
     for (unsigned int track=0; track < tracks; ++track) {
 	SampleWriter *w = (*this)[track];
 	if (w) w->flush();
@@ -198,6 +247,7 @@ void MultiTrackWriter::flush()
 }
 
 //***************************************************************************
+using namespace Kwave;
 #include "MultiTrackWriter.moc"
 //***************************************************************************
 //***************************************************************************

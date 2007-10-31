@@ -184,31 +184,6 @@ public:
     SampleWriter *openSampleWriter(unsigned int track, InsertMode mode,
 	unsigned int left = 0, unsigned int right = 0);
 
-    /**
-     * Opens a set of SampleWriters and internally handles the creation of
-     * needed undo information. This is useful for multi-channel operations.
-     * @param writers reference to a vector that receives all writers.
-     * @param track_list list of indices of tracks to be modified.
-     * @param mode specifies where and how to insert
-     * @param left start of the input (only useful in insert and
-     *             overwrite mode)
-     * @param right end of the input (only useful with overwrite mode)
-     * @see InsertMode
-     */
-    void openMultiTrackWriter(MultiTrackWriter &writers,
-	const QMemArray<unsigned int> &track_list, InsertMode mode,
-	unsigned int left, unsigned int right);
-
-    /**
-     * Opens a set of SampleWriters using the currently selected list of
-     * tracks and the current selection. If nothing is selected, the whole
-     * signal will be selected.
-     * @param writers reference to a vector that receives all writers.
-     * @param mode specifies where and how to insert
-     */
-    void openMultiTrackWriter(MultiTrackWriter &writers,
-                              InsertMode mode);
-
 #ifdef HAVE_ARTS_SUPPORT
     /**
      * Opens a set of SampleWriters for playback purposes.

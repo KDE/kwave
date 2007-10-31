@@ -47,7 +47,7 @@ void ZeroPlugin::run(QStringList params)
     UndoTransactionGuard undo_guard(*this, i18n("silence"));
     m_stop = false;
 
-    MultiTrackWriter writers;
+    MultiTrackWriter *writers = 0;
 
     /*
      * new mode: insert a range filled with silence:
@@ -96,17 +96,21 @@ void ZeroPlugin::run(QStringList params)
 	if (!length || !tracks.count()) return; // nothing to do
 
 	last  = first + length - 1;
-	manager().openMultiTrackWriter(writers, tracks, Insert, first, last);
+	writers = new MultiTrackWriter(signalManager(),
+	    tracks, Insert, first, last);
     } else {
-	manager().openMultiTrackWriter(writers, Overwrite);
+	writers = new MultiTrackWriter(signalManager(), Overwrite);
     }
 
-    // break if aborted
-    if (writers.isEmpty()) return;
+    Q_ASSERT(writers);
+    if (!writers) return; // out-of-memory
 
-    first = writers[0]->first();
-    last  = writers[0]->last();
-    unsigned int count = writers.count();
+    // break if aborted
+    if (!writers->tracks()) return;
+
+    first = (*writers)[0]->first();
+    last  = (*writers)[0]->last();
+    unsigned int count = writers->tracks();
 
     // get the buffer with zeroes for faster filling
     if (m_zeroes.count() != ZERO_COUNT) {
@@ -122,12 +126,13 @@ void ZeroPlugin::run(QStringList params)
 	// loop over all writers
 	unsigned int w;
 	for (w=0; w < count; w++) {
-	    *(writers[w]) << m_zeroes;
+	    *((*writers)[w]) << m_zeroes;
 	}
 
 	first += m_zeroes.count();
     }
 
+    delete writers;
     close();
 }
 

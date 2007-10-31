@@ -291,7 +291,7 @@ static inline int decodeFrame(float **pcm, unsigned int size,
 {
     bool clipped = false;
     unsigned int track;
-    unsigned int tracks = dest.count();
+    unsigned int tracks = dest.tracks();
 
     // convert floats to 16 bit signed ints
     // (host order) and interleave

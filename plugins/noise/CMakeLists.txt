@@ -16,6 +16,7 @@
 #############################################################################
 
 SET(plugin_noise_LIB_SRCS
+    NoiseGenerator.cpp
     NoisePlugin.cpp
 )
 

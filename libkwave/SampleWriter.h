@@ -25,6 +25,7 @@
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
+#include "libkwave/KwaveSampleSink.h"
 
 class SampleLock;
 class SampleReader;
@@ -43,7 +44,7 @@ class Track;
  *       determining the end of the write access, e.g. for closing an
  *       undo transaction.
  */
-class SampleWriter: public QObject
+class SampleWriter: public Kwave::SampleSink
 {
     Q_OBJECT
 public:
@@ -108,7 +109,10 @@ public:
      * make sense in append or insert mode, so in these cases the return
      * value will always be false.
      */
-    bool eof();
+    virtual bool eof();
+
+    /** the same as eof(), needed for the Kwave::SampleSink interface */
+    virtual bool done() { return eof(); };
 
     /** Returns the index of the first sample of the range. */
     inline unsigned int first() { return m_first; };
@@ -134,6 +138,14 @@ signals:
 
     /** Emitted when the internal buffer is flushed or the writer is closed */
     void proceeded();
+
+public slots:
+
+    /**
+     * Interface for the signal/slot based streaming API.
+     * @param data sample data to write
+     */
+    void input(Kwave::SampleArray &data);
 
 private:
 

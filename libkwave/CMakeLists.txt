@@ -40,7 +40,6 @@ IF(HAVE_ARTS_SUPPORT)
         ArtsPlaybackSink_impl.cpp
         ArtsSampleSource_impl.cpp
         ArtsSampleSink_impl.cpp
-        CurveStreamAdapter_impl.cpp
         KwaveFilterPlugin.cpp
     )
 ENDIF(HAVE_ARTS_SUPPORT)
@@ -51,6 +50,7 @@ SET(libkwave_LIB_SRCS
     CompressionType.cpp
     cputest.c
     Curve.cpp
+    CurveStreamAdapter.cpp
     Decoder.cpp
     Encoder.cpp
     Filter.cpp
@@ -62,6 +62,7 @@ SET(libkwave_LIB_SRCS
     Interpolation.cpp
     KwaveConnect.cpp
     KwaveDrag.cpp
+    KwaveMul.cpp
     KwavePlugin.cpp
     KwaveSampleSink.cpp
     KwaveSampleSource.cpp

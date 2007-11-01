@@ -38,11 +38,8 @@
 
 #include "mt/ThreadsafeX11Guard.h"
 
-#include "libkwave/ArtsMultiPlaybackSink.h"
-#include "libkwave/ArtsMultiTrackSource.h"
-#include "libkwave/ArtsNativeMultiTrackFilter.h"
 #include "libkwave/Curve.h"
-#include "libkwave/CurveStreamAdapter_impl.h"
+#include "libkwave/CurveStreamAdapter.h"
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/Matrix.h"
 #include "libkwave/MultiTrackReader.h"
@@ -691,6 +688,8 @@ void PlayBackPlugin::playbackDone()
 //***************************************************************************
 void PlayBackPlugin::testPlayBack()
 {
+#warning "TODO: port PlayBackPlugin::testPlayBack()"
+#ifdef HAVE_ARTS_SUPPORT
     const float t_sweep        =   1.0; /* seconds per speaker */
     const float freq           = 440.0; /* test frequency [Hz] */
     const unsigned int periods =     3; /* number of periods to play */
@@ -737,9 +736,7 @@ void PlayBackPlugin::testPlayBack()
     }
     curve.insert(1.0, 0.0);
 
-    CurveStreamAdapter curve_adapter = CurveStreamAdapter::_from_base(
-	new CurveStreamAdapter_impl(curve, curve_length)
-    );
+    CurveStreamAdapter curve_adapter(curve, curve_length);
 
     // create all objects
 
@@ -823,6 +820,7 @@ void PlayBackPlugin::testPlayBack()
     dispatcher->unlock();
 
     m_device->close();
+#endif /* HAVE_ARTS_SUPPORT */
 }
 
 //***************************************************************************

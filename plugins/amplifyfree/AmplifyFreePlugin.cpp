@@ -20,13 +20,13 @@
 #include <qstringlist.h>
 #include <klocale.h>
 
+#include "libkwave/CurveStreamAdapter.h"
+#include "libkwave/KwaveConnect.h"
+#include "libkwave/KwaveMul.h"
+#include "libkwave/MultiTrackReader.h"
+#include "libkwave/MultiTrackWriter.h"
+#include "libkwave/KwaveMultiTrackSource.h"
 #include "libkwave/Parser.h"
-
-#include "libkwave/CurveStreamAdapter_impl.h"
-#include "libkwave/ArtsMultiTrackSink.h"
-#include "libkwave/ArtsMultiTrackSource.h"
-#include "libkwave/ArtsKwaveMultiTrackFilter.h"
-#include "libkwave/ArtsNativeMultiTrackFilter.h"
 
 #include "kwave/PluginManager.h"
 #include "kwave/UndoTransactionGuard.h"
@@ -105,58 +105,47 @@ void AmplifyFreePlugin::run(QStringList params)
 {
     unsigned int first, last;
 
-    Arts::Dispatcher *dispatcher = manager().artsDispatcher();
-    dispatcher->lock();
-    Q_ASSERT(dispatcher);
-    if (!dispatcher) close();
-
     UndoTransactionGuard undo_guard(*this, i18n("amplify free"));
     m_stop = false;
 
     interpreteParameters(params);
-
     unsigned int input_length = selection(&first, &last, true);
-    MultiTrackReader source(signalManager(), selectedTracks(), first, last);
-    MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
-	first, last);
+    unsigned int tracks = selectedTracks().count();
 
     // create all objects
-    ArtsMultiTrackSource arts_source(source);
-
-    CurveStreamAdapter curve_adapter = CurveStreamAdapter::_from_base(
-	new CurveStreamAdapter_impl(m_curve, input_length)
-    );
-
-    unsigned int tracks = selectedTracks().count();
-    ArtsNativeMultiTrackFilter mul(tracks, "Arts::Synth_MUL");
-
-    ArtsMultiTrackSink   arts_sink(sink);
+    MultiTrackReader source(signalManager(), selectedTracks(), first, last);
+    Kwave::CurveStreamAdapter curve(m_curve, input_length);
+    MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
+	first, last);
+    Kwave::MultiTrackSource<Kwave::Mul> mul(tracks, this, "AmplifyFree");
+    for (unsigned int i=0; i < tracks; i++)
+	mul.insert(i, new Kwave::Mul());
 
     // connect them
-    mul.connectInput(arts_source,   "source", "invalue1");
-    mul.connectInput(curve_adapter, "output", "invalue2");
-    mul.connectOutput(arts_sink,    "sink",   "outvalue");
-
-    // start all
-    arts_source.start();
-    mul.start();
-    curve_adapter.start();
-    arts_sink.start();
+    bool ok = true;
+    if (ok) ok = Kwave::connect(
+	source, SIGNAL(output(Kwave::SampleArray &)),
+	mul,    SLOT(input_a(Kwave::SampleArray &)));
+    if (ok) ok = Kwave::connect(
+	curve,  SIGNAL(output(Kwave::SampleArray &)),
+	mul,    SLOT(input_b(Kwave::SampleArray &)));
+    if (ok) ok = Kwave::connect(
+	mul,    SIGNAL(output(Kwave::SampleArray &)),
+	sink,   SLOT(input(Kwave::SampleArray &)));
+    Q_ASSERT(ok);
+    if (!ok) {
+	close();
+	return;
+    }
 
     // transport the samples
     qDebug("AmplifyFreePlugin: filter started...");
-    while (!m_stop && !(arts_source.done())) {
-	arts_sink.goOn();
+    while (!m_stop && !source.done()) {
+	source.goOn();
+	curve.goOn();
+	mul.goOn();
     }
     qDebug("AmplifyFreePlugin: filter done.");
-
-    // shutdown
-    curve_adapter.stop();
-    mul.stop();
-    arts_sink.stop();
-    arts_source.stop();
-
-    dispatcher->unlock();
 
     close();
 }

@@ -1,5 +1,5 @@
 /***************************************************************************
-   CurveStreamAdapter.h  -  converter from Curve to a Kwave::SampleSource
+             KwaveMul.h  -  multiplier
                              -------------------
     begin                : Thu Nov 01 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -15,54 +15,57 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _CURVE_STREAM_ADAPTER_H_
-#define _CURVE_STREAM_ADAPTER_H_
+#ifndef _KWAVE_MUL_H_
+#define _KWAVE_MUL_H_
 
 #include "config.h"
 
-#include "libkwave/Curve.h"
 #include "libkwave/KwaveSampleSource.h"
+#include "libkwave/KwaveSampleSink.h"
 
 namespace Kwave {
-    class CurveStreamAdapter :public Kwave::SampleSource
+
+    class Mul: public Kwave::SampleSource
     {
-        Q_OBJECT
-    public:
-	/**
-	* Constructor.
-	* @param curve the curve from which we take the interpolation
-	* @param length number of samples of the interpolated range
-	*/
-	CurveStreamAdapter(Curve &curve, unsigned int length);
+	Q_OBJECT
+	public:
+	    /** Constructor */
+	    Mul();
 
-	/** Destructor */
-	virtual ~CurveStreamAdapter();
+	    /** Destructor */
+	    virtual ~Mul();
 
-	/** @see Kwave::KwaveSampleSource */
-	void goOn();
+	    /** does the calculation */
+	    virtual void goOn();
 
+	signals:
+	    /** emits a block with the interpolated curve */
+	    void output(Kwave::SampleArray &data);
 
-    signals:
+	public slots:
 
-	/** emits a block with the interpolated curve */
-	void output(Kwave::SampleArray &data);
+	    /** receives input data for input A */
+	    void input_a(Kwave::SampleArray &data);
 
-    private:
+	    /** receives input data for input B */
+	    void input_b(Kwave::SampleArray &data);
 
-	/** position within the interpolation */
-	unsigned int m_position;
+	private:
+	    /** buffer for input A */
+	    Kwave::SampleArray m_buffer_a;
 
-	/** number of samples of the interpolated area */
-	unsigned int m_length;
+	    /** buffer for input B */
+	    Kwave::SampleArray m_buffer_b;
 
-	/** the interpolation */
-	Interpolation &m_interpolation;
+	    /** buffer for output data */
+	    Kwave::SampleArray m_buffer_x;
 
-	/** array with the interpolated curve data */
-	Kwave::SampleArray m_buffer;
+	    /** number of calls to input_a */
+	    unsigned int m_count_a;
 
+	    /** number of calls to input_b */
+	    unsigned int m_count_b;
     };
-
 }
-#endif /* _CURVE_STREAM_ADAPTER_H_ */
 
+#endif /* _KWAVE_MUL_H_ */

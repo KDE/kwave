@@ -15,42 +15,49 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "libkwave/CurveStreamAdapter_impl.h"
+#include "libkwave/CurveStreamAdapter.h"
 
 /***************************************************************************/
-CurveStreamAdapter_impl::CurveStreamAdapter_impl(Curve &curve,
+Kwave::CurveStreamAdapter::CurveStreamAdapter(Curve &curve,
     unsigned int length)
-    :m_position(0), m_length(length),
-     m_interpolation(curve.interpolation())
+    :Kwave::SampleSource(0,0),
+     m_position(0), m_length(length),
+     m_interpolation(curve.interpolation()),
+     m_buffer(blockSize())
 {
 }
 
 /***************************************************************************/
-void CurveStreamAdapter_impl::calculateBlock(unsigned long samples)
+Kwave::CurveStreamAdapter::~CurveStreamAdapter()
+{
+}
+
+/***************************************************************************/
+void Kwave::CurveStreamAdapter::goOn()
 {
     unsigned int offset;
     double x;
     double y;
     double x_max = (double)m_length;
+    const unsigned int samples = blockSize();
 
     // fill with interpolated points
     for (offset=0; offset < samples; ++offset) {
 	x = (double)m_position / x_max;    // x range is [0.0 ... 1.0]
 	y = m_interpolation.singleInterpolation(x);
-	output[offset] = y;
+	m_buffer[offset] = float2sample(y);
 	m_position++;
 
 	// wrap-around, for periodic signals
 	if (m_position > m_length)
 	    m_position = 0;
     }
+
+    emit output(m_buffer);
 }
 
-/***************************************************************************/
-void CurveStreamAdapter_impl::streamInit()
-{
-    m_position = 0;
-}
-
+//***************************************************************************
+using namespace Kwave;
+#include "CurveStreamAdapter.moc"
 /***************************************************************************/
 /***************************************************************************/

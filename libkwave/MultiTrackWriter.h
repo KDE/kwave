@@ -36,11 +36,12 @@ class MultiTrackWriter:
     public Kwave::MultiTrackSink<SampleWriter>
 {
     Q_OBJECT
-public:
 
+private:
     /** Default constructor */
     MultiTrackWriter();
 
+public:
     /**
      * Constructor
      * @param signal_manager reference to a SignalManager

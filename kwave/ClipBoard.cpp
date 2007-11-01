@@ -19,7 +19,7 @@
 #include "mt/SharedLock.h"
 #include "mt/SharedLockGuard.h"
 
-#include "libkwave/MultiTrackReader.h"
+#include "libkwave/MultiTrackWriter.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
@@ -85,16 +85,17 @@ void ClipBoard::copy(Signal &signal,
 }
 
 //***************************************************************************
-void ClipBoard::openMultiTrackReader(MultiTrackReader &readers)
+void ClipBoard::paste(MultiTrackWriter &writers)
 {
     SharedLockGuard lock(m_lock, false); // lock read-only
 
-    unsigned int count = m_buffer.count();
-    readers.clear();
     Q_ASSERT(length());
     if (!length()) return; // clipboard is empty ?
 
-    readers.resize(count);
+    unsigned int tracks = m_buffer.count();
+    Q_ASSERT(tracks == writers.tracks());
+    if (tracks != writers.tracks()) return; // track count mismatch
+
     QPtrListIterator<Track> it(m_buffer);
     unsigned int i = 0;
     for ( ; it.current(); ++it ) {
@@ -103,15 +104,11 @@ void ClipBoard::openMultiTrackReader(MultiTrackReader &readers)
 	if (!track) continue;
 
 	SampleReader *reader = track->openSampleReader(0, length()-1);
+	SampleWriter *writer = writers[i++];
 	Q_ASSERT(reader);
-	if (reader) readers.insert(i++, reader);
+	Q_ASSERT(writer);
+	if (reader && writer) *writer << *reader;
     }
-
-    if (i != count) {
-	// something went wrong :-(
-	readers.clear();
-    }
-
 }
 
 //***************************************************************************

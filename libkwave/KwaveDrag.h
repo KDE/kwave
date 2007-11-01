@@ -85,10 +85,10 @@ public:
      * @param widget the widget used for displaying error messages
      * @param e mime source
      * @param sig signal that receives the mime data
-     * @return true if successful, false if failed
+     * @return number of decoded samples if successful, zero if failed
      */
-    static bool decode(QWidget *widget, const QMimeSource *e,
-                       SignalManager &sig);
+    static unsigned int decode(QWidget *widget, const QMimeSource *e,
+                               SignalManager &sig, unsigned int pos);
 
 private:
 

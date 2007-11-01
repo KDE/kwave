@@ -108,21 +108,18 @@ void KwaveFilterPlugin::run(QStringList params)
 
     if (!interpreteParameters(params)) m_params = params;
 
-    MultiTrackReader source;
-    MultiTrackWriter *sink = 0;
-
     selection(&first, &last, true);
-    manager().openMultiTrackReader(source, selectedTracks(), first, last);
+    unsigned int tracks = selectedTracks().count();
 
     // create all objects
+    MultiTrackReader source(signalManager(), selectedTracks(), first, last);
     ArtsMultiTrackSource arts_source(source);
     ArtsMultiSink *arts_sink = 0;
-
-    unsigned int tracks = selectedTracks().count();
 
     ArtsMultiTrackFilter *filter = createFilter(tracks);
     Q_ASSERT(filter);
 
+    MultiTrackWriter *sink = 0;
     if (m_listen) {
 	// pre-listen mode
 	arts_sink = manager().openMultiTrackPlayback(selectedTracks().count());

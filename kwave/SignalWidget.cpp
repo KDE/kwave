@@ -2345,13 +2345,12 @@ void SignalWidget::startDragging()
     Q_ASSERT(d);
     if (!d) return;
 
-    MultiTrackReader src;
     const unsigned int first = m_signal_manager.selection().first();
     const unsigned int last  = m_signal_manager.selection().last();
     const double       rate  = m_signal_manager.rate();
     const unsigned int bits  = m_signal_manager.bits();
 
-    m_signal_manager.openMultiTrackReader(src,
+    MultiTrackReader src(m_signal_manager,
 	m_signal_manager.selectedTracks(), first, last);
 
     // create the file info
@@ -2408,15 +2407,13 @@ void SignalWidget::dropEvent(QDropEvent* event)
 {
     if (KwaveDrag::canDecode(event)) {
 	UndoTransactionGuard undo(m_signal_manager, i18n("drag and drop"));
-	MultiTrackReader src;
 	Signal sig;
 	InhibitRepaintGuard inhibit(*this);
+	unsigned int pos = m_offset + pixels2samples(event->pos().x());
+	unsigned int len = 0;
 
 	/** @todo add a converter if rate does not match */
-	if (KwaveDrag::decode(this, event, m_signal_manager)) {
-	    unsigned int pos = m_offset + pixels2samples(event->pos().x());
-	    unsigned int len = sig.length();
-
+	if ((len = KwaveDrag::decode(this, event, m_signal_manager, pos))) {
 	    /**
 	     * @todo after the drop operation: enter the new file info into
 	     * the signal manager if our own file was empty

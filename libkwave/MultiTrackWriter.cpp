@@ -53,8 +53,6 @@ MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
     UndoTransactionGuard guard(signal_manager, 0);
 
     const unsigned int count = track_list.count();
-    qDebug("count=%u", count);
-
     for (unsigned int i=0; i < count; i++) {
 	unsigned int track = track_list[i];
 	// NOTE: this function is *nearly* identical to the one in the
@@ -63,7 +61,6 @@ MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
 	    track, mode, left, right, true);
 	Q_ASSERT(s);
 	if (s) {
-	    qDebug("writer[%u] = %p", i, s);
 	    insert(i, s);
 	} else {
 	    // out of memory or aborted

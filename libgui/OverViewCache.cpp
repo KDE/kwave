@@ -438,7 +438,6 @@ QBitmap OverViewCache::getOverView(int width, int height)
     const unsigned int length = sourceLength();
     if (!length) return bitmap; // stay empty if no data available
 
-    MultiTrackReader src;
     QMemArray<unsigned int> track_list;
     if (!m_src_tracks.isEmpty() || !m_src_deleted.isEmpty()) {
 	track_list.resize(m_src_tracks.count());
@@ -447,7 +446,7 @@ QBitmap OverViewCache::getOverView(int width, int height)
     } else {
 	track_list = m_signal.allTracks();
     }
-    m_signal.openMultiTrackReader(src, track_list, m_src_offset,
+    MultiTrackReader src(m_signal, track_list, m_src_offset,
 	m_src_offset+length-1);
 
     // loop over all min/max buffers and make their content valid

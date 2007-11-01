@@ -536,15 +536,6 @@ SampleWriter *PluginManager::openSampleWriter(unsigned int track,
 }
 
 //***************************************************************************
-void PluginManager::openMultiTrackReader(MultiTrackReader &readers,
-    const QMemArray<unsigned int> &track_list,
-    unsigned int first, unsigned int last)
-{
-    SignalManager &manager = m_top_widget.signalManager();
-    manager.openMultiTrackReader(readers, track_list, first, last);
-}
-
-//***************************************************************************
 #ifdef HAVE_ARTS_SUPPORT
 ArtsMultiSink *PluginManager::openMultiTrackPlayback(unsigned int tracks,
                                                      const QString *name)

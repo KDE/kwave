@@ -17,10 +17,11 @@
 
 #include <klocale.h> // for the i18n macro
 
-#include "libkwave/ArtsNativeMultiTrackFilter.h"
-#include "libkwave/ArtsMultiTrackSink.h"
-#include "libkwave/ArtsMultiTrackSink.h"
 #include "libkwave/MultiTrackWriter.h"
+#include "libkwave/KwaveConnect.h"
+#include "libkwave/KwaveSampleSource.h"
+#include "libkwave/KwaveSampleSink.h"
+#include "libkwave/KwaveMultiTrackSource.h"
 
 #include "kwave/PluginManager.h"
 #include "kwave/UndoTransactionGuard.h"
@@ -29,11 +30,6 @@
 #include "NoiseGenerator.h"
 
 KWAVE_PLUGIN(NoisePlugin,"noise","Thomas Eschenbacher");
-
-#include "libkwave/KwaveConnect.h"
-#include "libkwave/KwaveSampleSource.h"
-#include "libkwave/KwaveSampleSink.h"
-#include "libkwave/KwaveMultiTrackSource.h"
 
 //***************************************************************************
 NoisePlugin::NoisePlugin(const PluginContext &context)
@@ -53,7 +49,6 @@ void NoisePlugin::run(QStringList)
 
     // create all objects
     unsigned int tracks = selectedTracks().count();
-    qDebug("tracks=%u", tracks);
     Kwave::MultiTrackSource<NoiseGenerator> source(tracks);
     MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
         first, last);

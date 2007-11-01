@@ -350,12 +350,9 @@ int SignalManager::save(const KURL &url, bool selection)
 	QString filename = url.path();
 	QFile dst(filename);
 
-	MultiTrackReader src;
-	if (selection) {
-	    openMultiTrackReader(src, selectedTracks(), ofs, ofs+len-1);
-	} else {
-	    openMultiTrackReader(src, allTracks(), ofs, ofs+len-1);
-	}
+	MultiTrackReader src(*this,
+	    (selection) ? selectedTracks() : allTracks(),
+	    ofs, ofs+len-1);
 
 	// update the file information
 	m_file_info.setLength(len);
@@ -613,14 +610,6 @@ SampleWriter *SignalManager::openSampleWriter(unsigned int track,
 }
 
 //***************************************************************************
-void SignalManager::openMultiTrackReader(MultiTrackReader &readers,
-    const QMemArray<unsigned int> &track_list,
-    unsigned int first, unsigned int last)
-{
-    m_signal.openMultiTrackReader(readers, track_list, first, last);
-}
-
-//***************************************************************************
 bool SignalManager::executeCommand(const QString &command)
 {
     unsigned int offset = m_selection.offset();
@@ -728,14 +717,6 @@ void SignalManager::paste(ClipBoard &clipboard, unsigned int offset,
 	while (missing--) appendTrack();
     }
 
-    // open the clipboard as source
-    MultiTrackReader src;
-    clipboard.openMultiTrackReader(src);
-    if (src.isEmpty()) {
-	abortUndoTransaction();
-	return;
-    }
-
     // open a stream into the signal
     MultiTrackWriter dst(*this, selectedTracks(), Insert,
                          offset, offset+clipboard.length()-1);
@@ -745,7 +726,7 @@ void SignalManager::paste(ClipBoard &clipboard, unsigned int offset,
     }
 
     // transfer the content
-    dst << src;
+    clipboard.paste(dst);
 
     // set the selection to the inserted range
     selectRange(offset, clipboard.length());

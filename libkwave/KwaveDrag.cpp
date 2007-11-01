@@ -98,37 +98,42 @@ bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src, FileInfo &info)
 }
 
 //***************************************************************************
-bool KwaveDrag::decode(QWidget *widget, const QMimeSource *e,
-                       SignalManager &sig)
+unsigned int KwaveDrag::decode(QWidget *widget, const QMimeSource *e,
+                               SignalManager &sig, unsigned int pos)
 {
     // try to find a suitable decoder
     Decoder *decoder = CodecManager::decoder(e);
     Q_ASSERT(decoder);
-    if (!decoder) return false;
+    if (!decoder) return 0;
 
     // decode, use the first format that matches
     int i;
     const char *format;
-    bool ok = false;
+    unsigned int decoded_length = 0;
 
     for (i=0; (format = e->format(i)); ++i) {
 	if (CodecManager::canDecode(format)) {
 	    QBuffer src(e->encodedData(format));
 
 	    // open the mime source and get header information
-	    ok = decoder->open(widget, src);
-	    if (!ok) break;
+	    bool ok = decoder->open(widget, src);
+	    if (!ok) continue;
+	    decoded_length = decoder->info().length();
+	    Q_ASSERT(decoded_length);
+	    if (!decoded_length) continue;
 
 	    // prepare the signal
-	    MultiTrackWriter dst(sig, sig.allTracks(), Overwrite,
-	                         0, sig.length()-1);
+	    unsigned int left  = pos;
+	    unsigned int right = left + decoded_length - 1;
+	    MultiTrackWriter dst(sig, sig.allTracks(), Insert,
+	                         left, right);
 
 	    ok = decoder->decode(widget, dst);
 	    break;
 	}
     }
     delete decoder;
-    return ok;
+    return decoded_length;
 }
 
 //***************************************************************************

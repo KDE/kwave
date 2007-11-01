@@ -257,8 +257,7 @@ void SonagramPlugin::run(QStringList /* params */)
     Q_ASSERT(m_spx_insert_stripe);
     if (!m_spx_insert_stripe) return;
 
-    MultiTrackReader source;
-    manager().openMultiTrackReader(source, selectedTracks(),
+    MultiTrackReader source(signalManager(), selectedTracks(),
 	m_first_sample, m_last_sample);
 //    qDebug("SonagramPlugin::run(), first=%u, last=%u",m_first_sample,m_last_sample);
 

@@ -557,8 +557,7 @@ void PlayBackPlugin::run(QStringList)
     }
 
     // set up a set of sample reader (streams)
-    MultiTrackReader input;
-    manager().openMultiTrackReader(input, audible_tracks, first, last);
+    MultiTrackReader input(signalManager(), audible_tracks, first, last);
 
     // create a translation matrix for mixing up/down to the desired
     // number of output channels

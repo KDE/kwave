@@ -176,25 +176,6 @@ SampleReader *Signal::openSampleReader(unsigned int track,
 }
 
 //***************************************************************************
-void Signal::openMultiTrackReader(MultiTrackReader &readers,
-    const QMemArray<unsigned int> &track_list,
-    unsigned int first, unsigned int last)
-{
-    unsigned int count = track_list.count();
-    unsigned int track;
-    readers.clear();
-    readers.resize(count);
-
-    for (unsigned int i=0; i < count; i++) {
-	track = track_list[i];
-	SampleReader *s = openSampleReader(track, first, last);
-	Q_ASSERT(s);
-	readers.insert(i, s);
-    }
-
-}
-
-//***************************************************************************
 const QMemArray<unsigned int> Signal::allTracks()
 {
     unsigned int track;

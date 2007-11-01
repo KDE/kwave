@@ -25,6 +25,8 @@
 
 #include "libkwave/SampleReader.h"
 
+class SignalManager;
+
 /**
  * A MultiTrackReader encapsulates a set of <c>SampleReader</c>s for
  * easier use of multi-track signals.
@@ -32,10 +34,23 @@
 class MultiTrackReader: public QObject, private QPtrVector<SampleReader>
 {
     Q_OBJECT
+private:
+
+    /** Default constructor */
+    MultiTrackReader();
+
 public:
 
-    /** Constructor */
-    MultiTrackReader();
+    /**
+     * Constructor
+     * @param signal_manager reference to a SignalManager
+     * @param track_list array of indices of tracks for writing
+     * @param left index of the first sample
+     * @param right index of the last sample
+     */
+    MultiTrackReader(SignalManager &signal_manager,
+                     const QMemArray<unsigned int> &track_list,
+                     unsigned int first, unsigned int last);
 
     /** Destructor */
     virtual ~MultiTrackReader();

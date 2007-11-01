@@ -24,7 +24,7 @@
 #include <qptrlist.h>
 #include "mt/SharedLock.h"
 
-class MultiTrackReader;
+class MultiTrackWriter;
 class Signal;
 class Track;
 
@@ -57,14 +57,10 @@ public:
               unsigned int offset, unsigned int length, double rate);
 
     /**
-     * Returns a MultiTrackReader for reading the clipboard content.
-     * @param readers reference to the MultiTrackReader to be filled.
-     * @note the returned vector has set "autoDelete" to true, so you
-     *       don't have to care about cleaning up
-     * @see SampleReader
-     * @see selectedTracks()
+     * Transfers all stored data into a MultiTrackWriter.
+     * @param writers
      */
-    void openMultiTrackReader(MultiTrackReader &readers);
+    void paste(MultiTrackWriter &writers);
 
     /**
      * Clears the internal buffers. The clipboard will be empty after this

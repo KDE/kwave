@@ -18,12 +18,35 @@
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/SampleReader.h"
+#include "kwave/SignalManager.h"
 
 //***************************************************************************
 MultiTrackReader::MultiTrackReader()
     :QObject(), QPtrVector<SampleReader>(), m_cancelled(false)
 {
     setAutoDelete(true);
+}
+
+//***************************************************************************
+MultiTrackReader::MultiTrackReader(SignalManager &signal_manager,
+    const QMemArray<unsigned int> &track_list,
+    unsigned int first, unsigned int last)
+    :QObject(),
+     QPtrVector<SampleReader>(),
+     m_cancelled(false)
+{
+    unsigned int count = track_list.count();
+    resize(count);
+
+    for (unsigned int i=0; i < count; i++) {
+	unsigned int track = track_list[i];
+	SampleReader *s =
+	    signal_manager.openSampleReader(track, first, last);
+	Q_ASSERT(s);
+	insert(i, s);
+    }
+
+    Q_ASSERT(count == tracks());
 }
 
 //***************************************************************************

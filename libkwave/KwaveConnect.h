@@ -24,8 +24,7 @@ class QString;
 
 namespace Kwave {
 
-    class SampleSource;
-    class SampleSink;
+    class StreamObject;
 
     /**
      * Connect an output of a Kwave::SampleSource to the input
@@ -49,8 +48,8 @@ namespace Kwave {
      *         \li a source or sink's track is NULL (missing)
      *         \li input or output name is zero-length
      */
-    bool connect(Kwave::SampleSource &source, const QString &output,
-                 Kwave::SampleSink   &sink,   const QString &input);
+    bool connect(Kwave::StreamObject &source, const QString &output,
+                 Kwave::StreamObject &sink,   const QString &input);
 }
 
 #endif /* _KWAVE_CONNECT_H_ */

@@ -22,9 +22,10 @@
 #include <qobject.h>
 
 #include "libkwave/KwaveSampleArray.h"
+#include "libkwave/KwaveStreamObject.h"
 
 namespace Kwave {
-    class SampleSink: public QObject
+    class SampleSink: public Kwave::StreamObject
     {
         Q_OBJECT
     public:
@@ -49,21 +50,6 @@ namespace Kwave {
          */
         virtual bool done() { return false; };
 
-        /**
-         * Returns the number of tracks that the source provides
-         * @return number of tracks, default is 1
-         */
-        virtual unsigned int tracks() const { return 1; };
-
-        /**
-         * Returns the sink that corresponds to one specific track
-         * if the object has multiple tracks. For single-track objects
-         * it returns "this" for the first index and 0 for all others
-         */
-        virtual Kwave::SampleSink * operator [] (unsigned int track)
-        {
-            return (track == 0) ? this : 0;
-        };
     };
 }
 

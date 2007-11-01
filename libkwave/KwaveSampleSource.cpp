@@ -20,7 +20,7 @@
 
 //***************************************************************************
 Kwave::SampleSource::SampleSource(QObject *parent, const char *name)
-    :QObject(parent, name)
+    :Kwave::StreamObject(parent, name)
 {
 }
 

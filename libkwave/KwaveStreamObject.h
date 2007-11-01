@@ -1,7 +1,7 @@
 /*************************************************************************
-    KwaveSampleSource.h  -  base class with a generic sample source
+    KwaveStreamObject.h  -  base class with a generic sample source/sink
                              -------------------
-    begin                : Sun Oct 07 2007
+    begin                : Thu Nov 01 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
@@ -15,21 +15,16 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_SAMPLE_SOURCE_H_
-#define _KWAVE_SAMPLE_SOURCE_H_
+#ifndef _KWAVE_STREAM_OBJECT_H_
+#define _KWAVE_STREAM_OBJECT_H_
 
 #include "config.h"
 #include <qobject.h>
 
-#include "libkwave/KwaveSampleArray.h"
-#include "libkwave/KwaveStreamObject.h"
-
 namespace Kwave {
-    class SampleSource: public Kwave::StreamObject
+    class StreamObject: public QObject
     {
-        Q_OBJECT
     public:
-
 	/**
 	 * Constructor
 	 *
@@ -37,37 +32,33 @@ namespace Kwave {
 	 * @param name a free name, for identifying this object,
 	 *             will be passed to the QObject (optional)
 	 */
-	SampleSource(QObject *parent=0, const char *name=0);
+	StreamObject(QObject *parent=0, const char *name=0)
+	    :QObject(parent, name)
+	{
+	};
 
 	/** Destructor */
-	virtual ~SampleSource();
+	virtual ~StreamObject()
+	{
+	};
 
 	/**
-	 * Each KwaveSampleSource has to derive this method for producing
-	 * sample data. It then should emit a signal like this:
-	 * "output(SampleArray &data)"
+	 * Returns the number of tracks that the source provides
+	 * @return number of tracks, default is 1
 	 */
-	virtual void goOn() = 0;
+	virtual unsigned int tracks() const { return 1; };
 
 	/**
-	 * Returns true if the end of the source has been reached,
-	 * e.g. at EOF of an input stream. The default implementation
-	 * always returns false, which means that the source is always
-	 * able to produce data (useful for signal generators).
-	 *
-	 * @return true if it can produce more sample data, otherwise false
+	 * Returns the source that corresponds to one specific track
+	 * if the object has multiple tracks. For single-track objects
+	 * it returns "this" for the first index and 0 for all others
 	 */
-	virtual bool done() { return false; };
-
-	/**
-	 * Returns the block size used for producing data.
-	 * @return currently 256k [samples]
-	 */
-	virtual unsigned int blockSize() const {
-	    return (256 << 10);
+	virtual Kwave::StreamObject * operator [] (unsigned int track)
+	{
+	    return (track == 0) ? this : 0;
 	};
 
     };
 }
 
-#endif /* _KWAVE_SAMPLE_SOURCE_H_ */
+#endif /* _KWAVE_STREAM_OBJECT_H_ */

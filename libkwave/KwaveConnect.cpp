@@ -26,8 +26,8 @@
 
 //***************************************************************************
 namespace Kwave {
-    bool connect(Kwave::SampleSource &source, const QString &output,
-	         Kwave::SampleSink   &sink,   const QString &input)
+    bool connect(Kwave::StreamObject &source, const QString &output,
+	         Kwave::StreamObject &sink,   const QString &input)
     {
 	unsigned int src_tracks = source.tracks();
 	unsigned int dst_tracks = sink.tracks();
@@ -48,7 +48,7 @@ namespace Kwave {
 	} else if ((src_tracks == 1) && (dst_tracks > 1)) {
 	    // 1 output -> N inputs
 	    for (unsigned int track=0; track < dst_tracks; track++) {
-		Kwave::SampleSink *sink_n = sink[track];
+		Kwave::StreamObject *sink_n = sink[track];
 		Q_ASSERT(sink_n);
 		if (!sink_n) return false;
 		QObject::connect(&source, output, sink_n, input);
@@ -56,8 +56,8 @@ namespace Kwave {
 	} else if (src_tracks == dst_tracks) {
 	    // N outputs -> N inputs
 	    for (unsigned int track=0; track < dst_tracks; track++) {
-		Kwave::SampleSource *source_n = source[track];
-		Kwave::SampleSink   *sink_n   = sink[track];
+		Kwave::StreamObject *source_n = source[track];
+		Kwave::StreamObject *sink_n   = sink[track];
 		Q_ASSERT(source_n);
 		Q_ASSERT(sink_n);
 		if (!source_n) return false;

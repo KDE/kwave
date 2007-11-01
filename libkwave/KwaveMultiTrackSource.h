@@ -43,10 +43,11 @@ namespace Kwave {
 	                 QObject *parent=0,
 	                 const char *name=0)
 	    :Kwave::SampleSource(parent, name),
-	     QPtrVector<SOURCE>(tracks)
+	     QPtrVector<SOURCE>()
         {
 	    QPtrVector<SOURCE>::setAutoDelete(true);
 	    QPtrVector<SOURCE>::resize(tracks);
+	    Q_ASSERT(QPtrVector<SOURCE>::size() == tracks);
 	};
 
 	/** Destructor */
@@ -62,12 +63,23 @@ namespace Kwave {
 	 */
 	virtual void goOn()
 	{
-	    const unsigned int tracks = QPtrVector<SOURCE>::count();
+	    const unsigned int tracks = QPtrVector<SOURCE>::size();
 	    for (unsigned int i=0; i < tracks; i++)
 	    {
 		SOURCE *src = QPtrVector<SOURCE>::at(i);
+		Q_ASSERT(src);
 		if (src) src->goOn();
 	    }
+	};
+
+	/** Returns true when all sources are done */
+	virtual bool done()
+	{
+	    for (unsigned int track=0; track < tracks(); ++track) {
+		Kwave::SampleSource *s = (*this)[track];
+		if (s && !s->done()) return false;
+	    }
+	    return true;
 	};
 
 	/**
@@ -76,7 +88,7 @@ namespace Kwave {
 	 */
 	virtual unsigned int tracks() const
 	{
-	    return QPtrVector<SOURCE>::count();
+	    return QPtrVector<SOURCE>::size();
 	};
 
 	/**

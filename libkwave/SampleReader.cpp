@@ -293,15 +293,9 @@ SampleReader &SampleReader::operator >> (QMemArray<sample_t> &buffer)
 //***************************************************************************
 void SampleReader::goOn()
 {
-    if (!m_buffer_used) {
-	fillBuffer();
-    } else {
-	Q_ASSERT(!m_buffer_used);
-	// move all data to the start of the buffer
-    }
-    m_buffer_position = 0;
-    m_buffer_used = 0;
-    emit output(m_buffer);
+    Kwave::SampleArray buffer(blockSize());
+    read(buffer, 0, blockSize());
+    emit output(buffer);
 }
 
 //***************************************************************************

@@ -45,6 +45,7 @@ namespace Kwave {
 	{
 	    QPtrVector<SINK>::setAutoDelete(true);
 	    QPtrVector<SINK>::resize(tracks);
+	    Q_ASSERT(QPtrVector<SINK>::size() == tracks);
 	};
 
 	/** Destructor */
@@ -70,7 +71,7 @@ namespace Kwave {
 	 */
 	virtual unsigned int tracks() const
 	{
-	    return QPtrVector<SINK>::count();
+	    return QPtrVector<SINK>::size();
 	};
 
 	/**

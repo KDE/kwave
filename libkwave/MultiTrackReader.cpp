@@ -22,22 +22,20 @@
 
 //***************************************************************************
 MultiTrackReader::MultiTrackReader()
-    :QObject(), QPtrVector<SampleReader>(), m_cancelled(false)
+    :Kwave::MultiTrackSource<SampleReader>(0,0),
+     m_cancelled(false)
 {
-    setAutoDelete(true);
 }
 
 //***************************************************************************
 MultiTrackReader::MultiTrackReader(SignalManager &signal_manager,
     const QMemArray<unsigned int> &track_list,
     unsigned int first, unsigned int last)
-    :QObject(),
-     QPtrVector<SampleReader>(),
+    :Kwave::MultiTrackSource<SampleReader>(
+	track_list.count(), 0, "MultiTrackReader"),
      m_cancelled(false)
 {
     unsigned int count = track_list.count();
-    resize(count);
-
     for (unsigned int i=0; i < count; i++) {
 	unsigned int track = track_list[i];
 	SampleReader *s =
@@ -58,7 +56,7 @@ MultiTrackReader::~MultiTrackReader()
 //***************************************************************************
 bool MultiTrackReader::eof() const
 {
-    unsigned int c = this->count();
+    unsigned int c = tracks();
     for (unsigned int r = 0; r < c; r++) {
 	SampleReader *reader = this->at(r);
 	Q_ASSERT(reader);
@@ -69,21 +67,12 @@ bool MultiTrackReader::eof() const
 }
 
 //***************************************************************************
-bool MultiTrackReader::insert(unsigned int track, const SampleReader *reader)
-{
-    if (reader) {
-        connect(reader, SIGNAL(proceeded()), this, SLOT(proceeded()));
-    }
-    return QPtrVector<SampleReader>::insert(track, reader);
-}
-
-//***************************************************************************
 void MultiTrackReader::proceeded()
 {
     unsigned int pos = 0;
     unsigned int track;
-    const unsigned int tracks = count();
-    for (track=0; track < tracks; ++track) {
+    const unsigned int n_tracks = tracks();
+    for (track=0; track < n_tracks; ++track) {
 	SampleReader *r = (*this)[track];
 	if (r) pos += (r->pos() - r->first());
     }
@@ -95,25 +84,12 @@ void MultiTrackReader::reset()
 {
     unsigned int pos = 0;
     unsigned int track;
-    const unsigned int tracks = count();
-    for (track=0; track < tracks; ++track) {
+    const unsigned int n_tracks = tracks();
+    for (track=0; track < n_tracks; ++track) {
 	SampleReader *r = (*this)[track];
 	if (r) r->reset();
     }
     emit progress(pos);
-}
-
-//***************************************************************************
-void MultiTrackReader::clear()
-{
-    setAutoDelete(false);
-    while (!isEmpty()) {
-	unsigned int last = count()-1;
-	SampleReader *reader = at(last);
-	remove(last);
-	resize(last);
-	if (reader) delete reader;
-    }
 }
 
 //***************************************************************************
@@ -123,6 +99,7 @@ void MultiTrackReader::cancel()
 }
 
 //***************************************************************************
+using namespace Kwave;
 #include "MultiTrackReader.moc"
 //***************************************************************************
 //***************************************************************************

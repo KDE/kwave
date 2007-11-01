@@ -21,12 +21,10 @@
 #include "libkwave/Sample.h"
 #include "NoiseGenerator.h"
 
-#define BLOCK_SIZE 4096
-
 //***************************************************************************
 NoiseGenerator::NoiseGenerator(QObject *parent)
     :Kwave::SampleSource(parent, "noise generator"),
-    m_noise(BLOCK_SIZE)
+    m_noise(blockSize())
 {
 }
 

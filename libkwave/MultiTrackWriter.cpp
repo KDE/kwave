@@ -101,8 +101,7 @@ MultiTrackWriter::~MultiTrackWriter()
 }
 
 //***************************************************************************
-MultiTrackWriter &MultiTrackWriter::operator << (
-	const MultiTrackReader &source)
+MultiTrackWriter &MultiTrackWriter::operator << (MultiTrackReader &source)
 {
     unsigned int src_tracks = source.tracks();
     unsigned int dst_tracks = tracks();

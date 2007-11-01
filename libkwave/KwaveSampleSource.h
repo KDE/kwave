@@ -29,50 +29,59 @@ namespace Kwave {
         Q_OBJECT
     public:
 
-        /**
-         * Constructor
-         *
-         * @param parent a parent object, passed to QObject (optional)
-         * @param name a free name, for identifying this object,
-         *             will be passed to the QObject (optional)
-         */
-        SampleSource(QObject *parent=0, const char *name=0);
+	/**
+	 * Constructor
+	 *
+	 * @param parent a parent object, passed to QObject (optional)
+	 * @param name a free name, for identifying this object,
+	 *             will be passed to the QObject (optional)
+	 */
+	SampleSource(QObject *parent=0, const char *name=0);
 
-        /** Destructor */
-        virtual ~SampleSource();
+	/** Destructor */
+	virtual ~SampleSource();
 
-        /**
-         * Each KwaveSampleSource has to derive this method for producing
-         * sample data. It then should emit a signal like this:
-         * "output(SampleArray &data)"
-         */
-        virtual void goOn() = 0;
+	/**
+	 * Each KwaveSampleSource has to derive this method for producing
+	 * sample data. It then should emit a signal like this:
+	 * "output(SampleArray &data)"
+	 */
+	virtual void goOn() = 0;
 
-        /**
-         * Returns true if the end of the source has been reached,
-         * e.g. at EOF of an input stream. The default implementation
-         * always returns false, which means that the source is always
-         * able to produce data (useful for signal generators).
-         *
-         * @return true if it can produce more sample data, otherwise false
-         */
-        virtual bool done() { return false; };
+	/**
+	 * Returns true if the end of the source has been reached,
+	 * e.g. at EOF of an input stream. The default implementation
+	 * always returns false, which means that the source is always
+	 * able to produce data (useful for signal generators).
+	 *
+	 * @return true if it can produce more sample data, otherwise false
+	 */
+	virtual bool done() { return false; };
 
-        /**
-         * Returns the number of tracks that the source provides
-         * @return number of tracks, default is 1
-         */
-        virtual unsigned int tracks() const { return 1; };
+	/**
+	 * Returns the number of tracks that the source provides
+	 * @return number of tracks, default is 1
+	 */
+	virtual unsigned int tracks() const { return 1; };
 
-        /**
-         * Returns the source that corresponds to one specific track
-         * if the object has multiple tracks. For single-track objects
-         * it returns "this" for the first index and 0 for all others
-         */
-        virtual Kwave::SampleSource * operator [] (unsigned int track)
-        {
-            return (track == 0) ? this : 0;
-        };
+	/**
+	 * Returns the source that corresponds to one specific track
+	 * if the object has multiple tracks. For single-track objects
+	 * it returns "this" for the first index and 0 for all others
+	 */
+	virtual Kwave::SampleSource * operator [] (unsigned int track)
+	{
+	    return (track == 0) ? this : 0;
+	};
+
+	/**
+	 * Returns the block size used for producing data.
+	 * @return currently 256k [samples]
+	 */
+	virtual unsigned int blockSize() const {
+	    return (256 << 10);
+	};
+
     };
 }
 

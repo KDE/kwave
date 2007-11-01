@@ -45,18 +45,14 @@ namespace Kwave {
 	    :Kwave::SampleSource(parent, name),
 	     QPtrVector<SOURCE>(tracks)
         {
-	    for (unsigned int i=0; i < tracks; i++)
-	    {
-		SOURCE *src = new SOURCE();
-		Q_ASSERT(src);
-		if (!src) break;
-		insert(i, src);
-	    }
+	    QPtrVector<SOURCE>::setAutoDelete(true);
+	    QPtrVector<SOURCE>::resize(tracks);
 	};
 
 	/** Destructor */
 	virtual ~MultiTrackSource()
 	{
+	    QPtrVector<SOURCE>::setAutoDelete(true);
 	    QPtrVector<SOURCE>::clear();
 	};
 
@@ -88,10 +84,31 @@ namespace Kwave {
 	 * if the object has multiple tracks. For single-track objects
 	 * it returns "this" for the first index and 0 for all others
 	 */
-	virtual Kwave::SampleSource * operator [] (unsigned int track)
-	{
+	inline virtual SOURCE *at(unsigned int track) const {
 	    return QPtrVector<SOURCE>::at(track);
 	};
+
+	/** @see the Kwave::MultiTrackSource.at()... */
+	inline virtual SOURCE * operator [] (unsigned int track) {
+	    return at(track);
+	};
+
+	/**
+	 * Insert a new track with a source.
+	 *
+	 * @param track index of the track [0...N-1]
+	 * @param sink pointer to a Kwave::SampleSource
+	 * @return true if successful, false if failed
+	 */
+	inline virtual bool insert(unsigned int track, SOURCE *source) {
+	    return QPtrVector<SOURCE>::insert(track, source);
+	};
+
+	/** Remove all tracks / sources */
+	inline virtual void clear() {
+	    QPtrVector<SOURCE>::clear();
+	};
+
     };
 }
 

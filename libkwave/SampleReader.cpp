@@ -26,14 +26,12 @@
 // define this for using only slow Qt array functions
 // #define STRICTLY_QT
 
-/** size of m_buffer in samples */
-#define BUFFER_SIZE (256*1024)
-
 //***************************************************************************
 SampleReader::SampleReader(Track &track, QPtrList<Stripe> &stripes,
 	SampleLock *lock, unsigned int left, unsigned int right)
     :m_track(track), m_stripes(stripes), m_lock(lock),
-    m_src_position(left), m_first(left), m_last(right), m_buffer(BUFFER_SIZE),
+    m_src_position(left), m_first(left), m_last(right),
+    m_buffer(blockSize()),
     m_buffer_used(0), m_buffer_position(0)
 {
 }
@@ -290,6 +288,20 @@ SampleReader &SampleReader::operator >> (QMemArray<sample_t> &buffer)
     unsigned int count = read(buffer, 0, size);
     if (count != size) buffer.resize(count);
     return *this;
+}
+
+//***************************************************************************
+void SampleReader::goOn()
+{
+    if (!m_buffer_used) {
+	fillBuffer();
+    } else {
+	Q_ASSERT(!m_buffer_used);
+	// move all data to the start of the buffer
+    }
+    m_buffer_position = 0;
+    m_buffer_used = 0;
+    emit output(m_buffer);
 }
 
 //***************************************************************************

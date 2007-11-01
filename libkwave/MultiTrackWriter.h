@@ -76,7 +76,7 @@ public:
      * tracks in source and destination do not match, the tracks will
      * be mixed up / down.
      */
-    MultiTrackWriter &operator << (const MultiTrackReader &source);
+    MultiTrackWriter &operator << (MultiTrackReader &source);
 
     /** Returns the last sample index of all streams */
     unsigned int last();

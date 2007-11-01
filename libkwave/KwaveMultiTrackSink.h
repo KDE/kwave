@@ -26,9 +26,8 @@
 
 namespace Kwave {
     template <class SINK>
-    class MultiTrackSink
-	:public Kwave::SampleSink,
-	private QPtrVector<SINK>
+    class MultiTrackSink: public Kwave::SampleSink,
+                          private QPtrVector<SINK>
     {
     public:
 	/**
@@ -45,7 +44,7 @@ namespace Kwave {
 	    QPtrVector<SINK>()
 	{
 	    QPtrVector<SINK>::setAutoDelete(true);
-	    QPtrVector<SampleWriter>::resize(tracks);
+	    QPtrVector<SINK>::resize(tracks);
 	};
 
 	/** Destructor */
@@ -75,7 +74,7 @@ namespace Kwave {
 	};
 
 	/**
-	 * Returns the source that corresponds to one specific track
+	 * Returns the sink that corresponds to one specific track
 	 * if the object has multiple tracks. For single-track objects
 	 * it returns "this" for the first index and 0 for all others
 	 */

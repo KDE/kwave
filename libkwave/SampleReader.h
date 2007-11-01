@@ -26,12 +26,13 @@
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
+#include "libkwave/KwaveSampleSource.h"
 
 class SampleLock;
 class Stripe;
 class Track;
 
-class SampleReader: public QObject
+class SampleReader: public Kwave::SampleSource
 {
     Q_OBJECT
 public:
@@ -56,10 +57,26 @@ public:
     /** Resets the stream to it's start */
     void reset();
 
+    /**
+     * Each KwaveSampleSource has to derive this method for producing
+     * sample data. It then should emit a signal like this:
+     * "output(SampleArray &data)"
+     */
+    virtual void goOn();
+
     /** Checks if the last read operation has reached the end of input */
     inline bool eof() {
 	return (pos() > m_last);
     };
+
+    /**
+     * Returns true if the end of the source has been reached,
+     * e.g. at EOF of an input stream.
+     *
+     * @return true if it can produce more sample data, otherwise false
+     * @see eof()
+     */
+    virtual bool done() { return eof(); };
 
     /**
      * Reads samples into a buffer.
@@ -110,6 +127,12 @@ signals:
 
     /** Emitted when the internal buffer is filled or the reader is closed */
     void proceeded();
+
+    /**
+     * Interface for the signal/slot based streaming API.
+     * @param data sample data that has been read
+     */
+    void output(Kwave::SampleArray &data);
 
 protected:
 

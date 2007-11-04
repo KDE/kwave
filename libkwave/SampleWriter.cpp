@@ -15,6 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "mt/ThreadsafeX11Guard.h"
 #include "libkwave/memcpy.h"
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
@@ -143,6 +144,7 @@ SampleWriter &flush(SampleWriter &s)
 //***************************************************************************
 void SampleWriter::input(Kwave::SampleArray &data)
 {
+    ThreadsafeX11Guard x11_guard;
     if (data.size()) (*this) << data;
 }
 

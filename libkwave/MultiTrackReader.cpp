@@ -22,7 +22,7 @@
 
 //***************************************************************************
 MultiTrackReader::MultiTrackReader()
-    :Kwave::MultiTrackSource<SampleReader>(0,0),
+    :Kwave::MultiTrackSource<SampleReader, false>(0,0),
      m_cancelled(false)
 {
 }
@@ -31,7 +31,7 @@ MultiTrackReader::MultiTrackReader()
 MultiTrackReader::MultiTrackReader(SignalManager &signal_manager,
     const QMemArray<unsigned int> &track_list,
     unsigned int first, unsigned int last)
-    :Kwave::MultiTrackSource<SampleReader>(
+    :Kwave::MultiTrackSource<SampleReader, false>(
 	track_list.count(), 0, "MultiTrackReader"),
      m_cancelled(false)
 {

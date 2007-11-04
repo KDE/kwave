@@ -32,7 +32,7 @@ class SignalManager;
  * A MultiTrackReader encapsulates a set of <c>SampleReader</c>s for
  * easier use of multi-track signals.
  */
-class MultiTrackReader: public Kwave::MultiTrackSource<SampleReader>
+class MultiTrackReader: public Kwave::MultiTrackSource<SampleReader, false>
 {
     Q_OBJECT
 private:
@@ -61,7 +61,7 @@ public:
 
     /** @see QPtrVector::isEmpty() */
     inline virtual bool isEmpty() {
-        return (Kwave::MultiTrackSource<SampleReader>::tracks() < 1);
+        return (Kwave::MultiTrackSource<SampleReader, false>::tracks() < 1);
     };
 
     /** returns true if the transfer has been cancelled */

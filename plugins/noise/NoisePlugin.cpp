@@ -49,9 +49,7 @@ void NoisePlugin::run(QStringList)
 
     // create all objects
     unsigned int tracks = selectedTracks().count();
-    Kwave::MultiTrackSource<NoiseGenerator> source(tracks);
-    for (unsigned int i=0; i < tracks; i++)
-	source.insert(i, new NoiseGenerator());
+    Kwave::MultiTrackSource<NoiseGenerator, true> source(tracks);
     MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
         first, last);
 

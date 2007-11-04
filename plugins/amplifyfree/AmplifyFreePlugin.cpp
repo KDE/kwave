@@ -117,9 +117,7 @@ void AmplifyFreePlugin::run(QStringList params)
     Kwave::CurveStreamAdapter curve(m_curve, input_length);
     MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
 	first, last);
-    Kwave::MultiTrackSource<Kwave::Mul> mul(tracks, this, "AmplifyFree");
-    for (unsigned int i=0; i < tracks; i++)
-	mul.insert(i, new Kwave::Mul());
+    Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks, this, "AmplifyFree");
 
     // connect them
     bool ok = true;

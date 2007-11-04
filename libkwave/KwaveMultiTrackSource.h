@@ -26,13 +26,20 @@
 
 namespace Kwave {
 
-    template <class SOURCE>
+    /**
+     * Template for easier handling of Kwave::SampleSource objects
+     * that consist of multiple independend tracks.
+     */
+    template <class SOURCE, bool INITIALIZE>
     class MultiTrackSource: public Kwave::SampleSource,
 	                    private QPtrVector<SOURCE>
     {
     public:
 	/**
-	 * Constructor
+	 * Default constructor, which does no initialization of the
+	 * objects themselfes. If you want to use this, you should
+	 * derive from this class, create all objects manually and
+	 * "insert" them from the constructor.
 	 *
 	 * @param tracks number of tracks
 	 * @param parent a parent object, passed to QObject (optional)
@@ -122,6 +129,37 @@ namespace Kwave {
 	};
 
     };
+
+    /**
+     * Specialized version that internally initializes all objects
+     * by generating them through their default constructor.
+     */
+    template <class SOURCE>
+    class MultiTrackSource<SOURCE, true>
+	:public Kwave::MultiTrackSource<SOURCE, false>
+    {
+    public:
+	/**
+	 * Constructor
+	 *
+	 * @param tracks number of tracks
+	 * @param parent a parent object, passed to QObject (optional)
+	 * @param name a free name, for identifying this object,
+	 *             will be passed to the QObject (optional)
+	 */
+	MultiTrackSource(unsigned int tracks,
+	                 QObject *parent = 0,
+	                 const char *name = 0)
+	    :Kwave::MultiTrackSource<SOURCE, false>(tracks, parent, name)
+	{
+	    for (unsigned int i=0; i < tracks; i++)
+		insert(i, new SOURCE());
+	};
+
+	/** Destructor */
+	virtual ~MultiTrackSource() { };
+    };
+
 }
 
 #endif /* _KWAVE_MULTI_TRACK_SOURCE_H_ */

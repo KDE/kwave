@@ -58,6 +58,14 @@ namespace Kwave {
 	    return (track == 0) ? this : 0;
 	};
 
+
+	/**
+	 * Returns the block size used for producing data.
+	 * @return currently 256k [samples]
+	 */
+	virtual unsigned int blockSize() const {
+	    return (256 << 10);
+	};
     };
 }
 

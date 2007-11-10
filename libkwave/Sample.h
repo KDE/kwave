@@ -51,4 +51,10 @@ static inline float sample2float(const sample_t s) {
     return (float)((float)s / float(1 << (SAMPLE_BITS-1)));
 }
 
+/**
+ * Simple conversion from double to sample_t
+ */
+static inline sample_t double2sample(const double f) {
+    return (sample_t)(f * (double)(1 << (SAMPLE_BITS-1)));
+}
 #endif /* _SAMPLE_H_ */

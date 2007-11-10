@@ -45,7 +45,10 @@ SampleWriter::~SampleWriter()
     Q_ASSERT(m_position <= m_last+1);
 
     // inform others that we proceeded
-    emit sigSamplesWritten(m_position - m_first);
+    {
+	ThreadsafeX11Guard x11_guard;
+	emit sigSamplesWritten(m_position - m_first);
+    }
 }
 
 //***************************************************************************
@@ -125,7 +128,10 @@ void SampleWriter::flush(const QMemArray<sample_t> &buffer,
     count = 0;
 
     // inform others that we proceeded
-    emit proceeded();
+    {
+	ThreadsafeX11Guard x11_guard;
+	emit proceeded();
+    }
 }
 
 //***************************************************************************
@@ -144,7 +150,6 @@ SampleWriter &flush(SampleWriter &s)
 //***************************************************************************
 void SampleWriter::input(Kwave::SampleArray &data)
 {
-    ThreadsafeX11Guard x11_guard;
     if (data.size()) (*this) << data;
 }
 

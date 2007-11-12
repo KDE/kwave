@@ -20,10 +20,15 @@
 
 #include "config.h"
 #include <qobject.h>
+#include <qmutex.h>
+
+class QString;
+class QVariant;
 
 namespace Kwave {
     class StreamObject: public QObject
     {
+	Q_OBJECT
     public:
 	/**
 	 * Constructor
@@ -32,15 +37,10 @@ namespace Kwave {
 	 * @param name a free name, for identifying this object,
 	 *             will be passed to the QObject (optional)
 	 */
-	StreamObject(QObject *parent=0, const char *name=0)
-	    :QObject(parent, name)
-	{
-	};
+	StreamObject(QObject *parent=0, const char *name=0);
 
 	/** Destructor */
-	virtual ~StreamObject()
-	{
-	};
+	virtual ~StreamObject();
 
 	/**
 	 * Returns the number of tracks that the source provides
@@ -61,11 +61,33 @@ namespace Kwave {
 
 	/**
 	 * Returns the block size used for producing data.
-	 * @return currently 256k [samples]
+	 * @return currently 1024 [samples]
 	 */
 	virtual unsigned int blockSize() const {
-	    return (256 << 10);
+	    return 1024;
 	};
+
+	/**
+	 * Sets an attribute of a Kwave::StreamObject.
+	 * @param attribute name of the attribute, with the signature of
+	 *        a Qt SLOT(<name>(QVariant &value))
+	 * @param value the new value of the attribute, stored in a QVariant
+	 */
+	void setAttribute(const QString &attribute, const QVariant &value);
+
+    signals:
+
+	/**
+	 * Emitted by setAttribute and connected to the corresponding
+	 * slot.
+	 */
+	void attributeChanged(const QVariant &value);
+
+    private:
+
+	/** Mutex for locking access to setAttribute (recursive) */
+	QMutex m_lock_set_attribute;
+
     };
 }
 

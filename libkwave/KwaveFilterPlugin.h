@@ -19,7 +19,6 @@
 #define _KWAVE_FILTER_PLUGIN_H_
 
 #include "config.h"
-#ifdef HAVE_ARTS_SUPPORT
 
 #include <qobject.h>
 #include <qstring.h>
@@ -27,134 +26,134 @@
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/KwavePluginSetupDialog.h"
 
-class ArtsMultiTrackFilter;
 class ConfirmCancelProxy;
 class QProgressDialog;
 class QStringList;
 class QWidget;
 
-class KwaveFilterPlugin: public KwavePlugin
-{
-    Q_OBJECT
-public:
+namespace Kwave {
 
-    /** Constructor */
-    KwaveFilterPlugin(const PluginContext &context);
+    class SampleSource;
 
-    /** Destructor */
-    virtual ~KwaveFilterPlugin();
+    class FilterPlugin: public KwavePlugin
+    {
+	Q_OBJECT
+    public:
 
-    /** Reads values from the parameter list */
-    virtual int interpreteParameters(QStringList & /* params */) = 0;
+	/** Constructor */
+	FilterPlugin(const PluginContext &context);
 
-    /**
-     * Creates a setup dialog an returns a pointer to it.
-     */
-    virtual KwavePluginSetupDialog *createDialog(QWidget * /*parent*/) = 0;
+	/** Destructor */
+	virtual ~FilterPlugin();
 
-    /**
-     * Creates a multi-track filter with the given number of tracks
-     * @param tracks number of tracks that the filter should have
-     * @return pointer to the filter or null if failed
-     */
-    virtual ArtsMultiTrackFilter *createFilter(unsigned int tracks) = 0;
+	/** Reads values from the parameter list */
+	virtual int interpreteParameters(QStringList & /* params */) = 0;
 
-    /**
-     * Shows a dialog for setting up the filter plugin
-     * @see KwavePlugin::setup
-     */
-    virtual QStringList *setup(QStringList &previous_params);
+	/**
+	* Creates a setup dialog an returns a pointer to it.
+	*/
+	virtual KwavePluginSetupDialog *createDialog(QWidget * /*parent*/) = 0;
 
-    /** Does the filter operation and/or pre-listen */
-    virtual void run(QStringList);
+	/**
+	* Creates a multi-track filter with the given number of tracks
+	* @param tracks number of tracks that the filter should have
+	* @return pointer to the filter or null if failed
+	*/
+	virtual Kwave::SampleSource *createFilter(unsigned int tracks) = 0;
 
-    /** Aborts the process (if running). */
-    virtual int stop();
+	/**
+	* Shows a dialog for setting up the filter plugin
+	* @see KwavePlugin::setup
+	*/
+	virtual QStringList *setup(QStringList &previous_params);
 
-    /**
-     * Returns true if the parameters have changed during pre-listen.
-     * @note this default implementation always returns false.
-     */
-    virtual bool paramsChanged();
+	/** Does the filter operation and/or pre-listen */
+	virtual void run(QStringList);
 
-    /**
-     * Update the filter with new parameters if it has changed
-     * changed during the pre-listen.
-     * @param filter the ArtsMultiTrackFilter to be updated, should be the
-     *               same one as created with createFilter()
-     * @param force if true, even update if no settings have changed
-     */
-    virtual void updateFilter(ArtsMultiTrackFilter *filter, bool force=0);
+	/** Aborts the process (if running). */
+	virtual int stop();
 
-    /**
-     * Returns a verbose name of the performed action. Used for giving
-     * the undo action a readable name.
-     * The name must already be localized !
-     */
-    virtual QString actionName() = 0;
+	/**
+	* Returns true if the parameters have changed during pre-listen.
+	* @note this default implementation always returns false.
+	*/
+	virtual bool paramsChanged();
 
-signals:
+	/**
+	* Update the filter with new parameters if it has changed
+	* changed during the pre-listen.
+	* @param filter the ArtsMultiTrackFilter to be updated, should be the
+	*               same one as created with createFilter()
+	* @param force if true, even update if no settings have changed
+	*/
+	virtual void updateFilter(Kwave::SampleSource *filter, bool force=0);
 
-    /**
-     * emitted when the user pressed the cancel button
-     * of the progress dialog
-     * @internal
-     */
-    void sigCancelPressed();
+	/**
+	* Returns a verbose name of the performed action. Used for giving
+	* the undo action a readable name.
+	* The name must already be localized !
+	*/
+	virtual QString actionName() = 0;
 
-protected slots:
+    signals:
 
-    /** Start the pre-listening */
-    void startPreListen();
+	/**
+	* emitted when the user pressed the cancel button
+	* of the progress dialog
+	* @internal
+	*/
+	void sigCancelPressed();
 
-    /** Stop the pre-listening */
-    void stopPreListen();
+    protected slots:
 
-    /** forward changes of the progress dialog to a signal proxy */
-    void forwardProgress(unsigned int progress);
+	/** Start the pre-listening */
+	void startPreListen();
 
-    /** forward press of the cancel button int the progress dialog */
-    void forwardCancel();
+	/** Stop the pre-listening */
+	void stopPreListen();
 
-    /** update the progress dialog */
-    void updateProgress();
+	/** forward changes of the progress dialog to a signal proxy */
+	void forwardProgress(unsigned int progress);
 
-    /**
-     * called when the user has pressed "Cancel" in the progress
-     * dialog and also has confirmed the cancel confirmation
-     * message box.
-     */
-    void cancel();
+	/** forward press of the cancel button int the progress dialog */
+	void forwardCancel();
 
-private:
-    /** List of parameters */
-    QStringList m_params;
+	/** update the progress dialog */
+	void updateProgress();
 
-    /** flag for stopping the process */
-    bool m_stop;
+	/**
+	* called when the user has pressed "Cancel" in the progress
+	* dialog and also has confirmed the cancel confirmation
+	* message box.
+	*/
+	void cancel();
 
-    /** flag for indicating pre-listen mode */
-    bool m_listen;
+    private:
+	/** List of parameters */
+	QStringList m_params;
 
-    /** a progress dialog, if the audio processing takes longer... */
-    QProgressDialog *m_progress;
+	/** flag for stopping the process */
+	bool m_stop;
 
-    /** signal proxy for the progress / dialog */
-    SignalProxy1< unsigned int > *m_spx_progress;
+	/** flag for indicating pre-listen mode */
+	bool m_listen;
 
-    /**
-     * proxy dialog that asks for configmation if the user
-     * pressed cancel in the progress dialog
-     */
-    ConfirmCancelProxy *m_confirm_cancel;
+	/** a progress dialog, if the audio processing takes longer... */
+	QProgressDialog *m_progress;
 
-    /** flag for pausing the process */
-    bool m_pause;
+	/** signal proxy for the progress / dialog */
+	SignalProxy1< unsigned int > *m_spx_progress;
 
-};
+	/**
+	* proxy dialog that asks for configmation if the user
+	* pressed cancel in the progress dialog
+	*/
+	ConfirmCancelProxy *m_confirm_cancel;
 
-#else /* HAVE_ARTS_SUPPORT */
-#warning aRts support is disabled
-#endif /* HAVE_ARTS_SUPPORT */
+	/** flag for pausing the process */
+	bool m_pause;
+
+    };
+}
 
 #endif /* _KWAVE_FILTER_PLUGIN_H_ */

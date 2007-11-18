@@ -26,18 +26,19 @@
 
 #include <klocale.h>
 
-#include "libkwave/ArtsMultiTrackSink.h"
-#include "libkwave/ArtsMultiTrackSource.h"
-#include "libkwave/ArtsMultiTrackFilter.h"
+#include "libkwave/KwaveConnect.h"
 #include "libkwave/KwaveFilterPlugin.h"
-
+#include "libkwave/KwaveSampleSink.h"
+#include "libkwave/KwaveStreamObject.h"
+#include "libkwave/MultiTrackReader.h"
+#include "libkwave/MultiTrackWriter.h"
 #include "libgui/ConfirmCancelProxy.h"
 
 #include "kwave/PluginManager.h"
 #include "kwave/UndoTransactionGuard.h"
 
 //***************************************************************************
-KwaveFilterPlugin::KwaveFilterPlugin(const PluginContext &context)
+Kwave::FilterPlugin::FilterPlugin(const PluginContext &context)
     :KwavePlugin(context), m_params(),
      m_stop(false), m_listen(false), m_progress(0), m_spx_progress(0),
      m_confirm_cancel(0), m_pause(false)
@@ -47,7 +48,7 @@ KwaveFilterPlugin::KwaveFilterPlugin(const PluginContext &context)
 }
 
 //***************************************************************************
-KwaveFilterPlugin::~KwaveFilterPlugin()
+Kwave::FilterPlugin::~FilterPlugin()
 {
     if (m_spx_progress)   delete m_spx_progress;
     if (m_confirm_cancel) delete m_confirm_cancel;
@@ -55,7 +56,7 @@ KwaveFilterPlugin::~KwaveFilterPlugin()
 }
 
 //***************************************************************************
-QStringList *KwaveFilterPlugin::setup(QStringList &previous_params)
+QStringList *Kwave::FilterPlugin::setup(QStringList &previous_params)
 {
     // try to interprete and use the previous parameters
     if (!interpreteParameters(previous_params))
@@ -93,64 +94,43 @@ QStringList *KwaveFilterPlugin::setup(QStringList &previous_params)
 }
 
 //***************************************************************************
-void KwaveFilterPlugin::run(QStringList params)
+void Kwave::FilterPlugin::run(QStringList params)
 {
-    unsigned int first, last;
-
-    Arts::Dispatcher *dispatcher = manager().artsDispatcher();
-    Q_ASSERT(dispatcher);
-    if (!dispatcher) close();
-    dispatcher->lock();
-
     UndoTransactionGuard *undo_guard = 0;
     m_pause = false;
     m_stop  = false;
 
     if (!interpreteParameters(params)) m_params = params;
 
-    selection(&first, &last, true);
+    unsigned int first, last;
     unsigned int tracks = selectedTracks().count();
+    selection(&first, &last, true);
 
     // create all objects
     MultiTrackReader source(signalManager(), selectedTracks(), first, last);
-    ArtsMultiTrackSource arts_source(source);
-    ArtsMultiSink *arts_sink = 0;
 
-    ArtsMultiTrackFilter *filter = createFilter(tracks);
+    Kwave::SampleSource *filter = createFilter(tracks);
     Q_ASSERT(filter);
 
-    MultiTrackWriter *sink = 0;
+    Kwave::SampleSink *sink = 0;
     if (m_listen) {
 	// pre-listen mode
-	#warning pre-listen is not yet ported
-// ---
-// 	arts_sink = manager().openMultiTrackPlayback(selectedTracks().count());
-// not yet ported...
-	close();
-	return;
-// ---
+	sink = manager().openMultiTrackPlayback(selectedTracks().count());
     } else {
 	// normal mode, with undo
 	undo_guard = new UndoTransactionGuard(*this, actionName());
 	Q_ASSERT(undo_guard);
 	if (!undo_guard) {
+	    if (filter) delete filter;
 	    close();
 	    return;
 	}
 	sink = new MultiTrackWriter(signalManager(), selectedTracks(),
 	    Overwrite, first, last);
-	Q_ASSERT(sink);
-	if (!sink) {
-	    close();
-	    return;
-	}
-	arts_sink = new ArtsMultiTrackSink(*sink);
     }
-
-    Q_ASSERT(arts_sink);
-    if (!filter || !arts_sink || arts_sink->done()) {
+    Q_ASSERT(sink);
+    if (!filter || !sink || sink->done()) {
 	if (filter)     delete filter;
-	if (arts_sink)  delete arts_sink;
 	if (undo_guard) delete undo_guard;
 	if (sink)       delete sink;
 	if (!m_listen) close();
@@ -189,23 +169,21 @@ void KwaveFilterPlugin::run(QStringList params)
     updateFilter(filter, true);
 
     // connect them
-    filter->connectInput(arts_source,  "source",  "invalue");
-    filter->connectOutput(*arts_sink,  "sink",    "outvalue");
-
-    // start all
-    arts_source.start();
-    filter->start();
-    arts_sink->start();
+    Kwave::connect(source,  SIGNAL(output(Kwave::SampleArray &)),
+                   *filter, SLOT(input(Kwave::SampleArray &)));
+    Kwave::connect(*filter, SIGNAL(output(Kwave::SampleArray &)),
+                   *sink,   SLOT(input(Kwave::SampleArray &)));
 
     // transport the samples
-    while (!m_stop && (!arts_source.done() || m_listen)) {
+    while (!m_stop && (!source.done() || m_listen)) {
 	// this lets the process wait if the user pressed cancel
 	// and the confirm_cancel dialog is active
 	while (m_pause)
 	    sleep(1);
 
 	// process one step
-	arts_sink->goOn();
+	source.goOn();
+	filter->goOn();
 
 	// watch out for changed parameters when in
 	// pre-listen mode
@@ -213,24 +191,15 @@ void KwaveFilterPlugin::run(QStringList params)
 	    updateFilter(filter);
         }
 
-	if (m_listen && arts_source.done()) {
+	if (m_listen && source.done()) {
 	    // start the next loop
 	    source.reset();
-	    arts_source.start();
 	    continue;
 	}
-
     }
 
-    // shutdown
-    filter->stop();
-    arts_sink->stop();
-    arts_source.stop();
-
-    dispatcher->unlock();
-
     // cleanup
-    delete arts_sink;
+    if (filter)     delete filter;
     if (undo_guard) delete undo_guard;
     if (sink)       delete sink;
 
@@ -242,7 +211,7 @@ void KwaveFilterPlugin::run(QStringList params)
 }
 
 //***************************************************************************
-void KwaveFilterPlugin::forwardCancel()
+void Kwave::FilterPlugin::forwardCancel()
 {
     m_pause = true;
     if (m_confirm_cancel) m_confirm_cancel->cancel();
@@ -250,13 +219,13 @@ void KwaveFilterPlugin::forwardCancel()
 }
 
 //***************************************************************************
-void KwaveFilterPlugin::forwardProgress(unsigned int progress)
+void Kwave::FilterPlugin::forwardProgress(unsigned int progress)
 {
     if (m_spx_progress) m_spx_progress->enqueue(progress);
 }
 
 //***************************************************************************
-void KwaveFilterPlugin::updateProgress()
+void Kwave::FilterPlugin::updateProgress()
 {
     if (!m_progress || !m_spx_progress) return;
 
@@ -267,27 +236,27 @@ void KwaveFilterPlugin::updateProgress()
 }
 
 //***************************************************************************
-bool KwaveFilterPlugin::paramsChanged()
+bool Kwave::FilterPlugin::paramsChanged()
 {
     return false;
 }
 
 //***************************************************************************
-void KwaveFilterPlugin::updateFilter(ArtsMultiTrackFilter * /*filter*/,
-                                     bool /*force*/)
+void Kwave::FilterPlugin::updateFilter(Kwave::SampleSource * /*filter*/,
+                                       bool /*force*/)
 {
     /* default implementation, does nothing */
 }
 
 //***************************************************************************
-int KwaveFilterPlugin::stop()
+int Kwave::FilterPlugin::stop()
 {
     m_stop = true;
     return KwavePlugin::stop();
 }
 
 //***************************************************************************
-void KwaveFilterPlugin::startPreListen()
+void Kwave::FilterPlugin::startPreListen()
 {
     m_listen = true;
     static QStringList empty_list;
@@ -296,19 +265,20 @@ void KwaveFilterPlugin::startPreListen()
 }
 
 //***************************************************************************
-void KwaveFilterPlugin::stopPreListen()
+void Kwave::FilterPlugin::stopPreListen()
 {
     stop();
     m_listen = false;
 }
 
 //***************************************************************************
-void KwaveFilterPlugin::cancel()
+void Kwave::FilterPlugin::cancel()
 {
     m_stop = true;
 }
 
 //***************************************************************************
+using namespace Kwave;
 #include "KwaveFilterPlugin.moc"
 //***************************************************************************
 //***************************************************************************

@@ -38,7 +38,6 @@ IF(HAVE_ARTS_SUPPORT)
     SET(libkwave_ARTS_SOURCES
         ArtsSampleSource_impl.cpp
         ArtsSampleSink_impl.cpp
-        KwaveFilterPlugin.cpp
     )
 ENDIF(HAVE_ARTS_SUPPORT)
 
@@ -61,6 +60,7 @@ SET(libkwave_LIB_SRCS
     KwaveConnect.cpp
     KwaveDelay.cpp
     KwaveDrag.cpp
+    KwaveFilterPlugin.cpp
     KwaveMul.cpp
     KwaveMultiPlaybackSink.cpp
     KwaveOsc.cpp

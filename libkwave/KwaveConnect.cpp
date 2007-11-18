@@ -44,14 +44,14 @@ namespace Kwave {
 
 	if ((src_tracks == 1) && (dst_tracks == 1)) {
 	    // 1 output -> 1 input
-	    QObject::connect(&source, output, &sink, input);
+	    QObject::connect(source[0], output, sink[0], input);
 	} else if ((src_tracks == 1) && (dst_tracks > 1)) {
 	    // 1 output -> N inputs
 	    for (unsigned int track=0; track < dst_tracks; track++) {
 		Kwave::StreamObject *sink_n = sink[track];
 		Q_ASSERT(sink_n);
 		if (!sink_n) return false;
-		QObject::connect(&source, output, sink_n, input);
+		QObject::connect(source[0], output, sink_n, input);
 	    }
 	} else if (src_tracks == dst_tracks) {
 	    // N outputs -> N inputs

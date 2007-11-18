@@ -40,16 +40,21 @@ void Kwave::StreamObject::setAttribute(const QString &attribute,
 {
     QMutexLocker lock(&m_lock_set_attribute);
 
-    // temporary establish a signal->slot connection
-    QObject::connect(this, SIGNAL(attributeChanged(const QVariant &)),
-                     this, attribute);
+    for (unsigned int track = 0; track < tracks(); track++) {
+	Kwave::StreamObject *obj = (*this)[track];
+	if (!obj) continue;
 
-    // emit the new value through our own signal
-    emit attributeChanged(value);
+	// temporary establish a signal->slot connection
+	QObject::connect(this, SIGNAL(attributeChanged(const QVariant &)),
+                         obj, attribute);
 
-    // remove the temporary signal->slot connection
-    QObject::disconnect(this, SIGNAL(attributeChanged(const QVariant &)),
-                        this, attribute);
+	// emit the new value through our own signal
+	emit attributeChanged(value);
+
+	// remove the temporary signal->slot connection
+	QObject::disconnect(this, SIGNAL(attributeChanged(const QVariant &)),
+                            obj, attribute);
+    }
 }
 
 //***************************************************************************

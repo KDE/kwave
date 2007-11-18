@@ -36,8 +36,6 @@ ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/ppcasm_string.o
 #############################################################################
 IF(HAVE_ARTS_SUPPORT)
     SET(libkwave_ARTS_SOURCES
-        ArtsMultiPlaybackSink.cpp
-        ArtsPlaybackSink_impl.cpp
         ArtsSampleSource_impl.cpp
         ArtsSampleSink_impl.cpp
         KwaveFilterPlugin.cpp
@@ -61,11 +59,16 @@ SET(libkwave_LIB_SRCS
     GenreType.cpp
     Interpolation.cpp
     KwaveConnect.cpp
+    KwaveDelay.cpp
     KwaveDrag.cpp
     KwaveMul.cpp
+    KwaveMultiPlaybackSink.cpp
+    KwaveOsc.cpp
+    KwavePlaybackSink.cpp
     KwavePlugin.cpp
     KwaveSampleSink.cpp
     KwaveSampleSource.cpp
+    KwaveStreamObject.cpp
     Label.cpp
     LabelList.cpp
     LineParser.cpp

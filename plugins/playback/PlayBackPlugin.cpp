@@ -40,6 +40,12 @@
 
 #include "libkwave/Curve.h"
 #include "libkwave/CurveStreamAdapter.h"
+#include "libkwave/KwaveConnect.h"
+#include "libkwave/KwaveDelay.h"
+#include "libkwave/KwaveMul.h"
+#include "libkwave/KwaveMultiPlaybackSink.h"
+#include "libkwave/KwaveMultiTrackSource.h"
+#include "libkwave/KwaveOsc.h"
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/Matrix.h"
 #include "libkwave/MultiTrackReader.h"
@@ -688,10 +694,8 @@ void PlayBackPlugin::playbackDone()
 //***************************************************************************
 void PlayBackPlugin::testPlayBack()
 {
-#warning "TODO: port PlayBackPlugin::testPlayBack()"
-#ifdef HAVE_ARTS_SUPPORT
     const float t_sweep        =   1.0; /* seconds per speaker */
-    const float freq           = 440.0; /* test frequency [Hz] */
+    const double freq          = 440.0; /* test frequency [Hz] */
     const unsigned int periods =     3; /* number of periods to play */
 
     qDebug("PlayBackPlugin::testPlayBack()");
@@ -715,31 +719,44 @@ void PlayBackPlugin::testPlayBack()
     Q_ASSERT(tracks);
     if (!tracks) return;
 
-    Arts::Dispatcher *dispatcher = manager().artsDispatcher();
-    Q_ASSERT(dispatcher);
-    if (!dispatcher) close();
-    dispatcher->lock();
-
     float t_period = t_sweep * tracks;
     unsigned int curve_length =
 	(unsigned int)(t_period * m_playback_params.rate);
 
+    // create all objects
     Curve curve;
     curve.insert(0.0, 0.0);
-    if (tracks <= 2) {
-	// mono and stereo
+    if (tracks < 2) {
+	// mono
 	curve.insert(0.5, 1.0);
     } else {
 	// all above
-	curve.insert(1.0 / (float)tracks, 1.0);
-	curve.insert(2.0 / (float)tracks, 0.0);
+	curve.insert(0.5 / (float)tracks, 1.0);
+	curve.insert(1.0 / (float)tracks, 0.0);
     }
     curve.insert(1.0, 0.0);
 
-    CurveStreamAdapter curve_adapter(curve, curve_length);
+    Kwave::CurveStreamAdapter curve_adapter(curve, curve_length);
 
-    // create all objects
+    Kwave::MultiTrackSource<Kwave::Delay, true> delay(tracks);
+    for (unsigned int i=0; i < tracks; i++) {
+	Q_ASSERT(delay[i]);
+	if (!delay[i]) break;
+	delay[i]->setAttribute(SLOT(setDelay(const QVariant &)),
+	    QVariant(i * t_sweep * m_playback_params.rate));
+    }
 
+    Kwave::Osc osc;
+    osc.setAttribute(SLOT(setFrequency(const QVariant &)),
+                     QVariant((double)m_playback_params.rate / freq));
+
+    Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks);
+
+    // create the multi track playback sink
+    Kwave::MultiPlaybackSink sink(tracks, m_device);
+
+    // connect everything together...
+    //
     // curve -> delay --.
     //                  |
     //                  v
@@ -748,35 +765,18 @@ void PlayBackPlugin::testPlayBack()
     //                  |
     //            osc --'
 
-    ArtsNativeMultiTrackFilter delay(tracks, "Arts::Synth_CDELAY");
-    for (unsigned int i=0; i < tracks; i++) {
-	std::string command;
-	command = "_set_time";
-	Arts::Object &object(*(delay[i]));
-	Arts::DynamicRequest(object).method(
-	    command).param(i * t_sweep).invoke();
-    }
-
-    ArtsNativeMultiTrackFilter osc(tracks, "Arts::Synth_OSC");
-    osc.setAttribute("frequency", freq);
-
-    ArtsNativeMultiTrackFilter mul(tracks, "Arts::Synth_MUL");
-
-    // create the multi track playback sink
-    ArtsMultiPlaybackSink sink(tracks, m_device);
-
-    // connect them
-    delay.connectInput(curve_adapter, "output", "invalue");
-    mul.connectInput(delay, "outvalue", "invalue1");
-    mul.connectInput(osc,   "outvalue", "invalue2");
-    mul.connectOutput(sink, "sink",     "outvalue");
-
-    // start all
-    curve_adapter.start();
-    delay.start();
-    osc.start();
-    mul.start();
-    sink.start();
+    Kwave::connect(
+	curve_adapter, SIGNAL(output(Kwave::SampleArray &)),
+	delay,         SLOT(input(Kwave::SampleArray &)));
+    Kwave::connect(
+	delay,         SIGNAL(output(Kwave::SampleArray &)),
+	mul,           SLOT(input_a(Kwave::SampleArray &)));
+    Kwave::connect(
+	osc,           SIGNAL(output(Kwave::SampleArray &)),
+	mul,           SLOT(input_b(Kwave::SampleArray &)));
+    Kwave::connect(
+	mul,           SIGNAL(output(Kwave::SampleArray &)),
+	sink,          SLOT(input(Kwave::SampleArray &)));
 
     // show a progress dialog
     QProgressDialog *progress = 0;
@@ -800,8 +800,13 @@ void PlayBackPlugin::testPlayBack()
     QTime time;
     time.start();
     int t_max = periods * (int)t_period * 1000;
-    while ((time.elapsed() < t_max) && (!sink.done())) {
-	sink.goOn();
+    while ((time.elapsed() < t_max) /*&& (!sink.done())*/) {
+
+	osc.goOn();
+	curve_adapter.goOn();
+	delay.goOn();
+	mul.goOn();
+
 	if (progress) {
 	    progress->setProgress((100 * time.elapsed()) / t_max);
 	    if (progress->wasCancelled()) break;
@@ -811,16 +816,7 @@ void PlayBackPlugin::testPlayBack()
     if (progress) delete progress;
     progress = 0;
 
-    // shutdown
-    sink.stop();
-    mul.stop();
-    osc.stop();
-    delay.stop();
-    curve_adapter.stop();
-    dispatcher->unlock();
-
     m_device->close();
-#endif /* HAVE_ARTS_SUPPORT */
 }
 
 //***************************************************************************

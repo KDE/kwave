@@ -25,14 +25,9 @@
 #include <qptrvector.h>
 #include <qmap.h>
 
-#ifdef HAVE_ARTS_SUPPORT
-#include <arts/artsflow.h>
-#endif /* HAVE_ARTS_SUPPORT */
-
 #include "mt/SignalProxy.h"
 #include "libkwave/InsertMode.h"
 
-class ArtsMultiSink;
 class FileInfo;
 class KwavePlugin;
 class PlaybackController;
@@ -45,6 +40,7 @@ class TopWidget;
 class UndoAction;
 class MultiTrackReader;
 class MultiTrackWriter;
+namespace Kwave { class SampleSink; }
 
 /**
  * Manages the loading, initializing, starting, running and closing
@@ -165,17 +161,15 @@ public:
     SampleWriter *openSampleWriter(unsigned int track, InsertMode mode,
 	unsigned int left = 0, unsigned int right = 0);
 
-#ifdef HAVE_ARTS_SUPPORT
     /**
-     * Opens a set of SampleWriters for playback purposes.
+     * Opens a Kwave::MultiTrackSink for playback purposes.
      * @param tracks number of tracks
      * @param name of the device, optional. If not given, the default
      *        playback device is used
      * @return a multitrack aRts sink that receives the playback stream
      */
-    ArtsMultiSink *openMultiTrackPlayback(unsigned int tracks,
-                                          const QString *name = 0);
-#endif /* HAVE_ARTS_SUPPORT */
+    Kwave::SampleSink *openMultiTrackPlayback(unsigned int tracks,
+                                              const QString *name = 0);
 
     /**
      * Returns a reference to the current playback controller. This is
@@ -196,13 +190,6 @@ public:
      * filenames and then filters it to sort out invalid entries.
      */
     static void findPlugins();
-
-#ifdef HAVE_ARTS_SUPPORT
-    /** Returns a reference to the global aRts dispatcher */
-    inline Arts::Dispatcher *artsDispatcher() {
-	return Arts::Dispatcher::the();
-    };
-#endif /* HAVE_ARTS_SUPPORT */
 
     /**
      * Registers a PlaybackDeviceFactory

@@ -1,8 +1,8 @@
 /***************************************************************************
-    ArtsPlaybackSink_impl.cpp  -  aRts compatible sink for playback
+  KwavePlaybackSink.cpp  -  multi-track Kwave compatible sink for playback
                              -------------------
-    begin                : Mon Apr 28 2003
-    copyright            : (C) 2003 by Thomas Eschenbacher
+    begin                : Sun Nov 04 2007
+    copyright            : (C) 2007 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -17,55 +17,28 @@
 
 #include "config.h"
 
-#include <arts/connect.h>
-#include <arts/objectmanager.h>
-#include <arts/flowsystem.h>
-#include <arts/stdsynthmodule.h>
-#include <qglobal.h>
-
-#include "libkwave/ArtsPlaybackSink_impl.h"
-#include "libkwave/ArtsMultiPlaybackSink.h"
+#include "libkwave/KwaveSampleArray.h"
+#include "libkwave/KwavePlaybackSink.h"
+#include "libkwave/PlayBackDevice.h"
 
 //***************************************************************************
-ArtsPlaybackSink_impl::ArtsPlaybackSink_impl()
-    :ArtsPlaybackSink_skel(), Arts::StdSynthModule(),
-     m_multi_sink(0), m_track(0)
+Kwave::PlaybackSink::PlaybackSink(unsigned int track)
+    :Kwave::SampleSink(0, "PlaybackSink"), m_track(track)
 {
 }
 
 //***************************************************************************
-ArtsPlaybackSink_impl::ArtsPlaybackSink_impl(ArtsMultiPlaybackSink *pb_sink,
-                                             unsigned int track)
-    :ArtsPlaybackSink_skel(), Arts::StdSynthModule(),
-     m_multi_sink(pb_sink), m_track(track)
+Kwave::PlaybackSink::~PlaybackSink()
 {
 }
 
 //***************************************************************************
-ArtsPlaybackSink_impl::~ArtsPlaybackSink_impl()
+void Kwave::PlaybackSink::input(Kwave::SampleArray &data)
 {
+    emit output(m_track, data);
 }
 
 //***************************************************************************
-void ArtsPlaybackSink_impl::calculateBlock(unsigned long samples)
-{
-    m_multi_sink->playback(m_track, sink, samples);
-}
-
-//***************************************************************************
-void ArtsPlaybackSink_impl::goOn()
-{
-    _node()->requireFlow();
-}
-
-//***************************************************************************
-bool ArtsPlaybackSink_impl::done()
-{
-    return (m_multi_sink);
-}
-
-//***************************************************************************
-REGISTER_IMPLEMENTATION(ArtsPlaybackSink_impl);
-
+#include "KwavePlaybackSink.moc"
 //***************************************************************************
 //***************************************************************************

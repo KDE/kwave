@@ -122,7 +122,13 @@ void KwaveFilterPlugin::run(QStringList params)
     MultiTrackWriter *sink = 0;
     if (m_listen) {
 	// pre-listen mode
-	arts_sink = manager().openMultiTrackPlayback(selectedTracks().count());
+	#warning pre-listen is not yet ported
+// ---
+// 	arts_sink = manager().openMultiTrackPlayback(selectedTracks().count());
+// not yet ported...
+	close();
+	return;
+// ---
     } else {
 	// normal mode, with undo
 	undo_guard = new UndoTransactionGuard(*this, actionName());

@@ -30,10 +30,7 @@
 
 #include "mt/SignalProxy.h"
 
-#ifdef HAVE_ARTS_SUPPORT
-#include "libkwave/ArtsMultiPlaybackSink.h"
-#endif /* HAVE_ARTS_SUPPORT */
-
+#include "libkwave/KwaveMultiPlaybackSink.h"
 #include "libkwave/LineParser.h"
 #include "libkwave/FileLoader.h"
 #include "libkwave/KwavePlugin.h"
@@ -536,9 +533,8 @@ SampleWriter *PluginManager::openSampleWriter(unsigned int track,
 }
 
 //***************************************************************************
-#ifdef HAVE_ARTS_SUPPORT
-ArtsMultiSink *PluginManager::openMultiTrackPlayback(unsigned int tracks,
-                                                     const QString *name)
+Kwave::SampleSink *PluginManager::openMultiTrackPlayback(
+    unsigned int tracks, const QString *name)
 {
     QString device_name;
 
@@ -564,13 +560,10 @@ ArtsMultiSink *PluginManager::openMultiTrackPlayback(unsigned int tracks,
     if (!device) return 0;
 
     // create the multi track playback sink
-    ArtsMultiSink *sink = new ArtsMultiPlaybackSink(tracks, device);
+    Kwave::SampleSink *sink = new Kwave::MultiPlaybackSink(tracks, device);
     Q_ASSERT(sink);
-    if (!sink) return 0;
-
     return sink;
 }
-#endif /* HAVE_ARTS_SUPPORT */
 
 //***************************************************************************
 PlaybackController &PluginManager::playbackController()

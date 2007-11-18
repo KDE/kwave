@@ -16,109 +16,91 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <string.h> // for memcpy
+#include "libkwave/Sample.h"
 #include "libkwave/SampleFIFO.h"
+#include "libkwave/memcpy.h"
 
 //***************************************************************************
-SampleFIFO::SampleFIFO(unsigned int size)
-    :m_size(0), m_buffer(), m_written(0), m_write_pos(0)
+SampleFIFO::SampleFIFO()
+    :m_buffer(), m_read_offset(0), m_lock(true)
 {
-    if (size) resize(size);
 }
 
 //***************************************************************************
 SampleFIFO::~SampleFIFO()
 {
-    resize(0);
+    QMutexLocker _lock(&m_lock);
+    flush();
 }
 
 //***************************************************************************
-void SampleFIFO::resize(unsigned int size)
+void SampleFIFO::flush()
 {
-    m_buffer.resize(size);
-    m_size      = m_buffer.size();
-    m_written   = 0;
-    m_write_pos = 0;
+    QMutexLocker _lock(&m_lock);
+
+    m_buffer.clear();
+    m_read_offset = 0;
 }
 
 //***************************************************************************
-bool SampleFIFO::put(const QMemArray<sample_t> &source)
+void SampleFIFO::put(const Kwave::SampleArray &buffer)
 {
-    const unsigned int size = source.size();
-
-    if (!size) return true;
-    Q_ASSERT(m_write_pos < m_size);
-
-    unsigned int rest = size;
-    unsigned int to_the_end = m_size - m_write_pos;
-    unsigned int offset = 0;
-
-    if (rest > to_the_end) {
-	// copy only up to the end
-	memcpy(m_buffer.data() + m_write_pos,
-	       source.data(),
-	       to_the_end * sizeof(sample_t));
-
-	rest        -= to_the_end;
-	offset      += to_the_end;
-	m_written   += to_the_end;
-	Q_ASSERT(m_write_pos + to_the_end == m_size);
-	m_write_pos = 0;
-    }
-
-    if (rest) {
-	// copy the whole (remaining) source
-	memcpy(m_buffer.data() + m_write_pos,
-	       source.data() + offset,
-	       rest * sizeof(sample_t));
-
-	m_write_pos += rest;
-	m_written   += rest;
-    }
-    Q_ASSERT(m_write_pos <= m_size);
-    if (m_write_pos >= m_size) m_write_pos = 0;
-    if (m_written > m_size) m_written = m_size;
-
-    return true;
+    QMutexLocker _lock(&m_lock);
+    if (!buffer.isEmpty()) m_buffer.append(buffer.copy());
 }
 
 //***************************************************************************
-void SampleFIFO::align()
+unsigned int SampleFIFO::get(Kwave::SampleArray &buffer)
 {
-    if (m_written < m_size) {
-	// shrink the buffer to contain only used samples
-	m_buffer.resize(m_written);
-	m_size = m_buffer.size();
-    } else if (m_written != m_size) {
-	// we have to do more: rotate the buffer content
-	// so that it starts at zero, like this:
-	// [0 ... wp-1, wp .... size-1 ] ->  [wp ... size-1, 0 ... wp-1 ]
-	unsigned int x1 = 0;
-	unsigned int x2 = m_write_pos;
-	const unsigned int n = m_size - 2 + ((m_size + x2) & 1);
-	Q_ASSERT(m_size >= 2);
+    QMutexLocker _lock(&m_lock);
 
-	sample_t *buf = m_buffer.data();
-	for (x1=0; x1 < n; ++x1)
-	{
-	    sample_t s = buf[x1];
-	    buf[x1] = buf[x2];
-	    buf[x2] = s;
-	    if (x2 < m_size-1) x2++;
+    if (m_buffer.isEmpty()) return 0;
+
+    unsigned int rest = buffer.size();
+    const unsigned int available = length();
+    if (rest > available) rest = available;
+
+    QValueVector<Kwave::SampleArray>::iterator it = m_buffer.begin();
+    sample_t *dst = buffer.data();
+    unsigned int read = 0;
+    while (rest && (it != m_buffer.end())) {
+	sample_t *src        = (*it).data();
+	unsigned int src_len = (*it).count();
+	Q_ASSERT(src_len > m_read_offset);
+	if (m_read_offset) src_len -= m_read_offset;
+
+	if (src_len <= rest) {
+	    // use the whole buffer up to it's end
+	    MEMCPY(dst, src + m_read_offset, src_len * sizeof(sample_t));
+	    rest  -= src_len;
+	    read  += src_len;
+	    dst   += src_len;
+	    m_read_offset = 0;
+	    // remove the buffer from the queue
+	    it = m_buffer.erase(it);
+	} else {
+	    // use only a portion of the buffer
+	    MEMCPY(dst, src + m_read_offset, rest * sizeof(sample_t));
+	    read          += rest;
+	    m_read_offset += rest;
+	    Q_ASSERT(m_read_offset < (*it).count());
+	    rest = 0;
 	}
     }
+
+    return read;
 }
 
 //***************************************************************************
 unsigned int SampleFIFO::length()
 {
-    return m_written;
-}
+    QMutexLocker _lock(&m_lock);
 
-//***************************************************************************
-QMemArray<sample_t> &SampleFIFO::data()
-{
-    return m_buffer;
+    unsigned int len = 0;
+    QValueVector<Kwave::SampleArray>::iterator it;
+    for (it = m_buffer.begin(); it != m_buffer.end(); ++it)
+	len += (*it).count();
+    return len;
 }
 
 //***************************************************************************

@@ -19,43 +19,39 @@
 #define _SAMPLE_FIFO_H_
 
 #include "config.h"
-#include <qmemarray.h>
-#include "libkwave/Sample.h"
+#include <qvaluevector.h>
+#include <qmutex.h>
+#include "libkwave/KwaveSampleArray.h"
 
 class SampleFIFO
 {
 public:
-    /**
-     * Constructor
-     *
-     * @param size initial number of samples the FIFO can hold
-     */
-    SampleFIFO(unsigned int size = 0);
+    /** Constructor */
+    SampleFIFO();
 
     /** Destructor */
     virtual ~SampleFIFO();
 
     /**
-     * Set the size of the FIFO. This destroys the content and sets
+     * Reset the FIFO. This destroys the content and sets
      * all pointers to their initial value.
-     *
-     * @param size new depth of the FIFO in samples
      */
-    virtual void resize(unsigned int size);
+     virtual void flush();
 
     /**
      * puts samples into the FIFO
      *
-     * @param source reference to an array of samples to feed in
-     * @return true if successful, false on overruns
+     * @param buffer reference to an array of samples to feed in
      */
-    virtual bool put(const QMemArray<sample_t> &source);
+    virtual void put(const Kwave::SampleArray &source);
 
     /**
-     * Align/shift the data in the FIFO so that the current read
-     * position is at the start of the internal buffer.
+     * gets and removes samples from the FIFO
+     *
+     * @param buffer reference to an array of samples to be filled
+     * @return number of received samples
      */
-    virtual void align();
+    virtual unsigned int get(Kwave::SampleArray &buffer);
 
     /**
      * Returns the number of samples that can be read out.
@@ -63,29 +59,19 @@ public:
      */
     virtual unsigned int length();
 
-    /**
-     * Returns a reference to the internal buffer. Normally called
-     * after "align" to forward the internal buffer to a SampleWriter
-     * or similar.
-     */
-    virtual QMemArray<sample_t> &data();
-
 private:
 
-    /** size of the FIFO in samples */
-    unsigned int m_size;
-
-    /** buffer for the sample data */
-    QMemArray<sample_t> m_buffer;
-
-    /** number of written samples [0...m_size-1] */
-    unsigned int m_written;
+    /** list of buffers with sample data */
+    QValueVector<Kwave::SampleArray> m_buffer;
 
     /**
-     * index of the write position, where the next sample would
-     * be written.
+     * number of samples that have already been read out
+     * from the first buffer (head, first one to read out)
      */
-    unsigned int m_write_pos;
+    unsigned int m_read_offset;
+
+    /** mutex for access to the FIFO (recursive) */
+    QMutex m_lock;
 
 };
 

@@ -813,11 +813,9 @@ void RecordPlugin::setupRecordThread()
     if (params.pre_record_enabled) {
 	// prepare a queue for each track
 	m_prerecording_queue.resize(params.tracks);
-	unsigned int fifo_depth = (unsigned int)ceil((
-	    params.pre_record_time * params.sample_rate));
 
 	for (unsigned int track=0; track < params.tracks; ++track) {
-	    SampleFIFO *fifo = new SampleFIFO(fifo_depth);
+	    SampleFIFO *fifo = new SampleFIFO();
 	    m_prerecording_queue.insert(track, fifo);
 	    Q_ASSERT(fifo);
 	    if (!fifo) {
@@ -1160,12 +1158,19 @@ void RecordPlugin::flushPrerecordingQueue()
 	SampleWriter *writer = (*m_writers)[track];
 	Q_ASSERT(writer);
 	if (writer) {
-	    fifo->align();
-	    *writer << fifo->data();
+	    Kwave::SampleArray buffer(writer->blockSize());
+	    unsigned int rest = fifo->length();
+	    while (rest) {
+		unsigned int read = fifo->get(buffer);
+		if (read < 1) break;
+		writer->flush(buffer, read);
+		rest -= read;
+	    }
+	} else {
+	    // fallback: discard the FIFO content
+	    fifo->flush();
 	}
-
-	// discard the FIFO and it's content
-	fifo->resize(0);
+	Q_ASSERT(fifo->length() == 0);
     }
 
     // the queues are no longer needed

@@ -12,7 +12,7 @@ LIST OF LICENSES FOUND IN THE SOURCES
 
 	* LGPL2 - GNU Library General Public License, version 2 or newer
 	  - most stuff in libaudiofile
-	  - plugins/band_pass/synth_band_pass.idl (and other idl files)
+	  - plugins/*/*.idl (and other idl files)
 
 	* Kitware (cmake)
 	  - cmake/Copyright.txt
@@ -435,25 +435,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/TrackPixmap.cpp				GPL2
 	libgui/TrackPixmap.h				GPL2
 
-	libkwave/ArtsKwaveMultiTrackFilter.h		GPL2
-	libkwave/ArtsMultiIO.h				GPL2
-	libkwave/ArtsMultiPlaybackSink.cpp		GPL2
-	libkwave/ArtsMultiPlaybackSink.h		GPL2
-	libkwave/ArtsMultiSink.h			GPL2
-	libkwave/ArtsMultiSource.h			GPL2
-	libkwave/ArtsMultiTrackFilter.h			GPL2
-	libkwave/ArtsMultiTrackSink.h			GPL2
-	libkwave/ArtsMultiTrackSource.h			GPL2
-	libkwave/ArtsNativeMultiTrackFilter.h		GPL2
-	libkwave/ArtsPlaybackSink.idl			GPL2
-	libkwave/ArtsPlaybackSink_impl.cpp		GPL2
-	libkwave/ArtsPlaybackSink_impl.h		GPL2
-	libkwave/ArtsSampleSink.idl			GPL2
-	libkwave/ArtsSampleSink_impl.cpp		GPL2
-	libkwave/ArtsSampleSink_impl.h			GPL2
-	libkwave/ArtsSampleSource.idl			GPL2
-	libkwave/ArtsSampleSource_impl.cpp		GPL2
-	libkwave/ArtsSampleSource_impl.h		GPL2
 	libkwave/ByteOrder.h				GPL2
 	libkwave/byteswap.h				GPL2
 	libkwave/CMakeLists.txt				GPL2
@@ -465,9 +446,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/cputest.h				GPL2
 	libkwave/Curve.cpp				GPL2
 	libkwave/Curve.h				GPL2
-	libkwave/CurveStreamAdapter.idl			GPL2
-	libkwave/CurveStreamAdapter_impl.cpp		GPL2
-	libkwave/CurveStreamAdapter_impl.h		GPL2
+	libkwave/CurveStreamAdapter.cpp			GPL2
+	libkwave/CurveStreamAdapter.h			GPL2
 	libkwave/Decoder.cpp				GPL2
 	libkwave/Decoder.h				GPL2
 	libkwave/Encoder.cpp				GPL2
@@ -487,13 +467,34 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/InsertMode.h				GPL2
 	libkwave/Interpolation.cpp			GPL2
 	libkwave/Interpolation.h			GPL2
+	libkwave/KwaveConnect.cpp			GPL2
+	libkwave/KwaveConnect.h				GPL2
+	libkwave/KwaveDelay.cpp				GPL2
+	libkwave/KwaveDelay.h				GPL2
 	libkwave/KwaveDrag.cpp				GPL2
 	libkwave/KwaveDrag.h				GPL2
 	libkwave/KwaveFilterPlugin.cpp			GPL2
 	libkwave/KwaveFilterPlugin.h			GPL2
+	libkwave/KwaveMul.cpp				GPL2
+	libkwave/KwaveMul.h				GPL2
+	libkwave/KwaveMultiPlaybackSink.cpp		GPL2
+	libkwave/KwaveMultiPlaybackSink.h		GPL2
+	libkwave/KwaveMultiTrackSink.h			GPL2
+	libkwave/KwaveMultiTrackSource.h		GPL2
+	libkwave/KwaveOsc.cpp				GPL2
+	libkwave/KwaveOsc.h				GPL2
+	libkwave/KwavePlaybackSink.cpp			GPL2
+	libkwave/KwavePlaybackSink.h			GPL2
 	libkwave/KwavePlugin.cpp			GPL2
 	libkwave/KwavePlugin.h				GPL2
 	libkwave/KwavePluginSetupDialog.h		GPL2
+	libkwave/KwaveSampleArray.h			GPL2
+	libkwave/KwaveSampleSink.cpp			GPL2
+	libkwave/KwaveSampleSink.h			GPL2
+	libkwave/KwaveSampleSource.cpp			GPL2
+	libkwave/KwaveSampleSource.h			GPL2
+	libkwave/KwaveStreamObject.cpp			GPL2
+	libkwave/KwaveStreamObject.h			GPL2
 	libkwave/Label.cpp				GPL2
 	libkwave/Label.h				GPL2
 	libkwave/LabelList.cpp				GPL2
@@ -536,7 +537,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Stripe.h				GPL2
 	libkwave/Track.cpp				GPL2
 	libkwave/Track.h				GPL2
-	libkwave/TransmissionFunction.cpp		GPL2
 	libkwave/TransmissionFunction.h			GPL2
 	libkwave/Triple.h				GPL2
 	libkwave/TypesMap.h				GPL2
@@ -581,18 +581,15 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/amplifyfree/AmplifyFreePlugin.h		GPL2
 	plugins/amplifyfree/CMakeLists.txt		GPL2
 
-	plugins/band_pass/BandPass.cpp			GPL2
+	plugins/band_pass/BandPass.cpp			GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
+	plugins/band_pass/BandPass.h			GPL2
 	plugins/band_pass/BandPassDialog.cpp		GPL2
 	plugins/band_pass/BandPassDialog.h		GPL2
 	plugins/band_pass/BandPassDlg.ui		GPL2
 	plugins/band_pass/BandPass.h			GPL2
 	plugins/band_pass/BandPassPlugin.cpp		GPL2
 	plugins/band_pass/BandPassPlugin.h		GPL2
-	plugins/band_pass/c_filter_stuff.c		GPL2
-	plugins/band_pass/c_filter_stuff.h		GPL2
 	plugins/band_pass/CMakeLists.txt		GPL2
-	plugins/band_pass/synth_band_pass.idl		LGPL2
-	plugins/band_pass/synth_band_pass_impl.h	LGPL2
 
 	plugins/codec_ascii/AsciiCodecPlugin.cpp	GPL2
 	plugins/codec_ascii/AsciiCodecPlugin.h		GPL2
@@ -709,6 +706,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/newsignal/NewSignalPlugin.h		GPL2
 
 	plugins/noise/CMakeLists.txt			GPL2
+	plugins/noise/NoiseGenerator.cpp		GPL2
+	plugins/noise/NoiseGenerator.h			GPL2
 	plugins/noise/NoisePlugin.cpp			GPL2
 	plugins/noise/NoisePlugin.h			GPL2
 

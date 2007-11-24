@@ -32,6 +32,7 @@ BuildRequires:	audiofile > 0.2.3
 BuildRequires:	libvorbis >= 1
 BuildRequires:	gsl >= 1.4
 BuildRequires:	kdesdk3-translate
+BuildRequires:  gettext-devel
 
 Conflicts: 	libkwave
 Obsoletes: 	libkwave

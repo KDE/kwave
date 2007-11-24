@@ -39,12 +39,13 @@ src_compile() {
 	use mmx && append-flags "-mmmx"
 
 	myconf+=" -DWITH_BUILTIN_LIBAUDIOFILE=OFF"
-	use alsa || myconf+=" -DWITH_ALSA=OFF"
-	use doc  || myconf+=" -DWITH_DOC=OFF"
-	use flac || myconf+=" -DWITH_FLAC=OFF"
-	use mp3  || myconf+=" -DWITH_MP3=OFF"
-	use ogg  || myconf+=" -DWITH_OGG=OFF"
-	use oss  || myconf+=" -DWITH_OSS=OFF"
+	use alsa  || myconf+=" -DWITH_ALSA=OFF"
+	use doc   || myconf+=" -DWITH_DOC=OFF"
+	use flac  || myconf+=" -DWITH_FLAC=OFF"
+	use mp3   || myconf+=" -DWITH_MP3=OFF"
+	use ogg   || myconf+=" -DWITH_OGG=OFF"
+	use oss   || myconf+=" -DWITH_OSS=OFF"
+	use debug || myconf+=" -DDEBUG=ON"
 
 	cmake \
 		-DCMAKE_C_COMPILER=$(type -P $(tc-getCC)) \

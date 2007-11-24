@@ -1,9 +1,12 @@
 /***************************************************************************
-        BandPass.h  - transmission function of a band pass filter
-			     -------------------
-    begin                : Tue Jun 24 2003
-    copyright            : (C) 2003 by Dave Flogeras
-    email                : d.flogeras@unb.ca
+             BandPass.h  -  simple band pass
+                             -------------------
+    begin                : Sun Nov 18 2007
+    copyright            : (C) 2007 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
+
+    filter functions:
+    Copyright (C) 1998 Juhana Sadeharju <kouhia@nic.funet.fi>
  ***************************************************************************/
 
 /***************************************************************************
@@ -15,17 +18,20 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _NOTCH_FILTER_H_
-#define _NOTCH_FILTER_H_
+#ifndef _BAND_PASS_H_
+#define _BAND_PASS_H_
 
 #include "config.h"
-#include "math.h"
+
 #include <qobject.h>
+#include <qvariant.h>
 
+#include "libkwave/KwaveSampleArray.h"
+#include "libkwave/KwaveSampleSource.h"
 #include "libkwave/TransmissionFunction.h"
-#include "c_filter_stuff.h"
 
-class BandPass: public TransmissionFunction
+class BandPass: public Kwave::SampleSource,
+                public TransmissionFunction
 {
     Q_OBJECT
 public:
@@ -36,24 +42,60 @@ public:
     /** Destructor */
     virtual ~BandPass();
 
+    /** does the calculation */
+    virtual void goOn();
+
     /** @see TransmissionFunction::at() */
     virtual double at(double f);
 
+signals:
+
+    /** emits a block with the filtered data */
+    void output(Kwave::SampleArray &data);
+
 public slots:
 
-    /** set the new cutoff frequency and bw [0..PI] */
-    void setFrequency(double f, double bw);
+    /** receives input data */
+    void input(Kwave::SampleArray &data);
+
+    /**
+     * Sets the center frequency, normed to [0...2Pi]. The calculation is:
+     * fc = frequency [Hz] * 2 * Pi / f_sample [Hz].
+     * The default setting is 0.5.
+     */
+    void setFrequency(const QVariant &fc);
+
+    /**
+     * Sets the bandwidth, normed to [0...2Pi]. The calculation is:
+     * bw = bandwidth [Hz] * 2 * Pi / f_sample [Hz].
+     * The default setting is 0.1.
+     */
+    void setBandwidth(const QVariant &bw);
 
 private:
 
-    /** cutoff frequency [0...PI] */
-    double m_f_cutoff;
-    /** bandwidth of the notch */
-    double m_f_bw;
+    /** structure with the filter coefficients */
+    struct {
+	double cx,cx1,cx2,cy1,cy2;
+	double x,x1,x2,y,y1,y2;
+    } m_filter;
 
-    /** structure with the filter coefficients, from aRts */
-    filter m_filter;
+    /** reset/initialize the filter coefficients */
+    void initFilter();
+
+    void setfilter_2polebp(double freq, double R);
+
+private:
+
+    /** buffer for input */
+    Kwave::SampleArray m_buffer;
+
+    /** center frequency */
+    double m_frequency;
+
+    /** bandwidth */
+    double m_bandwidth;
 
 };
 
-#endif /* _NOTCH_FILTER_H_ */
+#endif /* _BAND_PASS_H_ */

@@ -55,18 +55,7 @@ void FrequencyResponseWidget::init(double freq, int db_min, int db_max)
 //***************************************************************************
 void FrequencyResponseWidget::setFilter(TransmissionFunction *func)
 {
-    if (m_function) { // disconnect the old function
-	QObject::disconnect(m_function, SIGNAL(changed()),
-	                    this, SLOT(repaint()));
-    }
-
     m_function = func;
-
-    if (m_function) { // connect the new function
-	QObject::connect(m_function, SIGNAL(changed()),
-	                 this, SLOT(repaint()));
-    }
-
     repaint();
 }
 

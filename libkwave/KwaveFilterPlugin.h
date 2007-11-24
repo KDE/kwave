@@ -82,7 +82,7 @@ namespace Kwave {
 	/**
 	* Update the filter with new parameters if it has changed
 	* changed during the pre-listen.
-	* @param filter the ArtsMultiTrackFilter to be updated, should be the
+	* @param filter the Kwave::SampleSource to be updated, should be the
 	*               same one as created with createFilter()
 	* @param force if true, even update if no settings have changed
 	*/

@@ -28,14 +28,6 @@ void RecordTypesMap::fill()
     unsigned int index = 0;
     QString name = "";
 
-// #ifdef HAVE_ARTS_SUPPORT
-//     name = "aRts (Analog Realtime Synthesizer)";
-//     append(index++, PLAYBACK_ARTS, "arts", name);
-// #if 0
-//     i18n("aRts (Analog Realtime Synthesizer)");
-// #endif
-// #endif /* HAVE_ARTS_SUPPORT */
-
 #ifdef HAVE_ALSA_SUPPORT
     name = "ALSA (Advanced Linux Sound Architecture)";
     append(index++, RECORD_ALSA, "alsa", name);

@@ -1,9 +1,13 @@
 /***************************************************************************
-      BandPass.cpp  - transmission function of a band pass filter
-			     -------------------
-    begin                : Tue Jun 24 2003
-    copyright            : (C) 2003 by Dave Flogeras
-    email                : d.flogeras@unb.ca
+           BandPass.cpp  -  simple band pass
+                             -------------------
+    begin                : Sun Nov 18 2007
+    copyright            : (C) 2007 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
+
+    filter functions:
+    Copyright (C) 1998 Juhana Sadeharju <kouhia@nic.funet.fi>
+
  ***************************************************************************/
 
 /***************************************************************************
@@ -23,9 +27,11 @@
 
 //***************************************************************************
 BandPass::BandPass()
-    :TransmissionFunction(), m_f_cutoff(M_PI)
+    :Kwave::SampleSource(0, "BandPass"), m_buffer(blockSize()),
+    m_frequency(0.5), m_bandwidth(0.1)
 {
-    initfilter(&m_filter);
+    initFilter();
+    setfilter_2polebp(m_frequency, m_bandwidth);
 }
 
 //***************************************************************************
@@ -33,6 +39,11 @@ BandPass::~BandPass()
 {
 }
 
+//***************************************************************************
+void BandPass::goOn()
+{
+    emit output(m_buffer);
+}
 
 //***************************************************************************
 double BandPass::at(double f)
@@ -72,15 +83,74 @@ double BandPass::at(double f)
 }
 
 //***************************************************************************
-void BandPass::setFrequency(double f, double bw)
+void BandPass::initFilter()
 {
-    m_f_cutoff = f;
-    m_f_bw = bw;
+    m_filter.x1 = 0.0;
+    m_filter.x2 = 0.0;
+    m_filter.y1 = 0.0;
+    m_filter.y2 = 0.0;
+    m_filter.y  = 0.0;
+}
 
-    initfilter(&m_filter);
-    setfilter_2polebp(&m_filter, m_f_cutoff, m_f_bw);
+//***************************************************************************
+/*
+ * As in ''An introduction to digital filter theory'' by Julius O. Smith
+ * and in Moore's book; I use the normalized version in Moore's book.
+ */
+void BandPass::setfilter_2polebp(double freq, double R)
+{
+    m_filter.cx  = 1.0 - R;
+    m_filter.cx1 = 0.0;
+    m_filter.cx2 = - (1.0 - R) * R;
+    m_filter.cy1 = 2.0 * R * cos(freq);
+    m_filter.cy2 = -R * R;
+}
 
-    emit changed();
+//***************************************************************************
+void BandPass::input(Kwave::SampleArray &data)
+{
+    setfilter_2polebp(m_frequency, m_bandwidth);
+
+    Q_ASSERT(data.count() == m_buffer.count());
+
+    for (unsigned i = 0; i < data.count(); i++)
+    {
+	// do the filtering
+	m_filter.x = sample2float(data[i]);
+	m_filter.y =
+	    m_filter.cx  * m_filter.x  +
+	    m_filter.cx1 * m_filter.x1 +
+	    m_filter.cx2 * m_filter.x2 +
+	    m_filter.cy1 * m_filter.y1 +
+	    m_filter.cy2 * m_filter.y2;
+	m_filter.x2 = m_filter.x1;
+	m_filter.x1 = m_filter.x;
+	m_filter.y2 = m_filter.y1;
+	m_filter.y1 = m_filter.y;
+	m_buffer[i] = float2sample(0.95 * m_filter.y);
+    }
+}
+
+//***************************************************************************
+void BandPass::setFrequency(const QVariant &fc)
+{
+    double new_freq = QVariant(fc).toDouble();
+    if (new_freq == m_frequency) return; // nothing to do
+
+    m_frequency = new_freq;
+    initFilter();
+    setfilter_2polebp(m_frequency, m_bandwidth);
+}
+
+//***************************************************************************
+void BandPass::setBandwidth(const QVariant &bw)
+{
+    double new_bw = QVariant(bw).toDouble();
+    if (new_bw == m_bandwidth) return; // nothing to do
+
+    m_bandwidth = new_bw;
+    initFilter();
+    setfilter_2polebp(m_frequency, m_bandwidth);
 }
 
 //***************************************************************************

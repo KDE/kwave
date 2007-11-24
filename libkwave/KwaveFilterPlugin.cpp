@@ -17,7 +17,7 @@
 
 #include "config.h"
 #include <errno.h>
-#include <qapplication.h>
+
 #include <qobject.h>
 #include <qdialog.h>
 #include <qglobal.h>
@@ -176,11 +176,6 @@ void Kwave::FilterPlugin::run(QStringList params)
 
     // transport the samples
     while (!m_stop && (!source.done() || m_listen)) {
-	// this lets the process wait if the user pressed cancel
-	// and the confirm_cancel dialog is active
-	while (m_pause)
-	    sleep(1);
-
 	// process one step
 	source.goOn();
 	filter->goOn();
@@ -196,12 +191,17 @@ void Kwave::FilterPlugin::run(QStringList params)
 	    source.reset();
 	    continue;
 	}
+
+	// this lets the process wait if the user pressed cancel
+	// and the confirm_cancel dialog is active
+	while (m_pause)
+	    sleep(1);
     }
 
     // cleanup
     if (filter)     delete filter;
-    if (undo_guard) delete undo_guard;
     if (sink)       delete sink;
+    if (undo_guard) delete undo_guard;
 
     m_pause  = false;
     m_stop   = false;

@@ -20,23 +20,17 @@
 #include <errno.h>
 #include <qstringlist.h>
 #include <klocale.h>
-#include <arts/artsflow.h>
-#include <arts/connect.h>
-#include <arts/objectmanager.h>
-#include <arts/dynamicrequest.h>
 
-//#include "libkwave/ArtsNativeMultiTrackFilter.h"
-#include "libkwave/ArtsKwaveMultiTrackFilter.h"
-
+#include "libkwave/KwaveMultiTrackSource.h"
+#include "BandPass.h"
 #include "BandPassPlugin.h"
 #include "BandPassDialog.h"
-#include "synth_band_pass_impl.h"
 
 KWAVE_PLUGIN(BandPassPlugin,"band_pass","Dave Flogeras");
 
 //***************************************************************************
 BandPassPlugin::BandPassPlugin(const PluginContext &context)
-    :KwaveFilterPlugin(context),
+    :Kwave::FilterPlugin(context),
      m_frequency(3500.0), m_last_freq(100),m_bw(100),m_last_bw(200)
 {
 }
@@ -51,6 +45,8 @@ int BandPassPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;
     QString param;
+
+    if (params.isEmpty()) return -EINVAL;
 
     // evaluate the parameter list
     Q_ASSERT(params.count() == 2);
@@ -85,13 +81,9 @@ KwavePluginSetupDialog *BandPassPlugin::createDialog(QWidget *parent)
 }
 
 //***************************************************************************
-ArtsMultiTrackFilter *BandPassPlugin::createFilter(unsigned int tracks)
+Kwave::SampleSource *BandPassPlugin::createFilter(unsigned int tracks)
 {
-
-//  we use our own copy instead:
-    return new ArtsKwaveMultiTrackFilter <Synth_BAND_PASS,
-                              Synth_BAND_PASS_impl>(tracks);
-
+    return new Kwave::MultiTrackSource<BandPass, true>(tracks);
 }
 
 //***************************************************************************
@@ -101,21 +93,23 @@ bool BandPassPlugin::paramsChanged()
 }
 
 //***************************************************************************
-void BandPassPlugin::updateFilter(ArtsMultiTrackFilter *filter,
-                                 bool force)
+void BandPassPlugin::updateFilter(Kwave::SampleSource *filter,
+                                  bool force)
 {
-    float sr = signalRate();
+    double sr = signalRate();
 
     if (!filter) return;
 
     if ((m_frequency != m_last_freq) || force)
-	filter->setAttribute("frequency", (m_frequency*2*M_PI)/sr);
+	filter->setAttribute(SLOT(setFrequency(const QVariant &)),
+	    QVariant((m_frequency * 2.0 * M_PI) / sr));
 
     if ((m_bw != m_last_bw) || force)
-    filter->setAttribute("bw", (m_bw*2*M_PI)/sr);
+	filter->setAttribute(SLOT(setBandwidth(const QVariant &)),
+	    QVariant((m_bw * 2.0 * M_PI) / sr));
 
     m_last_freq  = m_frequency;
-    m_last_bw = m_bw;
+    m_last_bw    = m_bw;
 }
 
 //***************************************************************************

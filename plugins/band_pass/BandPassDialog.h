@@ -28,7 +28,7 @@ class QStringList;
 class BandPass;
 
 class BandPassDialog: public BandPassDlg,
-                     public KwavePluginSetupDialog
+                      public KwavePluginSetupDialog
 {
     Q_OBJECT
 public:

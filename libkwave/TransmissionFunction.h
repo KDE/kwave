@@ -19,19 +19,13 @@
 #define _TRANSMISSION_FUNCTION_H_
 
 #include "config.h"
-#include <math.h>
-#include <qobject.h>
 
-class TransmissionFunction: public QObject
+class TransmissionFunction
 {
-    Q_OBJECT
 public:
 
-    /** Constructor */
-    TransmissionFunction();
-
     /** Destructor */
-    virtual ~TransmissionFunction();
+    virtual ~TransmissionFunction() {};
 
     /**
      * Returns the value of the transmission function at a given
@@ -42,11 +36,6 @@ public:
      *       with phase info
      */
     virtual double at(double f) = 0;
-
-signals:
-
-     /** emitted whenever the parameters of the function have changed */
-     void changed();
 };
 
 #endif /* _TRANSMISSION_FUNCTION_H_ */

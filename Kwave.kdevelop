@@ -9,19 +9,19 @@
     <ignoreparts/>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
-    <description></description>
+    <description/>
     <secondaryLanguages>
       <language>Bash</language>
       <language>C</language>
     </secondaryLanguages>
     <versioncontrol>kdevsubversion</versioncontrol>
     <projectname>Kwave</projectname>
-    <defaultencoding></defaultencoding>
+    <defaultencoding/>
   </general>
   <kdevcustomproject>
     <run>
       <mainprogram>/usr/src/packages/multimedia/sound/kwave</mainprogram>
-      <programargs></programargs>
+      <programargs/>
       <terminal>false</terminal>
       <envvars>
         <envvar value="libkwave:libgui" name="LD_LIBRARY_PATH" />
@@ -29,7 +29,7 @@
       <directoryradio>build</directoryradio>
       <customdirectory>/</customdirectory>
       <autocompile>true</autocompile>
-      <globaldebugarguments></globaldebugarguments>
+      <globaldebugarguments/>
       <globalcwd>/usr/src/packages/multimedia/sound/kwave</globalcwd>
       <useglobalprogram>false</useglobalprogram>
       <autoinstall>false</autoinstall>
@@ -43,7 +43,7 @@
       <abortonerror>true</abortonerror>
       <numberofjobs>0</numberofjobs>
       <dontact>false</dontact>
-      <makebin></makebin>
+      <makebin/>
       <environments>
         <default>
           <envvar value="ccache gcc" name="__CC" />
@@ -54,8 +54,8 @@
       </environments>
       <selectedenvironment>default</selectedenvironment>
       <prio>0</prio>
-      <makeoptions></makeoptions>
-      <defaulttarget></defaulttarget>
+      <makeoptions/>
+      <defaulttarget/>
     </make>
     <filetypes>
       <filetype>*.java</filetype>
@@ -72,14 +72,13 @@
       <filetype>*.cxx</filetype>
       <filetype>Makefile</filetype>
       <filetype>CMakeLists.txt</filetype>
-      <filetype>*</filetype>
     </filetypes>
     <blacklist/>
     <other>
       <prio>0</prio>
-      <otherbin></otherbin>
-      <defaulttarget></defaulttarget>
-      <otheroptions></otheroptions>
+      <otherbin/>
+      <defaulttarget/>
+      <otheroptions/>
       <selectedenvironment>default</selectedenvironment>
       <environments>
         <default/>
@@ -88,16 +87,16 @@
   </kdevcustomproject>
   <kdevdebugger>
     <general>
-      <dbgshell></dbgshell>
+      <dbgshell/>
       <programargs/>
       <gdbpath>/usr/bin/gdb</gdbpath>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
       <runappinappdirectory>true</runappinappdirectory>
-      <configGdbScript></configGdbScript>
-      <runShellScript></runShellScript>
-      <runGdbScript></runGdbScript>
+      <configGdbScript/>
+      <runShellScript/>
+      <runGdbScript/>
       <raiseGDBOnStart>false</raiseGDBOnStart>
     </general>
     <display>
@@ -152,7 +151,7 @@
     <tree>
       <hidepatterns>*.o,*.lo,CVS</hidepatterns>
       <hidenonprojectfiles>false</hidenonprojectfiles>
-      <showvcsfields>true</showvcsfields>
+      <showvcsfields>false</showvcsfields>
     </tree>
   </kdevfileview>
   <kdevcvs>
@@ -198,7 +197,7 @@
     </codecompletion>
     <references/>
     <creategettersetter>
-      <prefixGet></prefixGet>
+      <prefixGet/>
       <prefixSet>set</prefixSet>
       <prefixVariable>m_,_</prefixVariable>
       <parameterName>theValue</parameterName>
@@ -230,9 +229,9 @@
   </kdevcvsservice>
   <kdevdocumentation>
     <projectdoc>
-      <docsystem></docsystem>
-      <docurl></docurl>
-      <usermanualurl></usermanualurl>
+      <docsystem/>
+      <docurl/>
+      <usermanualurl/>
     </projectdoc>
   </kdevdocumentation>
   <ctagspart>

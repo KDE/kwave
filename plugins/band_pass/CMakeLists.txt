@@ -19,15 +19,10 @@ SET(plugin_band_pass_LIB_SRCS
     BandPass.cpp
     BandPassDialog.cpp
     BandPassPlugin.cpp
-    c_filter_stuff.c
 )
 
 SET(plugin_band_pass_LIB_UI
     BandPassDlg.ui
-)
-
-KDE3_ADD_MCOP_IDL_FILES(plugin_band_pass_LIB_SRCS
-    synth_band_pass.idl
 )
 
 KWAVE_PLUGIN(band_pass)

@@ -57,15 +57,15 @@ ENDMACRO(KWAVE_PLUGIN)
 #############################################################################
 
 IF(HAVE_ARTS_SUPPORT)
-    ADD_SUBDIRECTORY( band_pass )
-    ADD_SUBDIRECTORY( lowpass )
-    ADD_SUBDIRECTORY( notch_filter )
-    ADD_SUBDIRECTORY( pitch_shift )
-    ADD_SUBDIRECTORY( volume )
+#     ADD_SUBDIRECTORY( lowpass )     # needs Kwave::FilterPlugin
+#     ADD_SUBDIRECTORY( notch_filter )# needs Kwave::FilterPlugin
+#     ADD_SUBDIRECTORY( pitch_shift ) # needs Kwave::FilterPlugin
+#     ADD_SUBDIRECTORY( volume )      # needs brickwall limiter
 ENDIF(HAVE_ARTS_SUPPORT)
 
 ADD_SUBDIRECTORY( about )
 ADD_SUBDIRECTORY( amplifyfree )
+ADD_SUBDIRECTORY( band_pass )
 ADD_SUBDIRECTORY( codec_ascii )
 ADD_SUBDIRECTORY( codec_audiofile ) # needs libaudiofile
 ADD_SUBDIRECTORY( codec_flac )      # needs libflac 1.1.1 or 1.1.2

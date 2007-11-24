@@ -1,9 +1,9 @@
 /***************************************************************************
-    ArtsSampleSink_impl.cpp  -  adapter for converting from aRts to Kwave
-			     -------------------
-    begin                : Nov 13 2001
-    copyright            : (C) 2001 by Thomas Eschenbacher
-    email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
+         KwaveDelay.cpp  -  delay line for small delays
+                             -------------------
+    begin                : Sun Nov 11 2007
+    copyright            : (C) 2007 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -15,55 +15,57 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "Sample.h"
-#include "SampleWriter.h"
-#include "ArtsSampleSink_impl.h"
+#include "config.h"
+#include <string.h>
 
-#include <arts/connect.h>
-#include <arts/objectmanager.h>
-#include <arts/flowsystem.h>
-#include <arts/stdsynthmodule.h>
+#include "libkwave/KwaveDelay.h"
 
 //***************************************************************************
-ArtsSampleSink_impl::ArtsSampleSink_impl()
-    :ArtsSampleSink_skel(), Arts::StdSynthModule(),
-    m_writer(0), m_done(false)
+Kwave::Delay::Delay()
+    :Kwave::SampleSource(0, "Kwave::Delay"),
+    m_fifo(), m_out_buffer(blockSize()), m_delay(0)
 {
 }
 
 //***************************************************************************
-ArtsSampleSink_impl::ArtsSampleSink_impl(SampleWriter *writer)
-    :ArtsSampleSink_skel(), Arts::StdSynthModule(),
-    m_writer(writer), m_done(false)
+Kwave::Delay::~Delay()
 {
 }
 
 //***************************************************************************
-void ArtsSampleSink_impl::calculateBlock(unsigned long samples)
+void Kwave::Delay::goOn()
 {
-    if (!m_writer) return;
+    m_fifo.get(m_out_buffer);
+    emit output(m_out_buffer);
+}
 
-    unsigned long i;
+//***************************************************************************
+void Kwave::Delay::input(Kwave::SampleArray &data)
+{
+    m_fifo.put(data);
+}
 
-    // fill the sink with our input
-    for(i=0;i < samples;i++) {
-	*m_writer << float2sample(sink[i]);
+//***************************************************************************
+void Kwave::Delay::setDelay(const QVariant &d)
+{
+    unsigned int new_delay = QVariant(d).toUInt();
+    if (new_delay == m_delay) return; // nothing to do
+
+    // fill it with zeroes, up to the delay time
+    m_fifo.flush();
+    Kwave::SampleArray zeroes(blockSize());
+    for (unsigned int pos=0; pos < blockSize(); ++pos)
+	zeroes[pos] = 0;
+    unsigned int rest = new_delay;
+    while (rest) {
+	unsigned int len = blockSize();
+	if (rest < len) zeroes.resize(rest);
+	m_fifo.put(zeroes);
+	rest -= zeroes.size();
     }
 }
 
 //***************************************************************************
-void ArtsSampleSink_impl::goOn()
-{
-    _node()->requireFlow();
-}
-
-//***************************************************************************
-bool ArtsSampleSink_impl::done()
-{
-    return m_writer->eof();
-}
-
-//***************************************************************************
-REGISTER_IMPLEMENTATION(ArtsSampleSink_impl);
+#include "KwaveDelay.moc"
 //***************************************************************************
 //***************************************************************************

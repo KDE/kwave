@@ -248,6 +248,56 @@ bool PlayBackPlugin::supportsDevice(const QString &name)
 }
 
 //***************************************************************************
+PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t method)
+{
+    bool searching = false;
+    do {
+	switch (method) {
+#ifdef HAVE_ARTS_SUPPORT
+	    case PLAYBACK_ARTS: {
+		ThreadsafeX11Guard x11_guard;
+
+		// if no mutex exists: make a new, parent is global app!
+		if (!g_arts_lock) g_arts_lock = new QMutex();
+		Q_ASSERT(g_arts_lock);
+
+		return new PlayBackArts(*g_arts_lock);
+	    }
+#endif /* HAVE_ARTS_SUPPORT */
+
+#ifdef HAVE_OSS_SUPPORT
+	    case PLAYBACK_OSS:
+		return new PlayBackOSS();
+#endif /* HAVE_OSS_SUPPORT */
+
+#ifdef HAVE_ALSA_SUPPORT
+	    case PLAYBACK_ALSA:
+		return new PlayBackALSA();
+#endif /* HAVE_ALSA_SUPPORT */
+
+	    default:
+		qDebug("unsupported playback method (%d)", (int)method);
+		if (!searching) {
+		    // start trying out all other methods
+		    searching = true;
+		    method = PLAYBACK_NONE;
+		    ++method;
+		    continue;
+		} else {
+		    // try next method
+		    ++method;
+		}
+		qDebug("unsupported playback method - trying next (%d)",
+		    (int)method);
+		if (method != PLAYBACK_INVALID) continue;
+	}
+	break;
+    } while (true);
+
+    return 0; // nothing found :-(
+}
+
+//***************************************************************************
 void PlayBackPlugin::setMethod(playback_method_t method)
 {
     KConfig *cfg = KGlobal::config();
@@ -259,7 +309,6 @@ void PlayBackPlugin::setMethod(playback_method_t method)
     if ((method != m_playback_params.method) || !m_device) {
 	if (m_device) delete m_device;
 	m_device = 0;
-	bool searching = false;
 
 	// set hourglass cursor
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -289,52 +338,7 @@ void PlayBackPlugin::setMethod(playback_method_t method)
 	    m_dialog->setDevice(m_playback_params.device);
 	}
 
-	do {
-	    switch (method) {
-#ifdef HAVE_ARTS_SUPPORT
-		case PLAYBACK_ARTS: {
-		    ThreadsafeX11Guard x11_guard;
-
-		    // if no mutex exists: make a new, parent is global app!
-		    if (!g_arts_lock) g_arts_lock = new QMutex();
-		    Q_ASSERT(g_arts_lock);
-
-		    m_device = new PlayBackArts(*g_arts_lock);
-		    break;
-		}
-#endif /* HAVE_ARTS_SUPPORT */
-
-#ifdef HAVE_OSS_SUPPORT
-		case PLAYBACK_OSS:
-		    m_device = new PlayBackOSS();
-		    Q_ASSERT(m_device);
-		    break;
-#endif /* HAVE_OSS_SUPPORT */
-
-#ifdef HAVE_ALSA_SUPPORT
-		case PLAYBACK_ALSA:
-		    m_device = new PlayBackALSA();
-		    Q_ASSERT(m_device);
-		    break;
-#endif /* HAVE_ALSA_SUPPORT */
-		default:
-		    qDebug("unsupported playback method (%d)", (int)method);
-		    if (!searching) {
-			// start trying out all other methods
-			searching = true;
-			method = PLAYBACK_NONE;
-			++method;
-			continue;
-		    } else {
-			// try next method
-			++method;
-		    }
-		    qDebug("unsupported playback method - trying next (%d)",
-		           (int)method);
-		    if (method != PLAYBACK_INVALID) continue;
-	    }
-	    break;
-	} while (true);
+	m_device = createDevice(method);
     }
     Q_ASSERT(m_device);
 
@@ -394,6 +398,7 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 {
     QString device_name = name;
     PlayBackParam params;
+    PlayBackDevice *device = 0;
 
 //     qDebug("PlayBackPlugin::openDevice('%s',params)",name.data());
 
@@ -410,18 +415,17 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
     // use default device if no name is given
     if (!device_name.length()) device_name = params.device;
 
-    // create a new device if there isn't one
-    if (!m_device) setMethod(params.method);
-
-    Q_ASSERT(m_device);
-    if (!m_device) {
+    // create a new device
+    device = createDevice(params.method);
+    Q_ASSERT(device);
+    if (!device) {
 	qWarning("PlayBackPlugin::openDevice(): "\
 		"creating device failed.");
 	return 0;
     }
 
     // open and initialize the device
-    QString result = m_device->open(
+    QString result = device->open(
 	params.device,
 	params.rate,
 	params.channels,
@@ -433,8 +437,8 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 	        "opening the device failed.");
 
 	// delete the device if it did not open
-	delete m_device;
-	m_device = 0;
+	delete device;
+	device = 0;
 
 	// show an error message box
 	KMessageBox::error(parentWidget(), result,
@@ -442,7 +446,7 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 	    params.device.section('|',0,0)));
     }
 
-    return m_device;
+    return device;
 }
 
 //***************************************************************************
@@ -700,28 +704,26 @@ void PlayBackPlugin::testPlayBack()
 
     qDebug("PlayBackPlugin::testPlayBack()");
 
-    Q_ASSERT(m_device);
-    if (!m_device) return;
+    Q_ASSERT(m_dialog);
+    if (!m_dialog) return;
+    PlayBackParam playback_params = m_dialog->params();
 
-    if (m_dialog) m_playback_params = m_dialog->params();
-
-    QString open_result = m_device->open(
-	m_playback_params.device,
-	m_playback_params.rate,
-	m_playback_params.channels,
-	m_playback_params.bits_per_sample,
-	m_playback_params.bufbase);
-    if (open_result.length()) {
-	qWarning("open failed: %s", open_result.data());
-	return;
-    }
-    unsigned int tracks = m_playback_params.channels;
+    unsigned int tracks = playback_params.channels;
+    double rate         = playback_params.rate;
     Q_ASSERT(tracks);
-    if (!tracks) return;
+    Q_ASSERT(rate > 1.0);
+    if (!tracks || (rate <= 1.0)) return;
+
+    // settings are valid -> take them
+    m_playback_params = playback_params;
+
+    // create the multi track playback sink
+    Kwave::SampleSink *sink = manager().openMultiTrackPlayback(tracks);
+    Q_ASSERT(sink);
+    if (!sink) return;
 
     float t_period = t_sweep * tracks;
-    unsigned int curve_length =
-	(unsigned int)(t_period * m_playback_params.rate);
+    unsigned int curve_length = (unsigned int)(t_period * rate);
 
     // create all objects
     Curve curve;
@@ -743,17 +745,14 @@ void PlayBackPlugin::testPlayBack()
 	Q_ASSERT(delay[i]);
 	if (!delay[i]) break;
 	delay[i]->setAttribute(SLOT(setDelay(const QVariant &)),
-	    QVariant(i * t_sweep * m_playback_params.rate));
+	    QVariant(i * t_sweep * rate));
     }
 
     Kwave::Osc osc;
     osc.setAttribute(SLOT(setFrequency(const QVariant &)),
-                     QVariant((double)m_playback_params.rate / freq));
+                     QVariant(rate / freq));
 
     Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks);
-
-    // create the multi track playback sink
-    Kwave::MultiPlaybackSink sink(tracks, m_device);
 
     // connect everything together...
     //
@@ -776,7 +775,7 @@ void PlayBackPlugin::testPlayBack()
 	mul,           SLOT(input_b(Kwave::SampleArray &)));
     Kwave::connect(
 	mul,           SIGNAL(output(Kwave::SampleArray &)),
-	sink,          SLOT(input(Kwave::SampleArray &)));
+	*sink,         SLOT(input(Kwave::SampleArray &)));
 
     // show a progress dialog
     QProgressDialog *progress = 0;
@@ -814,9 +813,7 @@ void PlayBackPlugin::testPlayBack()
     }
 
     if (progress) delete progress;
-    progress = 0;
-
-    m_device->close();
+    if (sink)     delete sink;
 }
 
 //***************************************************************************

@@ -124,6 +124,13 @@ protected:
     void playbackDone();
 
     /**
+     * Create a playback device matching the given playback method.
+     * @param method a playback_method_t (aRts, ALSA, OSS...)
+     * @return a new PlayBackDevice or 0 if failed
+     */
+    PlayBackDevice *createDevice(playback_method_t method);
+
+    /**
      * Opens and initializes the playback device. If the initialization
      * worked, it returns a valid pointer. On any errors m_device
      * will be 0. If a device was open before, it will be closed.

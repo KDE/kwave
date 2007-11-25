@@ -49,6 +49,10 @@ Kwave::MultiPlaybackSink::MultiPlaybackSink(unsigned int tracks,
 //***************************************************************************
 Kwave::MultiPlaybackSink::~MultiPlaybackSink()
 {
+    if (m_device) {
+	m_device->close();
+	delete m_device;
+    }
     m_device = 0;
 }
 

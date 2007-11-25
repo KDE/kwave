@@ -57,7 +57,6 @@ ENDMACRO(KWAVE_PLUGIN)
 #############################################################################
 
 IF(HAVE_ARTS_SUPPORT)
-#     ADD_SUBDIRECTORY( lowpass )     # needs Kwave::FilterPlugin
 #     ADD_SUBDIRECTORY( notch_filter )# needs Kwave::FilterPlugin
 #     ADD_SUBDIRECTORY( pitch_shift ) # needs Kwave::FilterPlugin
 #     ADD_SUBDIRECTORY( volume )      # needs brickwall limiter
@@ -73,6 +72,7 @@ ADD_SUBDIRECTORY( codec_ogg )       # needs libogg and libvorbis
 ADD_SUBDIRECTORY( codec_wav )       # needs libaudiofile
 ADD_SUBDIRECTORY( decoder_mp3 )     # needs libmad and id3lib
 ADD_SUBDIRECTORY( fileinfo )
+ADD_SUBDIRECTORY( lowpass )
 ADD_SUBDIRECTORY( memory )
 ADD_SUBDIRECTORY( newsignal )
 ADD_SUBDIRECTORY( noise )

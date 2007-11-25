@@ -680,14 +680,12 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/fileinfo/SelectDateDialog.h		GPL2
 	plugins/fileinfo/SelectDateDlg.ui		(should be GPL2)
 
-	plugins/lowpass/c_filter_stuff.c		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
-	plugins/lowpass/c_filter_stuff.h		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
 	plugins/lowpass/CMakeLists.txt			GPL2
 	plugins/lowpass/LowPassDialog.cpp		GPL2
 	plugins/lowpass/LowPassDialog.h			GPL2
 	plugins/lowpass/LowPassDlg.ui			(should be GPL2)
-	plugins/lowpass/LowPassFilter.cpp		GPL2
-	plugins/lowpass/LowPassFilter.h			GPL2
+	plugins/lowpass/LowPassFilter.cpp		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
+	plugins/lowpass/LowPassFilter.h			GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
 	plugins/lowpass/LowPassPlugin.cpp		GPL2
 	plugins/lowpass/LowPassPlugin.h			GPL2
 

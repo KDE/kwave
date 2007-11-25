@@ -41,7 +41,6 @@ LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
      m_frequency(3500),
      m_sample_rate(sample_rate), m_filter(0)
 {
-
     // set maximum frequency to sample rate / 2
     double f_max = sample_rate / 2.0;
 
@@ -139,9 +138,12 @@ void LowPassDialog::setParams(QStringList &params)
 //***************************************************************************
 void LowPassDialog::updateDisplay()
 {
-    double f_max = m_sample_rate / 2.0;
-    if (m_filter && (f_max != 0.0))
-        m_filter->setFrequency((m_frequency/f_max)*M_PI);
+    double fs = m_sample_rate;
+    if (m_filter && (fs > 0.0))
+    {
+        m_filter->setFrequency(QVariant(2.0 * M_PI * m_frequency / fs));
+        if (freq_response) freq_response->repaint();
+    }
 }
 
 //***************************************************************************
@@ -164,10 +166,7 @@ void LowPassDialog::listenToggled(bool listen)
 //***************************************************************************
 void LowPassDialog::listenStopped()
 {
-    Q_ASSERT(btListen);
-    if (!btListen) return;
-
-    btListen->setOn(false);
+    if (!btListen) btListen->setOn(false);
 }
 
 //***************************************************************************

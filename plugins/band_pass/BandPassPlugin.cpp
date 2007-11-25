@@ -76,7 +76,7 @@ KwavePluginSetupDialog *BandPassPlugin::createDialog(QWidget *parent)
     connect(dialog, SIGNAL(freqChanged(double)),
             this, SLOT(setFreqValue(double)));
     connect(dialog, SIGNAL(bwChanged(double)),
-    	    this, SLOT(setBwValue(double)));
+            this, SLOT(setBwValue(double)));
     return dialog;
 }
 

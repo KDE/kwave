@@ -19,13 +19,16 @@
 #define _LOW_PASS_FILTER_H_
 
 #include "config.h"
-#include "math.h"
+
 #include <qobject.h>
+#include <qvariant.h>
 
+#include "libkwave/KwaveSampleArray.h"
+#include "libkwave/KwaveSampleSource.h"
 #include "libkwave/TransmissionFunction.h"
-#include "c_filter_stuff.h"
 
-class LowPassFilter: public TransmissionFunction
+class LowPassFilter: public Kwave::SampleSource,
+                     public TransmissionFunction
 {
     Q_OBJECT
 public:
@@ -39,18 +42,47 @@ public:
     /** @see TransmissionFunction::at() */
     virtual double at(double f);
 
+    /** does the calculation */
+    virtual void goOn();
+
+signals:
+
+    /** emits a block with the filtered data */
+    void output(Kwave::SampleArray &data);
+
 public slots:
 
-    /** set the new cutoff frequency [0..PI] */
-    void setFrequency(double f);
+    /** receives input data */
+    void input(Kwave::SampleArray &data);
+
+    /**
+     * Sets the cutoff frequency, normed to [0...2Pi]. The calculation is:
+     * fc = frequency [Hz] * 2 * Pi / f_sample [Hz].
+     * The default setting is 0.5.
+     */
+    void setFrequency(const QVariant &fc);
 
 private:
+
+    /** reset/initialize the filter coefficients */
+    void initFilter();
+
+    /** calculate filter coefficients for a given frequency */
+    void normed_setfilter_shelvelowpass(double freq);
+
+private:
+
+    /** buffer for input */
+    Kwave::SampleArray m_buffer;
 
     /** cutoff frequency [0...PI] */
     double m_f_cutoff;
 
-    /** structure with the filter coefficients, from aRts */
-    filter m_filter;
+    /** structure with the filter coefficients */
+    struct {
+	double cx,cx1,cx2,cy1,cy2;
+	double x,x1,x2,y,y1,y2;
+    } m_filter;
 
 };
 

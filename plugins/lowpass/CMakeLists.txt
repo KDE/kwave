@@ -16,7 +16,6 @@
 #############################################################################
 
 SET(plugin_lowpass_LIB_SRCS
-    c_filter_stuff.c
     LowPassDialog.cpp
     LowPassFilter.cpp
     LowPassPlugin.cpp

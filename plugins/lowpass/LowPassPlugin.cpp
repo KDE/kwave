@@ -16,16 +16,13 @@
  ***************************************************************************/
 
 #include "config.h"
+#include <math.h>
 #include <errno.h>
 #include <qstringlist.h>
 #include <klocale.h>
-#include <arts/artsflow.h>
-#include <arts/connect.h>
-#include <arts/objectmanager.h>
-#include <arts/dynamicrequest.h>
 
-#include "libkwave/ArtsNativeMultiTrackFilter.h"
-
+#include "libkwave/KwaveMultiTrackSource.h"
+#include "LowPassFilter.h"
 #include "LowPassPlugin.h"
 #include "LowPassDialog.h"
 
@@ -33,7 +30,7 @@ KWAVE_PLUGIN(LowPassPlugin,"lowpass","Thomas Eschenbacher");
 
 //***************************************************************************
 LowPassPlugin::LowPassPlugin(const PluginContext &context)
-    :KwaveFilterPlugin(context),
+    :Kwave::FilterPlugin(context),
      m_frequency(3500.0), m_last_freq(100)
 {
      i18n("lowpass");
@@ -76,11 +73,9 @@ KwavePluginSetupDialog *LowPassPlugin::createDialog(QWidget *parent)
 }
 
 //***************************************************************************
-ArtsMultiTrackFilter *LowPassPlugin::createFilter(unsigned int tracks)
+Kwave::SampleSource *LowPassPlugin::createFilter(unsigned int tracks)
 {
-    return new ArtsNativeMultiTrackFilter(
-        tracks,"Arts::Synth_SHELVE_CUTOFF"
-    );
+    return new Kwave::MultiTrackSource<LowPassFilter, true>(tracks);
 }
 
 //***************************************************************************
@@ -90,13 +85,16 @@ bool LowPassPlugin::paramsChanged()
 }
 
 //***************************************************************************
-void LowPassPlugin::updateFilter(ArtsMultiTrackFilter *filter,
+void LowPassPlugin::updateFilter(Kwave::SampleSource *filter,
                                  bool force)
 {
+    double sr = signalRate();
+
     if (!filter) return;
 
     if ((m_frequency != m_last_freq) || force)
-	filter->setValue("frequency", m_frequency);
+	filter->setAttribute(SLOT(setFrequency(const QVariant &)),
+	    QVariant((m_frequency * 2.0 * M_PI) / sr));
 
     m_last_freq  = m_frequency;
 }

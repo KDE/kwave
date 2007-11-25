@@ -74,15 +74,14 @@ public slots:
 
 private:
 
-    /** structure with the filter coefficients */
-    struct {
-	double cx,cx1,cx2,cy1,cy2;
-	double x,x1,x2,y,y1,y2;
-    } m_filter;
-
     /** reset/initialize the filter coefficients */
     void initFilter();
 
+    /**
+     * set the coefficients for a given frequency
+     * @param freq normed frequency
+     * @param R normed bandwidth
+     */
     void setfilter_2polebp(double freq, double R);
 
 private:
@@ -95,6 +94,12 @@ private:
 
     /** bandwidth */
     double m_bandwidth;
+
+    /** structure with the filter coefficients */
+    struct {
+	double cx,cx1,cx2,cy1,cy2;
+	double x,x1,x2,y,y1,y2;
+    } m_filter;
 
 };
 

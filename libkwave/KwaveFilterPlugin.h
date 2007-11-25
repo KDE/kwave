@@ -34,6 +34,7 @@ class QWidget;
 namespace Kwave {
 
     class SampleSource;
+    class SampleSink;
 
     class FilterPlugin: public KwavePlugin
     {
@@ -152,6 +153,12 @@ namespace Kwave {
 
 	/** flag for pausing the process */
 	bool m_pause;
+
+	/**
+	 * a sample sink, used either for pre-listen
+	 * or for normal processing
+	 */
+	Kwave::SampleSink *m_sink;
 
     };
 }

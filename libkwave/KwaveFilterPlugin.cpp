@@ -41,7 +41,7 @@
 Kwave::FilterPlugin::FilterPlugin(const PluginContext &context)
     :KwavePlugin(context), m_params(),
      m_stop(false), m_listen(false), m_progress(0), m_spx_progress(0),
-     m_confirm_cancel(0), m_pause(false)
+     m_confirm_cancel(0), m_pause(false), m_sink(0)
 {
     m_spx_progress = new SignalProxy1< unsigned int >
 	(this, SLOT(updateProgress()), 2);
@@ -112,10 +112,9 @@ void Kwave::FilterPlugin::run(QStringList params)
     Kwave::SampleSource *filter = createFilter(tracks);
     Q_ASSERT(filter);
 
-    Kwave::SampleSink *sink = 0;
     if (m_listen) {
 	// pre-listen mode
-	sink = manager().openMultiTrackPlayback(selectedTracks().count());
+	Q_ASSERT(m_sink);
     } else {
 	// normal mode, with undo
 	undo_guard = new UndoTransactionGuard(*this, actionName());
@@ -125,14 +124,15 @@ void Kwave::FilterPlugin::run(QStringList params)
 	    close();
 	    return;
 	}
-	sink = new MultiTrackWriter(signalManager(), selectedTracks(),
+	m_sink = new MultiTrackWriter(signalManager(), selectedTracks(),
 	    Overwrite, first, last);
+	Q_ASSERT(m_sink);
     }
-    Q_ASSERT(sink);
-    if (!filter || !sink || sink->done()) {
+    if (!filter || !m_sink || m_sink->done()) {
 	if (filter)     delete filter;
 	if (undo_guard) delete undo_guard;
-	if (sink)       delete sink;
+	if (m_sink)     delete m_sink;
+	m_sink = 0;
 	if (!m_listen) close();
 	return;
     }
@@ -172,7 +172,7 @@ void Kwave::FilterPlugin::run(QStringList params)
     Kwave::connect(source,  SIGNAL(output(Kwave::SampleArray &)),
                    *filter, SLOT(input(Kwave::SampleArray &)));
     Kwave::connect(*filter, SIGNAL(output(Kwave::SampleArray &)),
-                   *sink,   SLOT(input(Kwave::SampleArray &)));
+                   *m_sink, SLOT(input(Kwave::SampleArray &)));
 
     // transport the samples
     while (!m_stop && (!source.done() || m_listen)) {
@@ -200,7 +200,8 @@ void Kwave::FilterPlugin::run(QStringList params)
 
     // cleanup
     if (filter)     delete filter;
-    if (sink)       delete sink;
+    if (m_sink)     delete m_sink;
+    m_sink = 0;
     if (undo_guard) delete undo_guard;
 
     m_pause  = false;
@@ -258,10 +259,17 @@ int Kwave::FilterPlugin::stop()
 //***************************************************************************
 void Kwave::FilterPlugin::startPreListen()
 {
-    m_listen = true;
-    static QStringList empty_list;
-    use();
-    execute(empty_list);
+    Q_ASSERT(!m_sink);
+    if (m_sink) delete m_sink;
+    m_sink = manager().openMultiTrackPlayback(selectedTracks().count());
+    Q_ASSERT(m_sink);
+
+    if (m_sink) {
+	m_listen = true;
+	static QStringList empty_list;
+	use();
+	execute(empty_list);
+    }
 }
 
 //***************************************************************************

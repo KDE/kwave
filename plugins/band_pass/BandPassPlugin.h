@@ -88,7 +88,6 @@ protected slots:
 
     void setBwValue(double bw);
 
-
 private:
 
     /** cutoff frequency [Hz] */

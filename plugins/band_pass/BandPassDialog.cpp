@@ -192,7 +192,7 @@ void BandPassDialog::listenToggled(bool listen)
 //***************************************************************************
 void BandPassDialog::listenStopped()
 {
-    if (!btListen) btListen->setOn(false);
+    if (btListen) btListen->setOn(false);
 }
 
 //***************************************************************************

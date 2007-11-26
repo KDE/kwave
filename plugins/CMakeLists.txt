@@ -57,7 +57,6 @@ ENDMACRO(KWAVE_PLUGIN)
 #############################################################################
 
 IF(HAVE_ARTS_SUPPORT)
-#     ADD_SUBDIRECTORY( notch_filter )# needs Kwave::FilterPlugin
 #     ADD_SUBDIRECTORY( pitch_shift ) # needs Kwave::FilterPlugin
 #     ADD_SUBDIRECTORY( volume )      # needs brickwall limiter
 ENDIF(HAVE_ARTS_SUPPORT)
@@ -76,6 +75,7 @@ ADD_SUBDIRECTORY( lowpass )
 ADD_SUBDIRECTORY( memory )
 ADD_SUBDIRECTORY( newsignal )
 ADD_SUBDIRECTORY( noise )
+ADD_SUBDIRECTORY( notch_filter )
 ADD_SUBDIRECTORY( playback )        # needs OSS, ALSA and/or aRts
 ADD_SUBDIRECTORY( record )          # needs OSS, ALSA and/or aRts
 ADD_SUBDIRECTORY( saveblocks )

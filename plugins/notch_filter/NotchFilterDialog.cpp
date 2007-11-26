@@ -165,13 +165,13 @@ void NotchFilterDialog::setParams(QStringList &params)
 //***************************************************************************
 void NotchFilterDialog::updateDisplay()
 {
-    double f_max = m_sample_rate / 2.0;
-    if (m_filter && (f_max != 0.0))
+    double fs = m_sample_rate;
+    if (m_filter && (fs > 0.0))
     {
-        m_filter->setFrequency((m_frequency/f_max)*M_PI,
-		(m_bw/f_max)*M_PI );
+        m_filter->setFrequency(QVariant(2.0 * M_PI * m_frequency / fs));
+        m_filter->setBandwidth(QVariant(2.0 * M_PI * m_bw / fs));
+        if (freq_response) freq_response->repaint();
     }
-
 }
 
 //***************************************************************************
@@ -194,10 +194,7 @@ void NotchFilterDialog::listenToggled(bool listen)
 //***************************************************************************
 void NotchFilterDialog::listenStopped()
 {
-    Q_ASSERT(btListen);
-    if (!btListen) return;
-
-    btListen->setOn(false);
+    if (btListen) btListen->setOn(false);
 }
 
 //***************************************************************************

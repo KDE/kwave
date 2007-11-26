@@ -17,27 +17,21 @@
 
 #include "config.h"
 #include <errno.h>
-
+#include <math.h>
 #include <qstringlist.h>
 #include <klocale.h>
 
-#include <arts/artsflow.h>
-#include <arts/connect.h>
-#include <arts/objectmanager.h>
-#include <arts/dynamicrequest.h>
-
-#include "libkwave/ArtsKwaveMultiTrackFilter.h"
-
+#include "libkwave/KwaveMultiTrackSource.h"
+#include "NotchFilter.h"
 #include "NotchFilterPlugin.h"
 #include "NotchFilterDialog.h"
-#include "synth_notch_filter_impl.h"
 
 KWAVE_PLUGIN(NotchFilterPlugin,"notch_filter","Dave Flogeras");
 
 //***************************************************************************
 NotchFilterPlugin::NotchFilterPlugin(const PluginContext &context)
-    :KwaveFilterPlugin(context),
-     m_frequency(3500.0), m_last_freq(100),m_bw(100),m_last_bw(200)
+    :Kwave::FilterPlugin(context),
+     m_frequency(3500.0), m_last_freq(100), m_bw(100), m_last_bw(200)
 {
 }
 
@@ -84,10 +78,9 @@ KwavePluginSetupDialog *NotchFilterPlugin::createDialog(QWidget *parent)
 }
 
 //***************************************************************************
-ArtsMultiTrackFilter *NotchFilterPlugin::createFilter(unsigned int tracks)
+Kwave::SampleSource *NotchFilterPlugin::createFilter(unsigned int tracks)
 {
-    return new ArtsKwaveMultiTrackFilter<Synth_NOTCH_FILTER,
-                              Synth_NOTCH_FILTER_impl>(tracks);
+    return new Kwave::MultiTrackSource<NotchFilter, true>(tracks);
 }
 
 //***************************************************************************
@@ -97,21 +90,23 @@ bool NotchFilterPlugin::paramsChanged()
 }
 
 //***************************************************************************
-void NotchFilterPlugin::updateFilter(ArtsMultiTrackFilter *filter,
-                                 bool force)
+void NotchFilterPlugin::updateFilter(Kwave::SampleSource *filter,
+                                     bool force)
 {
-    float sr = signalRate();
+    double sr = signalRate();
 
     if (!filter) return;
 
     if ((m_frequency != m_last_freq) || force)
-	filter->setAttribute("frequency", (m_frequency*2*M_PI)/sr);
+	filter->setAttribute(SLOT(setFrequency(const QVariant &)),
+	    QVariant((m_frequency * 2.0 * M_PI) / sr));
 
     if ((m_bw != m_last_bw) || force)
-        filter->setAttribute("bw", (m_bw*2*M_PI)/sr);
+	filter->setAttribute(SLOT(setBandwidth(const QVariant &)),
+	    QVariant((m_bw * 2.0 * M_PI) / sr));
 
     m_last_freq  = m_frequency;
-    m_last_bw = m_bw;
+    m_last_bw    = m_bw;
 }
 
 //***************************************************************************

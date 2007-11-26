@@ -29,8 +29,9 @@
 
 class ArtsMultiTrackFilter;
 class QStringList;
+namespace Kwave { class KwaveSampleSource; }
 
-class NotchFilterPlugin: public KwaveFilterPlugin
+class NotchFilterPlugin: public Kwave::FilterPlugin
 {
     Q_OBJECT
 
@@ -50,7 +51,7 @@ public:
      * @param tracks number of tracks that the filter should have
      * @return pointer to the filter or null if failed
      */
-    virtual ArtsMultiTrackFilter *createFilter(unsigned int tracks);
+    virtual Kwave::SampleSource *createFilter(unsigned int tracks);
 
     /**
      * Returns true if the parameters have changed during pre-listen.
@@ -60,11 +61,11 @@ public:
     /**
      * Update the filter with new parameters if it has changed
      * changed during the pre-listen.
-     * @param filter the ArtsMultiTrackFilter to be updated, should be the
+     * @param filter the Kwave::SampleSource to be updated, should be the
      *               same one as created with createFilter()
      * @param force if true, even update if no settings have changed
      */
-    virtual void updateFilter(ArtsMultiTrackFilter *filter, bool force=0);
+    virtual void updateFilter(Kwave::SampleSource *filter, bool force=0);
 
     /**
      * Returns a verbose name of the performed action. Used for giving
@@ -86,7 +87,6 @@ protected slots:
     void setFreqValue(double frequency);
 
     void setBwValue(double bw);
-
 
 private:
 

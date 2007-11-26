@@ -709,18 +709,14 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/noise/NoisePlugin.cpp			GPL2
 	plugins/noise/NoisePlugin.h			GPL2
 
-	plugins/notch_filter/c_filter_stuff.c		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
-	plugins/notch_filter/c_filter_stuff.h		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
 	plugins/notch_filter/CMakeLists.txt		GPL2
-	plugins/notch_filter/NotchFilter.cpp		GPL2 / Dave Flogeras
+	plugins/notch_filter/NotchFilter.cpp		GPL2 / Dave Flogeras / Juhana Sadeharju <kouhia@nic.funet.fi>
 	plugins/notch_filter/NotchFilterDialog.cpp	GPL2 / Dave Flogeras
 	plugins/notch_filter/NotchFilterDialog.h	GPL2 / Dave Flogeras
 	plugins/notch_filter/NotchFilterDlg.ui		(should be GPL2 / Dave Flogeras)
-	plugins/notch_filter/NotchFilter.h		GPL2 / Dave Flogeras>
-	plugins/notch_filter/NotchFilterPlugin.cpp	GPL2 / Dave Flogeras>
-	plugins/notch_filter/NotchFilterPlugin.h	GPL2 / Dave Flogeras>
-	plugins/notch_filter/synth_notch_filter.idl	GPL2 / Dave Flogeras>
-	plugins/notch_filter/synth_notch_filter_impl.h	GPL2 / Dave Flogeras>
+	plugins/notch_filter/NotchFilter.h		GPL2 / Dave Flogeras
+	plugins/notch_filter/NotchFilterPlugin.cpp	GPL2 / Dave Flogeras
+	plugins/notch_filter/NotchFilterPlugin.h	GPL2 / Dave Flogeras
 
 	plugins/pitch_shift/CMakeLists.txt		GPL2
 	plugins/pitch_shift/PitchShiftDialog.cpp	GPL2

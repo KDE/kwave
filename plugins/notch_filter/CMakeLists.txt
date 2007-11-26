@@ -16,7 +16,6 @@
 #############################################################################
 
 SET(plugin_notch_filter_LIB_SRCS
-    c_filter_stuff.c
     NotchFilter.cpp
     NotchFilterDialog.cpp
     NotchFilterPlugin.cpp
@@ -24,10 +23,6 @@ SET(plugin_notch_filter_LIB_SRCS
 
 SET(plugin_notch_filter_LIB_UI
     NotchFilterDlg.ui
-)
-
-KDE3_ADD_MCOP_IDL_FILES(plugin_notch_filter_LIB_SRCS
-    synth_notch_filter.idl
 )
 
 KWAVE_PLUGIN(notch_filter)

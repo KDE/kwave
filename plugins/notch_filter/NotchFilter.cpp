@@ -4,6 +4,9 @@
     begin                : Thu Jun 19 2003
     copyright            : (C) 2003 by Dave Flogeras
     email                : d.flogeras@unb.ca
+
+    filter functions:
+    Copyright (C) 1998 Juhana Sadeharju <kouhia@nic.funet.fi>
  ***************************************************************************/
 
 /***************************************************************************
@@ -23,9 +26,10 @@
 
 //***************************************************************************
 NotchFilter::NotchFilter()
-    :TransmissionFunction(), m_f_cutoff(M_PI)
+    :Kwave::SampleSource(0, "NotchFilter"), TransmissionFunction(),
+     m_buffer(blockSize()), m_f_cutoff(M_PI), m_f_bw(M_PI / 2)
 {
-    initfilter(&m_filter);
+    initFilter();
 }
 
 //***************************************************************************
@@ -33,6 +37,11 @@ NotchFilter::~NotchFilter()
 {
 }
 
+//***************************************************************************
+void NotchFilter::goOn()
+{
+    emit output(m_buffer);
+}
 
 //***************************************************************************
 double NotchFilter::at(double f)
@@ -72,15 +81,86 @@ double NotchFilter::at(double f)
 }
 
 //***************************************************************************
-void NotchFilter::setFrequency(double f, double bw)
+void NotchFilter::initFilter()
 {
-    m_f_cutoff = f;
-    m_f_bw = bw;
+    m_filter.x1 = 0.0;
+    m_filter.x2 = 0.0;
+    m_filter.y1 = 0.0;
+    m_filter.y2 = 0.0;
+    m_filter.y  = 0.0;
+}
 
-    initfilter(&m_filter);
-    setfilter_peaknotch2(&m_filter, m_f_cutoff, -100, m_f_bw);
+//***************************************************************************
+/*
+ * Some JAES's article on ladder filter.
+ * freq (Hz), gdb (dB), bw (Hz)
+ */
+void NotchFilter::setfilter_peaknotch2(double freq, double bw)
+{
+    const double gdb = -100;
+    double k, w, bwr, abw, gain;
 
-    emit changed();
+    k = pow(10.0, gdb / 20.0);
+    /* w   = 2.0 * PI * freq / (double)SR; */
+    /* bwr = 2.0 * PI * bw / (double)SR; */
+    w = freq;
+    bwr = bw;
+    abw = (1.0 - tan(bwr / 2.0)) / (1.0 + tan(bwr / 2.0));
+    gain = 0.5 * (1.0 + k + abw - k * abw);
+    m_filter.cx = 1.0 * gain;
+    m_filter.cx1 = gain * (-2.0 * cos(w) * (1.0 + abw)) /
+                   (1.0 + k + abw - k * abw);
+    m_filter.cx2 = gain * (abw + k * abw + 1.0 - k) /
+                   (abw - k * abw + 1.0 + k);
+    m_filter.cy1 = 2.0 * cos(w) / (1.0 + tan(bwr / 2.0));
+    m_filter.cy2 = -abw;
+}
+
+//***************************************************************************
+void NotchFilter::input(Kwave::SampleArray &data)
+{
+    setfilter_peaknotch2(m_f_cutoff, m_f_bw);
+
+    Q_ASSERT(data.count() == m_buffer.count());
+
+    for (unsigned i = 0; i < data.count(); i++)
+    {
+	// do the filtering
+	m_filter.x = sample2float(data[i]);
+	m_filter.y =
+	    m_filter.cx  * m_filter.x  +
+	    m_filter.cx1 * m_filter.x1 +
+	    m_filter.cx2 * m_filter.x2 +
+	    m_filter.cy1 * m_filter.y1 +
+	    m_filter.cy2 * m_filter.y2;
+	m_filter.x2 = m_filter.x1;
+	m_filter.x1 = m_filter.x;
+	m_filter.y2 = m_filter.y1;
+	m_filter.y1 = m_filter.y;
+	m_buffer[i] = float2sample(0.95 * m_filter.y);
+    }
+}
+
+//***************************************************************************
+void NotchFilter::setFrequency(const QVariant &fc)
+{
+    double new_freq = QVariant(fc).toDouble();
+    if (new_freq == m_f_cutoff) return; // nothing to do
+
+    m_f_cutoff = new_freq;
+    initFilter();
+    setfilter_peaknotch2(m_f_cutoff, m_f_bw);
+}
+
+//***************************************************************************
+void NotchFilter::setBandwidth(const QVariant &bw)
+{
+    double new_bw = QVariant(bw).toDouble();
+    if (new_bw == m_f_bw) return; // nothing to do
+
+    m_f_bw = new_bw;
+    initFilter();
+    setfilter_peaknotch2(m_f_cutoff, m_f_bw);
 }
 
 //***************************************************************************

@@ -17,24 +17,20 @@
 
 #include "config.h"
 #include <errno.h>
+#include <math.h>
 #include <qstringlist.h>
 #include <klocale.h>
-#include <arts/artsflow.h>
-#include <arts/connect.h>
-#include <arts/objectmanager.h>
-#include <arts/dynamicrequest.h>
 
-#include "libkwave/ArtsKwaveMultiTrackFilter.h"
-
+#include "libkwave/KwaveMultiTrackSource.h"
+#include "PitchShiftFilter.h"
 #include "PitchShiftPlugin.h"
 #include "PitchShiftDialog.h"
-#include "synth_pitch_shift_bugfixed_impl.h" // bugfix for the aRts plugin
 
 KWAVE_PLUGIN(PitchShiftPlugin,"pitch_shift","Thomas Eschenbacher");
 
 //***************************************************************************
 PitchShiftPlugin::PitchShiftPlugin(const PluginContext &context)
-    :KwaveFilterPlugin(context),
+    :Kwave::FilterPlugin(context),
      m_speed(1.0), m_frequency(5.0), m_percentage_mode(false),
      m_last_speed(0), m_last_freq(0)
 {
@@ -88,14 +84,9 @@ KwavePluginSetupDialog *PitchShiftPlugin::createDialog(QWidget *parent)
 }
 
 //***************************************************************************
-ArtsMultiTrackFilter *PitchShiftPlugin::createFilter(unsigned int tracks)
+Kwave::SampleSource *PitchShiftPlugin::createFilter(unsigned int tracks)
 {
-//  as long as the following original aRts module is buggy:
-//  ArtsNativeMultiTrackFilter pitch(tracks, "Arts::Synth_PITCH_SHIFT");
-
-//  we use our own copy instead:
-    return new ArtsKwaveMultiTrackFilter<Synth_PITCH_SHIFT_bugfixed,
-                              Synth_PITCH_SHIFT_bugfixed_impl>(tracks);
+    return new Kwave::MultiTrackSource<PitchShiftFilter, true>(tracks);
 }
 
 //***************************************************************************
@@ -105,16 +96,20 @@ bool PitchShiftPlugin::paramsChanged()
 }
 
 //***************************************************************************
-void PitchShiftPlugin::updateFilter(ArtsMultiTrackFilter *filter,
+void PitchShiftPlugin::updateFilter(Kwave::SampleSource *filter,
                                     bool force)
 {
+    double sr = signalRate();
+
     if (!filter) return;
 
     if ((m_frequency != m_last_freq) || force)
-	filter->setAttribute("frequency", m_frequency);
+	filter->setAttribute(SLOT(setFrequency(const QVariant &)),
+	    QVariant((m_frequency * 2.0 * M_PI) / sr));
 
     if ((m_speed != m_last_speed) || force)
-	filter->setAttribute("speed", m_speed);
+	filter->setAttribute(SLOT(setSpeed(const QVariant &)),
+	    QVariant(m_speed));
 
     m_last_freq  = m_frequency;
     m_last_speed = m_speed;
@@ -129,8 +124,8 @@ QString PitchShiftPlugin::actionName()
 //***************************************************************************
 void PitchShiftPlugin::setValues(double speed, double frequency)
 {
-    m_speed     = speed;
     m_frequency = frequency;
+    m_speed     = speed;
 }
 
 //***************************************************************************

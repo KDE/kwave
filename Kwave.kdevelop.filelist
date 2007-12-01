@@ -628,8 +628,6 @@ plugins/lowpass/LowPassFilter.cpp
 plugins/lowpass/LowPassFilter.h
 plugins/lowpass/LowPassPlugin.cpp
 plugins/lowpass/LowPassPlugin.h
-plugins/lowpass/c_filter_stuff.c
-plugins/lowpass/c_filter_stuff.h
 plugins/memory
 plugins/memory/CMakeLists.txt
 plugins/memory/MemDlg.ui
@@ -659,15 +657,13 @@ plugins/notch_filter/NotchFilterDialog.h
 plugins/notch_filter/NotchFilterDlg.ui
 plugins/notch_filter/NotchFilterPlugin.cpp
 plugins/notch_filter/NotchFilterPlugin.h
-plugins/notch_filter/c_filter_stuff.c
-plugins/notch_filter/c_filter_stuff.h
-plugins/notch_filter/synth_notch_filter.idl
-plugins/notch_filter/synth_notch_filter_impl.h
 plugins/pitch_shift
 plugins/pitch_shift/CMakeLists.txt
 plugins/pitch_shift/PitchShiftDialog.cpp
 plugins/pitch_shift/PitchShiftDialog.h
 plugins/pitch_shift/PitchShiftDlg.ui
+plugins/pitch_shift/PitchShiftFilter.cpp
+plugins/pitch_shift/PitchShiftFilter.h
 plugins/pitch_shift/PitchShiftPlugin.cpp
 plugins/pitch_shift/PitchShiftPlugin.h
 plugins/pitch_shift/synth_pitch_shift_bugfixed.idl

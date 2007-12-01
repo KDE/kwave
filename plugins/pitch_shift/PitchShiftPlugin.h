@@ -29,8 +29,9 @@
 
 class ArtsMultiTrackFilter;
 class QStringList;
+namespace Kwave { class KwaveSampleSource; }
 
-class PitchShiftPlugin: public KwaveFilterPlugin
+class PitchShiftPlugin: public Kwave::FilterPlugin
 {
     Q_OBJECT
 
@@ -50,7 +51,7 @@ public:
      * @param tracks number of tracks that the filter should have
      * @return pointer to the filter or null if failed
      */
-    virtual ArtsMultiTrackFilter *createFilter(unsigned int tracks);
+    virtual Kwave::SampleSource *createFilter(unsigned int tracks);
 
     /**
      * Returns true if the parameters have changed during pre-listen.
@@ -60,17 +61,22 @@ public:
     /**
      * Update the filter with new parameters if it has changed
      * changed during the pre-listen.
-     * @param filter the ArtsMultiTrackFilter to be updated, should be the
+     * @param filter the Kwave::SampleSource to be updated, should be the
      *               same one as created with createFilter()
      * @param force if true, even update if no settings have changed
      */
-    virtual void updateFilter(ArtsMultiTrackFilter *filter, bool force=0);
+    virtual void updateFilter(Kwave::SampleSource *filter, bool force=0);
 
     /**
      * Returns a verbose name of the performed action. Used for giving
      * the undo action a readable name.
      */
     virtual QString actionName();
+
+protected:
+
+    /** Reads values from the parameter list */
+    int interpreteParameters(QStringList &params);
 
 protected slots:
 
@@ -81,23 +87,21 @@ protected slots:
      */
     void setValues(double speed, double frequency);
 
-protected:
-
-    /** Reads values from the parameter list */
-    int interpreteParameters(QStringList &params);
-
 private:
 
     /** speed factor */
     double m_speed;
 
-    /** base frequency, @see aRts documentation */
+    /** base frequency */
     double m_frequency;
 
     /** mode for selecting speed (factor or percentage) */
     bool m_percentage_mode;
 
+    /** last value of m_speed */
     double m_last_speed;
+
+    /** last value of m_frequency */
     double m_last_freq;
 };
 

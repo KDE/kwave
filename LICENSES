@@ -721,11 +721,11 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/pitch_shift/CMakeLists.txt		GPL2
 	plugins/pitch_shift/PitchShiftDialog.cpp	GPL2
 	plugins/pitch_shift/PitchShiftDialog.h		GPL2
+	plugins/pitch_shift/PitchShiftFilter.cpp	GPL2 / Jeff Tranter + Stefan Westerfeld
+	plugins/pitch_shift/PitchShiftFilter.h		GPL2
 	plugins/pitch_shift/PitchShiftDlg.ui		(should be GPL2)
 	plugins/pitch_shift/PitchShiftPlugin.cpp	GPL2
 	plugins/pitch_shift/PitchShiftPlugin.h		GPL2
-	plugins/pitch_shift/synth_pitch_shift_bugfixed.idl	GPL2 / Stefan Westerfeld + Matthias Kretz + Arnold Krille
-	plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h	GPL2 / Stefan Westerfeld + Jeff Tranter
 
 	plugins/playback/CMakeLists.txt			GPL2
 	plugins/playback/PlayBack-ALSA.cpp		GPL2 / (parts from) Jaroslav Kysela

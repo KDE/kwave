@@ -86,6 +86,10 @@ protected slots:
      */
     void setFreqValue(double frequency);
 
+    /**
+     * set a new bandwidth
+     * @bw bandwidth [Hz]
+     */
     void setBwValue(double bw);
 
 private:

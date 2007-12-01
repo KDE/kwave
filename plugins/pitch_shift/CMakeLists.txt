@@ -17,15 +17,12 @@
 
 SET(plugin_pitch_shift_LIB_SRCS
     PitchShiftDialog.cpp
+    PitchShiftFilter.cpp
     PitchShiftPlugin.cpp
 )
 
 SET(plugin_pitch_shift_LIB_UI
     PitchShiftDlg.ui
-)
-
-KDE3_ADD_MCOP_IDL_FILES(plugin_pitch_shift_LIB_SRCS
-    synth_pitch_shift_bugfixed.idl
 )
 
 KWAVE_PLUGIN(pitch_shift)

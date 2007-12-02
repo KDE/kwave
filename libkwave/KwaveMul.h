@@ -23,6 +23,8 @@
 #include "libkwave/KwaveSampleSource.h"
 #include "libkwave/KwaveSampleSink.h"
 
+class QVariant;
+
 namespace Kwave {
 
     class Mul: public Kwave::SampleSource
@@ -50,7 +52,14 @@ namespace Kwave {
 	    /** receives input data for input B */
 	    void input_b(Kwave::SampleArray &data);
 
+	    /** sets input A to a constant value (as float) */
+	    void set_a(const QVariant &a);
+
+	    /** sets input B to a constant value (as float) */
+	    void set_b(const QVariant &b);
+
 	private:
+
 	    /** buffer for input A */
 	    Kwave::SampleArray m_buffer_a;
 
@@ -65,6 +74,19 @@ namespace Kwave {
 
 	    /** number of calls to input_b */
 	    unsigned int m_count_b;
+
+	    /** if true, input A is a constant */
+	    bool m_a_is_const;
+
+	    /** if true, input B is a constant */
+	    bool m_b_is_const;
+
+	    /** if m_a_is_const is set, the value of A */
+	    float m_value_a;
+
+	    /** if m_b_is_const is set, the value of B */
+	    float m_value_b;
+
     };
 }
 

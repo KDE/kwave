@@ -63,6 +63,8 @@ QString PlayBackArts::open(const QString &, double rate,
     qDebug("PlayBackArts::open(rate=%f,channels=%u,"\
 	  "bits=%u, bufbase=%u)", rate, channels,
 	  bits, bufbase);
+    if ((channels < 1) || (rate < 1))
+	return i18n("invalid playback parameters");
 
     m_rate        = rate;
     m_channels    = channels;
@@ -118,6 +120,11 @@ int PlayBackArts::write(QMemArray<sample_t> &samples)
 	return -EIO;
     }
     Q_ASSERT(samples.count() == m_channels);
+    if (samples.count() != m_channels) {
+	qDebug("PlayBackArts::write samples.count()=%d but m_channels=%d",
+	    samples.count(), m_channels);
+	return -EINVAL;
+    }
 
     // convert into byte stream
     unsigned int channel;

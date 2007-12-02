@@ -405,8 +405,10 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
     if (!playback_params) {
 	// use default parameters if none given
 	params          = m_playback_params;
-	params.rate     = fileInfo().rate();
-	params.channels = selectedTracks().count();
+	if (!signalManager().isClosed() && !signalManager().isEmpty()) {
+	    params.rate     = fileInfo().rate();
+	    params.channels = selectedTracks().count();
+	}
     } else {
 	// use given parameters
 	params = *playback_params;

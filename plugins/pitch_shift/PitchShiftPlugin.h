@@ -27,7 +27,6 @@
 #include "libkwave/KwaveFilterPlugin.h"
 #include "libkwave/KwavePlugin.h"
 
-class ArtsMultiTrackFilter;
 class QStringList;
 namespace Kwave { class KwaveSampleSource; }
 

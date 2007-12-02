@@ -28,7 +28,6 @@
  */
 typedef enum {
     RECORD_NONE = 0, /**< none selected */
-    RECORD_ARTS,     /**< aRts sound daemon */
     RECORD_OSS,      /**< OSS native or ALSA OSS emulation */
     RECORD_ALSA,     /**< ALSA native */
     RECORD_JACK,     /**< Jack sound daemon */

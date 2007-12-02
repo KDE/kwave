@@ -486,25 +486,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
     updateMenu();
     updateRecentFiles();
 
-#ifdef HAVE_ARTS_SUPPORT
-    // check if the aRts dispatcher is functional. if not, we better
-    // should exit now, as most of the plugins would not work
-    if (!m_plugin_manager->artsDispatcher()) {
-	qWarning("no aRts dispatcher found -> exit !!!");
-	KMessageBox::error(this, i18n(
-	    "<b>Sorry, but since version 0.6.2 you need a running "\
-	    "aRts sound server for using kwave.</b><br>"\
-	    "You can setup aRts through the KDE control panel. "\
-	    "For more information, please refer to "\
-	    "the documentation shipped with KDE or "\
-	    "<a href=http://www.arts-project.org>"\
-	    "http://www.arts-project.org</a>."
-	));
-	qApp->exit();
-	return;
-    }
-#endif /* HAVE_ARTS_SUPPORT */
-
     // now we are initialized, load all plugins now
     statusBar()->message(i18n("Loading plugins..."));
     m_plugin_manager->loadAllPlugins();
@@ -542,11 +523,7 @@ bool TopWidget::isOK()
     Q_ASSERT(m_zoomselect);
 
     return ( m_menu_manager && m_main_widget &&
-	m_plugin_manager && m_toolbar && m_zoomselect
-#ifdef HAVE_ARTS_SUPPORT
-	&& (m_plugin_manager->artsDispatcher())
-#endif /* HAVE_ARTS_SUPPORT */
-    );
+	m_plugin_manager && m_toolbar && m_zoomselect);
 }
 
 //***************************************************************************

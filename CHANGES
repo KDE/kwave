@@ -1,8 +1,8 @@
 
 0.8.0 [2007-11-??]
 
- * started new internal streaming architecture, based on Qt instead of aRts
- * aRts can now be configured away
+ * new internal streaming architecture, based on Qt instead of aRts
+ * aRts support is now disabled per default
  * some minor bugfixes for x86_64 support
 
 0.7.10 [2007-08-08]

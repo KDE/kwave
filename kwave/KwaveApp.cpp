@@ -24,11 +24,14 @@
 
 #include <kcmdlineargs.h>
 #include <kconfig.h>
+
+#ifdef HAVE_ARTS_SUPPORT
 #include <kcrash.h>
 #include <kglobal.h>
 #include <kstandarddirs.h>
-
+#include <arts/artsflow.h>
 #include <artsc/artsc.h> // for arts_init()
+#endif /* HAVE_ARTS_SUPPORT */
 
 #include "libkwave/Parser.h"
 

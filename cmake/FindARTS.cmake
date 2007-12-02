@@ -19,7 +19,7 @@
 #  For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 #
 
-OPTION(WITH_ARTS "use aRts for internal streaming [defalt=on]" ON)
+OPTION(WITH_ARTS "use aRts for internal streaming [default=off]" OFF)
 
 IF (WITH_ARTS)
     IF (ARTS_CFLAGS AND ARTS_LDLFAGS AND ARTSC_INCLUDE_DIR AND ARTS_INCLUDE_DIR)

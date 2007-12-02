@@ -32,13 +32,13 @@ SET(KWAVE_LINGUAS
 
 # OPTION(DEBUG     "build debug code [default=off]" OFF)
 # OPTION(WITH_ALSA "enable playback/recording via ALSA [default=on]" ON)
+# OPTION(WITH_ARTS "use aRts for internal streaming [default=off]" OFF)
 # OPTION(WITH_BUILTIN_LIBAUDIOFILE "use builtin libaudiofile [default=off]")
 # OPTION(WITH_DOC "build online documentation [default=on]" ON)
 # OPTION(WITH_FLAC "enable support for FLAC files [default=on]" ON)
 # OPTION(WITH_MP3 "enable support for mp3 files [default=on]" ON)
 # OPTION(WITH_OGG "enable support for ogg files [default=on]" ON)
 # OPTION(WITH_OSS "enable playback/recording via OSS [default=on]" ON)
-# OPTION(WITH_ARTS "use aRts for internal streaming [defalt=on]" ON)
 
 #############################################################################
 ### toplevel build targets:                                               ###

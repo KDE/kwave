@@ -62,7 +62,7 @@ private:
     QStringList m_params;
 
     /** amplification factor */
-    double m_factor;
+    float m_factor;
 
     /** mode for amplification selection */
     int m_mode;

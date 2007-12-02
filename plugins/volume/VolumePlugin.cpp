@@ -21,12 +21,12 @@
 #include <qstringlist.h>
 #include <klocale.h>
 
+#include "libkwave/KwaveConnect.h"
+#include "libkwave/KwaveMul.h"
+#include "libkwave/MultiTrackReader.h"
+#include "libkwave/MultiTrackWriter.h"
+#include "libkwave/KwaveMultiTrackSource.h"
 #include "libkwave/Parser.h"
-
-#include "libkwave/ArtsMultiTrackSink.h"
-#include "libkwave/ArtsMultiTrackSource.h"
-#include "libkwave/ArtsKwaveMultiTrackFilter.h"
-#include "libkwave/ArtsNativeMultiTrackFilter.h"
 
 #include "kwave/PluginManager.h"
 #include "kwave/UndoTransactionGuard.h"
@@ -106,59 +106,42 @@ void VolumePlugin::run(QStringList params)
 {
     unsigned int first, last;
 
-    Arts::Dispatcher *dispatcher = manager().artsDispatcher();
-    dispatcher->lock();
-    Q_ASSERT(dispatcher);
-    if (!dispatcher) close();
-
     UndoTransactionGuard undo_guard(*this, i18n("volume"));
     m_stop = false;
 
     interpreteParameters(params);
+    selection(&first, &last, true);
+    unsigned int tracks = selectedTracks().count();
 
-    /*unsigned int input_length =*/ selection(&first, &last, true);
+    // create all objects
     MultiTrackReader source(signalManager(), selectedTracks(), first, last);
     MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
 	first, last);
-
-    // create all objects
-    ArtsMultiTrackSource arts_source(source);
-
-    unsigned int tracks = selectedTracks().count();
-    ArtsNativeMultiTrackFilter mul(tracks, "Arts::Synth_MUL");
-    ArtsNativeMultiTrackFilter lim(tracks, "Arts::Synth_BRICKWALL_LIMITER");
-    ArtsMultiTrackSink   arts_sink(sink);
+    Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks, this, "Volume");
 
     // connect them
-    mul.setValue("invalue1", m_factor);
-    mul.connectInput(arts_source,   "source",   "invalue2");
-    if (m_factor > 1) {
-	// maybe we need a limiter, use a simple brickwall limiter
-	mul.connectOutput(lim,          "invalue",  "outvalue");
-	lim.connectOutput(arts_sink,    "sink",     "outvalue");
-    } else {
-	// in case of lower volume we never need to clip
-	mul.connectOutput(arts_sink,    "sink",     "outvalue");
+    bool ok = true;
+    if (ok) ok = Kwave::connect(
+	source, SIGNAL(output(Kwave::SampleArray &)),
+	mul,    SLOT(input_a(Kwave::SampleArray &)));
+    mul.setAttribute(SLOT(set_b(const QVariant &)),
+                     QVariant(m_factor));
+    if (ok) ok = Kwave::connect(
+	mul,    SIGNAL(output(Kwave::SampleArray &)),
+	sink,   SLOT(input(Kwave::SampleArray &)));
+    Q_ASSERT(ok);
+    if (!ok) {
+	close();
+	return;
     }
-
-    // start all
-    arts_source.start();
-    lim.start();
-    mul.start();
-    arts_sink.start();
 
     // transport the samples
-    while (!m_stop && !(arts_source.done())) {
-	arts_sink.goOn();
+    qDebug("VolumePlugin: filter started...");
+    while (!m_stop && !source.done()) {
+	source.goOn();
+	mul.goOn();
     }
-
-    // shutdown
-    lim.stop();
-    mul.stop();
-    arts_sink.stop();
-    arts_source.stop();
-
-    dispatcher->unlock();
+    qDebug("VolumePlugin: filter done.");
 
     close();
 }

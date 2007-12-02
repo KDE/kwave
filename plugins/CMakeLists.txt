@@ -56,10 +56,6 @@ ENDMACRO(KWAVE_PLUGIN)
 
 #############################################################################
 
-IF(HAVE_ARTS_SUPPORT)
-#     ADD_SUBDIRECTORY( volume )      # needs brickwall limiter
-ENDIF(HAVE_ARTS_SUPPORT)
-
 ADD_SUBDIRECTORY( about )
 ADD_SUBDIRECTORY( amplifyfree )
 ADD_SUBDIRECTORY( band_pass )
@@ -81,6 +77,7 @@ ADD_SUBDIRECTORY( record )          # needs OSS, ALSA and/or aRts
 ADD_SUBDIRECTORY( saveblocks )
 ADD_SUBDIRECTORY( selectrange )
 ADD_SUBDIRECTORY( sonagram )        # needs libgsl >= 1.3
+ADD_SUBDIRECTORY( volume )
 ADD_SUBDIRECTORY( zero )
 
 #############################################################################

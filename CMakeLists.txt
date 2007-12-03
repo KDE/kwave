@@ -59,7 +59,6 @@ SET(KWAVE_LINGUAS
 ### check for the proper cmake version                                    ###
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.4.4 FATAL_ERROR)
-# set(CMAKE_SKIP_BUILD_RPATH OFF)
 
 #############################################################################
 ### path to additional cmake modules and includes                         ###
@@ -141,6 +140,15 @@ INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
 )
+
+#############################################################################
+### RPATH settings                                                        ###
+SET(CMAKE_SKIP_BUILD_RPATH TRUE)
+SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+SET(CMAKE_INSTALL_RPATH "${KDE3_LIBDIR}")
+SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+SET(CMAKE_SKIP_BUILD_RPATH OFF)
+MESSAGE(STATUS "Using ${CMAKE_INSTALL_RPATH} as install RPATH")
 
 #############################################################################
 ### checks for big/little endian                                          ###

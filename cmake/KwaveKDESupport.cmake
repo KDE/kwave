@@ -62,6 +62,15 @@ EXECUTE_PROCESS(
 #############################################################################
 EXECUTE_PROCESS(
     COMMAND
+        ${KDECONFIG_EXECUTABLE} --expandvars --install lib
+    OUTPUT_VARIABLE
+        KDE3_LIBDIR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+#############################################################################
+EXECUTE_PROCESS(
+    COMMAND
         ${KDECONFIG_EXECUTABLE} --expandvars --install icon
     OUTPUT_VARIABLE
         KDE3_ICONDIR

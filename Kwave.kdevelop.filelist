@@ -666,8 +666,6 @@ plugins/pitch_shift/PitchShiftFilter.cpp
 plugins/pitch_shift/PitchShiftFilter.h
 plugins/pitch_shift/PitchShiftPlugin.cpp
 plugins/pitch_shift/PitchShiftPlugin.h
-plugins/pitch_shift/synth_pitch_shift_bugfixed.idl
-plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h
 plugins/playback
 plugins/playback/CMakeLists.txt
 plugins/playback/PlayBack-ALSA.cpp

@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2007-09-29</date>
+<date>2007-12-02</date>
 <releaseinfo>0.7.10</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -200,6 +200,23 @@
 	 helper scripts -->
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
+        <listitem>
+            <para>0.7.11 [2007-12-06]</para>
+            <itemizedlist>
+                <listitem><para>
+                    new internal streaming architecture, based on Qt instead of aRts
+                </para></listitem>
+                <listitem><para>
+                    aRts support is now disabled per default
+                </para></listitem>
+                <listitem><para>
+                    some minor bugfixes for x86_64 support
+                </para></listitem>
+                <listitem><para>
+                    band pass plugin
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
         <listitem>
             <para>0.7.10 [2007-08-08]</para>
             <itemizedlist>

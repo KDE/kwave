@@ -23,23 +23,20 @@ RDEPEND="kde-base/arts
 DEPEND="${RDEPEND}
 	>=dev-util/cmake-2.4.6
 	|| ( kde-base/kdesdk-misc kde-base/kdesdk )
-	|| ( kde-base/kdemultimedia-arts kde-base/kdemultimedia )
 	app-text/recode
 	media-gfx/imagemagick"
+if use arts ; then
+	DEPEND="${DEPEND}
+	|| ( kde-base/kdemultimedia-arts kde-base/kdemultimedia )"
+fi
 need-kde 3.4
-
-pkg_setup() {
-	if ! built_with_use kdelibs arts ; then
-		eerror "KWave needs aRts, please rebuild kdelibs with arts use flag enabled."
-		die
-	fi
-}
 
 src_compile() {
 	use mmx && append-flags "-mmmx"
 
 	myconf+=" -DWITH_BUILTIN_LIBAUDIOFILE=OFF"
 	use alsa  || myconf+=" -DWITH_ALSA=OFF"
+	use arts  && myconf+=" -DWITH_ARTS=ON"
 	use doc   || myconf+=" -DWITH_DOC=OFF"
 	use flac  || myconf+=" -DWITH_FLAC=OFF"
 	use mp3   || myconf+=" -DWITH_MP3=OFF"

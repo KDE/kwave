@@ -31,7 +31,7 @@
 <legalnotice>&FDLNotice;</legalnotice>
 
 <date>2007-12-09</date>
-<releaseinfo>0.7.10</releaseinfo>
+<releaseinfo>0.7.11</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
 
@@ -1907,12 +1907,12 @@
 
     <para>
 	For example, assuming that your sources are already
-	unpacked in <filename><replaceable>$HOME/src/kwave-0.7.10</replaceable></filename>, you
+	unpacked in <filename><replaceable>$HOME/src/kwave-0.7.11</replaceable></filename>, you
 	can do the following:
 <screen width="40" format="linespecific">
 <prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
 <prompt>% </prompt><command>cd /tmp/kwave-build</command>
-<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave-0.7.10</replaceable> <replaceable>[build options]</replaceable></command>
+<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave-0.7.11</replaceable> <replaceable>[build options]</replaceable></command>
 <prompt>% </prompt><command>make</command>
 <prompt>% </prompt><command>su root -c "make install"</command>
 </screen>
@@ -2266,7 +2266,7 @@
 	<filename>/opt/kde3</filename>). Then just
         give a different prefix when installing the rpm. Example:
 <screen width="40" format="linespecific">
-<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde3 <replaceable>kwave-0.7.10.i586.rpm</replaceable></command>
+<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde3 <replaceable>kwave-0.7.11.i586.rpm</replaceable></command>
 </screen>
     </para>
 

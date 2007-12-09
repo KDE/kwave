@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2007-12-02</date>
+<date>2007-12-09</date>
 <releaseinfo>0.7.10</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -201,7 +201,7 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.7.11 [2007-12-06]</para>
+            <para>0.7.11 [2007-12-09]</para>
             <itemizedlist>
                 <listitem><para>
                     new internal streaming architecture, based on Qt instead of aRts
@@ -1939,6 +1939,12 @@
 		    enable playback/recording via ALSA
 		    [<literal>on</literal>/<literal>off</literal>,
 		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_ARTS</literal>
+		    enable playback via aRts
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>off</literal>]
 		</para></listitem>
 		<listitem><para>
 		    <literal>WITH_BUILTIN_LIBAUDIOFILE</literal>

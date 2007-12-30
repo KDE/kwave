@@ -19,15 +19,23 @@
 #define _CODEC_BASE_H_
 
 #include "config.h"
-#include <qptrlist.h>
-#include <qstring.h>
+#include <QList>
+#include <QString>
+#include <QStringList>
 
 class KMimeType;
-class KURL;
+class KUrl;
 
 class CodecBase
 {
 public:
+
+    /** simplified mime type: contains only name and list of patterns */
+    typedef struct  {
+	QString name;
+	QString description;
+	QStringList patterns;
+    } MimeType;
 
     /** Constructor */
     CodecBase();
@@ -42,7 +50,7 @@ public:
     virtual bool supports(const QString &mimetype_name);
 
     /** Returns a list of supported mime types */
-    virtual const QPtrList<KMimeType> &mimeTypes();
+    virtual const QList<CodecBase::MimeType> mimeTypes();
 
     /**
      * Adds a new mime type to the internal list of supported mime
@@ -62,14 +70,15 @@ public:
     /**
      * Tries to find the name of a mime type by a URL. If not found, it
      * returns the default mime type, never an empty string.
-     * @param url a KURL, only the filename's extension will be inspected
+     * @param url a KUrl, only the filename's extension will be inspected
      * @return name of the mime type or the default mime type
      */
-    virtual QString whatContains(const KURL &url);
+    virtual QString whatContains(const KUrl &url);
 
 private:
+
     /** list of supported mime types */
-    QPtrList<KMimeType> m_supported_mime_types;
+    QList<MimeType> m_supported_mime_types;
 
 };
 

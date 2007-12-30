@@ -15,25 +15,24 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <dlfcn.h>
 
-#include <qlabel.h>
-#include <qframe.h>
-#include <qscrollview.h>
-#include <qsizepolicy.h>
-#include <qstring.h>
-#include <qtextview.h>
-#include <qlistview.h>
-#include <qhbox.h>
-#include <qvbox.h>
+#include <QList>
+#include <QListIterator>
+#include <QHBoxLayout>
+#include <QString>
+#include <QTextEdit>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
+#include <QVBoxLayout>
 
-#include <kaboutdialog.h>
-#include <kapp.h>
+#include <kaboutdata.h>
+#include <kapplication.h>
 #include <kglobal.h>
 #include <klocale.h>
 #include <kurllabel.h>
-#include <klistview.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 
 #include "AboutKwaveDialog.h"
 #include "KwaveAboutContainer.h"
@@ -41,95 +40,106 @@
 
 //***************************************************************************
 AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
-    :KwaveAboutDialogBase(parent,"kwaveabout",true)
+    :QDialog(parent), Ui::KwaveAboutDialogBase()
 {
+    setupUi(this);
 
     /* get the about data defined in main() */
-    const KAboutData *about_data = KGlobal::instance()->aboutData();
+    const KAboutData *about_data = KGlobal::mainComponent().aboutData();
 
     /* display version information in the header */
     QString kde_version = QString::fromLatin1(KDE_VERSION_STRING);
     QString kwave_version = about_data->programName()+
-        " "+about_data->version();
+        " " + about_data->version() + " ";
     QString header_text = "<h2>"+kwave_version+
-        i18n(" (Using KDE %1)").arg(kde_version)+"</h2>";
+        i18n("(built for KDE %1)", kde_version)+"</h2>";
     header->setText(header_text);
 
     /* the frame containing the developer information */
-    QVBox *author_layout = new QVBox(authorframe->viewport());
-    authorframe->addChild(author_layout);
-    KAboutContainer *about = new KwaveAboutContainer(author_layout);
-
-    QValueList<KAboutPerson>::ConstIterator it;
-    for (it = about_data->authors().begin();
-        it != about_data->authors().end();++it)
-    {
-        about->addPerson((*it).name(),(*it).emailAddress(),
-        (*it).webAddress(),(*it).task());
+    KwaveAboutContainer *about = new KwaveAboutContainer(authorframe);
+    authorframe->setWidget(about);
+    QList<KAboutPerson> authors(about_data->authors());
+    QListIterator<KAboutPerson> it_a(authors);
+    while (it_a.hasNext()) {
+	KAboutPerson author = it_a.next();
+	about->addPerson(author.name(), author.emailAddress(),
+	    author.webAddress(), author.task());
     }
-    authorframe->setResizePolicy(QScrollView::AutoOneFit);
+    authorframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     /* the frame containing the thanks to ... */
-    QHBox *thanks_layout = new QHBox(thanksframe->viewport());
-    thanksframe->addChild(thanks_layout);
-    KAboutContainer* contrib = new KwaveAboutContainer(thanks_layout);
-
-    for (it = about_data->credits().begin();
-        it != about_data->credits().end(); ++it)
-    {
-        contrib->addPerson((*it).name(),(*it).emailAddress(),
-            (*it).webAddress(),(*it).task());
+    KwaveAboutContainer *contrib = new KwaveAboutContainer(thanksframe);
+    thanksframe->setWidget(contrib);
+    QList<KAboutPerson> credits(about_data->credits());
+    QListIterator<KAboutPerson> it_c(credits);
+    while (it_c.hasNext()) {
+	KAboutPerson credit = it_c.next();
+	contrib->addPerson(credit.name(), credit.emailAddress(),
+	    credit.webAddress(), credit.task());
     }
-    thanksframe->setResizePolicy(QScrollView::AutoOneFit);
+    thanksframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     /* the frame containing the plugins info */
-    QHBox *pluginsinfo_layout = new QHBox(pluginsinfoframe->viewport());
-    pluginsinfoframe->addChild(pluginsinfo_layout);
-    KListView *pluginsinfo = new KListView(pluginsinfo_layout);
+    QTreeWidget *pluginsinfo = new QTreeWidget(pluginsinfoframe);
+    QVBoxLayout *plugins_layout = new QVBoxLayout(pluginsinfoframe);
+    plugins_layout->addWidget(pluginsinfo);
+    pluginsinfoframe->setLayout(plugins_layout);
 
-    pluginsinfo->setSelectionMode (QListView::Single);
-    pluginsinfo->addColumn( i18n("name") );
-    pluginsinfo->addColumn( i18n("version") );
-    pluginsinfo->addColumn( i18n("authors") );
+    pluginsinfo->setColumnCount(3);
+    pluginsinfo->setSizePolicy(QSizePolicy::MinimumExpanding,
+                               QSizePolicy::Expanding);
+    pluginsinfo->setSelectionMode(QAbstractItemView::NoSelection);
+    QStringList headers;
+    headers << i18n("name") << i18n("version") << i18n("authors");
+    pluginsinfo->setHeaderLabels(headers);
     pluginsinfo->setAllColumnsShowFocus( false );
-    pluginsinfo->setShowSortIndicator (false);
-    pluginsinfo->setSorting (0);
+    pluginsinfo->setItemsExpandable(false);
+    pluginsinfo->setRootIsDecorated(false);
 
-    QStringList files = KGlobal::dirs()->findAllResources(
-        "data", "kwave/plugins/*", false, true);
+    KStandardDirs dirs;
+    QStringList files = dirs.findAllResources("module",
+	    "plugins/kwave/*", KStandardDirs::NoDuplicates);
+
+    /* fallback: search also in the old location (useful for developers) */
+    files += dirs.findAllResources("data",
+	    "kwave/plugins/*", KStandardDirs::NoDuplicates);
+
     QStringList::Iterator it_file;
+    QList<QTreeWidgetItem *> plugins;
     for (it_file=files.begin(); it_file != files.end(); ++it_file) {
 	QString file = *it_file;
-	void *handle = dlopen(file, RTLD_NOW);
+	void *handle = dlopen(file.toLocal8Bit(), RTLD_NOW);
+	if (handle) {
+	    const char **name    = (const char **)dlsym(handle, "name");
+	    const char **version = (const char **)dlsym(handle, "version");
+	    const char **author  = (const char **)dlsym(handle, "author");
 
-        if (handle) {
-	     const char **name    = (const char **)dlsym(handle, "name");
-	     const char **version = (const char **)dlsym(handle, "version");
-	     const char **author  = (const char **)dlsym(handle, "author");
+	    // skip it if something is missing or null
+	    if (!name || !version || !author) continue;
+	    if (!*name || !*version || !*author) continue;
 
-	     // skip it if something is missing or null
-	     if (!name || !version || !author) continue;
-	     if (!*name || !*version || !*author) continue;
+	    QStringList item;
+	    item << i18n(*name) << *version << *author;
+	    plugins.append(new QTreeWidgetItem((QTreeWidget *)0, item));
 
-	     QListViewItem *plugins_item;
-	     plugins_item = new QListViewItem(pluginsinfo, i18n(*name),
-	         *version, *author);
-	     dlclose (handle);
+	    dlclose (handle);
         }
     }
+    pluginsinfo->insertTopLevelItems(0, plugins);
 
-    QString num_plugins;
-    num_plugins.setNum(pluginsinfo->childCount());
+    QString num_plugins = i18n("Plugins found: %1", plugins.count());
     pluginsnumval->setText(num_plugins);
-    pluginsinfoframe->setResizePolicy(QScrollView::AutoOneFit);
+    pluginsinfoframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     /* set the url of the kwave homepage */
-    kwave_url_label->setText(about_data->homepage());
-    kwave_url_label->setURL(about_data->homepage());
-    connect(kwave_url_label, SIGNAL(leftClickedURL(const QString &)),
-            about, SLOT(openURL(const QString &)));
+    kwave_url_label->setText("<a href=\"" +
+	about_data->homepage() + "\">" +
+	about_data->homepage() + "</a>");
+    kwave_url_label->setOpenExternalLinks(true);
+    kwave_url_label->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
 
     /* the frame containing the license */
+    licenseframe->setReadOnly(true);
     licenseframe->setText(about_data->license());
 }
 

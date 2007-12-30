@@ -27,6 +27,8 @@ INCLUDE_DIRECTORIES(
 # suppress all libaudiofile warnings, we know that it is not good :-(
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -w")
 
+ADD_DEFINITIONS( -DHAVE_CONFIG_H )
+
 #############################################################################
 
 SET(libaudiofile_STAT_SRCS

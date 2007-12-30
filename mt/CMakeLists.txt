@@ -17,28 +17,18 @@
 
 #############################################################################
 
-INCLUDE_DIRECTORIES(
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_BINARY_DIR}
-    ${KDE3_INCLUDE_DIR}
-    ${QT_INCLUDE_DIR}
-)
-
 #############################################################################
 
 SET(libkwavemt_STAT_SRCS
-    AsyncSync.cpp
-    SharedLock.cpp
-    SharedLockGuard.cpp
     Thread.cpp
-    ThreadsafeX11Guard.cpp
 )
 
 #############################################################################
 
-KDE3_AUTOMOC(${libkwavemt_STAT_SRCS})
-ADD_LIBRARY(libkwavemt STATIC ${libkwavemt_STAT_SRCS})
+QT4_AUTOMOC(${libkwavemt_STAT_SRCS})
+KDE4_ADD_LIBRARY(libkwavemt STATIC ${libkwavemt_STAT_SRCS})
 SET_TARGET_PROPERTIES(libkwavemt PROPERTIES OUTPUT_NAME "kwavemt")
+SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
 #############################################################################
 #############################################################################

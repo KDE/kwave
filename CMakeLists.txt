@@ -32,7 +32,6 @@ SET(KWAVE_LINGUAS
 
 # OPTION(DEBUG     "build debug code [default=off]" OFF)
 # OPTION(WITH_ALSA "enable playback/recording via ALSA [default=on]" ON)
-# OPTION(WITH_ARTS "use aRts for internal streaming [default=off]" OFF)
 # OPTION(WITH_BUILTIN_LIBAUDIOFILE "use builtin libaudiofile [default=off]")
 # OPTION(WITH_DOC "build online documentation [default=on]" ON)
 # OPTION(WITH_FLAC "enable support for FLAC files [default=on]" ON)
@@ -105,7 +104,6 @@ INCLUDE(CheckIncludeFiles)
 INCLUDE(CheckCCompilerFlag)
 INCLUDE(CheckCXXCompilerFlag)
 INCLUDE(CheckTypeSize)
-INCLUDE(TestBigEndian)
 
 #############################################################################
 
@@ -130,33 +128,62 @@ LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libgui)
 LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libkwave)
 
 #############################################################################
+### Qt 4 support                                                          ###
+
+SET(QT_USE_QT3SUPPORT ON)
+SET(QT_USE_QTUITOOLS ON)
+SET(QT_USE_QTCORE ON)
+SET(QT_DONTUSE_QTGUI OFF)
+SET(QT_USE_QTMAIN ON)
+
+INCLUDE(FindQt4)
+ADD_DEFINITIONS(${QT_DEFINITIONS} -DQT3_SUPPORT -DQT3_SUPPORT_WARNINGS)
+MESSAGE(STATUS "Found Qt4 libraries in ${QT_LIBRARY_DIR}")
+MESSAGE(STATUS "Found Qt4 header files in ${QT_INCLUDE_DIR}")
+
+#############################################################################
 ### KDE 3 support                                                         ###
 
-INCLUDE(KwaveKDESupport)
+SET(KDE4_ENABLE_FPIE ON)
+
+FIND_PROGRAM(KDECONFIG_EXECUTABLE kde4-config)
+FIND_PACKAGE(KDE4 REQUIRED)
+IF(WIN32)
+  FIND_PACKAGE(KDEWIN32 REQUIRED)
+ENDIF(WIN32)
+INCLUDE(KDE4Defaults)
+ADD_DEFINITIONS(${KDE4_DEFINITIONS})
+
+SET(QT_AND_KDECORE_LIBS
+    ${QT_QT3SUPPORT_LIBRARY}
+    ${QT_QTGUI_LIBRARY}
+    ${QT_LIBRARIES}
+    ${KDE4_KDECORE_LIBS}
+    ${KDE4_KDEUI_LIBRARY}
+    ${KDE4_KIO_LIBRARY}
+    ${KDE4_KDE3SUPPORT_LIBRARY}
+)
 
 INCLUDE_DIRECTORIES(
-    ${KDE3_INCLUDE_DIR}
+    ${KDE4_INCLUDE_DIR}
     ${QT_INCLUDE_DIR}
+    ${QT_QT3SUPPORT_INCLUDE_DIR}
+    ${QT_QT_INCLUDE_DIR}
+    ${QT_QTCORE_INCLUDE_DIR}
+    ${QT_QTGUI_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 #############################################################################
 ### RPATH settings                                                        ###
+
 SET(CMAKE_SKIP_BUILD_RPATH TRUE)
 SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
-SET(CMAKE_INSTALL_RPATH "${KDE3_LIBDIR}")
+SET(CMAKE_INSTALL_RPATH "${LIB_INSTALL_DIR}")
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 SET(CMAKE_SKIP_BUILD_RPATH OFF)
 MESSAGE(STATUS "Using ${CMAKE_INSTALL_RPATH} as install RPATH")
-
-#############################################################################
-### checks for big/little endian                                          ###
-
-TEST_BIG_ENDIAN(ENDIANESS_BIG)
-IF (NOT ENDIANESS_BIG)
-SET(ENDIANESS_LITTLE 1)
-ENDIF(NOT ENDIANESS_BIG)
 
 #############################################################################
 ### checks for needed header files                                        ###
@@ -229,8 +256,6 @@ INCLUDE(KwaveALSASupport)
 
 FIND_PACKAGE(RequiredProgram REQUIRED)
 FIND_PACKAGE(Gettext REQUIRED)
-INCLUDE(FindARTS)
-INCLUDE(MCOP)
 
 #############################################################################
 ### flags for debugging                                                   ###
@@ -250,17 +275,17 @@ ADD_SUBDIRECTORY( libgui )
 ADD_SUBDIRECTORY( libkwave )
 ADD_SUBDIRECTORY( kwave )
 ADD_SUBDIRECTORY( plugins )
-ADD_SUBDIRECTORY( po )
+# ADD_SUBDIRECTORY( po )
 
-OPTION(WITH_DOC "build online documentation [default=on]" ON)
-IF (WITH_DOC)
-    ADD_SUBDIRECTORY( doc )
-ENDIF (WITH_DOC)
+# OPTION(WITH_DOC "build online documentation [default=on]" ON)
+# IF (WITH_DOC)
+#     ADD_SUBDIRECTORY( doc )
+# ENDIF (WITH_DOC)
 
 #############################################################################
 ### target package-messages                                               ###
 
-INCLUDE(KwavePackageMessages)
+# INCLUDE(KwavePackageMessages)
 
 #############################################################################
 ### RPM support                                                           ###
@@ -277,15 +302,15 @@ CONFIGURE_FILE(
 #############################################################################
 ### Gentoo support                                                        ###
 
-INCLUDE(KwaveEbuild)
+# INCLUDE(KwaveEbuild)
 
 #############################################################################
 ### install files                                                         ###
 
-INSTALL(
-    FILES AUTHORS TODO CHANGES README
-    DESTINATION ${KDE3_DOCDIR}/kwave-${KWAVE_VERSION_FULL}
-)
+# INSTALL(
+#     FILES AUTHORS TODO CHANGES README
+#     DESTINATION ${KDE3_DOCDIR}/kwave-${KWAVE_VERSION_FULL}
+# )
 
 #############################################################################
 ### uninstall support                                                     ###
@@ -298,10 +323,10 @@ CONFIGURE_FILE(
     @ONLY
 )
 
-ADD_CUSTOM_TARGET(uninstall
-    EXTRA_UNINSTALL_FILES="$ENV{EXTRA_UNINSTALL_FILES}"
-    ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
-)
+# ADD_CUSTOM_TARGET(uninstall
+#     EXTRA_UNINSTALL_FILES="$ENV{EXTRA_UNINSTALL_FILES}"
+#     ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
+# )
 
 #############################################################################
 ### "make version-labels"                                                 ###

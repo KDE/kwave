@@ -43,8 +43,6 @@ cat > $2 << EOF_HEADER
 
 #include <klocale.h> // (for i18n macro)
 
-static void dummy(const char * /*string_to_be_internationalized */) { }
-
 void __menusconfig_2_cpp_internationalize_all()
 {
 EOF_HEADER
@@ -76,7 +74,7 @@ cat $1 | awk ' \
     | \
    sort | \
    uniq |
-   awk '{print("    dummy(i18n(\"" $0 "\"));") }' \
+   awk '{print("    i18n(\"" $0 "\");") }' \
    >> $2
 
 cat >> $2 << EOF_FOOT

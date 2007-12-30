@@ -20,8 +20,9 @@
 
 #include "config.h"
 #include <pthread.h>       // for POSIX threads, included in libc > 2.0
-#include <qmutex.h>
-#include <qobject.h>
+
+#include <QMutex>
+#include <QObject>
 
 class Thread : public QObject
 {

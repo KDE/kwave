@@ -44,6 +44,7 @@
 #include <qmutex.h>
 #include <signal.h>
 #include <sys/time.h>
+#include <stdio.h>
 
 #include "mt/Thread.h"
 
@@ -219,7 +220,11 @@ bool Thread::shouldStop()
 //***************************************************************************
 bool Thread::running()
 {
-    return m_thread_running.locked();
+    if (m_thread_running.tryLock()) {
+	m_thread_running.unlock();
+	return true;
+    }
+    return false;
 }
 
 //***************************************************************************

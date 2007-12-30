@@ -19,8 +19,11 @@
 #define _ABOUT_KWAVE_DIALOG_H_
 
 #include "config.h"
-#include <qobject.h>
-#include "KwaveAboutDialogBase.h"
+
+#include <QObject>
+#include <QDialog>
+
+#include "ui_KwaveAboutDialogBase.h"
 
 class QWidget;
 
@@ -28,7 +31,8 @@ class QWidget;
  * @class AboutKwaveDialog
  * Dialog for Help/About
  */
-class AboutKwaveDialog : public KwaveAboutDialogBase
+class AboutKwaveDialog: public QDialog,
+                        public Ui::KwaveAboutDialogBase
 {
     Q_OBJECT
 

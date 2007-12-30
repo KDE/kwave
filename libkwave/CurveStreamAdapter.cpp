@@ -19,8 +19,8 @@
 
 /***************************************************************************/
 Kwave::CurveStreamAdapter::CurveStreamAdapter(Curve &curve,
-    unsigned int length)
-    :Kwave::SampleSource(0,0),
+                                              unsigned int length)
+    :Kwave::SampleSource(),
      m_position(0), m_length(length),
      m_interpolation(curve.interpolation()),
      m_buffer(blockSize())

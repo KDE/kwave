@@ -19,15 +19,12 @@
 #define _DECODER_H_
 
 #include "config.h"
-#include <qptrlist.h>
-#include <qobject.h>
+
+#include <QObject>
 
 #include "libkwave/CodecBase.h"
 #include "libkwave/FileInfo.h"
 
-class FileInfo;
-class KMimeType;
-class KURL;
 class MultiTrackWriter;
 class QIODevice;
 class QWidget;
@@ -40,7 +37,7 @@ public:
     Decoder();
 
     /** Destructor */
-    virtual ~Decoder() {};
+    virtual ~Decoder();
 
     /** Returns a new instance of the decoder */
     virtual Decoder *instance() = 0;

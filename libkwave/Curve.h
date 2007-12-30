@@ -19,21 +19,32 @@
 #define _CURVE_H_
 
 #include "config.h"
-#include <qmemarray.h>
-#include <qobject.h>
-#include <qstring.h>
+
+#include <QList>
+#include <QListIterator>
+#include <QMutableListIterator>
+#include <QObject>
+#include <QPointF>
+#include <QString>
+#include <QtGlobal>
 
 #include "Interpolation.h"
 
-class Curve: public QObject
+class Curve: public QList<QPointF>
 {
 public:
-    /** specialized point class with double precision */
-    class Point {
-    public:
-        double x;
-        double y;
-    };
+
+    /** Iterator */
+    typedef QListIterator<QPointF> ConstIterator;
+
+    /** Iterator */
+    typedef QMutableListIterator<QPointF> Iterator;
+
+    /** class used for the points */
+    typedef QPointF Point;
+
+    /** used for the "invalid" point */
+    static QPointF NoPoint;
 
     /**
      * Default constructor, creates an empty curve.
@@ -44,7 +55,7 @@ public:
      * Constructor, creates a curve from a command string.
      * @param command string with parameters
      */
-    Curve (const QString &command);
+    Curve(const QString &command);
 
     /** Destructor */
     virtual ~Curve();
@@ -61,7 +72,7 @@ public:
      * @param p point to be deleted
      * @param check if true, the last or first point will not be deleted
      */
-    void deletePoint(Point *p, bool check);
+    void deletePoint(Point p, bool check);
 
     /**
      * Deletes every second point.
@@ -91,7 +102,7 @@ public:
      * @param x coordinate on the x axis, should be [0...+1.0]
      * @param y coordinate on the y axis, should be [0...+1.0]
      */
-    void insert(double x, double y);
+    void insert(qreal x, qreal y);
 
     /**
      * Searches for a point at given coordinates with a definable
@@ -99,47 +110,9 @@ public:
      * @param x coordinate on the x axis
      * @param y coordinate on the y axis
      * @param tol tolerance for x and y direction, absolute value
-     * @return pointer to the found point or null if nothing found.
+     * @return pointer to the found point or "NoPoint" if nothing found.
      */
-    Point *findPoint(double x, double y, double tol = .05);
-
-    /**
-     * Returns the first point of the curve or
-     * null if the curve is empty.
-     */
-    Point *first();
-
-    /**
-     * Returns the number of points in the curve.
-     */
-    unsigned int count();
-
-    /**
-     * Returns the point at a given index.
-     * @param x index wthin the curve [0...count-1].
-     */
-    Point *at(int x);
-
-    /**
-     * Returns the last point of the curve or
-     * null if the curve is empty.
-     */
-    Point *last();
-
-    /**
-     * Returns a point before a given point or null if the
-     * given point was the first one.
-     * @param act the point after the one we look for
-     */
-    Point *previous(Point *act);
-
-    /**
-     * Returns a point after a given point or null if the
-     * given point was the first one.
-     * @param p the point before the one we look for
-     */
-    Point *next(Point *p);
-
+    Point findPoint(qreal x, qreal y, qreal tol = .05);
 
     /**
      * Sets a curve from a command string. Opposite of getCommand().
@@ -175,21 +148,14 @@ public:
      * @return Array of interpolated values or null if the
      *         number of points was zero or the curve was empty.
      */
-    QMemArray<double> interpolation(unsigned int points);
+    QVector<qreal> interpolation(unsigned int points);
 
 protected:
-    /**
-     * Creates a new point and appends it to the end of the curve.
-     * @param x coordinate on the x axis, should be [0...+1.0]
-     * @param y coordinate on the y axis, should be [0...+1.0]
-     * @note this could break sorting if used from outside this class
-     */
-    void append(double x, double y);
+
+    /** sorts the list by ascending x coordinate */
+    void sort();
 
 private:
-
-    /** list of points, sorted by x coordinates */
-    QPtrList<Point> m_points;
 
     /** interpolation object */
     Interpolation m_interpolation;

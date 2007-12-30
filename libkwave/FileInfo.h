@@ -19,9 +19,12 @@
 #define _FILE_INFO_H_
 
 #include "config.h"
-#include <qmap.h>
-#include <qstring.h>
-#include <qvariant.h>
+
+#include <QMap>
+#include <QString>
+#include <QVariant>
+#include <QList>
+
 #include "libkwave/TypesMap.h"
 #include "libkwave/LabelList.h"
 
@@ -169,7 +172,7 @@ public:
      * @param key identifies the property
      * @return value of the property or empty if not found
      */
-    const QVariant &get(FileProperty key) const;
+    QVariant get(FileProperty key) const;
 
     /**
      * Returns true if a property is only internal.
@@ -202,7 +205,7 @@ public:
     };
 
     /** Returns a list of all known non-standard properties */
-    QValueList<FileProperty> allKnownProperties();
+    QList<FileProperty> allKnownProperties();
 
     /** Clears the list of all properties. */
     void clear();
@@ -240,7 +243,7 @@ private:
 	virtual void fill();
 
 	/** returns a list of all properties */
-	virtual QValueList<FileProperty> all();
+	virtual QList<FileProperty> all();
     };
 
     /** map with properties and their names and descriptions */

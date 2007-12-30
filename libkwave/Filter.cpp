@@ -15,25 +15,23 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <stdlib.h>
+#include "config.h"
 
-#include <qfile.h>
-#include <qstring.h>
-#include <qtextstream.h>
-
-#include <kurl.h>
+#include <QFile>
+#include <QString>
+#include <QTextStream>
 
 #include "Filter.h"
 #include "Parser.h"
 
 //***************************************************************************
 Filter::Filter(const QString &command)
-:m_fir(true), m_rate(0), m_coeff(), m_delay()
+    :m_fir(true), m_rate(0), m_coeff(), m_delay()
 {
-    Parser parse (command);
+    Parser parse(command);
 
     m_rate = parse.toInt();
-    m_fir = (parse.nextParam().lower() == "fir");
+    m_fir = (parse.nextParam().toLower() == "fir");
     resize(parse.toInt());
 
     for (unsigned int i = 0; i < count(); i++) {
@@ -44,7 +42,7 @@ Filter::Filter(const QString &command)
 
 //***************************************************************************
 Filter::Filter(int rate)
-:m_fir(true), m_rate(rate), m_coeff(), m_delay()
+    :m_fir(true), m_rate(rate), m_coeff(), m_delay()
 {
 }
 
@@ -81,13 +79,11 @@ unsigned int Filter::resize(unsigned int newnum)
     if (newnum == oldnum) return oldnum; // nothing to do
 
     // resize both arrays
-    if (!(m_delay.resize(newnum)) && (m_coeff.resize(newnum))) {
-	// restore previous state if one of them failed
-	qDebug("Filter::resize(%d) failed.", newnum);
-	m_delay.resize(oldnum);
-	m_coeff.resize(newnum);
-	return oldnum;
-    }
+    m_delay.resize(newnum);
+    m_coeff.resize(newnum);
+    Q_ASSERT(m_delay.size() >= static_cast<int>(newnum));
+    Q_ASSERT(m_coeff.size() >= static_cast<int>(newnum));
+    Q_ASSERT(m_delay.size() == m_coeff.size());
 
     // initialize the new entries
     while (oldnum < newnum) {
@@ -107,30 +103,30 @@ unsigned int Filter::count()
 }
 
 //***************************************************************************
-double Filter::coeff(unsigned int index)
+qreal Filter::coeff(unsigned int index)
 {
-    Q_ASSERT(index < m_coeff.count());
+    Q_ASSERT(static_cast<int>(index) < m_coeff.count());
     return m_coeff[index];
 }
 
 //***************************************************************************
-void Filter::setCoeff(unsigned int index, double newval)
+void Filter::setCoeff(unsigned int index, qreal newval)
 {
-    Q_ASSERT(index < m_coeff.count());
+    Q_ASSERT(static_cast<int>(index) < m_coeff.count());
     m_coeff[index] = newval;
 }
 
 //***************************************************************************
 unsigned int Filter::delay(unsigned int index)
 {
-    Q_ASSERT(index < m_delay.count());
+    Q_ASSERT(static_cast<int>(index) < m_delay.count());
     return m_delay[index];
 }
 
 //***************************************************************************
 void Filter::setDelay(unsigned int index, unsigned int newval)
 {
-    Q_ASSERT(index < m_delay.count());
+    Q_ASSERT(static_cast<int>(index) < m_delay.count());
     m_delay[index] = newval;
 }
 
@@ -141,12 +137,12 @@ void Filter::save(const QString &filename)
     Q_ASSERT(name.length());
     if (!name.length()) return;
 
-    if (name.findRev(".filter") != static_cast<int>(name.length()-7)){
+    if (name.lastIndexOf(".filter") != static_cast<int>(name.length()-7)){
 	name.append(".filter");
     }
 
     QFile file(name);
-    file.open(IO_WriteOnly);
+    file.open(QIODevice::WriteOnly);
     QTextStream out(&file);
 
     out << ((m_fir) ? "FIR " : "IIR ") << count() << endl;
@@ -166,12 +162,12 @@ void Filter::load(const QString &filename)
     unsigned int linenr = 0;
 
     QFile file(filename);
-    file.open(IO_ReadOnly);
+    file.open(QIODevice::ReadOnly);
     QTextStream in(&file);
 
     // type of the filter (FIR/IIR)
     while (!in.atEnd()) {
-	line = in.readLine().simplifyWhiteSpace();
+	line = in.readLine().simplified();
 	linenr++;
 
 	if (line.isEmpty() || line.isNull()) continue;
@@ -190,13 +186,13 @@ void Filter::load(const QString &filename)
     // read delays and coefficients
     i = 0;
     while (!in.atEnd()) {
-	line = in.readLine().simplifyWhiteSpace();
+	line = in.readLine().simplified();
 	linenr++;
 
 	if (line.isEmpty() || line.isNull()) continue;
 	if ((line[0] == '#') || (line[0] == '/')) continue;
 
-	int spacepos = line.find(' ');
+	int spacepos = line.indexOf(' ');
 	ok = true;
 	if (ok) m_delay[i] = line.left(spacepos).toUInt(&ok);
 	line.remove(0, spacepos);
@@ -206,7 +202,7 @@ void Filter::load(const QString &filename)
 	    i++;
 	} else {
 	    qDebug("Filter::load(%s): syntax error in line %d",
-		filename.local8Bit().data(), linenr);
+		filename.toLocal8Bit().data(), linenr);
 	}
     }
 }

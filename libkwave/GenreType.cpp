@@ -15,6 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <klocale.h>
 #include "GenreType.h"
 
@@ -52,7 +53,7 @@ int GenreType::id(const QString &name)
     fill();
     QMap<int, QString>::Iterator it;
     for (it=m_map.begin(); it != m_map.end(); ++it) {
-	if (it.data() == name) return it.key();
+	if (it.value() == name) return it.key();
     }
     return -1;
 }
@@ -153,7 +154,7 @@ void GenreType::fill()
 	    i18n("Musical"),
 	    i18n("Rock & Roll"),
 	    i18n("Hard Rock"),
-	
+
 	    // The following genres are Winamp extensions
 	    i18n("Folk"),
 	    i18n("Folk-Rock"),
@@ -207,11 +208,11 @@ void GenreType::fill()
 #undef i18n
 
 	for (unsigned int i=0; i < sizeof(map)/sizeof(map[0]); ++i)
-	    m_map.insert(i, i18n(map[i]));      
+	    m_map.insert(i, i18n(map[i]));
 
 	m_map.insert(     -1, i18n("Unknown"));
     }
-    
+
 }
 
 //***************************************************************************

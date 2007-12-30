@@ -2,7 +2,7 @@
             Encoder.cpp  -  abstract base class of all encoders
 			     -------------------
     begin                : May 08 2007
-    copyright            : (C) 20027 by Thomas Eschenbacher
+    copyright            : (C) 2007 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
  ***************************************************************************/
 

@@ -19,8 +19,8 @@
 #define _FILE_FORMAT_H_
 
 #include "config.h"
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QString>
+#include <QStringList>
 
 /**
  * @class FileFormat
@@ -50,6 +50,7 @@ public:
     QStringList extensions();
 
 private:
+
     /** name of the mime type */
     QString m_mime_type;
 

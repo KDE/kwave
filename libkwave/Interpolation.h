@@ -31,8 +31,9 @@ typedef enum {
 
 interpolation_t &operator ++(interpolation_t &i);
 
-#include <qmemarray.h>
-#include <qstringlist.h>
+#include <QString>
+#include <QStringList>
+#include <QVector>
 
 #include "libkwave/TypesMap.h"
 
@@ -50,16 +51,16 @@ public:
     /** Destructor. */
     virtual ~Interpolation();
 
-    bool prepareInterpolation(Curve *points);
+    bool prepareInterpolation(const Curve &points);
 
-    QMemArray<double> interpolation(Curve *points, unsigned int len);
+    QVector<qreal> interpolation(const Curve &points, unsigned int len);
 
-    QMemArray<double> limitedInterpolation(Curve *points, unsigned int len);
+    QVector<qreal> limitedInterpolation(const Curve &points, unsigned int len);
 
     /**
      * Returns a single point of the interpolation.
      */
-    double singleInterpolation(double pos);
+    qreal singleInterpolation(qreal pos);
 
     /**
      * Same as getSingleInterpolation, but return value
@@ -68,7 +69,7 @@ public:
      * @param pos ???
      * @return interpolated value [0...1]
      */
-    double singleLimitedInterpolation(double pos);
+    qreal singleLimitedInterpolation(qreal pos);
 
     /**
      * Returns the if of a type through it's name.
@@ -133,8 +134,9 @@ private:
      * @param x receives all x coordinates ???
      * @param y receives all y coordinates ???
      */
-    void createFullPolynom(Curve *points, const QMemArray<double> &x,
-	const QMemArray<double> &y);
+    void createFullPolynom(const Curve &points,
+                           QVector<qreal> &x,
+                           QVector<qreal> &y);
 
     /**
      * ???
@@ -143,9 +145,9 @@ private:
      * @param ab array for return values
      * @param n ???
      */
-    void get2Derivate(const QMemArray<double> &x,
-                      const QMemArray<double> &y,
-                      QMemArray<double> &ab, unsigned int n);
+    void get2Derivate(const QVector<qreal> &x,
+                      const QVector<qreal> &y,
+                      QVector<qreal> &ab, unsigned int n);
 
     /**
      * ???
@@ -155,23 +157,24 @@ private:
      * @param pos ???
      * @param degree ???
      */
-    void createPolynom (Curve *points, QMemArray<double> &x,
-                        QMemArray<double> &y,
+    void createPolynom (const Curve &points,
+                        QVector<qreal> &x,
+                        QVector<qreal> &y,
                         int pos, unsigned int degree);
 
 private:
 
     /**  List of points to be interpolated. */
-    Curve *m_curve;
+    const Curve *m_curve;
 
     /** ??? used for temporary purposes */
-    QMemArray<double> m_x;
+    QVector<qreal> m_x;
 
     /** ??? used for temporary purposes */
-    QMemArray<double> m_y;
+    QVector<qreal> m_y;
 
     /** ??? used for temporary purposes */
-    QMemArray<double> m_der;
+    QVector<qreal> m_der;
 
     /** Map with type and name of interpolations */
     static InterpolationMap m_interpolation_map;

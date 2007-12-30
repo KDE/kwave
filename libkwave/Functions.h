@@ -19,15 +19,9 @@
 #define _FUNCTIONS_H_
 
 #include "config.h"
-#include <math.h>
 
-#include <qptrlist.h>
-#include <qstringlist.h>
-#include <qmap.h>
-
+#include <QString>
 #include "libkwave/TypesMap.h"
-
-typedef double(periodic_function_t)(double);
 
 /**
  * @class Functions
@@ -40,6 +34,9 @@ typedef double(periodic_function_t)(double);
 class Functions
 {
 public:
+
+    typedef double(periodic_function_t)(double);
+
     /** Constructor */
     Functions();
 
@@ -66,7 +63,7 @@ public:
 private:
 
     class FunctionTypesMap:
-	public TypesMap<unsigned int, periodic_function_t* >
+	public TypesMap< unsigned int, periodic_function_t* >
     {
 	public:
 	/** fills the types map */

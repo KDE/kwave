@@ -19,49 +19,42 @@
 #define _KWAVE_MULTI_TRACK_SINK_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qptrvector.h>
+#include <QObject>
+#include <QVector>
 
 #include "libkwave/KwaveSampleSink.h"
 
 namespace Kwave {
     template <class SINK>
     class MultiTrackSink: public Kwave::SampleSink,
-                          private QPtrVector<SINK>
+                          private QVector<SINK *>
     {
     public:
 	/**
 	 * Constructor
 	 *
 	 * @param parent a parent object, passed to QObject (optional)
-	 * @param name a free name, for identifying this object,
-	 *             will be passed to the QObject (optional)
 	 */
-	MultiTrackSink(unsigned int tracks,
-		       QObject *parent = 0,
-		       const char *name = 0)
-	    :Kwave::SampleSink(parent, name),
-	    QPtrVector<SINK>()
+	MultiTrackSink(unsigned int tracks, QObject *parent = 0)
+	    :Kwave::SampleSink(parent),
+	    QVector<SINK *>(tracks)
 	{
-	    QPtrVector<SINK>::setAutoDelete(true);
-	    QPtrVector<SINK>::resize(tracks);
-	    Q_ASSERT(QPtrVector<SINK>::size() == tracks);
+	    QVector<SINK *>::fill(static_cast<SINK *>(0));
+	    Q_ASSERT(QVector<SINK *>::size() == static_cast<int>(tracks));
 	};
 
 	/** Destructor */
 	virtual ~MultiTrackSink()
 	{
-	    QPtrVector<SINK>::setAutoDelete(true);
-	    QPtrVector<SINK>::clear();
+	    clear();
 	};
 
 	/** Returns true when all sinks are done */
 	virtual bool done()
 	{
-	    for (unsigned int track=0; track < tracks(); ++track) {
-		Kwave::SampleSink *s = (*this)[track];
+	    foreach (Kwave::SampleSink *s,
+		     static_cast< QVector<SINK *> >(*this))
 		if (s && !s->done()) return false;
-	    }
 	    return true;
 	};
 
@@ -71,7 +64,7 @@ namespace Kwave {
 	 */
 	virtual unsigned int tracks() const
 	{
-	    return QPtrVector<SINK>::size();
+	    return QVector<SINK *>::size();
 	};
 
 	/**
@@ -80,7 +73,7 @@ namespace Kwave {
 	 * it returns "this" for the first index and 0 for all others
 	 */
 	inline virtual SINK *at(unsigned int track) const {
-	    return QPtrVector<SINK>::at(track);
+	    return QVector<SINK *>::at(track);
 	};
 
 	/** @see the Kwave::MultiTrackSink.at()... */
@@ -95,13 +88,19 @@ namespace Kwave {
 	 * @param sink pointer to a Kwave::SampleSink
 	 * @return true if successful, false if failed
 	 */
-	inline virtual bool insert(unsigned int track, SINK *sink) {
-	    return QPtrVector<SINK>::insert(track, sink);
+	virtual bool insert(unsigned int track, SINK *sink) {
+	    QVector<SINK *>::insert(track, sink);
+	    return (at(track) == sink);
 	};
 
 	/** Remove all tracks / sinks */
-	inline virtual void clear() {
-	    QPtrVector<SINK>::clear();
+	virtual void clear() {
+	    while (!QVector<SINK *>::isEmpty()) {
+		Kwave::SampleSink *s = at(0);
+		if (s) delete s;
+		QVector<SINK *>::remove(0);
+	    }
+	    QVector<SINK *>::clear();
 	};
     };
 }

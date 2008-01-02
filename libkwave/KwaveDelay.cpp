@@ -16,14 +16,13 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <string.h>
+#include <QString>
 
 #include "libkwave/KwaveDelay.h"
 
 //***************************************************************************
 Kwave::Delay::Delay()
-    :Kwave::SampleSource(0, "Kwave::Delay"),
-    m_fifo(), m_out_buffer(blockSize()), m_delay(0)
+    :Kwave::SampleSource(), m_fifo(), m_out_buffer(blockSize()), m_delay(0)
 {
 }
 

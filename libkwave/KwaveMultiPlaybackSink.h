@@ -20,9 +20,8 @@
 
 #include "config.h"
 
-#include <qbitarray.h>
-#include <qmemarray.h>
-#include <qptrvector.h>
+#include <QBitArray>
+#include <QVector>
 
 #include "libkwave/KwaveMultiTrackSink.h"
 #include "libkwave/KwavePlaybackSink.h"
@@ -62,7 +61,7 @@ namespace Kwave {
 	PlayBackDevice *m_device;
 
 	/** list of input buffers */
-	QPtrVector< Kwave::SampleArray > m_in_buffer;
+	QVector< Kwave::SampleArray *> m_in_buffer;
 
 	/** "filled"-flags for input buffers */
 	QBitArray m_in_buffer_filled;

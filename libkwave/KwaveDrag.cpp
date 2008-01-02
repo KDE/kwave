@@ -17,7 +17,8 @@
 
 #include "config.h"
 
-#include <qbuffer.h>
+#include <QBuffer>
+#include <QMimeSource>
 
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
@@ -35,8 +36,8 @@
 #define WAVE_FORMAT_PCM "audio/vnd.wave" // ; codec=001"
 
 //***************************************************************************
-KwaveDrag::KwaveDrag(QWidget *dragSource, const char *name)
-    :QDragObject(dragSource, name), m_data()
+KwaveDrag::KwaveDrag(QWidget *dragSource)
+    :QDrag(dragSource), m_data()
 {
 }
 
@@ -59,12 +60,12 @@ const char *KwaveDrag::format(int i) const
 QByteArray KwaveDrag::encodedData(const char *format) const
 {
     qDebug("KwaveDrag::encodedData(%s)", format);
-    if (QCString(WAVE_FORMAT_PCM) == QCString(format)) return m_data;
+    if (QString(WAVE_FORMAT_PCM) == QString(format)) return m_data;
     return QByteArray();
 }
 
 //***************************************************************************
-bool KwaveDrag::canDecode(const QMimeSource* e)
+bool KwaveDrag::canDecode(const QMimeSource *e)
 {
     if (!e) return false;
     for (int i=0; e->format(i); ++i) {
@@ -88,7 +89,7 @@ bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src, FileInfo &info)
 
     // create a buffer for the wav data
     m_data.resize(0);
-    QBuffer dst(m_data);
+    QBuffer dst(&m_data);
 
     // encode into the buffer
     encoder->encode(widget, src, dst, info);
@@ -113,7 +114,8 @@ unsigned int KwaveDrag::decode(QWidget *widget, const QMimeSource *e,
 
     for (i=0; (format = e->format(i)); ++i) {
 	if (CodecManager::canDecode(format)) {
-	    QBuffer src(e->encodedData(format));
+	    QByteArray raw_data = e->encodedData(format);
+	    QBuffer src(&raw_data);
 
 	    // open the mime source and get header information
 	    bool ok = decoder->open(widget, src);

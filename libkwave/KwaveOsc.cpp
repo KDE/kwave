@@ -21,7 +21,7 @@
 
 //***************************************************************************
 Kwave::Osc::Osc()
-    :Kwave::SampleSource(0, "Kwave::Osc"),
+    :Kwave::SampleSource(),
     m_buffer(blockSize()), m_omega_t(0.0), m_f(44.1), m_a(1.0)
 {
 }
@@ -35,12 +35,12 @@ Kwave::Osc::~Osc()
 void Kwave::Osc::goOn()
 {
     unsigned int samples = m_buffer.size();
-    const double two_pi = 2.0 * M_PI;
+    const qreal two_pi = 2.0 * M_PI;
 
     Q_ASSERT(m_f != 0);
     if (m_f == 0) return;
 
-    double omega = two_pi / m_f;
+    qreal omega = two_pi / m_f;
     for (unsigned int sample = 0; sample < samples; sample++) {
 	// calculate one sample as sin(w * t)
 	m_buffer[sample] = double2sample(m_a * sin(m_omega_t));
@@ -59,19 +59,19 @@ void Kwave::Osc::goOn()
 //***************************************************************************
 void Kwave::Osc::setFrequency(const QVariant &f)
 {
-    m_f = QVariant(f).asDouble();
+    m_f = QVariant(f).toDouble();
 }
 
 //***************************************************************************
 void Kwave::Osc::setPhase(const QVariant &p)
 {
-    m_omega_t = QVariant(p).asDouble();
+    m_omega_t = QVariant(p).toDouble();
 }
 
 //***************************************************************************
 void Kwave::Osc::setAmplitude(const QVariant &a)
 {
-    m_a = QVariant(a).asDouble();
+    m_a = QVariant(a).toDouble();
 }
 
 //***************************************************************************

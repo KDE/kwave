@@ -19,8 +19,8 @@
 #define _KWAVE_MULTI_TRACK_SOURCE_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qptrvector.h>
+#include <QObject>
+#include <QVector>
 
 #include "libkwave/KwaveSampleSource.h"
 
@@ -32,7 +32,7 @@ namespace Kwave {
      */
     template <class SOURCE, bool INITIALIZE>
     class MultiTrackSource: public Kwave::SampleSource,
-	                    private QPtrVector<SOURCE>
+	                    private QVector<SOURCE *>
     {
     public:
 	/**
@@ -43,25 +43,19 @@ namespace Kwave {
 	 *
 	 * @param tracks number of tracks
 	 * @param parent a parent object, passed to QObject (optional)
-	 * @param name a free name, for identifying this object,
-	 *             will be passed to the QObject (optional)
 	 */
 	MultiTrackSource(unsigned int tracks,
-	                 QObject *parent=0,
-	                 const char *name=0)
-	    :Kwave::SampleSource(parent, name),
-	     QPtrVector<SOURCE>()
+	                 QObject *parent=0)
+	    :Kwave::SampleSource(parent),
+	     QVector<SOURCE *>(tracks)
         {
-	    QPtrVector<SOURCE>::setAutoDelete(true);
-	    QPtrVector<SOURCE>::resize(tracks);
-	    Q_ASSERT(QPtrVector<SOURCE>::size() == tracks);
+	    Q_ASSERT(QVector<SOURCE *>::size() == static_cast<int>(tracks));
 	};
 
 	/** Destructor */
 	virtual ~MultiTrackSource()
 	{
-	    QPtrVector<SOURCE>::setAutoDelete(true);
-	    QPtrVector<SOURCE>::clear();
+	    clear();
 	};
 
 	/**
@@ -70,22 +64,15 @@ namespace Kwave {
 	 */
 	virtual void goOn()
 	{
-	    const unsigned int tracks = QPtrVector<SOURCE>::size();
-	    for (unsigned int i=0; i < tracks; i++)
-	    {
-		SOURCE *src = QPtrVector<SOURCE>::at(i);
-		Q_ASSERT(src);
+	    foreach (SOURCE *src, static_cast< QVector<SOURCE *> >(*this))
 		if (src) src->goOn();
-	    }
 	};
 
 	/** Returns true when all sources are done */
 	virtual bool done()
 	{
-	    for (unsigned int track=0; track < tracks(); ++track) {
-		Kwave::SampleSource *s = (*this)[track];
-		if (s && !s->done()) return false;
-	    }
+	    foreach (SOURCE *src, static_cast< QVector<SOURCE *> >(*this))
+		if (src && !src->done()) return false;
 	    return true;
 	};
 
@@ -95,7 +82,7 @@ namespace Kwave {
 	 */
 	virtual unsigned int tracks() const
 	{
-	    return QPtrVector<SOURCE>::size();
+	    return QVector<SOURCE *>::size();
 	};
 
 	/**
@@ -104,7 +91,7 @@ namespace Kwave {
 	 * it returns "this" for the first index and 0 for all others
 	 */
 	inline virtual SOURCE *at(unsigned int track) const {
-	    return QPtrVector<SOURCE>::at(track);
+	    return QVector<SOURCE *>::at(track);
 	};
 
 	/** @see the Kwave::MultiTrackSource.at()... */
@@ -120,12 +107,18 @@ namespace Kwave {
 	 * @return true if successful, false if failed
 	 */
 	inline virtual bool insert(unsigned int track, SOURCE *source) {
-	    return QPtrVector<SOURCE>::insert(track, source);
+	    QVector<SOURCE *>::insert(track, source);
+	    return (at(track) == source);
 	};
 
 	/** Remove all tracks / sources */
 	inline virtual void clear() {
-	    QPtrVector<SOURCE>::clear();
+	    while (!QVector<SOURCE *>::isEmpty()) {
+		SOURCE *s = at(0);
+		if (s) delete s;
+		QVector<SOURCE *>::remove(0);
+	    }
+	    QVector<SOURCE *>::clear();
 	};
 
     };
@@ -144,13 +137,10 @@ namespace Kwave {
 	 *
 	 * @param tracks number of tracks
 	 * @param parent a parent object, passed to QObject (optional)
-	 * @param name a free name, for identifying this object,
-	 *             will be passed to the QObject (optional)
 	 */
 	MultiTrackSource(unsigned int tracks,
-	                 QObject *parent = 0,
-	                 const char *name = 0)
-	    :Kwave::MultiTrackSource<SOURCE, false>(tracks, parent, name)
+	                 QObject *parent = 0)
+	    :Kwave::MultiTrackSource<SOURCE, false>(tracks, parent)
 	{
 	    for (unsigned int i=0; i < tracks; i++)
 		insert(i, new SOURCE());

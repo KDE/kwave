@@ -17,12 +17,11 @@
 
 #include "config.h"
 #include <errno.h>
+#include <unistd.h>
 
-#include <qobject.h>
-#include <qdialog.h>
-#include <qglobal.h>
-#include <qprogressdialog.h>
-#include <qstringlist.h>
+#include <QDialog>
+#include <QProgressDialog>
+#include <QStringList>
 
 #include <klocale.h>
 
@@ -40,17 +39,14 @@
 //***************************************************************************
 Kwave::FilterPlugin::FilterPlugin(const PluginContext &context)
     :KwavePlugin(context), m_params(),
-     m_stop(false), m_listen(false), m_progress(0), m_spx_progress(0),
+     m_stop(false), m_listen(false), m_progress(0),
      m_confirm_cancel(0), m_pause(false), m_sink(0)
 {
-    m_spx_progress = new SignalProxy1< unsigned int >
-	(this, SLOT(updateProgress()), 2);
 }
 
 //***************************************************************************
 Kwave::FilterPlugin::~FilterPlugin()
 {
-    if (m_spx_progress)   delete m_spx_progress;
     if (m_confirm_cancel) delete m_confirm_cancel;
     if (m_progress)       delete m_progress;
 }
@@ -141,13 +137,14 @@ void Kwave::FilterPlugin::run(QStringList params)
     if (!m_listen) {
 	Q_ASSERT(!m_progress);
 	Q_ASSERT(!m_confirm_cancel);
-	m_progress = new QProgressDialog(parentWidget(), actionName(), true);
+	m_progress = new QProgressDialog(parentWidget());
 	Q_ASSERT(m_progress);
 	if (m_progress) {
+	    m_progress->setModal(true);
 	    m_progress->setMinimumDuration(1000);
-	    m_progress->setTotalSteps((last-first+1)*tracks);
+	    m_progress->setMaximum((last-first+1)*tracks);
 	    m_progress->setAutoClose(true);
-	    m_progress->setProgress(0);
+	    m_progress->setValue(0);
 	    m_progress->setLabelText(
 	        i18n("applying '%1' ...").arg(actionName()));
 	    int h = m_progress->sizeHint().height();
@@ -156,12 +153,14 @@ void Kwave::FilterPlugin::run(QStringList params)
 	    m_progress->setFixedSize(w, h);
 
 	    connect(&source, SIGNAL(progress(unsigned int)),
-	            this,    SLOT(forwardProgress(unsigned int)));
-	    connect(m_progress, SIGNAL(cancelled()),
-	            this,       SLOT(forwardCancel()));
+	            this,    SLOT(updateProgress(unsigned int)));
+
+	    // use a "proxy" that asks for confirmation of cancel
 	    m_confirm_cancel = new ConfirmCancelProxy(m_progress,
 	            0, 0, this, SLOT(cancel()));
 	    Q_ASSERT(m_confirm_cancel);
+	    connect(m_progress,      SIGNAL(cancelled()),
+	            m_confirm_cancel, SLOT(cancel()));
 	}
     }
 
@@ -212,28 +211,9 @@ void Kwave::FilterPlugin::run(QStringList params)
 }
 
 //***************************************************************************
-void Kwave::FilterPlugin::forwardCancel()
+void Kwave::FilterPlugin::updateProgress(unsigned int progress)
 {
-    m_pause = true;
-    if (m_confirm_cancel) m_confirm_cancel->cancel();
-    m_pause = false;
-}
-
-//***************************************************************************
-void Kwave::FilterPlugin::forwardProgress(unsigned int progress)
-{
-    if (m_spx_progress) m_spx_progress->enqueue(progress);
-}
-
-//***************************************************************************
-void Kwave::FilterPlugin::updateProgress()
-{
-    if (!m_progress || !m_spx_progress) return;
-
-    unsigned int *progress = m_spx_progress->dequeue();
-    if (!progress) return;
-    m_progress->setProgress(*progress);
-    delete progress;
+    m_progress->setValue(progress);
 }
 
 //***************************************************************************

@@ -17,14 +17,14 @@
 
 #include "config.h"
 
-#include <qvariant.h>
+#include <QVariant>
 #include "libkwave/KwaveMul.h"
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
 
 /***************************************************************************/
 Kwave::Mul::Mul()
-    :Kwave::SampleSource(0, "Kwave::Mul"),
+    :Kwave::SampleSource(),
      m_buffer_a(blockSize()), m_buffer_b(blockSize()),
      m_buffer_x(blockSize()),
      m_count_a(0), m_count_b(0),

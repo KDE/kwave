@@ -19,8 +19,8 @@
 #define _KWAVE_STREAM_OBJECT_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qmutex.h>
+#include <QObject>
+#include <QMutex>
 
 class QString;
 class QVariant;
@@ -34,10 +34,8 @@ namespace Kwave {
 	 * Constructor
 	 *
 	 * @param parent a parent object, passed to QObject (optional)
-	 * @param name a free name, for identifying this object,
-	 *             will be passed to the QObject (optional)
 	 */
-	StreamObject(QObject *parent=0, const char *name=0);
+	StreamObject(QObject *parent=0);
 
 	/** Destructor */
 	virtual ~StreamObject();

@@ -18,7 +18,7 @@
 #define _LABEL_H_
 
 #include "config.h"
-#include <qstring.h>
+#include <QString>
 
 class Label
 {
@@ -54,6 +54,11 @@ public:
 
     /** returns the name of the string */
     virtual QString name() const;
+
+    /** less-than operator, needed for sorting the list */
+    inline bool operator < (const Label &other) {
+	return (m_position < other.pos());
+    };
 
 private:
 

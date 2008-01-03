@@ -486,6 +486,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/KwavePlugin.cpp			GPL2
 	libkwave/KwavePlugin.h				GPL2
 	libkwave/KwavePluginSetupDialog.h		GPL2
+	libkwave/KwaveSampleArray.cpp			GPL2
 	libkwave/KwaveSampleArray.h			GPL2
 	libkwave/KwaveSampleSink.cpp			GPL2
 	libkwave/KwaveSampleSink.h			GPL2

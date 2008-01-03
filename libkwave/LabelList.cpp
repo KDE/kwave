@@ -15,13 +15,13 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include "LabelList.h"
 
 //***************************************************************************
 LabelList::LabelList()
-    :QPtrList<Label>()
+    :QList<Label *>()
 {
-    setAutoDelete(true);
 }
 
 //***************************************************************************
@@ -42,15 +42,22 @@ bool LabelList::equals(const LabelList &other) const
     LabelListIterator it_mine(*this);
     LabelListIterator it_other(other);
 
-    for (; it_mine.current() && it_other.current(); ++it_mine, ++it_other) {
-	Label *mine  = it_mine.current();
-	Label *other = it_other.current();
+    while (it_mine.hasNext() && it_other.hasNext()) {
+	Label *mine  = it_mine.next();
+	Label *other = it_other.next();
 
 	if (mine->pos()  != other->pos())  return false;
 	if (mine->name() != other->name()) return false;
     }
 
     return true;
+}
+
+//***************************************************************************
+void LabelList::clear()
+{
+    qDeleteAll(*this);
+    QList<Label *>::clear();
 }
 
 /***************************************************************************/
@@ -60,29 +67,12 @@ void LabelList::copy(const LabelList &source)
     clear();
 
     // always make a deep copy, copy all elements
-    LabelListIterator it(source);
-    for (; it.current(); ++it) {
-	Label *label = it.current();
+    foreach (Label *label, source) {
 	Q_ASSERT(label);
 	Label *copy  = new Label(*label);
 	Q_ASSERT(copy);
 	if (copy) append(copy);
     }
-}
-
-//***************************************************************************
-int LabelList::compareItems(QPtrCollection::Item a, QPtrCollection::Item b)
-{
-    Q_ASSERT(a);
-    Q_ASSERT(b);
-    if (!a || !b) return -1; // not allowed!
-    if (a == b) return 0;    // simple case: compare with itself
-
-    Label *label_a = reinterpret_cast<Label *>(a);
-    Label *label_b = reinterpret_cast<Label *>(b);
-
-    if (label_a->pos() == label_b->pos()) return 0;
-    return (label_a->pos() < label_b->pos()) ? -1 : +1;
 }
 
 //***************************************************************************

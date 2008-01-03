@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <qobject.h>
+#include <QObject>
 
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveSampleSink.h"

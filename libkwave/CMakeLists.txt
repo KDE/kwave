@@ -37,7 +37,6 @@ SET(libkwave_LIB_SRCS
     Encoder.cpp
     Filter.cpp
     FileInfo.cpp
-    FileLoader.cpp
     FileFormat.cpp
     Functions.cpp
     GenreType.cpp
@@ -51,12 +50,12 @@ SET(libkwave_LIB_SRCS
     KwaveOsc.cpp
     KwavePlaybackSink.cpp
     KwavePlugin.cpp
+    KwaveSampleArray.cpp
     KwaveSampleSink.cpp
     KwaveSampleSource.cpp
     KwaveStreamObject.cpp
     Label.cpp
     LabelList.cpp
-    LineParser.cpp
     memcpy.c
     MultiTrackReader.cpp
     MultiTrackWriter.cpp

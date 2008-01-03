@@ -17,12 +17,11 @@
 #ifndef _LABEL_LIST_H_
 #define _LABEL_LIST_H_
 
-#include <config.h>
-#include <qptrlist.h>
-
+#include "config.h"
+#include <QList>
 #include "Label.h"
 
-class LabelList: public QPtrList<Label>
+class LabelList: public QList<Label *>
 {
 public:
     /** Constructor */
@@ -37,6 +36,9 @@ public:
     /** Return true if the list is equal to another list */
     bool equals(const LabelList &other) const;
 
+    /** Erase all elements and set size to zero */
+    virtual void clear();
+
     /** Assignment operator */
     inline LabelList & operator = (const LabelList &source) {
 	copy(source);
@@ -46,17 +48,11 @@ public:
     /** Compare operator */
     inline bool operator == (const LabelList &other) const {
 	return equals(other);
-    }
+    };
 
-protected:
-    /**
-     * compare two labels, for sorting
-     * @see QPtrList::compareItems
-     */
-    virtual int compareItems(QPtrCollection::Item a, QPtrCollection::Item b);
 };
 
 /** Iterator for the list of labels */
-typedef QPtrListIterator<Label> LabelListIterator;
+typedef QListIterator<Label *> LabelListIterator;
 
 #endif /* _LABEL_LIST_H_ */

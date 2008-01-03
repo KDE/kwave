@@ -19,7 +19,7 @@
 #define _KWAVE_SAMPLE_SOURCE_H_
 
 #include "config.h"
-#include <qobject.h>
+#include <QObject>
 
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveStreamObject.h"
@@ -34,10 +34,8 @@ namespace Kwave {
 	 * Constructor
 	 *
 	 * @param parent a parent object, passed to QObject (optional)
-	 * @param name a free name, for identifying this object,
-	 *             will be passed to the QObject (optional)
 	 */
-	SampleSource(QObject *parent=0, const char *name=0);
+	SampleSource(QObject *parent=0);
 
 	/** Destructor */
 	virtual ~SampleSource();

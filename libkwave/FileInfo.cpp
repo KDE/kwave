@@ -335,9 +335,7 @@ void FileInfo::dump()
     qDebug("   tracks = %u", m_tracks);
 
     qDebug("labels:");
-    LabelListIterator it_labels(m_labels);
-    for (; it_labels.current(); ++it_labels) {
-	Label *label = it_labels.current();
+    foreach (Label *label, m_labels) {
 	qDebug("   [%10u] = '%s'", label->pos(),
 	                           label->name().toLocal8Bit().data());
     }

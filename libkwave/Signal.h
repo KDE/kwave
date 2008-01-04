@@ -22,9 +22,10 @@
 #include "config.h"
 #include <limits.h>
 #include <pthread.h>
-#include <qptrlist.h>
 
-#include "mt/SharedLock.h"
+#include <QReadWriteLock>
+#include <QList>
+
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
 #include "libkwave/WindowFunction.h"
@@ -93,7 +94,7 @@ public:
     /**
      * Returns an array of indices of all present tracks.
      */
-    const QMemArray<unsigned int> allTracks();
+     QList<unsigned int> allTracks();
 
     /**
      * Opens an input stream for a track, starting at a specified sample
@@ -255,10 +256,10 @@ private:
 //    void averageFFT (int points, window_function_t windowtype);
 
     /** list of tracks */
-    QPtrList<Track> m_tracks;
+    QList<Track *> m_tracks;
 
     /** mutex for access to the track list */
-    SharedLock m_lock_tracks;
+    QReadWriteLock m_lock_tracks;
 
 };
 

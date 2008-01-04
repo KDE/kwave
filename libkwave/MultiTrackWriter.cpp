@@ -16,9 +16,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qmemarray.h>
-#include <qptrlist.h>
+#include "config.h"
 
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Matrix.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
@@ -29,14 +29,6 @@
 #include "kwave/SignalManager.h"
 #include "kwave/UndoTransactionGuard.h"
 
-#ifndef min
-#define min(x,y) (( (x) < (y) ) ? (x) : (y) )
-#endif
-
-#ifndef max
-#define max(x,y) (( (x) > (y) ) ? (x) : (y) )
-#endif
-
 //***************************************************************************
 MultiTrackWriter::MultiTrackWriter()
     :Kwave::MultiTrackSink<SampleWriter>(0,0), m_cancelled(false)
@@ -45,23 +37,22 @@ MultiTrackWriter::MultiTrackWriter()
 
 //***************************************************************************
 MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
-    const QMemArray<unsigned int> &track_list, InsertMode mode,
+    const QList<unsigned int> &track_list, InsertMode mode,
     unsigned int left, unsigned int right)
     :Kwave::MultiTrackSink<SampleWriter>(track_list.count()),
      m_cancelled(false)
 {
     UndoTransactionGuard guard(signal_manager, 0);
 
-    const unsigned int count = track_list.count();
-    for (unsigned int i=0; i < count; i++) {
-	unsigned int track = track_list[i];
+    unsigned int index = 0;
+    foreach (unsigned int track, track_list) {
 	// NOTE: this function is *nearly* identical to the one in the
 	//       Signal class, except for undo support
 	SampleWriter *s = signal_manager.openSampleWriter(
 	    track, mode, left, right, true);
 	Q_ASSERT(s);
 	if (s) {
-	    insert(i, s);
+	    insert(index++, s);
 	} else {
 	    // out of memory or aborted
 	    qWarning("MultiTrackWriter constructor: "\
@@ -77,7 +68,7 @@ MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
     InsertMode mode)
     :Kwave::MultiTrackSink<SampleWriter>(0,0), m_cancelled(false)
 {
-    QMemArray<unsigned int> tracks = signal_manager.selectedTracks();
+    QList<unsigned int> tracks = signal_manager.selectedTracks();
     unsigned int left = 0;
     unsigned int right = 0;
 
@@ -131,16 +122,16 @@ MultiTrackWriter &MultiTrackWriter::operator << (MultiTrackReader &source)
 		n2 = n1 + dst_tracks;
 
 		// get the common area of [n1..n2] and [m1..m2]
-		unsigned int l  = max(n1, m1);
-		unsigned int r = min(n2, m2);
+		unsigned int l  = qMax(n1, m1);
+		unsigned int r = qMin(n2, m2);
 
 		matrix[x][y] = (r > l) ?
 		    (double)(r-l) / (double)src_tracks : 0.0;
 	    }
 	}
 
-	QMemArray<sample_t> in_samples(src_tracks);
-	QMemArray<sample_t> out_samples(dst_tracks);
+	Kwave::SampleArray in_samples(src_tracks);
+	Kwave::SampleArray out_samples(dst_tracks);
 
 	while (!(source.eof())) {
 	    // read input vector
@@ -214,12 +205,12 @@ void MultiTrackWriter::cancel()
 }
 
 //***************************************************************************
-unsigned int MultiTrackWriter::last()
+unsigned int MultiTrackWriter::last() const
 {
     unsigned int last = 0;
     const unsigned int tracks = this->tracks();
     for (unsigned int track=0; track < tracks; ++track) {
-	SampleWriter *w = (*this)[track];
+	const SampleWriter *w = at(track);
 	if (w && w->last() > last) last = w->last();
     }
     return last;

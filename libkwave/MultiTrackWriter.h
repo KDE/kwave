@@ -20,8 +20,10 @@
 #define _MULTI_TRACK_WRITER_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qptrvector.h>
+
+#include <QObject>
+#include <QList>
+
 #include "libkwave/SampleWriter.h"
 #include "libkwave/KwaveMultiTrackSink.h"
 
@@ -51,7 +53,7 @@ public:
      * @param right index of the last sample
      */
     MultiTrackWriter(SignalManager &signal_manager,
-                     const QMemArray<unsigned int> &track_list,
+                     const QList<unsigned int> &track_list,
                      InsertMode mode,
                      unsigned int left, unsigned int right);
 
@@ -79,19 +81,19 @@ public:
     MultiTrackWriter &operator << (MultiTrackReader &source);
 
     /** Returns the last sample index of all streams */
-    unsigned int last();
+    unsigned int last() const;
 
     /** Flushes all streams */
     void flush();
 
-    /** @see QPtrVector::clear() */
+    /** @see QList::clear() */
     virtual void clear();
 
-    /** @see QPtrVector::insert() */
+    /** @see QList::insert() */
     virtual bool insert(unsigned int track, SampleWriter *writer);
 
     /** returns true if the transfer has been cancelled */
-    inline bool isCancelled() { return m_cancelled; };
+    inline bool isCancelled() const { return m_cancelled; };
 
 signals:
 

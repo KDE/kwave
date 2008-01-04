@@ -19,8 +19,10 @@
 #define _SAMPLE_FIFO_H_
 
 #include "config.h"
-#include <qvaluevector.h>
-#include <qmutex.h>
+
+#include <QMutex>
+#include <QQueue>
+
 #include "libkwave/KwaveSampleArray.h"
 
 class SampleFIFO
@@ -62,7 +64,7 @@ public:
 private:
 
     /** list of buffers with sample data */
-    QValueVector<Kwave::SampleArray> m_buffer;
+    QQueue<Kwave::SampleArray> m_buffer;
 
     /**
      * number of samples that have already been read out

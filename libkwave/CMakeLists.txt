@@ -67,7 +67,6 @@ SET(libkwave_LIB_SRCS
     SampleFormat.cpp
     SampleReader.cpp
     SampleWriter.cpp
-    SampleLock.cpp
     StandardBitrates.cpp
     Stripe.cpp
     Track.cpp

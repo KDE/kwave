@@ -15,6 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
 #include <string.h> // for some speed-ups like memmove, memcpy ...
 #include "libkwave/memcpy.h"
 #include "libkwave/Stripe.h"
@@ -59,7 +61,7 @@ Stripe::MappedArray::MappedArray(Stripe &stripe, unsigned int length)
 //***************************************************************************
 Stripe::MappedArray::~MappedArray()
 {
-    if (m_length) resetRawData(m_guard.storage(), m_length);
+    if (m_length) resetRawData();
 }
 
 //***************************************************************************
@@ -88,7 +90,7 @@ unsigned int Stripe::MappedArray::copy(unsigned int dst, unsigned int src,
 
 //***************************************************************************
 unsigned int Stripe::MappedArray::copy(unsigned int dst,
-    const QMemArray<sample_t> &source, unsigned int offset,
+    const Kwave::SampleArray &source, unsigned int offset,
     unsigned int cnt)
 {
 //  qDebug("    Stripe::MappedArray::copy(%u, ... ,%u, %u)", dst,
@@ -115,7 +117,7 @@ unsigned int Stripe::MappedArray::copy(unsigned int dst,
 }
 
 //***************************************************************************
-unsigned int Stripe::MappedArray::read(QMemArray<sample_t> &buffer,
+unsigned int Stripe::MappedArray::read(Kwave::SampleArray &buffer,
     unsigned int dstoff, unsigned int offset,  unsigned int length)
 {
 //  qDebug("    Stripe::MappedArray::read(..., %u, %u, %u)", dstoff,
@@ -155,7 +157,7 @@ Stripe::Stripe(unsigned int start)
 }
 
 //***************************************************************************
-Stripe::Stripe(unsigned int start, const QMemArray<sample_t> &samples)
+Stripe::Stripe(unsigned int start, const Kwave::SampleArray &samples)
     :QObject(), m_start(start), m_length(0), m_storage(0), m_lock_samples()
 {
     if (samples.size()) append(samples, 0, samples.size());
@@ -299,7 +301,7 @@ unsigned int Stripe::resize(unsigned int length, bool initialize)
 }
 
 //***************************************************************************
-unsigned int Stripe::append(const QMemArray<sample_t> &samples,
+unsigned int Stripe::append(const Kwave::SampleArray &samples,
 	unsigned int offset,
 	unsigned int count)
 {
@@ -325,7 +327,7 @@ unsigned int Stripe::append(const QMemArray<sample_t> &samples,
 	unsigned int cnt = new_length - old_length;
 	appended = MemoryManager::instance().writeTo(m_storage,
 	    old_length * sizeof(sample_t),
-	    &samples[offset], cnt * sizeof(sample_t))
+	    &(samples[offset]), cnt * sizeof(sample_t))
 	    / sizeof(sample_t);
     }
 //     qDebug("Stripe::append(): resized to %d", m_length);
@@ -377,18 +379,18 @@ void Stripe::deleteRange(unsigned int offset, unsigned int length)
 
 //***************************************************************************
 void Stripe::overwrite(unsigned int offset,
-	const QMemArray<sample_t> &source,
+	const Kwave::SampleArray &source,
 	unsigned int srcoff, unsigned int srclen)
 {
     QMutexLocker lock(&m_lock_samples);
 
     MemoryManager::instance().writeTo(m_storage,
 	offset * sizeof(sample_t),
-	&source[srcoff], srclen * sizeof(sample_t));
+	&(source[srcoff]), srclen * sizeof(sample_t));
 }
 
 //***************************************************************************
-unsigned int Stripe::read(QMemArray<sample_t> &buffer, unsigned int dstoff,
+unsigned int Stripe::read(Kwave::SampleArray &buffer, unsigned int dstoff,
 	unsigned int offset, unsigned int length)
 {
     Q_ASSERT(length);
@@ -420,7 +422,7 @@ unsigned int Stripe::read(QMemArray<sample_t> &buffer, unsigned int dstoff,
 }
 
 //***************************************************************************
-Stripe &Stripe::operator << (const QMemArray<sample_t> &samples)
+Stripe &Stripe::operator << (const Kwave::SampleArray &samples)
 {
     unsigned int appended = append(samples, 0, samples.size());
     Q_ASSERT(appended == samples.size());

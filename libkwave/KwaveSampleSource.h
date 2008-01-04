@@ -55,7 +55,7 @@ namespace Kwave {
 	 *
 	 * @return true if it can produce more sample data, otherwise false
 	 */
-	virtual bool done() { return false; };
+	virtual bool done() const { return false; };
 
     };
 }

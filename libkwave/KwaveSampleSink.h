@@ -46,7 +46,7 @@ namespace Kwave {
          *
          * @return true if the sink can't receive more data, otherwise false
          */
-        virtual bool done() { return false; };
+        virtual bool done() const { return false; };
 
     };
 }

@@ -15,6 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <limits.h>
 #include "StandardBitrates.h"
 
@@ -23,7 +24,7 @@ static StandardBitrates g_bitrates;
 
 //***************************************************************************
 StandardBitrates::StandardBitrates()
-    :QValueList<int>()
+    :QList<int>()
 {
         // use well-known bitrates from MP3
         append(  8000);
@@ -68,21 +69,17 @@ int StandardBitrates::nearest(int rate) const
     int best = rate;
     int min_delta = INT_MAX;
 
-    QValueList<int>::ConstIterator it;
-    for (it=this->begin(); it != this->end(); ++it) {
-	const int value = *it;
-	const int delta = (value > rate) ?
-	                           (value-rate) : (rate-value);
-
+    foreach (int value, *this) {
+	int delta = (value > rate) ? (value-rate) : (rate-value);
 	if (!delta) return rate; // complete match, easy case
-	
+
 	if (delta < min_delta) {
 	    // found a better alternative
 	    min_delta = delta;
 	    best      = value;
 	}
     }
-    
+
     return best;
 }
 

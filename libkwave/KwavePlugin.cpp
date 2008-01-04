@@ -295,7 +295,7 @@ qreal KwavePlugin::signalRate()
 }
 
 //***************************************************************************
-const QVector<unsigned int> KwavePlugin::selectedTracks()
+const QList<unsigned int> KwavePlugin::selectedTracks()
 {
     return manager().selectedTracks();
 }

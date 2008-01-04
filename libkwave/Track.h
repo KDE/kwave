@@ -20,12 +20,13 @@
 
 #include "config.h"
 #include <limits.h>  // for UINT_MAX
-#include <qobject.h>
-#include <qptrlist.h>
 
-#include "mt/SharedLock.h"
+#include <QList>
+#include <QObject>
+#include <QReadWriteLock>
+
 #include "libkwave/InsertMode.h"
-#include "libkwave/SampleLock.h"
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Stripe.h"
 
 class SampleWriter;
@@ -91,7 +92,7 @@ public:
                      bool make_gap = false);
 
     /** Returns the "selected" flag. */
-    inline bool selected() { return m_selected; };
+    inline bool selected() const { return m_selected; };
 
     /** Sets the "selected" flag. */
     void select(bool select);
@@ -153,7 +154,7 @@ private:
      * @param length number of samples to write
      */
     void appendAfter(Stripe *stripe, unsigned int offset,
-                     const QMemArray<sample_t> &buffer,
+                     const Kwave::SampleArray &buffer,
                      unsigned int buf_offset, unsigned int length);
 
     /**
@@ -207,7 +208,7 @@ protected:
      */
     void writeSamples(InsertMode mode,
                       unsigned int offset,
-                      const QMemArray<sample_t> &buffer,
+                      const Kwave::SampleArray &buffer,
                       unsigned int buf_offset,
                       unsigned int length);
 
@@ -230,10 +231,10 @@ private:
 
 private:
     /** read/write lock for access to the whole track */
-    SharedLock m_lock;
+    QReadWriteLock m_lock;
 
     /** list of stripes (a track actually is a container for stripes) */
-    QPtrList<Stripe> m_stripes;
+    QList<Stripe *> m_stripes;
 
     /** True if the track is selected */
     bool m_selected;

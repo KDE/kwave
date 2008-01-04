@@ -50,7 +50,7 @@ namespace Kwave {
 	};
 
 	/** Returns true when all sinks are done */
-	virtual bool done()
+	virtual bool done() const
 	{
 	    foreach (Kwave::SampleSink *s,
 		     static_cast< QVector<SINK *> >(*this))

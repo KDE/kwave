@@ -19,9 +19,9 @@
 #define _STANDARD_BITRATES_H_
 
 #include "config.h"
-#include <qvaluelist.h>
+#include <QList>
 
-class StandardBitrates: public QValueList<int>
+class StandardBitrates: public QList<int>
 {
 public:
     /** Constructor */

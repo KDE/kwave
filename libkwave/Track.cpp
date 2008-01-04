@@ -15,7 +15,10 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "mt/SharedLockGuard.h"
+#include "config.h"
+
+#include <QReadLocker>
+#include <QWriteLocker>
 
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
@@ -51,27 +54,22 @@
 Track::Track()
     :m_lock(), m_stripes(), m_selected(true)
 {
-    SharedLockGuard lock(m_lock, true);
-
-    m_stripes.setAutoDelete(true);
 }
 
 //***************************************************************************
 Track::Track(unsigned int length)
     :m_lock(), m_stripes(), m_selected(true)
 {
-//    SharedLockGuard lock(m_lock, true);
-
-    m_stripes.setAutoDelete(true);
     appendStripe(length);
 }
 
 //***************************************************************************
 Track::~Track()
 {
-    SharedLockGuard lock(m_lock, true);
+    QWriteLocker lock(&m_lock);
 
-    while (m_stripes.count()) deleteStripe(m_stripes.last());
+    while (m_stripes.count())
+	deleteStripe(m_stripes.last());
 }
 
 //***************************************************************************
@@ -116,9 +114,8 @@ Stripe *Track::newStripe(unsigned int start, unsigned int length)
 void Track::deleteStripe(Stripe *s)
 {
     if (!s) return;
-
-    m_stripes.setAutoDelete(true);
-    m_stripes.remove(s);
+    delete s;
+    if (m_stripes.contains(s)) m_stripes.removeAll(s);
 }
 
 //***************************************************************************
@@ -140,14 +137,14 @@ void Track::splitStripe(Stripe *stripe, unsigned int offset)
     qDebug("Track::splitStripe(%p, %u): new stripe at [%u ... %u] (%u)",
            stripe, offset, s->start(), s->end(), s->length());
 
-    qDebug("    inserting at list index %u", m_stripes.findRef(stripe)+1);
-    m_stripes.insert(m_stripes.findRef(stripe)+1, s);
+    qDebug("    inserting at list index %u", m_stripes.indexOf(stripe)+1);
+    m_stripes.insert(m_stripes.indexOf(stripe)+1, s);
 }
 
 //***************************************************************************
 unsigned int Track::length()
 {
-    SharedLockGuard lock(m_lock, false);
+    QReadLocker lock(&m_lock);
     return unlockedLength();
 }
 
@@ -175,20 +172,15 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 SampleReader *Track::openSampleReader(unsigned int left,
 	unsigned int right)
 {
-    SharedLockGuard lock(m_lock, false);
-    QPtrList<Stripe> stripes;
+    QReadLocker lock(&m_lock);
+    QList<Stripe *> stripes;
 
     unsigned int length = unlockedLength();
     if (right >= length) right = length-1;
 
-//     // lock the needed range for shared writing
-//     SampleLock *range_lock = new SampleLock(*this, left, right-left+1,
-// 	SampleLock::ReadShared);
-
     // add all stripes within the specified range to the list
-    QPtrListIterator<Stripe> it(m_stripes);
-    for (; it.current(); ++it) {
-	Stripe *s = it.current();
+    foreach (Stripe *s, m_stripes) {
+	if (!s) continue;
 	unsigned int start = s->start();
 	unsigned int end   = s->end();
 
@@ -199,19 +191,10 @@ SampleReader *Track::openSampleReader(unsigned int left,
 	stripes.append(s);
     }
 
-//     // no lock yet, that's not good...
-//     Q_ASSERT(range_lock);
-//     if (!range_lock) return 0;
-
     // create the input stream
-    SampleReader *stream = new SampleReader(*this, stripes,
-	0 /* range_lock */, left, right);
+    SampleReader *stream = new SampleReader(*this, stripes, left, right);
     Q_ASSERT(stream);
-    if (stream) return stream;
-
-//     // stream creation failed, clean up
-//     if (range_lock) delete range_lock;
-    return 0;
+    return stream;
 }
 
 //***************************************************************************
@@ -221,23 +204,20 @@ void Track::deleteRange(unsigned int offset, unsigned int length,
     if (!length) return;
 
     {
-	SharedLockGuard lock(m_lock, false);
-
-	// lock the needed range for exclusive writing
-	SampleLock range_lock(*this, offset, length,
-	    SampleLock::WriteExclusive);
+	QWriteLocker lock(&m_lock);
 
 	// add all stripes within the specified range to the list
-	QPtrListIterator<Stripe> it(m_stripes);
 	unsigned int left  = offset;
 	unsigned int right = offset + length - 1;
 
 	qDebug("Track::deleteRange() [%u ... %u] (%u)",
 	       left, right, right - left + 1);
 
-	it.toLast();
-	while (it.current()) {
-	    Stripe *s = it.current();
+	QListIterator<Stripe *> it(m_stripes);
+	it.toBack();
+	while (it.hasPrevious()) {
+	    Stripe *s = it.previous();
+	    if (!s) continue;
 	    unsigned int start  = s->start();
 	    unsigned int end    = s->end();
 
@@ -287,17 +267,17 @@ void Track::deleteRange(unsigned int offset, unsigned int length,
 
 		Q_ASSERT(s->length());
 	    }
-	    --it; /* advance to the next stripe left of this one */
 	}
 
 	// loop over all remaining stripes and move them left
 	// (maybe we start the search one stripe too left,
 	// but this doesn't matter, we don't care...)
 	if (!make_gap) {
-	    if (!it.current()) it.toFirst();
+	    if (!it.hasNext()) it.toFront();
 
-	    for (; it.current(); ++it) {
-		Stripe *s = it.current();
+	    while (it.hasNext()) {
+		Stripe *s = it.next();
+		if (!s) continue;
 // 		qDebug("checking for shift [%u ... %u]",
 // 		       s->start(), s->end());
 		Q_ASSERT(s->start() != right);
@@ -325,7 +305,7 @@ void Track::select(bool selected)
 
 //***************************************************************************
 void Track::appendAfter(Stripe *stripe,  unsigned int offset,
-                        const QMemArray<sample_t> &buffer,
+                        const Kwave::SampleArray &buffer,
                         unsigned int buf_offset, unsigned int length)
 {
     Q_ASSERT(buf_offset + length <= buffer.size());
@@ -349,7 +329,7 @@ void Track::appendAfter(Stripe *stripe,  unsigned int offset,
 	buf_offset += len;
     }
 
-    int index_before = m_stripes.findRef(stripe);
+    int index_before = m_stripes.indexOf(stripe);
 
     // append new stripes as long as there is something remaining
     while (length) {
@@ -389,9 +369,10 @@ void Track::appendAfter(Stripe *stripe,  unsigned int offset,
 //***************************************************************************
 void Track::moveRight(unsigned int offset, unsigned int shift)
 {
-    QPtrListIterator<Stripe> it(m_stripes);
-    for (it.toLast(); it.current(); --it) {
-	Stripe *s = it.current();
+    QListIterator<Stripe *> it(m_stripes);
+    while (it.hasPrevious()) {
+	Stripe *s = it.previous();
+	if (!s) continue;
 	unsigned int start = s->start();
 	if (start < offset) break;
 
@@ -402,12 +383,14 @@ void Track::moveRight(unsigned int offset, unsigned int shift)
 //***************************************************************************
 void Track::writeSamples(InsertMode mode,
                          unsigned int offset,
-                         const QMemArray<sample_t> &buffer,
+                         const Kwave::SampleArray &buffer,
                          unsigned int buf_offset,
                          unsigned int length)
 {
     Q_ASSERT(length);
     if (!length) return; // nothing to do !?
+
+    QWriteLocker _lock(&m_lock);
 
     switch (mode) {
 	case Append: {
@@ -423,9 +406,8 @@ void Track::writeSamples(InsertMode mode,
 	    // find the stripe into which we insert
 	    Stripe *target_stripe = 0;
 	    Stripe *stripe_before = 0;
-	    QPtrListIterator<Stripe> it(m_stripes);
-	    for (; it.current(); ++it) {
-		Stripe *s = it.current();
+	    foreach (Stripe *s, m_stripes) {
+		if (!s) continue;
 		unsigned int st = s->start();
 		unsigned int len = s->length();
 		if (!len) continue; // skip zero-length tracks
@@ -501,19 +483,17 @@ void Track::writeSamples(InsertMode mode,
 
 	    // handle the overlap from left, until we
 	    // reach the first gap or nothing remains
-	    QPtrListIterator<Stripe> it(m_stripes);
 //	    qDebug("number of stripes = %u", m_stripes.count());
-	    it.toFirst();
-	    while (it.current() && length) {
-		Stripe *s = it.current();
+	    QListIterator<Stripe *> it(m_stripes);
+	    it.toFront();
+	    while (it.hasNext() && length) {
+		Stripe *s = it.next();
+		if (!s) continue;
 		unsigned int start = s->start();
 		unsigned int end   = s->end();
 //		qDebug("L: checking stripe (#1) [%u...%u] (left=%u, right=%u)",
 //		       start, end, left, right);
-		if (end < left) {
-		    ++it;
-		    continue; // ends before offset -> next one
-		}
+		if (end < left) continue;  // ends before offset -> next one
 		if (start > left) break;   // gone too far -> done
 
 		// if we get this far, we have some kind of overlap
@@ -539,23 +519,21 @@ void Track::writeSamples(InsertMode mode,
 		length     -= len;
 
 		if (left == end+1) stripe_before = s;
-		++it;
 	    }
 	    if (!length) break; // nothing more to do
 
 	    // handle the overlap from right, until we reach
 	    // the first gap or nothing remains
-	    it.toLast();
-	    while (it.current() && length) {
-		Stripe *s = it.current();
+	    it.toBack();
+	    while (it.hasPrevious() && length) {
+		Stripe *s = it.previous();
+		if (!s) continue;
 		unsigned int start = s->start();
 		unsigned int end   = s->end();
 // 		qDebug("R: checking stripe (#2) [%u...%u] (left=%u, right=%u)",
 // 		       start, end, left, right);
-		if (start > right) {
-		    --it;
+		if (start > right)
 		    continue; // starts before offset -> previous one
-		}
 		if (end < right) break; // gone too far -> done
 
 		// if get this far, we have some kind of overlap
@@ -580,7 +558,6 @@ void Track::writeSamples(InsertMode mode,
 		buf_offset += len;
 		right      -= len;
 		length     -= len;
-		--it;
 	    }
 
 	    // erase everything from left to the right, because
@@ -589,8 +566,10 @@ void Track::writeSamples(InsertMode mode,
 	    if (!length) break; // nothing more to do
 
 	    Q_ASSERT(length == (right-left+1));
-	    for (it.toLast(); it.current(); --it) {
-		Stripe *s = it.current();
+	    it.toBack();
+	    while (it.hasPrevious()) {
+		Stripe *s = it.previous();
+		if (!s) continue;
 		unsigned int start = s->start();
 		unsigned int end   = s->end();
 
@@ -606,7 +585,7 @@ void Track::writeSamples(InsertMode mode,
 		}
 
 		// partial overlap ? should not happen !!!
-		ASSERT(!s);
+		Q_ASSERT(!s);
 // 		qDebug("partial overlap: [%u ... %u]", start, end);
 	    }
 
@@ -636,12 +615,13 @@ void Track::writeSamples(InsertMode mode,
 //***************************************************************************
 void Track::dump()
 {
-    QPtrListIterator<Stripe> it(m_stripes);
     qDebug("------------------------------------");
-    for (it.toFirst(); it.current(); ++it) {
-	Stripe *s = it.current();
+    foreach (Stripe *s, m_stripes) {
 	qDebug("%p - [%10u - %10u] (%10u)",
-	       s, s->start(), s->end(), s->length());
+	       s,
+	       (s) ? s->start()  : 0,
+	       (s) ? s->end()    : 0,
+	       (s) ? s->length() : 0);
     }
     qDebug("------------------------------------");
 }

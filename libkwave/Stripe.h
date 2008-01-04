@@ -19,10 +19,11 @@
 #define _STRIPE_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qmemarray.h>
-#include <qmutex.h>
 
+#include <QObject>
+#include <QMutex>
+
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
 
 //***************************************************************************
@@ -49,7 +50,7 @@ public:
      * @param start position within the track
      * @param samples array with initial samples
      */
-    Stripe(unsigned int start, const QMemArray<sample_t> &samples);
+    Stripe(unsigned int start, const Kwave::SampleArray &samples);
 
     /**
      * Constructor. Creates a stripe that already contains samples,
@@ -107,7 +108,7 @@ public:
      * @param count number of samples in the array
      * @return number of samples appended
      */
-    unsigned int append(const QMemArray<sample_t> &samples,
+    unsigned int append(const Kwave::SampleArray &samples,
                         unsigned int offset,
                         unsigned int count);
 
@@ -128,7 +129,7 @@ public:
      * @warning this method is intended to be used only internally
      *          and lacks any error-checking in order to be fast!
      */
-    void overwrite(unsigned int offset, const QMemArray<sample_t> &source,
+    void overwrite(unsigned int offset, const Kwave::SampleArray &source,
     	unsigned int srcoff, unsigned int srclen);
 
 
@@ -143,14 +144,14 @@ public:
      * @warning this method is intended to be used only internally
      *          and lacks any error-checking in order to be fast!
      */
-    unsigned int read(QMemArray<sample_t> &buffer, unsigned int dstoff,
+    unsigned int read(Kwave::SampleArray &buffer, unsigned int dstoff,
 	unsigned int offset, unsigned int length);
 
     /**
      * Operator for appending an array of samples to the
      * end of the stripe.
      */
-    Stripe &operator << (const QMemArray<sample_t> &samples);
+    Stripe &operator << (const Kwave::SampleArray &samples);
 
 protected:
 
@@ -201,7 +202,7 @@ private:
      * it like a normal QMemArray<sample_t>. Should be used like
      * a guard, internally uses a MapstorageGuard.
      */
-    class MappedArray: public QMemArray<sample_t>
+    class MappedArray: public Kwave::SampleArray
     {
     public:
 	/**
@@ -238,7 +239,7 @@ private:
 	 * @note this is optimized for speed, no range checks!
 	 */
 	unsigned int copy(unsigned int dst,
-	                  const QMemArray<sample_t> &source,
+	                  const Kwave::SampleArray &source,
 	                  unsigned int offset, unsigned int cnt);
 
 	/**
@@ -252,7 +253,7 @@ private:
 	 * @warning this method is intended to be used only internally
 	 *          and lacks any error-checking in order to be fast!
 	 */
-	unsigned int read(QMemArray<sample_t> &buffer, unsigned int dstoff,
+	unsigned int read(Kwave::SampleArray &buffer, unsigned int dstoff,
 	                  unsigned int offset, unsigned int length);
 
     private:

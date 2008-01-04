@@ -520,8 +520,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/SampleFormat.cpp			GPL2
 	libkwave/SampleFormat.h				GPL2
 	libkwave/Sample.h				GPL2
-	libkwave/SampleLock.cpp				GPL2
-	libkwave/SampleLock.h				GPL2
 	libkwave/SampleReader.cpp			GPL2
 	libkwave/SampleReader.h				GPL2
 	libkwave/SampleWriter.cpp			GPL2

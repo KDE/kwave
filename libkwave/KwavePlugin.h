@@ -195,7 +195,7 @@ public:
     /**
      * Returns an array of indices of currently selected channels.
      */
-    virtual const QVector<unsigned int> selectedTracks();
+    virtual const QList<unsigned int> selectedTracks();
 
     /**
      * Returns the left and right sample index of the current selection

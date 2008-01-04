@@ -16,20 +16,23 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
 #include "libkwave/memcpy.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
-#include "libkwave/SampleLock.h"
 #include "libkwave/Stripe.h"
 #include "libkwave/Track.h"
+
+#include <QList>
 
 // define this for using only slow Qt array functions
 // #define STRICTLY_QT
 
 //***************************************************************************
-SampleReader::SampleReader(Track &track, QPtrList<Stripe> &stripes,
-	SampleLock *lock, unsigned int left, unsigned int right)
-    :m_track(track), m_stripes(stripes), m_lock(lock),
+SampleReader::SampleReader(Track &track, QList<Stripe *> &stripes,
+	unsigned int left, unsigned int right)
+    :m_track(track), m_stripes(stripes),
     m_src_position(left), m_first(left), m_last(right),
     m_buffer(blockSize()),
     m_buffer_used(0), m_buffer_position(0)
@@ -39,7 +42,6 @@ SampleReader::SampleReader(Track &track, QPtrList<Stripe> &stripes,
 //***************************************************************************
 SampleReader::~SampleReader()
 {
-    if (m_lock) delete m_lock;
 }
 
 //***************************************************************************
@@ -53,12 +55,12 @@ void SampleReader::reset()
 }
 
 //***************************************************************************
-static inline void padBuffer(QArray<sample_t> &buffer, unsigned int offset,
-                             unsigned int len)
+static inline void padBuffer(Kwave::SampleArray &buffer,
+                             unsigned int offset, unsigned int len)
 {
 #ifdef STRICTLY_QT
     while (len--)
-	buffer[offset++] = (SAMPLE_MAX >> 2);
+	buffer[offset++] = 0;
 #else
     memset((&buffer[offset]), 0x00, len * sizeof(buffer[0]));
 #endif
@@ -72,13 +74,13 @@ void SampleReader::fillBuffer()
     m_buffer_position = 0;
     if (eof()) return;
 
-    QPtrListIterator<Stripe> it(m_stripes);
     unsigned int rest = m_buffer.size();/* - m_buffer_used (is 0) */
     if (m_src_position+rest >= m_last) rest = (m_last-m_src_position+1);
     Q_ASSERT(rest);
 
-    for (; rest && it.current(); ++it) {
-	Stripe *s = it.current();
+    foreach(Stripe *s, m_stripes) {
+	if (!rest) break;
+	if (!s) continue;
 	unsigned int st  = s->start();
 	unsigned int len = s->length();
 	if (!len) continue; // skip zero-length sripes
@@ -133,8 +135,8 @@ void SampleReader::fillBuffer()
 }
 
 //***************************************************************************
-unsigned int SampleReader::read(QMemArray<sample_t> &buffer,
-	unsigned int dstoff, unsigned int length)
+unsigned int SampleReader::read(Kwave::SampleArray &buffer,
+                                unsigned int dstoff, unsigned int length)
 {
     if (eof() || !length) return 0; // already done or nothing to do
 
@@ -144,7 +146,7 @@ unsigned int SampleReader::read(QMemArray<sample_t> &buffer,
 
     unsigned int count = 0;
     unsigned int rest = length;
-    if (dstoff+rest > buffer.size()) rest = buffer.size() - dstoff;
+    if (dstoff + rest > buffer.size()) rest = buffer.size() - dstoff;
     Q_ASSERT(rest);
     if (!rest) return 0;
 
@@ -167,7 +169,7 @@ unsigned int SampleReader::read(QMemArray<sample_t> &buffer,
 	    buffer[dst++] = m_buffer[src++];
 	}
 #else
-	MEMCPY(&(buffer[dst]), &(m_buffer[src]), cnt*sizeof(sample_t));
+	MEMCPY(&(buffer[dst]), &(m_buffer[src]), cnt * sizeof(sample_t));
 #endif
 
 	if (m_buffer_position >= m_buffer_used) {
@@ -178,11 +180,11 @@ unsigned int SampleReader::read(QMemArray<sample_t> &buffer,
     }
 
     // take the rest directly out of the stripe(s)
-    QPtrListIterator<Stripe> it(m_stripes);
-    if (m_src_position+rest-1 > m_last) rest = (m_last - m_src_position)+1;
-
-    for (; rest && it.current(); ++it) {
-	Stripe *s = it.current();
+    if (m_src_position + rest > m_last + 1)
+	rest = (m_last - m_src_position) + 1;
+    foreach (Stripe *s, m_stripes) {
+	if (!rest) break;
+	if (!s) continue;
 	unsigned int st  = s->start();
 	unsigned int len = s->length();
 	if (!len) continue; // skip zero-length stripes
@@ -282,7 +284,7 @@ SampleReader &SampleReader::operator >> (sample_t &sample)
 }
 
 //***************************************************************************
-SampleReader &SampleReader::operator >> (QMemArray<sample_t> &buffer)
+SampleReader &SampleReader::operator >> (Kwave::SampleArray &buffer)
 {
     unsigned int size = buffer.size();
     unsigned int count = read(buffer, 0, size);

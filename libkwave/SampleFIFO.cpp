@@ -22,7 +22,7 @@
 
 //***************************************************************************
 SampleFIFO::SampleFIFO()
-    :m_buffer(), m_read_offset(0), m_lock(true)
+    :m_buffer(), m_read_offset(0), m_lock(QMutex::Recursive)
 {
 }
 
@@ -46,7 +46,7 @@ void SampleFIFO::flush()
 void SampleFIFO::put(const Kwave::SampleArray &buffer)
 {
     QMutexLocker _lock(&m_lock);
-    if (!buffer.isEmpty()) m_buffer.append(buffer.copy());
+    if (!buffer.isEmpty()) m_buffer.enqueue(buffer);
 }
 
 //***************************************************************************
@@ -60,12 +60,12 @@ unsigned int SampleFIFO::get(Kwave::SampleArray &buffer)
     const unsigned int available = length();
     if (rest > available) rest = available;
 
-    QValueVector<Kwave::SampleArray>::iterator it = m_buffer.begin();
     sample_t *dst = buffer.data();
     unsigned int read = 0;
-    while (rest && (it != m_buffer.end())) {
-	sample_t *src        = (*it).data();
-	unsigned int src_len = (*it).count();
+    while (rest && !m_buffer.isEmpty()) {
+	Kwave::SampleArray head = m_buffer.head();
+	sample_t *src        = head.data();
+	unsigned int src_len = head.size();
 	Q_ASSERT(src_len > m_read_offset);
 	if (m_read_offset) src_len -= m_read_offset;
 
@@ -76,14 +76,15 @@ unsigned int SampleFIFO::get(Kwave::SampleArray &buffer)
 	    read  += src_len;
 	    dst   += src_len;
 	    m_read_offset = 0;
+
 	    // remove the buffer from the queue
-	    it = m_buffer.erase(it);
+	    m_buffer.dequeue();
 	} else {
 	    // use only a portion of the buffer
 	    MEMCPY(dst, src + m_read_offset, rest * sizeof(sample_t));
 	    read          += rest;
 	    m_read_offset += rest;
-	    Q_ASSERT(m_read_offset < (*it).count());
+	    Q_ASSERT(m_read_offset < src_len);
 	    rest = 0;
 	}
     }
@@ -97,9 +98,8 @@ unsigned int SampleFIFO::length()
     QMutexLocker _lock(&m_lock);
 
     unsigned int len = 0;
-    QValueVector<Kwave::SampleArray>::iterator it;
-    for (it = m_buffer.begin(); it != m_buffer.end(); ++it)
-	len += (*it).count();
+    foreach (Kwave::SampleArray buf, m_buffer)
+	len += buf.size();
     return len;
 }
 

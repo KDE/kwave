@@ -16,6 +16,8 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/SampleReader.h"
 #include "kwave/SignalManager.h"
@@ -29,19 +31,18 @@ MultiTrackReader::MultiTrackReader()
 
 //***************************************************************************
 MultiTrackReader::MultiTrackReader(SignalManager &signal_manager,
-    const QMemArray<unsigned int> &track_list,
+    const QList<unsigned int> &track_list,
     unsigned int first, unsigned int last)
-    :Kwave::MultiTrackSource<SampleReader, false>(
-	track_list.count(), 0, "MultiTrackReader"),
+    :Kwave::MultiTrackSource<SampleReader, false>(track_list.count()),
      m_cancelled(false)
 {
-    unsigned int count = track_list.count();
-    for (unsigned int i=0; i < count; i++) {
-	unsigned int track = track_list[i];
-	SampleReader *s =
-	    signal_manager.openSampleReader(track, first, last);
+    const unsigned int count = track_list.count();
+    unsigned int index = 0;
+
+    foreach(unsigned int track, track_list) {
+	SampleReader *s = signal_manager.openSampleReader(track, first, last);
 	Q_ASSERT(s);
-	insert(i, s);
+	insert(index++, s);
     }
 
     Q_ASSERT(count == tracks());
@@ -56,9 +57,9 @@ MultiTrackReader::~MultiTrackReader()
 //***************************************************************************
 bool MultiTrackReader::eof() const
 {
-    unsigned int c = tracks();
+    const unsigned int c = tracks();
     for (unsigned int r = 0; r < c; r++) {
-	SampleReader *reader = this->at(r);
+	SampleReader *reader = at(r);
 	Q_ASSERT(reader);
 	if (!reader) continue;
 	if (reader->eof()) return true;
@@ -73,7 +74,7 @@ void MultiTrackReader::proceeded()
     unsigned int track;
     const unsigned int n_tracks = tracks();
     for (track=0; track < n_tracks; ++track) {
-	SampleReader *r = (*this)[track];
+	SampleReader *r = at(track);
 	if (r) pos += (r->pos() - r->first());
     }
     emit progress(pos);
@@ -86,7 +87,7 @@ void MultiTrackReader::reset()
     unsigned int track;
     const unsigned int n_tracks = tracks();
     for (track=0; track < n_tracks; ++track) {
-	SampleReader *r = (*this)[track];
+	SampleReader *r = at(track);
 	if (r) r->reset();
     }
     emit progress(pos);

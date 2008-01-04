@@ -69,7 +69,7 @@ namespace Kwave {
 	};
 
 	/** Returns true when all sources are done */
-	virtual bool done()
+	virtual bool done() const
 	{
 	    foreach (SOURCE *src, static_cast< QVector<SOURCE *> >(*this))
 		if (src && !src->done()) return false;
@@ -120,7 +120,6 @@ namespace Kwave {
 	    }
 	    QVector<SOURCE *>::clear();
 	};
-
     };
 
     /**

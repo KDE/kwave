@@ -16,9 +16,9 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <qobject.h>
-#include <qstring.h>
-#include <qwidget.h>
+#include <QObject>
+#include <QString>
+#include <QWidget>
 
 #include <klocale.h>
 #include <kmessagebox.h>

@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <qspinbox.h>
+#include <QSpinBox>
 
 #ifndef _INVERTABLE_SPIN_BOX_H_
 #define _INVERTABLE_SPIN_BOX_H_
@@ -29,7 +29,7 @@ class InvertableSpinBox: public QSpinBox
 public:
 
     /** Constructor */
-    InvertableSpinBox(QWidget *parent, const char *name);
+    InvertableSpinBox(QWidget *parent);
 
     /** Destructor */
     virtual ~InvertableSpinBox() {};
@@ -38,7 +38,7 @@ public:
     virtual void setInverse(bool inverse);
 
     /** returns the current inversion state */
-    virtual bool inverse() { return m_inverse; };
+    virtual bool inverse() const { return m_inverse; };
 
 public slots:
 
@@ -63,7 +63,7 @@ private:
 
     /** if true, spin buttons work in inverse mode */
     bool m_inverse;
-    
+
 };
 
 #endif /* _INVERTABLE_SPIN_BOX_H_ */

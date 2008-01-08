@@ -19,17 +19,18 @@
 #include <math.h>
 #include <sched.h> // for sched_yield()
 
-#include <qaccel.h>
-#include <qapplication.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qnamespace.h> // for ESCAPE key (accelerator)
+#include <QApplication>
+#include <QCloseEvent>
+#include <QGridLayout>
+#include <QLabel>
+#include <QProgressBar>
+#include <QVBoxLayout>
 
 #include <kpushbutton.h>
 #include <kglobal.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kprogress.h>
+#include <kstandardguiitem.h>
 
 #include "libkwave/KwavePlugin.h"  // for ms2string
 #include "libgui/FileProgress.h"
@@ -37,9 +38,9 @@
 //***************************************************************************
 FileProgress::FileProgress(QWidget *parent,
 	const QUrl &url, unsigned int size,
-	unsigned int samples, double rate, unsigned int bits,
+	unsigned int samples, qreal rate, unsigned int bits,
 	unsigned int tracks)
-    :KDialog(parent, "FileProgress", true),
+    :KDialog(parent),
     m_url(url),
     m_size(size),
     m_lbl_url(0),
@@ -54,6 +55,8 @@ FileProgress::FileProgress(QWidget *parent,
     m_sample_rate(rate),
     m_tracks(tracks)
 {
+    setModal(true);
+
     QString text;
 
     // start the timer now
@@ -63,16 +66,19 @@ FileProgress::FileProgress(QWidget *parent,
     setCaption(m_url.toString());
 
     // toplevel uses a vbox layout
-    QVBoxLayout *top_layout = new QVBoxLayout(this, 10, 10);
+    QVBoxLayout *top_layout = new QVBoxLayout(this);
     Q_ASSERT(top_layout);
     if (!top_layout) return;
+    top_layout->setMargin(10);
+    top_layout->setSpacing(10);
 
     // sublayout for the lines with the file info
-    QGridLayout *info_layout = new QGridLayout(5, 2, 0);
+    QGridLayout *info_layout = new QGridLayout(this);
     Q_ASSERT(info_layout);
     if (!info_layout) return;
-    info_layout->setColStretch(0,0);
-    info_layout->setColStretch(1,100);
+    info_layout->setSpacing(0);
+    info_layout->setColumnStretch(0, 0);
+    info_layout->setColumnStretch(1, 100);
     top_layout->addLayout(info_layout);
 
     // label with "source"
@@ -90,12 +96,12 @@ FileProgress::FileProgress(QWidget *parent,
 
     // label with "rate:"
     if (!addInfoLabel(info_layout, i18n("sample rate: "), 2, 0)) return;
-    text = i18n("%1 samples per second").arg(rate);
+    text = i18n("%1 samples per second", rate);
     if (!addInfoLabel(info_layout, text, 2, 1)) return;
 
     // label with "resolution:"
     if (!addInfoLabel(info_layout, i18n("resolution: "), 3, 0)) return;
-    text = i18n("%1 bits per sample").arg(bits);
+    text = i18n("%1 bits per sample", bits);
     if (!addInfoLabel(info_layout, text, 3, 1)) return;
 
     // label with "tracks:"
@@ -116,16 +122,19 @@ FileProgress::FileProgress(QWidget *parent,
     if (!addInfoLabel(info_layout, text, 4, 1)) return;
 
     // progress bar
-    m_progress = new KProgress(100, this);
+    m_progress = new QProgressBar(this);
     Q_ASSERT(m_progress);
     if (!m_progress) return;
     top_layout->addWidget(m_progress, 0, 0);
+    m_progress->setMinimum(0);
+    m_progress->setMaximum(100);
 
     // sublayout for the line with estimated time
-    QGridLayout *status_layout = new QGridLayout(1, 3, 1);
+    QGridLayout *status_layout = new QGridLayout(this);
     Q_ASSERT(status_layout);
     if (!status_layout) return;
-    status_layout->addColSpacing(1, 20);
+    status_layout->setSpacing(1);
+    status_layout->setColumnMinimumWidth(1, 20);
     top_layout->addLayout(status_layout);
 
     // create the statistic labels
@@ -135,7 +144,7 @@ FileProgress::FileProgress(QWidget *parent,
     if (!m_stat_bytes) return;
 
     // some dummy update to get maximum size
-    updateStatistics(9999999.9, (double)(99*24*60*60), size);
+    updateStatistics(9999999.9, (qreal)(99*24*60*60), size);
 
     // now correct the minimum sizes of the statistic entries
     m_stat_transfer->adjustSize();
@@ -144,15 +153,15 @@ FileProgress::FileProgress(QWidget *parent,
     m_stat_bytes->setMinimumWidth(m_stat_bytes->sizeHint().width());
 
     // right lower edge: the "cancel" button
-    KPushButton *bt_cancel = new KPushButton(this);
+    KPushButton *bt_cancel =
+	new KPushButton(KStandardGuiItem::cancel(), this);
     Q_ASSERT(bt_cancel);
     if (!bt_cancel) return;
-    bt_cancel->setText(i18n("&Cancel"));
     bt_cancel->setFixedSize(bt_cancel->sizeHint());
-    bt_cancel->setAccel(Key_Escape);
     bt_cancel->setFocus();
+    bt_cancel->setShortcut(Qt::Key_Escape);
     connect(bt_cancel, SIGNAL(clicked()), this, SLOT(cancel()));
-    top_layout->addWidget(bt_cancel, 0, AlignRight);
+    top_layout->addWidget(bt_cancel, 0, Qt::AlignRight);
 
     // activate the layout and show the dialog
     top_layout->activate();
@@ -231,7 +240,6 @@ QLabel *FileProgress::addInfoLabel(QGridLayout *layout, const QString text,
     label->adjustSize();
     label->setFixedHeight(label->sizeHint().height());
     label->setMinimumWidth(label->sizeHint().width());
-    label->setAutoMask(true);
 
     layout->addWidget(label, row, col);
 
@@ -239,7 +247,7 @@ QLabel *FileProgress::addInfoLabel(QGridLayout *layout, const QString text,
 }
 
 //***************************************************************************
-void FileProgress::updateStatistics(double rate, double rest,
+void FileProgress::updateStatistics(qreal rate, qreal rest,
 	unsigned int pos)
 {
     QString text;
@@ -286,28 +294,28 @@ void FileProgress::setBytePosition(unsigned int pos)
     if (!m_progress) return;
 
     // the easiest part: the progress bar and the caption
-    int percent = (int)((double)pos / (double)m_size * 100.0);
+    int percent = (int)((qreal)pos / (qreal)m_size * 100.0);
 
     // not enough progress not worth showing ?
     if (percent <= m_last_percent) return;
     m_last_percent = percent;
 
-    if (m_progress->progress() != percent) {
-	QString newcap;
-	newcap = i18n("(%1%) %2");
-	newcap = newcap.arg(percent);
-	newcap = newcap.arg(m_url.toString());
-	setCaption(newcap);
-
-	m_progress->setValue(percent);
-    }
+//     if (m_progress->progress() != percent) {
+// 	QString newcap;
+// 	newcap = i18n("(%1%) %2");
+// 	newcap = newcap.arg(percent);
+// 	newcap = newcap.arg(m_url.toString());
+// 	setCaption(newcap);
+//
+// 	m_progress->setValue(percent);
+//     }
 
     // update the transfer statistics
-    double seconds = m_time.elapsed() / 1000.0; // [sec]
-    double rate = pos / seconds;                // [bytes/sec]
-    double rest = 0;
+    qreal seconds = m_time.elapsed() / 1000.0; // [sec]
+    qreal rate = pos / seconds;                // [bytes/sec]
+    qreal rest = 0;
     if (rate > 10) {
-	rest = double(m_size - pos) / rate;     // [seconds]
+	rest = qreal(m_size - pos) / rate;     // [seconds]
     }
     updateStatistics(rate, rest, pos);
 
@@ -331,7 +339,7 @@ void FileProgress::setLength(unsigned int samples)
 	                              (float)m_sample_rate*1000.0);
     } else {
 	// fallback if no rate: length in samples
-        text = i18n("%1 samples").arg(samples);
+        text = i18n("%1 samples", samples);
     }
     m_lbl_length->setText(text);
 }

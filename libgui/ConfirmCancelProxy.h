@@ -19,7 +19,7 @@
 #define _CONFIRM_CANCEL_PROXY_H_
 
 #include "config.h"
-#include <qobject.h>
+#include <QObject>
 
 class QString;
 class QWidget;

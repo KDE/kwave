@@ -19,18 +19,17 @@
 #define _CURVE_WIDGET_H_
 
 #include "config.h"
-#include <qpixmap.h>
-#include <qpopupmenu.h>
-#include <qstring.h>
-#include <qstrlist.h>
-#include <qwidget.h>
+
+#include <QMenu>
+#include <QString>
+#include <QWidget>
 
 #include "libkwave/Curve.h"
 #include "libkwave/Interpolation.h"
 
+class QAction;
 class QMouseEvent;
 class QPaintEvent;
-class Point;
 class QPixmap;
 
 class CurveWidget: public QWidget
@@ -39,7 +38,7 @@ class CurveWidget: public QWidget
 public:
 
     /** Constructor */
-    CurveWidget(QWidget *parent, const char *name);
+    CurveWidget(QWidget *parent);
 
     /** Destructor */
     virtual ~CurveWidget();
@@ -55,16 +54,16 @@ public:
      * @param x the point's x coordinate, should be [0.0...1.0]
      * @param y the point's y coordinate, should be [0.0...1.0]
      */
-    void addPoint(double x, double y);
+    void addPoint(qreal x, qreal y);
 
     /**
      * Tries to find a point that is nearest to the given widget coordinates
      * and within a tolerance.
      * @param sx screen x coordinate, left is 0
      * @param sy screen y coordinate, top is 0
-     * @return the point of the curve or null if nothing found
+     * @return the point of the curve or Curve::NoPoint if nothing found
      */
-    Curve::Point *findPoint(int sx, int sy);
+    Curve::Point findPoint(int sx, int sy);
 
 public slots:
 
@@ -72,7 +71,7 @@ public slots:
      * Selects a new interpolation type by it's numeric index. Used from the
      * mouse context menu.
      */
-    void selectInterpolationType(int index);
+    void selectInterpolationType(QAction *action);
 
     /**
      * Scales the size of the curve so that all interpolated points are
@@ -107,9 +106,9 @@ public slots:
 
     /**
      * Loads an existing preset.
-     * @param id the id of the corresponding menu entry
+     * @param action the menu actio of the corresponding menu entry
      */
-    void loadPreset(int id);
+    void loadPreset(QAction *action);
 
 protected slots:
 
@@ -138,19 +137,19 @@ private:
     Curve m_curve;
 
     /** Popup (context) menu for the right mouse button */
-    QPopupMenu *m_menu;
+    QMenu *m_menu;
 
     /**
      * Part of the popup (context) menu for the right
      * mouse button with the list of preset files
      */
-    QPopupMenu *m_preset_menu;
+    QMenu *m_preset_menu;
 
     /** Currently selected point or null if none selected */
-    Curve::Point *m_current;
+    Curve::Point m_current;
 
     /** Last selected point, remembered for deleting. */
-    Curve::Point *m_last;
+    Curve::Point m_last;
 
     /** State of the left mouse button (when moving points) */
     bool m_down;

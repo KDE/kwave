@@ -19,7 +19,10 @@
 #define _MENU_ITEM_H_
 
 #include "config.h"
-#include <qstring.h>
+
+#include <QAction>
+#include <QString>
+
 #include "MenuNode.h"
 
 /**
@@ -39,12 +42,14 @@ public:
      * @param name the non-localized name of the node
      * @param command the command to be sent when the node is
      *                selected (optional, default=0)
-     * @param key bitmask of the keyboard shortcut (see "qkeycode.h"),
-     *            (optional, default=0)
+     * @param shortcut keyboard shortcut (optional, default=0)
      * @param uid unique id string (optional, default=0)
      */
-    MenuItem(MenuNode *parent, const QString &name,
-	const QString &command = 0, int key = 0, const QString &uid = 0);
+    MenuItem(MenuNode *parent,
+             const QString &name,
+             const QString &command,
+             const QKeySequence &shortcut,
+             const QString &uid);
 
     /** virtual destructor */
     virtual ~MenuItem();
@@ -55,17 +60,22 @@ public:
     virtual void actionSelected();
 
     /**
-     * Positional index of the iten in the parent menu.
-     * @return index [0..n] or -1 if no parent
-     */
-    virtual int getIndex();
-
-    /**
      * Handles/interpretes special menu commands.
      * @param command name of a menu node or command
      * @return true if the name was recognized as a command and handled
      */
     virtual bool specialCommand(const QString &command);
+
+    /**
+     * Returns true if the node is enabled.
+     */
+    virtual bool isEnabled();
+
+    /**
+     * Enables/disables the current menu node.
+     * @param enable true to enable the item, false to disable
+     */
+    virtual void setEnabled(bool enable);
 
     /**
      * Enables/disabled checking/selecting the item
@@ -89,10 +99,25 @@ public:
      */
     virtual void setText(const QString &text);
 
-private:
+    /**
+     * Returns the menu nodes' icon.
+     */
+    virtual const QIcon icon();
 
-    /** true if the item can be selected/checked (default=false) */
-    bool m_checkable;
+    /**
+     * Sets a new icon of a menu node.
+     * @param icon QPixmap with the icon
+     */
+    virtual void setIcon(const QIcon &icon);
+
+    /** Returns the corresponding menu action */
+    virtual QAction *action() { return &m_action; };
+
+private slots:
+
+    virtual void actionTriggered(bool checked);
+
+private:
 
     /**
      * name of a group for exclusive selection
@@ -100,8 +125,8 @@ private:
      */
     QString m_exclusive_group;
 
-    /** the user visible text, normally equal to the name */
-    QString m_text;
+    /** the QAction behind this menu entry */
+    QAction m_action;
 
 };
 

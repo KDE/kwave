@@ -15,11 +15,12 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include "IntValidatorProxy.h"
 
 //***************************************************************************
-IntValidatorProxy::IntValidatorProxy(QObject *parent, const char *name)
-    :QIntValidator(parent, name)
+IntValidatorProxy::IntValidatorProxy(QObject *parent)
+    :QIntValidator(parent)
 {
 }
 

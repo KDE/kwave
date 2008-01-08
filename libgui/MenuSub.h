@@ -19,17 +19,20 @@
 #define _MENU_SUB_H_
 
 #include "config.h"
-#include <qpopupmenu.h>
-#include "MenuItem.h"
 
-class QPixmap;
+#include <QAction>
+#include <QIcon>
+#include <QMenu>
+#include <QString>
+
+#include "MenuNode.h"
 
 /**
  * This is the class for submenu entries in a Menu. It is normally owned by a
  * root menu node, a toplevel menu or an other submenu.
  * @author Thomas Eschenbacher
  */
-class MenuSub : public MenuItem
+class MenuSub : public MenuNode
 {
     Q_OBJECT
 
@@ -37,33 +40,27 @@ public:
     /**
      * Constructor.
      * @param parent pointer to the node's parent (might be 0)
+     * @param menu the already generated QMenu
      * @param name the non-localized name of the submenu
      * @param command the command to be sent when the submenu is
      *                selected (optional, default=0)
-     * @param key bitmask of the keyboard shortcut (see "qkeycode.h"),
-     *            (optional, default=0)
+     * @param shortcut keyboard shortcut, (optional, default=0)
      * @param uid unique id string (optional, default=0)
      */
-    MenuSub(MenuNode *parent, const QString &name, const QString &command = 0,
-	    int key = 0, const QString &uid = 0);
-	
+    MenuSub(MenuNode *parent,
+            QMenu *menu,
+            const QString &name,
+            const QString &command,
+            const QKeySequence &shortcut,
+            const QString &uid);
+
     /** Destructor */
     virtual ~MenuSub();
 
     /**
-     * Returns the positional index of a child node, identified by
-     * it's menu id.
-     * @param id menu id of the child
-     * @return index [0..n] or -1 f not found
-     */
-    virtual int getChildIndex(int id);
-
-    /**
      * Always returns true, as the nodes of this type are branches.
      */
-    virtual bool isBranch() {
-	return true;
-    };
+    virtual bool isBranch() const { return true; };
 
     /**
      * Inserts a new branch node under the submenu. The new node
@@ -76,16 +73,14 @@ public:
      *                data from a child entry. (this is used for
      *                menus with data selection lists like "recent files)
      *                If not used, pass 0.
-     * @param key bitmask of the keyboard shortcut (see "qkeycode.h"),
-     *            0 if unused
+     * @param shortcut keyboard shortcut, 0 if unused
      * @param uid unique id string (might be 0)
-     * @param index the positional index within the parent menu, starting
-     *              from 0 or -1 for appending (optional, default=-1)
      * @return pointer to the new branch node
      */
-    virtual MenuNode *insertBranch(const QString &name,
-	const QString &command, int key, const QString &uid,
-	int index = -1);
+    virtual MenuSub *insertBranch(const QString &name,
+                                  const QString &command,
+                                  const QKeySequence &shortcut,
+                                  const QString &uid);
 
     /**
      * Inserts a new leaf node under the submenu. The new node
@@ -93,21 +88,19 @@ public:
      * @param name non-localized name of the node
      * @param command the command to be sent when the node is
      *                selected (might be 0)
-     * @param key bitmask of the keyboard shortcut (see "qkeycode.h"),
-     *            0 if unused
+     * @param shortcut keyboard shortcut, 0 if unused
      * @param uid unique id string (might be 0)
-     * @param index the positional index within the parent menu, starting
-     *              from 0 or -1 for appending. Optional, default=-1
      * @return pointer to the new leaf node
      */
-    virtual MenuNode *insertLeaf(const QString &name, const QString &command,
-				 int key, const QString &uid,
-				 int index = -1);
+    virtual MenuNode *insertLeaf(const QString &name,
+                                 const QString &command,
+                                 const QKeySequence &shortcut,
+                                 const QString &uid);
 
-    /**
-     * Returns the internally handled QPopupMenu
-     */
-    virtual QPopupMenu &getPopupMenu();
+    /** Returns the corresponding menu action */
+    virtual QAction *action() {
+	return (m_menu) ? m_menu->menuAction() : 0;
+    };
 
     /**
      * Removes a child node of the curren node. If the child
@@ -124,39 +117,30 @@ public:
     virtual bool specialCommand(const QString &command);
 
     /**
-     * Sets a new icon of a child node.
-     * @param id the node's menu id
-     * @param icon reference to the QPixmap with the icon
+     * Returns true if the node is enabled.
      */
-    virtual void setItemIcon(int id, const QPixmap &icon);
+    virtual bool isEnabled();
 
     /**
-     * Sets or removes the checkmark from a menu item.
-     * @param id the item's menu id
-     * @param check true to set the mark, false to remove
+     * Enables/disables the current menu node.
+     * @param enable true to enable the item, false to disable
      */
-    virtual void setItemChecked(int id, bool check);
+    virtual void setEnabled(bool enable);
+
+    /** Returns the menu nodes' icon. */
+    virtual const QIcon icon();
 
     /**
-     * Informs the submenu that the enabled state of a child node
-     * might have changed.
-     * @param id menu id of the child node
-     * @param enable true if the item has been enabled, false if disabled
+     * Sets a new icon of a menu node.
+     * @param icon QPixmap with the icon
      */
-    virtual void actionChildEnableChanged(int id, bool enable);
-
-public slots:
-
-    /**
-     * will be called if an item of the submenu is selected
-     * @param id the numeric id of the selected item (child)
-     */
-    void slotSelected(int id);
+    virtual void setIcon(const QIcon &icon);
 
 private:
 
-    /** the QPopupMenu that is controlled */
-    QPopupMenu m_menu;
+    /** the QMenu that is controlled */
+    QMenu *m_menu;
+
 };
 
 #endif /* _MENU_SUB_H_ */

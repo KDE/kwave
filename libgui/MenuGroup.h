@@ -29,7 +29,7 @@ class MenuGroup : public MenuNode
 {
     Q_OBJECT
 
-public:    // Public methods
+public:
 
     /**
      * Constructor.
@@ -43,22 +43,6 @@ public:    // Public methods
      * @see #clear()
      */
     virtual ~MenuGroup();
-
-    /**
-     * Registers a node as a child of the current node.
-     * @param child pointer to the child node
-     * @return the id of the node
-     */
-    virtual int registerChild(MenuNode *child);
-
-    /**
-     * Removes a child node of the curren node. If the child
-     * was not found or is already removed this does nothing.
-     * The child's leaveGroup() function is called so that it
-     * does no longer belong to this group.
-     * @param child pointer to the child node
-     */
-    virtual void removeChild(MenuNode *child);
 
     /**
      * Enables/disables all members of the group.

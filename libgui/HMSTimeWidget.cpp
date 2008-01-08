@@ -16,13 +16,15 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <limits.h>
 #include <knuminput.h>
+
 #include "HMSTimeWidget.h"
 
 //***************************************************************************
-HMSTimeWidget::HMSTimeWidget(QWidget *parent, const char *name)
-    :HMSTimeWidgetBase(parent, name),
+HMSTimeWidget::HMSTimeWidget(QWidget *parent)
+    :QWidget(parent), Ui::HMSTimeWidgetBase(),
      m_time(0), m_limit(INT_MAX)
 {
     setValue(m_time);

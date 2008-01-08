@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <klocale.h>
 #include <kmenubar.h>
 
@@ -25,9 +26,7 @@
 
 //***************************************************************************
 MenuRoot::MenuRoot(KMenuBar &bar)
-    :MenuNode(0, "(root)"),
-    m_menu_bar(bar),
-    m_group_list()
+    :MenuNode(0, "(root)", 0, 0, 0), m_menu_bar(bar), m_group_list()
 {
 }
 
@@ -38,44 +37,43 @@ MenuRoot::~MenuRoot()
 }
 
 //***************************************************************************
-int MenuRoot::getChildIndex(int id)
+QHash<QString, MenuGroup *> &MenuRoot::getGroupList()
 {
-    for (unsigned int i = 0; i < m_menu_bar.count(); i++) {
-	if (m_menu_bar.idAt(i) == id) return i;
-    }
-    return -1;
+    return m_group_list;
 }
 
 //***************************************************************************
-QDict<MenuNode> *MenuRoot::getGroupList()
+MenuSub *MenuRoot::insertBranch(const QString &name,
+                                const QString &command,
+                                const QKeySequence &shortcut,
+                                const QString &uid)
 {
-    return &m_group_list;
+    QMenu *menu = m_menu_bar.addMenu(name);
+    Q_ASSERT(menu);
+    if (!menu) return 0;
+
+    MenuSub *sub = new MenuSub(this, menu, name, command, shortcut, uid);
+    Q_ASSERT(sub);
+    if (!sub) return 0;
+
+    registerChild(sub);
+
+    return sub;
 }
 
 //***************************************************************************
-MenuNode *MenuRoot::insertBranch(const QString &name, const QString &command,
-                                 int key, const QString &uid, int index)
+MenuNode *MenuRoot::insertLeaf(const QString &name,
+                               const QString &command,
+                               const QKeySequence &shortcut,
+                               const QString &uid)
 {
-    MenuSub *node = new MenuSub(this, name, command, key, uid);
-    Q_ASSERT(node);
-    if (!node) return 0;
-
-    int new_id = registerChild(node);
-    m_menu_bar.insertItem(i18n(name), &(node->getPopupMenu()), new_id, index);
-    return node;
-}
-
-//***************************************************************************
-MenuNode *MenuRoot::insertLeaf(const QString &name, const QString &command,
-			       int key, const QString &uid,
-			       int index)
-{
-    MenuItem *item = new MenuItem(this, name, command, key, uid);
+    MenuItem *item = new MenuItem(this, name, command, shortcut, uid);
     Q_ASSERT(item);
     if (!item) return 0;
 
-    int new_id = registerChild(item);
-    m_menu_bar.insertItem(i18n(name), new_id, index);
+    registerChild(item);
+    m_menu_bar.addAction(item->action());
+
     return item;
 }
 
@@ -84,33 +82,26 @@ void MenuRoot::removeChild(MenuNode *child)
 {
     Q_ASSERT(child);
     if (!child) return ;
-    if (m_children.findRef(child) == -1) return ;
+    if (!m_children.contains(child)) return ;
 
-    QDict<MenuNode> *group_list = getGroupList();
-    if (!group_list || (group_list->find(child->getName()) == 0)) {
+    QHash<QString, MenuGroup *> &group_list = getGroupList();
+    if (!group_list.contains(child->name())) {
         // only remove what has been added to the menu bar,
         // but not menu groups
-        m_menu_bar.removeItem(child->getId());
+	QAction *action = child->action();
+	if (action) m_menu_bar.removeAction(action);
     }
     MenuNode::removeChild(child);
 }
 
 //***************************************************************************
-void MenuRoot::actionChildEnableChanged(int /*id*/, bool /*enable*/)
-{
-    // do nothing, the child nodes of the toplevel menu have already
-    // been enabled/disabled
-    // we don't want to -> "menu_bar.setItemEnabled(id, enable);" !!!
-}
-
-//***************************************************************************
 bool MenuRoot::specialCommand(const QString &command)
 {
-    Q_ASSERT(command);
-    if (!command) return false;
+    Q_ASSERT(command.length());
+    if (!command.length()) return false;
 
-    if (strcmp(command, "#separator") == 0) {
-	m_menu_bar.insertSeparator();
+    if (command == "#separator") {
+	m_menu_bar.addSeparator();
 	return true;
     }
 

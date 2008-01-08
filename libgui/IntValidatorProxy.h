@@ -19,8 +19,9 @@
 #define _INT_VALIDATOR_PROXY_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qvalidator.h>
+
+#include <QObject>
+#include <QIntValidator>
 
 class QString;
 class QWidget;
@@ -39,7 +40,7 @@ public:
      * Constructor
      * @see QValidator
      */
-    IntValidatorProxy(QObject *parent, const char *name = 0);
+    IntValidatorProxy(QObject *parent);
 
     /** Destructor */
     virtual ~IntValidatorProxy();

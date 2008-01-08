@@ -71,9 +71,7 @@ QString Curve::getCommand()
     QString cmd = "curve(";
     cmd += m_interpolation.name(m_interpolation.type());
 
-    Curve::ConstIterator it(*this);
-    while (it.hasNext()) {
-	Point p = it.next();
+    foreach (Point p, *this) {
 	QString par = ",%1,%2";
 	cmd += par.arg(p.x()).arg(p.y());
     }
@@ -121,9 +119,7 @@ void Curve::secondHalf()
 {
     if (isEmpty()) return;
 
-    Iterator it(*this);
-    while (it.hasNext()) {
-	Point p = it.next();
+    foreach (Point p, *this) {
 	p.setX(0.5 + p.x() / 2.0);
     }
 
@@ -159,9 +155,7 @@ void Curve::firstHalf()
 {
     if (isEmpty()) return;
 
-    Iterator it(*this);
-    while (it.hasNext()) {
-	Point p = it.next();
+    foreach (Point p, *this) {
 	p.setX(p.x() / 2.0);
     }
     append(Point(1.0, first().y()));
@@ -172,9 +166,7 @@ void Curve::VFlip()
 {
     if (isEmpty()) return;
 
-    Iterator it(*this);
-    while (it.hasNext()) {
-	Point p = it.next();
+    foreach (Point p, *this) {
 	p.setY(1.0 - p.y());
     }
 }
@@ -185,9 +177,7 @@ void Curve::HFlip()
     if (isEmpty()) return;
 
     // flip all x coordinates
-    Iterator it(*this);
-    while (it.hasNext()) {
-	Point p = it.next();
+    foreach (Point p, *this) {
 	p.setX(1.0 - p.x());
     }
 
@@ -204,19 +194,15 @@ void Curve::scaleFit(unsigned int range)
     Interpolation interpolation(m_interpolation.type());
 
     QVector<qreal> y = interpolation.interpolation(*this, range);
-    QVectorIterator<qreal> it_y(y);
-    while (it_y.hasNext()) {
-	qreal yi = it_y.next();
+    foreach (qreal yi, y) {
 	if (yi > max) max = yi;
 	if (yi < min) min = yi;
     }
 
-    Iterator it(*this);
-    while (it.hasNext()) {
-	Point p = it.next();
+    foreach (Point p, *this) {
 	p.ry() -= min;
 	if (max != min)
-	    p.ry() /= (max-min);
+	    p.ry() /= (max - min);
 	else
 	    p.ry() = min;
     }
@@ -230,9 +216,7 @@ Curve::Point Curve::findPoint(qreal px, qreal py, qreal tol)
     qreal dist;
     qreal min_dist = tol;
 
-    ConstIterator it(*this);
-    while (it.hasNext()) {
-	Point p = it.next();
+    foreach (Point p, *this) {
 	// use the length of the difference vector as criterium
 	dist = hypot(px - p.x(), py - p.y());
 	if (dist < min_dist) {

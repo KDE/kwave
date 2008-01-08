@@ -19,9 +19,10 @@
 #define _FILE_PROGRESS_H_
 
 #include "config.h"
-#include <qdatetime.h>
-#include <qsemimodal.h>
-#include <qurl.h>
+
+#include <QUrl>
+#include <QLabel>
+#include <QTime>
 
 #include <kdialog.h>
 
@@ -47,7 +48,7 @@ public:
      */
     FileProgress(QWidget *parent,
 	const QUrl &url, unsigned int size,
-	unsigned int samples, double rate, unsigned int bits,
+	unsigned int samples, qreal rate, unsigned int bits,
 	unsigned int tracks);
 
     /** Destructor */
@@ -134,7 +135,9 @@ protected:
      * @param pos position in the file
      * @internal
      */
-    void updateStatistics(double rate, double rest, unsigned int pos);
+    void updateStatistics(qreal rate, qreal rest, unsigned int pos);
+
+protected:
 
     /** url of the file */
     QUrl m_url;
@@ -149,7 +152,7 @@ protected:
     QLabel *m_lbl_length;
 
     /** progress bar */
-    KProgress *m_progress;
+    QProgressBar *m_progress;
 
     /** label with transfer statistics */
     QLabel *m_stat_transfer;
@@ -170,7 +173,7 @@ protected:
     unsigned int m_bits_per_sample;
 
     /** number of samples per second, used for output */
-    double m_sample_rate;
+    qreal m_sample_rate;
 
     /** number of tracks */
     unsigned int m_tracks;

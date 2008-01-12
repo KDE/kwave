@@ -20,9 +20,13 @@
 #define _MULTI_STATE_WIDGET_H_
 
 #include "config.h"
-#include <qwidget.h>
-#include <qpainter.h>
 
+#include <QPixmap>
+#include <QVector>
+#include <QWidget>
+
+class QPaintEvent;
+class QMouseEvent;
 class QString;
 
 class MultiStateWidget : public QWidget
@@ -31,17 +35,22 @@ class MultiStateWidget : public QWidget
 
 public:
 
-    /** Constructor */
-    MultiStateWidget(QWidget *parent = 0, int = 0, int = 2);
+    /**
+     * Constructor
+     * @param parent the parent widget
+     * @param id identifier
+     */
+    MultiStateWidget(QWidget *parent, int id);
 
     /** Destructor */
-    virtual ~MultiStateWidget ();
+    virtual ~MultiStateWidget();
 
     /**
      * Sets the number that will passed as argument to the
      * "clicked" signal.
+     * @param id new identifier
      */
-    void setNumber(int number);
+    void setID(int id);
 
     /**
      * Adds a the content of pixmap file as pixmap for the
@@ -53,37 +62,45 @@ public:
      * @see KStandardDirs
      * @param filename name of the file to be added, without
      *        path.
-     * @return id of the corresponding state or -1 if
-     *         something went wrong
      */
-    int addPixmap(const QString &filename);
+    void addPixmap(const QString &filename);
 
-    void setStates (int *newstates);
-    void setState (int newstate);
-    void nextState ();
+    /**
+     * Activates a new state, with wrap-around on overflows, limited
+     * to [ 0 ... m_pixmaps.count()-1 ].
+     * @param state index of the new state [0...N]
+     */
+    void setState(int newstate);
+
+    /** advance to the next state, with wrap-around to zero */
+    void nextState();
+
 signals:
 
     /**
      * Signals that the widget has changed it's state.
-     * @param number identifier of this widget's instance
+     * @param id identifier of this widget's instance
      */
-    void clicked(int number);
-
-public slots:
-
-protected:
-
-    void mouseReleaseEvent(QMouseEvent * );
-    void paintEvent(QPaintEvent *);
+    void clicked(int id);
 
 private:
 
-    QPainter p;
-    int *states;     // maps states to pixmap-list
-    int act;         // current states
-    int count;       // number of states
-    int number;      // number of channels this object represents... used for signals
-}
-;
+    /** reacts to the mouse release (click) */
+    virtual void mouseReleaseEvent(QMouseEvent *);
+
+    /** repaints the pixmap */
+    virtual void paintEvent(QPaintEvent *);
+
+private:
+
+    /** index of the current state */
+    int m_current_index;
+
+    /** identifier used for the clicked() signal */
+    int m_identifier;
+
+    /** list of QPixmaps */
+    QVector<QPixmap> m_pixmaps;
+};
 
 #endif  // _MULTI_STATE_WIDGET_H_

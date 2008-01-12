@@ -19,14 +19,15 @@
 #define _TRACK_PIXMAP_H_
 
 #include "config.h"
-#include <qmemarray.h>
-#include <qbitarray.h>
-#include <qcolor.h>
-#include <qmutex.h>
-#include <qobject.h>
-#include <qpixmap.h>
+
+#include <QBitArray>
+#include <QColor>
+#include <QMutex>
+#include <QObject>
+#include <QPixmap>
 
 #include "libkwave/Sample.h"
+#include "libkwave/KwaveSampleArray.h"
 
 class Track;
 
@@ -54,7 +55,7 @@ class Track;
  *
  * @author Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
  */
-class TrackPixmap : public QObject, public QPixmap
+class TrackPixmap : public QObject
 {
     Q_OBJECT
 
@@ -70,25 +71,42 @@ public:
      * Resize the pixmap.
      * @param width new width in pixels
      * @param height new height in pixels
-     * @see QPixmap::resize()
      */
-    void resize(int width, int height);
+    virtual void resize(int width, int height);
+
+    /**
+     * Get the width of the pixmap
+     * @return the width of the pixmap in pixels
+     */
+    virtual int width() const { return m_pixmap.width(); };
+
+    /**
+     * Get the height of the pixmap
+     * @return the height of the pixmap in pixels
+     */
+    virtual int height() const { return m_pixmap.height(); };
+
+    /**
+     * Get the internal QPixmap object
+     * @return reference to m_pixmap
+     */
+    virtual const QPixmap &pixmap() const { return m_pixmap; } ;
 
     /**
      * Repaints the current pixmap. After the repaint the signal is no
      * longer in status "modified". If it was not modified before, this
      * is a no-op.
      */
-    void repaint();
+    virtual void repaint();
 
     /**
      * Returns "true" if the buffer has changed and the pixmap has to
      * be re-painted.
      */
-    bool isModified();
+    virtual bool isModified();
 
     /** Sets the internal "modified" flag */
-    void setModified() { m_modified = true; };
+    virtual void setModified() { m_modified = true; };
 
 signals:
 
@@ -110,7 +128,7 @@ public slots:
      * affects the number of visible samples and a redraw of
      * the current view.
      */
-    void setZoom(double zoom);
+    void setZoom(qreal zoom);
 
 private slots:
 
@@ -246,7 +264,7 @@ private:
      * Converts a pixel offset into a sample offset.
      */
     inline unsigned int pixels2samples(int pixels) {
-	return (unsigned int)(pixels*m_zoom);
+	return (unsigned int)(pixels * m_zoom);
     }
 
     /**
@@ -271,6 +289,11 @@ private:
      */
     void convertOverlap(unsigned int &offset, unsigned int &length);
 
+private:
+
+    /** The QPixmap with the bitmap data */
+    QPixmap m_pixmap;
+
     /**
      * Reference to the track with our sample data.
      */
@@ -287,7 +310,7 @@ private:
      * Zoom factor in samples/pixel. Needed for converting
      * sample indices into pixels and vice-versa.
      */
-    double m_zoom;
+    qreal m_zoom;
 
     /**
      * If true, we are in min/max mode. This means that m_sample_buffer
@@ -300,17 +323,17 @@ private:
      * This might sometimes include one sample before or after the
      * current view.
      */
-    QMemArray<sample_t> m_sample_buffer;
+    Kwave::SampleArray m_sample_buffer;
 
     /**
      * Array with minimum sample values, if in min/max mode.
      */
-    QMemArray<sample_t> m_min_buffer;
+    Kwave::SampleArray m_min_buffer;
 
     /**
      * Array with maximum sample values, if in min/max mode.
      */
-    QMemArray<sample_t> m_max_buffer;
+    Kwave::SampleArray m_max_buffer;
 
     /** Indicates that the buffer content was modified */
     bool m_modified;

@@ -18,8 +18,8 @@
 #include "config.h"
 #include "math.h"
 
-#include <qmutex.h>
-#include <qpainter.h>
+#include <QMutableListIterator>
+#include <QPainter>
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
@@ -35,7 +35,7 @@
 //***************************************************************************
 OverViewCache::OverViewCache(SignalManager &signal, unsigned int src_offset,
                              unsigned int src_length,
-                             const QMemArray<unsigned int> *src_tracks)
+                             const QList<unsigned int> *src_tracks)
     :m_signal(signal), m_min(), m_max(), m_state(), m_count(0), m_scale(1),
      m_lock(), m_src_offset(src_offset), m_src_length(src_length),
      m_src_tracks(), m_src_deleted()
@@ -63,17 +63,11 @@ OverViewCache::OverViewCache(SignalManager &signal, unsigned int src_offset,
     if (src_tracks && !src_tracks->isEmpty()) {
 	// already having a list of selected tracks
 	Track t;
-	for (unsigned int i=0; i < src_tracks->count(); ++i) {
-	    unsigned int track = (*src_tracks)[i];
+	foreach (unsigned int track, *src_tracks) {
 	    m_src_deleted.append(track);
 	    slotTrackInserted(track, t);
 	}
     }
-
-    // set autodelete mode, for cleaner shutdown
-    m_state.setAutoDelete(true);
-    m_min.setAutoDelete(true);
-    m_max.setAutoDelete(true);
 }
 
 //***************************************************************************
@@ -107,15 +101,15 @@ void OverViewCache::scaleUp()
     if (shrink <= 1) return; // nothing to shrink, just ignore new scale
 
     // loop over all tracks
-    for (unsigned int t=0; t < m_state.count(); ++t) {
+    for (int t=0; t < m_state.count(); ++t) {
 	unsigned int dst = 0;
 	unsigned int count = CACHE_SIZE / shrink;
         Q_ASSERT(count <= CACHE_SIZE);
 
 	// source pointers
-	signed char *smin = m_min.at(t)->data();
-	signed char *smax = m_max.at(t)->data();
-	CacheState *sstate = m_state.at(t)->data();
+	signed char *smin = m_min[t].data();
+	signed char *smax = m_max[t].data();
+	CacheState *sstate = m_state[t].data();
 
 	// destination pointers
 	signed char *dmin = smin;
@@ -164,7 +158,7 @@ void OverViewCache::scaleDown()
     if (m_scale == new_scale) return;
 
     m_scale = new_scale;
-    for (unsigned int track=0; track < m_state.count(); ++track) {
+    for (int track=0; track < m_state.count(); ++track) {
 	invalidateCache(track, 0, len / m_scale);
     }
 }
@@ -173,7 +167,7 @@ void OverViewCache::scaleDown()
 int OverViewCache::trackIndex(unsigned int track_nr)
 {
     if (!m_src_tracks.isEmpty() || !m_src_deleted.isEmpty()) {
-	return m_src_tracks.findIndex(track_nr);
+	return m_src_tracks.indexOf(track_nr);
     } else {
 	return track_nr;
     }
@@ -187,14 +181,12 @@ void OverViewCache::invalidateCache(unsigned int track, unsigned int first,
     int cache_track = trackIndex(track);
     if (cache_track < 0) return;
 
-    QMemArray<CacheState> *state = m_state.at(cache_track);
-    Q_ASSERT(state);
-    if (!state) return;
+    QVector<CacheState> &state = m_state[cache_track];
 
     if (last >= CACHE_SIZE) last = CACHE_SIZE-1;
     unsigned int pos;
     for (pos = first; pos <= last; ++pos) {
-	(*state)[pos] = Invalid;
+	state[pos] = Invalid;
     }
 }
 
@@ -211,50 +203,40 @@ void OverViewCache::slotTrackInserted(unsigned int index, Track &)
 
     // "selected tracks" mode -> adjust indices in track lists
     if (!m_src_tracks.isEmpty() || !m_src_deleted.isEmpty()) {
-	QValueList<unsigned int>::Iterator it;
+	QMutableListIterator<unsigned int> it_s(m_src_tracks);
+	QMutableListIterator<unsigned int> it_d(m_src_deleted);
+	unsigned int track;
 
-	if (m_src_deleted.contains(index)) {
+	if (it_d.findNext(index)) {
 	    // deleted selected track came back again
-	    it = m_src_deleted.find(index);
-	    m_src_deleted.remove(it);
-
-	    for (it=m_src_deleted.begin(); it != m_src_deleted.end(); ++it)
-		if (*it >= index) (*it)--;
-
-	    for (it=m_src_tracks.begin(); it != m_src_tracks.end(); ++it)
-		if (*it >= index) (*it)++;
+	    it_d.remove();
+	    it_d.toFront();
+	    while (it_d.hasNext())
+		if ((track = it_d.next()) >= index) it_d.setValue(--track);
+	    while (it_s.hasNext())
+		if ((track = it_s.next()) >= index) it_s.setValue(++track);
 
 	    Q_ASSERT(!m_src_tracks.contains(index));
 	    m_src_tracks.append(index);
 	    dumpTracks();
 	} else {
 	    // inserted new/unknown track
-	    for (it=m_src_deleted.begin(); it != m_src_deleted.end(); ++it)
-		if (*it >= index) (*it)--;
-	    for (it=m_src_tracks.begin(); it != m_src_tracks.end(); ++it)
-		if (*it >= index) (*it)++;
+	    while (it_d.hasNext())
+		if ((track = it_d.next()) >= index) it_d.setValue(--track);
+	    while (it_s.hasNext())
+		if ((track = it_s.next()) >= index) it_s.setValue(++track);
 	    dumpTracks();
 	    return;
 	}
     }
 
-    QMemArray<CacheState> *state = new QMemArray<CacheState>(CACHE_SIZE);
-    QMemArray<signed char> *min = new QMemArray<signed char>(CACHE_SIZE);
-    QMemArray<signed char> *max = new QMemArray<signed char>(CACHE_SIZE);
+    QVector<CacheState> state(CACHE_SIZE);
+    QVector<signed char> min(CACHE_SIZE);
+    QVector<signed char> max(CACHE_SIZE);
 
-    if (!state || !min || !max) {
-	Q_ASSERT(state);
-	Q_ASSERT(min);
-	Q_ASSERT(max);
-	if (state) delete state;
-	if (min) delete min;
-	if (max) delete max;
-	return;
-    }
-
-    min->fill(+127);
-    max->fill(-127);
-    state->fill(Unused);
+    min.fill(+127);
+    max.fill(-127);
+    state.fill(Unused);
 
     int cache_index = trackIndex(index);
     m_min.insert(cache_index, min);
@@ -278,33 +260,28 @@ void OverViewCache::slotTrackDeleted(unsigned int index)
 
     int cache_track = trackIndex(index);
     if (cache_track >= 0) {
-	m_min.remove(cache_track);
-	m_max.remove(cache_track);
-	m_state.remove(cache_track);
+	m_min.removeAt(cache_track);
+	m_max.removeAt(cache_track);
+	m_state.removeAt(cache_track);
     }
 
     if (!m_src_tracks.isEmpty() || !m_src_deleted.isEmpty()) {
 	// "selected tracks" mode -> adjust indices in track lists
-	QValueList<unsigned int>::Iterator it;
+	QMutableListIterator<unsigned int> it_s(m_src_tracks);
+	QMutableListIterator<unsigned int> it_d(m_src_deleted);
+	unsigned int track;
 
 	dumpTracks();
-	if (m_src_tracks.contains(index)) {
+	if (it_s.findNext(index)) {
 	    // remove selected track
-	    m_src_tracks.remove(index);
-
-	    for (it=m_src_deleted.begin(); it != m_src_deleted.end(); ++it)
-		if (*it >= index) (*it)++;
-	    for (it=m_src_tracks.begin(); it != m_src_tracks.end(); ++it)
-		if (*it > index) (*it)--;
-
+	    it_s.remove();
+	    it_s.toFront();
 	    m_src_deleted.append(index);
-	} else {
-	    // non-selected track removed
-	    for (it=m_src_deleted.begin(); it != m_src_deleted.end(); ++it)
-		if (*it >= index) (*it)++;
-	    for (it=m_src_tracks.begin(); it != m_src_tracks.end(); ++it)
-		if (*it > index) (*it)--;
 	}
+	while (it_d.hasNext())
+	    if ((track = it_d.next()) >= index) it_d.setValue(++track);
+	while (it_s.hasNext())
+	    if ((track = it_s.next()) > index) it_s.setValue(--track);
 	dumpTracks();
     }
 
@@ -433,16 +410,15 @@ void OverViewCache::slotSamplesModified(unsigned int track,
 QBitmap OverViewCache::getOverView(int width, int height)
 {
     QBitmap bitmap(width, height);
-    bitmap.fill(color0);
+    bitmap.fill(Qt::color0);
 
     const unsigned int length = sourceLength();
     if (!length) return bitmap; // stay empty if no data available
 
-    QMemArray<unsigned int> track_list;
+    QList<unsigned int> track_list;
     if (!m_src_tracks.isEmpty() || !m_src_deleted.isEmpty()) {
-	track_list.resize(m_src_tracks.count());
-	for (unsigned int i=0; i < m_src_tracks.count(); ++i)
-	    track_list[i] = m_src_tracks[i];
+	for (int i=0; i < m_src_tracks.count(); ++i)
+	    track_list.append(m_src_tracks[i]);
     } else {
 	track_list = m_signal.allTracks();
     }
@@ -450,14 +426,14 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	m_src_offset+length-1);
 
     // loop over all min/max buffers and make their content valid
-    Q_ASSERT(m_state.count() == src.tracks());
-    for (unsigned int t=0; (t < m_state.count()) && !src.isEmpty(); ++t) {
+    Q_ASSERT(m_state.count() == static_cast<int>(src.tracks()));
+    for (int t=0; (t < m_state.count()) && !src.isEmpty(); ++t) {
 	unsigned int count = length / m_scale;
 	if (count > CACHE_SIZE) count = 0;
 
-	signed char *min = m_min.at(t)->data();
-	signed char *max = m_max.at(t)->data();
-	CacheState *state = m_state.at(t)->data();
+	signed char *min = m_min[t].data();
+	signed char *max = m_max[t].data();
+	CacheState *state = m_state[t].data();
 	SampleReader *reader = src[t];
 
 	for (unsigned int ofs=0; ofs < count; ++ofs) {
@@ -468,7 +444,7 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	    sample_t max_sample = SAMPLE_MIN;
 	    unsigned int first = ofs*m_scale;
 	    unsigned int count = m_scale;
-	    QMemArray<sample_t> buf(count);
+	    Kwave::SampleArray buf(count);
 
 	    reader->seek(m_src_offset+first);
 	    count = reader->read(buf, 0, count);
@@ -488,7 +464,7 @@ QBitmap OverViewCache::getOverView(int width, int height)
 
     QPainter p;
     p.begin(&bitmap);
-    p.setPen(color1);
+    p.setPen(Qt::color1);
 
     // loop over all min/max buffers
     for (int x=0; (x < width) && (m_state.count()) && !src.isEmpty(); ++x) {
@@ -508,10 +484,10 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	int maximum = -127;
 	for (; index <= last_index; ++index) {
 	    // loop over all tracks
-	    for (unsigned int t=0; t < m_state.count(); ++t) {
-		signed char *min = m_min.at(t)->data();
-		signed char *max = m_max.at(t)->data();
-		CacheState *state = m_state.at(t)->data();
+	    for (int t=0; t < m_state.count(); ++t) {
+		signed char *min = m_min[t].data();
+		signed char *max = m_max[t].data();
+		CacheState *state = m_state[t].data();
 		Q_ASSERT(state);
 		if (!state) continue;
 		if (state[index] != Valid) continue;
@@ -534,16 +510,13 @@ QBitmap OverViewCache::getOverView(int width, int height)
 //***************************************************************************
 void OverViewCache::dumpTracks()
 {
-    QValueList<unsigned int>::Iterator it;
     QString list = "OverViewCache - selected:";
-    for (it=m_src_tracks.begin(); it != m_src_tracks.end(); ++it) {
-	list += " " + list.number(*it);
-    }
+    foreach (unsigned int track, m_src_tracks)
+	list += " " + list.number(track);
     list += " --- deleted:";
-    for (it=m_src_deleted.begin(); it != m_src_deleted.end(); ++it) {
-	list += " " + list.number(*it);
-    }
-    qDebug("%s", list.local8Bit().data());
+    foreach (unsigned int track, m_src_deleted)
+	list += " " + list.number(track);
+    qDebug("%s", list.toLocal8Bit().data());
 }
 
 //***************************************************************************

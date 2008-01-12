@@ -179,7 +179,7 @@ int Thread::stop(unsigned int timeout)
     if (!running()) return 0;
 
     // try to interrupt by INT signal
-    qDebug("Thread::stop(): sending SIGHUP");
+    qWarning("Thread::stop(): sending SIGHUP");
     for (unsigned int i=0; i < 8; i++) {
 	{
 	    QMutexLocker lock_exit(&g_lock_sighup);
@@ -222,9 +222,9 @@ bool Thread::running()
 {
     if (m_thread_running.tryLock()) {
 	m_thread_running.unlock();
-	return true;
+	return false;
     }
-    return false;
+    return true;
 }
 
 //***************************************************************************

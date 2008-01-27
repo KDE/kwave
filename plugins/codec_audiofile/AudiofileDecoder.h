@@ -19,10 +19,11 @@
 #define _WAV_DECODER_H_
 
 #include "config.h"
-#include <qptrlist.h>
-#include <qobject.h>
+
 #include "libkwave/Decoder.h"
 
+class QIODevice;
+class QWidget;
 class RecoverySource;
 class RIFFChunk;
 class RIFFParser;

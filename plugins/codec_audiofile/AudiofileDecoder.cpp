@@ -28,8 +28,9 @@ extern "C" {
 #endif /* USE_BUILTIN_LIBAUDIOFILE */
 }
 
-#include <qptrlist.h>
-#include <qprogressdialog.h>
+#include <QtGlobal>
+// #include <qptrlist.h>
+// #include <qprogressdialog.h>
 
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -178,11 +179,11 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     qDebug("bits/sample = %d", info().bits());
     qDebug("length      = %d samples", info().length());
     qDebug("format      = %d (%s)", sample_format,
-                                    sample_format_name.local8Bit().data());
+                                    sample_format_name.toLocal8Bit().data());
     qDebug("-------------------------");
 
     // set up libaudiofile to produce Kwave's internal sample format
-#if defined(ENDIANESS_BIG)
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
     afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_BIGENDIAN);
 #else
     afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_LITTLEENDIAN);

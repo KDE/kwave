@@ -16,9 +16,9 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <qptrlist.h>
-#include <qmime.h>
-#include <qregexp.h>
+
+#include <QMimeSource>
+#include <QRegExp>
 
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
@@ -26,8 +26,8 @@
 
 //***************************************************************************
 /* static initializers */
-QPtrList<Encoder> CodecManager::m_encoders;
-QPtrList<Decoder> CodecManager::m_decoders;
+QList<Encoder *> CodecManager::m_encoders;
+QList<Decoder *> CodecManager::m_decoders;
 
 //***************************************************************************
 //***************************************************************************
@@ -38,21 +38,19 @@ CodecManager::CodecManager()
 //***************************************************************************
 CodecManager::~CodecManager()
 {
-    m_encoders.setAutoDelete(true);
-    m_decoders.setAutoDelete(true);
-    m_encoders.clear();
-    m_decoders.clear();
+    Q_ASSERT(m_encoders.isEmpty());
+    Q_ASSERT(m_decoders.isEmpty());
 }
 
 //***************************************************************************
-void CodecManager::registerEncoder(const Encoder &encoder)
+void CodecManager::registerEncoder(Encoder &encoder)
 {
     if (m_encoders.contains(&encoder)) return; /* already known */
     m_encoders.append(&encoder);
 }
 
 //***************************************************************************
-void CodecManager::registerDecoder(const Decoder &decoder)
+void CodecManager::registerDecoder(Decoder &decoder)
 {
     if (m_decoders.contains(&decoder)) return; /* already known */
     m_decoders.append(&decoder);
@@ -61,55 +59,40 @@ void CodecManager::registerDecoder(const Decoder &decoder)
 //***************************************************************************
 bool CodecManager::canDecode(const KMimeType &mimetype)
 {
-    QPtrListIterator<Decoder> it(m_decoders);
-    for (; it.current(); ++it) {
-	Decoder *d = it.current();
-	Q_ASSERT(d);
+    foreach (Decoder *d, m_decoders)
 	if (d && d->supports(mimetype)) return true;
-    }
     return false;
 }
 
 //***************************************************************************
 bool CodecManager::canDecode(const QString &mimetype_name)
 {
-    QPtrListIterator<Decoder> it(m_decoders);
-    for (; it.current(); ++it) {
-	Decoder *d = it.current();
-	Q_ASSERT(d);
+    foreach (Decoder *d, m_decoders)
 	if (d && d->supports(mimetype_name)) return true;
-    }
     return false;
 }
 
 //***************************************************************************
-QString CodecManager::whatContains(const KURL &url)
+QString CodecManager::whatContains(const KUrl &url)
 {
-    QPtrListIterator<Decoder> it_d(m_decoders);
-    for (; it_d.current(); ++it_d) {
-	Decoder &d = *(it_d.current());
-	QString mime_type = d.whatContains(url);
+    foreach (Decoder *d, m_decoders) {
+	if (!d) continue;
+	QString mime_type = d->whatContains(url);
 	if (mime_type != KMimeType::defaultMimeType()) return mime_type;
     }
-
-    QPtrListIterator<Encoder> it_e(m_encoders);
-    for (; it_e.current(); ++it_e) {
-	Encoder &e = *(it_e.current());
-	QString mime_type = e.whatContains(url);
+    foreach (Encoder *e, m_encoders) {
+	if (!e) continue;
+	QString mime_type = e->whatContains(url);
 	if (mime_type != KMimeType::defaultMimeType()) return mime_type;
     }
-    return KMimeType::findByURL(url)->name();
+    return KMimeType::findByUrl(url)->name();
 }
 
 //***************************************************************************
 Decoder *CodecManager::decoder(const QString &mimetype_name)
 {
-    QPtrListIterator<Decoder> it(m_decoders);
-    for (; it.current(); ++it) {
-	Decoder *d = it.current();
-	Q_ASSERT(d);
+    foreach (Decoder *d, m_decoders)
 	if (d && d->supports(mimetype_name)) return d->instance();
-    }
     return 0;
 }
 
@@ -136,36 +119,29 @@ Decoder *CodecManager::decoder(const QMimeSource *mime_source)
 //***************************************************************************
 Encoder *CodecManager::encoder(const QString &mimetype_name)
 {
-    QPtrListIterator<Encoder> it(m_encoders);
-    for (; it.current(); ++it) {
-	Encoder *e = it.current();
-	Q_ASSERT(e);
+    foreach (Encoder *e, m_encoders)
 	if (e && e->supports(mimetype_name)) return e->instance();
-    }
     return 0;
 }
 
 //***************************************************************************
 QString CodecManager::encodingFilter()
 {
-    QPtrListIterator<Encoder> it(m_encoders);
     QStringList list;
-    for (; it.current(); ++it) {
-	Encoder *e = it.current();
-
+    foreach (Encoder *e, m_encoders) {
 	// loop over all mime types that the encoder supports
-	QPtrList<KMimeType> types = e->mimeTypes();
-	QPtrListIterator<KMimeType> ti(types);
-	for (; ti.current(); ++ti) {
-	    KMimeType *type = ti.current();
-	    QString extensions = type->patterns().join(" ");
+	QList<CodecBase::MimeType> types = e->mimeTypes();
+	QListIterator<CodecBase::MimeType> ti(types);
+	while (ti.hasNext()) {
+	    CodecBase::MimeType type = ti.next();
+	    QString extensions = type.patterns.join(" ");
 
 	    // skip if extensions are already known/present
 	    if (list.join("\n").contains(extensions)) continue;
 
 	    // otherwise append to the list
 	    QString entry = extensions;
-	    QString comment = type->comment().replace(QRegExp("/"), ",");
+	    QString comment = type.description.replace(QRegExp("/"), ",");
 	    entry += "|" + comment;
 	    list.append(entry + " (" + extensions + ")");
 	}
@@ -175,7 +151,7 @@ QString CodecManager::encodingFilter()
     Q_ASSERT(!str_list.contains('/'));
     if (str_list.contains('/')) {
 	qWarning("CodecManager::encodingFilter() -> '%s'",
-	         str_list.data());
+	         str_list.toLocal8Bit().data());
     }
 
     return str_list;
@@ -184,27 +160,24 @@ QString CodecManager::encodingFilter()
 //***************************************************************************
 QString CodecManager::decodingFilter()
 {
-    QPtrListIterator<Decoder> it(m_decoders);
     QStringList list;
     QStringList all_extensions;
 
-    for (; it.current(); ++it) {
-	Decoder *d = it.current();
-
+    foreach (Decoder *d, m_decoders) {
 	// loop over all mime types that the decoder supports
-	QPtrList<KMimeType> types = d->mimeTypes();
-	QPtrListIterator<KMimeType> ti(types);
-	for (; ti.current(); ++ti) {
-	    KMimeType *type = ti.current();
-	    QString extensions = type->patterns().join(" ");
+	QList<CodecBase::MimeType> types = d->mimeTypes();
+	QListIterator<CodecBase::MimeType> ti(types);
+	while (ti.hasNext()) {
+	    CodecBase::MimeType type = ti.next();
+	    QString extensions = type.patterns.join(" ");
 
 	    // skip if extensions are already known/present
 	    if (list.join("\n").contains(extensions)) continue;
 
 	    // otherwise append to the list
-	    all_extensions += type->patterns();
+	    all_extensions += type.patterns;
 	    QString entry = extensions;
-	    QString comment = type->comment().replace(QRegExp("/"), ",");
+	    QString comment = type.description.replace(QRegExp("/"), ",");
 	    entry += "|" + comment;
 	    list.append(entry + " (" + extensions + ")");
 	}
@@ -217,7 +190,7 @@ QString CodecManager::decodingFilter()
     Q_ASSERT(!str_list.contains('/'));
     if (str_list.contains('/')) {
 	qWarning("CodecManager::decodingFilter() -> '%s'",
-	         str_list.data());
+	         str_list.toLocal8Bit().data());
     }
 
     return str_list;

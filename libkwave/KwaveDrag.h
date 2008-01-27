@@ -25,6 +25,7 @@
 #include <QObject>
 #include <QString>
 
+class QMimeData;
 class QMimeSource;
 class QWidget;
 
@@ -77,7 +78,7 @@ public:
     bool encode(QWidget *widget, MultiTrackReader &src, FileInfo &info);
 
     /** Returns true if the mime type of the given source can be decoded */
-    static bool canDecode(const QMimeSource *e);
+    static bool canDecode(const QMimeData *data);
 
     /**
      * Decodes the encoded byte data of the given mime source and

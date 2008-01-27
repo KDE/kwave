@@ -1,8 +1,8 @@
 /***************************************************************************
-          LabelManager.cpp  -  manager class for kwave's labels
+          ShortcutWrapper.cpp  -  wrapper for keyboard shortcuts
 			     -------------------
-    begin                : Mon Jun 2 2000
-    copyright            : (C) 2000 by Thomas Eschenbacher
+    begin                : Sat Jan 12 2008
+    copyright            : (C) 2008 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -16,28 +16,30 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <kapp.h>
 
-#include "LabelManager.h"
+#include <QKeySequence>
+#include <QObject>
+
+#include "ShortcutWrapper.h"
 
 //***************************************************************************
-LabelManager::LabelManager()
-    :QObject()
+Kwave::ShortcutWrapper::ShortcutWrapper(QWidget *parent,
+                                        const QKeySequence &key,
+                                        int id)
+    :QShortcut(key, parent), m_id(id)
 {
 }
 
 //***************************************************************************
-bool LabelManager::isOK()
-{
-    return true;
-}
-
-//***************************************************************************
-LabelManager::~LabelManager()
+Kwave::ShortcutWrapper::~ShortcutWrapper()
 {
 }
 
 //***************************************************************************
-#include "LabelManager.moc"
+void Kwave::ShortcutWrapper::triggered()
+{
+    emit activated(m_id);
+}
+
 //***************************************************************************
 //***************************************************************************

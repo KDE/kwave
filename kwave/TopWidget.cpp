@@ -23,37 +23,33 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <kapp.h>
 
-#include <qkeycode.h>
-#include <qcombobox.h>
-#include <qdir.h>
-#include <qevent.h>
-#include <qframe.h>
-#include <qstringlist.h>
-#include <qtoolbutton.h>
-#include <qtooltip.h>
+#include <QCloseEvent>
+#include <QComboBox>
+#include <QDesktopWidget>
+#include <QFile>
+#include <QPixmap>
+#include <QStringList>
+#include <QTextStream>
 
+#include <kapplication.h>
 #include <kcombobox.h>
 #include <kfiledialog.h>
-#include <kfilefilter.h>
+#include <kglobal.h>
+#include <khelpmenu.h>
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kmenubar.h>
 #include <kstatusbar.h>
-#include <kstddirs.h>
-#include <ktoolbarbutton.h>
+#include <kstandarddirs.h>
+#include <ktoolbar.h>
 
 #include "libkwave/KwavePlugin.h" // for some helper functions
-#include "libkwave/FileLoader.h"
-#include "libkwave/LineParser.h"
 #include "libkwave/Parser.h"
 
 #include "libgui/MenuManager.h"
 #include "libgui/KwaveFileDialog.h"
-
-#include "mt/ThreadsafeX11Guard.h"
 
 #include "KwaveApp.h"
 #include "ClipBoard.h"
@@ -76,14 +72,6 @@
 #include "toolbar/zoomnormal.xpm"
 #include "toolbar/zoomall.xpm"
 
-#ifndef min
-#define min(x,y) (( (x) < (y) ) ? (x) : (y) )
-#endif
-
-#ifndef max
-#define max(x,y) (( (x) > (y) ) ? (x) : (y) )
-#endif
-
 /**
  * useful macro for command parsing
  */
@@ -97,59 +85,26 @@
 #define NEW_FILENAME i18n("New File")
 
 //***************************************************************************
-//***************************************************************************
-TopWidget::ZoomListPrivate::ZoomListPrivate()
-    :QStringList(), m_milliseconds()
+KToolBar *TopWidget::toolBar(const QString &name)
 {
-    append("1 ms",              1L);
-    append("10 ms",            10L);
-    append("100 ms",          100L);
-    append("1 sec",          1000L);
-    append("10 sec",     10L*1000L);
-    append("30 sec",     30L*1000L);
-    append("1 min",   1L*60L*1000L);
-    append("3 min",   3L*60L*1000L);
-    append("5 min",   5L*60L*1000L);
-    append("10 min", 10L*60L*1000L);
-    append("30 min", 30L*60L*1000L);
-    append("60 min", 60L*60L*1000L);
-}
-
-//***************************************************************************
-void TopWidget::ZoomListPrivate::append(const char *text, unsigned int ms)
-{
-    QStringList::append(text);
-    m_milliseconds.append(ms);
-}
-
-//***************************************************************************
-unsigned int TopWidget::ZoomListPrivate::ms(int index)
-{
-    return m_milliseconds[index];
+    KToolBar *toolbar = KMainWindow::toolBar(name);
+    if (!toolbar) return 0;
+    toolbar->setFloatable(false);
+    toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    return toolbar;
 }
 
 //***************************************************************************
 //***************************************************************************
 TopWidget::TopWidget(KwaveApp &main_app)
-    :KMainWindow(), m_app(main_app)
+    :KMainWindow(), m_zoom_factors(), m_app(main_app), m_plugin_manager(0),
+     m_main_widget(0), m_zoomselect(0), m_menu_manager(0), m_pause_timer(0),
+     m_blink_on(false), m_action_undo(0), m_action_redo(0), m_action_play(0),
+     m_action_loop(0), m_action_pause(0),m_action_stop(0),
+     m_action_zoomselection(0), m_action_zoomin(0), m_action_zoomout(0),
+     m_action_zoomnormal(0), m_action_zoomall(0), m_action_zoomselect(0)
 {
-    int id=1000; // id of toolbar items
     KIconLoader icon_loader;
-
-    m_blink_on = false;
-    m_id_undo = -1;
-    m_id_redo = -1;
-    m_id_zoomselection = -1;
-    m_id_zoomin = -1;
-    m_id_zoomout = -1;
-    m_id_zoomnormal = -1;
-    m_id_zoomall = -1;
-    m_id_zoomselect = -1;
-    m_main_widget = 0;
-    m_menu_manager = 0;
-    m_pause_timer = 0;
-    m_toolbar = 0;
-    m_zoomselect = 0;
 
     KMenuBar *menubar = menuBar();
     Q_ASSERT(menubar);
@@ -161,11 +116,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
     m_plugin_manager = new PluginManager(*this);
     Q_ASSERT(m_plugin_manager);
     if (!m_plugin_manager) return;
-    if (!m_plugin_manager->isOK()) {
-	delete m_plugin_manager;
-	m_plugin_manager=0;
-	return;
-    }
 
     connect(m_plugin_manager, SIGNAL(sigCommand(const QString &)),
             this, SLOT(executeCommand(const QString &)));
@@ -186,10 +136,12 @@ TopWidget::TopWidget(KwaveApp &main_app)
     setStatusInfo(SAMPLE_MAX,99,196000,24); // affects the menu !
 
     // load the menu from file
-    QString menufile = locate("data", "kwave/menus.config");
-    FileLoader loader(menufile);
-    Q_ASSERT(loader.buffer());
-    if (loader.buffer()) parseCommands(loader.buffer());
+    QFile menufile(KStandardDirs::locate("data", "kwave/menus.config"));
+    menufile.open(QIODevice::ReadOnly);
+    QTextStream stream(&menufile);
+    Q_ASSERT(!stream.atEnd());
+    if (!stream.atEnd()) parseCommands(stream);
+    menufile.close();
 
     m_main_widget = new MainWidget(this);
     Q_ASSERT(m_main_widget);
@@ -220,89 +172,67 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // --- set up the toolbar ---
 
-    m_toolbar = new KToolBar(this, "toolbar", true, true);
-    Q_ASSERT(m_toolbar);
-    if (!m_toolbar) return;
-    m_toolbar->setBarPos(KToolBar::Top);
-    m_toolbar->setHorizontalStretchable(false);
-    this->addToolBar(m_toolbar);
-    m_toolbar->insertSeparator(-1);
+    KToolBar *toolbar_file = toolBar("MainWidget File");
+    Q_ASSERT(toolbar_file);
+    if (!toolbar_file) return;
 
     // --- file open and save ---
 
-    m_toolbar->insertButton(
-	icon_loader.loadIcon("filenew.png", KIcon::Toolbar),
-	-1, SIGNAL(clicked()),
-	this, SLOT(toolbarFileNew()), true,
-	i18n("create a new empty file"));
+    toolbar_file->addAction(
+	icon_loader.loadIcon("filenew.png", KIconLoader::Toolbar),
+	i18n("create a new empty file"),
+	this, SLOT(toolbarFileNew()));
 
-    m_toolbar->insertButton(
-	icon_loader.loadIcon("fileopen.png", KIcon::Toolbar),
-	-1, SIGNAL(clicked()),
-	this, SLOT(toolbarFileOpen()), true,
-	i18n("open an existing file"));
+    toolbar_file->addAction(
+	icon_loader.loadIcon("fileopen.png", KIconLoader::Toolbar),
+	i18n("open an existing file"),
+	this, SLOT(toolbarFileOpen()));
 
-    m_toolbar->insertButton(
-	icon_loader.loadIcon("filesave.png", KIcon::Toolbar),
-	-1, SIGNAL(clicked()),
-	this, SLOT(toolbarFileSave()), true,
-	i18n("save the current file"));
-
-    // separator between file and edit
-    QFrame *separator1 = new QFrame(m_toolbar, "separator line");
-    Q_ASSERT(separator1);
-    if (!separator1) return;
-    separator1->setFrameStyle(QFrame::VLine | QFrame::Sunken);
-    separator1->setFixedWidth(separator1->sizeHint().width());
-    m_toolbar->insertSeparator(-1);
-    m_toolbar->insertWidget(0, separator1->sizeHint().width(), separator1);
-    m_toolbar->insertSeparator(-1);
+    toolbar_file->addAction(
+	icon_loader.loadIcon("filesave.png", KIconLoader::Toolbar),
+	i18n("save the current file"),
+	this, SLOT(toolbarFileSave()));
 
     // --- edit, cut&paste ---
 
-    m_toolbar->insertButton(
-	icon_loader.loadIcon("undo.png", KIcon::Toolbar),
-	id, SIGNAL(clicked()),
-	this, SLOT(toolbarEditUndo()), true,
-	i18n("Undo"));
-    m_id_undo = id++;
+    KToolBar *toolbar_edit = toolBar("MainWidget Edit");
+    Q_ASSERT(toolbar_edit);
+    if (!toolbar_edit) return;
 
-    m_toolbar->insertButton(
-	icon_loader.loadIcon("redo.png", KIcon::Toolbar),
-	id, SIGNAL(clicked()),
-	this, SLOT(toolbarEditRedo()), true,
-	i18n("Redo"));
-    m_id_redo = id++;
+    m_action_undo = toolbar_edit->addAction(
+	icon_loader.loadIcon("undo.png", KIconLoader::Toolbar),
+	i18n("Undo"),
+	this, SLOT(toolbarEditUndo()));
 
-    m_toolbar->insertButton(
-	icon_loader.loadIcon("editcut.png", KIcon::Toolbar),
-	-1, SIGNAL(clicked()),
-	this, SLOT(toolbarEditCut()), true,
-	i18n("cut the current selection and move it to the clipboard"));
+    m_action_redo = toolbar_edit->addAction(
+	icon_loader.loadIcon("redo.png", KIconLoader::Toolbar),
+	i18n("Redo"),
+	this, SLOT(toolbarEditRedo()));
 
-    m_toolbar->insertButton(
-	icon_loader.loadIcon("editcopy.png", KIcon::Toolbar),
-	-1, SIGNAL(clicked()),
-	this, SLOT(toolbarEditCopy()), true,
-	i18n("copy the current selection to the clipboard"));
+    toolbar_edit->addAction(
+	icon_loader.loadIcon("editcut.png", KIconLoader::Toolbar),
+	i18n("cut the current selection and move it to the clipboard"),
+	this, SLOT(toolbarEditCut()));
 
-    m_toolbar->insertButton(
-	icon_loader.loadIcon("editpaste.png", KIcon::Toolbar),
-	-1, SIGNAL(clicked()),
-	this, SLOT(toolbarEditPaste()), true,
-	i18n("insert the content of clipboard"));
+    toolbar_edit->addAction(
+	icon_loader.loadIcon("editcopy.png", KIconLoader::Toolbar),
+	i18n("copy the current selection to the clipboard"),
+	this, SLOT(toolbarEditCopy()));
 
-    m_toolbar->insertButton(
-	icon_loader.loadIcon("editclear.png", KIcon::Toolbar),
-	-1, SIGNAL(clicked()),
-	this, SLOT(toolbarEditErase()), true,
-	i18n("mute the current selection"));
+    toolbar_edit->addAction(
+	icon_loader.loadIcon("editpaste.png", KIconLoader::Toolbar),
+	i18n("insert the content of clipboard"),
+	this, SLOT(toolbarEditPaste()));
 
-    m_toolbar->insertButton(
-	icon_loader.loadIcon("editdelete.png", KIcon::Toolbar),
-	-1, SIGNAL(clicked()),
-	this, SLOT(toolbarEditDelete()), true,
-	i18n("delete the current selection"));
+    toolbar_edit->addAction(
+	icon_loader.loadIcon("editclear.png", KIconLoader::Toolbar),
+	i18n("mute the current selection"),
+	this, SLOT(toolbarEditErase()));
+
+    toolbar_edit->addAction(
+	icon_loader.loadIcon("editdelete.png", KIconLoader::Toolbar),
+	i18n("delete the current selection"),
+	this, SLOT(toolbarEditDelete()));
 
 //                  Zoom
 //                  Previous Page/Back
@@ -311,109 +241,90 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
 //                  Help
 
-    // separator between edit and playback
-    QFrame *separator = new QFrame(m_toolbar, "separator line");
-    Q_ASSERT(separator);
-    if (!separator) return;
-    separator->setFrameStyle(QFrame::VLine | QFrame::Sunken);
-    separator->setFixedWidth(separator->sizeHint().width());
-    m_toolbar->insertSeparator(-1);
-    m_toolbar->insertWidget(0, separator->sizeHint().width(), separator);
-    m_toolbar->insertSeparator(-1);
-
     // --- playback controls ---
 
     QObject *playback = &(m_main_widget->playbackController());
-    m_toolbar->insertButton(
-	QPixmap(xpm_play), id, SIGNAL(clicked()),
-	playback, SLOT(playbackStart()), true,
-	i18n("start playback"));
-    m_id_play = id++;
+    KToolBar *toolbar_playback = toolBar("MainWidget Playback");
+    Q_ASSERT(toolbar_playback);
+    if (!toolbar_playback) return;
 
-    m_toolbar->insertButton(
-	QPixmap(xpm_loop), id, SIGNAL(clicked()),
-	playback, SLOT(playbackLoop()), true,
-	i18n("start playback and loop"));
-    m_id_loop = id++;
+    m_action_play = toolbar_playback->addAction(
+	QPixmap(xpm_play),
+	i18n("start playback"),
+	playback, SLOT(playbackStart()));
 
-    m_toolbar->insertButton(
-	QPixmap(xpm_pause), id, SIGNAL(clicked()),
-	this, SLOT(pausePressed()), true,
-	i18n("pause playback"));
-    m_id_pause = id++;
+    m_action_loop = toolbar_playback->addAction(
+	QPixmap(xpm_loop),
+	i18n("start playback and loop"),
+	playback, SLOT(playbackLoop()));
 
-    m_toolbar->insertButton(
-	QPixmap(xpm_stop), id, SIGNAL(clicked()),
-	playback, SLOT(playbackStop()), true,
-	i18n("stop playback or loop"));
-    m_id_stop = id++;
+    m_action_pause = toolbar_playback->addAction(
+	QPixmap(xpm_pause),
+	i18n("pause playback"),
+	this, SLOT(pausePressed()));
 
-    // separator between playback and zoom
-    QFrame *separator3 = new QFrame(m_toolbar, "separator line");
-    Q_ASSERT(separator3);
-    if (!separator3) return;
-    separator3->setFrameStyle(QFrame::VLine | QFrame::Sunken);
-    separator3->setFixedWidth(separator3->sizeHint().width());
-    m_toolbar->insertSeparator(-1);
-    m_toolbar->insertWidget(0, separator3->sizeHint().width(), separator3);
-    m_toolbar->insertSeparator(-1);
+    m_action_loop = toolbar_playback->addAction(
+	QPixmap(xpm_stop),
+	i18n("stop playback or loop"),
+	playback, SLOT(playbackStop()));
 
     // --- zoom controls ---
+    m_zoom_factors.append(ZoomFactor("1 ms",              1L));
+    m_zoom_factors.append(ZoomFactor("10 ms",            10L));
+    m_zoom_factors.append(ZoomFactor("100 ms",          100L));
+    m_zoom_factors.append(ZoomFactor("1 sec",          1000L));
+    m_zoom_factors.append(ZoomFactor("10 sec",     10L*1000L));
+    m_zoom_factors.append(ZoomFactor("30 sec",     30L*1000L));
+    m_zoom_factors.append(ZoomFactor("1 min",   1L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor("3 min",   3L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor("5 min",   5L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor("10 min", 10L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor("30 min", 30L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor("60 min", 60L*60L*1000L));
 
-    m_toolbar->insertButton(
-	QPixmap(xpm_zoomrange), id, SIGNAL(clicked()),
-	m_main_widget, SLOT(zoomSelection()), true,
-	i18n("zoom to selection"));
-    m_id_zoomselection = id++;
+    KToolBar *toolbar_zoom = toolBar("MainWidget Zoom");
+    Q_ASSERT(toolbar_zoom);
+    if (!toolbar_zoom) return;
 
-    m_toolbar->insertButton(
+    m_action_zoomselection = toolbar_zoom->addAction(
+	QPixmap(xpm_zoomrange),
+	i18n("zoom to selection"),
+	m_main_widget, SLOT(zoomSelection()));
+
+    m_action_zoomin = toolbar_zoom->addAction(
 	QPixmap(xpm_zoomin),
-	id, SIGNAL(clicked()),
-	m_main_widget, SLOT(zoomIn()), true,
-	i18n("zoom in"));
-    m_id_zoomin = id++;
+	i18n("zoom in"),
+	m_main_widget, SLOT(zoomIn()));
 
-    m_toolbar->insertButton(
+    m_action_zoomout = toolbar_zoom->addAction(
 	QPixmap(xpm_zoomout),
-	id, SIGNAL(clicked()),
-	m_main_widget, SLOT(zoomOut()), true,
-	i18n("zoom out"));
-    m_id_zoomout = id++;
+	i18n("zoom out"),
+	m_main_widget, SLOT(zoomOut()));
 
-    m_toolbar->insertButton(
-	QPixmap(xpm_zoomnormal), id, SIGNAL(clicked()),
-	m_main_widget, SLOT(zoomNormal()), true,
-	i18n("zoom to 100%"));
-    m_id_zoomnormal = id++;
+    m_action_zoomnormal = toolbar_zoom->addAction(
+	QPixmap(xpm_zoomnormal),
+	i18n("zoom to 100%"),
+	m_main_widget, SLOT(zoomNormal()));
 
-    m_toolbar->insertButton(
-	QPixmap(xpm_zoomall), id, SIGNAL(clicked()),
-	m_main_widget, SLOT(zoomAll()), true,
-	i18n("zoom to all"));
-    m_id_zoomall = id++;
+    m_action_zoomall = toolbar_zoom->addAction(
+	QPixmap(xpm_zoomall),
+	i18n("zoom to all"),
+	m_main_widget, SLOT(zoomAll()));
 
-    // add a dummy placeholder, otherwise the minimum size will be wrong
-    QStringList factors(m_zoom_factors);
-    factors.append(" 99:99 min ");
-    m_id_zoomselect = id++;
-    m_toolbar->insertCombo(factors, m_id_zoomselect,
-	true, SIGNAL(activated(int)),
-	this, SLOT(selectZoom(int)), true,
-	i18n("select zoom factor"));
-    connect(m_main_widget, SIGNAL(sigZoomChanged(double)),
-            this, SLOT(setZoomInfo(double)));
-    m_zoomselect = m_toolbar->getCombo(m_id_zoomselect);
+    KComboBox *m_zoomselect = new KComboBox(this);
     Q_ASSERT(m_zoomselect);
     if (!m_zoomselect) return;
+    m_zoomselect->setToolTip(i18n("select zoom factor"));
+    foreach (ZoomFactor zoom, m_zoom_factors)
+	m_zoomselect->addItem(zoom.first);
 
+    m_action_zoomselect = toolbar_zoom->addWidget(m_zoomselect);
+    connect(m_zoomselect, SIGNAL(activated(int)),
+	    this, SLOT(selectZoom(int)));
+    connect(m_main_widget, SIGNAL(sigZoomChanged(double)),
+            this, SLOT(setZoomInfo(double)));
     int h = m_zoomselect->sizeHint().height();
-    m_zoomselect->setFocusPolicy(QWidget::NoFocus);
     m_zoomselect->setMinimumWidth(h*5);
-
-    m_toolbar->setMinimumHeight(max(m_zoomselect->sizeHint().height()+2,
-	m_toolbar->sizeHint().height()));
-    m_toolbar->insertSeparator(-1);
-    updateToolbar();
 
     // connect the playback controller
     connect(&(m_main_widget->playbackController()),
@@ -445,13 +356,13 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // limit the window to a reasonable minimum size
     int w = m_main_widget->minimumSize().width();
-    h = max(m_main_widget->minimumSize().height(), 150);
+    h = qMax(m_main_widget->minimumSize().height(), 150);
     setMinimumSize(w, h);
 
     // Find out the width for which the menu bar would only use
     // one line. This is tricky because sizeHint().width() always
     // returns -1  :-((     -> just try and find out...
-    int wmax = max(w,100) * 10;
+    int wmax = qMax(w,100) * 10;
     int wmin = w;
     int hmin = menuBar()->heightForWidth(wmax);
     while (wmax-wmin > 5) {
@@ -465,19 +376,13 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	}
     }
 
-    // load previous window size
-    KConfig *cfg = KGlobal::config();
-    cfg->setGroup(settingsGroup());
-    restoreWindowSize(cfg);
-
     // set a nice initial size
     w = wmax;
-    w = max(w, m_main_widget->minimumSize().width());
-    w = max(w, m_main_widget->sizeHint().width());
-    w = max(w, m_toolbar->sizeHint().width());
-    w = max(w, width());
-    h = max(m_main_widget->sizeHint().height(), w*6/10);
-    h = max(h, height());
+    w = qMax(w, m_main_widget->minimumSize().width());
+    w = qMax(w, m_main_widget->sizeHint().width());
+    w = qMax(w, width());
+    h = qMax(m_main_widget->sizeHint().height(), w*6/10);
+    h = qMax(h, height());
     resize(w, h);
 
     setStatusInfo(0,0,0,0);
@@ -487,15 +392,12 @@ TopWidget::TopWidget(KwaveApp &main_app)
     updateRecentFiles();
 
     // now we are initialized, load all plugins now
-    statusBar()->message(i18n("Loading plugins..."));
+    statusBar()->showMessage(i18n("Loading plugins..."));
     m_plugin_manager->loadAllPlugins();
-    statusBar()->message(i18n("Ready."), 1000);
+    statusBar()->showMessage(i18n("Ready."), 1000);
 
     setTrackInfo(0);
     updateMenu();
-
-    // layout is finished, remove dummy/placeholder zoom entry
-    m_zoomselect->removeItem(m_zoomselect->count()-1);
 
     // make sure that everything of our window is visible
     QRect desk = qApp->desktop()->rect();
@@ -519,22 +421,13 @@ bool TopWidget::isOK()
     Q_ASSERT(m_menu_manager);
     Q_ASSERT(m_main_widget);
     Q_ASSERT(m_plugin_manager);
-    Q_ASSERT(m_toolbar);
-    Q_ASSERT(m_zoomselect);
 
-    return ( m_menu_manager && m_main_widget &&
-	m_plugin_manager && m_toolbar && m_zoomselect);
+    return ( m_menu_manager && m_main_widget && m_plugin_manager);
 }
 
 //***************************************************************************
 TopWidget::~TopWidget()
 {
-    ThreadsafeX11Guard x11_guard;
-
-    // save the window size
-    KConfig *cfg = KGlobal::config();
-    cfg->setGroup(settingsGroup());
-    saveWindowSize(cfg);
 
     // close the current file (no matter what the user wants)
     closeFile();
@@ -564,7 +457,7 @@ int TopWidget::executeCommand(const QString &line)
 
 //  qDebug("TopWidget::executeCommand(%s)", command.local8Bit().data()); // ###
     if (!command.length()) return 0; // empty line -> nothing to do
-    if (command.stripWhiteSpace().startsWith("#")) return 0; // only a comment
+    if (command.trimmed().startsWith("#")) return 0; // only a comment
 
     // special case: if the command contains ";" it is a list of
     // commands -> macro !
@@ -576,7 +469,7 @@ int TopWidget::executeCommand(const QString &line)
 	    Q_ASSERT(!result);
 	    if (result) {
 		qWarning("macro execution of '%s' failed: %d",
-		        (*it).data(), result);
+		        (*it).toLocal8Bit().data(), result);
 		return result; // macro failed :-(
 	    }
 
@@ -598,28 +491,31 @@ int TopWidget::executeCommand(const QString &line)
 
     if (m_app.executeCommand(command)) {
 	return 0;
+    CASE_COMMAND("about_kde")
+	// Help / About KDE
+	KHelpMenu *dlg = new KHelpMenu(this, "Kwave");
+	dlg->aboutKDE();
     CASE_COMMAND("plugin")
 	QString name = parser.firstParam();
-	QStringList *params = 0;
+	QStringList params;
 
 	int cnt=parser.count();
 	if (cnt > 1) {
-	    params = new QStringList();
-	    Q_ASSERT(params);
-	    while (params && cnt--) {
+	    while (cnt--) {
 		const QString &par = parser.nextParam();
 		qDebug("TopWidget::executeCommand(): %s",
-		    par.local8Bit().data());
-		params->append(par);
+		    par.toLocal8Bit().data());
+		params.append(par);
 	    }
 	}
 	qDebug("TopWidget::executeCommand(): loading plugin '%s'",
-	       name.local8Bit().data());
+	       name.toLocal8Bit().data());
 	qDebug("TopWidget::executeCommand(): with %d parameter(s)",
-		(params) ? (int)params->count() : (int)0);
+		params.count());
 	Q_ASSERT(m_plugin_manager);
 	if (m_plugin_manager)
-	    result = m_plugin_manager->executePlugin(name, params);
+	    result = m_plugin_manager->executePlugin(name,
+		params.count() ? &params : 0);
     CASE_COMMAND("plugin:execute")
 	QStringList params;
 	int cnt = parser.count();
@@ -688,8 +584,14 @@ int TopWidget::executeCommand(const QString &line)
 int TopWidget::loadBatch(const QString &str)
 {
     Parser parser(str);
-    FileLoader loader(parser.firstParam());
-    return parseCommands(loader.buffer());
+    QFile file(parser.firstParam());
+
+    file.open(QIODevice::ReadOnly);
+    QTextStream stream(&file);
+    int result = parseCommands(stream);
+    file.close();
+
+    return result;
 }
 
 //***************************************************************************
@@ -723,15 +625,12 @@ SignalManager &TopWidget::signalManager()
 }
 
 //***************************************************************************
-int TopWidget::parseCommands(const QByteArray &buffer)
+int TopWidget::parseCommands(QTextStream &stream)
 {
     int result = 0;
-
-    LineParser lineparser(buffer);
-    QString line = lineparser.nextLine();
-    while (line.length() && !result) {
+    while (!stream.atEnd() && !result) {
+	QString line = stream.readLine();
 	result = executeCommand(line);
-	line = lineparser.nextLine();
     }
     return result;
 }
@@ -739,7 +638,7 @@ int TopWidget::parseCommands(const QByteArray &buffer)
 //***************************************************************************
 int TopWidget::revert()
 {
-    KURL url(signalName());
+    KUrl url(signalName());
     Q_ASSERT(url.isValid());
     if (!url.isValid()) return -EINVAL;
 
@@ -756,7 +655,6 @@ bool TopWidget::closeFile()
     }
 
     if (signalManager().isModified()) {
-	ThreadsafeX11Guard x11_guard;
 	int res =  KMessageBox::warningYesNoCancel(this,
 	    i18n("This file has been modified.\nDo you want to save it?"));
 	if (res == KMessageBox::Cancel) return false;
@@ -778,7 +676,7 @@ bool TopWidget::closeFile()
     if (m_main_widget) m_main_widget->closeSignal();
 
     updateCaption();
-    m_zoomselect->clearEdit();
+    if (m_zoomselect) m_zoomselect->clearEditText();
     emit sigSignalNameChanged(signalName());
 
     updateMenu();
@@ -789,7 +687,7 @@ bool TopWidget::closeFile()
 }
 
 //***************************************************************************
-int TopWidget::loadFile(const KURL &url)
+int TopWidget::loadFile(const KUrl &url)
 {
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return -1;
@@ -827,13 +725,15 @@ int TopWidget::openRecent(const QString &str)
 //***************************************************************************
 int TopWidget::openFile()
 {
-    KwaveFileDialog dlg(":<kwave_open_dir>", CodecManager::decodingFilter(),
-        this, "Kwave open file", true, 0, 0);
-    dlg.setMode(static_cast<KFile::Mode>(KFile::File | KFile::ExistingOnly));
+    QString filter = CodecManager::decodingFilter();
+    KwaveFileDialog dlg(":<kwave_open_dir>", filter, this, true);
+    dlg.setMode(static_cast<KFile::Modes>(KFile::File | KFile::ExistingOnly));
     dlg.setOperationMode(KFileDialog::Opening);
     dlg.setCaption(i18n("Open"));
-    if (dlg.exec() == QDialog::Accepted) return loadFile(dlg.selectedURL());
-    return -1;
+    if (dlg.exec() == QDialog::Accepted)
+	return loadFile(dlg.selectedUrl());
+    else
+	return -1;
 }
 
 //***************************************************************************
@@ -844,7 +744,7 @@ int TopWidget::saveFile()
     if (!m_main_widget) return -EINVAL;
 
     if (signalName() != NEW_FILENAME) {
-	KURL url;
+	KUrl url;
 	url = signalName();
 	res = signalManager().save(url, false);
 
@@ -866,25 +766,24 @@ int TopWidget::saveFileAs(bool selection)
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return -EINVAL;
 
-    KURL current_url;
+    KUrl current_url;
     current_url = signalName();
     KwaveFileDialog dlg(":<kwave_save_as>", CodecManager::encodingFilter(),
-        this, "Kwave save file", true, current_url.prettyURL(), "*.wav");
-    // dlg.setKeepLocation(true);
+        this, true, current_url.prettyUrl(), "*.wav");
     dlg.setOperationMode(KFileDialog::Saving);
     dlg.setCaption(i18n("Save As"));
     if (dlg.exec() != QDialog::Accepted) return -1;
 
-    KURL url = dlg.selectedURL();
+    KUrl url = dlg.selectedUrl();
     if (url.isEmpty()) return 0;
 
     QString name = url.path();
     QFileInfo path(name);
 
     // add the correct extension if necessary
-    if (!path.extension(false).length()) {
+    if (!path.suffix().length()) {
 	QString ext = dlg.selectedExtension();
-	QStringList extensions = QStringList::split(" ", ext);
+	QStringList extensions = ext.split(" ");
 	ext = extensions.first();
 	name += ext.mid(1);
 	path = name;
@@ -915,8 +814,9 @@ int TopWidget::saveFileAs(bool selection)
 	// has already been selected to satisfy the fileinfo
 	// plugin
 	qDebug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
-	    url.prettyURL().data(), new_mimetype_name.data(),
-	    previous_mimetype_name.data() );
+	    url.prettyUrl().toLocal8Bit().data(),
+	    new_mimetype_name.toLocal8Bit().data(),
+	    previous_mimetype_name.toLocal8Bit().data() );
 
 	// set the new mimetype
 	signalManager().fileInfo().set(INF_MIMETYPE,
@@ -925,7 +825,7 @@ int TopWidget::saveFileAs(bool selection)
 	QString old_filename = signalManager().fileInfo().get(
 	    INF_FILENAME).toString();
 	signalManager().fileInfo().set(INF_FILENAME,
-	    url.prettyURL());
+	    url.prettyUrl());
 
 	// now call the fileinfo plugin with the new filename and
 	// mimetype
@@ -937,7 +837,7 @@ int TopWidget::saveFileAs(bool selection)
 	signalManager().fileInfo().set(INF_MIMETYPE,
 	    previous_mimetype_name);
 	signalManager().fileInfo().set(INF_FILENAME,
-	    url.prettyURL());
+	    url.prettyUrl());
     }
 
     if (!res) res = signalManager().save(url, selection);
@@ -970,7 +870,7 @@ int TopWidget::newSignal(unsigned int samples, double rate,
 QString TopWidget::signalName()
 {
     // if a file is loaded -> path of the URL if it has one
-    KURL url;
+    KUrl url;
     url = signalManager().fileInfo().get(INF_FILENAME).toString();
     if (url.isValid()) return url.path();
 
@@ -988,11 +888,11 @@ void TopWidget::selectZoom(int index)
     if (!m_main_widget) return;
 
     if (index < 0) return;
-    if ((unsigned int)index >= m_zoom_factors.count())
+    if (index >= m_zoom_factors.count())
 	index = m_zoom_factors.count()-1;
 
     const double rate = signalManager().rate();
-    const double ms = m_zoom_factors.ms(index);
+    const double ms = m_zoom_factors[index].second;
     unsigned int width = m_main_widget->displayWidth();
     Q_ASSERT(width > 1);
     if (width <= 1) width = 2;
@@ -1040,7 +940,7 @@ void TopWidget::setZoomInfo(double zoom)
     }
 
     (strZoom.length()) ? m_zoomselect->setEditText(strZoom) :
-                         m_zoomselect->clearEdit();
+                         m_zoomselect->clearEditText();
 }
 
 //***************************************************************************
@@ -1064,8 +964,11 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
 
     // sample rate and resolution
     if (bits) {
-	txt = " "+i18n("Mode: %0.3f kHz@%u bit")+" ";
-	txt = txt.sprintf(txt, (double)rate *1E-3, bits);
+	QString khz = "%0.3f";
+	khz = khz.sprintf("%0.3f", (qreal)rate * 1E-3);
+	txt = " "+i18n("Mode: %1 kHz@%2 bit")+" ";
+	txt = txt.arg(khz);
+	txt = txt.arg(bits);
     } else txt = "";
     statusBar()->changeItem(txt, STATUS_ID_MODE);
 
@@ -1098,9 +1001,9 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
     if (!statusBar()) return;
 
     if (length > 1) {
-// show offset and length
-// Selected: 02:00...05:00 (3 min)
-// Selected: 2000...3000 (1000 samples)
+	// show offset and length
+	// Selected: 02:00...05:00 (3 min)
+	// Selected: 2000...3000 (1000 samples)
 	bool sample_mode = false;
 
 	unsigned int last = offset + ((length) ? length-1 : 0);
@@ -1119,7 +1022,7 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 		KwavePlugin::ms2string(ms));
 	}
 
-	statusBar()->message(txt, 4000);
+	statusBar()->showMessage(txt, 4000);
 	m_menu_manager->setItemEnabled("@SELECTION", true);
     } else {
 	m_menu_manager->setItemEnabled("@SELECTION", false);
@@ -1129,34 +1032,24 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 //***************************************************************************
 void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
 {
-    Q_ASSERT(m_toolbar);
-    if (!m_toolbar) return;
-
     QString txt;
-    QToolButton *button;
     bool undo_enabled = (undo.length() != 0);
     bool redo_enabled = (redo.length() != 0);
 
     // set the state and tooltip of the undo toolbar button
-    m_toolbar->setItemEnabled(m_id_undo, undo_enabled);
-    txt = i18n("Undo");
-    if (undo_enabled) txt += " (" + undo + ")";
-    button = m_toolbar->getButton(m_id_undo);
-    Q_ASSERT(button);
-    if (button) {
-	QToolTip::remove(button);
-	QToolTip::add(button, txt);
+    if (m_action_undo) {
+	txt = i18n("Undo");
+	if (undo_enabled) txt += " (" + undo + ")";
+	m_action_undo->setToolTip(txt);
+	m_action_undo->setEnabled(undo_enabled);
     }
 
     // set the state and tooltip of the redo toolbar button
-    m_toolbar->setItemEnabled(m_id_redo, redo_enabled);
-    txt = i18n("Redo");
-    if (redo_enabled) txt += " (" + redo + ")";
-    button = m_toolbar->getButton(m_id_redo);
-    Q_ASSERT(button);
-    if (button) {
-	QToolTip::remove(button);
-	QToolTip::add(button, txt);
+    if (m_action_redo) {
+	txt = i18n("Redo");
+	if (redo_enabled) txt += " (" + redo + ")";
+	m_action_redo->setToolTip(txt);
+	m_action_redo->setEnabled(redo_enabled);
     }
 
     Q_ASSERT(m_menu_manager);
@@ -1204,8 +1097,6 @@ void TopWidget::updateRecentFiles()
     QStringList recent_files = m_app.recentFiles();
     QStringList::Iterator it;
     for (it = recent_files.begin(); it != recent_files.end(); ++it) {
-	Q_ASSERT(it != 0);
-	if (it == 0) break;
 	m_menu_manager->addNumberedMenuEntry("ID_FILE_OPEN_RECENT", *it);
     }
 }
@@ -1228,19 +1119,23 @@ void TopWidget::updateMenu()
 //***************************************************************************
 void TopWidget::updateToolbar()
 {
-    Q_ASSERT(m_toolbar);
     Q_ASSERT(m_main_widget);
-    if (!m_toolbar) return;
     if (!m_main_widget) return;
 
     bool have_signal = m_main_widget->tracks();
 
-    m_toolbar->setItemEnabled(m_id_zoomselection, have_signal);
-    m_toolbar->setItemEnabled(m_id_zoomin, have_signal);
-    m_toolbar->setItemEnabled(m_id_zoomout, have_signal);
-    m_toolbar->setItemEnabled(m_id_zoomnormal, have_signal);
-    m_toolbar->setItemEnabled(m_id_zoomall, have_signal);
-    m_toolbar->setItemEnabled(m_id_zoomselect, have_signal);
+    if (m_action_zoomselection)
+	m_action_zoomselection->setEnabled(have_signal);
+    if (m_action_zoomin)
+        m_action_zoomin->setEnabled(have_signal);
+    if (m_action_zoomout)
+        m_action_zoomout->setEnabled(have_signal);
+    if (m_action_zoomnormal)
+        m_action_zoomnormal->setEnabled(have_signal);
+    if (m_action_zoomall)
+        m_action_zoomall->setEnabled(have_signal);
+    if (m_action_zoomselect)
+        m_action_zoomselect->setEnabled(have_signal);
 
     updatePlaybackControls();
 }
@@ -1248,38 +1143,32 @@ void TopWidget::updateToolbar()
 //***************************************************************************
 void TopWidget::updatePlaybackControls()
 {
-    Q_ASSERT(m_toolbar);
     Q_ASSERT(m_main_widget);
-    if (!m_toolbar) return;
     if (!m_main_widget) return;
 
     bool have_signal = m_main_widget->tracks();
     bool playing = m_main_widget->playbackController().running();
     bool paused  = m_main_widget->playbackController().paused();
 
+    // stop blinking
     if (m_pause_timer) {
 	m_pause_timer->stop();
 	delete m_pause_timer;
 	m_pause_timer = 0;
-
-	// NOTE: working with toolbar->getButton is ugly and NOT
-	//       recommended, but the only way this works in KDE3 :-(
-	KToolBarButton *button = m_toolbar->getButton(m_id_pause);
-	Q_ASSERT(button);
-	if (!button) return;
-
-	QIconSet set;
-	set.setPixmap(QPixmap(xpm_pause), QIconSet::Automatic,
-	              QIconSet::Normal);
-	button->setIconSet(set);
+	if (m_action_pause)
+	    m_action_pause->setIcon(QIcon(QPixmap(xpm_pause)));
     }
 
     // enable/disable the buttons
 
-    m_toolbar->setItemEnabled(m_id_play,  have_signal && !playing);
-    m_toolbar->setItemEnabled(m_id_loop,  have_signal && !playing);
-    m_toolbar->setItemEnabled(m_id_pause, have_signal && (playing || paused));
-    m_toolbar->setItemEnabled(m_id_stop,  have_signal && (playing || paused));
+    if (m_action_play)
+	m_action_play->setEnabled(have_signal && !playing);
+    if (m_action_loop)
+	m_action_loop->setEnabled(have_signal && !playing);
+    if (m_action_pause)
+	m_action_pause->setEnabled(have_signal && (playing || paused));
+    if (m_action_stop)
+	m_action_stop->setEnabled(have_signal && (playing || paused));
 
     m_menu_manager->setItemEnabled("ID_PLAYBACK_START",
 	have_signal && !playing);
@@ -1304,10 +1193,10 @@ void TopWidget::playbackPaused()
 	Q_ASSERT(m_pause_timer);
 	if (!m_pause_timer) return;
 
-	m_pause_timer->start(500, false);
+	m_pause_timer->start(500);
 	connect(m_pause_timer, SIGNAL(timeout()),
 	        this, SLOT(blinkPause()));
-	m_toolbar->setButtonPixmap(m_id_pause, xpm_pause2);
+	if (m_action_pause) m_action_pause->setIcon(QIcon(xpm_pause2));
 	m_blink_on = true;
     }
 }
@@ -1315,25 +1204,10 @@ void TopWidget::playbackPaused()
 //***************************************************************************
 void TopWidget::blinkPause()
 {
-    Q_ASSERT(m_toolbar);
-    if (!m_toolbar) return;
-
-    // NOTE: working with toolbar->getButton is ugly and NOT
-    //       recommended, but the only way this works in KDE3 :-(
-    KToolBarButton *button = m_toolbar->getButton(m_id_pause);
-    Q_ASSERT(button);
-    if (!button) return;
-
-    QIconSet set;
-    set.setPixmap(m_blink_on ? QPixmap(xpm_pause2) : QPixmap(xpm_pause),
-        QIconSet::Automatic, QIconSet::Normal);
-    button->setIconSet(set);
-
-    // this would be the correct way, but KDE-3.0.1 is too buggy
-    // to let it work...
-    //    m_toolbar->setButtonPixmap(m_id_pause,
-    //        m_blink_on ? xpm_pause2 : xpm_pause);
-
+    Q_ASSERT(m_action_pause);
+    if (!m_action_pause) return;
+    m_action_pause->setIcon(QIcon(m_blink_on ?
+	QPixmap(xpm_pause2) : QPixmap(xpm_pause)));
     m_blink_on = !m_blink_on;
 }
 

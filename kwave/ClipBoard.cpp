@@ -16,8 +16,11 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "mt/SharedLock.h"
-#include "mt/SharedLockGuard.h"
+#include "config.h"
+
+#include <QList>
+#include <QReadLocker>
+#include <QWriteLocker>
 
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/SampleReader.h"
@@ -41,15 +44,14 @@ ClipBoard::~ClipBoard()
 
 //***************************************************************************
 void ClipBoard::copy(Signal &signal,
-                     const QMemArray<unsigned int> &track_list,
+                     const QList<unsigned int> &track_list,
                      unsigned int offset, unsigned int length,
                      double rate)
 {
-    SharedLockGuard lock(m_lock, true); // lock exclusive
+    QWriteLocker lock(&m_lock); // lock exclusive
 
     // first get rid of the previous content
-    m_buffer.setAutoDelete(true);
-    m_buffer.clear();
+    clear();
 
     // remember the sample rate
     m_rate = rate;
@@ -58,8 +60,7 @@ void ClipBoard::copy(Signal &signal,
     if ((!length) || (!track_list.count())) return;
 
     // allocate buffers for the signals and fill them with data
-    unsigned int i;
-    for (i = 0; i < track_list.count(); i++) {
+    foreach (unsigned int i, track_list) {
 	Track *t = new Track(length);
 	Q_ASSERT(t);
 	if (!t) continue;
@@ -87,7 +88,7 @@ void ClipBoard::copy(Signal &signal,
 //***************************************************************************
 void ClipBoard::paste(MultiTrackWriter &writers)
 {
-    SharedLockGuard lock(m_lock, false); // lock read-only
+    QReadLocker lock(&m_lock); // lock read-only
 
     Q_ASSERT(length());
     if (!length()) return; // clipboard is empty ?
@@ -96,10 +97,8 @@ void ClipBoard::paste(MultiTrackWriter &writers)
     Q_ASSERT(tracks == writers.tracks());
     if (tracks != writers.tracks()) return; // track count mismatch
 
-    QPtrListIterator<Track> it(m_buffer);
-    unsigned int i = 0;
-    for ( ; it.current(); ++it ) {
-	Track *track = it.current();
+    unsigned int i=0;
+    foreach (Track *track, m_buffer) {
 	Q_ASSERT(track);
 	if (!track) continue;
 
@@ -114,9 +113,10 @@ void ClipBoard::paste(MultiTrackWriter &writers)
 //***************************************************************************
 void ClipBoard::clear()
 {
-    SharedLockGuard lock(m_lock, true); // lock exclusive
+    QWriteLocker lock(&m_lock); // lock exclusive
 
-    m_buffer.setAutoDelete(true);
+    foreach (Track *track, m_buffer)
+	if (track) delete track;
     m_buffer.clear();
     m_rate = 0;
 }
@@ -124,18 +124,14 @@ void ClipBoard::clear()
 //***************************************************************************
 unsigned int ClipBoard::length()
 {
-    SharedLockGuard lock(m_lock, false); // lock read-only
+    QReadLocker lock(&m_lock); // lock read-only
 
     unsigned int count = m_buffer.count();
     if (!count) return 0;
 
-    QPtrListIterator<Track> it(m_buffer);
     unsigned int max_len = 0;
-    for (; it.current(); ++it) {
-	Track *track = it.current();
-	Q_ASSERT(track);
+    foreach (Track *track, m_buffer) {
 	if (!track) continue;
-
 	unsigned int len = track->length();
 	if (len > max_len) max_len = len;
     }
@@ -146,7 +142,7 @@ unsigned int ClipBoard::length()
 //***************************************************************************
 double ClipBoard::rate()
 {
-    SharedLockGuard lock(m_lock, false); // lock read-only
+    QReadLocker lock(&m_lock); // lock read-only
     return m_rate;
 }
 
@@ -159,7 +155,7 @@ bool ClipBoard::isEmpty()
 //***************************************************************************
 unsigned int ClipBoard::tracks()
 {
-    SharedLockGuard lock(m_lock, false); // lock read-only
+    QReadLocker lock(&m_lock); // lock read-only
     return m_buffer.count();
 }
 

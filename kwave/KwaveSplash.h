@@ -18,12 +18,13 @@
 #ifndef _KWAVE_SPLASH_H_
 #define _KWAVE_SPLASH_H_
 
-#include <qobject.h>
-#include <qwidget.h>
-#include <qstring.h>
-#include <qtimer.h>
+#include <QObject>
+#include <QPixmap>
+#include <QSplashScreen>
 
-class KwaveSplash : public QWidget
+class QString;
+
+class KwaveSplash : public QSplashScreen
 {
 Q_OBJECT
 
@@ -40,9 +41,9 @@ public:
 
 private:
 
-    /** timer for auto-destruction of the splashscreen */
-    QTimer m_timer;
-    
+    /** pixmap with the Kwave logo */
+    QPixmap m_pixmap;
+
 };
 
 #endif /* _KWAVE_SPLASH_H_ */

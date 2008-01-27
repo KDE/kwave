@@ -19,22 +19,34 @@
 #define _SIGNAL_WIDGET_H_
 
 #include "config.h"
-#include <qdragobject.h>
-#include <qlabel.h>
-#include <qpoint.h>
-#include <qptrlist.h>
-#include <qtimer.h>
-#include <qpainter.h>
-#include <qwidget.h>
+
+#include <QLabel>
+#include <QList>
+#include <QPainter>
+#include <QPixmap>
+#include <QPoint>
+#include <QTimer>
+#include <QWidget>
 
 #include "PlaybackController.h"
 #include "SignalManager.h"
 
-class KURL;
+class QDragEnterEvent;
+class QDragMoveEvent;
+class QDropEvent;
+class QDragLeaveEvent;
+class QEvent;
+class QPaintEvent;
+class QResizeEvent;
+class QMouseEvent;
+class QContextMenuEvent;
+class QBitmap;
+
+class KUrl;
+
 class LabelList;
 class LabelType;
 class MouseMark;
-class QBitmap;
 class SignalManager;
 class TimeOperation;
 class Track;
@@ -78,7 +90,7 @@ public:
      * @param ms time in milliseconds
      * @return number of samples (rounded)
      */
-    unsigned int ms2samples(double ms);
+    unsigned int ms2samples(qreal ms);
 
     /**
      * Converts a number of samples to a time in milliseconds, based on the
@@ -86,21 +98,21 @@ public:
      * @param samples number of samples
      * @return time in milliseconds
      */
-    double samples2ms(unsigned int samples);
+    qreal samples2ms(unsigned int samples);
 
     /**
      * Closes the current signal and loads a new one from a file.
      * @param url URL of the file to be loaded
      * @return 0 if succeeded or error code < 0
      */
-    int loadFile(const KURL &url);
+    int loadFile(const KUrl &url);
 
     /**
      * Forwards information for creation of a new signal to the
      * signal manager.
      * @see TopWidget::newSignal
      */
-    void newSignal(unsigned int samples, double rate,
+    void newSignal(unsigned int samples, qreal rate,
                    unsigned int bits, unsigned int tracks);
 
     /**
@@ -114,7 +126,7 @@ public:
      *                 to [length/width...1/width] (from full display to
      *                 one visible sample only)
      */
-    void setZoom(double new_zoom);
+    void setZoom(qreal new_zoom);
 
     /**
      * Checks if a pixel position is near to the left or right border
@@ -183,7 +195,7 @@ public slots:
     /**
      * Returns the current number of pixels per sample
      */
-    inline double zoom() { return m_zoom; };
+    inline qreal zoom() { return m_zoom; };
 
     /** Returns the width of the current view in samples */
     int displaySamples();
@@ -405,7 +417,7 @@ signals:
      * sample rate for converting it into milliseconds
      */
     void selectedTimeInfo(unsigned int offset, unsigned int length,
-                          double rate);
+                          qreal rate);
 
     /**
      * Emits a command to be processed by the next higher instance.
@@ -417,7 +429,7 @@ signals:
      * command or resize.
      * @param zoom value [samples/pixel]
      */
-    void sigZoomChanged(double zoom);
+    void sigZoomChanged(qreal zoom);
 
     /**
      * Emits a change in the mouse cursor. This can be used to change
@@ -504,9 +516,9 @@ protected:
 	 * set a new label text and alignment
 	 * @param text the text of the label, can be multiline and rtf/html
 	 * @param alignment the alignment of the label and the widget,
-	 *                  can be AlignLeft, AlignRight or AlignHCenter
+	 *                  can be Qt::AlignLeft, Qt::AlignRight or Qt::AlignHCenter
 	 */
-	virtual void setText(const QString &text, int alignment);
+	virtual void setText(const QString &text, Qt::Alignment alignment);
 
     protected:
 	/** event filter */
@@ -521,7 +533,7 @@ protected:
 	QLabel *m_label;
 
 	/** alignment of the label / text */
-	int m_alignment;
+	Qt::Alignment m_alignment;
 
 	/** the radius of the corners [pixel] */
 	int m_radius;
@@ -535,7 +547,7 @@ protected:
      * into the current window.
      * @return zoom value [samples/pixel]
      */
-    double getFullZoom();
+    qreal getFullZoom();
 
     /** slot for detecting resizing of the widget */
     void resizeEvent(QResizeEvent *);
@@ -575,7 +587,6 @@ protected:
 //    void jumptoLabel ();
 //    void markSignal (const char *);
 //    void markPeriods (const char *);
-//    void savePeriods ();
 
     /**
      * Handles commands for navigation and selection.
@@ -636,7 +647,7 @@ private:
      * @param mouse the coordinates of the mouse cursor,
      *              relative to this widget [pixel]
      */
-    void showPosition(const QString &text, unsigned int pos, double ms,
+    void showPosition(const QString &text, unsigned int pos, qreal ms,
                       const QPoint &mouse);
 
     /** Shortcut for accessing the label list @note can be modified */
@@ -658,13 +669,13 @@ private:
 private:
 
     /** Pixmaps for buffering each layer */
-    QPixmap *m_layer[3];
+    QPixmap m_layer[3];
 
     /** flags for updating each layer */
     bool m_update_layer[3];
 
     /** raster operation for each layer (XOR, AND, OR, ...) */
-    RasterOp m_layer_rop[3];
+    QPainter::CompositionMode m_layer_rop[3];
 
     /**
      * Offset from which signal is beeing displayed. This is equal to
@@ -685,7 +696,7 @@ private:
     int m_last_height;
 
     /** number of samples per pixel */
-    double m_zoom;
+    qreal m_zoom;
 
     /**
      * position of the vertical line that indicates the current
@@ -714,10 +725,7 @@ private:
     SignalManager m_signal_manager;
 
     /** list of track pixmaps */
-    QPtrList<TrackPixmap> m_track_pixmaps;
-
-    /** pixmap for avoiding flicker */
-    QPixmap *m_pixmap;
+    QList<TrackPixmap *> m_track_pixmaps;
 
     /** mode of the mouse cursor */
     MouseMode m_mouse_mode;

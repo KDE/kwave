@@ -20,9 +20,9 @@
 #define _CLIP_BOARD_H_
 
 #include "config.h"
-#include <qmemarray.h>
-#include <qptrlist.h>
-#include "mt/SharedLock.h"
+
+#include <QList>
+#include <QReadWriteLock>
 
 class MultiTrackWriter;
 class Signal;
@@ -53,7 +53,7 @@ public:
      * @param rate sample rate [samples/second]
      * @todo support for multiple stripes
      */
-    void copy(Signal &signal, const QMemArray<unsigned int> &track_list,
+    void copy(Signal &signal, const QList<unsigned int> &track_list,
               unsigned int offset, unsigned int length, double rate);
 
     /**
@@ -92,13 +92,13 @@ public:
 private:
 
     /** Lock for exclusive or readonly access. */
-    SharedLock m_lock;
+    QReadWriteLock m_lock;
 
     /** Sample rate of the buffer content. */
     double m_rate;
 
     /** Internal buffer, implemented as a list of tracks */
-    QPtrList<Track> m_buffer;
+    QList<Track *> m_buffer;
 
 };
 

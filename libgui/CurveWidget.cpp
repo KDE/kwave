@@ -49,7 +49,7 @@
 CurveWidget::CurveWidget(QWidget *parent)
     :QWidget(parent), m_width(0), m_height(0), m_curve(), m_menu(0),
      m_preset_menu(0), m_current(Curve::NoPoint), m_last(Curve::NoPoint),
-     m_down(false), m_knob(0), m_selected_knob(0)
+     m_down(false), m_knob(), m_selected_knob()
 {
     // set the default curve
     m_curve.fromCommand("curve(linear,0,0,1,1)");

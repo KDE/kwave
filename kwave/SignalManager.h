@@ -22,13 +22,11 @@
 #include <limits.h>
 #include <stdio.h>
 
-#include <qobject.h>
-#include <qmemarray.h>
-#include <qmutex.h>
-#include <qptrlist.h>
-#include <qstring.h>
+#include <QList>
+#include <QMutex>
+#include <QObject>
+#include <QString>
 
-#include "mt/SignalProxy.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
 #include "libkwave/Selection.h"
@@ -39,7 +37,7 @@
 class QBitmap;
 class QFile;
 class ClipBoard;
-class KURL;
+class KUrl;
 class MultiTrackReader;
 class MultiTrackWriter;
 class SignalWidget;
@@ -67,7 +65,7 @@ public:
      * @param url URL of the file to be loaded
      * @return 0 if succeeded or error code < 0
      */
-    int loadFile(const KURL &url);
+    int loadFile(const KUrl &url);
 
     /**
      * Closes the current signal and creates a new empty signal.
@@ -143,12 +141,12 @@ public:
     /**
      * Returns an array of indices of currently selected tracks.
      */
-    const QMemArray<unsigned int> selectedTracks();
+    const QList<unsigned int> selectedTracks();
 
     /**
      * Returns an array of indices of all present tracks.
      */
-    const QMemArray<unsigned int> allTracks();
+    const QList<unsigned int> allTracks();
 
     /**
      * Saves the signal to a file with a given resolution. If the file
@@ -157,7 +155,7 @@ public:
      * @param selection if true, only the selected range will be saved
      * @return zero if succeeded or negative error code
      */
-    int save(const KURL &url, bool selection);
+    int save(const KUrl &url, bool selection);
 
     /**
      * Deletes a range of samples and creates an undo action.
@@ -168,7 +166,7 @@ public:
      *         memory for undo
      */
     bool deleteRange(unsigned int offset, unsigned int length,
-                     const QMemArray<unsigned int> &track_list);
+                     const QList<unsigned int> &track_list);
 
     /**
      * Deletes a range of samples and creates an undo action. Same as
@@ -211,7 +209,7 @@ public:
      * Selects multiple tracks, all other tracks will be disabled.
      * @param track_list list od track indices
      */
-    void selectTracks(QMemArray<unsigned int> &track_list);
+    void selectTracks(QList<unsigned int> &track_list);
 
     /**
      * Sets the selection flag of a track.
@@ -548,7 +546,7 @@ protected:
      * @param length number of samples to delete
      * @return true if successful, false if out of memory or aborted
      */
-    bool saveUndoDelete(QMemArray<unsigned int> &track_list,
+    bool saveUndoDelete(QList<unsigned int> &track_list,
                         unsigned int offset, unsigned int length);
 
     /**
@@ -653,10 +651,10 @@ private:
     bool m_undo_enabled;
 
     /** fifo used for storing all undo transactions */
-    QPtrList<UndoTransaction> m_undo_buffer;
+    QList<UndoTransaction *> m_undo_buffer;
 
     /** fifo for storing all redo transactions */
-    QPtrList<UndoTransaction> m_redo_buffer;
+    QList<UndoTransaction *> m_redo_buffer;
 
     /** the current undo transaction */
     UndoTransaction *m_undo_transaction;
@@ -666,9 +664,6 @@ private:
 
     /** mutex for locking undo transactions */
     QMutex m_undo_transaction_lock;
-
-    /** SignalProxy for emitting sigUndoRedoInfo thread-safe */
-    SignalProxy<void> m_spx_undo_redo;
 
     /** maximum memory for undo */
     unsigned int m_undo_limit;

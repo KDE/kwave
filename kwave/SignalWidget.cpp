@@ -20,12 +20,19 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <qbitmap.h>
-#include <qdragobject.h>
-#include <qevent.h>
-#include <qpopupmenu.h>
-#include <qstrlist.h>
-#include <qtooltip.h>
+#include <QBitmap>
+#include <QContextMenuEvent>
+#include <QDragLeaveEvent>
+#include <QEvent>
+#include <QFrame>
+#include <QDragEnterEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
+#include <QMenu>
+#include <QMouseEvent>
+#include <QPaintEvent>
+#include <QResizeEvent>
+#include <QToolTip>
 
 #include <kcursor.h>
 #include <kglobal.h>
@@ -99,23 +106,22 @@
 
 //***************************************************************************
 //***************************************************************************
-class KwaveFileDrag: public QUriDrag
+namespace KwaveFileDrag
 {
-public:
-    static bool canDecode(const QMimeSource *source) {
+    static bool canDecode(const QMimeData *source) {
 	if (!source) return false;
-	if (!QUriDrag::canDecode(source)) return false;
+	if (!source->hasUrls()) return false;
 
-	QStringList files;
-	decodeLocalFiles(source, files);
-	QStringList::Iterator it;
-	for (it = files.begin(); it != files.end(); ++it) {
-	    QString mimetype = CodecManager::whatContains(*it);
-	    if (CodecManager::canDecode(mimetype)) return true;
+	foreach (QUrl url, source->urls()) {
+	    QString filename = url.toLocalFile();
+	    QString mimetype = CodecManager::whatContains(filename);
+	    if (CodecManager::canDecode(mimetype)) {
+		return true;
+	    }
 	}
 	return false;
-    };
-};
+    }
+}
 
 //***************************************************************************
 //***************************************************************************
@@ -123,19 +129,17 @@ SignalWidget::SignalWidget(QWidget *parent)
     :QWidget(parent),
     m_offset(0), m_width(0), m_height(0), m_last_width(0), m_last_height(0),
     m_zoom(0.0), m_playpointer(-1), m_last_playpointer(-1), m_redraw(false),
-    m_inhibit_repaint(0), m_selection(0),
-    m_signal_manager(this),
-    m_track_pixmaps(), m_pixmap(0),
-    m_mouse_mode(MouseNormal),
-    m_mouse_down_x(0), m_repaint_timer(this),
-    m_position_widget(this), m_position_widget_timer(this)
+    m_inhibit_repaint(0), m_selection(0), m_signal_manager(this),
+    m_track_pixmaps(), m_mouse_mode(MouseNormal), m_mouse_down_x(0),
+    m_repaint_timer(this), m_position_widget(this),
+    m_position_widget_timer(this)
 {
 //    qDebug("SignalWidget::SignalWidget()");
 
     for (int i=0; i < 3; i++) {
 	m_layer[i] = 0;
 	m_update_layer[i] = true;
-	m_layer_rop[i] = CopyROP;
+	m_layer_rop[i] = QPainter::CompositionMode_Source;
     }
 
     m_selection = new MouseMark();
@@ -191,9 +195,8 @@ SignalWidget::SignalWidget(QWidget *parent)
 //
 //    markertype = globals.markertypes.first();
 
-    setBackgroundColor(black);
-    setBackgroundMode(NoBackground); // this avoids flicker :-)
-
+    QPalette pal = palette();
+    pal.setColor(QPalette::Window, Qt::black);
     setMouseTracking(true);
     setAcceptDrops(true); // enable drag&drop
 
@@ -231,18 +234,14 @@ SignalWidget::~SignalWidget()
 {
     close();
 
-    if (m_pixmap) delete m_pixmap;
-    m_pixmap = 0;
-
     labels().clear();
 
     if (m_selection) delete m_selection;
     m_selection = 0;
 
-    for (int i=0; i < 3; i++) {
-	if (m_layer[i]) delete m_layer[i];
-	m_layer[i] = 0;
-    }
+    for (int i=0; i < 3; i++)
+	m_layer[i] = QPixmap();
+
 }
 
 //***************************************************************************
@@ -337,14 +336,12 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 	unsigned int selection_left  = m_signal_manager.selection().first();
 	unsigned int selection_right = m_signal_manager.selection().last();
 	if (labels().isEmpty()) return false; // we need labels for this
-	LabelListIterator it(labels());
-	Label *label;
 	Label *label_left  = 0;
 	Label *label_right = 0;
 	// the last label <= selection start -> label_left
 	// the first label >= selection end  -> label_right
-	while ((label = it.current())) {
-	    ++it;
+	foreach (Label *label, labels()) {
+	    if (!label) continue;
 	    unsigned int lp = label->pos();
 	    if (lp <= selection_left)
 		label_left = label;
@@ -365,8 +362,6 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
     CASE_COMMAND("selectnextlabels")
 	unsigned int selection_left;
 	unsigned int selection_right = m_signal_manager.selection().last();
-	LabelListIterator it(labels());
-	Label *label;
 	Label *label_left  = 0;
 	Label *label_right = 0;
 	if (labels().isEmpty()) return false; // we need labels for this
@@ -377,13 +372,15 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 	    selection_left = 0;
 	} else {
 	    // find the first label starting after the current selection
-	    for (; (label = it.current()); ++it) {
+	    LabelListIterator it(labels());
+	    while (it.hasNext()) {
+		Label *label = it.next();
+		if (!label) continue;
 		if (label->pos() >= selection_right) {
 		    // take it as selection start
 		    label_left  = label;
 		    // and it's next one as selection end (might be null)
-		    ++it;
-		    label_right = it.current();
+		    label_right = it.hasNext() ? it.next() : 0;
 		    break;
 		}
 	    }
@@ -401,14 +398,13 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
     CASE_COMMAND("selectprevlabels")
 	unsigned int selection_left  = m_signal_manager.selection().first();
 	unsigned int selection_right = m_signal_manager.selection().last();
-	LabelListIterator it(labels());
-	Label *label;
 	Label *label_left  = 0;
 	Label *label_right = 0;
 	if (labels().isEmpty()) return false; // we need labels for this
 
 	// find the last label before the start of the selection
-	for (; (label = it.current()); ++it) {
+	foreach (Label *label, labels()) {
+	    if (!label) continue;
 	    if (label->pos() > selection_left)
 		break; // done
 	    label_left  = label_right;
@@ -492,7 +488,7 @@ SignalManager &SignalWidget::signalManager()
 }
 
 //***************************************************************************
-int SignalWidget::loadFile(const KURL &url)
+int SignalWidget::loadFile(const KUrl &url)
 {
     // close the previous signal
     close();
@@ -510,11 +506,11 @@ int SignalWidget::loadFile(const KURL &url)
 		break;
 	    case -EIO:
 		reason = i18n("unable to open '%1'").arg(
-		    url.prettyURL());
+		    url.prettyUrl());
 		break;
 	    case -EINVAL:
 		reason = i18n("invalid or unknown file type: '%1'").arg(
-		              url.prettyURL());
+		              url.prettyUrl());
 		break;
 	    default:
 		reason = "";
@@ -536,7 +532,7 @@ int SignalWidget::loadFile(const KURL &url)
 }
 
 //***************************************************************************
-void SignalWidget::newSignal(unsigned int samples, double rate,
+void SignalWidget::newSignal(unsigned int samples, qreal rate,
                              unsigned int bits, unsigned int tracks)
 {
     close();
@@ -554,7 +550,7 @@ void SignalWidget::close()
     labels().clear();
 
     // clear the display
-    m_track_pixmaps.setAutoDelete(true);
+    qDeleteAll(m_track_pixmaps);
     m_track_pixmaps.clear();
 
     setZoom(0.0);
@@ -580,12 +576,8 @@ void SignalWidget::setOffset(unsigned int new_offset)
     fixZoomAndOffset();
 
     // forward the zoom and offset to all track pixmaps
-    unsigned int n_tracks = m_track_pixmaps.count();
-    for (unsigned int i = 0; i < n_tracks; i++) {
-	TrackPixmap *pix = m_track_pixmaps.at(i);
-	Q_ASSERT(pix);
+    foreach (TrackPixmap *pix, m_track_pixmaps) {
 	if (!pix) continue;
-
 	pix->setOffset(m_offset);
 	pix->setZoom(m_zoom);
     }
@@ -596,7 +588,7 @@ void SignalWidget::setOffset(unsigned int new_offset)
 }
 
 //***************************************************************************
-double SignalWidget::getFullZoom()
+qreal SignalWidget::getFullZoom()
 {
     if (m_signal_manager.isEmpty()) return 0.0;    // no zoom if no signal
 
@@ -613,13 +605,13 @@ double SignalWidget::getFullZoom()
     //          -> 49.5 [pixels / sample]
     //          -> zoom = 1 / 49.5 [samples / pixel]
     // => full zoom [samples/pixel] = (length-1) / (width-1)
-    return (double)(length-1) / (double)(QWidget::width()-1);
+    return (qreal)(length-1) / (qreal)(QWidget::width()-1);
 }
 
 //***************************************************************************
-void SignalWidget::setZoom(double new_zoom)
+void SignalWidget::setZoom(qreal new_zoom)
 {
-    double old_zoom = m_zoom;
+    qreal old_zoom = m_zoom;
     InhibitRepaintGuard inhibit(*this);
 
     m_zoom = new_zoom;
@@ -627,12 +619,8 @@ void SignalWidget::setZoom(double new_zoom)
     if (m_zoom == old_zoom) return; // nothing to do
 
     // forward the zoom and offset to all track pixmaps
-    unsigned int n_tracks = m_track_pixmaps.count();
-    for (unsigned int i = 0; i < n_tracks; i++) {
-	TrackPixmap *pix = m_track_pixmaps.at(i);
-	Q_ASSERT(pix);
+    foreach (TrackPixmap *pix, m_track_pixmaps) {
 	if (!pix) continue;
-
 	pix->setOffset(m_offset);
 	pix->setZoom(m_zoom);
     }
@@ -648,8 +636,8 @@ void SignalWidget::setZoom(double new_zoom)
 //***************************************************************************
 void SignalWidget::fixZoomAndOffset()
 {
-    double max_zoom;
-    double min_zoom;
+    qreal max_zoom;
+    qreal min_zoom;
     unsigned int length;
 
     length = m_signal_manager.length();
@@ -665,7 +653,7 @@ void SignalWidget::fixZoomAndOffset()
 
     // ensure that the zoom is in a proper range
     max_zoom = getFullZoom();
-    min_zoom = (double)MINIMUM_SAMPLES_PER_SCREEN / (double)m_width;
+    min_zoom = (qreal)MINIMUM_SAMPLES_PER_SCREEN / (qreal)m_width;
     if (m_zoom < min_zoom) m_zoom = min_zoom;
     if (m_zoom > max_zoom) m_zoom = max_zoom;
 
@@ -703,7 +691,7 @@ void SignalWidget::fixZoomAndOffset()
 //    // adjust the zoom factor in order to make a whole number
 //    // of samples fit into the current window
 //    int samples = pixels2samples(width) + 1;
-//    zoom = (double)(samples) / (double)(width - 1);
+//    zoom = (qreal)(samples) / (qreal)(width - 1);
 
     // do some final range checking
     if (m_zoom < min_zoom) m_zoom = min_zoom;
@@ -719,16 +707,16 @@ void SignalWidget::setMouseMode(MouseMode mode)
     m_mouse_mode = mode;
     switch (mode) {
 	case MouseNormal:
-	    setCursor(KCursor::arrowCursor());
+	    setCursor(Qt::ArrowCursor);
 	    break;
 	case MouseAtSelectionBorder:
-	    setCursor(KCursor::sizeHorCursor());
+	    setCursor(Qt::SizeHorCursor);
 	    break;
 	case MouseInSelection:
-	    setCursor(KCursor::arrowCursor());
+	    setCursor(Qt::ArrowCursor);
 	    break;
 	case MouseSelect:
-	    setCursor(KCursor::sizeHorCursor());
+	    setCursor(Qt::SizeHorCursor);
 	    break;
     }
 
@@ -791,7 +779,7 @@ void SignalWidget::zoomSelection()
 
     if (len) {
 	m_offset = ofs;
-	setZoom(((double)len) / (double)(m_width - 1));
+	setZoom(((qreal)len) / (qreal)(m_width - 1));
     }
 }
 
@@ -825,7 +813,8 @@ void SignalWidget::allowRepaint(bool repaint)
 	    return;
 	} else {
 	    // start the repaint timer
-	    m_repaint_timer.start(REPAINT_INTERVAL, true);
+	    m_repaint_timer.setSingleShot(true);
+	    m_repaint_timer.start(REPAINT_INTERVAL);
 	}
     }
 }
@@ -833,7 +822,7 @@ void SignalWidget::allowRepaint(bool repaint)
 //***************************************************************************
 void SignalWidget::timedRepaint()
 {
-    this->repaint(false);
+    this->repaint();
 }
 
 //***************************************************************************
@@ -925,14 +914,14 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
     // ignore all mouse press events in playback mode
     if (m_signal_manager.playbackController().running()) return;
 
-    if ((e->button() & MouseButtonMask) == LeftButton) {
+    if (e->button() == Qt::LeftButton) {
 	int mx = e->pos().x();
 	if (mx < 0) mx = 0;
 	if (mx >= m_width) mx = m_width-1;
 	unsigned int x = m_offset + pixels2samples(mx);
 	unsigned int len = m_signal_manager.selection().length();
-	switch (e->state() & KeyButtonMask) {
-	    case ShiftButton: {
+	switch (e->modifiers()) {
+	    case Qt::ShiftModifier: {
 		// expand the selection to "here"
 		m_selection->set(m_signal_manager.selection().first(),
 		                 m_signal_manager.selection().last());
@@ -941,7 +930,7 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 		setMouseMode(MouseSelect);
 		break;
 	    }
-	    case ControlButton: {
+	    case Qt::ControlModifier: {
 		if (isInSelection(e->pos().x()) && (len > 1)) {
 		    // start a drag&drop operation in "copy" mode
 		    startDragging();
@@ -978,98 +967,123 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     Q_ASSERT(m_selection);
     if (!e || !m_selection) return;
 
-    QPopupMenu *context_menu = new QPopupMenu(this);
+    SignalManager *manager = &signalManager();
+    bool have_signal = !manager->isEmpty();
+    if (!have_signal)return;
+    bool have_selection = (manager->selection().length() != 0);
+    bool have_labels = !labels().isEmpty();
+
+    QMenu *context_menu = new QMenu(this);
     Q_ASSERT(context_menu);
     if (!context_menu) return;
 
-    QPopupMenu *submenu_select = new QPopupMenu(this);
+    QMenu *submenu_select = context_menu->addMenu(i18n("&Selection"));
     Q_ASSERT(submenu_select);
     if (!submenu_select) return;
 
-    QPopupMenu *submenu_label = new QPopupMenu(this);
+    QMenu *submenu_label = context_menu->addMenu(i18n("&Label"));
     Q_ASSERT(submenu_label);
     if (!submenu_label) return;
 
-    SignalManager *manager = &signalManager();
     KIconLoader icon_loader;
-    bool have_selection = (manager->selection().length() != 0);
-    bool have_labels = !labels().isEmpty();
 
     /* menu items common to all cases */
 
     // undo
-    int id;
-    id = context_menu->insertItem(
-	icon_loader.loadIcon("undo.png", KIcon::Toolbar),
+    QAction *action;
+    action = context_menu->addAction(
+	icon_loader.loadIcon("undo.png", KIconLoader::Toolbar),
 	i18n("&Undo"), this, SLOT(contextMenuEditUndo()),
 	Qt::CTRL + Qt::Key_Z);
+    Q_ASSERT(action);
+    if (!action) return;
     if (!manager->canUndo())
-	context_menu->setItemEnabled(id, false);
+	action->setEnabled(false);
 
     // redo
-    id = context_menu->insertItem(
-	icon_loader.loadIcon("redo.png", KIcon::Toolbar),
+    action = context_menu->addAction(
+	icon_loader.loadIcon("redo.png", KIconLoader::Toolbar),
 	i18n("&Redo"), this, SLOT(contextMenuEditRedo()),
 	Qt::CTRL + Qt::Key_Y);
+    Q_ASSERT(action);
+    if (!action) return;
     if (!manager->canRedo())
-	context_menu->setItemEnabled(id, false);
-    context_menu->insertSeparator();
+	action->setEnabled(false);
+    context_menu->addSeparator();
 
     // cut/copy/paste
-    id = context_menu->insertItem(
-	icon_loader.loadIcon("editcut.png", KIcon::Toolbar),
+    QAction *action_cut = context_menu->addAction(
+	icon_loader.loadIcon("editcut.png", KIconLoader::Toolbar),
 	i18n("Cu&t"), this, SLOT(contextMenuEditCut()),
 	Qt::CTRL + Qt::Key_X);
-    id = context_menu->insertItem(
-	icon_loader.loadIcon("editcopy.png", KIcon::Toolbar),
+    QAction *action_copy = context_menu->addAction(
+	icon_loader.loadIcon("editcopy.png", KIconLoader::Toolbar),
 	i18n("&Copy"), this, SLOT(contextMenuEditCopy()),
 	Qt::CTRL + Qt::Key_C);
-    id = context_menu->insertItem(
-	icon_loader.loadIcon("editpaste.png", KIcon::Toolbar),
+    QAction *action_paste = context_menu->addAction(
+	icon_loader.loadIcon("editpaste.png", KIconLoader::Toolbar),
 	i18n("&Paste"), this, SLOT(contextMenuEditPaste()),
 	Qt::CTRL + Qt::Key_V);
-    context_menu->insertSeparator();
+    context_menu->addSeparator();
+    if (action_cut)   action_cut->setEnabled(have_selection);
+    if (action_copy)  action_copy->setEnabled(have_selection);
+    if (action_paste) action_paste->setEnabled(have_selection);
 
     int mouse_x = mapFromGlobal(e->globalPos()).x();
     if (mouse_x < 0) mouse_x = 0;
     if (mouse_x >= width())  mouse_x = width()  - 1;
 
     // Selection / &Save
-    int id_select_save = submenu_select->insertItem(
+    QAction *action_select_save = submenu_select->addAction(
 	i18n("&Save..."), this, SLOT(contextMenuSaveSelection()));
-    submenu_select->setItemEnabled(id_select_save, have_selection);
+    Q_ASSERT(action_select_save);
+    if (!action_select_save) return;
+    action_select_save->setEnabled(have_selection);
 
     // Selection / &Expand to labels
-    int id_select_expand_to_labels = submenu_select->insertItem(
+    QAction *action_select_expand_to_labels = submenu_select->addAction(
 	i18n("&Expand to labels"), this,
 	SLOT(contextMenuSelectionExpandToLabels()), Qt::Key_E);
-    submenu_select->setItemEnabled(id_select_expand_to_labels, have_labels);
+    Q_ASSERT(action_select_expand_to_labels);
+    if (!action_select_expand_to_labels) return;
+    action_select_expand_to_labels->setEnabled(have_labels);
 
     // Selection / to next labels
-    int id_select_next_labels = submenu_select->insertItem(
+    QAction *action_select_next_labels = submenu_select->addAction(
 	i18n("to next labels"), this,
 	SLOT(contextMenuSelectionNextLabels()),
 	Qt::SHIFT + Qt::CTRL + Qt::Key_N);
-    submenu_select->setItemEnabled(id_select_next_labels, have_labels);
+    Q_ASSERT(action_select_next_labels);
+    if (!action_select_next_labels) return;
+    action_select_next_labels->setEnabled(have_labels);
 
     // Selection / to previous labels
-    int id_select_prev_labels = submenu_select->insertItem(
+    QAction *action_select_prev_labels = submenu_select->addAction(
 	i18n("to previous labels"), this,
 	SLOT(contextMenuSelectionPrevLabels()),
 	Qt::SHIFT + Qt::CTRL + Qt::Key_P);
-    submenu_select->setItemEnabled(id_select_prev_labels, have_labels);
-
-    context_menu->insertItem(i18n("&Selection"), submenu_select);
+    Q_ASSERT(action_select_prev_labels);
+    if (!action_select_prev_labels) return;
+    action_select_prev_labels->setEnabled(have_labels);
 
     // label handling
-    int id_label_new = submenu_label->insertItem(
+    QAction *action_label_new = submenu_label->addAction(
 	i18n("&New"), this, SLOT(contextMenuLabelNew()));
-    int id_label_delete = submenu_label->insertItem(
+    Q_ASSERT(action_label_new);
+    if (!action_label_new) return;
+    action_label_new->setEnabled(have_signal);
+
+    QAction *action_label_delete = submenu_label->addAction(
 	i18n("&Delete"), this, SLOT(contextMenuLabelDelete()));
-    submenu_label->setItemEnabled(id_label_delete, false);
-    int id_label_properties = submenu_label->insertItem(
+    Q_ASSERT(action_label_delete);
+    if (!action_label_delete) return;
+    action_label_delete->setEnabled(false);
+
+    QAction *action_label_properties = submenu_label->addAction(
 	i18n("&Properties..."), this, SLOT(contextMenuLabelProperties()));
-    submenu_label->setItemEnabled(id_label_properties, false);
+    Q_ASSERT(action_label_properties);
+    if (!action_label_properties) return;
+    action_label_properties->setEnabled(false);
 
     // store the menu position in the mouse selection
     unsigned int pos = m_offset + pixels2samples(mouse_x);
@@ -1079,9 +1093,9 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     if ((label = findLabelNearMouse(mouse_x))) {
 	// delete label ?
 	// label properties ?
-	submenu_label->setItemEnabled(id_label_new, false);
-	submenu_label->setItemEnabled(id_label_properties, true);
-	submenu_label->setItemEnabled(id_label_delete, true);
+	action_label_new->setEnabled(false);
+	action_label_properties->setEnabled(true);
+	action_label_delete->setEnabled(true);
 
 	pos = label->pos();
 	m_selection->set(pos, pos);
@@ -1097,8 +1111,6 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 //     if (isInSelection(mouse_x) && have_selection) {
 // 	// context menu: do something with the selection
 //     }
-
-    context_menu->insertItem(i18n("&Label"), submenu_label);
 
     context_menu->exec(QCursor::pos());
     delete context_menu;
@@ -1159,7 +1171,7 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
 	}
 	case MouseInSelection: {
 	    int dmin = KGlobalSettings::dndEventDelay();
-	    if ((e->state() & Qt::LeftButton) &&
+	    if ((e->buttons() & Qt::LeftButton) &&
 		    ((e->pos().x() >= m_mouse_down_x-dmin) ||
 		     (e->pos().x() <= m_mouse_down_x+dmin)) )
 	    {
@@ -1187,12 +1199,12 @@ SignalWidget::PositionWidget::PositionWidget(QWidget *parent)
 
     m_label->setFrameStyle(QFrame::Panel | QFrame::Plain);
     m_label->setPalette(QToolTip::palette()); // use same colors as a QToolTip
-    m_label->setFocusPolicy(QWidget::NoFocus);
+    m_label->setFocusPolicy(Qt::NoFocus);
     m_label->setMouseTracking(true);
     m_label->setLineWidth(0);
 
     setPalette(QToolTip::palette()); // use same colors as a QToolTip
-    setFocusPolicy(QWidget::NoFocus);
+    setFocusPolicy(Qt::NoFocus);
     setMouseTracking(true);
 
     hide();
@@ -1206,7 +1218,8 @@ SignalWidget::PositionWidget::~PositionWidget()
 }
 
 //***************************************************************************
-void SignalWidget::PositionWidget::setText(const QString &text, int alignment)
+void SignalWidget::PositionWidget::setText(const QString &text,
+                                           Qt::Alignment alignment)
 {
     if (!m_label) return;
 
@@ -1217,17 +1230,17 @@ void SignalWidget::PositionWidget::setText(const QString &text, int alignment)
     m_label->resize(m_label->sizeHint());
 
     switch (m_alignment) {
-	case AlignLeft:
+	case Qt::AlignLeft:
 	    resize(m_arrow_length + m_radius + m_label->width() + m_radius,
 	           m_radius + m_label->height() + m_radius);
 	    m_label->move(m_arrow_length + m_radius, m_radius);
 	    break;
-	case AlignRight:
+	case Qt::AlignRight:
 	    resize(m_radius + m_label->width() + m_radius + m_arrow_length,
 	           m_radius + m_label->height() + m_radius);
 	    m_label->move(m_radius, m_radius);
 	    break;
-	case AlignHCenter:
+	case Qt::AlignHCenter:
 	    resize(m_radius + m_label->width() + m_radius,
 	           m_arrow_length + m_radius + m_label->height() + m_radius);
 	    m_label->move(m_radius, m_arrow_length + m_radius);
@@ -1287,11 +1300,11 @@ void SignalWidget::PositionWidget::paintEvent(QPaintEvent *)
 
     const int h = height();
     const int w = width();
-    QPointArray poly;
+    QPolygon poly;
 
     switch (m_alignment) {
-	case AlignLeft:
-	    poly.putPoints(0, 8,
+	case Qt::AlignLeft:
+	    poly.setPoints(8,
 		m_arrow_length, 0,
 		w-1, 0,
 		w-1, h-1,
@@ -1302,8 +1315,8 @@ void SignalWidget::PositionWidget::paintEvent(QPaintEvent *)
 		m_arrow_length, 0
 	    );
 	    break;
-	case AlignRight:
-	    poly.putPoints(0, 8,
+	case Qt::AlignRight:
+	    poly.setPoints(8,
 		0, 0,
 		w-1-m_arrow_length, 0,
 		w-1-m_arrow_length, h/3,
@@ -1314,7 +1327,7 @@ void SignalWidget::PositionWidget::paintEvent(QPaintEvent *)
 		0, 0
 	    );
 	    break;
-	case AlignHCenter:
+	case Qt::AlignHCenter:
 	    break;
 	default:
 	    ;
@@ -1325,14 +1338,14 @@ void SignalWidget::PositionWidget::paintEvent(QPaintEvent *)
     setMask(bmp);
 
     p.begin(this);
-    p.fillRect(rect(), colorGroup().background());
+    p.fillRect(rect(), palette().background().color());
     p.drawPolyline(poly);
     p.end();
 }
 
 //***************************************************************************
 void SignalWidget::showPosition(const QString &text, unsigned int pos,
-                                double ms, const QPoint &mouse)
+                                qreal ms, const QPoint &mouse)
 {
     int x = mouse.x();
     int y = mouse.y();
@@ -1359,21 +1372,21 @@ void SignalWidget::showPosition(const QString &text, unsigned int pos,
 
     switch (selectionPosition(mouse.x()) & ~Selection) {
 	case LeftBorder:
-	    m_position_widget.setText(txt, AlignRight);
+	    m_position_widget.setText(txt, Qt::AlignRight);
 	    x = samples2pixels(pos - m_offset) - m_position_widget.width();
 	    if (x < 0) {
 		// switch to left aligned mode
-		m_position_widget.setText(txt, AlignLeft);
+		m_position_widget.setText(txt, Qt::AlignLeft);
 		x = samples2pixels(pos - m_offset);
 	    }
 	    break;
 	case RightBorder:
 	default:
-	    m_position_widget.setText(txt, AlignLeft);
+	    m_position_widget.setText(txt, Qt::AlignLeft);
 	    x = samples2pixels(pos - m_offset);
 	    if (x + m_position_widget.width() > width()) {
 		// switch to right aligned mode
-		m_position_widget.setText(txt, AlignRight);
+		m_position_widget.setText(txt, Qt::AlignRight);
 		x = samples2pixels(pos - m_offset) - m_position_widget.width();
 	    }
 	    break;
@@ -1393,10 +1406,11 @@ void SignalWidget::showPosition(const QString &text, unsigned int pos,
 
     if (!m_position_widget.isVisible())
 	m_position_widget.show();
-    m_position_widget.repaint(false);
+    m_position_widget.repaint();
 
     m_position_widget_timer.stop();
-    m_position_widget_timer.start(POSITION_WIDGET_TIME, true);
+    m_position_widget_timer.setSingleShot(true);
+    m_position_widget_timer.start(POSITION_WIDGET_TIME);
 }
 
 //***************************************************************************
@@ -1491,7 +1505,7 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 		setMouseMode(MouseInSelection);
 		showPosition(0, 0, 0, QPoint(-1,-1));
                 int dmin = KGlobalSettings::dndEventDelay();
-		if ((e->state() & Qt::LeftButton) &&
+		if ((e->buttons() & Qt::LeftButton) &&
 		    ((mouse_x < m_mouse_down_x - dmin) ||
 		     (mouse_x > m_mouse_down_x + dmin)) )
 		{
@@ -1514,16 +1528,15 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //#ifdef DEBUG
 //    static struct timeval t_start;
 //    static struct timeval t_end;
-//    double t_elapsed;
+//    qreal t_elapsed;
 //    gettimeofday(&t_start,0);
 //#endif
 
-    unsigned int n_tracks = m_signal_manager.isClosed() ? 0 : tracks();
-    bool update_pixmap = false;
+    int n_tracks = m_signal_manager.isClosed() ? 0 : tracks();
 
-    m_layer_rop[LAYER_SIGNAL] = CopyROP;
-    m_layer_rop[LAYER_SELECTION] = XorROP;
-    m_layer_rop[LAYER_MARKERS] = XorROP;
+    m_layer_rop[LAYER_SIGNAL]    = QPainter::CompositionMode_Source;
+    m_layer_rop[LAYER_SELECTION] = QPainter::CompositionMode_Exclusion;
+    m_layer_rop[LAYER_MARKERS]   = QPainter::CompositionMode_Exclusion;
 
     m_width = QWidget::width();
     m_height = QWidget::height();
@@ -1535,13 +1548,9 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //	qDebug("SignalWidget::paintEvent(): window size changed from "
 //	      "%dx%d to %dx%d",lastWidth,lastHeight,m_width,m_height);
 	for (int i=0; i<3; i++) {
-	    if (m_layer[i]) delete m_layer[i];
-	    m_layer[i] = 0;
+	    m_layer[i] = QPixmap(m_width, m_height);
 	    m_update_layer[i] = true;
 	}
-	if (m_pixmap) delete m_pixmap;
-	m_pixmap = 0;
-	update_pixmap = true;
 
 	m_last_width = m_width;
 	m_last_height = m_height;
@@ -1551,88 +1560,71 @@ void SignalWidget::paintEvent(QPaintEvent *)
     }
 
     // --- repaint of the signal layer ---
-    if ( m_update_layer[LAYER_SIGNAL] || !m_layer[LAYER_SIGNAL]) {
-	if (!m_layer[LAYER_SIGNAL])
-	     m_layer[LAYER_SIGNAL] = new QPixmap(size());
-	Q_ASSERT(m_layer[LAYER_SIGNAL]);
-	if (!m_layer[LAYER_SIGNAL]) return;
-
+    if (m_update_layer[LAYER_SIGNAL]) {
 // 	qDebug("SignalWidget::paintEvent(): - redraw of signal layer -");
-
-	// all black if empty
-	if (!n_tracks) m_layer[LAYER_SIGNAL]->fill(black);
 
 	int track_height = (n_tracks) ? (m_height / n_tracks) : 0;
 	int top = 0;
-	for (unsigned int i = 0; i < n_tracks; i++) {
-	    if (i >= m_track_pixmaps.count()) break; // closed or not ready
-	    TrackPixmap *pix = m_track_pixmaps.at(i);
+
+	QPainter p;
+	p.begin(&m_layer[LAYER_SIGNAL]);
+
+	// all black if empty
+	if (!n_tracks)
+	    p.fillRect(0, 0, m_width, m_height, Qt::black);
+
+	foreach (TrackPixmap *pix, m_track_pixmaps) {
 	    if (!pix) continue; // signal closed ?
 
 	    // fix the width and height of the track pixmap
-	    if ((pix->width() != m_width) || (pix->height() != track_height)) {
+	    if ((pix->width() != m_width) || (pix->height() != track_height))
 		pix->resize(m_width, track_height);
-	    }
-	    if (pix->isModified()) {
-		pix->repaint();
-	    }
 
-	    bitBlt(m_layer[LAYER_SIGNAL], 0, top,
-		pix, 0, 0, m_width, track_height, CopyROP);
+	    if (pix->isModified())
+		pix->repaint();
+
+	    p.setCompositionMode(QPainter::CompositionMode_Source);
+	    p.drawPixmap(0, top, pix->pixmap());
 
 	    top += track_height;
 	}
+	p.end();
 
 	m_update_layer[LAYER_SIGNAL] = false;
-	update_pixmap = true;
     }
 
     // --- repaint of the markers layer ---
-    if ( m_update_layer[LAYER_MARKERS] || !m_layer[LAYER_MARKERS] ) {
-	if (!m_layer[LAYER_MARKERS])
-	     m_layer[LAYER_MARKERS] = new QPixmap(size());
-	Q_ASSERT(m_layer[LAYER_MARKERS]);
-	if (!m_layer[LAYER_MARKERS]) return;
-
+    if (m_update_layer[LAYER_MARKERS]) {
 // 	qDebug("SignalWidget::paintEvent(): - redraw of markers layer -");
-	m_layer[LAYER_MARKERS]->fill(black);
 
 	QPainter p;
-	p.begin(m_layer[LAYER_MARKERS]);
+	p.begin(&m_layer[LAYER_MARKERS]);
+	p.fillRect(0, 0, m_width, m_height, Qt::black);
 
-	LabelListIterator it(labels());
-	Label *label;
-	while ((label = it.current())) {
-	    ++it;
+	foreach (Label *label, labels()) {
+	    if (!label) continue;
 	    unsigned int pos = label->pos();
 	    if (pos < m_offset) continue; // outside left
 	    int x = samples2pixels(pos - m_offset);
 	    if (x >= m_width) continue; // outside right
 
 	    p.setPen(Qt::cyan);
-	    p.setRasterOp(XorROP);
+	    p.setCompositionMode(QPainter::CompositionMode_Xor);
 	    p.drawLine(x, 0, x, m_height);
 	}
 
 	p.end();
 
 	m_update_layer[LAYER_MARKERS] = false;
-	update_pixmap = true;
     }
 
     // --- repaint of the selection layer ---
-    if (( m_update_layer[LAYER_SELECTION] || !m_layer[LAYER_SELECTION] )) {
-	if (!m_layer[LAYER_SELECTION])
-	    m_layer[LAYER_SELECTION] = new QPixmap(size());
-	Q_ASSERT(m_layer[LAYER_SELECTION]);
-	if (!m_layer[LAYER_SELECTION]) return;
-
+    if (m_update_layer[LAYER_SELECTION]) {
 // 	qDebug("SignalWidget::paintEvent(): - redraw of selection layer -");
 
-	m_layer[LAYER_SELECTION]->fill(black);
-
 	QPainter p;
- 	p.begin(m_layer[LAYER_SELECTION]);
+	p.begin(&m_layer[LAYER_SELECTION]);
+	p.fillRect(0, 0, m_width, m_height, Qt::black);
 
 	if (n_tracks) {
 	    unsigned int left  = m_signal_manager.selection().first();
@@ -1646,11 +1638,11 @@ void SignalWidget::paintEvent(QPaintEvent *)
 		if (right >= (unsigned int)(m_width)) right=m_width-1;
 		if (left > right) left = right;
 
-		p.setPen(yellow);
+		p.setPen(Qt::yellow);
 		if (left == right) {
 		    p.drawLine(left, 0, left, m_height);
 		} else {
-		    p.setBrush(yellow);
+		    p.setBrush(Qt::yellow);
 		    p.drawRect(left, 0, right-left+1, m_height);
 		}
 	    }
@@ -1658,39 +1650,24 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	p.end();
 
 	m_update_layer[LAYER_SELECTION] = false;
-	update_pixmap = true;
     }
-
-    // --- re-create the buffer pixmap if it has been deleted ---
-    if (!m_pixmap) {
-	m_pixmap = new QPixmap(size());
-	Q_ASSERT(m_pixmap);
-	if (!m_pixmap) return;
-	update_pixmap = true;
-    }
-    Q_ASSERT(m_pixmap->width() == m_width);
-    Q_ASSERT(m_pixmap->height() == m_height);
 
     // bitBlt all layers together
-    if (update_pixmap) {
-	m_pixmap->fill(black);
-	for (int i=0; i < 3; i++) {
-	    if (!m_layer[i]) continue;
-	    bitBlt(m_pixmap, 0, 0, m_layer[i], 0, 0,
-		m_width, m_height, m_layer_rop[i]);
-	}
-	m_last_playpointer = -2;
+    QPainter p(this);
+    p.fillRect(0, 0, m_width, m_height, Qt::black);
+    for (int i=0; i < 3; i++) {
+	p.setCompositionMode(m_layer_rop[i]);
+	p.drawPixmap(0, 0, m_layer[i]);
     }
+    m_last_playpointer = -2;
 
     // --- redraw the playpointer if a signal is present ---
     m_playpointer = samples2pixels(
 	m_signal_manager.playbackController().currentPos() - m_offset);
 
     if (n_tracks) {
-	QPainter p;
-	p.begin(m_pixmap);
-	p.setPen(yellow);
-	p.setRasterOp(XorROP);
+	p.setPen(Qt::yellow);
+	p.setCompositionMode(QPainter::CompositionMode_Xor);
 
 	if (m_last_playpointer >= 0)
 	    p.drawLine(m_last_playpointer, 0, m_last_playpointer, m_height);
@@ -1704,47 +1681,45 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	} else {
 	    m_last_playpointer = -1;
 	}
-
-	p.end();
     }
-
-    bitBlt(this, 0, 0, m_pixmap, 0, 0, m_width, m_height, CopyROP);
 
 //#ifdef DEBUG
 //    gettimeofday(&t_end,0);
-//    t_elapsed = ((double)t_end.tv_sec*1.0E6+(double)t_end.tv_usec -
-//	((double)t_start.tv_sec*1.0E6+(double)t_start.tv_usec)) * 1E-3;
+//    t_elapsed = ((qreal)t_end.tv_sec*1.0E6+(qreal)t_end.tv_usec -
+//	((qreal)t_start.tv_sec*1.0E6+(qreal)t_start.tv_usec)) * 1E-3;
 //    qDebug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
 //	t_elapsed); // ###
 //#endif
+//    qDebug("SignalWidget::paintEvent() -- done");
+
 }
 
 //***************************************************************************
-unsigned int SignalWidget::ms2samples(double ms)
+unsigned int SignalWidget::ms2samples(qreal ms)
 {
     return (unsigned int)rint(ms * m_signal_manager.rate() / 1E3);
 }
 
 //***************************************************************************
-double SignalWidget::samples2ms(unsigned int samples)
+qreal SignalWidget::samples2ms(unsigned int samples)
 {
-    double rate = m_signal_manager.rate();
+    qreal rate = m_signal_manager.rate();
     if (rate == 0.0) return 0.0;
-    return (double)samples * 1E3 / rate;
+    return (qreal)samples * 1E3 / rate;
 }
 
 //***************************************************************************
 unsigned int SignalWidget::pixels2samples(int pixels) const
 {
     if ((pixels < 0) || (m_zoom <= 0.0)) return 0;
-    return (unsigned int)rint((double)pixels * m_zoom);
+    return (unsigned int)rint((qreal)pixels * m_zoom);
 }
 
 //***************************************************************************
 int SignalWidget::samples2pixels(int samples) const
 {
     if (m_zoom == 0.0) return 0;
-    return (int)rint((double)samples / m_zoom);
+    return (int)rint((qreal)samples / m_zoom);
 }
 
 //***************************************************************************
@@ -1761,10 +1736,8 @@ Label *SignalWidget::findLabelNearMouse(int x) const
     Label *nearest = 0;
     int dmin = pixels2samples(SELECTION_TOLERANCE) ^ 2;
 
-    LabelListIterator it(labels());
-    Label *label;
-    while ((label = it.current())) {
-	++it;
+    foreach (Label *label, labels()) {
+	if (!label) continue;
 	unsigned int lp = label->pos();
 	if (lp < m_offset) continue; // outside left
 	int lx = samples2pixels(lp - m_offset);
@@ -1851,8 +1824,7 @@ bool SignalWidget::labelProperties(Label *label)
 {
     if (!label) return false;
 
-    LabelPropertiesWidget *dlg =
-	new LabelPropertiesWidget(this, "Label Properties");
+    LabelPropertiesWidget *dlg = new LabelPropertiesWidget(this);
     Q_ASSERT(dlg);
     if (!dlg) return false;
 
@@ -1949,7 +1921,7 @@ bool SignalWidget::labelProperties(Label *label)
 //		QFile out(name.local8Bit());
 //		char buf[160];
 //		float freq = 0, time, lastfreq = 0;
-//		out.open (IO_WriteOnly);
+//		out.open (QIODevice::WriteOnly);
 //		int first = true;
 //
 //		for (act = globals.markertypes.first(); act; act = globals.markertypes.next())
@@ -2018,7 +1990,7 @@ bool SignalWidget::labelProperties(Label *label)
 //			    //lets hope noone tries to save more than 10000 blocks...
 //
 //			    signalmanage->setRange (tmp->pos, tmp2->pos);    //changes don't have to be visible...
-//			    filename = savedir->absFilePath(buf);
+//			    filename = savedir->absoluteFilePath(buf);
 //			    signalmanage->save (filename, bit, true);     //save selected range...
 //			    count++;
 //			    break;
@@ -2096,10 +2068,10 @@ bool SignalWidget::labelProperties(Label *label)
 //	int high = signalmanage->getRate() / parser.toInt();
 //	int low = signalmanage->getRate() / parser.toInt();
 //	int octave = parser.toBool ("true");
-//	double adjust = parser.toDouble ();
+//	qreal adjust = parser.toDouble ();
 //
 //	for (int i = 0; i < AUTOKORRWIN; i++)
-//	    autotable[i] = 1 - (((double)i * i * i) / (AUTOKORRWIN * AUTOKORRWIN * AUTOKORRWIN));    //generate static weighting function
+//	    autotable[i] = 1 - (((qreal)i * i * i) / (AUTOKORRWIN * AUTOKORRWIN * AUTOKORRWIN));    //generate static weighting function
 //
 //	if (octave) for (int i = 0; i < AUTOKORRWIN; i++) weighttable[i] = 1;    //initialise moving weight table
 //
@@ -2152,13 +2124,13 @@ bool SignalWidget::labelProperties(Label *label)
 ////returns length of period, if found
 //{
 //    int i, j;
-//    double gmax = 0, max, c;
+//    qreal gmax = 0, max, c;
 //    int maxpos = AUTOKORRWIN;
 //    int down, up;         //flags
 //
 //    max = 0;
 //    for (j = 0; j < AUTOKORRWIN; j++)
-//	gmax += ((double)sample[j]) * sample [j];
+//	gmax += ((qreal)sample[j]) * sample [j];
 //
 //    //correlate signal with itself for finding maximum integral
 //
@@ -2168,7 +2140,7 @@ bool SignalWidget::labelProperties(Label *label)
 //    max = 0;
 //    while (i < AUTOKORRWIN) {
 //	c = 0;
-//	for (j = 0; j < AUTOKORRWIN; j++) c += ((double)sample[j]) * sample [i + j];
+//	for (j = 0; j < AUTOKORRWIN; j++) c += ((qreal)sample[j]) * sample [i + j];
 //	c = c * autotable[i];    //multiply window with weight for preference of high frequencies
 //	if (c > max) max = c, maxpos = i;
 //	i++;
@@ -2177,18 +2149,18 @@ bool SignalWidget::labelProperties(Label *label)
 //}
 //
 ////*****************************************************************************
-//int findNextRepeatOctave (int *sample, int high, double adjust = 1.005)
+//int findNextRepeatOctave (int *sample, int high, qreal adjust = 1.005)
 ////autocorellation of a windowed part of the sample
 ////same as above only with an adaptive weighting to decrease fast period changes
 //{
 //    int i, j;
-//    double gmax = 0, max, c;
+//    qreal gmax = 0, max, c;
 //    int maxpos = AUTOKORRWIN;
 //    int down, up;         //flags
 //
 //    max = 0;
 //    for (j = 0; j < AUTOKORRWIN; j++)
-//	gmax += ((double)sample[j]) * sample [j];
+//	gmax += ((qreal)sample[j]) * sample [j];
 //
 //    //correlate signal with itself for finding maximum integral
 //
@@ -2198,7 +2170,7 @@ bool SignalWidget::labelProperties(Label *label)
 //    max = 0;
 //    while (i < AUTOKORRWIN) {
 //	c = 0;
-//	for (j = 0; j < AUTOKORRWIN; j++) c += ((double)sample[j]) * sample [i + j];
+//	for (j = 0; j < AUTOKORRWIN; j++) c += ((qreal)sample[j]) * sample [i + j];
 //	c = c * autotable[i] * weighttable[i];
 //	//multiply window with weight for preference of high frequencies
 //	if (c > max) max = c, maxpos = i;
@@ -2291,8 +2263,10 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track &track)
 void SignalWidget::slotTrackDeleted(unsigned int index)
 {
     // delete the track from the list
-    m_track_pixmaps.setAutoDelete(true);
-    if (index < m_track_pixmaps.count()) m_track_pixmaps.remove(index);
+    if (static_cast<int>(index) < m_track_pixmaps.count()) {
+	TrackPixmap *pixmap = m_track_pixmaps.takeAt(index);
+	if (pixmap) delete pixmap;
+    }
 
     // emit the signal sigTrackInserted now, so that the signal widget
     // gets resized if needed, but the new pixmap is still empty
@@ -2347,7 +2321,7 @@ void SignalWidget::startDragging()
 
     const unsigned int first = m_signal_manager.selection().first();
     const unsigned int last  = m_signal_manager.selection().last();
-    const double       rate  = m_signal_manager.rate();
+    const qreal       rate  = m_signal_manager.rate();
     const unsigned int bits  = m_signal_manager.bits();
 
     MultiTrackReader src(m_signal_manager,
@@ -2368,7 +2342,8 @@ void SignalWidget::startDragging()
     // start drag&drop, mode is determined automatically
     InhibitRepaintGuard inhibit(*this);
     UndoTransactionGuard undo(m_signal_manager, i18n("drag and drop"));
-    if (d->drag()) {
+    Qt::DropAction drop = d->exec(Qt::CopyAction | Qt::MoveAction);
+    if (drop != Qt::IgnoreAction) {
 	// deleting also affects the selection !
 	const unsigned int f = m_signal_manager.selection().first();
 	const unsigned int l = m_signal_manager.selection().last();
@@ -2389,11 +2364,12 @@ void SignalWidget::startDragging()
 }
 
 //***************************************************************************
-void SignalWidget::dragEnterEvent(QDragEnterEvent* event)
+void SignalWidget::dragEnterEvent(QDragEnterEvent *event)
 {
-    if (QUriDrag::canDecode(event) || KwaveFileDrag::canDecode(event)) {
-	event->accept(rect());
-    } else event->ignore(rect());
+    if (event && KwaveFileDrag::canDecode(event->mimeData()))
+	event->accept();
+    else
+	event->ignore();
 }
 
 //***************************************************************************
@@ -2403,9 +2379,9 @@ void SignalWidget::dragLeaveEvent(QDragLeaveEvent *)
 }
 
 //***************************************************************************
-void SignalWidget::dropEvent(QDropEvent* event)
+void SignalWidget::dropEvent(QDropEvent *event)
 {
-    if (KwaveDrag::canDecode(event)) {
+    if (KwaveDrag::canDecode(event->mimeData())) {
 	UndoTransactionGuard undo(m_signal_manager, i18n("drag and drop"));
 	Signal sig;
 	InhibitRepaintGuard inhibit(*this);
@@ -2425,12 +2401,13 @@ void SignalWidget::dropEvent(QDropEvent* event)
 	    qDebug("SignalWidget::dropEvent(%s): failed !", event->format(0));
 	    /** @todo abort the current undo transaction */
 	}
-    } else if (KwaveFileDrag::canDecode(event)) {
-	QStringList files;
-	KwaveFileDrag::decodeLocalFiles(event, files);
-	QStringList::Iterator it;
-	for (it = files.begin(); it != files.end(); ++it) {
-	    emit sigCommand("open(" + *it + ")");
+    } else if (KwaveFileDrag::canDecode(event->mimeData())) {
+	foreach (QUrl url, event->mimeData()->urls()) {
+	    QString filename = url.toLocalFile();
+	    QString mimetype = CodecManager::whatContains(filename);
+	    if (CodecManager::canDecode(mimetype)) {
+		emit sigCommand("open(" + filename + ")");
+	    }
 	}
     }
 
@@ -2467,14 +2444,14 @@ void SignalWidget::dragMoveEvent(QDragMoveEvent* event)
 	r.setLeft(left);
 	r.setRight(right);
 	event->ignore(r);
-    } else if (KwaveDrag::canDecode(event)) {
+    } else if (KwaveDrag::canDecode(event->mimeData())) {
 	// accept if it is decodeable within the
 	// current range (if it's outside our own selection)
 	event->accept();
-    } else if (KwaveFileDrag::canDecode(event)) {
+    } else if (KwaveFileDrag::canDecode(event->mimeData())) {
 	// file drag
-	event->accept(rect());
-    } else event->ignore(rect());
+	event->accept();
+    } else event->ignore();
 }
 
 //***************************************************************************

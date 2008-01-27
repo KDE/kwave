@@ -19,27 +19,25 @@
 #define _PLUGIN_MANAGER_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qmemarray.h>
-#include <qptrlist.h>
-#include <qptrvector.h>
-#include <qmap.h>
 
-#include "mt/SignalProxy.h"
+#include <QList>
+#include <QListIterator>
+#include <QMap>
+#include <QMutableListIterator>
+#include <QObject>
+#include <QPointer>
+#include <QVector>
+
 #include "libkwave/InsertMode.h"
 
 class FileInfo;
 class KwavePlugin;
 class PlaybackController;
 class PlaybackDeviceFactory;
-class QBitmap;
 class QString;
 class QStringList;
 class SampleWriter;
 class TopWidget;
-class UndoAction;
-class MultiTrackReader;
-class MultiTrackWriter;
 namespace Kwave { class SampleSink; }
 
 /**
@@ -60,12 +58,6 @@ public:
      * @param parent reference to the toplevel widget (our parent)
      */
     PluginManager(TopWidget &parent);
-
-    /**
-     * Returns true if this instance was successfully initialized, or
-     * false if something went wrong during initialization.
-     */
-    virtual bool isOK();
 
     /**
      * Default destructor
@@ -123,7 +115,7 @@ public:
     /**
      * Returns an array of indices of currently selected channels.
      */
-    const QMemArray<unsigned int> selectedTracks();
+    const QList<unsigned int> selectedTracks();
 
     /**
      * Returns the start of the selection. If nothing is currently
@@ -240,20 +232,27 @@ public slots:
 
 private slots:
 
-    /** emits sigSignalNameChanged to the plugins (threadsafe) */
-    void emitNameChanged();
-
-    /**
-     * de-queues a command from m_spx_command and executes it
-     * through the toplevel widget.
-     */
-    void forwardCommand();
-
     /** called when a plugin has started (running) it's worker thread */
     void pluginStarted(KwavePlugin *p);
 
     /** called when a plugin has finished it's worker thread */
     void pluginDone(KwavePlugin *p);
+
+private:
+
+    /** typedef: QPointer to a KwavePlugin */
+    typedef QPointer<KwavePlugin> KwavePluginPointer;
+
+    /** typedef: list of pointers to kwave plugins */
+    typedef QList< KwavePluginPointer > PluginList;
+
+    /** typedef: mutable iterator for PluginList */
+    typedef QMutableListIterator< KwavePluginPointer >
+	PluginListMutableIterator;
+
+    /** typedef: const iterator for PluginList */
+    typedef QListIterator< KwavePluginPointer >
+	PluginListIterator;
 
 private:
 
@@ -314,23 +313,17 @@ private:
     /** connects all signals from and to a plugin */
     void disconnectPlugin(KwavePlugin *plugin);
 
-    /** threadsafe signal proxy for setSignalName / sigSignalNameChanged */
-    SignalProxy1<const QString> m_spx_name_changed;
-
-    /** threadsafe proxy for sigCommand() */
-    SignalProxy1<const QString> m_spx_command;
-
     /** map for finding plugin files through their name */
     static QMap<QString, QString> m_plugin_files;
 
     /** list of own loaded plugins */
-    QPtrList<KwavePlugin> m_loaded_plugins;
+    PluginList m_loaded_plugins;
 
     /** global list of loaded unique plugins */
-    static QPtrList<KwavePlugin> m_unique_plugins;
+    static PluginList m_unique_plugins;
 
     /** list of currently running plugins */
-    QPtrList<KwavePlugin> m_running_plugins;
+    PluginList m_running_plugins;
 
     /** reference to our parent toplevel widget */
     TopWidget &m_top_widget;

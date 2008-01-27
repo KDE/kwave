@@ -225,8 +225,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/kwave.desktop				(should be GPL2)
 	kwave/KwaveSplash.cpp				GPL2 / Gilles Caulier
 	kwave/KwaveSplash.h				GPL2 / Gilles Caulier
-	kwave/LabelManager.cpp				GPL2
-	kwave/LabelManager.h				GPL2
 	kwave/main.cpp					GPL2 / Martin Wilz
 	kwave/MainWidget.cpp				GPL2 / Martin Wilz
 	kwave/MainWidget.h				GPL2 / Martin Wilz
@@ -239,6 +237,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/PlaybackController.h			GPL2
 	kwave/PluginManager.cpp				GPL2
 	kwave/PluginManager.h				GPL2
+	kwave/ShortcutWrapper.cpp			GPL2
+	kwave/ShortcutWrapper.h				GPL2
 	kwave/SignalManager.cpp				GPL2
 	kwave/SignalManager.h				GPL2
 	kwave/SignalWidget.cpp				GPL2 / Martin Wilz
@@ -717,8 +717,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/playback/CMakeLists.txt			GPL2
 	plugins/playback/PlayBack-ALSA.cpp		GPL2 / (parts from) Jaroslav Kysela
 	plugins/playback/PlayBack-ALSA.h		GPL2
-	plugins/playback/PlayBack-aRts.cpp		GPL2
-	plugins/playback/PlayBack-aRts.h		GPL2
 	plugins/playback/PlayBackDialog.cpp		GPL2
 	plugins/playback/PlayBackDialog.h		GPL2
 	plugins/playback/PlayBackDlg.ui			(should be GPL2)

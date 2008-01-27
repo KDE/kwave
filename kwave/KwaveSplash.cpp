@@ -17,34 +17,23 @@
 
 #include "config.h"
 
-#include <qpixmap.h>
-#include <qapplication.h>
+#include <QPixmap>
+#include <QString>
+#include <QTimer>
+
 #include <kstandarddirs.h>
 
 #include "KwaveSplash.h"
 
 //***************************************************************************
 KwaveSplash::KwaveSplash(const QString &PNGImageFileName)
-    :QWidget(0, "Kwave Splash", WStyle_NoBorder | WStyle_StaysOnTop |
-    WStyle_Customize), m_timer()
+    :QSplashScreen(0),
+     m_pixmap(KStandardDirs::locate("appdata", PNGImageFileName))
 {
-    QString file = locate("appdata", PNGImageFileName);
-    QPixmap pixmap(file);
-
-    // the size of the splashscreen image
-    int h = pixmap.width();
-    int l = pixmap.height();
-
-    // center the image on the desktop
-    setGeometry(QApplication::desktop()->width ()/2-(h/2),
-                QApplication::desktop()->height()/2-(l/2), h, l);
-    setFixedSize(h, l);
-
-    setPaletteBackgroundPixmap(pixmap);
+    setPixmap(m_pixmap);
 
     // auto-close in 2 seconds...
-    connect(&m_timer, SIGNAL(timeout()), this, SLOT(deleteLater()));
-    m_timer.start(2000, true);
+    QTimer::singleShot(2000, this, SLOT(deleteLater()));
 }
 
 //***************************************************************************

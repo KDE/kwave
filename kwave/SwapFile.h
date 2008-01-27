@@ -20,7 +20,8 @@
 
 #include "config.h"
 #include <sys/types.h>  // for size_t
-#include <qfile.h>
+
+#include <QFile>
 
 class MemoryManager;
 class QString;
@@ -106,7 +107,7 @@ protected:
      * @param length number of bytes to write
      * @return number of written bytes or < 0 if failed
      */
-    int write(unsigned int offset, void *buffer, unsigned int length);
+    int write(unsigned int offset, const void *buffer, unsigned int length);
 
 private:
 

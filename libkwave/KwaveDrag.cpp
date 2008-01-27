@@ -18,6 +18,7 @@
 #include "config.h"
 
 #include <QBuffer>
+#include <QMimeData>
 #include <QMimeSource>
 
 #include "libkwave/Decoder.h"
@@ -65,12 +66,11 @@ QByteArray KwaveDrag::encodedData(const char *format) const
 }
 
 //***************************************************************************
-bool KwaveDrag::canDecode(const QMimeSource *e)
+bool KwaveDrag::canDecode(const QMimeData *data)
 {
-    if (!e) return false;
-    for (int i=0; e->format(i); ++i) {
-	if (CodecManager::canDecode(e->format(i))) return true;
-    }
+    if (!data) return false;
+    foreach (QString format, data->formats())
+	if (CodecManager::canDecode(format)) return true;
     return false;
 }
 

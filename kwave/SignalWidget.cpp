@@ -505,11 +505,11 @@ int SignalWidget::loadFile(const KUrl &url)
 		reason = i18n("Out of memory");
 		break;
 	    case -EIO:
-		reason = i18n("unable to open '%1'").arg(
+		reason = i18n("unable to open '%1'",
 		    url.prettyUrl());
 		break;
 	    case -EINVAL:
-		reason = i18n("invalid or unknown file type: '%1'").arg(
+		reason = i18n("invalid or unknown file type: '%1'",
 		              url.prettyUrl());
 		break;
 	    default:
@@ -1480,10 +1480,10 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 	    // yes, this code gives the nifty cursor change....
 	    if (label) {
 		setMouseMode(MouseAtSelectionBorder);
-		QString text = i18n("label #%1").arg(
+		QString text = i18n("label #%1",
 		    m_signal_manager.labelIndex(label));
 		if (label->name().length())
-		    text += i18n(" (%1)").arg(label->name());
+		    text += i18n(" (%1)", label->name());
 		showPosition(text, label->pos(), samples2ms(label->pos()),
 		    pos);
 		break;

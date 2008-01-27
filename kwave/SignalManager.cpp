@@ -318,7 +318,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 		qWarning("SignalManager::save(): unsupported property '%s'",
 		    m_file_info.name(it.key()).toLocal8Bit().data());
 		all_supported = false;
-		lost_properties += i18n("%1").arg(m_file_info.name(it.key()))
+		lost_properties += i18n("%1", m_file_info.name(it.key()))
 		    + "\n";
 	    }
 	}

@@ -146,7 +146,7 @@ void Kwave::FilterPlugin::run(QStringList params)
 	    m_progress->setAutoClose(true);
 	    m_progress->setValue(0);
 	    m_progress->setLabelText(
-	        i18n("applying '%1' ...").arg(actionName()));
+	        i18n("applying '%1' ...", actionName()));
 	    int h = m_progress->sizeHint().height();
 	    int w = m_progress->sizeHint().height();
 	    if (w < 4*h) w = 4*h;

@@ -258,8 +258,6 @@ void FileProgress::updateStatistics(qreal rate, qreal rest,
 
     // left: transfer rate and estimated time
     num = num.sprintf("%1.1f", rate/1024.0);
-    text = i18n("%1 KB/s (%2 remain)");
-    text = text.arg(num);
 
     int h =  (int)floor(rest) / (60*60);
     int m = ((int)floor(rest) / 60) % 60;
@@ -269,14 +267,13 @@ void FileProgress::updateStatistics(qreal rate, qreal rest,
 	m = s = 59;
     }
     QTime time(h,m,s,0);
-    text = text.arg(time.toString());
+    text = i18n("%1 KB/s (%2 remain)", num, time.toString());
     m_stat_transfer->setText(text);
 
     // right: statistic over the transferred bytes
-    text = i18n("%1 MB of %2 MB done");
-    num = num.sprintf("%1.1f", pos / (1024.0*1024.0));
-    text = text.arg(num);
-    num = num.sprintf("%1.1f", m_size / (1024.0*1024.0));
+    text = i18n("%1 MB of %2 MB done",
+	num.sprintf("%1.1f", pos / (1024.0*1024.0)),
+	num.sprintf("%1.1f", m_size / (1024.0*1024.0)));
     text = text.arg(num);
     m_stat_bytes->setText(text);
 }

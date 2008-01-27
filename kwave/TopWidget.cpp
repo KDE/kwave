@@ -303,7 +303,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     m_action_zoomnormal = toolbar_zoom->addAction(
 	QPixmap(xpm_zoomnormal),
-	i18n("zoom to 100%"),
+	i18n("zoom to 100%%"),
 	m_main_widget, SLOT(zoomNormal()));
 
     m_action_zoomall = toolbar_zoom->addAction(
@@ -795,7 +795,7 @@ int TopWidget::saveFileAs(bool selection)
     if ((name != signalName()) && (path.exists())) {
 	if (KMessageBox::warningYesNo(this,
 	    i18n("The file '%1' already exists. Do you really "\
-	    "want to overwrite it?").arg(name)) != KMessageBox::Yes)
+	    "want to overwrite it?", name)) != KMessageBox::Yes)
 	{
 	    return -1;
 	}
@@ -955,10 +955,10 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
 
     // length in milliseconds
     if (length) {
-	txt = " "+i18n("Length: %1")+" "+i18n("(%2 samples)")+" ";
 	ms = (rate) ? (((double)length / (double)rate) * 1E3) : 0;
-	txt = txt.arg(KwavePlugin::ms2string(ms));
-	txt = txt.arg(KwavePlugin::dottedNumber(length));
+	txt = " " + i18n("Length: %1", KwavePlugin::ms2string(ms)) +
+	    " " + i18n("(%1 samples)", KwavePlugin::dottedNumber(length)) +
+	    " ";
     } else txt = "";
     statusBar()->changeItem(txt, STATUS_ID_SIZE);
 
@@ -966,9 +966,7 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
     if (bits) {
 	QString khz = "%0.3f";
 	khz = khz.sprintf("%0.3f", (qreal)rate * 1E-3);
-	txt = " "+i18n("Mode: %1 kHz@%2 bit")+" ";
-	txt = txt.arg(khz);
-	txt = txt.arg(bits);
+	txt = " "+i18n("Mode: %1 kHz@%2 bit", khz, bits)+" ";
     } else txt = "";
     statusBar()->changeItem(txt, STATUS_ID_MODE);
 

@@ -15,6 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <klocale.h>
 
 #include "libkwave/SampleReader.h"
@@ -26,7 +27,7 @@
 
 //***************************************************************************
 UndoDeleteAction::UndoDeleteAction(unsigned int track,
-	unsigned int offset, unsigned int length)
+                                   unsigned int offset, unsigned int length)
     :UndoModifyAction(track, offset, length)
 {
 }

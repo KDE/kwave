@@ -19,8 +19,8 @@
 #define _UNDO_MODIFY_ACTION_H_
 
 #include "config.h"
-#include <qmemarray.h>
-#include <qstring.h>
+
+#include <QString>
 
 #include "libkwave/Sample.h"
 #include "libkwave/Track.h"

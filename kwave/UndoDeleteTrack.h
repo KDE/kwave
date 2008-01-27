@@ -20,8 +20,9 @@
 #define _UNDO_DELETE_TRACK_H_
 
 #include "config.h"
-#include <qmemarray.h>
-#include <qstring.h>
+
+#include <QString>
+
 #include "libkwave/Sample.h"
 #include "libkwave/Track.h"
 #include "kwave/UndoAction.h"
@@ -31,9 +32,8 @@ class Signal;
 /**
  * Undo action for deleting a track.
  */
-class UndoDeleteTrack :public UndoAction
+class UndoDeleteTrack: public UndoAction
 {
-
 public:
 
     /**

@@ -16,11 +16,14 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
 #include <klocale.h>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
+
 #include "SignalManager.h"
 #include "UndoInsertTrack.h"
 #include "UndoDeleteTrack.h"

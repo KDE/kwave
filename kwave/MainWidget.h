@@ -19,19 +19,18 @@
 #define _MAIN_WIDGET_H_
 
 #include "config.h"
-#include <qframe.h>
-#include <qptrlist.h>
-#include <qwidget.h>
+
+#include <QFrame>
+#include <QList>
+#include <QWidget>
 
 #include "kwave/SignalWidget.h"
 
-class QAccel;
 class QComboBox;
 class QScrollBar;
 
-class KButtonBox;
 class KStatusBar;
-class KURL;
+class KUrl;
 
 class MenuManager;
 class MultiStateWidget;
@@ -49,7 +48,7 @@ public:
      * Constructor.
      * @param parent parent widget
      */
-    MainWidget (QWidget *parent);
+    MainWidget(QWidget *parent);
 
     /**
      * Returns true if this instance was successfully initialized, or
@@ -66,7 +65,7 @@ public:
      * @param url URL of the file to be loaded
      * @return 0 if succeeded or error code < 0
      */
-    int loadFile(const KURL &url);
+    int loadFile(const KUrl &url);
 
     /**
      * Closes the current signal.
@@ -226,8 +225,6 @@ signals:
 
 private:
 
-    QAccel *keys;
-
     OverViewWidget *m_slider;
 
     /** QFrame that contains the signal widget. */
@@ -236,16 +233,13 @@ private:
     /** the widget that shows the signal */
     SignalWidget m_signal_widget;
 
-    QFrame *frmChannelControls;
+    QFrame *m_frm_channel_controls;
 
     /** vertical scrollbar, only visible if channels do not fit vertically */
     QScrollBar *m_scrollbar;
 
     /** array of lamps, one for each channel */
-    QPtrList<MultiStateWidget> m_lamps;
-
-//    /** array of speaker icons, one for each channel */
-//    QPtrList<MultiStateWidget> m_speakers;
+    QList<MultiStateWidget *> m_lamps;
 
     /** the last number of channels (for detecting changes) */
     unsigned int m_last_tracks;

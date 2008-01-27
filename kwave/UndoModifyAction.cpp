@@ -15,8 +15,10 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <klocale.h>
 
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
@@ -83,8 +85,8 @@ UndoAction *UndoModifyAction::undo(SignalManager &manager, bool with_redo)
     unsigned int len = m_length;
 
     if (with_redo) {
-	QArray<sample_t> buf_cur(BUFFER_SIZE);
-	QArray<sample_t> buf_sav(BUFFER_SIZE);
+	Kwave::SampleArray buf_cur(BUFFER_SIZE);
+	Kwave::SampleArray buf_sav(BUFFER_SIZE);
 
 	SampleReader *reader_cur = manager.openSampleReader(
 	    m_track, m_offset, m_offset+m_length-1);

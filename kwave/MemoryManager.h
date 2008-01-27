@@ -21,10 +21,11 @@
 #include "config.h"
 #include <stddef.h>  // for size_t
 
-#include <qdir.h>
-#include <qmap.h>
-#include <qmutex.h>
-#include <qstring.h>
+#include <QDir>
+#include <QList>
+#include <QMap>
+#include <QMutex>
+#include <QString>
 
 class SwapFile;
 
@@ -140,7 +141,7 @@ public:
      * @return number of written bytes or < 0 if failed
      */
     int writeTo(void *block, unsigned int offset,
-                void *buffer, unsigned int length);
+                const void *buffer, unsigned int length);
 
 protected:
 
@@ -195,17 +196,17 @@ private:
     QDir m_swap_dir;
 
     /** List of swapfile objects that are not mapped into memory */
-    QPtrList<SwapFile> m_unmapped_swap;
+    QList<SwapFile *> m_unmapped_swap;
 
     /** List of swapfile objects that are already mapped into memory */
-    QPtrList<SwapFile> m_mapped_swap;
+    QList<SwapFile *> m_mapped_swap;
 
     /**
      * Cache for swapfiles that have been recently used, are mapped
      * and get unmapped if the queue is full. The queue will be used
      * as a FIFO with fixed size.
      */
-    QPtrList<SwapFile> m_cached_swap;
+    QList<SwapFile *> m_cached_swap;
 
     /**
      * Map for sizes of objects in physical memory.

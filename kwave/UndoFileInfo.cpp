@@ -16,6 +16,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include "kwave/SignalManager.h"
 #include "UndoFileInfo.h"
 
@@ -44,7 +45,7 @@ unsigned int UndoFileInfo::infoSize(const FileInfo &info)
     for (it=info.properties().begin(); it!=info.properties().end(); ++it) {
 	size += 2*sizeof(void*); // just a guess
 	size += sizeof(it.key());
-	size += sizeof(it.data());
+	size += sizeof(it.value());
     }
     return size;
 }

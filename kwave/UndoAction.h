@@ -20,7 +20,7 @@
 #define _UNDO_ACTION_H_
 
 #include "config.h"
-#include <qstring.h>
+#include <QString>
 
 class SignalManager;
 

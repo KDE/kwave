@@ -16,6 +16,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <klocale.h>
 
 #include "libkwave/Label.h"

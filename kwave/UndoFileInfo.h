@@ -20,8 +20,7 @@
 #define _UNDO_FILE_INFO_H_
 
 #include "config.h"
-#include <qmemarray.h>
-#include <qstring.h>
+#include <QString>
 #include "libkwave/FileInfo.h"
 #include "UndoAction.h"
 
@@ -78,5 +77,3 @@ private:
 };
 
 #endif /* _UNDO_FILE_INFO_H_ */
-
-

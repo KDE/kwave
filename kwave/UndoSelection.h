@@ -20,8 +20,7 @@
 #define _UNDO_SELECTION_H_
 
 #include "config.h"
-#include <qmemarray.h>
-#include <qstring.h>
+#include <QList>
 #include "UndoAction.h"
 
 class SignalManager;
@@ -71,7 +70,7 @@ private:
     unsigned int m_length;
 
     /** Array with indices of selected tracks. */
-    QMemArray<unsigned int> m_selected_tracks;
+    QList<unsigned int> m_selected_tracks;
 
 };
 

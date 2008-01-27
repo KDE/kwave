@@ -20,7 +20,7 @@
 #define _UNDO_ADD_LABEL_ACTION_H_
 
 #include "config.h"
-#include <qstring.h>
+#include <QString>
 #include "UndoAction.h"
 
 class Label;
@@ -29,7 +29,7 @@ class SignalManager;
 /**
  * Undo action for inserting a label.
  */
-class UndoAddLabelAction :public UndoAction
+class UndoAddLabelAction: public UndoAction
 {
 public:
 

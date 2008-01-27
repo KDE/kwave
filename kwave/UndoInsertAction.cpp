@@ -15,6 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <klocale.h>
 
 #include "SignalManager.h"
@@ -24,8 +25,9 @@
 
 //***************************************************************************
 UndoInsertAction::UndoInsertAction(unsigned int track,
-	unsigned int offset, unsigned int length)
-    :QObject(), UndoAction(), m_track(track), m_offset(offset), m_length(length)
+                                   unsigned int offset, unsigned int length)
+    :QObject(), UndoAction(), m_track(track),
+     m_offset(offset), m_length(length)
 {
 }
 

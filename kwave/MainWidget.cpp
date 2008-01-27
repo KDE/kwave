@@ -19,19 +19,15 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <qaccel.h>
-#include <qbitmap.h>
-#include <qcombobox.h>
-#include <qframe.h>
-#include <qkeycode.h>
-#include <qlayout.h>
-#include <qscrollbar.h>
-#include <qwidget.h>
+#include <QBitmap>
+#include <QComboBox>
+#include <QFrame>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QResizeEvent>
+#include <QScrollBar>
 
-#include <kapp.h>
 #include <klocale.h>
-#include <kstdaccel.h>
-#include <kstatusbar.h>
 
 #include "libkwave/KwavePlugin.h" // for some helper functions
 #include "libkwave/Parser.h"
@@ -39,6 +35,7 @@
 #include "libgui/MultiStateWidget.h"
 #include "libgui/OverViewWidget.h"
 
+#include "ShortcutWrapper.h"
 #include "SignalWidget.h"
 #include "SignalManager.h"
 #include "MainWidget.h"
@@ -48,28 +45,33 @@
  */
 #define CASE_COMMAND(x) } else if (parser.command() == x) {
 
-#ifndef max
-#define max(x,y) (( x > y ) ? (x) : (y) )
-#endif
-
-// ### static const int tbl_keys[10] = {
-// ###     Key_1, Key_2, Key_3, Key_4, Key_5, Key_6, Key_7, Key_8, Key_9, Key_0
-// ### };
+/** table of keyboard shortcuts 0...9 */
+static const int tbl_keys[10] = {
+    Qt::Key_1,
+    Qt::Key_2,
+    Qt::Key_3,
+    Qt::Key_4,
+    Qt::Key_5,
+    Qt::Key_6,
+    Qt::Key_7,
+    Qt::Key_8,
+    Qt::Key_9,
+    Qt::Key_0
+};
 
 #define MIN_PIXELS_PER_CHANNEL 50
 
 //***************************************************************************
 MainWidget::MainWidget(QWidget *parent)
-    :QWidget(parent), keys(0), m_slider(0), m_signal_frame(this),
+    :QWidget(parent), m_slider(0), m_signal_frame(this),
      m_signal_widget(&m_signal_frame),
-     frmChannelControls(0),
-     m_scrollbar(0), m_lamps()/*, m_speakers()*/, m_last_tracks(0)
+     m_frm_channel_controls(0),
+     m_scrollbar(0), m_lamps(), m_last_tracks(0)
 {
 //    qDebug("MainWidget::MainWidget()");
-    int s[3];
 
     // create the layout objects
-    QGridLayout *topLayout = new QGridLayout(this, 3, 2, 0);
+    QGridLayout* topLayout = new QGridLayout(this);
     Q_ASSERT(topLayout);
     if (!topLayout) return;
 
@@ -88,51 +90,24 @@ MainWidget::MainWidget(QWidget *parent)
     frmChannelsBack->setFrameStyle(0);
     frmChannelsBack->setFixedWidth(30);
 
-    frmChannelControls = new QFrame(frmChannelsBack);
-    Q_ASSERT(frmChannelControls);
-    if (!frmChannelControls) return;
-    frmChannelControls->setFrameStyle(0);
-    frmChannelControls->setFixedWidth(30);
+    m_frm_channel_controls = new QFrame(frmChannelsBack);
+    Q_ASSERT(m_frm_channel_controls);
+    if (!m_frm_channel_controls) return;
+    m_frm_channel_controls->setFrameStyle(0);
+    m_frm_channel_controls->setFixedWidth(30);
 
     // background for the SignalWidget, does the clipping
     m_signal_frame.setFrameStyle(0);
     m_signal_frame.setMinimumSize(20, MIN_PIXELS_PER_CHANNEL);
     signalLayout->addWidget(&m_signal_frame, 100, 0);
 
-    // -- multistate widgets for lamps and speakers (channel controls) --
-
-    m_lamps.setAutoDelete(true);
-    m_lamps.clear();
-    MultiStateWidget *msw =
-	new MultiStateWidget(frmChannelControls, 0);
-    Q_ASSERT(msw);
-    if (!msw) return;
-    m_lamps.append(msw);
-    s[0] = m_lamps.at(0)->addPixmap("light_on.xpm");
-    s[1] = m_lamps.at(0)->addPixmap("light_off.xpm");
-    m_lamps.at(0)->setStates(s);
-
-//    m_speakers.setAutoDelete(true);
-//    m_speakers.clear();
-//    msw = new MultiStateWidget(frmChannelControls, 0, 3);
-//    Q_ASSERT(msw);
-//    if (!msw) return;
-//    m_speakers.append(msw);
-//    s[0] = m_speakers.at(0)->addPixmap("rspeaker.xpm");
-//    s[1] = m_speakers.at(0)->addPixmap("lspeaker.xpm");
-//    s[2] = m_speakers.at(0)->addPixmap("xspeaker.xpm");
-//    m_speakers.at(0)->setStates(s);
-
     // -- accelerator keys for 1...9 --
-
-// ###     keys = new QAccel(this);
-// ###     Q_ASSERT(keys);
-// ###     if (!keys) return;
-// ###     for (int i=0; i < 10; i++) {
-// ### 	keys->insertItem(tbl_keys[i]);
-// ###     }
-// ###     connect(keys, SIGNAL(activated(int)),
-// ### 	    this, SLOT(parseKey(int)));
+    for (int i=0; i < 10; i++) {
+	Kwave::ShortcutWrapper *shortcut =
+	    new Kwave::ShortcutWrapper(this, tbl_keys[i], i);
+	connect(shortcut, SIGNAL(activated(int)),
+	        this, SLOT(parseKey(int)));
+    }
 
     // -- slider for horizontal scrolling --
 
@@ -147,11 +122,11 @@ MainWidget::MainWidget(QWidget *parent)
     m_scrollbar = new QScrollBar(this);
     Q_ASSERT(m_scrollbar);
     if (!m_scrollbar) return;
-    m_scrollbar->setOrientation(QScrollBar::Vertical);
+    m_scrollbar->setOrientation(Qt::Vertical);
     m_scrollbar->setFixedWidth(m_scrollbar->sizeHint().width());
     m_scrollbar->hide();
     m_scrollbar->setFixedWidth(0);
-    signalLayout->addWidget(m_scrollbar,   0, AlignRight);
+    signalLayout->addWidget(m_scrollbar, 0, Qt::AlignRight);
 
     // -- signal widget --
 
@@ -164,8 +139,8 @@ MainWidget::MainWidget(QWidget *parent)
     topLayout->setRowStretch(0, 1);
     topLayout->setRowStretch(1, 0);
     topLayout->setRowStretch(2, 0);
-    topLayout->setColStretch(0, 0);
-    topLayout->setColStretch(1, 1);
+    topLayout->setColumnStretch(0, 0);
+    topLayout->setColumnStretch(1, 1);
     signalLayout->activate();
     topLayout->activate();
 
@@ -207,21 +182,15 @@ MainWidget::MainWidget(QWidget *parent)
 //***************************************************************************
 bool MainWidget::isOK()
 {
-    Q_ASSERT(frmChannelControls);
-//    Q_ASSERT(keys); ###
-    Q_ASSERT(m_scrollbar);
-    Q_ASSERT(m_slider);
-
-    return ( frmChannelControls /* ### && keys */ &&
-    	m_scrollbar && m_slider );
+    return (m_frm_channel_controls && m_scrollbar && m_slider);
 }
 
 //***************************************************************************
 MainWidget::~MainWidget()
 {
-    if (keys) delete keys;
+    foreach (MultiStateWidget *lamp, m_lamps)
+	if (lamp) delete lamp;
     m_lamps.clear();
-//    m_speakers.clear();
 }
 
 //***************************************************************************
@@ -233,12 +202,12 @@ void MainWidget::resizeEvent(QResizeEvent *)
 //***************************************************************************
 void MainWidget::scrollbarMoved(int newval)
 {
-    Q_ASSERT(frmChannelControls);
-    if (!frmChannelControls) return;
+    Q_ASSERT(m_frm_channel_controls);
+    if (!m_frm_channel_controls) return;
 
     // move the signal and the channel controls
     m_signal_widget.move(0, -newval);
-    frmChannelControls->move(0, -newval);
+    m_frm_channel_controls->move(0, -newval);
 }
 
 //***************************************************************************
@@ -256,7 +225,7 @@ void MainWidget::slotTrackDeleted(unsigned int /*track*/)
 }
 
 //***************************************************************************
-int MainWidget::loadFile(const KURL &url)
+int MainWidget::loadFile(const KUrl &url)
 {
     closeSignal();
     int res = m_signal_widget.loadFile(url);
@@ -307,21 +276,16 @@ double MainWidget::zoom()
 //***************************************************************************
 void MainWidget::resetChannels()
 {
-    unsigned int t = tracks();
-    for (unsigned int i = 0; i < t; i++) {
-	Q_ASSERT(m_lamps.at(i));
-	if (m_lamps.at(i)) m_lamps.at(i)->setState(0);
-    }
+    foreach (MultiStateWidget *lamp, m_lamps)
+	if (lamp) lamp->setState(0);
 }
 
 //***************************************************************************
 void MainWidget::parseKey(int key)
 {
-    if ((key < 0) || ((unsigned int)key >= tracks()))
+    if ((key < 0) || (key >= m_lamps.count()))
 	return;
-    Q_ASSERT(m_lamps.at(key));
-    if (!m_lamps.at(key)) return;
-    m_lamps.at(key)->nextState();
+    if (m_lamps.at(key)) m_lamps.at(key)->nextState();
 }
 
 //***************************************************************************
@@ -341,12 +305,12 @@ bool MainWidget::executeCommand(const QString &command)
 //	;
     } else {
 	if (parser.command() == "selectchannels")
-	    for (unsigned int i = 0; i < tracks(); i++)
-		if (m_lamps.at(i)) m_lamps.at(i)->setState(0);
+	    foreach (MultiStateWidget *lamp, m_lamps)
+		if (lamp) lamp->setState(0);
 
 	if (parser.command() == "invertchannels")
-	    for (unsigned int i = 0; i < tracks(); i++)
-		if (m_lamps.at(i)) m_lamps.at(i)->nextState();
+	    foreach (MultiStateWidget *lamp, m_lamps)
+		if (lamp) lamp->nextState();
 
 	return m_signal_widget.executeCommand(command);
     }
@@ -357,17 +321,14 @@ bool MainWidget::executeCommand(const QString &command)
 //***************************************************************************
 void MainWidget::refreshChannelControls()
 {
-    Q_ASSERT(frmChannelControls);
-    if (!frmChannelControls) return;
-
-    Q_ASSERT(frmChannelControls);
-    if (!frmChannelControls) return;
+    Q_ASSERT(m_frm_channel_controls);
+    if (!m_frm_channel_controls) return;
 
     unsigned int channels = tracks();
-    int min_height = (max(channels, 1) * MIN_PIXELS_PER_CHANNEL);
+    int min_height = qMax(channels, (unsigned int)1) * MIN_PIXELS_PER_CHANNEL;
     bool need_scrollbar = (m_signal_frame.height() < min_height);
     bool scrollbar_visible = m_scrollbar->isVisible();
-    int h = max(min_height, m_signal_frame.height());
+    int h = qMax(min_height, m_signal_frame.height());
     int w = m_signal_frame.width();
     int b = m_scrollbar->sizeHint().width();
 
@@ -388,93 +349,70 @@ void MainWidget::refreshChannelControls()
 
     if (scrollbar_visible) {
 	// adjust the limits of the scrollbar
-	int min = m_scrollbar->minValue();
-	int max = m_scrollbar->maxValue();
+	int min = m_scrollbar->minimum();
+	int max = m_scrollbar->maximum();
 	double val = (m_scrollbar->value()-(double)min) / (double)(max-min);
 
 	min = 0;
 	max = h-m_signal_frame.height();
 	m_scrollbar->setRange(min, max);
 	m_scrollbar->setValue((int)floor(val * (double)max));
-	m_scrollbar->setSteps(1, m_signal_frame.height());
+	m_scrollbar->setSingleStep(1);
+	m_scrollbar->setPageStep(m_signal_frame.height());
     }
 
     // resize the signal widget and the frame with the channel controls
-    frmChannelControls->resize(frmChannelControls->width(), h);
+    m_frm_channel_controls->resize(m_frm_channel_controls->width(), h);
     if ((m_signal_widget.width() != w) || (m_signal_widget.height() != h)) {
 	m_signal_widget.resize(w, h);
     }
 
-    h = frmChannelControls->height();
-    int x = (frmChannelControls->width()-20) / 2;
+    h = m_frm_channel_controls->height();
+    int x = (m_frm_channel_controls->width()-20) / 2;
     int y;
 
-    // move the existing lamps and speakers to their new position
-    for (unsigned int i = 0; (i < m_last_tracks) && (i < channels); i++) {
-	Q_ASSERT(m_lamps.at(i));
-//	Q_ASSERT(m_speakers.at(i));
-	if (!m_lamps.at(i)) continue;
-//	if (!m_speakers.at(i)) continue;
-
-	y = (i*h)/max(channels,1);
-	m_lamps.at(i)->setGeometry(x, y+5, 20, 20);
-//	m_speakers.at(i)->setGeometry(x, y+25, 20, 20);
+    // delete now unused lamps
+    while (m_lamps.count() > static_cast<int>(channels)) {
+	MultiStateWidget *lamp = m_lamps.takeLast();
+	if (lamp) delete lamp;
     }
 
-    // delete now unused lamps and speakers
-    while (m_lamps.count() > channels)
-	m_lamps.remove(m_lamps.last());
-//    while (m_speakers.count() > channels)
-//	m_speakers.remove(m_speakers.last());
+    // move the existing lamps and speakers to their new position
+    int i = 0;
+    foreach (MultiStateWidget *lamp, m_lamps) {
+	y = (i++ * h) / qMax((unsigned int)1, channels);
+	if (lamp) lamp->setGeometry(x, y + 5, 20, 20);
+    }
 
     // add lamps+speakers for new channels
     for (unsigned int i = m_last_tracks; i < channels; i++) {
-	int s[3];
-	MultiStateWidget *msw = new MultiStateWidget(frmChannelControls, i);
+	MultiStateWidget *msw =
+	    new MultiStateWidget(m_frm_channel_controls, i);
 	Q_ASSERT(msw);
 	if (!msw) continue;
 
 	m_lamps.append(msw);
 	Q_ASSERT(m_lamps.at(i));
 	if (!m_lamps.at(i)) continue;
-	s[0] = m_lamps.at(i)->addPixmap("light_on.xpm");
-	s[1] = m_lamps.at(i)->addPixmap("light_off.xpm");
+	m_lamps.at(i)->addPixmap("light_on.xpm");
+	m_lamps.at(i)->addPixmap("light_off.xpm");
 	QObject::connect(
 	    m_lamps.at(i), SIGNAL(clicked(int)),
 	    &m_signal_widget, SLOT(toggleTrackSelection(int))
 	);
-	m_lamps.at(i)->setStates(s);
 
-//        msw = new MultiStateWidget(frmChannelControls, 0, 3);
-//        Q_ASSERT(msw);
-//        if (!msw) continue;
-//	m_speakers.append(msw);
-//	Q_ASSERT(m_speakers.at(i));
-//	if (!m_speakers.at(i)) continue;
-//	s[0] = m_speakers.at(i)->addPixmap("rspeaker.xpm");
-//	s[1] = m_speakers.at(i)->addPixmap("lspeaker.xpm");
-//	s[2] = m_speakers.at(i)->addPixmap("xspeaker.xpm");
-//	m_speakers.at(i)->setStates(s);
-
-	y = (i*h)/max(channels,1);
-	m_lamps.at(i)->setGeometry(x, y+5, 20, 20);
-//	m_speakers.at(i)->setGeometry(x, y+25, 20, 20);
-
+	y = (i * h) / qMax(channels, (unsigned int)1);
+	m_lamps.at(i)->setGeometry(x, y + 5, 20, 20);
 	m_lamps.at(i)->show();
-//	m_speakers.at(i)->show();
     }
 
     // set the updated identifiers of the widgets
-    for (unsigned int i = 0; i < channels; i++) {
-	Q_ASSERT(m_lamps.at(i));
-//	Q_ASSERT(m_speakers.at(i));
-	if (!m_lamps.at(i)) continue;
-//	if (!m_speakers.at(i)) continue;
-
-	m_lamps.at(i)->setNumber(i);
-	m_lamps.at(i)->setState(
-	    signalManager().trackSelected(i) ? 0 : 1);
-//	m_speakers.at(i)->setNumber(i);
+    i = 0;
+    foreach (MultiStateWidget *lamp, m_lamps) {
+	if (!lamp) continue;
+	lamp->setID(i);
+	lamp->setState(signalManager().trackSelected(i) ? 0 : 1);
+	++i;
     }
 
     m_last_tracks = channels;

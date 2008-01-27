@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <QDialog>
 #include <QObject>
 #include <QString>
 

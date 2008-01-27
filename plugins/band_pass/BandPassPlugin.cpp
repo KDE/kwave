@@ -16,9 +16,11 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <math.h>
 #include <errno.h>
-#include <qstringlist.h>
+
+#include <QStringList>
 #include <klocale.h>
 
 #include "libkwave/KwaveMultiTrackSource.h"
@@ -73,10 +75,10 @@ KwavePluginSetupDialog *BandPassPlugin::createDialog(QWidget *parent)
     if (!dialog) return 0;
 
     // connect the signals for detecting value changes in pre-listen mode
-    connect(dialog, SIGNAL(freqChanged(double)),
-            this, SLOT(setFreqValue(double)));
-    connect(dialog, SIGNAL(bwChanged(double)),
-            this, SLOT(setBwValue(double)));
+    connect(dialog, SIGNAL(freqChanged(qreal)),
+            this, SLOT(setFreqValue(qreal)));
+    connect(dialog, SIGNAL(bwChanged(qreal)),
+            this, SLOT(setBwValue(qreal)));
     return dialog;
 }
 
@@ -96,7 +98,7 @@ bool BandPassPlugin::paramsChanged()
 void BandPassPlugin::updateFilter(Kwave::SampleSource *filter,
                                   bool force)
 {
-    double sr = signalRate();
+    qreal sr = signalRate();
 
     if (!filter) return;
 
@@ -119,13 +121,13 @@ QString BandPassPlugin::actionName()
 }
 
 //***************************************************************************
-void BandPassPlugin::setFreqValue(double frequency)
+void BandPassPlugin::setFreqValue(qreal frequency)
 {
     m_frequency = frequency;
 }
 
 //***************************************************************************
-void BandPassPlugin::setBwValue(double bw)
+void BandPassPlugin::setBwValue(qreal bw)
 {
     m_bw = bw;
 }

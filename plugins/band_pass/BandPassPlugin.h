@@ -19,15 +19,15 @@
 #define _BAND_PASS_PLUGIN_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qstring.h>
-#include <qstringlist.h>
+
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
 #include "libkwave/KwavePluginSetupDialog.h"
 #include "libkwave/KwaveFilterPlugin.h"
 #include "libkwave/KwavePlugin.h"
 
-class QStringList;
 namespace Kwave { class KwaveSampleSource; }
 
 class BandPassPlugin: public Kwave::FilterPlugin
@@ -83,23 +83,23 @@ protected slots:
      * Called when the parameter changed during pre-listen
      * @param frequency the frequency parameter in Hz
      */
-    void setFreqValue(double frequency);
+    void setFreqValue(qreal frequency);
 
-    void setBwValue(double bw);
+    void setBwValue(qreal bw);
 
 private:
 
     /** cutoff frequency [Hz] */
-    double m_frequency;
+    qreal m_frequency;
 
     /** last value of m_frequency */
-    double m_last_freq;
+    qreal m_last_freq;
 
     /** bandwidth value [Hz] */
-    double m_bw;
+    qreal m_bw;
 
     /** last value of m_bw */
-    double m_last_bw;
+    qreal m_last_bw;
 
 };
 

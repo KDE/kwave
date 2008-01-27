@@ -19,14 +19,13 @@
 #define _AMPLIFY_FREE_PLUGIN_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qstring.h>
-#include <qstringlist.h>
+
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
 #include "libkwave/Curve.h"
 #include "libkwave/KwavePlugin.h"
-
-class QStringList;
 
 /** @todo add support for logarithmic scale */
 class AmplifyFreePlugin: public KwavePlugin

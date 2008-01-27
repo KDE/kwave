@@ -54,7 +54,7 @@ KwaveAboutContainer::KwaveAboutContainer(QWidget *parent)
 
     m_vbox->setSpacing(0);
     gbox->addLayout(m_vbox, 1, 1);
-    gbox->activate();
+//     gbox->activate();
 }
 
 //***************************************************************************

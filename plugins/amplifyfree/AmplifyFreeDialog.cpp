@@ -15,7 +15,10 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
 #include <klocale.h>
+
 #include "libkwave/Parser.h"
 #include "libgui/CurveWidget.h"
 #include "libgui/ScaleWidget.h"
@@ -23,7 +26,7 @@
 
 //***************************************************************************
 AmplifyFreeDialog::AmplifyFreeDialog(QWidget *parent)
-    :AmplifyFreeDlg(parent, 0, true)
+    :QDialog(parent), AmplifyFreeDlg()
 {
     curveWidget->setMinimumSize(150, 100);
 
@@ -57,7 +60,8 @@ QString AmplifyFreeDialog::getCommand()
 	cmd += (QString)"," + p.nextParam();
     }
     cmd += ")";
-    qDebug("AmplifyFreeDialog::getCommand(): '%s'", cmd.local8Bit().data());
+    qDebug("AmplifyFreeDialog::getCommand(): '%s'",
+	cmd.toLocal8Bit().data());
     return cmd;
 }
 

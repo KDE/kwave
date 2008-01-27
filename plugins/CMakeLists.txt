@@ -58,7 +58,7 @@ ENDMACRO(KWAVE_PLUGIN)
 #############################################################################
 
 ADD_SUBDIRECTORY( about )
-# ADD_SUBDIRECTORY( amplifyfree )
+ADD_SUBDIRECTORY( amplifyfree )
 # ADD_SUBDIRECTORY( band_pass )
 # ADD_SUBDIRECTORY( codec_ascii )
 # ADD_SUBDIRECTORY( codec_audiofile ) # needs libaudiofile

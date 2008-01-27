@@ -56,8 +56,7 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
     header->setText(header_text);
 
     /* the frame containing the developer information */
-    KwaveAboutContainer *about = new KwaveAboutContainer(authorframe);
-    authorframe->setWidget(about);
+    KwaveAboutContainer *about = new KwaveAboutContainer(this);
     QList<KAboutPerson> authors(about_data->authors());
     QListIterator<KAboutPerson> it_a(authors);
     while (it_a.hasNext()) {
@@ -65,11 +64,11 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
 	about->addPerson(author.name(), author.emailAddress(),
 	    author.webAddress(), author.task());
     }
+    authorframe->setWidget(about);
     authorframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     /* the frame containing the thanks to ... */
-    KwaveAboutContainer *contrib = new KwaveAboutContainer(thanksframe);
-    thanksframe->setWidget(contrib);
+    KwaveAboutContainer *contrib = new KwaveAboutContainer(this);
     QList<KAboutPerson> credits(about_data->credits());
     QListIterator<KAboutPerson> it_c(credits);
     while (it_c.hasNext()) {
@@ -77,6 +76,7 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
 	contrib->addPerson(credit.name(), credit.emailAddress(),
 	    credit.webAddress(), credit.task());
     }
+    thanksframe->setWidget(contrib);
     thanksframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     /* the frame containing the plugins info */

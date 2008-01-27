@@ -16,8 +16,8 @@
  ***************************************************************************/
 #include "config.h"
 
-#include <qdatetime.h>
-#include <qtextstream.h>
+#include <QDateTime>
+#include <QTextStream>
 
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -76,8 +76,8 @@ bool AsciiDecoder::open(QWidget *widget, QIODevice &src)
     qDebug("AsciiDecoder::open(...)");
     unsigned int linenr = 0;
     while (!source.atEnd()) {
-	QString line = source.readLine().simplifyWhiteSpace();
-	qDebug("META %5u %s", linenr++, line.local8Bit().data());
+	QString line = source.readLine().simplified();
+	qDebug("META %5u %s", linenr++, line.toLocal8Bit().data());
 	if (!line.length())
 	    continue; // skip empty line
 	if (line.startsWith("#") && !line.startsWith(META_PREFIX))
@@ -113,7 +113,7 @@ bool AsciiDecoder::decode(QWidget * /* widget */, MultiTrackWriter &dst)
     unsigned int linenr = 0;
     while (!source.atEnd() && !dst.isCancelled()) {
 	QString line = source.readLine();
-	qDebug("DATA %5u %s", linenr++, line.local8Bit().data());
+	qDebug("DATA %5u %s", linenr++, line.toLocal8Bit().data());
 
 	if (linenr > 50) break;
     }

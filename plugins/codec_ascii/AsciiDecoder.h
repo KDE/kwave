@@ -19,15 +19,12 @@
 #define _ASCII_DECODER_H_
 
 #include "config.h"
-#include <qptrlist.h>
-#include <qmap.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qobject.h>
 
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"
 
+class QIODevice;
+class QWidget;
 class MultiTrackWriter;
 
 class AsciiDecoder: public Decoder

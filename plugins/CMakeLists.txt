@@ -60,7 +60,7 @@ ENDMACRO(KWAVE_PLUGIN)
 ADD_SUBDIRECTORY( about )
 ADD_SUBDIRECTORY( amplifyfree )
 ADD_SUBDIRECTORY( band_pass )
-# ADD_SUBDIRECTORY( codec_ascii )
+ADD_SUBDIRECTORY( codec_ascii )
 # ADD_SUBDIRECTORY( codec_audiofile ) # needs libaudiofile
 # ADD_SUBDIRECTORY( codec_flac )      # needs libflac 1.1.1 or 1.1.2
 # ADD_SUBDIRECTORY( codec_ogg )       # needs libogg and libvorbis

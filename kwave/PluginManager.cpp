@@ -60,7 +60,7 @@ PluginManager::PluginDeleter::PluginDeleter(KwavePlugin *plugin, void *handle)
 PluginManager::PluginDeleter::~PluginDeleter()
 {
     // delete the plugin, this should also remove everything it has allocated
-    delete m_plugin;
+    if (m_plugin) delete m_plugin;
 
     // now the handle of the shared object can be cleared too
     dlclose(m_handle);

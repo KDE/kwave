@@ -270,8 +270,8 @@ private:
 	virtual ~PluginDeleter();
 
     private:
-	KwavePlugin *m_plugin; /**< Plugin to be deleted */
-	void *m_handle;        /**< Handle of the shared object */
+	KwavePluginPointer m_plugin; /**< Plugin to be deleted */
+	void *m_handle;              /**< Handle of the shared object */
     };
 
     /**

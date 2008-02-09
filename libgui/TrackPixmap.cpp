@@ -616,7 +616,7 @@ void TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
 	for (k = 0; k <= N; k++)
 	    y += *(sig--) * m_interpolation_alpha[k];
 
-	points.setPoint(i, i, middle - (int)y);
+	points.append(QPoint(i, middle - (int)y));
     }
 
     // display the filter's interpolated output
@@ -633,7 +633,7 @@ void TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     while (x < width) {
 	if ((x >= 0) && (x < width)) {
 	    // mark original samples
-	    points.setPoint(i++, x, middle - (int)sig[x]);
+	    points.append(QPoint(x, middle - (int)sig[x]));
 	}
 	sample++;
 	x = samples2pixels(sample);
@@ -649,8 +649,6 @@ void TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
 {
     qreal scale_y;
     int y;
-    int i;
-    int n;
     unsigned int sample;
     int x;
     unsigned int buflen = m_sample_buffer.size();
@@ -659,24 +657,20 @@ void TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
     scale_y = (qreal)height / (qreal)((SAMPLE_MAX+1)<<1);
 
     // array with sample points
-    QPolygon points(width + 1);
+    QPolygon points;
 
     // display the original samples
     sample = 0;
     x = samples2pixels(sample);
-    i = 0;
     while (x < width) {
 	// mark original samples
 	sample_t value = (sample < buflen) ? m_sample_buffer[sample] : 0;
 	y = (int)(value * scale_y);
-	points.setPoint(i++, x, middle - y);
+	points.append(QPoint(x, middle - y));
 
 	sample++;
 	x = samples2pixels(sample);
     }
-
-    // set "n" to the number of displayed original samples
-    n = i;
 
     // interpolate the rest of the display if necessary
     if (samples2pixels(sample - 1) <= width) {
@@ -696,7 +690,7 @@ void TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
 	x = width - 1;
 	y = (int)((float)(x - x1) * (float)(y2 - y1) / (float)(x2 - x1));
 
-	points.setPoint(i++, x, middle - y);
+	points.append(QPoint(x, middle - y));
     }
 
     if (m_zoom >= 1.0) {

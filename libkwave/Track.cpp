@@ -152,6 +152,7 @@ unsigned int Track::length()
 unsigned int Track::unlockedLength()
 {
     unsigned int len = 0;
+    if (m_stripes.isEmpty()) return 0;
     Stripe *s = m_stripes.last();
     if (s) len = s->start() + s->length();
     return len;
@@ -390,16 +391,20 @@ void Track::writeSamples(InsertMode mode,
     Q_ASSERT(length);
     if (!length) return; // nothing to do !?
 
-    QWriteLocker _lock(&m_lock);
-
     switch (mode) {
 	case Append: {
 // 	    qDebug("writeSamples() - Append");
-	    appendAfter(m_stripes.last(), offset, buffer, buf_offset, length);
+	    {
+		QWriteLocker _lock(&m_lock);
+		appendAfter(m_stripes.last(), offset, buffer,
+		            buf_offset, length);
+	    }
 	    emit sigSamplesInserted(*this, offset, length);
 	    break;
 	}
 	case Insert: {
+	    m_lock.lockForWrite();
+
 // 	    qDebug("Track::writeSamples() - Insert @ %u, length=%u",
 // 		   offset, length);
 
@@ -439,6 +444,7 @@ void Track::writeSamples(InsertMode mode,
 		moveRight(offset, length);
 		appendAfter(stripe_before, offset, buffer,
 		            buf_offset, length);
+		m_lock.unlock();
 		emit sigSamplesInserted(*this, offset, length);
 		break;
 	    }
@@ -450,7 +456,6 @@ void Track::writeSamples(InsertMode mode,
 		moveRight(offset, length);
 		appendAfter(stripe_before, offset, buffer,
 		            buf_offset, length);
-		emit sigSamplesInserted(*this, offset, length);
 	    } else {
 	        // split the target stripe and insert the samples
 		// between the two new ones
@@ -458,13 +463,18 @@ void Track::writeSamples(InsertMode mode,
 		moveRight(offset, length);
 		appendAfter(target_stripe, offset, buffer,
 		            buf_offset, length);
-		emit sigSamplesInserted(*this, offset, length);
 	    }
+
+	    m_lock.unlock();
+	    emit sigSamplesInserted(*this, offset, length);
 
 	    break;
 	}
 	case Overwrite: {
 // 	    qDebug("writeSamples() - Overwrite");
+	    const unsigned int modified_start = offset;
+	    const unsigned int modified_len   = length;
+	    m_lock.lockForWrite();
 	    Stripe *stripe_before = 0;
 
 	    // special case: no stripes present
@@ -472,6 +482,7 @@ void Track::writeSamples(InsertMode mode,
 		// -> append mode
 		qDebug("- no stripes -> appending at zero");
 		appendAfter(0, offset, buffer, buf_offset, length);
+		m_lock.unlock();
 		emit sigSamplesInserted(*this, offset, length);
 		break;
 	    }
@@ -511,7 +522,6 @@ void Track::writeSamples(InsertMode mode,
 //		qDebug("L: [%u ....... %u]",start, end);
 //		qDebug("    [%u ... %u]", left, left+len-1);
 		s->overwrite(left-start, buffer, buf_offset, len);
-		emit sigSamplesModified(*this, left, len);
 //		qDebug("L: overwrite done.");
 
 		buf_offset += len;
@@ -520,7 +530,11 @@ void Track::writeSamples(InsertMode mode,
 
 		if (left == end+1) stripe_before = s;
 	    }
-	    if (!length) break; // nothing more to do
+	    if (!length) {
+		m_lock.unlock();
+		emit sigSamplesModified(*this, modified_start, modified_len);
+		break; // nothing more to do
+	    }
 
 	    // handle the overlap from right, until we reach
 	    // the first gap or nothing remains
@@ -552,7 +566,6 @@ void Track::writeSamples(InsertMode mode,
 // 		qDebug("R: [%u ....... %u]",start, end);
 // 		qDebug("R:     [%u ... %u]", end-len+1, end);
 		s->overwrite(0, buffer, buf_offset + (start-left), len); // ###
-		emit sigSamplesModified(*this,start, len);
 // 		qDebug("R: overwrite done.");
 
 		buf_offset += len;
@@ -563,7 +576,11 @@ void Track::writeSamples(InsertMode mode,
 	    // erase everything from left to the right, because
 	    // it contains gaps and would lead to fragmentation
 // 	    qDebug("left=%u ... right=%u, length=%u", left, right, length);
-	    if (!length) break; // nothing more to do
+	    if (!length) {
+		m_lock.unlock();
+		emit sigSamplesModified(*this, modified_start, modified_len);
+		break; // nothing more to do
+	    }
 
 	    Q_ASSERT(length == (right-left+1));
 	    it.toBack();
@@ -597,6 +614,7 @@ void Track::writeSamples(InsertMode mode,
 		stripe_before = 0;
 
 	    appendAfter(stripe_before, left, buffer, buf_offset, length);
+	    m_lock.unlock();
 	    if (stripe_before == m_stripes.last())
 		emit sigSamplesInserted(*this, offset, length);
 	    else

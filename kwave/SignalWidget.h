@@ -20,27 +20,31 @@
 
 #include "config.h"
 
+#include <QImage>
 #include <QLabel>
 #include <QList>
 #include <QPainter>
 #include <QPixmap>
 #include <QPoint>
+#include <QPolygon>
+#include <QSize>
 #include <QTimer>
 #include <QWidget>
 
 #include "PlaybackController.h"
 #include "SignalManager.h"
 
+class QBitmap;
+class QContextMenuEvent;
 class QDragEnterEvent;
 class QDragMoveEvent;
 class QDropEvent;
 class QDragLeaveEvent;
 class QEvent;
+class QMouseEvent;
+class QMoveEvent;
 class QPaintEvent;
 class QResizeEvent;
-class QMouseEvent;
-class QContextMenuEvent;
-class QBitmap;
 
 class KUrl;
 
@@ -521,11 +525,24 @@ protected:
 	virtual void setText(const QString &text, Qt::Alignment alignment);
 
     protected:
+
 	/** event filter */
 	virtual bool event(QEvent *e);
 
+	/** calls updataMask() when resized */
+	virtual void resizeEvent(QResizeEvent *);
+
+	/** calls updataMask() when moved */
+	virtual void moveEvent(QMoveEvent *event);
+
 	/** paint event: draws the text and the arrow */
 	virtual void paintEvent(QPaintEvent *);
+
+	/**
+	 * re-creates the mask and the polygon when
+	 * size/alignment has changed
+	 */
+	virtual void updateMask();
 
     private:
 
@@ -540,6 +557,15 @@ protected:
 
 	/** the length of the arrows [pixel] */
 	int m_arrow_length;
+
+	/** for detecting changes: previous width */
+	Qt::Alignment m_last_alignment;
+
+	/** for detecting changes: previous size */
+	QSize m_last_size;
+
+	/** polygon used as widget outline */
+	QPolygon m_polygon;
     };
 
     /**
@@ -667,6 +693,9 @@ private:
     void addLabel(unsigned int pos);
 
 private:
+
+    /** Pixmap used for composition */
+    QImage m_image;
 
     /** Pixmaps for buffering each layer */
     QPixmap m_layer[3];

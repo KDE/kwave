@@ -19,6 +19,7 @@
 #include <errno.h>
 #include <math.h>
 #include <stdlib.h>
+#include <sys/time.h>
 
 #include <QBitmap>
 #include <QContextMenuEvent>
@@ -126,7 +127,7 @@ namespace KwaveFileDrag
 //***************************************************************************
 //***************************************************************************
 SignalWidget::SignalWidget(QWidget *parent)
-    :QWidget(parent),
+    :QWidget(parent), m_image(),
     m_offset(0), m_width(0), m_height(0), m_last_width(0), m_last_height(0),
     m_zoom(0.0), m_playpointer(-1), m_last_playpointer(-1), m_redraw(false),
     m_inhibit_repaint(0), m_selection(0), m_signal_manager(this),
@@ -1191,8 +1192,11 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
 //***************************************************************************
 SignalWidget::PositionWidget::PositionWidget(QWidget *parent)
     :QWidget(parent), m_label(0), m_alignment(0),
-     m_radius(10), m_arrow_length(30)
+     m_radius(10), m_arrow_length(30), m_last_alignment(Qt::AlignHCenter),
+     m_last_size(QSize(0,0)), m_polygon()
 {
+    hide();
+
     m_label = new QLabel(this);
     Q_ASSERT(m_label);
     if (!m_label) return;
@@ -1207,7 +1211,9 @@ SignalWidget::PositionWidget::PositionWidget(QWidget *parent)
     setFocusPolicy(Qt::NoFocus);
     setMouseTracking(true);
 
-    hide();
+    setAutoFillBackground(false);
+    setAttribute(Qt::WA_OpaquePaintEvent, false);
+    setAttribute(Qt::WA_NoSystemBackground, false);
 }
 
 //***************************************************************************
@@ -1286,10 +1292,25 @@ bool SignalWidget::PositionWidget::event(QEvent *e)
 }
 
 //***************************************************************************
-void SignalWidget::PositionWidget::paintEvent(QPaintEvent *)
+void SignalWidget::PositionWidget::resizeEvent(QResizeEvent *)
 {
-    QPainter p;
+    updateMask();
+}
 
+//***************************************************************************
+void SignalWidget::PositionWidget::moveEvent(QMoveEvent *)
+{
+    updateMask();
+}
+
+//***************************************************************************
+void SignalWidget::PositionWidget::updateMask()
+{
+    // bail out if nothing has changed
+    if ((size() == m_last_size) && (m_alignment == m_last_alignment))
+	return;
+
+    QPainter p;
     QBitmap bmp(size());
     bmp.fill(Qt::color0);
     p.begin(&bmp);
@@ -1300,11 +1321,11 @@ void SignalWidget::PositionWidget::paintEvent(QPaintEvent *)
 
     const int h = height();
     const int w = width();
-    QPolygon poly;
 
+    // re-create the polygon, depending on alignment
     switch (m_alignment) {
 	case Qt::AlignLeft:
-	    poly.setPoints(8,
+	    m_polygon.setPoints(8,
 		m_arrow_length, 0,
 		w-1, 0,
 		w-1, h-1,
@@ -1316,7 +1337,7 @@ void SignalWidget::PositionWidget::paintEvent(QPaintEvent *)
 	    );
 	    break;
 	case Qt::AlignRight:
-	    poly.setPoints(8,
+	    m_polygon.setPoints(8,
 		0, 0,
 		w-1-m_arrow_length, 0,
 		w-1-m_arrow_length, h/3,
@@ -1333,14 +1354,26 @@ void SignalWidget::PositionWidget::paintEvent(QPaintEvent *)
 	    ;
     }
 
-    p.drawPolygon(poly);
+    p.drawPolygon(m_polygon);
     p.end();
+
+    // activate the new widget mask
+    clearMask();
     setMask(bmp);
 
-    p.begin(this);
-    p.fillRect(rect(), palette().background().color());
-    p.drawPolyline(poly);
-    p.end();
+    // remember size/alignment for detecing changes
+    m_last_alignment = m_alignment;
+    m_last_size      = size();
+}
+
+//***************************************************************************
+void SignalWidget::PositionWidget::paintEvent(QPaintEvent *)
+{
+    updateMask();
+
+    QPainter p(this);
+    p.setBrush(palette().background().color());
+    p.drawPolygon(m_polygon);
 }
 
 //***************************************************************************
@@ -1406,6 +1439,7 @@ void SignalWidget::showPosition(const QString &text, unsigned int pos,
 
     if (!m_position_widget.isVisible())
 	m_position_widget.show();
+
     m_position_widget.repaint();
 
     m_position_widget_timer.stop();
@@ -1525,15 +1559,16 @@ void SignalWidget::paintEvent(QPaintEvent *)
     InhibitRepaintGuard inhibit(*this, false); // avoid recursion
 
 //     qDebug("SignalWidget::paintEvent()");
-//#ifdef DEBUG
-//    static struct timeval t_start;
-//    static struct timeval t_end;
-//    qreal t_elapsed;
-//    gettimeofday(&t_start,0);
-//#endif
+#define DEBUG
+#ifdef DEBUG
+   static struct timeval t_start;
+   static struct timeval t_end;
+   qreal t_elapsed;
+   gettimeofday(&t_start,0);
+#endif
+    QPainter p;
 
     int n_tracks = m_signal_manager.isClosed() ? 0 : tracks();
-
     m_layer_rop[LAYER_SIGNAL]    = QPainter::CompositionMode_Source;
     m_layer_rop[LAYER_SELECTION] = QPainter::CompositionMode_Exclusion;
     m_layer_rop[LAYER_MARKERS]   = QPainter::CompositionMode_Exclusion;
@@ -1551,6 +1586,8 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	    m_layer[i] = QPixmap(m_width, m_height);
 	    m_update_layer[i] = true;
 	}
+	m_image = QImage(m_width, m_height,
+	    QImage::Format_ARGB32_Premultiplied);
 
 	m_last_width = m_width;
 	m_last_height = m_height;
@@ -1566,7 +1603,6 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	int track_height = (n_tracks) ? (m_height / n_tracks) : 0;
 	int top = 0;
 
-	QPainter p;
 	p.begin(&m_layer[LAYER_SIGNAL]);
 
 	// all black if empty
@@ -1597,7 +1633,6 @@ void SignalWidget::paintEvent(QPaintEvent *)
     if (m_update_layer[LAYER_MARKERS]) {
 // 	qDebug("SignalWidget::paintEvent(): - redraw of markers layer -");
 
-	QPainter p;
 	p.begin(&m_layer[LAYER_MARKERS]);
 	p.fillRect(0, 0, m_width, m_height, Qt::black);
 
@@ -1609,7 +1644,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	    if (x >= m_width) continue; // outside right
 
 	    p.setPen(Qt::cyan);
-	    p.setCompositionMode(QPainter::CompositionMode_Xor);
+	    p.setCompositionMode(QPainter::CompositionMode_Exclusion);
 	    p.drawLine(x, 0, x, m_height);
 	}
 
@@ -1622,7 +1657,6 @@ void SignalWidget::paintEvent(QPaintEvent *)
     if (m_update_layer[LAYER_SELECTION]) {
 // 	qDebug("SignalWidget::paintEvent(): - redraw of selection layer -");
 
-	QPainter p;
 	p.begin(&m_layer[LAYER_SELECTION]);
 	p.fillRect(0, 0, m_width, m_height, Qt::black);
 
@@ -1653,7 +1687,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
     }
 
     // bitBlt all layers together
-    QPainter p(this);
+    p.begin(&m_image);
     p.fillRect(0, 0, m_width, m_height, Qt::black);
     for (int i=0; i < 3; i++) {
 	p.setCompositionMode(m_layer_rop[i]);
@@ -1667,7 +1701,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 
     if (n_tracks) {
 	p.setPen(Qt::yellow);
-	p.setCompositionMode(QPainter::CompositionMode_Xor);
+	p.setCompositionMode(QPainter::CompositionMode_Exclusion);
 
 	if (m_last_playpointer >= 0)
 	    p.drawLine(m_last_playpointer, 0, m_last_playpointer, m_height);
@@ -1682,14 +1716,20 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	    m_last_playpointer = -1;
 	}
     }
+    p.end();
 
-//#ifdef DEBUG
-//    gettimeofday(&t_end,0);
-//    t_elapsed = ((qreal)t_end.tv_sec*1.0E6+(qreal)t_end.tv_usec -
-//	((qreal)t_start.tv_sec*1.0E6+(qreal)t_start.tv_usec)) * 1E-3;
-//    qDebug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
-//	t_elapsed); // ###
-//#endif
+    // draw the result
+    p.begin(this);
+    p.drawImage(0, 0, m_image);
+    p.end();
+
+#ifdef DEBUG
+   gettimeofday(&t_end,0);
+   t_elapsed = ((qreal)t_end.tv_sec*1.0E6+(qreal)t_end.tv_usec -
+	((qreal)t_start.tv_sec*1.0E6+(qreal)t_start.tv_usec)) * 1E-3;
+   qDebug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
+	t_elapsed); // ###
+#endif
 //    qDebug("SignalWidget::paintEvent() -- done");
 
 }

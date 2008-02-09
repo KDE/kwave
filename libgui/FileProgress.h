@@ -20,11 +20,10 @@
 
 #include "config.h"
 
+#include <QDialog>
 #include <QUrl>
 #include <QLabel>
 #include <QTime>
-
-#include <kdialog.h>
 
 class QCloseEvent;
 class QGridLayout;
@@ -32,7 +31,7 @@ class QLabel;
 class QResizeEvent;
 class KProgress;
 
-class FileProgress: public KDialog
+class FileProgress: public QDialog
 {
     Q_OBJECT
 public:

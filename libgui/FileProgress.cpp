@@ -40,7 +40,7 @@ FileProgress::FileProgress(QWidget *parent,
 	const QUrl &url, unsigned int size,
 	unsigned int samples, qreal rate, unsigned int bits,
 	unsigned int tracks)
-    :KDialog(parent),
+    :QDialog(parent),
     m_url(url),
     m_size(size),
     m_lbl_url(0),
@@ -219,6 +219,7 @@ void FileProgress::fitUrlLabel()
 	// delete characters in the middle of the string
 	url = m_url.toString();
 	int len = url.length();
+	if (len <= todel) break;
 	url = url.left((len-todel)/2) + "..." +
 	    url.right((len-todel)/2 + 4);
 	m_lbl_url->setText(url);

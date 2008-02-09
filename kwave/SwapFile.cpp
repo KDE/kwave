@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <errno.h>
 #include <stdio.h>      // for mkstemp (according to the man page)
 #include <stdlib.h>     // for mkstemp (according to reality)
 #include <unistd.h>     // for unlink()
@@ -130,7 +131,8 @@ SwapFile *SwapFile::resize(size_t size)
 	} else {
 	    // shrinking: only truncate the file
 	    m_file.flush();
-	    ftruncate(m_file.handle(), size);
+	    int res = ftruncate(m_file.handle(), size);
+	    if (res) perror("ftruncate failed");
 	}
 
 	m_size = size;

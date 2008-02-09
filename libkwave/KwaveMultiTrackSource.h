@@ -49,6 +49,7 @@ namespace Kwave {
 	    :Kwave::SampleSource(parent),
 	     QVector<SOURCE *>(tracks)
         {
+	    Q_ASSERT(INITIALIZE || (tracks == 0));
 	    Q_ASSERT(QVector<SOURCE *>::size() == static_cast<int>(tracks));
 	};
 
@@ -139,7 +140,7 @@ namespace Kwave {
 	 */
 	MultiTrackSource(unsigned int tracks,
 	                 QObject *parent = 0)
-	    :Kwave::MultiTrackSource<SOURCE, false>(tracks, parent)
+	    :Kwave::MultiTrackSource<SOURCE, false>(0, parent)
 	{
 	    for (unsigned int i=0; i < tracks; i++)
 		insert(i, new SOURCE());

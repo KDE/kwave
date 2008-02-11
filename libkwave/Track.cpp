@@ -177,7 +177,7 @@ SampleReader *Track::openSampleReader(unsigned int left,
     QList<Stripe *> stripes;
 
     unsigned int length = unlockedLength();
-    if (right >= length) right = length-1;
+    if (right >= length) right = (length) ? (length - 1) : 0;
 
     // add all stripes within the specified range to the list
     foreach (Stripe *s, m_stripes) {

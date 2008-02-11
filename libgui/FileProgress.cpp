@@ -63,7 +63,7 @@ FileProgress::FileProgress(QWidget *parent,
     m_time.start();
 
     // set the caption to the url
-    setCaption(m_url.toString());
+    setWindowTitle(m_url.toString());
 
     // toplevel uses a vbox layout
     QVBoxLayout *top_layout = new QVBoxLayout(this);
@@ -73,7 +73,7 @@ FileProgress::FileProgress(QWidget *parent,
     top_layout->setSpacing(10);
 
     // sublayout for the lines with the file info
-    QGridLayout *info_layout = new QGridLayout(this);
+    QGridLayout *info_layout = new QGridLayout();
     Q_ASSERT(info_layout);
     if (!info_layout) return;
     info_layout->setSpacing(0);
@@ -130,7 +130,7 @@ FileProgress::FileProgress(QWidget *parent,
     m_progress->setMaximum(100);
 
     // sublayout for the line with estimated time
-    QGridLayout *status_layout = new QGridLayout(this);
+    QGridLayout *status_layout = new QGridLayout();
     Q_ASSERT(status_layout);
     if (!status_layout) return;
     status_layout->setSpacing(1);
@@ -275,7 +275,6 @@ void FileProgress::updateStatistics(qreal rate, qreal rest,
     text = i18n("%1 MB of %2 MB done",
 	num.sprintf("%1.1f", pos / (1024.0*1024.0)),
 	num.sprintf("%1.1f", m_size / (1024.0*1024.0)));
-    text = text.arg(num);
     m_stat_bytes->setText(text);
 }
 
@@ -298,15 +297,13 @@ void FileProgress::setBytePosition(unsigned int pos)
     if (percent <= m_last_percent) return;
     m_last_percent = percent;
 
-//     if (m_progress->progress() != percent) {
-// 	QString newcap;
-// 	newcap = i18n("(%1%) %2");
-// 	newcap = newcap.arg(percent);
-// 	newcap = newcap.arg(m_url.toString());
-// 	setCaption(newcap);
-//
-// 	m_progress->setValue(percent);
-//     }
+    if (m_progress->value() != percent) {
+	QString newcap;
+	newcap = i18n("(%1%) %2", percent, m_url.toString());
+	setCaption(newcap);
+
+	m_progress->setValue(percent);
+    }
 
     // update the transfer statistics
     qreal seconds = m_time.elapsed() / 1000.0; // [sec]

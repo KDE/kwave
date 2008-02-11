@@ -44,7 +44,7 @@ QString VorbisCommentMap::findProperty(const FileProperty property)
 {
     QMap<QString, FileProperty>::Iterator it;
     for (it=begin(); it != end(); ++it) {
-        if (it.data() == property) return it.key();
+        if (it.value() == property) return it.key();
     }
     return 0;
 }

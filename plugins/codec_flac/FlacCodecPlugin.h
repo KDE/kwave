@@ -21,6 +21,7 @@
 #include "config.h"
 #include "libkwave/KwavePlugin.h"
 
+class QStringList;
 class Encoder;
 class Decoder;
 

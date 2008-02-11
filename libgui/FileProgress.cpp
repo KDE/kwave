@@ -300,7 +300,7 @@ void FileProgress::setBytePosition(unsigned int pos)
     if (m_progress->value() != percent) {
 	QString newcap;
 	newcap = i18n("(%1%) %2", percent, m_url.toString());
-	setCaption(newcap);
+	setWindowTitle(newcap);
 
 	m_progress->setValue(percent);
     }

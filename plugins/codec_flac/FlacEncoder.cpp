@@ -17,17 +17,19 @@
 
 #include "config.h"
 
-#include <qmemarray.h>
-#include <qvaluevector.h>
+#include <math.h>
+#include <stdlib.h>
+#include <time.h>
+
+#include <QByteArray>
+#include <QList>
+#include <QVarLengthArray>
 
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kmimetype.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <kglobal.h>
-#include <math.h>
-#include <stdlib.h>
-#include <time.h>
 
 #include <vorbis/vorbisenc.h>
 
@@ -59,20 +61,13 @@ Encoder *FlacEncoder::instance()
 }
 
 /***************************************************************************/
-QValueList<FileProperty> FlacEncoder::supportedProperties()
+QList<FileProperty> FlacEncoder::supportedProperties()
 {
-    QValueList<FileProperty> list;
-    QMap<QString, FileProperty>::Iterator it;
-    for (it=m_vorbis_comment_map.begin();
-         it !=m_vorbis_comment_map.end(); ++it)
-    {
-        list.append(it.data());
-    }
-    return list;
+    return m_vorbis_comment_map.values();
 }
 
 /***************************************************************************/
-#if defined(FLAC_API_VERSION_1_1_2) || defined(FLAC_API_VERSION_1_1_1_OR_OLDER)
+#if defined(FLAC_API_VERSION_1_1_2)
 ::FLAC__StreamEncoderWriteStatus FlacEncoder::write_callback(
         const FLAC__byte buffer[], unsigned int bytes,
         unsigned int /* samples */, unsigned int /* current_frame */)
@@ -82,12 +77,17 @@ QValueList<FileProperty> FlacEncoder::supportedProperties()
         unsigned /* samples */, unsigned /* current_frame */)
 #endif
 {
-//    qDebug("FlacEncoder::write_callback(%u)", samples); // ###
     Q_ASSERT(m_dst);
     if (!m_dst) return FLAC__STREAM_ENCODER_WRITE_STATUS_FATAL_ERROR;
 
-    m_dst->writeBlock((const char *)&(buffer[0]), bytes);
-    return FLAC__STREAM_ENCODER_WRITE_STATUS_OK;
+    qint64 written = m_dst->write(
+	reinterpret_cast<const char *>(&(buffer[0])),
+	static_cast<qint64>(bytes)
+    );
+
+    return (written == static_cast<qint64>(bytes)) ?
+	FLAC__STREAM_ENCODER_WRITE_STATUS_OK :
+	FLAC__STREAM_ENCODER_WRITE_STATUS_FATAL_ERROR;
 }
 
 /***************************************************************************/
@@ -123,7 +123,7 @@ void FlacEncoder::VorbisCommentContainer::add(const QString &tag,
     s = tag+"="+value;
 
     // make a plain C string out of it, containing UTF-8
-    QCString val = s.utf8();
+    QByteArray val = s.toUtf8();
 
     // put it into a vorbis_comment_entry structure
     FLAC__StreamMetadata_VorbisComment_Entry entry;
@@ -145,7 +145,7 @@ FLAC__StreamMetadata *FlacEncoder::VorbisCommentContainer::data()
 
 /***************************************************************************/
 void FlacEncoder::encodeMetaData(FileInfo &info,
-    QPtrVector<FLAC__StreamMetadata> &flac_metadata)
+    QVector<FLAC__StreamMetadata *> &flac_metadata)
 {
     // encode all Vorbis comments
     VorbisCommentMap::ConstIterator it;
@@ -154,14 +154,12 @@ void FlacEncoder::encodeMetaData(FileInfo &info,
          it != m_vorbis_comment_map.end();
          ++it)
     {
-	if (!info.contains(it.data())) continue; // not present -> skip
+	if (!info.contains(it.value())) continue; // not present -> skip
 
-	QString value = info.get(it.data()).toString();
+	QString value = info.get(it.value()).toString();
 	vc.add(it.key(), value);
     }
-
-    flac_metadata.resize(flac_metadata.size()+1);
-    flac_metadata.insert(flac_metadata.size()-1, vc.data());
+    flac_metadata.append(vc.data());
 
     // todo: add cue sheet etc here...
 
@@ -178,21 +176,25 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
     m_dst  = &dst;
 
     // get info: tracks, sample rate
-    unsigned int tracks = m_info->tracks();
+    int tracks          = m_info->tracks();
     unsigned int bits   = m_info->bits();
     unsigned int length = m_info->length();
 
-    set_channels(tracks);
-    set_bits_per_sample(bits);
-    set_sample_rate((long)m_info->rate());
-    set_total_samples_estimate(length);
+#if defined(FLAC_API_VERSION_1_1_3) /* or above */
+    set_compression_level(5); // @todo make the FLAC compression configurable
+#endif
+    set_channels(static_cast<unsigned>(tracks));
+    set_bits_per_sample(static_cast<unsigned>(bits));
+    set_sample_rate(static_cast<unsigned>(m_info->rate()));
+    set_total_samples_estimate(static_cast<FLAC__uint64>(length));
+    set_verify(false); // <- set to "true" for debugging
 
     // use mid-side stereo encoding if we have two channels
     set_do_mid_side_stereo(tracks == 2);
     set_loose_mid_side_stereo(tracks == 2);
 
     // encode meta data, most of them as vorbis comments
-    QPtrVector<FLAC__StreamMetadata> flac_metadata;
+    QVector<FLAC__StreamMetadata *> flac_metadata;
     encodeMetaData(info, flac_metadata);
 
     // convert container to a list of pointers
@@ -204,6 +206,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	}
     }
 
+    QVector<FLAC__int32 *> flac_buffer;
     do {
 	// open the output device
 	if (!dst.open(IO_ReadWrite | IO_Truncate)) {
@@ -214,7 +217,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	}
 
 	// initialize the FLAC stream, this already writes some meta info
-#if defined(FLAC_API_VERSION_1_1_3)
+#if defined(FLAC_API_VERSION_1_1_3) /* or above */
         FLAC__StreamEncoderInitStatus init_state = init();
         if (init_state != FLAC__STREAM_ENCODER_INIT_STATUS_OK) {
             qWarning("state = %d", (int)init_state);
@@ -237,38 +240,22 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 #endif
 
 	// allocate output buffers, with FLAC 32 bit format
-	unsigned int len = 8192; // samples
-	QPtrVector< QMemArray<FLAC__int32> > out_buffer;
-	out_buffer.resize(tracks);
-	out_buffer.fill(0);
-	out_buffer.setAutoDelete(true);
-	Q_ASSERT(out_buffer.size() == tracks);
-
-	QMemArray<FLAC__int32 *> flac_buffer;
-	flac_buffer.resize(tracks);
-
-	unsigned int track = 0;
-	for (unsigned int track=0; track < tracks; track++)
+	unsigned int len = src.blockSize(); // samples
+	for (int track=0; track < tracks; track++)
 	{
-	    QMemArray<FLAC__int32> *buf = new QMemArray<FLAC__int32>((int)len);
-	    Q_ASSERT(buf);
-	    if (!buf || (buf->size() < len)) {
-		out_buffer.clear();
-		break;
-	    }
-	    out_buffer.insert(track, buf);
-	    buf->detach();
-	    flac_buffer[track] = buf->data();
+	    FLAC__int32 *buffer =
+		(FLAC__int32 *)malloc(sizeof(FLAC__int32) * len);
+	    Q_ASSERT(buffer);
+	    if (!buffer) break;
+	    flac_buffer.append(buffer);
 	}
 
 	// allocate input buffer, with Kwave's sample_t
-	QMemArray<sample_t> in_buffer;
-	in_buffer.resize(len);
+	Kwave::SampleArray in_buffer(len);
 	Q_ASSERT(in_buffer.size() == len);
-	Q_ASSERT(out_buffer.size() == tracks);
+	Q_ASSERT(flac_buffer.size() == tracks);
 
-	if ((in_buffer.size() < len) || (out_buffer.size() < tracks) ||
-		(flac_buffer.size() < tracks))
+	if ((in_buffer.size() < len) || (flac_buffer.size() < tracks))
 	{
 	    KMessageBox::error(widget, i18n("Out of memory!"));
 	    result = false;
@@ -278,16 +265,19 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	// calculate divisor for reaching the proper resolution
 	int shift = SAMPLE_BITS - bits;
 	if (shift < 0) shift = 0;
-	unsigned int div = (1 << shift);
+	FLAC__int32 div = (1 << shift);
+	if (div == 1) div = 0;
+	const FLAC__int32 clip_min = -(1 << bits);
+	const FLAC__int32 clip_max =  (1 << bits) - 1;
 
 	unsigned int rest = length;
 	while (rest && len && !src.isCancelled()) {
 	    // limit to rest of signal
 	    if (len > rest) len = rest;
-	    if (in_buffer.size() > len) in_buffer.resize(len);
+	    if (in_buffer.size() != len) in_buffer.resize(len);
 
 	    // add all samples to one single buffer
-	    for (track=0; track < tracks; track++) {
+	    for (int track=0; track < tracks; track++) {
 		SampleReader *reader = src[track];
 		Q_ASSERT(reader);
 		if (!reader) break;
@@ -295,20 +285,27 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 		(*reader) >> in_buffer; // read samples into in_buffer
 		len = in_buffer.size(); // in_buffer might have been shrinked!
 		Q_ASSERT(len);
+		if (!len) break;
+
+		FLAC__int32 *buf = flac_buffer.at(track);
+		Q_ASSERT(buf);
+		if (!buf) break;
 
 		for (register unsigned int in_pos=0; in_pos < len; in_pos++) {
 			register FLAC__int32 s = in_buffer[in_pos];
 			if (div) s /= div;
-			flac_buffer[track][in_pos] = s;
+			if (s > clip_max) s = clip_max;
+			if (s < clip_min) s = clip_min;
+			*buf = s;
+			buf++;
 		}
 	    }
 
 	    // process all collected samples
 	    FLAC__int32 **buffer = flac_buffer.data();
-	    bool processed = process(buffer, len);
-	    Q_ASSERT(processed);
+	    bool processed = process(buffer, static_cast<unsigned>(len));
 	    if (!processed) {
-		len = 0;
+		result = false;
 		break;
 	    }
 
@@ -321,9 +318,8 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
     finish();
 
     // clean up all FLAC metadata
-    while (flac_metadata.count()) {
+    while (!flac_metadata.isEmpty()) {
 	FLAC__StreamMetadata *m = flac_metadata[0];
-	Q_ASSERT(m);
 	if (m) FLAC__metadata_object_delete(m);
 	flac_metadata.remove(0);
     }
@@ -331,6 +327,12 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
     m_info = 0;
     m_dst  = 0;
     dst.close();
+
+    while (!flac_buffer.isEmpty()) {
+	FLAC__int32 *buf = flac_buffer.first();
+	if (buf) free(buf);
+	flac_buffer.remove(0);
+    }
 
     return result;
 }

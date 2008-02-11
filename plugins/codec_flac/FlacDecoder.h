@@ -19,11 +19,12 @@
 #define _FLAC_DECODER_H_
 
 #include "config.h"
-#include <qptrlist.h>
-#include <qmap.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qobject.h>
+
+#include <QList>
+#include <QMap>
+#include <QString>
+#include <QStringList>
+#include <QObject>
 
 #include <FLAC/format.h>
 #include <FLAC++/decoder.h>
@@ -34,6 +35,8 @@
 
 #include "VorbisCommentMap.h"
 
+class QWidget;
+class QIODevice;
 class MultiTrackWriter;
 
 class FlacDecoder: public Decoder,
@@ -100,7 +103,7 @@ protected:
      *        can be modified
      * @return read state
      */
-#if defined(FLAC_API_VERSION_1_1_2) || defined(FLAC_API_VERSION_1_1_1_OR_OLDER)
+#if defined(FLAC_API_VERSION_1_1_2)
     virtual ::FLAC__StreamDecoderReadStatus read_callback(
         FLAC__byte buffer[], unsigned int *bytes);
 #else

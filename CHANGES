@@ -1,4 +1,10 @@
 
+0.8.0  [2008-??-??]
+
+ * ported to KDE4 / Qt4
+ * dropped support for FLAC API v1.1.1 and older
+ * made MP3 decoder disabled per default due to legal issues
+
 0.7.11 [2007-12-09]
 
  * new internal streaming architecture, based on Qt instead of aRts

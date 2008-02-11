@@ -68,6 +68,9 @@ public:
     /** returns true if the transfer has been cancelled */
     inline bool isCancelled() const { return m_cancelled; };
 
+    /** @see QList::insert() */
+    virtual bool insert(unsigned int track, SampleReader *reader);
+
 signals:
 
     /**

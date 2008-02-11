@@ -31,8 +31,8 @@ MultiTrackReader::MultiTrackReader()
 
 //***************************************************************************
 MultiTrackReader::MultiTrackReader(SignalManager &signal_manager,
-    const QList<unsigned int> &track_list,
-    unsigned int first, unsigned int last)
+                                   const QList<unsigned int> &track_list,
+                                   unsigned int first, unsigned int last)
     :Kwave::MultiTrackSource<SampleReader, false>(0),
      m_cancelled(false)
 {
@@ -92,6 +92,16 @@ void MultiTrackReader::reset()
 	if (r) r->reset();
     }
     emit progress(pos);
+}
+
+//***************************************************************************
+bool MultiTrackReader::insert(unsigned int track, SampleReader *reader)
+{
+    if (reader) {
+        connect(reader, SIGNAL(proceeded()), this, SLOT(proceeded()));
+    }
+    return Kwave::MultiTrackSource<SampleReader, false>::insert(
+        track, reader);
 }
 
 //***************************************************************************

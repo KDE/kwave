@@ -39,7 +39,7 @@ MultiTrackWriter::MultiTrackWriter()
 MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
     const QList<unsigned int> &track_list, InsertMode mode,
     unsigned int left, unsigned int right)
-    :Kwave::MultiTrackSink<SampleWriter>(track_list.count()),
+    :Kwave::MultiTrackSink<SampleWriter>(0),
      m_cancelled(false)
 {
     UndoTransactionGuard guard(signal_manager, 0);

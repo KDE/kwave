@@ -16,15 +16,20 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kmimetype.h>
-#include <kapp.h>
-#include <kglobal.h>
-#include <kaboutdata.h>
+
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
+
+#include <QByteArray>
+#include <QList>
+
+#include <klocale.h>
+#include <kmessagebox.h>
+#include <kmimetype.h>
+#include <kapplication.h>
+#include <kglobal.h>
+#include <kaboutdata.h>
 
 #include <vorbis/vorbisenc.h>
 
@@ -83,9 +88,10 @@ Encoder *OggEncoder::instance()
 }
 
 /***************************************************************************/
-QValueList<FileProperty> OggEncoder::supportedProperties()
+QList<FileProperty> OggEncoder::supportedProperties()
 {
-    QValueList<FileProperty> list;
+    QList<FileProperty> list;
+
     for (unsigned int i=0; i < sizeof(supported_properties) /
                                sizeof(supported_properties[0]); ++i)
     {
@@ -109,7 +115,7 @@ void OggEncoder::encodeProperties(FileInfo &info, vorbis_comment *vc)
 	const char *tag = supported_properties[i].name;
 	if (!tag) continue;
 
-	QCString value = info.get(property).toString().utf8();
+	QByteArray value = info.get(property).toString().toUtf8();
 	vorbis_comment_add_tag(vc, (char *)tag, value.data());
     }
 }
@@ -283,8 +289,8 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	// new page, as per spec
 	while (!eos) {
 	    if (!ogg_stream_flush(&os, &og)) break;
-	    dst.writeBlock((char*)og.header, og.header_len);
-	    dst.writeBlock((char*)og.body, og.body_len);
+	    dst.write((char*)og.header, og.header_len);
+	    dst.write((char*)og.body, og.body_len);
 	}
     }
 
@@ -329,8 +335,8 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 		while (!eos) {
 		    int result = ogg_stream_pageout(&os,&og);
 		    if (!result) break;
-		    dst.writeBlock((char*)og.header, og.header_len);
-		    dst.writeBlock((char*)og.body, og.body_len);
+		    dst.write((char*)og.header, og.header_len);
+		    dst.write((char*)og.body, og.body_len);
 
 		    // this could be set above, but for illustrative
 		    // purposes, I do it here (to show that vorbis

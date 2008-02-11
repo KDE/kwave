@@ -19,7 +19,11 @@
 #define _OGG_ENCODER_H_
 
 #include "config.h"
+
 #include <vorbis/vorbisenc.h>
+
+#include <QList>
+
 #include "libkwave/Encoder.h"
 
 class QWidget;
@@ -49,13 +53,13 @@ public:
                         QIODevice &dst, FileInfo &info);
 
     /** Returns a list of supported file properties */
-    virtual QValueList<FileProperty> supportedProperties();
+    virtual QList<FileProperty> supportedProperties();
 
 private:
 
     /** Encodes all file properties into a vorbis comment */
     void encodeProperties(FileInfo &info, vorbis_comment *vc);
-    
+
 };
 
 #endif /* _OGG_ENCODER_H_ */

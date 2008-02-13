@@ -19,6 +19,8 @@
 
 #include "config.h"
 #include <QString>
+#include <QSharedData>
+#include <QSharedDataPointer>
 
 class Label
 {
@@ -30,9 +32,6 @@ public:
      * @param name the name of the label, user defined
      */
     Label(unsigned int position, const QString &name);
-
-    /** Copy constructor */
-    Label(const Label &source);
 
     /** destructor */
     virtual ~Label();
@@ -56,17 +55,35 @@ public:
     virtual QString name() const;
 
     /** less-than operator, needed for sorting the list */
-    inline bool operator < (const Label &other) {
-	return (m_position < other.pos());
+    inline bool operator < (const Label &other) const {
+	return (pos() < other.pos());
     };
+
+    /** equal operator */
+    inline bool operator == (const Label &other) const {
+	return ((pos() == other.pos()) && (name() == other.name()));
+    }
 
 private:
 
-    /** position of the label [samples] */
-    unsigned int m_position;
+    class LabelData: public QSharedData {
+    public:
 
-    /** name of the label, user defined */
-    QString m_name;
+	LabelData();
+
+	LabelData(const LabelData &other);
+
+	virtual ~LabelData();
+
+	/** position of the label [samples] */
+	unsigned int m_position;
+
+	/** name of the label, user defined */
+	QString m_name;
+    };
+
+    QSharedDataPointer<LabelData> m_data;
+
 };
 
 #endif /* _LABEL_H_ */

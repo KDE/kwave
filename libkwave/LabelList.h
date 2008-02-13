@@ -19,36 +19,16 @@
 
 #include "config.h"
 #include <QList>
+#include <QListIterator>
 #include "Label.h"
 
+/** not more than a typedef since Qt4 */
 class LabelList: public QList<Label *>
 {
 public:
-    /** Constructor */
-    LabelList();
 
-    /** Destructor */
-    virtual ~LabelList();
-
-    /** Copy everything from another LabelList */
-    void copy(const LabelList &source);
-
-    /** Return true if the list is equal to another list */
-    bool equals(const LabelList &other) const;
-
-    /** Erase all elements and set size to zero */
-    virtual void clear();
-
-    /** Assignment operator */
-    inline LabelList & operator = (const LabelList &source) {
-	copy(source);
-	return *this;
-    };
-
-    /** Compare operator */
-    inline bool operator == (const LabelList &other) const {
-	return equals(other);
-    };
+    /** sorts the list by ascending position */
+    void sort();
 
 };
 

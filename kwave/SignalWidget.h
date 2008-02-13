@@ -31,6 +31,7 @@
 #include <QTimer>
 #include <QWidget>
 
+#include "libkwave/LabelList.h"
 #include "PlaybackController.h"
 #include "SignalManager.h"
 
@@ -48,7 +49,6 @@ class QResizeEvent;
 
 class KUrl;
 
-class LabelList;
 class LabelType;
 class MouseMark;
 class SignalManager;

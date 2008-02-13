@@ -16,63 +16,22 @@
  ***************************************************************************/
 
 #include "config.h"
-#include "LabelList.h"
+
+#include <QtAlgorithms>
+#include "libkwave/LabelList.h"
 
 //***************************************************************************
-LabelList::LabelList()
-    :QList<Label *>()
+static bool compare_labels(Label *a, Label *b)
 {
-}
-
-//***************************************************************************
-LabelList::~LabelList()
-{
-    clear();
-}
-
-/***************************************************************************/
-bool LabelList::equals(const LabelList &other) const
-{
-    // shortcut: both empty ?
-    if (isEmpty() && other.isEmpty()) return true;
-
-    // quick check: does the number of elements match?
-    if (count() != other.count()) return false;
-
-    LabelListIterator it_mine(*this);
-    LabelListIterator it_other(other);
-
-    while (it_mine.hasNext() && it_other.hasNext()) {
-	Label *mine  = it_mine.next();
-	Label *other = it_other.next();
-
-	if (mine->pos()  != other->pos())  return false;
-	if (mine->name() != other->name()) return false;
-    }
-
-    return true;
+    Q_ASSERT(a);
+    Q_ASSERT(b);
+    return ((a) && (b) && (*a < *b));
 }
 
 //***************************************************************************
-void LabelList::clear()
+void LabelList::sort()
 {
-    qDeleteAll(*this);
-    QList<Label *>::clear();
-}
-
-/***************************************************************************/
-void LabelList::copy(const LabelList &source)
-{
-    // throw away any old stuff
-    clear();
-
-    // always make a deep copy, copy all elements
-    foreach (Label *label, source) {
-	Q_ASSERT(label);
-	Label *copy  = new Label(*label);
-	Q_ASSERT(copy);
-	if (copy) append(copy);
-    }
+    qSort(begin(), end(), compare_labels);
 }
 
 //***************************************************************************

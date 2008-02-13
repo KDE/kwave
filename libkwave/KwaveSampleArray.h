@@ -109,7 +109,7 @@ namespace Kwave {
 
 	    SampleStorage(const SampleStorage &other);
 
-	    ~SampleStorage();
+	    virtual ~SampleStorage();
 
 	    unsigned int m_size;
 

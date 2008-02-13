@@ -401,11 +401,8 @@ int SignalManager::save(const KUrl &url, bool selection)
 	    FileInfo info = m_file_info;
 
 	    LabelList &labels = info.labels();
-	    LabelListIterator it(labels);
-	    while (it.hasNext()) {
-		Label *label = it.next();
+	    foreach (Label *label, labels) {
 		if (!label) continue;
-
 		unsigned int pos = label->pos();
 		if ((pos < ofs) || (pos >= ofs + len)) {
 		    // out of the selected area -> remove
@@ -1451,8 +1448,9 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
 //***************************************************************************
 Label *SignalManager::findLabel(unsigned int pos) const
 {
-    foreach (Label *label, labels())
+    foreach (Label *label, labels()) {
 	if (label && (label->pos() == pos)) return label; // found it
+    }
 
     return 0; // nothing found
 }
@@ -1461,7 +1459,7 @@ Label *SignalManager::findLabel(unsigned int pos) const
 int SignalManager::labelIndex(const Label *label) const
 {
     int index = 0;
-    foreach (const Label *l, labels()) {
+    foreach (Label *l, labels()) {
 	if (l == label) return index; // found it
 	index++;
     }
@@ -1487,7 +1485,7 @@ bool SignalManager::addLabel(unsigned int pos)
 
     // put the label into the list
     labels().append(label);
-    qSort(labels());
+    labels().sort();
     emit sigLabelCountChanged();
 
     // register the undo action
@@ -1516,7 +1514,7 @@ Label *SignalManager::addLabel(unsigned int pos, const QString &name)
 
     // put the label into the list
     labels().append(label);
-    qSort(labels());
+    labels().sort();
     emit sigLabelCountChanged();
 
     return label;

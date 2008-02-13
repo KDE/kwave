@@ -20,14 +20,10 @@
 
 //***************************************************************************
 Label::Label(unsigned int position, const QString &name)
-    :m_position(position), m_name(name)
+    :m_data(new LabelData)
 {
-}
-
-//***************************************************************************
-Label::Label(const Label &source)
-    :m_position(source.pos()), m_name(source.name())
-{
+    moveTo(position);
+    rename(name);
 }
 
 //***************************************************************************
@@ -38,25 +34,43 @@ Label::~Label()
 //***************************************************************************
 void Label::moveTo(unsigned int position)
 {
-    m_position = position;
+    if (m_data) m_data->m_position = position;
 }
 
 //***************************************************************************
 unsigned int Label::pos() const
 {
-    return m_position;
+    return (m_data) ? m_data->m_position : -1;
 }
 
 //***************************************************************************
 void Label::rename(const QString &name)
 {
-    m_name = name;
+    if (m_data) m_data->m_name = name;
 }
 
 //***************************************************************************
 QString Label::name() const
 {
-    return m_name;
+    return (m_data) ? m_data->m_name : QString();
+}
+
+//***************************************************************************
+//***************************************************************************
+Label::LabelData::LabelData()
+    :QSharedData(), m_position(-1), m_name()
+{
+}
+
+//***************************************************************************
+Label::LabelData::LabelData(const LabelData &other)
+    :QSharedData(), m_position(other.m_position), m_name(other.m_name)
+{
+}
+
+//***************************************************************************
+Label::LabelData::~LabelData()
+{
 }
 
 //***************************************************************************

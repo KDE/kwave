@@ -15,7 +15,10 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qiodevice.h>
+#include "config.h"
+
+#include <QIODevice>
+
 #include "RecoveryMapping.h"
 
 //***************************************************************************
@@ -37,8 +40,8 @@ unsigned int RecoveryMapping::read(unsigned int offset, char *data,
     if (bytes < len) len = bytes;
     if (!len) return 0;
 
-    m_dev.at(m_dev_offset + off);
-    m_dev.readBlock(data, len);
+    m_dev.seek(m_dev_offset + off);
+    m_dev.read(data, len);
 
     return len;
 }

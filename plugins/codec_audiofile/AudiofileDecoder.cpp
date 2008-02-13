@@ -29,8 +29,6 @@ extern "C" {
 }
 
 #include <QtGlobal>
-// #include <qptrlist.h>
-// #include <qprogressdialog.h>
 
 #include <klocale.h>
 #include <kmessagebox.h>

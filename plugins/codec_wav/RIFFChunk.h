@@ -19,14 +19,17 @@
 #define _RIFF_CHUNK_H_
 
 #include "config.h"
+
 #include <sys/types.h>
-#include <qptrlist.h>
-#include <qstring.h>
+
+#include <QByteArray>
+#include <QList>
+#include <QString>
 
 class RIFFChunk;
 
 /** shortcut for list of RIFF chunks */
-typedef QPtrList<RIFFChunk> RIFFChunkList;
+typedef QList<RIFFChunk *> RIFFChunkList;
 
 /**
  * @class RIFFChunk
@@ -62,8 +65,8 @@ public:
      * @param phys_offset start of the chunk name in the source
      * @param phys_length length allocated in the source (file)
      */
-    RIFFChunk(RIFFChunk *parent, const QCString &name,
-              const QCString &format, u_int32_t length,
+    RIFFChunk(RIFFChunk *parent, const QByteArray &name,
+              const QByteArray &format, u_int32_t length,
               u_int32_t phys_offset, u_int32_t phys_length);
 
     /** Destructor */
@@ -85,16 +88,16 @@ public:
     inline void setType(ChunkType type) { m_type = type;};
 
     /** Returns the 4-character name of the chunk */
-    inline const QCString &name() { return m_name; };
+    inline const QByteArray &name() { return m_name; };
 
     /**
      * Returns the chunk's format string.
      * @note Only valid for main chunk
      */
-    inline const QCString &format() { return m_format; };
+    inline const QByteArray &format() { return m_format; };
 
     /** Sets the format to a new value, without any error checking */
-    inline void setFormat(const QCString &format) { m_format = format; };
+    inline void setFormat(const QByteArray &format) { m_format = format; };
 
     /** Returns the pointer to the parent node */
     inline RIFFChunk *parent() { return m_parent; };
@@ -105,7 +108,7 @@ public:
      * a ":". If the chunk name is not unique within it's parents the
      * zero based index is appended within round brackets.
      */
-    const QCString path();
+    const QByteArray path();
 
     /** Returns the offset where the chunk's data starts. */
     u_int32_t dataStart();
@@ -170,10 +173,10 @@ private:
     ChunkType m_type;
 
     /** chunk name, always 4 bytes ASCII */
-    QCString m_name;
+    QByteArray m_name;
 
     /** format of the chunk, only valid for main chunks */
-    QCString m_format;
+    QByteArray m_format;
 
     /** path of the parent chunk */
     RIFFChunk *m_parent;

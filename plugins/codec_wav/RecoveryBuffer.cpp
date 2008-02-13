@@ -15,15 +15,15 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <string.h>
 #include "RecoveryBuffer.h"
 
 //***************************************************************************
 RecoveryBuffer::RecoveryBuffer(unsigned int offset, unsigned int length,
                                char *buffer)
-    :RecoverySource(offset, length), m_buffer(length)
+    :RecoverySource(offset, length), m_buffer(buffer, length)
 {
-    memcpy(m_buffer.data(), buffer, length);
 }
 
 //***************************************************************************

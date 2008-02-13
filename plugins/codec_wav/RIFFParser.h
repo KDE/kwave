@@ -19,15 +19,15 @@
 #define _RIFF_PARSER_H_
 
 #include "config.h"
-#include <qptrlist.h>
-#include <qobject.h>
-#include <qstringlist.h>
-#include <qvaluelist.h>
+
+#include <QByteArray>
+#include <QList>
+#include <QObject>
+#include <QStringList>
 
 #include "RIFFChunk.h"
 
 class QIODevice;
-class QCString;
 class RIFFChunk;
 
 class RIFFParser: public QObject
@@ -84,10 +84,10 @@ public:
      * @param path the full path of the chunk to be searched
      * @return the found chunk or zero if nothing found
      */
-    RIFFChunk *findChunk(const QCString &path);
+    RIFFChunk *findChunk(const QByteArray &path);
 
     /** Returns the number of times a chunk is present */
-    unsigned int chunkCount(const QCString &path);
+    unsigned int chunkCount(const QByteArray &path);
 
     /**
      * Tries very hard to find a missing chunk by stepping through
@@ -95,7 +95,7 @@ public:
      * @param name the 4-byte name of the chunk
      * @return the found chunk or zero if nothing found
      */
-    RIFFChunk *findMissingChunk(const QCString &name);
+    RIFFChunk *findMissingChunk(const QByteArray &name);
 
     /**
      * Tries to repair the RIFF file by solving inconsistencies
@@ -128,7 +128,7 @@ protected:
      * @param offset position within the source, no range checks!
      * @return string with 4 bytes
      */
-    QCString read4ByteString(u_int32_t offset);
+    QByteArray read4ByteString(u_int32_t offset);
 
     /**
      * Tries to find the chunk name in the list of known main
@@ -139,13 +139,13 @@ protected:
      * @return RIFFChunk::Main or RIFFChunk::Sub or
      *         RIFFChunk::Garbage
      */
-    RIFFChunk::ChunkType guessType(const QCString &name);
+    RIFFChunk::ChunkType guessType(const QByteArray &name);
 
     /** Returns true if the given chunk name is valid */
     bool isValidName(const char *name);
 
     /** Returns true if the given chunk name is known as main or sub chunk */
-    bool isKnownName(const QCString &name);
+    bool isKnownName(const QByteArray &name);
 
     /**
      * Tries to detect the endianness of the source. If successful, the
@@ -166,8 +166,8 @@ protected:
      * @param type chunk type, @see RIFFChunk::ChunkType
      * @return pointer to the new created chunk
      */
-    RIFFChunk *addChunk(RIFFChunk *parent, const QCString &name,
-                        const QCString &format, u_int32_t length,
+    RIFFChunk *addChunk(RIFFChunk *parent, const QByteArray &name,
+                        const QByteArray &format, u_int32_t length,
                         u_int32_t phys_offset, u_int32_t phys_length,
                         RIFFChunk::ChunkType type);
 
@@ -190,7 +190,7 @@ protected:
      * @param offset start of the chunk name in the source
      * @return true if creation succeeded, false if out of memory
      */
-    bool addEmptyChunk(RIFFChunk *parent, const QCString &name,
+    bool addEmptyChunk(RIFFChunk *parent, const QByteArray &name,
                        u_int32_t offset);
 
     /**
@@ -219,10 +219,10 @@ protected:
      * @param progress_count number of progress sections
      * @return list of positions of where the name exists
      */
-    QValueList<u_int32_t> scanForName(const QCString &name, u_int32_t offset,
-                                      u_int32_t length,
-                                      int progress_start = 0,
-                                      int progress_count = 1);
+    QList<u_int32_t> scanForName(const QByteArray &name, u_int32_t offset,
+                                 u_int32_t length,
+                                 int progress_start = 0,
+                                 int progress_count = 1);
 
 private:
 

@@ -19,7 +19,7 @@
 #define _REPAIR_VIRTUAL_AUDIO_FILE_H_
 
 #include "config.h"
-#include <qptrlist.h>
+#include <QList>
 #include "libkwave/VirtualAudioFile.h"
 
 class RecoverySource;
@@ -35,7 +35,7 @@ public:
      *                    building the new file
      */
     RepairVirtualAudioFile(QIODevice &device,
-                           QPtrList<RecoverySource> *repair_list);
+                           QList<RecoverySource *> *repair_list);
 
     /** Destructor */
     virtual ~RepairVirtualAudioFile();
@@ -61,7 +61,7 @@ private:
     unsigned int m_position;
 
     /** list of sources for the recovered files */
-    QPtrList<RecoverySource> *m_repair_list;
+    QList<RecoverySource *> *m_repair_list;
 };
 
 #endif /* _REPAIR_VIRTUAL_AUDIO_FILE_H_ */

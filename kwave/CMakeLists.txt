@@ -141,6 +141,10 @@ IF (WITH_ARTS)
     SET(ARTS_LIBS artsc artsflow)
 ENDIF (WITH_ARTS)
 
+IF (USE_SYSTEM_LIB_AUDIOFILE)
+    SET(AUDIOFILE_LIBS audiofile)
+ENDIF (USE_SYSTEM_LIB_AUDIOFILE)
+
 TARGET_LINK_LIBRARIES(kwave_core
     kwave
     kwavegui
@@ -148,6 +152,7 @@ TARGET_LINK_LIBRARIES(kwave_core
     kdeui
     kio
     ${ARTS_LIBS}
+    ${AUDIOFILE_LIBS}
 )
 
 ADD_DEPENDENCIES(kwave_core libkwavegui libkwave)

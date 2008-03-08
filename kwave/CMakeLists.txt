@@ -137,14 +137,17 @@ KDE3_ADD_EXECUTABLE(kwave_core ${kwave_SRCS})
 
 #############################################################################
 
+IF (WITH_ARTS)
+    SET(ARTS_LIBS artsc artsflow)
+ENDIF (WITH_ARTS)
+
 TARGET_LINK_LIBRARIES(kwave_core
     kwave
     kwavegui
     ${QT_AND_KDECORE_LIBS}
     kdeui
     kio
-    artsc
-    artsflow
+    ${ARTS_LIBS}
 )
 
 ADD_DEPENDENCIES(kwave_core libkwavegui libkwave)

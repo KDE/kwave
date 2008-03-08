@@ -129,15 +129,15 @@ KDE4_ADD_EXECUTABLE(kwave_core ${kwave_SRCS})
 
 #############################################################################
 
-IF(WITH_ARTS)
-    SET(ARTS_LIBS artsc artsflow)
-ENDIF(WITH_ARTS)
+IF (USE_SYSTEM_LIB_AUDIOFILE)
+    SET(AUDIOFILE_LIBS audiofile)
+ENDIF (USE_SYSTEM_LIB_AUDIOFILE)
 
 TARGET_LINK_LIBRARIES(kwave_core
     kwavegui
     kwave
     ${QT_AND_KDECORE_LIBS}
-    ${ARTS_LIBS}
+    ${AUDIOFILE_LIBS}
 )
 
 ADD_DEPENDENCIES(kwave_core libkwavegui libkwave)

@@ -65,7 +65,7 @@ ADD_SUBDIRECTORY( codec_audiofile ) # needs libaudiofile
 ADD_SUBDIRECTORY( codec_flac )      # needs libflac 1.1.1 or 1.1.2
 ADD_SUBDIRECTORY( codec_ogg )       # needs libogg and libvorbis
 ADD_SUBDIRECTORY( codec_wav )       # needs libaudiofile
-# ADD_SUBDIRECTORY( decoder_mp3 )     # needs libmad and id3lib
+ADD_SUBDIRECTORY( decoder_mp3 )     # needs libmad and id3lib
 # ADD_SUBDIRECTORY( fileinfo )
 # ADD_SUBDIRECTORY( lowpass )
 # ADD_SUBDIRECTORY( memory )

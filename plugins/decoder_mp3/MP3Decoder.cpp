@@ -25,6 +25,7 @@
 
 #include "libkwave/CompressionType.h"
 #include "libkwave/GenreType.h"
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
@@ -379,8 +380,8 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
     if (m_source) qWarning("MP3Decoder::open(), already open !");
 
     /* open the file in readonly mode with seek enabled */
-    Q_ASSERT(src.isDirectAccess());
-    if (!src.isDirectAccess()) return false;
+    Q_ASSERT(!src.isSequential());
+    if (src.isSequential()) return false;
     if (!src.open(IO_ReadOnly)) {
 	qWarning("unable to open source in read-only mode!");
 	return false;
@@ -497,23 +498,22 @@ enum mad_flow MP3Decoder::handleError(void */*data*/,
 		error = i18n("file contains invalid data");
 		break;
 	default:
-		error = i18n("unknown error 0x%X. damaged file?").arg(
-		stream->error);
+		error = i18n("unknown error 0x%X. damaged file?",
+		(int)stream->error);
     }
 
     unsigned int pos = stream->this_frame - m_buffer;
     int result = 0;
     error = i18n("An error occurred while decoding the file:\n'%1',\n"
-	         "at position %2.\n%3").arg(error).arg(pos);
+	         "at position %2.", error, pos);
     if (!m_failures) {
 	m_failures = 1;
 	result = KMessageBox::warningContinueCancel(m_parent_widget,
 	         error.arg(i18n("Do you still want to continue?")));
 	if (result != KMessageBox::Continue) return MAD_FLOW_BREAK;
     } else if (m_failures == 1) {
-	result = KMessageBox::warningYesNo(m_parent_widget, error.arg(i18n(
-	    "Do you want to continue and ignore all following errors?")
-	    ));
+	result = KMessageBox::warningYesNo(m_parent_widget, error + "\n" +
+	    i18n("Do you want to continue and ignore all following errors?"));
         m_failures++;
 	if (result != KMessageBox::Yes) return MAD_FLOW_BREAK;
     }
@@ -536,8 +536,8 @@ enum mad_flow MP3Decoder::fillInput(struct mad_stream *stream)
 
     // clip source at "eof-appended_bytes"
     unsigned int bytes_to_read = m_buffer_size - rest;
-    if (m_source->at() + bytes_to_read > m_source->size()-m_appended_bytes)
-        bytes_to_read = m_source->size()-m_appended_bytes-m_source->at();
+    if (m_source->pos() + bytes_to_read > m_source->size()-m_appended_bytes)
+        bytes_to_read = m_source->size() - m_appended_bytes-m_source->pos();
 
     // abort if nothing more to read, even if there are
     // some "left-overs" from the previous pass
@@ -545,8 +545,8 @@ enum mad_flow MP3Decoder::fillInput(struct mad_stream *stream)
 
     // read from source to fill up the buffer
     unsigned int size = rest;
-    if (bytes_to_read) size += m_source->readBlock(
-	(char*)m_buffer+rest, bytes_to_read);
+    if (bytes_to_read) size += m_source->read(
+	(char *)m_buffer + rest, bytes_to_read);
     if (!size) return MAD_FLOW_STOP; // no more data
 
     // buffer is filled -> process it
@@ -633,7 +633,7 @@ enum mad_flow MP3Decoder::processOutput(void */*data*/,
 {
     static struct audio_dither dither;
     int32_t sample;
-    QArray<sample_t> buffer(pcm->length);
+    Kwave::SampleArray buffer(pcm->length);
 
     // loop over all tracks
     const unsigned int tracks = m_dest->tracks();
@@ -659,7 +659,7 @@ bool MP3Decoder::decode(QWidget *widget, MultiTrackWriter &dst)
 {
     Q_ASSERT(m_source);
     if (!m_source) return false;
-    m_source->at(m_prepended_bytes); // skip id3v2 tag
+    m_source->seek(m_prepended_bytes); // skip id3v2 tag
 
     // set target of the decoding
     m_dest = &dst;

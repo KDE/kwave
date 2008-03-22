@@ -27,6 +27,7 @@ HMSTimeWidget::HMSTimeWidget(QWidget *parent)
     :QWidget(parent), Ui::HMSTimeWidgetBase(),
      m_time(0), m_limit(INT_MAX)
 {
+    setupUi(this);
     setValue(m_time);
     connect();
 }

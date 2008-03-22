@@ -34,6 +34,7 @@ SelectTimeWidget::SelectTimeWidget(QWidget *widget)
      m_mode(bySamples), m_range(0), m_rate(1.0), m_offset(0), m_length(0),
      m_timer(this)
 {
+    setupUi(this);
 }
 
 //***************************************************************************

@@ -79,7 +79,8 @@ void FileInfoPlugin::apply(FileInfo &new_info)
 		 "to repair a damaged file? Note: changing only the sample "
 		 "rate can cause \"mickey mouse\" effects!"),
 	    0,
-	    i18n("&Convert"), i18n("&Set Rate"));
+	    KGuiItem(i18n("&Convert")),
+	    KGuiItem(i18n("&Set Rate")));
 	if (res == KMessageBox::Yes) {
 	    // resample
 	    emitCommand(QString("convert_rate(%1)").arg(new_rate));

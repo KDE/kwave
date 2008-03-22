@@ -21,6 +21,7 @@
 #include <math.h>
 #include <stdio.h>
 
+#include <QtGlobal>
 // #include <QImage>
 // #include <QDir>
 #include <QPainter>
@@ -137,7 +138,7 @@ void ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
 
     int dec_lo = (m_low) ? (int)floor(log(m_low)/log(base)) : 0;
     int dec_hi = (int)ceil(log(m_high)/log(base));
-    int decades = abs(dec_hi - dec_lo) + 1;
+    int decades = qAbs(dec_hi - dec_lo) + 1;
 
     // check if we have enough space for the small lines within a decade
     int w1 = (int)(w / decades); // pixels per decade

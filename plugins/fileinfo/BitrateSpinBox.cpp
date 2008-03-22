@@ -16,13 +16,14 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <stdlib.h> // for abs()
+
+#include <QtGlobal>
 
 #include "BitrateSpinBox.h"
 
 /***************************************************************************/
-BitrateSpinBox::BitrateSpinBox(QWidget *parent, const char *name)
-    :QSpinBox(parent, name), m_rates()
+BitrateSpinBox::BitrateSpinBox(QWidget *parent)
+    :QSpinBox(parent), m_rates()
 {
     m_rates.append(0); // don't let it stay empty, that makes life easier
 
@@ -38,34 +39,19 @@ BitrateSpinBox::~BitrateSpinBox()
 /***************************************************************************/
 void BitrateSpinBox::snapIn(int value)
 {
-    int old_value = value;
-    int index = nearestIndex(old_value);
-    int new_value = m_rates[index];
-    QSpinBox::setValue(new_value);
+    int index     = nearestIndex(value);
+    int old_index = index;
+    int old_value = m_rates[index];
 
-    if (new_value != old_value) {
-	emit snappedIn(new_value);
-    }
-}
+    if (value == old_value) return;
 
-/***************************************************************************/
-void BitrateSpinBox::stepUp()
-{
-    int index = nearestIndex(value());
-    if (index < (int)m_rates.size()-1) {
+    if ((value > old_value) && (index < (int)m_rates.size()-1))
 	index++;
-	int value = m_rates[index];
-	setValue(value);
-	emit snappedIn(value);
-    }
-}
 
-/***************************************************************************/
-void BitrateSpinBox::stepDown()
-{
-    int index = nearestIndex(value());
-    if (index > 0) {
+    if ((value < old_value) && (index > 0))
 	index--;
+
+    if (index != old_index) {
 	int value = m_rates[index];
 	setValue(value);
 	emit snappedIn(value);
@@ -73,17 +59,16 @@ void BitrateSpinBox::stepDown()
 }
 
 /***************************************************************************/
-void BitrateSpinBox::allowRates(const QValueList<int> &list)
+void BitrateSpinBox::allowRates(const QList<int> &list)
 {
     int old_value = value();
 
-    m_rates.clear();
-    m_rates += list;
+    m_rates = list;
     if (m_rates.isEmpty()) m_rates.append(0);
 
     // set new ranges
-    setMinValue(m_rates.first());
-    setMaxValue(m_rates.last());
+    setMinimum(m_rates.first());
+    setMaximum(m_rates.last());
 
     setValue(old_value);
 }
@@ -93,16 +78,13 @@ int BitrateSpinBox::nearestIndex(int rate)
 {
     // find the nearest value
     int nearest = 0;
-    QValueList<int>::iterator it;
-    for (it=m_rates.begin(); it != m_rates.end(); ++it)
-	if (abs(*it - rate) < abs(nearest - rate)) nearest = *it;
+    foreach(int i, m_rates)
+	if (qAbs(i - rate) < qAbs(nearest - rate)) nearest = i;
 
     // find the index
-    int index = m_rates.findIndex(nearest);
+    int index = m_rates.contains(nearest) ? m_rates.indexOf(nearest) : 0;
 
     // limit the index into a reasonable range
-    Q_ASSERT(index >= 0);
-    Q_ASSERT(index < (int)m_rates.size());
     if (index < 0)                    index = 0;
     if (index >= (int)m_rates.size()) index = m_rates.size()-1;
 

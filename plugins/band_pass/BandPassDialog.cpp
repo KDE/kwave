@@ -40,6 +40,7 @@ BandPassDialog::BandPassDialog(QWidget *parent, qreal sample_rate)
      m_frequency(3500),m_bw(100),
      m_sample_rate(sample_rate), m_filter(0)
 {
+    setupUi(this);
 
     // set maximum frequency to sample rate / 2
     qreal f_max = sample_rate / 2.0;

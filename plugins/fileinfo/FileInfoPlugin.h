@@ -19,7 +19,7 @@
 #define _FILE_INFO_PLUGIN_H_
 
 #include "config.h"
-#include <qobject.h>
+#include <QObject>
 #include "libkwave/KwavePlugin.h"
 
 class FileInfoPlugin: public KwavePlugin

@@ -21,11 +21,12 @@
 #include "config.h"
 #include <qdatetime.h>
 #include <qobject.h>
-#include "SelectDateDlg.h"
+#include "ui_SelectDateDlg.h"
 
 class QWidget;
 
-class SelectDateDialog: public SelectDateDlg
+class SelectDateDialog: public QDialog,
+                        public Ui::SelectDateDlg
 {
     Q_OBJECT
 public:

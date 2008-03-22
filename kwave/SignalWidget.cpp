@@ -1919,19 +1919,19 @@ bool SignalWidget::labelProperties(Label *label)
 //	    for (tmp = labels->first(); tmp; tmp = labels->next())
 //		if (RangeSelected) {
 //		    if (tmp->pos < lmarker)
-//			if (abs(lmarker - position) >
-//			    abs(lmarker - ms2samples(tmp->pos)))
+//			if (qAbs(lmarker - position) >
+//			    qAbs(lmarker - ms2samples(tmp->pos)))
 //			    position = ms2samples(tmp->pos);
-//		} else if (abs(lmarker - position) >
-//			   abs(lmarker - ms2samples(tmp->pos)))
+//		} else if (qAbs(lmarker - position) >
+//			   qAbs(lmarker - ms2samples(tmp->pos)))
 //		    position = ms2samples(tmp->pos);
 //
 //	    lmarker = position;
 //	    position = signalmanage->getLength();
 //	    for (tmp = labels->first(); tmp; tmp = labels->next())
 //		if (tmp->pos > rmarker)
-//		    if (abs(rmarker - position) >
-//			abs(rmarker - ms2samples(tmp->pos)))
+//		    if (qAbs(rmarker - position) >
+//			qAbs(rmarker - ms2samples(tmp->pos)))
 //			position = ms2samples(tmp->pos);
 //	    rmarker = position;
 //	    if (RangeSelected) setRange(lmarker, rmarker);
@@ -2072,9 +2072,9 @@ bool SignalWidget::labelProperties(Label *label)
 //	    labels->inSort (newmark);
 //
 //	    for (int i = 0; i < len; i++) {
-//		if (abs(sam[i]) < level) {
+//		if (qAbs(sam[i]) < level) {
 //		    int j = i;
-//		    while ((i < len) && (abs(sam[i]) < level)) i++;
+//		    while ((i < len) && (qAbs(sam[i]) < level)) i++;
 //
 //		    if (i - j > time) {
 //			//insert labels...

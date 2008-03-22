@@ -16,36 +16,35 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <stdlib.h> // for abs()
 
-#include <qcheckbox.h>
-#include <qdatetime.h>
-#include <qdialog.h>
-#include <qfileinfo.h>
-#include <qmemarray.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qlistbox.h>
-#include <qcombobox.h>
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qslider.h>
-#include <qspinbox.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qtabwidget.h>
-#include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <QtGlobal>
+#include <QCheckBox>
+#include <QDateTime>
+#include <QDialog>
+#include <QFileInfo>
+#include <QLabel>
+#include <QLineEdit>
+#include <QListWidget>
+#include <QComboBox>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QSpinBox>
+#include <QString>
+#include <QStringList>
+#include <QTabWidget>
+#include <QToolTip>
+#include <QVector>
+#include <QWhatsThis>
 
-#include <kapplication.h> // for invokeHelp
 #include <kglobal.h>
 #include <kconfig.h>
 #include <kcombobox.h>
 #include <kdatewidget.h>
-#include <klistbox.h>
 #include <klocale.h>
 #include <kmimetype.h>
 #include <knuminput.h>
+#include <ktoolinvocation.h>
 
 #include "libkwave/CompressionType.h"
 #include "libkwave/FileInfo.h"
@@ -63,8 +62,10 @@
 
 //***************************************************************************
 FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
-    :FileInfoDlg(parent), m_info(info)
+    :QDialog(parent), Ui::FileInfoDlg(), m_info(info)
 {
+    setupUi(this);
+
     QString mimetype = QVariant(m_info.get(INF_MIMETYPE)).toString();
     if (!mimetype.length()) mimetype = "audio/x-wav"; // default mimetype
 
@@ -75,20 +76,16 @@ FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
                 (mimetype == "application/x-ogg") ||
                 (mimetype == "application/ogg"));
 
-    qDebug("mimetype = %s",mimetype.local8Bit().data());
+    qDebug("mimetype = %s",mimetype.toLocal8Bit().data());
 
     connect(btHelp, SIGNAL(clicked()),
             this,   SLOT(invokeHelp()));
 
     // open config for reading default settings
-    KConfig *cfg = KGlobal::config();
-    Q_ASSERT(cfg);
-    if (!cfg) return;
-    cfg->sync();
-    cfg->setGroup(CONFIG_DEFAULT_SECTION);
+    KConfigGroup cfg = KGlobal::config()->group(CONFIG_DEFAULT_SECTION);
 
     setupFileInfoTab();
-    setupCompressionTab(*cfg);
+    setupCompressionTab(cfg);
     setupMpegTab();
     setupContentTab();
     setupSourceTab();
@@ -107,8 +104,8 @@ void FileInfoDialog::describeWidget(QWidget *widget, const QString &name,
                                     const QString &description)
 {
     if (!widget) return;
-    QToolTip::add(widget, description);
-    QWhatsThis::add(widget, "<b>"+name+"</b><br>"+description);
+    widget->setToolTip(description);
+    widget->setWhatsThis("<b>"+name+"</b><br>"+description);
 }
 
 //***************************************************************************
@@ -117,8 +114,8 @@ void FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
 {
     Q_ASSERT(label);
     Q_ASSERT(widget);
-    if (label) label->setText(i18n(m_info.name(property)) + ":");
-    describeWidget(widget, i18n(m_info.name(property)),
+    if (label) label->setText(i18n(m_info.name(property).toAscii()) + ":");
+    describeWidget(widget, i18n(m_info.name(property).toAscii()),
                    m_info.description(property));
 }
 
@@ -127,7 +124,7 @@ void FileInfoDialog::initInfoText(QLabel *label, QLineEdit *edit,
                                   FileProperty property)
 {
     initInfo(label, edit, property);
-    if (edit) edit->setText(QVariant(m_info.get(property)).asString());
+    if (edit) edit->setText(QVariant(m_info.get(property)).toString());
 }
 
 //***************************************************************************
@@ -135,23 +132,23 @@ void FileInfoDialog::setupFileInfoTab()
 {
     /* filename */
     initInfo(lblFileName, edFileName, INF_FILENAME);
-    QFileInfo fi(QVariant(m_info.get(INF_FILENAME)).asString());
+    QFileInfo fi(QVariant(m_info.get(INF_FILENAME)).toString());
     edFileName->setText(fi.fileName());
     edFileName->setEnabled(fi.fileName().length() != 0);
 
     /* file size in bytes */
     initInfo(lblFileSize, edFileSize, INF_FILESIZE);
     if (m_info.contains(INF_FILESIZE)) {
-	unsigned int size = QVariant(m_info.get(INF_FILESIZE)).asUInt();
+	unsigned int size = QVariant(m_info.get(INF_FILESIZE)).toUInt();
 	QString dotted = KwavePlugin::dottedNumber(size);
 	if (size < 10*1024) {
-	    edFileSize->setText(i18n("%1 bytes").arg(dotted));
+	    edFileSize->setText(i18n("%1 bytes", dotted));
 	} else if (size < 10*1024*1024) {
-	    edFileSize->setText(i18n("%1 kB (%2 byte)").arg(
-		QString::number(size / 1024)).arg(dotted));
+	    edFileSize->setText(i18n("%1 kB (%2 byte)",
+		QString::number(size / 1024), dotted));
 	} else {
-	    edFileSize->setText(i18n("%1 MB (%2 byte)").arg(
-		QString::number(size / (1024*1024))).arg(dotted));
+	    edFileSize->setText(i18n("%1 MB (%2 byte)",
+		QString::number(size / (1024*1024)), dotted));
 	}
     } else {
 	edFileSize->setEnabled(false);
@@ -187,7 +184,7 @@ void FileInfoDialog::setupFileInfoTab()
         i18n("Here you can select one of the predefined\n"
              "well-known sample rates or you can enter\n"
              "any sample rate on your own."));
-    cbSampleRate->setCurrentText(QString::number(m_info.rate()));
+    cbSampleRate->setEditText(QString::number(m_info.rate()));
 
     /* bits per sample */
     lblResolution->setText(i18n("Resolution")+":");
@@ -203,8 +200,8 @@ void FileInfoDialog::setupFileInfoTab()
         lblTracks->text().length()-1),
         i18n("Shows the number of tracks of the signal.\n"
              "You can add or delete tracks via the Edit menu."));
-    sbTracks->setMaxValue(m_info.tracks());
-    sbTracks->setMinValue(m_info.tracks());
+    sbTracks->setMaximum(m_info.tracks());
+    sbTracks->setMinimum(m_info.tracks());
     sbTracks->setValue(m_info.tracks());
     connect(sbTracks, SIGNAL(valueChanged(int)),
             this, SLOT(tracksChanged(int)));
@@ -220,34 +217,34 @@ void FileInfoDialog::setupFileInfoTab()
     double rate = m_info.rate();
     if (rate != 0) {
 	double ms = (double)samples * 1E3 / rate;
-	txtLength->setText(i18n("%1 (%2 samples)").arg(
-	    KwavePlugin::ms2string(ms)).arg(
+	txtLength->setText(i18n("%1 (%2 samples)",
+	    KwavePlugin::ms2string(ms),
 	    KwavePlugin::dottedNumber(samples)));
     } else {
-	txtLength->setText(i18n("%2 samples").arg(
+	txtLength->setText(i18n("%1 samples",
 	    KwavePlugin::dottedNumber(samples)));
     }
 
     /* sample format */
     SampleFormat::Map sf;
     initInfo(lblSampleFormat, cbSampleFormat, INF_SAMPLE_FORMAT);
-    cbSampleFormat->insertStringList(sf.allNames());
+    cbSampleFormat->insertItems(-1, sf.allNames());
     SampleFormat format;
     format.fromInt(QVariant(m_info.get(INF_SAMPLE_FORMAT)).toInt());
-    cbSampleFormat->setCurrentItem(sf.findFromData(format));
+    cbSampleFormat->setCurrentIndex(sf.findFromData(format));
     if (m_is_mpeg || m_is_ogg) cbSampleFormat->setEnabled(false);
 
 }
 
 //***************************************************************************
-void FileInfoDialog::setupCompressionTab(KConfig &cfg)
+void FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
 {
     /* compression */
     CompressionType compressions;
     initInfo(lblCompression, cbCompression, INF_COMPRESSION);
-    cbCompression->insertStringList(compressions.allNames());
+    cbCompression->insertItems(-1, compressions.allNames());
     int compression = QVariant(m_info.get(INF_COMPRESSION)).toInt();
-    cbCompression->setCurrentItem(compressions.findFromData(compression));
+    cbCompression->setCurrentIndex(compressions.findFromData(compression));
     if (m_is_mpeg || m_is_ogg) cbCompression->setEnabled(false);
 
 
@@ -271,19 +268,19 @@ void FileInfoDialog::setupCompressionTab(KConfig &cfg)
     // ABR bitrate settings
     int abr_bitrate = m_info.contains(INF_BITRATE_NOMINAL) ?
                   QVariant(m_info.get(INF_BITRATE_NOMINAL)).toInt() :
-                  cfg.readNumEntry("default_abr_nominal_bitrate", -1);
+                  cfg.readEntry("default_abr_nominal_bitrate", -1);
     int min_bitrate = m_info.contains(INF_BITRATE_LOWER) ?
                   QVariant(m_info.get(INF_BITRATE_LOWER)).toInt() :
-                  cfg.readNumEntry("default_abr_lower_bitrate",-1);
+                  cfg.readEntry("default_abr_lower_bitrate",-1);
     int max_bitrate = m_info.contains(INF_BITRATE_UPPER) ?
                   QVariant(m_info.get(INF_BITRATE_UPPER)).toInt() :
-                  cfg.readNumEntry("default_abr_upper_bitrate",-1);
+                  cfg.readEntry("default_abr_upper_bitrate",-1);
     compressionWidget->setBitrates(abr_bitrate, min_bitrate, max_bitrate);
 
     // VBR base quality
     int quality = m_info.contains(INF_VBR_QUALITY) ?
               QVariant(m_info.get(INF_VBR_QUALITY)).toInt() :
-              cfg.readNumEntry("default_vbr_quality", -1);
+              cfg.readEntry("default_vbr_quality", -1);
     compressionWidget->setQuality(quality);
 
     compressionWidget->init(m_info);
@@ -316,10 +313,7 @@ void FileInfoDialog::setupMpegTab()
 {
     // the whole tab is only enabled in mpeg mode
     if (!m_is_mpeg) {
-	InfoTab->setCurrentPage(2);
-	QWidget *page = InfoTab->currentPage();
-	InfoTab->setTabEnabled(page, false);
-	InfoTab->setCurrentPage(0);
+	InfoTab->setTabEnabled(2, false);
 	return;
     }
 
@@ -328,9 +322,9 @@ void FileInfoDialog::setupMpegTab()
     int layer = m_is_mpeg ? QVariant(m_info.get(INF_MPEG_LAYER)).toInt() : 0;
     if (layer <= 0) {
 	cbMpegLayer->setEditable(true);
-	cbMpegLayer->clearEdit();
+	cbMpegLayer->clearEditText();
 	cbMpegLayer->setEnabled(false);
-    } else cbMpegLayer->setCurrentItem(layer-1);
+    } else cbMpegLayer->setCurrentIndex(layer-1);
 
     /* MPEG version */
     initInfo(lblMpegVersion, cbMpegVersion,  INF_MPEG_VERSION);
@@ -342,9 +336,9 @@ void FileInfoDialog::setupMpegTab()
     ver--; // -1, 0, 1, 2
     if (ver < 0) {
 	cbMpegVersion->setEditable(true);
-	cbMpegVersion->clearEdit();
+	cbMpegVersion->clearEditText();
 	cbMpegVersion->setEnabled(false);
-    } else cbMpegVersion->setCurrentItem(ver);
+    } else cbMpegVersion->setCurrentIndex(ver);
 
     /* Bitrate in bits/s */
     initInfo(lblMpegBitrate, cbMpegBitrate,  INF_BITRATE_NOMINAL);
@@ -353,10 +347,9 @@ void FileInfoDialog::setupMpegTab()
 	QString s;
 	s.setNum(bitrate / 1000);
 	s += "K";
-	s = i18n(s);
-	QListBoxItem *item = cbMpegBitrate->listBox()->findItem(s);
-	int index = cbMpegBitrate->listBox()->index(item);
-	cbMpegBitrate->setCurrentItem(index);
+	s = i18n(s.toAscii());
+	int index = cbMpegBitrate->findText(s);
+	cbMpegBitrate->setCurrentIndex(index);
     }
 
     /* Mode extension */
@@ -372,11 +365,11 @@ void FileInfoDialog::setupMpegTab()
     // 3 - bands 16 to 31  |  on               on   -> 7
     int modeext = QVariant(m_info.get(INF_MPEG_MODEEXT)).toInt();
     if ((modeext >= 0) && (modeext <= 3)) {
-	cbMpegModeExt->insertItem(i18n("bands 0 to 31"));
-	cbMpegModeExt->insertItem(i18n("bands 8 to 31"));
-	cbMpegModeExt->insertItem(i18n("bands 12 to 31"));
-	cbMpegModeExt->insertItem(i18n("bands 16 to 31"));
-	cbMpegModeExt->setCurrentItem(modeext);
+	cbMpegModeExt->addItem(i18n("bands 0 to 31"));
+	cbMpegModeExt->addItem(i18n("bands 8 to 31"));
+	cbMpegModeExt->addItem(i18n("bands 12 to 31"));
+	cbMpegModeExt->addItem(i18n("bands 16 to 31"));
+	cbMpegModeExt->setCurrentIndex(modeext);
 	cbMpegIntensityStereo->setEnabled(false);
 	cbMpegMSStereo->setEnabled(false);
     } else if ((modeext >= 4) && (modeext <= 7)) {
@@ -392,12 +385,10 @@ void FileInfoDialog::setupMpegTab()
     /* Emphasis */
     initInfo(lblMpegEmphasis, cbMpegEmphasis, INF_MPEG_EMPHASIS);
     int emphasis = QVariant(m_info.get(INF_MPEG_EMPHASIS)).toInt();
-    switch (emphasis) {
-	case 0: cbMpegEmphasis->setCurrentItem(0); break;
-	case 1: cbMpegEmphasis->setCurrentItem(1); break;
-	case 3: cbMpegEmphasis->setCurrentItem(2); break;
-	default: cbMpegEmphasis->setEnabled(false);
-    }
+    if ((emphasis >= 0) && (emphasis <= 2))
+	cbMpegEmphasis->setCurrentIndex(emphasis);
+    else
+	cbMpegEmphasis->setEnabled(false);
 
     /* Copyrighted */
     initInfo(lblMpegCopyrighted, chkMpegCopyrighted, INF_COPYRIGHTED);
@@ -484,12 +475,13 @@ void FileInfoDialog::setupMiscellaneousTab()
     initInfoText(lblCommissioned, edCommissioned, INF_COMMISSIONED);
 
     /* list of keywords */
-    lblKeywords->setText(i18n(m_info.name(INF_KEYWORDS)));
-    QWhatsThis::add(lstKeywords, "<b>" + i18n(m_info.name(INF_KEYWORDS)) +
-        "</b><br>"+m_info.description(INF_KEYWORDS));
+    lblKeywords->setText(i18n(m_info.name(INF_KEYWORDS).toAscii()));
+    lstKeywords->setWhatsThis("<b>" +
+	i18n(m_info.name(INF_KEYWORDS).toAscii()) +
+	"</b><br>"+m_info.description(INF_KEYWORDS));
     if (m_info.contains(INF_KEYWORDS)) {
 	QString keywords = QVariant(m_info.get(INF_KEYWORDS)).toString();
-	lstKeywords->setKeywords(QStringList::split(";", keywords));
+	lstKeywords->setKeywords(keywords.split(";"));
     }
     connect(lstKeywords, SIGNAL(autoGenerate()),
             this, SLOT(autoGenerateKeywords()));
@@ -542,46 +534,51 @@ void FileInfoDialog::autoGenerateKeywords()
     // copyright, license, source, source form, album,
     // product, archival, contact, software, technican, engineer,
     // commissioned, ISRC
-    list += QStringList::split(" ", edName->text());
-    list += QStringList::split(" ", edSubject->text());
-    list += QStringList::split(" ", edVersion->text());
-    list += QStringList::split(" ", edGenre->text());
-    list += QStringList::split(" ", edAuthor->text());
-    list += QStringList::split(" ", edOrganization->text());
-    list += QStringList::split(" ", edCopyright->text());
-    list += QStringList::split(" ", edLicense->text());
-    list += QStringList::split(" ", edSource->text());
-    list += QStringList::split(" ", edSourceForm->text());
-    list += QStringList::split(" ", edAlbum->text());
-    list += QStringList::split(" ", edProduct->text());
-    list += QStringList::split(" ", edArchival->text());
-    list += QStringList::split(" ", edContact->text());
-    list += QStringList::split(" ", edSoftware->text());
-    list += QStringList::split(" ", edTechnican->text());
-    list += QStringList::split(" ", edEngineer->text());
-    list += QStringList::split(" ", edCommissioned->text());
-    list += QStringList::split(" ", edISRC->text());
+    list += edName->text().split(" ");
+    list += edSubject->text().split(" ");
+    list += edVersion->text().split(" ");
+    list += edGenre->text().split(" ");
+    list += edAuthor->text().split(" ");
+    list += edOrganization->text().split(" ");
+    list += edCopyright->text().split(" ");
+    list += edLicense->text().split(" ");
+    list += edSource->text().split(" ");
+    list += edSourceForm->text().split(" ");
+    list += edAlbum->text().split(" ");
+    list += edProduct->text().split(" ");
+    list += edArchival->text().split(" ");
+    list += edContact->text().split(" ");
+    list += edSoftware->text().split(" ");
+    list += edTechnican->text().split(" ");
+    list += edEngineer->text().split(" ");
+    list += edCommissioned->text().split(" ");
+    list += edISRC->text().split(" ");
 
     // filter out all useless stuff
-    for (QStringList::Iterator it = list.begin(); it != list.end(); ++it) {
-	QString token = *it;
+    QMutableStringListIterator it(list);
+    while (it.hasNext()) {
+	QString token = it.next();
 
 	// remove punktation characters like '.', ',', '!' from start and end
 	while (token.length()) {
+	    QString old_value = token;
+
 	    QChar c = token[token.length()-1];
 	    if (c.isPunct() || c.isMark() || c.isSpace())
 		token = token.left(token.length()-1);
+	    if (!token.length()) break;
+
 	    c = token[0];
 	    if (c.isPunct() || c.isMark() || c.isSpace())
 		token = token.right(token.length()-1);
-	    if ((*it) == token) break;
-	    *it = token;
+
+	    if (token == old_value) break; // no (more) change(s)
 	}
+	it.setValue(token);
 
 	// remove empty entries
 	if (!token.length()) {
-	    list.remove(it);
-	    it = list.begin();
+	    it.remove();
 	    continue;
 	}
 
@@ -589,31 +586,31 @@ void FileInfoDialog::autoGenerateKeywords()
 	bool ok;
 	token.toInt(&ok);
 	if ((ok) || (token.length() < 3)) {
-	    list.remove(it); // number or less than 3 characters -> remove
-	    it = list.begin();
+	    it.remove(); // number or less than 3 characters -> remove
 	    continue;
 	}
 
 	// remove duplicates that differ in case
-	QStringList::Iterator it2;
-	for (it2 = list.begin(); it2 != list.end(); ++it2) {
-	    if (it2 == it) continue;
-	    if ((*it2).lower() == token.lower()) {
+	QMutableStringListIterator it2(list);
+	while (it2.hasNext()) {
+	    QString token2 = it2.next();
+	    if (list.indexOf(token) == list.lastIndexOf(token2)) continue;
+	    if (token2.compare(token, Qt::CaseInsensitive) == 0) {
 		// take the one with less uppercase characters
 		unsigned int upper1 = 0;
 		unsigned int upper2 = 0;
-		unsigned int i;
-		for (i=0; i < token.length(); ++i)
+		for (int i=0; i < token.length(); ++i)
 		    if (token[i].category() == QChar::Letter_Uppercase)
 			upper1++;
-		for (i=0; i < (*it2).length(); ++i)
-		    if ((*it2)[i].category() == QChar::Letter_Uppercase)
+		for (int i=0; i < token2.length(); ++i)
+		    if (token2[i].category() == QChar::Letter_Uppercase)
 			upper2++;
-		if (upper2 < upper1) (*it) = (*it2);
-		list.remove(it2);
-		it2 = list.begin();
+		if (upper2 < upper1) token = token2;
+		it2.remove();
 	    }
 	}
+
+	it.setValue(token);
     }
     // other stuff like empty strings and duplicates are handled in
     // the list itself, we don't need to take care of that here :)
@@ -624,7 +621,7 @@ void FileInfoDialog::autoGenerateKeywords()
 //***************************************************************************
 void FileInfoDialog::acceptEdit(FileProperty property, QString value)
 {
-    value.simplifyWhiteSpace();
+    value = value.simplified();
     if (!m_info.contains(property) && !value.length()) return;
 
     if (!value.length()) {
@@ -637,25 +634,20 @@ void FileInfoDialog::acceptEdit(FileProperty property, QString value)
 //***************************************************************************
 void FileInfoDialog::accept()
 {
-    KConfig *cfg = KGlobal::config();
-    Q_ASSERT(cfg);
-    if (!cfg) return;
-
     // save defaults for next time...
-    cfg->sync();
-    cfg->setGroup(CONFIG_DEFAULT_SECTION);
+    KConfigGroup cfg = KGlobal::config()->group(CONFIG_DEFAULT_SECTION);
+    cfg.sync();
     {
 	int nominal, upper, lower;
 	compressionWidget->getABRrates(nominal, lower, upper);
-	cfg->writeEntry("default_abr_nominal_bitrate", nominal);
-	cfg->writeEntry("default_abr_upper_bitrate", upper);
-	cfg->writeEntry("default_abr_lower_bitrate", lower);
+	cfg.writeEntry("default_abr_nominal_bitrate", nominal);
+	cfg.writeEntry("default_abr_upper_bitrate", upper);
+	cfg.writeEntry("default_abr_lower_bitrate", lower);
 
         int quality = compressionWidget->baseQuality();
-	cfg->writeEntry("default_vbr_quality", quality);
+	cfg.writeEntry("default_vbr_quality", quality);
     }
-    cfg->sync();
-
+    cfg.sync();
 
     qDebug("FileInfoDialog::accept()");
     m_info.dump();
@@ -669,7 +661,7 @@ void FileInfoDialog::accept()
     /* sample format */
     SampleFormat::Map sample_formats;
     SampleFormat sample_format =
-	sample_formats.data(cbSampleFormat->currentItem());
+	sample_formats.data(cbSampleFormat->currentIndex());
     if (m_info.contains(INF_SAMPLE_FORMAT) ||
         (sample_format != sample_formats.data(0)))
     {
@@ -678,7 +670,7 @@ void FileInfoDialog::accept()
 
     /* compression */
     CompressionType compressions;
-    int compression = compressions.data(cbCompression->currentItem());
+    int compression = compressions.data(cbCompression->currentIndex());
     m_info.set(INF_COMPRESSION, (compression != AF_COMPRESSION_NONE) ?
         QVariant(compression) : QVariant());
 
@@ -729,7 +721,7 @@ void FileInfoDialog::accept()
     /* date */
     QDate date = dateEdit->date();
     if ((date != QDate::currentDate()) || m_info.contains(INF_CREATION_DATE))
-	m_info.set(INF_CREATION_DATE, QVariant(date).asString());
+	m_info.set(INF_CREATION_DATE, QVariant(date).toString());
 
     /* source, source form, album */
     acceptEdit(INF_SOURCE,      edSource->text());
@@ -766,7 +758,7 @@ void FileInfoDialog::accept()
 //***************************************************************************
 void FileInfoDialog::invokeHelp()
 {
-    kapp->invokeHelp("fileinfo");
+    KToolInvocation::invokeHelp("fileinfo");
 }
 
 //***************************************************************************

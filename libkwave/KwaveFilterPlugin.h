@@ -71,6 +71,9 @@ namespace Kwave {
 	/** Does the filter operation and/or pre-listen */
 	virtual void run(QStringList);
 
+	/** overloaded version of KwavePlugin::start */
+	virtual int start(QStringList &params);
+
 	/** Aborts the process (if running). */
 	virtual int stop();
 

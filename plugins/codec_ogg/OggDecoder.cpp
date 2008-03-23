@@ -338,7 +338,7 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
     unsigned int stream_start_pos = m_source->pos();
 
     // we repeat if the bitstream is chained
-    while (!dst.isCancelled()) {
+    while (!dst.isCanceled()) {
 	// The rest is just a straight decode loop until end of stream
 	while (!eos) {
 	    while (!eos) {
@@ -388,7 +388,7 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 			    emit sourceProcessed(m_source->pos());
 			}
 		    }
-		    if (ogg_page_eos(&m_og) || dst.isCancelled()) eos = 1;
+		    if (ogg_page_eos(&m_og) || dst.isCanceled()) eos = 1;
 		}
 	    }
 

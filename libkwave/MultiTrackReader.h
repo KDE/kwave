@@ -65,8 +65,8 @@ public:
         return (Kwave::MultiTrackSource<SampleReader, false>::tracks() < 1);
     };
 
-    /** returns true if the transfer has been cancelled */
-    inline bool isCancelled() const { return m_cancelled; };
+    /** returns true if the transfer has been canceled */
+    inline bool isCanceled() const { return m_canceled; };
 
     /** @see QList::insert() */
     virtual bool insert(unsigned int track, SampleReader *reader);
@@ -101,9 +101,9 @@ protected:
 
     /**
      * Initialized as false, will be true if the transfer has
-     * been cancelled
+     * been canceled
      */
-    bool m_cancelled;
+    bool m_canceled;
 
 };
 

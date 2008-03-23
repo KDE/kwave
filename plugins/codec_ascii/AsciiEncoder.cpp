@@ -116,7 +116,7 @@ bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
 	unsigned int rest = length;
 	unsigned int pos  = 0;
-	while (rest-- && !src.isCancelled()) {
+	while (rest-- && !src.isCanceled()) {
 	    // write out one track per line
 	    for (unsigned int track=0; track < tracks; track++) {
 		SampleReader *reader = src[track];

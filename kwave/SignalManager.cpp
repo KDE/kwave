@@ -210,7 +210,7 @@ int SignalManager::loadFile(const KUrl &url)
 	    QObject::connect(&writers, SIGNAL(progress(unsigned int)),
 	                     dialog, SLOT(setValue(unsigned int)));
 	}
-	QObject::connect(dialog, SIGNAL(cancelled()),
+	QObject::connect(dialog, SIGNAL(canceled()),
 	                 &writers, SLOT(cancel()));
 
 	// now decode
@@ -389,7 +389,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 	Q_ASSERT(dialog);
 	QObject::connect(&src,   SIGNAL(progress(unsigned int)),
 	                 dialog, SLOT(setValue(unsigned int)));
-	QObject::connect(dialog, SIGNAL(cancelled()),
+	QObject::connect(dialog, SIGNAL(canceled()),
 	                 &src,   SLOT(cancel()));
 
 	// invoke the encoder...
@@ -430,7 +430,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 
 	delete encoder;
 	if (dialog) {
-	    if (dialog->isCancelled()) {
+	    if (dialog->isCanceled()) {
 		// user really pressed cancel !
 		KMessageBox::error(m_parent_widget,
 		    i18n("The file has been truncated and "\

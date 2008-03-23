@@ -111,7 +111,7 @@ bool AsciiDecoder::decode(QWidget * /* widget */, MultiTrackWriter &dst)
     // read in all remaining data until EOF or user cancel
     qDebug("AsciiDecoder::decode(...)");
     unsigned int linenr = 0;
-    while (!source.atEnd() && !dst.isCancelled()) {
+    while (!source.atEnd() && !dst.isCanceled()) {
 	QString line = source.readLine();
 	qDebug("DATA %5u %s", linenr++, line.toLocal8Bit().data());
 

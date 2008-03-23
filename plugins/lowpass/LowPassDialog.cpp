@@ -16,17 +16,18 @@
  ***************************************************************************/
 
 #include "config.h"
-#include "math.h"
+#include <math.h>
 
-#include <qobject.h>
-#include <qpainter.h>
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qslider.h>
-#include <qwidget.h>
+#include <QObject>
+#include <QPainter>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QWidget>
+
 #include <knuminput.h>
-
 #include <klocale.h>
+
 #include "libkwave/Parser.h"
 #include "libgui/ScaleWidget.h"
 #include "libgui/FrequencyResponseWidget.h"
@@ -36,16 +37,18 @@
 
 //***************************************************************************
 LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
-    :LowPassDlg(parent, 0, true),
-     KwavePluginSetupDialog(),
+    :QDialog(parent), Ui::LowPassDlg(), KwavePluginSetupDialog(),
      m_frequency(3500),
      m_sample_rate(sample_rate), m_filter(0)
 {
+    setupUi(this);
+    setModal(true);
+
     // set maximum frequency to sample rate / 2
     double f_max = sample_rate / 2.0;
 
-    slider->setMaxValue((int)f_max);
-    spinbox->setMaxValue((int)f_max);
+    slider->setMaximum((int)f_max);
+    spinbox->setMaximum((int)f_max);
 
     // initialize the frequency scale widget
     scale_freq->setMinMax(0, (int)f_max);
@@ -166,7 +169,7 @@ void LowPassDialog::listenToggled(bool listen)
 //***************************************************************************
 void LowPassDialog::listenStopped()
 {
-    if (!btListen) btListen->setOn(false);
+    if (!btListen) btListen->setChecked(false);
 }
 
 //***************************************************************************

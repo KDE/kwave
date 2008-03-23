@@ -55,7 +55,7 @@ public slots:
 signals:
 
     /** emitted if cancel was received and user confirmed */
-    void cancelled();
+    void canceled();
 
 private:
 

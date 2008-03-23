@@ -395,7 +395,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
 	// abort if the user pressed cancel
 	// --> this would leave a corrupted file !!!
-	if (src.isCancelled()) break;
+	if (src.isCanceled()) break;
     }
 
     // close the audiofile stuff, we need control over the

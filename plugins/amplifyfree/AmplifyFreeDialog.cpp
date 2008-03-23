@@ -26,8 +26,9 @@
 
 //***************************************************************************
 AmplifyFreeDialog::AmplifyFreeDialog(QWidget *parent)
-    :QDialog(parent), AmplifyFreeDlg()
+    :QDialog(parent), Ui::AmplifyFreeDlg()
 {
+    setupUi(this);
     curveWidget->setMinimumSize(150, 100);
 
     xScale->setMinimumSize(250,  30);

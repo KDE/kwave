@@ -25,7 +25,7 @@
 //***************************************************************************
 MultiTrackReader::MultiTrackReader()
     :Kwave::MultiTrackSource<SampleReader, false>(0,0),
-     m_cancelled(false)
+     m_canceled(false)
 {
 }
 
@@ -34,7 +34,7 @@ MultiTrackReader::MultiTrackReader(SignalManager &signal_manager,
                                    const QList<unsigned int> &track_list,
                                    unsigned int first, unsigned int last)
     :Kwave::MultiTrackSource<SampleReader, false>(0),
-     m_cancelled(false)
+     m_canceled(false)
 {
     const unsigned int count = track_list.count();
     unsigned int index = 0;
@@ -107,7 +107,7 @@ bool MultiTrackReader::insert(unsigned int track, SampleReader *reader)
 //***************************************************************************
 void MultiTrackReader::cancel()
 {
-    m_cancelled = true;
+    m_canceled = true;
 }
 
 //***************************************************************************

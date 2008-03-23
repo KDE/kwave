@@ -256,7 +256,7 @@ void Signal::selectTrack(unsigned int track, bool select)
 //int Signal::getChannelMaximum () {
 //    int max = 0;
 //    for (int i = 0; i < length; i++)
-//	if (max < abs(sample[i])) max = abs(sample[i]);
+//	if (max < qAbs(sample[i])) max = qAbs(sample[i]);
 //
 //    return max;
 //}

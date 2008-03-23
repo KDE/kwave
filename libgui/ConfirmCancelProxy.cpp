@@ -35,7 +35,7 @@ ConfirmCancelProxy::ConfirmCancelProxy(QWidget *widget,
     if (!receiver) return;
 
     if (sender) QObject::connect(sender, signal, this, SLOT(cancel()));
-    QObject::connect(this, SIGNAL(cancelled()), receiver, slot);
+    QObject::connect(this, SIGNAL(canceled()), receiver, slot);
 }
 
 //***************************************************************************
@@ -49,7 +49,7 @@ void ConfirmCancelProxy::cancel()
     if (KMessageBox::questionYesNo(m_widget,
         i18n("Do you really want to abort the current action?"))
         != KMessageBox::Yes) return; // no cancel
-    emit cancelled();
+    emit canceled();
 }
 
 //***************************************************************************

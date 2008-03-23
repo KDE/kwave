@@ -246,7 +246,7 @@ bool AudiofileDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 	}
 
 	// abort if the user pressed cancel
-	if (dst.isCancelled()) break;
+	if (dst.isCanceled()) break;
     }
 
     // return with a valid Signal, even if the user pressed cancel !

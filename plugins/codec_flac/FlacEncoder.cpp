@@ -271,7 +271,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	const FLAC__int32 clip_max =  (1 << bits) - 1;
 
 	unsigned int rest = length;
-	while (rest && len && !src.isCancelled()) {
+	while (rest && len && !src.isCanceled()) {
 	    // limit to rest of signal
 	    if (len > rest) len = rest;
 	    if (in_buffer.size() != len) in_buffer.resize(len);

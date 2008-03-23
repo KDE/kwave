@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <qobject.h>
-#include <qvariant.h>
+#include <QObject>
+#include <QVariant>
 
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveSampleSource.h"

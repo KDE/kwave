@@ -659,7 +659,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/fileinfo/FileInfoDlg.ui			(should be GPL2)
 	plugins/fileinfo/FileInfoPlugin.cpp		GPL2
 	plugins/fileinfo/FileInfoPlugin.h		GPL2
-	plugins/fileinfo/KDatePickerAdapter.h		GPL2
 	plugins/fileinfo/KeywordWidgetBase.ui		(should be GPL2)
 	plugins/fileinfo/KeywordWidget.cpp		GPL2
 	plugins/fileinfo/KeywordWidget.h		GPL2

@@ -88,7 +88,7 @@ void FileInfoPlugin::apply(FileInfo &new_info)
 	    // change the rate only
 	    // fileInfo().setRate(new_rate);
 	} else {
-	    // cancelled -> use old setting
+	    // canceled -> use old setting
 	    new_info.setRate(fileInfo().rate());
 	}
     }

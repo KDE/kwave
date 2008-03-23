@@ -42,6 +42,22 @@ Kwave::FilterPlugin::FilterPlugin(const PluginContext &context)
      m_stop(false), m_listen(false), m_progress(0),
      m_confirm_cancel(0), m_pause(false), m_sink(0)
 {
+    // create a progress dialog for processing mode (not used for pre-listen)
+    m_progress = new QProgressDialog(parentWidget());
+    Q_ASSERT(m_progress);
+    if (m_progress) {
+	m_progress->setModal(true);
+	m_progress->setVisible(false);
+	m_progress->setMinimumDuration(1000);
+	m_progress->setAutoClose(true);
+
+	// use a "proxy" that asks for confirmation of cancel
+	m_confirm_cancel = new ConfirmCancelProxy(m_progress,
+		0, 0, this, SLOT(cancel()));
+	Q_ASSERT(m_confirm_cancel);
+	connect(m_progress,      SIGNAL(canceled()),
+		m_confirm_cancel, SLOT(cancel()));
+    }
 }
 
 //***************************************************************************
@@ -133,35 +149,21 @@ void Kwave::FilterPlugin::run(QStringList params)
 	return;
     }
 
-    // create a progress dialog when in processing (not pre-listen) mode
-    if (!m_listen) {
-	Q_ASSERT(!m_progress);
-	Q_ASSERT(!m_confirm_cancel);
-	m_progress = new QProgressDialog(parentWidget());
-	Q_ASSERT(m_progress);
-	if (m_progress) {
-	    m_progress->setModal(true);
-	    m_progress->setMinimumDuration(1000);
-	    m_progress->setMaximum((last-first+1)*tracks);
-	    m_progress->setAutoClose(true);
-	    m_progress->setValue(0);
-	    m_progress->setLabelText(
-	        i18n("applying '%1' ...", actionName()));
-	    int h = m_progress->sizeHint().height();
-	    int w = m_progress->sizeHint().height();
-	    if (w < 4*h) w = 4*h;
-	    m_progress->setFixedSize(w, h);
+    // set up the progress dialog when in processing (not pre-listen) mode
+    Q_ASSERT(m_progress);
+    Q_ASSERT(m_confirm_cancel);
+    if (!m_listen && m_progress && m_confirm_cancel) {
+	m_progress->setMaximum((last-first+1)*tracks);
+	m_progress->setValue(0);
+	m_progress->setLabelText(
+	    i18n("applying '%1' ...", actionName()));
+	int h = m_progress->sizeHint().height();
+	int w = m_progress->sizeHint().height();
+	if (w < 4*h) w = 4*h;
+	m_progress->setFixedSize(w, h);
 
-	    connect(&source, SIGNAL(progress(unsigned int)),
-	            this,    SLOT(updateProgress(unsigned int)));
-
-	    // use a "proxy" that asks for confirmation of cancel
-	    m_confirm_cancel = new ConfirmCancelProxy(m_progress,
-	            0, 0, this, SLOT(cancel()));
-	    Q_ASSERT(m_confirm_cancel);
-	    connect(m_progress,      SIGNAL(cancelled()),
-	            m_confirm_cancel, SLOT(cancel()));
-	}
+	connect(&source, SIGNAL(progress(unsigned int)),
+		this,    SLOT(updateProgress(unsigned int)));
     }
 
     // force initial update of the filter settings
@@ -227,6 +229,13 @@ void Kwave::FilterPlugin::updateFilter(Kwave::SampleSource * /*filter*/,
                                        bool /*force*/)
 {
     /* default implementation, does nothing */
+}
+
+//***************************************************************************
+int Kwave::FilterPlugin::start(QStringList &params)
+{
+    if (m_progress) m_progress->setVisible(!m_listen);
+    return KwavePlugin::start(params);
 }
 
 //***************************************************************************

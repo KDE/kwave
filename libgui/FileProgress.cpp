@@ -49,7 +49,7 @@ FileProgress::FileProgress(QWidget *parent,
     m_stat_transfer(0),
     m_stat_bytes(0),
     m_time(),
-    m_cancelled(true),
+    m_canceled(true),
     m_last_percent(0),
     m_bits_per_sample(bits),
     m_sample_rate(rate),
@@ -171,8 +171,8 @@ FileProgress::FileProgress(QWidget *parent,
     show();
     fitUrlLabel();
 
-    // now set cancelled to false, this dialog is ready for use
-    m_cancelled = false;
+    // now set canceled to false, this dialog is ready for use
+    m_canceled = false;
 }
 
 //***************************************************************************
@@ -188,7 +188,7 @@ void FileProgress::closeEvent(QCloseEvent *e)
     if (!e) return;
 
     // if not already cancelled -> ask user to confirm
-    if (!m_cancelled) {
+    if (!m_canceled) {
 	if (KMessageBox::warningYesNo(this,
 	    i18n("Do you really want to abort the operation?")) !=
 	    KMessageBox::Yes)
@@ -198,7 +198,7 @@ void FileProgress::closeEvent(QCloseEvent *e)
 	    return;
 	} else {
 	    // user pressed "Yes", he should know what he has done
-	    m_cancelled = true;
+	    m_canceled = true;
 	}
     }
 
@@ -343,7 +343,7 @@ void FileProgress::setLength(unsigned int samples)
 void FileProgress::cancel()
 {
     close();
-    if (m_cancelled) emit cancelled();
+    if (m_canceled) emit canceled();
 }
 
 //***************************************************************************

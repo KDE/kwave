@@ -393,18 +393,13 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	    FileProperty prop = m_property_map[chunk->name()];
 	    unsigned int offset = chunk->dataStart();
 	    unsigned int length = chunk->dataLength();
-	    char *buffer = (char*)malloc(length+1);
-	    Q_ASSERT(buffer);
-	    if (!buffer) continue;
-
+	    QByteArray buffer(length+1, 0x00);
 	    src.seek(offset);
-	    src.read(buffer, length);
+	    src.read(buffer.data(), length);
 	    buffer[length] = 0;
 	    QString value;
 	    value = QString::fromUtf8(buffer);
 	    info().set(prop, value);
-
-	    delete buffer;
 	}
     }
 
@@ -583,7 +578,7 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 	}
 
 	// abort if the user pressed cancel
-	if (dst.isCancelled()) break;
+	if (dst.isCanceled()) break;
     }
 
     // return with a valid Signal, even if the user pressed cancel !

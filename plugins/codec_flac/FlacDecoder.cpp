@@ -134,7 +134,7 @@ Decoder *FlacDecoder::instance()
     }
 
     // at this point we check for a user-cancel
-    return (m_dest->isCancelled()) ?
+    return (m_dest->isCanceled()) ?
 	FLAC__STREAM_DECODER_WRITE_STATUS_ABORT :
 	FLAC__STREAM_DECODER_WRITE_STATUS_CONTINUE;
 }

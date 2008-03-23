@@ -68,7 +68,7 @@ Track::~Track()
 {
     QWriteLocker lock(&m_lock);
 
-    while (m_stripes.count())
+    while (!m_stripes.isEmpty())
 	deleteStripe(m_stripes.last());
 }
 
@@ -153,7 +153,7 @@ unsigned int Track::unlockedLength()
 {
     unsigned int len = 0;
     if (m_stripes.isEmpty()) return 0;
-    Stripe *s = m_stripes.last();
+    Stripe *s = m_stripes.isEmpty() ? 0 : m_stripes.last();
     if (s) len = s->start() + s->length();
     return len;
 }
@@ -396,7 +396,8 @@ void Track::writeSamples(InsertMode mode,
 // 	    qDebug("writeSamples() - Append");
 	    {
 		QWriteLocker _lock(&m_lock);
-		appendAfter(m_stripes.last(), offset, buffer,
+		appendAfter(m_stripes.isEmpty() ? 0 : m_stripes.last(),
+		            offset, buffer,
 		            buf_offset, length);
 	    }
 	    emit sigSamplesInserted(*this, offset, length);
@@ -615,7 +616,7 @@ void Track::writeSamples(InsertMode mode,
 
 	    appendAfter(stripe_before, left, buffer, buf_offset, length);
 	    m_lock.unlock();
-	    if (stripe_before == m_stripes.last())
+	    if (stripe_before == (m_stripes.isEmpty() ? 0 : m_stripes.last()))
 		emit sigSamplesInserted(*this, offset, length);
 	    else
 		emit sigSamplesModified(*this, offset, length);

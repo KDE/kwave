@@ -31,7 +31,7 @@
 
 //***************************************************************************
 MultiTrackWriter::MultiTrackWriter()
-    :Kwave::MultiTrackSink<SampleWriter>(0,0), m_cancelled(false)
+    :Kwave::MultiTrackSink<SampleWriter>(0,0), m_canceled(false)
 {
 }
 
@@ -40,7 +40,7 @@ MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
     const QList<unsigned int> &track_list, InsertMode mode,
     unsigned int left, unsigned int right)
     :Kwave::MultiTrackSink<SampleWriter>(0),
-     m_cancelled(false)
+     m_canceled(false)
 {
     UndoTransactionGuard guard(signal_manager, 0);
 
@@ -66,7 +66,7 @@ MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
 //***************************************************************************
 MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
     InsertMode mode)
-    :Kwave::MultiTrackSink<SampleWriter>(0,0), m_cancelled(false)
+    :Kwave::MultiTrackSink<SampleWriter>(0,0), m_canceled(false)
 {
     QList<unsigned int> tracks = signal_manager.selectedTracks();
     unsigned int left = 0;
@@ -159,7 +159,7 @@ MultiTrackWriter &MultiTrackWriter::operator << (MultiTrackReader &source)
 
 	    // write samples to the target stream
 	    for (y = 0; y < dst_tracks; y++) {
-		if (m_cancelled) break;
+		if (m_canceled) break;
 		*at(y) << out_samples[y];
 	    }
 
@@ -170,7 +170,7 @@ MultiTrackWriter &MultiTrackWriter::operator << (MultiTrackReader &source)
 	unsigned int track;
 	for (track = 0; track < src_tracks; ++track) {
 	    *at(track) << *(source[track]);
-	    if (m_cancelled) break;
+	    if (m_canceled) break;
 	}
     }
 
@@ -201,7 +201,7 @@ void MultiTrackWriter::proceeded()
 //***************************************************************************
 void MultiTrackWriter::cancel()
 {
-    m_cancelled = true;
+    m_canceled = true;
 }
 
 //***************************************************************************

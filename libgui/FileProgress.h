@@ -57,7 +57,7 @@ public:
      * Returns true if the dialog is unusable or the user
      * has pressed the "cancel" button.
      */
-    inline bool isCancelled() { return m_cancelled; };
+    inline bool isCanceled() { return m_canceled; };
 
 signals:
 
@@ -65,7 +65,7 @@ signals:
      * Emitted when the user has pressed the Cancel button and
      * has confirmed with "Yes".
      */
-    void cancelled();
+    void canceled();
 
 public slots:
     /**
@@ -90,7 +90,7 @@ public slots:
 protected slots:
 
     /**
-     * Connected to the "cancel" button to set the "m_cancelled"
+     * Connected to the "cancel" button to set the "m_canceled"
      * flag if the user wants to abort.
      */
     void cancel();
@@ -163,7 +163,7 @@ protected:
     QTime m_time;
 
     /** true if the dialog is unusable or canceled by the user */
-    bool m_cancelled;
+    bool m_canceled;
 
     /** last displayed percent value */
     int m_last_percent;

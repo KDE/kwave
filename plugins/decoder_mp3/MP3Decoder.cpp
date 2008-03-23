@@ -528,7 +528,7 @@ enum mad_flow MP3Decoder::fillInput(struct mad_stream *stream)
     if (!m_source) return MAD_FLOW_STOP;
 
     // check if the user pressed cancel
-    if (m_dest->isCancelled()) return MAD_FLOW_STOP;
+    if (m_dest->isCanceled()) return MAD_FLOW_STOP;
 
     // preserve the remaining bytes from the last pass
     int rest = stream->bufend - stream->next_frame;

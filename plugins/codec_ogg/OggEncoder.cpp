@@ -166,7 +166,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	         "or cancel and choose a different bitrate?").arg(
 	         DEFAULT_BITRATE/1000)) !=
 	    KMessageBox::Continue)
-	    return false; // <- Cancelled
+	    return false; // <- canceled
 
 	bitrate_nominal = DEFAULT_BITRATE;
 	bitrate_lower = -1;
@@ -294,7 +294,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	}
     }
 
-    while (!eos && !src.isCancelled()) {
+    while (!eos && !src.isCanceled()) {
 	if (src.eof()) {
 	    // end of file.  this can be done implicitly in the mainline,
 	    // but it's easier to see here in non-clever fashion.

@@ -17,9 +17,7 @@
 
 #include "config.h"
 #include <math.h>
-#include <sched.h> // for sched_yield()
 
-#include <QApplication>
 #include <QCloseEvent>
 #include <QGridLayout>
 #include <QLabel>
@@ -314,12 +312,6 @@ void FileProgress::setBytePosition(unsigned int pos)
     }
     updateStatistics(rate, rest, pos);
 
-    // as this dialog is modal, we must take care of our events
-    // manually !
-    qApp->processEvents();
-
-    // better be nice to other processes and let them also play a bit :)
-    sched_yield();
 }
 
 //***************************************************************************

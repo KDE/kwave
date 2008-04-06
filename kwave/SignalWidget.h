@@ -285,7 +285,7 @@ private slots:
      * @see Signal::sigTrackInserted
      * @internal
      */
-    void slotTrackInserted(unsigned int index, Track &track);
+    void slotTrackInserted(unsigned int index, Track *track);
 
     /**
      * Connected to the signal's sigTrackDeleted.
@@ -694,11 +694,11 @@ private:
 
 private:
 
-    /** Pixmap used for composition */
+    /** QImage used for composition */
     QImage m_image;
 
-    /** Pixmaps for buffering each layer */
-    QPixmap m_layer[3];
+    /** QImage for buffering each layer */
+    QImage m_layer[3];
 
     /** flags for updating each layer */
     bool m_update_layer[3];

@@ -107,7 +107,7 @@ signals:
      * @param length number of samples inserted
      * @see sigSamplesModified
      */
-    void sigSamplesInserted(Track &src, unsigned int offset,
+    void sigSamplesInserted(Track *src, unsigned int offset,
                             unsigned int length);
 
     /**
@@ -116,7 +116,7 @@ signals:
      * @param offset position from which the data was removed
      * @param length number of samples deleted
      */
-    void sigSamplesDeleted(Track &src, unsigned int offset,
+    void sigSamplesDeleted(Track *src, unsigned int offset,
                            unsigned int length);
 
     /**
@@ -125,7 +125,7 @@ signals:
      * @param offset position from which the data was modified
      * @param length number of samples modified
      */
-    void sigSamplesModified(Track &src, unsigned int offset,
+    void sigSamplesModified(Track *src, unsigned int offset,
                             unsigned int length);
 
     /**

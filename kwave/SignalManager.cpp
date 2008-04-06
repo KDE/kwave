@@ -94,8 +94,8 @@ SignalManager::SignalManager(QWidget *parent)
 {
     // connect to the track's signals
     Signal *sig = &m_signal;
-    connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track &)),
-            this, SLOT(slotTrackInserted(unsigned int, Track &)));
+    connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track *)),
+            this, SLOT(slotTrackInserted(unsigned int, Track *)));
     connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),
             this, SLOT(slotTrackDeleted(unsigned int)));
     connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, unsigned int,
@@ -784,7 +784,7 @@ void SignalManager::deleteTrack(unsigned int index)
 
 //***************************************************************************
 void SignalManager::slotTrackInserted(unsigned int index,
-	Track &track)
+	Track *track)
 {
     setModified(true);
     emit sigTrackInserted(index, track);

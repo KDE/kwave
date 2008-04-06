@@ -95,22 +95,22 @@ Track *Signal::insertTrack(unsigned int index, unsigned int length)
 	}
 
 	// connect to the track's signals
-	connect(t, SIGNAL(sigSamplesDeleted(Track&, unsigned int,
+	connect(t, SIGNAL(sigSamplesDeleted(Track *, unsigned int,
 	    unsigned int)),
-	    this, SLOT(slotSamplesDeleted(Track&, unsigned int,
+	    this, SLOT(slotSamplesDeleted(Track *, unsigned int,
 	    unsigned int)));
-	connect(t, SIGNAL(sigSamplesInserted(Track&, unsigned int,
+	connect(t, SIGNAL(sigSamplesInserted(Track *, unsigned int,
 	    unsigned int)),
-	    this, SLOT(slotSamplesInserted(Track&, unsigned int,
+	    this, SLOT(slotSamplesInserted(Track *, unsigned int,
 	    unsigned int)));
-	connect(t, SIGNAL(sigSamplesModified(Track&, unsigned int,
+	connect(t, SIGNAL(sigSamplesModified(Track *, unsigned int,
 	    unsigned int)),
-	    this, SLOT(slotSamplesModified(Track&, unsigned int,
+	    this, SLOT(slotSamplesModified(Track *, unsigned int,
 	    unsigned int)));
     }
 
     // track has been inserted at the end
-    if (t) emit sigTrackInserted(track_nr, *t);
+    if (t) emit sigTrackInserted(track_nr, t);
     return t;
 }
 
@@ -508,17 +508,20 @@ void Signal::selectTrack(unsigned int track, bool select)
 //    }
 
 //***************************************************************************
-unsigned int Signal::trackIndex(const Track &track)
+unsigned int Signal::trackIndex(const Track *track)
 {
     QReadLocker lock(&m_lock_tracks);
 
-    int index = m_tracks.indexOf(const_cast<Track *>(&track));
+    Q_ASSERT(m_tracks.contains(const_cast<Track *>(track)));
+    if (m_tracks.contains(const_cast<Track *>(track)))
+	return m_tracks.count();
+    int index = m_tracks.indexOf(const_cast<Track *>(track));
     Q_ASSERT(index >= 0);
     return (index >= 0) ? index : m_tracks.count();
 }
 
 //***************************************************************************
-void Signal::slotSamplesInserted(Track &src, unsigned int offset,
+void Signal::slotSamplesInserted(Track *src, unsigned int offset,
                                  unsigned int length)
 {
     unsigned int track = trackIndex(src);
@@ -526,7 +529,7 @@ void Signal::slotSamplesInserted(Track &src, unsigned int offset,
 }
 
 //***************************************************************************
-void Signal::slotSamplesDeleted(Track &src, unsigned int offset,
+void Signal::slotSamplesDeleted(Track *src, unsigned int offset,
                                 unsigned int length)
 {
     unsigned int track = trackIndex(src);
@@ -534,7 +537,7 @@ void Signal::slotSamplesDeleted(Track &src, unsigned int offset,
 }
 
 //***************************************************************************
-void Signal::slotSamplesModified(Track &src, unsigned int offset,
+void Signal::slotSamplesModified(Track *src, unsigned int offset,
                                  unsigned int length)
 {
     unsigned int track = trackIndex(src);

@@ -43,8 +43,8 @@ OverViewCache::OverViewCache(SignalManager &signal, unsigned int src_offset,
     // connect to the signal manager
     SignalManager *sig = &signal;
     Q_ASSERT(sig);
-    connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track &)),
-            this, SLOT(slotTrackInserted(unsigned int, Track &)));
+    connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track *)),
+            this, SLOT(slotTrackInserted(unsigned int, Track *)));
     connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),
             this, SLOT(slotTrackDeleted(unsigned int)));
     connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, unsigned int,
@@ -65,7 +65,7 @@ OverViewCache::OverViewCache(SignalManager &signal, unsigned int src_offset,
 	Track t;
 	foreach (unsigned int track, *src_tracks) {
 	    m_src_deleted.append(track);
-	    slotTrackInserted(track, t);
+	    slotTrackInserted(track, &t);
 	}
     }
 }
@@ -178,8 +178,10 @@ void OverViewCache::invalidateCache(unsigned int track, unsigned int first,
                                     unsigned int last)
 {
 //  qDebug("OverViewCache::invalidateCache(%u, %u, %u)",track,first,last);
+    if (m_state.isEmpty()) return;
     int cache_track = trackIndex(track);
     if (cache_track < 0) return;
+    if (cache_track >= m_state.count()) return;
 
     QVector<CacheState> &state = m_state[cache_track];
 
@@ -191,7 +193,7 @@ void OverViewCache::invalidateCache(unsigned int track, unsigned int first,
 }
 
 //***************************************************************************
-void OverViewCache::slotTrackInserted(unsigned int index, Track &)
+void OverViewCache::slotTrackInserted(unsigned int index, Track *)
 {
     QMutexLocker lock(&m_lock);
 

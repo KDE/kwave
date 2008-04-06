@@ -71,14 +71,14 @@ TrackPixmap::TrackPixmap(Track &track)
     m_colors(color_set_normal)
 {
     // connect all the notification signals of the track
-    connect(&track, SIGNAL(sigSamplesInserted(Track&,unsigned int,
-	unsigned int)), this, SLOT(slotSamplesInserted(Track&,
+    connect(&track, SIGNAL(sigSamplesInserted(Track *,unsigned int,
+	unsigned int)), this, SLOT(slotSamplesInserted(Track *,
 	unsigned int, unsigned int)));
-    connect(&track, SIGNAL(sigSamplesDeleted(Track&,unsigned int,
-	unsigned int)), this, SLOT(slotSamplesDeleted(Track&,
+    connect(&track, SIGNAL(sigSamplesDeleted(Track *,unsigned int,
+	unsigned int)), this, SLOT(slotSamplesDeleted(Track *,
 	unsigned int, unsigned int)));
-    connect(&track, SIGNAL(sigSamplesModified(Track&,unsigned int,
-	unsigned int)), this, SLOT(slotSamplesModified(Track&,
+    connect(&track, SIGNAL(sigSamplesModified(Track *,unsigned int,
+	unsigned int)), this, SLOT(slotSamplesModified(Track *,
 	unsigned int, unsigned int)));
     connect(&track, SIGNAL(sigSelectionChanged()),
             this, SLOT(selectionChanged()));
@@ -709,7 +709,7 @@ void TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
 }
 
 //***************************************************************************
-void TrackPixmap::slotSamplesInserted(Track &, unsigned int offset,
+void TrackPixmap::slotSamplesInserted(Track *, unsigned int offset,
                                       unsigned int length)
 {
     {
@@ -734,7 +734,7 @@ void TrackPixmap::slotSamplesInserted(Track &, unsigned int offset,
 }
 
 //***************************************************************************
-void TrackPixmap::slotSamplesDeleted(Track &, unsigned int offset,
+void TrackPixmap::slotSamplesDeleted(Track *, unsigned int offset,
                                      unsigned int length)
 {
     {
@@ -759,7 +759,7 @@ void TrackPixmap::slotSamplesDeleted(Track &, unsigned int offset,
 }
 
 //***************************************************************************
-void TrackPixmap::slotSamplesModified(Track &, unsigned int offset,
+void TrackPixmap::slotSamplesModified(Track *, unsigned int offset,
                                       unsigned int length)
 {
     {

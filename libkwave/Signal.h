@@ -162,7 +162,7 @@ signals:
      * @param index position of the new track [0...tracks()-1]
      * @param track reference to the new track
      */
-    void sigTrackInserted(unsigned int index, Track &track);
+    void sigTrackInserted(unsigned int index, Track *track);
 
     /**
      * Signals that a track has been deleted.
@@ -210,7 +210,7 @@ private slots:
      * @see Track::sigSamplesInserted
      * @internal
      */
-    void slotSamplesInserted(Track &src, unsigned int offset,
+    void slotSamplesInserted(Track *src, unsigned int offset,
                              unsigned int length);
 
     /**
@@ -221,7 +221,7 @@ private slots:
      * @see Track::sigSamplesDeleted
      * @internal
      */
-    void slotSamplesDeleted(Track &src, unsigned int offset,
+    void slotSamplesDeleted(Track *src, unsigned int offset,
                             unsigned int length);
 
     /**
@@ -232,7 +232,7 @@ private slots:
      * @see Track::sigSamplesModified
      * @internal
      */
-    void slotSamplesModified(Track &src, unsigned int offset,
+    void slotSamplesModified(Track *src, unsigned int offset,
                              unsigned int length);
 
 private:
@@ -242,7 +242,7 @@ private:
      * @param track reference to the trac to be looked up
      * @returns index of the track [0...tracks()-1] or tracks() if not found
      */
-    unsigned int trackIndex(const Track &track);
+    unsigned int trackIndex(const Track *track);
 
 //    //signal modifying functions
 //    void replaceStutter (int, int);

@@ -346,7 +346,7 @@ signals:
      * @param index position of the new track [0...tracks()-1]
      * @param track reference to the new track
      */
-    void sigTrackInserted(unsigned int index, Track &track);
+    void sigTrackInserted(unsigned int index, Track *track);
 
     /**
      * Signals that a track has been deleted.
@@ -440,7 +440,7 @@ private slots:
      * @see Signal::sigTrackInserted
      * @internal
      */
-    void slotTrackInserted(unsigned int index, Track &track);
+    void slotTrackInserted(unsigned int index, Track *track);
 
     /**
      * Connected to the signal's sigTrackInserted.

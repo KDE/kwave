@@ -138,7 +138,7 @@ SignalWidget::SignalWidget(QWidget *parent)
 //    qDebug("SignalWidget::SignalWidget()");
 
     for (int i=0; i < 3; i++) {
-	m_layer[i] = 0;
+	m_layer[i] = QImage();
 	m_update_layer[i] = true;
 	m_layer_rop[i] = QPainter::CompositionMode_Source;
     }
@@ -150,8 +150,8 @@ SignalWidget::SignalWidget(QWidget *parent)
     // connect to the signal manager's signals
     SignalManager *sig = &m_signal_manager;
 
-    connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track &)),
-            this, SLOT(slotTrackInserted(unsigned int, Track &)));
+    connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track *)),
+            this, SLOT(slotTrackInserted(unsigned int, Track *)));
     connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),
             this, SLOT(slotTrackDeleted(unsigned int)));
 
@@ -241,7 +241,7 @@ SignalWidget::~SignalWidget()
     m_selection = 0;
 
     for (int i=0; i < 3; i++)
-	m_layer[i] = QPixmap();
+	m_layer[i] = QImage();
 
 }
 
@@ -1583,7 +1583,8 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //	qDebug("SignalWidget::paintEvent(): window size changed from "
 //	      "%dx%d to %dx%d",lastWidth,lastHeight,m_width,m_height);
 	for (int i=0; i<3; i++) {
-	    m_layer[i] = QPixmap(m_width, m_height);
+	    m_layer[i] = QImage(m_width, m_height,
+	        QImage::Format_ARGB32_Premultiplied);
 	    m_update_layer[i] = true;
 	}
 	m_image = QImage(m_width, m_height,
@@ -1691,7 +1692,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
     p.fillRect(0, 0, m_width, m_height, Qt::black);
     for (int i=0; i < 3; i++) {
 	p.setCompositionMode(m_layer_rop[i]);
-	p.drawPixmap(0, 0, m_layer[i]);
+	p.drawImage(0, 0, m_layer[i]);
     }
     m_last_playpointer = -2;
 
@@ -2270,10 +2271,13 @@ void SignalWidget::updatePlaybackPointer(unsigned int)
 }
 
 //***************************************************************************
-void SignalWidget::slotTrackInserted(unsigned int index, Track &track)
+void SignalWidget::slotTrackInserted(unsigned int index, Track *track)
 {
+    Q_ASSERT(track);
+    if (!track) return;
+
     // insert a new track into the track pixmap list
-    TrackPixmap *pix = new TrackPixmap(track);
+    TrackPixmap *pix = new TrackPixmap(*track);
     Q_ASSERT(pix);
     m_track_pixmaps.insert(index, pix);
     if (!pix) return;
@@ -2293,9 +2297,9 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track &track)
     connect(pix, SIGNAL(sigModified()),
             this, SLOT(refreshSignalLayer()));
 
-    connect(&track, SIGNAL(sigSelectionChanged()),
+    connect(track, SIGNAL(sigSelectionChanged()),
 	    this, SIGNAL(sigTrackSelectionChanged()));
-    connect(&track, SIGNAL(sigSelectionChanged()),
+    connect(track, SIGNAL(sigSelectionChanged()),
             this, SLOT(refreshSignalLayer()));
 }
 

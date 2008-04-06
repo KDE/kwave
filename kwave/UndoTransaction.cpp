@@ -41,8 +41,11 @@ UndoTransaction::~UndoTransaction()
 unsigned int UndoTransaction::undoSize()
 {
     unsigned int s = 0;
-    foreach (UndoAction *undo, *this)
+    QListIterator<UndoAction *> it(*this);
+    while (it.hasNext()) {
+	UndoAction *undo = it.next();
 	if (undo) s += undo->undoSize();
+    }
     return s;
 }
 
@@ -50,8 +53,11 @@ unsigned int UndoTransaction::undoSize()
 unsigned int UndoTransaction::redoSize()
 {
     unsigned int s = 0;
-    foreach (UndoAction *undo, *this)
+    QListIterator<UndoAction *> it(*this);
+    while (it.hasNext()) {
+	UndoAction *undo = it.next();
 	if (undo) s += undo->redoSize();
+    }
     return s;
 }
 
@@ -62,7 +68,9 @@ QString UndoTransaction::description()
     if (m_description.length()) return m_description;
 
     QString str("");
-    foreach (UndoAction *undo, *this) {
+    QListIterator<UndoAction *> it(*this);
+    while (it.hasNext()) {
+	UndoAction *undo = it.next();
 	if (undo) continue;
 	QString d = undo->description();
 

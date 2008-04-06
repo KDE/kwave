@@ -109,25 +109,22 @@ PluginManager::~PluginManager()
     this->sync();
 
     // release all unique plugins
-    PluginListMutableIterator itu(m_unique_plugins);
-    for (itu.toBack() ; itu.hasPrevious(); ) {
-	KwavePluginPointer p = itu.previous();
+    while (!m_unique_plugins.isEmpty()) {
+	KwavePluginPointer p = m_unique_plugins.takeLast();
 	Q_ASSERT(p && p->isUnique());
 	if (p && p->isUnique()) p->release();
     }
 
     // release all own persistent plugins
-    PluginListMutableIterator itp(m_loaded_plugins);
-    for (itp.toBack() ; itp.hasPrevious(); ) {
-	KwavePluginPointer p = itp.previous();
+    while (!m_loaded_plugins.isEmpty()) {
+	KwavePluginPointer p = m_loaded_plugins.takeLast();
 	Q_ASSERT(p);
 	if (p && p->isPersistent()) p->release();
     }
 
     // release all own plugins that are left
-    PluginListMutableIterator it(m_loaded_plugins);
-    for (it.toBack() ; it.hasPrevious(); ) {
-	KwavePluginPointer p = it.previous();
+    while (!m_loaded_plugins.isEmpty()) {
+	KwavePluginPointer p = m_loaded_plugins.takeLast();
 	Q_ASSERT(p);
 	if (p) p->release();
     }
@@ -374,7 +371,6 @@ bool PluginManager::onePluginRunning()
 void PluginManager::sync()
 {
     while (onePluginRunning()) {
-	qApp->processEvents();
 	pthread_yield();
     }
 }

@@ -123,7 +123,6 @@ ENDIF (CXX_HAVE_PIC AND C_HAVE_PIC)
 
 #############################################################################
 
-LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/mt)
 LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libgui)
 LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libkwave)
 
@@ -142,7 +141,7 @@ MESSAGE(STATUS "Found Qt4 libraries in ${QT_LIBRARY_DIR}")
 MESSAGE(STATUS "Found Qt4 header files in ${QT_INCLUDE_DIR}")
 
 #############################################################################
-### KDE 3 support                                                         ###
+### KDE 4 support                                                         ###
 
 SET(KDE4_ENABLE_FPIE ON)
 

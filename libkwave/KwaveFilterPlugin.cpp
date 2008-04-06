@@ -19,6 +19,7 @@
 #include <errno.h>
 #include <unistd.h>
 
+#include <QApplication>
 #include <QDialog>
 #include <QProgressDialog>
 #include <QStringList>
@@ -42,22 +43,6 @@ Kwave::FilterPlugin::FilterPlugin(const PluginContext &context)
      m_stop(false), m_listen(false), m_progress(0),
      m_confirm_cancel(0), m_pause(false), m_sink(0)
 {
-    // create a progress dialog for processing mode (not used for pre-listen)
-    m_progress = new QProgressDialog(parentWidget());
-    Q_ASSERT(m_progress);
-    if (m_progress) {
-	m_progress->setModal(true);
-	m_progress->setVisible(false);
-	m_progress->setMinimumDuration(1000);
-	m_progress->setAutoClose(true);
-
-	// use a "proxy" that asks for confirmation of cancel
-	m_confirm_cancel = new ConfirmCancelProxy(m_progress,
-		0, 0, this, SLOT(cancel()));
-	Q_ASSERT(m_confirm_cancel);
-	connect(m_progress,      SIGNAL(canceled()),
-		m_confirm_cancel, SLOT(cancel()));
-    }
 }
 
 //***************************************************************************
@@ -150,20 +135,10 @@ void Kwave::FilterPlugin::run(QStringList params)
     }
 
     // set up the progress dialog when in processing (not pre-listen) mode
-    Q_ASSERT(m_progress);
-    Q_ASSERT(m_confirm_cancel);
     if (!m_listen && m_progress && m_confirm_cancel) {
-	m_progress->setMaximum((last-first+1)*tracks);
-	m_progress->setValue(0);
-	m_progress->setLabelText(
-	    i18n("applying '%1' ...", actionName()));
-	int h = m_progress->sizeHint().height();
-	int w = m_progress->sizeHint().height();
-	if (w < 4*h) w = 4*h;
-	m_progress->setFixedSize(w, h);
-
 	connect(&source, SIGNAL(progress(unsigned int)),
-		this,    SLOT(updateProgress(unsigned int)));
+		this,    SLOT(updateProgress(unsigned int)),
+		Qt::BlockingQueuedConnection);
     }
 
     // force initial update of the filter settings
@@ -215,7 +190,8 @@ void Kwave::FilterPlugin::run(QStringList params)
 //***************************************************************************
 void Kwave::FilterPlugin::updateProgress(unsigned int progress)
 {
-    m_progress->setValue(progress);
+    Q_ASSERT(m_progress);
+    if (m_progress) m_progress->setValue(progress);
 }
 
 //***************************************************************************
@@ -234,7 +210,43 @@ void Kwave::FilterPlugin::updateFilter(Kwave::SampleSource * /*filter*/,
 //***************************************************************************
 int Kwave::FilterPlugin::start(QStringList &params)
 {
-    if (m_progress) m_progress->setVisible(!m_listen);
+    Q_ASSERT(!m_progress);
+    Q_ASSERT(!m_confirm_cancel);
+
+    // create a progress dialog for processing mode (not used for pre-listen)
+    if (!m_listen) {
+	m_progress = new QProgressDialog(parentWidget());
+	Q_ASSERT(m_progress);
+    }
+
+    // set up the progress dialog when in processing (not pre-listen) mode
+    if (!m_listen && m_progress) {
+	unsigned int first, last;
+	unsigned int tracks = selectedTracks().count();
+
+	selection(&first, &last, true);
+	m_progress->setModal(true);
+	m_progress->setVisible(false);
+	m_progress->setMinimumDuration(1000);
+	m_progress->setAutoClose(true);
+	m_progress->setMaximum((last-first+1)*tracks);
+	m_progress->setValue(0);
+	m_progress->setLabelText(
+	    i18n("applying '%1' ...", actionName()));
+	int h = m_progress->sizeHint().height();
+	int w = m_progress->sizeHint().height();
+	if (w < 4*h) w = 4*h;
+	m_progress->setFixedSize(w, h);
+
+	// use a "proxy" that asks for confirmation of cancel
+	m_confirm_cancel = new ConfirmCancelProxy(m_progress,
+		0, 0, this, SLOT(cancel()));
+	Q_ASSERT(m_confirm_cancel);
+	connect(m_progress,      SIGNAL(canceled()),
+		m_confirm_cancel, SLOT(cancel()));
+	m_progress->setVisible(true);
+    }
+
     return KwavePlugin::start(params);
 }
 
@@ -242,7 +254,14 @@ int Kwave::FilterPlugin::start(QStringList &params)
 int Kwave::FilterPlugin::stop()
 {
     m_stop = true;
-    return KwavePlugin::stop();
+    int result = KwavePlugin::stop();
+
+    if (m_confirm_cancel) delete m_confirm_cancel;
+    if (m_progress)       delete m_progress;
+    m_confirm_cancel = 0;
+    m_progress = 0;
+
+    return result;
 }
 
 //***************************************************************************

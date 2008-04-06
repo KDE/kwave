@@ -1,8 +1,8 @@
 /***************************************************************************
-                  mt/Thread.h  -  Representation of a POSIX thread
+    libkwave/PluginWorkerThread.h  -  worker thread for Kwave plugins
                              -------------------
-    begin                : Fri Sep 15 2000
-    copyright            : (C) 2000 by Thomas Eschenbacher
+    begin                : Sun Apr 06 2008
+    copyright            : (C) 2008 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -15,61 +15,86 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _THREAD_H_
-#define _THREAD_H_
+#ifndef _PLUGIN_WORKER_THREAD_H_
+#define _PLUGIN_WORKER_THREAD_H_
 
 #include "config.h"
+#include <pthread.h>
 
 #include <QMutex>
 #include <QObject>
+#include <QStringList>
 #include <QThread>
 
-class Thread : public QThread
-{
-    Q_OBJECT
-public:
+class KwavePlugin;
 
-    /** Constructor */
-    Thread(QObject *parent = 0);
+namespace Kwave {
 
-    /** Destructor, calls stop() if the thread is still running. */
-    virtual ~Thread();
+    class PluginWorkerThread : public QThread
+    {
+	Q_OBJECT
+    public:
 
-    /** Starts the thread's execution. */
-    virtual void start();
+	/** Constructor */
+	PluginWorkerThread(KwavePlugin *plugin, QStringList params);
 
-    /**
-     * Stops the thread execution. Please note that you <b>MUST</b> call
-     * this function at the end if you derived a class from this one.
-     * @param timeout the timeout in milliseconds, default = 10s
-     * @return zero if successful or an error code if failed
-     * @see errno.h
-     */
-    virtual int stop(unsigned int timeout = 10000);
+	/** Destructor, calls stop() if the thread is still running. */
+	virtual ~PluginWorkerThread();
 
-    /**
-     * The "run()" function of the thread. This is the function you
-     * should overwrite to perform your thread's action.
-     */
-    virtual void run() = 0;
+	/** Starts the thread's execution. */
+	virtual void start();
 
-    /**
-     * Returns true if the thread should stop. Should be polled
-     * by the thread's run() function to wait for a termination
-     * signal.
-     */
-    bool shouldStop();
+	/**
+	 * Stops the thread execution. Please note that you <b>MUST</b> call
+	 * this function at the end if you derived a class from this one.
+	 * @param timeout the timeout in milliseconds, default = 10s
+	 * @return zero if successful or an error code if failed
+	 * @see errno.h
+	 */
+	virtual int stop(unsigned int timeout = 10000);
 
-private:
+	/**
+	 * A wrapper for the run() function, calls the run(...) function
+	 * of m_plugin with the parameters stored in m_params.
+	 */
+	virtual void run();
 
-    /** Mutex to control access to the thread itself */
-    QMutex m_lock;
+	/**
+	* Returns true if the thread should stop. Should be polled
+	* by the thread's run() function to wait for a termination
+	* signal.
+	*/
+	bool shouldStop();
 
-    /** set to signal the thread that it should stop */
-    bool m_should_stop;
+    private:
 
-};
+	/** pointer to the Kwave plugin that has a run() function */
+	KwavePlugin *m_plugin;
 
-#endif /* _THREAD_H_ */
+	/** parameter list passed to the m_plugin's run() function */
+	QStringList m_params;
 
-/* end of mt/Thread.h */
+	/** Mutex to control access to the thread itself */
+	QMutex m_lock;
+
+	/** Mutex for protecting SIGHUP <-> thread exit */
+	QMutex m_lock_sighup;
+
+	/** set to signal the thread that it should stop */
+	bool m_should_stop;
+
+	/**
+	 * POSIX compatible thread ID of the worker thread.
+	 * only needed and only valid while the thread is running.
+	 * (needs a POSIX 1003.1-2001 system libc)
+	 */
+	pthread_t m_tid;
+
+	/** POSIX compatible thread ID of the owner thread. */
+	pthread_t m_owner_tid;
+
+    };
+
+}
+
+#endif /* _PLUGIN_WORKER_THREAD_H_ */

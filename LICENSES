@@ -84,8 +84,6 @@ issue #2: license of some files is unknown or problematic / author known
 ------------------------------------------------------------------------
 
 #	kwave/pics/kwave-splash.png			??? UNKNOWN ??? / Gilles Caulier
-#	mt/Asynchronous_Object.h			??? UNKNOWN ??? / Oliver M. Kellogg <Oliver.Kellogg@vs.dasa.de>
-#	mt/Thread.cpp					??? / Oliver M. Kellogg <Oliver.Kellogg@vs.dasa.de>
 
 issue #3: some files have neither license nor author
 ----------------------------------------------------
@@ -512,6 +510,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/PlaybackDeviceFactory.h		GPL2
 	libkwave/PlayBackDevice.h			GPL2
 	libkwave/PluginContext.h			GPL2
+	libkwave/PluginWorkerThread.h			GPL2
+	libkwave/PluginWorkerThread.cpp			GPL2
 	libkwave/ppcasm_string.h			GPL2 / Paul Mackerras
 	libkwave/ppcasm_string.S			GPL2 / Paul Mackerras
 	libkwave/ppc_asm.tmpl				GPL2 / Paul Mackerras
@@ -541,11 +541,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/VirtualAudioFile.h			GPL2
 	libkwave/WindowFunction.cpp			GPL2
 	libkwave/WindowFunction.h			GPL2
-
-#	mt/Asynchronous_Object.h			??? / Oliver M. Kellogg <Oliver.Kellogg@vs.dasa.de>
-	mt/CMakeLists.txt				GPL2
-#	mt/Thread.cpp					??? / Oliver M. Kellogg <Oliver.Kellogg@vs.dasa.de>
-	mt/Thread.h					GPL2
 
 	plugins/CMakeLists.txt				GPL2
 

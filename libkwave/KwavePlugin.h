@@ -23,9 +23,9 @@
 #include <QMutex>
 #include <QObject>
 #include <QString>
+#include <QThread>
 #include <QVector>
 
-#include "mt/Asynchronous_Object.h"
 #include "libkwave/PluginContext.h"
 
 class FileInfo;
@@ -37,6 +37,7 @@ class SampleReader;
 class SignalManager;
 class TopWidget;
 class QStringList;
+namespace Kwave { class PluginWorkerThread; };
 
 #define KWAVE_PLUGIN(class_name,plugin_name,author_name) \
     extern "C" const char *name = plugin_name; \
@@ -332,7 +333,7 @@ private:
     /**
      * Thread that executes the run() member function.
      */
-    Asynchronous_Object_with_1_arg<KwavePlugin, QStringList> *m_thread;
+    Kwave::PluginWorkerThread *m_thread;
 
     /** Mutex for control over the thread */
     QMutex m_thread_lock;

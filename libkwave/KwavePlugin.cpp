@@ -30,8 +30,6 @@
 #include <kglobal.h>
 #include <klocale.h>
 
-#include "mt/Thread.h"
-
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
@@ -40,6 +38,7 @@
 #include "libkwave/Signal.h"
 #include "libkwave/Track.h"
 #include "libkwave/PluginContext.h"
+#include "libkwave/PluginWorkerThread.h"
 
 #include "kwave/PluginManager.h"
 #include "kwave/TopWidget.h"
@@ -86,10 +85,10 @@ KwavePlugin::~KwavePlugin()
     {
 	QMutexLocker lock(&m_thread_lock);
 	if (m_thread) {
-	    if (m_thread->running()) m_thread->wait(5000);
-	    if (m_thread->running()) m_thread->stop();
-	    if (m_thread->running()) m_thread->wait(1000);
-	    if (m_thread->running()) {
+	    if (m_thread->isRunning()) m_thread->wait(5000);
+	    if (m_thread->isRunning()) m_thread->stop();
+	    if (m_thread->isRunning()) m_thread->wait(1000);
+	    if (m_thread->isRunning()) {
 		// unable to stop the thread
 		qWarning("KwavePlugin::stop(): stale thread !");
 	    }
@@ -140,8 +139,8 @@ int KwavePlugin::start(QStringList &)
 //***************************************************************************
 int KwavePlugin::stop()
 {
-    if (m_thread && m_thread->running() &&
-	(pthread_self() == m_thread->threadID())) {
+    if (m_thread && m_thread->isRunning() &&
+	(QThread::currentThread() == m_thread)) {
 	qWarning("KwavePlugin::stop(): plugin '%s' called stop() from "\
 	         "within it's own worker thread (from run() ?). "\
 	         "This would produce a deadlock, dear %s, PLEASE FIX THIS !",
@@ -149,8 +148,8 @@ int KwavePlugin::stop()
 		 author().toLocal8Bit().data());
 
 #ifdef DEBUG
-	qDebug("pthread_self()=%08X, tid=%08X", (unsigned int)pthread_self(),
-	      (unsigned int)m_thread->threadID());
+	qDebug("pthread_self()=%p, tid=%p",
+	       QThread::currentThread(), m_thread);
 	void *buf[256];
 	size_t n = backtrace(buf, 256);
 	backtrace_symbols_fd(buf, n, 2);
@@ -161,10 +160,10 @@ int KwavePlugin::stop()
     {
 	QMutexLocker lock(&m_thread_lock);
 	if (m_thread) {
-	    if (m_thread->running()) m_thread->wait(5000);
-	    if (m_thread->running()) m_thread->stop();
-	    if (m_thread->running()) m_thread->wait(1000);
-	    if (m_thread->running()) {
+	    if (m_thread->isRunning()) m_thread->wait(5000);
+	    if (m_thread->isRunning()) m_thread->stop();
+	    if (m_thread->isRunning()) m_thread->wait(1000);
+	    if (m_thread->isRunning()) {
 		// unable to stop the thread
 		qWarning("KwavePlugin::stop(): stale thread !");
 	    }
@@ -180,8 +179,7 @@ int KwavePlugin::execute(QStringList &params)
 {
     QMutexLocker lock(&m_thread_lock);
 
-    m_thread = new Asynchronous_Object_with_1_arg<KwavePlugin, QStringList>(
-	this, &KwavePlugin::run_wrapper,params);
+    m_thread = new Kwave::PluginWorkerThread(this, params);
     Q_ASSERT(m_thread);
     if (!m_thread) return -ENOMEM;
 
@@ -194,7 +192,7 @@ int KwavePlugin::execute(QStringList &params)
 //***************************************************************************
 bool KwavePlugin::isRunning()
 {
-    return (m_thread) && m_thread->running();
+    return (m_thread) && m_thread->isRunning();
 }
 
 //***************************************************************************
@@ -221,8 +219,8 @@ void KwavePlugin::run_wrapper(QStringList params)
 void KwavePlugin::close()
 {
     // only call stop() if we are NOT in the worker thread / run function !
-    if (m_thread && m_thread->running() &&
-        (pthread_self() != m_thread->threadID()) )
+    if (m_thread && m_thread->isRunning() &&
+        (QThread::currentThread() != m_thread) )
     {
 	stop();
     }

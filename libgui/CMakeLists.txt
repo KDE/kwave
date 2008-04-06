@@ -56,7 +56,7 @@ QT4_AUTOMOC(${libkwavegui_LIB_SRCS})
 KDE4_ADD_LIBRARY(libkwavegui SHARED ${libkwavegui_LIB_SRCS})
 
 ADD_DEPENDENCIES(libkwavegui libkwave)
-TARGET_LINK_LIBRARIES(libkwavegui kwavemt ${QT_AND_KDECORE_LIBS})
+TARGET_LINK_LIBRARIES(libkwavegui ${QT_AND_KDECORE_LIBS})
 SET_TARGET_PROPERTIES(libkwavegui PROPERTIES OUTPUT_NAME "kwavegui")
 SET_TARGET_PROPERTIES(libkwavegui PROPERTIES LINK_FLAGS
     "-Wl,--export-dynamic")

@@ -54,54 +54,43 @@
 #endif
 
 /** lock for protecting SIGHUP <-> thread exit */
-static QMutex g_lock_sighup;
+// static QMutex g_lock_sighup;
 
 //***************************************************************************
-extern "C" void _dummy_SIGHUP_handler(int)
-{
-    printf("\r\n--- SIGHUP ---\r\n");
-}
+// extern "C" void _dummy_SIGHUP_handler(int)
+// {
+//     printf("\r\n--- SIGHUP ---\r\n");
+// }
 
 //***************************************************************************
 /**
  * C wrapper function for Thread::thread_adapter.
  * @internal
  */
-extern "C" void *C_thread_adapter(void* arg)
-{
-    Thread *thread = (Thread *)arg;
-    Q_CHECK_PTR(thread);
-    if (!thread) return 0;
-
-    /* install handler for SIGHUP */
-    sighandler_t old_handler = signal(SIGHUP, _dummy_SIGHUP_handler);
-
-    /* call the thread's function through a C++ adapter */
-    void *result = thread->thread_adapter(arg);
-
-    /* restore previous signal handler */
-    old_handler = signal(SIGHUP, old_handler);
-
-    g_lock_sighup.unlock();
-    return result;
-}
+// extern "C" void *C_thread_adapter(void* arg)
+// {
+//     Thread *thread = (Thread *)arg;
+//     Q_CHECK_PTR(thread);
+//     if (!thread) return 0;
+//
+//     /* install handler for SIGHUP */
+//     sighandler_t old_handler = signal(SIGHUP, _dummy_SIGHUP_handler);
+//
+//     /* call the thread's function through a C++ adapter */
+//     void *result = thread->thread_adapter(arg);
+//
+//     /* restore previous signal handler */
+//     old_handler = signal(SIGHUP, old_handler);
+//
+//     g_lock_sighup.unlock();
+//     return result;
+// }
 
 //***************************************************************************
-Thread::Thread(int */*grpid*/, const long /*flags*/)
-    :QObject(), m_tid((pthread_t)-1), m_lock(),
-    m_thread_running(), m_should_stop(false)
+Thread::Thread(QObject *parent)
+    :QThread(parent), m_should_stop(false)
 {
     QMutexLocker lock(&m_lock);
-    int res;
-    res = pthread_attr_init(&m_attr);
-    if (res)
-        qWarning("Thread::Thread(): initializing thread attributes failed: %s",
-	strerror(res));
-
-    res = pthread_attr_setdetachstate(&m_attr, PTHREAD_CREATE_DETACHED);
-    if (res)
-	qWarning("Thread::Thread(): setting thread detach state failed: %s",
-	strerror(res));
 }
 
 //***************************************************************************
@@ -114,45 +103,17 @@ Thread::~Thread()
 	stop(2000);
     }
     Q_ASSERT(!running());
-
-    int res = pthread_attr_destroy(&m_attr);
-    if (res)
-	qWarning("Thread::~Thread(): destruction of attributes failed: %s",
-	strerror(res));
 }
 
 //***************************************************************************
-void *Thread::thread_adapter(void *arg)
-{
-    QMutexLocker lock(&m_thread_running);
-
-    Thread *object = (Thread *) arg;
-    Q_CHECK_PTR(object);
-    if (!object) {
-	g_lock_sighup.lock();
-	return (void*)-EINVAL;
-    }
-
-    /* execute the thread function */
-    object->run();
-
-    g_lock_sighup.lock();
-    return arg;
-}
-
-//***************************************************************************
-int Thread::start()
+void Thread::start()
 {
     QMutexLocker lock(&m_lock);
 
     // reset the "should stop" command flag
     m_should_stop = false;
 
-    int res = pthread_create(&m_tid, &m_attr, C_thread_adapter, this);
-    if (res)
-	qWarning("Thread::start(): thread creation failed: %s",
-	strerror(res));
-    return res;
+    QThread::start();
 }
 
 //***************************************************************************
@@ -166,12 +127,12 @@ int Thread::stop(unsigned int timeout)
     // set the "should stop" flag
     m_should_stop = true;
 
-    // send one SIGHUP in advance
-    {
-	QMutexLocker lock_exit(&g_lock_sighup);
-	if (!running()) return 0;
-	pthread_kill(m_tid, SIGHUP);
-    }
+//     // send one SIGHUP in advance
+//     {
+// 	QMutexLocker lock_exit(&g_lock_sighup);
+// 	if (!running()) return 0;
+// 	pthread_kill(m_tid, SIGHUP);
+//     }
 
     // try to stop cooperatively
     if (!running()) return 0;
@@ -181,81 +142,40 @@ int Thread::stop(unsigned int timeout)
     // try to interrupt by INT signal
     qWarning("Thread::stop(): sending SIGHUP");
     for (unsigned int i=0; i < 8; i++) {
-	{
-	    QMutexLocker lock_exit(&g_lock_sighup);
-	    if (!running()) return 0;
-	    pthread_kill(m_tid, SIGHUP);
-	}
+// 	{
+// 	    QMutexLocker lock_exit(&g_lock_sighup);
+// 	    if (!running()) return 0;
+// 	    pthread_kill(m_tid, SIGHUP);
+// 	}
 	if (!running()) return 0;
 	wait(timeout/10);
 	if (!running()) return 0;
     }
 
-#ifdef DEBUG_FIND_DEADLOCKS
-    if (running()) {
-	qDebug("Thread::stop(): pthread_self()=%08X", (unsigned int)pthread_self());
-	void *buf[256];
-	size_t n = backtrace(buf, 256);
-	backtrace_symbols_fd(buf, n, 2);
-    }
-#endif
+// #ifdef DEBUG_FIND_DEADLOCKS
+//     if (running()) {
+// 	qDebug("Thread::stop(): pthread_self()=%08X", (unsigned int)pthread_self());
+// 	void *buf[256];
+// 	size_t n = backtrace(buf, 256);
+// 	backtrace_symbols_fd(buf, n, 2);
+//     }
+// #endif
 
-    qDebug("Thread::stop(): canceling thread");
-    int res = pthread_cancel(m_tid);
-    if (res && (res != ESRCH))
-	qWarning("Thread::stop(): thread cancel failed: %s", strerror(res));
+//     qDebug("Thread::stop(): canceling thread");
+//     int res = pthread_cancel(m_tid);
+//     if (res && (res != ESRCH))
+// 	qWarning("Thread::stop(): thread cancel failed: %s", strerror(res));
 
     // wait some time until it is really done
     wait(timeout/10);
 
-    return res;
+    return 0;
 }
 
 //***************************************************************************
 bool Thread::shouldStop()
 {
     return (m_should_stop);
-}
-
-//***************************************************************************
-bool Thread::running()
-{
-    if (m_thread_running.tryLock()) {
-	m_thread_running.unlock();
-	return false;
-    }
-    return true;
-}
-
-//***************************************************************************
-void Thread::wait(unsigned int milliseconds)
-{
-    double elapsed_ms = 0.0;
-    struct timeval t1, t2;
-    gettimeofday(&t1, 0);
-
-    while (running() && (elapsed_ms < milliseconds)) {
-	// just for fun...
-	sched_yield();
-
-	// sleep through select()
-	struct timeval tv;
-	tv.tv_sec = 0;
-	tv.tv_usec = 20*1000;
-	select(0, 0, 0, 0, &tv);
-
-	gettimeofday(&t2, 0);
-	elapsed_ms = (double)t2.tv_sec  * 1.0E3 +
-	             (double)t2.tv_usec / 1.0E3 -
-	             (double)t1.tv_sec  * 1.0E3 -
-	             (double)t1.tv_usec / 1.0E3;
-    }
-}
-
-//***************************************************************************
-pthread_t Thread::threadID()
-{
-    return m_tid;
 }
 
 //***************************************************************************

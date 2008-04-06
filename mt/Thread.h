@@ -19,48 +19,24 @@
 #define _THREAD_H_
 
 #include "config.h"
-#include <pthread.h>       // for POSIX threads, included in libc > 2.0
 
 #include <QMutex>
 #include <QObject>
+#include <QThread>
 
-class Thread : public QObject
+class Thread : public QThread
 {
     Q_OBJECT
 public:
-    /**
-     * Constructor. Initializes the thread's attributes and the thread's
-     * group membership.
-     * @param grpid pointer to an integer that receives or contains a
-     *        group id (optional):
-     *        \arg If the pointer is not null and the content of the
-     *             integer it points to is -1, a new thread group will
-     *             be created and the content will be set to it's id.
-     *        \arg If the pointer is not null and the content of the
-     *             integer is greater than zero it is assumed to be a
-     *             group id and the thread will be appended to it.
-     *        \arg If the pointer is null or the content is zero, no
-     *             group will be created and the thread will not be
-     *             appended to any group.
-     *        \bug this parameter is currently ignored !
-     *
-     * @param flags the flags for thread creation, like defined in
-     *              pthread.h.
-     *        \bug currently ignored
-     */
-    Thread(int *grpid = 0, const long flags = PTHREAD_CREATE_DETACHED);
 
-    /**
-     * Destructor. Also calls stop() if the thread is currently running.
-     */
+    /** Constructor */
+    Thread(QObject *parent = 0);
+
+    /** Destructor, calls stop() if the thread is still running. */
     virtual ~Thread();
 
-    /**
-     * Starts the thread's execution.
-     * @return zero if successful or an error code if failed
-     * @see errno.h
-     */
-    int start();
+    /** Starts the thread's execution. */
+    virtual void start();
 
     /**
      * Stops the thread execution. Please note that you <b>MUST</b> call
@@ -84,49 +60,10 @@ public:
      */
     bool shouldStop();
 
-    /**
-     * Returns true if the thread is currently running
-     */
-    bool running();
-
-    /**
-     * Waits for termination of the thread with timeout. If the thread
-     * is currently not running this function immediately returns.
-     * @param milliseconds the time to wait in milliseconds, with
-     *        precision of abt. 10ms under Linux. Don't use values
-     *        below 200ms, the default is one second.
-     */
-    void wait(unsigned int milliseconds = 1000);
-
-    /**
-     * Returns the id of this thread.
-     */
-    pthread_t threadID();
-
-    /**
-     * wrapper to call the run() function, called internally
-     * from the thread function with "C" linkage.
-     * @internal
-     */
-    void *thread_adapter(void *arg);
-
-protected:
-    /** thread id */
-    pthread_t m_tid;
-
 private:
-
-    /** thread attributes, like defined in pthread.h */
-    pthread_attr_t m_attr;
 
     /** Mutex to control access to the thread itself */
     QMutex m_lock;
-
-    /**
-     * This mutex is locked as long as the thread is running and
-     * is internally used for the running() function.
-     */
-    QMutex m_thread_running;
 
     /** set to signal the thread that it should stop */
     bool m_should_stop;

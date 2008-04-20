@@ -26,7 +26,6 @@
 #include <QVarLengthArray>
 
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <kmimetype.h>
 #include <kapplication.h>
 #include <kglobal.h>
@@ -37,6 +36,8 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
+
+#include "libgui/MessageBox.h"
 
 #include "FlacCodecPlugin.h"
 #include "FlacEncoder.h"
@@ -210,7 +211,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
     do {
 	// open the output device
 	if (!dst.open(IO_ReadWrite | IO_Truncate)) {
-	    KMessageBox::error(widget,
+	    Kwave::MessageBox::error(widget,
 		i18n("Unable to open the file for saving!"));
 	    result = false;
 	    break;
@@ -221,7 +222,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
         FLAC__StreamEncoderInitStatus init_state = init();
         if (init_state != FLAC__STREAM_ENCODER_INIT_STATUS_OK) {
             qWarning("state = %d", (int)init_state);
-            KMessageBox::error(widget,
+            Kwave::MessageBox::error(widget,
                 i18n("Unable to open the FLAC encoder!"));
             m_info = 0;
             result = false;
@@ -231,7 +232,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	FLAC::Encoder::Stream::State init_state = init();
 	if (init_state != FLAC__STREAM_ENCODER_OK) {
             qWarning("state = %s", init_state.as_cstring());
-            KMessageBox::error(widget,
+            Kwave::MessageBox::error(widget,
                 i18n("Unable to open the FLAC encoder!"));
             m_info = 0;
             result = false;
@@ -257,7 +258,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
 	if ((in_buffer.size() < len) || (flac_buffer.size() < tracks))
 	{
-	    KMessageBox::error(widget, i18n("Out of memory!"));
+	    Kwave::MessageBox::error(widget, i18n("Out of memory!"));
 	    result = false;
 	    break;
 	}

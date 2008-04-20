@@ -31,7 +31,6 @@ extern "C" {
 #include <QtGlobal>
 
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <kmimetype.h>
 
 #include "libkwave/MultiTrackWriter.h"
@@ -39,7 +38,9 @@ extern "C" {
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 #include "libkwave/VirtualAudioFile.h"
+
 #include "libgui/ConfirmCancelProxy.h"
+#include "libgui/MessageBox.h"
 
 #include "AudiofileDecoder.h"
 
@@ -133,7 +134,7 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 
 	QString text= i18n("An error occurred while opening the "\
 	    "file:\n'%1'").arg(reason);
-	KMessageBox::error(widget, text);
+	Kwave::MessageBox::error(widget, text);
 
 	return false;
     }

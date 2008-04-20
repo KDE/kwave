@@ -20,7 +20,6 @@
 #include <qdatetime.h>
 
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <kmimetype.h>
 
 #include "libkwave/CompressionType.h"
@@ -28,6 +27,8 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
+
+#include "libgui/MessageBox.h"
 
 #include "FlacCodecPlugin.h"
 #include "FlacDecoder.h"
@@ -275,14 +276,14 @@ bool FlacDecoder::open(QWidget *widget, QIODevice &src)
 #if defined(FLAC_API_VERSION_1_1_3) /* or newer */
     FLAC__StreamDecoderInitStatus init_state = init();
     if (init_state > FLAC__STREAM_DECODER_INIT_STATUS_OK) {
-        KMessageBox::error(widget, i18n(
+        Kwave::MessageBox::error(widget, i18n(
            "opening the FLAC bitstream failed."));
         return false;
     }
 #else /* API v1.1.2 and older */
     FLAC::Decoder::Stream::State init_state = init();
     if (init_state >= FLAC__STREAM_DECODER_END_OF_STREAM) {
-        KMessageBox::error(widget, i18n(
+        Kwave::MessageBox::error(widget, i18n(
            "opening the FLAC bitstream failed."));
         return false;
     }
@@ -293,7 +294,7 @@ bool FlacDecoder::open(QWidget *widget, QIODevice &src)
 
     FLAC::Decoder::Stream::State state = get_state();
     if (state >= FLAC__STREAM_DECODER_END_OF_STREAM) {
-	KMessageBox::error(widget, i18n(
+	Kwave::MessageBox::error(widget, i18n(
 	   "error while parsing FLAC metadata. (%s)"),
 	   state.as_cstring());
 	return false;

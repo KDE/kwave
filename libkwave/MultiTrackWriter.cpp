@@ -67,7 +67,9 @@ MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
     InsertMode mode)
     :Kwave::MultiTrackSink<SampleWriter>(0,0), m_canceled(false)
 {
-    QList<unsigned int> tracks = signal_manager.selectedTracks();
+    UndoTransactionGuard guard(signal_manager, 0);
+
+    QList<unsigned int> track_list = signal_manager.selectedTracks();
     unsigned int left = 0;
     unsigned int right = 0;
 
@@ -81,7 +83,24 @@ MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
 	    right = signal_manager.length();
 	}
     }
-    MultiTrackWriter(signal_manager, tracks, mode, left, right);
+
+    unsigned int index = 0;
+    foreach (unsigned int track, track_list) {
+	// NOTE: this function is *nearly* identical to the one in the
+	//       Signal class, except for undo support
+	SampleWriter *s = signal_manager.openSampleWriter(
+	    track, mode, left, right, true);
+	if (s) {
+	    insert(index++, s);
+	} else {
+	    // out of memory or aborted
+	    qWarning("MultiTrackWriter constructor: "\
+	             "out of memory or aborted");
+	    clear();
+	    break;
+	}
+    }
+
 }
 
 //***************************************************************************

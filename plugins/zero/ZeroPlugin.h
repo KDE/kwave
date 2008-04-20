@@ -19,8 +19,12 @@
 #define _ZERO_PLUGIN_H_
 
 #include "config.h"
-#include <qstring.h>
+
+#include <QString>
+#include <QStringList>
+
 #include "libkwave/KwavePlugin.h"
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
 
 //***************************************************************************
@@ -52,7 +56,7 @@ private:
     bool m_stop;
 
     /** use an array with zeroes for faster filling */
-    QMemArray<sample_t> m_zeroes;
+    Kwave::SampleArray m_zeroes;
 
 };
 

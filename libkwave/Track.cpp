@@ -376,7 +376,9 @@ bool Track::appendAfter(Stripe *stripe,  unsigned int offset,
 //***************************************************************************
 void Track::moveRight(unsigned int offset, unsigned int shift)
 {
+    if (m_stripes.isEmpty()) return;
     QListIterator<Stripe *> it(m_stripes);
+    it.toBack();
     while (it.hasPrevious()) {
 	Stripe *s = it.previous();
 	if (!s) continue;

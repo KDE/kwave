@@ -33,6 +33,7 @@ SET(libkwavegui_LIB_SRCS
     MenuSub.cpp
     MenuRoot.cpp
     MenuManager.cpp
+    MessageBox.cpp
     MultiStateWidget.cpp
     OverViewCache.cpp
     OverViewWidget.cpp

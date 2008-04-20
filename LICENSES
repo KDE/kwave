@@ -417,6 +417,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/MenuRoot.h				GPL2
 	libgui/MenuSub.cpp				GPL2
 	libgui/MenuSub.h				GPL2
+	libgui/MessageBox.h				GPL2
+	libgui/MessageBox.cpp				GPL2
 	libgui/MultiStateWidget.cpp			GPL2
 	libgui/MultiStateWidget.h			GPL2
 	libgui/OverViewCache.cpp			GPL2

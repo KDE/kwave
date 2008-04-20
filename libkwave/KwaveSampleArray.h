@@ -66,6 +66,9 @@ namespace Kwave {
 	 */
 	void resetRawData();
 
+	/** fills the array with a sample value */
+	void fill(sample_t value);
+
 	/**
 	 * operator [], non-const.
 	 * @param index sample index [0...count()-1]
@@ -105,14 +108,19 @@ namespace Kwave {
 	class SampleStorage: public QSharedData {
 	public:
 
+	    /** default constructor */
 	    SampleStorage();
 
+	    /** copy constructor */
 	    SampleStorage(const SampleStorage &other);
 
+	    /** destructor */
 	    virtual ~SampleStorage();
 
+	    /** size in samples */
 	    unsigned int m_size;
 
+	    /** pointer to the area with the samples */
 	    sample_t *m_data;
 	};
 

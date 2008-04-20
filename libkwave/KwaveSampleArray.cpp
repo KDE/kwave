@@ -68,6 +68,17 @@ void Kwave::SampleArray::resetRawData()
 }
 
 //***************************************************************************
+void Kwave::SampleArray::fill(sample_t value)
+{
+    if (!m_storage) return;
+    sample_t *p = m_storage->m_data;
+    if (!p) return;
+    unsigned int count = m_storage->m_size;
+    while (count--)
+	*(p++) = value;
+}
+
+//***************************************************************************
 sample_t & Kwave::SampleArray::operator [] (unsigned int index)
 {
     static sample_t dummy;

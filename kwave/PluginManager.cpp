@@ -26,7 +26,6 @@
 #include <kconfiggroup.h>
 #include <kmainwindow.h>
 #include <kstandarddirs.h>
-#include <kmessagebox.h>
 #include <klocale.h>
 
 #include "libkwave/KwaveMultiPlaybackSink.h"
@@ -39,6 +38,8 @@
 #include "libkwave/PluginContext.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
+
+#include "libgui/MessageBox.h"
 
 #include "KwaveApp.h"
 #include "TopWidget.h"
@@ -189,7 +190,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     if (!(m_plugin_files.contains(name))) {
 	QString message =
 	    i18n("oops, plugin '%1' is unknown or invalid!", name);
-	KMessageBox::error(&m_top_widget, message,
+	Kwave::MessageBox::error(&m_top_widget, message,
 	    i18n("error on loading plugin"));
 	return 0;
     }
@@ -201,7 +202,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 	QString message = i18n("unable to load the file \n'%1'\n"\
 	                       " that contains the plugin '%2' !",
 	                       filename, name);
-	KMessageBox::error(&m_top_widget, message,
+	Kwave::MessageBox::error(&m_top_widget, message,
 	    i18n("error on loading plugin"));
 	return 0;
     }

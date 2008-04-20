@@ -50,7 +50,6 @@ MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
 	//       Signal class, except for undo support
 	SampleWriter *s = signal_manager.openSampleWriter(
 	    track, mode, left, right, true);
-	Q_ASSERT(s);
 	if (s) {
 	    insert(index++, s);
 	} else {

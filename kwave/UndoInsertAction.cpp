@@ -50,9 +50,10 @@ int UndoInsertAction::redoSize()
 }
 
 //***************************************************************************
-void UndoInsertAction::store(SignalManager &)
+bool UndoInsertAction::store(SignalManager &)
 {
     // we delete -> nothing to store
+    return true;
 }
 
 //***************************************************************************

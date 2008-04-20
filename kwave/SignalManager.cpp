@@ -27,7 +27,6 @@
 
 #include <kaboutdata.h>
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <kmimetype.h>
 #include <kprogressdialog.h>
 #include <kurl.h>
@@ -45,6 +44,7 @@
 #include "libkwave/Track.h"
 
 #include "libgui/FileProgress.h"
+#include "libgui/MessageBox.h"
 #include "libgui/OverViewCache.h"
 
 #include "KwaveApp.h"
@@ -287,7 +287,7 @@ int SignalManager::save(const KUrl &url, bool selection)
     }
 
     if (!tracks || !len) {
-	KMessageBox::error(m_parent_widget,
+	Kwave::MessageBox::error(m_parent_widget,
 	    i18n("Signal is empty, nothing to save !"));
 	return 0;
     }
@@ -324,7 +324,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 	}
 	if (!all_supported) {
 	    // show a warning to the user and ask him if he wants to continue
-	    if (KMessageBox::warningContinueCancel(m_parent_widget,
+	    if (Kwave::MessageBox::warningContinueCancel(m_parent_widget,
 		i18n("Saving in this format will lose the following "
 		     "additional file attribute(s):\n"
 		     "%1\n"
@@ -423,7 +423,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 	    encoded = encoder->encode(m_parent_widget, src, dst, m_file_info);
 	}
 	if (!encoded) {
-	    KMessageBox::error(m_parent_widget,
+	    Kwave::MessageBox::error(m_parent_widget,
 	        i18n("An error occurred while saving the file!"));
 	    res = -1;
 	}
@@ -432,14 +432,14 @@ int SignalManager::save(const KUrl &url, bool selection)
 	if (dialog) {
 	    if (dialog->isCanceled()) {
 		// user really pressed cancel !
-		KMessageBox::error(m_parent_widget,
+		Kwave::MessageBox::error(m_parent_widget,
 		    i18n("The file has been truncated and "\
 		         "might be corrupted!"));
 	    }
 	    delete dialog;
 	}
     } else {
-	KMessageBox::error(m_parent_widget,
+	Kwave::MessageBox::error(m_parent_widget,
 	    i18n("Sorry, the file type is not supported!"));
 	res = -EINVAL;
     }
@@ -559,37 +559,33 @@ SampleWriter *SignalManager::openSampleWriter(unsigned int track,
                      this,   SLOT(closeUndoTransaction()));
 
     // create an undo action for the modification of the samples
-    UndoAction *action = 0;
+    UndoAction *undo = 0;
     switch (mode) {
 	case Append:
 	    qDebug("SignalManager::openSampleWriter(): "\
 	           "NO UNDO FOR APPEND YET !");
+	    abortUndoTransaction();
 	    break;
 	case Insert:
-	    action = new UndoInsertAction(track, left, right-left+1);
-	    if (action) {
+	    undo = new UndoInsertAction(track, left, right-left+1);
+	    if (!registerUndoAction(undo)) undo = 0;
+	    if (undo) {
 		QObject::connect(
-		    writer, SIGNAL(sigSamplesWritten(unsigned int)),
-		    (UndoInsertAction*)action, SLOT(setLength(unsigned int)));
+		    writer,
+		    SIGNAL(sigSamplesWritten(unsigned int)),
+		    reinterpret_cast<UndoInsertAction *>(undo),
+		    SLOT(setLength(unsigned int)));
 	    }
 	    break;
 	case Overwrite:
-	    action = new UndoModifyAction(track, left, right-left+1);
+	    undo = new UndoModifyAction(track, left, right-left+1);
 	    break;
     }
-    Q_ASSERT(action);
 
-    if (m_undo_enabled) {
-	if (!registerUndoAction(action)) {
-	    // creating/starting the action failed, so fail now.
-	    // close the writer and return 0 -> abort the operation
-	    qDebug("SignalManager::openSampleWriter(): register failed"); // ###
-	    if (action) delete action;
-	    delete writer;
-	    return 0;
-	} else {
-	    action->store(*this);
-	}
+    if (!registerUndoAction(undo)) {
+	// aborted, do not continue without undo
+	delete writer;
+	return 0;
     }
 
     // Everything was ok, the action now is owned by the current undo
@@ -637,8 +633,6 @@ bool SignalManager::executeCommand(const QString &command)
 		m_signal.deleteRange(count, 0, offset);
 	    }
 	    selectRange(0, length);
-	} else {
-	    abortUndoTransaction();
 	}
     CASE_COMMAND("delete")
 	deleteRange(offset, length);
@@ -694,10 +688,8 @@ void SignalManager::paste(ClipBoard &clipboard, unsigned int offset,
 
     // delete the current selection (with undo)
     if (length <= 1) length = 0; // do not paste single samples !
-    if (length && !deleteRange(offset, length)) {
-	abortUndoTransaction();
+    if (length && !deleteRange(offset, length))
 	return;
-    }
 
     // if the signal has no tracks, create new ones
     if (!tracks()) {
@@ -709,10 +701,8 @@ void SignalManager::paste(ClipBoard &clipboard, unsigned int offset,
     // open a stream into the signal
     MultiTrackWriter dst(*this, selectedTracks(), Insert,
                          offset, offset+clipboard.length()-1);
-    if (static_cast<int>(dst.tracks()) != selectedTracks().count()) {
-	abortUndoTransaction();
+    if (static_cast<int>(dst.tracks()) != selectedTracks().count())
 	return;
-    }
 
     // transfer the content
     clipboard.paste(dst);
@@ -733,14 +723,8 @@ void SignalManager::insertTrack(unsigned int index)
 {
     UndoTransactionGuard u(*this, i18n("insert track"));
 
-    if (m_undo_enabled) {
-	UndoAction *undo = new UndoInsertTrack(m_signal, index);
-	if (!registerUndoAction(undo)) {
-	    if (undo) delete undo;
-	    abortUndoTransaction();
-	    return;
-	}
-    }
+    if (m_undo_enabled && !registerUndoAction(
+	new UndoInsertTrack(m_signal, index))) return;
 
     unsigned int count = tracks();
     Q_ASSERT(index <= count);
@@ -769,14 +753,8 @@ void SignalManager::deleteTrack(unsigned int index)
 {
     UndoTransactionGuard u(*this, i18n("delete track"));
 
-    if (m_undo_enabled) {
-	UndoAction *undo = new UndoDeleteTrack(m_signal, index);
-	if (!registerUndoAction(undo)) {
-	    if (undo) delete undo;
-	    abortUndoTransaction();
-	    return;
-	}
-    }
+    if (m_undo_enabled && !registerUndoAction(
+	new UndoDeleteTrack(m_signal, index))) return;
 
     setModified(true);
     m_signal.deleteTrack(index);
@@ -877,16 +855,10 @@ bool SignalManager::deleteRange(unsigned int offset, unsigned int length,
 
     // first store undo data for all tracks
     unsigned int track;
-
     if (m_undo_enabled) {
 	foreach (track, track_list) {
-	    UndoAction *undo = new UndoDeleteAction(track, offset, length);
-	    if (!registerUndoAction(undo)) {
-		// abort
-		if (undo) delete undo;
-		abortUndoTransaction();
-		return false;
-	    }
+	    if (!registerUndoAction(new UndoDeleteAction(
+		track, offset, length))) return false;
 	}
     }
 
@@ -983,8 +955,14 @@ void SignalManager::startUndoTransaction(const QString &name)
 	UndoAction *selection = new UndoSelection(*this);
 	Q_ASSERT(selection);
 	if (selection) {
-	    selection->store(*this);
-	    m_undo_transaction->append(selection);
+	    if (selection->store(*this)) {
+		m_undo_transaction->append(selection);
+	    } else {
+		// out of memory
+		delete selection;
+		delete m_undo_transaction;
+		m_undo_transaction = 0;
+	    }
 	}
     }
 }
@@ -1062,11 +1040,10 @@ void SignalManager::flushUndoBuffers()
 //***************************************************************************
 void SignalManager::abortUndoTransaction()
 {
-    QMutexLocker lock(&m_undo_transaction_lock);
-
-    if (!m_undo_transaction) return;
-    delete m_undo_transaction;
+    // close the current transaction
+    if (m_undo_transaction) delete m_undo_transaction;
     m_undo_transaction = 0;
+    m_undo_transaction_level = 0;
 }
 
 //***************************************************************************
@@ -1078,39 +1055,47 @@ void SignalManager::flushRedoBuffer()
 }
 
 //***************************************************************************
+bool SignalManager::continueWithoutUndo()
+{
+    if (!m_parent_widget) return false;
+
+    if (Kwave::MessageBox::warningContinueCancel(m_parent_widget,
+	i18n("Unable to save undo information. "
+	     "Do you want to continue without undo?")) ==
+	KMessageBox::Continue)
+    {
+	return true;
+    }
+    return false;
+}
+
+//***************************************************************************
 bool SignalManager::registerUndoAction(UndoAction *action)
 {
     QMutexLocker lock(&m_undo_transaction_lock);
+
     Q_ASSERT(action);
-    if (!action) return false;
+    if (!action) {
+	abortUndoTransaction();
+	return continueWithoutUndo();
+    }
 
     // if undo is not enabled, this will fail -> no memory leak!
     Q_ASSERT(m_undo_enabled);
-    if (!m_undo_enabled) return false;
+    if (!m_undo_enabled) {
+	delete action;
+	abortUndoTransaction();
+	return continueWithoutUndo();
+    }
 
+    // check if the undo action is too large
     unsigned int needed_size  = action->undoSize();
     unsigned int needed_mb = needed_size  >> 20;
     unsigned int limit_mb  = m_undo_limit >> 20;
-
     if (needed_mb > limit_mb) {
-	// Allow: discard buffers and omit undo
-	qDeleteAll(m_undo_buffer);
-	qDeleteAll(m_redo_buffer);
-	m_undo_buffer.clear();
-	m_redo_buffer.clear();
-
-	// close the current transaction
-	if (m_undo_transaction) delete m_undo_transaction;
-	m_undo_transaction = 0;
-
-	// if the signal was modified, it will stay in this state, it is
-	// not possible to change to "non-modified" state through undo
-	if ((!m_undo_buffer.isEmpty()) && (m_modified)) {
-	    enableModifiedChange(false);
-	}
-
-	emitUndoRedoInfo();
-	return true;
+	delete action;
+	abortUndoTransaction();
+	return continueWithoutUndo();
     }
 
     // undo has been aborted before ?
@@ -1119,10 +1104,16 @@ bool SignalManager::registerUndoAction(UndoAction *action)
     // make room...
     freeUndoMemory(needed_size);
 
-    // now we have enough place to append the undo action
+    // now we might have enough place to append the undo action
     // and store all undo info
+    if (!action->store(*this)) {
+	delete action;
+	abortUndoTransaction();
+	return continueWithoutUndo();
+    }
+
+    // everything went ok, register internally
     m_undo_transaction->append(action);
-    action->store(*this);
 
     return true;
 }
@@ -1140,10 +1131,7 @@ bool SignalManager::saveUndoDelete(QList<unsigned int> &track_list,
     while (m_undo_enabled && it.hasPrevious()) {
 	unsigned int t = it.previous();
 	UndoDeleteAction *action = new UndoDeleteAction(t, offset, length);
-	if (!registerUndoAction(action)) {
-	    // registration or creation failed
-	    return false;
-	}
+	if (!registerUndoAction(action)) return false;
     }
 
     return true;
@@ -1433,10 +1421,7 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
     if (m_undo_enabled && with_undo) {
 	/* save data for undo */
 	UndoTransactionGuard undo_transaction(*this, i18n("modify file info"));
-	UndoFileInfo *undo = new UndoFileInfo(*this);
-	Q_ASSERT(undo);
-	if (!undo) return;
-	if (!registerUndoAction(undo)) return;
+	if (!registerUndoAction(new UndoFileInfo(*this))) return;
     }
 
     m_file_info = new_info;
@@ -1490,11 +1475,9 @@ bool SignalManager::addLabel(unsigned int pos)
 
     // register the undo action
     UndoTransactionGuard undo(*this, i18n("add label"));
-    UndoAddLabelAction *undo_add =
-	new UndoAddLabelAction(labelIndex(label));
-    if (!registerUndoAction(undo_add)) {
-	delete undo_add;
+    if (!registerUndoAction(new UndoAddLabelAction(labelIndex(label)))) {
 	labels().removeAll(label);
+	delete label;
 	emit sigLabelCountChanged();
 	return false;
     }
@@ -1534,13 +1517,8 @@ void SignalManager::deleteLabel(int index, bool with_undo)
     // register the undo action
     if (with_undo) {
 	UndoTransactionGuard undo(*this, i18n("delete label"));
-	UndoDeleteLabelAction *undo_del =
-	    new UndoDeleteLabelAction(*label);
-	if (!registerUndoAction(undo_del)) {
-	    delete undo_del;
-	    delete label;
+	if (!registerUndoAction(new UndoDeleteLabelAction(*label)))
 	    return;
-	}
     }
 
     labels().removeAll(label);

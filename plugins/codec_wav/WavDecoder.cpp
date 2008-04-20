@@ -33,7 +33,6 @@ extern "C" {
 #include <QtGlobal>
 
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <kmimetype.h>
 
 #include "libkwave/byteswap.h"
@@ -43,7 +42,9 @@ extern "C" {
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 #include "libkwave/VirtualAudioFile.h"
+
 #include "libgui/ConfirmCancelProxy.h"
+#include "libgui/MessageBox.h"
 
 #include "RecoveryBuffer.h"
 #include "RecoveryMapping.h"
@@ -167,12 +168,12 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     RIFFChunk *data_chunk = parser.findChunk("/RIFF:WAVE/data");
 
     if (!riff_chunk || !fmt_chunk || !data_chunk || !parser.isSane()) {
-	if (KMessageBox::warningContinueCancel(widget,
+	if (Kwave::MessageBox::warningContinueCancel(widget,
 	    i18n("The file has been structurally damaged or "
 	         "is no .wav file.\n"
 	         "Should Kwave try to repair it?"),
 	    i18n("Kwave auto repair"),
-	    KGuiItem(i18n("&Repair"))) != KMessageBox::Continue)
+	    i18n("&Repair")) != KMessageBox::Continue)
 	{
 	    // user didn't let us try :-(
 	    return false;
@@ -231,7 +232,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     }
 
     if (data_size <= 4) {
-	KMessageBox::sorry(widget,
+	Kwave::MessageBox::sorry(widget,
 	    i18n("The opened file is no .WAV file or damaged:\n"
 	    "There is not enough valid sound data.\n\n"
 	    "It makes no sense to continue now..."));
@@ -243,7 +244,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     if ((parser.chunkCount("fmt ") != 1) ||
         (parser.chunkCount("data") != 1))
     {
-	if (KMessageBox::warningContinueCancel(widget,
+	if (Kwave::MessageBox::warningContinueCancel(widget,
 	    i18n("The WAV file seems to be damaged: \n"
 	         "some chunks are duplicate or missing! \n\n"
 	         "Kwave will only use the first ones and ignores\n"
@@ -358,7 +359,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
 	QString text= i18n("An error occurred while opening the "\
 	    "file:\n'%1'").arg(reason);
-	KMessageBox::error(widget, text);
+	Kwave::MessageBox::error(widget, text);
 
 	return false;
     }

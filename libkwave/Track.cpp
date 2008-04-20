@@ -305,12 +305,12 @@ void Track::select(bool selected)
 }
 
 //***************************************************************************
-void Track::appendAfter(Stripe *stripe,  unsigned int offset,
+bool Track::appendAfter(Stripe *stripe,  unsigned int offset,
                         const Kwave::SampleArray &buffer,
                         unsigned int buf_offset, unsigned int length)
 {
     Q_ASSERT(buf_offset + length <= buffer.size());
-    if (buf_offset + length > buffer.size()) return;
+    if (buf_offset + length > buffer.size()) return false;
 
     // append to the last stripe if one exists and it's not full
     // and the offset is immediately after the last stripe
@@ -323,7 +323,8 @@ void Track::appendAfter(Stripe *stripe,  unsigned int offset,
 
 // 	qDebug("Track::appendAfter(): appending %u samples to %p",
 // 	       len, stripe);
-	stripe->append(buffer, buf_offset, len);
+	if (!stripe->append(buffer, buf_offset, len))
+	    return false; // out of memory
 
 	offset     += len;
 	length     -= len;
@@ -345,7 +346,10 @@ void Track::appendAfter(Stripe *stripe,  unsigned int offset,
 	if (!new_stripe) break;
 
 	// append to the new stripe
-	new_stripe->append(buffer, buf_offset, len);
+	if (!new_stripe->append(buffer, buf_offset, len)) {
+	    delete new_stripe;
+	    return false; /* out of memory */
+	}
 
 	qDebug("new stripe: [%u ... %u]", new_stripe->start(),
 	       new_stripe->end());
@@ -365,6 +369,8 @@ void Track::appendAfter(Stripe *stripe,  unsigned int offset,
 	length     -= len;
 	buf_offset += len;
     }
+
+    return true;
 }
 
 //***************************************************************************
@@ -382,25 +388,30 @@ void Track::moveRight(unsigned int offset, unsigned int shift)
 }
 
 //***************************************************************************
-void Track::writeSamples(InsertMode mode,
+bool Track::writeSamples(InsertMode mode,
                          unsigned int offset,
                          const Kwave::SampleArray &buffer,
                          unsigned int buf_offset,
                          unsigned int length)
 {
     Q_ASSERT(length);
-    if (!length) return; // nothing to do !?
+    if (!length) return true; // nothing to do !?
 
     switch (mode) {
 	case Append: {
 // 	    qDebug("writeSamples() - Append");
+	    bool appended;
 	    {
 		QWriteLocker _lock(&m_lock);
-		appendAfter(m_stripes.isEmpty() ? 0 : m_stripes.last(),
-		            offset, buffer,
-		            buf_offset, length);
+		appended = appendAfter(
+		    m_stripes.isEmpty() ? 0 : m_stripes.last(),
+		    offset, buffer,
+		    buf_offset, length);
 	    }
-	    emit sigSamplesInserted(this, offset, length);
+	    if (appended)
+		emit sigSamplesInserted(this, offset, length);
+	    else
+		return false; /* out of memory */
 	    break;
 	}
 	case Insert: {
@@ -629,6 +640,7 @@ void Track::writeSamples(InsertMode mode,
 	}
     }
 
+    return true;
 }
 
 //***************************************************************************

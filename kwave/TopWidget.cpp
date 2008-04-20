@@ -39,7 +39,6 @@
 #include <khelpmenu.h>
 #include <kiconloader.h>
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <kmenubar.h>
 #include <kstatusbar.h>
 #include <kstandarddirs.h>
@@ -49,6 +48,7 @@
 #include "libkwave/Parser.h"
 
 #include "libgui/MenuManager.h"
+#include "libgui/MessageBox.h"
 #include "libgui/KwaveFileDialog.h"
 
 #include "KwaveApp.h"
@@ -655,7 +655,7 @@ bool TopWidget::closeFile()
     }
 
     if (signalManager().isModified()) {
-	int res =  KMessageBox::warningYesNoCancel(this,
+	int res =  Kwave::MessageBox::warningYesNoCancel(this,
 	    i18n("This file has been modified.\nDo you want to save it?"));
 	if (res == KMessageBox::Cancel) return false;
 	if (res == KMessageBox::Yes) {
@@ -793,7 +793,7 @@ int TopWidget::saveFileAs(bool selection)
     // check if the file exists and ask before overwriting it
     // if it is not the old filename
     if ((name != signalName()) && (path.exists())) {
-	if (KMessageBox::warningYesNo(this,
+	if (Kwave::MessageBox::warningYesNo(this,
 	    i18n("The file '%1' already exists. Do you really "\
 	    "want to overwrite it?", name)) != KMessageBox::Yes)
 	{

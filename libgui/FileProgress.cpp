@@ -27,11 +27,11 @@
 #include <kpushbutton.h>
 #include <kglobal.h>
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <kstandardguiitem.h>
 
 #include "libkwave/KwavePlugin.h"  // for ms2string
 #include "libgui/FileProgress.h"
+#include "libgui/MessageBox.h"
 
 //***************************************************************************
 FileProgress::FileProgress(QWidget *parent,
@@ -187,7 +187,7 @@ void FileProgress::closeEvent(QCloseEvent *e)
 
     // if not already cancelled -> ask user to confirm
     if (!m_canceled) {
-	if (KMessageBox::warningYesNo(this,
+	if (Kwave::MessageBox::warningYesNo(this,
 	    i18n("Do you really want to abort the operation?")) !=
 	    KMessageBox::Yes)
 	{

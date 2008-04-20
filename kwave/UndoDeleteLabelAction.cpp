@@ -57,10 +57,11 @@ int UndoDeleteLabelAction::redoSize()
 }
 
 //***************************************************************************
-void UndoDeleteLabelAction::store(SignalManager &)
+bool UndoDeleteLabelAction::store(SignalManager &)
 {
     // nothing to do, all data has already
     // been stored in the constructor
+    return true;
 }
 
 //***************************************************************************

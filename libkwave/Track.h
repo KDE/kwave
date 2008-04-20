@@ -152,8 +152,9 @@ private:
      * @param buffer array with samples
      * @param buf_offset offset within the buffer
      * @param length number of samples to write
+     * @return true if successful, false if failed (e.g. out of memory)
      */
-    void appendAfter(Stripe *stripe, unsigned int offset,
+    bool appendAfter(Stripe *stripe, unsigned int offset,
                      const Kwave::SampleArray &buffer,
                      unsigned int buf_offset, unsigned int length);
 
@@ -205,8 +206,9 @@ protected:
      * @param buffer array with samples
      * @param buf_offset offset within the buffer
      * @param length number of samples to write
+     * @return true if successful, false if failed (e.g. out of memory)
      */
-    void writeSamples(InsertMode mode,
+    bool writeSamples(InsertMode mode,
                       unsigned int offset,
                       const Kwave::SampleArray &buffer,
                       unsigned int buf_offset,

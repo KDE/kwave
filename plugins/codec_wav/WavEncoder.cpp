@@ -21,7 +21,6 @@
 #include <stdlib.h>
 
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <kmimetype.h>
 #include <kglobal.h>
 
@@ -34,6 +33,8 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/VirtualAudioFile.h"
+
+#include "libgui/MessageBox.h"
 
 #include "WavEncoder.h"
 #include "WavFileFormat.h"
@@ -269,12 +270,12 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
         (compression != AF_COMPRESSION_G711_ALAW) )
     {
 	qWarning("compression mode %d not supported!", compression);
-	int what_now = KMessageBox::warningYesNoCancel(widget,
+	int what_now = Kwave::MessageBox::warningYesNoCancel(widget,
 	    i18n("Sorry, the currently selected compression type can "
 	         "not be used for saving. Do you want to use "
-	         "G711 ULAW compression instead?"), 0,
-	    KGuiItem(i18n("&Yes, use G711")),
-	    KGuiItem(i18n("&No, store uncompressed"))
+	         "G711 ULAW compression instead?"), QString(),
+	    i18n("&Yes, use G711"),
+	    i18n("&No, store uncompressed")
 	);
 	switch (what_now) {
 	    case (KMessageBox::Yes):
@@ -290,7 +291,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
     // open the output device
     if (!dst.open(IO_ReadWrite | IO_Truncate)) {
-	KMessageBox::error(widget,
+	Kwave::MessageBox::error(widget,
 	    i18n("Unable to open the file for saving!"));
 	return false;
     }
@@ -339,7 +340,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
 	QString text= i18n("An error occurred while opening the "\
 	    "file:\n'%1'", reason);
-	KMessageBox::error(widget, text);
+	Kwave::MessageBox::error(widget, text);
 
 	return false;
     }

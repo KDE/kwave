@@ -60,6 +60,8 @@ public:
     /** Default destructor */
     virtual ~SignalManager();
 
+public:
+
     /**
      * Closes the current signal and loads a new file.
      * @param url URL of the file to be loaded
@@ -526,7 +528,7 @@ protected:
     /**
      * Tries to free memory for a new undo action and stores all needed
      * data if successful.
-     * @param action the UndoAction to that is to be registered
+     * @param action UndoAction to that is to be registered
      * @return true if the action is allowed, false if the user has
      *         choosen to abort the operation if the memory limit of
      *         the undo buffer would be exceeded. The return value
@@ -583,6 +585,13 @@ private:
 
     /** Shortcut for emitting a sigStatusInfo */
     void emitStatusInfo();
+
+    /**
+     * Ask the user if he wants to continue without undo, maybe
+     * registering an undo action has failed due to out-of-memory.
+     * @return true if it is ok, false if the user doesn't want to.
+     */
+    bool continueWithoutUndo();
 
     /**
      * Returns the amount of memory currently used for undo + redo.

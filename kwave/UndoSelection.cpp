@@ -54,11 +54,12 @@ int UndoSelection::redoSize()
 }
 
 //***************************************************************************
-void UndoSelection::store(SignalManager &manager)
+bool UndoSelection::store(SignalManager &manager)
 {
     m_offset = manager.selection().offset();
     m_length = manager.selection().length();
     m_selected_tracks = manager.selectedTracks();
+    return true;
 }
 
 //***************************************************************************

@@ -54,7 +54,7 @@ public:
     /**
      * @see UndoAction::store()
      */
-    virtual void store(SignalManager &manager);
+    virtual bool store(SignalManager &manager);
 
     /**
      * Exchange samples from the current signal and the internal undo

@@ -38,7 +38,6 @@
 #include <kcursor.h>
 #include <kglobal.h>
 #include <kglobalsettings.h>
-#include <kmessagebox.h>
 #include <klocale.h>
 #include <kfiledialog.h>
 #include <kiconloader.h>
@@ -57,6 +56,7 @@
 
 #include "libgui/LabelPropertiesWidget.h"
 #include "libgui/MenuManager.h"
+#include "libgui/MessageBox.h"
 #include "libgui/TrackPixmap.h"
 
 #include "CodecManager.h"
@@ -519,7 +519,7 @@ int SignalWidget::loadFile(const KUrl &url)
 
         // show an error message box if the reason was known
 	if (reason.length()) {
-	    KMessageBox::error(this, reason);
+	    Kwave::MessageBox::error(this, reason);
 	}
 
 	close();
@@ -1880,7 +1880,6 @@ bool SignalWidget::labelProperties(Label *label)
 	UndoModifyLabelAction *undo_modify =
 	    new UndoModifyLabelAction(*this, *label);
 	if (!m_signal_manager.registerUndoAction(undo_modify)) {
-	    delete undo_modify;
 	    delete dlg;
 	    return false;
 	}

@@ -53,7 +53,7 @@ public:
     /**
      * @see UndoAction::store()
      */
-    virtual void store(SignalManager &manager);
+    virtual bool store(SignalManager &manager);
 
     /**
      * Removes samples from the track.

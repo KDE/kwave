@@ -93,14 +93,15 @@ public:
      * @param buffer reference to the buffer to be flushed
      * @param count number of samples in the buffer to be flushed,
      *              will be internally set to zero if successful
+     * @return true if successful, false if failed (e.g. out of memory)
      */
-    void flush(const Kwave::SampleArray &buffer, unsigned int &count);
+    bool flush(const Kwave::SampleArray &buffer, unsigned int &count);
 
     /**
      * Shortcut for flush(m_buffer, m_buffer_used)
      * @internal
      */
-    inline void flush() { flush(m_buffer, m_buffer_used); };
+    inline bool flush() { return flush(m_buffer, m_buffer_used); };
 
     /**
      * Returns true if the end of the writeable area has been reached if the

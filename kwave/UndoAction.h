@@ -73,8 +73,9 @@ public:
      * Stores the data needed for undo.
      * @param manager the SignalManager for modifying the signal
      * @note this is the second step, after size() has been called
+     * @return true if successful, false if failed (e.g. out of memory)
      */
-    virtual void store(SignalManager &manager) = 0;
+    virtual bool store(SignalManager &manager) = 0;
 
     /**
      * Takes back an action by creating a new undo action (for further

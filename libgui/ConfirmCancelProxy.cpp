@@ -21,9 +21,9 @@
 #include <QWidget>
 
 #include <klocale.h>
-#include <kmessagebox.h>
 
 #include "ConfirmCancelProxy.h"
+#include "MessageBox.h"
 
 //***************************************************************************
 ConfirmCancelProxy::ConfirmCancelProxy(QWidget *widget,
@@ -46,7 +46,7 @@ ConfirmCancelProxy::~ConfirmCancelProxy()
 //***************************************************************************
 void ConfirmCancelProxy::cancel()
 {
-    if (KMessageBox::questionYesNo(m_widget,
+    if (Kwave::MessageBox::questionYesNo(m_widget,
         i18n("Do you really want to abort the current action?"))
         != KMessageBox::Yes) return; // no cancel
     emit canceled();

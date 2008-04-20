@@ -63,9 +63,10 @@ int UndoFileInfo::redoSize()
 }
 
 //***************************************************************************
-void UndoFileInfo::store(SignalManager &manager)
+bool UndoFileInfo::store(SignalManager &manager)
 {
     m_info = manager.fileInfo();
+    return true;
 }
 
 //***************************************************************************

@@ -62,7 +62,7 @@ public:
     virtual int redoSize();
 
     /** @see UndoAction::store() */
-    virtual void store(SignalManager &manager);
+    virtual bool store(SignalManager &manager);
 
     /** @see UndoAction::undo() */
     virtual UndoAction *undo(SignalManager &manager, bool with_redo);

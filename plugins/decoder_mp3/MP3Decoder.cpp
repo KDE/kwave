@@ -17,8 +17,6 @@
 
 #include "config.h"
 
-#include <kmessagebox.h>
-
 #include <id3/globals.h>
 #include <id3/tag.h>
 #include <id3/misc_support.h>
@@ -30,7 +28,9 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
+
 #include "libgui/ConfirmCancelProxy.h"
+#include "libgui/MessageBox.h"
 
 #include "MP3Decoder.h"
 #include "ID3_QIODeviceReader.h"
@@ -75,7 +75,7 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
     /* first of all check CRC, it might be senseless if the file is broken */
     qDebug("crc = 0x%08X", header.crc);
     if ((header.crc == MP3CRC_MISMATCH) || (header.crc == MP3CRC_ERROR_SIZE)){
-	if (KMessageBox::warningContinueCancel(widget,
+	if (Kwave::MessageBox::warningContinueCancel(widget,
 	    i18n("The file has an invalid checksum.\n"
 	         "Do you still want to continue?"))
 	             != KMessageBox::Continue) return false;
@@ -141,7 +141,7 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
 	default:
 	    QString mode;
 	    mode = mode.setNum(header.channelmode, 16);
-	    if (KMessageBox::warningContinueCancel(widget,
+	    if (Kwave::MessageBox::warningContinueCancel(widget,
 	        i18n("The file contains an invalid channel mode 0x"
 	             "%1\nAssuming Mono...").arg(mode))
 	             != KMessageBox::Continue) return false;
@@ -404,7 +404,7 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
 
     const Mp3_Headerinfo *mp3hdr = tag.GetMp3HeaderInfo();
     if (!mp3hdr) {
-	KMessageBox::sorry(widget,
+	Kwave::MessageBox::sorry(widget,
 	    i18n("The opened file is no MPEG file or is damaged.\n"
 	    "No header information has been found..."));
 	return false;
@@ -508,11 +508,12 @@ enum mad_flow MP3Decoder::handleError(void */*data*/,
 	         "at position %2.", error, pos);
     if (!m_failures) {
 	m_failures = 1;
-	result = KMessageBox::warningContinueCancel(m_parent_widget,
+	result = Kwave::MessageBox::warningContinueCancel(m_parent_widget,
 	         error.arg(i18n("Do you still want to continue?")));
 	if (result != KMessageBox::Continue) return MAD_FLOW_BREAK;
     } else if (m_failures == 1) {
-	result = KMessageBox::warningYesNo(m_parent_widget, error + "\n" +
+	result = Kwave::MessageBox::warningYesNo(m_parent_widget,
+	    error + "\n" +
 	    i18n("Do you want to continue and ignore all following errors?"));
         m_failures++;
 	if (result != KMessageBox::Yes) return MAD_FLOW_BREAK;

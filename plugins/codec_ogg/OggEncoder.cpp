@@ -25,7 +25,6 @@
 #include <QList>
 
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <kmimetype.h>
 #include <kapplication.h>
 #include <kglobal.h>
@@ -37,6 +36,8 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
+
+#include "libgui/MessageBox.h"
 
 #include "OggCodecPlugin.h"
 #include "OggEncoder.h"
@@ -160,7 +161,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
     if ((vbr_quality < 0) && (bitrate_nominal <= 0)) {
 	// no quality and no bitrate given -> complain !
-	if (KMessageBox::warningContinueCancel(widget,
+	if (Kwave::MessageBox::warningContinueCancel(widget,
 	    i18n("You have not selected any bitrate for the encoding. "
 	         "Do you want to continue and encode with %1 kBit/s "
 	         "or cancel and choose a different bitrate?").arg(
@@ -239,7 +240,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
        mode that libVorbis does not support (eg, too low a bitrate, etc,
        will return 'OV_EIMPL') */
     if (ret) {
-	KMessageBox::sorry(widget, i18n("One or more encoding "
+	Kwave::MessageBox::sorry(widget, i18n("One or more encoding "
 	    "parameters are not supported. Please change the "
 	    "settings and try again..."));
 	return false;
@@ -247,7 +248,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
     // open the output device
     if (!dst.open(IO_ReadWrite | IO_Truncate)) {
-	KMessageBox::error(widget,
+	Kwave::MessageBox::error(widget,
 	    i18n("Unable to open the file for saving!"));
 	return false;
     }

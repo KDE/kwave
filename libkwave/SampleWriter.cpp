@@ -93,7 +93,7 @@ SampleWriter &SampleWriter::operator << (SampleReader &reader)
 	Q_ASSERT(m_buffer_used);
 	if (!m_buffer_used) break;
 
-	flush();
+	if (!flush()) return *this; // out of memory
     }
 
     // pad the rest with zeroes
@@ -108,7 +108,7 @@ SampleWriter &SampleWriter::operator << (SampleReader &reader)
 }
 
 //***************************************************************************
-void SampleWriter::flush(const Kwave::SampleArray &buffer,
+bool SampleWriter::flush(const Kwave::SampleArray &buffer,
                          unsigned int &count)
 {
     if ((m_mode == Overwrite) && (m_position + count > m_last)) {
@@ -117,15 +117,19 @@ void SampleWriter::flush(const Kwave::SampleArray &buffer,
 // 	qDebug("SampleWriter::flush() clipped to count=%u", count);
     }
 
-    if (count == 0) return; // nothing to flush
+    if (count == 0) return true; // nothing to flush
 
-    m_track.writeSamples(m_mode, m_position, buffer, 0, count);
+    if (!m_track.writeSamples(m_mode, m_position, buffer, 0, count))
+	return false; /* out of memory */
+
     m_position += count;
     if (m_position+1 > m_last) m_last = m_position-1;
     count = 0;
 
     // inform others that we proceeded
     emit proceeded();
+
+    return true;
 }
 
 //***************************************************************************

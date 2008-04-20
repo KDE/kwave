@@ -26,12 +26,13 @@
 #include <QWriteLocker>
 
 #include <klocale.h>
-#include <kmessagebox.h>
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Track.h"
 #include "libkwave/WindowFunction.h"
+
+#include "libgui/MessageBox.h"
 
 #include "Signal.h"
 #include "Parser.h"
@@ -331,7 +332,7 @@ void Signal::selectTrack(unsigned int track, bool select)
 //
 //    } else {
 //	if (data) delete data;
-//	KMessageBox::error
+//	Kwave::MessageBox::error
 //	(0, i18n("Info"), i18n("No Memory for FFT-buffers available !"), 2);
 //    }
 //}
@@ -402,7 +403,7 @@ void Signal::selectTrack(unsigned int track, bool select)
 ////    }
 ////    else {
 ////	if (data) delete data;
-////	KMessageBox::error
+////	Kwave::MessageBox::error
 ////	(0, i18n("Info"), i18n("No Memory for FFT-buffers available !"), 2);
 ////    }
 //}

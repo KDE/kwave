@@ -218,9 +218,17 @@ unsigned int Stripe::end()
 unsigned int Stripe::resizeStorage(unsigned int length)
 {
     if (m_length == length) return length; // nothing to do
-//  qDebug("Stripe::resizeStorage(%u)", length);
+//     qDebug("Stripe::resizeStorage(%u)", length);
 
     MemoryManager &mem = MemoryManager::instance();
+
+    if (length == 0) {
+	// delete the array
+	mem.free(m_storage);
+	m_storage = 0;
+	m_length  = 0;
+	return 0;
+    }
 
     if (!m_length || !m_storage) {
 	// allocate new storage
@@ -234,14 +242,6 @@ unsigned int Stripe::resizeStorage(unsigned int length)
 	m_storage = new_storage;
 	m_length  = length;
 	return length;
-    }
-
-    if (length == 0) {
-	// delete the array
-	mem.free(m_storage);
-	m_storage = 0;
-	m_length  = 0;
-	return 0;
     }
 
     // resize the array to another size
@@ -268,14 +268,14 @@ unsigned int Stripe::resize(unsigned int length, bool initialize)
 	old_length = m_length;
 	if (m_length == length) return old_length; // nothing to do
 
-//	qDebug("Stripe::resize() from %d to %d samples", old_length, length);
+// 	qDebug("Stripe::resize() from %d to %d samples", old_length, length);
 	if (resizeStorage(length) != length) {
 	    qWarning("Stripe::resize(%u) failed, out of memory ?", length);
 	    return m_length;
 	}
 
 	// fill new samples with zero
-	if (initialize) {
+	if (initialize && length) {
 	    unsigned int pos = old_length;
 
 #ifdef STRICTLY_QT
@@ -337,7 +337,7 @@ unsigned int Stripe::append(const Kwave::SampleArray &samples,
 //***************************************************************************
 void Stripe::deleteRange(unsigned int offset, unsigned int length)
 {
-    qDebug("    Stripe::deleteRange(offset=%u, length=%u)", offset, length);
+//     qDebug("    Stripe::deleteRange(offset=%u, length=%u)", offset, length);
     if (!length) return; // nothing to do
 
     {
@@ -348,8 +348,8 @@ void Stripe::deleteRange(unsigned int offset, unsigned int length)
 
 	unsigned int first = offset;
 	unsigned int last  = offset + length - 1;
-	qDebug("    Stripe::deleteRange, me=[%u ... %u] del=[%u ... %u]",
-	       m_start, m_start+size-1, m_start + first, m_start + last);
+// 	qDebug("    Stripe::deleteRange, me=[%u ... %u] del=[%u ... %u]",
+// 	       m_start, m_start+size-1, m_start + first, m_start + last);
 
 	Q_ASSERT(first < size);
 	if (first >= size) return;
@@ -363,7 +363,7 @@ void Stripe::deleteRange(unsigned int offset, unsigned int length)
 	unsigned int dst = first;
 	unsigned int src = last+1;
 	unsigned int len = size - src;
-	qDebug("    Stripe: deleting %u ... %u", dst, src-1);
+// 	qDebug("    Stripe: deleting %u ... %u", dst, src-1);
 	if (len) {
 	    MappedArray _samples(*this, m_length);
 
@@ -408,8 +408,8 @@ unsigned int Stripe::read(Kwave::SampleArray &buffer, unsigned int dstoff,
     if (offset > m_length) return 0;
     if (offset+length > m_length) length = m_length - offset;
     Q_ASSERT(length);
-    if (!length) qDebug("--- [%u ... %u] (%u), offset=%u",
-                        m_start, m_start+m_length-1, m_length, offset);
+//     if (!length) qDebug("--- [%u ... %u] (%u), offset=%u",
+//                         m_start, m_start+m_length-1, m_length, offset);
     if (!length) return 0;
 
     // read directly through the memory manager, fastest path

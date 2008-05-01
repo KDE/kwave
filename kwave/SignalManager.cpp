@@ -568,12 +568,11 @@ SampleWriter *SignalManager::openSampleWriter(unsigned int track,
 	    break;
 	case Insert:
 	    undo = new UndoInsertAction(track, left, right-left+1);
-	    if (!registerUndoAction(undo)) undo = 0;
 	    if (undo) {
 		QObject::connect(
 		    writer,
 		    SIGNAL(sigSamplesWritten(unsigned int)),
-		    reinterpret_cast<UndoInsertAction *>(undo),
+		    static_cast<UndoInsertAction *>(undo),
 		    SLOT(setLength(unsigned int)));
 	    }
 	    break;

@@ -29,8 +29,8 @@
  * Optimal size of a stripe [samples].
  * When creating a new stripe, it should have this size
  */
-#define STRIPE_LENGTH_OPTIMAL (4UL * 1024UL * 1024UL) /* 16MB */
-// #define STRIPE_LENGTH_OPTIMAL (64 * 1024UL) /* 64kB */
+// #define STRIPE_LENGTH_OPTIMAL (4UL * 1024UL * 1024UL) /* 16MB */
+#define STRIPE_LENGTH_OPTIMAL (64 * 1024UL) /* 64kB */
 
 /**
  * Maximum stripe size [samples].
@@ -68,8 +68,10 @@ Track::~Track()
 {
     QWriteLocker lock(&m_lock);
 
-    while (!m_stripes.isEmpty())
-	deleteStripe(m_stripes.last());
+    while (!m_stripes.isEmpty()) {
+	Stripe *s = m_stripes.takeLast();
+	if (s) delete s;
+    }
 }
 
 //***************************************************************************
@@ -111,25 +113,19 @@ Stripe *Track::newStripe(unsigned int start, unsigned int length)
 }
 
 //***************************************************************************
-void Track::deleteStripe(Stripe *s)
-{
-    if (!s) return;
-    delete s;
-    if (m_stripes.contains(s)) m_stripes.removeAll(s);
-}
-
-//***************************************************************************
-void Track::splitStripe(Stripe *stripe, unsigned int offset)
+Stripe *Track::splitStripe(Stripe *stripe, unsigned int offset)
 {
     Q_ASSERT(stripe);
-    if (!stripe) return;
+    if (!stripe) return 0;
     Q_ASSERT(offset < stripe->length());
-    if (offset >= stripe->length()) return;
+    Q_ASSERT(offset);
+    if (offset >= stripe->length()) return 0;
+    if (!offset) return 0;
 
     // create a new stripe with the data that has been split off
     Stripe *s = new Stripe(stripe->start() + offset, *stripe, offset);
     Q_ASSERT(s);
-    if (!s) return;
+    if (!s) return 0;
 
     // shrink the old stripe
     stripe->resize(offset);
@@ -137,8 +133,7 @@ void Track::splitStripe(Stripe *stripe, unsigned int offset)
     qDebug("Track::splitStripe(%p, %u): new stripe at [%u ... %u] (%u)",
            stripe, offset, s->start(), s->end(), s->length());
 
-    qDebug("    inserting at list index %u", m_stripes.indexOf(stripe)+1);
-    m_stripes.insert(m_stripes.indexOf(stripe)+1, s);
+    return s;
 }
 
 //***************************************************************************
@@ -214,7 +209,7 @@ void Track::deleteRange(unsigned int offset, unsigned int length,
 	qDebug("Track::deleteRange() [%u ... %u] (%u)",
 	       left, right, right - left + 1);
 
-	QListIterator<Stripe *> it(m_stripes);
+	QMutableListIterator<Stripe *> it(m_stripes);
 	it.toBack();
 	while (it.hasPrevious()) {
 	    Stripe *s = it.previous();
@@ -222,32 +217,55 @@ void Track::deleteRange(unsigned int offset, unsigned int length,
 	    unsigned int start  = s->start();
 	    unsigned int end    = s->end();
 
-	    if (end < left) break; // done, stripe is at left
+	    if (end   < left)  break;    // done, stripe is at left
+	    if (start > right) continue; // skip, stripe is at right
 
 	    if ((left <= start) && (right >= end)) {
-		// total overlap -> delete whole stripe
+		// case #1: total overlap -> delete whole stripe
 		qDebug("deleting stripe [%u ... %u]", start, end);
-		deleteStripe(s); // decrements the iterator !!!
+		it.remove(); // decrements the iterator !!!
+		delete s;
 		if (m_stripes.isEmpty()) break;
 		continue;
-	    } else if (/* (end >= left) && */ (start <= right)) {
-		//        ^^^^^^^^^^^^ already checked above
+	    } else /* if ((end >= left) && (start <= right)) */ {
+		//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+		//        already checked above
 		// partial stripe overlap
 		unsigned int ofs = (start < left) ? left : start;
 		if (end > right) end = right;
 		qDebug("deleting [%u ... %u] (start=%u, ofs-start=%u, len=%u)",
 		       ofs, end, start, ofs-start, end - ofs + 1);
 
-		if (!make_gap || (end == s->end())) {
-		    // delete within the stripe
+		if (!make_gap ||
+		   ((left <= s->start()) && (right  < s->end())) ||
+		   ((left  > s->start()) && (right >= s->end())))
+		{
+		    // case #2: delete without creating a gap
+		    // case #3: delete from the left only
+		    // case #4: delete from the right only
 		    qDebug("    deleting within the stripe");
 		    s->deleteRange(ofs - start, end - ofs + 1);
 		    Q_ASSERT(s->length());
+
+		    // if deleted from start
+		    if (left <= s->start()) {
+			// move right, producing a (temporary) gap
+			qDebug("shifting [%u ... %u] to %u",
+				start, s->end(), end+1);
+			s->setStart(end+1);
+		    }
 		} else {
-		    // produce a gap by splitting off a new stripe
+		    // case #5: delete from the middle and produce a gap
+		    //          by splitting off a new stripe
 		    qDebug("    splitting off to new stripe @ %u (ofs=%u)",
 		           right+1, right+1-start);
-		    splitStripe(s, right+1-start);
+		    Stripe *new_stripe = splitStripe(s, right+1-start);
+		    Q_ASSERT(new_stripe);
+		    if (!new_stripe) break;
+		    it.next(); // right after "s"
+		    it.insert(new_stripe);
+		    it.previous(); // before new_stripe == after s
+		    it.previous(); // before s, like
 
 		    // erase to the end (reduce size)
 		    qDebug("ofs-start=%u, s->end()-ofs+1=%u [%u...%u] (%u)",
@@ -256,16 +274,8 @@ void Track::deleteRange(unsigned int offset, unsigned int length,
 		    s->deleteRange(ofs-start, s->end()-ofs+1);
 		    qDebug("length now: %u [%u ... %u]", s->length(),
 		           s->start(), s->end());
+		    Q_ASSERT(s->length());
 		}
-
-		// if deleted from start
-		if (ofs == start) {
-		    // make gap -> move right (maybe will get fixed later)
-		    qDebug("shifting [%u ... %u] to %u",
-			    start, s->end(), end+1);
-		    s->setStart(end+1);
-		}
-
 		Q_ASSERT(s->length());
 	    }
 	}
@@ -331,7 +341,7 @@ bool Track::appendAfter(Stripe *stripe,  unsigned int offset,
 	buf_offset += len;
     }
 
-    int index_before = m_stripes.indexOf(stripe);
+    int index_before = (stripe) ? m_stripes.indexOf(stripe) : -1;
 
     // append new stripes as long as there is something remaining
     while (length) {
@@ -465,7 +475,7 @@ bool Track::writeSamples(InsertMode mode,
 
 	    // if no stripe was found, create a new one and
 	    // insert it between the existing ones
-	    if (!target_stripe) {
+	    if (!target_stripe || (offset == target_stripe->start())) {
 		// insert somewhere before, between or after stripes
 		moveRight(offset, length);
 		appendAfter(stripe_before, offset, buffer,
@@ -473,7 +483,13 @@ bool Track::writeSamples(InsertMode mode,
 	    } else {
 	        // split the target stripe and insert the samples
 		// between the two new ones
-		splitStripe(target_stripe, offset-target_stripe->start());
+		Stripe *new_stripe = splitStripe(target_stripe,
+		    offset - target_stripe->start());
+		Q_ASSERT(new_stripe);
+		if (!new_stripe) break;
+		m_stripes.insert(m_stripes.indexOf(target_stripe) + 1,
+		    new_stripe);
+
 		moveRight(offset, length);
 		appendAfter(target_stripe, offset, buffer,
 		            buf_offset, length);
@@ -509,7 +525,7 @@ bool Track::writeSamples(InsertMode mode,
 	    // handle the overlap from left, until we
 	    // reach the first gap or nothing remains
 //	    qDebug("number of stripes = %u", m_stripes.count());
-	    QListIterator<Stripe *> it(m_stripes);
+	    QMutableListIterator<Stripe *> it(m_stripes);
 	    it.toFront();
 	    while (it.hasNext() && length) {
 		Stripe *s = it.next();
@@ -611,7 +627,8 @@ bool Track::writeSamples(InsertMode mode,
 		if ((start >= left) && (end <= right)) {
 		    // delete the whole stripe
 // 		    qDebug("deleting [%u ... %u]", start, end);
-		    deleteStripe(s);
+		    it.remove();
+		    delete s;
 		    continue;
 		}
 
@@ -649,12 +666,21 @@ bool Track::writeSamples(InsertMode mode,
 void Track::dump()
 {
     qDebug("------------------------------------");
+    unsigned int index = 0;
+    unsigned int last_end = 0;
     foreach (Stripe *s, m_stripes) {
-	qDebug("%p - [%10u - %10u] (%10u)",
-	       s,
+	unsigned int start = (s) ? s->start() : 0;
+	if (index && s && (start <= last_end))
+	    qDebug("--- OVERLAP ---");
+	if (s && (start > last_end+1))
+	    qDebug("       : GAP         [%10u - %10u] (%10u)",
+	    last_end+1, start-1, start - last_end - 1);
+	qDebug("#%6d: %p - [%10u - %10u] (%10u)",
+	       index++, s,
 	       (s) ? s->start()  : 0,
 	       (s) ? s->end()    : 0,
 	       (s) ? s->length() : 0);
+	if (s) last_end = s->end();
     }
     qDebug("------------------------------------");
 }

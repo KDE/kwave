@@ -184,8 +184,9 @@ private:
      * @param stripe the stripe to be split
      * @param offset the offset within the stripe, which becomes the first
      *               sample in the new stripe
+     * @return the new created stripe
      */
-    void splitStripe(Stripe *stripe, unsigned int offset);
+    Stripe *splitStripe(Stripe *stripe, unsigned int offset);
 
     /**
      * dump the list of stripes, for debugging
@@ -223,13 +224,6 @@ private:
      * @note this must be private, it does no locking !
      */
     Stripe *newStripe(unsigned int start, unsigned int length);
-
-    /**
-     * Deletes a stripe by disconnecting it's signals first and then
-     * removing it from the list of stripes with autodelete on.
-     * @param s Stripe to be deleted
-     */
-    void deleteStripe(Stripe *s);
 
 private:
     /** read/write lock for access to the whole track */

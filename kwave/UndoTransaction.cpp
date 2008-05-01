@@ -71,7 +71,7 @@ QString UndoTransaction::description()
     QListIterator<UndoAction *> it(*this);
     while (it.hasNext()) {
 	UndoAction *undo = it.next();
-	if (undo) continue;
+	if (!undo) continue;
 	QString d = undo->description();
 
 	// skip duplicates

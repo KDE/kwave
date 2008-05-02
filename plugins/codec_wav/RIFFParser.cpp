@@ -711,8 +711,8 @@ bool RIFFParser::joinGarbageToEmpty()
 
     RIFFChunkList chunks;
     listAllChunks(m_root, chunks);
-    QListIterator<RIFFChunk *> it1(chunks);
-    QListIterator<RIFFChunk *> it2(chunks);
+    QMutableListIterator<RIFFChunk *> it1(chunks);
+    QMutableListIterator<RIFFChunk *> it2(chunks);
 
     // join garbage to empty chunks
     if (it2.hasNext()) it2.next();

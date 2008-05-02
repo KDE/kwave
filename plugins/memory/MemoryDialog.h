@@ -19,12 +19,13 @@
 #define _MEMORY_DIALOG_H_
 
 #include "config.h"
-#include <qobject.h>
-#include "MemDlg.h"
+#include <QDialog>
+#include <QObject>
+#include "ui_MemDlg.h"
 
 class QStringList;
 
-class MemoryDialog : public MemDlg
+class MemoryDialog : public QDialog, public Ui::MemDlg
 {
     Q_OBJECT
 

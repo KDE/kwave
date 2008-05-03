@@ -16,23 +16,24 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <limits.h>
 #include <math.h>
 #include <stdlib.h>
 
-#include <qcombobox.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qslider.h>
-#include <qspinbox.h>
-#include <qstring.h>
-#include <qtimer.h>
+#include <QComboBox>
+#include <QLabel>
+#include <QLayout>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QSpinBox>
+#include <QString>
+#include <QTimer>
 
 #include <klocale.h>
 #include <knuminput.h>
-#include <kapplication.h> // for invokeHelp
+#include <ktoolinvocation.h>
 
 #include "NewSignalDialog.h"
 
@@ -40,25 +41,14 @@
 NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
 	unsigned int rate, unsigned int bits, unsigned int tracks,
 	bool by_time)
-    :NewSigDlg(parent, 0, true), m_timer(this), m_recursive(false)
+    :QDialog(parent), Ui::NewSigDlg(), m_timer(this), m_recursive(false)
 {
-    Q_ASSERT(btOK);
-    Q_ASSERT(cbSampleRate);
-    Q_ASSERT(sbResolution);
-    Q_ASSERT(sbTracks);
-    Q_ASSERT(rbTime);
-    Q_ASSERT(lblTracksVerbose);
-    Q_ASSERT(sbHours);
-    Q_ASSERT(sbMinutes);
-    Q_ASSERT(sbSeconds);
-    Q_ASSERT(rbSamples);
-    Q_ASSERT(edSamples);
-    Q_ASSERT(slideLength);
-    Q_ASSERT(lblFileSize);
 
-    if (!ok()) return;
+    setupUi(this);
+    setModal(true);
 
-    edSamples->setRange(0, INT_MAX, 1, false);
+    edSamples->setRange(0, INT_MAX, 1);
+    edSamples->setSliderEnabled(false);
 
     // connect the timer for the sample edit
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(checkNewSampleEdit()));
@@ -128,21 +118,6 @@ NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
     setFixedWidth(sizeHint().width());
 }
 
-
-//***************************************************************************
-int NewSignalDialog::exec()
-{
-    return (!ok()) ? Rejected : (NewSigDlg::exec());
-}
-
-//***************************************************************************
-bool NewSignalDialog::ok()
-{
-    return(btOK && cbSampleRate && sbResolution && sbTracks && rbTime &&
-	lblTracksVerbose && sbHours && sbMinutes && sbSeconds &&
-	rbSamples && edSamples && slideLength && lblFileSize);
-}
-
 //***************************************************************************
 unsigned int NewSignalDialog::samples()
 {
@@ -210,7 +185,8 @@ void NewSignalDialog::rbTimeToggled(bool)
 	m_timer.stop();
     } else {
 	// activate the sample edit timer
-	m_timer.start(100, false);
+	m_timer.setSingleShot(false);
+	m_timer.start(100);
     }
 }
 
@@ -351,7 +327,7 @@ void NewSignalDialog::updateFileSize()
 	str_bytes.sprintf("%0.3f",mbytes);
     }
 
-    lblFileSize->setText(i18n("(Resulting file size: %1 MB)").arg(str_bytes));
+    lblFileSize->setText(i18n("(Resulting file size: %1 MB)", str_bytes));
 }
 
 //***************************************************************************
@@ -393,7 +369,7 @@ void NewSignalDialog::setHMS(const double &samples)
 //***************************************************************************
 void NewSignalDialog::invokeHelp()
 {
-    kapp->invokeHelp("newfile");
+    KToolInvocation::invokeHelp("memory-setup");
 }
 
 //***************************************************************************

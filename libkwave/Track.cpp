@@ -29,8 +29,8 @@
  * Optimal size of a stripe [samples].
  * When creating a new stripe, it should have this size
  */
-// #define STRIPE_LENGTH_OPTIMAL (4UL * 1024UL * 1024UL) /* 16MB */
-#define STRIPE_LENGTH_OPTIMAL (64 * 1024UL) /* 64kB */
+#define STRIPE_LENGTH_OPTIMAL (4UL * 1024UL * 1024UL) /* 16MB */
+// #define STRIPE_LENGTH_OPTIMAL (64 * 1024UL) /* 64kB */
 
 /**
  * Maximum stripe size [samples].
@@ -60,7 +60,13 @@ Track::Track()
 Track::Track(unsigned int length)
     :m_lock(), m_stripes(), m_selected(true)
 {
-    appendStripe(length);
+    if (length < 2*STRIPE_LENGTH_OPTIMAL)
+	appendStripe(length);
+    else {
+	Stripe *s = newStripe(length - STRIPE_LENGTH_OPTIMAL,
+	    STRIPE_LENGTH_OPTIMAL);
+	if (s) m_stripes.append(s);
+    }
 }
 
 //***************************************************************************
@@ -674,7 +680,8 @@ void Track::dump()
 	    qDebug("--- OVERLAP ---");
 	if (s && (start > last_end+1))
 	    qDebug("       : GAP         [%10u - %10u] (%10u)",
-	    last_end+1, start-1, start - last_end - 1);
+	    last_end + ((index) ? 1 : 0), start-1,
+	    start - last_end - ((index) ? 1 : 0));
 	qDebug("#%6d: %p - [%10u - %10u] (%10u)",
 	       index++, s,
 	       (s) ? s->start()  : 0,

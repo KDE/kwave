@@ -70,7 +70,6 @@ bool SwapFile::allocate(size_t size, const QString &filename)
 #ifdef HAVE_MKSTEMP
     char *name = qstrdup(filename.toLocal8Bit().data());
     int fd = mkstemp(name);
-    Q_ASSERT(fd >= 0);
     if (fd < 0) {
 	qDebug("SwapFile::allocate(%u) failed, instances: %u",
 	       (unsigned int)size, g_instances);

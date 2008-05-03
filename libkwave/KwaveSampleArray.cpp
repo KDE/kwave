@@ -37,6 +37,7 @@ Kwave::SampleArray::SampleArray(unsigned int size)
 //***************************************************************************
 Kwave::SampleArray::~SampleArray()
 {
+    resize(0);
 }
 
 //***************************************************************************
@@ -102,6 +103,7 @@ const sample_t & Kwave::SampleArray::operator [] (unsigned int index) const
 void Kwave::SampleArray::resize(unsigned int size)
 {
     if (!m_storage) return;
+    if (size == m_storage->m_size) return;
 
     if (m_storage->m_data) free(m_storage->m_data);
     m_storage->m_data = 0;
@@ -110,7 +112,11 @@ void Kwave::SampleArray::resize(unsigned int size)
     if (size) {
 	m_storage->m_data =
 	    static_cast<sample_t *>(malloc(size * sizeof(sample_t)));
-	if (m_storage->m_data) m_storage->m_size = size;
+	if (m_storage->m_data) {
+	    m_storage->m_size = size;
+	} else {
+	    qWarning("OOM in Kwave::SampleArray::resize(%u)", size);
+	}
     }
 }
 

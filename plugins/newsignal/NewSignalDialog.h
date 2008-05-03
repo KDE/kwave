@@ -19,14 +19,18 @@
 #define _NEW_SIGNAL_DIALOG_H_
 
 #include "config.h"
-#include <qtimer.h>
-#include <qwidget.h>
-#include "NewSigDlg.h"
+
+#include <QDialog>
+#include <QTimer>
+#include <QWidget>
+
+#include "ui_NewSigDlg.h"
 
 class QString;
 class QWidget;
 
-class NewSignalDialog: public NewSigDlg
+class NewSignalDialog: public QDialog,
+                       public Ui::NewSigDlg
 {
     Q_OBJECT
 public:
@@ -45,12 +49,6 @@ public:
 
     /** Destructor */
     virtual ~NewSignalDialog() {};
-
-    /**
-     * Wrapper for the QDialog's exec() function, returns if any
-     * of the dialog's pointer is null.
-     */
-    int exec();
 
     /** Returns the number of samples */
     unsigned int samples();
@@ -103,9 +101,6 @@ private slots:
     void invokeHelp();
 
 private:
-
-    /** Returns true if all pointers of the dialog are valid */
-    bool ok();
 
     /**
      * Returns the maximum number of samples per track that can be created

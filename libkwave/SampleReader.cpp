@@ -141,6 +141,7 @@ unsigned int SampleReader::read(Kwave::SampleArray &buffer,
     if (eof() || !length) return 0; // already done or nothing to do
 
     // just a sanity check
+    Q_ASSERT(buffer.size());
     Q_ASSERT(dstoff < buffer.size());
     if (dstoff >= buffer.size()) return 0;
 
@@ -187,7 +188,6 @@ unsigned int SampleReader::read(Kwave::SampleArray &buffer,
 	if (!s) continue;
 	unsigned int st  = s->start();
 	unsigned int len = s->length();
-	if (!len) continue; // skip zero-length stripes
 
 	if (m_src_position >= st+len) continue; // not yet in range
 
@@ -202,7 +202,9 @@ unsigned int SampleReader::read(Kwave::SampleArray &buffer,
 	    rest           -= pad;
 	    count          += pad;
 	}
+	if (!rest) break;
 
+	if (!len) continue; // skip zero-length stripes
 	if (m_src_position >= st) {
 	    unsigned int offset = m_src_position - st;
 	    unsigned int cnt = rest;

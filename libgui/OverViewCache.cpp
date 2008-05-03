@@ -426,6 +426,7 @@ QBitmap OverViewCache::getOverView(int width, int height)
     }
     MultiTrackReader src(m_signal, track_list, m_src_offset,
 	m_src_offset+length-1);
+    Kwave::SampleArray buf;
 
     // loop over all min/max buffers and make their content valid
     Q_ASSERT(m_state.count() == static_cast<int>(src.tracks()));
@@ -445,11 +446,13 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	    sample_t min_sample = SAMPLE_MAX;
 	    sample_t max_sample = SAMPLE_MIN;
 	    unsigned int first = ofs*m_scale;
-	    unsigned int count = m_scale;
-	    Kwave::SampleArray buf(count);
+	    buf.resize(m_scale);
+	    unsigned int count = buf.size();
+	    Q_ASSERT(count >= m_scale);
+	    if (count < m_scale) break; // out of memory
 
 	    reader->seek(m_src_offset+first);
-	    count = reader->read(buf, 0, count);
+	    count = reader->read(buf, 0, m_scale);
 	    while (count--) {
 		sample_t sample = buf[count];
 		if (sample > max_sample) max_sample = sample;

@@ -69,7 +69,7 @@ ADD_SUBDIRECTORY( decoder_mp3 )     # needs libmad and id3lib
 ADD_SUBDIRECTORY( fileinfo )
 ADD_SUBDIRECTORY( lowpass )
 ADD_SUBDIRECTORY( memory )
-# ADD_SUBDIRECTORY( newsignal )
+ADD_SUBDIRECTORY( newsignal )
 # ADD_SUBDIRECTORY( noise )
 # ADD_SUBDIRECTORY( notch_filter )
 # ADD_SUBDIRECTORY( pitch_shift )

@@ -19,15 +19,18 @@
 #define _PITCH_SHIFT_DIALOG_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qstring.h>
-#include "libkwave/KwavePluginSetupDialog.h"
-#include "PitchShiftDlg.h"
 
-class QDialog;
+#include <QDialog>
+#include <QObject>
+#include <QString>
+
+#include "libkwave/KwavePluginSetupDialog.h"
+#include "ui_PitchShiftDlg.h"
+
 class QStringList;
 
-class PitchShiftDialog: public PitchShiftDlg,
+class PitchShiftDialog: public QDialog,
+                        public Ui::PitchShiftDlg,
                         public KwavePluginSetupDialog
 {
     Q_OBJECT

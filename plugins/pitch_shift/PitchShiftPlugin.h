@@ -19,9 +19,9 @@
 #define _PITCH_SHIFT_PLUGIN_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
 #include "libkwave/KwavePluginSetupDialog.h"
 #include "libkwave/KwaveFilterPlugin.h"

@@ -25,9 +25,9 @@
 
 #include "config.h"
 
-#include <qobject.h>
-#include <qvariant.h>
-#include <qvaluevector.h>
+#include <QObject>
+#include <QVariant>
+#include <QVector>
 
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveSampleSource.h"
@@ -86,7 +86,7 @@ private:
 
     enum { MAXDELAY = 1000000 };
 
-    QValueVector<float> m_dbuffer;
+    QVector<float> m_dbuffer;
     float m_lfopos;
     float m_b1pos;
     float m_b2pos;

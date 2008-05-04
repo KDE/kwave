@@ -18,7 +18,9 @@
 #include "config.h"
 #include <errno.h>
 #include <math.h>
-#include <qstringlist.h>
+
+#include <QStringList>
+
 #include <klocale.h>
 
 #include "libkwave/KwaveMultiTrackSource.h"

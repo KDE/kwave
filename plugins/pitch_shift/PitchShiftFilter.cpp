@@ -30,7 +30,7 @@
 
 //***************************************************************************
 PitchShiftFilter::PitchShiftFilter()
-    :Kwave::SampleSource(0, "PitchShiftFilter"), m_buffer(blockSize()),
+    :Kwave::SampleSource(0), m_buffer(blockSize()),
      m_speed(1.0), m_frequency(0.5), m_dbuffer(),
      m_lfopos(0), m_b1pos(0), m_b2pos(0), m_b1inc(0), m_b2inc(0),
      m_b1reset(false), m_b2reset(false), m_dbpos(0)
@@ -72,13 +72,13 @@ void PitchShiftFilter::initFilter()
 //***************************************************************************
 void PitchShiftFilter::input(Kwave::SampleArray &data)
 {
-    Q_ASSERT(data.count() == m_buffer.count());
+    Q_ASSERT(data.size() == m_buffer.size());
 
     float pi2 = 2*M_PI;
     float lfo, b1value, b2value;
     float lfoposinc = m_frequency;
 
-    for (unsigned int pos=0; pos < m_buffer.count(); pos++) {
+    for (unsigned int pos=0; pos < m_buffer.size(); pos++) {
 	/*
 	 * fill delay buffer with the input signal
 	 */

@@ -23,7 +23,7 @@
 
 //***************************************************************************
 NoiseGenerator::NoiseGenerator(QObject *parent)
-    :Kwave::SampleSource(parent, "noise generator"),
+    :Kwave::SampleSource(parent),
     m_noise(blockSize())
 {
 }

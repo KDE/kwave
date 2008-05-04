@@ -20,101 +20,88 @@ o port/fix the following files:
      2	./doc/CMakeLists.txt
      3	./kwave/CMakeLists.txt
      4	./plugins/CMakeLists.txt
-     5	./plugins/noise/CMakeLists.txt
-     6	./plugins/noise/NoiseGenerator.cpp
-     7	./plugins/noise/NoiseGenerator.h
-     8	./plugins/noise/NoisePlugin.cpp
-     9	./plugins/noise/NoisePlugin.h
-    10	./plugins/notch_filter/CMakeLists.txt
-    11	./plugins/notch_filter/NotchFilter.cpp
-    12	./plugins/notch_filter/NotchFilterDialog.cpp
-    13	./plugins/notch_filter/NotchFilterDialog.h
-    14	./plugins/notch_filter/NotchFilterDlg.ui
-    15	./plugins/notch_filter/NotchFilter.h
-    16	./plugins/notch_filter/NotchFilterPlugin.cpp
-    17	./plugins/notch_filter/NotchFilterPlugin.h
-    18	./plugins/pitch_shift/CMakeLists.txt
-    19	./plugins/pitch_shift/PitchShiftDialog.cpp
-    20	./plugins/pitch_shift/PitchShiftDialog.h
-    21	./plugins/pitch_shift/PitchShiftDlg.ui
-    22	./plugins/pitch_shift/PitchShiftFilter.cpp
-    23	./plugins/pitch_shift/PitchShiftFilter.h
-    24	./plugins/pitch_shift/PitchShiftPlugin.cpp
-    25	./plugins/pitch_shift/PitchShiftPlugin.h
-    26	./plugins/playback/CMakeLists.txt
-    27	./plugins/playback/PlayBack-ALSA.cpp
-    28	./plugins/playback/PlayBack-ALSA.h
-    29	./plugins/playback/PlayBackDialog.cpp
-    30	./plugins/playback/PlayBackDialog.h
-    31	./plugins/playback/PlayBackDlg.ui
-    32	./plugins/playback/PlayBack-OSS.cpp
-    33	./plugins/playback/PlayBack-OSS.h
-    34	./plugins/playback/PlayBackParam.h
-    35	./plugins/playback/PlayBackPlugin.cpp
-    36	./plugins/playback/PlayBackPlugin.h
-    37	./plugins/playback/PlayBackTypesMap.cpp
-    38	./plugins/playback/PlayBackTypesMap.h
-    39	./plugins/playback/SampleEncoder.h
-    40	./plugins/playback/SampleEncoderLinear.cpp
-    41	./plugins/playback/SampleEncoderLinear.h
-    42	./plugins/record/CMakeLists.txt
-    43	./plugins/record/LevelMeter.cpp
-    44	./plugins/record/LevelMeter.h
-    45	./plugins/record/Record-ALSA.cpp
-    46	./plugins/record/Record-ALSA.h
-    47	./plugins/record/RecordController.cpp
-    48	./plugins/record/RecordController.h
-    49	./plugins/record/RecordDevice.h
-    50	./plugins/record/RecordDialog.cpp
-    51	./plugins/record/RecordDialog.h
-    52	./plugins/record/RecordDlg.ui
-    53	./plugins/record/Record-OSS.cpp
-    54	./plugins/record/Record-OSS.h
-    55	./plugins/record/RecordParams.cpp
-    56	./plugins/record/RecordParams.h
-    57	./plugins/record/RecordPlugin.cpp
-    58	./plugins/record/RecordPlugin.h
-    59	./plugins/record/RecordState.h
-    60	./plugins/record/RecordThread.cpp
-    61	./plugins/record/RecordThread.h
-    62	./plugins/record/RecordTypesMap.cpp
-    63	./plugins/record/RecordTypesMap.h
-    64	./plugins/record/SampleDecoder.h
-    65	./plugins/record/SampleDecoderLinear.cpp
-    66	./plugins/record/SampleDecoderLinear.h
-    67	./plugins/record/StatusWidget.cpp
-    68	./plugins/record/StatusWidget.h
-    69	./plugins/saveblocks/CMakeLists.txt
-    70	./plugins/saveblocks/SaveBlocksDialog.cpp
-    71	./plugins/saveblocks/SaveBlocksDialog.h
-    72	./plugins/saveblocks/SaveBlocksPlugin.cpp
-    73	./plugins/saveblocks/SaveBlocksPlugin.h
-    74	./plugins/saveblocks/SaveBlocksWidgetBase.ui
-    75	./plugins/saveblocks/SaveBlocksWidget.cpp
-    76	./plugins/saveblocks/SaveBlocksWidget.h
-    77	./plugins/selectrange/CMakeLists.txt
-    78	./plugins/selectrange/SelectRangeDialog.cpp
-    79	./plugins/selectrange/SelectRangeDialog.h
-    80	./plugins/selectrange/SelectRangeDlg.ui
-    81	./plugins/selectrange/SelectRangePlugin.cpp
-    82	./plugins/selectrange/SelectRangePlugin.h
-    83	./plugins/sonagram/CMakeLists.txt
-    84	./plugins/sonagram/ImageView.cpp
-    85	./plugins/sonagram/ImageView.h
-    86	./plugins/sonagram/SonagramDialog.cpp
-    87	./plugins/sonagram/SonagramDialog.h
-    88	./plugins/sonagram/SonagramDlg.ui
-    89	./plugins/sonagram/SonagramPlugin.cpp
-    90	./plugins/sonagram/SonagramPlugin.h
-    91	./plugins/sonagram/SonagramWindow.cpp
-    92	./plugins/sonagram/SonagramWindow.h
-    93	./plugins/volume/CMakeLists.txt
-    94	./plugins/volume/VolumeDialog.cpp
-    95	./plugins/volume/VolumeDialog.h
-    96	./plugins/volume/VolumeDlg.ui
-    97	./plugins/volume/VolumePlugin.cpp
-    98	./plugins/volume/VolumePlugin.h
-    99	./po/CMakeLists.txt
+     5	./plugins/pitch_shift/CMakeLists.txt
+     6	./plugins/pitch_shift/PitchShiftDialog.cpp
+     7	./plugins/pitch_shift/PitchShiftDialog.h
+     8	./plugins/pitch_shift/PitchShiftDlg.ui
+     9	./plugins/pitch_shift/PitchShiftFilter.cpp
+    10	./plugins/pitch_shift/PitchShiftFilter.h
+    11	./plugins/pitch_shift/PitchShiftPlugin.cpp
+    12	./plugins/pitch_shift/PitchShiftPlugin.h
+    13	./plugins/playback/CMakeLists.txt
+    14	./plugins/playback/PlayBack-ALSA.cpp
+    15	./plugins/playback/PlayBack-ALSA.h
+    16	./plugins/playback/PlayBackDialog.cpp
+    17	./plugins/playback/PlayBackDialog.h
+    18	./plugins/playback/PlayBackDlg.ui
+    19	./plugins/playback/PlayBack-OSS.cpp
+    20	./plugins/playback/PlayBack-OSS.h
+    21	./plugins/playback/PlayBackParam.h
+    22	./plugins/playback/PlayBackPlugin.cpp
+    23	./plugins/playback/PlayBackPlugin.h
+    24	./plugins/playback/PlayBackTypesMap.cpp
+    25	./plugins/playback/PlayBackTypesMap.h
+    26	./plugins/playback/SampleEncoder.h
+    27	./plugins/playback/SampleEncoderLinear.cpp
+    28	./plugins/playback/SampleEncoderLinear.h
+    29	./plugins/record/CMakeLists.txt
+    30	./plugins/record/LevelMeter.cpp
+    31	./plugins/record/LevelMeter.h
+    32	./plugins/record/Record-ALSA.cpp
+    33	./plugins/record/Record-ALSA.h
+    34	./plugins/record/RecordController.cpp
+    35	./plugins/record/RecordController.h
+    36	./plugins/record/RecordDevice.h
+    37	./plugins/record/RecordDialog.cpp
+    38	./plugins/record/RecordDialog.h
+    39	./plugins/record/RecordDlg.ui
+    40	./plugins/record/Record-OSS.cpp
+    41	./plugins/record/Record-OSS.h
+    42	./plugins/record/RecordParams.cpp
+    43	./plugins/record/RecordParams.h
+    44	./plugins/record/RecordPlugin.cpp
+    45	./plugins/record/RecordPlugin.h
+    46	./plugins/record/RecordState.h
+    47	./plugins/record/RecordThread.cpp
+    48	./plugins/record/RecordThread.h
+    49	./plugins/record/RecordTypesMap.cpp
+    50	./plugins/record/RecordTypesMap.h
+    51	./plugins/record/SampleDecoder.h
+    52	./plugins/record/SampleDecoderLinear.cpp
+    53	./plugins/record/SampleDecoderLinear.h
+    54	./plugins/record/StatusWidget.cpp
+    55	./plugins/record/StatusWidget.h
+    56	./plugins/saveblocks/CMakeLists.txt
+    57	./plugins/saveblocks/SaveBlocksDialog.cpp
+    58	./plugins/saveblocks/SaveBlocksDialog.h
+    59	./plugins/saveblocks/SaveBlocksPlugin.cpp
+    60	./plugins/saveblocks/SaveBlocksPlugin.h
+    61	./plugins/saveblocks/SaveBlocksWidgetBase.ui
+    62	./plugins/saveblocks/SaveBlocksWidget.cpp
+    63	./plugins/saveblocks/SaveBlocksWidget.h
+    64	./plugins/selectrange/CMakeLists.txt
+    65	./plugins/selectrange/SelectRangeDialog.cpp
+    66	./plugins/selectrange/SelectRangeDialog.h
+    67	./plugins/selectrange/SelectRangeDlg.ui
+    68	./plugins/selectrange/SelectRangePlugin.cpp
+    69	./plugins/selectrange/SelectRangePlugin.h
+    70	./plugins/sonagram/CMakeLists.txt
+    71	./plugins/sonagram/ImageView.cpp
+    72	./plugins/sonagram/ImageView.h
+    73	./plugins/sonagram/SonagramDialog.cpp
+    74	./plugins/sonagram/SonagramDialog.h
+    75	./plugins/sonagram/SonagramDlg.ui
+    76	./plugins/sonagram/SonagramPlugin.cpp
+    77	./plugins/sonagram/SonagramPlugin.h
+    78	./plugins/sonagram/SonagramWindow.cpp
+    79	./plugins/sonagram/SonagramWindow.h
+    80	./plugins/volume/CMakeLists.txt
+    81	./plugins/volume/VolumeDialog.cpp
+    82	./plugins/volume/VolumeDialog.h
+    83	./plugins/volume/VolumeDlg.ui
+    84	./plugins/volume/VolumePlugin.cpp
+    85	./plugins/volume/VolumePlugin.h
+    86	./po/CMakeLists.txt
 
 o process the update of OverViewCache into a background thread
 
@@ -182,7 +169,7 @@ o change from id3lib to taglib
 
 o install a new_handler() for cases in which we run out of memory
 
-o implementation of locking, see SampleLock
+o implementation of locking
 
 o open file dialog: add a preview widget that shows info about the file
   and maybe has "playback/pause/stop" buttons
@@ -218,9 +205,6 @@ o amplifyclip does not work
 
 o feature "pulse train" is not yet implemented
   -> gstreamer/LADSPA ?
-
-o SignalProxy1 implementation is very inefficient for simple data types
-  like bool, char, int etc. Uses too much new/delete.
 
 o check at program startup: does the help directory exist? If not, show
   a message and make a symbolic link
@@ -271,9 +255,6 @@ o use MemoryManager for undo actions
 
 o user selectable color scheme
   (feature requested by John David Thompson, 2006-12-20)
-
-o problem with SignalWidget / XOR mode, fails on Nvidia
-  -> vanished since last update, but keep this point as a reminder...
 
 o switch to use float as sample_t (requires much work...)
 

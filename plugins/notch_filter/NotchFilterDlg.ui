@@ -1,397 +1,401 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
-<class>NotchFilterDlg</class>
-<widget class="QDialog">
-    <property name="name">
-        <cstring>NotchFilterDlg</cstring>
-    </property>
-    <property name="geometry">
-        <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>460</width>
-            <height>390</height>
-        </rect>
-    </property>
-    <property name="caption">
-        <string>Notch Filter</string>
-    </property>
-    <property name="sizeGripEnabled">
+<ui version="4.0" >
+ <class>NotchFilterDlg</class>
+ <widget class="QDialog" name="NotchFilterDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>460</width>
+    <height>390</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Notch Filter</string>
+  </property>
+  <property name="sizeGripEnabled" >
+   <bool>true</bool>
+  </property>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" colspan="2" >
+    <layout class="QGridLayout" >
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
+     </property>
+     <property name="horizontalSpacing" >
+      <number>0</number>
+     </property>
+     <property name="verticalSpacing" >
+      <number>0</number>
+     </property>
+     <item row="0" column="0" >
+      <widget class="ScaleWidget" native="1" name="scale_db" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="MinimumExpanding" hsizetype="Minimum" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize" >
+        <size>
+         <width>30</width>
+         <height>0</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <widget class="FrequencyResponseWidget" native="1" name="freq_response" >
+       <property name="minimumSize" >
+        <size>
+         <width>400</width>
+         <height>200</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" >
+      <widget class="ScaleWidget" native="1" name="scale_freq" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Minimum" hsizetype="MinimumExpanding" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize" >
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0" >
+    <widget class="KIntSpinBox" native="1" name="spinbox" >
+     <property name="toolTip" >
+      <string>center frequency</string>
+     </property>
+     <property name="whatsThis" >
+      <string>&lt;b>center frequency&lt;/b>
+Determines the center of the frequency range that
+should be removed.</string>
+     </property>
+     <property name="suffix" stdset="0" >
+      <string> Hz</string>
+     </property>
+     <property name="maxValue" stdset="0" >
+      <number>99999</number>
+     </property>
+     <property name="value" stdset="0" >
+      <number>99999</number>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" >
+    <widget class="QSlider" name="slider" >
+     <property name="toolTip" >
+      <string>center frequency</string>
+     </property>
+     <property name="whatsThis" >
+      <string>&lt;b>center frequency&lt;/b>
+Determines the center of the frequency range that
+should be removed.</string>
+     </property>
+     <property name="maximum" >
+      <number>44100</number>
+     </property>
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="tickInterval" >
+      <number>2000</number>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" >
+    <widget class="QSlider" name="slider_2" >
+     <property name="toolTip" >
+      <string>bandwidth</string>
+     </property>
+     <property name="whatsThis" >
+      <string>&lt;b>bandwidth&lt;/b>
+Determines the width of the frequency range that
+should be removed.</string>
+     </property>
+     <property name="minimum" >
+      <number>10</number>
+     </property>
+     <property name="maximum" >
+      <number>44100</number>
+     </property>
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="tickInterval" >
+      <number>2000</number>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" >
+    <widget class="KIntSpinBox" native="1" name="spinbox_2" >
+     <property name="toolTip" >
+      <string>bandwidth</string>
+     </property>
+     <property name="whatsThis" >
+      <string>&lt;b>bandwidth&lt;/b>
+Determines the width of the frequency range that
+should be removed.</string>
+     </property>
+     <property name="suffix" stdset="0" >
+      <string> Hz</string>
+     </property>
+     <property name="maxValue" stdset="0" >
+      <number>99999</number>
+     </property>
+     <property name="value" stdset="0" >
+      <number>99999</number>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2" >
+    <widget class="QFrame" name="frame3" >
+     <property name="minimumSize" >
+      <size>
+       <width>0</width>
+       <height>20</height>
+      </size>
+     </property>
+     <property name="frameShape" >
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Plain</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2" >
+    <layout class="QHBoxLayout" >
+     <item>
+      <widget class="QPushButton" name="buttonHelp" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <property name="text" >
+        <string>&amp;Help</string>
+       </property>
+       <property name="shortcut" >
+        <string>F1</string>
+       </property>
+       <property name="autoDefault" >
         <bool>true</bool>
-    </property>
-    <grid>
-        <property name="name">
-            <cstring>unnamed</cstring>
-        </property>
-        <widget class="QLayoutWidget" row="0" column="0" rowspan="1" colspan="2">
-            <property name="name">
-                <cstring>layout2</cstring>
-            </property>
-            <grid>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <property name="margin">
-                    <number>0</number>
-                </property>
-                <property name="spacing">
-                    <number>0</number>
-                </property>
-                <widget class="ScaleWidget" row="0" column="0">
-                    <property name="name">
-                        <cstring>scale_db</cstring>
-                    </property>
-                    <property name="sizePolicy">
-                        <sizepolicy>
-                            <hsizetype>1</hsizetype>
-                            <vsizetype>3</vsizetype>
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                        </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                        <size>
-                            <width>30</width>
-                            <height>0</height>
-                        </size>
-                    </property>
-                </widget>
-                <widget class="FrequencyResponseWidget" row="0" column="1">
-                    <property name="name">
-                        <cstring>freq_response</cstring>
-                    </property>
-                    <property name="minimumSize">
-                        <size>
-                            <width>400</width>
-                            <height>200</height>
-                        </size>
-                    </property>
-                </widget>
-                <widget class="ScaleWidget" row="1" column="1">
-                    <property name="name">
-                        <cstring>scale_freq</cstring>
-                    </property>
-                    <property name="sizePolicy">
-                        <sizepolicy>
-                            <hsizetype>3</hsizetype>
-                            <vsizetype>1</vsizetype>
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                        </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                        <size>
-                            <width>0</width>
-                            <height>30</height>
-                        </size>
-                    </property>
-                </widget>
-            </grid>
-        </widget>
-        <widget class="KIntSpinBox" row="1" column="0">
-            <property name="name">
-                <cstring>spinbox</cstring>
-            </property>
-            <property name="suffix">
-                <string> Hz</string>
-            </property>
-            <property name="maxValue">
-                <number>99999</number>
-            </property>
-            <property name="value">
-                <number>99999</number>
-            </property>
-            <property name="toolTip" stdset="0">
-                <string>center frequency</string>
-            </property>
-            <property name="whatsThis" stdset="0">
-                <string>&lt;b&gt;center frequency&lt;/b&gt;
-Determines the center of the frequency range that
-should be removed.</string>
-            </property>
-        </widget>
-        <widget class="QSlider" row="1" column="1">
-            <property name="name">
-                <cstring>slider</cstring>
-            </property>
-            <property name="maxValue">
-                <number>44100</number>
-            </property>
-            <property name="orientation">
-                <enum>Horizontal</enum>
-            </property>
-            <property name="tickmarks">
-                <enum>Right</enum>
-            </property>
-            <property name="tickInterval">
-                <number>2000</number>
-            </property>
-            <property name="toolTip" stdset="0">
-                <string>center frequency</string>
-            </property>
-            <property name="whatsThis" stdset="0">
-                <string>&lt;b&gt;center frequency&lt;/b&gt;
-Determines the center of the frequency range that
-should be removed.</string>
-            </property>
-        </widget>
-        <widget class="QSlider" row="2" column="1">
-            <property name="name">
-                <cstring>slider_2</cstring>
-            </property>
-            <property name="minValue">
-                <number>10</number>
-            </property>
-            <property name="maxValue">
-                <number>44100</number>
-            </property>
-            <property name="orientation">
-                <enum>Horizontal</enum>
-            </property>
-            <property name="tickmarks">
-                <enum>Right</enum>
-            </property>
-            <property name="tickInterval">
-                <number>2000</number>
-            </property>
-            <property name="toolTip" stdset="0">
-                <string>bandwidth</string>
-            </property>
-            <property name="whatsThis" stdset="0">
-                <string>&lt;b&gt;bandwidth&lt;/b&gt;
-Determines the width of the frequency range that
-should be removed.</string>
-            </property>
-        </widget>
-        <widget class="KIntSpinBox" row="2" column="0">
-            <property name="name">
-                <cstring>spinbox_2</cstring>
-            </property>
-            <property name="suffix">
-                <string> Hz</string>
-            </property>
-            <property name="maxValue">
-                <number>99999</number>
-            </property>
-            <property name="value">
-                <number>99999</number>
-            </property>
-            <property name="toolTip" stdset="0">
-                <string>bandwidth</string>
-            </property>
-            <property name="whatsThis" stdset="0">
-                <string>&lt;b&gt;bandwidth&lt;/b&gt;
-Determines the width of the frequency range that
-should be removed.</string>
-            </property>
-        </widget>
-        <widget class="QFrame" row="3" column="0" rowspan="1" colspan="2">
-            <property name="name">
-                <cstring>frame3</cstring>
-            </property>
-            <property name="minimumSize">
-                <size>
-                    <width>0</width>
-                    <height>20</height>
-                </size>
-            </property>
-            <property name="frameShape">
-                <enum>HLine</enum>
-            </property>
-            <property name="frameShadow">
-                <enum>Sunken</enum>
-            </property>
-        </widget>
-        <widget class="QLayoutWidget" row="4" column="0" rowspan="1" colspan="2">
-            <property name="name">
-                <cstring>layout4</cstring>
-            </property>
-            <hbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QPushButton">
-                    <property name="name">
-                        <cstring>buttonHelp</cstring>
-                    </property>
-                    <property name="enabled">
-                        <bool>false</bool>
-                    </property>
-                    <property name="text">
-                        <string>&amp;Help</string>
-                    </property>
-                    <property name="accel">
-                        <string>F1</string>
-                    </property>
-                    <property name="autoDefault">
-                        <bool>true</bool>
-                    </property>
-                </widget>
-                <widget class="QPushButton">
-                    <property name="name">
-                        <cstring>btListen</cstring>
-                    </property>
-                    <property name="text">
-                        <string>&amp;Listen</string>
-                    </property>
-                    <property name="accel">
-                        <string>Alt+L</string>
-                    </property>
-                    <property name="toggleButton">
-                        <bool>true</bool>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>start/stop pre-listening</string>
-                    </property>
-                    <property name="whatsThis" stdset="0">
-                        <string>Start or stop the pre-listening of the current settings. If pre-listening is enabled, you will nearly immediately hear any change in the selected parameters.</string>
-                    </property>
-                </widget>
-                <spacer>
-                    <property name="name">
-                        <cstring>Horizontal Spacing2</cstring>
-                    </property>
-                    <property name="orientation">
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                        <enum>Expanding</enum>
-                    </property>
-                    <property name="sizeHint">
-                        <size>
-                            <width>143</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-                <widget class="QPushButton">
-                    <property name="name">
-                        <cstring>buttonOk</cstring>
-                    </property>
-                    <property name="text">
-                        <string>&amp;OK</string>
-                    </property>
-                    <property name="accel">
-                        <string></string>
-                    </property>
-                    <property name="autoDefault">
-                        <bool>true</bool>
-                    </property>
-                    <property name="default">
-                        <bool>true</bool>
-                    </property>
-                </widget>
-                <widget class="QPushButton">
-                    <property name="name">
-                        <cstring>buttonCancel</cstring>
-                    </property>
-                    <property name="text">
-                        <string>&amp;Cancel</string>
-                    </property>
-                    <property name="accel">
-                        <string></string>
-                    </property>
-                    <property name="autoDefault">
-                        <bool>true</bool>
-                    </property>
-                </widget>
-            </hbox>
-        </widget>
-    </grid>
-</widget>
-<customwidgets>
-    <customwidget>
-        <class>ScaleWidget</class>
-        <header location="global">libgui/ScaleWidget.h</header>
-        <sizehint>
-            <width>-1</width>
-            <height>-1</height>
-        </sizehint>
-        <container>0</container>
-        <sizepolicy>
-            <hordata>5</hordata>
-            <verdata>5</verdata>
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-        </sizepolicy>
-        <pixmap>image0</pixmap>
-    </customwidget>
-    <customwidget>
-        <class>FrequencyResponseWidget</class>
-        <header location="local">libgui/FrequencyResponseWidget.h</header>
-        <sizehint>
-            <width>-1</width>
-            <height>-1</height>
-        </sizehint>
-        <container>0</container>
-        <sizepolicy>
-            <hordata>5</hordata>
-            <verdata>5</verdata>
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-        </sizepolicy>
-        <pixmap>image0</pixmap>
-    </customwidget>
-</customwidgets>
-<images>
-    <image name="image0">
-        <data format="XPM.GZ" length="646">789c6dd2c10ac2300c00d07bbf2234b7229d1be245fc04c5a3201e4615f430059d0711ff5ddb2e6bb236ec90eed134cb5a19d8ef36602af5ecdbfeeac05dda0798d3abebde87e3faa374d3807fa0d633a52d38d8de6f679fe33fc776e196f53cd010188256a3600a292882096246517815ca99884606e18044a3a40d91824820924265a7923a2e8bcd05f33db1173e002913175f2a6be6d3294871a2d95fa00e8a94ee017b69d339d90df1e77c57ea072ede6758</data>
-    </image>
-</images>
-<connections>
-    <connection>
-        <sender>buttonOk</sender>
-        <signal>clicked()</signal>
-        <receiver>NotchFilterDlg</receiver>
-        <slot>accept()</slot>
-    </connection>
-    <connection>
-        <sender>buttonCancel</sender>
-        <signal>clicked()</signal>
-        <receiver>NotchFilterDlg</receiver>
-        <slot>reject()</slot>
-    </connection>
-    <connection>
-        <sender>spinbox</sender>
-        <signal>valueChanged(int)</signal>
-        <receiver>slider</receiver>
-        <slot>setValue(int)</slot>
-    </connection>
-    <connection>
-        <sender>slider</sender>
-        <signal>valueChanged(int)</signal>
-        <receiver>spinbox</receiver>
-        <slot>setValue(int)</slot>
-    </connection>
-    <connection>
-        <sender>slider_2</sender>
-        <signal>valueChanged(int)</signal>
-        <receiver>spinbox_2</receiver>
-        <slot>setValue(int)</slot>
-    </connection>
-    <connection>
-        <sender>spinbox_2</sender>
-        <signal>valueChanged(int)</signal>
-        <receiver>slider_2</receiver>
-        <slot>setValue(int)</slot>
-    </connection>
-</connections>
-<tabstops>
-    <tabstop>slider</tabstop>
-    <tabstop>buttonHelp</tabstop>
-    <tabstop>buttonOk</tabstop>
-    <tabstop>buttonCancel</tabstop>
-</tabstops>
-<includes>
-    <include location="global" impldecl="in declaration">klocale.h</include>
-</includes>
-<slots>
-    <slot>slider_2_valueChanged(int)</slot>
-    <slot>spinbox_2_valueChanged(int)</slot>
-</slots>
-<layoutdefaults spacing="6" margin="11"/>
-<includehints>
-    <includehint>libgui/ScaleWidget.h</includehint>
-    <includehint>libgui/FrequencyResponseWidget.h</includehint>
-    <includehint>knuminput.h</includehint>
-</includehints>
-</UI>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btListen" >
+       <property name="toolTip" >
+        <string>start/stop pre-listening</string>
+       </property>
+       <property name="whatsThis" >
+        <string>Start or stop the pre-listening of the current settings. If pre-listening is enabled, you will nearly immediately hear any change in the selected parameters.</string>
+       </property>
+       <property name="text" >
+        <string>&amp;Listen</string>
+       </property>
+       <property name="shortcut" >
+        <string>Alt+L</string>
+       </property>
+       <property name="checkable" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>143</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="buttonOk" >
+       <property name="text" >
+        <string>&amp;OK</string>
+       </property>
+       <property name="shortcut" >
+        <string/>
+       </property>
+       <property name="autoDefault" >
+        <bool>true</bool>
+       </property>
+       <property name="default" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="buttonCancel" >
+       <property name="text" >
+        <string>&amp;Cancel</string>
+       </property>
+       <property name="shortcut" >
+        <string/>
+       </property>
+       <property name="autoDefault" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11" />
+ <customwidgets>
+  <customwidget>
+   <class>ScaleWidget</class>
+   <extends>QWidget</extends>
+   <header location="global" >libgui/ScaleWidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>FrequencyResponseWidget</class>
+   <extends>QWidget</extends>
+   <header>libgui/FrequencyResponseWidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QWidget</extends>
+   <header>knuminput.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>slider</tabstop>
+  <tabstop>buttonHelp</tabstop>
+  <tabstop>buttonOk</tabstop>
+  <tabstop>buttonCancel</tabstop>
+ </tabstops>
+ <includes>
+  <include location="global" >klocale.h</include>
+  <include location="local" >libgui/ScaleWidget.h</include>
+  <include location="local" >libgui/FrequencyResponseWidget.h</include>
+  <include location="local" >knuminput.h</include>
+ </includes>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonOk</sender>
+   <signal>clicked()</signal>
+   <receiver>NotchFilterDlg</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonCancel</sender>
+   <signal>clicked()</signal>
+   <receiver>NotchFilterDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinbox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>slider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinbox</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slider_2</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinbox_2</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinbox_2</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>slider_2</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

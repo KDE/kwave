@@ -41,8 +41,8 @@ MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
     unsigned int virtual_limit, const QString &virtual_dir)
     :QDialog(parent), Ui::MemDlg()
 {
-    setModal(true);
     setupUi(this);
+    setModal(true);
 
     MemoryManager &mem = MemoryManager::instance();
     unsigned int total_physical = mem.totalPhysical();

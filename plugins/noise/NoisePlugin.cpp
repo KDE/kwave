@@ -15,6 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
 #include <klocale.h> // for the i18n macro
 
 #include "libkwave/MultiTrackWriter.h"
@@ -62,7 +64,7 @@ void NoisePlugin::run(QStringList)
     }
 
     // transport the samples
-    qDebug("NoisePlugin: filter started...");
+    qDebug("NoisePlugin: filter started [%u ... %u] ...", first, last);
     while (!m_stop && !(sink.done())) {
 	source.goOn();
     }

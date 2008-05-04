@@ -19,16 +19,19 @@
 #define _NOTCH_FILTER_DIALOG_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qstring.h>
+#include <QObject>
+#include <QString>
+
 #include "libkwave/KwavePluginSetupDialog.h"
-#include "NotchFilterDlg.h"
+
+#include "ui_NotchFilterDlg.h"
 
 class QStringList;
 class NotchFilter;
 
-class NotchFilterDialog: public NotchFilterDlg,
-                         public KwavePluginSetupDialog
+class NotchFilterDialog: public QDialog,
+                         public KwavePluginSetupDialog,
+                         public Ui::NotchFilterDlg
 {
     Q_OBJECT
 public:

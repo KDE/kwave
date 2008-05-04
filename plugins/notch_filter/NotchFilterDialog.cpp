@@ -18,12 +18,13 @@
 #include "config.h"
 #include "math.h"
 
-#include <qobject.h>
-#include <qpainter.h>
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qslider.h>
-#include <qwidget.h>
+#include <QObject>
+#include <QPainter>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QWidget>
+
 #include <knuminput.h>
 
 #include <klocale.h>
@@ -36,20 +37,22 @@
 
 //***************************************************************************
 NotchFilterDialog::NotchFilterDialog(QWidget *parent, double sample_rate)
-    :NotchFilterDlg(parent, 0, true),
-     KwavePluginSetupDialog(),
+    :QDialog(parent), KwavePluginSetupDialog(),
+     Ui::NotchFilterDlg(),
      m_frequency(3500),m_bw(100),
      m_sample_rate(sample_rate), m_filter(0)
 {
+    setupUi(this);
+    setModal(true);
 
     // set maximum frequency to sample rate / 2
     double f_max = sample_rate / 2.0;
 
-    slider->setMaxValue((int)f_max);
-    spinbox->setMaxValue((int)f_max);
+    slider->setMaximum((int)f_max);
+    spinbox->setMaximum((int)f_max);
 
-    slider_2->setMaxValue((int)f_max);
-    spinbox_2->setMaxValue((int)f_max);
+    slider_2->setMaximum((int)f_max);
+    spinbox_2->setMaximum((int)f_max);
 
     // initialize the frequency scale widget
     scale_freq->setMinMax(0, (int)f_max);
@@ -194,7 +197,7 @@ void NotchFilterDialog::listenToggled(bool listen)
 //***************************************************************************
 void NotchFilterDialog::listenStopped()
 {
-    if (btListen) btListen->setOn(false);
+    if (btListen) btListen->setChecked(false);
 }
 
 //***************************************************************************

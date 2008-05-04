@@ -144,6 +144,16 @@ private:
     unsigned int unlockedLength();
 
     /**
+     * Deletes a range of samples, used internally by deleteRange()
+     * @param offset index of the first sample
+     * @param length number of samples
+     * @param make_gap if true, make a gap into the list of stripes
+     *                 instead of moving the stuff from right to left
+     */
+    void unlockedDelete(unsigned int offset, unsigned int length,
+                        bool make_gap = false);
+
+    /**
      * Append samples after a given stripe.
      *
      * @param stripe the stripe after which to instert. Null pointer is
@@ -214,6 +224,22 @@ protected:
                       const Kwave::SampleArray &buffer,
                       unsigned int buf_offset,
                       unsigned int length);
+
+    friend class SampleReader;
+
+    /**
+     * Read a block of samples, with padding if necessary.
+     *
+     * @param offset position where to start the read operation
+     * @param buffer receives the samples
+     * @param buf_offset offset within the buffer
+     * @param length number of samples to read
+     * @return number of read samples
+     */
+    unsigned int readSamples(unsigned int offset,
+                             Kwave::SampleArray &buffer,
+                             unsigned int buf_offset,
+                             unsigned int length);
 
 private:
 

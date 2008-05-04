@@ -1559,7 +1559,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
     InhibitRepaintGuard inhibit(*this, false); // avoid recursion
 
 //     qDebug("SignalWidget::paintEvent()");
-#define DEBUG
+// #define DEBUG
 #ifdef DEBUG
    static struct timeval t_start;
    static struct timeval t_end;

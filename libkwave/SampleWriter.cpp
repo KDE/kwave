@@ -111,7 +111,7 @@ SampleWriter &SampleWriter::operator << (SampleReader &reader)
 bool SampleWriter::flush(const Kwave::SampleArray &buffer,
                          unsigned int &count)
 {
-    if ((m_mode == Overwrite) && (m_position + count > m_last)) {
+    if ((m_mode == Overwrite) && (m_position + count > m_last + 1)) {
 	// need clipping
 	count = m_last + 1 - m_position;
 // 	qDebug("SampleWriter::flush() clipped to count=%u", count);
@@ -119,11 +119,14 @@ bool SampleWriter::flush(const Kwave::SampleArray &buffer,
 
     if (count == 0) return true; // nothing to flush
 
+    Q_ASSERT(count <= buffer.size());
     if (!m_track.writeSamples(m_mode, m_position, buffer, 0, count))
 	return false; /* out of memory */
 
     m_position += count;
-    if (m_position+1 > m_last) m_last = m_position-1;
+
+    // fix m_last, this might be needed in Append and Insert mode
+    if (m_position - 1 > m_last) m_last = m_position - 1;
     count = 0;
 
     // inform others that we proceeded

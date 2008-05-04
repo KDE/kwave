@@ -30,9 +30,9 @@
 // #define STRICTLY_QT
 
 //***************************************************************************
-SampleReader::SampleReader(Track &track, QList<Stripe *> &stripes,
-	unsigned int left, unsigned int right)
-    :m_track(track), m_stripes(stripes),
+SampleReader::SampleReader(Track &track,
+                           unsigned int left, unsigned int right)
+    :m_track(track),
     m_src_position(left), m_first(left), m_last(right),
     m_buffer(blockSize()),
     m_buffer_used(0), m_buffer_position(0)
@@ -78,58 +78,11 @@ void SampleReader::fillBuffer()
     if (m_src_position+rest >= m_last) rest = (m_last-m_src_position+1);
     Q_ASSERT(rest);
 
-    foreach(Stripe *s, m_stripes) {
-	if (!rest) break;
-	if (!s) continue;
-	unsigned int st  = s->start();
-	unsigned int len = s->length();
-	if (!len) continue; // skip zero-length sripes
-
-	if (m_src_position > s->end()) continue; // before our range
-
-	// gap -> fill with zeroes
-	if (st > m_src_position) {
-	    unsigned int pad = st - m_src_position;
-	    if (pad > rest) pad = rest;
-// 	    qDebug("SampleReader::fillBuffer() filling gap [%u ... %u] pad=%u",
-// 		   m_src_position, st-1, pad);
-
-	    padBuffer(m_buffer, m_buffer_used, pad);
-	    m_buffer_used  += pad;
-	    m_src_position += pad;
-	    rest           -= pad;
-	}
-
-	// overlap -> fill with real data
-	if (rest && (m_src_position >= st)) {
-	    unsigned int offset = m_src_position - st;
-	    unsigned int length = rest;
-	    if (offset+length > len) length = len - offset;
-
-	    // read from the stripe
-// 	    qDebug("SampleReader: reading [%u ... %u]",
-// 		   m_src_position, m_src_position + length - 1);
-	    unsigned int cnt = s->read(m_buffer, m_buffer_used,
-	                               offset, length);
-	    Q_ASSERT(cnt <= rest);
-	    m_buffer_used  += cnt;
-	    m_src_position += cnt;
-	    rest           -= cnt;
-	}
-    }
-
-    Q_ASSERT(!rest);
-    if (rest) qDebug("SampleReader::fillBuffer(), rest=%u", rest);
-
-    // pad after the end of all stripes
-    if (rest && (m_src_position < m_last)) {
-	if (m_src_position + rest > m_last)
-	    rest = m_last - m_src_position + 1;
-
-	padBuffer(m_buffer, m_buffer_used, rest);
-	m_src_position += rest;
-	m_buffer_used  += rest;
-    }
+    unsigned int len = m_track.readSamples(m_src_position, m_buffer, 0, rest);
+    Q_ASSERT(len == rest);
+    m_buffer_used  += len;
+    m_src_position += len;
+    rest           -= len;
 
     emit proceeded();
 }
@@ -161,7 +114,7 @@ unsigned int SampleReader::read(Kwave::SampleArray &buffer,
 	    cnt = m_buffer_used - m_buffer_position;
 
 	m_buffer_position += cnt;
-	count   = cnt;
+	count  += cnt;
 	rest   -= cnt;
 	dstoff += cnt;
 	qDebug("filling from buffer dstoff=%u, cnt=%u",dstoff,cnt);
@@ -181,56 +134,16 @@ unsigned int SampleReader::read(Kwave::SampleArray &buffer,
     }
 
     // take the rest directly out of the stripe(s)
-    if (m_src_position + rest > m_last + 1)
-	rest = (m_last - m_src_position) + 1;
-    foreach (Stripe *s, m_stripes) {
-	if (!rest) break;
-	if (!s) continue;
-	unsigned int st  = s->start();
-	unsigned int len = s->length();
-
-	if (m_src_position >= st+len) continue; // not yet in range
-
-	// gap at the beginning -> fill with zeroes
-	if (st > m_src_position) {
-	    unsigned int pad = st - m_src_position;
-	    if (pad > rest) pad = rest;
-
-	    padBuffer(buffer, dstoff, pad);
-	    m_src_position += pad;
-	    dstoff         += pad;
-	    rest           -= pad;
-	    count          += pad;
-	}
-	if (!rest) break;
-
-	if (!len) continue; // skip zero-length stripes
-	if (m_src_position >= st) {
-	    unsigned int offset = m_src_position - st;
-	    unsigned int cnt = rest;
-	    if (offset+cnt > len) cnt = len - offset;
-
-	    // read from the stripe
-	    cnt = s->read(buffer, dstoff, offset, cnt);
-
-	    m_src_position += cnt;
-	    dstoff         += cnt;
-	    rest           -= cnt;
-	    count          += cnt;
-	}
-    }
-
-//     qDebug("rest=%u, m_src_position=%u, m_src_position+rest=%u m_last=%u",
-//            rest, m_src_position, rest + m_src_position, m_last);
-    // pad after the end of all stripes
-    if (rest && (m_src_position <= m_last)) {
-	if (m_src_position + rest > m_last)
-	    rest = m_last - m_src_position + 1;
-	padBuffer(buffer, dstoff, rest);
-	m_src_position += rest;
-	dstoff         += rest;
-	count          += rest;
-    }
+    if (m_src_position + rest > (m_last + 1)) // clip to end of reader range
+	rest = (m_last + 1) - m_src_position;
+    if (dstoff + rest > buffer.size()) // clip to end of buffer
+	rest = buffer.size() - dstoff;
+    Q_ASSERT(dstoff + rest <= buffer.size());
+    unsigned int len = m_track.readSamples(m_src_position,
+	buffer, dstoff, rest);
+    Q_ASSERT(len == rest);
+    m_src_position += len;
+    count += len;
 
     emit proceeded();
     return count;

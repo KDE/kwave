@@ -20,7 +20,6 @@
 #define _SAMPLE_READER_H_
 
 #include "config.h"
-#include <QList>
 #include <QObject>
 
 #include "libkwave/InsertMode.h"
@@ -37,17 +36,14 @@ class SampleReader: public Kwave::SampleSource
 public:
 
     /**
-     * Constructor. Creates a stream for reading samples from a track
-     * and locks all necessary stripes.
+     * Constructor. Creates a stream for reading samples from a track.
      * @param track
-     * @param stripes list of stripes, already locked for us
      * @param left start of the input (only useful in insert and
      *             overwrite mode)
      * @param right end of the input (only useful with overwrite mode)
      * @see InsertMode
      */
-    SampleReader(Track &track, QList<Stripe *> &stripes,
-	unsigned int left, unsigned int right);
+    SampleReader(Track &track, unsigned int left, unsigned int right);
 
     /** Destructor */
     virtual ~SampleReader();
@@ -141,9 +137,6 @@ private:
 
     /** the track to which we belong */
     Track &m_track;
-
-    /** list of stripes with sample data */
-    QList<Stripe *> m_stripes;
 
     /**
      * Current sample position, related to the source of the samples. Does

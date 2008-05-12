@@ -40,6 +40,7 @@ SET(libkwavegui_LIB_SRCS
     ScaleWidget.cpp
     SelectTimeWidget.cpp
     TrackPixmap.cpp
+    TreeWidgetWrapper.cpp
 )
 
 #############################################################################

@@ -37,6 +37,8 @@ public:
      * @param name the name of the logical playback device or the name
      *             of the lowlevel device. If null or zero-length, the
      *             default device will be used.
+     * @param tracks number of tracks,
+     *               if negative use the setting of playback_params
      * @param playback_params points to a structure with playback
      *                        parameters. If null, the default parameters
      *                        of the current signal will be used
@@ -45,6 +47,7 @@ public:
      * @see PlayBackDevice
      */
     virtual PlayBackDevice *openDevice(const QString &name,
+	int tracks = -1,
 	const PlayBackParam *playback_params = 0) = 0;
 
     /**

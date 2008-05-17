@@ -20,17 +20,21 @@
 
 #include "config.h"
 
-#include <qmap.h>
+#include <QString>
+#include <QMap>
+
+#include "libgui/TreeWidgetWrapper.h"
 
 #include "PlayBackParam.h"
-#include "PlayBackDlg.h"
 #include "PlayBackTypesMap.h"
+#include "ui_PlayBackDlg.h"
 
-class QListViewItem;
 class KwavePlugin;
+class QTreeWidgetItem;
 
 //*****************************************************************************
-class PlayBackDialog : public PlayBackDlg
+class PlayBackDialog : public QDialog,
+                       public Ui::PlayBackDlg
 {
     Q_OBJECT
 
@@ -61,7 +65,7 @@ public:
     }
 
     /** Sets the list of supported bits per sample */
-    void setSupportedBits(const QValueList<unsigned int> &bits);
+    void setSupportedBits(const QList<unsigned int> &bits);
 
     /**
      * Sets the lowest and highest number of playback channels
@@ -111,13 +115,20 @@ private slots:
     void selectPlaybackDevice();
 
     /** selection in the device list view has changed */
-    void listEntrySelected(QListViewItem *item);
+    void listEntrySelected(QTreeWidgetItem *current,
+                           QTreeWidgetItem *previous);
+
+    /** selection in the device list view has changed */
+    void listItemExpanded(QTreeWidgetItem *item);
+
+    /**
+     * updates/fixes the device selection when the tree view has
+     * lost focus, to avoid that nothing is selected
+     */
+    void updateListSelection();
 
     /** selection in the bits per sample combo box has changed */
     void bitsPerSampleSelected(const QString &text);
-
-    /** forward 'sigTestPlayback()' when the "Test..." button was clicked */
-    void forwardSigTestPlayback();
 
     /** invoke the online help */
     void invokeHelp();
@@ -134,7 +145,7 @@ private:
     QString m_file_filter;
 
     /** map for items in the list view */
-    QMap<QListViewItem *, QString> m_devices_list_map;
+    QMap<QTreeWidgetItem *, QString> m_devices_list_map;
 
     /** if false, do nothing in setDevice */
     bool m_enable_setDevice;

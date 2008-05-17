@@ -20,6 +20,8 @@
 #include <stdio.h>
 #include <sys/types.h>
 
+#include <QtGlobal>
+
 #include "libkwave/CompressionType.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleFormat.h"
@@ -124,7 +126,7 @@ SampleEncoderLinear::SampleEncoderLinear(
     if ((endianness == UnknownEndian) && (m_bytes_per_sample != 1)) return;
 
     // map cpu endianness to little or big
-#if defined(ENDIANESS_BIG)
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
     if (endianness == CpuEndian) endianness = BigEndian;
 #else
     if (endianness == CpuEndian) endianness = LittleEndian;
@@ -166,15 +168,17 @@ SampleEncoderLinear::~SampleEncoderLinear()
 }
 
 //***************************************************************************
-void SampleEncoderLinear::encode(const QMemArray<sample_t> &samples,
+void SampleEncoderLinear::encode(const Kwave::SampleArray &samples,
                                  unsigned int count,
                                  QByteArray &raw_data)
 {
     Q_ASSERT(m_encoder);
     if (!m_encoder) return;
 
-    Q_ASSERT(count * m_bytes_per_sample <= raw_data.size());
-    if (count * m_bytes_per_sample > raw_data.size()) return;
+    Q_ASSERT(count * m_bytes_per_sample <=
+	static_cast<unsigned int>(raw_data.size()));
+    if (count * m_bytes_per_sample >
+	static_cast<unsigned int>(raw_data.size())) return;
 
     sample_t *src = samples.data();
     u_int8_t *dst = reinterpret_cast<u_int8_t *>(raw_data.data());

@@ -29,10 +29,12 @@
 #define ALSA_PCM_NEW_SW_PARAMS_API
 
 #include <alsa/asoundlib.h>
-#include <qstring.h>
-#include <qmap.h>
-#include <qvaluelist.h>
 
+#include <QString>
+#include <QMap>
+#include <QList>
+
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/PlayBackDevice.h"
 
 class SampleEncoder;
@@ -59,7 +61,7 @@ public:
      * Writes an array of samples to the output device.
      * @see PlayBackDevice::write
      */
-    virtual int write(QMemArray<sample_t> &samples);
+    virtual int write(const Kwave::SampleArray &samples);
 
     /**
      * Closes the output device.
@@ -80,7 +82,7 @@ public:
      * @param device filename of the device
      * @return list of supported bits per sample, or empty on errors
      */
-    virtual QValueList<unsigned int> supportedBits(const QString &device);
+    virtual QList<unsigned int> supportedBits(const QString &device);
 
     /**
      * Detect the minimum and maximum number of channels.
@@ -153,7 +155,7 @@ private:
      * Walk through the list of all known formats and collect the
      * ones that are supported into "m_supported_formats".
      */
-    QValueList<int> detectSupportedFormats(const QString &device);
+    QList<int> detectSupportedFormats(const QString &device);
 
     /**
      * create a ALSA device format (enum) from parameters.
@@ -217,7 +219,7 @@ private:
      * Only valid after a successful call to "open()",
      * otherwise empty
      */
-    QValueList<int> m_supported_formats;
+    QList<int> m_supported_formats;
 
     /** encoder for conversion from samples to raw */
     SampleEncoder *m_encoder;

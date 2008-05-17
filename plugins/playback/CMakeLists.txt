@@ -15,12 +15,10 @@
 ##                                                                          #
 #############################################################################
 
-IF (HAVE_ARTS_SUPPORT)
-    SET(PLAYBACK_SOURCES ${PLAYBACK_SOURCES} PlayBack-aRts.cpp)
-ENDIF (HAVE_ARTS_SUPPORT)
 IF (HAVE_OSS_SUPPORT)
     SET(PLAYBACK_SOURCES ${PLAYBACK_SOURCES} PlayBack-OSS.cpp)
 ENDIF (HAVE_OSS_SUPPORT)
+
 IF (HAVE_ALSA_SUPPORT)
     SET(PLAYBACK_SOURCES ${PLAYBACK_SOURCES} PlayBack-ALSA.cpp)
     SET(PLAYBACK_REQUIRED_LIBS ${PLAYBACK_REQUIRED_LIBS} asound)

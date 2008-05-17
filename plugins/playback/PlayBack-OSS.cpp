@@ -28,8 +28,9 @@
 #include <math.h>
 #include <errno.h>
 
-#include <qdir.h>
-#include <qfile.h>
+#include <QDir>
+#include <QFile>
+
 #include <klocale.h>
 
 #include "libkwave/memcpy.h"
@@ -78,7 +79,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
                           unsigned int bufbase)
 {
     qDebug("PlayBackOSS::open(device=%s,rate=%0.1f,channels=%u,"\
-	"bits=%u, bufbase=%u)", device.local8Bit().data(), rate, channels,
+	"bits=%u, bufbase=%u)", device.toLocal8Bit().data(), rate, channels,
 	bits, bufbase);
 
     m_device_name = device;
@@ -92,7 +93,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
 
     // prepeare for playback by opening the sound device
     // and initializing with the proper settings
-    m_handle = ::open(m_device_name.local8Bit(), O_WRONLY | O_NONBLOCK);
+    m_handle = ::open(m_device_name.toLocal8Bit(), O_WRONLY | O_NONBLOCK);
     if (m_handle == -1) {
 	QString reason;
 	switch (errno) {
@@ -110,7 +111,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
 		"currently using it. Please try again later. \n"\
 		"(Hint: you might find out the name and process id of \n"\
 		"the program by calling: \"fuser -v %1\" \n"\
-		"on the command line.)").arg(
+		"on the command line.)",
 		m_device_name.section('|',0,0));
 		break;
 	    default:
@@ -125,7 +126,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
     if (fcntl(m_handle, F_GETFL) & O_NONBLOCK) {
 	// resetting O:NONBLOCK failed
 	return i18n("The device '%1' cannot be opened "\
-	            "in the correct mode.").arg(
+	            "in the correct mode.",
 	            m_device_name.section('|',0,0));
     }
 
@@ -133,7 +134,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
 
     // number of bits per sample
     if (ioctl(m_handle, SNDCTL_DSP_SAMPLESIZE, &format) == -1) {
-	return i18n("%1 bits per sample are not supported").arg(m_bits);
+	return i18n("%1 bits per sample are not supported", m_bits);
     }
 
     // mono/stereo selection
@@ -145,7 +146,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
     // playback rate
     int int_rate = (int)m_rate;
     if (ioctl(m_handle, SNDCTL_DSP_SPEED, &int_rate) == -1) {
-	return i18n("playback rate %1 Hz is not supported").arg(int_rate);
+	return i18n("playback rate %1 Hz is not supported", int_rate);
     }
 
     // buffer size
@@ -154,7 +155,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
     if (bufbase < MIN_PLAYBACK_BUFFER) bufbase = MIN_PLAYBACK_BUFFER;
     if (bufbase > MAX_PLAYBACK_BUFFER) bufbase = MAX_PLAYBACK_BUFFER;
     if (ioctl(m_handle, SNDCTL_DSP_SETFRAGMENT, &bufbase) == -1) {
-	return i18n("unusable buffer size: %1").arg(1 << bufbase);
+	return i18n("unusable buffer size: %1", 1 << bufbase);
     }
 
     // get the real buffer size in bytes
@@ -182,7 +183,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
 }
 
 //***************************************************************************
-int PlayBackOSS::write(QMemArray<sample_t> &samples)
+int PlayBackOSS::write(const Kwave::SampleArray &samples)
 {
     Q_ASSERT (m_buffer_used <= m_buffer_size);
     if (m_buffer_used > m_buffer_size) {
@@ -193,7 +194,7 @@ int PlayBackOSS::write(QMemArray<sample_t> &samples)
     }
 
     // number of samples left in the buffer
-    unsigned int remaining = samples.count();
+    unsigned int remaining = samples.size();
     unsigned int offset    = 0;
     while (remaining) {
 	unsigned int length = remaining;
@@ -224,8 +225,10 @@ void PlayBackOSS::flush()
     unsigned int bytes = m_buffer_used * m_encoder->rawBytesPerSample();
     m_encoder->encode(m_buffer, m_buffer_used, m_raw_buffer);
 
+    int res = 0;
     if (m_handle)
-	::write(m_handle, m_raw_buffer.data(), bytes);
+	res = ::write(m_handle, m_raw_buffer.data(), bytes);
+    if (res) perror(__FUNCTION__);
 
     m_buffer_used = 0;
 }
@@ -259,7 +262,7 @@ static bool addIfExists(QStringList &list, const QString &name)
 	    addIfExists(list, name.arg(index));
     } else {
 	// check a single name
-	file.setName(name);
+	file.setFileName(name);
 	if (!file.exists())
 	    return false;
 
@@ -278,7 +281,7 @@ static void scanFiles(QStringList &list, const QString &dirname,
     QDir dir;
 
     dir.setPath(dirname);
-    dir.setNameFilter(mask);
+    dir.setNameFilters(mask.split(' '));
     dir.setFilter(QDir::Files | QDir::Writable | QDir::System);
     dir.setSorting(QDir::Name);
     files = dir.entryList();
@@ -292,9 +295,9 @@ static void scanFiles(QStringList &list, const QString &dirname,
 //***************************************************************************
 static void scanDirectory(QStringList &list, const QString &dir)
 {
+    scanFiles(list, dir, "dsp*");
     scanFiles(list, dir, "*audio*");
     scanFiles(list, dir, "adsp*");
-    scanFiles(list, dir, "dsp*");
     scanFiles(list, dir, "dio*");
 }
 
@@ -304,6 +307,7 @@ QStringList PlayBackOSS::supportedDevices()
     QStringList list;
 
     scanDirectory(list, "/dev");
+    scanDirectory(list, "/dev/snd");
     scanDirectory(list, "/dev/sound");
     list.append("#EDIT#");
     list.append("#SELECT#");
@@ -400,12 +404,12 @@ int PlayBackOSS::openDevice(const QString &device)
 
     if (fd <= 0) {
 	// open the device in case it's not already open
-	fd = ::open(device.local8Bit(), O_WRONLY | O_NONBLOCK);
+	fd = ::open(device.toLocal8Bit(), O_WRONLY | O_NONBLOCK);
     }
     if (fd <= 0) {
 	qWarning("PlayBackOSS::openDevice('%s') - "\
 	         "failed, errno=%d (%s)",
-	         device.local8Bit().data(),
+	         device.toLocal8Bit().data(),
 	         errno, strerror(errno));
     }
 
@@ -413,9 +417,9 @@ int PlayBackOSS::openDevice(const QString &device)
 }
 
 //***************************************************************************
-QValueList<unsigned int> PlayBackOSS::supportedBits(const QString &device)
+QList<unsigned int> PlayBackOSS::supportedBits(const QString &device)
 {
-    QValueList <unsigned int> bits;
+    QList<unsigned int> bits;
     bits.clear();
     int err = -1;
     int mask = AFMT_QUERY;

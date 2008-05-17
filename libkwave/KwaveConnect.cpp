@@ -68,7 +68,8 @@ namespace Kwave {
 		                 sink_n, input.toAscii());
 	    }
 	} else {
-	    qWarning("invalid source/sink combination, M:N tracks");
+	    qWarning("invalid source/sink combination, %d:%d tracks",
+		src_tracks, dst_tracks);
 	    return false;
 	}
 	return true;

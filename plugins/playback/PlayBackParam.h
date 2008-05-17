@@ -18,7 +18,7 @@
 #ifndef _PLAY_BACK_PARAM_H_
 #define _PLAY_BACK_PARAM_H_
 
-#include <qstring.h>
+#include <QString>
 
 /**
  * enum for the known playback methods

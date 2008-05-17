@@ -20,10 +20,9 @@
 
 #include "config.h"
 
-#include <qmutex.h>
-#include <qstring.h>
+#include <QMutex>
+#include <QString>
 
-#include "mt/SignalProxy.h"
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/PlaybackDeviceFactory.h"
 #include "PlayBackParam.h"
@@ -67,6 +66,16 @@ public:
      */
     virtual void run(QStringList);
 
+signals:
+
+    /**
+     * Signals that playback has stopped.
+     */
+    void sigPlaybackDone();
+
+    /** Emits the current playback position */
+    void sigPlaybackPos(unsigned int pos);
+
 public slots:
 
     /**
@@ -85,13 +94,6 @@ public slots:
     void testPlayBack();
 
 private slots:
-
-    /**
-     * Called from the playback thread to notify about a new
-     * playback pointer.
-     * @internal
-     */
-    void updatePlaybackPos();
 
     /**
      * Change the playback method
@@ -116,19 +118,13 @@ protected:
     int interpreteParameters(QStringList &params);
 
     /**
-     * Calls the playback controller's playbackDone() slot through a
-     * threadsafe signal proxy. This is used from inside the playback
-     * thread to signal that the end of playback has been reached or
-     * from the start/stopPlayback methods.
-     */
-    void playbackDone();
-
-    /**
      * Create a playback device matching the given playback method.
-     * @param method a playback_method_t (aRts, ALSA, OSS...)
+     * @param method a playback_method_t (aRts, ALSA, OSS...), will
+     *               be modified and set to a possible method if the
+     *               passed one is not possible
      * @return a new PlayBackDevice or 0 if failed
      */
-    PlayBackDevice *createDevice(playback_method_t method);
+    PlayBackDevice *createDevice(playback_method_t &method);
 
     /**
      * Opens and initializes the playback device. If the initialization
@@ -137,6 +133,8 @@ protected:
      * @param name the name of the logical playback device or the name
      *             of the lowlevel device. If null or zero-length, the
      *             default device will be used.
+     * @param tracks number of tracks,
+     *               if negative use the setting of playback_params
      * @param playback_params points to a class that holds all playback
      *                        parameters. If null, the default parameters
      *                        of the current signal will be used
@@ -144,7 +142,7 @@ protected:
      *         failed
      * @see PlayBackDevice
      */
-    PlayBackDevice *openDevice(const QString &name,
+    virtual PlayBackDevice *openDevice(const QString &name, int tracks,
 	const PlayBackParam *playback_params);
 
     /**
@@ -180,18 +178,6 @@ private:
 
     /** reference to the playback controller */
     PlaybackController &m_playback_controller;
-
-    /**
-     * Signal proxy that signals the end of playback out
-     * of the playback thread.
-     */
-    SignalProxy<void> m_spx_playback_done;
-
-    /**
-     * Signal proxy that brings the current playback position
-     * out of the playback thread.
-     */
-    SignalProxy1<unsigned int> m_spx_playback_pos;
 
     /** command flag for stopping the playback thread */
     bool m_stop;

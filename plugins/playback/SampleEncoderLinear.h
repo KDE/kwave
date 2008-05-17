@@ -19,8 +19,10 @@
 #define _SAMPLE_ENCODER_LINEAR_H_
 
 #include "config.h"
+
 #include "libkwave/ByteOrder.h"
 #include "libkwave/SampleFormat.h"
+
 #include "SampleEncoder.h"
 
 class SampleEncoderLinear: public SampleEncoder
@@ -46,7 +48,7 @@ public:
      * @param count number of samples
      * @param raw_data array with raw encoded audio data
      */
-    virtual void encode(const QMemArray<sample_t> &samples,
+    virtual void encode(const Kwave::SampleArray &samples,
                         unsigned int count,
                         QByteArray &raw_data);
 
@@ -59,7 +61,7 @@ private:
     unsigned int m_bytes_per_sample;
 
     /** optimized function used for encoding the given format */
-    void(*m_encoder)(const sample_t *, u_int8_t *, unsigned int);
+    void (*m_encoder)(const sample_t *, u_int8_t *, unsigned int);
 
 };
 

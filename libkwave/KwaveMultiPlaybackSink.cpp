@@ -27,7 +27,7 @@
 //***************************************************************************
 Kwave::MultiPlaybackSink::MultiPlaybackSink(unsigned int tracks,
                                             PlayBackDevice *device)
-    :Kwave::MultiTrackSink<Kwave::PlaybackSink>(tracks),
+    :Kwave::MultiTrackSink<Kwave::PlaybackSink>(0),
      m_tracks(tracks), m_device(device), m_in_buffer(tracks),
      m_in_buffer_filled(tracks),
      m_out_buffer(tracks)

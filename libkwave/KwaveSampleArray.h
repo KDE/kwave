@@ -84,8 +84,8 @@ namespace Kwave {
 	const sample_t & operator [] (unsigned int index) const;
 
 	/**
-	 * Resizes the array. If it has been using raw data, the raw
-	 * data is reset through resetRawData().
+	 * Resizes the array. Using raw data mode is not allowed and will
+	 * lead to an assert!
 	 * @param size new number of samples
 	 */
 	void resize(unsigned int size);
@@ -117,11 +117,22 @@ namespace Kwave {
 	    /** destructor */
 	    virtual ~SampleStorage();
 
+	    /**
+	     * Resizes the array. Using raw data mode is not allowed and will
+	     * lead to an assert!
+	     * @param size new number of samples
+	     */
+	    void resize(unsigned int size);
+
+	public:
 	    /** size in samples */
 	    unsigned int m_size;
 
-	    /** pointer to the area with the samples */
+	    /** pointer to the area with the samples (allocated) */
 	    sample_t *m_data;
+
+	    /** pointer to some raw data that has been set */
+	    sample_t *m_raw_data;
 	};
 
 	QSharedDataPointer<SampleStorage> m_storage;

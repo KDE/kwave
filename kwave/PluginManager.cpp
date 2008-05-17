@@ -15,6 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
 #include <dlfcn.h>
 #include <errno.h>
 #include <pthread.h>
@@ -518,12 +520,10 @@ Kwave::SampleSink *PluginManager::openMultiTrackPlayback(
 	    break;
 	}
     }
-    Q_ASSERT(factory);
     if (!factory) return 0;
 
     // open the playback device with it's default parameters
-    device = factory->openDevice(device_name, 0);
-    Q_ASSERT(device);
+    device = factory->openDevice(device_name, tracks);
     if (!device) return 0;
 
     // create the multi track playback sink

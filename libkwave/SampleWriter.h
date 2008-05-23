@@ -121,7 +121,9 @@ public:
      * Returns the current index of the last sample in range or the
      * index of the last written sample when in insert/append mode.
      */
-    inline unsigned int last() const { return m_last; };
+    inline unsigned int last() const {
+	return ((m_mode == Append) ? (m_last + m_buffer_used) : m_last);
+    };
 
     /**
      * Returns the current position

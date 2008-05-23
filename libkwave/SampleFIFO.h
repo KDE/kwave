@@ -31,6 +31,9 @@ public:
     /** Constructor */
     SampleFIFO();
 
+    /** copy constructor */
+    SampleFIFO(const SampleFIFO &other);
+
     /** Destructor */
     virtual ~SampleFIFO();
 
@@ -61,10 +64,29 @@ public:
      */
     virtual unsigned int length();
 
+    /**
+     * sets the maximum size of the content
+     */
+    virtual void setSize(unsigned int size);
+
+    /**
+     * discards all superflous content until the size
+     * condition is met.
+     */
+    virtual void crop();
+
+private:
+
+    /** internal version of length(), without locking */
+    unsigned int unlockedLength();
+
 private:
 
     /** list of buffers with sample data */
     QQueue<Kwave::SampleArray> m_buffer;
+
+    /** maximum number of samples of the content */
+    unsigned int m_size;
 
     /**
      * number of samples that have already been read out

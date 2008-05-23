@@ -22,7 +22,15 @@
 
 //***************************************************************************
 SampleFIFO::SampleFIFO()
-    :m_buffer(), m_read_offset(0), m_lock(QMutex::Recursive)
+    :m_buffer(), m_size(0), m_read_offset(0), m_lock(QMutex::Recursive)
+{
+}
+
+//***************************************************************************
+SampleFIFO::SampleFIFO(const SampleFIFO &other)
+    :m_buffer(other.m_buffer), m_size(other.m_size),
+     m_read_offset(other.m_read_offset),
+     m_lock(QMutex::Recursive)
 {
 }
 
@@ -45,8 +53,17 @@ void SampleFIFO::flush()
 //***************************************************************************
 void SampleFIFO::put(const Kwave::SampleArray &buffer)
 {
+    if (buffer.isEmpty()) return;
     QMutexLocker _lock(&m_lock);
-    if (!buffer.isEmpty()) m_buffer.enqueue(buffer);
+
+    // always enqueue the new buffer
+    m_buffer.enqueue(buffer);
+
+    if (!m_size) return; // no limit set
+
+    // crop away whole unneeded buffers
+    while ((unlockedLength() - m_buffer.head().size()) > m_size)
+	m_buffer.dequeue();
 }
 
 //***************************************************************************
@@ -67,14 +84,14 @@ unsigned int SampleFIFO::get(Kwave::SampleArray &buffer)
 	sample_t *src        = head.data();
 	unsigned int src_len = head.size();
 	Q_ASSERT(src_len > m_read_offset);
-	if (m_read_offset) src_len -= m_read_offset;
 
-	if (src_len <= rest) {
+	if (m_read_offset + rest >= src_len) {
 	    // use the whole buffer up to it's end
-	    MEMCPY(dst, src + m_read_offset, src_len * sizeof(sample_t));
-	    rest  -= src_len;
-	    read  += src_len;
-	    dst   += src_len;
+	    unsigned int len = src_len - m_read_offset;
+	    MEMCPY(dst, src + m_read_offset, len * sizeof(sample_t));
+	    rest  -= len;
+	    read  += len;
+	    dst   += len;
 	    m_read_offset = 0;
 
 	    // remove the buffer from the queue
@@ -93,14 +110,46 @@ unsigned int SampleFIFO::get(Kwave::SampleArray &buffer)
 }
 
 //***************************************************************************
-unsigned int SampleFIFO::length()
+unsigned int SampleFIFO::unlockedLength()
 {
-    QMutexLocker _lock(&m_lock);
-
     unsigned int len = 0;
     foreach (Kwave::SampleArray buf, m_buffer)
 	len += buf.size();
     return len;
+}
+
+//***************************************************************************
+unsigned int SampleFIFO::length()
+{
+    QMutexLocker _lock(&m_lock);
+    return unlockedLength();
+}
+
+//***************************************************************************
+void SampleFIFO::setSize(unsigned int size)
+{
+    QMutexLocker _lock(&m_lock);
+    m_size = size;
+}
+
+//***************************************************************************
+void SampleFIFO::crop()
+{
+    QMutexLocker _lock(&m_lock);
+
+    if (!m_size) return; // no limit set
+    if (unlockedLength() <= m_size) return; // nothing to do
+
+    // we have to throw away some samples
+    while ((unlockedLength() - m_buffer.head().size()) > m_size)
+	m_buffer.dequeue();
+    m_read_offset = 0;
+    if (unlockedLength() <= m_size) return; // nothing more to do
+
+    // put the read offset into the next buffer
+    Q_ASSERT(unlockedLength() > m_size);
+    m_read_offset = unlockedLength() - m_size;
+    Q_ASSERT(unlockedLength() - m_read_offset == m_size);
 }
 
 //***************************************************************************

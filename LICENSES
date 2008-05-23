@@ -432,6 +432,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/SelectTimeWidget.h			GPL2
 	libgui/TrackPixmap.cpp				GPL2
 	libgui/TrackPixmap.h				GPL2
+	libgui/TreeWidgetWrapper.cpp			GPL2
+	libgui/TreeWidgetWrapper.h			GPL2
 
 	libkwave/ByteOrder.h				GPL2
 	libkwave/byteswap.h				GPL2

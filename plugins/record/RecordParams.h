@@ -19,7 +19,7 @@
 #define _RECORD_PARAMS_H_
 
 #include "config.h"
-#include <qstringlist.h>
+#include <QStringList>
 
 #include "libkwave/SampleFormat.h"
 

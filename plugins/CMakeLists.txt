@@ -74,7 +74,7 @@ ADD_SUBDIRECTORY( noise )
 ADD_SUBDIRECTORY( notch_filter )
 ADD_SUBDIRECTORY( pitch_shift )
 ADD_SUBDIRECTORY( playback )        # needs OSS and/or ALSA
-# ADD_SUBDIRECTORY( record )          # needs OSS and/or ALSA
+ADD_SUBDIRECTORY( record )          # needs OSS and/or ALSA
 # ADD_SUBDIRECTORY( saveblocks )
 # ADD_SUBDIRECTORY( selectrange )
 # ADD_SUBDIRECTORY( sonagram )        # needs libgsl >= 1.3

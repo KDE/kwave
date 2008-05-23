@@ -19,10 +19,11 @@
 #define _RECORD_DEVICE_H_
 
 #include "config.h"
-#include <qcstring.h>
-#include <qvaluelist.h>
-#include <qstring.h>
-#include <qstringlist.h>
+
+#include <QByteArray>
+#include <QList>
+#include <QString>
+#include <QStringList>
 
 #include "libkwave/ByteOrder.h"
 #include "libkwave/SampleFormat.h"
@@ -88,7 +89,7 @@ public:
     virtual int tracks() = 0;
 
     /** get a list of supported sample rates */
-    virtual QValueList<double> detectSampleRates() = 0;
+    virtual QList<double> detectSampleRates() = 0;
 
     /**
      * Try to set a new sample rate.
@@ -106,7 +107,7 @@ public:
      * Gets a list of supported compression types. If no compression is
      * supported, the list might be empty.
      */
-    virtual QValueList<int> detectCompressions() = 0;
+    virtual QList<int> detectCompressions() = 0;
 
     /**
      * Try to set a new compression type.
@@ -124,7 +125,7 @@ public:
      * @note this depends on the compression type
      * @return a list of bits per sample, empty if failed
      */
-    virtual QValueList <unsigned int> supportedBits() = 0;
+    virtual QList<unsigned int> supportedBits() = 0;
 
     /**
      * Set the resolution in bits per sample
@@ -142,7 +143,7 @@ public:
      * Gets a list of supported sample formats.
      * @note this depends on the current setting of the compression!
      */
-    virtual QValueList<SampleFormat> detectSampleFormats()=0;
+    virtual QList<SampleFormat> detectSampleFormats()=0;
 
     /**
      * Try to set a new sample format (signed/unsigned)

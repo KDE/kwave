@@ -404,8 +404,8 @@ unsigned int Stripe::read(Kwave::SampleArray &buffer, unsigned int dstoff,
 //     qDebug("Stripe::read(), me=[%u ... %u] (size=%u), offset=%u, length=%u",
 //            m_start, m_start+m_length-1, m_length, offset, length);
 
-    Q_ASSERT(offset <= m_length);
-    if (offset > m_length) return 0;
+    Q_ASSERT(offset < m_length);
+    if (offset >= m_length) return 0;
     if (offset+length > m_length) length = m_length - offset;
     Q_ASSERT(length);
 //     if (!length) qDebug("--- [%u ... %u] (%u), offset=%u",

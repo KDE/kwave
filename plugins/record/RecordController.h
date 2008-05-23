@@ -19,8 +19,8 @@
 #define _RECORD_CONTROLLER_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qvaluestack.h>
+
+#include <QObject>
 
 #include "RecordState.h"
 

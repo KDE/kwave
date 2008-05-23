@@ -76,7 +76,8 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
     connect(btSelectDevice, SIGNAL(clicked()),
             SLOT(selectPlaybackDevice()));
 
-    connect(listDevices, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)),
+    connect(listDevices,
+            SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)),
             SLOT(listEntrySelected(QTreeWidgetItem *, QTreeWidgetItem *)));
     connect(listDevices, SIGNAL(itemExpanded(QTreeWidgetItem *)),
             SLOT(listItemExpanded(QTreeWidgetItem *)));

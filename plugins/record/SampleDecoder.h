@@ -19,9 +19,10 @@
 #define _SAMPLE_DECODER_H_
 
 #include "config.h"
-#include <qcstring.h> // for QByteArray
-#include <qmemarray.h>
 
+#include <QByteArray>
+
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
 
 class SampleDecoder
@@ -41,7 +42,7 @@ public:
      * @param decoded array with decoded samples
      */
     virtual void decode(QByteArray &raw_data,
-                        QMemArray<sample_t> &decoded) = 0;
+                        Kwave::SampleArray &decoded) = 0;
 
     /** Returns the number of bytes per sample in raw (not encoded) form */
     virtual unsigned int rawBytesPerSample() = 0;

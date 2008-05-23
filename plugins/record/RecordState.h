@@ -59,7 +59,7 @@ typedef enum {
      * Recording is paused, normally for waiting until the user presses
      * "continue". After pause either the previous state will be set
      * again or the recording can be stopped (change to REC_DONE) or
-     * cancelled (change to REC_EMPTY).
+     * canceled (change to REC_EMPTY).
      */
     REC_PAUSED,
 

@@ -17,16 +17,18 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <math.h>
 
-#include <qapplication.h>
-#include <qbrush.h>
-#include <qcolor.h>
-#include <qfont.h>
-#include <qimage.h>
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qtimer.h>
+#include <QApplication>
+#include <QBrush>
+#include <QColor>
+#include <QFont>
+#include <QImage>
+#include <QPainter>
+#include <QPixmap>
+#include <QTimer>
+
 #include <klocale.h>
 
 #include "LevelMeter.h"
@@ -47,16 +49,16 @@ static const float F_PEAK_RISE = (F_FAST_RISE);
 static const float F_PEAK_DECAY = (0.005);
 
 //***************************************************************************
-LevelMeter::LevelMeter(QWidget *parent, const char *name)
-    :QWidget(parent, name,
-             WRepaintNoErase | WResizeNoErase | WPaintUnclipped),
+LevelMeter::LevelMeter(QWidget *parent)
+    :QWidget(parent),
     m_tracks(0), m_sample_rate(0), m_yf(), m_yp(),
     m_fast_queue(), m_peak_queue(),
-    m_current_fast(), m_current_peak(), m_timer(0), m_pixmap(0),
+    m_current_fast(), m_current_peak(), m_timer(0),
     m_color_low(Qt::green),
     m_color_normal(Qt::yellow),
     m_color_high(Qt::red)
 {
+    setAttribute(Qt::WA_NoBackground);
     m_timer = new QTimer(this);
     Q_ASSERT(m_timer);
     connect(m_timer, SIGNAL(timeout()),
@@ -66,8 +68,6 @@ LevelMeter::LevelMeter(QWidget *parent, const char *name)
 //***************************************************************************
 LevelMeter::~LevelMeter()
 {
-    if (m_pixmap) delete m_pixmap;
-    m_pixmap = 0;
     setTracks(0);
 }
 
@@ -80,13 +80,13 @@ void LevelMeter::paintEvent(QPaintEvent *)
 //***************************************************************************
 void LevelMeter::resizeEvent(QResizeEvent *)
 {
-    drawContents();
+    repaint();
 }
 
 //***************************************************************************
 void LevelMeter::setTracks(unsigned int tracks)
 {
-    if (tracks == m_tracks) return;
+    if ((int)tracks == m_tracks) return;
     m_tracks = tracks;
     reset(); // re-create all arrays etc.
 }
@@ -99,10 +99,10 @@ void LevelMeter::setSampleRate(double rate)
 }
 
 //***************************************************************************
-void LevelMeter::updateTrack(unsigned int track, QMemArray<sample_t> &buffer)
+void LevelMeter::updateTrack(unsigned int track, Kwave::SampleArray &buffer)
 {
-    Q_ASSERT(track < m_tracks);
-    if (track >= m_tracks) return;
+    Q_ASSERT((int)track < m_tracks);
+    if ((int)track >= m_tracks) return;
 
     // calculate the number of samples per update (approx)
     const unsigned int samples = buffer.size();
@@ -189,30 +189,32 @@ void LevelMeter::reset()
 void LevelMeter::enqueue(unsigned int track, float fast, float peak,
                          unsigned int queue_depth)
 {
-    Q_ASSERT(track < m_tracks);
+    Q_ASSERT((int)track < m_tracks);
     Q_ASSERT(m_peak_queue.size() == m_fast_queue.size());
     Q_ASSERT(m_fast_queue.size() >= m_tracks);
     Q_ASSERT(m_peak_queue.size() >= m_tracks);
-    if ((track >= m_tracks) || (m_fast_queue.size() < m_tracks) ||
+    if (((int)track >= m_tracks) || (m_fast_queue.size() < (int)m_tracks) ||
         (m_peak_queue.size() < m_tracks)) return;
     Q_ASSERT(m_peak_queue[track].size() == m_fast_queue[track].size());
     if (m_peak_queue[track].size() != m_fast_queue[track].size()) return;
 
     // remove old entries
-    while (m_fast_queue[track].size() > queue_depth) {
+    while (m_fast_queue[track].size() > (int)queue_depth) {
 //	qDebug("LevelMeter::enqueue(): purging old entry (%u/%u)",
 //	       m_fast_queue.size(), queue_depth);
-	m_fast_queue[track].erase(&m_fast_queue[track].first());
-	m_peak_queue[track].erase(&m_peak_queue[track].first());
+	m_fast_queue[track].dequeue();
+	m_peak_queue[track].dequeue();
     }
 
-    // append to the queue's end
-    m_fast_queue[track].append(fast);
-    m_peak_queue[track].append(peak);
+    // put into the queue
+    m_fast_queue[track].enqueue(fast);
+    m_peak_queue[track].enqueue(peak);
 
     // restart the timer if necessary
-   if (m_timer && !m_timer->isActive())
-      m_timer->start((int)(1000 / UPDATES_PER_SECOND), false);
+    if (m_timer && !m_timer->isActive()) {
+	m_timer->setInterval((int)(1000 / UPDATES_PER_SECOND));
+	m_timer->start(false);
+    }
 }
 
 //***************************************************************************
@@ -221,7 +223,7 @@ bool LevelMeter::dequeue(unsigned int track, float &fast, float &peak)
     Q_ASSERT(m_peak_queue.size() == m_fast_queue.size());
     Q_ASSERT(m_fast_queue.size() >= m_tracks);
     Q_ASSERT(m_peak_queue.size() >= m_tracks);
-    if ((track >= m_tracks) || (m_fast_queue.size() < m_tracks) ||
+    if (((int)track >= m_tracks) || (m_fast_queue.size() < m_tracks) ||
         (m_peak_queue.size() < m_tracks)) return false;
     Q_ASSERT(m_peak_queue[track].size() == m_fast_queue[track].size());
     if (m_peak_queue[track].size() != m_fast_queue[track].size())
@@ -232,12 +234,8 @@ bool LevelMeter::dequeue(unsigned int track, float &fast, float &peak)
     if (m_peak_queue[track].isEmpty()) return false;
 
     // get the values from the front of the queue
-    fast = m_fast_queue[track].first();
-    peak = m_peak_queue[track].first();
-
-    // remove the values from the front of the queue
-    m_fast_queue[track].erase(&m_fast_queue[track].first());
-    m_peak_queue[track].erase(&m_peak_queue[track].first());
+    fast = m_fast_queue[track].dequeue();
+    peak = m_peak_queue[track].dequeue();
 
     return true;
 }
@@ -249,7 +247,7 @@ void LevelMeter::timedUpdate()
     float peak;
     bool need_update = false;
 
-    for (unsigned int track=0; track < m_tracks; track++) {
+    for (int track=0; track < m_tracks; track++) {
 	if (dequeue(track, fast, peak)) {
 	    // set the new "current" values
 	    m_current_fast[track] = fast;
@@ -261,34 +259,39 @@ void LevelMeter::timedUpdate()
     }
 
     // refresh the display if needed
-    if (need_update) drawContents();
+    if (need_update) repaint();
 }
 
 //***************************************************************************
 void LevelMeter::drawScale(QPainter &p)
 {
     // draw the levels in 3dB steps, like -12dB -9dB  -6dB  -3dB and 0dB
-    QFont f = qApp->font(this);
     QFontMetrics fm = p.fontMetrics();
-    QRect rect = fm.boundingRect(i18n("-999 dB"));
+    QRect rect = fm.boundingRect(i18n("%1 dB", -999));
 
     const int border = 4;
-    const int w = width() - 2*border;
+    const int w  = width() - 2 * border;
+    const int h  = height();
     const int tw = rect.width();
     const int th = rect.height();
-    const int y = ((height() - th) / 2) + th;
-    int db = 0;
-    int right = this->width();
-    const QColor textcolor = colorGroup().buttonText();
+    const int y  = ((height() - th) / 2);
+    const int r  = 5;
+    int db       = 0;
+    int right    = width();
+    const QColor textcolor = palette().buttonText().color();
+    const QBrush brush(palette().background().color());
 
-    QImage img = m_pixmap->convertToImage();
+    Q_ASSERT(th);
+    if (!th) return;
+
+    p.setBrush(brush);
     while (right > tw + border) {
 	// find the first position in dB which is not overlapping
 	// the last output position
 	QString txt;
 	int x;
 	do {
-	    txt = i18n("%1 dB").arg(db);
+	    txt = i18n("%1 dB", db);
 	    x = (int)((double)w * pow10((double)db/(double)20.0));
 	    db -= 3; // one step left == -3dB
 	} while ((x > right) && (x >= tw));
@@ -299,53 +302,16 @@ void LevelMeter::drawScale(QPainter &p)
 	x += border;
 	x -= text_width + 3;
 
-	// create the text background mask, a rounded rectangle, by drawing
-	// directly into the original pixmap. This area is later replaced
-	// with the transparent text background, so it is ok to destroy the
-	// original pixmap.
-	const int r=5;
-	QPixmap mask(r+text_width+r, r+th+r);
-	mask.fill(colorGroup().background());
-	QPainter p2;
-	p2.begin(&mask);
-	QBrush brush(textcolor);
-	p2.setBrush(brush);
-	p2.setPen(Qt::NoPen);
-	p2.drawRoundRect(0, 0, text_width+2*r, th+2*r,
-	                 (200*r)/th, (200*r)/th);
-	p2.end();
-	QImage img2 = mask.convertToImage();
-
-	// draw the text background back into the image, using a 50%
-	// transparency (pixel by pixel as Qt currently does not support
-	// drawing transparent rounded rectangles)
-	QColor c2 = colorGroup().background();
-	int r2,g2,b2;
-	c2.getRgb(&r2, &g2, &b2);
-	for (int y1=y-th-r; y1 < y+r; y1++) {
-	    for (int x1=x-r; x1 < x+text_width+r; x1++) {
-		QColor c1 = img2.pixel(x1-(x-r), y1-(y-th-r));
-		if (c1 != textcolor)
-		    continue;
-
-		c1 = img.pixel(x1, y1);
-		int r1,g1,b1;
-		c1.getRgb(&r1, &g1, &b1);
-		r1 = (r1 + r2) / 2;
-		g1 = (g1 + g2) / 2;
-		b1 = (b1 + b2) / 2;
-		c1.setRgb(r1, g1, b1);
-		img.setPixel(x1, y1, c1.rgb());
-	    }
-	}
-	// replace the area in the pixmap that has been destroyed by
-	// creating the mask with the image which contains the original
-	// pixmap overlaid with 50% transparent text background
-	p.drawImage(x-r, y-th-r, img, x-r, y-th-r, text_width+2*r, th+2*r);
+	// dim the text background area
+	p.setOpacity(0.66);
+	p.setPen(Qt::NoPen);
+	p.drawRoundRect(x - r, y - r, text_width + 2 * r, th + 2 * r,
+	                (200 * r) / th, (200 * r) / th);
 
 	// draw the text, right/center aligned
+	p.setOpacity(1.0);
 	p.setPen(textcolor);
-	p.drawText(x, y, txt);
+	p.drawText(x, 1, text_width, h, Qt::AlignCenter, txt);
 
 	// new right border == one character left from last one
 	right = x - th;
@@ -376,29 +342,20 @@ void LevelMeter::drawContents()
     Q_ASSERT(width() > 0);
     Q_ASSERT(height() > 0);
 
-    // if pixmap has to be resized ...
-    if (m_pixmap && m_pixmap->size() != size()) {
-	delete m_pixmap;
-	m_pixmap = 0;
-    }
-    if (!m_pixmap) m_pixmap = new QPixmap(size());
-    Q_ASSERT(m_pixmap);
-    if (!m_pixmap) return;
-
-    p.begin(m_pixmap);
+    p.begin(this);
 
     // fill the background
-    p.fillRect(rect(), colorGroup().background());
+    p.fillRect(rect(), palette().background().color());
 
     const unsigned int border = 4;
     const unsigned int cell = 3;
-    const unsigned int w = width() - border * 2 - cell * 2;
+    const unsigned int w = width() - (border * 2) - (cell * 2);
     const unsigned int h = (height() - border) / (m_tracks ? m_tracks : 1);
 
     const unsigned int w_low  = (int)(w * 0.7);  // -3 dB
     const unsigned int w_high = (int)(w * 0.85); // -1.5dB
 
-    for (track=0; track < m_tracks; track++) {
+    for (track=0; track < static_cast<unsigned int>(m_tracks); track++) {
 	// show a bar up to the "fast" value
 	const unsigned int fast = (unsigned int)(m_current_fast[track] * w);
 	for (unsigned int i = 0; i < w; i += cell * 2) {
@@ -440,7 +397,6 @@ void LevelMeter::drawContents()
     drawScale(p);
 
     p.end();
-    bitBlt(this, 0, 0, m_pixmap);
 }
 
 //***************************************************************************

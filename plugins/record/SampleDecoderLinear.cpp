@@ -20,6 +20,8 @@
 #include <stdio.h>
 #include <sys/types.h>
 
+#include <QtGlobal>
+
 #include "libkwave/CompressionType.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleFormat.h"
@@ -92,7 +94,7 @@ void decode_linear(char *src, sample_t *dst, unsigned int count)
 
 //***************************************************************************
 #define MAKE_DECODER(bits)                             \
-if (sample_format != SampleFormat::Unsigned) {           \
+if (sample_format != SampleFormat::Unsigned) {         \
     if (endianness != BigEndian) {                     \
 	m_decoder = decode_linear<bits, true, true>;   \
     } else {                                           \
@@ -127,7 +129,7 @@ SampleDecoderLinear::SampleDecoderLinear(
     if ((endianness == UnknownEndian) && (m_bytes_per_sample != 1)) return;
 
     // map cpu endianness to little or big
-#if defined(ENDIANESS_BIG)
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
     if (endianness == CpuEndian) endianness = BigEndian;
 #else
     if (endianness == CpuEndian) endianness = LittleEndian;
@@ -156,7 +158,7 @@ SampleDecoderLinear::~SampleDecoderLinear()
 
 //***************************************************************************
 void SampleDecoderLinear::decode(QByteArray &raw_data,
-                                 QMemArray<sample_t> &decoded)
+                                 Kwave::SampleArray &decoded)
 {
     Q_ASSERT(m_decoder);
     if (!m_decoder) return;

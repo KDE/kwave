@@ -571,6 +571,7 @@ unsigned int Track::readSamples(unsigned int offset,
     while (it.hasNext()) {
 	Stripe *s = it.next();
 	if (!s) continue;
+	if (!s->length()) continue;
 	unsigned int start = s->start();
 	unsigned int end   = s->end();
 

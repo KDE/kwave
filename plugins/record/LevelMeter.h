@@ -21,14 +21,17 @@
 #define _LEVEL_METER_H_
 
 #include "config.h"
-#include <qcolor.h>
-#include <qmemarray.h>
-#include <qvaluevector.h>
-#include <qwidget.h>
+
+#include <QColor>
+#include <QTimer>
+#include <QVector>
+#include <QQueue>
+#include <QWidget>
+
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
 
 class QPaintEvent;
-class QPixmap;
 class QTimer;
 
 class LevelMeter: public QWidget
@@ -36,7 +39,7 @@ class LevelMeter: public QWidget
     Q_OBJECT
 public:
     /** Constructor */
-    LevelMeter(QWidget *parent, const char *name);
+    LevelMeter(QWidget *parent);
 
     /** Destructor */
     virtual ~LevelMeter();
@@ -63,7 +66,7 @@ public slots:
      * @param track index of the track
      * @param buffer array with samples
      */
-    virtual void updateTrack(unsigned int track, QMemArray<sample_t> &buffer);
+    virtual void updateTrack(unsigned int track, Kwave::SampleArray &buffer);
 
     /**
      * Resets all meters to zero
@@ -117,34 +120,31 @@ protected:
 private:
 
     /** number of tracks */
-    unsigned int m_tracks;
+    int m_tracks;
 
     /** sample rate used for interpreting the received buffers */
     float m_sample_rate;
 
     /** last output value of the filter for fast updates */
-    QMemArray<float> m_yf;
+    QVector<float> m_yf;
 
     /** last output value of the filter for peak updates */
-    QMemArray<float> m_yp;
+    QVector<float> m_yp;
 
     /** queues with fast update values for each track */
-    QValueVector< QValueVector<float> > m_fast_queue;
+    QVector< QQueue<float> > m_fast_queue;
 
     /** queues with peak values for each track */
-    QValueVector< QValueVector<float> > m_peak_queue;
+    QVector< QQueue<float> > m_peak_queue;
 
     /** current fast value for each track */
-    QMemArray<float> m_current_fast;
+    QVector<float> m_current_fast;
 
     /** current peak value for each track */
-    QMemArray<float> m_current_peak;
+    QVector<float> m_current_peak;
 
     /** timer for display updates */
     QTimer *m_timer;
-
-    /** pixmap for avoiding flicker */
-    QPixmap *m_pixmap;
 
     /** color for low levels, below -3dB */
     QColor m_color_low;

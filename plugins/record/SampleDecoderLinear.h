@@ -48,7 +48,7 @@ public:
      * @param decoded array with decoded samples
      */
     virtual void decode(QByteArray &raw_data,
-                        QMemArray<sample_t> &decoded);
+                        Kwave::SampleArray &decoded);
 
     /** Returns the number of bytes per sample in raw (not encoded) form */
     virtual unsigned int rawBytesPerSample();

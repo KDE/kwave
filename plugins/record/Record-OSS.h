@@ -21,7 +21,11 @@
 #include "config.h"
 #ifdef HAVE_OSS_SUPPORT
 
+#include <QByteArray>
+#include <QString>
+
 #include "RecordDevice.h"
+
 class RecordOSS: public RecordDevice
 {
 public:
@@ -80,7 +84,7 @@ public:
     virtual int tracks();
 
     /** get a list of supported sample rates */
-    virtual QValueList<double> detectSampleRates();
+    virtual QList<double> detectSampleRates();
 
     /**
      * Try to set a new sample rate.
@@ -98,7 +102,7 @@ public:
      * Gets a list of supported compression types. If no compression is
      * supported, the list might be empty.
      */
-    virtual QValueList<int> detectCompressions();
+    virtual QList<int> detectCompressions();
 
     /**
      * Try to set a new compression type.
@@ -116,7 +120,7 @@ public:
      * @note this depends on the compression type
      * @return a list of bits per sample, empty if failed
      */
-    virtual QValueList <unsigned int> supportedBits();
+    virtual QList <unsigned int> supportedBits();
 
     /**
      * Set the resolution in bits per sample
@@ -134,7 +138,7 @@ public:
      * Gets a list of supported sample formats.
      * @note this depends on the current setting of the compression!
      */
-    virtual QValueList<SampleFormat> detectSampleFormats();
+    virtual QList<SampleFormat> detectSampleFormats();
 
     /**
      * Try to set a new sample format (signed/unsigned)

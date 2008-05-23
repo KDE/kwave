@@ -19,14 +19,15 @@
 #define _RECORD_THREAD_H_
 
 #include "config.h"
-#include <qcstring.h>
-#include <qptrqueue.h>
-#include "mt/SignalProxy.h"
-#include "mt/Thread.h"
+
+#include <QByteArray>
+#include <QQueue>
+
+#include "libkwave/PluginWorkerThread.h"
 
 class RecordDevice;
 
-class RecordThread: public Thread
+class RecordThread: public Kwave::PluginWorkerThread
 {
     Q_OBJECT
 public:
@@ -61,6 +62,9 @@ public:
     /** Returns the number of queued filled buffers */
     unsigned int queuedBuffers();
 
+    /** De-queues a buffer from the m_full_queue. */
+    QByteArray dequeue();
+
 signals:
 
     /**
@@ -68,7 +72,7 @@ signals:
      * with dequeue()
      * @param buffer the buffer with recorded raw bytes
      */
-    void bufferFull(QByteArray buffer);
+    void bufferFull();
 
     /**
      * emitted when the recording stops or aborts
@@ -77,41 +81,22 @@ signals:
      */
     void stopped(int errorcode);
 
-private slots:
-
-    /** forwards a "buffer full" signal to outside the thread */
-    void forwardBufferFull();
-
-    /** forwards the "stopped" signal to outside the thread */
-    void forwardStopped();
-
-protected:
-
-    /** De-queues a buffer from the m_full_queue. */
-    QByteArray dequeue();
-
 private:
 
     /** the device used as source */
     RecordDevice *m_device;
 
     /** queue with empty buffers for raw input data */
-    QPtrQueue<QByteArray>m_empty_queue;
+    QQueue<QByteArray>m_empty_queue;
 
     /** queue with filled buffers with raw input data */
-    QPtrQueue<QByteArray>m_full_queue;
+    QQueue<QByteArray>m_full_queue;
 
     /** number of buffers to allocate */
     unsigned int m_buffer_count;
 
     /** size of m_buffer in bytes */
     unsigned int m_buffer_size;
-
-    /** threadsafe proxy for forwarding the "bufferFull" signal */
-    SignalProxy<void> m_spx_buffer_full;
-
-    /** threadsafe proxy for forwarding the "stopped" signal */
-    SignalProxy1<int> m_spx_stopped;
 
 };
 

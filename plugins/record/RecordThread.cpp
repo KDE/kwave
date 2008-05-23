@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <errno.h>
 #include <stdlib.h>
 #include <strings.h> // for bzero
@@ -26,10 +27,8 @@
 
 //***************************************************************************
 RecordThread::RecordThread()
-    :Thread(), m_device(0), m_empty_queue(), m_buffer_count(0),
-    m_buffer_size(0),
-    m_spx_buffer_full(this, SLOT(forwardBufferFull())),
-    m_spx_stopped(this,     SLOT(forwardStopped()), 1)
+    :Kwave::PluginWorkerThread(0, QStringList()), m_device(0),
+    m_empty_queue(), m_buffer_count(0), m_buffer_size(0)
 {
 }
 
@@ -37,14 +36,15 @@ RecordThread::RecordThread()
 RecordThread::~RecordThread()
 {
     stop();
-    setBuffers(0, 0);
+    m_full_queue.clear();
+    m_empty_queue.clear();
 }
 
 //***************************************************************************
 void RecordThread::setRecordDevice(RecordDevice *device)
 {
-    Q_ASSERT(!running());
-    if (running()) return;
+    Q_ASSERT(!isRunning());
+    if (isRunning()) return;
 
     m_device = device;
 }
@@ -53,44 +53,21 @@ void RecordThread::setRecordDevice(RecordDevice *device)
 int RecordThread::setBuffers(unsigned int count, unsigned int size)
 {
 //     qDebug("RecordThread::setBuffers(%u,%u)", count, size);
-    Q_ASSERT(!running());
-    if (running()) return -EBUSY;
+    Q_ASSERT(!isRunning());
+    if (isRunning()) return -EBUSY;
 
-    // de-queue all full buffers if any -> flush output queue
-    while (m_full_queue.count()) {
-	dequeue();
-    }
+    // flush all queues
+    m_full_queue.clear();
+    m_empty_queue.clear();
 
-    // de-queue and delete all empty buffers if the buffer size has changed
-    if (m_buffer_size != size) {
-	while (!m_empty_queue.isEmpty()) {
-	    QByteArray *buffer = m_empty_queue.dequeue();
-	    if (buffer) delete buffer;
-	}
-    }
+    // fill the "empty" queue again
+    QByteArray buf(size, 0x00);
+    for (unsigned int i = 0; i < count; i++)
+	m_empty_queue.enqueue(buf);
 
     // take the new settings
-    m_buffer_size = size;
+    m_buffer_size  = size;
     m_buffer_count = count;
-
-    // remove superflous buffers
-    while (m_empty_queue.count() > m_buffer_count) {
-	QByteArray *buffer = m_empty_queue.dequeue();
-	if (buffer) delete buffer;
-    }
-
-    // enqueue empty buffers until the required amount has been reached
-    while (m_empty_queue.count() < m_buffer_count) {
-	QByteArray *buffer = new QByteArray(size);
-	Q_ASSERT(buffer);
-	if (!buffer) break;
-
-	// write to the buffer with dummy data to probably
-	// make it physically mapped
-	buffer->fill(0x00);
-
-	m_empty_queue.enqueue(buffer);
-    }
 
     // return number of buffers or -ENOMEM if not even two allocated
     return (m_empty_queue.count() >= 2) ?
@@ -112,20 +89,19 @@ unsigned int RecordThread::queuedBuffers()
 //***************************************************************************
 QByteArray RecordThread::dequeue()
 {
-    QByteArray buffer;
-    buffer.resize(0);
-
     if (m_full_queue.count()) {
 	// de-queue the buffer from the full list
-	QByteArray *buf = m_full_queue.dequeue();
-	Q_ASSERT(buf);
-	if (buf) buffer.duplicate(*buf);
+	QByteArray buf = m_full_queue.dequeue();
 
 	// put the buffer back to the empty list
 	m_empty_queue.enqueue(buf);
-    }
 
-    return buffer;
+	// return the buffer
+	return buf;
+    } else {
+	// return an empty buffer
+	return QByteArray();
+    }
 }
 
 //***************************************************************************
@@ -140,21 +116,18 @@ void RecordThread::run()
     // read data until we receive a close signal
     while (!shouldStop() && !interrupted) {
 	// dequeue a buffer from the "empty" queue
-	QByteArray *buffer = 0;
 
 //	qDebug(">>> %u <<<", m_empty_queue.count()); // ###
-	Q_ASSERT(!m_empty_queue.isEmpty());
-	buffer = m_empty_queue.dequeue();
-	Q_ASSERT(buffer);
-	if (!buffer) {
+	if (m_empty_queue.isEmpty()) {
 	    // we had a "buffer overflow"
 	    qWarning("RecordThread::run() -> NO EMPTY BUFFER FOUND !!!");
 	    result = -ENOBUFS;
 	    break;
 	}
 
-	int len = buffer->size();
-	Q_ASSERT(buffer->size());
+	QByteArray buffer = m_empty_queue.dequeue();
+	int len = buffer.size();
+	Q_ASSERT(buffer.size());
 	if (!len) {
 	    result = -ENOBUFS;
 	    break;
@@ -165,7 +138,7 @@ void RecordThread::run()
 	while (len && !interrupted && !shouldStop()) {
 	    // read raw data from the record device
 	    result =  (m_device) ?
-		m_device->read(*buffer, offset) : -EBADF;
+		m_device->read(buffer, offset) : -EBADF;
 
 	    if ((result < 0) && (result != -EAGAIN))
 		qWarning("RecordThread: read result = %d (%s)",
@@ -188,7 +161,7 @@ void RecordThread::run()
 		break;
 	    } else {
 		offset += result;
-		len = buffer->size() - offset;
+		len = buffer.size() - offset;
 		Q_ASSERT(len >= 0);
 		if (len < 0) len = 0;
 	    }
@@ -197,15 +170,13 @@ void RecordThread::run()
 	// return buffer into the empty queue and abort on errors
 	// do not use it
 	if (interrupted && (result < 0)) {
-	    if (buffer) m_empty_queue.enqueue(buffer);
+	    m_empty_queue.enqueue(buffer);
 	    break;
 	}
 
-	// enqueue the buffer for the application
-	m_full_queue.enqueue(buffer);
-
 	// inform the application that there is something to dequeue
-	m_spx_buffer_full.AsyncHandler();
+	m_full_queue.enqueue(buffer);
+	emit bufferFull();
     }
 
     // do not evaluate the result of the last operation if there
@@ -213,37 +184,8 @@ void RecordThread::run()
     if (shouldStop() || (interrupted && (result > 0)))
 	result = 0;
 
-    if (result) m_spx_stopped.enqueue(result);
+    if (result) emit stopped(result);
     qDebug("RecordThread::run() - done");
-}
-
-//***************************************************************************
-void RecordThread::forwardBufferFull()
-{
-    QByteArray buffer = dequeue();
-    if (!buffer.count()) return; // was removed before, maybe settings changed
-
-    // forward the buffer to the application/consumer
-    emit bufferFull(buffer);
-}
-
-//***************************************************************************
-void RecordThread::forwardStopped()
-{
-    unsigned int count = m_spx_stopped.count();
-    int error = 0;
-
-    // dequeue all pointers and keep the latest one (should only be one!)
-    Q_ASSERT(count == 1);
-    if (!count) return;
-    while (count--) {
-	int *perror = m_spx_stopped.dequeue();
-	Q_ASSERT(perror);
-	if (!perror) continue;
-	error = *perror;
-	delete perror;
-    }
-    emit stopped(error);
 }
 
 //***************************************************************************

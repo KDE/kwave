@@ -6,6 +6,8 @@
  * support for ALSA lib API v1.0.16
  * made MP3 decoder disabled per default due to legal issues
  * fixed bug in cue list parsing of .wav files
+ * fixed bugs in recording plugin, recorded too much if recording time
+   limit was activated or in prerecording mode
 
 0.7.11 [2007-12-09]
 

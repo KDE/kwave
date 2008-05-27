@@ -44,6 +44,7 @@
 #include "libgui/MessageBox.h"
 
 #include "KwaveApp.h"
+#include "KwaveSplash.h"
 #include "TopWidget.h"
 #include "SignalManager.h"
 #include "UndoAction.h"
@@ -670,6 +671,8 @@ void PluginManager::findPlugins()
 	    // skip it if something is missing or null
 	    if (!name || !version || !author) continue;
 	    if (!*name || !*version || !*author) continue;
+
+	    KwaveSplash::showMessage(i18n("loading plugin %1...", *name));
 
 	    m_plugin_files.insert(*name, file);
 	    qDebug("%16s %5s written by %s",

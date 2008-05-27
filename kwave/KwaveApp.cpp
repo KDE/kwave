@@ -32,8 +32,7 @@
 #include "PluginManager.h"
 #include "TopWidget.h"
 #include "KwaveApp.h"
-
-#define UNIQUE_APP
+#include "KwaveSplash.h"
 
 //***************************************************************************
 // some static initializers
@@ -46,30 +45,30 @@ MemoryManager &KwaveApp::m_memory_manager(_memory_manager);
 
 //***************************************************************************
 KwaveApp::KwaveApp()
-#ifdef UNIQUE_APP
    :KUniqueApplication(),
-#else // UNIQUE_APP
-   :KApplication(),
-#endif // UNIQUE_APP
     m_recent_files(),
     m_topwidget_list()
 {
-    readConfig();
-
-    // load the list of plugins
-    PluginManager::findPlugins();
-
-    // close when the last window closed
-    connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
-
-#ifndef UNIQUE_APP
-    newInstance();
-#endif
 }
 
 //***************************************************************************
 int KwaveApp::newInstance()
 {
+    static bool first_time = true;
+    if (first_time) {
+	first_time = false;
+
+	KwaveSplash::showMessage(i18n("reading configuration..."));
+	readConfig();
+
+	// load the list of plugins
+	KwaveSplash::showMessage(i18n("scanning plugins..."));
+	PluginManager::findPlugins();
+
+	// close when the last window closed
+	connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
+    }
+
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     unsigned int argc = (args) ? args->count() : 0;
 
@@ -82,7 +81,6 @@ int KwaveApp::newInstance()
 	for (unsigned int i = 0; i < argc; i++) {
 	    QString name = args->arg(i);
 	    QFileInfo file(name);
-
 	    newWindow(file.absoluteFilePath());
 	}
     }
@@ -136,6 +134,7 @@ void KwaveApp::addRecentFile(const QString &newfile)
 //***************************************************************************
 bool KwaveApp::newWindow(const KUrl &url)
 {
+    KwaveSplash::showMessage(i18n("opening main window..."));
     TopWidget *new_top_widget = new TopWidget(*this);
     Q_ASSERT(new_top_widget);
     if (!new_top_widget) return false;
@@ -165,8 +164,13 @@ bool KwaveApp::newWindow(const KUrl &url)
     connect(this, SIGNAL(recentFilesChanged()),
             new_top_widget, SLOT(updateRecentFiles()));
 
-    if (!url.isEmpty()) new_top_widget->loadFile(url);
+    if (!url.isEmpty()) {
+	KwaveSplash::showMessage(i18n("loading file '%1'...",
+	    url.prettyUrl()));
+	new_top_widget->loadFile(url);
+    }
 
+    KwaveSplash::showMessage(i18n("startup done."));
     return true;
 }
 

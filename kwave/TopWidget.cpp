@@ -51,9 +51,10 @@
 #include "libgui/MessageBox.h"
 #include "libgui/KwaveFileDialog.h"
 
-#include "KwaveApp.h"
 #include "ClipBoard.h"
 #include "CodecManager.h"
+#include "KwaveApp.h"
+#include "KwaveSplash.h"
 #include "MainWidget.h"
 #include "TopWidget.h"
 #include "PlaybackController.h"
@@ -106,6 +107,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 {
     KIconLoader icon_loader;
 
+    KwaveSplash::showMessage(i18n("loading main menu..."));
     KMenuBar *menubar = menuBar();
     Q_ASSERT(menubar);
     if (!menubar) return;
@@ -172,6 +174,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // --- set up the toolbar ---
 
+    KwaveSplash::showMessage(i18n("initializing toolbar..."));
     KToolBar *toolbar_file = toolBar("MainWidget File");
     Q_ASSERT(toolbar_file);
     if (!toolbar_file) return;
@@ -392,6 +395,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     updateRecentFiles();
 
     // now we are initialized, load all plugins now
+    KwaveSplash::showMessage(i18n("Loading plugins..."));
     statusBar()->showMessage(i18n("Loading plugins..."));
     m_plugin_manager->loadAllPlugins();
     statusBar()->showMessage(i18n("Ready."), 1000);

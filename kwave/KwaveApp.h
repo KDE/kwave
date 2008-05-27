@@ -42,6 +42,7 @@ class KwaveApp :public KUniqueApplication
     Q_OBJECT
 public:
 
+    /** Constructor */
     KwaveApp();
 
     /**
@@ -108,6 +109,7 @@ protected:
     bool executeCommand(const QString &command);
 
 protected:
+
     /**
      * Reads the configuration settings and the list of recent files,
      * opposite of saveConfig().

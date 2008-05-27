@@ -83,7 +83,7 @@ issue #1: license of the icons
 issue #2: license of some files is unknown or problematic / author known
 ------------------------------------------------------------------------
 
-#	kwave/pics/kwave-splash.png			??? UNKNOWN ??? / Gilles Caulier
+	- currently none -
 
 issue #3: some files have neither license nor author
 ----------------------------------------------------
@@ -297,6 +297,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/pics/sound_device.png			free / KDE
 	kwave/pics/sound_note.png			free / KDE
 #	kwave/pics/sound_subdevice.png			??? UNKNOWN ??? -> KDE ?
+	kwave/pics/kwave-splash.png			GPL2 / Thomas Eschenbacher
 #	kwave/pics/xspeaker.xpm				??? UNKNOWN ??? -> KDE ?
 
 	kwave/toolbar/zoomall.xpm			(should be GPL2)

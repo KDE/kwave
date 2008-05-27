@@ -123,7 +123,7 @@ int main( int argc, char **argv )
 	PACKAGE, "",
 	ki18n("Kwave"),
 	PACKAGE_VERSION,
-	ki18n("sound editor for KDE"),
+	ki18n("a sound editor for KDE"),
 	KAboutData::License_GPL_V2,
         ki18n("(c) 2006, Thomas Eschenbacher"),
 	ki18n(""),

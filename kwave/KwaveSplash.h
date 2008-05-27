@@ -20,6 +20,7 @@
 
 #include <QObject>
 #include <QPixmap>
+#include <QPointer>
 #include <QSplashScreen>
 
 class QString;
@@ -39,10 +40,16 @@ public:
     /** Destructor */
     virtual ~KwaveSplash();
 
+    /** wrapper for QSplashScreen::showMessage with only one parameter */
+    static void showMessage(const QString &message);
+
 private:
 
     /** pixmap with the Kwave logo */
     QPixmap m_pixmap;
+
+    /** static instance */
+    static QPointer<KwaveSplash> m_splash;
 
 };
 

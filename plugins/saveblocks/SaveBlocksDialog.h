@@ -19,7 +19,11 @@
 #define _SAVE_BLOCKS_DIALOG_H_
 
 #include "config.h"
-#include <qobject.h>
+
+#include <QObject>
+#include <QString>
+#include <QWidget>
+
 #include "libgui/KwaveFileDialog.h"
 #include "SaveBlocksPlugin.h"
 
@@ -37,7 +41,6 @@ public:
      * @param startDir the start directory
      * @param filter string with a file type filter
      * @param parent the parent widget
-     * @param name a name for the dialog (only internal)
      * @param modal if true, make the dialog modal
      * @param last_url the last used URL
      * @param last_ext the last used extension (preset only)
@@ -49,7 +52,6 @@ public:
     SaveBlocksDialog(const QString &startDir,
 	const QString &filter,
 	QWidget *parent,
-	const char *name,
 	bool modal,
 	const QString last_url,
 	const QString last_ext,

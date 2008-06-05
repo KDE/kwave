@@ -18,10 +18,13 @@
 #ifndef _SAVE_BLOCKS_WIDGET_H_
 #define _SAVE_BLOCKS_WIDGET_H_
 
-#include "SaveBlocksWidgetBase.h"
-#include "SaveBlocksPlugin.h"
+#include <QWidget>
 
-class SaveBlocksWidget: public SaveBlocksWidgetBase
+#include "SaveBlocksPlugin.h"
+#include "ui_SaveBlocksWidgetBase.h"
+
+class SaveBlocksWidget: public QWidget,
+                        public Ui::SaveBlocksWidgetBase
 {
     Q_OBJECT
 public:
@@ -43,6 +46,17 @@ public:
 
     /** Destructor */
     virtual ~SaveBlocksWidget();
+
+    /** @see KPreviewWidgetBase::showPreview() */
+    virtual void showPreview(const KUrl &url)
+    {
+	Q_UNUSED(url);
+    };
+
+    /** @see KPreviewWidgetBase::clearPreview */
+    virtual void clearPreview()
+    {
+    };
 
     /** returns the file name pattern */
     QString pattern();

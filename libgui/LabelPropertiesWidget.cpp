@@ -34,6 +34,7 @@ LabelPropertiesWidget::LabelPropertiesWidget(QWidget *parent)
     :QDialog(parent), LabelPropertiesWidgetBase(),
     m_length(0), m_sample_rate(0)
 {
+    setupUi(this);
     Q_ASSERT(time);
     if (time) time->setTitle(0);
     setFixedSize(sizeHint());

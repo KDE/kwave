@@ -8,6 +8,8 @@
  * fixed bug in cue list parsing of .wav files
  * fixed bugs in recording plugin, recorded too much if recording time
    limit was activated or in prerecording mode
+ * a nicer splash screen
+ * bugfix in label handling: support labels with zero-length names
 
 0.7.11 [2007-12-09]
 

@@ -42,7 +42,8 @@ RIFFChunk::~RIFFChunk()
 }
 
 //***************************************************************************
-#define CHECK(x) Q_ASSERT(!(x)); if (x) return false;
+// #define CHECK(x) Q_ASSERT(!(x)); if (x) return false;
+#define CHECK(x) if (x) return false;
 bool RIFFChunk::isSane()
 {
     CHECK(m_type == Empty);

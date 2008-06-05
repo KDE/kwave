@@ -147,19 +147,24 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
 	labels_count * (6 * 4); /* cue list entry: 6 x 32 bit */
 
     // now the size of the labels
-    unsigned int size_of_labels = 4 + /* header entry: 'adtl' */
-	labels_count * (3 * 4); /* per label 3 * 32 bit header */
+    unsigned int size_of_labels = 0;
     foreach (Label *label, info.labels()) {
 	if (!label) continue;
 	unsigned int name_len = label->name().toUtf8().size();
+	if (!name_len) continue; // skip zero-length names
+	size_of_labels += (3 * 4); // 3 * 4 byte
 	size_of_labels += name_len;
 	// padding if size is unaligned
 	if (size_of_labels & 1) size_of_labels++;
     }
+    if (size_of_labels) {
+	size_of_labels += 4; /* header entry: 'adtl' */
+	// enlarge the main RIFF chunk by the size of the LIST chunk
+	additional_size += 4 + 4 + size_of_labels; // add size of LIST(adtl)
+    }
 
-    // enlarge the main RIFF chunk by the size of the cue and LIST chunks
+    // enlarge the main RIFF chunk by the size of the cue chunks
     additional_size += 4 + 4 + size_of_cue_list; // add size of 'cue '
-    additional_size += 4 + 4 + size_of_labels;   // add size of LIST(adtl)
 
     dst.seek(4);
     dst.read((char *)&size, 4);
@@ -205,35 +210,39 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
     }
 
     // add the LIST(adtl) chunk
-    dst.write("LIST", 4);
-    size = CPU_TO_LE32(size_of_labels);
-    dst.write((char *)&size, 4);
-    dst.write("adtl", 4);
-    index = 0;
-    foreach (Label *label, info.labels()) {
-	if (!label) continue;
-	QByteArray name = label->name().toUtf8();
+    if (size_of_labels) {
+	dst.write("LIST", 4);
+	size = CPU_TO_LE32(size_of_labels);
+	dst.write((char *)&size, 4);
+	dst.write("adtl", 4);
+	index = 0;
+	foreach (Label *label, info.labels()) {
+	    if (!label) continue;
+	    QByteArray name = label->name().toUtf8();
 
-	/*
-	 * typedef struct {
-	 *     u_int32_t dwChunkID;    <- 'labl'
-	 *     u_int32_t dwChunkSize;  (without padding !)
-	 *     u_int32_t dwIdentifier; <- index
-	 *     char    dwText[];       <- label->name()
-	 * } label_list_entry_t;
-	 */
-        dst.write("labl", 4);                // dwChunkID
-        data = CPU_TO_LE32(name.size() + 4);
-	dst.write((char *)&data, 4);         // dwChunkSize
-	data = CPU_TO_LE32(index);
-	dst.write((char *)&data, 4);         // dwIdentifier
-	dst.write(name.data(), name.size()); // dwText
-	if (name.size() & 1) {
-	    // padding if necessary
-	    data = 0;
-	    dst.write((char *)&data, 1);     // (padding)
+	    /*
+	     * typedef struct {
+	     *     u_int32_t dwChunkID;    <- 'labl'
+	     *     u_int32_t dwChunkSize;  (without padding !)
+	     *     u_int32_t dwIdentifier; <- index
+	     *     char    dwText[];       <- label->name()
+	     * } label_list_entry_t;
+	     */
+	    if (name.size()) {
+		dst.write("labl", 4);                // dwChunkID
+		data = CPU_TO_LE32(name.size() + 4);
+		dst.write((char *)&data, 4);         // dwChunkSize
+		data = CPU_TO_LE32(index);
+		dst.write((char *)&data, 4);         // dwIdentifier
+		dst.write(name.data(), name.size()); // dwText
+		if (name.size() & 1) {
+		    // padding if necessary
+		    data = 0;
+		    dst.write((char *)&data, 1);     // (padding)
+		}
+	    }
+	    index++;
 	}
-	index++;
     }
 }
 

@@ -358,7 +358,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	}
 
 	QString text= i18n("An error occurred while opening the "\
-	    "file:\n'%1'").arg(reason);
+	    "file:\n'%1'", reason);
 	Kwave::MessageBox::error(widget, text);
 
 	return false;
@@ -488,12 +488,15 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 		}
 		if (found) {
 		    Q_ASSERT(labl_chunk);
-		    unsigned int length = labl_chunk->length() - 4;
-		    name.resize(length);
-		    src.seek(labl_chunk->dataStart() + 4);
-		    src.read((char *)name.data(), length);
-		    if (name[name.count()-1] != '\0')
-			name += '\0';
+		    unsigned int length = labl_chunk->length();
+		    if (length > 4) {
+			length -= 4;
+			name.resize(length);
+			src.seek(labl_chunk->dataStart() + 4);
+			src.read((char *)name.data(), length);
+			if (name[name.count()-1] != '\0')
+			    name += '\0';
+		    }
 		}
 	    }
 

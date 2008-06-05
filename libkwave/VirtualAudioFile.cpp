@@ -48,6 +48,9 @@ static long _lastAudiofileError()
 {
     long err = _last_audiofile_error;
     _last_audiofile_error = -1;
+
+    // ignore "bad alloc", which might occur on a "malloc(0)"
+    if (err == AF_BAD_MALLOC) err = -1;
     return err;
 }
 

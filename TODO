@@ -20,29 +20,23 @@ o port/fix the following files:
      2	./doc/CMakeLists.txt
      3	./kwave/CMakeLists.txt
      4	./plugins/CMakeLists.txt
-     5	./plugins/selectrange/CMakeLists.txt
-     6	./plugins/selectrange/SelectRangeDialog.cpp
-     7	./plugins/selectrange/SelectRangeDialog.h
-     8	./plugins/selectrange/SelectRangeDlg.ui
-     9	./plugins/selectrange/SelectRangePlugin.cpp
-    10	./plugins/selectrange/SelectRangePlugin.h
-    11	./plugins/sonagram/CMakeLists.txt
-    12	./plugins/sonagram/ImageView.cpp
-    13	./plugins/sonagram/ImageView.h
-    14	./plugins/sonagram/SonagramDialog.cpp
-    15	./plugins/sonagram/SonagramDialog.h
-    16	./plugins/sonagram/SonagramDlg.ui
-    17	./plugins/sonagram/SonagramPlugin.cpp
-    18	./plugins/sonagram/SonagramPlugin.h
-    19	./plugins/sonagram/SonagramWindow.cpp
-    20	./plugins/sonagram/SonagramWindow.h
-    21	./plugins/volume/CMakeLists.txt
-    22	./plugins/volume/VolumeDialog.cpp
-    23	./plugins/volume/VolumeDialog.h
-    24	./plugins/volume/VolumeDlg.ui
-    25	./plugins/volume/VolumePlugin.cpp
-    26	./plugins/volume/VolumePlugin.h
-    27	./po/CMakeLists.txt
+     5	./plugins/sonagram/CMakeLists.txt
+     6	./plugins/sonagram/ImageView.cpp
+     7	./plugins/sonagram/ImageView.h
+     8	./plugins/sonagram/SonagramDialog.cpp
+     9	./plugins/sonagram/SonagramDialog.h
+    10	./plugins/sonagram/SonagramDlg.ui
+    11	./plugins/sonagram/SonagramPlugin.cpp
+    12	./plugins/sonagram/SonagramPlugin.h
+    13	./plugins/sonagram/SonagramWindow.cpp
+    14	./plugins/sonagram/SonagramWindow.h
+    15	./plugins/volume/CMakeLists.txt
+    16	./plugins/volume/VolumeDialog.cpp
+    17	./plugins/volume/VolumeDialog.h
+    18	./plugins/volume/VolumeDlg.ui
+    19	./plugins/volume/VolumePlugin.cpp
+    20	./plugins/volume/VolumePlugin.h
+    21	./po/CMakeLists.txt
 
 o process the update of OverViewCache into a background thread
 

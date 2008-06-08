@@ -15,6 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
 #include <math.h>
 #include <limits.h>
 
@@ -25,7 +27,6 @@
 #include <klocale.h>
 #include <knuminput.h>
 
-#include "IntValidatorProxy.h"
 #include "SelectTimeWidget.h"
 
 //***************************************************************************
@@ -35,6 +36,7 @@ SelectTimeWidget::SelectTimeWidget(QWidget *widget)
      m_timer(this)
 {
     setupUi(this);
+    modeChanged(true);
 }
 
 //***************************************************************************
@@ -101,21 +103,16 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
     }
 
     // connect mode controls
-    QObject::connect(rbTime, SIGNAL(stateChanged(int)),
-                     this, SLOT(modeChanged(int)));
-    QObject::connect(rbSamples,SIGNAL(stateChanged(int)),
-                     this, SLOT(modeChanged(int)));
-    QObject::connect(rbPercents,SIGNAL(stateChanged(int)),
-                     this, SLOT(modeChanged(int)));
+    QObject::connect(rbTime, SIGNAL(clicked(bool)),
+                     this, SLOT(modeChanged(bool)));
+    QObject::connect(rbSamples,SIGNAL(clicked(bool)),
+                     this, SLOT(modeChanged(bool)));
+    QObject::connect(rbPercents,SIGNAL(clicked(bool)),
+                     this, SLOT(modeChanged(bool)));
 
     connect();
 
     // connect percentage control
-// ### TODO ###
-//     IntValidatorProxy *px = new IntValidatorProxy(this);
-//     sbPercents->setValidator(px);
-//     QObject::connect(px, SIGNAL(valueChanged(int)),
-//                      this, SLOT(percentsChanged(int)));
     QObject::connect(sbPercents, SIGNAL(valueChanged(int)),
                      this, SLOT(percentsChanged(int)));
 
@@ -134,6 +131,7 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
 
     adjustSize();
     setMinimumSize(sizeHint());
+    modeChanged(true);
 }
 
 //***************************************************************************
@@ -207,14 +205,13 @@ void SelectTimeWidget::setMode(Mode new_mode)
 	    rbPercents->setChecked(true);
 	    break;
     }
-    Q_ASSERT(m_mode == new_mode);
-
+    m_mode = new_mode;
 }
 
 //***************************************************************************
-void SelectTimeWidget::modeChanged(int enable)
+void SelectTimeWidget::modeChanged(bool checked)
 {
-    if (!enable) return; // ignore disabling of radio buttons
+    if (!checked) return; // ignore disabling of radio buttons
 
     if (rbTime->isChecked() && (m_mode != byTime)) {
 	m_mode = byTime;

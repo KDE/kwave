@@ -93,7 +93,7 @@ public slots:
 private slots:
 
     /** called whenever one of the radio buttons changed it's state */
-    void modeChanged(int);
+    void modeChanged(bool checked);
 
     /** called whenever one of the time controls changed their value */
     void timeChanged(int);

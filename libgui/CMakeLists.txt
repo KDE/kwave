@@ -23,7 +23,6 @@ SET(libkwavegui_LIB_SRCS
     FileProgress.cpp
     FrequencyResponseWidget.cpp
     HMSTimeWidget.cpp
-    IntValidatorProxy.cpp
     InvertableSpinBox.cpp
     KwaveFileDialog.cpp
     LabelPropertiesWidget.cpp

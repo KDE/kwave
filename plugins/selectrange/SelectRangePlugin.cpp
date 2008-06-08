@@ -19,7 +19,7 @@
 #include <errno.h>
 #include <math.h>
 
-#include <qstring.h>
+#include <QString>
 #include <klocale.h>
 
 #include "kwave/PluginManager.h"

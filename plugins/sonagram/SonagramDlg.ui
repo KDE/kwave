@@ -1,472 +1,462 @@
-<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
-<class>SonagramDlg</class>
-<widget class="QDialog">
-    <property name="name">
-        <cstring>SonagramDlg</cstring>
-    </property>
-    <property name="geometry">
-        <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>520</width>
-            <height>344</height>
-        </rect>
-    </property>
-    <property name="sizePolicy">
-        <sizepolicy>
-            <hsizetype>5</hsizetype>
-            <vsizetype>5</vsizetype>
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-        </sizepolicy>
-    </property>
-    <property name="caption">
-        <string>Set FFT/time resolution parameters</string>
-    </property>
-    <grid>
-        <property name="name">
-            <cstring>unnamed</cstring>
+<ui version="4.0" >
+ <class>SonagramDlg</class>
+ <widget class="QDialog" name="SonagramDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>520</width>
+    <height>344</height>
+   </rect>
+  </property>
+  <property name="sizePolicy" >
+   <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle" >
+   <string>Set FFT/time resolution parameters</string>
+  </property>
+  <layout class="QGridLayout" >
+   <property name="leftMargin" >
+    <number>10</number>
+   </property>
+   <property name="topMargin" >
+    <number>10</number>
+   </property>
+   <property name="rightMargin" >
+    <number>10</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>10</number>
+   </property>
+   <property name="horizontalSpacing" >
+    <number>10</number>
+   </property>
+   <property name="verticalSpacing" >
+    <number>10</number>
+   </property>
+   <item row="2" column="0" colspan="2" >
+    <layout class="QHBoxLayout" >
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="btHelp" >
+       <property name="text" >
+        <string>&amp;Help</string>
+       </property>
+       <property name="shortcut" >
+        <string>Alt+H</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btOK" >
+       <property name="text" >
+        <string>&amp;OK</string>
+       </property>
+       <property name="shortcut" >
+        <string/>
+       </property>
+       <property name="autoDefault" >
+        <bool>true</bool>
+       </property>
+       <property name="default" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btCancel" >
+       <property name="text" >
+        <string>&amp;Cancel</string>
+       </property>
+       <property name="shortcut" >
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0" >
+    <widget class="QGroupBox" name="buttonGroup1" >
+     <property name="title" >
+      <string>display</string>
+     </property>
+     <layout class="QVBoxLayout" >
+      <item>
+       <widget class="QRadioButton" name="rbColor" >
+        <property name="toolTip" >
+         <string>use different colors for amplitude</string>
         </property>
-        <property name="margin">
-            <number>10</number>
+        <property name="text" >
+         <string>use colors</string>
         </property>
-        <property name="spacing">
-            <number>10</number>
+        <property name="checked" >
+         <bool>true</bool>
         </property>
-        <property name="resizeMode">
-            <enum>Fixed</enum>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="rbGreyScale" >
+        <property name="toolTip" >
+         <string>use greyscale only for amplitude</string>
         </property>
-        <widget class="QLayoutWidget" row="2" column="0" rowspan="1" colspan="2">
-            <property name="name">
-                <cstring>Layout1</cstring>
-            </property>
-            <hbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <property name="margin">
-                    <number>0</number>
-                </property>
-                <property name="spacing">
-                    <number>6</number>
-                </property>
-                <widget class="QPushButton">
-                    <property name="name">
-                        <cstring>btHelp</cstring>
-                    </property>
-                    <property name="text">
-                        <string>&amp;Help</string>
-                    </property>
-                    <property name="accel">
-                        <string>Alt+H</string>
-                    </property>
-                </widget>
-                <spacer>
-                    <property name="name">
-                        <cstring>Horizontal Spacing2</cstring>
-                    </property>
-                    <property name="orientation">
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                        <enum>Expanding</enum>
-                    </property>
-                    <property name="sizeHint">
-                        <size>
-                            <width>20</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-                <widget class="QPushButton">
-                    <property name="name">
-                        <cstring>btOK</cstring>
-                    </property>
-                    <property name="text">
-                        <string>&amp;OK</string>
-                    </property>
-                    <property name="accel">
-                        <string></string>
-                    </property>
-                    <property name="autoDefault">
-                        <bool>true</bool>
-                    </property>
-                    <property name="default">
-                        <bool>true</bool>
-                    </property>
-                </widget>
-                <widget class="QPushButton">
-                    <property name="name">
-                        <cstring>btCancel</cstring>
-                    </property>
-                    <property name="text">
-                        <string>&amp;Cancel</string>
-                    </property>
-                    <property name="accel">
-                        <string></string>
-                    </property>
-                </widget>
-            </hbox>
-        </widget>
-        <widget class="QButtonGroup" row="1" column="0">
-            <property name="name">
-                <cstring>buttonGroup1</cstring>
-            </property>
-            <property name="title">
-                <string>display</string>
-            </property>
-            <vbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QRadioButton">
-                    <property name="name">
-                        <cstring>rbColor</cstring>
-                    </property>
-                    <property name="text">
-                        <string>use colors</string>
-                    </property>
-                    <property name="checked">
-                        <bool>true</bool>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>use different colors for amplitude</string>
-                    </property>
-                </widget>
-                <widget class="QRadioButton">
-                    <property name="name">
-                        <cstring>rbGreyScale</cstring>
-                    </property>
-                    <property name="text">
-                        <string>greyscale</string>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>use greyscale only for amplitude</string>
-                    </property>
-                </widget>
-            </vbox>
-        </widget>
-        <widget class="QGroupBox" row="1" column="1">
-            <property name="name">
-                <cstring>groupBox3</cstring>
-            </property>
-            <property name="title">
-                <string>update</string>
-            </property>
-            <vbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QCheckBox">
-                    <property name="name">
-                        <cstring>cbTrackChanges</cstring>
-                    </property>
-                    <property name="enabled">
-                        <bool>false</bool>
-                    </property>
-                    <property name="text">
-                        <string>on modifications</string>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>automatically update the sonagram &lt;br&gt;if the signal data has changed</string>
-                    </property>
-                </widget>
-                <widget class="QCheckBox">
-                    <property name="name">
-                        <cstring>cbFollowSelection</cstring>
-                    </property>
-                    <property name="enabled">
-                        <bool>false</bool>
-                    </property>
-                    <property name="text">
-                        <string>follow selection</string>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>automatically update the sonagram if the selection&lt;br&gt;has been enlarged, reduced or moved</string>
-                    </property>
-                </widget>
-            </vbox>
-        </widget>
-        <widget class="QGroupBox" row="0" column="0" rowspan="1" colspan="2">
-            <property name="name">
-                <cstring>groupBox1</cstring>
-            </property>
-            <property name="sizePolicy">
-                <sizepolicy>
-                    <hsizetype>1</hsizetype>
-                    <vsizetype>5</vsizetype>
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                </sizepolicy>
-            </property>
-            <property name="title">
-                <string>FFT settings</string>
-            </property>
-            <grid>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QLayoutWidget" row="0" column="0">
-                    <property name="name">
-                        <cstring>layout3</cstring>
-                    </property>
-                    <hbox>
-                        <property name="name">
-                            <cstring>unnamed</cstring>
-                        </property>
-                        <widget class="QLabel">
-                            <property name="name">
-                                <cstring>m_pointlabel</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Number of FFT points:</string>
-                            </property>
-                        </widget>
-                        <spacer>
-                            <property name="name">
-                                <cstring>spacer3</cstring>
-                            </property>
-                            <property name="orientation">
-                                <enum>Horizontal</enum>
-                            </property>
-                            <property name="sizeType">
-                                <enum>Minimum</enum>
-                            </property>
-                            <property name="sizeHint">
-                                <size>
-                                    <width>61</width>
-                                    <height>21</height>
-                                </size>
-                            </property>
-                        </spacer>
-                    </hbox>
-                </widget>
-                <widget class="QLayoutWidget" row="1" column="0">
-                    <property name="name">
-                        <cstring>layout4</cstring>
-                    </property>
-                    <hbox>
-                        <property name="name">
-                            <cstring>unnamed</cstring>
-                        </property>
-                        <widget class="QLabel">
-                            <property name="name">
-                                <cstring>Label2</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Window Function:</string>
-                            </property>
-                        </widget>
-                        <spacer>
-                            <property name="name">
-                                <cstring>spacer4</cstring>
-                            </property>
-                            <property name="orientation">
-                                <enum>Horizontal</enum>
-                            </property>
-                            <property name="sizeType">
-                                <enum>Minimum</enum>
-                            </property>
-                            <property name="sizeHint">
-                                <size>
-                                    <width>111</width>
-                                    <height>21</height>
-                                </size>
-                            </property>
-                        </spacer>
-                    </hbox>
-                </widget>
-                <widget class="KComboBox" row="1" column="1">
-                    <property name="name">
-                        <cstring>windowtypebox</cstring>
-                    </property>
-                    <property name="sizePolicy">
-                        <sizepolicy>
-                            <hsizetype>7</hsizetype>
-                            <vsizetype>5</vsizetype>
-                            <horstretch>50</horstretch>
-                            <verstretch>0</verstretch>
-                        </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                        <size>
-                            <width>150</width>
-                            <height>0</height>
-                        </size>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>Choose windowing function here.&lt;br&gt;
-If fourier transformation should stay reversible,&lt;br&gt;
+        <property name="text" >
+         <string>greyscale</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="1" >
+    <widget class="QGroupBox" name="groupBox3" >
+     <property name="title" >
+      <string>update</string>
+     </property>
+     <layout class="QVBoxLayout" >
+      <item>
+       <widget class="QCheckBox" name="cbTrackChanges" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+        <property name="toolTip" >
+         <string>automatically update the sonagram &lt;br>if the signal data has changed</string>
+        </property>
+        <property name="text" >
+         <string>on modifications</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="cbFollowSelection" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+        <property name="toolTip" >
+         <string>automatically update the sonagram if the selection&lt;br>has been enlarged, reduced or moved</string>
+        </property>
+        <property name="text" >
+         <string>follow selection</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="2" >
+    <widget class="QGroupBox" name="groupBox1" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title" >
+      <string>FFT settings</string>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <layout class="QHBoxLayout" >
+        <item>
+         <widget class="QLabel" name="m_pointlabel" >
+          <property name="text" >
+           <string>Number of FFT points:</string>
+          </property>
+          <property name="wordWrap" >
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType" >
+           <enum>QSizePolicy::Minimum</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>61</width>
+            <height>21</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0" >
+       <layout class="QHBoxLayout" >
+        <item>
+         <widget class="QLabel" name="Label2" >
+          <property name="text" >
+           <string>Window Function:</string>
+          </property>
+          <property name="wordWrap" >
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType" >
+           <enum>QSizePolicy::Minimum</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>111</width>
+            <height>21</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="1" >
+       <widget class="KComboBox" name="windowtypebox" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
+          <horstretch>50</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize" >
+         <size>
+          <width>150</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="toolTip" >
+         <string>Choose windowing function here.&lt;br>
+If fourier transformation should stay reversible,&lt;br>
 use the type "None".</string>
-                    </property>
-                    <property name="whatsThis" stdset="0">
-                        <string>Choose windowing function here.&lt;br&gt;
-If fourier transformation should stay reversible,&lt;br&gt;
+        </property>
+        <property name="whatsThis" >
+         <string>Choose windowing function here.&lt;br>
+If fourier transformation should stay reversible,&lt;br>
 use the type "None".</string>
-                    </property>
-                </widget>
-                <widget class="KComboBox" row="0" column="1">
-                    <item>
-                        <property name="text">
-                            <string>64</string>
-                        </property>
-                    </item>
-                    <item>
-                        <property name="text">
-                            <string>128</string>
-                        </property>
-                    </item>
-                    <item>
-                        <property name="text">
-                            <string>256</string>
-                        </property>
-                    </item>
-                    <item>
-                        <property name="text">
-                            <string>512</string>
-                        </property>
-                    </item>
-                    <item>
-                        <property name="text">
-                            <string>1024</string>
-                        </property>
-                    </item>
-                    <item>
-                        <property name="text">
-                            <string>2048</string>
-                        </property>
-                    </item>
-                    <item>
-                        <property name="text">
-                            <string>4096</string>
-                        </property>
-                    </item>
-                    <property name="name">
-                        <cstring>pointbox</cstring>
-                    </property>
-                    <property name="sizePolicy">
-                        <sizepolicy>
-                            <hsizetype>7</hsizetype>
-                            <vsizetype>5</vsizetype>
-                            <horstretch>50</horstretch>
-                            <verstretch>0</verstretch>
-                        </sizepolicy>
-                    </property>
-                    <property name="editable">
-                        <bool>true</bool>
-                    </property>
-                    <property name="currentItem">
-                        <number>3</number>
-                    </property>
-                    <property name="duplicatesEnabled">
-                        <bool>false</bool>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>&lt;b&gt;Number of FFT points:&lt;/b&gt;&lt;p&gt;&lt;/p&gt;Try to choose numbers with small prime-factors,&lt;br&gt;
-if choosing big window sizes.&lt;br&gt;
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="KComboBox" name="pointbox" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
+          <horstretch>50</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip" >
+         <string>&lt;b>Number of FFT points:&lt;/b>&lt;p>&lt;/p>Try to choose numbers with small prime-factors,&lt;br>
+if choosing big window sizes.&lt;br>
 The computation will be much faster !</string>
-                    </property>
-                    <property name="whatsThis" stdset="0">
-                        <string>&lt;b&gt;Number of FFT points:&lt;/b&gt;&lt;p&gt;&lt;/p&gt;Try to choose numbers with small prime-factors,&lt;br&gt;
-if choosing big window sizes.&lt;br&gt;
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>Number of FFT points:&lt;/b>&lt;p>&lt;/p>Try to choose numbers with small prime-factors,&lt;br>
+if choosing big window sizes.&lt;br>
 The computation will be much faster !</string>
-                    </property>
-                </widget>
-                <widget class="QSlider" row="2" column="1">
-                    <property name="name">
-                        <cstring>pointslider</cstring>
-                    </property>
-                    <property name="sizePolicy">
-                        <sizepolicy>
-                            <hsizetype>7</hsizetype>
-                            <vsizetype>5</vsizetype>
-                            <horstretch>50</horstretch>
-                            <verstretch>0</verstretch>
-                        </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                        <size>
-                            <width>0</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                    <property name="minValue">
-                        <number>2</number>
-                    </property>
-                    <property name="maxValue">
-                        <number>2</number>
-                    </property>
-                    <property name="orientation">
-                        <enum>Horizontal</enum>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="2" column="0">
-                    <property name="name">
-                        <cstring>bitmaplabel</cstring>
-                    </property>
-                    <property name="sizePolicy">
-                        <sizepolicy>
-                            <hsizetype>3</hsizetype>
-                            <vsizetype>5</vsizetype>
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                        </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                        <size>
-                            <width>320</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                    <property name="text">
-                        <string>?:</string>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="3" column="0" rowspan="1" colspan="2">
-                    <property name="name">
-                        <cstring>windowlabel</cstring>
-                    </property>
-                    <property name="text">
-                        <string>?:</string>
-                    </property>
-                </widget>
-            </grid>
-        </widget>
-    </grid>
-</widget>
-<customwidgets>
-</customwidgets>
-<connections>
-    <connection>
-        <sender>btOK</sender>
-        <signal>clicked()</signal>
-        <receiver>SonagramDlg</receiver>
-        <slot>accept()</slot>
-    </connection>
-    <connection>
-        <sender>btCancel</sender>
-        <signal>clicked()</signal>
-        <receiver>SonagramDlg</receiver>
-        <slot>reject()</slot>
-    </connection>
-</connections>
-<tabstops>
-    <tabstop>btOK</tabstop>
-    <tabstop>btCancel</tabstop>
-    <tabstop>pointbox</tabstop>
-    <tabstop>windowtypebox</tabstop>
-    <tabstop>pointslider</tabstop>
-    <tabstop>rbColor</tabstop>
-    <tabstop>cbTrackChanges</tabstop>
-    <tabstop>cbFollowSelection</tabstop>
-    <tabstop>btHelp</tabstop>
-</tabstops>
-<includes>
-    <include location="global" impldecl="in declaration">klocale.h</include>
-    <include location="global" impldecl="in declaration">knuminput.h</include>
-</includes>
-<layoutdefaults spacing="10" margin="10"/>
-<includehints>
-    <includehint>klineedit.h</includehint>
-</includehints>
-</UI>
+        </property>
+        <property name="editable" >
+         <bool>true</bool>
+        </property>
+        <property name="duplicatesEnabled" >
+         <bool>false</bool>
+        </property>
+        <property name="currentItem" stdset="0" >
+         <number>3</number>
+        </property>
+        <item>
+         <property name="text" >
+          <string>64</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>128</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>256</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>512</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>1024</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>2048</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>4096</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="QSlider" name="pointslider" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
+          <horstretch>50</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize" >
+         <size>
+          <width>0</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="minimum" >
+         <number>2</number>
+        </property>
+        <property name="maximum" >
+         <number>2</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="QLabel" name="bitmaplabel" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Preferred" hsizetype="MinimumExpanding" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize" >
+         <size>
+          <width>320</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string>?:</string>
+        </property>
+        <property name="wordWrap" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2" >
+       <widget class="QLabel" name="windowlabel" >
+        <property name="text" >
+         <string>?:</string>
+        </property>
+        <property name="wordWrap" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="10" margin="10" />
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>btOK</tabstop>
+  <tabstop>btCancel</tabstop>
+  <tabstop>pointbox</tabstop>
+  <tabstop>windowtypebox</tabstop>
+  <tabstop>pointslider</tabstop>
+  <tabstop>rbColor</tabstop>
+  <tabstop>cbTrackChanges</tabstop>
+  <tabstop>cbFollowSelection</tabstop>
+  <tabstop>btHelp</tabstop>
+ </tabstops>
+ <includes>
+  <include location="global" >klocale.h</include>
+  <include location="global" >knuminput.h</include>
+  <include location="local" >klineedit.h</include>
+ </includes>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>btOK</sender>
+   <signal>clicked()</signal>
+   <receiver>SonagramDlg</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btCancel</sender>
+   <signal>clicked()</signal>
+   <receiver>SonagramDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

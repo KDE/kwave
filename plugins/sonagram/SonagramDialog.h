@@ -19,14 +19,18 @@
 #define _SONAGRAM_DIALOG_H_
 
 #include "config.h"
+
+#include <QDialog>
+
 #include "libkwave/WindowFunction.h"
-#include "SonagramDlg.h"
+#include "ui_SonagramDlg.h"
 
 class QStringList;
 class KwavePlugin;
 
 //*****************************************************************************
-class SonagramDialog : public SonagramDlg
+class SonagramDialog : public QDialog,
+                       public Ui::SonagramDlg
 {
     Q_OBJECT
 

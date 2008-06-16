@@ -16,28 +16,26 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <qimage.h>
-#include <qcursor.h>
+
+#include <QCursor>
+#include <QImage>
+#include <QMouseEvent>
+
 #include "ImageView.h"
 
 //****************************************************************************
 ImageView::ImageView(QWidget *parent, bool fit_width, bool fit_height)
-    :QWidget(parent), m_offset(0,0), m_last_rect(0,0,0,0)
+    :QWidget(parent), m_offset(0,0), m_last_rect(0,0,0,0),
+     m_image(0), m_fit_width(fit_width), m_fit_height(fit_height),
+     m_scale_x(1.0), m_scale_y(1.0)
 {
-    m_image = 0;
-    m_fit_width = fit_width;
-    m_fit_height = fit_height;
-    m_scale_x = 1.0;
-    m_scale_y = 1.0;
-
-    setCursor(crossCursor);
+    setCursor(Qt::CrossCursor);
     setMouseTracking(true);
 }
 
 //****************************************************************************
 ImageView::~ImageView()
 {
-    if (m_image) delete m_image;
 }
 
 //****************************************************************************
@@ -46,7 +44,8 @@ void ImageView::mouseMoveEvent(QMouseEvent *e)
     Q_ASSERT(e);
     if (!e) return;
 
-    if (!m_image) return; // image not yet loaded
+    if (!m_image || !m_image->width() || !m_image->height())
+	return; // image not yet loaded
 
     int x = e->pos().x();
     int y = e->pos().y();
@@ -66,19 +65,16 @@ void ImageView::mouseMoveEvent(QMouseEvent *e)
 //****************************************************************************
 void ImageView::setImage(const QImage *image)
 {
-    if (m_image) delete m_image;
-    m_image = 0;
-
-    if (image) m_image = new QImage(*image);
-
+    m_image = image;
     repaint();
 }
 
 //****************************************************************************
 QRect ImageView::imageRect()
 {
+    if (!m_image) return QRect(m_offset.x(), m_offset.y(),0,0);
     return QRect(m_offset.x(), m_offset.y(),
-	m_image ? m_image->width() : 0, m_image ? m_image->height() : 0);
+	         m_image->width(), m_image->height());
 }
 
 //****************************************************************************
@@ -103,15 +99,14 @@ void ImageView::setVertOffset(int offset)
 void ImageView::paintEvent(QPaintEvent *)
 {
     if (!m_image) return;
-
-    Q_ASSERT(m_image->width());
-    Q_ASSERT(m_image->height());
     if (!m_image->width()) return;
     if (!m_image->height()) return;
 
-    QWMatrix matrix;
-    QPixmap newmap;
-    newmap.convertFromImage(*m_image, ColorOnly|ThresholdDither|AvoidDither);
+    QPainter p(this);
+
+    QMatrix matrix;
+    QPixmap newmap = QPixmap::fromImage(*m_image,
+	Qt::ColorOnly | Qt::ThresholdDither | Qt::AvoidDither);
 
     m_scale_x = m_fit_width ? (float)width()  / (float)m_image->width()  : 1.0;
     m_scale_y = m_fit_height ?(float)height() / (float)m_image->height() : 1.0;
@@ -122,18 +117,13 @@ void ImageView::paintEvent(QPaintEvent *)
 	m_offset.setY( (int)(m_scale_y * m_image->height() - height()));
 
     matrix.scale(m_scale_x, m_scale_y);
-    m_pixmap = newmap.xForm(matrix);
+    QPixmap pixmap = newmap.transformed(matrix);
 
-    bitBlt(this, 0, 0, &m_pixmap,
-	m_offset.x(), m_offset.y(),
+    p.drawPixmap(0, 0, pixmap, m_offset.x(), m_offset.y(),
 	width(), height()
     );
 
-    if (imageRect() != m_last_rect) {
-// ###	emit viewInfo (offset, width, image->width());
-	m_last_rect = imageRect();
-    }
-
+    m_last_rect = imageRect();
 }
 
 //***************************************************************************

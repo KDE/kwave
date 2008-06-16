@@ -19,9 +19,10 @@
 #define _IMAGEVIEW_H_
 
 #include "config.h"
-#include <qwidget.h>
-#include <qpainter.h>
-#include <qpixmap.h>
+
+#include <QWidget>
+#include <QPainter>
+#include <QImage>
 
 /**
  * Simple widget class for displaying a QImage.
@@ -49,7 +50,7 @@ public:
 
     /**
      * Sets a new QImage for displaying.
-     * @param image a const pointer to the image
+     * @param image a pointer to the image
      */
     void setImage(const QImage *image);
 
@@ -94,12 +95,6 @@ private:
 
     /** pointer to the QImage to be displayed */
     const QImage *m_image;
-
-    /**
-     * the QPixmap that is internally used to display the
-     * stretched / scrolled image
-     */
-    QPixmap m_pixmap;
 
     /** if true, scale to fit horizontally */
     bool m_fit_width;

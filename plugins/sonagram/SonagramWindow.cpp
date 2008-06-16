@@ -16,13 +16,14 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <math.h>
 #include <limits.h>
 
-#include <qbitmap.h>
-#include <qimage.h>
-#include <qlayout.h>
-#include <qtimer.h>
+#include <QBitmap>
+#include <QImage>
+#include <QLayout>
+#include <QTimer>
 
 #include <kmenubar.h>
 #include <kfiledialog.h>
@@ -30,6 +31,8 @@
 
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/WindowFunction.h"
+
+#include "libgui/KwaveFileDialog.h"
 #include "libgui/ScaleWidget.h"
 
 #include "ImageView.h"
@@ -39,14 +42,6 @@
  * delay between two screen updates [ms]
  */
 #define REFRESH_DELAY 100
-
-#ifndef min
-#define min(x,y) (( (x) < (y) ) ? (x) : (y) )
-#endif
-
-#ifndef max
-#define max(x,y) (( (x) > (y) ) ? (x) : (y) )
-#endif
 
 /**
  * Color values below this limit are cut off when adjusting the
@@ -103,7 +98,7 @@ SonagramWindow::SonagramWindow(const QString &name)
     if (!mainwidget) return;
     setCentralWidget(mainwidget);
 
-    QGridLayout *top_layout = new QGridLayout(mainwidget, 3, 2);
+    QGridLayout *top_layout = new QGridLayout(mainwidget/*, 3, 2*/);
     Q_ASSERT(top_layout);
     if (!top_layout) return;
 
@@ -111,22 +106,21 @@ SonagramWindow::SonagramWindow(const QString &name)
     Q_ASSERT(bar);
     if (!bar) return ;
 
-//    QPopupMenu *spectral = new QPopupMenu();
+//    QMenu *spectral = new QMenu();
 //    Q_ASSERT(spectral);
 //    if (!spectral) return ;
 
-    QPopupMenu *file = new QPopupMenu();
+    QMenu *file = bar->addMenu(i18n("&Sonagram"));
     Q_ASSERT(file);
     if (!file) return ;
 
-    bar->insertItem(i18n("&Sonagram"), file);
-//    bar->insertItem(i18n("&Spectral Data"), spectral);
+//    bar->addAction(i18n("&Spectral Data"), spectral);
 //
-//    file->insertItem(i18n("&Import from Bitmap ..."), this, SLOT(load()));
-    file->insertItem(i18n("&Export to Bitmap ..."), this, SLOT(save()));
-    file->insertItem(i18n("E&xit"), this, SLOT(close()));
+//    file->addAction(i18n("&Import from Bitmap ..."), this, SLOT(load()));
+    file->addAction(i18n("&Export to Bitmap ..."), this, SLOT(save()));
+    file->addAction(i18n("E&xit"), this, SLOT(close()));
 //
-//    spectral->insertItem (i18n("&reTransform to signal"), this, SLOT(toSignal()));
+//    spectral->addAction (i18n("&reTransform to signal"), this, SLOT(toSignal()));
 
     KStatusBar *status = statusBar();
     Q_ASSERT(status);
@@ -140,7 +134,9 @@ SonagramWindow::SonagramWindow(const QString &name)
     Q_ASSERT(m_view);
     if (!m_view) return;
     top_layout->addWidget(m_view, 0, 1);
-    m_view->setBackgroundPixmap(QPixmap(background));
+    QPalette palette;
+    palette.setBrush(m_view->backgroundRole(), QBrush(background));
+    m_view->setPalette(palette);
 
     m_xscale = new ScaleWidget(mainwidget, 0, 100, "ms");
     Q_ASSERT(m_xscale);
@@ -171,8 +167,8 @@ SonagramWindow::SonagramWindow(const QString &name)
     top_layout->setRowStretch(0, 100);
     top_layout->setRowStretch(1, 0);
     top_layout->setRowStretch(2, 0);
-    top_layout->setColStretch(0, 0);
-    top_layout->setColStretch(1, 100);
+    top_layout->setColumnStretch(0, 0);
+    top_layout->setColumnStretch(1, 100);
     top_layout->activate();
 
     status->changeItem(i18n("Time: 0 ms"), 1);
@@ -201,7 +197,13 @@ void SonagramWindow::save()
     Q_ASSERT(m_image);
     if (!m_image) return;
 
-    QString filename = KFileDialog::getSaveFileName("", "*.bmp", this);
+    KwaveFileDialog dlg(":<kwave_sonagram>", QString(),
+        this, true, QString(), "*.bmp");
+    dlg.setOperationMode(KFileDialog::Saving);
+    dlg.setCaption(i18n("Save Sonagram"));
+    if (dlg.exec() != QDialog::Accepted) return;
+    QString filename = dlg.selectedFile();
+
     if (!filename.isEmpty()) m_image->save(filename, "BMP");
 }
 
@@ -274,7 +276,7 @@ void SonagramWindow::setOverView(QBitmap *overview)
     QImage *image = 0;
     if (!m_overview) return;
     if (overview) {
-	image = new QImage(overview->convertToImage());
+	image = new QImage(overview->toImage());
 	Q_ASSERT(image);
     }
     m_overview->setImage(image);
@@ -294,23 +296,22 @@ void SonagramWindow::insertStripe(const unsigned int stripe_nr,
     unsigned int image_height = m_image->height();
 
     // stripe is out of range ?
-    Q_ASSERT(stripe_nr < image_width);
-    if ((stripe_nr) >= image_width) return;
+    if (stripe_nr >= image_width) return;
 
     unsigned int y;
     unsigned int size = stripe.size();
     for (y=0; y < size; y++) {
-    	unsigned char p;
+	unsigned char p;
 
-    	// remove the current pixel from the histogram
-    	p = m_image->pixelIndex(stripe_nr, y);
+	// remove the current pixel from the histogram
+	p = m_image->pixelIndex(stripe_nr, y);
 	m_histogram[p]--;
 
 	// set the new pixel value
-	p = (unsigned char)stripe[size-y-1];
+	p = (int)stripe[(size - 1) - y];
 	m_image->setPixel(stripe_nr, y, p);
 
-    	// insert the new pixel into the histogram
+	// insert the new pixel into the histogram
 	m_histogram[p]++;
     }
     while (y < image_height) { // fill the rest with blank
@@ -319,7 +320,8 @@ void SonagramWindow::insertStripe(const unsigned int stripe_nr,
     }
 
     if (!m_refresh_timer.isActive()) {
-	m_refresh_timer.start(REFRESH_DELAY, true);
+	m_refresh_timer.setSingleShot(true);
+	m_refresh_timer.start(REFRESH_DELAY);
     }
 }
 
@@ -331,10 +333,10 @@ void SonagramWindow::adjustBrightness()
 
     // get the sum of pixels != 0
     unsigned long int sum = 0;
-    for (int i=0; i<254; i++) {
+    for (int i=0; i < 254; i++) {
 	sum += m_histogram[i];
     }
-    // cut off all parts below the cutoff ration (e.g. 0.1%)
+    // cut off all parts below the cutoff ratio (e.g. 0.1%)
     unsigned int cutoff = (int)(sum * COLOR_CUTOFF_RATIO);
 
     // get the first used color
@@ -362,12 +364,15 @@ void SonagramWindow::adjustBrightness()
 	    c.setRgb(v, v, v);
 	}
 
-	m_image->setColor(i, c.rgb() | 0xFF000000);
+	c.setAlpha(255);
+	m_image->setColor(i, c.rgb());
+// 	qDebug("color[%3d] = 0x%08X",i, c.rgb());
     }
 
     // use color 0xFF for transparency !
-    m_image->setColor(0xFF, 0x00000000);
-
+    c.setRgb(0,0,0);
+    c.setAlpha(0);
+    m_image->setColor(255, c.rgb());
 }
 
 //****************************************************************************
@@ -376,7 +381,7 @@ void SonagramWindow::refresh_view()
     Q_ASSERT(m_view);
     if (!m_view) return;
     if (m_image) adjustBrightness();
-    m_view->repaint(false);
+    m_view->repaint();
 }
 
 //****************************************************************************
@@ -517,19 +522,17 @@ void SonagramWindow::cursorPosChanged(const QPoint pos)
     if (!m_points) return;
     if (m_rate == 0) return;
 
-    char buf[64];
     double ms;
     double f;
     double a;
     translatePixels2TF(pos, &ms, &f);
 
     // item 1: time in milliseconds
-    status->changeItem(i18n("Time: %1").arg(
-	KwavePlugin::ms2string(ms)), 1);
+    status->changeItem(i18n("Time: %1", KwavePlugin::ms2string(ms)), 1);
 
     // item 2: frequency in Hz
-    snprintf(buf, sizeof(buf), i18n("Frequency: %d Hz"), (int)f);
-    status->changeItem(buf, 2);
+    QString text = i18n("Frequency: %1 Hz", (int)f);
+    status->changeItem(text, 2);
 
     // item 3: amplitude in %
     if (m_image->valid(pos.x(), pos.y())) {
@@ -538,8 +541,8 @@ void SonagramWindow::cursorPosChanged(const QPoint pos)
     } else {
 	a = 0.0;
     }
-    snprintf(buf, sizeof(buf), i18n("Amplitude: %d %%"), (int)a);
-    status->changeItem(buf, 3);
+    text = i18n("Amplitude: %1 %", (int)a);
+    status->changeItem(text, 3);
 }
 
 //****************************************************************************

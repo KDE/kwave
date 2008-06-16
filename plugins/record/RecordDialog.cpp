@@ -30,7 +30,6 @@
 #include <QTreeWidgetItem>
 #include <QStatusBar>
 
-#include <kapplication.h> // for invokeHelp
 #include <kcombobox.h>
 #include <kglobal.h>
 #include <kiconloader.h>

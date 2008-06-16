@@ -269,7 +269,6 @@ ENDIF (DEBUG)
 #############################################################################
 ### subdirs                                                               ###
 
-ADD_SUBDIRECTORY( mt )
 ADD_SUBDIRECTORY( libgui )
 ADD_SUBDIRECTORY( libkwave )
 ADD_SUBDIRECTORY( kwave )

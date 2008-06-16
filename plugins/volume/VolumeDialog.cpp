@@ -18,11 +18,12 @@
 #include "config.h"
 #include "math.h"
 
-#include <qradiobutton.h>
-#include <qslider.h>
-#include <qspinbox.h>
+#include <QRadioButton>
+#include <QSlider>
+#include <QSpinBox>
 
 #include <klocale.h>
+
 #include "libkwave/Parser.h"
 #include "libgui/CurveWidget.h"
 #include "libgui/InvertableSpinBox.h"
@@ -32,9 +33,12 @@
 
 //***************************************************************************
 VolumeDialog::VolumeDialog(QWidget *parent)
-    :VolumeDlg(parent, 0, true), m_factor(0.5), m_mode(MODE_PERCENT),
+    :QDialog(parent), Ui::VolumeDlg(), m_factor(0.5), m_mode(MODE_PERCENT),
      m_enable_updates(true)
 {
+    setupUi(this);
+    setModal(true);
+
     setMode(m_mode);
 
     // process changed in mode selection
@@ -52,7 +56,7 @@ VolumeDialog::VolumeDialog(QWidget *parent)
             this, SLOT(spinboxChanged(int)));
 
     // set the initial size of the dialog
-    setFixedWidth(minimumWidth());
+    setFixedWidth(sizeHint().width());
     int h = (width() * 5) / 3;
     if (height() < h) resize(width(), h);
 }
@@ -74,34 +78,34 @@ void VolumeDialog::setMode(Mode mode)
     switch (m_mode) {
 	case MODE_FACTOR: {
 	    rbFactor->setChecked(true);
-	    slider->setMinValue(-9);
-	    slider->setMaxValue(+9);
+	    slider->setMinimum(-9);
+	    slider->setMaximum(+9);
 	    slider->setPageStep(1);
 	    slider->setTickInterval(1);
-	    spinbox->setMinValue(-10);
-	    spinbox->setMaxValue(+10);
+	    spinbox->setMinimum(-10);
+	    spinbox->setMaximum(+10);
 	    break;
 	}
 	case MODE_PERCENT: {
 	    rbPercentage->setChecked(true);
 
-	    slider->setMinValue(1);
-	    slider->setMaxValue(10*100);
+	    slider->setMinimum(1);
+	    slider->setMaximum(10*100);
 	    slider->setPageStep(100);
 	    slider->setTickInterval(1*100);
-	    spinbox->setMinValue(1);
-	    spinbox->setMaxValue(+10*100);
+	    spinbox->setMinimum(1);
+	    spinbox->setMaximum(+10*100);
 	    break;
 	}
 	case MODE_DECIBEL: {
 	    rbLogarithmic->setChecked(true);
 
-	    slider->setMinValue(-21);
-	    slider->setMaxValue(+21);
+	    slider->setMinimum(-21);
+	    slider->setMaximum(+21);
 	    slider->setPageStep(6);
 	    slider->setTickInterval(6);
-	    spinbox->setMinValue(-21);
-	    spinbox->setMaxValue(+21);
+	    spinbox->setMinimum(-21);
+	    spinbox->setMaximum(+21);
 	    break;
 	}
     }
@@ -200,7 +204,7 @@ void VolumeDialog::updateDisplay(double value)
     if (spinbox->value() != new_spinbox_value) spinbox->setValue(new_spinbox_value);
 
     // update the slider, it's inverse => top=maximum, bottom=minimum !
-    int sv = slider->maxValue() + slider->minValue() - new_slider_value;
+    int sv = slider->maximum() + slider->minimum() - new_slider_value;
     if (slider->value() != sv) slider->setValue(sv);
 
     m_enable_updates = old_enable_updates;
@@ -211,7 +215,7 @@ void VolumeDialog::sliderChanged(int pos)
 {
     if (!m_enable_updates) return;
 
-    int sv = slider->maxValue() + slider->minValue() - pos;
+    int sv = slider->maximum() + slider->minimum() - pos;
 //    qDebug("sliderChanged(%d), sv=%d",pos,sv); // ###
     switch (m_mode) {
 	case MODE_FACTOR: {

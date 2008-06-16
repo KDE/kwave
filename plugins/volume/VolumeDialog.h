@@ -19,13 +19,17 @@
 #define _VOLUME_DIALOG_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qstring.h>
-#include "VolumeDlg.h"
+
+#include <QDialog>
+#include <QObject>
+#include <QString>
+
+#include "ui_VolumeDlg.h"
 
 class QStringList;
 
-class VolumeDialog: public VolumeDlg
+class VolumeDialog: public QDialog,
+                    public Ui::VolumeDlg
 {
     Q_OBJECT
 public:

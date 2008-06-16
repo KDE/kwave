@@ -78,7 +78,7 @@ ADD_SUBDIRECTORY( record )          # needs OSS and/or ALSA
 ADD_SUBDIRECTORY( saveblocks )
 ADD_SUBDIRECTORY( selectrange )
 ADD_SUBDIRECTORY( sonagram )        # needs libgsl >= 1.3
-# ADD_SUBDIRECTORY( volume )
+ADD_SUBDIRECTORY( volume )
 ADD_SUBDIRECTORY( zero )
 
 #############################################################################

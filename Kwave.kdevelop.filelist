@@ -165,8 +165,6 @@ kwave/KwaveApp.cpp
 kwave/KwaveApp.h
 kwave/KwaveSplash.cpp
 kwave/KwaveSplash.h
-kwave/LabelManager.cpp
-kwave/LabelManager.h
 kwave/MainWidget.cpp
 kwave/MainWidget.h
 kwave/MemoryManager.cpp
@@ -341,8 +339,6 @@ libgui/FrequencyResponseWidget.h
 libgui/HMSTimeWidget.cpp
 libgui/HMSTimeWidget.h
 libgui/HMSTimeWidgetBase.ui
-libgui/IntValidatorProxy.cpp
-libgui/IntValidatorProxy.h
 libgui/InvertableSpinBox.cpp
 libgui/InvertableSpinBox.h
 libgui/KwaveFileDialog.cpp
@@ -449,8 +445,6 @@ libkwave/SampleFIFO.cpp
 libkwave/SampleFIFO.h
 libkwave/SampleFormat.cpp
 libkwave/SampleFormat.h
-libkwave/SampleLock.cpp
-libkwave/SampleLock.h
 libkwave/SampleReader.cpp
 libkwave/SampleReader.h
 libkwave/SampleWriter.cpp
@@ -480,10 +474,6 @@ libkwave/memcpy.h
 libkwave/ppc_asm.tmpl
 libkwave/ppcasm_string.S
 libkwave/ppcasm_string.h
-mt/Asynchronous_Object.h
-mt/CMakeLists.txt
-mt/Thread.cpp
-mt/Thread.h
 plugins
 plugins/CMakeLists.txt
 plugins/about
@@ -581,7 +571,6 @@ plugins/decoder_mp3/MP3Decoder.cpp
 plugins/decoder_mp3/MP3Decoder.h
 plugins/decoder_mp3/MP3DecoderPlugin.cpp
 plugins/decoder_mp3/MP3DecoderPlugin.h
-plugins/decoder_mp3/Makefile.plugin
 plugins/fileinfo
 plugins/fileinfo/BitrateSpinBox.cpp
 plugins/fileinfo/BitrateSpinBox.h
@@ -597,7 +586,6 @@ plugins/fileinfo/FileInfoDialog.h
 plugins/fileinfo/FileInfoDlg.ui
 plugins/fileinfo/FileInfoPlugin.cpp
 plugins/fileinfo/FileInfoPlugin.h
-plugins/fileinfo/KDatePickerAdapter.h
 plugins/fileinfo/KeywordWidget.cpp
 plugins/fileinfo/KeywordWidget.h
 plugins/fileinfo/KeywordWidgetBase.ui

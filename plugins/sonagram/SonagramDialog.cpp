@@ -15,24 +15,26 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <qbuttongroup.h>
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qslider.h>
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QButtonGroup>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QLabel>
+#include <QLayout>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QString>
+#include <QStringList>
 
-#include <kapplication.h> // for invokeHelp
 #include <kcombobox.h>
 #include <klocale.h>
+#include <ktoolinvocation.h>
 
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/WindowFunction.h"
@@ -41,9 +43,12 @@
 
 //***************************************************************************
 SonagramDialog::SonagramDialog(KwavePlugin &p)
-    :SonagramDlg(p.parentWidget(), i18n("sonagram"), true),
+    :QDialog(p.parentWidget()), Ui::SonagramDlg(),
     m_length(p.selection()), m_rate(p.signalRate())
 {
+    setupUi(this);
+    setModal(true);
+
     Q_ASSERT(pointbox);
     Q_ASSERT(pointslider);
     Q_ASSERT(windowtypebox);
@@ -54,11 +59,11 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     // if nothing selected, select all
     if (m_length <= 1) m_length = p.signalLength();
 
-    pointslider->setMaxValue(m_length / 16);
+    pointslider->setMaximum(m_length / 16);
 
     window_function_t wf = WINDOW_FUNC_NONE;
     for (unsigned int i=0; i < WindowFunction::count(); i++) {
-	windowtypebox->insertItem(WindowFunction::description(wf, true));
+	windowtypebox->addItem(WindowFunction::description(wf, true));
 	++wf;
     }
 
@@ -108,7 +113,7 @@ void SonagramDialog::parameters(QStringList &list)
 
     // parameter #1: index of the window function
     window_function_t wf = WindowFunction::findFromIndex(
-    	(windowtypebox) ? windowtypebox->currentItem() : 0);
+    	(windowtypebox) ? windowtypebox->currentIndex() : 0);
     param = WindowFunction::name(wf);
     list.append(param);
 
@@ -136,16 +141,14 @@ void SonagramDialog::setPoints(int points)
     points *= 2;
 
     text.setNum(points);
-    pointbox->changeItem(text, 0);
-    pointbox->setCurrentItem (0);
+    pointbox->setEditText(text);
 
-    windowlabel->setText(i18n("( resulting window size: %1 )").arg(
+    windowlabel->setText(i18n("( resulting window size: %1 )",
 	KwavePlugin::ms2string(points * 1.0E3 / m_rate)));
 
-    text = i18n("size of bitmap: %1x%2");
-    text = text.arg((m_length / points) + 1);
-    text = text.arg(points/2);
-    bitmaplabel->setText(text);
+    bitmaplabel->setText(i18n("size of bitmap: %1x%2",
+	(m_length / points) + 1,
+	points/2));
 }
 
 //***************************************************************************
@@ -153,7 +156,7 @@ void SonagramDialog::setWindowFunction(window_function_t type)
 {
     Q_ASSERT(windowtypebox);
     if (!windowtypebox) return;
-    windowtypebox->setCurrentItem(WindowFunction::index(type));
+    windowtypebox->setCurrentIndex(WindowFunction::index(type));
 }
 
 //***************************************************************************
@@ -186,7 +189,7 @@ void SonagramDialog::setFollowSelection(bool follow_selection)
 void SonagramDialog::setBoxPoints(int num)
 {
     Q_ASSERT(num >= 0);
-    int points = strtol(pointbox->text (num), 0, 0);
+    int points = pointbox->itemText(num).toInt();
     pointslider->setValue(points / 2);
 }
 
@@ -198,7 +201,7 @@ SonagramDialog::~SonagramDialog ()
 //***************************************************************************
 void SonagramDialog::invokeHelp()
 {
-    kapp->invokeHelp("sonagram");
+    KToolInvocation::invokeHelp("sonagram");
 }
 
 //***************************************************************************

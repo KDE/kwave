@@ -23,7 +23,6 @@ bin/set_version.sh
 cmake
 cmake/COPYING-CMAKE-SCRIPTS
 cmake/Copyright.txt
-cmake/FindARTS.cmake
 cmake/FindAlsa.cmake
 cmake/FindGettext.cmake
 cmake/FindKwaveVersion.cmake
@@ -31,7 +30,6 @@ cmake/FindOggVorbis.cmake
 cmake/FindRequiredProgram.cmake
 cmake/KwaveALSASupport.cmake
 cmake/KwaveEbuild.cmake
-cmake/KwaveKDESupport.cmake
 cmake/KwaveLibaudiofileSupport.cmake
 cmake/KwaveOSSSupport.cmake
 cmake/KwavePackageMessages.cmake
@@ -167,8 +165,6 @@ kwave/KwaveApp.cpp
 kwave/KwaveApp.h
 kwave/KwaveSplash.cpp
 kwave/KwaveSplash.h
-kwave/LabelManager.cpp
-kwave/LabelManager.h
 kwave/MainWidget.cpp
 kwave/MainWidget.h
 kwave/MemoryManager.cpp
@@ -343,8 +339,6 @@ libgui/FrequencyResponseWidget.h
 libgui/HMSTimeWidget.cpp
 libgui/HMSTimeWidget.h
 libgui/HMSTimeWidgetBase.ui
-libgui/IntValidatorProxy.cpp
-libgui/IntValidatorProxy.h
 libgui/InvertableSpinBox.cpp
 libgui/InvertableSpinBox.h
 libgui/KwaveFileDialog.cpp
@@ -396,8 +390,6 @@ libkwave/FileFormat.cpp
 libkwave/FileFormat.h
 libkwave/FileInfo.cpp
 libkwave/FileInfo.h
-libkwave/FileLoader.cpp
-libkwave/FileLoader.h
 libkwave/Filter.cpp
 libkwave/Filter.h
 libkwave/Functions.cpp
@@ -438,8 +430,6 @@ libkwave/Label.cpp
 libkwave/Label.h
 libkwave/LabelList.cpp
 libkwave/LabelList.h
-libkwave/LineParser.cpp
-libkwave/LineParser.h
 libkwave/Matrix.h
 libkwave/MultiTrackReader.cpp
 libkwave/MultiTrackReader.h
@@ -455,8 +445,6 @@ libkwave/SampleFIFO.cpp
 libkwave/SampleFIFO.h
 libkwave/SampleFormat.cpp
 libkwave/SampleFormat.h
-libkwave/SampleLock.cpp
-libkwave/SampleLock.h
 libkwave/SampleReader.cpp
 libkwave/SampleReader.h
 libkwave/SampleWriter.cpp
@@ -486,19 +474,6 @@ libkwave/memcpy.h
 libkwave/ppc_asm.tmpl
 libkwave/ppcasm_string.S
 libkwave/ppcasm_string.h
-mt/AsyncSync.cpp
-mt/AsyncSync.h
-mt/Asynchronous_Object.h
-mt/CMakeLists.txt
-mt/SharedLock.cpp
-mt/SharedLock.h
-mt/SharedLockGuard.cpp
-mt/SharedLockGuard.h
-mt/SignalProxy.h
-mt/Thread.cpp
-mt/Thread.h
-mt/ThreadsafeX11Guard.cpp
-mt/ThreadsafeX11Guard.h
 plugins
 plugins/CMakeLists.txt
 plugins/about
@@ -596,7 +571,6 @@ plugins/decoder_mp3/MP3Decoder.cpp
 plugins/decoder_mp3/MP3Decoder.h
 plugins/decoder_mp3/MP3DecoderPlugin.cpp
 plugins/decoder_mp3/MP3DecoderPlugin.h
-plugins/decoder_mp3/Makefile.plugin
 plugins/fileinfo
 plugins/fileinfo/BitrateSpinBox.cpp
 plugins/fileinfo/BitrateSpinBox.h
@@ -612,7 +586,6 @@ plugins/fileinfo/FileInfoDialog.h
 plugins/fileinfo/FileInfoDlg.ui
 plugins/fileinfo/FileInfoPlugin.cpp
 plugins/fileinfo/FileInfoPlugin.h
-plugins/fileinfo/KDatePickerAdapter.h
 plugins/fileinfo/KeywordWidget.cpp
 plugins/fileinfo/KeywordWidget.h
 plugins/fileinfo/KeywordWidgetBase.ui
@@ -672,8 +645,6 @@ plugins/playback/PlayBack-ALSA.cpp
 plugins/playback/PlayBack-ALSA.h
 plugins/playback/PlayBack-OSS.cpp
 plugins/playback/PlayBack-OSS.h
-plugins/playback/PlayBack-aRts.cpp
-plugins/playback/PlayBack-aRts.h
 plugins/playback/PlayBackDialog.cpp
 plugins/playback/PlayBackDialog.h
 plugins/playback/PlayBackDlg.ui

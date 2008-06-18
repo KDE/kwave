@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <qstringlist.h>
+#include <QStringList>
 #include <klocale.h>
 
 #include "libkwave/CurveStreamAdapter.h"
@@ -57,7 +57,7 @@ int AmplifyFreePlugin::interpreteParameters(QStringList &params)
     // convert string list into command again...
     QString cmd;
     cmd = "curve(";
-    for (unsigned int i=0; i < params.count(); ++i) {
+    for (int i=0; i < params.count(); ++i) {
 	cmd += params[i];
 	if (i+1 < params.count()) cmd += ",";
     }
@@ -117,7 +117,7 @@ void AmplifyFreePlugin::run(QStringList params)
     Kwave::CurveStreamAdapter curve(m_curve, input_length);
     MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
 	first, last);
-    Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks, this, "AmplifyFree");
+    Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks, this);
 
     // connect them
     bool ok = true;

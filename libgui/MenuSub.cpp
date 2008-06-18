@@ -16,21 +16,29 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <stdio.h>
-#include <qapplication.h> // only needed for an ugly workaround :-[
+
+#include <QPixmap>
+
 #include <klocale.h>
 
 #include "MenuItem.h"
 #include "MenuSub.h"
 
 //***************************************************************************
-MenuSub::MenuSub(MenuNode *parent, const QString &name,
-	         const QString &command, int key, const QString &uid)
-    :MenuItem(parent, name, command, key, uid),
-    m_menu(0, i18n(name))
+MenuSub::MenuSub(MenuNode *parent,
+                 QMenu *menu,
+                 const QString &name,
+	         const QString &command,
+	         const QKeySequence &shortcut,
+	         const QString &uid)
+    :MenuNode(parent, name, command, shortcut, uid), m_menu(menu)
 {
-    QObject::connect(&m_menu, SIGNAL(activated(int)),
-		     this, SLOT(slotSelected(int)));
+    QAction *act = action();
+    Q_ASSERT(act);
+    if (act) {
+	act->setText(i18n(name.toAscii()));
+	if (shortcut) act->setShortcut(shortcut);
+    }
 }
 
 //***************************************************************************
@@ -38,47 +46,66 @@ MenuSub::~MenuSub()
 {
 }
 
-//***************************************************************************
-int MenuSub::getChildIndex(int id)
+//*****************************************************************************
+bool MenuSub::isEnabled()
 {
-    return m_menu.indexOf(id);
+    if (m_menu && !m_menu->isEnabled()) return false;
+    return MenuNode::isEnabled();
+}
+
+//*****************************************************************************
+void MenuSub::setEnabled(bool enable)
+{
+    if (m_menu) m_menu->setEnabled(enable);
+}
+
+//*****************************************************************************
+const QIcon MenuSub::icon()
+{
+    return (m_menu) ? m_menu->icon() : QIcon();
+}
+
+//*****************************************************************************
+void MenuSub::setIcon(const QIcon &icon)
+{
+    if (m_menu) m_menu->setIcon(icon);
 }
 
 //***************************************************************************
-QPopupMenu &MenuSub::getPopupMenu()
+MenuSub *MenuSub::insertBranch(const QString &name,
+                               const QString &command,
+                               const QKeySequence &shortcut,
+                               const QString &uid)
 {
-    return m_menu;
+    QMenu *menu = (m_menu) ? m_menu->addMenu(name) : 0;
+    Q_ASSERT(menu);
+    if (!menu) return 0;
+
+    MenuSub *sub = new MenuSub(this, menu, name, command, shortcut, uid);
+    Q_ASSERT(sub);
+    if (!sub) return 0;
+
+    registerChild(sub);
+
+    return sub;
 }
 
 //***************************************************************************
-MenuNode *MenuSub::insertBranch(const QString &name, const QString &command,
-                                int key, const QString &uid, int /*index*/)
+MenuNode *MenuSub::insertLeaf(const QString &name,
+                              const QString &command,
+                              const QKeySequence &shortcut,
+                              const QString &uid)
 {
-    MenuSub *node = new MenuSub(this, name, command, key, uid);
-    Q_ASSERT(node);
-    if (!node) return 0;
-
-    int new_id = registerChild(node);
-    m_menu.insertItem(i18n(node->getName()),
-		      &(node->getPopupMenu()), new_id);
-
-    return node;
-}
-
-//***************************************************************************
-MenuNode *MenuSub::insertLeaf(const QString &name, const QString &command,
-                              int key, const QString &uid, int /*index*/) {
-    int new_id;
     Q_ASSERT(name.length());
-    if (!name.length() ) return 0;
+    Q_ASSERT(m_menu);
+    if (!name.length() || !m_menu) return 0;
 
-    MenuItem *item = new MenuItem(this, name, command, key, uid);
+    MenuItem *item = new MenuItem(this, name, command, shortcut, uid);
     Q_ASSERT(item);
     if (!item) return 0;
 
-    new_id = registerChild(item);
-    m_menu.insertItem(i18n(name.local8Bit().data()), new_id);
-    m_menu.setAccel(key, new_id);
+    registerChild(item);
+    m_menu->addAction(item->action());
 
     return item;
 }
@@ -86,12 +113,10 @@ MenuNode *MenuSub::insertLeaf(const QString &name, const QString &command,
 //***************************************************************************
 void MenuSub::removeChild(MenuNode *child)
 {
-    Q_ASSERT(child);
-    if (!child) return;
-    if (m_children.findRef(child) == -1) return;
+    QAction *act = action();
+    if (act && m_menu) m_menu->removeAction(act);
 
-    m_menu.removeItem(child->getId());
-    MenuItem::removeChild(child);
+    MenuNode::removeChild(child);
 }
 
 //***************************************************************************
@@ -105,50 +130,11 @@ bool MenuSub::specialCommand(const QString &command)
     } else if (command.startsWith("#number")) {
 	return true;
     } else if (command.startsWith("#separator")) {
-	m_menu.insertSeparator( -1);
+	if (m_menu) m_menu->addSeparator();
 	return true;
     }
 
-    return MenuItem::specialCommand(command);
-}
-
-//***************************************************************************
-void MenuSub::actionChildEnableChanged(int id, bool enable)
-{
-    MenuNode::actionChildEnableChanged(id, enable);
-    m_menu.setItemEnabled(id, enable);
-
-    /**
-     * @todo remove this workaround as soon as Qt3 is sane again.
-     * Without this ugly call, if a menu entry belongs to a sub menu, it
-     * sometimes is not correctly re-enabled if it's parent menu has been
-     * disabled and re-enabled.
-     */
-    qApp->processEvents();
-}
-
-//***************************************************************************
-void MenuSub::slotSelected(int id)
-{
-    MenuNode *child = findChild(id);
-    if (child) {
-	child->actionSelected();
-    } else {
-	qWarning("MenuSub::slotSelected: child with id #%d not found!", id);
-    }
-}
-
-//***************************************************************************
-void MenuSub::setItemIcon(int id, const QPixmap &icon)
-{
-    m_menu.changeItem(icon, m_menu.text(id), id);
-}
-
-//***************************************************************************
-void MenuSub::setItemChecked(int id, bool enable)
-{
-    if ( !m_menu.findItem(id) ) return ;
-    m_menu.setItemChecked(id, enable);
+    return MenuNode::specialCommand(command);
 }
 
 //***************************************************************************

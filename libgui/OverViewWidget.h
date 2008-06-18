@@ -19,13 +19,16 @@
 #define _OVER_VIEW_WIDGET_H_
 
 #include "config.h"
-#include <qbitmap.h>
-#include <qtimer.h>
-#include <qwidget.h>
+
+#include <QBitmap>
+#include <QSize>
+#include <QTimer>
+#include <QWidget>
 
 #include "OverViewCache.h"
 
-class QPixmap;
+class QMouseEvent;
+class QResizeEvent;
 class SignalManager;
 class Track;
 
@@ -136,7 +139,7 @@ protected:
     unsigned int pixels2offset(int pixels);
 
     /** State of a cache entry */
-    typedef enum {Invalid, Fuzzy, Valid, Unused} CacheState;
+    typedef enum {Invalid, Fuzzy, Intermediate, Unused} CacheState;
 
 private:
 
@@ -175,9 +178,6 @@ private:
 
     /** QBitmap with the overview */
     QBitmap m_bitmap;
-
-    /** QPixmap to be blitted to screen (avoiding flicker) */
-    QPixmap *m_pixmap;
 
     /** cache with overview data */
     OverViewCache m_cache;

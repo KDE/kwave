@@ -18,17 +18,20 @@
 #ifndef _BITRATE_WIDGET_H_
 #define _BITRATE_WIDGET_H_
 
-#include <config.h>
-#include <qobject.h>
-#include <qvaluelist.h>
-#include "BitrateWidgetBase.h"
+#include "config.h"
 
-class BitrateWidget: public BitrateWidgetBase
+#include <QWidget>
+#include <QList>
+
+#include "ui_BitrateWidgetBase.h"
+
+class BitrateWidget: public QWidget,
+                     public Ui::BitrateWidgetBase
 {
     Q_OBJECT
 public:
     /** Constructor */
-    BitrateWidget(QWidget *parent, const char *name);
+    BitrateWidget(QWidget *parent);
 
     /** Destructor */
     virtual ~BitrateWidget();
@@ -43,7 +46,7 @@ public:
     virtual void setSpecialValueText(const QString &text);
 
     /** sets a list of allowed bitrates */
-    virtual void allowRates(const QValueList<int> &list);
+    virtual void allowRates(const QList<int> &list);
 
 signals:
 
@@ -69,7 +72,7 @@ protected:
 private:
 
     /** list of allowed bitrates, sorted ascending */
-    QValueList<int> m_rates;
+    QList<int> m_rates;
 
 };
 

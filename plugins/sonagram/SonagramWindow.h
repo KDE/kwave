@@ -19,13 +19,15 @@
 #define _SONAGRAM_WINDOW_H_
 
 #include "config.h"
-#include <qtimer.h>
+
+#include <QPointer>
+#include <QTimer>
+
 #include <kmainwindow.h>
 
 class ImageView;
 class QBitmap;
 class QImage;
-class QTimer;
 class ScaleWidget;
 
 /**

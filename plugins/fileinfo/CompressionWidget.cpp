@@ -15,14 +15,17 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qobject.h>
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include <qradiobutton.h>
-#include <qslider.h>
-#include <qtooltip.h>
-#include <qvaluelist.h>
-#include <qwhatsthis.h>
+#include "config.h"
+
+#include <QObject>
+#include <QCheckBox>
+#include <QLabel>
+#include <QRadioButton>
+#include <QSlider>
+#include <QToolTip>
+#include <QList>
+#include <QWhatsThis>
+
 #include <klocale.h>
 #include <knuminput.h>
 
@@ -31,9 +34,10 @@
 #include "CompressionWidget.h"
 
 //***************************************************************************
-CompressionWidget::CompressionWidget(QWidget *parent, const char *name)
-    :CompressionWidgetBase(parent, name)
+CompressionWidget::CompressionWidget(QWidget *parent)
+    :QWidget(parent), Ui::CompressionWidgetBase()
 {
+    setupUi(this);
 
     // use well-known bitrates from MP3
     const StandardBitrates &rates = StandardBitrates::instance();
@@ -66,9 +70,9 @@ void CompressionWidget::init(FileInfo &info)
     initInfo(lblCompressionNominalBitrate, abrBitrate,
              INF_BITRATE_NOMINAL, info);
     initInfo(0, abrHighestBitrate,
-             INF_BITRATE_LOWER, info);
-    initInfo(0, abrLowestBitrate,
              INF_BITRATE_UPPER, info);
+    initInfo(0, abrLowestBitrate,
+             INF_BITRATE_LOWER, info);
     initInfo(lblCompressionBaseQuality, sbBaseQuality,
              INF_VBR_QUALITY, info);
     initInfo(0, slBaseQuality,
@@ -80,8 +84,8 @@ void CompressionWidget::describeWidget(QWidget *widget, const QString &name,
                                        const QString &description)
 {
     if (!widget) return;
-    QToolTip::add(widget, description);
-    QWhatsThis::add(widget, "<b>"+name+"</b><br>"+description);
+    widget->setToolTip(description);
+    widget->setWhatsThis("<b>"+name+"</b><br>"+description);
 }
 
 //***************************************************************************
@@ -90,8 +94,8 @@ void CompressionWidget::initInfo(QLabel *label, QWidget *widget,
                                  FileInfo &info)
 {
     Q_ASSERT(widget);
-    if (label) label->setText(i18n(info.name(property)) + ":");
-    describeWidget(widget, i18n(info.name(property)),
+    if (label) label->setText(i18n(info.name(property).toAscii()) + ":");
+    describeWidget(widget, i18n(info.name(property).toAscii()),
                    info.description(property));
 }
 

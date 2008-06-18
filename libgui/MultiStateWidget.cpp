@@ -17,127 +17,70 @@
  *                                                                         *
  ***************************************************************************/
 #include "config.h"
-#include <qdir.h>
-#include <qimage.h>
-#include <qstring.h>
-#include <qptrlist.h>
-#include <qstringlist.h>
-#include <qdir.h>
-#include <qpixmap.h>
-#include "kstddirs.h"
+
+#include <QString>
+#include <QPainter>
+#include <QMouseEvent>
+
+#include <kstandarddirs.h>
+
 #include "MultiStateWidget.h"
 
-QPtrList <QPixmap> *pixmaps = 0;
-QStringList *pixnames = 0;
-
 //***************************************************************************
-MultiStateWidget::MultiStateWidget(QWidget *parent, int num, int count)
-    :QWidget(parent)
+MultiStateWidget::MultiStateWidget(QWidget *parent, int id)
+    :QWidget(parent), m_current_index(0), m_identifier(id), m_pixmaps()
 {
-    this->act = 0;
-    this->count = count;
-    this->number = num;
-    this->states = new int[count];
-    Q_ASSERT(states);
-    if (!states) return;
-
-    for (int i = 0; i < count; i++)
-    	states[i] = 0;
-
-    if (pixmaps == 0) pixmaps = new QPtrList<QPixmap>();
-    Q_ASSERT(pixmaps);
-
-    if (pixnames == 0) pixnames = new QStringList();
-    Q_ASSERT(pixnames);
-
     resize(20, 20);
 }
 
 //***************************************************************************
-void MultiStateWidget::setNumber(int number)
+void MultiStateWidget::setID(int id)
 {
-    this->number = number;
+    m_identifier = id;
 }
 
 //***************************************************************************
-int MultiStateWidget::addPixmap(const QString &filename)
+void MultiStateWidget::addPixmap(const QString &filename)
 {
-    Q_ASSERT(pixmaps);
-    Q_ASSERT(pixnames);
-    if (!pixmaps) return -1;
-    if (!pixnames) return -1;
-
-    int result = pixnames->findIndex(filename);
-    if (result == -1) {
-	QPixmap *newpix = new QPixmap();
-	Q_ASSERT(newpix);
-	if (!newpix) return -1;
-
-	QString file = locate("data", QString("kwave/pics/")+filename);
-	QImage img(file);
-	newpix->convertFromImage(img);
-	pixmaps->append(newpix);
-	pixnames->append(filename);
-	return pixmaps->at();
-    } else
-	return result;
-
-    return -1;
+    QString file = KStandardDirs::locate(
+	"data", QString("kwave/pics/") + filename);
+    QPixmap newpix(file);
+    m_pixmaps.append(newpix);
 }
 
 //***************************************************************************
-void MultiStateWidget::setStates(int *newstates)
+void MultiStateWidget::setState(int state)
 {
-    for (int i = 0; i < count; i++)
-	states[i] = newstates[i];
-}
-
-//***************************************************************************
-void MultiStateWidget::setState(int newstate)
-{
-    act = newstate;
-    if (act >= count) act = count-1;
-    if (act < 0) act = 0;
+    m_current_index = (state % m_pixmaps.count());
     repaint();
 }
 
 //***************************************************************************
 void MultiStateWidget::nextState()
 {
-    act++;
-    if (act >= count) act = 0;
-    repaint();
+    setState(m_current_index++);
 }
 
 //***************************************************************************
-void MultiStateWidget::mouseReleaseEvent( QMouseEvent *e)
+void MultiStateWidget::mouseReleaseEvent(QMouseEvent *e)
 {
-    Q_ASSERT(e);
-    if (!e) return;
-
-    if (e->button() == LeftButton) {
-	nextState ();
-	emit clicked(number);
+    if (e && (e->button() == Qt::LeftButton)) {
+	nextState();
+	emit clicked(m_identifier);
     }
 }
 
 //***************************************************************************
 MultiStateWidget::~MultiStateWidget()
 {
-    if (states) delete[] states;
+    m_pixmaps.clear();
 }
 
 //***************************************************************************
-void MultiStateWidget::paintEvent (QPaintEvent *)
+void MultiStateWidget::paintEvent(QPaintEvent *)
 {
-    Q_ASSERT(pixmaps);
-    if (!pixmaps) return;
-
-    QPixmap *img;
-    img = pixmaps->at(states[act]);
-
-    if (img) bitBlt(this, 0, 0,	img, 0, 0,
-                    img->width(), img->height(), CopyROP);
+    QPainter p(this);
+    p.drawPixmap(0, 0, m_pixmaps[m_current_index]);
 }
 
 //***************************************************************************

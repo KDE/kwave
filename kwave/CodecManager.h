@@ -19,9 +19,12 @@
 #define _CODEC_MANAGER_H_
 
 #include "config.h"
-#include <qptrlist.h>
-#include <qstring.h>
-#include <qstringlist.h>
+
+#include <QObject>
+#include <QList>
+#include <QString>
+#include <QStringList>
+
 #include <kmimetype.h>
 
 class Decoder;
@@ -44,14 +47,14 @@ public:
      * @param encoder a KwaveEncoder that will be used as template for
      *                creating new encoder instances (used as factory)
      */
-    static void registerEncoder(const Encoder &encoder);
+    static void registerEncoder(Encoder &encoder);
 
     /**
      * Registers a new decoder.
      * @param decoder a KwaveDecoder that will be used as template for
      *                creating new decoder instances (used as factory)
      */
-    static void registerDecoder(const Decoder &decoder);
+    static void registerDecoder(Decoder &decoder);
 
     /**
      * Returns true if a decoder for the given mime type is known.
@@ -111,21 +114,20 @@ public:
      */
     static QString decodingFilter();
 
-
     /**
      * Tries to find the name of a mime type of a decoder by a URL.
      * If not found, it returns the default mime type, never an empty string.
-     * @param url a KURL, only the filename's extension will be inspected
+     * @param url a KUrl, only the filename's extension will be inspected
      * @return name of the mime type or the default mime type
      */
-    static QString whatContains(const KURL &url);
+    static QString whatContains(const KUrl &url);
 
 private:
     /** list of all encoders */
-    static QPtrList<Encoder> m_encoders;
+    static QList<Encoder *> m_encoders;
 
     /** list of decoders */
-    static QPtrList<Decoder> m_decoders;
+    static QList<Decoder *> m_decoders;
 };
 
 #endif /* _CODEC_MANAGER_H_ */

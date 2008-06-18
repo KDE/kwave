@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <qstring.h>
+#include <QString>
 #include <klocale.h>
 
 #include "PlayBackTypesMap.h"
@@ -27,14 +27,6 @@ void PlayBackTypesMap::fill()
 {
     unsigned int index = 0;
     QString name = "";
-
-#ifdef HAVE_ARTS_SUPPORT
-    name = "aRts (Analog Realtime Synthesizer)";
-    append(index++, PLAYBACK_ARTS, "arts", name);
-#if 0
-    i18n("aRts (Analog Realtime Synthesizer)");
-#endif
-#endif /* HAVE_OSS_SUPPORT */
 
 #ifdef HAVE_ALSA_SUPPORT
     name = "ALSA (Advanced Linux Sound Architecture)";

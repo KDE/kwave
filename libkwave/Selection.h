@@ -19,7 +19,7 @@
 #define _SELECTION_H_
 
 #include "config.h"
-#include <qobject.h>
+#include <QObject>
 
 class Selection: public QObject
 {
@@ -41,29 +41,30 @@ public:
      * @param length number of items
      */
     void select(unsigned int offset, unsigned int length) {
-	if ((offset == m_offset) && (length == m_length)) return;
-    	m_offset = offset;
-    	m_length = length;
-    	emit changed(m_offset, m_length);
+	if ((offset == m_offset) && (length == m_length))
+	    return;
+	m_offset = offset;
+	m_length = length;
+	emit changed(m_offset, m_length);
     };
 
     /** Returns the index of the first selected item. */
-    inline const unsigned int offset() {
+    inline const unsigned int offset() const {
 	return m_offset;
     };
 
     /** Returns the number of selected items. */
-    inline const unsigned int length() {
+    inline const unsigned int length() const {
 	return m_length;
     };
 
     /** Equal to offset(). */
-    inline const unsigned int first() {
+    inline const unsigned int first() const {
 	return offset();
     };
 
     /** Returns the index of the last selected item. */
-    inline const unsigned int last() {
+    inline const unsigned int last() const {
 	return m_offset + (m_length ? (m_length-1) : 0);
     };
 

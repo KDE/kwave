@@ -16,29 +16,28 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <stdlib.h>
 #include <math.h>
 
-#include <qpainter.h>
+#include <QBrush>
+#include <QPainter>
+#include <QPixmap>
+
 #include "libkwave/TransmissionFunction.h"
 #include "FrequencyResponseWidget.h"
 
 //***************************************************************************
-FrequencyResponseWidget::FrequencyResponseWidget(QWidget *widget,
-                                                 const char *name)
-    :QWidget(widget, name), m_f_max(0), m_db_min(0), m_db_max(0),
-     m_decades(0), m_function(0), m_pixmap(0)
+FrequencyResponseWidget::FrequencyResponseWidget(QWidget *widget)
+    :QWidget(widget), m_f_max(0), m_db_min(0), m_db_max(0),
+     m_decades(0), m_function(0)
 {
-    // this avoids flicker :-)
-    setBackgroundMode(NoBackground);
     init(10000, -12, +12);
 }
 
 //***************************************************************************
 FrequencyResponseWidget::~FrequencyResponseWidget()
 {
-    if (m_pixmap) delete m_pixmap;
-    m_pixmap = 0;
 }
 
 //***************************************************************************
@@ -71,20 +70,13 @@ void FrequencyResponseWidget::paintEvent(QPaintEvent*)
     Q_ASSERT(height > 0);
     if ((width <= 0) || (height <= 0)) return;
 
-    if (!m_pixmap) m_pixmap = new QPixmap(width, height);
-    Q_ASSERT(m_pixmap);
-    if (!m_pixmap) return;
-    if ((m_pixmap->width() != width) || (m_pixmap->height() != height))
-	m_pixmap->resize(width, height);
-
-    QPainter p;
-    p.begin(m_pixmap);
-    m_pixmap->fill(colorGroup().dark());
+    QPainter p(this);
+    p.fillRect(rect(), QBrush(palette().dark()));
 
     double scale = (double)(height-1) / (double)(m_db_max-m_db_min);
     double min = pow(10.0, (double)m_db_min/10.0);
     double max = pow(10.0, (double)m_db_max/10.0);
-    p.setPen(green);//colorGroup().text());
+    p.setPen(Qt::green);//colorGroup().text());
 
     for (int x=0; x < width; x++) {
 	// transform x coordinate to frequency
@@ -113,12 +105,9 @@ void FrequencyResponseWidget::paintEvent(QPaintEvent*)
     }
 
     // draw the zero db line
-    p.setPen(colorGroup().text());
+    p.setPen(palette().text().color());
     int y = height - (int)((0.0 - m_db_min) * scale);
     p.drawLine(0, y, width-1, y);
-
-    p.end();
-    bitBlt(this, 0, 0, m_pixmap);
 }
 
 //***************************************************************************

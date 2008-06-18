@@ -19,16 +19,22 @@
 #define _NOTCH_FILTER_DIALOG_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qstring.h>
+
+#include <QDialog>
+#include <QObject>
+#include <QString>
+#include <QStringList>
+
 #include "libkwave/KwavePluginSetupDialog.h"
-#include "BandPassDlg.h"
+#include "ui_BandPassDlg.h"
 
 class QStringList;
 class BandPass;
+class QWidget;
 
-class BandPassDialog: public BandPassDlg,
-                      public KwavePluginSetupDialog
+class BandPassDialog: public QDialog,
+                      public KwavePluginSetupDialog,
+                      public Ui::BandPassDlg
 {
     Q_OBJECT
 public:
@@ -40,7 +46,7 @@ public:
      *                    needed for determining the allowed range of
      *                    the cutoff frequency
      */
-    BandPassDialog(QWidget *parent, double sample_rate);
+    BandPassDialog(QWidget *parent, qreal sample_rate);
 
     /** Destructor */
     virtual ~BandPassDialog();
@@ -60,10 +66,10 @@ signals:
      * Emitted whenever the frequency changes
      * @param freq the frequency parameter in Hz
      */
-    void freqChanged(double freq);
+    void freqChanged(qreal freq);
 
     //* And for the bw
-    void bwChanged(double bw);
+    void bwChanged(qreal bw);
 
     /** Pre-listen mode has been started */
     void startPreListen();
@@ -75,6 +81,7 @@ protected slots:
 
     /** called when the freq spinbox or slider value has changed */
     void freqValueChanged(int pos);
+
     /** called when the bw spinbox or slider value has changed */
     void bwValueChanged(int pos);
 
@@ -97,13 +104,13 @@ protected:
 private:
 
     /** the cutoff frequency in Hz */
-    double m_frequency;
+    qreal m_frequency;
 
     /** the bw in Hz */
-    double m_bw;
+    qreal m_bw;
 
     /** sample rate of the signal in samples/sec */
-    double m_sample_rate;
+    qreal m_sample_rate;
 
     /** filter function for calculating the frequency response */
     BandPass *m_filter;

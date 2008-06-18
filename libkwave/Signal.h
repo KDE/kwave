@@ -22,9 +22,10 @@
 #include "config.h"
 #include <limits.h>
 #include <pthread.h>
-#include <qptrlist.h>
 
-#include "mt/SharedLock.h"
+#include <QReadWriteLock>
+#include <QList>
+
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
 #include "libkwave/WindowFunction.h"
@@ -93,7 +94,7 @@ public:
     /**
      * Returns an array of indices of all present tracks.
      */
-    const QMemArray<unsigned int> allTracks();
+     QList<unsigned int> allTracks();
 
     /**
      * Opens an input stream for a track, starting at a specified sample
@@ -161,7 +162,7 @@ signals:
      * @param index position of the new track [0...tracks()-1]
      * @param track reference to the new track
      */
-    void sigTrackInserted(unsigned int index, Track &track);
+    void sigTrackInserted(unsigned int index, Track *track);
 
     /**
      * Signals that a track has been deleted.
@@ -209,7 +210,7 @@ private slots:
      * @see Track::sigSamplesInserted
      * @internal
      */
-    void slotSamplesInserted(Track &src, unsigned int offset,
+    void slotSamplesInserted(Track *src, unsigned int offset,
                              unsigned int length);
 
     /**
@@ -220,7 +221,7 @@ private slots:
      * @see Track::sigSamplesDeleted
      * @internal
      */
-    void slotSamplesDeleted(Track &src, unsigned int offset,
+    void slotSamplesDeleted(Track *src, unsigned int offset,
                             unsigned int length);
 
     /**
@@ -231,7 +232,7 @@ private slots:
      * @see Track::sigSamplesModified
      * @internal
      */
-    void slotSamplesModified(Track &src, unsigned int offset,
+    void slotSamplesModified(Track *src, unsigned int offset,
                              unsigned int length);
 
 private:
@@ -241,7 +242,7 @@ private:
      * @param track reference to the trac to be looked up
      * @returns index of the track [0...tracks()-1] or tracks() if not found
      */
-    unsigned int trackIndex(const Track &track);
+    unsigned int trackIndex(const Track *track);
 
 //    //signal modifying functions
 //    void replaceStutter (int, int);
@@ -255,10 +256,10 @@ private:
 //    void averageFFT (int points, window_function_t windowtype);
 
     /** list of tracks */
-    QPtrList<Track> m_tracks;
+    QList<Track *> m_tracks;
 
     /** mutex for access to the track list */
-    SharedLock m_lock_tracks;
+    QReadWriteLock m_lock_tracks;
 
 };
 

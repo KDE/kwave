@@ -23,8 +23,8 @@
 
 #include "config.h"
 
-#include <qobject.h>
-#include <qvariant.h>
+#include <QObject>
+#include <QVariant>
 
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveSampleSource.h"
@@ -46,7 +46,7 @@ public:
     virtual void goOn();
 
     /** @see TransmissionFunction::at() */
-    virtual double at(double f);
+    virtual qreal at(qreal f);
 
 signals:
 
@@ -82,7 +82,7 @@ private:
      * @param freq normed frequency
      * @param R normed bandwidth
      */
-    void setfilter_2polebp(double freq, double R);
+    void setfilter_2polebp(qreal freq, qreal R);
 
 private:
 
@@ -90,15 +90,15 @@ private:
     Kwave::SampleArray m_buffer;
 
     /** center frequency */
-    double m_frequency;
+    qreal m_frequency;
 
     /** bandwidth */
-    double m_bandwidth;
+    qreal m_bandwidth;
 
     /** structure with the filter coefficients */
     struct {
-	double cx,cx1,cx2,cy1,cy2;
-	double x,x1,x2,y,y1,y2;
+	qreal cx,cx1,cx2,cy1,cy2;
+	qreal x,x1,x2,y,y1,y2;
     } m_filter;
 
 };

@@ -19,6 +19,7 @@
 #define _FILTER_H_
 
 #include "config.h"
+#include <QVector>
 
 class QString;
 
@@ -76,14 +77,14 @@ public:
      * Returns a filter coefficient.
      * @param index internal index [0...count-1]
      */
-    double coeff(unsigned int index);
+    qreal coeff(unsigned int index);
 
     /**
      * Sets a filter coefficient to a new value.
      * @param index internal index [0...count-1]
      * @param newval new coefficient
      */
-    void setCoeff(unsigned int index, double newval);
+    void setCoeff(unsigned int index, qreal newval);
 
     /**
      * Returns a delay time of the filter.
@@ -112,10 +113,10 @@ private:
     unsigned int m_rate;
 
     /** array of coefficients */
-    QMemArray<double> m_coeff;
+    QVector<qreal> m_coeff;
 
     /** array of delay times */
-    QMemArray<int> m_delay;
+    QVector<int> m_delay;
 
 };
 

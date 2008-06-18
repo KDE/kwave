@@ -83,7 +83,7 @@ private:
 
     /** last known position of the mouse */
     unsigned int last;
-}
-;
+};
+
 //***********************************************************
 #endif /*_MOUSE_MARK_H_ */

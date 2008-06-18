@@ -16,6 +16,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <klocale.h>
 
 #include "libkwave/Label.h"
@@ -64,10 +65,11 @@ int UndoModifyLabelAction::redoSize()
 }
 
 //***************************************************************************
-void UndoModifyLabelAction::store(SignalManager &)
+bool UndoModifyLabelAction::store(SignalManager &)
 {
     // nothing to do, all data has already
     // been stored in the constructor
+    return true;
 }
 
 //***************************************************************************

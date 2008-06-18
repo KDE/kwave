@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <qiodevice.h>
+#include <QIODevice>
 #include "libkwave/VirtualAudioFile.h"
 
 /**
@@ -28,6 +28,7 @@ static QMap<AFvirtualfile*,VirtualAudioFile*> *_adapter_map = 0;
 /** Last error number from libaudiofile. -1 if no error occurred */
 static long _last_audiofile_error = -1;
 
+//***************************************************************************
 /**
  * Error handler for libaudiofile
  * @warning NOT THREADSAFE!
@@ -41,11 +42,15 @@ static void _handle_audiofile_error(long error, const char *str)
     _last_audiofile_error = error;
 }
 
+//***************************************************************************
 /** Returns the last libaudiofile error and resets it to -1 */
 static long _lastAudiofileError()
 {
     long err = _last_audiofile_error;
     _last_audiofile_error = -1;
+
+    // ignore "bad alloc", which might occur on a "malloc(0)"
+    if (err == AF_BAD_MALLOC) err = -1;
     return err;
 }
 
@@ -159,7 +164,7 @@ unsigned int VirtualAudioFile::read(char *data, unsigned int nbytes)
 {
     Q_ASSERT(data);
     if (!data) return 0;
-    return m_device.readBlock(data, nbytes);
+    return m_device.read(data, nbytes);
 }
 
 //***************************************************************************
@@ -173,7 +178,7 @@ unsigned int VirtualAudioFile::write(const char *data, unsigned int nbytes)
 {
     Q_ASSERT(data);
     if (!data) return 0;
-    return m_device.writeBlock(data, nbytes);
+    return m_device.write(data, nbytes);
 }
 
 //***************************************************************************
@@ -185,9 +190,9 @@ void VirtualAudioFile::destroy()
 long VirtualAudioFile::seek(long offset, int is_relative)
 {
     if (is_relative == SEEK_CUR)
-	m_device.at(m_device.at() + offset);
+	m_device.seek(m_device.pos() + offset);
     else if (is_relative == SEEK_SET)
-	m_device.at(offset);
+	m_device.seek(offset);
     else
 	return -1;
     return 0;
@@ -196,7 +201,7 @@ long VirtualAudioFile::seek(long offset, int is_relative)
 //***************************************************************************
 long VirtualAudioFile::tell()
 {
-    return m_device.at();
+    return m_device.pos();
 }
 
 //***************************************************************************

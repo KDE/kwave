@@ -15,14 +15,17 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qfile.h>
-#include <qiodevice.h>
+#include "config.h"
+
+#include <QFile>
+#include <QIODevice>
+
 #include "RecoverySource.h"
 #include "RepairVirtualAudioFile.h"
 
 //***************************************************************************
 RepairVirtualAudioFile::RepairVirtualAudioFile(QIODevice &device,
-    QPtrList<RecoverySource> *repair_list)
+    QList<RecoverySource *> *repair_list)
     :VirtualAudioFile(device), m_position(0),
      m_repair_list(repair_list)
 {
@@ -32,8 +35,11 @@ RepairVirtualAudioFile::RepairVirtualAudioFile(QIODevice &device,
 RepairVirtualAudioFile::~RepairVirtualAudioFile()
 {
     if (m_repair_list) {
-        m_repair_list->setAutoDelete(true);
-        delete m_repair_list;
+	while (!m_repair_list->isEmpty()) {
+	    RecoverySource *src = m_repair_list->takeLast();
+	    if (src) delete src;
+	}
+	delete m_repair_list;
     }
 }
 
@@ -48,16 +54,16 @@ unsigned int RepairVirtualAudioFile::read(char *data, unsigned int nbytes)
 
     bzero(data, nbytes);
     size_t read_bytes = 0;
-    QPtrListIterator<RecoverySource> it(*m_repair_list);
-
-    for (; it.current(); ++it) {
-	unsigned int len = it.current()->read(m_position, data, nbytes);
+    foreach (RecoverySource *src, *m_repair_list) {
+	Q_ASSERT(src);
+	if (!src) continue;
+	unsigned int len = src->read(m_position, data, nbytes);
 	Q_ASSERT(len <= nbytes);
 	nbytes     -= len;
 	m_position += len;
 	data       += len;
 	read_bytes += len;
-	
+
 	if (!nbytes) break;
     }
 

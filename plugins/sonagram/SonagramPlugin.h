@@ -19,9 +19,10 @@
 #define _SONAGRAM_PLUGIN_H_
 
 #include "config.h"
-#include <qmemarray.h>
-#include <qstring.h>
-#include "mt/SignalProxy.h"
+
+#include <QList>
+#include <QString>
+
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/WindowFunction.h"
 
@@ -62,6 +63,10 @@ public:
      */
     virtual void run(QStringList params);
 
+signals:
+
+    void stripeAvailable(StripeInfoPrivate *stripe_info);
+
 private slots:
 
     /**
@@ -76,7 +81,7 @@ private slots:
      * display.
      * DO NOT CALL DIRECTLY!
      */
-    void insertStripe();
+    void insertStripe(StripeInfoPrivate *stripe_info);
 
     /**
      * Updates the overview image under the sonagram
@@ -115,7 +120,7 @@ private:
      * @param points number of fft points
      * @param output reference to an array to receive the output
      */
-    void calculateStripe(MultiTrackReader &source, const unsigned int points,
+    void calculateStripe(MultiTrackReader &source, const int points,
 	QByteArray &output);
 
 private:
@@ -124,7 +129,7 @@ private:
     SonagramWindow *m_sonagram_window;
 
     /** list of selected channels */
-    QMemArray<unsigned int> m_selected_channels;
+    QList<unsigned int> m_selected_channels;
 
     /** first sample of the selection, inclusive */
     unsigned int m_first_sample;
@@ -155,13 +160,6 @@ private:
 
     /** cache with the current signal overview */
     OverViewCache *m_overview_cache;
-
-    /**
-     * signal proxy for synchronously inserting stripes of
-     * sonagram data into the current image and updating the
-     * display.
-     */
-    SignalProxy1<StripeInfoPrivate> *m_spx_insert_stripe;
 
     /** will be set to true in order to stop the run() loop */
     bool m_cmd_shutdown;

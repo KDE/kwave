@@ -19,12 +19,13 @@
 #define _KWAVE_DRAG_H_
 
 #include "config.h"
-#include <qcstring.h>
-#include <qdragobject.h>
-#include <qmime.h>
-#include <qobject.h>
 
-class QImage;
+#include <QByteArray>
+#include <QDrag>
+#include <QObject>
+#include <QString>
+
+class QMimeData;
 class QMimeSource;
 class QWidget;
 
@@ -38,7 +39,7 @@ class SignalManager;
  * @todo the current storage mechanism is straight-forward and stupid, it
  *       should be extended to use virtual memory
  */
-class Q_EXPORT KwaveDrag: public QDragObject
+class KwaveDrag: public QDrag
 {
     Q_OBJECT
 
@@ -47,7 +48,7 @@ public:
      * Constructor
      * @see QDragObject
      */
-    KwaveDrag(QWidget *dragSource = 0, const char *name = 0);
+    KwaveDrag(QWidget *dragSource = 0);
 
     /** Destructor */
     virtual ~KwaveDrag();
@@ -77,7 +78,7 @@ public:
     bool encode(QWidget *widget, MultiTrackReader &src, FileInfo &info);
 
     /** Returns true if the mime type of the given source can be decoded */
-    static bool canDecode(const QMimeSource* e);
+    static bool canDecode(const QMimeData *data);
 
     /**
      * Decodes the encoded byte data of the given mime source and

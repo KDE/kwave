@@ -19,11 +19,11 @@
 #define _FILE_PROGRESS_H_
 
 #include "config.h"
-#include <qdatetime.h>
-#include <qsemimodal.h>
-#include <qurl.h>
 
-#include <kdialog.h>
+#include <QDialog>
+#include <QUrl>
+#include <QLabel>
+#include <QTime>
 
 class QCloseEvent;
 class QGridLayout;
@@ -31,7 +31,7 @@ class QLabel;
 class QResizeEvent;
 class KProgress;
 
-class FileProgress: public KDialog
+class FileProgress: public QDialog
 {
     Q_OBJECT
 public:
@@ -47,7 +47,7 @@ public:
      */
     FileProgress(QWidget *parent,
 	const QUrl &url, unsigned int size,
-	unsigned int samples, double rate, unsigned int bits,
+	unsigned int samples, qreal rate, unsigned int bits,
 	unsigned int tracks);
 
     /** Destructor */
@@ -57,7 +57,7 @@ public:
      * Returns true if the dialog is unusable or the user
      * has pressed the "cancel" button.
      */
-    inline bool isCancelled() { return m_cancelled; };
+    inline bool isCanceled() { return m_canceled; };
 
 signals:
 
@@ -65,7 +65,7 @@ signals:
      * Emitted when the user has pressed the Cancel button and
      * has confirmed with "Yes".
      */
-    void cancelled();
+    void canceled();
 
 public slots:
     /**
@@ -90,7 +90,7 @@ public slots:
 protected slots:
 
     /**
-     * Connected to the "cancel" button to set the "m_cancelled"
+     * Connected to the "cancel" button to set the "m_canceled"
      * flag if the user wants to abort.
      */
     void cancel();
@@ -134,7 +134,9 @@ protected:
      * @param pos position in the file
      * @internal
      */
-    void updateStatistics(double rate, double rest, unsigned int pos);
+    void updateStatistics(qreal rate, qreal rest, unsigned int pos);
+
+protected:
 
     /** url of the file */
     QUrl m_url;
@@ -149,7 +151,7 @@ protected:
     QLabel *m_lbl_length;
 
     /** progress bar */
-    KProgress *m_progress;
+    QProgressBar *m_progress;
 
     /** label with transfer statistics */
     QLabel *m_stat_transfer;
@@ -161,7 +163,7 @@ protected:
     QTime m_time;
 
     /** true if the dialog is unusable or canceled by the user */
-    bool m_cancelled;
+    bool m_canceled;
 
     /** last displayed percent value */
     int m_last_percent;
@@ -170,7 +172,7 @@ protected:
     unsigned int m_bits_per_sample;
 
     /** number of samples per second, used for output */
-    double m_sample_rate;
+    qreal m_sample_rate;
 
     /** number of tracks */
     unsigned int m_tracks;

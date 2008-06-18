@@ -26,13 +26,13 @@ MACRO(KWAVE_PLUGIN _plugin)
         ${KDE3_INCLUDE_DIR}
         ${QT_INCLUDE_DIR}
     )
-    KDE3_ADD_UI_FILES(plugin_${_plugin}_LIB_SRCS ${plugin_${_plugin}_LIB_UI})
-    KDE3_AUTOMOC(${plugin_${_plugin}_LIB_SRCS})
+    KDE4_ADD_UI_FILES(plugin_${_plugin}_LIB_SRCS ${plugin_${_plugin}_LIB_UI})
+    QT4_AUTOMOC(${plugin_${_plugin}_LIB_SRCS})
 
     #########################################################################
     ### link stage                                                        ###
 
-    ADD_LIBRARY(plugin_${_plugin} SHARED ${plugin_${_plugin}_LIB_SRCS})
+    KDE4_ADD_LIBRARY(plugin_${_plugin} SHARED ${plugin_${_plugin}_LIB_SRCS})
     TARGET_LINK_LIBRARIES(plugin_${_plugin}
         ${QT_AND_KDECORE_LIBS}
         ${plugin_${_plugin}_LIBS}
@@ -40,6 +40,7 @@ MACRO(KWAVE_PLUGIN _plugin)
     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES OUTPUT_NAME "${_plugin}")
     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES LINK_FLAGS
         "-Wl,--export-dynamic -Wl,--add-needed")
+    SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
     #########################################################################
     ### install                                                           ###
@@ -47,7 +48,7 @@ MACRO(KWAVE_PLUGIN _plugin)
     INSTALL(
         PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/lib${_plugin}.so
         RENAME ${_plugin}
-        DESTINATION ${KDE3_DATADIR}/kwave/plugins
+        DESTINATION ${DESTDIR}${DATA_INSTALL_DIR}/kwave/plugins
     )
 
     ADD_DEPENDENCIES(plugin_${_plugin} libkwave libkwavegui)
@@ -72,8 +73,8 @@ ADD_SUBDIRECTORY( newsignal )
 ADD_SUBDIRECTORY( noise )
 ADD_SUBDIRECTORY( notch_filter )
 ADD_SUBDIRECTORY( pitch_shift )
-ADD_SUBDIRECTORY( playback )        # needs OSS, ALSA and/or aRts
-ADD_SUBDIRECTORY( record )          # needs OSS, ALSA and/or aRts
+ADD_SUBDIRECTORY( playback )        # needs OSS and/or ALSA
+ADD_SUBDIRECTORY( record )          # needs OSS and/or ALSA
 ADD_SUBDIRECTORY( saveblocks )
 ADD_SUBDIRECTORY( selectrange )
 ADD_SUBDIRECTORY( sonagram )        # needs libgsl >= 1.3

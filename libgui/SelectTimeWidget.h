@@ -19,16 +19,18 @@
 #define _SELECT_TIME_WIDGET_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qtimer.h>
-#include <qwidget.h>
 
-#include "libgui/SelectTimeWidgetBase.h"
+#include <QGroupBox>
+#include <QObject>
+#include <QTimer>
+
+#include "libgui/ui_SelectTimeWidgetBase.h"
 
 /**
  * widget for selecting a time or range
  */
-class SelectTimeWidget: public SelectTimeWidgetBase
+class SelectTimeWidget: public QGroupBox,
+                        public Ui::SelectTimeWidgetBase
 {
     Q_OBJECT
 public:
@@ -42,9 +44,8 @@ public:
     /**
      * Constructor
      * @param widget pointer to the parent widget
-     * @param name the name of the widget
      */
-    SelectTimeWidget(QWidget *widget, const char *name);
+    SelectTimeWidget(QWidget *widget);
 
     /**
      * Constructor
@@ -92,7 +93,7 @@ public slots:
 private slots:
 
     /** called whenever one of the radio buttons changed it's state */
-    void modeChanged(int);
+    void modeChanged(bool checked);
 
     /** called whenever one of the time controls changed their value */
     void timeChanged(int);

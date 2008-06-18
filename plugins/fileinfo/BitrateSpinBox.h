@@ -19,22 +19,23 @@
 #define _BITRATE_SPIN_BOX_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qspinbox.h>
-#include <qvaluelist.h>
+
+#include <QObject>
+#include <QSpinBox>
+#include <QList>
 
 class BitrateSpinBox: public QSpinBox
 {
     Q_OBJECT
 public:
     /** Constructor */
-    BitrateSpinBox(QWidget *parent, const char *name);
+    BitrateSpinBox(QWidget *parent);
 
     /** Destructor */
     virtual ~BitrateSpinBox();
 
     /** sets a list of allowed bitrates */
-    virtual void allowRates(const QValueList<int> &list);
+    virtual void allowRates(const QList<int> &list);
 
 signals:
 
@@ -46,12 +47,6 @@ public slots:
     /** snaps in to a new value */
     virtual void snapIn(int value);
 
-    /** select the next higher bitrate */
-    virtual void stepUp();
-
-    /** select the next lower bitrate */
-    virtual void stepDown();
-
 protected:
 
     /** find the nearest bitrate index of a current position */
@@ -60,7 +55,7 @@ protected:
 private:
 
     /** list of allowed bitrates, sorted ascending */
-    QValueList<int> m_rates;
+    QList<int> m_rates;
 
 };
 

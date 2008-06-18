@@ -27,8 +27,9 @@
 #include <math.h>
 #include <errno.h>
 
-#include <qdir.h>
-#include <qfile.h>
+#include <QDir>
+#include <QFile>
+#include <QtGlobal>
 
 #include "libkwave/CompressionType.h"
 #include "libkwave/SampleFormat.h"
@@ -58,7 +59,7 @@ int RecordOSS::open(const QString &dev)
     if (!dev.length()) return -1; // no device name
 
     // first of all: try to open the device itself
-    int fd = ::open(dev.ascii(), O_RDONLY | O_NONBLOCK);
+    int fd = ::open(dev.toLocal8Bit(), O_RDONLY | O_NONBLOCK);
     if (fd < 0) {
 	qWarning("open failed, fd=%d, errno=%d (%s)",
 	         fd, errno, strerror(errno));
@@ -173,7 +174,7 @@ static bool addIfExists(QStringList &list, const QString &name)
 	    addIfExists(list, name.arg(index));
     } else {
 	// check a single name
-	file.setName(name);
+	file.setFileName(name);
 	if (!file.exists())
 	    return false;
 
@@ -192,7 +193,7 @@ static void scanFiles(QStringList &list, const QString &dirname,
     QDir dir;
 
     dir.setPath(dirname);
-    dir.setNameFilter(mask);
+    dir.setNameFilters(mask.split(' '));
     dir.setFilter(QDir::Files | QDir::Readable | QDir::System);
     dir.setSorting(QDir::Name);
     files = dir.entryList();
@@ -328,9 +329,9 @@ int RecordOSS::tracks()
 }
 
 //***************************************************************************
-QValueList<double> RecordOSS::detectSampleRates()
+QList<double> RecordOSS::detectSampleRates()
 {
-    QValueList<double> list;
+    QList<double> list;
     Q_ASSERT(m_fd >= 0);
 
     static const int known_rates[] = {
@@ -518,7 +519,7 @@ int RecordOSS::mode2format(int compression, int bits,
     if ((sample_format == SampleFormat::Unsigned) && (bits == 16)) {
 	mask &= (AFMT_U16_LE | AFMT_U16_BE);
 	if (mask != (AFMT_U16_LE | AFMT_U16_BE)) return mask;
-#if defined(ENDIANESS_BIG)
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
 	return AFMT_U16_BE;
 #else
 	return AFMT_U16_LE;
@@ -529,7 +530,7 @@ int RecordOSS::mode2format(int compression, int bits,
     if ((sample_format == SampleFormat::Signed) && (bits == 16)) {
 	mask &= (AFMT_S16_LE | AFMT_S16_BE);
 	if (mask != (AFMT_S16_LE | AFMT_S16_BE)) return mask;
-#if defined(ENDIANESS_BIG)
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
 	return AFMT_S16_BE;
 #else
 	return AFMT_S16_LE;
@@ -542,11 +543,10 @@ int RecordOSS::mode2format(int compression, int bits,
 }
 
 //***************************************************************************
-QValueList<int> RecordOSS::detectCompressions()
+QList<int> RecordOSS::detectCompressions()
 {
     Q_ASSERT(m_fd >= 0);
-    QValueList <int> compressions;
-    compressions.clear();
+    QList<int> compressions;
     int err = 0;
     int mask = AFMT_QUERY;
 
@@ -603,10 +603,10 @@ int RecordOSS::compression()
 }
 
 //***************************************************************************
-QValueList <unsigned int> RecordOSS::supportedBits()
+QList<unsigned int> RecordOSS::supportedBits()
 {
     Q_ASSERT(m_fd >= 0);
-    QValueList <unsigned int> bits;
+    QList<unsigned int> bits;
     bits.clear();
     int err = 0;
     int mask = AFMT_QUERY;
@@ -677,10 +677,10 @@ int RecordOSS::bitsPerSample()
 }
 
 //***************************************************************************
-QValueList<SampleFormat> RecordOSS::detectSampleFormats()
+QList<SampleFormat> RecordOSS::detectSampleFormats()
 {
     Q_ASSERT(m_fd >= 0);
-    QValueList<SampleFormat> formats;
+    QList<SampleFormat> formats;
     formats.clear();
     int err = 0;
     int mask = AFMT_QUERY;

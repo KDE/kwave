@@ -16,29 +16,31 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
 
-#include <qpixmap.h>
-#include <qimage.h>
-#include <qdir.h>
-#include <qpainter.h>
+#include <QtGlobal>
+// #include <QImage>
+// #include <QDir>
+#include <QPainter>
+#include <QPaintEvent>
 
 #include <kiconloader.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 
 #include "ScaleWidget.h"
 
 #define FONTSIZE 6
 
 //***************************************************************************
-ScaleWidget::ScaleWidget(QWidget *parent, const char *name)
-    :QWidget(parent, name), m_low(0), m_high(100), m_logmode(false),
+ScaleWidget::ScaleWidget(QWidget *parent)
+    :QWidget(parent), m_low(0), m_high(100), m_logmode(false),
      m_unittext("%")
 {
     KIconLoader icon_loader;
-    m_scalefont = icon_loader.loadIcon("minifont.xpm", KIcon::Small);
+    m_scalefont = icon_loader.loadIcon("minifont.xpm", KIconLoader::Small);
 }
 
 //***************************************************************************
@@ -48,13 +50,12 @@ ScaleWidget::ScaleWidget(QWidget *parent, int low, int high,
      m_unittext(unit)
 {
     KIconLoader icon_loader;
-    m_scalefont = icon_loader.loadIcon("minifont.xpm", KIcon::Small);
+    m_scalefont = icon_loader.loadIcon("minifont.xpm", KIconLoader::Small);
 }
 
 //***************************************************************************
 ScaleWidget::~ScaleWidget()
 {
-    m_scalefont.resize(0,0);
 }
 
 //***************************************************************************
@@ -91,7 +92,7 @@ void ScaleWidget::paintText(QPainter &p, int x, int y, int ofs,
     if (reverse) x -= ofs;
     for (int i = 0; i < len; i++) {
 	pos = (reverse) ? (len-1-i) : i;
-	int c = text.at(pos).latin1();
+	int c = text.at(pos).toLatin1();
 
 	pos = 40; // default = space
 	switch (c) {
@@ -123,11 +124,11 @@ void ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
 
     int dir = (inverse) ? -1 : +1;
 
-    p.setPen (colorGroup().dark());
+    p.setPen(palette().dark().color());
     p.drawLine (0, dir*(h-1), dir*w, dir*(h-1));
     p.drawLine (dir*(w-1), 0, dir*(w-1), dir*(h-1));
 
-    p.setPen (colorGroup().text());
+    p.setPen(palette().text().color());
 
     int a, x;
     const int h2 = h;
@@ -137,7 +138,7 @@ void ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
 
     int dec_lo = (m_low) ? (int)floor(log(m_low)/log(base)) : 0;
     int dec_hi = (int)ceil(log(m_high)/log(base));
-    int decades = abs(dec_hi - dec_lo) + 1;
+    int decades = qAbs(dec_hi - dec_lo) + 1;
 
     // check if we have enough space for the small lines within a decade
     int w1 = (int)(w / decades); // pixels per decade
@@ -174,11 +175,11 @@ void ScaleWidget::drawLinear(QPainter &p, int w, int h, bool inverse)
 {
     int dir = (inverse) ? -1 : +1;
 
-    p.setPen(colorGroup().dark());
+    p.setPen(palette().dark().color());
     p.drawLine(0, dir*(h-1), dir*w, dir*(h-1));
     p.drawLine(dir*(w-1), 0, dir*(w-1), dir*(h - 1));
 
-    p.setPen (colorGroup().text());
+    p.setPen(palette().text().color());
 
     int a, x;
     double ofs;
@@ -218,7 +219,7 @@ void ScaleWidget::paintEvent(QPaintEvent *)
 
     p.begin(this);
     p.save();
-    p.setPen(colorGroup().light());
+    p.setPen(palette().light().color());
 
     p.drawLine(0, 0, w, 0);
     if (h > w) {

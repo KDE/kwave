@@ -1,9 +1,15 @@
 /***************************************************************************
   KwaveAboutContainer.h  -  Authors and thanks field in the about dialog
                              -------------------
-    begin                : Sat Mar 9 2002
-    copyright            : (C) 2002 by Ralf Waspe
-    email                : rwaspe@web.de
+    begin                : Sat Dec 29 2007
+    copyright            : (C) 2007 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
+
+    based on class K3AboutContainer
+    copied from k3aboutdialog.h / kdelibs-3.97.0
+
+    Copyright (C) 1999-2001 Mirko Boehm (mirko@kde.org) and
+                            Espen Sand (espen@kde.org)
  ***************************************************************************/
 
 /***************************************************************************
@@ -19,37 +25,71 @@
 #define _KWAVE_ABOUT_CONTAINER_H_
 
 #include "config.h"
-#include <kaboutdata.h>
-#include <kaboutdialog.h>
-#include <qwidget.h>
+
+#include <QFrame>
+#include <QSize>
+#include <QVBoxLayout>
+
+class QString;
+class QLabel;
+class QWidget;
 
 /**
- *@author Ralf Waspe
+ * simplified clone of K3AboutContainer
+ * @see K3AboutContainer
  */
-class KwaveAboutContainer : public KAboutContainer
+class KwaveAboutContainer: public QFrame
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-    /** Constructor */
-    KwaveAboutContainer(QWidget *parent = 0, const char *name = "");
+    KwaveAboutContainer(QWidget *parent = 0);
 
-    /** Destructor */
     virtual ~KwaveAboutContainer();
 
-public slots:
+    void addPerson(const QString &name, const QString &email,
+		   const QString &url, const QString &task);
 
-    /**
-     * open webpage if url is clicked
-     * connect to :
-     * void  urlClick(const QString &url)
-     */
-    void openURL(const QString &url);
-    /** send email if email address is clicked
-      * connect to :
-      * void  mailClick(const QString &name,const QString &address)
-      */
-    void sendMail(const QString &name,const QString &address);
+    virtual QSize sizeHint() const;
+    virtual QSize minimumSizeHint() const;
+
+protected:
+
+    void addWidget(QWidget *widget);
+
+private:
+
+    QVBoxLayout *m_vbox;
+};
+
+/**
+ * Used internally by KwaveAboutWidget
+ * @see K3AboutContributor
+ * @internal
+ */
+class KwaveAboutContributor: public QFrame
+{
+  Q_OBJECT
+
+  public:
+    KwaveAboutContributor(QWidget *parent,
+                       const QString &username,
+                       const QString &email,
+                       const QString &url,
+                       const QString &work);
+
+    virtual ~KwaveAboutContributor();
+
+    virtual QSize sizeHint() const;
+
+protected:
+    virtual void fontChange( const QFont &oldFont );
+
+    virtual void updateLayout();
+
+private:
+
+    QLabel *m_text[4];
 
 };
 

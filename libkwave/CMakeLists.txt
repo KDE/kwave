@@ -15,14 +15,6 @@
 ##                                                                          #
 #############################################################################
 
-INCLUDE_DIRECTORIES(
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_BINARY_DIR}
-    ${KDE3_INCLUDE_DIR}
-    ${QT_INCLUDE_DIR}
-    ${MCOPIDL_INCLUDES}
-)
-
 #############################################################################
 
 ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/ppcasm_string.o
@@ -45,7 +37,6 @@ SET(libkwave_LIB_SRCS
     Encoder.cpp
     Filter.cpp
     FileInfo.cpp
-    FileLoader.cpp
     FileFormat.cpp
     Functions.cpp
     GenreType.cpp
@@ -59,16 +50,17 @@ SET(libkwave_LIB_SRCS
     KwaveOsc.cpp
     KwavePlaybackSink.cpp
     KwavePlugin.cpp
+    KwaveSampleArray.cpp
     KwaveSampleSink.cpp
     KwaveSampleSource.cpp
     KwaveStreamObject.cpp
     Label.cpp
     LabelList.cpp
-    LineParser.cpp
     memcpy.c
     MultiTrackReader.cpp
     MultiTrackWriter.cpp
     Parser.cpp
+    PluginWorkerThread.cpp
     ppcasm_string.S
     Selection.cpp
     Signal.cpp
@@ -76,7 +68,6 @@ SET(libkwave_LIB_SRCS
     SampleFormat.cpp
     SampleReader.cpp
     SampleWriter.cpp
-    SampleLock.cpp
     StandardBitrates.cpp
     Stripe.cpp
     Track.cpp
@@ -86,28 +77,28 @@ SET(libkwave_LIB_SRCS
 
 #############################################################################
 
-KDE3_AUTOMOC(${libkwave_LIB_SRCS})
-ADD_LIBRARY(libkwave SHARED ${libkwave_LIB_SRCS})
-
-ADD_DEPENDENCIES(libkwave libkwavemt)
+QT4_AUTOMOC(${libkwave_LIB_SRCS})
+KDE4_ADD_LIBRARY(libkwave SHARED ${libkwave_LIB_SRCS})
 
 IF (NOT USE_SYSTEM_LIB_AUDIOFILE)
 TARGET_LINK_LIBRARIES(libkwave audiofile)
 ADD_DEPENDENCIES(libkwave audiofile)
 ENDIF (NOT USE_SYSTEM_LIB_AUDIOFILE)
 
+TARGET_LINK_LIBRARIES(libkwave audiofile ${QT_AND_KDECORE_LIBS})
+
 #############################################################################
 
 SET_TARGET_PROPERTIES(libkwave PROPERTIES OUTPUT_NAME "kwave")
-SET_TARGET_PROPERTIES(libkwave PROPERTIES LINK_FLAGS
-    "-Wl,--whole-archive -lkwavemt -Wl,-no-whole-archive -Wl,--export-dynamic")
+SET_TARGET_PROPERTIES(libkwave PROPERTIES LINK_FLAGS "-Wl,--export-dynamic")
 SET_TARGET_PROPERTIES(libkwave PROPERTIES
     VERSION ${KWAVE_SOVERSION} SOVERSION ${KWAVE_VERSION_MAJOR} )
+SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
 #############################################################################
 ### install files                                                         ###
 
-INSTALL(TARGETS libkwave LIBRARY DESTINATION ${KDE3_LIB_DIR})
+INSTALL(TARGETS libkwave LIBRARY DESTINATION ${LIB_INSTALL_DIR})
 
 #############################################################################
 #############################################################################

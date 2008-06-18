@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <qstring.h>
+#include <QString>
 #include <klocale.h>
 
 #include "RecordTypesMap.h"

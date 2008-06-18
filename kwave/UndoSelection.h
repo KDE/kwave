@@ -20,8 +20,7 @@
 #define _UNDO_SELECTION_H_
 
 #include "config.h"
-#include <qmemarray.h>
-#include <qstring.h>
+#include <QList>
 #include "UndoAction.h"
 
 class SignalManager;
@@ -54,7 +53,7 @@ public:
     virtual int redoSize();
 
     /** @see UndoAction::store() */
-    virtual void store(SignalManager &manager);
+    virtual bool store(SignalManager &manager);
 
     /** @see UndoAction::undo() */
     virtual UndoAction *undo(SignalManager &manager, bool with_redo);
@@ -71,7 +70,7 @@ private:
     unsigned int m_length;
 
     /** Array with indices of selected tracks. */
-    QMemArray<unsigned int> m_selected_tracks;
+    QList<unsigned int> m_selected_tracks;
 
 };
 

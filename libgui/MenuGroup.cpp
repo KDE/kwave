@@ -17,8 +17,11 @@
 
 #include "config.h"
 #include <stdio.h>
-#include <qptrlist.h>
-#include <kapp.h>
+
+#include <QHash>
+#include <QObject>
+
+#include <kapplication.h>
 
 #include "MenuNode.h"
 #include "MenuGroup.h"
@@ -35,54 +38,18 @@ MenuGroup::~MenuGroup()
 {
     clear();
 
-    QDict<MenuNode> *group_list = getGroupList();
-
-    if (group_list && (group_list->find(getName()) != 0)) {
-	group_list->remove(getName());
+    QHash<QString, MenuGroup *> &group_list = getGroupList();
+    const QString key = name();
+    if (group_list.contains(key)) {
+	group_list.remove(key);
     }
-}
-
-//*****************************************************************************
-int MenuGroup::registerChild(MenuNode *child)
-{
-    if (!child) return -1;
-
-    m_children.append(child);
-
-    // notification for the childs that our enable state changed
-    QObject::connect(
-	this, SIGNAL(sigParentEnableChanged()),
-	child, SLOT(slotParentEnableChanged())
-    );
-
-    return child->getId();
-}
-
-//*****************************************************************************
-void MenuGroup::removeChild(MenuNode *child)
-{
-    if (!child) return;
-    if (!m_children.contains(child)) return;
-
-    // notification for the childs that our enable state changed
-    QObject::disconnect(
-	this, SIGNAL(sigParentEnableChanged()),
-	child, SLOT(slotParentEnableChanged())
-    );
-
-    m_children.setAutoDelete(false);
-    m_children.remove(child);
-
-    child->leaveGroup(getName());
 }
 
 //*****************************************************************************
 void MenuGroup::setEnabled(bool enable)
 {
-    QPtrListIterator<MenuNode> it(m_children);
-    while (it.current()) {
-	it.current()->setEnabled(enable);
-	++it;
+    foreach (MenuNode *child, m_children) {
+	if (child) child->setEnabled(enable);
     }
 }
 
@@ -91,10 +58,8 @@ void MenuGroup::selectItem(const QString &uid)
 {
     MenuNode *new_selection = 0;
 
-    QPtrListIterator<MenuNode> it(m_children);
-    for ( ; it.current(); ++it) {
-	MenuNode *child = it.current();
-	if (uid == child->getUID())
+    foreach (MenuNode *child, m_children) {
+	if (child && (uid == child->uid()))
 	    new_selection = child;    // new selected child found !
 	else
 	    child->setChecked(false);    // remove check from others
@@ -109,11 +74,8 @@ void MenuGroup::selectItem(const QString &uid)
 void MenuGroup::clear()
 {
     // deregister all child nodes from us
-    MenuNode *child = m_children.first();
-    while (child) {
-	removeChild(child);
-	child = m_children.first();
-    }
+    while (!m_children.isEmpty())
+	removeChild(m_children.first());
 }
 
 //***************************************************************************

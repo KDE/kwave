@@ -15,23 +15,26 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <math.h>
 
-#include <qradiobutton.h>
-#include <qslider.h>
+#include <QRadioButton>
+#include <QSlider>
 
 #include <klocale.h>
 #include <knuminput.h>
 
-#include "libgui/IntValidatorProxy.h"
 #include "SelectRangeDialog.h"
 
 //***************************************************************************
 SelectRangeDialog::SelectRangeDialog(QWidget *widget,
     Mode start_mode, Mode range_mode, double range, double sample_rate,
     unsigned int offset, unsigned int signal_length)
-    :SelectRangeDlg(widget, 0, true)
+    :QDialog(widget), Ui::SelectRangeDlg()
 {
+    setupUi(this);
+    setModal(true);
+
     if (select_start) {
         select_start->init(SelectTimeWidget::bySamples, offset,
                            sample_rate, 0, signal_length);

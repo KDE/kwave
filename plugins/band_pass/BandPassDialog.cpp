@@ -18,15 +18,15 @@
 #include "config.h"
 #include "math.h"
 
-#include <qobject.h>
-#include <qpainter.h>
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qslider.h>
-#include <qwidget.h>
-#include <knuminput.h>
+#include <QPainter>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QWidget>
 
+#include <knuminput.h>
 #include <klocale.h>
+
 #include "libkwave/Parser.h"
 #include "libgui/ScaleWidget.h"
 #include "libgui/FrequencyResponseWidget.h"
@@ -35,20 +35,21 @@
 #include "BandPass.h"
 
 //***************************************************************************
-BandPassDialog::BandPassDialog(QWidget *parent, double sample_rate)
-    :BandPassDlg(parent, 0, true),
-     KwavePluginSetupDialog(),
+BandPassDialog::BandPassDialog(QWidget *parent, qreal sample_rate)
+    :QDialog(parent), KwavePluginSetupDialog(), Ui::BandPassDlg(),
      m_frequency(3500),m_bw(100),
      m_sample_rate(sample_rate), m_filter(0)
 {
+    setupUi(this);
+    setModal(true);
 
     // set maximum frequency to sample rate / 2
-    double f_max = sample_rate / 2.0;
+    qreal f_max = sample_rate / 2.0;
 
-    slider->setMaxValue((int)f_max);
-    slider_2->setMaxValue((int)(f_max / 2.0));
-    spinbox->setMaxValue((int)f_max);
-    spinbox_2->setMaxValue((int)(f_max / 2.0));
+    slider->setMaximum((int)f_max);
+    slider_2->setMaximum((int)(f_max / 2.0));
+    spinbox->setMaximum((int)f_max);
+    spinbox_2->setMaximum((int)(f_max / 2.0));
 
     // initialize the frequency scale widget
     scale_freq->setMinMax(0, (int)f_max);
@@ -143,11 +144,11 @@ void BandPassDialog::setParams(QStringList &params)
 {
     // evaluate the parameter list
     bool ok;
-    double frequency = params[0].toDouble(&ok);
+    qreal frequency = params[0].toDouble(&ok);
     Q_ASSERT(ok);
     if (ok) m_frequency = frequency;
 
-    double bw = params[1].toDouble(&ok);
+    qreal bw = params[1].toDouble(&ok);
     Q_ASSERT(ok);
     if (ok) m_bw = bw;
 
@@ -163,7 +164,7 @@ void BandPassDialog::setParams(QStringList &params)
 //***************************************************************************
 void BandPassDialog::updateDisplay()
 {
-    double fs = m_sample_rate;
+    qreal fs = m_sample_rate;
     if (m_filter && (fs > 0.0))
     {
         m_filter->setFrequency(QVariant(2.0 * M_PI * m_frequency / fs));
@@ -192,7 +193,7 @@ void BandPassDialog::listenToggled(bool listen)
 //***************************************************************************
 void BandPassDialog::listenStopped()
 {
-    if (btListen) btListen->setOn(false);
+    if (btListen) btListen->setChecked(false);
 }
 
 //***************************************************************************

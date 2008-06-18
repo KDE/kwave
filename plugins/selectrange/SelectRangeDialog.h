@@ -19,13 +19,16 @@
 #define _SELECT_RANGE_DIALOG_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qtimer.h>
+
+#include <QDialog>
+#include <QObject>
+#include <QTimer>
 
 #include "libgui/SelectTimeWidget.h"
-#include "SelectRangeDlg.h"
+#include "ui_SelectRangeDlg.h"
 
-class SelectRangeDialog: public SelectRangeDlg
+class SelectRangeDialog: public QDialog,
+                         public Ui::SelectRangeDlg
 {
     Q_OBJECT
 public:

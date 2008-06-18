@@ -15,13 +15,6 @@
 ##                                                                          #
 #############################################################################
 
-INCLUDE_DIRECTORIES(
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_BINARY_DIR}
-    ${KDE3_INCLUDE_DIR}
-    ${QT_INCLUDE_DIR}
-)
-
 #############################################################################
 
 SET(libkwavegui_LIB_SRCS
@@ -30,7 +23,6 @@ SET(libkwavegui_LIB_SRCS
     FileProgress.cpp
     FrequencyResponseWidget.cpp
     HMSTimeWidget.cpp
-    IntValidatorProxy.cpp
     InvertableSpinBox.cpp
     KwaveFileDialog.cpp
     LabelPropertiesWidget.cpp
@@ -40,12 +32,14 @@ SET(libkwavegui_LIB_SRCS
     MenuSub.cpp
     MenuRoot.cpp
     MenuManager.cpp
+    MessageBox.cpp
     MultiStateWidget.cpp
     OverViewCache.cpp
     OverViewWidget.cpp
     ScaleWidget.cpp
     SelectTimeWidget.cpp
     TrackPixmap.cpp
+    TreeWidgetWrapper.cpp
 )
 
 #############################################################################
@@ -58,20 +52,23 @@ SET(libkwavegui_LIB_UI
 
 #############################################################################
 
-KDE3_ADD_UI_FILES(libkwavegui_LIB_SRCS ${libkwavegui_LIB_UI} )
-KDE3_AUTOMOC(${libkwavegui_LIB_SRCS})
-ADD_LIBRARY(libkwavegui SHARED ${libkwavegui_LIB_SRCS})
-TARGET_LINK_LIBRARIES(libkwavegui  ${QT_AND_KDECORE_LIBS} )
+KDE4_ADD_UI_FILES(libkwavegui_LIB_SRCS ${libkwavegui_LIB_UI} )
+QT4_AUTOMOC(${libkwavegui_LIB_SRCS})
+KDE4_ADD_LIBRARY(libkwavegui SHARED ${libkwavegui_LIB_SRCS})
+
+ADD_DEPENDENCIES(libkwavegui libkwave)
+TARGET_LINK_LIBRARIES(libkwavegui ${QT_AND_KDECORE_LIBS})
 SET_TARGET_PROPERTIES(libkwavegui PROPERTIES OUTPUT_NAME "kwavegui")
 SET_TARGET_PROPERTIES(libkwavegui PROPERTIES LINK_FLAGS
     "-Wl,--export-dynamic")
 SET_TARGET_PROPERTIES(libkwavegui PROPERTIES
     VERSION ${KWAVE_SOVERSION} SOVERSION ${KWAVE_VERSION_MAJOR} )
+SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
 #############################################################################
 ### install files                                                         ###
 
-INSTALL(TARGETS libkwavegui LIBRARY DESTINATION ${KDE3_LIB_DIR})
+INSTALL(TARGETS libkwavegui LIBRARY DESTINATION ${LIB_INSTALL_DIR})
 
 #############################################################################
 #############################################################################

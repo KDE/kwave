@@ -20,17 +20,21 @@
 #define _TOP_WIDGET_H_
 
 #include "config.h"
-#include <qcstring.h>
-#include <qstringlist.h>
+
+#include <QPair>
+#include <QString>
+#include <QVector>
+
 #include <kmainwindow.h>
 #include <kurl.h>
 
 class QCloseEvent;
+class QTextStream;
 class QTimer;
 
 class KCombo;
+class KComboBox;
 class KDNDDropZone;
-class KToolBar;
 class KStatusBar;
 
 class KwaveApp;
@@ -73,7 +77,7 @@ public:
      * @param url URL of the file to be loaded
      * @return 0 if successful
      */
-    int loadFile(const KURL &url);
+    int loadFile(const KUrl &url);
 
     /**
      * Returns the reference to the Kwave application
@@ -87,12 +91,12 @@ public:
     QString signalName();
 
     /**
-     * Parses a buffer (that is intended to contain the content
-     * of a text file) into lines with commands and executes all
-     * parsed commands.
-     * @param buffer the list of commands
+     * Parses a text stream line by line and executes each line
+     * as a command until all commands are done or the first one fails.
+     * @param stream a QTextStream to read from
+     * @return zero if successful, non-zero error code if a command failed
      */
-    int parseCommands(const QByteArray &buffer);
+    int parseCommands(QTextStream &stream);
 
     /**
      * Loads a batch file into memory, parses and executes
@@ -306,24 +310,16 @@ protected:
 
 private:
 
-    /**
-     * Primitive class that holds a list of predefined zoom
-     * factors.
-     */
-    class ZoomListPrivate: public QStringList
-    {
-    public:
-	ZoomListPrivate();
-	virtual ~ZoomListPrivate() {};
-	unsigned int ms(int index);
-    private:
-	void append(const char *text, unsigned int ms);
-    private:
-	QValueList<unsigned int> m_milliseconds;
-    };
+    /** creates a toolbar with Kwave's default settings */
+    virtual KToolBar *toolBar(const QString &name);
+
+    /** typedef for an entry in the list of zoom factors */
+    typedef QPair<QString, unsigned int> ZoomFactor;
+
+private:
 
     /** Initialized list of zoom factors */
-    ZoomListPrivate m_zoom_factors;
+    QVector< ZoomFactor > m_zoom_factors;
 
     /** reference to the main kwave application */
     KwaveApp &m_app;
@@ -340,12 +336,6 @@ private:
     /** combo box for selection of the zoom factor */
     KComboBox *m_zoomselect;
 
-    /**
-     * toolbar for controlling file operations, copy&paste,
-     * playback and zoom
-     */
-    KToolBar *m_toolbar;
-
     /** menu manager for this window */
     MenuManager *m_menu_manager;
 
@@ -356,40 +346,40 @@ private:
     bool m_blink_on;
 
     /** member id of the "edit undo" toolbar button */
-    int m_id_undo;
+    QAction *m_action_undo;
 
     /** member id of the "edit redo" toolbar button */
-    int m_id_redo;
+    QAction *m_action_redo;
 
     /** member id of the "start playback" toolbar button */
-    int m_id_play;
+    QAction *m_action_play;
 
     /** member id of the "start playback and loop" toolbar button */
-    int m_id_loop;
+    QAction *m_action_loop;
 
     /** member id of the "pause playback" toolbar button */
-    int m_id_pause;
+    QAction *m_action_pause;
 
     /** member id of the "stop playback" toolbar button */
-    int m_id_stop;
+    QAction *m_action_stop;
 
     /** member id of the "zoom to selection" toolbar button */
-    int m_id_zoomselection;
+    QAction *m_action_zoomselection;
 
     /** member id of the "zoom in" toolbar button */
-    int m_id_zoomin;
+    QAction *m_action_zoomin;
 
     /** member id of the "zoom out" toolbar button */
-    int m_id_zoomout;
+    QAction *m_action_zoomout;
 
     /** member id of the "zoom to 100%" toolbar button */
-    int m_id_zoomnormal;
+    QAction *m_action_zoomnormal;
 
     /** member id of the "zoom to all" toolbar button */
-    int m_id_zoomall;
+    QAction *m_action_zoomall;
 
     /** member id of the "zoom factor" combobox in the toolbar */
-    int m_id_zoomselect;
+    QAction *m_action_zoomselect;
 
 };
 

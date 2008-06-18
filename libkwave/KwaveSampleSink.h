@@ -19,7 +19,7 @@
 #define _KWAVE_SAMPLE_SINK_H_
 
 #include "config.h"
-#include <qobject.h>
+#include <QObject>
 
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveStreamObject.h"
@@ -33,10 +33,8 @@ namespace Kwave {
          * Constructor
          *
          * @param parent a parent object, passed to QObject (optional)
-         * @param name a free name, for identifying this object,
-         *             will be passed to the QObject (optional)
          */
-        SampleSink(QObject *parent=0, const char *name=0);
+        SampleSink(QObject *parent=0);
 
         /** Destructor */
         virtual ~SampleSink();
@@ -48,7 +46,7 @@ namespace Kwave {
          *
          * @return true if the sink can't receive more data, otherwise false
          */
-        virtual bool done() { return false; };
+        virtual bool done() const { return false; };
 
     };
 }

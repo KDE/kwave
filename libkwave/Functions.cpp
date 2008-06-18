@@ -15,6 +15,9 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+#include <math.h>
+
 #include <klocale.h>
 #include "Functions.h"
 
@@ -124,7 +127,7 @@ QString Functions::name(unsigned int index)
 }
 
 //***************************************************************************
-periodic_function_t &Functions::function(unsigned int index)
+Functions::periodic_function_t &Functions::function(unsigned int index)
 {
     periodic_function_t *f = 0;
 

@@ -19,10 +19,11 @@
 #define _STATUS_WIDGET_H_
 
 #include "config.h"
-#include <qwidget.h>
-#include <qpixmap.h>
-#include <qvaluevector.h>
-#include <qtimer.h>
+
+#include <QWidget>
+#include <QPixmap>
+#include <QVector>
+#include <QTimer>
 
 /**
  * Widget needed to display a little icon in the status bar
@@ -44,7 +45,7 @@ public:
      * @param speed if multiple pixmaps are given, the time in milliseconds
      *              between the pixmaps, for animation
      */
-    void setPixmaps(const QValueVector<QPixmap> &pixmaps,
+    void setPixmaps(const QVector<QPixmap> &pixmaps,
                     unsigned int speed=150);
 
 protected:
@@ -57,8 +58,9 @@ private slots:
     void nextPixmap();
 
 private:
+
     /** the pixmap to show */
-    QValueVector<QPixmap> m_pixmaps;
+    QVector<QPixmap> m_pixmaps;
 
     /** index of the current pixmap */
     unsigned int m_index;

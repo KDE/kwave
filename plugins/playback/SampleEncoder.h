@@ -19,9 +19,10 @@
 #define _SAMPLE_ENCODER_H_
 
 #include "config.h"
-#include <qcstring.h> // for QByteArray
-#include <qmemarray.h>
 
+#include <QByteArray>
+
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
 
 class SampleEncoder
@@ -39,7 +40,7 @@ public:
      * @param count number of samples
      * @param raw_data array with raw encoded audio data
      */
-    virtual void encode(const QMemArray<sample_t> &samples,
+    virtual void encode(const Kwave::SampleArray &samples,
                         unsigned int count,
                         QByteArray &raw_data) = 0;
 

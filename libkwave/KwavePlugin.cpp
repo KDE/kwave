@@ -23,13 +23,12 @@
 #include <dlfcn.h>
 #include <sched.h>
 
-#include <qwidget.h>
+#include <QWidget>
+#include <QVector>
 
-#include <kapp.h>
+#include <kapplication.h>
 #include <kglobal.h>
 #include <klocale.h>
-
-#include "mt/Thread.h"
 
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/MultiTrackReader.h"
@@ -39,6 +38,7 @@
 #include "libkwave/Signal.h"
 #include "libkwave/Track.h"
 #include "libkwave/PluginContext.h"
+#include "libkwave/PluginWorkerThread.h"
 
 #include "kwave/PluginManager.h"
 #include "kwave/TopWidget.h"
@@ -70,9 +70,7 @@ KwavePlugin::KwavePlugin(const PluginContext &c)
      m_thread(0),
      m_thread_lock(),
      m_usage_count(0),
-     m_usage_lock(),
-     m_spx_running(this, SLOT(forwardSigRunning())),
-     m_spx_done(this, SLOT(forwardSigDone()))
+     m_usage_lock()
 {
     use();
 }
@@ -87,10 +85,10 @@ KwavePlugin::~KwavePlugin()
     {
 	QMutexLocker lock(&m_thread_lock);
 	if (m_thread) {
-	    if (m_thread->running()) m_thread->wait(5000);
-	    if (m_thread->running()) m_thread->stop();
-	    if (m_thread->running()) m_thread->wait(1000);
-	    if (m_thread->running()) {
+	    if (m_thread->isRunning()) m_thread->wait(5000);
+	    if (m_thread->isRunning()) m_thread->stop();
+	    if (m_thread->isRunning()) m_thread->wait(1000);
+	    if (m_thread->isRunning()) {
 		// unable to stop the thread
 		qWarning("KwavePlugin::stop(): stale thread !");
 	    }
@@ -141,17 +139,17 @@ int KwavePlugin::start(QStringList &)
 //***************************************************************************
 int KwavePlugin::stop()
 {
-    if (m_thread && m_thread->running() &&
-	(pthread_self() == m_thread->threadID())) {
+    if (m_thread && m_thread->isRunning() &&
+	(QThread::currentThread() == m_thread)) {
 	qWarning("KwavePlugin::stop(): plugin '%s' called stop() from "\
 	         "within it's own worker thread (from run() ?). "\
 	         "This would produce a deadlock, dear %s, PLEASE FIX THIS !",
-	         name().local8Bit().data(),
-		 author().local8Bit().data());
+	         name().toLocal8Bit().data(),
+		 author().toLocal8Bit().data());
 
 #ifdef DEBUG
-	qDebug("pthread_self()=%08X, tid=%08X", (unsigned int)pthread_self(),
-	      (unsigned int)m_thread->threadID());
+	qDebug("pthread_self()=%p, tid=%p",
+	       QThread::currentThread(), m_thread);
 	void *buf[256];
 	size_t n = backtrace(buf, 256);
 	backtrace_symbols_fd(buf, n, 2);
@@ -162,10 +160,10 @@ int KwavePlugin::stop()
     {
 	QMutexLocker lock(&m_thread_lock);
 	if (m_thread) {
-	    if (m_thread->running()) m_thread->wait(5000);
-	    if (m_thread->running()) m_thread->stop();
-	    if (m_thread->running()) m_thread->wait(1000);
-	    if (m_thread->running()) {
+	    if (m_thread->isRunning()) m_thread->wait(5000);
+	    if (m_thread->isRunning()) m_thread->stop();
+	    if (m_thread->isRunning()) m_thread->wait(1000);
+	    if (m_thread->isRunning()) {
 		// unable to stop the thread
 		qWarning("KwavePlugin::stop(): stale thread !");
 	    }
@@ -181,19 +179,12 @@ int KwavePlugin::execute(QStringList &params)
 {
     QMutexLocker lock(&m_thread_lock);
 
-    m_thread = new Asynchronous_Object_with_1_arg<KwavePlugin, QStringList>(
-	this, &KwavePlugin::run_wrapper,params);
+    m_thread = new Kwave::PluginWorkerThread(this, params);
     Q_ASSERT(m_thread);
     if (!m_thread) return -ENOMEM;
 
     // start the thread, this executes run()
     m_thread->start();
-
-    // sometimes the signal proxies remain blocked until an initial
-    // X11 event occurs and thus might block the thread :-(
-    QApplication::syncX();
-    Q_ASSERT(qApp);
-    if (qApp) qApp->wakeUpGuiThread();
 
     return 0;
 }
@@ -201,7 +192,7 @@ int KwavePlugin::execute(QStringList &params)
 //***************************************************************************
 bool KwavePlugin::isRunning()
 {
-    return m_thread && m_thread->running();
+    return (m_thread) && m_thread->isRunning();
 }
 
 //***************************************************************************
@@ -213,35 +204,23 @@ void KwavePlugin::run(QStringList)
 void KwavePlugin::run_wrapper(QStringList params)
 {
     // signal that we are running
-    m_spx_running.AsyncHandler();
+    emit sigRunning(this);
 
     // call the plugin's run function in this worker thread context
     run(params);
 
     // emit the "done" signal
-    m_spx_done.AsyncHandler();
+    emit sigDone(this);
 
     release();
-}
-
-//***************************************************************************
-void KwavePlugin::forwardSigRunning()
-{
-    emit sigRunning(this);
-}
-
-//***************************************************************************
-void KwavePlugin::forwardSigDone()
-{
-    emit sigDone(this);
 }
 
 //***************************************************************************
 void KwavePlugin::close()
 {
     // only call stop() if we are NOT in the worker thread / run function !
-    if (m_thread && m_thread->running() &&
-        (pthread_self() != m_thread->threadID()) )
+    if (m_thread && m_thread->isRunning() &&
+        (QThread::currentThread() != m_thread) )
     {
 	stop();
     }
@@ -268,9 +247,7 @@ void KwavePlugin::release()
 	}
     }
 
-    if (finished) {
-	emit sigClosed(this);
-    }
+    if (finished) emit sigClosed(this);
 }
 
 //***************************************************************************
@@ -310,13 +287,13 @@ unsigned int KwavePlugin::signalLength()
 }
 
 //***************************************************************************
-double KwavePlugin::signalRate()
+qreal KwavePlugin::signalRate()
 {
     return manager().signalRate();
 }
 
 //***************************************************************************
-const QMemArray<unsigned int> KwavePlugin::selectedTracks()
+const QList<unsigned int> KwavePlugin::selectedTracks()
 {
     return manager().selectedTracks();
 }
@@ -359,7 +336,7 @@ void *KwavePlugin::handle()
 }
 
 //***************************************************************************
-QString KwavePlugin::zoom2string(double percent)
+QString KwavePlugin::zoom2string(qreal percent)
 {
     QString result = "";
 
@@ -367,7 +344,7 @@ QString KwavePlugin::zoom2string(double percent)
 	int digits = (int)ceil(1.0 - log10(percent));
 	QString format;
 	format = "%0."+format.setNum(digits)+"f %%";
-	result = format.sprintf(format, percent);
+	result = format.sprintf(format.toUtf8(), percent);
     } else if (percent < 10.0) {
 	result = result.sprintf("%0.1f %%", percent);
     } else if (percent < 1000.0) {
@@ -379,7 +356,7 @@ QString KwavePlugin::zoom2string(double percent)
 }
 
 //***************************************************************************
-QString KwavePlugin::ms2string(double ms, int precision)
+QString KwavePlugin::ms2string(qreal ms, int precision)
 {
     char buf[128];
     int bufsize = 128;
@@ -400,7 +377,7 @@ QString KwavePlugin::ms2string(double ms, int precision)
 
 	if (m < 1) {
 	    char format[128];
-	    int digits = (int)ceil((double)(precision+1) - log10(ms));
+	    int digits = (int)ceil((qreal)(precision+1) - log10(ms));
 	    snprintf(format, sizeof(format), "%%0.%df s", digits);
 	    snprintf(buf, bufsize, format, ms / 1000.0);
 	} else {
@@ -417,7 +394,7 @@ QString KwavePlugin::dottedNumber(unsigned int number)
 {
     const QString num = QString::number(number);
     QString dotted = "";
-    const QString &dot = KGlobal::locale()->thousandsSeparator();
+    const QString dot = KGlobal::locale()->thousandsSeparator();
     const int len = num.length();
     for (int i=len-1; i >= 0; i--) {
 	if ((i != len-1) && !((len-i-1) % 3)) dotted = dot + dotted;

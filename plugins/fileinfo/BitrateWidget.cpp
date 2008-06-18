@@ -16,17 +16,20 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <stdlib.h> // for abs()
 
-#include <qslider.h>
-#include <qspinbox.h>
+#include <QtGlobal>
+#include <QSlider>
+#include <QSpinBox>
+
 #include "BitrateSpinBox.h"
 #include "BitrateWidget.h"
 
 /***************************************************************************/
-BitrateWidget::BitrateWidget(QWidget *parent, const char *name)
-    :BitrateWidgetBase(parent, name), m_rates()
+BitrateWidget::BitrateWidget(QWidget *parent)
+    :QWidget(parent),
+     Ui::BitrateWidgetBase(), m_rates()
 {
+    setupUi(this);
     m_rates.append(0); // don't let it stay empty, that makes life easier
 
     connect(slider, SIGNAL(valueChanged(int)),
@@ -66,18 +69,17 @@ void BitrateWidget::setSpecialValueText(const QString &text)
 }
 
 /***************************************************************************/
-void BitrateWidget::allowRates(const QValueList<int> &list)
+void BitrateWidget::allowRates(const QList<int> &list)
 {
     int old_value = value();
 
-    m_rates.clear();
-    m_rates += list;
+    m_rates = list;
     if (m_rates.isEmpty()) m_rates.append(0);
 
     // set new ranges
     spinbox->allowRates(m_rates);
-    slider->setMinValue(m_rates.first());
-    slider->setMaxValue(m_rates.last());
+    slider->setMinimum(m_rates.first());
+    slider->setMaximum(m_rates.last());
 
     setValue(old_value);
 }
@@ -87,12 +89,11 @@ int BitrateWidget::nearestIndex(int rate)
 {
     // find the nearest value
     int nearest = 0;
-    QValueList<int>::iterator it;
-    for (it=m_rates.begin(); it != m_rates.end(); ++it)
-	if (abs(*it - rate) < abs(nearest - rate)) nearest = *it;
+    foreach(int i, m_rates)
+	if (qAbs(i - rate) < qAbs(nearest - rate)) nearest = i;
 
     // find the index
-    int index = m_rates.findIndex(nearest);
+    int index = m_rates.contains(nearest) ? m_rates.indexOf(nearest) : 0;
 
     // limit the index into a reasonable range
     if (index < 0)                    index = 0;

@@ -20,8 +20,8 @@
 #define _PARSER_H_
 
 #include "config.h"
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QString>
+#include <QStringList>
 
 //*****************************************************************************
 class Parser
@@ -61,7 +61,7 @@ public:
 
     /** Returns true if the end of the parameter list has been reached. */
     inline bool isDone () {
-	return (m_current >= m_param.count());
+	return ((int)m_current >= m_param.count());
     };
 
     /** Returns the number of parameters. */

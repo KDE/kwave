@@ -20,7 +20,6 @@
 #include <qdatetime.h>
 
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <kmimetype.h>
 
 #include "libkwave/CompressionType.h"
@@ -28,6 +27,8 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
+
+#include "libgui/MessageBox.h"
 
 #include "FlacCodecPlugin.h"
 #include "FlacDecoder.h"
@@ -53,9 +54,9 @@ Decoder *FlacDecoder::instance()
 }
 
 //***************************************************************************
-#if defined(FLAC_API_VERSION_1_1_2) || defined(FLAC_API_VERSION_1_1_1_OR_OLDER)
+#if defined(FLAC_API_VERSION_1_1_2)
 ::FLAC__StreamDecoderReadStatus FlacDecoder::read_callback(
-        FLAC__byte buffer[], unsigned int *bytes)
+        FLAC__byte buffer[], unsigned *bytes)
 #else
 ::FLAC__StreamDecoderReadStatus FlacDecoder::read_callback(
         FLAC__byte buffer[], size_t *bytes)
@@ -72,8 +73,10 @@ Decoder *FlacDecoder::instance()
     }
 
     // read into application buffer
-    Q_LONG len = *bytes;
-    *bytes = m_source->readBlock((char*)(&(buffer[0])), len);
+    *bytes = static_cast<unsigned>(m_source->read(
+        reinterpret_cast<char *>(&(buffer[0])),
+        static_cast<qint64>(*bytes)
+    ));
 
     if (!*bytes) return FLAC__STREAM_DECODER_READ_STATUS_END_OF_STREAM;
 
@@ -99,8 +102,7 @@ Decoder *FlacDecoder::instance()
     if (!samples || !tracks)
         return FLAC__STREAM_DECODER_WRITE_STATUS_ABORT;
 
-    QMemArray<sample_t> dst;
-    dst.resize(samples);
+    Kwave::SampleArray dst(samples);
 
     // expand the samples up to the correct number of bits
     int shift = SAMPLE_BITS - m_info.bits();
@@ -133,7 +135,7 @@ Decoder *FlacDecoder::instance()
     }
 
     // at this point we check for a user-cancel
-    return (m_dest->isCancelled()) ?
+    return (m_dest->isCanceled()) ?
 	FLAC__STREAM_DECODER_WRITE_STATUS_ABORT :
 	FLAC__STREAM_DECODER_WRITE_STATUS_CONTINUE;
 }
@@ -163,23 +165,12 @@ void FlacDecoder::parseVorbisComments(
         const FLAC::Metadata::VorbisComment &vorbis_comments)
 {
     // first of all: the vendor string, specifying the software
-#if defined(FLAC_API_VERSION_1_1_1_OR_OLDER)
-    if (vorbis_comments.get_vendor_string().is_valid()) {
-	const FLAC::Metadata::VorbisComment::Entry &entry =
-		vorbis_comments.get_vendor_string();
-
-	QString s = QString::fromUtf8(
-		entry.get_field(),
-		entry.get_field_length());
-	m_info.set(INF_SOFTWARE, s);
-	qDebug("Encoded by: '%s'\n\n", s.local8Bit().data());
-    }
-#elif defined(FLAC_API_VERSION_1_1_2) || defined(FLAC_API_VERSION_1_1_3)
+#if defined(FLAC_API_VERSION_1_1_2) || defined(FLAC_API_VERSION_1_1_3)
     QString vendor = QString::fromUtf8(reinterpret_cast<const char *>(
 	vorbis_comments.get_vendor_string()));
     if (vendor.length()) {
 	m_info.set(INF_SOFTWARE, vendor);
-	qDebug("Encoded by: '%s'\n\n", vendor.local8Bit().data());
+	qDebug("Encoded by: '%s'\n\n", vendor.toLocal8Bit().data());
     }
 #else
     #error "no usable FLAC API found"
@@ -282,17 +273,17 @@ bool FlacDecoder::open(QWidget *widget, QIODevice &src)
     set_metadata_respond_all();
 
     // initialize the stream
-#if defined(FLAC_API_VERSION_1_1_3)
+#if defined(FLAC_API_VERSION_1_1_3) /* or newer */
     FLAC__StreamDecoderInitStatus init_state = init();
     if (init_state > FLAC__STREAM_DECODER_INIT_STATUS_OK) {
-        KMessageBox::error(widget, i18n(
+        Kwave::MessageBox::error(widget, i18n(
            "opening the FLAC bitstream failed."));
         return false;
     }
 #else /* API v1.1.2 and older */
     FLAC::Decoder::Stream::State init_state = init();
     if (init_state >= FLAC__STREAM_DECODER_END_OF_STREAM) {
-        KMessageBox::error(widget, i18n(
+        Kwave::MessageBox::error(widget, i18n(
            "opening the FLAC bitstream failed."));
         return false;
     }
@@ -303,7 +294,7 @@ bool FlacDecoder::open(QWidget *widget, QIODevice &src)
 
     FLAC::Decoder::Stream::State state = get_state();
     if (state >= FLAC__STREAM_DECODER_END_OF_STREAM) {
-	KMessageBox::error(widget, i18n(
+	Kwave::MessageBox::error(widget, i18n(
 	   "error while parsing FLAC metadata. (%s)"),
 	   state.as_cstring());
 	return false;

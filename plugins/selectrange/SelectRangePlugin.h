@@ -19,9 +19,10 @@
 #define _SELECT_RANGE_PLUGIN_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qstring.h>
-#include <qstringlist.h>
+
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
 #include "libkwave/KwavePlugin.h"
 #include "libgui/SelectTimeWidget.h"

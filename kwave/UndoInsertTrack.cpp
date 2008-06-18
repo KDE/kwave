@@ -52,10 +52,11 @@ int UndoInsertTrack::redoSize()
 }
 
 //***************************************************************************
-void UndoInsertTrack::store(SignalManager &)
+bool UndoInsertTrack::store(SignalManager &)
 {
     // nothing to do, the track number has already
     // been stored in the constructor
+    return true;
 }
 
 //***************************************************************************

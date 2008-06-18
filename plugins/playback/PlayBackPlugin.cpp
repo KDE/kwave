@@ -23,20 +23,15 @@
 #include <stdlib.h>
 #include <errno.h>
 
-#include <qcursor.h>
-#include <qmemarray.h>
-#include <qfile.h>
-#include <qmutex.h>
-#include <qprogressdialog.h>
-#include <qptrvector.h>
-#include <qstring.h>
-#include <qdatetime.h>
+#include <QCursor>
+#include <QFile>
+#include <QMutex>
+#include <QProgressDialog>
+#include <QString>
+#include <QDateTime>
 
-#include <kapp.h>
+#include <kapplication.h>
 #include <kconfig.h>
-#include <kmessagebox.h>
-
-#include "mt/ThreadsafeX11Guard.h"
 
 #include "libkwave/Curve.h"
 #include "libkwave/CurveStreamAdapter.h"
@@ -54,13 +49,14 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 
+#include "libgui/MessageBox.h"
+
 #include "kwave/PlaybackController.h"
 #include "kwave/PluginManager.h"
 #include "kwave/SignalManager.h"
 
 #include "PlayBack-OSS.h"
 #include "PlayBack-ALSA.h"
-#include "PlayBack-aRts.h"
 
 #include "PlayBackDialog.h"
 #include "PlayBackPlugin.h"
@@ -70,21 +66,19 @@ KWAVE_PLUGIN(PlayBackPlugin,"playback","Thomas Eschenbacher");
 /** Sets the number of screen refreshes per second when in playback mode */
 #define SCREEN_REFRESHES_PER_SECOND 16
 
-/** Mutex for the aRts daemon, it seems to be not threadsafe */
-static QMutex *g_arts_lock;
-
 //***************************************************************************
 PlayBackPlugin::PlayBackPlugin(const PluginContext &context)
     :KwavePlugin(context), m_dialog(0),
     m_device(0), m_lock_device(), m_playback_params(),
     m_playback_controller(manager().playbackController()),
-    m_spx_playback_done(&m_playback_controller, SLOT(playbackDone())),
-    m_spx_playback_pos(this, SLOT(updatePlaybackPos())),
     m_stop(false),
     m_old_first(0),
     m_old_last(0)
 {
-    m_spx_playback_pos.setLimit(8); // limit for the queue
+    connect(this, SIGNAL(sigPlaybackDone()),
+            &m_playback_controller, SLOT(playbackDone()));
+    connect(this, SIGNAL(sigPlaybackPos(unsigned int)),
+            &m_playback_controller, SLOT(updatePlaybackPos(unsigned int)));
 
     // register as a factory for playback devices
     manager().registerPlaybackDeviceFactory(this);
@@ -106,10 +100,6 @@ PlayBackPlugin::~PlayBackPlugin()
     m_stop = true;
     if (m_device) delete m_device;
     m_device = 0;
-
-    // delete the aRts mutex/lock
-    if (g_arts_lock) delete g_arts_lock;
-    g_arts_lock = 0;
 }
 
 //***************************************************************************
@@ -126,8 +116,7 @@ int PlayBackPlugin::interpreteParameters(QStringList &params)
     unsigned int method = param.toUInt(&ok);
     Q_ASSERT(ok);
     if (!ok) return -EINVAL;
-    Q_ASSERT(method < PLAYBACK_INVALID);
-    if (method >= PLAYBACK_INVALID) return -EINVAL;
+    if (method >= PLAYBACK_INVALID) method = PLAYBACK_NONE;
     m_playback_params.method = (playback_method_t)method;
 
     // parameter #1: playback device [/dev/dsp , ... ]
@@ -171,7 +160,7 @@ QStringList *PlayBackPlugin::setup(QStringList &previous_params)
 {
     // sorry, cannot do setup while the playback is running
     if (isRunning()) {
-	KMessageBox::sorry(parentWidget(),
+	Kwave::MessageBox::sorry(parentWidget(),
 	    i18n("Playback is currently running."
 	         "Please stop playback first and then try again"),
 	    i18n("Sorry"));
@@ -229,6 +218,9 @@ QStringList *PlayBackPlugin::setup(QStringList &previous_params)
 	    // parameter #4: base of buffer size [8 ... 16]
 	    param = param.setNum(m_playback_params.bufbase);
 	    result->append(param);
+
+	    qDebug("playback >>> '%s", QString(result->join("','") +
+		"'").toLocal8Bit().data());
 	}
     }
 
@@ -248,22 +240,11 @@ bool PlayBackPlugin::supportsDevice(const QString &name)
 }
 
 //***************************************************************************
-PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t method)
+PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t &method)
 {
     bool searching = false;
     do {
 	switch (method) {
-#ifdef HAVE_ARTS_SUPPORT
-	    case PLAYBACK_ARTS: {
-		ThreadsafeX11Guard x11_guard;
-
-		// if no mutex exists: make a new, parent is global app!
-		if (!g_arts_lock) g_arts_lock = new QMutex();
-		Q_ASSERT(g_arts_lock);
-
-		return new PlayBackArts(*g_arts_lock);
-	    }
-#endif /* HAVE_ARTS_SUPPORT */
 
 #ifdef HAVE_OSS_SUPPORT
 	    case PLAYBACK_OSS:
@@ -300,45 +281,47 @@ PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t method)
 //***************************************************************************
 void PlayBackPlugin::setMethod(playback_method_t method)
 {
-    KConfig *cfg = KGlobal::config();
-    Q_ASSERT(cfg);
+    qDebug("PlayBackPlugin::setMethod(%d)", (int)method);
+    QString last_device_name = m_playback_params.device;
 
-//     qDebug("PlayBackPlugin::setMethod(%d)", (int)method);
+    // set hourglass cursor
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
     // change the playback method (class PlayBackDevice)
     if ((method != m_playback_params.method) || !m_device) {
 	if (m_device) delete m_device;
 	m_device = 0;
 
-	// set hourglass cursor
-	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
 	// remember the device selection, just for the GUI
 	// for the next time this method gets selected
 	// change in method -> save the current device and use
 	// the previous one
-	if (cfg && m_dialog) {
-	    QString device = "";
-	    cfg->setGroup("plugin "+name());
+	QString device = "";
+	QString section = "plugin "+name();
+	KConfigGroup cfg = KGlobal::config()->group(section);
+	if (m_dialog) {
 
 	    // save the current device
-	    cfg->writeEntry(QString("last_device_%1").arg(
+	    cfg.writeEntry(QString("last_device_%1").arg(
 		(int)m_playback_params.method),
 		m_dialog->params().device);
-// 	    qDebug(">>> %d -> '%s'",
-// 	           (int)m_playback_params.method,
-// 	           m_dialog->params().device.data());
-	    cfg->sync();
+	    qDebug(">>> %d -> '%s'",
+	           (int)m_playback_params.method,
+	           m_dialog->params().device.toLocal8Bit().data());
+	    cfg.sync();
+	}
 
+	// NOTE: the "method" may get modified here if not supported!
+	m_device = createDevice(method);
+
+	if (m_dialog) {
 	    // restore the previous one
-	    device = cfg->readEntry(
-	        QString("last_device_%1").arg((int)method));
-// 	    qDebug("<<< %d -> '%s'", (int)method, device.data());
+	    device = cfg.readEntry(QString("last_device_%1").arg((int)method));
+	    qDebug("<<< %d -> '%s'", (int)method, device.toLocal8Bit().data());
+	    last_device_name = device;
 	    m_playback_params.device = device;
 	    m_dialog->setDevice(m_playback_params.device);
 	}
-
-	m_device = createDevice(method);
     }
     Q_ASSERT(m_device);
 
@@ -350,7 +333,7 @@ void PlayBackPlugin::setMethod(playback_method_t method)
     // take the change in the method
     m_playback_params.method = method;
 
-    // activate the cange in the dialog
+    // activate the change in the dialog
     if (m_dialog) m_dialog->setMethod(method);
 
     // set list of supported devices
@@ -361,7 +344,7 @@ void PlayBackPlugin::setMethod(playback_method_t method)
 
     // set current device (again), no matter if supported or not,
     // the dialog will take care of this.
-    setDevice(m_playback_params.device);
+    setDevice(last_device_name);
 
     // check the filter for the "select..." dialog. If it is
     // empty, the "select" dialog will be disabled
@@ -382,7 +365,7 @@ void PlayBackPlugin::setDevice(const QString &device)
     if (m_dialog) m_dialog->setDevice(device);
     m_playback_params.device = device;
 
-    QValueList<unsigned int> supported_bits;
+    QList<unsigned int> supported_bits;
     if (m_device) supported_bits = m_device->supportedBits(device);
     if (m_dialog) m_dialog->setSupportedBits(supported_bits);
 
@@ -394,13 +377,13 @@ void PlayBackPlugin::setDevice(const QString &device)
 
 //***************************************************************************
 PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
-    const PlayBackParam *playback_params)
+    int tracks, const PlayBackParam *playback_params)
 {
     QString device_name = name;
     PlayBackParam params;
     PlayBackDevice *device = 0;
 
-//     qDebug("PlayBackPlugin::openDevice('%s',params)",name.data());
+    qDebug("PlayBackPlugin::openDevice('%s',params)",name.toLocal8Bit().data());
 
     if (!playback_params) {
 	// use default parameters if none given
@@ -413,6 +396,9 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 	// use given parameters
 	params = *playback_params;
     }
+
+    // override the number of tracks if not negative
+    if (tracks > 0) params.channels = tracks;
 
     // use default device if no name is given
     if (!device_name.length()) device_name = params.device;
@@ -443,8 +429,8 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 	device = 0;
 
 	// show an error message box
-	KMessageBox::error(parentWidget(), result,
-	    i18n("unable to open '%1'").arg(
+	Kwave::MessageBox::error(parentWidget(), result,
+	    i18n("unable to open '%1'",
 	    params.device.section('|',0,0)));
     }
 
@@ -481,11 +467,11 @@ void PlayBackPlugin::startDevicePlayBack()
 
     // open the device and abort if not possible
     qDebug("PlayBackPlugin::startDevicePlayBack(), device='%s'",
-          m_playback_params.device.local8Bit().data());
-    m_device = openDevice(m_playback_params.device, &m_playback_params);
+          m_playback_params.device.toLocal8Bit().data());
+    m_device = openDevice(m_playback_params.device, -1, &m_playback_params);
     if (!m_device) {
 	// simulate a "playback done" on errors
-	playbackDone();
+	emit sigPlaybackDone();
 	return;
     }
 
@@ -556,12 +542,12 @@ void PlayBackPlugin::run(QStringList)
     unsigned int out_channels = m_playback_params.channels;
 
     // get the list of selected channels
-    QMemArray<unsigned int> audible_tracks = selectedTracks();
+    QList<unsigned int> audible_tracks = selectedTracks();
     unsigned int audible_count = audible_tracks.count();
     if (!audible_count) {
 	// not even one selected track
 	qDebug("PlayBackPlugin::run(): no audible track(s) !");
-	playbackDone();
+	emit sigPlaybackDone();
 	return;
     }
 
@@ -593,14 +579,14 @@ void PlayBackPlugin::run(QStringList)
 
     // loop until process is stopped
     // or run once if not in loop mode
-    QMemArray<sample_t> in_samples(audible_count);
-    QMemArray<sample_t> out_samples(out_channels);
+    Kwave::SampleArray in_samples(audible_count);
+    Kwave::SampleArray out_samples(out_channels);
     unsigned int pos = m_playback_controller.currentPos();
 
     // counter for refresh of the playback position
     unsigned int pos_countdown = 0;
 
-    m_spx_playback_pos.enqueue(pos);
+    emit sigPlaybackPos(pos);
     do {
 
 	// if current position is after start -> skip the passed
@@ -646,7 +632,7 @@ void PlayBackPlugin::run(QStringList)
 	    if (!pos_countdown) {
 		pos_countdown = (unsigned int)ceil(m_playback_params.rate /
 			SCREEN_REFRESHES_PER_SECOND);
-		m_spx_playback_pos.enqueue(pos);
+		emit sigPlaybackPos(pos);
 	    } else {
 		--pos_countdown;
 	    }
@@ -667,34 +653,8 @@ void PlayBackPlugin::run(QStringList)
     m_device = 0;
 
     // playback is done
-    playbackDone();
+    emit sigPlaybackDone();
 //    qDebug("PlayBackPlugin::run() done.");
-}
-
-//***************************************************************************
-void PlayBackPlugin::updatePlaybackPos()
-{
-    unsigned int count = m_spx_playback_pos.count();
-    unsigned int pos = 0;
-
-    // dequeue all pointers and keep the latest one
-    if (!count) return;
-    while (count--) {
-	unsigned int *ppos = m_spx_playback_pos.dequeue();
-	Q_ASSERT(ppos);
-	if (!ppos) continue;
-	pos = *ppos;
-	delete ppos;
-    }
-
-   m_playback_controller.updatePlaybackPos(pos);
-}
-
-//***************************************************************************
-void PlayBackPlugin::playbackDone()
-{
-    // generate a "playback done" event through the signal proxy
-    m_spx_playback_done.AsyncHandler();
 }
 
 //***************************************************************************
@@ -710,6 +670,13 @@ void PlayBackPlugin::testPlayBack()
     if (!m_dialog) return;
     PlayBackParam playback_params = m_dialog->params();
 
+    // check if we really have selected a playback device
+    if (!playback_params.device.length()) {
+	Kwave::MessageBox::sorry(m_dialog, i18n(
+	    "please select a playback device first"));
+	return;
+    }
+
     unsigned int tracks = playback_params.channels;
     double rate         = playback_params.rate;
     Q_ASSERT(tracks);
@@ -721,7 +688,6 @@ void PlayBackPlugin::testPlayBack()
 
     // create the multi track playback sink
     Kwave::SampleSink *sink = manager().openMultiTrackPlayback(tracks);
-    Q_ASSERT(sink);
     if (!sink) return;
 
     float t_period = t_sweep * tracks;
@@ -782,18 +748,20 @@ void PlayBackPlugin::testPlayBack()
     // show a progress dialog
     QProgressDialog *progress = 0;
     if (m_dialog) {
-	progress = new QProgressDialog(m_dialog, i18n("Playback Test"), true);
+	progress = new QProgressDialog(m_dialog);
 	Q_ASSERT(progress);
 	if (progress) {
+	    progress->setWindowTitle(i18n("Playback Test"));
+	    progress->setModal(true);
 	    progress->setMinimumDuration(0);
-	    progress->setTotalSteps(100);
+	    progress->setMaximum(100);
 	    progress->setAutoClose(true);
-	    progress->setProgress(0);
+	    progress->setValue(0);
 	    progress->setLabelText(
 		i18n("you should now hear a %1Hz test tone...\n\n"\
 		     "(if you hear clicks or dropouts, "\
 		     "please increase the buffer size "\
-		     "and try again)").arg((int)freq));
+		     "and try again)", (int)freq));
 	}
     }
 
@@ -809,8 +777,8 @@ void PlayBackPlugin::testPlayBack()
 	mul.goOn();
 
 	if (progress) {
-	    progress->setProgress((100 * time.elapsed()) / t_max);
-	    if (progress->wasCancelled()) break;
+	    progress->setValue((100 * time.elapsed()) / t_max);
+	    if (progress->wasCanceled()) break;
 	}
     }
 

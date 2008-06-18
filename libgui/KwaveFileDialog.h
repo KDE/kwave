@@ -19,8 +19,10 @@
 #define _KWAVE_FILE_DIALOG_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qstring.h>
+
+#include <QObject>
+#include <QString>
+
 #include <kfiledialog.h>
 
 class QWidget;
@@ -39,10 +41,9 @@ public:
      * @see KFileFialog
      */
     KwaveFileDialog(const QString& startDir, const QString& filter,
-                    QWidget *parent, const char *name, bool modal,
+                    QWidget *parent, bool modal,
                     const QString last_url = 0,
-                    const QString last_ext = 0,
-                    QWidget *widget = 0);
+                    const QString last_ext = 0);
 
     /** Destructor */
     virtual ~KwaveFileDialog() {} ;

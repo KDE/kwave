@@ -15,9 +15,9 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <math.h>
-
-#include "klocale.h"
+#include <klocale.h>
 
 #include "libkwave/TypesMap.h"
 #include "libkwave/WindowFunction.h"
@@ -76,11 +76,11 @@ WindowFunction::~WindowFunction()
 }
 
 //***************************************************************************
-QMemArray<double> WindowFunction::points(unsigned int len)
+QVector<qreal> WindowFunction::points(unsigned int len)
 {
-    QMemArray<double> out(len);
-    Q_ASSERT(out.count() == len);
-    if (out.count() != len) {
+    QVector<qreal> out(len);
+    Q_ASSERT(out.count() == static_cast<int>(len));
+    if (out.count() != static_cast<int>(len)) {
 	out.resize(0);
 	return out;
     }
@@ -98,19 +98,19 @@ QMemArray<double> WindowFunction::points(unsigned int len)
 	    break;
 	case WINDOW_FUNC_HAMMING:
 	    for (unsigned int i = 0; i < len; i++)
-		out[i] = 0.54-(0.46 * cos(((double)i) * 2 * M_PI / (len - 1)));
+		out[i] = 0.54-(0.46 * cos(((qreal)i) * 2 * M_PI / (len - 1)));
 	    break;
 	case WINDOW_FUNC_BLACKMAN:
 	    for (unsigned int i = 0; i < len; i++)
-		out[i] = 0.42-(0.50 * cos(((double)i) * 2 * M_PI / (len - 1))) +
-		              (0.08 * cos(((double)i) * 4 * M_PI / (len - 1)));
+		out[i] = 0.42-(0.50 * cos(((qreal)i) * 2 * M_PI / (len - 1))) +
+		              (0.08 * cos(((qreal)i) * 4 * M_PI / (len - 1)));
 	    break;
 	case WINDOW_FUNC_TRIANGULAR:
 	    for (unsigned int i = 0; i < len / 2; i++)
-		out[i] = ((double)i) / (len / 2 - 1);
-		
+		out[i] = ((qreal)i) / (len / 2 - 1);
+
 	    for (unsigned int i = len / 2; i < len; i++)
-		out[i] = 1 - ((double)i - len / 2) / (len / 2 - 1);
+		out[i] = 1 - ((qreal)i - len / 2) / (len / 2 - 1);
 	    break;
     }
 

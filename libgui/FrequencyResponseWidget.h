@@ -19,9 +19,9 @@
 #define _FREQUENCY_RESPONSE_WIDGET_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qpixmap.h>
-#include <qwidget.h>
+
+#include <QObject>
+#include <QWidget>
 
 class QPaintEvent;
 class TransmissionFunction;
@@ -36,7 +36,7 @@ class FrequencyResponseWidget: public QWidget
 public:
 
     /** Constructor */
-    FrequencyResponseWidget(QWidget *parent, const char *name);
+    FrequencyResponseWidget(QWidget *parent);
 
     /** Destructor */
     virtual ~FrequencyResponseWidget();
@@ -48,7 +48,7 @@ public:
      * @param db_min lowest amplitude in decibel
      * @param db_max highest amplitude in decibel
      */
-    virtual void init(double freq, int db_min, int db_max);
+    virtual void init(qreal freq, int db_min, int db_max);
 
     /** Set a new transmission function and update the display */
     virtual void setFilter(TransmissionFunction *func);
@@ -59,7 +59,7 @@ public:
 private:
 
     /** highest frequency, rounded up to the next decade */
-    double m_f_max;
+    qreal m_f_max;
 
     /** lowest amplitude in decibel */
     int m_db_min;
@@ -75,9 +75,6 @@ private:
      * painting the frequency response.
      */
     TransmissionFunction *m_function;
-
-    /** QPixmap to be blitted to screen (avoiding flicker) */
-    QPixmap *m_pixmap;
 
 };
 

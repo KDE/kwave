@@ -39,7 +39,9 @@
 #include <math.h>
 #include <errno.h>
 
-#include <qcstring.h>
+#include <QString>
+#include <QtGlobal>
+
 #include <klocale.h>
 
 #include "libkwave/CompressionType.h"
@@ -49,15 +51,12 @@
 #include "PlayBack-ALSA.h"
 #include "SampleEncoderLinear.h"
 
-/** sleep seconds, only used for recording, not used here */
-static const unsigned int g_sleep_min = 0;
-
 QMap<QString, QString> PlayBackALSA::m_device_list;
 
 //***************************************************************************
 
 /* define some endian dependend symbols that are missing in ALSA */
-#if defined(ENDIANESS_BIG)
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
 // big endian
 #define _SND_PCM_FORMAT_S18_3 SND_PCM_FORMAT_S18_3BE
 #define _SND_PCM_FORMAT_U18_3 SND_PCM_FORMAT_U18_3BE
@@ -152,7 +151,6 @@ static byte_order_t endian_of(snd_pcm_format_t fmt)
     return CpuEndian;
 }
 
-
 //***************************************************************************
 PlayBackALSA::PlayBackALSA()
     :PlayBackDevice(),
@@ -227,11 +225,7 @@ int PlayBackALSA::mode2format(int bits)
 {
     // loop over all supported formats and keep only those that are
     // compatible with the given compression, bits and sample format
-    QValueListIterator<int> it;
-    for (it = m_supported_formats.begin();
-         it != m_supported_formats.end(); ++it)
-    {
-	const int index = *it;
+    foreach (int index, m_supported_formats) {
 	const snd_pcm_format_t *fmt = &_known_formats[index];
 
 	if (snd_pcm_format_width(*fmt) != bits) continue;
@@ -249,10 +243,10 @@ int PlayBackALSA::mode2format(int bits)
 }
 
 //***************************************************************************
-QValueList<int> PlayBackALSA::detectSupportedFormats(const QString &device)
+QList<int> PlayBackALSA::detectSupportedFormats(const QString &device)
 {
     // start with an empty list
-    QValueList<int> supported_formats;
+    QList<int> supported_formats;
 
     int err;
     snd_pcm_hw_params_t *p;
@@ -281,11 +275,8 @@ QValueList<int> PlayBackALSA::detectSupportedFormats(const QString &device)
 	const snd_pcm_format_t *fmt = &(_known_formats[i]);
 
 	// eliminate duplicate alsa sample formats (e.g. BE/LE)
-	QValueListIterator<int> it;
-	for (it = m_supported_formats.begin();
-	     it != m_supported_formats.end(); ++it)
-	{
-	    const snd_pcm_format_t *f = &_known_formats[*it];
+	foreach (int index, m_supported_formats) {
+	    const snd_pcm_format_t *f = &_known_formats[index];
 	    if (*f == *fmt) {
 		fmt = 0;
 		break;
@@ -326,10 +317,8 @@ int PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     unsigned buffer_time = 0; // ring buffer length in us
     snd_pcm_uframes_t period_frames = 0;
     snd_pcm_uframes_t buffer_frames = 0;
-    snd_pcm_uframes_t xfer_align;
     size_t n;
     snd_pcm_uframes_t start_threshold, stop_threshold;
-    const int avail_min = -1;
     const int start_delay = 0;
     const int stop_delay = 0;
 
@@ -341,7 +330,7 @@ int PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     QString alsa_device = alsaDeviceName(device);
     qDebug("PlayBackALSA::openDevice() - opening ALSA device '%s', "\
            "%dHz %d channels, %u bit",
-           alsa_device.data(), rate, channels, bits);
+           alsa_device.toLocal8Bit().data(), rate, channels, bits);
 
     // workaround for bug in ALSA
     // if the device name ends with "," -> invalid name
@@ -360,7 +349,7 @@ int PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     }
 
     // open a new one
-    err = snd_pcm_open(&m_handle, alsa_device.local8Bit().data(),
+    err = snd_pcm_open(&m_handle, alsa_device.toLocal8Bit().data(),
                             SND_PCM_STREAM_PLAYBACK,
                             SND_PCM_NONBLOCK);
     if (err < 0) return err;
@@ -487,25 +476,9 @@ int PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 	return err;
     }
 
-    err = snd_pcm_sw_params_get_xfer_align(sw_params, &xfer_align);
-    if (err < 0) {
-	qWarning("Unable to obtain xfer align: %s", snd_strerror(err));
-	snd_output_close(output);
-	return err;
-    }
-    if (g_sleep_min) xfer_align = 1;
-
-    err = snd_pcm_sw_params_set_sleep_min(m_handle, sw_params, g_sleep_min);
-    Q_ASSERT(err >= 0);
-    if (avail_min < 0)
-	n = m_chunk_size;
-    else
-	n = (snd_pcm_uframes_t)((double)rate * avail_min / 1000000);
-
-    err = snd_pcm_sw_params_set_avail_min(m_handle, sw_params, n);
+    err = snd_pcm_sw_params_set_avail_min(m_handle, sw_params, m_chunk_size);
 
     /* round up to closest transfer boundary */
-    n = (buffer_size / xfer_align) * xfer_align;
     start_threshold = (snd_pcm_uframes_t)
                       ((double)rate * start_delay / 1000000);
     if (start_delay <= 0) start_threshold += n;
@@ -521,9 +494,6 @@ int PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 
     err = snd_pcm_sw_params_set_stop_threshold(m_handle, sw_params,
                                                stop_threshold);
-    Q_ASSERT(err >= 0);
-
-    err = snd_pcm_sw_params_set_xfer_align(m_handle, sw_params, xfer_align);
     Q_ASSERT(err >= 0);
 
     // write the software parameters to the playback device
@@ -553,7 +523,7 @@ QString PlayBackALSA::open(const QString &device, double rate,
                            unsigned int bufbase)
 {
     qDebug("PlayBackALSA::open(device=%s,rate=%0.1f,channels=%u,"\
-	"bits=%u, bufbase=%u)", device.local8Bit().data(), rate, channels,
+	"bits=%u, bufbase=%u)", device.toLocal8Bit().data(), rate, channels,
 	bits, bufbase);
 
     m_device_name = device;
@@ -596,8 +566,8 @@ QString PlayBackALSA::open(const QString &device, double rate,
 		m_device_name);
 		break;
 	    default:
-		reason = i18n("Opening the device '%1' failed: %2").arg(
-	            device.section('|',0,0)).arg(
+		reason = i18n("Opening the device '%1' failed: %2",
+	            device.section('|',0,0),
 		    QString::fromLocal8Bit(snd_strerror(err)));
 	}
 	return reason;
@@ -623,7 +593,7 @@ QString PlayBackALSA::open(const QString &device, double rate,
 }
 
 //***************************************************************************
-int PlayBackALSA::write(QMemArray<sample_t> &samples)
+int PlayBackALSA::write(const Kwave::SampleArray &samples)
 {
     Q_ASSERT(m_encoder);
     if (!m_encoder) return -EIO;
@@ -637,9 +607,9 @@ int PlayBackALSA::write(QMemArray<sample_t> &samples)
 	return -EIO;
     }
 
-    QByteArray raw(bytes);
+    QByteArray raw(bytes, (char)0);
     m_encoder->encode(samples, m_channels, raw);
-    MEMCPY(&(m_buffer[m_buffer_used]), raw.data(), bytes);
+    MEMCPY(m_buffer.data() + m_buffer_used, raw.data(), bytes);
     m_buffer_used += bytes;
 
     // write buffer to device if full
@@ -665,7 +635,7 @@ int PlayBackALSA::flush()
 	int r;
 
 	// pad the buffer with silence if necessary
-	if (!g_sleep_min && (samples < m_chunk_size)) {
+	if (samples < m_chunk_size) {
 	    snd_pcm_format_set_silence(m_format,
 	        m_buffer.data() + samples * m_bytes_per_sample,
 	        (m_chunk_size - samples) * m_channels);
@@ -769,7 +739,7 @@ void PlayBackALSA::scanDevices()
 	QString name;
 	name = "hw:%1";
 	name = name.arg(card);
-	if ((err = snd_ctl_open(&handle, name.data(), 0)) < 0) {
+	if ((err = snd_ctl_open(&handle, name.toLocal8Bit().data(), 0)) < 0) {
 	    qWarning("control open (%i): %s", card, snd_strerror(err));
 	    goto next_card;
 	}
@@ -797,13 +767,13 @@ void PlayBackALSA::scanDevices()
 	    }
 	    count = snd_pcm_info_get_subdevices_count(pcminfo);
 
-// 	    qDebug("card %i: %s [%s], device %i: %s [%s]",
-// 		card,
-// 		snd_ctl_card_info_get_id(info),
-// 		snd_ctl_card_info_get_name(info),
-// 		dev,
-// 		snd_pcm_info_get_id(pcminfo),
-// 		snd_pcm_info_get_name(pcminfo));
+	    qDebug("card %i: %s [%s], device %i: %s [%s]",
+		card,
+		snd_ctl_card_info_get_id(info),
+		snd_ctl_card_info_get_name(info),
+		dev,
+		snd_pcm_info_get_id(pcminfo),
+		snd_pcm_info_get_name(pcminfo));
 
 	    // add the device to the list
 	    QString hw_device;
@@ -813,8 +783,8 @@ void PlayBackALSA::scanDevices()
 	    QString card_name   = snd_ctl_card_info_get_name(info);
 	    QString device_name = snd_pcm_info_get_name(pcminfo);
 
-//  	    qDebug("  Subdevices: %i/%i\n",
-// 		snd_pcm_info_get_subdevices_avail(pcminfo), count);
+ 	    qDebug("  Subdevices: %i/%i\n",
+		snd_pcm_info_get_subdevices_avail(pcminfo), count);
 	    if (count > 1) {
 		for (idx = 0; idx < (int)count; idx++) {
 		    snd_pcm_info_set_subdevice(pcminfo, idx);
@@ -826,24 +796,29 @@ void PlayBackALSA::scanDevices()
 			QString subdevice_name =
 			    snd_pcm_info_get_subdevice_name(pcminfo);
 			QString name = QString(
-			    i18n("card %1: ") + card_name +
+			    i18n("card %1: ", card) + card_name +
 			    "|sound_card||" +
-			    i18n("device %2: ") + device_name +
+			    i18n("device %1: ", dev) + device_name +
 			    "|sound_device||" +
-			    i18n("subdevice %3: ") + subdevice_name +
+			    i18n("subdevice %1: ", idx) + subdevice_name +
 			    "|sound_subdevice"
-			).arg(card).arg(dev).arg(idx);
-			qDebug("# '%s' -> '%s'", hwdev.data(), name.data());
+			)/*.arg(card).arg(dev).arg(idx)*/;
+			qDebug("# '%s' -> '%s'",
+			    hwdev.toLocal8Bit().data(),
+			    name.toLocal8Bit().data());
 			m_device_list.insert(name, hwdev);
 		    }
 		}
 	    } else {
 		// no sub-devices
 		QString name = QString(
-		    i18n("card %1: ") + card_name + "|sound_card||" +
-		    i18n("device %2: ") + device_name + "|sound_subdevice"
-		).arg(card).arg(dev);
-		qDebug("# '%s' -> '%s'", hw_device.data(), name.data());
+		    i18n("card %1: ", card) +
+		         card_name + "|sound_card||" +
+		    i18n("device %1: ", dev) +
+		          device_name + "|sound_subdevice"
+		);
+		qDebug("# '%s' -> '%s'", hw_device.toLocal8Bit().data(),
+		    name.toLocal8Bit().data());
 		m_device_list.insert(name, hw_device);
 	    }
 	}
@@ -882,7 +857,8 @@ QString PlayBackALSA::alsaDeviceName(const QString &name)
     }
 
     if (!m_device_list.contains(name)) {
-	qWarning("PlayBackALSA::alsaDeviceName('%s') - NOT FOUND", name.data());
+	qWarning("PlayBackALSA::alsaDeviceName('%s') - NOT FOUND",
+	    name.toLocal8Bit().data());
 	return "";
     }
     return m_device_list[name];
@@ -891,16 +867,12 @@ QString PlayBackALSA::alsaDeviceName(const QString &name)
 //***************************************************************************
 QStringList PlayBackALSA::supportedDevices()
 {
-    QStringList list;
-
     // re-validate the list if necessary
     scanDevices();
 
-    QMap<QString, QString>::Iterator it;
-    for (it = m_device_list.begin(); it != m_device_list.end(); ++it)
-	list.append(it.key());
-
+    QStringList list = m_device_list.keys();
     list.append("#TREE#");
+
     return list;
 }
 
@@ -928,14 +900,14 @@ snd_pcm_t *PlayBackALSA::openDevice(const QString &device)
 
     if (!pcm) {
 	// open the device in case it's not already open
-	int err = snd_pcm_open(&pcm, alsa_device.local8Bit().data(),
+	int err = snd_pcm_open(&pcm, alsa_device.toLocal8Bit().data(),
 	                       SND_PCM_STREAM_PLAYBACK,
 	                       SND_PCM_NONBLOCK);
 	if (err < 0) {
 	    pcm = 0;
 	    qWarning("PlayBackALSA::openDevice('%s') - "\
 	             "failed, err=%d (%s)",
-	             alsa_device.local8Bit().data(),
+	             alsa_device.toLocal8Bit().data(),
 	             err, snd_strerror(err));
 	}
     }
@@ -944,18 +916,15 @@ snd_pcm_t *PlayBackALSA::openDevice(const QString &device)
 }
 
 //***************************************************************************
-QValueList<unsigned int> PlayBackALSA::supportedBits(const QString &device)
+QList<unsigned int> PlayBackALSA::supportedBits(const QString &device)
 {
-    QValueList<unsigned int> list;
-    QValueList<int> supported_formats;
+    QList<unsigned int> list;
+    QList<int> supported_formats;
 
     // try all known sample formats
     supported_formats = detectSupportedFormats(device);
-    QValueListIterator<int> it;
-    for (it = supported_formats.begin();
-         it != supported_formats.end(); ++it)
-    {
-	const snd_pcm_format_t *fmt = &(_known_formats[*it]);
+    foreach (int index, supported_formats) {
+	const snd_pcm_format_t *fmt = &(_known_formats[index]);
 	const unsigned int bits = snd_pcm_format_width(*fmt);
 
 	// 0  bits means invalid/does not apply
@@ -964,7 +933,7 @@ QValueList<unsigned int> PlayBackALSA::supportedBits(const QString &device)
 	// do not produce duplicates
 	if (list.contains(bits)) continue;
 
-	qDebug("found bits/sample %u", bits);
+// 	qDebug("found bits/sample %u", bits);
 	list.append(bits);
     }
 

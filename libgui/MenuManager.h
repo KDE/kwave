@@ -19,10 +19,10 @@
 #define _MENU_MANAGER_H_
 
 #include "config.h"
-#include <qwidget.h>
 
-#include "mt/SignalProxy.h"
+#include <QObject>
 
+class QString;
 class QWidget;
 class KMenuBar;
 class MenuRoot;
@@ -106,47 +106,14 @@ signals:
     /**
      * Will be emitted if the command of a menu node
      * should be executed.
-     * @see #slotMenuCommand()
      * @see MenuNode.sigCommand()
      */
     void sigMenuCommand(const QString &command);
 
-protected slots:
-
-    /**
-     * Enqueues a command from a menu entry into the internal
-     * SignalProxy.
-     * @see m_spx_command()
-     * @see SignalProxy1
-     */
-    void slotEnqueueCommand(const QString &command);
-
-    /**
-     * Will be indirectly connected to the sigCommand() signal of the menu
-     * structure's root node and gets called if a menu node's command
-     * should be executed. Internally the commands are queued through
-     * a SignalProxy to be executed during normal X11 event processing
-     * after finishing the internal menu subsystem work.
-     * @see MenuNode.sigCommand()
-     * @see SignalProxy1
-     */
-    void slotMenuCommand();
-
 private:
-    /**
-     * Translates a verbose key name into an integer representation.
-     * @param key_name name of the key (upper case)
-     * @return integer value
-     * @see KAccel
-     * @see kckey.h
-     */
-    int parseToKeyCode(const QString &key_name);
 
     /** root node of the menu structure */
     MenuRoot *m_menu_root;
-
-    /** threadsafe message queue for emitted commands */
-    SignalProxy1<QString> m_spx_command;
 
 };
 

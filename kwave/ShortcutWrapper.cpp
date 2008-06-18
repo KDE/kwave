@@ -1,9 +1,9 @@
 /***************************************************************************
-         LineParser.cpp  -  parses a string buffer into lines
+          ShortcutWrapper.cpp  -  wrapper for keyboard shortcuts
 			     -------------------
-    begin                : Jan 28 2001
-    copyright            : (C) 2001 by Thomas Eschenbacher
-    email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
+    begin                : Sat Jan 12 2008
+    copyright            : (C) 2008 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -15,42 +15,30 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qcstring.h>
+#include "config.h"
 
-#include "LineParser.h"
+#include <QKeySequence>
+#include <QObject>
+
+#include "ShortcutWrapper.h"
 
 //***************************************************************************
-//***************************************************************************
-LineParser::LineParser(const QByteArray &init)
-    :m_buffer(init), m_pos(0)
+Kwave::ShortcutWrapper::ShortcutWrapper(QWidget *parent,
+                                        const QKeySequence &key,
+                                        int id)
+    :QShortcut(key, parent), m_id(id)
 {
 }
 
 //***************************************************************************
-LineParser::~LineParser ()
+Kwave::ShortcutWrapper::~ShortcutWrapper()
 {
 }
 
 //***************************************************************************
-QString LineParser::nextLine()
+void Kwave::ShortcutWrapper::triggered()
 {
-    // return with zero-length string if end reached
-    unsigned int size = m_buffer.size();
-    if (!size) return QString(0);
-
-    QCString line = "";
-    while ((m_pos < size) && !line.length()) {
-	line = "";
-	while ((m_pos < size) && (m_buffer[m_pos] != 0x0D) &&
-	    (m_buffer[m_pos] != 0x0A) && (m_buffer[m_pos] != 0x00))
-	{
-	    line += m_buffer[m_pos++];
-	}
-	line = line.stripWhiteSpace();
-	m_pos++;
-    }
-
-    return QString::fromUtf8(line);
+    emit activated(m_id);
 }
 
 //***************************************************************************

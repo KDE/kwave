@@ -16,14 +16,14 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <qobject.h>
-#include <qstring.h>
-#include <qwidget.h>
+#include <QObject>
+#include <QString>
+#include <QWidget>
 
 #include <klocale.h>
-#include <kmessagebox.h>
 
 #include "ConfirmCancelProxy.h"
+#include "MessageBox.h"
 
 //***************************************************************************
 ConfirmCancelProxy::ConfirmCancelProxy(QWidget *widget,
@@ -35,7 +35,7 @@ ConfirmCancelProxy::ConfirmCancelProxy(QWidget *widget,
     if (!receiver) return;
 
     if (sender) QObject::connect(sender, signal, this, SLOT(cancel()));
-    QObject::connect(this, SIGNAL(cancelled()), receiver, slot);
+    QObject::connect(this, SIGNAL(canceled()), receiver, slot);
 }
 
 //***************************************************************************
@@ -46,10 +46,10 @@ ConfirmCancelProxy::~ConfirmCancelProxy()
 //***************************************************************************
 void ConfirmCancelProxy::cancel()
 {
-    if (KMessageBox::questionYesNo(m_widget,
+    if (Kwave::MessageBox::questionYesNo(m_widget,
         i18n("Do you really want to abort the current action?"))
         != KMessageBox::Yes) return; // no cancel
-    emit cancelled();
+    emit canceled();
 }
 
 //***************************************************************************

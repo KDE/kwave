@@ -19,9 +19,10 @@
 #define _KWAVE_DELAY_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qvariant.h>
+#include <QObject>
+#include <QVariant>
 
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveSampleSource.h"
 #include "libkwave/SampleFIFO.h"
 

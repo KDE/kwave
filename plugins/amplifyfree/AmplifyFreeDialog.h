@@ -19,13 +19,16 @@
 #define _AMPLIFY_FREE_DIALOG_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qstring.h>
-#include "AmplifyFreeDlg.h"
+
+#include <QDialog>
+#include <QObject>
+#include <QString>
+
+#include "ui_AmplifyFreeDlg.h"
 
 class QStringList;
 
-class AmplifyFreeDialog: public AmplifyFreeDlg
+class AmplifyFreeDialog: public QDialog, public Ui::AmplifyFreeDlg
 {
     Q_OBJECT
 public:

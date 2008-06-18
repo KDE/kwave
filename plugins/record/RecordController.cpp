@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include "RecordController.h"
 #include "RecordState.h"
 

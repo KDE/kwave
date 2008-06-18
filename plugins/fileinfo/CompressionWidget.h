@@ -19,14 +19,15 @@
 #define _COMPRESSION_WIDGET_H_
 
 #include "config.h"
-#include <qobject.h>
+#include <QObject>
 #include "libkwave/FileInfo.h"
-#include "CompressionWidgetBase.h"
+#include "ui_CompressionWidgetBase.h"
 
 class FileInfo;
 class QWidget;
 
-class CompressionWidget: public CompressionWidgetBase
+class CompressionWidget: public QWidget,
+                         public Ui::CompressionWidgetBase
 {
     Q_OBJECT
 public:
@@ -37,7 +38,7 @@ public:
     } Mode;
 
     /** Constructor */
-    CompressionWidget(QWidget *parent, const char *name);
+    CompressionWidget(QWidget *parent);
 
     /** Destructor */
     virtual ~CompressionWidget();
@@ -145,4 +146,3 @@ private:
 };
 
 #endif /* _COMPRESSION_WIDGET_H_ */
-

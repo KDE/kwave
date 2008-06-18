@@ -15,8 +15,10 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <klocale.h>
 
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
@@ -54,22 +56,27 @@ unsigned int UndoModifyAction::undoSize()
 }
 
 //***************************************************************************
-void UndoModifyAction::store(SignalManager &manager)
+bool UndoModifyAction::store(SignalManager &manager)
 {
     SampleReader *reader = manager.openSampleReader(
 	m_track, m_offset, m_offset+m_length-1);
     Q_ASSERT(reader);
-    if (!reader) return;
+    if (!reader) return false;
 
     SampleWriter *writer = m_buffer_track.openSampleWriter(
         Append, 0, m_length-1);
     Q_ASSERT(writer);
+    if (!writer) {
+	delete reader;
+	return false;
+    }
 
-    if (writer) (*writer) << (*reader);
-    Q_ASSERT(m_buffer_track.length() == m_length);
+    // copy the data
+    (*writer) << (*reader);
 
     delete reader;
-    if (writer) delete writer;
+    delete writer;
+    return (m_buffer_track.length() == m_length);
 }
 
 //***************************************************************************
@@ -83,8 +90,8 @@ UndoAction *UndoModifyAction::undo(SignalManager &manager, bool with_redo)
     unsigned int len = m_length;
 
     if (with_redo) {
-	QArray<sample_t> buf_cur(BUFFER_SIZE);
-	QArray<sample_t> buf_sav(BUFFER_SIZE);
+	Kwave::SampleArray buf_cur(BUFFER_SIZE);
+	Kwave::SampleArray buf_sav(BUFFER_SIZE);
 
 	SampleReader *reader_cur = manager.openSampleReader(
 	    m_track, m_offset, m_offset+m_length-1);

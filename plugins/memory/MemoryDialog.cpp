@@ -19,17 +19,17 @@
 #include <limits.h>
 #include <unistd.h>
 
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qobject.h>
-#include <qpushbutton.h>
-#include <qslider.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qspinbox.h>
+#include <QCheckBox>
+#include <QLabel>
+#include <QLineEdit>
+#include <QObject>
+#include <QPushButton>
+#include <QSlider>
+#include <QString>
+#include <QStringList>
+#include <QSpinBox>
 
-#include <kapplication.h> // for invokeHelp
+#include <ktoolinvocation.h>
 #include <kfiledialog.h>
 
 #include "MemoryDialog.h"
@@ -39,8 +39,11 @@
 MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
     unsigned int physical_limit, bool virtual_enabled, bool virtual_limited,
     unsigned int virtual_limit, const QString &virtual_dir)
-    : MemDlg(parent, 0, true)
+    :QDialog(parent), Ui::MemDlg()
 {
+    setupUi(this);
+    setModal(true);
+
     MemoryManager &mem = MemoryManager::instance();
     unsigned int total_physical = mem.totalPhysical();
 
@@ -58,8 +61,8 @@ MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
 
     // initialize all controls
     chkLimitPhysical->setChecked(physical_limited);
-    slPhysical->setMaxValue(total_physical);
-    sbPhysical->setMaxValue(total_physical);
+    slPhysical->setMaximum(total_physical);
+    sbPhysical->setMaximum(total_physical);
     slPhysical->setValue(physical_limit);
     sbPhysical->setValue(physical_limit);
     chkEnableVirtual->setChecked(virtual_enabled);
@@ -133,7 +136,7 @@ void MemoryDialog::searchSwapDir()
 //***************************************************************************
 void MemoryDialog::invokeHelp()
 {
-    kapp->invokeHelp("memory-setup");
+    KToolInvocation::invokeHelp("memory-setup");
 }
 
 //***************************************************************************

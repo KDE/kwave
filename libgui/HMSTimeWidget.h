@@ -19,17 +19,19 @@
 #define _HMS_TIME_WIDGET_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qwidget.h>
-#include "libgui/HMSTimeWidgetBase.h"
 
-class HMSTimeWidget: public HMSTimeWidgetBase
+#include <QObject>
+#include <QWidget>
+
+#include "libgui/ui_HMSTimeWidgetBase.h"
+
+class HMSTimeWidget: public QWidget, public Ui::HMSTimeWidgetBase
 {
     Q_OBJECT
 public:
 
     /** Constructor */
-    HMSTimeWidget(QWidget *parent, const char *name);
+    HMSTimeWidget(QWidget *parent);
 
     /** Destructor */
     virtual ~HMSTimeWidget();

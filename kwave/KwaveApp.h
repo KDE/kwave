@@ -19,14 +19,15 @@
 #define _KWAVE_APP_H_
 
 #include "config.h"
-#include <qptrlist.h>
-#include <qstringlist.h>
 
-#include <kuniqueapp.h>
-#include <kapp.h>
+#include <QList>
+#include <QStringList>
+
+#include <kuniqueapplication.h>
+#include <kapplication.h>
 
 class ClipBoard;
-class KURL;
+class KUrl;
 class MemoryManager;
 class QString;
 class TopWidget;
@@ -41,6 +42,7 @@ class KwaveApp :public KUniqueApplication
     Q_OBJECT
 public:
 
+    /** Constructor */
     KwaveApp();
 
     /**
@@ -51,11 +53,6 @@ public:
 
     /** Destructor. */
     virtual ~KwaveApp();
-
-    /**
-     * Returns the name of the application
-     */
-    QString appName() { return name(); };
 
     /**
      * Adds a file to the top of the list of recent files. If it was
@@ -77,7 +74,7 @@ public:
      * @see #closeWindow()
      * @see TopWidget
      */
-    bool newWindow(const KURL &url);
+    bool newWindow(const KUrl &url);
 
     /**
      * Closes a previously opened toplevel window.
@@ -112,6 +109,7 @@ protected:
     bool executeCommand(const QString &command);
 
 protected:
+
     /**
      * Reads the configuration settings and the list of recent files,
      * opposite of saveConfig().
@@ -132,11 +130,6 @@ protected:
      */
     void saveConfig();
 
-#ifdef HAVE_ARTS_SUPPORT
-    /** Initialises the aRts daemon */
-    void initArts();
-#endif /* HAVE_ARTS_SUPPORT */
-
 private:
 
     /**
@@ -147,7 +140,7 @@ private:
     QStringList m_recent_files;
 
     /** list of toplevel widgets */
-    QPtrList<TopWidget> m_topwidget_list;
+    QList<TopWidget *> m_topwidget_list;
 
     /** Kwave's clipboard */
     static ClipBoard &m_clipboard;

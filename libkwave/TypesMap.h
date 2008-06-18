@@ -19,10 +19,13 @@
 #define _TYPES_MAP_H_
 
 #include "config.h"
-#include <qmap.h>
-#include <qobject.h>
-#include <qstring.h>
-#include <qstringlist.h>
+
+#include <QList>
+#include <QMap>
+#include <QObject>
+#include <QString>
+#include <QStringList>
+
 #include <klocale.h>
 #include "libkwave/Triple.h"
 
@@ -116,14 +119,15 @@ public:
 	const QString &description, bool localized)
     {
 	IDX it = IDX(0);
-	QString dcr = (localized) ? i18n(description) : description;
+	QString dcr = (localized) ? i18n(description.toAscii()) : description;
 	unsigned int cnt = count();
 	while (cnt--) {
 	    if (localized) {
 		if (m_list[it].third() == description)
 		    return it;
 	    } else {
-		if (i18n(m_list[it].third()) == i18n(description))
+		if (i18n(m_list[it].third().toAscii()) ==
+		    i18n(description.toAscii()))
 		    return it;
 	    }
 	    ++it;
@@ -154,7 +158,7 @@ public:
     {
 	if (m_list.isEmpty()) fill();
 	QString s(m_list[type].third());
-	return (localized) ? i18n(s) : s;
+	return (localized) ? i18n(s.toAscii()) : s;
     };
 
     /**
@@ -175,11 +179,11 @@ public:
     /**
      * Returns a list with all keys
      */
-    QValueList<IDX> allKeys()
+    QList<IDX> allKeys()
     {
 	IDX it = IDX(0);
 	unsigned int cnt = count();
-	QValueList<IDX> keys;
+	QList<IDX> keys;
 	while (cnt--) {
 	    IDX key = it;
 	    keys.append(key);

@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <qobject.h>
-#include <qstring.h>
-#include "mt/SignalProxy.h"
+#include <QObject>
+#include <QString>
+
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/KwavePluginSetupDialog.h"
 
@@ -71,6 +71,9 @@ namespace Kwave {
 	/** Does the filter operation and/or pre-listen */
 	virtual void run(QStringList);
 
+	/** overloaded version of KwavePlugin::start */
+	virtual int start(QStringList &params);
+
 	/** Aborts the process (if running). */
 	virtual int stop();
 
@@ -113,14 +116,11 @@ namespace Kwave {
 	/** Stop the pre-listening */
 	void stopPreListen();
 
-	/** forward changes of the progress dialog to a signal proxy */
-	void forwardProgress(unsigned int progress);
-
-	/** forward press of the cancel button int the progress dialog */
-	void forwardCancel();
-
-	/** update the progress dialog */
-	void updateProgress();
+	/**
+	 * update the progress dialog
+	 * @param progress the current progress in percent [0...100]
+	 */
+	void updateProgress(unsigned int progress);
 
 	/**
 	* called when the user has pressed "Cancel" in the progress
@@ -141,9 +141,6 @@ namespace Kwave {
 
 	/** a progress dialog, if the audio processing takes longer... */
 	QProgressDialog *m_progress;
-
-	/** signal proxy for the progress / dialog */
-	SignalProxy1< unsigned int > *m_spx_progress;
 
 	/**
 	* proxy dialog that asks for configmation if the user

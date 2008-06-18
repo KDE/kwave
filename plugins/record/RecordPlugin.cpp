@@ -16,21 +16,22 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <errno.h>
 #include <math.h>
 #include <stdlib.h>
 
-#include <qcursor.h>
-#include <qdatetime.h>
-#include <qstringlist.h>
-#include <qvaluelist.h>
-#include <qvariant.h>
+#include <QtGlobal>
+#include <QCursor>
+#include <QDateTime>
+#include <QStringList>
+#include <QList>
+#include <QVariant>
 
 #include <kapplication.h>
 #include <kaboutdata.h>
 #include <kconfig.h>
 #include <kglobal.h>
-#include <kmessagebox.h>
 
 #include "libkwave/CompressionType.h"
 #include "libkwave/FileInfo.h"
@@ -39,6 +40,8 @@
 #include "libkwave/SampleFIFO.h"
 #include "libkwave/SampleFormat.h"
 #include "libkwave/SampleWriter.h"
+
+#include "libgui/MessageBox.h"
 
 #include "kwave/PluginManager.h"
 #include "kwave/SignalManager.h"
@@ -63,7 +66,6 @@ RecordPlugin::RecordPlugin(const PluginContext &context)
      m_writers(0), m_buffers_recorded(0), m_inhibit_count(0),
      m_trigger_value()
 {
-    m_prerecording_queue.setAutoDelete(true);
     i18n("record");
 }
 
@@ -154,8 +156,9 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     // connect us to the record thread
     connect(m_thread, SIGNAL(stopped(int)),
             this,     SLOT(recordStopped(int)));
-    connect(m_thread, SIGNAL(bufferFull(QByteArray)),
-            this,     SLOT(processBuffer(QByteArray)));
+    connect(m_thread, SIGNAL(bufferFull()),
+            this,     SLOT(processBuffer()),
+            Qt::QueuedConnection);
 
     // dummy init -> disable format settings
     m_dialog->setSupportedTracks(0, 0);
@@ -177,18 +180,24 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
 	list = 0;
     }
 
+    /* de-queue all buffers that are pending and remove the record thread */
+    if (m_thread) {
+	m_thread->stop();
+	while (m_thread->queuedBuffers())
+	    processBuffer();
+	delete m_thread;
+	m_thread = 0;
+    }
+
+    if (m_decoder) delete m_decoder;
+    m_decoder = 0;
+
     if (m_dialog) {
 	fileInfo().setLength(signalLength());
 	fileInfo().setTracks(m_dialog->params().tracks);
 	delete m_dialog;
 	m_dialog = 0;
     }
-
-    if (m_thread) delete m_thread;
-    m_thread = 0;
-
-    if (m_decoder) delete m_decoder;
-    m_decoder = 0;
 
     // flush away all prerecording buffers
     m_prerecording_queue.clear();
@@ -218,8 +227,6 @@ void RecordPlugin::setMethod(record_method_t method)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
-    KConfig *cfg = KGlobal::config();
-    Q_ASSERT(cfg);
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
     qDebug("RecordPlugin::setMethod(%d)", (int)method);
@@ -231,16 +238,15 @@ void RecordPlugin::setMethod(record_method_t method)
 	bool searching = false;
 
 	// use the previous device
-	if (cfg) {
-	    QString device = "";
-	    cfg->setGroup("plugin "+name());
+	QString device = "";
+	QString section = "plugin "+name();
+	KConfigGroup cfg = KGlobal::config()->group(section);
 
-	    // restore the previous device
-	    device = cfg->readEntry(
-	        QString("last_device_%1").arg(static_cast<int>(method)));
+	// restore the previous device
+	device = cfg.readEntry(
+	    QString("last_device_%1").arg(static_cast<int>(method)));
 // 	    qDebug("<<< %d -> '%s'", static_cast<int>(method), device.data());
-	    m_device_name = device;
-	}
+	m_device_name = device;
 
 	do {
 	    switch (method) {
@@ -314,7 +320,7 @@ void RecordPlugin::setDevice(const QString &device)
     if (!m_dialog || !m_device) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-    qDebug("RecordPlugin::setDevice('%s')", device.local8Bit().data());
+    qDebug("RecordPlugin::setDevice('%s')", device.toLocal8Bit().data());
 
     // open and initialize the device
     int result = m_device->open(device);
@@ -325,20 +331,18 @@ void RecordPlugin::setDevice(const QString &device)
 
     // remember the device selection, just for the GUI
     // for the next change in the method
-    KConfig *cfg = KGlobal::config();
-    if (cfg) {
-	cfg->setGroup("plugin "+name());
-	cfg->writeEntry(QString("last_device_%1").arg(
-	    static_cast<int>(m_method)), m_device_name);
+    QString section = "plugin "+name();
+    KConfigGroup cfg = KGlobal::config()->group(section);
+    cfg.writeEntry(QString("last_device_%1").arg(
+	static_cast<int>(m_method)), m_device_name);
 // 	qDebug(">>> %d -> '%s'", static_cast<int>(m_method),
 // 	    m_device_name.data());
-	cfg->sync();
-    }
+    cfg.sync();
 
     if (result < 0) {
 	qWarning("RecordPlugin::openDevice('%s'): "\
 	         "opening the device failed. error=%d",
-	         device.local8Bit().data(), result);
+	         device.toLocal8Bit().data(), result);
 
 	m_controller.setInitialized(false);
 	m_dialog->showDevicePage();
@@ -362,20 +366,20 @@ void RecordPlugin::setDevice(const QString &device)
 		    reason = i18n(
 			"Kwave was unable to open the device '%1'.\n"\
 			"Maybe your system lacks support for the corresponding "\
-			" hardware or the hardware is not connected."
-		    ).arg(short_device_name);
+			" hardware or the hardware is not connected.",
+			short_device_name);
 		    break;
 		case -EBUSY:
 		    reason = i18n(
 			"The device '%1' seems to be occupied by another "\
 			"application.\n"\
-			"Please try again later."
-		    ).arg(short_device_name);
+			"Please try again later.",
+			short_device_name);
 		    break;
 	    }
 
-	    if (reason.length()) KMessageBox::sorry(parentWidget(), reason,
-		i18n("unable to open the recording device"));
+	    if (reason.length()) Kwave::MessageBox::sorry(parentWidget(),
+		reason, i18n("unable to open the recording device"));
 	}
 
 	m_device_name = QString::null;
@@ -421,7 +425,7 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
 		case 2: s1 = i18n("Stereo"); break;
 		case 4: s1 = i18n("Quadro"); break;
 		default:
-		    s1 = i18n("%1 tracks").arg(new_tracks);
+		    s1 = i18n("%1 tracks", new_tracks);
 	    }
 	    QString s2;
 	    switch (tracks) {
@@ -429,10 +433,10 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
 		case 2: s2 = i18n("Stereo"); break;
 		case 4: s2 = i18n("Quadro"); break;
 		default:
-		    s2 = i18n("%1 tracks").arg(tracks);
+		    s2 = i18n("%1 tracks", tracks);
 	    }
 
-	    notice(i18n("%1 is not supported, using %2").arg(s1).arg(s2));
+	    notice(i18n("%1 is not supported, using %2", s1, s2));
 	}
     }
     m_dialog->setSupportedTracks(min, max);
@@ -444,7 +448,7 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
 	tracks = m_device->tracks();
 	if (new_tracks && (tracks > 0)) notice(
 	    i18n("Recording with %1 track(s) failed, "\
-		 "using %2 track(s)").arg(new_tracks).arg(tracks));
+		 "using %2 track(s)", new_tracks, tracks));
     }
     m_dialog->setTracks(tracks);
 
@@ -469,15 +473,14 @@ void RecordPlugin::changeSampleRate(double new_rate)
     }
 
     // check the supported sample rates
-    QValueList<double> supported_rates = m_device->detectSampleRates();
+    QList<double> supported_rates = m_device->detectSampleRates();
     double rate = new_rate;
     if (!supported_rates.contains(rate)) {
 	// find the nearest sample rate
 	double nearest = supported_rates.last();
-	QValueList<double>::Iterator it;
-	for (it=supported_rates.begin(); it != supported_rates.end(); ++it) {
-	    if (fabs(*it - rate) <= fabs(nearest - rate))
-	        nearest = *it;
+	foreach (double r, supported_rates) {
+	    if (fabs(r - rate) <= fabs(nearest - rate))
+	        nearest = r;
 	}
 	rate = nearest;
 
@@ -486,7 +489,7 @@ void RecordPlugin::changeSampleRate(double new_rate)
 	if (((int)new_rate > 0) && ((int)rate > 0) &&
 	    ((int)new_rate != (int)rate))
 	    notice(i18n("%1Hz is not supported, "\
-		        "using %2Hz").arg(sr1).arg(sr2));
+		        "using %2Hz", sr1, sr2));
     }
     m_dialog->setSupportedSampleRates(supported_rates);
 
@@ -500,7 +503,7 @@ void RecordPlugin::changeSampleRate(double new_rate)
 	const QString sr2(m_dialog->rate2string(rate));
 	if (((int)new_rate > 0) && ((int)rate > 0) &&
 	    ((int)new_rate != (int)rate))
-	    notice(i18n("%1Hz failed, using %2Hz").arg(sr1).arg(sr2));
+	    notice(i18n("%1Hz failed, using %2Hz", sr1, sr2));
     }
     m_dialog->setSampleRate(rate);
 
@@ -526,7 +529,7 @@ void RecordPlugin::changeCompression(int new_compression)
 
     // check the supported compressions
     CompressionType types;
-    QValueList<int> supported_comps = m_device->detectCompressions();
+    QList<int> supported_comps = m_device->detectCompressions();
     int compression = new_compression;
     if (!supported_comps.contains(compression) && (compression != 0)) {
 	// try to disable the compression (type 0)
@@ -542,8 +545,8 @@ void RecordPlugin::changeCompression(int new_compression)
 	if (compression != new_compression) {
 	    const QString c1(types.name(types.findFromData(new_compression)));
 	    const QString c2(types.name(types.findFromData(compression)));
-	    notice(i18n("compression '%1' not supported, using '%2'").arg(
-                        c1).arg(c2));
+	    notice(i18n("compression '%1' not supported, using '%2'",
+                        c1, c2));
 	}
     }
     m_dialog->setSupportedCompressions(supported_comps);
@@ -559,7 +562,7 @@ void RecordPlugin::changeCompression(int new_compression)
 	    const QString c1(types.name(types.findFromData(compression)));
 	    const QString c2(types.name(types.findFromData(
 	                 m_device->compression())));
-	    notice(i18n("compression %1 failed, using %2.").arg(c1).arg(c2));
+	    notice(i18n("compression %1 failed, using %2.", c1 ,c2));
 	}
     }
     m_dialog->setCompression(compression);
@@ -585,22 +588,21 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
     }
 
     // check the supported resolution in bits per sample
-    QValueList<unsigned int> supported_bits = m_device->supportedBits();
+    QList<unsigned int> supported_bits = m_device->supportedBits();
     int bits = new_bits;
     if (!supported_bits.contains(bits) && !supported_bits.isEmpty()) {
 	// find the nearest resolution
 	int nearest = supported_bits.last();
-	QValueList<unsigned int>::Iterator it;
-	for (it=supported_bits.begin(); it != supported_bits.end(); ++it) {
-	    if (abs((int)*it - nearest) <= abs(bits - nearest))
-	        nearest = (int)*it;
+	foreach (unsigned int b, supported_bits) {
+	    if (qAbs(static_cast<int>(b) - nearest) <= qAbs(bits - nearest))
+	        nearest = static_cast<int>(b);
 	}
 	bits = nearest;
 
 	if (((int)new_bits > 0) && (bits > 0)) notice(
 	    i18n("%1 bits per sample is not supported, "\
-	         "using %2 bits per sample").arg(
-		 (int)new_bits).arg(bits));
+	         "using %2 bits per sample",
+		 (int)new_bits, bits));
     }
     m_dialog->setSupportedBits(supported_bits);
 
@@ -611,8 +613,8 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 	bits = m_device->bitsPerSample();
 	if ((new_bits> 0) && (bits > 0)) notice(
 	    i18n("%1 bits per sample failed, "\
-		 "using %2 bits per sample").arg(
-		 (int)new_bits).arg(bits));
+		 "using %2 bits per sample",
+		 (int)new_bits, bits));
     }
     m_dialog->setBitsPerSample(bits);
 
@@ -636,8 +638,7 @@ void RecordPlugin::changeSampleFormat(SampleFormat new_format)
     }
 
     // check the supported sample formats
-    QValueList<SampleFormat> supported_formats =
-	m_device->detectSampleFormats();
+    QList<SampleFormat> supported_formats = m_device->detectSampleFormats();
     SampleFormat format = new_format;
     if (!supported_formats.contains(format) && !supported_formats.isEmpty()) {
 	// use the device default instead
@@ -653,7 +654,7 @@ void RecordPlugin::changeSampleFormat(SampleFormat new_format)
 	const QString s2 = sf.name(sf.findFromData(format));
 	if (!(new_format == -1) && !(new_format == format)) {
 	    notice(i18n("sample format '%1' is not supported, "\
-		        "using '%2'").arg(s1).arg(s2));
+		        "using '%2'", s1, s2));
 	}
     }
     m_dialog->setSupportedSampleFormats(supported_formats);
@@ -668,7 +669,7 @@ void RecordPlugin::changeSampleFormat(SampleFormat new_format)
 	const QString s1 = sf.name(sf.findFromData(new_format));
 	const QString s2 = sf.name(sf.findFromData(format));
 	if (format > 0) notice(
-	    i18n("sample format '%1' failed, using '%2'").arg(s1).arg(s2));
+	    i18n("sample format '%1' failed, using '%2'", s1, s2));
     }
     m_dialog->setSampleFormat(format);
 }
@@ -690,7 +691,11 @@ void RecordPlugin::enterInhibit()
 
 // 	qDebug("RecordPlugin::enterInhibit() - STOPPING");
 	m_thread->stop();
-	Q_ASSERT(!m_thread->running());
+	Q_ASSERT(!m_thread->isRunning());
+
+	// de-queue all buffers that are still in the queue
+	while (m_thread->queuedBuffers())
+	    processBuffer();
     }
 }
 
@@ -703,13 +708,13 @@ void RecordPlugin::leaveInhibit()
     if (m_inhibit_count) m_inhibit_count--;
 
     while (!m_inhibit_count && paramsValid()) {
-// 	qDebug("RecordPlugin::leaveInhibit() - STARTING ("+
+// 	qDebug("RecordPlugin::leaveInhibit() - STARTING ("
 // 	       "%d channels, %d bits)",
 // 	       m_dialog->params().tracks,
 // 	       m_dialog->params().bits_per_sample);
 
-	Q_ASSERT(!m_thread->running());
-	if (m_thread->running()) break;
+	Q_ASSERT(!m_thread->isRunning());
+	if (m_thread->isRunning()) break;
 
 	// set new parameters for the recorder
 	setupRecordThread();
@@ -760,9 +765,9 @@ void RecordPlugin::setupRecordThread()
     if (!paramsValid()) return;
 
     // stop the thread if necessary (should never happen)
-    Q_ASSERT(!m_thread->running());
-    if (m_thread->running()) m_thread->stop();
-    Q_ASSERT(!m_thread->running());
+    Q_ASSERT(!m_thread->isRunning());
+    if (m_thread->isRunning()) m_thread->stop();
+    Q_ASSERT(!m_thread->isRunning());
 
     // delete the previous decoder
     if (m_decoder) delete m_decoder;
@@ -804,7 +809,7 @@ void RecordPlugin::setupRecordThread()
 
     Q_ASSERT(m_decoder);
     if (!m_decoder) {
-	KMessageBox::sorry(m_dialog, i18n("Out of memory"));
+	Kwave::MessageBox::sorry(m_dialog, i18n("Out of memory"));
 	return;
     }
 
@@ -812,17 +817,16 @@ void RecordPlugin::setupRecordThread()
     m_prerecording_queue.clear();
     if (params.pre_record_enabled) {
 	// prepare a queue for each track
+	const unsigned int prerecording_samples = (unsigned int)rint(
+	    params.pre_record_time * params.sample_rate);
 	m_prerecording_queue.resize(params.tracks);
+	for (int i=0; i < m_prerecording_queue.size(); i++)
+	    m_prerecording_queue[i].setSize(prerecording_samples);
 
-	for (unsigned int track=0; track < params.tracks; ++track) {
-	    SampleFIFO *fifo = new SampleFIFO();
-	    m_prerecording_queue.insert(track, fifo);
-	    Q_ASSERT(fifo);
-	    if (!fifo) {
-		m_prerecording_queue.clear();
-		KMessageBox::sorry(m_dialog, i18n("Out of memory"));
-		return;
-	    }
+	if (m_prerecording_queue.size() != static_cast<int>(params.tracks)) {
+	    m_prerecording_queue.clear();
+	    Kwave::MessageBox::sorry(m_dialog, i18n("Out of memory"));
+	    return;
 	}
     }
 
@@ -880,7 +884,7 @@ void RecordPlugin::startRecording()
 	    Q_ASSERT(m_writers);
 	    Q_ASSERT((m_writers) && (m_writers->tracks() == tracks));
 	    if ((!m_writers) || (m_writers->tracks() != tracks)) {
-		KMessageBox::sorry(m_dialog, i18n("Out of memory"));
+		Kwave::MessageBox::sorry(m_dialog, i18n("Out of memory"));
 		return;
 	    }
 	} else {
@@ -897,18 +901,22 @@ void RecordPlugin::startRecording()
 	fileInfo().set(INF_COMPRESSION, m_dialog->params().compression);
 
 	// add our Kwave Software tag
-	const KAboutData *about_data = KGlobal::instance()->aboutData();
+	const KAboutData *about_data =
+	    KGlobal::mainComponent().aboutData();
 	QString software = about_data->programName() + "-" +
-	    about_data->version() + i18n(" for KDE ") +
-	    i18n(QString::fromLatin1(KDE_VERSION_STRING));
+			    about_data->version() +
+			    i18n(" for KDE ") +
+			    i18n(KDE_VERSION_STRING);
+	qDebug("adding software tag: '%s'",
+		software.toLocal8Bit().data());
 	fileInfo().set(INF_SOFTWARE, software);
 
-	// add a date tag
+	// add a date tag, ISO format
 	QDate now(QDate::currentDate());
 	QString date;
 	date = date.sprintf("%04d-%02d-%02d",
 		now.year(), now.month(), now.day());
-	QVariant value = date.utf8();
+	QVariant value = date.toUtf8();
 	fileInfo().set(INF_CREATION_DATE, value);
     }
 
@@ -934,13 +942,13 @@ void RecordPlugin::recordStopped(int reason)
 	    break;
 	default:
 	    description = i18n("Reading from the recording device failed, "\
-	                       "error number = %1 (%2)").arg(-reason).arg(
+	                       "error number = %1 (%2)", -reason,
 			       QString::fromLocal8Bit(strerror(-reason)));
     }
-    KMessageBox::error(m_dialog, description);
+    Kwave::MessageBox::error(m_dialog, description);
 
     if (m_writers) m_writers->flush();
-    qDebug("RecordPlugin::recordStopped(): wrote %u samples",
+    qDebug("RecordPlugin::recordStopped(): last=%u",
            (m_writers) ? m_writers->last() : 0);
 
     // flush away all prerecording buffers
@@ -959,6 +967,7 @@ void RecordPlugin::stateChanged(RecordState state)
 	case REC_PAUSED:
 	case REC_DONE:
 	    // reset buffer status
+	    if (m_writers) m_writers->flush();
 	    m_buffers_recorded = 0;
 	    m_dialog->updateBufferState(0,0);
 	    break;
@@ -1038,13 +1047,14 @@ void RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 
 //***************************************************************************
 bool RecordPlugin::checkTrigger(unsigned int track,
-                                QMemArray<sample_t> &buffer)
+                                Kwave::SampleArray &buffer)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return false;
     if (!buffer.size()) return false;
     if (!m_writers) return false;
-    if (m_trigger_value.size() != m_writers->tracks()) return false;
+    if (m_trigger_value.size() != static_cast<int>(m_writers->tracks()))
+	return false;
 
     // shortcut if no trigger has been set
     if (!m_dialog->params().record_trigger_enabled) return true;
@@ -1116,17 +1126,15 @@ bool RecordPlugin::checkTrigger(unsigned int track,
 
 //***************************************************************************
 void RecordPlugin::enqueuePrerecording(unsigned int track,
-                                       const QMemArray<sample_t> &decoded)
+                                       const Kwave::SampleArray &decoded)
 {
     Q_ASSERT(m_dialog);
-    Q_ASSERT(track < m_prerecording_queue.size());
+    Q_ASSERT(static_cast<int>(track) < m_prerecording_queue.size());
     if (!m_dialog) return;
-    if (track >= m_prerecording_queue.size()) return;
+    if (static_cast<int>(track) >= m_prerecording_queue.size()) return;
 
     // append the array with decoded sample to the prerecording buffer
-    SampleFIFO *fifo = m_prerecording_queue.at(track);
-    Q_ASSERT(fifo);
-    if (fifo) fifo->put(decoded);
+    m_prerecording_queue[track].put(decoded);
 }
 
 //***************************************************************************
@@ -1148,29 +1156,28 @@ void RecordPlugin::flushPrerecordingQueue()
     if (!tracks || (tracks != m_writers->tracks())) return;
 
     for (unsigned int track=0; track < tracks; ++track) {
-	SampleFIFO *fifo = m_prerecording_queue.at(track);
-	Q_ASSERT(fifo);
-	if (!fifo) continue;
-	Q_ASSERT(fifo->length());
-	if (!fifo->length()) continue;
+	SampleFIFO &fifo = m_prerecording_queue[track];
+	Q_ASSERT(fifo.length());
+	if (!fifo.length()) continue;
+	fifo.crop(); // enforce the correct size
 
 	// push all buffers to the writer, starting at the tail
 	SampleWriter *writer = (*m_writers)[track];
 	Q_ASSERT(writer);
 	if (writer) {
 	    Kwave::SampleArray buffer(writer->blockSize());
-	    unsigned int rest = fifo->length();
+	    unsigned int rest = fifo.length();
 	    while (rest) {
-		unsigned int read = fifo->get(buffer);
+		unsigned int read = fifo.get(buffer);
 		if (read < 1) break;
 		writer->flush(buffer, read);
 		rest -= read;
 	    }
 	} else {
 	    // fallback: discard the FIFO content
-	    fifo->flush();
+	    fifo.flush();
 	}
-	Q_ASSERT(fifo->length() == 0);
+	Q_ASSERT(fifo.length() == 0);
     }
 
     // the queues are no longer needed
@@ -1181,21 +1188,22 @@ void RecordPlugin::flushPrerecordingQueue()
 }
 
 //***************************************************************************
-void RecordPlugin::processBuffer(QByteArray buffer)
+void RecordPlugin::processBuffer()
 {
     bool recording_done = false;
 
-//     qDebug("RecordPlugin::processBuffer()");
-    Q_ASSERT(m_dialog);
-    Q_ASSERT(m_thread);
-    Q_ASSERT(m_writers);
-    if (!m_dialog || !m_thread || !m_decoder || !m_writers) return;
+    // de-queue the buffer from the thread
+    if (!m_thread) return;
+    if (!m_thread->queuedBuffers()) return;
+    QByteArray buffer = m_thread->dequeue();
+
+    // abort here if we have no dialog or no decoder
+    if (!m_dialog || !m_decoder) return;
 
     // we received a buffer -> update the progress bar
     updateBufferProgressBar();
 
     const RecordParams &params = m_dialog->params();
-
     const unsigned int tracks = params.tracks;
     Q_ASSERT(tracks);
     if (!tracks) return;
@@ -1204,13 +1212,14 @@ void RecordPlugin::processBuffer(QByteArray buffer)
     Q_ASSERT(bytes_per_sample);
     if (!bytes_per_sample) return;
 
-    unsigned int samples = buffer.size() / bytes_per_sample / tracks;
+    unsigned int samples = (buffer.size() / bytes_per_sample) / tracks;
     Q_ASSERT(samples);
     if (!samples) return;
 
     // check for reached recording time limit if enabled
-    if (params.record_time_limited) {
-	const unsigned int already_recorded = m_writers->last()+1;
+    if (params.record_time_limited && m_writers) {
+	const unsigned int last = m_writers->last();
+	const unsigned int already_recorded = (last) ? (last + 1) : 0;
 	const unsigned int limit = (unsigned int)rint(
 	    params.record_time * params.sample_rate);
 	if (already_recorded + samples >= limit) {
@@ -1226,11 +1235,10 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 
     QByteArray buf;
     buf.resize(bytes_per_sample * samples);
-    Q_ASSERT(buf.size() == bytes_per_sample * samples);
-    if (buf.size() != bytes_per_sample * samples) return;
+    Q_ASSERT(buf.size() == static_cast<int>(bytes_per_sample * samples));
+    if (buf.size() != static_cast<int>(bytes_per_sample * samples)) return;
 
-    QMemArray<sample_t> decoded;
-    decoded.resize(samples);
+    Kwave::SampleArray decoded(samples);
     Q_ASSERT(decoded.size() == samples);
     if (decoded.size() != samples) return;
 
@@ -1292,6 +1300,8 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 		break;
 	    case REC_RECORDING: {
 		// put the decoded track data into the buffer
+		Q_ASSERT(m_writers);
+		if (!m_writers) break;
 		Q_ASSERT(tracks == m_writers->tracks());
 		if (!tracks || (tracks != m_writers->tracks())) break;
 
@@ -1306,7 +1316,7 @@ void RecordPlugin::processBuffer(QByteArray buffer)
     }
 
     // update the number of recorded samples
-    emit sigRecordedSamples(m_writers->last()+1);
+    if (m_writers) emit sigRecordedSamples(m_writers->last()+1);
 
     // if this was the last received buffer, change state
     if (recording_done && (m_state != REC_DONE) && (m_state != REC_EMPTY)) {

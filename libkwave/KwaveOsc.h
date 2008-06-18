@@ -19,8 +19,8 @@
 #define _KWAVE_OSC_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qvariant.h>
+#include <QObject>
+#include <QVariant>
 
 #include "libkwave/KwaveSampleSource.h"
 
@@ -70,13 +70,13 @@ namespace Kwave {
 	    Kwave::SampleArray m_buffer;
 
 	    /** current time multiplied by 2*Pi*f */
-	    double m_omega_t;
+	    qreal m_omega_t;
 
 	    /** frequency [samples/period] */
-	    double m_f;
+	    qreal m_f;
 
 	    /** amplitude [0...1] */
-	    double m_a;
+	    qreal m_a;
     };
 }
 

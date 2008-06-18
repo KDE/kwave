@@ -19,10 +19,15 @@
 #define _ASCII_ENCODER_H_
 
 #include "config.h"
-#include <qtextstream.h>
+
+#include <QList>
+#include <QTextStream>
+
 #include "libkwave/Encoder.h"
 
+class FileInfo;
 class QWidget;
+class MultiTrackReader;
 
 class AsciiEncoder: public Encoder
 {
@@ -49,7 +54,7 @@ public:
                         QIODevice &dst, FileInfo &info);
 
     /** Returns a list of supported file properties */
-    virtual QValueList<FileProperty> supportedProperties();
+    virtual QList<FileProperty> supportedProperties();
 
 private:
 

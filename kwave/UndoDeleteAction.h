@@ -19,7 +19,7 @@
 #define _UNDO_DELETE_ACTION_H_
 
 #include "config.h"
-#include <qstring.h>
+#include <QString>
 #include "UndoModifyAction.h"
 
 class SignalManager;

@@ -20,15 +20,13 @@
 #define _SAMPLE_READER_H_
 
 #include "config.h"
-#include <qmemarray.h>
-#include <qptrlist.h>
-#include <qobject.h>
+#include <QObject>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveSampleSource.h"
 
-class SampleLock;
 class Stripe;
 class Track;
 
@@ -38,18 +36,14 @@ class SampleReader: public Kwave::SampleSource
 public:
 
     /**
-     * Constructor. Creates a stream for reading samples from a track
-     * and locks all necessary stripes.
+     * Constructor. Creates a stream for reading samples from a track.
      * @param track
-     * @param stripes list of stripes, already locked for us
-     * @param lock a lock for the needed range of samples (ReadShared)
      * @param left start of the input (only useful in insert and
      *             overwrite mode)
      * @param right end of the input (only useful with overwrite mode)
      * @see InsertMode
      */
-    SampleReader(Track &track, QPtrList<Stripe> &stripes,
-	SampleLock *lock, unsigned int left, unsigned int right);
+    SampleReader(Track &track, unsigned int left, unsigned int right);
 
     /** Destructor */
     virtual ~SampleReader();
@@ -65,7 +59,7 @@ public:
     virtual void goOn();
 
     /** Checks if the last read operation has reached the end of input */
-    inline bool eof() {
+    inline bool eof() const {
 	return (pos() > m_last);
     };
 
@@ -76,7 +70,7 @@ public:
      * @return true if it can produce more sample data, otherwise false
      * @see eof()
      */
-    virtual bool done() { return eof(); };
+    virtual bool done() const { return eof(); };
 
     /**
      * Reads samples into a buffer.
@@ -85,7 +79,7 @@ public:
      * @param length number of samples to read
      * @return number of read samples
      */
-    unsigned int read(QMemArray<sample_t> &buffer, unsigned int dstoff,
+    unsigned int read(Kwave::SampleArray &buffer, unsigned int dstoff,
 	unsigned int length);
 
     /** Skips a number of samples. */
@@ -97,7 +91,7 @@ public:
     /**
      * Returns the current read position.
      */
-    inline unsigned int pos() {
+    inline unsigned int pos() const {
 	return (m_src_position + m_buffer_position - m_buffer_used);
     };
 
@@ -121,7 +115,7 @@ public:
      * it will be shrinked to the number of samples that were really
      * read.
      */
-    SampleReader& operator >> (QMemArray<sample_t> &sample);
+    SampleReader& operator >> (Kwave::SampleArray &sample);
 
 signals:
 
@@ -144,12 +138,6 @@ private:
     /** the track to which we belong */
     Track &m_track;
 
-    /** list of stripes with sample data */
-    QPtrList<Stripe> m_stripes;
-
-    /** lock for the needed range of samples */
-    SampleLock* m_lock;
-
     /**
      * Current sample position, related to the source of the samples. Does
      * not reflect the position of the next sample to be read out due to
@@ -165,7 +153,7 @@ private:
     unsigned int m_last;
 
     /** intermediate buffer for the input data */
-    QMemArray<sample_t> m_buffer;
+    Kwave::SampleArray m_buffer;
 
     /** number of used elements in the buffer */
     unsigned int m_buffer_used;

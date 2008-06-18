@@ -16,8 +16,13 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <QComboBox>
+#include <QString>
+
+#include <kabstractfilewidget.h>
+#include <kfiledialog.h>
 #include <kurlcombobox.h>
-#include <qcombobox.h>
 
 #include "SaveBlocksDialog.h"
 #include "SaveBlocksWidget.h"
@@ -26,7 +31,6 @@
 SaveBlocksDialog::SaveBlocksDialog(const QString &startDir,
     const QString &filter,
     QWidget *parent,
-    const char *name,
     bool modal,
     const QString last_url,
     const QString last_ext,
@@ -35,18 +39,19 @@ SaveBlocksDialog::SaveBlocksDialog(const QString &startDir,
     bool selection_only,
     bool have_selection
 )
-    :KwaveFileDialog(startDir, filter, parent, name, modal, last_url,
-	last_ext, m_widget = new SaveBlocksWidget(parent, filename_pattern,
+    :KwaveFileDialog(startDir, filter, parent, modal, last_url, last_ext),
+     m_widget(new SaveBlocksWidget(this, filename_pattern,
 	numbering_mode, selection_only, have_selection))
 {
     Q_ASSERT(m_widget);
+    fileWidget()->setCustomWidget(m_widget);
     connect(m_widget, SIGNAL(somethingChanged()),
             this, SLOT(emitUpdate()));
 
     // if something in the file selection changes
     connect(this, SIGNAL(filterChanged(const QString &)),
             this, SLOT(textChanged(const QString &)));
-    connect(locationEdit, SIGNAL(textChanged(const QString &)),
+    connect(locationEdit(), SIGNAL(textChanged(const QString &)),
             this, SLOT(textChanged(const QString &)));
 }
 
@@ -89,10 +94,10 @@ void SaveBlocksDialog::setNewExample(const QString &example)
 //***************************************************************************
 void SaveBlocksDialog::emitUpdate()
 {
-    QString path = baseURL().path(+1);
-    QString filename = path + locationEdit->currentText();
+    QString path = baseUrl().path(KUrl::AddTrailingSlash);
+    QString filename = path + locationEdit()->currentText();
     QFileInfo file(filename);
-    if (!file.extension().length()) {
+    if (!file.suffix().length()) {
 	// append the currently selected extension if it's missing
 	QString extension = selectedExtension().section(" ", 0, 0);
 	filename += extension.remove(0, 1);

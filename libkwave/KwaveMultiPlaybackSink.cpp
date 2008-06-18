@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <QtGlobal>
+
 #include "libkwave/memcpy.h"
 #include "libkwave/KwaveMultiPlaybackSink.h"
 #include "libkwave/KwavePlaybackSink.h"
@@ -25,17 +27,17 @@
 //***************************************************************************
 Kwave::MultiPlaybackSink::MultiPlaybackSink(unsigned int tracks,
                                             PlayBackDevice *device)
-    :Kwave::MultiTrackSink<Kwave::PlaybackSink>(
-	tracks, 0, "MultiPlaybackSink"),
+    :Kwave::MultiTrackSink<Kwave::PlaybackSink>(0),
      m_tracks(tracks), m_device(device), m_in_buffer(tracks),
      m_in_buffer_filled(tracks),
      m_out_buffer(tracks)
 {
-    m_in_buffer.setAutoDelete(true);
+    m_in_buffer.fill(0);
+    m_in_buffer_filled.fill(false);
 
     for (unsigned int track = 0; track < m_tracks; track++) {
 	// allocate a input buffer
-	m_in_buffer.insert(track, new Kwave::SampleArray(blockSize()));
+	m_in_buffer[track] = new Kwave::SampleArray(blockSize());
 	Q_ASSERT(m_in_buffer[track]);
 
 	// allocate a sink
@@ -49,11 +51,23 @@ Kwave::MultiPlaybackSink::MultiPlaybackSink(unsigned int tracks,
 //***************************************************************************
 Kwave::MultiPlaybackSink::~MultiPlaybackSink()
 {
+    // close all stream objects
+    clear();
+
+    // close the device
     if (m_device) {
 	m_device->close();
 	delete m_device;
     }
     m_device = 0;
+
+    // discard the buffers
+    while (!m_in_buffer.isEmpty()) {
+	Kwave::SampleArray *b = m_in_buffer[0];
+	if (b) delete b;
+	m_in_buffer.remove(0);
+    }
+    m_in_buffer.clear();
 }
 
 //***************************************************************************

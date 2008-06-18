@@ -17,15 +17,14 @@
 
 #include "config.h"
 
-#include <qstring.h>
-#include <qvariant.h>
+#include <QString>
+#include <QVariant>
 
 #include "libkwave/KwaveStreamObject.h"
 
 //***************************************************************************
-Kwave::StreamObject::StreamObject(QObject *parent, const char *name)
-    :QObject(parent, name),
-    m_lock_set_attribute(true /* recursive! */)
+Kwave::StreamObject::StreamObject(QObject *parent)
+    :QObject(parent), m_lock_set_attribute(QMutex::Recursive)
 {
 }
 
@@ -46,14 +45,14 @@ void Kwave::StreamObject::setAttribute(const QString &attribute,
 
 	// temporary establish a signal->slot connection
 	QObject::connect(this, SIGNAL(attributeChanged(const QVariant &)),
-                         obj, attribute);
+                         obj, attribute.toAscii());
 
 	// emit the new value through our own signal
 	emit attributeChanged(value);
 
 	// remove the temporary signal->slot connection
 	QObject::disconnect(this, SIGNAL(attributeChanged(const QVariant &)),
-                            obj, attribute);
+                            obj, attribute.toAscii());
     }
 }
 

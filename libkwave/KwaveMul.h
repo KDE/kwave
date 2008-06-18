@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveSampleSource.h"
 #include "libkwave/KwaveSampleSink.h"
 

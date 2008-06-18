@@ -19,11 +19,6 @@
 #define _OGG_DECODER_H_
 
 #include "config.h"
-#include <qptrlist.h>
-#include <qmap.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qobject.h>
 
 #include <vorbis/codec.h>
 
@@ -92,7 +87,7 @@ private:
 
     /** sync and verify incoming physical bitstream */
     ogg_sync_state m_oy;
-    
+
     /** take physical pages, weld into a logical stream of packets */
     ogg_stream_state m_os;
 
@@ -110,7 +105,7 @@ private:
 
     /** central working state for the packet->PCM decoder */
     vorbis_dsp_state m_vd;
-    
+
     /** local working space for packet->PCM decode */
     vorbis_block m_vb;
 

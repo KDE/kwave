@@ -19,8 +19,9 @@
 #define _NOISE_PLUGIN_H_
 
 #include "config.h"
-#include <qstring.h>
-#include <qstringlist.h>
+
+#include <QString>
+#include <QStringList>
 
 #include "libkwave/KwavePlugin.h"
 

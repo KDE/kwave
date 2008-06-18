@@ -15,23 +15,36 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
+#include <QListIterator>
+
 #include "UndoAction.h"
 #include "UndoTransaction.h"
 
 //***************************************************************************
 UndoTransaction::UndoTransaction(const QString &name)
-    :QPtrList<UndoAction>(), m_description(name)
+    :QList<UndoAction *>(), m_description(name)
 {
-    setAutoDelete(true);
+}
+
+//***************************************************************************
+UndoTransaction::~UndoTransaction()
+{
+    while (!isEmpty()) {
+	UndoAction *action = takeLast();
+	if (action) delete action;
+    }
 }
 
 //***************************************************************************
 unsigned int UndoTransaction::undoSize()
 {
     unsigned int s = 0;
-    QPtrListIterator<UndoAction> it(*this);
-    for ( ; it.current(); ++it) {
-	s += it.current()->undoSize();
+    QListIterator<UndoAction *> it(*this);
+    while (it.hasNext()) {
+	UndoAction *undo = it.next();
+	if (undo) s += undo->undoSize();
     }
     return s;
 }
@@ -39,16 +52,13 @@ unsigned int UndoTransaction::undoSize()
 //***************************************************************************
 unsigned int UndoTransaction::redoSize()
 {
-    long int current = 0;
-    long int max = 0;
-
-    QPtrListIterator<UndoAction> it(*this);
-    for (it.toLast(); it.current(); --it) {
-	int s = it.current()->redoSize();
-	current += s;
-	if (current > max) max = current;
+    unsigned int s = 0;
+    QListIterator<UndoAction *> it(*this);
+    while (it.hasNext()) {
+	UndoAction *undo = it.next();
+	if (undo) s += undo->redoSize();
     }
-    return max;
+    return s;
 }
 
 //***************************************************************************
@@ -58,9 +68,12 @@ QString UndoTransaction::description()
     if (m_description.length()) return m_description;
 
     QString str("");
-    QPtrListIterator<UndoAction> it(*this);
-    for ( ; it.current(); ++it) {
-	QString d = it.current()->description();
+    QListIterator<UndoAction *> it(*this);
+    while (it.hasNext()) {
+	UndoAction *undo = it.next();
+	if (!undo) continue;
+	QString d = undo->description();
+
 	// skip duplicates
 	if (str.contains(", "+d) || (str == d)) continue;
 
@@ -75,10 +88,13 @@ QString UndoTransaction::description()
 UndoAction *UndoTransaction::nextUndo()
 {
     UndoAction *next = last();
-    QPtrListIterator<UndoAction> it(*this);
-    for (it.toLast() ; it.current(); --it) {
-	UndoAction *action = (*it);
+
+    QListIterator<UndoAction *> it(*this);
+    it.toBack();
+    while (it.hasPrevious()) {
+	UndoAction *action = it.previous();
 	Q_ASSERT(action);
+	if (!action) continue;
 	Q_ASSERT(next);
 	if (action->group() < next->group())
 	    next = action;
@@ -90,11 +106,13 @@ UndoAction *UndoTransaction::nextUndo()
 UndoAction *UndoTransaction::nextRedo()
 {
     UndoAction *next = first();
-    QPtrListIterator<UndoAction> it(*this);
-    for (it.toFirst(); it.current(); --it) {
-	UndoAction *action = it.current();
-	Q_ASSERT(next);
+
+    QListIterator<UndoAction *> it(*this);
+    while (it.hasNext()) {
+	UndoAction *action = it.next();
 	Q_ASSERT(action);
+	if (!action) continue;
+	Q_ASSERT(next);
 	if (action->group() > next->group())
 	    next = action;
     }

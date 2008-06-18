@@ -24,7 +24,6 @@ class KwaveApp;
 class PluginManager;
 class MenuManager;
 class TopWidget;
-class LabelManager;
 
 class PluginContext
 {
@@ -33,7 +32,6 @@ public:
     PluginContext(
 	KwaveApp      &app,
 	PluginManager &plugin_mgr,
-	LabelManager  *label_mgr,
 	MenuManager   *menu_mgr,
 	TopWidget     &topwidget,
 	void *mod_handle,
@@ -43,7 +41,6 @@ public:
     )
     :kwave_app(app),
     manager(plugin_mgr),
-    label_manager(label_mgr),
     menu_manager(menu_mgr),
     top_widget(topwidget),
     handle(mod_handle),
@@ -54,7 +51,6 @@ public:
 
     KwaveApp      &kwave_app;
     PluginManager &manager;
-    LabelManager  *label_manager;
     MenuManager   *menu_manager;
     TopWidget     &top_widget;
 

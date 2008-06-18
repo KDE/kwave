@@ -16,9 +16,11 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <qpixmap.h>
-#include <qpopupmenu.h>
-#include <kapp.h>
+
+#include <QPixmap>
+#include <QMenu>
+
+#include <kapplication.h>
 #include <kiconloader.h>
 
 #include "libkwave/Parser.h"
@@ -29,18 +31,34 @@
 #include "MenuItem.h"
 
 //*****************************************************************************
-MenuItem::MenuItem(MenuNode *parent, const QString &name,
-	const QString &command, int key, const QString &uid)
-    :MenuNode(parent, name, command, key, uid),
-    m_checkable(false),
-    m_exclusive_group(0),
-    m_text(name)
+MenuItem::MenuItem(MenuNode *parent,
+                   const QString &name,
+                   const QString &command,
+                   const QKeySequence &shortcut,
+                   const QString &uid)
+    :MenuNode(parent, name, command, shortcut, uid),
+     m_exclusive_group(0), m_action(0)
 {
+    Q_ASSERT(parent);
+    if (!parent) return;
+
+    m_action.setText(name);
+    if (shortcut) m_action.setShortcut(shortcut);
+
+    connect(&m_action, SIGNAL(triggered(bool)),
+	    this, SLOT(actionTriggered(bool)));
 }
 
 //*****************************************************************************
 MenuItem::~MenuItem()
 {
+}
+
+//*****************************************************************************
+void MenuItem::actionTriggered(bool checked)
+{
+    Q_UNUSED(checked);
+    actionSelected();
 }
 
 //*****************************************************************************
@@ -56,7 +74,7 @@ void MenuItem::actionSelected()
 
 	if (group && ((MenuNode*)group)->inherits("MenuGroup")) {
 	    // exclusive check == selection
-	    group->selectItem(getUID());
+	    group->selectItem(uid());
 	} else {
 	    // normal check, maybe multiple
 	    setChecked(true);
@@ -67,43 +85,15 @@ void MenuItem::actionSelected()
 }
 
 //*****************************************************************************
-int MenuItem::getIndex()
-{
-    MenuNode *parent = getParentNode();
-    return (parent) ? parent->getChildIndex(getId()) : -1;
-}
-
-//*****************************************************************************
 bool MenuItem::specialCommand(const QString &command)
 {
-    if (command.startsWith("#icon(")) {
-	// --- give the item an icon ---
-	Parser parser(command);
-	const QString &filename = parser.firstParam();
-	if (filename.length()) {
-	    // try to load from standard dirs
-	    static KIconLoader loader;
-	    QPixmap icon = loader.loadIcon(filename,
-		KIcon::Small,0,KIcon::DefaultState,0L,true);
 
-	    if (!icon.isNull()) {
-		setIcon(icon);
-	    } else {
-		qWarning("MenuItem '%s': icon '%s' not found !",
-		    name(), filename.local8Bit().data());
-	    }
-	}
-	return true;
-    } else if (command.startsWith("#listmenu")) {
-	// insert an empty submenu for the list items
-	MenuNode *parent = getParentNode();
-	if (parent) parent->leafToBranch(this);
-
-	return true;
-    } else if (command.startsWith("#checkable")) {
+    if (command.startsWith("#checkable")) {
 	// checking/selecting of the item (non-exclusive)
 	setCheckable(true);
-    } else if (command.startsWith("#exclusive(")) {
+    }
+
+    if (command.startsWith("#exclusive(")) {
 	Parser parser(command);
 
 	// join to a list of groups
@@ -115,8 +105,8 @@ bool MenuItem::specialCommand(const QString &command)
 	    } else if (m_exclusive_group != group) {
 		qWarning("menu item '%s' already member of "\
 			"exclusive group '%s'",
-			getName().local8Bit().data(),
-			m_exclusive_group.local8Bit().data());
+			name().toLocal8Bit().data(),
+			m_exclusive_group.toLocal8Bit().data());
 	    }
 	    group = parser.nextParam();
 	}
@@ -130,41 +120,52 @@ bool MenuItem::specialCommand(const QString &command)
 }
 
 //*****************************************************************************
+bool MenuItem::isEnabled()
+{
+    if (!m_action.isEnabled()) return false;
+    return MenuNode::isEnabled();
+}
+
+//*****************************************************************************
+void MenuItem::setEnabled(bool enable)
+{
+    m_action.setEnabled(enable);
+}
+
+//*****************************************************************************
 bool MenuItem::isCheckable()
 {
-    return m_checkable;
+    return m_action.isCheckable();
 }
 
 //*****************************************************************************
 void MenuItem::setCheckable(bool checkable)
 {
-    MenuNode *parent = getParentNode();
-    if (parent && parent->inherits("MenuSub")) {
-	QPopupMenu &popup = ((MenuSub*)parent)->getPopupMenu();
-	popup.setCheckable(checkable);
-    }
-
-    m_checkable = checkable;
+    m_action.setCheckable(checkable);
 }
 
 //*****************************************************************************
 void MenuItem::setChecked(bool check)
 {
-    MenuNode *parent = getParentNode();
-    if (parent) parent->setItemChecked(getId(), check);
+    m_action.setChecked(check);
 }
 
 //*****************************************************************************
 void MenuItem::setText(const QString &text)
 {
-    if (text == m_text) return; // no change
-    m_text = text;
+    m_action.setText(text);
+}
 
-    MenuNode *parent = getParentNode();
-    if (parent && parent->inherits("MenuSub")) {
-	QPopupMenu &popup = ((MenuSub*)parent)->getPopupMenu();
-	popup.changeItem(getId(), m_text);
-    }
+//*****************************************************************************
+const QIcon MenuItem::icon()
+{
+    return m_action.icon();
+}
+
+//*****************************************************************************
+void MenuItem::setIcon(const QIcon &icon)
+{
+    m_action.setIcon(icon);
 }
 
 //***************************************************************************

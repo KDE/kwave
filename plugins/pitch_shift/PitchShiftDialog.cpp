@@ -18,10 +18,10 @@
 #include "config.h"
 #include "math.h"
 
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qslider.h>
-#include <qspinbox.h>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QSpinBox>
 
 #include <klocale.h>
 #include "libkwave/Parser.h"
@@ -31,11 +31,13 @@
 
 //***************************************************************************
 PitchShiftDialog::PitchShiftDialog(QWidget *parent)
-    :PitchShiftDlg(parent, 0, true),
-     KwavePluginSetupDialog(),
+    :QDialog(parent), Ui::PitchShiftDlg(), KwavePluginSetupDialog(),
      m_speed(1.0), m_frequency(5.0), m_mode(MODE_FACTOR),
      m_enable_updates(true)
 {
+    setupUi(this);
+    setModal(true);
+
     setMode(m_mode);
 
     // process changed in mode selection
@@ -67,7 +69,7 @@ PitchShiftDialog::PitchShiftDialog(QWidget *parent)
         btListen->setMinimumWidth(btListen->width());
 
     // set the initial size of the dialog
-    setFixedHeight(minimumHeight());
+    setFixedHeight(sizeHint().height());
     int w = (height() * 3) / 5;
     if (width() < w) resize(w, height());
 }
@@ -91,27 +93,27 @@ void PitchShiftDialog::setMode(Mode mode)
 	case MODE_FACTOR: {
 	    rbFactor->setChecked(true);
 
-	    slSpeed->setMinValue(-9);
-	    slSpeed->setMaxValue(+4);
+	    slSpeed->setMinimum(-9);
+	    slSpeed->setMaximum(+4);
 	    slSpeed->setPageStep(1);
 	    slSpeed->setTickInterval(1);
 
-	    sbSpeed->setMinValue(-10);
-	    sbSpeed->setMaxValue(+10);
-	    sbSpeed->setLineStep(1);
+	    sbSpeed->setMinimum(-10);
+	    sbSpeed->setMaximum(+10);
+	    sbSpeed->setSingleStep(1);
 	    break;
 	}
 	case MODE_PERCENT: {
 	    rbPercentage->setChecked(true);
 
-	    slSpeed->setMinValue(1);
-	    slSpeed->setMaxValue(400);
+	    slSpeed->setMinimum(1);
+	    slSpeed->setMaximum(400);
 	    slSpeed->setPageStep(10);
 	    slSpeed->setTickInterval(50);
 
-	    sbSpeed->setMinValue(1);
-	    sbSpeed->setMaxValue(400);
-	    sbSpeed->setLineStep(1);
+	    sbSpeed->setMinimum(1);
+	    sbSpeed->setMaximum(400);
+	    sbSpeed->setSingleStep(1);
 	    break;
 	}
     }
@@ -324,7 +326,7 @@ void PitchShiftDialog::listenStopped()
     Q_ASSERT(btListen);
     if (!btListen) return;
 
-    btListen->setOn(false);
+    btListen->setChecked(false);
 }
 
 //***************************************************************************

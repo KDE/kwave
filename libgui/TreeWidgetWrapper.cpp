@@ -1,8 +1,8 @@
 /***************************************************************************
-  IntValidatorProxy.cpp  -  QIntValidator that emits a signal on changes
-                             -------------------
-    begin                : Sun Jun 16 2002
-    copyright            : (C) 2002 by Thomas Eschenbacher
+    TreeWidget.cpp  -  wrapper for QTreeWidget to get focus out information
+			     -------------------
+    begin                : Mon May 12 2008
+    copyright            : (C) 2008 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -15,32 +15,28 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "IntValidatorProxy.h"
+#include "config.h"
+#include "TreeWidgetWrapper.h"
 
 //***************************************************************************
-IntValidatorProxy::IntValidatorProxy(QObject *parent, const char *name)
-    :QIntValidator(parent, name)
+TreeWidgetWrapper::TreeWidgetWrapper(QWidget *widget)
+    :QTreeWidget(widget)
 {
 }
 
 //***************************************************************************
-IntValidatorProxy::~IntValidatorProxy()
+TreeWidgetWrapper::~TreeWidgetWrapper()
 {
 }
 
 //***************************************************************************
-QValidator::State IntValidatorProxy::validate(QString &s, int &i) const
+void TreeWidgetWrapper::focusOutEvent(QFocusEvent *event)
 {
-    QValidator::State state = QIntValidator::validate(s, i);
-
-    if (state == Acceptable) {
-	int value = s.toInt();
-	((IntValidatorProxy*)this)->emit valueChanged(value);
-    }
-    return state;
-}
+    QTreeWidget::focusOutEvent(event);
+    emit focusLost();
+};
 
 //***************************************************************************
-#include "IntValidatorProxy.moc"
+#include "TreeWidgetWrapper.moc"
 //***************************************************************************
 //***************************************************************************

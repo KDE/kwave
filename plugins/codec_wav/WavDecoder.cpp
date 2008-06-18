@@ -28,11 +28,11 @@ extern "C" {
 #endif /* USE_BUILTIN_LIBAUDIOFILE */
 }
 
-#include <qptrlist.h>
-#include <qprogressdialog.h>
+#include <QList>
+#include <QProgressDialog>
+#include <QtGlobal>
 
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <kmimetype.h>
 
 #include "libkwave/byteswap.h"
@@ -42,7 +42,9 @@ extern "C" {
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 #include "libkwave/VirtualAudioFile.h"
+
 #include "libgui/ConfirmCancelProxy.h"
+#include "libgui/MessageBox.h"
 
 #include "RecoveryBuffer.h"
 #include "RecoveryMapping.h"
@@ -55,7 +57,7 @@ extern "C" {
 #include "WavFormatMap.h"
 
 // some byteswapping helper macros
-#if defined(ENDIANESS_BIG)
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
 #define CPU_TO_LE32(x) (bswap_32(x))
 #define LE32_TO_CPU(x) (bswap_32(x))
 #else
@@ -84,10 +86,8 @@ WavDecoder::WavDecoder()
     m_known_chunks.append("smpl"); /* Sampler */
 
     // add all sub-chunks of the LIST chunk (properties)
-    QMap<QCString, FileProperty>::Iterator it;
-    for (it=m_property_map.begin(); it!=m_property_map.end(); ++it) {
-	m_known_chunks.append( it.key() );
-    }
+    foreach (QByteArray name, m_property_map.keys())
+	m_known_chunks.append( name );
 
     // some chunks known from AIFF format
     m_known_chunks.append("FVER");
@@ -138,24 +138,26 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     RIFFParser parser(src, main_chunks, m_known_chunks);
 
     // prepare a progress dialog
-    QProgressDialog progress(widget, i18n("Auto-Repair"), true);
+    QProgressDialog progress(widget);
+    progress.setWindowTitle(i18n("Auto-Repair"));
+    progress.setModal(true);
     progress.setMinimumDuration(0);
-    progress.setTotalSteps(100);
+    progress.setMaximum(100);
     progress.setAutoClose(true);
-    progress.setProgress(0);
+    progress.setValue(0);
     progress.setLabelText(i18n("reading..."));
     connect(&parser,   SIGNAL(progress(int)),
-            &progress, SLOT(setProgress(int)));
+            &progress, SLOT(setValue(int)));
     connect(&parser,   SIGNAL(action(const QString &)),
             &progress, SLOT(setLabelText(const QString &)));
     ConfirmCancelProxy confirm_cancel(widget,
-                       &progress, SIGNAL(cancelled()),
+                       &progress, SIGNAL(canceled()),
                        &parser,   SLOT(cancel()));
 
     // parse, including endianness detection
     parser.parse();
     progress.reset();
-    if (progress.wasCancelled()) return false;
+    if (progress.wasCanceled()) return false;
 
     qDebug("--- RIFF file structure after first pass ---");
     parser.dumpStructure();
@@ -166,7 +168,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     RIFFChunk *data_chunk = parser.findChunk("/RIFF:WAVE/data");
 
     if (!riff_chunk || !fmt_chunk || !data_chunk || !parser.isSane()) {
-	if (KMessageBox::warningContinueCancel(widget,
+	if (Kwave::MessageBox::warningContinueCancel(widget,
 	    i18n("The file has been structurally damaged or "
 	         "is no .wav file.\n"
 	         "Should Kwave try to repair it?"),
@@ -182,12 +184,12 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     // collect all missing chunks
     if (!riff_chunk) riff_chunk = parser.findMissingChunk("RIFF:WAVE");
-    if (progress.wasCancelled()) return false;
+    if (progress.wasCanceled()) return false;
 
     if (!fmt_chunk) {
 	parser.findMissingChunk("fmt ");
 	fmt_chunk = parser.findChunk("/RIFF:WAVE/fmt ");
-	if (progress.wasCancelled()) return false;
+	if (progress.wasCanceled()) return false;
 	if (!fmt_chunk)  fmt_chunk  = parser.findChunk("fmt ");
 	need_repair = true;
     }
@@ -195,7 +197,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     if (!data_chunk) {
 	parser.findMissingChunk("data");
 	data_chunk = parser.findChunk("/RIFF:WAVE/data");
-	if (progress.wasCancelled()) return false;
+	if (progress.wasCanceled()) return false;
 	if (!data_chunk) data_chunk = parser.findChunk("data");
 	need_repair = true;
     }
@@ -206,7 +208,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	parser.dumpStructure();
 	parser.repair();
 	parser.dumpStructure();
-	if (progress.wasCancelled()) return false;
+	if (progress.wasCanceled()) return false;
 
 	if (!fmt_chunk)  fmt_chunk  = parser.findChunk("/RIFF:WAVE/fmt ");
 	if (!fmt_chunk)  fmt_chunk  = parser.findChunk("/RIFF/fmt ");
@@ -230,7 +232,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     }
 
     if (data_size <= 4) {
-	KMessageBox::sorry(widget,
+	Kwave::MessageBox::sorry(widget,
 	    i18n("The opened file is no .WAV file or damaged:\n"
 	    "There is not enough valid sound data.\n\n"
 	    "It makes no sense to continue now..."));
@@ -242,7 +244,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     if ((parser.chunkCount("fmt ") != 1) ||
         (parser.chunkCount("data") != 1))
     {
-	if (KMessageBox::warningContinueCancel(widget,
+	if (Kwave::MessageBox::warningContinueCancel(widget,
 	    i18n("The WAV file seems to be damaged: \n"
 	         "some chunks are duplicate or missing! \n\n"
 	         "Kwave will only use the first ones and ignores\n"
@@ -250,8 +252,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	         "If you want to get your file repaired completely,\n"
 	         "please write an e-mail to the Kwave mailing list\n"
 	         "and we will help you..."),
-	    i18n("Kwave auto-repair"),
-	    i18n("&Continue")
+	    i18n("Kwave auto-repair")
 	    ) != KMessageBox::Continue)
 	{
 	    // user decided to abort and repair on his own
@@ -270,14 +271,14 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     unsigned int rate = 0;
     unsigned int bits = 0;
 
-    src.at(fmt_offset);
+    src.seek(fmt_offset);
 
     // get the encoded block of data from the mime source
     CHECK(src.size() > sizeof(wav_header_t)+8);
 
     // get the header
-    src.readBlock((char *)&header, sizeof(wav_fmt_header_t));
-#if defined(ENDIANESS_BIG)
+    src.read((char *)&header, sizeof(wav_fmt_header_t));
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
     header.min.format      = bswap_16(header.min.format);
     header.min.channels    = bswap_16(header.min.channels);
     header.min.samplerate  = bswap_32(header.min.samplerate);
@@ -295,7 +296,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     qDebug("-------------------------");
     qDebug("wav header:");
     qDebug("mode        = 0x%04X, (%s)", header.min.format,
-                                         format_name.local8Bit().data());
+                                         format_name.toLocal8Bit().data());
     qDebug("channels    = %d", header.min.channels);
     qDebug("rate        = %u", header.min.samplerate);
     qDebug("bytes/s     = %u", header.min.bytespersec);
@@ -305,7 +306,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     // open the file through libaudiofile :)
     if (need_repair) {
-	QPtrList<RecoverySource> *repair_list = new QPtrList<RecoverySource>();
+	QList<RecoverySource *> *repair_list = new QList<RecoverySource *>();
 	Q_ASSERT(repair_list);
 	if (!repair_list) return false;
 
@@ -357,8 +358,8 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	}
 
 	QString text= i18n("An error occurred while opening the "\
-	    "file:\n'%1'").arg(reason);
-	KMessageBox::error(widget, text);
+	    "file:\n'%1'", reason);
+	Kwave::MessageBox::error(widget, text);
 
 	return false;
     }
@@ -385,27 +386,21 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     if (info_chunk) {
 	// found info chunk !
 	RIFFChunkList &list = info_chunk->subChunks();
-	QPtrListIterator<RIFFChunk> it(list);
-	for (; it.current(); ++it) {
-	    RIFFChunk &chunk = (*it.current());
-	    if (!m_property_map.contains(chunk.name())) continue;
+	foreach (RIFFChunk *chunk, list) {
+	    if (!chunk) continue;
+	    if (!m_property_map.contains(chunk->name())) continue;
 
 	    // read the content into a QString
-	    FileProperty prop = m_property_map[chunk.name()];
-	    unsigned int offset = chunk.dataStart();
-	    unsigned int length = chunk.dataLength();
-	    char *buffer = (char*)malloc(length+1);
-	    Q_ASSERT(buffer);
-	    if (!buffer) continue;
-
-	    src.at(offset);
-	    src.readBlock(buffer, length);
+	    FileProperty prop = m_property_map[chunk->name()];
+	    unsigned int offset = chunk->dataStart();
+	    unsigned int length = chunk->dataLength();
+	    QByteArray buffer(length+1, 0x00);
+	    src.seek(offset);
+	    src.read(buffer.data(), length);
 	    buffer[length] = 0;
 	    QString value;
 	    value = QString::fromUtf8(buffer);
 	    info().set(prop, value);
-
-	    delete buffer;
 	}
     }
 
@@ -416,15 +411,15 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	unsigned int length = cue_chunk->dataLength();
 	u_int32_t count;
 
-	src.at(cue_chunk->dataStart());
-	src.readBlock((char *)&count, 4);
+	src.seek(cue_chunk->dataStart());
+	src.read((char *)&count, 4);
 	count = LE32_TO_CPU(count);
 	qDebug("cue list found: %u entries, %u bytes (should be: %u)",
 	    count, length, count * (6 * 4) + 4);
 
 	for (unsigned int i = 0; i < count; i++) {
 	    u_int32_t data, index, position;
-	    src.at(cue_chunk->dataStart() + 4 + ((6 * 4) * i));
+	    src.seek(cue_chunk->dataStart() + 4 + ((6 * 4) * i));
 	    /*
 	     * typedef struct {
 	     *     u_int32_t dwIdentifier; <- index
@@ -435,42 +430,43 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	     *     u_int32_t dwSampleOffset; <- label.pos()
 	     * } cue_list_entry_t;
 	     */
-	    src.readBlock((char *)&data, 4); /* dwIdentifier */
+	    src.read((char *)&data, 4); /* dwIdentifier */
 	    index = LE32_TO_CPU(data);
-	    src.readBlock((char *)&data, 4); /* dwPosition (ignored) */
-	    src.readBlock((char *)&data, 4); /* fccChunk */
+	    src.read((char *)&data, 4); /* dwPosition (ignored) */
+	    src.read((char *)&data, 4); /* fccChunk */
 	    /* we currently support only 'data' */
 	    if (qstrncmp((const char *)&data, "data", 4) != 0) {
 		qWarning("cue list entry %d refers to '%s', "\
                          "which is not supported -> skipped",
-		         index, QCString((const char *)&data, 4).data());
+		         index, QByteArray((const char *)&data, 4).data());
 		continue;
 	    }
-	    src.readBlock((char *)&data, 4); /* dwChunkStart (must be 0) */
+	    src.read((char *)&data, 4); /* dwChunkStart (must be 0) */
 	    if (data != 0) {
 		qWarning("cue list entry %d has dwChunkStart != 0 -> skipped",
 		         index);
 		continue;
 	    }
-	    src.readBlock((char *)&data, 4); /* dwBlockStart (must be 0) */
+	    src.read((char *)&data, 4); /* dwBlockStart (must be 0) */
 	    if (data != 0) {
 		qWarning("cue list entry %d has dwBlockStart != 0 -> skipped",
 		         index);
 		continue;
 	    }
 
-	    src.readBlock((char *)&data, 4); /* dwSampleOffset */
+	    src.read((char *)&data, 4); /* dwSampleOffset */
 	    position = LE32_TO_CPU(data);
 
 	    // as we now have index and position, find out the name
-	    QCString name = "";
+	    QByteArray name = "";
 	    RIFFChunk *adtl_chunk = parser.findChunk("/RIFF:WAVE/LIST:adtl");
 	    if (adtl_chunk) {
 		RIFFChunk *labl_chunk = 0;
-		QPtrListIterator<RIFFChunk> it(adtl_chunk->subChunks());
-		for (; it.current(); ++it) {
+		bool found = false;
+		QListIterator<RIFFChunk *> it(adtl_chunk->subChunks());
+		while (it.hasNext()) {
 		    u_int32_t data, labl_index;
-		    labl_chunk = it.current();
+		    labl_chunk = it.next();
 		    /*
 		     * typedef struct {
 		     *     u_int32_t dwChunkID;    <- 'labl'
@@ -479,20 +475,28 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 		     *     char    dwText[];       <- label->name()
 		     * } label_list_entry_t;
 		     */
-		    src.at(labl_chunk->dataStart());
-		    src.readBlock((char *)&data, 4); /* dwIdentifier */
+		    if (labl_chunk->name() != "labl") continue;
+
+		    data = 0;
+		    src.seek(labl_chunk->dataStart());
+		    src.read((char *)&data, 4); /* dwIdentifier */
 		    labl_index = LE32_TO_CPU(data);
-		    if (labl_index == index)
+		    if (labl_index == index) {
+			found = true;
 			break; /* found it! */
+		    }
 		}
-		if (it.current()) {
+		if (found) {
 		    Q_ASSERT(labl_chunk);
-		    unsigned int length = labl_chunk->length() - 4;
-		    name.resize(length);
-		    src.at(labl_chunk->dataStart() + 4);
-		    src.readBlock((char *)name.data(), length);
-		    if (name[name.count()-1] != '\0')
-			name += '\0';
+		    unsigned int length = labl_chunk->length();
+		    if (length > 4) {
+			length -= 4;
+			name.resize(length);
+			src.seek(labl_chunk->dataStart() + 4);
+			src.read((char *)name.data(), length);
+			if (name[name.count()-1] != '\0')
+			    name += '\0';
+		    }
 		}
 	    }
 
@@ -502,14 +506,16 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	    }
 
 	    // put a new label into the list
-	    Label *label = new Label(position, name);
+	    QString str = QString::fromUtf8(name);
+	    Label *label = new Label(position, str);
 	    Q_ASSERT(label);
-	    if (label) info().labels().inSort(label);
+	    if (label) info().labels().append(label);
 	}
     }
+    info().labels().sort();
 
     // set up libaudiofile to produce Kwave's internal sample format
-#if defined(ENDIANESS_BIG)
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
     afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_BIGENDIAN);
 #else
     afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_LITTLEENDIAN);
@@ -576,7 +582,7 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 	}
 
 	// abort if the user pressed cancel
-	if (dst.isCancelled()) break;
+	if (dst.isCanceled()) break;
     }
 
     // return with a valid Signal, even if the user pressed cancel !
@@ -585,7 +591,7 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 }
 
 //***************************************************************************
-bool WavDecoder::repairChunk(QPtrList<RecoverySource> *repair_list,
+bool WavDecoder::repairChunk(QList<RecoverySource *> *repair_list,
     RIFFChunk *chunk, u_int32_t &offset)
 {
     Q_ASSERT(chunk);
@@ -642,18 +648,17 @@ bool WavDecoder::repairChunk(QPtrList<RecoverySource> *repair_list,
 
     // recursively go over all sub-chunks
     RIFFChunkList &list = chunk->subChunks();
-    QPtrListIterator<RIFFChunk> it(list);
-    bool ok = true;
-    for (; ok && it.current(); ++it) {
-	RIFFChunk *chunk = it.current();
-	ok = repairChunk(repair_list, chunk, offset);
+    foreach (RIFFChunk *chunk, list) {
+	if (!chunk) continue;
+	if (!repairChunk(repair_list, chunk, offset))
+	    return false;
     }
 
-    return ok;
+    return true;
 }
 
 //***************************************************************************
-bool WavDecoder::repair(QPtrList<RecoverySource> *repair_list,
+bool WavDecoder::repair(QList<RecoverySource *> *repair_list,
     RIFFChunk *riff_chunk, RIFFChunk *fmt_chunk, RIFFChunk *data_chunk)
 {
     Q_ASSERT(fmt_chunk);
@@ -686,9 +691,8 @@ bool WavDecoder::repair(QPtrList<RecoverySource> *repair_list,
     // NOTE: The sizes might be re-assigned and get invalid afterwards!!!
     if (riff_chunk) {
 	RIFFChunkList &list = riff_chunk->subChunks();
-	QPtrListIterator<RIFFChunk> it(list);
-	for (; it.current(); ++it) {
-	    RIFFChunk *chunk = it.current();
+	foreach (RIFFChunk *chunk, list) {
+	    if (!chunk) continue;
 	    if (chunk->name() == "fmt ") continue;
 	    if (chunk->name() == "data") continue;
 	    if (chunk->name() == "RIFF") continue;
@@ -713,7 +717,6 @@ bool WavDecoder::repair(QPtrList<RecoverySource> *repair_list,
     bool repaired = repairChunk(repair_list, &new_root, offset);
 
     // clean up...
-    new_root.subChunks().setAutoDelete(false);
     new_root.subChunks().clear();
     delete new_fmt;
     delete new_data;

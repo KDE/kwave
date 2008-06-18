@@ -15,16 +15,20 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
 #include <klineedit.h>
-#include <klistbox.h>
+#include <klistwidget.h>
 #include <kpushbutton.h>
 
 #include "KeywordWidget.h"
 
 //***************************************************************************
-KeywordWidget::KeywordWidget(QWidget *parent, const char *name)
-    :KeywordWidgetBase(parent, name)
+KeywordWidget::KeywordWidget(QWidget *parent)
+    :QWidget(parent), Ui::KeywordWidgetBase()
 {
+    setupUi(this);
+
     Q_ASSERT(edKeyword);
     Q_ASSERT(btAdd);
     Q_ASSERT(btAuto);
@@ -39,12 +43,12 @@ KeywordWidget::KeywordWidget(QWidget *parent, const char *name)
             this, SLOT(autoClicked()));
     connect(btRemove, SIGNAL(clicked()),
             this, SLOT(remove()));
-    connect(lstKeywords, SIGNAL(highlighted(const QString &)),
-            this, SLOT(selected(const QString &)));
-    connect(lstKeywords, SIGNAL(selected(const QString &)),
-            this, SLOT(selected(const QString &)));
-    connect(lstKeywords, SIGNAL(clicked(QListBoxItem *)),
-            this, SLOT(listClicked(QListBoxItem *)));
+    connect(lstKeywords, SIGNAL(itemActivated(QListWidgetItem *)),
+            this, SLOT(listClicked(QListWidgetItem *)));
+    connect(lstKeywords, SIGNAL(itemClicked(QListWidgetItem *)),
+            this, SLOT(listClicked(QListWidgetItem *)));
+    connect(lstKeywords, SIGNAL(executed(QListWidgetItem *)),
+            this, SLOT(listClicked(QListWidgetItem *)));
 
     // if the user presses return in the edit control, this means
     // the same as clicking on the "Add" button
@@ -64,7 +68,7 @@ KeywordWidget::~KeywordWidget()
 bool KeywordWidget::contained(const QString &item)
 {
     if (!item.length()) return false;
-    return (lstKeywords->findItem(item, Qt::ExactMatch));
+    return (!lstKeywords->findItems(item, Qt::MatchExactly).isEmpty());
 }
 
 //***************************************************************************
@@ -73,7 +77,9 @@ QStringList KeywordWidget::keywords()
     QStringList list;
     unsigned int count = lstKeywords->count();
     for (unsigned int index=0; index < count; ++index) {
-	list.append(lstKeywords->text(index));
+	QListWidgetItem *item = lstKeywords->item(index);
+	if (item && item->text().length())
+	    list.append(item->text());
     }
     return list;
 }
@@ -83,13 +89,14 @@ void KeywordWidget::setKeywords(const QStringList &keywords)
 {
     lstKeywords->clear();
     edKeyword->clear();
-    unsigned int count = keywords.count();
-    for (unsigned int index = 0; index < count; ++index) {
-	QString item = keywords[index].simplifyWhiteSpace();
+
+    foreach (QString it, keywords) {
+	QString item = it.simplified();
 	if (contained(item)) continue; // skip duplicate
-	lstKeywords->insertItem(item);
+	lstKeywords->addItem(item);
     }
-    lstKeywords->sort();
+    lstKeywords->setSortingEnabled(true);
+    lstKeywords->sortItems();
 
     edKeyword->clear();
     update();
@@ -99,7 +106,7 @@ void KeywordWidget::setKeywords(const QStringList &keywords)
 //***************************************************************************
 void KeywordWidget::update()
 {
-    QString edit = edKeyword->text().simplifyWhiteSpace();
+    QString edit = edKeyword->text().simplified();
 
     // "Add" is only allowed if the current edit space is not empty and
     // the entered text is not already in the list
@@ -113,17 +120,18 @@ void KeywordWidget::update()
     lstKeywords->setEnabled(lstKeywords->count() != 0);
 
     // the current item should always be visible
-    lstKeywords->ensureCurrentVisible();
+    lstKeywords->scrollToItem(lstKeywords->currentItem(),
+	                      QAbstractItemView::EnsureVisible);
 }
 
 //***************************************************************************
 void KeywordWidget::editChanged(const QString &edit)
 {
-    QString text = edit.simplifyWhiteSpace();
-    int index = lstKeywords->index(lstKeywords->findItem(
-                                   text, Qt::BeginsWith));
-    if (index >= 0) {
-	lstKeywords->setCurrentItem(index);
+    QString text = edit.simplified();
+    QList<QListWidgetItem *> matches =
+	lstKeywords->findItems(text, Qt::MatchStartsWith);
+    if (edit.length() && !matches.isEmpty()) {
+	lstKeywords->setCurrentItem(matches.takeFirst());
 	update();
 	edKeyword->setText(edit);
     } else {
@@ -140,18 +148,19 @@ void KeywordWidget::returnPressed(const QString &)
 //***************************************************************************
 void KeywordWidget::add()
 {
-    QString text = edKeyword->text().simplifyWhiteSpace();
+    QString text = edKeyword->text().simplified();
     if (!text.length()) return;
     if (contained(text)) return;
 
     // insert the current edit text and sort the list
-    lstKeywords->insertItem(text);
-    lstKeywords->sort();
+    lstKeywords->addItem(text);
+    lstKeywords->sortItems();
 
     // find the new item again and make it the current selection
-    int index = lstKeywords->index(lstKeywords->findItem(text,
-                                   Qt::ExactMatch));
-    lstKeywords->setCurrentItem(index);
+    QList<QListWidgetItem *> matches =
+	lstKeywords->findItems(text, Qt::MatchStartsWith);
+    if (!matches.isEmpty())
+	lstKeywords->setCurrentItem(matches.takeFirst());
     edKeyword->clear();
 
     // now we do no longer need the edit
@@ -163,30 +172,26 @@ void KeywordWidget::add()
 void KeywordWidget::remove()
 {
     // remove the item from the list
-    int index = lstKeywords->currentItem();
-    lstKeywords->removeItem(index);
+    int index = lstKeywords->currentRow();
+    QListWidgetItem *item = lstKeywords->takeItem(index);
+    if (item) delete item;
     edKeyword->clear();
 
     // set the previous item as current
     if (index) --index;
-    lstKeywords->setSelected(index, true);
+    if (lstKeywords->item(index))
+	lstKeywords->item(index)->setSelected(true);
 
     edKeyword->clear();
     update();
 }
 
 //***************************************************************************
-void KeywordWidget::selected(const QString &selection)
-{
-    edKeyword->setText(selection);
-    update();
-}
-
-//***************************************************************************
-void KeywordWidget::listClicked(QListBoxItem *item)
+void KeywordWidget::listClicked(QListWidgetItem *item)
 {
     if (!item) return;
-    selected(lstKeywords->text(lstKeywords->index(item)));
+    edKeyword->setText(item->text());
+    update();
 }
 
 //***************************************************************************

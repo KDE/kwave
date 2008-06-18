@@ -19,7 +19,11 @@
 #define _WAV_ENCODER_H_
 
 #include "config.h"
+
+#include <QList>
+
 #include "libkwave/Encoder.h"
+
 #include "WavPropertyMap.h"
 
 class QWidget;
@@ -49,7 +53,7 @@ public:
                         QIODevice &dst, FileInfo &info);
 
     /** Returns a list of supported file properties */
-    virtual QValueList<FileProperty> supportedProperties();
+    virtual QList<FileProperty> supportedProperties();
 
 private:
 

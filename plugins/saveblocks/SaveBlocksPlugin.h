@@ -19,8 +19,10 @@
 #define _SAVE_BLOCKS_PLUGIN_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qstring.h>
+
+#include <QObject>
+#include <QString>
+
 #include <kurl.h>
 
 #include "libkwave/KwavePlugin.h"
@@ -147,7 +149,7 @@ private slots:
 private:
 
     /** the URL of the first file (user selection) */
-    KURL m_url;
+    KUrl m_url;
 
     /** expression with the filename pattern */
     QString m_pattern;

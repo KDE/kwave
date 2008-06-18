@@ -20,7 +20,7 @@
 #define _UNDO_DELETE_LABEL_ACTION_H_
 
 #include "config.h"
-#include <qstring.h>
+#include <QString>
 #include "UndoAction.h"
 
 class Label;
@@ -29,7 +29,7 @@ class SignalManager;
 /**
  * Undo action for deleting a label.
  */
-class UndoDeleteLabelAction :public UndoAction
+class UndoDeleteLabelAction: public UndoAction
 {
 public:
 
@@ -54,7 +54,7 @@ public:
     virtual int redoSize();
 
     /** @see UndoAction::store() */
-    virtual void store(SignalManager &manager);
+    virtual bool store(SignalManager &manager);
 
     /** @see UndoAction::undo() */
     virtual UndoAction *undo(SignalManager &manager, bool with_redo);

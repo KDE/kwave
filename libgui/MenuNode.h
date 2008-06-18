@@ -19,14 +19,16 @@
 #define _MENU_NODE_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qptrlist.h>
-#include <qdict.h>
-#include <qpixmap.h>
-#include <qstring.h>
-#include <qstringlist.h>
 
-class MenuNode;
+#include <QObject>
+#include <QHash>
+#include <QIcon>
+#include <QKeySequence>
+#include <QPixmap>
+#include <QString>
+#include <QStringList>
+
+class QAction;
 class MenuSub;
 class MenuGroup;
 
@@ -39,9 +41,6 @@ class MenuNode: public QObject
 {
     Q_OBJECT
 
-    friend class MenuSub;
-    friend class MenuItem;
-
 public:
     /**
      * Constructor.
@@ -49,12 +48,14 @@ public:
      * @param name the non-localized name of the node
      * @param command the command to be sent when the node is
      *                selected (optional, default=0)
-     * @param key bitmask of the keyboard shortcut (see "qkeycode.h"),
-     *            (optional, default=0)
+     * @param shortcut keyboard shortcut (optional, default=0)
      * @param uid unique id string (optional, default=0)
      */
-    MenuNode(MenuNode *parent, const QString &name,
-	const QString &command = 0, int key = 0, const QString &uid = 0);
+    MenuNode(MenuNode *parent,
+             const QString &name,
+             const QString &command,
+             const QKeySequence &shortcut,
+             const QString &uid);
 
     /**
      * Destructor. Clears the menu node and cleans up.
@@ -62,33 +63,19 @@ public:
      */
     virtual ~MenuNode();
 
-    /**
-     * Returns the (non-localized) name of the node.
-     */
-    inline const QString &getName() {
-	return m_name;
-    };
+    /** Returns the (non-localized) name of the node. */
+    inline const QString &name() const { return m_name; };
 
-    /**
-     * Returns the command of the node.
-     */
-    inline const QString &getCommand() {
-	return m_command;
-    };
+    /** Returns the command of the node. */
+    inline const QString &command() const { return m_command; };
 
-    /**
-     * Returns the menu id of the node.
-     */
-    inline int getId() {
-	return m_id;
-    };
+    /** Returns the corresponding menu action */
+    virtual QAction *action() { return 0; };
 
     /**
      * Returns the unique id string of the node.
      */
-    inline const QString &getUID() {
-	return m_uid;
-    };
+    inline const QString &uid() const { return m_uid; };
 
     /**
      * Sets the unique id string of the node
@@ -98,67 +85,31 @@ public:
     /**
      * Returns the bitmask of the keyboard shortcut.
      */
-    inline int getKey() {
-	return m_key;
-    };
+    inline int shortcut() const { return m_shortcut; };
 
     /**
      * Sets the bitmask of the keyboard shortcut.
      */
-    virtual void setKey(int key) {
-	m_key = key;
+    virtual void setShortcut(const QKeySequence &shortcut) {
+	m_shortcut = shortcut;
     };
 
     /**
-     * Returns a reference to the menu node's icon.
+     * Returns the menu nodes' icon.
      */
-    virtual const QPixmap &getIcon();
+    virtual const QIcon icon();
 
     /**
      * Sets a new icon of a menu node.
-     * @param icon QPixmap with the icon
+     * @param icon QIcon with the icon
      */
-    virtual void setIcon(const QPixmap icon);
-
-    /**
-     * Sets a new icon of a menu node's child node
-     * @param id the node's menu id
-     * @param icon reference to the QPixmap with the icon
-     */
-    virtual void setItemIcon(int id, const QPixmap &icon);
-
-    /**
-     * Sets the menu id of a node.
-     * @param id new menu id of the node
-     */
-    inline void setId(int id) {
-	m_id = id;
-    };
-
-    /**
-     * Positional index of the node in the parent node.
-     * (overwritten in MenuItem and MenuSub)
-     * @return index [0..n] or -1 if no parent
-     */
-    virtual int getIndex() {
-	return -1;
-    };
-
-    /**
-     * Returns the positional index of a child node, identified by
-     * it's menu id.
-     * @param id the menu item id of the child
-     * @return index [0..n] or -1 f not found
-     */
-    virtual int getChildIndex(int id);
+    virtual void setIcon(const QIcon &icon);
 
     /**
      * Returns true if the node is a branch, false if it is a leaf.
      * (overwritten in MenuSub etc.)
      */
-    virtual bool isBranch() {
-	return false;
-    };
+    virtual bool isBranch() const { return false; };
 
     /**
      * Removes all child entries from the menu node (gui) and
@@ -167,10 +118,7 @@ public:
     virtual void clear();
 
     /** returns a pointer to the menu's parent node */
-    virtual MenuNode *getParentNode();
-
-    /** Returns the number of ids a menu needs */
-    virtual int getNeededIDs();
+    virtual MenuNode *parentNode();
 
     /**
      * Returns true if the node is enabled.
@@ -182,16 +130,6 @@ public:
      * @param enable true to enable the item, false to disable
      */
     virtual void setEnabled(bool enable);
-
-    /** Returns true if the node is checked. */
-    virtual bool isChecked();
-
-    /**
-     * Sets or removes the checkmark from a menu node.
-     * @param item the item's menu id
-     * @param check true to set the mark, false to remove
-     */
-    virtual void setItemChecked(int item, bool check);
 
     /**
      * Sets/removes the checkmark from the current menu node.
@@ -222,13 +160,6 @@ public:
     MenuNode *findChild(const QString &name);
 
     /**
-     * Tries to find a child node by it's unique id.
-     * @param id menu id of the child node
-     * @return pointer to the found node or 0 if not found
-     */
-    MenuNode *findChild(int id);
-
-    /**
      * Removes a child node of the curren node. If the child
      * was not found or is already removed this does nothing.
      * @param child pointer to the child node
@@ -246,16 +177,16 @@ public:
      *                data from a child entry. (this is used for
      *                menus with data selection lists like "recent files)
      *                If not used, pass 0.
-     * @param key bitmask of the keyboard shortcut (see "qkeycode.h"),
-     *            0 if unused
+     * @param shortcut keyboard shortcut, 0 if unused
      * @param uid unique id string (might be 0)
      * @param index the positional index within the parent menu, starting
      *              from 0 or -1 for appending (optional, default=-1)
      * @return pointer to the new branch node
      */
-    virtual MenuNode *insertBranch(const QString &name,
-	const QString &command, int key, const QString &uid,
-	int index = -1);
+    virtual MenuSub *insertBranch(const QString &name,
+                                  const QString &command,
+                                  const QKeySequence &shortcut,
+                                  const QString &uid);
 
     /**
      * Inserts a new leaf node into the menu structure. The new node
@@ -263,23 +194,22 @@ public:
      * @param name non-localized name of the node
      * @param command the command to be sent when the node is
      *                selected (might be 0)
-     * @param key bitmask of the keyboard shortcut (see "qkeycode.h"),
-     *            0 if unused
+     * @param shortcut keyboard shortcut, 0 if unused
      * @param uid unique id string (might be 0)
      * @param index the positional index within the parent menu, starting
      *              from 0 or -1 for appending. Optional, default=-1
      * @return pointer to the new leaf node
      */
     virtual MenuNode *insertLeaf(const QString &name,
-	const QString &command, int key, const QString &uid,
-	int index = -1);
+                                 const QString &command,
+                                 const QKeySequence &shortcut,
+                                 const QString &uid);
 
     /**
      * Registers a node as a child of the current node.
      * @param node pointer to the child node
-     * @return the id of the node
      */
-    virtual int registerChild(MenuNode *node);
+    virtual void registerChild(MenuNode *node);
 
     /**
      * Inserts a new child node into the structure. If the specified
@@ -290,12 +220,14 @@ public:
      *        by a '/'. All strings are non-localized.
      * @param command the command to be sent when the node is
      *                selected (might be 0)
-     * @param key bitmask of the keyboard shortcut (see "qkeycode.h"),
-     *            0 if unused
+     * @param shortcut keyboard shortcut, 0 if unused
      * @param uid unique id string (might be 0)
      */
-    virtual int insertNode(const QString &name, const QString &position,
-	const QString &command, int key, const QString &uid);
+    virtual void insertNode(const QString &name,
+                            const QString &position,
+                            const QString &command,
+                            const QKeySequence &shortcut,
+                            const QString &uid);
 
     /**
      * Converts a child node from leaf to branch type by removing
@@ -319,21 +251,13 @@ public:
     virtual void actionSelected();
 
     /**
-     * Informs the node that the enabled state of a child node
-     * might have changed.
-     * @param id menu id of the child node
-     * @param enable true if the item has been enabled, false if disabled
-     */
-    virtual void actionChildEnableChanged(int id, bool enable);
-
-    /**
      * Returns a reference to the list of groups. It recursively calls
      * all parent node's getGroupList() function until it reaches the
      * root node of the menu structure that holds the list of groups and
      * overwrites this function.
      * @return reference to the list of groups
      */
-    virtual QDict<MenuNode> *getGroupList();
+    virtual QHash<QString, MenuGroup *> &getGroupList();
 
     /**
      * Adds the node to a group. If it is already a member of the
@@ -374,52 +298,21 @@ signals:
      */
     void sigCommand(const QString &command);
 
-    /**
-     * Parent nodes can connect to this signal in order to get notified
-     * when the enable state of their child node has changed.
-     * @param id menu id of the child node
-     * @param enable true if the item has been enabled, false if disabled
-     */
-    void sigChildEnableChanged(int id, bool enable);
-
-    /**
-     * Client nodes can be connected to this signal in order to get
-     * notified if the enable state of their parent has changed.
-     */
-    void sigParentEnableChanged();
-
-private slots:
-    /**
-     * Informs the node that the enabled state of a child node
-     * might have changed.
-     * @param id menu id of the child node
-     * @param enable true if the item has been enabled, false if disabled
-     */
-    void slotChildEnableChanged(int id, bool enable);
-
-    /**
-     * Informs the node that the enabled state of it's parent might
-     * have changed.
-     */
-    void slotParentEnableChanged();
-
 protected:
 
     /** list with pointers to child menus */
-    QPtrList<MenuNode> m_children;
+    QList<MenuNode *> m_children;
 
     /** list of group names the item belongs to */
     QStringList m_groups;
 
 private:
-    /** numeric id in the menu */
-    int m_id;
 
     /** unique id string */
     QString m_uid;
 
     /** bitmask of the keyboard shortcut */
-    int m_key;
+    QKeySequence m_shortcut;
 
     /** name of the node (non-localized) */
     QString m_name;
@@ -427,20 +320,9 @@ private:
     /** command to be sent when the node is activated (optional) */
     QString m_command;
 
-    /** icon of the node (optional) */
-    QPixmap m_icon;
-
     /** parent of this entry */
-    MenuNode* m_parentNode;
+    MenuNode *m_parentNode;
 
-    /** true if the item is enabled (default=true) */
-    bool m_enabled;
-
-    /** last value of the enabled flag (for detecting changes) */
-    bool m_last_enabled;
-
-    /** true if the item is checked (default=false) */
-    bool m_checked;
 };
 
 #endif // _MENU_NODE_H_

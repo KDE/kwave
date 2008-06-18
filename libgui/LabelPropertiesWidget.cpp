@@ -18,7 +18,8 @@
 #include "config.h"
 #include "math.h"
 
-#include <qlineedit.h>
+#include <QLineEdit>
+
 #include <kapplication.h>
 #include <kconfig.h>
 
@@ -29,10 +30,11 @@
 #define CONFIG_SECTION "LabelProperties"
 
 //***************************************************************************
-LabelPropertiesWidget::LabelPropertiesWidget(QWidget *parent, const char *name)
-    :LabelPropertiesWidgetBase(parent, name),
+LabelPropertiesWidget::LabelPropertiesWidget(QWidget *parent)
+    :QDialog(parent), LabelPropertiesWidgetBase(),
     m_length(0), m_sample_rate(0)
 {
+    setupUi(this);
     Q_ASSERT(time);
     if (time) time->setTitle(0);
     setFixedSize(sizeHint());
@@ -52,7 +54,7 @@ void LabelPropertiesWidget::setLabelIndex(unsigned int index)
 
 //***************************************************************************
 void LabelPropertiesWidget::setLabelPosition(unsigned int pos,
-	unsigned int length, double rate)
+	unsigned int length, qreal rate)
 {
     Q_ASSERT(time);
     if (!time) return;
@@ -65,12 +67,9 @@ void LabelPropertiesWidget::setLabelPosition(unsigned int pos,
     time->init(SelectTimeWidget::bySamples, pos, rate, 0, length);
 
     // restore the previous selection mode and set it
-    KConfig *cfg = KApplication::kApplication()->config();
-    Q_ASSERT(cfg);
-    if (!cfg) return;
-    cfg->setGroup(CONFIG_SECTION);
+    const KConfigGroup cfg = KGlobal::config()->group(CONFIG_SECTION);
     bool ok;
-    QString str = cfg->readEntry("mode");
+    QString str = cfg.readEntry("mode");
     int m = str.toInt(&ok);
     if (ok) time->setMode(static_cast<SelectTimeWidget::Mode>(m));
 }
@@ -88,7 +87,7 @@ unsigned int LabelPropertiesWidget::labelPosition()
     Q_ASSERT(time);
     if (!time) return 0;
 
-    double pos = time->time();
+    qreal pos = time->time();
     unsigned int pos_in_samples = 0;
     switch (time->mode()) {
 	case SelectTimeWidget::bySamples:
@@ -102,7 +101,7 @@ unsigned int LabelPropertiesWidget::labelPosition()
 	case SelectTimeWidget::byPercents:
 	    // convert from percents to samples
 	    pos_in_samples =
-		(unsigned int)((double)m_length * (pos / 100.0));
+		(unsigned int)((qreal)m_length * (pos / 100.0));
 	    break;
     }
 
@@ -120,13 +119,11 @@ QString LabelPropertiesWidget::labelName()
 void LabelPropertiesWidget::saveSettings()
 {
     // restore the previous selection mode and set it
-    KConfig *cfg = KApplication::kApplication()->config();
-    Q_ASSERT(cfg);
-    if (!cfg) return;
-    cfg->setGroup(CONFIG_SECTION);
+    KConfigGroup cfg = KGlobal::config()->group(CONFIG_SECTION);
     QString str;
     str.setNum(static_cast<int>(time->mode()));
-    cfg->writeEntry("mode", str);
+    cfg.writeEntry("mode", str);
+    cfg.sync();
 }
 
 //***************************************************************************

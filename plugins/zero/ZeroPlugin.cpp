@@ -18,7 +18,10 @@
 #include "config.h"
 #include <math.h>
 #include <klocale.h> // for the i18n macro
-#include <qstringlist.h>
+
+#include <QList>
+#include <QStringList>
+
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/SampleWriter.h"
 #include "libgui/SelectTimeWidget.h" // for selection mode
@@ -88,7 +91,7 @@ void ZeroPlugin::run(QStringList params)
 	unsigned int length = (unsigned int)rint(ms / 1E3 * rate);
 
 	// get the list of affected tracks
-	QMemArray<unsigned int> tracks = manager().selectedTracks();
+	QList<unsigned int> tracks = manager().selectedTracks();
 
 	// some sanity check
 	Q_ASSERT(length);
@@ -113,15 +116,16 @@ void ZeroPlugin::run(QStringList params)
     unsigned int count = writers->tracks();
 
     // get the buffer with zeroes for faster filling
-    if (m_zeroes.count() != ZERO_COUNT) {
+    if (m_zeroes.size() != ZERO_COUNT) {
 	m_zeroes.resize(ZERO_COUNT);
 	m_zeroes.fill(0);
     }
+    Q_ASSERT(m_zeroes.size() == ZERO_COUNT);
 
     // loop over the sample range
     while ((first <= last) && (!m_stop)) {
 	unsigned int rest = last - first + 1;
-	if (rest < m_zeroes.count()) m_zeroes.resize(rest);
+	if (rest < m_zeroes.size()) m_zeroes.resize(rest);
 
 	// loop over all writers
 	unsigned int w;
@@ -129,7 +133,7 @@ void ZeroPlugin::run(QStringList params)
 	    *((*writers)[w]) << m_zeroes;
 	}
 
-	first += m_zeroes.count();
+	first += m_zeroes.size();
     }
 
     delete writers;

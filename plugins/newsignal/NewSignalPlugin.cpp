@@ -18,7 +18,7 @@
 #include "config.h"
 #include "errno.h"
 
-#include <qstringlist.h>
+#include <QStringList>
 
 #include "NewSignalPlugin.h"
 #include "NewSignalDialog.h"

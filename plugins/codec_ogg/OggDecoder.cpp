@@ -19,19 +19,20 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include <qdatetime.h>
-#include <qptrlist.h>
+#include <QDate>
 
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <kmimetype.h>
 
 #include "libkwave/CompressionType.h"
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 #include "libkwave/StandardBitrates.h"
+
+#include "libgui/MessageBox.h"
 
 #include "OggCodecPlugin.h"
 #include "OggDecoder.h"
@@ -87,10 +88,9 @@ int OggDecoder::parseHeader(QWidget *widget)
     Q_ASSERT(m_buffer);
     if (!m_buffer) return -1;
 
-    unsigned int bytes = m_source->readBlock(m_buffer,4096);
-    Q_ASSERT(bytes);
-    if (!bytes && (!m_source->at())) {
-	KMessageBox::error(widget, i18n(
+    unsigned int bytes = m_source->read(m_buffer,4096);
+    if (!bytes && (!m_source->pos())) {
+	Kwave::MessageBox::error(widget, i18n(
 	    "Ogg bitstream has zero-length."));
 	return -1;
     }
@@ -102,7 +102,7 @@ int OggDecoder::parseHeader(QWidget *widget)
 	if (bytes < 4096) return 0;
 
 	// error case.  Must not be Vorbis data
-	KMessageBox::error(widget, i18n(
+	Kwave::MessageBox::error(widget, i18n(
 	     "Input does not appear to be an Ogg bitstream."));
 	return -1;
     }
@@ -122,21 +122,21 @@ int OggDecoder::parseHeader(QWidget *widget)
     vorbis_comment_init(&m_vc);
     if (ogg_stream_pagein(&m_os, &m_og) < 0) {
 	// error; stream version mismatch perhaps
-	KMessageBox::error(widget, i18n(
+	Kwave::MessageBox::error(widget, i18n(
 	    "Error reading first page of Ogg bitstream data."));
 	return -1;
     }
 
     if (ogg_stream_packetout(&m_os, &m_op) != 1) {
 	// no page? must not be vorbis
-	KMessageBox::error(widget, i18n(
+	Kwave::MessageBox::error(widget, i18n(
 	    "Error reading initial header packet."));
 	return -1;
     }
 
     if (vorbis_synthesis_headerin(&m_vi, &m_vc, &m_op) < 0) {
 	// error case; not a vorbis header
-	KMessageBox::error(widget, i18n(
+	Kwave::MessageBox::error(widget, i18n(
 	    "This Ogg bitstream does not contain Vorbis audio data."));
 	return -1;
     }
@@ -169,7 +169,7 @@ int OggDecoder::parseHeader(QWidget *widget)
 			// Uh oh; data at some point was corrupted or
 			// missing! We can't tolerate that in a header.
 			// Die.
-			KMessageBox::error(widget, i18n(
+			Kwave::MessageBox::error(widget, i18n(
 			    "Corrupt secondary header. Exiting."));
 			return -1;
 		    }
@@ -181,9 +181,9 @@ int OggDecoder::parseHeader(QWidget *widget)
 
 	// no harm in not checking before adding more
 	m_buffer = ogg_sync_buffer(&m_oy, 4096);
-	bytes = m_source->readBlock(m_buffer, 4096);
+	bytes = m_source->read(m_buffer, 4096);
 	if (!bytes && counter < 2) {
-	    KMessageBox::error(widget, i18n(
+	    Kwave::MessageBox::error(widget, i18n(
 	        "End of file before finding all Vorbis headers!"));
 	    return -1;
 	}
@@ -299,7 +299,7 @@ static inline int decodeFrame(float **pcm, unsigned int size,
 	float *mono = pcm[track];
 	int bout = size;
 	unsigned int ofs = 0;
-	QArray<sample_t> buffer(size);
+	Kwave::SampleArray buffer(size);
 
 	while (bout--) {
 	    // scale, use some primitive noise shaping
@@ -336,10 +336,10 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
     if (!m_source) return false;
 
     int eos = 0;
-    unsigned int stream_start_pos = m_source->at();
+    unsigned int stream_start_pos = m_source->pos();
 
     // we repeat if the bitstream is chained
-    while (!dst.isCancelled()) {
+    while (!dst.isCanceled()) {
 	// The rest is just a straight decode loop until end of stream
 	while (!eos) {
 	    while (!eos) {
@@ -347,7 +347,7 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 		if (result == 0) break; // need more data
 		if (result < 0) {
 		    // missing or corrupt data at this page position
-		    KMessageBox::error(widget, i18n(
+		    Kwave::MessageBox::error(widget, i18n(
 		        "Corrupt or missing data in bitstream; continuing..."
 		        ));
 		} else {
@@ -386,16 +386,16 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 			    }
 
 			    // signal the current position
-			    emit sourceProcessed(m_source->at());
+			    emit sourceProcessed(m_source->pos());
 			}
 		    }
-		    if (ogg_page_eos(&m_og) || dst.isCancelled()) eos = 1;
+		    if (ogg_page_eos(&m_og) || dst.isCanceled()) eos = 1;
 		}
 	    }
 
 	    if (!eos) {
 		m_buffer = ogg_sync_buffer(&m_oy, 4096);
-		unsigned int bytes = m_source->readBlock(m_buffer, 4096);
+		unsigned int bytes = m_source->read(m_buffer, 4096);
 		ogg_sync_wrote(&m_oy, bytes);
 		if (!bytes) eos = 1;
 	    }
@@ -420,7 +420,7 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
     ogg_sync_clear(&m_oy);
 
     // signal the current position
-    emit sourceProcessed(m_source->at());
+    emit sourceProcessed(m_source->pos());
 
     if (!m_info.contains(INF_BITRATE_NOMINAL) &&
         !m_info.contains(INF_VBR_QUALITY))
@@ -433,11 +433,11 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 
 	if ((int)m_info.rate() && samples) {
 	    // guess bitrates from the stream
-	    const unsigned int stream_end_pos = m_source->at();
+	    const unsigned int stream_end_pos = m_source->pos();
 	    const unsigned int stream_read = stream_end_pos -
 	                                     stream_start_pos + 1;
-	    double bits = (double)stream_read * 8.0;
-	    double seconds = (double)samples / (double)m_info.rate();
+	    qreal bits = (qreal)stream_read * 8.0;
+	    qreal seconds = (qreal)samples / (qreal)m_info.rate();
 	    bitrate = (unsigned int)(bits / seconds);
 
 	    // round to neares standard bitrate

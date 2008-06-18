@@ -19,22 +19,30 @@
 #define _RECORD_DIALOG_H_
 
 #include "config.h"
-#include <qstringlist.h>
-#include <qtimer.h>
-#include <qvaluelist.h>
+
+#include <QString>
+#include <QStringList>
+#include <QTimer>
+#include <QList>
+#include <QMap>
+
+#include "libkwave/KwaveSampleArray.h"
+#include "libkwave/Sample.h"
+#include "libkwave/SampleFormat.h"
+
 #include "RecordController.h"
-#include "RecordDlg.h"
 #include "RecordParams.h"
 #include "RecordState.h"
 #include "RecordTypesMap.h"
 #include "StatusWidget.h"
 
-#include "libkwave/Sample.h"
-#include "libkwave/SampleFormat.h"
+#include "ui_RecordDlg.h"
 
+class QTreeWidgetItem;
 class QWidget;
 
-class RecordDialog: public RecordDlg
+class RecordDialog: public QDialog,
+                    public Ui::RecordDlg
 {
 Q_OBJECT
 
@@ -66,7 +74,7 @@ public:
     void setTracks(unsigned int tracks);
 
     /** sets the list of supported sample rates */
-    void setSupportedSampleRates(const QValueList<double> &rates);
+    void setSupportedSampleRates(const QList<double> &rates);
 
     /**
      * sets a new sample rate
@@ -78,7 +86,7 @@ public:
      * sets the list of supported compressions
      * @param comps list of supported compressions, can be empty
      */
-    void setSupportedCompressions(const QValueList<int> &comps);
+    void setSupportedCompressions(const QList<int> &comps);
 
     /**
      * sets a new compression type
@@ -88,7 +96,7 @@ public:
     void setCompression(int compression);
 
     /** sets a list of supported number of bits per sample */
-    void setSupportedBits(const QValueList<unsigned int> &bits);
+    void setSupportedBits(const QList<unsigned int> &bits);
 
     /** sets a new resolution in bits per sample */
     void setBitsPerSample(unsigned int bits);
@@ -106,7 +114,7 @@ public:
      * sets the list of supported sample formats
      * @param comps list of supported sample formats, must not be empty
      */
-    void setSupportedSampleFormats(const QValueList<SampleFormat> &formats);
+    void setSupportedSampleFormats(const QList<SampleFormat> &formats);
 
     /**
      * sets a new sample format
@@ -127,7 +135,7 @@ public:
      * @param track index of the track that is updated
      * @param buffer array with Kwave sample data
      */
-    void updateEffects(unsigned int track, QMemArray<sample_t> &buffer);
+    void updateEffects(unsigned int track, Kwave::SampleArray &buffer);
 
     /**
      * Show the "source" device tab, usually if the setup was
@@ -203,7 +211,17 @@ private slots:
     void selectRecordDevice();
 
     /** selection in the device list view has changed */
-    void listEntrySelected(QListViewItem *item);
+    void listEntrySelected(QTreeWidgetItem *current,
+                           QTreeWidgetItem *previous);
+
+    /** selection in the device list view has changed */
+    void listItemExpanded(QTreeWidgetItem *item);
+
+    /**
+     * updates/fixes the device selection when the tree view has
+     * lost focus, to avoid that nothing is selected
+     */
+    void updateListSelection();
 
     /** forwards a sigTracksChanged signal */
     void tracksChanged(int tracks);
@@ -275,7 +293,7 @@ private:
     QString m_file_filter;
 
     /** map for items in the list view */
-    QMap<QListViewItem *, QString> m_devices_list_map;
+    QMap<QTreeWidgetItem *, QString> m_devices_list_map;
 
     /** state of the record plugin */
     RecordState m_state;
@@ -284,7 +302,7 @@ private:
     RecordParams m_params;
 
     /** a list with supported bits per sample */
-    QValueList<unsigned int> m_supported_resolutions;
+    QList<unsigned int> m_supported_resolutions;
 
     /** accumulated current buffer progress */
     unsigned int m_buffer_progress_count;

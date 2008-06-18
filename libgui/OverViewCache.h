@@ -19,15 +19,13 @@
 #define _OVER_VIEW_CACHE_H_
 
 #include "config.h"
-#include <qbitmap.h>
-#include <qcstring.h>
-#include <qptrlist.h>
-#include <qmemarray.h>
-#include <qmutex.h>
-#include <qobject.h>
-#include <qvaluelist.h>
 
-class QBitmap;
+#include <QBitmap>
+#include <QList>
+#include <QMutex>
+#include <QObject>
+#include <QVector>
+
 class SignalManager;
 class Track;
 
@@ -53,7 +51,7 @@ public:
      */
     OverViewCache(SignalManager &signal, unsigned int src_offset = 0,
                   unsigned int src_length = 0,
-                  const QMemArray<unsigned int> *src_tracks = 0);
+                  const QList<unsigned int> *src_tracks = 0);
 
     /** Destructor */
     virtual ~OverViewCache();
@@ -80,7 +78,7 @@ protected slots:
      * @see Signal::sigTrackInserted
      * @internal
      */
-    void slotTrackInserted(unsigned int index, Track &);
+    void slotTrackInserted(unsigned int index, Track *);
 
     /**
      * Connected to the signal's sigTrackInserted.
@@ -181,13 +179,13 @@ private:
     SignalManager &m_signal;
 
     /** list of minimum value arrays, one array per track */
-    QPtrList< QMemArray <signed char> > m_min;
+    QList< QVector <signed char> > m_min;
 
     /** list of maximum value arrays, one array per track */
-    QPtrList< QMemArray <signed char> > m_max;
+    QList< QVector <signed char> > m_max;
 
     /** bitmask for "validity" of the min/max values */
-    QPtrList< QMemArray <CacheState> > m_state;
+    QList< QVector <CacheState> > m_state;
 
     /** number of min/max values */
     unsigned int m_count;
@@ -205,10 +203,10 @@ private:
     unsigned int m_src_length;
 
     /** list of selected source tracks */
-    QValueList<unsigned int> m_src_tracks;
+    QList<unsigned int> m_src_tracks;
 
     /** list of selected and deleted source tracks */
-    QValueList<unsigned int> m_src_deleted;
+    QList<unsigned int> m_src_deleted;
 
 };
 

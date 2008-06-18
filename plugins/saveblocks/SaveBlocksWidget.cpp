@@ -16,9 +16,11 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <qlineedit.h>
+
+#include <QCheckBox>
+#include <QComboBox>
+#include <QLineEdit>
+
 #include "SaveBlocksWidget.h"
 
 //***************************************************************************
@@ -27,13 +29,23 @@ SaveBlocksWidget::SaveBlocksWidget(QWidget *parent,
 	SaveBlocksPlugin::numbering_mode_t numbering_mode,
 	bool selection_only,
 	bool have_selection)
-    :SaveBlocksWidgetBase(parent, 0)
+    :QWidget(parent), Ui::SaveBlocksWidgetBase()
 {
+    setupUi(this);
+
     // the file name pattern combo box
-    cbPattern->setCurrentText(filename_pattern);
+    cbPattern->addItem("[%2nr] [%filename]");
+    cbPattern->addItem("[%2nr]-[%filename]");
+    cbPattern->addItem("[%02nr]-[%filename]");
+    cbPattern->addItem("[%04nr]-[%filename]");
+    cbPattern->addItem("[%02nr] of [%count] [%filename]");
+    cbPattern->addItem("[%02nr] of [%total] [%filename]");
+    cbPattern->addItem("[%filename] part [%nr] of [%total]");
+    cbPattern->addItem("[%filename] - [%04nr]");
+    cbPattern->setEditText(filename_pattern);
 
     // the numbering mode combo box
-    cbNumbering->setCurrentItem(static_cast<int>(numbering_mode));
+    cbNumbering->setCurrentIndex(static_cast<int>(numbering_mode));
 
     // the "selection only" checkbox
     if (have_selection) {
@@ -47,7 +59,7 @@ SaveBlocksWidget::SaveBlocksWidget(QWidget *parent,
     }
 
     // combo box with pattern
-    connect(cbPattern, SIGNAL(textChanged(const QString &)),
+    connect(cbPattern, SIGNAL(editTextChanged(const QString &)),
             this, SLOT(textChanged(const QString &)));
     connect(cbPattern, SIGNAL(highlighted(int)),
             this, SLOT(indexChanged(int)));
@@ -86,7 +98,7 @@ SaveBlocksPlugin::numbering_mode_t SaveBlocksWidget::numberingMode()
 {
     Q_ASSERT(cbNumbering);
     return (cbNumbering) ? static_cast<SaveBlocksPlugin::numbering_mode_t>(
-	cbNumbering->currentItem()) : SaveBlocksPlugin::CONTINUE;
+	cbNumbering->currentIndex()) : SaveBlocksPlugin::CONTINUE;
 }
 
 //***************************************************************************

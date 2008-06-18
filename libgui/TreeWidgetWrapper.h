@@ -1,8 +1,8 @@
 /***************************************************************************
-          LabelManager.cpp  -  manager class for kwave's labels
+    TreeWidget.h  -  wrapper for QTreeWidget to get focus out information
 			     -------------------
-    begin                : Mon Jun 2 2000
-    copyright            : (C) 2000 by Thomas Eschenbacher
+    begin                : Mon May 12 2008
+    copyright            : (C) 2008 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -15,29 +15,34 @@
  *                                                                         *
  ***************************************************************************/
 
+#ifndef _TREE_WIDGET_WRAPPER_H_
+#define _TREE_WIDGET_WRAPPER_H_
+
 #include "config.h"
-#include <kapp.h>
 
-#include "LabelManager.h"
+#include <QObject>
+#include <QTreeWidget>
 
-//***************************************************************************
-LabelManager::LabelManager()
-    :QObject()
+class QFocusEvent;
+
+class TreeWidgetWrapper: public QTreeWidget
 {
-}
+    Q_OBJECT
+public:
+    /** Constructor */
+    TreeWidgetWrapper(QWidget *parent);
 
-//***************************************************************************
-bool LabelManager::isOK()
-{
-    return true;
-}
+    /** Destructor */
+    virtual ~TreeWidgetWrapper();
 
-//***************************************************************************
-LabelManager::~LabelManager()
-{
-}
+    /** catches the "lost focus" event */
+    virtual void focusOutEvent(QFocusEvent *event);
 
-//***************************************************************************
-#include "LabelManager.moc"
-//***************************************************************************
-//***************************************************************************
+signals:
+
+    /** emitted when the focus has been lost */
+    void focusLost();
+
+};
+
+#endif /* _TREE_WIDGET_WRAPPER_H_ */

@@ -26,7 +26,7 @@
 
 //***************************************************************************
 LowPassFilter::LowPassFilter()
-    :Kwave::SampleSource(0, "LowPass"), m_buffer(blockSize()),
+    :Kwave::SampleSource(0), m_buffer(blockSize()),
     m_f_cutoff(M_PI)
 {
     initFilter();
@@ -138,9 +138,9 @@ void LowPassFilter::normed_setfilter_shelvelowpass(double freq)
 void LowPassFilter::input(Kwave::SampleArray &data)
 {
     normed_setfilter_shelvelowpass(m_f_cutoff);
-    Q_ASSERT(data.count() == m_buffer.count());
+    Q_ASSERT(data.size() == m_buffer.size());
 
-    for (unsigned i = 0; i < data.count(); i++)
+    for (unsigned i = 0; i < data.size(); i++)
     {
 	// do the filtering
 	m_filter.x = sample2float(data[i]);

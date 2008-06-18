@@ -19,7 +19,7 @@
 #define _RECOVERY_BUFFER_H_
 
 #include "config.h"
-#include <qcstring.h>
+#include <QByteArray>
 #include "RecoverySource.h"
 
 class RecoveryBuffer: public RecoverySource

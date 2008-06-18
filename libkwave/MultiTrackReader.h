@@ -20,8 +20,9 @@
 #define _MULTI_TRACK_READER_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qptrvector.h>
+
+#include <QObject>
+#include <QList>
 
 #include "libkwave/SampleReader.h"
 #include "libkwave/KwaveMultiTrackSource.h"
@@ -50,7 +51,7 @@ public:
      * @param right index of the last sample
      */
     MultiTrackReader(SignalManager &signal_manager,
-                     const QMemArray<unsigned int> &track_list,
+                     const QList<unsigned int> &track_list,
                      unsigned int first, unsigned int last);
 
     /** Destructor */
@@ -59,13 +60,16 @@ public:
     /** Returns true if one of the readers has reached eof() */
     virtual bool eof() const;
 
-    /** @see QPtrVector::isEmpty() */
-    inline virtual bool isEmpty() {
+    /** @see QList::isEmpty() */
+    inline virtual bool isEmpty() const {
         return (Kwave::MultiTrackSource<SampleReader, false>::tracks() < 1);
     };
 
-    /** returns true if the transfer has been cancelled */
-    inline bool isCancelled() { return m_cancelled; };
+    /** returns true if the transfer has been canceled */
+    inline bool isCanceled() const { return m_canceled; };
+
+    /** @see QList::insert() */
+    virtual bool insert(unsigned int track, SampleReader *reader);
 
 signals:
 
@@ -97,9 +101,9 @@ protected:
 
     /**
      * Initialized as false, will be true if the transfer has
-     * been cancelled
+     * been canceled
      */
-    bool m_cancelled;
+    bool m_canceled;
 
 };
 

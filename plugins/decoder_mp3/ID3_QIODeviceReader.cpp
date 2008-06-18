@@ -15,7 +15,10 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qiodevice.h>
+#include "config.h"
+
+#include <QIODevice>
+
 #include "ID3_QIODeviceReader.h"
 
 //***************************************************************************
@@ -43,35 +46,37 @@ ID3_Reader::pos_type ID3_QIODeviceReader::getBeg()
 //***************************************************************************
 ID3_Reader::pos_type ID3_QIODeviceReader::getEnd()
 {
-    return m_source.size() ? m_source.size() - 1 : 0;
+    return m_source.size() ?
+	static_cast<ID3_Reader::pos_type>(m_source.size() - 1) : 0;
 }
 
 //***************************************************************************
 ID3_Reader::pos_type ID3_QIODeviceReader::getCur()
 {
-    return m_source.at();
+    return static_cast<ID3_Reader::pos_type>(m_source.pos());
 }
 
 //***************************************************************************
 ID3_Reader::pos_type ID3_QIODeviceReader::setCur(ID3_Reader::pos_type pos)
 {
-    m_source.at(pos);
-    return m_source.at();
+    m_source.seek(static_cast<qint64>(pos));
+    return m_source.pos();
 }
 
 //***************************************************************************
 ID3_Reader::int_type ID3_QIODeviceReader::readChar()
 {
-    ID3_Reader::int_type ch = m_source.getch();
-    return ch;
+    unsigned char c = 0;
+    m_source.getChar(reinterpret_cast<char *>(&c));
+    return static_cast<ID3_Reader::int_type>(c);
 }
 
 //***************************************************************************
 ID3_Reader::int_type ID3_QIODeviceReader::peekChar()
 {
-    ID3_Reader::pos_type pos = m_source.at();
+    qint64 pos = m_source.pos();
     ID3_Reader::int_type ch = readChar();
-    m_source.at(pos);
+    m_source.seek(pos);
     return ch;
 }
 
@@ -79,8 +84,8 @@ ID3_Reader::int_type ID3_QIODeviceReader::peekChar()
 ID3_Reader::size_type ID3_QIODeviceReader::readChars(
     ID3_Reader::char_type buf[], ID3_Reader::size_type len)
 {
-    char_type *p = &(buf[0]);
-    ID3_Reader::size_type size = m_source.readBlock((char*)p, len);
+    ID3_Reader::size_type size = m_source.read(
+	(char *)(&buf[0]), len);
     return size;
 }
 

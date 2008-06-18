@@ -15,25 +15,28 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
 #include <math.h>
 #include <limits.h>
 
-#include <qbuttongroup.h>
-#include <qradiobutton.h>
-#include <qslider.h>
+#include <QRadioButton>
+#include <QSlider>
+#include <QWidget>
 
 #include <klocale.h>
 #include <knuminput.h>
 
-#include "IntValidatorProxy.h"
 #include "SelectTimeWidget.h"
 
 //***************************************************************************
-SelectTimeWidget::SelectTimeWidget(QWidget *widget, const char *name)
-    :SelectTimeWidgetBase(widget, name),
+SelectTimeWidget::SelectTimeWidget(QWidget *widget)
+    :QGroupBox(widget), Ui::SelectTimeWidgetBase(),
      m_mode(bySamples), m_range(0), m_rate(1.0), m_offset(0), m_length(0),
      m_timer(this)
 {
+    setupUi(this);
+    modeChanged(true);
 }
 
 //***************************************************************************
@@ -56,17 +59,18 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
     if (!m_length) m_length = 1;
 
     // set range of selection by sample
-    edSamples->setRange(0, m_length-m_offset, 1, false);
+    edSamples->setSliderEnabled(false);
+    edSamples->setRange(0, m_length-m_offset, 1);
 
     // set range of time controls
     int t = (int)rint((m_length * 1E3) / m_rate);
-    sbMilliseconds->setMaxValue(t);
+    sbMilliseconds->setMaximum(t);
     t /= 1000;
-    sbSeconds->setMaxValue(t);
+    sbSeconds->setMaximum(t);
     t /= 60;
-    sbMinutes->setMaxValue(t);
+    sbMinutes->setMaximum(t);
     t /= 60;
-    sbHours->setMaxValue(t);
+    sbHours->setMaximum(t);
 
     // activate the current mode
     setMode(m_mode);
@@ -99,20 +103,16 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
     }
 
     // connect mode controls
-    QObject::connect(rbTime, SIGNAL(stateChanged(int)),
-                     this, SLOT(modeChanged(int)));
-    QObject::connect(rbSamples,SIGNAL(stateChanged(int)),
-                     this, SLOT(modeChanged(int)));
-    QObject::connect(rbPercents,SIGNAL(stateChanged(int)),
-                     this, SLOT(modeChanged(int)));
+    QObject::connect(rbTime, SIGNAL(clicked(bool)),
+                     this, SLOT(modeChanged(bool)));
+    QObject::connect(rbSamples,SIGNAL(clicked(bool)),
+                     this, SLOT(modeChanged(bool)));
+    QObject::connect(rbPercents,SIGNAL(clicked(bool)),
+                     this, SLOT(modeChanged(bool)));
 
     connect();
 
     // connect percentage control
-    IntValidatorProxy *px = new IntValidatorProxy(this);
-    sbPercents->setValidator(px);
-    QObject::connect(px, SIGNAL(valueChanged(int)),
-                     this, SLOT(percentsChanged(int)));
     QObject::connect(sbPercents, SIGNAL(valueChanged(int)),
                      this, SLOT(percentsChanged(int)));
 
@@ -131,6 +131,7 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
 
     adjustSize();
     setMinimumSize(sizeHint());
+    modeChanged(true);
 }
 
 //***************************************************************************
@@ -204,14 +205,13 @@ void SelectTimeWidget::setMode(Mode new_mode)
 	    rbPercents->setChecked(true);
 	    break;
     }
-    Q_ASSERT(m_mode == new_mode);
-
+    m_mode = new_mode;
 }
 
 //***************************************************************************
-void SelectTimeWidget::modeChanged(int enable)
+void SelectTimeWidget::modeChanged(bool checked)
 {
-    if (!enable) return; // ignore disabling of radio buttons
+    if (!checked) return; // ignore disabling of radio buttons
 
     if (rbTime->isChecked() && (m_mode != byTime)) {
 	m_mode = byTime;
@@ -230,7 +230,8 @@ void SelectTimeWidget::modeChanged(int enable)
 	    m_timer.stop();
 	} else {
 	    // activate the sample edit timer
-	    m_timer.start(100, false);
+	    m_timer.setSingleShot(false);
+	    m_timer.start(100);
 	}
 
     }
@@ -353,7 +354,8 @@ void SelectTimeWidget::samplesChanged(int)
 
     // re-activate the sample edit timer
     m_timer.stop();
-    m_timer.start(100, false);
+    m_timer.setSingleShot(false);
+    m_timer.start(100);
 
     emit valueChanged(samples); // emit the change
     connect();
@@ -404,7 +406,7 @@ void SelectTimeWidget::percentsChanged(int p)
 //***************************************************************************
 void SelectTimeWidget::setTitle(const QString title)
 {
-    QButtonGroup::setTitle(title);
+    QGroupBox::setTitle(title);
 }
 
 //***************************************************************************
@@ -415,7 +417,8 @@ void SelectTimeWidget::setOffset(unsigned int offset)
     unsigned int samples = edSamples->value();
 
     // the range of the sample edit should always get updated
-    edSamples->setRange(0, m_length-m_offset, 1, false);
+    edSamples->setSliderEnabled(false);
+    edSamples->setRange(0, m_length-m_offset, 1);
 
     // no range conflict -> nothing to do
     if (samples <= max_samples) return;

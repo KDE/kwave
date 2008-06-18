@@ -1,9 +1,15 @@
 /***************************************************************************
 KwaveAboutContainer.cpp  -  Authors and thanks field in the about dialog
                               -------------------
-    begin                : Sat Mar 9 2002
-    copyright            : (C) 2002 by Ralf Waspe
-    email                : rwaspe@web.de
+    begin                : Sat Dec 29 2007
+    copyright            : (C) 2007 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
+
+    based on class K3AboutContainer
+    copied from k3aboutdialog.cpp / kdelibs-3.97.0
+
+    Copyright (C) 1999-2001 Mirko Boehm (mirko@kde.org) and
+                            Espen Sand (espen@kde.org)
  ***************************************************************************/
 
 /***************************************************************************
@@ -16,19 +22,39 @@ KwaveAboutContainer.cpp  -  Authors and thanks field in the about dialog
  ***************************************************************************/
 
 #include <qnamespace.h>
-#include <kapp.h>
+#include <QLabel>
+
+#include <kapplication.h>
+#include <kdialog.h>
+#include <klocale.h>
+#include <ktoolinvocation.h>
 
 #include "KwaveAboutContainer.h"
 
 //***************************************************************************
-KwaveAboutContainer::KwaveAboutContainer(QWidget* parent, const char* name)
-    :KAboutContainer(parent, name, 0, 0, (Qt::AlignTop | Qt::AlignLeft),
-     (Qt::AlignTop | Qt::AlignLeft))
+KwaveAboutContainer::KwaveAboutContainer(QWidget *parent)
+    :QFrame(parent)
 {
-    connect(this, SIGNAL(urlClick(const QString &)),
-            this, SLOT(openURL(const QString &)));
-    connect(this, SIGNAL(mailClick(const QString &,const QString &)),
-            this, SLOT(sendMail(const QString &,const QString &)));
+    setFrameStyle(QFrame::NoFrame);
+
+    QGridLayout* const gbox = new QGridLayout(this);
+    Q_ASSERT(gbox);
+    if (!gbox) return;
+
+    gbox->setMargin(0);
+    gbox->setMargin(0);
+    gbox->setColumnStretch(0, 10);
+    gbox->setColumnStretch(2, 10);
+    gbox->setRowStretch(0, 10);
+    gbox->setRowStretch(2, 10);
+
+    m_vbox = new QVBoxLayout();
+    Q_ASSERT(m_vbox);
+    if (!m_vbox) return;
+
+    m_vbox->setSpacing(0);
+    gbox->addLayout(m_vbox, 1, 1);
+//     gbox->activate();
 }
 
 //***************************************************************************
@@ -37,15 +63,197 @@ KwaveAboutContainer::~KwaveAboutContainer()
 }
 
 //***************************************************************************
-void KwaveAboutContainer::openURL(const QString &url)
+QSize KwaveAboutContainer::sizeHint(void) const
 {
-    kapp->invokeBrowser(url);
+    //
+    // The size is computed by adding the sizeHint().height() of all
+    // widget children and taking the width of the widest child and adding
+    // layout()->margin() and layout()->spacing()
+    //
+
+    QSize total_size;
+
+    int numChild = 0;
+    const QList<QObject*> l = children(); // silence please
+    foreach (QObject *o, l) {
+	if (o->isWidgetType()) {
+	    ++numChild;
+	    QWidget * const w = static_cast<QWidget *>(o);
+
+	    QSize s = w->minimumSize();
+	    if (s.isEmpty()) {
+		s = w->minimumSizeHint();
+		if (s.isEmpty()) {
+		    s = w->sizeHint();
+		    if (s.isEmpty())
+			s = QSize(100, 100); // Default size
+		}
+	    }
+	    total_size.setHeight(total_size.height() + s.height());
+	    if (s.width() > total_size.width()) {
+		total_size.setWidth(s.width());
+	    }
+	}
+    }
+
+    if (numChild > 0) {
+	//
+	// Seems I have to add 1 to the height to properly show the border
+	// of the last entry if layout()->margin() is 0
+	//
+	total_size.setHeight(total_size.height() +
+	    layout()->spacing() * (numChild - 1));
+	total_size += QSize(layout()->margin()*2, layout()->margin()*2 + 1);
+    } else {
+	total_size = QSize(1, 1);
+    }
+    return total_size;
 }
 
 //***************************************************************************
-void KwaveAboutContainer::sendMail(const QString &,const QString &address)
+QSize KwaveAboutContainer::minimumSizeHint(void) const
 {
-    kapp->invokeMailer(address, QString::null);
+    return sizeHint();
+}
+
+//***************************************************************************
+void KwaveAboutContainer::addWidget(QWidget *widget)
+{
+    widget->setParent(this);
+
+    m_vbox->addWidget(widget, 0, Qt::AlignCenter);
+    const QSize s(sizeHint());
+    setMinimumSize(s);
+
+    const QList<QObject *> l = children(); // silence please
+    foreach (QObject *o, l) {
+	if (o->isWidgetType())
+	    static_cast<QWidget *>(o)->setMinimumWidth(s.width());
+    }
+}
+
+//***************************************************************************
+void KwaveAboutContainer::addPerson(const QString &_name, const QString &_email,
+				    const QString &_url, const QString &_task)
+{
+    KwaveAboutContributor * const cont = new KwaveAboutContributor(this,
+	_name, _email, _url, _task);
+    Q_ASSERT(cont);
+    if (!cont) return;
+
+    addWidget(cont);
+}
+
+//***************************************************************************
+KwaveAboutContributor::KwaveAboutContributor(QWidget *_parent,
+                                             const QString &_name,
+                                             const QString &_email,
+                                             const QString &_url,
+                                             const QString &_work)
+    :QFrame(_parent)
+{
+    for (int i=0; i < 4; ++i) {
+	m_text[i] = new QLabel(this);
+	Q_ASSERT(m_text[i]);
+	if (!m_text[i]) return;
+	m_text[i]->setOpenExternalLinks(true);
+	m_text[i]->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
+    }
+
+    // set name
+    m_text[0]->setText(_name);
+
+    // set email
+    if (!_email.isEmpty())
+	m_text[1]->setText(QString("<a href=\"mailto:%1\">%1</a>").arg(_email));
+
+    // set url
+    if (!_url.isEmpty())
+	m_text[2]->setText(QString("<a href=\"%1\">%1</a>").arg(_url));
+
+    // set work
+    m_text[3]->setText(_work);
+
+    fontChange(font());
+    updateLayout();
+}
+
+//***************************************************************************
+KwaveAboutContributor::~KwaveAboutContributor()
+{
+}
+
+//***************************************************************************
+void KwaveAboutContributor::fontChange(const QFont &/*oldFont*/)
+{
+    update();
+}
+
+//***************************************************************************
+QSize KwaveAboutContributor::sizeHint(void) const
+{
+    return minimumSizeHint();
+}
+
+//***************************************************************************
+void KwaveAboutContributor::updateLayout()
+{
+    if (layout()) delete layout();
+
+    int row = 0;
+    if (!m_text[0] || !m_text[0]->text().isEmpty()) { ++row; }
+    if (!m_text[1] || !m_text[1]->text().isEmpty()) { ++row; }
+    if (!m_text[2] || !m_text[2]->text().isEmpty()) { ++row; }
+    if (!m_text[3] || !m_text[3]->text().isEmpty()) { ++row; }
+
+    QGridLayout *gbox;
+    if (row == 0) {
+	gbox = new QGridLayout(this);
+	Q_ASSERT(gbox);
+	if (!gbox) return;
+	gbox->setSpacing(1);
+	for (int i=0; i<4; ++i)
+	    if (m_text[i]) m_text[i]->hide();
+    } else {
+	if (m_text[0] && m_text[0]->text().isEmpty()) {
+	    gbox = new QGridLayout(this);
+	    Q_ASSERT(gbox);
+	    if (!gbox) return;
+	    gbox->setMargin(frameWidth()+1);
+	    gbox->setSpacing(2);
+	} else {
+	    gbox = new QGridLayout(this);
+	    Q_ASSERT(gbox);
+	    if (!gbox) return;
+	    gbox->setMargin(frameWidth()+1);
+	    gbox->setSpacing(2);
+	    gbox->addItem(new QSpacerItem(KDialog::spacingHint() * 2, 0),0,0);
+	    gbox->setColumnStretch(1, 10);
+	}
+
+	for (int i=0, r=0; i<4; ++i) {
+	    if (!m_text[i]) continue;
+
+	    if (i != 3) {
+		m_text[i]->setFixedHeight(fontMetrics().lineSpacing());
+	    }
+
+	    if (!m_text[i]->text().isEmpty()) {
+		if (!i) {
+		    gbox->addWidget(m_text[i], r, 0, 1, 2, Qt::AlignLeft);
+		} else {
+		    gbox->addWidget(m_text[i], r, 1, Qt::AlignLeft );
+		}
+		m_text[i]->show();
+		++r;
+	    } else {
+		m_text[i]->hide();
+	    }
+	}
+    }
+
+    gbox->activate();
+    setMinimumSize(sizeHint());
 }
 
 //***************************************************************************

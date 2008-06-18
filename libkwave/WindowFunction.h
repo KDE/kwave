@@ -19,7 +19,7 @@
 #define _WINDOW_FUNCTION_H_
 
 #include "config.h"
-#include <qmemarray.h>
+#include <QVector>
 #include "libkwave/TypesMap.h"
 
 class QString;
@@ -58,7 +58,7 @@ public:
      * the given number of points. This is similar to Kwave's
      * Interpolation class.
      */
-    QMemArray<double> points(unsigned int len);
+    QVector<qreal> points(unsigned int len);
 
     /**
      * Returns the window function id through it's numeric index. If

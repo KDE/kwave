@@ -19,9 +19,8 @@
 #define _ENCODER_H_
 
 #include "config.h"
-#include <qptrlist.h>
-#include <qobject.h>
-#include <qvaluelist.h>
+#include <QList>
+#include <QObject>
 
 #include "libkwave/CodecBase.h"
 #include "libkwave/FileInfo.h"
@@ -56,8 +55,8 @@ public:
                         QIODevice &dst, FileInfo &info) = 0;
 
     /** Returns a list of supported file properties */
-    virtual QValueList<FileProperty> supportedProperties() {
-	QValueList<FileProperty> empty;
+    virtual QList<FileProperty> supportedProperties() {
+	QList<FileProperty> empty;
 	return empty;
     };
 

@@ -16,13 +16,16 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kmimetype.h>
-#include <kapp.h>
-#include <kglobal.h>
+
 #include <math.h>
 #include <stdlib.h>
+
+#include <klocale.h>
+#include <kmimetype.h>
+#include <kglobal.h>
+
+#include <QByteArray>
+#include <QtGlobal>
 
 #include "libkwave/byteswap.h"
 #include "libkwave/FileInfo.h"
@@ -31,11 +34,13 @@
 #include "libkwave/SampleReader.h"
 #include "libkwave/VirtualAudioFile.h"
 
+#include "libgui/MessageBox.h"
+
 #include "WavEncoder.h"
 #include "WavFileFormat.h"
 
 // some byteswapping helper macros
-#if defined(ENDIANESS_BIG)
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
 #define CPU_TO_LE32(x) (bswap_32(x))
 #define LE32_TO_CPU(x) (bswap_32(x))
 #else
@@ -62,14 +67,9 @@ Encoder *WavEncoder::instance()
 }
 
 /***************************************************************************/
-QValueList<FileProperty> WavEncoder::supportedProperties()
+QList<FileProperty> WavEncoder::supportedProperties()
 {
-    QValueList<FileProperty> list;
-    QMap<QCString, FileProperty>::Iterator it;
-    for (it=m_property_map.begin(); it != m_property_map.end(); ++it) {
-        list.append(it.data());
-    }
-    return list;
+    return m_property_map.values();
 }
 
 /***************************************************************************/
@@ -77,7 +77,7 @@ void WavEncoder::writeInfoChunk(QIODevice &dst, FileInfo &info)
 {
     // create a list of chunk names and properties for the INFO chunk
     QMap<FileProperty, QVariant> properties(info.properties());
-    QMap<QCString, QCString> info_chunks;
+    QMap<QByteArray, QByteArray> info_chunks;
     unsigned int info_size = 0;
 
     QMap<FileProperty, QVariant>::Iterator it;
@@ -85,8 +85,8 @@ void WavEncoder::writeInfoChunk(QIODevice &dst, FileInfo &info)
 	FileProperty property = it.key();
 	if (!m_property_map.containsProperty(property)) continue;
 
-	QCString chunk_id = m_property_map.findProperty(property);
-	QCString value = QVariant(properties[property]).asString().utf8();
+	QByteArray chunk_id = m_property_map.findProperty(property);
+	QByteArray value = QVariant(properties[property]).toString().toUtf8();
 	info_chunks.insert(chunk_id, value);
 	info_size += 4 + 4 + value.length();
 	if (value.length() & 0x01) info_size++;
@@ -98,34 +98,34 @@ void WavEncoder::writeInfoChunk(QIODevice &dst, FileInfo &info)
 
 	// enlarge the main RIFF chunk by the size of the LIST chunk
 	info_size += 4 + 4 + 4; // add the size of LIST(INFO)
-	dst.at(4);
-	dst.readBlock((char *)&size, 4);
+	dst.seek(4);
+	dst.read((char *)&size, 4);
 	size = CPU_TO_LE32(LE32_TO_CPU(size) + info_size);
-	dst.at(4);
-	dst.writeBlock((char *)&size, 4);
+	dst.seek(4);
+	dst.write((char *)&size, 4);
 
 	// add the LIST(INFO) chunk itself
-	dst.at(dst.size());
-	dst.writeBlock("LIST", 4);
+	dst.seek(dst.size());
+	dst.write("LIST", 4);
 	size = CPU_TO_LE32(info_size - 8);
-	dst.writeBlock((char *)&size, 4);
-	dst.writeBlock("INFO", 4);
+	dst.write((char *)&size, 4);
+	dst.write("INFO", 4);
 
 	// append the chunks to the end of the file
-	QMap<QCString, QCString>::Iterator it;
+	QMap<QByteArray, QByteArray>::Iterator it;
 	for (it=info_chunks.begin(); it != info_chunks.end(); ++it) {
-	    QCString name  = it.key();
-	    QCString value = it.data();
+	    QByteArray name  = it.key();
+	    QByteArray value = it.value();
 
-	    dst.writeBlock(name.data(), 4); // chunk name
+	    dst.write(name.data(), 4); // chunk name
 	    u_int32_t size = value.length(); // length of the chunk
 	    if (size & 0x01) size++;
 	    size = CPU_TO_LE32(size);
-	    dst.writeBlock((char *)&size, 4);
-	    dst.writeBlock(value.data(), value.length());
+	    dst.write((char *)&size, 4);
+	    dst.write(value.data(), value.length());
 	    if (value.length() & 0x01) {
 		const char zero = 0;
-		dst.writeBlock(&zero, 1);
+		dst.write(&zero, 1);
 	    }
 	}
     }
@@ -147,43 +147,46 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
 	labels_count * (6 * 4); /* cue list entry: 6 x 32 bit */
 
     // now the size of the labels
-    unsigned int size_of_labels = 4 + /* header entry: 'adtl' */
-	labels_count * (3 * 4); /* per label 3 * 32 bit header */
-    LabelListIterator it(info.labels());
-    for (it.toFirst(); it.current(); ++it) {
-	Label *label = it.current();
-	Q_ASSERT(label);
-	unsigned int name_len = label->name().utf8().size();
+    unsigned int size_of_labels = 0;
+    foreach (Label *label, info.labels()) {
+	if (!label) continue;
+	unsigned int name_len = label->name().toUtf8().size();
+	if (!name_len) continue; // skip zero-length names
+	size_of_labels += (3 * 4); // 3 * 4 byte
 	size_of_labels += name_len;
 	// padding if size is unaligned
 	if (size_of_labels & 1) size_of_labels++;
     }
+    if (size_of_labels) {
+	size_of_labels += 4; /* header entry: 'adtl' */
+	// enlarge the main RIFF chunk by the size of the LIST chunk
+	additional_size += 4 + 4 + size_of_labels; // add size of LIST(adtl)
+    }
 
-    // enlarge the main RIFF chunk by the size of the cue and LIST chunks
+    // enlarge the main RIFF chunk by the size of the cue chunks
     additional_size += 4 + 4 + size_of_cue_list; // add size of 'cue '
-    additional_size += 4 + 4 + size_of_labels;   // add size of LIST(adtl)
 
-    dst.at(4);
-    dst.readBlock((char *)&size, 4);
+    dst.seek(4);
+    dst.read((char *)&size, 4);
     size = CPU_TO_LE32(LE32_TO_CPU(size) + additional_size);
-    dst.at(4);
-    dst.writeBlock((char *)&size, 4);
+    dst.seek(4);
+    dst.write((char *)&size, 4);
 
     // seek to the end of the file
-    dst.at(dst.size());
+    dst.seek(dst.size());
 
     // add the 'cue ' list
-    dst.writeBlock("cue ", 4);
+    dst.write("cue ", 4);
     size = CPU_TO_LE32(size_of_cue_list);
-    dst.writeBlock((char *)&size, 4);
+    dst.write((char *)&size, 4);
 
     // number of entries
     size = CPU_TO_LE32(labels_count);
-    dst.writeBlock((char *)&size, 4);
+    dst.write((char *)&size, 4);
 
-    for (index=0, it.toFirst(); it.current(); ++it, ++index) {
-	Label *label = it.current();
-	Q_ASSERT(label);
+    index = 0;
+    foreach (Label *label, info.labels()) {
+	if (!label) continue;
 	/*
 	 * typedef struct {
 	 *     u_int32_t dwIdentifier; <- index
@@ -195,44 +198,50 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
 	 * } cue_list_entry_t;
 	 */
 	data = CPU_TO_LE32(index);
-	dst.writeBlock((char *)&data, 4); // dwIdentifier
+	dst.write((char *)&data, 4); // dwIdentifier
 	data = 0;
-	dst.writeBlock((char *)&data, 4); // dwPosition
-	dst.writeBlock("data", 4);        // fccChunk
-	dst.writeBlock((char *)&data, 4); // dwChunkStart
-	dst.writeBlock((char *)&data, 4); // dwBlockStart
+	dst.write((char *)&data, 4); // dwPosition
+	dst.write("data", 4);        // fccChunk
+	dst.write((char *)&data, 4); // dwChunkStart
+	dst.write((char *)&data, 4); // dwBlockStart
 	data = CPU_TO_LE32(label->pos());
-	dst.writeBlock((char *)&data, 4); // dwSampleOffset
+	dst.write((char *)&data, 4); // dwSampleOffset
+	index++;
     }
 
     // add the LIST(adtl) chunk
-    dst.writeBlock("LIST", 4);
-    size = CPU_TO_LE32(size_of_labels);
-    dst.writeBlock((char *)&size, 4);
-    dst.writeBlock("adtl", 4);
-    for (index=0, it.toFirst(); it.current(); ++it, ++index) {
-	Label *label = it.current();
-	Q_ASSERT(label);
-	QCString name = label->name().utf8();
+    if (size_of_labels) {
+	dst.write("LIST", 4);
+	size = CPU_TO_LE32(size_of_labels);
+	dst.write((char *)&size, 4);
+	dst.write("adtl", 4);
+	index = 0;
+	foreach (Label *label, info.labels()) {
+	    if (!label) continue;
+	    QByteArray name = label->name().toUtf8();
 
-	/*
-	 * typedef struct {
-	 *     u_int32_t dwChunkID;    <- 'labl'
-	 *     u_int32_t dwChunkSize;  (without padding !)
-	 *     u_int32_t dwIdentifier; <- index
-	 *     char    dwText[];       <- label->name()
-	 * } label_list_entry_t;
-	 */
-        dst.writeBlock("labl", 4);                // dwChunkID
-        data = CPU_TO_LE32(name.size() + 4);
-	dst.writeBlock((char *)&data, 4);         // dwChunkSize
-	data = CPU_TO_LE32(index);
-	dst.writeBlock((char *)&data, 4);         // dwIdentifier
-	dst.writeBlock(name.data(), name.size()); // dwText
-	if (name.size() & 1) {
-	    // padding if necessary
-	    data = 0;
-	    dst.writeBlock((char *)&data, 1);     // (padding)
+	    /*
+	     * typedef struct {
+	     *     u_int32_t dwChunkID;    <- 'labl'
+	     *     u_int32_t dwChunkSize;  (without padding !)
+	     *     u_int32_t dwIdentifier; <- index
+	     *     char    dwText[];       <- label->name()
+	     * } label_list_entry_t;
+	     */
+	    if (name.size()) {
+		dst.write("labl", 4);                // dwChunkID
+		data = CPU_TO_LE32(name.size() + 4);
+		dst.write((char *)&data, 4);         // dwChunkSize
+		data = CPU_TO_LE32(index);
+		dst.write((char *)&data, 4);         // dwIdentifier
+		dst.write(name.data(), name.size()); // dwText
+		if (name.size() & 1) {
+		    // padding if necessary
+		    data = 0;
+		    dst.write((char *)&data, 1);     // (padding)
+		}
+	    }
+	    index++;
 	}
     }
 }
@@ -270,12 +279,12 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
         (compression != AF_COMPRESSION_G711_ALAW) )
     {
 	qWarning("compression mode %d not supported!", compression);
-	int what_now = KMessageBox::warningYesNoCancel(widget,
+	int what_now = Kwave::MessageBox::warningYesNoCancel(widget,
 	    i18n("Sorry, the currently selected compression type can "
 	         "not be used for saving. Do you want to use "
-	         "G711 ULAW compression instead?"), 0,
-	    KGuiItem(i18n("&Yes, use G711")),
-	    KGuiItem(i18n("&No, store uncompressed"))
+	         "G711 ULAW compression instead?"), QString(),
+	    i18n("&Yes, use G711"),
+	    i18n("&No, store uncompressed")
 	);
 	switch (what_now) {
 	    case (KMessageBox::Yes):
@@ -291,7 +300,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
     // open the output device
     if (!dst.open(IO_ReadWrite | IO_Truncate)) {
-	KMessageBox::error(widget,
+	Kwave::MessageBox::error(widget,
 	    i18n("Unable to open the file for saving!"));
 	return false;
     }
@@ -339,14 +348,14 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	}
 
 	QString text= i18n("An error occurred while opening the "\
-	    "file:\n'%1'").arg(reason);
-	KMessageBox::error(widget, text);
+	    "file:\n'%1'", reason);
+	Kwave::MessageBox::error(widget, text);
 
 	return false;
     }
 
     // set up libaudiofile to produce Kwave's internal sample format
-#if defined(ENDIANESS_BIG)
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
     afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_BIGENDIAN);
 #else
     afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_LITTLEENDIAN);
@@ -396,7 +405,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
 	// abort if the user pressed cancel
 	// --> this would leave a corrupted file !!!
-	if (src.isCancelled()) break;
+	if (src.isCanceled()) break;
     }
 
     // close the audiofile stuff, we need control over the

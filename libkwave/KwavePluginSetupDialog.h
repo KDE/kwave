@@ -19,7 +19,7 @@
 #define _KWAVE_PLUGIN_SETUP_DIALOG_H_
 
 #include "config.h"
-#include <qstringlist.h>
+#include <QStringList>
 
 class QDialog;
 

@@ -19,15 +19,20 @@
 #define _LOW_PASS_DIALOG_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qstring.h>
+
+#include <QObject>
+#include <QDialog>
+#include <QString>
+
 #include "libkwave/KwavePluginSetupDialog.h"
-#include "LowPassDlg.h"
+
+#include "ui_LowPassDlg.h"
 
 class QStringList;
 class LowPassFilter;
 
-class LowPassDialog: public LowPassDlg,
+class LowPassDialog: public QDialog,
+                     public Ui::LowPassDlg,
                      public KwavePluginSetupDialog
 {
     Q_OBJECT

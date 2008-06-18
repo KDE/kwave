@@ -19,19 +19,23 @@
 #define _LABEL_PROPERTIES_WIDGET_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qdialog.h>
-#include "libgui/LabelPropertiesWidgetBase.h"
+
+#include <QObject>
+#include <QDialog>
+#include <QString>
+
+#include "libgui/ui_LabelPropertiesWidgetBase.h"
 
 class Label;
 
-class LabelPropertiesWidget: public LabelPropertiesWidgetBase
+class LabelPropertiesWidget: public QDialog,
+                             public Ui::LabelPropertiesWidgetBase
 {
     Q_OBJECT
 public:
 
     /** Constructor */
-    LabelPropertiesWidget(QWidget *parent, const char *name);
+    LabelPropertiesWidget(QWidget *parent);
 
     /** Destructor */
     virtual ~LabelPropertiesWidget();

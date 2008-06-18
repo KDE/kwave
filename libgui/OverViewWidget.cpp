@@ -16,8 +16,11 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <qpainter.h>
-#include <qpixmap.h>
+
+#include <QPainter>
+#include <QResizeEvent>
+#include <QMouseEvent>
+#include <QPaintEvent>
 
 #include "OverViewWidget.h"
 
@@ -27,24 +30,16 @@
 #define TIMER_INTERVAL 100        /* [ms] */
 #define MIN_SLIDER_WIDTH m_height /* pixel */
 
-#ifndef min
-#define min(x,y) (( (x) < (y) ) ? (x) : (y) )
-#endif
-
-#ifndef max
-#define max(x,y) (( (x) > (y) ) ? (x) : (y) )
-#endif
-
-#define BAR_BACKGROUND    colorGroup().mid()
-#define BAR_FOREGROUND    colorGroup().light()
-#define SLIDER_BACKGROUND colorGroup().background()
-#define SLIDER_FOREGROUND colorGroup().mid()
+#define BAR_BACKGROUND    palette().mid().color()
+#define BAR_FOREGROUND    palette().light().color()
+#define SLIDER_BACKGROUND palette().background().color()
+#define SLIDER_FOREGROUND palette().mid().color()
 
 //***************************************************************************
 OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     :QWidget(parent), m_width(0), m_height(0), m_grabbed(0), m_mouse_pos(0),
      m_slider_width(0), m_view_width(0), m_view_length(0),m_view_offset(0),
-     m_dir(0), m_redraw(false), m_timer(), m_bitmap(), m_pixmap(0),
+     m_dir(0), m_redraw(false), m_timer(), m_bitmap(),
      m_cache(signal), m_repaint_timer()
 {
     // connect the timer for scrolling
@@ -56,16 +51,12 @@ OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     // connect repaint timer
     connect(&m_repaint_timer, SIGNAL(timeout()),
             this, SLOT(refreshBitmap()));
-
-    // this avoids flicker :-)
-    setBackgroundMode(NoBackground);
 }
 
 //***************************************************************************
 OverViewWidget::~OverViewWidget()
 {
     m_timer.stop();
-    if (m_pixmap) delete m_pixmap;
 }
 
 //***************************************************************************
@@ -119,7 +110,7 @@ void OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
     m_grabbed = m_mouse_pos - offset2pixels(m_view_offset);
 
     if (m_view_offset != old_offset) {
-	repaint(false);
+	repaint();
 	emit valueChanged(m_view_offset);
     }
 }
@@ -158,7 +149,7 @@ void OverViewWidget::increase()
     }
 
     if (m_view_offset != old_offset) {
-	repaint(false);
+	repaint();
 	emit valueChanged(m_view_offset);
     }
 }
@@ -193,7 +184,7 @@ int OverViewWidget::offset2pixels(unsigned int offset)
  	res=(int)((float)offset*(float)(max_pixel-1)/(float)(max_offset-1));
     }
 
-    return min(res, m_width-1);
+    return qMin(res, m_width-1);
 }
 
 //***************************************************************************
@@ -216,7 +207,7 @@ unsigned int OverViewWidget::pixels2offset(int pixels)
 	                     (float)(max_pixel-1));
     }
 
-    return min(res, m_view_length-1);
+    return qMin(res, m_view_length-1);
 }
 
 //***************************************************************************
@@ -240,7 +231,7 @@ void OverViewWidget::mouseMoveEvent( QMouseEvent *e)
 	    m_view_offset = m_view_length - m_view_width;
 
 	if (m_view_offset != old_offset) {
-	    repaint(false);
+	    repaint();
 	    emit valueChanged(m_view_offset);
 	}
     }
@@ -266,18 +257,18 @@ void OverViewWidget::setRange(unsigned int new_pos, unsigned int new_width,
 	(width() == m_width))
     {
 	m_view_offset = new_pos;
-	repaint(false);
+	repaint();
     } else {
 	m_width = width();
-	m_view_width = min(new_width, new_length);
-	m_view_offset = min(new_pos, new_length-new_width);
+	m_view_width = qMin(new_width, new_length);
+	m_view_offset = qMin(new_pos, new_length-new_width);
 	m_view_length = new_length;
 	m_slider_width = offset2pixels(m_view_width);
 //	qDebug("OverViewWidget::setRange(): slider_width=%d",m_slider_width);
-	m_slider_width = max(m_slider_width, MIN_SLIDER_WIDTH);
-	m_slider_width = min(m_slider_width, m_width-1);
-	m_redraw=true;
-	repaint(false);
+	m_slider_width = qMax(m_slider_width, MIN_SLIDER_WIDTH);
+	m_slider_width = qMin(m_slider_width, m_width-1);
+	m_redraw = true;
+	repaint();
     }
 
 }
@@ -287,7 +278,7 @@ void OverViewWidget::setValue(unsigned int newval)
 {
     if (m_view_offset != newval) {
 	m_view_offset = newval;
-	repaint (false);
+	repaint();
     }
 }
 
@@ -295,26 +286,12 @@ void OverViewWidget::setValue(unsigned int newval)
 void OverViewWidget::paintEvent(QPaintEvent *)
 {
 //    qDebug("OverViewWidget::paintEvent(QPaintEvent *)");
-    QPainter p;
-
-    // if pixmap has to be resized ...
-    if ((height() != m_height) || (width() != m_width) || m_redraw) {
-	m_redraw = false;
-	m_height = rect().height();
-	m_width = rect().width();
-	if (m_pixmap) delete m_pixmap;
-	m_pixmap = new QPixmap(size());
-    }
-    if (!m_bitmap.width() || !m_bitmap.height()) refreshBitmap();
-    Q_ASSERT(m_pixmap);
-    if (!m_pixmap) return;
+    QPainter p(this);
 
     // --- background of the widget ---
-    p.begin(m_pixmap);
-    m_pixmap->fill(BAR_BACKGROUND);
+    p.fillRect(rect(), BAR_BACKGROUND);
     if (m_bitmap.width() && m_bitmap.height()) {
-	QBrush brush;
-	brush.setPixmap(m_bitmap);
+	QBrush brush(m_bitmap);
 	brush.setColor(BAR_FOREGROUND);
 
 	p.setBrush(brush);
@@ -327,15 +304,14 @@ void OverViewWidget::paintEvent(QPaintEvent *)
     p.setBrush(SLIDER_BACKGROUND);
     p.drawRect(x, 0, m_slider_width, m_height);
     if (m_bitmap.width() && m_bitmap.height()) {
-	QBrush brush;
-	brush.setPixmap(m_bitmap);
+	QBrush brush(m_bitmap);
 	brush.setColor(SLIDER_FOREGROUND);
 	p.setBrush(brush);
 	p.drawRect(x, 0, m_slider_width, m_height);
     }
 
     // frame around the slider
-    p.setPen(colorGroup().mid());
+    p.setPen(palette().mid().color());
     p.drawLine(0, 0, m_width, 0);
     p.drawLine(0, 0, 0, m_height);
 
@@ -344,17 +320,13 @@ void OverViewWidget::paintEvent(QPaintEvent *)
     p.drawLine(x + 1, 0, x + 1, m_height);
 
     // shadow of the slider
-    p.setPen(colorGroup().dark());
+    p.setPen(palette().dark().color());
     p.drawLine(1, m_height - 1, m_width, m_height - 1);
     p.drawLine(m_width - 1, 1, m_width - 1, m_height - 1);
 
     p.drawLine(x + 1, m_height - 2, x + m_slider_width, m_height - 2);
     p.drawLine(x + m_slider_width, 1, x + m_slider_width, m_height);
     p.drawLine(x + m_slider_width - 1, 1, x + m_slider_width - 1, m_height);
-
-    p.end();
-
-    bitBlt(this, 0, 0, m_pixmap);
 }
 
 //***************************************************************************
@@ -381,7 +353,8 @@ void OverViewWidget::overviewChanged()
 	refreshBitmap();
 
 	// start the repaint timer
-	m_repaint_timer.start(REPAINT_INTERVAL, true);
+	m_repaint_timer.setSingleShot(true);
+	m_repaint_timer.start(REPAINT_INTERVAL);
     }
 }
 
@@ -392,7 +365,7 @@ void OverViewWidget::refreshBitmap()
     m_bitmap = m_cache.getOverView(m_width, m_height);
 
     // update the display
-    repaint(false);
+    repaint();
 }
 
 //***************************************************************************

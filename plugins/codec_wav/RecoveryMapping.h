@@ -21,6 +21,8 @@
 #include "config.h"
 #include "RecoverySource.h"
 
+class QIODevice;
+
 class RecoveryMapping: public RecoverySource
 {
 public:

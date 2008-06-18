@@ -39,7 +39,7 @@ src_compile() {
 	use arts  && myconf+=" -DWITH_ARTS=ON"
 	use doc   || myconf+=" -DWITH_DOC=OFF"
 	use flac  || myconf+=" -DWITH_FLAC=OFF"
-	use mp3   || myconf+=" -DWITH_MP3=OFF"
+	use mp3   && myconf+=" -DWITH_MP3=ON"
 	use ogg   || myconf+=" -DWITH_OGG=OFF"
 	use oss   || myconf+=" -DWITH_OSS=OFF"
 	use debug || myconf+=" -DDEBUG=ON"

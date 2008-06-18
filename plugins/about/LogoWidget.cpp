@@ -15,38 +15,31 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <math.h>
 
-#include <qaccel.h>
-#include <qdir.h>
-#include <qimage.h>
-#include <qkeycode.h>
-#include <qpointarray.h>
-#include <qpushbutton.h>
-#include <qtimer.h>
-
-#include <kapp.h>
+#include <QBrush>
+#include <QColor>
+#include <QImage>
+#include <QObject>
+#include <QPainter>
+#include <QPalette>
+#include <QPolygon>
+#include <QTimer>
 
 #include "logo.xpm"
 #include "LogoWidget.h"
 
+/** increment value of the "h" channel of the color of the sine waves */
+#define COLOR_INCREMENT ((qreal)0.001)
+
 //***************************************************************************
-LogoWidget::LogoWidget(QWidget *parent, const char *name)
-    :QWidget(parent, name)
+LogoWidget::LogoWidget(QWidget *parent)
+    :QWidget(parent), m_width(-1), m_height(-1), m_repaint(false),
+    m_image(0), m_logo(xpm_aboutlogo), m_timer(0),
+    m_color_h(0.0)
 {
     for (int i=0; i < MAXSIN; m_deg[i++] = 0);
-
-    m_buffer = 0;
-    m_height = -1;
-    m_pixmap = 0;
-    m_width = -1;
-    m_repaint = false;
-    m_img = 0;
-    m_timer = 0;
-
-    m_img = new QPixmap(xpm_aboutlogo);
-    Q_ASSERT(m_img);
-    if (!m_img) return;
 
     m_timer = new QTimer(this);
     Q_ASSERT(m_timer);
@@ -54,9 +47,12 @@ LogoWidget::LogoWidget(QWidget *parent, const char *name)
     connect(m_timer, SIGNAL(timeout()), this, SLOT(doAnim()));
 
     // gives 40ms refresh ;-)...
-    m_timer->start(40, false);
+    m_timer->setInterval(40);
+    m_timer->start();
 
-    this->setBackgroundColor(black);
+    QPalette pal = palette();
+    pal.setColor(QPalette::Window, Qt::black);
+    setPalette(pal);
 }
 
 //***************************************************************************
@@ -64,87 +60,90 @@ void LogoWidget::doAnim()
 {
     double mul = 0.04131211+m_deg[MAXSIN-1] / 75;
 
-    for (int i=0; i < MAXSIN; i++) {
+    for (int i = 0; i < MAXSIN; i++) {
 	m_deg[i] += mul;
-	if (m_deg[i] > 2*M_PI) m_deg[i]=0;
-	mul  = ((mul*521)/437);
+	if (m_deg[i] > 2 * M_PI) m_deg[i] = 0;
+	mul  = ((mul * 521)/437);
 	mul -= floor(mul);  // gives again a number between 0 and 1
 	mul /= 17;
 	mul += m_deg[i] / 100; //so that chaos may be ...
     }
 
     m_repaint = true;
-    repaint(false);
+    repaint();
 }
 
 //***************************************************************************
 LogoWidget::~LogoWidget()
 {
-    if (m_img) delete m_img;
-    m_timer->stop();
-    delete m_timer;
+    if (m_timer) delete m_timer;
+    if (m_image) delete m_image;
 }
 
 //***************************************************************************
 void LogoWidget::paintEvent(QPaintEvent *)
 {
-
-    // if pixmap has to be resized ...
+    // if image has to be resized ...
     if ((rect().height() != m_height) || (rect().width() != m_width)) {
 	m_height = rect().height();
 	m_width  = rect().width();
 
-	if (m_pixmap) delete m_pixmap;
-	if (m_buffer) delete m_buffer;
-
-	m_pixmap = new QPixmap(size());
-	m_buffer = new QPixmap(size());
+	if (m_image) delete m_image;
+	m_image = new QImage(size(), QImage::Format_ARGB32_Premultiplied);
 	m_repaint = true;
     }
 
-    if ((m_repaint) && (m_pixmap)) {
+    if ((m_repaint) && (m_image)) {
 	QPainter p;
-	QPointArray si(20+3);
+	QPolygon si(20+3);
 
-	p.begin(m_pixmap);
-	p.setPen(white);
-	p.setBrush(white);
+	p.begin(m_image);
+
+	// erase everything to black
+	p.setPen(Qt::black);
+	p.setBrush(Qt::black);
 	p.drawRect(0, 0, m_width, m_height);
-	p.setRasterOp(XorROP);
 
-	double amp=sin(m_deg[MAXSIN-1]*3);
-	for (int j=0; j < MAXSIN; j++) {
+	// blit logo bitmap
+	int ampx = (m_logo.width()  - m_width)/2;
+	int ampy = (m_logo.height() - m_height)/2;
+	p.setCompositionMode(QPainter::CompositionMode_Source);
+	p.drawPixmap(
+	    -ampx+(int)(sin(m_deg[0]) * ampx),
+	    -ampy + (int)(sin(m_deg[1]) * ampy),
+	    m_logo);
+
+	// draw the sine waves with XOR
+	p.setCompositionMode(QPainter::CompositionMode_Exclusion);
+	p.setBrush(QColor::fromHsvF(m_color_h, 1.0, 1.0));
+	m_color_h += COLOR_INCREMENT; // this gives the nice color change :-)
+	if (m_color_h > 1.0) m_color_h -= 1.0;
+
+	qreal amp = sin(m_deg[MAXSIN - 1] * 3);
+	for (int j = 0; j < MAXSIN; j++) {
 	    for (int i=0; i < 21; i++) {
 		si.setPoint(i, (j*m_width/MAXSIN) +
-		    (int)(amp*sin(M_PI*i/10+m_deg[j])*m_width/2),
-		    m_height*i/20
-		);
+		    (int)(amp * sin(M_PI * i / 10 + m_deg[j]) * m_width / 2),
+		    m_height * i / 20);
 	    }
-	    si.setPoint(21,m_width/2, m_height);
-	    si.setPoint(22,m_width/2, 0);
+	    si.setPoint(21, m_width / 2, m_height);
+	    si.setPoint(22, m_width / 2, 0);
 
 	    p.drawPolygon(si);
-	    amp=sin(m_deg[j]*3);
+	    amp = sin(m_deg[j] * 3);
 	}
 
 	p.end();
 	m_repaint = false;
     }
 
-    // blit pixmap to window in every case
-    int ampx = (m_img->width()  - m_width)/2;
-    int ampy = (m_img->height() - m_height)/2;
-
-    if (m_pixmap && m_buffer) {
-	m_buffer->fill(black);
-	bitBlt(m_buffer, -ampx+(int)(sin(m_deg[0]) * ampx),
-	       -ampy + (int)(sin(m_deg[1]) * ampy),
-	       m_img, 0, 0, m_img->width(), m_img->height(),
-	       CopyROP);
-	bitBlt(m_buffer, 0, 0, m_pixmap, 0, 0, m_width, m_height, XorROP);
-
-	bitBlt(this, 0, 0, m_buffer, 0, 0, m_width, m_height, CopyROP);
+    // blit the result to the display
+    if (m_image) {
+	QPainter p(this);
+	p.drawImage(0, 0, *m_image);
+	p.end();
     }
+
 }
 
 //***************************************************************************

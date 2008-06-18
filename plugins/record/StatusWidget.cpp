@@ -16,6 +16,10 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <QPainter>
+#include <QPixmap>
+
 #include "StatusWidget.h"
 
 //***************************************************************************
@@ -44,30 +48,32 @@ void StatusWidget::paintEvent(QPaintEvent *)
     const int pw = pixmap.width();
     const int ph = pixmap.height();
 
-    bitBlt(this, (ww - pw) >> 1, (wh - ph) >> 1, &pixmap, 0, 0,
-           pw, ph, CopyROP);
+    QPainter p(this);
+    p.drawPixmap((ww - pw) >> 1, (wh - ph) >> 1, pixmap);
 }
 
 //***************************************************************************
-void StatusWidget::setPixmaps(const QValueVector<QPixmap> &pixmaps,
+void StatusWidget::setPixmaps(const QVector<QPixmap> &pixmaps,
                               unsigned int speed)
 {
     m_timer.stop();
     m_pixmaps.clear();
     m_pixmaps = pixmaps;
     m_index = 0;
-    repaint(true);
+    repaint();
 
-    if (m_pixmaps.count() > 1) m_timer.start(speed, false);
+    m_timer.setSingleShot(false);
+    m_timer.setInterval(speed);
+    if (m_pixmaps.count() > 1) m_timer.start();
 }
 
 //***************************************************************************
 void StatusWidget::nextPixmap()
 {
     m_index++;
-    if (m_index >= m_pixmaps.count())
+    if (static_cast<int>(m_index) >= m_pixmaps.count())
 	m_index = 0;
-    repaint(true);
+    repaint();
 }
 
 //***************************************************************************

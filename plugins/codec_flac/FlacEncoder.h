@@ -19,16 +19,24 @@
 #define _FLAC_ENCODER_H_
 
 #include "config.h"
-#include <qptrvector.h>
-#include <vorbis/vorbisenc.h>
-#include "libkwave/Encoder.h"
-#include "VorbisCommentMap.h"
+
+#include <QList>
 
 #include <FLAC/format.h>
 #include <FLAC++/encoder.h>
 #include <FLAC++/metadata.h>
 
+#include <vorbis/vorbisenc.h>
+
+#include "libkwave/Encoder.h"
+
+#include "VorbisCommentMap.h"
+
+class QIODevice;
 class QWidget;
+
+class FileInfo;
+class MultiTrackReader;
 
 class FlacEncoder: public Encoder,
                    protected FLAC::Encoder::Stream
@@ -56,7 +64,7 @@ public:
                         QIODevice &dst, FileInfo &info);
 
     /** Returns a list of supported file properties */
-    virtual QValueList<FileProperty> supportedProperties();
+    virtual QList<FileProperty> supportedProperties();
 
 protected:
 
@@ -69,7 +77,7 @@ protected:
      * @param current_frame index of the current frame
      * @return FLAC stream encoder write status
      */
-#if defined(FLAC_API_VERSION_1_1_2) || defined(FLAC_API_VERSION_1_1_1_OR_OLDER)
+#if defined(FLAC_API_VERSION_1_1_2)
     virtual ::FLAC__StreamEncoderWriteStatus write_callback(
         const FLAC__byte buffer[], unsigned int bytes,
         unsigned int samples, unsigned int current_frame);
@@ -91,10 +99,10 @@ protected:
      * Encode all Kwave file info into FLAC meta data
      *
      * @param info information about the file to be saved
-     * @param flac_metadata QPtrVector with collects the FLAC metadata
+     * @param flac_metadata QList with collects the FLAC metadata
      */
     virtual void encodeMetaData(FileInfo &info,
-        QPtrVector<FLAC__StreamMetadata> &flac_metadata);
+        QVector<FLAC__StreamMetadata *> &flac_metadata);
 
 protected:
 

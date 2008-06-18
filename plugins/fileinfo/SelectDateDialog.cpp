@@ -15,13 +15,17 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
 #include <kdatepicker.h>
+
 #include "SelectDateDialog.h"
 
 //***************************************************************************
 SelectDateDialog::SelectDateDialog(QWidget *parent, QDate &date)
-    :SelectDateDlg(parent), m_date(date)
+    :QDialog(parent), Ui::SelectDateDlg(), m_date(date)
 {
+    setupUi(this);
     datePicker->setDate(date);
 }
 
@@ -40,7 +44,7 @@ QDate SelectDateDialog::date()
 void SelectDateDialog::accept()
 {
     m_date = datePicker->date();
-    SelectDateDlg::accept();
+    QDialog::accept();
 }
 
 //***************************************************************************

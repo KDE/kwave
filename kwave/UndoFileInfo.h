@@ -20,8 +20,7 @@
 #define _UNDO_FILE_INFO_H_
 
 #include "config.h"
-#include <qmemarray.h>
-#include <qstring.h>
+#include <QString>
 #include "libkwave/FileInfo.h"
 #include "UndoAction.h"
 
@@ -54,7 +53,7 @@ public:
     virtual int redoSize();
 
     /** @see UndoAction::store() */
-    virtual void store(SignalManager &manager);
+    virtual bool store(SignalManager &manager);
 
     /** @see UndoAction::undo() */
     virtual UndoAction *undo(SignalManager &manager, bool with_redo);
@@ -78,5 +77,3 @@ private:
 };
 
 #endif /* _UNDO_FILE_INFO_H_ */
-
-

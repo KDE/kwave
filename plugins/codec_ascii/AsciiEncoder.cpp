@@ -17,14 +17,12 @@
 
 #include "config.h"
 
-#include <qmemarray.h>
-#include <qvaluevector.h>
-#include <qvariant.h>
+#include <QList>
+#include <QVariant>
 
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <kmimetype.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <kglobal.h>
 #include <math.h>
 #include <stdlib.h>
@@ -35,6 +33,8 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 
+#include "libgui/MessageBox.h"
+
 #include "AsciiCodecPlugin.h"
 #include "AsciiEncoder.h"
 
@@ -42,7 +42,7 @@
 AsciiEncoder::AsciiEncoder()
     :Encoder(), m_dst()
 {
-    m_dst.setEncoding(QTextOStream::UnicodeUTF8);
+    m_dst.setCodec(QTextCodec::codecForName("UTF-8"));
     LOAD_MIME_TYPES;
 }
 
@@ -58,7 +58,7 @@ Encoder *AsciiEncoder::instance()
 }
 
 /***************************************************************************/
-QValueList<FileProperty> AsciiEncoder::supportedProperties()
+QList<FileProperty> AsciiEncoder::supportedProperties()
 {
     // default is to support all known properties
     FileInfo info;
@@ -81,7 +81,7 @@ bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
     do {
 	// open the output device
 	if (!dst.open(IO_ReadWrite | IO_Truncate)) {
-	    KMessageBox::error(widget,
+	    Kwave::MessageBox::error(widget,
 		i18n("Unable to open the file for saving!"));
 	    result = false;
 	    break;
@@ -100,10 +100,10 @@ bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	// write out all other, non-standard properties that we have
 	QMap<FileProperty, QVariant> properties = info.properties();
 	QMap<FileProperty, QVariant>::Iterator it;
-	QValueList<FileProperty> supported = supportedProperties();
+	QList<FileProperty> supported = supportedProperties();
 	for (it=properties.begin(); it != properties.end(); ++it) {
 	    FileProperty p = it.key();
-	    QVariant     v = it.data();
+	    QVariant     v = it.value();
 
 	    if (!supported.contains(p))
 		continue;
@@ -112,12 +112,12 @@ bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
 	    // write the property
 	    m_dst << META_PREFIX << "'" << info.name(p) << "'='"
-	          << v.toString().utf8() << "'" << endl;
+	          << v.toString().toUtf8() << "'" << endl;
 	}
 
 	unsigned int rest = length;
 	unsigned int pos  = 0;
-	while (rest-- && !src.isCancelled()) {
+	while (rest-- && !src.isCanceled()) {
 	    // write out one track per line
 	    for (unsigned int track=0; track < tracks; track++) {
 		SampleReader *reader = src[track];
@@ -129,7 +129,7 @@ bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
 		(*reader) >> sample;
 
 		// print out the sample value
-		m_dst.width(9);
+		m_dst.setFieldWidth(9);
 		m_dst << sample;
 
 		// comma as separator between the samples
@@ -139,7 +139,7 @@ bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
 	    // as comment: current position [samples]
 	    m_dst << " # ";
-	    m_dst.width(12);
+	    m_dst.setFieldWidth(12);
 	    m_dst << pos;
 	    pos++;
 

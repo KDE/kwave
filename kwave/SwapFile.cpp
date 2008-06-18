@@ -16,13 +16,12 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <errno.h>
 #include <stdio.h>      // for mkstemp (according to the man page)
 #include <stdlib.h>     // for mkstemp (according to reality)
 #include <unistd.h>     // for unlink()
 #include <sys/mman.h>   // for mmap etc.
-
-#include <qcstring.h>
-#include <qfile.h>
 
 #include "SwapFile.h"
 
@@ -69,35 +68,34 @@ bool SwapFile::allocate(size_t size, const QString &filename)
     // when it is created, also try to unlink it so that it will always
     // be removed, even if the application crashes !
 #ifdef HAVE_MKSTEMP
-    char *name = qstrdup(filename.local8Bit());
+    char *name = qstrdup(filename.toLocal8Bit().data());
     int fd = mkstemp(name);
-    Q_ASSERT(fd >= 0);
     if (fd < 0) {
 	qDebug("SwapFile::allocate(%u) failed, instances: %u",
 	       (unsigned int)size, g_instances);
 	return false;
     }
-    m_file.open(IO_Raw | IO_ReadWrite, fd);
+    m_file.open(fd, QIODevice::Unbuffered | QIODevice::ReadWrite);
 #ifdef HAVE_UNLINK
     unlink(name);
 #endif /* HAVE_UNLINK */
     if (name) delete name;
 #else /* HAVE_MKSTEMP */
     m_file.setName(filename);
-    m_file.open(IO_Raw | IO_ReadWrite);
+    m_file.open(QIODevice::Unbuffered | QIODevice::ReadWrite);
 #ifdef HAVE_UNLINK
     unlink(filename);
 #endif /* HAVE_UNLINK */
 #endif/* HAVE_MKSTEMP */
 
-    m_file.at(round_up(size, m_pagesize));
-    if (m_file.at()+1 < size) {
+    m_file.seek(round_up(size, m_pagesize));
+    if (m_file.pos() + 1 < size) {
 	qWarning("SwapFile::allocate(%d MB) failed, DISK FULL ?",
 	         (unsigned int)(size >> 20));
 	m_size = 0;
 	return false;
     }
-    m_file.putch(0);
+    m_file.putChar(0);
 
     // now the size is valid
     m_size = size;
@@ -124,15 +122,16 @@ SwapFile *SwapFile::resize(size_t size)
 
     // resize the file
     //  qDebug("SwapFile::resize(%u)", size);
-    m_file.at(size-1);
-    if (m_file.at() == size-1) {
+    m_file.seek(size-1);
+    if (m_file.pos() == size-1) {
 	if (size > m_size) {
 	    // growing: mark the new "last byte"
-	    m_file.putch(0);
+	    m_file.putChar(0);
 	} else {
 	    // shrinking: only truncate the file
 	    m_file.flush();
-	    ftruncate(m_file.handle(), size);
+	    int res = ftruncate(m_file.handle(), size);
+	    if (res) perror("ftruncate failed");
 	}
 
 	m_size = size;
@@ -186,21 +185,22 @@ void *SwapFile::unmap()
 int SwapFile::read(unsigned int offset, void *buffer, unsigned int length)
 {
     // seek to the given offset
-    if (!m_file.at(offset)) return -1;
+    if (!m_file.seek(offset)) return -1;
 
     // read into the buffer
     m_file.flush();
-    return m_file.readBlock(reinterpret_cast<char *>(buffer), length);
+    return m_file.read(reinterpret_cast<char *>(buffer), length);
 }
 
 //***************************************************************************
-int SwapFile::write(unsigned int offset, void *buffer, unsigned int length)
+int SwapFile::write(unsigned int offset, const void *buffer,
+                    unsigned int length)
 {
     // seek to the given offset
-    if (!m_file.at(offset)) return -1;
+    if (!m_file.seek(offset)) return -1;
 
     // write data from the buffer
-    return m_file.writeBlock(reinterpret_cast<char *>(buffer), length);
+    return m_file.write(reinterpret_cast<const char *>(buffer), length);
 }
 
 //***************************************************************************

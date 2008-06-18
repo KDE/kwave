@@ -16,13 +16,15 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <qobject.h>
-#include <qwidget.h>
+
+#include <QObject>
+#include <QWidget>
+
 #include "InvertableSpinBox.h"
 
 //***************************************************************************
-InvertableSpinBox::InvertableSpinBox(QWidget *parent, const char *name)
-    :QSpinBox(parent, name), m_inverse(false)
+InvertableSpinBox::InvertableSpinBox(QWidget *parent)
+    :QSpinBox(parent), m_inverse(false)
 {
     connect(this, SIGNAL(valueChanged(int)),
             this, SLOT(checkValueChange(int)));
@@ -36,12 +38,12 @@ void InvertableSpinBox::setInverse(bool inverse)
 
     if (/* now */ inverse) {
 	// relax limits by 1
-	setMinValue(minValue() - 1);
-	setMaxValue(maxValue() + 1);
+	setMinimum(minimum() - 1);
+	setMaximum(maximum() + 1);
     } else {
 	// reduce limits by 1
-	setMinValue(minValue() + 1);
-	setMaxValue(maxValue() - 1);
+	setMinimum(minimum() + 1);
+	setMaximum(maximum() - 1);
     }
 }
 
@@ -50,8 +52,8 @@ void InvertableSpinBox::checkValueChange(int value)
 {
     if (m_inverse) {
 	// in this case the real limits are tighter by 1
-	if (value <= minValue()) setValue(minValue()+1);
-	if (value >= maxValue()) setValue(maxValue()-1);
+	if (value <= minimum()) setValue(minimum() + 1);
+	if (value >= maximum()) setValue(maximum() - 1);
     }
 }
 
@@ -59,7 +61,7 @@ void InvertableSpinBox::checkValueChange(int value)
 void InvertableSpinBox::stepUp()
 {
     if (m_inverse) {
-	if (value() > minValue()+1) QSpinBox::stepDown();
+	if (value() > minimum() + 1) QSpinBox::stepDown();
     } else {
 	QSpinBox::stepUp();
     }
@@ -69,7 +71,7 @@ void InvertableSpinBox::stepUp()
 void InvertableSpinBox::stepDown()
 {
     if (m_inverse) {
-	if (value() < maxValue()-1) QSpinBox::stepUp();
+	if (value() + 1 < maximum()) QSpinBox::stepUp();
     } else {
 	QSpinBox::stepDown();
     }

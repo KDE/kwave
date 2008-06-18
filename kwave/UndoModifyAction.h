@@ -19,8 +19,8 @@
 #define _UNDO_MODIFY_ACTION_H_
 
 #include "config.h"
-#include <qmemarray.h>
-#include <qstring.h>
+
+#include <QString>
 
 #include "libkwave/Sample.h"
 #include "libkwave/Track.h"
@@ -54,7 +54,7 @@ public:
     /**
      * @see UndoAction::store()
      */
-    virtual void store(SignalManager &manager);
+    virtual bool store(SignalManager &manager);
 
     /**
      * Exchange samples from the current signal and the internal undo

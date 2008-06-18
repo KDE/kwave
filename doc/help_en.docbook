@@ -86,7 +86,7 @@
 	    Recording functionality, including pre-recording
 	</para></listitem>
     	<listitem><para>
-	    Playback via aRts, ALSA and OSS
+	    Playback via ALSA and OSS
 	</para></listitem>
     	<listitem><para>
 	    Recording via ALSA and OSS
@@ -715,7 +715,7 @@
                     new plugin "noise"
                 </para></listitem>
                 <listitem><para>
-                     new aRts plugin adapter framework 
+                     new aRts plugin adapter framework
                       now Kwave is able to use existing aRts plugins in it's own plugins
                       for sound processing
                 </para></listitem>
@@ -752,7 +752,7 @@
             <para>0.6.1 [2001-08-24]</para>
             <itemizedlist>
                 <listitem><para>
-                     USE OF VIRTUAL MEMORY 
+                     USE OF VIRTUAL MEMORY
                 </para></listitem>
                 <listitem><para>
                     changed Makefiles: html docu stays in distribution due to too much
@@ -781,7 +781,7 @@
             <para>0.6.0 [2001-07-29]</para>
             <itemizedlist>
                 <listitem><para>
-                     PORTED TO QT-2 AND KDE2 
+                     PORTED TO QT-2 AND KDE2
                 </para></listitem>
                 <listitem><para>
                     completely new internal architecture
@@ -1000,7 +1000,7 @@
                     found out that we need ALSA support for 24 and 32 bits/sample
                 </para></listitem>
                 <listitem><para>
-                     playback in stereo 
+                     playback in stereo
                 </para></listitem>
                 <listitem><para>
                     selected channels (x) are mixed to the output device's channels (y)
@@ -1148,7 +1148,7 @@
                     bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)
                 </para></listitem>
                 <listitem><para>
-                     COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE 
+                     COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE
                     <itemizedlist>
                     <listitem><para>
                          made use of a combination of signals/slots and string messages
@@ -1214,8 +1214,8 @@
             <para>0.5.1-4</para>
             <itemizedlist>
                 <listitem><para>
-                     now compiles and runns under RedHat 6.1 / Halloween IV 
-                       as well as under SuSE 6.2                              
+                     now compiles and runns under RedHat 6.1 / Halloween IV
+                       as well as under SuSE 6.2
                 </para></listitem>
                 <listitem><para>
                     version info of libkwavegui.so is set to the package's version
@@ -1236,7 +1236,7 @@
                     configure-parameter --enable-debug has effect again
                 </para></listitem>
                 <listitem><para>
-                     ASCII import and export works now (mono only) 
+                     ASCII import and export works now (mono only)
                 </para></listitem>
                 <listitem><para>
                     bugfixes in some plugins, all compile now without warnings/errors
@@ -1939,12 +1939,6 @@
 		    enable playback/recording via ALSA
 		    [<literal>on</literal>/<literal>off</literal>,
 		    default=<literal>on</literal>]
-		</para></listitem>
-		<listitem><para>
-		    <literal>WITH_ARTS</literal>
-		    enable playback via aRts
-		    [<literal>on</literal>/<literal>off</literal>,
-		    default=<literal>off</literal>]
 		</para></listitem>
 		<listitem><para>
 		    <literal>WITH_BUILTIN_LIBAUDIOFILE</literal>
@@ -3169,24 +3163,19 @@
     </para>
     <para><itemizedlist>
 	<listitem><para>
+	ALSA (Advanced Linux Sound Architecture):
+	Supercedes OSS, supports more features and more hardware. Might
+	collide with KDE or other applications like OSS does, but has a
+	plugin called "dmix" as a way out. Newer versions of ALSA use a
+	dmix like plugin per default, so this should the best choice
+	for you!
+	</para></listitem>
+	<listitem><para>
 	OSS (Open Sound System):
 	The oldest linux implementation, capable of mono and stereo output.
 	Deprecated since linux kernel 2.6, but still wide spread.
-	Might collide with aRts from KDE or other sound applications, only
+	Might collide with KDE or other sound applications, only
 	one application at a time can use OSS playback !
-	</para></listitem>
-	<listitem><para>
-	ALSA (Advanced Linux Sound Architecture):
-	Supercedes OSS, supports more features and more hardware. Might
-	collide with aRts or other applications like OSS does, but has a
-	plugin called "dmix" as a way out.
-	</para></listitem>
-	<listitem><para>
-	aRts (Analog Realtime Synthesizer):
-	The preferred
-	way of doing playback in KDE, the sound server KDE uses itself.
-	Multiple applications can play at the same time.
-	It must be configured in the KDE control center.
 	</para></listitem>
     </itemizedlist></para>
 
@@ -3212,7 +3201,7 @@
 
     <para>
         Currently &kapp; supports only 8 and 16 bit playback, with mono or
-	stereo output through the OSS and the aRts interface, but many also
+	stereo output through the OSS interface, but many also
 	all modes your sound hardware supports through the ALSA interface.
     </para>
     <para>

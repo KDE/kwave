@@ -19,13 +19,15 @@
 #define _LOGO_WIDGET_H_
 
 #include "config.h"
-#include <qpainter.h>
-#include <qwidget.h>
+
+#include <QPixmap>
+#include <QWidget>
 
 class QPaintEvent;
-class QPixmap;
+class QImage;
 class QTimer;
 
+/** number of sine waves */
 #define MAXSIN 5
 
 //**********************************************************
@@ -35,7 +37,7 @@ class LogoWidget : public QWidget
 
 public:
     /** Constructor */
-    LogoWidget(QWidget *parent, const char *name);
+    LogoWidget(QWidget *parent);
 
     /** Destructor */
     virtual ~LogoWidget();
@@ -61,17 +63,17 @@ private:
     /** phase of sinus for animation */
     double m_deg[MAXSIN];
 
-    /** pixmap for output */
-    QPixmap *m_pixmap;
-
-    /** additional pixmap to avoid flicker */
-    QPixmap *m_buffer;
+    /** QImage for drawing */
+    QImage *m_image;
 
     /** image with the logo */
-    QPixmap *m_img;
+    QPixmap m_logo;
 
     /** timer for refresh */
     QTimer *m_timer;
+
+    /** "H" channel of the sine wave color */
+    qreal m_color_h;
 };
 
 #endif  /* _LOGO_WIDGET_H_ */

@@ -19,10 +19,11 @@
 #define _PLAY_BACK_DEVICE_H_
 
 #include "config.h"
-#include <qmemarray.h>
-#include <qobject.h>
-#include <qstring.h>
-#include <qstringlist.h>
+
+#include <QList>
+#include <QString>
+#include <QStringList>
+
 #include "libkwave/Sample.h"
 
 /**
@@ -68,7 +69,7 @@ public:
      * @param samples array of samples for output
      * @return 0 if successful, or an error code if failed
      */
-    virtual int write(QMemArray<sample_t> &samples) = 0;
+    virtual int write(const Kwave::SampleArray &samples) = 0;
 
     /**
      * Closes the output device.
@@ -91,7 +92,7 @@ public:
      * @param device filename of the device
      * @return list of supported bits per sample, or empty on errors
      */
-    virtual QValueList<unsigned int> supportedBits(const QString &device) = 0;
+    virtual QList<unsigned int> supportedBits(const QString &device) = 0;
 
     /**
      * Detect the minimum and maximum number of channels.

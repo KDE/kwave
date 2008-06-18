@@ -19,10 +19,11 @@
 #define _KEYWORD_WIDGET_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qstringlist.h>
 
-#include "KeywordWidgetBase.h"
+#include <QObject>
+#include <QStringList>
+
+#include "ui_KeywordWidgetBase.h"
 
 class QString;
 class QWidget;
@@ -34,13 +35,14 @@ class QWidget;
  * trailing whitespaces are removed. An additional "Auto" button is
  * provided for populating the list with automatically generated entries.
  */
-class KeywordWidget: public KeywordWidgetBase
+class KeywordWidget: public QWidget,
+                     Ui::KeywordWidgetBase
 {
     Q_OBJECT
 public:
 
     /** Constructor */
-    KeywordWidget(QWidget *parent, const char *name);
+    KeywordWidget(QWidget *parent);
 
     /** Destructor */
     virtual ~KeywordWidget();
@@ -71,10 +73,7 @@ private slots:
     void remove();
 
     /** called when a new list entry has been selected */
-    void selected(const QString &selection);
-
-    /** called when someone clicked on a list item */
-    void listClicked(QListBoxItem *item);
+    void listClicked(QListWidgetItem *item);
 
     /** forwards the click of the "Auto" button */
     void autoClicked();

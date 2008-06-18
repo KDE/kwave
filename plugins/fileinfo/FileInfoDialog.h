@@ -21,11 +21,12 @@
 #include "config.h"
 #include <qobject.h>
 #include "libkwave/FileInfo.h"
-#include "FileInfoDlg.h"
+#include "ui_FileInfoDlg.h"
 
-class KConfig;
+class KConfigGroup;
 
-class FileInfoDialog: public FileInfoDlg
+class FileInfoDialog: public QDialog,
+                      public Ui::FileInfoDlg
 {
     Q_OBJECT
 public:
@@ -99,7 +100,7 @@ private:
     void setupFileInfoTab();
 
     /** initialize the "Compression" tab */
-    void setupCompressionTab(KConfig &cfg);
+    void setupCompressionTab(KConfigGroup &cfg);
 
     /** initialize the "MPEG" tab */
     void setupMpegTab();

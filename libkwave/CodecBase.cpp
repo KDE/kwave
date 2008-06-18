@@ -16,8 +16,11 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <qstring.h>
-#include <qstringlist.h>
+
+#include <QString>
+#include <QStringList>
+#include <QtGlobal>
+
 #include <kmimetype.h>
 #include <kfile.h>
 #include <kurl.h>
@@ -28,13 +31,11 @@
 CodecBase::CodecBase()
     :m_supported_mime_types()
 {
-    m_supported_mime_types.setAutoDelete(true);
 }
 
 /***************************************************************************/
 CodecBase::~CodecBase()
 {
-    m_supported_mime_types.setAutoDelete(true);
     m_supported_mime_types.clear();
 }
 
@@ -42,62 +43,61 @@ CodecBase::~CodecBase()
 void CodecBase::addMimeType(const QString &name, const QString &description,
                             const QString &patterns)
 {
-    KMimeType *type;
-    type = new KMimeType(*KMimeType::mimeType(name));
-    Q_ASSERT(type);
-    if (type && (type->name() == type->defaultMimeType())) {
-//	qWarning("mime type '"+name+"' not registered, using built-in!");
-	delete type;
-	type = 0;
+    CodecBase::MimeType type;
+    KMimeType::Ptr t = KMimeType::mimeType(name);
 
-	QStringList p = QStringList::split("; ", patterns, false);
-	type = new KMimeType(0, name, "sound", description, p);
+    if (!t || (t && t->isDefault())) {
+	qWarning("mime type '%s' not registered, using built-in!",
+	         name.toLocal8Bit().data());
+	type.name        = name;
+	type.description = description;
+	type.patterns    = patterns.split("; ", QString::SkipEmptyParts);
+    } else {
+	type.name        = t->name();
+	type.description = t->comment();
+	type.patterns    = t->patterns();
     }
-    if (type) m_supported_mime_types.append(type);
+    m_supported_mime_types.append(type);
 }
 
 /***************************************************************************/
 bool CodecBase::supports(const KMimeType &mimetype)
 {
-    QPtrListIterator<KMimeType> it(m_supported_mime_types);
-    const QString &name = mimetype.name();
-    for (; it.current(); ++it) {
-	if (it.current()->name() == name) return true;
-    }
-    return false;
+    return supports(mimetype.name());
 }
 
 /***************************************************************************/
 bool CodecBase::supports(const QString &mimetype_name)
 {
-    QPtrListIterator<KMimeType> it(m_supported_mime_types);
-    for (; it.current(); ++it) {
-	if (it.current()->name() == mimetype_name) return true;
+    QListIterator<CodecBase::MimeType> it(m_supported_mime_types);
+    while (it.hasNext()) {
+	CodecBase::MimeType mime = it.next();
+	if (mime.name == mimetype_name) return true;
     }
     return false;
 }
 
 /***************************************************************************/
-const QPtrList<KMimeType> &CodecBase::mimeTypes()
+const QList<CodecBase::MimeType> CodecBase::mimeTypes()
 {
     return m_supported_mime_types;
 }
 
 /***************************************************************************/
-QString CodecBase::whatContains(const KURL &url)
+QString CodecBase::whatContains(const KUrl &url)
 {
     // get the extension of the file
     QFileInfo file(url.fileName());
-    QString extension = file.extension(false);
-    if (!extension.length()) return KMimeType::defaultMimeType();
-    extension = "*."+extension;
+    QString suffix = file.suffix();
+    if (!suffix.length()) return KMimeType::defaultMimeType();
+    suffix = "*."+suffix;
 
     // try to find in the list of supported mime types
-    QPtrListIterator<KMimeType> it(mimeTypes());
-    for (; it.current(); ++it) {
-	KMimeType &mime_type = *(it.current());
-	if (mime_type.patterns().contains(extension))
-	    return mime_type.name();
+    QListIterator<CodecBase::MimeType> it(m_supported_mime_types);
+    while (it.hasNext()) {
+	CodecBase::MimeType mime_type = it.next();
+	if (mime_type.patterns.contains(suffix))
+	    return mime_type.name;
     }
     return KMimeType::defaultMimeType();
 }

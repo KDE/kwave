@@ -28,11 +28,9 @@ extern "C" {
 #endif /* USE_BUILTIN_LIBAUDIOFILE */
 }
 
-#include <qptrlist.h>
-#include <qprogressdialog.h>
+#include <QtGlobal>
 
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <kmimetype.h>
 
 #include "libkwave/MultiTrackWriter.h"
@@ -40,7 +38,9 @@ extern "C" {
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 #include "libkwave/VirtualAudioFile.h"
+
 #include "libgui/ConfirmCancelProxy.h"
+#include "libgui/MessageBox.h"
 
 #include "AudiofileDecoder.h"
 
@@ -134,7 +134,7 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 
 	QString text= i18n("An error occurred while opening the "\
 	    "file:\n'%1'").arg(reason);
-	KMessageBox::error(widget, text);
+	Kwave::MessageBox::error(widget, text);
 
 	return false;
     }
@@ -178,11 +178,11 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     qDebug("bits/sample = %d", info().bits());
     qDebug("length      = %d samples", info().length());
     qDebug("format      = %d (%s)", sample_format,
-                                    sample_format_name.local8Bit().data());
+                                    sample_format_name.toLocal8Bit().data());
     qDebug("-------------------------");
 
     // set up libaudiofile to produce Kwave's internal sample format
-#if defined(ENDIANESS_BIG)
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
     afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_BIGENDIAN);
 #else
     afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_LITTLEENDIAN);
@@ -247,7 +247,7 @@ bool AudiofileDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 	}
 
 	// abort if the user pressed cancel
-	if (dst.isCancelled()) break;
+	if (dst.isCanceled()) break;
     }
 
     // return with a valid Signal, even if the user pressed cancel !

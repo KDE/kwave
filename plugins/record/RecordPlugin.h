@@ -19,13 +19,20 @@
 #define _RECORD_PLUGIN_H_
 
 #include "config.h"
-#include <qcstring.h>
-#include <qmemarray.h>
-#include <qptrvector.h>
+
+#include <QByteArray>
+#include <QList>
+#include <QString>
+#include <QStringList>
+#include <QVector>
+
 #include "libkwave/KwavePlugin.h"
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleFIFO.h"
 #include "libkwave/SampleFormat.h"
+
 #include "RecordController.h"
 #include "RecordParams.h"
 #include "RecordState.h"
@@ -35,7 +42,6 @@ class RecordDevice;
 class RecordDialog;
 class RecordThread;
 class SampleDecoder;
-class SampleFIFO;
 
 class RecordPlugin: public KwavePlugin
 {
@@ -143,7 +149,7 @@ private slots:
     void changeSampleFormat(SampleFormat new_format);
 
     /** process a raw audio buffer */
-    void processBuffer(QByteArray buffer);
+    void processBuffer();
 
     /** restart recorder with new buffer settings */
     void buffersChanged();
@@ -175,7 +181,7 @@ private:
      * @param buffer array with Kwave sample data
      * @return true if trigger reached or no trigger set
      */
-    bool checkTrigger(unsigned int track, QMemArray<sample_t> &buffer);
+    bool checkTrigger(unsigned int track, Kwave::SampleArray &buffer);
 
     /**
      * Split off one track from a raw buffer with multiple tracks into
@@ -198,7 +204,7 @@ private:
      * @param decoded array with decoded samples, in Kwave's internal format
      */
     void enqueuePrerecording(unsigned int track,
-                             const QMemArray<sample_t> &decoded);
+                             const Kwave::SampleArray &decoded);
 
     /**
      * Flush the content of the prerecording queue to the output
@@ -242,7 +248,7 @@ private:
      * set of queues for buffering prerecording data, one for each
      * track
      */
-    QPtrVector<SampleFIFO> m_prerecording_queue;
+    QVector<SampleFIFO> m_prerecording_queue;
 
     /** sink for the audio data */
     MultiTrackWriter *m_writers;
@@ -257,7 +263,7 @@ private:
     unsigned int m_inhibit_count;
 
     /** buffer for trigger values */
-    QMemArray<double> m_trigger_value;
+    QVector<double> m_trigger_value;
 
 };
 

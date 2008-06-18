@@ -19,11 +19,14 @@
 #define _WAV_PROPERTY_MAP_H_
 
 #include "config.h"
-#include <qmap.h>
-#include <qstring.h>
+
+#include <QByteArray>
+#include <QMap>
+#include <QString>
+
 #include "libkwave/FileInfo.h"
 
-class WavPropertyMap: public QMap<QCString, FileProperty>
+class WavPropertyMap: public QMap<QByteArray, FileProperty>
 {
 public:
     /** Default constructor, with initializing */
@@ -36,7 +39,7 @@ public:
      * Returns the chunk name of a property or an empty string
      * if nothing found (reverse lookup).
      */
-    QCString findProperty(const FileProperty property);
+    QByteArray findProperty(const FileProperty property);
 
     /** Returns true if the map contains a given property */
     bool containsProperty(const FileProperty property);

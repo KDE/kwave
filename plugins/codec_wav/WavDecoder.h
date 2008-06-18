@@ -19,13 +19,15 @@
 #define _WAV_DECODER_H_
 
 #include "config.h"
-#include <qptrlist.h>
-#include <qmap.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qobject.h>
+
+#include <QList>
+#include <QMap>
+#include <QString>
+#include <QStringList>
+
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"
+
 #include "WavPropertyMap.h"
 
 class RecoverySource;
@@ -74,7 +76,7 @@ protected:
      * Fix all inconsistencies and create a repar list.
      * @internal
      */
-    bool repair(QPtrList<RecoverySource> *repair_list,
+    bool repair(QList<RecoverySource *> *repair_list,
                 RIFFChunk *riff_chunk, RIFFChunk *fmt_chunk,
                 RIFFChunk *data_chunk);
 
@@ -82,14 +84,14 @@ protected:
      * Adds a chunk to a repair list
      * @internal
      */
-    bool repairChunk(QPtrList<RecoverySource> *repair_list, RIFFChunk *chunk,
+    bool repairChunk(QList<RecoverySource *> *repair_list, RIFFChunk *chunk,
                      u_int32_t &offset);
 
 private:
 
     /** adds an entry to m_known_chunks and to m_property_map */
     void addPropertyChunk(const FileProperty property,
-                          const QCString &chunk_name);
+                          const QByteArray &chunk_name);
 
 private:
 

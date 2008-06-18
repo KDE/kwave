@@ -20,113 +20,113 @@
 #include <math.h>
 #include <limits.h>
 
-#include <qaccel.h>
-#include <qmemarray.h>
-#include <qcursor.h>
-#include <qdir.h>
-#include <qfileinfo.h>
-#include <qkeycode.h>
-#include <qptrlist.h>
-#include <qpainter.h>
-#include <qpopupmenu.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qwidget.h>
+#include <QCursor>
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QMenu>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QPaintEvent>
+#include <QPalette>
+#include <QShortcut>
+#include <QString>
+#include <QStringList>
+#include <QTextStream>
 
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kfiledialog.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 
 #include "libkwave/Interpolation.h"
-#include "libkwave/FileLoader.h"
 #include "libkwave/Curve.h"
 
 #include "CurveWidget.h"
 
 //***************************************************************************
-CurveWidget::CurveWidget(QWidget *parent, const char *name)
-    :QWidget(parent, name), m_width(0), m_height(0), m_curve(), m_menu(0),
-     m_preset_menu(0), m_current(0), m_last(0), m_down(false), m_knob(0),
-     m_selected_knob(0)
+CurveWidget::CurveWidget(QWidget *parent)
+    :QWidget(parent), m_width(0), m_height(0), m_curve(), m_menu(0),
+     m_preset_menu(0), m_current(Curve::NoPoint), m_last(Curve::NoPoint),
+     m_down(false), m_knob(), m_selected_knob()
 {
-
     // set the default curve
     m_curve.fromCommand("curve(linear,0,0,1,1)");
 
-    setBackgroundColor(black);
+    QPalette pal = palette();
+    pal.setColor(QPalette::Window, Qt::black);
+    setPalette(pal);
 
     // create the pixmaps for the selected and non-selected knob
     KIconLoader icon_loader;
-    m_knob = icon_loader.loadIcon("knob.xpm", KIcon::Small);
-    m_selected_knob = icon_loader.loadIcon("selectedknob.xpm", KIcon::Small);
+    m_knob = icon_loader.loadIcon("knob.xpm", KIconLoader::Small);
+    m_selected_knob =
+	icon_loader.loadIcon("selectedknob.xpm", KIconLoader::Small);
 
     // set up the context menu for the right mouse button
-    m_menu = new QPopupMenu();
+    m_menu = new QMenu(this);
     Q_ASSERT(m_menu);
     if (!m_menu) return;
 
-    QPopupMenu *interpolation = new QPopupMenu();
+    QMenu *interpolation = m_menu->addMenu(i18n("Interpolation"));
     Q_ASSERT(interpolation);
     if (!interpolation) return;
 
-    QPopupMenu *del = new QPopupMenu();
+    m_menu->addSeparator();
+    QMenu *transform = m_menu->addMenu(i18n("Transform"));
+    Q_ASSERT(transform);
+    if (!transform) return;
+    transform->addAction(i18n("Flip Horizontal"),
+	                 this, SLOT(HFlip()));
+    transform->addAction(i18n("Flip Vertical"),
+                         this, SLOT(VFlip()));
+    transform->addSeparator();
+    transform->addAction(i18n("into 1st half"),
+                         this, SLOT(firstHalf()));
+    transform->addAction(i18n("into 2nd half"),
+                         this, SLOT(secondHalf()));
+
+    QMenu *del = m_menu->addMenu(i18n("Delete"));
     Q_ASSERT(del);
     if (!del) return;
 
-    QPopupMenu *transform = new QPopupMenu();
-    Q_ASSERT(transform);
-    if (!transform) return;
+    m_menu->addAction(i18n("Fit In"), this, SLOT(scaleFit()));
+    m_menu->addSeparator();
 
     /* list of presets */
-    m_preset_menu = new QPopupMenu();
+    m_preset_menu = m_menu->addMenu(i18n("Presets"));
     Q_ASSERT(m_preset_menu);
     if (!m_preset_menu) return;
     loadPresetList();
-    connect(m_preset_menu, SIGNAL(activated(int)), SLOT(loadPreset(int)) );
+    connect(m_preset_menu, SIGNAL(triggered(QAction *)),
+            this, SLOT(loadPreset(QAction *)));
 
-    transform->insertItem(i18n("Flip Horizontal"),
-	                  this, SLOT(HFlip()));
-    transform->insertItem(i18n("Flip Vertical"),
-                          this, SLOT(VFlip()));
-    transform->insertSeparator();
-    transform->insertItem(i18n("into 1st half"),
-                          this, SLOT(firstHalf()));
-    transform->insertItem(i18n("into 2nd half"),
-                          this, SLOT(secondHalf()));
+    m_menu->addAction(i18n("Save Preset"), this, SLOT(savePreset()));
 
-    m_menu->insertItem(i18n("Interpolation"), interpolation);
-    m_menu->insertSeparator();
-    m_menu->insertItem(i18n("Transform"), transform);
-    m_menu->insertItem(i18n("Delete"), del);
-    m_menu->insertItem(i18n("Fit In"), this, SLOT(scaleFit()));
-    m_menu->insertSeparator();
-    m_menu->insertItem(i18n("Presets"), m_preset_menu);
-    m_menu->insertItem(i18n("Save Preset"), this, SLOT(savePreset()));
-
-    del->insertItem(i18n("recently selected Point"),
-	            this, SLOT(deleteLast()));
-    del->insertItem(i18n("every 2nd Point"),
-	            this, SLOT(deleteSecond()));
+    del->addAction(i18n("recently selected Point"),
+	           this, SLOT(deleteLast()));
+    del->addAction(i18n("every 2nd Point"),
+	           this, SLOT(deleteSecond()));
 
     QStringList types = Interpolation::descriptions(true);
     int id = 0;
-    for (QStringList::Iterator it = types.begin(); it != types.end(); ++it ) {
-	interpolation->insertItem(*it, id++);
+    foreach (QString text, types) {
+	QAction *action = new QAction(interpolation);
+	action->setText(text);
+	action->setData(id++);
+	interpolation->addAction(action);
     }
-
-    connect(interpolation, SIGNAL(activated(int)),
-	    SLOT(selectInterpolationType(int)) );
+    connect(interpolation, SIGNAL(triggered(QAction *)),
+	    this, SLOT(selectInterpolationType(QAction *)));
 
     setMouseTracking(true);
 
-    QAccel *delkey = new QAccel (this);
+    QShortcut *delkey = new QShortcut(this);
     Q_ASSERT(delkey);
     if (!delkey) return;
-
-    delkey->connectItem(delkey->insertItem(Key_Delete),
-                        this, SLOT (deleteLast()));
+    delkey->setKey(Qt::Key_Delete);
+    connect(delkey, SIGNAL(activated()), this, SLOT (deleteLast()));
 
 }
 
@@ -150,9 +150,15 @@ void CurveWidget::setCurve(const QString &command)
 }
 
 //***************************************************************************
-void CurveWidget::selectInterpolationType(int index)
+void CurveWidget::selectInterpolationType(QAction *action)
 {
+    if (!action) return;
+
+    QVariant data = action->data();
+    int index = data.toInt();
+
     m_curve.setInterpolationType(Interpolation::findByIndex(index));
+
     repaint();
 }
 
@@ -160,20 +166,20 @@ void CurveWidget::selectInterpolationType(int index)
 void CurveWidget::savePreset()
 {
     KStandardDirs stddirs;
-    stddirs.addResourceType("curves", (QString)"presets" +
-	QDir::separator() + (QString)"curves");
+    stddirs.addResourceType("curves", 0, QString("presets") +
+	QDir::separator() + QString("curves"));
 
     QDir presetDir = stddirs.saveLocation("curves", 0, true);
     QString name = KFileDialog::getSaveFileName(
 		       presetDir.path(), "*.curve", this);
 
     // append the extension if not given
-    if (name.find (".curve") == -1) name.append(".curve");
+    if (!name.endsWith(".curve")) name.append(".curve");
 
     QFile out(name);
-    out.open(IO_WriteOnly);
+    out.open(QIODevice::WriteOnly);
     QString cmd = m_curve.getCommand();
-    out.writeBlock(cmd.local8Bit().data(), cmd.length()+1);
+    out.write(cmd.toLocal8Bit().data(), cmd.length()+1);
 
     // reload the list of known presets
     loadPresetList();
@@ -183,42 +189,47 @@ void CurveWidget::savePreset()
 void CurveWidget::loadPresetList()
 {
     KStandardDirs stddirs;
-    stddirs.addResourceType("curves", (QString)"presets" +
-	QDir::separator() + (QString)"curves");
+    stddirs.addResourceType("curves", 0, QString("presets") +
+	QDir::separator() + QString("curves"));
 
     QStringList files = stddirs.findAllResources("curves",
-	    "*.curve", false, true);
+	    "*.curve", KStandardDirs::NoDuplicates);
     files.sort();
 
     m_preset_menu->clear();
-    for (unsigned int i=0; i < files.count(); i++) {
+    for (int i=0; i < files.count(); i++) {
 	QFileInfo fi(files[i]);
 	QString name = fi.fileName();
-	m_preset_menu->insertItem(name.left(name.length()-strlen(".curve")));
+	name.chop(strlen(".curve"));
+	m_preset_menu->addAction(name);
     }
 }
 
 //***************************************************************************
-void CurveWidget::loadPreset(int id)
+void CurveWidget::loadPreset(QAction *action)
 {
     Q_ASSERT(m_preset_menu);
-    if (!m_preset_menu) return;
+    Q_ASSERT(action);
+    if (!m_preset_menu || !action) return;
 
     // invalidate the current selection
-    m_current = 0;
-    m_last = 0;
+    m_current = Curve::NoPoint;
+    m_last    = Curve::NoPoint;
 
     KStandardDirs stddirs;
-    stddirs.addResourceType("curves", (QString)"presets" +
-	QDir::separator() + (QString)"curves");
+    stddirs.addResourceType("curves", 0, QString("presets") +
+	QDir::separator() + QString("curves"));
 
     // get the path of the file
-    QString filename = m_preset_menu->text(id);
+    QString filename = action->text();
     QString path = stddirs.findResource("curves", filename + ".curve");
 
     // load the file
-    FileLoader loader(path);
-    m_curve.fromCommand(loader.buffer());
+    QFile file(path);
+    file.open(QIODevice::ReadOnly);
+    QTextStream stream(&file);
+    m_curve.fromCommand(stream.readLine());
+    file.close();
 
     repaint();
 }
@@ -227,7 +238,7 @@ void CurveWidget::loadPreset(int id)
 void CurveWidget::secondHalf()
 {
     m_curve.secondHalf ();
-    m_last = 0;
+    m_last = Curve::NoPoint;
     repaint();
 }
 
@@ -235,7 +246,7 @@ void CurveWidget::secondHalf()
 void CurveWidget::firstHalf()
 {
     m_curve.firstHalf ();
-    m_last = 0;
+    m_last = Curve::NoPoint;
     repaint();
 }
 
@@ -243,16 +254,16 @@ void CurveWidget::firstHalf()
 void CurveWidget::deleteSecond()
 {
     m_curve.deleteSecondPoint();
-    m_last = 0;
+    m_last = Curve::NoPoint;
     repaint ();
 }
 
 //****************************************************************************
 void CurveWidget::deleteLast()
 {
-    if (m_last) {
+    if (m_last != Curve::NoPoint) {
 	m_curve.deletePoint(m_last, true);
-	m_last = 0;
+	m_last = Curve::NoPoint;
 	repaint();
     }
 }
@@ -279,23 +290,23 @@ void CurveWidget::scaleFit()
 }
 
 //***************************************************************************
-void CurveWidget::addPoint(double newx, double newy)
+void CurveWidget::addPoint(qreal newx, qreal newy)
 {
     m_curve.insert(newx, newy);
-    m_last = 0;
+    m_last = Curve::NoPoint;
     repaint();
 }
 
 //***************************************************************************
-Curve::Point *CurveWidget::findPoint(int sx, int sy)
+Curve::Point CurveWidget::findPoint(int sx, int sy)
 // checks, if given coordinates fit to a control point in the list...
 {
     Q_ASSERT(m_width > 1);
     Q_ASSERT(m_height > 1);
-    if ((m_width <= 1) || (m_width <= 1)) return 0;
+    if ((m_width <= 1) || (m_width <= 1)) return Curve::NoPoint;
 
-    return m_curve.findPoint(((double)sx) / (m_width-1),
-                             ((double)m_height - sy) / (m_height-1));
+    return m_curve.findPoint(((qreal)sx) / (m_width-1),
+	((qreal)m_height - sy) / (m_height-1));
 }
 
 //***************************************************************************
@@ -306,18 +317,18 @@ void CurveWidget::mousePressEvent(QMouseEvent *e)
     Q_ASSERT(m_height > 1);
     if (!e || (m_width <= 1) || (m_width <= 1)) return;
 
-    if (e->button() == RightButton) {
+    if (e->button() == Qt::RightButton) {
 	// right mouse button -> context menu
 	QPoint popup = QCursor::pos();
 	if (m_menu) m_menu->popup(popup);
-    } else if (e->button() == LeftButton) {
+    } else if (e->button() == Qt::LeftButton) {
 	// left mouse button -> select existing or create new point
-        m_down=true;
+        m_down = true;
 	m_current = findPoint(e->pos().x(), e->pos().y());
-	if (m_current == 0) {
-	    //so, no matching point is found -> generate a new one !
-	    addPoint((double) (e->pos().x()) / (m_width-1),
-		     (double) (m_height - e->pos().y()) / (m_height-1));
+	if (m_current == Curve::NoPoint) {
+	    // no matching point is found -> generate a new one !
+	    addPoint((qreal) (e->pos().x()) / (m_width-1),
+		     (qreal) (m_height - e->pos().y()) / (m_height-1));
 	    m_current = findPoint(e->pos().x(), e->pos().y());
 	}
 	repaint();
@@ -328,7 +339,7 @@ void CurveWidget::mousePressEvent(QMouseEvent *e)
 void CurveWidget::mouseReleaseEvent(QMouseEvent *)
 {
     m_last = m_current;
-    m_current = 0;
+    m_current = Curve::NoPoint;
     m_down = false;
     repaint();
 }
@@ -345,30 +356,37 @@ void CurveWidget::mouseMoveEvent(QMouseEvent *e )
     int y = e->pos().y();
 
     // if a point is selected...
-    if (m_current) {
-	m_current->x = (double) (x) / (m_width-1);
-	m_current->y = (double) (m_height - y) / (m_height-1);
+    if (m_current != Curve::NoPoint) {
+	m_current.setX((qreal) (x) / (m_width-1));
+	m_current.setY((qreal) (m_height - y) / (m_height-1));
 
-	if (m_current->x < 0.0) m_current->x = 0.0;
-	if (m_current->y < 0.0) m_current->y = 0.0;
-	if (m_current->x > 1.0) m_current->x = 1.0;
-	if (m_current->y > 1.0) m_current->y = 1.0;
+	if (m_current.x() < 0.0) m_current.setX(0.0);
+	if (m_current.y() < 0.0) m_current.setY(0.0);
+	if (m_current.x() > 1.0) m_current.setX(1.0);
+	if (m_current.y() > 1.0) m_current.setY(1.0);
 
-	Curve::Point *prev = m_curve.previous(m_current);
-	Curve::Point *next = m_curve.next(m_current);
-
-	if (prev) {
-	    if (m_current->x < prev->x)
-		m_current->x = prev->x + (1 / (double)(m_width-1));
+	Curve::Iterator it(m_curve);
+	if (it.findNext(m_current)) {
+	    if (it.hasNext()) {
+		Curve::Point p = it.next();
+		if (m_current.x() < p.x())
+		    m_current.setX(p.x() + (1 / (qreal)(m_width - 1)));
+	    }
 	}
-	if (next) {
-	    if (m_current->x > next->x)
-		m_current->x = next->x - (1 / (double)(m_width-1));
+	it.toBack();
+	if (it.findPrevious(m_current)) {
+	    if (it.hasPrevious()) {
+		Curve::Point p = it.previous();
+		if (m_current.x() > p.x())
+		    m_current.setX(p.x() - (1 / (qreal)(m_width - 1)));
+	    }
 	}
 	repaint ();
     } else {
-	if (findPoint(x, y)) setCursor(sizeAllCursor);
-	else setCursor(arrowCursor);
+	if (findPoint(x, y) != Curve::NoPoint)
+	    setCursor(Qt::SizeAllCursor);
+	else
+	    setCursor(Qt::ArrowCursor);
     }
 }
 
@@ -387,7 +405,7 @@ void CurveWidget::paintEvent(QPaintEvent *)
     const int kw = m_knob.width();
     const int kh = m_knob.height();
 
-    QMemArray<double> y = m_curve.interpolation(m_width);
+    QVector<qreal> y = m_curve.interpolation(m_width);
     Q_ASSERT(static_cast<int>(y.count()) == m_width);
     if (static_cast<int>(y.count()) < m_width) {
 	qWarning("CurveWidget: unable to get interpolation !");
@@ -395,7 +413,7 @@ void CurveWidget::paintEvent(QPaintEvent *)
     }
 
     p.begin(this);
-    p.setPen(white);
+    p.setPen(Qt::white);
 
     // draw the lines
     int ay;
@@ -407,16 +425,14 @@ void CurveWidget::paintEvent(QPaintEvent *)
     }
 
     // draw the points (knobs)
-    Curve::Point *pt;
-    for (pt = m_curve.first(); (pt); pt = m_curve.next(pt)) {
-	lx = (int)(pt->x * (m_width-1));
-	ly = (m_height-1) - (int)(pt->y * (m_height-1));
+    foreach (Curve::Point pt, m_curve) {
+	lx = (int)(pt.x() * (m_width-1));
+	ly = (m_height-1) - (int)(pt.y() * (m_height-1));
 
 	if ((pt == m_current) || (!m_down && (pt == m_last)) )
-	    bitBlt(this, lx - (kw >> 1), ly - (kh >> 1),
-	           &m_selected_knob, 0, 0, kw, kh);
-	else bitBlt(this, lx - (kw >> 1), ly - (kh >> 1),
-	            &m_knob, 0, 0, kw, kh);
+	    p.drawPixmap(lx - (kw >> 1), ly - (kh >> 1), m_selected_knob);
+	else
+	    p.drawPixmap(lx - (kw >> 1), ly - (kh >> 1), m_knob);
     }
     p.end();
 

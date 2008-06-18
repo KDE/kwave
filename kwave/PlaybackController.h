@@ -19,7 +19,8 @@
 #define _PLAYBACK_CONTROLLER_H_
 
 #include "config.h"
-#include <qobject.h>
+
+#include <QObject>
 
 /**
  * \class PlaybackController

@@ -16,14 +16,14 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qstring.h>
+#include "config.h"
 #include "libkwave/Parser.h"
 
 //***************************************************************************
 Parser::Parser (const QString &init)
     :m_command(""), m_param(), m_current(0), m_commands()
 {
-    QString line = init.stripWhiteSpace();
+    QString line = init.trimmed();
     unsigned int level = 0;
     int pos;
 
@@ -31,10 +31,10 @@ Parser::Parser (const QString &init)
     line = m_commands.first();
 
     // --- parse the command ---
-    pos = line.find('(');
+    pos = line.indexOf('(');
     if (pos >= 0) {
 	// command present
-	m_command = line.left(pos).simplifyWhiteSpace();
+	m_command = line.left(pos).simplified();
 	line.remove(0, pos+1);
     } else {
 	m_command = "";
@@ -46,10 +46,10 @@ Parser::Parser (const QString &init)
 	QChar c = line[0];
 	line.remove(0,1);
 
-	switch (c) {
+	switch (c.toAscii()) {
 	    case ',':
 		if (!level) {
-		    m_param.append(param.stripWhiteSpace());
+		    m_param.append(param.trimmed());
 		    param = "";
 	        } else param += c;
 	        break;
@@ -60,7 +60,7 @@ Parser::Parser (const QString &init)
 		break;
 	    case ')':
 		if (!level) {
-		    m_param.append(param.stripWhiteSpace());
+		    m_param.append(param.trimmed());
 		    line = ""; // break, belongs to command, end of line
 		}
 		level--;
@@ -71,10 +71,10 @@ Parser::Parser (const QString &init)
 	}
     }
 
-    line = line.stripWhiteSpace();
+    line = line.trimmed();
     if (line.length()) {
 	qWarning("Parser: trailing garbage after command: '%s'",
-	         line.local8Bit().data());
+	         line.toLocal8Bit().data());
     }
 }
 
@@ -94,11 +94,11 @@ QStringList Parser::splitCommands(QString &line)
     while (line.length()) {
 	QChar c = line[0];
 	line.remove(0,1);
-	switch (c) {
+	switch (c.toAscii()) {
 	    case ';':
 		if (!level) {
 		    // next command in the list
-		    commands.append(cmd.stripWhiteSpace());
+		    commands.append(cmd.trimmed());
 		    cmd = "";
 	        } else cmd += c;
 	        break;
@@ -116,7 +116,7 @@ QStringList Parser::splitCommands(QString &line)
     }
 
     if (cmd.length()) {
-	commands.append(cmd.stripWhiteSpace());
+	commands.append(cmd.trimmed());
     }
 
     return commands;
@@ -149,15 +149,15 @@ bool Parser::toBool()
     const QString &p = nextParam();
 
     // first test for "true" and "false"
-    if (p.lower() == "true") return true;
-    if (p.lower() == "false") return false;
+    if (p.toLower() == "true") return true;
+    if (p.toLower() == "false") return false;
 
     // maybe numeric ?
     bool ok;
     int value = p.toInt(&ok);
     if (ok) return (value != 0);
 
-    qWarning("Parser: invalid bool format: '%s'", p.local8Bit().data());
+    qWarning("Parser: invalid bool format: '%s'", p.toLocal8Bit().data());
     return false;
 }
 
@@ -170,7 +170,7 @@ int Parser::toInt ()
 
     if (!ok) {
 	qWarning("Parser: unable to parse int from '%s'",
-	         p.local8Bit().data());
+	         p.toLocal8Bit().data());
 	value = 0;
     }
 
@@ -186,7 +186,7 @@ unsigned int Parser::toUInt ()
 
     if (!ok) {
 	qWarning("Parser: unable to parse unsigned int from '%s'",
-	         p.local8Bit().data());
+	         p.toLocal8Bit().data());
 	value = 0;
     }
 
@@ -202,7 +202,7 @@ double Parser::toDouble()
 
     if (!ok) {
 	qWarning("Parser: unable to parse double from '%s'",
-	         p.local8Bit().data());
+	         p.toLocal8Bit().data());
 	value = 0.0;
     }
 

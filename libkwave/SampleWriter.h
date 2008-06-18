@@ -19,15 +19,14 @@
 #define _SAMPLE_WRITER_H_
 
 #include "config.h"
-#include <qmemarray.h>
-#include <qptrlist.h>
-#include <qobject.h>
+
+#include <QObject>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveSampleSink.h"
 
-class SampleLock;
 class SampleReader;
 class Stripe;
 class Track;
@@ -67,7 +66,7 @@ public:
     virtual ~SampleWriter();
 
     /** operator for inserting an array of samples */
-    SampleWriter &operator << (const QMemArray<sample_t> &samples);
+    SampleWriter &operator << (const Kwave::SampleArray &samples);
 
     /** operator for inserting a single sample */
     SampleWriter &operator << (const sample_t &sample);
@@ -94,14 +93,15 @@ public:
      * @param buffer reference to the buffer to be flushed
      * @param count number of samples in the buffer to be flushed,
      *              will be internally set to zero if successful
+     * @return true if successful, false if failed (e.g. out of memory)
      */
-    void flush(const QMemArray<sample_t> &buffer, unsigned int &count);
+    bool flush(const Kwave::SampleArray &buffer, unsigned int &count);
 
     /**
      * Shortcut for flush(m_buffer, m_buffer_used)
      * @internal
      */
-    inline void flush() { flush(m_buffer, m_buffer_used); };
+    inline bool flush() { return flush(m_buffer, m_buffer_used); };
 
     /**
      * Returns true if the end of the writeable area has been reached if the
@@ -109,24 +109,26 @@ public:
      * make sense in append or insert mode, so in these cases the return
      * value will always be false.
      */
-    virtual bool eof();
+    virtual bool eof() const;
 
     /** the same as eof(), needed for the Kwave::SampleSink interface */
-    virtual bool done() { return eof(); };
+    virtual bool done() const { return eof(); };
 
     /** Returns the index of the first sample of the range. */
-    inline unsigned int first() { return m_first; };
+    inline unsigned int first() const { return m_first; };
 
     /**
      * Returns the current index of the last sample in range or the
      * index of the last written sample when in insert/append mode.
      */
-    inline unsigned int last() { return m_last; };
+    inline unsigned int last() const {
+	return ((m_mode == Append) ? (m_last + m_buffer_used) : m_last);
+    };
 
     /**
      * Returns the current position
      */
-    inline unsigned int position() { return m_position; };
+    inline unsigned int position() const { return m_position; };
 
 signals:
 
@@ -165,7 +167,7 @@ private:
     unsigned int m_position;
 
     /** intermediate buffer for the input data */
-    QMemArray<sample_t> m_buffer;
+    Kwave::SampleArray m_buffer;
 
     /** number of used elements in the buffer */
     unsigned int m_buffer_used;

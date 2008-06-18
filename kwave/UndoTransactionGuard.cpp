@@ -16,7 +16,11 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qstring.h>
+#include "config.h"
+
+#include <QString>
+
+#include <klocale.h>
 
 #include "libkwave/KwavePlugin.h"
 
@@ -38,7 +42,8 @@ UndoTransactionGuard::UndoTransactionGuard(KwavePlugin &plugin,
                                            const QString &name)
     :m_manager(plugin.manager().topWidget().signalManager())
 {
-    QString description = (name.length()) ? name : i18n(plugin.name());
+    QString description = (name.length()) ?
+	name : i18n(plugin.name().toLocal8Bit());
     m_manager.startUndoTransaction(description);
 }
 

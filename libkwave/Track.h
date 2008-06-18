@@ -20,12 +20,13 @@
 
 #include "config.h"
 #include <limits.h>  // for UINT_MAX
-#include <qobject.h>
-#include <qptrlist.h>
 
-#include "mt/SharedLock.h"
+#include <QList>
+#include <QObject>
+#include <QReadWriteLock>
+
 #include "libkwave/InsertMode.h"
-#include "libkwave/SampleLock.h"
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Stripe.h"
 
 class SampleWriter;
@@ -91,7 +92,7 @@ public:
                      bool make_gap = false);
 
     /** Returns the "selected" flag. */
-    inline bool selected() { return m_selected; };
+    inline bool selected() const { return m_selected; };
 
     /** Sets the "selected" flag. */
     void select(bool select);
@@ -106,7 +107,7 @@ signals:
      * @param length number of samples inserted
      * @see sigSamplesModified
      */
-    void sigSamplesInserted(Track &src, unsigned int offset,
+    void sigSamplesInserted(Track *src, unsigned int offset,
                             unsigned int length);
 
     /**
@@ -115,7 +116,7 @@ signals:
      * @param offset position from which the data was removed
      * @param length number of samples deleted
      */
-    void sigSamplesDeleted(Track &src, unsigned int offset,
+    void sigSamplesDeleted(Track *src, unsigned int offset,
                            unsigned int length);
 
     /**
@@ -124,7 +125,7 @@ signals:
      * @param offset position from which the data was modified
      * @param length number of samples modified
      */
-    void sigSamplesModified(Track &src, unsigned int offset,
+    void sigSamplesModified(Track *src, unsigned int offset,
                             unsigned int length);
 
     /**
@@ -143,6 +144,16 @@ private:
     unsigned int unlockedLength();
 
     /**
+     * Deletes a range of samples, used internally by deleteRange()
+     * @param offset index of the first sample
+     * @param length number of samples
+     * @param make_gap if true, make a gap into the list of stripes
+     *                 instead of moving the stuff from right to left
+     */
+    void unlockedDelete(unsigned int offset, unsigned int length,
+                        bool make_gap = false);
+
+    /**
      * Append samples after a given stripe.
      *
      * @param stripe the stripe after which to instert. Null pointer is
@@ -151,9 +162,10 @@ private:
      * @param buffer array with samples
      * @param buf_offset offset within the buffer
      * @param length number of samples to write
+     * @return true if successful, false if failed (e.g. out of memory)
      */
-    void appendAfter(Stripe *stripe, unsigned int offset,
-                     const QMemArray<sample_t> &buffer,
+    bool appendAfter(Stripe *stripe, unsigned int offset,
+                     const Kwave::SampleArray &buffer,
                      unsigned int buf_offset, unsigned int length);
 
     /**
@@ -182,8 +194,9 @@ private:
      * @param stripe the stripe to be split
      * @param offset the offset within the stripe, which becomes the first
      *               sample in the new stripe
+     * @return the new created stripe
      */
-    void splitStripe(Stripe *stripe, unsigned int offset);
+    Stripe *splitStripe(Stripe *stripe, unsigned int offset);
 
     /**
      * dump the list of stripes, for debugging
@@ -204,12 +217,29 @@ protected:
      * @param buffer array with samples
      * @param buf_offset offset within the buffer
      * @param length number of samples to write
+     * @return true if successful, false if failed (e.g. out of memory)
      */
-    void writeSamples(InsertMode mode,
+    bool writeSamples(InsertMode mode,
                       unsigned int offset,
-                      const QMemArray<sample_t> &buffer,
+                      const Kwave::SampleArray &buffer,
                       unsigned int buf_offset,
                       unsigned int length);
+
+    friend class SampleReader;
+
+    /**
+     * Read a block of samples, with padding if necessary.
+     *
+     * @param offset position where to start the read operation
+     * @param buffer receives the samples
+     * @param buf_offset offset within the buffer
+     * @param length number of samples to read
+     * @return number of read samples
+     */
+    unsigned int readSamples(unsigned int offset,
+                             Kwave::SampleArray &buffer,
+                             unsigned int buf_offset,
+                             unsigned int length);
 
 private:
 
@@ -221,19 +251,12 @@ private:
      */
     Stripe *newStripe(unsigned int start, unsigned int length);
 
-    /**
-     * Deletes a stripe by disconnecting it's signals first and then
-     * removing it from the list of stripes with autodelete on.
-     * @param s Stripe to be deleted
-     */
-    void deleteStripe(Stripe *s);
-
 private:
     /** read/write lock for access to the whole track */
-    SharedLock m_lock;
+    QReadWriteLock m_lock;
 
     /** list of stripes (a track actually is a container for stripes) */
-    QPtrList<Stripe> m_stripes;
+    QList<Stripe *> m_stripes;
 
     /** True if the track is selected */
     bool m_selected;

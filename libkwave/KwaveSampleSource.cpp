@@ -19,8 +19,8 @@
 #include "libkwave/KwaveSampleSource.h"
 
 //***************************************************************************
-Kwave::SampleSource::SampleSource(QObject *parent, const char *name)
-    :Kwave::StreamObject(parent, name)
+Kwave::SampleSource::SampleSource(QObject *parent)
+    :Kwave::StreamObject(parent)
 {
 }
 

@@ -16,6 +16,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <klocale.h>
 
 #include "SignalManager.h"
@@ -53,11 +54,12 @@ int UndoSelection::redoSize()
 }
 
 //***************************************************************************
-void UndoSelection::store(SignalManager &manager)
+bool UndoSelection::store(SignalManager &manager)
 {
     m_offset = manager.selection().offset();
     m_length = manager.selection().length();
     m_selected_tracks = manager.selectedTracks();
+    return true;
 }
 
 //***************************************************************************
@@ -66,7 +68,7 @@ UndoAction *UndoSelection::undo(SignalManager &manager, bool with_redo)
     // store current selection for later redo
     unsigned int old_offset = manager.selection().offset();
     unsigned int old_length = manager.selection().length();
-    QMemArray<unsigned int> old_selected_tracks = manager.selectedTracks();
+    QList<unsigned int> old_selected_tracks = manager.selectedTracks();
 
     // restore the previous selection
     manager.selectRange(m_offset, m_length);

@@ -19,11 +19,13 @@
 #define _KWAVE_PLUGIN_H_
 
 #include "config.h"
-#include <qmemarray.h>
-#include <qmutex.h>
-#include <qobject.h>
-#include "mt/Asynchronous_Object.h"
-#include "mt/SignalProxy.h"
+
+#include <QMutex>
+#include <QObject>
+#include <QString>
+#include <QThread>
+#include <QVector>
+
 #include "libkwave/PluginContext.h"
 
 class FileInfo;
@@ -35,6 +37,7 @@ class SampleReader;
 class SignalManager;
 class TopWidget;
 class QStringList;
+namespace Kwave { class PluginWorkerThread; };
 
 #define KWAVE_PLUGIN(class_name,plugin_name,author_name) \
     extern "C" const char *name = plugin_name; \
@@ -188,12 +191,12 @@ public:
      * Returns the sample rate of the current signal. If no signal is
      * present the return value will be zero.
      */
-    virtual double signalRate();
+    virtual qreal signalRate();
 
     /**
      * Returns an array of indices of currently selected channels.
      */
-    virtual const QMemArray<unsigned int> selectedTracks();
+    virtual const QList<unsigned int> selectedTracks();
 
     /**
      * Returns the left and right sample index of the current selection
@@ -233,7 +236,7 @@ public:
      * @param percent the zoom factor to be formated, a value of "100.0"
      *             means "100%", "0.1" means "0.1%" and so on.
      */
-    static QString zoom2string(double percent);
+    static QString zoom2string(qreal percent);
 
     /**
      * Converts a time in milliseconds into a string. Times below one
@@ -248,7 +251,7 @@ public:
      *                  must be >= 3 !
      * @return time formatted as user-readable string
      */
-    static QString ms2string(double ms, int precision = 6);
+    static QString ms2string(qreal ms, int precision = 6);
 
     /**
      * Converts the given number into a string with the current locale's
@@ -313,20 +316,6 @@ public slots:
     /** decrements the usage counter */
     void release();
 
-private slots:
-
-    /**
-     * emits sigRunning when emitted from run through m_spx_running
-     * @internal
-     */
-    void forwardSigRunning();
-
-    /**
-     * emits sigDone when emitted from run through m_spx_done
-     * @internal
-     */
-    void forwardSigDone();
-
 private:
 
     /** Wrapper for run() that contains a call to release() */
@@ -344,7 +333,7 @@ private:
     /**
      * Thread that executes the run() member function.
      */
-    Asynchronous_Object_with_1_arg<KwavePlugin, QStringList> *m_thread;
+    Kwave::PluginWorkerThread *m_thread;
 
     /** Mutex for control over the thread */
     QMutex m_thread_lock;
@@ -354,12 +343,6 @@ private:
 
     /** Mutex for locking the usage counter */
     QMutex m_usage_lock;
-
-    /** SignalProxy for handling sigRunning */
-    SignalProxy<void> m_spx_running;
-
-    /** SignalProxy for handling sigDone */
-    SignalProxy<void> m_spx_done;
 
 };
 

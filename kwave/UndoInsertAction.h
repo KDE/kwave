@@ -19,8 +19,10 @@
 #define _UNDO_INSERT_ACTION_H_
 
 #include "config.h"
-#include <qobject.h>
-#include <qstring.h>
+
+#include <QObject>
+#include <QString>
+
 #include "UndoAction.h"
 
 class SignalManager;
@@ -51,7 +53,7 @@ public:
     /**
      * @see UndoAction::store()
      */
-    virtual void store(SignalManager &manager);
+    virtual bool store(SignalManager &manager);
 
     /**
      * Removes samples from the track.

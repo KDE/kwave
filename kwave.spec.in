@@ -24,6 +24,7 @@ Requires:	@RPM_REQUIRE_LIBMAD@ > 0.14
 @LIBAUDIOFILE_REQUIRE@
 Requires:	gsl >= 1.4
 Requires:	flac
+BuildRequires:  cmake >= 2.4.4
 BuildRequires:	flac-devel
 BuildRequires:	id3lib-devel >= 3.8.1
 BuildRequires:	kdemultimedia3-devel

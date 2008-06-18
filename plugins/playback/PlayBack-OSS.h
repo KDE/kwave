@@ -21,9 +21,11 @@
 #include "config.h"
 #ifdef HAVE_OSS_SUPPORT
 
-#include <qmemarray.h>
-#include <qstring.h>
+#include <QByteArray>
+#include <QList>
+#include <QString>
 
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/PlayBackDevice.h"
 
 class SampleEncoder;
@@ -50,7 +52,7 @@ public:
      * Writes an array of samples to the output device.
      * @see PlayBackDevice::write
      */
-    virtual int write(QMemArray<sample_t> &samples);
+    virtual int write(const Kwave::SampleArray &samples);
 
     /**
      * Closes the output device.
@@ -71,7 +73,7 @@ public:
      * @param device filename of the device
      * @return list of supported bits per sample, or empty on errors
      */
-    virtual QValueList<unsigned int> supportedBits(const QString &device);
+    virtual QList<unsigned int> supportedBits(const QString &device);
 
     /**
      * Detect the minimum and maximum number of channels.
@@ -132,7 +134,7 @@ protected:
     unsigned int m_bufbase;
 
     /** buffer with samples data */
-    QMemArray<sample_t> m_buffer;
+    Kwave::SampleArray m_buffer;
 
     /** buffer with raw data */
     QByteArray m_raw_buffer;

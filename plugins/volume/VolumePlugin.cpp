@@ -18,7 +18,8 @@
 #include "config.h"
 #include <errno.h>
 
-#include <qstringlist.h>
+#include <QStringList>
+
 #include <klocale.h>
 
 #include "libkwave/KwaveConnect.h"
@@ -117,23 +118,18 @@ void VolumePlugin::run(QStringList params)
     MultiTrackReader source(signalManager(), selectedTracks(), first, last);
     MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
 	first, last);
-    Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks, this, "Volume");
+    Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks);
 
     // connect them
-    bool ok = true;
-    if (ok) ok = Kwave::connect(
+    Kwave::connect(
 	source, SIGNAL(output(Kwave::SampleArray &)),
 	mul,    SLOT(input_a(Kwave::SampleArray &)));
+
     mul.setAttribute(SLOT(set_b(const QVariant &)),
                      QVariant(m_factor));
-    if (ok) ok = Kwave::connect(
+    Kwave::connect(
 	mul,    SIGNAL(output(Kwave::SampleArray &)),
 	sink,   SLOT(input(Kwave::SampleArray &)));
-    Q_ASSERT(ok);
-    if (!ok) {
-	close();
-	return;
-    }
 
     // transport the samples
     qDebug("VolumePlugin: filter started...");

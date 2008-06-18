@@ -26,7 +26,7 @@
 
 //***************************************************************************
 NotchFilter::NotchFilter()
-    :Kwave::SampleSource(0, "NotchFilter"), TransmissionFunction(),
+    :Kwave::SampleSource(0), TransmissionFunction(),
      m_buffer(blockSize()), m_f_cutoff(M_PI), m_f_bw(M_PI / 2)
 {
     initFilter();
@@ -121,9 +121,9 @@ void NotchFilter::input(Kwave::SampleArray &data)
 {
     setfilter_peaknotch2(m_f_cutoff, m_f_bw);
 
-    Q_ASSERT(data.count() == m_buffer.count());
+    Q_ASSERT(data.size() == m_buffer.size());
 
-    for (unsigned i = 0; i < data.count(); i++)
+    for (unsigned i = 0; i < data.size(); i++)
     {
 	// do the filtering
 	m_filter.x = sample2float(data[i]);

@@ -19,10 +19,12 @@
 #define _SCALE_WIDGET_H_
 
 #include "config.h"
-#include <qpixmap.h>
-#include <qstring.h>
-#include <qwidget.h>
 
+#include <QPixmap>
+#include <QString>
+#include <QWidget>
+
+class QPaintEvent;
 class QPainter;
 class QSize;
 
@@ -33,9 +35,8 @@ public:
     /**
      * Primitve constructor for usage in a Qt designer's dialog
      * @param parent the widget's parent widget
-     * @param name the name of the widget
      */
-    ScaleWidget(QWidget *parent, const char *name);
+    ScaleWidget(QWidget *parent);
 
     /**
      * Constructor with initialization.
@@ -47,7 +48,7 @@ public:
     ScaleWidget(QWidget *parent, int low, int high, const QString &unit);
 
     /** Destructor */
-    ~ScaleWidget();
+    virtual ~ScaleWidget();
 
     /**
      * Sets the border values.
@@ -115,7 +116,7 @@ protected:
      *        space, dot and comma.
      */
     void paintText(QPainter &p, int x, int y, int ofs,
-                            bool reverse, const QString &text);
+                   bool reverse, const QString &text);
 
 private:
 

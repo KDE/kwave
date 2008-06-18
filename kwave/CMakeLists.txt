@@ -16,14 +16,6 @@
 #############################################################################
 
 FIND_PACKAGE(RequiredProgram REQUIRED)
-
-INCLUDE_DIRECTORIES(
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_BINARY_DIR}
-    ${KDE3_INCLUDE_DIR}
-    ${QT_INCLUDE_DIR}
-)
-
 FIND_REQUIRED_PROGRAM(CONVERT_EXECUTABLE convert)
 
 #############################################################################
@@ -45,12 +37,12 @@ SET(kwave_SRCS
     CodecManager.cpp
     KwaveApp.cpp
     KwaveSplash.cpp
-    LabelManager.cpp
     MainWidget.cpp
     MemoryManager.cpp
     MouseMark.cpp
     PlaybackController.cpp
     PluginManager.cpp
+    ShortcutWrapper.cpp
     SignalManager.cpp
     SignalWidget.cpp
     SwapFile.cpp
@@ -132,26 +124,19 @@ SET(kwave_PIXMAPS
 
 #############################################################################
 
-KDE3_AUTOMOC(${kwave_SRCS})
-KDE3_ADD_EXECUTABLE(kwave_core ${kwave_SRCS})
+QT4_AUTOMOC( ${kwave_SRCS} )
+KDE4_ADD_EXECUTABLE(kwave_core ${kwave_SRCS})
 
 #############################################################################
-
-IF (WITH_ARTS)
-    SET(ARTS_LIBS artsc artsflow)
-ENDIF (WITH_ARTS)
 
 IF (USE_SYSTEM_LIB_AUDIOFILE)
     SET(AUDIOFILE_LIBS audiofile)
 ENDIF (USE_SYSTEM_LIB_AUDIOFILE)
 
 TARGET_LINK_LIBRARIES(kwave_core
-    kwave
     kwavegui
+    kwave
     ${QT_AND_KDECORE_LIBS}
-    kdeui
-    kio
-    ${ARTS_LIBS}
     ${AUDIOFILE_LIBS}
 )
 
@@ -163,20 +148,20 @@ SET_TARGET_PROPERTIES(kwave_core PROPERTIES OUTPUT_NAME "kwave")
 ### install files                                                         ###
 
 # the main program
-INSTALL(TARGETS kwave_core     DESTINATION ${DESTDIR}${KDE3_EXEDIR})
+INSTALL(TARGETS kwave_core     DESTINATION ${DESTDIR}${BIN_INSTALL_DIR})
 
 # other files
-INSTALL(FILES kwave.desktop    DESTINATION ${KDE3_APPSDIR}/Multimedia)
-INSTALL(FILES menus.config     DESTINATION ${KDE3_DATADIR}/kwave)
-INSTALL(FILES ${kwave_PIXMAPS} DESTINATION ${KDE3_DATADIR}/kwave/pics)
-INSTALL(FILES x-aifc.desktop x-ircam.desktop DESTINATION ${KDE3_MIMEDIR}/audio)
+# INSTALL(FILES kwave.desktop    DESTINATION ${KDE4_APPSDIR}/Multimedia)
+INSTALL(FILES menus.config     DESTINATION ${DESTDIR}${DATA_INSTALL_DIR}/kwave)
+INSTALL(FILES ${kwave_PIXMAPS} DESTINATION ${DESTDIR}${DATA_INSTALL_DIR}/kwave/pics)
+# INSTALL(FILES x-aifc.desktop x-ircam.desktop DESTINATION ${KDE4_MIMEDIR}/audio)
 
 # scaled application icons
 FOREACH(_col locolor hicolor)
     FOREACH(_dim 16x16 22x22 32x32 48x48)
         INSTALL(
             FILES ${CMAKE_CURRENT_BINARY_DIR}/kwave-${_dim}.png
-            DESTINATION ${KDE3_ICONDIR}/${_col}/${_dim}/apps
+            DESTINATION ${DESTDIR}${DATA_INSTALL_DIR}/${_col}/${_dim}/apps
             RENAME kwave.png
         )
     ENDFOREACH(_dim)

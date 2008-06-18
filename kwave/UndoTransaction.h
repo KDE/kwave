@@ -19,8 +19,9 @@
 #define _UNDO_TRANSACTION_H_
 
 #include "config.h"
-#include <qptrlist.h>
-#include <qstring.h>
+
+#include <QList>
+#include <QString>
 
 class UndoAction;
 
@@ -31,7 +32,7 @@ class UndoAction;
  * and don't make sense or leave an inconsistent state if separated, they
  * get grouped together to one transaction.
  */
-class UndoTransaction: public QPtrList<UndoAction>
+class UndoTransaction: public QList<UndoAction *>
 {
 
 public:
@@ -44,7 +45,7 @@ public:
     UndoTransaction(const QString &name);
 
     /** Destructor */
-    virtual ~UndoTransaction() {};
+    virtual ~UndoTransaction();
 
     /** Returns the size in bytes summed up over all undo actions */
     unsigned int undoSize();
@@ -75,9 +76,9 @@ public:
     UndoAction *nextRedo();
 
 private:
+
     /** name of the action */
     QString m_description;
-
 };
 
 #endif /* _UNDO_TRANSACTION_H_ */

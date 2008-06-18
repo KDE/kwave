@@ -17,21 +17,13 @@
 
 #include "config.h"
 
-#include <qfile.h>
-#include <qptrlist.h>
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QFile>
+#include <QString>
 
 #include <kcmdlineargs.h>
 #include <kconfig.h>
-
-#ifdef HAVE_ARTS_SUPPORT
-#include <kcrash.h>
-#include <kglobal.h>
-#include <kstandarddirs.h>
-#include <arts/artsflow.h>
-#include <artsc/artsc.h> // for arts_init()
-#endif /* HAVE_ARTS_SUPPORT */
+#include <kconfiggroup.h>
+#include <ktoolinvocation.h>
 
 #include "libkwave/Parser.h"
 
@@ -40,8 +32,7 @@
 #include "PluginManager.h"
 #include "TopWidget.h"
 #include "KwaveApp.h"
-
-#define UNIQUE_APP
+#include "KwaveSplash.h"
 
 //***************************************************************************
 // some static initializers
@@ -54,51 +45,43 @@ MemoryManager &KwaveApp::m_memory_manager(_memory_manager);
 
 //***************************************************************************
 KwaveApp::KwaveApp()
-#ifdef UNIQUE_APP
    :KUniqueApplication(),
-#else // UNIQUE_APP
-   :KApplication(),
-#endif // UNIQUE_APP
     m_recent_files(),
     m_topwidget_list()
 {
-    m_topwidget_list.setAutoDelete(false);
-    readConfig();
-
-#ifdef HAVE_ARTS_SUPPORT
-    // initialize the aRts daemon, start him if necessary
-    initArts();
-#endif /* HAVE_ARTS_SUPPORT */
-
-    // load the list of plugins
-    PluginManager::findPlugins();
-
-    // close when the last window closed
-    connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
-
-#ifndef UNIQUE_APP
-    newInstance();
-#endif
 }
 
 //***************************************************************************
 int KwaveApp::newInstance()
 {
+    static bool first_time = true;
+    if (first_time) {
+	first_time = false;
+
+	KwaveSplash::showMessage(i18n("reading configuration..."));
+	readConfig();
+
+	// load the list of plugins
+	KwaveSplash::showMessage(i18n("scanning plugins..."));
+	PluginManager::findPlugins();
+
+	// close when the last window closed
+	connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
+    }
+
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     unsigned int argc = (args) ? args->count() : 0;
 
     // only one parameter -> open with empty window
     if (argc == 0) {
-	newWindow(0);
+	newWindow(KUrl(0));
     } else {
 	// open a window for each file specified in the
 	// command line an load it
 	for (unsigned int i = 0; i < argc; i++) {
-	    QString name;
-	    name = QString::fromLocal8Bit(args->arg(i));
+	    QString name = args->arg(i);
 	    QFileInfo file(name);
-
-	    newWindow(file.absFilePath());
+	    newWindow(file.absoluteFilePath());
 	}
     }
     if (args) args->clear();
@@ -109,7 +92,6 @@ int KwaveApp::newInstance()
 //***************************************************************************
 bool KwaveApp::isOK()
 {
-    Q_ASSERT(!m_topwidget_list.isEmpty());
     return (!m_topwidget_list.isEmpty());
 }
 
@@ -118,9 +100,9 @@ bool KwaveApp::executeCommand(const QString &command)
 {
     Parser parser(command);
     if (parser.command() == "newwindow") {
-	newWindow(0);
+	newWindow(KUrl(0));
     } else if (parser.command() == "help") {
-	invokeHelp();
+	KToolInvocation::invokeHelp();
     } else {
 	return false;
     }
@@ -133,11 +115,11 @@ void KwaveApp::addRecentFile(const QString &newfile)
     if (!newfile.length()) return;
 
     // remove old entries if present
-    m_recent_files.remove(newfile);
+    m_recent_files.removeAll(newfile);
 
     // shorten the list down to 19 entries
     while (m_recent_files.count() > 19)
-	m_recent_files.remove(m_recent_files.last());
+	m_recent_files.removeLast();
 
     // insert the new entry at top
     m_recent_files.prepend(newfile);
@@ -150,8 +132,9 @@ void KwaveApp::addRecentFile(const QString &newfile)
 }
 
 //***************************************************************************
-bool KwaveApp::newWindow(const KURL &url)
+bool KwaveApp::newWindow(const KUrl &url)
 {
+    KwaveSplash::showMessage(i18n("opening main window..."));
     TopWidget *new_top_widget = new TopWidget(*this);
     Q_ASSERT(new_top_widget);
     if (!new_top_widget) return false;
@@ -164,13 +147,13 @@ bool KwaveApp::newWindow(const KURL &url)
 
     if (m_topwidget_list.isEmpty()) {
 	// the first widget is the main widget !
-	setMainWidget(new_top_widget); // sets geometry and other properties
-	setMainWidget(0);              // that's enough, dont quit on close !
+	setTopWidget(new_top_widget); // sets geometry and other properties
+	setTopWidget(0);              // that's enough, dont quit on close !
     } else {
 	// create a new widget with the same geometry as
 	// the last created one
 	const QRect &geom = m_topwidget_list.last()->geometry();
-	// tnew->setGeometry(geom); // would overlap :-(
+	// calling setGeometry(geom) would overlap :-(
 	new_top_widget->resize(geom.width(), geom.height());
     }
 
@@ -181,8 +164,13 @@ bool KwaveApp::newWindow(const KURL &url)
     connect(this, SIGNAL(recentFilesChanged()),
             new_top_widget, SLOT(updateRecentFiles()));
 
-    if (!url.isEmpty()) new_top_widget->loadFile(url);
+    if (!url.isEmpty()) {
+	KwaveSplash::showMessage(i18n("loading file '%1'...",
+	    url.prettyUrl()));
+	new_top_widget->loadFile(url);
+    }
 
+    KwaveSplash::showMessage(i18n("startup done."));
     return true;
 }
 
@@ -194,8 +182,7 @@ bool KwaveApp::closeWindow(TopWidget *todel)
     // save the configuration, including the list of recent files
     saveConfig();
 
-    m_topwidget_list.setAutoDelete(false);
-    if (todel) m_topwidget_list.removeRef(todel);
+    if (todel) m_topwidget_list.removeAll(todel);
 
     // if list is empty -> no more windows there -> exit application
     return (m_topwidget_list.isEmpty());
@@ -216,19 +203,15 @@ MemoryManager &KwaveApp::memoryManager()
 //***************************************************************************
 void KwaveApp::saveRecentFiles()
 {
-    KConfig *cfg = KGlobal::config();
-    Q_ASSERT(cfg);
-    if (!cfg) return;
-
-    cfg->setGroup("Recent Files");
+    KConfigGroup cfg = KGlobal::config()->group("Recent Files");
 
     QString num;
-    for (unsigned int i = 0 ; i < m_recent_files.count(); i++) {
+    for (int i = 0 ; i < m_recent_files.count(); i++) {
 	num.setNum(i);
-	cfg->writeEntry(num, m_recent_files[i].utf8().data());
+	cfg.writeEntry(num, m_recent_files[i]);
     }
 
-    cfg->sync();
+    cfg.sync();
 }
 
 //***************************************************************************
@@ -243,17 +226,13 @@ void KwaveApp::readConfig()
 {
     QString result;
     QString key;
+    const KConfigGroup cfg = KGlobal::config()->group("Recent Files");
 
-    KConfig *cfg = config();
-    Q_ASSERT(cfg);
-    if (!cfg) return;
-
-    cfg->setGroup("Recent Files");
     for (unsigned int i = 0 ; i < 20; i++) {
 	key = QString::number(i);        // generate number
 
 	// read corresponding entry, which is stored in UTF-8
-	result = QString::fromUtf8(cfg->readEntry(key));
+	result = cfg.readEntry(key);
 	if (result.length()) {
 	    QFile file(result);
 
@@ -262,7 +241,6 @@ void KwaveApp::readConfig()
 		m_recent_files.append(result);
 	}
     }
-
 }
 
 //***************************************************************************
@@ -270,47 +248,14 @@ KwaveApp::~KwaveApp()
 {
     saveConfig();
 
-    m_topwidget_list.setAutoDelete(false);
     while (!m_topwidget_list.isEmpty()) {
-	TopWidget *todel = m_topwidget_list.last();
-	m_topwidget_list.removeRef(todel);
-	delete todel;
+	TopWidget *todel = m_topwidget_list.takeLast();
+	if (todel) delete todel;
     }
     m_clipboard.clear();
     m_recent_files.clear();
     m_memory_manager.close();
 }
-
-//***************************************************************************
-#ifdef HAVE_ARTS_SUPPORT
-void KwaveApp::initArts()
-{
-    arts_init();
-
-    if (!Arts::Dispatcher::the()) {
-	qWarning("aRts daemon isn't running. Starting it...");
-
-	QString path;
-	QStringList args;
-
-	path = QFile::encodeName(KStandardDirs::findExe("kcminit"));
-	if (!path.length()) path = "kcminit";
-
-	args.append("arts");
-
-	kdeinitExec(path, args);
-
-	int time = 0;
-	do {
-	    ::sleep(time/2);
-	    arts_init();
-	    // every time it fails, we should wait a little longer
-	    // between tries
-	    time++;
-	} while (time < 6 && !Arts::Dispatcher::the());
-    }
-}
-#endif /* HAVE_ARTS_SUPPORT */
 
 //***************************************************************************
 #include "KwaveApp.moc"

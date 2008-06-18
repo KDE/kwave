@@ -15,13 +15,13 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "mt/ThreadsafeX11Guard.h"
+#include "config.h"
+
 #include "libkwave/memcpy.h"
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
-#include "libkwave/SampleLock.h"
 #include "libkwave/Stripe.h"
 #include "libkwave/Track.h"
 
@@ -31,7 +31,7 @@
 //***************************************************************************
 SampleWriter::SampleWriter(Track &track, InsertMode mode,
     unsigned int left, unsigned int right)
-    :Kwave::SampleSink(0,0),
+    :Kwave::SampleSink(),
      m_first(left), m_last(right), m_mode(mode), m_track(track),
      m_position(left),
      m_buffer(BUFFER_SIZE), m_buffer_used(0)
@@ -45,21 +45,18 @@ SampleWriter::~SampleWriter()
     Q_ASSERT(m_position <= m_last+1);
 
     // inform others that we proceeded
-    {
-	ThreadsafeX11Guard x11_guard;
-	emit sigSamplesWritten(m_position - m_first);
-    }
+    emit sigSamplesWritten(m_position - m_first);
 }
 
 //***************************************************************************
-SampleWriter &SampleWriter::operator << (const QMemArray<sample_t> &samples)
+SampleWriter &SampleWriter::operator << (const Kwave::SampleArray &samples)
 {
     unsigned int count = samples.size();
 
     if (m_buffer_used + count < m_buffer.size()) {
 	// append to the internal buffer if there is still some room
 	MEMCPY(&(m_buffer[m_buffer_used]), &(samples[0]),
-	       count *sizeof(sample_t));
+	       count * sizeof(sample_t));
 	m_buffer_used += count;
 	if (m_buffer_used >= m_buffer.size()) flush();
     } else {
@@ -96,7 +93,7 @@ SampleWriter &SampleWriter::operator << (SampleReader &reader)
 	Q_ASSERT(m_buffer_used);
 	if (!m_buffer_used) break;
 
-	flush();
+	if (!flush()) return *this; // out of memory
     }
 
     // pad the rest with zeroes
@@ -111,31 +108,35 @@ SampleWriter &SampleWriter::operator << (SampleReader &reader)
 }
 
 //***************************************************************************
-void SampleWriter::flush(const QMemArray<sample_t> &buffer,
+bool SampleWriter::flush(const Kwave::SampleArray &buffer,
                          unsigned int &count)
 {
-    if ((m_mode == Overwrite) && (m_position + count > m_last)) {
+    if ((m_mode == Overwrite) && (m_position + count > m_last + 1)) {
 	// need clipping
 	count = m_last + 1 - m_position;
 // 	qDebug("SampleWriter::flush() clipped to count=%u", count);
     }
 
-    if (count == 0) return; // nothing to flush
+    if (count == 0) return true; // nothing to flush
 
-    m_track.writeSamples(m_mode, m_position, buffer, 0, count);
+    Q_ASSERT(count <= buffer.size());
+    if (!m_track.writeSamples(m_mode, m_position, buffer, 0, count))
+	return false; /* out of memory */
+
     m_position += count;
-    if (m_position+1 > m_last) m_last = m_position-1;
+
+    // fix m_last, this might be needed in Append and Insert mode
+    if (m_position - 1 > m_last) m_last = m_position - 1;
     count = 0;
 
     // inform others that we proceeded
-    {
-	ThreadsafeX11Guard x11_guard;
-	emit proceeded();
-    }
+    emit proceeded();
+
+    return true;
 }
 
 //***************************************************************************
-bool SampleWriter::eof()
+bool SampleWriter::eof() const
 {
     return (m_mode == Overwrite) ? (m_position > m_last) : false;
 }

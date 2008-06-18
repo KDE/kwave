@@ -16,11 +16,10 @@
  ***************************************************************************/
 #include "config.h"
 
-#include <qdatetime.h>
-#include <qtextstream.h>
+#include <QDateTime>
+#include <QTextStream>
 
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <kmimetype.h>
 
 #include "libkwave/CompressionType.h"
@@ -28,6 +27,8 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
+
+#include "libgui/MessageBox.h"
 
 #include "AsciiCodecPlugin.h"
 #include "AsciiDecoder.h"
@@ -76,8 +77,8 @@ bool AsciiDecoder::open(QWidget *widget, QIODevice &src)
     qDebug("AsciiDecoder::open(...)");
     unsigned int linenr = 0;
     while (!source.atEnd()) {
-	QString line = source.readLine().simplifyWhiteSpace();
-	qDebug("META %5u %s", linenr++, line.local8Bit().data());
+	QString line = source.readLine().simplified();
+	qDebug("META %5u %s", linenr++, line.toLocal8Bit().data());
 	if (!line.length())
 	    continue; // skip empty line
 	if (line.startsWith("#") && !line.startsWith(META_PREFIX))
@@ -91,7 +92,7 @@ bool AsciiDecoder::open(QWidget *widget, QIODevice &src)
 
     qDebug("--- THE ASCII DECODER IS NOT FUNCTIONAL YET ---");
     qDebug("---           sorry :-(                     ---");
-    KMessageBox::sorry(widget,
+    Kwave::MessageBox::sorry(widget,
 	i18n("not implemented yet"),
 	i18n("Sorry"));
     return false;
@@ -111,9 +112,9 @@ bool AsciiDecoder::decode(QWidget * /* widget */, MultiTrackWriter &dst)
     // read in all remaining data until EOF or user cancel
     qDebug("AsciiDecoder::decode(...)");
     unsigned int linenr = 0;
-    while (!source.atEnd() && !dst.isCancelled()) {
+    while (!source.atEnd() && !dst.isCanceled()) {
 	QString line = source.readLine();
-	qDebug("DATA %5u %s", linenr++, line.local8Bit().data());
+	qDebug("DATA %5u %s", linenr++, line.toLocal8Bit().data());
 
 	if (linenr > 50) break;
     }

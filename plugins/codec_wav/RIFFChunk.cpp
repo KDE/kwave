@@ -15,14 +15,16 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qptrlist.h>
-#include <qstring.h>
+#include "config.h"
+
+#include <QList>
+#include <QString>
 
 #include "RIFFChunk.h"
 
 //***************************************************************************
-RIFFChunk::RIFFChunk(RIFFChunk *parent, const QCString &name,
-                     const QCString &format, u_int32_t length,
+RIFFChunk::RIFFChunk(RIFFChunk *parent, const QByteArray &name,
+                     const QByteArray &format, u_int32_t length,
                      u_int32_t phys_offset,  u_int32_t phys_length)
     :m_type(Sub), m_name(name), m_format(format), m_parent(parent),
      m_chunk_length(length), m_phys_offset(phys_offset),
@@ -33,12 +35,15 @@ RIFFChunk::RIFFChunk(RIFFChunk *parent, const QCString &name,
 //***************************************************************************
 RIFFChunk::~RIFFChunk()
 {
-    m_sub_chunks.setAutoDelete(true);
-    m_sub_chunks.clear();
+    while (!m_sub_chunks.isEmpty()) {
+        RIFFChunk *chunk = m_sub_chunks.takeLast();
+        if (chunk) delete chunk;
+    }
 }
 
 //***************************************************************************
-#define CHECK(x) Q_ASSERT(!(x)); if (x) return false;
+// #define CHECK(x) Q_ASSERT(!(x)); if (x) return false;
+#define CHECK(x) if (x) return false;
 bool RIFFChunk::isSane()
 {
     CHECK(m_type == Empty);
@@ -61,10 +66,8 @@ bool RIFFChunk::isSane()
 	return false;
     }
 
-    QPtrListIterator<RIFFChunk> it(subChunks());
-    for (; it.current(); ++it) {
-	if (!it.current()->isSane()) return false;
-    }
+    foreach (RIFFChunk *chunk, subChunks())
+        if (chunk && !chunk->isSane()) return false;
     return true;
 }
 
@@ -78,34 +81,39 @@ u_int32_t RIFFChunk::physEnd()
 }
 
 //***************************************************************************
-const QCString RIFFChunk::path()
+const QByteArray RIFFChunk::path()
 {
-    QCString p = "";
+    QByteArray p = "";
 
     if (m_parent) p += m_parent->path() + "/";
     p += m_name;
     if (m_type == Main) p += ":" + m_format;
 
     if (m_parent) {
-	QPtrListIterator<RIFFChunk> it(m_parent->subChunks());
+	QListIterator<RIFFChunk *> it(m_parent->subChunks());
 	unsigned int before = 0;
 	unsigned int after  = 0;
 	RIFFChunk *chunk;
-	for (; (chunk = it.current()) && (it != this); ++it) {
+	while (it.hasNext()) {
+            chunk = it.next();
+            if (!chunk) continue;
+            if (chunk == this) break;
 	    if (chunk->name() != m_name) continue;
 	    if (chunk->type() != m_type) continue;
 	    if ((m_type == Main) && (chunk->format() != m_format)) continue;
 	    before++;
 	}
-	if (it.current() == this) ++it;
-	for (; (chunk = it.current()) && (it != this); ++it) {
+	if ((chunk == this) && (it.hasNext())) chunk = it.next();
+	while ((chunk != this) && (it.hasNext())) {
+            chunk = it.next();
+            if (!chunk) continue;
 	    if (chunk->name() != m_name) continue;
 	    if (chunk->type() != m_type) continue;
 	    if ((m_type == Main) && (chunk->format() != m_format)) continue;
 	    after++;
 	}
 	if (before + after != 0) {
-	    QCString index;
+	    QByteArray index;
 	    index.setNum(before);
 	    p += "(" + index + ")";
 	}
@@ -145,12 +153,9 @@ bool RIFFChunk::isChildOf(RIFFChunk *chunk)
 //***************************************************************************
 void RIFFChunk::fixSize()
 {
-    QPtrListIterator<RIFFChunk> it(subChunks());
-
     // pass one: fix sizes of sub chunks recursively
-    for (; it.current(); ++it) {
-	it.current()->fixSize();
-    }
+    foreach (RIFFChunk *chunk, subChunks())
+        if (chunk) chunk->fixSize();
 
     // pass two: sum up sub-chunks if type is main or root.
     if ((m_type == Main) || (m_type == Root)) {
@@ -158,9 +163,10 @@ void RIFFChunk::fixSize()
 	m_phys_length = 0;
 	if (m_type == Main) m_phys_length += 4;
 
-	for (it.toFirst(); it.current(); ++it) {
-	    u_int32_t len = it.current()->physEnd() -
-	                    it.current()->physStart() + 1;
+        foreach (RIFFChunk *chunk, subChunks()) {
+            if (!chunk) continue;
+	    u_int32_t len = chunk->physEnd() -
+	                    chunk->physStart() + 1;
 	    m_phys_length += len;
 	}
 	if (m_phys_length != old_length) {
@@ -206,15 +212,12 @@ void RIFFChunk::dumpStructure()
     // dump this chunk
     qDebug("[0x%08X-0x%08X] (%10u/%10u) %7s, '%s'",
           m_phys_offset, physEnd(), physLength(), length(),
-          t.local8Bit().data(), path().data()
+          t.toLocal8Bit().data(), path().data()
     );
 
     // recursively dump all sub-chunks
-    QPtrListIterator<RIFFChunk> it(m_sub_chunks);
-    for (; it.current(); ++it) {
-        RIFFChunk *chunk = it.current();
-        chunk->dumpStructure();
-    }
+    foreach (RIFFChunk *chunk, m_sub_chunks)
+        if (chunk) chunk->dumpStructure();
 
 }
 

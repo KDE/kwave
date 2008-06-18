@@ -23,7 +23,7 @@
 
 //***************************************************************************
 Kwave::PlaybackSink::PlaybackSink(unsigned int track)
-    :Kwave::SampleSink(0, "PlaybackSink"), m_track(track)
+    :Kwave::SampleSink(), m_track(track)
 {
 }
 

@@ -210,7 +210,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
     QVector<FLAC__int32 *> flac_buffer;
     do {
 	// open the output device
-	if (!dst.open(IO_ReadWrite | IO_Truncate)) {
+	if (!dst.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
 	    Kwave::MessageBox::error(widget,
 		i18n("Unable to open the file for saving!"));
 	    result = false;

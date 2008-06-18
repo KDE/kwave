@@ -18,6 +18,7 @@
 #include "config.h"
 
 #include <QList>
+#include <QTextCodec>
 #include <QVariant>
 
 #include <klocale.h>
@@ -80,7 +81,7 @@ bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
     do {
 	// open the output device
-	if (!dst.open(IO_ReadWrite | IO_Truncate)) {
+	if (!dst.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
 	    Kwave::MessageBox::error(widget,
 		i18n("Unable to open the file for saving!"));
 	    result = false;

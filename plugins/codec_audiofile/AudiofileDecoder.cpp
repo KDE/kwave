@@ -88,7 +88,7 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     if (m_source) qWarning("AudiofileDecoder::open(), already open !");
 
     // try to open the source
-    if (!src.open(IO_ReadOnly)) {
+    if (!src.open(QIODevice::ReadOnly)) {
 	qWarning("failed to open source !");
 	return false;
     }

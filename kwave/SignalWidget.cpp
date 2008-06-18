@@ -1270,7 +1270,7 @@ bool SignalWidget::PositionWidget::event(QEvent *e)
 	case QEvent::MouseMove:
 	case QEvent::KeyPress:
 	case QEvent::KeyRelease:
-	case QEvent::Accel:
+	case QEvent::Shortcut:
 	case QEvent::Wheel:
 	case QEvent::Clipboard:
 	case QEvent::Speech:

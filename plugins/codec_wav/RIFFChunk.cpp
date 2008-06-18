@@ -93,7 +93,7 @@ const QByteArray RIFFChunk::path()
 	QListIterator<RIFFChunk *> it(m_parent->subChunks());
 	unsigned int before = 0;
 	unsigned int after  = 0;
-	RIFFChunk *chunk;
+	RIFFChunk *chunk = 0;
 	while (it.hasNext()) {
             chunk = it.next();
             if (!chunk) continue;

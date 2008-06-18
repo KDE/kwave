@@ -317,7 +317,7 @@ int PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     unsigned buffer_time = 0; // ring buffer length in us
     snd_pcm_uframes_t period_frames = 0;
     snd_pcm_uframes_t buffer_frames = 0;
-    size_t n;
+    size_t n = 0;
     snd_pcm_uframes_t start_threshold, stop_threshold;
     const int start_delay = 0;
     const int stop_delay = 0;

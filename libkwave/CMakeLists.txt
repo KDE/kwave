@@ -71,6 +71,7 @@ SET(libkwave_LIB_SRCS
     StandardBitrates.cpp
     Stripe.cpp
     Track.cpp
+    UndoTransactionGuard.cpp
     VirtualAudioFile.cpp
     WindowFunction.cpp
 )

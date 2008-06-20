@@ -23,11 +23,11 @@
 #include <klocale.h>
 
 #include "libkwave/KwavePlugin.h"
+#include "libkwave/UndoTransactionGuard.h"
 
-#include "PluginManager.h"
-#include "SignalManager.h"
-#include "TopWidget.h"
-#include "UndoTransactionGuard.h"
+#include "kwave/PluginManager.h"
+#include "kwave/SignalManager.h"
+#include "kwave/TopWidget.h"
 
 //***************************************************************************
 UndoTransactionGuard::UndoTransactionGuard(SignalManager &manager,

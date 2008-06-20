@@ -53,6 +53,7 @@
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 #include "libkwave/Track.h"
+#include "libkwave/UndoTransactionGuard.h"
 
 #include "libgui/LabelPropertiesWidget.h"
 #include "libgui/MenuManager.h"
@@ -63,7 +64,6 @@
 #include "SignalWidget.h"
 #include "SignalManager.h"
 #include "MouseMark.h"
-#include "UndoTransactionGuard.h"
 #include "UndoModifyLabelAction.h"
 
 #ifdef DEBUG

@@ -28,9 +28,9 @@
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/KwaveMultiTrackSource.h"
 #include "libkwave/Parser.h"
+#include "libkwave/UndoTransactionGuard.h"
 
 #include "kwave/PluginManager.h"
-#include "kwave/UndoTransactionGuard.h"
 
 #include "VolumePlugin.h"
 #include "VolumeDialog.h"

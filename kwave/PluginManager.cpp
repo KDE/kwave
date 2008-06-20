@@ -40,6 +40,7 @@
 #include "libkwave/PluginContext.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
+#include "libkwave/UndoTransactionGuard.h"
 
 #include "libgui/MessageBox.h"
 
@@ -49,7 +50,6 @@
 #include "SignalManager.h"
 #include "UndoAction.h"
 #include "UndoModifyAction.h"
-#include "UndoTransactionGuard.h"
 
 #include "PluginManager.h"
 

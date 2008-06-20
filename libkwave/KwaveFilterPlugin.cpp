@@ -32,10 +32,11 @@
 #include "libkwave/KwaveStreamObject.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
+#include "libkwave/UndoTransactionGuard.h"
+
 #include "libgui/ConfirmCancelProxy.h"
 
 #include "kwave/PluginManager.h"
-#include "kwave/UndoTransactionGuard.h"
 
 //***************************************************************************
 Kwave::FilterPlugin::FilterPlugin(const PluginContext &context)

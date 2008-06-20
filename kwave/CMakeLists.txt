@@ -58,7 +58,6 @@ SET(kwave_SRCS
     UndoModifyLabelAction.cpp
     UndoSelection.cpp
     UndoTransaction.cpp
-    UndoTransactionGuard.cpp
     ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
 )
 

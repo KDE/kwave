@@ -491,7 +491,7 @@ private slots:
      * Closes an undo transaction or recurses the current recursion level
      * of nested undo transactions.
      */
-    void closeUndoTransaction();
+    void closeUndoTransaction() KDE_EXPORT;
 
     /**
      * Determines the description of undo and redo actions and emits
@@ -564,7 +564,7 @@ protected:
      * @param name the name of the transaction. Will be ignored if there
      *        already is an active transaction (optional)
      */
-    void startUndoTransaction(const QString &name = 0);
+    void startUndoTransaction(const QString &name = 0) KDE_EXPORT;
 
     /**
      * Removes all undo and redo transactions.

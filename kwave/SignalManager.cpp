@@ -42,6 +42,7 @@
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 #include "libkwave/Track.h"
+#include "libkwave/UndoTransactionGuard.h"
 
 #include "libgui/FileProgress.h"
 #include "libgui/MessageBox.h"
@@ -63,7 +64,6 @@
 #include "UndoModifyAction.h"
 #include "UndoSelection.h"
 #include "UndoTransaction.h"
-#include "UndoTransactionGuard.h"
 
 #define min(x,y) (((x)<(y)) ? (x) : (y))
 #define max(x,y) (((x)>(y)) ? (x) : (y))

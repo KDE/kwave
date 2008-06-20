@@ -22,10 +22,12 @@
 #include <QString>
 #include <klocale.h>
 
+#include "libkwave/KwavePlugin.h"
+#include "libkwave/UndoTransactionGuard.h"
+
 #include "kwave/PluginManager.h"
 #include "kwave/SignalManager.h"
-#include "kwave/UndoTransactionGuard.h"
-#include "libkwave/KwavePlugin.h"
+
 #include "SelectRangePlugin.h"
 #include "SelectRangeDialog.h"
 

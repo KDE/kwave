@@ -23,6 +23,8 @@
 #include <QObject>
 #include <QString>
 
+#include <kdemacros.h>
+
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/KwavePluginSetupDialog.h"
 
@@ -36,7 +38,7 @@ namespace Kwave {
     class SampleSource;
     class SampleSink;
 
-    class FilterPlugin: public KwavePlugin
+    class KDE_EXPORT FilterPlugin: public KwavePlugin
     {
 	Q_OBJECT
     public:

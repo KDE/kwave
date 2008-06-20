@@ -22,6 +22,8 @@
 
 #include <QObject>
 
+#include <kdemacros.h>
+
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
 #include "libkwave/KwaveSampleArray.h"
@@ -43,7 +45,7 @@ class Track;
  *       determining the end of the write access, e.g. for closing an
  *       undo transaction.
  */
-class SampleWriter: public Kwave::SampleSink
+class KDE_EXPORT SampleWriter: public Kwave::SampleSink
 {
     Q_OBJECT
 public:

@@ -26,6 +26,8 @@
 #include <QObject>
 #include <QVector>
 
+#include <kdemacros.h>
+
 class SignalManager;
 class Track;
 
@@ -35,7 +37,7 @@ class Track;
  * itself if data has been changed, inserted or deleted.
  * Optimized for speed!
  */
-class OverViewCache: public QObject
+class KDE_EXPORT OverViewCache: public QObject
 {
     Q_OBJECT
 public:

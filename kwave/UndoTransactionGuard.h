@@ -21,6 +21,8 @@
 
 #include "config.h"
 
+#include <kdemacros.h>
+
 class QString;
 class SignalManager;
 class KwavePlugin;
@@ -31,7 +33,7 @@ class KwavePlugin;
  * operating on a SignalManager. Several nested UndoTransactionGuards
  * (or undo transactions) are allowed.
  */
-class UndoTransactionGuard
+class KDE_EXPORT UndoTransactionGuard
 {
 
 public:

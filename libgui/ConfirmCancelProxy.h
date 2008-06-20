@@ -19,12 +19,15 @@
 #define _CONFIRM_CANCEL_PROXY_H_
 
 #include "config.h"
+
 #include <QObject>
+
+#include <kdemacros.h>
 
 class QString;
 class QWidget;
 
-class ConfirmCancelProxy: public QObject
+class KDE_EXPORT ConfirmCancelProxy: public QObject
 {
     Q_OBJECT
 public:

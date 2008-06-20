@@ -19,14 +19,17 @@
 #define _KWAVE_OSC_H_
 
 #include "config.h"
+
 #include <QObject>
 #include <QVariant>
+
+#include <kdemacros.h>
 
 #include "libkwave/KwaveSampleSource.h"
 
 namespace Kwave {
 
-    class Osc: public Kwave::SampleSource
+    class KDE_EXPORT Osc: public Kwave::SampleSource
     {
 	Q_OBJECT
 	public:

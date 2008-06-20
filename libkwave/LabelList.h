@@ -18,12 +18,16 @@
 #define _LABEL_LIST_H_
 
 #include "config.h"
+
 #include <QList>
 #include <QListIterator>
+
+#include <kdemacros.h>
+
 #include "Label.h"
 
 /** not more than a typedef since Qt4 */
-class LabelList: public QList<Label *>
+class KDE_EXPORT LabelList: public QList<Label *>
 {
 public:
 

@@ -23,6 +23,7 @@
 #include <QObject>
 #include <QString>
 
+#include <kdemacros.h>
 #include <kfiledialog.h>
 
 class QWidget;
@@ -32,7 +33,7 @@ class QWidget;
  * An improved version of KFileDialog that does not forget the last
  * directory and pre-selects the last file extension.
  */
-class KwaveFileDialog: public KFileDialog
+class KDE_EXPORT KwaveFileDialog: public KFileDialog
 {
     Q_OBJECT
 public:

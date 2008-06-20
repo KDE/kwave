@@ -23,6 +23,8 @@
 #include <QSharedData>
 #include <QSharedDataPointer>
 
+#include <kdemacros.h>
+
 #include "libkwave/Sample.h"
 
 namespace Kwave {
@@ -30,7 +32,7 @@ namespace Kwave {
      * array with sample_t, for use in KwaveSampleSource, KwaveSampleSink
      * and other streaming classes.
      */
-    class SampleArray
+    class KDE_EXPORT SampleArray
     {
     public:
 

@@ -24,6 +24,8 @@
 #include <QString>
 #include <QWidget>
 
+#include <kdemacros.h>
+
 #include "libkwave/Curve.h"
 #include "libkwave/Interpolation.h"
 
@@ -32,7 +34,7 @@ class QMouseEvent;
 class QPaintEvent;
 class QPixmap;
 
-class CurveWidget: public QWidget
+class KDE_EXPORT CurveWidget: public QWidget
 {
     Q_OBJECT
 public:

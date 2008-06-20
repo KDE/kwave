@@ -19,9 +19,12 @@
 #define _SELECTION_H_
 
 #include "config.h"
+
 #include <QObject>
 
-class Selection: public QObject
+#include <kdemacros.h>
+
+class KDE_EXPORT Selection: public QObject
 {
     Q_OBJECT
 public:

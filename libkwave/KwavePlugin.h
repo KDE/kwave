@@ -26,6 +26,8 @@
 #include <QThread>
 #include <QVector>
 
+#include <kdemacros.h>
+
 #include "libkwave/PluginContext.h"
 
 class FileInfo;
@@ -40,13 +42,14 @@ class QStringList;
 namespace Kwave { class PluginWorkerThread; };
 
 #define KWAVE_PLUGIN(class_name,plugin_name,author_name) \
-    extern "C" const char *name = plugin_name; \
-    extern "C" const char *author = author_name; \
+    extern "C" const char *name    KDE_EXPORT = plugin_name; \
+    extern "C" const char *author  KDE_EXPORT = author_name; \
+    extern "C" KwavePlugin *load(const PluginContext *c) KDE_EXPORT; \
     extern "C" KwavePlugin *load(const PluginContext *c) { \
 	class_name *np = (c) ? new class_name(*c) : 0; \
 	return np; \
     } \
-    extern "C" const char *version = "2.0"
+    extern "C" const char *version KDE_EXPORT = "2.1"
 
 /**
  * Generic class that should be used for all types of Kwave plugins.
@@ -54,7 +57,7 @@ namespace Kwave { class PluginWorkerThread; };
  * all necessary functions to access the functionality of the main
  * Kwave program.
  */
-class KwavePlugin: public QObject
+class KDE_EXPORT KwavePlugin: public QObject
 {
     Q_OBJECT
 

@@ -25,6 +25,7 @@
 #include <QString>
 #include <QVector>
 
+#include <kdemacros.h>
 #include <kmainwindow.h>
 #include <kurl.h>
 
@@ -88,7 +89,7 @@ public:
      * Returns a reference to the current name of the signal. If no signal is
      * loaded the string is zero-length.
      */
-    QString signalName();
+    QString signalName() KDE_EXPORT;
 
     /**
      * Parses a text stream line by line and executes each line
@@ -108,7 +109,7 @@ public:
     /**
      * Returns a pointer to the current signal manager.
      */
-    SignalManager &signalManager();
+    SignalManager &signalManager() KDE_EXPORT;
 
 public slots:
 
@@ -253,7 +254,7 @@ protected:
      * @return zero if successful, -1 if failed or canceled
      */
     int newSignal(unsigned int samples, double rate,
-                  unsigned int bits, unsigned int tracks);
+                  unsigned int bits, unsigned int tracks) KDE_EXPORT;
 
 protected:
 
@@ -276,7 +277,7 @@ protected:
      * function returns with false.
      * @return true if closing is allowed
      */
-    bool closeFile();
+    bool closeFile() KDE_EXPORT;
 
     /**
      * Saves the current file.

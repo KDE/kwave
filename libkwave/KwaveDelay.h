@@ -19,8 +19,11 @@
 #define _KWAVE_DELAY_H_
 
 #include "config.h"
+
 #include <QObject>
 #include <QVariant>
+
+#include <kdemacros.h>
 
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveSampleSource.h"
@@ -28,7 +31,7 @@
 
 namespace Kwave {
 
-    class Delay: public Kwave::SampleSource
+    class KDE_EXPORT Delay: public Kwave::SampleSource
     {
 	Q_OBJECT
 	public:

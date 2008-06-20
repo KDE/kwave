@@ -20,11 +20,14 @@
 #define _PARSER_H_
 
 #include "config.h"
+
 #include <QString>
 #include <QStringList>
 
+#include <kdemacros.h>
+
 //*****************************************************************************
-class Parser
+class KDE_EXPORT Parser
 {
 public:
     /**

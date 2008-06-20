@@ -19,6 +19,7 @@
 #define _KWAVE_CONNECT_H_
 
 #include "config.h"
+#include <kdemacros.h>
 
 class QString;
 
@@ -49,7 +50,8 @@ namespace Kwave {
      *         \li input or output name is zero-length
      */
     bool connect(Kwave::StreamObject &source, const QString &output,
-                 Kwave::StreamObject &sink,   const QString &input);
+                 Kwave::StreamObject &sink,   const QString &input)
+                 KDE_EXPORT;
 }
 
 #endif /* _KWAVE_CONNECT_H_ */

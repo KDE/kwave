@@ -24,6 +24,8 @@
 #include <QObject>
 #include <QList>
 
+#include <kdemacros.h>
+
 #include "libkwave/SampleReader.h"
 #include "libkwave/KwaveMultiTrackSource.h"
 
@@ -33,7 +35,8 @@ class SignalManager;
  * A MultiTrackReader encapsulates a set of <c>SampleReader</c>s for
  * easier use of multi-track signals.
  */
-class MultiTrackReader: public Kwave::MultiTrackSource<SampleReader, false>
+class KDE_EXPORT MultiTrackReader
+    :public Kwave::MultiTrackSource<SampleReader, false>
 {
     Q_OBJECT
 private:

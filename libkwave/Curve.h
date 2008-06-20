@@ -28,9 +28,11 @@
 #include <QString>
 #include <QtGlobal>
 
+#include <kdemacros.h>
+
 #include "Interpolation.h"
 
-class Curve: public QList<QPointF>
+class KDE_EXPORT Curve: public QList<QPointF>
 {
 public:
 

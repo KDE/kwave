@@ -19,14 +19,17 @@
 #define _KWAVE_STREAM_OBJECT_H_
 
 #include "config.h"
+
 #include <QObject>
 #include <QMutex>
+
+#include <kdemacros.h>
 
 class QString;
 class QVariant;
 
 namespace Kwave {
-    class StreamObject: public QObject
+    class KDE_EXPORT StreamObject: public QObject
     {
 	Q_OBJECT
     public:

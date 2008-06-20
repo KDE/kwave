@@ -24,6 +24,8 @@
 #include <QObject>
 #include <QList>
 
+#include <kdemacros.h>
+
 #include "libkwave/SampleWriter.h"
 #include "libkwave/KwaveMultiTrackSink.h"
 
@@ -34,7 +36,7 @@ class SignalManager;
  * A MultiTrackWriter encapsulates a set of <c>SampleWriter</c>s for
  * easier use of multi-track signals.
  */
-class MultiTrackWriter:
+class KDE_EXPORT MultiTrackWriter:
     public Kwave::MultiTrackSink<SampleWriter>
 {
     Q_OBJECT

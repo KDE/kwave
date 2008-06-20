@@ -24,12 +24,15 @@
 #include <QDialog>
 #include <QString>
 
+#include <kdemacros.h>
+
 #include "libgui/ui_LabelPropertiesWidgetBase.h"
 
 class Label;
 
-class LabelPropertiesWidget: public QDialog,
-                             public Ui::LabelPropertiesWidgetBase
+class KDE_EXPORT LabelPropertiesWidget
+    :public QDialog,
+     public Ui::LabelPropertiesWidgetBase
 {
     Q_OBJECT
 public:

@@ -24,12 +24,13 @@
 #include <QSemaphore>
 #include <QString>
 
+#include <kdemacros.h>
 #include <kmessagebox.h>
 
 class QWidget;
 
 namespace Kwave {
-    class MessageBox: public QObject
+    class KDE_EXPORT MessageBox: public QObject
     {
     Q_OBJECT
 

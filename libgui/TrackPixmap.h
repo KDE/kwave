@@ -26,6 +26,8 @@
 #include <QObject>
 #include <QPixmap>
 
+#include <kdemacros.h>
+
 #include "libkwave/Sample.h"
 #include "libkwave/KwaveSampleArray.h"
 
@@ -55,7 +57,7 @@ class Track;
  *
  * @author Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
  */
-class TrackPixmap : public QObject
+class KDE_EXPORT TrackPixmap : public QObject
 {
     Q_OBJECT
 

@@ -842,8 +842,8 @@ if (CMAKE_COMPILER_IS_GNUCXX)
    endif (GCC_IS_NEWER_THAN_4_1)
 
    if (__KDE_HAVE_GCC_VISIBILITY AND GCC_IS_NEWER_THAN_4_1 AND NOT _GCC_COMPILED_WITH_BAD_ALLOCATOR)
-# #       set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden")
-# #       set (KDE4_C_FLAGS "-fvisibility=hidden")
+      set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden")
+      set (KDE4_C_FLAGS "-fvisibility=hidden")
       # check that Qt defines Q_DECL_EXPORT as __attribute__ ((visibility("default")))
       # if it doesn't and KDE compiles with hidden default visibiltiy plugins will break
       set(_source "#include <QtCore/QtGlobal>\n int main()\n {\n #ifdef QT_VISIBILITY_AVAILABLE \n return 0;\n #else \n return 1; \n #endif \n }\n")

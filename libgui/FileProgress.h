@@ -25,13 +25,15 @@
 #include <QLabel>
 #include <QTime>
 
+#include <kdemacros.h>
+
 class QCloseEvent;
 class QGridLayout;
 class QLabel;
 class QResizeEvent;
 class KProgress;
 
-class FileProgress: public QDialog
+class KDE_EXPORT FileProgress: public QDialog
 {
     Q_OBJECT
 public:

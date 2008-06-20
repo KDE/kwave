@@ -20,11 +20,13 @@
 
 #include "config.h"
 
+#include <kdemacros.h>
+
 #include "libkwave/Curve.h"
 #include "libkwave/KwaveSampleSource.h"
 
 namespace Kwave {
-    class CurveStreamAdapter :public Kwave::SampleSource
+    class KDE_EXPORT CurveStreamAdapter :public Kwave::SampleSource
     {
         Q_OBJECT
     public:

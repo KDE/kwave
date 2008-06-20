@@ -19,6 +19,9 @@
 #define _VIRTUAL_AUDIO_FILE_H_
 
 #include "config.h"
+
+#include <kdemacros.h>
+
 #include <QMap>
 
 extern "C" {
@@ -37,7 +40,7 @@ class QIODevice;
  * This class builds an interface between a QIODevice and a virtual
  * file in libaudiofile.
  */
-class VirtualAudioFile
+class KDE_EXPORT VirtualAudioFile
 {
 public:
     /**

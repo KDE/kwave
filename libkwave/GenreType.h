@@ -20,10 +20,12 @@
 
 #include "config.h"
 
+#include <kdemacros.h>
+
 #include <QMap>
 #include <QString>
 
-class GenreType
+class KDE_EXPORT GenreType
 {
 private:
 

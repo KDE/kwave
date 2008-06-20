@@ -22,6 +22,8 @@
 
 #include <QObject>
 
+#include <kdemacros.h>
+
 class QString;
 class QWidget;
 class KMenuBar;
@@ -38,9 +40,9 @@ class MenuRoot;
  *       the MenuNode class causes an action that deletes that menu
  *       node. <em>It took me one week to find that bug!</em>
  */
-class MenuManager: public QObject {
+class KDE_EXPORT MenuManager: public QObject
+{
     Q_OBJECT
-
 public:
     /**
      * Constructor.

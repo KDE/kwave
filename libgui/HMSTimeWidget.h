@@ -23,9 +23,12 @@
 #include <QObject>
 #include <QWidget>
 
+#include <kdemacros.h>
+
 #include "libgui/ui_HMSTimeWidgetBase.h"
 
-class HMSTimeWidget: public QWidget, public Ui::HMSTimeWidgetBase
+class KDE_EXPORT HMSTimeWidget
+    :public QWidget, public Ui::HMSTimeWidgetBase
 {
     Q_OBJECT
 public:

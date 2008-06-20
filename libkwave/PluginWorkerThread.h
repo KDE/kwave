@@ -26,11 +26,13 @@
 #include <QStringList>
 #include <QThread>
 
+#include <kdemacros.h>
+
 class KwavePlugin;
 
 namespace Kwave {
 
-    class PluginWorkerThread : public QThread
+    class KDE_EXPORT PluginWorkerThread : public QThread
     {
 	Q_OBJECT
     public:

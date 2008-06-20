@@ -25,6 +25,8 @@
 #include <QObject>
 #include <QReadWriteLock>
 
+#include <kdemacros.h>
+
 #include "libkwave/InsertMode.h"
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Stripe.h"
@@ -33,7 +35,7 @@ class SampleWriter;
 class SampleReader;
 
 //***************************************************************************
-class Track: public QObject
+class KDE_EXPORT Track: public QObject
 {
     Q_OBJECT
 public:

@@ -24,11 +24,13 @@
 #include <QString>
 #include <QWidget>
 
+#include <kdemacros.h>
+
 class QPaintEvent;
 class QPainter;
 class QSize;
 
-class ScaleWidget : public QWidget
+class KDE_EXPORT ScaleWidget : public QWidget
 {
 public:
 

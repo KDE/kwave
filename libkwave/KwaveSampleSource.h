@@ -19,13 +19,16 @@
 #define _KWAVE_SAMPLE_SOURCE_H_
 
 #include "config.h"
+
 #include <QObject>
+
+#include <kdemacros.h>
 
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveStreamObject.h"
 
 namespace Kwave {
-    class SampleSource: public Kwave::StreamObject
+    class KDE_EXPORT SampleSource: public Kwave::StreamObject
     {
         Q_OBJECT
     public:

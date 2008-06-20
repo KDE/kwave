@@ -20,6 +20,8 @@
 
 #include "config.h"
 
+#include <kdemacros.h>
+
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveSampleSource.h"
 #include "libkwave/KwaveSampleSink.h"
@@ -28,7 +30,7 @@ class QVariant;
 
 namespace Kwave {
 
-    class Mul: public Kwave::SampleSource
+    class KDE_EXPORT Mul: public Kwave::SampleSource
     {
 	Q_OBJECT
 	public:

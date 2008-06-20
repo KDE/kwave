@@ -26,9 +26,11 @@
 #include <audiofile.h> // from system
 #endif /* USE_BUILTIN_LIBAUDIOFILE */
 
+#include <kdemacros.h>
+
 #include "TypesMap.h"
 
-class CompressionType: public TypesMap<int, int>
+class KDE_EXPORT CompressionType: public TypesMap<int, int>
 {
 public:
 

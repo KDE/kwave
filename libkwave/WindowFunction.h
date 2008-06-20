@@ -19,7 +19,11 @@
 #define _WINDOW_FUNCTION_H_
 
 #include "config.h"
+
 #include <QVector>
+
+#include <kdemacros.h>
+
 #include "libkwave/TypesMap.h"
 
 class QString;
@@ -33,15 +37,12 @@ typedef enum {
     WINDOW_FUNC_TRIANGULAR = 4
 } window_function_t;
 
-/** post-increment operator */
-window_function_t &operator++(window_function_t &t);
-
 /**
  * @class WindowFunction
  * Handles window functions for signal processing. Also holds a static
  * map of known window functions.
  */
-class WindowFunction
+class KDE_EXPORT WindowFunction
 {
 public:
     /**
@@ -144,5 +145,12 @@ private:
     /** Static map of window function types. */
     static InitializedTypesMap m_types_map;
 };
+
+//***************************************************************************
+static inline window_function_t &operator++(window_function_t &f)
+{
+    return (f = (f == WINDOW_FUNC_TRIANGULAR) ?
+	WINDOW_FUNC_NONE : window_function_t(f+1) );
+}
 
 #endif /* _WINDOW_FUNCTION_H_ */

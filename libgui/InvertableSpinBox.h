@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <kdemacros.h>
+
 #include <QSpinBox>
 
 #ifndef _INVERTABLE_SPIN_BOX_H_
@@ -23,7 +26,7 @@
 
 class QWidget;
 
-class InvertableSpinBox: public QSpinBox
+class KDE_EXPORT InvertableSpinBox: public QSpinBox
 {
     Q_OBJECT
 public:

@@ -27,6 +27,8 @@
 #include <QObject>
 #include <QString>
 
+#include <kdemacros.h>
+
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
 #include "libkwave/Selection.h"
@@ -103,7 +105,7 @@ public:
      * Returns a reference to the FileInfo object associated with the
      * currently opened file.
      */
-    FileInfo &fileInfo() { return m_file_info; };
+    FileInfo &fileInfo() KDE_EXPORT { return m_file_info; };
 
     /**
      * Returns a reference to the FileInfo object associated with the
@@ -143,12 +145,12 @@ public:
     /**
      * Returns an array of indices of currently selected tracks.
      */
-    const QList<unsigned int> selectedTracks();
+    const QList<unsigned int> selectedTracks() KDE_EXPORT;
 
     /**
      * Returns an array of indices of all present tracks.
      */
-    const QList<unsigned int> allTracks();
+    const QList<unsigned int> allTracks() KDE_EXPORT;
 
     /**
      * Saves the signal to a file with a given resolution. If the file
@@ -157,7 +159,7 @@ public:
      * @param selection if true, only the selected range will be saved
      * @return zero if succeeded or negative error code
      */
-    int save(const KUrl &url, bool selection);
+    int save(const KUrl &url, bool selection) KDE_EXPORT;
 
     /**
      * Deletes a range of samples and creates an undo action.
@@ -235,7 +237,7 @@ public:
      */
     SampleWriter *openSampleWriter(unsigned int track, InsertMode mode,
 	unsigned int left = 0, unsigned int right = 0,
-	bool with_undo = false);
+	bool with_undo = false) KDE_EXPORT;
 
     /**
      * Opens a stream for reading samples. If the the last position
@@ -268,7 +270,7 @@ public:
      * Enables undo and redo. If undo/redo is already enabled, nothing
      * will be done.
      */
-    void enableUndo();
+    void enableUndo() KDE_EXPORT;
 
     /**
      * Disables undo and redo. If undo/redo was enabled, all undo data
@@ -276,7 +278,7 @@ public:
      * are done while undo is of.
      * @note No modifications should be performed while undo is off!
      */
-    void disableUndo();
+    void disableUndo() KDE_EXPORT;
 
     /**
      * Deletes the current selection and inserts the content of the
@@ -289,7 +291,7 @@ public:
     /**
      * Sets a complete set of file infos, including undo information
      */
-    void setFileInfo(FileInfo &new_info, bool with_undo = true);
+    void setFileInfo(FileInfo &new_info, bool with_undo = true) KDE_EXPORT;
 
     /**
      * add a new label

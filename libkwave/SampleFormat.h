@@ -19,10 +19,14 @@
 #define _SAMPLE_FORMAT_H_
 
 #include "config.h"
+
+#include <kdemacros.h>
+
 #include <audiofile.h>
+
 #include "TypesMap.h"
 
-class SampleFormat
+class KDE_EXPORT SampleFormat
 {
 public:
     typedef enum {
@@ -70,7 +74,7 @@ private:
 public:
 
     /** map for translating between index, sample format and name */
-    class Map: public TypesMap<int, Format>
+    class KDE_EXPORT Map: public TypesMap<int, Format>
     {
     public:
 	/** Constructor */

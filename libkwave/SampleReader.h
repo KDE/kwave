@@ -22,6 +22,8 @@
 #include "config.h"
 #include <QObject>
 
+#include <kdemacros.h>
+
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
 #include "libkwave/KwaveSampleArray.h"
@@ -30,7 +32,7 @@
 class Stripe;
 class Track;
 
-class SampleReader: public Kwave::SampleSource
+class KDE_EXPORT SampleReader: public Kwave::SampleSource
 {
     Q_OBJECT
 public:

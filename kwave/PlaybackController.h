@@ -22,6 +22,8 @@
 
 #include <QObject>
 
+#include <kdemacros.h>
+
 /**
  * \class PlaybackController
  * Provides a generic interface for classes that can contol playback
@@ -54,28 +56,28 @@ public:
     void reset();
 
     /** returns the loop mode flag */
-    bool loop();
+    bool loop() KDE_EXPORT;
 
     /** returns true if the playback is running */
     bool running();
 
     /** returns true if the playback is paused */
-    bool paused();
+    bool paused() KDE_EXPORT;
 
     /** sets a new start position */
-    void setStartPos(unsigned long int pos);
+    void setStartPos(unsigned long int pos) KDE_EXPORT;
 
     /** sets a new end position */
-    void setEndPos(unsigned long int pos);
+    void setEndPos(unsigned long int pos) KDE_EXPORT;
 
     /** returns the position where the playback starts */
-    unsigned long int startPos();
+    unsigned long int startPos() KDE_EXPORT;
 
     /** returns the position where the playback ends */
-    unsigned long int endPos();
+    unsigned long int endPos() KDE_EXPORT;
 
     /** returns the current position of the playback pointer */
-    unsigned long int currentPos();
+    unsigned long int currentPos() KDE_EXPORT;
 
 public slots:
 
@@ -121,7 +123,7 @@ public slots:
     void reload();
 
     /** Updates the current playback position */
-    void updatePlaybackPos(unsigned int pos);
+    void updatePlaybackPos(unsigned int pos) KDE_EXPORT;
 
     /** Updates the status if playback is done */
     void playbackDone();

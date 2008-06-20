@@ -25,11 +25,13 @@
 #include <QVector>
 #include <QWidget>
 
+#include <kdemacros.h>
+
 class QPaintEvent;
 class QMouseEvent;
 class QString;
 
-class MultiStateWidget : public QWidget
+class KDE_EXPORT MultiStateWidget : public QWidget
 {
     Q_OBJECT
 

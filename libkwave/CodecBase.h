@@ -19,14 +19,17 @@
 #define _CODEC_BASE_H_
 
 #include "config.h"
+
 #include <QList>
 #include <QString>
 #include <QStringList>
 
+#include <kdemacros.h>
+
 class KMimeType;
 class KUrl;
 
-class CodecBase
+class KDE_EXPORT CodecBase
 {
 public:
 

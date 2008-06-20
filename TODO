@@ -3,16 +3,11 @@ o porting to Qt4 / KDE4
   - toolbar
   - clipboard
   - drag & drop
-  - porting of plugins
-  - i18n
   - cmake targets
   - install targets and directories
   - mime types
-  - support for 'visibility hidden'
   - online help
   - use svg graphics instead of pixmaps
-  - elimintate use of KDE3 compatibility layer
-  - elimintate use of Qt3 compatibility layer
 
 o process the update of OverViewCache into a background thread
 

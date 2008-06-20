@@ -22,6 +22,8 @@
 #include <QList>
 #include <QObject>
 
+#include <kdemacros.h>
+
 #include "libkwave/CodecBase.h"
 #include "libkwave/FileInfo.h"
 
@@ -29,7 +31,7 @@ class MultiTrackReader;
 class QIODevice;
 class QWidget;
 
-class Encoder: public QObject, public CodecBase
+class KDE_EXPORT Encoder: public QObject, public CodecBase
 {
     Q_OBJECT
 public:

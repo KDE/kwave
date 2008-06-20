@@ -29,11 +29,11 @@ typedef enum {
     INTPOL_SAH
 } interpolation_t;
 
-interpolation_t &operator ++(interpolation_t &i);
-
 #include <QString>
 #include <QStringList>
 #include <QVector>
+
+#include <kdemacros.h>
 
 #include "libkwave/TypesMap.h"
 
@@ -42,7 +42,7 @@ class Curve;
 /**
  * Interpolation types
  */
-class Interpolation
+class KDE_EXPORT Interpolation
 {
 public:
     /** Constructor, initializes type by enum type */
@@ -183,5 +183,11 @@ private:
     interpolation_t m_type;
 
 };
+
+//***************************************************************************
+static inline interpolation_t &operator ++(interpolation_t &i)
+{
+    return (i = (i == INTPOL_SAH) ? INTPOL_LINEAR : interpolation_t(i+1) );
+}
 
 #endif /* _INTERPOLATION_H_ */

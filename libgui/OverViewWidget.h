@@ -25,6 +25,8 @@
 #include <QTimer>
 #include <QWidget>
 
+#include <kdemacros.h>
+
 #include "OverViewCache.h"
 
 class QMouseEvent;
@@ -52,7 +54,7 @@ class Track;
  * By double-clicking on the bar, the slider immediately will be centered
  * under the clicked position.
  */
-class OverViewWidget : public QWidget
+class KDE_EXPORT OverViewWidget : public QWidget
 {
     Q_OBJECT
 public:

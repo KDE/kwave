@@ -25,6 +25,8 @@
 #include <QObject>
 #include <QString>
 
+#include <kdemacros.h>
+
 class QMimeData;
 class QMimeSource;
 class QWidget;
@@ -39,7 +41,7 @@ class SignalManager;
  * @todo the current storage mechanism is straight-forward and stupid, it
  *       should be extended to use virtual memory
  */
-class KwaveDrag: public QDrag
+class KDE_EXPORT KwaveDrag: public QDrag
 {
     Q_OBJECT
 

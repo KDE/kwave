@@ -23,11 +23,13 @@
 #include <QObject>
 #include <QMutex>
 
+#include <kdemacros.h>
+
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
 
 //***************************************************************************
-class Stripe: public QObject
+class KDE_EXPORT Stripe: public QObject
 {
     Q_OBJECT
 public:

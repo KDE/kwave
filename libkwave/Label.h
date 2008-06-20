@@ -18,11 +18,14 @@
 #define _LABEL_H_
 
 #include "config.h"
+
 #include <QString>
 #include <QSharedData>
 #include <QSharedDataPointer>
 
-class Label
+#include <kdemacros.h>
+
+class KDE_EXPORT Label
 {
 public:
     /**

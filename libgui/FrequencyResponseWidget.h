@@ -23,13 +23,15 @@
 #include <QObject>
 #include <QWidget>
 
+#include <kdemacros.h>
+
 class QPaintEvent;
 class TransmissionFunction;
 
 /**
  * displays a frequency response
  */
-class FrequencyResponseWidget: public QWidget
+class KDE_EXPORT FrequencyResponseWidget: public QWidget
 {
     Q_OBJECT
 

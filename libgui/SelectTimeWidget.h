@@ -24,13 +24,15 @@
 #include <QObject>
 #include <QTimer>
 
+#include <kdemacros.h>
+
 #include "libgui/ui_SelectTimeWidgetBase.h"
 
 /**
  * widget for selecting a time or range
  */
-class SelectTimeWidget: public QGroupBox,
-                        public Ui::SelectTimeWidgetBase
+class KDE_EXPORT SelectTimeWidget
+    :public QGroupBox, public Ui::SelectTimeWidgetBase
 {
     Q_OBJECT
 public:

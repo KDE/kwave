@@ -19,9 +19,12 @@
 #define _STANDARD_BITRATES_H_
 
 #include "config.h"
+
+#include <kdemacros.h>
+
 #include <QList>
 
-class StandardBitrates: public QList<int>
+class KDE_EXPORT StandardBitrates: public QList<int>
 {
 public:
     /** Constructor */

@@ -23,9 +23,11 @@
 #include <QMutex>
 #include <QQueue>
 
+#include <kdemacros.h>
+
 #include "libkwave/KwaveSampleArray.h"
 
-class SampleFIFO
+class KDE_EXPORT SampleFIFO
 {
 public:
     /** Constructor */

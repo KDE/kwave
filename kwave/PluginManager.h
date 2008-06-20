@@ -28,6 +28,8 @@
 #include <QPointer>
 #include <QVector>
 
+#include <kdemacros.h>
+
 #include "libkwave/InsertMode.h"
 
 class FileInfo;
@@ -98,43 +100,43 @@ public:
      * Returns a reference to the FileInfo object associated with the
      * currently opened file.
      */
-    FileInfo &fileInfo();
+    FileInfo &fileInfo() KDE_EXPORT;
 
     /**
      * Returns the length of the current signal in samples.
      * If no signal is present the return value will be 0.
      */
-    unsigned int signalLength();
+    unsigned int signalLength() KDE_EXPORT;
 
     /**
      * Returns the current sample rate in samples per second.
      * If no signal is present the return value will be 0.
      */
-    double signalRate();
+    double signalRate() KDE_EXPORT;
 
     /**
      * Returns an array of indices of currently selected channels.
      */
-    const QList<unsigned int> selectedTracks();
+    const QList<unsigned int> selectedTracks() KDE_EXPORT;
 
     /**
      * Returns the start of the selection. If nothing is currently
      * selected this will be the first sample (0).
      */
-    unsigned int selectionStart();
+    unsigned int selectionStart() KDE_EXPORT;
 
     /**
      * Returns the end of the selection. If nothing is currently
      * selected this will be the last sample (length-1).
      */
-    unsigned int selectionEnd();
+    unsigned int selectionEnd() KDE_EXPORT;
 
     /**
      * Sets the current start and length of the selection to new values.
      * @param offset index of the first sample
      * @param length number of samples
      */
-    void selectRange(unsigned int offset, unsigned int length);
+    void selectRange(unsigned int offset, unsigned int length) KDE_EXPORT;
 
     /** Returns a reference to our toplevel widget */
     inline TopWidget &topWidget() { return m_top_widget; };
@@ -161,19 +163,19 @@ public:
      * @return a multitrack aRts sink that receives the playback stream
      */
     Kwave::SampleSink *openMultiTrackPlayback(unsigned int tracks,
-                                              const QString *name = 0);
+	const QString *name = 0) KDE_EXPORT;
 
     /**
      * Returns a reference to the current playback controller. This is
      * only needed for plugins doing playback.
      */
-    PlaybackController &playbackController();
+    PlaybackController &playbackController() KDE_EXPORT;
 
     /**
      * Enqueues a command that will be processed threadsafe in the X11
      * thread. Calls m_spx_command.enqueue().
      */
-    void enqueueCommand(const QString &command);
+    void enqueueCommand(const QString &command) KDE_EXPORT;
 
     /**
      * Searches the standard KDE data directories for plugins (through
@@ -186,12 +188,14 @@ public:
     /**
      * Registers a PlaybackDeviceFactory
      */
-    void registerPlaybackDeviceFactory(PlaybackDeviceFactory *factory);
+    void registerPlaybackDeviceFactory(PlaybackDeviceFactory *factory)
+	KDE_EXPORT;
 
     /**
      * Unregisters a PlaybackDeviceFactory
      */
-    void unregisterPlaybackDeviceFactory(PlaybackDeviceFactory *factory);
+    void unregisterPlaybackDeviceFactory(PlaybackDeviceFactory *factory)
+	KDE_EXPORT;
 
 signals:
     /**

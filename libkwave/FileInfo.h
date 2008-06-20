@@ -25,6 +25,8 @@
 #include <QVariant>
 #include <QList>
 
+#include <kdemacros.h>
+
 #include "libkwave/TypesMap.h"
 #include "libkwave/LabelList.h"
 
@@ -92,7 +94,7 @@ static inline FileProperty operator ++ (FileProperty &prop) {
  * @class FileInfo
  * Holds various properties of a file.
  */
-class FileInfo
+class KDE_EXPORT FileInfo
 {
 public:
 

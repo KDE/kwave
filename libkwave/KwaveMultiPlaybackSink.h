@@ -23,13 +23,16 @@
 #include <QBitArray>
 #include <QVector>
 
+#include <kdemacros.h>
+
 #include "libkwave/KwaveMultiTrackSink.h"
 #include "libkwave/KwavePlaybackSink.h"
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/PlayBackDevice.h"
 
 namespace Kwave {
-    class MultiPlaybackSink: public Kwave::MultiTrackSink<Kwave::PlaybackSink>
+    class KDE_EXPORT MultiPlaybackSink
+	:public Kwave::MultiTrackSink<Kwave::PlaybackSink>
     {
 	Q_OBJECT
     public:

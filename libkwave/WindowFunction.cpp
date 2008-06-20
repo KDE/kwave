@@ -25,15 +25,6 @@
 //***************************************************************************
 //***************************************************************************
 
-window_function_t &operator++(window_function_t &f)
-{
-    return (f = (f == WINDOW_FUNC_TRIANGULAR) ?
-	WINDOW_FUNC_NONE : window_function_t(f+1) );
-}
-
-//***************************************************************************
-//***************************************************************************
-
 void WindowFunction::InitializedTypesMap::fill()
 {
     append(WINDOW_FUNC_NONE,       WINDOW_FUNC_NONE,

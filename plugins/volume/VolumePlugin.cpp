@@ -23,12 +23,12 @@
 #include <klocale.h>
 
 #include "libkwave/KwaveConnect.h"
-#include "libkwave/KwaveMul.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/KwaveMultiTrackSource.h"
 #include "libkwave/Parser.h"
 #include "libkwave/PluginManager.h"
+#include "libkwave/modules/KwaveMul.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "VolumePlugin.h"

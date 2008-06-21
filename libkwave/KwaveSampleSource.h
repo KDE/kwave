@@ -25,7 +25,7 @@
 #include <kdemacros.h>
 
 #include "libkwave/KwaveSampleArray.h"
-#include "libkwave/KwaveStreamObject.h"
+#include "libkwave/modules/KwaveStreamObject.h"
 
 namespace Kwave {
     class KDE_EXPORT SampleSource: public Kwave::StreamObject

@@ -20,7 +20,7 @@
 #include <QString>
 #include <QVariant>
 
-#include "libkwave/KwaveStreamObject.h"
+#include "libkwave/modules/KwaveStreamObject.h"
 
 //***************************************************************************
 Kwave::StreamObject::StreamObject(QObject *parent)

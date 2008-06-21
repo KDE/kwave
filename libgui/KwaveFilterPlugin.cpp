@@ -28,10 +28,10 @@
 
 #include "libkwave/KwaveConnect.h"
 #include "libkwave/KwaveSampleSink.h"
-#include "libkwave/KwaveStreamObject.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
+#include "libkwave/modules/KwaveStreamObject.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "libgui/ConfirmCancelProxy.h"

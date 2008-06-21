@@ -17,11 +17,6 @@
 
 #############################################################################
 
-ADD_SUBDIRECTORY( undo )
-LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/undo)
-
-#############################################################################
-
 ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/ppcasm_string.o
     COMMAND ${CMAKE_C_COMPILER} -I${CMAKE_BINARY_DIR} -Wall -O2
         -DHAVE_CONFIG_H
@@ -39,7 +34,6 @@ SET(libkwave_LIB_SRCS
     CompressionType.cpp
     cputest.c
     Curve.cpp
-    CurveStreamAdapter.cpp
     Decoder.cpp
     Encoder.cpp
     Filter.cpp
@@ -50,17 +44,13 @@ SET(libkwave_LIB_SRCS
     GenreType.cpp
     Interpolation.cpp
     KwaveConnect.cpp
-    KwaveDelay.cpp
     KwaveDrag.cpp
-    KwaveMul.cpp
     KwaveMultiPlaybackSink.cpp
-    KwaveOsc.cpp
     KwavePlaybackSink.cpp
     KwavePlugin.cpp
     KwaveSampleArray.cpp
     KwaveSampleSink.cpp
     KwaveSampleSource.cpp
-    KwaveStreamObject.cpp
     Label.cpp
     LabelList.cpp
     memcpy.c
@@ -86,6 +76,24 @@ SET(libkwave_LIB_SRCS
     Track.cpp
     VirtualAudioFile.cpp
     WindowFunction.cpp
+
+    modules/CurveStreamAdapter.cpp
+    modules/KwaveDelay.cpp
+    modules/KwaveMul.cpp
+    modules/KwaveOsc.cpp
+    modules/KwaveStreamObject.cpp
+
+    undo/UndoAddLabelAction.cpp
+    undo/UndoDeleteAction.cpp
+    undo/UndoDeleteLabelAction.cpp
+    undo/UndoDeleteTrack.cpp
+    undo/UndoFileInfo.cpp
+    undo/UndoInsertAction.cpp
+    undo/UndoInsertTrack.cpp
+    undo/UndoModifyAction.cpp
+    undo/UndoSelection.cpp
+    undo/UndoTransaction.cpp
+    undo/UndoTransactionGuard.cpp
 )
 
 #############################################################################
@@ -98,11 +106,7 @@ IF (NOT USE_SYSTEM_LIB_AUDIOFILE)
     ADD_DEPENDENCIES(libkwave audiofile)
 ENDIF (NOT USE_SYSTEM_LIB_AUDIOFILE)
 
-ADD_DEPENDENCIES(libkwave libkwave_undo)
-
-TARGET_LINK_LIBRARIES(
-    libkwave
-    libkwave_undo
+TARGET_LINK_LIBRARIES(libkwave
     audiofile
     ${QT_AND_KDECORE_LIBS}
     dl

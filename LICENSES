@@ -407,8 +407,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/cputest.h				GPL2
 	libkwave/Curve.cpp				GPL2
 	libkwave/Curve.h				GPL2
-	libkwave/CurveStreamAdapter.cpp			GPL2
-	libkwave/CurveStreamAdapter.h			GPL2
 	libkwave/Decoder.cpp				GPL2
 	libkwave/Decoder.h				GPL2
 	libkwave/Encoder.cpp				GPL2
@@ -430,18 +428,12 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Interpolation.h			GPL2
 	libkwave/KwaveConnect.cpp			GPL2
 	libkwave/KwaveConnect.h				GPL2
-	libkwave/KwaveDelay.cpp				GPL2
-	libkwave/KwaveDelay.h				GPL2
 	libkwave/KwaveDrag.cpp				GPL2
 	libkwave/KwaveDrag.h				GPL2
-	libkwave/KwaveMul.cpp				GPL2
-	libkwave/KwaveMul.h				GPL2
 	libkwave/KwaveMultiPlaybackSink.cpp		GPL2
 	libkwave/KwaveMultiPlaybackSink.h		GPL2
 	libkwave/KwaveMultiTrackSink.h			GPL2
 	libkwave/KwaveMultiTrackSource.h		GPL2
-	libkwave/KwaveOsc.cpp				GPL2
-	libkwave/KwaveOsc.h				GPL2
 	libkwave/KwavePlaybackSink.cpp			GPL2
 	libkwave/KwavePlaybackSink.h			GPL2
 	libkwave/KwavePlugin.cpp			GPL2
@@ -453,8 +445,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/KwaveSampleSink.h			GPL2
 	libkwave/KwaveSampleSource.cpp			GPL2
 	libkwave/KwaveSampleSource.h			GPL2
-	libkwave/KwaveStreamObject.cpp			GPL2
-	libkwave/KwaveStreamObject.h			GPL2
 	libkwave/Label.cpp				GPL2
 	libkwave/Label.h				GPL2
 	libkwave/LabelList.cpp				GPL2
@@ -515,7 +505,17 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/WindowFunction.cpp			GPL2
 	libkwave/WindowFunction.h			GPL2
 
-	libkwave/undo/CMakeLists.txt			GPL2
+	libkwave/modules/CurveStreamAdapter.cpp		GPL2
+	libkwave/modules/CurveStreamAdapter.h		GPL2
+	libkwave/modules/KwaveDelay.cpp			GPL2
+	libkwave/modules/KwaveDelay.h			GPL2
+	libkwave/modules/KwaveMul.cpp			GPL2
+	libkwave/modules/KwaveMul.h			GPL2
+	libkwave/modules/KwaveOsc.cpp			GPL2
+	libkwave/modules/KwaveOsc.h			GPL2
+	libkwave/modules/KwaveStreamObject.cpp		GPL2
+	libkwave/modules/KwaveStreamObject.h		GPL2
+
 	libkwave/undo/UndoAction.h			GPL2
 	libkwave/undo/UndoAddLabelAction.cpp		GPL2
 	libkwave/undo/UndoAddLabelAction.h		GPL2

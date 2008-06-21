@@ -17,7 +17,7 @@
 
 #include "config.h"
 #include <math.h>
-#include "libkwave/KwaveOsc.h"
+#include "libkwave/modules/KwaveOsc.h"
 
 //***************************************************************************
 Kwave::Osc::Osc()

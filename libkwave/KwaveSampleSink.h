@@ -22,7 +22,7 @@
 #include <QObject>
 
 #include "libkwave/KwaveSampleArray.h"
-#include "libkwave/KwaveStreamObject.h"
+#include "libkwave/modules/KwaveStreamObject.h"
 
 namespace Kwave {
     class SampleSink: public Kwave::StreamObject

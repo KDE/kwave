@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "libkwave/CurveStreamAdapter.h"
+#include "libkwave/modules/CurveStreamAdapter.h"
 
 /***************************************************************************/
 Kwave::CurveStreamAdapter::CurveStreamAdapter(Curve &curve,

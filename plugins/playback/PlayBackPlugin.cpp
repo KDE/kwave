@@ -34,13 +34,9 @@
 #include <kconfig.h>
 
 #include "libkwave/Curve.h"
-#include "libkwave/CurveStreamAdapter.h"
 #include "libkwave/KwaveConnect.h"
-#include "libkwave/KwaveDelay.h"
-#include "libkwave/KwaveMul.h"
 #include "libkwave/KwaveMultiPlaybackSink.h"
 #include "libkwave/KwaveMultiTrackSource.h"
-#include "libkwave/KwaveOsc.h"
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/Matrix.h"
 #include "libkwave/MessageBox.h"
@@ -52,6 +48,11 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SignalManager.h"
+
+#include "libkwave/modules/CurveStreamAdapter.h"
+#include "libkwave/modules/KwaveDelay.h"
+#include "libkwave/modules/KwaveMul.h"
+#include "libkwave/modules/KwaveOsc.h"
 
 #include "PlayBack-OSS.h"
 #include "PlayBack-ALSA.h"

@@ -18,7 +18,7 @@
 #include "config.h"
 
 #include <QVariant>
-#include "libkwave/KwaveMul.h"
+#include "libkwave/modules/KwaveMul.h"
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
 

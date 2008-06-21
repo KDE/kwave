@@ -18,7 +18,7 @@
 #include "config.h"
 #include <QString>
 
-#include "libkwave/KwaveDelay.h"
+#include "libkwave/modules/KwaveDelay.h"
 
 //***************************************************************************
 Kwave::Delay::Delay()

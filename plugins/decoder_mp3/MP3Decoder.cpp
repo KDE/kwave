@@ -382,7 +382,7 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
     /* open the file in readonly mode with seek enabled */
     Q_ASSERT(!src.isSequential());
     if (src.isSequential()) return false;
-    if (!src.open(IO_ReadOnly)) {
+    if (!src.open(QIODevice::ReadOnly)) {
 	qWarning("unable to open source in read-only mode!");
 	return false;
     }

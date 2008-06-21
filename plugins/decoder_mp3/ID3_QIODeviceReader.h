@@ -62,8 +62,8 @@ public:
     virtual ID3_Reader::int_type peekChar();
 
     /** Read out a block of characters */
-    virtual ID3_Reader::size_type readChars(ID3_Reader::char_type buf[],
-                                            ID3_Reader::size_type len=0);
+    virtual size_type readChars(char_type buf[], size_type len);
+    virtual size_type readChars(char buf[], size_type len);
 
 private:
 

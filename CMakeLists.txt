@@ -177,9 +177,8 @@ INCLUDE_DIRECTORIES(
 
 SET(CMAKE_SKIP_BUILD_RPATH TRUE)
 SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
-SET(CMAKE_INSTALL_RPATH "${LIB_INSTALL_DIR}")
+SET(CMAKE_INSTALL_RPATH "${KDE4_LIB_INSTALL_DIR}")
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-SET(CMAKE_SKIP_BUILD_RPATH OFF)
 MESSAGE(STATUS "Using ${CMAKE_INSTALL_RPATH} as install RPATH")
 
 #############################################################################
@@ -202,12 +201,6 @@ ENDIF (NOT REQUIRED_STD_HEADERS)
 CHECK_INCLUDE_FILES(sys/types.h HAVE_SYS_TYPES_H)
 CHECK_INCLUDE_FILES(stdint.h HAVE_STDINT_H)
 CHECK_INCLUDE_FILES(stddef.h HAVE_STDDEF_H)
-
-#############################################################################
-### checks for some data types                                            ###
-
-CHECK_TYPE_SIZE("size_t" SIZEOF_SIZE_T)
-CHECK_TYPE_SIZE("long" SIZEOF_LONG)
 
 #############################################################################
 ### checks for some functions                                             ###

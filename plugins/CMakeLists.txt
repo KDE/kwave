@@ -40,6 +40,9 @@ MACRO(KWAVE_PLUGIN _plugin)
         ${plugin_${_plugin}_LIBS}
         dl
     )
+
+    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES PREFIX "")
+    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES SUFFIX "")
     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES OUTPUT_NAME "${_plugin}")
     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES LINK_FLAGS
         "-Wl,--export-dynamic -Wl,--add-needed")
@@ -48,13 +51,13 @@ MACRO(KWAVE_PLUGIN _plugin)
     #########################################################################
     ### install                                                           ###
 
-    INSTALL(
-        PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/lib${_plugin}.so
-        RENAME ${_plugin}
-        DESTINATION ${DESTDIR}${DATA_INSTALL_DIR}/kwave/plugins
-    )
-
     ADD_DEPENDENCIES(plugin_${_plugin} libkwave libkwavegui)
+
+    INSTALL(TARGETS
+        plugin_${_plugin}
+        LIBRARY
+        DESTINATION ${DESTDIR}${KDE4_DATA_INSTALL_DIR}/kwave/plugins
+    )
 
 ENDMACRO(KWAVE_PLUGIN)
 

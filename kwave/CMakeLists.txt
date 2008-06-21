@@ -127,20 +127,20 @@ SET_TARGET_PROPERTIES(kwave_core PROPERTIES OUTPUT_NAME "kwave")
 ### install files                                                         ###
 
 # the main program
-INSTALL(TARGETS kwave_core     DESTINATION ${DESTDIR}${BIN_INSTALL_DIR})
+INSTALL(TARGETS kwave_core     DESTINATION ${DESTDIR}${KDE4_BIN_INSTALL_DIR})
 
 # other files
-# INSTALL(FILES kwave.desktop    DESTINATION ${KDE4_APPSDIR}/Multimedia)
-INSTALL(FILES menus.config     DESTINATION ${DESTDIR}${DATA_INSTALL_DIR}/kwave)
-INSTALL(FILES ${kwave_PIXMAPS} DESTINATION ${DESTDIR}${DATA_INSTALL_DIR}/kwave/pics)
-# INSTALL(FILES x-aifc.desktop x-ircam.desktop DESTINATION ${KDE4_MIMEDIR}/audio)
+INSTALL(FILES kwave.desktop    DESTINATION ${KDE4_XDG_APPS_INSTALL_DIR}/Multimedia)
+INSTALL(FILES menus.config     DESTINATION ${DESTDIR}${KDE4_DATA_INSTALL_DIR}/kwave)
+INSTALL(FILES ${kwave_PIXMAPS} DESTINATION ${DESTDIR}${KDE4_DATA_INSTALL_DIR}/kwave/pics)
+INSTALL(FILES x-aifc.desktop x-ircam.desktop DESTINATION ${KDE4_MIME_INSTALL_DIR}/audio)
 
 # scaled application icons
 FOREACH(_col locolor hicolor)
     FOREACH(_dim 16x16 22x22 32x32 48x48)
         INSTALL(
             FILES ${CMAKE_CURRENT_BINARY_DIR}/kwave-${_dim}.png
-            DESTINATION ${DESTDIR}${DATA_INSTALL_DIR}/${_col}/${_dim}/apps
+            DESTINATION ${DESTDIR}${KDE4_ICON_INSTALL_DIR}/${_col}/${_dim}/apps
             RENAME kwave.png
         )
     ENDFOREACH(_dim)

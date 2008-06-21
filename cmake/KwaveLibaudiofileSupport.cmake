@@ -18,6 +18,12 @@
 INCLUDE(CheckLibraryExists)
 
 #############################################################################
+### checks for some data types                                            ###
+
+CHECK_TYPE_SIZE("size_t" SIZEOF_SIZE_T)
+CHECK_TYPE_SIZE("long" SIZEOF_LONG)
+
+#############################################################################
 ### build option: force usage of builtin libaudiofile                     ###
 
 OPTION(WITH_BUILTIN_LIBAUDIOFILE "use builtin libaudiofile [default=off]")

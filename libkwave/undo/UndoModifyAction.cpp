@@ -23,7 +23,7 @@
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/SignalManager.h"
-#include "libkwave/UndoModifyAction.h"
+#include "libkwave/undo/UndoModifyAction.h"
 
 /** size of the buffer for internal copy operations */
 #define BUFFER_SIZE 65536

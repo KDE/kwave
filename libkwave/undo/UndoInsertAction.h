@@ -23,7 +23,7 @@
 #include <QObject>
 #include <QString>
 
-#include "libkwave/UndoAction.h"
+#include "libkwave/undo/UndoAction.h"
 
 class SignalManager;
 

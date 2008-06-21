@@ -32,7 +32,7 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
-#include "libkwave/UndoTransactionGuard.h"
+#include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "libgui/ConfirmCancelProxy.h"
 #include "libgui/KwaveFilterPlugin.h"

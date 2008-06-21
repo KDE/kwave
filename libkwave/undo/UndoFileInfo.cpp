@@ -19,7 +19,7 @@
 #include "config.h"
 
 #include "libkwave/SignalManager.h"
-#include "libkwave/UndoFileInfo.h"
+#include "libkwave/undo/UndoFileInfo.h"
 
 //***************************************************************************
 UndoFileInfo::UndoFileInfo(SignalManager &manager)

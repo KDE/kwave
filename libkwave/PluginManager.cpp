@@ -43,9 +43,9 @@
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/SignalManager.h"
-#include "libkwave/UndoTransactionGuard.h"
-#include "libkwave/UndoAction.h"
-#include "libkwave/UndoModifyAction.h"
+#include "libkwave/undo/UndoTransactionGuard.h"
+#include "libkwave/undo/UndoAction.h"
+#include "libkwave/undo/UndoModifyAction.h"
 #include "libkwave/PluginManager.h"
 
 //***************************************************************************

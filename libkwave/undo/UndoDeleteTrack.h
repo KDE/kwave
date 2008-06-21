@@ -25,7 +25,7 @@
 
 #include "libkwave/Sample.h"
 #include "libkwave/Track.h"
-#include "libkwave/UndoAction.h"
+#include "libkwave/undo/UndoAction.h"
 
 class Signal;
 

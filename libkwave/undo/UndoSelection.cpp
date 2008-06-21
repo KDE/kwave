@@ -20,7 +20,7 @@
 #include <klocale.h>
 
 #include "libkwave/SignalManager.h"
-#include "libkwave/UndoSelection.h"
+#include "libkwave/undo/UndoSelection.h"
 
 //***************************************************************************
 UndoSelection::UndoSelection(SignalManager &manager)

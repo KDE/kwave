@@ -56,7 +56,7 @@
 #include "libkwave/Signal.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Track.h"
-#include "libkwave/UndoTransactionGuard.h"
+#include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "libgui/LabelPropertiesWidget.h"
 #include "libgui/MenuManager.h"

@@ -19,8 +19,8 @@
 #include <klocale.h>
 
 #include "libkwave/SignalManager.h"
-#include "libkwave/UndoInsertTrack.h"
-#include "libkwave/UndoDeleteTrack.h"
+#include "libkwave/undo/UndoInsertTrack.h"
+#include "libkwave/undo/UndoDeleteTrack.h"
 
 //***************************************************************************
 UndoInsertTrack::UndoInsertTrack(Signal &signal, unsigned int track)

@@ -21,9 +21,9 @@
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/SignalManager.h"
-#include "libkwave/UndoAction.h"
-#include "libkwave/UndoDeleteAction.h"
-#include "libkwave/UndoInsertAction.h"
+#include "libkwave/undo/UndoAction.h"
+#include "libkwave/undo/UndoDeleteAction.h"
+#include "libkwave/undo/UndoInsertAction.h"
 
 //***************************************************************************
 UndoDeleteAction::UndoDeleteAction(unsigned int track,

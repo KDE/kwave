@@ -17,6 +17,11 @@
 
 #############################################################################
 
+ADD_SUBDIRECTORY( undo )
+LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/undo)
+
+#############################################################################
+
 ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/ppcasm_string.o
     COMMAND ${CMAKE_C_COMPILER} -I${CMAKE_BINARY_DIR} -Wall -O2
         -DHAVE_CONFIG_H
@@ -79,17 +84,6 @@ SET(libkwave_LIB_SRCS
     Stripe.cpp
     SwapFile.cpp
     Track.cpp
-    UndoAddLabelAction.cpp
-    UndoDeleteAction.cpp
-    UndoDeleteLabelAction.cpp
-    UndoDeleteTrack.cpp
-    UndoFileInfo.cpp
-    UndoInsertAction.cpp
-    UndoInsertTrack.cpp
-    UndoModifyAction.cpp
-    UndoSelection.cpp
-    UndoTransaction.cpp
-    UndoTransactionGuard.cpp
     VirtualAudioFile.cpp
     WindowFunction.cpp
 )
@@ -100,11 +94,19 @@ QT4_AUTOMOC(${libkwave_LIB_SRCS})
 KDE4_ADD_LIBRARY(libkwave SHARED ${libkwave_LIB_SRCS})
 
 IF (NOT USE_SYSTEM_LIB_AUDIOFILE)
-TARGET_LINK_LIBRARIES(libkwave audiofile)
-ADD_DEPENDENCIES(libkwave audiofile)
+    TARGET_LINK_LIBRARIES(libkwave audiofile)
+    ADD_DEPENDENCIES(libkwave audiofile)
 ENDIF (NOT USE_SYSTEM_LIB_AUDIOFILE)
 
-TARGET_LINK_LIBRARIES(libkwave audiofile ${QT_AND_KDECORE_LIBS} dl)
+ADD_DEPENDENCIES(libkwave libkwave_undo)
+
+TARGET_LINK_LIBRARIES(
+    libkwave
+    libkwave_undo
+    audiofile
+    ${QT_AND_KDECORE_LIBS}
+    dl
+)
 
 #############################################################################
 

@@ -21,8 +21,8 @@
 
 #include "libkwave/Label.h"
 #include "libkwave/SignalManager.h"
-#include "libkwave/UndoAddLabelAction.h"
-#include "libkwave/UndoDeleteLabelAction.h"
+#include "libkwave/undo/UndoAddLabelAction.h"
+#include "libkwave/undo/UndoDeleteLabelAction.h"
 
 //***************************************************************************
 UndoDeleteLabelAction::UndoDeleteLabelAction(Label &label)

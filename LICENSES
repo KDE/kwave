@@ -510,33 +510,35 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/TransmissionFunction.h			GPL2
 	libkwave/Triple.h				GPL2
 	libkwave/TypesMap.h				GPL2
-	libkwave/UndoAction.h				GPL2
-	libkwave/UndoAddLabelAction.cpp			GPL2
-	libkwave/UndoAddLabelAction.h			GPL2
-	libkwave/UndoDeleteAction.cpp			GPL2
-	libkwave/UndoDeleteAction.h			GPL2
-	libkwave/UndoDeleteLabelAction.cpp		GPL2
-	libkwave/UndoDeleteLabelAction.h		GPL2
-	libkwave/UndoDeleteTrack.cpp			GPL2
-	libkwave/UndoDeleteTrack.h			GPL2
-	libkwave/UndoFileInfo.cpp			GPL2
-	libkwave/UndoFileInfo.h				GPL2
-	libkwave/UndoInsertAction.cpp			GPL2
-	libkwave/UndoInsertAction.h			GPL2
-	libkwave/UndoInsertTrack.cpp			GPL2
-	libkwave/UndoInsertTrack.h			GPL2
-	libkwave/UndoModifyAction.cpp			GPL2
-	libkwave/UndoModifyAction.h			GPL2
-	libkwave/UndoSelection.cpp			GPL2
-	libkwave/UndoSelection.h			GPL2
-	libkwave/UndoTransaction.cpp			GPL2
-	libkwave/UndoTransactionGuard.cpp		GPL2
-	libkwave/UndoTransactionGuard.h			GPL2
-	libkwave/UndoTransaction.h			GPL2
 	libkwave/VirtualAudioFile.cpp			GPL2
 	libkwave/VirtualAudioFile.h			GPL2
 	libkwave/WindowFunction.cpp			GPL2
 	libkwave/WindowFunction.h			GPL2
+
+	libkwave/undo/CMakeLists.txt			GPL2
+	libkwave/undo/UndoAction.h			GPL2
+	libkwave/undo/UndoAddLabelAction.cpp		GPL2
+	libkwave/undo/UndoAddLabelAction.h		GPL2
+	libkwave/undo/UndoDeleteAction.cpp		GPL2
+	libkwave/undo/UndoDeleteAction.h		GPL2
+	libkwave/undo/UndoDeleteLabelAction.cpp		GPL2
+	libkwave/undo/UndoDeleteLabelAction.h		GPL2
+	libkwave/undo/UndoDeleteTrack.cpp		GPL2
+	libkwave/undo/UndoDeleteTrack.h			GPL2
+	libkwave/undo/UndoFileInfo.cpp			GPL2
+	libkwave/undo/UndoFileInfo.h			GPL2
+	libkwave/undo/UndoInsertAction.cpp		GPL2
+	libkwave/undo/UndoInsertAction.h		GPL2
+	libkwave/undo/UndoInsertTrack.cpp		GPL2
+	libkwave/undo/UndoInsertTrack.h			GPL2
+	libkwave/undo/UndoModifyAction.cpp		GPL2
+	libkwave/undo/UndoModifyAction.h		GPL2
+	libkwave/undo/UndoSelection.cpp			GPL2
+	libkwave/undo/UndoSelection.h			GPL2
+	libkwave/undo/UndoTransaction.cpp		GPL2
+	libkwave/undo/UndoTransactionGuard.cpp		GPL2
+	libkwave/undo/UndoTransactionGuard.h		GPL2
+	libkwave/undo/UndoTransaction.h			GPL2
 
 	plugins/CMakeLists.txt				GPL2
 

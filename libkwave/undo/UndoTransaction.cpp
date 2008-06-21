@@ -19,8 +19,8 @@
 
 #include <QListIterator>
 
-#include "libkwave/UndoAction.h"
-#include "libkwave/UndoTransaction.h"
+#include "libkwave/undo/UndoAction.h"
+#include "libkwave/undo/UndoTransaction.h"
 
 //***************************************************************************
 UndoTransaction::UndoTransaction(const QString &name)

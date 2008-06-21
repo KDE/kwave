@@ -28,7 +28,7 @@
 #include "libkwave/KwaveMultiTrackSource.h"
 #include "libkwave/Parser.h"
 #include "libkwave/PluginManager.h"
-#include "libkwave/UndoTransactionGuard.h"
+#include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "AmplifyFreePlugin.h"
 #include "AmplifyFreeDialog.h"

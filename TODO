@@ -11,8 +11,6 @@ o porting to Qt4 / KDE4
 
 o process the update of OverViewCache into a background thread
 
-o move KwavePlugin from libgui to libkwave
-
 o recording plugin: show current recording time in status bar
 
 o use LADSPA

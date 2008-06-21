@@ -22,7 +22,7 @@
 
 #include <QString>
 
-#include "libkwave/UndoModifyAction.h"
+#include "libkwave/undo/UndoModifyAction.h"
 
 class SignalManager;
 

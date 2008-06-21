@@ -20,10 +20,11 @@
 #define _UNDO_FILE_INFO_H_
 
 #include "config.h"
-#include <QString>
-#include "libkwave/FileInfo.h"
 
-#include "libkwave/UndoAction.h"
+#include <QString>
+
+#include "libkwave/FileInfo.h"
+#include "libkwave/undo/UndoAction.h"
 
 class SignalManager;
 

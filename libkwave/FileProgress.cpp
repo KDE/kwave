@@ -29,9 +29,9 @@
 #include <klocale.h>
 #include <kstandardguiitem.h>
 
+#include "libkwave/FileProgress.h"
 #include "libkwave/KwavePlugin.h"  // for ms2string
-#include "libgui/FileProgress.h"
-#include "libgui/MessageBox.h"
+#include "libkwave/MessageBox.h"
 
 //***************************************************************************
 FileProgress::FileProgress(QWidget *parent,

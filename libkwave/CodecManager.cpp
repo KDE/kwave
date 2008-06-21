@@ -20,9 +20,9 @@
 #include <QMimeSource>
 #include <QRegExp>
 
+#include "libkwave/CodecManager.h"
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
-#include "CodecManager.h"
 
 //***************************************************************************
 /* static initializers */

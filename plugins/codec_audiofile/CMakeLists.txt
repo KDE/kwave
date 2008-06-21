@@ -20,6 +20,10 @@ SET(plugin_codec_audiofile_LIB_SRCS
     AudiofileDecoder.cpp
 )
 
+IF (USE_SYSTEM_LIB_AUDIOFILE)
+    SET(plugin_codec_audiofile_LIBS audiofile)
+ENDIF (USE_SYSTEM_LIB_AUDIOFILE)
+
 KWAVE_PLUGIN(codec_audiofile)
 
 #############################################################################

@@ -21,6 +21,7 @@
 #include <QMimeData>
 #include <QMimeSource>
 
+#include "libkwave/CodecManager.h"
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
 #include "libkwave/KwaveDrag.h"
@@ -28,10 +29,9 @@
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
+#include "libkwave/SignalManager.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
-#include "kwave/CodecManager.h"
-#include "kwave/SignalManager.h"
 
 // RFC 2361:
 #define WAVE_FORMAT_PCM "audio/vnd.wave" // ; codec=001"

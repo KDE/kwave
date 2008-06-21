@@ -23,10 +23,9 @@
 #include "libkwave/InsertMode.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
-
-#include "SignalManager.h"
-#include "UndoInsertTrack.h"
-#include "UndoDeleteTrack.h"
+#include "libkwave/SignalManager.h"
+#include "libkwave/UndoInsertTrack.h"
+#include "libkwave/UndoDeleteTrack.h"
 
 //***************************************************************************
 UndoDeleteTrack::UndoDeleteTrack(Signal &signal, unsigned int track)

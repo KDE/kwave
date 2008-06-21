@@ -10,6 +10,7 @@
    limit was activated or in prerecording mode
  * a nicer splash screen
  * bugfix in label handling: support labels with zero-length names
+ * re-arranged source files for cleaner library interfaces
 
 0.7.11 [2007-12-09]
 

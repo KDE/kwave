@@ -26,14 +26,20 @@
 #include <QMutexLocker>
 
 #include <kaboutdata.h>
+#include <kapplication.h>
+#include <kcomponentdata.h>
 #include <klocale.h>
 #include <kmimetype.h>
 #include <kprogressdialog.h>
 #include <kurl.h>
 
+#include "libkwave/ClipBoard.h"
+#include "libkwave/CodecManager.h"
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
+#include "libkwave/FileProgress.h"
 #include "libkwave/InsertMode.h"
+#include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Parser.h"
@@ -41,29 +47,22 @@
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
+#include "libkwave/SignalManager.h"
 #include "libkwave/Track.h"
 #include "libkwave/UndoTransactionGuard.h"
+#include "libkwave/UndoAction.h"
+#include "libkwave/UndoAddLabelAction.h"
+#include "libkwave/UndoDeleteAction.h"
+#include "libkwave/UndoDeleteLabelAction.h"
+#include "libkwave/UndoDeleteTrack.h"
+#include "libkwave/UndoFileInfo.h"
+#include "libkwave/UndoInsertAction.h"
+#include "libkwave/UndoInsertTrack.h"
+#include "libkwave/UndoModifyAction.h"
+#include "libkwave/UndoSelection.h"
+#include "libkwave/UndoTransaction.h"
 
-#include "libgui/FileProgress.h"
-#include "libgui/MessageBox.h"
 #include "libgui/OverViewCache.h"
-
-#include "KwaveApp.h"
-#include "ClipBoard.h"
-#include "CodecManager.h"
-#include "SignalManager.h"
-#include "SignalWidget.h"
-#include "UndoAction.h"
-#include "UndoAddLabelAction.h"
-#include "UndoDeleteAction.h"
-#include "UndoDeleteLabelAction.h"
-#include "UndoDeleteTrack.h"
-#include "UndoFileInfo.h"
-#include "UndoInsertAction.h"
-#include "UndoInsertTrack.h"
-#include "UndoModifyAction.h"
-#include "UndoSelection.h"
-#include "UndoTransaction.h"
 
 #define min(x,y) (((x)<(y)) ? (x) : (y))
 #define max(x,y) (((x)>(y)) ? (x) : (y))
@@ -516,6 +515,21 @@ void SignalManager::close()
 }
 
 //***************************************************************************
+QString SignalManager::signalName()
+{
+    // if a file is loaded -> path of the URL if it has one
+    KUrl url;
+    url = m_file_info.get(INF_FILENAME).toString();
+    if (url.isValid()) return url.path();
+
+    // we have something, but no name yet
+    if (!isClosed()) return QString(NEW_FILENAME);
+
+    // otherwise: closed, nothing loaded
+    return "";
+}
+
+//***************************************************************************
 const QList<unsigned int> SignalManager::selectedTracks()
 {
     unsigned int track;
@@ -609,12 +623,12 @@ bool SignalManager::executeCommand(const QString &command)
     CASE_COMMAND("redo")
 	redo();
     CASE_COMMAND("copy")
-	ClipBoard &clip = KwaveApp::clipboard();
+	ClipBoard &clip = ClipBoard::instance();
 	clip.copy(m_signal, selectedTracks(), offset, length, rate);
     CASE_COMMAND("paste")
-	paste(KwaveApp::clipboard(), offset, length);
+	paste(ClipBoard::instance(), offset, length);
     CASE_COMMAND("cut")
-	ClipBoard &clip = KwaveApp::clipboard();
+	ClipBoard &clip = ClipBoard::instance();
 	clip.copy(m_signal, selectedTracks(), offset, length, rate);
 	UndoTransactionGuard undo(*this, i18n("cut"));
 	deleteRange(offset, length);

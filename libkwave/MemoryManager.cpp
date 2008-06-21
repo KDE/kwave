@@ -35,12 +35,15 @@
 #endif
 
 #include "libkwave/memcpy.h"
-#include "KwaveApp.h"
-#include "MemoryManager.h"
+#include "libkwave/MemoryManager.h"
+
 #include "SwapFile.h"
 
 /** number of elements in the m_cached_swap list */
 #define CACHE_SIZE 4
+
+/** static instance of the memory manager */
+static MemoryManager g_instance;
 
 //***************************************************************************
 MemoryManager::MemoryManager()
@@ -72,7 +75,7 @@ void MemoryManager::close()
 //***************************************************************************
 MemoryManager &MemoryManager::instance()
 {
-    return KwaveApp::memoryManager();
+    return g_instance;
 }
 
 //***************************************************************************

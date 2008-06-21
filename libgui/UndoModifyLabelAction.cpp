@@ -20,9 +20,11 @@
 #include <klocale.h>
 
 #include "libkwave/Label.h"
-#include "SignalWidget.h"
-#include "UndoAddLabelAction.h"
-#include "UndoModifyLabelAction.h"
+#include "libkwave/SignalManager.h"
+#include "libkwave/UndoAddLabelAction.h"
+
+#include "libgui/SignalWidget.h"
+#include "libgui/UndoModifyLabelAction.h"
 
 //***************************************************************************
 UndoModifyLabelAction::UndoModifyLabelAction(SignalWidget &signal_widget,

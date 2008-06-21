@@ -104,6 +104,7 @@ INCLUDE(CheckIncludeFiles)
 INCLUDE(CheckCCompilerFlag)
 INCLUDE(CheckCXXCompilerFlag)
 INCLUDE(CheckTypeSize)
+INCLUDE(CheckFunctionExists)
 
 #############################################################################
 

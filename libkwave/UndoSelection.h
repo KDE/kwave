@@ -21,7 +21,8 @@
 
 #include "config.h"
 #include <QList>
-#include "UndoAction.h"
+
+#include "libkwave/UndoAction.h"
 
 class SignalManager;
 

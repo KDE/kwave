@@ -20,8 +20,10 @@
 #define _UNDO_MODIFY_LABEL_ACTION_H_
 
 #include "config.h"
+
 #include <QString>
-#include "UndoAction.h"
+
+#include "libkwave/UndoAction.h"
 
 class Label;
 class SignalWidget;

@@ -38,7 +38,7 @@
  * This class internally manages the logic and handling of the
  * playback position.
  */
-class PlaybackController: public QObject
+class KDE_EXPORT PlaybackController: public QObject
 {
 Q_OBJECT
 
@@ -56,28 +56,28 @@ public:
     void reset();
 
     /** returns the loop mode flag */
-    bool loop() KDE_EXPORT;
+    bool loop();
 
     /** returns true if the playback is running */
     bool running();
 
     /** returns true if the playback is paused */
-    bool paused() KDE_EXPORT;
+    bool paused();
 
     /** sets a new start position */
-    void setStartPos(unsigned long int pos) KDE_EXPORT;
+    void setStartPos(unsigned long int pos);
 
     /** sets a new end position */
-    void setEndPos(unsigned long int pos) KDE_EXPORT;
+    void setEndPos(unsigned long int pos);
 
     /** returns the position where the playback starts */
-    unsigned long int startPos() KDE_EXPORT;
+    unsigned long int startPos();
 
     /** returns the position where the playback ends */
-    unsigned long int endPos() KDE_EXPORT;
+    unsigned long int endPos();
 
     /** returns the current position of the playback pointer */
-    unsigned long int currentPos() KDE_EXPORT;
+    unsigned long int currentPos();
 
 public slots:
 
@@ -123,7 +123,7 @@ public slots:
     void reload();
 
     /** Updates the current playback position */
-    void updatePlaybackPos(unsigned int pos) KDE_EXPORT;
+    void updatePlaybackPos(unsigned int pos);
 
     /** Updates the status if playback is done */
     void playbackDone();

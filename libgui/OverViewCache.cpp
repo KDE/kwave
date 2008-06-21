@@ -24,9 +24,8 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
+#include "libkwave/SignalManager.h"
 #include "libkwave/Track.h"
-
-#include "kwave/SignalManager.h"
 
 #include "OverViewCache.h"
 

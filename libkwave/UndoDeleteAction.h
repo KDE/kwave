@@ -19,8 +19,10 @@
 #define _UNDO_DELETE_ACTION_H_
 
 #include "config.h"
+
 #include <QString>
-#include "UndoModifyAction.h"
+
+#include "libkwave/UndoModifyAction.h"
 
 class SignalManager;
 

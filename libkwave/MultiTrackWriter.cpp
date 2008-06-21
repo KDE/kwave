@@ -25,9 +25,8 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
+#include "libkwave/SignalManager.h"
 #include "libkwave/UndoTransactionGuard.h"
-
-#include "kwave/SignalManager.h"
 
 //***************************************************************************
 MultiTrackWriter::MultiTrackWriter()

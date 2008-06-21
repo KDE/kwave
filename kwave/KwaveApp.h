@@ -90,12 +90,6 @@ public:
 	return m_recent_files;
     };
 
-    /** Returns a reference to Kwave's clipboard */
-    static ClipBoard &clipboard();
-
-    /** Returns a reference to Kwave's memory manager */
-    static MemoryManager &memoryManager();
-
 signals:
     /**
      * Will be emitted if the list of recent files has changed. Can
@@ -141,12 +135,6 @@ private:
 
     /** list of toplevel widgets */
     QList<TopWidget *> m_topwidget_list;
-
-    /** Kwave's clipboard */
-    static ClipBoard &m_clipboard;
-
-    /** Kwave's memory manager */
-    static MemoryManager &m_memory_manager;
 
 };
 

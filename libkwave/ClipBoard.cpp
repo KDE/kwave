@@ -22,13 +22,21 @@
 #include <QReadLocker>
 #include <QWriteLocker>
 
+#include "libkwave/ClipBoard.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 #include "libkwave/Track.h"
 
-#include "ClipBoard.h"
+/** static instance of Kwave's clipboard */
+static ClipBoard g_clipboard;
+
+//***************************************************************************
+ClipBoard &ClipBoard::instance()
+{
+    return g_clipboard;
+}
 
 //***************************************************************************
 ClipBoard::ClipBoard()

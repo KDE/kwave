@@ -32,8 +32,9 @@
 #include <ktoolinvocation.h>
 #include <kfiledialog.h>
 
+#include "libkwave/MemoryManager.h"
+
 #include "MemoryDialog.h"
-#include "kwave/MemoryManager.h"
 
 //***************************************************************************
 MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,

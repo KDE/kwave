@@ -32,13 +32,13 @@
 
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/MultiTrackReader.h"
+#include "libkwave/PluginManager.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
+#include "libkwave/SignalManager.h"
 #include "libkwave/WindowFunction.h"
+
 #include "libgui/OverViewCache.h"
-#include "kwave/PluginManager.h"
-#include "kwave/SignalManager.h"
-#include "kwave/TopWidget.h"
 
 #include "SonagramPlugin.h"
 #include "SonagramDialog.h"
@@ -185,7 +185,7 @@ int SonagramPlugin::start(QStringList &params)
 
     // set the overview
     m_selected_channels = selectedTracks();
-    SignalManager &sig_mgr = manager().topWidget().signalManager();
+    SignalManager &sig_mgr = manager().signalManager();
     QList<unsigned int> tracks = sig_mgr.selectedTracks();
     m_overview_cache = new OverViewCache(sig_mgr,
         m_first_sample, m_last_sample-m_first_sample+1,

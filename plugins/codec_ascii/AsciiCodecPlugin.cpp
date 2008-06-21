@@ -18,7 +18,8 @@
 #include "config.h"
 
 #include <klocale.h>
-#include "kwave/CodecManager.h"
+
+#include "libkwave/CodecManager.h"
 
 #include "AsciiCodecPlugin.h"
 #include "AsciiEncoder.h"

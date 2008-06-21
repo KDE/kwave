@@ -73,10 +73,10 @@ public:
     void setLogMode(bool log);
 
     /** minimum size of the widtget, @see QWidget::minimumSize() */
-    virtual const QSize minimumSize();
+    virtual QSize minimumSize() const;
 
     /** optimal size for the widget, @see QWidget::sizeHint() */
-    virtual const QSize sizeHint();
+    virtual QSize sizeHint() const;
 
 protected:
 

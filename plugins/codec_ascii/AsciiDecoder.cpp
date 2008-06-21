@@ -23,12 +23,11 @@
 #include <kmimetype.h>
 
 #include "libkwave/CompressionType.h"
+#include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
-
-#include "libgui/MessageBox.h"
 
 #include "AsciiCodecPlugin.h"
 #include "AsciiDecoder.h"

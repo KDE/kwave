@@ -20,44 +20,32 @@
 
 #include "config.h"
 
-class KwaveApp;
 class PluginManager;
-class MenuManager;
-class TopWidget;
 
 class PluginContext
 {
 public:
     /** Constructor */
     PluginContext(
-	KwaveApp      &app,
 	PluginManager &plugin_mgr,
-	MenuManager   *menu_mgr,
-	TopWidget     &topwidget,
 	void *mod_handle,
 	const QString &mod_name,
 	const QString &mod_version,
 	const QString &mod_author
     )
-    :kwave_app(app),
-    manager(plugin_mgr),
-    menu_manager(menu_mgr),
-    top_widget(topwidget),
-    handle(mod_handle),
-    name(mod_name),
-    version(mod_version),
-    author(mod_author)
+        :m_plugin_manager(plugin_mgr),
+         m_handle(mod_handle),
+         m_name(mod_name),
+         m_version(mod_version),
+         m_author(mod_author)
     {};
 
-    KwaveApp      &kwave_app;
-    PluginManager &manager;
-    MenuManager   *menu_manager;
-    TopWidget     &top_widget;
+    PluginManager &m_plugin_manager;
 
-    void *handle;
-    QString name;
-    QString version;
-    QString author;
+    void *m_handle;
+    QString m_name;
+    QString m_version;
+    QString m_author;
 };
 
 #endif // _PLUGIN_CONTEXT_H_

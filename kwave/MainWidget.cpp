@@ -31,13 +31,13 @@
 
 #include "libkwave/KwavePlugin.h" // for some helper functions
 #include "libkwave/Parser.h"
+#include "libkwave/SignalManager.h"
 
 #include "libgui/MultiStateWidget.h"
 #include "libgui/OverViewWidget.h"
+#include "libgui/SignalWidget.h"
 
 #include "ShortcutWrapper.h"
-#include "SignalWidget.h"
-#include "SignalManager.h"
 #include "MainWidget.h"
 
 /**

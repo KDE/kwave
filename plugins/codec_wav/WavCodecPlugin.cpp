@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include "kwave/CodecManager.h"
+#include "libkwave/CodecManager.h"
 
 #include "WavCodecPlugin.h"
 #include "WavEncoder.h"

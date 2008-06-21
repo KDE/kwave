@@ -18,7 +18,8 @@
 #include "config.h"
 
 #include <klocale.h>
-#include "kwave/CodecManager.h"
+
+#include "libkwave/CodecManager.h"
 
 #include "FlacCodecPlugin.h"
 #include "FlacEncoder.h"

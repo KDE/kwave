@@ -25,23 +25,12 @@
 #include <kconfiggroup.h>
 #include <ktoolinvocation.h>
 
+#include "libkwave/MemoryManager.h"
 #include "libkwave/Parser.h"
 
-#include "ClipBoard.h"
-#include "MemoryManager.h"
-#include "PluginManager.h"
 #include "TopWidget.h"
 #include "KwaveApp.h"
 #include "KwaveSplash.h"
-
-//***************************************************************************
-// some static initializers
-
-static ClipBoard _clipboard;
-static MemoryManager _memory_manager;
-
-ClipBoard &KwaveApp::m_clipboard(_clipboard);
-MemoryManager &KwaveApp::m_memory_manager(_memory_manager);
 
 //***************************************************************************
 KwaveApp::KwaveApp()
@@ -60,10 +49,6 @@ int KwaveApp::newInstance()
 
 	KwaveSplash::showMessage(i18n("reading configuration..."));
 	readConfig();
-
-	// load the list of plugins
-	KwaveSplash::showMessage(i18n("scanning plugins..."));
-	PluginManager::findPlugins();
 
 	// close when the last window closed
 	connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
@@ -189,18 +174,6 @@ bool KwaveApp::closeWindow(TopWidget *todel)
 }
 
 //***************************************************************************
-ClipBoard &KwaveApp::clipboard()
-{
-    return m_clipboard;
-}
-
-//***************************************************************************
-MemoryManager &KwaveApp::memoryManager()
-{
-    return m_memory_manager;
-}
-
-//***************************************************************************
 void KwaveApp::saveRecentFiles()
 {
     KConfigGroup cfg = KGlobal::config()->group("Recent Files");
@@ -252,9 +225,7 @@ KwaveApp::~KwaveApp()
 	TopWidget *todel = m_topwidget_list.takeLast();
 	if (todel) delete todel;
     }
-    m_clipboard.clear();
     m_recent_files.clear();
-    m_memory_manager.close();
 }
 
 //***************************************************************************

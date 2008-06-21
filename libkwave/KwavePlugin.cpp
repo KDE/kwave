@@ -38,11 +38,9 @@
 #include "libkwave/Signal.h"
 #include "libkwave/Track.h"
 #include "libkwave/PluginContext.h"
+#include "libkwave/PluginManager.h"
 #include "libkwave/PluginWorkerThread.h"
-
-#include "kwave/PluginManager.h"
-#include "kwave/TopWidget.h"
-#include "kwave/SignalManager.h"
+#include "libkwave/SignalManager.h"
 
 #ifdef DEBUG
 #include <execinfo.h> // for backtrace()
@@ -101,19 +99,19 @@ KwavePlugin::~KwavePlugin()
 //***************************************************************************
 const QString &KwavePlugin::name()
 {
-    return m_context.name;
+    return m_context.m_name;
 }
 
 //***************************************************************************
 const QString &KwavePlugin::version()
 {
-    return m_context.version;
+    return m_context.m_version;
 }
 
 //***************************************************************************
 const QString &KwavePlugin::author()
 {
-    return m_context.author;
+    return m_context.m_author;
 }
 
 //***************************************************************************
@@ -253,19 +251,19 @@ void KwavePlugin::release()
 //***************************************************************************
 PluginManager &KwavePlugin::manager()
 {
-    return m_context.manager;
+    return m_context.m_plugin_manager;
 }
 
 //***************************************************************************
 SignalManager &KwavePlugin::signalManager()
 {
-    return m_context.top_widget.signalManager();
+    return manager().signalManager();
 }
 
 //***************************************************************************
 QWidget *KwavePlugin::parentWidget()
 {
-    return &(m_context.top_widget);
+    return manager().parentWidget();
 }
 
 //***************************************************************************
@@ -277,7 +275,7 @@ FileInfo &KwavePlugin::fileInfo()
 //***************************************************************************
 QString KwavePlugin::signalName()
 {
-    return (m_context.top_widget.signalName());
+    return signalManager().signalName();
 }
 
 //***************************************************************************
@@ -332,7 +330,7 @@ void KwavePlugin::yield()
 //***************************************************************************
 void *KwavePlugin::handle()
 {
-    return m_context.handle;
+    return m_context.m_handle;
 }
 
 //***************************************************************************

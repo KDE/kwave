@@ -24,7 +24,7 @@
 #include <QList>
 #include <QWidget>
 
-#include "kwave/SignalWidget.h"
+#include "libgui/SignalWidget.h"
 
 class QComboBox;
 class QScrollBar;

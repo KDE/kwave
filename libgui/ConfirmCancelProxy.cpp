@@ -22,8 +22,9 @@
 
 #include <klocale.h>
 
+#include "libkwave/MessageBox.h"
+
 #include "ConfirmCancelProxy.h"
-#include "MessageBox.h"
 
 //***************************************************************************
 ConfirmCancelProxy::ConfirmCancelProxy(QWidget *widget,

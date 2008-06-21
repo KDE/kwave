@@ -238,13 +238,13 @@ void ScaleWidget::paintEvent(QPaintEvent *)
 }
 
 //***************************************************************************
-const QSize ScaleWidget::sizeHint()
+QSize ScaleWidget::sizeHint() const
 {
     return QSize(4*FONTSIZE, 4*FONTSIZE);
 }
 
 //***************************************************************************
-const QSize ScaleWidget::minimumSize()
+QSize ScaleWidget::minimumSize() const
 {
     return QSize(5*2*FONTSIZE, 5*2*FONTSIZE);
 }

@@ -22,7 +22,8 @@
 #include "config.h"
 #include <QString>
 #include "libkwave/FileInfo.h"
-#include "UndoAction.h"
+
+#include "libkwave/UndoAction.h"
 
 class SignalManager;
 

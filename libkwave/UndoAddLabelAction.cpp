@@ -20,9 +20,9 @@
 #include <klocale.h>
 
 #include "libkwave/Label.h"
-#include "SignalManager.h"
-#include "UndoAddLabelAction.h"
-#include "UndoDeleteLabelAction.h"
+#include "libkwave/SignalManager.h"
+#include "libkwave/UndoAddLabelAction.h"
+#include "libkwave/UndoDeleteLabelAction.h"
 
 //***************************************************************************
 UndoAddLabelAction::UndoAddLabelAction(int index)

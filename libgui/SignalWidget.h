@@ -31,9 +31,11 @@
 #include <QTimer>
 #include <QWidget>
 
+#include "kdemacros.h"
+
 #include "libkwave/LabelList.h"
-#include "PlaybackController.h"
-#include "SignalManager.h"
+#include "libkwave/PlaybackController.h"
+#include "libkwave/SignalManager.h"
 
 class QBitmap;
 class QContextMenuEvent;
@@ -61,7 +63,7 @@ class TrackPixmap;
  * multiple tracks. It provides control over selecton, zoom factor and
  * the signal data itself by containing a SignalManager.
  */
-class SignalWidget : public QWidget
+class KDE_EXPORT SignalWidget : public QWidget
 {
     Q_OBJECT
 

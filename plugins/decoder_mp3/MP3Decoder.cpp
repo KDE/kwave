@@ -24,13 +24,13 @@
 #include "libkwave/CompressionType.h"
 #include "libkwave/GenreType.h"
 #include "libkwave/KwaveSampleArray.h"
+#include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 
 #include "libgui/ConfirmCancelProxy.h"
-#include "libgui/MessageBox.h"
 
 #include "MP3Decoder.h"
 #include "ID3_QIODeviceReader.h"

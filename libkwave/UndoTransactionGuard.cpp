@@ -23,11 +23,9 @@
 #include <klocale.h>
 
 #include "libkwave/KwavePlugin.h"
+#include "libkwave/PluginManager.h"
+#include "libkwave/SignalManager.h"
 #include "libkwave/UndoTransactionGuard.h"
-
-#include "kwave/PluginManager.h"
-#include "kwave/SignalManager.h"
-#include "kwave/TopWidget.h"
 
 //***************************************************************************
 UndoTransactionGuard::UndoTransactionGuard(SignalManager &manager,
@@ -40,7 +38,7 @@ UndoTransactionGuard::UndoTransactionGuard(SignalManager &manager,
 //***************************************************************************
 UndoTransactionGuard::UndoTransactionGuard(KwavePlugin &plugin,
                                            const QString &name)
-    :m_manager(plugin.manager().topWidget().signalManager())
+    :m_manager(plugin.manager().signalManager())
 {
     QString description = (name.length()) ?
 	name : i18n(plugin.name().toLocal8Bit());

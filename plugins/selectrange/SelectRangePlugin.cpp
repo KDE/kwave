@@ -23,10 +23,9 @@
 #include <klocale.h>
 
 #include "libkwave/KwavePlugin.h"
+#include "libkwave/PluginManager.h"
+#include "libkwave/SignalManager.h"
 #include "libkwave/UndoTransactionGuard.h"
-
-#include "kwave/PluginManager.h"
-#include "kwave/SignalManager.h"
 
 #include "SelectRangePlugin.h"
 #include "SelectRangeDialog.h"

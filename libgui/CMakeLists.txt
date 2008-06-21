@@ -20,11 +20,11 @@
 SET(libkwavegui_LIB_SRCS
     CurveWidget.cpp
     ConfirmCancelProxy.cpp
-    FileProgress.cpp
     FrequencyResponseWidget.cpp
     HMSTimeWidget.cpp
     InvertableSpinBox.cpp
     KwaveFileDialog.cpp
+    KwaveFilterPlugin.cpp
     LabelPropertiesWidget.cpp
     MenuNode.cpp
     MenuGroup.cpp
@@ -32,14 +32,16 @@ SET(libkwavegui_LIB_SRCS
     MenuSub.cpp
     MenuRoot.cpp
     MenuManager.cpp
-    MessageBox.cpp
+    MouseMark.cpp
     MultiStateWidget.cpp
     OverViewCache.cpp
     OverViewWidget.cpp
     ScaleWidget.cpp
     SelectTimeWidget.cpp
+    SignalWidget.cpp
     TrackPixmap.cpp
     TreeWidgetWrapper.cpp
+    UndoModifyLabelAction.cpp
 )
 
 #############################################################################
@@ -57,7 +59,13 @@ QT4_AUTOMOC(${libkwavegui_LIB_SRCS})
 KDE4_ADD_LIBRARY(libkwavegui SHARED ${libkwavegui_LIB_SRCS})
 
 ADD_DEPENDENCIES(libkwavegui libkwave)
-TARGET_LINK_LIBRARIES(libkwavegui ${QT_AND_KDECORE_LIBS})
+
+TARGET_LINK_LIBRARIES(libkwavegui
+    kwave
+    ${KDE4_KFILE_LIBS}
+    ${QT_AND_KDECORE_LIBS}
+)
+
 SET_TARGET_PROPERTIES(libkwavegui PROPERTIES OUTPUT_NAME "kwavegui")
 SET_TARGET_PROPERTIES(libkwavegui PROPERTIES LINK_FLAGS
     "-Wl,--export-dynamic")

@@ -28,7 +28,9 @@ ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/ppcasm_string.o
 #############################################################################
 
 SET(libkwave_LIB_SRCS
+    ClipBoard.cpp
     CodecBase.cpp
+    CodecManager.cpp
     CompressionType.cpp
     cputest.c
     Curve.cpp
@@ -38,13 +40,13 @@ SET(libkwave_LIB_SRCS
     Filter.cpp
     FileInfo.cpp
     FileFormat.cpp
+    FileProgress.cpp
     Functions.cpp
     GenreType.cpp
     Interpolation.cpp
     KwaveConnect.cpp
     KwaveDelay.cpp
     KwaveDrag.cpp
-    KwaveFilterPlugin.cpp
     KwaveMul.cpp
     KwaveMultiPlaybackSink.cpp
     KwaveOsc.cpp
@@ -57,20 +59,36 @@ SET(libkwave_LIB_SRCS
     Label.cpp
     LabelList.cpp
     memcpy.c
+    MemoryManager.cpp
+    MessageBox.cpp
     MultiTrackReader.cpp
     MultiTrackWriter.cpp
     Parser.cpp
+    PlaybackController.cpp
+    PluginManager.cpp
     PluginWorkerThread.cpp
     ppcasm_string.S
     Selection.cpp
     Signal.cpp
+    SignalManager.cpp
     SampleFIFO.cpp
     SampleFormat.cpp
     SampleReader.cpp
     SampleWriter.cpp
     StandardBitrates.cpp
     Stripe.cpp
+    SwapFile.cpp
     Track.cpp
+    UndoAddLabelAction.cpp
+    UndoDeleteAction.cpp
+    UndoDeleteLabelAction.cpp
+    UndoDeleteTrack.cpp
+    UndoFileInfo.cpp
+    UndoInsertAction.cpp
+    UndoInsertTrack.cpp
+    UndoModifyAction.cpp
+    UndoSelection.cpp
+    UndoTransaction.cpp
     UndoTransactionGuard.cpp
     VirtualAudioFile.cpp
     WindowFunction.cpp
@@ -86,7 +104,7 @@ TARGET_LINK_LIBRARIES(libkwave audiofile)
 ADD_DEPENDENCIES(libkwave audiofile)
 ENDIF (NOT USE_SYSTEM_LIB_AUDIOFILE)
 
-TARGET_LINK_LIBRARIES(libkwave audiofile ${QT_AND_KDECORE_LIBS})
+TARGET_LINK_LIBRARIES(libkwave audiofile ${QT_AND_KDECORE_LIBS} dl)
 
 #############################################################################
 

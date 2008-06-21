@@ -21,6 +21,7 @@
 #include <errno.h>
 #include <pthread.h>
 
+#include <QApplication>
 #include <QMutableListIterator>
 
 #include <kglobal.h>
@@ -32,6 +33,7 @@
 
 #include "libkwave/KwaveMultiPlaybackSink.h"
 #include "libkwave/KwavePlugin.h"
+#include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Parser.h"
@@ -40,18 +42,11 @@
 #include "libkwave/PluginContext.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
+#include "libkwave/SignalManager.h"
 #include "libkwave/UndoTransactionGuard.h"
-
-#include "libgui/MessageBox.h"
-
-#include "KwaveApp.h"
-#include "KwaveSplash.h"
-#include "TopWidget.h"
-#include "SignalManager.h"
-#include "UndoAction.h"
-#include "UndoModifyAction.h"
-
-#include "PluginManager.h"
+#include "libkwave/UndoAction.h"
+#include "libkwave/UndoModifyAction.h"
+#include "libkwave/PluginManager.h"
 
 //***************************************************************************
 //***************************************************************************
@@ -82,9 +77,9 @@ PluginManager::PluginList PluginManager::m_unique_plugins;
 static QList<PlaybackDeviceFactory *> m_playback_factories;
 
 //***************************************************************************
-PluginManager::PluginManager(TopWidget &parent)
+PluginManager::PluginManager(QWidget *parent, SignalManager &signal_manager)
     :m_loaded_plugins(), m_running_plugins(),
-     m_top_widget(parent)
+     m_parent_widget(parent), m_signal_manager(signal_manager)
 {
     // use all unique plugins
     // this does nothing on the first instance, all other instances
@@ -193,7 +188,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     if (!(m_plugin_files.contains(name))) {
 	QString message =
 	    i18n("oops, plugin '%1' is unknown or invalid!", name);
-	Kwave::MessageBox::error(&m_top_widget, message,
+	Kwave::MessageBox::error(m_parent_widget, message,
 	    i18n("error on loading plugin"));
 	return 0;
     }
@@ -205,7 +200,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 	QString message = i18n("unable to load the file \n'%1'\n"\
 	                       " that contains the plugin '%2' !",
 	                       filename, name);
-	Kwave::MessageBox::error(&m_top_widget, message,
+	Kwave::MessageBox::error(m_parent_widget, message,
 	    i18n("error on loading plugin"));
 	return 0;
     }
@@ -247,10 +242,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     }
 
     PluginContext context(
-	m_top_widget.getKwaveApp(),
 	*this,
-	0, // MenuManager   *menu_mgr,
-	m_top_widget,
 	handle,
 	name,
 	version,
@@ -408,7 +400,7 @@ int PluginManager::setupPlugin(const QString &name)
 //***************************************************************************
 FileInfo &PluginManager::fileInfo()
 {
-    return m_top_widget.signalManager().fileInfo();
+    return m_signal_manager.fileInfo();
 }
 
 //***************************************************************************
@@ -463,45 +455,44 @@ void PluginManager::savePluginDefaults(const QString &name,
 //***************************************************************************
 unsigned int PluginManager::signalLength()
 {
-    return m_top_widget.signalManager().length();
+    return m_signal_manager.length();
 }
 
 //***************************************************************************
 double PluginManager::signalRate()
 {
-    return m_top_widget.signalManager().rate();
+    return m_signal_manager.rate();
 }
 
 //***************************************************************************
 const QList<unsigned int> PluginManager::selectedTracks()
 {
-    return m_top_widget.signalManager().selectedTracks();
+    return m_signal_manager.selectedTracks();
 }
 
 //***************************************************************************
 unsigned int PluginManager::selectionStart()
 {
-    return m_top_widget.signalManager().selection().first();
+    return m_signal_manager.selection().first();
 }
 
 //***************************************************************************
 unsigned int PluginManager::selectionEnd()
 {
-    return m_top_widget.signalManager().selection().last();
+    return m_signal_manager.selection().last();
 }
 
 //***************************************************************************
 void PluginManager::selectRange(unsigned int offset, unsigned int length)
 {
-    m_top_widget.signalManager().selectRange(offset, length);
+    m_signal_manager.selectRange(offset, length);
 }
 
 //***************************************************************************
 SampleWriter *PluginManager::openSampleWriter(unsigned int track,
 	InsertMode mode, unsigned int left, unsigned int right)
 {
-    SignalManager &manager = m_top_widget.signalManager();
-    return manager.openSampleWriter(track, mode, left, right, true);
+    return m_signal_manager.openSampleWriter(track, mode, left, right, true);
 }
 
 //***************************************************************************
@@ -536,7 +527,7 @@ Kwave::SampleSink *PluginManager::openMultiTrackPlayback(
 //***************************************************************************
 PlaybackController &PluginManager::playbackController()
 {
-    return m_top_widget.signalManager().playbackController();
+    return m_signal_manager.playbackController();
 }
 
 //***************************************************************************
@@ -652,8 +643,12 @@ void PluginManager::setSignalName(const QString &name)
 //***************************************************************************
 void PluginManager::findPlugins()
 {
-    KStandardDirs dirs;
+    if (!m_plugin_files.isEmpty()) {
+	// this is not the first call -> bail out
+	return;
+    }
 
+    KStandardDirs dirs;
     QStringList files = dirs.findAllResources("module",
 	    "plugins/kwave/*", KStandardDirs::NoDuplicates);
 
@@ -672,7 +667,8 @@ void PluginManager::findPlugins()
 	    if (!name || !version || !author) continue;
 	    if (!*name || !*version || !*author) continue;
 
-	    KwaveSplash::showMessage(i18n("loading plugin %1...", *name));
+	    emit sigProgress(i18n("loading plugin %1...", *name));
+	    QApplication::processEvents();
 
 	    m_plugin_files.insert(*name, file);
 	    qDebug("%16s %5s written by %s",

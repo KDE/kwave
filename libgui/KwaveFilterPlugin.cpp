@@ -27,16 +27,15 @@
 #include <klocale.h>
 
 #include "libkwave/KwaveConnect.h"
-#include "libkwave/KwaveFilterPlugin.h"
 #include "libkwave/KwaveSampleSink.h"
 #include "libkwave/KwaveStreamObject.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
+#include "libkwave/PluginManager.h"
 #include "libkwave/UndoTransactionGuard.h"
 
 #include "libgui/ConfirmCancelProxy.h"
-
-#include "kwave/PluginManager.h"
+#include "libgui/KwaveFilterPlugin.h"
 
 //***************************************************************************
 Kwave::FilterPlugin::FilterPlugin(const PluginContext &context)

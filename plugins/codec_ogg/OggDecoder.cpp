@@ -26,13 +26,12 @@
 
 #include "libkwave/CompressionType.h"
 #include "libkwave/KwaveSampleArray.h"
+#include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 #include "libkwave/StandardBitrates.h"
-
-#include "libgui/MessageBox.h"
 
 #include "OggCodecPlugin.h"
 #include "OggDecoder.h"

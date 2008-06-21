@@ -330,13 +330,13 @@ void OverViewWidget::paintEvent(QPaintEvent *)
 }
 
 //***************************************************************************
-const QSize OverViewWidget::minimumSize()
+QSize OverViewWidget::minimumSize() const
 {
     return QSize(30, 30);
 }
 
 //***************************************************************************
-const QSize OverViewWidget::sizeHint()
+QSize OverViewWidget::sizeHint() const
 {
     return minimumSize();
 }

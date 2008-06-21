@@ -36,16 +36,13 @@
 #include "libkwave/CompressionType.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/InsertMode.h"
+#include "libkwave/MessageBox.h"
+#include "libkwave/PluginManager.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleFIFO.h"
 #include "libkwave/SampleFormat.h"
 #include "libkwave/SampleWriter.h"
-
-#include "libgui/MessageBox.h"
-
-#include "kwave/PluginManager.h"
-#include "kwave/SignalManager.h"
-#include "kwave/TopWidget.h"
+#include "libkwave/SignalManager.h"
 
 #include "RecordDevice.h"
 #include "RecordDialog.h"
@@ -745,8 +742,8 @@ void RecordPlugin::resetRecording(bool &accepted)
 {
     InhibitRecordGuard _lock(*this);
 
-    TopWidget &topwidget = this->manager().topWidget();
-    accepted = topwidget.closeFile();
+    emitCommand("close");
+    accepted = manager().signalManager().isEmpty();
     if (!accepted) return;
 
     if (m_writers) m_writers->clear();
@@ -871,9 +868,16 @@ void RecordPlugin::startRecording()
 	    (fileInfo().rate() != rate))
 	{
 	    // create a new and empty signal
-	    TopWidget &topwidget = this->manager().topWidget();
-	    int res = topwidget.newSignal(samples, rate, bits, tracks);
-	    if (res < 0) return;
+
+	    emitCommand(QString("newsignal(%1,%2,%3,%4)").arg(
+		samples).arg(rate).arg(bits).arg(tracks));
+	    SignalManager &mgr = signalManager();
+	    if ((mgr.rate() != rate) || (mgr.bits() != bits) ||
+	        (mgr.tracks() != tracks))
+	    {
+		emitCommand("close");
+		return;
+	    }
 
 	    // we do not need UNDO here
 	    signalManager().disableUndo();

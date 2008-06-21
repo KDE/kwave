@@ -24,7 +24,8 @@
 
 #include "libkwave/Sample.h"
 #include "libkwave/Track.h"
-#include "UndoAction.h"
+
+#include "libkwave/UndoAction.h"
 
 class UndoModifyAction: public UndoAction
 {

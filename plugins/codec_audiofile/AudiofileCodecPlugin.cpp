@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include "kwave/CodecManager.h"
+#include "libkwave/CodecManager.h"
 
 #include "AudiofileCodecPlugin.h"
 #include "AudiofileDecoder.h"

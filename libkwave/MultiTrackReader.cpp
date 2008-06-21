@@ -20,7 +20,7 @@
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/SampleReader.h"
-#include "kwave/SignalManager.h"
+#include "libkwave/SignalManager.h"
 
 //***************************************************************************
 MultiTrackReader::MultiTrackReader()

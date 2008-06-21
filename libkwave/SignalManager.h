@@ -31,10 +31,9 @@
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
+#include "libkwave/PlaybackController.h"
 #include "libkwave/Selection.h"
 #include "libkwave/Signal.h"
-
-#include "PlaybackController.h"
 
 class QBitmap;
 class QFile;
@@ -48,10 +47,12 @@ class UndoAction;
 class UndoTransaction;
 class UndoTransactionGuard;
 
+#define NEW_FILENAME i18n("New File")
+
 /**
  * The SignalManager class manages multi-channel signals.
  */
-class SignalManager : public QObject
+class KDE_EXPORT SignalManager : public QObject
 {
     Q_OBJECT
 
@@ -105,13 +106,19 @@ public:
      * Returns a reference to the FileInfo object associated with the
      * currently opened file.
      */
-    FileInfo &fileInfo() KDE_EXPORT { return m_file_info; };
+    FileInfo &fileInfo() { return m_file_info; };
 
     /**
      * Returns a reference to the FileInfo object associated with the
      * currently opened file (same as above but 'const').
      */
     const FileInfo &fileInfo() const { return m_file_info; };
+
+    /**
+     * Returns a reference to the current name of the signal. If no signal is
+     * loaded the string is zero-length.
+     */
+    QString signalName();
 
     /**
      * Returns the current sample resolution in bits per sample
@@ -145,12 +152,12 @@ public:
     /**
      * Returns an array of indices of currently selected tracks.
      */
-    const QList<unsigned int> selectedTracks() KDE_EXPORT;
+    const QList<unsigned int> selectedTracks();
 
     /**
      * Returns an array of indices of all present tracks.
      */
-    const QList<unsigned int> allTracks() KDE_EXPORT;
+    const QList<unsigned int> allTracks();
 
     /**
      * Saves the signal to a file with a given resolution. If the file
@@ -159,7 +166,7 @@ public:
      * @param selection if true, only the selected range will be saved
      * @return zero if succeeded or negative error code
      */
-    int save(const KUrl &url, bool selection) KDE_EXPORT;
+    int save(const KUrl &url, bool selection);
 
     /**
      * Deletes a range of samples and creates an undo action.
@@ -237,7 +244,7 @@ public:
      */
     SampleWriter *openSampleWriter(unsigned int track, InsertMode mode,
 	unsigned int left = 0, unsigned int right = 0,
-	bool with_undo = false) KDE_EXPORT;
+	bool with_undo = false);
 
     /**
      * Opens a stream for reading samples. If the the last position
@@ -270,7 +277,7 @@ public:
      * Enables undo and redo. If undo/redo is already enabled, nothing
      * will be done.
      */
-    void enableUndo() KDE_EXPORT;
+    void enableUndo();
 
     /**
      * Disables undo and redo. If undo/redo was enabled, all undo data
@@ -278,7 +285,7 @@ public:
      * are done while undo is of.
      * @note No modifications should be performed while undo is off!
      */
-    void disableUndo() KDE_EXPORT;
+    void disableUndo();
 
     /**
      * Deletes the current selection and inserts the content of the
@@ -291,7 +298,7 @@ public:
     /**
      * Sets a complete set of file infos, including undo information
      */
-    void setFileInfo(FileInfo &new_info, bool with_undo = true) KDE_EXPORT;
+    void setFileInfo(FileInfo &new_info, bool with_undo = true);
 
     /**
      * add a new label
@@ -491,7 +498,7 @@ private slots:
      * Closes an undo transaction or recurses the current recursion level
      * of nested undo transactions.
      */
-    void closeUndoTransaction() KDE_EXPORT;
+    void closeUndoTransaction();
 
     /**
      * Determines the description of undo and redo actions and emits
@@ -564,7 +571,7 @@ protected:
      * @param name the name of the transaction. Will be ignored if there
      *        already is an active transaction (optional)
      */
-    void startUndoTransaction(const QString &name = 0) KDE_EXPORT;
+    void startUndoTransaction(const QString &name = 0);
 
     /**
      * Removes all undo and redo transactions.

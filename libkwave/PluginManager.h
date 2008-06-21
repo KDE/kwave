@@ -39,7 +39,8 @@ class PlaybackDeviceFactory;
 class QString;
 class QStringList;
 class SampleWriter;
-class TopWidget;
+class SignalManager;
+class QWidget;
 namespace Kwave { class SampleSink; }
 
 /**
@@ -49,7 +50,7 @@ namespace Kwave { class SampleSink; }
  * toplevel widgets.
  * @author Thomas Eschenbacher
  */
-class PluginManager : public QObject
+class KDE_EXPORT PluginManager : public QObject
 {
     Q_OBJECT
 
@@ -59,7 +60,7 @@ public:
      * Constructor.
      * @param parent reference to the toplevel widget (our parent)
      */
-    PluginManager(TopWidget &parent);
+    PluginManager(QWidget *parent, SignalManager &signal_manager);
 
     /**
      * Default destructor
@@ -100,46 +101,43 @@ public:
      * Returns a reference to the FileInfo object associated with the
      * currently opened file.
      */
-    FileInfo &fileInfo() KDE_EXPORT;
+    FileInfo &fileInfo();
 
     /**
      * Returns the length of the current signal in samples.
      * If no signal is present the return value will be 0.
      */
-    unsigned int signalLength() KDE_EXPORT;
+    unsigned int signalLength();
 
     /**
      * Returns the current sample rate in samples per second.
      * If no signal is present the return value will be 0.
      */
-    double signalRate() KDE_EXPORT;
+    double signalRate();
 
     /**
      * Returns an array of indices of currently selected channels.
      */
-    const QList<unsigned int> selectedTracks() KDE_EXPORT;
+    const QList<unsigned int> selectedTracks();
 
     /**
      * Returns the start of the selection. If nothing is currently
      * selected this will be the first sample (0).
      */
-    unsigned int selectionStart() KDE_EXPORT;
+    unsigned int selectionStart();
 
     /**
      * Returns the end of the selection. If nothing is currently
      * selected this will be the last sample (length-1).
      */
-    unsigned int selectionEnd() KDE_EXPORT;
+    unsigned int selectionEnd();
 
     /**
      * Sets the current start and length of the selection to new values.
      * @param offset index of the first sample
      * @param length number of samples
      */
-    void selectRange(unsigned int offset, unsigned int length) KDE_EXPORT;
-
-    /** Returns a reference to our toplevel widget */
-    inline TopWidget &topWidget() { return m_top_widget; };
+    void selectRange(unsigned int offset, unsigned int length);
 
     /**
      * Opens an input stream for a track, starting at a specified sample
@@ -163,19 +161,31 @@ public:
      * @return a multitrack aRts sink that receives the playback stream
      */
     Kwave::SampleSink *openMultiTrackPlayback(unsigned int tracks,
-	const QString *name = 0) KDE_EXPORT;
+	const QString *name = 0);
 
     /**
      * Returns a reference to the current playback controller. This is
      * only needed for plugins doing playback.
      */
-    PlaybackController &playbackController() KDE_EXPORT;
+    PlaybackController &playbackController();
+
+    /** returns a pointer to the parent widget */
+    inline QPointer<QWidget> parentWidget()
+    {
+	return m_parent_widget;
+    };
+
+    /** returns a reference to our signal manager */
+    inline SignalManager &signalManager()
+    {
+	return m_signal_manager;
+    };
 
     /**
      * Enqueues a command that will be processed threadsafe in the X11
      * thread. Calls m_spx_command.enqueue().
      */
-    void enqueueCommand(const QString &command) KDE_EXPORT;
+    void enqueueCommand(const QString &command);
 
     /**
      * Searches the standard KDE data directories for plugins (through
@@ -183,19 +193,17 @@ public:
      * plugin names and file names. First it collects a list of
      * filenames and then filters it to sort out invalid entries.
      */
-    static void findPlugins();
+    void findPlugins();
 
     /**
      * Registers a PlaybackDeviceFactory
      */
-    void registerPlaybackDeviceFactory(PlaybackDeviceFactory *factory)
-	KDE_EXPORT;
+    void registerPlaybackDeviceFactory(PlaybackDeviceFactory *factory);
 
     /**
      * Unregisters a PlaybackDeviceFactory
      */
-    void unregisterPlaybackDeviceFactory(PlaybackDeviceFactory *factory)
-	KDE_EXPORT;
+    void unregisterPlaybackDeviceFactory(PlaybackDeviceFactory *factory);
 
 signals:
     /**
@@ -213,6 +221,12 @@ signals:
      * This might be used to update the caption of a window.
      */
     void sigSignalNameChanged(const QString &name);
+
+    /**
+     * informs about progress, e.g. for showing a message in
+     * a splash screen or status bar.
+     */
+    void sigProgress(const QString &message);
 
 public slots:
 
@@ -330,7 +344,10 @@ private:
     PluginList m_running_plugins;
 
     /** reference to our parent toplevel widget */
-    TopWidget &m_top_widget;
+    QPointer<QWidget> m_parent_widget;
+
+    /** reference to our signal manager */
+    SignalManager &m_signal_manager;
 
 };
 

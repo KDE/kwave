@@ -128,19 +128,16 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	cmake/Copyright.txt				Kitware (cmake)
 	cmake/COPYING-CMAKE-SCRIPTS			New BSD
 	cmake/FindAlsa.cmake				BSD
-	cmake/FindARTS.cmake				New BSD
 	cmake/FindGettext.cmake				Kitware (cmake)
 	cmake/FindKwaveVersion.cmake			GPL2
 	cmake/FindOggVorbis.cmake			BSD
 	cmake/FindRequiredProgram.cmake			GPL2
 	cmake/KwaveALSASupport.cmake			GPL2
 	cmake/KwaveEbuild.cmake				GPL2
-	cmake/KwaveKDESupport.cmake			GPL2
 	cmake/KwaveLibaudiofileSupport.cmake		GPL2
 	cmake/KwaveOSSSupport.cmake			GPL2
 	cmake/KwavePackageMessages.cmake		GPL2
 	cmake/KwaveRPMSupport.cmake			GPL2
-	cmake/MCOP.cmake				GPL2
 	cmake/uninstall.cmake.in			GPL2
 
 	doc/CMakeLists.txt				GPL2
@@ -213,11 +210,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doc/fr/kwave-volume.png				(should be FDL)
 	doc/fr/screenshot1.png				(should be FDL)
 
-	kwave/ClipBoard.cpp				GPL2
-	kwave/ClipBoard.h				GPL2
 	kwave/CMakeLists.txt				GPL2
-	kwave/CodecManager.cpp				GPL2
-	kwave/CodecManager.h				GPL2
 	kwave/KwaveApp.cpp				GPL2
 	kwave/KwaveApp.h				GPL2
 	kwave/kwave.desktop				(should be GPL2)
@@ -226,50 +219,11 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/main.cpp					GPL2 / Martin Wilz
 	kwave/MainWidget.cpp				GPL2 / Martin Wilz
 	kwave/MainWidget.h				GPL2 / Martin Wilz
-	kwave/MemoryManager.cpp				GPL2
-	kwave/MemoryManager.h				GPL2
 	kwave/menus.config				GPL2
-	kwave/MouseMark.cpp				GPL2
-	kwave/MouseMark.h				GPL2
-	kwave/PlaybackController.cpp			GPL2
-	kwave/PlaybackController.h			GPL2
-	kwave/PluginManager.cpp				GPL2
-	kwave/PluginManager.h				GPL2
 	kwave/ShortcutWrapper.cpp			GPL2
 	kwave/ShortcutWrapper.h				GPL2
-	kwave/SignalManager.cpp				GPL2
-	kwave/SignalManager.h				GPL2
-	kwave/SignalWidget.cpp				GPL2 / Martin Wilz
-	kwave/SignalWidget.h				GPL2
-	kwave/SwapFile.cpp				GPL2
-	kwave/SwapFile.h				GPL2
 	kwave/TopWidget.cpp				GPL2 / Martin Wilz
 	kwave/TopWidget.h				GPL2 / Martin Wilz
-	kwave/UndoAction.h				GPL2
-	kwave/UndoAddLabelAction.cpp			GPL2
-	kwave/UndoAddLabelAction.h			GPL2
-	kwave/UndoDeleteAction.cpp			GPL2
-	kwave/UndoDeleteAction.h			GPL2
-	kwave/UndoDeleteLabelAction.cpp			GPL2
-	kwave/UndoDeleteLabelAction.h			GPL2
-	kwave/UndoDeleteTrack.cpp			GPL2
-	kwave/UndoDeleteTrack.h				GPL2
-	kwave/UndoFileInfo.cpp				GPL2
-	kwave/UndoFileInfo.h				GPL2
-	kwave/UndoInsertAction.cpp			GPL2
-	kwave/UndoInsertAction.h			GPL2
-	kwave/UndoInsertTrack.cpp			GPL2
-	kwave/UndoInsertTrack.h				GPL2
-	kwave/UndoModifyAction.cpp			GPL2
-	kwave/UndoModifyAction.h			GPL2
-	kwave/UndoModifyLabelAction.cpp			GPL2
-	kwave/UndoModifyLabelAction.h			GPL2
-	kwave/UndoSelection.cpp				GPL2
-	kwave/UndoSelection.h				GPL2
-	kwave/UndoTransaction.cpp			GPL2
-	kwave/UndoTransactionGuard.cpp			GPL2
-	kwave/UndoTransactionGuard.h			GPL2
-	kwave/UndoTransaction.h				GPL2
 	kwave/x-aifc.desktop				(should be GPL2)
 	kwave/x-ircam.desktop				(should be GPL2)
 
@@ -390,19 +344,17 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/ConfirmCancelProxy.h			GPL2
 	libgui/CurveWidget.cpp				GPL2
 	libgui/CurveWidget.h				GPL2
-	libgui/FileProgress.cpp				GPL2
-	libgui/FileProgress.h				GPL2
 	libgui/FrequencyResponseWidget.cpp		GPL2
 	libgui/FrequencyResponseWidget.h		GPL2
 	libgui/HMSTimeWidgetBase.ui			(should be GPL2)
 	libgui/HMSTimeWidget.cpp			GPL2
 	libgui/HMSTimeWidget.h				GPL2
-	libgui/IntValidatorProxy.cpp			GPL2
-	libgui/IntValidatorProxy.h			GPL2
 	libgui/InvertableSpinBox.cpp			GPL2
 	libgui/InvertableSpinBox.h			GPL2
 	libgui/KwaveFileDialog.cpp			GPL2
 	libgui/KwaveFileDialog.h			GPL2
+	libgui/KwaveFilterPlugin.cpp			GPL2
+	libgui/KwaveFilterPlugin.h			GPL2
 	libgui/LabelPropertiesWidget.cpp		GPL2
 	libgui/LabelPropertiesWidget.h			GPL2
 	libgui/LabelPropertiesWidgetBase.ui		GPL2
@@ -418,8 +370,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/MenuRoot.h				GPL2
 	libgui/MenuSub.cpp				GPL2
 	libgui/MenuSub.h				GPL2
-	libgui/MessageBox.h				GPL2
-	libgui/MessageBox.cpp				GPL2
+	libgui/MouseMark.cpp				GPL2
+	libgui/MouseMark.h				GPL2
 	libgui/MultiStateWidget.cpp			GPL2
 	libgui/MultiStateWidget.h			GPL2
 	libgui/OverViewCache.cpp			GPL2
@@ -431,16 +383,24 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/SelectTimeWidgetBase.ui			(should be GPL2)
 	libgui/SelectTimeWidget.cpp			GPL2
 	libgui/SelectTimeWidget.h			GPL2
+	libgui/SignalWidget.cpp				GPL2 / Martin Wilz
+	libgui/SignalWidget.h				GPL2
 	libgui/TrackPixmap.cpp				GPL2
 	libgui/TrackPixmap.h				GPL2
 	libgui/TreeWidgetWrapper.cpp			GPL2
 	libgui/TreeWidgetWrapper.h			GPL2
+	libgui/UndoModifyLabelAction.cpp		GPL2
+	libgui/UndoModifyLabelAction.h			GPL2
 
 	libkwave/ByteOrder.h				GPL2
 	libkwave/byteswap.h				GPL2
+	libkwave/ClipBoard.cpp				GPL2
+	libkwave/ClipBoard.h				GPL2
 	libkwave/CMakeLists.txt				GPL2
 	libkwave/CodecBase.cpp				GPL2
 	libkwave/CodecBase.h				GPL2
+	libkwave/CodecManager.cpp			GPL2
+	libkwave/CodecManager.h				GPL2
 	libkwave/CompressionType.cpp			GPL2
 	libkwave/CompressionType.h			GPL2
 	libkwave/cputest.c				GPL2 / H. Dietz + R. Fisher + Fabrice Bellard
@@ -457,8 +417,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/FileFormat.h				GPL2
 	libkwave/FileInfo.cpp				GPL2
 	libkwave/FileInfo.h				GPL2
-	libkwave/FileLoader.cpp				GPL2
-	libkwave/FileLoader.h				GPL2
+	libkwave/FileProgress.cpp			GPL2
+	libkwave/FileProgress.h				GPL2
 	libkwave/Filter.cpp				GPL2
 	libkwave/Filter.h				GPL2
 	libkwave/Functions.cpp				GPL2
@@ -474,8 +434,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/KwaveDelay.h				GPL2
 	libkwave/KwaveDrag.cpp				GPL2
 	libkwave/KwaveDrag.h				GPL2
-	libkwave/KwaveFilterPlugin.cpp			GPL2
-	libkwave/KwaveFilterPlugin.h			GPL2
 	libkwave/KwaveMul.cpp				GPL2
 	libkwave/KwaveMul.h				GPL2
 	libkwave/KwaveMultiPlaybackSink.cpp		GPL2
@@ -501,20 +459,26 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Label.h				GPL2
 	libkwave/LabelList.cpp				GPL2
 	libkwave/LabelList.h				GPL2
-	libkwave/LineParser.cpp				GPL2
-	libkwave/LineParser.h				GPL2
 	libkwave/Matrix.h				GPL2
 	libkwave/memcpy.c				GPL2 / xine
 	libkwave/memcpy.h				GPL2
+	libkwave/MemoryManager.cpp			GPL2
+	libkwave/MemoryManager.h			GPL2
+	libkwave/MessageBox.h				GPL2
+	libkwave/MessageBox.cpp				GPL2
 	libkwave/MultiTrackReader.cpp			GPL2
 	libkwave/MultiTrackReader.h			GPL2
 	libkwave/MultiTrackWriter.cpp			GPL2
 	libkwave/MultiTrackWriter.h			GPL2
 	libkwave/Parser.cpp				GPL2
 	libkwave/Parser.h				GPL2
+	libkwave/PlaybackController.cpp			GPL2
+	libkwave/PlaybackController.h			GPL2
 	libkwave/PlaybackDeviceFactory.h		GPL2
 	libkwave/PlayBackDevice.h			GPL2
 	libkwave/PluginContext.h			GPL2
+	libkwave/PluginManager.cpp			GPL2
+	libkwave/PluginManager.h			GPL2
 	libkwave/PluginWorkerThread.h			GPL2
 	libkwave/PluginWorkerThread.cpp			GPL2
 	libkwave/ppcasm_string.h			GPL2 / Paul Mackerras
@@ -533,15 +497,42 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Selection.cpp				GPL2
 	libkwave/Signal.cpp				GPL2
 	libkwave/Signal.h				GPL2
+	libkwave/SignalManager.cpp			GPL2
+	libkwave/SignalManager.h			GPL2
 	libkwave/StandardBitrates.cpp			GPL2
 	libkwave/StandardBitrates.h			GPL2
 	libkwave/Stripe.cpp				GPL2
 	libkwave/Stripe.h				GPL2
+	libkwave/SwapFile.cpp				GPL2
+	libkwave/SwapFile.h				GPL2
 	libkwave/Track.cpp				GPL2
 	libkwave/Track.h				GPL2
 	libkwave/TransmissionFunction.h			GPL2
 	libkwave/Triple.h				GPL2
 	libkwave/TypesMap.h				GPL2
+	libkwave/UndoAction.h				GPL2
+	libkwave/UndoAddLabelAction.cpp			GPL2
+	libkwave/UndoAddLabelAction.h			GPL2
+	libkwave/UndoDeleteAction.cpp			GPL2
+	libkwave/UndoDeleteAction.h			GPL2
+	libkwave/UndoDeleteLabelAction.cpp		GPL2
+	libkwave/UndoDeleteLabelAction.h		GPL2
+	libkwave/UndoDeleteTrack.cpp			GPL2
+	libkwave/UndoDeleteTrack.h			GPL2
+	libkwave/UndoFileInfo.cpp			GPL2
+	libkwave/UndoFileInfo.h				GPL2
+	libkwave/UndoInsertAction.cpp			GPL2
+	libkwave/UndoInsertAction.h			GPL2
+	libkwave/UndoInsertTrack.cpp			GPL2
+	libkwave/UndoInsertTrack.h			GPL2
+	libkwave/UndoModifyAction.cpp			GPL2
+	libkwave/UndoModifyAction.h			GPL2
+	libkwave/UndoSelection.cpp			GPL2
+	libkwave/UndoSelection.h			GPL2
+	libkwave/UndoTransaction.cpp			GPL2
+	libkwave/UndoTransactionGuard.cpp		GPL2
+	libkwave/UndoTransactionGuard.h			GPL2
+	libkwave/UndoTransaction.h			GPL2
 	libkwave/VirtualAudioFile.cpp			GPL2
 	libkwave/VirtualAudioFile.h			GPL2
 	libkwave/WindowFunction.cpp			GPL2

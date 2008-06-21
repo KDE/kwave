@@ -33,31 +33,11 @@ ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
 
 SET(kwave_SRCS
     main.cpp
-    ClipBoard.cpp
-    CodecManager.cpp
     KwaveApp.cpp
     KwaveSplash.cpp
     MainWidget.cpp
-    MemoryManager.cpp
-    MouseMark.cpp
-    PlaybackController.cpp
-    PluginManager.cpp
     ShortcutWrapper.cpp
-    SignalManager.cpp
-    SignalWidget.cpp
-    SwapFile.cpp
     TopWidget.cpp
-    UndoAddLabelAction.cpp
-    UndoDeleteAction.cpp
-    UndoDeleteLabelAction.cpp
-    UndoDeleteTrack.cpp
-    UndoFileInfo.cpp
-    UndoInsertAction.cpp
-    UndoInsertTrack.cpp
-    UndoModifyAction.cpp
-    UndoModifyLabelAction.cpp
-    UndoSelection.cpp
-    UndoTransaction.cpp
     ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
 )
 

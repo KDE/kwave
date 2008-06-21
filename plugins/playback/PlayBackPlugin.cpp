@@ -43,17 +43,15 @@
 #include "libkwave/KwaveOsc.h"
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/Matrix.h"
+#include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
+#include "libkwave/PlaybackController.h"
 #include "libkwave/PlayBackDevice.h"
+#include "libkwave/PluginManager.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
-
-#include "libgui/MessageBox.h"
-
-#include "kwave/PlaybackController.h"
-#include "kwave/PluginManager.h"
-#include "kwave/SignalManager.h"
+#include "libkwave/SignalManager.h"
 
 #include "PlayBack-OSS.h"
 #include "PlayBack-ALSA.h"

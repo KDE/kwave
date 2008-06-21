@@ -18,7 +18,7 @@
 #include "config.h"
 
 #include <klocale.h>
-#include "kwave/CodecManager.h"
+#include "libkwave/CodecManager.h"
 
 #include "OggCodecPlugin.h"
 #include "OggEncoder.h"

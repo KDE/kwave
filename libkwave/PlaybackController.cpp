@@ -15,7 +15,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "PlaybackController.h"
+#include "config.h"
+
+#include "libkwave/PlaybackController.h"
 
 //***************************************************************************
 PlaybackController::PlaybackController()

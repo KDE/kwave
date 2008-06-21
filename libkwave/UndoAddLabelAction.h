@@ -21,7 +21,8 @@
 
 #include "config.h"
 #include <QString>
-#include "UndoAction.h"
+
+#include "libkwave/UndoAction.h"
 
 class Label;
 class SignalManager;

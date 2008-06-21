@@ -71,10 +71,10 @@ public:
     void setValue(unsigned int newval);
 
     /** minimum size of the widget, @see QWidget::minimumSize() */
-    virtual const QSize minimumSize();
+    virtual QSize minimumSize() const;
 
     /** optimal size for the widget, @see QWidget::sizeHint() */
-    virtual const QSize sizeHint();
+    virtual QSize sizeHint() const;
 
 protected:
 

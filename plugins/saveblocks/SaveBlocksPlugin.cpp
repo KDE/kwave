@@ -28,16 +28,14 @@
 
 #include <klocale.h>
 
+#include "libkwave/CodecManager.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
+#include "libkwave/MessageBox.h"
+#include "libkwave/SignalManager.h"
 
-#include "libgui/MessageBox.h"
-
-#include "kwave/CodecManager.h"
 #include "SaveBlocksDialog.h"
 #include "SaveBlocksPlugin.h"
-
-#include "kwave/SignalManager.h"
 
 KWAVE_PLUGIN(SaveBlocksPlugin,"saveblocks","Thomas Eschenbacher");
 

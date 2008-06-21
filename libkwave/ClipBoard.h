@@ -43,6 +43,9 @@ public:
     /** Destructor */
     virtual ~ClipBoard();
 
+    /** returns the static instance of the clipboard */
+    static ClipBoard &instance();
+
     /**
      * Discards the current content of the clipboard and fills
      * it with a selected range of samples from a set of tracks.

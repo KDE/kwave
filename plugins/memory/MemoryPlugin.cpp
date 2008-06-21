@@ -22,7 +22,8 @@
 #include <qstringlist.h>
 
 #include "libkwave/KwavePlugin.h"
-#include "kwave/MemoryManager.h"
+#include "libkwave/MemoryManager.h"
+
 #include "MemoryPlugin.h"
 #include "MemoryDialog.h"
 

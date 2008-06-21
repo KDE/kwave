@@ -34,8 +34,11 @@ MACRO(KWAVE_PLUGIN _plugin)
 
     KDE4_ADD_LIBRARY(plugin_${_plugin} SHARED ${plugin_${_plugin}_LIB_SRCS})
     TARGET_LINK_LIBRARIES(plugin_${_plugin}
+        kwavegui
+        kwave
         ${QT_AND_KDECORE_LIBS}
         ${plugin_${_plugin}_LIBS}
+        dl
     )
     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES OUTPUT_NAME "${_plugin}")
     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES LINK_FLAGS

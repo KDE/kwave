@@ -42,29 +42,29 @@
 #include <kfiledialog.h>
 #include <kiconloader.h>
 
+#include "libkwave/CodecManager.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/KwaveDrag.h"
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
+#include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Parser.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
+#include "libkwave/SignalManager.h"
 #include "libkwave/Track.h"
 #include "libkwave/UndoTransactionGuard.h"
 
 #include "libgui/LabelPropertiesWidget.h"
 #include "libgui/MenuManager.h"
-#include "libgui/MessageBox.h"
+#include "libgui/SignalWidget.h"
 #include "libgui/TrackPixmap.h"
+#include "libgui/UndoModifyLabelAction.h"
 
-#include "CodecManager.h"
-#include "SignalWidget.h"
-#include "SignalManager.h"
 #include "MouseMark.h"
-#include "UndoModifyLabelAction.h"
 
 #ifdef DEBUG
 #include <time.h>

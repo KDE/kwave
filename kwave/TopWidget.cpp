@@ -44,22 +44,23 @@
 #include <kstandarddirs.h>
 #include <ktoolbar.h>
 
+#include "libkwave/ClipBoard.h"
+#include "libkwave/CodecManager.h"
 #include "libkwave/KwavePlugin.h" // for some helper functions
+#include "libkwave/MessageBox.h"
 #include "libkwave/Parser.h"
+#include "libkwave/PlaybackController.h"
+#include "libkwave/PluginManager.h"
+#include "libkwave/SignalManager.h"
 
 #include "libgui/MenuManager.h"
-#include "libgui/MessageBox.h"
 #include "libgui/KwaveFileDialog.h"
+#include "libgui/SignalWidget.h" // for MouseMode
 
-#include "ClipBoard.h"
-#include "CodecManager.h"
 #include "KwaveApp.h"
 #include "KwaveSplash.h"
 #include "MainWidget.h"
 #include "TopWidget.h"
-#include "PlaybackController.h"
-#include "PluginManager.h"
-#include "SignalWidget.h" // for MouseMode
 
 #include "pics/playback_loop.xpm"
 #include "pics/playback_pause.xpm"
@@ -83,8 +84,6 @@
 #define STATUS_ID_MODE     2 /**< index of status item for mode */
 #define STATUS_ID_SELECTED 3 /**< index of status item for selection */
 
-#define NEW_FILENAME i18n("New File")
-
 //***************************************************************************
 KToolBar *TopWidget::toolBar(const QString &name)
 {
@@ -107,22 +106,13 @@ TopWidget::TopWidget(KwaveApp &main_app)
 {
     KIconLoader icon_loader;
 
-    KwaveSplash::showMessage(i18n("loading main menu..."));
+    showInSplashSreen(i18n("loading main menu..."));
     KMenuBar *menubar = menuBar();
     Q_ASSERT(menubar);
     if (!menubar) return;
     m_menu_manager = new MenuManager(this, *menubar);
     Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
-
-    m_plugin_manager = new PluginManager(*this);
-    Q_ASSERT(m_plugin_manager);
-    if (!m_plugin_manager) return;
-
-    connect(m_plugin_manager, SIGNAL(sigCommand(const QString &)),
-            this, SLOT(executeCommand(const QString &)));
-//    connect(this, SIGNAL(sigSignalNameChanged(const QString &)),
-//	    m_plugin_manager, SLOT(setSignalName(const QString &)));
 
     // connect clicked menu entries with main communication channel of kwave
     connect(m_menu_manager, SIGNAL(sigMenuCommand(const QString &)),
@@ -174,7 +164,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // --- set up the toolbar ---
 
-    KwaveSplash::showMessage(i18n("initializing toolbar..."));
+    showInSplashSreen(i18n("initializing toolbar..."));
     KToolBar *toolbar_file = toolBar("MainWidget File");
     Q_ASSERT(toolbar_file);
     if (!toolbar_file) return;
@@ -354,6 +344,19 @@ TopWidget::TopWidget(KwaveApp &main_app)
     connect(signal_manager, SIGNAL(sigLabelCountChanged()),
 	    this, SLOT(updateMenu()));
 
+    // create the plugin manager instance
+    m_plugin_manager = new PluginManager(this, *signal_manager);
+    Q_ASSERT(m_plugin_manager);
+    if (!m_plugin_manager) return;
+
+    connect(m_plugin_manager, SIGNAL(sigCommand(const QString &)),
+            this, SLOT(executeCommand(const QString &)));
+    connect(m_plugin_manager, SIGNAL(sigProgress(const QString &)),
+            this, SLOT(showInSplashSreen(const QString &)));
+
+    showInSplashSreen(i18n("scanning plugins..."));
+    m_plugin_manager->findPlugins();
+
     // set the MainWidget as the main view
     setCentralWidget(m_main_widget);
 
@@ -395,7 +398,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     updateRecentFiles();
 
     // now we are initialized, load all plugins now
-    KwaveSplash::showMessage(i18n("Loading plugins..."));
+    showInSplashSreen(i18n("Loading plugins..."));
     statusBar()->showMessage(i18n("Loading plugins..."));
     m_plugin_manager->loadAllPlugins();
     statusBar()->showMessage(i18n("Ready."), 1000);
@@ -619,13 +622,6 @@ int TopWidget::executePlaybackCommand(const QString &command)
 	return -EINVAL;
     }
     return 0;
-}
-
-//***************************************************************************
-SignalManager &TopWidget::signalManager()
-{
-    Q_ASSERT(m_main_widget);
-    return m_main_widget->signalManager();
 }
 
 //***************************************************************************
@@ -868,21 +864,6 @@ int TopWidget::newSignal(unsigned int samples, double rate,
     updateToolbar();
 
     return 0;
-}
-
-//***************************************************************************
-QString TopWidget::signalName()
-{
-    // if a file is loaded -> path of the URL if it has one
-    KUrl url;
-    url = signalManager().fileInfo().get(INF_FILENAME).toString();
-    if (url.isValid()) return url.path();
-
-    // we have something, but no name yet
-    if (!signalManager().isClosed()) return QString(NEW_FILENAME);
-
-    // otherwise: closed, nothing loaded
-    return "";
 }
 
 //***************************************************************************
@@ -1259,6 +1240,25 @@ void TopWidget::updateCaption()
 void TopWidget::closeEvent(QCloseEvent *e)
 {
     (closeFile()) ? e->accept() : e->ignore();
+}
+
+//***************************************************************************
+SignalManager &TopWidget::signalManager()
+{
+    return m_plugin_manager->signalManager();
+}
+
+//***************************************************************************
+QString TopWidget::signalName() const
+{
+    if (!m_plugin_manager) return QString();
+    return m_plugin_manager->signalManager().signalName();
+}
+
+//***************************************************************************
+void TopWidget::showInSplashSreen(const QString &message)
+{
+    KwaveSplash::showMessage(message);
 }
 
 //***************************************************************************

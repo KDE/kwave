@@ -33,7 +33,7 @@ class Encoder;
 class KMimeType;
 class QMimeSource;
 
-class CodecManager: public QObject
+class KDE_EXPORT CodecManager: public QObject
 {
     Q_OBJECT
 public:
@@ -48,14 +48,14 @@ public:
      * @param encoder a KwaveEncoder that will be used as template for
      *                creating new encoder instances (used as factory)
      */
-    static void registerEncoder(Encoder &encoder) KDE_EXPORT;
+    static void registerEncoder(Encoder &encoder);
 
     /**
      * Registers a new decoder.
      * @param decoder a KwaveDecoder that will be used as template for
      *                creating new decoder instances (used as factory)
      */
-    static void registerDecoder(Decoder &decoder) KDE_EXPORT;
+    static void registerDecoder(Decoder &decoder);
 
     /**
      * Returns true if a decoder for the given mime type is known.
@@ -69,7 +69,7 @@ public:
      * @param mimetype_name name of the mime type
      * @return true if format is supported, false if not
      */
-    static bool canDecode(const QString &mimetype_name) KDE_EXPORT;
+    static bool canDecode(const QString &mimetype_name);
 
     /**
      * Tries to find a decoder that matches to a given mime type.
@@ -90,14 +90,14 @@ public:
      * @param mime_source source with a mime type (null pointer is allowed)
      * @return a new decoder for the mime type or null if none found.
      */
-    static Decoder *decoder(const QMimeSource *mime_source) KDE_EXPORT;
+    static Decoder *decoder(const QMimeSource *mime_source);
 
     /**
      * Tries to find an encoder that matches to a given mime type.
      * @param mimetype_name name of the mime type of the destination
      * @return a new encoder for the mime type or null if none found.
      */
-    static Encoder *encoder(const QString &mimetype_name) KDE_EXPORT;
+    static Encoder *encoder(const QString &mimetype_name);
 
     /**
      * Returns a string with a list of all file types that can be used
@@ -105,7 +105,7 @@ public:
      * for a KFileDialog. The entries are unique (by file extension) but
      * not sorted alphabetically.
      */
-    static QString encodingFilter() KDE_EXPORT;
+    static QString encodingFilter();
 
     /**
      * Returns a string with a list of all file types that can be used
@@ -113,7 +113,7 @@ public:
      * for a KFileDialog. The entries are unique (by file extension) but
      * not sorted alphabetically.
      */
-    static QString decodingFilter() KDE_EXPORT;
+    static QString decodingFilter();
 
     /**
      * Tries to find the name of a mime type of a decoder by a URL.

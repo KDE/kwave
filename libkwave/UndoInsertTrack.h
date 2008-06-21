@@ -20,8 +20,10 @@
 #define _UNDO_INSERT_TRACK_H_
 
 #include "config.h"
+
 #include <QString>
-#include "kwave/UndoAction.h"
+
+#include "libkwave/UndoAction.h"
 
 class Signal;
 

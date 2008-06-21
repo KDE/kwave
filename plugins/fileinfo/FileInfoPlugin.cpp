@@ -18,10 +18,10 @@
 #include "config.h"
 #include "errno.h"
 
-#include "libgui/MessageBox.h"
+#include "libkwave/MessageBox.h"
+#include "libkwave/PluginManager.h"
+#include "libkwave/SignalManager.h"
 
-#include "kwave/PluginManager.h"
-#include "kwave/SignalManager.h"
 #include "FileInfoDialog.h"
 #include "FileInfoPlugin.h"
 

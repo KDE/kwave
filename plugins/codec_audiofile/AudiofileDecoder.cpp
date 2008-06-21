@@ -33,6 +33,7 @@ extern "C" {
 #include <klocale.h>
 #include <kmimetype.h>
 
+#include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
@@ -40,7 +41,6 @@ extern "C" {
 #include "libkwave/VirtualAudioFile.h"
 
 #include "libgui/ConfirmCancelProxy.h"
-#include "libgui/MessageBox.h"
 
 #include "AudiofileDecoder.h"
 

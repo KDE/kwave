@@ -19,8 +19,8 @@
 #include "config.h"
 #include <klocale.h>
 
-#include "SignalManager.h"
-#include "UndoSelection.h"
+#include "libkwave/SignalManager.h"
+#include "libkwave/UndoSelection.h"
 
 //***************************************************************************
 UndoSelection::UndoSelection(SignalManager &manager)

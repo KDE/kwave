@@ -29,12 +29,11 @@
 
 #include "libkwave/byteswap.h"
 #include "libkwave/FileInfo.h"
+#include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/VirtualAudioFile.h"
-
-#include "libgui/MessageBox.h"
 
 #include "WavEncoder.h"
 #include "WavFileFormat.h"

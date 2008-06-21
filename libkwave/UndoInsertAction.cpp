@@ -18,10 +18,10 @@
 #include "config.h"
 #include <klocale.h>
 
-#include "SignalManager.h"
-#include "UndoAction.h"
-#include "UndoDeleteAction.h"
-#include "UndoInsertAction.h"
+#include "libkwave/SignalManager.h"
+#include "libkwave/UndoAction.h"
+#include "libkwave/UndoDeleteAction.h"
+#include "libkwave/UndoInsertAction.h"
 
 //***************************************************************************
 UndoInsertAction::UndoInsertAction(unsigned int track,

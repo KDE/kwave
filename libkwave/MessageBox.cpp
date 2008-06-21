@@ -23,7 +23,7 @@
 
 #include <kmessagebox.h>
 
-#include "libgui/MessageBox.h"
+#include "libkwave/MessageBox.h"
 
 //***************************************************************************
 Kwave::MessageBox::MessageBox()

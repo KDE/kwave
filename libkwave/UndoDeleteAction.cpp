@@ -20,10 +20,10 @@
 
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
-#include "SignalManager.h"
-#include "UndoAction.h"
-#include "UndoDeleteAction.h"
-#include "UndoInsertAction.h"
+#include "libkwave/SignalManager.h"
+#include "libkwave/UndoAction.h"
+#include "libkwave/UndoDeleteAction.h"
+#include "libkwave/UndoInsertAction.h"
 
 //***************************************************************************
 UndoDeleteAction::UndoDeleteAction(unsigned int track,

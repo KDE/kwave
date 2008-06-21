@@ -86,12 +86,6 @@ public:
     inline KwaveApp &getKwaveApp() { return m_app; };
 
     /**
-     * Returns a reference to the current name of the signal. If no signal is
-     * loaded the string is zero-length.
-     */
-    QString signalName() KDE_EXPORT;
-
-    /**
      * Parses a text stream line by line and executes each line
      * as a command until all commands are done or the first one fails.
      * @param stream a QTextStream to read from
@@ -105,11 +99,6 @@ public:
      * @param filename name of the batch file
      */
     int loadBatch(const QString &filename);
-
-    /**
-     * Returns a pointer to the current signal manager.
-     */
-    SignalManager &signalManager() KDE_EXPORT;
 
 public slots:
 
@@ -230,6 +219,9 @@ private slots:
     /** called if the signal now or no longer is modified */
     void modifiedChanged(bool);
 
+    /** shows a message/progress in the splash screen */
+    void showInSplashSreen(const QString &message);
+
 signals:
     /**
      * Tells this TopWidget's parent to execute a command
@@ -254,7 +246,7 @@ protected:
      * @return zero if successful, -1 if failed or canceled
      */
     int newSignal(unsigned int samples, double rate,
-                  unsigned int bits, unsigned int tracks) KDE_EXPORT;
+                  unsigned int bits, unsigned int tracks);
 
 protected:
 
@@ -277,7 +269,7 @@ protected:
      * function returns with false.
      * @return true if closing is allowed
      */
-    bool closeFile() KDE_EXPORT;
+    bool closeFile();
 
     /**
      * Saves the current file.
@@ -310,6 +302,12 @@ protected:
     int executePlaybackCommand(const QString &command);
 
 private:
+
+    /** returns a reference to out signal manager */
+    SignalManager &signalManager();
+
+    /** returns the name of the signal */
+    QString signalName() const;
 
     /** creates a toolbar with Kwave's default settings */
     virtual KToolBar *toolBar(const QString &name);

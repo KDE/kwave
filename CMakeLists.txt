@@ -266,10 +266,10 @@ ADD_SUBDIRECTORY( kwave )
 ADD_SUBDIRECTORY( plugins )
 # ADD_SUBDIRECTORY( po )
 
-# OPTION(WITH_DOC "build online documentation [default=on]" ON)
-# IF (WITH_DOC)
-#     ADD_SUBDIRECTORY( doc )
-# ENDIF (WITH_DOC)
+OPTION(WITH_DOC "build online documentation [default=on]" ON)
+IF (WITH_DOC)
+    ADD_SUBDIRECTORY( doc )
+ENDIF (WITH_DOC)
 
 #############################################################################
 ### target package-messages                                               ###
@@ -296,10 +296,10 @@ INCLUDE(KwaveEbuild)
 #############################################################################
 ### install files                                                         ###
 
-# INSTALL(
-#     FILES AUTHORS TODO CHANGES README
-#     DESTINATION ${KDE3_DOCDIR}/kwave-${KWAVE_VERSION_FULL}
-# )
+INSTALL(
+    FILES AUTHORS TODO CHANGES README LICENSES
+    DESTINATION ${DESTDIR}/usr/share/doc/kwave-${KWAVE_VERSION_FULL}
+)
 
 #############################################################################
 ### uninstall support                                                     ###
@@ -311,11 +311,6 @@ CONFIGURE_FILE(
     ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
     @ONLY
 )
-
-# ADD_CUSTOM_TARGET(uninstall
-#     EXTRA_UNINSTALL_FILES="$ENV{EXTRA_UNINSTALL_FILES}"
-#     ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
-# )
 
 #############################################################################
 ### "make version-labels"                                                 ###

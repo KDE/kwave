@@ -101,7 +101,7 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
         SET(_po_orig ${CMAKE_CURRENT_SOURCE_DIR}/help_${_lang}.po)
         SET(_html_dir ${CMAKE_CURRENT_BINARY_DIR}/html/${_lang})
         SET(_html ${_html_dir}/index.html)
-        SET(_common_dir ${KDE3_HTMLDIR}/${_lang}/common)
+        SET(_common_dir ${KDE4_HTML_INSTALL_DIR}/${_lang}/common)
 
         # translation of the po and the docbook file not for english
         IF (NOT ${_lang} STREQUAL "en")
@@ -134,9 +134,9 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
 
         # special handling for the GPL license file
         IF (${_lang} STREQUAL "en")
-            SET(_gpl ${KDE3_HTMLDIR}/${_lang}/common/gpl-license.html)
+            SET(_gpl ${KDE4_HTML_INSTALL_DIR}/${_lang}/common/gpl-license.html)
         ELSE (${_lang} STREQUAL "en")
-            SET(_gpl ${KDE3_HTMLDIR}/${_lang}/docs/common/gpl-translated.html)
+            SET(_gpl ${KDE4_HTML_INSTALL_DIR}/${_lang}/docs/common/gpl-translated.html)
         ENDIF (${_lang} STREQUAL "en")
 
         ADD_CUSTOM_COMMAND(OUTPUT ${_html_dir}/gpl-translated.html
@@ -168,7 +168,7 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
         # installation of the docbook file
         INSTALL(
             FILES ${_docbook}
-            DESTINATION ${KDE3_HTMLDIR}/${_lang}/kwave
+            DESTINATION ${KDE4_HTML_INSTALL_DIR}/${_lang}/kwave
             RENAME index.docbook
         )
         SET(_docbook_all ${_docbook_all} ${_docbook})
@@ -176,20 +176,20 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
         # installation of the *.png files
         FILE(GLOB _png_files_${_lang} "${CMAKE_CURRENT_SOURCE_DIR}/${_lang}/*.png")
         INSTALL(FILES ${_png_files_${_lang}}
-            DESTINATION ${KDE3_HTMLDIR}/${_lang}/kwave/
+            DESTINATION ${KDE4_HTML_INSTALL_DIR}/${_lang}/kwave/
         )
 
         # install and uninstall of the symlinks to the "common" dirs
         INSTALL(CODE "
-            MESSAGE(STATUS \"Installing \$ENV{DESTDIR}${KDE3_HTMLDIR}/${_lang}/kwave/common\")
+            MESSAGE(STATUS \"Installing \$ENV{DESTDIR}${KDE4_HTML_INSTALL_DIR}/${_lang}/kwave/common\")
         ")
         INSTALL(CODE "EXECUTE_PROCESS(COMMAND ${CMAKE_COMMAND}
             -E create_symlink \"../common\"
-            \"\$ENV{DESTDIR}${KDE3_HTMLDIR}/${_lang}/kwave/common\"
+            \"\$ENV{DESTDIR}${KDE4_HTML_INSTALL_DIR}/${_lang}/kwave/common\"
         )")
 
         # add the symlink to the extra uninstall files
-        SET(ENV{EXTRA_UNINSTALL_FILES} "$ENV{EXTRA_UNINSTALL_FILES}\;${KDE3_HTMLDIR}/${_lang}/kwave/common")
+        SET(ENV{EXTRA_UNINSTALL_FILES} "$ENV{EXTRA_UNINSTALL_FILES}\;${KDE4_HTML_INSTALL_DIR}/${_lang}/kwave/common")
 
     ENDFOREACH(_lang_and_name)
 

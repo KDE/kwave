@@ -97,7 +97,7 @@ void ImageView::setVertOffset(int offset)
 //****************************************************************************
 void ImageView::paintEvent(QPaintEvent *)
 {
-    if (m_image.isNull || !m_image.width() || !m_image.height()) return;
+    if (m_image.isNull() || !m_image.width() || !m_image.height()) return;
 
     QPainter p(this);
     QMatrix matrix;

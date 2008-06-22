@@ -3,10 +3,7 @@ o porting to Qt4 / KDE4
   - toolbar
   - clipboard
   - drag & drop
-  - cmake targets
-  - install targets and directories
   - mime types
-  - online help
   - use svg graphics instead of pixmaps
 
 o process the update of OverViewCache into a background thread
@@ -22,8 +19,6 @@ o support for sample rate conversion, libsamplerate
 o use the host's native libaudiofile. current state:
 	SuSE		-> builtin
 	all others	-> native
-
-o fix compiler warnings in MP3 decoder (since gcc-4.1)
 
 o ALSA record/playback: also detect devices configured in the .asoundrc,
   and not only hardware devices
@@ -68,6 +63,8 @@ o auto-detect pause and set markers, for splitting recorded stuff into several
 o virtual memory: multiple swap directories
 
 o change from id3lib to taglib
+
+o respect the environment variable LINGUAS when installing po files and manual
 
 o install a new_handler() for cases in which we run out of memory
 

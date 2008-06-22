@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2007-12-09</date>
+<date>2008-06-21</date>
 <releaseinfo>0.7.11</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -200,6 +200,39 @@
 	 helper scripts -->
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
+        <listitem>
+            <para>0.8.0  [2008-??-??]</para>
+            <itemizedlist>
+                <listitem><para>
+                    ported to KDE4 / Qt4
+                </para></listitem>
+                <listitem><para>
+                    dropped support for FLAC API v1.1.1 and older
+                </para></listitem>
+                <listitem><para>
+                    support for ALSA lib API v1.0.16
+                </para></listitem>
+                <listitem><para>
+                    made MP3 decoder disabled per default due to legal issues
+                </para></listitem>
+                <listitem><para>
+                    fixed bug in cue list parsing of .wav files
+                </para></listitem>
+                <listitem><para>
+                    fixed bugs in recording plugin, recorded too much if recording time
+                      limit was activated or in prerecording mode
+                </para></listitem>
+                <listitem><para>
+                    a nicer splash screen
+                </para></listitem>
+                <listitem><para>
+                    bugfix in label handling: support labels with zero-length names
+                </para></listitem>
+                <listitem><para>
+                    re-arranged source files for cleaner library interfaces
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
         <listitem>
             <para>0.7.11 [2007-12-09]</para>
             <itemizedlist>
@@ -715,7 +748,7 @@
                     new plugin "noise"
                 </para></listitem>
                 <listitem><para>
-                     new aRts plugin adapter framework
+                     new aRts plugin adapter framework 
                       now Kwave is able to use existing aRts plugins in it's own plugins
                       for sound processing
                 </para></listitem>
@@ -752,7 +785,7 @@
             <para>0.6.1 [2001-08-24]</para>
             <itemizedlist>
                 <listitem><para>
-                     USE OF VIRTUAL MEMORY
+                     USE OF VIRTUAL MEMORY 
                 </para></listitem>
                 <listitem><para>
                     changed Makefiles: html docu stays in distribution due to too much
@@ -781,7 +814,7 @@
             <para>0.6.0 [2001-07-29]</para>
             <itemizedlist>
                 <listitem><para>
-                     PORTED TO QT-2 AND KDE2
+                     PORTED TO QT-2 AND KDE2 
                 </para></listitem>
                 <listitem><para>
                     completely new internal architecture
@@ -1000,7 +1033,7 @@
                     found out that we need ALSA support for 24 and 32 bits/sample
                 </para></listitem>
                 <listitem><para>
-                     playback in stereo
+                     playback in stereo 
                 </para></listitem>
                 <listitem><para>
                     selected channels (x) are mixed to the output device's channels (y)
@@ -1148,7 +1181,7 @@
                     bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)
                 </para></listitem>
                 <listitem><para>
-                     COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE
+                     COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE 
                     <itemizedlist>
                     <listitem><para>
                          made use of a combination of signals/slots and string messages
@@ -1214,8 +1247,8 @@
             <para>0.5.1-4</para>
             <itemizedlist>
                 <listitem><para>
-                     now compiles and runns under RedHat 6.1 / Halloween IV
-                       as well as under SuSE 6.2
+                     now compiles and runns under RedHat 6.1 / Halloween IV 
+                       as well as under SuSE 6.2                              
                 </para></listitem>
                 <listitem><para>
                     version info of libkwavegui.so is set to the package's version
@@ -1236,7 +1269,7 @@
                     configure-parameter --enable-debug has effect again
                 </para></listitem>
                 <listitem><para>
-                     ASCII import and export works now (mono only)
+                     ASCII import and export works now (mono only) 
                 </para></listitem>
                 <listitem><para>
                     bugfixes in some plugins, all compile now without warnings/errors

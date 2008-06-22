@@ -19,14 +19,14 @@ FIND_PACKAGE(RequiredProgram REQUIRED)
 
 FIND_REQUIRED_PROGRAM(XGETTEXT_EXECUTABLE xgettext)
 FIND_REQUIRED_PROGRAM(FIND_EXECUTABLE find)
-SET(KDE_POT_FILE ${KDE3_INCLUDE_DIR}/kde.pot)
+SET(KDE_POT_FILE ${KDE4_INCLUDE_DIR}/kde.pot)
 
 ADD_CUSTOM_TARGET(package-messages
     COMMAND $(MAKE) all # first make sure all generated source exists
     COMMAND ${RM_EXECUTABLE} -f po/*.gmo
     COMMAND ${XGETTEXT_EXECUTABLE} -C
         -ki18n -ktr2i18n -kI18N_NOOP
-        -x ${KDE_POT_FILE}
+        # -x ${KDE_POT_FILE}
         `${FIND_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR} -name \\*.h -o -name \\*.cpp`
         `${FIND_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR} -name \\*.h -o -name \\*.cpp`
         -o ${CMAKE_SOURCE_DIR}/po/kwave.pot

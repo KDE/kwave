@@ -60,7 +60,7 @@ GET_LSM(RPM_COPYRIGHT "Copying-policy")
 GET_LSM(RPM_URL "Homepage")
 SET(RPM_VENDOR "Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>")
 SET(RPM_BUILDROOT "/tmp/kwave-%{version}.root")
-SET(prefix "${KDE3_PREFIX}")
+SET(prefix "${KDE4_INSTALL_DIR}")
 
 #############################################################################
 ### conditional fields                                                    ###
@@ -129,7 +129,7 @@ ADD_CUSTOM_COMMAND(OUTPUT ${_src_rpm}
 )
 
 ADD_CUSTOM_TARGET(src_rpm
-    DEPENDS ${_src_rpm}
+    DEPENDS ${_src_rpm} ${CMAKE_CURRENT_BINARY_DIR}/${_specfile}
 )
 
 #############################################################################
@@ -137,7 +137,7 @@ ADD_CUSTOM_TARGET(src_rpm
 
 ADD_CUSTOM_TARGET(rpm
     COMMAND ${RPMBUILD_EXECUTABLE} --rebuild --nodeps ${_src_rpm}
-    DEPENDS ${_src_rpm}
+    DEPENDS ${_src_rpm} ${CMAKE_CURRENT_BINARY_DIR}/${_specfile}
 )
 
 #############################################################################

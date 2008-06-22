@@ -54,16 +54,23 @@ graphical view with a complete zoom-and scroll capability.
 rm -rf "$RPM_BUILD_ROOT"
 DESTDIR=""
 unset DESTDIR
-CXXFLAGS="${CXXFLAGS} ${RPM_OPT_FLAGS}" CFLAGS="${CFLAGS} ${RPM_OPT_FLAGS}" cmake . ${CONFIGURE_OPTS}
+
+mkdir build
+cd build
+PATH=${PATH}:%{prefix}/bin \
+    CXXFLAGS="${CXXFLAGS} ${RPM_OPT_FLAGS}" \
+    CFLAGS="${CFLAGS} ${RPM_OPT_FLAGS}" \
+    cmake .. \
+    ${CONFIGURE_OPTS}
 
 %build
 DESTDIR=""
 unset DESTDIR
-make $MAKE_FLAGS VERBOSE=1
+make -C build $MAKE_FLAGS VERBOSE=1
 
 %install
 rm -rf "$RPM_BUILD_ROOT"
-make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
+make -C build DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
 
 cd "$RPM_BUILD_ROOT"
 echo "%defattr(-,root,root)" > "$RPM_BUILD_DIR"/%{filelist}
@@ -78,7 +85,7 @@ rm -f /tmp/files.lst.tmp
 
 %files -f /tmp/files.list.%{name}
 
-%doc GNU-LICENSE AUTHORS LICENSES CHANGES README TODO kwave.lsm
+%doc
 
 %clean
 rm -Rf "$RPM_BUILD_ROOT"

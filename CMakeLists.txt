@@ -264,7 +264,7 @@ ADD_SUBDIRECTORY( libgui )
 ADD_SUBDIRECTORY( libkwave )
 ADD_SUBDIRECTORY( kwave )
 ADD_SUBDIRECTORY( plugins )
-# ADD_SUBDIRECTORY( po )
+ADD_SUBDIRECTORY( po )
 
 OPTION(WITH_DOC "build online documentation [default=on]" ON)
 IF (WITH_DOC)
@@ -274,7 +274,7 @@ ENDIF (WITH_DOC)
 #############################################################################
 ### target package-messages                                               ###
 
-# INCLUDE(KwavePackageMessages)
+INCLUDE(KwavePackageMessages)
 
 #############################################################################
 ### RPM support                                                           ###
@@ -297,7 +297,7 @@ INCLUDE(KwaveEbuild)
 ### install files                                                         ###
 
 INSTALL(
-    FILES AUTHORS TODO CHANGES README LICENSES
+    FILES AUTHORS TODO CHANGES README LICENSES GNU-LICENSE kwave.lsm
     DESTINATION ${DESTDIR}/usr/share/doc/kwave-${KWAVE_VERSION_FULL}
 )
 

@@ -43,8 +43,8 @@ MACRO(GETTEXT_CREATE_TRANSLATIONS _potFile _firstPoFile)
          DEPENDS ${_absPotFile} ${_absFile}
       )
 
-      # (THE, 2007-05-22, install into KDE3_LOCALEDIR instead of usr/share)
-      INSTALL(FILES ${_gmoFile} DESTINATION ${KDE3_LOCALEDIR}/${_lang}/LC_MESSAGES RENAME ${_potBasename}.mo)
+      # (THE, 2008-06-22, install into KDE4_LOCALE_INSTALL_DIR instead of usr/share)
+      INSTALL(FILES ${_gmoFile} DESTINATION ${KDE4_LOCALE_INSTALL_DIR}/${_lang}/LC_MESSAGES RENAME ${_potBasename}.mo)
       SET(_gmoFiles ${_gmoFiles} ${_gmoFile})
 
    ENDFOREACH (_currentPoFile )
@@ -61,6 +61,3 @@ ELSE (GETTEXT_MSGMERGE_EXECUTABLE AND GETTEXT_MSGFMT_EXECUTABLE )
       MESSAGE(FATAL_ERROR "GetText not found")
    ENDIF (GetText_REQUIRED)
 ENDIF (GETTEXT_MSGMERGE_EXECUTABLE AND GETTEXT_MSGFMT_EXECUTABLE )
-
-
-

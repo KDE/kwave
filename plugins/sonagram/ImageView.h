@@ -52,7 +52,7 @@ public:
      * Sets a new QImage for displaying.
      * @param image a pointer to the image
      */
-    void setImage(const QImage *image);
+    void setImage(QImage image);
 
     /**
      * Returns the position and size of the current image, packed
@@ -94,7 +94,7 @@ private:
     QRect m_last_rect;
 
     /** pointer to the QImage to be displayed */
-    const QImage *m_image;
+    QImage m_image;
 
     /** if true, scale to fit horizontally */
     bool m_fit_width;

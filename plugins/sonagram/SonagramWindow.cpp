@@ -81,17 +81,10 @@ static const char *background[] = {
 
 //****************************************************************************
 SonagramWindow::SonagramWindow(const QString &name)
-    :KMainWindow()
+    :KMainWindow(), m_image(), m_color_mode(0), m_view(0), m_overview(0),
+     m_points(0), m_rate(0), m_xscale(0), m_yscale(0), m_refresh_timer()
 {
-    m_color_mode = 0;
-    m_image = 0;
-    m_overview = 0;
-    m_points = 0;
-    m_rate = 0;
-    m_view = 0;
-    m_xscale = 0;
-    m_yscale = 0;
-    for (int i=0; i<256; m_histogram[i++] = 0) {}
+    for (int i = 0; i < 256; m_histogram[i++] = 0) {}
 
     QWidget *mainwidget = new QWidget(this);
     Q_ASSERT(mainwidget);
@@ -194,8 +187,7 @@ void SonagramWindow::close()
 //****************************************************************************
 void SonagramWindow::save()
 {
-    Q_ASSERT(m_image);
-    if (!m_image) return;
+    if (m_image.isNull()) return;
 
     KwaveFileDialog dlg(":<kwave_sonagram>", QString(),
         this, true, QString(), "*.bmp");
@@ -204,7 +196,7 @@ void SonagramWindow::save()
     if (dlg.exec() != QDialog::Accepted) return;
     QString filename = dlg.selectedFile();
 
-    if (!filename.isEmpty()) m_image->save(filename, "BMP");
+    if (!filename.isEmpty()) m_image.save(filename, "BMP");
 }
 
 //****************************************************************************
@@ -248,7 +240,7 @@ void SonagramWindow::load()
 }
 
 //****************************************************************************
-void SonagramWindow::setImage(QImage *image)
+void SonagramWindow::setImage(QImage image)
 {
     Q_ASSERT(m_view);
     if (!m_view) return;
@@ -256,31 +248,24 @@ void SonagramWindow::setImage(QImage *image)
     m_image = image;
 
     // re-initialize histogram over all pixels
-    for (int i=0; i<256; i++) m_histogram[i] = 0;
-    if (m_image) {
-	for (int x=0; x < m_image->width(); x++) {
-	    for (int y=0; y < m_image->height(); y++) {
-		unsigned char p = m_image->pixelIndex(x, y);
+    for (int i=0; i < 256; i++)
+	m_histogram[i] = 0;
+    if (!m_image.isNull()) {
+	for (int x = 0; x < m_image.width(); x++) {
+	    for (int y = 0; y < m_image.height(); y++) {
+		unsigned char p = m_image.pixelIndex(x, y);
 		m_histogram[p]++;
 	    }
 	}
     }
 
-    m_view->setImage(m_image);
     refresh_view();
 }
 
 //****************************************************************************
-void SonagramWindow::setOverView(QBitmap *overview)
+void SonagramWindow::setOverView(QBitmap overview)
 {
-    QImage *image = 0;
-    if (!m_overview) return;
-    if (overview) {
-	image = new QImage(overview->toImage());
-	Q_ASSERT(image);
-    }
-    m_overview->setImage(image);
-    if (image) delete image;
+    m_overview->setImage(overview.toImage());
 }
 
 //****************************************************************************
@@ -288,34 +273,34 @@ void SonagramWindow::insertStripe(const unsigned int stripe_nr,
 	const QByteArray &stripe)
 {
     Q_ASSERT(m_view);
-    Q_ASSERT(m_image);
+    Q_ASSERT(!m_image.isNull());
     if (!m_view) return;
-    if (!m_image) return;
+    if (m_image.isNull()) return;
 
-    unsigned int image_width  = m_image->width();
-    unsigned int image_height = m_image->height();
+    unsigned int image_width  = m_image.width();
+    unsigned int image_height = m_image.height();
 
     // stripe is out of range ?
     if (stripe_nr >= image_width) return;
 
     unsigned int y;
     unsigned int size = stripe.size();
-    for (y=0; y < size; y++) {
+    for (y = 0; y < size; y++) {
 	unsigned char p;
 
 	// remove the current pixel from the histogram
-	p = m_image->pixelIndex(stripe_nr, y);
+	p = m_image.pixelIndex(stripe_nr, y);
 	m_histogram[p]--;
 
 	// set the new pixel value
 	p = (int)stripe[(size - 1) - y];
-	m_image->setPixel(stripe_nr, y, p);
+	m_image.setPixel(stripe_nr, y, p);
 
 	// insert the new pixel into the histogram
 	m_histogram[p]++;
     }
     while (y < image_height) { // fill the rest with blank
-	m_image->setPixel(stripe_nr, y++, 0xFE);
+	m_image.setPixel(stripe_nr, y++, 0xFE);
 	m_histogram[0xFE]++;
     }
 
@@ -328,8 +313,7 @@ void SonagramWindow::insertStripe(const unsigned int stripe_nr,
 //****************************************************************************
 void SonagramWindow::adjustBrightness()
 {
-    Q_ASSERT(m_image);
-    if (!m_image) return;
+    if (m_image.isNull()) return;
 
     // get the sum of pixels != 0
     unsigned long int sum = 0;
@@ -365,14 +349,14 @@ void SonagramWindow::adjustBrightness()
 	}
 
 	c.setAlpha(255);
-	m_image->setColor(i, c.rgb());
+	m_image.setColor(i, c.rgb());
 // 	qDebug("color[%3d] = 0x%08X",i, c.rgb());
     }
 
     // use color 0xFF for transparency !
     c.setRgb(0,0,0);
     c.setAlpha(0);
-    m_image->setColor(255, c.rgb());
+    m_image.setColor(255, c.rgb());
 }
 
 //****************************************************************************
@@ -380,8 +364,8 @@ void SonagramWindow::refresh_view()
 {
     Q_ASSERT(m_view);
     if (!m_view) return;
-    if (m_image) adjustBrightness();
-    m_view->repaint();
+    adjustBrightness();
+    m_view->setImage(m_image);
 }
 
 //****************************************************************************
@@ -476,7 +460,7 @@ void SonagramWindow::updateScaleWidgets()
     double ms;
     double f;
 
-    translatePixels2TF(QPoint(m_image->width()-1, 0), &ms, &f);
+    translatePixels2TF(QPoint(m_image.width()-1, 0), &ms, &f);
 
     m_xscale->setMinMax(0, (int)rint(ms));
     m_yscale->setMinMax(0, (int)rint(f));
@@ -495,7 +479,7 @@ void SonagramWindow::setColorMode(int mode)
 
     if (mode != m_color_mode) {
 	m_color_mode = mode;
-	if (m_image) setImage(m_image);
+	setImage(m_image);
     }
 }
 
@@ -514,11 +498,10 @@ void SonagramWindow::cursorPosChanged(const QPoint pos)
 {
     KStatusBar *status = statusBar();
     Q_ASSERT(status);
-    Q_ASSERT(m_image);
     Q_ASSERT(m_points);
     Q_ASSERT(m_rate != 0);
-    if (!status) return ;
-    if (!m_image) return ;
+    if (!status) return;
+    if (m_image.isNull()) return;
     if (!m_points) return;
     if (m_rate == 0) return;
 
@@ -535,8 +518,8 @@ void SonagramWindow::cursorPosChanged(const QPoint pos)
     status->changeItem(text, 2);
 
     // item 3: amplitude in %
-    if (m_image->valid(pos.x(), pos.y())) {
-	a = (254.0-m_image->pixelIndex(pos.x(), pos.y())) *
+    if (m_image.valid(pos.x(), pos.y())) {
+	a = (254.0 - m_image.pixelIndex(pos.x(), pos.y())) *
 	    (100.0 / 254.0);
     } else {
 	a = 0.0;

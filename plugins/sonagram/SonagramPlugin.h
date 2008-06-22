@@ -156,7 +156,7 @@ private:
     bool m_follow_selection;
 
     /** stores the image that is currently in process */
-    QImage *m_image;
+    QImage m_image;
 
     /** cache with the current signal overview */
     OverViewCache *m_overview_cache;

@@ -73,7 +73,7 @@ SonagramPlugin::SonagramPlugin(const PluginContext &c)
     :KwavePlugin(c), m_sonagram_window(0), m_selected_channels(),
      m_first_sample(0), m_last_sample(0), m_stripes(0), m_fft_points(0),
      m_window_type(WINDOW_FUNC_NONE), m_color(true), m_track_changes(true),
-     m_follow_selection(false), m_image(0), m_overview_cache(0),
+     m_follow_selection(false), m_image(), m_overview_cache(0),
      m_cmd_shutdown(false)
 {
     connect(this, SIGNAL(stripeAvailable(StripeInfoPrivate *)),
@@ -87,9 +87,6 @@ SonagramPlugin::~SonagramPlugin()
 {
     if (m_sonagram_window) delete m_sonagram_window;
     m_sonagram_window = 0;
-
-    if (m_image) delete m_image;
-    m_image = 0;
 }
 
 //***************************************************************************
@@ -387,9 +384,8 @@ void SonagramPlugin::createNewImage(const unsigned int width,
 //    qDebug("SonagramPlugin::createNewImage()");
 
     // delete the previous image
-    if (m_sonagram_window) m_sonagram_window->setImage(0);
-    if (m_image) delete m_image;
-    m_image = 0;
+    m_image = QImage();
+    if (m_sonagram_window) m_sonagram_window->setImage(m_image);
 
     // do not create a new image if one dimension is zero!
     Q_ASSERT(width);
@@ -404,18 +400,18 @@ void SonagramPlugin::createNewImage(const unsigned int width,
 //     qDebug("SonagramPlugin::createNewImage(): settings ok, creating image");
 
     // create the new image object
-    m_image = new QImage(width, height, QImage::Format_Indexed8);
-    Q_ASSERT(m_image);
-    if (!m_image) return;
+    m_image = QImage(width, height, QImage::Format_Indexed8);
+    Q_ASSERT(!m_image.isNull());
+    if (m_image.isNull()) return;
 
     // initialize the image's palette with transparecy
-    m_image->setNumColors(256);
+    m_image.setNumColors(256);
     for (int i=0; i < 256; i++) {
-	m_image->setColor(i, 0x00000000);
+	m_image.setColor(i, 0x00000000);
     }
 
     // fill the image with "empty"
-    m_image->fill(0xFF);
+    m_image.fill(0xFF);
 
 //     qDebug("SonagramPlugin::createNewImage(): done.");
 }
@@ -426,8 +422,8 @@ void SonagramPlugin::refreshOverview()
     if (!m_overview_cache || !m_sonagram_window) return;
 
     QBitmap overview = m_overview_cache->getOverView(
-        2*m_sonagram_window->width(), 40);
-    m_sonagram_window->setOverView(&overview);
+        2 * m_sonagram_window->width(), 40);
+    m_sonagram_window->setOverView(overview);
 }
 
 //***************************************************************************

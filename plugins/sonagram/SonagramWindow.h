@@ -56,12 +56,12 @@ public:
      * Sets a new sonagram image to display.
      * @param image the bitmap with the sonagram
      */
-    void setImage(QImage *image);
+    void setImage(QImage image);
 
     /**
      * Sets a new overview bitmap for the signal space
      */
-    void setOverView(QBitmap *overview);
+    void setOverView(QBitmap overview);
 
     /**
      * Inserts a stripe into the current image. If the stripe contains more
@@ -152,7 +152,7 @@ protected:
 private:
 
     /** the QImage to be displayed */
-    QImage *m_image;
+    QImage m_image;
 
     /**
      * the color mode to be used. Currently only 0 (black/white)

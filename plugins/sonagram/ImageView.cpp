@@ -26,7 +26,7 @@
 //****************************************************************************
 ImageView::ImageView(QWidget *parent, bool fit_width, bool fit_height)
     :QWidget(parent), m_offset(0,0), m_last_rect(0,0,0,0),
-     m_image(0), m_fit_width(fit_width), m_fit_height(fit_height),
+     m_image(), m_fit_width(fit_width), m_fit_height(fit_height),
      m_scale_x(1.0), m_scale_y(1.0)
 {
     setCursor(Qt::CrossCursor);
@@ -44,7 +44,7 @@ void ImageView::mouseMoveEvent(QMouseEvent *e)
     Q_ASSERT(e);
     if (!e) return;
 
-    if (!m_image || !m_image->width() || !m_image->height())
+    if (!m_image.width() || !m_image.height())
 	return; // image not yet loaded
 
     int x = e->pos().x();
@@ -63,7 +63,7 @@ void ImageView::mouseMoveEvent(QMouseEvent *e)
 }
 
 //****************************************************************************
-void ImageView::setImage(const QImage *image)
+void ImageView::setImage(QImage image)
 {
     m_image = image;
     repaint();
@@ -72,9 +72,8 @@ void ImageView::setImage(const QImage *image)
 //****************************************************************************
 QRect ImageView::imageRect()
 {
-    if (!m_image) return QRect(m_offset.x(), m_offset.y(),0,0);
     return QRect(m_offset.x(), m_offset.y(),
-	         m_image->width(), m_image->height());
+	         m_image.width(), m_image.height());
 }
 
 //****************************************************************************
@@ -98,23 +97,20 @@ void ImageView::setVertOffset(int offset)
 //****************************************************************************
 void ImageView::paintEvent(QPaintEvent *)
 {
-    if (!m_image) return;
-    if (!m_image->width()) return;
-    if (!m_image->height()) return;
+    if (m_image.isNull || !m_image.width() || !m_image.height()) return;
 
     QPainter p(this);
-
     QMatrix matrix;
-    QPixmap newmap = QPixmap::fromImage(*m_image,
+    QPixmap newmap = QPixmap::fromImage(m_image,
 	Qt::ColorOnly | Qt::ThresholdDither | Qt::AvoidDither);
 
-    m_scale_x = m_fit_width ? (float)width()  / (float)m_image->width()  : 1.0;
-    m_scale_y = m_fit_height ?(float)height() / (float)m_image->height() : 1.0;
+    m_scale_x = m_fit_width ? (float)width()  / (float)m_image.width()  : 1.0;
+    m_scale_y = m_fit_height ?(float)height() / (float)m_image.height() : 1.0;
 
-    if (m_offset.x() + m_scale_x * m_image->width() > width())
-	m_offset.setX( (int)(m_scale_x * m_image->width() - width()));
-    if (m_offset.y() + m_scale_y * m_image->height() > height())
-	m_offset.setY( (int)(m_scale_y * m_image->height() - height()));
+    if (m_offset.x() + m_scale_x * m_image.width() > width())
+	m_offset.setX( (int)(m_scale_x * m_image.width() - width()));
+    if (m_offset.y() + m_scale_y * m_image.height() > height())
+	m_offset.setY( (int)(m_scale_y * m_image.height() - height()));
 
     matrix.scale(m_scale_x, m_scale_y);
     QPixmap pixmap = newmap.transformed(matrix);

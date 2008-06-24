@@ -512,11 +512,7 @@ unsigned int Signal::trackIndex(const Track *track)
 {
     QReadLocker lock(&m_lock_tracks);
 
-    Q_ASSERT(m_tracks.contains(const_cast<Track *>(track)));
-    if (m_tracks.contains(const_cast<Track *>(track)))
-	return m_tracks.count();
     int index = m_tracks.indexOf(const_cast<Track *>(track));
-    Q_ASSERT(index >= 0);
     return (index >= 0) ? index : m_tracks.count();
 }
 

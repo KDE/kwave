@@ -285,8 +285,10 @@ void OverViewWidget::setValue(unsigned int newval)
 //***************************************************************************
 void OverViewWidget::paintEvent(QPaintEvent *)
 {
-//    qDebug("OverViewWidget::paintEvent(QPaintEvent *)");
     QPainter p(this);
+
+    m_width  = width();
+    m_height = height();
 
     // --- background of the widget ---
     p.fillRect(rect(), BAR_BACKGROUND);
@@ -295,7 +297,7 @@ void OverViewWidget::paintEvent(QPaintEvent *)
 	brush.setColor(BAR_FOREGROUND);
 
 	p.setBrush(brush);
-	p.drawRect(0, 0, m_width, m_height);
+	p.drawRect(0, 0, m_width, m_height - 1);
     }
 
     // --- draw the slider ---
@@ -362,7 +364,7 @@ void OverViewWidget::overviewChanged()
 void OverViewWidget::refreshBitmap()
 {
     // let the bitmap be updated from the cache
-    m_bitmap = m_cache.getOverView(m_width, m_height);
+    m_bitmap = m_cache.getOverView(m_width, m_height - 1);
 
     // update the display
     repaint();

@@ -61,10 +61,15 @@ OverViewCache::OverViewCache(SignalManager &signal, unsigned int src_offset,
 
     if (src_tracks && !src_tracks->isEmpty()) {
 	// already having a list of selected tracks
-	Track t;
 	foreach (unsigned int track, *src_tracks) {
 	    m_src_deleted.append(track);
-	    slotTrackInserted(track, &t);
+	    slotTrackInserted(track, 0);
+	}
+    } else {
+	// take over all tracks from the signal manager
+	QList<unsigned int> tracks = signal.allTracks();
+	foreach (unsigned int track, tracks) {
+	    slotTrackInserted(track, 0);
 	}
     }
 }
@@ -176,7 +181,7 @@ int OverViewCache::trackIndex(unsigned int track_nr)
 void OverViewCache::invalidateCache(unsigned int track, unsigned int first,
                                     unsigned int last)
 {
-//  qDebug("OverViewCache::invalidateCache(%u, %u, %u)",track,first,last);
+//     qDebug("OverViewCache::invalidateCache(%u, %u, %u)",track,first,last);
     if (m_state.isEmpty()) return;
     int cache_track = trackIndex(track);
     if (cache_track < 0) return;

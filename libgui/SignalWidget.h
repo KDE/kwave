@@ -531,12 +531,6 @@ protected:
 	/** event filter */
 	virtual bool event(QEvent *e);
 
-	/** calls updataMask() when resized */
-	virtual void resizeEvent(QResizeEvent *);
-
-	/** calls updataMask() when moved */
-	virtual void moveEvent(QMoveEvent *event);
-
 	/** paint event: draws the text and the arrow */
 	virtual void paintEvent(QPaintEvent *);
 

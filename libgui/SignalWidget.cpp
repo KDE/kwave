@@ -93,7 +93,7 @@
 #define DEFAULT_DISPLAY_TIME 60.0
 
 /** number of milliseconds between repaints */
-#define REPAINT_INTERVAL 333
+#define REPAINT_INTERVAL 50
 
 /** number of milliseconds until the position widget disappears */
 #define POSITION_WIDGET_TIME 5000
@@ -200,6 +200,10 @@ SignalWidget::SignalWidget(QWidget *parent)
     pal.setColor(QPalette::Window, Qt::black);
     setMouseTracking(true);
     setAcceptDrops(true); // enable drag&drop
+
+    setAutoFillBackground(false);
+    setAttribute(Qt::WA_OpaquePaintEvent, true);
+    setAttribute(Qt::WA_NoSystemBackground, true);
 
     setZoom(0.0);
 //    qDebug("SignalWidget::SignalWidget(): done.");
@@ -1210,10 +1214,6 @@ SignalWidget::PositionWidget::PositionWidget(QWidget *parent)
     setPalette(QToolTip::palette()); // use same colors as a QToolTip
     setFocusPolicy(Qt::NoFocus);
     setMouseTracking(true);
-
-    setAutoFillBackground(false);
-    setAttribute(Qt::WA_OpaquePaintEvent, false);
-    setAttribute(Qt::WA_NoSystemBackground, false);
 }
 
 //***************************************************************************
@@ -1254,6 +1254,8 @@ void SignalWidget::PositionWidget::setText(const QString &text,
 	default:
 	    ;
     }
+
+    updateMask();
 }
 
 //***************************************************************************
@@ -1289,18 +1291,6 @@ bool SignalWidget::PositionWidget::event(QEvent *e)
 
     // everything else: let it be handled by QLabel
     return QWidget::event(e);
-}
-
-//***************************************************************************
-void SignalWidget::PositionWidget::resizeEvent(QResizeEvent *)
-{
-    updateMask();
-}
-
-//***************************************************************************
-void SignalWidget::PositionWidget::moveEvent(QMoveEvent *)
-{
-    updateMask();
 }
 
 //***************************************************************************
@@ -1369,8 +1359,6 @@ void SignalWidget::PositionWidget::updateMask()
 //***************************************************************************
 void SignalWidget::PositionWidget::paintEvent(QPaintEvent *)
 {
-    updateMask();
-
     QPainter p(this);
     p.setBrush(palette().background().color());
     p.drawPolygon(m_polygon);
@@ -1389,6 +1377,9 @@ void SignalWidget::showPosition(const QString &text, unsigned int pos,
 	m_position_widget.hide();
 	return;
     }
+
+    setUpdatesEnabled(false);
+    m_position_widget.hide();
 
     unsigned int t, h, m, s, tms;
     t = (unsigned int)rint(ms * 10.0);
@@ -1440,11 +1431,11 @@ void SignalWidget::showPosition(const QString &text, unsigned int pos,
     if (!m_position_widget.isVisible())
 	m_position_widget.show();
 
-    m_position_widget.repaint();
-
     m_position_widget_timer.stop();
     m_position_widget_timer.setSingleShot(true);
     m_position_widget_timer.start(POSITION_WIDGET_TIME);
+
+    setUpdatesEnabled(true);
 }
 
 //***************************************************************************

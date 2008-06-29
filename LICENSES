@@ -349,6 +349,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/HMSTimeWidgetBase.ui			(should be GPL2)
 	libgui/HMSTimeWidget.cpp			GPL2
 	libgui/HMSTimeWidget.h				GPL2
+	libgui/ImageView.cpp				GPL2 / Martin Wilz
+	libgui/ImageView.h				GPL2 / Martin Wilz
 	libgui/InvertableSpinBox.cpp			GPL2
 	libgui/InvertableSpinBox.h			GPL2
 	libgui/KwaveFileDialog.cpp			GPL2
@@ -787,8 +789,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/selectrange/SelectRangePlugin.h		GPL2
 
 	plugins/sonagram/CMakeLists.txt			GPL2
-	plugins/sonagram/ImageView.cpp			GPL2 / Martin Wilz
-	plugins/sonagram/ImageView.h			GPL2 / Martin Wilz
 	plugins/sonagram/SonagramDialog.cpp		GPL2
 	plugins/sonagram/SonagramDialog.h		GPL2
 	plugins/sonagram/SonagramDlg.ui			(should be GPL2)

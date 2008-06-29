@@ -50,7 +50,6 @@ IF (NOT HAVE_GSL)
 ENDIF (NOT HAVE_GSL)
 
 SET(plugin_sonagram_LIB_SRCS
-    ImageView.cpp
     SonagramDialog.cpp
     SonagramPlugin.cpp
     SonagramWindow.cpp

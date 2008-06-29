@@ -21,7 +21,7 @@
 #include <QImage>
 #include <QMouseEvent>
 
-#include "ImageView.h"
+#include "libgui/ImageView.h"
 
 //****************************************************************************
 ImageView::ImageView(QWidget *parent, bool fit_width, bool fit_height)

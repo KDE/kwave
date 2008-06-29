@@ -20,6 +20,8 @@
 
 #include "config.h"
 
+#include <kdemacros.h>
+
 #include <QWidget>
 #include <QPainter>
 #include <QImage>
@@ -27,7 +29,7 @@
 /**
  * Simple widget class for displaying a QImage.
  */
-class ImageView : public QWidget
+class KDE_EXPORT ImageView : public QWidget
 {
     Q_OBJECT
 public:

@@ -22,6 +22,7 @@ SET(libkwavegui_LIB_SRCS
     ConfirmCancelProxy.cpp
     FrequencyResponseWidget.cpp
     HMSTimeWidget.cpp
+    ImageView.cpp
     InvertableSpinBox.cpp
     KwaveFileDialog.cpp
     KwaveFilterPlugin.cpp

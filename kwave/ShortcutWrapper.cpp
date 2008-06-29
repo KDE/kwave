@@ -28,6 +28,8 @@ Kwave::ShortcutWrapper::ShortcutWrapper(QWidget *parent,
                                         int id)
     :QShortcut(key, parent), m_id(id)
 {
+    connect(this, SIGNAL(activated()),
+            this, SLOT(triggered()));
 }
 
 //***************************************************************************

@@ -87,8 +87,6 @@ o fileinfo plugin: auto-generate filename from "track - title"
 
 o Filter: class needs to be tested
 
-o MainWidget: re-enable accelerator keys for 0..9
-
 o use a MenuManager in the plugins (e.g. sonagram)
 
 o resample signal before inserting into a signal with a different sample
@@ -149,6 +147,7 @@ o fix bug in Fx->Periodic Silence (segmentation fault)
 o macro recorder
 
 o navigation buttons on the overview widget
+  -> maybe use a modified horizontal scroll bar
 
 o use MemoryManager for undo actions
 

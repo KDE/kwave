@@ -118,7 +118,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
     connect(m_menu_manager, SIGNAL(sigMenuCommand(const QString &)),
 	    this, SLOT(executeCommand(const QString &)));
 
-
     KStatusBar *status_bar = statusBar();
     Q_ASSERT(status_bar);
     if (!status_bar) return;

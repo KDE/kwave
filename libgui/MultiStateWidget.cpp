@@ -51,14 +51,17 @@ void MultiStateWidget::addPixmap(const QString &filename)
 //***************************************************************************
 void MultiStateWidget::setState(int state)
 {
+    int last_index = m_current_index;
     m_current_index = (state % m_pixmaps.count());
     repaint();
+    if (m_current_index != last_index)
+	emit clicked(m_identifier);
 }
 
 //***************************************************************************
 void MultiStateWidget::nextState()
 {
-    setState(m_current_index++);
+    setState(m_current_index + 1);
 }
 
 //***************************************************************************
@@ -66,7 +69,6 @@ void MultiStateWidget::mouseReleaseEvent(QMouseEvent *e)
 {
     if (e && (e->button() == Qt::LeftButton)) {
 	nextState();
-	emit clicked(m_identifier);
     }
 }
 

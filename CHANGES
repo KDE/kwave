@@ -1,5 +1,5 @@
 
-0.8.0  [2008-??-??]
+0.8.0  [2008-07-??]
 
  * ported to KDE4 / Qt4
  * dropped support for FLAC API v1.1.1 and older
@@ -11,6 +11,7 @@
  * a nicer splash screen
  * bugfix in label handling: support labels with zero-length names
  * re-arranged source files for cleaner library interfaces
+ * re-enabled accelerator keys for 0..9
 
 0.7.11 [2007-12-09]
 

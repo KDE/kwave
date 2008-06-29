@@ -189,12 +189,21 @@ private slots:
      */
     void slotTrackDeleted(unsigned int track);
 
+    /** updates the scrollbar */
+    void updateViewInfo(unsigned int, unsigned int, unsigned int);
+
     /**
      * Connected to the vertical scrollbar and called if the value
      * has changed so that the signal display and the channel
      * controls have to be moved.
      */
-    void scrollbarMoved(int newval);
+    void verticalScrollBarMoved(int newval);
+
+    /** refresh the scale and position of the horizontal scrollbar */
+    void refreshHorizontalScrollBar();
+
+    /** Connected to the horizontal scrollbar for scrolling left/right */
+    void horizontalScrollBarMoved(int newval);
 
 signals:
 
@@ -225,7 +234,8 @@ signals:
 
 private:
 
-    OverViewWidget *m_slider;
+    /** overview widget */
+    OverViewWidget *m_overview;
 
     /** QFrame that contains the signal widget. */
     QFrame m_signal_frame;
@@ -236,7 +246,10 @@ private:
     QFrame *m_frm_channel_controls;
 
     /** vertical scrollbar, only visible if channels do not fit vertically */
-    QScrollBar *m_scrollbar;
+    QScrollBar *m_vertical_scrollbar;
+
+    /** horizontal scrollbar, always visible */
+    QScrollBar *m_horizontal_scrollbar;
 
     /** array of lamps, one for each channel */
     QList<MultiStateWidget *> m_lamps;

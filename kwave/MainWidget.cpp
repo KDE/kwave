@@ -63,10 +63,10 @@ static const int tbl_keys[10] = {
 
 //***************************************************************************
 MainWidget::MainWidget(QWidget *parent)
-    :QWidget(parent), m_slider(0), m_signal_frame(this),
+    :QWidget(parent), m_overview(0), m_signal_frame(this),
      m_signal_widget(&m_signal_frame),
-     m_frm_channel_controls(0),
-     m_scrollbar(0), m_lamps(), m_last_tracks(0)
+     m_frm_channel_controls(0), m_vertical_scrollbar(0),
+     m_horizontal_scrollbar(0), m_lamps(), m_last_tracks(0)
 {
 //    qDebug("MainWidget::MainWidget()");
 
@@ -109,24 +109,33 @@ MainWidget::MainWidget(QWidget *parent)
 	        this, SLOT(parseKey(int)));
     }
 
-    // -- slider for horizontal scrolling --
+    // -- horizontal scrollbar --
 
-    m_slider = new OverViewWidget(m_signal_widget.signalManager(), this);
-    Q_ASSERT(m_slider);
-    if (!m_slider) return;
-    m_slider->setFixedHeight(20/*playbutton->height()*3/4*/);
-    topLayout->addWidget(m_slider, 1, 1);
+    m_horizontal_scrollbar = new QScrollBar(this);
+    Q_ASSERT(m_horizontal_scrollbar);
+    if (!m_horizontal_scrollbar) return;
+    m_horizontal_scrollbar->setOrientation(Qt::Horizontal);
+    m_horizontal_scrollbar->setFixedHeight(
+	m_horizontal_scrollbar->sizeHint().height());
+    topLayout->addWidget(m_horizontal_scrollbar, 2, 1);
+
+    // -- overview widget --
+    m_overview = new OverViewWidget(m_signal_widget.signalManager(), this);
+    Q_ASSERT(m_overview);
+    if (!m_overview) return;
+    topLayout->addWidget(m_overview, 1, 1);
 
     // -- scrollbar for the signal widget and the channel controls --
 
-    m_scrollbar = new QScrollBar(this);
-    Q_ASSERT(m_scrollbar);
-    if (!m_scrollbar) return;
-    m_scrollbar->setOrientation(Qt::Vertical);
-    m_scrollbar->setFixedWidth(m_scrollbar->sizeHint().width());
-    m_scrollbar->hide();
-    m_scrollbar->setFixedWidth(0);
-    signalLayout->addWidget(m_scrollbar, 0, Qt::AlignRight);
+    m_vertical_scrollbar = new QScrollBar(this);
+    Q_ASSERT(m_vertical_scrollbar);
+    if (!m_vertical_scrollbar) return;
+    m_vertical_scrollbar->setOrientation(Qt::Vertical);
+    m_vertical_scrollbar->setFixedWidth(
+	m_vertical_scrollbar->sizeHint().width());
+    m_vertical_scrollbar->hide();
+    m_vertical_scrollbar->setFixedWidth(0);
+    signalLayout->addWidget(m_vertical_scrollbar, 0, Qt::AlignRight);
 
     // -- signal widget --
 
@@ -146,14 +155,22 @@ MainWidget::MainWidget(QWidget *parent)
 
     // -- connect all signals from/to the signal widget --
 
-    connect(m_scrollbar, SIGNAL(valueChanged(int)),
-            this, SLOT(scrollbarMoved(int)));
+    connect(m_vertical_scrollbar, SIGNAL(valueChanged(int)),
+            this, SLOT(verticalScrollBarMoved(int)));
+    connect(m_horizontal_scrollbar, SIGNAL(valueChanged(int)),
+	    this, SLOT(horizontalScrollBarMoved(int)));
 
-    connect(m_slider, SIGNAL(valueChanged(unsigned int)),
+    connect(m_overview, SIGNAL(valueChanged(unsigned int)),
 	    &m_signal_widget, SLOT(setOffset(unsigned int)));
+    connect(m_overview, SIGNAL(sigCommand(const QString &)),
+            this, SLOT(forwardCommand(const QString &)));
     connect(&m_signal_widget, SIGNAL(viewInfo(unsigned int,
 	    unsigned int, unsigned int)),
-	    m_slider, SLOT(setRange(unsigned int, unsigned int,
+	    m_overview, SLOT(setRange(unsigned int, unsigned int,
+	    unsigned int)));
+    connect(&m_signal_widget, SIGNAL(viewInfo(unsigned int,
+	    unsigned int, unsigned int)),
+	    this, SLOT(updateViewInfo(unsigned int, unsigned int,
 	    unsigned int)));
 
     connect(&m_signal_widget, SIGNAL(sigZoomChanged(double)),
@@ -182,7 +199,8 @@ MainWidget::MainWidget(QWidget *parent)
 //***************************************************************************
 bool MainWidget::isOK()
 {
-    return (m_frm_channel_controls && m_scrollbar && m_slider);
+    return (m_frm_channel_controls && m_vertical_scrollbar &&
+            m_horizontal_scrollbar && m_overview);
 }
 
 //***************************************************************************
@@ -200,7 +218,7 @@ void MainWidget::resizeEvent(QResizeEvent *)
 }
 
 //***************************************************************************
-void MainWidget::scrollbarMoved(int newval)
+void MainWidget::verticalScrollBarMoved(int newval)
 {
     Q_ASSERT(m_frm_channel_controls);
     if (!m_frm_channel_controls) return;
@@ -326,39 +344,40 @@ void MainWidget::refreshChannelControls()
 
     unsigned int channels = tracks();
     int min_height = qMax(channels, (unsigned int)1) * MIN_PIXELS_PER_CHANNEL;
-    bool need_scrollbar = (m_signal_frame.height() < min_height);
-    bool scrollbar_visible = m_scrollbar->isVisible();
+    bool need_vertical_scrollbar = (m_signal_frame.height() < min_height);
+    bool vertical_scrollbar_visible = m_vertical_scrollbar->isVisible();
     int h = qMax(min_height, m_signal_frame.height());
     int w = m_signal_frame.width();
-    int b = m_scrollbar->sizeHint().width();
+    int b = m_vertical_scrollbar->sizeHint().width();
 
-    if (need_scrollbar && !scrollbar_visible) {
+    if (need_vertical_scrollbar && !vertical_scrollbar_visible) {
 	// -- show the scrollbar --
-	m_scrollbar->setFixedWidth(b);
-	m_scrollbar->setValue(0);
-	m_scrollbar->show();
+	m_vertical_scrollbar->setFixedWidth(b);
+	m_vertical_scrollbar->setValue(0);
+	m_vertical_scrollbar->show();
 	w -= b;
-	scrollbar_visible = true;
-    } else if (!need_scrollbar && scrollbar_visible) {
+	vertical_scrollbar_visible = true;
+    } else if (!need_vertical_scrollbar && vertical_scrollbar_visible) {
 	// -- hide the scrollbar --
-	m_scrollbar->hide();
-	m_scrollbar->setFixedWidth(0);
+	m_vertical_scrollbar->hide();
+	m_vertical_scrollbar->setFixedWidth(0);
 	w += b;
-	scrollbar_visible = false;
+	vertical_scrollbar_visible = false;
     }
 
-    if (scrollbar_visible) {
-	// adjust the limits of the scrollbar
-	int min = m_scrollbar->minimum();
-	int max = m_scrollbar->maximum();
-	double val = (m_scrollbar->value()-(double)min) / (double)(max-min);
+    if (vertical_scrollbar_visible) {
+	// adjust the limits of the vertical scrollbar
+	int min = m_vertical_scrollbar->minimum();
+	int max = m_vertical_scrollbar->maximum();
+	double val = (m_vertical_scrollbar->value()-(double)min) /
+	    (double)(max-min);
 
 	min = 0;
 	max = h-m_signal_frame.height();
-	m_scrollbar->setRange(min, max);
-	m_scrollbar->setValue((int)floor(val * (double)max));
-	m_scrollbar->setSingleStep(1);
-	m_scrollbar->setPageStep(m_signal_frame.height());
+	m_vertical_scrollbar->setRange(min, max);
+	m_vertical_scrollbar->setValue((int)floor(val * (double)max));
+	m_vertical_scrollbar->setSingleStep(1);
+	m_vertical_scrollbar->setPageStep(m_signal_frame.height());
     }
 
     // resize the signal widget and the frame with the channel controls
@@ -416,6 +435,80 @@ void MainWidget::refreshChannelControls()
     }
 
     m_last_tracks = channels;
+}
+
+//***************************************************************************
+void MainWidget::updateViewInfo(unsigned int, unsigned int, unsigned int)
+{
+    refreshHorizontalScrollBar();
+}
+
+//***************************************************************************
+void MainWidget::refreshHorizontalScrollBar()
+{
+    if (!m_horizontal_scrollbar) return;
+
+    m_horizontal_scrollbar->blockSignals(true);
+
+    // adjust the limits of the horizontal scrollbar
+    if (signalManager().length() > 1) {
+	// get the view information in samples
+	unsigned int length  = signalManager().length();
+	unsigned int offset  = m_signal_widget.offset();
+	unsigned int visible = m_signal_widget.pixels2samples(displayWidth());
+	if (visible > length) visible = length;
+	unsigned int range   = length - visible;
+	if (range) range--;
+	// in samples:
+	// min  => 0
+	// max  => length - visible - 1
+	// page => visible
+// 	qDebug("range = 0...%u, visible=%u, offset=%u, offset+visible=%d range+visible=%d",
+// 	    range, visible, offset, offset+visible, range+visible);
+
+	// calculate ranges in samples
+	int width = displayWidth();
+	int page  = (int)floor((double)width * (double)visible / (double)length);
+	if (page < 1) page = 1;
+	if (page > width) page = width;
+	int min   = 0;
+	int max   = width - page;
+	int pos   = (range) ?
+	    (int)floor((double)offset * (double)max / (double)range) : 0;
+// 	qDebug("width=%d,max=%d, page=%d, pos=%d",width,max,page,pos);
+
+	m_horizontal_scrollbar->setRange(min, max);
+	m_horizontal_scrollbar->setValue(pos);
+	m_horizontal_scrollbar->setSingleStep(page / 2);
+	m_horizontal_scrollbar->setPageStep(page);
+    } else {
+	m_horizontal_scrollbar->setRange(0,0);
+    }
+
+    m_horizontal_scrollbar->blockSignals(false);
+}
+
+//***************************************************************************
+void MainWidget::horizontalScrollBarMoved(int newval)
+{
+    if (!m_horizontal_scrollbar) return;
+
+    unsigned int max = m_horizontal_scrollbar->maximum();
+    if (max < 1) {
+	m_signal_widget.setOffset(0);
+	return;
+    }
+
+    // convert the current position into samples
+    unsigned int length = signalManager().length();
+    unsigned int visible = m_signal_widget.pixels2samples(displayWidth());
+    if (visible > length) visible = length;
+    unsigned int range   = length - visible;
+    if (range) range--;
+
+    unsigned int pos = (int)floor((double)range * (double)newval / (double)max);
+//     qDebug("horizontalScrollBarMoved(%d) -> %u", newval, pos);
+    m_signal_widget.setOffset(pos);
 }
 
 //***************************************************************************

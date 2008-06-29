@@ -27,34 +27,15 @@
 
 #include <kdemacros.h>
 
-#include "OverViewCache.h"
+#include "libgui/ImageView.h"
+#include "libgui/OverViewCache.h"
 
 class QMouseEvent;
 class QResizeEvent;
 class SignalManager;
 class Track;
 
-/**
- * @class OverViewWidget
- * An OverviewWidget can be used like a QSlider but has some background image
- * that can show an overview over the whole data that is currently not
- * visible. (QScrollbar has proven to be unstable with high numbers)
- *
- * The behaviour is also somewhat "smarter":
- *
- * The slider can be moved like in the QScrollbar by pressing down the left
- * mouse button and moving the mouse left or right.
- *
- * When pressing the left mouse button left or right of the slider, the slider
- * moves towards the mouse position in steps of approx 1/10 of the current view
- * width - with a speed of 10 steps per second - until the slider goes under
- * the mouse. Then the slider snaps in and will be centered under the mouse
- * cursor and can be moved.
- *
- * By double-clicking on the bar, the slider immediately will be centered
- * under the clicked position.
- */
-class KDE_EXPORT OverViewWidget : public QWidget
+class KDE_EXPORT OverViewWidget : public ImageView
 {
     Q_OBJECT
 public:
@@ -64,25 +45,11 @@ public:
     /** Destructor */
     virtual ~OverViewWidget();
 
-    /**
-     * Sets the slider to a new offset. The offset is given in
-     * user's coordinates (e.g. samples).
-     */
-    void setValue(unsigned int newval);
-
     /** minimum size of the widget, @see QWidget::minimumSize() */
     virtual QSize minimumSize() const;
 
     /** optimal size for the widget, @see QWidget::sizeHint() */
     virtual QSize sizeHint() const;
-
-protected:
-
-    void resizeEvent(QResizeEvent *);
-    void mousePressEvent(QMouseEvent *);
-    void mouseReleaseEvent(QMouseEvent *);
-    void mouseMoveEvent(QMouseEvent *);
-    void mouseDoubleClickEvent(QMouseEvent *e);
 
 public slots:
 
@@ -90,19 +57,37 @@ public slots:
      * Sets new range parameters of the slider, using a scale that is calculated
      * out of the slider's maximum position. All parameters are given in the
      * user's coordinates/units (e.g. samples).
-     * @param new_pos position of the slider (left or top of the bar)
-     * @param new_width width of the slider (bar)
-     * @param new_length size of the slider's area
+     * @param offset index of the first visible sample
+     * @param viewport width of the visible area
+     * @param total width of the whole signal
      */
-    void setRange(unsigned int new_pos, unsigned int new_width,
-	unsigned int new_length);
+    void setRange(unsigned int offset, unsigned int viewport,
+                  unsigned int total);
+
+protected:
+
+    /** refreshes the bitmap when resized */
+    void resizeEvent(QResizeEvent *);
+
+    /**
+     * On single-click with the left mouse button:
+     * move the current viewport center to the clicked position.
+     */
+    void mousePressEvent(QMouseEvent *);
+
+    /**
+     * On double click with the left mouse button, without shift:
+     * move the current viewport center to the clicked position, like
+     * on a single-click, but also zoom in (by sending "zoomin()").
+     *
+     * When double clicked with the left mouse button with shift:
+     * The same as above, but zoom out instead of in (by sending "zoomout()").
+     */
+    void mouseDoubleClickEvent(QMouseEvent *e);
 
 protected slots:
 
-    /** moves the slider one further bit left or right */
-    void increase();
-
-    /** Refreshes all modified parts of the bitmap */
+    /** refreshes all modified parts of the bitmap */
     void refreshBitmap();
 
     /**
@@ -119,18 +104,10 @@ signals:
      */
     void valueChanged(unsigned int new_value);
 
+    /** emitted for zooming in and out via command */
+    void sigCommand(const QString &command);
+
 protected:
-
-    /** repaints the bar with overview and the slider */
-    void paintEvent(QPaintEvent *);
-
-    /**
-     * Converts an offset in the user's coordinate system into
-     * a pixel offset withing the overview's drawing area.
-     * @param offset an offset in the user's coordinate system [0..length-1]
-     * @return the internal pixel coordinate [0...width-1]
-     */
-    int offset2pixels(unsigned int offset);
 
     /**
      * Converts a pixel offset within the overview's drawing area
@@ -138,48 +115,18 @@ protected:
      * @param pixels the pixel coordinate [0...width-1]
      * @return an offset [0..length-1]
      */
-    unsigned int pixels2offset(int pixels);
-
-    /** State of a cache entry */
-    typedef enum {Invalid, Fuzzy, Intermediate, Unused} CacheState;
+    int pixels2offset(int pixels);
 
 private:
 
-    /** width of the widget in pixels */
-    int m_width;
-
-    /** height of the widget in pixels */
-    int m_height;
-
-    /** position of the cursor within the slider when clicked */
-    int m_grabbed;
-
-    /** last position of the mouse pointer when held down */
-    int m_mouse_pos;
-
-    /** width of the slider [pixels] */
-    int m_slider_width;
-
-    /** width of the visible area [user's coordinates] */
-    unsigned int m_view_width;
-
-    /** length of the whole area [user's coordinates] */
-    unsigned int m_view_length;
-
-    /** offset of the visible area [user's coordinates] */
+    /** index of the first visible sample */
     unsigned int m_view_offset;
 
-    /** addup for direction... */
-    int m_dir;
+    /** width of the visible area [samples] */
+    unsigned int m_view_width;
 
-    /** flag for redrawing pixmap */
-    bool m_redraw;
-
-    /** to spare user repeated pressing of the widget... */
-    QTimer m_timer;
-
-    /** QBitmap with the overview */
-    QBitmap m_bitmap;
+    /** length of the whole area [samples] */
+    unsigned int m_signal_length;
 
     /** cache with overview data */
     OverViewCache m_cache;

@@ -167,6 +167,28 @@ public:
     /** Returns the playback controller */
     PlaybackController &playbackController();
 
+    /** returns the current display offset */
+    inline unsigned int offset() const {
+	return m_offset;
+    };
+
+    /**
+     * Converts a sample index into a pixel offset using the current zoom
+     * value. Always rounds up or downwards. If the number of pixels or the
+     * current zoom is less than zero, the return value will be zero.
+     * @param pixels pixel offset
+     * @return index of the sample
+     */
+    unsigned int pixels2samples(int pixels) const;
+
+    /**
+     * Converts a pixel offset into a sample index using the current zoom
+     * value. Always rounds op or downwards.
+     * @param samples number of samples to be converted
+     * @return pixel offset
+     */
+    int samples2pixels(int samples) const;
+
 public slots:
 
     /**
@@ -630,23 +652,6 @@ private:
      * Refreshes a single display layer.
      */
     void refreshLayer(int layer);
-
-    /**
-     * Converts a sample index into a pixel offset using the current zoom
-     * value. Always rounds up or downwards. If the number of pixels or the
-     * current zoom is less than zero, the return value will be zero.
-     * @param pixels pixel offset
-     * @return index of the sample
-     */
-    unsigned int pixels2samples(int pixels) const;
-
-    /**
-     * Converts a pixel offset into a sample index using the current zoom
-     * value. Always rounds op or downwards.
-     * @param samples number of samples to be converted
-     * @return pixel offset
-     */
-    int samples2pixels(int samples) const;
 
     /**
      * Fixes the zoom and the offset of the display so that no non-existing

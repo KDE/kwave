@@ -33,6 +33,8 @@ o replace "AF_SAMPFMT_xxx" with enum "SampleFormat::yyy" in WavEncoder.cpp,
 o more precise handling of the playback pointer
   -> use the delay information from aRts
 
+o make use of mouse wheel events, e.g. for vertical zoom
+
 o function for "Edit/Selection/Insert at..." or a "goto position" function
 
 o hourglass and process indicators for longer processes
@@ -67,8 +69,6 @@ o change from id3lib to taglib
 o respect the environment variable LINGUAS when installing po files and manual
 
 o install a new_handler() for cases in which we run out of memory
-
-o implementation of locking
 
 o open file dialog: add a preview widget that shows info about the file
   and maybe has "playback/pause/stop" buttons
@@ -145,9 +145,6 @@ o support for KDE's session management
 o fix bug in Fx->Periodic Silence (segmentation fault)
 
 o macro recorder
-
-o navigation buttons on the overview widget
-  -> maybe use a modified horizontal scroll bar
 
 o use MemoryManager for undo actions
 

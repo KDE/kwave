@@ -34,7 +34,7 @@
 //***************************************************************************
 OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     :ImageView(parent), m_view_offset(0), m_view_width(0), m_signal_length(0),
-     m_cache(signal), m_repaint_timer()
+     m_last_offset(0), m_cache(signal), m_repaint_timer()
 {
     // update the bitmap if the cache has changed
     connect(&m_cache, SIGNAL(changed()), this, SLOT(overviewChanged()));
@@ -42,6 +42,8 @@ OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     // connect repaint timer
     connect(&m_repaint_timer, SIGNAL(timeout()),
             this, SLOT(refreshBitmap()));
+
+    setMouseTracking(true);
 }
 
 //***************************************************************************
@@ -50,17 +52,27 @@ OverViewWidget::~OverViewWidget()
 }
 
 //***************************************************************************
+void OverViewWidget::mouseMoveEvent(QMouseEvent *e)
+{
+    mousePressEvent(e);
+}
+
+//***************************************************************************
 void OverViewWidget::mousePressEvent(QMouseEvent *e)
 {
     Q_ASSERT(e);
     if (!e) return;
-    if (e->button() != Qt::LeftButton) {
+    if (e->buttons() != Qt::LeftButton) {
 	e->ignore();
 	return;
     }
 
     // move the clicked position to the center of the viewport
-    emit valueChanged(pixels2offset(e->x()));
+    unsigned int offset = pixels2offset(e->x());
+    if (offset != m_last_offset) {
+	m_last_offset = offset;
+	emit valueChanged(offset);
+    }
     e->accept();
 }
 
@@ -75,7 +87,11 @@ void OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
     }
 
     // move the clicked position to the center of the viewport
-    emit valueChanged(pixels2offset(e->x()));
+    unsigned int offset = pixels2offset(e->x());
+    if (offset != m_last_offset) {
+	m_last_offset = offset;
+	emit valueChanged(offset);
+    }
 
     if (e->modifiers() == Qt::NoModifier) {
 	// double click without shift => zoom in

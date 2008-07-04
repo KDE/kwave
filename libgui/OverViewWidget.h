@@ -70,6 +70,12 @@ protected:
     void resizeEvent(QResizeEvent *);
 
     /**
+     * On mouse move:
+     * move the current viewport center to the clicked position.
+     */
+    void mouseMoveEvent(QMouseEvent *);
+
+    /**
      * On single-click with the left mouse button:
      * move the current viewport center to the clicked position.
      */
@@ -127,6 +133,9 @@ private:
 
     /** length of the whole area [samples] */
     unsigned int m_signal_length;
+
+    /** last emitted offset (for avoiding duplicate events) */
+    unsigned int m_last_offset;
 
     /** cache with overview data */
     OverViewCache m_cache;

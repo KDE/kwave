@@ -174,12 +174,12 @@ MainWidget::MainWidget(QWidget *parent)
 	    unsigned int)));
 
     connect(&m_signal_widget, SIGNAL(sigZoomChanged(double)),
-	    this, SLOT(forwardZoomChanged(double)));
+	    this, SIGNAL(sigZoomChanged(double)));
     connect(&m_signal_widget, SIGNAL(sigCommand(const QString &)),
 	    this, SLOT(forwardCommand(const QString &)));
     connect(&m_signal_widget, SIGNAL(selectedTimeInfo(unsigned int,
             unsigned int, double)),
-	    this, SLOT(forwardSelectedTimeInfo(unsigned int,
+	    this, SIGNAL(selectedTimeInfo(unsigned int,
             unsigned int, double)));
     connect(&m_signal_widget, SIGNAL(sigTrackInserted(unsigned int)),
 	    this, SLOT(slotTrackInserted(unsigned int)));
@@ -189,7 +189,7 @@ MainWidget::MainWidget(QWidget *parent)
 	    this, SLOT(refreshChannelControls()));
 
     connect(&m_signal_widget, SIGNAL(sigMouseChanged(int)),
-	    this, SLOT(forwardMouseChanged(int)));
+	    this, SIGNAL(sigMouseChanged(int)));
 
     refreshChannelControls();
 
@@ -267,35 +267,9 @@ void MainWidget::newSignal(unsigned int samples, double rate,
 }
 
 //***************************************************************************
-void MainWidget::forwardZoomChanged(double zoom)
-{
-    emit sigZoomChanged(zoom);
-}
-
-//***************************************************************************
-void MainWidget::forwardSelectedTimeInfo(unsigned int offset,
-                                         unsigned int length, double rate)
-{
-    emit selectedTimeInfo(offset, length, rate);
-}
-
-//***************************************************************************
-void MainWidget::forwardMouseChanged(int mode)
-{
-    emit sigMouseChanged(mode);
-}
-
-//***************************************************************************
 double MainWidget::zoom()
 {
     return m_signal_widget.zoom();
-}
-
-//***************************************************************************
-void MainWidget::resetChannels()
-{
-    foreach (MultiStateWidget *lamp, m_lamps)
-	if (lamp) lamp->setState(0);
 }
 
 //***************************************************************************

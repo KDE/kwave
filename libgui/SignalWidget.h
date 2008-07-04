@@ -445,7 +445,7 @@ signals:
      * sample rate for converting it into milliseconds
      */
     void selectedTimeInfo(unsigned int offset, unsigned int length,
-                          qreal rate);
+                          double rate);
 
     /**
      * Emits a command to be processed by the next higher instance.
@@ -457,7 +457,7 @@ signals:
      * command or resize.
      * @param zoom value [samples/pixel]
      */
-    void sigZoomChanged(qreal zoom);
+    void sigZoomChanged(double zoom);
 
     /**
      * Emits a change in the mouse cursor. This can be used to change

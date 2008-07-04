@@ -303,10 +303,13 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	i18n("zoom to all"),
 	m_main_widget, SLOT(zoomAll()));
 
-    KComboBox *m_zoomselect = new KComboBox(this);
+    // zoom selection combo box
+    m_zoomselect = new KComboBox(this);
     Q_ASSERT(m_zoomselect);
     if (!m_zoomselect) return;
     m_zoomselect->setToolTip(i18n("select zoom factor"));
+    m_zoomselect->setInsertPolicy(QComboBox::InsertAtTop);
+    m_zoomselect->setEditable(false);
     foreach (ZoomFactor zoom, m_zoom_factors)
 	m_zoomselect->addItem(zoom.first);
 
@@ -869,11 +872,23 @@ int TopWidget::newSignal(unsigned int samples, double rate,
 void TopWidget::selectZoom(int index)
 {
     Q_ASSERT(m_main_widget);
+    Q_ASSERT(m_zoomselect);
     if (!m_main_widget) return;
-
+    if (!m_zoomselect) return;
     if (index < 0) return;
-    if (index >= m_zoom_factors.count())
-	index = m_zoom_factors.count()-1;
+    if (index >= m_zoom_factors.count()) return;
+
+    if (m_zoomselect->count() > m_zoom_factors.count()) {
+	// selected the special entry at top
+	if (index == 0) return;
+
+	// remove user-defined entry
+	m_zoomselect->blockSignals(true);
+	while (m_zoomselect->count() > m_zoom_factors.count())
+	    m_zoomselect->removeItem(0);
+	m_zoomselect->blockSignals(false);
+	index--;
+    }
 
     const double rate = signalManager().rate();
     const double ms = m_zoom_factors[index].second;
@@ -923,8 +938,22 @@ void TopWidget::setZoomInfo(double zoom)
 	}
     }
 
-    (strZoom.length()) ? m_zoomselect->setEditText(strZoom) :
-                         m_zoomselect->clearEditText();
+    if (m_zoomselect->contains(strZoom)) {
+	// select existing entry
+	m_zoomselect->blockSignals(true);
+	while (m_zoomselect->count() > m_zoom_factors.count())
+	    m_zoomselect->removeItem(0);
+	m_zoomselect->setCurrentIndex(m_zoomselect->findText(strZoom));
+	m_zoomselect->blockSignals(false);
+    } else {
+	// add a new entry at the top
+	m_zoomselect->blockSignals(true);
+	while (m_zoomselect->count() > m_zoom_factors.count())
+	    m_zoomselect->removeItem(0);
+	m_zoomselect->insertItem(-1, strZoom);
+	m_zoomselect->setCurrentIndex(0);
+	m_zoomselect->blockSignals(false);
+    }
 }
 
 //***************************************************************************
@@ -949,7 +978,7 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
     // sample rate and resolution
     if (bits) {
 	QString khz = "%0.3f";
-	khz = khz.sprintf("%0.3f", (qreal)rate * 1E-3);
+	khz = khz.sprintf("%0.3f", (double)rate * 1E-3);
 	txt = " "+i18n("Mode: %1 kHz@%2 bit", khz, bits)+" ";
     } else txt = "";
     statusBar()->changeItem(txt, STATUS_ID_MODE);

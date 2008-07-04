@@ -124,8 +124,6 @@ public slots:
 
     void forwardCommand(const QString &command);
 
-    void resetChannels();
-
     void parseKey(int key);
 
     /** calls setZoom() of the signal widget */
@@ -149,25 +147,6 @@ public slots:
     inline void zoomNormal()    { m_signal_widget.zoomNormal(); };
 
 private slots:
-
-    /**
-     * Forwards the zoomChanged signal of the iternal view window
-     * by emitting sigZoomChanged.
-     */
-    void forwardZoomChanged(double zoom);
-
-    /**
-     * Forwards the selectedTimeInfo signal of the internal view window
-     * by emitting selectedTimeInfo.
-     */
-    void forwardSelectedTimeInfo(unsigned int offset, unsigned int length,
-                                 double rate);
-
-    /**
-     * Forwards the sigMouseChanged signal of the internal view window
-     * by emitting sigMouseChanged again.
-     */
-    void forwardMouseChanged(int mode);
 
     /**
      * Called if a track has been added. Updates the display by

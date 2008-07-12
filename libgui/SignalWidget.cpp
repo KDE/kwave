@@ -105,6 +105,15 @@
  */
 #define SELECTION_TOLERANCE 10
 
+/** vertical zoom factor: minimum value */
+#define VERTICAL_ZOOM_MIN 1.0
+
+/** vertical zoom factor: maximum value */
+#define VERTICAL_ZOOM_MAX 100.0
+
+/** vertical zoom factor: increment/decrement factor */
+#define VERTICAL_ZOOM_STEP_FACTOR 1.5
+
 //***************************************************************************
 //***************************************************************************
 namespace KwaveFileDrag
@@ -129,8 +138,8 @@ namespace KwaveFileDrag
 SignalWidget::SignalWidget(QWidget *parent)
     :QWidget(parent), m_image(),
     m_offset(0), m_width(0), m_height(0), m_last_width(0), m_last_height(0),
-    m_zoom(0.0), m_playpointer(-1), m_last_playpointer(-1), m_redraw(false),
-    m_inhibit_repaint(0), m_selection(0), m_signal_manager(this),
+    m_zoom(0.0), m_vertical_zoom(1.0), m_playpointer(-1), m_last_playpointer(-1),
+    m_redraw(false), m_inhibit_repaint(0), m_selection(0), m_signal_manager(this),
     m_track_pixmaps(), m_mouse_mode(MouseNormal), m_mouse_down_x(0),
     m_repaint_timer(this), m_position_widget(this),
     m_position_widget_timer(this)
@@ -140,7 +149,6 @@ SignalWidget::SignalWidget(QWidget *parent)
     for (int i=0; i < 3; i++) {
 	m_layer[i] = QImage();
 	m_update_layer[i] = true;
-	m_layer_rop[i] = QPainter::CompositionMode_Source;
     }
 
     m_selection = new MouseMark();
@@ -207,12 +215,6 @@ SignalWidget::SignalWidget(QWidget *parent)
 
     setZoom(0.0);
 //    qDebug("SignalWidget::SignalWidget(): done.");
-}
-
-//***************************************************************************
-void SignalWidget::refreshSelection()
-{
-    refreshLayer(LAYER_SELECTION);
 }
 
 //***************************************************************************
@@ -464,7 +466,7 @@ void SignalWidget::slotSelectionChanged(unsigned int offset,
     offset = m_signal_manager.selection().offset();
     length = m_signal_manager.selection().length();
 
-    refreshSelection();
+    refreshLayer(LAYER_SELECTION);
     emit selectedTimeInfo(offset, length, m_signal_manager.rate());
 }
 
@@ -1171,7 +1173,7 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
 	    m_selection->update(x);
 	    selectRange(m_selection->left(), m_selection->length());
 	    setMouseMode(MouseNormal);
-	    showPosition(0, 0, 0, QPoint(-1,-1));
+	    hidePosition();
 	    break;
 	}
 	case MouseInSelection: {
@@ -1184,7 +1186,7 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
 		unsigned int pos = m_offset + pixels2samples(e->pos().x());
 		selectRange(pos, 0);
 		setMouseMode(MouseNormal);
-		showPosition(0, 0, 0, QPoint(-1,-1));
+		hidePosition();
 	    }
 	    break;
 	}
@@ -1524,11 +1526,11 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 			    last, samples2ms(last), pos);
 			break;
 		    default:
-			showPosition(0, 0, 0, QPoint(-1,-1));
+			hidePosition();
 		}
 	    } else if (isInSelection(mouse_x)) {
 		setMouseMode(MouseInSelection);
-		showPosition(0, 0, 0, QPoint(-1,-1));
+		hidePosition();
                 int dmin = KGlobalSettings::dndEventDelay();
 		if ((e->buttons() & Qt::LeftButton) &&
 		    ((mouse_x < m_mouse_down_x - dmin) ||
@@ -1538,9 +1540,40 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 		}
 	    } else {
 		setMouseMode(MouseNormal);
-		showPosition(0, 0, 0, QPoint(-1,-1));
+		hidePosition();
 	    }
 	}
+    }
+}
+
+//***************************************************************************
+void SignalWidget::wheelEvent(QWheelEvent *event)
+{
+    if (!event) return;
+
+    // we currently are only interested in <Ctrl> + <WheelUp/Down>
+    if (event->modifiers() != Qt::ControlModifier) {
+	event->ignore();
+	return;
+    }
+
+    if ((event->delta() > 0) && (m_vertical_zoom < VERTICAL_ZOOM_MAX)) {
+	// zom in
+	m_vertical_zoom *= VERTICAL_ZOOM_STEP_FACTOR;
+	if (m_vertical_zoom > VERTICAL_ZOOM_MAX)
+	    m_vertical_zoom = VERTICAL_ZOOM_MAX;
+	event->accept();
+	refreshSignalLayer();
+    } else if ((event->delta() < 0) && (m_vertical_zoom > VERTICAL_ZOOM_MIN)) {
+	// zoom out
+	m_vertical_zoom /= VERTICAL_ZOOM_STEP_FACTOR;
+	if (m_vertical_zoom < VERTICAL_ZOOM_MIN)
+	    m_vertical_zoom = VERTICAL_ZOOM_MIN;
+	event->accept();
+	refreshSignalLayer();
+    } else {
+	// no change
+	event->ignore();
     }
 }
 
@@ -1560,9 +1593,6 @@ void SignalWidget::paintEvent(QPaintEvent *)
     QPainter p;
 
     int n_tracks = m_signal_manager.isClosed() ? 0 : tracks();
-    m_layer_rop[LAYER_SIGNAL]    = QPainter::CompositionMode_Source;
-    m_layer_rop[LAYER_SELECTION] = QPainter::CompositionMode_Exclusion;
-    m_layer_rop[LAYER_MARKERS]   = QPainter::CompositionMode_Exclusion;
 
     m_width = QWidget::width();
     m_height = QWidget::height();
@@ -1608,6 +1638,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	    if ((pix->width() != m_width) || (pix->height() != track_height))
 		pix->resize(m_width, track_height);
 
+	    pix->setVerticalZoom(m_vertical_zoom);
 	    if (pix->isModified())
 		pix->repaint();
 
@@ -1681,8 +1712,13 @@ void SignalWidget::paintEvent(QPaintEvent *)
     // bitBlt all layers together
     p.begin(&m_image);
     p.fillRect(0, 0, m_width, m_height, Qt::black);
+    const QPainter::CompositionMode layer_rop[3] = {
+	QPainter::CompositionMode_Source,    /* LAYER_SIGNAL    */
+	QPainter::CompositionMode_Exclusion, /* LAYER_SELECTION */
+	QPainter::CompositionMode_Exclusion  /* LAYER_MARKERS   */
+    };
     for (int i=0; i < 3; i++) {
-	p.setCompositionMode(m_layer_rop[i]);
+	p.setCompositionMode(layer_rop[i]);
 	p.drawImage(0, 0, m_layer[i]);
     }
     m_last_playpointer = -2;
@@ -1796,7 +1832,7 @@ void SignalWidget::addLabel(unsigned int pos)
 	labelProperties(label);
 
 	refreshLayer(LAYER_MARKERS);
-	showPosition(0, 0, 0, QPoint(-1,-1));
+	hidePosition();
     }
 }
 
@@ -1983,50 +2019,6 @@ bool SignalWidget::labelProperties(Label *label)
 //
 //		out.close ();
 //	    }
-//	}
-//    }
-//}
-
-//***************************************************************************
-//void SignalWidget::saveBlocks (int bit)
-//{
-//    if (signalmanage) {
-//	Dialog *dialog =
-//	    DynamicLoader::getDialog("saveblock", new DialogOperation(&globals, signalmanage->getRate(), 0, 0));
-//
-//	if ((dialog) && (dialog->exec())) {
-//	    Parser parser (dialog->getCommand());
-//
-//	    const char *filename = parser.getFirstParam();
-//	    QDir *savedir = new QDir (parser.getNextParam());
-//
-//	    LabelType *start = findMarkerType(parser.getNextParam());
-//	    LabelType *stop = findMarkerType (parser.getNextParam());
-//
-//	    Label *tmp;
-//	    Label *tmp2;
-//	    int count = 0;
-//	    int l = signalmanage->getLMarker();    //save old marker positions...
-//	    int r = signalmanage->getRMarker();    //
-//
-//	    for (tmp = labels->first(); tmp; tmp = labels->next())  //traverse list of labels
-//	    {
-//		if (tmp->getType() == start) {
-//		    for (tmp2 = tmp; tmp2; tmp2 = labels->next())  //traverse rest of list to find next stop marker
-//			if (tmp2->getType() == stop) {
-//			    char buf[256];
-//			    snprintf (buf, sizeof(buf), "%s%04d.wav", filename, count);
-//			    //lets hope noone tries to save more than 10000 blocks...
-//
-//			    signalmanage->setRange (tmp->pos, tmp2->pos);    //changes don't have to be visible...
-//			    filename = savedir->absoluteFilePath(buf);
-//			    signalmanage->save (filename, bit, true);     //save selected range...
-//			    count++;
-//			    break;
-//			}
-//		}
-//	    }
-//	    signalmanage->setRange (l, r);
 //	}
 //    }
 //}

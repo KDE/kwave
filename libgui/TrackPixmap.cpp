@@ -64,7 +64,7 @@ static TrackPixmap::color_set_t color_set_disabled =
 //***************************************************************************
 TrackPixmap::TrackPixmap(Track &track)
     :QObject(), m_pixmap(), m_track(track), m_offset(0), m_zoom(0.0),
-    m_minmax_mode(false),
+    m_vertical_zoom(1.0), m_minmax_mode(false),
     m_sample_buffer(), m_min_buffer(), m_max_buffer(),
     m_modified(false), m_valid(0), m_lock_buffer(),
     m_interpolation_order(0), m_interpolation_alpha(0),
@@ -443,6 +443,16 @@ void TrackPixmap::repaint()
 }
 
 //***************************************************************************
+void TrackPixmap::setVerticalZoom(qreal zoom)
+{
+    QMutexLocker lock(&m_lock_buffer);
+
+    if (zoom == m_vertical_zoom) return;
+    m_vertical_zoom = zoom;
+    m_modified = true;
+}
+
+//***************************************************************************
 bool TrackPixmap::isModified()
 {
     QMutexLocker lock(&m_lock_buffer);
@@ -465,7 +475,7 @@ void TrackPixmap::drawOverview(QPainter &p, int middle, int height,
     Q_ASSERT(width() <= (int)m_max_buffer.size());
 
     // scale_y: pixels per unit
-    qreal scale_y = (qreal)height / (1 << 24);
+    qreal scale_y = (m_vertical_zoom * (qreal)height) / (1 << SAMPLE_BITS);
     int max = 0, min = 0;
 
     p.setPen(m_colors.sample);
@@ -569,7 +579,7 @@ void TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     if (m_zoom == 0.0) return;
 
     // scale_y: pixels per unit
-    scale_y = (float)height / (float)((SAMPLE_MAX+1)<<1);
+    scale_y = (m_vertical_zoom * (qreal)height) / (qreal)((SAMPLE_MAX+1)<<1);
 
     // N: order of the filter, at least 2 * (1/m_zoom)
     N = INTERPOLATION_PRECISION * samples2pixels(1);
@@ -654,7 +664,7 @@ void TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
     unsigned int buflen = m_sample_buffer.size();
 
     // scale_y: pixels per unit
-    scale_y = (qreal)height / (qreal)((SAMPLE_MAX+1)<<1);
+    scale_y = (m_vertical_zoom * (qreal)height) / (qreal)((SAMPLE_MAX+1)<<1);
 
     // array with sample points
     QPolygon points;

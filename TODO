@@ -31,7 +31,6 @@ o replace "AF_SAMPFMT_xxx" with enum "SampleFormat::yyy" in WavEncoder.cpp,
   WavDecoder.cpp and PlayBack-OSS.cpp
 
 o more precise handling of the playback pointer
-  -> use the delay information from aRts
 
 o make use of mouse wheel events, e.g. for vertical zoom
 
@@ -131,8 +130,6 @@ o bugfix: channel mixer dialog causes segmentation fault -> disabled
 o use standard KDE accelerators (see KStdAccel)
 
 o import of multi-channel ASCII files
-
-o vertical zoom, maybe with right mouse button or zoom tool
 
 o use namespace "Kwave" for all Kwave components
 

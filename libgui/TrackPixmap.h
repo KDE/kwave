@@ -102,6 +102,12 @@ public:
     virtual void repaint();
 
     /**
+     * Sets a new vertical zoom factor.
+     * @param zoom new vertical zoom
+     */
+    virtual void setVerticalZoom(qreal zoom);
+
+    /**
      * Returns "true" if the buffer has changed and the pixmap has to
      * be re-painted.
      */
@@ -313,6 +319,11 @@ private:
      * sample indices into pixels and vice-versa.
      */
     qreal m_zoom;
+
+    /**
+     * vertical zoom factor. Default is 1.0
+     */
+    qreal m_vertical_zoom;
 
     /**
      * If true, we are in min/max mode. This means that m_sample_buffer

@@ -48,6 +48,7 @@ class QMouseEvent;
 class QMoveEvent;
 class QPaintEvent;
 class QResizeEvent;
+class QWheelEvent;
 
 class KUrl;
 
@@ -367,9 +368,6 @@ private slots:
      */
     void updatePlaybackPointer(unsigned int pos);
 
-    /* ### */
-    void refreshSelection();
-
     /**
      * Refreshes the signal layer. Shortcut to refreshLayer(LAYER_SIGNAL).
      * @see #refreshLayer()
@@ -594,16 +592,19 @@ protected:
     qreal getFullZoom();
 
     /** slot for detecting resizing of the widget */
-    void resizeEvent(QResizeEvent *);
+    virtual void resizeEvent(QResizeEvent *);
 
     /** slot for mouse press, used for selection and drag&drop */
-    void mousePressEvent(QMouseEvent *);
+    virtual void mousePressEvent(QMouseEvent *);
 
     /** slot for mouse release, used for selection and drag&drop */
-    void mouseReleaseEvent(QMouseEvent *);
+    virtual void mouseReleaseEvent(QMouseEvent *);
 
     /** slot for mouse moves, used for selection and drag&drop */
-    void mouseMoveEvent(QMouseEvent *);
+    virtual void mouseMoveEvent(QMouseEvent *);
+
+    /** slot for mouse wheel events, used for vertical zoom */
+    virtual void wheelEvent(QWheelEvent *event);
 
     /** slot for repainting the widget or portions of it */
     void paintEvent(QPaintEvent *);
@@ -704,9 +705,6 @@ private:
     /** flags for updating each layer */
     bool m_update_layer[3];
 
-    /** raster operation for each layer (XOR, AND, OR, ...) */
-    QPainter::CompositionMode m_layer_rop[3];
-
     /**
      * Offset from which signal is beeing displayed. This is equal to
      * the index of the first visible sample.
@@ -727,6 +725,9 @@ private:
 
     /** number of samples per pixel */
     qreal m_zoom;
+
+    /** vertical zoom factor */
+    qreal m_vertical_zoom;
 
     /**
      * position of the vertical line that indicates the current

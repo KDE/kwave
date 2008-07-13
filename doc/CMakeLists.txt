@@ -37,7 +37,7 @@ FIND_REQUIRED_PROGRAM(XML2POT_EXECUTABLE xml2pot)
 FIND_REQUIRED_PROGRAM(MSGMERGE_EXECUTABLE msgmerge)
 FIND_REQUIRED_PROGRAM(PO2XML_EXECUTABLE po2xml)
 FIND_REQUIRED_PROGRAM(CHECKXML_EXECUTABLE checkXML)
-FIND_REQUIRED_PROGRAM(MEINPROC_EXECUTABLE meinproc)
+FIND_REQUIRED_PROGRAM(MEINPROC_EXECUTABLE meinproc4 meinproc)
 
 #############################################################################
 ### update of the original docbook file                                   ###

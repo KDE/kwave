@@ -20,6 +20,7 @@
 #include <stdlib.h>
 
 #include <QKeySequence>
+#include <QRegExp>
 #include <QString>
 #include <QWidget>
 
@@ -31,6 +32,10 @@
 #include "MenuRoot.h"
 #include "MenuGroup.h"
 #include "MenuManager.h"
+
+//***************************************************************************
+/** static map with standard keys */
+QMap<QString, QKeySequence> MenuManager::m_standard_keys;
 
 //***************************************************************************
 MenuManager::MenuManager(QWidget *parent, KMenuBar &bar)
@@ -45,11 +50,85 @@ MenuManager::MenuManager(QWidget *parent, KMenuBar &bar)
 	    Qt::QueuedConnection
 	);
     }
+
+    // fill the list of standard keys if it is empty.
+    //
+    // HINT: I have gerated the list below through copy&paste of the
+    //       description of "enum QKeySequence::StandardKey" into
+    //       list.txt and then:
+    //
+    // cat list.txt | sed s/^\ \ //g | cut -d \  -f 1 | cut -d \: -f 3 |
+    // awk '{ print "\tm_standard_keys.insert(\""$0"\", QKeySequence::"$0");"}'
+
+    if (m_standard_keys.isEmpty()) {
+	m_standard_keys.insert("UnknownKey", QKeySequence::UnknownKey);
+	m_standard_keys.insert("HelpContents", QKeySequence::HelpContents);
+	m_standard_keys.insert("WhatsThis", QKeySequence::WhatsThis);
+	m_standard_keys.insert("Open", QKeySequence::Open);
+	m_standard_keys.insert("Close", QKeySequence::Close);
+	m_standard_keys.insert("Save", QKeySequence::Save);
+	m_standard_keys.insert("New", QKeySequence::New);
+	m_standard_keys.insert("Delete", QKeySequence::Delete);
+	m_standard_keys.insert("Cut", QKeySequence::Cut);
+	m_standard_keys.insert("Copy", QKeySequence::Copy);
+	m_standard_keys.insert("Paste", QKeySequence::Paste);
+	m_standard_keys.insert("Undo", QKeySequence::Undo);
+	m_standard_keys.insert("Redo", QKeySequence::Redo);
+	m_standard_keys.insert("Back", QKeySequence::Back);
+	m_standard_keys.insert("Forward", QKeySequence::Forward);
+	m_standard_keys.insert("Refresh", QKeySequence::Refresh);
+	m_standard_keys.insert("ZoomIn", QKeySequence::ZoomIn);
+	m_standard_keys.insert("ZoomOut", QKeySequence::ZoomOut);
+	m_standard_keys.insert("Print", QKeySequence::Print);
+	m_standard_keys.insert("AddTab", QKeySequence::AddTab);
+	m_standard_keys.insert("NextChild", QKeySequence::NextChild);
+	m_standard_keys.insert("PreviousChild", QKeySequence::PreviousChild);
+	m_standard_keys.insert("Find", QKeySequence::Find);
+	m_standard_keys.insert("FindNext", QKeySequence::FindNext);
+	m_standard_keys.insert("FindPrevious", QKeySequence::FindPrevious);
+	m_standard_keys.insert("Replace", QKeySequence::Replace);
+	m_standard_keys.insert("SelectAll", QKeySequence::SelectAll);
+	m_standard_keys.insert("Bold", QKeySequence::Bold);
+	m_standard_keys.insert("Italic", QKeySequence::Italic);
+	m_standard_keys.insert("Underline", QKeySequence::Underline);
+	m_standard_keys.insert("MoveToNextChar", QKeySequence::MoveToNextChar);
+	m_standard_keys.insert("MoveToPreviousChar", QKeySequence::MoveToPreviousChar);
+	m_standard_keys.insert("MoveToNextWord", QKeySequence::MoveToNextWord);
+	m_standard_keys.insert("MoveToPreviousWord", QKeySequence::MoveToPreviousWord);
+	m_standard_keys.insert("MoveToNextLine", QKeySequence::MoveToNextLine);
+	m_standard_keys.insert("MoveToPreviousLine", QKeySequence::MoveToPreviousLine);
+	m_standard_keys.insert("MoveToNextPage", QKeySequence::MoveToNextPage);
+	m_standard_keys.insert("MoveToPreviousPage", QKeySequence::MoveToPreviousPage);
+	m_standard_keys.insert("MoveToStartOfLine", QKeySequence::MoveToStartOfLine);
+	m_standard_keys.insert("MoveToEndOfLine", QKeySequence::MoveToEndOfLine);
+	m_standard_keys.insert("MoveToStartOfBlock", QKeySequence::MoveToStartOfBlock);
+	m_standard_keys.insert("MoveToEndOfBlock", QKeySequence::MoveToEndOfBlock);
+	m_standard_keys.insert("MoveToStartOfDocument", QKeySequence::MoveToStartOfDocument);
+	m_standard_keys.insert("MoveToEndOfDocument", QKeySequence::MoveToEndOfDocument);
+	m_standard_keys.insert("SelectNextChar", QKeySequence::SelectNextChar);
+	m_standard_keys.insert("SelectPreviousChar", QKeySequence::SelectPreviousChar);
+	m_standard_keys.insert("SelectNextWord", QKeySequence::SelectNextWord);
+	m_standard_keys.insert("SelectPreviousWord", QKeySequence::SelectPreviousWord);
+	m_standard_keys.insert("SelectNextLine", QKeySequence::SelectNextLine);
+	m_standard_keys.insert("SelectPreviousLine", QKeySequence::SelectPreviousLine);
+	m_standard_keys.insert("SelectNextPage", QKeySequence::SelectNextPage);
+	m_standard_keys.insert("SelectPreviousPage", QKeySequence::SelectPreviousPage);
+	m_standard_keys.insert("SelectStartOfLine", QKeySequence::SelectStartOfLine);
+	m_standard_keys.insert("SelectEndOfLine", QKeySequence::SelectEndOfLine);
+	m_standard_keys.insert("SelectStartOfBlock", QKeySequence::SelectStartOfBlock);
+	m_standard_keys.insert("SelectEndOfBlock", QKeySequence::SelectEndOfBlock);
+	m_standard_keys.insert("SelectStartOfDocument", QKeySequence::SelectStartOfDocument);
+	m_standard_keys.insert("SelectEndOfDocument", QKeySequence::SelectEndOfDocument);
+	m_standard_keys.insert("DeleteStartOfWord", QKeySequence::DeleteStartOfWord);
+	m_standard_keys.insert("DeleteEndOfWord", QKeySequence::DeleteEndOfWord);
+	m_standard_keys.insert("DeleteEndOfLine", QKeySequence::DeleteEndOfLine);
+    }
 }
 
 //***************************************************************************
 void MenuManager::executeCommand(const QString &command)
 {
+
     Q_ASSERT(command.length());
     Q_ASSERT(m_menu_root);
     if (!m_menu_root) return; // makes no sense if no menu root
@@ -74,8 +153,28 @@ void MenuManager::executeCommand(const QString &command)
 
     // --- 3rd parameter: bitmask for the key shortcut (optional) ---
     param = parser.nextParam();
-    if (param.length()) shortcut =
-	QKeySequence::fromString(i18n(param.toAscii()));
+    if (param.length()) {
+	// replace "::<StandardKeyName>" with the key sequence as string
+	QRegExp rx("::(\\w+)", Qt::CaseInsensitive);
+	int pos = 0;
+	while ((pos = rx.indexIn(param, 0)) >= 0) {
+	    QString stdname = rx.cap(1);
+	    if (m_standard_keys.contains(stdname)) {
+		// translate into a key sequence
+		QKeySequence sequence = m_standard_keys[stdname];
+		QString expanded = sequence.toString();
+		param = param.replace(pos, stdname.length()+2, expanded);
+	    } else {
+		// unknown standard key sequence name?
+		qWarning("MenuManager::executeCommand: pos=%d, stdname='%s' "\
+		         "-> UNKNOWN ???", pos, stdname.toLocal8Bit().data());
+		break;
+	    }
+	}
+
+	// default case: direct specification of a key sequence
+	shortcut = QKeySequence::fromString(i18n(param.toAscii()));
+    }
 
     // --- 4rth parameter: parse the string id of the node (optional) ---
     param = parser.nextParam();

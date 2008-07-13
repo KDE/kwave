@@ -162,12 +162,6 @@ kwave/KwaveSplash.cpp
 kwave/KwaveSplash.h
 kwave/MainWidget.cpp
 kwave/MainWidget.h
-kwave/MouseMark.cpp
-kwave/MouseMark.h
-kwave/PluginManager.cpp
-kwave/PluginManager.h
-kwave/SignalWidget.cpp
-kwave/SignalWidget.h
 kwave/TopWidget.cpp
 kwave/TopWidget.h
 kwave/kwave.desktop
@@ -294,8 +288,6 @@ libgui/ConfirmCancelProxy.cpp
 libgui/ConfirmCancelProxy.h
 libgui/CurveWidget.cpp
 libgui/CurveWidget.h
-libgui/FileProgress.cpp
-libgui/FileProgress.h
 libgui/FrequencyResponseWidget.cpp
 libgui/FrequencyResponseWidget.h
 libgui/HMSTimeWidget.cpp
@@ -342,8 +334,6 @@ libkwave/CompressionType.cpp
 libkwave/CompressionType.h
 libkwave/Curve.cpp
 libkwave/Curve.h
-libkwave/CurveStreamAdapter.cpp
-libkwave/CurveStreamAdapter.h
 libkwave/Decoder.cpp
 libkwave/Decoder.h
 libkwave/Encoder.cpp
@@ -363,17 +353,12 @@ libkwave/Interpolation.cpp
 libkwave/Interpolation.h
 libkwave/KwaveConnect.cpp
 libkwave/KwaveConnect.h
-libkwave/KwaveDelay.cpp
 libkwave/KwaveDrag.cpp
 libkwave/KwaveDrag.h
-libkwave/KwaveMul.cpp
-libkwave/KwaveMul.h
 libkwave/KwaveMultiPlaybackSink.cpp
 libkwave/KwaveMultiPlaybackSink.h
 libkwave/KwaveMultiTrackSink.h
 libkwave/KwaveMultiTrackSource.h
-libkwave/KwaveOsc.cpp
-libkwave/KwaveOsc.h
 libkwave/KwavePlaybackSink.cpp
 libkwave/KwavePlaybackSink.h
 libkwave/KwavePlugin.cpp
@@ -384,8 +369,6 @@ libkwave/KwaveSampleSink.cpp
 libkwave/KwaveSampleSink.h
 libkwave/KwaveSampleSource.cpp
 libkwave/KwaveSampleSource.h
-libkwave/KwaveStreamObject.cpp
-libkwave/KwaveStreamObject.h
 libkwave/Label.cpp
 libkwave/Label.h
 libkwave/LabelList.cpp
@@ -436,7 +419,6 @@ libkwave/ppc_asm.tmpl
 libkwave/ppcasm_string.S
 libkwave/ppcasm_string.h
 libkwave/undo
-libkwave/undo/CMakeLists.txt
 libkwave/undo/UndoAction.h
 libkwave/undo/UndoAddLabelAction.cpp
 libkwave/undo/UndoAddLabelAction.h
@@ -709,8 +691,6 @@ plugins/selectrange/SelectRangePlugin.cpp
 plugins/selectrange/SelectRangePlugin.h
 plugins/sonagram
 plugins/sonagram/CMakeLists.txt
-plugins/sonagram/ImageView.cpp
-plugins/sonagram/ImageView.h
 plugins/sonagram/SonagramDialog.cpp
 plugins/sonagram/SonagramDialog.h
 plugins/sonagram/SonagramDlg.ui

@@ -63,7 +63,7 @@ o auto-detect pause and set markers, for splitting recorded stuff into several
 
 o virtual memory: multiple swap directories
 
-o change from id3lib to taglib
+o port from id3lib to taglib
 
 o respect the environment variable LINGUAS when installing po files and manual
 
@@ -126,8 +126,6 @@ o some commands do not work: fft, averagefft, distort
 
 o bugfix: channel mixer dialog causes segmentation fault -> disabled
   -> gstreamer/LADSPA ?
-
-o use standard KDE accelerators (see KStdAccel)
 
 o import of multi-channel ASCII files
 

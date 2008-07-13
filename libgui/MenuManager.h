@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <QObject>
+#include <QMap>
 
 #include <kdemacros.h>
 
@@ -116,6 +117,9 @@ private:
 
     /** root node of the menu structure */
     MenuRoot *m_menu_root;
+
+    /** map of standard key names / key sequences */
+    static QMap<QString, QKeySequence> m_standard_keys;
 
 };
 

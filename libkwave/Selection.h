@@ -52,22 +52,22 @@ public:
     };
 
     /** Returns the index of the first selected item. */
-    inline const unsigned int offset() const {
+    inline unsigned int offset() const {
 	return m_offset;
     };
 
     /** Returns the number of selected items. */
-    inline const unsigned int length() const {
+    inline unsigned int length() const {
 	return m_length;
     };
 
     /** Equal to offset(). */
-    inline const unsigned int first() const {
+    inline unsigned int first() const {
 	return offset();
     };
 
     /** Returns the index of the last selected item. */
-    inline const unsigned int last() const {
+    inline unsigned int last() const {
 	return m_offset + (m_length ? (m_length-1) : 0);
     };
 

@@ -296,13 +296,15 @@ bool TrackPixmap::validateBuffer()
     while (first < buflen) {
 	// find the first invalid index
 	for (first=last; (first < buflen) && m_valid.testBit(first);
-		++first);
+		++first)
+	{}
 
 	// break if the first index is out of range
 	if (first >= buflen) return false; // buffer is already ok
 
 	// find the last invalid index
-	for (last=first; (last < buflen) && !m_valid[last]; ++last);
+	for (last=first; (last < buflen) && !m_valid[last]; ++last) {
+	}
 
 	if (last >= buflen) last = buflen-1;
 	if ((last > first) && (m_valid[last])) --last;

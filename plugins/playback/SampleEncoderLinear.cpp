@@ -180,7 +180,7 @@ void SampleEncoderLinear::encode(const Kwave::SampleArray &samples,
     if (count * m_bytes_per_sample >
 	static_cast<unsigned int>(raw_data.size())) return;
 
-    sample_t *src = samples.data();
+    const sample_t *src = samples.data();
     u_int8_t *dst = reinterpret_cast<u_int8_t *>(raw_data.data());
 
     m_encoder(src, dst, count);

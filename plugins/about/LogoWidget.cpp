@@ -39,7 +39,7 @@ LogoWidget::LogoWidget(QWidget *parent)
     m_image(0), m_logo(xpm_aboutlogo), m_timer(0),
     m_color_h(0.0)
 {
-    for (int i=0; i < MAXSIN; m_deg[i++] = 0);
+    for (int i=0; i < MAXSIN; m_deg[i++] = 0) {}
 
     m_timer = new QTimer(this);
     Q_ASSERT(m_timer);

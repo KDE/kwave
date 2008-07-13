@@ -41,7 +41,7 @@ Kwave::SampleArray::~SampleArray()
 }
 
 //***************************************************************************
-sample_t * const Kwave::SampleArray::data() const
+const sample_t *Kwave::SampleArray::data() const
 {
     if (!m_storage) return 0;
     if (m_storage->m_raw_data) return m_storage->m_raw_data;

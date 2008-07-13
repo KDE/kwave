@@ -50,7 +50,7 @@ namespace Kwave {
 	virtual ~SampleArray();
 
 	/** returns a const pointer to the raw data (non-mutable) */
-	sample_t * const data() const;
+	const sample_t * data() const;
 
 	/** returns a pointer to the raw data (mutable) */
 	sample_t *data();

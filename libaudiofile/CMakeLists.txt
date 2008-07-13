@@ -78,6 +78,7 @@ SET(libaudiofile_STAT_SRCS
 ADD_LIBRARY(libaudiofile STATIC ${libaudiofile_STAT_SRCS})
 LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/modules)
 SET_TARGET_PROPERTIES(libaudiofile PROPERTIES OUTPUT_NAME "audiofile")
+SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
 #############################################################################
 #############################################################################

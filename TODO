@@ -20,6 +20,8 @@ o use the host's native libaudiofile. current state:
 	SuSE		-> builtin
 	all others	-> native
 
+o port from id3lib to taglib
+
 o ALSA record/playback: also detect devices configured in the .asoundrc,
   and not only hardware devices
 
@@ -61,9 +63,9 @@ o auto-detect pause and set markers, for splitting recorded stuff into several
   parts and then save them to disc as separate files
   (feature requested by Stefan Macher)
 
-o virtual memory: multiple swap directories
+o menu entries for label handling
 
-o port from id3lib to taglib
+o virtual memory: multiple swap directories
 
 o respect the environment variable LINGUAS when installing po files and manual
 

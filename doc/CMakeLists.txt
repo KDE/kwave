@@ -184,7 +184,8 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
             MESSAGE(STATUS \"Installing \$ENV{DESTDIR}${KDE4_HTML_INSTALL_DIR}/${_lang}/kwave/common\")
         ")
         INSTALL(CODE "EXECUTE_PROCESS(COMMAND ${CMAKE_COMMAND}
-            -E create_symlink \"../common\"
+            -E create_symlink
+            \"../../en/common\"
             \"\$ENV{DESTDIR}${KDE4_HTML_INSTALL_DIR}/${_lang}/kwave/common\"
         )")
 

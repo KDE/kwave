@@ -13,8 +13,9 @@
  * re-arranged source files for cleaner library interfaces
  * re-enabled accelerator keys for 0..9
  * using horizontal scrollbar instead of overview widget
- * implemented vertical zoom (<Ctrl> + <MouseWheelUp/Down>)
+ * implemented vertical zoom (Ctrl + MouseWheelUp/Down)
  * using more standard KDE keyboard shortcuts
+ * removed aRts support
 
 0.7.11 [2007-12-09]
 

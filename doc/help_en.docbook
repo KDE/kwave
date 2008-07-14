@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2008-06-21</date>
+<date>2008-07-14</date>
 <releaseinfo>0.7.11</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -201,7 +201,7 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.8.0  [2008-??-??]</para>
+            <para>0.8.0  [2008-07-??]</para>
             <itemizedlist>
                 <listitem><para>
                     ported to KDE4 / Qt4
@@ -230,6 +230,21 @@
                 </para></listitem>
                 <listitem><para>
                     re-arranged source files for cleaner library interfaces
+                </para></listitem>
+                <listitem><para>
+                    re-enabled accelerator keys for 0..9
+                </para></listitem>
+                <listitem><para>
+                    using horizontal scrollbar instead of overview widget
+                </para></listitem>
+                <listitem><para>
+                    implemented vertical zoom (Ctrl + MouseWheelUp/Down)
+                </para></listitem>
+                <listitem><para>
+                    using more standard KDE keyboard shortcuts
+                </para></listitem>
+                <listitem><para>
+                    removed aRts support
                 </para></listitem>
             </itemizedlist>
         </listitem>

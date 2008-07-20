@@ -278,6 +278,10 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 	zoomOut();
     CASE_COMMAND("zoomselection")
 	zoomSelection();
+    CASE_COMMAND("zoomall")
+	zoomAll();
+    CASE_COMMAND("zoomnormal")
+	zoomNormal();
     CASE_COMMAND("scrollright")
 	setOffset(m_offset + visible_samples / 10);
     CASE_COMMAND("scrollleft")

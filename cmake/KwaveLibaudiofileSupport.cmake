@@ -47,10 +47,19 @@ ENDIF (HAVE_AUDIOFILE_H)
 ### some verbose output of the result + set USE_SYSTEM_LIB_AUDIOFILE      ###
 
 IF (HAVE_AF_OPEN_VIRTUAL_FILE AND HAVE_AF_VIRTUAL_FILE_NEW)
+    # system libaudiofile is ok and will be used
     MESSAGE(STATUS "Using the system's libaudiofile")
     SET(USE_SYSTEM_LIB_AUDIOFILE BOOL ON)
 ELSE (HAVE_AF_OPEN_VIRTUAL_FILE AND HAVE_AF_VIRTUAL_FILE_NEW)
-    MESSAGE(STATUS "Using builtin libaudiofile")
+    IF (WITH_BUILTIN_LIBAUDIOFILE)
+        # system libaudiofile maybe is not ok
+        # -> don't care, we will use the builtin one anyway
+        MESSAGE(STATUS "Using builtin libaudiofile")
+    ELSE (WITH_BUILTIN_LIBAUDIOFILE)
+        # system libaudiofile should be used but is not ok
+        # -> FAIL
+        MESSAGE(FATAL_ERROR "system libaudiofile is missing or cannot be used")
+    ENDIF (WITH_BUILTIN_LIBAUDIOFILE)
 ENDIF (HAVE_AF_OPEN_VIRTUAL_FILE AND HAVE_AF_VIRTUAL_FILE_NEW)
 
 #############################################################################

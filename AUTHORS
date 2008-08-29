@@ -58,7 +58,6 @@ Others, authors and copyright holders
 =====================================
 
 Stefan Westerfeld <stefan@space.twc.de>
-	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed.idl
 	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h
 	* plugins/band_pass/synth_band_pass.idl
 	* plugins/band_pass/synth_band_pass_impl.h
@@ -69,18 +68,11 @@ Arnold Krille, <arnold@arnoldarts.de>
 Mark Donohoe (KDE) <donohoe@kde.org>
 	* some icons and bitmaps for toolbar and GUI
 
-Christopher R. Gabriel <cgabriel@linux.it>
-	* admin/gsl.m4
-
-Noah Friedman <friedman@prep.ai.mit.edu>
-	* admin/mkinstalldirs
-
 David Faure, <faure@kde.org>
 	* cmake/FindAlsa.cmake
 
 Matthias Kretz, <kretz@kde.org>
 	* cmake/FindAlsa.cmake
-	* plugins/band_pass/synth_band_pass.idl
 
 Andreas Schneider, <mail@cynapses.org>
 	* cmake/FindARTS.cmake
@@ -100,9 +92,6 @@ Paul Mackerras <paulus@samba.org>
 
 Juhana Sadeharju <kouhia@nic.funet.fi>
 	* plugins/{band_pass,lowpass,notch_filter}/c_filter_stuff.c
-
-Matthias Kretz + Arnold Krille
-	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed.idl
 
 Jeff Tranter
 	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h

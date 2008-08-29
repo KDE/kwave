@@ -27,6 +27,7 @@ SET(_changes ${PROJECT_SOURCE_DIR}/CHANGES)
 SET(_version ${PROJECT_SOURCE_DIR}/VERSION)
 SET(_changes_to_docbook ${PROJECT_SOURCE_DIR}/bin/changes-to-docbook.awk)
 
+FIND_REQUIRED_PROGRAM(CONVERT_EXECUTABLE convert)
 FIND_REQUIRED_PROGRAM(CP_EXECUTABLE cp)
 FIND_REQUIRED_PROGRAM(RM_EXECUTABLE rm)
 FIND_REQUIRED_PROGRAM(AWK_EXECUTABLE gawk awk mawk)
@@ -133,10 +134,16 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
         ENDIF (NOT ${_lang} STREQUAL "en")
 
         # special handling for the GPL license file
+        SET(_gpl_translated "${KDE4_HTML_INSTALL_DIR}/${_lang}/common/gpl-translated.html")
+        SET(_gpl_english    "${KDE4_HTML_INSTALL_DIR}/en/common/gpl-license.html")
         IF (${_lang} STREQUAL "en")
-            SET(_gpl ${KDE4_HTML_INSTALL_DIR}/${_lang}/common/gpl-license.html)
+            SET(_gpl ${_gpl_english})
         ELSE (${_lang} STREQUAL "en")
-            SET(_gpl ${KDE4_HTML_INSTALL_DIR}/${_lang}/docs/common/gpl-translated.html)
+            IF (EXISTS ${_gpl_translated})
+                SET(_gpl ${_gpl_translated})
+            ELSE (EXISTS ${_gpl_translated})
+                SET(_gpl ${_gpl_english})
+            ENDIF (EXISTS ${_gpl_translated})
         ENDIF (${_lang} STREQUAL "en")
 
         ADD_CUSTOM_COMMAND(OUTPUT ${_html_dir}/gpl-translated.html
@@ -153,8 +160,25 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
                     ${MEINPROC_EXECUTABLE} --check ${_docbook}
             COMMAND ${RM_EXECUTABLE} -Rf ${_html_dir}/common
             COMMAND mkdir -p ${_html_dir}/common
+            COMMAND ${CONVERT_EXECUTABLE}
+                ${CMAKE_SOURCE_DIR}/kwave/toolbar/zoomall.xpm
+                ${_html_dir}/toolbar_zoomall.png
+            COMMAND ${CONVERT_EXECUTABLE}
+                ${CMAKE_SOURCE_DIR}/kwave/toolbar/zoomnormal.xpm
+                ${_html_dir}/toolbar_zoomnormal.png
+            COMMAND ${CONVERT_EXECUTABLE}
+                ${CMAKE_SOURCE_DIR}/kwave/toolbar/zoomin.xpm
+                ${_html_dir}/toolbar_zoomin.png
+            COMMAND ${CONVERT_EXECUTABLE}
+                ${CMAKE_SOURCE_DIR}/kwave/toolbar/zoomout.xpm
+                ${_html_dir}/toolbar_zoomout.png
+            COMMAND ${CONVERT_EXECUTABLE}
+                ${CMAKE_SOURCE_DIR}/kwave/toolbar/zoomrange.xpm
+                ${_html_dir}/toolbar_zoorange.png
             COMMAND ${CP_EXECUTABLE}
                 ${CMAKE_CURRENT_SOURCE_DIR}/${_lang}/*.png ${_html_dir}
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+                ${KDE4_HTML_INSTALL_DIR}/en/common ${_html_dir}/common/
             COMMAND ${CMAKE_COMMAND} -E copy_directory
                 ${_common_dir} ${_html_dir}/common/
             COMMAND cd ${_html_dir} && ${CMAKE_CURRENT_SOURCE_DIR}/fix-common

@@ -164,7 +164,6 @@ kwave/MainWidget.cpp
 kwave/MainWidget.h
 kwave/TopWidget.cpp
 kwave/TopWidget.h
-kwave/kwave.desktop
 kwave/main.cpp
 kwave/menus.config
 kwave/pics

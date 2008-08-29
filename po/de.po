@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-22 12:31+0200\n"
-"PO-Revision-Date: 2008-06-22 12:46+0200\n"
+"POT-Creation-Date: 2008-08-09 14:29+0200\n"
+"PO-Revision-Date: 2008-08-21 21:42+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,11 +23,11 @@ msgstr " %"
 msgid " &Play"
 msgstr "&Wiedergabe"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1520
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1517
 msgid " (%1)"
 msgstr " (%1)"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1234
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1262
 msgid " (modified)"
 msgstr " (geändert)"
 
@@ -48,7 +48,7 @@ msgstr " MB"
 msgid " dB"
 msgstr " dB"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:361
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:359
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:912
 msgid " for KDE "
 msgstr " für KDE "
@@ -121,7 +121,7 @@ msgstr "#"
 msgid "%"
 msgstr "%"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:320
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:318
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1271
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:979
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:501
@@ -320,7 +320,7 @@ msgstr "&Konvertieren"
 msgid "&Convert label distance to pitch"
 msgstr "&Abstand der Markierungen in Verschiebung umwandeln"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1022
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1032
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:31
 msgid "&Copy"
 msgstr "&Kopieren"
@@ -333,7 +333,7 @@ msgstr "&Erzeuge"
 msgid "&Crop"
 msgstr "Z&uschneiden"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1078
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1088
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:37
 msgid "&Delete"
 msgstr "&Löschen"
@@ -362,7 +362,7 @@ msgstr "&Befehl eingeben"
 msgid "&Envelope"
 msgstr "&Hüllkurve"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1046
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1056
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:44
 msgid "&Expand to labels"
 msgstr "auf Markierungen &erweitern"
@@ -428,7 +428,7 @@ msgstr "Markierung &einfügen ..."
 msgid "&Invert Selection"
 msgstr "Auswahl &umkehren"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:985
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:995
 msgid "&Label"
 msgstr "&Markierung"
 
@@ -487,7 +487,7 @@ msgstr "&Mischen und Einfügen"
 msgid "&Moving Average"
 msgstr "&Mittelwert-Verschiebung"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1072
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1082
 msgid "&New"
 msgstr "&Neu"
 
@@ -541,7 +541,7 @@ msgstr "&Öffnen"
 msgid "&Options"
 msgstr "&Einstellungen"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1026
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1036
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:83
 msgid "&Paste"
 msgstr "&Einfügen"
@@ -590,7 +590,7 @@ msgstr "&Vorherige"
 msgid "&Previous Page"
 msgstr "&Vorherige Seite"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1084
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1094
 msgid "&Properties..."
 msgstr "&Eigenschaften..."
 
@@ -610,7 +610,7 @@ msgstr "&Bereich"
 msgid "&Record"
 msgstr "&Aufnehmen"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1007
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1017
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:98
 msgid "&Redo"
 msgstr "&Rückgängig"
@@ -639,7 +639,7 @@ msgstr "&Samples"
 msgid "&Save"
 msgstr "S&peichern"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1039
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1049
 msgid "&Save..."
 msgstr "&Speichern..."
 
@@ -656,7 +656,7 @@ msgstr "&Alles auswählen"
 msgid "&Select..."
 msgstr "Aus&wählen..."
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:981
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:991
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:108
 msgid "&Selection"
 msgstr "Aus&wahl"
@@ -709,7 +709,7 @@ msgstr "&Heute"
 msgid "&Track"
 msgstr "&Track"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:997
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1007
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:126
 msgid "&Undo"
 msgstr "&Rückgängig"
@@ -746,7 +746,7 @@ msgstr "in &neues Fenster"
 msgid "( resulting window size: %1 )"
 msgstr "( resultierende Fenstergröße: %1 )"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:945
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:973
 msgid "(%1 samples)"
 msgstr "(%1 Samples)"
 
@@ -1650,7 +1650,7 @@ msgstr ""
 "Beim Öffnen der Datei ist ein Fehler aufgetreten:\n"
 "%1"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:426
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:424
 msgid "An error occurred while saving the file!"
 msgstr "Beim Speichern der Datei ist ein Fehler aufgetreten!"
 
@@ -1928,7 +1928,7 @@ msgstr "Country"
 msgid "Create &type"
 msgstr "&Typ erzeugen"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1018
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1028
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:35
 msgid "Cu&t"
 msgstr "&Ausschneiden"
@@ -2627,7 +2627,7 @@ msgstr "Layer III"
 msgid "Length"
 msgstr "Länge"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:944
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:972
 msgid "Length: %1"
 msgstr "Länge: %1"
 
@@ -2692,8 +2692,8 @@ msgstr ""
 msgid "Lo-Fi"
 msgstr "Lo-Fi"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:401
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:402
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:403
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:404
 msgid "Loading plugins..."
 msgstr "Lade Plugins..."
 
@@ -2827,7 +2827,7 @@ msgstr "Modus"
 msgid "Mode Extension"
 msgstr "Modus-Erweiterung"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:954
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:982
 msgid "Mode: %1 kHz@%2 bit"
 msgstr "Format: %1 kHz@%2 Bit"
 
@@ -2988,7 +2988,7 @@ msgstr ""
 "Ein oder mehrere Codierungs-Parameter werden nicht unterstützt. Bitte ändern "
 "Sie die Codierungs-Einstellungen und versuchen Sie es nochmal..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:732
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:734
 msgid "Open"
 msgstr "Öffnen"
 
@@ -3024,7 +3024,7 @@ msgstr "Oszilloskop"
 msgid "Other"
 msgstr "Andere"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:506
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:516
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:809
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:825
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:891
@@ -3202,7 +3202,7 @@ msgstr "Quadro"
 msgid "R&B"
 msgstr "R&B"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1049
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1077
 msgid "R&edo"
 msgstr "Wieder&herstellen"
 
@@ -3222,7 +3222,7 @@ msgstr "Neu &quantisieren"
 msgid "Reading from the recording device failed, error number = %1 (%2)"
 msgstr "Vom Aufnahmegerät konnte nicht gelesen werden, Fehler Nummer %1 (%2)"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:404
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:406
 msgid "Ready."
 msgstr "Bereit."
 
@@ -3274,8 +3274,8 @@ msgstr ""
 msgid "Rectangular"
 msgstr "Rechteck"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:202
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1032
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:201
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1060
 msgid "Redo"
 msgstr "Wiederherstellen"
 
@@ -3357,7 +3357,7 @@ msgstr "Samples"
 msgid "Satire"
 msgstr "Satire"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:774
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:776
 msgid "Save As"
 msgstr "Speichern &unter"
 
@@ -3373,7 +3373,7 @@ msgstr "Voreinstellung speichern"
 msgid "Save Sonagram"
 msgstr "Sonagramm speichern"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:327
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:325
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
 "%1\n"
@@ -3390,11 +3390,11 @@ msgstr "Sägezahn"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:105
 msgid "Scroll &left"
-msgstr "&links rollen"
+msgstr "nach &links verschieben"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:106
 msgid "Scroll &right"
-msgstr "&rechts rollen"
+msgstr "nach &rechts verschieben"
 
 #: /var/tmp/kwave-build/libgui/ui_SelectTimeWidgetBase.h:302
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:510
@@ -3433,7 +3433,7 @@ msgstr ""
 "Auswahl der Auflösung in der die Datei gespeichert\n"
 "werden soll."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:994
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1022
 msgid "Selected"
 msgstr "Ausgewählt"
 
@@ -3502,7 +3502,7 @@ msgstr ""
 msgid "Showtunes"
 msgstr "Showtunes"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:290
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:288
 msgid "Signal is empty, nothing to save !"
 msgstr "Signal ist leer, nichts zu speichern!"
 
@@ -3551,7 +3551,7 @@ msgstr ""
 "Sorry, die aktuell ausgewählte Kompressionsart kann nicht zum Speichern "
 "verwendet werden. Wollen Sie stattdessen mit G711 ULAW-Kompression speichern?"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:442
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:440
 msgid "Sorry, the file type is not supported!"
 msgstr "Sorry, dieser Datei-Typ wird nicht unterstützt!"
 
@@ -3773,7 +3773,7 @@ msgstr ""
 "Programmes herauszufinden:\n"
 "\"fuser -v %1\" )"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:797
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:799
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr ""
 "Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
@@ -3802,7 +3802,7 @@ msgstr ""
 "Die Datei ist entweder strukturell beschädigt oder ist keine .wav-Datei.\n"
 "Soll Kwave versuchen sie zu reparieren?"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:435
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:433
 msgid "The file has been truncated and might be corrupted!"
 msgstr ""
 "Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
@@ -3839,7 +3839,7 @@ msgstr "Das Aufnahmegerät scheint belegt zu sein!"
 msgid "This Ogg bitstream does not contain Vorbis audio data."
 msgstr "Der Ogg-Bitstrom enthält keine Vorbis Audio-Daten."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:659
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:661
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
@@ -3924,7 +3924,7 @@ msgstr "Tribal"
 msgid "Trip-Hop"
 msgstr "Trip-Hop"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1043
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1071
 msgid "U&ndo"
 msgstr "&Rückgängig"
 
@@ -3940,14 +3940,14 @@ msgstr "Der FLAC-Encoder konnte nicht geöffnet werden!"
 msgid "Unable to open the file for saving!"
 msgstr "Datei konnte nicht zum Speichern geöffnet werden!"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1076
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1074
 msgid "Unable to save undo information. Do you want to continue without undo?"
 msgstr ""
 "Speichern der Wiederherstellungs-Information fehlgeschlagen. Möchten Sie "
 "ohne Möglichkeit Rückgängig zu machen fortsetzen?"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:197
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1024
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:196
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1052
 msgid "Undo"
 msgstr "Rückgängig"
 
@@ -4036,16 +4036,24 @@ msgstr "Ver&größern"
 msgid "Zoom &Out"
 msgstr "Ver&kleinern"
 
-#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:134
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:135
 msgid "Zoom to &Selection"
 msgstr "Zoom auf &Auswahl"
+
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:134
+msgid "Zoom to 100%"
+msgstr "auf 100% vergrößern"
+
+#: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:136
+msgid "Zoom to whole signal"
+msgstr "Zoom auf das gesamte Signal"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/about/AboutPlugin.cpp:31
 msgid "about"
 msgstr "Über"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoAddLabelAction.cpp:41
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1490
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1488
 msgid "add label"
 msgstr "Markierung hinzufügen"
 
@@ -4061,7 +4069,7 @@ msgstr "Frei Verstärken"
 msgid "amplifyfree"
 msgstr "Frei Verstärken"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:730
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:728
 msgid "append track"
 msgstr "Track anhängen"
 
@@ -4210,23 +4218,23 @@ msgstr "Kompressionsart '%1' wird nicht unterstützt, verwende '%2'"
 msgid "continue after highest index"
 msgstr "nach dem höchsten Index fortsetzen"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:212
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:211
 msgid "copy the current selection to the clipboard"
 msgstr "Auswahl in die Zwischenablage kopieren"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:176
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:175
 msgid "create a new empty file"
 msgstr "neue leere Datei erzeugen"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:636
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:634
 msgid "crop"
 msgstr "Zuschneiden"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:633
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:631
 msgid "cut"
 msgstr "Ausschneiden"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:207
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:206
 msgid "cut the current selection and move it to the clipboard"
 msgstr "Auswahl ausschneiden und in Zwischenablage speichern"
 
@@ -4250,21 +4258,21 @@ msgid "default device"
 msgstr "Standard-Gerät"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteAction.cpp:38
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:864
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:862
 msgid "delete"
 msgstr "Löschen"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteLabelAction.cpp:44
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1532
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1530
 msgid "delete label"
 msgstr "Markierung löschen"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:227
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:226
 msgid "delete the current selection"
 msgstr "Auswahl löschen"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteTrack.cpp:45
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:767
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:765
 msgid "delete track"
 msgstr "Track löschen"
 
@@ -4311,8 +4319,8 @@ msgstr "Anzeige"
 msgid "done"
 msgstr "Fertig"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2387
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2428
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2372
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2413
 msgid "drag and drop"
 msgstr "Drag & Drop"
 
@@ -4401,7 +4409,7 @@ msgstr ""
 msgid "index of the label"
 msgstr "Index des Markers"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:167
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:166
 msgid "initializing toolbar..."
 msgstr "Initialisiere Werkzeugleiste..."
 
@@ -4409,12 +4417,12 @@ msgstr "Initialisiere Werkzeugleiste..."
 msgid "insert"
 msgstr "Einfügen"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:217
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:216
 msgid "insert the content of clipboard"
 msgstr "Inhalt der Zwischenablage einfügen"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoInsertTrack.cpp:39
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:737
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:735
 msgid "insert track"
 msgstr "Track einfügen"
 
@@ -4432,7 +4440,7 @@ msgstr "in zweite Hälfte"
 msgid "invalid codec type"
 msgstr "ungültiger Codec-Typ"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:513
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:523
 msgid "invalid or unknown file type: '%1'"
 msgstr "Ungültiger oder unbekannter Dateityp: '%1'"
 
@@ -4442,12 +4450,12 @@ msgstr "Ungültiger oder unbekannter Dateityp: '%1'"
 msgid "invalid sample format"
 msgstr "ungültiges Sample-Format"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1517
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1514
 msgid "label #%1"
 msgstr "Markierung #%1"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1210
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1217
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1208
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1215
 msgid "last action"
 msgstr "letzte Aktion"
 
@@ -4516,7 +4524,7 @@ msgstr "Methode / System für die Aufnahme"
 msgid "minimum"
 msgstr "Minimum"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1436
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1434
 msgid "modify file info"
 msgstr "Datei-Information ändern"
 
@@ -4525,7 +4533,7 @@ msgid "modify file information"
 msgstr "Datei-Information ändern"
 
 #: /usr/src/packages/multimedia/sound/kwave/libgui/UndoModifyLabelAction.cpp:54
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1879
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1908
 msgid "modify label"
 msgstr "Markierung bearbeiten"
 
@@ -4537,7 +4545,7 @@ msgstr "Samples ändern"
 msgid "ms"
 msgstr "ms"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:222
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:221
 msgid "mute the current selection"
 msgstr "Auswahl auf Null setzen"
 
@@ -4590,7 +4598,7 @@ msgstr "bei Veränderungen"
 msgid "oops, plugin '%1' is unknown or invalid!"
 msgstr "Hoppla, Plugin '%1' ist unbekannt oder ungültig!"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:181
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:180
 msgid "open an existing file"
 msgstr "existierende Datei öffnen"
 
@@ -4617,11 +4625,11 @@ msgstr "Datei konnte nicht geöffnet werden"
 msgid "out of memory"
 msgstr "zu wenig Speicher"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:700
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:698
 msgid "paste"
 msgstr "Einfügen"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:256
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:255
 msgid "pause playback"
 msgstr "Wiedergabe anhalten"
 
@@ -4731,7 +4739,7 @@ msgstr "Sample-Format '%1' wird nicht unterstützt, verwende '%2'"
 msgid "sample rate: "
 msgstr "Abtastrate: "
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:998
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1026
 msgid "samples"
 msgstr "Samples"
 
@@ -4745,7 +4753,7 @@ msgstr "Samples pro Sekunde"
 msgid "save selection only"
 msgstr "nur Auswahl speichern"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:186
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:185
 msgid "save the current file"
 msgstr "aktuelle Datei speichern"
 
@@ -4753,7 +4761,7 @@ msgstr "aktuelle Datei speichern"
 msgid "saveblocks"
 msgstr "Blöcke speichern"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:357
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:359
 msgid "scanning plugins..."
 msgstr "Suche Plugins..."
 
@@ -4794,16 +4802,16 @@ msgstr "wählen Sie dies um die Länge der Datei nach Zeit auszuwählen"
 msgid "select zoom factor"
 msgstr "Vergrößerungsfaktor auswählen"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1489
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1486
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoSelection.cpp:40
 msgid "selection"
 msgstr "Auswahl"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1528
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1525
 msgid "selection, left border"
 msgstr "Auswahl, linker Rand"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1532
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1529
 msgid "selection, right border"
 msgstr "Auswahl, rechter Rand"
 
@@ -4848,11 +4856,11 @@ msgstr "Quelle: "
 msgid "spline"
 msgstr "Spline"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:246
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:245
 msgid "start playback"
 msgstr "Wiedergabe starten"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:251
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:250
 msgid "start playback and loop"
 msgstr "Wiedergabe mit Wiederholung"
 
@@ -4871,7 +4879,7 @@ msgstr "Start abgeschlossen."
 msgid "stereo playback is not supported"
 msgstr "Stereo-Wiedergabe wird nicht unterstützt"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:261
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:260
 msgid "stop playback or loop"
 msgstr "Wiedergabe beenden"
 
@@ -4900,12 +4908,12 @@ msgstr "bis zum &Anfang"
 msgid "to be done..."
 msgstr "noch zu erledigen..."
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1054
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1064
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:121
 msgid "to next labels"
 msgstr "zu den nächsten Markern"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1063
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1073
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:122
 msgid "to previous labels"
 msgstr "zu den vorhergehenden Markern"
@@ -4928,7 +4936,7 @@ msgstr ""
 "mit dem Plugin '%2' \n"
 "konnte nicht geladen werden !"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:509
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:519
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:432
 msgid "unable to open '%1'"
 msgstr "'%1' kann nicht geöffnet werden"
@@ -5015,23 +5023,23 @@ msgstr ""
 msgid "zero"
 msgstr "Null"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:289
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:288
 msgid "zoom in"
 msgstr "Vergrößern"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:294
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:293
 msgid "zoom out"
 msgstr "Verkleinern"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:299
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:298
 #, c-format
 msgid "zoom to 100%%"
 msgstr "auf 100%% vergrößern"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:304
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:303
 msgid "zoom to all"
 msgstr "auf gesamtes Signal vergrößern"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:284
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:283
 msgid "zoom to selection"
 msgstr "auf Auswahl vergrößern"

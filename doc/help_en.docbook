@@ -26,12 +26,12 @@
 </authorgroup>
 
 <copyright><year>1998-2000</year><holder>Martin Wilz</holder></copyright>
-<copyright><year>2006</year><holder>Thomas Eschenbacher</holder></copyright>
+<copyright><year>2008</year><holder>Thomas Eschenbacher</holder></copyright>
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2008-07-14</date>
-<releaseinfo>0.7.11</releaseinfo>
+<date>2008-08-28</date>
+<releaseinfo>0.8.0</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
 
@@ -245,6 +245,10 @@
                 </para></listitem>
                 <listitem><para>
                     removed aRts support
+                </para></listitem>
+                <listitem><para>
+                    now also available through the openSUSE build service for
+                      various platforms
                 </para></listitem>
             </itemizedlist>
         </listitem>
@@ -1852,24 +1856,27 @@
 		<emphasis>hear</emphasis> the result of your work?)
 	    </para></listitem>
 	    <listitem><para>
-		KDE-3.1 or higher (at least the libraries, if you are
+		KDE-4.0 or higher (at least the libraries, if you are
 		a gnome fan, you can also run &kapp; if the proper
 		libs are installed).
 	    </para></listitem>
 	    <listitem><para>
-		qt-3.1 or higher (normally comes with KDE3)
+		qt-4.1 or higher (normally comes with KDE4)
+	    </para></listitem>
+	    <listitem><para>
+		ALSA 1.0.14 or higher (for record/playback)
 	    </para></listitem>
 	    <listitem><para>
 		id3lib-3.8.1 or higher (for ID3 tags)
 	    </para></listitem>
 	    <listitem><para>
-		mad-0.15 or higher (for MP3 import)
+		mad-0.15 or higher (optionally for MP3 import)
 	    </para></listitem>
 	    <listitem><para>
-		flac-1.1.0 higher
+		flac-1.1.0 or higher (for FLAC import/export)
 	    </para></listitem>
 	    <listitem><para>
-		about 32 MB memory for starting &kapp; (but this may
+		about 64 MB memory for starting &kapp; (but this may
 		vary depending on your platform and configuration)
 	    </para></listitem>
 	</itemizedlist>
@@ -1892,7 +1899,7 @@
 		<ulink url="http://www.cmake.org">cmake</ulink>-2.4.6 or newer
 	    </para></listitem>
 	    <listitem><para>
-		A C/C++ compiler. GCC-2.95.3 works fine, some older and any
+		A C/C++ compiler. GCC-3.4 works fine, some older and any
 		newer version (like gcc-4.1 and newer) work too.
 	    </para></listitem>
 	    <listitem><para>
@@ -1901,18 +1908,19 @@
 		called "libc-devel".
 	    </para></listitem>
 	    <listitem><para>
-		The KDE3 development environment: "kdelibs3-devel",
-		"kdemultimedia3-devel", "kdesdk3".
+		The KDE4 development environment: "kdelibs4-devel",
+		"kdemultimedia4-devel", "kdesdk4".
 	    </para></listitem>
 	    <listitem><para>
-		The Qt development environment,
-		the package is normally called "qt3-devel" or similar.
+		The Qt4 development environment,
+		the package is normally called "qt4-devel" or similar.
 	    </para></listitem>
 	    <listitem><para>
 		id3lib-devel-3.8.1 or higher
 	    </para></listitem>
 	    <listitem><para>
 		mad-devel-0.15 or higher
+		(if you have the permission to use MP3 code)
 	    </para></listitem>
 	    <listitem><para>
 		flac-devel-1.1.0 higher
@@ -1955,12 +1963,12 @@
 
     <para>
 	For example, assuming that your sources are already
-	unpacked in <filename><replaceable>$HOME/src/kwave-0.7.11</replaceable></filename>, you
+	unpacked in <filename><replaceable>$HOME/src/kwave-0.8.0</replaceable></filename>, you
 	can do the following:
 <screen width="40" format="linespecific">
 <prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
 <prompt>% </prompt><command>cd /tmp/kwave-build</command>
-<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave-0.7.11</replaceable> <replaceable>[build options]</replaceable></command>
+<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave-0.8.0</replaceable> <replaceable>[build options]</replaceable></command>
 <prompt>% </prompt><command>make</command>
 <prompt>% </prompt><command>su root -c "make install"</command>
 </screen>
@@ -2011,7 +2019,9 @@
 		    <literal>WITH_MP3</literal>
 		    enable support for mp3 files
 		    [<literal>on</literal>/<literal>off</literal>,
-		    default=<literal>on</literal>]
+		    default=<literal>off</literal>]
+		    Please note that you need the permission to use code
+		    covered by the MP3 software patents!
 		</para></listitem>
 		<listitem><para>
 		    <literal>WITH_OGG</literal>
@@ -2203,7 +2213,7 @@
 	<ulink url="http://svn.sourceforge.net/viewvc/kwave/tags/">"http://svn.sourceforge.net/viewvc/kwave/tags/"</ulink>.
 	The release tags are always built out of the word <literal>Release-</literal> and
 	the version number of the release, with underscores instead of dots.
-	For example "<literal>Release-0_7_9</literal>" for v0.7.9.
+	For example "<literal>Release-0_8_0</literal>" for v0.8.0.
 	</para>
     </listitem>
     </orderedlist>
@@ -2282,48 +2292,6 @@
     </para></note>
 
     </sect2>
-    </sect1>
-
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: Relocating RPM packages                               +++ -->
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-    <sect1 id="relocating_rpm">
-    <title>Relocating the binary RPM packages</title>
-
-    <para>
-	The binary rpm package of &kapp;
-	is "<emphasis>relocatable</emphasis>". That means that you can
-	build the package on a system with any KDE3 directory
-	and install it on an other system and/or into a different
-	directory. This feature is very useful to install a package
-	compiled for SuSE under a RedHat system or vice-versa.
-    </para>
-
-    <para>
-        For example: you got the binary rpm from a friend who has a
-	RedHat system (where the KDE3 directory is
-	<filename>/usr</filename>) and want to install it
-	on a SuSE system (where the KDE3 directory is
-	<filename>/opt/kde3</filename>). Then just
-        give a different prefix when installing the rpm. Example:
-<screen width="40" format="linespecific">
-<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde3 <replaceable>kwave-0.7.11.i586.rpm</replaceable></command>
-</screen>
-    </para>
-
-    <para>
-	This modifies the path where the program is installed and
-	it is strongly recommended that this is a directory that is
-	contained in the <symbol>KDEDIRS</symbol> environment variable,
-	or the directory that the shell command
-	<command>kde-config --prefix</command> returns.
-	Otherwise &kapp;
-	would be unable to find it's menu configuration, plugins,
-	preset files and so on...
-    </para>
-
-
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -2783,7 +2751,7 @@
     <para>
     For example, the following command starts a &kapp; and opens all sounds
     of the KDE window manager, each in a new window:
-    <screen><prompt>% </prompt><command>kwave <filename>/opt/kde3/share/sounds/KDE_Window*.wav</filename></command></screen>
+    <screen><prompt>% </prompt><command>kwave <filename>/usr/share/sounds/KDE_Window*.wav</filename></command></screen>
     </para>
 
     <para>
@@ -2846,16 +2814,22 @@
 	save under a different name with
 	<menuchoice>
 	<shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut>
-	<guimenu>File</guimenu><guimenuitem>Save</guimenuitem><guimenuitem>As</guimenuitem>
+	<guimenu>File</guimenu><guimenuitem>Save</guimenuitem><guimenuitem>As...</guimenuitem>
+	</menuchoice>
+    </para></listitem>
+    <listitem><para>
+	save all areas that are separated by markers, each one to an own
+	file, with
+	<menuchoice>
+	<guimenu>File</guimenu><guimenuitem>Save</guimenuitem><guimenuitem>Blocks...</guimenuitem>
 	</menuchoice>
     </para></listitem>
     <listitem><para>
 	or only the current selection with
 	<menuchoice>
-	<guimenu>File</guimenu><guimenuitem>Save</guimenuitem><guimenuitem>Selection</guimenuitem>
+	<guimenu>File</guimenu><guimenuitem>Save</guimenuitem><guimenuitem>Selection...</guimenuitem>
 	</menuchoice>
     </para></listitem>
-
     </itemizedlist>
     </para>
 
@@ -2919,8 +2893,6 @@
 	    A good set of tools for this is in the
 	    <ulink url="http://sox.sourceforge.net/">SoX</ulink>
 	   package, they have also some nice documentation!
-	   (The original homepage is located at
-	   <ulink url="http://www.spies.com/Sox/">http://www.spies.com/Sox/</ulink>.)
 	</para>
 
 	<para>
@@ -3356,6 +3328,257 @@
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: How to zoom and navigate                              +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <sect1 id="navigation"><title>Zooming and navigating</title>
+
+    <para>
+	&kapp; provides several ways to zoom and navigate, using keyboard
+	shortcuts, menu commands, toolbar buttons and by using the mouse.
+	The following sections should give an overview on how to use all
+	of these functions.
+    </para>
+
+    <sect2 id="zooming"><title>Zooming in and out</title>
+    <para>
+        <itemizedlist>
+	<!-- zoom to all -->
+        <listitem><para>
+	    <emphasis>zoom to whole signal:</emphasis>
+	    selects a zoom factor that makes the whole signal visible in the
+	    current window.
+	    <itemizedlist>
+	    <listitem><para>
+		menu entry:
+		<menuchoice>
+		<guimenu>View</guimenu><guimenuitem>Zoom to whole signal</guimenuitem>
+		</menuchoice>
+	    </para></listitem>
+	    <listitem><para>
+		toolbar button: <inlinemediaobject><imageobject>
+		<imagedata fileref="toolbar_zoomall.png" format="PNG"/>
+		</imageobject><textobject><phrase>zoom all button</phrase></textobject>
+		</inlinemediaobject>
+	    </para></listitem>
+	    </itemizedlist>
+        </para></listitem>
+	<!-- zoom to 100% -->
+        <listitem><para>
+	    <emphasis>zoom to 100%:</emphasis>
+	    zooms in up to a scale where on sample is represented by on pixel
+	    on the screen.
+	    <itemizedlist>
+	    <listitem><para>
+		menu entry:
+		<menuchoice>
+		<guimenu>View</guimenu><guimenuitem>Zoom to 100%</guimenuitem>
+		</menuchoice>
+	    </para></listitem>
+	    <listitem><para>
+		toolbar button: <inlinemediaobject><imageobject>
+		<imagedata fileref="toolbar_zoomnormal.png" format="PNG"/>
+		</imageobject><textobject><phrase>zoom to 100% button</phrase></textobject>
+		</inlinemediaobject>
+	    </para></listitem>
+	    </itemizedlist>
+        </para></listitem>
+	<!-- zoom in -->
+        <listitem><para>
+	    <emphasis>zoom in:</emphasis>
+	    zooms in to see more details, magnifies by factor 3.
+	    <itemizedlist>
+	    <listitem><para>
+		menu entry / keyboard shortcut:
+		<menuchoice>
+		<shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo></shortcut>
+		<guimenu>View</guimenu><guimenuitem>Zoom In</guimenuitem>
+		</menuchoice>
+	    </para></listitem>
+	    <listitem><para>
+		toolbar button: <inlinemediaobject><imageobject>
+		<imagedata fileref="toolbar_zoomin.png" format="PNG"/>
+		</imageobject><textobject><phrase>zoom in button</phrase></textobject>
+		</inlinemediaobject>
+	    </para></listitem>
+	    </itemizedlist>
+	</para></listitem>
+	<!-- zoom out -->
+        <listitem><para>
+	    <emphasis>zoom out:</emphasis>
+	    zooms in to see less details, shrinks by factor 3.
+	    <itemizedlist>
+	    <listitem><para>
+		menu entry / keyboard shortcut:
+		<menuchoice>
+		<shortcut><keycombo><keycap>Ctrl</keycap><keycap>-</keycap></keycombo></shortcut>
+		<guimenu>View</guimenu><guimenuitem>Zoom Out</guimenuitem>
+		</menuchoice>
+	    </para></listitem>
+	    <listitem><para>
+		toolbar button: <inlinemediaobject><imageobject>
+		<imagedata fileref="toolbar_zoomout.png" format="PNG"/>
+		</imageobject><textobject><phrase>zoom out button</phrase></textobject>
+		</inlinemediaobject>
+	    </para></listitem>
+	    </itemizedlist>
+        </para></listitem>
+	<!-- zoom selection -->
+        <listitem><para>
+	    <emphasis>zoom selection:</emphasis>
+	    zooms to a factor where the current selection is completely
+	    visible in the current view.
+	    <itemizedlist>
+	    <listitem><para>
+		menu entry / keyboard shortcut:
+		<menuchoice>
+		<shortcut><keycombo><keycap>Ctrl</keycap><keycap>Space</keycap></keycombo></shortcut>
+		<guimenu>View</guimenu><guimenuitem>Zoom to Selection</guimenuitem>
+		</menuchoice>
+	    </para></listitem>
+	    <listitem><para>
+		toolbar button: <inlinemediaobject><imageobject>
+		<imagedata fileref="toolbar_zoomselect.png" format="PNG"/>
+		</imageobject><textobject><phrase>zoom to selection button</phrase></textobject>
+		</inlinemediaobject>
+	    </para></listitem>
+	    </itemizedlist>
+        </para></listitem>
+	<!-- zoom predefined time range -->
+        <listitem><para>
+	    <emphasis>select predefined zoom:</emphasis>
+	    select a  zoom factor from the zoom combo box
+	    in the toolbar.
+        </para></listitem>
+	</itemizedlist>
+    </para>
+    </sect2>
+
+    <sect2 id="scrolling"><title>Scrolling left and right</title>
+    <para>
+        <itemizedlist>
+	<!-- scroll left -->
+        <listitem><para>
+	    <emphasis>scroll left:</emphasis>
+	    scrolls to the start of the signal by 1/3 of the current view.
+	    </para>
+	    <para>
+		menu entry / keyboard shortcut:
+		<menuchoice>
+		<shortcut><keycombo><keycap>cursor Left</keycap></keycombo></shortcut>
+		<guimenu>View</guimenu><guimenuitem>Scroll left</guimenuitem>
+		</menuchoice>
+	    </para>
+        </listitem>
+	<!-- scroll right -->
+        <listitem><para>
+	    <emphasis>scroll right:</emphasis>
+	    scrolls to the end of the signal by 1/3 of the current view.
+	    </para>
+	    <para>
+		menu entry / keyboard shortcut:
+		<menuchoice>
+		<shortcut><keycombo><keycap>cursor right</keycap></keycombo></shortcut>
+		<guimenu>View</guimenu><guimenuitem>Scroll right</guimenuitem>
+		</menuchoice>
+	    </para>
+        </listitem>
+	<!-- previous page -->
+        <listitem><para>
+	    <emphasis>previous page:</emphasis>
+	    scrolls to the position right before the current view (left).
+	    </para>
+	    <para>
+		menu entry / keyboard shortcut:
+		<menuchoice>
+		<shortcut><keycombo><keycap>Page up</keycap></keycombo></shortcut>
+		<guimenu>View</guimenu><guimenuitem>Previous Page</guimenuitem>
+		</menuchoice>
+	    </para>
+        </listitem>
+	<!-- next page -->
+       <listitem><para>
+	    <emphasis>next page:</emphasis>
+	    scrolls to the position right after the current view (right).
+	    </para>
+	    <para>
+		menu entry / keyboard shortcut:
+		<menuchoice>
+		<shortcut><keycombo><keycap>Page down</keycap></keycombo></shortcut>
+		<guimenu>View</guimenu><guimenuitem>Next Page</guimenuitem>
+		</menuchoice>
+	    </para>
+        </listitem>
+	<!-- to begin -->
+       <listitem><para>
+	    <emphasis>to begin:</emphasis>
+	    scrolls the current view so that it starts
+	    at the beginning of the signal.
+	    </para>
+	    <para>
+		menu entry / keyboard shortcut:
+		<menuchoice>
+		<shortcut><keycombo><keycap>Pos1</keycap></keycombo></shortcut>
+		<guimenu>View</guimenu><guimenuitem>Begin</guimenuitem>
+		</menuchoice>
+	    </para>
+        </listitem>
+	<!-- to end -->
+       <listitem><para>
+	    <emphasis>to end:</emphasis>
+	    scrolls the current view so that it ends at the end of the signal.
+	    </para>
+	    <para>
+		menu entry / keyboard shortcut:
+		<menuchoice>
+		<shortcut><keycombo><keycap>End</keycap></keycombo></shortcut>
+		<guimenu>View</guimenu><guimenuitem>End</guimenuitem>
+		</menuchoice>
+	    </para>
+        </listitem>
+	</itemizedlist>
+    </para>
+    </sect2>
+
+    <sect2 id="navigation_overview"><title>Using the overview</title>
+
+    <para>
+	The main screen of &kapp; shows a small <emphasis>overview</emphasis>
+	of the whole signal above the horizontal scroll bar of the main
+	window. This overview also provides some functionality for navigating:
+	<itemizedlist>
+	<!-- <left click> on overview widget -->
+	<listitem><para>
+	    <emphasis>single click with left mouse button</emphasis>:
+		directly move the current view to the clicked position.
+	</para></listitem>
+	<!-- <double click left> on overview widget -->
+	<listitem><para>
+	    <emphasis>double click with left mouse button</emphasis>:
+		directly move the current view to the clicked position
+		and additionally zoom in.
+	</para></listitem>
+	<!-- <shift> + <double click left> on overview widget -->
+	<listitem><para>
+	    <emphasis>double click with left mouse button, with
+		<keycap>shift</keycap> pressed</emphasis>:
+		directly move the current view to the clicked position
+		and additionally zoom out.
+	</para></listitem>
+	</itemizedlist>
+    </para>
+
+    </sect2>
+
+    <sect2 id="vertical_zoom"><title>Vertical zoom</title>
+    <para>
+	You can zoom the current view vertically by pressing the
+	<keycap>Ctrl</keycap> key and scrolling with the mouse wheel.
+    </para>
+    </sect2>
+
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: How to select                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <sect1 id="selecting"><title>How to select</title>
@@ -3437,15 +3660,13 @@
 	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>All</guimenuitem>
 	</menuchoice>
     </para></listitem>
-<!-- @TODO@
     <listitem><para>
-	a range of samples, starting at the current cursor position:
+	remove any selection and select "nothing":
 	<menuchoice>
-	<shortcut><keycombo><keycap>R</keycap></keycombo></shortcut>
-	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Range</guimenuitem>
+	<shortcut><keycombo><keycap>N</keycap></keycombo></shortcut>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Nothing</guimenuitem>
 	</menuchoice>
     </para></listitem>
--->
     <listitem><para>
 	the currently visible area:
 	<menuchoice>
@@ -3489,11 +3710,31 @@
 	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to end</guimenuitem>
 	</menuchoice>
     </para></listitem>
+    <!-- expand to labels -->
     <listitem><para>
-	remove any selection and select "nothing":
+	expand the current selection left and right up to the next label
+	(or start/end of the signal if there is none), starting at the
+	current cursor position:
 	<menuchoice>
-	<shortcut><keycombo><keycap>N</keycap></keycombo></shortcut>
-	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Nothing</guimenuitem>
+	<shortcut><keycombo><keycap>E</keycap></keycombo></shortcut>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Expand to labels</guimenuitem>
+	</menuchoice>
+    </para></listitem>
+    <!-- no next/previous block -->
+    <listitem><para>
+	select the area between the next two labels that are right from the
+	current selection or up to the end of the signal:
+	<menuchoice>
+	<shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to next labels</guimenuitem>
+	</menuchoice>
+    </para></listitem>
+    <listitem><para>
+	select the area between the previous two labels that are left from the
+	current selection or up to the start of the signal:
+	<menuchoice>
+	<shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>P</keycap></keycombo></shortcut>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to previous labels</guimenuitem>
 	</menuchoice>
     </para></listitem>
     </itemizedlist>
@@ -3515,16 +3756,10 @@
     </para>
 
     <para>
-    However, this has some disadvantages. So if you want to exchange
-    data between two &kapp; instances through the clipboard, you will
-    find out that this is simply not possible. Each instance of &kapp;
-    uses it's own clipboard and so that can't work.
-    </para>
-
-    <para>
-    So if you want to make use of the clipboard in &kapp;, you should
-    only start <emphasis>one</emphasis> &kapp; instance and use
-    multiple &kapp; windows. That's the way it works!
+    However, this has some disadvantages. So if you want to exchange data
+    between &kapp; and some other program, you will find out that this is
+    simply not possible. Therefore you can only copy/paste data between
+    multiple &kapp; windows.
     </para>
 
     </sect1>
@@ -3825,7 +4060,17 @@
 		    </para></listitem>
 		</itemizedlist>
 	    </para></listitem>
-
+	    <listitem><para>
+		<emphasis>desktop file:</emphasis>
+		</para><para>
+		Add a <emphasis>Comment</emphasis> line for the new language
+		to the file <filename>kwave/kwave.desktop.in</filename>.
+		Please note that this file is UTF-8 encoded!
+		Example:
+<screen>
+	<literal>Comment[</literal><replaceable>fr</replaceable><literal>]=</literal><replaceable>Un éditeur de sons pour KDE</replaceable>
+</screen>
+	    </para></listitem>
 	</orderedlist>
     </para>
 
@@ -3891,7 +4136,7 @@
 		    Read in the
 		    <link linkend="requirements">chapter</link>
 		    mentioned before. It compiles with
-		    gcc-2.95 and gcc-3.x as well.
+		    gcc-3.x or gcc-4.x as well.
 		</para>
 	    </answer>
 	</qandaentry>
@@ -3979,7 +4224,7 @@
 		    If you have to work on an other format, you can convert
 		    it into .wav format. A good set of tools for this is
 		    in the
-	            <ulink url="http://home.sprynet.com/~cbagwell/sox.html">SoX</ulink> package, they have also some nice
+	            <ulink url="http://sox.sourceforge.net/">SoX</ulink> package, they have also some nice
 		    documentation!
 		</para>
 	    </answer>
@@ -4103,6 +4348,9 @@
 	    	<para>
 		    Well, as long as there are patent issues, we support only MP3
 		    import through the mad library. No export, sorry...
+		    Additionally you need to have the permission to use code
+		    covered by the MP3 patents when generating a Kwave package
+		    for distributing!
 		</para>
 	    </answer>
 	</qandaentry>

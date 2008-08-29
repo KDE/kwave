@@ -16,6 +16,8 @@
  * implemented vertical zoom (Ctrl + MouseWheelUp/Down)
  * using more standard KDE keyboard shortcuts
  * removed aRts support
+ * now also available through the openSUSE build service for
+   various platforms
 
 0.7.11 [2007-12-09]
 

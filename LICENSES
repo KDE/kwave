@@ -1,18 +1,17 @@
 
 here the results of a licensing investigation
-(2007-06-17)
+(first done 2007-06-17)
 
 LIST OF LICENSES FOUND IN THE SOURCES
 =====================================
 
 	* GPL2 - GNU General Public License, version 2 or newer
-	  - kwave, libgui, libkwave, mt and many others...
-	  => this is Kwave's default license !
+	  - kwave, libgui, libkwave and many others...
+	  => this currently is Kwave's "default" license !
 	  => the intention of the authors is to keep Kwave under the GPL
 
 	* LGPL2 - GNU Library General Public License, version 2 or newer
 	  - most stuff in libaudiofile
-	  - plugins/*/*.idl (and other idl files)
 
 	* Kitware (cmake)
 	  - cmake/Copyright.txt
@@ -127,7 +126,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 
 	cmake/Copyright.txt				Kitware (cmake)
 	cmake/COPYING-CMAKE-SCRIPTS			New BSD
-	cmake/FindAlsa.cmake				BSD
+	cmake/FindAlsa.cmake				BSD / {kretz,faure}@kde.org
 	cmake/FindGettext.cmake				Kitware (cmake)
 	cmake/FindKwaveVersion.cmake			GPL2
 	cmake/FindOggVorbis.cmake			BSD

@@ -51,10 +51,10 @@ void PlaybackController::playbackStart()
 
     m_loop_mode = false;
     m_paused = false;
-    emit sigDeviceStartPlayback();
-
     m_playing = true;
     emit sigPlaybackStarted();
+
+    emit sigDeviceStartPlayback();
 }
 
 //***************************************************************************

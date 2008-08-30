@@ -255,7 +255,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	i18n("pause playback"),
 	this, SLOT(pausePressed()));
 
-    m_action_loop = toolbar_playback->addAction(
+    m_action_stop = toolbar_playback->addAction(
 	QPixmap(xpm_stop),
 	i18n("stop playback or loop"),
 	playback, SLOT(playbackStop()));
@@ -498,6 +498,18 @@ int TopWidget::executeCommand(const QString &line)
     // parse one single command
     Parser parser(command);
 
+    // playback commands are always possible
+    if (parser.command() == "playback") {
+	return executePlaybackCommand(parser.firstParam()) ? 0 : -1;
+    }
+
+    // all others only if no plugin is currently running
+    if (m_plugin_manager && m_plugin_manager->onePluginRunning()) {
+	qWarning("TopWidget::executeCommand(...) - currently not possible, "\
+		"a plugin is running :-(");
+	return false;
+    }
+
     if (m_app.executeCommand(command)) {
 	return 0;
     CASE_COMMAND("about_kde")
@@ -559,8 +571,6 @@ int TopWidget::executeCommand(const QString &line)
 	}
     CASE_COMMAND("openrecent")
 	result = openRecent(command);
-    CASE_COMMAND("playback")
-	result = executePlaybackCommand(parser.firstParam()) ? 0 : -1;
     CASE_COMMAND("save")
 	result = saveFile();
     CASE_COMMAND("close")

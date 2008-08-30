@@ -528,6 +528,10 @@ void PlayBackPlugin::startDevicePlayBack()
 void PlayBackPlugin::stopDevicePlayBack()
 {
     m_stop = true;
+    if (!isRunning()) {
+	qDebug("PlayBackPlugin::stopDevicePlayBack() - not running");
+	emit sigPlaybackDone();
+    }
     closeDevice();
 }
 

@@ -158,7 +158,7 @@ public:
      * @param tracks number of tracks
      * @param name of the device, optional. If not given, the default
      *        playback device is used
-     * @return a multitrack aRts sink that receives the playback stream
+     * @return a multitrack sink that receives the playback stream
      */
     Kwave::SampleSink *openMultiTrackPlayback(unsigned int tracks,
 	const QString *name = 0);

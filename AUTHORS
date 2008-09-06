@@ -57,13 +57,12 @@ Robert M. Stockmann <stock@stokkie.net>
 Others, authors and copyright holders
 =====================================
 
-Stefan Westerfeld <stefan@space.twc.de>
-	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h
-	* plugins/band_pass/synth_band_pass.idl
-	* plugins/band_pass/synth_band_pass_impl.h
+Everaldo Coelho <contact@everaldo.com>
+	* the crystal icon theme
+	  http://www.everaldo.com/crystal/
 
-Arnold Krille, <arnold@arnoldarts.de>
-	* plugins/band_pass/synth_band_pass.idl
+Stefan Westerfeld <stefan@space.twc.de>
+	* parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}
 
 Mark Donohoe (KDE) <donohoe@kde.org>
 	* some icons and bitmaps for toolbar and GUI
@@ -91,11 +90,12 @@ Paul Mackerras <paulus@samba.org>
 	* libkwave/ppc_asm.tmpl
 
 Juhana Sadeharju <kouhia@nic.funet.fi>
-	* plugins/{band_pass,lowpass,notch_filter}/c_filter_stuff.c
+	* plugins/band_pass/BandPass.{h,cpp}
+	* plugins/lowpass/LowPassFilter.cpp
+	* plugins/notch_filter/NotchFilter.{h,cpp}
 
 Jeff Tranter
-	* parts of plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h
-	* plugins/band_pass/synth_band_pass_impl.h
+	* parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}
 
 Jaroslav Kysela
 	* parts of plugins/playback/PlayBack-ALSA.cpp
@@ -110,9 +110,6 @@ Stichting Mathematisch Centrum, Amsterdam
 Sun Microsystems, Inc.
 	* libaudiofile/g711.c
 	* libaudiofile/g711.h
-
-Malcolm Slaney and Ken Turkowski, Apple Computer, Inc.
-	* libaudiofile/extended.c
 
 Miguel Freitas
 	* parts of libkwave/memcpy.c

@@ -6,9 +6,10 @@ LIST OF LICENSES FOUND IN THE SOURCES
 =====================================
 
 	* GPL2 - GNU General Public License, version 2 or newer
+	  (abbreviated as GPL2+)
 	  - kwave, libgui, libkwave and many others...
-	  => this currently is Kwave's "default" license !
-	  => the intention of the authors is to keep Kwave under the GPL
+	  => this currently is the Kwave "default" license !
+	  => the intention of the authors is to keep Kwave under the GPL+
 
 	* LGPL2 - GNU Library General Public License, version 2 or newer
 	  - most stuff in libaudiofile
@@ -21,11 +22,32 @@ LIST OF LICENSES FOUND IN THE SOURCES
 	  - documentation in doc
 	  - screenshots
 
+	* BSD
+	  - cmake/FindOggVorbis.cmake
+	  - cmake/COPYING-CMAKE-SCRIPTS		(New BSD ?)
+	  - cmake/FindAlsa.cmake		{kretz,faure}@kde.org
+
 	* free, by statement in file header
 	  - libaudiofile/COPYING
 	  - libaudiofile/g711.c			(Sun Microsystems, Inc.)
 	  - libaudiofile/g711.h			(Sun Microsystems, Inc.)
 	  - libaudiofile/modules/adpcm.c	(Stichting Mathematisch Centrum, Amsterdam)
+
+DIRECTLY USED EXTERNAL LIBRARIES
+================================
+
+	* Qt-4.x			GPL2 or GPL3 ???
+	* kdelibs-4.x			LGPL2
+	* gsl-1.9			GPL2 (GPL3 in >= v1.10 !!!)
+	* audiofile-0.2.6		LGPL2+ / GPL2+
+	* id3lib-3.8.3			LGPL2.1
+	* mad-0.15.1b			GPL-2
+	* ogg-1.1.3			~BSD style
+	* flac-1.2.1			Xiph.Org's BSD-like + GPL2 + LGPL2
+	* alsa-lib-1.0.16		LGPL2.1
+	* OSS-3.8			GPL2, CDDL, BSD
+	* libstdc++-v3.3.6		LGPL2.1
+	* glibc-2.6.1			LGPL2
 
 LICENSE ISSUES
 ==============
@@ -62,22 +84,7 @@ issue #1: license of the icons
 	-> kdeclassic/16x16/actions/14_layer_newlayer.png
 #	doc/en/under-construction.png			??? UNKNOWN ???
 
-#	kwave/pics/lspeaker.xpm				??? UNKNOWN ??? -> KDE ?
 #	kwave/pics/minifont.xpm				??? UNKNOWN ??? -> KDE ?
-#	kwave/pics/rspeaker.xpm				??? UNKNOWN ??? -> KDE ?
-
-	kwave/pics/sound_arts.png			free / KDE
-	-> icons/Locolor/16x16/apps/arts.png
-
-#	kwave/pics/sound_card.png			??? UNKNOWN ??? -> KDE ?
-
-	kwave/pics/sound_device.png			free / KDE
-	-> icons/Locolor/32x32/mimetypes/sound.png
-	kwave/pics/sound_note.png			free / KDE
-	-> icons/Locolor/16x16/apps/kcm_note.png
-
-#	kwave/pics/sound_subdevice.png			??? UNKNOWN ??? -> KDE ?
-#	kwave/pics/xspeaker.xpm				??? UNKNOWN ??? -> KDE ?
 
 issue #2: license of some files is unknown or problematic / author known
 ------------------------------------------------------------------------
@@ -101,46 +108,46 @@ issue #3: some files have neither license nor author
 COMPLETE LIST OF FILES AND THEIR LICENSE
 ========================================
 
-	AUTHORS						GPL2
-	CHANGES						(should be GPL2)
-	config.h.cmake					GPL2
-	doxy.cfg.in					(should be GPL2)
+	AUTHORS						GPL2+
+	CHANGES						(should be GPL2+)
+	config.h.cmake					GPL2+
+	doxy.cfg.in					GPL2+
 	GNU-LICENSE					free
-	kwave.ebuild					GPL2 Gentoo
-	Kwave.kdevelop					(should be GPL2)
-	Kwave.kdevelop.filelist				(should be GPL2)
-	kwave.lsm					(should be GPL2)
-	kwave.spec.in					(should be GPL2)
-	README						(should be GPL2)
-	TODO						(should be GPL2)
-	VERSION						(should be GPL2)
-	CMakeLists.txt					GPL2
+	kwave.ebuild					GPL2+ Gentoo
+	Kwave.kdevelop					(should be GPL2+)
+	Kwave.kdevelop.filelist				(should be GPL2+)
+	kwave.lsm					(should be GPL2+)
+	kwave.spec.in					(should be GPL2+)
+	README						(should be GPL2+)
+	TODO						(should be GPL2+)
+	VERSION						(should be GPL2+)
+	CMakeLists.txt					GPL2+
 
-	bin/beautify-source				GPL2
-	bin/changes-to-docbook.awk			GPL2
-	bin/date_release.awk				GPL2
-	bin/get_lsm_entry.sh				GPL2
-	bin/insert-changes.sh				GPL2
-	bin/menusconfig2cpp.sh				GPL2
-	bin/set_version.sh				GPL2 / portions of Martin Wilz
+	bin/beautify-source				GPL2+
+	bin/changes-to-docbook.awk			GPL2+
+	bin/date_release.awk				GPL2+
+	bin/get_lsm_entry.sh				GPL2+
+	bin/insert-changes.sh				GPL2+
+	bin/menusconfig2cpp.sh				GPL2+
+	bin/set_version.sh				GPL2+ / portions of Martin Wilz
 
 	cmake/Copyright.txt				Kitware (cmake)
 	cmake/COPYING-CMAKE-SCRIPTS			New BSD
 	cmake/FindAlsa.cmake				BSD / {kretz,faure}@kde.org
 	cmake/FindGettext.cmake				Kitware (cmake)
-	cmake/FindKwaveVersion.cmake			GPL2
+	cmake/FindKwaveVersion.cmake			GPL2+
 	cmake/FindOggVorbis.cmake			BSD
-	cmake/FindRequiredProgram.cmake			GPL2
-	cmake/KwaveALSASupport.cmake			GPL2
-	cmake/KwaveEbuild.cmake				GPL2
-	cmake/KwaveLibaudiofileSupport.cmake		GPL2
-	cmake/KwaveOSSSupport.cmake			GPL2
-	cmake/KwavePackageMessages.cmake		GPL2
-	cmake/KwaveRPMSupport.cmake			GPL2
-	cmake/uninstall.cmake.in			GPL2
+	cmake/FindRequiredProgram.cmake			GPL2+
+	cmake/KwaveALSASupport.cmake			GPL2+
+	cmake/KwaveEbuild.cmake				GPL2+
+	cmake/KwaveLibaudiofileSupport.cmake		GPL2+
+	cmake/KwaveOSSSupport.cmake			GPL2+
+	cmake/KwavePackageMessages.cmake		GPL2+
+	cmake/KwaveRPMSupport.cmake			GPL2+
+	cmake/uninstall.cmake.in			GPL2+
 
-	doc/CMakeLists.txt				GPL2
-	doc/fix-common					GPL2
+	doc/CMakeLists.txt				GPL2+
+	doc/fix-common					GPL2+
 	doc/help_de.po					(should be FDL)
 	doc/help_en.docbook				(should be FDL)
 	doc/help_fr.po					(should be FDL)
@@ -209,55 +216,49 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doc/fr/kwave-volume.png				(should be FDL)
 	doc/fr/screenshot1.png				(should be FDL)
 
-	kwave/CMakeLists.txt				GPL2
-	kwave/KwaveApp.cpp				GPL2
-	kwave/KwaveApp.h				GPL2
-	kwave/kwave.desktop				(should be GPL2)
-	kwave/KwaveSplash.cpp				GPL2 / Gilles Caulier
-	kwave/KwaveSplash.h				GPL2 / Gilles Caulier
-	kwave/main.cpp					GPL2 / Martin Wilz
-	kwave/MainWidget.cpp				GPL2 / Martin Wilz
-	kwave/MainWidget.h				GPL2 / Martin Wilz
-	kwave/menus.config				GPL2
-	kwave/ShortcutWrapper.cpp			GPL2
-	kwave/ShortcutWrapper.h				GPL2
-	kwave/TopWidget.cpp				GPL2 / Martin Wilz
-	kwave/TopWidget.h				GPL2 / Martin Wilz
-	kwave/x-aifc.desktop				(should be GPL2)
-	kwave/x-ircam.desktop				(should be GPL2)
+	kwave/CMakeLists.txt				GPL2+
+	kwave/KwaveApp.cpp				GPL2+
+	kwave/KwaveApp.h				GPL2+
+	kwave/kwave.desktop				(should be GPL2+)
+	kwave/KwaveSplash.cpp				GPL2+ / Gilles Caulier
+	kwave/KwaveSplash.h				GPL2+ / Gilles Caulier
+	kwave/main.cpp					GPL2+ / Martin Wilz
+	kwave/MainWidget.cpp				GPL2+ / Martin Wilz
+	kwave/MainWidget.h				GPL2+ / Martin Wilz
+	kwave/menus.config				GPL2+
+	kwave/ShortcutWrapper.cpp			GPL2+
+	kwave/ShortcutWrapper.h				GPL2+
+	kwave/TopWidget.cpp				GPL2+ / Martin Wilz
+	kwave/TopWidget.h				GPL2+ / Martin Wilz
+	kwave/x-aifc.desktop				(should be GPL2+)
+	kwave/x-ircam.desktop				(should be GPL2+)
 
-	kwave/pics/amplify_free.png			(should be GPL2)
-	kwave/pics/fade_in.png				(should be GPL2)
-	kwave/pics/fade_out.png				(should be GPL2)
-	kwave/pics/knob.xpm				(should be GPL2 / Martin Wilz)
-#	kwave/pics/kwave-splash.png			??? UNKNOWN ??? / Gilles Caulier
-	kwave/pics/kwave.xpm				(should be GPL2 / Martin Wilz)
-	kwave/pics/light_off.xpm			(should be GPL2)
-	kwave/pics/light_on.xpm				(should be GPL2)
-	kwave/pics/logo.xpm				(should be GPL2 / Martin Wilz)
-#	kwave/pics/lspeaker.xpm				??? UNKNOWN ??? -> KDE ?
+	kwave/pics/amplify_free.png			(should be GPL2+)
+	kwave/pics/fade_in.png				(should be GPL2+)
+	kwave/pics/fade_out.png				(should be GPL2+)
+	kwave/pics/knob.xpm				LGPL2 (crystal project) [derived from greenled.png]
+	kwave/pics/kwave-splash.png			(should be GPL2+ / Thomas Eschenbacher)
+	kwave/pics/kwave.xpm				(should be GPL2+ / Martin Wilz)
+	kwave/pics/light_off.xpm			LGPL2 (crystal project) [derived from greenled.png]
+	kwave/pics/light_on.xpm				LGPL2 (crystal project) [copied from greenled.png]
+	kwave/pics/logo.xpm				(should be GPL2+ / Martin Wilz)
 #	kwave/pics/minifont.xpm				??? UNKNOWN ??? -> KDE ?
-	kwave/pics/noise.png				(should be GPL2)
-	kwave/pics/playback_loop.xpm			(should be GPL2)
-	kwave/pics/playback_pause2.xpm			(should be GPL2)
-	kwave/pics/playback_pause.xpm			(should be GPL2)
-	kwave/pics/playback_start.xpm			(should be GPL2)
-	kwave/pics/playback_stop.xpm			(should be GPL2)
-#	kwave/pics/rspeaker.xpm				??? UNKNOWN ??? -> KDE ?
-	kwave/pics/selectedknob.xpm			(should be GPL2 / Martin Wilz)
-	kwave/pics/sound_arts.png			free / KDE
-#	kwave/pics/sound_card.png			??? UNKNOWN ??? -> KDE ?
-	kwave/pics/sound_device.png			free / KDE
-	kwave/pics/sound_note.png			free / KDE
-#	kwave/pics/sound_subdevice.png			??? UNKNOWN ??? -> KDE ?
-	kwave/pics/kwave-splash.png			GPL2 / Thomas Eschenbacher
-#	kwave/pics/xspeaker.xpm				??? UNKNOWN ??? -> KDE ?
+	kwave/pics/noise.png				(should be GPL2+)
+	kwave/pics/playback_loop.xpm			LGPL2 (crystal project) [derived from player_start.png]
+	kwave/pics/playback_pause2.xpm			LGPL2 (crystal project) [derived from player_pause.png]
+	kwave/pics/playback_pause.xpm			LGPL2 (crystal project) [derived from player_pause.png]
+	kwave/pics/playback_start.xpm			LGPL2 (crystal project) [derived from player_start.png]
+	kwave/pics/playback_stop.xpm			LGPL2 (crystal project) [derived from player_stop.png]
+	kwave/pics/sound_card.png			LGPL2 (crystal project) [copied from kcmpci.png]
+	kwave/pics/sound_device.png			LGPL2 (crystal project) [copied from multimedia.png]
+	kwave/pics/sound_note.png			LGPL2 (crystal project) [copied from knotify.png]
+	kwave/pics/sound_subdevice.png			LGPL2 (crystal project) [copied from kcmsound.png]
 
-	kwave/toolbar/zoomall.xpm			(should be GPL2)
-	kwave/toolbar/zoomin.xpm			(should be GPL2)
-	kwave/toolbar/zoomnormal.xpm			(should be GPL2)
-	kwave/toolbar/zoomout.xpm			(should be GPL2)
-	kwave/toolbar/zoomrange.xpm			(should be GPL2)
+	kwave/toolbar/zoomall.xpm			(should be GPL2+)
+	kwave/toolbar/zoomin.xpm			(should be GPL2+)
+	kwave/toolbar/zoomnormal.xpm			(should be GPL2+)
+	kwave/toolbar/zoomout.xpm			(should be GPL2+)
+	kwave/toolbar/zoomrange.xpm			(should be GPL2+)
 
 #	libaudiofile/ACKNOWLEDGEMENTS			??? UNKNOWN ???
 	libaudiofile/aes.c				LGPL2
@@ -276,7 +277,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libaudiofile/byteorder.h			LGPL2
 	libaudiofile/compression.c			LGPL2
 	libaudiofile/compression.h			LGPL2
-	libaudiofile/CMakeLists.txt			GPL2
+	libaudiofile/CMakeLists.txt			GPL2+
 	libaudiofile/COPYING				(free)
 	libaudiofile/COPYING.GPL			(free)
 	libaudiofile/data.c				LGPL2
@@ -338,422 +339,422 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 #	libaudiofile/modules/rebuffer.h 		??? UNKNOWN ???
 #	libaudiofile/modules/rebuffer.template		??? UNKNOWN ???
 
-	libgui/CMakeLists.txt				GPL2
-	libgui/ConfirmCancelProxy.cpp			GPL2
-	libgui/ConfirmCancelProxy.h			GPL2
-	libgui/CurveWidget.cpp				GPL2
-	libgui/CurveWidget.h				GPL2
-	libgui/FrequencyResponseWidget.cpp		GPL2
-	libgui/FrequencyResponseWidget.h		GPL2
-	libgui/HMSTimeWidgetBase.ui			(should be GPL2)
-	libgui/HMSTimeWidget.cpp			GPL2
-	libgui/HMSTimeWidget.h				GPL2
-	libgui/ImageView.cpp				GPL2 / Martin Wilz
-	libgui/ImageView.h				GPL2 / Martin Wilz
-	libgui/InvertableSpinBox.cpp			GPL2
-	libgui/InvertableSpinBox.h			GPL2
-	libgui/KwaveFileDialog.cpp			GPL2
-	libgui/KwaveFileDialog.h			GPL2
-	libgui/KwaveFilterPlugin.cpp			GPL2
-	libgui/KwaveFilterPlugin.h			GPL2
-	libgui/LabelPropertiesWidget.cpp		GPL2
-	libgui/LabelPropertiesWidget.h			GPL2
-	libgui/LabelPropertiesWidgetBase.ui		GPL2
-	libgui/MenuGroup.cpp				GPL2
-	libgui/MenuGroup.h				GPL2
-	libgui/MenuItem.cpp				GPL2
-	libgui/MenuItem.h				GPL2
-	libgui/MenuManager.cpp				GPL2
-	libgui/MenuManager.h				GPL2
-	libgui/MenuNode.cpp				GPL2
-	libgui/MenuNode.h				GPL2
-	libgui/MenuRoot.cpp				GPL2
-	libgui/MenuRoot.h				GPL2
-	libgui/MenuSub.cpp				GPL2
-	libgui/MenuSub.h				GPL2
-	libgui/MouseMark.cpp				GPL2
-	libgui/MouseMark.h				GPL2
-	libgui/MultiStateWidget.cpp			GPL2
-	libgui/MultiStateWidget.h			GPL2
-	libgui/OverViewCache.cpp			GPL2
-	libgui/OverViewCache.h				GPL2
-	libgui/OverViewWidget.cpp			GPL2
-	libgui/OverViewWidget.h				GPL2
-	libgui/ScaleWidget.cpp				GPL2
-	libgui/ScaleWidget.h				GPL2
-	libgui/SelectTimeWidgetBase.ui			(should be GPL2)
-	libgui/SelectTimeWidget.cpp			GPL2
-	libgui/SelectTimeWidget.h			GPL2
-	libgui/SignalWidget.cpp				GPL2 / Martin Wilz
-	libgui/SignalWidget.h				GPL2
-	libgui/TrackPixmap.cpp				GPL2
-	libgui/TrackPixmap.h				GPL2
-	libgui/TreeWidgetWrapper.cpp			GPL2
-	libgui/TreeWidgetWrapper.h			GPL2
-	libgui/UndoModifyLabelAction.cpp		GPL2
-	libgui/UndoModifyLabelAction.h			GPL2
+	libgui/CMakeLists.txt				GPL2+
+	libgui/ConfirmCancelProxy.cpp			GPL2+
+	libgui/ConfirmCancelProxy.h			GPL2+
+	libgui/CurveWidget.cpp				GPL2+
+	libgui/CurveWidget.h				GPL2+
+	libgui/FrequencyResponseWidget.cpp		GPL2+
+	libgui/FrequencyResponseWidget.h		GPL2+
+	libgui/HMSTimeWidgetBase.ui			(should be GPL2+)
+	libgui/HMSTimeWidget.cpp			GPL2+
+	libgui/HMSTimeWidget.h				GPL2+
+	libgui/ImageView.cpp				GPL2+ / Martin Wilz
+	libgui/ImageView.h				GPL2+ / Martin Wilz
+	libgui/InvertableSpinBox.cpp			GPL2+
+	libgui/InvertableSpinBox.h			GPL2+
+	libgui/KwaveFileDialog.cpp			GPL2+
+	libgui/KwaveFileDialog.h			GPL2+
+	libgui/KwaveFilterPlugin.cpp			GPL2+
+	libgui/KwaveFilterPlugin.h			GPL2+
+	libgui/LabelPropertiesWidget.cpp		GPL2+
+	libgui/LabelPropertiesWidget.h			GPL2+
+	libgui/LabelPropertiesWidgetBase.ui		GPL2+
+	libgui/MenuGroup.cpp				GPL2+
+	libgui/MenuGroup.h				GPL2+
+	libgui/MenuItem.cpp				GPL2+
+	libgui/MenuItem.h				GPL2+
+	libgui/MenuManager.cpp				GPL2+
+	libgui/MenuManager.h				GPL2+
+	libgui/MenuNode.cpp				GPL2+
+	libgui/MenuNode.h				GPL2+
+	libgui/MenuRoot.cpp				GPL2+
+	libgui/MenuRoot.h				GPL2+
+	libgui/MenuSub.cpp				GPL2+
+	libgui/MenuSub.h				GPL2+
+	libgui/MouseMark.cpp				GPL2+
+	libgui/MouseMark.h				GPL2+
+	libgui/MultiStateWidget.cpp			GPL2+
+	libgui/MultiStateWidget.h			GPL2+
+	libgui/OverViewCache.cpp			GPL2+
+	libgui/OverViewCache.h				GPL2+
+	libgui/OverViewWidget.cpp			GPL2+
+	libgui/OverViewWidget.h				GPL2+
+	libgui/ScaleWidget.cpp				GPL2+
+	libgui/ScaleWidget.h				GPL2+
+	libgui/SelectTimeWidgetBase.ui			(should be GPL2+)
+	libgui/SelectTimeWidget.cpp			GPL2+
+	libgui/SelectTimeWidget.h			GPL2+
+	libgui/SignalWidget.cpp				GPL2+ / Martin Wilz
+	libgui/SignalWidget.h				GPL2+
+	libgui/TrackPixmap.cpp				GPL2+
+	libgui/TrackPixmap.h				GPL2+
+	libgui/TreeWidgetWrapper.cpp			GPL2+
+	libgui/TreeWidgetWrapper.h			GPL2+
+	libgui/UndoModifyLabelAction.cpp		GPL2+
+	libgui/UndoModifyLabelAction.h			GPL2+
 
-	libkwave/ByteOrder.h				GPL2
-	libkwave/byteswap.h				GPL2
-	libkwave/ClipBoard.cpp				GPL2
-	libkwave/ClipBoard.h				GPL2
-	libkwave/CMakeLists.txt				GPL2
-	libkwave/CodecBase.cpp				GPL2
-	libkwave/CodecBase.h				GPL2
-	libkwave/CodecManager.cpp			GPL2
-	libkwave/CodecManager.h				GPL2
-	libkwave/CompressionType.cpp			GPL2
-	libkwave/CompressionType.h			GPL2
-	libkwave/cputest.c				GPL2 / H. Dietz + R. Fisher + Fabrice Bellard
-	libkwave/cputest.h				GPL2
-	libkwave/Curve.cpp				GPL2
-	libkwave/Curve.h				GPL2
-	libkwave/Decoder.cpp				GPL2
-	libkwave/Decoder.h				GPL2
-	libkwave/Encoder.cpp				GPL2
-	libkwave/Encoder.h				GPL2
-	libkwave/FileFormat.cpp				GPL2
-	libkwave/FileFormat.h				GPL2
-	libkwave/FileInfo.cpp				GPL2
-	libkwave/FileInfo.h				GPL2
-	libkwave/FileProgress.cpp			GPL2
-	libkwave/FileProgress.h				GPL2
-	libkwave/Filter.cpp				GPL2
-	libkwave/Filter.h				GPL2
-	libkwave/Functions.cpp				GPL2
-	libkwave/Functions.h				GPL2
-	libkwave/GenreType.cpp				GPL2
-	libkwave/GenreType.h				GPL2
-	libkwave/InsertMode.h				GPL2
-	libkwave/Interpolation.cpp			GPL2
-	libkwave/Interpolation.h			GPL2
-	libkwave/KwaveConnect.cpp			GPL2
-	libkwave/KwaveConnect.h				GPL2
-	libkwave/KwaveDrag.cpp				GPL2
-	libkwave/KwaveDrag.h				GPL2
-	libkwave/KwaveMultiPlaybackSink.cpp		GPL2
-	libkwave/KwaveMultiPlaybackSink.h		GPL2
-	libkwave/KwaveMultiTrackSink.h			GPL2
-	libkwave/KwaveMultiTrackSource.h		GPL2
-	libkwave/KwavePlaybackSink.cpp			GPL2
-	libkwave/KwavePlaybackSink.h			GPL2
-	libkwave/KwavePlugin.cpp			GPL2
-	libkwave/KwavePlugin.h				GPL2
-	libkwave/KwavePluginSetupDialog.h		GPL2
-	libkwave/KwaveSampleArray.cpp			GPL2
-	libkwave/KwaveSampleArray.h			GPL2
-	libkwave/KwaveSampleSink.cpp			GPL2
-	libkwave/KwaveSampleSink.h			GPL2
-	libkwave/KwaveSampleSource.cpp			GPL2
-	libkwave/KwaveSampleSource.h			GPL2
-	libkwave/Label.cpp				GPL2
-	libkwave/Label.h				GPL2
-	libkwave/LabelList.cpp				GPL2
-	libkwave/LabelList.h				GPL2
-	libkwave/Matrix.h				GPL2
-	libkwave/memcpy.c				GPL2 / xine
-	libkwave/memcpy.h				GPL2
-	libkwave/MemoryManager.cpp			GPL2
-	libkwave/MemoryManager.h			GPL2
-	libkwave/MessageBox.h				GPL2
-	libkwave/MessageBox.cpp				GPL2
-	libkwave/MultiTrackReader.cpp			GPL2
-	libkwave/MultiTrackReader.h			GPL2
-	libkwave/MultiTrackWriter.cpp			GPL2
-	libkwave/MultiTrackWriter.h			GPL2
-	libkwave/Parser.cpp				GPL2
-	libkwave/Parser.h				GPL2
-	libkwave/PlaybackController.cpp			GPL2
-	libkwave/PlaybackController.h			GPL2
-	libkwave/PlaybackDeviceFactory.h		GPL2
-	libkwave/PlayBackDevice.h			GPL2
-	libkwave/PluginContext.h			GPL2
-	libkwave/PluginManager.cpp			GPL2
-	libkwave/PluginManager.h			GPL2
-	libkwave/PluginWorkerThread.h			GPL2
-	libkwave/PluginWorkerThread.cpp			GPL2
-	libkwave/ppcasm_string.h			GPL2 / Paul Mackerras
-	libkwave/ppcasm_string.S			GPL2 / Paul Mackerras
-	libkwave/ppc_asm.tmpl				GPL2 / Paul Mackerras
-	libkwave/SampleFIFO.cpp				GPL2
-	libkwave/SampleFIFO.h				GPL2
-	libkwave/SampleFormat.cpp			GPL2
-	libkwave/SampleFormat.h				GPL2
-	libkwave/Sample.h				GPL2
-	libkwave/SampleReader.cpp			GPL2
-	libkwave/SampleReader.h				GPL2
-	libkwave/SampleWriter.cpp			GPL2
-	libkwave/SampleWriter.h				GPL2
-	libkwave/Selection.h				GPL2
-	libkwave/Selection.cpp				GPL2
-	libkwave/Signal.cpp				GPL2
-	libkwave/Signal.h				GPL2
-	libkwave/SignalManager.cpp			GPL2
-	libkwave/SignalManager.h			GPL2
-	libkwave/StandardBitrates.cpp			GPL2
-	libkwave/StandardBitrates.h			GPL2
-	libkwave/Stripe.cpp				GPL2
-	libkwave/Stripe.h				GPL2
-	libkwave/SwapFile.cpp				GPL2
-	libkwave/SwapFile.h				GPL2
-	libkwave/Track.cpp				GPL2
-	libkwave/Track.h				GPL2
-	libkwave/TransmissionFunction.h			GPL2
-	libkwave/Triple.h				GPL2
-	libkwave/TypesMap.h				GPL2
-	libkwave/VirtualAudioFile.cpp			GPL2
-	libkwave/VirtualAudioFile.h			GPL2
-	libkwave/WindowFunction.cpp			GPL2
-	libkwave/WindowFunction.h			GPL2
+	libkwave/ByteOrder.h				GPL2+
+	libkwave/byteswap.h				GPL2+
+	libkwave/ClipBoard.cpp				GPL2+
+	libkwave/ClipBoard.h				GPL2+
+	libkwave/CMakeLists.txt				GPL2+
+	libkwave/CodecBase.cpp				GPL2+
+	libkwave/CodecBase.h				GPL2+
+	libkwave/CodecManager.cpp			GPL2+
+	libkwave/CodecManager.h				GPL2+
+	libkwave/CompressionType.cpp			GPL2+
+	libkwave/CompressionType.h			GPL2+
+	libkwave/cputest.c				GPL2+ / H. Dietz + R. Fisher + Fabrice Bellard
+	libkwave/cputest.h				GPL2+
+	libkwave/Curve.cpp				GPL2+
+	libkwave/Curve.h				GPL2+
+	libkwave/Decoder.cpp				GPL2+
+	libkwave/Decoder.h				GPL2+
+	libkwave/Encoder.cpp				GPL2+
+	libkwave/Encoder.h				GPL2+
+	libkwave/FileFormat.cpp				GPL2+
+	libkwave/FileFormat.h				GPL2+
+	libkwave/FileInfo.cpp				GPL2+
+	libkwave/FileInfo.h				GPL2+
+	libkwave/FileProgress.cpp			GPL2+
+	libkwave/FileProgress.h				GPL2+
+	libkwave/Filter.cpp				GPL2+
+	libkwave/Filter.h				GPL2+
+	libkwave/Functions.cpp				GPL2+
+	libkwave/Functions.h				GPL2+
+	libkwave/GenreType.cpp				GPL2+
+	libkwave/GenreType.h				GPL2+
+	libkwave/InsertMode.h				GPL2+
+	libkwave/Interpolation.cpp			GPL2+
+	libkwave/Interpolation.h			GPL2+
+	libkwave/KwaveConnect.cpp			GPL2+
+	libkwave/KwaveConnect.h				GPL2+
+	libkwave/KwaveDrag.cpp				GPL2+
+	libkwave/KwaveDrag.h				GPL2+
+	libkwave/KwaveMultiPlaybackSink.cpp		GPL2+
+	libkwave/KwaveMultiPlaybackSink.h		GPL2+
+	libkwave/KwaveMultiTrackSink.h			GPL2+
+	libkwave/KwaveMultiTrackSource.h		GPL2+
+	libkwave/KwavePlaybackSink.cpp			GPL2+
+	libkwave/KwavePlaybackSink.h			GPL2+
+	libkwave/KwavePlugin.cpp			GPL2+
+	libkwave/KwavePlugin.h				GPL2+
+	libkwave/KwavePluginSetupDialog.h		GPL2+
+	libkwave/KwaveSampleArray.cpp			GPL2+
+	libkwave/KwaveSampleArray.h			GPL2+
+	libkwave/KwaveSampleSink.cpp			GPL2+
+	libkwave/KwaveSampleSink.h			GPL2+
+	libkwave/KwaveSampleSource.cpp			GPL2+
+	libkwave/KwaveSampleSource.h			GPL2+
+	libkwave/Label.cpp				GPL2+
+	libkwave/Label.h				GPL2+
+	libkwave/LabelList.cpp				GPL2+
+	libkwave/LabelList.h				GPL2+
+	libkwave/Matrix.h				GPL2+
+	libkwave/memcpy.c				GPL2+ / xine
+	libkwave/memcpy.h				GPL2+
+	libkwave/MemoryManager.cpp			GPL2+
+	libkwave/MemoryManager.h			GPL2+
+	libkwave/MessageBox.h				GPL2+
+	libkwave/MessageBox.cpp				GPL2+
+	libkwave/MultiTrackReader.cpp			GPL2+
+	libkwave/MultiTrackReader.h			GPL2+
+	libkwave/MultiTrackWriter.cpp			GPL2+
+	libkwave/MultiTrackWriter.h			GPL2+
+	libkwave/Parser.cpp				GPL2+
+	libkwave/Parser.h				GPL2+
+	libkwave/PlaybackController.cpp			GPL2+
+	libkwave/PlaybackController.h			GPL2+
+	libkwave/PlaybackDeviceFactory.h		GPL2+
+	libkwave/PlayBackDevice.h			GPL2+
+	libkwave/PluginContext.h			GPL2+
+	libkwave/PluginManager.cpp			GPL2+
+	libkwave/PluginManager.h			GPL2+
+	libkwave/PluginWorkerThread.h			GPL2+
+	libkwave/PluginWorkerThread.cpp			GPL2+
+	libkwave/ppcasm_string.h			GPL2+ / Paul Mackerras
+	libkwave/ppcasm_string.S			GPL2+ / Paul Mackerras
+	libkwave/ppc_asm.tmpl				GPL2+ / Paul Mackerras
+	libkwave/SampleFIFO.cpp				GPL2+
+	libkwave/SampleFIFO.h				GPL2+
+	libkwave/SampleFormat.cpp			GPL2+
+	libkwave/SampleFormat.h				GPL2+
+	libkwave/Sample.h				GPL2+
+	libkwave/SampleReader.cpp			GPL2+
+	libkwave/SampleReader.h				GPL2+
+	libkwave/SampleWriter.cpp			GPL2+
+	libkwave/SampleWriter.h				GPL2+
+	libkwave/Selection.h				GPL2+
+	libkwave/Selection.cpp				GPL2+
+	libkwave/Signal.cpp				GPL2+
+	libkwave/Signal.h				GPL2+
+	libkwave/SignalManager.cpp			GPL2+
+	libkwave/SignalManager.h			GPL2+
+	libkwave/StandardBitrates.cpp			GPL2+
+	libkwave/StandardBitrates.h			GPL2+
+	libkwave/Stripe.cpp				GPL2+
+	libkwave/Stripe.h				GPL2+
+	libkwave/SwapFile.cpp				GPL2+
+	libkwave/SwapFile.h				GPL2+
+	libkwave/Track.cpp				GPL2+
+	libkwave/Track.h				GPL2+
+	libkwave/TransmissionFunction.h			GPL2+
+	libkwave/Triple.h				GPL2+
+	libkwave/TypesMap.h				GPL2+
+	libkwave/VirtualAudioFile.cpp			GPL2+
+	libkwave/VirtualAudioFile.h			GPL2+
+	libkwave/WindowFunction.cpp			GPL2+
+	libkwave/WindowFunction.h			GPL2+
 
-	libkwave/modules/CurveStreamAdapter.cpp		GPL2
-	libkwave/modules/CurveStreamAdapter.h		GPL2
-	libkwave/modules/KwaveDelay.cpp			GPL2
-	libkwave/modules/KwaveDelay.h			GPL2
-	libkwave/modules/KwaveMul.cpp			GPL2
-	libkwave/modules/KwaveMul.h			GPL2
-	libkwave/modules/KwaveOsc.cpp			GPL2
-	libkwave/modules/KwaveOsc.h			GPL2
-	libkwave/modules/KwaveStreamObject.cpp		GPL2
-	libkwave/modules/KwaveStreamObject.h		GPL2
+	libkwave/modules/CurveStreamAdapter.cpp		GPL2+
+	libkwave/modules/CurveStreamAdapter.h		GPL2+
+	libkwave/modules/KwaveDelay.cpp			GPL2+
+	libkwave/modules/KwaveDelay.h			GPL2+
+	libkwave/modules/KwaveMul.cpp			GPL2+
+	libkwave/modules/KwaveMul.h			GPL2+
+	libkwave/modules/KwaveOsc.cpp			GPL2+
+	libkwave/modules/KwaveOsc.h			GPL2+
+	libkwave/modules/KwaveStreamObject.cpp		GPL2+
+	libkwave/modules/KwaveStreamObject.h		GPL2+
 
-	libkwave/undo/UndoAction.h			GPL2
-	libkwave/undo/UndoAddLabelAction.cpp		GPL2
-	libkwave/undo/UndoAddLabelAction.h		GPL2
-	libkwave/undo/UndoDeleteAction.cpp		GPL2
-	libkwave/undo/UndoDeleteAction.h		GPL2
-	libkwave/undo/UndoDeleteLabelAction.cpp		GPL2
-	libkwave/undo/UndoDeleteLabelAction.h		GPL2
-	libkwave/undo/UndoDeleteTrack.cpp		GPL2
-	libkwave/undo/UndoDeleteTrack.h			GPL2
-	libkwave/undo/UndoFileInfo.cpp			GPL2
-	libkwave/undo/UndoFileInfo.h			GPL2
-	libkwave/undo/UndoInsertAction.cpp		GPL2
-	libkwave/undo/UndoInsertAction.h		GPL2
-	libkwave/undo/UndoInsertTrack.cpp		GPL2
-	libkwave/undo/UndoInsertTrack.h			GPL2
-	libkwave/undo/UndoModifyAction.cpp		GPL2
-	libkwave/undo/UndoModifyAction.h		GPL2
-	libkwave/undo/UndoSelection.cpp			GPL2
-	libkwave/undo/UndoSelection.h			GPL2
-	libkwave/undo/UndoTransaction.cpp		GPL2
-	libkwave/undo/UndoTransactionGuard.cpp		GPL2
-	libkwave/undo/UndoTransactionGuard.h		GPL2
-	libkwave/undo/UndoTransaction.h			GPL2
+	libkwave/undo/UndoAction.h			GPL2+
+	libkwave/undo/UndoAddLabelAction.cpp		GPL2+
+	libkwave/undo/UndoAddLabelAction.h		GPL2+
+	libkwave/undo/UndoDeleteAction.cpp		GPL2+
+	libkwave/undo/UndoDeleteAction.h		GPL2+
+	libkwave/undo/UndoDeleteLabelAction.cpp		GPL2+
+	libkwave/undo/UndoDeleteLabelAction.h		GPL2+
+	libkwave/undo/UndoDeleteTrack.cpp		GPL2+
+	libkwave/undo/UndoDeleteTrack.h			GPL2+
+	libkwave/undo/UndoFileInfo.cpp			GPL2+
+	libkwave/undo/UndoFileInfo.h			GPL2+
+	libkwave/undo/UndoInsertAction.cpp		GPL2+
+	libkwave/undo/UndoInsertAction.h		GPL2+
+	libkwave/undo/UndoInsertTrack.cpp		GPL2+
+	libkwave/undo/UndoInsertTrack.h			GPL2+
+	libkwave/undo/UndoModifyAction.cpp		GPL2+
+	libkwave/undo/UndoModifyAction.h		GPL2+
+	libkwave/undo/UndoSelection.cpp			GPL2+
+	libkwave/undo/UndoSelection.h			GPL2+
+	libkwave/undo/UndoTransaction.cpp		GPL2+
+	libkwave/undo/UndoTransactionGuard.cpp		GPL2+
+	libkwave/undo/UndoTransactionGuard.h		GPL2+
+	libkwave/undo/UndoTransaction.h			GPL2+
 
-	plugins/CMakeLists.txt				GPL2
+	plugins/CMakeLists.txt				GPL2+
 
-	plugins/about/AboutKwaveDialog.cpp		GPL2 / Ralf Waspe & Gilles Caulier
-	plugins/about/AboutKwaveDialog.h		GPL2 / Ralf Waspe
-	plugins/about/AboutPlugin.cpp			GPL2
-	plugins/about/AboutPlugin.h			GPL2
-	plugins/about/CMakeLists.txt			GPL2
-	plugins/about/KwaveAboutContainer.cpp		GPL2 / Mirko Boehm <mirko@kde.org> / Espen Sand <espen@kde.org>
-	plugins/about/KwaveAboutContainer.h		GPL2 / Mirko Boehm <mirko@kde.org> / Espen Sand <espen@kde.org>
-	plugins/about/KwaveAboutDialogBase.ui		(should be GPL2 / Ralf Waspe)
-	plugins/about/LogoWidget.cpp			GPL2 / Martin Wilz
-	plugins/about/LogoWidget.h			GPL2 / Martin Wilz
-	plugins/about/logo.xpm				GPL2 / Martin Wilz
+	plugins/about/AboutKwaveDialog.cpp		GPL2+ / Ralf Waspe & Gilles Caulier
+	plugins/about/AboutKwaveDialog.h		GPL2+ / Ralf Waspe
+	plugins/about/AboutPlugin.cpp			GPL2+
+	plugins/about/AboutPlugin.h			GPL2+
+	plugins/about/CMakeLists.txt			GPL2+
+	plugins/about/KwaveAboutContainer.cpp		GPL2+ / Mirko Boehm <mirko@kde.org> / Espen Sand <espen@kde.org>
+	plugins/about/KwaveAboutContainer.h		GPL2+ / Mirko Boehm <mirko@kde.org> / Espen Sand <espen@kde.org>
+	plugins/about/KwaveAboutDialogBase.ui		(should be GPL2+ / Ralf Waspe)
+	plugins/about/LogoWidget.cpp			GPL2+ / Martin Wilz
+	plugins/about/LogoWidget.h			GPL2+ / Martin Wilz
+	plugins/about/logo.xpm				GPL2+ / Martin Wilz
 
-	plugins/amplifyfree/AmplifyFreeDialog.cpp	GPL2
-	plugins/amplifyfree/AmplifyFreeDialog.h		GPL2
-	plugins/amplifyfree/AmplifyFreeDlg.ui		(should be GPL2)
-	plugins/amplifyfree/AmplifyFreePlugin.cpp	GPL2
-	plugins/amplifyfree/AmplifyFreePlugin.h		GPL2
-	plugins/amplifyfree/CMakeLists.txt		GPL2
+	plugins/amplifyfree/AmplifyFreeDialog.cpp	GPL2+
+	plugins/amplifyfree/AmplifyFreeDialog.h		GPL2+
+	plugins/amplifyfree/AmplifyFreeDlg.ui		(should be GPL2+)
+	plugins/amplifyfree/AmplifyFreePlugin.cpp	GPL2+
+	plugins/amplifyfree/AmplifyFreePlugin.h		GPL2+
+	plugins/amplifyfree/CMakeLists.txt		GPL2+
 
-	plugins/band_pass/BandPass.cpp			GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
-	plugins/band_pass/BandPass.h			GPL2
-	plugins/band_pass/BandPassDialog.cpp		GPL2
-	plugins/band_pass/BandPassDialog.h		GPL2
-	plugins/band_pass/BandPassDlg.ui		GPL2
-	plugins/band_pass/BandPass.h			GPL2
-	plugins/band_pass/BandPassPlugin.cpp		GPL2
-	plugins/band_pass/BandPassPlugin.h		GPL2
-	plugins/band_pass/CMakeLists.txt		GPL2
+	plugins/band_pass/BandPass.cpp			GPL2+ / Juhana Sadeharju <kouhia@nic.funet.fi>
+	plugins/band_pass/BandPass.h			GPL2+
+	plugins/band_pass/BandPassDialog.cpp		GPL2+
+	plugins/band_pass/BandPassDialog.h		GPL2+
+	plugins/band_pass/BandPassDlg.ui		GPL2+
+	plugins/band_pass/BandPass.h			GPL2+
+	plugins/band_pass/BandPassPlugin.cpp		GPL2+
+	plugins/band_pass/BandPassPlugin.h		GPL2+
+	plugins/band_pass/CMakeLists.txt		GPL2+
 
-	plugins/codec_ascii/AsciiCodecPlugin.cpp	GPL2
-	plugins/codec_ascii/AsciiCodecPlugin.h		GPL2
-	plugins/codec_ascii/AsciiEncoder.h		GPL2
-	plugins/codec_ascii/AsciiDecoder.h		GPL2
-	plugins/codec_ascii/AsciiEncoder.cpp		GPL2
-	plugins/codec_ascii/AsciiDecoder.cpp		GPL2
-	plugins/codec_ascii/CMakeLists.txt		GPL2
+	plugins/codec_ascii/AsciiCodecPlugin.cpp	GPL2+
+	plugins/codec_ascii/AsciiCodecPlugin.h		GPL2+
+	plugins/codec_ascii/AsciiEncoder.h		GPL2+
+	plugins/codec_ascii/AsciiDecoder.h		GPL2+
+	plugins/codec_ascii/AsciiEncoder.cpp		GPL2+
+	plugins/codec_ascii/AsciiDecoder.cpp		GPL2+
+	plugins/codec_ascii/CMakeLists.txt		GPL2+
 
-	plugins/codec_audiofile/AudiofileCodecPlugin.cpp GPL2
-	plugins/codec_audiofile/AudiofileCodecPlugin.h	GPL2
-	plugins/codec_audiofile/AudiofileDecoder.cpp	GPL2
-	plugins/codec_audiofile/AudiofileDecoder.h	GPL2
-	plugins/codec_audiofile/CMakeLists.txt		GPL2
+	plugins/codec_audiofile/AudiofileCodecPlugin.cpp GPL2+
+	plugins/codec_audiofile/AudiofileCodecPlugin.h	GPL2+
+	plugins/codec_audiofile/AudiofileDecoder.cpp	GPL2+
+	plugins/codec_audiofile/AudiofileDecoder.h	GPL2+
+	plugins/codec_audiofile/CMakeLists.txt		GPL2+
 
-	plugins/codec_flac/CMakeLists.txt		GPL2
-	plugins/codec_flac/FlacCodecPlugin.cpp		GPL2
-	plugins/codec_flac/FlacCodecPlugin.h		GPL2
-	plugins/codec_flac/FlacDecoder.cpp		GPL2
-	plugins/codec_flac/FlacDecoder.h		GPL2
-	plugins/codec_flac/FlacEncoder.cpp		GPL2
-	plugins/codec_flac/FlacEncoder.h		GPL2
-	plugins/codec_flac/VorbisCommentMap.cpp		GPL2
-	plugins/codec_flac/VorbisCommentMap.h		GPL2
+	plugins/codec_flac/CMakeLists.txt		GPL2+
+	plugins/codec_flac/FlacCodecPlugin.cpp		GPL2+
+	plugins/codec_flac/FlacCodecPlugin.h		GPL2+
+	plugins/codec_flac/FlacDecoder.cpp		GPL2+
+	plugins/codec_flac/FlacDecoder.h		GPL2+
+	plugins/codec_flac/FlacEncoder.cpp		GPL2+
+	plugins/codec_flac/FlacEncoder.h		GPL2+
+	plugins/codec_flac/VorbisCommentMap.cpp		GPL2+
+	plugins/codec_flac/VorbisCommentMap.h		GPL2+
 
-	plugins/codec_ogg/CMakeLists.txt		GPL2
-	plugins/codec_ogg/OggCodecPlugin.cpp		GPL2
-	plugins/codec_ogg/OggCodecPlugin.h		GPL2
-	plugins/codec_ogg/OggDecoder.cpp		GPL2
-	plugins/codec_ogg/OggDecoder.h			GPL2
-	plugins/codec_ogg/OggEncoder.cpp		GPL2
-	plugins/codec_ogg/OggEncoder.h			GPL2
+	plugins/codec_ogg/CMakeLists.txt		GPL2+
+	plugins/codec_ogg/OggCodecPlugin.cpp		GPL2+
+	plugins/codec_ogg/OggCodecPlugin.h		GPL2+
+	plugins/codec_ogg/OggDecoder.cpp		GPL2+
+	plugins/codec_ogg/OggDecoder.h			GPL2+
+	plugins/codec_ogg/OggEncoder.cpp		GPL2+
+	plugins/codec_ogg/OggEncoder.h			GPL2+
 
-	plugins/codec_wav/CMakeLists.txt		GPL2
-	plugins/codec_wav/RecoveryBuffer.cpp		GPL2
-	plugins/codec_wav/RecoveryBuffer.h		GPL2
-	plugins/codec_wav/RecoveryMapping.cpp		GPL2
-	plugins/codec_wav/RecoveryMapping.h		GPL2
-	plugins/codec_wav/RecoverySource.cpp		GPL2
-	plugins/codec_wav/RecoverySource.h		GPL2
-	plugins/codec_wav/RepairVirtualAudioFile.cpp	GPL2
-	plugins/codec_wav/RepairVirtualAudioFile.h	GPL2
-	plugins/codec_wav/RIFFChunk.cpp			GPL2
-	plugins/codec_wav/RIFFChunk.h			GPL2
-	plugins/codec_wav/RIFFParser.cpp		GPL2
-	plugins/codec_wav/RIFFParser.h			GPL2
-	plugins/codec_wav/WavCodecPlugin.cpp		GPL2
-	plugins/codec_wav/WavCodecPlugin.h		GPL2
-	plugins/codec_wav/WavDecoder.cpp		GPL2
-	plugins/codec_wav/WavDecoder.h			GPL2
-	plugins/codec_wav/WavEncoder.cpp		GPL2
-	plugins/codec_wav/WavEncoder.h			GPL2
-	plugins/codec_wav/WavFileFormat.h		GPL2
-	plugins/codec_wav/WavFormatMap.cpp		GPL2
-	plugins/codec_wav/WavFormatMap.h		GPL2
-	plugins/codec_wav/WavPropertyMap.cpp		GPL2
-	plugins/codec_wav/WavPropertyMap.h		GPL2
+	plugins/codec_wav/CMakeLists.txt		GPL2+
+	plugins/codec_wav/RecoveryBuffer.cpp		GPL2+
+	plugins/codec_wav/RecoveryBuffer.h		GPL2+
+	plugins/codec_wav/RecoveryMapping.cpp		GPL2+
+	plugins/codec_wav/RecoveryMapping.h		GPL2+
+	plugins/codec_wav/RecoverySource.cpp		GPL2+
+	plugins/codec_wav/RecoverySource.h		GPL2+
+	plugins/codec_wav/RepairVirtualAudioFile.cpp	GPL2+
+	plugins/codec_wav/RepairVirtualAudioFile.h	GPL2+
+	plugins/codec_wav/RIFFChunk.cpp			GPL2+
+	plugins/codec_wav/RIFFChunk.h			GPL2+
+	plugins/codec_wav/RIFFParser.cpp		GPL2+
+	plugins/codec_wav/RIFFParser.h			GPL2+
+	plugins/codec_wav/WavCodecPlugin.cpp		GPL2+
+	plugins/codec_wav/WavCodecPlugin.h		GPL2+
+	plugins/codec_wav/WavDecoder.cpp		GPL2+
+	plugins/codec_wav/WavDecoder.h			GPL2+
+	plugins/codec_wav/WavEncoder.cpp		GPL2+
+	plugins/codec_wav/WavEncoder.h			GPL2+
+	plugins/codec_wav/WavFileFormat.h		GPL2+
+	plugins/codec_wav/WavFormatMap.cpp		GPL2+
+	plugins/codec_wav/WavFormatMap.h		GPL2+
+	plugins/codec_wav/WavPropertyMap.cpp		GPL2+
+	plugins/codec_wav/WavPropertyMap.h		GPL2+
 
-	plugins/common/CMakeList.txt.template		GPL2
+	plugins/common/CMakeList.txt.template		GPL2+
 
-	plugins/decoder_mp3/CMakeLists.txt		GPL2
-	plugins/decoder_mp3/ID3_QIODeviceReader.cpp	GPL2
-	plugins/decoder_mp3/ID3_QIODeviceReader.h	GPL2
-	plugins/decoder_mp3/MP3Decoder.cpp		GPL2
-	plugins/decoder_mp3/MP3Decoder.h		GPL2
-	plugins/decoder_mp3/MP3DecoderPlugin.cpp	GPL2
-	plugins/decoder_mp3/MP3DecoderPlugin.h		GPL2
+	plugins/decoder_mp3/CMakeLists.txt		GPL2+
+	plugins/decoder_mp3/ID3_QIODeviceReader.cpp	GPL2+
+	plugins/decoder_mp3/ID3_QIODeviceReader.h	GPL2+
+	plugins/decoder_mp3/MP3Decoder.cpp		GPL2+
+	plugins/decoder_mp3/MP3Decoder.h		GPL2+
+	plugins/decoder_mp3/MP3DecoderPlugin.cpp	GPL2+
+	plugins/decoder_mp3/MP3DecoderPlugin.h		GPL2+
 
-	plugins/fileinfo/BitrateSpinBox.cpp		GPL2
-	plugins/fileinfo/BitrateSpinBox.h		GPL2
-	plugins/fileinfo/BitrateWidgetBase.ui		(should be GPL2)
-	plugins/fileinfo/BitrateWidget.cpp		GPL2
-	plugins/fileinfo/BitrateWidget.h		GPL2
-	plugins/fileinfo/CMakeLists.txt			GPL2
-	plugins/fileinfo/CompressionWidgetBase.ui	(should be GPL2)
-	plugins/fileinfo/CompressionWidget.cpp		GPL2
-	plugins/fileinfo/CompressionWidget.h		GPL2
-	plugins/fileinfo/FileInfoDialog.cpp		GPL2
-	plugins/fileinfo/FileInfoDialog.h		GPL2
-	plugins/fileinfo/FileInfoDlg.ui			(should be GPL2)
-	plugins/fileinfo/FileInfoPlugin.cpp		GPL2
-	plugins/fileinfo/FileInfoPlugin.h		GPL2
-	plugins/fileinfo/KeywordWidgetBase.ui		(should be GPL2)
-	plugins/fileinfo/KeywordWidget.cpp		GPL2
-	plugins/fileinfo/KeywordWidget.h		GPL2
-	plugins/fileinfo/SelectDateDialog.cpp		GPL2
-	plugins/fileinfo/SelectDateDialog.h		GPL2
-	plugins/fileinfo/SelectDateDlg.ui		(should be GPL2)
+	plugins/fileinfo/BitrateSpinBox.cpp		GPL2+
+	plugins/fileinfo/BitrateSpinBox.h		GPL2+
+	plugins/fileinfo/BitrateWidgetBase.ui		(should be GPL2+)
+	plugins/fileinfo/BitrateWidget.cpp		GPL2+
+	plugins/fileinfo/BitrateWidget.h		GPL2+
+	plugins/fileinfo/CMakeLists.txt			GPL2+
+	plugins/fileinfo/CompressionWidgetBase.ui	(should be GPL2+)
+	plugins/fileinfo/CompressionWidget.cpp		GPL2+
+	plugins/fileinfo/CompressionWidget.h		GPL2+
+	plugins/fileinfo/FileInfoDialog.cpp		GPL2+
+	plugins/fileinfo/FileInfoDialog.h		GPL2+
+	plugins/fileinfo/FileInfoDlg.ui			(should be GPL2+)
+	plugins/fileinfo/FileInfoPlugin.cpp		GPL2+
+	plugins/fileinfo/FileInfoPlugin.h		GPL2+
+	plugins/fileinfo/KeywordWidgetBase.ui		(should be GPL2+)
+	plugins/fileinfo/KeywordWidget.cpp		GPL2+
+	plugins/fileinfo/KeywordWidget.h		GPL2+
+	plugins/fileinfo/SelectDateDialog.cpp		GPL2+
+	plugins/fileinfo/SelectDateDialog.h		GPL2+
+	plugins/fileinfo/SelectDateDlg.ui		(should be GPL2+)
 
-	plugins/lowpass/CMakeLists.txt			GPL2
-	plugins/lowpass/LowPassDialog.cpp		GPL2
-	plugins/lowpass/LowPassDialog.h			GPL2
-	plugins/lowpass/LowPassDlg.ui			(should be GPL2)
-	plugins/lowpass/LowPassFilter.cpp		GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
-	plugins/lowpass/LowPassFilter.h			GPL2 / Juhana Sadeharju <kouhia@nic.funet.fi>
-	plugins/lowpass/LowPassPlugin.cpp		GPL2
-	plugins/lowpass/LowPassPlugin.h			GPL2
+	plugins/lowpass/CMakeLists.txt			GPL2+
+	plugins/lowpass/LowPassDialog.cpp		GPL2+
+	plugins/lowpass/LowPassDialog.h			GPL2+
+	plugins/lowpass/LowPassDlg.ui			(should be GPL2+)
+	plugins/lowpass/LowPassFilter.cpp		GPL2+ / Juhana Sadeharju <kouhia@nic.funet.fi>
+	plugins/lowpass/LowPassFilter.h			GPL2+ / Juhana Sadeharju <kouhia@nic.funet.fi>
+	plugins/lowpass/LowPassPlugin.cpp		GPL2+
+	plugins/lowpass/LowPassPlugin.h			GPL2+
 
-	plugins/memory/CMakeLists.txt			GPL2
-	plugins/memory/MemDlg.ui			(should be GPL2)
-	plugins/memory/MemoryDialog.cpp			GPL2
-	plugins/memory/MemoryDialog.h			GPL2
-	plugins/memory/MemoryPlugin.cpp			GPL2
-	plugins/memory/MemoryPlugin.h			GPL2
+	plugins/memory/CMakeLists.txt			GPL2+
+	plugins/memory/MemDlg.ui			(should be GPL2+)
+	plugins/memory/MemoryDialog.cpp			GPL2+
+	plugins/memory/MemoryDialog.h			GPL2+
+	plugins/memory/MemoryPlugin.cpp			GPL2+
+	plugins/memory/MemoryPlugin.h			GPL2+
 
-	plugins/newsignal/CMakeLists.txt		GPL2
-	plugins/newsignal/NewSigDlg.ui			(should be GPL2)
-	plugins/newsignal/NewSignalDialog.cpp		GPL2
-	plugins/newsignal/NewSignalDialog.h		GPL2
-	plugins/newsignal/NewSignalPlugin.cpp		GPL2
-	plugins/newsignal/NewSignalPlugin.h		GPL2
+	plugins/newsignal/CMakeLists.txt		GPL2+
+	plugins/newsignal/NewSigDlg.ui			(should be GPL2+)
+	plugins/newsignal/NewSignalDialog.cpp		GPL2+
+	plugins/newsignal/NewSignalDialog.h		GPL2+
+	plugins/newsignal/NewSignalPlugin.cpp		GPL2+
+	plugins/newsignal/NewSignalPlugin.h		GPL2+
 
-	plugins/noise/CMakeLists.txt			GPL2
-	plugins/noise/NoiseGenerator.cpp		GPL2
-	plugins/noise/NoiseGenerator.h			GPL2
-	plugins/noise/NoisePlugin.cpp			GPL2
-	plugins/noise/NoisePlugin.h			GPL2
+	plugins/noise/CMakeLists.txt			GPL2+
+	plugins/noise/NoiseGenerator.cpp		GPL2+
+	plugins/noise/NoiseGenerator.h			GPL2+
+	plugins/noise/NoisePlugin.cpp			GPL2+
+	plugins/noise/NoisePlugin.h			GPL2+
 
-	plugins/notch_filter/CMakeLists.txt		GPL2
-	plugins/notch_filter/NotchFilter.cpp		GPL2 / Dave Flogeras / Juhana Sadeharju <kouhia@nic.funet.fi>
-	plugins/notch_filter/NotchFilterDialog.cpp	GPL2 / Dave Flogeras
-	plugins/notch_filter/NotchFilterDialog.h	GPL2 / Dave Flogeras
-	plugins/notch_filter/NotchFilterDlg.ui		(should be GPL2 / Dave Flogeras)
-	plugins/notch_filter/NotchFilter.h		GPL2 / Dave Flogeras
-	plugins/notch_filter/NotchFilterPlugin.cpp	GPL2 / Dave Flogeras
-	plugins/notch_filter/NotchFilterPlugin.h	GPL2 / Dave Flogeras
+	plugins/notch_filter/CMakeLists.txt		GPL2+
+	plugins/notch_filter/NotchFilter.cpp		GPL2+ / Dave Flogeras / Juhana Sadeharju <kouhia@nic.funet.fi>
+	plugins/notch_filter/NotchFilterDialog.cpp	GPL2+ / Dave Flogeras
+	plugins/notch_filter/NotchFilterDialog.h	GPL2+ / Dave Flogeras
+	plugins/notch_filter/NotchFilterDlg.ui		(should be GPL2+ / Dave Flogeras)
+	plugins/notch_filter/NotchFilter.h		GPL2+ / Dave Flogeras
+	plugins/notch_filter/NotchFilterPlugin.cpp	GPL2+ / Dave Flogeras
+	plugins/notch_filter/NotchFilterPlugin.h	GPL2+ / Dave Flogeras
 
-	plugins/pitch_shift/CMakeLists.txt		GPL2
-	plugins/pitch_shift/PitchShiftDialog.cpp	GPL2
-	plugins/pitch_shift/PitchShiftDialog.h		GPL2
-	plugins/pitch_shift/PitchShiftFilter.cpp	GPL2 / Jeff Tranter + Stefan Westerfeld
-	plugins/pitch_shift/PitchShiftFilter.h		GPL2
-	plugins/pitch_shift/PitchShiftDlg.ui		(should be GPL2)
-	plugins/pitch_shift/PitchShiftPlugin.cpp	GPL2
-	plugins/pitch_shift/PitchShiftPlugin.h		GPL2
+	plugins/pitch_shift/CMakeLists.txt		GPL2+
+	plugins/pitch_shift/PitchShiftDialog.cpp	GPL2+
+	plugins/pitch_shift/PitchShiftDialog.h		GPL2+
+	plugins/pitch_shift/PitchShiftFilter.cpp	GPL2+ / Jeff Tranter + Stefan Westerfeld
+	plugins/pitch_shift/PitchShiftFilter.h		GPL2+
+	plugins/pitch_shift/PitchShiftDlg.ui		(should be GPL2+)
+	plugins/pitch_shift/PitchShiftPlugin.cpp	GPL2+
+	plugins/pitch_shift/PitchShiftPlugin.h		GPL2+
 
-	plugins/playback/CMakeLists.txt			GPL2
-	plugins/playback/PlayBack-ALSA.cpp		GPL2 / (parts from) Jaroslav Kysela
-	plugins/playback/PlayBack-ALSA.h		GPL2
-	plugins/playback/PlayBackDialog.cpp		GPL2
-	plugins/playback/PlayBackDialog.h		GPL2
-	plugins/playback/PlayBackDlg.ui			(should be GPL2)
-	plugins/playback/PlayBack-OSS.cpp		GPL2
-	plugins/playback/PlayBack-OSS.h			GPL2
-	plugins/playback/PlayBackParam.h		GPL2
-	plugins/playback/PlayBackPlugin.cpp		GPL2
-	plugins/playback/PlayBackPlugin.h		GPL2
-	plugins/playback/PlayBackTypesMap.cpp		GPL2
-	plugins/playback/PlayBackTypesMap.h		GPL2
+	plugins/playback/CMakeLists.txt			GPL2+
+	plugins/playback/PlayBack-ALSA.cpp		GPL2+ / (parts from) Jaroslav Kysela
+	plugins/playback/PlayBack-ALSA.h		GPL2+
+	plugins/playback/PlayBackDialog.cpp		GPL2+
+	plugins/playback/PlayBackDialog.h		GPL2+
+	plugins/playback/PlayBackDlg.ui			(should be GPL2+)
+	plugins/playback/PlayBack-OSS.cpp		GPL2+
+	plugins/playback/PlayBack-OSS.h			GPL2+
+	plugins/playback/PlayBackParam.h		GPL2+
+	plugins/playback/PlayBackPlugin.cpp		GPL2+
+	plugins/playback/PlayBackPlugin.h		GPL2+
+	plugins/playback/PlayBackTypesMap.cpp		GPL2+
+	plugins/playback/PlayBackTypesMap.h		GPL2+
 
-	plugins/record/CMakeLists.txt			GPL2
-	plugins/record/krec_record.xpm			(should be GPL2)
-	plugins/record/LevelMeter.cpp			GPL2 / Rik Hemsley
-	plugins/record/LevelMeter.h			GPL2 / Rik Hemsley
-	plugins/record/Record-ALSA.cpp			GPL2
-	plugins/record/Record-ALSA.h			GPL2
-	plugins/record/RecordController.cpp		GPL2
-	plugins/record/RecordController.h		GPL2
-	plugins/record/RecordDevice.h			GPL2
-	plugins/record/RecordDialog.cpp			GPL2
-	plugins/record/RecordDialog.h			GPL2
-	plugins/record/RecordDlg.ui			(should be GPL2)
-	plugins/record/RecordingState.xmi		(should be GPL2)
-	plugins/record/Record-OSS.cpp			GPL2
-	plugins/record/Record-OSS.h			GPL2
-	plugins/record/RecordParams.cpp			GPL2
-	plugins/record/RecordParams.h			GPL2
-	plugins/record/record_pause2.xpm		(should be GPL2)
-	plugins/record/record_pause.xpm			(should be GPL2)
-	plugins/record/RecordPlugin.cpp			GPL2
-	plugins/record/RecordPlugin.h			GPL2
-	plugins/record/RecordPlugin.png			(should be GPL2)
-	plugins/record/RecordState.h			GPL2
-	plugins/record/record_stop.xpm			(should be GPL2)
-	plugins/record/RecordThread.cpp			GPL2
-	plugins/record/RecordThread.h			GPL2
-	plugins/record/RecordTypesMap.cpp		GPL2
-	plugins/record/RecordTypesMap.h			GPL2
-	plugins/record/StatusWidget.h			GPL2
-	plugins/record/StatusWidget.cpp			GPL2
-	plugins/record/SampleDecoder.h			GPL2
-	plugins/record/SampleDecoderLinear.cpp		GPL2
-	plugins/record/SampleDecoderLinear.h		GPL2
+	plugins/record/CMakeLists.txt			GPL2+
+	plugins/record/krec_record.xpm			(should be GPL2+)
+	plugins/record/LevelMeter.cpp			GPL2+ / Rik Hemsley
+	plugins/record/LevelMeter.h			GPL2+ / Rik Hemsley
+	plugins/record/Record-ALSA.cpp			GPL2+
+	plugins/record/Record-ALSA.h			GPL2+
+	plugins/record/RecordController.cpp		GPL2+
+	plugins/record/RecordController.h		GPL2+
+	plugins/record/RecordDevice.h			GPL2+
+	plugins/record/RecordDialog.cpp			GPL2+
+	plugins/record/RecordDialog.h			GPL2+
+	plugins/record/RecordDlg.ui			(should be GPL2+)
+	plugins/record/RecordingState.xmi		(should be GPL2+)
+	plugins/record/Record-OSS.cpp			GPL2+
+	plugins/record/Record-OSS.h			GPL2+
+	plugins/record/RecordParams.cpp			GPL2+
+	plugins/record/RecordParams.h			GPL2+
+	plugins/record/record_pause2.xpm		(should be GPL2+)
+	plugins/record/record_pause.xpm			(should be GPL2+)
+	plugins/record/RecordPlugin.cpp			GPL2+
+	plugins/record/RecordPlugin.h			GPL2+
+	plugins/record/RecordPlugin.png			(should be GPL2+)
+	plugins/record/RecordState.h			GPL2+
+	plugins/record/record_stop.xpm			(should be GPL2+)
+	plugins/record/RecordThread.cpp			GPL2+
+	plugins/record/RecordThread.h			GPL2+
+	plugins/record/RecordTypesMap.cpp		GPL2+
+	plugins/record/RecordTypesMap.h			GPL2+
+	plugins/record/StatusWidget.h			GPL2+
+	plugins/record/StatusWidget.cpp			GPL2+
+	plugins/record/SampleDecoder.h			GPL2+
+	plugins/record/SampleDecoderLinear.cpp		GPL2+
+	plugins/record/SampleDecoderLinear.h		GPL2+
 	plugins/record/stop_hand.xpm			free / KDE
 	-> icons/ikons/16x16/actions/stop_hand.png
 	plugins/record/ok.xpm				free / KDE
@@ -771,45 +772,45 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/record/walk_r7.xpm			GPL2 (amor)
 	plugins/record/walk_r8.xpm			GPL2 (amor)
 
-	plugins/saveblocks/CMakeLists.txt		GPL2
-	plugins/saveblocks/SaveBlocksWidgetBase.ui	GPL2
-	plugins/saveblocks/SaveBlocksPlugin.h		GPL2
-	plugins/saveblocks/SaveBlocksDialog.h		GPL2
-	plugins/saveblocks/SaveBlocksWidget.cpp		GPL2
-	plugins/saveblocks/SaveBlocksWidget.h		GPL2
-	plugins/saveblocks/SaveBlocksDialog.cpp		GPL2
-	plugins/saveblocks/SaveBlocksPlugin.cpp		GPL2
+	plugins/saveblocks/CMakeLists.txt		GPL2+
+	plugins/saveblocks/SaveBlocksWidgetBase.ui	GPL2+
+	plugins/saveblocks/SaveBlocksPlugin.h		GPL2+
+	plugins/saveblocks/SaveBlocksDialog.h		GPL2+
+	plugins/saveblocks/SaveBlocksWidget.cpp		GPL2+
+	plugins/saveblocks/SaveBlocksWidget.h		GPL2+
+	plugins/saveblocks/SaveBlocksDialog.cpp		GPL2+
+	plugins/saveblocks/SaveBlocksPlugin.cpp		GPL2+
 
-	plugins/selectrange/CMakeLists.txt		GPL2
-	plugins/selectrange/SelectRangeDialog.cpp	GPL2
-	plugins/selectrange/SelectRangeDialog.h		GPL2
-	plugins/selectrange/SelectRangeDlg.ui		(should be GPL2)
-	plugins/selectrange/SelectRangePlugin.cpp	GPL2
-	plugins/selectrange/SelectRangePlugin.h		GPL2
+	plugins/selectrange/CMakeLists.txt		GPL2+
+	plugins/selectrange/SelectRangeDialog.cpp	GPL2+
+	plugins/selectrange/SelectRangeDialog.h		GPL2+
+	plugins/selectrange/SelectRangeDlg.ui		(should be GPL2+)
+	plugins/selectrange/SelectRangePlugin.cpp	GPL2+
+	plugins/selectrange/SelectRangePlugin.h		GPL2+
 
-	plugins/sonagram/CMakeLists.txt			GPL2
-	plugins/sonagram/SonagramDialog.cpp		GPL2
-	plugins/sonagram/SonagramDialog.h		GPL2
-	plugins/sonagram/SonagramDlg.ui			(should be GPL2)
-	plugins/sonagram/SonagramPlugin.cpp		GPL2
-	plugins/sonagram/SonagramPlugin.h		GPL2
-	plugins/sonagram/SonagramWindow.cpp		GPL2
-	plugins/sonagram/SonagramWindow.h		GPL2
+	plugins/sonagram/CMakeLists.txt			GPL2+
+	plugins/sonagram/SonagramDialog.cpp		GPL2+
+	plugins/sonagram/SonagramDialog.h		GPL2+
+	plugins/sonagram/SonagramDlg.ui			(should be GPL2+)
+	plugins/sonagram/SonagramPlugin.cpp		GPL2+
+	plugins/sonagram/SonagramPlugin.h		GPL2+
+	plugins/sonagram/SonagramWindow.cpp		GPL2+
+	plugins/sonagram/SonagramWindow.h		GPL2+
 
-	plugins/volume/CMakeLists.txt			GPL2
-	plugins/volume/VolumeDialog.cpp			GPL2
-	plugins/volume/VolumeDialog.h			GPL2
-	plugins/volume/VolumeDlg.ui			(should be GPL2)
-	plugins/volume/VolumePlugin.cpp			GPL2
-	plugins/volume/VolumePlugin.h			GPL2
+	plugins/volume/CMakeLists.txt			GPL2+
+	plugins/volume/VolumeDialog.cpp			GPL2+
+	plugins/volume/VolumeDialog.h			GPL2+
+	plugins/volume/VolumeDlg.ui			(should be GPL2+)
+	plugins/volume/VolumePlugin.cpp			GPL2+
+	plugins/volume/VolumePlugin.h			GPL2+
 
-	plugins/zero/CMakeLists.txt			GPL2
-	plugins/zero/ZeroPlugin.cpp			GPL2
-	plugins/zero/ZeroPlugin.h			GPL2
+	plugins/zero/CMakeLists.txt			GPL2+
+	plugins/zero/ZeroPlugin.cpp			GPL2+
+	plugins/zero/ZeroPlugin.h			GPL2+
 
-	po/CMakeLists.txt				GPL2
-	po/de.po					(should be GPL2)
-	po/fr.po					(should be GPL2)
-	po/kwave.pot					(should be GPL2)
+	po/CMakeLists.txt				GPL2+
+	po/de.po					(should be GPL2+)
+	po/fr.po					(should be GPL2+)
+	po/kwave.pot					(should be GPL2+)
 
 ### EOF ###

@@ -1,5 +1,5 @@
 /* XPM */
-static char * knob2_xpm[] = {
+static char * knob_xpm[] = {
 "9 9 17 1",
 " 	c None",
 ".	c #A37EAD",

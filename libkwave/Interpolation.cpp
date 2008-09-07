@@ -286,7 +286,7 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 	    QVector<qreal> y(count + 1);
 
 	    Curve::ConstIterator it(points);
-	    if (it.hasNext()) {
+	    while (it.hasNext()) {
 		Curve::Point p = it.next();
 		x[t] = p.x();
 		y[t] = p.y();
@@ -393,7 +393,7 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 		    x1 = p.x();
 		    y1 = p.y();
 
-		    for (int i = (int)(x0 * len); i < (int)(x0 * len); i++)
+		    for (int i = (int)(x0 * len); i < (int)(x1 * len); i++)
 			y_out[i] = y0;
 
 		    x0 = x1;
@@ -420,7 +420,7 @@ void Interpolation::createFullPolynom(const Curve &points,
 
     unsigned int count = 0;
     Curve::ConstIterator it(points);
-    if (it.hasNext()) {
+    while (it.hasNext()) {
 	Curve::Point p = it.next();
 	x[count] = p.x();
 	y[count] = p.y();

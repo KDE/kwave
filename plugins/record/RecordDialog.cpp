@@ -113,7 +113,7 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     /* set the icons of the record control buttons */
     KIconLoader icon_loader;
     btNew->setIcon(   KIcon(icon_loader.loadIcon(
-	              "filenew.png", KIconLoader::Toolbar)));
+	              "document-new", KIconLoader::Toolbar)));
     btStop->setIcon(  KIcon(QPixmap(xpm_stop)));
     btPause->setIcon( KIcon(QPixmap(xpm_pause)));
     btRecord->setIcon(KIcon(QPixmap(xpm_krec_record)));

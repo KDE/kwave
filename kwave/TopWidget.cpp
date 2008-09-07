@@ -105,6 +105,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
      m_action_zoomnormal(0), m_action_zoomall(0), m_action_zoomselect(0)
 {
     KIconLoader icon_loader;
+//     icon_loader.addAppDir("kwave");
 
     showInSplashSreen(i18n("loading main menu..."));
     KMenuBar *menubar = menuBar();
@@ -171,17 +172,17 @@ TopWidget::TopWidget(KwaveApp &main_app)
     // --- file open and save ---
 
     toolbar_file->addAction(
-	icon_loader.loadIcon("filenew.png", KIconLoader::Toolbar),
+	icon_loader.loadIcon("document-new", KIconLoader::Toolbar),
 	i18n("create a new empty file"),
 	this, SLOT(toolbarFileNew()));
 
     toolbar_file->addAction(
-	icon_loader.loadIcon("fileopen.png", KIconLoader::Toolbar),
+	icon_loader.loadIcon("document-open", KIconLoader::Toolbar),
 	i18n("open an existing file"),
 	this, SLOT(toolbarFileOpen()));
 
     toolbar_file->addAction(
-	icon_loader.loadIcon("filesave.png", KIconLoader::Toolbar),
+	icon_loader.loadIcon("document-save", KIconLoader::Toolbar),
 	i18n("save the current file"),
 	this, SLOT(toolbarFileSave()));
 
@@ -192,37 +193,37 @@ TopWidget::TopWidget(KwaveApp &main_app)
     if (!toolbar_edit) return;
 
     m_action_undo = toolbar_edit->addAction(
-	icon_loader.loadIcon("undo.png", KIconLoader::Toolbar),
+	icon_loader.loadIcon("edit-undo", KIconLoader::Toolbar),
 	i18n("Undo"),
 	this, SLOT(toolbarEditUndo()));
 
     m_action_redo = toolbar_edit->addAction(
-	icon_loader.loadIcon("redo.png", KIconLoader::Toolbar),
+	icon_loader.loadIcon("edit-redo", KIconLoader::Toolbar),
 	i18n("Redo"),
 	this, SLOT(toolbarEditRedo()));
 
     toolbar_edit->addAction(
-	icon_loader.loadIcon("editcut.png", KIconLoader::Toolbar),
+	icon_loader.loadIcon("edit-cut", KIconLoader::Toolbar),
 	i18n("cut the current selection and move it to the clipboard"),
 	this, SLOT(toolbarEditCut()));
 
     toolbar_edit->addAction(
-	icon_loader.loadIcon("editcopy.png", KIconLoader::Toolbar),
+	icon_loader.loadIcon("edit-copy", KIconLoader::Toolbar),
 	i18n("copy the current selection to the clipboard"),
 	this, SLOT(toolbarEditCopy()));
 
     toolbar_edit->addAction(
-	icon_loader.loadIcon("editpaste.png", KIconLoader::Toolbar),
+	icon_loader.loadIcon("edit-paste", KIconLoader::Toolbar),
 	i18n("insert the content of clipboard"),
 	this, SLOT(toolbarEditPaste()));
 
     toolbar_edit->addAction(
-	icon_loader.loadIcon("editclear.png", KIconLoader::Toolbar),
+	icon_loader.loadIcon("draw-eraser", KIconLoader::Toolbar),
 	i18n("mute the current selection"),
 	this, SLOT(toolbarEditErase()));
 
     toolbar_edit->addAction(
-	icon_loader.loadIcon("editdelete.png", KIconLoader::Toolbar),
+	icon_loader.loadIcon("edit-delete", KIconLoader::Toolbar),
 	i18n("delete the current selection"),
 	this, SLOT(toolbarEditDelete()));
 
@@ -397,6 +398,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     setUndoRedoInfo(0,0);
     setSelectedTimeInfo(0,0,0);
     updateMenu();
+    updateToolbar();
     updateRecentFiles();
 
     // now we are initialized, load all plugins now

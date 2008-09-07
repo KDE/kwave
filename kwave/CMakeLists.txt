@@ -84,7 +84,6 @@ SET(kwave_PIXMAPS
     pics/light_off.xpm
     pics/light_on.xpm
     pics/logo.xpm
-    pics/lspeaker.xpm
     pics/minifont.xpm
     pics/noise.png
     pics/playback_loop.xpm
@@ -92,13 +91,16 @@ SET(kwave_PIXMAPS
     pics/playback_stop.xpm
     pics/playback_pause.xpm
     pics/playback_pause2.xpm
-    pics/rspeaker.xpm
-    pics/sound_arts.png
+    pics/selectedknob.xpm
     pics/sound_device.png
     pics/sound_subdevice.png
     pics/sound_card.png
     pics/sound_note.png
-    pics/xspeaker.xpm
+    toolbar/zoomall.xpm
+    toolbar/zoomin.xpm
+    toolbar/zoomnormal.xpm
+    toolbar/zoomout.xpm
+    toolbar/zoomrange.xpm
 )
 
 #############################################################################

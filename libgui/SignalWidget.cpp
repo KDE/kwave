@@ -1003,7 +1003,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     // undo
     QAction *action;
     action = context_menu->addAction(
-	icon_loader.loadIcon("undo.png", KIconLoader::Toolbar),
+	icon_loader.loadIcon("edit-undo", KIconLoader::Toolbar),
 	i18n("&Undo"), this, SLOT(contextMenuEditUndo()),
 	Qt::CTRL + Qt::Key_Z);
     Q_ASSERT(action);
@@ -1013,7 +1013,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
     // redo
     action = context_menu->addAction(
-	icon_loader.loadIcon("redo.png", KIconLoader::Toolbar),
+	icon_loader.loadIcon("edit-redo", KIconLoader::Toolbar),
 	i18n("&Redo"), this, SLOT(contextMenuEditRedo()),
 	Qt::CTRL + Qt::Key_Y);
     Q_ASSERT(action);
@@ -1024,15 +1024,15 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
     // cut/copy/paste
     QAction *action_cut = context_menu->addAction(
-	icon_loader.loadIcon("editcut.png", KIconLoader::Toolbar),
+	icon_loader.loadIcon("edit-cut", KIconLoader::Toolbar),
 	i18n("Cu&t"), this, SLOT(contextMenuEditCut()),
 	Qt::CTRL + Qt::Key_X);
     QAction *action_copy = context_menu->addAction(
-	icon_loader.loadIcon("editcopy.png", KIconLoader::Toolbar),
+	icon_loader.loadIcon("edit-copy", KIconLoader::Toolbar),
 	i18n("&Copy"), this, SLOT(contextMenuEditCopy()),
 	Qt::CTRL + Qt::Key_C);
     QAction *action_paste = context_menu->addAction(
-	icon_loader.loadIcon("editpaste.png", KIconLoader::Toolbar),
+	icon_loader.loadIcon("edit-paste", KIconLoader::Toolbar),
 	i18n("&Paste"), this, SLOT(contextMenuEditPaste()),
 	Qt::CTRL + Qt::Key_V);
     context_menu->addSeparator();
@@ -1046,6 +1046,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
     // Selection / &Save
     QAction *action_select_save = submenu_select->addAction(
+	icon_loader.loadIcon("document-save", KIconLoader::Toolbar),
 	i18n("&Save..."), this, SLOT(contextMenuSaveSelection()));
     Q_ASSERT(action_select_save);
     if (!action_select_save) return;
@@ -1079,18 +1080,21 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
     // label handling
     QAction *action_label_new = submenu_label->addAction(
+	icon_loader.loadIcon("list-add", KIconLoader::Toolbar),
 	i18n("&New"), this, SLOT(contextMenuLabelNew()));
     Q_ASSERT(action_label_new);
     if (!action_label_new) return;
     action_label_new->setEnabled(have_signal);
 
     QAction *action_label_delete = submenu_label->addAction(
+	icon_loader.loadIcon("list-remove", KIconLoader::Toolbar),
 	i18n("&Delete"), this, SLOT(contextMenuLabelDelete()));
     Q_ASSERT(action_label_delete);
     if (!action_label_delete) return;
     action_label_delete->setEnabled(false);
 
     QAction *action_label_properties = submenu_label->addAction(
+	icon_loader.loadIcon("configure", KIconLoader::Toolbar),
 	i18n("&Properties..."), this, SLOT(contextMenuLabelProperties()));
     Q_ASSERT(action_label_properties);
     if (!action_label_properties) return;

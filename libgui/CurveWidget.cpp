@@ -317,11 +317,11 @@ void CurveWidget::mousePressEvent(QMouseEvent *e)
     Q_ASSERT(m_height > 1);
     if (!e || (m_width <= 1) || (m_width <= 1)) return;
 
-    if (e->button() == Qt::RightButton) {
+    if (e->buttons() == Qt::RightButton) {
 	// right mouse button -> context menu
 	QPoint popup = QCursor::pos();
 	if (m_menu) m_menu->popup(popup);
-    } else if (e->button() == Qt::LeftButton) {
+    } else if (e->buttons() == Qt::LeftButton) {
 	// left mouse button -> select existing or create new point
         m_down = true;
 	m_current = findPoint(e->pos().x(), e->pos().y());
@@ -357,6 +357,11 @@ void CurveWidget::mouseMoveEvent(QMouseEvent *e )
 
     // if a point is selected...
     if (m_current != Curve::NoPoint) {
+	if (m_current == m_curve.first()) x = 0;
+	if (m_current == m_curve.last())  x = m_width-1;
+
+	m_curve.deletePoint(m_current, false);
+
 	m_current.setX((qreal) (x) / (m_width-1));
 	m_current.setY((qreal) (m_height - y) / (m_height-1));
 
@@ -365,22 +370,8 @@ void CurveWidget::mouseMoveEvent(QMouseEvent *e )
 	if (m_current.x() > 1.0) m_current.setX(1.0);
 	if (m_current.y() > 1.0) m_current.setY(1.0);
 
-	Curve::Iterator it(m_curve);
-	if (it.findNext(m_current)) {
-	    if (it.hasNext()) {
-		Curve::Point p = it.next();
-		if (m_current.x() < p.x())
-		    m_current.setX(p.x() + (1 / (qreal)(m_width - 1)));
-	    }
-	}
-	it.toBack();
-	if (it.findPrevious(m_current)) {
-	    if (it.hasPrevious()) {
-		Curve::Point p = it.previous();
-		if (m_current.x() > p.x())
-		    m_current.setX(p.x() - (1 / (qreal)(m_width - 1)));
-	    }
-	}
+	m_curve.insert(m_current.x(), m_current.y());
+
 	repaint ();
     } else {
 	if (findPoint(x, y) != Curve::NoPoint)

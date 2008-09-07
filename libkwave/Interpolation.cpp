@@ -264,10 +264,9 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 		    int min = (int)(x0 * len);
 
 		    Q_ASSERT(x0 >= 0.0);
-		    Q_ASSERT(x1 < 1.0);
-		    Q_ASSERT(dx);
+		    Q_ASSERT(x1 <= 1.0);
 		    for (int i = (int)(x0 * len); i < (int)(x1 * len); i++) {
-			qreal h = (qreal(i - min)) / dx;
+			qreal h = dx ? ((qreal(i - min)) / dx) : 0.0;
 			y_out[i] = y0 + (h * dy);
 		    }
 		    x0 = x1;

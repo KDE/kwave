@@ -105,7 +105,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
      m_action_zoomnormal(0), m_action_zoomall(0), m_action_zoomselect(0)
 {
     KIconLoader icon_loader;
-//     icon_loader.addAppDir("kwave");
 
     showInSplashSreen(i18n("loading main menu..."));
     KMenuBar *menubar = menuBar();

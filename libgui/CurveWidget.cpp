@@ -24,6 +24,7 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QKeySequence>
 #include <QMenu>
 #include <QMouseEvent>
 #include <QPainter>
@@ -51,6 +52,8 @@ CurveWidget::CurveWidget(QWidget *parent)
      m_preset_menu(0), m_current(Curve::NoPoint), m_last(Curve::NoPoint),
      m_down(false), m_knob(), m_selected_knob()
 {
+    KIconLoader icon_loader;
+
     // set the default curve
     m_curve.fromCommand("curve(linear,0,0,1,1)");
 
@@ -59,7 +62,6 @@ CurveWidget::CurveWidget(QWidget *parent)
     setPalette(pal);
 
     // create the pixmaps for the selected and non-selected knob
-    KIconLoader icon_loader;
     m_knob = icon_loader.loadIcon("knob.xpm", KIconLoader::Small);
     m_selected_knob =
 	icon_loader.loadIcon("selectedknob.xpm", KIconLoader::Small);
@@ -102,10 +104,16 @@ CurveWidget::CurveWidget(QWidget *parent)
     connect(m_preset_menu, SIGNAL(triggered(QAction *)),
             this, SLOT(loadPreset(QAction *)));
 
-    m_menu->addAction(i18n("Save Preset"), this, SLOT(savePreset()));
+    m_menu->addAction(
+	icon_loader.loadIcon("document-export", KIconLoader::Small),
+	i18n("Save Preset"),
+	this, SLOT(savePreset()));
 
-    del->addAction(i18n("recently selected Point"),
-	           this, SLOT(deleteLast()));
+    del->addAction(
+	icon_loader.loadIcon("edit-delete", KIconLoader::Small),
+	i18n("recently selected Point"),
+	this, SLOT(deleteLast()),
+	QKeySequence::Delete);
     del->addAction(i18n("every 2nd Point"),
 	           this, SLOT(deleteSecond()));
 

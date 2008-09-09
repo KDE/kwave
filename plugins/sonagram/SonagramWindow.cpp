@@ -84,6 +84,8 @@ SonagramWindow::SonagramWindow(const QString &name)
     :KMainWindow(), m_image(), m_color_mode(0), m_view(0), m_overview(0),
      m_points(0), m_rate(0), m_xscale(0), m_yscale(0), m_refresh_timer()
 {
+    KIconLoader icon_loader;
+
     for (int i = 0; i < 256; m_histogram[i++] = 0) {}
 
     QWidget *mainwidget = new QWidget(this);
@@ -108,11 +110,20 @@ SonagramWindow::SonagramWindow(const QString &name)
     if (!file) return ;
 
 //    bar->addAction(i18n("&Spectral Data"), spectral);
-//
 //    file->addAction(i18n("&Import from Bitmap ..."), this, SLOT(load()));
-    file->addAction(i18n("&Export to Bitmap ..."), this, SLOT(save()));
-    file->addAction(i18n("E&xit"), this, SLOT(close()));
-//
+
+    file->addAction(
+	icon_loader.loadIcon("document-export", KIconLoader::Small),
+	i18n("&Export to Bitmap ..."),
+	this, SLOT(save())
+    );
+    file->addAction(
+	icon_loader.loadIcon("dialog-close", KIconLoader::Small),
+	i18n("&Close"),
+	this, SLOT(close()),
+	QKeySequence::Close
+    );
+
 //    spectral->addAction (i18n("&reTransform to signal"), this, SLOT(toSignal()));
 
     KStatusBar *status = statusBar();

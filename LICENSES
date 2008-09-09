@@ -84,8 +84,6 @@ issue #1: license of the icons
 	-> kdeclassic/16x16/actions/14_layer_newlayer.png
 #	doc/en/under-construction.png			??? UNKNOWN ???
 
-#	kwave/pics/minifont.xpm				??? UNKNOWN ??? -> KDE ?
-
 issue #2: license of some files is unknown or problematic / author known
 ------------------------------------------------------------------------
 
@@ -113,7 +111,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	config.h.cmake					GPL2+
 	doxy.cfg.in					GPL2+
 	GNU-LICENSE					free
-	kwave.ebuild					GPL2+ Gentoo
+	kwave.ebuild					GPL2+ / Gentoo
 	Kwave.kdevelop					(should be GPL2+)
 	Kwave.kdevelop.filelist				(should be GPL2+)
 	kwave.lsm					(should be GPL2+)
@@ -242,7 +240,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/pics/light_off.xpm			LGPL2 (crystal project) [derived from greenled.png]
 	kwave/pics/light_on.xpm				LGPL2 (crystal project) [copied from greenled.png]
 	kwave/pics/logo.xpm				(should be GPL2+ / Martin Wilz)
-#	kwave/pics/minifont.xpm				??? UNKNOWN ??? -> KDE ?
 	kwave/pics/noise.png				(should be GPL2+)
 	kwave/pics/playback_loop.xpm			LGPL2 (crystal project) [derived from player_start.png]
 	kwave/pics/playback_pause2.xpm			LGPL2 (crystal project) [derived from player_pause.png]

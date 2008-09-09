@@ -22,13 +22,9 @@
 #include <stdio.h>
 
 #include <QtGlobal>
-// #include <QImage>
-// #include <QDir>
+#include <QFont>
 #include <QPainter>
 #include <QPaintEvent>
-
-#include <kiconloader.h>
-#include <kstandarddirs.h>
 
 #include "ScaleWidget.h"
 
@@ -39,8 +35,6 @@ ScaleWidget::ScaleWidget(QWidget *parent)
     :QWidget(parent), m_low(0), m_high(100), m_logmode(false),
      m_unittext("%")
 {
-    KIconLoader icon_loader;
-    m_scalefont = icon_loader.loadIcon("minifont.xpm", KIconLoader::Small);
 }
 
 //***************************************************************************
@@ -49,8 +43,6 @@ ScaleWidget::ScaleWidget(QWidget *parent, int low, int high,
     :QWidget(parent), m_low(low), m_high(high), m_logmode(false),
      m_unittext(unit)
 {
-    KIconLoader icon_loader;
-    m_scalefont = icon_loader.loadIcon("minifont.xpm", KIconLoader::Small);
 }
 
 //***************************************************************************
@@ -83,36 +75,29 @@ void ScaleWidget::setMinMax(int min, int max)
 }
 
 //***************************************************************************
-void ScaleWidget::paintText(QPainter &p, int x, int y, int ofs,
+void ScaleWidget::paintText(QPainter &p, int x, int y,
                             bool reverse, const QString &text)
 {
-    int len = text.length();
-    int pos; // position within the font bitmap
+    QFont font;
+    font.setStyleHint(QFont::SansSerif);
+    font.setFixedPitch(true);
+    font.setPixelSize(FONTSIZE);
+    font.setWeight(0);
+    font.setStyle(QFont::StyleNormal);
+    p.setFont(font);
+    QFontMetrics fm(font);
 
-    if (reverse) x -= ofs;
-    for (int i = 0; i < len; i++) {
-	pos = (reverse) ? (len-1-i) : i;
-	int c = text.at(pos).toLatin1();
-
-	pos = 40; // default = space
-	switch (c) {
-	    case '\'':  pos = 36; break;
-	    case '"':   pos = 37; break;
-	    case 176:   pos = 38; break;
-	    case '.':   pos = 39; break;
-	    case ' ':   pos = 40; break;
-	    case '%':   pos = 41; break;
-	    case '-':   pos = 42; break;
-	    default:
-		if ((c > 64) && (c < 91))  pos = c-65;    // letter
-		if ((c > 96) && (c < 123)) pos = c-97;    // letter
-		if ((c > 47) && (c < 58))  pos = c-48+26; // number
-	}
-
-	p.drawPixmap(x, y, m_scalefont, pos*FONTSIZE, 0, FONTSIZE, FONTSIZE);
-
-	x += (reverse) ? (-ofs) : (+ofs);
+    if (reverse) {
+	x += FONTSIZE + 2;
+	y -= FONTSIZE + 2;
     }
+
+    QRect rect = fm.boundingRect(text);
+    const int th = rect.height();
+    const int tw = rect.width();
+    p.drawText(x, y, tw, th,
+	((reverse) ? Qt::AlignLeft : Qt::AlignRight) | Qt::AlignBottom,
+	text);
 }
 
 //***************************************************************************
@@ -166,7 +151,7 @@ void ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
 	int value = (int)pow(base, dec_lo+a);
 	buf = buf.arg(value).arg(m_unittext);
 	x = ((w-1) * a)/decades;
-	paintText(p, dir*(x+2), dir*(h-FONTSIZE-2), FONTSIZE, inverse, buf);
+	paintText(p, dir*(x+4), dir*(h-FONTSIZE-4), inverse, buf);
     }
 }
 
@@ -204,7 +189,7 @@ void ScaleWidget::drawLinear(QPainter &p, int w, int h, bool inverse)
 	int value = m_low + (((m_high - m_low)* (inverse ? (4-a) : a))/4);
 	buf = buf.arg(value).arg(m_unittext);
 	x = ((w-1) * a)/4;
-	paintText(p, dir*(x+2), dir*(h-FONTSIZE-2), FONTSIZE, inverse, buf);
+	paintText(p, dir*(x+4), dir*(h-FONTSIZE-4), inverse, buf);
     }
 
 }

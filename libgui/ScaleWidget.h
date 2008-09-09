@@ -20,7 +20,6 @@
 
 #include "config.h"
 
-#include <QPixmap>
 #include <QString>
 #include <QWidget>
 
@@ -109,7 +108,6 @@ protected:
      * @param p reference to the painter
      * @param x coordinate of the left edge of the first character
      * @param y coordinate of the lower edge of the first character
-     * @param ofs width of each character
      * @param reverse if true, print reverse: x is right edge of
      *        the text, like "align right".
      * @param text the text to be printed. Must only contain known
@@ -117,7 +115,7 @@ protected:
      *        numbers, letters and some special chars like "%",
      *        space, dot and comma.
      */
-    void paintText(QPainter &p, int x, int y, int ofs,
+    void paintText(QPainter &p, int x, int y,
                    bool reverse, const QString &text);
 
 private:
@@ -133,9 +131,6 @@ private:
 
     /** String containing the name of the unit */
     QString m_unittext;
-
-    /** Pixmap with all letters of our small font */
-    QPixmap m_scalefont;
 
 };
 

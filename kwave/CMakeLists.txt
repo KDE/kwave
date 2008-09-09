@@ -84,7 +84,6 @@ SET(kwave_PIXMAPS
     pics/light_off.xpm
     pics/light_on.xpm
     pics/logo.xpm
-    pics/minifont.xpm
     pics/noise.png
     pics/playback_loop.xpm
     pics/playback_start.xpm

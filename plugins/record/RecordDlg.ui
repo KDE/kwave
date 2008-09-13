@@ -162,7 +162,7 @@
              <item row="6" column="0" colspan="3" >
               <layout class="QHBoxLayout" >
                <item>
-                <widget class="KPushButton" native="1" name="btNew" >
+                <widget class="KPushButton" name="btNew" >
                  <property name="enabled" >
                   <bool>true</bool>
                  </property>
@@ -175,13 +175,13 @@
                  <property name="toolTip" >
                   <string>New File</string>
                  </property>
-                 <property name="text" stdset="0" >
+                 <property name="text" >
                   <string/>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="KPushButton" native="1" name="btStop" >
+                <widget class="KPushButton" name="btStop" >
                  <property name="enabled" >
                   <bool>false</bool>
                  </property>
@@ -194,13 +194,13 @@
                  <property name="toolTip" >
                   <string>Stop Recording</string>
                  </property>
-                 <property name="text" stdset="0" >
+                 <property name="text" >
                   <string/>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="KPushButton" native="1" name="btPause" >
+                <widget class="KPushButton" name="btPause" >
                  <property name="enabled" >
                   <bool>false</bool>
                  </property>
@@ -213,13 +213,13 @@
                  <property name="toolTip" >
                   <string>Pause/Continue</string>
                  </property>
-                 <property name="text" stdset="0" >
+                 <property name="text" >
                   <string/>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="KPushButton" native="1" name="btRecord" >
+                <widget class="KPushButton" name="btRecord" >
                  <property name="minimumSize" >
                   <size>
                    <width>30</width>
@@ -229,7 +229,7 @@
                  <property name="toolTip" >
                   <string>Record!</string>
                  </property>
-                 <property name="text" stdset="0" >
+                 <property name="text" >
                   <string/>
                  </property>
                 </widget>
@@ -294,7 +294,7 @@
               </widget>
              </item>
              <item row="0" column="1" >
-              <widget class="KIntSpinBox" native="1" name="sbRecordPre" >
+              <widget class="KIntSpinBox" name="sbRecordPre" >
                <property name="enabled" >
                 <bool>false</bool>
                </property>
@@ -304,17 +304,17 @@
                  <height>0</height>
                 </size>
                </property>
-               <property name="suffix" stdset="0" >
+               <property name="suffix" >
                 <string> s</string>
+               </property>
+               <property name="value" >
+                <number>10</number>
                </property>
                <property name="maxValue" stdset="0" >
                 <number>60</number>
                </property>
                <property name="minValue" stdset="0" >
                 <number>1</number>
-               </property>
-               <property name="value" stdset="0" >
-                <number>10</number>
                </property>
               </widget>
              </item>
@@ -435,7 +435,7 @@
               </widget>
              </item>
              <item row="0" column="1" >
-              <widget class="KIntSpinBox" native="1" name="sbLevelAmplify" >
+              <widget class="KIntSpinBox" name="sbLevelAmplify" >
                <property name="enabled" >
                 <bool>false</bool>
                </property>
@@ -445,8 +445,11 @@
                  <height>0</height>
                 </size>
                </property>
-               <property name="suffix" stdset="0" >
+               <property name="suffix" >
                 <string> dB</string>
+               </property>
+               <property name="value" >
+                <number>3</number>
                </property>
                <property name="maxValue" stdset="0" >
                 <number>42</number>
@@ -454,18 +457,18 @@
                <property name="minValue" stdset="0" >
                 <number>-42</number>
                </property>
-               <property name="value" stdset="0" >
-                <number>3</number>
-               </property>
               </widget>
              </item>
              <item row="1" column="1" >
-              <widget class="KIntSpinBox" native="1" name="sbLevelAGC" >
+              <widget class="KIntSpinBox" name="sbLevelAGC" >
                <property name="enabled" >
                 <bool>false</bool>
                </property>
-               <property name="suffix" stdset="0" >
+               <property name="suffix" >
                 <string> ms</string>
+               </property>
+               <property name="value" >
+                <number>50</number>
                </property>
                <property name="maxValue" stdset="0" >
                 <number>1000</number>
@@ -475,9 +478,6 @@
                </property>
                <property name="lineStep" stdset="0" >
                 <number>10</number>
-               </property>
-               <property name="value" stdset="0" >
-                <number>50</number>
                </property>
               </widget>
              </item>
@@ -545,11 +545,11 @@
               </widget>
              </item>
              <item row="1" column="1" >
-              <widget class="KIntSpinBox" native="1" name="sbLevelFadeOut" >
+              <widget class="KIntSpinBox" name="sbLevelFadeOut" >
                <property name="enabled" >
                 <bool>false</bool>
                </property>
-               <property name="suffix" stdset="0" >
+               <property name="suffix" >
                 <string> sec</string>
                </property>
                <property name="maxValue" stdset="0" >
@@ -561,11 +561,11 @@
               </widget>
              </item>
              <item row="0" column="1" >
-              <widget class="KIntSpinBox" native="1" name="sbLevelFadeIn" >
+              <widget class="KIntSpinBox" name="sbLevelFadeIn" >
                <property name="enabled" >
                 <bool>false</bool>
                </property>
-               <property name="suffix" stdset="0" >
+               <property name="suffix" >
                 <string> sec</string>
                </property>
                <property name="maxValue" stdset="0" >
@@ -739,7 +739,7 @@
                 <number>1</number>
                </property>
                <property name="value" >
-                <number>2</number>
+                <number>1</number>
                </property>
               </widget>
              </item>
@@ -779,7 +779,7 @@
                <item>
                 <widget class="QLabel" name="lblTracksVerbose" >
                  <property name="text" >
-                  <string>%1</string>
+                  <string>?</string>
                  </property>
                  <property name="wordWrap" >
                   <bool>false</bool>
@@ -1447,6 +1447,21 @@ recording. Depending on the compilation options you can select one of the follow
  <layoutdefault spacing="10" margin="10" />
  <customwidgets>
   <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
    <class>TreeWidgetWrapper</class>
    <extends>QTreeWidget</extends>
    <header>libgui/TreeWidgetWrapper.h</header>
@@ -1467,21 +1482,6 @@ recording. Depending on the compilation options you can select one of the follow
    <class>KStatusBar</class>
    <extends>QWidget</extends>
    <header location="global" >kstatusbar.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header location="global" >kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QWidget</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QWidget</extends>
-   <header>knuminput.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -92,7 +92,7 @@ ADD_CUSTOM_TARGET(html_clean
 #############################################################################
 ### macro for generating the help for each language                       ###
 
-MACRO(KWAVE_TRANSLATE_DOC _sources)
+MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
 
     FOREACH (_lang_and_name ${ARGN})
         STRING(REGEX MATCH "^[^:]+" _lang ${_lang_and_name})
@@ -133,6 +133,16 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
             GET_FILENAME_COMPONENT(_docbook_basename ${_docbook} NAME)
         ENDIF (NOT ${_lang} STREQUAL "en")
 
+        # generated search index index_<lang>.cache.bz2
+        SET(_index "${CMAKE_CURRENT_BINARY_DIR}/index_${_lang}.cache.bz2")
+        ADD_CUSTOM_COMMAND(OUTPUT ${_index}
+            COMMAND ${KDE4_MEINPROC_EXECUTABLE}
+                    --check ${_bootstrapOption}
+                    --cache ${_index} ${_docbook}
+            DEPENDS ${_docbook}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+
         # special handling for the GPL license file
         SET(_gpl_translated "${KDE4_HTML_INSTALL_DIR}/${_lang}/common/gpl-translated.html")
         SET(_gpl_english    "${KDE4_HTML_INSTALL_DIR}/en/common/gpl-license.html")
@@ -151,7 +161,7 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
             COMMAND ${CMAKE_COMMAND} -E copy_if_different
                 ${_gpl} ${_html_dir}/gpl-translated.html
         )
-        SET(${_sources} ${${_sources}} ${_html_dir}/gpl-translated.html)
+        SET(${_html_sources} ${${_html_sources}} ${_html_dir}/gpl-translated.html)
 
         # generated HTML help
         ADD_CUSTOM_COMMAND(OUTPUT ${_html}
@@ -187,7 +197,8 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
             COMMENT STATUS "Generating HTML help for ${_lang} (${_lang_name})"
         )
 
-        SET(${_sources} ${${_sources}} ${_docbook} ${_html})
+        SET(${_html_sources} ${${_html_sources}} ${_html})
+        SET(${_sources} ${${_sources}} ${_docbook} ${_index})
 
         # installation of the docbook file
         INSTALL(
@@ -196,6 +207,14 @@ MACRO(KWAVE_TRANSLATE_DOC _sources)
             RENAME index.docbook
         )
         SET(_docbook_all ${_docbook_all} ${_docbook})
+
+        # installation of the index.cache.bz2 file
+        INSTALL(
+            FILES ${_index}
+            DESTINATION ${KDE4_HTML_INSTALL_DIR}/${_lang}/kwave
+            RENAME index.cache.bz2
+        )
+        SET(_index_all ${_index_all} ${_index})
 
         # installation of the *.png files
         FILE(GLOB _png_files_${_lang} "${CMAKE_CURRENT_SOURCE_DIR}/${_lang}/*.png")
@@ -222,20 +241,21 @@ ENDMACRO(KWAVE_TRANSLATE_DOC)
 
 #############################################################################
 
-KWAVE_TRANSLATE_DOC(_docs ${KWAVE_LINGUAS})
+KWAVE_TRANSLATE_DOC(_docs _html_files ${KWAVE_LINGUAS})
 
 #############################################################################
 ### "make html_doc"                                                       ###
 
 ADD_CUSTOM_TARGET(html_doc
     DEPENDS ${_docs}
+    DEPENDS ${_html_files}
 )
 
 #############################################################################
 ### "make doc"                                                            ###
 
 ADD_CUSTOM_TARGET(doc ALL
-    DEPENDS ${_docbook_all}
+    DEPENDS ${_docbook_all} ${_index_all}
 )
 
 #############################################################################

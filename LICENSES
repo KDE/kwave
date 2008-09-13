@@ -182,8 +182,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doc/en/kwave-sonagram.png			(should be FDL)
 	doc/en/kwave-sonagram-setup.png			(should be FDL)
 	doc/en/kwave-volume.png				(should be FDL)
-	doc/en/light_off.png				(should be FDL)
-	doc/en/light_on.png				(should be FDL)
+	doc/en/light_off.png				LGPL2 (crystal project) [derived from greenled.png]
+	doc/en/light_on.png				LGPL2 (crystal project) [derived from greenled.png]
 #	doc/en/logotp3.png				??? UNKNOWN ??? -> KDE ?
 #	doc/en/nonlinear.png				??? UNKNOWN ???
 #	doc/en/note.png					??? UNKNOWN ???

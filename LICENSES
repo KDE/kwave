@@ -69,17 +69,11 @@ issue #1: license of the icons
 	   + ???
 	   + ???
 
-#	doc/en/caution.png				??? UNKNOWN ??? -> ksgmltools
-#	doc/en/important.png				??? UNKNOWN ??? -> ksgmltools
-#	doc/en/note.png					??? UNKNOWN ??? -> ksgmltools
-#	doc/en/tip.png					??? UNKNOWN ??? -> ksgmltools
-#	doc/en/warning.png				??? UNKNOWN ??? -> ksgmltools
-
 #	doc/en/in-progress.png				??? UNKNOWN ???
 #	doc/en/krec_record.png				??? UNKNOWN ??? -> krecord ?
 #	doc/en/logotp3.png				??? UNKNOWN ??? -> KDE 2 ?
 #	doc/en/nonlinear.png				??? UNKNOWN ???
-	-> kdeclassic/32x32/actions/forward.png
+	-> arrow is from kdeclassic/32x32/actions/forward.png
 #	doc/en/record_new.png				??? UNKNOWN ??? -> KDE ?
 	-> kdeclassic/16x16/actions/14_layer_newlayer.png
 #	doc/en/under-construction.png			??? UNKNOWN ???
@@ -167,8 +161,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 
 #	doc/en/audio-1.png				??? UNKNOWN ???
 #	doc/en/audio2signal.png				??? UNKNOWN ???
-#	doc/en/caution.png				??? UNKNOWN ???
-#	doc/en/important.png				??? UNKNOWN ???
+	doc/en/caution.png				free / Norman Walsh, <ndw@nwalsh.com> (ksgmltools2)
+	doc/en/important.png				free / Norman Walsh, <ndw@nwalsh.com> (ksgmltools2)
 #	doc/en/in-progress.png				??? UNKNOWN ???
 #	doc/en/krec_record.png				??? UNKNOWN ??? -> krecord ?
 	doc/en/kwave-fileinfo.png			(should be FDL)
@@ -187,7 +181,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doc/en/light_on.png				LGPL2 (crystal project) [derived from greenled.png]
 #	doc/en/logotp3.png				??? UNKNOWN ??? -> KDE ?
 #	doc/en/nonlinear.png				??? UNKNOWN ???
-#	doc/en/note.png					??? UNKNOWN ???
+	doc/en/note.png					free / Norman Walsh, <ndw@nwalsh.com> (ksgmltools2)
 #	doc/en/record_new.png				??? UNKNOWN ??? -> KDE ?
 	doc/en/record_pause.png				(should be FDL)
 	doc/en/record_stop.png				(should be FDL)
@@ -196,10 +190,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doc/en/signed.png				(should be FDL)
 	doc/en/sinus2samples.png			(should be FDL)
 	doc/en/sonagram.png				(should be FDL)
-#	doc/en/tip.png					??? UNKNOWN ???
+	doc/en/tip.png					free / Norman Walsh, <ndw@nwalsh.com> (ksgmltools2)
 #	doc/en/under-construction.png			??? UNKNOWN ???
 	doc/en/unsigned.png				(should be FDL)
-#	doc/en/warning.png				??? UNKNOWN ???
+	doc/en/warning.png				free / Norman Walsh, <ndw@nwalsh.com> (ksgmltools2)
 
 	doc/fr/kwave-fileinfo.png			(should be FDL)
 	doc/fr/kwave-lowpass.png			(should be FDL)

@@ -172,6 +172,8 @@ MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
                 ${CMAKE_SOURCE_DIR}/kwave/toolbar/zoomrange.xpm
                 ${_html_dir}/toolbar_zoorange.png
             COMMAND ${CP_EXECUTABLE}
+                ${CMAKE_CURRENT_SOURCE_DIR}/en/*.png ${_html_dir}
+            COMMAND ${CP_EXECUTABLE}
                 ${CMAKE_CURRENT_SOURCE_DIR}/${_lang}/*.png ${_html_dir}
             COMMAND ${CMAKE_COMMAND} -E copy_directory
                 ${KDE4_HTML_INSTALL_DIR}/en/common ${_html_dir}/common/

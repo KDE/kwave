@@ -105,6 +105,7 @@ INCLUDE(CheckCCompilerFlag)
 INCLUDE(CheckCXXCompilerFlag)
 INCLUDE(CheckTypeSize)
 INCLUDE(CheckFunctionExists)
+INCLUDE(KwaveL10N)
 
 #############################################################################
 
@@ -268,6 +269,7 @@ ADD_SUBDIRECTORY( kwave )
 ADD_SUBDIRECTORY( plugins )
 ADD_SUBDIRECTORY( po )
 
+SET(KWAVE_BUILD_LINGUAS ${KWAVE_BUILD_LINGUAS})
 OPTION(WITH_DOC "build online documentation [default=on]" ON)
 IF (WITH_DOC)
     ADD_SUBDIRECTORY( doc )

@@ -30,7 +30,7 @@ SET(_changes_to_docbook ${PROJECT_SOURCE_DIR}/bin/changes-to-docbook.awk)
 FIND_REQUIRED_PROGRAM(CONVERT_EXECUTABLE convert)
 FIND_REQUIRED_PROGRAM(CP_EXECUTABLE cp)
 FIND_REQUIRED_PROGRAM(RM_EXECUTABLE rm)
-FIND_REQUIRED_PROGRAM(AWK_EXECUTABLE gawk awk mawk)
+FIND_REQUIRED_PROGRAM(AWK_EXECUTABLE gawk awk)
 FIND_REQUIRED_PROGRAM(CAT_EXECUTABLE cat)
 FIND_REQUIRED_PROGRAM(SED_EXECUTABLE sed)
 FIND_REQUIRED_PROGRAM(RECODE_EXECUTABLE recode)
@@ -38,7 +38,6 @@ FIND_REQUIRED_PROGRAM(XML2POT_EXECUTABLE xml2pot)
 FIND_REQUIRED_PROGRAM(MSGMERGE_EXECUTABLE msgmerge)
 FIND_REQUIRED_PROGRAM(PO2XML_EXECUTABLE po2xml)
 FIND_REQUIRED_PROGRAM(CHECKXML_EXECUTABLE checkXML)
-FIND_REQUIRED_PROGRAM(MEINPROC_EXECUTABLE meinproc4 meinproc)
 
 #############################################################################
 ### update of the original docbook file                                   ###
@@ -137,8 +136,7 @@ MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
         SET(_index "${CMAKE_CURRENT_BINARY_DIR}/index_${_lang}.cache.bz2")
         ADD_CUSTOM_COMMAND(OUTPUT ${_index}
             COMMAND ${KDE4_MEINPROC_EXECUTABLE}
-                    --check ${_bootstrapOption}
-                    --cache ${_index} ${_docbook}
+                    --check --cache ${_index} ${_docbook}
             DEPENDS ${_docbook}
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         )
@@ -167,7 +165,7 @@ MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
         ADD_CUSTOM_COMMAND(OUTPUT ${_html}
             COMMAND mkdir -p ${_html_dir}
             COMMAND cd ${_html_dir} &&
-                    ${MEINPROC_EXECUTABLE} --check ${_docbook}
+                    ${KDE4_MEINPROC_EXECUTABLE} --check ${_docbook}
             COMMAND ${RM_EXECUTABLE} -Rf ${_html_dir}/common
             COMMAND mkdir -p ${_html_dir}/common
             COMMAND ${CONVERT_EXECUTABLE}
@@ -241,7 +239,7 @@ ENDMACRO(KWAVE_TRANSLATE_DOC)
 
 #############################################################################
 
-KWAVE_TRANSLATE_DOC(_docs _html_files ${KWAVE_LINGUAS})
+KWAVE_TRANSLATE_DOC(_docs _html_files ${KWAVE_BUILD_LINGUAS})
 
 #############################################################################
 ### "make html_doc"                                                       ###

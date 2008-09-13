@@ -31,9 +31,9 @@ KWAVE_PLUGIN(MemoryPlugin,"memory","Thomas Eschenbacher");
 
 //***************************************************************************
 MemoryPlugin::MemoryPlugin(const PluginContext &c)
-    :KwavePlugin(c), m_physical_limited(true), m_physical_limit(64),
-     m_virtual_enabled(true), m_virtual_limited(true), m_virtual_limit(256),
-     m_virtual_directory("/tmp")
+    :KwavePlugin(c), m_physical_limited(true), m_physical_limit(256),
+     m_virtual_enabled(true), m_virtual_limited(false), m_virtual_limit(512),
+     m_virtual_directory("/var/tmp")
 {
     i18n("memory");
 }

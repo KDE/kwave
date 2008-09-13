@@ -53,10 +53,15 @@ MACRO(KWAVE_PLUGIN _plugin)
 
     ADD_DEPENDENCIES(plugin_${_plugin} libkwave libkwavegui)
 
+    EXECUTE_PROCESS(COMMAND "${KDE4_KDECONFIG_EXECUTABLE}"
+        --expandvars --install module
+        OUTPUT_VARIABLE KDE4_MODULE_INSTALL_DIR
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
+
     INSTALL(TARGETS
         plugin_${_plugin}
         LIBRARY
-        DESTINATION ${DESTDIR}${KDE4_DATA_INSTALL_DIR}/kwave/plugins
+        DESTINATION ${DESTDIR}${KDE4_MODULE_INSTALL_DIR}/plugins/kwave
     )
 
 ENDMACRO(KWAVE_PLUGIN)

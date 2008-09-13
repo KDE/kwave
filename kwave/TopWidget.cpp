@@ -34,6 +34,8 @@
 
 #include <kapplication.h>
 #include <kcombobox.h>
+#include <kconfig.h>
+#include <kconfiggroup.h>
 #include <kfiledialog.h>
 #include <kglobal.h>
 #include <khelpmenu.h>
@@ -423,6 +425,21 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // enable saving of window size and position for next startup
     setAutoSaveSettings();
+
+    // workaround for KDE4: detect first startup and set all toolbars
+    // to "only symbols" mode
+    KConfigGroup cfg = KGlobal::config()->group("MainWindow");
+    QString magic = "1";
+    if (cfg.readEntry("toolbars") != magic) {
+	qDebug("FIRST RUN => forcing toolbars to 'symbols only' mode");
+	foreach(KToolBar *bar, toolBars()) {
+	    bar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+	    bar->update();
+	    bar->hide();
+	    bar->show();
+	}
+	cfg.writeEntry("toolbars", magic);
+    }
 }
 
 //***************************************************************************

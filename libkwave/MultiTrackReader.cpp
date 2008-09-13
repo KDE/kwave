@@ -47,6 +47,7 @@ MultiTrackReader::MultiTrackReader(SignalManager &signal_manager,
     }
 
     Q_ASSERT(count == tracks());
+    Q_UNUSED(count);
 }
 
 //***************************************************************************

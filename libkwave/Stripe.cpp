@@ -427,6 +427,7 @@ Stripe &Stripe::operator << (const Kwave::SampleArray &samples)
 {
     unsigned int appended = append(samples, 0, samples.size());
     Q_ASSERT(appended == samples.size());
+    Q_UNUSED(appended);
     return *this;
 }
 

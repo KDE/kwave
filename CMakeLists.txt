@@ -255,6 +255,8 @@ IF (DEBUG)
     SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -O0 -g")
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g")
     ADD_DEFINITIONS(-DDEBUG -D_DEBUG)
+ELSE(DEBUG)
+    ADD_DEFINITIONS(-DNO_DEBUG -DQT_NO_DEBUG)
 ENDIF (DEBUG)
 
 #############################################################################

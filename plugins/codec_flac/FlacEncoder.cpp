@@ -134,7 +134,9 @@ void FlacEncoder::VorbisCommentContainer::add(const QString &tag,
     unsigned int count = m_vc->data.vorbis_comment.num_comments;
     bool ok =  FLAC__metadata_object_vorbiscomment_insert_comment(
 	m_vc, count, entry, true);
+
     Q_ASSERT(ok);
+    Q_UNUSED(ok);
 }
 
 /***************************************************************************/

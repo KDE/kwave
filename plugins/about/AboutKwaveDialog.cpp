@@ -97,6 +97,8 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
 
     QStringList files = KGlobal::dirs()->findAllResources(
         "data", "kwave/plugins/*", false, true);
+    files += KGlobal::dirs()->findAllResources(
+        "module", "plugins/kwave/*", false, true);
     QStringList::Iterator it_file;
     for (it_file=files.begin(); it_file != files.end(); ++it_file) {
 	QString file = *it_file;

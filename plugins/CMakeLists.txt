@@ -47,7 +47,7 @@ MACRO(KWAVE_PLUGIN _plugin)
     INSTALL(
         PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/lib${_plugin}.so
         RENAME ${_plugin}
-        DESTINATION ${KDE3_DATADIR}/kwave/plugins
+        DESTINATION ${KDE3_MODULEDIR}/plugins/kwave
     )
 
     ADD_DEPENDENCIES(plugin_${_plugin} libkwave libkwavegui)

@@ -1,19 +1,32 @@
 # Copyright 1999-2005 Gentoo Foundation
-# Distributed under the terms of the GNU General Public License v2
 # $Header: /cvsroot/kwave/kwave/kwave.ebuild,v 1.9 2006/06/05 13:30:40 the Exp $
+
+#############################################################################
+##                                                                          #
+##    This program is free software; you can redistribute it and/or modify  #
+##    it under the terms of the GNU General Public License as published by  #
+##    the Free Software Foundation; either version 2 of the License, or     #
+##    (at your option) any later version.                                   #
+##                                                                          #
+#############################################################################
 
 EAPI="1"
 NEED_KDE="4.0"
-inherit kde4-base
+inherit kde4-base flag-o-matic
 
 DESCRIPTION="Kwave is a sound editor for KDE."
 HOMEPAGE="http://kwave.sourceforge.net/"
-SRC_URI="mirror://sourceforge/kwave/${P}-1.tar.gz"
+SRC_URI="mirror://sourceforge/kwave/${P}-1.tar.bz2"
 
 SLOT="kde-4"
 LICENSE="GPL-2"
 KEYWORDS="~x86 ~amd64 ~ppc"
 IUSE="alsa debug doc flac mp3 ogg oss mmx"
+
+LANGS="en de fr"
+for X in ${LANGS} ; do
+	IUSE="${IUSE} linguas_${X}"
+done
 
 RDEPEND="
 	alsa? ( media-libs/alsa-lib )
@@ -25,8 +38,11 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	>=dev-util/cmake-2.4.6
 	|| ( kde-base/kdesdk-misc kde-base/kdesdk )
-	app-text/recode
 	media-gfx/imagemagick"
+
+pkg_setup() {
+	strip-linguas ${LANGS}
+}
 
 src_compile() {
 	use mmx && append-flags "-mmmx"

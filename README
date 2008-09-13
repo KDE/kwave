@@ -1,4 +1,4 @@
-This is the "Kwave" source distribution, a sound editor for KDE3.
+This is the "Kwave" source distribution, a sound editor for KDE.
 
  ----------------------------------------------------------------------------
 | It is hosted on SourceForge, so you are welcome to visit                   |
@@ -133,7 +133,6 @@ I am currently developing under a Gentoo Linux distribution
 * gettext >= 0.12                    (for internationalization)
 * rpm >= 4.0                         (optional, for rpm support)
 * ImageMagick >= 6.1                 (needed to create scaled Kwave icons)
-* recode >= 3.6                      (for online help)
 
 * libmad + libmad-devel >= 0.15      (for MP3 import)
 * id3lib >= 3.8.2                    (for MP3 tag import, see www.id3lib.org)
@@ -200,7 +199,7 @@ made running and what I had to install additionally:
 	apt-get -b -t testing source cmake
 	dpkg --install cmake_<version>_<arch>.deb
 	apt-get install kdemultimedia-dev libflac++dev libid3-dev \
-		libgsl0-dev recode imagemagick kdesdk
+		libgsl0-dev imagemagick kdesdk
 
 (other distributions should work out-of-the-box,
  see http://kwave.sourceforge.net/distributions.html)

@@ -1,5 +1,5 @@
 
-0.8.0  [2008-07-??]
+0.8.0  [2008-09-14]
 
  * ported to KDE4 / Qt4
  * dropped support for FLAC API v1.1.1 and older
@@ -8,16 +8,24 @@
  * fixed bug in cue list parsing of .wav files
  * fixed bugs in recording plugin, recorded too much if recording time
    limit was activated or in prerecording mode
- * a nicer splash screen
+ * a much nicer splash screen
  * bugfix in label handling: support labels with zero-length names
  * re-arranged source files for cleaner library interfaces
  * re-enabled accelerator keys for 0..9
  * using horizontal scrollbar instead of overview widget
  * implemented vertical zoom (Ctrl + MouseWheelUp/Down)
  * using more standard KDE keyboard shortcuts
+ * nicer icons for the menus
+ * using more icons from the crystal icon collection (to clearify
+   the license situation)
  * removed aRts support
  * now also available through the openSUSE build service for
    various platforms
+ * respect the LINGUAS environment variable to build only needed
+   languages (defaulting to all)
+ * removed changelog from online manual to simplify the work of
+   translators
+ * no longer dependent from "recode"
 
 0.7.11 [2007-12-09]
 

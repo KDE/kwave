@@ -17,15 +17,11 @@
 
 FIND_PACKAGE(RequiredProgram REQUIRED)
 
-SET(_insert_changes ${PROJECT_SOURCE_DIR}/bin/insert-changes.sh)
 SET(_help_en_docbook_orig ${CMAKE_CURRENT_SOURCE_DIR}/help_en.docbook)
 SET(_help_en_docbook ${CMAKE_CURRENT_BINARY_DIR}/help_en-work.docbook)
 SET(_help_en_shifted ${CMAKE_CURRENT_BINARY_DIR}/help_en-shifted.docbook)
 SET(_help_en_pot ${CMAKE_CURRENT_BINARY_DIR}/help_en.pot)
-SET(_changes_docbook ${CMAKE_CURRENT_BINARY_DIR}/changes.docbook)
-SET(_changes ${PROJECT_SOURCE_DIR}/CHANGES)
 SET(_version ${PROJECT_SOURCE_DIR}/VERSION)
-SET(_changes_to_docbook ${PROJECT_SOURCE_DIR}/bin/changes-to-docbook.awk)
 
 FIND_REQUIRED_PROGRAM(CONVERT_EXECUTABLE convert)
 FIND_REQUIRED_PROGRAM(CP_EXECUTABLE cp)
@@ -33,7 +29,6 @@ FIND_REQUIRED_PROGRAM(RM_EXECUTABLE rm)
 FIND_REQUIRED_PROGRAM(AWK_EXECUTABLE gawk awk)
 FIND_REQUIRED_PROGRAM(CAT_EXECUTABLE cat)
 FIND_REQUIRED_PROGRAM(SED_EXECUTABLE sed)
-FIND_REQUIRED_PROGRAM(RECODE_EXECUTABLE recode)
 FIND_REQUIRED_PROGRAM(XML2POT_EXECUTABLE xml2pot)
 FIND_REQUIRED_PROGRAM(MSGMERGE_EXECUTABLE msgmerge)
 FIND_REQUIRED_PROGRAM(PO2XML_EXECUTABLE po2xml)
@@ -42,21 +37,14 @@ FIND_REQUIRED_PROGRAM(CHECKXML_EXECUTABLE checkXML)
 #############################################################################
 ### update of the original docbook file                                   ###
 ADD_CUSTOM_COMMAND(OUTPUT ${_help_en_docbook}
-    COMMAND ${CAT_EXECUTABLE} ${_changes} |
-        ${SED_EXECUTABLE} s/\\>\\>\\>//g |
-        ${SED_EXECUTABLE} s/\\<\\<\\<//g |
-        ${AWK_EXECUTABLE} -f ${_changes_to_docbook} |
-        ${RECODE_EXECUTABLE} lat1..utf-8 > ${_changes_docbook}
     COMMAND ${CAT_EXECUTABLE} ${_help_en_docbook_orig} |
-        ${_insert_changes} ${_changes_docbook} |
         ${AWK_EXECUTABLE}
         -v newdate=${KWAVE_VERSION_DATE_ISO}
         -v newrelease=${KWAVE_VERSION_FULL}
         -f ${PROJECT_SOURCE_DIR}/bin/date_release.awk
         > ${_help_en_docbook}
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    COMMAND ${CMAKE_COMMAND} -E copy
         ${_help_en_docbook} ${_help_en_docbook_orig}
-    DEPENDS ${_changes}
     DEPENDS ${_version}
     DEPENDS ${_help_en_docbook_orig}
     COMMENT "Updating help_en.docbook"

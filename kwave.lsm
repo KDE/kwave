@@ -1,14 +1,14 @@
 Begin3
 Title:          kwave
 Version:	0.8.0
-Entered-date:	15JUL2008
-Description:    A sound editor for KDE3.
+Entered-date:	14SEP2008
+Description:    A sound editor for KDE.
 Keywords:       KDE, Qt, WAV, Sound, Sonagram, Sample, Effects, 24 Bit, Ogg, Vorbis, FLAC, ALSA, OSS, playback, recording
 Author:         Martin Wilz <martin@wilz.de>
 Maintained-by:  Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
 Homepage:       http://kwave.sourceforge.net
 Primary-site:   http://kwave.sourceforge.net
 Original-site:  http://kwave.sourceforge.net
-Platform:       Linux, i386 and many others, needs libqt >= 3.0, KDE-libs >= 3.0
+Platform:       Linux, i386 and many others, needs libqt >= 4.0, KDE-libs >= 4.0
 Copying-policy: GPL and others, see LICENSE file
-End                      
+End

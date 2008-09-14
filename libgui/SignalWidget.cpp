@@ -1186,9 +1186,9 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
 	}
 	case MouseInSelection: {
 	    int dmin = KGlobalSettings::dndEventDelay();
-	    if ((e->buttons() & Qt::LeftButton) &&
-		    ((e->pos().x() >= m_mouse_down_x-dmin) ||
-		     (e->pos().x() <= m_mouse_down_x+dmin)) )
+	    if ((e->button() & Qt::LeftButton) &&
+		    ((e->pos().x() >= m_mouse_down_x - dmin) ||
+		     (e->pos().x() <= m_mouse_down_x + dmin)) )
 	    {
 		// deselect if only clicked without moving
 		unsigned int pos = m_offset + pixels2samples(e->pos().x());

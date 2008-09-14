@@ -41,6 +41,7 @@
 #include <ktoolinvocation.h>
 
 #include "libkwave/CompressionType.h"
+#include "libkwave/KwavePlugin.h" // for some helper functions
 #include "libkwave/SampleFormat.h"
 #include "libgui/HMSTimeWidget.h"
 #include "libgui/KwaveFileDialog.h"
@@ -89,6 +90,7 @@
 enum {
     ID_ICON=1,          /**< status bar id: state icon */
     ID_STATE,           /**< status bar id: state text */
+    ID_TIME,            /**< status bar id: recorded time */
     ID_SAMPLE_RATE,     /**< status bar id: sample rate */
     ID_BITS_PER_SAMPLE, /**< status bar id: number of tracks */
     ID_TRACKS           /**< status bar id: number of tracks */
@@ -262,6 +264,9 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     lbl_state->insertItem(" ", ID_STATE, 100);
     lbl_state->setItemAlignment(ID_STATE,
+                                Qt::AlignLeft | Qt::AlignVCenter);
+    lbl_state->insertItem(" ", ID_TIME);
+    lbl_state->setItemAlignment(ID_TIME,
                                 Qt::AlignLeft | Qt::AlignVCenter);
     lbl_state->insertItem(" ", ID_SAMPLE_RATE);
     lbl_state->setItemAlignment(ID_SAMPLE_RATE,
@@ -961,6 +966,7 @@ void RecordDialog::setState(RecordState state)
 	    enable_trigger  = true;
 	    pixmaps.push_back(QPixmap(stop_hand_xpm));
 	    pixmaps.push_back(QPixmap(ledred_xpm));
+	    lbl_state->changeItem("", ID_TIME);
 	    break;
 	case REC_EMPTY:
 	    state_text = i18n("(empty)");
@@ -971,6 +977,7 @@ void RecordDialog::setState(RecordState state)
 	    enable_settings = true;
 	    enable_trigger  = true;
 	    pixmaps.push_back(QPixmap(ledgreen_xpm));
+	    lbl_state->changeItem("", ID_TIME);
 	    break;
 	case REC_BUFFERING:
 	    state_text = i18n("buffering...");
@@ -1102,6 +1109,31 @@ void RecordDialog::updateBufferState(unsigned int count, unsigned int total)
 	    updateBufferProgressBar();
     }
 
+    // update recording time
+    QString txt;
+    switch (m_state) {
+	case REC_UNINITIALIZED:
+	case REC_EMPTY:
+	case REC_BUFFERING:
+	case REC_PRERECORDING:
+	case REC_WAITING_FOR_TRIGGER:
+	    txt = "";
+	    break;
+	case REC_RECORDING:
+	case REC_PAUSED:
+	case REC_DONE: {
+	    if (m_samples_recorded > 1) {
+		double rate = m_params.sample_rate;
+		double ms = (rate) ?
+		    (((double)m_samples_recorded / rate) * 1E3) : 0;
+		txt = " " + i18n("Length: %1", KwavePlugin::ms2string(ms)) +
+		    " " + i18n("(%1 samples)",
+		    KwavePlugin::dottedNumber(m_samples_recorded));
+	    } else txt = "";
+	    break;
+	}
+    }
+    lbl_state->changeItem(txt, ID_TIME);
 }
 
 //***************************************************************************

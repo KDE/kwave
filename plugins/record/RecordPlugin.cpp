@@ -742,7 +742,7 @@ void RecordPlugin::resetRecording(bool &accepted)
 {
     InhibitRecordGuard _lock(*this);
 
-    emitCommand("close");
+    emitCommand("nomacro:close()");
     accepted = manager().signalManager().isEmpty();
     if (!accepted) return;
 

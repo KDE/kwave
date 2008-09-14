@@ -26,6 +26,7 @@
  * removed changelog from online manual to simplify the work of
    translators
  * no longer dependent from "recode"
+ * recording plugin: show current recording time in status bar
 
 0.7.11 [2007-12-09]
 

@@ -319,7 +319,7 @@ private:
     /**
      * holds the recorded samples for comparing with the recording
      * time limit, for determining if recording should be enabled
-     * or not. Only of interest if recording time is limit.
+     * or not. Also used in status bar for displaying the recorded time.
      */
     unsigned int m_samples_recorded;
 

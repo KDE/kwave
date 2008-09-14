@@ -482,7 +482,7 @@ int TopWidget::executeCommand(const QString &line)
     bool use_recorder = true;
     QString command = line;
 
-//  qDebug("TopWidget::executeCommand(%s)", command.local8Bit().data()); // ###
+//    qDebug("TopWidget::executeCommand(%s)", command.toLocal8Bit().data()); // ###
     if (!command.length()) return 0; // empty line -> nothing to do
     if (command.trimmed().startsWith("#")) return 0; // only a comment
 

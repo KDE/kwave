@@ -133,7 +133,7 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 	}
 
 	QString text= i18n("An error occurred while opening the "\
-	    "file:\n'%1'").arg(reason);
+	    "file:\n'%1'", reason);
 	Kwave::MessageBox::error(widget, text);
 
 	return false;

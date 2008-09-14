@@ -1055,7 +1055,7 @@ void RecordALSA::scanDevices()
 			    "|sound_device||" +
 			    i18n("subdevice %1: ", subdevice_name) +
 			    "|sound_subdevice"
-			).arg(card).arg(dev).arg(idx);
+			)/*.arg(card).arg(dev).arg(idx)*/;
 			qDebug("# '%s' -> '%s'", hwdev.toLocal8Bit().data(),
 			       name.toLocal8Bit().data());
 			m_device_list.insert(name, hwdev);

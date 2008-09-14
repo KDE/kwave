@@ -562,7 +562,7 @@ QString PlayBackALSA::open(const QString &device, double rate,
 		"currently using it. Please try again later. \n"\
 		"(Hint: you might find out the name and process id of \n"\
 		"the program by calling: \"fuser -v %1\" \n"\
-		"on the command line.)").arg(
+		"on the command line.)",
 		m_device_name);
 		break;
 	    default:

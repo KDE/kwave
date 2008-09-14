@@ -143,7 +143,7 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
 	    mode = mode.setNum(header.channelmode, 16);
 	    if (Kwave::MessageBox::warningContinueCancel(widget,
 	        i18n("The file contains an invalid channel mode 0x"
-	             "%1\nAssuming Mono...").arg(mode))
+	             "%1\nAssuming Mono...", mode))
 	             != KMessageBox::Continue) return false;
     }
     m_info.setTracks(tracks);
@@ -509,7 +509,7 @@ enum mad_flow MP3Decoder::handleError(void */*data*/,
     if (!m_failures) {
 	m_failures = 1;
 	result = Kwave::MessageBox::warningContinueCancel(m_parent_widget,
-	         error.arg(i18n("Do you still want to continue?")));
+	         error + "\n" + i18n("Do you still want to continue?"));
 	if (result != KMessageBox::Continue) return MAD_FLOW_BREAK;
     } else if (m_failures == 1) {
 	result = Kwave::MessageBox::warningYesNo(m_parent_widget,

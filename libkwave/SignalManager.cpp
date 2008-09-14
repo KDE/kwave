@@ -325,7 +325,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 		i18n("Saving in this format will lose the following "
 		     "additional file attribute(s):\n"
 		     "%1\n"
-		     "Do you still want to continue?").arg(
+		     "Do you still want to continue?",
 		     lost_properties)
 		) != KMessageBox::Continue)
 	    {

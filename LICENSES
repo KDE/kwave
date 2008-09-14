@@ -9,7 +9,7 @@ LIST OF LICENSES FOUND IN THE SOURCES
 	  (abbreviated as GPL2+)
 	  - kwave, libgui, libkwave and many others...
 	  => this currently is the Kwave "default" license !
-	  => the intention of the authors is to keep Kwave under the GPL+
+	  => the intention of the authors is to keep Kwave under the GPL2+
 
 	* LGPL2 - GNU Library General Public License, version 2 or newer
 	  - most stuff in libaudiofile
@@ -36,7 +36,7 @@ LIST OF LICENSES FOUND IN THE SOURCES
 DIRECTLY USED EXTERNAL LIBRARIES
 ================================
 
-	* Qt-4.x			GPL2 or GPL3 ???
+	* Qt-4.x			GPL2 or GPL3
 	* kdelibs-4.x			LGPL2
 	* gsl-1.9			GPL2 (GPL3 in >= v1.10 !!!)
 	* audiofile-0.2.6		LGPL2+ / GPL2+
@@ -63,20 +63,15 @@ issue #1: license of the icons
 	   + kdeclassic/32x32/actions/forward.png
 	   + ???
 	   + ???
+
 #	doc/en/audio2signal.png				??? UNKNOWN ???
 	-> kdeclassic/32x32/apps/kmix.png
 	   + kdeclassic/32x32/actions/forward.png
 	   + ???
 	   + ???
 
-#	doc/en/in-progress.png				??? UNKNOWN ???
-#	doc/en/krec_record.png				??? UNKNOWN ??? -> krecord ?
-#	doc/en/logotp3.png				??? UNKNOWN ??? -> KDE 2 ?
-#	doc/en/nonlinear.png				??? UNKNOWN ???
+#	doc/en/nonlinear.png				??? UNKNOWN ??? (arrow only)
 	-> arrow is from kdeclassic/32x32/actions/forward.png
-#	doc/en/record_new.png				??? UNKNOWN ??? -> KDE ?
-	-> kdeclassic/16x16/actions/14_layer_newlayer.png
-#	doc/en/under-construction.png			??? UNKNOWN ???
 
 issue #2: license of some files is unknown or problematic / author known
 ------------------------------------------------------------------------
@@ -161,10 +156,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 
 #	doc/en/audio-1.png				??? UNKNOWN ???
 #	doc/en/audio2signal.png				??? UNKNOWN ???
-	doc/en/caution.png				free / Norman Walsh, <ndw@nwalsh.com> (ksgmltools2)
-	doc/en/important.png				free / Norman Walsh, <ndw@nwalsh.com> (ksgmltools2)
-#	doc/en/in-progress.png				??? UNKNOWN ???
-#	doc/en/krec_record.png				??? UNKNOWN ??? -> krecord ?
+	doc/en/krec_record.png				LGPL2 (crystal project) [copied from mix_record.png]
 	doc/en/kwave-fileinfo.png			(should be FDL)
 	doc/en/kwave-lowpass.png			(should be FDL)
 	doc/en/kwave-main.png				(should be FDL)
@@ -179,10 +171,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doc/en/kwave-volume.png				(should be FDL)
 	doc/en/light_off.png				LGPL2 (crystal project) [derived from greenled.png]
 	doc/en/light_on.png				LGPL2 (crystal project) [derived from greenled.png]
-#	doc/en/logotp3.png				??? UNKNOWN ??? -> KDE ?
-#	doc/en/nonlinear.png				??? UNKNOWN ???
-	doc/en/note.png					free / Norman Walsh, <ndw@nwalsh.com> (ksgmltools2)
-#	doc/en/record_new.png				??? UNKNOWN ??? -> KDE ?
+#	doc/en/nonlinear.png				??? UNKNOWN ??? (arrow only)
+	doc/en/record_new.png				LGPL2 (crystal project) [copied from document-new.png]
 	doc/en/record_pause.png				(should be FDL)
 	doc/en/record_stop.png				(should be FDL)
 	doc/en/screenshot1.png				(should be FDL)
@@ -190,10 +180,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doc/en/signed.png				(should be FDL)
 	doc/en/sinus2samples.png			(should be FDL)
 	doc/en/sonagram.png				(should be FDL)
-	doc/en/tip.png					free / Norman Walsh, <ndw@nwalsh.com> (ksgmltools2)
-#	doc/en/under-construction.png			??? UNKNOWN ???
+	doc/en/under-construction.png			LGPL2 (crystal project) [copied from Service\ Manager.png]
 	doc/en/unsigned.png				(should be FDL)
-	doc/en/warning.png				free / Norman Walsh, <ndw@nwalsh.com> (ksgmltools2)
 
 	doc/fr/kwave-fileinfo.png			(should be FDL)
 	doc/fr/kwave-lowpass.png			(should be FDL)
@@ -716,7 +704,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/playback/PlayBackTypesMap.h		GPL2+
 
 	plugins/record/CMakeLists.txt			GPL2+
-	plugins/record/krec_record.xpm			(should be GPL2+)
+	plugins/record/krec_record.xpm			LGPL2 (crystal project) [converted from mix_record.png]
 	plugins/record/LevelMeter.cpp			GPL2+ / Rik Hemsley
 	plugins/record/LevelMeter.h			GPL2+ / Rik Hemsley
 	plugins/record/Record-ALSA.cpp			GPL2+

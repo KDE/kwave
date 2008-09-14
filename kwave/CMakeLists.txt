@@ -70,6 +70,7 @@ KWAVE_SCALE_ICONS(kwave_SRCS
     22x22
     32x32
     48x48
+    64x64
 )
 
 #############################################################################
@@ -136,12 +137,12 @@ INSTALL(FILES ${kwave_PIXMAPS} DESTINATION ${DESTDIR}${KDE4_DATA_INSTALL_DIR}/kw
 INSTALL(FILES x-aifc.desktop x-ircam.desktop DESTINATION ${KDE4_MIME_INSTALL_DIR}/audio)
 INSTALL(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/kwave.desktop
-    DESTINATION ${KDE4_XDG_APPS_INSTALL_DIR}/Multimedia
+    DESTINATION ${KDE4_XDG_APPS_INSTALL_DIR}
 )
 
 # scaled application icons
 FOREACH(_col locolor hicolor)
-    FOREACH(_dim 16x16 22x22 32x32 48x48)
+    FOREACH(_dim 16x16 22x22 32x32 48x48 64x64)
         INSTALL(
             FILES ${CMAKE_CURRENT_BINARY_DIR}/kwave-${_dim}.png
             DESTINATION ${DESTDIR}${KDE4_ICON_INSTALL_DIR}/${_col}/${_dim}/apps

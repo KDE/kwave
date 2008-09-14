@@ -11,7 +11,7 @@
 #############################################################################
 
 EAPI="1"
-NEED_KDE="4.0"
+NEED_KDE="4.1"
 inherit kde4-base flag-o-matic
 
 DESCRIPTION="Kwave is a sound editor for KDE."
@@ -35,6 +35,7 @@ RDEPEND="
 	ogg? ( media-libs/libogg media-libs/libvorbis )
 	flac? ( media-libs/flac )
 	sci-libs/gsl"
+
 DEPEND="${RDEPEND}
 	>=dev-util/cmake-2.4.6
 	|| ( kde-base/kdesdk-misc kde-base/kdesdk )

@@ -54,7 +54,10 @@ LICENSE ISSUES
 
 issue #1: license of the icons
 ------------------------------
+
 	-> maybe most are LGPL, but might depend from case to case !!!
+	   (the icons listed here are composed of one or more icons
+	    from KDE and/or modified)
 
 #	doc/en/audio-1.png				??? UNKNOWN ???
 	-> kdeclassic/32x32/apps/kblackbox.png

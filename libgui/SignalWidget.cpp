@@ -120,12 +120,23 @@ namespace KwaveFileDrag
 {
     static bool canDecode(const QMimeData *source) {
 	if (!source) return false;
-	if (!source->hasUrls()) return false;
 
-	foreach (QUrl url, source->urls()) {
-	    QString filename = url.toLocalFile();
-	    QString mimetype = CodecManager::whatContains(filename);
-	    if (CodecManager::canDecode(mimetype)) {
+	if (source->hasUrls()) {
+	    // dropping URLs
+	    foreach (QUrl url, source->urls()) {
+		QString filename = url.toLocalFile();
+		QString mimetype = CodecManager::whatContains(filename);
+		if (CodecManager::canDecode(mimetype)) {
+		    return true;
+		}
+	    }
+	}
+
+	foreach (QString format, source->formats()) {
+	    // dropping known mime type
+	    if (CodecManager::canDecode(format))
+	    {
+		qDebug("KwaveFileDrag::canDecode(%s)", format.toLocal8Bit().data());
 		return true;
 	    }
 	}
@@ -2353,7 +2364,7 @@ void SignalWidget::startDragging()
 
     const unsigned int first = m_signal_manager.selection().first();
     const unsigned int last  = m_signal_manager.selection().last();
-    const qreal       rate  = m_signal_manager.rate();
+    const qreal        rate  = m_signal_manager.rate();
     const unsigned int bits  = m_signal_manager.bits();
 
     MultiTrackReader src(m_signal_manager,
@@ -2413,6 +2424,9 @@ void SignalWidget::dragLeaveEvent(QDragLeaveEvent *)
 //***************************************************************************
 void SignalWidget::dropEvent(QDropEvent *event)
 {
+    if (!event) return;
+    if (!event->mimeData()) return;
+
     if (KwaveDrag::canDecode(event->mimeData())) {
 	UndoTransactionGuard undo(m_signal_manager, i18n("drag and drop"));
 	Signal sig;
@@ -2430,15 +2444,24 @@ void SignalWidget::dropEvent(QDropEvent *event)
 	    // set selection to the new area where the drop was done
 	    selectRange(pos, len);
 	} else {
-	    qDebug("SignalWidget::dropEvent(%s): failed !", event->format(0));
+	    qWarning("SignalWidget::dropEvent(%s): failed !", event->format(0));
+	    event->ignore();
 	    /** @todo abort the current undo transaction */
 	}
-    } else if (KwaveFileDrag::canDecode(event->mimeData())) {
+    } else if (event->mimeData()->hasUrls()) {
+	bool first = true;
 	foreach (QUrl url, event->mimeData()->urls()) {
 	    QString filename = url.toLocalFile();
 	    QString mimetype = CodecManager::whatContains(filename);
 	    if (CodecManager::canDecode(mimetype)) {
-		emit sigCommand("open(" + filename + ")");
+		if (first) {
+		    // first dropped URL -> open in this window
+		    emit sigCommand("open(" + filename + ")");
+		    first = false;
+		} else {
+		    // all others -> open a new window
+		    emit sigCommand("newwindow(" + filename + ")");
+		}
 	    }
 	}
     }

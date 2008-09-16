@@ -82,10 +82,18 @@ bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src, FileInfo &info)
     Q_ASSERT(src[0]);
     if (!src[0]) return false;
 
+    // create a mime data container
+    QMimeData *mime_data = new QMimeData;
+    Q_ASSERT(mime_data);
+    if (!mime_data) return false;
+
     // use our default encoder
     Encoder *encoder = CodecManager::encoder(WAVE_FORMAT_PCM);
     Q_ASSERT(encoder);
-    if (!encoder) return false;
+    if (!encoder) {
+	delete mime_data;
+	return false;
+    }
 
     // create a buffer for the wav data
     m_data.resize(0);
@@ -95,6 +103,11 @@ bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src, FileInfo &info)
     encoder->encode(widget, src, dst, info);
 
     delete encoder;
+
+    // set the mime data into this drag&drop container
+    mime_data->setData("audio/vnd.wave", m_data);
+    setMimeData(mime_data);
+
     return true;
 }
 
@@ -111,6 +124,7 @@ unsigned int KwaveDrag::decode(QWidget *widget, const QMimeSource *e,
     int i;
     const char *format;
     unsigned int decoded_length = 0;
+    unsigned int decoded_tracks = 0;
 
     for (i=0; (format = e->format(i)); ++i) {
 	if (CodecManager::canDecode(format)) {
@@ -121,13 +135,26 @@ unsigned int KwaveDrag::decode(QWidget *widget, const QMimeSource *e,
 	    bool ok = decoder->open(widget, src);
 	    if (!ok) continue;
 	    decoded_length = decoder->info().length();
+	    decoded_tracks = decoder->info().tracks();
 	    Q_ASSERT(decoded_length);
-	    if (!decoded_length) continue;
+	    Q_ASSERT(decoded_tracks);
+	    if (!decoded_length || !decoded_tracks) continue;
+
+	    if (!sig.tracks()) {
+		// drop into an empty window -> create tracks
+		qDebug("KwaveDrag::decode(...) -> new signal");
+		sig.newSignal(0,
+		    decoder->info().rate(),
+		    decoder->info().bits(),
+		    decoded_tracks);
+		ok = (sig.tracks() == decoded_tracks);
+		if (!ok) continue;
+	    }
 
 	    // prepare the signal
 	    unsigned int left  = pos;
 	    unsigned int right = left + decoded_length - 1;
-	    MultiTrackWriter dst(sig, sig.allTracks(), Insert,
+	    MultiTrackWriter dst(sig, sig.selectedTracks(), Insert,
 	                         left, right);
 
 	    ok = decoder->decode(widget, dst);

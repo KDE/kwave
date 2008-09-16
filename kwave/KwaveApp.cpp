@@ -85,7 +85,11 @@ bool KwaveApp::executeCommand(const QString &command)
 {
     Parser parser(command);
     if (parser.command() == "newwindow") {
-	newWindow(KUrl(0));
+	if (parser.hasParams()) {
+	    newWindow(KUrl(parser.params().at(0)));
+	} else {
+	    newWindow(KUrl(0));
+	}
     } else if (parser.command() == "help") {
 	KToolInvocation::invokeHelp();
     } else {

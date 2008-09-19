@@ -329,9 +329,28 @@ INCLUDE(KwaveEbuild)
 #############################################################################
 ### install files                                                         ###
 
+SET(DOCFILES_COMPRESSED AUTHORS TODO CHANGES README LICENSES)
+SET(DOCFILES kwave.lsm GNU-LICENSE)
+
+FIND_PROGRAM(BZIP2_EXECUTABLE NAMES bzip2)
+FOREACH (_file ${DOCFILES_COMPRESSED})
+    SET(_bzipped ${CMAKE_CURRENT_BINARY_DIR}/${_file}.bz2)
+    ADD_CUSTOM_COMMAND(OUTPUT ${_file}.bz2
+	COMMAND ${BZIP2_EXECUTABLE}
+	    --keep --stdout > ${_bzipped}
+	    ${CMAKE_CURRENT_SOURCE_DIR}/${_file}
+	DEPENDS ${_file}
+    )
+    SET(DOCFILES ${DOCFILES} ${_bzipped})
+ENDFOREACH (_file)
+
 INSTALL(
-    FILES AUTHORS TODO CHANGES README LICENSES GNU-LICENSE kwave.lsm
+    FILES ${DOCFILES}
     DESTINATION ${DESTDIR}/usr/share/doc/kwave-${KWAVE_VERSION_FULL}
+)
+
+ADD_CUSTOM_TARGET(docfiles ALL
+    DEPENDS ${DOCFILES}
 )
 
 #############################################################################

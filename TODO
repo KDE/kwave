@@ -1,7 +1,6 @@
 
 o porting to Qt4 / KDE4
   - clipboard
-  - drag & drop
   - use svg graphics instead of pixmaps
 
 o process the update of OverViewCache into a background thread

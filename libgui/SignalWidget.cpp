@@ -134,8 +134,7 @@ namespace KwaveFileDrag
 
 	foreach (QString format, source->formats()) {
 	    // dropping known mime type
-	    if (CodecManager::canDecode(format))
-	    {
+	    if (CodecManager::canDecode(format)) {
 		qDebug("KwaveFileDrag::canDecode(%s)", format.toLocal8Bit().data());
 		return true;
 	    }
@@ -2386,7 +2385,8 @@ void SignalWidget::startDragging()
     InhibitRepaintGuard inhibit(*this);
     UndoTransactionGuard undo(m_signal_manager, i18n("drag and drop"));
     Qt::DropAction drop = d->exec(Qt::CopyAction | Qt::MoveAction);
-    if (drop != Qt::IgnoreAction) {
+
+    if (drop == Qt::MoveAction) {
 	// deleting also affects the selection !
 	const unsigned int f = m_signal_manager.selection().first();
 	const unsigned int l = m_signal_manager.selection().last();
@@ -2409,10 +2409,13 @@ void SignalWidget::startDragging()
 //***************************************************************************
 void SignalWidget::dragEnterEvent(QDragEnterEvent *event)
 {
-    if (event && KwaveFileDrag::canDecode(event->mimeData()))
-	event->accept();
-    else
-	event->ignore();
+    if (!event) return;
+    if ((event->proposedAction() != Qt::MoveAction) &&
+        (event->proposedAction() != Qt::CopyAction))
+        return; /* unsupported action */
+
+    if (KwaveFileDrag::canDecode(event->mimeData()))
+	event->acceptProposedAction();
 }
 
 //***************************************************************************
@@ -2443,6 +2446,7 @@ void SignalWidget::dropEvent(QDropEvent *event)
 
 	    // set selection to the new area where the drop was done
 	    selectRange(pos, len);
+	    event->acceptProposedAction();
 	} else {
 	    qWarning("SignalWidget::dropEvent(%s): failed !", event->format(0));
 	    event->ignore();
@@ -2502,7 +2506,7 @@ void SignalWidget::dragMoveEvent(QDragMoveEvent* event)
     } else if (KwaveDrag::canDecode(event->mimeData())) {
 	// accept if it is decodeable within the
 	// current range (if it's outside our own selection)
-	event->accept();
+	event->acceptProposedAction();
     } else if (KwaveFileDrag::canDecode(event->mimeData())) {
 	// file drag
 	event->accept();

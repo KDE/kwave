@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-13 19:14+0200\n"
-"PO-Revision-Date: 2008-08-21 21:42+0200\n"
+"PO-Revision-Date: 2008-09-20 07:57+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -166,8 +166,7 @@ msgstr "%1 Bits/Sample werden nicht unterstützt"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:612
 msgid "%1 bits per sample failed, using %2 bits per sample"
-msgstr ""
-"%1 Bit pro Sample konnte nicht eingestellt werden, verwende %2 Bit pro Sample"
+msgstr "%1 Bit pro Sample konnte nicht eingestellt werden, verwende %2 Bit pro Sample"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:600
 msgid "%1 bits per sample is not supported, using %2 bits per sample"
@@ -1095,7 +1094,7 @@ msgstr ""
 "einstellen.</p>"
 
 #: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:400
-#, fuzzy, c-format
+#, no-c-format
 msgid ""
 "<b>Channels:</b><p>Number of channels used for playback. This does not "
 "necessarily have to be the same as the number of tracks in your current "
@@ -1476,9 +1475,8 @@ msgstr ""
 "</ul>"
 
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:979
-#, fuzzy
 msgid "?"
-msgstr "?:"
+msgstr "?"
 
 #: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:310
 #: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:311
@@ -1788,8 +1786,7 @@ msgid "Buffer Size:"
 msgstr "Buffer-Größe:"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:941
-msgid ""
-"Buffer overrun. Please increase the number and/or size of the record buffers."
+msgid "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
 "Buffer-Überlauf. Bitte erhöhen Sie die Anzahl der Buffer und/oder vergrößern "
 "Sie die Buffergröße."
@@ -1918,8 +1915,7 @@ msgstr "Copyright"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggDecoder.cpp:350
 msgid "Corrupt or missing data in bitstream; continuing..."
-msgstr ""
-"Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
+msgstr "Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggDecoder.cpp:172
 msgid "Corrupt secondary header. Exiting."
@@ -2508,8 +2504,7 @@ msgstr "Gibt an ob es sich beim Inhalt der Datei um ein Original handelt."
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:91
 msgid "Indicates whether the file is protected by copyright or not."
-msgstr ""
-"Gibt an ob der Inhalt der Datei urheberrechtlich geschützt ist oder nicht."
+msgstr "Gibt an ob der Inhalt der Datei urheberrechtlich geschützt ist oder nicht."
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:170
 msgid "Indicates whether the subject is private"
@@ -3073,8 +3068,7 @@ msgid "Playback Test"
 msgstr "Wiedergabe-Test"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:163
-msgid ""
-"Playback is currently running.Please stop playback first and then try again"
+msgid "Playback is currently running.Please stop playback first and then try again"
 msgstr ""
 "Die Wiedergabe läuft momentan. Bitte stoppen Sie zuerst die Wiedergabe und "
 "versuchen Sie es danach nochmal."
@@ -3776,8 +3770,7 @@ msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:827
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
-msgstr ""
-"Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
+msgstr "Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/decoder_mp3/MP3Decoder.cpp:145
 msgid ""
@@ -3805,8 +3798,7 @@ msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:433
 msgid "The file has been truncated and might be corrupted!"
-msgstr ""
-"Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
+msgstr "Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:123
 msgid "The list ob labels / markers."
@@ -3853,8 +3845,7 @@ msgid "This is %1 v%2 (compiled for KDE %3)"
 msgstr "Dies ist %1 v%2 (für KDE %3)"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksPlugin.cpp:215
-msgid ""
-"This would overwrite the following file(s): %1Do you really want to continue?"
+msgid "This would overwrite the following file(s): %1Do you really want to continue?"
 msgstr ""
 "Folgende Dateien würden überschrieben werden: %1 Wollen Sie wirklich "
 "fortsetzen?"
@@ -4088,8 +4079,7 @@ msgstr "Schlüsselworte automatisch erzeugen"
 
 #: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:281
 msgid "automatically update the sonagram <br>if the signal data has changed"
-msgstr ""
-"aktualisiert das Sonagram automatisch<br>wenn das Signal verändert wurde"
+msgstr "aktualisiert das Sonagram automatisch<br>wenn das Signal verändert wurde"
 
 #: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:283
 msgid ""
@@ -4822,8 +4812,7 @@ msgstr "Bereich auswählen"
 
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:516
 msgid "sets the file size by the percentage of the possible maximum"
-msgstr ""
-"Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
+msgstr "Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
 
 #: /var/tmp/kwave-build/libgui/ui_SelectTimeWidgetBase.h:307
 msgid "sets the selection by the percentage of the whole signal"
@@ -5045,5 +5034,3 @@ msgstr "auf gesamtes Signal vergrößern"
 msgid "zoom to selection"
 msgstr "auf Auswahl vergrößern"
 
-#~ msgid "E&xit"
-#~ msgstr "B&eenden"

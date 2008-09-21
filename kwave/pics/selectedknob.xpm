@@ -1,5 +1,5 @@
 /* XPM */
-static char * selectedknob_xpm[] = {
+static const char * selectedknob_xpm[] = {
 "9 9 13 1",
 " 	c None",
 ".	c #670000",

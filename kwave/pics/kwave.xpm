@@ -1,5 +1,5 @@
 /* XPM */
-static char * kwave_xpm[] = {
+static const char * kwave_xpm[] = {
 "32 32 5 1",
 ".	c None",
 "+	c #666666",

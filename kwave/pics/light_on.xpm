@@ -1,5 +1,5 @@
 /* XPM */
-static char *light_on[] = {
+static const char *light_on[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 95 2",
 "   c #020F01",

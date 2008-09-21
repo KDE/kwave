@@ -1,5 +1,5 @@
 /* XPM */
-static char * xpm_pause2[] = {
+static const char * xpm_pause2[] = {
 "32 32 254 2",
 "  	c None",
 ". 	c #0B1574",

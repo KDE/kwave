@@ -1,5 +1,5 @@
 /* XPM */
-static char * xpm_loop[] = {
+static const char * xpm_loop[] = {
 "32 32 510 2",
 "  	c None",
 ". 	c #0B1574",

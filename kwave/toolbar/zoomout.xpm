@@ -1,5 +1,5 @@
 /* XPM */
-static char *xpm_zoomout[] = {
+static const char *xpm_zoomout[] = {
 /* columns rows colors chars-per-pixel */
 "32 32 165 2",
 "   c black",

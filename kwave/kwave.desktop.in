@@ -1,6 +1,9 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
+GenericName=Sound Editor
+GenericName[de]=Sound-Editor
+GenericName[fr]=éditeur de sons
 Name=Kwave Sound Editor
 Name[de]=Kwave Sound-Editor
 Name[fr]=Kwave éditeur de sons
@@ -12,4 +15,5 @@ Exec=kwave %F
 Icon=kwave
 MimeType=${KWAVE_DESKTOP_MIME_TYPES}
 Terminal=false
-Categories=Qt;KDE;AudioVideo;
+Categories=Qt;KDE;AudioVideo;Audio;Player;Recorder;AudioVideoEditing
+X-SuSE-translate=true

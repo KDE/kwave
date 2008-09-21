@@ -214,8 +214,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/ShortcutWrapper.h				GPL2+
 	kwave/TopWidget.cpp				GPL2+ / Martin Wilz
 	kwave/TopWidget.h				GPL2+ / Martin Wilz
-	kwave/x-aifc.desktop				(should be GPL2+)
-	kwave/x-ircam.desktop				(should be GPL2+)
 
 	kwave/pics/amplify_free.png			(should be GPL2+)
 	kwave/pics/fade_in.png				(should be GPL2+)

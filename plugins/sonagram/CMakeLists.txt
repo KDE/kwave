@@ -49,15 +49,17 @@ SET(CMAKE_REQUIRED_LIBRARIES "")
 
 PKG_CHECK_MODULES(GSL gsl)
 IF (GSL_VERSION)
-    PKG_CHECK_MODULES(GSL REQUIRED gsl<=1.9)
-    MESSAGE(FATAL_ERROR "
-        Found GSL version >= v1.10 which is under GPL-v3. Unfortunately
-        this license is not compatible with the other liceses Kwave
-        currently uses.
+    PKG_CHECK_MODULES(GSL_GPLV2 REQUIRED gsl<=1.9)
+    IF (NOT GSL_GPLV2_FOUND)
+        MESSAGE(FATAL_ERROR "
+            Found GSL version >= v1.10 which is under GPL-v3. Unfortunately
+            this license is not compatible with the other liceses Kwave
+            currently uses.
 
-        Alternatively you can disable the usage of gsl with the cmake
-        parameter -DWITH_GSL=OFF, which also disables the sonagram plugin.
-    ")
+            Alternatively you can disable the usage of gsl with the cmake
+            parameter -DWITH_GSL=OFF, which also disables the sonagram plugin.
+        ")
+    ENDIF(NOT GSL_GPLV2_FOUND)
 ELSE (GSL_VERSION)
     SET(HAVE_GSL FALSE)
 ENDIF(GSL_VERSION)

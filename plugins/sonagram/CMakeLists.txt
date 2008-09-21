@@ -15,7 +15,11 @@
 ##                                                                          #
 #############################################################################
 
+OPTION(WITH_GSL "enable usage of libgsl [default=on]" ON)
+IF (WITH_GSL)
+
 INCLUDE(CheckLibraryExists)
+INCLUDE(FindPkgConfig)
 
 #############################################################################
 ### check for GSL headers and library                                     ###
@@ -40,14 +44,35 @@ IF (HAVE_GSL_HEADERS)
 ENDIF(HAVE_GSL_HEADERS)
 SET(CMAKE_REQUIRED_LIBRARIES "")
 
+#############################################################################
+### check for GSL under GPL v2 / *NOT* GPL v3                             ###
+
+PKG_CHECK_MODULES(GSL gsl)
+IF (GSL_VERSION)
+    PKG_CHECK_MODULES(GSL REQUIRED gsl<=1.9)
+    MESSAGE(FATAL_ERROR "
+        Found GSL version >= v1.10 which is under GPL-v3. Unfortunately
+        this license is not compatible with the other liceses Kwave
+        currently uses.
+
+        Alternatively you can disable the usage of gsl with the cmake
+        parameter -DWITH_GSL=OFF, which also disables the sonagram plugin.
+    ")
+ELSE (GSL_VERSION)
+    SET(HAVE_GSL FALSE)
+ENDIF(GSL_VERSION)
+
 IF (NOT HAVE_GSL)
     MESSAGE(FATAL_ERROR "
         could not find required version of GSL
         (GNU Scientific Library)
-        please install the GSL and it's -devel package!
+        please install the GSL (best is v1.9) and it's -devel package!
         see http://www.gnu.org/software/gsl
     ")
 ENDIF (NOT HAVE_GSL)
+
+#############################################################################
+### sonagram plugin                                                       ###
 
 SET(plugin_sonagram_LIB_SRCS
     SonagramDialog.cpp
@@ -64,6 +89,12 @@ SET(plugin_sonagram_LIBS
 )
 
 KWAVE_PLUGIN(sonagram)
+
+ELSE(WITH_GSL)
+
+    MESSAGE(STATUS "Skipping sonagram plugin as usage of libgsl is disabled")
+
+ENDIF(WITH_GSL)
 
 #############################################################################
 #############################################################################

@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2008-09-20</date>
+<date>2008-09-21</date>
 <releaseinfo>0.8.0</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -437,6 +437,13 @@
 		<listitem><para>
 		    <literal>WITH_FLAC</literal>
 		    enable support for FLAC files
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_GSL</literal>
+		    enable support for the GSL library
+		    (needed for the sonagram plugin)
 		    [<literal>on</literal>/<literal>off</literal>,
 		    default=<literal>on</literal>]
 		</para></listitem>

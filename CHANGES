@@ -28,6 +28,7 @@
  * no longer dependent from "recode"
  * recording plugin: show current recording time in status bar
  * fixed infinite loop on undo/redo of channel selection
+ * usage of GSL can be disabled through cmake parameter -DWITH_GSL=OFF
 
 0.7.11 [2007-12-09]
 

@@ -36,11 +36,43 @@
 
 #include "Record-OSS.h"
 
+// Linux 2.6.24 and above's OSS emulation supports 24 and 32 bit formats
+// but did not declare them in <soundcard.h>
+#ifndef AFMT_S24_LE
+#define AFMT_S24_LE      0x00008000
+#endif
+#ifndef AFMT_S24_BE
+#define AFMT_S24_BE      0x00010000
+#endif
+#ifndef AFMT_S32_LE
+#define AFMT_S32_LE      0x00001000
+#endif
+#ifndef AFMT_S32_BE
+#define AFMT_S32_BE      0x00002000
+#endif
+
+#ifndef SNDCTL_DSP_SPEED
+#define SNDCTL_DSP_SPEED SOUND_PCM_WRITE_RATE
+#endif
+
+#ifndef SNDCTL_DSP_CHANNELS
+#define SNDCTL_DSP_CHANNELS SOUND_PCM_WRITE_CHANNELS
+#endif
+
+#ifndef SOUND_PCM_SETFMT
+#define SOUND_PCM_SETFMT SOUND_PCM_WRITE_BITS
+#endif
+
+#ifndef SNDCTL_DSP_SETFMT
+#define SNDCTL_DSP_SETFMT SOUND_PCM_SETFMT
+#endif
+
+
 #define MAX_CHANNELS 2 /**< highest available number of channels */
 
 //***************************************************************************
 RecordOSS::RecordOSS()
-    :RecordDevice(), m_fd(-1)
+    :RecordDevice(), m_fd(-1), m_oss_version(-1)
 {
 }
 
@@ -66,6 +98,11 @@ int RecordOSS::open(const QString &dev)
 	return -errno;
     }
 
+    // Query OSS driver version
+    m_oss_version = 0x030000;
+#ifdef OSS_GETVERSION
+    ioctl(fd, OSS_GETVERSION, &m_oss_version);
+#endif
     m_fd = fd;
     return m_fd;
 }
@@ -91,23 +128,33 @@ int RecordOSS::read(QByteArray &buffer, unsigned int offset)
 
     length -= offset;
 
-//     int blocksize = length;
-//     int err = ioctl(m_fd, SNDCTL_DSP_GETBLKSIZE, &blocksize);
-//     Q_ASSERT(!err);
-//     qDebug("blocksize = %u", blocksize);
-//     if (err) {
-// 	blocksize = length;
-//     }
-//
-//     int blocksize = (127 << 16) + 6;
-//     err = ioctl(m_fd, SNDCTL_DSP_SETFRAGMENT, &blocksize);
+#if 0
+    int blocksize = length;
+    int err = ioctl(m_fd, SNDCTL_DSP_GETBLKSIZE, &blocksize);
+    Q_ASSERT(!err);
+    qDebug("blocksize = %u", blocksize);
+    if (err) {
+	blocksize = length;
+    }
+
+    blocksize = (127 << 16) + 6;
+    err = ioctl(m_fd, SNDCTL_DSP_SETFRAGMENT, &blocksize);
+#endif
 
     // determine the timeout for reading, use safety factor 2
     int rate = (int)sampleRate();
     if (rate < 1) rate = 1;
+
     unsigned int timeout = (length / rate) * 2;
     if (timeout < 2) timeout = 2;
     u_int8_t *buf = reinterpret_cast<u_int8_t *>(buffer.data()) + offset;
+
+    int mask = 0;
+    retval = ioctl(m_fd, SNDCTL_DSP_SETTRIGGER, &mask);
+    Q_ASSERT(!retval);
+    mask = PCM_ENABLE_INPUT;
+    retval = ioctl(m_fd, SNDCTL_DSP_SETTRIGGER, &mask);
+    Q_ASSERT(!retval);
 
     while (length) {
 	FD_ZERO(&rfds);
@@ -156,6 +203,7 @@ int RecordOSS::close()
     if (m_fd < 0) return 0; // already closed
     ::close(m_fd);
     m_fd = -1;
+    m_oss_version = -1;
 
     return 0;
 }
@@ -211,15 +259,19 @@ static void scanDirectory(QStringList &list, const QString &dir)
     scanFiles(list, dir, "adsp*");
     scanFiles(list, dir, "dsp*");
     scanFiles(list, dir, "dio*");
+    scanFiles(list, dir, "pcm*");
 }
 
 //***************************************************************************
 QStringList RecordOSS::supportedDevices()
 {
-    QStringList list;
+    QStringList list, dirlist;
 
     scanDirectory(list, "/dev");
     scanDirectory(list, "/dev/sound");
+    scanFiles(dirlist, "/dev/oss", "[^.]*");
+    foreach(QString dir, dirlist)
+	scanDirectory(list, dir);
     list.append("#EDIT#");
     list.append("#SELECT#");
 
@@ -254,15 +306,8 @@ int RecordOSS::detectTracks(unsigned int &min, unsigned int &max)
     // find the smalles number of tracks, limit to MAX_CHANNELS
     for (t=1; t < MAX_CHANNELS; t++) {
 	int real_tracks = t;
-	err = ioctl(m_fd, SOUND_PCM_WRITE_CHANNELS, &real_tracks);
+	err = ioctl(m_fd, SNDCTL_DSP_CHANNELS, &real_tracks);
 	Q_ASSERT(real_tracks == t);
-	if (err >= 0) {
-	    int readback_tracks = real_tracks;
-	    if (ioctl(m_fd, SOUND_PCM_READ_CHANNELS, &readback_tracks) >= 0) {
-	        // readback succeeded
-		real_tracks = readback_tracks;
-	    };
-	}
 	if (err >= 0) {
 	    min = real_tracks;
 	    break;
@@ -279,21 +324,16 @@ int RecordOSS::detectTracks(unsigned int &min, unsigned int &max)
     // find the highest number of tracks, start from MAX_CHANNELS downwards
     for (t=MAX_CHANNELS; t >= (int)min; t--) {
 	int real_tracks = t;
-	err = ioctl(m_fd, SOUND_PCM_WRITE_CHANNELS, &real_tracks);
+	err = ioctl(m_fd, SNDCTL_DSP_CHANNELS, &real_tracks);
 	Q_ASSERT(real_tracks == t);
-	if (err >= 0) {
-	    int readback_tracks = real_tracks;
-	    if (ioctl(m_fd, SOUND_PCM_READ_CHANNELS, &readback_tracks) >= 0) {
-	        // readback succeeded
-		real_tracks = readback_tracks;
-	    };
-	}
 	if (err >= 0) {
 	    max = real_tracks;
 	    break;
 	}
     }
     max = t;
+    m_tracks = max;
+
     qDebug("RecordOSS::detectTracks, min=%u, max=%u",min,max);
 
     return 0;
@@ -306,9 +346,10 @@ int RecordOSS::setTracks(unsigned int &tracks)
 
     // set the number of tracks in the device (must already be opened)
     int t = tracks;
-    int err = ioctl(m_fd, SOUND_PCM_WRITE_CHANNELS, &t);
+    int err = ioctl(m_fd, SNDCTL_DSP_CHANNELS, &t);
     if (err < 0) return err;
 
+    m_tracks = t;
     // return the number of tracks if succeeded
     tracks = t;
 
@@ -318,14 +359,7 @@ int RecordOSS::setTracks(unsigned int &tracks)
 //***************************************************************************
 int RecordOSS::tracks()
 {
-    Q_ASSERT(m_fd >= 0);
-
-    // read back the number of tracks
-    int t = 0;
-    int err = ioctl(m_fd, SOUND_PCM_READ_CHANNELS, &t);
-    if (err < 0) t = 0;
-
-    return t;
+    return m_tracks;
 }
 
 //***************************************************************************
@@ -367,21 +401,17 @@ QList<double> RecordOSS::detectSampleRates()
 	 88200, // seen in RME96XX driver
 	 96000, // AC97
 	128000, // (just for testing)
+	176400, // Envy24ht
 	192000, // AC97
 	196000, // (just for testing)
+	200000, // Lynx2
 	256000  // (just for testing)
     };
 
     // try all known sample rates
     for (unsigned int i=0; i < sizeof(known_rates)/sizeof(int); i++) {
 	int rate = known_rates[i];
-	int err = ioctl(m_fd, SOUND_PCM_WRITE_RATE, &rate);
-	if (err >= 0) {
-	    // try to read back
-	    int real_rate = -1;
-	    err = ioctl(m_fd, SOUND_PCM_READ_RATE, &real_rate);
-	    if ((err >= 0) && (real_rate >= 0)) rate = real_rate;
-	}
+	int err = ioctl(m_fd, SNDCTL_DSP_SPEED, &rate);
 	if (err < 0) {
 	    qDebug("RecordOSS::detectSampleRates(): "\
 	           "sample rate %d Hz not supported", known_rates[i]);
@@ -393,6 +423,7 @@ QList<double> RecordOSS::detectSampleRates()
 
 	// qDebug("found rate %d Hz", rate);
 	list.append(rate);
+	m_rate = rate;
     }
 
     return list;
@@ -405,14 +436,12 @@ int RecordOSS::setSampleRate(double &new_rate)
     int rate = (int)rint(new_rate); // OSS supports only integer rates
 
     // set the rate of the device (must already be opened)
-    int err = ioctl(m_fd, SOUND_PCM_WRITE_RATE, &rate);
+    int err = ioctl(m_fd, SNDCTL_DSP_SPEED, &rate);
     if (err < 0) return err;
 
-    // read back the sample rate for verification
-    double r = sampleRate();
-
+    m_rate = rate;
     // return the sample rate if succeeded
-    new_rate = (r >= 0) ? r : rate;
+    new_rate = (double)rate;
 
     return 0;
 }
@@ -422,12 +451,7 @@ double RecordOSS::sampleRate()
 {
     Q_ASSERT(m_fd >= 0);
 
-    // get the rate from the device (must already be opened)
-    int rate = 0;
-    int err = ioctl(m_fd, SOUND_PCM_READ_RATE, &rate);
-    if (err < 0) return 0.0;
-
-    return rate;
+    return m_rate;
 }
 
 //***************************************************************************
@@ -485,6 +509,18 @@ void RecordOSS::format2mode(int format, int &compression, int &bits,
 	    bits          = 16;
 	    break;
 #endif
+	case AFMT_S24_LE:
+	case AFMT_S24_BE:
+	    compression   = AF_COMPRESSION_NONE;
+	    sample_format = SampleFormat::Signed;
+	    bits          = 24;
+	    break;
+	case AFMT_S32_LE:
+	case AFMT_S32_BE:
+	    compression   = AF_COMPRESSION_NONE;
+	    sample_format = SampleFormat::Signed;
+	    bits          = 32;
+	    break;
 	default:
 	    compression   = -1;
 	    sample_format = SampleFormat::Unknown;
@@ -537,6 +573,26 @@ int RecordOSS::mode2format(int compression, int bits,
 #endif
     }
 
+    if ((sample_format == SampleFormat::Signed) && (bits == 24)) {
+	mask &= (AFMT_S24_LE | AFMT_S24_BE);
+	if (mask != (AFMT_S24_LE | AFMT_S24_BE)) return mask;
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
+	return AFMT_S24_BE;
+#else
+	return AFMT_S24_LE;
+#endif
+    }
+
+    if ((sample_format == SampleFormat::Signed) && (bits == 32)) {
+	mask &= (AFMT_S32_LE | AFMT_S32_BE);
+	if (mask != (AFMT_S32_LE | AFMT_S32_BE)) return mask;
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
+	return AFMT_S32_BE;
+#else
+	return AFMT_S32_LE;
+#endif
+    }
+
     qWarning("RecordOSS: unknown format: sample_format=%d, bits=%d",
              static_cast<int>(sample_format), bits);
     return 0;
@@ -559,6 +615,7 @@ QList<int> RecordOSS::detectCompressions()
     if (mask & AFMT_MU_LAW)    compressions += AF_COMPRESSION_G711_ULAW;
     if (mask & AFMT_IMA_ADPCM) compressions += AF_COMPRESSION_MS_ADPCM;
     if (mask & (AFMT_U16_LE | AFMT_U16_BE | AFMT_S16_LE | AFMT_S16_BE | \
+                AFMT_S24_LE | AFMT_S24_BE | AFMT_S32_LE | AFMT_S32_BE | \
                 AFMT_S8 | AFMT_U8))
         compressions += AF_COMPRESSION_NONE;
 
@@ -569,11 +626,11 @@ QList<int> RecordOSS::detectCompressions()
 int RecordOSS::setCompression(int new_compression)
 {
     Q_ASSERT(m_fd >= 0);
-    int format, compression, bits;
+    int compression, bits, format = AFMT_QUERY;
     SampleFormat sample_format;
 
     // read back current format
-    int err = ioctl(m_fd, SOUND_PCM_READ_BITS, &format);
+    int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
     if (err < 0) return err;
     format2mode(format, compression, bits, sample_format);
 
@@ -582,8 +639,10 @@ int RecordOSS::setCompression(int new_compression)
 
     // activate new format
     format = mode2format(compression, bits, sample_format);
+    int oldformat = format;
     err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
     if (err < 0) return err;
+    if (oldformat != format) return -1;
 
     return 0;
 }
@@ -592,8 +651,8 @@ int RecordOSS::setCompression(int new_compression)
 int RecordOSS::compression()
 {
     Q_ASSERT(m_fd >= 0);
-    int mask = AF_COMPRESSION_NONE;
-    int err = ioctl(m_fd, SOUND_PCM_READ_BITS, &mask);
+    int mask = AFMT_QUERY;
+    int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &mask);
     if (err < 0) return AF_COMPRESSION_NONE;
 
     int c, b;
@@ -643,11 +702,11 @@ QList<unsigned int> RecordOSS::supportedBits()
 int RecordOSS::setBitsPerSample(unsigned int new_bits)
 {
     Q_ASSERT(m_fd >= 0);
-    int format, compression, bits;
+    int compression, bits, format = AFMT_QUERY;
     SampleFormat sample_format;
 
     // read back current format
-    int err = ioctl(m_fd, SOUND_PCM_READ_BITS, &format);
+    int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
     if (err < 0) return err;
     format2mode(format, compression, bits, sample_format);
 
@@ -655,9 +714,11 @@ int RecordOSS::setBitsPerSample(unsigned int new_bits)
     bits = new_bits;
 
     // activate new format
+    int oldformat = format;
     format = mode2format(compression, bits, sample_format);
     err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
     if (err < 0) return err;
+    if (oldformat != format) return -1;
 
     return 0;
 }
@@ -666,8 +727,8 @@ int RecordOSS::setBitsPerSample(unsigned int new_bits)
 int RecordOSS::bitsPerSample()
 {
     Q_ASSERT(m_fd >= 0);
-    int mask = 0;
-    int err = ioctl(m_fd, SOUND_PCM_READ_BITS, &mask);
+    int mask = AFMT_QUERY;
+    int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &mask);
     if (err < 0) return err;
 
     int c, b;
@@ -714,11 +775,11 @@ QList<SampleFormat> RecordOSS::detectSampleFormats()
 int RecordOSS::setSampleFormat(SampleFormat new_format)
 {
     Q_ASSERT(m_fd >= 0);
-    int format, compression, bits;
+    int compression, bits, format = AFMT_QUERY;
     SampleFormat sample_format;
 
     // read back current format
-    int err = ioctl(m_fd, SOUND_PCM_READ_BITS, &format);
+    int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
     if (err < 0) return err;
     format2mode(format, compression, bits, sample_format);
 
@@ -726,9 +787,11 @@ int RecordOSS::setSampleFormat(SampleFormat new_format)
     sample_format = new_format;
 
     // activate new format
+    int oldformat = format;
     format = mode2format(compression, bits, sample_format);
     err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
     if (err < 0) return err;
+    if (oldformat != format) return -1;
 
     return 0;
 }
@@ -737,8 +800,8 @@ int RecordOSS::setSampleFormat(SampleFormat new_format)
 SampleFormat RecordOSS::sampleFormat()
 {
     Q_ASSERT(m_fd >= 0);
-    int mask = 0;
-    int err = ioctl(m_fd, SOUND_PCM_READ_BITS, &mask);
+    int mask = AFMT_QUERY;
+    int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &mask);
     if (err < 0) return SampleFormat::Unknown;
 
     int c, b;
@@ -751,14 +814,14 @@ SampleFormat RecordOSS::sampleFormat()
 byte_order_t RecordOSS::endianness()
 {
     Q_ASSERT(m_fd >= 0);
-    int mask = 0;
-    int err = ioctl(m_fd, SOUND_PCM_READ_BITS, &mask);
+    int mask = AFMT_QUERY;
+    int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &mask);
     if (err < 0) return UnknownEndian;
 
-    if (mask & (AFMT_U16_LE | AFMT_S16_LE))
+    if (mask & (AFMT_U16_LE | AFMT_S16_LE | AFMT_S24_LE | AFMT_S32_LE))
 	return LittleEndian;
 
-    if (mask & (AFMT_U16_BE | AFMT_S16_BE))
+    if (mask & (AFMT_U16_BE | AFMT_S16_BE | AFMT_S24_BE | AFMT_S32_BE))
 	return BigEndian;
 
     if (mask & (AFMT_S8 | AFMT_U8))

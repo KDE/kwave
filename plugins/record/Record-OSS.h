@@ -187,6 +187,14 @@ private:
     /** file descriptor of the device or -1 if not open */
     int m_fd;
 
+    /** sample rate  */
+    int m_rate;
+
+    /** number of tracks  */
+    int m_tracks;
+
+    /** OSS driver version  */
+    int m_oss_version;
 };
 
 #endif /* HAVE_OSS_SUPPORT */

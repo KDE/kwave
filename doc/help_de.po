@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2008-09-21 14:58+0000\n"
+"POT-Creation-Date: 2008-09-23 16:22+0000\n"
 "PO-Revision-Date: 2008-09-21 17:00+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -143,7 +143,8 @@ msgstr "Einleitung"
 #. Tag: para
 #: help_en-work.docbook:66
 #, no-c-format
-msgid "This is \"&kapp;\", a simple sound editor for KDE3. Its features include:"
+msgid ""
+"This is \"&kapp;\", a simple sound editor for KDE3. Its features include:"
 msgstr ""
 "Dies ist \"&kapp;\", ein einfacher Sound-Editor für KDE3. Er enthält "
 "folgende Funktionalität:"
@@ -452,7 +453,8 @@ msgstr "ein Source-RPM der letzten stabilen Version herunterladen, "
 msgid ""
 "compile on your own, from a .tar.gz archive with the source code of the "
 "latest stable version,"
-msgstr "selbst aus einem tar.gz-Archiv der letzten stabilen Version kompilieren,"
+msgstr ""
+"selbst aus einem tar.gz-Archiv der letzten stabilen Version kompilieren,"
 
 #. Tag: para
 #: help_en-work.docbook:249
@@ -579,7 +581,8 @@ msgstr ""
 #. Tag: para
 #: help_en-work.docbook:320
 #, no-c-format
-msgid "If you intend to compile &kapp; from the sources, you will need at least:"
+msgid ""
+"If you intend to compile &kapp; from the sources, you will need at least:"
 msgstr ""
 "Wenn Sie vorhaben, &kapp; aus den Quellen zu kompilieren, brauchen Sie "
 "zusätzlich mindestens:"
@@ -809,9 +812,9 @@ msgid ""
 "the sonagram plugin) [<literal>on</literal>/<literal>off</literal>, "
 "default=<literal>on</literal>]"
 msgstr ""
-"<literal>WITH_GSL</literal> aktiviere die Verwendung der GSL-Bibliothek (benötigt für "
-"das Sonagram-Plugin) "
-"[<literal>on</literal>/<literal>off</literal>, Vorgabe=<literal>on</literal>]"
+"<literal>WITH_GSL</literal> aktiviere die Verwendung der GSL-Bibliothek "
+"(benötigt für das Sonagram-Plugin) [<literal>on</literal>/<literal>off</"
+"literal>, Vorgabe=<literal>on</literal>]"
 
 #. Tag: para
 #: help_en-work.docbook:444
@@ -2170,7 +2173,8 @@ msgstr "Öffnen und Speichern von Dateien"
 #. Tag: para
 #: help_en-work.docbook:1166
 #, no-c-format
-msgid "Opening files with &kapp; works like in most other applications, you can"
+msgid ""
+"Opening files with &kapp; works like in most other applications, you can"
 msgstr ""
 "Das Öffnen von Dateien mit &kapp; funktioniert genauso wie in den meisten "
 "anderen Anwendungen auch, Sie können"
@@ -2428,7 +2432,8 @@ msgstr ""
 #. Tag: para
 #: help_en-work.docbook:1305
 #, no-c-format
-msgid "The format of an ASCII file is quite simple and has the following rules:"
+msgid ""
+"The format of an ASCII file is quite simple and has the following rules:"
 msgstr ""
 "ASCII-Dateien haben einen relativ unkomplizierten Aufbau, nach folgenden "
 "Regeln:"
@@ -3570,7 +3575,8 @@ msgstr "eine rote Lampe \"deaktiviert\" bedeutet."
 #. Tag: para
 #: help_en-work.docbook:1985
 #, no-c-format
-msgid "Note: If a channel is de-selected it will also not be audible for playback!"
+msgid ""
+"Note: If a channel is de-selected it will also not be audible for playback!"
 msgstr ""
 "Hinweis: Wird ein Kanal deselektiert, wird er bei der Wiedergabe nicht "
 "hörbar sein!"
@@ -3993,8 +3999,10 @@ msgstr ""
 #. Tag: screen
 #: help_en-work.docbook:2320
 #, no-c-format
-msgid "<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>"
-msgstr "<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>"
+msgid ""
+"<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>"
+msgstr ""
+"<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>"
 
 #. Tag: para
 #: help_en-work.docbook:2322
@@ -4639,7 +4647,8 @@ msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 #. Tag: para
 #: help_en-work.docbook:2756
 #, no-c-format
-msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
+msgid ""
+"Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
 msgstr ""
 "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (Homepage und deutsche "
 "Übersetzung)"
@@ -4664,7 +4673,8 @@ msgstr ""
 #: help_en-work.docbook:2777
 #, no-c-format
 msgid "Dave Flogeras <email>dflogera@nbnet.nb.ca</email> (Notch Filter plugin)"
-msgstr "Dave Flogeras <email>dflogera@nbnet.nb.ca</email> (Kerbfilter - Plugin)"
+msgstr ""
+"Dave Flogeras <email>dflogera@nbnet.nb.ca</email> (Kerbfilter - Plugin)"
 
 #. Tag: para
 #: help_en-work.docbook:2784
@@ -4685,8 +4695,10 @@ msgstr "Dank an (in alphabetischer Reihenfolge):"
 #. Tag: para
 #: help_en-work.docbook:2818
 #, no-c-format
-msgid "Jorge Luis Arzola <email>arzolacub@gmx.de</email> (packaging for SuSE Linux)"
-msgstr "Jorge Luis Arzola <email>arzolacub@gmx.de</email> (Pakete für SuSE Linux)"
+msgid ""
+"Jorge Luis Arzola <email>arzolacub@gmx.de</email> (packaging for SuSE Linux)"
+msgstr ""
+"Jorge Luis Arzola <email>arzolacub@gmx.de</email> (Pakete für SuSE Linux)"
 
 #. Tag: para
 #: help_en-work.docbook:2825
@@ -4704,7 +4716,8 @@ msgstr ""
 msgid ""
 "Michael Favreau <email>michel.favreau@free.fr</email> (packaging for Arch "
 "Linux)"
-msgstr "Michael Favreau <email>michel.favreau@free.fr</email> (Pakete für Arch Linux)"
+msgstr ""
+"Michael Favreau <email>michel.favreau@free.fr</email> (Pakete für Arch Linux)"
 
 #. Tag: para
 #: help_en-work.docbook:2840
@@ -4817,4 +4830,3 @@ msgstr ""
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr "&underFDL; &underGPL;"
-

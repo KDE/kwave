@@ -36,7 +36,6 @@
 #include "libkwave/memcpy.h"
 #include "libkwave/ByteOrder.h"
 #include "libkwave/CompressionType.h"
-#include "libkwave/SampleFormat.h"
 
 #include "PlayBack-OSS.h"
 #include "SampleEncoderLinear.h"
@@ -48,7 +47,38 @@
 #define MAX_PLAYBACK_BUFFER 16
 
 /** highest available number of channels */
-#define MAX_CHANNELS 2
+#define MAX_CHANNELS 7
+
+// Linux 2.6.24 and above's OSS emulation supports 24 and 32 bit formats
+// but did not declare them in <soundcard.h>
+#ifndef AFMT_S24_LE
+#define AFMT_S24_LE      0x00008000
+#endif
+#ifndef AFMT_S24_BE
+#define AFMT_S24_BE      0x00010000
+#endif
+#ifndef AFMT_S32_LE
+#define AFMT_S32_LE      0x00001000
+#endif
+#ifndef AFMT_S32_BE
+#define AFMT_S32_BE      0x00002000
+#endif
+
+#ifndef SNDCTL_DSP_SPEED
+#define SNDCTL_DSP_SPEED SOUND_PCM_WRITE_RATE
+#endif
+
+#ifndef SNDCTL_DSP_CHANNELS
+#define SNDCTL_DSP_CHANNELS SOUND_PCM_WRITE_CHANNELS
+#endif
+
+#ifndef SOUND_PCM_SETFMT
+#define SOUND_PCM_SETFMT SOUND_PCM_WRITE_BITS
+#endif
+
+#ifndef SNDCTL_DSP_SETFMT
+#define SNDCTL_DSP_SETFMT SOUND_PCM_SETFMT
+#endif
 
 //***************************************************************************
 PlayBackOSS::PlayBackOSS()
@@ -63,7 +93,8 @@ PlayBackOSS::PlayBackOSS()
     m_raw_buffer(),
     m_buffer_size(0),
     m_buffer_used(0),
-    m_encoder(0)
+    m_encoder(0),
+    m_oss_version(-1)
 {
 }
 
@@ -130,24 +161,45 @@ QString PlayBackOSS::open(const QString &device, double rate,
 	            m_device_name.section('|',0,0));
     }
 
-    int format = (m_bits == 8) ? AFMT_U8 : AFMT_S16_LE;
+    // query OSS driver version
+    m_oss_version = 0x030000;
+#ifdef OSS_GETVERSION
+    ioctl(m_handle, OSS_GETVERSION, &m_oss_version);
+#endif
+
+    // query OSS driver version for debugging purposes
+    m_oss_version = -1;
+#ifdef OSS_GETVERSION
+    ioctl(m_handle, OSS_GETVERSION, &m_oss_version);
+#endif
+    int format;
+    switch (m_bits) {
+	case  8: format = AFMT_U8;     break;
+	case 24: format = AFMT_S24_LE; break;
+	case 32: format = AFMT_S32_LE; break;
+	default: format = AFMT_S16_LE;
+    }
 
     // number of bits per sample
-    if (ioctl(m_handle, SNDCTL_DSP_SAMPLESIZE, &format) == -1) {
+    int oldformat = format;
+    if ((ioctl(m_handle, SNDCTL_DSP_SETFMT, &format) == -1) ||
+        (format != oldformat)) {
 	return i18n("%1 bits per sample are not supported", m_bits);
     }
 
-    // mono/stereo selection
-    int stereo = (m_channels >= 2) ? 1 : 0;
-    if (ioctl(m_handle, SNDCTL_DSP_STEREO, &stereo) == -1) {
-	return i18n("stereo playback is not supported");
+    // channels selection
+    if ((ioctl(m_handle, SNDCTL_DSP_CHANNELS, &m_channels) == -1) ||
+        (format != oldformat)) {
+	return i18n("%1 channels playback is not supported", m_channels);
     }
 
-    // playback rate
+    // playback rate, we allow up to 10% variation
     int int_rate = (int)m_rate;
-    if (ioctl(m_handle, SNDCTL_DSP_SPEED, &int_rate) == -1) {
+    if ((ioctl(m_handle, SNDCTL_DSP_SPEED, &int_rate) == -1) ||
+	(int_rate < 0.9 * m_rate) || (int_rate > 1.1 * m_rate)) {
 	return i18n("playback rate %1 Hz is not supported", int_rate);
     }
+    m_rate = int_rate;
 
     // buffer size
     Q_ASSERT(bufbase >= MIN_PLAYBACK_BUFFER);
@@ -163,12 +215,31 @@ QString PlayBackOSS::open(const QString &device, double rate,
 
     // create the sample encoder
     // we assume that OSS is always little endian
-    // and understands 8 bit/unsigned or 16 bit / signed format only
     if (m_encoder) delete m_encoder;
-    m_encoder = new SampleEncoderLinear(
-	(m_bits == 8) ? SampleFormat::Unsigned : SampleFormat::Signed,
-	(m_bits <= 8) ? 8 : 16,
-	LittleEndian);
+
+    switch (m_bits) {
+	case 8:
+	    m_encoder = new SampleEncoderLinear(
+		SampleFormat::Unsigned, 8, LittleEndian);
+	    break;
+	case 24:
+	    if (m_oss_version >= 0x040000) {
+		m_encoder = new SampleEncoderLinear(
+		SampleFormat::Signed, 24, LittleEndian);
+		break;
+	    }
+	case 32:
+	    if (m_oss_version >= 0x040000) {
+		m_encoder = new SampleEncoderLinear(
+		    SampleFormat::Signed, 32, LittleEndian);
+		break;
+	    }
+	default:
+	    m_encoder = new SampleEncoderLinear(
+		SampleFormat::Signed, 16, LittleEndian);
+	    break;
+    }
+
     Q_ASSERT(m_encoder);
     if (!m_encoder) return i18n("out of memory");
 
@@ -299,16 +370,20 @@ static void scanDirectory(QStringList &list, const QString &dir)
     scanFiles(list, dir, "*audio*");
     scanFiles(list, dir, "adsp*");
     scanFiles(list, dir, "dio*");
+    scanFiles(list, dir, "pcm*");
 }
 
 //***************************************************************************
 QStringList PlayBackOSS::supportedDevices()
 {
-    QStringList list;
+    QStringList list, dirlist;
 
     scanDirectory(list, "/dev");
     scanDirectory(list, "/dev/snd");
     scanDirectory(list, "/dev/sound");
+    scanFiles(dirlist, "/dev/oss", "[^.]*");
+    foreach (QString dir, dirlist)
+	scanDirectory(list, dir);
     list.append("#EDIT#");
     list.append("#SELECT#");
 
@@ -334,61 +409,77 @@ QString PlayBackOSS::fileFilter()
 
 //***************************************************************************
 void PlayBackOSS::format2mode(int format, int &compression,
-                              int &bits, int &sample_format)
+                              int &bits, SampleFormat &sample_format)
 {
     switch (format) {
 	case AFMT_MU_LAW:
 	    compression   = AF_COMPRESSION_G711_ULAW;
-	    sample_format = AF_SAMPFMT_TWOSCOMP;
+	    sample_format = SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_A_LAW:
 	    compression   = AF_COMPRESSION_G711_ALAW;
-	    sample_format = AF_SAMPFMT_TWOSCOMP;
+	    sample_format = SampleFormat::Unsigned;
 	    bits          = 16;
 	    break;
 	case AFMT_IMA_ADPCM:
 	    compression   = AF_COMPRESSION_MS_ADPCM;
-	    sample_format = AF_SAMPFMT_TWOSCOMP;
+	    sample_format = SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_U8:
 	    compression   = AF_COMPRESSION_NONE;
-	    sample_format = AF_SAMPFMT_UNSIGNED;
+	    sample_format = SampleFormat::Unsigned;
 	    bits          = 8;
 	    break;
 	case AFMT_S16_LE:
 	case AFMT_S16_BE:
 	    compression   = AF_COMPRESSION_NONE;
-	    sample_format = AF_SAMPFMT_TWOSCOMP;
+	    sample_format = SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_S8:
 	    compression   = AF_COMPRESSION_NONE;
-	    sample_format = AF_SAMPFMT_TWOSCOMP;
+	    sample_format = SampleFormat::Signed;
 	    bits          = 8;
 	    break;
 	case AFMT_U16_LE:
 	case AFMT_U16_BE:
 	    compression   = AF_COMPRESSION_NONE;
-	    sample_format = AF_SAMPFMT_UNSIGNED;
+	    sample_format = SampleFormat::Unsigned;
 	    bits          = 16;
 	    break;
 	case AFMT_MPEG:
 	    compression   = (int)CompressionType::MPEG_LAYER_II;
-	    sample_format = AF_SAMPFMT_TWOSCOMP;
+	    sample_format = SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 #if 0
 	case AFMT_AC3: /* Dolby Digital AC3 */
-	    compression   = AF_COMPRESSION_NONE;
+	    compression   = SampleFormat::Unknown;
 	    sample_format = 0;
 	    bits          = 16;
 	    break;
 #endif
+	case AFMT_S24_LE:
+	case AFMT_S24_BE:
+	    if (m_oss_version >= 0x040000) {
+		compression   = AF_COMPRESSION_NONE;
+		sample_format = SampleFormat::Signed;
+		bits          = 24;
+		break;
+	    }
+	case AFMT_S32_LE:
+	case AFMT_S32_BE:
+	    if (m_oss_version >= 0x040000) {
+		compression   = AF_COMPRESSION_NONE;
+		sample_format = SampleFormat::Signed;
+		bits          = 32;
+		break;
+	    }
 	default:
 	    compression   = -1;
-	    sample_format = -1;
+	    sample_format = SampleFormat::Unknown;
 	    bits          = -1;
     }
 
@@ -405,6 +496,20 @@ int PlayBackOSS::openDevice(const QString &device)
     if (fd <= 0) {
 	// open the device in case it's not already open
 	fd = ::open(device.toLocal8Bit(), O_WRONLY | O_NONBLOCK);
+	if (fd <= 0) {
+	    qWarning("PlayBackOSS::openDevice('%s') - "\
+		 "failed, errno=%d (%s)",
+		 device.toLocal8Bit().data(),
+		 errno, strerror(errno));
+	} else {
+	    // we use blocking mode
+	    ::fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) & ~O_NONBLOCK);
+	    // query OSS driver version
+	    m_oss_version = -1;
+#ifdef OSS_GETVERSION
+	    ioctl(fd, OSS_GETVERSION, &m_oss_version);
+#endif
+	}
     }
     if (fd <= 0) {
 	qWarning("PlayBackOSS::openDevice('%s') - "\
@@ -449,7 +554,8 @@ QList<unsigned int> PlayBackOSS::supportedBits(const QString &device)
 	if (!mask & (1 << bit)) continue;
 
 	// format is supported, split into compression, bits, sample format
-	int c, b, s;
+	int c, b;
+	SampleFormat s;
 	format2mode(1 << bit, c, b, s);
 	if (b < 0) continue; // unknown -> skip
 
@@ -477,15 +583,8 @@ int PlayBackOSS::detectChannels(const QString &device,
     // find the smalles number of tracks, limit to MAX_CHANNELS
     for (t=1; t < MAX_CHANNELS; t++) {
 	int real_tracks = t;
-	err = ioctl(fd, SOUND_PCM_WRITE_CHANNELS, &real_tracks);
+	err = ioctl(fd, SNDCTL_DSP_CHANNELS, &real_tracks);
 	Q_ASSERT(real_tracks == t);
-	if (err >= 0) {
-	    int readback_tracks = real_tracks;
-	    if (ioctl(fd, SOUND_PCM_READ_CHANNELS, &readback_tracks) >= 0) {
-	        // readback succeeded
-		real_tracks = readback_tracks;
-	    };
-	}
 	if (err >= 0) {
 	    min = real_tracks;
 	    break;
@@ -502,15 +601,8 @@ int PlayBackOSS::detectChannels(const QString &device,
     // find the highest number of tracks, start from MAX_CHANNELS downwards
     for (t=MAX_CHANNELS; t >= (int)min; t--) {
 	int real_tracks = t;
-	err = ioctl(fd, SOUND_PCM_WRITE_CHANNELS, &real_tracks);
+	err = ioctl(fd, SNDCTL_DSP_CHANNELS, &real_tracks);
 	Q_ASSERT(real_tracks == t);
-	if (err >= 0) {
-	    int readback_tracks = real_tracks;
-	    if (ioctl(fd, SOUND_PCM_READ_CHANNELS, &readback_tracks) >= 0) {
-	        // readback succeeded
-		real_tracks = readback_tracks;
-	    };
-	}
 	if (err >= 0) {
 	    max = real_tracks;
 	    break;

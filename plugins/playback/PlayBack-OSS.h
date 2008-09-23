@@ -27,6 +27,7 @@
 
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/PlayBackDevice.h"
+#include "libkwave/SampleFormat.h"
 
 class SampleEncoder;
 
@@ -102,7 +103,7 @@ protected:
      *        libaudiofile (signed or unsigned)
      */
     void format2mode(int format, int &compression,
-                     int &bits, int &sample_format);
+                     int &bits, SampleFormat &sample_format);
 
     /**
      * Opens a physical device and returns its file descriptor
@@ -148,6 +149,8 @@ protected:
     /** encoder for converting from samples to raw format */
     SampleEncoder *m_encoder;
 
+    /** OSS driver version */
+    int m_oss_version;
 };
 
 #endif /* HAVE_OSS_SUPPORT */

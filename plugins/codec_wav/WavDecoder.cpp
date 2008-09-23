@@ -274,7 +274,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     src.seek(fmt_offset);
 
     // get the encoded block of data from the mime source
-    CHECK(src.size() > sizeof(wav_header_t)+8);
+    CHECK((int)src.size() > (int)sizeof(wav_header_t)+8);
 
     // get the header
     src.read((char *)&header, sizeof(wav_fmt_header_t));

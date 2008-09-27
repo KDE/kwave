@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-21 17:00+0200\n"
+"POT-Creation-Date: 2008-09-27 07:50+0200\n"
 "PO-Revision-Date: 2007-08-01 19:04+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
@@ -165,7 +165,7 @@ msgstr "%1 octets"
 msgid "%1 bits per sample"
 msgstr "%1 bits par échantillon"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:137
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:187
 msgid "%1 bits per sample are not supported"
 msgstr "%1 bits par échantillon n'est pas supportée"
 
@@ -184,6 +184,11 @@ msgstr ""
 #: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDialog.cpp:145
 msgid "%1 bytes"
 msgstr "%1 octets"
+
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:193
+#, fuzzy
+msgid "%1 channels playback is not supported"
+msgstr "La lecture en stéréo n'est pas disponible"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/LevelMeter.cpp:270
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/LevelMeter.cpp:294
@@ -280,6 +285,7 @@ msgstr "&Calculer"
 
 #: /var/tmp/kwave-build/libgui/ui_LabelPropertiesWidgetBase.h:193
 #: /var/tmp/kwave-build/plugins/pitch_shift/ui_PitchShiftDlg.h:227
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:275
 #: /var/tmp/kwave-build/plugins/band_pass/ui_BandPassDlg.h:211
 #: /var/tmp/kwave-build/plugins/lowpass/ui_LowPassDlg.h:221
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1408
@@ -426,6 +432,7 @@ msgstr "&Générer"
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:58
 #: /var/tmp/kwave-build/libgui/ui_LabelPropertiesWidgetBase.h:189
 #: /var/tmp/kwave-build/plugins/pitch_shift/ui_PitchShiftDlg.h:211
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:271
 #: /var/tmp/kwave-build/plugins/band_pass/ui_BandPassDlg.h:195
 #: /var/tmp/kwave-build/plugins/lowpass/ui_LowPassDlg.h:205
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1404
@@ -539,6 +546,7 @@ msgid "&Nothing"
 msgstr "&Aucun"
 
 #: /var/tmp/kwave-build/plugins/pitch_shift/ui_PitchShiftDlg.h:225
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:273
 #: /var/tmp/kwave-build/plugins/band_pass/ui_BandPassDlg.h:209
 #: /var/tmp/kwave-build/plugins/lowpass/ui_LowPassDlg.h:219
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1406
@@ -873,6 +881,10 @@ msgstr "100%"
 msgid "10000"
 msgstr "10000"
 
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:326
+msgid "1024"
+msgstr "1024"
+
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1282
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:488
 msgid "11025"
@@ -886,6 +898,10 @@ msgstr "112 K"
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:489
 msgid "12000"
 msgstr "12000"
+
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:323
+msgid "128"
+msgstr "128"
 
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1336
 msgid "128K"
@@ -920,6 +936,10 @@ msgstr "192 K"
 msgid "2 (stereo)"
 msgstr "2 (stéréo)"
 
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:327
+msgid "2048"
+msgstr "2048"
+
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1285
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:491
 msgid "22050"
@@ -932,6 +952,10 @@ msgstr "224 K"
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1328
 msgid "24K"
 msgstr "24 K"
+
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:324
+msgid "256"
+msgstr "256"
 
 #: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:417
 msgid "256 Bytes"
@@ -978,6 +1002,10 @@ msgstr "384 K"
 msgid "4 (quadro)"
 msgstr "4 (quadro)"
 
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:328
+msgid "4096"
+msgstr "4096"
+
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1330
 msgid "40K"
 msgstr "40 K"
@@ -1013,9 +1041,17 @@ msgstr "50%"
 msgid "50/15ms"
 msgstr "50 / 15 ms"
 
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:325
+msgid "512"
+msgstr "512"
+
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1331
 msgid "56K"
 msgstr "56 K"
+
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:322
+msgid "64"
+msgstr "64"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/SampleFormat.cpp:41
 msgid "64-bit IEEE double-precision floating-point"
@@ -1170,6 +1206,19 @@ msgstr ""
 "installée dans votre ordinateur sera utilisée comme valeur limite. Vous ne "
 "pouvez pas paramétrer une valeur limite supérieure à la taille de la mémoire "
 "installée dans votre ordinateur."
+
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:332
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:339
+msgid ""
+"<b>Number of FFT points:</b><p></p>Try to choose numbers with small prime-"
+"factors,<br>\n"
+"if choosing big window sizes.<br>\n"
+"The computation will be much faster !"
+msgstr ""
+"<b>Nombre de points pour la FFT:</b><p></p>Essayez de choisir des nombres "
+"avec des petits facteurs de premier ordre.<br>\n"
+"Si vous choisissez une grande taille de fenêtre les calculs seront plus "
+"rapides !"
 
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:510
 msgid ""
@@ -1410,6 +1459,11 @@ msgstr ""
 msgid "?"
 msgstr "?:"
 
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:344
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:345
+msgid "?:"
+msgstr "?:"
+
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_KeywordWidgetBase.h:109
 msgid "A&uto"
 msgstr "A&uto"
@@ -1427,7 +1481,7 @@ msgstr "AGC :"
 msgid "ALSA (Advanced Linux Sound Architecture)"
 msgstr "ALSA (Advanced Linux Sound Architecture)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:327
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:402
 msgid "ALSA playback device (adsp*)"
 msgstr "Périphérique de lecture ALSA (adsp*)"
 
@@ -1435,7 +1489,7 @@ msgstr "Périphérique de lecture ALSA (adsp*)"
 msgid "ALSA record device (adsp*)"
 msgstr "Périphérique de lecture ALSA (adsp*)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:239
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:291
 msgid "ALSA recording device (adsp*)"
 msgstr "Périphérique de lecture ALSA (adsp*)"
 
@@ -1495,6 +1549,7 @@ msgid "Alt+C"
 msgstr "Alt+C"
 
 #: /var/tmp/kwave-build/libgui/ui_LabelPropertiesWidgetBase.h:190
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:272
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1405
 #: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:275
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:1102
@@ -1591,9 +1646,9 @@ msgstr "Une erreur est apparue lors de l'enregistrement du fichier !"
 msgid "Annotation"
 msgstr "Annotation"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:242
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:294
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:584
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:330
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:405
 msgid "Any device (*)"
 msgstr "Tous les périphériques (*)"
 
@@ -1753,6 +1808,17 @@ msgstr "Pistes :"
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/GenreType.cpp:181
 msgid "Chanson"
 msgstr "Chanson"
+
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:308
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:315
+msgid ""
+"Choose windowing function here.<br>\n"
+"If fourier transformation should stay reversible,<br>\n"
+"use the type \"None\"."
+msgstr ""
+"Choisissez ici une fonction de fenêtrage.<br>\n"
+"Si la transformation de Fourier doit rester réversible,<br>\n"
+"utilisez le type \"Aucun\""
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/GenreType.cpp:176
 msgid "Chorus"
@@ -2055,6 +2121,10 @@ msgstr "F1"
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:1096
 msgid "FFT"
 msgstr "Transformée de Fourier rapide"
+
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:303
+msgid "FFT settings"
+msgstr "Paramétres de la transformée de Fourier rapide (FFT)"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/CompressionType.cpp:82
 msgid "FLAC"
@@ -2831,6 +2901,10 @@ msgstr "Aucun"
 msgid "Notch Filter"
 msgstr "Filtre réjecteur"
 
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:304
+msgid "Number of FFT points:"
+msgstr "Nombre de points de la FFT :"
+
 #: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:443
 msgid "Number of channels: mono, stereo..."
 msgstr "Nombre de pistes : mono, stéréo ..."
@@ -2854,7 +2928,7 @@ msgstr "O&K"
 msgid "OSS (Open Sound System)"
 msgstr "OSS (Open Sound System)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:324
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:399
 msgid "OSS playback device (dsp*)"
 msgstr "Périphérique de lecture OSS (dsp*)"
 
@@ -2862,11 +2936,11 @@ msgstr "Périphérique de lecture OSS (dsp*)"
 msgid "OSS record device (dsp*)"
 msgstr "Périphérique de lecture OSS (dsp*)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:235
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:287
 msgid "OSS recording device (audio*)"
 msgstr "Périphérique d'enregistrement OSS (audio*)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:236
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:288
 msgid "OSS recording device (dsp*)"
 msgstr "Périphérique de lecture OSS (dsp*)"
 
@@ -3355,6 +3429,10 @@ msgstr ""
 msgid "Selected"
 msgstr "Sélectionné"
 
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:270
+msgid "Set FFT/time resolution parameters"
+msgstr "Paramètres de la résolution de la FFT / temps"
+
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1373
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1378
 msgid "Set the date to today."
@@ -3656,7 +3734,7 @@ msgstr "Désolé, le type de fichier n'est pas géré !"
 msgid "The current sample format is not supported!"
 msgstr "Désolé, le format courant pour les échantillons n'est pas géré !"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:128
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:159
 msgid "The device '%1' cannot be opened in the correct mode."
 msgstr "Impossible d'ouvrir le périphérique « %1 » correctement."
 
@@ -3668,7 +3746,7 @@ msgstr ""
 "Le périphérique  %1 est utilisé par une autre application. Veuillez "
 "réessayer."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:110
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:141
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:561
 msgid ""
 "The device is busy. Maybe an other application is \n"
@@ -3902,6 +3980,10 @@ msgid ""
 "when recording from radio)</i>"
 msgstr ""
 
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:305
+msgid "Window Function:"
+msgstr "Fonction de la fenêtre:"
+
 #: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoPlugin.cpp:77
 msgid ""
 "You have changed the sample rate. Do you want to convert the whole file to "
@@ -3987,6 +4069,20 @@ msgstr "auteurs"
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_KeywordWidgetBase.h:100
 msgid "auto-generate keywords"
 msgstr "Génération automatique de mots clef"
+
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:293
+msgid "automatically update the sonagram <br>if the signal data has changed"
+msgstr ""
+"met à jour automatiquement le sonogramme<br>si le la piste sonore à été "
+"modifiée."
+
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:299
+msgid ""
+"automatically update the sonagram if the selection<br>has been enlarged, "
+"reduced or moved"
+msgstr ""
+"met à jour automatiquement le sonogramme si la sélection<br>a été élargie, "
+"réduite, ou déplacée."
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/band_pass/BandPassPlugin.cpp:120
 msgid "band_pass"
@@ -4203,6 +4299,10 @@ msgid "directory for storing swap files"
 msgstr ""
 "Le dossier qui sera utilisé pour stocker les fichiers de la mémoire virtuelle"
 
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:277
+msgid "display"
+msgstr "Affichage"
+
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1045
 msgid "done"
 msgstr "terminé"
@@ -4258,6 +4358,10 @@ msgstr ""
 msgid "fileinfo"
 msgstr "informations sur les fichiers audio"
 
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:302
+msgid "follow selection"
+msgstr "Suivre la sélection"
+
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:111
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:323
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:334
@@ -4268,11 +4372,15 @@ msgstr "Format ou fonction non implantée"
 msgid "frmLength"
 msgstr "frmLength"
 
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:289
+msgid "greyscale"
+msgstr "Nuances de gris"
+
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_CompressionWidgetBase.h:218
 msgid "highest"
 msgstr "Grand"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:104
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:135
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:555
 msgid ""
 "i/o error, maybe the driver\n"
@@ -4471,6 +4579,10 @@ msgstr "périphérique inconnu"
 msgid "numbering:"
 msgstr "numérotation :"
 
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:296
+msgid "on modifications"
+msgstr "Dans les modifications"
+
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:190
 msgid "oops, plugin '%1' is unknown or invalid!"
 msgstr "Avertissement : le module externe « %1 » est inconnu ou non valable !"
@@ -4498,7 +4610,7 @@ msgstr "L'ouverture du fichier a échouée"
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:114
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:327
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:338
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:173
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:244
 msgid "out of memory"
 msgstr "Pas assez de mémoire"
 
@@ -4534,7 +4646,7 @@ msgstr "lecture"
 msgid "playback device"
 msgstr "périphérique de lecture :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:149
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:200
 msgid "playback rate %1 Hz is not supported"
 msgstr "la lecture à une fréquence de %1 Hz n'est pas disponible"
 
@@ -4759,10 +4871,6 @@ msgstr "Arrêter / démarrer l'aperçu"
 msgid "startup done."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:143
-msgid "stereo playback is not supported"
-msgstr "La lecture en stéréo n'est pas disponible"
-
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:262
 msgid "stop playback or loop"
 msgstr "arrête la lecture"
@@ -4839,9 +4947,25 @@ msgstr "Erreur inconnue « 0x%X ». Le fichier est il endommagé ?"
 msgid "unsigned integer"
 msgstr "Entier non signé"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:158
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:210
 msgid "unusable buffer size: %1"
 msgstr "Taille de mémoire tampon inutilisable : %1"
+
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:290
+msgid "update"
+msgstr "Mise à jour"
+
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:283
+msgid "use colors"
+msgstr "Utilisation des couleurs"
+
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:280
+msgid "use different colors for amplitude"
+msgstr "utilisation de différentes couleurs pour l'amplitude"
+
+#: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:286
+msgid "use greyscale only for amplitude"
+msgstr "utilisation des nuances de gris pour l'amplitude"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/KwaveSplash.cpp:55
 #, fuzzy
@@ -4929,38 +5053,6 @@ msgstr "zoomer la sélection"
 #~ msgid "-999 dB"
 #~ msgstr "-999 dB"
 
-#~ msgid "1024"
-#~ msgstr "1024"
-
-#~ msgid "128"
-#~ msgstr "128"
-
-#~ msgid "2048"
-#~ msgstr "2048"
-
-#~ msgid "256"
-#~ msgstr "256"
-
-#~ msgid "4096"
-#~ msgstr "4096"
-
-#~ msgid "512"
-#~ msgstr "512"
-
-#~ msgid "64"
-#~ msgstr "64"
-
-#~ msgid ""
-#~ "<b>Number of FFT points:</b><p></p>Try to choose numbers with small prime-"
-#~ "factors,<br>\n"
-#~ "if choosing big window sizes.<br>\n"
-#~ "The computation will be much faster !"
-#~ msgstr ""
-#~ "<b>Nombre de points pour la FFT:</b><p></p>Essayez de choisir des nombres "
-#~ "avec des petits facteurs de premier ordre.<br>\n"
-#~ "Si vous choisissez une grande taille de fenêtre les calculs seront plus "
-#~ "rapides !"
-
 #~ msgid ""
 #~ "<b>Sorry, but since version 0.6.2 you need a running aRts sound server "
 #~ "for using kwave.</b><br>You can setup aRts through the KDE control panel. "
@@ -4974,9 +5066,6 @@ msgstr "zoomer la sélection"
 #~ "fournie avec KDE ou à l'URL <a href=http://www.arts-project.org>http://"
 #~ "www.arts-project.org</a>."
 
-#~ msgid "?:"
-#~ msgstr "?:"
-
 #~ msgid ""
 #~ "Can't connect to aRts soundserver. Maybe it is not properly installed or "
 #~ "not running."
@@ -4984,21 +5073,9 @@ msgstr "zoomer la sélection"
 #~ "Impossible de se connecter au server de sons aRts. Peut-être n'est il pas "
 #~ "correctement installé ou en cours d'exécution."
 
-#~ msgid ""
-#~ "Choose windowing function here.<br>\n"
-#~ "If fourier transformation should stay reversible,<br>\n"
-#~ "use the type \"None\"."
-#~ msgstr ""
-#~ "Choisissez ici une fonction de fenêtrage.<br>\n"
-#~ "Si la transformation de Fourier doit rester réversible,<br>\n"
-#~ "utilisez le type \"Aucun\""
-
 #, fuzzy
 #~ msgid "E&xit"
 #~ msgstr "E&xécuter"
-
-#~ msgid "FFT settings"
-#~ msgstr "Paramétres de la transformée de Fourier rapide (FFT)"
 
 #~ msgid "Kwave homepage and german online help"
 #~ msgstr "Site internet de Kwave et documentation en Allemand."
@@ -5013,12 +5090,6 @@ msgstr "zoomer la sélection"
 #~ "Le chargement de la bibliothèque aRts à échoué. Ceci est probablement du "
 #~ "à un problème avec l'installation de aRts."
 
-#~ msgid "Number of FFT points:"
-#~ msgstr "Nombre de points de la FFT :"
-
-#~ msgid "Set FFT/time resolution parameters"
-#~ msgstr "Paramètres de la résolution de la FFT / temps"
-
 #~ msgid "The aRts output stream is invalid."
 #~ msgstr "Le flux de sortie aRts n'est pas valable."
 
@@ -5028,9 +5099,6 @@ msgstr "zoomer la sélection"
 #~ msgstr ""
 #~ "La fonction aRts requise n'est pas implantée. Peut être devez-vous "
 #~ "installer une nouvelle version du serveur aRts ou du paquetage « kdelibs »."
-
-#~ msgid "Window Function:"
-#~ msgstr "Fonction de la fenêtre:"
 
 #~ msgid ""
 #~ "aRts output is not available because the initialization of the aRts "
@@ -5053,18 +5121,6 @@ msgstr "zoomer la sélection"
 #~ msgid "author of the 'sndfile' library"
 #~ msgstr "Auteur de la bibliothèque « sndfile »"
 
-#~ msgid "automatically update the sonagram <br>if the signal data has changed"
-#~ msgstr ""
-#~ "met à jour automatiquement le sonogramme<br>si le la piste sonore à été "
-#~ "modifiée."
-
-#~ msgid ""
-#~ "automatically update the sonagram if the selection<br>has been enlarged, "
-#~ "reduced or moved"
-#~ msgstr ""
-#~ "met à jour automatiquement le sonogramme si la sélection<br>a été "
-#~ "élargie, réduite, ou déplacée."
-
 #~ msgid "creator of the Help/About dialog"
 #~ msgstr "Auteur de la boite de dialogue Aide/A propos de"
 
@@ -5074,9 +5130,6 @@ msgstr "zoomer la sélection"
 #~ msgid "debian packager"
 #~ msgstr "Construction des paquetages pour Debian"
 
-#~ msgid "display"
-#~ msgstr "Affichage"
-
 #~ msgid ""
 #~ "error in '%s':\n"
 #~ "\t %s"
@@ -5084,15 +5137,9 @@ msgstr "zoomer la sélection"
 #~ "erreur dans « %s » :\n"
 #~ "\t %s"
 
-#~ msgid "follow selection"
-#~ msgstr "Suivre la sélection"
-
 #~ msgid "french translations, splashscreen, tests and bugfixes"
 #~ msgstr ""
 #~ "Traductions Françaises, logo de démarrage, tests et corrections de bogues"
-
-#~ msgid "greyscale"
-#~ msgstr "Nuances de gris"
 
 #~ msgid "level meter"
 #~ msgstr "niveau sonore"
@@ -5102,9 +5149,6 @@ msgstr "zoomer la sélection"
 
 #~ msgid "notch filter plugin"
 #~ msgstr "Module externe filtre réjecteur"
-
-#~ msgid "on modifications"
-#~ msgstr "Dans les modifications"
 
 #~ msgid "packaging for Mandrake / X86_64"
 #~ msgstr "Construction des paquetages pour Mandrake / X86_64"
@@ -5120,15 +5164,3 @@ msgstr "zoomer la sélection"
 
 #~ msgid "unable to open aRts playback stream"
 #~ msgstr "impossible d'ouvrir le flux de lecture aRts"
-
-#~ msgid "update"
-#~ msgstr "Mise à jour"
-
-#~ msgid "use colors"
-#~ msgstr "Utilisation des couleurs"
-
-#~ msgid "use different colors for amplitude"
-#~ msgstr "utilisation de différentes couleurs pour l'amplitude"
-
-#~ msgid "use greyscale only for amplitude"
-#~ msgstr "utilisation des nuances de gris pour l'amplitude"

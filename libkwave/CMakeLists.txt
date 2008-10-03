@@ -109,7 +109,6 @@ ENDIF (NOT USE_SYSTEM_LIB_AUDIOFILE)
 TARGET_LINK_LIBRARIES(libkwave
     audiofile
     ${QT_AND_KDECORE_LIBS}
-    dl
 )
 
 #############################################################################

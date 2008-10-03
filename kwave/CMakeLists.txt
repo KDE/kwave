@@ -82,8 +82,8 @@ ENDIF (USE_SYSTEM_LIB_AUDIOFILE)
 TARGET_LINK_LIBRARIES(kwave_core
     kwavegui
     kwave
-    ${QT_AND_KDECORE_LIBS}
     ${AUDIOFILE_LIBS}
+    ${QT_AND_KDECORE_LIBS}
 )
 
 ADD_DEPENDENCIES(kwave_core libkwavegui libkwave)

@@ -88,7 +88,7 @@ SET(_tarball_bz2 ${_tarball}.bz2)
 ADD_CUSTOM_COMMAND(OUTPUT ${_tarball_bz2}
     COMMAND ${TAR_EXECUTABLE}
         -c
-        --exclude=.svn
+        --exclude=.svn --exclude=testfiles
         --owner=root --group=root
         -C ${CMAKE_SOURCE_DIR}
         --transform=s+^./+kwave-${RPM_SHORT_VERSION}/+g

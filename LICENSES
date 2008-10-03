@@ -220,7 +220,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/pics/fade_out.png				(should be GPL2+)
 	kwave/pics/knob.xpm				LGPL2 (crystal project) [derived from greenled.png]
 	kwave/pics/kwave-splash.png			(should be GPL2+ / Thomas Eschenbacher)
-	kwave/pics/kwave.xpm				(should be GPL2+ / Martin Wilz)
+	kwave/pics/kwave.svgz				(should be GPL2+ / Thomas Eschenbacher)
 	kwave/pics/light_off.xpm			LGPL2 (crystal project) [derived from greenled.png]
 	kwave/pics/light_on.xpm				LGPL2 (crystal project) [copied from greenled.png]
 	kwave/pics/logo.xpm				(should be GPL2+ / Martin Wilz)

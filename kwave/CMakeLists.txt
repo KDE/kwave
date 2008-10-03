@@ -15,9 +15,6 @@
 ##                                                                          #
 #############################################################################
 
-FIND_PACKAGE(RequiredProgram REQUIRED)
-FIND_REQUIRED_PROGRAM(CONVERT_EXECUTABLE convert)
-
 #############################################################################
 ### generate menus_config_i18n.cpp                                        ###
 
@@ -39,38 +36,6 @@ SET(kwave_SRCS
     ShortcutWrapper.cpp
     TopWidget.cpp
     ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
-)
-
-#############################################################################
-### macro for scaling icons                                               ###
-
-MACRO(KWAVE_SCALE_ICONS _sources)
-    FOREACH(_size ${ARGN})
-        SET(_orig ${CMAKE_CURRENT_SOURCE_DIR}/pics/kwave.xpm)
-        SET(_scaled ${CMAKE_CURRENT_BINARY_DIR}/kwave-${_size}.png)
-
-        # generate the scaled version
-        ADD_CUSTOM_COMMAND(OUTPUT ${_scaled}
-            COMMAND ${CONVERT_EXECUTABLE}
-                -geometry ${_size} ${_orig} ${_scaled}
-            DEPENDS ${_orig}
-        )
-        SET(${_sources} ${${_sources}} ${_scaled})
-        SET_SOURCE_FILES_PROPERTIES(${_scaled} PROPERTIES GENERATED true)
-        SET_DIRECTORY_PROPERTIES(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES
-            "${_scaled}")
-    ENDFOREACH(_size)
-ENDMACRO(KWAVE_SCALE_ICONS)
-
-#############################################################################
-### scaled icons                                                          ###
-
-KWAVE_SCALE_ICONS(kwave_SRCS
-    16x16
-    22x22
-    32x32
-    48x48
-    64x64
 )
 
 #############################################################################
@@ -139,16 +104,11 @@ INSTALL(
     DESTINATION ${KDE4_XDG_APPS_INSTALL_DIR}
 )
 
-# scaled application icons
-FOREACH(_col locolor hicolor)
-    FOREACH(_dim 16x16 22x22 32x32 48x48 64x64)
-        INSTALL(
-            FILES ${CMAKE_CURRENT_BINARY_DIR}/kwave-${_dim}.png
-            DESTINATION ${DESTDIR}${KDE4_ICON_INSTALL_DIR}/${_col}/${_dim}/apps
-            RENAME kwave.png
-        )
-    ENDFOREACH(_dim)
-ENDFOREACH(_col)
+# application icon
+INSTALL(
+    FILES ${CMAKE_CURRENT_SOURCE_DIR}/pics/kwave.svgz
+    DESTINATION ${DESTDIR}${KDE4_ICON_INSTALL_DIR}/hicolor/scalable/apps
+)
 
 #############################################################################
 #############################################################################

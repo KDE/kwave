@@ -15,7 +15,12 @@
 ##                                                                          #
 #############################################################################
 
-SET(_ebuild ${CMAKE_CURRENT_BINARY_DIR}/kwave-${KWAVE_VERSION_FULL}.ebuild)
+SET(_ebuild_version "${KWAVE_VERSION_MAJOR}.${KWAVE_VERSION_MINOR}.${KWAVE_VERSION_RELEASE}")
+IF (KWAVE_VERSION_PATCHLEVEL)
+    SET(_ebuild_version "${_ebuild_version}-r${KWAVE_VERSION_PATCHLEVEL}")
+ENDIF (KWAVE_VERSION_PATCHLEVEL)
+
+SET(_ebuild ${CMAKE_CURRENT_BINARY_DIR}/kwave-${_ebuild_version}.ebuild)
 
 ADD_CUSTOM_COMMAND(OUTPUT ${_ebuild}
     COMMAND ${CMAKE_COMMAND} -E copy_if_different

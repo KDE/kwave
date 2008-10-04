@@ -89,7 +89,7 @@ bool SwapFile::allocate(size_t size, const QString &filename)
 #endif/* HAVE_MKSTEMP */
 
     m_file.seek(round_up(size, m_pagesize));
-    if (m_file.pos() + 1 < size) {
+    if ((qint64)(m_file.pos() + 1) < (qint64)size) {
 	qWarning("SwapFile::allocate(%d MB) failed, DISK FULL ?",
 	         (unsigned int)(size >> 20));
 	m_size = 0;

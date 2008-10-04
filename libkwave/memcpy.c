@@ -560,7 +560,8 @@ void probe_fast_memcpy(void)
     t = rdtsc(config_flags) - t;
     memcpy_method[i].time = t;
 
-    xprintf(xine, XINE_VERBOSITY_LOG, "\t%s : %lld\n", memcpy_method[i].name, t);
+    xprintf(xine, XINE_VERBOSITY_LOG, "\t%s : %lld\n", memcpy_method[i].name,
+      (long long int)t);
 
     if( best == 0 || t < memcpy_method[best].time )
       best = i;

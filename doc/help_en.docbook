@@ -30,8 +30,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2008-09-27</date>
-<releaseinfo>0.8.0</releaseinfo>
+<date>2008-10-04</date>
+<releaseinfo>0.8.0-2</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
 
@@ -344,6 +344,9 @@
 		id3lib-devel-3.8.1 or higher
 	    </para></listitem>
 	    <listitem><para>
+		fftw-3.x
+	    </para></listitem>
+	    <listitem><para>
 		mad-devel-0.15 or higher
 		(if you have the permission to use MP3 code)
 	    </para></listitem>
@@ -437,13 +440,6 @@
 		<listitem><para>
 		    <literal>WITH_FLAC</literal>
 		    enable support for FLAC files
-		    [<literal>on</literal>/<literal>off</literal>,
-		    default=<literal>on</literal>]
-		</para></listitem>
-		<listitem><para>
-		    <literal>WITH_GSL</literal>
-		    enable support for the GSL library
-		    (needed for the sonagram plugin)
 		    [<literal>on</literal>/<literal>off</literal>,
 		    default=<literal>on</literal>]
 		</para></listitem>
@@ -3011,12 +3007,6 @@
 	</itemizedlist>
     </para>
 -->
-
-<para>
-Older code contained some FFT routines and code fragments from the
-GNU Scientific Library project
-<ulink url="http://sources.redhat.com/gsl/">http://sources.redhat.com/gsl/</ulink>.
-</para>
 
 &underFDL;
 &underGPL;

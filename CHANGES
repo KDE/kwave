@@ -1,6 +1,7 @@
 0.8.1  [2008-12-??]
 
  * replaced application icon, using a scalable svg image
+ * replaced GSL with FFTW3, which is license compatible with Kwave
 
 0.8.0  [2008-09-27]
 

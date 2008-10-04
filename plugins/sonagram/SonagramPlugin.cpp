@@ -23,12 +23,11 @@
 #include <stdlib.h>
 #include <errno.h>
 
+#include <complex>
+#include <fftw3.h>
+
 #include <QString>
 #include <QImage>
-
-#include <gsl/gsl_complex.h>
-#include <gsl/gsl_fft.h>
-#include <gsl/gsl_fft_complex.h>
 
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/MultiTrackReader.h"
@@ -239,33 +238,32 @@ void SonagramPlugin::run(QStringList /* params */)
 {
 //    qDebug("SonagramPlugin::run()");
 
+    if (m_fft_points < 4)
+	return;
+
     MultiTrackReader source(signalManager(), selectedTracks(),
 	m_first_sample, m_last_sample);
 //    qDebug("SonagramPlugin::run(), first=%u, last=%u",m_first_sample,m_last_sample);
 
-    QByteArray stripe_data(m_fft_points/2, 0x00);
-    while (!m_cmd_shutdown) {
-	unsigned int stripe_nr;
-	for (stripe_nr = 0; stripe_nr < m_stripes; stripe_nr++) {
-//	    qDebug("SonagramPlugin::run(): calculating stripe %d of %d",
-//	        stripe_nr,m_stripes);
+    QByteArray stripe_data(m_fft_points / 2, 0x00);
+    unsigned int stripe_nr;
+    for (stripe_nr = 0; stripe_nr < m_stripes; stripe_nr++) {
+// 	qDebug("SonagramPlugin::run(): calculating stripe %d of %d",
+// 	    stripe_nr,m_stripes);
 
-	    // calculate one stripe
-	    calculateStripe(source, m_fft_points, stripe_data);
+	// calculate one stripe
+	calculateStripe(source, m_fft_points, stripe_data);
 
-	    StripeInfoPrivate *stripe_info = new
-		StripeInfoPrivate(stripe_nr, stripe_data);
-	    if (!stripe_info) break; // out of memory
+	StripeInfoPrivate *stripe_info = new
+	    StripeInfoPrivate(stripe_nr, stripe_data);
+	if (!stripe_info) break; // out of memory
 
-	    // emit the stripe data to be synchronously inserted into
-	    // the current image
-	    emit stripeAvailable(stripe_info);
-	    delete stripe_info;
+	// emit the stripe data to be synchronously inserted into
+	// the current image
+	emit stripeAvailable(stripe_info);
+	delete stripe_info;
 
-	    if (m_cmd_shutdown) break;
-	}
-
-	m_cmd_shutdown = true;
+	if (m_cmd_shutdown) break;
     }
 
 //    qDebug("SonagramPlugin::run(): done.");
@@ -289,8 +287,9 @@ void SonagramPlugin::insertStripe(StripeInfoPrivate *stripe_info)
 void SonagramPlugin::calculateStripe(MultiTrackReader &source,
 	const int points, QByteArray &output)
 {
-    gsl_fft_complex_wavetable *wavetable = 0;
-    gsl_fft_complex_workspace *workspace = 0;
+    double *in  = 0;
+    fftw_complex *out = 0;
+    fftw_plan p;
 
     // first initialize the output to zeroes in case of errors
     output.fill(0);
@@ -300,23 +299,23 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
     Q_ASSERT(windowfunction.count() == points);
     if (windowfunction.count() != points) return;
 
-    QVector<double> input(2*points);
-    Q_ASSERT(input.size() == 2*points);
-    if (input.size() < 2*points) return;
+    // initialize the tables for fft
+    in = (double *)fftw_malloc(points * sizeof(double));
+    Q_ASSERT(in);
+    if (!in) return;
 
-    // initialize the table for fft
-    wavetable = gsl_fft_complex_wavetable_alloc(points);
-    Q_ASSERT(wavetable);
-    if (!wavetable) return;
-
-    workspace = gsl_fft_complex_workspace_alloc(points);
-    Q_ASSERT(workspace);
-    if (!workspace) {
-	gsl_fft_complex_wavetable_free(wavetable);
+    out = (fftw_complex *)fftw_malloc(
+	((points / 2) + 1) * sizeof(fftw_complex));
+    Q_ASSERT(out);
+    if (!out){
+	fftw_free(in);
 	return;
     }
 
-    // copy signal data into complex array
+    // prepare for a 1-dimensional real-to-complex DFT
+    p = fftw_plan_dft_r2c_1d(points, in, out, FFTW_ESTIMATE);
+
+    // copy normed signal data into the real array
     for (int j = 0; j < points; j++) {
 	double value = 0.0;
 	if (!(source.eof())) {
@@ -334,16 +333,12 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
 	    }
 	    value /= (double)(1 << (SAMPLE_BITS-1)) * (double)count;
 	}
-	input[j+j + 0] = windowfunction[j] * value;
-	input[j+j + 1] = 0;
+	in[j] = value;
     }
 
     // calculate the fft
-    gsl_fft_complex_forward(input.data(), 1, points,
-                            wavetable, workspace);
+    fftw_execute(p);
 
-    double ima;
-    double rea;
 //    double max = 0.0;
 //    for (int k = 0; k < points/2; k++) {
 //	rea = data[k].real;
@@ -356,25 +351,24 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
 //	if (rea > max) max = rea;
 //    }
 //
-    double max = m_fft_points/2;
+//     double max = m_fft_points/2;
 
-    // norm all values to [0...255] and use them as pixel value
-    if (max != 0) {
-	for (int j = 0; j < points/2; j++) {
-	    rea = input[j+j + 0];
-	    ima = input[j+j + 1];
-	    rea = sqrt(rea * rea + ima * ima) / max;
+    // norm all values to [0...254] and use them as pixel value
+    for (int j = 0; j < points / 2; j++) {
+	double rea = out[j][0];
+	double ima = out[j][1];
+	double a = sqrt((rea * rea) + (ima * ima)) / (double)points;
 
-	    // get amplitude and scale to 1
-	    rea = 1 - ((1 - rea) * (1 - rea));
+	// get amplitude and scale to 1
+	a = 1 - ((1 - a) * (1 - a));
 
-	    output[j] = 0xFE - (int)(rea * 0xFE );
-	}
+	output[j] = 0xFE - (int)(a * 0xFE );
     }
 
-    // free the intermediate array used for fft
-    gsl_fft_complex_wavetable_free(wavetable);
-    gsl_fft_complex_workspace_free(workspace);
+    // free the the allocated FFT resources
+    fftw_destroy_plan(p);
+    fftw_free(in);
+    fftw_free(out);
 }
 
 //***************************************************************************

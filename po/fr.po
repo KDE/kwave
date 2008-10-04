@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-27 07:50+0200\n"
+"POT-Creation-Date: 2008-10-04 09:31+0200\n"
 "PO-Revision-Date: 2007-08-01 19:04+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
@@ -1434,7 +1434,7 @@ msgstr ""
 "zoom\n"
 "et de défilement."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:502
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:503
 msgid "<nothing>"
 msgstr "<rien>"
 
@@ -1603,7 +1603,7 @@ msgstr "Amplification libre"
 msgid "Amplify:"
 msgstr "Amplification :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:538
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:539
 #, fuzzy
 msgid "Amplitude: %1 %"
 msgstr "Amplitude : %d %%"
@@ -2245,7 +2245,7 @@ msgstr "Style libre"
 msgid "Frequency:"
 msgstr "Fréquence :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:528
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:529
 #, fuzzy
 msgid "Frequency: %1 Hz"
 msgstr "Fréquence : %d Hz"
@@ -3520,7 +3520,7 @@ msgstr "Rock lent"
 msgid "Software"
 msgstr "Logiciel "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:501
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:502
 msgid "Sonagram of "
 msgstr "Sonagramme de "
 
@@ -3849,7 +3849,7 @@ msgstr ""
 msgid "Time"
 msgstr "Temps"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:525
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:526
 msgid "Time: %1"
 msgstr "Temps : %1"
 
@@ -4840,7 +4840,7 @@ msgstr "taille du tampon de lecture en octets"
 msgid "some description of the label (optional)"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramPlugin.cpp:82
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramPlugin.cpp:81
 msgid "sonagram"
 msgstr "sonagramme"
 

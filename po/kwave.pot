@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-27 07:50+0200\n"
+"POT-Creation-Date: 2008-10-04 09:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1737,7 +1737,7 @@ msgstr ""
 msgid "size of bitmap: %1x%2"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramPlugin.cpp:82
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramPlugin.cpp:81
 msgid "sonagram"
 msgstr ""
 
@@ -1785,23 +1785,23 @@ msgstr ""
 msgid "Save Sonagram"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:501
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:502
 msgid "Sonagram of "
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:502
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:503
 msgid "<nothing>"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:525
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:526
 msgid "Time: %1"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:528
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:529
 msgid "Frequency: %1 Hz"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:538
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:539
 msgid "Amplitude: %1 %"
 msgstr ""
 

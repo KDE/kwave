@@ -287,6 +287,7 @@ void Signal::selectTrack(unsigned int track, bool select)
 //    return max;
 //}
 ////*********************************************************
+/** @todo needs to be ported to fftw, moved to a plugin and re-activated */
 //void Signal::fft (int windowtype, bool accurate)
 //{
 //    complex *data = 0;

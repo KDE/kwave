@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-27 07:49+0200\n"
-"PO-Revision-Date: 2008-09-27 07:50+0200\n"
+"POT-Creation-Date: 2008-10-04 09:10+0200\n"
+"PO-Revision-Date: 2008-10-04 09:11+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1447,7 +1447,7 @@ msgstr ""
 "und eine graphische Ansicht mit ausgereiften Zoom- und "
 "Navigationsmöglichkeiten."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:502
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:503
 msgid "<nothing>"
 msgstr "<Nichts>"
 
@@ -1627,7 +1627,7 @@ msgstr "Frei Verstärken"
 msgid "Amplify:"
 msgstr "Verstärkung:"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:538
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:539
 msgid "Amplitude: %1 %"
 msgstr "Amplitude: %1 %"
 
@@ -2262,7 +2262,7 @@ msgstr "Freistil"
 msgid "Frequency:"
 msgstr "Frequenz:"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:528
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:529
 msgid "Frequency: %1 Hz"
 msgstr "Frequenz: %1 Hz"
 
@@ -3536,7 +3536,7 @@ msgstr "Slow Rock"
 msgid "Software"
 msgstr "Software"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:501
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:502
 msgid "Sonagram of "
 msgstr "Sonagramm von "
 
@@ -3868,7 +3868,7 @@ msgstr ""
 msgid "Time"
 msgstr "Zeit"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:525
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:526
 msgid "Time: %1"
 msgstr "Zeit: %1"
 
@@ -4850,7 +4850,7 @@ msgstr "Größe des Wiedergabe-Puffers in Bytes"
 msgid "some description of the label (optional)"
 msgstr "eine kurze Beschreibung des Markers (optional)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramPlugin.cpp:82
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramPlugin.cpp:81
 msgid "sonagram"
 msgstr "Sonagramm"
 

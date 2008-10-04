@@ -382,6 +382,7 @@ void SonagramWindow::refresh_view()
 //****************************************************************************
 void SonagramWindow::toSignal()
 {
+/** @todo needs to be ported to fftw and re-activated */
 //    gsl_fft_complex_wavetable table;
 //
 //    gsl_fft_complex_wavetable_alloc (points, &table);

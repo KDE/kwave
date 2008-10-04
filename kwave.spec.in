@@ -22,7 +22,7 @@ Requires:	libvorbisenc.so.2 >= 2.0.0
 Requires:	libogg.so.0 >= 0.4.0
 Requires:	@RPM_REQUIRE_LIBMAD@ > 0.14
 @LIBAUDIOFILE_REQUIRE@
-Requires:	gsl >= 1.4
+Requires:	fftw >= 3.0
 Requires:	flac
 BuildRequires:  cmake >= 2.4.4
 BuildRequires:	flac-devel
@@ -31,7 +31,7 @@ BuildRequires:	kdemultimedia3-devel
 BuildRequires:	libogg-devel >= 1
 BuildRequires:	audiofile > 0.2.3
 BuildRequires:	libvorbis >= 1
-BuildRequires:	gsl >= 1.4
+BuildRequires:	fftw >= 3.0
 BuildRequires:	kdesdk3-translate
 BuildRequires:  gettext-devel
 

@@ -139,7 +139,7 @@ I am currently developing under a Gentoo Linux distribution
 * libogg >= 1.1.2                    (for Ogg/Vorbis import/export)
 * libvorbis >= 1.1.0                 (for Ogg/Vorbis import/export)
 * flac >= 1.1.0                      (for FLAC import/export)
-* gsl >= 1.4                         (for Sonagram plugin / FFT)
+* fftw >= 3.0                        (for Sonagram plugin / FFT)
 
 Some tools that are normally installed in every distribution:
 * sed, awk, bash, msgmerge, msgfmt, xgettext, expand, cat,

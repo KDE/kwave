@@ -38,10 +38,10 @@ DIRECTLY USED EXTERNAL LIBRARIES
 
 	* Qt-4.x			GPL2 or GPL3
 	* kdelibs-4.x			LGPL2
-	* gsl-1.9			GPL2 (GPL3 in >= v1.10 !!!)
+	* FFTW-3.x			GPL2+
 	* audiofile-0.2.6		LGPL2+ / GPL2+
 	* id3lib-3.8.3			LGPL2.1
-	* mad-0.15.1b			GPL-2
+	* mad-0.15.1b			GPL-2 <= possible patent issue !!!
 	* ogg-1.1.3			~BSD style
 	* flac-1.2.1			Xiph.Org's BSD-like + GPL2 + LGPL2
 	* alsa-lib-1.0.16		LGPL2.1

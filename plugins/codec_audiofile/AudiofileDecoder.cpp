@@ -145,8 +145,8 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     unsigned int rate = 0;
     int sample_format;
     afGetVirtualSampleFormat(fh, AF_DEFAULT_TRACK, &sample_format,
-	(int *)(&bits));
-    rate = (int)afGetRate(fh, AF_DEFAULT_TRACK);
+	reinterpret_cast<int *>(&bits));
+    rate = static_cast<int>(afGetRate(fh, AF_DEFAULT_TRACK));
 
     QString sample_format_name;
     switch (sample_format) {
@@ -205,12 +205,13 @@ bool AudiofileDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
     Q_ASSERT(fh);
     if (!fh) return false;
 
-    unsigned int frame_size = (unsigned int)afGetVirtualFrameSize(fh,
-	AF_DEFAULT_TRACK, 1);
+    unsigned int frame_size = static_cast<unsigned int>(
+	afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
 
     // allocate a buffer for input data
     const unsigned int buffer_frames = (8*1024);
-    int32_t *buffer = (int32_t *)malloc(buffer_frames * frame_size);
+    int32_t *buffer =
+	static_cast<int32_t *>(malloc(buffer_frames * frame_size));
     Q_ASSERT(buffer);
     if (!buffer) return false;
 
@@ -221,7 +222,7 @@ bool AudiofileDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 	unsigned int frames = buffer_frames;
 	if (frames > rest) frames = rest;
 	unsigned int buffer_used = afReadFrames(fh,
-	    AF_DEFAULT_TRACK, (char *)buffer, frames);
+	    AF_DEFAULT_TRACK, reinterpret_cast<char *>(buffer), frames);
 
 	// break if eof reached
 	Q_ASSERT(buffer_used);

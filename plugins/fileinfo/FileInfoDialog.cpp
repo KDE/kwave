@@ -210,13 +210,13 @@ void FileInfoDialog::setupFileInfoTab()
     /* length of the signal */
     lblLength->setText(i18n("Length")+":");
     describeWidget(txtLength, lblLength->text().left(
-        lblLength->text().length()-1),
+        lblLength->text().length() - 1),
         i18n("Shows the length of the file in samples\n"
              "and if possible as time."));
     unsigned int samples = m_info.length();
     double rate = m_info.rate();
     if (rate != 0) {
-	double ms = (double)samples * 1E3 / rate;
+	double ms = static_cast<double>(samples) * 1E3 / rate;
 	txtLength->setText(i18n("%1 (%2 samples)",
 	    KwavePlugin::ms2string(ms),
 	    KwavePlugin::dottedNumber(samples)));
@@ -328,8 +328,8 @@ void FileInfoDialog::setupMpegTab()
 
     /* MPEG version */
     initInfo(lblMpegVersion, cbMpegVersion,  INF_MPEG_VERSION);
-    int ver = m_is_mpeg ?
-        (int)(2.0 * QVariant(m_info.get(INF_MPEG_VERSION)).toDouble()) : 0;
+    int ver = m_is_mpeg ? static_cast<int>(
+        (2.0 * QVariant(m_info.get(INF_MPEG_VERSION)).toDouble())) : 0;
     // 0, 1, 2, 2.5 -> 0, 2, 4, 5
     if (ver > 3) ver++; // 0, 2, 4, 6
     ver >>= 1; // 0, 1, 2, 3

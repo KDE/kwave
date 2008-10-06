@@ -47,8 +47,8 @@ unsigned int MouseMark::right()
 //****************************************************************************
 void MouseMark::grep(unsigned int x)
 {
-    double d_last  = (double)last    - (double)x;
-    double d_first = (double)initial - (double)x;
+    double d_last  = static_cast<double>(last)    - static_cast<double>(x);
+    double d_first = static_cast<double>(initial) - static_cast<double>(x);
     d_last  *= d_last;
     d_first *= d_first;
     if (d_last > d_first) {

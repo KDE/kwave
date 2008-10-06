@@ -189,8 +189,8 @@ void Curve::HFlip()
 //***************************************************************************
 void Curve::scaleFit(unsigned int range)
 {
-    qreal min = static_cast<qreal>((double)DBL_MAX);
-    qreal max = static_cast<qreal>((double)DBL_MIN);
+    qreal min = DBL_MAX;
+    qreal max = DBL_MIN;
 
     Interpolation interpolation(m_interpolation.type());
 

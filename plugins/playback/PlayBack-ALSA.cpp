@@ -410,7 +410,9 @@ int PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 	return err;
     }
     qDebug("   real rate = %u", rrate);
-    if ((float)rate * 1.05 < rrate || (float)rate * 0.95 > rrate) {
+    if (static_cast<float>(rate) * 1.05 < rrate ||
+	static_cast<float>(rate) * 0.95 > rrate)
+    {
 	qWarning("rate is not accurate (requested = %iHz, got = %iHz)",
 	          rate, rrate);
 	qWarning("         please, try the plug plugin (-Dplug:%s)",
@@ -479,8 +481,8 @@ int PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     err = snd_pcm_sw_params_set_avail_min(m_handle, sw_params, m_chunk_size);
 
     /* round up to closest transfer boundary */
-    start_threshold = (snd_pcm_uframes_t)
-                      ((double)rate * start_delay / 1000000);
+    start_threshold = static_cast<snd_pcm_uframes_t>(
+	static_cast<double>(rate) * start_delay / 1000000);
     if (start_delay <= 0) start_threshold += n;
 
     if (start_threshold < 1) start_threshold = 1;
@@ -488,8 +490,8 @@ int PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     err = snd_pcm_sw_params_set_start_threshold(m_handle, sw_params,
                                                 start_threshold);
     Q_ASSERT(err >= 0);
-    stop_threshold = (snd_pcm_uframes_t)
-                     ((double)rate * stop_delay / 1000000);
+    stop_threshold = static_cast<snd_pcm_uframes_t>(
+	static_cast<double>(rate) * stop_delay / 1000000);
     if (stop_delay <= 0) stop_threshold += buffer_size;
 
     err = snd_pcm_sw_params_set_stop_threshold(m_handle, sw_params,
@@ -544,7 +546,8 @@ QString PlayBackALSA::open(const QString &device, double rate,
     // initialize the list of supported formats
     m_supported_formats = detectSupportedFormats(device);
 
-    int err = openDevice(device, (unsigned int)rate, channels, bits);
+    int err = openDevice(device, static_cast<unsigned int>(rate),
+	channels, bits);
     if (err) {
 	QString reason;
 	switch (err) {
@@ -579,8 +582,9 @@ QString PlayBackALSA::open(const QString &device, double rate,
     unsigned int chunk_bytes = m_chunk_size * m_bytes_per_sample;
     Q_ASSERT(chunk_bytes);
     if (!chunk_bytes) return 0;
-    unsigned int n = (unsigned int)(ceil((float)(1 << m_bufbase) /
-                                         (float)chunk_bytes));
+    unsigned int n = static_cast<unsigned int>(ceil(
+	static_cast<float>(1 << m_bufbase) /
+	static_cast<float>(chunk_bytes)));
     if (n < 1) n = 1;
     m_buffer_size = n * m_chunk_size * m_bytes_per_sample;
     m_buffer.resize(m_buffer_size);
@@ -607,7 +611,7 @@ int PlayBackALSA::write(const Kwave::SampleArray &samples)
 	return -EIO;
     }
 
-    QByteArray raw(bytes, (char)0);
+    QByteArray raw(bytes, char(0));
     m_encoder->encode(samples, m_channels, raw);
     MEMCPY(m_buffer.data() + m_buffer_used, raw.data(), bytes);
     m_buffer_used += bytes;
@@ -630,7 +634,8 @@ int PlayBackALSA::flush()
 	unsigned int samples = m_buffer_used / m_bytes_per_sample;
 	unsigned int buffer_samples = m_buffer_size / m_bytes_per_sample;
 	unsigned int timeout = (m_rate > 0) ?
-	    3 * ((1000 * buffer_samples) / (unsigned int)m_rate) : 1000U;
+	    3 * ((1000 * buffer_samples) /
+	    static_cast<unsigned int>(m_rate)) : 1000U;
 	u_int8_t *p = reinterpret_cast<u_int8_t *>(m_buffer.data());
 	int r;
 
@@ -646,7 +651,9 @@ int PlayBackALSA::flush()
 	while (samples > 0) {
 	    // try to write as much as the device accepts
 	    r = snd_pcm_writei(m_handle, p, samples);
-	    if ((r == -EAGAIN) || ((r >= 0) && (r < (int)samples))) {
+	    if ((r == -EAGAIN) || ((r >= 0) &&
+	        (r < static_cast<int>(samples))))
+	    {
 		snd_pcm_wait(m_handle, timeout);
 	    } else if (r == -EPIPE) {
 		// underrun -> start again
@@ -685,7 +692,7 @@ int PlayBackALSA::flush()
 	    }
 	    if (r > 0) {
 		// advance in the buffer
-		Q_ASSERT(r <= (int)samples);
+		Q_ASSERT(r <= static_cast<int>(samples));
 		p       += r * m_bytes_per_sample;
 		samples -= r;
 	    }
@@ -786,7 +793,7 @@ void PlayBackALSA::scanDevices()
  	    qDebug("  Subdevices: %i/%i\n",
 		snd_pcm_info_get_subdevices_avail(pcminfo), count);
 	    if (count > 1) {
-		for (idx = 0; idx < (int)count; idx++) {
+		for (idx = 0; idx < static_cast<int>(count); idx++) {
 		    snd_pcm_info_set_subdevice(pcminfo, idx);
 		    if ((err = snd_ctl_pcm_info(handle, pcminfo)) < 0) {
 			qWarning("ctrl digital audio playback info (%i): %s",

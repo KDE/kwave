@@ -82,6 +82,8 @@ IF (WITH_FLAC)
                         FLAC__STREAM_ENCODER_INIT_STATUS_OK;
                 FLAC__StreamDecoderInitStatus init_state_e =
                         FLAC__STREAM_DECODER_INIT_STATUS_OK;
+                (void)init_state_d;
+                (void)init_state_e;
                 return 0;
             }
         ")
@@ -93,6 +95,7 @@ IF (WITH_FLAC)
             CMAKE_FLAGS -DLINK_LIBRARIES:STRING=FLAC++
             OUTPUT_VARIABLE _out
         )
+#         MESSAGE(STATUS ${_out})
 
         IF (FLAC_API_VERSION_1_1_3)
             MESSAGE(STATUS "Found FLAC API version 1.1.3 or newer")
@@ -123,6 +126,8 @@ IF (WITH_FLAC)
                             FLAC__STREAM_ENCODER_INIT_STATUS_OK;
                     FLAC__StreamDecoderInitStatus init_state_e =
                             FLAC__STREAM_DECODER_INIT_STATUS_OK;
+                    (void)init_state_d;
+                    (void)init_state_e;
                     return 0;
                 }
             ")

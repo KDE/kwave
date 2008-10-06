@@ -381,7 +381,7 @@ int RecordALSA::initialize()
     Q_ASSERT(!err);
     if (err) {
 	qWarning("RecordkALSA::setFormat(): format %u is not supported",
-	    (int)alsa_format);
+	    static_cast<int>(alsa_format));
 	snd_output_close(output);
 	return -EINVAL;
     }
@@ -402,7 +402,8 @@ int RecordALSA::initialize()
 	return -EINVAL;
     }
 
-    unsigned int rrate = m_rate > 0 ? (unsigned int)rint(m_rate) : 0;
+    unsigned int rrate = m_rate > 0 ?
+	static_cast<unsigned int>(rint(m_rate)) : 0;
     err = snd_pcm_hw_params_set_rate_near(m_handle, hw_params, &rrate, 0);
     if (err < 0) {
 	qWarning("Cannot set sample rate: %s", snd_strerror(err));
@@ -412,7 +413,7 @@ int RecordALSA::initialize()
 //     qDebug("   real rate = %u", rrate);
     if (m_rate * 1.05 < rrate || m_rate * 0.95 > rrate) {
 	qWarning("rate is not accurate (requested = %iHz, got = %iHz)",
-	         (int)m_rate, (int)rrate);
+	         static_cast<int>(m_rate), static_cast<int>(rrate));
     }
     m_rate = rrate;
 
@@ -478,7 +479,7 @@ int RecordALSA::initialize()
 
     /* round up to closest transfer boundary */
     n = buffer_size;
-    start_threshold = (snd_pcm_uframes_t)
+    start_threshold = static_cast<snd_pcm_uframes_t>
                       (m_rate * start_delay / 1000000);
     if (start_delay <= 0) start_threshold += n;
 
@@ -487,7 +488,7 @@ int RecordALSA::initialize()
     err = snd_pcm_sw_params_set_start_threshold(m_handle, sw_params,
                                                 start_threshold);
     Q_ASSERT(err >= 0);
-    stop_threshold = (snd_pcm_uframes_t)
+    stop_threshold = static_cast<snd_pcm_uframes_t>
                      (m_rate * stop_delay / 1000000);
     if (stop_delay <= 0) stop_threshold += buffer_size;
 
@@ -607,7 +608,7 @@ int RecordALSA::read(QByteArray &buffer, unsigned int offset)
     // handle all negative result codes
     if (r == -EAGAIN) {
 	unsigned int timeout = (m_rate > 0) ?
-	    (((1000 * samples) / 4) / (unsigned int)m_rate) : 10U;
+	    (((1000 * samples) / 4) / static_cast<unsigned int>(m_rate)) : 10U;
 	snd_pcm_wait(m_handle, timeout);
 	return -EAGAIN;
     } else if (r == -EPIPE) {
@@ -647,8 +648,8 @@ int RecordALSA::read(QByteArray &buffer, unsigned int offset)
     // no error, successfully read something:
     // advance in the buffer
 //     qDebug("<<< after read, r=%d", r);
-    Q_ASSERT(r <= (int)samples);
-    if (r > (int)samples) r = samples;
+    Q_ASSERT(r <= static_cast<int>(samples));
+    if (r > static_cast<int>(samples)) r = samples;
 
     return (r * m_bytes_per_sample);
 }
@@ -915,7 +916,7 @@ QList<SampleFormat> RecordALSA::detectSampleFormats()
 	// only accept bits/sample if compression types
 	// and bits per sample match
 	if (compression_of(*fmt) != m_compression) continue;
-	if (snd_pcm_format_width(*fmt) != (int)m_bits_per_sample)
+	if (snd_pcm_format_width(*fmt) != static_cast<int>(m_bits_per_sample))
 	    continue;
 
 	// do not produce duplicates
@@ -1039,7 +1040,7 @@ void RecordALSA::scanDevices()
 //  	    qDebug("  Subdevices: %i/%i\n",
 // 		snd_pcm_info_get_subdevices_avail(pcminfo), count);
 	    if (count > 1) {
-		for (idx = 0; idx < (int)count; idx++) {
+		for (idx = 0; idx < static_cast<int>(count); idx++) {
 		    snd_pcm_info_set_subdevice(pcminfo, idx);
 		    if ((err = snd_ctl_pcm_info(handle, pcminfo)) < 0) {
 			qWarning("ctrl digital audio playback info (%i): %s",

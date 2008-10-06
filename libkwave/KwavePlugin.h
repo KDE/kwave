@@ -39,7 +39,7 @@ class SampleReader;
 class SignalManager;
 class TopWidget;
 class QStringList;
-namespace Kwave { class PluginWorkerThread; };
+namespace Kwave { class PluginWorkerThread; }
 
 #define KWAVE_PLUGIN(class_name,plugin_name,author_name) \
     extern "C" const char *name    KDE_EXPORT = plugin_name; \

@@ -77,8 +77,9 @@ WavFormatMap::WavFormatMap()
 //***************************************************************************
 const QString &WavFormatMap::findName(unsigned int id)
 {
-    if (!contains((wav_format_id)id)) return (*this)[WAVE_FORMAT_UNKNOWN];
-    return (*this)[(wav_format_id)id];
+    if (!contains(static_cast<wav_format_id>(id)))
+	return (*this)[WAVE_FORMAT_UNKNOWN];
+    return (*this)[static_cast<wav_format_id>(id)];
 }
 
 //***************************************************************************

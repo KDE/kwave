@@ -260,12 +260,13 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 		    y1 = p.y();
 
 		    qreal dy = (y1 - y0);
-		    int dx  = (int)((x1 - x0) * len);
-		    int min = (int)(x0 * len);
+		    int dx  = static_cast<int>((x1 - x0) * len);
+		    int min = static_cast<int>(x0 * len);
 
 		    Q_ASSERT(x0 >= 0.0);
 		    Q_ASSERT(x1 <= 1.0);
-		    for (int i = (int)(x0 * len); i < (int)(x1 * len); i++) {
+		    for (int i = static_cast<int>(x0 * len);
+		         i < static_cast<int>(x1 * len); i++) {
 			qreal h = dx ? ((qreal(i - min)) / dx) : 0.0;
 			y_out[i] = y0 + (h * dy);
 		    }
@@ -296,12 +297,12 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 	    get2Derivate(x, y, der, count);
 
 	    int ent;
-	    int start = (int) (x[1] * len);
+	    int start = static_cast<int>(x[1] * len);
 
 	    for (unsigned int j = 2; j <= count; j++) {
-		ent = (int) (x[j] * len);
+		ent = static_cast<int>(x[j] * len);
 		for (int i = start; i < ent; i++) {
-		    qreal xin = ((qreal) i) / len;
+		    qreal xin = static_cast<qreal>(i) / len;
 		    qreal h, b, a;
 
 		    h = x[j] - x[j - 1];
@@ -344,10 +345,13 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 		    else
 			ent = points[px + 1].x();
 
-		    for (int i=(int)(start*len); i<(int)(ent*len); i++) {
+		    for (int i = static_cast<int>(start * len);
+			i < static_cast<int>(ent * len); i++)
+		    {
 			ny = y[0];
 			for (unsigned int j = 1; j < degree; j++)
-			    ny = ny * (((qreal)i) / len - x[j]) + y[j];
+			    ny = ny * ((static_cast<qreal>(i)) / len - x[j])
+				+ y[j];
 
 			y_out[i] = ny;
 		    }
@@ -368,7 +372,7 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 		createFullPolynom(points, x, y);
 
 		for (unsigned int i = 1; i < len; i++) {
-		    px = (qreal)(i) / len;
+		    px = static_cast<qreal>(i) / len;
 		    ny = y[0];
 		    for (int j = 1; j < count; j++)
 			ny = ny * (px - x[j]) + y[j];
@@ -393,7 +397,8 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 		    x1 = p.x();
 		    y1 = p.y();
 
-		    for (int i = (int)(x0 * len); i < (int)(x1 * len); i++)
+		    for (int i = static_cast<int>(x0 * len);
+		         i < static_cast<int>(x1 * len); i++)
 			y_out[i] = y0;
 
 		    x0 = x1;

@@ -706,7 +706,7 @@ void RecordDialog::setTracks(unsigned int tracks)
 void RecordDialog::tracksChanged(int tracks)
 {
     if (tracks < 1) return; // no device
-    if (tracks == (int)m_params.tracks) return;
+    if (tracks == static_cast<int>(m_params.tracks)) return;
 
     m_params.tracks = tracks;
     emit sigTracksChanged(tracks);
@@ -1125,7 +1125,8 @@ void RecordDialog::updateBufferState(unsigned int count, unsigned int total)
 	    if (m_samples_recorded > 1) {
 		double rate = m_params.sample_rate;
 		double ms = (rate) ?
-		    (((double)m_samples_recorded / rate) * 1E3) : 0;
+		    ((static_cast<double>(m_samples_recorded) / rate) * 1E3)
+		    : 0;
 		txt = " " + i18n("Length: %1", KwavePlugin::ms2string(ms)) +
 		    " " + i18n("(%1 samples)",
 		    KwavePlugin::dottedNumber(m_samples_recorded));

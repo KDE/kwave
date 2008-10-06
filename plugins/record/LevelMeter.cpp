@@ -86,7 +86,7 @@ void LevelMeter::resizeEvent(QResizeEvent *)
 //***************************************************************************
 void LevelMeter::setTracks(unsigned int tracks)
 {
-    if ((int)tracks == m_tracks) return;
+    if (static_cast<int>(tracks) == m_tracks) return;
     m_tracks = tracks;
     reset(); // re-create all arrays etc.
 }
@@ -94,20 +94,21 @@ void LevelMeter::setTracks(unsigned int tracks)
 //***************************************************************************
 void LevelMeter::setSampleRate(double rate)
 {
-    if ((float)rate == m_sample_rate) return;
-    m_sample_rate = (float)rate;
+    if (static_cast<float>(rate) == m_sample_rate) return;
+    m_sample_rate = static_cast<float>(rate);
 }
 
 //***************************************************************************
 void LevelMeter::updateTrack(unsigned int track, Kwave::SampleArray &buffer)
 {
-    Q_ASSERT((int)track < m_tracks);
-    if ((int)track >= m_tracks) return;
+    Q_ASSERT(static_cast<int>(track) < m_tracks);
+    if (static_cast<int>(track) >= m_tracks) return;
 
     // calculate the number of samples per update (approx)
     const unsigned int samples = buffer.size();
     const unsigned int samples_per_update =
-        (unsigned int)rint(ceil(m_sample_rate/UPDATES_PER_SECOND));
+        static_cast<const unsigned int>(
+        rint(ceil(m_sample_rate/UPDATES_PER_SECOND)));
     unsigned int next_fraction = samples_per_update;
     const unsigned int queue_depth = ((samples / samples_per_update) + 2);
 
@@ -189,17 +190,18 @@ void LevelMeter::reset()
 void LevelMeter::enqueue(unsigned int track, float fast, float peak,
                          unsigned int queue_depth)
 {
-    Q_ASSERT((int)track < m_tracks);
+    Q_ASSERT(static_cast<int>(track) < m_tracks);
     Q_ASSERT(m_peak_queue.size() == m_fast_queue.size());
     Q_ASSERT(m_fast_queue.size() >= m_tracks);
     Q_ASSERT(m_peak_queue.size() >= m_tracks);
-    if (((int)track >= m_tracks) || (m_fast_queue.size() < (int)m_tracks) ||
-        (m_peak_queue.size() < m_tracks)) return;
+    if ((static_cast<int>(track) >= m_tracks) ||
+	(m_fast_queue.size() < static_cast<int>(m_tracks)) ||
+	(m_peak_queue.size() < m_tracks)) return;
     Q_ASSERT(m_peak_queue[track].size() == m_fast_queue[track].size());
     if (m_peak_queue[track].size() != m_fast_queue[track].size()) return;
 
     // remove old entries
-    while (m_fast_queue[track].size() > (int)queue_depth) {
+    while (m_fast_queue[track].size() > static_cast<int>(queue_depth)) {
 //	qDebug("LevelMeter::enqueue(): purging old entry (%u/%u)",
 //	       m_fast_queue.size(), queue_depth);
 	m_fast_queue[track].dequeue();
@@ -212,7 +214,7 @@ void LevelMeter::enqueue(unsigned int track, float fast, float peak,
 
     // restart the timer if necessary
     if (m_timer && !m_timer->isActive()) {
-	m_timer->setInterval((int)(1000 / UPDATES_PER_SECOND));
+	m_timer->setInterval(static_cast<int>(1000 / UPDATES_PER_SECOND));
 	m_timer->start(false);
     }
 }
@@ -223,8 +225,9 @@ bool LevelMeter::dequeue(unsigned int track, float &fast, float &peak)
     Q_ASSERT(m_peak_queue.size() == m_fast_queue.size());
     Q_ASSERT(m_fast_queue.size() >= m_tracks);
     Q_ASSERT(m_peak_queue.size() >= m_tracks);
-    if (((int)track >= m_tracks) || (m_fast_queue.size() < m_tracks) ||
-        (m_peak_queue.size() < m_tracks)) return false;
+    if ((static_cast<int>(track) >= m_tracks) ||
+	(m_fast_queue.size() < m_tracks) ||
+	(m_peak_queue.size() < m_tracks)) return false;
     Q_ASSERT(m_peak_queue[track].size() == m_fast_queue[track].size());
     if (m_peak_queue[track].size() != m_fast_queue[track].size())
         return false;
@@ -292,7 +295,8 @@ void LevelMeter::drawScale(QPainter &p)
 	int x;
 	do {
 	    txt = i18n("%1 dB", db);
-	    x = (int)((double)w * pow10((double)db/(double)20.0));
+	    x = static_cast<int>(static_cast<double>(w) *
+		pow10(static_cast<double>(db) / 20.0));
 	    db -= 3; // one step left == -3dB
 	} while ((x > right) && (x >= tw));
 	if (x < tw) break;
@@ -352,12 +356,13 @@ void LevelMeter::drawContents()
     const unsigned int w = width() - (border * 2) - (cell * 2);
     const unsigned int h = (height() - border) / (m_tracks ? m_tracks : 1);
 
-    const unsigned int w_low  = (int)(w * 0.7);  // -3 dB
-    const unsigned int w_high = (int)(w * 0.85); // -1.5dB
+    const unsigned int w_low  = static_cast<int>(w * 0.7);  // -3 dB
+    const unsigned int w_high = static_cast<int>(w * 0.85); // -1.5dB
 
     for (track=0; track < static_cast<unsigned int>(m_tracks); track++) {
 	// show a bar up to the "fast" value
-	const unsigned int fast = (unsigned int)(m_current_fast[track] * w);
+	const unsigned int fast = static_cast<const unsigned int>(
+	    m_current_fast[track] * w);
 	for (unsigned int i = 0; i < w; i += cell * 2) {
 	    QColor color;
 	    if (i >= w_high)
@@ -376,7 +381,8 @@ void LevelMeter::drawContents()
 	}
 
 	// draw the peak value
-	unsigned int peak = (unsigned int)(m_current_peak[track] * w);
+	unsigned int peak = static_cast<unsigned int>(
+	    m_current_peak[track] * w);
 	QColor peak_color;
 	if (peak >= w_high)
 	    peak_color = m_color_high;

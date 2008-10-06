@@ -47,11 +47,11 @@ LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
     // set maximum frequency to sample rate / 2
     double f_max = sample_rate / 2.0;
 
-    slider->setMaximum((int)f_max);
-    spinbox->setMaximum((int)f_max);
+    slider->setMaximum(static_cast<int>(f_max));
+    spinbox->setMaximum(static_cast<int>(f_max));
 
     // initialize the frequency scale widget
-    scale_freq->setMinMax(0, (int)f_max);
+    scale_freq->setMinMax(0, static_cast<int>(f_max));
     scale_freq->setLogMode(false);
     scale_freq->setUnit(i18n("Hz"));
 
@@ -68,8 +68,8 @@ LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
     freq_response->setFilter(m_filter);
 
     // initialize the controls and the curve display
-    slider->setValue((int)m_frequency);
-    spinbox->setValue((int)m_frequency);
+    slider->setValue(static_cast<int>(m_frequency));
+    spinbox->setValue(static_cast<int>(m_frequency));
     updateDisplay();
 
     // changes in the slider or spinbox
@@ -107,7 +107,7 @@ LowPassDialog::~LowPassDialog()
 //***************************************************************************
 void LowPassDialog::valueChanged(int pos)
 {
-    if ((int)m_frequency != pos) {
+    if (static_cast<int>(m_frequency) != pos) {
 	m_frequency = pos;
 	updateDisplay();
 
@@ -132,8 +132,8 @@ void LowPassDialog::setParams(QStringList &params)
     Q_ASSERT(ok);
     if (ok) m_frequency = frequency;
 
-    slider->setValue((int)m_frequency);
-    spinbox->setValue((int)m_frequency);
+    slider->setValue(static_cast<int>(m_frequency));
+    spinbox->setValue(static_cast<int>(m_frequency));
 
     updateDisplay();
 }

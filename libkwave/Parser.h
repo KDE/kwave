@@ -64,7 +64,7 @@ public:
 
     /** Returns true if the end of the parameter list has been reached. */
     inline bool isDone () {
-	return ((int)m_current >= m_param.count());
+	return (static_cast<int>(m_current) >= m_param.count());
     };
 
     /** Returns the number of parameters. */

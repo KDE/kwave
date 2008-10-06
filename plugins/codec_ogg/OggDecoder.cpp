@@ -61,11 +61,11 @@ Decoder *OggDecoder::instance()
 //***************************************************************************
 void OggDecoder::parseTag(const char *tag, FileProperty property)
 {
-    int count = vorbis_comment_query_count(&m_vc, (char*)tag);
+    int count = vorbis_comment_query_count(&m_vc, const_cast<char *>(tag));
     if (count < 1) return;
     QString value;
     for (int i=0; i < count; ++i) {
-	char *text = vorbis_comment_query(&m_vc, (char*)tag, i);
+	char *text = vorbis_comment_query(&m_vc, const_cast<char *>(tag), i);
 	if (i) value += "; ";
 	value += QString::fromUtf8(text);
     }
@@ -232,11 +232,14 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     m_info.set(INF_COMPRESSION, CompressionType::OGG_VORBIS);
     m_info.set(INF_SOURCE, QString(m_vc.vendor));
     if (m_vi.bitrate_nominal > 0)
-	m_info.set(INF_BITRATE_NOMINAL, QVariant((int)m_vi.bitrate_nominal));
+	m_info.set(INF_BITRATE_NOMINAL, QVariant(
+	static_cast<int>(m_vi.bitrate_nominal)));
     if (m_vi.bitrate_lower > 0)
-	m_info.set(INF_BITRATE_LOWER, QVariant((int)m_vi.bitrate_lower));
+	m_info.set(INF_BITRATE_LOWER, QVariant(
+	static_cast<int>(m_vi.bitrate_lower)));
     if (m_vi.bitrate_upper > 0)
-	m_info.set(INF_BITRATE_UPPER, QVariant((int)m_vi.bitrate_upper));
+	m_info.set(INF_BITRATE_UPPER, QVariant(
+	static_cast<int>(m_vi.bitrate_upper)));
 
     // the first comment sometimes is used for the software version
     {
@@ -303,7 +306,8 @@ static inline int decodeFrame(float **pcm, unsigned int size,
 	while (bout--) {
 	    // scale, use some primitive noise shaping
 	    sample_t s = static_cast<sample_t>(
-		*(mono++) * (float)SAMPLE_MAX + drand48() - 0.5f);
+		*(mono++) *
+		static_cast<float>(SAMPLE_MAX) + drand48() - 0.5f);
 
 	    // might as well guard against clipping
 	    if (s > SAMPLE_MAX) {
@@ -430,14 +434,15 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 	const unsigned int samples = dst.last();
 	int bitrate = DEFAULT_BITRATE;
 
-	if ((int)m_info.rate() && samples) {
+	if (static_cast<int>(m_info.rate()) && samples) {
 	    // guess bitrates from the stream
 	    const unsigned int stream_end_pos = m_source->pos();
 	    const unsigned int stream_read = stream_end_pos -
 	                                     stream_start_pos + 1;
-	    qreal bits = (qreal)stream_read * 8.0;
-	    qreal seconds = (qreal)samples / (qreal)m_info.rate();
-	    bitrate = (unsigned int)(bits / seconds);
+	    qreal bits = static_cast<qreal>(stream_read) * 8.0;
+	    qreal seconds = static_cast<qreal>(samples) /
+		static_cast<qreal>(m_info.rate());
+	    bitrate = static_cast<unsigned int>(bits / seconds);
 
 	    // round to neares standard bitrate
 	    bitrate = StandardBitrates::instance().nearest(bitrate);
@@ -446,7 +451,8 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 	    // guessing not possible -> use default
 	    qDebug("-> using default %d kBits/sec", bitrate);
 	}
-	m_info.set(INF_BITRATE_NOMINAL, QVariant((int)bitrate));
+	m_info.set(INF_BITRATE_NOMINAL, QVariant(
+	    static_cast<int>(bitrate)));
     }
 
     // return with a valid Signal, even if the user pressed cancel !

@@ -98,16 +98,16 @@ void WavEncoder::writeInfoChunk(QIODevice &dst, FileInfo &info)
 	// enlarge the main RIFF chunk by the size of the LIST chunk
 	info_size += 4 + 4 + 4; // add the size of LIST(INFO)
 	dst.seek(4);
-	dst.read((char *)&size, 4);
+	dst.read(reinterpret_cast<char *>(&size), 4);
 	size = CPU_TO_LE32(LE32_TO_CPU(size) + info_size);
 	dst.seek(4);
-	dst.write((char *)&size, 4);
+	dst.write(reinterpret_cast<char *>(&size), 4);
 
 	// add the LIST(INFO) chunk itself
 	dst.seek(dst.size());
 	dst.write("LIST", 4);
 	size = CPU_TO_LE32(info_size - 8);
-	dst.write((char *)&size, 4);
+	dst.write(reinterpret_cast<char *>(&size), 4);
 	dst.write("INFO", 4);
 
 	// append the chunks to the end of the file
@@ -120,7 +120,7 @@ void WavEncoder::writeInfoChunk(QIODevice &dst, FileInfo &info)
 	    u_int32_t size = value.length(); // length of the chunk
 	    if (size & 0x01) size++;
 	    size = CPU_TO_LE32(size);
-	    dst.write((char *)&size, 4);
+	    dst.write(reinterpret_cast<char *>(&size), 4);
 	    dst.write(value.data(), value.length());
 	    if (value.length() & 0x01) {
 		const char zero = 0;
@@ -166,10 +166,10 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
     additional_size += 4 + 4 + size_of_cue_list; // add size of 'cue '
 
     dst.seek(4);
-    dst.read((char *)&size, 4);
+    dst.read(reinterpret_cast<char *>(&size), 4);
     size = CPU_TO_LE32(LE32_TO_CPU(size) + additional_size);
     dst.seek(4);
-    dst.write((char *)&size, 4);
+    dst.write(reinterpret_cast<char *>(&size), 4);
 
     // seek to the end of the file
     dst.seek(dst.size());
@@ -177,11 +177,11 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
     // add the 'cue ' list
     dst.write("cue ", 4);
     size = CPU_TO_LE32(size_of_cue_list);
-    dst.write((char *)&size, 4);
+    dst.write(reinterpret_cast<char *>(&size), 4);
 
     // number of entries
     size = CPU_TO_LE32(labels_count);
-    dst.write((char *)&size, 4);
+    dst.write(reinterpret_cast<char *>(&size), 4);
 
     index = 0;
     foreach (Label *label, info.labels()) {
@@ -197,14 +197,14 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
 	 * } cue_list_entry_t;
 	 */
 	data = CPU_TO_LE32(index);
-	dst.write((char *)&data, 4); // dwIdentifier
+	dst.write(reinterpret_cast<char *>(&data), 4); // dwIdentifier
 	data = 0;
-	dst.write((char *)&data, 4); // dwPosition
+	dst.write(reinterpret_cast<char *>(&data), 4); // dwPosition
 	dst.write("data", 4);        // fccChunk
-	dst.write((char *)&data, 4); // dwChunkStart
-	dst.write((char *)&data, 4); // dwBlockStart
+	dst.write(reinterpret_cast<char *>(&data), 4); // dwChunkStart
+	dst.write(reinterpret_cast<char *>(&data), 4); // dwBlockStart
 	data = CPU_TO_LE32(label->pos());
-	dst.write((char *)&data, 4); // dwSampleOffset
+	dst.write(reinterpret_cast<char *>(&data), 4); // dwSampleOffset
 	index++;
     }
 
@@ -212,7 +212,7 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
     if (size_of_labels) {
 	dst.write("LIST", 4);
 	size = CPU_TO_LE32(size_of_labels);
-	dst.write((char *)&size, 4);
+	dst.write(reinterpret_cast<char *>(&size), 4);
 	dst.write("adtl", 4);
 	index = 0;
 	foreach (Label *label, info.labels()) {
@@ -230,14 +230,18 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
 	    if (name.size()) {
 		dst.write("labl", 4);                // dwChunkID
 		data = CPU_TO_LE32(name.size() + 4);
-		dst.write((char *)&data, 4);         // dwChunkSize
+
+		// dwChunkSize
+		dst.write(reinterpret_cast<char *>(&data), 4);
 		data = CPU_TO_LE32(index);
-		dst.write((char *)&data, 4);         // dwIdentifier
+
+		// dwIdentifier
+		dst.write(reinterpret_cast<char *>(&data), 4);
 		dst.write(name.data(), name.size()); // dwText
 		if (name.size() & 1) {
 		    // padding if necessary
 		    data = 0;
-		    dst.write((char *)&data, 1);     // (padding)
+		    dst.write(reinterpret_cast<char *>(&data), 1);
 		}
 	    }
 	    index++;
@@ -363,10 +367,11 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	AF_SAMPFMT_TWOSCOMP, SAMPLE_STORAGE_BITS);
 
     // allocate a buffer for input data
-    const unsigned int frame_size = (unsigned int)afGetVirtualFrameSize(fh,
-	AF_DEFAULT_TRACK, 1);
+    const unsigned int frame_size = static_cast<const unsigned int>(
+	afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
     const unsigned int buffer_frames = (8*1024);
-    int32_t *buffer = (int32_t *)malloc(buffer_frames * frame_size);
+    int32_t *buffer = static_cast<int32_t *>(
+	malloc(buffer_frames * frame_size));
     Q_ASSERT(buffer);
     if (!buffer) return false;
 

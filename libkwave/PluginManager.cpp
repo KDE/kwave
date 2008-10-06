@@ -216,20 +216,23 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 
     // get the plugin's author
     const char *author = "";
-    const char **pauthor = (const char **)dlsym(handle, sym_author);
+    const char **pauthor =
+	static_cast<const char **>(dlsym(handle, sym_author));
     Q_ASSERT(pauthor);
     if (pauthor) author=*pauthor;
     if (!author) author = i18n("(unknown)").toLocal8Bit();
 
     // get the plugin's version string
     const char *version = "";
-    const char **pver = (const char **)dlsym(handle, sym_version);
+    const char **pver =
+	static_cast<const char **>(dlsym(handle, sym_version));
     Q_ASSERT(pver);
     if (pver) version=*pver;
     if (!version) version = i18n("(unknown)").toLocal8Bit();
 
     plugin_loader =
-        (KwavePlugin *(*)(const PluginContext *))dlsym(handle, sym_loader);
+        reinterpret_cast<KwavePlugin *(*)(const PluginContext *)>(
+	reinterpret_cast<qint64>(dlsym(handle, sym_loader)));
     Q_ASSERT(plugin_loader);
     if (!plugin_loader) {
 	// plugin is null, out of memory or not found
@@ -659,9 +662,12 @@ void PluginManager::findPlugins()
     foreach (QString file, files) {
 	void *handle = dlopen(file.toLocal8Bit(), RTLD_NOW);
 	if (handle) {
-	    const char **name    = (const char **)dlsym(handle, "name");
-	    const char **version = (const char **)dlsym(handle, "version");
-	    const char **author  = (const char **)dlsym(handle, "author");
+	    const char **name    =
+		static_cast<const char **>(dlsym(handle, "name"));
+	    const char **version =
+		static_cast<const char **>(dlsym(handle, "version"));
+	    const char **author  =
+		static_cast<const char **>(dlsym(handle, "author"));
 
 	    // skip it if something is missing or null
 	    if (!name || !version || !author) continue;

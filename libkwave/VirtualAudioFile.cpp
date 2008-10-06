@@ -59,7 +59,7 @@ static ssize_t af_file_read(AFvirtualfile *vfile, void *data,
                             size_t nbytes)
 {
     VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
-    return (adapter) ? adapter->read((char*)data, nbytes) : 0;
+    return (adapter) ? adapter->read(static_cast<char *>(data), nbytes) : 0;
 }
 
 //***************************************************************************
@@ -74,7 +74,8 @@ static ssize_t af_file_write(AFvirtualfile *vfile, const void *data,
 	                     size_t nbytes)
 {
     VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
-    return (adapter) ? adapter->write((char*)data, nbytes) : 0;
+    return (adapter) ?
+	adapter->write(static_cast<const char *>(data), nbytes) : 0;
 }
 
 //***************************************************************************

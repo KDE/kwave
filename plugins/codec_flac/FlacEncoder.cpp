@@ -222,7 +222,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 #if defined(FLAC_API_VERSION_1_1_3) /* or above */
         FLAC__StreamEncoderInitStatus init_state = init();
         if (init_state != FLAC__STREAM_ENCODER_INIT_STATUS_OK) {
-            qWarning("state = %d", (int)init_state);
+            qWarning("state = %d", static_cast<int>(init_state));
             Kwave::MessageBox::error(widget,
                 i18n("Unable to open the FLAC encoder!"));
             m_info = 0;
@@ -246,7 +246,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	for (int track=0; track < tracks; track++)
 	{
 	    FLAC__int32 *buffer =
-		(FLAC__int32 *)malloc(sizeof(FLAC__int32) * len);
+		static_cast<FLAC__int32 *>(malloc(sizeof(FLAC__int32) * len));
 	    Q_ASSERT(buffer);
 	    if (!buffer) break;
 	    flac_buffer.append(buffer);

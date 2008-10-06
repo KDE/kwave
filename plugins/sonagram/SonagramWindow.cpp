@@ -304,7 +304,7 @@ void SonagramWindow::insertStripe(const unsigned int stripe_nr,
 	m_histogram[p]--;
 
 	// set the new pixel value
-	p = (int)stripe[(size - 1) - y];
+	p = static_cast<int>(stripe[(size - 1) - y]);
 	m_image.setPixel(stripe_nr, y, p);
 
 	// insert the new pixel into the histogram
@@ -332,7 +332,7 @@ void SonagramWindow::adjustBrightness()
 	sum += m_histogram[i];
     }
     // cut off all parts below the cutoff ratio (e.g. 0.1%)
-    unsigned int cutoff = (int)(sum * COLOR_CUTOFF_RATIO);
+    unsigned int cutoff = static_cast<int>(sum * COLOR_CUTOFF_RATIO);
 
     // get the first used color
     unsigned int first=0;
@@ -451,7 +451,8 @@ void SonagramWindow::translatePixels2TF(const QPoint p, double *ms, double *f)
     if (ms) {
 	// get the time coordinate [0...(N_samples-1)* (1/f_sample) ]
 	if (m_rate != 0) {
-	    *ms = (double)p.x() * (double)m_points * 1000.0 / m_rate;
+	    *ms = static_cast<double>(p.x()) *
+	          static_cast<double>(m_points) * 1000.0 / m_rate;
 	} else {
 	    *ms = 0;
 	}
@@ -474,8 +475,8 @@ void SonagramWindow::updateScaleWidgets()
 
     translatePixels2TF(QPoint(m_image.width()-1, 0), &ms, &f);
 
-    m_xscale->setMinMax(0, (int)rint(ms));
-    m_yscale->setMinMax(0, (int)rint(f));
+    m_xscale->setMinMax(0, static_cast<int>(rint(ms)));
+    m_yscale->setMinMax(0, static_cast<int>(rint(f)));
 }
 
 //***************************************************************************
@@ -526,7 +527,7 @@ void SonagramWindow::cursorPosChanged(const QPoint pos)
     status->changeItem(i18n("Time: %1", KwavePlugin::ms2string(ms)), 1);
 
     // item 2: frequency in Hz
-    QString text = i18n("Frequency: %1 Hz", (int)f);
+    QString text = i18n("Frequency: %1 Hz", static_cast<int>(f));
     status->changeItem(text, 2);
 
     // item 3: amplitude in %
@@ -536,7 +537,7 @@ void SonagramWindow::cursorPosChanged(const QPoint pos)
     } else {
 	a = 0.0;
     }
-    text = i18n("Amplitude: %1 %", (int)a);
+    text = i18n("Amplitude: %1 %", static_cast<int>(a));
     status->changeItem(text, 3);
 }
 

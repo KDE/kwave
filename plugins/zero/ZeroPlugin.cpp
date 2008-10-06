@@ -68,14 +68,14 @@ void ZeroPlugin::run(QStringList params)
 	int mode = params[0].toInt(&ok);
 	Q_ASSERT(ok);
 	if (!ok) return;
-	Q_ASSERT((mode == (int)SelectTimeWidget::byTime) ||
-	         (mode == (int)SelectTimeWidget::bySamples) ||
-	         (mode == (int)SelectTimeWidget::byPercents));
+	Q_ASSERT((mode == static_cast<int>(SelectTimeWidget::byTime)) ||
+	         (mode == static_cast<int>(SelectTimeWidget::bySamples)) ||
+	         (mode == static_cast<int>(SelectTimeWidget::byPercents)));
 	switch (mode) {
-	    case (int)SelectTimeWidget::byTime:
+	    case static_cast<int>(SelectTimeWidget::byTime):
 		break;
-	    case (int)SelectTimeWidget::bySamples:
-	    case (int)SelectTimeWidget::byPercents:
+	    case static_cast<int>(SelectTimeWidget::bySamples):
+	    case static_cast<int>(SelectTimeWidget::byPercents):
 	    default:
 		// for the moment we only support (and need) the
 		// "by time" mode
@@ -89,7 +89,8 @@ void ZeroPlugin::run(QStringList params)
 
 	// convert from ms to samples
 	double rate = signalRate();
-	unsigned int length = (unsigned int)rint(ms / 1E3 * rate);
+	unsigned int length =
+	    static_cast<unsigned int>(rint(ms / 1E3 * rate));
 
 	// get the list of affected tracks
 	QList<unsigned int> tracks = manager().selectedTracks();

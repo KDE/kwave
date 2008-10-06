@@ -147,7 +147,8 @@ int KwavePlugin::stop()
 
 #ifdef DEBUG
 	qDebug("pthread_self()=%p, tid=%p",
-	       QThread::currentThread(), m_thread);
+	       reinterpret_cast<void *>(QThread::currentThread()),
+	       reinterpret_cast<void *>(m_thread));
 	void *buf[256];
 	size_t n = backtrace(buf, 256);
 	backtrace_symbols_fd(buf, n, 2);
@@ -339,7 +340,7 @@ QString KwavePlugin::zoom2string(qreal percent)
     QString result = "";
 
     if (percent < 1.0) {
-	int digits = (int)ceil(1.0 - log10(percent));
+	int digits = static_cast<int>(ceil(1.0 - log10(percent)));
 	QString format;
 	format = "%0."+format.setNum(digits)+"f %%";
 	result = format.sprintf(format.toUtf8(), percent);
@@ -348,7 +349,8 @@ QString KwavePlugin::zoom2string(qreal percent)
     } else if (percent < 1000.0) {
 	result = result.sprintf("%0.0f %%", percent);
     } else {
-	result = result.sprintf("x %d", (int)rint(percent / 100.0));
+	result = result.sprintf("x %d",
+	    static_cast<int>(rint(percent / 100.0)));
     }
     return result;
 }
@@ -362,7 +364,7 @@ QString KwavePlugin::ms2string(qreal ms, int precision)
     if (ms < 1.0) {
 	char format[128];
 	// limit precision, use 0.0 for exact zero
-	int digits = (ms != 0.0) ? (int)ceil(1.0 - log10(ms)) : 1;
+	int digits = (ms != 0.0) ? static_cast<int>(ceil(1.0 - log10(ms))) : 1;
 	if ( (digits < 0) || (digits > precision)) digits = precision;
 
 	snprintf(format, sizeof(format), "%%0.%df ms", digits);
@@ -370,12 +372,13 @@ QString KwavePlugin::ms2string(qreal ms, int precision)
     } else if (ms < 1000.0) {
 	snprintf(buf, bufsize, "%0.1f ms", ms);
     } else {
-	int s = (int)round(ms / 1000.0);
-	int m = (int)floor(s / 60.0);
+	int s = static_cast<int>(round(ms / 1000.0));
+	int m = static_cast<int>(floor(s / 60.0));
 
 	if (m < 1) {
 	    char format[128];
-	    int digits = (int)ceil((qreal)(precision+1) - log10(ms));
+	    int digits = static_cast<int>(
+		ceil(static_cast<qreal>(precision+1) - log10(ms)));
 	    snprintf(format, sizeof(format), "%%0.%df s", digits);
 	    snprintf(buf, bufsize, format, ms / 1000.0);
 	} else {

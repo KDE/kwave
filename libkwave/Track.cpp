@@ -624,7 +624,7 @@ void Track::dump()
 	    last_end + ((index) ? 1 : 0), start-1,
 	    start - last_end - ((index) ? 1 : 0));
 	qDebug("#%6d: %p - [%10u - %10u] (%10u)",
-	       index++, s,
+	       index++, static_cast<void *>(s),
 	       (s) ? s->start()  : 0,
 	       (s) ? s->end()    : 0,
 	       (s) ? s->length() : 0);

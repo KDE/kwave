@@ -392,8 +392,8 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
     ID3_QIODeviceReader adapter(src);
     tag.Link(adapter, static_cast<flags_t>(ID3TT_ALL));
 
-    qDebug("NumFrames = %d", (int)tag.NumFrames());
-    qDebug("Size = %d",      (int)tag.Size());
+    qDebug("NumFrames = %d", static_cast<int>(tag.NumFrames()));
+    qDebug("Size = %d",      static_cast<int>(tag.Size()));
     qDebug("HasLyrics = %d", tag.HasLyrics());
     qDebug("HasV1Tag = %d",  tag.HasV1Tag());
     qDebug("HasV2Tag = %d",  tag.HasV2Tag());
@@ -425,7 +425,7 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
     if (m_buffer) delete m_buffer;
     m_buffer_size = (128 << 10);
 
-    m_buffer = (unsigned char*)malloc(m_buffer_size);
+    m_buffer = static_cast<unsigned char *>(malloc(m_buffer_size));
     if (!m_buffer) return false; // out of memory :-(
 
     return true;
@@ -434,7 +434,7 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
 //***************************************************************************
 static enum mad_flow _input_adapter(void *data, struct mad_stream *stream)
 {
-    MP3Decoder *decoder = (MP3Decoder*)data;
+    MP3Decoder *decoder = reinterpret_cast<MP3Decoder *>(data);
     Q_ASSERT(decoder);
     return (decoder) ? decoder->fillInput(stream) : MAD_FLOW_STOP;
 }
@@ -444,7 +444,7 @@ static enum mad_flow _output_adapter(void *data,
                                      struct mad_header const *header,
                                      struct mad_pcm *pcm)
 {
-    MP3Decoder *decoder = (MP3Decoder*)data;
+    MP3Decoder *decoder = reinterpret_cast<MP3Decoder *>(data);
     Q_ASSERT(decoder);
     return (decoder) ?
         decoder->processOutput(data, header, pcm) : MAD_FLOW_STOP;
@@ -454,7 +454,7 @@ static enum mad_flow _output_adapter(void *data,
 static enum mad_flow _error_adapter(void *data, struct mad_stream *stream,
                                     struct mad_frame *frame)
 {
-    MP3Decoder *decoder = (MP3Decoder*)data;
+    MP3Decoder *decoder = reinterpret_cast<MP3Decoder *>(data);
     Q_ASSERT(decoder);
     return (decoder) ?
         decoder->handleError(data, stream, frame) : MAD_FLOW_BREAK;
@@ -499,7 +499,7 @@ enum mad_flow MP3Decoder::handleError(void */*data*/,
 		break;
 	default:
 		error = i18n("unknown error 0x%X. damaged file?",
-		(int)stream->error);
+		static_cast<int>(stream->error));
     }
 
     unsigned int pos = stream->this_frame - m_buffer;
@@ -547,7 +547,7 @@ enum mad_flow MP3Decoder::fillInput(struct mad_stream *stream)
     // read from source to fill up the buffer
     unsigned int size = rest;
     if (bytes_to_read) size += m_source->read(
-	(char *)m_buffer + rest, bytes_to_read);
+	reinterpret_cast<char *>(m_buffer) + rest, bytes_to_read);
     if (!size) return MAD_FLOW_STOP; // no more data
 
     // buffer is filled -> process it
@@ -645,8 +645,8 @@ enum mad_flow MP3Decoder::processOutput(void */*data*/,
 
 	// and render samples into Kwave's internal format
 	while (nsamples--) {
-	    sample = (int32_t)audio_linear_dither(SAMPLE_BITS,
-	             (mad_fixed_t)(*p++), &dither);
+	    sample = static_cast<int32_t>(audio_linear_dither(SAMPLE_BITS,
+	             static_cast<mad_fixed_t>(*p++), &dither));
 	    buffer[ofs++] = static_cast<sample_t>(sample);
 	}
 	*(*m_dest)[track] << buffer;

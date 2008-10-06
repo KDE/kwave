@@ -121,7 +121,7 @@ NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
 //***************************************************************************
 unsigned int NewSignalDialog::samples()
 {
-    return (unsigned int)edSamples->value();
+    return static_cast<unsigned int>(edSamples->value());
 }
 
 //***************************************************************************
@@ -239,7 +239,8 @@ void NewSignalDialog::timeChanged(int)
 
     // limit the current number of samples
     unsigned int max_samples = maxSamples();
-    unsigned int samples = (unsigned int)ceil((double)seconds * rate());
+    unsigned int samples = static_cast<unsigned int>(ceil(
+	static_cast<double>(seconds) * rate()));
 
     if (samples > max_samples) {
 	// wrap down to the maximum allowed number of samples
@@ -251,7 +252,7 @@ void NewSignalDialog::timeChanged(int)
     Q_ASSERT(samples <= INT_MAX);
     if (samples > INT_MAX) samples = INT_MAX;
     edSamples->setValue(samples);
-    slideLength->setValue((int)(100.0 * samples / max_samples));
+    slideLength->setValue(static_cast<int>(100.0 * samples / max_samples));
     updateFileSize();
     btOK->setEnabled(samples > 0.0);
 
@@ -278,7 +279,7 @@ void NewSignalDialog::samplesChanged(int)
 
     // update the other controls
     setHMS(samples);
-    slideLength->setValue((int)(100.0 * samples / max_samples));
+    slideLength->setValue(static_cast<int>(100.0 * samples / max_samples));
     updateFileSize();
     btOK->setEnabled(samples > 0.0);
 
@@ -314,9 +315,9 @@ void NewSignalDialog::tracksChanged(int)
 //***************************************************************************
 void NewSignalDialog::updateFileSize()
 {
-    double samples = (double)edSamples->value();
-    double mbytes = samples * (double)tracks() *
-                    (double)(bitsPerSample() >> 3);
+    double samples = static_cast<double>(edSamples->value());
+    double mbytes = samples * static_cast<double>(tracks()) *
+                    static_cast<double>(bitsPerSample() >> 3);
     mbytes /= 1024.0; // to kilobytes
     mbytes /= 1024.0; // to megabytes
 
@@ -337,7 +338,8 @@ void NewSignalDialog::setLengthPercentage(int percent)
     if (rate() <= 0) return;
     m_recursive = true;
 
-    unsigned int samples = (unsigned int)(maxSamples()*(double)percent/100.0);
+    unsigned int samples = static_cast<unsigned int>(maxSamples() *
+	static_cast<double>(percent) / 100.0);
     Q_ASSERT(samples <= INT_MAX);
     if (samples > INT_MAX) samples = INT_MAX;
 
@@ -356,7 +358,7 @@ void NewSignalDialog::setHMS(const double &samples)
     double rate = this->rate();
     if (rate <= 0.0) return;
 
-    int total_sec = (int)ceil(samples / rate);
+    int total_sec = static_cast<int>(ceil(samples / rate));
     int hours   = total_sec / (60*60);
     int minutes = (total_sec / 60) % 60;
     int seconds = total_sec % 60;

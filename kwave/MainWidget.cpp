@@ -317,7 +317,7 @@ void MainWidget::refreshChannelControls()
     if (!m_frm_channel_controls) return;
 
     unsigned int channels = tracks();
-    int min_height = qMax(channels, (unsigned int)1) * MIN_PIXELS_PER_CHANNEL;
+    int min_height = qMax(channels, 1U) * MIN_PIXELS_PER_CHANNEL;
     bool need_vertical_scrollbar = (m_signal_frame.height() < min_height);
     bool vertical_scrollbar_visible = m_vertical_scrollbar->isVisible();
     int h = qMax(min_height, m_signal_frame.height());
@@ -343,13 +343,14 @@ void MainWidget::refreshChannelControls()
 	// adjust the limits of the vertical scrollbar
 	int min = m_vertical_scrollbar->minimum();
 	int max = m_vertical_scrollbar->maximum();
-	double val = (m_vertical_scrollbar->value()-(double)min) /
-	    (double)(max-min);
+	double val = (m_vertical_scrollbar->value() -
+	    static_cast<double>(min)) / static_cast<double>(max - min);
 
 	min = 0;
 	max = h-m_signal_frame.height();
 	m_vertical_scrollbar->setRange(min, max);
-	m_vertical_scrollbar->setValue((int)floor(val * (double)max));
+	m_vertical_scrollbar->setValue(static_cast<int>(floor(val *
+	    static_cast<double>(max))));
 	m_vertical_scrollbar->setSingleStep(1);
 	m_vertical_scrollbar->setPageStep(m_signal_frame.height());
     }
@@ -373,7 +374,7 @@ void MainWidget::refreshChannelControls()
     // move the existing lamps and speakers to their new position
     int i = 0;
     foreach (MultiStateWidget *lamp, m_lamps) {
-	y = (i++ * h) / qMax((unsigned int)1, channels);
+	y = (i++ * h) / qMax(1U, channels);
 	if (lamp) lamp->setGeometry(x, y + 5, 20, 20);
     }
 
@@ -394,7 +395,7 @@ void MainWidget::refreshChannelControls()
 	    &m_signal_widget, SLOT(toggleTrackSelection(int))
 	);
 
-	y = (i * h) / qMax(channels, (unsigned int)1);
+	y = (i * h) / qMax(channels, static_cast<unsigned int>(1));
 	m_lamps.at(i)->setGeometry(x, y + 5, 20, 20);
 	m_lamps.at(i)->show();
     }
@@ -442,13 +443,15 @@ void MainWidget::refreshHorizontalScrollBar()
 
 	// calculate ranges in samples
 	int width = displayWidth();
-	int page  = (int)floor((double)width * (double)visible / (double)length);
+	int page  = static_cast<int>(floor(static_cast<double>(width) *
+	    static_cast<double>(visible) / static_cast<double>(length)));
 	if (page < 1) page = 1;
 	if (page > width) page = width;
 	int min   = 0;
 	int max   = width - page;
-	int pos   = (range) ?
-	    (int)floor((double)offset * (double)max / (double)range) : 0;
+	int pos   = (range) ? static_cast<int>(floor(
+	    static_cast<double>(offset) * static_cast<double>(max) /
+	    static_cast<double>(range))) : 0;
 // 	qDebug("width=%d,max=%d, page=%d, pos=%d",width,max,page,pos);
 
 	m_horizontal_scrollbar->setRange(min, max);
@@ -480,7 +483,8 @@ void MainWidget::horizontalScrollBarMoved(int newval)
     unsigned int range   = length - visible;
     if (range) range--;
 
-    unsigned int pos = (int)floor((double)range * (double)newval / (double)max);
+    unsigned int pos = static_cast<int>(floor(static_cast<double>(range) *
+	static_cast<double>(newval) / static_cast<double>(max)));
 //     qDebug("horizontalScrollBarMoved(%d) -> %u", newval, pos);
     m_signal_widget.setOffset(pos);
 }

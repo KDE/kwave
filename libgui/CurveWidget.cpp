@@ -313,8 +313,8 @@ Curve::Point CurveWidget::findPoint(int sx, int sy)
     Q_ASSERT(m_height > 1);
     if ((m_width <= 1) || (m_width <= 1)) return Curve::NoPoint;
 
-    return m_curve.findPoint(((qreal)sx) / (m_width-1),
-	((qreal)m_height - sy) / (m_height-1));
+    return m_curve.findPoint((static_cast<qreal>(sx)) / (m_width-1),
+	(static_cast<qreal>(m_height) - sy) / (m_height-1));
 }
 
 //***************************************************************************
@@ -335,8 +335,9 @@ void CurveWidget::mousePressEvent(QMouseEvent *e)
 	m_current = findPoint(e->pos().x(), e->pos().y());
 	if (m_current == Curve::NoPoint) {
 	    // no matching point is found -> generate a new one !
-	    addPoint((qreal) (e->pos().x()) / (m_width-1),
-		     (qreal) (m_height - e->pos().y()) / (m_height-1));
+	    addPoint(static_cast<qreal>(e->pos().x()) / (m_width-1),
+		     static_cast<qreal>(m_height - e->pos().y()) /
+		     (m_height-1));
 	    m_current = findPoint(e->pos().x(), e->pos().y());
 	}
 	repaint();
@@ -370,15 +371,15 @@ void CurveWidget::mouseMoveEvent(QMouseEvent *e )
 
 	m_curve.deletePoint(m_current, false);
 
-	m_current.setX((qreal) (x) / (m_width-1));
-	m_current.setY((qreal) (m_height - y) / (m_height-1));
+	m_current.setX(static_cast<qreal>(x) / (m_width-1));
+	m_current.setY(static_cast<qreal>(m_height - y) / (m_height-1));
 
 	if (m_current.x() < 0.0) m_current.setX(0.0);
 	if (m_current.y() < 0.0) m_current.setY(0.0);
 	if (m_current.x() > 1.0) m_current.setX(1.0);
 	if (m_current.y() > 1.0) m_current.setY(1.0);
 
-	qreal dx = (1.0 / (qreal)(m_width-1));
+	qreal dx = (1.0 / static_cast<qreal>(m_width-1));
 	do {
 	    Curve::Point nearest = m_curve.findPoint(
 		m_current.x(), m_current.y(), 1.0);
@@ -429,17 +430,17 @@ void CurveWidget::paintEvent(QPaintEvent *)
 
     // draw the lines
     int ay;
-    ly = (m_height-1) - (int)(y[0] * (m_height-1));
+    ly = (m_height-1) - static_cast<int>(y[0] * (m_height-1));
     for (int i=1; i < m_width; i++) {
-	ay = (m_height-1) - (int)(y[i] * (m_height-1));
+	ay = (m_height-1) - static_cast<int>(y[i] * (m_height-1));
 	p.drawLine (i-1, ly, i, ay);
 	ly = ay;
     }
 
     // draw the points (knobs)
     foreach (Curve::Point pt, m_curve) {
-	lx = (int)(pt.x() * (m_width-1));
-	ly = (m_height-1) - (int)(pt.y() * (m_height-1));
+	lx = static_cast<int>(pt.x() * (m_width-1));
+	ly = (m_height-1) - static_cast<int>(pt.y() * (m_height-1));
 
 	if ((pt == m_current) || (!m_down && (pt == m_last)) )
 	    p.drawPixmap(lx - (kw >> 1), ly - (kh >> 1), m_selected_knob);

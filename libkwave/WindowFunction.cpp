@@ -89,19 +89,22 @@ QVector<qreal> WindowFunction::points(unsigned int len)
 	    break;
 	case WINDOW_FUNC_HAMMING:
 	    for (unsigned int i = 0; i < len; i++)
-		out[i] = 0.54-(0.46 * cos(((qreal)i) * 2 * M_PI / (len - 1)));
+		out[i] = 0.54-(0.46 * cos(static_cast<qreal>(i) * 2 * M_PI /
+		         (len - 1)));
 	    break;
 	case WINDOW_FUNC_BLACKMAN:
 	    for (unsigned int i = 0; i < len; i++)
-		out[i] = 0.42-(0.50 * cos(((qreal)i) * 2 * M_PI / (len - 1))) +
-		              (0.08 * cos(((qreal)i) * 4 * M_PI / (len - 1)));
+		out[i] = 0.42-(0.50 * cos(static_cast<qreal>(i) * 2 * M_PI /
+		         (len - 1))) +
+		         (0.08 * cos(static_cast<qreal>(i) * 4 * M_PI /
+		         (len - 1)));
 	    break;
 	case WINDOW_FUNC_TRIANGULAR:
 	    for (unsigned int i = 0; i < len / 2; i++)
-		out[i] = ((qreal)i) / (len / 2 - 1);
+		out[i] = static_cast<qreal>(i) / (len / 2 - 1);
 
 	    for (unsigned int i = len / 2; i < len; i++)
-		out[i] = 1 - ((qreal)i - len / 2) / (len / 2 - 1);
+		out[i] = 1 - (static_cast<qreal>(i) - len / 2) / (len / 2 - 1);
 	    break;
     }
 

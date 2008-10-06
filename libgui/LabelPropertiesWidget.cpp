@@ -92,16 +92,18 @@ unsigned int LabelPropertiesWidget::labelPosition()
     switch (time->mode()) {
 	case SelectTimeWidget::bySamples:
 	    // already in samples
-	    pos_in_samples = (unsigned int)pos;
+	    pos_in_samples = static_cast<unsigned int>(pos);
 	    break;
 	case SelectTimeWidget::byTime:
 	    // convert milliseconds to samples
-	    pos_in_samples = (unsigned int)rint(pos / 1E3 * m_sample_rate);
+	    pos_in_samples = static_cast<unsigned int>(
+		rint(pos / 1E3 * m_sample_rate));
 	    break;
 	case SelectTimeWidget::byPercents:
 	    // convert from percents to samples
 	    pos_in_samples =
-		(unsigned int)((qreal)m_length * (pos / 100.0));
+		static_cast<unsigned int>(static_cast<qreal>(m_length) *
+		    (pos / 100.0));
 	    break;
     }
 

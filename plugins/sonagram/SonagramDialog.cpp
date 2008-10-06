@@ -80,11 +80,11 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     // a = w / h = 2*s / (np^2)
     // => np = sqrt( 2 * s / a) )
     const double aspect_ratio = sqrt(2);
-    double np = sqrt(2.0*(double)m_length/aspect_ratio);
+    double np = sqrt(2.0 * static_cast<double>(m_length) / aspect_ratio);
 
     // round down to an exponent of 2, this makes the image more
     // wide than heigh and gives a fast calculation
-    int bits = (int)floor(log(np) / log(2));
+    int bits = static_cast<int>(floor(log(np) / log(2)));
     if (bits < 2) bits = 2;
     if (bits > 16) bits = 16;
     setPoints(1 << (bits-1));
@@ -108,7 +108,7 @@ void SonagramDialog::parameters(QStringList &list)
     list.clear();
 
     // parameter #0: number of fft points
-    param = pointbox ? pointbox->currentText() : (QString)0;
+    param = pointbox ? pointbox->currentText() : QString(0);
     list.append(param);
 
     // parameter #1: index of the window function

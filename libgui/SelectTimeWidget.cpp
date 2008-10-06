@@ -63,7 +63,7 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
     edSamples->setRange(0, m_length-m_offset, 1);
 
     // set range of time controls
-    int t = (int)rint((m_length * 1E3) / m_rate);
+    int t = static_cast<int>(rint((m_length * 1E3) / m_rate));
     sbMilliseconds->setMaximum(t);
     t /= 1000;
     sbSeconds->setMaximum(t);
@@ -79,7 +79,7 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
     // set initial values
     switch (m_mode) {
 	case byTime: {
-	    unsigned int t = (unsigned int)ceil(m_range);
+	    unsigned int t = static_cast<unsigned int>(ceil(m_range));
 	    sbMilliseconds->setValue(t % 1000);
 	    t /= 1000;
 	    sbSeconds->setValue(t % 60);
@@ -90,14 +90,14 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
 	    break;
 	}
 	case bySamples: {
-            unsigned int samples = (unsigned int)rint(m_range);
+            unsigned int samples = static_cast<unsigned int>(rint(m_range));
 	    Q_ASSERT(samples <= INT_MAX);
 	    if (samples > INT_MAX) samples = INT_MAX;
-	    edSamples->setValue((int)samples);
+	    edSamples->setValue(static_cast<int>(samples));
 	    break;
 	}
 	case byPercents: {
-	    sbPercents->setValue((int)rint(m_range));
+	    sbPercents->setValue(static_cast<int>(rint(m_range)));
 	    break;
 	}
     }
@@ -125,7 +125,7 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
 	    samplesChanged(0);
 	    break;
 	case byPercents:
-	    percentsChanged((int)m_range);
+	    percentsChanged(static_cast<int>(m_range));
 	    break;
     }
 
@@ -278,13 +278,14 @@ void SelectTimeWidget::timeChanged(int)
     Q_ASSERT((hours>=0) && (minutes>=0) && (seconds>=0) && (milliseconds>=0));
 
     int ms =
-        (int)milliseconds +
-        ((int)seconds + ((int)minutes +
-        ((int)hours * 60L)) * 60L) * 1000L;
+        milliseconds +
+        (seconds + (minutes +
+        (hours * 60)) * 60) * 1000;
     if (ms < 0) ms = 0;
 
     // limit time
-    long int max_ms = (long int)ceil(((m_length - m_offset)*1E3) / m_rate);
+    long int max_ms = static_cast<long int>(
+	ceil(((m_length - m_offset) * 1E3) / m_rate));
     if (ms > max_ms) ms = max_ms;
     long int t = ms;
 
@@ -301,11 +302,13 @@ void SelectTimeWidget::timeChanged(int)
     sbHours->setValue(hours);
 
     // update the other widgets
-    unsigned int samples = (unsigned int)ceil((double)ms * m_rate * 1E-3);
+    unsigned int samples = static_cast<unsigned int>(
+	ceil(static_cast<double>(ms) * m_rate * 1E-3));
     Q_ASSERT(samples <= INT_MAX);
     if (samples > INT_MAX) samples = INT_MAX;
-    edSamples->setValue((int)samples);
-    sbPercents->setValue((int)(100.0 * (double)ms / (m_length/m_rate*1E3)));
+    edSamples->setValue(static_cast<int>(samples));
+    sbPercents->setValue(static_cast<int>(100.0 *
+	static_cast<double>(ms) / (m_length / m_rate * 1E3)));
 
     // set range in byTime mode [ms]
     m_range = ms;
@@ -337,7 +340,8 @@ void SelectTimeWidget::samplesChanged(int)
     if (samples > max_samples) samples = max_samples;
 
     // update the other widgets
-    unsigned int t = (unsigned int)rint((double)samples * 1E3 / m_rate);
+    unsigned int t = static_cast<unsigned int>(
+	rint(static_cast<double>(samples) * 1E3 / m_rate));
     sbMilliseconds->setValue(t % 1000);
     t /= 1000;
     sbSeconds->setValue(t % 60);
@@ -346,8 +350,9 @@ void SelectTimeWidget::samplesChanged(int)
     t /= 60;
     sbHours->setValue(t);
 
-    double percents = (100.0 * (double)samples) / (double)(m_length);
-    sbPercents->setValue((int)rint(percents));
+    double percents = (100.0 * static_cast<double>(samples)) /
+	static_cast<double>(m_length);
+    sbPercents->setValue(static_cast<int>(rint(percents)));
 
     // update in samples mode
     m_range = samples;
@@ -371,26 +376,29 @@ void SelectTimeWidget::percentsChanged(int p)
     double percents = p;
 
     // limit to rest of signal
-    double max_percents = 100.0 * (double)(m_length-m_offset)/(double)m_length;
+    double max_percents = 100.0 * static_cast<double>(m_length-m_offset) /
+	static_cast<double>(m_length);
     if (percents > max_percents) {
 	percents = max_percents;
-	p = (int)percents;
+	p = static_cast<int>(percents);
     }
 
     // update in byPercents mode [0...100]
     m_range = percents;
-    p = (int)percents;
+    p = static_cast<int>(percents);
 
     if (slidePercents->value() != p) slidePercents->setValue(p);
     if (sbPercents->value() != p) sbPercents->setValue(p);
 
     // update the other widgets
-    unsigned int samples = (unsigned int)((double)m_length*percents/100.0);
+    unsigned int samples = static_cast<unsigned int>(
+	static_cast<double>(m_length) * percents / 100.0);
     Q_ASSERT(samples <= INT_MAX);
     if (samples > INT_MAX) samples = INT_MAX;
     edSamples->setValue(samples);
 
-    unsigned int t = (unsigned int)ceil(((double)samples * 1E3) / m_rate);
+    unsigned int t = static_cast<unsigned int>(ceil((
+	static_cast<double>(samples) * 1E3) / m_rate));
     sbMilliseconds->setValue(t % 1000);
     t /= 1000;
     sbSeconds->setValue(t % 60);
@@ -399,7 +407,7 @@ void SelectTimeWidget::percentsChanged(int p)
     t /= 60;
     sbHours->setValue(t);
 
-    emit valueChanged((unsigned int)samples); // emit the change
+    emit valueChanged(static_cast<unsigned int>(samples)); // emit the change
     connect();
 }
 
@@ -429,7 +437,8 @@ void SelectTimeWidget::setOffset(unsigned int offset)
     // update all widgets
     disconnect();
 
-    int t = (int)ceil(((double)samples * 1E3) / m_rate);
+    int t = static_cast<int>(ceil((static_cast<double>(samples) * 1E3) /
+	m_rate));
     sbMilliseconds->setValue(t);
     t /= 1000;
     sbSeconds->setValue(t);
@@ -442,8 +451,9 @@ void SelectTimeWidget::setOffset(unsigned int offset)
     if (samples > INT_MAX) samples = INT_MAX;
     edSamples->setValue(samples);
 
-    double percents = 100.0*(double)samples/(double)(m_length);
-    sbPercents->setValue((int)percents);
+    double percents = 100.0 * static_cast<double>(samples) /
+	static_cast<double>(m_length);
+    sbPercents->setValue(static_cast<int>(percents));
 
     connect();
 }

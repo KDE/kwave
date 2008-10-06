@@ -31,7 +31,7 @@
 #include "LogoWidget.h"
 
 /** increment value of the "h" channel of the color of the sine waves */
-#define COLOR_INCREMENT ((qreal)0.001)
+#define COLOR_INCREMENT (static_cast<qreal>(0.001))
 
 //***************************************************************************
 LogoWidget::LogoWidget(QWidget *parent)
@@ -105,12 +105,12 @@ void LogoWidget::paintEvent(QPaintEvent *)
 	p.drawRect(0, 0, m_width, m_height);
 
 	// blit logo bitmap
-	int ampx = (m_logo.width()  - m_width)/2;
-	int ampy = (m_logo.height() - m_height)/2;
+	int ampx = (m_logo.width()  - m_width ) / 2;
+	int ampy = (m_logo.height() - m_height) / 2;
 	p.setCompositionMode(QPainter::CompositionMode_Source);
 	p.drawPixmap(
-	    -ampx+(int)(sin(m_deg[0]) * ampx),
-	    -ampy + (int)(sin(m_deg[1]) * ampy),
+	    -ampx + static_cast<int>(sin(m_deg[0]) * ampx),
+	    -ampy + static_cast<int>(sin(m_deg[1]) * ampy),
 	    m_logo);
 
 	// draw the sine waves with XOR
@@ -123,7 +123,8 @@ void LogoWidget::paintEvent(QPaintEvent *)
 	for (int j = 0; j < MAXSIN; j++) {
 	    for (int i=0; i < 21; i++) {
 		si.setPoint(i, (j*m_width/MAXSIN) +
-		    (int)(amp * sin(M_PI * i / 10 + m_deg[j]) * m_width / 2),
+		    static_cast<int>(amp * sin(M_PI * i / 10 + m_deg[j])
+			* m_width / 2),
 		    m_height * i / 20);
 	    }
 	    si.setPoint(21, m_width / 2, m_height);

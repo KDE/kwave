@@ -617,8 +617,8 @@ qreal SignalWidget::getFullZoom()
     if (!length) {
         // no length: streaming mode -> start with a default
         // zoom, use one minute (just guessed)
-        length = (unsigned int)ceil(DEFAULT_DISPLAY_TIME *
-                                    m_signal_manager.rate());
+        length = static_cast<unsigned int>(ceil(DEFAULT_DISPLAY_TIME *
+	    m_signal_manager.rate()));
     }
 
     // example: width = 100 [pixels] and length = 3 [samples]
@@ -626,7 +626,8 @@ qreal SignalWidget::getFullZoom()
     //          -> 49.5 [pixels / sample]
     //          -> zoom = 1 / 49.5 [samples / pixel]
     // => full zoom [samples/pixel] = (length-1) / (width-1)
-    return (qreal)(length-1) / (qreal)(QWidget::width()-1);
+    return static_cast<qreal>(length - 1) /
+	   static_cast<qreal>(QWidget::width() - 1);
 }
 
 //***************************************************************************
@@ -664,7 +665,7 @@ void SignalWidget::fixZoomAndOffset()
     length = m_signal_manager.length();
     if (!length) {
 	// in streaming mode we have to use a guessed length
-	length = (unsigned int)ceil(width() * getFullZoom());
+	length = static_cast<unsigned int>(ceil(width() * getFullZoom()));
     }
 
     if (!m_width) return;
@@ -674,7 +675,8 @@ void SignalWidget::fixZoomAndOffset()
 
     // ensure that the zoom is in a proper range
     max_zoom = getFullZoom();
-    min_zoom = (qreal)MINIMUM_SAMPLES_PER_SCREEN / (qreal)m_width;
+    min_zoom = static_cast<qreal>(MINIMUM_SAMPLES_PER_SCREEN) /
+	       static_cast<qreal>(m_width);
     if (m_zoom < min_zoom) m_zoom = min_zoom;
     if (m_zoom > max_zoom) m_zoom = max_zoom;
 
@@ -800,7 +802,7 @@ void SignalWidget::zoomSelection()
 
     if (len) {
 	m_offset = ofs;
-	setZoom(((qreal)len) / (qreal)(m_width - 1));
+	setZoom((static_cast<qreal>(len)) / static_cast<qreal>(m_width - 1));
     }
 }
 
@@ -1402,7 +1404,7 @@ void SignalWidget::showPosition(const QString &text, unsigned int pos,
     m_position_widget.hide();
 
     unsigned int t, h, m, s, tms;
-    t = (unsigned int)rint(ms * 10.0);
+    t = static_cast<unsigned int>(rint(ms * 10.0));
     tms = t % 10000;
     t /= 10000;
     s = t % 60;
@@ -1710,8 +1712,10 @@ void SignalWidget::paintEvent(QPaintEvent *)
 		left  = samples2pixels(left - m_offset);
 		right = samples2pixels(right - m_offset);
 
-		if (right >= (unsigned int)(m_width)) right=m_width-1;
-		if (left > right) left = right;
+		if (right >= static_cast<unsigned int>(m_width))
+		    right=m_width-1;
+		if (left > right)
+		    left = right;
 
 		p.setPen(Qt::yellow);
 		if (left == right) {
@@ -1781,7 +1785,8 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //***************************************************************************
 unsigned int SignalWidget::ms2samples(qreal ms)
 {
-    return (unsigned int)rint(ms * m_signal_manager.rate() / 1E3);
+    return static_cast<unsigned int>(
+	rint(ms * m_signal_manager.rate() / 1E3));
 }
 
 //***************************************************************************
@@ -1789,21 +1794,22 @@ qreal SignalWidget::samples2ms(unsigned int samples)
 {
     qreal rate = m_signal_manager.rate();
     if (rate == 0.0) return 0.0;
-    return (qreal)samples * 1E3 / rate;
+    return static_cast<qreal>(samples) * 1E3 / rate;
 }
 
 //***************************************************************************
 unsigned int SignalWidget::pixels2samples(int pixels) const
 {
     if ((pixels < 0) || (m_zoom <= 0.0)) return 0;
-    return (unsigned int)rint((qreal)pixels * m_zoom);
+    return static_cast<unsigned int>(rint(
+	static_cast<qreal>(pixels) * m_zoom));
 }
 
 //***************************************************************************
 int SignalWidget::samples2pixels(int samples) const
 {
     if (m_zoom == 0.0) return 0;
-    return (int)rint((qreal)samples / m_zoom);
+    return static_cast<int>(rint(static_cast<qreal>(samples) / m_zoom));
 }
 
 //***************************************************************************
@@ -2497,8 +2503,10 @@ void SignalWidget::dragMoveEvent(QDragMoveEvent* event)
 	// transform to pixel coordinates
 	left  = samples2pixels(left - m_offset);
 	right = samples2pixels(right - m_offset);
-	if (right >= (unsigned int)(m_width)) right=m_width-1;
-	if (left > right) left = right;
+	if (right >= static_cast<unsigned int>(m_width))
+	    right=m_width-1;
+	if (left > right)
+	    left = right;
 
 	r.setLeft(left);
 	r.setRight(right);

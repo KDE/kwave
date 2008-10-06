@@ -71,7 +71,7 @@ int RecordThread::setBuffers(unsigned int count, unsigned int size)
 
     // return number of buffers or -ENOMEM if not even two allocated
     return (m_empty_queue.count() >= 2) ?
-           (int)m_empty_queue.count() : -ENOMEM;
+           static_cast<int>(m_empty_queue.count()) : -ENOMEM;
 }
 
 //***************************************************************************

@@ -217,7 +217,7 @@ void FlacDecoder::metadata_callback(const ::FLAC__StreamMetadata *metadata)
     switch (metadata->type) {
 	case FLAC__METADATA_TYPE_STREAMINFO: {
 	    FLAC::Metadata::StreamInfo stream_info(
-	        (::FLAC__StreamMetadata *)metadata, true);
+	        const_cast< ::FLAC__StreamMetadata * >(metadata), true);
 	    parseStreamInfo(stream_info);
 	    break;
 	}
@@ -232,7 +232,7 @@ void FlacDecoder::metadata_callback(const ::FLAC__StreamMetadata *metadata)
 	    break;
 	case FLAC__METADATA_TYPE_VORBIS_COMMENT: {
 	    FLAC::Metadata::VorbisComment vorbis_comments(
-	        (::FLAC__StreamMetadata *)metadata, true);
+	        const_cast< ::FLAC__StreamMetadata * >(metadata), true);
 	    parseVorbisComments(vorbis_comments);
 	    break;
 	}

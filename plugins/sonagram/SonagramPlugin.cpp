@@ -172,8 +172,9 @@ int SonagramPlugin::start(QStringList &params)
     }
 
     // calculate the number of stripes (width of image)
-    m_stripes = (unsigned int)
-	(ceil((double)input_length/(double)m_fft_points));
+    m_stripes = static_cast<unsigned int>
+	(ceil(static_cast<double>(input_length) /
+	      static_cast<double>(m_fft_points)));
     if (m_stripes > 32767) m_stripes = 32767;
 
     // create a new empty image
@@ -213,7 +214,7 @@ int SonagramPlugin::start(QStringList &params)
 	    this, SLOT(windowDestroyed()));
 
     if (m_track_changes) {
-	QObject::connect((QObject*)&(manager()),
+	QObject::connect(static_cast<QObject*>(&(manager())),
 	    SIGNAL(sigSignalNameChanged(const QString &)),
 	    m_sonagram_window, SLOT(setName(const QString &)));
     }
@@ -300,12 +301,12 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
     if (windowfunction.count() != points) return;
 
     // initialize the tables for fft
-    in = (double *)fftw_malloc(points * sizeof(double));
+    in = static_cast<double *>(fftw_malloc(points * sizeof(double)));
     Q_ASSERT(in);
     if (!in) return;
 
-    out = (fftw_complex *)fftw_malloc(
-	((points / 2) + 1) * sizeof(fftw_complex));
+    out = static_cast<fftw_complex *>(fftw_malloc(
+	((points / 2) + 1) * sizeof(fftw_complex)));
     Q_ASSERT(out);
     if (!out){
 	fftw_free(in);
@@ -329,9 +330,10 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
 		SampleReader *reader = source[t];
 		Q_ASSERT(reader);
 		if (reader) *reader >> s;
-		value += (double)s;
+		value += static_cast<double>(s);
 	    }
-	    value /= (double)(1 << (SAMPLE_BITS-1)) * (double)count;
+	    value /= static_cast<double>(1 << (SAMPLE_BITS-1)) *
+		static_cast<double>(count);
 	}
 	in[j] = value;
     }
@@ -357,12 +359,13 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
     for (int j = 0; j < points / 2; j++) {
 	double rea = out[j][0];
 	double ima = out[j][1];
-	double a = sqrt((rea * rea) + (ima * ima)) / (double)points;
+	double a = sqrt((rea * rea) + (ima * ima)) /
+	    static_cast<double>(points);
 
 	// get amplitude and scale to 1
 	a = 1 - ((1 - a) * (1 - a));
 
-	output[j] = 0xFE - (int)(a * 0xFE );
+	output[j] = 0xFE - static_cast<int>(a * 0xFE );
     }
 
     // free the the allocated FFT resources

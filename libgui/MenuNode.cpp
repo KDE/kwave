@@ -113,7 +113,7 @@ const QIcon MenuNode::icon()
 void MenuNode::setIcon(const QIcon &icon)
 {
     qWarning("MenuNode(%s)::setIcon(%p)",
-	name().toLocal8Bit().data(), (void*)&icon);
+	name().toLocal8Bit().data(), reinterpret_cast<const void *>(&icon));
 }
 
 //*****************************************************************************
@@ -129,7 +129,7 @@ bool MenuNode::isEnabled()
 	foreach (QString group_name, m_groups) {
 	    MenuNode *group = root->findUID(group_name);
 	    if (group && group->inherits("MenuGroup")) {
-		if (!((MenuGroup*)group)->isEnabled()) {
+		if (!(static_cast<MenuGroup *>(group))->isEnabled()) {
 		    qDebug("MenuNode(%s).isEnabled(): group %s is disabled",
 			   name().toLocal8Bit().data(),
 			   group_name.toLocal8Bit().data());

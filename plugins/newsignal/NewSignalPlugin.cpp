@@ -53,7 +53,7 @@ int NewSignalPlugin::interpreteParameters(QStringList &params)
     if (!ok) return -EINVAL;
 
     param = params[1];
-    m_rate = (unsigned int)param.toDouble(&ok);
+    m_rate = static_cast<unsigned int>(param.toDouble(&ok));
     Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 

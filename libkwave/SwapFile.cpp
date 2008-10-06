@@ -72,7 +72,7 @@ bool SwapFile::allocate(size_t size, const QString &filename)
     int fd = mkstemp(name);
     if (fd < 0) {
 	qDebug("SwapFile::allocate(%u) failed, instances: %u",
-	       (unsigned int)size, g_instances);
+	       static_cast<unsigned int>(size), g_instances);
 	return false;
     }
     m_file.open(fd, QIODevice::Unbuffered | QIODevice::ReadWrite);
@@ -89,9 +89,9 @@ bool SwapFile::allocate(size_t size, const QString &filename)
 #endif/* HAVE_MKSTEMP */
 
     m_file.seek(round_up(size, m_pagesize));
-    if ((qint64)(m_file.pos() + 1) < (qint64)size) {
+    if (static_cast<qint64>(m_file.pos() + 1) < static_cast<qint64>(size)) {
 	qWarning("SwapFile::allocate(%d MB) failed, DISK FULL ?",
-	         (unsigned int)(size >> 20));
+	         static_cast<unsigned int>(size >> 20));
 	m_size = 0;
 	return false;
     }
@@ -161,7 +161,7 @@ void *SwapFile::map()
     m_address = mmap(0, m_size,
                      PROT_READ | PROT_WRITE, MAP_SHARED,
                      m_file.handle(), 0);
-    if (m_address == (void*)(-1)) m_address = 0;
+    if (m_address == reinterpret_cast<void *>(-1)) m_address = 0;
 
     return m_address;
 }

@@ -100,7 +100,7 @@ long RepairVirtualAudioFile::seek(long offset, int is_relative)
     else
 	return -1;
 
-    if ((long)m_position >= length()) return -1;
+    if (static_cast<long>(m_position) >= length()) return -1;
     return 0;
 }
 

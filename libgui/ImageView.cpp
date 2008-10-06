@@ -57,8 +57,10 @@ void ImageView::mouseMoveEvent(QMouseEvent *e)
      * re-transform the coordinates from the screen (pixmap) coordinates to
      * the original image coordinates and emit a cursor position signal
      */
-    x = m_offset.x() + (int)((m_scale_x != 0) ? ((double)x / m_scale_x) : 0);
-    y = m_offset.y() + (int)((m_scale_y != 0) ? ((double)y / m_scale_y) : 0);
+    x = m_offset.x() + static_cast<int>((m_scale_x != 0) ?
+	(static_cast<double>(x) / m_scale_x) : 0);
+    y = m_offset.y() + static_cast<int>((m_scale_y != 0) ?
+	(static_cast<double>(y) / m_scale_y) : 0);
     emit sigCursorPos(QPoint(x, y));
 }
 
@@ -104,13 +106,16 @@ void ImageView::paintEvent(QPaintEvent *)
     QPixmap newmap = QPixmap::fromImage(m_image,
 	Qt::ColorOnly | Qt::ThresholdDither | Qt::AvoidDither);
 
-    m_scale_x = m_fit_width ? (float)width()  / (float)m_image.width()  : 1.0;
-    m_scale_y = m_fit_height ?(float)height() / (float)m_image.height() : 1.0;
+    m_scale_x = m_fit_width  ? static_cast<float>(width())  /
+                               static_cast<float>(m_image.width()) : 1.0;
+    m_scale_y = m_fit_height ? static_cast<float>(height()) /
+                               static_cast<float>(m_image.height()) : 1.0;
 
     if (m_offset.x() + m_scale_x * m_image.width() > width())
-	m_offset.setX( (int)(m_scale_x * m_image.width() - width()));
+	m_offset.setX(static_cast<int>(m_scale_x * m_image.width() - width()));
     if (m_offset.y() + m_scale_y * m_image.height() > height())
-	m_offset.setY( (int)(m_scale_y * m_image.height() - height()));
+	m_offset.setY(static_cast<int>(
+	    m_scale_y * m_image.height() - height()));
 
     matrix.scale(m_scale_x, m_scale_y);
     QPixmap pixmap = newmap.transformed(matrix);

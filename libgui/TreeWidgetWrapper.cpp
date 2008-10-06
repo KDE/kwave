@@ -34,7 +34,7 @@ void TreeWidgetWrapper::focusOutEvent(QFocusEvent *event)
 {
     QTreeWidget::focusOutEvent(event);
     emit focusLost();
-};
+}
 
 //***************************************************************************
 #include "TreeWidgetWrapper.moc"

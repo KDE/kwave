@@ -274,10 +274,11 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     src.seek(fmt_offset);
 
     // get the encoded block of data from the mime source
-    CHECK((int)src.size() > (int)sizeof(wav_header_t)+8);
+    CHECK(static_cast<unsigned int>(src.size()) >
+          sizeof(wav_header_t) + 8);
 
     // get the header
-    src.read((char *)&header, sizeof(wav_fmt_header_t));
+    src.read(reinterpret_cast<char *>(&header), sizeof(wav_fmt_header_t));
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
     header.min.format      = bswap_16(header.min.format);
     header.min.channels    = bswap_16(header.min.channels);
@@ -369,7 +370,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     int sample_format;
     afGetVirtualSampleFormat(fh, AF_DEFAULT_TRACK, &sample_format,
-	(int *)(&bits));
+	reinterpret_cast<int *>(&bits));
 
     int compression = afGetCompression(fh, AF_DEFAULT_TRACK);
     if (static_cast<signed int>(bits) < 0) bits = 0;
@@ -412,7 +413,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	u_int32_t count;
 
 	src.seek(cue_chunk->dataStart());
-	src.read((char *)&count, 4);
+	src.read(reinterpret_cast<char *>(&count), 4);
 	count = LE32_TO_CPU(count);
 	qDebug("cue list found: %u entries, %u bytes (should be: %u)",
 	    count, length, count * (6 * 4) + 4);
@@ -430,31 +431,40 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	     *     u_int32_t dwSampleOffset; <- label.pos()
 	     * } cue_list_entry_t;
 	     */
-	    src.read((char *)&data, 4); /* dwIdentifier */
+
+	    /* dwIdentifier */
+	    src.read(reinterpret_cast<char *>(&data), 4);
 	    index = LE32_TO_CPU(data);
-	    src.read((char *)&data, 4); /* dwPosition (ignored) */
-	    src.read((char *)&data, 4); /* fccChunk */
+
+	    /* dwPosition (ignored) */
+	    src.read(reinterpret_cast<char *>(&data), 4);
+
+	    /* fccChunk */
+	    src.read(reinterpret_cast<char *>(&data), 4);
 	    /* we currently support only 'data' */
-	    if (qstrncmp((const char *)&data, "data", 4) != 0) {
+	    if (qstrncmp(reinterpret_cast<const char *>(&data), "data", 4)) {
 		qWarning("cue list entry %d refers to '%s', "\
                          "which is not supported -> skipped",
-		         index, QByteArray((const char *)&data, 4).data());
+		         index, QByteArray(
+		         reinterpret_cast<const char *>(&data), 4).data());
 		continue;
 	    }
-	    src.read((char *)&data, 4); /* dwChunkStart (must be 0) */
+	    src.read(reinterpret_cast<char *>(&data), 4);
+	    /* dwChunkStart (must be 0) */
 	    if (data != 0) {
 		qWarning("cue list entry %d has dwChunkStart != 0 -> skipped",
 		         index);
 		continue;
 	    }
-	    src.read((char *)&data, 4); /* dwBlockStart (must be 0) */
+	    src.read(reinterpret_cast<char *>(&data), 4);
+	    /* dwBlockStart (must be 0) */
 	    if (data != 0) {
 		qWarning("cue list entry %d has dwBlockStart != 0 -> skipped",
 		         index);
 		continue;
 	    }
 
-	    src.read((char *)&data, 4); /* dwSampleOffset */
+	    src.read(reinterpret_cast<char *>(&data), 4); /* dwSampleOffset */
 	    position = LE32_TO_CPU(data);
 
 	    // as we now have index and position, find out the name
@@ -479,7 +489,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
 		    data = 0;
 		    src.seek(labl_chunk->dataStart());
-		    src.read((char *)&data, 4); /* dwIdentifier */
+		    src.read(reinterpret_cast<char *>(&data), 4); /* dwIdentifier */
 		    labl_index = LE32_TO_CPU(data);
 		    if (labl_index == index) {
 			found = true;
@@ -493,7 +503,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 			length -= 4;
 			name.resize(length);
 			src.seek(labl_chunk->dataStart() + 4);
-			src.read((char *)name.data(), length);
+			src.read(static_cast<char *>(name.data()), length);
 			if (name[name.count()-1] != '\0')
 			    name += '\0';
 		    }
@@ -540,12 +550,13 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 
     info().dump(); // ###
 
-    unsigned int frame_size = (unsigned int)afGetVirtualFrameSize(fh,
-	AF_DEFAULT_TRACK, 1);
+    unsigned int frame_size = static_cast<unsigned int>(
+	afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
 
     // allocate a buffer for input data
     const unsigned int buffer_frames = (8*1024);
-    int32_t *buffer = (int32_t *)malloc(buffer_frames * frame_size);
+    int32_t *buffer = static_cast<int32_t *>(
+	malloc(buffer_frames * frame_size));
     Q_ASSERT(buffer);
     if (!buffer) return false;
 
@@ -556,7 +567,7 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 	unsigned int frames = buffer_frames;
 	if (frames > rest) frames = rest;
 	unsigned int buffer_used = afReadFrames(fh,
-	    AF_DEFAULT_TRACK, (char *)buffer, frames);
+	    AF_DEFAULT_TRACK, reinterpret_cast<char *>(buffer), frames);
 
 	// break if eof reached
 	Q_ASSERT(buffer_used);

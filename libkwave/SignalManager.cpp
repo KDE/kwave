@@ -145,7 +145,8 @@ int SignalManager::loadFile(const KUrl &url)
 	// enter the filename/mimetype and size into the decoder
 	QFileInfo fi(src);
 	decoder->info().set(INF_FILENAME, fi.absoluteFilePath());
-	decoder->info().set(INF_FILESIZE, (unsigned int)src.size());
+	decoder->info().set(INF_FILESIZE,
+	    static_cast<unsigned int>(src.size()));
 	decoder->info().set(INF_MIMETYPE, mimetype);
 
 	// get the file info from the decoder
@@ -1518,8 +1519,8 @@ Label *SignalManager::addLabel(unsigned int pos, const QString &name)
 void SignalManager::deleteLabel(int index, bool with_undo)
 {
     Q_ASSERT(index >= 0);
-    Q_ASSERT(index < (int)labels().count());
-    if ((index < 0) || (index >= (int)labels().count())) return;
+    Q_ASSERT(index < static_cast<int>(labels().count()));
+    if ((index < 0) || (index >= static_cast<int>(labels().count()))) return;
 
     Label *label = labels().at(index);
     Q_ASSERT(label);

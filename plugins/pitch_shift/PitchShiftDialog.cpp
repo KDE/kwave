@@ -149,9 +149,9 @@ void PitchShiftDialog::updateSpeed(double speed)
 	    // -1 => /2
 	    //  0 => x1
 	    // +1 => x2
-	    if ((int)(m_speed) >= 1) {
+	    if (static_cast<int>(m_speed) >= 1) {
 		// greater or equal to one -> multiply
-		int new_value = (int)(speed);
+		int new_value = static_cast<int>(speed);
 		sbSpeed->setPrefix("x ");
 		sbSpeed->setSuffix("");
 		sbSpeed->setInverse(false);
@@ -160,7 +160,7 @@ void PitchShiftDialog::updateSpeed(double speed)
 		new_slider_value = new_value-1;
 	    } else {
 		// less than one -> divide
-		int new_value = (int)(-1.0 / speed);
+		int new_value = static_cast<int>(-1.0 / speed);
 
 		sbSpeed->setPrefix("1/");
 		sbSpeed->setSuffix("");
@@ -175,7 +175,7 @@ void PitchShiftDialog::updateSpeed(double speed)
 	}
 	case MODE_PERCENT: {
 	    // factor 1.0 means 100%
-	    new_spinbox_value = (int)rint(speed * (double)100.0);
+	    new_spinbox_value = static_cast<int>(rint(speed * 100.0));
 	    new_slider_value = new_spinbox_value;
 	    sbSpeed->setPrefix("");
 	    sbSpeed->setSuffix("%");
@@ -210,7 +210,7 @@ void PitchShiftDialog::sliderChanged(int pos)
 	    if (pos >= 0) {
 		m_speed = (pos + 1);
 	    } else {
-		m_speed = (double)-1.0 / (double)(pos - 1);
+		m_speed = -1.0 / static_cast<double>(pos - 1);
 	    }
 	    updateSpeed(m_speed);
 	    break;
@@ -243,13 +243,13 @@ void PitchShiftDialog::spinboxChanged(int pos)
 		m_speed = sv ? sv : 0.5;
 	    } else {
 		if (!sv) sv = 1;
-		m_speed = (double)1.0 / (double)(sv);
+		m_speed = 1.0 / static_cast<double>(sv);
 	    }
 	    break;
 	}
 	case MODE_PERCENT: {
 	    // percentage
-	    m_speed = (double)pos / (double)100.0;
+	    m_speed = static_cast<double>(pos) / 100.0;
 	    break;
 	}
     }
@@ -278,7 +278,7 @@ QStringList PitchShiftDialog::params()
     QStringList list;
     list << QString::number(m_speed);
     list << QString::number(m_frequency);
-    list << QString::number((int)m_mode);
+    list << QString::number(static_cast<int>(m_mode));
     return list;
 }
 

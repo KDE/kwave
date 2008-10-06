@@ -135,7 +135,7 @@ void PitchShiftFilter::input(Kwave::SampleArray &data)
 	 */
 	error = modf(m_b1pos, &int_pos);
 
-	position = m_dbpos - (int)int_pos;
+	position = m_dbpos - static_cast<int>(int_pos);
 	if (position < 0)
 	    position += MAXDELAY;
 	position1 = position - 1;
@@ -150,7 +150,7 @@ void PitchShiftFilter::input(Kwave::SampleArray &data)
 	 */
 	error = modf(m_b2pos,&int_pos);
 
-	position = m_dbpos - (int)int_pos;
+	position = m_dbpos - static_cast<int>(int_pos);
 	if (position < 0)
 	    position += MAXDELAY;
 	position1 = position-1;

@@ -41,20 +41,23 @@ typedef int32_t sample_t;
  * Simple conversion from float to sample_t
  */
 static inline sample_t float2sample(const float f) {
-    return (sample_t)(f * (float)(1 << (SAMPLE_BITS-1)));
+    return static_cast<sample_t>(f * static_cast<float>(1 << (SAMPLE_BITS-1)));
 }
 
 /**
  * Simple conversion from sample_t to float
  */
 static inline float sample2float(const sample_t s) {
-    return (float)((float)s / float(1 << (SAMPLE_BITS-1)));
+    return static_cast<float>(
+	static_cast<float>(s) / static_cast<float>(1 << (SAMPLE_BITS-1)));
 }
 
 /**
  * Simple conversion from double to sample_t
  */
 static inline sample_t double2sample(const double f) {
-    return (sample_t)(f * (double)(1 << (SAMPLE_BITS-1)));
+    return static_cast<sample_t>(
+	f * static_cast<double>(1 << (SAMPLE_BITS-1)));
 }
+
 #endif /* _SAMPLE_H_ */

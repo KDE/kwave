@@ -120,8 +120,8 @@ void TrackPixmap::setOffset(unsigned int offset)
 	}
 
 	// check for misaligned offset changes
-	if ((  offset % (unsigned int)ceil(m_zoom)) !=
-	    (m_offset % (unsigned int)ceil(m_zoom))) {
+	if ((  offset % static_cast<unsigned int>(ceil(m_zoom))) !=
+	    (m_offset % static_cast<unsigned int>(ceil(m_zoom)))) {
 
 #ifdef CURRENTLY_UNUSED
 // this will become interesting later, with the offset/zoom optimizations
@@ -315,10 +315,10 @@ bool TrackPixmap::validateBuffer()
 
 	    // first sample in first pixel
 	    unsigned int s1 = m_offset +
-		(unsigned int)floor(first * m_zoom);
+		static_cast<unsigned int>(floor(first * m_zoom));
 	    // last sample of last pixel
 	    unsigned int s2 = m_offset +
-		(unsigned int)floor((last+1) * m_zoom)-1;
+		static_cast<unsigned int>(floor((last+1) * m_zoom)) - 1;
 
 	    // open a reader for the whole modified range
 	    SampleReader *in = m_track.openSampleReader(s1, s2);
@@ -327,13 +327,14 @@ bool TrackPixmap::validateBuffer()
 
 	    // allocate a buffer for one more sample (pixels2samples may
 	    // vary by +/-1 !
-	    Kwave::SampleArray buffer((int)ceil(m_zoom));
+	    Kwave::SampleArray buffer(static_cast<int>(ceil(m_zoom)));
 	    sample_t min;
 	    sample_t max;
 
 	    while (first <= last) {
 		// NOTE: s2 is exclusive!
-		s2 = m_offset + (unsigned int)floor((first+1)*m_zoom);
+		s2 = m_offset + static_cast<unsigned int>(
+		    floor((first + 1) * m_zoom));
 
 		// get min/max for interval [s1...s2[
 		unsigned int count = in->read(buffer, 0, s2-s1);
@@ -473,20 +474,21 @@ void TrackPixmap::drawOverview(QPainter &p, int middle, int height,
 	int first, int last)
 {
     Q_ASSERT(m_minmax_mode);
-    Q_ASSERT(width() <= (int)m_min_buffer.size());
-    Q_ASSERT(width() <= (int)m_max_buffer.size());
+    Q_ASSERT(width() <= static_cast<int>(m_min_buffer.size()));
+    Q_ASSERT(width() <= static_cast<int>(m_max_buffer.size()));
 
     // scale_y: pixels per unit
-    qreal scale_y = (m_vertical_zoom * (qreal)height) / (1 << SAMPLE_BITS);
+    qreal scale_y = (m_vertical_zoom * static_cast<qreal>(height)) /
+	(1 << SAMPLE_BITS);
     int max = 0, min = 0;
 
     p.setPen(m_colors.sample);
-    int last_min = (int)(m_min_buffer[first] * scale_y);
-    int last_max = (int)(m_max_buffer[first] * scale_y);
+    int last_min = static_cast<int>(m_min_buffer[first] * scale_y);
+    int last_max = static_cast<int>(m_max_buffer[first] * scale_y);
     for (int i = first; i <= last; i++) {
 	Q_ASSERT(m_valid[i]);
-	max = (int)(m_max_buffer[i] * scale_y);
-	min = (int)(m_min_buffer[i] * scale_y);
+	max = static_cast<int>(m_max_buffer[i] * scale_y);
+	min = static_cast<int>(m_min_buffer[i] * scale_y);
 
 	// make sure there is a connection between this
 	// section and the one before, avoid gaps
@@ -529,7 +531,7 @@ void TrackPixmap::calculateInterpolation()
     Fg = m_zoom / 2;
 
     // N: order of the filter, at least 2 * (1/m_zoom)
-    N = (int)(INTERPOLATION_PRECISION / m_zoom);
+    N = static_cast<int>(INTERPOLATION_PRECISION / m_zoom);
     N |= 0x01;    // make N an odd number !
 
     // allocate a buffer for the coefficients
@@ -581,7 +583,8 @@ void TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     if (m_zoom == 0.0) return;
 
     // scale_y: pixels per unit
-    scale_y = (m_vertical_zoom * (qreal)height) / (qreal)((SAMPLE_MAX+1)<<1);
+    scale_y = (m_vertical_zoom * static_cast<qreal>(height)) /
+	static_cast<qreal>((SAMPLE_MAX + 1) << 1);
 
     // N: order of the filter, at least 2 * (1/m_zoom)
     N = INTERPOLATION_PRECISION * samples2pixels(1);
@@ -628,7 +631,7 @@ void TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
 	for (k = 0; k <= N; k++)
 	    y += *(sig--) * m_interpolation_alpha[k];
 
-	points.append(QPoint(i, middle - (int)y));
+	points.append(QPoint(i, middle - static_cast<int>(y)));
     }
 
     // display the filter's interpolated output
@@ -645,7 +648,7 @@ void TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     while (x < width) {
 	if ((x >= 0) && (x < width)) {
 	    // mark original samples
-	    points.append(QPoint(x, middle - (int)sig[x]));
+	    points.append(QPoint(x, middle - static_cast<int>(sig[x])));
 	}
 	sample++;
 	x = samples2pixels(sample);
@@ -666,7 +669,8 @@ void TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
     unsigned int buflen = m_sample_buffer.size();
 
     // scale_y: pixels per unit
-    scale_y = (m_vertical_zoom * (qreal)height) / (qreal)((SAMPLE_MAX+1)<<1);
+    scale_y = (m_vertical_zoom * static_cast<qreal>(height)) /
+	static_cast<qreal>((SAMPLE_MAX + 1) << 1);
 
     // array with sample points
     QPolygon points;
@@ -677,7 +681,7 @@ void TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
     while (x < width) {
 	// mark original samples
 	sample_t value = (sample < buflen) ? m_sample_buffer[sample] : 0;
-	y = (int)(value * scale_y);
+	y = static_cast<int>(value * scale_y);
 	points.append(QPoint(x, middle - y));
 
 	sample++;
@@ -695,12 +699,13 @@ void TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
 	x2 = samples2pixels(sample);
 
 	y1 = ((sample) && (sample <= buflen)) ?
-	    (int)(scale_y * m_sample_buffer[sample-1]) : 0.0;
+	    static_cast<int>(scale_y * m_sample_buffer[sample-1]) : 0.0;
 	y2 = (sample < buflen) ?
-	    (int)(scale_y * m_sample_buffer[sample]) : 0.0;
+	    static_cast<int>(scale_y * m_sample_buffer[sample]) : 0.0;
 
 	x = width - 1;
-	y = (int)((float)(x - x1) * (float)(y2 - y1) / (float)(x2 - x1));
+	y = static_cast<int>(static_cast<float>(x - x1) *
+	    static_cast<float>(y2 - y1) / static_cast<float>(x2 - x1));
 
 	points.append(QPoint(x, middle - y));
     }
@@ -815,11 +820,13 @@ void TrackPixmap::convertOverlap(unsigned int &offset, unsigned int &length)
     // calculate the length
     if (m_minmax_mode) {
 	// attention: round up the length int this mode!
-	if (offset >= m_offset + (unsigned int)ceil(buflen * m_zoom)) {
+	if (offset >= m_offset + static_cast<unsigned int>(
+	    ceil(buflen * m_zoom)))
+	{
 	    length = 0; // out of view
 	    return;
 	} else {
-	    length = (unsigned int)ceil(length / m_zoom);
+	    length = static_cast<unsigned int>(ceil(length / m_zoom));
 	}
     } else {
 	if (offset >= m_offset+buflen) {
@@ -832,10 +839,11 @@ void TrackPixmap::convertOverlap(unsigned int &offset, unsigned int &length)
     offset = (offset > m_offset) ? offset - m_offset : 0;
     if (m_minmax_mode) {
 	// attention: round down in this mode!
-	unsigned int ofs = (unsigned int)floor(offset / m_zoom);
+	unsigned int ofs = static_cast<unsigned int>(floor(offset / m_zoom));
 
 	// if offset was rounded down, increment length
-	if (ofs != (unsigned int)ceil(offset / m_zoom)) length++;
+	if (ofs != static_cast<unsigned int>(ceil(offset / m_zoom)))
+	    length++;
 	offset = ofs;
     }
 

@@ -38,10 +38,10 @@ void NoiseGenerator::goOn()
 {
     const unsigned int size = m_noise.size();
     sample_t *p = m_noise.data();
-    float scale = 2.0 / (float)RAND_MAX;
+    float scale = 2.0 / static_cast<float>(RAND_MAX);
 
     for (unsigned int i=0; i < size; i++, p++)
-	*p = float2sample(((float)rand() * scale)) - SAMPLE_MAX;
+	*p = float2sample((static_cast<float>(rand()) * scale)) - SAMPLE_MAX;
 
     emit output(m_noise);
 }

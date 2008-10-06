@@ -116,7 +116,8 @@ void OggEncoder::encodeProperties(FileInfo &info, vorbis_comment *vc)
 	if (!tag) continue;
 
 	QByteArray value = info.get(property).toString().toUtf8();
-	vorbis_comment_add_tag(vc, (char *)tag, value.data());
+	vorbis_comment_add_tag(vc, reinterpret_cast<const char *>(tag),
+	    value.data());
     }
 }
 
@@ -141,7 +142,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
     // get info: tracks, sample rate, bitrate(s)
     const unsigned int tracks = info.tracks();
-    const long sample_rate = (long)info.rate();
+    const long sample_rate = static_cast<const long>(info.rate());
 
     // ABR bitrates
     int bitrate_nominal = info.contains(INF_BITRATE_NOMINAL) ?
@@ -205,7 +206,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
     } else if (vbr_quality >= 0) {
 	// Encoding using VBR mode.
 	ret = vorbis_encode_init_vbr(&vi, tracks, sample_rate,
-	                             (float)vbr_quality / 100.0);
+	    static_cast<float>(vbr_quality) / 100.0);
 	qDebug("OggEncoder: VBR with %d%%", vbr_quality);
     } else {
 	// unknown setup !?
@@ -289,8 +290,8 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	// new page, as per spec
 	while (!eos) {
 	    if (!ogg_stream_flush(&os, &og)) break;
-	    dst.write((char*)og.header, og.header_len);
-	    dst.write((char*)og.body, og.body_len);
+	    dst.write(reinterpret_cast<char *>(og.header), og.header_len);
+	    dst.write(reinterpret_cast<char *>(og.body),   og.body_len);
 	}
     }
 
@@ -311,7 +312,8 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	    for (pos=0; (pos < BUFFER_SIZE)  && !src.eof(); ++pos) {
 		for (unsigned int track = 0; (track < tracks); ++track) {
 		    *(src[track]) >> s;
-		    buffer[track][pos] = (float)s / (float)SAMPLE_MAX;
+		    buffer[track][pos] = static_cast<float>(s) /
+			static_cast<float>(SAMPLE_MAX);
 		}
 	    }
 
@@ -335,8 +337,8 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 		while (!eos) {
 		    int result = ogg_stream_pageout(&os,&og);
 		    if (!result) break;
-		    dst.write((char*)og.header, og.header_len);
-		    dst.write((char*)og.body, og.body_len);
+		    dst.write(reinterpret_cast<char*>(og.header), og.header_len);
+		    dst.write(reinterpret_cast<char *>(og.body), og.body_len);
 
 		    // this could be set above, but for illustrative
 		    // purposes, I do it here (to show that vorbis

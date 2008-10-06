@@ -44,7 +44,7 @@ FrequencyResponseWidget::~FrequencyResponseWidget()
 void FrequencyResponseWidget::init(double freq, int db_min, int db_max)
 {
     const int base = 10;
-    m_decades = (int)ceil(log(freq)/log(base));
+    m_decades = static_cast<int>(ceil(log(freq)/log(base)));
     m_f_max = pow(base, m_decades);
 
     m_db_min = db_min;
@@ -73,9 +73,10 @@ void FrequencyResponseWidget::paintEvent(QPaintEvent*)
     QPainter p(this);
     p.fillRect(rect(), QBrush(palette().dark()));
 
-    double scale = (double)(height-1) / (double)(m_db_max-m_db_min);
-    double min = pow(10.0, (double)m_db_min/10.0);
-    double max = pow(10.0, (double)m_db_max/10.0);
+    double scale = static_cast<double>(height-1) /
+	static_cast<double>(m_db_max-m_db_min);
+    double min = pow(10.0, static_cast<double>(m_db_min) / 10.0);
+    double max = pow(10.0, static_cast<double>(m_db_max) / 10.0);
     p.setPen(Qt::green);//colorGroup().text());
 
     for (int x=0; x < width; x++) {
@@ -85,7 +86,8 @@ void FrequencyResponseWidget::paintEvent(QPaintEvent*)
 //	double f = pow(base, (double)m_decades * (double)x / (double)width);
 
 	// linear frequency scale
-	double f = (m_f_max * (double)x / (double)width);
+	double f = (m_f_max * static_cast<double>(x) /
+	    static_cast<double>(width));
 
 	// calculate the filter function's output at the given frequency
 	f = (f / m_f_max) * M_PI;
@@ -99,14 +101,14 @@ void FrequencyResponseWidget::paintEvent(QPaintEvent*)
 	double db = 10.0 * log10(a);
 
 	// draw one line
-	int y = height - (int)((db - m_db_min) * scale);
+	int y = height - static_cast<int>((db - m_db_min) * scale);
 
 	p.drawLine(x, y+1, x, height-1);
     }
 
     // draw the zero db line
     p.setPen(palette().text().color());
-    int y = height - (int)((0.0 - m_db_min) * scale);
+    int y = height - static_cast<int>((0.0 - m_db_min) * scale);
     p.drawLine(0, y, width-1, y);
 }
 

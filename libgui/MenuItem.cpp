@@ -69,10 +69,11 @@ void MenuItem::actionSelected()
     if (isCheckable()) {
 	if (m_exclusive_group.length()) {
 	    MenuNode *root = getRootNode();
-	    if (root) group = (MenuGroup*)root->findUID(m_exclusive_group);
+	    if (root) group =
+		static_cast<MenuGroup *>(root->findUID(m_exclusive_group));
 	}
 
-	if (group && ((MenuNode*)group)->inherits("MenuGroup")) {
+	if (group && (static_cast<MenuNode *>(group))->inherits("MenuGroup")) {
 	    // exclusive check == selection
 	    group->selectItem(uid());
 	} else {

@@ -110,9 +110,12 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
 	QString file = *it_file;
 	void *handle = dlopen(file.toLocal8Bit(), RTLD_NOW);
 	if (handle) {
-	    const char **name    = (const char **)dlsym(handle, "name");
-	    const char **version = (const char **)dlsym(handle, "version");
-	    const char **author  = (const char **)dlsym(handle, "author");
+	    const char **name    =
+		static_cast<const char **>(dlsym(handle, "name"));
+	    const char **version =
+		static_cast<const char **>(dlsym(handle, "version"));
+	    const char **author  =
+		static_cast<const char **>(dlsym(handle, "author"));
 
 	    // skip it if something is missing or null
 	    if (!name || !version || !author) continue;
@@ -120,7 +123,8 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
 
 	    QStringList item;
 	    item << i18n(*name) << *version << *author;
-	    plugins.append(new QTreeWidgetItem((QTreeWidget *)0, item));
+	    plugins.append(new QTreeWidgetItem(
+		static_cast<QTreeWidget *>(0), item));
 
 	    dlclose (handle);
         }

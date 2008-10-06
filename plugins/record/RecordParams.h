@@ -37,7 +37,8 @@ typedef enum {
 /** post-increment operator for the record method */
 inline record_method_t &operator ++(record_method_t &m) {
     return (m = (m < RECORD_INVALID) ?
-                (record_method_t)((int)(m) + 1) : m);
+                static_cast<record_method_t>(
+                static_cast<int>(m) + 1) : m);
 }
 
 class RecordParams {

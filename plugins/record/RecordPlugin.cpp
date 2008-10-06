@@ -226,7 +226,7 @@ void RecordPlugin::setMethod(record_method_t method)
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-    qDebug("RecordPlugin::setMethod(%d)", (int)method);
+    qDebug("RecordPlugin::setMethod(%d)", static_cast<int>(method));
 
     // change the recording method (class RecordDevice)
     if ((method != m_method) || !m_device) {
@@ -261,7 +261,8 @@ void RecordPlugin::setMethod(record_method_t method)
 		    break;
 #endif /* HAVE_ALSA_SUPPORT */
 		default:
-		    qDebug("unsupported recording method (%d)", (int)method);
+		    qDebug("unsupported recording method (%d)",
+			static_cast<int>(method));
 		    if (!searching) {
 			// start trying out all other methods
 			searching = true;
@@ -273,7 +274,7 @@ void RecordPlugin::setMethod(record_method_t method)
 			++method;
 		    }
 		    qDebug("unsupported recording method - trying next (%d)",
-		           (int)method);
+		           static_cast<int>(method));
 		    if (method != RECORD_INVALID) continue;
 	    }
 	    break;
@@ -483,8 +484,9 @@ void RecordPlugin::changeSampleRate(double new_rate)
 
 	const QString sr1(m_dialog->rate2string(new_rate));
 	const QString sr2(m_dialog->rate2string(rate));
-	if (((int)new_rate > 0) && ((int)rate > 0) &&
-	    ((int)new_rate != (int)rate))
+	if ((static_cast<int>(new_rate) > 0) &&
+	    (static_cast<int>(rate) > 0) &&
+	    (static_cast<int>(new_rate) != static_cast<int>(rate)))
 	    notice(i18n("%1Hz is not supported, "\
 		        "using %2Hz", sr1, sr2));
     }
@@ -498,8 +500,9 @@ void RecordPlugin::changeSampleRate(double new_rate)
 
 	const QString sr1(m_dialog->rate2string(new_rate));
 	const QString sr2(m_dialog->rate2string(rate));
-	if (((int)new_rate > 0) && ((int)rate > 0) &&
-	    ((int)new_rate != (int)rate))
+	if ((static_cast<int>(new_rate) > 0) &&
+	    (static_cast<int>(rate) > 0) &&
+	    (static_cast<int>(new_rate) != static_cast<int>(rate)))
 	    notice(i18n("%1Hz failed, using %2Hz", sr1, sr2));
     }
     m_dialog->setSampleRate(rate);
@@ -596,10 +599,10 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 	}
 	bits = nearest;
 
-	if (((int)new_bits > 0) && (bits > 0)) notice(
+	if ((static_cast<int>(new_bits) > 0) && (bits > 0)) notice(
 	    i18n("%1 bits per sample is not supported, "\
 	         "using %2 bits per sample",
-		 (int)new_bits, bits));
+		 static_cast<int>(new_bits), bits));
     }
     m_dialog->setSupportedBits(supported_bits);
 
@@ -611,7 +614,7 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 	if ((new_bits> 0) && (bits > 0)) notice(
 	    i18n("%1 bits per sample failed, "\
 		 "using %2 bits per sample",
-		 (int)new_bits, bits));
+		 static_cast<int>(new_bits), bits));
     }
     m_dialog->setBitsPerSample(bits);
 
@@ -814,8 +817,8 @@ void RecordPlugin::setupRecordThread()
     m_prerecording_queue.clear();
     if (params.pre_record_enabled) {
 	// prepare a queue for each track
-	const unsigned int prerecording_samples = (unsigned int)rint(
-	    params.pre_record_time * params.sample_rate);
+	const unsigned int prerecording_samples = static_cast<unsigned int>(
+	    rint(params.pre_record_time * params.sample_rate));
 	m_prerecording_queue.resize(params.tracks);
 	for (int i=0; i < m_prerecording_queue.size(); i++)
 	    m_prerecording_queue[i].setSize(prerecording_samples);
@@ -829,7 +832,7 @@ void RecordPlugin::setupRecordThread()
 
     // set up the recording trigger values
     m_trigger_value.resize(params.tracks);
-    m_trigger_value.fill((double)0.0);
+    m_trigger_value.fill(0.0);
 
     // set up the record thread
     m_thread->setRecordDevice(m_device);
@@ -1065,8 +1068,10 @@ bool RecordPlugin::checkTrigger(unsigned int track,
 
     // pass the buffer through a rectifier and a lowpass with
     // center frequency about 2Hz to get the amplitude
-    float trigger = (float)m_dialog->params().record_trigger / 100.0;
-    const float rate = (float)m_dialog->params().sample_rate;
+    float trigger = static_cast<float>(
+	m_dialog->params().record_trigger / 100.0);
+    const float rate = static_cast<const float>(
+	m_dialog->params().sample_rate);
 
     /*
      * simple lowpass calculation:
@@ -1224,8 +1229,8 @@ void RecordPlugin::processBuffer()
     if (params.record_time_limited && m_writers) {
 	const unsigned int last = m_writers->last();
 	const unsigned int already_recorded = (last) ? (last + 1) : 0;
-	const unsigned int limit = (unsigned int)rint(
-	    params.record_time * params.sample_rate);
+	const unsigned int limit = static_cast<const unsigned int>(rint(
+	    params.record_time * params.sample_rate));
 	if (already_recorded + samples >= limit) {
 	    // reached end of recording time, we are full
 	    if (m_state == REC_RECORDING) {

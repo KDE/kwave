@@ -96,8 +96,10 @@ int BitrateWidget::nearestIndex(int rate)
     int index = m_rates.contains(nearest) ? m_rates.indexOf(nearest) : 0;
 
     // limit the index into a reasonable range
-    if (index < 0)                    index = 0;
-    if (index >= (int)m_rates.size()) index = m_rates.size()-1;
+    if (index < 0)
+	index = 0;
+    if (index >= static_cast<int>(m_rates.size()))
+	index = m_rates.size()-1;
 
     return index;
 }

@@ -155,7 +155,7 @@ void RIFFParser::detectEndianness()
 
             // read length, assuming little endian
             u_int32_t len = 0;
-            m_dev.read((char*)(&len), 4);
+            m_dev.read(reinterpret_cast<char *>(&len), 4);
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
             qreal dist_le = fabs(half - bswap_32(len));
             qreal dist_be = fabs(half - len);
@@ -341,7 +341,7 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
         u_int32_t len = 0;
         if (length >= 8) {
             // length information present
-            m_dev.read((char*)(&len), 4);
+            m_dev.read(reinterpret_cast<char *>(&len), 4);
             if (m_endianness != SYSTEM_ENDIANNES) len = bswap_32(len);
         }
         if (len == 0) {

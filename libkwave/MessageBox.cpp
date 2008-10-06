@@ -203,13 +203,13 @@ Kwave::MessageBox::Trigger::Trigger(Kwave::MessageBox &box)
     :QObject(0), m_box(box)
 {
     moveToThread(QApplication::instance()->thread());
-};
+}
 
 //***************************************************************************
 Kwave::MessageBox::Trigger::~Trigger()
 {
     m_box.show();
-};
+}
 
 //***************************************************************************
 using namespace Kwave;

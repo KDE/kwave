@@ -121,25 +121,27 @@ void ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
     Q_ASSERT(m_low >= 0);
     Q_ASSERT(m_high > m_low);
 
-    int dec_lo = (m_low) ? (int)floor(log(m_low)/log(base)) : 0;
-    int dec_hi = (int)ceil(log(m_high)/log(base));
+    int dec_lo = (m_low) ? static_cast<int>(floor(log(m_low)/log(base))) : 0;
+    int dec_hi = static_cast<int>(ceil(log(m_high)/log(base)));
     int decades = qAbs(dec_hi - dec_lo) + 1;
 
     // check if we have enough space for the small lines within a decade
-    int w1 = (int)(w / decades); // pixels per decade
-    bool small_lines = (w1 - (int)((double)w1 * log(base-1)/log(base))) > 1;
+    int w1 = static_cast<int>(w / decades); // pixels per decade
+    bool small_lines = (w1 - static_cast<int>(
+	static_cast<double>(w1) * log(base-1)/log(base))) > 1;
 
     // print the lines
     for (a = 0; a < decades; a++) {
 	// big line, for each decade
-	x = (int)((w-1) * a / decades);
+	x = static_cast<int>((w-1) * a / decades);
 	p.drawLine (dir*x, dir*1, dir*x, dir*(h2-2));
 
-	w1 = (int)((w-1) * (a+1) / decades) - x + 1;
+	w1 = static_cast<int>((w-1) * (a+1) / decades) - x + 1;
 	if (small_lines) {
 	    // small lines, within the decade
 	    for (int i=1; i < base; i++) {
-		int x1 = x + (int)((double)w1 * log(i)/log(base));
+		int x1 = x + static_cast<int>(static_cast<double>(w1) *
+		    log(i)/log(base));
 		p.drawLine (dir*x1, dir*1, dir*x1, dir*((h2/2)-2));
 	    }
 	}
@@ -148,7 +150,7 @@ void ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
     // print the text
     for (a = 0; a < decades; a++) {
 	QString buf = "%1 %2";
-	int value = (int)pow(base, dec_lo+a);
+	int value = static_cast<int>(pow(base, dec_lo+a));
 	buf = buf.arg(value).arg(m_unittext);
 	x = ((w-1) * a)/decades;
 	paintText(p, dir*(x+4), dir*(h-FONTSIZE-4), inverse, buf);
@@ -175,7 +177,7 @@ void ScaleWidget::drawLinear(QPainter &p, int w, int h, bool inverse)
     while ((t / 10 > 1) && (h2 > 0)) {
 	for (ofs = 0; ofs < w - 1; ofs += t) {
 	    for (a = 0; a < 4; a++) {
-		x = (int)(ofs + (t * a / 4));
+		x = static_cast<int>(ofs + (t * a / 4));
 		p.drawLine (dir*x, dir*1, dir*x, dir*(h2-2));
 	    }
 	}

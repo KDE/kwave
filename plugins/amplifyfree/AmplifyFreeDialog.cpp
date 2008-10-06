@@ -58,7 +58,7 @@ QString AmplifyFreeDialog::getCommand()
     cmd = "amplifyfree(";
     if (p.hasParams()) cmd += p.nextParam();
     while (!p.isDone()) {
-	cmd += (QString)"," + p.nextParam();
+	cmd += QString(",") + p.nextParam();
     }
     cmd += ")";
     qDebug("AmplifyFreeDialog::getCommand(): '%s'",

@@ -194,7 +194,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
     }
 
     // playback rate, we allow up to 10% variation
-    int int_rate = (int)m_rate;
+    int int_rate = static_cast<int>(m_rate);
     if ((ioctl(m_handle, SNDCTL_DSP_SPEED, &int_rate) == -1) ||
 	(int_rate < 0.9 * m_rate) || (int_rate > 1.1 * m_rate)) {
 	return i18n("playback rate %1 Hz is not supported", int_rate);
@@ -450,7 +450,7 @@ void PlayBackOSS::format2mode(int format, int &compression,
 	    bits          = 16;
 	    break;
 	case AFMT_MPEG:
-	    compression   = (int)CompressionType::MPEG_LAYER_II;
+	    compression   = static_cast<int>(CompressionType::MPEG_LAYER_II);
 	    sample_format = SampleFormat::Signed;
 	    bits          = 16;
 	    break;
@@ -599,7 +599,7 @@ int PlayBackOSS::detectChannels(const QString &device,
     }
 
     // find the highest number of tracks, start from MAX_CHANNELS downwards
-    for (t=MAX_CHANNELS; t >= (int)min; t--) {
+    for (t = MAX_CHANNELS; t >= static_cast<int>(min); t--) {
 	int real_tracks = t;
 	err = ioctl(fd, SNDCTL_DSP_CHANNELS, &real_tracks);
 	Q_ASSERT(real_tracks == t);

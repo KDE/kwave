@@ -923,7 +923,8 @@ void TopWidget::selectZoom(int index)
     unsigned int width = m_main_widget->displayWidth();
     Q_ASSERT(width > 1);
     if (width <= 1) width = 2;
-    const double new_zoom = rint(((rate*ms)/1E3)-1) / (double)(width-1);
+    const double new_zoom = rint(((rate * ms) / 1E3) -1 ) /
+	static_cast<double>(width - 1);
     m_main_widget->setZoom(new_zoom);
 
     // force the zoom factor to be set, maybe the current selection
@@ -946,22 +947,23 @@ void TopWidget::setZoomInfo(double zoom)
 	double rate = signalManager().rate();
 	if (rate > 0) {
 	    // time display mode
-	    double ms = m_main_widget->displaySamples()*1E3/(double)rate;
-	    int s = (int)floor(ms / 1000.0);
-	    int m = (int)floor(s / 60.0);
+	    double ms = m_main_widget->displaySamples() * 1E3 / rate;
+	    int s = static_cast<int>(floor(ms / 1000.0));
+	    int m = static_cast<int>(floor(s / 60.0));
 
 	    if (m >= 1) {
 		strZoom = strZoom.sprintf("%02d:%02d min", m, s % 60);
 	    } else if (s >= 1) {
 		strZoom = strZoom.sprintf("%d sec", s);
 	    } else if (ms >= 1) {
-		strZoom = strZoom.sprintf("%d ms", (int)round(ms));
+		strZoom = strZoom.sprintf("%d ms",
+		    static_cast<int>(round(ms)));
 	    } else if (ms >= 0.01) {
 		strZoom = strZoom.sprintf("%0.3g ms", ms);
 	    }
 	} else {
 	    // percent mode
-	    double percent = (double)100.0 / zoom;
+	    double percent = 100.0 / zoom;
 	    strZoom = KwavePlugin::zoom2string(percent);
 	}
     }
@@ -996,7 +998,8 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
 
     // length in milliseconds
     if (length) {
-	ms = (rate) ? (((double)length / (double)rate) * 1E3) : 0;
+	ms = (rate) ? (static_cast<double>(length) /
+	    static_cast<double>(rate) * 1E3) : 0;
 	txt = " " + i18n("Length: %1", KwavePlugin::ms2string(ms)) +
 	    " " + i18n("(%1 samples)", KwavePlugin::dottedNumber(length)) +
 	    " ";
@@ -1006,7 +1009,7 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
     // sample rate and resolution
     if (bits) {
 	QString khz = "%0.3f";
-	khz = khz.sprintf("%0.3f", (double)rate * 1E-3);
+	khz = khz.sprintf("%0.3f", static_cast<double>(rate) * 1E-3);
 	txt = " "+i18n("Mode: %1 kHz@%2 bit", khz, bits)+" ";
     } else txt = "";
     statusBar()->changeItem(txt, STATUS_ID_MODE);
@@ -1053,8 +1056,8 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 	          KwavePlugin::dottedNumber(length) + " " +
 	          i18n("samples"));
 	} else {
-	    double ms_first = (double)offset * 1E3 / rate;
-	    double ms_last  = (double)(last+1)   * 1E3 / rate;
+	    double ms_first = static_cast<double>(offset)   * 1E3 / rate;
+	    double ms_last  = static_cast<double>(last + 1) * 1E3 / rate;
 	    double ms = (ms_last - ms_first);
 	    txt = txt.arg(KwavePlugin::ms2string(ms_first)).arg(
 		KwavePlugin::ms2string(ms_last)).arg(

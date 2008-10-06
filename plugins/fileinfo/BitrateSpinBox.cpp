@@ -45,7 +45,7 @@ void BitrateSpinBox::snapIn(int value)
 
     if (value == old_value) return;
 
-    if ((value > old_value) && (index < (int)m_rates.size()-1))
+    if ((value > old_value) && (index < static_cast<int>(m_rates.size()) - 1))
 	index++;
 
     if ((value < old_value) && (index > 0))
@@ -85,8 +85,10 @@ int BitrateSpinBox::nearestIndex(int rate)
     int index = m_rates.contains(nearest) ? m_rates.indexOf(nearest) : 0;
 
     // limit the index into a reasonable range
-    if (index < 0)                    index = 0;
-    if (index >= (int)m_rates.size()) index = m_rates.size()-1;
+    if (index < 0)
+	index = 0;
+    if (index >= static_cast<int>(m_rates.size()))
+	index = m_rates.size()-1;
 
     return index;
 }

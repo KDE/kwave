@@ -116,7 +116,7 @@ int PlayBackPlugin::interpreteParameters(QStringList &params)
     Q_ASSERT(ok);
     if (!ok) return -EINVAL;
     if (method >= PLAYBACK_INVALID) method = PLAYBACK_NONE;
-    m_playback_params.method = (playback_method_t)method;
+    m_playback_params.method = static_cast<playback_method_t>(method);
 
     // parameter #1: playback device [/dev/dsp , ... ]
     param = params[1];
@@ -199,7 +199,7 @@ QStringList *PlayBackPlugin::setup(QStringList &previous_params)
 
 	    // parameter #0: playback method
 	    param = param.setNum(
-	        (unsigned int)m_playback_params.method);
+	        static_cast<unsigned int>(m_playback_params.method));
 	    result->append(param);
 
 	    // parameter #1: playback device [/dev/dsp , ... ]
@@ -256,7 +256,8 @@ PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t &method)
 #endif /* HAVE_ALSA_SUPPORT */
 
 	    default:
-		qDebug("unsupported playback method (%d)", (int)method);
+		qDebug("unsupported playback method (%d)",
+		    static_cast<int>(method));
 		if (!searching) {
 		    // start trying out all other methods
 		    searching = true;
@@ -268,7 +269,7 @@ PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t &method)
 		    ++method;
 		}
 		qDebug("unsupported playback method - trying next (%d)",
-		    (int)method);
+		    static_cast<int>(method));
 		if (method != PLAYBACK_INVALID) continue;
 	}
 	break;
@@ -280,7 +281,7 @@ PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t &method)
 //***************************************************************************
 void PlayBackPlugin::setMethod(playback_method_t method)
 {
-    qDebug("PlayBackPlugin::setMethod(%d)", (int)method);
+    qDebug("PlayBackPlugin::setMethod(%d)", static_cast<int>(method));
     QString last_device_name = m_playback_params.device;
 
     // set hourglass cursor
@@ -302,10 +303,10 @@ void PlayBackPlugin::setMethod(playback_method_t method)
 
 	    // save the current device
 	    cfg.writeEntry(QString("last_device_%1").arg(
-		(int)m_playback_params.method),
+		static_cast<int>(m_playback_params.method)),
 		m_dialog->params().device);
 	    qDebug(">>> %d -> '%s'",
-	           (int)m_playback_params.method,
+	           static_cast<int>(m_playback_params.method),
 	           m_dialog->params().device.toLocal8Bit().data());
 	    cfg.sync();
 	}
@@ -315,8 +316,10 @@ void PlayBackPlugin::setMethod(playback_method_t method)
 
 	if (m_dialog) {
 	    // restore the previous one
-	    device = cfg.readEntry(QString("last_device_%1").arg((int)method));
-	    qDebug("<<< %d -> '%s'", (int)method, device.toLocal8Bit().data());
+	    device = cfg.readEntry(QString("last_device_%1").arg(
+		static_cast<int>(method)));
+	    qDebug("<<< %d -> '%s'", static_cast<int>(method),
+		device.toLocal8Bit().data());
 	    last_device_name = device;
 	    m_playback_params.device = device;
 	    m_dialog->setDevice(m_playback_params.device);
@@ -575,8 +578,8 @@ void PlayBackPlugin::run(QStringList)
 	    unsigned int l = (n1 > m1) ? n1 : m1;
 	    unsigned int r = (n2 < m2) ? n2 : m2;
 
-	    matrix[x][y] = (r > l) ?
-		(double)(r-l) / (double)audible_count : 0.0;
+	    matrix[x][y] = (r > l) ? static_cast<double>(r-l) /
+		static_cast<double>(audible_count) : 0.0;
 	}
     }
 
@@ -619,9 +622,9 @@ void PlayBackPlugin::run(QStringList)
 	    for (y=0; y < out_channels; y++) {
 		double sum = 0;
 		for (x=0; x < audible_count; x++) {
-		    sum += (double)in_samples[x] * matrix[x][y];
+		    sum += static_cast<double>(in_samples[x]) * matrix[x][y];
 		}
-		out_samples[y] = (sample_t)sum;
+		out_samples[y] = static_cast<sample_t>(sum);
 	    }
 
 	    // write samples to the playback device
@@ -633,8 +636,8 @@ void PlayBackPlugin::run(QStringList)
 
 	    // update the playback position if timer elapsed
 	    if (!pos_countdown) {
-		pos_countdown = (unsigned int)ceil(m_playback_params.rate /
-			SCREEN_REFRESHES_PER_SECOND);
+		pos_countdown = static_cast<unsigned int>(ceil(
+		    m_playback_params.rate / SCREEN_REFRESHES_PER_SECOND));
 		emit sigPlaybackPos(pos);
 	    } else {
 		--pos_countdown;
@@ -694,7 +697,7 @@ void PlayBackPlugin::testPlayBack()
     if (!sink) return;
 
     float t_period = t_sweep * tracks;
-    unsigned int curve_length = (unsigned int)(t_period * rate);
+    unsigned int curve_length = static_cast<unsigned int>(t_period * rate);
 
     // create all objects
     Curve curve;
@@ -704,8 +707,8 @@ void PlayBackPlugin::testPlayBack()
 	curve.insert(0.5, 1.0);
     } else {
 	// all above
-	curve.insert(0.5 / (float)tracks, 1.0);
-	curve.insert(1.0 / (float)tracks, 0.0);
+	curve.insert(0.5 / static_cast<float>(tracks), 1.0);
+	curve.insert(1.0 / static_cast<float>(tracks), 0.0);
     }
     curve.insert(1.0, 0.0);
 
@@ -764,14 +767,14 @@ void PlayBackPlugin::testPlayBack()
 		i18n("you should now hear a %1Hz test tone...\n\n"\
 		     "(if you hear clicks or dropouts, "\
 		     "please increase the buffer size "\
-		     "and try again)", (int)freq));
+		     "and try again)", static_cast<int>(freq)));
 	}
     }
 
     // transport the samples
     QTime time;
     time.start();
-    int t_max = periods * (int)t_period * 1000;
+    int t_max = periods * static_cast<int>(t_period) * 1000;
     while ((time.elapsed() < t_max) /*&& (!sink.done())*/) {
 
 	osc.goOn();

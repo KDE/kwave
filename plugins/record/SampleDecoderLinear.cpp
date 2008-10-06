@@ -32,7 +32,7 @@
 void decode_NULL(char *src, sample_t *dst, unsigned int count)
 {
     while (count--) {
-        printf("%02X ", (int)*src);
+        printf("%02X ", static_cast<int>(*src));
         *(dst++) = count % (1 << (SAMPLE_BITS-1));
     }
 }
@@ -69,12 +69,12 @@ void decode_linear(char *src, sample_t *dst, unsigned int count)
 	if (is_little_endian) {
 	    // little endian
 	    for (unsigned int byte=0; byte < bytes; ++byte) {
-		s |= (unsigned char)(*(src++)) << (byte << 3);
+		s |= static_cast<unsigned char>(*(src++)) << (byte << 3);
 	    }
 	} else {
 	    // big endian
 	    for (int byte=bytes-1; byte >= 0; --byte) {
-		s |= (unsigned char)(*(src++)) << (byte << 3);
+		s |= static_cast<unsigned char>(*(src++)) << (byte << 3);
 	    }
 	}
 

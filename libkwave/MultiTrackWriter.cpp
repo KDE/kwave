@@ -142,8 +142,8 @@ MultiTrackWriter &MultiTrackWriter::operator << (MultiTrackReader &source)
 		unsigned int l  = qMax(n1, m1);
 		unsigned int r = qMin(n2, m2);
 
-		matrix[x][y] = (r > l) ?
-		    (double)(r-l) / (double)src_tracks : 0.0;
+		matrix[x][y] = (r > l) ? (static_cast<double>(r - l) /
+		    static_cast<double>(src_tracks)) : 0.0;
 	    }
 	}
 
@@ -169,9 +169,9 @@ MultiTrackWriter &MultiTrackWriter::operator << (MultiTrackReader &source)
 	    for (y=0; y < dst_tracks; y++) {
 		double sum = 0;
 		for (x=0; x < src_tracks; x++) {
-		    sum += (double)in_samples[x] * matrix[x][y];
+		    sum += static_cast<double>(in_samples[x]) * matrix[x][y];
 		}
-		out_samples[y] = (sample_t)sum;
+		out_samples[y] = static_cast<sample_t>(sum);
 	    }
 
 	    // write samples to the target stream

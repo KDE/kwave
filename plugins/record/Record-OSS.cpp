@@ -142,7 +142,7 @@ int RecordOSS::read(QByteArray &buffer, unsigned int offset)
 #endif
 
     // determine the timeout for reading, use safety factor 2
-    int rate = (int)sampleRate();
+    int rate = static_cast<int>(sampleRate());
     if (rate < 1) rate = 1;
 
     unsigned int timeout = (length / rate) * 2;
@@ -322,7 +322,7 @@ int RecordOSS::detectTracks(unsigned int &min, unsigned int &max)
     }
 
     // find the highest number of tracks, start from MAX_CHANNELS downwards
-    for (t=MAX_CHANNELS; t >= (int)min; t--) {
+    for (t=MAX_CHANNELS; t >= static_cast<int>(min); t--) {
 	int real_tracks = t;
 	err = ioctl(m_fd, SNDCTL_DSP_CHANNELS, &real_tracks);
 	Q_ASSERT(real_tracks == t);
@@ -433,7 +433,8 @@ QList<double> RecordOSS::detectSampleRates()
 int RecordOSS::setSampleRate(double &new_rate)
 {
     Q_ASSERT(m_fd >= 0);
-    int rate = (int)rint(new_rate); // OSS supports only integer rates
+    // OSS supports only integer rates
+    int rate = static_cast<int>(rint(new_rate));
 
     // set the rate of the device (must already be opened)
     int err = ioctl(m_fd, SNDCTL_DSP_SPEED, &rate);
@@ -441,7 +442,7 @@ int RecordOSS::setSampleRate(double &new_rate)
 
     m_rate = rate;
     // return the sample rate if succeeded
-    new_rate = (double)rate;
+    new_rate = static_cast<double>(rate);
 
     return 0;
 }
@@ -498,7 +499,7 @@ void RecordOSS::format2mode(int format, int &compression, int &bits,
 	    bits          = 16;
 	    break;
 	case AFMT_MPEG:
-	    compression   = (int)CompressionType::MPEG_LAYER_II;
+	    compression   = static_cast<int>(CompressionType::MPEG_LAYER_II);
 	    sample_format = SampleFormat::Signed;
 	    bits          = 16;
 	    break;
@@ -537,7 +538,8 @@ int RecordOSS::mode2format(int compression, int bits,
     if (compression == AF_COMPRESSION_G711_ULAW) return AFMT_MU_LAW;
     if (compression == AF_COMPRESSION_G711_ALAW) return AFMT_A_LAW;
     if (compression == AF_COMPRESSION_MS_ADPCM)  return AFMT_IMA_ADPCM;
-    if (compression == (int)CompressionType::MPEG_LAYER_II)  return AFMT_MPEG;
+    if (compression == static_cast<int>(CompressionType::MPEG_LAYER_II))
+	return AFMT_MPEG;
 
     // non-compressed: switch by sample format
     if ((sample_format == SampleFormat::Unsigned) && (bits == 8))
@@ -610,7 +612,7 @@ QList<int> RecordOSS::detectCompressions()
     if (err < 0) return compressions;
 
     if (mask & AFMT_MPEG)
-        compressions += (int)CompressionType::MPEG_LAYER_II;
+        compressions += static_cast<int>(CompressionType::MPEG_LAYER_II);
     if (mask & AFMT_A_LAW)     compressions += AF_COMPRESSION_G711_ALAW;
     if (mask & AFMT_MU_LAW)    compressions += AF_COMPRESSION_G711_ULAW;
     if (mask & AFMT_IMA_ADPCM) compressions += AF_COMPRESSION_MS_ADPCM;

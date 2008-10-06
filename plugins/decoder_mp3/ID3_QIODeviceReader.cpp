@@ -85,7 +85,7 @@ ID3_Reader::size_type ID3_QIODeviceReader::readChars(
     char_type buf[], size_type len)
 {
     ID3_Reader::size_type size = m_source.read(
-	(char *)(&buf[0]), len);
+	reinterpret_cast<char *>(&buf[0]), len);
     return size;
 }
 

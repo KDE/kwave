@@ -57,7 +57,7 @@
 #include <stdio.h>
 
 #define _(m) m
-#define xprintf(x,l,t,msg...)  { (void)(x); (void)(l); printf(t, ##msg); }
+#define xprintf printf
 #define xine 0
 #define XINE_VERBOSITY_LOG                 1
 
@@ -476,7 +476,7 @@ static void update_fast_memcpy(void *user_data, xine_cfg_entry_t *entry) {
     xine_fast_memcpy = memcpy_method[method].function;
     return;
   } else {
-    xprintf(xine, XINE_VERBOSITY_DEBUG, "xine: will probe memcpy on startup\n" );
+    xprintf("xine: will probe memcpy on startup\n" );
   }
 }
 #endif /* XINE_COMPILE */
@@ -540,7 +540,7 @@ void probe_fast_memcpy(void)
     return;
   }
 
-  xprintf(xine, XINE_VERBOSITY_LOG, _("Benchmarking memcpy methods (smaller is better):\n"));
+  xprintf(_("Benchmarking memcpy methods (smaller is better):\n"));
   /* make sure buffers are present on physical memory */
   memset(buf1,0,BUFSIZE);
   memset(buf2,0,BUFSIZE);
@@ -560,8 +560,7 @@ void probe_fast_memcpy(void)
     t = rdtsc(config_flags) - t;
     memcpy_method[i].time = t;
 
-    xprintf(xine, XINE_VERBOSITY_LOG, "\t%s : %lld\n", memcpy_method[i].name,
-      (long long int)t);
+    xprintf("\t%s : %lld\n", memcpy_method[i].name, (long long int)t);
 
     if( best == 0 || t < memcpy_method[best].time )
       best = i;
@@ -570,7 +569,7 @@ void probe_fast_memcpy(void)
 #ifdef XINE_COMPILE
   xine->config->update_num (xine->config, "misc.memcpy_method", best);
 #else /* XINE_COMPILE */
-  xprintf(xine, XINE_VERBOSITY_LOG, "using -> '%s'\n", memcpy_method[best].name);
+  xprintf("using -> '%s'\n", memcpy_method[best].name);
   xine_fast_memcpy = memcpy_method[best].function;
 #endif /* XINE_COMPILE */
 

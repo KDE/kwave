@@ -46,13 +46,13 @@ BandPassDialog::BandPassDialog(QWidget *parent, qreal sample_rate)
     // set maximum frequency to sample rate / 2
     qreal f_max = sample_rate / 2.0;
 
-    slider->setMaximum((int)f_max);
-    slider_2->setMaximum((int)(f_max / 2.0));
-    spinbox->setMaximum((int)f_max);
-    spinbox_2->setMaximum((int)(f_max / 2.0));
+    slider->setMaximum(static_cast<int>(f_max));
+    slider_2->setMaximum(static_cast<int>(f_max / 2.0));
+    spinbox->setMaximum(static_cast<int>(f_max));
+    spinbox_2->setMaximum(static_cast<int>(f_max / 2.0));
 
     // initialize the frequency scale widget
-    scale_freq->setMinMax(0, (int)f_max);
+    scale_freq->setMinMax(0, static_cast<int>(f_max));
     scale_freq->setLogMode(false);
     scale_freq->setUnit(i18n("Hz"));
 
@@ -69,11 +69,11 @@ BandPassDialog::BandPassDialog(QWidget *parent, qreal sample_rate)
     freq_response->setFilter(m_filter);
 
     // initialize the controls and the curve display
-    slider->setValue((int)m_frequency);
-    spinbox->setValue((int)m_frequency);
+    slider->setValue(static_cast<int>(m_frequency));
+    spinbox->setValue(static_cast<int>(m_frequency));
 
-    slider_2->setValue((int)m_bw);
-    spinbox_2->setValue((int)m_bw);
+    slider_2->setValue(static_cast<int>(m_bw));
+    spinbox_2->setValue(static_cast<int>(m_bw));
     updateDisplay();
 
     // changes in the slider or spinbox
@@ -113,7 +113,7 @@ BandPassDialog::~BandPassDialog()
 //***************************************************************************
 void BandPassDialog::freqValueChanged(int pos)
 {
-    if ((int)m_frequency != pos) {
+    if (static_cast<int>(m_frequency) != pos) {
 	m_frequency = pos;
 	updateDisplay();
 
@@ -123,7 +123,7 @@ void BandPassDialog::freqValueChanged(int pos)
 //***************************************************************************
 void BandPassDialog::bwValueChanged(int pos)
 {
-    if ((int)m_bw != pos) {
+    if (static_cast<int>(m_bw) != pos) {
     	m_bw = pos;
 	updateDisplay();
 
@@ -152,11 +152,11 @@ void BandPassDialog::setParams(QStringList &params)
     Q_ASSERT(ok);
     if (ok) m_bw = bw;
 
-    slider->setValue((int)m_frequency);
-    spinbox->setValue((int)m_frequency);
+    slider->setValue(static_cast<int>(m_frequency));
+    spinbox->setValue(static_cast<int>(m_frequency));
 
-    slider_2->setValue((int)m_bw);
-    spinbox_2->setValue((int)m_bw);
+    slider_2->setValue(static_cast<int>(m_bw));
+    spinbox_2->setValue(static_cast<int>(m_bw));
 
     updateDisplay();
 }

@@ -35,7 +35,7 @@ typedef enum {
 /** post-increment operator for the playback method */
 inline playback_method_t &operator ++(playback_method_t &m) {
     return (m = (m < PLAYBACK_INVALID) ?
-                (playback_method_t)((int)(m) + 1) : m);
+                static_cast<playback_method_t>(static_cast<int>(m) + 1) : m);
 }
 
 /**

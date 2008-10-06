@@ -142,7 +142,7 @@ FileProgress::FileProgress(QWidget *parent,
     if (!m_stat_bytes) return;
 
     // some dummy update to get maximum size
-    updateStatistics(9999999.9, (qreal)(99*24*60*60), size);
+    updateStatistics(9999999.9, static_cast<qreal>(99*24*60*60), size);
 
     // now correct the minimum sizes of the statistic entries
     m_stat_transfer->adjustSize();
@@ -258,9 +258,9 @@ void FileProgress::updateStatistics(qreal rate, qreal rest,
     // left: transfer rate and estimated time
     num = num.sprintf("%1.1f", rate/1024.0);
 
-    int h =  (int)floor(rest) / (60*60);
-    int m = ((int)floor(rest) / 60) % 60;
-    int s =  (int)floor(rest) % 60;
+    int h =  static_cast<int>(floor(rest)) / (60*60);
+    int m = (static_cast<int>(floor(rest)) / 60) % 60;
+    int s =  static_cast<int>(floor(rest)) % 60;
     if (h > 23) {
 	h = 23;
 	m = s = 59;
@@ -289,7 +289,8 @@ void FileProgress::setBytePosition(unsigned int pos)
     if (!m_progress) return;
 
     // the easiest part: the progress bar and the caption
-    int percent = (int)((qreal)pos / (qreal)m_size * 100.0);
+    int percent = static_cast<int>(
+	static_cast<qreal>(pos) / static_cast<qreal>(m_size) * 100.0);
 
     // not enough progress not worth showing ?
     if (percent <= m_last_percent) return;
@@ -322,8 +323,9 @@ void FileProgress::setLength(unsigned int samples)
     // length in samples -> h:m:s
     if (m_sample_rate) {
 	// length in ms
-	text = KwavePlugin::ms2string((float)(samples/m_tracks)/
-	                              (float)m_sample_rate*1000.0);
+	text = KwavePlugin::ms2string(
+	    static_cast<float>(samples/m_tracks)/
+	    static_cast<float>(m_sample_rate) * 1000.0);
     } else {
 	// fallback if no rate: length in samples
         text = i18n("%1 samples", samples);

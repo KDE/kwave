@@ -117,7 +117,7 @@ int RecordParams::fromList(const QStringList &list)
 	unsigned int method_index;
 	GET(26, method_index, toUInt);
 	method = (method_index < RECORD_INVALID) ?
-	         (record_method_t)(method_index) : RECORD_INVALID;
+	         static_cast<record_method_t>(method_index) : RECORD_INVALID;
     }
 
     return 0;

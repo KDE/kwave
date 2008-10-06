@@ -406,8 +406,8 @@ void OverViewCache::slotSamplesModified(unsigned int track,
         last = m_src_offset+sourceLength()-1;
     first -= m_src_offset;
     last  -= m_src_offset;
-    first = (unsigned int)floor(first / m_scale);
-    last  = (unsigned int)ceil(last / m_scale);
+    first = static_cast<unsigned int>(floor(first / m_scale));
+    last  = static_cast<unsigned int>(ceil(last / m_scale));
     invalidateCache(track, first, last);
     emit changed();
 }

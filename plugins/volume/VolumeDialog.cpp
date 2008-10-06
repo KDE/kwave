@@ -144,9 +144,9 @@ void VolumeDialog::updateDisplay(double value)
 	    // -1 => /2
 	    //  0 => x1
 	    // +1 => x2
-	    if ((int)rint(m_factor) >= 1) {
+	    if (static_cast<int>(rint(m_factor)) >= 1) {
 		// greater or equal to one -> multiply
-		int new_value = (int)rint(value);
+		int new_value = static_cast<int>(rint(value));
 		spinbox->setPrefix("x ");
 		spinbox->setSuffix("");
 		spinbox->setInverse(false);
@@ -157,7 +157,7 @@ void VolumeDialog::updateDisplay(double value)
 //		qDebug("VolumeDialog::updateDisplay(): factor = x%d", new_value); // ###
 	    } else {
 		// less than one -> divide
-		int new_value = (int)rint(-1.0 / value);
+		int new_value = static_cast<int>(rint(-1.0 / value));
 
 		spinbox->setPrefix("1/");
 		spinbox->setSuffix("");
@@ -175,7 +175,7 @@ void VolumeDialog::updateDisplay(double value)
 	}
 	case MODE_PERCENT: {
 	    // factor 1.0 means 100%
-	    new_spinbox_value = (int)rint(value * (double)100.0);
+	    new_spinbox_value = static_cast<int>(rint(value * 100.0));
 	    new_slider_value = new_spinbox_value;
 	    spinbox->setPrefix("");
 	    spinbox->setSuffix("%");
@@ -185,7 +185,7 @@ void VolumeDialog::updateDisplay(double value)
 	}
 	case MODE_DECIBEL: {
 	    // factor 1.0 means 0dB
-	    new_slider_value = (int)rint(20.0 * log10(value));
+	    new_slider_value = static_cast<int>(rint(20.0 * log10(value)));
 	    new_spinbox_value = new_slider_value;
 	    if (new_spinbox_value >= 0) {
 		spinbox->setPrefix(new_spinbox_value ? "+" : "+/- ");
@@ -225,7 +225,7 @@ void VolumeDialog::sliderChanged(int pos)
 	    if (sv >= 0) {
 		m_factor = (sv + 1);
 	    } else {
-		m_factor = (double)-1.0 / (double)(sv - 1);
+		m_factor = -1.0 / static_cast<double>(sv - 1);
 	    }
 //	    qDebug("factor=%g, sv=%d",m_factor, sv);
 	    updateDisplay(m_factor);
@@ -258,13 +258,13 @@ void VolumeDialog::spinboxChanged(int pos)
 		m_factor = sv ? sv : 0.5;
 	    } else {
 		if (!sv) sv = 1;
-		m_factor = (double)1.0 / (double)(sv);
+		m_factor = 1.0 / static_cast<double>(sv);
 	    }
 	    break;
 	}
 	case MODE_PERCENT: {
 	    // percentage
-	    m_factor = (double)pos / (double)100.0;
+	    m_factor = static_cast<double>(pos) / 100.0;
 	    break;
 	}
 	case MODE_DECIBEL: {
@@ -282,7 +282,7 @@ QStringList VolumeDialog::params()
 {
     QStringList list;
     list << QString::number(m_factor);
-    list << QString::number((int)m_mode);
+    list << QString::number(static_cast<int>(m_mode));
     return list;
 }
 

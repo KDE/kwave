@@ -272,7 +272,7 @@ private:
      * Converts a pixel offset into a sample offset.
      */
     inline unsigned int pixels2samples(int pixels) {
-	return (unsigned int)(pixels * m_zoom);
+	return static_cast<unsigned int>(pixels * m_zoom);
     }
 
     /**
@@ -280,7 +280,7 @@ private:
      */
     inline int samples2pixels(unsigned int samples) {
 	if (m_zoom==0.0) return 0;
-	return (int)(samples / m_zoom);
+	return static_cast<int>(samples / m_zoom);
     }
 
     /**

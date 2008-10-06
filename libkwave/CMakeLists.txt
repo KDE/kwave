@@ -45,6 +45,7 @@ SET(libkwave_LIB_SRCS
     Interpolation.cpp
     KwaveConnect.cpp
     KwaveDrag.cpp
+    KwaveMimeData.cpp
     KwaveMultiPlaybackSink.cpp
     KwavePlaybackSink.cpp
     KwavePlugin.cpp

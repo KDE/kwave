@@ -18,6 +18,7 @@
 
 #include "config.h"
 
+#include <QApplication>
 #include <QList>
 #include <QReadLocker>
 #include <QWriteLocker>
@@ -42,12 +43,28 @@ ClipBoard &ClipBoard::instance()
 ClipBoard::ClipBoard()
     :m_lock(), m_rate(0), m_buffer()
 {
+    connect(QApplication::clipboard(), SIGNAL(changed(QClipboard::Mode)),
+            this, SLOT(slotChanged(QClipboard::Mode)));
+    connect(QApplication::clipboard(), SIGNAL(dataChanged()),
+            this, SLOT(slotDataChanged()));
 }
 
 //***************************************************************************
 ClipBoard::~ClipBoard()
 {
     // clear() must have been before, e.g. in the application's destructor !
+}
+
+//***************************************************************************
+void ClipBoard::slotChanged(QClipboard::Mode mode)
+{
+    qDebug("slotChanged(mode=%d)", static_cast<int>(mode));
+}
+
+//***************************************************************************
+void ClipBoard::slotDataChanged()
+{
+    qDebug("slotDataChanged()");
 }
 
 //***************************************************************************

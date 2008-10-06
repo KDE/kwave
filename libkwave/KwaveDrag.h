@@ -63,13 +63,6 @@ public:
     virtual const char *format(int i) const;
 
     /**
-     * Returns the encoded data as a byte array.
-     * @param format the mime type of the required data
-     * @return byte array with wav encoded data
-     */
-    virtual QByteArray encodedData(const char *format) const;
-
-    /**
      * Encodes wave data received from a MultiTrackReader into a byte
      * array that is compatible with the format of a wav file.
      * @param widget the widget used for displaying error messages
@@ -92,11 +85,6 @@ public:
      */
     static unsigned int decode(QWidget *widget, const QMimeSource *e,
                                SignalManager &sig, unsigned int pos);
-
-private:
-
-    /** simple array for storage of the wave data */
-    QByteArray m_data;
 
 };
 

@@ -198,8 +198,7 @@ made running and what I had to install additionally:
 	in sources.lst: deb-src http://ftp.de.debian.org/debian testing main contrib
 	apt-get -b -t testing source cmake
 	dpkg --install cmake_<version>_<arch>.deb
-	apt-get install kdemultimedia-dev libflac++dev libid3-dev \
-		libgsl0-dev imagemagick kdesdk
+	apt-get install kdemultimedia-dev libflac++dev libid3-dev imagemagick kdesdk
 
 (other distributions should work out-of-the-box,
  see http://kwave.sourceforge.net/distributions.html)

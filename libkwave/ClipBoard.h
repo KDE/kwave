@@ -21,6 +21,8 @@
 
 #include "config.h"
 
+#include <QObject>
+#include <QClipboard>
 #include <QList>
 #include <QReadWriteLock>
 
@@ -33,8 +35,9 @@ class Track;
  * simple operations <c>put</c>, <c>get</c> and <c>clear</c>.
  *
  */
-class ClipBoard
+class ClipBoard: public QObject
 {
+    Q_OBJECT
 public:
 
     /** Constructor. */
@@ -91,6 +94,12 @@ public:
      * buffer is empty.
      */
     unsigned int tracks();
+
+private slots:
+
+    void slotChanged(QClipboard::Mode mode);
+
+    void slotDataChanged();
 
 private:
 

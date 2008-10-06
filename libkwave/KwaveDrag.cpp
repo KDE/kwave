@@ -17,28 +17,20 @@
 
 #include "config.h"
 
-#include <QBuffer>
 #include <QMimeData>
 #include <QMimeSource>
 
 #include "libkwave/CodecManager.h"
-#include "libkwave/Decoder.h"
-#include "libkwave/Encoder.h"
 #include "libkwave/KwaveDrag.h"
-#include "libkwave/Sample.h"
-#include "libkwave/SampleReader.h"
-#include "libkwave/SampleWriter.h"
-#include "libkwave/Signal.h"
-#include "libkwave/SignalManager.h"
+#include "libkwave/KwaveMimeData.h"
 #include "libkwave/MultiTrackReader.h"
-#include "libkwave/MultiTrackWriter.h"
 
 // RFC 2361:
 #define WAVE_FORMAT_PCM "audio/vnd.wave" // ; codec=001"
 
 //***************************************************************************
 KwaveDrag::KwaveDrag(QWidget *dragSource)
-    :QDrag(dragSource), m_data()
+    :QDrag(dragSource)
 {
 }
 
@@ -55,14 +47,6 @@ const char *KwaveDrag::format(int i) const
 	case 0: return WAVE_FORMAT_PCM;
     }
     return 0;
-}
-
-//***************************************************************************
-QByteArray KwaveDrag::encodedData(const char *format) const
-{
-    qDebug("KwaveDrag::encodedData(%s)", format);
-    if (QString(WAVE_FORMAT_PCM) == QString(format)) return m_data;
-    return QByteArray();
 }
 
 //***************************************************************************
@@ -83,31 +67,18 @@ bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src, FileInfo &info)
     if (!src[0]) return false;
 
     // create a mime data container
-    QMimeData *mime_data = new QMimeData;
+    Kwave::MimeData *mime_data = new Kwave::MimeData;
     Q_ASSERT(mime_data);
     if (!mime_data) return false;
 
-    // use our default encoder
-    Encoder *encoder = CodecManager::encoder(WAVE_FORMAT_PCM);
-    Q_ASSERT(encoder);
-    if (!encoder) {
+    // encode into the mime data
+    if (!mime_data->encode(widget, src, info)) {
 	delete mime_data;
 	return false;
     }
 
-    // create a buffer for the wav data
-    m_data.resize(0);
-    QBuffer dst(&m_data);
-
-    // encode into the buffer
-    encoder->encode(widget, src, dst, info);
-
-    delete encoder;
-
-    // set the mime data into this drag&drop container
-    mime_data->setData("audio/vnd.wave", m_data);
+    // use it for the drag container
     setMimeData(mime_data);
-
     return true;
 }
 
@@ -115,54 +86,7 @@ bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src, FileInfo &info)
 unsigned int KwaveDrag::decode(QWidget *widget, const QMimeSource *e,
                                SignalManager &sig, unsigned int pos)
 {
-    // try to find a suitable decoder
-    Decoder *decoder = CodecManager::decoder(e);
-    Q_ASSERT(decoder);
-    if (!decoder) return 0;
-
-    // decode, use the first format that matches
-    int i;
-    const char *format;
-    unsigned int decoded_length = 0;
-    unsigned int decoded_tracks = 0;
-
-    for (i=0; (format = e->format(i)); ++i) {
-	if (CodecManager::canDecode(format)) {
-	    QByteArray raw_data = e->encodedData(format);
-	    QBuffer src(&raw_data);
-
-	    // open the mime source and get header information
-	    bool ok = decoder->open(widget, src);
-	    if (!ok) continue;
-	    decoded_length = decoder->info().length();
-	    decoded_tracks = decoder->info().tracks();
-	    Q_ASSERT(decoded_length);
-	    Q_ASSERT(decoded_tracks);
-	    if (!decoded_length || !decoded_tracks) continue;
-
-	    if (!sig.tracks()) {
-		// drop into an empty window -> create tracks
-		qDebug("KwaveDrag::decode(...) -> new signal");
-		sig.newSignal(0,
-		    decoder->info().rate(),
-		    decoder->info().bits(),
-		    decoded_tracks);
-		ok = (sig.tracks() == decoded_tracks);
-		if (!ok) continue;
-	    }
-
-	    // prepare the signal
-	    unsigned int left  = pos;
-	    unsigned int right = left + decoded_length - 1;
-	    MultiTrackWriter dst(sig, sig.selectedTracks(), Insert,
-	                         left, right);
-
-	    ok = decoder->decode(widget, dst);
-	    break;
-	}
-    }
-    delete decoder;
-    return decoded_length;
+    return Kwave::MimeData::decode(widget, e, sig, pos);
 }
 
 //***************************************************************************

@@ -24,6 +24,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QMutexLocker>
+#include <QMutableListIterator>
 
 #include <kaboutdata.h>
 #include <kapplication.h>
@@ -84,7 +85,7 @@ SignalManager::SignalManager(QWidget *parent)
     m_redo_buffer(),
     m_undo_transaction(0),
     m_undo_transaction_level(0),
-    m_undo_transaction_lock(),
+    m_undo_transaction_lock(QMutex::Recursive),
     m_undo_limit(64*1024*1024), // 64 MB (for testing) ###
     /** @todo the undo memory limit should be user-configurable. */
     m_file_info()
@@ -399,15 +400,16 @@ int SignalManager::save(const KUrl &url, bool selection)
 	    FileInfo info = m_file_info;
 
 	    LabelList &labels = info.labels();
-	    foreach (Label *label, labels) {
-		if (!label) continue;
-		unsigned int pos = label->pos();
+	    QMutableListIterator<Label> it(labels);
+	    while (it.hasNext()) {
+		Label &label = it.next();
+		unsigned int pos = label.pos();
 		if ((pos < ofs) || (pos >= ofs + len)) {
 		    // out of the selected area -> remove
-		    labels.removeAll(label);
+		    it.remove();
 		} else {
 		    // move label left
-		    label->moveTo(pos - ofs);
+		    label.moveTo(pos - ofs);
 		}
 	    }
 
@@ -611,7 +613,6 @@ bool SignalManager::executeCommand(const QString &command)
 {
     unsigned int offset = m_selection.offset();
     unsigned int length = m_selection.length();
-    double rate = m_file_info.rate();
 
     if (!command.length()) return true;
     Parser parser(command);
@@ -621,16 +622,6 @@ bool SignalManager::executeCommand(const QString &command)
 	undo();
     CASE_COMMAND("redo")
 	redo();
-    CASE_COMMAND("copy")
-	ClipBoard &clip = ClipBoard::instance();
-	clip.copy(m_signal, selectedTracks(), offset, length, rate);
-    CASE_COMMAND("paste")
-	paste(ClipBoard::instance(), offset, length);
-    CASE_COMMAND("cut")
-	ClipBoard &clip = ClipBoard::instance();
-	clip.copy(m_signal, selectedTracks(), offset, length, rate);
-	UndoTransactionGuard undo(*this, i18n("cut"));
-	deleteRange(offset, length);
     CASE_COMMAND("crop")
 	UndoTransactionGuard undo(*this, i18n("crop"));
 	unsigned int rest = this->length() - offset;
@@ -686,41 +677,6 @@ bool SignalManager::executeCommand(const QString &command)
     }
 
     return true;
-}
-
-//***************************************************************************
-void SignalManager::paste(ClipBoard &clipboard, unsigned int offset,
-                          unsigned int length)
-{
-    QList<unsigned int> selected_tracks = selectedTracks();
-    if (clipboard.isEmpty()) return;
-    if (!selected_tracks.size()) return;
-
-    UndoTransactionGuard u(*this, i18n("paste"));
-
-    // delete the current selection (with undo)
-    if (length <= 1) length = 0; // do not paste single samples !
-    if (length && !deleteRange(offset, length))
-	return;
-
-    // if the signal has no tracks, create new ones
-    if (!tracks()) {
-	unsigned int missing = clipboard.tracks();
-	qDebug("SignalManager::paste(): appending %u tracks", missing);
-	while (missing--) appendTrack();
-    }
-
-    // open a stream into the signal
-    MultiTrackWriter dst(*this, selectedTracks(), Insert,
-                         offset, offset+clipboard.length()-1);
-    if (static_cast<int>(dst.tracks()) != selectedTracks().count())
-	return;
-
-    // transfer the content
-    clipboard.paste(dst);
-
-    // set the selection to the inserted range
-    selectRange(offset, clipboard.length());
 }
 
 //***************************************************************************
@@ -800,11 +756,12 @@ void SignalManager::slotSamplesInserted(unsigned int track,
 
     // only adjust the labels once per operation
     if (track == selectedTracks().at(0)) {
-	foreach (Label *label, labels()) {
-	    if (!label) continue;
-	    unsigned int pos = label->pos();
+	QMutableListIterator<Label> it(labels());
+	while (it.hasNext()) {
+	    Label &label = it.next();
+	    unsigned int pos = label.pos();
 	    if (pos >= offset) {
-		label->moveTo(pos + length);
+		label.moveTo(pos + length);
 	    }
 	}
     }
@@ -824,15 +781,16 @@ void SignalManager::slotSamplesDeleted(unsigned int track,
 
     // only adjust the labels once per operation
     if (track == selectedTracks().at(0)) {
-	foreach (Label *label, labels()) {
-	    if (!label) continue;
-	    unsigned int pos = label->pos();
+	QMutableListIterator<Label> it(labels());
+	while (it.hasNext()) {
+	    Label &label = it.next();
+	    unsigned int pos = label.pos();
 	    if (pos >= offset + length) {
 		// move label left
-		label->moveTo(pos - length);
+		label.moveTo(pos - length);
 	    } else if ((pos >= offset) && (pos < offset+length)) {
 		// delete the label
-		deleteLabel(labelIndex(label), true);
+		deleteLabel(labelIndex(label), m_undo_enabled);
 	    }
 	}
     }
@@ -1232,6 +1190,10 @@ void SignalManager::undo()
     Q_ASSERT(undo_transaction);
     if (!undo_transaction) return;
 
+    // temporarily disable undo while undo itself is running
+    bool old_undo_enabled = m_undo_enabled;
+    m_undo_enabled = false;
+
     // remove the undo transaction from the list without deleting it
     m_undo_buffer.takeLast();
 
@@ -1261,8 +1223,6 @@ void SignalManager::undo()
     if (!redo_transaction) {
 	flushRedoBuffer();
 	qDebug("SignalManager::undo(): redo buffer flushed!");
-    } else {
-	m_redo_buffer.prepend(redo_transaction);
     }
 
     // execute all undo actions and store the resulting redo
@@ -1304,8 +1264,8 @@ void SignalManager::undo()
 	// if there is not more than the UndoSelection action,
 	// there are no real redo actions -> no redo possible
 	qWarning("SignalManager::undo(): no redo possible");
-	m_redo_buffer.removeAll(redo_transaction);
 	delete redo_transaction;
+	redo_transaction = 0;
     }
 
     if (m_undo_buffer.isEmpty() && m_modified) {
@@ -1313,6 +1273,13 @@ void SignalManager::undo()
 	// not enabled)
 	setModified(false);
     }
+
+    // save "redo" information if possible
+    if (redo_transaction)
+	m_redo_buffer.prepend(redo_transaction);
+
+    // re-enable undo
+    m_undo_enabled = old_undo_enabled;
 
     // finished / buffers have changed, emit new undo/redo info
     emitUndoRedoInfo();
@@ -1443,20 +1410,23 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
 }
 
 //***************************************************************************
-Label *SignalManager::findLabel(unsigned int pos) const
+Label *SignalManager::findLabel(unsigned int pos)
 {
-    foreach (Label *label, labels()) {
-	if (label && (label->pos() == pos)) return label; // found it
+    QMutableListIterator<Label> it(labels());
+    while (it.hasNext())
+    {
+	Label &label = it.next();
+	if (label.pos() == pos) return &label; // found it
     }
 
     return 0; // nothing found
 }
 
 //***************************************************************************
-int SignalManager::labelIndex(const Label *label) const
+int SignalManager::labelIndex(const Label &label) const
 {
     int index = 0;
-    foreach (Label *l, labels()) {
+    foreach (const Label &l, labels()) {
 	if (l == label) return index; // found it
 	index++;
     }
@@ -1466,7 +1436,8 @@ int SignalManager::labelIndex(const Label *label) const
 //***************************************************************************
 Label *SignalManager::labelAtIndex(int index)
 {
-    return labels().at(index);
+    if ((index < 0) || (index >= labels().size())) return 0;
+    return &(labels()[index]);
 }
 
 //***************************************************************************
@@ -1476,36 +1447,32 @@ bool SignalManager::addLabel(unsigned int pos)
     if (findLabel(pos)) return false;
 
     // create a new label
-    Label *label = new Label(pos, "");
-    Q_ASSERT(label);
-    if (!label) return false;
+    Label label(pos, "");
 
     // put the label into the list
     labels().append(label);
     labels().sort();
-    emit sigLabelCountChanged();
 
     // register the undo action
     UndoTransactionGuard undo(*this, i18n("add label"));
     if (!registerUndoAction(new UndoAddLabelAction(labelIndex(label)))) {
+	qDebug("registerUndoAction(AddLabel) FAILED");
 	labels().removeAll(label);
-	delete label;
-	emit sigLabelCountChanged();
 	return false;
     }
+
+    emit sigLabelCountChanged();
     return true;
 }
 
 //***************************************************************************
-Label *SignalManager::addLabel(unsigned int pos, const QString &name)
+Label SignalManager::addLabel(unsigned int pos, const QString &name)
 {
     // if there already is a label at the given position, do nothing
-    if (findLabel(pos)) return 0;
+    if (findLabel(pos)) return Label();
 
     // create a new label
-    Label *label = new Label(pos, name);
-    Q_ASSERT(label);
-    if (!label) return 0;
+    Label label(pos, name);
 
     // put the label into the list
     labels().append(label);
@@ -1522,14 +1489,12 @@ void SignalManager::deleteLabel(int index, bool with_undo)
     Q_ASSERT(index < static_cast<int>(labels().count()));
     if ((index < 0) || (index >= static_cast<int>(labels().count()))) return;
 
-    Label *label = labels().at(index);
-    Q_ASSERT(label);
-    if (!label) return;
+    Label label = labels().at(index);
 
     // register the undo action
     if (with_undo) {
 	UndoTransactionGuard undo(*this, i18n("delete label"));
-	if (!registerUndoAction(new UndoDeleteLabelAction(*label)))
+	if (!registerUndoAction(new UndoDeleteLabelAction(label)))
 	    return;
     }
 

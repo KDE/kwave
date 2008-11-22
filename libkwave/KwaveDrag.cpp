@@ -18,7 +18,6 @@
 #include "config.h"
 
 #include <QMimeData>
-#include <QMimeSource>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/KwaveDrag.h"
@@ -37,16 +36,6 @@ KwaveDrag::KwaveDrag(QWidget *dragSource)
 //***************************************************************************
 KwaveDrag::~KwaveDrag()
 {
-}
-
-//***************************************************************************
-const char *KwaveDrag::format(int i) const
-{
-    // see RFC 2361 for other codecs
-    switch (i) {
-	case 0: return WAVE_FORMAT_PCM;
-    }
-    return 0;
 }
 
 //***************************************************************************
@@ -83,7 +72,7 @@ bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src, FileInfo &info)
 }
 
 //***************************************************************************
-unsigned int KwaveDrag::decode(QWidget *widget, const QMimeSource *e,
+unsigned int KwaveDrag::decode(QWidget *widget, const QMimeData *e,
                                SignalManager &sig, unsigned int pos)
 {
     return Kwave::MimeData::decode(widget, e, sig, pos);

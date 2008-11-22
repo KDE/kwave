@@ -60,6 +60,18 @@ public:
     /** Destructor */
     virtual ~MultiTrackReader();
 
+    /**
+     * Returns the offset of the reader, as
+     * passed to the constructor as "first"
+     */
+    virtual unsigned int first() const;
+
+    /**
+     * Returns the last sample offset of the reader, as
+     * passed to the constructor as "last"
+     */
+    virtual unsigned int last() const;
+
     /** Returns true if one of the readers has reached eof() */
     virtual bool eof() const;
 
@@ -101,6 +113,12 @@ private slots:
     void proceeded();
 
 protected:
+
+    /** index of the first sample to read */
+    unsigned int m_first;
+
+    /** index of the last sample to read */
+    unsigned int m_last;
 
     /**
      * Initialized as false, will be true if the transfer has

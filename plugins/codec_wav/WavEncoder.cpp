@@ -147,9 +147,9 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
 
     // now the size of the labels
     unsigned int size_of_labels = 0;
-    foreach (Label *label, info.labels()) {
-	if (!label) continue;
-	unsigned int name_len = label->name().toUtf8().size();
+    foreach (const Label &label, info.labels()) {
+	if (label.isNull()) continue;
+	unsigned int name_len = label.name().toUtf8().size();
 	if (!name_len) continue; // skip zero-length names
 	size_of_labels += (3 * 4); // 3 * 4 byte
 	size_of_labels += name_len;
@@ -184,8 +184,8 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
     dst.write(reinterpret_cast<char *>(&size), 4);
 
     index = 0;
-    foreach (Label *label, info.labels()) {
-	if (!label) continue;
+    foreach (const Label &label, info.labels()) {
+	if (label.isNull()) continue;
 	/*
 	 * typedef struct {
 	 *     u_int32_t dwIdentifier; <- index
@@ -203,7 +203,7 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
 	dst.write("data", 4);        // fccChunk
 	dst.write(reinterpret_cast<char *>(&data), 4); // dwChunkStart
 	dst.write(reinterpret_cast<char *>(&data), 4); // dwBlockStart
-	data = CPU_TO_LE32(label->pos());
+	data = CPU_TO_LE32(label.pos());
 	dst.write(reinterpret_cast<char *>(&data), 4); // dwSampleOffset
 	index++;
     }
@@ -215,9 +215,9 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
 	dst.write(reinterpret_cast<char *>(&size), 4);
 	dst.write("adtl", 4);
 	index = 0;
-	foreach (Label *label, info.labels()) {
-	    if (!label) continue;
-	    QByteArray name = label->name().toUtf8();
+	foreach (const Label &label, info.labels()) {
+	    if (label.isNull()) continue;
+	    QByteArray name = label.name().toUtf8();
 
 	    /*
 	     * typedef struct {

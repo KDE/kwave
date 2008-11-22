@@ -26,7 +26,6 @@
 
 #include <kdemacros.h>
 
-class QMimeSource;
 class QWidget;
 class MultiTrackReader;
 class FileInfo;
@@ -47,7 +46,8 @@ namespace Kwave {
 	    /**
 	     * Encodes wave data received from a MultiTrackReader into a byte
 	     * array that is compatible with the format of a wav file.
-	     * @param widget the widget used for displaying error messages
+	     * @param widget the widget used as parent for displaying
+	     *               error messages
 	     * @param src source of the samples
 	     * @param info information about the signal, sample rate,
 	     *             resolution etc
@@ -61,12 +61,17 @@ namespace Kwave {
 	     * Decodes the encoded byte data of the given mime source and
 	     * initializes a MultiTrackReader.
 	     * @param widget the widget used for displaying error messages
-	     * @param e mime source
+	     * @param e source with encoded mime data
 	     * @param sig signal that receives the mime data
 	     * @return number of decoded samples if successful, zero if failed
 	     */
-	    static unsigned int decode(QWidget *widget, const QMimeSource *e,
+	    static unsigned int decode(QWidget *widget, const QMimeData *e,
 	                               SignalManager &sig, unsigned int pos);
+
+	    /**
+	     * Clears the content, makes the storage an empty byte array
+	     */
+	    virtual void clear();
 
 	private:
 

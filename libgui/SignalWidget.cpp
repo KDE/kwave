@@ -42,6 +42,7 @@
 #include <kfiledialog.h>
 #include <kiconloader.h>
 
+#include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/KwaveDrag.h"
@@ -53,7 +54,6 @@
 #include "libkwave/Parser.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
-#include "libkwave/Signal.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Track.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
@@ -279,9 +279,36 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
     Parser parser(command);
 
     unsigned int visible_samples = pixels2samples(m_width);
+    unsigned int offset = m_signal_manager.selection().offset();
+    unsigned int length = m_signal_manager.selection().length();
 
     if (false) {
     // zoom
+    CASE_COMMAND("copy")
+	ClipBoard &clip = ClipBoard::instance();
+	clip.copy(
+	    this,
+	    m_signal_manager,
+	    m_signal_manager.selectedTracks(),
+	    offset, length
+	);
+    CASE_COMMAND("paste")
+	ClipBoard &clip = ClipBoard::instance();
+	if (clip.isEmpty()) return false;
+	if (!m_signal_manager.selectedTracks().size()) return false;
+
+	UndoTransactionGuard undo(m_signal_manager, i18n("paste"));
+	clip.paste(this, m_signal_manager, offset, length);
+    CASE_COMMAND("cut")
+	ClipBoard &clip = ClipBoard::instance();
+	clip.copy(
+	    this,
+	    m_signal_manager,
+	    m_signal_manager.selectedTracks(),
+	    offset, length
+	);
+	UndoTransactionGuard undo(m_signal_manager, i18n("cut"));
+	m_signal_manager.deleteRange(offset, length);
     CASE_COMMAND("zoomin")
 	zoomIn();
     CASE_COMMAND("zoomout")
@@ -357,34 +384,33 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 	unsigned int selection_left  = m_signal_manager.selection().first();
 	unsigned int selection_right = m_signal_manager.selection().last();
 	if (labels().isEmpty()) return false; // we need labels for this
-	Label *label_left  = 0;
-	Label *label_right = 0;
+	Label label_left  = Label();
+	Label label_right = Label();
 	// the last label <= selection start -> label_left
 	// the first label >= selection end  -> label_right
-	foreach (Label *label, labels()) {
-	    if (!label) continue;
-	    unsigned int lp = label->pos();
+	foreach (Label label, labels()) {
+	    unsigned int lp = label.pos();
 	    if (lp <= selection_left)
 		label_left = label;
-	    if ((lp >= selection_right) && (!label_right)) {
+	    if ((lp >= selection_right) && (label_right.isNull())) {
 		label_right = label;
 		break; // done
 	    }
 	}
 	// default left label = start of file
-	selection_left = (label_left) ?
-	    label_left->pos() : 0;
+	selection_left = (label_left.isNull()) ? 0 :
+	    label_left.pos();
 	// default right label = end of file
-	selection_right = (label_right) ?
-	    label_right->pos() : m_signal_manager.length() - 1;
+	selection_right = (label_right.isNull()) ?
+	    m_signal_manager.length() - 1 : label_right.pos();
 	unsigned int length = selection_right - selection_left + 1;
 	selectRange(selection_left, length);
 
     CASE_COMMAND("selectnextlabels")
 	unsigned int selection_left;
 	unsigned int selection_right = m_signal_manager.selection().last();
-	Label *label_left  = 0;
-	Label *label_right = 0;
+	Label label_left  = Label();
+	Label label_right = Label();
 	if (labels().isEmpty()) return false; // we need labels for this
 
 	// special case: nothing selected -> select up to the first label
@@ -395,49 +421,47 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 	    // find the first label starting after the current selection
 	    LabelListIterator it(labels());
 	    while (it.hasNext()) {
-		Label *label = it.next();
-		if (!label) continue;
-		if (label->pos() >= selection_right) {
+		Label label = it.next();
+		if (label.pos() >= selection_right) {
 		    // take it as selection start
 		    label_left  = label;
 		    // and it's next one as selection end (might be null)
-		    label_right = it.hasNext() ? it.next() : 0;
+		    label_right = it.hasNext() ? it.next() : Label();
 		    break;
 		}
 	    }
 	    // default selection start = last label
-	    if (!label_left) label_left = labels().last();
-	    if (!label_left) return false; // no labels at all !?
-	    selection_left = label_left->pos();
+	    if (label_left.isNull()) label_left = labels().last();
+	    if (label_left.isNull()) return false; // no labels at all !?
+	    selection_left = label_left.pos();
 	}
 	// default selection end = end of the file
-	selection_right = (label_right) ?
-	    label_right->pos() : m_signal_manager.length() - 1;
+	selection_right = (label_right.isNull()) ?
+	    m_signal_manager.length() - 1 : label_right.pos();
 	unsigned int length = selection_right - selection_left + 1;
 	selectRange(selection_left, length);
 
     CASE_COMMAND("selectprevlabels")
 	unsigned int selection_left  = m_signal_manager.selection().first();
 	unsigned int selection_right = m_signal_manager.selection().last();
-	Label *label_left  = 0;
-	Label *label_right = 0;
+	Label label_left  = Label();
+	Label label_right = Label();
 	if (labels().isEmpty()) return false; // we need labels for this
 
 	// find the last label before the start of the selection
-	foreach (Label *label, labels()) {
-	    if (!label) continue;
-	    if (label->pos() > selection_left)
+	foreach (Label label, labels()) {
+	    if (label.pos() > selection_left)
 		break; // done
 	    label_left  = label_right;
 	    label_right = label;
 	}
 	// default selection start = start of file
-	selection_left = (label_left) ?
-	    label_left->pos() : 0;
+	selection_left = (label_left.isNull()) ? 0 :
+	    label_left.pos();
 	// default selection end = first label
-	if (!label_right) label_right = labels().first();
-	if (!label_right) return false; // no labels at all !?
-	selection_right = label_right->pos();
+	if (label_right.isNull()) label_right = labels().first();
+	if (label_right.isNull()) return false; // no labels at all !?
+	selection_right = label_right.pos();
 	unsigned int length = selection_right - selection_left + 1;
 	selectRange(selection_left, length);
 
@@ -1116,15 +1140,15 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     unsigned int pos = m_offset + pixels2samples(mouse_x);
     m_selection->set(pos, pos);
 
-    Label *label = 0;
-    if ((label = findLabelNearMouse(mouse_x))) {
+    Label label;
+    if (!((label = findLabelNearMouse(mouse_x)).isNull())) {
 	// delete label ?
 	// label properties ?
 	action_label_new->setEnabled(false);
 	action_label_properties->setEnabled(true);
 	action_label_delete->setEnabled(true);
 
-	pos = label->pos();
+	pos = label.pos();
 	m_selection->set(pos, pos);
     }
 
@@ -1159,7 +1183,8 @@ void SignalWidget::contextMenuLabelDelete()
     if (!m_selection) return;
 
     Label *label = m_signal_manager.findLabel(m_selection->left());
-    int index = m_signal_manager.labelIndex(label);
+    if (!label) return;
+    int index = m_signal_manager.labelIndex(*label);
     forwardCommand(QString("deletelabel(%1)").arg(index));
 }
 
@@ -1170,7 +1195,9 @@ void SignalWidget::contextMenuLabelProperties()
     if (!m_selection) return;
 
     Label *label = m_signal_manager.findLabel(m_selection->left());
-    labelProperties(label);
+    if (!label) return;
+
+    labelProperties(*label);
 }
 
 //***************************************************************************
@@ -1505,13 +1532,13 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 	default: {
 	    unsigned int first = m_signal_manager.selection().first();
 	    unsigned int last  = m_signal_manager.selection().last();
-	    Label *label = findLabelNearMouse(mouse_x);
+	    Label label = findLabelNearMouse(mouse_x);
 
 	    // find out what is nearer: label or selection border ?
-	    if (label && (first != last) && isSelectionBorder(mouse_x)) {
+	    if (!label.isNull() && (first != last) && isSelectionBorder(mouse_x)) {
 		const unsigned int pos = m_offset + pixels2samples(mouse_x);
-		const unsigned int d_label = (pos > label->pos()) ?
-		    (pos - label->pos()) : (label->pos() - pos);
+		const unsigned int d_label = (pos > label.pos()) ?
+		    (pos - label.pos()) : (label.pos() - pos);
 		const unsigned int d_left = (pos > first) ?
 		    (pos - first) : (first - pos);
 		const unsigned int d_right = (pos > last) ?
@@ -1520,19 +1547,18 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 		     ((d_label ^ 2) > (d_right ^ 2)) )
 		{
 		    // selection borders are nearer
-		    label = 0;
+		    label = Label();
 		}
 	    }
 
 	    // yes, this code gives the nifty cursor change....
-	    if (label) {
+	    if (!label.isNull()) {
 		setMouseMode(MouseAtSelectionBorder);
 		QString text = i18n("label #%1",
 		    m_signal_manager.labelIndex(label));
-		if (label->name().length())
-		    text += i18n(" (%1)", label->name());
-		showPosition(text, label->pos(), samples2ms(label->pos()),
-		    pos);
+		if (label.name().length())
+		    text += i18n(" (%1)", label.name());
+		showPosition(text, label.pos(), samples2ms(label.pos()), pos);
 		break;
 	    } else if ((first != last) && isSelectionBorder(mouse_x)) {
 		setMouseMode(MouseAtSelectionBorder);
@@ -1679,9 +1705,8 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	p.begin(&m_layer[LAYER_MARKERS]);
 	p.fillRect(0, 0, m_width, m_height, Qt::black);
 
-	foreach (Label *label, labels()) {
-	    if (!label) continue;
-	    unsigned int pos = label->pos();
+	foreach (const Label label, labels()) {
+	    unsigned int pos = label.pos();
 	    if (pos < m_offset) continue; // outside left
 	    int x = samples2pixels(pos - m_offset);
 	    if (x >= m_width) continue; // outside right
@@ -1819,16 +1844,15 @@ int SignalWidget::displaySamples()
 }
 
 //***************************************************************************
-Label *SignalWidget::findLabelNearMouse(int x) const
+Label SignalWidget::findLabelNearMouse(int x) const
 {
     const int tol = SELECTION_TOLERANCE;
     unsigned int pos = m_offset + pixels2samples(x);
-    Label *nearest = 0;
+    Label nearest;
     int dmin = pixels2samples(SELECTION_TOLERANCE) ^ 2;
 
-    foreach (Label *label, labels()) {
-	if (!label) continue;
-	unsigned int lp = label->pos();
+    foreach (Label label, labels()) {
+	unsigned int lp = label.pos();
 	if (lp < m_offset) continue; // outside left
 	int lx = samples2pixels(lp - m_offset);
 	if (lx >= m_width) continue; // outside right
@@ -1836,7 +1860,7 @@ Label *SignalWidget::findLabelNearMouse(int x) const
 	if ((lx + tol < x) || (lx > x + tol))
 	    continue; // out of tolerance
 
-	int dist = (pos - label->pos()) ^ 2;
+	int dist = (pos - label.pos()) ^ 2;
 	if (dist < dmin) {
 	    // found a new "nearest" label
 	    dmin = dist;
@@ -1853,7 +1877,8 @@ void SignalWidget::addLabel(unsigned int pos)
     if (m_signal_manager.addLabel(pos)) {
 	// edit the label's properties
 	Label *label = m_signal_manager.findLabel(pos);
-	labelProperties(label);
+	if (!label) return;
+	labelProperties(*label);
 
 	refreshLayer(LAYER_MARKERS);
 	hidePosition();
@@ -1910,37 +1935,37 @@ void SignalWidget::addLabel(unsigned int pos)
 //}
 
 //***************************************************************************
-bool SignalWidget::labelProperties(Label *label)
+bool SignalWidget::labelProperties(Label &label)
 {
-    if (!label) return false;
+    if (label.isNull()) return false;
 
     LabelPropertiesWidget *dlg = new LabelPropertiesWidget(this);
     Q_ASSERT(dlg);
     if (!dlg) return false;
 
     dlg->setLabelIndex(m_signal_manager.labelIndex(label));
-    dlg->setLabelPosition(label->pos(), m_signal_manager.length(),
+    dlg->setLabelPosition(label.pos(), m_signal_manager.length(),
 	m_signal_manager.rate());
-    dlg->setLabelName(label->name());
+    dlg->setLabelName(label.name());
 
     bool accepted = (dlg->exec() == QDialog::Accepted);
     if (accepted) {
 	UndoTransactionGuard undo(m_signal_manager, i18n("modify label"));
 	UndoModifyLabelAction *undo_modify =
-	    new UndoModifyLabelAction(*this, *label);
+	    new UndoModifyLabelAction(*this, label);
 	if (!m_signal_manager.registerUndoAction(undo_modify)) {
 	    delete dlg;
 	    return false;
 	}
 
 	// move the label and change the name if possible
-	label->moveTo(dlg->labelPosition());
-	label->rename(dlg->labelName());
+	label.moveTo(dlg->labelPosition());
+	label.rename(dlg->labelName());
 	dlg->saveSettings();
 
 	// now store the label's current position,
 	// for finding it again later
-	undo_modify->setLastPosition(label->pos());
+	undo_modify->setLastPosition(label.pos());
 
 	// NOTE: moving might also change the index, so the complete
 	//       markers layer has to be refreshed
@@ -2376,7 +2401,7 @@ void SignalWidget::startDragging()
 	m_signal_manager.selectedTracks(), first, last);
 
     // create the file info
-    FileInfo info;
+    FileInfo info = m_signal_manager.fileInfo();
     info.setLength(last - first + 1);
     info.setRate(rate);
     info.setBits(bits);
@@ -2420,7 +2445,7 @@ void SignalWidget::dragEnterEvent(QDragEnterEvent *event)
         (event->proposedAction() != Qt::CopyAction))
         return; /* unsupported action */
 
-    if (KwaveFileDrag::canDecode(event->mimeData()))
+    if (KwaveDrag::canDecode(event->mimeData()))
 	event->acceptProposedAction();
 }
 
@@ -2438,13 +2463,14 @@ void SignalWidget::dropEvent(QDropEvent *event)
 
     if (KwaveDrag::canDecode(event->mimeData())) {
 	UndoTransactionGuard undo(m_signal_manager, i18n("drag and drop"));
-	Signal sig;
 	InhibitRepaintGuard inhibit(*this);
 	unsigned int pos = m_offset + pixels2samples(event->pos().x());
 	unsigned int len = 0;
 
 	/** @todo add a converter if rate does not match */
-	if ((len = KwaveDrag::decode(this, event, m_signal_manager, pos))) {
+	if ((len = KwaveDrag::decode(this, event->mimeData(),
+	    m_signal_manager, pos)))
+	{
 	    /**
 	     * @todo after the drop operation: enter the new file info into
 	     * the signal manager if our own file was empty

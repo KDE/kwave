@@ -28,7 +28,6 @@
 #include <kdemacros.h>
 
 class QMimeData;
-class QMimeSource;
 class QWidget;
 
 class FileInfo;
@@ -56,13 +55,6 @@ public:
     virtual ~KwaveDrag();
 
     /**
-     * Returns one entry in the list of supported formats.
-     * @param i index of the format [0...n]
-     * @return name of the format or null
-     */
-    virtual const char *format(int i) const;
-
-    /**
      * Encodes wave data received from a MultiTrackReader into a byte
      * array that is compatible with the format of a wav file.
      * @param widget the widget used for displaying error messages
@@ -83,7 +75,7 @@ public:
      * @param sig signal that receives the mime data
      * @return number of decoded samples if successful, zero if failed
      */
-    static unsigned int decode(QWidget *widget, const QMimeSource *e,
+    static unsigned int decode(QWidget *widget, const QMimeData *e,
                                SignalManager &sig, unsigned int pos);
 
 };

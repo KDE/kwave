@@ -288,14 +288,6 @@ public:
     void disableUndo();
 
     /**
-     * Deletes the current selection and inserts the content of the
-     * clipboard at the position of the first selected sample.
-     * If the clipboard contains more or less tracks than the selection,
-     * the signal will be mixed over all tracks.
-     */
-    void paste(ClipBoard &clipboard, unsigned int offset, unsigned int length);
-
-    /**
      * Sets a complete set of file infos, including undo information
      */
     void setFileInfo(FileInfo &new_info, bool with_undo = true);
@@ -313,7 +305,7 @@ public:
      * @param name the name of the label
      * @return pointer to the new created label
      */
-    Label *addLabel(unsigned int pos, const QString &name);
+    Label addLabel(unsigned int pos, const QString &name);
 
     /**
      * delete an existing label
@@ -325,23 +317,23 @@ public:
     /**
      * find a label by it's index
      * @param index the index of the label [0...N-1]
-     * @return pointer to the label or null pointer if not found
+     * @return pointer to a label or null if not found
      */
     Label *labelAtIndex(int index);
 
     /**
      * Returns the index of a label, counting from zero
-     * @param label pointer to a Label
+     * @param label reference to a Label
      * @return index [0...N-1] or -1 if label is a null pointer
      */
-    int labelIndex(const Label *label) const;
+    int labelIndex(const Label &label) const;
 
     /**
      * returns the label at a given exact position
      * @param pos position of the label [samples]
-     * @return the label at the position or null if not found
+     * @return pointer to the label at the position or null if not found
      */
-    Label *findLabel(unsigned int pos) const;
+    Label *findLabel(unsigned int pos);
 
 signals:
 

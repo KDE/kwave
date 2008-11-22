@@ -78,7 +78,7 @@ protected:
     SignalWidget &m_signal_widget;
 
     /** the modified label */
-    Label *m_label;
+    Label m_label;
 
     /** the last known location, for finding it again in undo() */
     unsigned int m_last_position;

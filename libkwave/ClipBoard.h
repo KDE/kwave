@@ -23,11 +23,15 @@
 
 #include <QObject>
 #include <QClipboard>
-#include <QList>
 #include <QReadWriteLock>
 
+#include <kdemacros.h>
+
+#include "libkwave/KwaveMimeData.h"
+
+class QWidget;
 class MultiTrackWriter;
-class Signal;
+class SignalManager;
 class Track;
 
 /**
@@ -35,7 +39,7 @@ class Track;
  * simple operations <c>put</c>, <c>get</c> and <c>clear</c>.
  *
  */
-class ClipBoard: public QObject
+class KDE_EXPORT ClipBoard: public QObject
 {
     Q_OBJECT
 public:
@@ -52,21 +56,29 @@ public:
     /**
      * Discards the current content of the clipboard and fills
      * it with a selected range of samples from a set of tracks.
-     * @param signal the Signal with the tracks to read from
-     * @param track_list a list of indices of tracks
+     * @param widget the widget used as parent for displaying
+     *               error messages
+     * @param signal_manager the SignalManager with the tracks to read from
+     * @param track_list a list of indices of tracks for reading
      * @param offset first sample to copy
      * @param length number of samples
-     * @param rate sample rate [samples/second]
-     * @todo support for multiple stripes
      */
-    void copy(Signal &signal, const QList<unsigned int> &track_list,
-              unsigned int offset, unsigned int length, double rate);
+    void copy(QWidget *widget, SignalManager &signal_manager,
+              const QList<unsigned int> &track_list,
+              unsigned int offset, unsigned int length);
 
     /**
-     * Transfers all stored data into a MultiTrackWriter.
-     * @param writers
+     * Transfers all stored data from the clipboard into a SignalManager.
+     *
+     * @param widget the widget used as parent for displaying
+     *               error messages
+     * @param signal_manager the SignalManager with the tracks to write to
+     * @param offset sample position where to paste
+     * @param length length of the current selection in samples
+     * @return true if successful, false if failed
      */
-    void paste(MultiTrackWriter &writers);
+    bool paste(QWidget *widget, SignalManager &signal_manager,
+               unsigned int offset, unsigned int length);
 
     /**
      * Clears the internal buffers. The clipboard will be empty after this
@@ -75,25 +87,9 @@ public:
     void clear();
 
     /**
-     * Returns the length of the clipboard content [samples]
-     */
-    unsigned int length();
-
-    /**
-     * Returns the sample rate of the buffer content [samples/second].
-     */
-    double rate();
-
-    /**
      * Returns true if the buffer is empty.
      */
     bool isEmpty();
-
-    /**
-     * Returns the number of tracks in the buffer or zero if the
-     * buffer is empty.
-     */
-    unsigned int tracks();
 
 private slots:
 
@@ -106,11 +102,14 @@ private:
     /** Lock for exclusive or readonly access. */
     QReadWriteLock m_lock;
 
-    /** Sample rate of the buffer content. */
-    double m_rate;
+    /** number of tracks of the content */
+    unsigned int m_tracks;
 
-    /** Internal buffer, implemented as a list of tracks */
-    QList<Track *> m_buffer;
+    /** length of the content in samples */
+    unsigned int m_length;
+
+    /** Internal buffer, implemented as a KwaveMimeData container */
+    Kwave::MimeData m_buffer;
 
 };
 

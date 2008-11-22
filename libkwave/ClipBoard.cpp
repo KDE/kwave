@@ -19,16 +19,16 @@
 #include "config.h"
 
 #include <QApplication>
+#include <QClipboard>
 #include <QList>
 #include <QReadLocker>
 #include <QWriteLocker>
 
 #include "libkwave/ClipBoard.h"
+#include "libkwave/CodecManager.h"
+#include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
-#include "libkwave/SampleReader.h"
-#include "libkwave/SampleWriter.h"
-#include "libkwave/Signal.h"
-#include "libkwave/Track.h"
+#include "libkwave/SignalManager.h"
 
 /** static instance of Kwave's clipboard */
 static ClipBoard g_clipboard;
@@ -41,7 +41,7 @@ ClipBoard &ClipBoard::instance()
 
 //***************************************************************************
 ClipBoard::ClipBoard()
-    :m_lock(), m_rate(0), m_buffer()
+    :m_lock(), m_buffer()
 {
     connect(QApplication::clipboard(), SIGNAL(changed(QClipboard::Mode)),
             this, SLOT(slotChanged(QClipboard::Mode)));
@@ -68,120 +68,82 @@ void ClipBoard::slotDataChanged()
 }
 
 //***************************************************************************
-void ClipBoard::copy(Signal &signal,
+void ClipBoard::copy(QWidget *widget, SignalManager &signal_manager,
                      const QList<unsigned int> &track_list,
-                     unsigned int offset, unsigned int length,
-                     double rate)
+                     unsigned int offset, unsigned int length)
 {
-    QWriteLocker lock(&m_lock); // lock exclusive
-
     // first get rid of the previous content
     clear();
 
-    // remember the sample rate
-    m_rate = rate;
+    QWriteLocker lock(&m_lock); // lock exclusive
 
     // break if nothing to do
-    if ((!length) || (!track_list.count())) return;
+    if (!length || !track_list.count()) return;
 
-    // allocate buffers for the signals and fill them with data
-    foreach (unsigned int i, track_list) {
-	Track *t = new Track(length);
-	Q_ASSERT(t);
-	if (!t) continue;
+    MultiTrackReader src(signal_manager,
+	track_list, offset, offset + length - 1);
+    FileInfo info = signal_manager.fileInfo();
 
-	// transfer with sample reader and writer
-	SampleWriter *writer = t->openSampleWriter(Overwrite, 0, length-1);
-	Q_ASSERT(writer);
-	if (!writer) continue;
-
-	SampleReader *reader = signal.openSampleReader(track_list[i],
-	                       offset, offset+length-1);
-	Q_ASSERT(reader);
-	if (reader) {
-	    // transfer the samples from the source track out buffer track
-	    *writer << *reader;
-	    delete reader;
-	}
-	delete writer;
-
-	// append the track to the buffer
-	m_buffer.append(t);
+    // encode into the mime data container
+    if (!m_buffer.encode(widget, src, info)) {
+	// encoding failed, reset to empty
+	m_buffer.clear();
     }
+
+    // give the buffer to the KDE clipboard
+    QApplication::clipboard()->setMimeData(&m_buffer, QClipboard::Clipboard);
 }
 
 //***************************************************************************
-void ClipBoard::paste(MultiTrackWriter &writers)
+bool ClipBoard::paste(QWidget *widget, SignalManager &signal_manager,
+                      unsigned int offset, unsigned int length)
 {
     QReadLocker lock(&m_lock); // lock read-only
 
-    Q_ASSERT(length());
-    if (!length()) return; // clipboard is empty ?
+    Q_ASSERT(!isEmpty());
+    if (isEmpty()) return false; // clipboard is empty ?
 
-    unsigned int tracks = m_buffer.count();
-    Q_ASSERT(tracks == writers.tracks());
-    if (tracks != writers.tracks()) return; // track count mismatch
+    // delete the current selection (with undo)
+    if (length <= 1) length = 0; // do not paste single samples !
+    if (length && !signal_manager.deleteRange(offset, length))
+	return false;
 
-    unsigned int i=0;
-    foreach (Track *track, m_buffer) {
-	Q_ASSERT(track);
-	if (!track) continue;
+    unsigned int decoded_samples = m_buffer.decode(
+	widget,
+	QApplication::clipboard()->mimeData(QClipboard::Clipboard),
+	signal_manager,
+	offset);
+    if (!decoded_samples) return false;
 
-	SampleReader *reader = track->openSampleReader(0, length()-1);
-	SampleWriter *writer = writers[i++];
-	Q_ASSERT(reader);
-	Q_ASSERT(writer);
-	if (reader && writer) *writer << *reader;
-    }
+    // set the selection to the inserted range
+    signal_manager.selectRange(offset, m_length);
+    return true;
 }
 
 //***************************************************************************
 void ClipBoard::clear()
 {
     QWriteLocker lock(&m_lock); // lock exclusive
-
-    foreach (Track *track, m_buffer)
-	if (track) delete track;
     m_buffer.clear();
-    m_rate = 0;
-}
-
-//***************************************************************************
-unsigned int ClipBoard::length()
-{
-    QReadLocker lock(&m_lock); // lock read-only
-
-    unsigned int count = m_buffer.count();
-    if (!count) return 0;
-
-    unsigned int max_len = 0;
-    foreach (Track *track, m_buffer) {
-	if (!track) continue;
-	unsigned int len = track->length();
-	if (len > max_len) max_len = len;
-    }
-
-    return max_len;
-}
-
-//***************************************************************************
-double ClipBoard::rate()
-{
-    QReadLocker lock(&m_lock); // lock read-only
-    return m_rate;
 }
 
 //***************************************************************************
 bool ClipBoard::isEmpty()
 {
-    return (tracks() == 0);
-}
-
-//***************************************************************************
-unsigned int ClipBoard::tracks()
-{
     QReadLocker lock(&m_lock); // lock read-only
-    return m_buffer.count();
+
+    const QMimeData *mime_data =
+	QApplication::clipboard()->mimeData(QClipboard::Clipboard);
+
+    // no mime data -> empty
+    if (!mime_data) return true;
+
+    // there is a format that we can decode -> not empty
+    foreach (QString format, mime_data->formats())
+	if (CodecManager::canDecode(format)) return false;
+
+    // nothing to decode -> empty
+    return true;
 }
 
 //***************************************************************************

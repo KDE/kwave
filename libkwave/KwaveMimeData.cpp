@@ -18,12 +18,13 @@
 #include "config.h"
 
 #include <QBuffer>
-#include <QMimeSource>
+#include <QMutableListIterator>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
 #include "libkwave/KwaveMimeData.h"
+#include "libkwave/LabelList.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
@@ -56,12 +57,39 @@ bool Kwave::MimeData::encode(QWidget *widget,
     Q_ASSERT(encoder);
     if (!encoder) return false;
 
+    Q_ASSERT(src.tracks());
+    if (!src.tracks()) return false;
+
     // create a buffer for the wav data
     m_data.resize(0);
     QBuffer dst(&m_data);
 
+    // make a copy of the file info and move all labels
+    // to start at the beginning of the selection
+    unsigned int first = src.first();
+    unsigned int last  = src.last();
+    FileInfo new_info = info;
+    LabelList &labels = new_info.labels();
+    QMutableListIterator<Label> it(labels);
+    while (it.hasNext()) {
+	Label &label = it.next();
+	unsigned int pos = label.pos();
+	if ((pos < first) || (pos > last)) {
+	    // out of the selected area -> remove
+	    it.remove();
+	} else {
+	    // move label left
+	    label.moveTo(pos - first);
+	    qDebug("KwaveDrag::encode(...) -> new label @ %9d '%s'",
+		label.pos(), label.name().toLocal8Bit().data());
+	}
+    }
+
+    // fix the length information in the new file info
+    new_info.setLength(last - first + 1);
+
     // encode into the buffer
-    encoder->encode(widget, src, dst, info);
+    encoder->encode(widget, src, dst, new_info);
 
     delete encoder;
 
@@ -71,57 +99,85 @@ bool Kwave::MimeData::encode(QWidget *widget,
 }
 
 //***************************************************************************
-unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeSource *e,
+unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
                                      SignalManager &sig, unsigned int pos)
 {
-    // try to find a suitable decoder
-    Decoder *decoder = CodecManager::decoder(e);
-    Q_ASSERT(decoder);
-    if (!decoder) return 0;
-
     // decode, use the first format that matches
-    int i;
-    const char *format;
     unsigned int decoded_length = 0;
     unsigned int decoded_tracks = 0;
 
-    for (i=0; (format = e->format(i)); ++i) {
-	if (CodecManager::canDecode(format)) {
-	    QByteArray raw_data = e->encodedData(format);
-	    QBuffer src(&raw_data);
+    // try to find a suitable decoder
+    foreach (QString format, e->formats()) {
+	// skip all non-supported formats
+	if (!CodecManager::canDecode(format)) continue;
 
-	    // open the mime source and get header information
-	    bool ok = decoder->open(widget, src);
-	    if (!ok) continue;
-	    decoded_length = decoder->info().length();
-	    decoded_tracks = decoder->info().tracks();
-	    Q_ASSERT(decoded_length);
-	    Q_ASSERT(decoded_tracks);
-	    if (!decoded_length || !decoded_tracks) continue;
+	Decoder *decoder = CodecManager::decoder(format);
+	Q_ASSERT(decoder);
+	if (!decoder) return 0;
 
-	    if (!sig.tracks()) {
-		// drop into an empty window -> create tracks
-		qDebug("KwaveDrag::decode(...) -> new signal");
-		sig.newSignal(0,
-		    decoder->info().rate(),
-		    decoder->info().bits(),
-		    decoded_tracks);
-		ok = (sig.tracks() == decoded_tracks);
-		if (!ok) continue;
-	    }
+	QByteArray raw_data = e->data(format);
+	QBuffer src(&raw_data);
 
-	    // prepare the signal
-	    unsigned int left  = pos;
-	    unsigned int right = left + decoded_length - 1;
-	    MultiTrackWriter dst(sig, sig.selectedTracks(), Insert,
-	                         left, right);
-
-	    ok = decoder->decode(widget, dst);
-	    break;
+	// open the mime source and get header information
+	bool ok = decoder->open(widget, src);
+	if (!ok) {
+	    delete decoder;
+	    continue;
 	}
+
+	decoded_length = decoder->info().length();
+	decoded_tracks = decoder->info().tracks();
+	Q_ASSERT(decoded_length);
+	Q_ASSERT(decoded_tracks);
+	if (!decoded_length || !decoded_tracks) {
+	    delete decoder;
+	    continue;
+	}
+
+	unsigned int left  = pos;
+	unsigned int right = left + decoded_length - 1;
+
+	if (!sig.tracks()) {
+	    // encode into an empty window -> create tracks
+	    qDebug("Kwave::MimeData::decode(...) -> new signal");
+	    sig.newSignal(0,
+		decoder->info().rate(),
+		decoder->info().bits(),
+		decoded_tracks);
+	    ok = (sig.tracks() == decoded_tracks);
+	    if (!ok) {
+		delete decoder;
+		continue;
+	    }
+	}
+
+	// decode from clipboard
+	MultiTrackWriter dst(sig, sig.selectedTracks(), Insert,
+				left, right);
+	ok = decoder->decode(widget, dst);
+	dst.flush();
+
+	// take care of the labels, shift all of them by "left" and
+	// add them to the signal
+	LabelList labels = decoder->info().labels();
+	foreach(const Label &label, labels) {
+	    sig.addLabel(label.pos() + left, label.name());
+	    qDebug("Kwave::MimeData::decode(...) -> new label @ %9d '%s'",
+		label.pos(), label.name().toLocal8Bit().data());
+	}
+
+	delete decoder;
+	break;
     }
-    delete decoder;
+
+    qDebug("Kwave::MimeData::decode -> decoded_length=%u", decoded_length);
     return decoded_length;
+}
+
+//***************************************************************************
+void Kwave::MimeData::clear()
+{
+    m_data.clear();
 }
 
 //***************************************************************************

@@ -21,11 +21,9 @@
 #include "libkwave/LabelList.h"
 
 //***************************************************************************
-static bool compare_labels(Label *a, Label *b)
+static bool compare_labels(Label a, Label b)
 {
-    Q_ASSERT(a);
-    Q_ASSERT(b);
-    return ((a) && (b) && (*a < *b));
+    return (a < b);
 }
 
 //***************************************************************************

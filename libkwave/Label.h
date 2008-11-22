@@ -28,6 +28,10 @@
 class KDE_EXPORT Label
 {
 public:
+
+    /** Default constructor, creates an empty label */
+    Label();
+
     /**
      * Constructor
      *
@@ -57,14 +61,29 @@ public:
     /** returns the name of the string */
     virtual QString name() const;
 
+    /** returns true if this is an empty label */
+    virtual bool isNull() const;
+
     /** less-than operator, needed for sorting the list */
     inline bool operator < (const Label &other) const {
 	return (pos() < other.pos());
-    };
+    }
 
     /** equal operator */
     inline bool operator == (const Label &other) const {
 	return ((pos() == other.pos()) && (name() == other.name()));
+    }
+
+    /** equal operator, compares with pointer to Label */
+    inline bool operator == (const Label *other) const {
+	// both Null -> equal
+	if (isNull() && !other) return true;
+
+	// only one is null -> not equal
+	if (isNull() || !other) return false;
+
+	// otherwise -> compare...
+	return ((pos() == other->pos()) && (name() == other->name()));
     }
 
 private:

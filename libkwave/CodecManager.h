@@ -31,7 +31,7 @@
 class Decoder;
 class Encoder;
 class KMimeType;
-class QMimeSource;
+class QMimeData;
 
 class KDE_EXPORT CodecManager: public QObject
 {
@@ -86,11 +86,11 @@ public:
     static Decoder *decoder(const QString &mimetype_name);
 
     /**
-     * Same as above, but takes the mime info from a QMimeSource.
+     * Same as above, but takes the mime info from a QMimeData.
      * @param mime_source source with a mime type (null pointer is allowed)
      * @return a new decoder for the mime type or null if none found.
      */
-    static Decoder *decoder(const QMimeSource *mime_source);
+    static Decoder *decoder(const QMimeData *mime_source);
 
     /**
      * Tries to find an encoder that matches to a given mime type.

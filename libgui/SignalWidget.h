@@ -615,7 +615,7 @@ protected:
      * @param x mouse position, X coordinate, relative to the widget
      * @return nearest label or null if none found.
      */
-    Label *findLabelNearMouse(int x) const;
+    Label findLabelNearMouse(int x) const;
 
     /**
      * Opens a dialog for editing the properties of a label
@@ -623,7 +623,7 @@ protected:
      * @return true if the dialog has been accepted,
      *         otherwise false (canceled)
      */
-    bool labelProperties(Label *label);
+    bool labelProperties(Label &label);
 
 //    void loadLabel ();
 //    void appendLabel ();

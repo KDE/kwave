@@ -19,6 +19,12 @@
 #include "Label.h"
 
 //***************************************************************************
+Label::Label()
+    :m_data(0)
+{
+}
+
+//***************************************************************************
 Label::Label(unsigned int position, const QString &name)
     :m_data(new LabelData)
 {
@@ -53,6 +59,12 @@ void Label::rename(const QString &name)
 QString Label::name() const
 {
     return (m_data) ? m_data->m_name : QString();
+}
+
+//***************************************************************************
+bool Label::isNull() const
+{
+    return (m_data == 0);
 }
 
 //***************************************************************************

@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <QMimeSource>
+#include <QMimeData>
 #include <QRegExp>
 
 #include "libkwave/CodecManager.h"
@@ -103,14 +103,12 @@ Decoder *CodecManager::decoder(const KMimeType &mimetype)
 }
 
 //***************************************************************************
-Decoder *CodecManager::decoder(const QMimeSource *mime_source)
+Decoder *CodecManager::decoder(const QMimeData *mime_data)
 {
-    if (!mime_source) return false;
-    int i = 0;
-    const char *format;
-    for (i=0; (format = mime_source->format(i)); ++i) {
+    if (!mime_data) return 0;
+
+    foreach (QString format, mime_data->formats()) {
 	Decoder *d = decoder(format);
-	Q_ASSERT(d);
 	if (d) return d;
     }
     return 0;

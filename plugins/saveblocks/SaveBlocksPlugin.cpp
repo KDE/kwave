@@ -230,11 +230,11 @@ int SaveBlocksPlugin::start(QStringList &params)
     unsigned int block_end = 0;
     LabelList labels = fileInfo().labels();
     LabelListIterator it(labels);
-    Label *label = it.hasNext() ? it.next() : 0;
+    Label label = it.hasNext() ? it.next() : Label();
 
     for (unsigned int index = first;;) {
 	block_start = block_end;
-	block_end   = (label) ? label->pos() : signalLength();
+	block_end   = (label.isNull()) ? signalLength() : label.pos();
 
 	if ((selection_left < block_end) && (selection_right > block_start)) {
 	    // found a block to save...
@@ -265,8 +265,8 @@ int SaveBlocksPlugin::start(QStringList &params)
 	    // increment the index for the next filename
 	    index++;
 	}
-	if (!label) break;
-	label = (it.hasNext()) ? it.next() : 0;
+	if (label.isNull()) break;
+	label = (it.hasNext()) ? it.next() : Label();
     }
 
     // restore the previous selection
@@ -324,7 +324,7 @@ unsigned int SaveBlocksPlugin::blocksToSave(bool selection_only)
     unsigned int block_start;
     unsigned int block_end = 0;
     LabelListIterator it(fileInfo().labels());
-    Label *label = (it.hasNext()) ? it.next() : 0;
+    Label label = (it.hasNext()) ? it.next() : Label();
 
     if (selection_only) {
 	selection(&selection_left, &selection_right, true);
@@ -334,11 +334,11 @@ unsigned int SaveBlocksPlugin::blocksToSave(bool selection_only)
     }
     for (;;) {
 	block_start = block_end;
-	block_end   = (label) ? label->pos() : signalLength();
+	block_end   = (label.isNull()) ? signalLength() : label.pos();
 	if ((selection_left < block_end) && (selection_right > block_start))
 	    count++;
-	if (!label) break;
-	label = (it.hasNext()) ? it.next() : 0;
+	if (label.isNull()) break;
+	label = (it.hasNext()) ? it.next() : Label();
     }
 
     return count;

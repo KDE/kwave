@@ -27,7 +27,7 @@
 #include "Label.h"
 
 /** not more than a typedef since Qt4 */
-class KDE_EXPORT LabelList: public QList<Label *>
+class KDE_EXPORT LabelList: public QList<Label>
 {
 public:
 
@@ -37,6 +37,6 @@ public:
 };
 
 /** Iterator for the list of labels */
-typedef QListIterator<Label *> LabelListIterator;
+typedef QListIterator<Label> LabelListIterator;
 
 #endif /* _LABEL_LIST_H_ */

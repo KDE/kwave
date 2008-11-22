@@ -2,6 +2,8 @@
 
  * replaced application icon, using a scalable svg image
  * replaced GSL with FFTW3, which is license compatible with Kwave
+ * use implicit sharing for Label class
+ * new clipboard implementation
 
 0.8.0  [2008-09-27]
 

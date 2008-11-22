@@ -335,10 +335,9 @@ void FileInfo::dump()
     qDebug("   tracks = %u", m_tracks);
 
     qDebug("labels:");
-    foreach (Label *label, m_labels) {
-	if (!label) continue;
-	qDebug("   [%10u] = '%s'", label->pos(),
-	                           label->name().toLocal8Bit().data());
+    foreach (Label label, m_labels) {
+	qDebug("   [%10u] = '%s'", label.pos(),
+	                           label.name().toLocal8Bit().data());
     }
 
     qDebug("other properties:");

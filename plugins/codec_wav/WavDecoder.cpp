@@ -517,9 +517,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
 	    // put a new label into the list
 	    QString str = QString::fromUtf8(name);
-	    Label *label = new Label(position, str);
-	    Q_ASSERT(label);
-	    if (label) info().labels().append(label);
+	    info().labels().append(Label(position, str));
 	}
     }
     info().labels().sort();

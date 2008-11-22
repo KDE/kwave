@@ -29,17 +29,16 @@
 //***************************************************************************
 UndoModifyLabelAction::UndoModifyLabelAction(SignalWidget &signal_widget,
                                              Label &label)
-    :UndoAction(), m_signal_widget(signal_widget), m_label(0),
+    :UndoAction(), m_signal_widget(signal_widget), m_label(),
      m_last_position(0)
 {
-    m_label = new Label(label);
-    Q_ASSERT(m_label);
+    m_label = label;
 }
 
 //***************************************************************************
 UndoModifyLabelAction::~UndoModifyLabelAction()
 {
-    delete m_label;
+    m_label = Label();
 }
 
 //***************************************************************************
@@ -78,8 +77,8 @@ bool UndoModifyLabelAction::store(SignalManager &)
 UndoAction *UndoModifyLabelAction::undo(SignalManager &manager,
                                         bool with_redo)
 {
-    Q_ASSERT(m_label);
-    if (!m_label) return 0;
+    Q_ASSERT(!(m_label.isNull()));
+    if (m_label.isNull()) return 0;
 
 //     qDebug("undo: last pos=%u, current pos=%u",
 // 	   m_last_position, m_label->pos());
@@ -94,14 +93,14 @@ UndoAction *UndoModifyLabelAction::undo(SignalManager &manager,
 	redo = new UndoModifyLabelAction(m_signal_widget, *label);
 	Q_ASSERT(redo);
 	if (redo) {
-	    redo->setLastPosition(m_label->pos());
+	    redo->setLastPosition(m_label.pos());
 	    redo->store(manager);
 	}
     }
 
     // modify the label
-    label->moveTo(m_label->pos());
-    label->rename(m_label->name());
+    label->moveTo(m_label.pos());
+    label->rename(m_label.name());
 
     // redraw the markers layer
     m_signal_widget.refreshMarkersLayer();

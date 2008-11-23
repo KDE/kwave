@@ -28,6 +28,7 @@
 UndoAddLabelAction::UndoAddLabelAction(int index)
     :UndoAction(), m_index(index)
 {
+    Q_ASSERT(index >= 0);
 }
 
 //***************************************************************************

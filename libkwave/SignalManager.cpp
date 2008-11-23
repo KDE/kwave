@@ -581,8 +581,11 @@ SampleWriter *SignalManager::openSampleWriter(unsigned int track,
 	           "NO UNDO FOR APPEND YET !");
 	    abortUndoTransaction();
 	    break;
-	case Insert:
-	    undo = new UndoInsertAction(track, left, right-left+1);
+	case Insert: {
+	    QList<unsigned int> track_list;
+	    track_list.append(track);
+	    undo = new UndoInsertAction(
+		m_parent_widget, track_list, left, right-left+1);
 	    if (undo) {
 		QObject::connect(
 		    writer,
@@ -591,6 +594,7 @@ SampleWriter *SignalManager::openSampleWriter(unsigned int track,
 		    SLOT(setLength(unsigned int)));
 	    }
 	    break;
+	}
 	case Overwrite:
 	    undo = new UndoModifyAction(track, left, right-left+1);
 	    break;
@@ -779,22 +783,6 @@ void SignalManager::slotSamplesDeleted(unsigned int track,
 
     setModified(true);
 
-    // only adjust the labels once per operation
-    if (track == selectedTracks().at(0)) {
-	QMutableListIterator<Label> it(labels());
-	while (it.hasNext()) {
-	    Label &label = it.next();
-	    unsigned int pos = label.pos();
-	    if (pos >= offset + length) {
-		// move label left
-		label.moveTo(pos - length);
-	    } else if ((pos >= offset) && (pos < offset+length)) {
-		// delete the label
-		deleteLabel(labelIndex(label), m_undo_enabled);
-	    }
-	}
-    }
-
     emit sigSamplesDeleted(track, offset, length);
     emitStatusInfo();
 }
@@ -826,15 +814,28 @@ bool SignalManager::deleteRange(unsigned int offset, unsigned int length,
     // first store undo data for all tracks
     unsigned int track;
     if (m_undo_enabled) {
-	foreach (track, track_list) {
-	    if (!registerUndoAction(new UndoDeleteAction(
-		track, offset, length))) return false;
-	}
+	if (!registerUndoAction(new UndoDeleteAction(
+	    m_parent_widget, track_list, offset, length))) return false;
     }
 
     // then delete the ranges in all tracks
     foreach (track, track_list) {
 	m_signal.deleteRange(track, offset, length);
+    }
+
+    // delete all labels in the selected range
+    // and adjust the labels after the deleted range
+    QMutableListIterator<Label> it(labels());
+    while (it.hasNext()) {
+	Label &label = it.next();
+	unsigned int pos = label.pos();
+	if (pos >= offset + length) {
+	    // move label left
+	    label.moveTo(pos - length);
+	} else if ((pos >= offset) && (pos < offset+length)) {
+	    // delete the label
+	    deleteLabel(labelIndex(label), false);
+	}
     }
 
     // finally set the current selection to zero-length
@@ -1095,14 +1096,10 @@ bool SignalManager::saveUndoDelete(QList<unsigned int> &track_list,
     if (!m_undo_enabled) return true;
     if (track_list.isEmpty()) return true;
 
-    // loop over all tracks
-    QListIterator<unsigned int> it(track_list);
-    it.toBack();
-    while (m_undo_enabled && it.hasPrevious()) {
-	unsigned int t = it.previous();
-	UndoDeleteAction *action = new UndoDeleteAction(t, offset, length);
-	if (!registerUndoAction(action)) return false;
-    }
+    // create a undo action for deletion
+    UndoDeleteAction *action =
+	new UndoDeleteAction(m_parent_widget, track_list, offset, length);
+    if (!registerUndoAction(action)) return false;
 
     return true;
 }
@@ -1298,6 +1295,10 @@ void SignalManager::redo()
     // remove the redo transaction from the list without deleting it
     m_redo_buffer.takeFirst();
 
+    // temporarily disable undo while redo is running
+    bool old_undo_enabled = m_undo_enabled;
+    m_undo_enabled = false;
+
     // get free memory for undo
     // also bear in mid that the redo transaction we removed is still
     // allocated and has to be subtracted from the undo limit. As we
@@ -1371,6 +1372,9 @@ void SignalManager::redo()
 	m_undo_buffer.removeAll(undo_transaction);
 	delete undo_transaction;
     }
+
+    // re-enable undo
+    m_undo_enabled = old_undo_enabled;
 
     // finished / buffers have changed, emit new undo/redo info
     emitUndoRedoInfo();

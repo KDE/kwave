@@ -87,6 +87,7 @@ QString UndoTransaction::description()
 //***************************************************************************
 UndoAction *UndoTransaction::nextUndo()
 {
+    if (isEmpty()) return 0;
     UndoAction *next = last();
 
     QListIterator<UndoAction *> it(*this);
@@ -105,6 +106,7 @@ UndoAction *UndoTransaction::nextUndo()
 //***************************************************************************
 UndoAction *UndoTransaction::nextRedo()
 {
+    if (isEmpty()) return 0;
     UndoAction *next = first();
 
     QListIterator<UndoAction *> it(*this);

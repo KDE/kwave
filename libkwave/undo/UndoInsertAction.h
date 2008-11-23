@@ -20,11 +20,13 @@
 
 #include "config.h"
 
+#include <QList>
 #include <QObject>
 #include <QString>
 
 #include "libkwave/undo/UndoAction.h"
 
+class QWidget;
 class SignalManager;
 
 class UndoInsertAction: public QObject, public UndoAction
@@ -34,11 +36,15 @@ public:
 
     /**
      * Constructor.
-     * @param track index of the track
+     * @param parent_widget the widget used as parent for displaying
+     *                      error messages
+     * @param track_list list of affected tracks
      * @param offset index of the first inserted sample
      * @param length number of inserted samples
      */
-    UndoInsertAction(unsigned int track, unsigned int offset,
+    UndoInsertAction(QWidget *parent_widget,
+                     const QList<unsigned int> &track_list,
+                     unsigned int offset,
                      unsigned int length);
 
     /** @see UndoAction::description() */
@@ -74,8 +80,11 @@ public slots:
 
 protected:
 
-    /** index of the modified track */
-    unsigned int m_track;
+    /** parent widget for showing error messages */
+    QWidget *m_parent_widget;
+
+    /** list of affected tracks */
+    QList<unsigned int> m_track_list;
 
     /** first sample */
     unsigned int m_offset;

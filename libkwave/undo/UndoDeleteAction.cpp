@@ -18,18 +18,33 @@
 #include "config.h"
 #include <klocale.h>
 
+#include "libkwave/MultiTrackReader.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/undo/UndoAction.h"
 #include "libkwave/undo/UndoDeleteAction.h"
+#include "libkwave/undo/UndoDeleteLabelAction.h"
 #include "libkwave/undo/UndoInsertAction.h"
 
 //***************************************************************************
-UndoDeleteAction::UndoDeleteAction(unsigned int track,
+UndoDeleteAction::UndoDeleteAction(QWidget *parent_widget,
+                                   const QList<unsigned int> &track_list,
                                    unsigned int offset, unsigned int length)
-    :UndoModifyAction(track, offset, length)
+    :UndoAction(),
+     m_parent_widget(parent_widget),
+     m_track_list(track_list),
+     m_offset(offset), m_length(length),
+     m_mime_data(), m_undo_size(0)
 {
+    // undo size needed for samples
+    m_undo_size += m_length * sizeof(sample_t) * m_track_list.count();
+}
+
+//***************************************************************************
+UndoDeleteAction::~UndoDeleteAction()
+{
+    m_mime_data.clear();
 }
 
 //***************************************************************************
@@ -39,32 +54,56 @@ QString UndoDeleteAction::description()
 }
 
 //***************************************************************************
+unsigned int UndoDeleteAction::undoSize()
+{
+    return m_undo_size;
+}
+
+//***************************************************************************
 int UndoDeleteAction::redoSize()
 {
-    return sizeof(*this) - undoSize();
+    return sizeof(UndoInsertAction) - undoSize();
+}
+
+//***************************************************************************
+bool UndoDeleteAction::store(SignalManager &manager)
+{
+    MultiTrackReader reader(manager, m_track_list,
+	m_offset, m_offset + m_length - 1);
+
+    // encode the data that will be deleted into a Kwave::MimeData container
+    if (!m_mime_data.encode(m_parent_widget, reader, manager.fileInfo())) {
+	m_mime_data.clear();
+	return false;
+    }
+
+    return true;
 }
 
 //***************************************************************************
 UndoAction *UndoDeleteAction::undo(SignalManager &manager, bool with_redo)
 {
-    // open a SampleWriter for reading back the data from the buffer
-    SampleWriter *writer = manager.openSampleWriter(m_track, Insert,
-        m_offset, m_offset+m_length-1);
-    Q_ASSERT(writer);
-    if (!writer) return 0;
+    UndoAction *redo_action = 0;
 
-    SampleReader *reader = m_buffer_track.openSampleReader(0, m_length-1);
-    Q_ASSERT(reader);
-    if (reader && writer) (*writer) << (*reader);
-
-    if (reader) delete reader;
-    if (writer) delete writer;
-
+    // store data for redo
     if (with_redo) {
-	return new UndoInsertAction(m_track, m_offset, m_length);
-    } else {
+	redo_action = new UndoInsertAction(m_parent_widget, m_track_list,
+	    m_offset, m_length);
+	Q_ASSERT(redo_action);
+	if (!redo_action) return 0;
+	redo_action->store(manager);
+    }
+
+    // perform the undo operation
+    if (!m_mime_data.decode(m_parent_widget, &m_mime_data,
+                            manager, m_offset))
+    {
+	qWarning("UndoDeleteAction::undo() FAILED");
+	delete redo_action;
 	return 0;
     }
+
+    return redo_action;
 }
 
 //***************************************************************************

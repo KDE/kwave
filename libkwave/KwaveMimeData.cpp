@@ -93,7 +93,7 @@ bool Kwave::MimeData::encode(QWidget *widget,
 
     delete encoder;
 
-    // set the mime data into this drag&drop container
+    // set the mime data into this mime data container
     setData("audio/vnd.wave", m_data);
     return true;
 }

@@ -26,16 +26,14 @@
 
 //***************************************************************************
 UndoDeleteLabelAction::UndoDeleteLabelAction(Label &label)
-    :UndoAction(), m_label(0)
+    :UndoAction(), m_label(label)
 {
-    m_label = new Label(label);
-    Q_ASSERT(m_label);
 }
 
 //***************************************************************************
 UndoDeleteLabelAction::~UndoDeleteLabelAction()
 {
-    delete m_label;
+    m_label = Label();
 }
 
 //***************************************************************************
@@ -68,13 +66,13 @@ bool UndoDeleteLabelAction::store(SignalManager &)
 UndoAction *UndoDeleteLabelAction::undo(SignalManager &manager,
                                         bool with_redo)
 {
-    Q_ASSERT(m_label);
-    if (!m_label) return 0;
+    Q_ASSERT(!m_label.isNull());
+    if (m_label.isNull()) return 0;
 
     UndoAction *redo = 0;
 
     // add a new label to the signal manager
-    Label *label = manager.addLabel(m_label->pos(), m_label->name());
+    Label label = manager.addLabel(m_label.pos(), m_label.name());
 
     // store data for redo
     if (with_redo) {

@@ -22,11 +22,15 @@
 #include "libkwave/undo/UndoAction.h"
 #include "libkwave/undo/UndoDeleteAction.h"
 #include "libkwave/undo/UndoInsertAction.h"
+#include "libkwave/undo/UndoTransaction.h"
 
 //***************************************************************************
-UndoInsertAction::UndoInsertAction(unsigned int track,
+UndoInsertAction::UndoInsertAction(QWidget *parent_widget,
+                                   const QList<unsigned int> &track_list,
                                    unsigned int offset, unsigned int length)
-    :QObject(), UndoAction(), m_track(track),
+    :QObject(), UndoAction(),
+     m_parent_widget(parent_widget),
+     m_track_list(track_list),
      m_offset(offset), m_length(length)
 {
 }
@@ -46,7 +50,8 @@ unsigned int UndoInsertAction::undoSize()
 //***************************************************************************
 int UndoInsertAction::redoSize()
 {
-    return sizeof(UndoDeleteAction) + (m_length * sizeof(sample_t));
+    return sizeof(UndoDeleteAction) +
+	    (m_length * sizeof(sample_t) * m_track_list.count());
 }
 
 //***************************************************************************
@@ -63,14 +68,15 @@ UndoAction *UndoInsertAction::undo(SignalManager &manager, bool with_redo)
 
     // store data for redo
     if (with_redo) {
-	redo_action = new UndoDeleteAction(m_track, m_offset, m_length);
+	redo_action = new UndoDeleteAction(
+	    m_parent_widget, m_track_list, m_offset, m_length);
 	Q_ASSERT(redo_action);
 	if (!redo_action) return 0;
 	redo_action->store(manager);
     }
 
     // now delete the samples
-    manager.deleteRange(m_track, m_offset, m_length);
+    manager.deleteRange(m_offset, m_length, m_track_list);
 
     return redo_action;
 }

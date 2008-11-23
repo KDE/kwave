@@ -20,39 +20,79 @@
 
 #include "config.h"
 
+#include <QList>
 #include <QString>
 
-#include "libkwave/undo/UndoModifyAction.h"
+#include "libkwave/KwaveMimeData.h"
+#include "libkwave/undo/UndoAction.h"
 
+class QWidget;
 class SignalManager;
 
-class UndoDeleteAction: public UndoModifyAction
+class UndoDeleteAction: public UndoAction
 {
 public:
 
     /**
      * Constructor.
-     * @param track index of the track
-     * @param offset index of the first sample to be deleted
+     * @param parent_widget the widget used as parent for displaying
+     *                      error messages
+     * @param track_list list of affected tracks
+     * @param offset index of the first deleted sample
      * @param length number of samples to delete
      */
-    UndoDeleteAction(unsigned int track, unsigned int offset,
-                     unsigned int length);
+    UndoDeleteAction(QWidget *parent_widget,
+                     const QList<unsigned int> &track_list,
+                     unsigned int offset, unsigned int length);
 
     /** Destructor */
-    virtual ~UndoDeleteAction() { };
+    virtual ~UndoDeleteAction();
 
     /** @see UndoAction::description() */
     virtual QString description();
 
+    /** @see UndoAction::undoSize() */
+    virtual unsigned int undoSize();
+
     /** @see UndoAction::redoSize() */
     virtual int redoSize();
+
+    /**
+     * Stores the data needed for undo.
+     * @param manager the SignalManager for modifying the signal
+     * @note this is the second step, after size() has been called
+     * @return true if successful, false if failed (e.g. out of memory)
+     */
+    virtual bool store(SignalManager &manager);
 
     /**
      * Copies the samples to be deleted to the internal buffer.
      * @see UndoAction::undo()
      */
     virtual UndoAction *undo(SignalManager &manager, bool with_redo);
+
+private:
+
+    /** parent widget for showing error messages */
+    QWidget *m_parent_widget;
+
+    /** list of affected tracks */
+    QList<unsigned int> m_track_list;
+
+    /** first deleted sample */
+    unsigned int m_offset;
+
+    /** number of deleted samples */
+    unsigned int m_length;
+
+    /**
+     * Kwave::MimeData container that holds the whole range of samples
+     * and deleted labels
+     */
+    Kwave::MimeData m_mime_data;
+
+    /** memory needed for undo */
+    unsigned int m_undo_size;
 
 };
 

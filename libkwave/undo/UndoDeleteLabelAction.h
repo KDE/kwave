@@ -66,7 +66,7 @@ public:
 protected:
 
     /** the deleted label */
-    Label *m_label;
+    Label m_label;
 
 };
 

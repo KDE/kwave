@@ -295,8 +295,8 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
     if (!parent) return false;
 
     do {
-	qDebug("RIFFParser::parse(offset=0x%08X, length=0x%08X)",
-	    offset, length);
+// 	qDebug("RIFFParser::parse(offset=0x%08X, length=0x%08X)",
+// 	    offset, length);
 
 	// make sure that we are still in the source (file)
 	if (offset >= m_dev.size()) {
@@ -368,10 +368,10 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
 	if (phys_len & 1) phys_len++;
 
 	// now create a new chunk, per default type is "sub-chunk"
-	qDebug("new chunk, name='%s', len=0x%08X, ofs=0x%08X, "\
+/*	qDebug("new chunk, name='%s', len=0x%08X, ofs=0x%08X, "\
 	    "phys_len=0x%08X (next=0x%08X)",
 	    name.data(),
-	    len,offset,phys_len, offset+phys_len+8);
+	    len,offset,phys_len, offset+phys_len+8); */
 	RIFFChunk *chunk = addChunk(parent, name, format, len, offset,
 				    phys_len, RIFFChunk::Sub);
 	if (!chunk) break;
@@ -380,7 +380,7 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
 	// if not at the end of the file, parse all further chunks
 	length -= chunk->physLength() + 8;
 	offset  = chunk->physEnd() + 1;
-	qDebug("   parse loop end: offset=0x%08X, length=0x%08X",offset,length);
+// 	qDebug("   parse loop end: offset=0x%08X, length=0x%08X",offset,length);
     } while (length && !m_cancel);
 
     // parse for sub-chunks in the chunks we newly found
@@ -393,10 +393,10 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
 
 	    QByteArray path = (parent ? parent->path() : QByteArray("")) +
 			    "/" + chunk->name();
-	    qDebug("scanning for chunks in '%s' (format='%s'), "\
+/*	    qDebug("scanning for chunks in '%s' (format='%s'), "\
 		"offset=0x%08X, length=0x%08X",
 		path.data(), chunk->format().data(),
-		chunk->dataStart(), chunk->dataLength());
+		chunk->dataStart(), chunk->dataLength());*/
 	    if (!parse(chunk, chunk->dataStart(), chunk->dataLength())) {
 		error = true;
 	    }

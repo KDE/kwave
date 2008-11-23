@@ -159,8 +159,8 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     progress.reset();
     if (progress.wasCanceled()) return false;
 
-    qDebug("--- RIFF file structure after first pass ---");
-    parser.dumpStructure();
+//     qDebug("--- RIFF file structure after first pass ---");
+//     parser.dumpStructure();
 
     // check if there is a RIFF chunk at all...
     RIFFChunk *riff_chunk = parser.findChunk("/RIFF:WAVE");
@@ -221,14 +221,14 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     u_int32_t fmt_offset = 0;
     if (fmt_chunk) fmt_offset = fmt_chunk->dataStart();
-    qDebug("fmt chunk starts at 0x%08X", fmt_offset);
+//     qDebug("fmt chunk starts at 0x%08X", fmt_offset);
 
     u_int32_t data_offset = 0;
     u_int32_t data_size = 0;
     if (data_chunk) {
 	data_offset = data_chunk->dataStart();
 	data_size   = data_chunk->physLength();
-	qDebug("data chunk at 0x%08X (%u byte)", data_offset, data_size);
+// 	qDebug("data chunk at 0x%08X (%u byte)", data_offset, data_size);
     }
 
     if (data_size <= 4) {
@@ -294,16 +294,16 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     WavFormatMap known_formats;
     QString format_name = known_formats.findName(header.min.format);
 
-    qDebug("-------------------------");
-    qDebug("wav header:");
-    qDebug("mode        = 0x%04X, (%s)", header.min.format,
-                                         format_name.toLocal8Bit().data());
-    qDebug("channels    = %d", header.min.channels);
-    qDebug("rate        = %u", header.min.samplerate);
-    qDebug("bytes/s     = %u", header.min.bytespersec);
-    qDebug("block align = %d", header.min.blockalign);
-    qDebug("bits/sample = %d", header.min.bitwidth);
-    qDebug("-------------------------");
+//     qDebug("-------------------------");
+//     qDebug("wav header:");
+//     qDebug("mode        = 0x%04X, (%s)", header.min.format,
+//                                          format_name.toLocal8Bit().data());
+//     qDebug("channels    = %d", header.min.channels);
+//     qDebug("rate        = %u", header.min.samplerate);
+//     qDebug("bytes/s     = %u", header.min.bytespersec);
+//     qDebug("block align = %d", header.min.blockalign);
+//     qDebug("bits/sample = %d", header.min.bitwidth);
+//     qDebug("-------------------------");
 
     // open the file through libaudiofile :)
     if (need_repair) {
@@ -312,7 +312,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	if (!repair_list) return false;
 
 	RIFFChunk *root = (riff_chunk) ? riff_chunk : parser.findChunk("");
-	parser.dumpStructure();
+// 	parser.dumpStructure();
 //	qDebug("riff chunk = %p, parser.findChunk('')=%p", riff_chunk,
 //	    parser.findChunk(""));
 	repair(repair_list, root, fmt_chunk, data_chunk);
@@ -415,8 +415,8 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	src.seek(cue_chunk->dataStart());
 	src.read(reinterpret_cast<char *>(&count), 4);
 	count = LE32_TO_CPU(count);
-	qDebug("cue list found: %u entries, %u bytes (should be: %u)",
-	    count, length, count * (6 * 4) + 4);
+// 	qDebug("cue list found: %u entries, %u bytes (should be: %u)",
+// 	    count, length, count * (6 * 4) + 4);
 
 	for (unsigned int i = 0; i < count; i++) {
 	    u_int32_t data, index, position;
@@ -546,7 +546,7 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
     Q_ASSERT(fh);
     if (!fh) return false;
 
-    info().dump(); // ###
+//     info().dump();
 
     unsigned int frame_size = static_cast<unsigned int>(
 	afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));

@@ -577,10 +577,6 @@ SampleWriter *SignalManager::openSampleWriter(unsigned int track,
     UndoAction *undo = 0;
     switch (mode) {
 	case Append:
-	    qDebug("SignalManager::openSampleWriter(): "\
-	           "NO UNDO FOR APPEND YET !");
-	    abortUndoTransaction();
-	    break;
 	case Insert: {
 	    QList<unsigned int> track_list;
 	    track_list.append(track);

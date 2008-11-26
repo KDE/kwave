@@ -26,6 +26,7 @@
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
+#include "libkwave/KwaveMimeData.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/SignalManager.h"
@@ -41,7 +42,7 @@ ClipBoard &ClipBoard::instance()
 
 //***************************************************************************
 ClipBoard::ClipBoard()
-    :m_lock(), m_buffer()
+    :m_lock()
 {
     connect(QApplication::clipboard(), SIGNAL(changed(QClipboard::Mode)),
             this, SLOT(slotChanged(QClipboard::Mode)));
@@ -58,13 +59,13 @@ ClipBoard::~ClipBoard()
 //***************************************************************************
 void ClipBoard::slotChanged(QClipboard::Mode mode)
 {
-    qDebug("slotChanged(mode=%d)", static_cast<int>(mode));
+    qDebug("ClipBoard::slotChanged(mode=%d)", static_cast<int>(mode));
 }
 
 //***************************************************************************
 void ClipBoard::slotDataChanged()
 {
-    qDebug("slotDataChanged()");
+    qDebug("ClipBoard::slotDataChanged()");
 }
 
 //***************************************************************************
@@ -72,26 +73,30 @@ void ClipBoard::copy(QWidget *widget, SignalManager &signal_manager,
                      const QList<unsigned int> &track_list,
                      unsigned int offset, unsigned int length)
 {
-    // first get rid of the previous content
-    clear();
-
     QWriteLocker lock(&m_lock); // lock exclusive
 
     // break if nothing to do
     if (!length || !track_list.count()) return;
 
+    // get a buffer, implemented as a KwaveMimeData container
+    Kwave::MimeData *buffer = new Kwave::MimeData();
+    Q_ASSERT(buffer);
+    if (!buffer) return;
+
+    // encode into the mime data container
     MultiTrackReader src(signal_manager,
 	track_list, offset, offset + length - 1);
     FileInfo info = signal_manager.fileInfo();
-
-    // encode into the mime data container
-    if (!m_buffer.encode(widget, src, info)) {
+    if (!buffer->encode(widget, src, info)) {
 	// encoding failed, reset to empty
-	m_buffer.clear();
+	buffer->clear();
+	delete buffer;
+	return;
     }
 
     // give the buffer to the KDE clipboard
-    QApplication::clipboard()->setMimeData(&m_buffer, QClipboard::Clipboard);
+    qApp->processEvents();
+    QApplication::clipboard()->setMimeData(buffer, QClipboard::Clipboard);
 }
 
 //***************************************************************************
@@ -108,7 +113,7 @@ bool ClipBoard::paste(QWidget *widget, SignalManager &signal_manager,
     if (length && !signal_manager.deleteRange(offset, length))
 	return false;
 
-    unsigned int decoded_samples = m_buffer.decode(
+    unsigned int decoded_samples = Kwave::MimeData::decode(
 	widget,
 	QApplication::clipboard()->mimeData(QClipboard::Clipboard),
 	signal_manager,
@@ -124,7 +129,7 @@ bool ClipBoard::paste(QWidget *widget, SignalManager &signal_manager,
 void ClipBoard::clear()
 {
     QWriteLocker lock(&m_lock); // lock exclusive
-    m_buffer.clear();
+    QApplication::clipboard()->clear();
 }
 
 //***************************************************************************

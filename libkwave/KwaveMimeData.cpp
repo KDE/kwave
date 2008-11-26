@@ -80,7 +80,7 @@ bool Kwave::MimeData::encode(QWidget *widget,
 	} else {
 	    // move label left
 	    label.moveTo(pos - first);
-	    qDebug("KwaveDrag::encode(...) -> new label @ %9d '%s'",
+	    qDebug("Kwave::MimeData::encode(...) -> new label @ %9d '%s'",
 		label.pos(), label.name().toLocal8Bit().data());
 	}
     }

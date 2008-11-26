@@ -27,8 +27,6 @@
 
 #include <kdemacros.h>
 
-#include "libkwave/KwaveMimeData.h"
-
 class QWidget;
 class MultiTrackWriter;
 class SignalManager;
@@ -107,9 +105,6 @@ private:
 
     /** length of the content in samples */
     unsigned int m_length;
-
-    /** Internal buffer, implemented as a KwaveMimeData container */
-    Kwave::MimeData m_buffer;
 
 };
 

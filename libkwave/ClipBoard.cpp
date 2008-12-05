@@ -42,12 +42,9 @@ ClipBoard &ClipBoard::instance()
 
 //***************************************************************************
 ClipBoard::ClipBoard()
-    :m_lock()
 {
     connect(QApplication::clipboard(), SIGNAL(changed(QClipboard::Mode)),
             this, SLOT(slotChanged(QClipboard::Mode)));
-    connect(QApplication::clipboard(), SIGNAL(dataChanged()),
-            this, SLOT(slotDataChanged()));
 }
 
 //***************************************************************************
@@ -59,13 +56,13 @@ ClipBoard::~ClipBoard()
 //***************************************************************************
 void ClipBoard::slotChanged(QClipboard::Mode mode)
 {
-    qDebug("ClipBoard::slotChanged(mode=%d)", static_cast<int>(mode));
-}
+    if (mode != QClipboard::Clipboard) return;
+    bool data_available = !isEmpty();
 
-//***************************************************************************
-void ClipBoard::slotDataChanged()
-{
-    qDebug("ClipBoard::slotDataChanged()");
+//     qDebug("=> ClipBoard::clipboardChanged(%s)",
+// 	data_available ? "FULL" : "EMPTY");
+
+    emit clipboardChanged(data_available);
 }
 
 //***************************************************************************
@@ -73,8 +70,6 @@ void ClipBoard::copy(QWidget *widget, SignalManager &signal_manager,
                      const QList<unsigned int> &track_list,
                      unsigned int offset, unsigned int length)
 {
-    QWriteLocker lock(&m_lock); // lock exclusive
-
     // break if nothing to do
     if (!length || !track_list.count()) return;
 
@@ -103,8 +98,6 @@ void ClipBoard::copy(QWidget *widget, SignalManager &signal_manager,
 bool ClipBoard::paste(QWidget *widget, SignalManager &signal_manager,
                       unsigned int offset, unsigned int length)
 {
-    QReadLocker lock(&m_lock); // lock read-only
-
     Q_ASSERT(!isEmpty());
     if (isEmpty()) return false; // clipboard is empty ?
 
@@ -128,15 +121,12 @@ bool ClipBoard::paste(QWidget *widget, SignalManager &signal_manager,
 //***************************************************************************
 void ClipBoard::clear()
 {
-    QWriteLocker lock(&m_lock); // lock exclusive
     QApplication::clipboard()->clear();
 }
 
 //***************************************************************************
 bool ClipBoard::isEmpty()
 {
-    QReadLocker lock(&m_lock); // lock read-only
-
     const QMimeData *mime_data =
 	QApplication::clipboard()->mimeData(QClipboard::Clipboard);
 

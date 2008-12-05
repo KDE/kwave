@@ -69,9 +69,7 @@ bool CodecBase::supports(const KMimeType &mimetype)
 /***************************************************************************/
 bool CodecBase::supports(const QString &mimetype_name)
 {
-    QListIterator<CodecBase::MimeType> it(m_supported_mime_types);
-    while (it.hasNext()) {
-	CodecBase::MimeType mime = it.next();
+    foreach (const CodecBase::MimeType &mime, m_supported_mime_types) {
 	if (mime.name == mimetype_name) return true;
     }
     return false;

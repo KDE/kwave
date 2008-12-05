@@ -23,7 +23,6 @@
 
 #include <QObject>
 #include <QClipboard>
-#include <QReadWriteLock>
 
 #include <kdemacros.h>
 
@@ -89,16 +88,25 @@ public:
      */
     bool isEmpty();
 
+signals:
+
+    /**
+     * Emitted whenever the clipboard has changed from empty
+     * to non-empty (with decodeable data) or vice versa.
+     * @param data_available if true: contains decodeable data,
+     *                       if false: nothing decodeable or empty
+     */
+    void clipboardChanged(bool data_available);
+
 private slots:
 
+    /**
+     * emits clipboardChanged() whenever the clipboard has changed
+     * from empty to filled (with decodeable data) or vice versa
+     */
     void slotChanged(QClipboard::Mode mode);
 
-    void slotDataChanged();
-
 private:
-
-    /** Lock for exclusive or readonly access. */
-    QReadWriteLock m_lock;
 
     /** number of tracks of the content */
     unsigned int m_tracks;

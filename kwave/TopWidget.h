@@ -168,6 +168,9 @@ private slots:
      */
     void mouseChanged(int mode);
 
+    /** updates the menus when the clipboard has become empty/full */
+    void clipboardChanged(bool data_available);
+
     /** Updates the menu by enabling/disabling some entries */
     void updateMenu();
 

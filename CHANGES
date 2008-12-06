@@ -1,9 +1,11 @@
 0.8.1  [2008-12-??]
 
- * replaced application icon, using a scalable svg image
+ * replaced application icon, now using a scalable svg image
  * replaced GSL with FFTW3, which is license compatible with Kwave
  * use implicit sharing for Label class
- * new clipboard implementation
+ * new clipboard implementation, using the clipboard of KDE (X11)
+ * fixed enable/disable of copy/paste functions depending on clipboard state
+ * re-enabled function + menu entry for flushing the clipboard
 
 0.8.0  [2008-09-27]
 

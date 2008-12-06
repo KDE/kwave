@@ -1,6 +1,5 @@
 
 o porting to Qt4 / KDE4
-  - clipboard
   - use svg graphics instead of pixmaps
 
 o process the update of OverViewCache into a background thread
@@ -84,14 +83,12 @@ o resample signal before inserting into a signal with a different sample
 
 o optimized cut/paste, at zero-crossing
 
-o amplifymax does not work
+o new plugin: amplifymax
   -> normalizer ?
 
-o amplifyclip does not work
-  -> gstreamer/LADSPA ?
+o new plugin: amplifyclip
 
-o feature "pulse train" is not yet implemented
-  -> gstreamer/LADSPA ?
+o new plugin: pulse train
 
 o document how to do an optimized build, for example:
   CFLAGS="-march=athlon-xp -mcpu=athlon-xp \
@@ -106,22 +103,19 @@ o SonagramWindow::toSignal()
 
 o rework of the FFTWidget
 
-o bugfix: crash on "additive synthesis"
-  -> gstreamer/LADSPA ?
+o new plugin: additive synthesis
 
-o some commands do not work: fft, averagefft, distort
-  -> gstreamer/LADSPA ?
+o new plugin: fft, averagefft
 
-o bugfix: channel mixer dialog causes segmentation fault -> disabled
-  -> gstreamer/LADSPA ?
+o new plugin: distort
+
+o new plugin: channel mixer
 
 o import of multi-channel ASCII files
 
 o use namespace "Kwave" for all Kwave components
 
 o splitting of i18n for kwave and each plugin
-
-o use the KDE's clipboard
 
 o support for KDE's session management
 

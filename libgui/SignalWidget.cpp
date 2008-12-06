@@ -283,7 +283,7 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
     unsigned int length = m_signal_manager.selection().length();
 
     if (false) {
-    // zoom
+    // copy & paste + clipboard
     CASE_COMMAND("copy")
 	ClipBoard &clip = ClipBoard::instance();
 	clip.copy(
@@ -309,6 +309,9 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 	);
 	UndoTransactionGuard undo(m_signal_manager, i18n("cut"));
 	m_signal_manager.deleteRange(offset, length);
+    CASE_COMMAND("clipboard_flush")
+	ClipBoard::instance().clear();
+    // zoom
     CASE_COMMAND("zoomin")
 	zoomIn();
     CASE_COMMAND("zoomout")
@@ -319,6 +322,7 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 	zoomAll();
     CASE_COMMAND("zoomnormal")
 	zoomNormal();
+    // navigation
     CASE_COMMAND("scrollright")
 	setOffset(m_offset + visible_samples / 10);
     CASE_COMMAND("scrollleft")
@@ -1017,7 +1021,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     SignalManager *manager = &signalManager();
     bool have_signal = !manager->isEmpty();
     if (!have_signal)return;
-    bool have_selection = (manager->selection().length() != 0);
+    bool have_selection = (manager->selection().length() > 1);
     bool have_labels = !labels().isEmpty();
 
     QMenu *context_menu = new QMenu(this);
@@ -1074,7 +1078,8 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     context_menu->addSeparator();
     if (action_cut)   action_cut->setEnabled(have_selection);
     if (action_copy)  action_copy->setEnabled(have_selection);
-    if (action_paste) action_paste->setEnabled(have_selection);
+    if (action_paste)
+	action_paste->setEnabled(!ClipBoard::instance().isEmpty());
 
     int mouse_x = mapFromGlobal(e->globalPos()).x();
     if (mouse_x < 0) mouse_x = 0;

@@ -119,6 +119,8 @@ TopWidget::TopWidget(KwaveApp &main_app)
     // connect clicked menu entries with main communication channel of kwave
     connect(m_menu_manager, SIGNAL(sigMenuCommand(const QString &)),
 	    this, SLOT(executeCommand(const QString &)));
+    connect(&ClipBoard::instance(), SIGNAL(clipboardChanged(bool)),
+	    this, SLOT(clipboardChanged(bool)));
 
     KStatusBar *status_bar = statusBar();
     Q_ASSERT(status_bar);
@@ -213,10 +215,13 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	i18n("copy the current selection to the clipboard"),
 	this, SLOT(toolbarEditCopy()));
 
-    toolbar_edit->addAction(
+    QAction *btPaste = toolbar_edit->addAction(
 	icon_loader.loadIcon("edit-paste", KIconLoader::Toolbar),
 	i18n("insert the content of clipboard"),
 	this, SLOT(toolbarEditPaste()));
+    btPaste->setEnabled(!ClipBoard::instance().isEmpty());
+    connect(&ClipBoard::instance(), SIGNAL(clipboardChanged(bool)),
+            btPaste, SLOT(setEnabled(bool)));
 
     toolbar_edit->addAction(
 	icon_loader.loadIcon("draw-eraser", KIconLoader::Toolbar),
@@ -1126,6 +1131,13 @@ void TopWidget::mouseChanged(int mode)
 	default:
 	    ;
     }
+}
+
+//***************************************************************************
+void TopWidget::clipboardChanged(bool data_available)
+{
+    if (!m_menu_manager) return;
+    m_menu_manager->setItemEnabled("@CLIPBOARD", data_available);
 }
 
 //***************************************************************************

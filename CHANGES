@@ -5,7 +5,9 @@
  * use implicit sharing for Label class
  * new clipboard implementation, using the clipboard of KDE (X11)
  * fixed enable/disable of copy/paste functions depending on clipboard state
- * re-enabled function + menu entry for flushing the clipboard
+ * re-enabled function "flush clipboard"
+ * re-enabled function "invert track selection"
+ * re-enabled function "select all tracks"
 
 0.8.0  [2008-09-27]
 

@@ -566,7 +566,6 @@ plugins/record
 plugins/record/CMakeLists.txt
 plugins/record/LevelMeter.cpp
 plugins/record/LevelMeter.h
-plugins/record/Makefile.plugin
 plugins/record/Record-ALSA.cpp
 plugins/record/Record-ALSA.h
 plugins/record/Record-OSS.cpp

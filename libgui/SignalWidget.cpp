@@ -277,45 +277,9 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 {
     if (!command.length()) return true;
     Parser parser(command);
-
-    unsigned int visible_samples = pixels2samples(m_width);
-    unsigned int offset = m_signal_manager.selection().offset();
-    unsigned int length = m_signal_manager.selection().length();
+    const unsigned int visible_samples = pixels2samples(m_width);
 
     if (false) {
-    // copy & paste + clipboard
-    CASE_COMMAND("copy")
-	qDebug("copy(%u,%u)", offset, length);
-	if (length) {
-	    ClipBoard &clip = ClipBoard::instance();
-	    clip.copy(
-		this,
-		m_signal_manager,
-		m_signal_manager.selectedTracks(),
-		offset, length
-	    );
-	}
-    CASE_COMMAND("paste")
-	ClipBoard &clip = ClipBoard::instance();
-	if (clip.isEmpty()) return false;
-	if (!m_signal_manager.selectedTracks().size()) return false;
-
-	UndoTransactionGuard undo(m_signal_manager, i18n("paste"));
-	clip.paste(this, m_signal_manager, offset, length);
-    CASE_COMMAND("cut")
-	if (length) {
-	    ClipBoard &clip = ClipBoard::instance();
-	    clip.copy(
-		this,
-		m_signal_manager,
-		m_signal_manager.selectedTracks(),
-		offset, length
-	    );
-	    UndoTransactionGuard undo(m_signal_manager, i18n("cut"));
-	    m_signal_manager.deleteRange(offset, length);
-	}
-    CASE_COMMAND("clipboard_flush")
-	ClipBoard::instance().clear();
     // zoom
     CASE_COMMAND("zoomin")
 	zoomIn();
@@ -369,6 +333,57 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 	selectRange(m_offset, pixels2samples(m_width) - 1);
     CASE_COMMAND("selectnone")
 	selectRange(m_offset, 0);
+    } else return false;
+
+    return true;
+}
+
+//***************************************************************************
+bool SignalWidget::executeCommand(const QString &command)
+{
+    InhibitRepaintGuard inhibit(*this);
+    Parser parser(command);
+
+    unsigned int offset = m_signal_manager.selection().offset();
+    unsigned int length = m_signal_manager.selection().length();
+
+    if (!command.length()) return true;
+
+    if (executeNavigationCommand(command)) {
+	return true;
+    // copy & paste + clipboard
+    CASE_COMMAND("copy")
+	qDebug("copy(%u,%u)", offset, length);
+	if (length) {
+	    ClipBoard &clip = ClipBoard::instance();
+	    clip.copy(
+		this,
+		m_signal_manager,
+		m_signal_manager.selectedTracks(),
+		offset, length
+	    );
+	}
+    CASE_COMMAND("paste")
+	ClipBoard &clip = ClipBoard::instance();
+	if (clip.isEmpty()) return false;
+	if (!m_signal_manager.selectedTracks().size()) return false;
+
+	UndoTransactionGuard undo(m_signal_manager, i18n("paste"));
+	clip.paste(this, m_signal_manager, offset, length);
+    CASE_COMMAND("cut")
+	if (length) {
+	    ClipBoard &clip = ClipBoard::instance();
+	    clip.copy(
+		this,
+		m_signal_manager,
+		m_signal_manager.selectedTracks(),
+		offset, length
+	    );
+	    UndoTransactionGuard undo(m_signal_manager, i18n("cut"));
+	    m_signal_manager.deleteRange(offset, length);
+	}
+    CASE_COMMAND("clipboard_flush")
+	ClipBoard::instance().clear();
     // label commands
     CASE_COMMAND("label")
 	unsigned int pos = parser.toUInt();
@@ -478,20 +493,17 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 //	markPeriods(command);
 //    CASE_COMMAND("saveperiods")
 //	savePeriods();
-    } else return false;
 
-    return true;
-}
-
-//***************************************************************************
-bool SignalWidget::executeCommand(const QString &command)
-{
-    InhibitRepaintGuard inhibit(*this);
-
-    if (!command.length()) return true;
-
-    if (executeNavigationCommand(command)) {
-	return true;
+	// track selection
+	CASE_COMMAND("select_all_tracks")
+	    foreach (unsigned int track, m_signal_manager.allTracks())
+		m_signal_manager.selectTrack(track, true);
+	CASE_COMMAND("invert_track_selection")
+	    foreach (unsigned int track, m_signal_manager.allTracks())
+		m_signal_manager.selectTrack(
+		    track,
+		    !m_signal_manager.trackSelected(track)
+		);
     } else {
 	return m_signal_manager.executeCommand(command);
     }

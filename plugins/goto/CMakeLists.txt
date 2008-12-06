@@ -1,8 +1,8 @@
 #############################################################################
-##    Kwave                - plugins/@NAME@/CMakeLists.txt
+##    Kwave                - plugins/goto/CMakeLists.txt
 ##                           -------------------
-##    begin                : Sat Jun 02 2007
-##    copyright            : (C) 2007 by Thomas Eschenbacher
+##    begin                : Sat Dec 06 2008
+##    copyright            : (C) 2008 by Thomas Eschenbacher
 ##    email                : Thomas.Eschenbacher@gmx.de
 #############################################################################
 #
@@ -15,21 +15,16 @@
 ##                                                                          #
 #############################################################################
 
-<-- add feature checks and options here -->
-
-SET(plugin_@NAME@_LIB_SRCS
-    <-- list all c and cpp files here -->
+SET(plugin_goto_LIB_SRCS
+    GotoPlugin.cpp
+    GotoDialog.cpp
 )
 
-SET(plugin_@NAME@_LIB_UI
-    <-- list all .ui files here -->
+SET(plugin_goto_LIB_UI
+    GotoDlg.ui
 )
 
-SET(plugin_@NAME@_LIBS
-    <-- add list of all additionally needed external libraries here -->
-)
-
-KWAVE_PLUGIN(@NAME@)
+KWAVE_PLUGIN(goto)
 
 #############################################################################
 #############################################################################

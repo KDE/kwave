@@ -498,6 +498,12 @@ plugins/fileinfo/KeywordWidgetBase.ui
 plugins/fileinfo/SelectDateDialog.cpp
 plugins/fileinfo/SelectDateDialog.h
 plugins/fileinfo/SelectDateDlg.ui
+plugins/goto
+plugins/goto/CMakeLists.txt
+plugins/goto/GotoDialog.cpp
+plugins/goto/GotoDialog.h
+plugins/goto/GotoPlugin.cpp
+plugins/goto/GotoPlugin.h
 plugins/lowpass
 plugins/lowpass/CMakeLists.txt
 plugins/lowpass/LowPassDialog.cpp

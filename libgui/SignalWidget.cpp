@@ -292,6 +292,11 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
     CASE_COMMAND("zoomnormal")
 	zoomNormal();
     // navigation
+    CASE_COMMAND("goto")
+	unsigned int offset = parser.toUInt();
+	setOffset((offset > (visible_samples / 2)) ?
+	          (offset - (visible_samples / 2)) : 0);
+	selectRange(offset, 0);
     CASE_COMMAND("scrollright")
 	setOffset(m_offset + visible_samples / 10);
     CASE_COMMAND("scrollleft")
@@ -344,8 +349,8 @@ bool SignalWidget::executeCommand(const QString &command)
     InhibitRepaintGuard inhibit(*this);
     Parser parser(command);
 
-    unsigned int offset = m_signal_manager.selection().offset();
-    unsigned int length = m_signal_manager.selection().length();
+    const unsigned int offset = m_signal_manager.selection().offset();
+    const unsigned int length = m_signal_manager.selection().length();
 
     if (!command.length()) return true;
 

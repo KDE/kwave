@@ -8,6 +8,7 @@
  * re-enabled function "flush clipboard"
  * re-enabled function "invert track selection"
  * re-enabled function "select all tracks"
+ * implemented plugin for "go to position..."
 
 0.8.0  [2008-09-27]
 

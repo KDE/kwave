@@ -28,7 +28,7 @@ o replace "AF_SAMPFMT_xxx" with enum "SampleFormat::yyy" in WavEncoder.cpp,
 
 o more precise handling of the playback pointer
 
-o function for "Edit/Selection/Insert at..." or a "goto position" function
+o function for "Edit/Selection/Insert at..."
 
 o hourglass and process indicators for longer processes
   -> use a progress bar/dialog with a "Cancel" button and make it a modal

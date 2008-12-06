@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2008-10-06</date>
+<date>2008-12-06</date>
 <releaseinfo>0.8.0-2</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -2179,16 +2179,22 @@
     <sect1 id="clipboard"><title>Clipboard</title>
 
     <para>
-    &kapp; unfortunately has to implement and use it's own clipboard. This
-    is due to the lack of support for formats other than text and bitmaps
-    in the KDE environment and might be solved in some future release.
+    &kapp; since v0.8.1 uses the clipboard of KDE. This way it
+    is possible to exchange audio data between different &kapp; windows.
+    It might be possible as well to exchange data between &kapp; and other
+    audio applications, depending on their ability to use the KDE
+    clipboard.
     </para>
 
     <para>
-    However, this has some disadvantages. So if you want to exchange data
-    between &kapp; and some other program, you will find out that this is
-    simply not possible. Therefore you can only copy/paste data between
-    multiple &kapp; windows.
+    When copying data to the clipboard through the <literal>copy</literal>
+    function &kapp; uses the mime type
+    <literal>audio/vnd.wave</literal> as data format, conforming to
+    <ulink url="http://www.faqs.org/rfcs/rfc2361.html">RFC 2361</ulink>
+    which is the same as the well known <literal>wav</literal> format.
+    When pasting from the clipboard into &kapp; all data formats that are
+    available as file import formats are supported, like for example
+    Ogg/Vorbis, FLAC and so on.
     </para>
 
     </sect1>

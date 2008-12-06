@@ -612,7 +612,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/codec_wav/WavPropertyMap.cpp		GPL2+
 	plugins/codec_wav/WavPropertyMap.h		GPL2+
 
-	plugins/common/CMakeList.txt.template		GPL2+
+	plugins/common/CMakeLists.txt.template		GPL2+
 
 	plugins/decoder_mp3/CMakeLists.txt		GPL2+
 	plugins/decoder_mp3/ID3_QIODeviceReader.cpp	GPL2+
@@ -621,6 +621,13 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/decoder_mp3/MP3Decoder.h		GPL2+
 	plugins/decoder_mp3/MP3DecoderPlugin.cpp	GPL2+
 	plugins/decoder_mp3/MP3DecoderPlugin.h		GPL2+
+
+	plugins/goto/CMakeLists.txt			GPL2+
+	plugins/goto/GotoDialog.cpp			GPL2+
+	plugins/goto/GotoDialog.h			GPL2+
+	plugins/goto/GotoDlg.ui				(should be GPL2+)
+	plugins/goto/GotoPlugin.cpp			GPL2+
+	plugins/goto/GotoPlugin.h			GPL2+
 
 	plugins/fileinfo/BitrateSpinBox.cpp		GPL2+
 	plugins/fileinfo/BitrateSpinBox.h		GPL2+

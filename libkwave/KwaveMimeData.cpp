@@ -151,7 +151,7 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	    }
 	}
 
-	// decode from clipboard
+	// decode from the mime data
 	MultiTrackWriter dst(sig, sig.selectedTracks(), Insert,
 				left, right);
 	ok = decoder->decode(widget, dst);

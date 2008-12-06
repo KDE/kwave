@@ -1168,6 +1168,11 @@ void TopWidget::updateMenu()
     // enable/disable all items that depend on having a label
     bool have_labels = (!signalManager().fileInfo().labels().isEmpty());
     m_menu_manager->setItemEnabled("@LABELS", have_labels);
+
+    // enable/disable all items that depend on having something in the
+    // clipboard
+    bool have_clipboard_data = !ClipBoard::instance().isEmpty();
+    clipboardChanged(have_clipboard_data);
 }
 
 //***************************************************************************

@@ -231,7 +231,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 // 	qDebug("data chunk at 0x%08X (%u byte)", data_offset, data_size);
     }
 
-    if (data_size <= 4) {
+    if (!data_size) {
 	Kwave::MessageBox::sorry(widget,
 	    i18n("The opened file is no .WAV file or damaged:\n"
 	    "There is not enough valid sound data.\n\n"
@@ -409,12 +409,12 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     RIFFChunk *cue_chunk = parser.findChunk("/RIFF:WAVE/cue ");
     if (cue_chunk) {
 	// found a cue list chunk !
-	unsigned int length = cue_chunk->dataLength();
 	u_int32_t count;
 
 	src.seek(cue_chunk->dataStart());
 	src.read(reinterpret_cast<char *>(&count), 4);
 	count = LE32_TO_CPU(count);
+// 	unsigned int length = cue_chunk->dataLength();
 // 	qDebug("cue list found: %u entries, %u bytes (should be: %u)",
 // 	    count, length, count * (6 * 4) + 4);
 

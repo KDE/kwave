@@ -39,7 +39,7 @@ public:
     Encoder();
 
     /** Destructor */
-    virtual ~Encoder() {};
+    virtual ~Encoder() {}
 
     /** Returns a new instance of the encoder */
     virtual Encoder *instance() = 0;
@@ -60,7 +60,7 @@ public:
     virtual QList<FileProperty> supportedProperties() {
 	QList<FileProperty> empty;
 	return empty;
-    };
+    }
 
 };
 

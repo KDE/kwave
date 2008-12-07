@@ -28,7 +28,7 @@ class KwavePluginSetupDialog
 public:
 
     /** virtual destructor, really needed for proper shutdown */
-    virtual ~KwavePluginSetupDialog() {};
+    virtual ~KwavePluginSetupDialog() {}
 
     /**
      * Sets the parameters, from a string list representation

@@ -79,7 +79,7 @@ public:
     static interpolation_t find(const QString &name)
     {
 	return m_interpolation_map.findFromName(name);
-    };
+    }
 
     /**
      * Returns the name of an interpolation (non-localized).
@@ -99,12 +99,12 @@ public:
     /** Sets a new interpolation tpye */
     inline void setType (interpolation_t t) {
 	m_type = t;
-    };
+    }
 
     /** Returns the currently interpolation selected type */
     inline interpolation_t type() {
 	return m_type;
-    };
+    }
 
     /** Translates an index in an interpolation type */
     static inline interpolation_t findByIndex(int index) {

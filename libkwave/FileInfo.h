@@ -117,7 +117,7 @@ public:
     inline FileInfo & operator = (const FileInfo &source) {
 	copy(source);
 	return *this;
-    };
+    }
 
     /** Compare operator */
     inline bool operator == (const FileInfo &other) {
@@ -125,39 +125,39 @@ public:
     }
 
     /** returns the number of samples */
-    inline unsigned int length() const { return m_length; };
+    inline unsigned int length() const { return m_length; }
 
     /** Sets the length in samples */
-    inline void setLength(unsigned int length) { m_length = length; };
+    inline void setLength(unsigned int length) { m_length = length; }
 
     /** returns the sample rate [samples/second] */
-    inline double rate() const { return m_rate; };
+    inline double rate() const { return m_rate; }
 
     /** sets a new sample rate */
-    inline void setRate(double rate) { m_rate = rate; };
+    inline void setRate(double rate) { m_rate = rate; }
 
     /** returns the number of bits per sample */
-    inline unsigned int bits() const { return m_bits; };
+    inline unsigned int bits() const { return m_bits; }
 
     /** sets a new resolution in bits per sample */
-    inline void setBits(unsigned int bits) { m_bits = bits; };
+    inline void setBits(unsigned int bits) { m_bits = bits; }
 
     /** returns the number of tracks */
-    inline unsigned int tracks() const { return m_tracks; };
+    inline unsigned int tracks() const { return m_tracks; }
 
     /** Sets the number of tracks */
-    inline void setTracks(unsigned int tracks) { m_tracks = tracks; };
+    inline void setTracks(unsigned int tracks) { m_tracks = tracks; }
 
     /** Returs the list of labels. @note can be modified! */
-    inline LabelList &labels() { return m_labels; };
+    inline LabelList &labels() { return m_labels; }
 
     /** Returs the list of labels. @note cannot be modified! */
-    inline const LabelList &labels() const { return m_labels; };
+    inline const LabelList &labels() const { return m_labels; }
 
     /** Returns true if the given property exists */
     inline bool contains(const FileProperty property) const {
 	return m_properties.contains(property);
-    };
+    }
 
     /**
      * Sets a property to a new value. If the property does not already
@@ -192,19 +192,19 @@ public:
      */
     inline QString name(FileProperty key) {
 	return m_property_map.name(key);
-    };
+    }
 
     /**
      * Returns the localized description of a property.
      */
     inline QString description(FileProperty key) {
 	return m_property_map.description(key, false);
-    };
+    }
 
     /** Returns a reference to the list of non-standard properties */
     const QMap<FileProperty, QVariant> &properties() const {
 	return m_properties;
-    };
+    }
 
     /** Returns a list of all known non-standard properties */
     QList<FileProperty> allKnownProperties();

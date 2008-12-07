@@ -60,7 +60,7 @@ public:
     /**
      * Always returns true, as the nodes of this type are branches.
      */
-    virtual bool isBranch() const { return true; };
+    virtual bool isBranch() const { return true; }
 
     /**
      * Inserts a new branch node under the submenu. The new node
@@ -100,7 +100,7 @@ public:
     /** Returns the corresponding menu action */
     virtual QAction *action() {
 	return (m_menu) ? m_menu->menuAction() : 0;
-    };
+    }
 
     /**
      * Removes a child node of the curren node. If the child

@@ -43,7 +43,7 @@ class PlayBackDevice
 public:
 
     /** Destructor */
-    virtual ~PlayBackDevice() {};
+    virtual ~PlayBackDevice() {}
 
     /**
      * Opens the device for playback.
@@ -80,10 +80,10 @@ public:
     virtual QStringList supportedDevices() {
 	QStringList empty;
 	return empty;
-    };
+    }
 
     /** return a string suitable for a "File Open..." dialog */
-    virtual QString fileFilter() { return ""; };
+    virtual QString fileFilter() { return ""; }
 
     /**
      * returns a list of supported bits per sample resolutions
@@ -108,7 +108,7 @@ public:
     {
         (void)device;
         return min = max = 0;
-    };
+    }
 
 };
 

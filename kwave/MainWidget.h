@@ -98,7 +98,7 @@ public:
     /** Returns the width of the current view in samples */
     inline int displaySamples() {
 	return m_signal_widget.displaySamples();
-    };
+    }
 
     /** Returns the width of the current view in pixels */
     inline int displayWidth() {
@@ -129,22 +129,22 @@ public slots:
     /** calls setZoom() of the signal widget */
     inline void setZoom(double new_zoom) {
 	m_signal_widget.setZoom(new_zoom);
-    };
+    }
 
     /** calls zoomSelection() of the signal widget */
-    inline void zoomSelection() { m_signal_widget.zoomSelection(); };
+    inline void zoomSelection() { m_signal_widget.zoomSelection(); }
 
     /** calls zoomIn() of the signal widget */
-    inline void zoomIn()        { m_signal_widget.zoomIn(); };
+    inline void zoomIn()        { m_signal_widget.zoomIn(); }
 
     /** calls zoomOut() of the signal widget */
-    inline void zoomOut()       { m_signal_widget.zoomOut(); };
+    inline void zoomOut()       { m_signal_widget.zoomOut(); }
 
     /** calls zoomAll() of the signal widget */
-    inline void zoomAll()       { m_signal_widget.zoomAll(); };
+    inline void zoomAll()       { m_signal_widget.zoomAll(); }
 
     /** calls zoomNormal() of the signal widget */
-    inline void zoomNormal()    { m_signal_widget.zoomNormal(); };
+    inline void zoomNormal()    { m_signal_widget.zoomNormal(); }
 
 private slots:
 

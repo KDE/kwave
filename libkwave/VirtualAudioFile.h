@@ -64,13 +64,13 @@ public:
     virtual void close();
 
     /** Returns the handle for use in libaudiofile */
-    inline AFfilehandle &handle() { return m_file_handle; };
+    inline AFfilehandle &handle() { return m_file_handle; }
 
     /** Returns the virtual file for use in libaudiofile */
-    inline AFvirtualfile *file() { return m_virtual_file; };
+    inline AFvirtualfile *file() { return m_virtual_file; }
 
     /** Returns the las error from libaudiofile (-1 means "no error") */
-    inline long lastError() { return m_last_error; };
+    inline long lastError() { return m_last_error; }
 
     /** reads a block of data */
     virtual unsigned int read(char *data, unsigned int nbytes);

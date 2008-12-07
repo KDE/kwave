@@ -36,8 +36,8 @@ OverViewCache::OverViewCache(SignalManager &signal, unsigned int src_offset,
                              unsigned int src_length,
                              const QList<unsigned int> *src_tracks)
     :m_signal(signal), m_min(), m_max(), m_state(), m_count(0), m_scale(1),
-     m_lock(), m_src_offset(src_offset), m_src_length(src_length),
-     m_src_tracks(), m_src_deleted()
+     m_lock(QMutex::Recursive), m_src_offset(src_offset),
+     m_src_length(src_length), m_src_tracks(), m_src_deleted()
 {
     // connect to the signal manager
     SignalManager *sig = &signal;

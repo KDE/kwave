@@ -95,7 +95,7 @@ public:
     virtual bool insert(unsigned int track, SampleWriter *writer);
 
     /** returns true if the transfer has been canceled */
-    inline bool isCanceled() const { return m_canceled; };
+    inline bool isCanceled() const { return m_canceled; }
 
 signals:
 

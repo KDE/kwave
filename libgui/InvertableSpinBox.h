@@ -35,13 +35,15 @@ public:
     InvertableSpinBox(QWidget *parent);
 
     /** Destructor */
-    virtual ~InvertableSpinBox() {};
+    virtual ~InvertableSpinBox()
+    {
+    }
 
     /** enable/disable inverse mode */
     virtual void setInverse(bool inverse);
 
     /** returns the current inversion state */
-    virtual bool inverse() const { return m_inverse; };
+    virtual bool inverse() const { return m_inverse; }
 
 public slots:
 

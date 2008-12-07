@@ -111,7 +111,7 @@ public:
     virtual void setIcon(const QIcon &icon);
 
     /** Returns the corresponding menu action */
-    virtual QAction *action() { return &m_action; };
+    virtual QAction *action() { return &m_action; }
 
 private slots:
 

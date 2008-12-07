@@ -47,7 +47,9 @@ public:
                     const QString last_ext = 0);
 
     /** Destructor */
-    virtual ~KwaveFileDialog() {} ;
+    virtual ~KwaveFileDialog()
+    {
+    }
 
     /**
      * Returns the last used extension, including "*."

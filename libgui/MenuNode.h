@@ -64,18 +64,18 @@ public:
     virtual ~MenuNode();
 
     /** Returns the (non-localized) name of the node. */
-    inline const QString &name() const { return m_name; };
+    inline const QString &name() const { return m_name; }
 
     /** Returns the command of the node. */
-    inline const QString &command() const { return m_command; };
+    inline const QString &command() const { return m_command; }
 
     /** Returns the corresponding menu action */
-    virtual QAction *action() { return 0; };
+    virtual QAction *action() { return 0; }
 
     /**
      * Returns the unique id string of the node.
      */
-    inline const QString &uid() const { return m_uid; };
+    inline const QString &uid() const { return m_uid; }
 
     /**
      * Sets the unique id string of the node
@@ -85,14 +85,14 @@ public:
     /**
      * Returns the bitmask of the keyboard shortcut.
      */
-    inline int shortcut() const { return m_shortcut; };
+    inline int shortcut() const { return m_shortcut; }
 
     /**
      * Sets the bitmask of the keyboard shortcut.
      */
     virtual void setShortcut(const QKeySequence &shortcut) {
 	m_shortcut = shortcut;
-    };
+    }
 
     /**
      * Returns the menu nodes' icon.
@@ -109,7 +109,7 @@ public:
      * Returns true if the node is a branch, false if it is a leaf.
      * (overwritten in MenuSub etc.)
      */
-    virtual bool isBranch() const { return false; };
+    virtual bool isBranch() const { return false; }
 
     /**
      * Removes all child entries from the menu node (gui) and

@@ -41,13 +41,13 @@ namespace Kwave {
 	{
 	    QVector<SINK *>::fill(static_cast<SINK *>(0));
 	    Q_ASSERT(QVector<SINK *>::size() == static_cast<int>(tracks));
-	};
+	}
 
 	/** Destructor */
 	virtual ~MultiTrackSink()
 	{
 	    clear();
-	};
+	}
 
 	/** Returns true when all sinks are done */
 	virtual bool done() const
@@ -56,7 +56,7 @@ namespace Kwave {
 		     static_cast< QVector<SINK *> >(*this))
 		if (s && !s->done()) return false;
 	    return true;
-	};
+	}
 
 	/**
 	 * Returns the number of tracks that the sink provides
@@ -65,7 +65,7 @@ namespace Kwave {
 	virtual unsigned int tracks() const
 	{
 	    return QVector<SINK *>::size();
-	};
+	}
 
 	/**
 	 * Returns the sink that corresponds to one specific track
@@ -74,12 +74,12 @@ namespace Kwave {
 	 */
 	inline virtual SINK *at(unsigned int track) const {
 	    return QVector<SINK *>::at(track);
-	};
+	}
 
 	/** @see the Kwave::MultiTrackSink.at()... */
 	inline virtual SINK * operator [] (unsigned int track) {
 	    return at(track);
-	};
+	}
 
 	/**
 	 * Insert a new track with a sink.
@@ -91,7 +91,7 @@ namespace Kwave {
 	virtual bool insert(unsigned int track, SINK *sink) {
 	    QVector<SINK *>::insert(track, sink);
 	    return (at(track) == sink);
-	};
+	}
 
 	/** Remove all tracks / sinks */
 	virtual void clear() {
@@ -101,7 +101,7 @@ namespace Kwave {
 		QVector<SINK *>::remove(0);
 	    }
 	    QVector<SINK *>::clear();
-	};
+	}
     };
 }
 

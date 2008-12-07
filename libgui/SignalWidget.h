@@ -171,7 +171,7 @@ public:
     /** returns the current display offset */
     inline unsigned int offset() const {
 	return m_offset;
-    };
+    }
 
     /**
      * Converts a sample index into a pixel offset using the current zoom
@@ -224,7 +224,7 @@ public slots:
     /**
      * Returns the current number of pixels per sample
      */
-    inline qreal zoom() { return m_zoom; };
+    inline qreal zoom() { return m_zoom; }
 
     /** Returns the width of the current view in samples */
     int displaySamples();
@@ -383,40 +383,40 @@ private slots:
     /** Hide the current position marker */
     void hidePosition() {
 	showPosition(0, 0, 0, QPoint(-1,-1));
-    };
+    }
 
     /** context menu: "edit/undo" */
-    void contextMenuEditUndo()   { forwardCommand("undo()"); };
+    void contextMenuEditUndo()   { forwardCommand("undo()"); }
 
     /** context menu: "edit/redo" */
-    void contextMenuEditRedo()   { forwardCommand("redo()"); };
+    void contextMenuEditRedo()   { forwardCommand("redo()"); }
 
     /** context menu: "edit/cut" */
-    void contextMenuEditCut()    { forwardCommand("cut()"); };
+    void contextMenuEditCut()    { forwardCommand("cut()"); }
 
     /** context menu: "edit/copy" */
-    void contextMenuEditCopy()   { forwardCommand("copy()"); };
+    void contextMenuEditCopy()   { forwardCommand("copy()"); }
 
     /** context menu: "edit/paste" */
-    void contextMenuEditPaste()  { forwardCommand("paste()"); };
+    void contextMenuEditPaste()  { forwardCommand("paste()"); }
 
     /** context menu: "save selection" */
-    void contextMenuSaveSelection()  { forwardCommand("saveselect()"); };
+    void contextMenuSaveSelection()  { forwardCommand("saveselect()"); }
 
     /** context menu: "expand to labels" */
     void contextMenuSelectionExpandToLabels()  {
 	forwardCommand("expandtolabel()");
-    };
+    }
 
     /** context menu: "select next labels" */
     void contextMenuSelectionNextLabels()  {
 	forwardCommand("selectnextlabels()");
-    };
+    }
 
     /** context menu: "select previous labels" */
     void contextMenuSelectionPrevLabels()  {
 	forwardCommand("selectprevlabels()");
-    };
+    }
 
     /** context menu: "label / new" */
     void contextMenuLabelNew();
@@ -515,12 +515,12 @@ protected:
 	    :m_widget(widget), m_repaint(repaint)
 	{
 	    m_widget.inhibitRepaint();
-	};
+	}
 
 	/** Destructor, allows repaints */
 	~InhibitRepaintGuard() {
 	    m_widget.allowRepaint(m_repaint);
-	};
+	}
 
 	/** reference to our owner */
 	SignalWidget &m_widget;
@@ -681,12 +681,12 @@ private:
     /** Shortcut for accessing the label list @note can be modified */
     inline LabelList &labels() {
 	return m_signal_manager.fileInfo().labels();
-    };
+    }
 
     /** Shortcut for accessing the label list @note cannot be modified */
     inline const LabelList &labels() const {
 	return m_signal_manager.fileInfo().labels();
-    };
+    }
 
     /**
      * add a new label

@@ -50,18 +50,18 @@ public:
      * Returns the address of the allocated memory or 0 if
      * nothing has been allocated.
      */
-    inline void *address()   { return m_address; };
+    inline void *address()   { return m_address; }
 
     /**
      * Returns the size of the allocated memory or 0 if
      * nothing has been allocated.
      */
-    inline size_t size()     { return m_size; };
+    inline size_t size()     { return m_size; }
 
     /**
      * Returns the size of one storage unit in bytes
      */
-    inline size_t pagesize() { return m_pagesize; };
+    inline size_t pagesize() { return m_pagesize; }
 
     /**
      * Resizes the allocated swap file.

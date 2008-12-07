@@ -47,7 +47,9 @@ public:
     };
 
     /** Destructor */
-    virtual ~UndoAction() {};
+    virtual ~UndoAction()
+    {
+    }
 
     /**
      * Returns a verbose short description of the action.
@@ -93,7 +95,7 @@ public:
      * Returns the group in which the undo action has to be sorted in
      * @return the numeric id of the group
      */
-    virtual UndoGroupID group() const { return Default; };
+    virtual UndoGroupID group() const { return Default; }
 
 };
 

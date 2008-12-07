@@ -80,19 +80,19 @@ public:
      * Get the width of the pixmap
      * @return the width of the pixmap in pixels
      */
-    virtual int width() const { return m_pixmap.width(); };
+    virtual int width() const { return m_pixmap.width(); }
 
     /**
      * Get the height of the pixmap
      * @return the height of the pixmap in pixels
      */
-    virtual int height() const { return m_pixmap.height(); };
+    virtual int height() const { return m_pixmap.height(); }
 
     /**
      * Get the internal QPixmap object
      * @return reference to m_pixmap
      */
-    virtual const QPixmap &pixmap() const { return m_pixmap; } ;
+    virtual const QPixmap &pixmap() const { return m_pixmap; }
 
     /**
      * Repaints the current pixmap. After the repaint the signal is no
@@ -114,7 +114,7 @@ public:
     virtual bool isModified();
 
     /** Sets the internal "modified" flag */
-    virtual void setModified() { m_modified = true; };
+    virtual void setModified() { m_modified = true; }
 
 signals:
 

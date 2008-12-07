@@ -35,7 +35,7 @@ private:
 public:
 
     /** Destructor */
-    virtual ~GenreType() {};
+    virtual ~GenreType() {}
 
     /** get the localized name from the id */
     static QString name(int id);

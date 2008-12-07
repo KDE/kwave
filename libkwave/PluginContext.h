@@ -38,7 +38,7 @@ public:
          m_name(mod_name),
          m_version(mod_version),
          m_author(mod_author)
-    {};
+    {}
 
     PluginManager &m_plugin_manager;
 

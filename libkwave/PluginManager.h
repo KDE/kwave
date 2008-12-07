@@ -173,13 +173,13 @@ public:
     inline QPointer<QWidget> parentWidget()
     {
 	return m_parent_widget;
-    };
+    }
 
     /** returns a reference to our signal manager */
     inline SignalManager &signalManager()
     {
 	return m_signal_manager;
-    };
+    }
 
     /**
      * Enqueues a command that will be processed threadsafe in the X11

@@ -103,7 +103,7 @@ public:
      * Shortcut for flush(m_buffer, m_buffer_used)
      * @internal
      */
-    inline bool flush() { return flush(m_buffer, m_buffer_used); };
+    inline bool flush() { return flush(m_buffer, m_buffer_used); }
 
     /**
      * Returns true if the end of the writeable area has been reached if the
@@ -114,10 +114,10 @@ public:
     virtual bool eof() const;
 
     /** the same as eof(), needed for the Kwave::SampleSink interface */
-    virtual bool done() const { return eof(); };
+    virtual bool done() const { return eof(); }
 
     /** Returns the index of the first sample of the range. */
-    inline unsigned int first() const { return m_first; };
+    inline unsigned int first() const { return m_first; }
 
     /**
      * Returns the current index of the last sample in range or the
@@ -125,12 +125,12 @@ public:
      */
     inline unsigned int last() const {
 	return ((m_mode == Append) ? (m_last + m_buffer_used) : m_last);
-    };
+    }
 
     /**
      * Returns the current position
      */
-    inline unsigned int position() const { return m_position; };
+    inline unsigned int position() const { return m_position; }
 
 signals:
 

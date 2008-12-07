@@ -38,7 +38,7 @@ namespace Kwave {
 	 *
 	 * @param parent a parent object, passed to QObject (optional)
 	 */
-	StreamObject(QObject *parent=0);
+	StreamObject(QObject *parent = 0);
 
 	/** Destructor */
 	virtual ~StreamObject();
@@ -47,7 +47,7 @@ namespace Kwave {
 	 * Returns the number of tracks that the source provides
 	 * @return number of tracks, default is 1
 	 */
-	virtual unsigned int tracks() const { return 1; };
+	virtual unsigned int tracks() const { return 1; }
 
 	/**
 	 * Returns the source that corresponds to one specific track
@@ -57,8 +57,7 @@ namespace Kwave {
 	virtual Kwave::StreamObject * operator [] (unsigned int track)
 	{
 	    return (track == 0) ? this : 0;
-	};
-
+	}
 
 	/**
 	 * Returns the block size used for producing data.
@@ -66,7 +65,7 @@ namespace Kwave {
 	 */
 	virtual unsigned int blockSize() const {
 	    return 1024;
-	};
+	}
 
 	/**
 	 * Sets an attribute of a Kwave::StreamObject.

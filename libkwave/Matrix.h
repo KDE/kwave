@@ -89,7 +89,7 @@ public:
     /** Copy the value at (x1, y1) to (x2, y2). */
     void copy(int x1, int y1, int x2, int y2) {
 	set(x2, y2, at(x1, y1));
-    };
+    }
 
     /**
      * Apply a function to each cell of a rectangular area of the matrix.

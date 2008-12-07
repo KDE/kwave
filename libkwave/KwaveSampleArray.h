@@ -103,7 +103,7 @@ namespace Kwave {
 	 * The same as (size() == 0).
 	 * @return true if empty, false if not
 	 */
-	inline bool isEmpty() const { return (size() == 0); };
+	inline bool isEmpty() const { return (size() == 0); }
 
     private:
 

@@ -91,7 +91,7 @@ public:
      * with a version that returns true.
      * @see isPersistent
      */
-    virtual bool isUnique() { return false; };
+    virtual bool isUnique() { return false; }
 
     /**
      * Returns true if the plugin is "persistent". A persistent plugin will
@@ -103,7 +103,7 @@ public:
      * with a version that returns true.
      * @see isUnique
      */
-    virtual bool isPersistent() { return isUnique(); };
+    virtual bool isPersistent() { return isUnique(); }
 
     /**
      * Returns true if the plugin has a running thread.

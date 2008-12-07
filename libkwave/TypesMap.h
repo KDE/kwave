@@ -42,13 +42,13 @@ public:
     TypesMap()
 	:m_list()
     {
-    };
+    }
 
     /** Destructor */
     virtual ~TypesMap()
     {
 	m_list.clear();
-    };
+    }
 
     /**
      * This function is abstract and must be overwritten to
@@ -69,13 +69,13 @@ public:
     {
 	Triple<DATA, QString, QString> triple(data, name, description);
 	m_list.insert(index, triple);
-    };
+    }
 
     /** Returns the number of types. */
     inline unsigned int count() {
 	if (m_list.isEmpty()) fill();
 	return m_list.count();
-    };
+    }
 
     /**
      * Try to find the type from the data. If the data item is not found,
@@ -90,7 +90,7 @@ public:
 	    ++it;
 	}
 	return IDX(0);
-    };
+    }
 
     /**
      * Try to find the type from a name. If the name is not found,
@@ -105,7 +105,7 @@ public:
 	    ++it;
 	}
 	return IDX(0);
-    };
+    }
 
     /**
      * Try to find the type from an optionally localized description.
@@ -133,21 +133,21 @@ public:
 	    ++it;
 	}
 	return IDX(0);
-    };
+    }
 
     /** Returns the data item of a type. */
     const DATA &data(IDX type)
     {
 	if (m_list.isEmpty()) fill();
 	return m_list[type].first();
-    };
+    }
 
     /** Returns the name of a type. */
     const QString &name(IDX type)
     {
 	if (m_list.isEmpty()) fill();
 	return m_list[type].second();
-    };
+    }
 
     /**
      * Returns the description of a type.
@@ -159,7 +159,7 @@ public:
 	if (m_list.isEmpty()) fill();
 	QString s(m_list[type].third());
 	return (localized) ? i18n(s.toAscii()) : s;
-    };
+    }
 
     /**
      * Returns a string list with all names,
@@ -174,7 +174,7 @@ public:
 	    ++it;
 	}
 	return names;
-    };
+    }
 
     /**
      * Returns a list with all keys
@@ -190,7 +190,7 @@ public:
 	    ++it;
 	}
 	return keys;
-    };
+    }
 
 private:
     /** map with index and triples of data, name and description */

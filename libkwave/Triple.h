@@ -28,24 +28,24 @@ public:
 	:m_first(),
 	 m_second(),
 	 m_third()
-    {};
+    {}
 
     /** Constructor with initialization data */
     Triple(const T1 &first, const T2 &second, const T3 &third)
 	:m_first(first),
 	 m_second(second),
 	 m_third(third)
-    {};
+    {}
 
     /** Copy constructor */
     Triple(const Triple &copy)
 	:m_first(copy.first()),
 	 m_second(copy.second()),
 	 m_third(copy.third())
-    {};
+    {}
 
     /** Destructor */
-    virtual ~Triple() {};
+    virtual ~Triple() {}
 
     /** assignment operator */
     Triple<T1,T2,T3> &operator = (const Triple<T1,T2,T3> &t2) {
@@ -53,7 +53,7 @@ public:
 	m_second = t2.second();
 	m_third  = t2.third();
 	return *this;
-    };
+    }
 
     /** compare operator */
     inline bool operator==(const Triple<T1,T2,T3> &t2) {
@@ -62,16 +62,16 @@ public:
 	    ( m_second == t2.second() ) &&
 	    ( m_third  == t2.third()  )
 	);
-    };
+    }
 
     /** returns a reference to the firstelement */
-    inline const T1 &first() const { return m_first;  };
+    inline const T1 &first() const { return m_first;  }
 
     /** returns a reference to the second element */
-    inline const T2 &second() const { return m_second; };
+    inline const T2 &second() const { return m_second; }
 
     /** returns a reference to the third element */
-    inline const T3 &third()  const { return m_third;  };
+    inline const T3 &third()  const { return m_third;  }
 
 private:
     /** first element */

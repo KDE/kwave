@@ -68,7 +68,7 @@ public:
      */
     static window_function_t findFromIndex(unsigned int index) {
 	return m_types_map.findFromData(index);
-    };
+    }
 
     /**
      * Returns the window function id through it's name. If
@@ -77,7 +77,7 @@ public:
      */
     static window_function_t findFromName(const QString &name) {
 	return m_types_map.findFromName(name);
-    };
+    }
 
     /**
      * Returns the window function id through it's description. If
@@ -90,7 +90,7 @@ public:
     	bool localized)
     {
 	return m_types_map.findFromDescription(description, localized);
-    };
+    }
 
     /**
      * Returns the numeric index of a window function [0...count-1].
@@ -120,12 +120,12 @@ public:
 	bool localized)
     {
 	return m_types_map.description(type, localized);
-    };
+    }
 
     /** returns the number of available window functions */
     static unsigned int count() {
 	return m_types_map.count();
-    };
+    }
 
     /**
      * This map will be initialized with all known window functions.

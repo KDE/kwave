@@ -78,10 +78,10 @@ public:
     /** @see QList::isEmpty() */
     inline virtual bool isEmpty() const {
         return (Kwave::MultiTrackSource<SampleReader, false>::tracks() < 1);
-    };
+    }
 
     /** returns true if the transfer has been canceled */
-    inline bool isCanceled() const { return m_canceled; };
+    inline bool isCanceled() const { return m_canceled; }
 
     /** @see QList::insert() */
     virtual bool insert(unsigned int track, SampleReader *reader);

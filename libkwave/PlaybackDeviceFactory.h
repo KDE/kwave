@@ -28,7 +28,8 @@ class PlaybackDeviceFactory
 public:
     /** virtual destructor, just to satisfy gcc */
     virtual ~PlaybackDeviceFactory()
-    {};
+    {
+    }
 
     /**
      * Opens and initializes the playback device. If the initialization

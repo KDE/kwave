@@ -63,7 +63,7 @@ public:
     /** Checks if the last read operation has reached the end of input */
     inline bool eof() const {
 	return (pos() > m_last);
-    };
+    }
 
     /**
      * Returns true if the end of the source has been reached,
@@ -72,7 +72,7 @@ public:
      * @return true if it can produce more sample data, otherwise false
      * @see eof()
      */
-    virtual bool done() const { return eof(); };
+    virtual bool done() const { return eof(); }
 
     /**
      * Reads samples into a buffer.
@@ -95,17 +95,17 @@ public:
      */
     inline unsigned int pos() const {
 	return (m_src_position + m_buffer_position - m_buffer_used);
-    };
+    }
 
     /** Returns the position of the first sample */
     inline unsigned int first() const {
 	return m_first;
-    };
+    }
 
     /** Returns the position of the last sample */
     inline unsigned int last() const {
 	return m_last;
-    };
+    }
 
     /**
      * Reads one single sample.

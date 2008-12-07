@@ -101,7 +101,7 @@ public:
      *                   (default = true)
      * @return new length [samples]
      */
-    unsigned int resize(unsigned int length, bool initialize=true);
+    unsigned int resize(unsigned int length, bool initialize = true);
 
     /**
      * Appends an array of samples to the end of the stripe.

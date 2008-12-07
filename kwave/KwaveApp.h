@@ -88,7 +88,7 @@ public:
     /** Returns a reference to the list of recent files */
     QStringList recentFiles() {
 	return m_recent_files;
-    };
+    }
 
 signals:
     /**

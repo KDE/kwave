@@ -94,7 +94,7 @@ public:
                      bool make_gap = false);
 
     /** Returns the "selected" flag. */
-    inline bool selected() const { return m_selected; };
+    inline bool selected() const { return m_selected; }
 
     /** Sets the "selected" flag. */
     void select(bool select);

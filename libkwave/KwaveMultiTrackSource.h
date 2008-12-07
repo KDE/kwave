@@ -51,13 +51,13 @@ namespace Kwave {
         {
 	    Q_ASSERT(INITIALIZE || (tracks == 0));
 	    Q_ASSERT(QVector<SOURCE *>::size() == static_cast<int>(tracks));
-	};
+	}
 
 	/** Destructor */
 	virtual ~MultiTrackSource()
 	{
 	    clear();
-	};
+	}
 
 	/**
 	 * Calls goOn() for each track.
@@ -67,7 +67,7 @@ namespace Kwave {
 	{
 	    foreach (SOURCE *src, static_cast< QVector<SOURCE *> >(*this))
 		if (src) src->goOn();
-	};
+	}
 
 	/** Returns true when all sources are done */
 	virtual bool done() const
@@ -75,7 +75,7 @@ namespace Kwave {
 	    foreach (SOURCE *src, static_cast< QVector<SOURCE *> >(*this))
 		if (src && !src->done()) return false;
 	    return true;
-	};
+	}
 
 	/**
 	 * Returns the number of tracks that the source provides
@@ -84,7 +84,7 @@ namespace Kwave {
 	virtual unsigned int tracks() const
 	{
 	    return QVector<SOURCE *>::size();
-	};
+	}
 
 	/**
 	 * Returns the source that corresponds to one specific track
@@ -93,12 +93,12 @@ namespace Kwave {
 	 */
 	inline virtual SOURCE *at(unsigned int track) const {
 	    return QVector<SOURCE *>::at(track);
-	};
+	}
 
 	/** @see the Kwave::MultiTrackSource.at()... */
 	inline virtual SOURCE * operator [] (unsigned int track) {
 	    return at(track);
-	};
+	}
 
 	/**
 	 * Insert a new track with a source.
@@ -110,7 +110,7 @@ namespace Kwave {
 	inline virtual bool insert(unsigned int track, SOURCE *source) {
 	    QVector<SOURCE *>::insert(track, source);
 	    return (at(track) == source);
-	};
+	}
 
 	/** Remove all tracks / sources */
 	inline virtual void clear() {
@@ -120,7 +120,7 @@ namespace Kwave {
 		QVector<SOURCE *>::remove(0);
 	    }
 	    QVector<SOURCE *>::clear();
-	};
+	}
     };
 
     /**
@@ -144,10 +144,10 @@ namespace Kwave {
 	{
 	    for (unsigned int i=0; i < tracks; i++)
 		insert(i, new SOURCE());
-	};
+	}
 
 	/** Destructor */
-	virtual ~MultiTrackSource() { };
+	virtual ~MultiTrackSource() { }
     };
 
 }

@@ -61,7 +61,7 @@ public:
     virtual UndoAction *undo(SignalManager &manager, bool with_redo);
 
     /** @see UndoAction::group() */
-    virtual UndoGroupID group() const { return LabelCommands; };
+    virtual UndoGroupID group() const { return LabelCommands; }
 
 protected:
 

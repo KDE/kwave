@@ -88,13 +88,13 @@ public:
     void close();
 
     /** Returns true if the signal is closed */
-    inline bool isClosed() { return m_closed; };
+    inline bool isClosed() { return m_closed; }
 
     /** Returns true if the signal is empty. */
-    inline bool isEmpty() { return m_empty; };
+    inline bool isEmpty() { return m_empty; }
 
     /** Returns true if the signal is modified */
-    inline bool isModified() { return m_modified; };
+    inline bool isModified() { return m_modified; }
 
     /** Returns a reference to the playback controller. */
     PlaybackController &playbackController();
@@ -106,13 +106,13 @@ public:
      * Returns a reference to the FileInfo object associated with the
      * currently opened file.
      */
-    FileInfo &fileInfo() { return m_file_info; };
+    FileInfo &fileInfo() { return m_file_info; }
 
     /**
      * Returns a reference to the FileInfo object associated with the
      * currently opened file (same as above but 'const').
      */
-    const FileInfo &fileInfo() const { return m_file_info; };
+    const FileInfo &fileInfo() const { return m_file_info; }
 
     /**
      * Returns a reference to the current name of the signal. If no signal is
@@ -123,22 +123,22 @@ public:
     /**
      * Returns the current sample resolution in bits per sample
      */
-    inline unsigned int bits() const { return m_file_info.bits(); };
+    inline unsigned int bits() const { return m_file_info.bits(); }
 
     /** Returns the current sample rate in samples per second */
-    inline double rate() const { return m_file_info.rate(); };
+    inline double rate() const { return m_file_info.rate(); }
 
     /** Returns the current number of tracks */
-    inline unsigned int tracks() { return m_signal.tracks(); };
+    inline unsigned int tracks() { return m_signal.tracks(); }
 
     /**
      * Returns the number of samples in the current signal. Will be
      * zero if no signal is loaded.
      */
-    inline unsigned int length() { return m_signal.length(); };
+    inline unsigned int length() { return m_signal.length(); }
 
     /** Returns a reference to the current selection */
-    inline Selection &selection() { return m_selection; };
+    inline Selection &selection() { return m_selection; }
 
     /**
      * Returns true if a given track is selected. If the track does
@@ -146,8 +146,7 @@ public:
      */
     inline bool trackSelected(unsigned int track) {
 	return (m_signal.trackSelected(track));
-    };
-
+    }
 
     /**
      * Returns an array of indices of currently selected tracks.
@@ -258,20 +257,20 @@ public:
 	unsigned int left = 0, unsigned int right = UINT_MAX)
     {
 	return m_signal.openSampleReader(track, left, right);
-    };
+    }
 
     /** Returns true if undo/redo is currently enabled */
-    inline bool undoEnabled() { return m_undo_enabled; };
+    inline bool undoEnabled() { return m_undo_enabled; }
 
     /** Return true if undo is possible */
     inline bool canUndo() {
 	return !m_undo_buffer.isEmpty() && undoEnabled();
-    };
+    }
 
     /** Return true if redo is possible */
     inline bool canRedo() {
 	return !m_redo_buffer.isEmpty() && undoEnabled();
-    };
+    }
 
     /**
      * Enables undo and redo. If undo/redo is already enabled, nothing
@@ -518,7 +517,7 @@ protected:
                             unsigned int length)
     {
 	m_signal.deleteRange(track, offset, length);
-    };
+    }
 
 protected:
 
@@ -614,10 +613,10 @@ private:
     void enableModifiedChange(bool en);
 
     /** Shortcut for accessing the label list @note can be modified */
-    inline LabelList &labels() { return m_file_info.labels(); };
+    inline LabelList &labels() { return m_file_info.labels(); }
 
     /** Shortcut for accessing the label list @note cannot be modified */
-    inline const LabelList &labels() const { return m_file_info.labels(); };
+    inline const LabelList &labels() const { return m_file_info.labels(); }
 
 private:
 

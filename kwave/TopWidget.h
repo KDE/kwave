@@ -83,7 +83,7 @@ public:
     /**
      * Returns the reference to the Kwave application
      */
-    inline KwaveApp &getKwaveApp() { return m_app; };
+    inline KwaveApp &getKwaveApp() { return m_app; }
 
     /**
      * Parses a text stream line by line and executes each line
@@ -190,34 +190,34 @@ private slots:
     void blinkPause();
 
     /** toolbar: "file/new" */
-    void toolbarFileNew()    { executeCommand("plugin(newsignal)"); };
+    void toolbarFileNew()    { executeCommand("plugin(newsignal)"); }
 
     /** toolbar: "file/open" */
-    void toolbarFileOpen()   { executeCommand("open () "); };
+    void toolbarFileOpen()   { executeCommand("open () "); }
 
     /** toolbar: "file/save" */
-    void toolbarFileSave()   { executeCommand("save () "); };
+    void toolbarFileSave()   { executeCommand("save () "); }
 
     /** toolbar: "edit/undo" */
-    void toolbarEditUndo()   { executeCommand("undo () "); };
+    void toolbarEditUndo()   { executeCommand("undo () "); }
 
     /** toolbar: "edit/redo" */
-    void toolbarEditRedo()   { executeCommand("redo () "); };
+    void toolbarEditRedo()   { executeCommand("redo () "); }
 
     /** toolbar: "edit/cut" */
-    void toolbarEditCut()    { executeCommand("cut () "); };
+    void toolbarEditCut()    { executeCommand("cut () "); }
 
     /** toolbar: "edit/copy" */
-    void toolbarEditCopy()   { executeCommand("copy () "); };
+    void toolbarEditCopy()   { executeCommand("copy () "); }
 
     /** toolbar: "edit/paste" */
-    void toolbarEditPaste()  { executeCommand("paste () "); };
+    void toolbarEditPaste()  { executeCommand("paste () "); }
 
     /** toolbar: "edit/erase" */
-    void toolbarEditErase()  { executeCommand("plugin(zero)"); };
+    void toolbarEditErase()  { executeCommand("plugin(zero)"); }
 
     /** toolbar: "edit/delete" */
-    void toolbarEditDelete() { executeCommand("delete () "); };
+    void toolbarEditDelete() { executeCommand("delete () "); }
 
     /** called if the signal now or no longer is modified */
     void modifiedChanged(bool);

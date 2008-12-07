@@ -36,7 +36,9 @@ public:
     MouseMark();
 
     /** Destructor */
-    virtual ~MouseMark() { };
+    virtual ~MouseMark()
+    {
+    }
 
     /**
      * Sets the selection to a new range.
@@ -75,7 +77,7 @@ public:
      */
     inline unsigned int length() {
 	return right() - left() + 1;
-    };
+    }
 
 private:
     /** initial position of the mouse */

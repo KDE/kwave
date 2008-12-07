@@ -36,7 +36,9 @@ public:
     Selection(unsigned int offset, unsigned int length);
 
     /** Destructor */
-    virtual ~Selection() {};
+    virtual ~Selection()
+    {
+    }
 
     /**
      * Sets a new offset and length.
@@ -49,27 +51,27 @@ public:
 	m_offset = offset;
 	m_length = length;
 	emit changed(m_offset, m_length);
-    };
+    }
 
     /** Returns the index of the first selected item. */
     inline unsigned int offset() const {
 	return m_offset;
-    };
+    }
 
     /** Returns the number of selected items. */
     inline unsigned int length() const {
 	return m_length;
-    };
+    }
 
     /** Equal to offset(). */
     inline unsigned int first() const {
 	return offset();
-    };
+    }
 
     /** Returns the index of the last selected item. */
     inline unsigned int last() const {
 	return m_offset + (m_length ? (m_length-1) : 0);
-    };
+    }
 
 signals:
 

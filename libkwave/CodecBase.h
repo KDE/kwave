@@ -34,7 +34,7 @@ class KDE_EXPORT CodecBase
 public:
 
     /** simplified mime type: contains only name and list of patterns */
-    typedef struct  {
+    typedef struct {
 	QString name;
 	QString description;
 	QStringList patterns;

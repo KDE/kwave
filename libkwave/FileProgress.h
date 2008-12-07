@@ -53,13 +53,13 @@ public:
 	unsigned int tracks);
 
     /** Destructor */
-    virtual ~FileProgress() {};
+    virtual ~FileProgress() {}
 
     /**
      * Returns true if the dialog is unusable or the user
      * has pressed the "cancel" button.
      */
-    inline bool isCanceled() { return m_canceled; };
+    inline bool isCanceled() { return m_canceled; }
 
 signals:
 

@@ -42,7 +42,7 @@ public:
     /** Returns the command part of the line */
     inline QString command() {
 	return m_command;
-    };
+    }
 
     /** Returns the complete list of parameters */
     inline const QStringList &params() {
@@ -52,7 +52,7 @@ public:
     /** Returns true if the parameter list is not empty. */
     inline bool hasParams() {
 	return (m_param.count() != 0);
-    };
+    }
 
     /** Returns true if a list of commands was parsed */
     inline bool hasMultipleCommands() {
@@ -65,12 +65,12 @@ public:
     /** Returns true if the end of the parameter list has been reached. */
     inline bool isDone () {
 	return (static_cast<int>(m_current) >= m_param.count());
-    };
+    }
 
     /** Returns the number of parameters. */
     inline unsigned int count() {
 	return m_param.count();
-    };
+    }
 
     /**
      * Returns the first parameter and sets the current

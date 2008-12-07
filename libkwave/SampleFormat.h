@@ -38,30 +38,30 @@ public:
     } Format;
 
     /** Default constructor */
-    SampleFormat() { assign(Unknown); };
+    SampleFormat() { assign(Unknown); }
 
     /** Constructor, from SampleFormat::xxx */
-    SampleFormat(const Format x) { assign(x); };
+    SampleFormat(const Format x) { assign(x); }
 
     /** Copy constructor */
-    SampleFormat(const SampleFormat &f) { assign(f); };
+    SampleFormat(const SampleFormat &f) { assign(f); }
 
     /** Destructor */
-    virtual ~SampleFormat() {};
+    virtual ~SampleFormat() {}
 
     /** conversion operator to sample_format_t */
-    inline operator Format() const { return m_format; };
+    inline operator Format() const { return m_format; }
 
     /** assignment operator from sample_format_t */
-    inline void assign(Format f) { m_format = f; };
+    inline void assign(Format f) { m_format = f; }
 
     /** compare operator */
     inline bool operator == (const Format &f) const {
 	return (f == m_format);
-    };
+    }
 
     /** conversion to int */
-    inline int toInt() const { return static_cast<int>(m_format); };
+    inline int toInt() const { return static_cast<int>(m_format); }
 
     /** conversion from int */
     void fromInt(int i);

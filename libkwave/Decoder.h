@@ -71,7 +71,7 @@ public:
      * Returns the information of the file, only valid after
      * open() has successfully been called.
      */
-    virtual inline FileInfo &info() { return m_info;};
+    virtual inline FileInfo &info() { return m_info; }
 
 signals:
 

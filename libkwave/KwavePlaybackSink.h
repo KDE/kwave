@@ -44,11 +44,11 @@ namespace Kwave {
 
     signals:
 	/** emits back the sample data received through input(...) */
-	void output(unsigned int track, Kwave::SampleArray &data);
+	void output(unsigned int track, Kwave::SampleArray data);
 
     public slots:
 	/** receives sample data for this playback channel */
-	void input(Kwave::SampleArray &data);
+	void input(Kwave::SampleArray data);
 
     private:
 	/** index of the track of this playback channel */

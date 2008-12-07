@@ -128,7 +128,7 @@ signals:
      * Interface for the signal/slot based streaming API.
      * @param data sample data that has been read
      */
-    void output(Kwave::SampleArray &data);
+    void output(Kwave::SampleArray data);
 
 protected:
 

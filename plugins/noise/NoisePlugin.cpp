@@ -55,8 +55,8 @@ void NoisePlugin::run(QStringList)
         first, last);
 
     // connect them
-    if (!Kwave::connect(source, SIGNAL(output(Kwave::SampleArray &)),
-                        sink,   SLOT(input(Kwave::SampleArray &))))
+    if (!Kwave::connect(source, SIGNAL(output(Kwave::SampleArray)),
+                        sink,   SLOT(input(Kwave::SampleArray))))
     {
 	close();
 	return;

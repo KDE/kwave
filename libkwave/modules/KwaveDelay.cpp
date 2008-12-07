@@ -39,7 +39,7 @@ void Kwave::Delay::goOn()
 }
 
 //***************************************************************************
-void Kwave::Delay::input(Kwave::SampleArray &data)
+void Kwave::Delay::input(Kwave::SampleArray data)
 {
     m_fifo.put(data);
 }

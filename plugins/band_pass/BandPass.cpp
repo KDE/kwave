@@ -107,7 +107,7 @@ void BandPass::setfilter_2polebp(qreal freq, qreal R)
 }
 
 //***************************************************************************
-void BandPass::input(Kwave::SampleArray &data)
+void BandPass::input(Kwave::SampleArray data)
 {
     setfilter_2polebp(m_frequency, m_bandwidth);
 
@@ -132,7 +132,7 @@ void BandPass::input(Kwave::SampleArray &data)
 }
 
 //***************************************************************************
-void BandPass::setFrequency(const QVariant &fc)
+void BandPass::setFrequency(const QVariant fc)
 {
     qreal new_freq = QVariant(fc).toDouble();
     if (new_freq == m_frequency) return; // nothing to do
@@ -143,7 +143,7 @@ void BandPass::setFrequency(const QVariant &fc)
 }
 
 //***************************************************************************
-void BandPass::setBandwidth(const QVariant &bw)
+void BandPass::setBandwidth(const QVariant bw)
 {
     qreal new_bw = QVariant(bw).toDouble();
     if (new_bw == m_bandwidth) return; // nothing to do

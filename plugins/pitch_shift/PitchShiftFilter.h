@@ -49,24 +49,24 @@ public:
 signals:
 
     /** emits a block with the filtered data */
-    void output(Kwave::SampleArray &data);
+    void output(Kwave::SampleArray data);
 
 public slots:
 
     /** receives input data */
-    void input(Kwave::SampleArray &data);
+    void input(Kwave::SampleArray data);
 
     /**
      * Sets the speed factor
      * @param speed factor as a double
      */
-    void setSpeed(const QVariant &speed);
+    void setSpeed(const QVariant speed);
 
     /**
      * Sets the frequency parameter
      * @param freq the normed frequency
      */
-    void setFrequency(const QVariant &freq);
+    void setFrequency(const QVariant freq);
 
 private:
 

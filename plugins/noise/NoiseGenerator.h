@@ -41,7 +41,7 @@ public:
 signals:
 
     /** emits a block with noise */
-    void output(Kwave::SampleArray &data);
+    void output(Kwave::SampleArray data);
 
 private:
 

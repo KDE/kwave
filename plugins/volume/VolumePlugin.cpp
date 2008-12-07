@@ -121,14 +121,14 @@ void VolumePlugin::run(QStringList params)
 
     // connect them
     Kwave::connect(
-	source, SIGNAL(output(Kwave::SampleArray &)),
-	mul,    SLOT(input_a(Kwave::SampleArray &)));
+	source, SIGNAL(output(Kwave::SampleArray)),
+	mul,    SLOT(input_a(Kwave::SampleArray)));
 
-    mul.setAttribute(SLOT(set_b(const QVariant &)),
+    mul.setAttribute(SLOT(set_b(const QVariant)),
                      QVariant(m_factor));
     Kwave::connect(
-	mul,    SIGNAL(output(Kwave::SampleArray &)),
-	sink,   SLOT(input(Kwave::SampleArray &)));
+	mul,    SIGNAL(output(Kwave::SampleArray)),
+	sink,   SLOT(input(Kwave::SampleArray)));
 
     // transport the samples
     qDebug("VolumePlugin: filter started...");

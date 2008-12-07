@@ -96,7 +96,7 @@ void LowPassPlugin::updateFilter(Kwave::SampleSource *filter,
     if (!filter) return;
 
     if ((m_frequency != m_last_freq) || force)
-	filter->setAttribute(SLOT(setFrequency(const QVariant &)),
+	filter->setAttribute(SLOT(setFrequency(const QVariant)),
 	    QVariant((m_frequency * 2.0 * M_PI) / sr));
 
     m_last_freq  = m_frequency;

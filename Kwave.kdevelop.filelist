@@ -468,7 +468,7 @@ plugins/codec_wav/WavFormatMap.h
 plugins/codec_wav/WavPropertyMap.cpp
 plugins/codec_wav/WavPropertyMap.h
 plugins/common
-plugins/common/CMakeList.txt.template
+plugins/common/CMakeLists.txt.template
 plugins/decoder_mp3
 plugins/decoder_mp3/CMakeLists.txt
 plugins/decoder_mp3/ID3_QIODeviceReader.cpp

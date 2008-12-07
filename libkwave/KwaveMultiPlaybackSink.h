@@ -53,7 +53,7 @@ namespace Kwave {
 	 * @param track index of the track [0...tracks-1]
 	 * @param data sample data for the given track
 	 */
-	void input(unsigned int track, Kwave::SampleArray &data);
+	void input(unsigned int track, Kwave::SampleArray data);
 
     private:
 

@@ -47,7 +47,7 @@ namespace Kwave {
     signals:
 
 	/** emits a block with the interpolated curve */
-	void output(Kwave::SampleArray &data);
+	void output(Kwave::SampleArray data);
 
     private:
 

@@ -19,12 +19,14 @@
 
 #include <QFile>
 #include <QString>
+#include <QMetaType>
 
 #include <kcmdlineargs.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
 #include <ktoolinvocation.h>
 
+#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/MemoryManager.h"
 #include "libkwave/Parser.h"
 
@@ -38,6 +40,7 @@ KwaveApp::KwaveApp()
     m_recent_files(),
     m_topwidget_list()
 {
+    qRegisterMetaType<Kwave::SampleArray>("Kwave::SampleArray");
 }
 
 //***************************************************************************

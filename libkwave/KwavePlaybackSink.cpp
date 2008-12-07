@@ -33,7 +33,7 @@ Kwave::PlaybackSink::~PlaybackSink()
 }
 
 //***************************************************************************
-void Kwave::PlaybackSink::input(Kwave::SampleArray &data)
+void Kwave::PlaybackSink::input(Kwave::SampleArray data)
 {
     emit output(m_track, data);
 }

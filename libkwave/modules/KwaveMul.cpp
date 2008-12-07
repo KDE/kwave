@@ -90,7 +90,7 @@ void Kwave::Mul::goOn()
 }
 
 /***************************************************************************/
-void Kwave::Mul::input_a(Kwave::SampleArray &data)
+void Kwave::Mul::input_a(Kwave::SampleArray data)
 {
     m_buffer_a = data;
     m_count_a++;
@@ -98,7 +98,7 @@ void Kwave::Mul::input_a(Kwave::SampleArray &data)
 }
 
 /***************************************************************************/
-void Kwave::Mul::input_b(Kwave::SampleArray &data)
+void Kwave::Mul::input_b(Kwave::SampleArray data)
 {
     m_buffer_b = data;
     m_count_b++;

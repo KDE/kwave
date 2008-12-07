@@ -70,7 +70,7 @@ void PitchShiftFilter::initFilter()
 }
 
 //***************************************************************************
-void PitchShiftFilter::input(Kwave::SampleArray &data)
+void PitchShiftFilter::input(Kwave::SampleArray data)
 {
     Q_ASSERT(data.size() == m_buffer.size());
 
@@ -185,7 +185,7 @@ void PitchShiftFilter::input(Kwave::SampleArray &data)
 }
 
 //***************************************************************************
-void PitchShiftFilter::setSpeed(const QVariant &speed)
+void PitchShiftFilter::setSpeed(const QVariant speed)
 {
     double new_speed = QVariant(speed).toDouble();
     if (new_speed == m_speed) return; // nothing to do
@@ -195,7 +195,7 @@ void PitchShiftFilter::setSpeed(const QVariant &speed)
 }
 
 //***************************************************************************
-void PitchShiftFilter::setFrequency(const QVariant &freq)
+void PitchShiftFilter::setFrequency(const QVariant freq)
 {
     double new_freq = QVariant(freq).toDouble();
     if (new_freq == m_frequency) return; // nothing to do

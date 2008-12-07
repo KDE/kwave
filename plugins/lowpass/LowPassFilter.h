@@ -48,19 +48,19 @@ public:
 signals:
 
     /** emits a block with the filtered data */
-    void output(Kwave::SampleArray &data);
+    void output(Kwave::SampleArray data);
 
 public slots:
 
     /** receives input data */
-    void input(Kwave::SampleArray &data);
+    void input(Kwave::SampleArray data);
 
     /**
      * Sets the cutoff frequency, normed to [0...2Pi]. The calculation is:
      * fc = frequency [Hz] * 2 * Pi / f_sample [Hz].
      * The default setting is 0.5.
      */
-    void setFrequency(const QVariant &fc);
+    void setFrequency(const QVariant fc);
 
 private:
 

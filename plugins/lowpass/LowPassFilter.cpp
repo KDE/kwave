@@ -135,7 +135,7 @@ void LowPassFilter::normed_setfilter_shelvelowpass(double freq)
 }
 
 //***************************************************************************
-void LowPassFilter::input(Kwave::SampleArray &data)
+void LowPassFilter::input(Kwave::SampleArray data)
 {
     normed_setfilter_shelvelowpass(m_f_cutoff);
     Q_ASSERT(data.size() == m_buffer.size());
@@ -196,7 +196,7 @@ double LowPassFilter::at(double f)
 }
 
 //***************************************************************************
-void LowPassFilter::setFrequency(const QVariant &fc)
+void LowPassFilter::setFrequency(const QVariant fc)
 {
 
     double new_freq = QVariant(fc).toDouble();

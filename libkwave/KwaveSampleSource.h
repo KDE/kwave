@@ -23,9 +23,12 @@
 #include <QObject>
 
 #include <kdemacros.h>
+#include <threadweaver/Job.h>
+#include <threadweaver/ThreadWeaver.h>
 
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/modules/KwaveStreamObject.h"
+
 
 namespace Kwave {
     class KDE_EXPORT SampleSource: public Kwave::StreamObject
@@ -46,9 +49,17 @@ namespace Kwave {
 	/**
 	 * Each KwaveSampleSource has to derive this method for producing
 	 * sample data. It then should emit a signal like this:
-	 * "output(SampleArray &data)"
+	 * "output(SampleArray data)"
 	 */
 	virtual void goOn() = 0;
+
+	/**
+	 * enqueues the call to the goOn() function into a KDE
+	 * thread weaver.
+	 * @param weaver a thread weaver into which we enqueue
+	 * @return a job that processes the work
+	 */
+	virtual ThreadWeaver::Job *enqueue(ThreadWeaver::Weaver *weaver);
 
 	/**
 	 * Returns true if the end of the source has been reached,

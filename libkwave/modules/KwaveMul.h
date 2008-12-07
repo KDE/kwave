@@ -45,15 +45,15 @@ namespace Kwave {
 
 	signals:
 	    /** emits a block with the interpolated curve */
-	    void output(Kwave::SampleArray &data);
+	    void output(Kwave::SampleArray data);
 
 	public slots:
 
 	    /** receives input data for input A */
-	    void input_a(Kwave::SampleArray &data);
+	    void input_a(Kwave::SampleArray data);
 
 	    /** receives input data for input B */
-	    void input_b(Kwave::SampleArray &data);
+	    void input_b(Kwave::SampleArray data);
 
 	    /** sets input A to a constant value (as float) */
 	    void set_a(const QVariant &a);

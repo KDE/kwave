@@ -121,14 +121,14 @@ void AmplifyFreePlugin::run(QStringList params)
     // connect them
     bool ok = true;
     if (ok) ok = Kwave::connect(
-	source, SIGNAL(output(Kwave::SampleArray &)),
-	mul,    SLOT(input_a(Kwave::SampleArray &)));
+	source, SIGNAL(output(Kwave::SampleArray)),
+	mul,    SLOT(input_a(Kwave::SampleArray)));
     if (ok) ok = Kwave::connect(
-	curve,  SIGNAL(output(Kwave::SampleArray &)),
-	mul,    SLOT(input_b(Kwave::SampleArray &)));
+	curve,  SIGNAL(output(Kwave::SampleArray)),
+	mul,    SLOT(input_b(Kwave::SampleArray)));
     if (ok) ok = Kwave::connect(
-	mul,    SIGNAL(output(Kwave::SampleArray &)),
-	sink,   SLOT(input(Kwave::SampleArray &)));
+	mul,    SIGNAL(output(Kwave::SampleArray)),
+	sink,   SLOT(input(Kwave::SampleArray)));
     Q_ASSERT(ok);
     if (!ok) {
 	close();

@@ -44,14 +44,14 @@ void Kwave::StreamObject::setAttribute(const QString &attribute,
 	if (!obj) continue;
 
 	// temporary establish a signal->slot connection
-	QObject::connect(this, SIGNAL(attributeChanged(const QVariant &)),
+	QObject::connect(this, SIGNAL(attributeChanged(const QVariant)),
                          obj, attribute.toAscii());
 
 	// emit the new value through our own signal
 	emit attributeChanged(value);
 
 	// remove the temporary signal->slot connection
-	QObject::disconnect(this, SIGNAL(attributeChanged(const QVariant &)),
+	QObject::disconnect(this, SIGNAL(attributeChanged(const QVariant)),
                             obj, attribute.toAscii());
     }
 }

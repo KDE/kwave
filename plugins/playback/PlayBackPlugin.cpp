@@ -718,12 +718,12 @@ void PlayBackPlugin::testPlayBack()
     for (unsigned int i=0; i < tracks; i++) {
 	Q_ASSERT(delay[i]);
 	if (!delay[i]) break;
-	delay[i]->setAttribute(SLOT(setDelay(const QVariant &)),
+	delay[i]->setAttribute(SLOT(setDelay(const QVariant)),
 	    QVariant(i * t_sweep * rate));
     }
 
     Kwave::Osc osc;
-    osc.setAttribute(SLOT(setFrequency(const QVariant &)),
+    osc.setAttribute(SLOT(setFrequency(const QVariant)),
                      QVariant(rate / freq));
 
     Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks);
@@ -739,17 +739,17 @@ void PlayBackPlugin::testPlayBack()
     //            osc --'
 
     Kwave::connect(
-	curve_adapter, SIGNAL(output(Kwave::SampleArray &)),
-	delay,         SLOT(input(Kwave::SampleArray &)));
+	curve_adapter, SIGNAL(output(Kwave::SampleArray)),
+	delay,         SLOT(input(Kwave::SampleArray)));
     Kwave::connect(
-	delay,         SIGNAL(output(Kwave::SampleArray &)),
-	mul,           SLOT(input_a(Kwave::SampleArray &)));
+	delay,         SIGNAL(output(Kwave::SampleArray)),
+	mul,           SLOT(input_a(Kwave::SampleArray)));
     Kwave::connect(
-	osc,           SIGNAL(output(Kwave::SampleArray &)),
-	mul,           SLOT(input_b(Kwave::SampleArray &)));
+	osc,           SIGNAL(output(Kwave::SampleArray)),
+	mul,           SLOT(input_b(Kwave::SampleArray)));
     Kwave::connect(
-	mul,           SIGNAL(output(Kwave::SampleArray &)),
-	*sink,         SLOT(input(Kwave::SampleArray &)));
+	mul,           SIGNAL(output(Kwave::SampleArray)),
+	*sink,         SLOT(input(Kwave::SampleArray)));
 
     // show a progress dialog
     QProgressDialog *progress = 0;

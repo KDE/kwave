@@ -145,10 +145,10 @@ void Kwave::FilterPlugin::run(QStringList params)
     updateFilter(filter, true);
 
     // connect them
-    Kwave::connect(source,  SIGNAL(output(Kwave::SampleArray &)),
-                   *filter, SLOT(input(Kwave::SampleArray &)));
-    Kwave::connect(*filter, SIGNAL(output(Kwave::SampleArray &)),
-                   *m_sink, SLOT(input(Kwave::SampleArray &)));
+    Kwave::connect(source,  SIGNAL(output(Kwave::SampleArray)),
+                   *filter, SLOT(input(Kwave::SampleArray)));
+    Kwave::connect(*filter, SIGNAL(output(Kwave::SampleArray)),
+                   *m_sink, SLOT(input(Kwave::SampleArray)));
 
     // transport the samples
     while (!m_stop && (!source.done() || m_listen)) {

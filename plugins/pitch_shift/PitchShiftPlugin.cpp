@@ -106,11 +106,11 @@ void PitchShiftPlugin::updateFilter(Kwave::SampleSource *filter,
     if (!filter) return;
 
     if ((m_frequency != m_last_freq) || force)
-	filter->setAttribute(SLOT(setFrequency(const QVariant &)),
+	filter->setAttribute(SLOT(setFrequency(const QVariant)),
 	    QVariant((m_frequency * 2.0 * M_PI) / sr));
 
     if ((m_speed != m_last_speed) || force)
-	filter->setAttribute(SLOT(setSpeed(const QVariant &)),
+	filter->setAttribute(SLOT(setSpeed(const QVariant)),
 	    QVariant(m_speed));
 
     m_last_freq  = m_frequency;

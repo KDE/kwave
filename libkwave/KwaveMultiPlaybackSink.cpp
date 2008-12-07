@@ -43,8 +43,8 @@ Kwave::MultiPlaybackSink::MultiPlaybackSink(unsigned int tracks,
 	// allocate a sink
 	Kwave::PlaybackSink *sink = new Kwave::PlaybackSink(track);
 	insert(track, sink);
-	connect(sink, SIGNAL(output(unsigned int, Kwave::SampleArray &)),
-	        this, SLOT(input(unsigned int, Kwave::SampleArray &)));
+	connect(sink, SIGNAL(output(unsigned int, Kwave::SampleArray)),
+	        this, SLOT(input(unsigned int, Kwave::SampleArray)));
     }
 }
 
@@ -72,7 +72,7 @@ Kwave::MultiPlaybackSink::~MultiPlaybackSink()
 
 //***************************************************************************
 void Kwave::MultiPlaybackSink::input(unsigned int track,
-                                     Kwave::SampleArray &data)
+                                     Kwave::SampleArray data)
 {
     Q_ASSERT(m_device);
     Q_ASSERT(m_tracks);

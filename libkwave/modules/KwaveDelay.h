@@ -46,12 +46,12 @@ namespace Kwave {
 
 	signals:
 	    /** emits a block with delayed wave data */
-	    void output(Kwave::SampleArray &data);
+	    void output(Kwave::SampleArray data);
 
 	public slots:
 
 	    /** receives input data */
-	    void input(Kwave::SampleArray &data);
+	    void input(Kwave::SampleArray data);
 
 	    /**
 	     * Sets the delay time, normed to samples.

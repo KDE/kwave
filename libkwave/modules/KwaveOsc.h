@@ -44,7 +44,7 @@ namespace Kwave {
 
 	signals:
 	    /** emits a block with sine wave data */
-	    void output(Kwave::SampleArray &data);
+	    void output(Kwave::SampleArray data);
 
 	public slots:
 	    /**

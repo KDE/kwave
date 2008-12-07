@@ -117,7 +117,7 @@ void NotchFilter::setfilter_peaknotch2(double freq, double bw)
 }
 
 //***************************************************************************
-void NotchFilter::input(Kwave::SampleArray &data)
+void NotchFilter::input(Kwave::SampleArray data)
 {
     setfilter_peaknotch2(m_f_cutoff, m_f_bw);
 
@@ -142,7 +142,7 @@ void NotchFilter::input(Kwave::SampleArray &data)
 }
 
 //***************************************************************************
-void NotchFilter::setFrequency(const QVariant &fc)
+void NotchFilter::setFrequency(const QVariant fc)
 {
     double new_freq = QVariant(fc).toDouble();
     if (new_freq == m_f_cutoff) return; // nothing to do
@@ -153,7 +153,7 @@ void NotchFilter::setFrequency(const QVariant &fc)
 }
 
 //***************************************************************************
-void NotchFilter::setBandwidth(const QVariant &bw)
+void NotchFilter::setBandwidth(const QVariant bw)
 {
     double new_bw = QVariant(bw).toDouble();
     if (new_bw == m_f_bw) return; // nothing to do

@@ -16,6 +16,10 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <threadweaver/Job.h>
+#include <threadweaver/ThreadWeaver.h>
+
 #include "libkwave/KwaveSampleSource.h"
 
 //***************************************************************************
@@ -27,6 +31,60 @@ Kwave::SampleSource::SampleSource(QObject *parent)
 //***************************************************************************
 Kwave::SampleSource::~SampleSource()
 {
+}
+
+//***************************************************************************
+//***************************************************************************
+namespace Kwave {
+    class SourceJob: public ThreadWeaver::Job
+    {
+    public:
+	SourceJob(Kwave::SampleSource *source);
+	virtual ~SourceJob();
+	virtual void run();
+    private:
+	Kwave::SampleSource *m_source;
+    };
+}
+
+//***************************************************************************
+Kwave::SourceJob::SourceJob(Kwave::SampleSource *source)
+    :ThreadWeaver::Job(), m_source(source)
+{
+//     qDebug("job %p created", reinterpret_cast<void *>(this));
+}
+
+//***************************************************************************
+Kwave::SourceJob::~SourceJob()
+{
+//     qDebug("job %p destructor", reinterpret_cast<void *>(this));
+    Q_ASSERT(isFinished());
+}
+
+//***************************************************************************
+void Kwave::SourceJob::run()
+{
+//     qDebug("job %p started...", reinterpret_cast<void *>(this));
+    if (m_source) m_source->goOn();
+//     qDebug("job %p done.", reinterpret_cast<void *>(this));
+//     setFinished(true);
+}
+
+//***************************************************************************
+ThreadWeaver::Job *Kwave::SampleSource::enqueue(ThreadWeaver::Weaver *weaver)
+{
+    ThreadWeaver::Job *job = 0;
+
+    if (weaver) job = new Kwave::SourceJob(this);
+
+    if (job && weaver) {
+	weaver->enqueue(job);
+    } else {
+	// fallback -> synchronous/sequential execution
+	goOn();
+    }
+
+    return job;
 }
 
 //***************************************************************************

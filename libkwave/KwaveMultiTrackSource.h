@@ -22,6 +22,9 @@
 #include <QObject>
 #include <QVector>
 
+#include <threadweaver/Job.h>
+#include <threadweaver/ThreadWeaver.h>
+
 #include "libkwave/KwaveSampleSource.h"
 
 namespace Kwave {
@@ -65,8 +68,23 @@ namespace Kwave {
 	 */
 	virtual void goOn()
 	{
-	    foreach (SOURCE *src, static_cast< QVector<SOURCE *> >(*this))
-		if (src) src->goOn();
+	    ThreadWeaver::Weaver *weaver = 0; // ThreadWeaver::Weaver::instance();
+	    QList<ThreadWeaver::Job *> joblist;
+
+	    foreach (SOURCE *src, static_cast< QVector<SOURCE *> >(*this)) {
+		if (!src) continue;
+		ThreadWeaver::Job *job = src->enqueue(weaver);
+		if (job) joblist.append(job);
+	    }
+
+	    if (weaver) {
+		weaver->finish();
+		foreach (ThreadWeaver::Job *job, joblist) {
+		    weaver->dequeue(job);
+		}
+	    }
+	    qDeleteAll(joblist);
+	    joblist.clear();
 	}
 
 	/** Returns true when all sources are done */

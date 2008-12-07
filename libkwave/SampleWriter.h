@@ -149,7 +149,7 @@ public slots:
      * Interface for the signal/slot based streaming API.
      * @param data sample data to write
      */
-    void input(Kwave::SampleArray &data);
+    void input(Kwave::SampleArray data);
 
 private:
 

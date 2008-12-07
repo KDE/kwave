@@ -149,7 +149,7 @@ SampleWriter &flush(SampleWriter &s)
 }
 
 //***************************************************************************
-void SampleWriter::input(Kwave::SampleArray &data)
+void SampleWriter::input(Kwave::SampleArray data)
 {
     if (data.size()) (*this) << data;
 }

@@ -61,11 +61,11 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
 
     connect(cbMethod, SIGNAL(activated(int)),
             SLOT(methodSelected(int)));
-    connect(cbDevice, SIGNAL(textChanged(const QString &)),
+    connect(cbDevice, SIGNAL(editTextChanged(const QString &)),
             SLOT(setDevice(const QString &)));
     connect(cbDevice, SIGNAL(activated(const QString &)),
             SLOT(setDevice(const QString &)));
-    connect(cbBitsPerSample, SIGNAL(textChanged(const QString &)),
+    connect(cbBitsPerSample, SIGNAL(editTextChanged(const QString &)),
             SLOT(bitsPerSampleSelected(const QString &)));
     connect(cbBitsPerSample, SIGNAL(activated(const QString &)),
             SLOT(bitsPerSampleSelected(const QString &)));

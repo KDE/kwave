@@ -67,7 +67,7 @@ SaveBlocksWidget::SaveBlocksWidget(QWidget *parent,
             this, SLOT(indexChanged(int)));
 
     // combo box with numbering
-    connect(cbNumbering, SIGNAL(textChanged(const QString &)),
+    connect(cbNumbering, SIGNAL(editTextChanged(const QString &)),
             this, SLOT(textChanged(const QString &)));
     connect(cbNumbering, SIGNAL(highlighted(int)),
             this, SLOT(indexChanged(int)));

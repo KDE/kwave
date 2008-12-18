@@ -52,7 +52,7 @@ SaveBlocksDialog::SaveBlocksDialog(const QString &startDir,
     connect(this, SIGNAL(filterChanged(const QString &)),
             this, SLOT(textChanged(const QString &)));
     connect(locationEdit(), SIGNAL(textChanged(const QString &)),
-            this, SLOT(textChanged(const QString &)));
+            this, SLOT(editTextChanged(const QString &)));
 }
 
 //***************************************************************************

@@ -56,7 +56,7 @@ NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
             this, SLOT(rbTimeToggled(bool)));
 
     // connect the file format controls
-    connect(cbSampleRate, SIGNAL(textChanged(const QString&)),
+    connect(cbSampleRate, SIGNAL(editTextChanged(const QString&)),
             this, SLOT(sampleRateChanged(const QString&)));
     connect(sbTracks, SIGNAL(valueChanged(int)),
             this, SLOT(tracksChanged(int)));

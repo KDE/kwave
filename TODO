@@ -2,9 +2,6 @@
 o porting to Qt4 / KDE4
   - use svg graphics instead of pixmaps
 
-o newsignal plugin:
-  QObject::connect: Connecting from COMPAT signal (QComboBox::textChanged(QString))
-
 o find a way to use KDE::ThreadWeaver for signal processing
   but still use signals/slots
 

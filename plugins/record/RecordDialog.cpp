@@ -215,7 +215,7 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     connect(sbRecordTrigger, SIGNAL(valueChanged(int)),
             this, SLOT(triggerChanged(int)));
 
-    connect(cbFormatSampleRate, SIGNAL(textChanged(const QString &)),
+    connect(cbFormatSampleRate, SIGNAL(editTextChanged(const QString &)),
             this, SLOT(sampleRateChanged(const QString &)));
     connect(cbFormatSampleRate, SIGNAL(activated(const QString &)),
             this, SLOT(sampleRateChanged(const QString &)));

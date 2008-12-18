@@ -39,10 +39,21 @@ namespace Kwave {
     class SourceJob: public ThreadWeaver::Job
     {
     public:
+	/** Constructor */
 	SourceJob(Kwave::SampleSource *source);
+
+	/** Destructor */
 	virtual ~SourceJob();
+
+	/**
+	 * overloaded 'run' function that runns goOn in the context
+	 * of the worker thread.
+	 */
 	virtual void run();
+
     private:
+
+	/** reference to the Kwave::SampleSource */
 	Kwave::SampleSource *m_source;
     };
 }
@@ -51,23 +62,19 @@ namespace Kwave {
 Kwave::SourceJob::SourceJob(Kwave::SampleSource *source)
     :ThreadWeaver::Job(), m_source(source)
 {
-//     qDebug("job %p created", reinterpret_cast<void *>(this));
 }
 
 //***************************************************************************
 Kwave::SourceJob::~SourceJob()
 {
-//     qDebug("job %p destructor", reinterpret_cast<void *>(this));
-    Q_ASSERT(isFinished());
+//     Q_ASSERT(isFinished());
 }
 
 //***************************************************************************
 void Kwave::SourceJob::run()
 {
-//     qDebug("job %p started...", reinterpret_cast<void *>(this));
-    if (m_source) m_source->goOn();
-//     qDebug("job %p done.", reinterpret_cast<void *>(this));
-//     setFinished(true);
+    if (!m_source) return;
+    m_source->goOn();
 }
 
 //***************************************************************************

@@ -68,7 +68,7 @@ namespace Kwave {
 	 */
 	virtual void goOn()
 	{
-	    ThreadWeaver::Weaver *weaver = 0; // ThreadWeaver::Weaver::instance();
+	    ThreadWeaver::Weaver *weaver = 0;//ThreadWeaver::Weaver::instance();
 	    QList<ThreadWeaver::Job *> joblist;
 
 	    foreach (SOURCE *src, static_cast< QVector<SOURCE *> >(*this)) {
@@ -79,10 +79,9 @@ namespace Kwave {
 
 	    if (weaver) {
 		weaver->finish();
-		foreach (ThreadWeaver::Job *job, joblist) {
-		    weaver->dequeue(job);
-		}
+		Q_ASSERT(weaver->isEmpty());
 	    }
+
 	    qDeleteAll(joblist);
 	    joblist.clear();
 	}

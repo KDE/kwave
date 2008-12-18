@@ -24,8 +24,9 @@
 
 //***************************************************************************
 Kwave::StreamObject::StreamObject(QObject *parent)
-    :QObject(parent), m_lock_set_attribute(QMutex::Recursive)
+    :QObject(0 /*parent*/), m_lock_set_attribute(QMutex::Recursive)
 {
+    Q_UNUSED(parent);
 }
 
 //***************************************************************************
@@ -45,7 +46,8 @@ void Kwave::StreamObject::setAttribute(const QString &attribute,
 
 	// temporary establish a signal->slot connection
 	QObject::connect(this, SIGNAL(attributeChanged(const QVariant)),
-                         obj, attribute.toAscii());
+                         obj, attribute.toAscii(),
+                         Qt::DirectConnection);
 
 	// emit the new value through our own signal
 	emit attributeChanged(value);

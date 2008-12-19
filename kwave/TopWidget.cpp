@@ -28,7 +28,10 @@
 #include <QComboBox>
 #include <QDesktopWidget>
 #include <QFile>
+#include <QFrame>
+#include <QLabel>
 #include <QPixmap>
+#include <QSizePolicy>
 #include <QStringList>
 #include <QTextStream>
 
@@ -81,11 +84,6 @@
  */
 #define CASE_COMMAND(x) } else if (parser.command() == x) {
 
-
-#define STATUS_ID_SIZE     1 /**< index of status item for size [samples,ms]*/
-#define STATUS_ID_MODE     2 /**< index of status item for mode */
-#define STATUS_ID_SELECTED 3 /**< index of status item for selection */
-
 //***************************************************************************
 KToolBar *TopWidget::toolBar(const QString &name)
 {
@@ -104,7 +102,8 @@ TopWidget::TopWidget(KwaveApp &main_app)
      m_blink_on(false), m_action_undo(0), m_action_redo(0), m_action_play(0),
      m_action_loop(0), m_action_pause(0),m_action_stop(0),
      m_action_zoomselection(0), m_action_zoomin(0), m_action_zoomout(0),
-     m_action_zoomnormal(0), m_action_zoomall(0), m_action_zoomselect(0)
+     m_action_zoomnormal(0), m_action_zoomall(0), m_action_zoomselect(0),
+     m_lbl_status_size(0), m_lbl_status_mode(0), m_lbl_status_cursor(0)
 {
     KIconLoader icon_loader;
 
@@ -122,12 +121,36 @@ TopWidget::TopWidget(KwaveApp &main_app)
     connect(&ClipBoard::instance(), SIGNAL(clipboardChanged(bool)),
 	    this, SLOT(clipboardChanged(bool)));
 
+    // status bar items
     KStatusBar *status_bar = statusBar();
     Q_ASSERT(status_bar);
     if (!status_bar) return;
-    status_bar->insertItem("", STATUS_ID_SIZE);
-    status_bar->insertItem("", STATUS_ID_MODE);
-    status_bar->insertItem("", STATUS_ID_SELECTED);
+
+    QLabel *spacer = new QLabel(this);
+    const int frame_style = QFrame::StyledPanel | QFrame::Sunken;
+    status_bar->addWidget(spacer);
+    spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    spacer->setFrameStyle(frame_style);
+    QSizePolicy policy = spacer->sizePolicy();
+    policy.setHorizontalStretch(100);
+    spacer->setSizePolicy(policy);
+    policy.setHorizontalStretch(0);
+
+    m_lbl_status_cursor = new QLabel(this);
+    status_bar->addWidget(m_lbl_status_cursor);
+    m_lbl_status_cursor->setSizePolicy(policy);
+    m_lbl_status_cursor->setFrameStyle(frame_style);
+
+    m_lbl_status_mode = new QLabel(this);
+    status_bar->addWidget(m_lbl_status_mode);
+    m_lbl_status_mode->setSizePolicy(policy);
+    m_lbl_status_mode->setFrameStyle(frame_style);
+
+    m_lbl_status_size = new QLabel(this);
+    status_bar->addWidget(m_lbl_status_size);
+    m_lbl_status_size->setSizePolicy(policy);
+    m_lbl_status_size->setFrameStyle(frame_style);
+
     setStatusInfo(SAMPLE_MAX,99,196000,24); // affects the menu !
 
     // load the menu from file
@@ -1009,7 +1032,7 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
 	    " " + i18n("(%1 samples)", KwavePlugin::dottedNumber(length)) +
 	    " ";
     } else txt = "";
-    statusBar()->changeItem(txt, STATUS_ID_SIZE);
+    m_lbl_status_size->setText(txt);
 
     // sample rate and resolution
     if (bits) {
@@ -1017,7 +1040,7 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
 	khz = khz.sprintf("%0.3f", static_cast<double>(rate) * 1E-3);
 	txt = " "+i18n("Mode: %1 kHz@%2 bit", khz, bits)+" ";
     } else txt = "";
-    statusBar()->changeItem(txt, STATUS_ID_MODE);
+    m_lbl_status_mode->setText(txt);
 
 }
 
@@ -1057,7 +1080,9 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 	if (rate == 0) sample_mode = true; // force sample mode if rate==0
 	QString txt = " "+i18n("Selected")+": %1...%2 (%3) ";
 	if (sample_mode) {
-	    txt = txt.arg(offset).arg(last).arg(
+	    txt = txt.arg(
+	          KwavePlugin::dottedNumber(offset)).arg(
+	          KwavePlugin::dottedNumber(last)).arg(
 	          KwavePlugin::dottedNumber(length) + " " +
 	          i18n("samples"));
 	} else {
@@ -1069,9 +1094,24 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 		KwavePlugin::ms2string(ms));
 	}
 
+	m_lbl_status_cursor->setText("");
 	statusBar()->showMessage(txt, 4000);
 	m_menu_manager->setItemEnabled("@SELECTION", true);
     } else {
+	// show cursor position
+	// Position: 02:00
+	bool sample_mode = false;
+
+	if (rate == 0) sample_mode = true; // force sample mode if rate==0
+	if (sample_mode) {
+	    m_lbl_status_cursor->setText("");
+	} else {
+	    QString txt = i18n("Position")+": %1 ";
+	    double ms_first = static_cast<double>(offset) * 1E3 / rate;
+	    txt = txt.arg(KwavePlugin::ms2string(ms_first));
+	    m_lbl_status_cursor->setText(txt);
+	}
+
 	m_menu_manager->setItemEnabled("@SELECTION", false);
     }
 }

@@ -38,9 +38,15 @@ o hourglass and process indicators for longer processes
      window -> maybe this solves the problem with the deadlock when closing
      the file while a plugin is still running...
 
-o ruler that shows the current cursor position as time
-
 o display of the current position in playback mode
+
+o show labels in preview widget
+
+o show selection in preview widget
+
+o show cursor / playback position in preview widget
+
+o show current position in status bar
 
 o audible/silent mode of tracks (speakers)
   speaker controls for "audible" mode

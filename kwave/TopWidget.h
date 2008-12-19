@@ -30,6 +30,7 @@
 #include <kurl.h>
 
 class QCloseEvent;
+class QLabel;
 class QTextStream;
 class QTimer;
 
@@ -382,6 +383,15 @@ private:
 
     /** member id of the "zoom factor" combobox in the toolbar */
     QAction *m_action_zoomselect;
+
+    /** status bar label for length of the signal */
+    QLabel *m_lbl_status_size;
+
+    /** status bar label for mode information */
+    QLabel *m_lbl_status_mode;
+
+    /** status bar label for cursor / playback position */
+    QLabel *m_lbl_status_cursor;
 
 };
 

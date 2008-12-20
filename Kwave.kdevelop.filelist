@@ -102,7 +102,6 @@ kwave
 kwave.doxygen
 kwave.lsm
 kwave.spec.in
-kwave.supp
 kwave/CMakeLists.txt
 kwave/KwaveApp.cpp
 kwave/KwaveApp.h
@@ -468,7 +467,6 @@ plugins/codec_wav/WavFormatMap.h
 plugins/codec_wav/WavPropertyMap.cpp
 plugins/codec_wav/WavPropertyMap.h
 plugins/common
-plugins/common/CMakeLists.txt.template
 plugins/decoder_mp3
 plugins/decoder_mp3/CMakeLists.txt
 plugins/decoder_mp3/ID3_QIODeviceReader.cpp

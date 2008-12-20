@@ -10,6 +10,7 @@
  * re-enabled function "select all tracks"
  * implemented plugin for "go to position..."
  * added status bar item for current cursor position
+ * show current playback position in status bar
 
 0.8.0  [2008-09-27]
 

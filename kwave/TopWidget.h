@@ -157,6 +157,12 @@ private slots:
                              double rate);
 
     /**
+     * updates the playback position in the status bar
+     * @param offset the current playback position [samples]
+     */
+    void updatePlaybackPos(unsigned int offset);
+
+    /**
      * Sets the descriptions of the last undo and redo action. If the
      * name is zero or zero-length, the undo / redo is currently not
      * available.

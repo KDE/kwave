@@ -182,6 +182,9 @@ TopWidget::TopWidget(KwaveApp &main_app)
             this, SLOT(setTrackInfo(unsigned int)));
     connect(m_main_widget, SIGNAL(sigMouseChanged(int)),
             this, SLOT(mouseChanged(int)));
+    connect(&m_main_widget->playbackController(),
+            SIGNAL(sigPlaybackPos(unsigned int)),
+            this, SLOT(updatePlaybackPos(unsigned int)));
 
     // connect the sigCommand signal to ourself, this is needed
     // for the plugins
@@ -1078,7 +1081,7 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 
 	unsigned int last = offset + ((length) ? length-1 : 0);
 	if (rate == 0) sample_mode = true; // force sample mode if rate==0
-	QString txt = " "+i18n("Selected")+": %1...%2 (%3) ";
+	QString txt = " "+i18n("Selected")+": %1...%2 (%3)";
 	if (sample_mode) {
 	    txt = txt.arg(
 	          KwavePlugin::dottedNumber(offset)).arg(
@@ -1106,7 +1109,7 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 	if (sample_mode) {
 	    m_lbl_status_cursor->setText("");
 	} else {
-	    QString txt = i18n("Position")+": %1 ";
+	    QString txt = i18n("Position")+": %1";
 	    double ms_first = static_cast<double>(offset) * 1E3 / rate;
 	    txt = txt.arg(KwavePlugin::ms2string(ms_first));
 	    m_lbl_status_cursor->setText(txt);
@@ -1114,6 +1117,23 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 
 	m_menu_manager->setItemEnabled("@SELECTION", false);
     }
+}
+
+//***************************************************************************
+void TopWidget::updatePlaybackPos(unsigned int offset)
+{
+    if (!m_plugin_manager) return;
+
+    QString txt = i18n("Playback")+": %1";
+    double rate = m_plugin_manager->signalRate();
+    if (rate > 0) {
+	double ms = static_cast<double>(offset) * 1E3 / rate;
+	txt = txt.arg(KwavePlugin::ms2string(ms));
+    } else {
+	txt = txt.arg(KwavePlugin::dottedNumber(offset) + " " +
+	    i18n("samples"));
+    }
+    statusBar()->showMessage(txt, 2000);
 }
 
 //***************************************************************************

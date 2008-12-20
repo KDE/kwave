@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-06 18:10+0100\n"
+"POT-Creation-Date: 2008-12-20 15:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,175 +20,185 @@ msgstr ""
 msgid "This is %1 v%2 (compiled for KDE %3)"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:111
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:110
 msgid "loading main menu..."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:170
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:196
 msgid "initializing toolbar..."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:179
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:205
 msgid "create a new empty file"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:184
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:210
 msgid "open an existing file"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:189
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:215
 msgid "save the current file"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:200
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1088
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:226
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1148
 msgid "Undo"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:205
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1096
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:231
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1156
 msgid "Redo"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:210
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:236
 msgid "cut the current selection and move it to the clipboard"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:215
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:241
 msgid "copy the current selection to the clipboard"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:220
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:246
 msgid "insert the content of clipboard"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:228
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:254
 msgid "mute the current selection"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:233
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:259
 msgid "delete the current selection"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:252
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:278
 msgid "start playback"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:257
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:283
 msgid "start playback and loop"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:262
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:288
 msgid "pause playback"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:267
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:293
 msgid "stop playback or loop"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:290
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:316
 msgid "zoom to selection"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:295
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:321
 msgid "zoom in"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:300
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:326
 msgid "zoom out"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:305
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:331
 #, c-format
 msgid "zoom to 100%%"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:310
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:336
 msgid "zoom to all"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:317
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:343
 msgid "select zoom factor"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:366
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:392
 msgid "scanning plugins..."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:411
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:412
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:437
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:438
 msgid "Loading plugins..."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:414
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:440
 msgid "Ready."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:694
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:720
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:767
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:793
 msgid "Open"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:809
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:835
 msgid "Save As"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:832
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:858
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1008
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1034
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1130
 msgid "Length: %1"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1009
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1035
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1131
 msgid "(%1 samples)"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1018
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1044
 msgid "Mode: %1 kHz@%2 bit"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1058
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1084
 msgid "Selected"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1062
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1090
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1134
 msgid "samples"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1107
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1112
+msgid "Position"
+msgstr ""
+
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1127
+#: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:377
+msgid "Playback"
+msgstr ""
+
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1167
 msgid "U&ndo"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1113
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1173
 msgid "R&edo"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1310
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1370
 msgid " (modified)"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/KwaveApp.cpp:50
+#: /usr/src/packages/multimedia/sound/kwave/kwave/KwaveApp.cpp:53
 msgid "reading configuration..."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/KwaveApp.cpp:126
+#: /usr/src/packages/multimedia/sound/kwave/kwave/KwaveApp.cpp:129
 msgid "opening main window..."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/KwaveApp.cpp:157
+#: /usr/src/packages/multimedia/sound/kwave/kwave/KwaveApp.cpp:160
 msgid "loading file '%1'..."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/KwaveApp.cpp:162
+#: /usr/src/packages/multimedia/sound/kwave/kwave/KwaveApp.cpp:165
 msgid "startup done."
 msgstr ""
 
@@ -4530,10 +4540,6 @@ msgstr ""
 
 #: /var/tmp/kwave-build/plugins/volume/ui_VolumeDlg.h:247
 msgid "&Logarithmic"
-msgstr ""
-
-#: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:377
-msgid "Playback"
 msgstr ""
 
 #: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:378

@@ -124,6 +124,9 @@ MainWidget::MainWidget(QWidget *parent)
     Q_ASSERT(m_overview);
     if (!m_overview) return;
     topLayout->addWidget(m_overview, 1, 1);
+    connect(&m_signal_widget, SIGNAL(selectedTimeInfo(unsigned int,
+	unsigned int, double)),
+	m_overview, SLOT(setSelection(unsigned int, unsigned int, double)));
 
     // -- scrollbar for the signal widget and the channel controls --
 

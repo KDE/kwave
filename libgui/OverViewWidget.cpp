@@ -34,6 +34,7 @@
 //***************************************************************************
 OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     :ImageView(parent), m_view_offset(0), m_view_width(0), m_signal_length(0),
+     m_sample_rate(0), m_selection_start(0), m_selection_length(0),
      m_last_offset(0), m_cache(signal), m_repaint_timer()
 {
     // update the bitmap if the cache has changed
@@ -127,6 +128,16 @@ void OverViewWidget::setRange(unsigned int offset, unsigned int viewport,
 }
 
 //***************************************************************************
+void OverViewWidget::setSelection(unsigned int offset, unsigned int length,
+                                  double rate)
+{
+    m_selection_start  = offset;
+    m_selection_length = length;
+    m_sample_rate      = rate;
+    overviewChanged();
+}
+
+//***************************************************************************
 void OverViewWidget::resizeEvent(QResizeEvent *)
 {
     refreshBitmap();
@@ -164,6 +175,8 @@ void OverViewWidget::overviewChanged()
 //***************************************************************************
 void OverViewWidget::refreshBitmap()
 {
+    QPainter p;
+
     int width  = this->width();
     int height = this->height();
     if (!width || !height)
@@ -172,15 +185,67 @@ void OverViewWidget::refreshBitmap()
     // let the bitmap be updated from the cache
     QBitmap bitmap = m_cache.getOverView(width, height);
 
-    // convert the bitmap into a QImage
+    // draw the bitmap (converted to QImage)
     QImage image(width, height, QImage::Format_ARGB32_Premultiplied);
-    QPainter p;
     p.begin(&image);
     p.fillRect(rect(), BAR_BACKGROUND);
     QBrush brush(bitmap);
     brush.setColor(BAR_FOREGROUND);
     p.setBrush(brush);
     p.drawRect(0, 0, width, height);
+
+    // hilight the selection
+    if ((m_selection_length > 1) && m_signal_length) {
+	double scale = static_cast<double>(width) /
+	               static_cast<double>(m_signal_length);
+	unsigned int first = static_cast<unsigned int>(
+	    static_cast<double>(m_selection_start) * scale);
+	unsigned int len   = static_cast<unsigned int>(
+	    static_cast<double>(m_selection_length) * scale);
+	if (len < 1) len = 1;
+
+	// draw the selection as rectangle
+	QBrush hilight(Qt::yellow);
+	hilight.setStyle(Qt::SolidPattern);
+	p.setBrush(hilight);
+	p.setPen(QPen(Qt::yellow));
+	p.setCompositionMode(QPainter::CompositionMode_Exclusion);
+	p.drawRect(first, 0, len, height);
+
+	// draw begin and end markers
+	QPolygon mark_upper;
+	int w = height / 8;
+	w |= 1;
+
+	p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+	QColor color = Qt::blue;
+	color.setAlpha(100);
+	p.setBrush(QBrush(color));
+	p.setPen(QPen(Qt::black));
+
+	int x = first; // start of selection
+	const int y = height - 1;
+	mark_upper.setPoints(3, x - w, 0, x + w, 0, x, w);     // upper
+	p.drawPolygon(mark_upper);
+	mark_upper.setPoints(3, x - w, y, x + w, y, x, y - w); // lower
+	p.drawPolygon(mark_upper);
+
+	x = first + len; // end of selection
+	mark_upper.setPoints(3, x - w, 0, x + w, 0, x, w);     // upper
+	p.drawPolygon(mark_upper);
+	mark_upper.setPoints(3, x - w, y, x + w, y, x, y - w); // lower
+	p.drawPolygon(mark_upper);
+    }
+
+    // draw labels
+    // TODO...
+
+    // draw current cursor position
+    // TODO...
+
+    // draw playback position
+    // TODO...
+
     p.end();
 
     // update the widget with the overview

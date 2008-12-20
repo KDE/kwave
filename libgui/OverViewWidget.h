@@ -64,6 +64,14 @@ public slots:
     void setRange(unsigned int offset, unsigned int viewport,
                   unsigned int total);
 
+    /**
+     * called when the selected time has changed
+     * @param offset index of the first selected sample
+     * @param length number of selected samples
+     * @param rate sample rate [samples/second]
+     */
+    void setSelection(unsigned int offset, unsigned int length, double rate);
+
 protected:
 
     /** refreshes the bitmap when resized */
@@ -133,6 +141,15 @@ private:
 
     /** length of the whole area [samples] */
     unsigned int m_signal_length;
+
+    /** sample rate of the signal [samples/second] */
+    double m_sample_rate;
+
+    /** start of the selection [samples] */
+    unsigned int m_selection_start;
+
+    /** length of the selection [samples] */
+    unsigned int m_selection_length;
 
     /** last emitted offset (for avoiding duplicate events) */
     unsigned int m_last_offset;

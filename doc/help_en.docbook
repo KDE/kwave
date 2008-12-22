@@ -30,8 +30,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2008-12-06</date>
-<releaseinfo>0.8.0-2</releaseinfo>
+<date>2008-12-22</date>
+<releaseinfo>0.8.1</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
 

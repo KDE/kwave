@@ -116,7 +116,7 @@ void OggEncoder::encodeProperties(FileInfo &info, vorbis_comment *vc)
 	if (!tag) continue;
 
 	QByteArray value = info.get(property).toString().toUtf8();
-	vorbis_comment_add_tag(vc, reinterpret_cast<const char *>(tag),
+	vorbis_comment_add_tag(vc, const_cast<char *>(tag),
 	    value.data());
     }
 }

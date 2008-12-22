@@ -16,7 +16,7 @@ inherit kde4-base flag-o-matic
 
 DESCRIPTION="Kwave is a sound editor for KDE."
 HOMEPAGE="http://kwave.sourceforge.net/"
-SRC_URI="mirror://sourceforge/kwave/${P}-2.tar.bz2"
+SRC_URI="mirror://sourceforge/kwave/${P}-1.tar.bz2"
 
 SLOT="kde-4"
 LICENSE="GPL-2"

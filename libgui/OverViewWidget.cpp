@@ -28,8 +28,17 @@
 
 #include "OverViewWidget.h"
 
-/* interval for limiting the number of repaints per second [ms] */
+/**
+ * interval for limiting the number of repaints per second [ms]
+ * (in normal mode, no playback running)
+ */
 #define REPAINT_INTERVAL 500
+
+/**
+ * interval for limiting the number of repaints per second [ms]
+ * (when playback is running)
+ */
+#define REPAINT_INTERVAL_FAST 100
 
 #define BAR_BACKGROUND    palette().mid().color()
 #define BAR_FOREGROUND    palette().light().color()
@@ -38,7 +47,8 @@
 OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     :ImageView(parent), m_view_offset(0), m_view_width(0), m_signal_length(0),
      m_sample_rate(0), m_selection_start(0), m_selection_length(0),
-     m_last_offset(0), m_cache(signal), m_repaint_timer(), m_labels()
+     m_playback_position(0), m_last_offset(0), m_cache(signal),
+     m_repaint_timer(), m_labels()
 {
     // update the bitmap if the cache has changed
     connect(&m_cache, SIGNAL(changed()),
@@ -133,6 +143,8 @@ void OverViewWidget::setRange(unsigned int offset, unsigned int viewport,
     m_view_offset   = offset;
     m_view_width    = viewport;
     m_signal_length = total;
+
+    overviewChanged();
 }
 
 //***************************************************************************
@@ -192,10 +204,44 @@ void OverViewWidget::labelsChanged(const LabelList &labels)
 }
 
 //***************************************************************************
+void OverViewWidget::playbackPositionChanged(unsigned int pos)
+{
+    const unsigned int old_pos = m_playback_position;
+    const unsigned int new_pos = pos;
+
+    if (new_pos == old_pos) return; // no change
+    m_playback_position = new_pos;
+
+    // check for change in pixel units
+    const double scale = static_cast<double>(width()) /
+                         static_cast<double>(m_signal_length);
+    const unsigned int old_pixel_pos = static_cast<unsigned int>(
+	static_cast<double>(old_pos) * scale);
+    const unsigned int new_pixel_pos = static_cast<unsigned int>(
+	static_cast<double>(new_pos) * scale);
+    if (old_pixel_pos == new_pixel_pos) return;
+
+    // some update is required, start the repaint timer in quick mode
+    if (!m_repaint_timer.isActive() || (m_repaint_timer.isActive() &&
+	(m_repaint_timer.interval() != REPAINT_INTERVAL_FAST)))
+    {
+	m_repaint_timer.stop();
+	m_repaint_timer.setSingleShot(true);
+	m_repaint_timer.start(REPAINT_INTERVAL_FAST);
+    }
+}
+
+//***************************************************************************
+void OverViewWidget::playbackStopped()
+{
+    playbackPositionChanged(0);
+}
+
+//***************************************************************************
 void OverViewWidget::drawMark(QPainter &p, int x, int height, QColor color)
 {
     QPolygon mark;
-    const int w = (height / 5) | 1;
+    const int w = 5;
     const int y = (height - 1);
 
     p.setCompositionMode(QPainter::CompositionMode_SourceOver);
@@ -216,7 +262,7 @@ void OverViewWidget::refreshBitmap()
 
     int width  = this->width();
     int height = this->height();
-    if (!width || !height || !m_view_width)
+    if (!width || !height || !m_view_width || !m_signal_length)
 	return;
 
     // let the bitmap be updated from the cache
@@ -232,16 +278,13 @@ void OverViewWidget::refreshBitmap()
     p.drawRect(0, 0, width, height);
 
     const double scale = static_cast<double>(width) /
-	                 static_cast<double>(m_view_width);
+	                 static_cast<double>(m_signal_length);
 
     // hilight the selection
-    if ((m_selection_length > 1) &&
-         m_signal_length &&
-        (m_selection_start + m_selection_length >= m_view_offset) &&
-        (m_selection_start <= m_view_offset + m_view_width))
+    if ((m_selection_length > 1) && m_signal_length)
     {
 	unsigned int first = static_cast<unsigned int>(
-	    static_cast<double>(m_selection_start - m_view_offset) * scale);
+	    static_cast<double>(m_selection_start) * scale);
 	unsigned int len   = static_cast<unsigned int>(
 	    static_cast<double>(m_selection_length) * scale);
 	if (len < 1) len = 1;
@@ -262,11 +305,8 @@ void OverViewWidget::refreshBitmap()
     // draw labels
     foreach (const Label &label, m_labels) {
 	unsigned int pos = label.pos();
-	if (pos < m_view_offset) continue;
-	if (pos >= m_view_offset + m_view_width) continue;
-
 	unsigned int x = static_cast<unsigned int>(
-	    static_cast<double>(pos - m_view_offset) * scale);
+	    static_cast<double>(pos) * scale);
 
 	// draw a line for each label
 	p.setPen(QPen(Qt::cyan));
@@ -275,11 +315,44 @@ void OverViewWidget::refreshBitmap()
 	drawMark(p, x, height, Qt::cyan);
     }
 
-    // draw current cursor position
-    // TODO...
-
     // draw playback position
-    // TODO...
+    if (m_playback_position) {
+	const unsigned int pos = m_playback_position;
+	unsigned int x = static_cast<unsigned int>(
+	    static_cast<double>(pos) * scale);
+
+	// draw a line for the playback position
+	QPen pen(Qt::yellow);
+	pen.setWidth(5);
+	p.setPen(pen);
+	p.setCompositionMode(QPainter::CompositionMode_Exclusion);
+	p.drawLine(x, 0, x, height);
+	drawMark(p, x, height, Qt::cyan);
+    }
+
+    // dim the currently invisible parts
+    if ((m_view_offset > 0) || (m_view_offset + m_view_width < m_signal_length))
+    {
+	QColor color = BAR_BACKGROUND;
+	color.setAlpha(128);
+	QBrush out_of_view(color);
+	out_of_view.setStyle(Qt::SolidPattern);
+	p.setBrush(out_of_view);
+	p.setPen(QPen(color));
+	p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+
+	if (m_view_offset > 0) {
+	    unsigned int x = static_cast<unsigned int>(
+		static_cast<double>(m_view_offset) * scale);
+	    p.drawRect(0, 0, x, height);
+	}
+
+	if (m_view_offset + m_view_width < m_signal_length) {
+	    unsigned int x = static_cast<unsigned int>(
+		static_cast<double>(m_view_offset + m_view_width) * scale);
+	    p.drawRect(x, 0, width - x, height);
+	}
+    }
 
     p.end();
 

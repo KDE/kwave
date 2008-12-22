@@ -79,6 +79,12 @@ public slots:
     /** should be called when the list of labels has changed */
     void labelsChanged(const LabelList &labels);
 
+    /** should be called to update the current playback posiotion */
+    void playbackPositionChanged(unsigned int pos);
+
+    /** should be called when playback has been stopped */
+    void playbackStopped();
+
 protected:
 
     /** refreshes the bitmap when resized */
@@ -167,6 +173,9 @@ private:
 
     /** length of the selection [samples] */
     unsigned int m_selection_length;
+
+    /** last playback position */
+    unsigned int m_playback_position;
 
     /** last emitted offset (for avoiding duplicate events) */
     unsigned int m_last_offset;

@@ -16,6 +16,8 @@
  * bugfix: handle situation when adding or moving a label to a
    location that is already occupied by another label
  * show labels in overview widget
+ * show current playback position in overview widget
+ * overview widget: dimming parts that are out of view
 
 0.8.0  [2008-09-27]
 

@@ -128,6 +128,10 @@ MainWidget::MainWidget(QWidget *parent)
 	unsigned int, double)),
 	m_overview, SLOT(setSelection(unsigned int, unsigned int, double)));
     m_overview->labelsChanged(m_signal_widget.signalManager().labels());
+    connect(&(playbackController()), SIGNAL(sigPlaybackPos(unsigned int)),
+	m_overview, SLOT(playbackPositionChanged(unsigned int)));
+    connect(&(playbackController()), SIGNAL(sigPlaybackStopped()),
+	m_overview, SLOT(playbackStopped()));
 
     // -- scrollbar for the signal widget and the channel controls --
 

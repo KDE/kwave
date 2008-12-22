@@ -73,7 +73,7 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
     sbHours->setMaximum(t);
 
     // activate the current mode
-    setMode(m_mode);
+    setMode(mode);
     m_range = range;
 
     // set initial values
@@ -103,11 +103,11 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
     }
 
     // connect mode controls
-    QObject::connect(rbTime, SIGNAL(clicked(bool)),
+    QObject::connect(rbTime, SIGNAL(toggled(bool)),
                      this, SLOT(modeChanged(bool)));
-    QObject::connect(rbSamples,SIGNAL(clicked(bool)),
+    QObject::connect(rbSamples,SIGNAL(toggled(bool)),
                      this, SLOT(modeChanged(bool)));
-    QObject::connect(rbPercents,SIGNAL(clicked(bool)),
+    QObject::connect(rbPercents,SIGNAL(toggled(bool)),
                      this, SLOT(modeChanged(bool)));
 
     connect();
@@ -188,21 +188,25 @@ void SelectTimeWidget::disconnect()
 //***************************************************************************
 void SelectTimeWidget::setMode(Mode new_mode)
 {
-    // first disable all modes
-    rbTime->setChecked(false);
-    rbSamples->setChecked(false);
-    rbPercents->setChecked(false);
-
-    // then enable the selected one
+    // enable the selected mode
     switch (new_mode) {
 	case byTime:
 	    rbTime->setChecked(true);
+	    Q_ASSERT(rbTime->isChecked());
+	    Q_ASSERT(!rbSamples->isChecked());
+	    Q_ASSERT(!rbPercents->isChecked());
 	    break;
 	case bySamples:
 	    rbSamples->setChecked(true);
+	    Q_ASSERT(!rbTime->isChecked());
+	    Q_ASSERT(rbSamples->isChecked());
+	    Q_ASSERT(!rbPercents->isChecked());
 	    break;
 	case byPercents:
 	    rbPercents->setChecked(true);
+	    Q_ASSERT(!rbTime->isChecked());
+	    Q_ASSERT(!rbSamples->isChecked());
+	    Q_ASSERT(rbPercents->isChecked());
 	    break;
     }
     m_mode = new_mode;
@@ -213,14 +217,14 @@ void SelectTimeWidget::modeChanged(bool checked)
 {
     if (!checked) return; // ignore disabling of radio buttons
 
-    if (rbTime->isChecked() && (m_mode != byTime)) {
+    if (rbTime->isChecked()) {
 	m_mode = byTime;
 	rbSamples->setChecked(false);
 	rbPercents->setChecked(false);
 	timeChanged(0); // (sets m_range)
     }
 
-    if (rbSamples->isChecked() && (m_mode != bySamples)) {
+    if (rbSamples->isChecked()) {
 	m_mode = bySamples;
 	rbTime->setChecked(false);
 	rbPercents->setChecked(false);
@@ -236,7 +240,7 @@ void SelectTimeWidget::modeChanged(bool checked)
 
     }
 
-    if (rbPercents->isChecked() && (m_mode != byPercents)) {
+    if (rbPercents->isChecked()) {
 	m_mode = byPercents;
 	rbTime->setChecked(false);
 	rbSamples->setChecked(false);

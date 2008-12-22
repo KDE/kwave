@@ -195,11 +195,15 @@ void OverViewWidget::refreshBitmap()
     p.drawRect(0, 0, width, height);
 
     // hilight the selection
-    if ((m_selection_length > 1) && m_signal_length) {
+    if ((m_selection_length > 1) &&
+         m_signal_length &&
+        (m_selection_start + m_selection_length >= m_view_offset) &&
+        (m_selection_start <= m_view_offset + m_view_width))
+    {
 	double scale = static_cast<double>(width) /
-	               static_cast<double>(m_signal_length);
+	               static_cast<double>(m_view_width);
 	unsigned int first = static_cast<unsigned int>(
-	    static_cast<double>(m_selection_start) * scale);
+	    static_cast<double>(m_selection_start - m_view_offset) * scale);
 	unsigned int len   = static_cast<unsigned int>(
 	    static_cast<double>(m_selection_length) * scale);
 	if (len < 1) len = 1;

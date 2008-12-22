@@ -28,7 +28,7 @@
 
 //***************************************************************************
 UndoModifyLabelAction::UndoModifyLabelAction(SignalWidget &signal_widget,
-                                             Label &label)
+                                             const Label &label)
     :UndoAction(), m_signal_widget(signal_widget), m_label(),
      m_last_position(0)
 {
@@ -83,14 +83,14 @@ UndoAction *UndoModifyLabelAction::undo(SignalManager &manager,
 //     qDebug("undo: last pos=%u, current pos=%u",
 // 	   m_last_position, m_label->pos());
 
-    Label *label = manager.findLabel(m_last_position);
-    Q_ASSERT(label);
-    if (!label) return 0;
+    const Label label = manager.findLabel(m_last_position);
+    Q_ASSERT(!label.isNull());
+    if (label.isNull()) return 0;
 
     // store data for redo
     UndoModifyLabelAction *redo = 0;
     if (with_redo) {
-	redo = new UndoModifyLabelAction(m_signal_widget, *label);
+	redo = new UndoModifyLabelAction(m_signal_widget, label);
 	Q_ASSERT(redo);
 	if (redo) {
 	    redo->setLastPosition(m_label.pos());
@@ -99,8 +99,8 @@ UndoAction *UndoModifyLabelAction::undo(SignalManager &manager,
     }
 
     // modify the label
-    label->moveTo(m_label.pos());
-    label->rename(m_label.name());
+    int index = manager.labelIndex(label);
+    manager.modifyLabel(index, m_label.pos(), m_label.name());
 
     // redraw the markers layer
     m_signal_widget.refreshMarkersLayer();

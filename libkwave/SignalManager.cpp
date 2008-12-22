@@ -63,9 +63,6 @@
 #include "libkwave/undo/UndoSelection.h"
 #include "libkwave/undo/UndoTransaction.h"
 
-#define min(x,y) (((x)<(y)) ? (x) : (y))
-#define max(x,y) (((x)>(y)) ? (x) : (y))
-
 #define CASE_COMMAND(x) } else if (parser.command() == x) {
 
 //***************************************************************************
@@ -1410,16 +1407,16 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
 }
 
 //***************************************************************************
-Label *SignalManager::findLabel(unsigned int pos)
+Label SignalManager::findLabel(unsigned int pos)
 {
     QMutableListIterator<Label> it(labels());
     while (it.hasNext())
     {
 	Label &label = it.next();
-	if (label.pos() == pos) return &label; // found it
+	if (label.pos() == pos) return label; // found it
     }
 
-    return 0; // nothing found
+    return Label(); // nothing found
 }
 
 //***************************************************************************
@@ -1434,17 +1431,17 @@ int SignalManager::labelIndex(const Label &label) const
 }
 
 //***************************************************************************
-Label *SignalManager::labelAtIndex(int index)
+Label SignalManager::labelAtIndex(int index)
 {
-    if ((index < 0) || (index >= labels().size())) return 0;
-    return &(labels()[index]);
+    if ((index < 0) || (index >= labels().size())) return Label();
+    return labels().at(index);
 }
 
 //***************************************************************************
 bool SignalManager::addLabel(unsigned int pos)
 {
     // if there already is a label at the given position, do nothing
-    if (findLabel(pos)) return false;
+    if (!findLabel(pos).isNull()) return false;
 
     // create a new label
     Label label(pos, "");
@@ -1469,7 +1466,7 @@ bool SignalManager::addLabel(unsigned int pos)
 Label SignalManager::addLabel(unsigned int pos, const QString &name)
 {
     // if there already is a label at the given position, do nothing
-    if (findLabel(pos)) return Label();
+    if (!findLabel(pos).isNull()) return Label();
 
     // create a new label
     Label label(pos, name);
@@ -1500,6 +1497,30 @@ void SignalManager::deleteLabel(int index, bool with_undo)
 
     labels().removeAll(label);
     emit sigLabelCountChanged();
+}
+
+//***************************************************************************
+bool SignalManager::modifyLabel(int index, unsigned int pos,
+                                const QString &name)
+{
+    Q_ASSERT(index >= 0);
+    Q_ASSERT(index < static_cast<int>(labels().count()));
+    if ((index < 0) || (index >= static_cast<int>(labels().count())))
+	return false;
+
+    LabelList &list = labels();
+    Label &label = list[index];
+
+    // check: if the label should be moved and there already is a label
+    // at the new position -> fail
+    if ((pos != label.pos()) && !findLabel(pos).isNull())
+	return false;
+
+    label.moveTo(pos);
+    label.rename(name);
+    labels().sort();
+
+    return true;
 }
 
 //***************************************************************************

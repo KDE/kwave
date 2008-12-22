@@ -66,11 +66,11 @@ bool UndoAddLabelAction::store(SignalManager &)
 UndoAction *UndoAddLabelAction::undo(SignalManager &manager, bool with_redo)
 {
     UndoAction *redo = 0;
-    Label *label = manager.labelAtIndex(m_index);
+    Label label = manager.labelAtIndex(m_index);
 
     // store data for redo
-    if (with_redo && label) {
-	redo = new UndoDeleteLabelAction(*label);
+    if (with_redo && !label.isNull()) {
+	redo = new UndoDeleteLabelAction(label);
 	Q_ASSERT(redo);
 	if (redo) redo->store(manager);
     }

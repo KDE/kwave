@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-20 15:27+0100\n"
+"POT-Creation-Date: 2008-12-22 14:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -207,7 +207,7 @@ msgid "v%1"
 msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libgui/UndoModifyLabelAction.cpp:53
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1980
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1985
 msgid "modify label"
 msgstr ""
 
@@ -322,8 +322,20 @@ msgstr ""
 msgid "selection, right border"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2444
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2492
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1904
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoAddLabelAction.cpp:42
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1454
+msgid "add label"
+msgstr ""
+
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2025
+msgid ""
+"There already is a label at the position you have choosen.\n"
+"Do you want to replace it ?"
+msgstr ""
+
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2524
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2572
 msgid "drag and drop"
 msgstr ""
 
@@ -392,12 +404,12 @@ msgid "modify file information"
 msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteAction.cpp:53
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:805
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:802
 msgid "delete"
 msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoInsertTrack.cpp:39
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:692
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:689
 msgid "insert track"
 msgstr ""
 
@@ -406,17 +418,12 @@ msgid "modify samples"
 msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteLabelAction.cpp:42
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1496
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1493
 msgid "delete label"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoAddLabelAction.cpp:42
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1457
-msgid "add label"
-msgstr ""
-
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteTrack.cpp:45
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:722
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:719
 msgid "delete track"
 msgstr ""
 
@@ -1586,59 +1593,59 @@ msgstr ""
 msgid "All Supported Files"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:290
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:287
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:320
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:317
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1273
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:507
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:546
 msgid "%1"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:327
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:324
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
 "%1\n"
 "Do you still want to continue?"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:361
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:358
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:915
 msgid " for KDE "
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:427
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:424
 msgid "An error occurred while saving the file!"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:436
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:433
 msgid "The file has been truncated and might be corrupted!"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:443
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:440
 msgid "Sorry, the file type is not supported!"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:626
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:623
 msgid "crop"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:685
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:682
 msgid "append track"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1030
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1027
 msgid "Unable to save undo information. Do you want to continue without undo?"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1160
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1167
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1157
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1164
 msgid "last action"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1402
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1399
 msgid "modify file info"
 msgstr ""
 

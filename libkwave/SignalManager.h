@@ -314,25 +314,36 @@ public:
     void deleteLabel(int index, bool with_undo);
 
     /**
+     * modify an existing label at a given index
+     * (always without undo)
+     * @param index the index of the label [0...N-1]
+     * @param pos position of the label [samples]
+     * @param name the name of the label
+     * @return true if succeeded, false if the index is out of range or if
+     *         the new position is already occupied by an existing label
+     */
+    bool modifyLabel(int index, unsigned int pos, const QString &name);
+
+    /**
      * find a label by it's index
      * @param index the index of the label [0...N-1]
-     * @return pointer to a label or null if not found
+     * @return a valid label or a "null" label if not found
      */
-    Label *labelAtIndex(int index);
+    Label labelAtIndex(int index);
 
     /**
      * Returns the index of a label, counting from zero
      * @param label reference to a Label
-     * @return index [0...N-1] or -1 if label is a null pointer
+     * @return index [0...N-1] or -1 if label is a null pointer or not found
      */
     int labelIndex(const Label &label) const;
 
     /**
      * returns the label at a given exact position
      * @param pos position of the label [samples]
-     * @return pointer to the label at the position or null if not found
+     * @return valid label at the position or null label if not found
      */
-    Label *findLabel(unsigned int pos);
+    Label findLabel(unsigned int pos);
 
 signals:
 

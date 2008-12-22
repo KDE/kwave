@@ -74,18 +74,6 @@ public:
 	return ((pos() == other.pos()) && (name() == other.name()));
     }
 
-    /** equal operator, compares with pointer to Label */
-    inline bool operator == (const Label *other) const {
-	// both Null -> equal
-	if (isNull() && !other) return true;
-
-	// only one is null -> not equal
-	if (isNull() || !other) return false;
-
-	// otherwise -> compare...
-	return ((pos() == other->pos()) && (name() == other->name()));
-    }
-
 private:
 
     class LabelData: public QSharedData {

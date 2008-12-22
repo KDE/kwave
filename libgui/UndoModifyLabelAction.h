@@ -40,7 +40,7 @@ public:
      * @param signal_widget reference to the SignalWidget
      * @param label reference to the label that has been changed
      */
-    UndoModifyLabelAction(SignalWidget &signal_widget, Label &label);
+    UndoModifyLabelAction(SignalWidget &signal_widget, const Label &label);
 
     /** Destructor */
     virtual ~UndoModifyLabelAction();

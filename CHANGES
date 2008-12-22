@@ -12,6 +12,9 @@
  * added status bar item for current cursor position
  * show current playback position in status bar
  * show selection in preview widget
+ * bugfix: mode switch in time selection widget did not work properly
+ * bugfix: handle situation when adding or moving a label to a
+   location that is already occupied by another label
 
 0.8.0  [2008-09-27]
 

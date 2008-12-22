@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-20 15:25+0100\n"
-"PO-Revision-Date: 2008-12-20 15:27+0100\n"
+"POT-Creation-Date: 2008-12-22 14:26+0100\n"
+"PO-Revision-Date: 2008-12-22 14:27+0100\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -48,7 +48,7 @@ msgstr " MB"
 msgid " dB"
 msgstr " dB"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:361
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:358
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:915
 msgid " for KDE "
 msgstr " für KDE "
@@ -121,7 +121,7 @@ msgstr "#"
 msgid "%"
 msgstr "%"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:320
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:317
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1273
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:507
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:546
@@ -166,8 +166,7 @@ msgstr "%1 Bits/Sample werden nicht unterstützt"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:615
 msgid "%1 bits per sample failed, using %2 bits per sample"
-msgstr ""
-"%1 Bit pro Sample konnte nicht eingestellt werden, verwende %2 Bit pro Sample"
+msgstr "%1 Bit pro Sample konnte nicht eingestellt werden, verwende %2 Bit pro Sample"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:603
 msgid "%1 bits per sample is not supported, using %2 bits per sample"
@@ -1106,7 +1105,7 @@ msgstr ""
 "einstellen.</p>"
 
 #: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:448
-#, fuzzy, c-format
+#, fuzzy, no-c-format
 msgid ""
 "<b>Channels:</b><p>Number of channels used for playback. This does not "
 "necessarily have to be the same as the number of tracks in your current "
@@ -1665,7 +1664,7 @@ msgstr ""
 "Beim Öffnen der Datei ist ein Fehler aufgetreten:\n"
 "%1"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:427
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:424
 msgid "An error occurred while saving the file!"
 msgstr "Beim Speichern der Datei ist ein Fehler aufgetreten!"
 
@@ -1798,8 +1797,7 @@ msgid "Buffer Size:"
 msgstr "Buffer-Größe:"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:944
-msgid ""
-"Buffer overrun. Please increase the number and/or size of the record buffers."
+msgid "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
 "Buffer-Überlauf. Bitte erhöhen Sie die Anzahl der Buffer und/oder vergrößern "
 "Sie die Buffergröße."
@@ -1928,8 +1926,7 @@ msgstr "Copyright"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggDecoder.cpp:354
 msgid "Corrupt or missing data in bitstream; continuing..."
-msgstr ""
-"Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
+msgstr "Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggDecoder.cpp:172
 msgid "Corrupt secondary header. Exiting."
@@ -2522,8 +2519,7 @@ msgstr "Gibt an ob es sich beim Inhalt der Datei um ein Original handelt."
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:91
 msgid "Indicates whether the file is protected by copyright or not."
-msgstr ""
-"Gibt an ob der Inhalt der Datei urheberrechtlich geschützt ist oder nicht."
+msgstr "Gibt an ob der Inhalt der Datei urheberrechtlich geschützt ist oder nicht."
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:170
 msgid "Indicates whether the subject is private"
@@ -3090,8 +3086,7 @@ msgid "Playback Test"
 msgstr "Wiedergabe-Test"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:163
-msgid ""
-"Playback is currently running.Please stop playback first and then try again"
+msgid "Playback is currently running.Please stop playback first and then try again"
 msgstr ""
 "Die Wiedergabe läuft momentan. Bitte stoppen Sie zuerst die Wiedergabe und "
 "versuchen Sie es danach nochmal."
@@ -3395,7 +3390,7 @@ msgstr "Voreinstellung speichern"
 msgid "Save Sonagram"
 msgstr "Sonagramm speichern"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:327
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:324
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
 "%1\n"
@@ -3524,7 +3519,7 @@ msgstr ""
 msgid "Showtunes"
 msgstr "Showtunes"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:290
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:287
 msgid "Signal is empty, nothing to save !"
 msgstr "Signal ist leer, nichts zu speichern!"
 
@@ -3573,7 +3568,7 @@ msgstr ""
 "Sorry, die aktuell ausgewählte Kompressionsart kann nicht zum Speichern "
 "verwendet werden. Wollen Sie stattdessen mit G711 ULAW-Kompression speichern?"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:443
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:440
 msgid "Sorry, the file type is not supported!"
 msgstr "Sorry, dieser Datei-Typ wird nicht unterstützt!"
 
@@ -3797,8 +3792,7 @@ msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:858
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
-msgstr ""
-"Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
+msgstr "Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/decoder_mp3/MP3Decoder.cpp:145
 msgid ""
@@ -3824,10 +3818,9 @@ msgstr ""
 "Die Datei ist entweder strukturell beschädigt oder ist keine .wav-Datei.\n"
 "Soll Kwave versuchen sie zu reparieren?"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:436
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:433
 msgid "The file has been truncated and might be corrupted!"
-msgstr ""
-"Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
+msgstr "Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:123
 msgid "The list ob labels / markers."
@@ -3857,6 +3850,14 @@ msgstr ""
 msgid "The recording device seems to be busy!"
 msgstr "Das Aufnahmegerät scheint belegt zu sein!"
 
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2025
+msgid ""
+"There already is a label at the position you have choosen.\n"
+"Do you want to replace it ?"
+msgstr ""
+"An der von Ihnen gewählten Position befindet sich bereits eine Markierung.\n"
+"Wollen Sie diese ersetzen?"
+
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggDecoder.cpp:139
 msgid "This Ogg bitstream does not contain Vorbis audio data."
 msgstr "Der Ogg-Bitstrom enthält keine Vorbis Audio-Daten."
@@ -3874,8 +3875,7 @@ msgid "This is %1 v%2 (compiled for KDE %3)"
 msgstr "Dies ist %1 v%2 (für KDE %3)"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/saveblocks/SaveBlocksPlugin.cpp:215
-msgid ""
-"This would overwrite the following file(s): %1Do you really want to continue?"
+msgid "This would overwrite the following file(s): %1Do you really want to continue?"
 msgstr ""
 "Folgende Dateien würden überschrieben werden: %1 Wollen Sie wirklich "
 "fortsetzen?"
@@ -3962,7 +3962,7 @@ msgstr "Der FLAC-Encoder konnte nicht geöffnet werden!"
 msgid "Unable to open the file for saving!"
 msgstr "Datei konnte nicht zum Speichern geöffnet werden!"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1030
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1027
 msgid "Unable to save undo information. Do you want to continue without undo?"
 msgstr ""
 "Speichern der Wiederherstellungs-Information fehlgeschlagen. Möchten Sie "
@@ -4074,8 +4074,9 @@ msgstr "Zoom auf das gesamte Signal"
 msgid "about"
 msgstr "Über"
 
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1904
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoAddLabelAction.cpp:42
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1457
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1454
 msgid "add label"
 msgstr "Markierung hinzufügen"
 
@@ -4091,7 +4092,7 @@ msgstr "Frei Verstärken"
 msgid "amplifyfree"
 msgstr "Frei Verstärken"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:685
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:682
 msgid "append track"
 msgstr "Track anhängen"
 
@@ -4109,8 +4110,7 @@ msgstr "Schlüsselworte automatisch erzeugen"
 
 #: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:293
 msgid "automatically update the sonagram <br>if the signal data has changed"
-msgstr ""
-"aktualisiert das Sonagram automatisch<br>wenn das Signal verändert wurde"
+msgstr "aktualisiert das Sonagram automatisch<br>wenn das Signal verändert wurde"
 
 #: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:299
 msgid ""
@@ -4248,7 +4248,7 @@ msgstr "Auswahl in die Zwischenablage kopieren"
 msgid "create a new empty file"
 msgstr "neue leere Datei erzeugen"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:626
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:623
 msgid "crop"
 msgstr "Zuschneiden"
 
@@ -4280,12 +4280,12 @@ msgid "default device"
 msgstr "Standard-Gerät"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteAction.cpp:53
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:805
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:802
 msgid "delete"
 msgstr "Löschen"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteLabelAction.cpp:42
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1496
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1493
 msgid "delete label"
 msgstr "Markierung löschen"
 
@@ -4294,7 +4294,7 @@ msgid "delete the current selection"
 msgstr "Auswahl löschen"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteTrack.cpp:45
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:722
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:719
 msgid "delete track"
 msgstr "Track löschen"
 
@@ -4341,8 +4341,8 @@ msgstr "Anzeige"
 msgid "done"
 msgstr "Fertig"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2444
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2492
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2524
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2572
 msgid "drag and drop"
 msgstr "Drag & Drop"
 
@@ -4448,7 +4448,7 @@ msgid "insert the content of clipboard"
 msgstr "Inhalt der Zwischenablage einfügen"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoInsertTrack.cpp:39
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:692
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:689
 msgid "insert track"
 msgstr "Track einfügen"
 
@@ -4480,8 +4480,8 @@ msgstr "ungültiges Sample-Format"
 msgid "label #%1"
 msgstr "Markierung #%1"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1160
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1167
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1157
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1164
 msgid "last action"
 msgstr "letzte Aktion"
 
@@ -4550,7 +4550,7 @@ msgstr "Methode / System für die Aufnahme"
 msgid "minimum"
 msgstr "Minimum"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1402
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1399
 msgid "modify file info"
 msgstr "Datei-Information ändern"
 
@@ -4559,7 +4559,7 @@ msgid "modify file information"
 msgstr "Datei-Information ändern"
 
 #: /usr/src/packages/multimedia/sound/kwave/libgui/UndoModifyLabelAction.cpp:53
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1980
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1985
 msgid "modify label"
 msgstr "Markierung bearbeiten"
 
@@ -4848,8 +4848,7 @@ msgstr "Bereich auswählen"
 
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:540
 msgid "sets the file size by the percentage of the possible maximum"
-msgstr ""
-"Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
+msgstr "Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
 
 #: /var/tmp/kwave-build/libgui/ui_SelectTimeWidgetBase.h:323
 msgid "sets the selection by the percentage of the whole signal"
@@ -5066,3 +5065,4 @@ msgstr "auf gesamtes Signal vergrößern"
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:316
 msgid "zoom to selection"
 msgstr "auf Auswahl vergrößern"
+

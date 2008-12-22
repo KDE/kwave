@@ -97,7 +97,7 @@ unsigned int LabelPropertiesWidget::labelPosition()
 	case SelectTimeWidget::byTime:
 	    // convert milliseconds to samples
 	    pos_in_samples = static_cast<unsigned int>(
-		rint(pos / 1E3 * m_sample_rate));
+		rint((pos / 1E3) * m_sample_rate));
 	    break;
 	case SelectTimeWidget::byPercents:
 	    // convert from percents to samples

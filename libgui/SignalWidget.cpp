@@ -1209,9 +1209,9 @@ void SignalWidget::contextMenuLabelDelete()
     Q_ASSERT(m_selection);
     if (!m_selection) return;
 
-    Label *label = m_signal_manager.findLabel(m_selection->left());
-    if (!label) return;
-    int index = m_signal_manager.labelIndex(*label);
+    Label label = m_signal_manager.findLabel(m_selection->left());
+    if (label.isNull()) return;
+    int index = m_signal_manager.labelIndex(label);
     forwardCommand(QString("deletelabel(%1)").arg(index));
 }
 
@@ -1221,10 +1221,10 @@ void SignalWidget::contextMenuLabelProperties()
     Q_ASSERT(m_selection);
     if (!m_selection) return;
 
-    Label *label = m_signal_manager.findLabel(m_selection->left());
-    if (!label) return;
+    Label label = m_signal_manager.findLabel(m_selection->left());
+    if (label.isNull()) return;
 
-    labelProperties(*label);
+    labelProperties(label);
 }
 
 //***************************************************************************
@@ -1901,15 +1901,28 @@ Label SignalWidget::findLabelNearMouse(int x) const
 //***************************************************************************
 void SignalWidget::addLabel(unsigned int pos)
 {
-    if (m_signal_manager.addLabel(pos)) {
-	// edit the label's properties
-	Label *label = m_signal_manager.findLabel(pos);
-	if (!label) return;
-	labelProperties(*label);
+    UndoTransactionGuard undo(m_signal_manager, i18n("add label"));
 
-	refreshLayer(LAYER_MARKERS);
-	hidePosition();
+    // add a new label, with undo
+    if (!m_signal_manager.addLabel(pos)) {
+	m_signal_manager.abortUndoTransaction();
+	return;
     }
+
+    // find the new label
+    Label label = m_signal_manager.findLabel(pos);
+    if (label.isNull()) return;
+
+    // edit the properties of the new label
+    if (!labelProperties(label)) {
+	// aborted or failed -> delete (without undo)
+	int index = m_signal_manager.labelIndex(label);
+	m_signal_manager.deleteLabel(index, false);
+	m_signal_manager.abortUndoTransaction();
+    }
+
+    refreshMarkersLayer();
+    hidePosition();
 }
 
 ////****************************************************************************
@@ -1965,41 +1978,108 @@ void SignalWidget::addLabel(unsigned int pos)
 bool SignalWidget::labelProperties(Label &label)
 {
     if (label.isNull()) return false;
+    int index = m_signal_manager.labelIndex(label);
+    Q_ASSERT(index >= 0);
+    if (index < 0) return false;
 
-    LabelPropertiesWidget *dlg = new LabelPropertiesWidget(this);
-    Q_ASSERT(dlg);
-    if (!dlg) return false;
+    UndoTransactionGuard undo(m_signal_manager, i18n("modify label"));
 
-    dlg->setLabelIndex(m_signal_manager.labelIndex(label));
-    dlg->setLabelPosition(label.pos(), m_signal_manager.length(),
-	m_signal_manager.rate());
-    dlg->setLabelName(label.name());
+    // try to modify the label. just in case that the user moves it
+    // to a position where we already have one, catch this situation
+    // and ask if he wants to abort, re-enter the label properties
+    // dialog or just replace (remove) the label at the target position
+    bool accepted;
+    unsigned int new_pos  = label.pos();
+    QString      new_name = label.name();
+    int old_index = -1;
+    while (true) {
+	// create and prepare the dialog
+	LabelPropertiesWidget *dlg = new LabelPropertiesWidget(this);
+	Q_ASSERT(dlg);
+	if (!dlg) return false;
+	dlg->setLabelIndex(index);
+	dlg->setLabelPosition(new_pos, m_signal_manager.length(),
+	    m_signal_manager.rate());
+	dlg->setLabelName(new_name);
 
-    bool accepted = (dlg->exec() == QDialog::Accepted);
-    if (accepted) {
-	UndoTransactionGuard undo(m_signal_manager, i18n("modify label"));
-	UndoModifyLabelAction *undo_modify =
-	    new UndoModifyLabelAction(*this, label);
-	if (!m_signal_manager.registerUndoAction(undo_modify)) {
+	// execute the dialog
+	accepted = (dlg->exec() == QDialog::Accepted);
+	if (!accepted) {
+	    // user pressed "cancel"
 	    delete dlg;
-	    return false;
+	    break;
 	}
 
-	// move the label and change the name if possible
-	label.moveTo(dlg->labelPosition());
-	label.rename(dlg->labelName());
+	// if we get here the user pressed "OK"
+	new_pos  = dlg->labelPosition();
+	new_name = dlg->labelName();
 	dlg->saveSettings();
+	delete dlg;
+
+	// check: if there already is a label at the new position
+	// -> ask the user if he wants to overwrite that one
+	if ((new_pos != label.pos()) &&
+	    !m_signal_manager.findLabel(new_pos).isNull())
+	{
+	    int res = Kwave::MessageBox::warningYesNoCancel(this, i18n(
+		"There already is a label at the position "\
+		"you have choosen.\n"\
+		"Do you want to replace it ?"));
+	    if (res == KMessageBox::Yes) {
+		// delete the label at the target position (with undo)
+		Label old = m_signal_manager.findLabel(new_pos);
+		old_index = m_signal_manager.labelIndex(old);
+		break;
+	    }
+	    if (res == KMessageBox::No) {
+		// make another try -> re-enter the dialog
+		continue;
+	    }
+
+	    // cancel -> abort the whole action
+	    accepted = false;
+	    break;
+	} else {
+	    // ok, we can put it there
+	    break;
+	}
+    }
+
+    if (accepted) {
+	// if there is a label at the target position, remove it first
+	if (old_index >= 0) {
+	    m_signal_manager.deleteLabel(old_index, true);
+	    // this might have changed the current index!
+	    index = m_signal_manager.labelIndex(label);
+	}
+
+	UndoModifyLabelAction *undo_modify =
+	    new UndoModifyLabelAction(*this, label);
+	if (!m_signal_manager.registerUndoAction(undo_modify))
+	    return false;
 
 	// now store the label's current position,
 	// for finding it again later
-	undo_modify->setLastPosition(label.pos());
+	undo_modify->setLastPosition(new_pos);
+
+	// modify the label through the signal manager
+	if (!m_signal_manager.modifyLabel(index, new_pos, new_name)) {
+	    // position is already occupied
+	    m_signal_manager.abortUndoTransaction();
+	    return false;
+	}
+
+	// reflect the change in the passed label
+	label.moveTo(new_pos);
+	label.rename(new_name);
 
 	// NOTE: moving might also change the index, so the complete
 	//       markers layer has to be refreshed
-	refreshLayer(LAYER_MARKERS);
+	refreshMarkersLayer();
     }
+    else
+    m_signal_manager.abortUndoTransaction();
 
-    delete dlg;
     return accepted;
 }
 
@@ -2385,7 +2465,7 @@ void SignalWidget::slotSamplesInserted(unsigned int track,
     Q_UNUSED(offset);
     Q_UNUSED(length);
 
-    refreshLayer(LAYER_MARKERS);
+    refreshMarkersLayer();
 }
 
 //***************************************************************************
@@ -2398,7 +2478,7 @@ void SignalWidget::slotSamplesDeleted(unsigned int track,
     Q_UNUSED(offset);
     Q_UNUSED(length);
 
-    refreshLayer(LAYER_MARKERS);
+    refreshMarkersLayer();
 }
 
 //***************************************************************************

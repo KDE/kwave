@@ -2,6 +2,8 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN" "dtd/kdex.dtd" [
   <!ENTITY kapp "Kwave">
   <!ENTITY kappname "&kapp;">
+  <!ENTITY version "0.8.1">
+  <!ENTITY version_tag "0_8_1">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
@@ -31,7 +33,7 @@
 <legalnotice>&FDLNotice;</legalnotice>
 
 <date>2008-12-22</date>
-<releaseinfo>0.8.1</releaseinfo>
+<releaseinfo>&version;</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
 
@@ -391,12 +393,12 @@
 
     <para>
 	For example, assuming that your sources are already
-	unpacked in <filename><replaceable>$HOME/src/kwave-0.8.0</replaceable></filename>, you
+	unpacked in <filename><replaceable>$HOME/src/kwave-&version;</replaceable></filename>, you
 	can do the following:
 <screen width="40" format="linespecific">
 <prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
 <prompt>% </prompt><command>cd /tmp/kwave-build</command>
-<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave-0.8.0</replaceable> <replaceable>[build options]</replaceable></command>
+<prompt>% </prompt><command>cmake <replaceable>$HOME/src/&version;</replaceable> <replaceable>[build options]</replaceable></command>
 <prompt>% </prompt><command>make</command>
 <prompt>% </prompt><command>su root -c "make install"</command>
 </screen>
@@ -641,7 +643,7 @@
 	<ulink url="http://svn.sourceforge.net/viewvc/kwave/tags/">"http://svn.sourceforge.net/viewvc/kwave/tags/"</ulink>.
 	The release tags are always built out of the word <literal>Release-</literal> and
 	the version number of the release, with underscores instead of dots.
-	For example "<literal>Release-0_8_0</literal>" for v0.8.0.
+	For example "<literal>Release-&version_tag;</literal>" for v&version;.
 	</para>
     </listitem>
     </orderedlist>

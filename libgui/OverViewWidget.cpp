@@ -23,6 +23,9 @@
 #include <QPaintEvent>
 #include <QVBoxLayout>
 
+#include "libkwave/Label.h"
+#include "libkwave/SignalManager.h"
+
 #include "OverViewWidget.h"
 
 /* interval for limiting the number of repaints per second [ms] */
@@ -35,14 +38,19 @@
 OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     :ImageView(parent), m_view_offset(0), m_view_width(0), m_signal_length(0),
      m_sample_rate(0), m_selection_start(0), m_selection_length(0),
-     m_last_offset(0), m_cache(signal), m_repaint_timer()
+     m_last_offset(0), m_cache(signal), m_repaint_timer(), m_labels()
 {
     // update the bitmap if the cache has changed
-    connect(&m_cache, SIGNAL(changed()), this, SLOT(overviewChanged()));
+    connect(&m_cache, SIGNAL(changed()),
+            this, SLOT(overviewChanged()));
 
     // connect repaint timer
     connect(&m_repaint_timer, SIGNAL(timeout()),
             this, SLOT(refreshBitmap()));
+
+    // get informed about label changes
+    connect(&signal, SIGNAL(labelsChanged(const LabelList &)),
+            this, SLOT(labelsChanged(const LabelList &)));
 
     setMouseTracking(true);
 }
@@ -173,13 +181,42 @@ void OverViewWidget::overviewChanged()
 }
 
 //***************************************************************************
+void OverViewWidget::labelsChanged(const LabelList &labels)
+{
+    m_labels = labels;
+
+    // only re-start the repaint timer, this hides some GUI update artifacts
+    m_repaint_timer.stop();
+    m_repaint_timer.setSingleShot(true);
+    m_repaint_timer.start(REPAINT_INTERVAL);
+}
+
+//***************************************************************************
+void OverViewWidget::drawMark(QPainter &p, int x, int height, QColor color)
+{
+    QPolygon mark;
+    const int w = (height / 5) | 1;
+    const int y = (height - 1);
+
+    p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+    color.setAlpha(100);
+    p.setBrush(QBrush(color));
+    p.setPen(QPen(Qt::black));
+
+    mark.setPoints(3, x - w, 0, x + w, 0, x, w);     // upper
+    p.drawPolygon(mark);
+    mark.setPoints(3, x - w, y, x + w, y, x, y - w); // lower
+    p.drawPolygon(mark);
+}
+
+//***************************************************************************
 void OverViewWidget::refreshBitmap()
 {
     QPainter p;
 
     int width  = this->width();
     int height = this->height();
-    if (!width || !height)
+    if (!width || !height || !m_view_width)
 	return;
 
     // let the bitmap be updated from the cache
@@ -194,14 +231,15 @@ void OverViewWidget::refreshBitmap()
     p.setBrush(brush);
     p.drawRect(0, 0, width, height);
 
+    const double scale = static_cast<double>(width) /
+	                 static_cast<double>(m_view_width);
+
     // hilight the selection
     if ((m_selection_length > 1) &&
          m_signal_length &&
         (m_selection_start + m_selection_length >= m_view_offset) &&
         (m_selection_start <= m_view_offset + m_view_width))
     {
-	double scale = static_cast<double>(width) /
-	               static_cast<double>(m_view_width);
 	unsigned int first = static_cast<unsigned int>(
 	    static_cast<double>(m_selection_start - m_view_offset) * scale);
 	unsigned int len   = static_cast<unsigned int>(
@@ -216,33 +254,26 @@ void OverViewWidget::refreshBitmap()
 	p.setCompositionMode(QPainter::CompositionMode_Exclusion);
 	p.drawRect(first, 0, len, height);
 
-	// draw begin and end markers
-	QPolygon mark_upper;
-	int w = height / 8;
-	w |= 1;
-
-	p.setCompositionMode(QPainter::CompositionMode_SourceOver);
-	QColor color = Qt::blue;
-	color.setAlpha(100);
-	p.setBrush(QBrush(color));
-	p.setPen(QPen(Qt::black));
-
-	int x = first; // start of selection
-	const int y = height - 1;
-	mark_upper.setPoints(3, x - w, 0, x + w, 0, x, w);     // upper
-	p.drawPolygon(mark_upper);
-	mark_upper.setPoints(3, x - w, y, x + w, y, x, y - w); // lower
-	p.drawPolygon(mark_upper);
-
-	x = first + len; // end of selection
-	mark_upper.setPoints(3, x - w, 0, x + w, 0, x, w);     // upper
-	p.drawPolygon(mark_upper);
-	mark_upper.setPoints(3, x - w, y, x + w, y, x, y - w); // lower
-	p.drawPolygon(mark_upper);
+	// marks at start and end of selection
+	drawMark(p, first, height, Qt::blue);
+	drawMark(p, first + len, height, Qt::blue);
     }
 
     // draw labels
-    // TODO...
+    foreach (const Label &label, m_labels) {
+	unsigned int pos = label.pos();
+	if (pos < m_view_offset) continue;
+	if (pos >= m_view_offset + m_view_width) continue;
+
+	unsigned int x = static_cast<unsigned int>(
+	    static_cast<double>(pos - m_view_offset) * scale);
+
+	// draw a line for each label
+	p.setPen(QPen(Qt::cyan));
+	p.setCompositionMode(QPainter::CompositionMode_Exclusion);
+	p.drawLine(x, 0, x, height);
+	drawMark(p, x, height, Qt::cyan);
+    }
 
     // draw current cursor position
     // TODO...

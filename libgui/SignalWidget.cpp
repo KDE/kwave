@@ -1982,8 +1982,6 @@ bool SignalWidget::labelProperties(Label &label)
     Q_ASSERT(index >= 0);
     if (index < 0) return false;
 
-    UndoTransactionGuard undo(m_signal_manager, i18n("modify label"));
-
     // try to modify the label. just in case that the user moves it
     // to a position where we already have one, catch this situation
     // and ask if he wants to abort, re-enter the label properties
@@ -2046,6 +2044,12 @@ bool SignalWidget::labelProperties(Label &label)
     }
 
     if (accepted) {
+	// shortcut: abort if nothing has changed
+	if ((new_name == label.name()) && (new_pos == label.pos()))
+	    return false;
+
+	UndoTransactionGuard undo(m_signal_manager, i18n("modify label"));
+
 	// if there is a label at the target position, remove it first
 	if (old_index >= 0) {
 	    m_signal_manager.deleteLabel(old_index, true);
@@ -2078,7 +2082,7 @@ bool SignalWidget::labelProperties(Label &label)
 	refreshMarkersLayer();
     }
     else
-    m_signal_manager.abortUndoTransaction();
+	m_signal_manager.abortUndoTransaction();
 
     return accepted;
 }

@@ -21,16 +21,20 @@
 #include "config.h"
 
 #include <QBitmap>
+#include <QColor>
 #include <QSize>
 #include <QTimer>
 #include <QWidget>
 
 #include <kdemacros.h>
 
+#include "libkwave/LabelList.h"
+
 #include "libgui/ImageView.h"
 #include "libgui/OverViewCache.h"
 
 class QMouseEvent;
+class QPainter;
 class QResizeEvent;
 class SignalManager;
 class Track;
@@ -39,7 +43,7 @@ class KDE_EXPORT OverViewWidget : public ImageView
 {
     Q_OBJECT
 public:
-
+    /** Constructor */
     OverViewWidget(SignalManager &signal, QWidget *parent = 0);
 
     /** Destructor */
@@ -71,6 +75,9 @@ public slots:
      * @param rate sample rate [samples/second]
      */
     void setSelection(unsigned int offset, unsigned int length, double rate);
+
+    /** should be called when the list of labels has changed */
+    void labelsChanged(const LabelList &labels);
 
 protected:
 
@@ -131,6 +138,16 @@ protected:
      */
     int pixels2offset(int pixels);
 
+    /**
+     * draws a little mark at the top and bottom of a line
+     * in the overview image
+     * @param p a QPainter used for painting, will be modified
+     * @param x offset from the left [pixel]
+     * @param height the height of the image [pixel]
+     * @param color base color for the marker
+     */
+    void drawMark(QPainter &p, int x, int height, QColor color);
+
 private:
 
     /** index of the first visible sample */
@@ -159,6 +176,9 @@ private:
 
     /** timer for limiting the number of repaints per second */
     QTimer m_repaint_timer;
+
+    /** list of labels */
+    LabelList m_labels;
 
 };
 

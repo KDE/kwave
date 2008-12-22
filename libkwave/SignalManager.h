@@ -345,6 +345,9 @@ public:
      */
     Label findLabel(unsigned int pos);
 
+    /** Shortcut for accessing the label list @note can be modified */
+    inline LabelList &labels() { return m_file_info.labels(); }
+
 signals:
 
     /**
@@ -431,6 +434,9 @@ signals:
 
     /** Emitted whenever the numer of labels has changed */
     void sigLabelCountChanged();
+
+    /** Emitted whenever a label has been added, deleted or modified */
+    void labelsChanged(const LabelList &labels);
 
 public slots:
 
@@ -622,9 +628,6 @@ private:
      * @param en new value for m_modified_enabled
      */
     void enableModifiedChange(bool en);
-
-    /** Shortcut for accessing the label list @note can be modified */
-    inline LabelList &labels() { return m_file_info.labels(); }
 
     /** Shortcut for accessing the label list @note cannot be modified */
     inline const LabelList &labels() const { return m_file_info.labels(); }

@@ -127,6 +127,7 @@ MainWidget::MainWidget(QWidget *parent)
     connect(&m_signal_widget, SIGNAL(selectedTimeInfo(unsigned int,
 	unsigned int, double)),
 	m_overview, SLOT(setSelection(unsigned int, unsigned int, double)));
+    m_overview->labelsChanged(m_signal_widget.signalManager().labels());
 
     // -- scrollbar for the signal widget and the channel controls --
 

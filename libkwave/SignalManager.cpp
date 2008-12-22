@@ -466,6 +466,7 @@ void SignalManager::newSignal(unsigned int samples, double rate,
     m_file_info.clear();
     m_file_info.setRate(rate);
     m_file_info.setBits(bits);
+    emit labelsChanged(labels());
 
     // now the signal is considered not to be empty
     m_closed = false;
@@ -887,6 +888,7 @@ void SignalManager::selectTrack(unsigned int track, bool select)
 void SignalManager::emitStatusInfo()
 {
     emit sigStatusInfo(length(), tracks(), rate(), bits());
+    emit labelsChanged(labels());
 }
 
 //***************************************************************************
@@ -1453,12 +1455,12 @@ bool SignalManager::addLabel(unsigned int pos)
     // register the undo action
     UndoTransactionGuard undo(*this, i18n("add label"));
     if (!registerUndoAction(new UndoAddLabelAction(labelIndex(label)))) {
-	qDebug("registerUndoAction(AddLabel) FAILED");
 	labels().removeAll(label);
 	return false;
     }
 
     emit sigLabelCountChanged();
+    emit labelsChanged(labels());
     return true;
 }
 
@@ -1475,6 +1477,7 @@ Label SignalManager::addLabel(unsigned int pos, const QString &name)
     labels().append(label);
     labels().sort();
     emit sigLabelCountChanged();
+    emit labelsChanged(labels());
 
     return label;
 }
@@ -1497,6 +1500,7 @@ void SignalManager::deleteLabel(int index, bool with_undo)
 
     labels().removeAll(label);
     emit sigLabelCountChanged();
+    emit labelsChanged(labels());
 }
 
 //***************************************************************************
@@ -1520,6 +1524,7 @@ bool SignalManager::modifyLabel(int index, unsigned int pos,
     label.rename(name);
     labels().sort();
 
+    emit labelsChanged(labels());
     return true;
 }
 

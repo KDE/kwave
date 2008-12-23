@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2008-12-23 12:27+0000\n"
+"POT-Creation-Date: 2008-12-23 15:40+0000\n"
 "PO-Revision-Date: 2008-12-22 20:27+0100\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -717,7 +717,7 @@ msgid ""
 "you can do the following: <screen width=\"40\" format=\"linespecific\">\n"
 "<prompt>% </prompt><command>mkdir /tmp/kwave-build</command>\n"
 "<prompt>% </prompt><command>cd /tmp/kwave-build</command>\n"
-"<prompt>% </prompt><command>cmake <replaceable>$HOME/src/&version;</"
+"<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave-&version;</"
 "replaceable> <replaceable>[build options]</replaceable></command>\n"
 "<prompt>% </prompt><command>make</command>\n"
 "<prompt>% </prompt><command>su root -c \"make install\"</command>\n"
@@ -3264,26 +3264,26 @@ msgstr ""
 
 #. Tag: phrase
 #: help_en-work.docbook:1962
-#, no-c-format
-msgid "green lamb"
+#, fuzzy, no-c-format
+msgid "green lamp"
 msgstr "Lumière verte"
 
 #. Tag: para
 #: help_en-work.docbook:1963
-#, no-c-format
-msgid "a green lamb means \"enabled\", whereas"
+#, fuzzy, no-c-format
+msgid "a green lamp means \"enabled\", whereas"
 msgstr "Un témoin vert indique que le canal est « actif »."
 
 #. Tag: phrase
 #: help_en-work.docbook:1971
-#, no-c-format
-msgid "red lamb"
+#, fuzzy, no-c-format
+msgid "red lamp"
 msgstr "Lumière rouge"
 
 #. Tag: para
 #: help_en-work.docbook:1972
-#, no-c-format
-msgid "a red lamb means \"disabled\"."
+#, fuzzy, no-c-format
+msgid "a red lamp means \"disabled\"."
 msgstr "Un témoin rouge indique que le canal est « inactif »."
 
 #. Tag: para

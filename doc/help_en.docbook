@@ -398,7 +398,7 @@
 <screen width="40" format="linespecific">
 <prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
 <prompt>% </prompt><command>cd /tmp/kwave-build</command>
-<prompt>% </prompt><command>cmake <replaceable>$HOME/src/&version;</replaceable> <replaceable>[build options]</replaceable></command>
+<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave-&version;</replaceable> <replaceable>[build options]</replaceable></command>
 <prompt>% </prompt><command>make</command>
 <prompt>% </prompt><command>su root -c "make install"</command>
 </screen>
@@ -2024,18 +2024,18 @@
 	<imageobject>
 	<imagedata fileref="light_on.png" format="PNG"/>
 	</imageobject>
-	<textobject> <phrase>green lamb</phrase> </textobject>
+	<textobject> <phrase>green lamp</phrase> </textobject>
     </inlinemediaobject>
-    a green lamb means "enabled", whereas
+    a green lamp means "enabled", whereas
     </para>
     <para>
     <inlinemediaobject>
 	<imageobject>
 	<imagedata fileref="light_off.png" format="PNG"/>
 	</imageobject>
-	<textobject> <phrase>red lamb</phrase> </textobject>
+	<textobject> <phrase>red lamp</phrase> </textobject>
     </inlinemediaobject>
-    a red lamb means "disabled".
+    a red lamp means "disabled".
     </para>
 
     <note><para>

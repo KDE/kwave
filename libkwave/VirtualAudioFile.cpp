@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
+#include <stdlib.h> // for calloc()
 #include <QIODevice>
 #include "libkwave/VirtualAudioFile.h"
 
@@ -98,12 +99,27 @@ static long af_file_tell(AFvirtualfile *vfile)
 }
 
 //***************************************************************************
+/**
+ * Replacement of af_virtual_file_new from original libaudiofile code.
+ * Unfortunately the original is not usable because it is not available
+ * through the shared library API of some libaudiofile versions.
+ *
+ * original version: see libaudiofile/af_vfs.c (GPL 2+)
+ * original author: Copyright (C) 1999, Elliot Lee <sopwith@redhat.com>
+ */
+static AFvirtualfile *__af_virtual_file_new(void)
+{
+    return static_cast<AFvirtualfile *>(calloc(sizeof(AFvirtualfile), 1));
+}
+
+//***************************************************************************
+//***************************************************************************
 VirtualAudioFile::VirtualAudioFile(QIODevice &device)
      :m_device(device), m_file_handle(0), m_virtual_file(0),
       m_last_error(-1)
 {
     // create the virtual file structure for libaudiofile
-    m_virtual_file = af_virtual_file_new();
+    m_virtual_file = __af_virtual_file_new();
     Q_ASSERT(m_virtual_file);
     if (!m_virtual_file) return;
 

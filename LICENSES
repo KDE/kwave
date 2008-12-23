@@ -155,7 +155,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doc/de/kwave-sonagram.png			(should be FDL)
 	doc/de/kwave-sonagram-setup.png			(should be FDL)
 	doc/de/kwave-volume.png				(should be FDL)
-	doc/de/screenshot1.png				(should be FDL)
 
 #	doc/en/audio-1.png				??? UNKNOWN ???
 #	doc/en/audio2signal.png				??? UNKNOWN ???
@@ -178,7 +177,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doc/en/record_new.png				LGPL2 (crystal project) [copied from document-new.png]
 	doc/en/record_pause.png				(should be FDL)
 	doc/en/record_stop.png				(should be FDL)
-	doc/en/screenshot1.png				(should be FDL)
 	doc/en/signal2digital.png			(should be FDL)
 	doc/en/signed.png				(should be FDL)
 	doc/en/sinus2samples.png			(should be FDL)
@@ -198,7 +196,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doc/fr/kwave-sonagram.png			(should be FDL)
 	doc/fr/kwave-sonagram-setup.png			(should be FDL)
 	doc/fr/kwave-volume.png				(should be FDL)
-	doc/fr/screenshot1.png				(should be FDL)
 
 	kwave/CMakeLists.txt				GPL2+
 	kwave/KwaveApp.cpp				GPL2+

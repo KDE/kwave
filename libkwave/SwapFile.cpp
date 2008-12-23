@@ -123,7 +123,7 @@ SwapFile *SwapFile::resize(size_t size)
     // resize the file
     //  qDebug("SwapFile::resize(%u)", size);
     m_file.seek(size-1);
-    if (m_file.pos() == size-1) {
+    if (static_cast<qint64>(m_file.pos()) == static_cast<qint64>(size - 1)) {
 	if (size > m_size) {
 	    // growing: mark the new "last byte"
 	    m_file.putChar(0);

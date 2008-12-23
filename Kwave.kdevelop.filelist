@@ -139,6 +139,15 @@ kwave/toolbar/zoomin.xpm
 kwave/toolbar/zoomnormal.xpm
 kwave/toolbar/zoomout.xpm
 kwave/toolbar/zoomrange.xpm
+libaudiofile/ACKNOWLEDGEMENTS
+libaudiofile/AUTHORS
+libaudiofile/COPYING
+libaudiofile/COPYING.GPL
+libaudiofile/NEWS
+libaudiofile/NOTES
+libaudiofile/README
+libaudiofile/TODO
+libaudiofile/modules/rebuffer.template
 libgui
 libgui/CMakeLists.txt
 libgui/ConfirmCancelProxy.cpp

@@ -67,7 +67,6 @@ SET(prefix "${KDE4_INSTALL_DIR}")
 
 SET(RPM_REQUIRE_ID3LIB id3lib)
 SET(RPM_REQUIRE_LIBMAD libmad)
-SET(LIBAUDIOFILE_REQUIRE "")
 
 #############################################################################
 ### generate the .spec file                                               ###

@@ -24,10 +24,5 @@ SET(plugin_codec_audiofile_LIBS audiofile)
 
 KWAVE_PLUGIN(codec_audiofile)
 
-IF (NOT USE_SYSTEM_LIB_AUDIOFILE)
-    TARGET_LINK_LIBRARIES(plugin_codec_audiofile audiofile)
-    ADD_DEPENDENCIES(plugin_codec_audiofile audiofile)
-ENDIF (NOT USE_SYSTEM_LIB_AUDIOFILE)
-
 #############################################################################
 #############################################################################

@@ -32,7 +32,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2008-12-22</date>
+<date>2008-12-23</date>
 <releaseinfo>&version;</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -425,13 +425,6 @@
 		    enable playback/recording via ALSA
 		    [<literal>on</literal>/<literal>off</literal>,
 		    default=<literal>on</literal>]
-		</para></listitem>
-		<listitem><para>
-		    <literal>WITH_BUILTIN_LIBAUDIOFILE</literal>
-		    force usage builtin libaudiofile, even if the one
-		    installed in the system is useable
-		    [<literal>on</literal>/<literal>off</literal>,
-		    default=<literal>off</literal>]
 		</para></listitem>
 		<listitem><para>
 		    <literal>WITH_DOC</literal>

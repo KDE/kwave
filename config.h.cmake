@@ -78,8 +78,5 @@
 /* The size of `size_t', as computed by sizeof. */
 #cmakedefine SIZEOF_SIZE_T @SIZEOF_SIZE_T@
 
-/* use own copy of libaudiofile */
-#cmakedefine USE_BUILTIN_LIBAUDIOFILE
-
 /***************************************************************************/
 /***************************************************************************/

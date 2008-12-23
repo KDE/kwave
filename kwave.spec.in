@@ -21,7 +21,7 @@ Requires:	libvorbis.so.0 >= 0.2.0
 Requires:	libvorbisenc.so.2 >= 2.0.0
 Requires:	libogg.so.0 >= 0.4.0
 Requires:	@RPM_REQUIRE_LIBMAD@ > 0.14
-@LIBAUDIOFILE_REQUIRE@
+Requires:	audiofile >= 0.2.3
 Requires:	fftw >= 3.0
 Requires:	flac
 BuildRequires:  cmake >= 2.4.4

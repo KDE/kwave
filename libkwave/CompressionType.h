@@ -20,11 +20,7 @@
 
 #include "config.h"
 
-#ifdef USE_BUILTIN_LIBAUDIOFILE
-#include "libaudiofile/audiofile.h" // from Kwave's copy of libaudiofile
-#else /* USE_BUILTIN_LIBAUDIOFILE */
-#include <audiofile.h> // from system
-#endif /* USE_BUILTIN_LIBAUDIOFILE */
+#include <audiofile.h>
 
 #include <kdemacros.h>
 

@@ -19,13 +19,7 @@
 #include <stdlib.h>
 
 extern "C" {
-#ifdef USE_BUILTIN_LIBAUDIOFILE
-#include "libaudiofile/audiofile.h" // from Kwave's copy of libaudiofile
-#include "libaudiofile/af_vfs.h"    // from Kwave's copy of libaudiofile
-#else /* USE_BUILTIN_LIBAUDIOFILE */
-#include <audiofile.h> // from system
-#include <af_vfs.h>    // from system
-#endif /* USE_BUILTIN_LIBAUDIOFILE */
+#include <audiofile.h>
 }
 
 #include <QList>

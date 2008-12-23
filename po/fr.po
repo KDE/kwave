@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-22 17:43+0100\n"
+"POT-Creation-Date: 2008-12-23 13:27+0100\n"
 "PO-Revision-Date: 2007-08-01 19:04+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
@@ -660,7 +660,7 @@ msgstr "R&efaire"
 msgid "&Remove"
 msgstr "Inve&rser"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:176
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:170
 msgid "&Repair"
 msgstr "&Réparation"
 
@@ -1634,9 +1634,9 @@ msgstr ""
 "à la position %2.\n"
 "%3"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:135
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:129
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:353
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:361
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:355
 msgid ""
 "An error occurred while opening the file:\n"
 "'%1'"
@@ -1678,7 +1678,7 @@ msgstr "Apple MAC6"
 msgid "Archival location"
 msgstr "Emplacement pour l'archivage "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:63
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:57
 msgid "Audio Interchange Format"
 msgstr "Format audio Interchange"
 
@@ -1698,7 +1698,7 @@ msgstr "Auteur et droits d'auteur"
 msgid "Authors"
 msgstr "Auteurs"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:142
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:136
 msgid "Auto-Repair"
 msgstr "Réparation automatique"
 
@@ -1735,7 +1735,7 @@ msgstr "Bass"
 msgid "Bebob"
 msgstr "Bebob"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:66
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:60
 msgid "Berkeley,IRCAM,Carl Sound Format"
 msgstr "Berkeley, IRCAM, Format audio Carl"
 
@@ -1862,7 +1862,7 @@ msgstr "Commentaires"
 msgid "Commisioned"
 msgstr "Commissionné par "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:60
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:54
 msgid "Compressed Audio Interchange Format"
 msgstr "Format audio compressé Interchange"
 
@@ -2557,11 +2557,11 @@ msgstr "Jungle"
 msgid "Keywords"
 msgstr "Mot-clefs :"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:175
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:169
 msgid "Kwave auto repair"
 msgstr "Auto-réparation par Kwave"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:255
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:249
 msgid "Kwave auto-repair"
 msgstr "Auto-réparation par Kwave"
 
@@ -2865,7 +2865,7 @@ msgstr "National Folk"
 msgid "Native American"
 msgstr "Americaine native"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:55
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:49
 msgid "NeXT,Sun Audio"
 msgstr "NeXT, format audio Sun"
 
@@ -3712,7 +3712,7 @@ msgstr "Techno-Industriel"
 msgid "Thanks To"
 msgstr "Remerciements à"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:248
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:242
 msgid ""
 "The WAV file seems to be damaged: \n"
 "some chunks are duplicate or missing! \n"
@@ -3798,7 +3798,7 @@ msgstr ""
 "Le fichier a une somme de contrôle non valable.\n"
 "Voulez-vous vraiment continuer ?"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:172
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:166
 msgid ""
 "The file has been structurally damaged or is no .wav file.\n"
 "Should Kwave try to repair it?"
@@ -3815,7 +3815,7 @@ msgstr "Le fichier a été écrasé et peut être corrompu !"
 msgid "The list ob labels / markers."
 msgstr "Liste des labels / markers."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:236
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:230
 msgid ""
 "The opened file is no .WAV file or damaged:\n"
 "There is not enough valid sound data.\n"
@@ -4368,9 +4368,9 @@ msgstr "exemple :"
 msgid "file contains invalid data"
 msgstr "Le fichier contient des données non valables"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:117
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:111
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:334
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:342
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:336
 msgid "file header is damaged"
 msgstr "L'en-tête du fichier est endommagée"
 
@@ -4386,9 +4386,9 @@ msgstr "informations sur les fichiers audio"
 msgid "follow selection"
 msgstr "Suivre la sélection"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:111
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:105
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:327
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:335
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:329
 msgid "format or function is not implemented"
 msgstr "Format ou fonction non implantée"
 
@@ -4448,9 +4448,9 @@ msgstr "dans le premier quart"
 msgid "into 2nd half"
 msgstr "dans le second quart"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:120
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:114
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:337
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:345
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:339
 msgid "invalid codec type"
 msgstr "Type de codec non valable"
 
@@ -4458,9 +4458,9 @@ msgstr "Type de codec non valable"
 msgid "invalid or unknown file type: '%1'"
 msgstr "Fichier non valable ou de type inconnu : « %1 »"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:129
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:123
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:347
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:355
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:349
 msgid "invalid sample format"
 msgstr "Format d'échantillonnage non valable"
 
@@ -4628,16 +4628,16 @@ msgstr ""
 msgid "opening the FLAC bitstream failed."
 msgstr "l'ouverture du flux FLAC a échoué"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:123
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:117
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:341
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:349
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:343
 msgid "opening the file failed"
 msgstr "L'ouverture du fichier a échouée"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/decoder_mp3/MP3Decoder.cpp:475
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:114
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:108
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:331
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:339
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:333
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:244
 msgid "out of memory"
 msgstr "Pas assez de mémoire"
@@ -4707,9 +4707,9 @@ msgstr "polynôme de dégré n"
 msgid "prerecording..."
 msgstr "pré-enregistrement..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:126
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:120
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:344
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:352
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:346
 msgid "read access failed"
 msgstr "Accès en lecture interdite"
 
@@ -4717,7 +4717,7 @@ msgstr "Accès en lecture interdite"
 msgid "reading configuration..."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:148
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:142
 msgid "reading..."
 msgstr "lecture en cours..."
 

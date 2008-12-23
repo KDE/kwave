@@ -102,11 +102,6 @@ SET(libkwave_LIB_SRCS
 QT4_AUTOMOC(${libkwave_LIB_SRCS})
 KDE4_ADD_LIBRARY(libkwave SHARED ${libkwave_LIB_SRCS})
 
-IF (NOT USE_SYSTEM_LIB_AUDIOFILE)
-    TARGET_LINK_LIBRARIES(libkwave audiofile)
-    ADD_DEPENDENCIES(libkwave audiofile)
-ENDIF (NOT USE_SYSTEM_LIB_AUDIOFILE)
-
 TARGET_LINK_LIBRARIES(libkwave
     audiofile
     ${QT_AND_KDECORE_LIBS}

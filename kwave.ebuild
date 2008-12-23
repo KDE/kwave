@@ -48,7 +48,6 @@ pkg_setup() {
 src_compile() {
 	use mmx && append-flags "-mmmx"
 
-	myconf+=" -DWITH_BUILTIN_LIBAUDIOFILE=OFF"
 	use alsa  || myconf+=" -DWITH_ALSA=OFF"
 	use doc   || myconf+=" -DWITH_DOC=OFF"
 	use flac  || myconf+=" -DWITH_FLAC=OFF"

@@ -24,51 +24,28 @@ CHECK_TYPE_SIZE("size_t" SIZEOF_SIZE_T)
 CHECK_TYPE_SIZE("long" SIZEOF_LONG)
 
 #############################################################################
-### build option: force usage of builtin libaudiofile                     ###
+### check if the system has audiofile.h                                   ###
 
-OPTION(WITH_BUILTIN_LIBAUDIOFILE "use builtin libaudiofile [default=off]")
-
-#############################################################################
-### if builtin version not forced: check if the system has audiofile.h    ###
-
-IF (NOT WITH_BUILTIN_LIBAUDIOFILE)
-    CHECK_INCLUDE_FILES(audiofile.h HAVE_AUDIOFILE_H)
-ENDIF (NOT WITH_BUILTIN_LIBAUDIOFILE)
+CHECK_INCLUDE_FILES(audiofile.h HAVE_AUDIOFILE_H)
+CHECK_INCLUDE_FILES(af_vfs.h    HAVE_AF_VFS_H)
 
 #############################################################################
 ### system libaudiofile can be used & header exists: check for functions  ###
 
-IF (HAVE_AUDIOFILE_H)
+IF (HAVE_AUDIOFILE_H AND HAVE_AF_VFS_H)
     CHECK_LIBRARY_EXISTS(audiofile afOpenVirtualFile "" HAVE_AF_OPEN_VIRTUAL_FILE)
-ENDIF (HAVE_AUDIOFILE_H)
+ENDIF (HAVE_AUDIOFILE_H AND HAVE_AF_VFS_H)
 
 #############################################################################
-### some verbose output of the result + set USE_SYSTEM_LIB_AUDIOFILE      ###
+### some verbose output of the result                                     ###
 
 IF (HAVE_AF_OPEN_VIRTUAL_FILE)
     # system libaudiofile is ok and will be used
-    MESSAGE(STATUS "Using the system's libaudiofile")
-    SET(USE_SYSTEM_LIB_AUDIOFILE BOOL ON)
+    MESSAGE(STATUS "Found libaudiofile")
 ELSE (HAVE_AF_OPEN_VIRTUAL_FILE)
-    IF (WITH_BUILTIN_LIBAUDIOFILE)
-        # system libaudiofile maybe is not ok
-        # -> don't care, we will use the builtin one anyway
-        MESSAGE(STATUS "Using builtin libaudiofile")
-    ELSE (WITH_BUILTIN_LIBAUDIOFILE)
-        # system libaudiofile should be used but is not ok
-        # -> FAIL
-        MESSAGE(FATAL_ERROR "system libaudiofile is missing or cannot be used")
-    ENDIF (WITH_BUILTIN_LIBAUDIOFILE)
+    # system libaudiofile should be used but is not ok -> FAIL
+    MESSAGE(FATAL_ERROR "system libaudiofile is missing or cannot be used")
 ENDIF (HAVE_AF_OPEN_VIRTUAL_FILE)
-
-#############################################################################
-### enable builtin libaudiofile if needed                                 ###
-
-IF (NOT USE_SYSTEM_LIB_AUDIOFILE)
-    INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/libaudiofile)
-    LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libaudiofile)
-    ADD_SUBDIRECTORY( libaudiofile )
-ENDIF (NOT USE_SYSTEM_LIB_AUDIOFILE)
 
 #############################################################################
 #############################################################################

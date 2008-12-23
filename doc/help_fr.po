@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2008-12-22 19:26+0000\n"
+"POT-Creation-Date: 2008-12-23 12:27+0000\n"
 "PO-Revision-Date: 2008-12-22 20:27+0100\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -146,7 +146,8 @@ msgstr "Introduction"
 #. Tag: para
 #: help_en-work.docbook:68
 #, no-c-format
-msgid "This is \"&kapp;\", a simple sound editor for KDE3. Its features include:"
+msgid ""
+"This is \"&kapp;\", a simple sound editor for KDE3. Its features include:"
 msgstr ""
 "« &kapp; » est un éditeur de pistes sonores pour l'environnement de bureau "
 "KDE3. Il inclut les fonctionnalités suivantes :"
@@ -577,8 +578,10 @@ msgstr ""
 #. Tag: para
 #: help_en-work.docbook:322
 #, no-c-format
-msgid "If you intend to compile &kapp; from the sources, you will need at least:"
-msgstr "Si vous désirez compiler &kapp; à partir des sources, vous avez besoin:"
+msgid ""
+"If you intend to compile &kapp; from the sources, you will need at least:"
+msgstr ""
+"Si vous désirez compiler &kapp; à partir des sources, vous avez besoin:"
 
 #. Tag: para
 #: help_en-work.docbook:325
@@ -749,22 +752,12 @@ msgstr ""
 #: help_en-work.docbook:423
 #, no-c-format
 msgid ""
-"<literal>WITH_BUILTIN_LIBAUDIOFILE</literal> force usage builtin "
-"libaudiofile, even if the one installed in the system is useable "
-"[<literal>on</literal>/<literal>off</literal>, default=<literal>off</"
-"literal>]"
-msgstr ""
-
-#. Tag: para
-#: help_en-work.docbook:430
-#, no-c-format
-msgid ""
 "<literal>WITH_DOC</literal> build online documentation [<literal>on</"
 "literal>/<literal>off</literal>, default=<literal>on</literal>]"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:436
+#: help_en-work.docbook:429
 #, no-c-format
 msgid ""
 "<literal>WITH_FLAC</literal> enable support for FLAC files [<literal>on</"
@@ -772,7 +765,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:442
+#: help_en-work.docbook:435
 #, no-c-format
 msgid ""
 "<literal>WITH_MP3</literal> enable support for mp3 files [<literal>on</"
@@ -781,7 +774,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:450
+#: help_en-work.docbook:443
 #, no-c-format
 msgid ""
 "<literal>WITH_OGG</literal> enable support for ogg files [<literal>on</"
@@ -789,7 +782,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:456
+#: help_en-work.docbook:449
 #, no-c-format
 msgid ""
 "<literal>WITH_OSS</literal> enable playback/recording via OSS [<literal>on</"
@@ -797,7 +790,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:465
+#: help_en-work.docbook:458
 #, no-c-format
 msgid ""
 "These options can be passed to <literal><command>cmake</command></literal> "
@@ -808,7 +801,7 @@ msgid ""
 msgstr ""
 
 #. Tag: screen
-#: help_en-work.docbook:470
+#: help_en-work.docbook:463
 #, fuzzy, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cmake <replaceable>[source directory]</"
@@ -820,19 +813,20 @@ msgstr ""
 "<prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>"
 
 #. Tag: title
-#: help_en-work.docbook:479
+#: help_en-work.docbook:472
 #, no-c-format
 msgid "Building RPM packages from tar.gz archives"
-msgstr "La construction du paquetage RPM à partir de l'archive au format « .tar.gz »."
+msgstr ""
+"La construction du paquetage RPM à partir de l'archive au format « .tar.gz »."
 
 #. Tag: title
-#: help_en-work.docbook:482
+#: help_en-work.docbook:475
 #, no-c-format
 msgid "With working rpmbuild -ta"
 msgstr "Utilisation de la commande « rpmbuild -ta »"
 
 #. Tag: para
-#: help_en-work.docbook:484
+#: help_en-work.docbook:477
 #, fuzzy, no-c-format
 msgid ""
 "If you are runnig a system with RPM support, the preferred way to install "
@@ -854,7 +848,7 @@ msgstr ""
 "d'un RPM à partir du CVS</link>."
 
 #. Tag: para
-#: help_en-work.docbook:495
+#: help_en-work.docbook:488
 #, fuzzy, no-c-format
 msgid ""
 "If you have downloaded a tar.gz archives of &kapp;, create and install the "
@@ -873,7 +867,7 @@ msgstr ""
 "l'application que vous avez téléchargé)."
 
 #. Tag: para
-#: help_en-work.docbook:506
+#: help_en-work.docbook:499
 #, no-c-format
 msgid "To build the &kapp; package and install it do:"
 msgstr ""
@@ -881,7 +875,7 @@ msgstr ""
 "lignes de commande suivantes :"
 
 #. Tag: screen
-#: help_en-work.docbook:508
+#: help_en-work.docbook:501
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>rpmbuild -ta <replaceable>kwave-XXX.tar.gz</"
@@ -895,7 +889,7 @@ msgstr ""
 "kwave-XXX.[arch].rpm</replaceable></command>"
 
 #. Tag: para
-#: help_en-work.docbook:511
+#: help_en-work.docbook:504
 #, no-c-format
 msgid ""
 "<emphasis>Note for SuSE users: </emphasis> you have to specify the directory "
@@ -907,7 +901,7 @@ msgstr ""
 "place de <filename>/usr/src/redhat</filename> !"
 
 #. Tag: para
-#: help_en-work.docbook:518
+#: help_en-work.docbook:511
 #, no-c-format
 msgid ""
 "If you haven't seen any errors, then that's it and you can skip the rest of "
@@ -920,13 +914,13 @@ msgstr ""
 "est affiché, alors le reste du chapitre vous sera utile."
 
 #. Tag: title
-#: help_en-work.docbook:528
+#: help_en-work.docbook:521
 #, no-c-format
 msgid "With broken rpmbuild -ta support"
 msgstr "Que faire lorsque la commande « rpmbuild -ta » ne fonctionne pas ?"
 
 #. Tag: para
-#: help_en-work.docbook:530
+#: help_en-work.docbook:523
 #, no-c-format
 msgid ""
 "If you can't get <command>rpmbuild -ta</command> working, here are the steps "
@@ -937,7 +931,7 @@ msgstr ""
 "(solutions délicates) :"
 
 #. Tag: para
-#: help_en-work.docbook:536
+#: help_en-work.docbook:529
 #, no-c-format
 msgid ""
 "Go to your RPM \"topdir\". This normally is <filename>/usr/src/redhat</"
@@ -950,7 +944,7 @@ msgstr ""
 "la distribution SuSE."
 
 #. Tag: screen
-#: help_en-work.docbook:542
+#: help_en-work.docbook:535
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></"
@@ -960,7 +954,7 @@ msgstr ""
 "command>"
 
 #. Tag: para
-#: help_en-work.docbook:545
+#: help_en-work.docbook:538
 #, no-c-format
 msgid ""
 "Put the tar.gz archive into the SOURCES subdirectory (you have to replace "
@@ -971,7 +965,7 @@ msgstr ""
 "archive au format « .tar.gz »)."
 
 #. Tag: screen
-#: help_en-work.docbook:549
+#: help_en-work.docbook:542
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.gz</"
@@ -981,7 +975,7 @@ msgstr ""
 "replaceable> SOURCES</command>"
 
 #. Tag: para
-#: help_en-work.docbook:552
+#: help_en-work.docbook:545
 #, no-c-format
 msgid ""
 "Extract the spec file from the archives and put it into the SPEC "
@@ -991,7 +985,7 @@ msgstr ""
 "gz » et copier le dans le sous-dossier SPEC."
 
 #. Tag: screen
-#: help_en-work.docbook:555
+#: help_en-work.docbook:548
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>tar -xOzf SOURCES/<replaceable>kwave-XXX.tar.gz</"
@@ -1001,7 +995,7 @@ msgstr ""
 "replaceable> \\*.spec > SPECS/kwave.spec</command>"
 
 #. Tag: para
-#: help_en-work.docbook:558
+#: help_en-work.docbook:551
 #, no-c-format
 msgid ""
 "Let rpm do the compile job and generate the rpm of &kapp;. If you only want "
@@ -1016,13 +1010,13 @@ msgstr ""
 "paquetage contenant les sources."
 
 #. Tag: screen
-#: help_en-work.docbook:564
+#: help_en-work.docbook:557
 #, no-c-format
 msgid "<prompt>% </prompt><command>rpmbuild -ba SPECS/kwave.spec</command>"
 msgstr "<prompt>% </prompt><command>rpmbuild -ba SPECS/kwave.spec</command>"
 
 #. Tag: para
-#: help_en-work.docbook:567
+#: help_en-work.docbook:560
 #, no-c-format
 msgid ""
 "If everything was ok, you can install the binary rpm of &kapp;, it will be "
@@ -1038,7 +1032,7 @@ msgstr ""
 "literal> pour mettre à jour automatiquement le paquetage."
 
 #. Tag: screen
-#: help_en-work.docbook:574
+#: help_en-work.docbook:567
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>rpm -ivh BUILD/<replaceable>[arch]/kwave-XXX."
@@ -1048,19 +1042,19 @@ msgstr ""
 "[arch].rpm</replaceable></command>"
 
 #. Tag: title
-#: help_en-work.docbook:587
+#: help_en-work.docbook:580
 #, fuzzy, no-c-format
 msgid "Building RPM packages from SVN"
 msgstr "La construction d'un paquetage RPM à partir du CVS"
 
 #. Tag: title
-#: help_en-work.docbook:589
+#: help_en-work.docbook:582
 #, no-c-format
 msgid "Checking out the sources"
 msgstr "La vérification des mises à jour des sources"
 
 #. Tag: para
-#: help_en-work.docbook:591
+#: help_en-work.docbook:584
 #, fuzzy, no-c-format
 msgid ""
 "For initially checking out the sources you will need some disk space (about "
@@ -1080,7 +1074,7 @@ msgstr ""
 "stocker les fichiers sources est <filename>« $HOME/src »</filename>."
 
 #. Tag: para
-#: help_en-work.docbook:601
+#: help_en-work.docbook:594
 #, no-c-format
 msgid ""
 "First create the directory that will receive the subdirectoy with &kapp; "
@@ -1090,7 +1084,7 @@ msgstr ""
 "dossier qui stockera les sources de &kapp; :"
 
 #. Tag: screen
-#: help_en-work.docbook:604
+#: help_en-work.docbook:597
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>mkdir -p <replaceable>$HOME/src</replaceable></"
@@ -1102,13 +1096,13 @@ msgstr ""
 "<prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>"
 
 #. Tag: para
-#: help_en-work.docbook:607
+#: help_en-work.docbook:600
 #, no-c-format
 msgid "Then check out the latest sources from the SVN server:"
 msgstr ""
 
 #. Tag: screen
-#: help_en-work.docbook:609
+#: help_en-work.docbook:602
 #, fuzzy, no-c-format
 msgid ""
 "<prompt>% </prompt><command>svn checkout https://kwave.svn.sourceforge.net/"
@@ -1118,7 +1112,7 @@ msgstr ""
 "net:/cvsroot/kwave co kwave</command>"
 
 #. Tag: para
-#: help_en-work.docbook:611
+#: help_en-work.docbook:604
 #, no-c-format
 msgid ""
 "or you can check out a specific release with the following command: <screen "
@@ -1134,7 +1128,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:623
+#: help_en-work.docbook:616
 #, fuzzy, no-c-format
 msgid ""
 "There <emphasis>must not</emphasis> be a directory named <filename>kwave</"
@@ -1149,13 +1143,13 @@ msgstr ""
 "téléchargement des sources sur votre machine échouera."
 
 #. Tag: title
-#: help_en-work.docbook:633
+#: help_en-work.docbook:626
 #, fuzzy, no-c-format
 msgid "Updating sources from SVN"
 msgstr "La mise à jour les sources à partir du CVS"
 
 #. Tag: para
-#: help_en-work.docbook:634
+#: help_en-work.docbook:627
 #, fuzzy, no-c-format
 msgid ""
 "The procedure described in the previous section is only necessary once. For "
@@ -1175,7 +1169,7 @@ msgstr ""
 "compilation du programme."
 
 #. Tag: para
-#: help_en-work.docbook:641
+#: help_en-work.docbook:634
 #, fuzzy, no-c-format
 msgid ""
 "If you think that you have messed up your local source or if there are "
@@ -1190,13 +1184,13 @@ msgstr ""
 "à nouveau."
 
 #. Tag: title
-#: help_en-work.docbook:649
+#: help_en-work.docbook:642
 #, no-c-format
 msgid "Compiling"
 msgstr "La compilation"
 
 #. Tag: para
-#: help_en-work.docbook:650
+#: help_en-work.docbook:643
 #, fuzzy, no-c-format
 msgid ""
 "Building rpm package from a SVN snapshot is quite simple. The procedure is "
@@ -1219,7 +1213,7 @@ msgstr ""
 "indiquera le numéro de version de l'application."
 
 #. Tag: para
-#: help_en-work.docbook:663
+#: help_en-work.docbook:656
 #, no-c-format
 msgid ""
 "<emphasis>Note for SuSE users: </emphasis> here you have to specify the "
@@ -1232,7 +1226,7 @@ msgstr ""
 "redhat</filename> !"
 
 #. Tag: para
-#: help_en-work.docbook:670
+#: help_en-work.docbook:663
 #, fuzzy, no-c-format
 msgid ""
 "Assuming that you are in the root of where you checked out from SVN, do the "
@@ -1248,7 +1242,7 @@ msgstr ""
 "place de <literal>rpm -i</literal> pour faire une mise à jour automatique."
 
 #. Tag: screen
-#: help_en-work.docbook:677
+#: help_en-work.docbook:670
 #, fuzzy, no-c-format
 msgid ""
 "<prompt>% </prompt><command>mkdir /tmp/kwave-build</command>\n"
@@ -1267,7 +1261,7 @@ msgstr ""
 "[arch]/kwave-XXX.[arch].rpm</replaceable></command>"
 
 #. Tag: para
-#: help_en-work.docbook:680
+#: help_en-work.docbook:673
 #, no-c-format
 msgid ""
 "If you still have problems with <command>make rpm</command>, you will find "
@@ -1282,13 +1276,13 @@ msgstr ""
 "\"manual_rpm_creation\">précédent</link> chapitre."
 
 #. Tag: title
-#: help_en-work.docbook:696
+#: help_en-work.docbook:689
 #, no-c-format
 msgid "Building CPU optimized packages"
 msgstr "La construction de paquetages optimisés pour certains CPU"
 
 #. Tag: para
-#: help_en-work.docbook:698
+#: help_en-work.docbook:691
 #, no-c-format
 msgid ""
 "If you are owner of a Pentium, an AMD K6, Athlon or Athlon-XP CPU, you might "
@@ -1307,7 +1301,7 @@ msgstr ""
 "sont activées."
 
 #. Tag: para
-#: help_en-work.docbook:706
+#: help_en-work.docbook:699
 #, no-c-format
 msgid ""
 "You do not need to understand much about programming for using an optimized "
@@ -1319,13 +1313,13 @@ msgstr ""
 "vous serons utiles pour installer le compilateur et l'utiliser."
 
 #. Tag: title
-#: help_en-work.docbook:713
+#: help_en-work.docbook:706
 #, no-c-format
 msgid "RPM optimizations"
 msgstr "Les optimisations pour la construction d'un paquetage RPM"
 
 #. Tag: para
-#: help_en-work.docbook:715
+#: help_en-work.docbook:708
 #, fuzzy, no-c-format
 msgid ""
 "You can easily compile the RPM package optimized for Athlon, Athlon-XP, "
@@ -1371,7 +1365,7 @@ msgstr ""
 "html</ulink>. Remerciements à Matthias Düsterhöft !)."
 
 #. Tag: para
-#: help_en-work.docbook:735
+#: help_en-work.docbook:728
 #, fuzzy, no-c-format
 msgid ""
 "This means that on an <literal>k7</literal> architecture the rpm package "
@@ -1392,7 +1386,7 @@ msgstr ""
 "« rpmbuild --rebuild »."
 
 #. Tag: para
-#: help_en-work.docbook:748
+#: help_en-work.docbook:741
 #, no-c-format
 msgid ""
 "If <command>rpm</command> refuses to install your package because it seems "
@@ -1407,13 +1401,13 @@ msgstr ""
 "command>."
 
 #. Tag: title
-#: help_en-work.docbook:759
+#: help_en-work.docbook:752
 #, fuzzy, no-c-format
 msgid "How to pass optimizer options to the compiler manually"
 msgstr "Comment passer des options de compilation au compilateur"
 
 #. Tag: para
-#: help_en-work.docbook:760
+#: help_en-work.docbook:753
 #, fuzzy, no-c-format
 msgid ""
 "The invocation of the compiler is quite simple. It normally is sufficient to "
@@ -1429,7 +1423,7 @@ msgstr ""
 "consulter la documentation ou le site internet de votre compilateur."
 
 #. Tag: para
-#: help_en-work.docbook:768
+#: help_en-work.docbook:761
 #, fuzzy, no-c-format
 msgid ""
 "If you build &kapp; from a source tree (unpacked tar.gz or from SVN) the "
@@ -1441,7 +1435,7 @@ msgstr ""
 "exemple :"
 
 #. Tag: screen
-#: help_en-work.docbook:772
+#: help_en-work.docbook:765
 #, fuzzy, no-c-format
 msgid ""
 "<prompt>% </prompt><command>CFLAGS=\"-O4 -march=athlon-xp -mcpu=athlon-xp -"
@@ -1454,7 +1448,7 @@ msgstr ""
 "mcpu=athlon-xp -pipe -fomit-frame-pointer\"</command>"
 
 #. Tag: para
-#: help_en-work.docbook:776
+#: help_en-work.docbook:769
 #, no-c-format
 msgid ""
 "If you re-build &kapp; from a source rpm package, please follow the "
@@ -1466,13 +1460,13 @@ msgstr ""
 "\"rpm_optimizations\">section précédente</link>."
 
 #. Tag: title
-#: help_en-work.docbook:792
+#: help_en-work.docbook:785
 #, no-c-format
 msgid "Basics about digital audio"
 msgstr "Les rudiments sur les enregistrements audio numériques"
 
 #. Tag: para
-#: help_en-work.docbook:794
+#: help_en-work.docbook:787
 #, no-c-format
 msgid ""
 "This chapter should give a short introduction about the basics of digital "
@@ -1487,13 +1481,13 @@ msgstr ""
 "littératures sur le sujet."
 
 #. Tag: title
-#: help_en-work.docbook:802
+#: help_en-work.docbook:795
 #, no-c-format
 msgid "The analogue world"
 msgstr "Le monde de l'analogique."
 
 #. Tag: para
-#: help_en-work.docbook:804
+#: help_en-work.docbook:797
 #, no-c-format
 msgid ""
 "First of all, one must know that the world is <emphasis>analogue</emphasis> "
@@ -1511,19 +1505,19 @@ msgstr ""
 "décrirons que cette dernière."
 
 #. Tag: phrase
-#: help_en-work.docbook:818
+#: help_en-work.docbook:811
 #, no-c-format
 msgid "<phrase>Conversion from sound to bits</phrase>"
 msgstr "<phrase>La conversion du son en bits</phrase>"
 
 #. Tag: para
-#: help_en-work.docbook:821
+#: help_en-work.docbook:814
 #, no-c-format
 msgid "<para>Conversion from sound to bits</para>"
 msgstr "<para>La conversion du son en bits</para>"
 
 #. Tag: para
-#: help_en-work.docbook:823
+#: help_en-work.docbook:816
 #, no-c-format
 msgid ""
 "Before continuing, analogue audio has to be transformed into electronic "
@@ -1548,19 +1542,19 @@ msgstr ""
 "carte son de votre ordinateur et vous ne pouvez pas le voir."
 
 #. Tag: phrase
-#: help_en-work.docbook:840
+#: help_en-work.docbook:833
 #, no-c-format
 msgid "<phrase>Conversion to electronic signal</phrase>"
 msgstr "<phrase>La conversion d'un signal électronique</phrase>"
 
 #. Tag: para
-#: help_en-work.docbook:843
+#: help_en-work.docbook:836
 #, no-c-format
 msgid "<para>Conversion to electronic signal</para>"
 msgstr "<para>La conversion d'un signal électronique</para>"
 
 #. Tag: para
-#: help_en-work.docbook:845
+#: help_en-work.docbook:838
 #, no-c-format
 msgid ""
 "At this stage, the electrical signal has three limitations that one should "
@@ -1570,7 +1564,7 @@ msgstr ""
 "être bien présente à l'esprit :"
 
 #. Tag: para
-#: help_en-work.docbook:849
+#: help_en-work.docbook:842
 #, no-c-format
 msgid ""
 "The <emphasis>amplitude</emphasis> (volume) is limited to some maximum "
@@ -1588,7 +1582,7 @@ msgstr ""
 "niveau les plus forts."
 
 #. Tag: para
-#: help_en-work.docbook:859
+#: help_en-work.docbook:852
 #, no-c-format
 msgid ""
 "The <emphasis>frequency range</emphasis> is also limited. Due to the "
@@ -1615,7 +1609,7 @@ msgstr ""
 "normalement les sons jusqu'à une fréquence de 20 kHz."
 
 #. Tag: para
-#: help_en-work.docbook:874
+#: help_en-work.docbook:867
 #, no-c-format
 msgid ""
 "The signal contains <emphasis>noise</emphasis>. Noise is the most ugly enemy "
@@ -1641,13 +1635,13 @@ msgstr ""
 "Un son qui a un faible volume plus faible que le bruit ne peut être entendu."
 
 #. Tag: title
-#: help_en-work.docbook:893
+#: help_en-work.docbook:886
 #, no-c-format
 msgid "Digitalization"
 msgstr "La numérisation"
 
 #. Tag: para
-#: help_en-work.docbook:895
+#: help_en-work.docbook:888
 #, no-c-format
 msgid ""
 "When we want to store and play audio in a computer, we must convert the "
@@ -1661,19 +1655,19 @@ msgstr ""
 "électronique en une séquence de valeurs numériques."
 
 #. Tag: phrase
-#: help_en-work.docbook:906
+#: help_en-work.docbook:899
 #, no-c-format
 msgid "<phrase>Digitalization of the electronic signal</phrase>"
 msgstr "<phrase>La numérisation d'un signal électronique</phrase>"
 
 #. Tag: para
-#: help_en-work.docbook:909
+#: help_en-work.docbook:902
 #, no-c-format
 msgid "<para>Digitalization of the electronic signal</para>"
 msgstr "<para>La numérisation d'un signal électronique</para>"
 
 #. Tag: para
-#: help_en-work.docbook:911
+#: help_en-work.docbook:904
 #, no-c-format
 msgid ""
 "The conversion can be understood as a repetitive measurement of the "
@@ -1686,7 +1680,7 @@ msgstr ""
 "encodé en valeurs numériques."
 
 #. Tag: para
-#: help_en-work.docbook:917
+#: help_en-work.docbook:910
 #, no-c-format
 msgid ""
 "The sampling could be done in arbitrary distances or in constant intervals. "
@@ -1703,7 +1697,7 @@ msgstr ""
 "d'échantillonnage donnent aussi des fréquences en Hz ou en kHz."
 
 #. Tag: para
-#: help_en-work.docbook:925
+#: help_en-work.docbook:918
 #, no-c-format
 msgid ""
 "The sample rate limts the highest frequency a digitized signal can "
@@ -1723,25 +1717,25 @@ msgstr ""
 "précédemment."
 
 #. Tag: phrase
-#: help_en-work.docbook:939
+#: help_en-work.docbook:932
 #, no-c-format
 msgid "<phrase>Sampled signal</phrase>"
 msgstr "<phrase>Le signal échantillonné</phrase>"
 
 #. Tag: para
-#: help_en-work.docbook:942
+#: help_en-work.docbook:935
 #, no-c-format
 msgid "<para>Sampled signal</para>"
 msgstr "<para>Le signal échantillonné</para>"
 
 #. Tag: title
-#: help_en-work.docbook:946
+#: help_en-work.docbook:939
 #, no-c-format
 msgid "Sample Encoding"
 msgstr "L'encodage échantillonné"
 
 #. Tag: para
-#: help_en-work.docbook:948
+#: help_en-work.docbook:941
 #, no-c-format
 msgid ""
 "The result of the digital sampling process is a sequence of single "
@@ -1753,7 +1747,7 @@ msgstr ""
 "représentation numérique du signal à un temps donné."
 
 #. Tag: para
-#: help_en-work.docbook:953
+#: help_en-work.docbook:946
 #, no-c-format
 msgid ""
 "The value of a sample can be interpreted and encoded in several ways. The "
@@ -1773,7 +1767,7 @@ msgstr ""
 "perturbateur. Il est cependant moins audible pour les hautes fréquences."
 
 #. Tag: para
-#: help_en-work.docbook:962
+#: help_en-work.docbook:955
 #, no-c-format
 msgid ""
 "One way to reduce the influence of noise is <emphasis>non-linear</emphasis> "
@@ -1794,25 +1788,25 @@ msgstr ""
 "sont standardisées en téléphonie numérique (ITU G.711 par exemple)."
 
 #. Tag: phrase
-#: help_en-work.docbook:976
+#: help_en-work.docbook:969
 #, no-c-format
 msgid "<phrase>Nonlinear Encoding</phrase>"
 msgstr "<phrase>L'encodage non linéaire</phrase>"
 
 #. Tag: para
-#: help_en-work.docbook:979
+#: help_en-work.docbook:972
 #, no-c-format
 msgid "<para>Nonlinear Encoding</para>"
 msgstr "<para>L'encodage non linéaire</para>"
 
 #. Tag: title
-#: help_en-work.docbook:982
+#: help_en-work.docbook:975
 #, no-c-format
 msgid "Sample Formats"
 msgstr "Formats d'échantillonnage"
 
 #. Tag: para
-#: help_en-work.docbook:984
+#: help_en-work.docbook:977
 #, no-c-format
 msgid ""
 "Samples can be stored in different formats and precisions. The most common "
@@ -1831,31 +1825,31 @@ msgstr ""
 "positives et négatives)."
 
 #. Tag: phrase
-#: help_en-work.docbook:999
+#: help_en-work.docbook:992
 #, no-c-format
 msgid "<phrase>Signed Format</phrase>"
 msgstr "<phrase>Le format signé</phrase>"
 
 #. Tag: para
-#: help_en-work.docbook:1002
+#: help_en-work.docbook:995
 #, fuzzy, no-c-format
 msgid "<para>Signed Format</para>"
 msgstr "<para></para>"
 
 #. Tag: phrase
-#: help_en-work.docbook:1008
+#: help_en-work.docbook:1001
 #, no-c-format
 msgid "<phrase>Unsigned Format</phrase>"
 msgstr "<phrase>Le format non signé</phrase>"
 
 #. Tag: para
-#: help_en-work.docbook:1011
+#: help_en-work.docbook:1004
 #, no-c-format
 msgid "<para>Unsigned Format</para>"
 msgstr "<para>Le format non signé</para>"
 
 #. Tag: para
-#: help_en-work.docbook:1012
+#: help_en-work.docbook:1005
 #, no-c-format
 msgid ""
 "As the quantisation loses some accuracy, it produces noise, the so-called "
@@ -1873,7 +1867,7 @@ msgstr ""
 "entiers)."
 
 #. Tag: para
-#: help_en-work.docbook:1020
+#: help_en-work.docbook:1013
 #, no-c-format
 msgid ""
 "The second way of encoding samples is with <emphasis>floating point</"
@@ -1890,7 +1884,7 @@ msgstr ""
 "traitent les chiffres à virgule plus lentement que les nombres entiers)."
 
 #. Tag: para
-#: help_en-work.docbook:1028
+#: help_en-work.docbook:1021
 #, no-c-format
 msgid ""
 "&kapp; internally uses <emphasis>signed integer</emphasis> format with 24 "
@@ -1907,13 +1901,13 @@ msgstr ""
 "ressource système qu'avec des entiers codés directement sur 24 bits."
 
 #. Tag: title
-#: help_en-work.docbook:1046
+#: help_en-work.docbook:1039
 #, no-c-format
 msgid "Using &kapp;"
 msgstr "Utilisation de &kapp;"
 
 #. Tag: para
-#: help_en-work.docbook:1047
+#: help_en-work.docbook:1040
 #, no-c-format
 msgid ""
 "Here is a little screenshot of the &kapp; main window, so that you get an "
@@ -1923,25 +1917,25 @@ msgstr ""
 "vous donnera une première impression sur le programme..."
 
 #. Tag: screeninfo
-#: help_en-work.docbook:1053
+#: help_en-work.docbook:1046
 #, no-c-format
 msgid "Here's a screenshot of &kapp;"
 msgstr "Une capture d'écran de &kapp;"
 
 #. Tag: phrase
-#: help_en-work.docbook:1061
+#: help_en-work.docbook:1054
 #, fuzzy, no-c-format
 msgid "Screenshot of the Main Window"
 msgstr "Une capture d'écran de &kapp;"
 
 #. Tag: title
-#: help_en-work.docbook:1070
+#: help_en-work.docbook:1063
 #, no-c-format
 msgid "Memory Setup"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1072
+#: help_en-work.docbook:1065
 #, no-c-format
 msgid ""
 "When using &kapp; for the first time, you should go to the memory setup "
@@ -1951,19 +1945,19 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: help_en-work.docbook:1082
+#: help_en-work.docbook:1075
 #, fuzzy, no-c-format
 msgid "Here's a screenshot of &kapp;'s memory setup dialog"
 msgstr "Une capture d'écran de &kapp;"
 
 #. Tag: phrase
-#: help_en-work.docbook:1090
+#: help_en-work.docbook:1083
 #, fuzzy, no-c-format
 msgid "Screenshot of the Memory Setup Dialog"
 msgstr "Une capture d'écran de &kapp;"
 
 #. Tag: para
-#: help_en-work.docbook:1095
+#: help_en-work.docbook:1088
 #, no-c-format
 msgid ""
 "&kapp; is able to use two types of memory: <emphasis>physical</emphasis> and "
@@ -1971,7 +1965,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1099
+#: help_en-work.docbook:1092
 #, no-c-format
 msgid ""
 "<emphasis>Physical memory</emphasis> is the memory (RAM) that is installed "
@@ -1985,7 +1979,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1110
+#: help_en-work.docbook:1103
 #, no-c-format
 msgid ""
 "If you enable <emphasis>virtual memory</emphasis>, &kapp; is able to load "
@@ -1997,13 +1991,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en-work.docbook:1126
+#: help_en-work.docbook:1119
 #, no-c-format
 msgid "Command Line"
 msgstr "Les options en ligne de commande"
 
 #. Tag: para
-#: help_en-work.docbook:1128
+#: help_en-work.docbook:1121
 #, no-c-format
 msgid ""
 "If you start &kapp; from the command line, you can specify a list of files "
@@ -2019,7 +2013,7 @@ msgstr ""
 "ainsi ouvrir un nombre important de fichiers sonores en même temps."
 
 #. Tag: para
-#: help_en-work.docbook:1135
+#: help_en-work.docbook:1128
 #, no-c-format
 msgid ""
 "For example, the following command starts a &kapp; and opens all sounds of "
@@ -2030,7 +2024,7 @@ msgstr ""
 "internes par KDE :"
 
 #. Tag: screen
-#: help_en-work.docbook:1138
+#: help_en-work.docbook:1131
 #, fuzzy, no-c-format
 msgid ""
 "<prompt>% </prompt><command>kwave <filename>/usr/share/sounds/KDE_Window*."
@@ -2040,7 +2034,7 @@ msgstr ""
 "KDE_Window*.wav</filename></command>"
 
 #. Tag: para
-#: help_en-work.docbook:1141
+#: help_en-work.docbook:1134
 #, no-c-format
 msgid ""
 "In addition to a list of files, you can specify a list of <emphasis>Xt "
@@ -2055,7 +2049,7 @@ msgstr ""
 "sur une instance du serveur X différente."
 
 #. Tag: para
-#: help_en-work.docbook:1149
+#: help_en-work.docbook:1142
 #, no-c-format
 msgid ""
 "For example, the following command starts a &kapp; window with an initial "
@@ -2069,7 +2063,7 @@ msgstr ""
 "et 0 pixels du haut de la fenêtre."
 
 #. Tag: screen
-#: help_en-work.docbook:1154
+#: help_en-work.docbook:1147
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</"
@@ -2079,21 +2073,22 @@ msgstr ""
 "parameter></command>"
 
 #. Tag: title
-#: help_en-work.docbook:1162
+#: help_en-work.docbook:1155
 #, no-c-format
 msgid "Opening and Saving files"
 msgstr "Ouverture et sauvegarde de fichiers"
 
 #. Tag: para
-#: help_en-work.docbook:1164
+#: help_en-work.docbook:1157
 #, no-c-format
-msgid "Opening files with &kapp; works like in most other applications, you can"
+msgid ""
+"Opening files with &kapp; works like in most other applications, you can"
 msgstr ""
 "L'ouverture des fichiers avec &kapp; fonctionne comme dans toutes les autres "
 "applications de KDE. Vous pouvez :"
 
 #. Tag: para
-#: help_en-work.docbook:1168
+#: help_en-work.docbook:1161
 #, no-c-format
 msgid ""
 "specify a list of files on the <link linkend=\"command_line\">command line</"
@@ -2103,7 +2098,7 @@ msgstr ""
 "\">ligne de commande </link> quand vous lancez &kapp;."
 
 #. Tag: para
-#: help_en-work.docbook:1170
+#: help_en-work.docbook:1163
 #, no-c-format
 msgid ""
 "open an empty &kapp; window (for example with <menuchoice> "
@@ -2120,7 +2115,7 @@ msgstr ""
 "déposer</link>."
 
 #. Tag: para
-#: help_en-work.docbook:1178
+#: help_en-work.docbook:1171
 #, no-c-format
 msgid ""
 "open a file through the menu with <menuchoice> "
@@ -2134,7 +2129,7 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: para
-#: help_en-work.docbook:1184
+#: help_en-work.docbook:1177
 #, no-c-format
 msgid ""
 "or one of the last recently opened files under <menuchoice> <guimenu>File</"
@@ -2145,7 +2140,7 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: para
-#: help_en-work.docbook:1190
+#: help_en-work.docbook:1183
 #, no-c-format
 msgid ""
 "save the current file with <menuchoice> <shortcut><keycombo><keycap>Ctrl</"
@@ -2158,7 +2153,7 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: para
-#: help_en-work.docbook:1197
+#: help_en-work.docbook:1190
 #, fuzzy, no-c-format
 msgid ""
 "save under a different name with <menuchoice> "
@@ -2173,7 +2168,7 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: para
-#: help_en-work.docbook:1204
+#: help_en-work.docbook:1197
 #, fuzzy, no-c-format
 msgid ""
 "save all areas that are separated by markers, each one to an own file, with "
@@ -2185,7 +2180,7 @@ msgstr ""
 "guimenuitem><guimenuitem> Sélection...</guimenuitem></menuchoice>."
 
 #. Tag: para
-#: help_en-work.docbook:1211
+#: help_en-work.docbook:1204
 #, fuzzy, no-c-format
 msgid ""
 "or only the current selection with <menuchoice> <guimenu>File</"
@@ -2197,19 +2192,19 @@ msgstr ""
 "guimenuitem><guimenuitem> Sélection...</guimenuitem></menuchoice>."
 
 #. Tag: title
-#: help_en-work.docbook:1220
+#: help_en-work.docbook:1213
 #, no-c-format
 msgid "Supported File formats"
 msgstr "Formats de fichiers supportés"
 
 #. Tag: para
-#: help_en-work.docbook:1222
+#: help_en-work.docbook:1215
 #, no-c-format
 msgid "&kapp; supports the following file formats:"
 msgstr "&kapp; supporte les formats de fichiers suivants :"
 
 #. Tag: para
-#: help_en-work.docbook:1228
+#: help_en-work.docbook:1221
 #, no-c-format
 msgid ""
 "The favourite file format of &kapp; is (like you can guess from the name) "
@@ -2221,7 +2216,7 @@ msgstr ""
 "« systèmes d'exploitation » mais aussi pour l'environnement de bureau KDE."
 
 #. Tag: para
-#: help_en-work.docbook:1233
+#: help_en-work.docbook:1226
 #, no-c-format
 msgid ""
 "The second format that &kapp; supports is \"ASCII\". You can export to "
@@ -2232,7 +2227,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1240
+#: help_en-work.docbook:1233
 #, no-c-format
 msgid ""
 "<filename>.mp3</filename> and <filename>.mp2</filename> import is available "
@@ -2247,7 +2242,7 @@ msgstr ""
 "\">id3lib</ulink> pour le décodage des marquages ID3."
 
 #. Tag: para
-#: help_en-work.docbook:1249
+#: help_en-work.docbook:1242
 #, no-c-format
 msgid ""
 "Ogg/Vorbis (<filename>*.ogg</filename>) import and export. See <ulink url="
@@ -2258,7 +2253,7 @@ msgstr ""
 "org</ulink> pour plus de détails."
 
 #. Tag: para
-#: help_en-work.docbook:1256
+#: help_en-work.docbook:1249
 #, no-c-format
 msgid ""
 "Additionally &kapp; supports many other common formats through the <ulink "
@@ -2276,13 +2271,13 @@ msgstr ""
 "filename> (Berkeley, IRCAM,Carl Sound Format)."
 
 #. Tag: title
-#: help_en-work.docbook:1272
+#: help_en-work.docbook:1265
 #, no-c-format
 msgid "Converting to and from .wav"
 msgstr "Convertir vers ou à partir d'un fichier « .wav »"
 
 #. Tag: para
-#: help_en-work.docbook:1274
+#: help_en-work.docbook:1267
 #, fuzzy, no-c-format
 msgid ""
 "The best way to work with formats other than those supported by &kapp; is to "
@@ -2299,7 +2294,7 @@ msgstr ""
 "Sox/</ulink>."
 
 #. Tag: para
-#: help_en-work.docbook:1282
+#: help_en-work.docbook:1275
 #, no-c-format
 msgid ""
 "The plans for future include support for import and also export filters for "
@@ -2314,13 +2309,13 @@ msgstr ""
 "de fichiers non supportés par <literal>SoX</literal> (comme le MP3)."
 
 #. Tag: title
-#: help_en-work.docbook:1290
+#: help_en-work.docbook:1283
 #, fuzzy, no-c-format
 msgid "Format of ASCII files"
 msgstr "Importation de fichier ASCII."
 
 #. Tag: para
-#: help_en-work.docbook:1291
+#: help_en-work.docbook:1284
 #, no-c-format
 msgid ""
 "The ASCII format is quite useful for scientific and educational purposes. "
@@ -2332,13 +2327,14 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1303
+#: help_en-work.docbook:1296
 #, no-c-format
-msgid "The format of an ASCII file is quite simple and has the following rules:"
+msgid ""
+"The format of an ASCII file is quite simple and has the following rules:"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1306
+#: help_en-work.docbook:1299
 #, no-c-format
 msgid ""
 "At the start of the file comes a block of properties, with one property per "
@@ -2346,13 +2342,13 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1310
+#: help_en-work.docbook:1303
 #, no-c-format
 msgid "Each property line starts with <literal>##</literal>."
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1313
+#: help_en-work.docbook:1306
 #, no-c-format
 msgid ""
 "After the properties comes a list of samples, with one sample per line. When "
@@ -2360,7 +2356,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1317
+#: help_en-work.docbook:1310
 #, no-c-format
 msgid ""
 "Lines might end with a carriage return and/or a line feed character (so DOS "
@@ -2369,7 +2365,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1323
+#: help_en-work.docbook:1316
 #, no-c-format
 msgid ""
 "Empty lines and characters after a <literal>#</literal> are treated as "
@@ -2377,7 +2373,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1327
+#: help_en-work.docbook:1320
 #, no-c-format
 msgid ""
 "Values can be are given in any format that the C library of your system is "
@@ -2386,7 +2382,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1333
+#: help_en-work.docbook:1326
 #, no-c-format
 msgid ""
 "All values are expected to be in signed format. So if you import a file with "
@@ -2394,7 +2390,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1338
+#: help_en-work.docbook:1331
 #, no-c-format
 msgid ""
 "When importing, values can be specified in any range, &kapp; always does a "
@@ -2403,13 +2399,13 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1344
+#: help_en-work.docbook:1337
 #, no-c-format
 msgid "Internally all values are stored with 24 bit precision (signed)."
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1350
+#: help_en-work.docbook:1343
 #, no-c-format
 msgid ""
 "Here is an example of a simple ASCII file that represents a sine wave with "
@@ -2417,13 +2413,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en-work.docbook:1354
+#: help_en-work.docbook:1347
 #, no-c-format
 msgid "content of an ASCII file with a single sine wave"
 msgstr ""
 
 #. Tag: screen
-#: help_en-work.docbook:1355
+#: help_en-work.docbook:1348
 #, no-c-format
 msgid ""
 "## 'rate'=44100\n"
@@ -2447,13 +2443,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en-work.docbook:1365
+#: help_en-work.docbook:1358
 #, no-c-format
 msgid "Creating a New File"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1367
+#: help_en-work.docbook:1360
 #, fuzzy, no-c-format
 msgid ""
 "You can create a new and empty file menu under <menuchoice> <guimenu>File</"
@@ -2464,19 +2460,19 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: screeninfo
-#: help_en-work.docbook:1375
+#: help_en-work.docbook:1368
 #, fuzzy, no-c-format
 msgid "Here's a screenshot of &kapp;'s new file dialog"
 msgstr "Une capture d'écran de &kapp;"
 
 #. Tag: phrase
-#: help_en-work.docbook:1383
+#: help_en-work.docbook:1376
 #, fuzzy, no-c-format
 msgid "Screenshot of the File New Dialog"
 msgstr "Une capture d'écran de &kapp;"
 
 #. Tag: para
-#: help_en-work.docbook:1388
+#: help_en-work.docbook:1381
 #, no-c-format
 msgid ""
 "You can select the sample rate, resolution in bits per sample and the number "
@@ -2485,7 +2481,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1393
+#: help_en-work.docbook:1386
 #, no-c-format
 msgid ""
 "The length of the new signal can be set by time (hours, minutes, seconds) or "
@@ -2495,13 +2491,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en-work.docbook:1405
+#: help_en-work.docbook:1398
 #, no-c-format
 msgid "Recording"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1407
+#: help_en-work.docbook:1400
 #, no-c-format
 msgid ""
 "&kapp; is able to record audio data from various sources, with all sample "
@@ -2512,7 +2508,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1414
+#: help_en-work.docbook:1407
 #, fuzzy, no-c-format
 msgid ""
 "The recording can be reached from the menu under <menuchoice> <guimenu>File</"
@@ -2523,7 +2519,7 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: para
-#: help_en-work.docbook:1421
+#: help_en-work.docbook:1414
 #, no-c-format
 msgid ""
 "Here is a screenshot of the &kapp; record dialog, showing the first page "
@@ -2532,25 +2528,25 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: help_en-work.docbook:1429
+#: help_en-work.docbook:1422
 #, fuzzy, no-c-format
 msgid "Here's a screenshot of &kapp;'s record dialog"
 msgstr "Une capture d'écran de &kapp;"
 
 #. Tag: phrase
-#: help_en-work.docbook:1437
+#: help_en-work.docbook:1430
 #, fuzzy, no-c-format
 msgid "Screenshot of the Record Dialog"
 msgstr "Une capture d'écran de &kapp;"
 
 #. Tag: para
-#: help_en-work.docbook:1443
+#: help_en-work.docbook:1436
 #, no-c-format
 msgid "Here you have the following controls:"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1446
+#: help_en-work.docbook:1439
 #, no-c-format
 msgid ""
 "<guilabel>Pre-Record:</guilabel> If the pre-recording feature of &kapp; is "
@@ -2567,7 +2563,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1466
+#: help_en-work.docbook:1459
 #, no-c-format
 msgid ""
 "<guilabel>Record-Time:</guilabel> If the length of the recording should be "
@@ -2580,7 +2576,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1476
+#: help_en-work.docbook:1469
 #, no-c-format
 msgid ""
 "<guilabel>Record Trigger:</guilabel> If enabled, the recording starts only "
@@ -2590,7 +2586,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1483
+#: help_en-work.docbook:1476
 #, no-c-format
 msgid ""
 "The <guibutton>New</guibutton> (<inlinemediaobject><imageobject> <imagedata "
@@ -2601,7 +2597,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1491
+#: help_en-work.docbook:1484
 #, no-c-format
 msgid ""
 "The <guibutton>Stop</guibutton> (<inlinemediaobject><imageobject> <imagedata "
@@ -2613,7 +2609,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1499
+#: help_en-work.docbook:1492
 #, no-c-format
 msgid ""
 "The <guibutton>Pause</guibutton> (<inlinemediaobject><imageobject> "
@@ -2627,7 +2623,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1509
+#: help_en-work.docbook:1502
 #, no-c-format
 msgid ""
 "The <guibutton>Record</guibutton> (<inlinemediaobject><imageobject> "
@@ -2638,7 +2634,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1516
+#: help_en-work.docbook:1509
 #, no-c-format
 msgid ""
 "If neither prerecording nor trigger level are used, the recording starts as "
@@ -2646,7 +2642,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1521
+#: help_en-work.docbook:1514
 #, no-c-format
 msgid ""
 "If prerecording is not used and a trigger level is set, the first press will "
@@ -2657,7 +2653,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1529
+#: help_en-work.docbook:1522
 #, no-c-format
 msgid ""
 "If prerecording is enabled, the first press starts only the prerecording and "
@@ -2665,13 +2661,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en-work.docbook:1543
+#: help_en-work.docbook:1536
 #, fuzzy, no-c-format
 msgid "Playback"
 msgstr "Écoute des pistes audio via le module sonore ALSA."
 
 #. Tag: para
-#: help_en-work.docbook:1545
+#: help_en-work.docbook:1538
 #, no-c-format
 msgid ""
 "Depending on the compilation options &kapp; is able to play sounds trough "
@@ -2679,7 +2675,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1550
+#: help_en-work.docbook:1543
 #, no-c-format
 msgid ""
 "ALSA (Advanced Linux Sound Architecture): Supercedes OSS, supports more "
@@ -2690,7 +2686,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1558
+#: help_en-work.docbook:1551
 #, no-c-format
 msgid ""
 "OSS (Open Sound System): The oldest linux implementation, capable of mono "
@@ -2700,7 +2696,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1567
+#: help_en-work.docbook:1560
 #, no-c-format
 msgid ""
 "Before trying to play sounds, you should take a look on the playback "
@@ -2708,19 +2704,19 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: help_en-work.docbook:1573
+#: help_en-work.docbook:1566
 #, fuzzy, no-c-format
 msgid "Here's a screenshot of &kapp;'s playback setup dialog"
 msgstr "Une capture d'écran de &kapp;"
 
 #. Tag: phrase
-#: help_en-work.docbook:1581
+#: help_en-work.docbook:1574
 #, fuzzy, no-c-format
 msgid "Screenshot of the Playback Setup Dialog"
 msgstr "Une capture d'écran de &kapp;"
 
 #. Tag: para
-#: help_en-work.docbook:1587
+#: help_en-work.docbook:1580
 #, no-c-format
 msgid ""
 "Currently &kapp; supports only 8 and 16 bit playback, with mono or stereo "
@@ -2729,7 +2725,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1592
+#: help_en-work.docbook:1585
 #, no-c-format
 msgid ""
 "If your sound file uses more or less channels than the playback allows, all "
@@ -2740,7 +2736,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1600
+#: help_en-work.docbook:1593
 #, no-c-format
 msgid ""
 "For getting a smooth playback without interruptions, you should also set the "
@@ -2751,7 +2747,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1608
+#: help_en-work.docbook:1601
 #, no-c-format
 msgid ""
 "The playback settings dialog also provides a button for playing a simple "
@@ -2760,7 +2756,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1613
+#: help_en-work.docbook:1606
 #, no-c-format
 msgid ""
 "Once you have configured playback, you can use the playback controls of the "
@@ -2769,7 +2765,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1619
+#: help_en-work.docbook:1612
 #, fuzzy, no-c-format
 msgid ""
 "<menuchoice> <shortcut><keycombo><keycap>P</keycap></keycombo></shortcut> "
@@ -2783,7 +2779,7 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: para
-#: help_en-work.docbook:1627
+#: help_en-work.docbook:1620
 #, fuzzy, no-c-format
 msgid ""
 "<menuchoice> <guimenu>Play</guimenu><guimenuitem>Loop</guimenuitem> </"
@@ -2795,7 +2791,7 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: para
-#: help_en-work.docbook:1632
+#: help_en-work.docbook:1625
 #, fuzzy, no-c-format
 msgid ""
 "<menuchoice> <shortcut><keycombo><keycap>Space</keycap></keycombo></"
@@ -2809,7 +2805,7 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: para
-#: help_en-work.docbook:1639
+#: help_en-work.docbook:1632
 #, fuzzy, no-c-format
 msgid ""
 "<menuchoice> <shortcut><keycombo><keycap>Space</keycap></keycombo></"
@@ -2823,7 +2819,7 @@ msgstr ""
 "guimenuitem></menuchoice>"
 
 #. Tag: para
-#: help_en-work.docbook:1646
+#: help_en-work.docbook:1639
 #, fuzzy, no-c-format
 msgid ""
 "<menuchoice> <shortcut><keycombo><keycap>Esc</keycap></keycombo></shortcut> "
@@ -2836,13 +2832,13 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: title
-#: help_en-work.docbook:1660
+#: help_en-work.docbook:1653
 #, no-c-format
 msgid "File Properties"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1662
+#: help_en-work.docbook:1655
 #, no-c-format
 msgid ""
 "&kapp; is able to handle several meta information that is stored within an "
@@ -2853,7 +2849,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1670
+#: help_en-work.docbook:1663
 #, fuzzy, no-c-format
 msgid ""
 "You can view and modify the meta information under <menuchoice> "
@@ -2866,25 +2862,25 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: screeninfo
-#: help_en-work.docbook:1679
+#: help_en-work.docbook:1672
 #, fuzzy, no-c-format
 msgid "Here's a screenshot of &kapp;'s file properties dialog"
 msgstr "Une capture d'écran de &kapp;"
 
 #. Tag: phrase
-#: help_en-work.docbook:1687
+#: help_en-work.docbook:1680
 #, fuzzy, no-c-format
 msgid "Screenshot of the File Properties Dialog"
 msgstr "Une capture d'écran de &kapp;"
 
 #. Tag: title
-#: help_en-work.docbook:1698
+#: help_en-work.docbook:1691
 #, no-c-format
 msgid "Zooming and navigating"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1700
+#: help_en-work.docbook:1693
 #, no-c-format
 msgid ""
 "&kapp; provides several ways to zoom and navigate, using keyboard shortcuts, "
@@ -2893,13 +2889,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en-work.docbook:1707
+#: help_en-work.docbook:1700
 #, no-c-format
 msgid "Zooming in and out"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1711
+#: help_en-work.docbook:1704
 #, no-c-format
 msgid ""
 "<emphasis>zoom to whole signal:</emphasis> selects a zoom factor that makes "
@@ -2907,7 +2903,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1716
+#: help_en-work.docbook:1709
 #, fuzzy, no-c-format
 msgid ""
 "menu entry: <menuchoice> <guimenu>View</guimenu><guimenuitem>Zoom to whole "
@@ -2918,20 +2914,20 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: para
-#: help_en-work.docbook:1722 help_en-work.docbook:1742
-#: help_en-work.docbook:1762 help_en-work.docbook:1782
+#: help_en-work.docbook:1715 help_en-work.docbook:1735
+#: help_en-work.docbook:1755 help_en-work.docbook:1775
 #, no-c-format
 msgid "toolbar button:"
 msgstr ""
 
 #. Tag: phrase
-#: help_en-work.docbook:1725
+#: help_en-work.docbook:1718
 #, no-c-format
 msgid "zoom all button"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1731
+#: help_en-work.docbook:1724
 #, no-c-format
 msgid ""
 "<emphasis>zoom to 100%:</emphasis> zooms in up to a scale where on sample is "
@@ -2939,7 +2935,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1736
+#: help_en-work.docbook:1729
 #, fuzzy, no-c-format
 msgid ""
 "menu entry: <menuchoice> <guimenu>View</guimenu><guimenuitem>Zoom to 100%</"
@@ -2950,13 +2946,13 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: phrase
-#: help_en-work.docbook:1745
+#: help_en-work.docbook:1738
 #, no-c-format
 msgid "zoom to 100% button"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1751
+#: help_en-work.docbook:1744
 #, no-c-format
 msgid ""
 "<emphasis>zoom in:</emphasis> zooms in to see more details, magnifies by "
@@ -2964,7 +2960,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1755
+#: help_en-work.docbook:1748
 #, fuzzy, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -2978,13 +2974,13 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: phrase
-#: help_en-work.docbook:1765
+#: help_en-work.docbook:1758
 #, no-c-format
 msgid "zoom in button"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1771
+#: help_en-work.docbook:1764
 #, no-c-format
 msgid ""
 "<emphasis>zoom out:</emphasis> zooms in to see less details, shrinks by "
@@ -2992,7 +2988,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1775
+#: help_en-work.docbook:1768
 #, fuzzy, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3006,13 +3002,13 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: phrase
-#: help_en-work.docbook:1785
+#: help_en-work.docbook:1778
 #, no-c-format
 msgid "zoom out button"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1791
+#: help_en-work.docbook:1784
 #, no-c-format
 msgid ""
 "<emphasis>zoom selection:</emphasis> zooms to a factor where the current "
@@ -3020,7 +3016,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1796
+#: help_en-work.docbook:1789
 #, fuzzy, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3034,7 +3030,7 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: para
-#: help_en-work.docbook:1813
+#: help_en-work.docbook:1806
 #, no-c-format
 msgid ""
 "<emphasis>select predefined zoom:</emphasis> select a zoom factor from the "
@@ -3042,13 +3038,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en-work.docbook:1822
+#: help_en-work.docbook:1815
 #, no-c-format
 msgid "Scrolling left and right"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1826
+#: help_en-work.docbook:1819
 #, no-c-format
 msgid ""
 "<emphasis>scroll left:</emphasis> scrolls to the start of the signal by 1/3 "
@@ -3056,7 +3052,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1830
+#: help_en-work.docbook:1823
 #, fuzzy, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3069,7 +3065,7 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: para
-#: help_en-work.docbook:1839
+#: help_en-work.docbook:1832
 #, no-c-format
 msgid ""
 "<emphasis>scroll right:</emphasis> scrolls to the end of the signal by 1/3 "
@@ -3077,7 +3073,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1843
+#: help_en-work.docbook:1836
 #, fuzzy, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3090,7 +3086,7 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: para
-#: help_en-work.docbook:1852
+#: help_en-work.docbook:1845
 #, no-c-format
 msgid ""
 "<emphasis>previous page:</emphasis> scrolls to the position right before the "
@@ -3098,7 +3094,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1856
+#: help_en-work.docbook:1849
 #, fuzzy, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3111,7 +3107,7 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: para
-#: help_en-work.docbook:1865
+#: help_en-work.docbook:1858
 #, no-c-format
 msgid ""
 "<emphasis>next page:</emphasis> scrolls to the position right after the "
@@ -3119,7 +3115,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1869
+#: help_en-work.docbook:1862
 #, fuzzy, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3132,7 +3128,7 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: para
-#: help_en-work.docbook:1878
+#: help_en-work.docbook:1871
 #, no-c-format
 msgid ""
 "<emphasis>to begin:</emphasis> scrolls the current view so that it starts at "
@@ -3140,7 +3136,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1883
+#: help_en-work.docbook:1876
 #, fuzzy, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3153,7 +3149,7 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: para
-#: help_en-work.docbook:1892
+#: help_en-work.docbook:1885
 #, no-c-format
 msgid ""
 "<emphasis>to end:</emphasis> scrolls the current view so that it ends at the "
@@ -3161,7 +3157,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1896
+#: help_en-work.docbook:1889
 #, fuzzy, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3174,13 +3170,13 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #. Tag: title
-#: help_en-work.docbook:1908
+#: help_en-work.docbook:1901
 #, no-c-format
 msgid "Using the overview"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1910
+#: help_en-work.docbook:1903
 #, no-c-format
 msgid ""
 "The main screen of &kapp; shows a small <emphasis>overview</emphasis> of the "
@@ -3189,7 +3185,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1916
+#: help_en-work.docbook:1909
 #, no-c-format
 msgid ""
 "<emphasis>single click with left mouse button</emphasis>: directly move the "
@@ -3197,7 +3193,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1921
+#: help_en-work.docbook:1914
 #, no-c-format
 msgid ""
 "<emphasis>double click with left mouse button</emphasis>: directly move the "
@@ -3205,7 +3201,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1927
+#: help_en-work.docbook:1920
 #, no-c-format
 msgid ""
 "<emphasis>double click with left mouse button, with <keycap>shift</keycap> "
@@ -3214,13 +3210,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en-work.docbook:1938
+#: help_en-work.docbook:1931
 #, no-c-format
 msgid "Vertical zoom"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:1939
+#: help_en-work.docbook:1932
 #, no-c-format
 msgid ""
 "You can zoom the current view vertically by pressing the <keycap>Ctrl</"
@@ -3228,13 +3224,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en-work.docbook:1950
+#: help_en-work.docbook:1943
 #, no-c-format
 msgid "How to select"
 msgstr "Comment faire une sélection"
 
 #. Tag: para
-#: help_en-work.docbook:1952
+#: help_en-work.docbook:1945
 #, no-c-format
 msgid ""
 "&kapp; allows you to select a continuous range of samples as well as any "
@@ -3250,13 +3246,13 @@ msgstr ""
 "ne sera pas modifié."
 
 #. Tag: title
-#: help_en-work.docbook:1959
+#: help_en-work.docbook:1952
 #, no-c-format
 msgid "Selecting channels"
 msgstr "La sélection de canaux sonores"
 
 #. Tag: para
-#: help_en-work.docbook:1960
+#: help_en-work.docbook:1953
 #, no-c-format
 msgid ""
 "Selecting or de-selecting a channel is quite simple. Just click on the lamp "
@@ -3267,45 +3263,46 @@ msgstr ""
 "états du témoins sont les suivants :"
 
 #. Tag: phrase
-#: help_en-work.docbook:1969
+#: help_en-work.docbook:1962
 #, no-c-format
 msgid "green lamb"
 msgstr "Lumière verte"
 
 #. Tag: para
-#: help_en-work.docbook:1970
+#: help_en-work.docbook:1963
 #, no-c-format
 msgid "a green lamb means \"enabled\", whereas"
 msgstr "Un témoin vert indique que le canal est « actif »."
 
 #. Tag: phrase
-#: help_en-work.docbook:1978
+#: help_en-work.docbook:1971
 #, no-c-format
 msgid "red lamb"
 msgstr "Lumière rouge"
 
 #. Tag: para
-#: help_en-work.docbook:1979
+#: help_en-work.docbook:1972
 #, no-c-format
 msgid "a red lamb means \"disabled\"."
 msgstr "Un témoin rouge indique que le canal est « inactif »."
 
 #. Tag: para
-#: help_en-work.docbook:1983
+#: help_en-work.docbook:1976
 #, no-c-format
-msgid "Note: If a channel is de-selected it will also not be audible for playback!"
+msgid ""
+"Note: If a channel is de-selected it will also not be audible for playback!"
 msgstr ""
 "Si le canal est désélectionné, il ne sera pas écoutable lors d'une lecture "
 "des pistes sonores !"
 
 #. Tag: title
-#: help_en-work.docbook:1988
+#: help_en-work.docbook:1981
 #, no-c-format
 msgid "Selecting samples"
 msgstr "La sélection d'échantillons"
 
 #. Tag: para
-#: help_en-work.docbook:1990
+#: help_en-work.docbook:1983
 #, no-c-format
 msgid ""
 "If you select a range of samples in &kapp;, that range will be "
@@ -3327,7 +3324,7 @@ msgstr ""
 "uniquement sur ce dernier."
 
 #. Tag: para
-#: help_en-work.docbook:2000
+#: help_en-work.docbook:1993
 #, no-c-format
 msgid ""
 "The easiest way of selecting a range of samples is just to do that with "
@@ -3343,7 +3340,7 @@ msgstr ""
 "de la sélection."
 
 #. Tag: para
-#: help_en-work.docbook:2006
+#: help_en-work.docbook:1999
 #, no-c-format
 msgid ""
 "If you want to adjust or move the selection's start or end, you can move the "
@@ -3357,7 +3354,7 @@ msgstr ""
 "de déplacer l'extrémité à l'emplacement voulu, puis de relâcher le bouton."
 
 #. Tag: para
-#: help_en-work.docbook:2012
+#: help_en-work.docbook:2005
 #, no-c-format
 msgid ""
 "You can also extend or shrink the selection to a specific point by holding "
@@ -3372,7 +3369,7 @@ msgstr ""
 "droit de la sélection sera ajusté à la position pointée par le curseur."
 
 #. Tag: para
-#: help_en-work.docbook:2018
+#: help_en-work.docbook:2011
 #, no-c-format
 msgid ""
 "There are also some functions available via the menu and of course some "
@@ -3382,7 +3379,7 @@ msgstr ""
 "sur quelques raccourcis clavier qui sont :"
 
 #. Tag: para
-#: help_en-work.docbook:2022
+#: help_en-work.docbook:2015
 #, no-c-format
 msgid ""
 "select the whole signal: <menuchoice> <shortcut><keycombo><keycap>Ctrl</"
@@ -3396,7 +3393,7 @@ msgstr ""
 "guimenuitem><guimenuitem>Tout</guimenuitem> </menuchoice>"
 
 #. Tag: para
-#: help_en-work.docbook:2029
+#: help_en-work.docbook:2022
 #, no-c-format
 msgid ""
 "remove any selection and select \"nothing\": <menuchoice> "
@@ -3410,7 +3407,7 @@ msgstr ""
 "guimenuitem><guimenuitem>Rien</guimenuitem></menuchoice>"
 
 #. Tag: para
-#: help_en-work.docbook:2036
+#: help_en-work.docbook:2029
 #, no-c-format
 msgid ""
 "the currently visible area: <menuchoice> <shortcut><keycombo><keycap>V</"
@@ -3423,7 +3420,7 @@ msgstr ""
 "guimenuitem></menuchoice>"
 
 #. Tag: para
-#: help_en-work.docbook:2043
+#: help_en-work.docbook:2036
 #, no-c-format
 msgid ""
 "the next block of samples, starting one sample after the end of the current "
@@ -3439,13 +3436,14 @@ msgstr ""
 "guimenuitem><guimenuitem>Suivant</guimenuitem></menuchoice>"
 
 #. Tag: para
-#: help_en-work.docbook:2051
+#: help_en-work.docbook:2044
 #, no-c-format
 msgid "(Hint: use the \"<keycap>+</keycap>\" key from the numeric keypad!)"
-msgstr "(Astuce : utiliser la touche « <keycap>+</keycap> » du pavé numérique !)"
+msgstr ""
+"(Astuce : utiliser la touche « <keycap>+</keycap> » du pavé numérique !)"
 
 #. Tag: para
-#: help_en-work.docbook:2054
+#: help_en-work.docbook:2047
 #, no-c-format
 msgid ""
 "the previous block of samples, ending one sample before the start of the "
@@ -3461,13 +3459,14 @@ msgstr ""
 "guimenuitem><guimenuitem>Précédent</guimenuitem></menuchoice>"
 
 #. Tag: para
-#: help_en-work.docbook:2062
+#: help_en-work.docbook:2055
 #, no-c-format
 msgid "(Hint: use the \"<keycap>-</keycap>\" key from the numeric keypad!)"
-msgstr "(Astuce : utiliser la touche « <keycap>-</keycap> » du pavé numérique !)"
+msgstr ""
+"(Astuce : utiliser la touche « <keycap>-</keycap> » du pavé numérique !)"
 
 #. Tag: para
-#: help_en-work.docbook:2065
+#: help_en-work.docbook:2058
 #, no-c-format
 msgid ""
 "expand the selection to the start of the signal (first sample): <menuchoice> "
@@ -3482,7 +3481,7 @@ msgstr ""
 "guimenuitem></menuchoice>"
 
 #. Tag: para
-#: help_en-work.docbook:2072
+#: help_en-work.docbook:2065
 #, no-c-format
 msgid ""
 "expand the selection to the end of the signal (last sample): <menuchoice> "
@@ -3497,7 +3496,7 @@ msgstr ""
 "guimenuitem></menuchoice>"
 
 #. Tag: para
-#: help_en-work.docbook:2080
+#: help_en-work.docbook:2073
 #, fuzzy, no-c-format
 msgid ""
 "expand the current selection left and right up to the next label (or start/"
@@ -3513,7 +3512,7 @@ msgstr ""
 "guimenuitem></menuchoice>"
 
 #. Tag: para
-#: help_en-work.docbook:2090
+#: help_en-work.docbook:2083
 #, fuzzy, no-c-format
 msgid ""
 "select the area between the next two labels that are right from the current "
@@ -3529,7 +3528,7 @@ msgstr ""
 "guimenuitem></menuchoice>"
 
 #. Tag: para
-#: help_en-work.docbook:2098
+#: help_en-work.docbook:2091
 #, fuzzy, no-c-format
 msgid ""
 "select the area between the previous two labels that are left from the "
@@ -3545,13 +3544,13 @@ msgstr ""
 "guimenuitem><guimenuitem>Précédent</guimenuitem></menuchoice>"
 
 #. Tag: title
-#: help_en-work.docbook:2116
+#: help_en-work.docbook:2109
 #, no-c-format
 msgid "Clipboard"
 msgstr "Le presse-papiers"
 
 #. Tag: para
-#: help_en-work.docbook:2118
+#: help_en-work.docbook:2111
 #, no-c-format
 msgid ""
 "&kapp; since v0.8.1 uses the clipboard of KDE. This way it is possible to "
@@ -3561,7 +3560,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2126
+#: help_en-work.docbook:2119
 #, no-c-format
 msgid ""
 "When copying data to the clipboard through the <literal>copy</literal> "
@@ -3574,13 +3573,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en-work.docbook:2143
+#: help_en-work.docbook:2136
 #, no-c-format
 msgid "Drag and Drop"
 msgstr "Le glisser / déposer"
 
 #. Tag: para
-#: help_en-work.docbook:2145
+#: help_en-work.docbook:2138
 #, no-c-format
 msgid ""
 "&kapp; supports the KDE Drag and Drop protocol. This enables you to open "
@@ -3593,7 +3592,7 @@ msgstr ""
 "déposant dans l'espace de travail de &kapp;."
 
 #. Tag: para
-#: help_en-work.docbook:2151
+#: help_en-work.docbook:2144
 #, no-c-format
 msgid ""
 "Please note that if you drop a file into a &kapp; window that already "
@@ -3608,7 +3607,7 @@ msgstr ""
 "autre fenêtre de &kapp; afin d'y recevoir le fichier à ouvrir."
 
 #. Tag: para
-#: help_en-work.docbook:2158
+#: help_en-work.docbook:2151
 #, no-c-format
 msgid ""
 "You can also select a range of samples and drag or drop them into a &kapp; "
@@ -3626,19 +3625,19 @@ msgstr ""
 "ce comportement pour <emphasis>copier</emphasis> la sélection."
 
 #. Tag: title
-#: help_en-work.docbook:2271
+#: help_en-work.docbook:2264
 #, no-c-format
 msgid "Developer's Guide to &kapp;"
 msgstr "Le guide du développeur de &kapp;"
 
 #. Tag: phrase
-#: help_en-work.docbook:2282
+#: help_en-work.docbook:2275
 #, no-c-format
 msgid "under construction"
 msgstr "Ce chapitre est en cours de rédaction."
 
 #. Tag: para
-#: help_en-work.docbook:2285
+#: help_en-work.docbook:2278
 #, no-c-format
 msgid ""
 "Sorry, this chapter is still to be written... At the moment the source code "
@@ -3657,7 +3656,7 @@ msgstr ""
 "source de cette aide a été faite de cette manière)."
 
 #. Tag: para
-#: help_en-work.docbook:2294
+#: help_en-work.docbook:2287
 #, no-c-format
 msgid ""
 "If you want to write a plugin, contribute something to this project (or "
@@ -3672,19 +3671,19 @@ msgstr ""
 "l'aide est toujours la bienvenue !"
 
 #. Tag: title
-#: help_en-work.docbook:2309
+#: help_en-work.docbook:2302
 #, no-c-format
 msgid "Adding support for a new Language"
 msgstr ""
 
 #. Tag: emphasis
-#: help_en-work.docbook:2314
+#: help_en-work.docbook:2307
 #, no-c-format
 msgid "make system:"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2315
+#: help_en-work.docbook:2308
 #, no-c-format
 msgid ""
 "Edit the toplevel <filename>CMakeLists.txt</filename> and add a new entry to "
@@ -3697,13 +3696,14 @@ msgid ""
 msgstr ""
 
 #. Tag: screen
-#: help_en-work.docbook:2324
+#: help_en-work.docbook:2317
 #, no-c-format
-msgid "<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>"
+msgid ""
+"<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2326
+#: help_en-work.docbook:2319
 #, no-c-format
 msgid ""
 "The language code is a 2-letter code which is used for directories and "
@@ -3715,13 +3715,13 @@ msgid ""
 msgstr ""
 
 #. Tag: emphasis
-#: help_en-work.docbook:2337
+#: help_en-work.docbook:2330
 #, no-c-format
 msgid "user interface:"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2338
+#: help_en-work.docbook:2331
 #, no-c-format
 msgid ""
 "Go to the source directory of &kapp; (not the build directory), change into "
@@ -3733,7 +3733,7 @@ msgid ""
 msgstr ""
 
 #. Tag: screen
-#: help_en-work.docbook:2346
+#: help_en-work.docbook:2339
 #, fuzzy, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</"
@@ -3750,13 +3750,13 @@ msgstr ""
 "<prompt>% </prompt><command>su root -c \"make install\"</command>"
 
 #. Tag: emphasis
-#: help_en-work.docbook:2350
+#: help_en-work.docbook:2343
 #, no-c-format
 msgid "online help:"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2351
+#: help_en-work.docbook:2344
 #, no-c-format
 msgid ""
 "This is similar to the procedure for the user interface, but requires some "
@@ -3791,7 +3791,7 @@ msgid ""
 msgstr ""
 
 #. Tag: screen
-#: help_en-work.docbook:2368
+#: help_en-work.docbook:2361
 #, fuzzy, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</"
@@ -3805,13 +3805,13 @@ msgstr ""
 "<prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>"
 
 #. Tag: emphasis
-#: help_en-work.docbook:2372
+#: help_en-work.docbook:2365
 #, no-c-format
 msgid "screenshots:"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2373
+#: help_en-work.docbook:2366
 #, no-c-format
 msgid ""
 "For the online documentation you also need screenshots that use the "
@@ -3825,7 +3825,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2382
+#: help_en-work.docbook:2375
 #, no-c-format
 msgid ""
 "For a list of screenshots you can look into one of the existing directories "
@@ -3836,55 +3836,55 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2391
+#: help_en-work.docbook:2384
 #, no-c-format
 msgid "Window decoration: Plastik"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2394
+#: help_en-work.docbook:2387
 #, no-c-format
 msgid "Widget style: Plastik"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2397
+#: help_en-work.docbook:2390
 #, no-c-format
 msgid "Colors: KDE Default"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2400
+#: help_en-work.docbook:2393
 #, no-c-format
 msgid "Background: Flat color - Color must be white"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2403
+#: help_en-work.docbook:2396
 #, no-c-format
 msgid "Run X11 in 72dpi mode"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2406
+#: help_en-work.docbook:2399
 #, no-c-format
 msgid "Save the files in 8bpp"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2409
+#: help_en-work.docbook:2402
 #, no-c-format
 msgid "Try to keep the size of each file below 20kB"
 msgstr ""
 
 #. Tag: emphasis
-#: help_en-work.docbook:2415
+#: help_en-work.docbook:2408
 #, no-c-format
 msgid "desktop file:"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2416
+#: help_en-work.docbook:2409
 #, no-c-format
 msgid ""
 "Add a <emphasis>Comment</emphasis> line for the new language to the file "
@@ -3893,7 +3893,7 @@ msgid ""
 msgstr ""
 
 #. Tag: screen
-#: help_en-work.docbook:2421
+#: help_en-work.docbook:2414
 #, no-c-format
 msgid ""
 "<literal>Comment[</literal><replaceable>fr</replaceable><literal>]=</"
@@ -3901,13 +3901,13 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2426
+#: help_en-work.docbook:2419
 #, no-c-format
 msgid "Useful links:"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2429
+#: help_en-work.docbook:2422
 #, no-c-format
 msgid ""
 "<ulink url=\"http://www.ietf.org/rfc/rfc3066.txt\">RFC 3066</ulink> Tags for "
@@ -3915,7 +3915,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2433
+#: help_en-work.docbook:2426
 #, no-c-format
 msgid ""
 "<ulink url=\"http://l10n.kde.org/\">KDE Localization</ulink> contains a lot "
@@ -3923,7 +3923,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2437
+#: help_en-work.docbook:2430
 #, no-c-format
 msgid ""
 "<ulink url=\"http://kbabel.kde.org/\">KBabel</ulink> is <emphasis>the</"
@@ -3932,7 +3932,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2442
+#: help_en-work.docbook:2435
 #, no-c-format
 msgid ""
 "<ulink url=\"http://l10n.kde.org/docs/screenshots.php\">KDE Documentation "
@@ -3940,19 +3940,19 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en-work.docbook:2471
+#: help_en-work.docbook:2464
 #, no-c-format
 msgid "Questions and Answers"
 msgstr "Foire aux questions"
 
 #. Tag: para
-#: help_en-work.docbook:2479
+#: help_en-work.docbook:2472
 #, no-c-format
 msgid "What do I need to compile &kapp;?"
 msgstr "De quoi ai je besoin pour compiler &kapp; ?"
 
 #. Tag: para
-#: help_en-work.docbook:2484
+#: help_en-work.docbook:2477
 #, fuzzy, no-c-format
 msgid ""
 "Read in the <link linkend=\"requirements\">chapter</link> mentioned before. "
@@ -3962,13 +3962,13 @@ msgstr ""
 "Il peut être compilé avec les compilateurs « gcc-2.95 » ou « gcc-3.3 »."
 
 #. Tag: para
-#: help_en-work.docbook:2495
+#: help_en-work.docbook:2488
 #, no-c-format
 msgid "Which sound cards does &kapp; support?"
 msgstr "Qu'elles sont les cartes sons supportées par &kapp; ?"
 
 #. Tag: para
-#: help_en-work.docbook:2500
+#: help_en-work.docbook:2493
 #, fuzzy, no-c-format
 msgid ""
 "&kapp; does not need support for any special sound card. The sound card only "
@@ -3983,7 +3983,7 @@ msgstr ""
 "reconnues par KDE."
 
 #. Tag: para
-#: help_en-work.docbook:2513
+#: help_en-work.docbook:2506
 #, no-c-format
 msgid "Why are some menu entries / features always disabled?"
 msgstr ""
@@ -3991,7 +3991,7 @@ msgstr ""
 "désactivées ?"
 
 #. Tag: para
-#: help_en-work.docbook:2518
+#: help_en-work.docbook:2511
 #, no-c-format
 msgid ""
 "This is just because we decided that those actions are not working stable "
@@ -4005,7 +4005,7 @@ msgstr ""
 "l'avancement des développements."
 
 #. Tag: para
-#: help_en-work.docbook:2530
+#: help_en-work.docbook:2523
 #, no-c-format
 msgid ""
 "Why does &kapp; consume more memory than it can be expected from the size of "
@@ -4015,7 +4015,7 @@ msgstr ""
 "stocker un fichier sonore ?"
 
 #. Tag: para
-#: help_en-work.docbook:2536
+#: help_en-work.docbook:2529
 #, no-c-format
 msgid ""
 "The reason for this is that &kapp; internally stores all samples in 32-bit "
@@ -4031,13 +4031,13 @@ msgstr ""
 "caractéristique évoluera peut être dans le futur..."
 
 #. Tag: para
-#: help_en-work.docbook:2549
+#: help_en-work.docbook:2542
 #, no-c-format
 msgid "Which sound formats does &kapp; support?"
 msgstr "Quels sont les formats de fichiers sonores supportés par &kapp; ?"
 
 #. Tag: para
-#: help_en-work.docbook:2554
+#: help_en-work.docbook:2547
 #, fuzzy, no-c-format
 msgid ""
 "&kapp; currently supports .wav files with 8, 16 and 24 bits per sample, with "
@@ -4051,13 +4051,14 @@ msgstr ""
 "supportés par la bibliothèque « libaudiofile »."
 
 #. Tag: para
-#: help_en-work.docbook:2566
+#: help_en-work.docbook:2559
 #, no-c-format
 msgid "What if I have files with a format not supported by &kapp;?"
-msgstr "Quels sont les formats de fichiers qui ne sont pas supportés par &kapp; ?"
+msgstr ""
+"Quels sont les formats de fichiers qui ne sont pas supportés par &kapp; ?"
 
 #. Tag: para
-#: help_en-work.docbook:2572
+#: help_en-work.docbook:2565
 #, fuzzy, no-c-format
 msgid ""
 "If you have to work on an other format, you can convert it into .wav format. "
@@ -4071,13 +4072,14 @@ msgstr ""
 "bonne documentation !"
 
 #. Tag: para
-#: help_en-work.docbook:2584
+#: help_en-work.docbook:2577
 #, no-c-format
 msgid "I get errors when I want to do playback?"
-msgstr "J'obtiens des erreurs quand je veux lire des pistes sonores. Pourquoi ?"
+msgstr ""
+"J'obtiens des erreurs quand je veux lire des pistes sonores. Pourquoi ?"
 
 #. Tag: para
-#: help_en-work.docbook:2589
+#: help_en-work.docbook:2582
 #, no-c-format
 msgid ""
 "Maybe you have choosen a combination of playback rate and sample size that "
@@ -4095,7 +4097,7 @@ msgstr ""
 "d'échantillonnage."
 
 #. Tag: para
-#: help_en-work.docbook:2603
+#: help_en-work.docbook:2596
 #, no-c-format
 msgid "The playback seems to do something but I hear nothing?"
 msgstr ""
@@ -4103,7 +4105,7 @@ msgstr ""
 "Pourquoi ?"
 
 #. Tag: para
-#: help_en-work.docbook:2608
+#: help_en-work.docbook:2601
 #, no-c-format
 msgid ""
 "Maybe you have forgotten to increase the volume of the playback channel. "
@@ -4113,19 +4115,20 @@ msgstr ""
 "&kapp; ne contrôle pas directement le niveau du volume sonore."
 
 #. Tag: para
-#: help_en-work.docbook:2618
+#: help_en-work.docbook:2611
 #, no-c-format
 msgid "Some files are played with half-speed?"
-msgstr "Quelques fichiers sont joués avec une vitesse réduite de moitié. Pourquoi ?"
+msgstr ""
+"Quelques fichiers sont joués avec une vitesse réduite de moitié. Pourquoi ?"
 
 #. Tag: para
-#: help_en-work.docbook:2623
+#: help_en-work.docbook:2616
 #, no-c-format
 msgid "Try choosing a different sound playback device."
 msgstr "Essayer de choisir un autre périphérique de lecture sonore."
 
 #. Tag: para
-#: help_en-work.docbook:2631
+#: help_en-work.docbook:2624
 #, no-c-format
 msgid "The playback sometimes is disturbed and interrupted?"
 msgstr ""
@@ -4133,7 +4136,7 @@ msgstr ""
 "Pourquoi ?"
 
 #. Tag: para
-#: help_en-work.docbook:2636
+#: help_en-work.docbook:2629
 #, no-c-format
 msgid ""
 "You should increase the size of the playback buffer to get a \"smoother\" "
@@ -4143,7 +4146,7 @@ msgstr ""
 "« fluide » (cela peut générer un contrôle sur la lecture un peu plus lent)."
 
 #. Tag: para
-#: help_en-work.docbook:2646
+#: help_en-work.docbook:2639
 #, no-c-format
 msgid "The playback does not stop if I immediately press the stop button?"
 msgstr ""
@@ -4151,7 +4154,7 @@ msgstr ""
 "Pourquoi ?"
 
 #. Tag: para
-#: help_en-work.docbook:2652
+#: help_en-work.docbook:2645
 #, no-c-format
 msgid ""
 "The reason for this is that the sound driver already has received some "
@@ -4165,19 +4168,19 @@ msgstr ""
 "du programme (des problèmes de lecture sont cependant à envisager)."
 
 #. Tag: para
-#: help_en-work.docbook:2664
+#: help_en-work.docbook:2657
 #, no-c-format
 msgid "Is ALSA supported?"
 msgstr "Les drivers ALSA sont ils supportés ?"
 
 #. Tag: para
-#: help_en-work.docbook:2669
+#: help_en-work.docbook:2662
 #, no-c-format
 msgid "Yes, since v0.7.4 for playback and recording"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2677
+#: help_en-work.docbook:2670
 #, fuzzy, no-c-format
 msgid ""
 "What about playback with 18, 20, 24 or 32 bits per sample or more than two "
@@ -4187,19 +4190,19 @@ msgstr ""
 "échantillons ou avec plus de 2 pistes sonores ?"
 
 #. Tag: para
-#: help_en-work.docbook:2683
+#: help_en-work.docbook:2676
 #, no-c-format
 msgid "This is possible through the ALSA interface, since v0.7.4."
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2692
+#: help_en-work.docbook:2685
 #, no-c-format
 msgid "What about MP3 support?"
 msgstr "Qu'en est-il du support des fichiers MP3 ?"
 
 #. Tag: para
-#: help_en-work.docbook:2697
+#: help_en-work.docbook:2690
 #, no-c-format
 msgid ""
 "Well, as long as there are patent issues, we support only MP3 import through "
@@ -4209,19 +4212,19 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en-work.docbook:2730
+#: help_en-work.docbook:2723
 #, no-c-format
 msgid "Credits and License"
 msgstr "Crédits et Licence"
 
 #. Tag: para
-#: help_en-work.docbook:2732
+#: help_en-work.docbook:2725
 #, no-c-format
 msgid "&kapp;"
 msgstr "&kapp;"
 
 #. Tag: para
-#: help_en-work.docbook:2734
+#: help_en-work.docbook:2727
 #, no-c-format
 msgid ""
 "Program copyright from 1998-2000 Martin Wilz <email>mwilz@ernie.mi.uni-koeln."
@@ -4231,7 +4234,7 @@ msgstr ""
 "uni-koeln.de</email>"
 
 #. Tag: para
-#: help_en-work.docbook:2738
+#: help_en-work.docbook:2731
 #, no-c-format
 msgid ""
 "Program copyright since 2000 Thomas Eschenbacher <email>thomas."
@@ -4241,7 +4244,7 @@ msgstr ""
 "eschenbacher@gmx.de</email>"
 
 #. Tag: para
-#: help_en-work.docbook:2742
+#: help_en-work.docbook:2735
 #, fuzzy, no-c-format
 msgid ""
 "For a complete list of authors and licenses of all files, please see the "
@@ -4257,33 +4260,35 @@ msgstr ""
 "cvs.sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README\"</ulink>"
 
 #. Tag: para
-#: help_en-work.docbook:2750
+#: help_en-work.docbook:2743
 #, no-c-format
 msgid "Contributors / Authors:"
 msgstr "Contributions / Auteurs :"
 
 #. Tag: para
-#: help_en-work.docbook:2754
+#: help_en-work.docbook:2747
 #, no-c-format
 msgid "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 
 #. Tag: para
-#: help_en-work.docbook:2760
+#: help_en-work.docbook:2753
 #, no-c-format
-msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
+msgid ""
+"Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
 msgstr ""
 "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (page web, traductions en "
 "Allemand)"
 
 #. Tag: para
-#: help_en-work.docbook:2767
+#: help_en-work.docbook:2760
 #, no-c-format
 msgid "Ralf Waspe <email>rwaspe@web.de</email> (Help/About plugin)"
-msgstr "Ralf Waspe <email>rwaspe@web.de</email> (Boîte de dialogue « A propos de »)"
+msgstr ""
+"Ralf Waspe <email>rwaspe@web.de</email> (Boîte de dialogue « A propos de »)"
 
 #. Tag: para
-#: help_en-work.docbook:2774
+#: help_en-work.docbook:2767
 #, no-c-format
 msgid ""
 "Gilles Caulier <email>caulier.gilles@free.fr</email> (i18n, french "
@@ -4293,7 +4298,7 @@ msgstr ""
 "traductions Françaises, bêta testeur)"
 
 #. Tag: para
-#: help_en-work.docbook:2781
+#: help_en-work.docbook:2774
 #, no-c-format
 msgid "Dave Flogeras <email>dflogera@nbnet.nb.ca</email> (Notch Filter plugin)"
 msgstr ""
@@ -4301,7 +4306,7 @@ msgstr ""
 "notch_filter »)"
 
 #. Tag: para
-#: help_en-work.docbook:2788
+#: help_en-work.docbook:2781
 #, no-c-format
 msgid ""
 "Rik Hemsley <email>rik@kde.org</email> (<ulink url=\"http://rikkus.info/"
@@ -4309,19 +4314,20 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2815
+#: help_en-work.docbook:2808
 #, no-c-format
 msgid "Thanks to (in alphabetical order):"
 msgstr "Remerciements (par ordre alphabétique) :"
 
 #. Tag: para
-#: help_en-work.docbook:2822
+#: help_en-work.docbook:2815
 #, no-c-format
-msgid "Jorge Luis Arzola <email>arzolacub@gmx.de</email> (packaging for SuSE Linux)"
+msgid ""
+"Jorge Luis Arzola <email>arzolacub@gmx.de</email> (packaging for SuSE Linux)"
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2829
+#: help_en-work.docbook:2822
 #, no-c-format
 msgid ""
 "Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (for information "
@@ -4331,7 +4337,7 @@ msgstr ""
 "informations concernant les optimisations sur les RPM) </emphasis>"
 
 #. Tag: para
-#: help_en-work.docbook:2837
+#: help_en-work.docbook:2830
 #, no-c-format
 msgid ""
 "Michael Favreau <email>michel.favreau@free.fr</email> (packaging for Arch "
@@ -4339,7 +4345,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2844
+#: help_en-work.docbook:2837
 #, no-c-format
 msgid ""
 "Aurelien Jarno <email>aurel32@debian.org</email> (<ulink url=\"http://www."
@@ -4349,19 +4355,20 @@ msgstr ""
 "distribution <ulink url=\"http://www.debian.org\">debian</ulink>)"
 
 #. Tag: para
-#: help_en-work.docbook:2851
+#: help_en-work.docbook:2844
 #, no-c-format
 msgid "Martin Kuball <email>makube@user.sourceforge.net</email> (beta tester)"
-msgstr "Martin Kuball <email>makube@user.sourceforge.net</email> (bêta testeur)"
+msgstr ""
+"Martin Kuball <email>makube@user.sourceforge.net</email> (bêta testeur)"
 
 #. Tag: para
-#: help_en-work.docbook:2857
+#: help_en-work.docbook:2850
 #, no-c-format
 msgid "my wife Ximena González<emphasis> (for her patience)</emphasis>"
 msgstr "Ma femme Ximena González<emphasis> (pour toute sa patience)</emphasis>"
 
 #. Tag: para
-#: help_en-work.docbook:2861
+#: help_en-work.docbook:2854
 #, no-c-format
 msgid ""
 "T.H.F. Klok and Cedric Tefft (maintainers of the <ulink url=\"http://www."
@@ -4371,7 +4378,7 @@ msgstr ""
 "\"http://www.id3lib.org/\"> id3lib</ulink>)"
 
 #. Tag: para
-#: help_en-work.docbook:2868
+#: help_en-work.docbook:2861
 #, no-c-format
 msgid ""
 "Robert Leslie <email>rob@mars.org</email> (author of the <ulink url=\"http://"
@@ -4382,7 +4389,7 @@ msgstr ""
 "décodage des fichiers MP3)"
 
 #. Tag: para
-#: help_en-work.docbook:2877
+#: help_en-work.docbook:2870
 #, no-c-format
 msgid ""
 "Erik de Castro Lopo <email>erikd@zip.com.au</email> (author of the <ulink "
@@ -4393,7 +4400,7 @@ msgstr ""
 "</ulink>)"
 
 #. Tag: para
-#: help_en-work.docbook:2887
+#: help_en-work.docbook:2880
 #, no-c-format
 msgid ""
 "Michael Pruett <email>mpruett@sgi.com</email> (author of the <ulink url="
@@ -4405,7 +4412,7 @@ msgstr ""
 "« audiofile »</ulink>)"
 
 #. Tag: para
-#: help_en-work.docbook:2896
+#: help_en-work.docbook:2889
 #, no-c-format
 msgid ""
 "Robert M. Stockmann <email>stock@stokkie.net</email> (packaging for "
@@ -4413,7 +4420,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2903
+#: help_en-work.docbook:2896
 #, no-c-format
 msgid ""
 "Diederick de Vries <email>diederick76@gmail.com</email> (packaging for Crux "
@@ -4421,7 +4428,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2912
+#: help_en-work.docbook:2905
 #, fuzzy, no-c-format
 msgid ""
 "Documentation copyright (C) 2006 Thomas Eschenbacher <email>thomas."
@@ -4431,8 +4438,7 @@ msgstr ""
 "eschenbacher@gmx.de</email>"
 
 #. Tag: chapter
-#: help_en-work.docbook:2915
+#: help_en-work.docbook:2908
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr ""
-

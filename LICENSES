@@ -12,7 +12,7 @@ LIST OF LICENSES FOUND IN THE SOURCES
 	  => the intention of the authors is to keep Kwave under the GPL2+
 
 	* LGPL2 - GNU Library General Public License, version 2 or newer
-	  - most stuff in libaudiofile
+	  - some icons
 
 	* Kitware (cmake)
 	  - cmake/Copyright.txt
@@ -28,10 +28,7 @@ LIST OF LICENSES FOUND IN THE SOURCES
 	  - cmake/FindAlsa.cmake		{kretz,faure}@kde.org
 
 	* free, by statement in file header
-	  - libaudiofile/COPYING
-	  - libaudiofile/g711.c			(Sun Microsystems, Inc.)
-	  - libaudiofile/g711.h			(Sun Microsystems, Inc.)
-	  - libaudiofile/modules/adpcm.c	(Stichting Mathematisch Centrum, Amsterdam)
+	  (currently none)
 
 DIRECTLY USED EXTERNAL LIBRARIES
 ================================
@@ -84,16 +81,8 @@ issue #2: license of some files is unknown or problematic / author known
 issue #3: some files have neither license nor author
 ----------------------------------------------------
 
-#	libaudiofile/ACKNOWLEDGEMENTS			??? UNKNOWN ???
-#	libaudiofile/AUTHORS				??? UNKNOWN ???
-#	libaudiofile/NEWS				??? UNKNOWN ???
-#	libaudiofile/NOTES				??? UNKNOWN ???
-#	libaudiofile/README				??? UNKNOWN ???
-#	libaudiofile/TODO				??? UNKNOWN ???
-#	libaudiofile/modules/adpcm.h			??? UNKNOWN ???
-#	libaudiofile/modules/rebuffer.c			??? UNKNOWN ???
-#	libaudiofile/modules/rebuffer.h 		??? UNKNOWN ???
-#	libaudiofile/modules/rebuffer.template		??? UNKNOWN ???
+	- currently none -
+
 
 COMPLETE LIST OF FILES AND THEIR LICENSE
 ========================================
@@ -238,85 +227,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/toolbar/zoomnormal.xpm			LGPL2 (crystal project) [copied from viewmag1.png]
 	kwave/toolbar/zoomout.xpm			LGPL2 (crystal project) [copied from viewmag-.png]
 	kwave/toolbar/zoomrange.xpm			LGPL2 (crystal project) [copied from viewmag.png]
-
-#	libaudiofile/ACKNOWLEDGEMENTS			??? UNKNOWN ???
-	libaudiofile/aes.c				LGPL2
-	libaudiofile/afinternal.h			LGPL2
-	libaudiofile/af_vfs.c				LGPL2
-	libaudiofile/af_vfs.h				LGPL2
-	libaudiofile/aiff.c				LGPL2
-	libaudiofile/aiff.h				LGPL2
-	libaudiofile/aiffwrite.c			LGPL2
-	libaudiofile/audiofile.h			LGPL2
-	libaudiofile/aupv.c				LGPL2
-	libaudiofile/aupvinternal.h			LGPL2
-	libaudiofile/aupvlist.h				LGPL2
-#	libaudiofile/AUTHORS				??? UNKNOWN ???
-	libaudiofile/byteorder.c			LGPL2
-	libaudiofile/byteorder.h			LGPL2
-	libaudiofile/compression.c			LGPL2
-	libaudiofile/compression.h			LGPL2
-	libaudiofile/CMakeLists.txt			GPL2+
-	libaudiofile/COPYING				(free)
-	libaudiofile/COPYING.GPL			(free)
-	libaudiofile/data.c				LGPL2
-	libaudiofile/error.c				LGPL2
-	libaudiofile/error.h				LGPL2
-	libaudiofile/format.c				LGPL2
-	libaudiofile/g711.c				free, Sun Microsystems, Inc.
-	libaudiofile/g711.h				free, Sun Microsystems, Inc.
-	libaudiofile/instrument.c			LGPL2
-	libaudiofile/instrument.h			LGPL2
-	intfloat_readwrite.c				LGPL2
-	intfloat_readwrite.h				LGPL2
-	libaudiofile/ircam.c				LGPL2
-	libaudiofile/ircam.h				LGPL2
-	libaudiofile/ircamwrite.c			LGPL2
-	libaudiofile/loop.c				LGPL2
-	libaudiofile/marker.c				LGPL2
-	libaudiofile/marker.h				LGPL2
-	libaudiofile/misc.c				LGPL2
-	libaudiofile/modules.c				LGPL2
-	libaudiofile/modules.h				LGPL2
-#	libaudiofile/NEWS				??? UNKNOWN ???
-	libaudiofile/next.c				LGPL2
-	libaudiofile/next.h				LGPL2
-	libaudiofile/nextwrite.c			LGPL2
-#	libaudiofile/NOTES				??? UNKNOWN ???
-	libaudiofile/openclose.c			LGPL2
-	libaudiofile/pcm.c				LGPL2
-	libaudiofile/pcm.h				LGPL2
-	libaudiofile/print.h				LGPL2
-	libaudiofile/query.c				LGPL2
-	libaudiofile/raw.c				LGPL2
-	libaudiofile/raw.h				LGPL2
-#	libaudiofile/README				??? UNKNOWN ???
-	libaudiofile/setup.c				LGPL2
-	libaudiofile/setup.h				LGPL2
-#	libaudiofile/TODO				??? UNKNOWN ???
-	libaudiofile/track.c				LGPL2
-	libaudiofile/track.h				LGPL2
-	libaudiofile/units.c				LGPL2
-	libaudiofile/units.h				LGPL2
-	libaudiofile/util.c				LGPL2
-	libaudiofile/util.h				LGPL2
-	libaudiofile/wave.c				LGPL2
-	libaudiofile/wave.h				LGPL2
-	libaudiofile/wavewrite.c			LGPL2
-
-	libaudiofile/modules/adpcm.c			free / Stichting Mathematisch Centrum, Amsterdam
-#	libaudiofile/modules/adpcm.h			??? UNKNOWN ???
-	libaudiofile/modules/g711.c			LGPL2
-	libaudiofile/modules/g711.h			LGPL2
-	libaudiofile/modules/ima.c			LGPL2
-	libaudiofile/modules/ima.h			LGPL2
-	libaudiofile/modules/msadpcm.c			LGPL2
-	libaudiofile/modules/msadpcm.h			LGPL2
-	libaudiofile/modules/pcm.c			LGPL2
-	libaudiofile/modules/pcm.h			LGPL2
-#	libaudiofile/modules/rebuffer.c			??? UNKNOWN ???
-#	libaudiofile/modules/rebuffer.h 		??? UNKNOWN ???
-#	libaudiofile/modules/rebuffer.template		??? UNKNOWN ???
 
 	libgui/CMakeLists.txt				GPL2+
 	libgui/ConfirmCancelProxy.cpp			GPL2+

@@ -26,15 +26,15 @@ CHECK_TYPE_SIZE("long" SIZEOF_LONG)
 #############################################################################
 ### check if the system has audiofile.h                                   ###
 
-CHECK_INCLUDE_FILES(audiofile.h HAVE_AUDIOFILE_H)
-CHECK_INCLUDE_FILES(af_vfs.h    HAVE_AF_VFS_H)
+FIND_PATH(HAVE_AUDIOFILE_H audiofile.h)
+FIND_PATH(HAVE_AFS_VFS_H   af_vfs.h)
 
 #############################################################################
 ### system libaudiofile can be used & header exists: check for functions  ###
 
-IF (HAVE_AUDIOFILE_H AND HAVE_AF_VFS_H)
+IF (HAVE_AUDIOFILE_H AND HAVE_AFS_VFS_H)
     CHECK_LIBRARY_EXISTS(audiofile afOpenVirtualFile "" HAVE_AF_OPEN_VIRTUAL_FILE)
-ENDIF (HAVE_AUDIOFILE_H AND HAVE_AF_VFS_H)
+ENDIF (HAVE_AUDIOFILE_H AND HAVE_AFS_VFS_H)
 
 #############################################################################
 ### some verbose output of the result                                     ###

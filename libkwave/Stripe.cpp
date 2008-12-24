@@ -358,7 +358,7 @@ void Stripe::deleteRange(unsigned int offset, unsigned int length)
 	// put first/last into our area
 	if (last >= size) last = size - 1;
 	Q_ASSERT(last >= first);
-	if (last <= first) return;
+	if (last < first) return;
 
 	// move all samples after the deleted area to the left
 	unsigned int dst = first;

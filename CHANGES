@@ -11,6 +11,7 @@
  * silence plugin now supports all modes
  * use "unsigned" sample format per default when creating new files
    with <= 8 bits/sample
+ * bugfix: playback position was shown on startup
 
 0.8.1  [2008-12-23]
 

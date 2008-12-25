@@ -547,6 +547,9 @@ int TopWidget::executeCommand(const QString &line)
     // parse one single command
     Parser parser(command);
 
+    // exclude menu commands from the recorder
+    if (parser.command() == "menu") use_recorder = false;
+
     // playback commands are always possible
     if (parser.command() == "playback") {
 	return executePlaybackCommand(parser.firstParam()) ? 0 : -1;
@@ -557,6 +560,11 @@ int TopWidget::executeCommand(const QString &line)
 	qWarning("TopWidget::executeCommand(...) - currently not possible, "\
 		"a plugin is running :-(");
 	return false;
+    }
+
+    if (use_recorder) {
+	// append the command to the macro recorder
+	// @TODO macro recording...
     }
 
     if (m_app.executeCommand(command)) {
@@ -638,11 +646,6 @@ int TopWidget::executeCommand(const QString &line)
 	Q_ASSERT(m_main_widget);
 	result = (m_main_widget &&
 	    m_main_widget->executeCommand(command)) ? 0 : -1;
-    }
-
-    if (use_recorder) {
-	// append the command to the macro recorder
-        // @TODO macro recording...
     }
 
     return result;
@@ -1123,6 +1126,10 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 void TopWidget::updatePlaybackPos(unsigned int offset)
 {
     if (!m_plugin_manager) return;
+    if (!m_main_widget) return;
+
+    bool playing = m_main_widget->playbackController().running();
+    if (!playing) return;
 
     QString txt = i18n("Playback")+": %1";
     double rate = m_plugin_manager->signalRate();

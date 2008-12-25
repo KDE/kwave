@@ -75,7 +75,9 @@ void SampleReader::fillBuffer()
     if (eof()) return;
 
     unsigned int rest = m_buffer.size();/* - m_buffer_used (is 0) */
-    if (m_src_position+rest >= m_last) rest = (m_last-m_src_position+1);
+    if (m_src_position + rest > m_last) rest = (m_last - m_src_position + 1);
+    Q_ASSERT(rest <= m_buffer.size());
+    if (rest > m_buffer.size()) rest = m_buffer.size();
     Q_ASSERT(rest);
 
     unsigned int len = m_track.readSamples(m_src_position, m_buffer, 0, rest);

@@ -303,16 +303,23 @@ void OverViewWidget::refreshBitmap()
     }
 
     // draw labels
+    int last_label_pos = -1;
     foreach (const Label &label, m_labels) {
 	unsigned int pos = label.pos();
 	unsigned int x = static_cast<unsigned int>(
 	    static_cast<double>(pos) * scale);
+
+	// position must differ from the last one, otherwise we
+	// would wipe out the last one with XOR mode
+	if (x == last_label_pos) continue;
 
 	// draw a line for each label
 	p.setPen(QPen(Qt::cyan));
 	p.setCompositionMode(QPainter::CompositionMode_Exclusion);
 	p.drawLine(x, 0, x, height);
 	drawMark(p, x, height, Qt::cyan);
+
+	last_label_pos = x;
     }
 
     // draw playback position

@@ -1732,15 +1732,22 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	p.begin(&m_layer[LAYER_MARKERS]);
 	p.fillRect(0, 0, m_width, m_height, Qt::black);
 
+	int last_marker = -1;
 	foreach (const Label label, labels()) {
 	    unsigned int pos = label.pos();
 	    if (pos < m_offset) continue; // outside left
 	    int x = samples2pixels(pos - m_offset);
 	    if (x >= m_width) continue; // outside right
 
+	    // position must differ from the last one, otherwise we
+	    // would wipe out the last one with XOR mode
+	    if (x == last_marker) continue;
+
 	    p.setPen(Qt::cyan);
 	    p.setCompositionMode(QPainter::CompositionMode_Exclusion);
 	    p.drawLine(x, 0, x, m_height);
+
+	    last_marker = x;
 	}
 
 	p.end();

@@ -303,7 +303,7 @@ void OverViewWidget::refreshBitmap()
     }
 
     // draw labels
-    int last_label_pos = -1;
+    unsigned int last_label_pos = width + 1;;
     foreach (const Label &label, m_labels) {
 	unsigned int pos = label.pos();
 	unsigned int x = static_cast<unsigned int>(

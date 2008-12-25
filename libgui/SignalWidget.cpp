@@ -1883,7 +1883,7 @@ Label SignalWidget::findLabelNearMouse(int x) const
     const int tol = SELECTION_TOLERANCE;
     unsigned int pos = m_offset + pixels2samples(x);
     Label nearest;
-    int dmin = pixels2samples(SELECTION_TOLERANCE) ^ 2;
+    unsigned int dmin = pixels2samples(SELECTION_TOLERANCE) + 1;
 
     foreach (Label label, labels()) {
 	unsigned int lp = label.pos();
@@ -1894,7 +1894,7 @@ Label SignalWidget::findLabelNearMouse(int x) const
 	if ((lx + tol < x) || (lx > x + tol))
 	    continue; // out of tolerance
 
-	int dist = (pos - label.pos()) ^ 2;
+	unsigned int dist = (pos > lp) ? (pos - lp) : (lp - pos);
 	if (dist < dmin) {
 	    // found a new "nearest" label
 	    dmin = dist;

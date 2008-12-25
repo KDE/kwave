@@ -1,3 +1,10 @@
+
+0.8.2  [2009-??-??]
+
+ * bugfix: minor off-by-one bug in buffer handling
+ * wav/RIFF parser: be more robust if the file has not been correctly padded
+ * bugfix in wav encoder: padding for info and label chung was missing
+
 0.8.1  [2008-12-23]
 
  * replaced application icon, now using a scalable svg image

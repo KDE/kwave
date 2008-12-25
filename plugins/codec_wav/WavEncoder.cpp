@@ -105,6 +105,7 @@ void WavEncoder::writeInfoChunk(QIODevice &dst, FileInfo &info)
 
 	// add the LIST(INFO) chunk itself
 	dst.seek(dst.size());
+	if (dst.pos() & 1) dst.write("\000", 1); // padding
 	dst.write("LIST", 4);
 	size = CPU_TO_LE32(info_size - 8);
 	dst.write(reinterpret_cast<char *>(&size), 4);
@@ -173,6 +174,7 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
 
     // seek to the end of the file
     dst.seek(dst.size());
+    if (dst.pos() & 1) dst.write("\000", 1); // padding
 
     // add the 'cue ' list
     dst.write("cue ", 4);

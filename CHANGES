@@ -6,6 +6,8 @@
  * bugfix in wav encoder: padding for info and label chung was missing
  * bugifx: if two markers were too close and displayed at the same
    pixel position they eliminated each other through XOR mode
+ * bugfix: numeric overflow when trying to select labels in high zoom factors
+ * bugfix: not all positions were selectable due to internal rounding errors
 
 0.8.1  [2008-12-23]
 

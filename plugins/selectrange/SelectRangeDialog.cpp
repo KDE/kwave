@@ -28,7 +28,7 @@
 
 //***************************************************************************
 SelectRangeDialog::SelectRangeDialog(QWidget *widget,
-    Mode start_mode, Mode range_mode, double range, double sample_rate,
+    Mode start_mode, Mode range_mode, unsigned int range, qreal sample_rate,
     unsigned int offset, unsigned int signal_length)
     :QDialog(widget), Ui::SelectRangeDlg()
 {

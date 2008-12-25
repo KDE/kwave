@@ -52,7 +52,7 @@ QStringList *SelectRangePlugin::setup(QStringList &previous_params)
     interpreteParameters(previous_params);
 
     // create the setup dialog
-    double rate = signalRate();
+    qreal rate = signalRate();
     unsigned int offset = 0;
     selection(&offset, 0, false);
     unsigned int length = signalLength();
@@ -96,50 +96,12 @@ int SelectRangePlugin::start(QStringList &params)
     if (result) return result;
 
     // get current offset of the signal
-    unsigned int offset = 0;
-    switch (m_start_mode) {
-	case SelectTimeWidget::byTime: {
-	    // convert from ms to samples
-	    double rate = signalRate();
-	    offset = static_cast<unsigned int>(rint(m_start / 1E3 * rate));
-	    break;
-	}
-	case SelectTimeWidget::bySamples: {
-	    // simple case -> already in samples
-	    offset = static_cast<unsigned int>(rint(m_start));
-	    break;
-	}
-	case SelectTimeWidget::byPercents: {
-	    // by percentage of whole signal
-	    unsigned sig_length = signalLength();
-	    offset = static_cast<unsigned int>(rint(
-		static_cast<double>(sig_length * (m_start / 100.0))));
-	    break;
-	}
-    }
+    unsigned int offset = SelectTimeWidget::timeToSamples(
+	m_start_mode, m_start, signalRate(), signalLength());
 
     // transform into offset and length [samples]
-    unsigned int length = 0;
-    switch (m_range_mode) {
-	case SelectTimeWidget::byTime: {
-	    // convert from ms to samples
-	    double rate = signalRate();
-	    length = static_cast<unsigned int>(rint(m_range / 1E3 * rate));
-	    break;
-	}
-	case SelectTimeWidget::bySamples: {
-	    // simple case -> already in samples
-	    length = static_cast<unsigned int>(rint(m_range));
-	    break;
-	}
-	case SelectTimeWidget::byPercents: {
-	    // by percentage of whole signal
-	    unsigned sig_length = signalLength();
-	    length = static_cast<unsigned int>(rint(
-		static_cast<double>(sig_length * (m_range / 100.0))));
-	    break;
-	}
-    }
+    unsigned int length = SelectTimeWidget::timeToSamples(
+	m_range_mode, m_range, signalRate(), signalLength());
 
     // limit selection to end of signal
     if ((offset + length) >= signalLength())
@@ -201,14 +163,12 @@ int SelectRangePlugin::interpreteParameters(QStringList &params)
 
     // offset in ms, samples or percent
     param = params[2];
-    m_start = static_cast<unsigned int>(param.toDouble(&ok));
-    Q_ASSERT(ok);
+    m_start = param.toUInt(&ok);
     if (!ok) return -EINVAL;
 
     // range in ms, samples or percent
     param = params[3];
-    m_range = static_cast<unsigned int>(param.toDouble(&ok));
-    Q_ASSERT(ok);
+    m_range = param.toUInt(&ok);
     if (!ok) return -EINVAL;
 
     return 0;

@@ -59,7 +59,7 @@ public:
      * @param signal_length length of the signal in samples, needed
      *                      for converting samples to percentage
      */
-    virtual void init(Mode mode, double range, double sample_rate,
+    virtual void init(Mode mode, unsigned int range, qreal sample_rate,
                       unsigned int offset, unsigned int signal_length);
 
     /** Destructor */
@@ -69,13 +69,38 @@ public:
     void setMode(Mode new_mode);
 
     /** Returns the current selection mode (byTime, bySamples, byPercents) */
-    Mode mode() { return m_mode; }
+    Mode mode() const { return m_mode; }
 
     /** Returns the number of ms, samples or percents */
-    double time() { return m_range; }
+    unsigned int time() const { return m_range; }
+
+    /** Returns the time in units of samples */
+    unsigned int samples() const;
 
     /** Sets the title of the, shown in the frame around the controls */
     virtual void setTitle(const QString title);
+
+    /**
+     * Conversion from time into samples
+     * @param mode time mode (byTime, bySamples, byPercents)
+     * @param time a time, given in ms, samples or percents
+     * @param rate number of samples per second
+     * @param length signal length
+     * @return time converted to samples
+     */
+    static unsigned int timeToSamples(Mode mode, unsigned int time,
+                                      qreal rate, unsigned int length);
+
+    /**
+     * Conversion from samples into time
+     * @param mode time mode (byTime, bySamples, byPercents)
+     * @param samples position in samples
+     * @param rate number of samples per second
+     * @param length signal length
+     * @return time converted to the given mode
+     */
+    static unsigned int samplesToTime(Mode mode, unsigned int time,
+                                      qreal rate, unsigned int length);
 
 signals:
 
@@ -123,10 +148,10 @@ private:
     Mode m_mode;
 
     /** selected range in ms, samples or percent */
-    double m_range;
+    unsigned int m_range;
 
     /** sample rate [samples/second] */
-    double m_rate;
+    qreal m_rate;
 
     /** start offset of the selectioh [samples] */
     unsigned int m_offset;

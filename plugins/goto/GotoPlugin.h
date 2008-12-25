@@ -65,7 +65,7 @@ private:
     SelectTimeWidget::Mode m_mode;
 
     /** position in milliseconds, samples or percents */
-    double m_position;
+    unsigned int m_position;
 
 };
 

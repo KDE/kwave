@@ -20,7 +20,7 @@
 #include "GotoDialog.h"
 
 //***************************************************************************
-GotoDialog::GotoDialog(QWidget *widget, Mode mode, double pos,
+GotoDialog::GotoDialog(QWidget *widget, Mode mode, unsigned int pos,
                        double sample_rate, unsigned int signal_length)
     :QDialog(widget), Ui::GotoDlg()
 {

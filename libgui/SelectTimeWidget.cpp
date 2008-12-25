@@ -40,7 +40,7 @@ SelectTimeWidget::SelectTimeWidget(QWidget *widget)
 }
 
 //***************************************************************************
-void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
+void SelectTimeWidget::init(Mode mode, unsigned int range, qreal sample_rate,
                             unsigned int offset, unsigned int signal_length)
 {
     m_mode  = mode;
@@ -79,7 +79,7 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
     // set initial values
     switch (m_mode) {
 	case byTime: {
-	    unsigned int t = static_cast<unsigned int>(ceil(m_range));
+	    unsigned int t = m_range;
 	    sbMilliseconds->setValue(t % 1000);
 	    t /= 1000;
 	    sbSeconds->setValue(t % 60);
@@ -90,14 +90,14 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
 	    break;
 	}
 	case bySamples: {
-            unsigned int samples = static_cast<unsigned int>(rint(m_range));
+            unsigned int samples = m_range;
 	    Q_ASSERT(samples <= INT_MAX);
 	    if (samples > INT_MAX) samples = INT_MAX;
 	    edSamples->setValue(static_cast<int>(samples));
 	    break;
 	}
 	case byPercents: {
-	    sbPercents->setValue(static_cast<int>(rint(m_range)));
+	    sbPercents->setValue(static_cast<int>(m_range));
 	    break;
 	}
     }
@@ -306,13 +306,10 @@ void SelectTimeWidget::timeChanged(int)
     sbHours->setValue(hours);
 
     // update the other widgets
-    unsigned int samples = static_cast<unsigned int>(
-	ceil(static_cast<double>(ms) * m_rate * 1E-3));
-    Q_ASSERT(samples <= INT_MAX);
-    if (samples > INT_MAX) samples = INT_MAX;
-    edSamples->setValue(static_cast<int>(samples));
-    sbPercents->setValue(static_cast<int>(100.0 *
-	static_cast<double>(ms) / (m_length / m_rate * 1E3)));
+    int samples = timeToSamples(byTime, ms, m_rate, m_length);
+    edSamples->setValue(samples);
+    int percents = samplesToTime(byPercents, samples, m_rate, m_length);
+    sbPercents->setValue(percents);
 
     // set range in byTime mode [ms]
     m_range = ms;
@@ -344,8 +341,7 @@ void SelectTimeWidget::samplesChanged(int)
     if (samples > max_samples) samples = max_samples;
 
     // update the other widgets
-    unsigned int t = static_cast<unsigned int>(
-	rint(static_cast<double>(samples) * 1E3 / m_rate));
+    unsigned int t = samplesToTime(byTime, samples, m_rate, m_length);
     sbMilliseconds->setValue(t % 1000);
     t /= 1000;
     sbSeconds->setValue(t % 60);
@@ -354,9 +350,8 @@ void SelectTimeWidget::samplesChanged(int)
     t /= 60;
     sbHours->setValue(t);
 
-    double percents = (100.0 * static_cast<double>(samples)) /
-	static_cast<double>(m_length);
-    sbPercents->setValue(static_cast<int>(rint(percents)));
+    int percents = samplesToTime(byPercents, samples, m_rate, m_length);
+    sbPercents->setValue(percents);
 
     // update in samples mode
     m_range = samples;
@@ -376,33 +371,26 @@ void SelectTimeWidget::percentsChanged(int p)
     if (m_mode != byPercents) return;
     disconnect();
 
-    // get value
-    double percents = p;
-
     // limit to rest of signal
-    double max_percents = 100.0 * static_cast<double>(m_length-m_offset) /
-	static_cast<double>(m_length);
-    if (percents > max_percents) {
-	percents = max_percents;
-	p = static_cast<int>(percents);
+    int max_percents = 100;
+    if (m_length)
+	max_percents = (100 * static_cast<quint64>(m_length - m_offset)) /
+	static_cast<quint64>(m_length);
+    if (p > max_percents) {
+	p = max_percents;
     }
 
     // update in byPercents mode [0...100]
-    m_range = percents;
-    p = static_cast<int>(percents);
+    m_range = p;
 
     if (slidePercents->value() != p) slidePercents->setValue(p);
     if (sbPercents->value() != p) sbPercents->setValue(p);
 
     // update the other widgets
-    unsigned int samples = static_cast<unsigned int>(
-	static_cast<double>(m_length) * percents / 100.0);
-    Q_ASSERT(samples <= INT_MAX);
-    if (samples > INT_MAX) samples = INT_MAX;
+    int samples = timeToSamples(byPercents, p, m_rate, m_length);
     edSamples->setValue(samples);
 
-    unsigned int t = static_cast<unsigned int>(ceil((
-	static_cast<double>(samples) * 1E3) / m_rate));
+    unsigned int t = samplesToTime(byTime, samples, m_rate, m_length);
     sbMilliseconds->setValue(t % 1000);
     t /= 1000;
     sbSeconds->setValue(t % 60);
@@ -411,7 +399,7 @@ void SelectTimeWidget::percentsChanged(int p)
     t /= 60;
     sbHours->setValue(t);
 
-    emit valueChanged(static_cast<unsigned int>(samples)); // emit the change
+    emit valueChanged(samples); // emit the change
     connect();
 }
 
@@ -460,6 +448,65 @@ void SelectTimeWidget::setOffset(unsigned int offset)
     sbPercents->setValue(static_cast<int>(percents));
 
     connect();
+}
+
+//***************************************************************************
+unsigned int SelectTimeWidget::samples() const
+{
+    return (edSamples) ? edSamples->value() : 0;
+}
+
+//***************************************************************************
+unsigned int SelectTimeWidget::timeToSamples(
+    Mode mode, unsigned int time, qreal rate, unsigned int length)
+{
+    unsigned int pos = 0;
+    switch (mode) {
+	case SelectTimeWidget::byTime:
+	    // convert from ms to samples
+	    pos = static_cast<unsigned int>(ceil(
+		static_cast<double>(time) * rate * 1E-3));
+	    break;
+	case SelectTimeWidget::bySamples:
+	    // simple case -> already in samples
+	    pos = time;
+	    break;
+	case SelectTimeWidget::byPercents:
+	    // by percentage of whole signal
+	    pos = static_cast<unsigned int>(rint(
+		static_cast<double>(length * (time / 100.0))));
+	    break;
+    }
+
+    if (pos > INT_MAX) pos = INT_MAX;
+    return pos;
+}
+
+//***************************************************************************
+unsigned int SelectTimeWidget::samplesToTime(
+    Mode mode, unsigned int samples, qreal rate, unsigned int length)
+{
+    unsigned int time = 0;
+
+    switch (mode) {
+	case SelectTimeWidget::byTime:
+	    // convert from samples to ms
+	    time = static_cast<unsigned int>(
+		rint(static_cast<double>(samples) * 1E3 / rate));
+	    break;
+	case SelectTimeWidget::bySamples:
+	    // simple case -> already in samples
+	    time = samples;
+	    break;
+	case SelectTimeWidget::byPercents:
+	    // by percentage of whole signal
+	    time = static_cast<unsigned int>(100.0 *
+		static_cast<double>(samples) /
+		static_cast<double>(length));
+	    break;
+    }
+
+    return time;
 }
 
 //***************************************************************************

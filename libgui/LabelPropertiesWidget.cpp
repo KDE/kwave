@@ -85,29 +85,7 @@ void LabelPropertiesWidget::setLabelName(const QString &name)
 unsigned int LabelPropertiesWidget::labelPosition()
 {
     Q_ASSERT(time);
-    if (!time) return 0;
-
-    qreal pos = time->time();
-    unsigned int pos_in_samples = 0;
-    switch (time->mode()) {
-	case SelectTimeWidget::bySamples:
-	    // already in samples
-	    pos_in_samples = static_cast<unsigned int>(pos);
-	    break;
-	case SelectTimeWidget::byTime:
-	    // convert milliseconds to samples
-	    pos_in_samples = static_cast<unsigned int>(
-		rint((pos / 1E3) * m_sample_rate));
-	    break;
-	case SelectTimeWidget::byPercents:
-	    // convert from percents to samples
-	    pos_in_samples =
-		static_cast<unsigned int>(static_cast<qreal>(m_length) *
-		    (pos / 100.0));
-	    break;
-    }
-
-    return pos_in_samples;
+    return (time) ? time->samples() : 0;
 }
 
 //***************************************************************************

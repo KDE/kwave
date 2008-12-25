@@ -45,7 +45,7 @@ public:
      * @param signal_length length of the signal in samples, needed
      *                      for converting samples to percentage
      */
-    GotoDialog(QWidget *widget, Mode mode, double position,
+    GotoDialog(QWidget *widget, Mode mode, unsigned int position,
                double sample_rate, unsigned int signal_length);
 
     /** Destructor */
@@ -66,7 +66,7 @@ public:
     /**
      * Returns the current position (byTime, bySamples, byPercents)
      */
-    double pos() { return select_pos ? select_pos->time() : 0.0; }
+    unsigned int pos() { return select_pos ? select_pos->time() : 0; }
 
 };
 

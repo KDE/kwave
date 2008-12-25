@@ -49,7 +49,7 @@ public:
      *                      for converting samples to percentage
      */
     SelectRangeDialog(QWidget *widget, Mode start_mode, Mode range_mode,
-                      double range, double sample_rate,
+                      unsigned int range, qreal sample_rate,
                       unsigned int offset, unsigned int signal_length);
 
     /** Destructor */
@@ -79,10 +79,10 @@ public:
     /**
      * Returns the current start position (byTime, bySamples, byPercents)
      */
-    double start() { return select_start ? select_start->time() : 0.0; };
+    unsigned int start() { return select_start ? select_start->time() : 0; };
 
     /** Returns the number of ms, samples or percents */
-    double range() { return select_range ? select_range->time() : 0.0; };
+    unsigned int range() { return select_range ? select_range->time() : 0; };
 
 };
 

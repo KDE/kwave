@@ -33,7 +33,7 @@ KWAVE_PLUGIN(GotoPlugin,"goto","Thomas Eschenbacher");
 
 //***************************************************************************
 GotoPlugin::GotoPlugin(const PluginContext &c)
-    :KwavePlugin(c), m_mode(SelectTimeWidget::bySamples), m_position(0.0)
+    :KwavePlugin(c), m_mode(SelectTimeWidget::bySamples), m_position(0)
 {
      i18n("goto");
 }
@@ -50,7 +50,7 @@ QStringList *GotoPlugin::setup(QStringList &previous_params)
     interpreteParameters(previous_params);
 
     // create the setup dialog
-    double rate = signalRate();
+    qreal rate = signalRate();
     unsigned int offset = 0;
     selection(&offset, 0, false);
     unsigned int length = signalLength();
@@ -90,30 +90,11 @@ int GotoPlugin::start(QStringList &params)
     if (result) return result;
 
     // get current offset of the signal
-    unsigned int offset = 0;
-    switch (m_mode) {
-	case SelectTimeWidget::byTime: {
-	    // convert from ms to samples
-	    double rate = signalRate();
-	    offset = static_cast<unsigned int>(rint(m_position / 1E3 * rate));
-	    break;
-	}
-	case SelectTimeWidget::bySamples: {
-	    // simple case -> already in samples
-	    offset = static_cast<unsigned int>(rint(m_position));
-	    break;
-	}
-	case SelectTimeWidget::byPercents: {
-	    // by percentage of whole signal
-	    unsigned sig_length = signalLength();
-	    offset = static_cast<unsigned int>(rint(
-		static_cast<double>(sig_length * (m_position / 100.0))));
-	    break;
-	}
-    }
+    unsigned int offset = SelectTimeWidget::timeToSamples(
+	m_mode, m_position, signalRate(), signalLength());
 
     // change the selection through the signal manager
-    QString command = "goto(%1)";
+    QString command = "nomacro:goto(%1)";
     emitCommand(command.arg(offset));
 
     return result;
@@ -149,8 +130,7 @@ int GotoPlugin::interpreteParameters(QStringList &params)
 
     // position in ms, samples or percent
     param = params[1];
-    m_position = static_cast<unsigned int>(param.toDouble(&ok));
-    Q_ASSERT(ok);
+    m_position = param.toUInt(&ok);
     if (!ok) return -EINVAL;
 
     return 0;

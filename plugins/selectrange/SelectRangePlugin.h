@@ -68,10 +68,10 @@ private:
     SelectTimeWidget::Mode m_range_mode;
 
     /** start in milliseconds, samples or percents */
-    double m_start;
+    unsigned int m_start;
 
     /** range in milliseconds, samples or percents */
-    double m_range;
+    unsigned int m_range;
 
 };
 

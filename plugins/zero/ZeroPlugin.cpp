@@ -33,7 +33,7 @@
 
 KWAVE_PLUGIN(ZeroPlugin,"zero","Thomas Eschenbacher");
 
-#define ZERO_COUNT 64*1024
+#define ZERO_COUNT (64 * 1024)
 
 //***************************************************************************
 ZeroPlugin::ZeroPlugin(const PluginContext &context)
@@ -56,8 +56,6 @@ void ZeroPlugin::run(QStringList params)
     /*
      * new mode: insert a range filled with silence:
      * -> usage: zero(<mode>, <range>)
-     * currently the only allowed value for <mode> is "0" (milliseconds)
-     * and <range> must be a number of milliseconds
      */
     if (params.count() == 2) {
 	// get the current selection start
@@ -71,26 +69,22 @@ void ZeroPlugin::run(QStringList params)
 	Q_ASSERT((mode == static_cast<int>(SelectTimeWidget::byTime)) ||
 	         (mode == static_cast<int>(SelectTimeWidget::bySamples)) ||
 	         (mode == static_cast<int>(SelectTimeWidget::byPercents)));
-	switch (mode) {
-	    case static_cast<int>(SelectTimeWidget::byTime):
-		break;
-	    case static_cast<int>(SelectTimeWidget::bySamples):
-	    case static_cast<int>(SelectTimeWidget::byPercents):
-	    default:
-		// for the moment we only support (and need) the
-		// "by time" mode
-		return;
+	if ((mode != static_cast<int>(SelectTimeWidget::byTime)) &&
+	    (mode != static_cast<int>(SelectTimeWidget::bySamples)) &&
+	    (mode != static_cast<int>(SelectTimeWidget::byPercents)))
+	{
+	    return;
 	}
 
 	// length of the range of zeroes to insert
-	double ms = params[1].toDouble(&ok);
+	unsigned int time = params[1].toUInt(&ok);
 	Q_ASSERT(ok);
 	if (!ok) return;
 
-	// convert from ms to samples
-	double rate = signalRate();
-	unsigned int length =
-	    static_cast<unsigned int>(rint(ms / 1E3 * rate));
+	// convert from time to samples
+	unsigned int length = SelectTimeWidget::timeToSamples(
+	    static_cast<SelectTimeWidget::Mode>(mode),
+	    time, signalRate(), signalLength());
 
 	// get the list of affected tracks
 	QList<unsigned int> tracks = manager().selectedTracks();

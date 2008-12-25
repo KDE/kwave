@@ -8,6 +8,7 @@
    pixel position they eliminated each other through XOR mode
  * bugfix: numeric overflow when trying to select labels in high zoom factors
  * bugfix: not all positions were selectable due to internal rounding errors
+ * silence plugin now supports all modes
 
 0.8.1  [2008-12-23]
 

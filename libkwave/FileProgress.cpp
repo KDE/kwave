@@ -270,9 +270,10 @@ void FileProgress::updateStatistics(qreal rate, qreal rest,
     m_stat_transfer->setText(text);
 
     // right: statistic over the transferred bytes
+    QString num1, num2;
     text = i18n("%1 MB of %2 MB done",
-	num.sprintf("%1.1f", pos / (1024.0*1024.0)),
-	num.sprintf("%1.1f", m_size / (1024.0*1024.0)));
+	num1.sprintf("%1.1f", pos / (1024.0*1024.0)),
+	num2.sprintf("%1.1f", m_size / (1024.0*1024.0)));
     m_stat_bytes->setText(text);
 }
 

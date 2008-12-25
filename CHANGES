@@ -12,6 +12,7 @@
  * use "unsigned" sample format per default when creating new files
    with <= 8 bits/sample
  * bugfix: playback position was shown on startup
+ * bugfix: show correct file size in progress dialog
 
 0.8.1  [2008-12-23]
 

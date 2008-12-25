@@ -294,6 +294,9 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
     if (m_dev.isSequential()) return false;
     if (!parent) return false;
 
+    // be more robust if the file has not correctly padded
+    if (length & 1) length++;
+
     do {
 // 	qDebug("RIFFParser::parse(offset=0x%08X, length=0x%08X)",
 // 	    offset, length);
@@ -364,7 +367,7 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
 	QByteArray format = read4ByteString(m_dev.pos());
 
 	// calculate the physical length of the chunk
-	u_int32_t phys_len = (length-8 < len) ? (length-8) : len;
+	u_int32_t phys_len = (length - 8 < len) ? (length - 8) : len;
 	if (phys_len & 1) phys_len++;
 
 	// now create a new chunk, per default type is "sub-chunk"

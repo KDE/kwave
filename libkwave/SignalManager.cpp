@@ -45,6 +45,7 @@
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Parser.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleFormat.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
@@ -466,6 +467,12 @@ void SignalManager::newSignal(unsigned int samples, double rate,
     m_file_info.clear();
     m_file_info.setRate(rate);
     m_file_info.setBits(bits);
+
+    // use "unsigned" sample formats per default for <= 8 bits/sample formats
+    if (bits <= 8) {
+	const SampleFormat format(SampleFormat::Unsigned);
+	m_file_info.set(INF_SAMPLE_FORMAT, QVariant(format.toInt()));
+    }
     emit labelsChanged(labels());
 
     // now the signal is considered not to be empty

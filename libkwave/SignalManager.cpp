@@ -1140,9 +1140,7 @@ void SignalManager::freeUndoMemory(unsigned int needed)
 
 	// if the signal was modified, it will stay in this state, it is
 	// not possible to change to "non-modified" state through undo
-	if ((!m_undo_buffer.isEmpty()) && (m_modified)) {
-	    enableModifiedChange(false);
-	}
+	if (m_modified) enableModifiedChange(false);
     }
 
     // remove old redo actions if still not enough memory
@@ -1402,6 +1400,7 @@ void SignalManager::setModified(bool mod)
 //***************************************************************************
 void SignalManager::enableModifiedChange(bool en)
 {
+    qDebug("SignalManager::enableModifiedChange(%d)", en);
     m_modified_enabled = en;
 }
 

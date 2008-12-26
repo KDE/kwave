@@ -826,16 +826,21 @@ bool SignalManager::deleteRange(unsigned int offset, unsigned int length,
 
     // delete all labels in the selected range
     // and adjust the labels after the deleted range
-    QMutableListIterator<Label> it(labels());
-    while (it.hasNext()) {
-	Label &label = it.next();
-	unsigned int pos = label.pos();
+    foreach (Label label, labels()) {
+	const unsigned int pos = label.pos();
+	const int index        = labelIndex(label);
+
 	if (pos >= offset + length) {
 	    // move label left
-	    label.moveTo(pos - length);
-	} else if ((pos >= offset) && (pos < offset+length)) {
+	    if (!modifyLabel(index, pos - length, label.name())) {
+		// this should never happen: position is already occupied?
+		qWarning("SignalManager::deleteRange() "\
+		         "-> killing duplicate label @ %u", pos);
+		deleteLabel(index, false);
+	    }
+	} else if ((pos >= offset) && (pos < offset + length)) {
 	    // delete the label
-	    deleteLabel(labelIndex(label), false);
+	    deleteLabel(index, false);
 	}
     }
 

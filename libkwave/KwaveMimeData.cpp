@@ -80,8 +80,8 @@ bool Kwave::MimeData::encode(QWidget *widget,
 	} else {
 	    // move label left
 	    label.moveTo(pos - first);
-	    qDebug("Kwave::MimeData::encode(...) -> new label @ %9d '%s'",
-		label.pos(), label.name().toLocal8Bit().data());
+// 	    qDebug("Kwave::MimeData::encode(...) -> new label @ %9d '%s'",
+// 		label.pos(), label.name().toLocal8Bit().data());
 	}
     }
 
@@ -162,15 +162,15 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	LabelList labels = decoder->info().labels();
 	foreach(const Label &label, labels) {
 	    sig.addLabel(label.pos() + left, label.name());
-	    qDebug("Kwave::MimeData::decode(...) -> new label @ %9d '%s'",
-		label.pos(), label.name().toLocal8Bit().data());
+// 	    qDebug("Kwave::MimeData::decode(...) -> new label @ %9d '%s'",
+// 		label.pos(), label.name().toLocal8Bit().data());
 	}
 
 	delete decoder;
 	break;
     }
 
-    qDebug("Kwave::MimeData::decode -> decoded_length=%u", decoded_length);
+//     qDebug("Kwave::MimeData::decode -> decoded_length=%u", decoded_length);
     return decoded_length;
 }
 

@@ -505,7 +505,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	    }
 
 	    if (!name.length()) {
-		qDebug("cue list entry %d has no name", index);
+// 		qDebug("cue list entry %d has no name", index);
 		name = "";
 	    }
 

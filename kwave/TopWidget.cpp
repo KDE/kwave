@@ -565,6 +565,7 @@ int TopWidget::executeCommand(const QString &line)
     if (use_recorder) {
 	// append the command to the macro recorder
 	// @TODO macro recording...
+	qDebug("TopWidget::executeCommand(%s)", command.toLocal8Bit().data()); // ###
     }
 
     if (m_app.executeCommand(command)) {

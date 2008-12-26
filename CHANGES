@@ -14,6 +14,7 @@
  * bugfix: playback position was shown on startup
  * bugfix: show correct file size in progress dialog
  * bugfix: crash when deleting label from end of signal
+ * bugfix: overview was wrong when deleted space after signal was visible
 
 0.8.1  [2008-12-23]
 

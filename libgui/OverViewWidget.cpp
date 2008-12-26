@@ -213,8 +213,14 @@ void OverViewWidget::playbackPositionChanged(unsigned int pos)
     m_playback_position = new_pos;
 
     // check for change in pixel units
+    unsigned int length = m_signal_length;
+    if (m_view_offset + m_view_width > m_signal_length) {
+	// showing deleted space after signal
+	length = m_view_offset + m_view_width;
+    }
+    if (!length) return;
     const double scale = static_cast<double>(width()) /
-                         static_cast<double>(m_signal_length);
+                         static_cast<double>(length);
     const unsigned int old_pixel_pos = static_cast<unsigned int>(
 	static_cast<double>(old_pos) * scale);
     const unsigned int new_pixel_pos = static_cast<unsigned int>(
@@ -260,13 +266,23 @@ void OverViewWidget::refreshBitmap()
 {
     QPainter p;
 
+    unsigned int length = m_signal_length;
+    if (m_view_offset + m_view_width > m_signal_length) {
+	// showing deleted space after signal
+	length = m_view_offset + m_view_width;
+    }
+
     int width  = this->width();
     int height = this->height();
-    if (!width || !height || !m_view_width || !m_signal_length)
+    if (!width || !height || !m_view_width || !length)
 	return;
 
+    const double scale = static_cast<double>(width) /
+	                 static_cast<double>(length);
+    const int bitmap_width = static_cast<int>(m_signal_length * scale);
+
     // let the bitmap be updated from the cache
-    QBitmap bitmap = m_cache.getOverView(width, height);
+    QBitmap bitmap = m_cache.getOverView(bitmap_width, height);
 
     // draw the bitmap (converted to QImage)
     QImage image(width, height, QImage::Format_ARGB32_Premultiplied);
@@ -275,10 +291,7 @@ void OverViewWidget::refreshBitmap()
     QBrush brush(bitmap);
     brush.setColor(BAR_FOREGROUND);
     p.setBrush(brush);
-    p.drawRect(0, 0, width, height);
-
-    const double scale = static_cast<double>(width) /
-	                 static_cast<double>(m_signal_length);
+    p.drawRect(0, 0, bitmap_width , height);
 
     // hilight the selection
     if ((m_selection_length > 1) && m_signal_length)

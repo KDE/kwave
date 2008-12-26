@@ -2476,6 +2476,10 @@ void SignalWidget::slotSamplesInserted(unsigned int track,
     Q_UNUSED(offset);
     Q_UNUSED(length);
 
+    // length has changed -> update overview
+    emit viewInfo(m_offset, pixels2samples(QWidget::width()-1)+1,
+                  m_signal_manager.length());
+
     refreshMarkersLayer();
 }
 
@@ -2488,6 +2492,10 @@ void SignalWidget::slotSamplesDeleted(unsigned int track,
     Q_UNUSED(track);
     Q_UNUSED(offset);
     Q_UNUSED(length);
+
+    // length has changed -> update overview
+    emit viewInfo(m_offset, pixels2samples(QWidget::width()-1)+1,
+                  m_signal_manager.length());
 
     refreshMarkersLayer();
 }

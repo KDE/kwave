@@ -28,6 +28,9 @@
 /** initializer for the list of devices */
 QMap<QString, QString> RecordALSA::m_device_list;
 
+/** gui name of the default device */
+#define DEFAULT_DEVICE (i18n("DSNOOP plugin")+QString("|sound_note"))
+
 //***************************************************************************
 
 /* define some endian dependend symbols that are missing in ALSA */
@@ -956,14 +959,14 @@ byte_order_t RecordALSA::endianness()
 //***************************************************************************
 QStringList RecordALSA::supportedDevices()
 {
-    QStringList list;
-
     // re-validate the list if necessary
     scanDevices();
 
-    QMap<QString, QString>::Iterator it;
-    for (it = m_device_list.begin(); it != m_device_list.end(); ++it)
-	list.append(it.key());
+    QStringList list = m_device_list.keys();
+
+    // move the default device to the start of the list
+    if (list.contains(DEFAULT_DEVICE))
+	list.move(list.indexOf(DEFAULT_DEVICE), 0);
 
     list.append("#TREE#");
     return list;
@@ -1084,8 +1087,7 @@ next_card:
 
     // per default: offer the dsnoop plugin if any slave devices exist
     if (!m_device_list.isEmpty()) {
-	m_device_list.insert(i18n("DSNOOP plugin")+QString("|sound_note"),
-	                     "plug:dsnoop");
+	m_device_list.insert(DEFAULT_DEVICE, "plug:dsnoop");
     }
 
     snd_config_update_free_global();
@@ -1101,6 +1103,10 @@ QString RecordALSA::alsaDeviceName(const QString &name)
     }
 
     if (!m_device_list.contains(name)) {
+	// maybe we already have a ALSA compatible name (like in init state)
+	foreach (QString n, m_device_list.values())
+	    if (n == name) return n;
+
 	qWarning("RecordALSA::alsaDeviceName('%s') - NOT FOUND",
 	         name.toLocal8Bit().data());
 	return "";

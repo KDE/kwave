@@ -74,6 +74,12 @@ PlayBackPlugin::PlayBackPlugin(const PluginContext &context)
     m_old_first(0),
     m_old_last(0)
 {
+#ifdef HAVE_ALSA_SUPPORT
+    // set builtin defaults to ALSA
+    m_playback_params.method = PLAYBACK_ALSA;
+    m_playback_params.device = "default";
+#endif /* HAVE_ALSA_SUPPORT */
+
     connect(this, SIGNAL(sigPlaybackDone()),
             &m_playback_controller, SLOT(playbackDone()));
     connect(this, SIGNAL(sigPlaybackPos(unsigned int)),
@@ -361,19 +367,32 @@ void PlayBackPlugin::setMethod(playback_method_t method)
 //***************************************************************************
 void PlayBackPlugin::setDevice(const QString &device)
 {
-//     qDebug("PlayBackPlugin::setDevice(%s)", device.local8Bit().data());
+//     qDebug("PlayBackPlugin::setDevice(%s)", device.toLocal8Bit().data());
+
+    // select the default device if new one is not supported
+    QString dev = device;
+    if (m_device) {
+	QStringList supported = m_device->supportedDevices();
+	if (!supported.isEmpty() && !supported.contains(device)) {
+	    // use the first entry as default
+	    dev = supported.first();
+	    qDebug("PlayBackPlugin::setDevice(%s) -> fallback to '%s'",
+		device.toLocal8Bit().data(),
+		dev.toLocal8Bit().data());
+	}
+    }
 
     // set the device in the dialog
-    if (m_dialog) m_dialog->setDevice(device);
-    m_playback_params.device = device;
+    if (m_dialog) m_dialog->setDevice(dev);
+    m_playback_params.device = dev;
 
     QList<unsigned int> supported_bits;
-    if (m_device) supported_bits = m_device->supportedBits(device);
+    if (m_device) supported_bits = m_device->supportedBits(dev);
     if (m_dialog) m_dialog->setSupportedBits(supported_bits);
 
     unsigned int min = 0;
     unsigned int max = 0;
-    if (m_device) m_device->detectChannels(device, min, max);
+    if (m_device) m_device->detectChannels(dev, min, max);
     if (m_dialog) m_dialog->setSupportedChannels(min, max);
 }
 

@@ -21,7 +21,7 @@
 
 //***************************************************************************
 RecordParams::RecordParams()
-   :method(RECORD_OSS),
+   :method(RECORD_ALSA),
     pre_record_enabled(false),     pre_record_time(20),
     record_time_limited(false),    record_time(5*60),
     record_trigger_enabled(false), record_trigger(30),
@@ -29,7 +29,7 @@ RecordParams::RecordParams()
     agc_enabled(false),            agc_decay(50),
     fade_in_enabled(false),        fade_in_time(5),
     fade_out_enabled(false),       fade_out_time(5),
-    device_name("/dev/dsp"),
+    device_name("plug:dsnoop"),
     tracks(2),
     sample_rate(44100.0),
     compression(0),

@@ -53,6 +53,12 @@
 
 QMap<QString, QString> PlayBackALSA::m_device_list;
 
+/** gui name of the default device */
+#define DEFAULT_DEVICE (i18n("default device") + QString("|sound_note"))
+
+/** gui name of the null device */
+#define NULL_DEVICE (i18n("null device") + QString("|sound_note"))
+
 //***************************************************************************
 
 /* define some endian dependend symbols that are missing in ALSA */
@@ -842,11 +848,9 @@ next_card:
     if (!m_device_list.isEmpty()) {
         m_device_list.insert(i18n("DMIX plugin")+QString("|sound_note"),
                              "plug:dmix");
-        m_device_list.insert(i18n("default device")+QString("|sound_note"),
-                             "default");
+        m_device_list.insert(DEFAULT_DEVICE, "default");
     } else {
-        m_device_list.insert(i18n("null device")+QString("|sound_note"),
-                             "null");
+        m_device_list.insert(NULL_DEVICE, "null");
     }
 
     snd_config_update_free_global();
@@ -864,6 +868,10 @@ QString PlayBackALSA::alsaDeviceName(const QString &name)
     }
 
     if (!m_device_list.contains(name)) {
+	// maybe we already have a ALSA compatible name (like in init state)
+	foreach (QString n, m_device_list.values())
+     if (n == name) return n;
+
 	qWarning("PlayBackALSA::alsaDeviceName('%s') - NOT FOUND",
 	    name.toLocal8Bit().data());
 	return "";
@@ -878,6 +886,13 @@ QStringList PlayBackALSA::supportedDevices()
     scanDevices();
 
     QStringList list = m_device_list.keys();
+
+    // move "default" or "null" to the start of the list
+    if (list.contains(NULL_DEVICE))
+	list.move(list.indexOf(NULL_DEVICE), 0);
+    if (list.contains(DEFAULT_DEVICE))
+	list.move(list.indexOf(DEFAULT_DEVICE), 0);
+
     list.append("#TREE#");
 
     return list;

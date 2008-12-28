@@ -17,6 +17,7 @@
  * bugfix: overview was wrong when deleted space after signal was visible
  * bugfix: overview was not always synchronized after delete/insert
  * bugfix: "modified" state got lost during undo
+ * use ALSA per default for playback/record if nothing has been selected yet
 
 0.8.1  [2008-12-23]
 

@@ -22,13 +22,14 @@
 
 /**
  * enum for the known playback methods
+ * (sorted, preferred first)
  */
 typedef enum {
     PLAYBACK_NONE = 0, /**< none selected */
-    PLAYBACK_ARTS,     /**< aRts sound daemon */
-    PLAYBACK_OSS,      /**< OSS native or ALSA OSS emulation */
-    PLAYBACK_ALSA,     /**< ALSA native */
     PLAYBACK_JACK,     /**< Jack sound daemon */
+    PLAYBACK_ALSA,     /**< ALSA native */
+    PLAYBACK_OSS,      /**< OSS native or ALSA OSS emulation */
+    PLAYBACK_ARTS,     /**< aRts sound daemon */
     PLAYBACK_INVALID   /**< (keep this the last entry, EOL delimiter) */
 } playback_method_t;
 
@@ -48,8 +49,8 @@ public:
     /** Default constructor */
     PlayBackParam()
         :rate(44100), channels(2), bits_per_sample(16),
-        device("/dev/dsp"), bufbase(10),
-        method(PLAYBACK_ARTS)
+        device(""), bufbase(10),
+        method(PLAYBACK_NONE)
     {
     };
 

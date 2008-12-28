@@ -25,12 +25,13 @@
 
 /**
  * enum for the known recording methods
+ * (sorted, preferred first)
  */
 typedef enum {
     RECORD_NONE = 0, /**< none selected */
-    RECORD_OSS,      /**< OSS native or ALSA OSS emulation */
-    RECORD_ALSA,     /**< ALSA native */
     RECORD_JACK,     /**< Jack sound daemon */
+    RECORD_ALSA,     /**< ALSA native */
+    RECORD_OSS,      /**< OSS native or ALSA OSS emulation */
     RECORD_INVALID   /**< (keep this the last entry, EOL delimiter) */
 } record_method_t;
 

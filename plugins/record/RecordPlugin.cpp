@@ -320,12 +320,23 @@ void RecordPlugin::setDevice(const QString &device)
     InhibitRecordGuard _lock(*this); // don't record while settings change
     qDebug("RecordPlugin::setDevice('%s')", device.toLocal8Bit().data());
 
+    // select the default device if this one is not supported
+    QString dev = device;
+    QStringList supported = m_device->supportedDevices();
+    if (!supported.isEmpty() && !supported.contains(device)) {
+	// use the first entry as default
+	dev = supported.first();
+	qDebug("RecordPlugin::setDevice(%s) -> fallback to '%s'",
+	    device.toLocal8Bit().data(),
+	    dev.toLocal8Bit().data());
+    }
+
     // open and initialize the device
-    int result = m_device->open(device);
+    int result = m_device->open(dev);
 
     // set the device in the dialog
-    m_device_name = device;
-    m_dialog->setDevice(device);
+    m_device_name = dev;
+    m_dialog->setDevice(dev);
 
     // remember the device selection, just for the GUI
     // for the next change in the method
@@ -340,7 +351,7 @@ void RecordPlugin::setDevice(const QString &device)
     if (result < 0) {
 	qWarning("RecordPlugin::openDevice('%s'): "\
 	         "opening the device failed. error=%d",
-	         device.toLocal8Bit().data(), result);
+	         dev.toLocal8Bit().data(), result);
 
 	m_controller.setInitialized(false);
 	m_dialog->showDevicePage();

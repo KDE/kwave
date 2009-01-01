@@ -43,14 +43,15 @@ QString UndoSelection::description()
 //***************************************************************************
 unsigned int UndoSelection::undoSize()
 {
-    return sizeof(*this) + m_selected_tracks.count() * sizeof(unsigned int);
+    return sizeof(*this) +
+	(m_selected_tracks.count() * sizeof(unsigned int));
 }
 
 //***************************************************************************
 int UndoSelection::redoSize()
 {
-    return (m_manager.selectedTracks().count() -
-            m_selected_tracks.count()) * sizeof(unsigned int);
+    return sizeof(*this) +
+	(m_manager.selectedTracks().count() * sizeof(unsigned int));
 }
 
 //***************************************************************************
@@ -59,6 +60,7 @@ bool UndoSelection::store(SignalManager &manager)
     m_offset = manager.selection().offset();
     m_length = manager.selection().length();
     m_selected_tracks = manager.selectedTracks();
+
     return true;
 }
 

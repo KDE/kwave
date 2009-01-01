@@ -1188,31 +1188,23 @@ void SignalManager::undo()
 
     // get the last undo transaction and abort if none present
     if (m_undo_buffer.isEmpty()) return;
-    UndoTransaction *undo_transaction = m_undo_buffer.last();
-    Q_ASSERT(undo_transaction);
+    UndoTransaction *undo_transaction = m_undo_buffer.takeLast();
     if (!undo_transaction) return;
 
     // temporarily disable undo while undo itself is running
     bool old_undo_enabled = m_undo_enabled;
     m_undo_enabled = false;
 
-    // remove the undo transaction from the list without deleting it
-    m_undo_buffer.takeLast();
-
     // get free memory for redo
-    // also bear in mind that the undo transaction we removed is still
-    // allocated and has to be subtracted from the undo limit. As we
-    // don't want to modify the limit, we increase the needed size.
     unsigned int redo_size = undo_transaction->redoSize();
     unsigned int undo_size = undo_transaction->undoSize();
-
     UndoTransaction *redo_transaction = 0;
-    if (undo_size + redo_size > m_undo_limit) {
+    if ((redo_size > undo_size) && (redo_size - undo_size > m_undo_limit)) {
 	// not enough memory for redo
 	qWarning("SignalManager::undo(): not enough memory for redo !");
     } else {
 	// only free the memory if it will be used
-	freeUndoMemory(undo_size + redo_size);
+	freeUndoMemory(redo_size);
 
 	// create a new redo transaction
 	QString name = undo_transaction->description();
@@ -1262,18 +1254,29 @@ void SignalManager::undo()
     Q_ASSERT(undo_transaction->isEmpty());
     delete undo_transaction;
 
-    if (redo_transaction && (redo_transaction->count() <= 1)) {
-	// if there is not more than the UndoSelection action,
-	// there are no real redo actions -> no redo possible
+    if (redo_transaction && (redo_transaction->count() < 1)) {
+	// if there is no redo action -> no redo possible
 	qWarning("SignalManager::undo(): no redo possible");
 	delete redo_transaction;
 	redo_transaction = 0;
     }
 
-    if (m_undo_buffer.isEmpty() && m_modified) {
-	// try to return to non-modified mode (might be a nop if
-	// not enabled)
-	setModified(false);
+    // find out if there is still an action in the undo buffer
+    // that has to do with modification of the signal
+    if (m_modified) {
+	bool stay_modified = false;
+	foreach (UndoTransaction *transaction, m_undo_buffer) {
+	    if (!transaction) continue;
+	    if (transaction->containsModification()) {
+		stay_modified = true;
+		break;
+	    }
+	}
+	if (!stay_modified) {
+	    // try to return to non-modified mode (might be a nop if
+	    // not enabled)
+	    setModified(false);
+	}
     }
 
     // save "redo" information if possible
@@ -1305,19 +1308,15 @@ void SignalManager::redo()
     m_undo_enabled = false;
 
     // get free memory for undo
-    // also bear in mid that the redo transaction we removed is still
-    // allocated and has to be subtracted from the undo limit. As we
-    // don't want to modify the limit, we increase the needed size.
     unsigned int undo_size = redo_transaction->undoSize();
     unsigned int redo_size = redo_transaction->redoSize();
-
     UndoTransaction *undo_transaction = 0;
-    if (undo_size + redo_size > m_undo_limit) {
+    if ((undo_size > redo_size) && (undo_size - redo_size > m_undo_limit)) {
 	// not enough memory for undo
 	qWarning("SignalManager::redo(): not enough memory for undo !");
     } else {
 	// only free the memory if it will be used
-	freeUndoMemory(undo_size + redo_size);
+	freeUndoMemory(undo_size);
 
 	// create a new undo transaction
 	QString name = redo_transaction->description();
@@ -1370,9 +1369,8 @@ void SignalManager::redo()
     Q_ASSERT(redo_transaction->isEmpty());
     delete redo_transaction;
 
-    if (undo_transaction && (undo_transaction->count() <= 1)) {
-	// if there is not more than the UndoSelection action,
-	// there are no real undo actions -> no undo possible
+    if (undo_transaction && (undo_transaction->count() < 1)) {
+	// if there is no undo action -> no undo possible
 	qWarning("SignalManager::redo(): no undo possible");
 	m_undo_buffer.removeAll(undo_transaction);
 	delete undo_transaction;
@@ -1400,7 +1398,6 @@ void SignalManager::setModified(bool mod)
 //***************************************************************************
 void SignalManager::enableModifiedChange(bool en)
 {
-    qDebug("SignalManager::enableModifiedChange(%d)", en);
     m_modified_enabled = en;
 }
 

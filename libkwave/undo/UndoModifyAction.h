@@ -50,7 +50,7 @@ public:
     virtual unsigned int undoSize();
 
     /** @see UndoAction::redoSize() */
-    virtual int redoSize() { return 0; }
+    virtual int redoSize() { return undoSize(); }
 
     /**
      * @see UndoAction::store()

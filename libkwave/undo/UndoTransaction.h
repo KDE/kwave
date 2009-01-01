@@ -75,6 +75,14 @@ public:
      */
     UndoAction *nextRedo();
 
+    /**
+     * Loops over all undo actions to determine wheter there is at least
+     * one undo action that contains a modification of the signal.
+     * @see UndoAction::containsModification()
+     * @return true if a modification is contained, false if not.
+     */
+    bool containsModification() const;
+
 private:
 
     /** name of the action */

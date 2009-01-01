@@ -59,6 +59,9 @@ public:
     /** @see UndoAction::undo() */
     virtual UndoAction *undo(SignalManager &manager, bool with_redo);
 
+    /** @see UndoAction::containsModification() */
+    virtual bool containsModification() const { return false; }
+
 private:
 
     /** reference to the SignalManager is needed in redoSize() */

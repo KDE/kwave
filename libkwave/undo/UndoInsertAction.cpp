@@ -44,7 +44,7 @@ QString UndoInsertAction::description()
 //***************************************************************************
 unsigned int UndoInsertAction::undoSize()
 {
-    return 0;
+    return sizeof(*this);
 }
 
 //***************************************************************************

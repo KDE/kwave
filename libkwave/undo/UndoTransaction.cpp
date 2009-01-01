@@ -122,4 +122,17 @@ UndoAction *UndoTransaction::nextRedo()
 }
 
 //***************************************************************************
+bool UndoTransaction::containsModification() const
+{
+    if (isEmpty()) return false;
+    QListIterator<UndoAction *> it(*this);
+    while (it.hasNext()) {
+	UndoAction *action = it.next();
+	if (!action) continue;
+	if (action->containsModification()) return true;
+    }
+    return false;
+}
+
+//***************************************************************************
 //***************************************************************************

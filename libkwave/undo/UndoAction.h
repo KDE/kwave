@@ -66,8 +66,7 @@ public:
 
     /**
      * Returns the difference of needed memory that is needed for
-     * redo in comparism to undo. Some actions might return zero or a negative
-     * number if the undo action uses the same or less amount of memory.
+     * redo.
      */
     virtual int redoSize() = 0;
 
@@ -96,6 +95,16 @@ public:
      * @return the numeric id of the group
      */
     virtual UndoGroupID group() const { return Default; }
+
+    /**
+     * Determines whether a undo action has to do with a modification
+     * of the signal or meta information and leads to a "modified"
+     * file. The default implementation returns "true". An example for
+     * a implementation that returns "false" is the UndoSelection class
+     * which contains only information about a change in selected samples.
+     * @return true if a modification is contained, false if not.
+     */
+    virtual bool containsModification() const { return true; }
 
 };
 

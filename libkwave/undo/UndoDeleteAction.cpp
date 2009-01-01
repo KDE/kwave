@@ -62,7 +62,7 @@ unsigned int UndoDeleteAction::undoSize()
 //***************************************************************************
 int UndoDeleteAction::redoSize()
 {
-    return sizeof(UndoInsertAction) - undoSize();
+    return sizeof(UndoInsertAction);
 }
 
 //***************************************************************************

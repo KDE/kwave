@@ -51,7 +51,7 @@ unsigned int UndoAddLabelAction::undoSize()
 //***************************************************************************
 int UndoAddLabelAction::redoSize()
 {
-    return sizeof(Label);
+    return sizeof(UndoDeleteLabelAction);
 }
 
 //***************************************************************************

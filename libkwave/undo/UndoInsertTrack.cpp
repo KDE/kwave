@@ -48,7 +48,7 @@ unsigned int UndoInsertTrack::undoSize()
 //***************************************************************************
 int UndoInsertTrack::redoSize()
 {
-    return (m_signal.length() * sizeof(sample_t));
+    return (m_signal.length() * sizeof(sample_t)) + sizeof(UndoDeleteTrack);
 }
 
 //***************************************************************************

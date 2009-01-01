@@ -54,7 +54,7 @@ unsigned int UndoDeleteTrack::undoSize()
 //***************************************************************************
 int UndoDeleteTrack::redoSize()
 {
-    return (-1 * undoSize());
+    return sizeof(UndoInsertTrack);
 }
 
 //***************************************************************************

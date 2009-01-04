@@ -632,6 +632,16 @@ private:
     /** Shortcut for accessing the label list @note cannot be modified */
     inline const LabelList &labels() const { return m_file_info.labels(); }
 
+    /** saves the current sample and track selection */
+    void rememberCurrentSelection();
+
+    /**
+     * Check whether the selection has changed since the start of
+     * the last undo and create a new undo action if the selection
+     * has been modified (e.g. manually)
+     */
+    void checkSelectionChange();
+
 private:
 
     /** Parent widget, used for showing messages */
@@ -659,6 +669,12 @@ private:
 
     /** the current selection */
     Selection m_selection;
+
+    /** the last selection (stored in undo) */
+    Selection m_last_selection;
+
+    /** the last track selection (stored in undo) */
+    QList <unsigned int> m_last_track_selection;
 
     /**
      * Last known length of the signal. This will be used if a track is

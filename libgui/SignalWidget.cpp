@@ -410,6 +410,8 @@ bool SignalWidget::executeCommand(const QString &command)
 //    CASE_COMMAND("savelabel")
 //	saveLabel(command);
     CASE_COMMAND("expandtolabel")
+	UndoTransactionGuard undo(m_signal_manager,
+	    i18n("expand selection to label"));
 	unsigned int selection_left  = m_signal_manager.selection().first();
 	unsigned int selection_right = m_signal_manager.selection().last();
 	if (labels().isEmpty()) return false; // we need labels for this
@@ -436,6 +438,8 @@ bool SignalWidget::executeCommand(const QString &command)
 	selectRange(selection_left, length);
 
     CASE_COMMAND("selectnextlabels")
+	UndoTransactionGuard undo(m_signal_manager,
+	    i18n("select next labels"));
 	unsigned int selection_left;
 	unsigned int selection_right = m_signal_manager.selection().last();
 	Label label_left  = Label();
@@ -471,6 +475,8 @@ bool SignalWidget::executeCommand(const QString &command)
 	selectRange(selection_left, length);
 
     CASE_COMMAND("selectprevlabels")
+	UndoTransactionGuard undo(m_signal_manager,
+	    i18n("select previous labels"));
 	unsigned int selection_left  = m_signal_manager.selection().first();
 	unsigned int selection_right = m_signal_manager.selection().last();
 	Label label_left  = Label();
@@ -499,16 +505,20 @@ bool SignalWidget::executeCommand(const QString &command)
 //    CASE_COMMAND("saveperiods")
 //	savePeriods();
 
-	// track selection
-	CASE_COMMAND("select_all_tracks")
-	    foreach (unsigned int track, m_signal_manager.allTracks())
-		m_signal_manager.selectTrack(track, true);
-	CASE_COMMAND("invert_track_selection")
-	    foreach (unsigned int track, m_signal_manager.allTracks())
-		m_signal_manager.selectTrack(
-		    track,
-		    !m_signal_manager.trackSelected(track)
-		);
+    // track selection
+    CASE_COMMAND("select_all_tracks")
+	UndoTransactionGuard undo(m_signal_manager,
+	    i18n("select all tracks"));
+	foreach (unsigned int track, m_signal_manager.allTracks())
+	    m_signal_manager.selectTrack(track, true);
+    CASE_COMMAND("invert_track_selection")
+	UndoTransactionGuard undo(m_signal_manager,
+	    i18n("invert track selection"));
+	foreach (unsigned int track, m_signal_manager.allTracks())
+	    m_signal_manager.selectTrack(
+		track,
+		!m_signal_manager.trackSelected(track)
+	    );
     } else {
 	return m_signal_manager.executeCommand(command);
     }

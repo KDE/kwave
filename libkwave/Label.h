@@ -76,13 +76,17 @@ public:
 
 private:
 
+    /** internal container class with label data */
     class LabelData: public QSharedData {
     public:
 
+	/** constructor */
 	LabelData();
 
+	/** copy constructor */
 	LabelData(const LabelData &other);
 
+	/** destructor */
 	virtual ~LabelData();
 
 	/** position of the label [samples] */
@@ -92,6 +96,7 @@ private:
 	QString m_name;
     };
 
+    /** pointer to the shared label data */
     QSharedDataPointer<LabelData> m_data;
 
 };

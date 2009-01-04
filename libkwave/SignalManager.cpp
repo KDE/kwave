@@ -76,6 +76,8 @@ SignalManager::SignalManager(QWidget *parent)
     m_modified_enabled(true),
     m_signal(),
     m_selection(0,0),
+    m_last_selection(0,0),
+    m_last_track_selection(),
     m_last_length(0),
     m_playback_controller(),
     m_undo_enabled(false),
@@ -252,8 +254,9 @@ int SignalManager::loadFile(const KUrl &url)
 	delete decoder;
     }
 
-    // remember the last length
+    // remember the last length and selection
     m_last_length = length();
+    rememberCurrentSelection();
 
     // from now on, undo is enabled
     enableUndo();
@@ -486,6 +489,7 @@ void SignalManager::newSignal(unsigned int samples, double rate,
     // remember the last length
     m_last_length = samples;
     m_file_info.setLength(length());
+    rememberCurrentSelection();
 
     // from now on, undo is enabled
     enableUndo();
@@ -517,6 +521,8 @@ void SignalManager::close()
 
     m_closed = true;
     m_selection.select(0,0);
+    rememberCurrentSelection();
+
     emitStatusInfo();
 }
 
@@ -916,11 +922,15 @@ void SignalManager::startUndoTransaction(const QString &name)
 
     QMutexLocker lock(&m_undo_transaction_lock);
 
+    // check for modified selection
+    checkSelectionChange();
+
     // increase recursion level
     m_undo_transaction_level++;
 
     // start/create a new transaction if none existing
     if (!m_undo_transaction) {
+
 	// if a new action starts, discard all redo actions !
 	flushRedoBuffer();
 
@@ -967,6 +977,7 @@ void SignalManager::closeUndoTransaction()
 	}
 
 	// declare the current transaction as "closed"
+	rememberCurrentSelection();
 	m_undo_transaction = 0;
 	emitUndoRedoInfo();
     }
@@ -1186,6 +1197,9 @@ void SignalManager::undo()
 {
     QMutexLocker lock(&m_undo_transaction_lock);
 
+    // check for modified selection
+    checkSelectionChange();
+
     // get the last undo transaction and abort if none present
     if (m_undo_buffer.isEmpty()) return;
     UndoTransaction *undo_transaction = m_undo_buffer.takeLast();
@@ -1283,6 +1297,9 @@ void SignalManager::undo()
     if (redo_transaction)
 	m_redo_buffer.prepend(redo_transaction);
 
+    // remember the last selection
+    rememberCurrentSelection();
+
     // re-enable undo
     m_undo_enabled = old_undo_enabled;
 
@@ -1294,6 +1311,9 @@ void SignalManager::undo()
 void SignalManager::redo()
 {
     QMutexLocker lock(&m_undo_transaction_lock);
+
+    // check for modified selection
+    checkSelectionChange();
 
     // get the last redo transaction and abort if none present
     if (m_redo_buffer.isEmpty()) return;
@@ -1375,6 +1395,9 @@ void SignalManager::redo()
 	m_undo_buffer.removeAll(undo_transaction);
 	delete undo_transaction;
     }
+
+    // remember the last selection
+    rememberCurrentSelection();
 
     // re-enable undo
     m_undo_enabled = old_undo_enabled;
@@ -1534,6 +1557,47 @@ bool SignalManager::modifyLabel(int index, unsigned int pos,
 
     emit labelsChanged(labels());
     return true;
+}
+
+//***************************************************************************
+void SignalManager::rememberCurrentSelection()
+{
+    m_last_selection       = m_selection;
+    m_last_track_selection = selectedTracks();
+}
+
+//***************************************************************************
+void SignalManager::checkSelectionChange()
+{
+    if (m_undo_transaction_level) return;
+
+    // detect sample selection change
+    bool range_modified = !(m_selection == m_last_selection);
+
+    // detect track selection change
+    QList<unsigned int> tracks = selectedTracks();
+    bool tracks_modified = !(tracks == m_last_track_selection);
+
+    if (range_modified || tracks_modified) {
+	// selection has changed since last undo/redo operation
+// 	qDebug("SignalManager::checkSelectionChange() => manually modified");
+
+	// temporarily activate the previous selection (last stored)
+	Selection new_selection(m_selection);
+	m_selection = m_last_selection;
+	selectTracks(m_last_track_selection);
+
+	// save the last selection into a undo action
+	if (tracks_modified && !range_modified)
+	    UndoTransactionGuard undo(*this, i18n("manual track selection"));
+	else
+	    UndoTransactionGuard undo(*this, i18n("manual selection"));
+
+	// restore the current selection again
+	m_selection = new_selection;
+	selectTracks(tracks);
+    }
+
 }
 
 //***************************************************************************

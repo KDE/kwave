@@ -29,16 +29,17 @@ class KDE_EXPORT Selection: public QObject
     Q_OBJECT
 public:
     /**
-     * Constructor.
+     * constructor.
      * @param offset index of the first item
      * @param length number of items
      */
     Selection(unsigned int offset, unsigned int length);
 
+    /** copy constructor */
+    Selection(const Selection &other);
+
     /** Destructor */
-    virtual ~Selection()
-    {
-    }
+    virtual ~Selection();
 
     /**
      * Sets a new offset and length.
@@ -71,6 +72,19 @@ public:
     /** Returns the index of the last selected item. */
     inline unsigned int last() const {
 	return m_offset + (m_length ? (m_length-1) : 0);
+    }
+
+    /** compare operator */
+    bool operator == (const Selection &other) const {
+	return ((m_offset == other.offset()) &&
+	        (m_length == other.length()));
+    }
+
+    /** Assignment operator */
+    Selection & operator = (const Selection &source) {
+	m_offset = source.offset();
+	m_length = source.length();
+	return *this;
     }
 
 signals:

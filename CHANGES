@@ -19,6 +19,7 @@
  * bugfix: "modified" state got lost during undo
  * use ALSA per default for playback/record if nothing has been selected yet
  * fixed calculation of undo/redo sizes
+ * undo/redo handling for sample range and track selection
 
 0.8.1  [2008-12-23]
 

@@ -130,12 +130,6 @@ unsigned int MemoryManager::totalPhysical()
 	if (physical_ulimit < total) total = physical_ulimit;
     }
 
-    // check ulimit of resident set size
-    if (getrlimit(RLIMIT_RSS, &limit) == 0) {
-	unsigned int rss_ulimit = limit.rlim_cur >> 20;
-	if (rss_ulimit < total) total = rss_ulimit;
-    }
-
     // check ulimit of total (physical+virtual) system memory
 #ifdef RLIMIT_AS
     if (getrlimit(RLIMIT_AS, &limit) == 0) {

@@ -21,6 +21,8 @@
  * fixed calculation of undo/redo sizes
  * undo/redo handling for sample range and track selection
  * processing updates of overview widget in a background thread
+ * memory management: no longer evaluate RLIMIT_RSS, gives more
+   available physical memory
 
 0.8.1  [2008-12-23]
 

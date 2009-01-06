@@ -65,28 +65,25 @@ bool SwapFile::allocate(size_t size, const QString &filename)
 // 	   size, g_instances);
 
     // try to create the temporary file
-    // when it is created, also try to unlink it so that it will always
-    // be removed, even if the application crashes !
+    QByteArray name = QFile::encodeName(filename);
 #ifdef HAVE_MKSTEMP
-    char *name = qstrdup(filename.toLocal8Bit().data());
-    int fd = mkstemp(name);
+    int fd = mkstemp(name.data());
     if (fd < 0) {
 	qDebug("SwapFile::allocate(%u) failed, instances: %u",
 	       static_cast<unsigned int>(size), g_instances);
 	return false;
     }
     m_file.open(fd, QIODevice::Unbuffered | QIODevice::ReadWrite);
-#ifdef HAVE_UNLINK
-    unlink(name);
-#endif /* HAVE_UNLINK */
-    if (name) delete name;
 #else /* HAVE_MKSTEMP */
-    m_file.setName(filename);
+    m_file.setFileName(filename);
     m_file.open(QIODevice::Unbuffered | QIODevice::ReadWrite);
-#ifdef HAVE_UNLINK
-    unlink(filename);
-#endif /* HAVE_UNLINK */
 #endif/* HAVE_MKSTEMP */
+
+    // when it is created, also try to unlink it so that it will always
+    // be removed, even if the application crashes !
+#ifdef HAVE_UNLINK
+    unlink(name.data());
+#endif /* HAVE_UNLINK */
 
     m_file.seek(round_up(size, m_pagesize));
     if (static_cast<qint64>(m_file.pos() + 1) < static_cast<qint64>(size)) {
@@ -151,13 +148,15 @@ void SwapFile::close()
     m_address = 0;
     m_size = 0;
     if (m_file.isOpen()) m_file.close();
-    if (m_file.exists()) m_file.remove();
+    if (m_file.exists(m_file.fileName())) m_file.remove();
 }
 
 //***************************************************************************
 void *SwapFile::map()
 {
 //  qDebug("    SwapFile::map() - m_size=%u", m_size);
+    m_file.flush();
+
     m_address = mmap(0, m_size,
                      PROT_READ | PROT_WRITE, MAP_SHARED,
                      m_file.handle(), 0);

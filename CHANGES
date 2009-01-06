@@ -46,6 +46,7 @@
  * show current playback position in overview widget
  * overview widget: dimming parts that are out of view
  * no longer needing builtin copy of libaudiofile, removed
+ * portability fix: swapfile creation/destruction went wrong
 
 0.8.0  [2008-09-27]
 

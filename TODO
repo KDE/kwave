@@ -1,5 +1,5 @@
 
-o bug: "QFile::remove: Empty or null file name" in context with swap files
+o bug: after "continue without undo" -> undo/redo still possible!?
 
 o debug aid: write all actions to a logfile
 

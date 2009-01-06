@@ -39,7 +39,8 @@
 //***************************************************************************
 MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
     unsigned int physical_limit, bool virtual_enabled, bool virtual_limited,
-    unsigned int virtual_limit, const QString &virtual_dir)
+    unsigned int virtual_limit, const QString &virtual_dir,
+    unsigned int undo_limit)
     :QDialog(parent), Ui::MemDlg()
 {
     setupUi(this);
@@ -70,6 +71,9 @@ MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
     chkLimitVirtual->setChecked(virtual_limited);
     sbVirtual->setValue(virtual_limit);
     edDirectory->setText(virtual_dir);
+    slUndo->setMaximum(total_physical / 2);
+    sbUndo->setMaximum(slUndo->maximum());
+    sbUndo->setValue(undo_limit);
 
     virtualMemoryEnabled(virtual_enabled);
 
@@ -110,6 +114,7 @@ void MemoryDialog::params(QStringList &par)
     par << QString::number(chkLimitVirtual->isChecked() ? 1 : 0);
     par << QString::number(sbVirtual->value());
     par << edDirectory->text();
+    par << QString::number(sbUndo->value());
 }
 
 //***************************************************************************

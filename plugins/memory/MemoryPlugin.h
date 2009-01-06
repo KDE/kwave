@@ -105,6 +105,11 @@ private:
     /** Directory for page files. Default = /tmp */
     QString m_virtual_directory;
 
+    /**
+     * Maximum amount of memory [MB] available for undo/redo
+     */
+    unsigned int m_undo_limit;
+
 };
 
 #endif /* _MEMORY_PLUGIN_H_ */

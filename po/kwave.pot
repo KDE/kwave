@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-04 16:53+0100\n"
+"POT-Creation-Date: 2009-01-06 14:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -344,7 +344,7 @@ msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1921
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoAddLabelAction.cpp:42
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1487
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1490
 msgid "add label"
 msgstr ""
 
@@ -424,12 +424,12 @@ msgid "modify file information"
 msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteAction.cpp:53
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:816
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:815
 msgid "delete"
 msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoInsertTrack.cpp:39
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:703
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:702
 msgid "insert track"
 msgstr ""
 
@@ -438,12 +438,12 @@ msgid "modify samples"
 msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteLabelAction.cpp:42
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1527
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1530
 msgid "delete label"
 msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteTrack.cpp:45
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:733
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:732
 msgid "delete track"
 msgstr ""
 
@@ -1613,67 +1613,67 @@ msgstr ""
 msgid "All Supported Files"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:291
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:290
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:321
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:320
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1273
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:507
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:546
 msgid "%1"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:328
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:327
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
 "%1\n"
 "Do you still want to continue?"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:362
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:361
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:926
 msgid " for KDE "
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:428
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:427
 msgid "An error occurred while saving the file!"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:437
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:436
 msgid "The file has been truncated and might be corrupted!"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:444
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:443
 msgid "Sorry, the file type is not supported!"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:637
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:636
 msgid "crop"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:696
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:695
 msgid "append track"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1052
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1051
 msgid "Unable to save undo information. Do you want to continue without undo?"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1180
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1187
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1181
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1188
 msgid "last action"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1432
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1435
 msgid "modify file info"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1592
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1595
 msgid "manual track selection"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1594
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1597
 msgid "manual selection"
 msgstr ""
 
@@ -1786,7 +1786,7 @@ msgstr ""
 msgid "size of bitmap: %1x%2"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramPlugin.cpp:81
+#: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramPlugin.cpp:82
 msgid "sonagram"
 msgstr ""
 
@@ -2938,7 +2938,7 @@ msgstr ""
 #: /var/tmp/kwave-build/plugins/selectrange/ui_SelectRangeDlg.h:115
 #: /var/tmp/kwave-build/plugins/notch_filter/ui_NotchFilterDlg.h:245
 #: /var/tmp/kwave-build/plugins/amplifyfree/ui_AmplifyFreeDlg.h:146
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:274
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:340
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:1101
 #: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:453
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:547
@@ -3344,7 +3344,7 @@ msgstr ""
 #: /var/tmp/kwave-build/libgui/ui_LabelPropertiesWidgetBase.h:190
 #: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:272
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1405
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:275
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:341
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:1102
 #: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:454
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:548
@@ -3373,7 +3373,7 @@ msgstr ""
 #: /var/tmp/kwave-build/plugins/selectrange/ui_SelectRangeDlg.h:117
 #: /var/tmp/kwave-build/plugins/notch_filter/ui_NotchFilterDlg.h:261
 #: /var/tmp/kwave-build/plugins/amplifyfree/ui_AmplifyFreeDlg.h:148
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:277
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:343
 #: /var/tmp/kwave-build/plugins/volume/ui_VolumeDlg.h:210
 #: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:469
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:550
@@ -3451,7 +3451,7 @@ msgstr ""
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_SelectDateDlg.h:97
 #: /var/tmp/kwave-build/plugins/notch_filter/ui_NotchFilterDlg.h:259
 #: /var/tmp/kwave-build/plugins/amplifyfree/ui_AmplifyFreeDlg.h:147
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:276
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:342
 #: /var/tmp/kwave-build/plugins/volume/ui_VolumeDlg.h:209
 #: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:467
 msgid "&OK"
@@ -4176,11 +4176,12 @@ msgstr ""
 msgid "Amplify Free"
 msgstr ""
 
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:227
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:278
 msgid "Memory Settings"
 msgstr ""
 
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:230
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:281
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:327
 msgid ""
 "<b>Limit the usage of physical memory (RAM).</b><br>\n"
 "\n"
@@ -4189,24 +4190,25 @@ msgid ""
 "higher than the totally installed amount of memory."
 msgstr ""
 
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:235
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:286
 msgid "&Physical Memory"
 msgstr ""
 
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:236
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:287
 msgid "Limit &to"
 msgstr ""
 
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:239
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:290
 msgid "megabytes of physical memory"
 msgstr ""
 
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:242
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:273
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:293
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:324
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:339
 msgid " MB"
 msgstr ""
 
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:245
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:296
 msgid ""
 "<b>Configure the usage of virtual memory (swap files).</b><br>\n"
 "\n"
@@ -4218,40 +4220,52 @@ msgid ""
 "    Of course you can also set a limit for the total size of the page files."
 msgstr ""
 
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:252
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:303
 msgid "&Virtual Memory"
 msgstr ""
 
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:253
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:304
 msgid "&Enable usage of virtual memory"
 msgstr ""
 
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:254
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:305
 msgid "Directory:"
 msgstr ""
 
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:257
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:308
 msgid "directory for storing swap files"
 msgstr ""
 
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:260
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:311
 msgid "/tmp"
 msgstr ""
 
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:263
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:314
 msgid "browse for a directory to hold page files"
 msgstr ""
 
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:266
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:317
 msgid "&Search..."
 msgstr ""
 
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:267
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:318
 msgid "&Limit to"
 msgstr ""
 
-#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:270
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:321
 msgid "megabytes of virtual memory"
+msgstr ""
+
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:332
+msgid "Memory for &Undo/Redo"
+msgstr ""
+
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:333
+msgid "Limit to"
+msgstr ""
+
+#: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:336
+msgid "megabytes of memory to be used for undo/redo"
 msgstr ""
 
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:942

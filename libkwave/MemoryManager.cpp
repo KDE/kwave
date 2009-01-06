@@ -49,7 +49,8 @@ static MemoryManager g_instance;
 MemoryManager::MemoryManager()
     :m_physical_allocated(0), m_physical_limit(0), m_virtual_allocated(0),
      m_virtual_limit(0), m_swap_dir("/tmp"), m_unmapped_swap(),
-     m_mapped_swap(), m_cached_swap(), m_physical_size(), m_lock()
+     m_mapped_swap(), m_cached_swap(), m_undo_limit(0), m_physical_size(),
+     m_lock()
 {
     // determine amount of physical memory
     m_physical_limit = totalPhysical();
@@ -104,6 +105,22 @@ void MemoryManager::setSwapDirectory(const QString &dir)
 {
     QMutexLocker lock(&m_lock);
     m_swap_dir = dir;
+}
+
+//***************************************************************************
+void MemoryManager::setUndoLimit(unsigned int mb)
+{
+    QMutexLocker lock(&m_lock);
+
+    m_undo_limit = mb;
+    mb = totalPhysical();
+    if (m_undo_limit > mb) m_undo_limit = mb;
+}
+
+//***************************************************************************
+unsigned int MemoryManager::undoLimit() const
+{
+    return m_undo_limit;
 }
 
 //***************************************************************************

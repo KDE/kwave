@@ -91,6 +91,18 @@ public:
     void setSwapDirectory(const QString &dir) KDE_EXPORT;
 
     /**
+     * Sets the limit of memory that can be used for undo/redo.
+     * @param mb number of whole megabytes of the limit
+     */
+    void setUndoLimit(unsigned int mb) KDE_EXPORT;
+
+    /**
+     * Returns the limit of memory that can be used for undo/redo
+     * in units of whole megabytes
+     */
+    unsigned int undoLimit() const KDE_EXPORT;
+
+    /**
      * Returns the total amount of theoretically available physical
      * memory, as the minimum of the totally installed memory and
      * ulimit settings.
@@ -192,7 +204,7 @@ private:
     /** Currently allocated amount of physical memory */
     unsigned int m_virtual_allocated;
 
-    /** Limit of the cirtual memory, 0 = disabled */
+    /** Limit of the virtual memory, 0 = disabled */
     unsigned int m_virtual_limit;
 
     /** Path where to store swap files */
@@ -210,6 +222,9 @@ private:
      * as a FIFO with fixed size.
      */
     QList<SwapFile *> m_cached_swap;
+
+    /** Limit of memory available for undo/redo */
+    unsigned int m_undo_limit;
 
     /**
      * Map for sizes of objects in physical memory.

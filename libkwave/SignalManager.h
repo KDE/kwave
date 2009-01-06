@@ -704,9 +704,6 @@ private:
     /** mutex for locking undo transactions */
     QMutex m_undo_transaction_lock;
 
-    /** maximum memory for undo */
-    unsigned int m_undo_limit;
-
     /** info about the file, @see class FileInfo */
     FileInfo m_file_info;
 };

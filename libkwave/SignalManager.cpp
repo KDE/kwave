@@ -40,6 +40,7 @@
 #include "libkwave/Encoder.h"
 #include "libkwave/FileProgress.h"
 #include "libkwave/InsertMode.h"
+#include "libkwave/MemoryManager.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
@@ -86,8 +87,6 @@ SignalManager::SignalManager(QWidget *parent)
     m_undo_transaction(0),
     m_undo_transaction_level(0),
     m_undo_transaction_lock(QMutex::Recursive),
-    m_undo_limit(64*1024*1024), // 64 MB (for testing) ###
-    /** @todo the undo memory limit should be user-configurable. */
     m_file_info()
 {
     // connect to the track's signals
@@ -1078,9 +1077,10 @@ bool SignalManager::registerUndoAction(UndoAction *action)
     }
 
     // check if the undo action is too large
+    unsigned int undo_limit   = MemoryManager::instance().undoLimit();
     unsigned int needed_size  = action->undoSize();
     unsigned int needed_mb = needed_size  >> 20;
-    unsigned int limit_mb  = m_undo_limit >> 20;
+    unsigned int limit_mb  = undo_limit >> 20;
     if (needed_mb > limit_mb) {
 	delete action;
 	abortUndoTransaction();
@@ -1140,9 +1140,10 @@ unsigned int SignalManager::usedUndoRedoMemory()
 void SignalManager::freeUndoMemory(unsigned int needed)
 {
     unsigned int size = usedUndoRedoMemory() + needed;
+    unsigned int undo_limit = MemoryManager::instance().undoLimit();
 
     // remove old undo actions if not enough free memory
-    while (!m_undo_buffer.isEmpty() && (size > m_undo_limit)) {
+    while (!m_undo_buffer.isEmpty() && (size > undo_limit)) {
 	UndoTransaction *undo = m_undo_buffer.takeFirst();
 	if (!undo) continue;
 	unsigned int s = undo->undoSize();
@@ -1155,7 +1156,7 @@ void SignalManager::freeUndoMemory(unsigned int needed)
     }
 
     // remove old redo actions if still not enough memory
-    while (!m_redo_buffer.isEmpty() && (size > m_undo_limit)) {
+    while (!m_redo_buffer.isEmpty() && (size > undo_limit)) {
 	UndoTransaction *redo = m_redo_buffer.takeLast();
 	if (!redo) continue;
 	unsigned int s = redo->undoSize();
@@ -1210,10 +1211,11 @@ void SignalManager::undo()
     m_undo_enabled = false;
 
     // get free memory for redo
+    unsigned int undo_limit = MemoryManager::instance().undoLimit();
     unsigned int redo_size = undo_transaction->redoSize();
     unsigned int undo_size = undo_transaction->undoSize();
     UndoTransaction *redo_transaction = 0;
-    if ((redo_size > undo_size) && (redo_size - undo_size > m_undo_limit)) {
+    if ((redo_size > undo_size) && (redo_size - undo_size > undo_limit)) {
 	// not enough memory for redo
 	qWarning("SignalManager::undo(): not enough memory for redo !");
     } else {
@@ -1328,10 +1330,11 @@ void SignalManager::redo()
     m_undo_enabled = false;
 
     // get free memory for undo
+    unsigned int undo_limit = MemoryManager::instance().undoLimit();
     unsigned int undo_size = redo_transaction->undoSize();
     unsigned int redo_size = redo_transaction->redoSize();
     UndoTransaction *undo_transaction = 0;
-    if ((undo_size > redo_size) && (undo_size - redo_size > m_undo_limit)) {
+    if ((undo_size > redo_size) && (undo_size - redo_size > undo_limit)) {
 	// not enough memory for undo
 	qWarning("SignalManager::redo(): not enough memory for undo !");
     } else {

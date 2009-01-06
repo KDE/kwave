@@ -8,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>458</width>
-    <height>289</height>
+    <height>369</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -17,20 +17,8 @@
   <property name="sizeGripEnabled" >
    <bool>false</bool>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="spacing" >
-    <number>6</number>
-   </property>
-   <property name="leftMargin" >
-    <number>10</number>
-   </property>
-   <property name="topMargin" >
-    <number>10</number>
-   </property>
-   <property name="rightMargin" >
-    <number>10</number>
-   </property>
-   <property name="bottomMargin" >
+  <layout class="QVBoxLayout" name="verticalLayout" >
+   <property name="margin" >
     <number>10</number>
    </property>
    <item>
@@ -45,19 +33,10 @@ If you do not set a limit, the size of the physically installed memory in your c
      </property>
      <layout class="QHBoxLayout" >
       <property name="spacing" >
-       <number>6</number>
+       <number>10</number>
       </property>
-      <property name="leftMargin" >
-       <number>11</number>
-      </property>
-      <property name="topMargin" >
-       <number>11</number>
-      </property>
-      <property name="rightMargin" >
-       <number>11</number>
-      </property>
-      <property name="bottomMargin" >
-       <number>11</number>
+      <property name="margin" >
+       <number>10</number>
       </property>
       <item>
        <widget class="QCheckBox" name="chkLimitPhysical" >
@@ -76,6 +55,9 @@ If you do not set a limit, the size of the physically installed memory in your c
         </property>
         <property name="maximum" >
          <number>4096</number>
+        </property>
+        <property name="pageStep" >
+         <number>16</number>
         </property>
         <property name="value" >
          <number>1</number>
@@ -126,23 +108,11 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
       <string>&amp;Virtual Memory</string>
      </property>
      <layout class="QGridLayout" >
-      <property name="leftMargin" >
-       <number>11</number>
+      <property name="margin" >
+       <number>10</number>
       </property>
-      <property name="topMargin" >
-       <number>11</number>
-      </property>
-      <property name="rightMargin" >
-       <number>11</number>
-      </property>
-      <property name="bottomMargin" >
-       <number>11</number>
-      </property>
-      <property name="horizontalSpacing" >
-       <number>6</number>
-      </property>
-      <property name="verticalSpacing" >
-       <number>6</number>
+      <property name="spacing" >
+       <number>10</number>
       </property>
       <item row="0" column="0" colspan="3" >
        <widget class="QCheckBox" name="chkEnableVirtual" >
@@ -209,7 +179,7 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
          <number>10</number>
         </property>
         <property name="pageStep" >
-         <number>100</number>
+         <number>16</number>
         </property>
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
@@ -248,6 +218,80 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
     </widget>
    </item>
    <item>
+    <widget class="QGroupBox" name="GroupBox9_2" >
+     <property name="whatsThis" >
+      <string>&lt;b>Limit the usage of physical memory (RAM).&lt;/b>&lt;br>
+
+If you do not set a limit, the size of the physically installed memory in your computer will be determined and used as limit. You cannot set a limit higher than the totally installed amount of memory.</string>
+     </property>
+     <property name="title" >
+      <string>Memory for &amp;Undo/Redo</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout" >
+      <property name="spacing" >
+       <number>10</number>
+      </property>
+      <property name="margin" >
+       <number>10</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label" >
+        <property name="text" >
+         <string>Limit to</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSlider" name="slUndo" >
+        <property name="enabled" >
+         <bool>true</bool>
+        </property>
+        <property name="minimum" >
+         <number>16</number>
+        </property>
+        <property name="maximum" >
+         <number>2048</number>
+        </property>
+        <property name="pageStep" >
+         <number>16</number>
+        </property>
+        <property name="value" >
+         <number>512</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickInterval" >
+         <number>64</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="sbUndo" >
+        <property name="enabled" >
+         <bool>true</bool>
+        </property>
+        <property name="toolTip" >
+         <string>megabytes of memory to be used for undo/redo</string>
+        </property>
+        <property name="suffix" >
+         <string> MB</string>
+        </property>
+        <property name="minimum" >
+         <number>16</number>
+        </property>
+        <property name="maximum" >
+         <number>2048</number>
+        </property>
+        <property name="value" >
+         <number>512</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
@@ -255,9 +299,9 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
      <property name="sizeType" >
       <enum>QSizePolicy::Fixed</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0" >
       <size>
-       <width>41</width>
+       <width>40</width>
        <height>20</height>
       </size>
      </property>
@@ -266,18 +310,9 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
    <item>
     <layout class="QHBoxLayout" >
      <property name="spacing" >
-      <number>6</number>
+      <number>10</number>
      </property>
-     <property name="leftMargin" >
-      <number>0</number>
-     </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin" >
       <number>0</number>
      </property>
      <item>
@@ -304,7 +339,7 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
        <property name="sizeType" >
         <enum>QSizePolicy::MinimumExpanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>20</width>
          <height>20</height>
@@ -335,6 +370,22 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
  </widget>
  <layoutdefault spacing="10" margin="10" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <tabstops>
+  <tabstop>chkLimitPhysical</tabstop>
+  <tabstop>slPhysical</tabstop>
+  <tabstop>sbPhysical</tabstop>
+  <tabstop>chkEnableVirtual</tabstop>
+  <tabstop>chkLimitVirtual</tabstop>
+  <tabstop>slVirtual</tabstop>
+  <tabstop>sbVirtual</tabstop>
+  <tabstop>edDirectory</tabstop>
+  <tabstop>btSearch</tabstop>
+  <tabstop>slUndo</tabstop>
+  <tabstop>sbUndo</tabstop>
+  <tabstop>btHelp</tabstop>
+  <tabstop>btOK</tabstop>
+  <tabstop>btCancel</tabstop>
+ </tabstops>
  <includes>
   <include location="global" >klocale.h</include>
  </includes>
@@ -347,8 +398,8 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>308</x>
+     <y>347</y>
     </hint>
     <hint type="destinationlabel" >
      <x>20</x>
@@ -363,8 +414,8 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>393</x>
+     <y>347</y>
     </hint>
     <hint type="destinationlabel" >
      <x>20</x>
@@ -379,12 +430,12 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>120</x>
+     <y>164</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>374</x>
+     <y>164</y>
     </hint>
    </hints>
   </connection>
@@ -395,12 +446,12 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>374</x>
+     <y>164</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>120</x>
+     <y>164</y>
     </hint>
    </hints>
   </connection>
@@ -411,12 +462,12 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>41</x>
+     <y>57</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>374</x>
+     <y>57</y>
     </hint>
    </hints>
   </connection>
@@ -427,12 +478,12 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>41</x>
+     <y>57</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>116</x>
+     <y>55</y>
     </hint>
    </hints>
   </connection>
@@ -443,12 +494,12 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>41</x>
+     <y>164</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>120</x>
+     <y>164</y>
     </hint>
    </hints>
   </connection>
@@ -459,12 +510,12 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>41</x>
+     <y>164</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>374</x>
+     <y>164</y>
     </hint>
    </hints>
   </connection>
@@ -475,12 +526,12 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>116</x>
+     <y>55</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>374</x>
+     <y>57</y>
     </hint>
    </hints>
   </connection>
@@ -491,12 +542,44 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>374</x>
+     <y>57</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+     <x>116</x>
+     <y>55</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slUndo</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>sbUndo</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>285</x>
+     <y>268</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>371</x>
+     <y>268</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>sbUndo</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>slUndo</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>416</x>
+     <y>268</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>145</x>
+     <y>269</y>
     </hint>
    </hints>
   </connection>

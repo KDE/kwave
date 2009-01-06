@@ -33,7 +33,7 @@ KWAVE_PLUGIN(MemoryPlugin,"memory","Thomas Eschenbacher");
 MemoryPlugin::MemoryPlugin(const PluginContext &c)
     :KwavePlugin(c), m_physical_limited(true), m_physical_limit(256),
      m_virtual_enabled(true), m_virtual_limited(false), m_virtual_limit(512),
-     m_virtual_directory("/var/tmp")
+     m_virtual_directory("/var/tmp"), m_undo_limit(256)
 {
     i18n("memory");
 }
@@ -50,41 +50,44 @@ int MemoryPlugin::interpreteParameters(QStringList &params)
     QString param;
 
     // evaluate the parameter list
-    if (params.count() != 6) return -EINVAL;
+    if (params.count() < 6) return -EINVAL;
 
     // parameter #0: physical memory is limited ?
     param = params[0];
     m_physical_limited = param.toUInt(&ok) != 0;
-    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // parameter #1: limit for physical memory
     param = params[1];
     m_physical_limit = param.toUInt(&ok);
-    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // parameter #2: virtual memory is enabled ?
     param = params[2];
     m_virtual_enabled = param.toUInt(&ok) != 0;
-    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // parameter #3: virtual memory is limited ?
     param = params[3];
     m_virtual_limited = param.toUInt(&ok) != 0;
-    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // parameter #4: limit for virtual memory
     param = params[4];
     m_virtual_limit = param.toUInt(&ok);
-    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // parameter #5: directory for virtual memory files
     param = params[5];
     m_virtual_directory = param;
+
+    // parameter #6: limit for undo/redo
+    if (params.count() >= 7)
+    {
+	param = params[6];
+	m_undo_limit = param.toUInt(&ok);
+	if (!ok) return -EINVAL;
+    }
 
     return 0;
 }
@@ -105,6 +108,7 @@ void MemoryPlugin::applySettings()
                        (m_virtual_limited ? m_virtual_limit : 4096) :
 		       0);
     mem.setSwapDirectory(m_virtual_directory);
+    mem.setUndoLimit(m_undo_limit);
 }
 
 //***************************************************************************
@@ -117,7 +121,7 @@ QStringList *MemoryPlugin::setup(QStringList &previous_params)
 
     MemoryDialog *dlg = new MemoryDialog(parentWidget(), m_physical_limited,
 	m_physical_limit, m_virtual_enabled, m_virtual_limited,
-	m_virtual_limit, m_virtual_directory);
+	m_virtual_limit, m_virtual_directory, m_undo_limit);
     Q_ASSERT(dlg);
     if (!dlg) return 0;
 

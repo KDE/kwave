@@ -23,6 +23,7 @@
  * processing updates of overview widget in a background thread
  * memory management: no longer evaluate RLIMIT_RSS, gives more
    available physical memory
+ * memory for undo/redo can now be configured
 
 0.8.1  [2008-12-23]
 

@@ -1,11 +1,23 @@
 
+o bug: "QFile::remove: Empty or null file name" in context with swap files
+
+o debug aid: write all actions to a logfile
+
+o debug aid: new plugin for adding a new track with test/debug info:
+  - min/max int
+  - stripe number
+  - hull curve
+  - test pattern: sample offset withinn stripe
+  - test pattern: sawtooth
+  - test pattern: min/max alternating
+  - test pattern: stripe borders
+  - generate labels at stripe borders
+
 o porting to Qt4 / KDE4
   - use svg graphics instead of pixmaps
 
 o find a way to use KDE::ThreadWeaver for signal processing
   but still use signals/slots
-
-o process the update of OverViewCache into a background thread
 
 o use LADSPA
 
@@ -128,5 +140,6 @@ o user selectable color scheme
   (feature requested by John David Thompson, 2006-12-20)
 
 o switch to use float as sample_t (requires much work...)
+  -> version 0.9
 
 ### EOF ###

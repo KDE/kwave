@@ -40,11 +40,12 @@ public:
      * @param virtual_limit limit of virtual memory [megabytes],
      *        0=disabled, UINT_MAX = no limit
      * @param virtual_dir directory for virtual memory files
+     * @param undo_limit limit of memory for undo/redo [megabytes]
      */
     MemoryDialog(QWidget* parent, bool physical_limited,
 	unsigned int physical_limit, bool virtual_enabled,
 	bool virtual_limited, unsigned int virtual_limit,
-	const QString &virtual_dir);
+	const QString &virtual_dir, unsigned int undo_limit);
 
     /** Returns true if the dialog is usable (no null pointers) */
     bool isOK();

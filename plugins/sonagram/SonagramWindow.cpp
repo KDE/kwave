@@ -274,9 +274,9 @@ void SonagramWindow::setImage(QImage image)
 }
 
 //****************************************************************************
-void SonagramWindow::setOverView(QBitmap overview)
+void SonagramWindow::setOverView(const QImage &overview)
 {
-    m_overview->setImage(overview.toImage());
+    m_overview->setImage(overview);
 }
 
 //****************************************************************************

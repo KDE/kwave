@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <QBitmap>
+#include <QImage>
 #include <QList>
 #include <QMutex>
 #include <QObject>
@@ -28,6 +28,7 @@
 
 #include <kdemacros.h>
 
+class QColor;
 class SignalManager;
 class Track;
 
@@ -59,13 +60,15 @@ public:
     virtual ~OverViewCache();
 
     /**
-     * Renders an overview into a bitmap. The bitmap will be black & white
-     * only and can be used as a brush.
+     * Renders an overview into a QImage.
      * @param width the width of the bitmap in pixels
      * @param height the width of the bitmap in pixels
+     * @param fg foreground color
+     * @param bg background color
      * @return the created bitmap
      */
-    virtual QBitmap getOverView(int width, int height);
+    virtual QImage getOverView(int width, int height,
+                               const QColor &fg, const QColor &bg);
 
 signals:
 

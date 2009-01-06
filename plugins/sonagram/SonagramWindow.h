@@ -61,7 +61,7 @@ public:
     /**
      * Sets a new overview bitmap for the signal space
      */
-    void setOverView(QBitmap overview);
+    void setOverView(const QImage &image);
 
     /**
      * Inserts a stripe into the current image. If the stripe contains more

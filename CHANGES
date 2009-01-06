@@ -20,6 +20,7 @@
  * use ALSA per default for playback/record if nothing has been selected yet
  * fixed calculation of undo/redo sizes
  * undo/redo handling for sample range and track selection
+ * processing updates of overview widget in a background thread
 
 0.8.1  [2008-12-23]
 

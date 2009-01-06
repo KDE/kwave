@@ -19,6 +19,7 @@
 #include "math.h"
 
 #include <QMutableListIterator>
+#include <QColor>
 #include <QPainter>
 
 #include "libkwave/MultiTrackReader.h"
@@ -413,10 +414,13 @@ void OverViewCache::slotSamplesModified(unsigned int track,
 }
 
 //***************************************************************************
-QBitmap OverViewCache::getOverView(int width, int height)
+QImage OverViewCache::getOverView(int width, int height,
+                                  const QColor &fg, const QColor &bg)
 {
-    QBitmap bitmap(width, height);
-    bitmap.fill(Qt::color0);
+    QImage bitmap(width, height, QImage::Format_ARGB32_Premultiplied);
+    QPainter p(&bitmap);
+    p.fillRect(bitmap.rect(), bg);
+    p.setPen(fg);
 
     const unsigned int length = sourceLength();
     if (!length) return bitmap; // stay empty if no data available
@@ -428,13 +432,13 @@ QBitmap OverViewCache::getOverView(int width, int height)
     } else {
 	track_list = m_signal.allTracks();
     }
+
     MultiTrackReader src(m_signal, track_list, m_src_offset,
 	m_src_offset+length-1);
     Kwave::SampleArray buf;
 
     // loop over all min/max buffers and make their content valid
-    Q_ASSERT(m_state.count() == static_cast<int>(src.tracks()));
-    for (int t=0; (t < m_state.count()) && !src.isEmpty(); ++t) {
+    for (int t = 0; (t < m_state.count()) && !src.isEmpty(); ++t) {
 	unsigned int count = length / m_scale;
 	if (count > CACHE_SIZE) count = 0;
 
@@ -468,12 +472,9 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	    state[ofs] = Valid;
 	}
     }
+
     if ((width < 2) || (height < 2) || (length/m_scale < 2))
 	return bitmap; // empty ?
-
-    QPainter p;
-    p.begin(&bitmap);
-    p.setPen(Qt::color1);
 
     // loop over all min/max buffers
     for (int x=0; (x < width) && (m_state.count()) && !src.isEmpty(); ++x) {
@@ -512,7 +513,6 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	           x, middle - (maximum * height)/254);
     }
 
-    p.end();
     return bitmap;
 }
 

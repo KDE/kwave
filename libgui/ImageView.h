@@ -51,12 +51,6 @@ public:
     virtual ~ImageView();
 
     /**
-     * Sets a new QImage for displaying.
-     * @param image a pointer to the image
-     */
-    void setImage(QImage image);
-
-    /**
      * Returns the position and size of the current image, packed
      * into a QRect object.
      * @return
@@ -64,6 +58,12 @@ public:
     QRect imageRect();
 
 public slots:
+
+    /**
+     * Sets a new QImage for displaying.
+     * @param image a pointer to the image
+     */
+    void setImage(QImage image);
 
     /** sets a new horizontal offset, useful for scrolling */
     void setHorizOffset(int offset);

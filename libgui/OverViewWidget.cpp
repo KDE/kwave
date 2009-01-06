@@ -32,23 +32,43 @@
  * interval for limiting the number of repaints per second [ms]
  * (in normal mode, no playback running)
  */
-#define REPAINT_INTERVAL 500
+#define REPAINT_INTERVAL 250
 
 /**
  * interval for limiting the number of repaints per second [ms]
  * (when playback is running)
  */
-#define REPAINT_INTERVAL_FAST 100
+#define REPAINT_INTERVAL_FAST 50
 
 #define BAR_BACKGROUND    palette().mid().color()
 #define BAR_FOREGROUND    palette().light().color()
 
 //***************************************************************************
+//***************************************************************************
+OverViewWidget::WorkerThread::WorkerThread(OverViewWidget *overview)
+    :QThread(), m_overview(overview)
+{
+}
+
+//***************************************************************************
+OverViewWidget::WorkerThread::~WorkerThread()
+{
+    Q_ASSERT(!isRunning());
+}
+
+//***************************************************************************
+void OverViewWidget::WorkerThread::run()
+{
+    if (m_overview) m_overview->calculateBitmap();
+}
+
+//***************************************************************************
+//***************************************************************************
 OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     :ImageView(parent), m_view_offset(0), m_view_width(0), m_signal_length(0),
      m_sample_rate(0), m_selection_start(0), m_selection_length(0),
      m_playback_position(0), m_last_offset(0), m_cache(signal),
-     m_repaint_timer(), m_labels()
+     m_repaint_timer(), m_labels(), m_worker_thread(this)
 {
     // update the bitmap if the cache has changed
     connect(&m_cache, SIGNAL(changed()),
@@ -62,12 +82,20 @@ OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     connect(&signal, SIGNAL(labelsChanged(const LabelList &)),
             this, SLOT(labelsChanged(const LabelList &)));
 
+    // transport the image calculated in a background thread
+    // through the signal/slot mechanism
+    connect(this, SIGNAL(newImage(QImage)),
+            this, SLOT(setImage(QImage)),
+            Qt::QueuedConnection);
+
     setMouseTracking(true);
 }
 
 //***************************************************************************
 OverViewWidget::~OverViewWidget()
 {
+    m_repaint_timer.stop();
+    m_worker_thread.wait(100 * REPAINT_INTERVAL);
 }
 
 //***************************************************************************
@@ -264,6 +292,21 @@ void OverViewWidget::drawMark(QPainter &p, int x, int height, QColor color)
 //***************************************************************************
 void OverViewWidget::refreshBitmap()
 {
+    if (m_worker_thread.isRunning()) {
+	// (re)start the repaint timer if the worker thread is still
+	// running, try again later...
+	m_repaint_timer.stop();
+	m_repaint_timer.setSingleShot(true);
+	m_repaint_timer.start(REPAINT_INTERVAL);
+    } else {
+	// start the calculation in a background thread
+	m_worker_thread.start(QThread::LowPriority);
+    }
+}
+
+//***************************************************************************
+void OverViewWidget::calculateBitmap()
+{
     QPainter p;
 
     unsigned int length = m_signal_length;
@@ -282,16 +325,14 @@ void OverViewWidget::refreshBitmap()
     const int bitmap_width = static_cast<int>(m_signal_length * scale);
 
     // let the bitmap be updated from the cache
-    QBitmap bitmap = m_cache.getOverView(bitmap_width, height);
+    QImage bitmap = m_cache.getOverView(bitmap_width, height,
+	BAR_FOREGROUND ,BAR_BACKGROUND);
 
     // draw the bitmap (converted to QImage)
     QImage image(width, height, QImage::Format_ARGB32_Premultiplied);
     p.begin(&image);
     p.fillRect(rect(), BAR_BACKGROUND);
-    QBrush brush(bitmap);
-    brush.setColor(BAR_FOREGROUND);
-    p.setBrush(brush);
-    p.drawRect(0, 0, bitmap_width , height);
+    p.drawImage(0, 0, bitmap);
 
     // hilight the selection
     if ((m_selection_length > 1) && m_signal_length)
@@ -377,7 +418,7 @@ void OverViewWidget::refreshBitmap()
     p.end();
 
     // update the widget with the overview
-    setImage(image);
+    emit newImage(image);
 }
 
 //***************************************************************************

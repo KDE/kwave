@@ -68,7 +68,7 @@ void ImageView::mouseMoveEvent(QMouseEvent *e)
 void ImageView::setImage(QImage image)
 {
     m_image = image;
-    repaint();
+    update();
 }
 
 //****************************************************************************

@@ -26,6 +26,7 @@
 #include <complex>
 #include <fftw3.h>
 
+#include <QColor>
 #include <QString>
 #include <QImage>
 
@@ -418,8 +419,11 @@ void SonagramPlugin::refreshOverview()
 {
     if (!m_overview_cache || !m_sonagram_window) return;
 
-    QBitmap overview = m_overview_cache->getOverView(
-        2 * m_sonagram_window->width(), 40);
+    QColor fg = m_sonagram_window->palette().light().color();
+    QColor bg = m_sonagram_window->palette().mid().color();
+    QImage overview = m_overview_cache->getOverView(
+       m_sonagram_window->width(), 40, fg, bg);
+
     m_sonagram_window->setOverView(overview);
 }
 

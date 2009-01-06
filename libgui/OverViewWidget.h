@@ -23,6 +23,7 @@
 #include <QBitmap>
 #include <QColor>
 #include <QSize>
+#include <QThread>
 #include <QTimer>
 #include <QWidget>
 
@@ -134,6 +135,9 @@ signals:
     /** emitted for zooming in and out via command */
     void sigCommand(const QString &command);
 
+    /** emitted when the background calculation of the image is done */
+    void newImage(QImage image);
+
 protected:
 
     /**
@@ -153,6 +157,32 @@ protected:
      * @param color base color for the marker
      */
     void drawMark(QPainter &p, int x, int height, QColor color);
+
+private:
+
+    /** does the calculation of the new bitmap in background */
+    void calculateBitmap();
+
+private:
+
+    /** internal worker thread for updating the bitmap in background */
+    class WorkerThread: public QThread
+    {
+    public:
+	/** constructor */
+	WorkerThread(OverViewWidget *widget);
+
+	/** destructor */
+	virtual ~WorkerThread();
+
+	/** thread function that calls calculateBitmap() */
+	virtual void run();
+
+    private:
+
+	/** pointer to the calling overview widget */
+	OverViewWidget *m_overview;
+    };
 
 private:
 
@@ -188,6 +218,9 @@ private:
 
     /** list of labels */
     LabelList m_labels;
+
+    /** worker thread for updates in background */
+    WorkerThread m_worker_thread;
 
 };
 

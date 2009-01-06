@@ -418,12 +418,18 @@ QImage OverViewCache::getOverView(int width, int height,
                                   const QColor &fg, const QColor &bg)
 {
     QImage bitmap(width, height, QImage::Format_ARGB32_Premultiplied);
-    QPainter p(&bitmap);
+    if (!width || !height || bitmap.isNull()) return bitmap;
+
+    QPainter p;
+    p.begin(&bitmap);
     p.fillRect(bitmap.rect(), bg);
     p.setPen(fg);
 
     const unsigned int length = sourceLength();
-    if (!length) return bitmap; // stay empty if no data available
+    if (!length) {
+	p.end();
+	return bitmap; // stay empty if no data available
+    }
 
     QList<unsigned int> track_list;
     if (!m_src_tracks.isEmpty() || !m_src_deleted.isEmpty()) {
@@ -473,8 +479,10 @@ QImage OverViewCache::getOverView(int width, int height,
 	}
     }
 
-    if ((width < 2) || (height < 2) || (length/m_scale < 2))
+    if ((width < 2) || (height < 2) || (length/m_scale < 2)) {
+	p.end();
 	return bitmap; // empty ?
+    }
 
     // loop over all min/max buffers
     for (int x=0; (x < width) && (m_state.count()) && !src.isEmpty(); ++x) {
@@ -513,6 +521,7 @@ QImage OverViewCache::getOverView(int width, int height,
 	           x, middle - (maximum * height)/254);
     }
 
+    p.end();
     return bitmap;
 }
 

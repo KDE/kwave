@@ -307,8 +307,6 @@ void OverViewWidget::refreshBitmap()
 //***************************************************************************
 void OverViewWidget::calculateBitmap()
 {
-    QPainter p;
-
     unsigned int length = m_signal_length;
     if (m_view_offset + m_view_width > m_signal_length) {
 	// showing deleted space after signal
@@ -330,6 +328,7 @@ void OverViewWidget::calculateBitmap()
 
     // draw the bitmap (converted to QImage)
     QImage image(width, height, QImage::Format_ARGB32_Premultiplied);
+    QPainter p;
     p.begin(&image);
     p.fillRect(rect(), BAR_BACKGROUND);
     p.drawImage(0, 0, bitmap);

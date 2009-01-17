@@ -24,7 +24,7 @@
 
 //***************************************************************************
 UndoTransaction::UndoTransaction(const QString &name)
-    :QList<UndoAction *>(), m_description(name)
+    :QList<UndoAction *>(), m_description(name), m_aborted(false)
 {
 }
 
@@ -132,6 +132,12 @@ bool UndoTransaction::containsModification() const
 	if (action->containsModification()) return true;
     }
     return false;
+}
+
+//***************************************************************************
+void UndoTransaction::abort()
+{
+    m_aborted = true;
 }
 
 //***************************************************************************

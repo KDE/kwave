@@ -83,10 +83,24 @@ public:
      */
     bool containsModification() const;
 
+    /**
+     * aborts the undo transaction
+     */
+    void abort();
+
+    /**
+     * Returns true if the undo transaction has been aborted
+     */
+    bool isAborted() const { return m_aborted; }
+
 private:
 
     /** name of the action */
     QString m_description;
+
+    /** if true, the transaction has been aborted */
+    bool m_aborted;
+
 };
 
 #endif /* _UNDO_TRANSACTION_H_ */

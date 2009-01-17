@@ -1,6 +1,8 @@
 
 o bug: after "continue without undo" -> undo/redo still possible!?
 
+o no signal / preview update while loading
+
 o debug aid: write all actions to a logfile
 
 o debug aid: new plugin for adding a new track with test/debug info:
@@ -24,10 +26,6 @@ o use LADSPA
 o automatic defragmentation of stripes
 
 o support for sample rate conversion, libsamplerate
-
-o use the host's native libaudiofile. current state:
-	SuSE		-> builtin
-	all others	-> native
 
 o port from id3lib to taglib
 

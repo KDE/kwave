@@ -23,7 +23,10 @@
  * processing updates of overview widget in a background thread
  * memory management: no longer evaluate RLIMIT_RSS, gives more
    available physical memory
+ * portability fix: swapfile creation/destruction went wrong
  * memory for undo/redo can now be configured
+ * bugfix: handling of "continue without undo" produced wrong undo/redo states
+   and asked several times
 
 0.8.1  [2008-12-23]
 
@@ -46,7 +49,6 @@
  * show current playback position in overview widget
  * overview widget: dimming parts that are out of view
  * no longer needing builtin copy of libaudiofile, removed
- * portability fix: swapfile creation/destruction went wrong
 
 0.8.0  [2008-09-27]
 

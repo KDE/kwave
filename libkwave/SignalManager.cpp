@@ -509,7 +509,7 @@ void SignalManager::close()
     // undo will be re-enabled when a signal is loaded or created
     disableUndo();
 
-    // for safety: flush all undo/redo buffer
+    // for safety: flush all undo/redo buffers
     flushUndoBuffers();
     flushRedoBuffer();
 
@@ -968,10 +968,38 @@ void SignalManager::closeUndoTransaction()
 	// not empty
 	if (m_undo_transaction) {
 	    if (!m_undo_transaction->isEmpty()) {
-		m_undo_buffer.append(m_undo_transaction);
+		// if the transaction has been aborted, undo all actions
+		// that have currently been queued but do not
+		// use the transaction any more, instead delete it.
+		if (m_undo_transaction->isAborted()) {
+		    qDebug("SignalManager::closeUndoTransaction(): aborted");
+		    while (!m_undo_transaction->isEmpty()) {
+			UndoAction *undo_action;
+			UndoAction *redo_action;
+
+			// unqueue the undo action
+			undo_action = m_undo_transaction->nextUndo();
+			m_undo_transaction->removeAll(undo_action);
+			Q_ASSERT(undo_action);
+			if (!undo_action) continue;
+
+			// execute the undo operation
+			redo_action = undo_action->undo(*this, false);
+
+			// remove the old undo action if no longer used
+			if (redo_action && (redo_action != undo_action))
+			    delete redo_action;
+			delete undo_action;
+		    }
+		    delete m_undo_transaction;
+		    m_undo_transaction = 0;
+		} else {
+		    m_undo_buffer.append(m_undo_transaction);
+		}
 	    } else {
 		qDebug("SignalManager::closeUndoTransaction(): empty");
 		delete m_undo_transaction;
+		m_undo_transaction = 0;
 	    }
 	}
 
@@ -1003,13 +1031,6 @@ void SignalManager::flushUndoBuffers()
 {
     QMutexLocker lock(&m_undo_transaction_lock);
 
-    Q_ASSERT(m_undo_transaction_level == 0);
-
-    // close the current transaction
-    if (m_undo_transaction) delete m_undo_transaction;
-    m_undo_transaction = 0;
-    m_undo_transaction_level = 0;
-
     // if the signal was modified, it will stay in this state, it is
     // not possible to change to "non-modified" state through undo
     if ((!m_undo_buffer.isEmpty()) && (m_modified)) {
@@ -1028,10 +1049,8 @@ void SignalManager::flushUndoBuffers()
 //***************************************************************************
 void SignalManager::abortUndoTransaction()
 {
-    // close the current transaction
-    if (m_undo_transaction) delete m_undo_transaction;
-    m_undo_transaction = 0;
-    m_undo_transaction_level = 0;
+    // abort the current transaction
+    if (m_undo_transaction) m_undo_transaction->abort();
 }
 
 //***************************************************************************
@@ -1045,15 +1064,43 @@ void SignalManager::flushRedoBuffer()
 //***************************************************************************
 bool SignalManager::continueWithoutUndo()
 {
-    if (!m_parent_widget) return false;
+    // undo has not been enabled before?
+    if (!m_undo_transaction) return true;
+
+    // transaction has been aborted before
+    if (m_undo_transaction->isAborted()) return false;
+
+    // transaction is empty -> must have been flushed before, otherwise
+    // it would contain at least a undo action for the selection
+    // => user already has pressed "continue"
+    if (m_undo_transaction->isEmpty()) return true;
 
     if (Kwave::MessageBox::warningContinueCancel(m_parent_widget,
 	i18n("Unable to save undo information. "
 	     "Do you want to continue without undo?")) ==
 	KMessageBox::Continue)
     {
+	// the signal was modified, it will stay in this state, it is
+	// not possible to change to "non-modified" state through undo
+	// from now on...
+	setModified(true);
+	enableModifiedChange(false);
+
+	// flush the current undo transaction
+	while (!m_undo_transaction->isEmpty()) {
+	    UndoAction *undo_action = m_undo_transaction->takeLast();
+	    if (undo_action) delete undo_action;
+	}
+
+	// flush all undo/redo buffers
+	flushUndoBuffers();
 	return true;
     }
+
+    // Set the undo transaction into "aborted" state. The final
+    // closeUndoTransaction() will take care of the rest when
+    // detecting that state and clean up...
+    abortUndoTransaction();
     return false;
 }
 
@@ -1063,16 +1110,12 @@ bool SignalManager::registerUndoAction(UndoAction *action)
     QMutexLocker lock(&m_undo_transaction_lock);
 
     Q_ASSERT(action);
-    if (!action) {
-	abortUndoTransaction();
-	return continueWithoutUndo();
-    }
+    if (!action) return continueWithoutUndo();
 
     // if undo is not enabled, this will fail -> no memory leak!
     Q_ASSERT(m_undo_enabled);
     if (!m_undo_enabled) {
 	delete action;
-	abortUndoTransaction();
 	return continueWithoutUndo();
     }
 
@@ -1082,12 +1125,17 @@ bool SignalManager::registerUndoAction(UndoAction *action)
     unsigned int needed_mb = needed_size  >> 20;
     if (needed_mb > limit_mb) {
 	delete action;
-	abortUndoTransaction();
 	return continueWithoutUndo();
     }
 
     // undo has been aborted before ?
     if (!m_undo_transaction) return true;
+
+    // transaction has been aborted before
+    if (m_undo_transaction->isAborted()) {
+	delete action;
+	return true;
+    }
 
     // make room...
     freeUndoMemory(needed_size);
@@ -1096,7 +1144,6 @@ bool SignalManager::registerUndoAction(UndoAction *action)
     // and store all undo info
     if (!action->store(*this)) {
 	delete action;
-	abortUndoTransaction();
 	return continueWithoutUndo();
     }
 
@@ -1351,7 +1398,6 @@ void SignalManager::redo()
     if (!undo_transaction) {
 	qDeleteAll(m_undo_buffer);
 	m_undo_buffer.clear();
-	qDebug("SignalManager::redo(): undo buffer flushed!");
     } else {
 	m_undo_buffer.append(undo_transaction);
     }

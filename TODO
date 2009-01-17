@@ -1,6 +1,4 @@
 
-o bug: after "continue without undo" -> undo/redo still possible!?
-
 o no signal / preview update while loading
 
 o debug aid: write all actions to a logfile

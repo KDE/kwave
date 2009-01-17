@@ -1244,9 +1244,6 @@ void SignalManager::undo()
 {
     QMutexLocker lock(&m_undo_transaction_lock);
 
-    // check for modified selection
-    checkSelectionChange();
-
     // get the last undo transaction and abort if none present
     if (m_undo_buffer.isEmpty()) return;
     UndoTransaction *undo_transaction = m_undo_buffer.takeLast();

@@ -27,6 +27,7 @@
  * memory for undo/redo can now be configured
  * bugfix: handling of "continue without undo" produced wrong undo/redo states
    and asked several times
+ * bugfix: file progress did not do GUI updates, cancel button did not work
 
 0.8.1  [2008-12-23]
 

@@ -95,7 +95,7 @@ OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
 OverViewWidget::~OverViewWidget()
 {
     m_repaint_timer.stop();
-    m_worker_thread.wait(100 * REPAINT_INTERVAL);
+    m_worker_thread.wait(/* 100 * REPAINT_INTERVAL */);
 }
 
 //***************************************************************************

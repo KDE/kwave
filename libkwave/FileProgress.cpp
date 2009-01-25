@@ -18,10 +18,12 @@
 #include "config.h"
 #include <math.h>
 
+#include <QApplication>
 #include <QCloseEvent>
 #include <QGridLayout>
 #include <QLabel>
 #include <QProgressBar>
+#include <QTimer>
 #include <QVBoxLayout>
 
 #include <kpushbutton.h>
@@ -275,6 +277,17 @@ void FileProgress::updateStatistics(qreal rate, qreal rest,
 	num1.sprintf("%1.1f", pos / (1024.0*1024.0)),
 	num2.sprintf("%1.1f", m_size / (1024.0*1024.0)));
     m_stat_bytes->setText(text);
+
+    // process events for some short time, otherwise we would
+    // not have GUI updates and the "cancel" button would not work
+    QTimer t;
+    t.setSingleShot(true);
+    t.start(1);
+    while (t.isActive()) {
+	qApp->sendPostedEvents();
+	qApp->processEvents();
+	qApp->syncX();
+    }
 }
 
 //***************************************************************************

@@ -177,7 +177,7 @@ void SampleEncoderLinear::encode(const Kwave::SampleArray &samples,
 
     Q_ASSERT(count * m_bytes_per_sample <=
 	static_cast<unsigned int>(raw_data.size()));
-    if (count * m_bytes_per_sample >
+    if (count * m_bytes_per_sample > \
 	static_cast<unsigned int>(raw_data.size())) return;
 
     const sample_t *src = samples.data();

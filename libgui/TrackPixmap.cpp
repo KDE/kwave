@@ -22,6 +22,7 @@
 #include <QMutexLocker>
 #include <QPainter>
 #include <QPolygon>
+#include <QTime>
 
 #include "libkwave/SampleReader.h"
 #include "libkwave/Track.h"
@@ -320,37 +321,14 @@ bool TrackPixmap::validateBuffer()
 	    unsigned int s2 = m_offset +
 		static_cast<unsigned int>(floor((last+1) * m_zoom)) - 1;
 
-	    // open a reader for the whole modified range
-	    SampleReader *in = m_track.openSampleReader(s1, s2);
-	    Q_ASSERT(in);
-	    if (!in) break;
-
-	    // allocate a buffer for one more sample (pixels2samples may
-	    // vary by +/-1 !
-	    Kwave::SampleArray buffer(static_cast<int>(ceil(m_zoom)));
-	    sample_t min;
-	    sample_t max;
-
 	    while (first <= last) {
-		// NOTE: s2 is exclusive!
 		s2 = m_offset + static_cast<unsigned int>(
 		    floor((first + 1) * m_zoom));
 
 		// get min/max for interval [s1...s2[
-		unsigned int count = in->read(buffer, 0, s2-s1);
-		if (count) {
-		    unsigned int pos;
-		    min = SAMPLE_MAX;
-		    max = SAMPLE_MIN;
-		    for (pos=0; pos < count; pos++) {
-			register sample_t val = buffer[pos];
-			if (val < min) min = val;
-			if (val > max) max = val;
-		    }
-		} else {
-		    // no data available, set zeroes
-		    min = max = 0;
-		}
+		sample_t min;
+		sample_t max;
+		m_track.minMax(s1, s2, min, max);
 
 		m_min_buffer[first] = min;
 		m_max_buffer[first] = max;
@@ -358,10 +336,8 @@ bool TrackPixmap::validateBuffer()
 
 		// advance to the next position
 		++first;
-		s1 = s2;
+		s1 = s2 + 1;
 	    }
-
-	    delete in;
 	} else {
 	    // each index is one sample
 	    SampleReader *in = m_track.openSampleReader(

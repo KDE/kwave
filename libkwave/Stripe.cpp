@@ -423,6 +423,31 @@ unsigned int Stripe::read(Kwave::SampleArray &buffer, unsigned int dstoff,
 }
 
 //***************************************************************************
+void Stripe::minMax(unsigned int first, unsigned int last,
+                    sample_t &min, sample_t &max)
+{
+    QMutexLocker lock(&m_lock_samples);
+
+    min = SAMPLE_MAX;
+    max = SAMPLE_MIN;
+
+    MapStorageGuard _samples(*this);
+    sample_t *buffer = _samples.storage();
+    if (!buffer) return;
+
+    // loop over the mapped storage to get min/max
+    register sample_t lo = SAMPLE_MAX;
+    register sample_t hi = SAMPLE_MIN;
+    while (first <= last) {
+	register sample_t s = buffer[first++];
+	if (s < lo) lo = s;
+	if (s > hi) hi = s;
+    }
+    min = lo;
+    max = hi;
+}
+
+//***************************************************************************
 Stripe &Stripe::operator << (const Kwave::SampleArray &samples)
 {
     unsigned int appended = append(samples, 0, samples.size());

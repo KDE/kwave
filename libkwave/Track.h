@@ -99,6 +99,17 @@ public:
     /** Sets the "selected" flag. */
     void select(bool select);
 
+    /**
+     * Returns the minumum and maximum sample value within a range
+     * of samples.
+     * @param first index of the first sample
+     * @param last index of the last sample
+     * @param min receives the lowest value or 0 if no samples are in range
+     * @param max receives the highest value or 0 if no samples are in range
+     */
+    void minMax(unsigned int first, unsigned int last,
+                sample_t &min, sample_t &max);
+
 signals:
 
     /**
@@ -243,6 +254,12 @@ protected:
                              unsigned int buf_offset,
                              unsigned int length);
 
+    /** increments the usage counter (read lock to m_lock_usage) */
+    void use();
+
+    /** decrements the usage counter (read lock to m_lock_usage) */
+    void release();
+
 private:
 
     /**
@@ -256,6 +273,9 @@ private:
 private:
     /** read/write lock for access to the whole track */
     QReadWriteLock m_lock;
+
+    /** lock to protect against deletion while the track is in use */
+    QReadWriteLock m_lock_usage;
 
     /** list of stripes (a track actually is a container for stripes) */
     QList<Stripe *> m_stripes;

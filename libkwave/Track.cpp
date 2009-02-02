@@ -52,13 +52,13 @@
 
 //***************************************************************************
 Track::Track()
-    :m_lock(), m_stripes(), m_selected(true)
+    :m_lock(), m_lock_usage(), m_stripes(), m_selected(true)
 {
 }
 
 //***************************************************************************
 Track::Track(unsigned int length)
-    :m_lock(), m_stripes(), m_selected(true)
+    :m_lock(), m_lock_usage(), m_stripes(), m_selected(true)
 {
     if (length < 2*STRIPE_LENGTH_OPTIMAL)
 	appendStripe(length);
@@ -72,6 +72,10 @@ Track::Track(unsigned int length)
 //***************************************************************************
 Track::~Track()
 {
+    // wait until all readers are finished
+    QWriteLocker lock_usage(&m_lock_usage);
+
+    // don't allow any further operation
     QWriteLocker lock(&m_lock);
 
     while (!m_stripes.isEmpty()) {
@@ -607,6 +611,52 @@ unsigned int Track::readSamples(unsigned int offset,
     if (rest) padBuffer(buffer, buf_offset, rest);
 
     return length;
+}
+
+//***************************************************************************
+void Track::minMax(unsigned int first, unsigned int last,
+                   sample_t &min, sample_t &max)
+{
+    bool empty = true;
+
+    QReadLocker _lock(&m_lock);
+    QListIterator<Stripe *> it(m_stripes);
+    while (it.hasNext()) {
+	Stripe *s = it.next();
+	if (!s) continue;
+	if (!s->length()) continue;
+	unsigned int start = s->start();
+	unsigned int end   = s->end();
+
+	if (end < first) continue; // not yet in range
+	if (start > last)  break;  // done
+
+	// overlap -> not empty
+	empty = false;
+
+	// get min/max from the stripe
+	unsigned int s1 = (first > start) ? (first - start) : 0;
+	unsigned int s2 = (last < end) ? (last - start) : (end - start);
+	s->minMax(s1, s2, min, max);
+    }
+
+    // special case: no signal in that range -> set to zero
+    if (empty) {
+	min = 0;
+	max = 0;
+    }
+}
+
+//***************************************************************************
+void Track::use()
+{
+    m_lock_usage.lockForRead();
+}
+
+//***************************************************************************
+void Track::release()
+{
+    m_lock_usage.unlock();
 }
 
 //***************************************************************************

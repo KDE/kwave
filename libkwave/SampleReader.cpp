@@ -37,11 +37,13 @@ SampleReader::SampleReader(Track &track,
     m_buffer(blockSize()),
     m_buffer_used(0), m_buffer_position(0)
 {
+    m_track.use();
 }
 
 //***************************************************************************
 SampleReader::~SampleReader()
 {
+    m_track.release();
 }
 
 //***************************************************************************

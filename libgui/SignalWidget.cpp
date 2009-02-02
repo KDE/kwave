@@ -33,6 +33,7 @@
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QResizeEvent>
+#include <QTime>
 #include <QToolTip>
 
 #include <kcursor.h>
@@ -1666,13 +1667,12 @@ void SignalWidget::paintEvent(QPaintEvent *)
     InhibitRepaintGuard inhibit(*this, false); // avoid recursion
 
 //     qDebug("SignalWidget::paintEvent()");
-// #define DEBUG
-// #ifdef DEBUG
-//    static struct timeval t_start;
-//    static struct timeval t_end;
-//    qreal t_elapsed;
-//    gettimeofday(&t_start,0);
-// #endif
+// #define DEBUG_REPAINT_TIMES
+#ifdef DEBUG_REPAINT_TIMES
+    QTime time;
+    time.start();
+#endif /* DEBUG_REPAINT_TIMES */
+
     QPainter p;
 
     int n_tracks = m_signal_manager.isClosed() ? 0 : tracks();
@@ -1842,13 +1842,9 @@ void SignalWidget::paintEvent(QPaintEvent *)
     p.drawImage(0, 0, m_image);
     p.end();
 
-// #ifdef DEBUG
-//    gettimeofday(&t_end,0);
-//    t_elapsed = ((qreal)t_end.tv_sec*1.0E6+(qreal)t_end.tv_usec -
-// 	((qreal)t_start.tv_sec*1.0E6+(qreal)t_start.tv_usec)) * 1E-3;
-//    qDebug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
-// 	t_elapsed);
-// #endif
+#ifdef DEBUG_REPAINT_TIMES
+   qDebug("SignalWidget::paintEvent() -- done, t=%d ms --", time.elapsed());
+#endif /* DEBUG_REPAINT_TIMES */
 }
 
 //***************************************************************************

@@ -39,7 +39,7 @@ public:
 
     /**
      * Constructor. Creates a stream for reading samples from a track.
-     * @param track
+     * @param track reference to the track from which we want to read
      * @param left start of the input (only useful in insert and
      *             overwrite mode)
      * @param right end of the input (only useful with overwrite mode)

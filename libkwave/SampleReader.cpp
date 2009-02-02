@@ -92,6 +92,13 @@ void SampleReader::fillBuffer()
 }
 
 //***************************************************************************
+void SampleReader::minMax(unsigned int first, unsigned int last,
+                          sample_t &min, sample_t &max)
+{
+    m_track.minMax(first, last, min, max);
+}
+
+//***************************************************************************
 unsigned int SampleReader::read(Kwave::SampleArray &buffer,
                                 unsigned int dstoff, unsigned int length)
 {

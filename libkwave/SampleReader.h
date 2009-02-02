@@ -84,6 +84,17 @@ public:
     unsigned int read(Kwave::SampleArray &buffer, unsigned int dstoff,
 	unsigned int length);
 
+    /**
+     * Returns the minumum and maximum sample value within a range
+     * of samples.
+     * @param first index of the first sample
+     * @param last index of the last sample
+     * @param min receives the lowest value or 0 if no samples are in range
+     * @param max receives the highest value or 0 if no samples are in range
+     */
+    void minMax(unsigned int first, unsigned int last,
+		sample_t &min, sample_t &max);
+
     /** Skips a number of samples. */
     void skip(unsigned int count);
 

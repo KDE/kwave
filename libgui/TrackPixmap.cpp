@@ -281,6 +281,11 @@ bool TrackPixmap::validateBuffer()
     int last = 0;
     int buflen = m_valid.size();
 
+    SampleReader *reader = m_track.openSampleReader(m_offset,
+	    m_track.length() - 1);
+    Q_ASSERT(reader);
+    if (!reader) return false;
+
     if (m_minmax_mode) {
 	Q_ASSERT(static_cast<int>(m_min_buffer.size()) == buflen);
 	Q_ASSERT(static_cast<int>(m_max_buffer.size()) == buflen);
@@ -301,7 +306,10 @@ bool TrackPixmap::validateBuffer()
 	{}
 
 	// break if the first index is out of range
-	if (first >= buflen) return false; // buffer is already ok
+	if (first >= buflen) {
+	    if (reader) delete reader;
+	    return false; // buffer is already ok
+	}
 
 	// find the last invalid index
 	for (last=first; (last < buflen) && !m_valid[last]; ++last) {
@@ -328,7 +336,7 @@ bool TrackPixmap::validateBuffer()
 		// get min/max for interval [s1...s2[
 		sample_t min;
 		sample_t max;
-		m_track.minMax(s1, s2, min, max);
+		reader->minMax(s1, s2, min, max);
 
 		m_min_buffer[first] = min;
 		m_max_buffer[first] = max;
@@ -340,14 +348,10 @@ bool TrackPixmap::validateBuffer()
 	    }
 	} else {
 	    // each index is one sample
-	    SampleReader *in = m_track.openSampleReader(
-		m_offset+first, m_offset+last);
-	    Q_ASSERT(in);
-	    if (!in) break;
-
-	    // read directly into the buffer
-	    unsigned int count = in->read(m_sample_buffer, first,
-		last-first+1);
+	    // -> read directly into the buffer
+	    reader->seek(m_offset + first);
+	    unsigned int count = reader->read(m_sample_buffer,
+		first, last - first + 1);
 	    while (count--) m_valid.setBit(first++);
 
 	    // fill the rest with zeroes
@@ -356,17 +360,18 @@ bool TrackPixmap::validateBuffer()
 		m_sample_buffer[first++] = 0;
 	    }
 
-	    delete in;
 	}
 
 	Q_ASSERT(first >= last);
         ++last;
     }
 
-    for (first=0; first < m_valid.size(); first++) {
+    for (first = 0; first < m_valid.size(); first++) {
 	if (!m_valid[first]) qWarning("TrackPixmap::validateBuffer(): "\
 		"still invalid index: %u", first);
     }
+
+    delete reader;
 
     return true;
 }

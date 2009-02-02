@@ -441,7 +441,6 @@ QImage OverViewCache::getOverView(int width, int height,
 
     MultiTrackReader src(m_signal, track_list, m_src_offset,
 	m_src_offset+length-1);
-    Kwave::SampleArray buf;
 
     // loop over all min/max buffers and make their content valid
     for (int t = 0; (t < m_state.count()) && !src.isEmpty(); ++t) {
@@ -457,21 +456,12 @@ QImage OverViewCache::getOverView(int width, int height,
 	    if (state[ofs] == Valid)  continue;
 	    if (state[ofs] == Unused) continue;
 
+	    // get min/max
 	    sample_t min_sample = SAMPLE_MAX;
 	    sample_t max_sample = SAMPLE_MIN;
-	    unsigned int first = ofs*m_scale;
-	    buf.resize(m_scale);
-	    unsigned int count = buf.size();
-	    Q_ASSERT(count >= m_scale);
-	    if (count < m_scale) break; // out of memory
-
-	    reader->seek(m_src_offset+first);
-	    count = reader->read(buf, 0, m_scale);
-	    while (count--) {
-		sample_t sample = buf[count];
-		if (sample > max_sample) max_sample = sample;
-		if (sample < min_sample) min_sample = sample;
-	    }
+	    const unsigned int first = m_src_offset + (ofs * m_scale);
+	    const unsigned int last  = first + m_scale - 1;
+	    reader->minMax(first, last, min_sample, max_sample);
 
 	    min[ofs] = min_sample >> (SAMPLE_BITS - 8);
 	    max[ofs] = max_sample >> (SAMPLE_BITS - 8);
@@ -485,7 +475,7 @@ QImage OverViewCache::getOverView(int width, int height,
     }
 
     // loop over all min/max buffers
-    for (int x=0; (x < width) && (m_state.count()) && !src.isEmpty(); ++x) {
+    for (int x = 0; (x < width) && (m_state.count()) && !src.isEmpty(); ++x) {
 	unsigned int count = length / m_scale;
 	if (count > CACHE_SIZE) count = 1;
 

@@ -484,7 +484,7 @@ void RecordPlugin::changeSampleRate(double new_rate)
     // check the supported sample rates
     QList<double> supported_rates = m_device->detectSampleRates();
     double rate = new_rate;
-    if (!supported_rates.contains(rate)) {
+    if (!supported_rates.contains(rate) && !supported_rates.isEmpty()) {
 	// find the nearest sample rate
 	double nearest = supported_rates.last();
 	foreach (double r, supported_rates) {

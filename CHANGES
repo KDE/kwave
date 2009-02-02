@@ -28,6 +28,7 @@
  * bugfix: handling of "continue without undo" produced wrong undo/redo states
    and asked several times
  * bugfix: file progress did not do GUI updates, cancel button did not work
+ * bugfix: assert in record plugin if no valid sample rate available
 
 0.8.1  [2008-12-23]
 

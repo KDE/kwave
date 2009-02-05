@@ -65,6 +65,8 @@ MemoryManager::~MemoryManager()
 //***************************************************************************
 void MemoryManager::close()
 {
+    QMutexLocker lock(&m_lock);
+
     // print warnings for each physical memory block
     Q_ASSERT(m_physical_size.isEmpty());
 
@@ -370,6 +372,8 @@ void MemoryManager::free(void *&block)
 //***************************************************************************
 void *MemoryManager::map(void *block)
 {
+    QMutexLocker lock(&m_lock);
+
     Q_ASSERT(block);
     if (!block) return 0; // object not found ?
 
@@ -437,6 +441,8 @@ void MemoryManager::unmapFromCache(void *block)
 //***************************************************************************
 void MemoryManager::unmap(void *block)
 {
+    QMutexLocker lock(&m_lock);
+
     // simple case: physical memory does not need to be unmapped
     if (m_physical_size.contains(block)) return;
 
@@ -476,6 +482,8 @@ void MemoryManager::unmap(void *block)
 int MemoryManager::readFrom(void *block, unsigned int offset,
                             void *buffer, unsigned int length)
 {
+    QMutexLocker lock(&m_lock);
+
     Q_ASSERT(block);
     if (!block) return 0;
 
@@ -509,6 +517,8 @@ int MemoryManager::readFrom(void *block, unsigned int offset,
 int MemoryManager::writeTo(void *block, unsigned int offset,
                            const void *buffer, unsigned int length)
 {
+    QMutexLocker lock(&m_lock);
+
     Q_ASSERT(block);
     if (!block) return 0;
 

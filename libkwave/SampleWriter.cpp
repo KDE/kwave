@@ -36,12 +36,14 @@ SampleWriter::SampleWriter(Track &track, InsertMode mode,
      m_position(left),
      m_buffer(BUFFER_SIZE), m_buffer_used(0)
 {
+    m_track.use();
 }
 
 //***************************************************************************
 SampleWriter::~SampleWriter()
 {
     flush();
+    m_track.release();
     Q_ASSERT(m_position <= m_last+1);
 
     // inform others that we proceeded

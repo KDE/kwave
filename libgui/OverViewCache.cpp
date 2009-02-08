@@ -78,6 +78,8 @@ OverViewCache::OverViewCache(SignalManager &signal, unsigned int src_offset,
 //***************************************************************************
 OverViewCache::~OverViewCache()
 {
+    QMutexLocker lock(&m_lock);
+
     m_state.clear();
     m_min.clear();
     m_max.clear();
@@ -92,6 +94,8 @@ unsigned int OverViewCache::sourceLength()
 //***************************************************************************
 void OverViewCache::scaleUp()
 {
+    QMutexLocker lock(&m_lock);
+
     Q_ASSERT(m_scale);
     if (!m_scale) return;
 
@@ -156,6 +160,8 @@ void OverViewCache::scaleUp()
 //***************************************************************************
 void OverViewCache::scaleDown()
 {
+    QMutexLocker lock(&m_lock);
+
     const unsigned int len = sourceLength();
     unsigned int new_scale = static_cast<unsigned int>(
 	rint(ceil(len/CACHE_SIZE)));
@@ -171,6 +177,8 @@ void OverViewCache::scaleDown()
 //***************************************************************************
 int OverViewCache::trackIndex(unsigned int track_nr)
 {
+    QMutexLocker lock(&m_lock);
+
     if (!m_src_tracks.isEmpty() || !m_src_deleted.isEmpty()) {
 	return m_src_tracks.indexOf(track_nr);
     } else {
@@ -182,6 +190,8 @@ int OverViewCache::trackIndex(unsigned int track_nr)
 void OverViewCache::invalidateCache(unsigned int track, unsigned int first,
                                     unsigned int last)
 {
+    QMutexLocker lock(&m_lock);
+
 //     qDebug("OverViewCache::invalidateCache(%u, %u, %u)",track,first,last);
     if (m_state.isEmpty()) return;
     int cache_track = trackIndex(track);
@@ -417,6 +427,8 @@ void OverViewCache::slotSamplesModified(unsigned int track,
 QImage OverViewCache::getOverView(int width, int height,
                                   const QColor &fg, const QColor &bg)
 {
+    QMutexLocker lock(&m_lock);
+
     QImage bitmap(width, height, QImage::Format_ARGB32_Premultiplied);
     if (!width || !height || bitmap.isNull()) return bitmap;
 
@@ -441,6 +453,14 @@ QImage OverViewCache::getOverView(int width, int height,
 
     MultiTrackReader src(m_signal, track_list, m_src_offset,
 	m_src_offset+length-1);
+    Q_ASSERT(m_min.count() == m_max.count());
+    Q_ASSERT(m_min.count() == m_state.count());
+
+    // abort if the track count has recently changed
+    if (m_state.count() != static_cast<int>(src.tracks())) {
+	qWarning("OverViewCache::getOverView(): track count has changed");
+	return bitmap;
+    }
 
     // loop over all min/max buffers and make their content valid
     for (int t = 0; (t < m_state.count()) && !src.isEmpty(); ++t) {
@@ -451,6 +471,8 @@ QImage OverViewCache::getOverView(int width, int height,
 	signed char *max = m_max[t].data();
 	CacheState *state = m_state[t].data();
 	SampleReader *reader = src[t];
+	Q_ASSERT(reader);
+	if (!reader) continue;
 
 	for (unsigned int ofs=0; ofs < count; ++ofs) {
 	    if (state[ofs] == Valid)  continue;
@@ -492,7 +514,11 @@ QImage OverViewCache::getOverView(int width, int height,
 	int maximum = -127;
 	for (; index <= last_index; ++index) {
 	    // loop over all tracks
-	    for (int t=0; t < m_state.count(); ++t) {
+	    Q_ASSERT(m_min.count() == m_state.count());
+	    Q_ASSERT(m_max.count() == m_state.count());
+	    for (int t = 0; t < m_state.count(); ++t) {
+		Q_ASSERT(t < m_min.count());
+		Q_ASSERT(t < m_max.count());
 		signed char *min = m_min[t].data();
 		signed char *max = m_max[t].data();
 		CacheState *state = m_state[t].data();

@@ -30,6 +30,7 @@
  * bugfix: file progress did not do GUI updates, cancel button did not work
  * bugfix: assert in record plugin if no valid sample rate available
  * speedup for generation of signal overviews in min/max mode
+ * bugfix: MultiTrackWriter produced one extra sample (off by on error)
 
 0.8.1  [2008-12-23]
 

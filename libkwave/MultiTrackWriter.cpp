@@ -79,7 +79,7 @@ MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
 	if (left == right) {
 	    // if no selection: whole signal
 	    left  = 0;
-	    right = signal_manager.length();
+	    right = signal_manager.length() - 1;
 	}
     }
 
@@ -128,18 +128,18 @@ MultiTrackWriter &MultiTrackWriter::operator << (MultiTrackReader &source)
 	// number of output channels
 	Matrix<double> matrix(src_tracks, dst_tracks);
 	unsigned int x, y;
-	for (y=0; y < dst_tracks; y++) {
+	for (y = 0; y < dst_tracks; y++) {
 	    unsigned int m1, m2;
 	    m1 = y * src_tracks;
 	    m2 = (y+1) * src_tracks;
 
-	    for (x=0; x < src_tracks; x++) {
+	    for (x = 0; x < src_tracks; x++) {
 		unsigned int n1, n2;
 		n1 = x * dst_tracks;
 		n2 = n1 + dst_tracks;
 
 		// get the common area of [n1..n2] and [m1..m2]
-		unsigned int l  = qMax(n1, m1);
+		unsigned int l = qMax(n1, m1);
 		unsigned int r = qMin(n2, m2);
 
 		matrix[x][y] = (r > l) ? (static_cast<double>(r - l) /
@@ -153,7 +153,7 @@ MultiTrackWriter &MultiTrackWriter::operator << (MultiTrackReader &source)
 	while (!(source.eof())) {
 	    // read input vector
 	    unsigned int x;
-	    for (x=0; x < src_tracks; x++) {
+	    for (x = 0; x < src_tracks; x++) {
 		in_samples[x] = 0;
 		SampleReader *stream = source[x];
 		Q_ASSERT(stream);
@@ -166,9 +166,9 @@ MultiTrackWriter &MultiTrackWriter::operator << (MultiTrackReader &source)
 
 	    // multiply matrix with input to get output
 	    unsigned int y;
-	    for (y=0; y < dst_tracks; y++) {
+	    for (y = 0; y < dst_tracks; y++) {
 		double sum = 0;
-		for (x=0; x < src_tracks; x++) {
+		for (x = 0; x < src_tracks; x++) {
 		    sum += static_cast<double>(in_samples[x]) * matrix[x][y];
 		}
 		out_samples[y] = static_cast<sample_t>(sum);
@@ -208,7 +208,7 @@ void MultiTrackWriter::proceeded()
 {
     unsigned int pos = 0;
     unsigned int track;
-    for (track=0; track < tracks(); ++track) {
+    for (track = 0; track < tracks(); ++track) {
 	SampleWriter *w = at(track);
 	if (w) pos += (w->position() - w->first());
     }
@@ -226,7 +226,7 @@ unsigned int MultiTrackWriter::last() const
 {
     unsigned int last = 0;
     const unsigned int tracks = this->tracks();
-    for (unsigned int track=0; track < tracks; ++track) {
+    for (unsigned int track = 0; track < tracks; ++track) {
 	const SampleWriter *w = at(track);
 	if (w && w->last() > last) last = w->last();
     }
@@ -244,7 +244,7 @@ void MultiTrackWriter::clear()
 void MultiTrackWriter::flush()
 {
     const unsigned int tracks = this->tracks();
-    for (unsigned int track=0; track < tracks; ++track) {
+    for (unsigned int track = 0; track < tracks; ++track) {
 	SampleWriter *w = (*this)[track];
 	if (w) w->flush();
     }

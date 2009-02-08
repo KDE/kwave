@@ -72,6 +72,56 @@ QList<FileProperty> WavEncoder::supportedProperties()
 }
 
 /***************************************************************************/
+void WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst, FileInfo &info,
+                                             unsigned int frame_size)
+{
+    const unsigned int length = info.length();
+    u_int32_t correct_size = length * frame_size;
+    const int compression = info.contains(INF_COMPRESSION) ?
+                      info.get(INF_COMPRESSION).toInt() :
+	    AF_COMPRESSION_NONE;
+    if (compression != AF_COMPRESSION_NONE) {
+	qWarning("WARNING: libaudiofile might have produces a broken header!");
+	return;
+    }
+
+    // just to be sure: at offset 36 we expect the chunk name "data"
+    dst.seek(36);
+    char chunk_name[5];
+    memset(chunk_name, 0x00, sizeof(chunk_name));
+    dst.read(&chunk_name[0], 4);
+    if (strcmp("data", chunk_name)) {
+	qWarning("WARNING: unexpected wav header format, check disabled");
+	return;
+    }
+
+    // read the data chunk size that libaudiofile has written
+    u_int32_t data_size;
+    dst.seek(40);
+    dst.read(reinterpret_cast<char *>(&data_size), 4);
+    data_size = LE32_TO_CPU(data_size);
+    if (data_size == length * frame_size) {
+	qDebug("(data size written by libaudiofile is correct)");
+	return;
+    }
+
+    qWarning("WARNING: libaudiofile wrote a wrong 'data' chunk size!");
+    qWarning("         current=%u, correct=%u", data_size, correct_size);
+ 
+    // write the fixed size of the "data" chunk
+    dst.seek(40);
+    data_size = CPU_TO_LE32(correct_size);
+    dst.write(reinterpret_cast<char *>(&data_size), 4);
+
+    // also fix the "RIFF" size
+    dst.seek(4);
+    u_int32_t riff_size = dst.size() - 4 - 4;
+    riff_size = CPU_TO_LE32(riff_size);
+    dst.write(reinterpret_cast<char *>(&riff_size), 4);
+
+}
+
+/***************************************************************************/
 void WavEncoder::writeInfoChunk(QIODevice &dst, FileInfo &info)
 {
     // create a list of chunk names and properties for the INFO chunk
@@ -80,7 +130,7 @@ void WavEncoder::writeInfoChunk(QIODevice &dst, FileInfo &info)
     unsigned int info_size = 0;
 
     QMap<FileProperty, QVariant>::Iterator it;
-    for (it=properties.begin(); it!=properties.end(); ++it) {
+    for (it = properties.begin(); it != properties.end(); ++it) {
 	FileProperty property = it.key();
 	if (!m_property_map.containsProperty(property)) continue;
 
@@ -370,10 +420,12 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
     // allocate a buffer for input data
     const unsigned int frame_size = static_cast<const unsigned int>(
-	afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
+	    afGetFrameSize(fh, AF_DEFAULT_TRACK, 1));
+    const unsigned int virtual_frame_size = static_cast<const unsigned int>(
+	    afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
     const unsigned int buffer_frames = (8*1024);
     int32_t *buffer = static_cast<int32_t *>(
-	malloc(buffer_frames * frame_size));
+	malloc(buffer_frames * virtual_frame_size));
     Q_ASSERT(buffer);
     if (!buffer) return false;
 
@@ -385,10 +437,11 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	unsigned int count = buffer_frames;
 	if (rest < count) count = rest;
 
-	for (unsigned int pos=0; pos < count; pos++) {
+	for (unsigned int pos = 0; pos < count; pos++) {
 	    for (unsigned int track = 0; track < tracks; track++) {
 		SampleReader *stream = src[track];
 		sample_t sample;
+		Q_ASSERT(!stream->eof());
 		(*stream) >> sample;
 
 		// the following cast is only necessary if
@@ -407,26 +460,32 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	Q_ASSERT(count);
 	if (!count) break;
 
+	Q_ASSERT(rest >= count);
 	rest -= count;
 
 	// abort if the user pressed cancel
 	// --> this would leave a corrupted file !!!
 	if (src.isCanceled()) break;
     }
+    Q_ASSERT(!rest);
 
     // close the audiofile stuff, we need control over the
     // fixed-up file on our own
     outfile.close();
+
+    // clean up the sample buffer
+    if (buffer) free(buffer);
+    afFreeFileSetup(setup);
+
+    // due to a buggy implementation of libaudiofile
+    // we have to fix up the length of the "data" and the "RIFF" chunk
+    fixAudiofileBrokenHeaderBug(dst, info, frame_size);
 
     // put the properties into the INFO chunk
     writeInfoChunk(dst, info);
 
     // write the labels list
     writeLabels(dst, info);
-
-    // clean up the sample buffer
-    if (buffer) free(buffer);
-    afFreeFileSetup(setup);
 
     return true;
 }

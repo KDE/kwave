@@ -31,6 +31,9 @@
  * bugfix: assert in record plugin if no valid sample rate available
  * speedup for generation of signal overviews in min/max mode
  * bugfix: MultiTrackWriter produced one extra sample (off by on error)
+ * workaround for bug in libaudiofile: sometimes libaudiofile produces
+   broken files as it uses 'float' for internal calculations (wrong size
+   of 'data' and 'RIFF' chunk)
 
 0.8.1  [2008-12-23]
 

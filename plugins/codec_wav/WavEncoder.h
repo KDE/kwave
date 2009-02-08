@@ -73,6 +73,19 @@ private:
      */
     void writeLabels(QIODevice &dst, FileInfo &info);
 
+    /**
+     * Fix the size of the "data" and the "RIFF" chunk, as libaudiofile
+     * is sometimes really buggy due to internal calculations done
+     * with "float" as data type. This can lead to broken files as the
+     * data and also the RIFF chunk sizes are too small.
+     *
+     * @param dst file or other source to receive a stream of bytes
+     * @param info information about the file to be saved
+     * @param frame_size number of bytes per sample
+     */
+    void fixAudiofileBrokenHeaderBug(QIODevice &dst, FileInfo &info,
+                                     unsigned int frame_size);
+
 private:
 
     /** map for translating chunk names to FileInfo properties */

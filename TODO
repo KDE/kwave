@@ -1,13 +1,15 @@
 
-o the performance of the SignalWidget is miserable
+o bug: after creating a new empty file, "revert" is possible
+
+o get rid of libaudiofile, it is too buggy, has too few features and
+  is no longer actively maintained -> find an alternative
 
 o debug aid: write all actions to a logfile
 
 o debug aid: new plugin for adding a new track with test/debug info:
-  - min/max int
   - stripe number
   - hull curve
-  - test pattern: sample offset withinn stripe
+  - test pattern: sample offset within stripe
   - test pattern: sawtooth
   - test pattern: min/max alternating
   - test pattern: stripe borders

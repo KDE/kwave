@@ -300,6 +300,12 @@ private:
     /** mutex for array of samples */
     QMutex m_lock_samples;
 
+    /** usage count of mapped storage */
+    int m_map_count;
+
+    /** mapped storage */
+    sample_t *m_mapped_storage;
+
 };
 
 #endif /* _STRIPE_H_ */

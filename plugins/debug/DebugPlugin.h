@@ -1,8 +1,8 @@
 /*************************************************************************
-           ZeroPlugin.h  -  wipes out the selected range of samples to zero
+          DebugPlugin.h  -  various debug aids
                              -------------------
-    begin                : Fri Jun 01 2001
-    copyright            : (C) 2001 by Thomas Eschenbacher
+    begin                : Mon Feb 02 2009
+    copyright            : (C) 2009 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _ZERO_PLUGIN_H_
-#define _ZERO_PLUGIN_H_
+#ifndef _DEBUG_PLUGIN_H_
+#define _DEBUG_PLUGIN_H_
 
 #include "config.h"
 
@@ -29,23 +29,34 @@
 
 //***************************************************************************
 /**
- * @class ZeroPlugin
- * This is a very simple plugin that blanks the currently selected range of
- * samples with zeroes.
+ * @class DebugPlugin
+ * This plugin is intended to be used internally for debuggin and
+ * verification purposes.
  */
-class ZeroPlugin: public KwavePlugin
+class DebugPlugin: public KwavePlugin
 {
     Q_OBJECT
 
 public:
 
     /** Constructor */
-    ZeroPlugin(const PluginContext &c);
+    DebugPlugin(const PluginContext &c);
 
     /** Destructor */
-    virtual ~ZeroPlugin();
+    virtual ~DebugPlugin();
 
-    /** Fills the selected area with zeroes */
+    /**
+     * This plugin needs to be persistent!
+     * @see KwavePlugin::isPersistent()
+     */
+    virtual bool isPersistent() { return true; };
+
+    virtual bool isUnique() { return false; };
+
+    /** @see KwavePlugin::load() */
+    virtual void load(QStringList &params);
+
+    /** performs the special function */
     virtual void run(QStringList);
 
     /**
@@ -58,12 +69,11 @@ private:
     /** flag for stopping the process */
     bool m_stop;
 
-    /** use an array with zeroes for faster filling */
-    Kwave::SampleArray m_zeroes;
-
+    /** use an intermediate buffer for faster filling */
+    Kwave::SampleArray m_buffer;
 };
 
-#endif /* _ZERO_PLUGIN_H_ */
+#endif /* _DEBUG_PLUGIN_H_ */
 
 //***************************************************************************
 //***************************************************************************

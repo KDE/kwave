@@ -37,9 +37,14 @@ KWAVE_PLUGIN(ZeroPlugin,"zero","Thomas Eschenbacher");
 
 //***************************************************************************
 ZeroPlugin::ZeroPlugin(const PluginContext &context)
-    :KwavePlugin(context), m_stop(false)
+    :KwavePlugin(context), m_stop(false), m_zeroes()
 {
      i18n("zero");
+}
+
+//***************************************************************************
+ZeroPlugin::~ZeroPlugin()
+{
 }
 
 //***************************************************************************
@@ -58,7 +63,7 @@ void ZeroPlugin::run(QStringList params)
      * -> usage: zero(<mode>, <range>)
      */
     if (params.count() == 2) {
-	// get the current selection start
+	// get the current selection
 	selection(&first, &last, false);
 
 	// mode for the time (like in selectrange plugin)
@@ -125,7 +130,7 @@ void ZeroPlugin::run(QStringList params)
 
 	// loop over all writers
 	unsigned int w;
-	for (w=0; w < count; w++) {
+	for (w = 0; w < count; w++) {
 	    *((*writers)[w]) << m_zeroes;
 	}
 

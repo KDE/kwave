@@ -33,7 +33,9 @@
  * bugfix: MultiTrackWriter produced one extra sample (off by on error)
  * workaround for bug in libaudiofile: sometimes libaudiofile produces
    broken files as it uses 'float' for internal calculations (wrong size
-   of 'data' and 'RIFF' chunk)
+   of 'data' and 'RIFF' chunk) => see ubuntu bug #327018
+ * implemented "debug" plugin, with internal functions for test and
+   verification (quality improvement)
 
 0.8.1  [2008-12-23]
 

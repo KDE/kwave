@@ -62,7 +62,7 @@ IF (WITH_MP3)
 
         You can download id3lib from http://id3lib.sourceforge.net/
         and fetch the latest version from there. If you download the
-        rpm package, please don't forget to fetch id3tag-devel too,
+        rpm package, please don't forget to fetch id3lib-devel too,
         it is needed for compiling Kwave!
 
         Note: at least version 3.8.1 is needed.

@@ -20,7 +20,7 @@
   </general>
   <kdevcustomproject>
     <run>
-      <mainprogram>/usr/src/packages/multimedia/sound/kwave</mainprogram>
+      <mainprogram/>
       <programargs/>
       <terminal>false</terminal>
       <envvars>
@@ -30,7 +30,7 @@
       <customdirectory>/</customdirectory>
       <autocompile>true</autocompile>
       <globaldebugarguments/>
-      <globalcwd>/usr/src/packages/multimedia/sound/kwave</globalcwd>
+      <globalcwd/>
       <useglobalprogram>false</useglobalprogram>
       <autoinstall>false</autoinstall>
       <autokdesu>false</autokdesu>
@@ -207,11 +207,11 @@
     <qt>
       <used>true</used>
       <version>3</version>
-      <root>/usr/qt/3</root>
+      <root>/usr/share/qt3</root>
       <includestyle>3</includestyle>
       <designerintegration>EmbeddedKDevDesigner</designerintegration>
-      <qmake>/usr/qt/3/bin/qmake</qmake>
-      <designer>/usr/qt/3/bin/designer</designer>
+      <qmake>/usr/bin/qmake</qmake>
+      <designer></designer>
       <designerpluginpaths/>
     </qt>
     <splitheadersource>
@@ -236,7 +236,7 @@
   </kdevdocumentation>
   <ctagspart>
     <customArguments/>
-    <customTagfilePath>/usr/src/packages/multimedia/sound/kwave/tags</customTagfilePath>
+    <customTagfilePath>/home/the/src/kwave/tags</customTagfilePath>
     <activeTagsFiles/>
   </ctagspart>
 </kdevelop>

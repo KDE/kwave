@@ -21,8 +21,9 @@
 PROJECT(kwave)
 
 SET(KWAVE_LINGUAS
-    en:English
+    cs:čeština
     de:Deutsch
+    en:English
     fr:Francais
     # <- add new languages here...
 )

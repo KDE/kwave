@@ -36,6 +36,7 @@
    of 'data' and 'RIFF' chunk) => see ubuntu bug #327018
  * implemented "debug" plugin, with internal functions for test and
    verification (quality improvement)
+ * added czech gui translation from Pavel Fric <pavelfric@seznam.cz>
 
 0.8.1  [2008-12-23]
 

@@ -49,7 +49,6 @@ doc/de/kwave-record.png
 doc/de/kwave-sonagram-setup.png
 doc/de/kwave-sonagram.png
 doc/de/kwave-volume.png
-doc/de/screenshot1.png
 doc/en
 doc/en/audio-1.png
 doc/en/audio2signal.png
@@ -72,7 +71,6 @@ doc/en/nonlinear.png
 doc/en/record_new.png
 doc/en/record_pause.png
 doc/en/record_stop.png
-doc/en/screenshot1.png
 doc/en/signal2digital.png
 doc/en/signed.png
 doc/en/sinus2samples.png
@@ -92,7 +90,6 @@ doc/fr/kwave-record.png
 doc/fr/kwave-sonagram-setup.png
 doc/fr/kwave-sonagram.png
 doc/fr/kwave-volume.png
-doc/fr/screenshot1.png
 doc/help_de.po
 doc/help_en.docbook
 doc/help_fr.po
@@ -139,15 +136,6 @@ kwave/toolbar/zoomin.xpm
 kwave/toolbar/zoomnormal.xpm
 kwave/toolbar/zoomout.xpm
 kwave/toolbar/zoomrange.xpm
-libaudiofile/ACKNOWLEDGEMENTS
-libaudiofile/AUTHORS
-libaudiofile/COPYING
-libaudiofile/COPYING.GPL
-libaudiofile/NEWS
-libaudiofile/NOTES
-libaudiofile/README
-libaudiofile/TODO
-libaudiofile/modules/rebuffer.template
 libgui
 libgui/CMakeLists.txt
 libgui/ConfirmCancelProxy.cpp

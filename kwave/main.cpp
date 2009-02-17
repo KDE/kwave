@@ -37,21 +37,21 @@ void addDataStrings(KAboutData& aboutdata)
 {
     //Developers
     aboutdata.addAuthor(ki18n("Thomas Eschenbacher"),
-                    ki18n("project leader since 2000, core development"),
-                    "Thomas.Eschenbacher@gmx.de",
-                    0);
+                     ki18n("project leader since 2000, core development"),
+                     "Thomas.Eschenbacher@gmx.de",
+                     0);
     aboutdata.addAuthor(ki18n("Martin Wilz"),
-                    ki18n("creator of the project, development 1998-2000"),
-                    "martin@wilz.de",
-                    "http://www.wilz.de");
+                     ki18n("creator of the project, development 1998-2000"),
+                     "martin@wilz.de",
+                     "http://www.wilz.de");
     aboutdata.addAuthor(ki18n("Ralf Waspe"),
-                    ki18n("creator of the Help/About dialog"),
-                    "rwaspe@web.de",
-                    0);
+                     ki18n("creator of the Help/About dialog"),
+                     "rwaspe@web.de",
+                     0);
     aboutdata.addAuthor(ki18n("Caulier Gilles"),
-	        ki18n("french translations, splashscreen, tests and bugfixes"),
-                      "caulier.gilles@free.fr",
-                      "http://caulier.gilles.free.fr");
+                     ki18n("french translations, splashscreen, tests and bugfixes"),
+                     "caulier.gilles@free.fr",
+                     "http://caulier.gilles.free.fr");
     aboutdata.addAuthor(ki18n("Dave Flogeras"),
                      ki18n("notch filter plugin"),
                      "d.flogeras@unb.ca",
@@ -61,11 +61,17 @@ void addDataStrings(KAboutData& aboutdata)
                      "rik@kde.org",
                      "http://rikkus.info/esoundlevelmeter.html");
 
+    // translators
+    aboutdata.addAuthor(ki18n("Pavel Fric"),
+                     ki18n("czech translation"),
+                     "pavelfric@seznam.cz",
+                     0);
+
     // people who helped
     aboutdata.addCredit(ki18n("Stefan Westerfeld"),
-		     ki18n("author of aRts"),
-		     "stefan@space.twc.de",
-		     0);
+                     ki18n("author of aRts"),
+                     "stefan@space.twc.de",
+                     0);
     aboutdata.addCredit(ki18n("Sven-Steffen Arndt"),
                      ki18n("Kwave homepage and german online help"),
                      "ssa29@gmx.de",

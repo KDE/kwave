@@ -43,8 +43,6 @@ ClipBoard &ClipBoard::instance()
 //***************************************************************************
 ClipBoard::ClipBoard()
 {
-    connect(QApplication::clipboard(), SIGNAL(changed(QClipboard::Mode)),
-            this, SLOT(slotChanged(QClipboard::Mode)));
 }
 
 //***************************************************************************

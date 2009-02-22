@@ -98,7 +98,7 @@ signals:
      */
     void clipboardChanged(bool data_available);
 
-private slots:
+public slots:
 
     /**
      * emits clipboardChanged() whenever the clipboard has changed

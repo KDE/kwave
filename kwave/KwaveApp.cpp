@@ -26,6 +26,7 @@
 #include <kconfiggroup.h>
 #include <ktoolinvocation.h>
 
+#include "libkwave/ClipBoard.h"
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/MemoryManager.h"
 #include "libkwave/Parser.h"
@@ -41,6 +42,10 @@ KwaveApp::KwaveApp()
     m_topwidget_list()
 {
     qRegisterMetaType<Kwave::SampleArray>("Kwave::SampleArray");
+
+    // connect the clipboard
+    connect(QApplication::clipboard(), SIGNAL(changed(QClipboard::Mode)),
+	    &(ClipBoard::instance()), SLOT(slotChanged(QClipboard::Mode)));
 }
 
 //***************************************************************************

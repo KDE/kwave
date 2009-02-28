@@ -704,7 +704,6 @@ int TopWidget::parseCommands(QTextStream &stream)
 int TopWidget::revert()
 {
     KUrl url(signalName());
-    Q_ASSERT(url.isValid());
     if (!url.isValid()) return -EINVAL;
 
     return loadFile(url);
@@ -758,7 +757,6 @@ int TopWidget::loadFile(const KUrl &url)
     if (!m_main_widget) return -1;
 
     // abort if new file not valid and local
-    Q_ASSERT(url.isLocalFile());
     if (!url.isLocalFile()) return -1;
 
     // try to close the previous file
@@ -769,6 +767,9 @@ int TopWidget::loadFile(const KUrl &url)
     if (!m_main_widget->loadFile(url)) {
 	// succeeded
 	updateCaption();
+
+	// enable revert after successful load
+	m_menu_manager->setItemEnabled("ID_FILE_REVERT", true);
     } else {
 	// load failed
 	closeFile();
@@ -820,6 +821,9 @@ int TopWidget::saveFile()
 
     updateCaption();
     updateMenu();
+
+    // enable "revert" after successful "save"
+    if (!res) m_menu_manager->setItemEnabled("ID_FILE_REVERT", true);
 
     return res;
 }
@@ -910,6 +914,12 @@ int TopWidget::saveFileAs(bool selection)
     updateCaption();
     m_app.addRecentFile(signalName());
     updateMenu();
+
+    if (!res && !selection) {
+	// enable "revert" after successful "save as"
+	// of the whole file (not only selection)
+	m_menu_manager->setItemEnabled("ID_FILE_REVERT", true);
+    }
 
     return res;
 }
@@ -1068,6 +1078,11 @@ void TopWidget::setTrackInfo(unsigned int tracks)
     // enable/disable all items that depend on having a signal
     bool have_signal = (tracks != 0);
     m_menu_manager->setItemEnabled("@SIGNAL", have_signal);
+
+    // revert is not possible if no signal at all is present
+    if (!have_signal)
+	m_menu_manager->setItemEnabled("ID_FILE_REVERT", false);
+
 }
 
 //***************************************************************************

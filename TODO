@@ -1,6 +1,4 @@
 
-o bug: after creating a new empty file, "revert" is possible
-
 o get rid of libaudiofile, it is too buggy, has too few features and
   is no longer actively maintained -> find an alternative
 
@@ -15,8 +13,7 @@ o debug aid: new plugin for adding a new track with test/debug info:
   - test pattern: stripe borders
   - generate labels at stripe borders
 
-o porting to Qt4 / KDE4
-  - use svg graphics instead of pixmaps
+o use svg graphics instead of pixmaps
 
 o find a way to use KDE::ThreadWeaver for signal processing
   but still use signals/slots

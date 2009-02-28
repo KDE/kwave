@@ -37,6 +37,7 @@
  * implemented "debug" plugin, with internal functions for test and
    verification (quality improvement)
  * added czech gui translation from Pavel Fric <pavelfric@seznam.cz>
+ * bugfix: after creating a new empty file, "revert" was possible
 
 0.8.1  [2008-12-23]
 

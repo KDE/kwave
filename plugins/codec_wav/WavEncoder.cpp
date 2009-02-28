@@ -107,7 +107,7 @@ void WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst, FileInfo &info,
 
     qWarning("WARNING: libaudiofile wrote a wrong 'data' chunk size!");
     qWarning("         current=%u, correct=%u", data_size, correct_size);
- 
+
     // write the fixed size of the "data" chunk
     dst.seek(40);
     data_size = CPU_TO_LE32(correct_size);
@@ -467,7 +467,6 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	// --> this would leave a corrupted file !!!
 	if (src.isCanceled()) break;
     }
-    Q_ASSERT(!rest);
 
     // close the audiofile stuff, we need control over the
     // fixed-up file on our own

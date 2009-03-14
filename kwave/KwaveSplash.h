@@ -43,6 +43,11 @@ public:
     /** wrapper for QSplashScreen::showMessage with only one parameter */
     static void showMessage(const QString &message);
 
+private slots:
+
+    /** called when the splashscreen timer elapsed */
+    void done();
+
 private:
 
     /** pixmap with the Kwave logo */

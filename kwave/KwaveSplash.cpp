@@ -89,7 +89,14 @@ KwaveSplash::KwaveSplash(const QString &PNGImageFileName)
     setPixmap(m_pixmap);
 
     // auto-close in 4 seconds...
-    QTimer::singleShot(4000, this, SLOT(deleteLater()));
+    QTimer::singleShot(4000, this, SLOT(done()));
+}
+
+//***************************************************************************
+void KwaveSplash::done()
+{
+    m_splash = 0;
+    close();
 }
 
 //***************************************************************************

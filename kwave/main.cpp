@@ -161,10 +161,8 @@ int main( int argc, char **argv )
 #endif // UNIQUE_APP
 
     KwaveApp app;
-
-    static KwaveSplash *splash = new KwaveSplash("pics/kwave-splash.png");
-    Q_ASSERT(splash);
-    if (splash) splash->show();
+    KwaveSplash splash("pics/kwave-splash.png");
+    splash.show();
 
     return app.exec();
 }

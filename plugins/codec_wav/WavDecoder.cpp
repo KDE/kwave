@@ -542,6 +542,14 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 
 //     info().dump();
 
+    // allocate an array of SampleWriters, for speeding up
+    QVector<SampleWriter *>writers;
+    for (unsigned int t = 0; t < dst.tracks(); t++)
+	writers.append(dst[t]);
+    Q_ASSERT(writers.count() == static_cast<int>(dst.tracks()));
+    if (writers.count() != static_cast<int>(dst.tracks())) return false;
+    SampleWriter **writer_fast = writers.data();
+
     unsigned int frame_size = static_cast<unsigned int>(
 	afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
 
@@ -580,7 +588,7 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 
 		// the following cast is only necessary if
 		// sample_t is not equal to a u_int32_t
-		*(dst[track]) << static_cast<sample_t>(s);
+		*(writer_fast[track]) << static_cast<sample_t>(s);
 	    }
 	}
 

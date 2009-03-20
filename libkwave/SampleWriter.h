@@ -171,6 +171,9 @@ private:
     /** intermediate buffer for the input data */
     Kwave::SampleArray m_buffer;
 
+    /** for speedup: cached buffer size */
+    unsigned int m_buffer_size;
+
     /** number of used elements in the buffer */
     unsigned int m_buffer_used;
 

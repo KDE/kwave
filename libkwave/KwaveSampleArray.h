@@ -50,10 +50,20 @@ namespace Kwave {
 	virtual ~SampleArray();
 
 	/** returns a const pointer to the raw data (non-mutable) */
-	const sample_t * data() const;
+	inline const sample_t * data() const
+	{
+	    if (!m_storage) return 0;
+	    if (m_storage->m_raw_data) return m_storage->m_raw_data;
+	    return m_storage->m_data;
+	}
 
 	/** returns a pointer to the raw data (mutable) */
-	sample_t *data();
+	inline sample_t *data()
+	{
+	    if (!m_storage) return 0;
+	    return (!m_storage->m_raw_data) ?
+		m_storage->m_data : m_storage->m_raw_data;
+	}
 
 	/**
 	 * Sets a pointer to some raw data

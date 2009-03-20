@@ -41,22 +41,6 @@ Kwave::SampleArray::~SampleArray()
 }
 
 //***************************************************************************
-const sample_t *Kwave::SampleArray::data() const
-{
-    if (!m_storage) return 0;
-    if (m_storage->m_raw_data) return m_storage->m_raw_data;
-    return m_storage->m_data;
-}
-
-//***************************************************************************
-sample_t *Kwave::SampleArray::data()
-{
-    if (!m_storage) return 0;
-    if (m_storage->m_raw_data) return m_storage->m_raw_data;
-    return m_storage->m_data;
-}
-
-//***************************************************************************
 void Kwave::SampleArray::setRawData(sample_t *data, unsigned int size)
 {
     if (!m_storage) return;
@@ -92,22 +76,16 @@ void Kwave::SampleArray::fill(sample_t value)
 sample_t & Kwave::SampleArray::operator [] (unsigned int index)
 {
     static sample_t dummy;
-
-    if (!m_storage) return dummy;
-    if (!m_storage->m_data && !m_storage->m_raw_data) return dummy;
     sample_t *p = data();
-    return *(p + index);
+    return (p) ? (*(p + index)) : dummy;
 }
 
 //***************************************************************************
 const sample_t & Kwave::SampleArray::operator [] (unsigned int index) const
 {
-    static sample_t dummy;
-
-    if (!m_storage) return dummy;
-    if (!m_storage->m_data && !m_storage->m_raw_data) return dummy;
+    static const sample_t dummy = 0;
     const sample_t *p = data();
-    return *(p + index);
+    return (p) ? (*(p + index)) : dummy;
 }
 
 //***************************************************************************

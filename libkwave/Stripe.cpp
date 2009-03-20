@@ -455,8 +455,9 @@ void Stripe::minMax(unsigned int first, unsigned int last,
     Q_ASSERT(first < m_length);
     Q_ASSERT(first <= last);
     Q_ASSERT(last < m_length);
-    while (first <= last) {
-	register sample_t s = buffer[first++];
+    buffer += first;
+    while (first++ <= last) {
+	register sample_t s = *(buffer++);
 	if (s < lo) lo = s;
 	if (s > hi) hi = s;
     }

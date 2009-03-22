@@ -20,6 +20,10 @@
 
 #include "config.h"
 
+#include <QMutex>
+#include <QQueue>
+#include <QSemaphore>
+
 #include <kdemacros.h>
 
 #include "libkwave/KwaveSampleArray.h"
@@ -63,20 +67,26 @@ namespace Kwave {
 
 	private:
 
-	    /** buffer for input A */
-	    Kwave::SampleArray m_buffer_a;
+	    /** queue for input A */
+	    QQueue<Kwave::SampleArray> m_queue_a;
 
-	    /** buffer for input B */
-	    Kwave::SampleArray m_buffer_b;
+	    /** queue for input B */
+	    QQueue<Kwave::SampleArray> m_queue_b;
+
+	    /** semaphore to wait for input on input A */
+	    QSemaphore m_sem_a;
+
+	    /** semaphore to wait for input on input B */
+	    QSemaphore m_sem_b;
+
+	    /** buffer for input A (currently in work) */
+	    Kwave::SampleArray m_a;
+
+	    /** buffer for input B (currently in work) */
+	    Kwave::SampleArray m_b;
 
 	    /** buffer for output data */
 	    Kwave::SampleArray m_buffer_x;
-
-	    /** number of calls to input_a */
-	    unsigned int m_count_a;
-
-	    /** number of calls to input_b */
-	    unsigned int m_count_b;
 
 	    /** if true, input A is a constant */
 	    bool m_a_is_const;
@@ -90,6 +100,8 @@ namespace Kwave {
 	    /** if m_b_is_const is set, the value of B */
 	    float m_value_b;
 
+	    /** mutex for locking access to the queues */
+	    QMutex m_lock;
     };
 }
 

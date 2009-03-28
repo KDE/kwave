@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <QObject>
+#include <QTime>
 
 #include <kdemacros.h>
 
@@ -176,6 +177,9 @@ private:
 
     /** number of used elements in the buffer */
     unsigned int m_buffer_used;
+
+    /** timer for limiting the number of progress signals per second */
+    QTime m_progress_time;
 
 };
 

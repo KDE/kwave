@@ -38,6 +38,8 @@
    verification (quality improvement)
  * added czech gui translation from Pavel Fric <pavelfric@seznam.cz>
  * bugfix: after creating a new empty file, "revert" was possible
+ * speed optimizations in buffer handling
+ * limiting the rate of progress updates when loading files (speedup)
 
 0.8.1  [2008-12-23]
 

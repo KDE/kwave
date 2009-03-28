@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <QApplication>
+
 #include "libkwave/memcpy.h"
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
@@ -28,15 +30,20 @@
 /** size of m_buffer in samples */
 #define BUFFER_SIZE (256*1024)
 
+/** minimum time between emitting the "progress()" signal [ms] */
+#define MIN_PROGRESS_INTERVAL 500
+
 //***************************************************************************
 SampleWriter::SampleWriter(Track &track, InsertMode mode,
     unsigned int left, unsigned int right)
     :Kwave::SampleSink(),
      m_first(left), m_last(right), m_mode(mode), m_track(track),
      m_position(left),
-     m_buffer(BUFFER_SIZE), m_buffer_size(BUFFER_SIZE), m_buffer_used(0)
+     m_buffer(BUFFER_SIZE), m_buffer_size(BUFFER_SIZE), m_buffer_used(0),
+     m_progress_time()
 {
     m_track.use();
+    m_progress_time.start();
 }
 
 //***************************************************************************
@@ -132,7 +139,11 @@ bool SampleWriter::flush(const Kwave::SampleArray &buffer,
     count = 0;
 
     // inform others that we proceeded
-    emit proceeded();
+    if (m_progress_time.elapsed() > MIN_PROGRESS_INTERVAL) {
+	m_progress_time.restart();
+	emit proceeded();
+	QApplication::sendPostedEvents();
+    }
 
     return true;
 }

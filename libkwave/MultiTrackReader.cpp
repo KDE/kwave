@@ -111,7 +111,11 @@ void MultiTrackReader::reset()
 bool MultiTrackReader::insert(unsigned int track, SampleReader *reader)
 {
     if (reader) {
-        connect(reader, SIGNAL(proceeded()), this, SLOT(proceeded()));
+        connect(
+	    reader, SIGNAL(proceeded()),
+	    this, SLOT(proceeded()),
+	    Qt::QueuedConnection
+	);
     }
     return Kwave::MultiTrackSource<SampleReader, false>::insert(
         track, reader);

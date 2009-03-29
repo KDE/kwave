@@ -20,7 +20,9 @@
 #define _SAMPLE_READER_H_
 
 #include "config.h"
+
 #include <QObject>
+#include <QTime>
 
 #include <kdemacros.h>
 
@@ -173,6 +175,9 @@ private:
 
     /** read position within the buffer */
     unsigned int m_buffer_position;
+
+    /** timer for limiting the number of progress signals per second */
+    QTime m_progress_time;
 
 };
 

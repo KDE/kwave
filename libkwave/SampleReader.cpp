@@ -18,6 +18,8 @@
 
 #include "config.h"
 
+#include <QApplication>
+
 #include "libkwave/memcpy.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
@@ -29,15 +31,20 @@
 // define this for using only slow Qt array functions
 // #define STRICTLY_QT
 
+/** minimum time between emitting the "progress()" signal [ms] */
+#define MIN_PROGRESS_INTERVAL 500
+
 //***************************************************************************
 SampleReader::SampleReader(Track &track,
                            unsigned int left, unsigned int right)
     :m_track(track),
-    m_src_position(left), m_first(left), m_last(right),
-    m_buffer(blockSize()),
-    m_buffer_used(0), m_buffer_position(0)
+     m_src_position(left), m_first(left), m_last(right),
+     m_buffer(blockSize()),
+     m_buffer_used(0), m_buffer_position(0),
+     m_progress_time()
 {
     m_track.use();
+    m_progress_time.start();
 }
 
 //***************************************************************************
@@ -88,7 +95,12 @@ void SampleReader::fillBuffer()
     m_src_position += len;
     rest           -= len;
 
-    emit proceeded();
+    // inform others that we proceeded
+    if (m_progress_time.elapsed() > MIN_PROGRESS_INTERVAL) {
+	m_progress_time.restart();
+	emit proceeded();
+	QApplication::sendPostedEvents();
+    }
 }
 
 //***************************************************************************
@@ -156,7 +168,12 @@ unsigned int SampleReader::read(Kwave::SampleArray &buffer,
     m_src_position += len;
     count += len;
 
-    emit proceeded();
+    // inform others that we proceeded
+    if (m_progress_time.elapsed() > MIN_PROGRESS_INTERVAL) {
+	m_progress_time.restart();
+	emit proceeded();
+	QApplication::sendPostedEvents();
+    }
     return count;
 }
 

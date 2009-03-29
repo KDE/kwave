@@ -198,7 +198,11 @@ MultiTrackWriter &MultiTrackWriter::operator << (MultiTrackReader &source)
 bool MultiTrackWriter::insert(unsigned int track, SampleWriter *writer)
 {
     if (writer) {
-        connect(writer, SIGNAL(proceeded()), this, SLOT(proceeded()));
+        connect(
+	    writer, SIGNAL(proceeded()),
+	    this, SLOT(proceeded()),
+	    Qt::QueuedConnection
+	);
     }
     return Kwave::MultiTrackSink<SampleWriter>::insert(track, writer);
 }
@@ -208,7 +212,8 @@ void MultiTrackWriter::proceeded()
 {
     unsigned int pos = 0;
     unsigned int track;
-    for (track = 0; track < tracks(); ++track) {
+    const unsigned int tracks = this->tracks();
+    for (track = 0; track < tracks; ++track) {
 	SampleWriter *w = at(track);
 	if (w) pos += (w->position() - w->first());
     }

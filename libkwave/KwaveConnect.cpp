@@ -45,8 +45,6 @@ namespace Kwave {
 	unsigned int src_tracks = source.tracks();
 	unsigned int dst_tracks = sink.tracks();
 
-	Q_ASSERT(src_tracks);
-	Q_ASSERT(dst_tracks);
 	if (!src_tracks || !dst_tracks)
 	    return false;
 

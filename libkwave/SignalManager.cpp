@@ -387,7 +387,8 @@ int SignalManager::save(const KUrl &url, bool selection)
 	    m_file_info.tracks());
 	Q_ASSERT(dialog);
 	QObject::connect(&src,   SIGNAL(progress(unsigned int)),
-	                 dialog, SLOT(setValue(unsigned int)));
+	                 dialog, SLOT(setValue(unsigned int)),
+	                 Qt::QueuedConnection);
 	QObject::connect(dialog, SIGNAL(canceled()),
 	                 &src,   SLOT(cancel()));
 

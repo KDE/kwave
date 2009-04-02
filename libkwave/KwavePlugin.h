@@ -319,7 +319,9 @@ public slots:
     /** decrements the usage counter */
     void release();
 
-private:
+protected:
+
+    friend class Kwave::PluginWorkerThread;
 
     /** Wrapper for run() that contains a call to release() */
     void run_wrapper(QStringList params);

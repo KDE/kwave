@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <sched.h>
+
 #include <threadweaver/Job.h>
 #include <threadweaver/ThreadWeaver.h>
 
@@ -46,7 +48,7 @@ namespace Kwave {
 	virtual ~SourceJob();
 
 	/**
-	 * overloaded 'run' function that runns goOn in the context
+	 * overloaded 'run' function that runns goOn() in the context
 	 * of the worker thread.
 	 */
 	virtual void run();
@@ -55,6 +57,7 @@ namespace Kwave {
 
 	/** reference to the Kwave::SampleSource */
 	Kwave::SampleSource *m_source;
+
     };
 }
 
@@ -67,7 +70,12 @@ Kwave::SourceJob::SourceJob(Kwave::SampleSource *source)
 //***************************************************************************
 Kwave::SourceJob::~SourceJob()
 {
-//     Q_ASSERT(isFinished());
+    int i = 0;
+    while (!isFinished()) {
+	qDebug("job %p waiting... #%u", static_cast<void *>(this), i++);
+	sched_yield();
+    }
+    Q_ASSERT(isFinished());
 }
 
 //***************************************************************************
@@ -80,11 +88,13 @@ void Kwave::SourceJob::run()
 //***************************************************************************
 ThreadWeaver::Job *Kwave::SampleSource::enqueue(ThreadWeaver::Weaver *weaver)
 {
-    ThreadWeaver::Job *job = 0;
+    Kwave::SourceJob *job = 0;
 
+//     weaver=0;
     if (weaver) job = new Kwave::SourceJob(this);
 
     if (job && weaver) {
+	// async operation in a separate thread
 	weaver->enqueue(job);
     } else {
 	// fallback -> synchronous/sequential execution

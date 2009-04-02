@@ -61,10 +61,10 @@ namespace Kwave {
 
 	/**
 	 * Returns the block size used for producing data.
-	 * @return currently 32k [samples]
+	 * @return currently 256k [samples]
 	 */
 	virtual unsigned int blockSize() const {
-	    return 32*1024;
+	    return 256*1024;
 	}
 
 	/**

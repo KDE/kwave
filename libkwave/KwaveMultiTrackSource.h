@@ -24,6 +24,7 @@
 
 #include <threadweaver/Job.h>
 #include <threadweaver/ThreadWeaver.h>
+#include <threadweaver/DebuggingAids.h>
 
 #include "libkwave/KwaveSampleSource.h"
 
@@ -50,10 +51,12 @@ namespace Kwave {
 	MultiTrackSource(unsigned int tracks,
 	                 QObject *parent=0)
 	    :Kwave::SampleSource(parent),
-	     QVector<SOURCE *>(tracks)
+	     QVector<SOURCE *>(tracks),
+	     m_weaver()
         {
 	    Q_ASSERT(INITIALIZE || (tracks == 0));
 	    Q_ASSERT(QVector<SOURCE *>::size() == static_cast<int>(tracks));
+	    // if (tracks) m_weaver.setMaximumNumberOfThreads(tracks);
 	}
 
 	/** Destructor */
@@ -68,22 +71,21 @@ namespace Kwave {
 	 */
 	virtual void goOn()
 	{
-	    ThreadWeaver::Weaver *weaver = 0;//ThreadWeaver::Weaver::instance();
 	    QList<ThreadWeaver::Job *> joblist;
 
+	    m_weaver.suspend();
 	    foreach (SOURCE *src, static_cast< QVector<SOURCE *> >(*this)) {
 		if (!src) continue;
-		ThreadWeaver::Job *job = src->enqueue(weaver);
+		ThreadWeaver::Job *job = src->enqueue(&m_weaver);
 		if (job) joblist.append(job);
 	    }
+	    m_weaver.resume();
 
-	    if (weaver) {
-		weaver->finish();
-		Q_ASSERT(weaver->isEmpty());
+	    if (!joblist.isEmpty()) {
+		m_weaver.finish();
+		Q_ASSERT(m_weaver.isEmpty());
+		qDeleteAll(joblist);
 	    }
-
-	    qDeleteAll(joblist);
-	    joblist.clear();
 	}
 
 	/** Returns true when all sources are done */
@@ -138,6 +140,12 @@ namespace Kwave {
 	    }
 	    QVector<SOURCE *>::clear();
 	}
+
+    protected:
+
+	/** thread weaver, for processing multi track jobs in parallel */
+	ThreadWeaver::Weaver m_weaver;
+
     };
 
     /**

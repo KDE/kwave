@@ -129,7 +129,6 @@ void AmplifyFreePlugin::run(QStringList params)
     if (ok) ok = Kwave::connect(
 	mul,    SIGNAL(output(Kwave::SampleArray)),
 	sink,   SLOT(input(Kwave::SampleArray)));
-    Q_ASSERT(ok);
     if (!ok) {
 	close();
 	return;
@@ -140,7 +139,7 @@ void AmplifyFreePlugin::run(QStringList params)
     while (!m_stop && !source.done()) {
 	source.goOn();
 	curve.goOn();
-	mul.goOn();
+	/* mul.goOn(); */
     }
     qDebug("AmplifyFreePlugin: filter done.");
 

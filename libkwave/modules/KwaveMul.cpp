@@ -45,6 +45,11 @@ Kwave::Mul::~Mul()
 /***************************************************************************/
 void Kwave::Mul::goOn()
 {
+}
+
+/***************************************************************************/
+void Kwave::Mul::multiply()
+{
     unsigned int count = blockSize();
     float a = 0;
     float b = 0;
@@ -121,21 +126,27 @@ void Kwave::Mul::goOn()
 /***************************************************************************/
 void Kwave::Mul::input_a(Kwave::SampleArray data)
 {
-    QMutexLocker lock(&m_lock);
+    {
+	QMutexLocker lock(&m_lock);
 
-    m_queue_a.enqueue(data);
-    m_sem_a.release();
-    m_a_is_const = false;
+	m_queue_a.enqueue(data);
+	m_sem_a.release();
+	m_a_is_const = false;
+    }
+    if (m_b_is_const || !m_queue_b.isEmpty()) multiply();
 }
 
 /***************************************************************************/
 void Kwave::Mul::input_b(Kwave::SampleArray data)
 {
-    QMutexLocker lock(&m_lock);
+    {
+	QMutexLocker lock(&m_lock);
 
-    m_queue_b.enqueue(data);
-    m_sem_b.release();
-    m_b_is_const = false;
+	m_queue_b.enqueue(data);
+	m_sem_b.release();
+	m_b_is_const = false;
+    }
+    if (m_a_is_const || !m_queue_a.isEmpty()) multiply();
 }
 
 /***************************************************************************/

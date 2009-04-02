@@ -44,7 +44,7 @@ namespace Kwave {
 	    /** Destructor */
 	    virtual ~Mul();
 
-	    /** does the calculation */
+	    /** does nothing, work is done automatically in multiply() */
 	    virtual void goOn();
 
 	signals:
@@ -64,6 +64,11 @@ namespace Kwave {
 
 	    /** sets input B to a constant value (as float) */
 	    void set_b(const QVariant &b);
+
+	private:
+
+	    /** does the calculation */
+	    virtual void multiply();
 
 	private:
 

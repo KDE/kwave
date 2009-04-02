@@ -23,8 +23,9 @@
 #include <dlfcn.h>
 #include <sched.h>
 
-#include <QWidget>
+#include <QTime>
 #include <QVector>
+#include <QWidget>
 
 #include <kapplication.h>
 #include <kglobal.h>
@@ -205,8 +206,17 @@ void KwavePlugin::run_wrapper(QStringList params)
     // signal that we are running
     emit sigRunning(this);
 
+    // start time measurement
+    QTime t;
+    t.start();
+
     // call the plugin's run function in this worker thread context
     run(params);
+
+    // evaluate the elapsed time
+    double seconds = static_cast<double>(t.elapsed()) * 1E-3;
+    qDebug("plugin %s done, running for %0.03g seconds",
+	name().toLocal8Bit().data(), seconds);
 
     // emit the "done" signal
     emit sigDone(this);

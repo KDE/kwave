@@ -149,7 +149,7 @@ void Kwave::PluginWorkerThread::run()
     }
 
     /* call the plugin's run(...) function */
-    m_plugin->run(m_params);
+    m_plugin->run_wrapper(m_params);
 
     /* uninstall the SIGHUP handler and forbid sending SIGHUP */
     {

@@ -37,7 +37,7 @@ class StripeInfoPrivate;
 /**
  * plugin that shows a sonagram window
  */
-class SonagramPlugin: public KwavePlugin
+class SonagramPlugin: public Kwave::Plugin
 {
     Q_OBJECT
 public:
@@ -47,19 +47,19 @@ public:
     /** Destructor */
     virtual ~SonagramPlugin();
 
-    /** @see KwavePlugin::setup() */
+    /** @see Kwave::Plugin::setup() */
     virtual QStringList *setup(QStringList &previous_params);
 
-    /** @see KwavePlugin::start() */
+    /** @see Kwave::Plugin::start() */
     virtual int start(QStringList &params);
 
-    /** @see KwavePlugin::stop() */
+    /** @see Kwave::Plugin::stop() */
     virtual int stop();
 
     /**
      * Runns once until all stripes of the sonagram are
      * calculated.
-     * @see KwavePlugin::run()
+     * @see Kwave::Plugin::run()
      */
     virtual void run(QStringList params);
 

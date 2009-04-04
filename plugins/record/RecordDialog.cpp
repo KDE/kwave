@@ -1127,9 +1127,9 @@ void RecordDialog::updateBufferState(unsigned int count, unsigned int total)
 		double ms = (rate) ?
 		    ((static_cast<double>(m_samples_recorded) / rate) * 1E3)
 		    : 0;
-		txt = " " + i18n("Length: %1", KwavePlugin::ms2string(ms)) +
+		txt = " " + i18n("Length: %1", Kwave::Plugin::ms2string(ms)) +
 		    " " + i18n("(%1 samples)",
-		    KwavePlugin::dottedNumber(m_samples_recorded));
+		    Kwave::Plugin::dottedNumber(m_samples_recorded));
 	    } else txt = "";
 	    break;
 	}

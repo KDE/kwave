@@ -26,7 +26,7 @@
 #include "ui_SonagramDlg.h"
 
 class QStringList;
-class KwavePlugin;
+namespace Kwave { class Plugin; }
 
 //*****************************************************************************
 class SonagramDialog : public QDialog,
@@ -36,7 +36,7 @@ class SonagramDialog : public QDialog,
 
 public:
     /** Constructor */
-    SonagramDialog(KwavePlugin &p);
+    SonagramDialog(Kwave::Plugin &p);
 
     /** Destructor */
     virtual ~SonagramDialog();

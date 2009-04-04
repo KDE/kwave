@@ -38,7 +38,7 @@ KWAVE_PLUGIN(VolumePlugin,"volume","Thomas Eschenbacher");
 
 //***************************************************************************
 VolumePlugin::VolumePlugin(const PluginContext &context)
-    :KwavePlugin(context), m_params(), m_factor(1.0), m_mode(0),
+    :Kwave::Plugin(context), m_params(), m_factor(1.0), m_mode(0),
      m_stop(false)
 {
 }
@@ -145,7 +145,7 @@ void VolumePlugin::run(QStringList params)
 int VolumePlugin::stop()
 {
     m_stop = true;
-    return KwavePlugin::stop();
+    return Kwave::Plugin::stop();
 }
 
 //***************************************************************************

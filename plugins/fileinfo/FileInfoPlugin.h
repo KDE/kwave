@@ -22,7 +22,7 @@
 #include <QObject>
 #include "libkwave/KwavePlugin.h"
 
-class FileInfoPlugin: public KwavePlugin
+class FileInfoPlugin: public Kwave::Plugin
 {
     Q_OBJECT
 public:
@@ -35,7 +35,7 @@ public:
 
     /**
      * Shows a dialog for editing file properties.
-     * @see KwavePlugin::setup
+     * @see Kwave::Plugin::setup
      */
     virtual QStringList *setup(QStringList &);
 

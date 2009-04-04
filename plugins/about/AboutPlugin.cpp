@@ -26,7 +26,7 @@ KWAVE_PLUGIN(AboutPlugin,"about","Ralf Waspe & Gilles Caulier");
 
 //***************************************************************************
 AboutPlugin::AboutPlugin(const PluginContext &c)
-    :KwavePlugin(c)
+    :Kwave::Plugin(c)
 {
     i18n("about");
 }

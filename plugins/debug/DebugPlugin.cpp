@@ -34,7 +34,7 @@ KWAVE_PLUGIN(DebugPlugin,"debug","Thomas Eschenbacher");
 
 //***************************************************************************
 DebugPlugin::DebugPlugin(const PluginContext &context)
-    :KwavePlugin(context), m_stop(false), m_buffer()
+    :Kwave::Plugin(context), m_stop(false), m_buffer()
 {
      i18n("debug");
 }
@@ -135,7 +135,7 @@ void DebugPlugin::run(QStringList params)
 		if (v > SAMPLE_MAX) v = 0;
 	    }
 	}
-	
+
 	// loop over all writers
 	for (unsigned int w = 0; w < count; w++) {
 	    *((*writers)[w]) << m_buffer;
@@ -152,7 +152,7 @@ void DebugPlugin::run(QStringList params)
 int DebugPlugin::stop()
 {
     m_stop = true;
-    return KwavePlugin::stop();
+    return Kwave::Plugin::stop();
 }
 
 //***************************************************************************

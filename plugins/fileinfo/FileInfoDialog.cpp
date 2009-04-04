@@ -140,7 +140,7 @@ void FileInfoDialog::setupFileInfoTab()
     initInfo(lblFileSize, edFileSize, INF_FILESIZE);
     if (m_info.contains(INF_FILESIZE)) {
 	unsigned int size = QVariant(m_info.get(INF_FILESIZE)).toUInt();
-	QString dotted = KwavePlugin::dottedNumber(size);
+	QString dotted = Kwave::Plugin::dottedNumber(size);
 	if (size < 10*1024) {
 	    edFileSize->setText(i18n("%1 bytes", dotted));
 	} else if (size < 10*1024*1024) {
@@ -218,11 +218,11 @@ void FileInfoDialog::setupFileInfoTab()
     if (rate != 0) {
 	double ms = static_cast<double>(samples) * 1E3 / rate;
 	txtLength->setText(i18n("%1 (%2 samples)",
-	    KwavePlugin::ms2string(ms),
-	    KwavePlugin::dottedNumber(samples)));
+	    Kwave::Plugin::ms2string(ms),
+	    Kwave::Plugin::dottedNumber(samples)));
     } else {
 	txtLength->setText(i18n("%1 samples",
-	    KwavePlugin::dottedNumber(samples)));
+	    Kwave::Plugin::dottedNumber(samples)));
     }
 
     /* sample format */

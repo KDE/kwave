@@ -28,7 +28,7 @@
 
 #include <kdemacros.h>
 
-class KwavePlugin;
+namespace Kwave { class Plugin; }
 
 namespace Kwave {
 
@@ -38,7 +38,7 @@ namespace Kwave {
     public:
 
 	/** Constructor */
-	PluginWorkerThread(KwavePlugin *plugin, QStringList params);
+	PluginWorkerThread(Kwave::Plugin *plugin, QStringList params);
 
 	/** Destructor, calls stop() if the thread is still running. */
 	virtual ~PluginWorkerThread();
@@ -71,7 +71,7 @@ namespace Kwave {
     private:
 
 	/** pointer to the Kwave plugin that has a run() function */
-	KwavePlugin *m_plugin;
+	Kwave::Plugin *m_plugin;
 
 	/** parameter list passed to the m_plugin's run() function */
 	QStringList m_params;

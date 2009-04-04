@@ -27,7 +27,7 @@ KWAVE_PLUGIN(WavCodecPlugin,"codec_wav","Thomas Eschenbacher");
 
 /***************************************************************************/
 WavCodecPlugin::WavCodecPlugin(const PluginContext &c)
-    :KwavePlugin(c), m_decoder(0), m_encoder(0)
+    :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
 {
     i18n("codec_wav");
 }

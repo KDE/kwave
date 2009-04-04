@@ -25,7 +25,7 @@
 class QStringList;
 class PluginContext;
 
-class AboutPlugin: public KwavePlugin
+class AboutPlugin: public Kwave::Plugin
 {
     Q_OBJECT
 
@@ -39,7 +39,7 @@ public:
 
     /**
      * shows the about dialog,
-     * @see KwavePlugin::start()
+     * @see Kwave::Plugin::start()
      */
     virtual int start(QStringList &params);
 

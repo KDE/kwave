@@ -28,8 +28,6 @@
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/KwavePluginSetupDialog.h"
 
-class ConfirmCancelProxy;
-class QProgressDialog;
 class QStringList;
 class QWidget;
 
@@ -38,7 +36,7 @@ namespace Kwave {
     class SampleSource;
     class SampleSink;
 
-    class KDE_EXPORT FilterPlugin: public KwavePlugin
+    class KDE_EXPORT FilterPlugin: public Kwave::Plugin
     {
 	Q_OBJECT
     public:
@@ -66,14 +64,14 @@ namespace Kwave {
 
 	/**
 	* Shows a dialog for setting up the filter plugin
-	* @see KwavePlugin::setup
+	* @see Kwave::Plugin::setup
 	*/
 	virtual QStringList *setup(QStringList &previous_params);
 
 	/** Does the filter operation and/or pre-listen */
 	virtual void run(QStringList);
 
-	/** overloaded version of KwavePlugin::start */
+	/** overloaded version of Kwave::Plugin::start */
 	virtual int start(QStringList &params);
 
 	/** Aborts the process (if running). */

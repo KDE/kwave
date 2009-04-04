@@ -25,7 +25,7 @@
 
 class QString;
 class SignalManager;
-class KwavePlugin;
+namespace Kwave { class Plugin; }
 
 /**
  * @class UndoTransactionGuard
@@ -55,7 +55,7 @@ public:
      *        localized string. [optional] If you pass null or omit this
      *        parameter, the name of the plugin will be used instead.
      */
-    UndoTransactionGuard(KwavePlugin &plugin, const QString &name = 0);
+    UndoTransactionGuard(Kwave::Plugin &plugin, const QString &name = 0);
 
     /** Destructor. */
     virtual ~UndoTransactionGuard();

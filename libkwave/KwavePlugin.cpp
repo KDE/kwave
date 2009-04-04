@@ -1,5 +1,5 @@
 /***************************************************************************
-        KwavePlugin.cpp  -  New Interface for Kwave plugins
+        KwavePlugin.cpp  -  base class of all Kwave plugins
                              -------------------
     begin                : Thu Jul 27 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -64,7 +64,7 @@
  */
 
 //***************************************************************************
-KwavePlugin::KwavePlugin(const PluginContext &c)
+Kwave::Plugin::Plugin(const PluginContext &c)
     :m_context(c),
      m_thread(0),
      m_thread_lock(),
@@ -75,7 +75,7 @@ KwavePlugin::KwavePlugin(const PluginContext &c)
 }
 
 //***************************************************************************
-KwavePlugin::~KwavePlugin()
+Kwave::Plugin::~Plugin()
 {
     // inform our owner that we close. This allows the plugin to
     // delete itself
@@ -89,7 +89,7 @@ KwavePlugin::~KwavePlugin()
 	    if (m_thread->isRunning()) m_thread->wait(1000);
 	    if (m_thread->isRunning()) {
 		// unable to stop the thread
-		qWarning("KwavePlugin::stop(): stale thread !");
+		qWarning("Kwave::Plugin::stop(): stale thread !");
 	    }
 	    delete m_thread;
 	    m_thread = 0;
@@ -98,30 +98,30 @@ KwavePlugin::~KwavePlugin()
 }
 
 //***************************************************************************
-const QString &KwavePlugin::name()
+const QString &Kwave::Plugin::name()
 {
     return m_context.m_name;
 }
 
 //***************************************************************************
-const QString &KwavePlugin::version()
+const QString &Kwave::Plugin::version()
 {
     return m_context.m_version;
 }
 
 //***************************************************************************
-const QString &KwavePlugin::author()
+const QString &Kwave::Plugin::author()
 {
     return m_context.m_author;
 }
 
 //***************************************************************************
-void KwavePlugin::load(QStringList &)
+void Kwave::Plugin::load(QStringList &)
 {
 }
 
 //***************************************************************************
-QStringList *KwavePlugin::setup(QStringList &)
+QStringList *Kwave::Plugin::setup(QStringList &)
 {
     QStringList *result = new QStringList();
     Q_ASSERT(result);
@@ -129,18 +129,18 @@ QStringList *KwavePlugin::setup(QStringList &)
 }
 
 //***************************************************************************
-int KwavePlugin::start(QStringList &)
+int Kwave::Plugin::start(QStringList &)
 {
     QMutexLocker lock(&m_thread_lock);
     return 0;
 }
 
 //***************************************************************************
-int KwavePlugin::stop()
+int Kwave::Plugin::stop()
 {
     if (m_thread && m_thread->isRunning() &&
 	(QThread::currentThread() == m_thread)) {
-	qWarning("KwavePlugin::stop(): plugin '%s' called stop() from "\
+	qWarning("Kwave::Plugin::stop(): plugin '%s' called stop() from "\
 	         "within it's own worker thread (from run() ?). "\
 	         "This would produce a deadlock, dear %s, PLEASE FIX THIS !",
 	         name().toLocal8Bit().data(),
@@ -165,7 +165,7 @@ int KwavePlugin::stop()
 	    if (m_thread->isRunning()) m_thread->wait(1000);
 	    if (m_thread->isRunning()) {
 		// unable to stop the thread
-		qWarning("KwavePlugin::stop(): stale thread !");
+		qWarning("Kwave::Plugin::stop(): stale thread !");
 	    }
 	    delete m_thread;
 	    m_thread = 0;
@@ -175,7 +175,7 @@ int KwavePlugin::stop()
 }
 
 //***************************************************************************
-int KwavePlugin::execute(QStringList &params)
+int Kwave::Plugin::execute(QStringList &params)
 {
     QMutexLocker lock(&m_thread_lock);
 
@@ -190,18 +190,18 @@ int KwavePlugin::execute(QStringList &params)
 }
 
 //***************************************************************************
-bool KwavePlugin::isRunning()
+bool Kwave::Plugin::isRunning()
 {
     return (m_thread) && m_thread->isRunning();
 }
 
 //***************************************************************************
-void KwavePlugin::run(QStringList)
+void Kwave::Plugin::run(QStringList)
 {
 }
 
 //***************************************************************************
-void KwavePlugin::run_wrapper(QStringList params)
+void Kwave::Plugin::run_wrapper(QStringList params)
 {
     // signal that we are running
     emit sigRunning(this);
@@ -225,7 +225,7 @@ void KwavePlugin::run_wrapper(QStringList params)
 }
 
 //***************************************************************************
-void KwavePlugin::close()
+void Kwave::Plugin::close()
 {
     // only call stop() if we are NOT in the worker thread / run function !
     if (m_thread && m_thread->isRunning() &&
@@ -236,14 +236,14 @@ void KwavePlugin::close()
 }
 
 //***************************************************************************
-void KwavePlugin::use()
+void Kwave::Plugin::use()
 {
     QMutexLocker lock(&m_usage_lock);
     m_usage_count++;
 }
 
 //***************************************************************************
-void KwavePlugin::release()
+void Kwave::Plugin::release()
 {
     bool finished = false;
 
@@ -260,55 +260,55 @@ void KwavePlugin::release()
 }
 
 //***************************************************************************
-PluginManager &KwavePlugin::manager()
+PluginManager &Kwave::Plugin::manager()
 {
     return m_context.m_plugin_manager;
 }
 
 //***************************************************************************
-SignalManager &KwavePlugin::signalManager()
+SignalManager &Kwave::Plugin::signalManager()
 {
     return manager().signalManager();
 }
 
 //***************************************************************************
-QWidget *KwavePlugin::parentWidget()
+QWidget *Kwave::Plugin::parentWidget()
 {
     return manager().parentWidget();
 }
 
 //***************************************************************************
-FileInfo &KwavePlugin::fileInfo()
+FileInfo &Kwave::Plugin::fileInfo()
 {
     return manager().fileInfo();
 }
 
 //***************************************************************************
-QString KwavePlugin::signalName()
+QString Kwave::Plugin::signalName()
 {
     return signalManager().signalName();
 }
 
 //***************************************************************************
-unsigned int KwavePlugin::signalLength()
+unsigned int Kwave::Plugin::signalLength()
 {
     return manager().signalLength();
 }
 
 //***************************************************************************
-qreal KwavePlugin::signalRate()
+qreal Kwave::Plugin::signalRate()
 {
     return manager().signalRate();
 }
 
 //***************************************************************************
-const QList<unsigned int> KwavePlugin::selectedTracks()
+const QList<unsigned int> Kwave::Plugin::selectedTracks()
 {
     return manager().selectedTracks();
 }
 
 //***************************************************************************
-unsigned int KwavePlugin::selection(unsigned int *left, unsigned int *right,
+unsigned int Kwave::Plugin::selection(unsigned int *left, unsigned int *right,
                                     bool expand_if_empty)
 {
     int l = manager().selectionStart();
@@ -326,26 +326,26 @@ unsigned int KwavePlugin::selection(unsigned int *left, unsigned int *right,
 }
 
 //***************************************************************************
-void KwavePlugin::selectRange(unsigned int offset, unsigned int length)
+void Kwave::Plugin::selectRange(unsigned int offset, unsigned int length)
 {
     manager().selectRange(offset, length);
 }
 
 //***************************************************************************
-void KwavePlugin::yield()
+void Kwave::Plugin::yield()
 {
     pthread_testcancel();
     sched_yield();
 }
 
 //***************************************************************************
-void *KwavePlugin::handle()
+void *Kwave::Plugin::handle()
 {
     return m_context.m_handle;
 }
 
 //***************************************************************************
-QString KwavePlugin::zoom2string(qreal percent)
+QString Kwave::Plugin::zoom2string(qreal percent)
 {
     QString result = "";
 
@@ -366,7 +366,7 @@ QString KwavePlugin::zoom2string(qreal percent)
 }
 
 //***************************************************************************
-QString KwavePlugin::ms2string(qreal ms, int precision)
+QString Kwave::Plugin::ms2string(qreal ms, int precision)
 {
     char buf[128];
     int bufsize = 128;
@@ -401,7 +401,7 @@ QString KwavePlugin::ms2string(qreal ms, int precision)
 }
 
 //***************************************************************************
-QString KwavePlugin::dottedNumber(unsigned int number)
+QString Kwave::Plugin::dottedNumber(unsigned int number)
 {
     const QString num = QString::number(number);
     QString dotted = "";
@@ -415,7 +415,7 @@ QString KwavePlugin::dottedNumber(unsigned int number)
 }
 
 //***************************************************************************
-void KwavePlugin::emitCommand(const QString &command)
+void Kwave::Plugin::emitCommand(const QString &command)
 {
     manager().enqueueCommand(command);
 }

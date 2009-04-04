@@ -43,7 +43,7 @@ class RecordDialog;
 class RecordThread;
 class SampleDecoder;
 
-class RecordPlugin: public KwavePlugin
+class RecordPlugin: public Kwave::Plugin
 {
     Q_OBJECT
 public:
@@ -54,7 +54,7 @@ public:
     /** Destructor */
     virtual ~RecordPlugin();
 
-    /** @see KwavePlugin::setup() */
+    /** @see Kwave::Plugin::setup() */
     virtual QStringList *setup(QStringList &previous_params);
 
 signals:

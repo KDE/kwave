@@ -29,7 +29,7 @@
 
 class QStringList;
 
-class GotoPlugin: public KwavePlugin
+class GotoPlugin: public Kwave::Plugin
 {
     Q_OBJECT
 
@@ -44,13 +44,13 @@ public:
     /**
      * Shows a dialog for selecting the range and emits a command
      * for applying the selection if OK has been pressed.
-     * @see KwavePlugin::setup
+     * @see Kwave::Plugin::setup
      */
     virtual QStringList *setup(QStringList &previous_params);
 
     /**
      * selects the position
-     * @see KwavePlugin::start()
+     * @see Kwave::Plugin::start()
      */
     virtual int start(QStringList &params);
 

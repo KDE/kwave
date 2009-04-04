@@ -41,7 +41,7 @@
 #include "PlayBackPlugin.h"
 
 //***************************************************************************
-PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
+PlayBackDialog::PlayBackDialog(Kwave::Plugin &p, const PlayBackParam &params)
     :QDialog(p.parentWidget()), PlayBackDlg(),
     m_playback_params(params), m_file_filter(""), m_devices_list_map(),
     m_enable_setDevice(true)

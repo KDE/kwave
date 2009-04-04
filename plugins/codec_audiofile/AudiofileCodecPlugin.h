@@ -23,7 +23,7 @@
 
 class Decoder;
 
-class AudiofileCodecPlugin: public KwavePlugin
+class AudiofileCodecPlugin: public Kwave::Plugin
 {
     Q_OBJECT
 public:
@@ -36,7 +36,7 @@ public:
 
     /**
      * This plugin needs to be unique!
-     * @see KwavePlugin::isUnique()
+     * @see Kwave::Plugin::isUnique()
      */
     virtual bool isUnique() { return true; };
 

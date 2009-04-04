@@ -25,7 +25,7 @@
 
 #include "libkwave/KwavePlugin.h"
 
-class NoisePlugin: public KwavePlugin
+class NoisePlugin: public Kwave::Plugin
 {
     Q_OBJECT
 public:

@@ -37,7 +37,7 @@ KWAVE_PLUGIN(AmplifyFreePlugin,"amplifyfree","Thomas Eschenbacher");
 
 //***************************************************************************
 AmplifyFreePlugin::AmplifyFreePlugin(const PluginContext &context)
-    :KwavePlugin(context), m_params(), m_curve(), m_stop(false)
+    :Kwave::Plugin(context), m_params(), m_curve(), m_stop(false)
 {
     i18n("amplifyfree");
 }
@@ -150,7 +150,7 @@ void AmplifyFreePlugin::run(QStringList params)
 int AmplifyFreePlugin::stop()
 {
     m_stop = true;
-    return KwavePlugin::stop();
+    return Kwave::Plugin::stop();
 }
 
 //***************************************************************************

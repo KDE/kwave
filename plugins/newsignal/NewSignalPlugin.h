@@ -24,7 +24,7 @@
 
 class QStringList;
 
-class NewSignalPlugin: public KwavePlugin
+class NewSignalPlugin: public Kwave::Plugin
 {
     Q_OBJECT
 public:
@@ -38,7 +38,7 @@ public:
     /**
      * Shows a dialog for creating a new signal and emits sigCommand if
      * OK has been pressed.
-     * @see KwavePlugin::setup
+     * @see Kwave::Plugin::setup
      */
     virtual QStringList *setup(QStringList &previous_params);
 

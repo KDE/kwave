@@ -36,7 +36,7 @@ UndoTransactionGuard::UndoTransactionGuard(SignalManager &manager,
 }
 
 //***************************************************************************
-UndoTransactionGuard::UndoTransactionGuard(KwavePlugin &plugin,
+UndoTransactionGuard::UndoTransactionGuard(Kwave::Plugin &plugin,
                                            const QString &name)
     :m_manager(plugin.manager().signalManager())
 {

@@ -33,7 +33,7 @@
  * This plugin is intended to be used internally for debuggin and
  * verification purposes.
  */
-class DebugPlugin: public KwavePlugin
+class DebugPlugin: public Kwave::Plugin
 {
     Q_OBJECT
 
@@ -47,13 +47,14 @@ public:
 
     /**
      * This plugin needs to be persistent!
-     * @see KwavePlugin::isPersistent()
+     * @see Kwave::Plugin::isPersistent()
      */
     virtual bool isPersistent() { return true; };
 
+    /** @see Kwave::Plugin::isUnique() */
     virtual bool isUnique() { return false; };
 
-    /** @see KwavePlugin::load() */
+    /** @see Kwave::Plugin::load() */
     virtual void load(QStringList &params);
 
     /** performs the special function */

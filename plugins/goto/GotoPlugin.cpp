@@ -33,7 +33,7 @@ KWAVE_PLUGIN(GotoPlugin,"goto","Thomas Eschenbacher");
 
 //***************************************************************************
 GotoPlugin::GotoPlugin(const PluginContext &c)
-    :KwavePlugin(c), m_mode(SelectTimeWidget::bySamples), m_position(0)
+    :Kwave::Plugin(c), m_mode(SelectTimeWidget::bySamples), m_position(0)
 {
      i18n("goto");
 }

@@ -33,7 +33,6 @@
 #include "libkwave/InsertMode.h"
 
 class FileInfo;
-class KwavePlugin;
 class PlaybackController;
 class PlaybackDeviceFactory;
 class QString;
@@ -42,6 +41,7 @@ class SampleWriter;
 class SignalManager;
 class QWidget;
 namespace Kwave { class SampleSink; }
+namespace Kwave { class Plugin; }
 
 /**
  * Manages the loading, initializing, starting, running and closing
@@ -239,7 +239,7 @@ public slots:
      * Will be connected to the plugin's "closed" signal.
      * @param p pointer to the plugin to be closed
      */
-    void pluginClosed(KwavePlugin *p);
+    void pluginClosed(Kwave::Plugin *p);
 
     /**
      * Called if the name of the current signal has changed. This will be
@@ -251,15 +251,15 @@ public slots:
 private slots:
 
     /** called when a plugin has started (running) it's worker thread */
-    void pluginStarted(KwavePlugin *p);
+    void pluginStarted(Kwave::Plugin *p);
 
     /** called when a plugin has finished it's worker thread */
-    void pluginDone(KwavePlugin *p);
+    void pluginDone(Kwave::Plugin *p);
 
 private:
 
-    /** typedef: QPointer to a KwavePlugin */
-    typedef QPointer<KwavePlugin> KwavePluginPointer;
+    /** typedef: QPointer to a Kwave::Plugin */
+    typedef QPointer<Kwave::Plugin> KwavePluginPointer;
 
     /** typedef: list of pointers to kwave plugins */
     typedef QList< KwavePluginPointer > PluginList;
@@ -282,7 +282,7 @@ private:
     {
     public:
         /** Constructor, stores data for later removal */
-	PluginDeleter(KwavePlugin *plugin, void *handle);
+	PluginDeleter(Kwave::Plugin *plugin, void *handle);
 
 	/** Destructor, deletes and unloads the plugin */
 	virtual ~PluginDeleter();
@@ -298,7 +298,7 @@ private:
      * @return pointer to the loaded plugin or zero if the
      *         plugin was not found or invalid
      */
-    KwavePlugin *loadPlugin(const QString &name);
+    Kwave::Plugin *loadPlugin(const QString &name);
 
     /**
      * loads a plugin's default parameters from the user's
@@ -326,10 +326,10 @@ private:
                             QStringList &params);
 
     /** connects all signals of and for a plugin */
-    void connectPlugin(KwavePlugin *plugin);
+    void connectPlugin(Kwave::Plugin *plugin);
 
     /** connects all signals from and to a plugin */
-    void disconnectPlugin(KwavePlugin *plugin);
+    void disconnectPlugin(Kwave::Plugin *plugin);
 
     /** map for finding plugin files through their name */
     static QMap<QString, QString> m_plugin_files;

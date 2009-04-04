@@ -33,7 +33,7 @@
  * This is a very simple plugin that blanks the currently selected range of
  * samples with zeroes.
  */
-class ZeroPlugin: public KwavePlugin
+class ZeroPlugin: public Kwave::Plugin
 {
     Q_OBJECT
 

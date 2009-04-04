@@ -337,7 +337,7 @@ void FileProgress::setLength(unsigned int samples)
     // length in samples -> h:m:s
     if (m_sample_rate) {
 	// length in ms
-	text = KwavePlugin::ms2string(
+	text = Kwave::Plugin::ms2string(
 	    static_cast<float>(samples/m_tracks)/
 	    static_cast<float>(m_sample_rate) * 1000.0);
     } else {

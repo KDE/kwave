@@ -40,7 +40,7 @@ extern "C" void _dummy_SIGHUP_handler(int)
 }
 
 //***************************************************************************
-Kwave::PluginWorkerThread::PluginWorkerThread(KwavePlugin *plugin,
+Kwave::PluginWorkerThread::PluginWorkerThread(Kwave::Plugin *plugin,
                                               QStringList params)
     :QThread(plugin),
      m_plugin(plugin),

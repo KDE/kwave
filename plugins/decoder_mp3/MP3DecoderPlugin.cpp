@@ -26,7 +26,7 @@ KWAVE_PLUGIN(MP3DecoderPlugin,"decoder_mp3","Thomas Eschenbacher");
 
 /***************************************************************************/
 MP3DecoderPlugin::MP3DecoderPlugin(const PluginContext &c)
-    :KwavePlugin(c), m_decoder(0)
+    :Kwave::Plugin(c), m_decoder(0)
 {
     i18n("decoder_mp3");
 }

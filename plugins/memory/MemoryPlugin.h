@@ -31,7 +31,7 @@ class PluginContext;
  * @class MemoryPlugin
  * Setup plugin for Kwave's memory manager.
  */
-class MemoryPlugin: public KwavePlugin
+class MemoryPlugin: public Kwave::Plugin
 {
     Q_OBJECT
 
@@ -48,12 +48,12 @@ public:
      */
     virtual void load(QStringList &params);
 
-    /** @see KwavePlugin::setup() */
+    /** @see Kwave::Plugin::setup() */
     virtual QStringList *setup(QStringList &previous_params);
 
     /**
      * This plugin needs to be persistent!
-     * @see KwavePlugin::isPersistent()
+     * @see Kwave::Plugin::isPersistent()
      */
     virtual bool isPersistent() { return true; };
 

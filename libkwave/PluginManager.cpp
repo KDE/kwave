@@ -50,7 +50,8 @@
 
 //***************************************************************************
 //***************************************************************************
-PluginManager::PluginDeleter::PluginDeleter(KwavePlugin *plugin, void *handle)
+PluginManager::PluginDeleter::PluginDeleter(Kwave::Plugin *plugin,
+                                            void *handle)
   :QObject(), m_plugin(plugin), m_handle(handle)
 {
 }
@@ -92,8 +93,8 @@ PluginManager::PluginManager(QWidget *parent, SignalManager &signal_manager)
 	    // maybe we will become responsible for releasing
 	    // the plugin (when it is in use but the plugin manager
 	    // who has created it is already finished)
-	    connect(p,    SIGNAL(sigClosed(KwavePlugin *)),
-	            this, SLOT(pluginClosed(KwavePlugin *)));
+	    connect(p,    SIGNAL(sigClosed(Kwave::Plugin *)),
+	            this, SLOT(pluginClosed(Kwave::Plugin *)));
 	}
     }
 }
@@ -158,7 +159,7 @@ void PluginManager::loadAllPlugins()
 }
 
 //***************************************************************************
-KwavePlugin *PluginManager::loadPlugin(const QString &name)
+Kwave::Plugin *PluginManager::loadPlugin(const QString &name)
 {
 
     // first find out if the plugin is already loaded and persistent
@@ -206,7 +207,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     }
 
     // get the loader function
-    KwavePlugin *(*plugin_loader)(const PluginContext *c) = 0;
+    Kwave::Plugin *(*plugin_loader)(const PluginContext *c) = 0;
 
     // hardcoded, should always work when the
     // symbols are declared as extern "C"
@@ -231,7 +232,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     if (!version) version = i18n("(unknown)").toLocal8Bit();
 
     plugin_loader =
-        reinterpret_cast<KwavePlugin *(*)(const PluginContext *)>(
+        reinterpret_cast<Kwave::Plugin *(*)(const PluginContext *)>(
 	reinterpret_cast<qint64>(dlsym(handle, sym_loader)));
     Q_ASSERT(plugin_loader);
     if (!plugin_loader) {
@@ -253,7 +254,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     );
 
     // call the loader function to create an instance
-    KwavePlugin *plugin = (*plugin_loader)(&context);
+    Kwave::Plugin *plugin = (*plugin_loader)(&context);
     Q_ASSERT(plugin);
     if (!plugin) {
 	qWarning("PluginManager::loadPlugin('%s'): out of memory",
@@ -378,7 +379,7 @@ void PluginManager::sync()
 int PluginManager::setupPlugin(const QString &name)
 {
     // load the plugin
-    KwavePlugin* plugin = loadPlugin(name);
+    Kwave::Plugin* plugin = loadPlugin(name);
     if (!plugin) return -ENOMEM;
 
     // now the plugin is present and loaded
@@ -546,7 +547,7 @@ void PluginManager::signalClosed()
 }
 
 //***************************************************************************
-void PluginManager::pluginClosed(KwavePlugin *p)
+void PluginManager::pluginClosed(Kwave::Plugin *p)
 {
     Q_ASSERT(p);
     Q_ASSERT(!m_loaded_plugins.isEmpty() || !m_unique_plugins.isEmpty());
@@ -569,7 +570,7 @@ void PluginManager::pluginClosed(KwavePlugin *p)
 }
 
 //***************************************************************************
-void PluginManager::pluginStarted(KwavePlugin *p)
+void PluginManager::pluginStarted(Kwave::Plugin *p)
 {
     Q_ASSERT(p);
     if (!p) return;
@@ -583,7 +584,7 @@ void PluginManager::pluginStarted(KwavePlugin *p)
 }
 
 //***************************************************************************
-void PluginManager::pluginDone(KwavePlugin *p)
+void PluginManager::pluginDone(Kwave::Plugin *p)
 {
     Q_ASSERT(p);
     if (!p) return;
@@ -596,7 +597,7 @@ void PluginManager::pluginDone(KwavePlugin *p)
 }
 
 //***************************************************************************
-void PluginManager::connectPlugin(KwavePlugin *plugin)
+void PluginManager::connectPlugin(Kwave::Plugin *plugin)
 {
     Q_ASSERT(plugin);
     if (!plugin) return;
@@ -606,34 +607,34 @@ void PluginManager::connectPlugin(KwavePlugin *plugin)
 	        plugin, SLOT(close()));
     }
 
-    connect(plugin, SIGNAL(sigClosed(KwavePlugin *)),
-	    this, SLOT(pluginClosed(KwavePlugin *)));
+    connect(plugin, SIGNAL(sigClosed(Kwave::Plugin *)),
+	    this, SLOT(pluginClosed(Kwave::Plugin *)));
 
-    connect(plugin, SIGNAL(sigRunning(KwavePlugin *)),
-	    this, SLOT(pluginStarted(KwavePlugin *)));
+    connect(plugin, SIGNAL(sigRunning(Kwave::Plugin *)),
+	    this, SLOT(pluginStarted(Kwave::Plugin *)));
 
-    connect(plugin, SIGNAL(sigDone(KwavePlugin *)),
-	    this, SLOT(pluginDone(KwavePlugin *)));
+    connect(plugin, SIGNAL(sigDone(Kwave::Plugin *)),
+	    this, SLOT(pluginDone(Kwave::Plugin *)));
 }
 
 //***************************************************************************
-void PluginManager::disconnectPlugin(KwavePlugin *plugin)
+void PluginManager::disconnectPlugin(Kwave::Plugin *plugin)
 {
     Q_ASSERT(plugin);
     if (!plugin) return;
 
-    disconnect(plugin, SIGNAL(sigDone(KwavePlugin *)),
-	       this, SLOT(pluginDone(KwavePlugin *)));
+    disconnect(plugin, SIGNAL(sigDone(Kwave::Plugin *)),
+	       this, SLOT(pluginDone(Kwave::Plugin *)));
 
-    disconnect(plugin, SIGNAL(sigRunning(KwavePlugin *)),
-	       this, SLOT(pluginStarted(KwavePlugin *)));
+    disconnect(plugin, SIGNAL(sigRunning(Kwave::Plugin *)),
+	       this, SLOT(pluginStarted(Kwave::Plugin *)));
 
     disconnect(this, SIGNAL(sigClosed()),
 	       plugin, SLOT(close()));
 
     if (!plugin->isUnique()) {
-	disconnect(plugin, SIGNAL(sigClosed(KwavePlugin *)),
-	           this, SLOT(pluginClosed(KwavePlugin *)));
+	disconnect(plugin, SIGNAL(sigClosed(Kwave::Plugin *)),
+	           this, SLOT(pluginClosed(Kwave::Plugin *)));
     }
 }
 

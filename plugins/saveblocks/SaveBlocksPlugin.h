@@ -29,7 +29,7 @@
 
 class QStringList;
 
-class SaveBlocksPlugin: public KwavePlugin
+class SaveBlocksPlugin: public Kwave::Plugin
 {
     Q_OBJECT
 
@@ -44,13 +44,13 @@ public:
     /**
      * Shows a file saving dialog and emits a command for saving the blocks
      * when OK has been pressed.
-     * @see KwavePlugin::setup
+     * @see Kwave::Plugin::setup
      */
     virtual QStringList *setup(QStringList &previous_params);
 
     /**
      * Saves the files, using the settings made in "setup()"
-     * @see KwavePlugin::start()
+     * @see Kwave::Plugin::start()
      */
     virtual int start(QStringList &params);
 

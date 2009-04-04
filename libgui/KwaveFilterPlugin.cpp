@@ -39,7 +39,7 @@
 
 //***************************************************************************
 Kwave::FilterPlugin::FilterPlugin(const PluginContext &context)
-    :KwavePlugin(context), m_params(),
+    :Kwave::Plugin(context), m_params(),
      m_stop(false), m_listen(false), m_progress(0),
      m_confirm_cancel(0), m_pause(false), m_sink(0)
 {
@@ -70,7 +70,7 @@ QStringList *Kwave::FilterPlugin::setup(QStringList &previous_params)
             this, SLOT(startPreListen()));
     connect(dlg, SIGNAL(stopPreListen()),
             this, SLOT(stopPreListen()));
-    connect(this, SIGNAL(sigDone(KwavePlugin *)),
+    connect(this, SIGNAL(sigDone(Kwave::Plugin *)),
             dlg, SLOT(listenStopped()));
 
     if (!m_params.isEmpty()) setup_dialog->setParams(m_params);
@@ -247,14 +247,14 @@ int Kwave::FilterPlugin::start(QStringList &params)
 	m_progress->setVisible(true);
     }
 
-    return KwavePlugin::start(params);
+    return Kwave::Plugin::start(params);
 }
 
 //***************************************************************************
 int Kwave::FilterPlugin::stop()
 {
     m_stop = true;
-    int result = KwavePlugin::stop();
+    int result = Kwave::Plugin::stop();
 
     if (m_confirm_cancel) delete m_confirm_cancel;
     if (m_progress)       delete m_progress;

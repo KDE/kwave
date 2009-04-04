@@ -28,7 +28,7 @@
 #include "libkwave/KwavePlugin.h"
 
 /** @todo add support for logarithmic scale */
-class AmplifyFreePlugin: public KwavePlugin
+class AmplifyFreePlugin: public Kwave::Plugin
 {
     Q_OBJECT
 
@@ -43,7 +43,7 @@ public:
     /**
      * Shows a dialog for editing the amplification curve and emits a command
      * for applying the curve if OK has been pressed.
-     * @see KwavePlugin::setup
+     * @see Kwave::Plugin::setup
      */
     virtual QStringList *setup(QStringList &previous_params);
 

@@ -29,7 +29,7 @@ KWAVE_PLUGIN(FileInfoPlugin,"fileinfo","Thomas Eschenbacher");
 
 //***************************************************************************
 FileInfoPlugin::FileInfoPlugin(const PluginContext &context)
-    :KwavePlugin(context)
+    :Kwave::Plugin(context)
 {
     i18n("fileinfo");
 }

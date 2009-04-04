@@ -34,7 +34,7 @@ KWAVE_PLUGIN(NoisePlugin,"noise","Thomas Eschenbacher");
 
 //***************************************************************************
 NoisePlugin::NoisePlugin(const PluginContext &context)
-    :KwavePlugin(context), m_stop(false)
+    :Kwave::Plugin(context), m_stop(false)
 {
 }
 
@@ -76,7 +76,7 @@ void NoisePlugin::run(QStringList)
 int NoisePlugin::stop()
 {
     m_stop = true;
-    return KwavePlugin::stop();
+    return Kwave::Plugin::stop();
 }
 
 //***************************************************************************

@@ -24,7 +24,7 @@
 class Encoder;
 class Decoder;
 
-class WavCodecPlugin: public KwavePlugin
+class WavCodecPlugin: public Kwave::Plugin
 {
     Q_OBJECT
 public:
@@ -37,7 +37,7 @@ public:
 
     /**
      * This plugin needs to be unique!
-     * @see KwavePlugin::isUnique()
+     * @see Kwave::Plugin::isUnique()
      */
     virtual bool isUnique() { return true; };
 

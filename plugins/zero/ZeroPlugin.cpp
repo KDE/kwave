@@ -37,7 +37,7 @@ KWAVE_PLUGIN(ZeroPlugin,"zero","Thomas Eschenbacher");
 
 //***************************************************************************
 ZeroPlugin::ZeroPlugin(const PluginContext &context)
-    :KwavePlugin(context), m_stop(false), m_zeroes()
+    :Kwave::Plugin(context), m_stop(false), m_zeroes()
 {
      i18n("zero");
 }
@@ -145,7 +145,7 @@ void ZeroPlugin::run(QStringList params)
 int ZeroPlugin::stop()
 {
     m_stop = true;
-    return KwavePlugin::stop();
+    return Kwave::Plugin::stop();
 }
 
 //***************************************************************************

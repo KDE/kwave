@@ -524,7 +524,7 @@ void SonagramWindow::cursorPosChanged(const QPoint pos)
     translatePixels2TF(pos, &ms, &f);
 
     // item 1: time in milliseconds
-    status->changeItem(i18n("Time: %1", KwavePlugin::ms2string(ms)), 1);
+    status->changeItem(i18n("Time: %1", Kwave::Plugin::ms2string(ms)), 1);
 
     // item 2: frequency in Hz
     QString text = i18n("Frequency: %1 Hz", static_cast<int>(f));

@@ -29,7 +29,7 @@
 class QStringList;
 
 /** @todo add support for logarithmic scale */
-class VolumePlugin: public KwavePlugin
+class VolumePlugin: public Kwave::Plugin
 {
     Q_OBJECT
 
@@ -43,7 +43,7 @@ public:
 
     /**
      * Shows a dialog for selecting a volume.
-     * @see KwavePlugin::setup
+     * @see Kwave::Plugin::setup
      */
     virtual QStringList *setup(QStringList &previous_params);
 

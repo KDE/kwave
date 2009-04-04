@@ -33,7 +33,7 @@ class PluginContext;
 class PlayBackDevice;
 class PlayBackDialog;
 
-class PlayBackPlugin: public KwavePlugin, public PlaybackDeviceFactory
+class PlayBackPlugin: public Kwave::Plugin, public PlaybackDeviceFactory
 {
     Q_OBJECT
 public:
@@ -50,12 +50,12 @@ public:
      */
     virtual void load(QStringList &params);
 
-    /** @see KwavePlugin::setup() */
+    /** @see Kwave::Plugin::setup() */
     virtual QStringList *setup(QStringList &previous_params);
 
     /**
      * This plugin needs to be persistent!
-     * @see KwavePlugin::isPersistent()
+     * @see Kwave::Plugin::isPersistent()
      */
     virtual bool isPersistent() { return true; };
 

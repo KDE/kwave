@@ -1009,7 +1009,7 @@ void TopWidget::setZoomInfo(double zoom)
 	} else {
 	    // percent mode
 	    double percent = 100.0 / zoom;
-	    strZoom = KwavePlugin::zoom2string(percent);
+	    strZoom = Kwave::Plugin::zoom2string(percent);
 	}
     }
 
@@ -1045,8 +1045,8 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
     if (length) {
 	ms = (rate) ? (static_cast<double>(length) /
 	    static_cast<double>(rate) * 1E3) : 0;
-	txt = " " + i18n("Length: %1", KwavePlugin::ms2string(ms)) +
-	    " " + i18n("(%1 samples)", KwavePlugin::dottedNumber(length)) +
+	txt = " " + i18n("Length: %1", Kwave::Plugin::ms2string(ms)) +
+	    " " + i18n("(%1 samples)", Kwave::Plugin::dottedNumber(length)) +
 	    " ";
     } else txt = "";
     m_lbl_status_size->setText(txt);
@@ -1103,17 +1103,17 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 	QString txt = " "+i18n("Selected")+": %1...%2 (%3)";
 	if (sample_mode) {
 	    txt = txt.arg(
-	          KwavePlugin::dottedNumber(offset)).arg(
-	          KwavePlugin::dottedNumber(last)).arg(
-	          KwavePlugin::dottedNumber(length) + " " +
+	          Kwave::Plugin::dottedNumber(offset)).arg(
+	          Kwave::Plugin::dottedNumber(last)).arg(
+	          Kwave::Plugin::dottedNumber(length) + " " +
 	          i18n("samples"));
 	} else {
 	    double ms_first = static_cast<double>(offset)   * 1E3 / rate;
 	    double ms_last  = static_cast<double>(last + 1) * 1E3 / rate;
 	    double ms = (ms_last - ms_first);
-	    txt = txt.arg(KwavePlugin::ms2string(ms_first)).arg(
-		KwavePlugin::ms2string(ms_last)).arg(
-		KwavePlugin::ms2string(ms));
+	    txt = txt.arg(Kwave::Plugin::ms2string(ms_first)).arg(
+		Kwave::Plugin::ms2string(ms_last)).arg(
+		Kwave::Plugin::ms2string(ms));
 	}
 
 	m_lbl_status_cursor->setText("");
@@ -1130,7 +1130,7 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 	} else {
 	    QString txt = i18n("Position")+": %1";
 	    double ms_first = static_cast<double>(offset) * 1E3 / rate;
-	    txt = txt.arg(KwavePlugin::ms2string(ms_first));
+	    txt = txt.arg(Kwave::Plugin::ms2string(ms_first));
 	    m_lbl_status_cursor->setText(txt);
 	}
 
@@ -1151,9 +1151,9 @@ void TopWidget::updatePlaybackPos(unsigned int offset)
     double rate = m_plugin_manager->signalRate();
     if (rate > 0) {
 	double ms = static_cast<double>(offset) * 1E3 / rate;
-	txt = txt.arg(KwavePlugin::ms2string(ms));
+	txt = txt.arg(Kwave::Plugin::ms2string(ms));
     } else {
-	txt = txt.arg(KwavePlugin::dottedNumber(offset) + " " +
+	txt = txt.arg(Kwave::Plugin::dottedNumber(offset) + " " +
 	    i18n("samples"));
     }
     statusBar()->showMessage(txt, 2000);

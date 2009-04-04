@@ -67,7 +67,7 @@ KWAVE_PLUGIN(PlayBackPlugin,"playback","Thomas Eschenbacher");
 
 //***************************************************************************
 PlayBackPlugin::PlayBackPlugin(const PluginContext &context)
-    :KwavePlugin(context), m_dialog(0),
+    :Kwave::Plugin(context), m_dialog(0),
     m_device(0), m_lock_device(), m_playback_params(),
     m_playback_controller(manager().playbackController()),
     m_stop(false),

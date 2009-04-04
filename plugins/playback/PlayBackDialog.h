@@ -29,7 +29,7 @@
 #include "PlayBackTypesMap.h"
 #include "ui_PlayBackDlg.h"
 
-class KwavePlugin;
+namespace Kwave { class Plugin; }
 class QTreeWidgetItem;
 
 //*****************************************************************************
@@ -40,7 +40,7 @@ class PlayBackDialog : public QDialog,
 
 public:
     /** Constructor */
-    PlayBackDialog(KwavePlugin &p, const PlayBackParam &params);
+    PlayBackDialog(Kwave::Plugin &p, const PlayBackParam &params);
 
     /** Destructor */
     virtual ~PlayBackDialog();

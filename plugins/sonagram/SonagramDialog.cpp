@@ -42,7 +42,7 @@
 #include "SonagramDialog.h"
 
 //***************************************************************************
-SonagramDialog::SonagramDialog(KwavePlugin &p)
+SonagramDialog::SonagramDialog(Kwave::Plugin &p)
     :QDialog(p.parentWidget()), Ui::SonagramDlg(),
     m_length(p.selection()), m_rate(p.signalRate())
 {
@@ -144,7 +144,7 @@ void SonagramDialog::setPoints(int points)
     pointbox->setEditText(text);
 
     windowlabel->setText(i18n("( resulting window size: %1 )",
-	KwavePlugin::ms2string(points * 1.0E3 / m_rate)));
+	Kwave::Plugin::ms2string(points * 1.0E3 / m_rate)));
 
     bitmaplabel->setText(i18n("size of bitmap: %1x%2",
 	(m_length / points) + 1,

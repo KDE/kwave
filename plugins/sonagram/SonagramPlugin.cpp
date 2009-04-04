@@ -73,8 +73,7 @@ SonagramPlugin::SonagramPlugin(const PluginContext &c)
     :Kwave::Plugin(c), m_sonagram_window(0), m_selected_channels(),
      m_first_sample(0), m_last_sample(0), m_stripes(0), m_fft_points(0),
      m_window_type(WINDOW_FUNC_NONE), m_color(true), m_track_changes(true),
-     m_follow_selection(false), m_image(), m_overview_cache(0),
-     m_cmd_shutdown(false)
+     m_follow_selection(false), m_image(), m_overview_cache(0)
 {
     connect(this, SIGNAL(stripeAvailable(StripeInfoPrivate *)),
             this, SLOT(insertStripe(StripeInfoPrivate *)),
@@ -224,15 +223,7 @@ int SonagramPlugin::start(QStringList &params)
     // sonagram window closed
     use();
 
-    m_cmd_shutdown = false;
     return 0;
-}
-
-//***************************************************************************
-int SonagramPlugin::stop()
-{
-   m_cmd_shutdown = true;
-   return Kwave::Plugin::stop();
 }
 
 //***************************************************************************
@@ -265,7 +256,7 @@ void SonagramPlugin::run(QStringList /* params */)
 	emit stripeAvailable(stripe_info);
 	delete stripe_info;
 
-	if (m_cmd_shutdown) break;
+	if (shouldStop()) break;
     }
 
 //    qDebug("SonagramPlugin::run(): done.");
@@ -431,7 +422,7 @@ void SonagramPlugin::refreshOverview()
 void SonagramPlugin::windowDestroyed()
 {
     m_sonagram_window = 0; // closes itself !
-    m_cmd_shutdown = true;
+    cancel();
     release();
 }
 

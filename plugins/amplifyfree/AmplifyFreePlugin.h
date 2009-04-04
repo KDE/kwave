@@ -50,23 +50,18 @@ public:
     /** Does the fade operation */
     virtual void run(QStringList);
 
-    /** Aborts the process (if running). */
-    virtual int stop();
-
 protected:
 
     /** Reads values from the parameter list */
     int interpreteParameters(QStringList &params);
 
 private:
+
     /** List of parameters */
     QStringList m_params;
 
     /** curve used for interpolation */
     Curve m_curve;
-
-    /** flag for stopping the process */
-    bool m_stop;
 
 };
 

@@ -122,19 +122,9 @@ namespace Kwave {
 	 */
 	void updateProgress(unsigned int progress);
 
-	/**
-	* called when the user has pressed "Cancel" in the progress
-	* dialog and also has confirmed the cancel confirmation
-	* message box.
-	*/
-	void cancel();
-
     private:
 	/** List of parameters */
 	QStringList m_params;
-
-	/** flag for stopping the process */
-	bool m_stop;
 
 	/** flag for indicating pre-listen mode */
 	bool m_listen;

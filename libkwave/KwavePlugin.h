@@ -110,9 +110,15 @@ namespace Kwave {
 	virtual bool isPersistent() { return isUnique(); }
 
 	/**
-	* Returns true if the plugin has a running thread.
-	*/
+	 * Returns true if the plugin has a running thread.
+	 */
 	bool isRunning();
+
+	/**
+	 * Returns true if the plugin should stop, e.g. when the
+	 * user has pressed "cancel"
+	 */
+	bool shouldStop() const { return m_stop; }
 
 	/**
 	* Called after the plugin has been loaded into memory. This is
@@ -318,10 +324,17 @@ namespace Kwave {
     public slots:
 
 	/**
-	* Called to close the plugin. This will be called from the plugin
-	* manager and can as well be used from inside the plugin if it
-	* wishes to close itself.
-	*/
+	 * called when the user has pressed "Cancel" in the progress
+	 * dialog and also has confirmed the cancel confirmation
+	 * message box.
+	 */
+	virtual void cancel();
+
+	/**
+	 * Called to close the plugin. This will be called from the plugin
+	 * manager and can as well be used from inside the plugin if it
+	 * wishes to close itself.
+	 */
 	virtual void close();
 
 	/** decrements the usage counter */
@@ -350,6 +363,9 @@ namespace Kwave {
 
 	/** Mutex for control over the thread */
 	QMutex m_thread_lock;
+
+	/** flag for stopping the process */
+	bool m_stop;
 
 	/** Usage counter */
 	unsigned int m_usage_count;

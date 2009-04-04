@@ -179,9 +179,6 @@ private:
     /** reference to the playback controller */
     PlaybackController &m_playback_controller;
 
-    /** command flag for stopping the playback thread */
-    bool m_stop;
-
     /** Start of the selection when playback started */
     unsigned int m_old_first;
 

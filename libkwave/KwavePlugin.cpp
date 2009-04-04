@@ -68,6 +68,7 @@ Kwave::Plugin::Plugin(const PluginContext &c)
     :m_context(c),
      m_thread(0),
      m_thread_lock(),
+     m_stop(false),
      m_usage_count(0),
      m_usage_lock()
 {
@@ -132,12 +133,15 @@ QStringList *Kwave::Plugin::setup(QStringList &)
 int Kwave::Plugin::start(QStringList &)
 {
     QMutexLocker lock(&m_thread_lock);
+    m_stop = false;
     return 0;
 }
 
 //***************************************************************************
 int Kwave::Plugin::stop()
 {
+    cancel();
+
     if (m_thread && m_thread->isRunning() &&
 	(QThread::currentThread() == m_thread)) {
 	qWarning("Kwave::Plugin::stop(): plugin '%s' called stop() from "\
@@ -175,9 +179,16 @@ int Kwave::Plugin::stop()
 }
 
 //***************************************************************************
+void Kwave::Plugin::cancel()
+{
+    m_stop = true;
+}
+
+//***************************************************************************
 int Kwave::Plugin::execute(QStringList &params)
 {
     QMutexLocker lock(&m_thread_lock);
+    m_stop = false;
 
     m_thread = new Kwave::PluginWorkerThread(this, params);
     Q_ASSERT(m_thread);
@@ -221,6 +232,7 @@ void Kwave::Plugin::run_wrapper(QStringList params)
     // emit the "done" signal
     emit sigDone(this);
 
+    m_stop = false;
     release();
 }
 

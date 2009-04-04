@@ -70,7 +70,6 @@ PlayBackPlugin::PlayBackPlugin(const PluginContext &context)
     :Kwave::Plugin(context), m_dialog(0),
     m_device(0), m_lock_device(), m_playback_params(),
     m_playback_controller(manager().playbackController()),
-    m_stop(false),
     m_old_first(0),
     m_old_last(0)
 {
@@ -102,7 +101,6 @@ PlayBackPlugin::~PlayBackPlugin()
 
     // close the device now if it accidentally is still open
     QMutexLocker lock_for_delete(&m_lock_device);
-    m_stop = true;
     if (m_device) delete m_device;
     m_device = 0;
 }
@@ -539,7 +537,6 @@ void PlayBackPlugin::startDevicePlayBack()
 
     m_old_first = first;
     m_old_last = last;
-    m_stop = false;
 
     QStringList empty_list;
     use();
@@ -549,7 +546,7 @@ void PlayBackPlugin::startDevicePlayBack()
 //***************************************************************************
 void PlayBackPlugin::stopDevicePlayBack()
 {
-    m_stop = true;
+    cancel();
     if (!isRunning()) {
 	qDebug("PlayBackPlugin::stopDevicePlayBack() - not running");
 	emit sigPlaybackDone();
@@ -623,7 +620,7 @@ void PlayBackPlugin::run(QStringList)
 	    }
 	}
 
-	while ((pos++ <= last) && !m_stop) {
+	while ((pos++ <= last) && !shouldStop()) {
 	    unsigned int x;
 	    for (x=0; x < audible_count; x++) {
 		in_samples[x] = 0;
@@ -649,7 +646,7 @@ void PlayBackPlugin::run(QStringList)
 	    // write samples to the playback device
 	    int result = m_device->write(out_samples);
 	    if (result) {
-		m_stop = true;
+		cancel();
 		pos = last;
 	    }
 
@@ -665,12 +662,12 @@ void PlayBackPlugin::run(QStringList)
 
 	// maybe we loop. in this case the playback starts
 	// again from the left marker
-	if (m_playback_controller.loop() && !m_stop) {
+	if (m_playback_controller.loop() && !shouldStop()) {
 	    input.reset();
 	    pos = m_playback_controller.startPos();
 	}
 
-    } while (m_playback_controller.loop() && !m_stop);
+    } while (m_playback_controller.loop() && !shouldStop());
 
     // we are done, so close the output device
     m_device->close();

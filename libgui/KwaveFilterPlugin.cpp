@@ -40,7 +40,7 @@
 //***************************************************************************
 Kwave::FilterPlugin::FilterPlugin(const PluginContext &context)
     :Kwave::Plugin(context), m_params(),
-     m_stop(false), m_listen(false), m_progress(0),
+     m_listen(false), m_progress(0),
      m_confirm_cancel(0), m_pause(false), m_sink(0)
 {
 }
@@ -95,7 +95,6 @@ void Kwave::FilterPlugin::run(QStringList params)
 {
     UndoTransactionGuard *undo_guard = 0;
     m_pause = false;
-    m_stop  = false;
 
     if (!interpreteParameters(params)) m_params = params;
 
@@ -151,7 +150,7 @@ void Kwave::FilterPlugin::run(QStringList params)
                    *m_sink, SLOT(input(Kwave::SampleArray)));
 
     // transport the samples
-    while (!m_stop && (!source.done() || m_listen)) {
+    while (!shouldStop() && (!source.done() || m_listen)) {
 	// process one step
 	source.goOn();
 	filter->goOn();
@@ -181,7 +180,6 @@ void Kwave::FilterPlugin::run(QStringList params)
     if (undo_guard) delete undo_guard;
 
     m_pause  = false;
-    m_stop   = false;
     m_listen = false;
 
     close();
@@ -253,7 +251,6 @@ int Kwave::FilterPlugin::start(QStringList &params)
 //***************************************************************************
 int Kwave::FilterPlugin::stop()
 {
-    m_stop = true;
     int result = Kwave::Plugin::stop();
 
     if (m_confirm_cancel) delete m_confirm_cancel;
@@ -285,12 +282,6 @@ void Kwave::FilterPlugin::stopPreListen()
 {
     stop();
     m_listen = false;
-}
-
-//***************************************************************************
-void Kwave::FilterPlugin::cancel()
-{
-    m_stop = true;
 }
 
 //***************************************************************************

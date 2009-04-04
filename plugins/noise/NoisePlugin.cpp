@@ -34,7 +34,7 @@ KWAVE_PLUGIN(NoisePlugin,"noise","Thomas Eschenbacher");
 
 //***************************************************************************
 NoisePlugin::NoisePlugin(const PluginContext &context)
-    :Kwave::Plugin(context), m_stop(false)
+    :Kwave::Plugin(context)
 {
 }
 
@@ -45,7 +45,6 @@ void NoisePlugin::run(QStringList)
 
     UndoTransactionGuard undo_guard(*this, i18n("noise"));
 
-    m_stop = false;
     selection(&first, &last, true);
 
     // create all objects
@@ -64,19 +63,12 @@ void NoisePlugin::run(QStringList)
 
     // transport the samples
     qDebug("NoisePlugin: filter started [%u ... %u] ...", first, last);
-    while (!m_stop && !(sink.done())) {
+    while (!shouldStop() && !(sink.done())) {
 	source.goOn();
     }
     qDebug("NoisePlugin: filter done.");
 
     close();
-}
-
-//***************************************************************************
-int NoisePlugin::stop()
-{
-    m_stop = true;
-    return Kwave::Plugin::stop();
 }
 
 //***************************************************************************

@@ -38,8 +38,7 @@ KWAVE_PLUGIN(VolumePlugin,"volume","Thomas Eschenbacher");
 
 //***************************************************************************
 VolumePlugin::VolumePlugin(const PluginContext &context)
-    :Kwave::Plugin(context), m_params(), m_factor(1.0), m_mode(0),
-     m_stop(false)
+    :Kwave::Plugin(context), m_params(), m_factor(1.0), m_mode(0)
 {
 }
 
@@ -107,7 +106,6 @@ void VolumePlugin::run(QStringList params)
     unsigned int first, last;
 
     UndoTransactionGuard undo_guard(*this, i18n("volume"));
-    m_stop = false;
 
     interpreteParameters(params);
     selection(&first, &last, true);
@@ -132,20 +130,13 @@ void VolumePlugin::run(QStringList params)
 
     // transport the samples
     qDebug("VolumePlugin: filter started...");
-    while (!m_stop && !source.done()) {
+    while (!shouldStop() && !source.done()) {
 	source.goOn();
 	mul.goOn();
     }
     qDebug("VolumePlugin: filter done.");
 
     close();
-}
-
-//***************************************************************************
-int VolumePlugin::stop()
-{
-    m_stop = true;
-    return Kwave::Plugin::stop();
 }
 
 //***************************************************************************

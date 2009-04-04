@@ -60,15 +60,7 @@ public:
     /** performs the special function */
     virtual void run(QStringList);
 
-    /**
-     * Aborts the process (if running).
-     */
-    virtual int stop();
-
 private:
-
-    /** flag for stopping the process */
-    bool m_stop;
 
     /** use an intermediate buffer for faster filling */
     Kwave::SampleArray m_buffer;

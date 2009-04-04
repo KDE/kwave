@@ -50,9 +50,6 @@ public:
     /** Does the amplification operation */
     virtual void run(QStringList);
 
-    /** Aborts the process (if running). */
-    virtual int stop();
-
 protected:
 
     /** Reads values from the parameter list */
@@ -67,9 +64,6 @@ private:
 
     /** mode for amplification selection */
     int m_mode;
-
-    /** flag for stopping the process */
-    bool m_stop;
 
 };
 

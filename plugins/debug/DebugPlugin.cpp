@@ -34,7 +34,7 @@ KWAVE_PLUGIN(DebugPlugin,"debug","Thomas Eschenbacher");
 
 //***************************************************************************
 DebugPlugin::DebugPlugin(const PluginContext &context)
-    :Kwave::Plugin(context), m_stop(false), m_buffer()
+    :Kwave::Plugin(context), m_buffer()
 {
      i18n("debug");
 }
@@ -72,7 +72,6 @@ void DebugPlugin::run(QStringList params)
     QString command = params.first();
     QString action = i18n("debug (%1)", command);
     UndoTransactionGuard undo_guard(*this, action);
-    m_stop = false;
 
     // get the buffer for faster processing
     if (m_buffer.size() != BUFFER_SIZE) {
@@ -122,7 +121,7 @@ void DebugPlugin::run(QStringList params)
 
     // loop over the sample range
     sample_t v = 0;
-    while ((first <= last) && (!m_stop)) {
+    while ((first <= last) && (!shouldStop())) {
 	unsigned int rest = last - first + 1;
 	if (rest < m_buffer.size()) m_buffer.resize(rest);
 
@@ -146,13 +145,6 @@ void DebugPlugin::run(QStringList params)
 
     delete writers;
     close();
-}
-
-//***************************************************************************
-int DebugPlugin::stop()
-{
-    m_stop = true;
-    return Kwave::Plugin::stop();
 }
 
 //***************************************************************************

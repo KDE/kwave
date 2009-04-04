@@ -53,9 +53,6 @@ public:
     /** @see Kwave::Plugin::start() */
     virtual int start(QStringList &params);
 
-    /** @see Kwave::Plugin::stop() */
-    virtual int stop();
-
     /**
      * Runns once until all stripes of the sonagram are
      * calculated.
@@ -160,9 +157,6 @@ private:
 
     /** cache with the current signal overview */
     OverViewCache *m_overview_cache;
-
-    /** will be set to true in order to stop the run() loop */
-    bool m_cmd_shutdown;
 
 };
 

@@ -48,15 +48,7 @@ public:
     /** Fills the selected area with zeroes */
     virtual void run(QStringList);
 
-    /**
-     * Aborts the process (if running).
-     */
-    virtual int stop();
-
 private:
-
-    /** flag for stopping the process */
-    bool m_stop;
 
     /** use an array with zeroes for faster filling */
     Kwave::SampleArray m_zeroes;

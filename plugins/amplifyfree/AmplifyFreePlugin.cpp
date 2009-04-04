@@ -37,7 +37,7 @@ KWAVE_PLUGIN(AmplifyFreePlugin,"amplifyfree","Thomas Eschenbacher");
 
 //***************************************************************************
 AmplifyFreePlugin::AmplifyFreePlugin(const PluginContext &context)
-    :Kwave::Plugin(context), m_params(), m_curve(), m_stop(false)
+    :Kwave::Plugin(context), m_params(), m_curve()
 {
     i18n("amplifyfree");
 }
@@ -105,7 +105,6 @@ void AmplifyFreePlugin::run(QStringList params)
     unsigned int first, last;
 
     UndoTransactionGuard undo_guard(*this, i18n("amplify free"));
-    m_stop = false;
 
     interpreteParameters(params);
     unsigned int input_length = selection(&first, &last, true);
@@ -136,7 +135,7 @@ void AmplifyFreePlugin::run(QStringList params)
 
     // transport the samples
     qDebug("AmplifyFreePlugin: filter started...");
-    while (!m_stop && !source.done()) {
+    while (!shouldStop() && !source.done()) {
 	source.goOn();
 	curve.goOn();
 	/* mul.goOn(); */
@@ -144,13 +143,6 @@ void AmplifyFreePlugin::run(QStringList params)
     qDebug("AmplifyFreePlugin: filter done.");
 
     close();
-}
-
-//***************************************************************************
-int AmplifyFreePlugin::stop()
-{
-    m_stop = true;
-    return Kwave::Plugin::stop();
 }
 
 //***************************************************************************

@@ -39,12 +39,6 @@ public:
     /** Fills the selected area with noise */
     virtual void run(QStringList);
 
-    /** Aborts the process (if running). */
-    virtual int stop();
-
-private:
-    /** flag for stopping the process */
-    bool m_stop;
 };
 
 #endif /* _NOISE_PLUGIN_H_ */

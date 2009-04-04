@@ -37,7 +37,7 @@ KWAVE_PLUGIN(ZeroPlugin,"zero","Thomas Eschenbacher");
 
 //***************************************************************************
 ZeroPlugin::ZeroPlugin(const PluginContext &context)
-    :Kwave::Plugin(context), m_stop(false), m_zeroes()
+    :Kwave::Plugin(context), m_zeroes()
 {
      i18n("zero");
 }
@@ -54,7 +54,6 @@ void ZeroPlugin::run(QStringList params)
     unsigned int last  = 0;
 
     UndoTransactionGuard undo_guard(*this, i18n("silence"));
-    m_stop = false;
 
     MultiTrackWriter *writers = 0;
 
@@ -124,7 +123,7 @@ void ZeroPlugin::run(QStringList params)
     Q_ASSERT(m_zeroes.size() == ZERO_COUNT);
 
     // loop over the sample range
-    while ((first <= last) && (!m_stop)) {
+    while ((first <= last) && (!shouldStop())) {
 	unsigned int rest = last - first + 1;
 	if (rest < m_zeroes.size()) m_zeroes.resize(rest);
 
@@ -139,13 +138,6 @@ void ZeroPlugin::run(QStringList params)
 
     delete writers;
     close();
-}
-
-//***************************************************************************
-int ZeroPlugin::stop()
-{
-    m_stop = true;
-    return Kwave::Plugin::stop();
 }
 
 //***************************************************************************

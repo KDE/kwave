@@ -172,7 +172,6 @@ unsigned int SampleReader::read(Kwave::SampleArray &buffer,
     if (m_progress_time.elapsed() > MIN_PROGRESS_INTERVAL) {
 	m_progress_time.restart();
 	emit proceeded();
-	QApplication::sendPostedEvents();
     }
     return count;
 }

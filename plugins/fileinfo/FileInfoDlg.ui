@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>FileInfoDlg</class>
- <widget class="QDialog" name="FileInfoDlg" >
-  <property name="geometry" >
+ <widget class="QDialog" name="FileInfoDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,84 +10,76 @@
     <height>495</height>
    </rect>
   </property>
-  <property name="minimumSize" >
+  <property name="minimumSize">
    <size>
     <width>540</width>
     <height>300</height>
    </size>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>File Info</string>
   </property>
-  <property name="sizeGripEnabled" >
+  <property name="sizeGripEnabled">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="spacing" >
+  <layout class="QVBoxLayout">
+   <property name="spacing">
     <number>10</number>
    </property>
-   <property name="margin" >
+   <property name="margin">
     <number>10</number>
    </property>
    <item>
-    <widget class="QTabWidget" name="InfoTab" >
-     <property name="enabled" >
+    <widget class="QTabWidget" name="InfoTab">
+     <property name="enabled">
       <bool>true</bool>
      </property>
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="currentIndex" >
+     <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>778</width>
-        <height>407</height>
-       </rect>
-      </property>
-      <attribute name="title" >
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
        <string>File</string>
       </attribute>
-      <layout class="QGridLayout" >
-       <property name="margin" >
+      <layout class="QGridLayout">
+       <property name="margin">
         <number>10</number>
        </property>
-       <property name="spacing" >
+       <property name="spacing">
         <number>10</number>
        </property>
-       <item row="0" column="2" >
-        <widget class="QLineEdit" name="edFileName" >
-         <property name="readOnly" >
+       <item row="0" column="2">
+        <widget class="QLineEdit" name="edFileName">
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="0" column="0" >
-        <widget class="QLabel" name="lblFileName" >
-         <property name="text" >
+       <item row="0" column="0">
+        <widget class="QLabel" name="lblFileName">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="0" column="1" >
-        <spacer name="Spacer95_3_3" >
-         <property name="orientation" >
+       <item row="0" column="1">
+        <spacer name="Spacer95_3_3">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -94,15 +87,15 @@
          </property>
         </spacer>
        </item>
-       <item row="10" column="2" >
-        <spacer name="Spacer38_2" >
-         <property name="orientation" >
+       <item row="10" column="2">
+        <spacer name="Spacer38_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>0</width>
            <height>21</height>
@@ -110,36 +103,36 @@
          </property>
         </spacer>
        </item>
-       <item row="9" column="2" >
-        <layout class="QHBoxLayout" >
-         <property name="spacing" >
+       <item row="9" column="2">
+        <layout class="QHBoxLayout">
+         <property name="spacing">
           <number>10</number>
          </property>
-         <property name="margin" >
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
-          <widget class="QComboBox" name="cbSampleFormat" >
-           <property name="minimumSize" >
+          <widget class="QComboBox" name="cbSampleFormat">
+           <property name="minimumSize">
             <size>
              <width>100</width>
              <height>0</height>
             </size>
            </property>
-           <property name="duplicatesEnabled" >
+           <property name="duplicatesEnabled">
             <bool>false</bool>
            </property>
           </widget>
          </item>
          <item>
-          <spacer name="Spacer98_2_2" >
-           <property name="orientation" >
+          <spacer name="Spacer98_2_2">
+           <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
-           <property name="sizeType" >
+           <property name="sizeType">
             <enum>QSizePolicy::Expanding</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
              <height>0</height>
@@ -149,75 +142,75 @@
          </item>
         </layout>
        </item>
-       <item row="7" column="0" >
-        <widget class="QLabel" name="lblLength" >
-         <property name="text" >
+       <item row="7" column="0">
+        <widget class="QLabel" name="lblLength">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="6" column="0" >
-        <widget class="QLabel" name="lblTracks" >
-         <property name="text" >
+       <item row="6" column="0">
+        <widget class="QLabel" name="lblTracks">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="6" column="2" >
-        <layout class="QHBoxLayout" >
-         <property name="spacing" >
+       <item row="6" column="2">
+        <layout class="QHBoxLayout">
+         <property name="spacing">
           <number>10</number>
          </property>
-         <property name="margin" >
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
-          <widget class="QSpinBox" name="sbTracks" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+          <widget class="QSpinBox" name="sbTracks">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="minimumSize" >
+           <property name="minimumSize">
             <size>
              <width>100</width>
              <height>0</height>
             </size>
            </property>
-           <property name="minimum" >
+           <property name="minimum">
             <number>1</number>
            </property>
-           <property name="value" >
+           <property name="value">
             <number>2</number>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="lblTracksVerbose" >
-           <property name="text" >
+          <widget class="QLabel" name="lblTracksVerbose">
+           <property name="text">
             <string>%1</string>
            </property>
-           <property name="wordWrap" >
+           <property name="wordWrap">
             <bool>false</bool>
            </property>
           </widget>
          </item>
          <item>
-          <spacer name="Spacer99_2" >
-           <property name="orientation" >
+          <spacer name="Spacer99_2">
+           <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
-           <property name="sizeType" >
+           <property name="sizeType">
             <enum>QSizePolicy::Expanding</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
              <height>0</height>
@@ -227,85 +220,85 @@
          </item>
         </layout>
        </item>
-       <item row="5" column="0" >
-        <widget class="QLabel" name="lblResolution" >
-         <property name="text" >
+       <item row="5" column="0">
+        <widget class="QLabel" name="lblResolution">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="4" column="0" >
-        <widget class="QLabel" name="lblSampleRate" >
-         <property name="text" >
+       <item row="4" column="0">
+        <widget class="QLabel" name="lblSampleRate">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="9" column="0" >
-        <widget class="QLabel" name="lblSampleFormat" >
-         <property name="text" >
+       <item row="9" column="0">
+        <widget class="QLabel" name="lblSampleFormat">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="5" column="2" >
-        <layout class="QHBoxLayout" >
-         <property name="spacing" >
+       <item row="5" column="2">
+        <layout class="QHBoxLayout">
+         <property name="spacing">
           <number>10</number>
          </property>
-         <property name="margin" >
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
-          <widget class="QSpinBox" name="sbResolution" >
-           <property name="minimumSize" >
+          <widget class="QSpinBox" name="sbResolution">
+           <property name="minimumSize">
             <size>
              <width>100</width>
              <height>0</height>
             </size>
            </property>
-           <property name="minimum" >
+           <property name="minimum">
             <number>8</number>
            </property>
-           <property name="maximum" >
+           <property name="maximum">
             <number>24</number>
            </property>
-           <property name="singleStep" >
+           <property name="singleStep">
             <number>8</number>
            </property>
-           <property name="value" >
+           <property name="value">
             <number>16</number>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="lblBits_2" >
-           <property name="text" >
+          <widget class="QLabel" name="lblBits_2">
+           <property name="text">
             <string>bit</string>
            </property>
-           <property name="wordWrap" >
+           <property name="wordWrap">
             <bool>false</bool>
            </property>
           </widget>
          </item>
          <item>
-          <spacer name="Spacer100_2" >
-           <property name="orientation" >
+          <spacer name="Spacer100_2">
+           <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
-           <property name="sizeType" >
+           <property name="sizeType">
             <enum>QSizePolicy::Expanding</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
              <height>0</height>
@@ -315,102 +308,102 @@
          </item>
         </layout>
        </item>
-       <item row="4" column="2" >
-        <layout class="QHBoxLayout" >
-         <property name="spacing" >
+       <item row="4" column="2">
+        <layout class="QHBoxLayout">
+         <property name="spacing">
           <number>10</number>
          </property>
-         <property name="margin" >
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
-          <widget class="QComboBox" name="cbSampleRate" >
-           <property name="minimumSize" >
+          <widget class="QComboBox" name="cbSampleRate">
+           <property name="minimumSize">
             <size>
              <width>100</width>
              <height>0</height>
             </size>
            </property>
-           <property name="editable" >
+           <property name="editable">
             <bool>true</bool>
            </property>
-           <property name="currentIndex" >
+           <property name="currentIndex">
             <number>7</number>
            </property>
-           <property name="duplicatesEnabled" >
+           <property name="duplicatesEnabled">
             <bool>false</bool>
            </property>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>8000</string>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>10000</string>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>11025</string>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>12000</string>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>16000</string>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>22050</string>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>32000</string>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>44100</string>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>48000</string>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>96000</string>
             </property>
            </item>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="lblSamplesPerSecond_2" >
-           <property name="text" >
+          <widget class="QLabel" name="lblSamplesPerSecond_2">
+           <property name="text">
             <string>samples per second</string>
            </property>
-           <property name="wordWrap" >
+           <property name="wordWrap">
             <bool>false</bool>
            </property>
           </widget>
          </item>
          <item>
-          <spacer name="Spacer98_2" >
-           <property name="orientation" >
+          <spacer name="Spacer98_2">
+           <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
-           <property name="sizeType" >
+           <property name="sizeType">
             <enum>QSizePolicy::Expanding</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
              <height>0</height>
@@ -420,73 +413,73 @@
          </item>
         </layout>
        </item>
-       <item row="8" column="0" colspan="3" >
-        <widget class="QFrame" name="Frame3_2" >
-         <property name="minimumSize" >
+       <item row="8" column="0" colspan="3">
+        <widget class="QFrame" name="Frame3_2">
+         <property name="minimumSize">
           <size>
            <width>0</width>
            <height>10</height>
           </size>
          </property>
-         <property name="frameShape" >
+         <property name="frameShape">
           <enum>QFrame::HLine</enum>
          </property>
-         <property name="frameShadow" >
+         <property name="frameShadow">
           <enum>QFrame::Sunken</enum>
          </property>
         </widget>
        </item>
-       <item row="7" column="2" >
-        <widget class="QLineEdit" name="txtLength" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+       <item row="7" column="2">
+        <widget class="QLineEdit" name="txtLength">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="alignment" >
+         <property name="alignment">
           <set>Qt::AlignLeading</set>
          </property>
-         <property name="readOnly" >
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="3" column="0" colspan="3" >
-        <widget class="QFrame" name="Frame3" >
-         <property name="minimumSize" >
+       <item row="3" column="0" colspan="3">
+        <widget class="QFrame" name="Frame3">
+         <property name="minimumSize">
           <size>
            <width>0</width>
            <height>10</height>
           </size>
          </property>
-         <property name="frameShape" >
+         <property name="frameShape">
           <enum>QFrame::HLine</enum>
          </property>
-         <property name="frameShadow" >
+         <property name="frameShadow">
           <enum>QFrame::Sunken</enum>
          </property>
         </widget>
        </item>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="lblFileSize" >
-         <property name="text" >
+       <item row="1" column="0">
+        <widget class="QLabel" name="lblFileSize">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="1" column="1" >
-        <spacer name="Spacer95_3_3_2" >
-         <property name="orientation" >
+       <item row="1" column="1">
+        <spacer name="Spacer95_3_3_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -494,22 +487,22 @@
          </property>
         </spacer>
        </item>
-       <item row="1" column="2" >
-        <widget class="QLineEdit" name="edFileSize" >
-         <property name="readOnly" >
+       <item row="1" column="2">
+        <widget class="QLineEdit" name="edFileSize">
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="2" column="1" >
-        <spacer name="Spacer95_3_3_2_2" >
-         <property name="orientation" >
+       <item row="2" column="1">
+        <spacer name="Spacer95_3_3_2_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -517,32 +510,32 @@
          </property>
         </spacer>
        </item>
-       <item row="2" column="0" >
-        <widget class="QLabel" name="lblFileFormat" >
-         <property name="text" >
+       <item row="2" column="0">
+        <widget class="QLabel" name="lblFileFormat">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="2" column="2" >
-        <widget class="QLineEdit" name="edFileFormat" >
-         <property name="readOnly" >
+       <item row="2" column="2">
+        <widget class="QLineEdit" name="edFileFormat">
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="4" column="1" >
-        <spacer name="Spacer95" >
-         <property name="orientation" >
+       <item row="4" column="1">
+        <spacer name="Spacer95">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>21</height>
@@ -550,15 +543,15 @@
          </property>
         </spacer>
        </item>
-       <item row="5" column="1" >
-        <spacer name="Spacer95_2" >
-         <property name="orientation" >
+       <item row="5" column="1">
+        <spacer name="Spacer95_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -566,15 +559,15 @@
          </property>
         </spacer>
        </item>
-       <item row="6" column="1" >
-        <spacer name="Spacer95_3" >
-         <property name="orientation" >
+       <item row="6" column="1">
+        <spacer name="Spacer95_3">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -582,15 +575,15 @@
          </property>
         </spacer>
        </item>
-       <item row="7" column="1" >
-        <spacer name="Spacer95_3_2" >
-         <property name="orientation" >
+       <item row="7" column="1">
+        <spacer name="Spacer95_3_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -598,15 +591,15 @@
          </property>
         </spacer>
        </item>
-       <item row="9" column="1" >
-        <spacer name="Spacer95_3_2_2" >
-         <property name="orientation" >
+       <item row="9" column="1">
+        <spacer name="Spacer95_3_2_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -616,28 +609,20 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>778</width>
-        <height>407</height>
-       </rect>
-      </property>
-      <attribute name="title" >
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
        <string>Compression</string>
       </attribute>
-      <layout class="QGridLayout" >
-       <item row="0" column="1" >
-        <spacer name="Spacer95_3_2_3" >
-         <property name="orientation" >
+      <layout class="QGridLayout">
+       <item row="0" column="1">
+        <spacer name="Spacer95_3_2_3">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -645,46 +630,46 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="0" >
-        <widget class="QLabel" name="lblCompression" >
-         <property name="text" >
+       <item row="0" column="0">
+        <widget class="QLabel" name="lblCompression">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="0" column="2" >
-        <layout class="QHBoxLayout" >
-         <property name="spacing" >
+       <item row="0" column="2">
+        <layout class="QHBoxLayout">
+         <property name="spacing">
           <number>10</number>
          </property>
-         <property name="margin" >
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
-          <widget class="QComboBox" name="cbCompression" >
-           <property name="minimumSize" >
+          <widget class="QComboBox" name="cbCompression">
+           <property name="minimumSize">
             <size>
              <width>100</width>
              <height>0</height>
             </size>
            </property>
-           <property name="duplicatesEnabled" >
+           <property name="duplicatesEnabled">
             <bool>false</bool>
            </property>
           </widget>
          </item>
          <item>
-          <spacer name="Spacer98_2_2_2_2" >
-           <property name="orientation" >
+          <spacer name="Spacer98_2_2_2_2">
+           <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
-           <property name="sizeType" >
+           <property name="sizeType">
             <enum>QSizePolicy::Expanding</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
              <height>0</height>
@@ -694,15 +679,15 @@
          </item>
         </layout>
        </item>
-       <item row="1" column="1" >
-        <spacer name="Spacer95_3_2_3_2" >
-         <property name="orientation" >
+       <item row="1" column="1">
+        <spacer name="Spacer95_3_2_3_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -710,28 +695,28 @@
          </property>
         </spacer>
        </item>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="lblCompression_2" >
-         <property name="text" >
+       <item row="1" column="0">
+        <widget class="QLabel" name="lblCompression_2">
+         <property name="text">
           <string>Encoding Mode:</string>
          </property>
-         <property name="alignment" >
+         <property name="alignment">
           <set>Qt::AlignTop</set>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="2" column="2" >
-        <spacer name="Spacer38_2_2" >
-         <property name="orientation" >
+       <item row="2" column="2">
+        <spacer name="Spacer38_2_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>16</width>
            <height>147</height>
@@ -739,9 +724,9 @@
          </property>
         </spacer>
        </item>
-       <item row="1" column="2" >
-        <widget class="CompressionWidget" native="1" name="compressionWidget" >
-         <property name="minimumSize" >
+       <item row="1" column="2">
+        <widget class="CompressionWidget" name="compressionWidget" native="true">
+         <property name="minimumSize">
           <size>
            <width>0</width>
            <height>160</height>
@@ -751,98 +736,90 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>778</width>
-        <height>407</height>
-       </rect>
-      </property>
-      <attribute name="title" >
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
        <string>MPEG</string>
       </attribute>
-      <layout class="QGridLayout" >
-       <property name="margin" >
+      <layout class="QGridLayout">
+       <property name="margin">
         <number>10</number>
        </property>
-       <property name="spacing" >
+       <property name="spacing">
         <number>10</number>
        </property>
-       <item row="1" column="2" colspan="2" >
-        <widget class="KComboBox" name="cbMpegVersion" >
-         <property name="enabled" >
+       <item row="1" column="2" colspan="2">
+        <widget class="KComboBox" name="cbMpegVersion">
+         <property name="enabled">
           <bool>false</bool>
          </property>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>MPEG Version 1 (ISO/IEC 11172-3)</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>MPEG Version 2 (ISO/IEC 13818-3)</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>MPEG Version 2.5 (unofficial)</string>
           </property>
          </item>
         </widget>
        </item>
-       <item row="3" column="0" >
-        <widget class="QLabel" name="lblMpegModeExt" >
-         <property name="text" >
+       <item row="3" column="0">
+        <widget class="QLabel" name="lblMpegModeExt">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="0" column="2" colspan="2" >
-        <widget class="KComboBox" name="cbMpegLayer" >
-         <property name="enabled" >
+       <item row="0" column="2" colspan="2">
+        <widget class="KComboBox" name="cbMpegLayer">
+         <property name="enabled">
           <bool>false</bool>
          </property>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>Layer I</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>Layer II</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>Layer III</string>
           </property>
          </item>
         </widget>
        </item>
-       <item row="7" column="0" >
-        <widget class="QLabel" name="lblMpegOriginal" >
-         <property name="text" >
+       <item row="7" column="0">
+        <widget class="QLabel" name="lblMpegOriginal">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="2" column="1" >
-        <spacer name="Spacer95_3_3_3_13_2_2_2" >
-         <property name="orientation" >
+       <item row="2" column="1">
+        <spacer name="Spacer95_3_3_3_13_2_2_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -850,15 +827,15 @@
          </property>
         </spacer>
        </item>
-       <item row="6" column="1" >
-        <spacer name="Spacer95_3_3_3_13_2_2_2_2_2_2" >
-         <property name="orientation" >
+       <item row="6" column="1">
+        <spacer name="Spacer95_3_3_3_13_2_2_2_2_2_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -866,28 +843,28 @@
          </property>
         </spacer>
        </item>
-       <item row="6" column="2" >
-        <widget class="QCheckBox" name="chkMpegCopyrighted" >
-         <property name="enabled" >
+       <item row="6" column="2">
+        <widget class="QCheckBox" name="chkMpegCopyrighted">
+         <property name="enabled">
           <bool>false</bool>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>yes</string>
          </property>
-         <property name="checked" >
+         <property name="checked">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="7" column="1" >
-        <spacer name="Spacer95_3_3_3_13_2_2_2_2_2_2_2" >
-         <property name="orientation" >
+       <item row="7" column="1">
+        <spacer name="Spacer95_3_3_3_13_2_2_2_2_2_2_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -895,35 +872,35 @@
          </property>
         </spacer>
        </item>
-       <item row="6" column="0" >
-        <widget class="QLabel" name="lblMpegCopyrighted" >
-         <property name="text" >
+       <item row="6" column="0">
+        <widget class="QLabel" name="lblMpegCopyrighted">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="0" column="0" >
-        <widget class="QLabel" name="lblMpegLayer" >
-         <property name="text" >
+       <item row="0" column="0">
+        <widget class="QLabel" name="lblMpegLayer">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="8" column="3" >
-        <spacer name="Spacer42" >
-         <property name="orientation" >
+       <item row="8" column="3">
+        <spacer name="Spacer42">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>0</width>
            <height>20</height>
@@ -931,37 +908,37 @@
          </property>
         </spacer>
        </item>
-       <item row="5" column="2" colspan="2" >
-        <widget class="KComboBox" name="cbMpegEmphasis" >
-         <property name="enabled" >
+       <item row="5" column="2" colspan="2">
+        <widget class="KComboBox" name="cbMpegEmphasis">
+         <property name="enabled">
           <bool>false</bool>
          </property>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>None</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>50/15ms</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>CCIT J.17</string>
           </property>
          </item>
         </widget>
        </item>
-       <item row="1" column="1" >
-        <spacer name="Spacer95_3_3_3_13_2_2" >
-         <property name="orientation" >
+       <item row="1" column="1">
+        <spacer name="Spacer95_3_3_3_13_2_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -969,162 +946,162 @@
          </property>
         </spacer>
        </item>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="lblMpegVersion" >
-         <property name="text" >
+       <item row="1" column="0">
+        <widget class="QLabel" name="lblMpegVersion">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="2" column="0" >
-        <widget class="QLabel" name="lblMpegBitrate" >
-         <property name="text" >
+       <item row="2" column="0">
+        <widget class="QLabel" name="lblMpegBitrate">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="2" column="2" colspan="2" >
-        <widget class="KComboBox" name="cbMpegBitrate" >
-         <property name="enabled" >
+       <item row="2" column="2" colspan="2">
+        <widget class="KComboBox" name="cbMpegBitrate">
+         <property name="enabled">
           <bool>false</bool>
          </property>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>(variable)</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>8K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>16K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>24K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>32K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>40K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>56K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>64K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>80K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>96K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>112K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>128K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>144K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>160K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>176K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>192K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>224K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>256K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>288K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>320K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>352K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>384K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>416K</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>448K</string>
           </property>
          </item>
         </widget>
        </item>
-       <item row="4" column="0" >
-        <spacer name="Spacer95_3_3_3_13_2_2_2_2_4" >
-         <property name="orientation" >
+       <item row="4" column="0">
+        <spacer name="Spacer95_3_3_3_13_2_2_2_2_4">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1132,32 +1109,32 @@
          </property>
         </spacer>
        </item>
-       <item row="5" column="0" >
-        <widget class="QLabel" name="lblMpegEmphasis" >
-         <property name="text" >
+       <item row="5" column="0">
+        <widget class="QLabel" name="lblMpegEmphasis">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="3" column="2" colspan="2" >
-        <widget class="KComboBox" name="cbMpegModeExt" >
-         <property name="enabled" >
+       <item row="3" column="2" colspan="2">
+        <widget class="KComboBox" name="cbMpegModeExt">
+         <property name="enabled">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="4" column="1" >
-        <spacer name="Spacer95_3_3_3_13_2_2_2_2_3" >
-         <property name="orientation" >
+       <item row="4" column="1">
+        <spacer name="Spacer95_3_3_3_13_2_2_2_2_3">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1165,15 +1142,15 @@
          </property>
         </spacer>
        </item>
-       <item row="3" column="1" >
-        <spacer name="Spacer95_3_3_3_13_2_2_2_2" >
-         <property name="orientation" >
+       <item row="3" column="1">
+        <spacer name="Spacer95_3_3_3_13_2_2_2_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1181,15 +1158,15 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="1" >
-        <spacer name="Spacer95_3_3_3_13_2" >
-         <property name="orientation" >
+       <item row="0" column="1">
+        <spacer name="Spacer95_3_3_3_13_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1197,15 +1174,15 @@
          </property>
         </spacer>
        </item>
-       <item row="5" column="1" >
-        <spacer name="Spacer95_3_3_3_13_2_2_2_2_2" >
-         <property name="orientation" >
+       <item row="5" column="1">
+        <spacer name="Spacer95_3_3_3_13_2_2_2_2_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1213,89 +1190,81 @@
          </property>
         </spacer>
        </item>
-       <item row="4" column="2" colspan="2" >
-        <layout class="QHBoxLayout" >
-         <property name="spacing" >
+       <item row="4" column="2" colspan="2">
+        <layout class="QHBoxLayout">
+         <property name="spacing">
           <number>10</number>
          </property>
-         <property name="margin" >
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
-          <widget class="QCheckBox" name="cbMpegIntensityStereo" >
-           <property name="enabled" >
+          <widget class="QCheckBox" name="cbMpegIntensityStereo">
+           <property name="enabled">
             <bool>false</bool>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Intensity Stereo</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="cbMpegMSStereo" >
-           <property name="enabled" >
+          <widget class="QCheckBox" name="cbMpegMSStereo">
+           <property name="enabled">
             <bool>false</bool>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>MS Stereo</string>
            </property>
           </widget>
          </item>
         </layout>
        </item>
-       <item row="7" column="2" >
-        <widget class="QCheckBox" name="chkMpegOriginal" >
-         <property name="enabled" >
+       <item row="7" column="2">
+        <widget class="QCheckBox" name="chkMpegOriginal">
+         <property name="enabled">
           <bool>false</bool>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>yes</string>
          </property>
-         <property name="checked" >
+         <property name="checked">
           <bool>true</bool>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>778</width>
-        <height>407</height>
-       </rect>
-      </property>
-      <attribute name="title" >
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
        <string>Content</string>
       </attribute>
-      <layout class="QGridLayout" >
-       <property name="margin" >
+      <layout class="QGridLayout">
+       <property name="margin">
         <number>10</number>
        </property>
-       <property name="spacing" >
+       <property name="spacing">
         <number>10</number>
        </property>
-       <item row="0" column="0" >
-        <widget class="QLabel" name="lblName" >
-         <property name="text" >
+       <item row="0" column="0">
+        <widget class="QLabel" name="lblName">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="0" column="1" >
-        <spacer name="Spacer95_3_3_3_11" >
-         <property name="orientation" >
+       <item row="0" column="1">
+        <spacer name="Spacer95_3_3_3_11">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1303,37 +1272,37 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="2" >
-        <widget class="QLineEdit" name="edName" />
+       <item row="0" column="2">
+        <widget class="QLineEdit" name="edName"/>
        </item>
-       <item row="3" column="2" >
-        <widget class="QLineEdit" name="edGenre" />
+       <item row="3" column="2">
+        <widget class="QLineEdit" name="edGenre"/>
        </item>
-       <item row="4" column="0" colspan="3" >
-        <widget class="QFrame" name="Frame3_3" >
-         <property name="minimumSize" >
+       <item row="4" column="0" colspan="3">
+        <widget class="QFrame" name="Frame3_3">
+         <property name="minimumSize">
           <size>
            <width>0</width>
            <height>10</height>
           </size>
          </property>
-         <property name="frameShape" >
+         <property name="frameShape">
           <enum>QFrame::HLine</enum>
          </property>
-         <property name="frameShadow" >
+         <property name="frameShadow">
           <enum>QFrame::Sunken</enum>
          </property>
         </widget>
        </item>
-       <item row="3" column="1" >
-        <spacer name="Spacer95_3_3_3_15" >
-         <property name="orientation" >
+       <item row="3" column="1">
+        <spacer name="Spacer95_3_3_3_15">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1341,35 +1310,35 @@
          </property>
         </spacer>
        </item>
-       <item row="3" column="0" >
-        <widget class="QLabel" name="lblGenre" >
-         <property name="text" >
+       <item row="3" column="0">
+        <widget class="QLabel" name="lblGenre">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="lblSubject" >
-         <property name="text" >
+       <item row="1" column="0">
+        <widget class="QLabel" name="lblSubject">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="1" column="1" >
-        <spacer name="Spacer95_3_3_3_10" >
-         <property name="orientation" >
+       <item row="1" column="1">
+        <spacer name="Spacer95_3_3_3_10">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1377,18 +1346,18 @@
          </property>
         </spacer>
        </item>
-       <item row="1" column="2" >
-        <widget class="QLineEdit" name="edSubject" />
+       <item row="1" column="2">
+        <widget class="QLineEdit" name="edSubject"/>
        </item>
-       <item row="2" column="1" >
-        <spacer name="Spacer95_3_3_3_10_2" >
-         <property name="orientation" >
+       <item row="2" column="1">
+        <spacer name="Spacer95_3_3_3_10_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1396,28 +1365,28 @@
          </property>
         </spacer>
        </item>
-       <item row="2" column="0" >
-        <widget class="QLabel" name="lblVersion" >
-         <property name="text" >
+       <item row="2" column="0">
+        <widget class="QLabel" name="lblVersion">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="2" column="2" >
-        <widget class="QLineEdit" name="edVersion" />
+       <item row="2" column="2">
+        <widget class="QLineEdit" name="edVersion"/>
        </item>
-       <item row="10" column="2" >
-        <spacer name="Spacer16" >
-         <property name="orientation" >
+       <item row="10" column="2">
+        <spacer name="Spacer16">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>0</width>
            <height>20</height>
@@ -1425,86 +1394,86 @@
          </property>
         </spacer>
        </item>
-       <item row="9" column="0" >
-        <widget class="QLabel" name="lblDate" >
-         <property name="text" >
+       <item row="9" column="0">
+        <widget class="QLabel" name="lblDate">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="9" column="2" >
-        <layout class="QHBoxLayout" >
-         <property name="spacing" >
+       <item row="9" column="2">
+        <layout class="QHBoxLayout">
+         <property name="spacing">
           <number>10</number>
          </property>
-         <property name="margin" >
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
-          <widget class="KDateWidget" native="1" name="dateEdit" />
+          <widget class="KDateWidget" name="dateEdit"/>
          </item>
          <item>
-          <widget class="QPushButton" name="btSelectDate" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+          <widget class="QPushButton" name="btSelectDate">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="toolTip" >
+           <property name="toolTip">
             <string>Select a date from the calendar.</string>
            </property>
-           <property name="whatsThis" >
+           <property name="whatsThis">
             <string>Opens a dialog for selecting a date from the calendar.</string>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>&amp;Select...</string>
            </property>
-           <property name="autoDefault" >
+           <property name="autoDefault">
             <bool>false</bool>
            </property>
-           <property name="flat" >
+           <property name="flat">
             <bool>false</bool>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btSelectDateNow" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+          <widget class="QPushButton" name="btSelectDateNow">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="toolTip" >
+           <property name="toolTip">
             <string>Set the date to today.</string>
            </property>
-           <property name="whatsThis" >
+           <property name="whatsThis">
             <string>Set the date to today.</string>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>&amp;Today</string>
            </property>
-           <property name="autoDefault" >
+           <property name="autoDefault">
             <bool>false</bool>
            </property>
-           <property name="flat" >
+           <property name="flat">
             <bool>false</bool>
            </property>
           </widget>
          </item>
          <item>
-          <spacer name="Spacer35" >
-           <property name="orientation" >
+          <spacer name="Spacer35">
+           <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeType" >
+           <property name="sizeType">
             <enum>QSizePolicy::Expanding</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>0</width>
              <height>20</height>
@@ -1514,15 +1483,15 @@
          </item>
         </layout>
        </item>
-       <item row="9" column="1" >
-        <spacer name="Spacer95_3_3_3_4" >
-         <property name="orientation" >
+       <item row="9" column="1">
+        <spacer name="Spacer95_3_3_3_4">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1532,68 +1501,60 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>778</width>
-        <height>407</height>
-       </rect>
-      </property>
-      <attribute name="title" >
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
        <string>Source</string>
       </attribute>
-      <layout class="QGridLayout" >
-       <property name="margin" >
+      <layout class="QGridLayout">
+       <property name="margin">
         <number>10</number>
        </property>
-       <property name="spacing" >
+       <property name="spacing">
         <number>10</number>
        </property>
-       <item row="4" column="0" >
-        <widget class="QLabel" name="lblCD" >
-         <property name="text" >
+       <item row="4" column="0">
+        <widget class="QLabel" name="lblCD">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="lblSourceForm" >
-         <property name="text" >
+       <item row="1" column="0">
+        <widget class="QLabel" name="lblSourceForm">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="0" column="2" >
-        <widget class="QLineEdit" name="edSource" />
+       <item row="0" column="2">
+        <widget class="QLineEdit" name="edSource"/>
        </item>
-       <item row="5" column="2" >
-        <layout class="QHBoxLayout" >
-         <property name="spacing" >
+       <item row="5" column="2">
+        <layout class="QHBoxLayout">
+         <property name="spacing">
           <number>0</number>
          </property>
-         <property name="margin" >
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
-          <widget class="KIntSpinBox" native="1" name="sbTrack" />
+          <widget class="KIntSpinBox" name="sbTrack"/>
          </item>
          <item>
-          <spacer name="Spacer39" >
-           <property name="orientation" >
+          <spacer name="Spacer39">
+           <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
-           <property name="sizeType" >
+           <property name="sizeType">
             <enum>QSizePolicy::Expanding</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
              <height>0</height>
@@ -1603,42 +1564,42 @@
          </item>
         </layout>
        </item>
-       <item row="2" column="0" colspan="3" >
-        <widget class="QFrame" name="Frame3_3_2_2" >
-         <property name="minimumSize" >
+       <item row="2" column="0" colspan="3">
+        <widget class="QFrame" name="Frame3_3_2_2">
+         <property name="minimumSize">
           <size>
            <width>0</width>
            <height>10</height>
           </size>
          </property>
-         <property name="frameShape" >
+         <property name="frameShape">
           <enum>QFrame::HLine</enum>
          </property>
-         <property name="frameShadow" >
+         <property name="frameShadow">
           <enum>QFrame::Sunken</enum>
          </property>
         </widget>
        </item>
-       <item row="4" column="2" >
-        <layout class="QHBoxLayout" >
-         <property name="spacing" >
+       <item row="4" column="2">
+        <layout class="QHBoxLayout">
+         <property name="spacing">
           <number>0</number>
          </property>
-         <property name="margin" >
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
-          <widget class="KIntSpinBox" native="1" name="sbCD" />
+          <widget class="KIntSpinBox" name="sbCD"/>
          </item>
          <item>
-          <spacer name="Spacer38" >
-           <property name="orientation" >
+          <spacer name="Spacer38">
+           <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
-           <property name="sizeType" >
+           <property name="sizeType">
             <enum>QSizePolicy::Expanding</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
              <height>0</height>
@@ -1648,15 +1609,15 @@
          </item>
         </layout>
        </item>
-       <item row="0" column="1" >
-        <spacer name="Spacer95_3_3_3_6" >
-         <property name="orientation" >
+       <item row="0" column="1">
+        <spacer name="Spacer95_3_3_3_6">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1664,48 +1625,48 @@
          </property>
         </spacer>
        </item>
-       <item row="3" column="0" >
-        <widget class="QLabel" name="lblAlbum" >
-         <property name="text" >
+       <item row="3" column="0">
+        <widget class="QLabel" name="lblAlbum">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="0" column="0" >
-        <widget class="QLabel" name="lblSource" >
-         <property name="text" >
+       <item row="0" column="0">
+        <widget class="QLabel" name="lblSource">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="5" column="0" >
-        <widget class="QLabel" name="lblTrack" >
-         <property name="text" >
+       <item row="5" column="0">
+        <widget class="QLabel" name="lblTrack">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="3" column="2" >
-        <widget class="QLineEdit" name="edAlbum" />
+       <item row="3" column="2">
+        <widget class="QLineEdit" name="edAlbum"/>
        </item>
-       <item row="4" column="1" >
-        <spacer name="Spacer95_3_3_3_7_3" >
-         <property name="orientation" >
+       <item row="4" column="1">
+        <spacer name="Spacer95_3_3_3_7_3">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1713,15 +1674,15 @@
          </property>
         </spacer>
        </item>
-       <item row="3" column="1" >
-        <spacer name="Spacer95_3_3_3_7_2" >
-         <property name="orientation" >
+       <item row="3" column="1">
+        <spacer name="Spacer95_3_3_3_7_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1729,18 +1690,18 @@
          </property>
         </spacer>
        </item>
-       <item row="1" column="2" >
-        <widget class="QLineEdit" name="edSourceForm" />
+       <item row="1" column="2">
+        <widget class="QLineEdit" name="edSourceForm"/>
        </item>
-       <item row="1" column="1" >
-        <spacer name="Spacer95_3_3_3_7" >
-         <property name="orientation" >
+       <item row="1" column="1">
+        <spacer name="Spacer95_3_3_3_7">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1748,15 +1709,15 @@
          </property>
         </spacer>
        </item>
-       <item row="5" column="1" >
-        <spacer name="Spacer95_3_3_3_7_4" >
-         <property name="orientation" >
+       <item row="5" column="1">
+        <spacer name="Spacer95_3_3_3_7_4">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1764,31 +1725,31 @@
          </property>
         </spacer>
        </item>
-       <item row="6" column="0" colspan="3" >
-        <widget class="QFrame" name="Frame3_3_2_2_2" >
-         <property name="minimumSize" >
+       <item row="6" column="0" colspan="3">
+        <widget class="QFrame" name="Frame3_3_2_2_2">
+         <property name="minimumSize">
           <size>
            <width>0</width>
            <height>10</height>
           </size>
          </property>
-         <property name="frameShape" >
+         <property name="frameShape">
           <enum>QFrame::HLine</enum>
          </property>
-         <property name="frameShadow" >
+         <property name="frameShadow">
           <enum>QFrame::Sunken</enum>
          </property>
         </widget>
        </item>
-       <item row="10" column="2" >
-        <spacer name="Spacer16_3" >
-         <property name="orientation" >
+       <item row="10" column="2">
+        <spacer name="Spacer16_3">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>0</width>
            <height>253</height>
@@ -1796,38 +1757,38 @@
          </property>
         </spacer>
        </item>
-       <item row="7" column="0" >
-        <widget class="QLabel" name="lblSoftware" >
-         <property name="text" >
+       <item row="7" column="0">
+        <widget class="QLabel" name="lblSoftware">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="8" column="0" >
-        <widget class="QLabel" name="lblEngineer" >
-         <property name="text" >
+       <item row="8" column="0">
+        <widget class="QLabel" name="lblEngineer">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="7" column="2" >
-        <widget class="QLineEdit" name="edSoftware" />
+       <item row="7" column="2">
+        <widget class="QLineEdit" name="edSoftware"/>
        </item>
-       <item row="9" column="1" >
-        <spacer name="Spacer95_3_3_3_16" >
-         <property name="orientation" >
+       <item row="9" column="1">
+        <spacer name="Spacer95_3_3_3_16">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1835,18 +1796,18 @@
          </property>
         </spacer>
        </item>
-       <item row="8" column="2" >
-        <widget class="QLineEdit" name="edEngineer" />
+       <item row="8" column="2">
+        <widget class="QLineEdit" name="edEngineer"/>
        </item>
-       <item row="7" column="1" >
-        <spacer name="Spacer95_3_3_3_13" >
-         <property name="orientation" >
+       <item row="7" column="1">
+        <spacer name="Spacer95_3_3_3_13">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1854,28 +1815,28 @@
          </property>
         </spacer>
        </item>
-       <item row="9" column="0" >
-        <widget class="QLabel" name="lblTechnican" >
-         <property name="text" >
+       <item row="9" column="0">
+        <widget class="QLabel" name="lblTechnican">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="9" column="2" >
-        <widget class="QLineEdit" name="edTechnican" />
+       <item row="9" column="2">
+        <widget class="QLineEdit" name="edTechnican"/>
        </item>
-       <item row="8" column="1" >
-        <spacer name="Spacer95_3_3_3_9" >
-         <property name="orientation" >
+       <item row="8" column="1">
+        <spacer name="Spacer95_3_3_3_9">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1885,77 +1846,69 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>778</width>
-        <height>407</height>
-       </rect>
-      </property>
-      <attribute name="title" >
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
        <string>Author/Copyright</string>
       </attribute>
-      <layout class="QGridLayout" >
-       <property name="margin" >
+      <layout class="QGridLayout">
+       <property name="margin">
         <number>10</number>
        </property>
-       <property name="spacing" >
+       <property name="spacing">
         <number>10</number>
        </property>
-       <item row="0" column="0" >
-        <widget class="QLabel" name="lblAuthor" >
-         <property name="text" >
+       <item row="0" column="0">
+        <widget class="QLabel" name="lblAuthor">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="lblOrganization" >
-         <property name="text" >
+       <item row="1" column="0">
+        <widget class="QLabel" name="lblOrganization">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="0" column="2" >
-        <widget class="QLineEdit" name="edAuthor" />
+       <item row="0" column="2">
+        <widget class="QLineEdit" name="edAuthor"/>
        </item>
-       <item row="2" column="0" >
-        <widget class="QLabel" name="lblCopyright" >
-         <property name="text" >
+       <item row="2" column="0">
+        <widget class="QLabel" name="lblCopyright">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="3" column="0" >
-        <widget class="QLabel" name="lblLicense" >
-         <property name="text" >
+       <item row="3" column="0">
+        <widget class="QLabel" name="lblLicense">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="9" column="2" >
-        <spacer name="Spacer16_2" >
-         <property name="orientation" >
+       <item row="9" column="2">
+        <spacer name="Spacer16_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>0</width>
            <height>20</height>
@@ -1963,24 +1916,24 @@
          </property>
         </spacer>
        </item>
-       <item row="1" column="2" >
-        <widget class="QLineEdit" name="edOrganization" />
+       <item row="1" column="2">
+        <widget class="QLineEdit" name="edOrganization"/>
        </item>
-       <item row="2" column="2" >
-        <widget class="QLineEdit" name="edCopyright" />
+       <item row="2" column="2">
+        <widget class="QLineEdit" name="edCopyright"/>
        </item>
-       <item row="3" column="2" >
-        <widget class="QLineEdit" name="edLicense" />
+       <item row="3" column="2">
+        <widget class="QLineEdit" name="edLicense"/>
        </item>
-       <item row="8" column="1" >
-        <spacer name="Spacer95_3_3_3_14_2" >
-         <property name="orientation" >
+       <item row="8" column="1">
+        <spacer name="Spacer95_3_3_3_14_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -1988,15 +1941,15 @@
          </property>
         </spacer>
        </item>
-       <item row="7" column="1" >
-        <spacer name="Spacer95_3_3_3_14" >
-         <property name="orientation" >
+       <item row="7" column="1">
+        <spacer name="Spacer95_3_3_3_14">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -2004,50 +1957,50 @@
          </property>
         </spacer>
        </item>
-       <item row="5" column="0" colspan="3" >
-        <widget class="QFrame" name="Frame3_3_2_3" >
-         <property name="minimumSize" >
+       <item row="5" column="0" colspan="3">
+        <widget class="QFrame" name="Frame3_3_2_3">
+         <property name="minimumSize">
           <size>
            <width>0</width>
            <height>10</height>
           </size>
          </property>
-         <property name="frameShape" >
+         <property name="frameShape">
           <enum>QFrame::HLine</enum>
          </property>
-         <property name="frameShadow" >
+         <property name="frameShadow">
           <enum>QFrame::Sunken</enum>
          </property>
         </widget>
        </item>
-       <item row="8" column="0" >
-        <widget class="QLabel" name="lblContact" >
-         <property name="text" >
+       <item row="8" column="0">
+        <widget class="QLabel" name="lblContact">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="7" column="2" >
-        <widget class="QLineEdit" name="edArchival" />
+       <item row="7" column="2">
+        <widget class="QLineEdit" name="edArchival"/>
        </item>
-       <item row="8" column="2" >
-        <widget class="QLineEdit" name="edContact" />
+       <item row="8" column="2">
+        <widget class="QLineEdit" name="edContact"/>
        </item>
-       <item row="6" column="2" >
-        <widget class="QLineEdit" name="edProduct" />
+       <item row="6" column="2">
+        <widget class="QLineEdit" name="edProduct"/>
        </item>
-       <item row="6" column="1" >
-        <spacer name="Spacer95_3_3_3_8" >
-         <property name="orientation" >
+       <item row="6" column="1">
+        <spacer name="Spacer95_3_3_3_8">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -2055,52 +2008,52 @@
          </property>
         </spacer>
        </item>
-       <item row="6" column="0" >
-        <widget class="QLabel" name="lblProduct" >
-         <property name="text" >
+       <item row="6" column="0">
+        <widget class="QLabel" name="lblProduct">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="7" column="0" >
-        <widget class="QLabel" name="lblArchival" >
-         <property name="text" >
+       <item row="7" column="0">
+        <widget class="QLabel" name="lblArchival">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="4" column="2" >
-        <widget class="QLineEdit" name="edISRC" >
-         <property name="readOnly" >
+       <item row="4" column="2">
+        <widget class="QLineEdit" name="edISRC">
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="4" column="0" >
-        <widget class="QLabel" name="lblISRC" >
-         <property name="text" >
+       <item row="4" column="0">
+        <widget class="QLabel" name="lblISRC">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="4" column="1" >
-        <spacer name="Spacer95_3_3_3_12_2" >
-         <property name="orientation" >
+       <item row="4" column="1">
+        <spacer name="Spacer95_3_3_3_12_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -2108,15 +2061,15 @@
          </property>
         </spacer>
        </item>
-       <item row="3" column="1" >
-        <spacer name="Spacer95_3_3_3_2_2" >
-         <property name="orientation" >
+       <item row="3" column="1">
+        <spacer name="Spacer95_3_3_3_2_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -2124,15 +2077,15 @@
          </property>
         </spacer>
        </item>
-       <item row="2" column="1" >
-        <spacer name="Spacer95_3_3_3_3" >
-         <property name="orientation" >
+       <item row="2" column="1">
+        <spacer name="Spacer95_3_3_3_3">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -2140,15 +2093,15 @@
          </property>
         </spacer>
        </item>
-       <item row="1" column="1" >
-        <spacer name="Spacer95_3_3_3_3_2" >
-         <property name="orientation" >
+       <item row="1" column="1">
+        <spacer name="Spacer95_3_3_3_3_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -2156,15 +2109,15 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="1" >
-        <spacer name="Spacer95_3_3_3_2" >
-         <property name="orientation" >
+       <item row="0" column="1">
+        <spacer name="Spacer95_3_3_3_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -2174,50 +2127,42 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>778</width>
-        <height>407</height>
-       </rect>
-      </property>
-      <attribute name="title" >
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
        <string>Miscellaneous</string>
       </attribute>
-      <layout class="QGridLayout" >
-       <property name="margin" >
+      <layout class="QGridLayout">
+       <property name="margin">
         <number>10</number>
        </property>
-       <property name="spacing" >
+       <property name="spacing">
         <number>10</number>
        </property>
-       <item row="1" column="0" colspan="3" >
-        <widget class="QFrame" name="Frame3_3_2" >
-         <property name="minimumSize" >
+       <item row="1" column="0" colspan="3">
+        <widget class="QFrame" name="Frame3_3_2">
+         <property name="minimumSize">
           <size>
            <width>0</width>
            <height>10</height>
           </size>
          </property>
-         <property name="frameShape" >
+         <property name="frameShape">
           <enum>QFrame::HLine</enum>
          </property>
-         <property name="frameShadow" >
+         <property name="frameShadow">
           <enum>QFrame::Sunken</enum>
          </property>
         </widget>
        </item>
-       <item row="0" column="1" >
-        <spacer name="Spacer95_3_3_3_12" >
-         <property name="orientation" >
+       <item row="0" column="1">
+        <spacer name="Spacer95_3_3_3_12">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -2225,15 +2170,15 @@
          </property>
         </spacer>
        </item>
-       <item row="2" column="1" >
-        <spacer name="Spacer95_3_3_3_5" >
-         <property name="orientation" >
+       <item row="2" column="1">
+        <spacer name="Spacer95_3_3_3_5">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -2241,63 +2186,63 @@
          </property>
         </spacer>
        </item>
-       <item row="2" column="2" >
-        <widget class="KeywordWidget" native="1" name="lstKeywords" />
+       <item row="2" column="2">
+        <widget class="KeywordWidget" name="lstKeywords" native="true"/>
        </item>
-       <item row="2" column="0" >
-        <widget class="QLabel" name="lblKeywords" >
-         <property name="text" >
+       <item row="2" column="0">
+        <widget class="QLabel" name="lblKeywords">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="alignment" >
+         <property name="alignment">
           <set>Qt::AlignTop</set>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="0" column="0" >
-        <widget class="QLabel" name="lblCommissioned" >
-         <property name="text" >
+       <item row="0" column="0">
+        <widget class="QLabel" name="lblCommissioned">
+         <property name="text">
           <string>#</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="0" column="2" >
-        <widget class="QLineEdit" name="edCommissioned" />
+       <item row="0" column="2">
+        <widget class="QLineEdit" name="edCommissioned"/>
        </item>
       </layout>
      </widget>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
+    <layout class="QHBoxLayout">
      <item>
-      <widget class="QPushButton" name="btHelp" >
-       <property name="text" >
+      <widget class="QPushButton" name="btHelp">
+       <property name="text">
         <string>&amp;Help</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string>Alt+H</string>
        </property>
-       <property name="autoDefault" >
+       <property name="autoDefault">
         <bool>false</bool>
        </property>
       </widget>
      </item>
      <item>
-      <spacer name="Spacer1" >
-       <property name="orientation" >
+      <spacer name="Spacer1">
+       <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>500</width>
          <height>20</height>
@@ -2306,21 +2251,21 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="btOK" >
-       <property name="text" >
+      <widget class="QPushButton" name="btOK">
+       <property name="text">
         <string>&amp;OK</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string>Alt+O</string>
        </property>
-       <property name="default" >
+       <property name="default">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btCancel" >
-       <property name="text" >
+      <widget class="QPushButton" name="btCancel">
+       <property name="text">
         <string>&amp;Cancel</string>
        </property>
       </widget>
@@ -2329,11 +2274,21 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="10" margin="10" />
+ <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KIntSpinBox</class>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KDateWidget</class>
    <extends>QWidget</extends>
+   <header>kdatewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
    <header>knuminput.h</header>
   </customwidget>
   <customwidget>
@@ -2346,16 +2301,6 @@
    <extends>QWidget</extends>
    <header>CompressionWidget.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header location="global" >kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KDateWidget</class>
-   <extends>QWidget</extends>
-   <header>kdatewidget.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -2405,14 +2350,14 @@
   <tabstop>edCommissioned</tabstop>
  </tabstops>
  <includes>
-  <include location="global" >klocale.h</include>
-  <include location="global" >knuminput.h</include>
-  <include location="global" >kcombobox.h</include>
-  <include location="global" >kdatewidget.h</include>
-  <include location="global" >klineedit.h</include>
-  <include location="global" >klineedit.h</include>
-  <include location="local" >CompressionWidget.h</include>
-  <include location="local" >KeywordWidget.h</include>
+  <include location="global">klocale.h</include>
+  <include location="global">knuminput.h</include>
+  <include location="global">kcombobox.h</include>
+  <include location="global">kdatewidget.h</include>
+  <include location="global">klineedit.h</include>
+  <include location="global">klineedit.h</include>
+  <include location="local">CompressionWidget.h</include>
+  <include location="local">KeywordWidget.h</include>
  </includes>
  <resources/>
  <connections>
@@ -2422,11 +2367,11 @@
    <receiver>FileInfoDlg</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -2438,11 +2383,11 @@
    <receiver>FileInfoDlg</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>

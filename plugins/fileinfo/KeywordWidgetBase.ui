@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>KeywordWidgetBase</class>
- <widget class="QWidget" name="KeywordWidgetBase" >
-  <property name="geometry" >
+ <widget class="QWidget" name="KeywordWidgetBase">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,35 +10,35 @@
     <height>179</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Keywords</string>
   </property>
-  <layout class="QGridLayout" >
-   <property name="margin" >
+  <layout class="QGridLayout">
+   <property name="margin">
     <number>0</number>
    </property>
-   <property name="spacing" >
+   <property name="spacing">
     <number>10</number>
    </property>
-   <item row="0" column="0" colspan="2" >
-    <widget class="KLineEdit" native="1" name="edKeyword" />
+   <item row="0" column="0" colspan="2">
+    <widget class="KLineEdit" name="edKeyword"/>
    </item>
-   <item row="2" column="1" >
-    <widget class="QPushButton" name="btRemove" >
-     <property name="text" >
+   <item row="2" column="1">
+    <widget class="QPushButton" name="btRemove">
+     <property name="text">
       <string>&amp;Remove</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="1" >
-    <spacer name="Spacer40_2" >
-     <property name="orientation" >
+   <item row="3" column="1">
+    <spacer name="Spacer40_2">
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeType" >
+     <property name="sizeType">
       <enum>QSizePolicy::Expanding</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>0</width>
        <height>0</height>
@@ -45,57 +46,56 @@
      </property>
     </spacer>
    </item>
-   <item row="1" column="1" >
-    <widget class="QPushButton" name="btAdd" >
-     <property name="text" >
+   <item row="1" column="1">
+    <widget class="QPushButton" name="btAdd">
+     <property name="text">
       <string>&amp;Add</string>
      </property>
-     <property name="autoDefault" >
+     <property name="autoDefault">
       <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item row="4" column="1" >
-    <widget class="QPushButton" name="btAuto" >
-     <property name="toolTip" >
+   <item row="4" column="1">
+    <widget class="QPushButton" name="btAuto">
+     <property name="toolTip">
       <string>auto-generate keywords</string>
      </property>
-     <property name="whatsThis" >
-      <string>&lt;b>Auto-Generate Keywords&lt;/b>&lt;br>
+     <property name="whatsThis">
+      <string>&lt;b&gt;Auto-Generate Keywords&lt;/b&gt;&lt;br&gt;
 Create a list of keywords by going through all present file informations and merge them with the current list of keywords.</string>
      </property>
-     <property name="text" >
+     <property name="text">
       <string>A&amp;uto</string>
      </property>
     </widget>
    </item>
-   <item rowspan="4" row="1" column="0" >
-    <widget class="KListWidget" name="lstKeywords" >
-     <property name="minimumSize" >
+   <item row="1" column="0" rowspan="4">
+    <widget class="KListWidget" name="lstKeywords">
+     <property name="minimumSize">
       <size>
        <width>150</width>
        <height>100</height>
       </size>
      </property>
-     <property name="toolTip" >
+     <property name="toolTip">
       <string>List of keywords.</string>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="10" margin="10" />
- <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KListWidget</class>
-   <extends>KListWidget</extends>
-   <header location="global" >klistwidget.h</header>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
   </customwidget>
   <customwidget>
-   <class>KLineEdit</class>
-   <extends>QWidget</extends>
-   <header>klineedit.h</header>
+   <class>KListWidget</class>
+   <extends>QListWidget</extends>
+   <header>klistwidget.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -106,9 +106,9 @@ Create a list of keywords by going through all present file informations and mer
   <tabstop>btAuto</tabstop>
  </tabstops>
  <includes>
-  <include location="global" >klocale.h</include>
-  <include location="global" >klineedit.h</include>
-  <include location="global" >klistwidget.h</include>
+  <include location="global">klocale.h</include>
+  <include location="global">klineedit.h</include>
+  <include location="global">klistwidget.h</include>
  </includes>
  <resources/>
  <connections/>

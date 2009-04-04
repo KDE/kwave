@@ -1,93 +1,94 @@
-<ui version="4.0" >
- <author>Thomas Eschenbacher &lt;Thomas.Eschenbacher@gmx.de></author>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Thomas Eschenbacher &lt;Thomas.Eschenbacher@gmx.de&gt;</author>
  <comment>Setup of virtual memory and physical memory usage.</comment>
  <class>MemDlg</class>
- <widget class="QDialog" name="MemDlg" >
-  <property name="geometry" >
+ <widget class="QDialog" name="MemDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>458</width>
-    <height>369</height>
+    <height>375</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Memory Settings</string>
   </property>
-  <property name="sizeGripEnabled" >
+  <property name="sizeGripEnabled">
    <bool>false</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
-   <property name="margin" >
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="margin">
     <number>10</number>
    </property>
    <item>
-    <widget class="QGroupBox" name="GroupBox9" >
-     <property name="whatsThis" >
-      <string>&lt;b>Limit the usage of physical memory (RAM).&lt;/b>&lt;br>
+    <widget class="QGroupBox" name="GroupBox9">
+     <property name="whatsThis">
+      <string>&lt;b&gt;Limit the usage of physical memory (RAM).&lt;/b&gt;&lt;br&gt;
 
 If you do not set a limit, the size of the physically installed memory in your computer will be determined and used as limit. You cannot set a limit higher than the totally installed amount of memory.</string>
      </property>
-     <property name="title" >
+     <property name="title">
       <string>&amp;Physical Memory</string>
      </property>
-     <layout class="QHBoxLayout" >
-      <property name="spacing" >
+     <layout class="QHBoxLayout">
+      <property name="spacing">
        <number>10</number>
       </property>
-      <property name="margin" >
+      <property name="margin">
        <number>10</number>
       </property>
       <item>
-       <widget class="QCheckBox" name="chkLimitPhysical" >
-        <property name="text" >
+       <widget class="QCheckBox" name="chkLimitPhysical">
+        <property name="text">
          <string>Limit &amp;to</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QSlider" name="slPhysical" >
-        <property name="enabled" >
+       <widget class="QSlider" name="slPhysical">
+        <property name="enabled">
          <bool>false</bool>
         </property>
-        <property name="minimum" >
+        <property name="minimum">
          <number>1</number>
         </property>
-        <property name="maximum" >
+        <property name="maximum">
          <number>4096</number>
         </property>
-        <property name="pageStep" >
+        <property name="pageStep">
          <number>16</number>
         </property>
-        <property name="value" >
+        <property name="value">
          <number>1</number>
         </property>
-        <property name="orientation" >
+        <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="tickInterval" >
+        <property name="tickInterval">
          <number>64</number>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="sbPhysical" >
-        <property name="enabled" >
+       <widget class="QSpinBox" name="sbPhysical">
+        <property name="enabled">
          <bool>false</bool>
         </property>
-        <property name="toolTip" >
+        <property name="toolTip">
          <string>megabytes of physical memory</string>
         </property>
-        <property name="suffix" >
+        <property name="suffix">
          <string> MB</string>
         </property>
-        <property name="minimum" >
+        <property name="minimum">
          <number>1</number>
         </property>
-        <property name="maximum" >
+        <property name="maximum">
          <number>4096</number>
         </property>
-        <property name="value" >
+        <property name="value">
          <number>4096</number>
         </property>
        </widget>
@@ -96,120 +97,120 @@ If you do not set a limit, the size of the physically installed memory in your c
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="MemDlg1" >
-     <property name="whatsThis" >
-      <string>&lt;b>Configure the usage of virtual memory (swap files).&lt;/b>&lt;br>
+    <widget class="QGroupBox" name="MemDlg1">
+     <property name="whatsThis">
+      <string>&lt;b&gt;Configure the usage of virtual memory (swap files).&lt;/b&gt;&lt;br&gt;
 
 If you enable the use of virtual memory, you can specify a directory where Kwave creates temporary files that it can use as an extension to the physical memory. This enables you to process files that are much larger than your physical memory.
-&lt;br>
+&lt;br&gt;
     Of course you can also set a limit for the total size of the page files.</string>
      </property>
-     <property name="title" >
+     <property name="title">
       <string>&amp;Virtual Memory</string>
      </property>
-     <layout class="QGridLayout" >
-      <property name="margin" >
+     <layout class="QGridLayout">
+      <property name="margin">
        <number>10</number>
       </property>
-      <property name="spacing" >
+      <property name="spacing">
        <number>10</number>
       </property>
-      <item row="0" column="0" colspan="3" >
-       <widget class="QCheckBox" name="chkEnableVirtual" >
-        <property name="text" >
+      <item row="0" column="0" colspan="3">
+       <widget class="QCheckBox" name="chkEnableVirtual">
+        <property name="text">
          <string>&amp;Enable usage of virtual memory</string>
         </property>
-        <property name="checked" >
+        <property name="checked">
          <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item row="2" column="0" >
-       <widget class="QLabel" name="txtDirectory" >
-        <property name="text" >
+      <item row="2" column="0">
+       <widget class="QLabel" name="txtDirectory">
+        <property name="text">
          <string>Directory:</string>
         </property>
-        <property name="wordWrap" >
+        <property name="wordWrap">
          <bool>false</bool>
         </property>
        </widget>
       </item>
-      <item row="2" column="1" >
-       <widget class="QLineEdit" name="edDirectory" >
-        <property name="toolTip" >
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="edDirectory">
+        <property name="toolTip">
          <string>directory for storing swap files</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>/tmp</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="2" >
-       <widget class="QPushButton" name="btSearch" >
-        <property name="toolTip" >
+      <item row="2" column="2">
+       <widget class="QPushButton" name="btSearch">
+        <property name="toolTip">
          <string>browse for a directory to hold page files</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>&amp;Search...</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
-       <widget class="QCheckBox" name="chkLimitVirtual" >
-        <property name="text" >
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="chkLimitVirtual">
+        <property name="text">
          <string>&amp;Limit to</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" >
-       <widget class="QSlider" name="slVirtual" >
-        <property name="enabled" >
+      <item row="1" column="1">
+       <widget class="QSlider" name="slVirtual">
+        <property name="enabled">
          <bool>false</bool>
         </property>
-        <property name="minimumSize" >
+        <property name="minimumSize">
          <size>
           <width>200</width>
           <height>20</height>
          </size>
         </property>
-        <property name="maximum" >
+        <property name="maximum">
          <number>4096</number>
         </property>
-        <property name="singleStep" >
+        <property name="singleStep">
          <number>10</number>
         </property>
-        <property name="pageStep" >
+        <property name="pageStep">
          <number>16</number>
         </property>
-        <property name="orientation" >
+        <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="tickInterval" >
+        <property name="tickInterval">
          <number>500</number>
         </property>
        </widget>
       </item>
-      <item row="1" column="2" >
-       <widget class="QSpinBox" name="sbVirtual" >
-        <property name="enabled" >
+      <item row="1" column="2">
+       <widget class="QSpinBox" name="sbVirtual">
+        <property name="enabled">
          <bool>false</bool>
         </property>
-        <property name="toolTip" >
+        <property name="toolTip">
          <string>megabytes of virtual memory</string>
         </property>
-        <property name="suffix" >
+        <property name="suffix">
          <string> MB</string>
         </property>
-        <property name="minimum" >
+        <property name="minimum">
          <number>10</number>
         </property>
-        <property name="maximum" >
+        <property name="maximum">
          <number>4096</number>
         </property>
-        <property name="singleStep" >
+        <property name="singleStep">
          <number>10</number>
         </property>
-        <property name="value" >
+        <property name="value">
          <number>4096</number>
         </property>
        </widget>
@@ -218,72 +219,72 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="GroupBox9_2" >
-     <property name="whatsThis" >
-      <string>&lt;b>Limit the usage of physical memory (RAM).&lt;/b>&lt;br>
+    <widget class="QGroupBox" name="GroupBox9_2">
+     <property name="whatsThis">
+      <string>&lt;b&gt;Limit the usage of physical memory (RAM).&lt;/b&gt;&lt;br&gt;
 
 If you do not set a limit, the size of the physically installed memory in your computer will be determined and used as limit. You cannot set a limit higher than the totally installed amount of memory.</string>
      </property>
-     <property name="title" >
+     <property name="title">
       <string>Memory for &amp;Undo/Redo</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout" >
-      <property name="spacing" >
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
        <number>10</number>
       </property>
-      <property name="margin" >
+      <property name="margin">
        <number>10</number>
       </property>
       <item>
-       <widget class="QLabel" name="label" >
-        <property name="text" >
+       <widget class="QLabel" name="label">
+        <property name="text">
          <string>Limit to</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QSlider" name="slUndo" >
-        <property name="enabled" >
+       <widget class="QSlider" name="slUndo">
+        <property name="enabled">
          <bool>true</bool>
         </property>
-        <property name="minimum" >
+        <property name="minimum">
          <number>16</number>
         </property>
-        <property name="maximum" >
+        <property name="maximum">
          <number>2048</number>
         </property>
-        <property name="pageStep" >
+        <property name="pageStep">
          <number>16</number>
         </property>
-        <property name="value" >
+        <property name="value">
          <number>512</number>
         </property>
-        <property name="orientation" >
+        <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="tickInterval" >
+        <property name="tickInterval">
          <number>64</number>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="sbUndo" >
-        <property name="enabled" >
+       <widget class="QSpinBox" name="sbUndo">
+        <property name="enabled">
          <bool>true</bool>
         </property>
-        <property name="toolTip" >
+        <property name="toolTip">
          <string>megabytes of memory to be used for undo/redo</string>
         </property>
-        <property name="suffix" >
+        <property name="suffix">
          <string> MB</string>
         </property>
-        <property name="minimum" >
+        <property name="minimum">
          <number>16</number>
         </property>
-        <property name="maximum" >
+        <property name="maximum">
          <number>2048</number>
         </property>
-        <property name="value" >
+        <property name="value">
          <number>512</number>
         </property>
        </widget>
@@ -293,13 +294,13 @@ If you do not set a limit, the size of the physically installed memory in your c
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeType" >
+     <property name="sizeType">
       <enum>QSizePolicy::Fixed</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>40</width>
        <height>20</height>
@@ -308,38 +309,38 @@ If you do not set a limit, the size of the physically installed memory in your c
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>10</number>
      </property>
-     <property name="margin" >
+     <property name="margin">
       <number>0</number>
      </property>
      <item>
-      <widget class="QPushButton" name="btHelp" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+      <widget class="QPushButton" name="btHelp">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>&amp;Help</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string>Alt+H</string>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::MinimumExpanding</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>20</height>
@@ -348,18 +349,18 @@ If you do not set a limit, the size of the physically installed memory in your c
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="btOK" >
-       <property name="text" >
+      <widget class="QPushButton" name="btOK">
+       <property name="text">
         <string>&amp;OK</string>
        </property>
-       <property name="default" >
+       <property name="default">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btCancel" >
-       <property name="text" >
+      <widget class="QPushButton" name="btCancel">
+       <property name="text">
         <string>&amp;Cancel</string>
        </property>
       </widget>
@@ -368,8 +369,7 @@ If you do not set a limit, the size of the physically installed memory in your c
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="10" margin="10" />
- <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <layoutdefault spacing="10" margin="10"/>
  <tabstops>
   <tabstop>chkLimitPhysical</tabstop>
   <tabstop>slPhysical</tabstop>
@@ -387,7 +387,7 @@ If you do not set a limit, the size of the physically installed memory in your c
   <tabstop>btCancel</tabstop>
  </tabstops>
  <includes>
-  <include location="global" >klocale.h</include>
+  <include location="global">klocale.h</include>
  </includes>
  <resources/>
  <connections>
@@ -397,11 +397,11 @@ If you do not set a limit, the size of the physically installed memory in your c
    <receiver>MemDlg</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>308</x>
      <y>347</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -413,11 +413,11 @@ If you do not set a limit, the size of the physically installed memory in your c
    <receiver>MemDlg</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>393</x>
      <y>347</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -429,11 +429,11 @@ If you do not set a limit, the size of the physically installed memory in your c
    <receiver>sbVirtual</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>120</x>
      <y>164</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>374</x>
      <y>164</y>
     </hint>
@@ -445,11 +445,11 @@ If you do not set a limit, the size of the physically installed memory in your c
    <receiver>slVirtual</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>374</x>
      <y>164</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>120</x>
      <y>164</y>
     </hint>
@@ -461,11 +461,11 @@ If you do not set a limit, the size of the physically installed memory in your c
    <receiver>sbPhysical</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>41</x>
      <y>57</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>374</x>
      <y>57</y>
     </hint>
@@ -477,11 +477,11 @@ If you do not set a limit, the size of the physically installed memory in your c
    <receiver>slPhysical</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>41</x>
      <y>57</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>116</x>
      <y>55</y>
     </hint>
@@ -493,11 +493,11 @@ If you do not set a limit, the size of the physically installed memory in your c
    <receiver>slVirtual</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>41</x>
      <y>164</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>120</x>
      <y>164</y>
     </hint>
@@ -509,11 +509,11 @@ If you do not set a limit, the size of the physically installed memory in your c
    <receiver>sbVirtual</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>41</x>
      <y>164</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>374</x>
      <y>164</y>
     </hint>
@@ -525,11 +525,11 @@ If you do not set a limit, the size of the physically installed memory in your c
    <receiver>sbPhysical</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>116</x>
      <y>55</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>374</x>
      <y>57</y>
     </hint>
@@ -541,11 +541,11 @@ If you do not set a limit, the size of the physically installed memory in your c
    <receiver>slPhysical</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>374</x>
      <y>57</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>116</x>
      <y>55</y>
     </hint>
@@ -557,11 +557,11 @@ If you do not set a limit, the size of the physically installed memory in your c
    <receiver>sbUndo</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>285</x>
      <y>268</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>371</x>
      <y>268</y>
     </hint>
@@ -573,11 +573,11 @@ If you do not set a limit, the size of the physically installed memory in your c
    <receiver>slUndo</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>416</x>
      <y>268</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>145</x>
      <y>269</y>
     </hint>

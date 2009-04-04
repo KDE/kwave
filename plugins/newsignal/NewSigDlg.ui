@@ -1,140 +1,120 @@
-<ui version="4.0" >
- <author>Thomas Eschenbacher &lt;Thomas.Eschenbacher@gmx.de></author>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Thomas Eschenbacher &lt;Thomas.Eschenbacher@gmx.de&gt;</author>
  <class>NewSigDlg</class>
- <widget class="QDialog" name="NewSigDlg" >
-  <property name="geometry" >
+ <widget class="QDialog" name="NewSigDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>513</width>
-    <height>528</height>
+    <height>546</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>New Signal</string>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="spacing" >
+  <layout class="QVBoxLayout">
+   <property name="spacing">
     <number>10</number>
    </property>
-   <property name="leftMargin" >
-    <number>10</number>
-   </property>
-   <property name="topMargin" >
-    <number>10</number>
-   </property>
-   <property name="rightMargin" >
-    <number>10</number>
-   </property>
-   <property name="bottomMargin" >
+   <property name="margin">
     <number>10</number>
    </property>
    <item>
-    <widget class="QGroupBox" name="GroupBox1_2" >
-     <property name="title" >
+    <widget class="QGroupBox" name="GroupBox1_2">
+     <property name="title">
       <string>Format</string>
      </property>
-     <layout class="QGridLayout" >
-      <property name="leftMargin" >
+     <layout class="QGridLayout">
+      <property name="margin">
        <number>10</number>
       </property>
-      <property name="topMargin" >
+      <property name="spacing">
        <number>10</number>
       </property>
-      <property name="rightMargin" >
-       <number>10</number>
-      </property>
-      <property name="bottomMargin" >
-       <number>10</number>
-      </property>
-      <property name="horizontalSpacing" >
-       <number>10</number>
-      </property>
-      <property name="verticalSpacing" >
-       <number>10</number>
-      </property>
-      <item row="0" column="2" >
-       <widget class="QComboBox" name="cbSampleRate" >
-        <property name="whatsThis" >
-         <string>&lt;b>Sample Rate&lt;/b>&lt;br>Here you can select one of the predefined well-known sample rates or you can enter any sample rate on your own.</string>
+      <item row="0" column="2">
+       <widget class="QComboBox" name="cbSampleRate">
+        <property name="whatsThis">
+         <string>&lt;b&gt;Sample Rate&lt;/b&gt;&lt;br&gt;Here you can select one of the predefined well-known sample rates or you can enter any sample rate on your own.</string>
         </property>
-        <property name="editable" >
+        <property name="editable">
          <bool>true</bool>
         </property>
-        <property name="currentIndex" >
+        <property name="currentIndex">
          <number>7</number>
         </property>
         <item>
-         <property name="text" >
+         <property name="text">
           <string>8000</string>
          </property>
         </item>
         <item>
-         <property name="text" >
+         <property name="text">
           <string>10000</string>
          </property>
         </item>
         <item>
-         <property name="text" >
+         <property name="text">
           <string>11025</string>
          </property>
         </item>
         <item>
-         <property name="text" >
+         <property name="text">
           <string>12000</string>
          </property>
         </item>
         <item>
-         <property name="text" >
+         <property name="text">
           <string>16000</string>
          </property>
         </item>
         <item>
-         <property name="text" >
+         <property name="text">
           <string>22050</string>
          </property>
         </item>
         <item>
-         <property name="text" >
+         <property name="text">
           <string>32000</string>
          </property>
         </item>
         <item>
-         <property name="text" >
+         <property name="text">
           <string>44100</string>
          </property>
         </item>
         <item>
-         <property name="text" >
+         <property name="text">
           <string>48000</string>
          </property>
         </item>
         <item>
-         <property name="text" >
+         <property name="text">
           <string>96000</string>
          </property>
         </item>
        </widget>
       </item>
-      <item row="0" column="0" >
-       <widget class="QLabel" name="lblRate" >
-        <property name="text" >
+      <item row="0" column="0">
+       <widget class="QLabel" name="lblRate">
+        <property name="text">
          <string>Sample Rate:</string>
         </property>
-        <property name="wordWrap" >
+        <property name="wordWrap">
          <bool>false</bool>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" >
+      <item row="1" column="1">
        <spacer>
-        <property name="orientation" >
+        <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeType" >
+        <property name="sizeType">
          <enum>QSizePolicy::Fixed</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
           <height>20</height>
@@ -142,15 +122,15 @@
         </property>
        </spacer>
       </item>
-      <item row="0" column="1" >
+      <item row="0" column="1">
        <spacer>
-        <property name="orientation" >
+        <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeType" >
+        <property name="sizeType">
          <enum>QSizePolicy::Fixed</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
           <height>21</height>
@@ -158,15 +138,15 @@
         </property>
        </spacer>
       </item>
-      <item row="2" column="1" >
+      <item row="2" column="1">
        <spacer>
-        <property name="orientation" >
+        <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeType" >
+        <property name="sizeType">
          <enum>QSizePolicy::Fixed</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
           <height>20</height>
@@ -174,42 +154,33 @@
         </property>
        </spacer>
       </item>
-      <item row="0" column="3" >
-       <layout class="QHBoxLayout" >
-        <property name="spacing" >
+      <item row="0" column="3">
+       <layout class="QHBoxLayout">
+        <property name="spacing">
          <number>10</number>
         </property>
-        <property name="leftMargin" >
-         <number>0</number>
-        </property>
-        <property name="topMargin" >
-         <number>0</number>
-        </property>
-        <property name="rightMargin" >
-         <number>0</number>
-        </property>
-        <property name="bottomMargin" >
+        <property name="margin">
          <number>0</number>
         </property>
         <item>
-         <widget class="QLabel" name="lblSamplesPerSecond" >
-          <property name="text" >
+         <widget class="QLabel" name="lblSamplesPerSecond">
+          <property name="text">
            <string>samples per second</string>
           </property>
-          <property name="wordWrap" >
+          <property name="wordWrap">
            <bool>false</bool>
           </property>
          </widget>
         </item>
         <item>
          <spacer>
-          <property name="orientation" >
+          <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeType" >
+          <property name="sizeType">
            <enum>QSizePolicy::Expanding</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
             <height>0</height>
@@ -219,62 +190,53 @@
         </item>
        </layout>
       </item>
-      <item row="2" column="0" >
-       <widget class="QLabel" name="lblTracks" >
-        <property name="text" >
+      <item row="2" column="0">
+       <widget class="QLabel" name="lblTracks">
+        <property name="text">
          <string>Tracks:</string>
         </property>
-        <property name="wordWrap" >
+        <property name="wordWrap">
          <bool>false</bool>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="lblResolution" >
-        <property name="text" >
+      <item row="1" column="0">
+       <widget class="QLabel" name="lblResolution">
+        <property name="text">
          <string>Resolution:</string>
         </property>
-        <property name="wordWrap" >
+        <property name="wordWrap">
          <bool>false</bool>
         </property>
        </widget>
       </item>
-      <item row="1" column="3" >
-       <layout class="QHBoxLayout" >
-        <property name="spacing" >
+      <item row="1" column="3">
+       <layout class="QHBoxLayout">
+        <property name="spacing">
          <number>10</number>
         </property>
-        <property name="leftMargin" >
-         <number>0</number>
-        </property>
-        <property name="topMargin" >
-         <number>0</number>
-        </property>
-        <property name="rightMargin" >
-         <number>0</number>
-        </property>
-        <property name="bottomMargin" >
+        <property name="margin">
          <number>0</number>
         </property>
         <item>
-         <widget class="QLabel" name="lblBits" >
-          <property name="text" >
+         <widget class="QLabel" name="lblBits">
+          <property name="text">
            <string>bit</string>
           </property>
-          <property name="wordWrap" >
+          <property name="wordWrap">
            <bool>false</bool>
           </property>
          </widget>
         </item>
         <item>
          <spacer>
-          <property name="orientation" >
+          <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeType" >
+          <property name="sizeType">
            <enum>QSizePolicy::Expanding</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
             <height>0</height>
@@ -284,42 +246,33 @@
         </item>
        </layout>
       </item>
-      <item row="2" column="3" >
-       <layout class="QHBoxLayout" >
-        <property name="spacing" >
+      <item row="2" column="3">
+       <layout class="QHBoxLayout">
+        <property name="spacing">
          <number>10</number>
         </property>
-        <property name="leftMargin" >
-         <number>0</number>
-        </property>
-        <property name="topMargin" >
-         <number>0</number>
-        </property>
-        <property name="rightMargin" >
-         <number>0</number>
-        </property>
-        <property name="bottomMargin" >
+        <property name="margin">
          <number>0</number>
         </property>
         <item>
-         <widget class="QLabel" name="lblTracksVerbose" >
-          <property name="text" >
+         <widget class="QLabel" name="lblTracksVerbose">
+          <property name="text">
            <string>%1</string>
           </property>
-          <property name="wordWrap" >
+          <property name="wordWrap">
            <bool>false</bool>
           </property>
          </widget>
         </item>
         <item>
          <spacer>
-          <property name="orientation" >
+          <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeType" >
+          <property name="sizeType">
            <enum>QSizePolicy::Expanding</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
             <height>0</height>
@@ -329,34 +282,34 @@
         </item>
        </layout>
       </item>
-      <item row="2" column="2" >
-       <widget class="QSpinBox" name="sbTracks" >
-        <property name="whatsThis" >
-         <string>&lt;b>Number of Tracks&lt;/b>&lt;br>Select a number of tracks of the new signal. If you are not sure now, you can add or delete tracks later in the program.</string>
+      <item row="2" column="2">
+       <widget class="QSpinBox" name="sbTracks">
+        <property name="whatsThis">
+         <string>&lt;b&gt;Number of Tracks&lt;/b&gt;&lt;br&gt;Select a number of tracks of the new signal. If you are not sure now, you can add or delete tracks later in the program.</string>
         </property>
-        <property name="minimum" >
+        <property name="minimum">
          <number>1</number>
         </property>
-        <property name="value" >
+        <property name="value">
          <number>2</number>
         </property>
        </widget>
       </item>
-      <item row="1" column="2" >
-       <widget class="QSpinBox" name="sbResolution" >
-        <property name="whatsThis" >
-         <string>&lt;b>Resolution&lt;/b>&lt;br>Select a resolution in bits in which the file will be saved. However, Kwave always uses 24 bits as it's own internal resolution to give the best results when processing the audio data.</string>
+      <item row="1" column="2">
+       <widget class="QSpinBox" name="sbResolution">
+        <property name="whatsThis">
+         <string>&lt;b&gt;Resolution&lt;/b&gt;&lt;br&gt;Select a resolution in bits in which the file will be saved. However, Kwave always uses 24 bits as it's own internal resolution to give the best results when processing the audio data.</string>
         </property>
-        <property name="minimum" >
+        <property name="minimum">
          <number>8</number>
         </property>
-        <property name="maximum" >
+        <property name="maximum">
          <number>24</number>
         </property>
-        <property name="singleStep" >
+        <property name="singleStep">
          <number>8</number>
         </property>
-        <property name="value" >
+        <property name="value">
          <number>16</number>
         </property>
        </widget>
@@ -365,79 +318,58 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="GroupBox1" >
-     <property name="title" >
+    <widget class="QGroupBox" name="GroupBox1">
+     <property name="title">
       <string>Length</string>
      </property>
-     <layout class="QVBoxLayout" >
-      <property name="spacing" >
+     <layout class="QVBoxLayout">
+      <property name="spacing">
        <number>10</number>
       </property>
-      <property name="leftMargin" >
-       <number>10</number>
-      </property>
-      <property name="topMargin" >
-       <number>10</number>
-      </property>
-      <property name="rightMargin" >
-       <number>10</number>
-      </property>
-      <property name="bottomMargin" >
+      <property name="margin">
        <number>10</number>
       </property>
       <item>
-       <widget class="QGroupBox" name="Frame3" >
-        <property name="title" >
+       <widget class="QGroupBox" name="Frame3">
+        <property name="title">
          <string/>
         </property>
-        <layout class="QGridLayout" >
-         <property name="leftMargin" >
+        <layout class="QGridLayout">
+         <property name="margin">
           <number>10</number>
          </property>
-         <property name="topMargin" >
+         <property name="spacing">
           <number>10</number>
          </property>
-         <property name="rightMargin" >
-          <number>10</number>
-         </property>
-         <property name="bottomMargin" >
-          <number>10</number>
-         </property>
-         <property name="horizontalSpacing" >
-          <number>10</number>
-         </property>
-         <property name="verticalSpacing" >
-          <number>10</number>
-         </property>
-         <item row="1" column="0" >
-          <widget class="QRadioButton" name="rbTime" >
-           <property name="toolTip" >
+         <item row="1" column="0">
+          <widget class="QRadioButton" name="rbTime">
+           <property name="toolTip">
             <string>select this to set the length of the file by time</string>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Time</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="0" >
-          <widget class="QRadioButton" name="rbSamples" >
-           <property name="toolTip" >
+         <item row="3" column="0">
+          <widget class="QRadioButton" name="rbSamples">
+           <property name="toolTip">
             <string>select this to enter the number of samples directly</string>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Samples</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="2" >
+         <item row="2" column="2">
           <spacer>
-           <property name="orientation" >
+           <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
-           <property name="sizeType" >
+           <property name="sizeType">
             <enum>QSizePolicy::Fixed</enum>
            </property>
-           <property name="sizeHint" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
              <height>20</height>
@@ -445,84 +377,84 @@
            </property>
           </spacer>
          </item>
-         <item row="3" column="1" colspan="3" >
-          <widget class="KIntNumInput" native="1" name="edSamples" >
-           <property name="enabled" >
+         <item row="3" column="1" colspan="3">
+          <widget class="KIntNumInput" name="edSamples">
+           <property name="enabled">
             <bool>false</bool>
            </property>
           </widget>
          </item>
-         <item row="0" column="3" >
-          <widget class="QLabel" name="lblSeconds" >
-           <property name="text" >
+         <item row="0" column="3">
+          <widget class="QLabel" name="lblSeconds">
+           <property name="text">
             <string>Seconds</string>
            </property>
-           <property name="wordWrap" >
+           <property name="wordWrap">
             <bool>false</bool>
            </property>
           </widget>
          </item>
-         <item row="1" column="3" >
-          <widget class="QSpinBox" name="sbSeconds" >
-           <property name="enabled" >
+         <item row="1" column="3">
+          <widget class="QSpinBox" name="sbSeconds">
+           <property name="enabled">
             <bool>false</bool>
            </property>
-           <property name="wrapping" >
+           <property name="wrapping">
             <bool>true</bool>
            </property>
-           <property name="minimum" >
+           <property name="minimum">
             <number>-1</number>
            </property>
-           <property name="maximum" >
+           <property name="maximum">
             <number>60</number>
            </property>
-           <property name="value" >
+           <property name="value">
             <number>30</number>
            </property>
           </widget>
          </item>
-         <item row="1" column="2" >
-          <widget class="QSpinBox" name="sbMinutes" >
-           <property name="enabled" >
+         <item row="1" column="2">
+          <widget class="QSpinBox" name="sbMinutes">
+           <property name="enabled">
             <bool>false</bool>
            </property>
-           <property name="wrapping" >
+           <property name="wrapping">
             <bool>true</bool>
            </property>
-           <property name="minimum" >
+           <property name="minimum">
             <number>-1</number>
            </property>
-           <property name="maximum" >
+           <property name="maximum">
             <number>60</number>
            </property>
-           <property name="value" >
+           <property name="value">
             <number>4</number>
            </property>
           </widget>
          </item>
-         <item row="0" column="2" >
-          <widget class="QLabel" name="lblMinutes" >
-           <property name="text" >
+         <item row="0" column="2">
+          <widget class="QLabel" name="lblMinutes">
+           <property name="text">
             <string>Minutes</string>
            </property>
-           <property name="wordWrap" >
+           <property name="wordWrap">
             <bool>false</bool>
            </property>
           </widget>
          </item>
-         <item row="1" column="1" >
-          <widget class="QSpinBox" name="sbHours" >
-           <property name="enabled" >
+         <item row="1" column="1">
+          <widget class="QSpinBox" name="sbHours">
+           <property name="enabled">
             <bool>false</bool>
            </property>
           </widget>
          </item>
-         <item row="0" column="1" >
-          <widget class="QLabel" name="lblHours" >
-           <property name="text" >
+         <item row="0" column="1">
+          <widget class="QLabel" name="lblHours">
+           <property name="text">
             <string>Hours</string>
            </property>
-           <property name="wordWrap" >
+           <property name="wordWrap">
             <bool>false</bool>
            </property>
           </widget>
@@ -531,60 +463,51 @@
        </widget>
       </item>
       <item>
-       <widget class="Line" name="Line3" >
-        <property name="minimumSize" >
+       <widget class="Line" name="Line3">
+        <property name="minimumSize">
          <size>
           <width>0</width>
           <height>20</height>
          </size>
         </property>
-        <property name="frameShape" >
+        <property name="frameShape">
          <enum>QFrame::HLine</enum>
         </property>
-        <property name="frameShadow" >
+        <property name="frameShadow">
          <enum>QFrame::Sunken</enum>
         </property>
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" >
-        <property name="spacing" >
+       <layout class="QHBoxLayout">
+        <property name="spacing">
          <number>10</number>
         </property>
-        <property name="leftMargin" >
-         <number>0</number>
-        </property>
-        <property name="topMargin" >
-         <number>0</number>
-        </property>
-        <property name="rightMargin" >
-         <number>0</number>
-        </property>
-        <property name="bottomMargin" >
+        <property name="margin">
          <number>0</number>
         </property>
         <item>
-         <widget class="QLabel" name="lblMaximumSize_2_2" >
-          <property name="text" >
+         <widget class="QLabel" name="lblMaximumSize_2_2">
+          <property name="text">
            <string>minimum</string>
           </property>
-          <property name="alignment" >
+          <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
-          <property name="wordWrap" >
+          <property name="wordWrap">
            <bool>false</bool>
           </property>
          </widget>
         </item>
         <item>
          <spacer>
-          <property name="orientation" >
+          <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeType" >
+          <property name="sizeType">
            <enum>QSizePolicy::Expanding</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
             <height>0</height>
@@ -593,27 +516,27 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="TextLabel2_2" >
-          <property name="text" >
+         <widget class="QLabel" name="TextLabel2_2">
+          <property name="text">
            <string>(file size)</string>
           </property>
-          <property name="alignment" >
+          <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
-          <property name="wordWrap" >
+          <property name="wordWrap">
            <bool>false</bool>
           </property>
          </widget>
         </item>
         <item>
          <spacer>
-          <property name="orientation" >
+          <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeType" >
+          <property name="sizeType">
            <enum>QSizePolicy::Expanding</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
             <height>0</height>
@@ -622,14 +545,14 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="lblMaximumSize_3" >
-          <property name="text" >
+         <widget class="QLabel" name="lblMaximumSize_3">
+          <property name="text">
            <string>maximum</string>
           </property>
-          <property name="alignment" >
+          <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
-          <property name="wordWrap" >
+          <property name="wordWrap">
            <bool>false</bool>
           </property>
          </widget>
@@ -637,69 +560,60 @@
        </layout>
       </item>
       <item>
-       <widget class="QSlider" name="slideLength" >
-        <property name="minimumSize" >
+       <widget class="QSlider" name="slideLength">
+        <property name="minimumSize">
          <size>
           <width>0</width>
           <height>20</height>
          </size>
         </property>
-        <property name="toolTip" >
+        <property name="toolTip">
          <string>sets the file size by the percentage of the possible maximum</string>
         </property>
-        <property name="minimum" >
+        <property name="minimum">
          <number>0</number>
         </property>
-        <property name="maximum" >
+        <property name="maximum">
          <number>100</number>
         </property>
-        <property name="value" >
+        <property name="value">
          <number>1</number>
         </property>
-        <property name="orientation" >
+        <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="tickInterval" >
+        <property name="tickInterval">
          <number>5</number>
         </property>
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" >
-        <property name="spacing" >
+       <layout class="QHBoxLayout">
+        <property name="spacing">
          <number>10</number>
         </property>
-        <property name="leftMargin" >
-         <number>0</number>
-        </property>
-        <property name="topMargin" >
-         <number>0</number>
-        </property>
-        <property name="rightMargin" >
-         <number>0</number>
-        </property>
-        <property name="bottomMargin" >
+        <property name="margin">
          <number>0</number>
         </property>
         <item>
-         <widget class="QLabel" name="TextLabel1" >
-          <property name="text" >
+         <widget class="QLabel" name="TextLabel1">
+          <property name="text">
            <string>0%</string>
           </property>
-          <property name="wordWrap" >
+          <property name="wordWrap">
            <bool>false</bool>
           </property>
          </widget>
         </item>
         <item>
          <spacer>
-          <property name="orientation" >
+          <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeType" >
+          <property name="sizeType">
            <enum>QSizePolicy::Expanding</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
             <height>0</height>
@@ -708,24 +622,24 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="TextLabel3" >
-          <property name="text" >
+         <widget class="QLabel" name="TextLabel3">
+          <property name="text">
            <string>50%</string>
           </property>
-          <property name="wordWrap" >
+          <property name="wordWrap">
            <bool>false</bool>
           </property>
          </widget>
         </item>
         <item>
          <spacer>
-          <property name="orientation" >
+          <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeType" >
+          <property name="sizeType">
            <enum>QSizePolicy::Expanding</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
             <height>0</height>
@@ -734,11 +648,11 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="TextLabel2" >
-          <property name="text" >
+         <widget class="QLabel" name="TextLabel2">
+          <property name="text">
            <string>100%</string>
           </property>
-          <property name="wordWrap" >
+          <property name="wordWrap">
            <bool>false</bool>
           </property>
          </widget>
@@ -749,31 +663,22 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>10</number>
      </property>
-     <property name="leftMargin" >
-      <number>0</number>
-     </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin">
       <number>0</number>
      </property>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>0</height>
@@ -782,28 +687,19 @@
       </spacer>
      </item>
      <item>
-      <layout class="QHBoxLayout" >
-       <property name="spacing" >
+      <layout class="QHBoxLayout">
+       <property name="spacing">
         <number>10</number>
        </property>
-       <property name="leftMargin" >
-        <number>0</number>
-       </property>
-       <property name="topMargin" >
-        <number>0</number>
-       </property>
-       <property name="rightMargin" >
-        <number>0</number>
-       </property>
-       <property name="bottomMargin" >
+       <property name="margin">
         <number>0</number>
        </property>
        <item>
-        <widget class="QLabel" name="lblFileSize" >
-         <property name="text" >
+        <widget class="QLabel" name="lblFileSize">
+         <property name="text">
           <string>%1</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
@@ -812,13 +708,13 @@
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>0</height>
@@ -830,13 +726,13 @@
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeType" >
+     <property name="sizeType">
       <enum>QSizePolicy::Expanding</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>0</width>
        <height>20</height>
@@ -845,41 +741,32 @@
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>10</number>
      </property>
-     <property name="leftMargin" >
-      <number>0</number>
-     </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin">
       <number>0</number>
      </property>
      <item>
-      <widget class="QPushButton" name="btHelp" >
-       <property name="text" >
+      <widget class="QPushButton" name="btHelp">
+       <property name="text">
         <string>&amp;Help</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string>Alt+H</string>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>0</height>
@@ -888,18 +775,18 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="btOK" >
-       <property name="text" >
+      <widget class="QPushButton" name="btOK">
+       <property name="text">
         <string>O&amp;K</string>
        </property>
-       <property name="default" >
+       <property name="default">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btCancel" >
-       <property name="text" >
+      <widget class="QPushButton" name="btCancel">
+       <property name="text">
         <string>&amp;Cancel</string>
        </property>
       </widget>
@@ -908,8 +795,7 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="10" margin="10" />
- <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
    <class>KIntNumInput</class>
@@ -918,8 +804,8 @@
   </customwidget>
  </customwidgets>
  <includes>
-  <include location="global" >klocale.h</include>
-  <include location="global" >knuminput.h</include>
+  <include location="global">klocale.h</include>
+  <include location="global">knuminput.h</include>
  </includes>
  <resources/>
  <connections>
@@ -929,11 +815,11 @@
    <receiver>NewSigDlg</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -945,11 +831,11 @@
    <receiver>NewSigDlg</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -961,11 +847,11 @@
    <receiver>lblSeconds</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -977,11 +863,11 @@
    <receiver>lblMinutes</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -993,11 +879,11 @@
    <receiver>lblHours</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -1009,11 +895,11 @@
    <receiver>sbSeconds</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -1025,11 +911,11 @@
    <receiver>sbMinutes</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -1041,11 +927,11 @@
    <receiver>sbHours</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -1057,11 +943,11 @@
    <receiver>edSamples</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>

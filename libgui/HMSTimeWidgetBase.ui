@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>HMSTimeWidgetBase</class>
- <widget class="QWidget" name="HMSTimeWidgetBase" >
-  <property name="geometry" >
+ <widget class="QWidget" name="HMSTimeWidgetBase">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,79 +10,69 @@
     <height>36</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>HMSTimeWidgetBase</string>
   </property>
-  <layout class="QHBoxLayout" >
-   <property name="leftMargin" >
-    <number>0</number>
-   </property>
-   <property name="topMargin" >
-    <number>0</number>
-   </property>
-   <property name="rightMargin" >
-    <number>0</number>
-   </property>
-   <property name="bottomMargin" >
+  <layout class="QHBoxLayout">
+   <property name="margin">
     <number>0</number>
    </property>
    <item>
-    <widget class="QSpinBox" name="sbHours" >
-     <property name="enabled" >
+    <widget class="QSpinBox" name="sbHours">
+     <property name="enabled">
       <bool>true</bool>
      </property>
-     <property name="suffix" >
+     <property name="suffix">
       <string> h</string>
      </property>
-     <property name="value" >
+     <property name="value">
       <number>99</number>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QSpinBox" name="sbMinutes" >
-     <property name="enabled" >
+    <widget class="QSpinBox" name="sbMinutes">
+     <property name="enabled">
       <bool>true</bool>
      </property>
-     <property name="suffix" >
+     <property name="suffix">
       <string> min</string>
      </property>
-     <property name="minimum" >
+     <property name="minimum">
       <number>-1</number>
      </property>
-     <property name="maximum" >
+     <property name="maximum">
       <number>60</number>
      </property>
-     <property name="value" >
+     <property name="value">
       <number>59</number>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QSpinBox" name="sbSeconds" >
-     <property name="enabled" >
+    <widget class="QSpinBox" name="sbSeconds">
+     <property name="enabled">
       <bool>true</bool>
      </property>
-     <property name="suffix" >
+     <property name="suffix">
       <string> sec</string>
      </property>
-     <property name="minimum" >
+     <property name="minimum">
       <number>-1</number>
      </property>
-     <property name="maximum" >
+     <property name="maximum">
       <number>60</number>
      </property>
-     <property name="value" >
+     <property name="value">
       <number>59</number>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="10" margin="10" />
- <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <layoutdefault spacing="10" margin="10"/>
  <includes>
-  <include location="global" >klocale.h</include>
+  <include location="global">klocale.h</include>
  </includes>
  <resources/>
  <connections/>

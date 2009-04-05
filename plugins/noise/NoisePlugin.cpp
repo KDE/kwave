@@ -53,6 +53,14 @@ void NoisePlugin::run(QStringList)
     MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
         first, last);
 
+    // break if aborted
+    if (!sink.tracks()) return;
+
+    // connect the progress dialog
+//     connect(&sink, SIGNAL(progress(unsigned int)),
+// 	    this,  SLOT(updateProgress(unsigned int)),
+// 	    Qt::QueuedConnection);
+
     // connect them
     if (!Kwave::connect(source, SIGNAL(output(Kwave::SampleArray)),
                         sink,   SLOT(input(Kwave::SampleArray))))
@@ -63,7 +71,7 @@ void NoisePlugin::run(QStringList)
 
     // transport the samples
     qDebug("NoisePlugin: filter started [%u ... %u] ...", first, last);
-    while (!shouldStop() && !(sink.done())) {
+    while (!shouldStop() && !sink.done()) {
 	source.goOn();
     }
     qDebug("NoisePlugin: filter done.");

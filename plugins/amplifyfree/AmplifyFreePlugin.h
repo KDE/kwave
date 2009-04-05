@@ -50,12 +50,27 @@ public:
     /** Does the fade operation */
     virtual void run(QStringList);
 
+    /**
+     * @see Kwave::Plugin::start(),
+     * overloaded to get the action name from the parameters
+     */
+    virtual int start(QStringList &params);
+
+    /**
+     * Returns a text for the progress dialog if enabled.
+     * (already be localized)
+     */
+    virtual QString progressText();
+
 protected:
 
     /** Reads values from the parameter list */
     int interpreteParameters(QStringList &params);
 
 private:
+
+    /** name of the action (untranslated) */
+    QString m_action_name;
 
     /** List of parameters */
     QStringList m_params;

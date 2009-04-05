@@ -32,6 +32,7 @@ SET(libkwave_LIB_SRCS
     CodecBase.cpp
     CodecManager.cpp
     CompressionType.cpp
+    ConfirmCancelProxy.cpp
     cputest.c
     Curve.cpp
     Decoder.cpp

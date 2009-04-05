@@ -110,6 +110,12 @@ namespace Kwave {
 	virtual bool isPersistent() { return isUnique(); }
 
 	/**
+	 * Returns a text for the progress dialog if enabled.
+	 * (already be localized)
+	 */
+	virtual QString progressText();
+
+	/**
 	 * Returns true if the plugin has a running thread.
 	 */
 	bool isRunning();
@@ -324,6 +330,17 @@ namespace Kwave {
     public slots:
 
 	/**
+	 * Switches the support for a progress dialog on [default] or off
+	 */
+	virtual void setProgressDialogEnabled(bool enable);
+
+	/**
+	 * update the progress dialog
+	 * @param progress the current progress in percent [0...100]
+	 */
+	virtual void updateProgress(unsigned int progress);
+
+	/**
 	 * called when the user has pressed "Cancel" in the progress
 	 * dialog and also has confirmed the cancel confirmation
 	 * message box.
@@ -364,8 +381,20 @@ namespace Kwave {
 	/** Mutex for control over the thread */
 	QMutex m_thread_lock;
 
+	/** determines whether a progress dialog should be used in run() */
+	bool m_progress_enabled;
+
 	/** flag for stopping the process */
 	bool m_stop;
+
+	/** a progress dialog, if the audio processing takes longer... */
+	QProgressDialog *m_progress;
+
+	/**
+	* proxy dialog that asks for configmation if the user
+	* pressed cancel in the progress dialog
+	*/
+	ConfirmCancelProxy *m_confirm_cancel;
 
 	/** Usage counter */
 	unsigned int m_usage_count;

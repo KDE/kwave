@@ -27,14 +27,13 @@ extern "C" {
 #include <klocale.h>
 #include <kmimetype.h>
 
+#include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 #include "libkwave/VirtualAudioFile.h"
-
-#include "libgui/ConfirmCancelProxy.h"
 
 #include "AudiofileDecoder.h"
 

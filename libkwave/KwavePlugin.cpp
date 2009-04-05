@@ -23,6 +23,7 @@
 #include <dlfcn.h>
 #include <sched.h>
 
+#include <QProgressDialog>
 #include <QTime>
 #include <QVector>
 #include <QWidget>
@@ -31,6 +32,7 @@
 #include <kglobal.h>
 #include <klocale.h>
 
+#include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
@@ -68,7 +70,10 @@ Kwave::Plugin::Plugin(const PluginContext &c)
     :m_context(c),
      m_thread(0),
      m_thread_lock(),
+     m_progress_enabled(true),
      m_stop(false),
+     m_progress(0),
+     m_confirm_cancel(0),
      m_usage_count(0),
      m_usage_lock()
 {
@@ -96,6 +101,9 @@ Kwave::Plugin::~Plugin()
 	    m_thread = 0;
 	}
     }
+
+    if (m_confirm_cancel) delete m_confirm_cancel;
+    if (m_progress)       delete m_progress;
 }
 
 //***************************************************************************
@@ -134,7 +142,54 @@ int Kwave::Plugin::start(QStringList &)
 {
     QMutexLocker lock(&m_thread_lock);
     m_stop = false;
+
+    Q_ASSERT(!m_progress);
+    Q_ASSERT(!m_confirm_cancel);
+
+    // check: start() must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
+    // create a progress dialog for processing mode (not used for pre-listen)
+    if (m_progress_enabled) {
+	m_progress = new QProgressDialog(parentWidget());
+	Q_ASSERT(m_progress);
+    }
+
+    // set up the progress dialog when in processing (not pre-listen) mode
+    if (m_progress_enabled && m_progress) {
+	unsigned int first, last;
+	unsigned int tracks = selectedTracks().count();
+
+	selection(&first, &last, true);
+	m_progress->setModal(true);
+	m_progress->setVisible(false);
+	m_progress->setMinimumDuration(2000);
+	m_progress->setAutoClose(true);
+	m_progress->setMaximum((last - first + 1) * tracks);
+	m_progress->setValue(0);
+	m_progress->setLabelText(progressText());
+	int h = m_progress->sizeHint().height();
+	int w = m_progress->sizeHint().height();
+	if (w < 4*h) w = 4*h;
+	m_progress->setFixedSize(w, h);
+
+	// use a "proxy" that asks for confirmation of cancel
+	m_confirm_cancel = new ConfirmCancelProxy(m_progress,
+		0, 0, this, SLOT(cancel()));
+	Q_ASSERT(m_confirm_cancel);
+	connect(m_progress,      SIGNAL(canceled()),
+		m_confirm_cancel, SLOT(cancel()));
+	m_progress->setVisible(true);
+    }
+
     return 0;
+}
+
+//***************************************************************************
+QString Kwave::Plugin::progressText()
+{
+    return i18n("running plugin '%1' ...", name());
 }
 
 //***************************************************************************
@@ -176,6 +231,24 @@ int Kwave::Plugin::stop()
 	}
     }
     return 0;
+}
+
+//***************************************************************************
+void Kwave::Plugin::setProgressDialogEnabled(bool enable)
+{
+    m_progress_enabled = enable;
+}
+
+//***************************************************************************
+void Kwave::Plugin::updateProgress(unsigned int progress)
+{
+//     qDebug("Kwave::Plugin::updateProgress(%u)", progress);
+
+    // check: this must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
+    if (m_progress) m_progress->setValue(progress);
 }
 
 //***************************************************************************

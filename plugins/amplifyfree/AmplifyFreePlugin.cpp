@@ -37,7 +37,7 @@ KWAVE_PLUGIN(AmplifyFreePlugin,"amplifyfree","Thomas Eschenbacher");
 
 //***************************************************************************
 AmplifyFreePlugin::AmplifyFreePlugin(const PluginContext &context)
-    :Kwave::Plugin(context), m_params(), m_curve()
+    :Kwave::Plugin(context), m_action_name(""), m_params(), m_curve()
 {
     i18n("amplifyfree");
 }
@@ -53,12 +53,19 @@ int AmplifyFreePlugin::interpreteParameters(QStringList &params)
     // store last parameters
     m_params = params;
 
+    m_action_name = "";
+    if (params.count() < 2) return -1;
+    if (params.count() & 1) return -1; // no. of params must be even
+
+    // first list entry == name of operation
+    if (params[0].length()) m_action_name = params[0];
+
     // convert string list into command again...
     QString cmd;
     cmd = "curve(";
-    for (int i=0; i < params.count(); ++i) {
+    for (int i = 1; i < params.count(); ++i) {
 	cmd += params[i];
-	if (i+1 < params.count()) cmd += ",";
+	if ((i + 1) < params.count()) cmd += ",";
     }
     cmd += ")";
 
@@ -79,15 +86,23 @@ QStringList *AmplifyFreePlugin::setup(QStringList &previous_params)
     Q_ASSERT(dialog);
     if (!dialog) return 0;
 
-    if (!m_params.isEmpty()) dialog->setParams(m_params);
+    // remove the first list entry (action name), the rest is for the dialog
+    if ((m_params.count() > 2) && !(m_params.count() & 1)) {
+	QStringList curve_params = m_params;
+	curve_params.takeFirst(); // ignore action name
+	dialog->setParams(curve_params);
+    }
 
     QStringList *list = new QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"
+	*list << "amplify free";
 	QString cmd = dialog->getCommand();
 	Parser p(cmd);
 	while (!p.isDone()) *list << p.nextParam();
+
+	qDebug("setup -> emitCommand('%s')",cmd.toLocal8Bit().data());
 	emitCommand(cmd);
     } else {
 	// user pressed "Cancel"
@@ -100,13 +115,28 @@ QStringList *AmplifyFreePlugin::setup(QStringList &previous_params)
 }
 
 //***************************************************************************
+QString AmplifyFreePlugin::progressText()
+{
+    return m_action_name.length() ?
+	i18n(m_action_name.toLocal8Bit()) : i18n("amplify free");
+}
+
+//***************************************************************************
+int AmplifyFreePlugin::start(QStringList &params)
+{
+    interpreteParameters(params);
+    return Kwave::Plugin::start(params);
+}
+
+//***************************************************************************
 void AmplifyFreePlugin::run(QStringList params)
 {
     unsigned int first, last;
 
-    UndoTransactionGuard undo_guard(*this, i18n("amplify free"));
-
     interpreteParameters(params);
+
+    UndoTransactionGuard undo_guard(*this, i18n(m_action_name.toLocal8Bit()));
+
     unsigned int input_length = selection(&first, &last, true);
     unsigned int tracks = selectedTracks().count();
 
@@ -116,6 +146,9 @@ void AmplifyFreePlugin::run(QStringList params)
     MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
 	first, last);
     Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks, this);
+
+    // break if aborted
+    if (!sink.tracks()) return;
 
     // connect them
     bool ok = true;
@@ -132,6 +165,11 @@ void AmplifyFreePlugin::run(QStringList params)
 	close();
 	return;
     }
+
+    // connect the progress dialog
+    connect(&sink, SIGNAL(progress(unsigned int)),
+	    this,  SLOT(updateProgress(unsigned int)),
+	    Qt::QueuedConnection);
 
     // transport the samples
     qDebug("AmplifyFreePlugin: filter started...");

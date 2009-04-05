@@ -111,6 +111,11 @@ void ZeroPlugin::run(QStringList params)
     // break if aborted
     if (!writers->tracks()) return;
 
+    // connect the progress dialog
+    connect(writers, SIGNAL(progress(unsigned int)),
+	    this,    SLOT(updateProgress(unsigned int)),
+	    Qt::QueuedConnection);
+
     first = (*writers)[0]->first();
     last  = (*writers)[0]->last();
     unsigned int count = writers->tracks();
@@ -123,7 +128,7 @@ void ZeroPlugin::run(QStringList params)
     Q_ASSERT(m_zeroes.size() == ZERO_COUNT);
 
     // loop over the sample range
-    while ((first <= last) && (!shouldStop())) {
+    while ((first <= last) && !shouldStop()) {
 	unsigned int rest = last - first + 1;
 	if (rest < m_zeroes.size()) m_zeroes.resize(rest);
 

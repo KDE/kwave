@@ -30,6 +30,7 @@ extern "C" {
 #include <kmimetype.h>
 
 #include "libkwave/byteswap.h"
+#include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Label.h"
 #include "libkwave/MessageBox.h"
@@ -37,8 +38,6 @@ extern "C" {
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 #include "libkwave/VirtualAudioFile.h"
-
-#include "libgui/ConfirmCancelProxy.h"
 
 #include "RecoveryBuffer.h"
 #include "RecoveryMapping.h"

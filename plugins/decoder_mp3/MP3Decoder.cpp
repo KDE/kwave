@@ -22,6 +22,7 @@
 #include <id3/misc_support.h>
 
 #include "libkwave/CompressionType.h"
+#include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/GenreType.h"
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/MessageBox.h"
@@ -29,8 +30,6 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
-
-#include "libgui/ConfirmCancelProxy.h"
 
 #include "MP3Decoder.h"
 #include "ID3_QIODeviceReader.h"

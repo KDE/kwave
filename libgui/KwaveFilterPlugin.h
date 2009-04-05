@@ -51,61 +51,61 @@ namespace Kwave {
 	virtual int interpreteParameters(QStringList & /* params */) = 0;
 
 	/**
-	* Creates a setup dialog an returns a pointer to it.
-	*/
+	 * Creates a setup dialog an returns a pointer to it.
+	 */
 	virtual KwavePluginSetupDialog *createDialog(QWidget * /*parent*/) = 0;
 
 	/**
-	* Creates a multi-track filter with the given number of tracks
-	* @param tracks number of tracks that the filter should have
-	* @return pointer to the filter or null if failed
-	*/
+	 * Creates a multi-track filter with the given number of tracks
+	 * @param tracks number of tracks that the filter should have
+	 * @return pointer to the filter or null if failed
+	 */
 	virtual Kwave::SampleSource *createFilter(unsigned int tracks) = 0;
 
 	/**
-	* Shows a dialog for setting up the filter plugin
-	* @see Kwave::Plugin::setup
-	*/
+	 * Shows a dialog for setting up the filter plugin
+	 * @see Kwave::Plugin::setup
+	 */
 	virtual QStringList *setup(QStringList &previous_params);
 
 	/** Does the filter operation and/or pre-listen */
 	virtual void run(QStringList);
 
-	/** overloaded version of Kwave::Plugin::start */
-	virtual int start(QStringList &params);
-
-	/** Aborts the process (if running). */
-	virtual int stop();
-
 	/**
-	* Returns true if the parameters have changed during pre-listen.
-	* @note this default implementation always returns false.
-	*/
+	 * Returns true if the parameters have changed during pre-listen.
+	 * @note this default implementation always returns false.
+	 */
 	virtual bool paramsChanged();
 
 	/**
-	* Update the filter with new parameters if it has changed
-	* changed during the pre-listen.
-	* @param filter the Kwave::SampleSource to be updated, should be the
-	*               same one as created with createFilter()
-	* @param force if true, even update if no settings have changed
-	*/
+	 * Update the filter with new parameters if it has changed
+	 * changed during the pre-listen.
+	 * @param filter the Kwave::SampleSource to be updated, should be the
+	 *               same one as created with createFilter()
+	 * @param force if true, even update if no settings have changed
+	 */
 	virtual void updateFilter(Kwave::SampleSource *filter, bool force=0);
 
 	/**
-	* Returns a verbose name of the performed action. Used for giving
-	* the undo action a readable name.
-	* The name must already be localized !
-	*/
+	 * Returns a verbose name of the performed action. Used for giving
+	 * the undo action a readable name.
+	 * The name must already be localized !
+	 */
 	virtual QString actionName() = 0;
+
+	/**
+	 * Returns a text for the progress dialog if enabled.
+	 * (already be localized)
+	 */
+	virtual QString progressText();
 
     signals:
 
 	/**
-	* emitted when the user pressed the cancel button
-	* of the progress dialog
-	* @internal
-	*/
+	 * emitted when the user pressed the cancel button
+	 * of the progress dialog
+	 * @internal
+	 */
 	void sigCancelPressed();
 
     protected slots:
@@ -116,27 +116,12 @@ namespace Kwave {
 	/** Stop the pre-listening */
 	void stopPreListen();
 
-	/**
-	 * update the progress dialog
-	 * @param progress the current progress in percent [0...100]
-	 */
-	void updateProgress(unsigned int progress);
-
     private:
 	/** List of parameters */
 	QStringList m_params;
 
 	/** flag for indicating pre-listen mode */
 	bool m_listen;
-
-	/** a progress dialog, if the audio processing takes longer... */
-	QProgressDialog *m_progress;
-
-	/**
-	* proxy dialog that asks for configmation if the user
-	* pressed cancel in the progress dialog
-	*/
-	ConfirmCancelProxy *m_confirm_cancel;
 
 	/** flag for pausing the process */
 	bool m_pause;

@@ -1085,7 +1085,7 @@ bool SignalManager::continueWithoutUndo()
 	     "available for undo under '%1'/'%2'.").arg(
 	     i18n("&Options").replace(QRegExp("&(.)"), "<u>\\1</u>")).arg(
 	     i18n("&Memory").replace(QRegExp("&(.)"), "<u>\\1</u>") +
-	"</html>")) == KMessageBox::Continue)
+	"</i></html>")) == KMessageBox::Continue)
     {
 	// the signal was modified, it will stay in this state, it is
 	// not possible to change to "non-modified" state through undo

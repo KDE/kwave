@@ -19,7 +19,6 @@
 
 SET(libkwavegui_LIB_SRCS
     CurveWidget.cpp
-    ConfirmCancelProxy.cpp
     FrequencyResponseWidget.cpp
     HMSTimeWidget.cpp
     ImageView.cpp

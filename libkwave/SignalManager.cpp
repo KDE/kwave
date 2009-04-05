@@ -1077,9 +1077,15 @@ bool SignalManager::continueWithoutUndo()
     if (m_undo_transaction->isEmpty()) return true;
 
     if (Kwave::MessageBox::warningContinueCancel(m_parent_widget,
-	i18n("Not enough memory for saving undo information. "
-	     "Do you want to continue without the possibility to undo?")) ==
-	KMessageBox::Continue)
+	"<html>"+i18n("Not enough memory for saving undo information.") +
+	"<br><br><b>"+
+	i18n("Do you want to continue without the possibility to undo?") +
+	"</b><br><br><i>" +
+	i18n("<b>Hint</b>: you can configure the amount of memory<br>"
+	     "available for undo under '%1'/'%2'.").arg(
+	     i18n("&Options").replace(QRegExp("&(.)"), "<u>\\1</u>")).arg(
+	     i18n("&Memory").replace(QRegExp("&(.)"), "<u>\\1</u>") +
+	"</html>")) == KMessageBox::Continue)
     {
 	// the signal was modified, it will stay in this state, it is
 	// not possible to change to "non-modified" state through undo

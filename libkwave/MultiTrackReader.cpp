@@ -36,18 +36,14 @@ MultiTrackReader::MultiTrackReader(SignalManager &signal_manager,
     :Kwave::MultiTrackSource<SampleReader, false>(0),
      m_first(first), m_last(last), m_canceled(false)
 {
-    const unsigned int count = track_list.count();
     unsigned int index = 0;
 
     foreach(unsigned int track, track_list) {
 	SampleReader *s = signal_manager.openSampleReader(track, first, last);
-	Q_ASSERT(s);
+	if (!s) break;
 	insert(index++, s);
 	Q_ASSERT(index == tracks());
     }
-
-    Q_ASSERT(count == tracks());
-    Q_UNUSED(count);
 }
 
 //***************************************************************************

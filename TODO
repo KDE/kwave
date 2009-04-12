@@ -1,6 +1,6 @@
+-
 
-o get rid of libaudiofile, it is too buggy, has too few features and
-  is no longer actively maintained -> find an alternative
+o i18n for menus does not work correct
 
 o debug aid: write all actions to a logfile
 
@@ -15,9 +15,6 @@ o debug aid: new plugin for adding a new track with test/debug info:
 
 o use svg graphics instead of pixmaps
 
-o find a way to use KDE::ThreadWeaver for signal processing
-  but still use signals/slots
-
 o use LADSPA
 
 o automatic defragmentation of stripes
@@ -25,6 +22,9 @@ o automatic defragmentation of stripes
 o support for sample rate conversion, libsamplerate
 
 o port from id3lib to taglib
+
+o get rid of libaudiofile, it is too buggy, has too few features and
+  is no longer actively maintained -> find an alternative
 
 o ALSA record/playback: also detect devices configured in the .asoundrc,
   and not only hardware devices
@@ -59,7 +59,6 @@ o volume plugin: implement a "normalize to maximum" button
 
 o auto-detect pause and set markers, for splitting recorded stuff into several
   parts and then save them to disc as separate files
-  (feature requested by Stefan Macher)
 
 o virtual memory: multiple swap directories
 

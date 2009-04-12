@@ -57,9 +57,9 @@ void NoisePlugin::run(QStringList)
     if (!sink.tracks()) return;
 
     // connect the progress dialog
-//     connect(&sink, SIGNAL(progress(unsigned int)),
-// 	    this,  SLOT(updateProgress(unsigned int)),
-// 	    Qt::QueuedConnection);
+    connect(&sink, SIGNAL(progress(unsigned int)),
+	    this,  SLOT(updateProgress(unsigned int)),
+	    Qt::QueuedConnection);
 
     // connect them
     if (!Kwave::connect(source, SIGNAL(output(Kwave::SampleArray)),

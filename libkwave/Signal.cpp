@@ -167,7 +167,6 @@ SampleReader *Signal::openSampleReader(unsigned int track,
 {
     QReadLocker lock(&m_lock_tracks);
 
-    Q_ASSERT(static_cast<int>(track) < m_tracks.count());
     if (static_cast<int>(track) >= m_tracks.count())
 	return 0; // track does not exist !
 

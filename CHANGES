@@ -24,13 +24,13 @@
  * memory management: no longer evaluate RLIMIT_RSS, gives more
    available physical memory
  * portability fix: swapfile creation/destruction went wrong
- * memory for undo/redo can now be configured
+ * feature: memory for undo/redo can now be configured
  * bugfix: handling of "continue without undo" produced wrong undo/redo states
    and asked several times
  * bugfix: file progress did not do GUI updates, cancel button did not work
  * bugfix: assert in record plugin if no valid sample rate available
  * speedup for generation of signal overviews in min/max mode
- * bugfix: MultiTrackWriter produced one extra sample (off by on error)
+ * bugfix: MultiTrackWriter produced one extra sample (off by one error)
  * workaround for bug in libaudiofile: sometimes libaudiofile produces
    broken files as it uses 'float' for internal calculations (wrong size
    of 'data' and 'RIFF' chunk) => see ubuntu bug #327018
@@ -40,6 +40,10 @@
  * bugfix: after creating a new empty file, "revert" was possible
  * speed optimizations in buffer handling
  * speedup: limiting the rate of progress updates when loading and saving files
+ * fixed displayed names of actions based on the "amplifyfree" plugin
+ * bugfix: menu entry translation did not work correctly
+ * bugfix: deleteLater on menu nodes did not work,
+   implemented own garbage collector
 
 0.8.1  [2008-12-23]
 

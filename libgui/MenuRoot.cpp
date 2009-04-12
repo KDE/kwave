@@ -25,6 +25,10 @@
 #include "MenuRoot.h"
 
 //***************************************************************************
+/** garbage collector for menu nodes */
+QList<MenuNode *> MenuRoot::m_garbage;
+
+//***************************************************************************
 MenuRoot::MenuRoot(KMenuBar &bar)
     :MenuNode(0, "(root)", 0, 0, 0), m_menu_bar(bar), m_group_list()
 {
@@ -40,6 +44,22 @@ MenuRoot::~MenuRoot()
 QHash<QString, MenuGroup *> &MenuRoot::getGroupList()
 {
     return m_group_list;
+}
+
+//*****************************************************************************
+void MenuRoot::insertNode(const QString &name,
+                          const QString &position,
+                          const QString &command,
+                          const QKeySequence &shortcut,
+                          const QString &uid)
+{
+    MenuNode::insertNode(name, position, command, shortcut, uid);
+
+    // now delete all leafes that have been converted to branches
+    while (!m_garbage.isEmpty()) {
+	MenuNode *node = m_garbage.takeFirst();
+	if (node) delete node;
+    }
 }
 
 //***************************************************************************
@@ -106,6 +126,12 @@ bool MenuRoot::specialCommand(const QString &command)
     }
 
     return MenuNode::specialCommand(command);
+}
+
+//***************************************************************************
+void MenuRoot::deleteLater(MenuNode *node)
+{
+    if (node) m_garbage.append(node);
 }
 
 //***************************************************************************

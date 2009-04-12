@@ -26,6 +26,7 @@
 #include "libkwave/Parser.h"
 #include "MenuNode.h"
 #include "MenuGroup.h"
+#include "MenuRoot.h"
 #include "MenuSub.h"
 
 //*****************************************************************************
@@ -341,9 +342,9 @@ MenuNode *MenuNode::leafToBranch(MenuNode *node)
     }
 
     // free the old node later.
-    // IMPORTANT: we must not call "delete node" now, because we need
-    //            to call leafToBranch(this) !
-    node->deleteLater();
+    // IMPORTANT: we must not call "delete node" now, because we get called
+    //            through leafToBranch(this) !
+    MenuRoot::deleteLater(node);
 
     return sub;
 }

@@ -36,7 +36,7 @@ MenuSub::MenuSub(MenuNode *parent,
     QAction *act = action();
     Q_ASSERT(act);
     if (act) {
-	act->setText(i18n(name.toAscii()));
+	act->setText(i18n(name.toUtf8()));
 	if (shortcut) act->setShortcut(shortcut);
     }
 }

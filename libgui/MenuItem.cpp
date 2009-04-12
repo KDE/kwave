@@ -22,6 +22,7 @@
 
 #include <kapplication.h>
 #include <kiconloader.h>
+#include <klocale.h>
 
 #include "libkwave/Parser.h"
 
@@ -42,7 +43,7 @@ MenuItem::MenuItem(MenuNode *parent,
     Q_ASSERT(parent);
     if (!parent) return;
 
-    m_action.setText(name);
+    m_action.setText(i18n(name.toUtf8()));
     if (shortcut) m_action.setShortcut(shortcut);
 
     connect(&m_action, SIGNAL(triggered(bool)),

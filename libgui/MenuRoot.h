@@ -46,6 +46,26 @@ public:
     virtual ~MenuRoot();
 
     /**
+     * overloaded version from MenuNode, which does a cleanup of
+     * the "garbage collector" afterwards.
+     *
+     * @see MenuNode::insertNode()
+     *
+     * @param name non-localized name of the first node (might be 0)
+     * @param position path consiting of several node names separated
+     *        by a '/'. All strings are non-localized.
+     * @param command the command to be sent when the node is
+     *                selected (might be 0)
+     * @param shortcut keyboard shortcut, 0 if unused
+     * @param uid unique id string (might be 0)
+     */
+    virtual void insertNode(const QString &name,
+                            const QString &position,
+                            const QString &command,
+                            const QKeySequence &shortcut,
+                            const QString &uid);
+
+    /**
      * Inserts a new branch node into the menu structure. The new node
      * normally is (derived from) MenuToplevel.
      * @param name non-localized name of the node
@@ -99,6 +119,12 @@ public:
      */
     virtual QHash<QString, MenuGroup *> &getGroupList();
 
+    /**
+     * replacement for QObject::deleteLater(...), which does not work
+     * in this context
+     */
+    static void deleteLater(MenuNode *node);
+
 private:
 
     /** reference to a KMenuBar */
@@ -106,6 +132,9 @@ private:
 
     /** list of menu groups */
     QHash<QString, MenuGroup *> m_group_list;
+
+    /** list of nodes to delete, as deleteLater() does not work :-( */
+    static QList <MenuNode *> m_garbage;
 
 };
 

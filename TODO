@@ -1,7 +1,5 @@
 -
 
-o i18n for menus does not work correct
-
 o debug aid: write all actions to a logfile
 
 o debug aid: new plugin for adding a new track with test/debug info:
@@ -39,11 +37,6 @@ o replace "AF_SAMPFMT_xxx" with enum "SampleFormat::yyy" in WavEncoder.cpp,
 o more precise handling of the playback pointer
 
 o function for "Edit/Selection/Insert at..."
-
-o hourglass and process indicators for longer processes
-  -> use a progress bar/dialog with a "Cancel" button and make it a modal
-     window -> maybe this solves the problem with the deadlock when closing
-     the file while a plugin is still running...
 
 o audible/silent mode of tracks (speakers)
   speaker controls for "audible" mode
@@ -119,8 +112,6 @@ o new plugin: channel mixer
 o import of multi-channel ASCII files
 
 o use namespace "Kwave" for all Kwave components
-
-o splitting of i18n for kwave and each plugin
 
 o support for KDE's session management
 

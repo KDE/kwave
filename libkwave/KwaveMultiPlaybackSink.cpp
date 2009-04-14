@@ -18,6 +18,7 @@
 #include "config.h"
 
 #include <QtGlobal>
+#include <QMutexLocker>
 
 #include "libkwave/memcpy.h"
 #include "libkwave/KwaveMultiPlaybackSink.h"
@@ -30,21 +31,18 @@ Kwave::MultiPlaybackSink::MultiPlaybackSink(unsigned int tracks,
     :Kwave::MultiTrackSink<Kwave::PlaybackSink>(0),
      m_tracks(tracks), m_device(device), m_in_buffer(tracks),
      m_in_buffer_filled(tracks),
-     m_out_buffer(tracks)
+     m_out_buffer(tracks), m_lock()
 {
     m_in_buffer.fill(0);
     m_in_buffer_filled.fill(false);
 
     for (unsigned int track = 0; track < m_tracks; track++) {
-	// allocate a input buffer
-	m_in_buffer[track] = new Kwave::SampleArray(blockSize());
-	Q_ASSERT(m_in_buffer[track]);
-
 	// allocate a sink
 	Kwave::PlaybackSink *sink = new Kwave::PlaybackSink(track);
 	insert(track, sink);
 	connect(sink, SIGNAL(output(unsigned int, Kwave::SampleArray)),
-	        this, SLOT(input(unsigned int, Kwave::SampleArray)));
+	        this, SLOT(input(unsigned int, Kwave::SampleArray)),
+	        Qt::DirectConnection);
     }
 }
 
@@ -62,11 +60,8 @@ Kwave::MultiPlaybackSink::~MultiPlaybackSink()
     m_device = 0;
 
     // discard the buffers
-    while (!m_in_buffer.isEmpty()) {
-	Kwave::SampleArray *b = m_in_buffer[0];
-	if (b) delete b;
-	m_in_buffer.remove(0);
-    }
+    while (!m_in_buffer.isEmpty())
+	m_in_buffer.erase(m_in_buffer.end() - 1);
     m_in_buffer.clear();
 }
 
@@ -74,19 +69,18 @@ Kwave::MultiPlaybackSink::~MultiPlaybackSink()
 void Kwave::MultiPlaybackSink::input(unsigned int track,
                                      Kwave::SampleArray data)
 {
+    QMutexLocker lock(&m_lock);
+
     Q_ASSERT(m_device);
     Q_ASSERT(m_tracks);
-    Q_ASSERT(m_in_buffer[track]);
-    if (!m_device || !m_tracks || !m_in_buffer[track]) return;
+    if (!m_device || !m_tracks) return;
 
     Q_ASSERT(!m_in_buffer_filled[track]);
     m_in_buffer_filled[track] = true;
 
     // copy the input data to the buffer
     unsigned int samples = data.size();
-    Q_ASSERT(m_in_buffer[track]->size() >= data.size());
-    MEMCPY(m_in_buffer[track]->data(), data.data(),
-           samples * sizeof(data[0]));
+    m_in_buffer[track] = data;
 
     // check if all buffers are filled
     for (unsigned int track = 0; track < m_tracks; track++)
@@ -97,7 +91,7 @@ void Kwave::MultiPlaybackSink::input(unsigned int track,
     Q_ASSERT(m_out_buffer.size() >= m_tracks);
     for (unsigned int sample=0; sample < samples; sample++) {
 	for (unsigned int t=0; t < m_tracks; t++)
-	    m_out_buffer[t] = (*m_in_buffer[t])[sample];
+	    m_out_buffer[t] = (m_in_buffer[t])[sample];
 
 	// play the output buffer
 	m_device->write(m_out_buffer);

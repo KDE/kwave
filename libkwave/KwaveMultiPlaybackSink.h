@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <QBitArray>
+#include <QMutex>
 #include <QVector>
 
 #include <kdemacros.h>
@@ -64,13 +65,17 @@ namespace Kwave {
 	PlayBackDevice *m_device;
 
 	/** list of input buffers */
-	QVector< Kwave::SampleArray *> m_in_buffer;
+	QVector< Kwave::SampleArray > m_in_buffer;
 
 	/** "filled"-flags for input buffers */
 	QBitArray m_in_buffer_filled;
 
 	/** output buffer for all samples */
 	Kwave::SampleArray m_out_buffer;
+
+	/** mutex for locking against reentrance */
+	QMutex m_lock;
+
     };
 }
 

@@ -203,7 +203,7 @@ void Kwave::FilterPlugin::startPreListen()
 
     if (m_sink) {
 	m_listen = true;
-	setProgressDialogEnabled(!m_listen);
+	setProgressDialogEnabled(false);
 	static QStringList empty_list;
 	use();
 	execute(empty_list);
@@ -215,7 +215,7 @@ void Kwave::FilterPlugin::stopPreListen()
 {
     stop();
     m_listen = false;
-    setProgressDialogEnabled(!m_listen);
+    setProgressDialogEnabled(true);
 }
 
 //***************************************************************************

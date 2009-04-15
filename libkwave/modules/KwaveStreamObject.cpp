@@ -22,6 +22,9 @@
 
 #include "libkwave/modules/KwaveStreamObject.h"
 
+/** interactive mode */
+bool Kwave::StreamObject::m_interactive = false;
+
 //***************************************************************************
 Kwave::StreamObject::StreamObject(QObject *parent)
     :QObject(0 /*parent*/), m_lock_set_attribute(QMutex::Recursive)
@@ -56,6 +59,18 @@ void Kwave::StreamObject::setAttribute(const QString &attribute,
 	QObject::disconnect(this, SIGNAL(attributeChanged(const QVariant)),
                             obj, attribute.toAscii());
     }
+}
+
+//***************************************************************************
+unsigned int Kwave::StreamObject::blockSize() const
+{
+    return (m_interactive) ? 8*1024 : 512*1024;
+}
+
+//***************************************************************************
+void Kwave::StreamObject::setInteractive(bool interactive)
+{
+    m_interactive = interactive;
 }
 
 //***************************************************************************

@@ -61,11 +61,9 @@ namespace Kwave {
 
 	/**
 	 * Returns the block size used for producing data.
-	 * @return currently 256k [samples]
+	 * @return currently 32k [samples]
 	 */
-	virtual unsigned int blockSize() const {
-	    return 256*1024;
-	}
+	virtual unsigned int blockSize() const;
 
 	/**
 	 * Sets an attribute of a Kwave::StreamObject.
@@ -74,6 +72,14 @@ namespace Kwave {
 	 * @param value the new value of the attribute, stored in a QVariant
 	 */
 	void setAttribute(const QString &attribute, const QVariant &value);
+
+	/**
+	 * Switch interactive mode on or off. In interactive mode we
+	 * use a smaller block size for creating objects to get better
+	 * response time to parameter changes. In non-interactive mode
+	 * the block size is higher for better performance.
+	 */
+	static void setInteractive(bool interactive);
 
     signals:
 
@@ -87,6 +93,9 @@ namespace Kwave {
 
 	/** Mutex for locking access to setAttribute (recursive) */
 	QMutex m_lock_set_attribute;
+
+	/** interactive mode: if enabled, use smaller block size */
+	static bool m_interactive;
 
     };
 }

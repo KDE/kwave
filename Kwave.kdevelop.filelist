@@ -138,8 +138,6 @@ kwave/toolbar/zoomout.xpm
 kwave/toolbar/zoomrange.xpm
 libgui
 libgui/CMakeLists.txt
-libgui/ConfirmCancelProxy.cpp
-libgui/ConfirmCancelProxy.h
 libgui/CurveWidget.cpp
 libgui/CurveWidget.h
 libgui/FrequencyResponseWidget.cpp

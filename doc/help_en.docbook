@@ -2,8 +2,8 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN" "dtd/kdex.dtd" [
   <!ENTITY kapp "Kwave">
   <!ENTITY kappname "&kapp;">
-  <!ENTITY version "0.8.1">
-  <!ENTITY version_tag "0_8_1">
+  <!ENTITY version "0.8.2">
+  <!ENTITY version_tag "0_8_2">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
@@ -32,7 +32,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2009-02-17</date>
+<date>2009-04-17</date>
 <releaseinfo>&version;</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -464,10 +464,10 @@
 	<para>
 	    These options can be passed to <literal><command>cmake</command></literal>
 	    with <command><literal>-D</literal><replaceable>option</replaceable><literal>=</literal><replaceable>value</replaceable></command>.
-	    For example, if you want to leave out generation of the online documentation,
+	    For example, if you want to enable MP3 import,
 	    you can pass the corresponding option as follows:
 <screen width="40" format="linespecific">
-<prompt>% </prompt><command>cmake <replaceable>[source directory]</replaceable> -DWITH_DOC=off <replaceable>[other options...]</replaceable></command>
+<prompt>% </prompt><command>cmake <replaceable>[source directory]</replaceable> -DWITH_MP3=ON <replaceable>[other options...]</replaceable></command>
 </screen>
 	</para>
     </sect1>

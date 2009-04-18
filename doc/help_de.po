@@ -1,17 +1,17 @@
 # translation of help_de.po to Deutsch
-# Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>, 2003, 2004, 2005, 2006, 2007, 2008.
+# Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>, 2003, 2004, 2005, 2006, 2007, 2008, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-02-17 12:53+0000\n"
-"PO-Revision-Date: 2008-12-23 16:42+0100\n"
-"Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
-"Language-Team: Deutsch <de@li.org>\n"
+"POT-Creation-Date: 2009-04-18 06:28+0000\n"
+"PO-Revision-Date: 2009-04-16 23:25+0200\n"
+"Last-Translator: \n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 0.3\n"
 
 #. Tag: title
 #: help_en-work.docbook:15
@@ -721,7 +721,7 @@ msgstr ""
 
 #. Tag: para
 #: help_en-work.docbook:394
-#, no-c-format
+#, fuzzy, no-c-format
 msgid ""
 "For example, assuming that your sources are already unpacked in "
 "<filename><replaceable>$HOME/src/kwave-&version;</replaceable></filename>, "
@@ -746,7 +746,7 @@ msgstr ""
 "<prompt>% </prompt><command>su root -c \"make install\"</command>\n"
 "</screen> (Die Angabe von Generier-Optionen dient dazu bestimmte Features zu "
 "aktivieren oder zu deaktiveren. Für eine Beschreibung lesen Sie bitte den "
-"folgenden Abschnitt)"
+"folgenden Abschnitt) "
 
 #. Tag: title
 #: help_en-work.docbook:409
@@ -836,25 +836,25 @@ msgid ""
 "These options can be passed to <literal><command>cmake</command></literal> "
 "with <command><literal>-D</literal><replaceable>option</"
 "replaceable><literal>=</literal><replaceable>value</replaceable></command>. "
-"For example, if you want to leave out generation of the online "
-"documentation, you can pass the corresponding option as follows:"
+"For example, if you want to enable MP3 import, you can pass the "
+"corresponding option as follows:"
 msgstr ""
 "Diese Optionen können an <literal><command>cmake</command></literal> mit "
 "<command><literal>-D</literal><replaceable>option</replaceable><literal>=</"
 "literal><replaceable>value</replaceable></command> übergeben werden. Wenn "
-"Sie beispielsweise das Generieren der Online-Hilfe auslassen wollen, können "
-"Sie die entsprechende Option wie folgt übergeben:"
+"Sie beispielsweise den Import von MP3-Dateien aktivieren wollen, können Sie "
+"die entsprechende Option wie folgt übergeben:"
 
 #. Tag: screen
 #: help_en-work.docbook:463
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cmake <replaceable>[source directory]</"
-"replaceable> -DWITH_DOC=off <replaceable>[other options...]</replaceable></"
+"replaceable> -DWITH_MP3=ON <replaceable>[other options...]</replaceable></"
 "command>"
 msgstr ""
 "<prompt>% </prompt><command>cmake <replaceable>[source directory]</"
-"replaceable> -DWITH_DOC=off <replaceable>[other options...]</replaceable></"
+"replaceable> -DWITH_MP3=on <replaceable>[other options...]</replaceable></"
 "command>"
 
 #. Tag: title
@@ -3530,25 +3530,25 @@ msgstr ""
 
 #. Tag: phrase
 #: help_en-work.docbook:1962
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "green lamp"
 msgstr "grüne Lampe"
 
 #. Tag: para
 #: help_en-work.docbook:1963
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "a green lamp means \"enabled\", whereas"
 msgstr "ein grünes Licht bedeutet \"aktiviert\", wohingegen"
 
 #. Tag: phrase
 #: help_en-work.docbook:1971
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "red lamp"
 msgstr "rote Lampe"
 
 #. Tag: para
 #: help_en-work.docbook:1972
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "a red lamp means \"disabled\"."
 msgstr "eine rote Lampe \"deaktiviert\" bedeutet."
 

@@ -10,9 +10,10 @@
 ##                                                                          #
 #############################################################################
 
-EAPI="1"
-NEED_KDE="4.1"
-inherit kde4-base flag-o-matic
+EAPI="2"
+KDE_MINIMAL="4.2"
+KDE_LINGUAS="cs de en fr"
+inherit kde4-base
 
 DESCRIPTION="Kwave is a sound editor for KDE."
 HOMEPAGE="http://kwave.sourceforge.net/"
@@ -22,11 +23,6 @@ SLOT="kde-4"
 LICENSE="GPL-2"
 KEYWORDS="~x86 ~amd64 ~ppc"
 IUSE="alsa debug doc flac mp3 ogg oss mmx"
-
-LANGS="en de fr"
-for X in ${LANGS} ; do
-	IUSE="${IUSE} linguas_${X}"
-done
 
 RDEPEND="
 	alsa? ( media-libs/alsa-lib )
@@ -41,26 +37,20 @@ DEPEND="${RDEPEND}
 	|| ( kde-base/kdesdk-misc kde-base/kdesdk )
 	media-gfx/imagemagick"
 
-pkg_setup() {
-	strip-linguas ${LANGS}
+src_prepare() {
+	kde4-base_src_prepare
 }
 
-src_compile() {
+src_configure() {
 	use mmx && append-flags "-mmmx"
 
-	use alsa  || myconf+=" -DWITH_ALSA=OFF"
-	use doc   || myconf+=" -DWITH_DOC=OFF"
-	use flac  || myconf+=" -DWITH_FLAC=OFF"
-	use mp3   && myconf+=" -DWITH_MP3=ON"
-	use ogg   || myconf+=" -DWITH_OGG=OFF"
-	use oss   || myconf+=" -DWITH_OSS=OFF"
-	use debug && myconf+=" -DDEBUG=ON"
+	use alsa  || mycmakeargs+=" -DWITH_ALSA=OFF"
+	use doc   || mycmakeargs+=" -DWITH_DOC=OFF"
+	use flac  || mycmakeargs+=" -DWITH_FLAC=OFF"
+	use mp3   && mycmakeargs+=" -DWITH_MP3=ON"
+	use ogg   || mycmakeargs+=" -DWITH_OGG=OFF"
+	use oss   || mycmakeargs+=" -DWITH_OSS=OFF"
+	use debug && mycmakeargs+=" -DDEBUG=ON"
 
-	cmake \
-		-DCMAKE_C_COMPILER=$(type -P $(tc-getCC)) \
-		-DCMAKE_CXX_COMPILER=$(type -P $(tc-getCXX)) \
-		${myconf} \
-	|| die "cmake failed"
-
-	emake || die "Error: emake failed!"
+	kde4-base_src_configure
 }

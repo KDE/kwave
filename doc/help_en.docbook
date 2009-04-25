@@ -28,11 +28,11 @@
 </authorgroup>
 
 <copyright><year>1998-2000</year><holder>Martin Wilz</holder></copyright>
-<copyright><year>2008</year><holder>Thomas Eschenbacher</holder></copyright>
+<copyright><year>2009</year><holder>Thomas Eschenbacher</holder></copyright>
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2009-04-17</date>
+<date>2009-04-25</date>
 <releaseinfo>&version;</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>

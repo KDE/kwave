@@ -117,6 +117,11 @@ void VolumePlugin::run(QStringList params)
 	first, last);
     Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks);
 
+    // connect the progress dialog
+    connect(&source, SIGNAL(progress(unsigned int)),
+	    this,  SLOT(updateProgress(unsigned int)),
+	    Qt::QueuedConnection);
+
     // connect them
     Kwave::connect(
 	source, SIGNAL(output(Kwave::SampleArray)),

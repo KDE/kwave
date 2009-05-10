@@ -4,6 +4,8 @@
  * integrated 05-do-not-install-so-symlinks.diff from Debian
    (thanks to Aurelien)
  * cs i18n update from Pavel Fric
+ * new plugin: normalize
+ * progress bar in volume plugin did not work
 
 0.8.2  [2009-04-25]
 

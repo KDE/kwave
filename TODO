@@ -1,17 +1,16 @@
 -
 
-o normalize plugin: progress bar when determining level
+o crash in fade outro macro:
+  ASSERT: "count()" in file libkwave/Interpolation.cpp, line 191
 
 o normalize plugin: use multiple threads
 
 o bugfix: the dialog when playing the test sound in the playback
           setup dialog is missing
 
-o bugfix: volume plugin -> no progress bar
-
 o apply 06-qreal.diff ?
 
-o new plugin: normalize
+o show hourglass / progress bar when undo/redo is running
 
 o volume plugin: show a little "overview" for guessing the level
 

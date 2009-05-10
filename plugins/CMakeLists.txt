@@ -83,6 +83,7 @@ ADD_SUBDIRECTORY( lowpass )
 ADD_SUBDIRECTORY( memory )
 ADD_SUBDIRECTORY( newsignal )
 ADD_SUBDIRECTORY( noise )
+ADD_SUBDIRECTORY( normalize )
 ADD_SUBDIRECTORY( notch_filter )
 ADD_SUBDIRECTORY( pitch_shift )
 ADD_SUBDIRECTORY( playback )        # needs OSS and/or ALSA

@@ -521,6 +521,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 
 	plugins/common/CMakeLists.txt.template		GPL2+
 
+	plugins/debug/CMakeLists.txt			GPL2+
+	plugins/debug/DebugPlugin.cpp			GPL2+
+	plugins/debug/DebugPlugin.h			GPL2+
+
 	plugins/decoder_mp3/CMakeLists.txt		GPL2+
 	plugins/decoder_mp3/ID3_QIODeviceReader.cpp	GPL2+
 	plugins/decoder_mp3/ID3_QIODeviceReader.h	GPL2+
@@ -585,6 +589,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/noise/NoiseGenerator.h			GPL2+
 	plugins/noise/NoisePlugin.cpp			GPL2+
 	plugins/noise/NoisePlugin.h			GPL2+
+
+	plugins/normalize/CMakeLists.txt		GPL2+
+	plugins/normalize/NormalizePlugin.cpp		GPL2+
+	plugins/normalize/NormalizePlugin.h		GPL2+
 
 	plugins/notch_filter/CMakeLists.txt		GPL2+
 	plugins/notch_filter/NotchFilter.cpp		GPL2+ / Dave Flogeras / Juhana Sadeharju <kouhia@nic.funet.fi>

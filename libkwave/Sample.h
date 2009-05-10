@@ -53,6 +53,14 @@ static inline float sample2float(const sample_t s) {
 }
 
 /**
+ * Simple conversion from sample_t to double
+ */
+static inline double sample2double(const sample_t s) {
+    return static_cast<double>(
+	static_cast<double>(s) / static_cast<double>(1 << (SAMPLE_BITS-1)));
+}
+
+/**
  * Simple conversion from double to sample_t
  */
 static inline sample_t double2sample(const double f) {

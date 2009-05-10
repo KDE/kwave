@@ -327,6 +327,12 @@ namespace Kwave {
 	/** can be used by plugins to execute toplevel commands */
 	void sigCommand(const QString &command);
 
+	/**
+	 * Sets the text of the progress dialog
+	 * @param text new progress bar text, already be localized
+	 */
+	void setProgressText(const QString &text);
+
     public slots:
 
 	/**

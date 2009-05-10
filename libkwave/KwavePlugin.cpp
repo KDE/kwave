@@ -178,8 +178,11 @@ int Kwave::Plugin::start(QStringList &)
 	m_confirm_cancel = new ConfirmCancelProxy(m_progress,
 		0, 0, this, SLOT(cancel()));
 	Q_ASSERT(m_confirm_cancel);
-	connect(m_progress,      SIGNAL(canceled()),
+	connect(m_progress,       SIGNAL(canceled()),
 		m_confirm_cancel, SLOT(cancel()));
+	connect(this,             SIGNAL(setProgressText(const QString &)),
+	        m_progress,       SLOT(setLabelText(const QString &)),
+	        Qt::QueuedConnection);
 	m_progress->setVisible(true);
     }
 

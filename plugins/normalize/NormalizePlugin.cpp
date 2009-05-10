@@ -54,6 +54,7 @@ NormalizePlugin::~NormalizePlugin()
 {
 }
 
+//***************************************************************************
 /*
  * Limiter function:
  *
@@ -97,22 +98,24 @@ void NormalizePlugin::run(QStringList params)
     QList<unsigned int> track_list = manager().selectedTracks();
     MultiTrackReader source(signalManager(), track_list,
 	first, last);
+
+    // connect the progress dialog
+    connect(&source, SIGNAL(progress(unsigned int)),
+	    this,  SLOT(updateProgress(unsigned int)),
+	    Qt::QueuedConnection);
+
+    // detect the peak value
+    emit setProgressText(i18n("analyzing volume level..."));
+//     qDebug("NormalizePlugin: getting peak...");
+    double level = getMaxPower(source);
+//     qDebug("NormalizePlugin: level is %g", level);
+
     MultiTrackWriter sink(signalManager(),   track_list, Overwrite,
 	first, last);
     const unsigned int tracks = track_list.count();
 
     // break if aborted
     if (!sink.tracks()) return;
-
-    // connect the progress dialog
-    connect(&sink, SIGNAL(progress(unsigned int)),
-	    this,  SLOT(updateProgress(unsigned int)),
-	    Qt::QueuedConnection);
-
-    // detect the peak value
-    qDebug("NormalizePlugin: getting peak...");
-    double level = getMaxPower(source);
-    qDebug("NormalizePlugin: level is %g", level);
 
     double target = 0.2511886431509580; /* -12dBFS */
     double gain = target / level;
@@ -121,6 +124,10 @@ void NormalizePlugin::run(QStringList params)
 
     Kwave::SampleArray data(source.blockSize());
     source.reset();
+    QString db;
+    emit setProgressText(i18n("normalizing (%1dB) ...",
+	db.sprintf("%+0.1f", 20 * log10(gain)))
+    );
     while (!shouldStop() && !source.eof()) {
 
 	for (unsigned int t = 0; t < tracks; t++) {

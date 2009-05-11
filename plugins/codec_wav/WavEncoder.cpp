@@ -81,7 +81,7 @@ void WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst, FileInfo &info,
                       info.get(INF_COMPRESSION).toInt() :
 	    AF_COMPRESSION_NONE;
     if (compression != AF_COMPRESSION_NONE) {
-	qWarning("WARNING: libaudiofile might have produces a broken header!");
+	qWarning("WARNING: libaudiofile might have produced a broken header!");
 	return;
     }
 
@@ -419,8 +419,6 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	AF_SAMPFMT_TWOSCOMP, SAMPLE_STORAGE_BITS);
 
     // allocate a buffer for input data
-    const unsigned int frame_size = static_cast<const unsigned int>(
-	    afGetFrameSize(fh, AF_DEFAULT_TRACK, 1));
     const unsigned int virtual_frame_size = static_cast<const unsigned int>(
 	    afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
     const unsigned int buffer_frames = (8*1024);
@@ -478,7 +476,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
     // due to a buggy implementation of libaudiofile
     // we have to fix up the length of the "data" and the "RIFF" chunk
-    fixAudiofileBrokenHeaderBug(dst, info, frame_size);
+    fixAudiofileBrokenHeaderBug(dst, info, (bits * tracks) >> 3);
 
     // put the properties into the INFO chunk
     writeInfoChunk(dst, info);

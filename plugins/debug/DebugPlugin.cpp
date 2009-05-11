@@ -119,6 +119,11 @@ void DebugPlugin::run(QStringList params)
     last  = (*writers)[0]->last();
     unsigned int count = writers->tracks();
 
+    // connect the progress dialog
+    connect(writers, SIGNAL(progress(unsigned int)),
+	    this,  SLOT(updateProgress(unsigned int)),
+	    Qt::QueuedConnection);
+
     // loop over the sample range
     sample_t v = 0;
     while ((first <= last) && (!shouldStop())) {

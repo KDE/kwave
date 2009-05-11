@@ -569,7 +569,6 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 	    AF_DEFAULT_TRACK, reinterpret_cast<char *>(buffer), frames);
 
 	// break if eof reached
-	Q_ASSERT(buffer_used);
 	if (!buffer_used) break;
 	rest -= buffer_used;
 

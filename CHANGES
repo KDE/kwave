@@ -7,6 +7,8 @@
  * new plugin: normalize
  * progress bar in volume plugin did not work
  * flattened "Fx" menu, no submenus for amplify and filter
+ * bugfix: workaround for libaudiofile bug produced wrong header
+   in 24bit/sample mode
 
 0.8.2  [2009-04-25]
 

@@ -54,13 +54,6 @@ public:
 
 private:
 
-    typedef struct {
-	QVector<double> fifo; /**< FIFO for power values */
-	unsigned int    wp;   /**< FIFO write pointer */
-	unsigned int    n;    /**< number of elements in the FIFO */
-	double          sum;  /**< sum of queued power values */
-    } average_t;
-
     /**
      * get the maximum power level of the input
      */

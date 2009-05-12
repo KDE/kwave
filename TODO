@@ -3,8 +3,6 @@
 o crash in fade outro macro:
   ASSERT: "count()" in file libkwave/Interpolation.cpp, line 191
 
-o normalize plugin: use multiple threads
-
 o bugfix: the dialog when playing the test sound in the playback
           setup dialog is missing
 

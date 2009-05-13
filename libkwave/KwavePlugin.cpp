@@ -183,6 +183,9 @@ int Kwave::Plugin::start(QStringList &)
 	connect(this,             SIGNAL(setProgressText(const QString &)),
 	        m_progress,       SLOT(setLabelText(const QString &)),
 	        Qt::QueuedConnection);
+	connect(this, SIGNAL(sigDone(Kwave::Plugin *)),
+		this, SLOT(closeProgressDialog(Kwave::Plugin *)),
+		Qt::QueuedConnection);
 	m_progress->setVisible(true);
     }
 
@@ -252,6 +255,20 @@ void Kwave::Plugin::updateProgress(unsigned int progress)
     Q_ASSERT(this->thread() == qApp->thread());
 
     if (m_progress) m_progress->setValue(progress);
+}
+
+//***************************************************************************
+void Kwave::Plugin::closeProgressDialog(Kwave::Plugin *)
+{
+    // check: this must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
+    if (m_confirm_cancel) delete m_confirm_cancel;
+    m_confirm_cancel = 0;
+
+    if (m_progress)       delete m_progress;
+    m_progress = 0;
 }
 
 //***************************************************************************

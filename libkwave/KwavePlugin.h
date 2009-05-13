@@ -363,6 +363,11 @@ namespace Kwave {
 	/** decrements the usage counter */
 	void release();
 
+    private slots:
+
+	/** closes the progress dialog and the confirm/cancel proxy */
+	void closeProgressDialog(Kwave::Plugin *);
+
     protected:
 
 	friend class Kwave::PluginWorkerThread;

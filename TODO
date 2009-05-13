@@ -1,14 +1,13 @@
 -
 
-o crash in fade outro macro:
-  ASSERT: "count()" in file libkwave/Interpolation.cpp, line 191
-
 o bugfix: the dialog when playing the test sound in the playback
           setup dialog is missing
 
 o apply 06-qreal.diff ?
 
 o show hourglass / progress bar when undo/redo is running
+
+o phonon support
 
 o volume plugin: show a little "overview" for guessing the level
 

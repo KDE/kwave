@@ -9,6 +9,7 @@
  * flattened "Fx" menu, no submenus for amplify and filter
  * bugfix: workaround for libaudiofile bug produced wrong header
    in 24bit/sample mode
+ * bugfix: "fade outro" was broken
 
 0.8.2  [2009-04-25]
 

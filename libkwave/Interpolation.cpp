@@ -97,7 +97,6 @@ unsigned int Interpolation::count()
 //***************************************************************************
 qreal Interpolation::singleInterpolation(qreal input)
 {
-    Q_ASSERT(count());
     if (!count()) return 0.0; // no data ?
 
     unsigned int degree = 0;
@@ -187,8 +186,6 @@ qreal Interpolation::singleInterpolation(qreal input)
 bool Interpolation::prepareInterpolation(const Curve &points)
 {
     m_curve = &points;
-
-    Q_ASSERT(count());
     if (!count()) return false; // no data ?
 
     m_x.resize(count()+1);

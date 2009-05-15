@@ -401,7 +401,7 @@ unsigned int Kwave::Plugin::signalLength()
 }
 
 //***************************************************************************
-qreal Kwave::Plugin::signalRate()
+double Kwave::Plugin::signalRate()
 {
     return manager().signalRate();
 }
@@ -450,7 +450,7 @@ void *Kwave::Plugin::handle()
 }
 
 //***************************************************************************
-QString Kwave::Plugin::zoom2string(qreal percent)
+QString Kwave::Plugin::zoom2string(double percent)
 {
     QString result = "";
 
@@ -471,7 +471,7 @@ QString Kwave::Plugin::zoom2string(qreal percent)
 }
 
 //***************************************************************************
-QString Kwave::Plugin::ms2string(qreal ms, int precision)
+QString Kwave::Plugin::ms2string(double ms, int precision)
 {
     char buf[128];
     int bufsize = 128;
@@ -493,7 +493,7 @@ QString Kwave::Plugin::ms2string(qreal ms, int precision)
 	if (m < 1) {
 	    char format[128];
 	    int digits = static_cast<int>(
-		ceil(static_cast<qreal>(precision+1) - log10(ms)));
+		ceil(static_cast<double>(precision+1) - log10(ms)));
 	    snprintf(format, sizeof(format), "%%0.%df s", digits);
 	    snprintf(buf, bufsize, format, ms / 1000.0);
 	} else {

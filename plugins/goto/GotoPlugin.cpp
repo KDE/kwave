@@ -50,7 +50,7 @@ QStringList *GotoPlugin::setup(QStringList &previous_params)
     interpreteParameters(previous_params);
 
     // create the setup dialog
-    qreal rate = signalRate();
+    double rate = signalRate();
     unsigned int offset = 0;
     selection(&offset, 0, false);
     unsigned int length = signalLength();

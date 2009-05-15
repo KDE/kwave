@@ -59,7 +59,7 @@ public:
      * @param signal_length length of the signal in samples, needed
      *                      for converting samples to percentage
      */
-    virtual void init(Mode mode, unsigned int range, qreal sample_rate,
+    virtual void init(Mode mode, unsigned int range, double sample_rate,
                       unsigned int offset, unsigned int signal_length);
 
     /** Destructor */
@@ -89,7 +89,7 @@ public:
      * @return time converted to samples
      */
     static unsigned int timeToSamples(Mode mode, unsigned int time,
-                                      qreal rate, unsigned int length);
+                                      double rate, unsigned int length);
 
     /**
      * Conversion from samples into time
@@ -100,7 +100,7 @@ public:
      * @return time converted to the given mode
      */
     static unsigned int samplesToTime(Mode mode, unsigned int time,
-                                      qreal rate, unsigned int length);
+                                      double rate, unsigned int length);
 
 signals:
 
@@ -151,7 +151,7 @@ private:
     unsigned int m_range;
 
     /** sample rate [samples/second] */
-    qreal m_rate;
+    double m_rate;
 
     /** start offset of the selectioh [samples] */
     unsigned int m_offset;

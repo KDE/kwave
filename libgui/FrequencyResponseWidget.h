@@ -50,7 +50,7 @@ public:
      * @param db_min lowest amplitude in decibel
      * @param db_max highest amplitude in decibel
      */
-    virtual void init(qreal freq, int db_min, int db_max);
+    virtual void init(double freq, int db_min, int db_max);
 
     /** Set a new transmission function and update the display */
     virtual void setFilter(TransmissionFunction *func);
@@ -61,7 +61,7 @@ public:
 private:
 
     /** highest frequency, rounded up to the next decade */
-    qreal m_f_max;
+    double m_f_max;
 
     /** lowest amplitude in decibel */
     int m_db_min;

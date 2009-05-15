@@ -57,7 +57,7 @@ void Curve::fromCommand(const QString &command)
     QString t = parse.firstParam();
     setInterpolationType(m_interpolation.find(t));
 
-    qreal x, y;
+    double x, y;
     while (!parse.isDone()) {
 	x = parse.toDouble();
 	if (parse.isDone()) break; // half point ?
@@ -88,7 +88,7 @@ Interpolation &Curve::interpolation()
 }
 
 //***************************************************************************
-QVector<qreal> Curve::interpolation(unsigned int points)
+QVector<double> Curve::interpolation(unsigned int points)
 {
     m_interpolation.prepareInterpolation(*this);
     return m_interpolation.interpolation(*this, points);
@@ -140,7 +140,7 @@ void Curve::deleteSecondPoint()
 }
 
 //***************************************************************************
-void Curve::insert(qreal x, qreal y)
+void Curve::insert(double x, double y)
 {
     if ((x < 0.0) || (x > 1.0)) {
 	qWarning("Curve::insert(%0.2f,%0.2f): out of range !",x,y);
@@ -189,13 +189,13 @@ void Curve::HFlip()
 //***************************************************************************
 void Curve::scaleFit(unsigned int range)
 {
-    qreal min = DBL_MAX;
-    qreal max = DBL_MIN;
+    double min = DBL_MAX;
+    double max = DBL_MIN;
 
     Interpolation interpolation(m_interpolation.type());
 
-    QVector<qreal> y = interpolation.interpolation(*this, range);
-    foreach (qreal yi, y) {
+    QVector<double> y = interpolation.interpolation(*this, range);
+    foreach (double yi, y) {
 	if (yi > max) max = yi;
 	if (yi < min) min = yi;
     }
@@ -211,11 +211,11 @@ void Curve::scaleFit(unsigned int range)
 }
 
 //***************************************************************************
-Curve::Point Curve::findPoint(qreal px, qreal py, qreal tol)
+Curve::Point Curve::findPoint(double px, double py, double tol)
 {
     Point best = NoPoint;
-    qreal dist;
-    qreal min_dist = tol;
+    double dist;
+    double min_dist = tol;
 
     foreach (Point p, *this) {
 	// use the length of the difference vector as criterium

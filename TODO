@@ -1,7 +1,5 @@
 -
 
-o apply 06-qreal.diff ?
-
 o show hourglass / progress bar when undo/redo is running
 
 o phonon support

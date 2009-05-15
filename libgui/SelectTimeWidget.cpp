@@ -40,7 +40,7 @@ SelectTimeWidget::SelectTimeWidget(QWidget *widget)
 }
 
 //***************************************************************************
-void SelectTimeWidget::init(Mode mode, unsigned int range, qreal sample_rate,
+void SelectTimeWidget::init(Mode mode, unsigned int range, double sample_rate,
                             unsigned int offset, unsigned int signal_length)
 {
     m_mode  = mode;
@@ -458,7 +458,7 @@ unsigned int SelectTimeWidget::samples() const
 
 //***************************************************************************
 unsigned int SelectTimeWidget::timeToSamples(
-    Mode mode, unsigned int time, qreal rate, unsigned int length)
+    Mode mode, unsigned int time, double rate, unsigned int length)
 {
     unsigned int pos = 0;
     switch (mode) {
@@ -484,7 +484,7 @@ unsigned int SelectTimeWidget::timeToSamples(
 
 //***************************************************************************
 unsigned int SelectTimeWidget::samplesToTime(
-    Mode mode, unsigned int samples, qreal rate, unsigned int length)
+    Mode mode, unsigned int samples, double rate, unsigned int length)
 {
     unsigned int time = 0;
 

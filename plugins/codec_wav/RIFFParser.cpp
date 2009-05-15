@@ -158,11 +158,11 @@ void RIFFParser::detectEndianness()
 	    u_int32_t len = 0;
 	    m_dev.read(reinterpret_cast<char *>(&len), 4);
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
-	    qreal dist_le = fabs(half - bswap_32(len));
-	    qreal dist_be = fabs(half - len);
+	    double dist_le = fabs(half - bswap_32(len));
+	    double dist_be = fabs(half - len);
 #else
-	    qreal dist_le = fabs(half - len);
-	    qreal dist_be = fabs(half - bswap_32(len));
+	    double dist_le = fabs(half - len);
+	    double dist_be = fabs(half - bswap_32(len));
 #endif
 	    // evaluate distance to average length
 	    if (dist_be > dist_le) ++le_matches;

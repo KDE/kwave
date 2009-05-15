@@ -73,7 +73,7 @@ private:
     QTimer *m_timer;
 
     /** "H" channel of the sine wave color */
-    qreal m_color_h;
+    double m_color_h;
 };
 
 #endif  /* _LOGO_WIDGET_H_ */

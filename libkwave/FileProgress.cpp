@@ -38,7 +38,7 @@
 //***************************************************************************
 FileProgress::FileProgress(QWidget *parent,
 	const QUrl &url, unsigned int size,
-	unsigned int samples, qreal rate, unsigned int bits,
+	unsigned int samples, double rate, unsigned int bits,
 	unsigned int tracks)
     :QDialog(parent),
     m_url(url),
@@ -144,7 +144,7 @@ FileProgress::FileProgress(QWidget *parent,
     if (!m_stat_bytes) return;
 
     // some dummy update to get maximum size
-    updateStatistics(9999999.9, static_cast<qreal>(99*24*60*60), size);
+    updateStatistics(9999999.9, static_cast<double>(99*24*60*60), size);
 
     // now correct the minimum sizes of the statistic entries
     m_stat_transfer->adjustSize();
@@ -248,7 +248,7 @@ QLabel *FileProgress::addInfoLabel(QGridLayout *layout, const QString text,
 }
 
 //***************************************************************************
-void FileProgress::updateStatistics(qreal rate, qreal rest,
+void FileProgress::updateStatistics(double rate, double rest,
 	unsigned int pos)
 {
     QString text;
@@ -304,7 +304,7 @@ void FileProgress::setBytePosition(unsigned int pos)
 
     // the easiest part: the progress bar and the caption
     int percent = static_cast<int>(
-	static_cast<qreal>(pos) / static_cast<qreal>(m_size) * 100.0);
+	static_cast<double>(pos) / static_cast<double>(m_size) * 100.0);
 
     // not enough progress not worth showing ?
     if (percent <= m_last_percent) return;
@@ -319,11 +319,11 @@ void FileProgress::setBytePosition(unsigned int pos)
     }
 
     // update the transfer statistics
-    qreal seconds = m_time.elapsed() / 1000.0; // [sec]
-    qreal rate = pos / seconds;                // [bytes/sec]
-    qreal rest = 0;
+    double seconds = m_time.elapsed() / 1000.0; // [sec]
+    double rate = pos / seconds;                // [bytes/sec]
+    double rest = 0;
     if (rate > 10) {
-	rest = qreal(m_size - pos) / rate;     // [seconds]
+	rest = double(m_size - pos) / rate;     // [seconds]
     }
     updateStatistics(rate, rest, pos);
 

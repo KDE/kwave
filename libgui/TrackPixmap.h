@@ -105,7 +105,7 @@ public:
      * Sets a new vertical zoom factor.
      * @param zoom new vertical zoom
      */
-    virtual void setVerticalZoom(qreal zoom);
+    virtual void setVerticalZoom(double zoom);
 
     /**
      * Returns "true" if the buffer has changed and the pixmap has to
@@ -136,7 +136,7 @@ public slots:
      * affects the number of visible samples and a redraw of
      * the current view.
      */
-    void setZoom(qreal zoom);
+    void setZoom(double zoom);
 
 private slots:
 
@@ -318,12 +318,12 @@ private:
      * Zoom factor in samples/pixel. Needed for converting
      * sample indices into pixels and vice-versa.
      */
-    qreal m_zoom;
+    double m_zoom;
 
     /**
      * vertical zoom factor. Default is 1.0
      */
-    qreal m_vertical_zoom;
+    double m_vertical_zoom;
 
     /**
      * If true, we are in min/max mode. This means that m_sample_buffer

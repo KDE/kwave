@@ -54,7 +54,7 @@ void LabelPropertiesWidget::setLabelIndex(unsigned int index)
 
 //***************************************************************************
 void LabelPropertiesWidget::setLabelPosition(unsigned int pos,
-	unsigned int length, qreal rate)
+	unsigned int length, double rate)
 {
     Q_ASSERT(time);
     if (!time) return;

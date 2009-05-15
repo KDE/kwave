@@ -158,7 +158,7 @@ int OverViewWidget::pixels2offset(int pixels)
     if (!width) return 0;
 
     int offset = static_cast<int>(m_signal_length *
-	(static_cast<qreal>(pixels) / static_cast<qreal>(width)));
+	(static_cast<double>(pixels) / static_cast<double>(width)));
     int center = m_view_width >> 1;
     offset = (offset > center) ? (offset - center) : 0;
     return offset;

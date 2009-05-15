@@ -103,14 +103,14 @@ unsigned int Filter::count()
 }
 
 //***************************************************************************
-qreal Filter::coeff(unsigned int index)
+double Filter::coeff(unsigned int index)
 {
     Q_ASSERT(static_cast<int>(index) < m_coeff.count());
     return m_coeff[index];
 }
 
 //***************************************************************************
-void Filter::setCoeff(unsigned int index, qreal newval)
+void Filter::setCoeff(unsigned int index, double newval)
 {
     Q_ASSERT(static_cast<int>(index) < m_coeff.count());
     m_coeff[index] = newval;

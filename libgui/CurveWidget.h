@@ -56,7 +56,7 @@ public:
      * @param x the point's x coordinate, should be [0.0...1.0]
      * @param y the point's y coordinate, should be [0.0...1.0]
      */
-    void addPoint(qreal x, qreal y);
+    void addPoint(double x, double y);
 
     /**
      * Tries to find a point that is nearest to the given widget coordinates

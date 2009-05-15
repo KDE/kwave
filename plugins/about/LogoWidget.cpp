@@ -31,7 +31,7 @@
 #include "LogoWidget.h"
 
 /** increment value of the "h" channel of the color of the sine waves */
-#define COLOR_INCREMENT (static_cast<qreal>(0.001))
+#define COLOR_INCREMENT (static_cast<double>(0.001))
 
 //***************************************************************************
 LogoWidget::LogoWidget(QWidget *parent)
@@ -119,7 +119,7 @@ void LogoWidget::paintEvent(QPaintEvent *)
 	m_color_h += COLOR_INCREMENT; // this gives the nice color change :-)
 	if (m_color_h > 1.0) m_color_h -= 1.0;
 
-	qreal amp = sin(m_deg[MAXSIN - 1] * 3);
+	double amp = sin(m_deg[MAXSIN - 1] * 3);
 	for (int j = 0; j < MAXSIN; j++) {
 	    for (int i=0; i < 21; i++) {
 		si.setPoint(i, (j*m_width/MAXSIN) +

@@ -439,9 +439,9 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 	    const unsigned int stream_end_pos = m_source->pos();
 	    const unsigned int stream_read = stream_end_pos -
 	                                     stream_start_pos + 1;
-	    qreal bits = static_cast<qreal>(stream_read) * 8.0;
-	    qreal seconds = static_cast<qreal>(samples) /
-		static_cast<qreal>(m_info.rate());
+	    double bits = static_cast<double>(stream_read) * 8.0;
+	    double seconds = static_cast<double>(samples) /
+		static_cast<double>(m_info.rate());
 	    bitrate = static_cast<unsigned int>(bits / seconds);
 
 	    // round to neares standard bitrate

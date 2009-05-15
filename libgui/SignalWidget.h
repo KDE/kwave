@@ -97,7 +97,7 @@ public:
      * @param ms time in milliseconds
      * @return number of samples (rounded)
      */
-    unsigned int ms2samples(qreal ms);
+    unsigned int ms2samples(double ms);
 
     /**
      * Converts a number of samples to a time in milliseconds, based on the
@@ -105,7 +105,7 @@ public:
      * @param samples number of samples
      * @return time in milliseconds
      */
-    qreal samples2ms(unsigned int samples);
+    double samples2ms(unsigned int samples);
 
     /**
      * Closes the current signal and loads a new one from a file.
@@ -119,7 +119,7 @@ public:
      * signal manager.
      * @see TopWidget::newSignal
      */
-    void newSignal(unsigned int samples, qreal rate,
+    void newSignal(unsigned int samples, double rate,
                    unsigned int bits, unsigned int tracks);
 
     /**
@@ -133,7 +133,7 @@ public:
      *                 to [length/width...1/width] (from full display to
      *                 one visible sample only)
      */
-    void setZoom(qreal new_zoom);
+    void setZoom(double new_zoom);
 
     /**
      * Checks if a pixel position is near to the left or right border
@@ -224,7 +224,7 @@ public slots:
     /**
      * Returns the current number of pixels per sample
      */
-    inline qreal zoom() { return m_zoom; }
+    inline double zoom() { return m_zoom; }
 
     /** Returns the width of the current view in samples */
     int displaySamples();
@@ -589,7 +589,7 @@ protected:
      * into the current window.
      * @return zoom value [samples/pixel]
      */
-    qreal getFullZoom();
+    double getFullZoom();
 
     /** slot for detecting resizing of the widget */
     virtual void resizeEvent(QResizeEvent *);
@@ -675,7 +675,7 @@ private:
      * @param mouse the coordinates of the mouse cursor,
      *              relative to this widget [pixel]
      */
-    void showPosition(const QString &text, unsigned int pos, qreal ms,
+    void showPosition(const QString &text, unsigned int pos, double ms,
                       const QPoint &mouse);
 
     /** Shortcut for accessing the label list @note can be modified */
@@ -724,10 +724,10 @@ private:
     int m_last_height;
 
     /** number of samples per pixel */
-    qreal m_zoom;
+    double m_zoom;
 
     /** vertical zoom factor */
-    qreal m_vertical_zoom;
+    double m_vertical_zoom;
 
     /**
      * position of the vertical line that indicates the current

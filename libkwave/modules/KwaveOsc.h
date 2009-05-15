@@ -73,13 +73,13 @@ namespace Kwave {
 	    Kwave::SampleArray m_buffer;
 
 	    /** current time multiplied by 2*Pi*f */
-	    qreal m_omega_t;
+	    double m_omega_t;
 
 	    /** frequency [samples/period] */
-	    qreal m_f;
+	    double m_f;
 
 	    /** amplitude [0...1] */
-	    qreal m_a;
+	    double m_a;
     };
 }
 

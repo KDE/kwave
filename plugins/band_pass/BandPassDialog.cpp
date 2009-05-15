@@ -35,7 +35,7 @@
 #include "BandPass.h"
 
 //***************************************************************************
-BandPassDialog::BandPassDialog(QWidget *parent, qreal sample_rate)
+BandPassDialog::BandPassDialog(QWidget *parent, double sample_rate)
     :QDialog(parent), KwavePluginSetupDialog(), Ui::BandPassDlg(),
      m_frequency(3500),m_bw(100),
      m_sample_rate(sample_rate), m_filter(0)
@@ -44,7 +44,7 @@ BandPassDialog::BandPassDialog(QWidget *parent, qreal sample_rate)
     setModal(true);
 
     // set maximum frequency to sample rate / 2
-    qreal f_max = sample_rate / 2.0;
+    double f_max = sample_rate / 2.0;
 
     slider->setMaximum(static_cast<int>(f_max));
     slider_2->setMaximum(static_cast<int>(f_max / 2.0));
@@ -144,11 +144,11 @@ void BandPassDialog::setParams(QStringList &params)
 {
     // evaluate the parameter list
     bool ok;
-    qreal frequency = params[0].toDouble(&ok);
+    double frequency = params[0].toDouble(&ok);
     Q_ASSERT(ok);
     if (ok) m_frequency = frequency;
 
-    qreal bw = params[1].toDouble(&ok);
+    double bw = params[1].toDouble(&ok);
     Q_ASSERT(ok);
     if (ok) m_bw = bw;
 
@@ -164,7 +164,7 @@ void BandPassDialog::setParams(QStringList &params)
 //***************************************************************************
 void BandPassDialog::updateDisplay()
 {
-    qreal fs = m_sample_rate;
+    double fs = m_sample_rate;
     if (m_filter && (fs > 0.0))
     {
         m_filter->setFrequency(QVariant(2.0 * M_PI * m_frequency / fs));

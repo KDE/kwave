@@ -95,7 +95,7 @@ unsigned int Interpolation::count()
 }
 
 //***************************************************************************
-qreal Interpolation::singleInterpolation(qreal input)
+double Interpolation::singleInterpolation(double input)
 {
     if (!count()) return 0.0; // no data ?
 
@@ -112,14 +112,14 @@ qreal Interpolation::singleInterpolation(qreal input)
 		while ((m_x[i] < input) && (i < count))
 		    i++;
 
-		qreal dif1 = m_x[i] - m_x[i-1];  //!=0 per definition
-		qreal dif2 = input - m_x[i-1];
+		double dif1 = m_x[i] - m_x[i-1];  //!=0 per definition
+		double dif2 = input - m_x[i-1];
 
 		return (m_y[i-1] + ((m_y[i] - m_y[i-1])*dif2 / dif1));
 	    }
 	case INTPOL_SPLINE:
 	    {
-		qreal a, b, diff;
+		double a, b, diff;
 		unsigned int j = 1;
 
 		while ((m_x[j] < input) && (j < count))
@@ -135,7 +135,7 @@ qreal Interpolation::singleInterpolation(qreal input)
 	    }
 	case INTPOL_NPOLYNOMIAL:
 	    {
-		qreal ny = m_y[0];
+		double ny = m_y[0];
 		for (unsigned int j = 1; j < count; j++)
 		    ny = ny * (input - m_x[j]) + m_y[j];
 		return ny;
@@ -163,9 +163,9 @@ qreal Interpolation::singleInterpolation(qreal input)
 	if (!m_curve) return 0;
 
 	// use polynom
-	qreal ny;
-	QVector<qreal> ax(7);
-	QVector<qreal> ay(7);
+	double ny;
+	QVector<double> ax(7);
+	QVector<double> ay(7);
 
 	unsigned int i = 1;
 	while ((m_x[i] < input) && (i < count))
@@ -217,10 +217,10 @@ bool Interpolation::prepareInterpolation(const Curve &points)
 }
 
 //***************************************************************************
-QVector<qreal> Interpolation::limitedInterpolation(const Curve &points,
-                                                   unsigned int len)
+QVector<double> Interpolation::limitedInterpolation(const Curve &points,
+                                                    unsigned int len)
 {
-    QVector<qreal> y = interpolation(points, len);
+    QVector<double> y = interpolation(points, len);
     for (unsigned int i = 0; i < len; i++) {
 	if (y[i] > 1) y[i] = 1;
 	if (y[i] < 0) y[i] = 0;
@@ -229,21 +229,21 @@ QVector<qreal> Interpolation::limitedInterpolation(const Curve &points,
 }
 
 //***************************************************************************
-QVector<qreal> Interpolation::interpolation(const Curve &points,
-                                            unsigned int len)
+QVector<double> Interpolation::interpolation(const Curve &points,
+                                             unsigned int len)
 {
     Q_ASSERT(len);
-    if (!len) return QVector<qreal>();
+    if (!len) return QVector<double>();
 
     unsigned int degree = 0;
-    QVector<qreal> y_out(len);
+    QVector<double> y_out(len);
     qFill(y_out, 0.0);
 
     switch (m_type) {
 	case INTPOL_LINEAR:
 	{
 	    Curve::Point p;
-	    qreal x0, y0, x1, y1;
+	    double x0, y0, x1, y1;
 	    Curve::ConstIterator it(points);
 
 	    if (it.hasNext()) {
@@ -256,7 +256,7 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 		    x1 = p.x();
 		    y1 = p.y();
 
-		    qreal dy = (y1 - y0);
+		    double dy = (y1 - y0);
 		    int dx  = static_cast<int>((x1 - x0) * len);
 		    int min = static_cast<int>(x0 * len);
 
@@ -264,7 +264,7 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 		    Q_ASSERT(x1 <= 1.0);
 		    for (int i = static_cast<int>(x0 * len);
 		         i < static_cast<int>(x1 * len); i++) {
-			qreal h = dx ? ((qreal(i - min)) / dx) : 0.0;
+			double h = dx ? ((double(i - min)) / dx) : 0.0;
 			y_out[i] = y0 + (h * dy);
 		    }
 		    x0 = x1;
@@ -278,10 +278,10 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 	    int t = 1;
 	    unsigned int count = points.count();
 
-	    qreal ny = 0;
-	    QVector<qreal> der(count + 1);
-	    QVector<qreal> x(count + 1);
-	    QVector<qreal> y(count + 1);
+	    double ny = 0;
+	    QVector<double> der(count + 1);
+	    QVector<double> x(count + 1);
+	    QVector<double> y(count + 1);
 
 	    Curve::ConstIterator it(points);
 	    while (it.hasNext()) {
@@ -299,8 +299,8 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 	    for (unsigned int j = 2; j <= count; j++) {
 		ent = static_cast<int>(x[j] * len);
 		for (int i = start; i < ent; i++) {
-		    qreal xin = static_cast<qreal>(i) / len;
-		    qreal h, b, a;
+		    double xin = static_cast<double>(i) / len;
+		    double h, b, a;
 
 		    h = x[j] - x[j - 1];
 
@@ -327,10 +327,10 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 	{
 	    if (!degree) degree = 7;
 	    unsigned int count = points.count();
-	    qreal ny;
-	    QVector<qreal> x(7);
-	    QVector<qreal> y(7);
-	    qreal ent, start;
+	    double ny;
+	    QVector<double> x(7);
+	    QVector<double> y(7);
+	    double ent, start;
 
 	    if (count) {
 		for (unsigned int px = 0; px < count - 1; px++) {
@@ -347,7 +347,7 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 		    {
 			ny = y[0];
 			for (unsigned int j = 1; j < degree; j++)
-			    ny = ny * ((static_cast<qreal>(i)) / len - x[j])
+			    ny = ny * ((static_cast<double>(i)) / len - x[j])
 				+ y[j];
 
 			y_out[i] = ny;
@@ -358,18 +358,18 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 	}
 	case INTPOL_NPOLYNOMIAL:
 	{
-	    qreal ny;
+	    double ny;
 	    int count = points.count();
 
 	    if (count != 0) {
-		QVector<qreal> x(count+1);
-		QVector<qreal> y(count+1);
-		qreal px;
+		QVector<double> x(count+1);
+		QVector<double> y(count+1);
+		double px;
 
 		createFullPolynom(points, x, y);
 
 		for (unsigned int i = 1; i < len; i++) {
-		    px = static_cast<qreal>(i) / len;
+		    px = static_cast<double>(i) / len;
 		    ny = y[0];
 		    for (int j = 1; j < count; j++)
 			ny = ny * (px - x[j]) + y[j];
@@ -381,7 +381,7 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 	}
 	case INTPOL_SAH:
 	{
-	    qreal x0, y0, x1, y1;
+	    double x0, y0, x1, y1;
 
 	    Curve::ConstIterator it(points);
 	    if (it.hasNext()) {
@@ -410,7 +410,7 @@ QVector<qreal> Interpolation::interpolation(const Curve &points,
 
 //***************************************************************************
 void Interpolation::createFullPolynom(const Curve &points,
-	QVector<qreal> &x, QVector<qreal> &y)
+	QVector<double> &x, QVector<double> &y)
 {
     Q_ASSERT(!points.isEmpty());
     Q_ASSERT(m_curve);
@@ -437,15 +437,15 @@ void Interpolation::createFullPolynom(const Curve &points,
 }
 
 //***************************************************************************
-void Interpolation::get2Derivate(const QVector<qreal> &x,
-	const QVector<qreal> &y, QVector<qreal> &ab, unsigned int n)
+void Interpolation::get2Derivate(const QVector<double> &x,
+	const QVector<double> &y, QVector<double> &ab, unsigned int n)
 {
     Q_ASSERT(n);
     if (!n) return;
 
     unsigned int i, k;
-    qreal p, qn, sig, un;
-    QVector<qreal> u(n);
+    double p, qn, sig, un;
+    QVector<double> u(n);
 
     ab[0] = ab[1] = 0;
     u[0] = u[1] = 0;
@@ -470,7 +470,7 @@ void Interpolation::get2Derivate(const QVector<qreal> &x,
 
 //***************************************************************************
 void Interpolation::createPolynom(const Curve &points,
-                                  QVector<qreal> &x, QVector<qreal> &y,
+                                  QVector<double> &x, QVector<double> &y,
                                   int pos, unsigned int degree)
 {
     unsigned int count = 0;

@@ -53,14 +53,14 @@ public:
 
     bool prepareInterpolation(const Curve &points);
 
-    QVector<qreal> interpolation(const Curve &points, unsigned int len);
+    QVector<double> interpolation(const Curve &points, unsigned int len);
 
-    QVector<qreal> limitedInterpolation(const Curve &points, unsigned int len);
+    QVector<double> limitedInterpolation(const Curve &points, unsigned int len);
 
     /**
      * Returns a single point of the interpolation.
      */
-    qreal singleInterpolation(qreal pos);
+    double singleInterpolation(double pos);
 
     /**
      * Same as getSingleInterpolation, but return value
@@ -69,7 +69,7 @@ public:
      * @param pos ???
      * @return interpolated value [0...1]
      */
-    qreal singleLimitedInterpolation(qreal pos);
+    double singleLimitedInterpolation(double pos);
 
     /**
      * Returns the if of a type through it's name.
@@ -135,8 +135,8 @@ private:
      * @param y receives all y coordinates ???
      */
     void createFullPolynom(const Curve &points,
-                           QVector<qreal> &x,
-                           QVector<qreal> &y);
+                           QVector<double> &x,
+                           QVector<double> &y);
 
     /**
      * ???
@@ -145,9 +145,9 @@ private:
      * @param ab array for return values
      * @param n ???
      */
-    void get2Derivate(const QVector<qreal> &x,
-                      const QVector<qreal> &y,
-                      QVector<qreal> &ab, unsigned int n);
+    void get2Derivate(const QVector<double> &x,
+                      const QVector<double> &y,
+                      QVector<double> &ab, unsigned int n);
 
     /**
      * ???
@@ -158,8 +158,8 @@ private:
      * @param degree ???
      */
     void createPolynom (const Curve &points,
-                        QVector<qreal> &x,
-                        QVector<qreal> &y,
+                        QVector<double> &x,
+                        QVector<double> &y,
                         int pos, unsigned int degree);
 
 private:
@@ -168,13 +168,13 @@ private:
     const Curve *m_curve;
 
     /** ??? used for temporary purposes */
-    QVector<qreal> m_x;
+    QVector<double> m_x;
 
     /** ??? used for temporary purposes */
-    QVector<qreal> m_y;
+    QVector<double> m_y;
 
     /** ??? used for temporary purposes */
-    QVector<qreal> m_der;
+    QVector<double> m_der;
 
     /** Map with type and name of interpolations */
     static InterpolationMap m_interpolation_map;

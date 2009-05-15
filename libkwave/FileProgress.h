@@ -49,7 +49,7 @@ public:
      */
     FileProgress(QWidget *parent,
 	const QUrl &url, unsigned int size,
-	unsigned int samples, qreal rate, unsigned int bits,
+	unsigned int samples, double rate, unsigned int bits,
 	unsigned int tracks);
 
     /** Destructor */
@@ -136,7 +136,7 @@ protected:
      * @param pos position in the file
      * @internal
      */
-    void updateStatistics(qreal rate, qreal rest, unsigned int pos);
+    void updateStatistics(double rate, double rest, unsigned int pos);
 
 protected:
 
@@ -174,7 +174,7 @@ protected:
     unsigned int m_bits_per_sample;
 
     /** number of samples per second, used for output */
-    qreal m_sample_rate;
+    double m_sample_rate;
 
     /** number of tracks */
     unsigned int m_tracks;

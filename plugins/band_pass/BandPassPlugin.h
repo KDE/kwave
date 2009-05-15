@@ -84,23 +84,23 @@ protected slots:
      * Called when the parameter changed during pre-listen
      * @param frequency the frequency parameter in Hz
      */
-    void setFreqValue(qreal frequency);
+    void setFreqValue(double frequency);
 
-    void setBwValue(qreal bw);
+    void setBwValue(double bw);
 
 private:
 
     /** cutoff frequency [Hz] */
-    qreal m_frequency;
+    double m_frequency;
 
     /** last value of m_frequency */
-    qreal m_last_freq;
+    double m_last_freq;
 
     /** bandwidth value [Hz] */
-    qreal m_bw;
+    double m_bw;
 
     /** last value of m_bw */
-    qreal m_last_bw;
+    double m_last_bw;
 
 };
 

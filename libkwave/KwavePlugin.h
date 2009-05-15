@@ -210,7 +210,7 @@ namespace Kwave {
 	* Returns the sample rate of the current signal. If no signal is
 	* present the return value will be zero.
 	*/
-	virtual qreal signalRate();
+	virtual double signalRate();
 
 	/**
 	* Returns an array of indices of currently selected channels.
@@ -258,7 +258,7 @@ namespace Kwave {
 	* @param percent the zoom factor to be formated, a value of "100.0"
 	*             means "100%", "0.1" means "0.1%" and so on.
 	*/
-	static QString zoom2string(qreal percent);
+	static QString zoom2string(double percent);
 
 	/**
 	* Converts a time in milliseconds into a string. Times below one
@@ -273,7 +273,7 @@ namespace Kwave {
 	*                  must be >= 3 !
 	* @return time formatted as user-readable string
 	*/
-	static QString ms2string(qreal ms, int precision = 6);
+	static QString ms2string(double ms, int precision = 6);
 
 	/**
 	* Converts the given number into a string with the current locale's

@@ -220,7 +220,7 @@ void TrackPixmap::resizeBuffer()
 }
 
 //***************************************************************************
-void TrackPixmap::setZoom(qreal zoom)
+void TrackPixmap::setZoom(double zoom)
 {
     QMutexLocker lock(&m_lock_buffer);
 
@@ -427,7 +427,7 @@ void TrackPixmap::repaint()
 }
 
 //***************************************************************************
-void TrackPixmap::setVerticalZoom(qreal zoom)
+void TrackPixmap::setVerticalZoom(double zoom)
 {
     QMutexLocker lock(&m_lock_buffer);
 
@@ -459,7 +459,7 @@ void TrackPixmap::drawOverview(QPainter &p, int middle, int height,
     Q_ASSERT(width() <= static_cast<int>(m_max_buffer.size()));
 
     // scale_y: pixels per unit
-    qreal scale_y = (m_vertical_zoom * static_cast<qreal>(height)) /
+    double scale_y = (m_vertical_zoom * static_cast<double>(height)) /
 	(1 << SAMPLE_BITS);
     int max = 0, min = 0;
 
@@ -564,8 +564,8 @@ void TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     if (m_zoom == 0.0) return;
 
     // scale_y: pixels per unit
-    scale_y = (m_vertical_zoom * static_cast<qreal>(height)) /
-	static_cast<qreal>((SAMPLE_MAX + 1) << 1);
+    scale_y = (m_vertical_zoom * static_cast<double>(height)) /
+	static_cast<double>((SAMPLE_MAX + 1) << 1);
 
     // N: order of the filter, at least 2 * (1/m_zoom)
     N = INTERPOLATION_PRECISION * samples2pixels(1);
@@ -643,15 +643,15 @@ void TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
 void TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
 	int middle, int height)
 {
-    qreal scale_y;
+    double scale_y;
     int y;
     unsigned int sample;
     int x;
     unsigned int buflen = m_sample_buffer.size();
 
     // scale_y: pixels per unit
-    scale_y = (m_vertical_zoom * static_cast<qreal>(height)) /
-	static_cast<qreal>((SAMPLE_MAX + 1) << 1);
+    scale_y = (m_vertical_zoom * static_cast<double>(height)) /
+	static_cast<double>((SAMPLE_MAX + 1) << 1);
 
     // array with sample points
     QPolygon points;

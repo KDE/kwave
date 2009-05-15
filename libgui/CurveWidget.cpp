@@ -298,7 +298,7 @@ void CurveWidget::scaleFit()
 }
 
 //***************************************************************************
-void CurveWidget::addPoint(qreal newx, qreal newy)
+void CurveWidget::addPoint(double newx, double newy)
 {
     m_curve.insert(newx, newy);
     m_last = Curve::NoPoint;
@@ -313,8 +313,8 @@ Curve::Point CurveWidget::findPoint(int sx, int sy)
     Q_ASSERT(m_height > 1);
     if ((m_width <= 1) || (m_width <= 1)) return Curve::NoPoint;
 
-    return m_curve.findPoint((static_cast<qreal>(sx)) / (m_width-1),
-	(static_cast<qreal>(m_height) - sy) / (m_height-1));
+    return m_curve.findPoint((static_cast<double>(sx)) / (m_width-1),
+	(static_cast<double>(m_height) - sy) / (m_height-1));
 }
 
 //***************************************************************************
@@ -335,8 +335,8 @@ void CurveWidget::mousePressEvent(QMouseEvent *e)
 	m_current = findPoint(e->pos().x(), e->pos().y());
 	if (m_current == Curve::NoPoint) {
 	    // no matching point is found -> generate a new one !
-	    addPoint(static_cast<qreal>(e->pos().x()) / (m_width-1),
-		     static_cast<qreal>(m_height - e->pos().y()) /
+	    addPoint(static_cast<double>(e->pos().x()) / (m_width-1),
+		     static_cast<double>(m_height - e->pos().y()) /
 		     (m_height-1));
 	    m_current = findPoint(e->pos().x(), e->pos().y());
 	}
@@ -371,15 +371,15 @@ void CurveWidget::mouseMoveEvent(QMouseEvent *e )
 
 	m_curve.deletePoint(m_current, false);
 
-	m_current.setX(static_cast<qreal>(x) / (m_width-1));
-	m_current.setY(static_cast<qreal>(m_height - y) / (m_height-1));
+	m_current.setX(static_cast<double>(x) / (m_width-1));
+	m_current.setY(static_cast<double>(m_height - y) / (m_height-1));
 
 	if (m_current.x() < 0.0) m_current.setX(0.0);
 	if (m_current.y() < 0.0) m_current.setY(0.0);
 	if (m_current.x() > 1.0) m_current.setX(1.0);
 	if (m_current.y() > 1.0) m_current.setY(1.0);
 
-	qreal dx = (1.0 / static_cast<qreal>(m_width-1));
+	double dx = (1.0 / static_cast<double>(m_width-1));
 	do {
 	    Curve::Point nearest = m_curve.findPoint(
 		m_current.x(), m_current.y(), 1.0);
@@ -418,7 +418,7 @@ void CurveWidget::paintEvent(QPaintEvent *)
     const int kw = m_knob.width();
     const int kh = m_knob.height();
 
-    QVector<qreal> y = m_curve.interpolation(m_width);
+    QVector<double> y = m_curve.interpolation(m_width);
     Q_ASSERT(static_cast<int>(y.count()) == m_width);
     if (static_cast<int>(y.count()) < m_width) {
 	qWarning("CurveWidget: unable to get interpolation !");

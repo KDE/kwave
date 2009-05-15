@@ -46,7 +46,7 @@ void BandPass::goOn()
 }
 
 //***************************************************************************
-qreal BandPass::at(qreal f)
+double BandPass::at(double f)
 {
     /*
      * filter function as extracted from the aRts code:
@@ -56,7 +56,7 @@ qreal BandPass::at(qreal f)
      *
      * convert filter coefficients to our notation:
      */
-    qreal a0, a1, a2, b1, b2;
+    double a0, a1, a2, b1, b2;
     a0 = m_filter.cx;
     a1 = m_filter.cx1;
     a2 = m_filter.cx2;
@@ -68,10 +68,10 @@ qreal BandPass::at(qreal f)
      * H(z) = ------------------   | z = e ^ (j*2*pi*f)
      *          z^2 - b1*z - b0
      */
-    std::complex<qreal> h;
-    std::complex<qreal> w;
-    std::complex<qreal> j(0.0,1.0);
-    std::complex<qreal> z;
+    std::complex<double> h;
+    std::complex<double> w;
+    std::complex<double> j(0.0,1.0);
+    std::complex<double> z;
 
     w = f;
     z = std::exp(j*w);
@@ -97,7 +97,7 @@ void BandPass::initFilter()
  * As in ''An introduction to digital filter theory'' by Julius O. Smith
  * and in Moore's book; I use the normalized version in Moore's book.
  */
-void BandPass::setfilter_2polebp(qreal freq, qreal R)
+void BandPass::setfilter_2polebp(double freq, double R)
 {
     m_filter.cx  = 1.0 - R;
     m_filter.cx1 = 0.0;
@@ -134,7 +134,7 @@ void BandPass::input(Kwave::SampleArray data)
 //***************************************************************************
 void BandPass::setFrequency(const QVariant fc)
 {
-    qreal new_freq = QVariant(fc).toDouble();
+    double new_freq = QVariant(fc).toDouble();
     if (new_freq == m_frequency) return; // nothing to do
 
     m_frequency = new_freq;
@@ -145,7 +145,7 @@ void BandPass::setFrequency(const QVariant fc)
 //***************************************************************************
 void BandPass::setBandwidth(const QVariant bw)
 {
-    qreal new_bw = QVariant(bw).toDouble();
+    double new_bw = QVariant(bw).toDouble();
     if (new_bw == m_bandwidth) return; // nothing to do
 
     m_bandwidth = new_bw;

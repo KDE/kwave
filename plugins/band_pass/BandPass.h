@@ -46,7 +46,7 @@ public:
     virtual void goOn();
 
     /** @see TransmissionFunction::at() */
-    virtual qreal at(qreal f);
+    virtual double at(double f);
 
 signals:
 
@@ -82,7 +82,7 @@ private:
      * @param freq normed frequency
      * @param R normed bandwidth
      */
-    void setfilter_2polebp(qreal freq, qreal R);
+    void setfilter_2polebp(double freq, double R);
 
 private:
 
@@ -90,15 +90,15 @@ private:
     Kwave::SampleArray m_buffer;
 
     /** center frequency */
-    qreal m_frequency;
+    double m_frequency;
 
     /** bandwidth */
-    qreal m_bandwidth;
+    double m_bandwidth;
 
     /** structure with the filter coefficients */
     struct {
-	qreal cx,cx1,cx2,cy1,cy2;
-	qreal x,x1,x2,y,y1,y2;
+	double cx,cx1,cx2,cy1,cy2;
+	double x,x1,x2,y,y1,y2;
     } m_filter;
 
 };

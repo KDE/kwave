@@ -614,7 +614,7 @@ int SignalWidget::loadFile(const KUrl &url)
 }
 
 //***************************************************************************
-void SignalWidget::newSignal(unsigned int samples, qreal rate,
+void SignalWidget::newSignal(unsigned int samples, double rate,
                              unsigned int bits, unsigned int tracks)
 {
     close();
@@ -670,7 +670,7 @@ void SignalWidget::setOffset(unsigned int new_offset)
 }
 
 //***************************************************************************
-qreal SignalWidget::getFullZoom()
+double SignalWidget::getFullZoom()
 {
     if (m_signal_manager.isEmpty()) return 0.0;    // no zoom if no signal
 
@@ -687,14 +687,14 @@ qreal SignalWidget::getFullZoom()
     //          -> 49.5 [pixels / sample]
     //          -> zoom = 1 / 49.5 [samples / pixel]
     // => full zoom [samples/pixel] = (length-1) / (width-1)
-    return static_cast<qreal>(length - 1) /
-	   static_cast<qreal>(QWidget::width() - 1);
+    return static_cast<double>(length - 1) /
+	   static_cast<double>(QWidget::width() - 1);
 }
 
 //***************************************************************************
-void SignalWidget::setZoom(qreal new_zoom)
+void SignalWidget::setZoom(double new_zoom)
 {
-    qreal old_zoom = m_zoom;
+    double old_zoom = m_zoom;
     InhibitRepaintGuard inhibit(*this);
 
     m_zoom = new_zoom;
@@ -719,8 +719,8 @@ void SignalWidget::setZoom(qreal new_zoom)
 //***************************************************************************
 void SignalWidget::fixZoomAndOffset()
 {
-    qreal max_zoom;
-    qreal min_zoom;
+    double max_zoom;
+    double min_zoom;
     unsigned int length;
 
     length = m_signal_manager.length();
@@ -736,8 +736,8 @@ void SignalWidget::fixZoomAndOffset()
 
     // ensure that the zoom is in a proper range
     max_zoom = getFullZoom();
-    min_zoom = static_cast<qreal>(MINIMUM_SAMPLES_PER_SCREEN) /
-	       static_cast<qreal>(m_width);
+    min_zoom = static_cast<double>(MINIMUM_SAMPLES_PER_SCREEN) /
+	       static_cast<double>(m_width);
     if (m_zoom < min_zoom) m_zoom = min_zoom;
     if (m_zoom > max_zoom) m_zoom = max_zoom;
 
@@ -775,7 +775,7 @@ void SignalWidget::fixZoomAndOffset()
 //    // adjust the zoom factor in order to make a whole number
 //    // of samples fit into the current window
 //    int samples = pixels2samples(width) + 1;
-//    zoom = (qreal)(samples) / (qreal)(width - 1);
+//    zoom = (double)(samples) / (double)(width - 1);
 
     // do some final range checking
     if (m_zoom < min_zoom) m_zoom = min_zoom;
@@ -863,7 +863,7 @@ void SignalWidget::zoomSelection()
 
     if (len) {
 	m_offset = ofs;
-	setZoom((static_cast<qreal>(len)) / static_cast<qreal>(m_width - 1));
+	setZoom((static_cast<double>(len)) / static_cast<double>(m_width - 1));
     }
 }
 
@@ -1453,7 +1453,7 @@ void SignalWidget::PositionWidget::paintEvent(QPaintEvent *)
 
 //***************************************************************************
 void SignalWidget::showPosition(const QString &text, unsigned int pos,
-                                qreal ms, const QPoint &mouse)
+                                double ms, const QPoint &mouse)
 {
     int x = mouse.x();
     int y = mouse.y();
@@ -1848,18 +1848,18 @@ void SignalWidget::paintEvent(QPaintEvent *)
 }
 
 //***************************************************************************
-unsigned int SignalWidget::ms2samples(qreal ms)
+unsigned int SignalWidget::ms2samples(double ms)
 {
     return static_cast<unsigned int>(
 	rint(ms * m_signal_manager.rate() / 1E3));
 }
 
 //***************************************************************************
-qreal SignalWidget::samples2ms(unsigned int samples)
+double SignalWidget::samples2ms(unsigned int samples)
 {
-    qreal rate = m_signal_manager.rate();
+    double rate = m_signal_manager.rate();
     if (rate == 0.0) return 0.0;
-    return static_cast<qreal>(samples) * 1E3 / rate;
+    return static_cast<double>(samples) * 1E3 / rate;
 }
 
 //***************************************************************************
@@ -1867,14 +1867,14 @@ unsigned int SignalWidget::pixels2samples(int pixels) const
 {
     if ((pixels < 0) || (m_zoom <= 0.0)) return 0;
     return static_cast<unsigned int>(rint(
-	static_cast<qreal>(pixels) * m_zoom));
+	static_cast<double>(pixels) * m_zoom));
 }
 
 //***************************************************************************
 int SignalWidget::samples2pixels(int samples) const
 {
     if (m_zoom == 0.0) return 0;
-    return static_cast<int>(rint(static_cast<qreal>(samples) / m_zoom));
+    return static_cast<int>(rint(static_cast<double>(samples) / m_zoom));
 }
 
 //***************************************************************************
@@ -2262,10 +2262,10 @@ bool SignalWidget::labelProperties(Label &label)
 //	int high = signalmanage->getRate() / parser.toInt();
 //	int low = signalmanage->getRate() / parser.toInt();
 //	int octave = parser.toBool ("true");
-//	qreal adjust = parser.toDouble ();
+//	double adjust = parser.toDouble ();
 //
 //	for (int i = 0; i < AUTOKORRWIN; i++)
-//	    autotable[i] = 1 - (((qreal)i * i * i) / (AUTOKORRWIN * AUTOKORRWIN * AUTOKORRWIN));    //generate static weighting function
+//	    autotable[i] = 1 - (((double)i * i * i) / (AUTOKORRWIN * AUTOKORRWIN * AUTOKORRWIN));    //generate static weighting function
 //
 //	if (octave) for (int i = 0; i < AUTOKORRWIN; i++) weighttable[i] = 1;    //initialise moving weight table
 //
@@ -2318,13 +2318,13 @@ bool SignalWidget::labelProperties(Label &label)
 ////returns length of period, if found
 //{
 //    int i, j;
-//    qreal gmax = 0, max, c;
+//    double gmax = 0, max, c;
 //    int maxpos = AUTOKORRWIN;
 //    int down, up;         //flags
 //
 //    max = 0;
 //    for (j = 0; j < AUTOKORRWIN; j++)
-//	gmax += ((qreal)sample[j]) * sample [j];
+//	gmax += ((double)sample[j]) * sample [j];
 //
 //    //correlate signal with itself for finding maximum integral
 //
@@ -2334,7 +2334,7 @@ bool SignalWidget::labelProperties(Label &label)
 //    max = 0;
 //    while (i < AUTOKORRWIN) {
 //	c = 0;
-//	for (j = 0; j < AUTOKORRWIN; j++) c += ((qreal)sample[j]) * sample [i + j];
+//	for (j = 0; j < AUTOKORRWIN; j++) c += ((double)sample[j]) * sample [i + j];
 //	c = c * autotable[i];    //multiply window with weight for preference of high frequencies
 //	if (c > max) max = c, maxpos = i;
 //	i++;
@@ -2343,18 +2343,18 @@ bool SignalWidget::labelProperties(Label &label)
 //}
 //
 ////*****************************************************************************
-//int findNextRepeatOctave (int *sample, int high, qreal adjust = 1.005)
+//int findNextRepeatOctave (int *sample, int high, double adjust = 1.005)
 ////autocorellation of a windowed part of the sample
 ////same as above only with an adaptive weighting to decrease fast period changes
 //{
 //    int i, j;
-//    qreal gmax = 0, max, c;
+//    double gmax = 0, max, c;
 //    int maxpos = AUTOKORRWIN;
 //    int down, up;         //flags
 //
 //    max = 0;
 //    for (j = 0; j < AUTOKORRWIN; j++)
-//	gmax += ((qreal)sample[j]) * sample [j];
+//	gmax += ((double)sample[j]) * sample [j];
 //
 //    //correlate signal with itself for finding maximum integral
 //
@@ -2364,7 +2364,7 @@ bool SignalWidget::labelProperties(Label &label)
 //    max = 0;
 //    while (i < AUTOKORRWIN) {
 //	c = 0;
-//	for (j = 0; j < AUTOKORRWIN; j++) c += ((qreal)sample[j]) * sample [i + j];
+//	for (j = 0; j < AUTOKORRWIN; j++) c += ((double)sample[j]) * sample [i + j];
 //	c = c * autotable[i] * weighttable[i];
 //	//multiply window with weight for preference of high frequencies
 //	if (c > max) max = c, maxpos = i;
@@ -2526,7 +2526,7 @@ void SignalWidget::startDragging()
 
     const unsigned int first = m_signal_manager.selection().first();
     const unsigned int last  = m_signal_manager.selection().last();
-    const qreal        rate  = m_signal_manager.rate();
+    const double       rate  = m_signal_manager.rate();
     const unsigned int bits  = m_signal_manager.bits();
 
     MultiTrackReader src(m_signal_manager,

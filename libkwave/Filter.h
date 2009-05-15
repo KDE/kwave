@@ -77,14 +77,14 @@ public:
      * Returns a filter coefficient.
      * @param index internal index [0...count-1]
      */
-    qreal coeff(unsigned int index);
+    double coeff(unsigned int index);
 
     /**
      * Sets a filter coefficient to a new value.
      * @param index internal index [0...count-1]
      * @param newval new coefficient
      */
-    void setCoeff(unsigned int index, qreal newval);
+    void setCoeff(unsigned int index, double newval);
 
     /**
      * Returns a delay time of the filter.
@@ -113,7 +113,7 @@ private:
     unsigned int m_rate;
 
     /** array of coefficients */
-    QVector<qreal> m_coeff;
+    QVector<double> m_coeff;
 
     /** array of delay times */
     QVector<int> m_delay;

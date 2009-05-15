@@ -104,7 +104,7 @@ public:
      * @param x coordinate on the x axis, should be [0...+1.0]
      * @param y coordinate on the y axis, should be [0...+1.0]
      */
-    void insert(qreal x, qreal y);
+    void insert(double x, double y);
 
     /**
      * Searches for a point at given coordinates with a definable
@@ -114,7 +114,7 @@ public:
      * @param tol tolerance for x and y direction, absolute value
      * @return pointer to the found point or "NoPoint" if nothing found.
      */
-    Point findPoint(qreal x, qreal y, qreal tol = .05);
+    Point findPoint(double x, double y, double tol = .05);
 
     /**
      * Sets a curve from a command string. Opposite of getCommand().
@@ -150,7 +150,7 @@ public:
      * @return Array of interpolated values or null if the
      *         number of points was zero or the curve was empty.
      */
-    QVector<qreal> interpolation(unsigned int points);
+    QVector<double> interpolation(unsigned int points);
 
 protected:
 

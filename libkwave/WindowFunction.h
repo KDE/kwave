@@ -59,7 +59,7 @@ public:
      * the given number of points. This is similar to Kwave's
      * Interpolation class.
      */
-    QVector<qreal> points(unsigned int len);
+    QVector<double> points(unsigned int len);
 
     /**
      * Returns the window function id through it's numeric index. If

@@ -46,7 +46,7 @@ public:
      *                    needed for determining the allowed range of
      *                    the cutoff frequency
      */
-    BandPassDialog(QWidget *parent, qreal sample_rate);
+    BandPassDialog(QWidget *parent, double sample_rate);
 
     /** Destructor */
     virtual ~BandPassDialog();
@@ -66,10 +66,10 @@ signals:
      * Emitted whenever the frequency changes
      * @param freq the frequency parameter in Hz
      */
-    void freqChanged(qreal freq);
+    void freqChanged(double freq);
 
     //* And for the bw
-    void bwChanged(qreal bw);
+    void bwChanged(double bw);
 
     /** Pre-listen mode has been started */
     void startPreListen();
@@ -104,13 +104,13 @@ protected:
 private:
 
     /** the cutoff frequency in Hz */
-    qreal m_frequency;
+    double m_frequency;
 
     /** the bw in Hz */
-    qreal m_bw;
+    double m_bw;
 
     /** sample rate of the signal in samples/sec */
-    qreal m_sample_rate;
+    double m_sample_rate;
 
     /** filter function for calculating the frequency response */
     BandPass *m_filter;

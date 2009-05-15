@@ -35,12 +35,12 @@ Kwave::Osc::~Osc()
 void Kwave::Osc::goOn()
 {
     unsigned int samples = m_buffer.size();
-    const qreal two_pi = 2.0 * M_PI;
+    const double two_pi = 2.0 * M_PI;
 
     Q_ASSERT(m_f != 0);
     if (m_f == 0) return;
 
-    qreal omega = two_pi / m_f;
+    double omega = two_pi / m_f;
     for (unsigned int sample = 0; sample < samples; sample++) {
 	// calculate one sample as sin(w * t)
 	m_buffer[sample] = double2sample(m_a * sin(m_omega_t));

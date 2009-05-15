@@ -10,6 +10,8 @@
  * bugfix: workaround for libaudiofile bug produced wrong header
    in 24bit/sample mode
  * bugfix: "fade outro" was broken
+ * bugfix: the dialog when playing the test sound in the playback
+   setup dialog did not appear
 
 0.8.2  [2009-04-25]
 

@@ -5098,10 +5098,9 @@ msgid ""
 "(if you hear clicks or dropouts, please increase the buffer size and try "
 "again)"
 msgstr ""
-"Nyní byste měl slyšet zkušební tón o %1Hz...\n"
-"\n"
-"(pokud slyšíte klapnutí nebo přerušení záznamu, zvětšete, prosím, velikost "
-"vyrovnávací paměti a zkuste to znovu)"
+"Nyní byste měl slyšet zkušební tón o %1Hz...<br><br>"
+"(pokud slyšíte klapnutí nebo přerušení záznamu, zvětšete, <br>"
+"prosím, velikost vyrovnávací paměti a zkuste to znovu)"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/zero/ZeroPlugin.cpp:42
 msgid "zero"

@@ -580,12 +580,12 @@ void PlayBackPlugin::run(QStringList)
     // number of output channels
     Matrix<double> matrix(audible_count, out_channels);
     unsigned int x, y;
-    for (y=0; y < out_channels; y++) {
+    for (y = 0; y < out_channels; y++) {
 	unsigned int m1, m2;
 	m1 = y * audible_count;
-	m2 = (y+1) * audible_count;
+	m2 = (y + 1) * audible_count;
 
-	for (x=0; x < audible_count; x++) {
+	for (x = 0; x < audible_count; x++) {
 	    unsigned int n1, n2;
 	    n1 = x * out_channels;
 	    n2 = n1 + out_channels;
@@ -711,6 +711,7 @@ void PlayBackPlugin::testPlayBack()
     // create the multi track playback sink
     Kwave::SampleSink *sink = manager().openMultiTrackPlayback(tracks);
     if (!sink) return;
+    sink->setInteractive(true);
 
     float t_period = t_sweep * tracks;
     unsigned int curve_length = static_cast<unsigned int>(t_period * rate);
@@ -778,12 +779,16 @@ void PlayBackPlugin::testPlayBack()
 	    progress->setMinimumDuration(0);
 	    progress->setMaximum(100);
 	    progress->setAutoClose(true);
-	    progress->setValue(0);
+	    progress->setValue(1);
 	    progress->setLabelText(
-		i18n("you should now hear a %1Hz test tone...\n\n"\
-		     "(if you hear clicks or dropouts, "\
-		     "please increase the buffer size "\
-		     "and try again)", static_cast<int>(freq)));
+		"<html><p><br>" +
+		i18n("you should now hear a %1Hz test tone...<br><br>"\
+		     "(if you hear clicks or dropouts, please increase<br>"\
+		     "the buffer size and try again)", static_cast<int>(freq)) +
+		"</p></html>"
+	    );
+	    progress->show();
+	    QApplication::processEvents();
 	}
     }
 
@@ -800,12 +805,14 @@ void PlayBackPlugin::testPlayBack()
 
 	if (progress) {
 	    progress->setValue((100 * time.elapsed()) / t_max);
+	    QApplication::processEvents();
 	    if (progress->wasCanceled()) break;
 	}
     }
+    sink->setInteractive(false);
 
     if (progress) delete progress;
-    if (sink)     delete sink;
+    delete sink;
 }
 
 //***************************************************************************

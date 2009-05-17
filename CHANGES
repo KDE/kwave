@@ -14,6 +14,7 @@
    setup dialog did not appear
  * replaced qreal with double (fixes build problems on arm)
  * show hourglass / progress bar when undo/redo is running
+ * flattened "Calculate" menu, no submenus for "Frequencies"
 
 0.8.2  [2009-04-25]
 

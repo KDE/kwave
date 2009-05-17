@@ -13,6 +13,7 @@
  * bugfix: the dialog when playing the test sound in the playback
    setup dialog did not appear
  * replaced qreal with double (fixes build problems on arm)
+ * show hourglass / progress bar when undo/redo is running
 
 0.8.2  [2009-04-25]
 

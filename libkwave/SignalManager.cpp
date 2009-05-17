@@ -21,6 +21,8 @@
 #include <limits.h>
 #include <math.h>
 
+#include <QApplication>
+#include <QCursor>
 #include <QFile>
 #include <QFileInfo>
 #include <QMutexLocker>
@@ -1285,6 +1287,9 @@ void SignalManager::undo()
 	qDebug("SignalManager::undo(): redo buffer flushed!");
     }
 
+    // set hourglass cursor
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
     // execute all undo actions and store the resulting redo
     // actions into the redo transaction
     while (!undo_transaction->isEmpty()) {
@@ -1357,6 +1362,9 @@ void SignalManager::undo()
 
     // finished / buffers have changed, emit new undo/redo info
     emitUndoRedoInfo();
+
+    // remove hourglass
+    QApplication::restoreOverrideCursor();
 }
 
 //***************************************************************************
@@ -1405,6 +1413,9 @@ void SignalManager::redo()
     } else {
 	m_undo_buffer.append(undo_transaction);
     }
+
+    // set hourglass cursor
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
     // execute all redo actions and store the resulting undo
     // actions into the undo transaction
@@ -1456,6 +1467,9 @@ void SignalManager::redo()
 
     // finished / buffers have changed, emit new undo/redo info
     emitUndoRedoInfo();
+
+    // remove hourglass
+    QApplication::restoreOverrideCursor();
 }
 
 //***************************************************************************

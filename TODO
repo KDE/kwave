@@ -1,8 +1,9 @@
 -
 
-o show hourglass / progress bar when undo/redo is running
+o Phonon playback support ?
 
-o phonon support
+o when saving to wav format: when switching from 8 bit "unsigned"
+  to 16 bit: libaudiofile seems to need "signed" format?
 
 o volume plugin: show a little "overview" for guessing the level
 
@@ -26,6 +27,8 @@ o JACK audio support
 o automatic defragmentation of stripes
 
 o support for sample rate conversion, libsamplerate or soundtouch
+
+o use some xml file for the menu instead of a macro
 
 o get rid of libaudiofile, it is too buggy, has too few features and
   is no longer actively maintained -> find an alternative

@@ -32,6 +32,7 @@
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleFormat.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/VirtualAudioFile.h"
 
@@ -350,6 +351,23 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 		break;
 	    default:
 		return false; // bye bye, save later...
+	}
+    }
+
+    // check for unsupported bits/sample format combinations
+    if (compression == AF_COMPRESSION_NONE) {
+	if ((bits <= 8) && (sample_format != AF_SAMPFMT_UNSIGNED)) {
+	    const SampleFormat format(SampleFormat::Unsigned);
+	    info.set(INF_SAMPLE_FORMAT, QVariant(format.toInt()));
+
+	    sample_format = AF_SAMPFMT_UNSIGNED;
+	    qDebug("auto-switching to unsigned format");
+	} else if ((bits > 8) && (sample_format != AF_SAMPFMT_TWOSCOMP)) {
+	    const SampleFormat format(SampleFormat::Signed);
+	    info.set(INF_SAMPLE_FORMAT, QVariant(format.toInt()));
+
+	    sample_format = AF_SAMPFMT_TWOSCOMP;
+	    qDebug("auto-switching to signed format");
 	}
     }
 

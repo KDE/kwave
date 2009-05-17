@@ -2,9 +2,6 @@
 
 o Phonon playback support ?
 
-o when saving to wav format: when switching from 8 bit "unsigned"
-  to 16 bit: libaudiofile seems to need "signed" format?
-
 o volume plugin: show a little "overview" for guessing the level
 
 o debug aid: write all actions to a logfile
@@ -27,6 +24,8 @@ o JACK audio support
 o automatic defragmentation of stripes
 
 o support for sample rate conversion, libsamplerate or soundtouch
+
+o re-activate the "label" menu
 
 o use some xml file for the menu instead of a macro
 

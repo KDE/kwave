@@ -28,7 +28,6 @@
 
 class QStringList;
 
-/** @todo add support for logarithmic scale */
 class VolumePlugin: public Kwave::Plugin
 {
     Q_OBJECT

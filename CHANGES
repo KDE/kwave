@@ -17,6 +17,7 @@
  * flattened "Calculate" menu, no submenus for "Frequencies"
  * wav encoder: auto-switch to unsigned format for <=8bit and
    signed format for > 8 bit per sample
+ * volume plugin: show a little "preview" for guessing the level
 
 0.8.2  [2009-04-25]
 

@@ -28,8 +28,11 @@
 #include "libkwave/KwaveMultiTrackSource.h"
 #include "libkwave/Parser.h"
 #include "libkwave/PluginManager.h"
+#include "libkwave/SignalManager.h"
 #include "libkwave/modules/KwaveMul.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
+
+#include "libgui/OverViewCache.h"
 
 #include "VolumePlugin.h"
 #include "VolumeDialog.h"
@@ -78,13 +81,25 @@ QStringList *VolumePlugin::setup(QStringList &previous_params)
     // try to interprete the previous parameters
     interpreteParameters(previous_params);
 
+    // initialize the overview cache
+    SignalManager &mgr = manager().signalManager();
+    QList<unsigned int> tracks = mgr.selectedTracks();
+    unsigned int first, last;
+    unsigned int length = selection(&first, &last, true);
+    OverViewCache *overview_cache = new OverViewCache(mgr,
+        first, length, tracks.isEmpty() ? 0 : &tracks);
+    Q_ASSERT(overview_cache);
+
     // create the setup dialog
-    VolumeDialog *dialog = new VolumeDialog(parentWidget());
-    Q_ASSERT(dialog);
-    if (!dialog) return 0;
+    VolumeDialog *dialog = new VolumeDialog(parentWidget(), overview_cache);
+    if (!dialog) {
+	if (overview_cache) delete overview_cache;
+	return 0;
+    }
 
     if (!m_params.isEmpty()) dialog->setParams(m_params);
 
+    // execute the dialog
     QStringList *list = new QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec()) {
@@ -96,7 +111,9 @@ QStringList *VolumePlugin::setup(QStringList &previous_params)
 	list = 0;
     }
 
-    if (dialog) delete dialog;
+    if (dialog)         delete dialog;
+    if (overview_cache) delete overview_cache;
+
     return list;
 }
 

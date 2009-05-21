@@ -18,6 +18,8 @@
 #include "config.h"
 #include "math.h"
 
+#include <QColor>
+#include <QPainter>
 #include <QRadioButton>
 #include <QSlider>
 #include <QSpinBox>
@@ -27,14 +29,16 @@
 #include "libkwave/Parser.h"
 #include "libgui/CurveWidget.h"
 #include "libgui/InvertableSpinBox.h"
+#include "libgui/ImageView.h"
+#include "libgui/OverViewCache.h"
 #include "libgui/ScaleWidget.h"
 
 #include "VolumeDialog.h"
 
 //***************************************************************************
-VolumeDialog::VolumeDialog(QWidget *parent)
+VolumeDialog::VolumeDialog(QWidget *parent, OverViewCache *overview_cache)
     :QDialog(parent), Ui::VolumeDlg(), m_factor(0.5), m_mode(MODE_PERCENT),
-     m_enable_updates(true)
+     m_enable_updates(true), m_overview_cache(overview_cache)
 {
     setupUi(this);
     setModal(true);
@@ -55,10 +59,19 @@ VolumeDialog::VolumeDialog(QWidget *parent)
     connect(spinbox, SIGNAL(valueChanged(int)),
             this, SLOT(spinboxChanged(int)));
 
+    // force activation of the layout
+    layout()->activate();
+
+    // give the preview image a odd height, for better symmetry
+    int h = preview->height();
+    if (~h & 1) h++;
+    preview->setFixedHeight(h);
+
     // set the initial size of the dialog
-    setFixedWidth(sizeHint().width());
-    int h = (width() * 5) / 3;
-    if (height() < h) resize(width(), h);
+    h     = (sizeHint().height() * 12) / 10;
+    int w = (3 * h) / 4;
+    if (sizeHint().width() > w) w = sizeHint().width();
+    setFixedSize(w, h);
 }
 
 //***************************************************************************
@@ -111,7 +124,6 @@ void VolumeDialog::setMode(Mode mode)
     }
 
     // update the value in the display
-    m_factor = value;
     updateDisplay(value);
     m_enable_updates = old_enable_updates;
 }
@@ -137,7 +149,58 @@ void VolumeDialog::updateDisplay(double value)
     int new_slider_value  = 0;
     bool old_enable_updates = m_enable_updates;
     m_enable_updates = false;
-    m_factor = value;
+
+    if (m_factor != value) {
+	// take over the new factor
+	m_factor = value;
+
+	// update the preview widget
+	if (m_overview_cache && preview) {
+	    int width  = preview->width();
+	    int height = preview->height();
+	    QColor fg = Qt::white;
+	    QColor bg = Qt::black;
+
+	    // get the raw preview image
+	    QImage image = m_overview_cache->getOverView(
+		width, height, fg, bg, m_factor);
+
+	    // color transformation: mark the peaks in light red
+	    int middle = height >> 1;
+	    int red    = static_cast<int>(middle * 0.841); // -1.5dB
+	    int orange = static_cast<int>(middle * 0.707); // -3.0dB
+
+	    QPainter p;
+	    p.begin(&image);
+	    for (int y = 0; y < height; y++) {
+		QColor color;
+
+		if (y == middle) {
+		    // zero line
+		    p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+		    color = Qt::green;
+		} else {
+		    p.setCompositionMode(QPainter::CompositionMode_Multiply);
+		    if ((y < middle - red) || (y > middle + red))
+			// "red" level, -1.5dB from border
+			color = Qt::red;
+		    else if ((y < middle - orange) || (y > middle + orange))
+			// "orange" level, -3.0dB from border
+			color = Qt::yellow;
+		    else
+			// "normal" level
+			color = preview->palette().light().color();
+		}
+
+		p.setPen(color);
+		p.drawLine(0, y, width-1, y);
+	    }
+	    p.end();
+
+	    // update the image view
+	    preview->setImage(image);
+	}
+    }
 
     switch (m_mode) {
 	case MODE_FACTOR: {
@@ -219,16 +282,17 @@ void VolumeDialog::sliderChanged(int pos)
 //    qDebug("sliderChanged(%d), sv=%d",pos,sv); // ###
     switch (m_mode) {
 	case MODE_FACTOR: {
+	    double factor = m_factor;
 	    // -1 <=> /2
 	    //  0 <=> x1
 	    // +1 <=> x2
 	    if (sv >= 0) {
-		m_factor = (sv + 1);
+		factor = (sv + 1);
 	    } else {
-		m_factor = -1.0 / static_cast<double>(sv - 1);
+		factor = -1.0 / static_cast<double>(sv - 1);
 	    }
-//	    qDebug("factor=%g, sv=%d",m_factor, sv);
-	    updateDisplay(m_factor);
+//	    qDebug("factor=%g, sv=%d",factor, sv);
+	    updateDisplay(factor);
 	    break;
 	}
 	case MODE_PERCENT:
@@ -238,6 +302,7 @@ void VolumeDialog::sliderChanged(int pos)
 	    spinboxChanged(sv);
 	    break;
     }
+
 }
 
 //***************************************************************************
@@ -247,6 +312,7 @@ void VolumeDialog::spinboxChanged(int pos)
 //    qDebug("spinboxChanged(%d)",pos); // ###
 
     int sv = spinbox->value();
+    double factor = m_factor;
 
     switch (m_mode) {
 	case MODE_FACTOR: {
@@ -254,27 +320,27 @@ void VolumeDialog::spinboxChanged(int pos)
 	    // -1 <=> /2
 	    //  0 <=> x1
 	    // +1 <=> x2
-	    if (m_factor >= 1) {
-		m_factor = sv ? sv : 0.5;
+	    if (factor >= 1) {
+		factor = sv ? sv : 0.5;
 	    } else {
 		if (!sv) sv = 1;
-		m_factor = 1.0 / static_cast<double>(sv);
+		factor = 1.0 / static_cast<double>(sv);
 	    }
 	    break;
 	}
 	case MODE_PERCENT: {
 	    // percentage
-	    m_factor = static_cast<double>(pos) / 100.0;
+	    factor = static_cast<double>(pos) / 100.0;
 	    break;
 	}
 	case MODE_DECIBEL: {
 	    // decibel
-	    m_factor = pow(10.0, pos / 20.0);
+	    factor = pow(10.0, pos / 20.0);
 	    break;
 	}
     }
 
-    updateDisplay(m_factor);
+    updateDisplay(factor);
 }
 
 //***************************************************************************
@@ -303,7 +369,6 @@ void VolumeDialog::setParams(QStringList &params)
     setMode(m_mode);
 
     // update factor
-    m_factor = factor;
     updateDisplay(factor);
 }
 

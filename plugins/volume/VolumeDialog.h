@@ -26,7 +26,9 @@
 
 #include "ui_VolumeDlg.h"
 
+class OverViewCache;
 class QStringList;
+class SignalManager;
 
 class VolumeDialog: public QDialog,
                     public Ui::VolumeDlg
@@ -35,7 +37,7 @@ class VolumeDialog: public QDialog,
 public:
 
     /** Constructor */
-    VolumeDialog(QWidget *parent);
+    VolumeDialog(QWidget *parent, OverViewCache *overview_cache);
 
     /** Destructor */
     virtual ~VolumeDialog();
@@ -87,6 +89,10 @@ private:
 
     /** if false, ignore the signals of slider and spinbox */
     bool m_enable_updates;
+
+    /** overview cache for calculating the preview image */
+    OverViewCache *m_overview_cache;
+
 };
 
 #endif /* _VOLUME_DIALOG_H_ */

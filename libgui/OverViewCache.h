@@ -28,6 +28,8 @@
 
 #include <kdemacros.h>
 
+#include "libkwave/Sample.h"
+
 class QColor;
 class SignalManager;
 class Track;
@@ -65,10 +67,12 @@ public:
      * @param height the width of the bitmap in pixels
      * @param fg foreground color
      * @param bg background color
+     * @param gain additional y scaling factor (optional, default = 1.0)
      * @return the created bitmap
      */
     virtual QImage getOverView(int width, int height,
-                               const QColor &fg, const QColor &bg);
+                               const QColor &fg, const QColor &bg,
+                               double gain = 1.0);
 
 signals:
 
@@ -184,10 +188,10 @@ private:
     SignalManager &m_signal;
 
     /** list of minimum value arrays, one array per track */
-    QList< QVector <signed char> > m_min;
+    QList< QVector <sample_t> > m_min;
 
     /** list of maximum value arrays, one array per track */
-    QList< QVector <signed char> > m_max;
+    QList< QVector <sample_t> > m_max;
 
     /** bitmask for "validity" of the min/max values */
     QList< QVector <CacheState> > m_state;

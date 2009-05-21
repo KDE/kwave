@@ -116,19 +116,19 @@ void OverViewCache::scaleUp()
         Q_ASSERT(count <= CACHE_SIZE);
 
 	// source pointers
-	signed char *smin = m_min[t].data();
-	signed char *smax = m_max[t].data();
+	sample_t *smin = m_min[t].data();
+	sample_t *smax = m_max[t].data();
 	CacheState *sstate = m_state[t].data();
 
 	// destination pointers
-	signed char *dmin = smin;
-	signed char *dmax = smax;
+	sample_t *dmin = smin;
+	sample_t *dmax = smax;
 	CacheState *dstate = sstate;
 
 	// loop over all entries to be shrinked
 	while (dst < count) {
-	    signed char min = +127;
-	    signed char max = -127;
+	    sample_t min = SAMPLE_MAX;
+	    sample_t max = SAMPLE_MIN;
 	    CacheState state = Unused;
 	    for (unsigned int i = 0; i < shrink; ++i) {
 		if (*smin < min) min = *smin;
@@ -169,7 +169,7 @@ void OverViewCache::scaleDown()
     if (m_scale == new_scale) return;
 
     m_scale = new_scale;
-    for (int track=0; track < m_state.count(); ++track) {
+    for (int track = 0; track < m_state.count(); ++track) {
 	invalidateCache(track, 0, len / m_scale);
     }
 }
@@ -248,11 +248,11 @@ void OverViewCache::slotTrackInserted(unsigned int index, Track *)
     }
 
     QVector<CacheState> state(CACHE_SIZE);
-    QVector<signed char> min(CACHE_SIZE);
-    QVector<signed char> max(CACHE_SIZE);
+    QVector<sample_t> min(CACHE_SIZE);
+    QVector<sample_t> max(CACHE_SIZE);
 
-    min.fill(+127);
-    max.fill(-127);
+    min.fill(SAMPLE_MAX);
+    max.fill(SAMPLE_MIN);
     state.fill(Unused);
 
     int cache_index = trackIndex(index);
@@ -425,7 +425,8 @@ void OverViewCache::slotSamplesModified(unsigned int track,
 
 //***************************************************************************
 QImage OverViewCache::getOverView(int width, int height,
-                                  const QColor &fg, const QColor &bg)
+                                  const QColor &fg, const QColor &bg,
+                                  double gain)
 {
     QMutexLocker lock(&m_lock);
 
@@ -468,26 +469,21 @@ QImage OverViewCache::getOverView(int width, int height,
 	unsigned int count = length / m_scale;
 	if (count > CACHE_SIZE) count = 0;
 
-	signed char *min = m_min[t].data();
-	signed char *max = m_max[t].data();
+	sample_t *min = m_min[t].data();
+	sample_t *max = m_max[t].data();
 	CacheState *state = m_state[t].data();
 	SampleReader *reader = src[t];
 	Q_ASSERT(reader);
 	if (!reader) continue;
 
-	for (unsigned int ofs=0; ofs < count; ++ofs) {
+	for (unsigned int ofs = 0; ofs < count; ++ofs) {
 	    if (state[ofs] == Valid)  continue;
 	    if (state[ofs] == Unused) continue;
 
 	    // get min/max
-	    sample_t min_sample = SAMPLE_MAX;
-	    sample_t max_sample = SAMPLE_MIN;
 	    const unsigned int first = m_src_offset + (ofs * m_scale);
 	    const unsigned int last  = first + m_scale - 1;
-	    reader->minMax(first, last, min_sample, max_sample);
-
-	    min[ofs] = min_sample >> (SAMPLE_BITS - 8);
-	    max[ofs] = max_sample >> (SAMPLE_BITS - 8);
+	    reader->minMax(first, last, min[ofs], max[ofs]);
 	    state[ofs] = Valid;
 	}
     }
@@ -511,8 +507,8 @@ QImage OverViewCache::getOverView(int width, int height,
 	if (last_index >= CACHE_SIZE) last_index = CACHE_SIZE-1;
 
 	// loop over all cache indices
-	int minimum = +127;
-	int maximum = -127;
+	sample_t minimum = SAMPLE_MAX;
+	sample_t maximum = SAMPLE_MIN;
 	for (; index <= last_index; ++index) {
 	    // loop over all tracks
 	    Q_ASSERT(m_min.count() == m_state.count());
@@ -520,8 +516,8 @@ QImage OverViewCache::getOverView(int width, int height,
 	    for (int t = 0; t < m_state.count(); ++t) {
 		Q_ASSERT(t < m_min.count());
 		Q_ASSERT(t < m_max.count());
-		signed char *min = m_min[t].data();
-		signed char *max = m_max[t].data();
+		sample_t *min = m_min[t].data();
+		sample_t *max = m_max[t].data();
 		CacheState *state = m_state[t].data();
 		Q_ASSERT(state);
 		if (!state) continue;
@@ -533,9 +529,21 @@ QImage OverViewCache::getOverView(int width, int height,
 	}
 
 	// update the bitmap
-	const int middle = (height>>1);
-	p.drawLine(x, middle - (minimum * height)/254,
-	           x, middle - (maximum * height)/254);
+	const int middle = (height >> 1);
+	const double scale = static_cast<double>(middle) /
+	                     static_cast<double>(SAMPLE_MAX);
+	double min = minimum * scale;
+	double max = maximum * scale;
+	if (gain != 1.0) {
+	    min *= gain;
+	    max *= gain;
+	    if (min < -middle) min = -middle;
+	    if (min > +middle) min = +middle;
+	    if (max < -middle) max = -middle;
+	    if (max > +middle) max = +middle;
+	}
+	p.drawLine(x, middle - static_cast<int>(min),
+	           x, middle - static_cast<int>(max));
     }
 
     p.end();

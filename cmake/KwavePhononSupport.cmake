@@ -1,8 +1,8 @@
 #############################################################################
-##    Kwave                - plugins/playback/CMakeLists.txt
+##    Kwave                - cmake/KwavePhononSupport.cmake
 ##                           -------------------
-##    begin                : Sat Jun 02 2007
-##    copyright            : (C) 2007 by Thomas Eschenbacher
+##    begin                : Fri May 15 2009
+##    copyright            : (C) 2009 by Thomas Eschenbacher
 ##    email                : Thomas.Eschenbacher@gmx.de
 #############################################################################
 #
@@ -15,37 +15,20 @@
 ##                                                                          #
 #############################################################################
 
-IF (HAVE_OSS_SUPPORT)
-    SET(PLAYBACK_SOURCES ${PLAYBACK_SOURCES} PlayBack-OSS.cpp)
-ENDIF (HAVE_OSS_SUPPORT)
+OPTION(WITH_PHONON "enable playback via Phonon [default=off]" OFF)
 
-IF (HAVE_ALSA_SUPPORT)
-    SET(PLAYBACK_SOURCES ${PLAYBACK_SOURCES} PlayBack-ALSA.cpp)
-    SET(PLAYBACK_REQUIRED_LIBS ${PLAYBACK_REQUIRED_LIBS} asound)
-ENDIF (HAVE_ALSA_SUPPORT)
+IF (WITH_PHONON)
 
-IF (HAVE_PHONON_SUPPORT)
-    SET(PLAYBACK_SOURCES ${PLAYBACK_SOURCES} PlayBack-Phonon.cpp)
-    SET(PLAYBACK_REQUIRED_LIBS ${PLAYBACK_REQUIRED_LIBS} ${PHONON_LIBS})
-ENDIF (HAVE_PHONON_SUPPORT)
+    INCLUDE(FindPhonon)
 
-SET(plugin_playback_LIB_SRCS
-    PlayBackDialog.cpp
-    PlayBackPlugin.cpp
-    PlayBackTypesMap.cpp
-    SampleEncoderLinear.cpp
-    ${PLAYBACK_SOURCES}
-)
+    IF (PHONON_FOUND)
+        MESSAGE(STATUS "Found Phonon version ${PHONON_VERSION}")
+        SET(HAVE_PHONON_SUPPORT  ON CACHE BOOL "enable Phonon support")
+    ELSE (PHONON_FOUND)
+        MESSAGE(FATAL_ERROR "Your system lacks Phonon support")
+    ENDIF (PHONON_FOUND)
 
-SET(plugin_playback_LIB_UI
-    PlayBackDlg.ui
-)
-
-IF (PLAYBACK_REQUIRED_LIBS)
-    SET(plugin_playback_LIBS ${PLAYBACK_REQUIRED_LIBS})
-ENDIF (PLAYBACK_REQUIRED_LIBS)
-
-KWAVE_PLUGIN(playback)
+ENDIF (WITH_PHONON)
 
 #############################################################################
 #############################################################################

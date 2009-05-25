@@ -210,6 +210,7 @@ private:
     /**
      * dictionary for translating verbose device names
      * into ALSA hardware device names
+     * (key = verbose name, data = ALSA hardware device name)
      */
     static QMap<QString, QString> m_device_list;
 

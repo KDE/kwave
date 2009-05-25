@@ -56,6 +56,7 @@
 
 #include "PlayBack-OSS.h"
 #include "PlayBack-ALSA.h"
+#include "PlayBack-Phonon.h"
 
 #include "PlayBackDialog.h"
 #include "PlayBackPlugin.h"
@@ -83,6 +84,9 @@ PlayBackPlugin::PlayBackPlugin(const PluginContext &context)
             &m_playback_controller, SLOT(playbackDone()));
     connect(this, SIGNAL(sigPlaybackPos(unsigned int)),
             &m_playback_controller, SLOT(updatePlaybackPos(unsigned int)));
+    connect(this, SIGNAL(sigPlaybackDone()),
+            this, SLOT(closeDevice()),
+            Qt::QueuedConnection);
 
     // register as a factory for playback devices
     manager().registerPlaybackDeviceFactory(this);
@@ -258,6 +262,11 @@ PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t &method)
 	    case PLAYBACK_ALSA:
 		return new PlayBackALSA();
 #endif /* HAVE_ALSA_SUPPORT */
+
+#ifdef HAVE_PHONON_SUPPORT
+	    case PLAYBACK_PHONON:
+		return new PlayBackPhonon();
+#endif /* HAVE_PHONON_SUPPORT */
 
 	    default:
 		qDebug("unsupported playback method (%d)",
@@ -668,11 +677,6 @@ void PlayBackPlugin::run(QStringList)
 	}
 
     } while (m_playback_controller.loop() && !shouldStop());
-
-    // we are done, so close the output device
-    m_device->close();
-    delete m_device;
-    m_device = 0;
 
     // playback is done
     emit sigPlaybackDone();

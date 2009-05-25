@@ -39,8 +39,8 @@
 /* support playback/recording via ALSA */
 #cmakedefine HAVE_ALSA_SUPPORT
 
-/* support playback via aRts */
-#cmakedefine HAVE_ARTS_SUPPORT
+/* support playback via Phonon */
+#cmakedefine HAVE_PHONON_SUPPORT
 
 /* Define to 1 if you have the <byteswap.h> header file. */
 #cmakedefine HAVE_BYTESWAP_H

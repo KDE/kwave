@@ -44,6 +44,14 @@ void PlayBackTypesMap::fill()
 #endif
 #endif /* HAVE_OSS_SUPPORT */
 
+#ifdef HAVE_PHONON_SUPPORT
+    name = "Phonon (KDE)";
+    append(index++, PLAYBACK_PHONON, "phonon", name);
+#if 0
+    i18n("Phonon (KDE)");
+#endif
+#endif /* HAVE_PHONON_SUPPORT */
+
    Q_ASSERT(index);
    if (!index) qWarning("no playback method defined!");
 }

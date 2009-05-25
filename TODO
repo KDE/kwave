@@ -1,6 +1,6 @@
 -
 
-o Phonon playback support ?
+o bug: after deleting a track, file info is not updated
 
 o debug aid: write all actions to a logfile
 
@@ -13,11 +13,15 @@ o debug aid: new plugin for adding a new track with test/debug info:
   - test pattern: stripe borders
   - generate labels at stripe borders
 
+o about plugin: separate tab for translators
+
 o use svg graphics instead of pixmaps
 
 o use LADSPA
 
 o JACK audio support
+
+o get Phonon playback support running correctly
 
 o automatic defragmentation of stripes
 

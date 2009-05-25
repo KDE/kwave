@@ -29,7 +29,7 @@ typedef enum {
     PLAYBACK_JACK,     /**< Jack sound daemon */
     PLAYBACK_ALSA,     /**< ALSA native */
     PLAYBACK_OSS,      /**< OSS native or ALSA OSS emulation */
-    PLAYBACK_ARTS,     /**< aRts sound daemon */
+    PLAYBACK_PHONON,   /**< Phonon */
     PLAYBACK_INVALID   /**< (keep this the last entry, EOL delimiter) */
 } playback_method_t;
 

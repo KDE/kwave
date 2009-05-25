@@ -38,6 +38,7 @@ SET(KWAVE_LINGUAS
 # OPTION(WITH_MP3  "enable support for mp3 files [default=on]" ON)
 # OPTION(WITH_OGG  "enable support for ogg files [default=on]" ON)
 # OPTION(WITH_OSS  "enable playback/recording via OSS [default=on]" ON)
+# OPTION(WITH_PHONON "enable playback via Phonon [default=on]" ON)
 
 #############################################################################
 ### toplevel build targets:                                               ###
@@ -239,10 +240,11 @@ CHECK_FUNCTION_EXISTS(unlink HAVE_UNLINK)
 INCLUDE(KwaveLibaudiofileSupport)
 
 #############################################################################
-### optionally: OSS and ALSA support for playback and recording           ###
+### optionally: OSS, ALSA and Phonon support for playback/recording       ###
 
 INCLUDE(KwaveOSSSupport)
 INCLUDE(KwaveALSASupport)
+INCLUDE(KwavePhononSupport)
 
 #############################################################################
 ### cmake includes                                                        ###

@@ -107,6 +107,14 @@ private slots:
      */
     void setDevice(const QString &device);
 
+    /**
+     * Closes the playback device, deletes the instance of the
+     * PlayBackDevice and sets m_device to 0.
+     * @see m_device
+     * @see PlayBackDevice
+     */
+    void closeDevice();
+
 protected:
 
     /**
@@ -153,14 +161,6 @@ protected:
      * @see openDevice
      */
     virtual bool supportsDevice(const QString &name);
-
-    /**
-     * Closes the playback device, deletes the instance of the
-     * PlayBackDevice and sets m_device to 0.
-     * @see m_device
-     * @see PlayBackDevice
-     */
-    void closeDevice();
 
 private:
 

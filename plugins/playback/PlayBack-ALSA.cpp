@@ -870,7 +870,7 @@ QString PlayBackALSA::alsaDeviceName(const QString &name)
     if (!m_device_list.contains(name)) {
 	// maybe we already have a ALSA compatible name (like in init state)
 	foreach (QString n, m_device_list.values())
-     if (n == name) return n;
+	    if (n == name) return n;
 
 	qWarning("PlayBackALSA::alsaDeviceName('%s') - NOT FOUND",
 	    name.toLocal8Bit().data());

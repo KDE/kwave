@@ -1,7 +1,5 @@
 -
 
-o bug: after deleting a track, file info is not updated
-
 o debug aid: write all actions to a logfile
 
 o debug aid: new plugin for adding a new track with test/debug info:

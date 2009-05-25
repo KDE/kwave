@@ -739,6 +739,7 @@ void SignalManager::slotTrackInserted(unsigned int index,
 	Track *track)
 {
     setModified(true);
+    m_file_info.setTracks(tracks());
     emit sigTrackInserted(index, track);
     emitStatusInfo();
 }
@@ -747,6 +748,7 @@ void SignalManager::slotTrackInserted(unsigned int index,
 void SignalManager::slotTrackDeleted(unsigned int index)
 {
     setModified(true);
+    m_file_info.setTracks(tracks());
     emit sigTrackDeleted(index);
     emitStatusInfo();
 }

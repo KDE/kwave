@@ -18,6 +18,7 @@
  * wav encoder: auto-switch to unsigned format for <=8bit and
    signed format for > 8 bit per sample
  * volume plugin: show a little "preview" for guessing the level
+ * bugfix: after deleting a track, file info was not updated
 
 0.8.2  [2009-04-25]
 

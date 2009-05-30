@@ -57,10 +57,7 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
 
     /* the frame containing the developer information */
     KwaveAboutContainer *about = new KwaveAboutContainer(this);
-    QList<KAboutPerson> authors(about_data->authors());
-    QListIterator<KAboutPerson> it_a(authors);
-    while (it_a.hasNext()) {
-	KAboutPerson author = it_a.next();
+    foreach (const KAboutPerson &author, about_data->authors()) {
 	about->addPerson(author.name(), author.emailAddress(),
 	    author.webAddress(), author.task());
     }
@@ -69,10 +66,7 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
 
     /* the frame containing the thanks to ... */
     KwaveAboutContainer *contrib = new KwaveAboutContainer(this);
-    QList<KAboutPerson> credits(about_data->credits());
-    QListIterator<KAboutPerson> it_c(credits);
-    while (it_c.hasNext()) {
-	KAboutPerson credit = it_c.next();
+    foreach (const KAboutPerson &credit, about_data->credits()) {
 	contrib->addPerson(credit.name(), credit.emailAddress(),
 	    credit.webAddress(), credit.task());
     }
@@ -106,8 +100,7 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
 
     QStringList::Iterator it_file;
     QList<QTreeWidgetItem *> plugins;
-    for (it_file=files.begin(); it_file != files.end(); ++it_file) {
-	QString file = *it_file;
+    foreach (QString file, files) {
 	void *handle = dlopen(file.toLocal8Bit(), RTLD_NOW);
 	if (handle) {
 	    const char **name    =
@@ -141,6 +134,15 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
 	about_data->homepage() + "</a>");
     kwave_url_label->setOpenExternalLinks(true);
     kwave_url_label->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
+
+    /* the frame containing the translators */
+    KwaveAboutContainer *trans = new KwaveAboutContainer(this);
+    foreach (const KAboutPerson &translator, about_data->translators()) {
+	trans->addPerson(translator.name(), translator.emailAddress(),
+	    translator.webAddress(), translator.task());
+    }
+    translatorsframe->setWidget(trans);
+    translatorsframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     /* the frame containing the license */
     licenseframe->setReadOnly(true);

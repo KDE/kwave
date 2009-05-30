@@ -1,10 +1,11 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>KwaveAboutDialogBase</class>
- <widget class="QDialog" name="KwaveAboutDialogBase" >
-  <property name="windowModality" >
+ <widget class="QDialog" name="KwaveAboutDialogBase">
+  <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
-  <property name="geometry" >
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -12,114 +13,96 @@
     <height>493</height>
    </rect>
   </property>
-  <property name="sizePolicy" >
-   <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>About Kwave</string>
   </property>
-  <property name="sizeGripEnabled" >
+  <property name="sizeGripEnabled">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="spacing" >
+  <layout class="QVBoxLayout">
+   <property name="spacing">
     <number>10</number>
    </property>
-   <property name="leftMargin" >
-    <number>10</number>
-   </property>
-   <property name="topMargin" >
-    <number>10</number>
-   </property>
-   <property name="rightMargin" >
-    <number>10</number>
-   </property>
-   <property name="bottomMargin" >
+   <property name="margin">
     <number>10</number>
    </property>
    <item>
-    <widget class="QLabel" name="header" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+    <widget class="QLabel" name="header">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="frameShape" >
+     <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
-     <property name="text" >
-      <string>&lt;h1>Kwave - a sound editor for KDE&lt;/h1></string>
+     <property name="text">
+      <string>&lt;h1&gt;Kwave - a sound editor for KDE&lt;/h1&gt;</string>
      </property>
-     <property name="wordWrap" >
+     <property name="wordWrap">
       <bool>false</bool>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QTabWidget" name="tabwidget" >
-     <property name="currentIndex" >
+    <widget class="QTabWidget" name="tabwidget">
+     <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="about_tab" >
-      <attribute name="title" >
+     <widget class="QWidget" name="about_tab">
+      <attribute name="title">
        <string>About</string>
       </attribute>
-      <layout class="QGridLayout" >
-       <item rowspan="2" row="0" column="0" >
-        <widget class="QFrame" name="logoframe" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Expanding" hsizetype="MinimumExpanding" >
+      <layout class="QGridLayout">
+       <item row="0" column="0" rowspan="2">
+        <widget class="QFrame" name="logoframe">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
            <horstretch>35</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="minimumSize" >
+         <property name="minimumSize">
           <size>
            <width>150</width>
            <height>200</height>
           </size>
          </property>
-         <property name="maximumSize" >
+         <property name="maximumSize">
           <size>
            <width>400</width>
            <height>32767</height>
           </size>
          </property>
-         <property name="frameShape" >
+         <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
          </property>
-         <property name="frameShadow" >
+         <property name="frameShadow">
           <enum>QFrame::Plain</enum>
          </property>
-         <layout class="QVBoxLayout" >
-          <property name="spacing" >
+         <layout class="QVBoxLayout">
+          <property name="spacing">
            <number>3</number>
           </property>
-          <property name="leftMargin" >
-           <number>3</number>
-          </property>
-          <property name="topMargin" >
-           <number>3</number>
-          </property>
-          <property name="rightMargin" >
-           <number>3</number>
-          </property>
-          <property name="bottomMargin" >
+          <property name="margin">
            <number>3</number>
           </property>
           <item>
-           <widget class="LogoWidget" native="1" name="logo_widget" >
-            <property name="sizePolicy" >
-             <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+           <widget class="LogoWidget" name="logo_widget" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="maximumSize" >
+            <property name="maximumSize">
              <size>
               <width>400</width>
               <height>32767</height>
@@ -130,15 +113,15 @@
          </layout>
         </widget>
        </item>
-       <item row="1" column="1" >
-        <widget class="QLabel" name="kwave_url_label" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+       <item row="1" column="1">
+        <widget class="QLabel" name="kwave_url_label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="minimumSize" >
+         <property name="minimumSize">
           <size>
            <width>200</width>
            <height>20</height>
@@ -146,57 +129,57 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1" >
-        <widget class="QLabel" name="abouttext" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="MinimumExpanding" hsizetype="Expanding" >
+       <item row="0" column="1">
+        <widget class="QLabel" name="abouttext">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
            <horstretch>100</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="minimumSize" >
+         <property name="minimumSize">
           <size>
            <width>380</width>
            <height>280</height>
           </size>
          </property>
-         <property name="text" >
-          <string>&lt;h2>Kwave is a sound editor designed for the KDE-Desktop Environment. &lt;/h2>&lt;br>
+         <property name="text">
+          <string>&lt;h2&gt;Kwave is a sound editor designed for the KDE-Desktop Environment. &lt;/h2&gt;&lt;br&gt;
 With Kwave you can edit many sorts of 
 wav-files including multi-channel files. 
 You are able to alter and play back each 
-channel on its own.&lt;br>
+channel on its own.&lt;br&gt;
 Kwave also includes many plugins (some 
 are still under development) to transform 
 the wave-file in several ways and presents 
 a graphical view with a complete zoom- 
 and scroll capability.</string>
          </property>
-         <property name="textFormat" >
+         <property name="textFormat">
           <enum>Qt::RichText</enum>
          </property>
-         <property name="scaledContents" >
+         <property name="scaledContents">
           <bool>false</bool>
          </property>
-         <property name="alignment" >
+         <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>true</bool>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="authors_tab" >
-      <attribute name="title" >
+     <widget class="QWidget" name="authors_tab">
+      <attribute name="title">
        <string>Authors</string>
       </attribute>
-      <layout class="QVBoxLayout" >
+      <layout class="QVBoxLayout">
        <item>
-        <widget class="QScrollArea" native="1" name="authorframe" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+        <widget class="QScrollArea" name="authorframe">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -205,15 +188,15 @@ and scroll capability.</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="thanks_tab" >
-      <attribute name="title" >
+     <widget class="QWidget" name="thanks_tab">
+      <attribute name="title">
        <string>Thanks To</string>
       </attribute>
-      <layout class="QVBoxLayout" >
+      <layout class="QVBoxLayout">
        <item>
-        <widget class="QScrollArea" native="1" name="thanksframe" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+        <widget class="QScrollArea" name="thanksframe">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -222,25 +205,25 @@ and scroll capability.</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab" >
-      <attribute name="title" >
+     <widget class="QWidget" name="plugins_tab">
+      <attribute name="title">
        <string>Plugins info</string>
       </attribute>
-      <layout class="QVBoxLayout" >
+      <layout class="QVBoxLayout">
        <item>
-        <widget class="QLabel" name="pluginsnumval" >
-         <property name="text" >
+        <widget class="QLabel" name="pluginsnumval">
+         <property name="text">
           <string/>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QScrollArea" native="1" name="pluginsinfoframe" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+        <widget class="QScrollArea" name="pluginsinfoframe">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -249,44 +232,52 @@ and scroll capability.</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="license_tab" >
-      <attribute name="title" >
+     <widget class="QWidget" name="translations_tab">
+      <attribute name="title">
+       <string>Translation</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QScrollArea" name="translatorsframe">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="license_tab">
+      <attribute name="title">
        <string>License agreement</string>
       </attribute>
-      <layout class="QVBoxLayout" >
+      <layout class="QVBoxLayout">
        <item>
-        <widget class="QTextEdit" native="1" name="licenseframe" />
+        <widget class="QTextEdit" name="licenseframe"/>
        </item>
       </layout>
      </widget>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>6</number>
      </property>
-     <property name="leftMargin" >
-      <number>0</number>
-     </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin">
       <number>0</number>
      </property>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>0</height>
@@ -295,39 +286,39 @@ and scroll capability.</string>
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="okbutton" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+      <widget class="QPushButton" name="okbutton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="minimumSize" >
+       <property name="minimumSize">
         <size>
          <width>0</width>
          <height>30</height>
         </size>
        </property>
-       <property name="cursor" >
+       <property name="cursor">
         <cursorShape>ArrowCursor</cursorShape>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>&amp;Close</string>
        </property>
-       <property name="default" >
+       <property name="default">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>0</height>
@@ -339,22 +330,12 @@ and scroll capability.</string>
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="10" margin="10" />
+ <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
    <class>LogoWidget</class>
    <extends>QWidget</extends>
    <header>LogoWidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>QScrollArea</class>
-   <extends>QWidget</extends>
-   <header>QScrollArea</header>
-  </customwidget>
-  <customwidget>
-   <class>QTextEdit</class>
-   <extends>QWidget</extends>
-   <header>QTextEdit</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -363,10 +344,10 @@ and scroll capability.</string>
   <tabstop>licenseframe</tabstop>
  </tabstops>
  <includes>
-  <include location="global" >klocale.h</include>
-  <include location="global" >kurllabel.h</include>
-  <include location="local" >LogoWidget.h</include>
-  <include location="global" >QScrollArea</include>
+  <include location="global">klocale.h</include>
+  <include location="global">kurllabel.h</include>
+  <include location="local">LogoWidget.h</include>
+  <include location="global">QScrollArea</include>
  </includes>
  <resources/>
  <connections>
@@ -376,11 +357,11 @@ and scroll capability.</string>
    <receiver>KwaveAboutDialogBase</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>

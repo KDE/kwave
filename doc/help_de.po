@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-04-25 05:47+0000\n"
-"PO-Revision-Date: 2009-04-16 23:25+0200\n"
+"POT-Creation-Date: 2009-05-30 09:45+0000\n"
+"PO-Revision-Date: 2009-05-25 21:42+0200\n"
 "Last-Translator: \n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -3542,15 +3542,15 @@ msgstr "ein grünes Licht bedeutet \"aktiviert\", wohingegen"
 
 #. Tag: phrase
 #: help_en-work.docbook:1971
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "red lamp"
 msgstr "rote Lampe"
 
 #. Tag: para
 #: help_en-work.docbook:1972
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "a red lamp means \"disabled\"."
-msgstr "eine rote Lampe \"deaktiviert\" bedeutet."
+msgstr "eine rote Lampe bedeutet \"deaktiviert\"."
 
 #. Tag: para
 #: help_en-work.docbook:1976

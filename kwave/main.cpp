@@ -33,7 +33,7 @@
  * add data concerning the developers and
  * contributers to the about data
  */
-void addDataStrings(KAboutData& aboutdata)
+void addDataStrings(KAboutData &aboutdata)
 {
     //Developers
     aboutdata.addAuthor(ki18n("Thomas Eschenbacher"),
@@ -62,10 +62,8 @@ void addDataStrings(KAboutData& aboutdata)
                      "http://rikkus.info/esoundlevelmeter.html");
 
     // translators
-    aboutdata.addAuthor(ki18n("Pavel Fric"),
-                     ki18n("czech translation"),
-                     "pavelfric@seznam.cz",
-                     0);
+    aboutdata.setTranslator(ki18n("NAME OF TRANSLATORS"),
+                     ki18n("EMAIL OF TRANSLATORS"));
 
     // people who helped
     aboutdata.addCredit(ki18n("Stefan Westerfeld"),
@@ -112,6 +110,10 @@ void addDataStrings(KAboutData& aboutdata)
                      ki18n("author of the 'sndfile' library"),
                      "erikd@zip.com.au",
                      "http://www.zip.com.au/~erikd/libsndfile/");
+    aboutdata.addCredit(ki18n("Pavel Fric"),
+                     ki18n("czech translation"),
+                     "pavelfric@seznam.cz",
+                     0);
 
 }
 
@@ -132,7 +134,7 @@ int main( int argc, char **argv )
 	ki18n("a sound editor for KDE"),
 	KAboutData::License_GPL_V2,
         ki18n("(c) 2006, Thomas Eschenbacher"),
-	ki18n(""),
+	ki18n(0),
 	"http://kwave.sourceforge.net",
 	"Thomas.Eschenbacher@gmx.de"
     );

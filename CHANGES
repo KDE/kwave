@@ -66,6 +66,8 @@
  * bugfix: deleteLater on menu nodes did not work,
    implemented own garbage collector
  * speedup: use different block sizes for interactive and non-interactive mode
+ * i18n fix: texts in help/about menu were untranslated
+ * about plugin: new tab for translators
 
 0.8.1  [2008-12-23]
 

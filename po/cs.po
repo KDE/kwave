@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-30 12:58+0200\n"
+"POT-Creation-Date: 2009-05-31 07:26+0200\n"
 "PO-Revision-Date: 2009-04-26 08:06+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -783,7 +783,7 @@ msgstr "(stereofonní zvuk)"
 msgid "(built for KDE %1)"
 msgstr "(sestaveno pro KDE %1)"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:140
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:136
 msgid "(c) 2006, Thomas Eschenbacher"
 msgstr ""
 
@@ -1720,7 +1720,7 @@ msgstr "Zvukový výměnný formát"
 msgid "Audio emphasis mode"
 msgstr "Režim zdůraznění zvuku"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:85
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:77
 msgid "Aurelien Jarno"
 msgstr ""
 
@@ -1838,7 +1838,7 @@ msgstr "CD"
 msgid "Cabaret"
 msgstr "Kabaret"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:53
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:51
 msgid "Caulier Gilles"
 msgstr ""
 
@@ -2009,7 +2009,7 @@ msgstr "Ponurá vlna"
 msgid "Date"
 msgstr "Datum"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:57
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:55
 #, fuzzy
 msgid "Dave Flogeras"
 msgstr "Uložit obraz vytvořený ultrazvukem (sonogram)"
@@ -2065,7 +2065,7 @@ msgstr "Zařízení"
 msgid "Device:"
 msgstr "Zařízení:"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:97
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:89
 msgid "Diederick de Vries"
 msgstr ""
 
@@ -2117,9 +2117,9 @@ msgstr "Duet"
 msgid "E&xecute"
 msgstr "Vy&konat"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:70
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:66
 msgid "EMAIL OF TRANSLATORS"
-msgstr ""
+msgstr "pavelfric@seznam.cz"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/GenreType.cpp:177
 msgid "Easy Listening"
@@ -2145,7 +2145,7 @@ msgstr "Ukončení souboru, dokud nebudou nalezeny všechny hlavičky Vorbis!"
 msgid "Engineer"
 msgstr "Připravit"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:117
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:109
 msgid "Erik de Castro Lopo"
 msgstr ""
 
@@ -2610,7 +2610,7 @@ msgstr "Jazz"
 msgid "Jazz+Funk"
 msgstr "Jazz+Funk"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:93
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:85
 msgid "Jorge Luis Arzola"
 msgstr ""
 
@@ -2623,7 +2623,7 @@ msgstr "Džungle"
 msgid "Keywords"
 msgstr "Klíčová slova"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:136
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:132
 #, fuzzy
 msgid "Kwave"
 msgstr "Rave"
@@ -2636,7 +2636,7 @@ msgstr "Kwave automatické opravení"
 msgid "Kwave auto-repair"
 msgstr "Kwave automatické opravení"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:82
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:74
 msgid "Kwave homepage and german online help"
 msgstr ""
 
@@ -2754,7 +2754,7 @@ msgstr "Omezit na"
 msgid "List of keywords."
 msgstr "Seznam klíčových slov"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:132
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:128
 #, fuzzy
 msgid "List of wav files."
 msgstr "Seznam klíčových slov"
@@ -2850,11 +2850,11 @@ msgstr "MS ADPCM"
 msgid "MS Stereo"
 msgstr "MS Stereo"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:101
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:93
 msgid "Martin Kuball"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:45
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:43
 msgid "Martin Wilz"
 msgstr ""
 
@@ -2888,7 +2888,7 @@ msgstr "Paměť pro &Zpět/Znovu"
 msgid "Metal"
 msgstr "Metal"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:113
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:105
 msgid "Michael Pruett"
 msgstr ""
 
@@ -2936,9 +2936,9 @@ msgstr "Monofonní"
 msgid "Musical"
 msgstr "Muzikál"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:69
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:65
 msgid "NAME OF TRANSLATORS"
-msgstr ""
+msgstr "Pavel Fric"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:153
 msgid "Name"
@@ -3152,6 +3152,10 @@ msgstr "Obecný přehled"
 msgid "Pause/Continue"
 msgstr "Pozastavit/Pokračovat"
 
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:113
+msgid "Pavel Fric"
+msgstr ""
+
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:164
 msgid "Performer"
 msgstr "Účinkující"
@@ -3326,7 +3330,7 @@ msgstr "R&B"
 msgid "R&edo"
 msgstr "Z&novu"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:49
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:47
 msgid "Ralf Waspe"
 msgstr ""
 
@@ -3431,15 +3435,15 @@ msgstr "Znovuvzkříšení"
 msgid "Rhythmic Soul"
 msgstr "Rytmický soul"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:61
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:59
 msgid "Rik Hemsley"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:105
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:97
 msgid "Robert Leslie"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:89
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:81
 msgid "Robert M. Stockmann"
 msgstr ""
 
@@ -3782,7 +3786,7 @@ msgstr ""
 "poslech umožněn, uslišíte téměř okamžitě jakoukoli změnu ve vybraných "
 "pomocných proměnných."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:77
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:69
 msgid "Stefan Westerfeld"
 msgstr ""
 
@@ -3808,7 +3812,7 @@ msgstr ""
 msgid "Subject"
 msgstr "Předloha"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:81
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:73
 msgid "Sven-Steffen Arndt"
 msgstr ""
 
@@ -3824,7 +3828,7 @@ msgstr "Symfonický rock"
 msgid "Symphony"
 msgstr "Symfonie"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:109
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:101
 msgid "T.H.F. Klok and Cedric Tefft"
 msgstr ""
 
@@ -3993,7 +3997,7 @@ msgstr ""
 "Tento soubor byl upraven.\n"
 "Chcete jej uložit?"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:149
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:145
 msgid "This is %1 v%2 (compiled for KDE %3)"
 msgstr "Toto je %1 v%2 (zkompilováno pro KDE %3)"
 
@@ -4002,7 +4006,7 @@ msgid ""
 "This would overwrite the following file(s): %1Do you really want to continue?"
 msgstr "Toto by přepsalo následující soubor(y): %1 Opravdu chcete pokračovat?"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:41
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:39
 msgid "Thomas Eschenbacher"
 msgstr ""
 
@@ -4193,7 +4197,7 @@ msgstr "Najet na 100%"
 msgid "Zoom to whole signal"
 msgstr "Najet na celý signál"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:138
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:134
 #, fuzzy
 msgid "a sound editor for KDE"
 msgstr "<h1>Kwave - editor zvuku pro KDE</h1>"
@@ -4232,20 +4236,20 @@ msgstr "Připojit stopu"
 msgid "applying '%1' ..."
 msgstr "Používá se '%1' ..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:78
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:70
 #, fuzzy
 msgid "author of aRts"
 msgstr "Autoři"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:114
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:106
 msgid "author of the 'audiofile' library"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:106
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:98
 msgid "author of the 'mad' mp3 decoder library"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:118
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:110
 msgid "author of the 'sndfile' library"
 msgstr ""
 
@@ -4399,11 +4403,11 @@ msgstr "Kopírovat aktuální výběr do schránky"
 msgid "create a new empty file"
 msgstr "Vytvořit nový prázdný soubor"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:50
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:48
 msgid "creator of the Help/About dialog"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:46
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:44
 msgid "creator of the project, development 1998-2000"
 msgstr ""
 
@@ -4424,13 +4428,18 @@ msgstr "Vyjmout aktuální výběr a přesunout jej do schránky"
 msgid "cutoff frequency"
 msgstr "Odříznutý kmitočet"
 
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:114
+#, fuzzy
+msgid "czech translation"
+msgstr "Organizace"
+
 #: /usr/src/packages/multimedia/sound/kwave/plugins/band_pass/BandPassDialog.cpp:62
 #: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassDialog.cpp:61
 #: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDialog.cpp:65
 msgid "dB"
 msgstr "dB"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:86
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:78
 msgid "debian packager"
 msgstr ""
 
@@ -4579,7 +4588,7 @@ msgstr "Sledovat výběr"
 msgid "format or function is not implemented"
 msgstr "Formát nebo funkce není provedena"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:54
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:52
 msgid "french translations, splashscreen, tests and bugfixes"
 msgstr ""
 
@@ -4672,7 +4681,7 @@ msgstr "Poslední prováděný krok"
 msgid "length: "
 msgstr "Délka:"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:62
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:60
 #, fuzzy
 msgid "level meter"
 msgstr "Měřič úrovně"
@@ -4710,7 +4719,7 @@ msgstr "Nejnižší"
 msgid "lowpass"
 msgstr "Malá propustnost"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:110
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:102
 msgid "maintainers of the 'id3lib' library"
 msgstr ""
 
@@ -4818,7 +4827,7 @@ msgstr "Používá se '%1' ..."
 msgid "not implemented yet"
 msgstr "Ještě neprovedeno"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:58
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:56
 #, fuzzy
 msgid "notch filter plugin"
 msgstr "Čistič záznamu"
@@ -4872,15 +4881,15 @@ msgstr "Otevírání souboru selhalo."
 msgid "out of memory"
 msgstr "Mimo rozsah paměti"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:98
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:90
 msgid "packaging for Crux Linux"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:90
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:82
 msgid "packaging for Mandrake / X86_64"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:94
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:86
 msgid "packaging for SuSE Linux"
 msgstr ""
 
@@ -4948,7 +4957,7 @@ msgstr "Polynom, devátý stupeň"
 msgid "prerecording..."
 msgstr "Náhrává předem..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:42
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:40
 msgid "project leader since 2000, core development"
 msgstr ""
 
@@ -5169,7 +5178,7 @@ msgstr "Dílčí zařízení %1: "
 msgid "synchronization lost"
 msgstr "Časové sladění ztraceno"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:102
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:94
 msgid "tester"
 msgstr ""
 

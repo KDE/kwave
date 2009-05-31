@@ -117,4 +117,8 @@ Sun Microsystems, Inc.
 Miguel Freitas
 	* parts of libkwave/memcpy.c
 
+Mirko Boehm (mirko@kde.org)
+Espen Sand (espen@kde.org)
+	* K3AboutContainer (base of KwaveAboutContainer)
+
 ### EOF ###

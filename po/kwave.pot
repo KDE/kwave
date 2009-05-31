@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-30 12:58+0200\n"
+"POT-Creation-Date: 2009-05-31 07:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,167 +16,175 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:41
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:39
 msgid "Thomas Eschenbacher"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:42
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:40
 msgid "project leader since 2000, core development"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:45
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:43
 msgid "Martin Wilz"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:46
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:44
 msgid "creator of the project, development 1998-2000"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:49
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:47
 msgid "Ralf Waspe"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:50
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:48
 msgid "creator of the Help/About dialog"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:53
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:51
 msgid "Caulier Gilles"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:54
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:52
 msgid "french translations, splashscreen, tests and bugfixes"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:57
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:55
 msgid "Dave Flogeras"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:58
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:56
 msgid "notch filter plugin"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:61
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:59
 msgid "Rik Hemsley"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:62
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:60
 msgid "level meter"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:69
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:65
 msgid "NAME OF TRANSLATORS"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:70
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:66
 msgid "EMAIL OF TRANSLATORS"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:77
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:69
 msgid "Stefan Westerfeld"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:78
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:70
 msgid "author of aRts"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:81
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:73
 msgid "Sven-Steffen Arndt"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:82
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:74
 msgid "Kwave homepage and german online help"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:85
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:77
 msgid "Aurelien Jarno"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:86
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:78
 msgid "debian packager"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:89
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:81
 msgid "Robert M. Stockmann"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:90
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:82
 msgid "packaging for Mandrake / X86_64"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:93
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:85
 msgid "Jorge Luis Arzola"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:94
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:86
 msgid "packaging for SuSE Linux"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:97
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:89
 msgid "Diederick de Vries"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:98
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:90
 msgid "packaging for Crux Linux"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:101
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:93
 msgid "Martin Kuball"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:102
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:94
 msgid "tester"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:105
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:97
 msgid "Robert Leslie"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:106
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:98
 msgid "author of the 'mad' mp3 decoder library"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:109
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:101
 msgid "T.H.F. Klok and Cedric Tefft"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:110
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:102
 msgid "maintainers of the 'id3lib' library"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:113
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:105
 msgid "Michael Pruett"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:114
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:106
 msgid "author of the 'audiofile' library"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:117
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:109
 msgid "Erik de Castro Lopo"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:118
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:110
 msgid "author of the 'sndfile' library"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:132
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:113
+msgid "Pavel Fric"
+msgstr ""
+
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:114
+msgid "czech translation"
+msgstr ""
+
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:128
 msgid "List of wav files."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:136
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:132
 msgid "Kwave"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:138
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:134
 msgid "a sound editor for KDE"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:140
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:136
 msgid "(c) 2006, Thomas Eschenbacher"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:149
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:145
 msgid "This is %1 v%2 (compiled for KDE %3)"
 msgstr ""
 

@@ -5,12 +5,11 @@
 # Gilles CAULIER <caulier.gilles@free.fr>, 2003.
 # CAULIER Gilles <caulier.gilles@free.fr>, 2003.
 # Gilles Caulier <caulier.gilles@free.fr>, 2003.
-# Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>, 2004, 2005, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-30 12:58+0200\n"
+"POT-Creation-Date: 2009-05-31 07:26+0200\n"
 "PO-Revision-Date: 2007-08-01 19:04+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
@@ -818,7 +817,7 @@ msgstr "(Stéréo)"
 msgid "(built for KDE %1)"
 msgstr " pour KDE "
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:140
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:136
 msgid "(c) 2006, Thomas Eschenbacher"
 msgstr ""
 
@@ -1699,7 +1698,7 @@ msgstr "Format audio Interchange"
 msgid "Audio emphasis mode"
 msgstr "Mode de mise en valeur de l'audio "
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:85
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:77
 msgid "Aurelien Jarno"
 msgstr ""
 
@@ -1816,7 +1815,7 @@ msgstr "CD "
 msgid "Cabaret"
 msgstr "Cabaret"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:53
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:51
 msgid "Caulier Gilles"
 msgstr ""
 
@@ -1987,7 +1986,7 @@ msgstr "Darkwave"
 msgid "Date"
 msgstr "Date "
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:57
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:55
 #, fuzzy
 msgid "Dave Flogeras"
 msgstr "&Sonagramme"
@@ -2044,7 +2043,7 @@ msgstr "Périphérique"
 msgid "Device:"
 msgstr "Périphérique :"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:97
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:89
 msgid "Diederick de Vries"
 msgstr ""
 
@@ -2097,9 +2096,9 @@ msgstr "Duo"
 msgid "E&xecute"
 msgstr "E&xécuter"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:70
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:66
 msgid "EMAIL OF TRANSLATORS"
-msgstr ""
+msgstr "caulier.gilles@free.fr"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/GenreType.cpp:177
 msgid "Easy Listening"
@@ -2127,7 +2126,7 @@ msgstr ""
 msgid "Engineer"
 msgstr "Ingénieur "
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:117
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:109
 msgid "Erik de Castro Lopo"
 msgstr ""
 
@@ -2591,7 +2590,7 @@ msgstr "Jazz"
 msgid "Jazz+Funk"
 msgstr "Jazz+Funk"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:93
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:85
 msgid "Jorge Luis Arzola"
 msgstr ""
 
@@ -2604,7 +2603,7 @@ msgstr "Jungle"
 msgid "Keywords"
 msgstr "Mot-clefs :"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:136
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:132
 #, fuzzy
 msgid "Kwave"
 msgstr "Rave"
@@ -2617,7 +2616,7 @@ msgstr "Auto-réparation par Kwave"
 msgid "Kwave auto-repair"
 msgstr "Auto-réparation par Kwave"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:82
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:74
 msgid "Kwave homepage and german online help"
 msgstr "Site internet de Kwave et documentation en Allemand."
 
@@ -2732,7 +2731,7 @@ msgstr "&Limitée à"
 msgid "List of keywords."
 msgstr "Liste de mots clef."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:132
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:128
 msgid "List of wav files."
 msgstr "Liste de fichiers sons."
 
@@ -2827,11 +2826,11 @@ msgstr "MS ADPCM"
 msgid "MS Stereo"
 msgstr "Stéréo MS"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:101
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:93
 msgid "Martin Kuball"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:45
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:43
 msgid "Martin Wilz"
 msgstr ""
 
@@ -2865,7 +2864,7 @@ msgstr ""
 msgid "Metal"
 msgstr "Metal"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:113
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:105
 msgid "Michael Pruett"
 msgstr ""
 
@@ -2914,9 +2913,9 @@ msgstr "Mono"
 msgid "Musical"
 msgstr "Musique"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:69
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:65
 msgid "NAME OF TRANSLATORS"
-msgstr ""
+msgstr "Gilles Caulier"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:153
 msgid "Name"
@@ -3134,6 +3133,10 @@ msgstr "Aperçu"
 msgid "Pause/Continue"
 msgstr "Pause / Continuer"
 
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:113
+msgid "Pavel Fric"
+msgstr ""
+
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:164
 msgid "Performer"
 msgstr "Interprète "
@@ -3307,7 +3310,7 @@ msgstr "R&B"
 msgid "R&edo"
 msgstr "R&efaire"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:49
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:47
 msgid "Ralf Waspe"
 msgstr ""
 
@@ -3418,15 +3421,15 @@ msgstr "Revival"
 msgid "Rhythmic Soul"
 msgstr "Soul rythmique"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:61
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:59
 msgid "Rik Hemsley"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:105
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:97
 msgid "Robert Leslie"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:89
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:81
 msgid "Robert M. Stockmann"
 msgstr ""
 
@@ -3772,7 +3775,7 @@ msgstr ""
 "courants. Si l'option pour l'aperçu sonore est activée, vous pouvez "
 "immédiatement écouter les changements réalisés dans les paramètres."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:77
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:69
 msgid "Stefan Westerfeld"
 msgstr ""
 
@@ -3798,7 +3801,7 @@ msgstr ""
 msgid "Subject"
 msgstr "Sujet "
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:81
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:73
 msgid "Sven-Steffen Arndt"
 msgstr ""
 
@@ -3814,7 +3817,7 @@ msgstr "Rock symphonique"
 msgid "Symphony"
 msgstr "Symphonie"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:109
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:101
 msgid "T.H.F. Klok and Cedric Tefft"
 msgstr ""
 
@@ -3983,7 +3986,7 @@ msgstr ""
 "Ce fichier a été modifié.\n"
 "Voulez-vous l'enregistrer ?"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:149
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:145
 #, fuzzy
 msgid "This is %1 v%2 (compiled for KDE %3)"
 msgstr "%1 (utilise KDE %2)"
@@ -3994,7 +3997,7 @@ msgid ""
 msgstr ""
 "Le(s) fichier(s) suivant(s) sera(ont) écrasé(s) : Voulez vous continuer ?"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:41
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:39
 msgid "Thomas Eschenbacher"
 msgstr ""
 
@@ -4187,7 +4190,7 @@ msgstr "zoomer à 100 %"
 msgid "Zoom to whole signal"
 msgstr "Zoomer sur la &sélection"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:138
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:134
 #, fuzzy
 msgid "a sound editor for KDE"
 msgstr "Un éditeur de sons pour KDE"
@@ -4226,21 +4229,21 @@ msgstr "ajouter une piste"
 msgid "applying '%1' ..."
 msgstr "Traitement de « %1 » en cours..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:78
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:70
 msgid "author of aRts"
 msgstr "auteur de aRts"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:114
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:106
 msgid "author of the 'audiofile' library"
 msgstr "Auteur de la bibliothèque « audiofile »."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:106
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:98
 msgid "author of the 'mad' mp3 decoder library"
 msgstr ""
 "Auteur de la bibliothèque correspondante au codec « mad » pour la gestion des "
 "fichiers MP3."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:118
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:110
 msgid "author of the 'sndfile' library"
 msgstr "Auteur de la bibliothèque « sndfile »"
 
@@ -4400,11 +4403,11 @@ msgstr "copier la sélection courante et la placer dans le presse papier"
 msgid "create a new empty file"
 msgstr "créer un nouveau fichier vide"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:50
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:48
 msgid "creator of the Help/About dialog"
 msgstr "Auteur de la boite de dialogue Aide/A propos de"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:46
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:44
 msgid "creator of the project, development 1998-2000"
 msgstr "Créateur du projet et développeur principal entre 1998 et 2000"
 
@@ -4425,13 +4428,18 @@ msgstr "couper la sélection courante et la déplacer dans le presse papier"
 msgid "cutoff frequency"
 msgstr "fréquence de coupure"
 
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:114
+#, fuzzy
+msgid "czech translation"
+msgstr "Organisation "
+
 #: /usr/src/packages/multimedia/sound/kwave/plugins/band_pass/BandPassDialog.cpp:62
 #: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassDialog.cpp:61
 #: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterDialog.cpp:65
 msgid "dB"
 msgstr "dB"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:86
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:78
 msgid "debian packager"
 msgstr "Construction des paquetages pour Debian"
 
@@ -4576,7 +4584,7 @@ msgstr "Suivre la sélection"
 msgid "format or function is not implemented"
 msgstr "Format ou fonction non implantée"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:54
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:52
 msgid "french translations, splashscreen, tests and bugfixes"
 msgstr ""
 "Traductions Françaises, logo de démarrage, tests et corrections de bogues"
@@ -4671,7 +4679,7 @@ msgstr "dernière action"
 msgid "length: "
 msgstr "Durée : "
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:62
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:60
 msgid "level meter"
 msgstr "niveau sonore"
 
@@ -4711,7 +4719,7 @@ msgstr "Petit"
 msgid "lowpass"
 msgstr "filtre passe bas"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:110
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:102
 msgid "maintainers of the 'id3lib' library"
 msgstr "Mainteneur de la bibliothèque « id3lib »"
 
@@ -4821,7 +4829,7 @@ msgstr "Traitement de « %1 » en cours..."
 msgid "not implemented yet"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:58
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:56
 msgid "notch filter plugin"
 msgstr "Module externe filtre réjecteur"
 
@@ -4874,15 +4882,15 @@ msgstr "L'ouverture du fichier a échouée"
 msgid "out of memory"
 msgstr "Pas assez de mémoire"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:98
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:90
 msgid "packaging for Crux Linux"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:90
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:82
 msgid "packaging for Mandrake / X86_64"
 msgstr "Construction des paquetages pour Mandrake / X86_64"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:94
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:86
 msgid "packaging for SuSE Linux"
 msgstr ""
 
@@ -4951,7 +4959,7 @@ msgstr "polynôme de dégré n"
 msgid "prerecording..."
 msgstr "pré-enregistrement..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:42
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:40
 msgid "project leader since 2000, core development"
 msgstr "Coordinateur du projet depuis 2000 et développeur principal."
 
@@ -5182,7 +5190,7 @@ msgstr "Périphérique %2 :"
 msgid "synchronization lost"
 msgstr "Perte de synchronisation"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:102
+#: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:94
 msgid "tester"
 msgstr "Testeur"
 

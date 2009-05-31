@@ -11,8 +11,6 @@ o debug aid: new plugin for adding a new track with test/debug info:
   - test pattern: stripe borders
   - generate labels at stripe borders
 
-o about plugin: separate tab for translators
-
 o use svg graphics instead of pixmaps
 
 o use LADSPA
@@ -132,5 +130,7 @@ o port from id3lib to taglib
 
 o switch to use float as sample_t (requires much work...)
   -> version 0.9
+
+o about plugin: auto-scroll for contents
 
 ### EOF ###

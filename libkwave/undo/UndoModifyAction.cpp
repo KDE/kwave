@@ -57,7 +57,7 @@ unsigned int UndoModifyAction::undoSize()
 bool UndoModifyAction::store(SignalManager &manager)
 {
     SampleReader *reader = manager.openSampleReader(
-	m_track, m_offset, m_offset+m_length-1);
+	Kwave::SinglePassForward, m_track, m_offset, m_offset+m_length-1);
     Q_ASSERT(reader);
     if (!reader) return false;
 
@@ -92,10 +92,10 @@ UndoAction *UndoModifyAction::undo(SignalManager &manager, bool with_redo)
 	Kwave::SampleArray buf_sav(BUFFER_SIZE);
 
 	SampleReader *reader_cur = manager.openSampleReader(
-	    m_track, m_offset, m_offset+m_length-1);
+	    Kwave::SinglePassForward, m_track, m_offset, m_offset+m_length-1);
 	SampleWriter *writer_cur = writer;
 	SampleReader *reader_sav = m_buffer_track.openSampleReader(
-	    0, m_length-1);
+	    Kwave::SinglePassForward, 0, m_length-1);
 	SampleWriter *writer_sav = m_buffer_track.openSampleWriter(
 	    Overwrite, 0, m_length-1);
 
@@ -127,7 +127,7 @@ UndoAction *UndoModifyAction::undo(SignalManager &manager, bool with_redo)
 	if (writer_sav) delete writer_sav;
     } else {
 	SampleReader *reader = m_buffer_track.openSampleReader(
-	    0, m_length-1);
+	    Kwave::SinglePassForward, 0, m_length-1);
 	Q_ASSERT(reader);
 
 	if (reader && writer) (*writer) << (*reader);

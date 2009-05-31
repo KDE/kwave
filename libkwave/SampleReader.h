@@ -27,6 +27,7 @@
 #include <kdemacros.h>
 
 #include "libkwave/InsertMode.h"
+#include "libkwave/ReaderMode.h"
 #include "libkwave/Sample.h"
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveSampleSource.h"
@@ -41,13 +42,15 @@ public:
 
     /**
      * Constructor. Creates a stream for reading samples from a track.
+     * @param mode the reader mode, see Kwave::ReaderMode
      * @param track reference to the track from which we want to read
      * @param left start of the input (only useful in insert and
      *             overwrite mode)
      * @param right end of the input (only useful with overwrite mode)
      * @see InsertMode
      */
-    SampleReader(Track &track, unsigned int left, unsigned int right);
+    SampleReader(Kwave::ReaderMode mode, Track &track,
+                 unsigned int left, unsigned int right);
 
     /** Destructor */
     virtual ~SampleReader();
@@ -149,6 +152,9 @@ protected:
     void fillBuffer();
 
 private:
+
+    /** operation mode of the reader, see Kwave::ReaderMode */
+    Kwave::ReaderMode m_mode;
 
     /** the track to which we belong */
     Track &m_track;

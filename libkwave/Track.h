@@ -77,10 +77,12 @@ public:
     /**
      * Opens a stream for reading samples. If the the last position
      * is omitted, the value UINT_MAX will be used.
+     * @param mode read mode, see Kwave::ReaderMode
      * @param left first offset to be read (default = 0)
      * @param right last position to read (default = UINT_MAX)
      */
-    SampleReader *openSampleReader(unsigned int left = 0,
+    SampleReader *openSampleReader(Kwave::ReaderMode mode,
+	unsigned int left = 0,
 	unsigned int right = UINT_MAX);
 
     /**

@@ -32,6 +32,7 @@
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
 #include "libkwave/PlaybackController.h"
+#include "libkwave/ReaderMode.h"
 #include "libkwave/Selection.h"
 #include "libkwave/Signal.h"
 
@@ -41,6 +42,7 @@ class ClipBoard;
 class KUrl;
 class MultiTrackReader;
 class MultiTrackWriter;
+class SampleReader;
 class SignalWidget;
 class Track;
 class UndoAction;
@@ -248,15 +250,17 @@ public:
     /**
      * Opens a stream for reading samples. If the the last position
      * is omitted, the value UINT_MAX will be used.
+     * @param mode a reader mode, see SampleReader::Mode
      * @param track index of the track. If the track does not exist, this
      *        function will fail and return 0
      * @param left first offset to be read (default = 0)
      * @param right last position to read (default = UINT_MAX)
      */
-    inline SampleReader *openSampleReader(unsigned int track,
+    inline SampleReader *openSampleReader(Kwave::ReaderMode mode,
+	unsigned int track,
 	unsigned int left = 0, unsigned int right = UINT_MAX)
     {
-	return m_signal.openSampleReader(track, left, right);
+	return m_signal.openSampleReader(mode, track, left, right);
     }
 
     /** Returns true if undo/redo is currently enabled */

@@ -61,7 +61,7 @@ int UndoDeleteTrack::redoSize()
 bool UndoDeleteTrack::store(SignalManager &manager)
 {
     SampleReader *reader = manager.openSampleReader(
-	m_track, 0, m_length-1);
+	Kwave::SinglePassForward, m_track, 0, m_length-1);
     Q_ASSERT(reader);
     if (!reader) return false;
 
@@ -101,7 +101,8 @@ UndoAction *UndoDeleteTrack::undo(SignalManager &manager, bool with_redo)
 	Overwrite, 0, m_length-1);
     Q_ASSERT(writer);
 
-    SampleReader *reader = m_buffer_track.openSampleReader(0, m_length-1);
+    SampleReader *reader = m_buffer_track.openSampleReader(
+	Kwave::SinglePassForward, 0, m_length-1);
     Q_ASSERT(reader);
     if (reader && writer) (*writer) << (*reader);
 

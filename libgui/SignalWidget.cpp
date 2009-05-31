@@ -2529,7 +2529,7 @@ void SignalWidget::startDragging()
     const double       rate  = m_signal_manager.rate();
     const unsigned int bits  = m_signal_manager.bits();
 
-    MultiTrackReader src(m_signal_manager,
+    MultiTrackReader src(Kwave::SinglePassForward, m_signal_manager,
 	m_signal_manager.selectedTracks(), first, last);
 
     // create the file info

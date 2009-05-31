@@ -180,8 +180,8 @@ void NormalizePlugin::run(QStringList params)
 
     // get the list of affected tracks
     QList<unsigned int> track_list = manager().selectedTracks();
-    MultiTrackReader source(signalManager(), track_list,
-	first, last);
+    MultiTrackReader source(Kwave::SinglePassForward,
+	signalManager(), track_list, first, last);
 
     // connect the progress dialog
     connect(&source, SIGNAL(progress(unsigned int)),

@@ -129,7 +129,8 @@ void VolumePlugin::run(QStringList params)
     unsigned int tracks = selectedTracks().count();
 
     // create all objects
-    MultiTrackReader source(signalManager(), selectedTracks(), first, last);
+    MultiTrackReader source(Kwave::SinglePassForward,
+	signalManager(), selectedTracks(), first, last);
     MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
 	first, last);
     Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks);

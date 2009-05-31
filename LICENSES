@@ -366,6 +366,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/ppcasm_string.h			GPL2+ / Paul Mackerras
 	libkwave/ppcasm_string.S			GPL2+ / Paul Mackerras
 	libkwave/ppc_asm.tmpl				GPL2+ / Paul Mackerras
+	libkwave/ReaderMode.h				GPL2+
 	libkwave/SampleFIFO.cpp				GPL2+
 	libkwave/SampleFIFO.h				GPL2+
 	libkwave/SampleFormat.cpp			GPL2+

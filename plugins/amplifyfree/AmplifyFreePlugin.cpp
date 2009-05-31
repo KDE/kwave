@@ -141,7 +141,8 @@ void AmplifyFreePlugin::run(QStringList params)
     unsigned int tracks = selectedTracks().count();
 
     // create all objects
-    MultiTrackReader source(signalManager(), selectedTracks(), first, last);
+    MultiTrackReader source(Kwave::SinglePassForward,
+	signalManager(), selectedTracks(), first, last);
     Kwave::CurveStreamAdapter curve(m_curve, input_length);
     MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
 	first, last);

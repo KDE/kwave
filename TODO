@@ -6,8 +6,6 @@ o debug aid: new plugin for adding a new track with test/debug info:
   - stripe number
   - hull curve
   - test pattern: sample offset within stripe
-  - test pattern: sawtooth
-  - test pattern: min/max alternating
   - test pattern: stripe borders
   - generate labels at stripe borders
 

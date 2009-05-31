@@ -101,7 +101,9 @@ void Kwave::FilterPlugin::run(QStringList params)
     Kwave::StreamObject::setInteractive(m_listen);
 
     // create all objects
-    MultiTrackReader source(signalManager(), selectedTracks(), first, last);
+    MultiTrackReader source(
+	(m_listen) ? Kwave::FullSnapshot : Kwave::SinglePassForward,
+	signalManager(), selectedTracks(), first, last);
 
     Kwave::SampleSource *filter = createFilter(tracks);
     Q_ASSERT(filter);

@@ -162,8 +162,8 @@ SampleWriter *Signal::openSampleWriter(unsigned int track,
 }
 
 //***************************************************************************
-SampleReader *Signal::openSampleReader(unsigned int track,
-	unsigned int left, unsigned int right)
+SampleReader *Signal::openSampleReader(Kwave::ReaderMode mode,
+	unsigned int track, unsigned int left, unsigned int right)
 {
     QReadLocker lock(&m_lock_tracks);
 
@@ -172,7 +172,7 @@ SampleReader *Signal::openSampleReader(unsigned int track,
 
     Track *t = m_tracks.at(track);
     Q_ASSERT(t);
-    return (t) ? t->openSampleReader(left, right) : 0;
+    return (t) ? t->openSampleReader(mode, left, right) : 0;
 }
 
 //***************************************************************************

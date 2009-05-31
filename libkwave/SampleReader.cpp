@@ -35,9 +35,9 @@
 #define MIN_PROGRESS_INTERVAL 500
 
 //***************************************************************************
-SampleReader::SampleReader(Track &track,
+SampleReader::SampleReader(Kwave::ReaderMode mode, Track &track,
                            unsigned int left, unsigned int right)
-    :m_track(track),
+    :m_mode(mode), m_track(track),
      m_src_position(left), m_first(left), m_last(right),
      m_buffer(blockSize()),
      m_buffer_used(0), m_buffer_position(0),

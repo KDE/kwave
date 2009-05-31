@@ -235,6 +235,7 @@ libkwave/Parser.h
 libkwave/PlayBackDevice.h
 libkwave/PlaybackDeviceFactory.h
 libkwave/PluginContext.h
+libkwave/ReaderMode.h
 libkwave/Sample.h
 libkwave/SampleFIFO.cpp
 libkwave/SampleFIFO.h

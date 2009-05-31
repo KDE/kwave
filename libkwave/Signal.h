@@ -17,7 +17,7 @@
 #ifndef _SIGNAL_H_
 #define _SIGNAL_H_
 
-#define PROGRESS_SIZE 512*3*5
+#define PROGRESS_SIZE (512 * 3 * 5)
 
 #include "config.h"
 #include <limits.h>
@@ -29,6 +29,7 @@
 #include <kdemacros.h>
 
 #include "libkwave/InsertMode.h"
+#include "libkwave/ReaderMode.h"
 #include "libkwave/Sample.h"
 #include "libkwave/WindowFunction.h"
 
@@ -115,12 +116,14 @@ public:
     /**
      * Opens a stream for reading samples. If the the last position
      * is omitted, the value UINT_MAX will be used.
+     * @param mode a reader mode, see Kwave::ReaderMode
      * @param track index of the track. If the track does not exist, this
      *        function will fail and return 0
      * @param left first offset to be read (default = 0)
      * @param right last position to read (default = UINT_MAX)
      */
-    SampleReader *openSampleReader(unsigned int track, unsigned int left = 0,
+    SampleReader *openSampleReader(Kwave::ReaderMode mode,
+	unsigned int track, unsigned int left = 0,
 	unsigned int right = UINT_MAX);
 
     /**

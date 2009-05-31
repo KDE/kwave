@@ -48,12 +48,14 @@ public:
 
     /**
      * Constructor
+     * @param mode a reader mode, see Kwave::ReaderMode
      * @param signal_manager reference to a SignalManager
      * @param track_list array of indices of tracks for writing
      * @param left index of the first sample
      * @param right index of the last sample
      */
-    MultiTrackReader(SignalManager &signal_manager,
+    MultiTrackReader(Kwave::ReaderMode mode,
+                     SignalManager &signal_manager,
                      const QList<unsigned int> &track_list,
                      unsigned int first, unsigned int last);
 

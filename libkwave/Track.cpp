@@ -175,8 +175,8 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 }
 
 //***************************************************************************
-SampleReader *Track::openSampleReader(unsigned int left,
-	unsigned int right)
+SampleReader *Track::openSampleReader(Kwave::ReaderMode mode,
+	unsigned int left, unsigned int right)
 {
     QReadLocker lock(&m_lock);
 
@@ -184,7 +184,7 @@ SampleReader *Track::openSampleReader(unsigned int left,
     if (right >= length) right = (length) ? (length - 1) : 0;
 
     // create the input stream
-    SampleReader *stream = new SampleReader(*this, left, right);
+    SampleReader *stream = new SampleReader(mode, *this, left, right);
     Q_ASSERT(stream);
     return stream;
 }

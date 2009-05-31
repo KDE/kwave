@@ -341,7 +341,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 	QString filename = url.path();
 	QFile dst(filename);
 
-	MultiTrackReader src(*this,
+	MultiTrackReader src(Kwave::SinglePassForward, *this,
 	    (selection) ? selectedTracks() : allTracks(),
 	    ofs, ofs+len-1);
 

@@ -452,7 +452,8 @@ QImage OverViewCache::getOverView(int width, int height,
 	track_list = m_signal.allTracks();
     }
 
-    MultiTrackReader src(m_signal, track_list, m_src_offset,
+    MultiTrackReader src(Kwave::SinglePassForward,
+	m_signal, track_list, m_src_offset,
 	m_src_offset+length-1);
     Q_ASSERT(m_min.count() == m_max.count());
     Q_ASSERT(m_min.count() == m_state.count());

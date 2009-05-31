@@ -77,7 +77,7 @@ void ClipBoard::copy(QWidget *widget, SignalManager &signal_manager,
     if (!buffer) return;
 
     // encode into the mime data container
-    MultiTrackReader src(signal_manager,
+    MultiTrackReader src(Kwave::SinglePassForward, signal_manager,
 	track_list, offset, offset + length - 1);
     FileInfo info = signal_manager.fileInfo();
     if (!buffer->encode(widget, src, info)) {

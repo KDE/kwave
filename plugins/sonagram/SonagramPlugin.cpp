@@ -234,7 +234,8 @@ void SonagramPlugin::run(QStringList /* params */)
     if (m_fft_points < 4)
 	return;
 
-    MultiTrackReader source(signalManager(), selectedTracks(),
+    MultiTrackReader source(Kwave::SinglePassForward,
+	signalManager(), selectedTracks(),
 	m_first_sample, m_last_sample);
 //    qDebug("SonagramPlugin::run(), first=%u, last=%u",m_first_sample,m_last_sample);
 

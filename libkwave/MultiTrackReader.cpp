@@ -30,7 +30,8 @@ MultiTrackReader::MultiTrackReader()
 }
 
 //***************************************************************************
-MultiTrackReader::MultiTrackReader(SignalManager &signal_manager,
+MultiTrackReader::MultiTrackReader(Kwave::ReaderMode mode,
+                                   SignalManager &signal_manager,
                                    const QList<unsigned int> &track_list,
                                    unsigned int first, unsigned int last)
     :Kwave::MultiTrackSource<SampleReader, false>(0),
@@ -39,7 +40,8 @@ MultiTrackReader::MultiTrackReader(SignalManager &signal_manager,
     unsigned int index = 0;
 
     foreach(unsigned int track, track_list) {
-	SampleReader *s = signal_manager.openSampleReader(track, first, last);
+	SampleReader *s = signal_manager.openSampleReader(
+	    mode, track, first, last);
 	if (!s) break;
 	insert(index++, s);
 	Q_ASSERT(index == tracks());

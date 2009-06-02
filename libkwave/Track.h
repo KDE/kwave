@@ -101,17 +101,6 @@ public:
     /** Sets the "selected" flag. */
     void select(bool select);
 
-    /**
-     * Returns the minumum and maximum sample value within a range
-     * of samples.
-     * @param first index of the first sample
-     * @param last index of the last sample
-     * @param min receives the lowest value or 0 if no samples are in range
-     * @param max receives the highest value or 0 if no samples are in range
-     */
-    void minMax(unsigned int first, unsigned int last,
-                sample_t &min, sample_t &max);
-
 signals:
 
     /**
@@ -198,7 +187,7 @@ private:
      *
      * @param length number of samples, zero is allowed
      */
-    Stripe *appendStripe(unsigned int length);
+    void appendStripe(unsigned int length);
 
     /**
      * Split a stripe into two stripes. The new stripe will be created
@@ -211,7 +200,7 @@ private:
      *               sample in the new stripe
      * @return the new created stripe
      */
-    Stripe *splitStripe(Stripe *stripe, unsigned int offset);
+    Stripe splitStripe(Stripe &stripe, unsigned int offset);
 
     /**
      * dump the list of stripes, for debugging
@@ -240,22 +229,6 @@ protected:
                       unsigned int buf_offset,
                       unsigned int length);
 
-    friend class SampleReader;
-
-    /**
-     * Read a block of samples, with padding if necessary.
-     *
-     * @param offset position where to start the read operation
-     * @param buffer receives the samples
-     * @param buf_offset offset within the buffer
-     * @param length number of samples to read
-     * @return number of read samples
-     */
-    unsigned int readSamples(unsigned int offset,
-                             Kwave::SampleArray &buffer,
-                             unsigned int buf_offset,
-                             unsigned int length);
-
     /** increments the usage counter (read lock to m_lock_usage) */
     void use();
 
@@ -280,7 +253,7 @@ private:
     QReadWriteLock m_lock_usage;
 
     /** list of stripes (a track actually is a container for stripes) */
-    QList<Stripe *> m_stripes;
+    QList<Stripe> m_stripes;
 
     /** True if the track is selected */
     bool m_selected;

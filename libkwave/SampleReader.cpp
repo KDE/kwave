@@ -4,7 +4,6 @@
     begin                : Apr 25 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
-
  ***************************************************************************/
 
 /***************************************************************************
@@ -35,22 +34,20 @@
 #define MIN_PROGRESS_INTERVAL 500
 
 //***************************************************************************
-SampleReader::SampleReader(Kwave::ReaderMode mode, Track &track,
+SampleReader::SampleReader(Kwave::ReaderMode mode, QList<Stripe> stripes,
                            unsigned int left, unsigned int right)
-    :m_mode(mode), m_track(track),
+    :m_mode(mode), m_stripes(stripes),
      m_src_position(left), m_first(left), m_last(right),
      m_buffer(blockSize()),
      m_buffer_used(0), m_buffer_position(0),
      m_progress_time()
 {
-    m_track.use();
     m_progress_time.start();
 }
 
 //***************************************************************************
 SampleReader::~SampleReader()
 {
-    m_track.release();
 }
 
 //***************************************************************************
@@ -89,7 +86,7 @@ void SampleReader::fillBuffer()
     if (rest > m_buffer.size()) rest = m_buffer.size();
     Q_ASSERT(rest);
 
-    unsigned int len = m_track.readSamples(m_src_position, m_buffer, 0, rest);
+    unsigned int len = readSamples(m_src_position, m_buffer, 0, rest);
     Q_ASSERT(len == rest);
     m_buffer_used  += len;
     m_src_position += len;
@@ -107,7 +104,30 @@ void SampleReader::fillBuffer()
 void SampleReader::minMax(unsigned int first, unsigned int last,
                           sample_t &min, sample_t &max)
 {
-    m_track.minMax(first, last, min, max);
+    bool empty = true;
+
+    foreach (Stripe s, m_stripes) {
+	if (!s.length()) continue;
+	unsigned int start = s.start();
+	unsigned int end   = s.end();
+
+	if (end < first) continue; // not yet in range
+	if (start > last)  break;  // done
+
+	// overlap -> not empty
+	empty = false;
+
+	// get min/max from the stripe
+	unsigned int s1 = (first > start) ? (first - start) : 0;
+	unsigned int s2 = (last < end) ? (last - start) : (end - start);
+	s.minMax(s1, s2, min, max);
+    }
+
+    // special case: no signal in that range -> set to zero
+    if (empty) {
+	min = 0;
+	max = 0;
+    }
 }
 
 //***************************************************************************
@@ -162,8 +182,7 @@ unsigned int SampleReader::read(Kwave::SampleArray &buffer,
     if (dstoff + rest > buffer.size()) // clip to end of buffer
 	rest = buffer.size() - dstoff;
     Q_ASSERT(dstoff + rest <= buffer.size());
-    unsigned int len = m_track.readSamples(m_src_position,
-	buffer, dstoff, rest);
+    unsigned int len = readSamples(m_src_position, buffer, dstoff, rest);
     Q_ASSERT(len == rest);
     m_src_position += len;
     count += len;
@@ -240,6 +259,59 @@ void SampleReader::goOn()
     Kwave::SampleArray buffer(blockSize());
     read(buffer, 0, blockSize());
     emit output(buffer);
+}
+
+//***************************************************************************
+unsigned int SampleReader::readSamples(unsigned int offset,
+                                       Kwave::SampleArray &buffer,
+                                       unsigned int buf_offset,
+                                       unsigned int length)
+{
+    Q_ASSERT(length);
+    if (!length) return 0; // nothing to do !?
+    Q_ASSERT(buf_offset + length <= buffer.size());
+
+    unsigned int rest  = length;
+    unsigned int left  = offset;
+    unsigned int right = offset + length - 1;
+
+    foreach (Stripe s, m_stripes) {
+	if (!s.length()) continue;
+	unsigned int start = s.start();
+	unsigned int end   = s.end();
+
+	if (left < start) {
+	    // gap before the stripe -> pad
+	    unsigned int pad = start - left;
+	    if (pad > rest) pad = rest;
+	    padBuffer(buffer, buf_offset, pad);
+	    buf_offset += pad;
+	    rest       -= pad;
+	    left       += pad;
+	    if (!rest) break;
+	}
+
+	if (start > right) break; // done, we are after the range
+
+	if (left <= end) {
+	    // some kind of overlap
+	    Q_ASSERT(left >= start);
+	    unsigned int ofs = left - start;
+	    unsigned int len = end - left + 1;
+	    if (len > rest) len = rest;
+	    unsigned int count = s.read(buffer, buf_offset, ofs, len);
+	    Q_ASSERT(count == len);
+	    buf_offset += count;
+	    rest       -= count;
+	    left       += count;
+	    if (!rest) break;
+	}
+    }
+
+    // pad at the end
+    if (rest) padBuffer(buffer, buf_offset, rest);
+
+    return length;
 }
 
 //***************************************************************************

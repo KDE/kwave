@@ -20,8 +20,9 @@
 
 #include "config.h"
 
-#include <QObject>
 #include <QMutex>
+#include <QSharedData>
+#include <QExplicitlySharedDataPointer>
 
 #include <kdemacros.h>
 
@@ -29,15 +30,17 @@
 #include "libkwave/Sample.h"
 
 //***************************************************************************
-class KDE_EXPORT Stripe: public QObject
+class KDE_EXPORT Stripe
 {
-    Q_OBJECT
 public:
 
     /**
      * Default constructor. Creates an empty stripe with zero-length.
      */
     Stripe();
+
+    /** Copy constructor */
+    Stripe(const Stripe &other);
 
     /**
      * Constructor. Creates a new zero-length stripe.
@@ -72,7 +75,7 @@ public:
     /**
      * Returns the start position of the stripe within the track.
      */
-    unsigned int start();
+    unsigned int start() const;
 
     /**
      * Sets a new start position for the stripe
@@ -82,13 +85,13 @@ public:
     /**
      * Returns the current length of the stripe in samples.
      */
-    unsigned int length();
+    unsigned int length() const;
 
     /**
      * Returns the position of the last sample of the stripe,
      * same as (start() + length() ? (length() - 1))
      */
-    unsigned int end();
+    unsigned int end() const;
 
     /**
      * Resizes the stripe to a new number of samples. If the array
@@ -166,6 +169,12 @@ public:
      */
     Stripe &operator << (const Kwave::SampleArray &samples);
 
+    /** compare operator */
+    bool operator == (const Stripe &other) const;
+
+    /** assignment operator */
+    Stripe &operator = (const Stripe &other);
+
 protected:
 
     /**
@@ -180,40 +189,9 @@ protected:
 private:
 
     /**
-     * Guard for mapping the storage into memory
-     */
-    class MapStorageGuard
-    {
-    public:
-	/**
-	 * Constructor
-	 * @param stripe should be *this of the stripe
-	 */
-	MapStorageGuard(Stripe &stripe);
-
-	/** Destructor */
-	virtual ~MapStorageGuard();
-
-	/**
-	 * Returns a pointer to the mapped memory, or null if
-	 * the mapping has failed
-	 */
-	sample_t *storage();
-
-    private:
-
-        /** stripe which gets it's storage mapped */
-        Stripe &m_stripe;
-
-	/** pointer to the memory used for storage */
-	sample_t *m_storage;
-
-    };
-
-    /**
      * Wrapper for mapping the storage into memory and accessing
      * it like a normal QMemArray<sample_t>. Should be used like
-     * a guard, internally uses a MapstorageGuard.
+     * a guard, internally uses a MapStorageGuard.
      */
     class MappedArray: public Kwave::SampleArray
     {
@@ -221,9 +199,8 @@ private:
 	/**
 	 * Constructor
 	 * @param stripe should be *this of the stripe
-	 * @param length the length of the stripe [samples]
 	 */
-	MappedArray(Stripe &stripe, unsigned int length);
+	MappedArray(Stripe &stripe);
 
 	/** Destructor */
 	virtual ~MappedArray();
@@ -271,8 +248,11 @@ private:
 
     private:
 
-	/** guard for mapping the storage */
-	MapStorageGuard m_guard;
+        /** stripe which gets it's storage mapped */
+        Stripe &m_stripe;
+
+	/** pointer to the memory used for storage */
+	sample_t *m_storage;
 
 	/** length in samples */
 	unsigned int m_length;
@@ -288,23 +268,56 @@ private:
 
 private:
 
-    /** start position within the track */
-    unsigned int m_start;
+    class StripeStorage : public QSharedData {
+    public:
+	/** default constructor */
+	StripeStorage();
 
-    /** number of samples */
-    unsigned int m_length;
+	/** copy constructor */
+	StripeStorage(const StripeStorage &other);
 
-    /** pointer/handle to a storage object */
-    void *m_storage;
+	/** destructor */
+	virtual ~StripeStorage();
 
-    /** mutex for array of samples */
-    QMutex m_lock_samples;
+	/** maps the storage into memory */
+	sample_t *map();
 
-    /** usage count of mapped storage */
-    int m_map_count;
+	/** unmaps the storage from memory */
+	void unmap();
 
-    /** mapped storage */
-    sample_t *m_mapped_storage;
+	/** returns the map count */
+	inline int mapCount() const { return m_map_count; }
+
+    public:
+
+	/** start position within the track */
+	unsigned int m_start;
+
+	/** number of samples */
+	unsigned int m_length;
+
+	/** pointer/handle to a storage object */
+	void *m_storage;
+
+    private:
+
+	/** mutex for locking map/unmap */
+	QMutex m_lock;
+
+	/** usage count of mapped storage */
+	int m_map_count;
+
+	/** mapped storage */
+	sample_t *m_mapped_storage;
+    };
+
+private:
+
+    /** mutex for locking map/unmap */
+    QMutex m_lock;
+
+    /** pointer to the shared data */
+    QExplicitlySharedDataPointer<StripeStorage> m_data;
 
 };
 

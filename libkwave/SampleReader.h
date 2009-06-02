@@ -21,6 +21,7 @@
 
 #include "config.h"
 
+#include <QList>
 #include <QObject>
 #include <QTime>
 
@@ -29,11 +30,9 @@
 #include "libkwave/InsertMode.h"
 #include "libkwave/ReaderMode.h"
 #include "libkwave/Sample.h"
+#include "libkwave/Stripe.h"
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveSampleSource.h"
-
-class Stripe;
-class Track;
 
 class KDE_EXPORT SampleReader: public Kwave::SampleSource
 {
@@ -43,13 +42,13 @@ public:
     /**
      * Constructor. Creates a stream for reading samples from a track.
      * @param mode the reader mode, see Kwave::ReaderMode
-     * @param track reference to the track from which we want to read
+     * @param stripes list of stripes which contain data in the desired range
      * @param left start of the input (only useful in insert and
      *             overwrite mode)
      * @param right end of the input (only useful with overwrite mode)
      * @see InsertMode
      */
-    SampleReader(Kwave::ReaderMode mode, Track &track,
+    SampleReader(Kwave::ReaderMode mode, QList<Stripe> stripes,
                  unsigned int left, unsigned int right);
 
     /** Destructor */
@@ -151,13 +150,27 @@ protected:
     /** Fills the sample buffer */
     void fillBuffer();
 
+    /**
+     * Read a block of samples, with padding if necessary.
+     *
+     * @param offset position where to start the read operation
+     * @param buffer receives the samples
+     * @param buf_offset offset within the buffer
+     * @param length number of samples to read
+     * @return number of read samples
+     */
+    unsigned int readSamples(unsigned int offset,
+                             Kwave::SampleArray &buffer,
+                             unsigned int buf_offset,
+                             unsigned int length);
+
 private:
 
     /** operation mode of the reader, see Kwave::ReaderMode */
     Kwave::ReaderMode m_mode;
 
-    /** the track to which we belong */
-    Track &m_track;
+    /** list of stipes in range */
+    QList<Stripe> m_stripes;
 
     /**
      * Current sample position, related to the source of the samples. Does

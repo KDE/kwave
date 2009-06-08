@@ -50,7 +50,7 @@
 /** target volume level [dB] */
 #define TARGET_LEVEL -12
 
-KWAVE_PLUGIN(NormalizePlugin,"normalize","Thomas Eschenbacher");
+KWAVE_PLUGIN(NormalizePlugin,"normalize","2.1","Thomas Eschenbacher");
 
 //***************************************************************************
 class GetMaxPowerJob: public ThreadWeaver::Job

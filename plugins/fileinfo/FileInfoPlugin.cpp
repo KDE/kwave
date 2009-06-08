@@ -25,7 +25,7 @@
 #include "FileInfoDialog.h"
 #include "FileInfoPlugin.h"
 
-KWAVE_PLUGIN(FileInfoPlugin,"fileinfo","Thomas Eschenbacher");
+KWAVE_PLUGIN(FileInfoPlugin,"fileinfo","2.1","Thomas Eschenbacher");
 
 //***************************************************************************
 FileInfoPlugin::FileInfoPlugin(const PluginContext &context)

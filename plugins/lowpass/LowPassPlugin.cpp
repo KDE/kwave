@@ -29,7 +29,7 @@
 #include "LowPassPlugin.h"
 #include "LowPassDialog.h"
 
-KWAVE_PLUGIN(LowPassPlugin,"lowpass","Thomas Eschenbacher");
+KWAVE_PLUGIN(LowPassPlugin,"lowpass","2.1","Thomas Eschenbacher");
 
 //***************************************************************************
 LowPassPlugin::LowPassPlugin(const PluginContext &context)

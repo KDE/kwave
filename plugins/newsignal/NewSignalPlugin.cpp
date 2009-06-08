@@ -23,7 +23,7 @@
 #include "NewSignalPlugin.h"
 #include "NewSignalDialog.h"
 
-KWAVE_PLUGIN(NewSignalPlugin,"newsignal","Thomas Eschenbacher");
+KWAVE_PLUGIN(NewSignalPlugin,"newsignal","2.1","Thomas Eschenbacher");
 
 //***************************************************************************
 NewSignalPlugin::NewSignalPlugin(const PluginContext &context)

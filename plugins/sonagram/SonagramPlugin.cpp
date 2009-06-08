@@ -44,7 +44,7 @@
 #include "SonagramDialog.h"
 #include "SonagramWindow.h"
 
-KWAVE_PLUGIN(SonagramPlugin,"sonagram","Thomas Eschenbacher");
+KWAVE_PLUGIN(SonagramPlugin,"sonagram","2.1","Thomas Eschenbacher");
 
 #define MAX_QUEUE_USAGE 256
 

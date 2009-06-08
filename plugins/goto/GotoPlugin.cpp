@@ -29,7 +29,7 @@
 #include "GotoPlugin.h"
 #include "GotoDialog.h"
 
-KWAVE_PLUGIN(GotoPlugin,"goto","Thomas Eschenbacher");
+KWAVE_PLUGIN(GotoPlugin,"goto","2.1","Thomas Eschenbacher");
 
 //***************************************************************************
 GotoPlugin::GotoPlugin(const PluginContext &c)

@@ -24,7 +24,7 @@
 #include "OggEncoder.h"
 #include "OggDecoder.h"
 
-KWAVE_PLUGIN(OggCodecPlugin,"codec_ogg","Thomas Eschenbacher");
+KWAVE_PLUGIN(OggCodecPlugin,"codec_ogg","2.1","Thomas Eschenbacher");
 
 /***************************************************************************/
 OggCodecPlugin::OggCodecPlugin(const PluginContext &c)

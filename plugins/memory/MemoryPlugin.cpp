@@ -27,7 +27,7 @@
 #include "MemoryPlugin.h"
 #include "MemoryDialog.h"
 
-KWAVE_PLUGIN(MemoryPlugin,"memory","Thomas Eschenbacher");
+KWAVE_PLUGIN(MemoryPlugin,"memory","2.1","Thomas Eschenbacher");
 
 //***************************************************************************
 MemoryPlugin::MemoryPlugin(const PluginContext &c)

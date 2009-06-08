@@ -86,7 +86,6 @@ RecordOSS::~RecordOSS()
 int RecordOSS::open(const QString &dev)
 {
     // close the device if it is still open
-    Q_ASSERT(m_fd < 0);
     if (m_fd >= 0) close();
     if (!dev.length()) return -1; // no device name
 

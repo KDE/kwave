@@ -53,7 +53,7 @@
 #include "Record-ALSA.h"
 #include "Record-OSS.h"
 
-KWAVE_PLUGIN(RecordPlugin,"record","Thomas Eschenbacher");
+KWAVE_PLUGIN(RecordPlugin,"record","2.2","Thomas Eschenbacher");
 
 //***************************************************************************
 RecordPlugin::RecordPlugin(const PluginContext &context)

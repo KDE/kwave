@@ -26,7 +26,7 @@
 #include "NotchFilterPlugin.h"
 #include "NotchFilterDialog.h"
 
-KWAVE_PLUGIN(NotchFilterPlugin,"notch_filter","Dave Flogeras");
+KWAVE_PLUGIN(NotchFilterPlugin,"notch_filter","2.1","Dave Flogeras");
 
 //***************************************************************************
 NotchFilterPlugin::NotchFilterPlugin(const PluginContext &context)

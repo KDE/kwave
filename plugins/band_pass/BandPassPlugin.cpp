@@ -28,7 +28,7 @@
 #include "BandPassPlugin.h"
 #include "BandPassDialog.h"
 
-KWAVE_PLUGIN(BandPassPlugin,"band_pass","Dave Flogeras");
+KWAVE_PLUGIN(BandPassPlugin,"band_pass","2.1","Dave Flogeras");
 
 //***************************************************************************
 BandPassPlugin::BandPassPlugin(const PluginContext &context)

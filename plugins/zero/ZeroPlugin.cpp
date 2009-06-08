@@ -31,7 +31,7 @@
 
 #include "ZeroPlugin.h"
 
-KWAVE_PLUGIN(ZeroPlugin,"zero","Thomas Eschenbacher");
+KWAVE_PLUGIN(ZeroPlugin,"zero","2.1","Thomas Eschenbacher");
 
 #define ZERO_COUNT (64 * 1024)
 

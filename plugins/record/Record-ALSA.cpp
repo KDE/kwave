@@ -236,8 +236,7 @@ void RecordALSA::detectSupportedFormats()
 	const snd_pcm_format_t *fmt = &(_known_formats[i]);
 
 	// eliminate duplicate alsa sample formats (e.g. BE/LE)
-	foreach (int it, m_supported_formats)
-	{
+	foreach (int it, m_supported_formats) {
 	    const snd_pcm_format_t *f = &_known_formats[it];
 	    if (*f == *fmt) {
 		fmt = 0;

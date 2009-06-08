@@ -25,7 +25,7 @@
 #include "FlacEncoder.h"
 #include "FlacDecoder.h"
 
-KWAVE_PLUGIN(FlacCodecPlugin,"codec_flac","Thomas Eschenbacher");
+KWAVE_PLUGIN(FlacCodecPlugin,"codec_flac","2.1","Thomas Eschenbacher");
 
 /***************************************************************************/
 FlacCodecPlugin::FlacCodecPlugin(const PluginContext &c)

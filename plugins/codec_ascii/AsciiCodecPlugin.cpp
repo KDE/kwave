@@ -25,7 +25,7 @@
 #include "AsciiEncoder.h"
 #include "AsciiDecoder.h"
 
-KWAVE_PLUGIN(AsciiCodecPlugin,"codec_ascii","Thomas Eschenbacher");
+KWAVE_PLUGIN(AsciiCodecPlugin,"codec_ascii","2.1","Thomas Eschenbacher");
 
 /***************************************************************************/
 AsciiCodecPlugin::AsciiCodecPlugin(const PluginContext &c)

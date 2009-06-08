@@ -33,7 +33,7 @@
 #include "AmplifyFreePlugin.h"
 #include "AmplifyFreeDialog.h"
 
-KWAVE_PLUGIN(AmplifyFreePlugin,"amplifyfree","Thomas Eschenbacher");
+KWAVE_PLUGIN(AmplifyFreePlugin,"amplifyfree","2.1","Thomas Eschenbacher");
 
 //***************************************************************************
 AmplifyFreePlugin::AmplifyFreePlugin(const PluginContext &context)

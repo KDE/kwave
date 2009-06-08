@@ -43,7 +43,7 @@ class QProgressDialog;
 namespace Kwave { class PluginWorkerThread; }
 namespace Kwave { class Plugin; }
 
-#define KWAVE_PLUGIN(class_name,plugin_name,author_name) \
+#define KWAVE_PLUGIN(class_name,plugin_name,__version__,author_name) \
     extern "C" const char *name    KDE_EXPORT = plugin_name; \
     extern "C" const char *author  KDE_EXPORT = author_name; \
     extern "C" Kwave::Plugin *load(const PluginContext *c) KDE_EXPORT; \
@@ -51,7 +51,7 @@ namespace Kwave { class Plugin; }
 	class_name *np = (c) ? new class_name(*c) : 0; \
 	return np; \
     } \
-    extern "C" const char *version KDE_EXPORT = "2.1"
+    extern "C" const char *version KDE_EXPORT = __version__
 
 namespace Kwave {
 

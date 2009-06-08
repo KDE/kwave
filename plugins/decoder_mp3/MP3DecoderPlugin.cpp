@@ -22,7 +22,7 @@
 #include "MP3DecoderPlugin.h"
 #include "MP3Decoder.h"
 
-KWAVE_PLUGIN(MP3DecoderPlugin,"decoder_mp3","Thomas Eschenbacher");
+KWAVE_PLUGIN(MP3DecoderPlugin,"decoder_mp3","2.1","Thomas Eschenbacher");
 
 /***************************************************************************/
 MP3DecoderPlugin::MP3DecoderPlugin(const PluginContext &c)

@@ -37,7 +37,7 @@
 #include "VolumePlugin.h"
 #include "VolumeDialog.h"
 
-KWAVE_PLUGIN(VolumePlugin,"volume","Thomas Eschenbacher");
+KWAVE_PLUGIN(VolumePlugin,"volume","2.1","Thomas Eschenbacher");
 
 //***************************************************************************
 VolumePlugin::VolumePlugin(const PluginContext &context)

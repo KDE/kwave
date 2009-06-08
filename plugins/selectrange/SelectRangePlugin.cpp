@@ -30,7 +30,7 @@
 #include "SelectRangePlugin.h"
 #include "SelectRangeDialog.h"
 
-KWAVE_PLUGIN(SelectRangePlugin,"selectrange","Thomas Eschenbacher");
+KWAVE_PLUGIN(SelectRangePlugin,"selectrange","2.1","Thomas Eschenbacher");
 
 //***************************************************************************
 SelectRangePlugin::SelectRangePlugin(const PluginContext &c)

@@ -22,7 +22,7 @@
 #include "AudiofileCodecPlugin.h"
 #include "AudiofileDecoder.h"
 
-KWAVE_PLUGIN(AudiofileCodecPlugin,"codec_audiofile","Thomas Eschenbacher");
+KWAVE_PLUGIN(AudiofileCodecPlugin,"codec_audiofile","2.1","Thomas Eschenbacher");
 
 /***************************************************************************/
 AudiofileCodecPlugin::AudiofileCodecPlugin(const PluginContext &c)

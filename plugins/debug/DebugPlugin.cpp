@@ -23,7 +23,7 @@
 
 #include "DebugPlugin.h"
 
-KWAVE_PLUGIN(DebugPlugin,"debug","Thomas Eschenbacher");
+KWAVE_PLUGIN(DebugPlugin,"debug","2.1","Thomas Eschenbacher");
 
 /** size of the internal buffer */
 #define BUFFER_SIZE (64 * 1024)

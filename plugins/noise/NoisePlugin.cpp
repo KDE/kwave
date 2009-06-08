@@ -30,7 +30,7 @@
 #include "NoisePlugin.h"
 #include "NoiseGenerator.h"
 
-KWAVE_PLUGIN(NoisePlugin,"noise","Thomas Eschenbacher");
+KWAVE_PLUGIN(NoisePlugin,"noise","2.1","Thomas Eschenbacher");
 
 //***************************************************************************
 NoisePlugin::NoisePlugin(const PluginContext &context)

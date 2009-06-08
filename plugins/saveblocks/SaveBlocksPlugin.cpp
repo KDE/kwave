@@ -37,7 +37,7 @@
 #include "SaveBlocksDialog.h"
 #include "SaveBlocksPlugin.h"
 
-KWAVE_PLUGIN(SaveBlocksPlugin,"saveblocks","Thomas Eschenbacher");
+KWAVE_PLUGIN(SaveBlocksPlugin,"saveblocks","2.1","Thomas Eschenbacher");
 
 //***************************************************************************
 SaveBlocksPlugin::SaveBlocksPlugin(const PluginContext &c)

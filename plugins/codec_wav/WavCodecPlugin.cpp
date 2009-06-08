@@ -23,7 +23,7 @@
 #include "WavEncoder.h"
 #include "WavDecoder.h"
 
-KWAVE_PLUGIN(WavCodecPlugin,"codec_wav","Thomas Eschenbacher");
+KWAVE_PLUGIN(WavCodecPlugin,"codec_wav","2.1","Thomas Eschenbacher");
 
 /***************************************************************************/
 WavCodecPlugin::WavCodecPlugin(const PluginContext &c)

@@ -61,6 +61,8 @@ private:
     addMimeType("application/x-ogg", i18n("Ogg, Vorbis audio"), "*.ogg; *.OGG"); \
     /* RFC3534: */ \
     addMimeType("application/ogg", i18n("Ogg, Vorbis audio"), "*.ogg; *.OGG"); \
+    /* fond in KDE-4: */ \
+    addMimeType("audio/x-vorbis+ogg", i18n("Ogg, Vorbis audio"), "*.ogg; *.OGG"); \
 }
 
 #define DEFAULT_MIME_TYPE "application/ogg"

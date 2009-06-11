@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-31 07:26+0200\n"
+"POT-Creation-Date: 2009-06-11 19:35+0200\n"
 "PO-Revision-Date: 2009-05-30 18:40+0200\n"
 "Last-Translator: \n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1525,7 +1525,7 @@ msgstr "ALSA-Wiedergabegerät (adsp*)"
 msgid "ALSA record device (adsp*)"
 msgstr "ALSA-Aufnahmegerät (adsp*)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:291
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:290
 msgid "ALSA recording device (adsp*)"
 msgstr "ALSA-Aufnahmegerät (adsp*)"
 
@@ -1686,7 +1686,7 @@ msgstr "Beim Speichern der Datei ist ein Fehler aufgetreten!"
 msgid "Annotation"
 msgstr "Anmerkung"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:294
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:293
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:584
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:405
 msgid "Any device (*)"
@@ -2982,7 +2982,7 @@ msgstr "Neues &Fenster"
 msgid "New Age"
 msgstr "New Age"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.h:50
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.h:52
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:967
 msgid "New File"
 msgstr "Neue Datei"
@@ -3057,11 +3057,11 @@ msgstr "OSS-Wiedergabegerät (dsp*)"
 msgid "OSS record device (dsp*)"
 msgstr "OSS-Aufnahmegerät (dsp*)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:287
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:286
 msgid "OSS recording device (audio*)"
 msgstr "OSS-Aufnahmegerät (audio*)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:288
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:287
 msgid "OSS recording device (dsp*)"
 msgstr "OSS-Aufnahmegerät (dsp*)"
 
@@ -3072,6 +3072,7 @@ msgstr "Ogg-Bitstrom hat die Länge Null."
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggCodecPlugin.h:59
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggCodecPlugin.h:61
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggCodecPlugin.h:63
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggCodecPlugin.h:65
 msgid "Ogg, Vorbis audio"
 msgstr "Ogg, Vorbis Audio"
 
@@ -3183,7 +3184,7 @@ msgstr "Wiedergabe-Methode:"
 msgid "Playback Settings"
 msgstr "Wiedergabe-Einstellungen"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:781
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:783
 msgid "Playback Test"
 msgstr "Wiedergabe-Test"
 
@@ -4240,7 +4241,7 @@ msgstr "Analysiere Lautstärke..."
 msgid "append track"
 msgstr "Track anhängen"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/KwaveFilterPlugin.cpp:230
+#: /usr/src/packages/multimedia/sound/kwave/libgui/KwaveFilterPlugin.cpp:232
 msgid "applying '%1' ..."
 msgstr "'%1' wird angewendet ..."
 
@@ -4328,8 +4329,8 @@ msgstr "nach Faktor"
 msgid "by Percentage"
 msgstr "nach Prozentsatz"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1056
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1071
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1055
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1070
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:812
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:828
 msgid "card %1: "
@@ -4508,8 +4509,8 @@ msgstr ""
 "existierenden Dateien entstehen</li>\n"
 "</ul>"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1058
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1072
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1057
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1071
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:814
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:830
 msgid "device %1: "
@@ -4938,7 +4939,7 @@ msgstr "Wiedergabe-Rate %1 Hz wird nicht unterstützt"
 msgid "please check the source device settings..."
 msgstr "Bitte überprüfen Sie die Einstellungen des Aufnahmegerätes..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:702
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:704
 msgid "please select a playback device first"
 msgstr "Bitte wählen Sie zuerst ein Wiedergabegerät"
 
@@ -4999,6 +5000,12 @@ msgstr "Aufnahme läuft..."
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileProgress.cpp:103
 msgid "resolution: "
 msgstr "Auflösung: "
+
+#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:41
+#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:69
+#, fuzzy
+msgid "reverse"
+msgstr "&Umkehren"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/KwavePlugin.cpp:198
 msgid "running plugin '%1' ..."
@@ -5173,7 +5180,7 @@ msgstr "Start abgeschlossen."
 msgid "stop playback or loop"
 msgstr "Wiedergabe beenden"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1060
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1059
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:816
 msgid "subdevice %1: "
 msgstr "Subgerät %1: "
@@ -5293,7 +5300,7 @@ msgstr "wav Audio"
 msgid "yes"
 msgstr "Ja"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:789
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:791
 msgid ""
 "you should now hear a %1Hz test tone...<br><br>(if you hear clicks or "
 "dropouts, please increase<br>the buffer size and try again)"

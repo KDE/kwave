@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-31 07:26+0200\n"
+"POT-Creation-Date: 2009-06-11 19:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -527,7 +527,7 @@ msgstr ""
 msgid "drag and drop"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/KwaveFilterPlugin.cpp:230
+#: /usr/src/packages/multimedia/sound/kwave/libgui/KwaveFilterPlugin.cpp:232
 msgid "applying '%1' ..."
 msgstr ""
 
@@ -611,7 +611,7 @@ msgstr ""
 msgid "delete track"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.h:50
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.h:52
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:967
 msgid "New File"
 msgstr ""
@@ -1970,6 +1970,11 @@ msgstr ""
 msgid "pitch shift"
 msgstr ""
 
+#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:41
+#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:69
+msgid "reverse"
+msgstr ""
+
 #: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDialog.cpp:146
 msgid "( resulting window size: %1 )"
 msgstr ""
@@ -2498,19 +2503,19 @@ msgstr ""
 msgid "%1 dB"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:287
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:286
 msgid "OSS recording device (audio*)"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:288
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:287
 msgid "OSS recording device (dsp*)"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:291
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:290
 msgid "ALSA recording device (adsp*)"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:294
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:293
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:584
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:405
 msgid "Any device (*)"
@@ -2520,21 +2525,21 @@ msgstr ""
 msgid "DSNOOP plugin"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1056
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1071
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1055
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1070
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:812
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:828
 msgid "card %1: "
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1058
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1072
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1057
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1071
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:814
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:830
 msgid "device %1: "
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1060
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1059
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:816
 msgid "subdevice %1: "
 msgstr ""
@@ -2762,6 +2767,7 @@ msgstr ""
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggCodecPlugin.h:59
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggCodecPlugin.h:61
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggCodecPlugin.h:63
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggCodecPlugin.h:65
 msgid "Ogg, Vorbis audio"
 msgstr ""
 
@@ -2880,15 +2886,15 @@ msgid ""
 "Playback is currently running.Please stop playback first and then try again"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:702
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:704
 msgid "please select a playback device first"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:781
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:783
 msgid "Playback Test"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:789
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:791
 msgid ""
 "you should now hear a %1Hz test tone...<br><br>(if you hear clicks or "
 "dropouts, please increase<br>the buffer size and try again)"

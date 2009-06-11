@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-31 07:26+0200\n"
-"PO-Revision-Date: 2009-04-26 08:06+0200\n"
+"POT-Creation-Date: 2009-06-11 19:35+0200\n"
+"PO-Revision-Date: 2009-06-09 18:41+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr " %"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:89
 msgid " &Play"
-msgstr " &Přehrát"
+msgstr " &Hraní"
 
 #: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1598
 msgid " (%1)"
@@ -257,7 +257,7 @@ msgstr "&Pásmo propustnosti filtru"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:20
 msgid "&Begin"
-msgstr "&Začít"
+msgstr "&Začátek"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:21
 msgid "&Blocks..."
@@ -265,7 +265,7 @@ msgstr "&Bloky..."
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:22
 msgid "&Calculate"
-msgstr "&Vypočítat"
+msgstr "&Výpočty"
 
 #: /var/tmp/kwave-build/libgui/ui_LabelPropertiesWidgetBase.h:184
 #: /var/tmp/kwave-build/plugins/goto/ui_GotoDlg.h:106
@@ -348,7 +348,7 @@ msgstr "&Zkreslit"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:40
 msgid "&Edit"
-msgstr "&Upravovat"
+msgstr "&Úpravy"
 
 #: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:298
 msgid "&Enable usage of virtual memory"
@@ -356,7 +356,7 @@ msgstr "&Povolit užití virtuální paměti"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:41
 msgid "&End"
-msgstr "&Ukončit"
+msgstr "&Konec"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:42
 msgid "&Enter Command"
@@ -373,7 +373,7 @@ msgstr "&Roztáhnout k štítkům"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:117
 msgid "&Export to Bitmap ..."
-msgstr "&Exportovat do bitové mapy..."
+msgstr "&Vyvést do souboru bitové mapy..."
 
 #: /var/tmp/kwave-build/plugins/volume/ui_VolumeDlg.h:263
 msgid "&Factor"
@@ -466,7 +466,7 @@ msgstr "&Smyčka"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:67
 msgid "&Low pass"
-msgstr "&Malá propustnost"
+msgstr "&Nízký průchod"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:68
 msgid "&Macro"
@@ -520,7 +520,7 @@ msgstr "&Šum"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:79
 msgid "&Notch Filter"
-msgstr "&Čistič záznamu"
+msgstr "&Filtr zářezu"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:80
 msgid "&Nothing"
@@ -580,11 +580,11 @@ msgstr "&Posun výšky tónu"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:90
 msgid "&Play"
-msgstr "&Přehrát"
+msgstr "&Hraní"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:91
 msgid "&Playback"
-msgstr "&Přehrání"
+msgstr "&Přehrávání"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:92
 msgid "&Presets"
@@ -679,16 +679,16 @@ msgstr "&Nastavit kmitočet"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:111
 msgid "&Silence"
-msgstr "&Ztišit"
+msgstr "&Ticho"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:108
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:112
 msgid "&Sonagram"
-msgstr "&Obraz vytvořený ultrazvukem (sonogram)"
+msgstr "&Obraz vytvořený ultrazvukem neboli sonogram"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:114
 msgid "&Start"
-msgstr "&Začít"
+msgstr "&Spustit přehrávání"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:115
 msgid "&Start recording"
@@ -724,7 +724,7 @@ msgstr "&Zpět"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:127
 msgid "&View"
-msgstr "&Zobrazit"
+msgstr "&Pohled"
 
 #: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:297
 msgid "&Virtual Memory"
@@ -1431,7 +1431,7 @@ msgstr ""
 
 #: /var/tmp/kwave-build/plugins/about/ui_KwaveAboutDialogBase.h:286
 msgid "<h1>Kwave - a sound editor for KDE</h1>"
-msgstr "<h1>Kwave - editor zvuku pro KDE</h1>"
+msgstr "<h1>Kwave - editor zvuku pro prostředí KDE</h1>"
 
 #: /var/tmp/kwave-build/plugins/about/ui_KwaveAboutDialogBase.h:287
 msgid ""
@@ -1447,7 +1447,7 @@ msgid ""
 "a graphical view with a complete zoom- \n"
 "and scroll capability."
 msgstr ""
-"<h2>Kwave - editor zvuku navržený pro KDE-desktopové prostředí </h2><br>\n"
+"<h2>Kwave - editor zvuku navržený pro desktopové prostředí KDE </h2><br>\n"
 "S pomocí Kwave můžete upravovat mnoho druhů \n"
 "souborů typu wav včetně vícekanálových. \n"
 "Můžete pozměnit a přehrávat každý kanál samostatně.<br> \n"
@@ -1523,7 +1523,7 @@ msgstr "ALSA zařízení umožňující přehrávání (adsp*)"
 msgid "ALSA record device (adsp*)"
 msgstr "ALSA zařízení umožňující nahrávání (adsp*)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:291
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:290
 msgid "ALSA recording device (adsp*)"
 msgstr "ALSA zařízení umožňující nahrávání (adsp*)"
 
@@ -1533,7 +1533,7 @@ msgstr "ASCII zakódovaný zvuk"
 
 #: /var/tmp/kwave-build/plugins/about/ui_KwaveAboutDialogBase.h:297
 msgid "About"
-msgstr "O"
+msgstr "O programu"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:10
 msgid "About &KDE"
@@ -1686,7 +1686,7 @@ msgstr "Při ukládání souboru se vyskytla chyba!"
 msgid "Annotation"
 msgstr "Poznámka"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:294
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:293
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:584
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:405
 msgid "Any device (*)"
@@ -1730,7 +1730,7 @@ msgstr "Autor"
 
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1387
 msgid "Author/Copyright"
-msgstr "Autor/autorské právo"
+msgstr "Autor/Autorské právo (Copyright)"
 
 #: /var/tmp/kwave-build/plugins/about/ui_KwaveAboutDialogBase.h:298
 msgid "Authors"
@@ -1903,7 +1903,7 @@ msgstr "Poznámky"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:65
 msgid "Commisioned"
-msgstr "Na zakázku"
+msgstr "Oprávněný"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:53
 msgid "Compressed Audio Interchange Format"
@@ -1924,7 +1924,7 @@ msgstr "Základní kompresní udělátko"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:79
 msgid "Contact"
-msgstr "Styk"
+msgstr "Spojení"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:80
 msgid ""
@@ -2012,7 +2012,7 @@ msgstr "Datum"
 #: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:55
 #, fuzzy
 msgid "Dave Flogeras"
-msgstr "Uložit obraz vytvořený ultrazvukem (sonogram)"
+msgstr "Uložit obraz vytvořený ultrazvukem neboli sonogram"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:37
 msgid "De&lay"
@@ -2223,7 +2223,7 @@ msgstr "Úvod prolínání"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:48
 msgid "Fade Leadout"
-msgstr "Vývod prolínání"
+msgstr "Vyvedení prolínání"
 
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:992
 msgid "Fade Out"
@@ -2778,7 +2778,7 @@ msgstr "Nahrává přídavné moduly..."
 
 #: /var/tmp/kwave-build/plugins/lowpass/ui_LowPassDlg.h:180
 msgid "Low Pass"
-msgstr "Malá propustnost"
+msgstr "Nízký průchod"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:53
 msgid "Lower Bitrate"
@@ -2984,7 +2984,7 @@ msgstr "Nové &okno"
 msgid "New Age"
 msgstr "Nový věk (New Age)"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.h:50
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.h:52
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:967
 msgid "New File"
 msgstr "Nový soubor"
@@ -3020,7 +3020,7 @@ msgstr "Pro uložení informace o zpětných krocích není dostatek paměti."
 
 #: /var/tmp/kwave-build/plugins/notch_filter/ui_NotchFilterDlg.h:195
 msgid "Notch Filter"
-msgstr "Čistič záznamu"
+msgstr "Filtr zářezu"
 
 #: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:293
 msgid "Number of FFT points:"
@@ -3058,11 +3058,11 @@ msgstr "Přehrávací zařízení OSS (dsp*)"
 msgid "OSS record device (dsp*)"
 msgstr "Nahrávací zařízení OSS (dsp*)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:287
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:286
 msgid "OSS recording device (audio*)"
 msgstr "Nahrávací zařízení OSS (zvuk)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:288
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:287
 msgid "OSS recording device (dsp*)"
 msgstr "Nahrávací zařízení OSS (dsp*)"
 
@@ -3073,6 +3073,7 @@ msgstr "Datový proud Ogg má nulovou hodnotu."
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggCodecPlugin.h:59
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggCodecPlugin.h:61
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggCodecPlugin.h:63
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggCodecPlugin.h:65
 msgid "Ogg, Vorbis audio"
 msgstr "Ogg,  Vorbis audio (přenos zvuku mléčné dráhy)"
 
@@ -3098,7 +3099,7 @@ msgstr "Otevřít"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:82
 msgid "Open &Recent"
-msgstr "&Otevřít nedávné"
+msgstr "&Otevřít nedávný"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-Phonon.cpp:162
 #, fuzzy
@@ -3185,7 +3186,7 @@ msgstr "Režim přehrávání:"
 msgid "Playback Settings"
 msgstr "Nastavení přehrávání"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:781
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:783
 msgid "Playback Test"
 msgstr "Zkouška přehrávání"
 
@@ -3262,7 +3263,7 @@ msgstr "soukromý"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:172
 msgid "Product"
-msgstr "výrobek"
+msgstr "Výrobek"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/GenreType.cpp:171
 msgid "Progressive Rock"
@@ -3510,7 +3511,7 @@ msgstr "Uložit nastavení"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:206
 msgid "Save Sonagram"
-msgstr "Uložit obraz vytvořený ultrazvukem (sonogram)"
+msgstr "Uložit obraz vytvořený ultrazvukem neboli sonogram"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:328
 msgid ""
@@ -3529,11 +3530,11 @@ msgstr "Pilovitý časový průběh signálu"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:106
 msgid "Scroll &left"
-msgstr "Rolovat &vlevo"
+msgstr "Projíždět &vlevo"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:107
 msgid "Scroll &right"
-msgstr "Rolovat &vpravo"
+msgstr "Projíždět &vpravo"
 
 #: /var/tmp/kwave-build/libgui/ui_SelectTimeWidgetBase.h:303
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:514
@@ -3664,11 +3665,11 @@ msgstr "Pomalý rock"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:181
 msgid "Software"
-msgstr "Programové vybavení"
+msgstr "Program"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramWindow.cpp:503
 msgid "Sonagram of "
-msgstr "Obraz vytvořený ultrazvukem (sonogram)"
+msgstr "Obraz vytvořený ultrazvukem neboli sonogram"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/GenreType.cpp:184
 msgid "Sonata"
@@ -3771,7 +3772,7 @@ msgstr "Čtvercový sinus"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/selectrange/SelectRangeDialog.cpp:41
 msgid "Start"
-msgstr "Začít"
+msgstr "Spustit"
 
 #: /var/tmp/kwave-build/plugins/pitch_shift/ui_PitchShiftDlg.h:218
 #: /var/tmp/kwave-build/plugins/band_pass/ui_BandPassDlg.h:202
@@ -4191,7 +4192,7 @@ msgstr "Najet na &výběr"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:132
 msgid "Zoom to 100%"
-msgstr "Najet na 100%"
+msgstr "Najet na 100 %"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:134
 msgid "Zoom to whole signal"
@@ -4200,7 +4201,7 @@ msgstr "Najet na celý signál"
 #: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:134
 #, fuzzy
 msgid "a sound editor for KDE"
-msgstr "<h1>Kwave - editor zvuku pro KDE</h1>"
+msgstr "<h1>Kwave - editor zvuku pro prostředí KDE</h1>"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/about/AboutPlugin.cpp:31
 msgid "about"
@@ -4232,7 +4233,7 @@ msgstr ""
 msgid "append track"
 msgstr "Připojit stopu"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/KwaveFilterPlugin.cpp:230
+#: /usr/src/packages/multimedia/sound/kwave/libgui/KwaveFilterPlugin.cpp:232
 msgid "applying '%1' ..."
 msgstr "Používá se '%1' ..."
 
@@ -4264,7 +4265,7 @@ msgstr "Automaticky vytvářet klíčová slova"
 #: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:285
 msgid "automatically update the sonagram <br>if the signal data has changed"
 msgstr ""
-"Automaticky zaktualizovat obraz vytvořený ultrazvukem (sonogram), "
+"Automaticky zaktualizovat obraz vytvořený ultrazvukem neboli sonogram, "
 "<br>jestliže se změnila data signálu"
 
 #: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:289
@@ -4272,8 +4273,8 @@ msgid ""
 "automatically update the sonagram if the selection<br>has been enlarged, "
 "reduced or moved"
 msgstr ""
-"Automaticky zaktualizovat obraz vytvořený ultrazvukem (sonogram), jestliže "
-"výběr byl<br>rozšířen, omezen nebo přesunut"
+"Automaticky zaktualizovat obraz vytvořený ultrazvukem neboli sonogram, "
+"jestliže výběr byl<br>rozšířen, omezen nebo přesunut"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/band_pass/BandPassPlugin.cpp:120
 msgid "band_pass"
@@ -4304,7 +4305,7 @@ msgstr "Šířka pásma"
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:1019
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:496
 msgid "bit"
-msgstr "bit"
+msgstr "bitů"
 
 #: /var/tmp/kwave-build/plugins/memory/ui_MemDlg.h:305
 msgid "browse for a directory to hold page files"
@@ -4322,8 +4323,8 @@ msgstr "Podle faktoru"
 msgid "by Percentage"
 msgstr "Podle procentního podílu"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1056
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1071
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1055
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1070
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:812
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:828
 msgid "card %1: "
@@ -4429,9 +4430,8 @@ msgid "cutoff frequency"
 msgstr "Odříznutý kmitočet"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:114
-#, fuzzy
 msgid "czech translation"
-msgstr "Organizace"
+msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/band_pass/BandPassDialog.cpp:62
 #: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassDialog.cpp:61
@@ -4471,7 +4471,7 @@ msgstr "&Smazat štítek"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:259
 msgid "delete the current selection"
-msgstr "Smazat aktuální výběr"
+msgstr "Smazat nynější výběr"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteTrack.cpp:45
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:728
@@ -4502,8 +4502,8 @@ msgstr ""
 "existujícími soubory</li>\n"
 "</ul>"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1058
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1072
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1057
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1071
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:814
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:830
 msgid "device %1: "
@@ -4688,11 +4688,11 @@ msgstr "Měřič úrovně"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/Interpolation.cpp:41
 msgid "linear"
-msgstr "Přímý"
+msgstr "přímočarý"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/SampleFormat.cpp:35
 msgid "linear two's complement"
-msgstr "Druhý přímý doplněk"
+msgstr "přímočarý doplněk dvou"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/KwaveApp.cpp:165
 msgid "loading file '%1'..."
@@ -4708,7 +4708,7 @@ msgstr "Nahrává se přídavný modul %1..."
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassPlugin.cpp:108
 msgid "low pass"
-msgstr "Malá propustnost"
+msgstr "Nízký průchod"
 
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_CompressionWidgetBase.h:202
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_CompressionWidgetBase.h:214
@@ -4717,7 +4717,7 @@ msgstr "Nejnižší"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/lowpass/LowPassPlugin.cpp:39
 msgid "lowpass"
-msgstr "Malá propustnost"
+msgstr "Nízký průchod"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:102
 msgid "maintainers of the 'id3lib' library"
@@ -4830,11 +4830,11 @@ msgstr "Ještě neprovedeno"
 #: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:56
 #, fuzzy
 msgid "notch filter plugin"
-msgstr "Čistič záznamu"
+msgstr "Filtr zářezu"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/notch_filter/NotchFilterPlugin.cpp:115
 msgid "notch_filter"
-msgstr "Čistič záznamu"
+msgstr "Filtr zářezu"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:60
 msgid "null device"
@@ -4933,7 +4933,7 @@ msgstr "Kmitočet přehrávání %1 Hz není podporován"
 msgid "please check the source device settings..."
 msgstr "Zkontrolujte, prosím, nastavení zdrojového zařízení..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:702
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:704
 msgid "please select a playback device first"
 msgstr "Nejprve, prosím, vyberte přehrávací zařízení"
 
@@ -4995,6 +4995,12 @@ msgstr "Nahrává..."
 msgid "resolution: "
 msgstr "Rozlišení:"
 
+#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:41
+#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:69
+#, fuzzy
+msgid "reverse"
+msgstr "&Obrátit"
+
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/KwavePlugin.cpp:198
 msgid "running plugin '%1' ..."
 msgstr "Spouští se přídavný modul '%1' ..."
@@ -5024,7 +5030,7 @@ msgstr "Vzorky"
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:1000
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:493
 msgid "samples per second"
-msgstr "Vzorků za sekundu"
+msgstr "vzorků za sekundu"
 
 #: /var/tmp/kwave-build/plugins/saveblocks/ui_SaveBlocksWidgetBase.h:130
 msgid "save selection only"
@@ -5120,7 +5126,7 @@ msgstr "Nastavuje výběr podle procentního podílu z celého signálu"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/zero/ZeroPlugin.cpp:56
 msgid "silence"
-msgstr "Ztišit"
+msgstr "Ticho"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramDialog.cpp:149
 msgid "size of bitmap: %1x%2"
@@ -5136,7 +5142,7 @@ msgstr "Popis štítku (volitelný)"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/sonagram/SonagramPlugin.cpp:81
 msgid "sonagram"
-msgstr "Obraz vytvořený ultrazvukem (sonogram)"
+msgstr "Obraz vytvořený ultrazvukem neboli sonogram"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileProgress.cpp:85
 msgid "source: "
@@ -5148,18 +5154,18 @@ msgstr "Tvárné křivítko"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:278
 msgid "start playback"
-msgstr "Začít přehrávání"
+msgstr "Začít s přehráváním"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:283
 msgid "start playback and loop"
-msgstr "Začít přehrávání a tvoření smyček"
+msgstr "Začít s přehráváním a tvořením smyček"
 
 #: /var/tmp/kwave-build/plugins/pitch_shift/ui_PitchShiftDlg.h:215
 #: /var/tmp/kwave-build/plugins/band_pass/ui_BandPassDlg.h:199
 #: /var/tmp/kwave-build/plugins/lowpass/ui_LowPassDlg.h:201
 #: /var/tmp/kwave-build/plugins/notch_filter/ui_NotchFilterDlg.h:233
 msgid "start/stop pre-listening"
-msgstr "Začít/zastavit předposlech"
+msgstr "Spustit/Zastavit předposlech"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/KwaveApp.cpp:170
 msgid "startup done."
@@ -5169,7 +5175,7 @@ msgstr "Spuštění hotovo."
 msgid "stop playback or loop"
 msgstr "Zastavit přehrávání a tvoření smyček"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1060
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1059
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:816
 msgid "subdevice %1: "
 msgstr "Dílčí zařízení %1: "
@@ -5184,11 +5190,11 @@ msgstr ""
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:119
 msgid "to &End"
-msgstr "Na &konec"
+msgstr "Po &konec"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:123
 msgid "to &Start"
-msgstr "Na &začátek"
+msgstr "Po &začátek"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:118
 msgid "to be done..."
@@ -5197,12 +5203,12 @@ msgstr "Je hotovo..."
 #: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1139
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:121
 msgid "to next labels"
-msgstr "Na další štítky"
+msgstr "Mezi dalšími štítky"
 
 #: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1148
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:122
 msgid "to previous labels"
-msgstr "Na předchozí štítky"
+msgstr "Mezi předchozími štítky"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileProgress.cpp:108
 msgid "tracks: "
@@ -5238,7 +5244,7 @@ msgstr "Neznámá chyba 0x%X. Že by byl poškozen soubor?"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/SampleFormat.cpp:37
 msgid "unsigned integer"
-msgstr "Celé číslo jsoucí bez znaménka"
+msgstr "celé číslo jsoucí bez znaménka"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:210
 msgid "unusable buffer size: %1"
@@ -5289,15 +5295,16 @@ msgstr "Zvuk wav"
 msgid "yes"
 msgstr "Ano"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:789
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:791
 #, fuzzy
 msgid ""
 "you should now hear a %1Hz test tone...<br><br>(if you hear clicks or "
 "dropouts, please increase<br>the buffer size and try again)"
 msgstr ""
-"Nyní byste měl slyšet zkušební tón o %1Hz...<br><br>(pokud slyšíte klapnutí "
-"nebo přerušení záznamu, zvětšete, <br>prosím, velikost vyrovnávací paměti a "
-"zkuste to znovu)"
+"Nyní byste měl slyšet zkušební tón o %1Hz...\n"
+"\n"
+"(pokud slyšíte klapnutí nebo přerušení záznamu, zvětšete, prosím, velikost "
+"vyrovnávací paměti a zkuste to znovu)"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/zero/ZeroPlugin.cpp:42
 msgid "zero"
@@ -5314,7 +5321,7 @@ msgstr "Oddálit"
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:331
 #, c-format
 msgid "zoom to 100%%"
-msgstr "Najet na 100%%"
+msgstr "Najet na 100 %"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:336
 msgid "zoom to all"
@@ -5328,10 +5335,10 @@ msgstr "Najet na výběr"
 #~ msgstr "&Zesílit"
 
 #~ msgid "&Free"
-#~ msgstr "&Volný"
+#~ msgstr "&Volné"
 
 #~ msgid "&Frequencies"
-#~ msgstr "&Frekvence"
+#~ msgstr "&Kmitočty"
 
 #~ msgid "&Undo and Redo"
 #~ msgstr "&Zpět a znovu"

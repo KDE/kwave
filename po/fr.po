@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-31 07:26+0200\n"
+"POT-Creation-Date: 2009-06-11 19:35+0200\n"
 "PO-Revision-Date: 2007-08-01 19:04+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
@@ -1497,7 +1497,7 @@ msgstr "Périphérique de lecture ALSA (adsp*)"
 msgid "ALSA record device (adsp*)"
 msgstr "Périphérique de lecture ALSA (adsp*)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:291
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:290
 msgid "ALSA recording device (adsp*)"
 msgstr "Périphérique de lecture ALSA (adsp*)"
 
@@ -1664,7 +1664,7 @@ msgstr "Une erreur est apparue lors de l'enregistrement du fichier !"
 msgid "Annotation"
 msgstr "Annotation"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:294
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:293
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:584
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:405
 msgid "Any device (*)"
@@ -2961,7 +2961,7 @@ msgstr "Nouvelle &fenêtre"
 msgid "New Age"
 msgstr "New Age"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.h:50
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.h:52
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:967
 msgid "New File"
 msgstr "Nouveau fichier"
@@ -3035,11 +3035,11 @@ msgstr "Périphérique de lecture OSS (dsp*)"
 msgid "OSS record device (dsp*)"
 msgstr "Périphérique de lecture OSS (dsp*)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:287
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:286
 msgid "OSS recording device (audio*)"
 msgstr "Périphérique d'enregistrement OSS (audio*)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:288
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:287
 msgid "OSS recording device (dsp*)"
 msgstr "Périphérique de lecture OSS (dsp*)"
 
@@ -3050,6 +3050,7 @@ msgstr "Le flux de données au format « Ogg » à une taille nulle."
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggCodecPlugin.h:59
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggCodecPlugin.h:61
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggCodecPlugin.h:63
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggCodecPlugin.h:65
 msgid "Ogg, Vorbis audio"
 msgstr "Format audio Ogg / Vorbis"
 
@@ -3166,7 +3167,7 @@ msgstr "Méthode de lecture :"
 msgid "Playback Settings"
 msgstr "Options de lecture"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:781
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:783
 msgid "Playback Test"
 msgstr "Test de lecture"
 
@@ -4225,7 +4226,7 @@ msgstr ""
 msgid "append track"
 msgstr "ajouter une piste"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/KwaveFilterPlugin.cpp:230
+#: /usr/src/packages/multimedia/sound/kwave/libgui/KwaveFilterPlugin.cpp:232
 msgid "applying '%1' ..."
 msgstr "Traitement de « %1 » en cours..."
 
@@ -4318,8 +4319,8 @@ msgstr "Par coefficient multiplicateur"
 msgid "by Percentage"
 msgstr "En pourcentage"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1056
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1071
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1055
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1070
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:812
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:828
 msgid "card %1: "
@@ -4497,8 +4498,8 @@ msgid ""
 "</ul>"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1058
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1072
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1057
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1071
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:814
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:830
 #, fuzzy
@@ -4934,7 +4935,7 @@ msgstr "la lecture à une fréquence de %1 Hz n'est pas disponible"
 msgid "please check the source device settings..."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:702
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:704
 #, fuzzy
 msgid "please select a playback device first"
 msgstr "Sélectionnez le périphérique de lecture"
@@ -4996,6 +4997,12 @@ msgstr "Enregistrement en cours..."
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileProgress.cpp:103
 msgid "resolution: "
 msgstr "Résolution : "
+
+#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:41
+#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:69
+#, fuzzy
+msgid "reverse"
+msgstr "Inve&rser"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/KwavePlugin.cpp:198
 #, fuzzy
@@ -5180,7 +5187,7 @@ msgstr ""
 msgid "stop playback or loop"
 msgstr "arrête la lecture"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1060
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1059
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:816
 #, fuzzy
 msgid "subdevice %1: "
@@ -5302,7 +5309,7 @@ msgstr "wav audio"
 msgid "yes"
 msgstr "Oui"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:789
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:791
 msgid ""
 "you should now hear a %1Hz test tone...<br><br>(if you hear clicks or "
 "dropouts, please increase<br>the buffer size and try again)"

@@ -114,7 +114,7 @@ void ZeroPlugin::run(QStringList params)
     // connect the progress dialog
     connect(writers, SIGNAL(progress(unsigned int)),
 	    this,    SLOT(updateProgress(unsigned int)),
-	    Qt::QueuedConnection);
+	    Qt::BlockingQueuedConnection);
 
     first = (*writers)[0]->first();
     last  = (*writers)[0]->last();

@@ -389,7 +389,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 	Q_ASSERT(dialog);
 	QObject::connect(&src,   SIGNAL(progress(unsigned int)),
 	                 dialog, SLOT(setValue(unsigned int)),
-	                 Qt::QueuedConnection);
+	                 Qt::BlockingQueuedConnection);
 	QObject::connect(dialog, SIGNAL(canceled()),
 	                 &src,   SLOT(cancel()));
 

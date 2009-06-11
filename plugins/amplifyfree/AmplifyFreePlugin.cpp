@@ -170,7 +170,7 @@ void AmplifyFreePlugin::run(QStringList params)
     // connect the progress dialog
     connect(&sink, SIGNAL(progress(unsigned int)),
 	    this,  SLOT(updateProgress(unsigned int)),
-	    Qt::QueuedConnection);
+	     Qt::BlockingQueuedConnection);
 
     // transport the samples
     qDebug("AmplifyFreePlugin: filter started...");

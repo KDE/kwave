@@ -122,7 +122,7 @@ void DebugPlugin::run(QStringList params)
     // connect the progress dialog
     connect(writers, SIGNAL(progress(unsigned int)),
 	    this,  SLOT(updateProgress(unsigned int)),
-	    Qt::QueuedConnection);
+	     Qt::BlockingQueuedConnection);
 
     // loop over the sample range
     sample_t v = 0;

@@ -186,7 +186,7 @@ void NormalizePlugin::run(QStringList params)
     // connect the progress dialog
     connect(&source, SIGNAL(progress(unsigned int)),
 	    this,  SLOT(updateProgress(unsigned int)),
-	    Qt::QueuedConnection);
+	     Qt::BlockingQueuedConnection);
 
     // detect the peak value
     emit setProgressText(i18n("analyzing volume level..."));

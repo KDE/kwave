@@ -138,7 +138,7 @@ void VolumePlugin::run(QStringList params)
     // connect the progress dialog
     connect(&source, SIGNAL(progress(unsigned int)),
 	    this,  SLOT(updateProgress(unsigned int)),
-	    Qt::QueuedConnection);
+	     Qt::BlockingQueuedConnection);
 
     // connect them
     Kwave::connect(

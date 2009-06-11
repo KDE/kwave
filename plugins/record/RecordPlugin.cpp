@@ -155,7 +155,7 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
             this,     SLOT(recordStopped(int)));
     connect(m_thread, SIGNAL(bufferFull()),
             this,     SLOT(processBuffer()),
-            Qt::QueuedConnection);
+            Qt::BlockingQueuedConnection);
 
     // dummy init -> disable format settings
     m_dialog->setSupportedTracks(0, 0);

@@ -493,12 +493,21 @@ int MemoryManager::readFrom(void *block, unsigned int offset,
         return length;
     }
 
-    // make sure it's not mmapped
+    // optimization: if it is still in the cache -> shortcut !
+    if (m_cached_swap.contains(reinterpret_cast<SwapFile *>(block))) {
+	SwapFile *swap = reinterpret_cast<SwapFile *>(block);
+	MEMCPY(buffer, reinterpret_cast<char *>(swap->address()), length);
+	qDebug("MemoryManager::readFrom => direct read from cached swap");
+	return length;
+    }
+
+    // read from mapped memory if it is currently mmapped
     unmapFromCache(block);
     if (m_mapped_swap.contains(reinterpret_cast<SwapFile *>(block))) {
-	Q_ASSERT(!m_mapped_swap.contains(
-	          reinterpret_cast<SwapFile *>(block)));
-        return 0;
+	SwapFile *swap = reinterpret_cast<SwapFile *>(block);
+	MEMCPY(buffer, reinterpret_cast<char *>(swap->address()), length);
+	qDebug("MemoryManager::readFrom => direct read from mapped swap");
+	return length;
     }
 
     // now it must be in unmapped swap

@@ -184,6 +184,6 @@ private:
 };
 
 /** modifier for flushing */
-SampleWriter &flush(SampleWriter &s);
+SampleWriter &flush(SampleWriter &s) KDE_EXPORT;
 
 #endif /* _SAMPLE_WRITER_H_ */

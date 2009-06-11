@@ -282,7 +282,7 @@ void FileProgress::updateStatistics(double rate, double rest,
     // not have GUI updates and the "cancel" button would not work
     QTimer t;
     t.setSingleShot(true);
-    t.start(1);
+    t.start(5);
     while (t.isActive()) {
 	qApp->sendPostedEvents();
 	qApp->processEvents();

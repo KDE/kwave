@@ -138,11 +138,11 @@ Stripe::StripeStorage::StripeStorage(const StripeStorage &other)
     :QSharedData(other), m_start(other.m_start), m_length(other.m_length),
      m_storage(0), m_lock(), m_map_count(0), m_mapped_storage(0)
 {
-    qDebug("StripeStorage(%p) - DEEP COPY %u,%u from %p",
-	static_cast<void *>(this),
-	m_start, m_length,
-	static_cast<const void *>(&other)
-    );
+//     qDebug("StripeStorage(%p) - DEEP COPY %u,%u from %p",
+// 	static_cast<void *>(this),
+// 	m_start, m_length,
+// 	static_cast<const void *>(&other)
+//     );
 
     Q_ASSERT(other.m_storage);
     if (other.m_storage) {
@@ -504,7 +504,6 @@ unsigned int Stripe::read(Kwave::SampleArray &buffer, unsigned int dstoff,
     if (!length) return 0;
 
     // read directly through the memory manager, fastest path
-    Q_ASSERT(!m_data->mapCount());
     length = MemoryManager::instance().readFrom(m_data->m_storage,
         offset * sizeof(sample_t),
         &buffer[dstoff], length * sizeof(sample_t)) / sizeof(sample_t);

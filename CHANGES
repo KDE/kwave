@@ -15,7 +15,7 @@
  * replaced qreal with double (fixes build problems on arm)
  * show hourglass / progress bar when undo/redo is running
  * flattened "Calculate" menu, no submenus for "Frequencies"
- * wav encoder: auto-switch to unsigned format for <=8bit and
+ * wav encoder: auto-switch to unsigned format for <= 8bit and
    signed format for > 8 bit per sample
  * volume plugin: show a little "preview" for guessing the level
  * bugfix: after deleting a track, file info was not updated
@@ -23,6 +23,9 @@
  * made plugin API version configurable per plugin
  * recognize mime type "audio/x-vorbis+ogg" (found in KDE-4)
  * updated czech gui translation and user manual from Pavel Fric
+ * bugfix: crashes when deleting objects that still have event queued
+   with Qt::QueuedConnection -> now using Qt::BlockingQueuedConnection
+ * new plugin: reverse
 
 0.8.2  [2009-04-25]
 

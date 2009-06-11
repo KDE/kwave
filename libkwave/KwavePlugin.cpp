@@ -165,13 +165,13 @@ int Kwave::Plugin::start(QStringList &)
 	m_progress->setModal(true);
 	m_progress->setVisible(false);
 	m_progress->setMinimumDuration(2000);
-	m_progress->setAutoClose(true);
+	m_progress->setAutoClose(false);
 	m_progress->setMaximum((last - first + 1) * tracks);
 	m_progress->setValue(0);
 	m_progress->setLabelText(progressText());
 	int h = m_progress->sizeHint().height();
 	int w = m_progress->sizeHint().height();
-	if (w < 4*h) w = 4*h;
+	if (w < 4 * h) w = 4 * h;
 	m_progress->setFixedSize(w, h);
 
 	// use a "proxy" that asks for confirmation of cancel
@@ -182,10 +182,10 @@ int Kwave::Plugin::start(QStringList &)
 		m_confirm_cancel, SLOT(cancel()));
 	connect(this,             SIGNAL(setProgressText(const QString &)),
 	        m_progress,       SLOT(setLabelText(const QString &)),
-	        Qt::QueuedConnection);
+	        Qt::BlockingQueuedConnection);
 	connect(this, SIGNAL(sigDone(Kwave::Plugin *)),
 		this, SLOT(closeProgressDialog(Kwave::Plugin *)),
-		Qt::QueuedConnection);
+		Qt::BlockingQueuedConnection);
 	m_progress->setVisible(true);
     }
 

@@ -678,6 +678,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/record/walk_r7.xpm			GPL2 (amor)
 	plugins/record/walk_r8.xpm			GPL2 (amor)
 
+	plugins/reverse/CMakeLists.txt			GPL2+
+	plugins/reverse/ReversePlugin.h			GPL2+
+	plugins/reverse/ReversePlugin.cpp		GPL2+
+
 	plugins/saveblocks/CMakeLists.txt		GPL2+
 	plugins/saveblocks/SaveBlocksWidgetBase.ui	GPL2+
 	plugins/saveblocks/SaveBlocksPlugin.h		GPL2+

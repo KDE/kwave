@@ -24,6 +24,7 @@
 #include <QObject>
 #include <QString>
 #include <QThread>
+#include <QTimer>
 #include <QVector>
 
 #include <kdemacros.h>
@@ -368,6 +369,9 @@ namespace Kwave {
 	/** closes the progress dialog and the confirm/cancel proxy */
 	void closeProgressDialog(Kwave::Plugin *);
 
+	/** updates the progress bar, triggered by timer */
+	void updateProgressTick();
+
     protected:
 
 	friend class Kwave::PluginWorkerThread;
@@ -412,6 +416,12 @@ namespace Kwave {
 
 	/** Mutex for locking the usage counter */
 	QMutex m_usage_lock;
+
+	/** timer for updating the progres dialog */
+	QTimer m_progress_timer;
+
+	/** latest progress value [percent] */
+	int m_current_progress;
 
     };
 

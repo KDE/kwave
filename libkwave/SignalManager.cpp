@@ -380,7 +380,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 	    m_file_info.set(INF_CREATION_DATE, value);
 	}
 
-	//prepare and show the progress dialog
+	// prepare and show the progress dialog
 	FileProgress *dialog = new FileProgress(m_parent_widget,
 	    filename, m_file_info.tracks()*m_file_info.length()*
 	    (m_file_info.bits() >> 3),
@@ -389,7 +389,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 	Q_ASSERT(dialog);
 	QObject::connect(&src,   SIGNAL(progress(unsigned int)),
 	                 dialog, SLOT(setValue(unsigned int)),
-	                 Qt::BlockingQueuedConnection);
+	                 Qt::QueuedConnection);
 	QObject::connect(dialog, SIGNAL(canceled()),
 	                 &src,   SLOT(cancel()));
 
@@ -430,6 +430,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 	    res = -1;
 	}
 
+	qApp->flush();
 	delete encoder;
 	if (dialog) {
 	    if (dialog->isCanceled()) {
@@ -438,7 +439,8 @@ int SignalManager::save(const KUrl &url, bool selection)
 		    i18n("The file has been truncated and "\
 		         "might be corrupted!"));
 	    }
-	    delete dialog;
+	    dialog->deleteLater();
+	    qApp->flush();
 	}
     } else {
 	Kwave::MessageBox::error(m_parent_widget,

@@ -26,6 +26,7 @@
  * bugfix: crashes when deleting objects that still have event queued
    with Qt::QueuedConnection -> now using Qt::BlockingQueuedConnection
  * new plugin: reverse
+ * speedup: limiting the number of progress bar updates per second
 
 0.8.2  [2009-04-25]
 

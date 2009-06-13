@@ -254,7 +254,6 @@ double NormalizePlugin::getMaxPower(MultiTrackReader &source)
 	average[t].max = 0.0;
     }
 
-
     ThreadWeaver::Weaver weaver;
     QList<ThreadWeaver::Job *> joblist;
 

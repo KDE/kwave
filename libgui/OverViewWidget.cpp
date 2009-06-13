@@ -86,7 +86,7 @@ OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     // through the signal/slot mechanism
     connect(this, SIGNAL(newImage(QImage)),
             this, SLOT(setImage(QImage)),
-            Qt::BlockingQueuedConnection);
+            Qt::AutoConnection);
 
     setMouseTracking(true);
 }

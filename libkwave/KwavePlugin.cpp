@@ -49,6 +49,9 @@
 #include <execinfo.h> // for backtrace()
 #endif
 
+/** number of updates of the progress bat per second */
+#define PROGRESS_UPDATES_PER_SECOND 4
+
 /*
    A plugin can be unloaded through two different ways. The possible
    scenarios are:
@@ -78,6 +81,9 @@ Kwave::Plugin::Plugin(const PluginContext &c)
      m_usage_lock()
 {
     use();
+
+    connect(&m_progress_timer, SIGNAL(timeout()),
+            this, SLOT(updateProgressTick()));
 }
 
 //***************************************************************************
@@ -248,13 +254,32 @@ void Kwave::Plugin::setProgressDialogEnabled(bool enable)
 //***************************************************************************
 void Kwave::Plugin::updateProgress(unsigned int progress)
 {
-//     qDebug("Kwave::Plugin::updateProgress(%u)", progress);
-
     // check: this must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
-    if (m_progress) m_progress->setValue(progress);
+//     qDebug("Kwave::Plugin::updateProgress(%u)", progress);
+
+    // take over the current progress
+    // note: no lock needed, this is called in the GUI thread context!
+    m_current_progress = progress;
+
+    // start the timer for updating the progress bar if it is not active
+    if (!m_progress_timer.isActive()) {
+	m_progress_timer.setSingleShot(true);
+	m_progress_timer.start(1000 / PROGRESS_UPDATES_PER_SECOND);
+    }
+}
+
+//***************************************************************************
+void Kwave::Plugin::updateProgressTick()
+{
+    // check: this must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
+//     qDebug("void Kwave::Plugin::updateProgressTick(%d)", m_current_progress);
+    if (m_progress) m_progress->setValue(m_current_progress);
 }
 
 //***************************************************************************

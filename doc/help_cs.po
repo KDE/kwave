@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave_help_cs\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-02-17 12:53+0000\n"
+"POT-Creation-Date: 2009-06-13 08:49+0000\n"
 "PO-Revision-Date: 2009-06-09 20:13+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -42,11 +42,9 @@ msgstr "thomas.eschenbacher@gmx.de"
 #, no-c-format
 msgid "ROLES_OF_TRANSLATORS"
 msgstr ""
-"<othercredit role=\"translator\"><firstname>Pavel</"
-"firstname><surname>Fric</surname><affiliation><address><email>"
-"pavelfric@seznam.cz.</email></address></affiliation><contrib>Překlad do "
-"českého jazyka</contrib></"
-"othercredit>"
+"<othercredit role=\"translator\"><firstname>Pavel</firstname><surname>Fric</"
+"surname><affiliation><address><email>pavelfric@seznam.cz.</email></address></"
+"affiliation><contrib>Překlad do českého jazyka</contrib></othercredit>"
 
 #. Tag: holder
 #: help_en-work.docbook:30
@@ -147,7 +145,8 @@ msgstr "Úvod"
 #. Tag: para
 #: help_en-work.docbook:68
 #, no-c-format
-msgid "This is \"&kapp;\", a simple sound editor for KDE3. Its features include:"
+msgid ""
+"This is \"&kapp;\", a simple sound editor for KDE3. Its features include:"
 msgstr ""
 "Toto je \"&kapp;\", jednoduchý editor zvuku pro KDE3. Mezi jeho hlavní "
 "přednosti patří:"
@@ -237,8 +236,8 @@ msgid ""
 "playback of multi-channel audio files (audio output will be mixed down to "
 "mono or stereo)"
 msgstr ""
-"Přehrávání mnohakanálových zvukových souborů (zvukový výstup bude smíchán "
-"na monofonní nebo stereofonní zvuk)"
+"Přehrávání mnohakanálových zvukových souborů (zvukový výstup bude smíchán na "
+"monofonní nebo stereofonní zvuk)"
 
 #. Tag: para
 #: help_en-work.docbook:121
@@ -266,8 +265,7 @@ msgid ""
 "welcome."
 msgstr ""
 "Pokud vás zajímá, co se už udělalo a co se ještě musí udlat, podívejte se na "
-"soubory "
-"<filename>CHANGES</filename> a <filename>TODO</filename> zahrnuté ve "
+"soubory <filename>CHANGES</filename> a <filename>TODO</filename> zahrnuté ve "
 "zdrojovém balíčku. Pomoc a konstruktivní kritika jsou vždy vítány."
 
 #. Tag: title
@@ -285,10 +283,8 @@ msgid ""
 "resources might be of interest for you:"
 msgstr ""
 "Takže jestliže se chcete spojit s vývojáři, potřebujete další pomoc při "
-"používání "
-"&kapp;, předložit záplaty, hlášení o chybách nebo jiné věci, mohly by vás "
-"zajímat "
-"následující zdroje:"
+"používání &kapp;, předložit záplaty, hlášení o chybách nebo jiné věci, mohly "
+"by vás zajímat následující zdroje:"
 
 #. Tag: para
 #: help_en-work.docbook:152
@@ -304,9 +300,9 @@ msgid ""
 "about this project, take a look at the <ulink url=\"http://kwave.sourceforge."
 "net/\">&kapp; homepage</ulink>"
 msgstr ""
-"Kvůli informacím o nejnovějších vydáních nebo kvůli dalším informacím "
-"o tomto projektu se podívejte na <ulink url=\"http://kwave.sourceforge."
-"net/\">&kapp; domovská stránka</ulink>"
+"Kvůli informacím o nejnovějších vydáních nebo kvůli dalším informacím o "
+"tomto projektu se podívejte na <ulink url=\"http://kwave.sourceforge.net/"
+"\">&kapp; domovská stránka</ulink>"
 
 #. Tag: para
 #: help_en-work.docbook:158
@@ -323,8 +319,8 @@ msgid ""
 "\"https://lists.sourceforge.net/lists/listinfo/kwave-devel\"> \"https://"
 "lists.sourceforge.net/lists/listinfo/kwave-devel\"</ulink>."
 msgstr ""
-"Jestliže potřebujete s používáním pomoci &kapp; nebo se chcete zapojit "
-"do vývoje, připojte se k seznamu adres vývojářů Kwave návštěvou <ulink url="
+"Jestliže potřebujete s používáním pomoci &kapp; nebo se chcete zapojit do "
+"vývoje, připojte se k seznamu adres vývojářů Kwave návštěvou <ulink url="
 "\"https://lists.sourceforge.net/lists/listinfo/kwave-devel\"> \"https://"
 "lists.sourceforge.net/lists/listinfo/kwave-devel\"</ulink>."
 
@@ -348,12 +344,11 @@ msgid ""
 msgstr ""
 "Je zde SVN repozitář, který je hostován <ulink url=\"http://sourceforge.net"
 "\">SourceForge</ulink> , kde můžete získat zdrojové soubory poslední "
-"vývojářské verze. Instrukce, jak získat přístup k repozitáři, si přečtěte "
-"v kapitole <link linkend=\"building_rpm_from_svn"
-"\">o sestavování z SVN</link>Podívejte se rovněž na <ulink "
-"url=\"http://sourceforge.net/"
-"svn/?group_id=6478\">\"http://sourceforge.net/svn/?group_id=6478\"</ulink>, "
-"nebo jednoduše procházejte stromem SVN za pomoci hezkého webového rozhraní."
+"vývojářské verze. Instrukce, jak získat přístup k repozitáři, si přečtěte v "
+"kapitole <link linkend=\"building_rpm_from_svn\">o sestavování z SVN</"
+"link>Podívejte se rovněž na <ulink url=\"http://sourceforge.net/svn/?"
+"group_id=6478\">\"http://sourceforge.net/svn/?group_id=6478\"</ulink>, nebo "
+"jednoduše procházejte stromem SVN za pomoci hezkého webového rozhraní."
 
 #. Tag: title
 #: help_en-work.docbook:188
@@ -372,12 +367,12 @@ msgid ""
 "extended, rewritten or revised nearly every component of the program and "
 "spent much time on improving it."
 msgstr ""
-"Tento projekt byl zahájen Martinem Wilzem v létě roku 1998 a byl vyvíjen "
-"a vylepšován jím a některými dalšími lidmi. V listopadu 1999 začal Thomas "
-"Eschenbacher tu a tam opravovat některé malé programové chyby "
-"a dostával se krok za krokem hlouběji a hlouběji do zdrojového kódu tohoto "
-"programu. Do dneška rozšířil, přepsal nebo přepracoval téměř každou "
-"součást programu a strávil mnoho času jeho vylepšováním."
+"Tento projekt byl zahájen Martinem Wilzem v létě roku 1998 a byl vyvíjen a "
+"vylepšován jím a některými dalšími lidmi. V listopadu 1999 začal Thomas "
+"Eschenbacher tu a tam opravovat některé malé programové chyby a dostával se "
+"krok za krokem hlouběji a hlouběji do zdrojového kódu tohoto programu. Do "
+"dneška rozšířil, přepsal nebo přepracoval téměř každou součást programu a "
+"strávil mnoho času jeho vylepšováním."
 
 #. Tag: para
 #: help_en-work.docbook:200
@@ -389,12 +384,11 @@ msgid ""
 "CHANGES?view=markup\"> \"http://svn.sourceforge.net/viewvc/kwave/trunk/"
 "CHANGES?view=markup\"</ulink>."
 msgstr ""
-"Od &kapp; v0.8.0 není seznam změn nadále začleněn do této příručky . "
-"Takže pokud vás zajímá úplný seznam změn, najdete úplnou"
-"historii změn zde: <ulink url=\"http://svn.sourceforge."
-"net/viewvc/kwave/trunk/"
-"CHANGES?view=markup\"> \"http://svn.sourceforge.net/viewvc/kwave/trunk/"
-"CHANGES?view=markup\"</ulink>."
+"Od &kapp; v0.8.0 není seznam změn nadále začleněn do této příručky . Takže "
+"pokud vás zajímá úplný seznam změn, najdete úplnouhistorii změn zde: <ulink "
+"url=\"http://svn.sourceforge.net/viewvc/kwave/trunk/CHANGES?view=markup\"> "
+"\"http://svn.sourceforge.net/viewvc/kwave/trunk/CHANGES?view=markup\"</"
+"ulink>."
 
 #. Tag: title
 #: help_en-work.docbook:218
@@ -418,10 +412,9 @@ msgid ""
 "and up-to-date development versions."
 msgstr ""
 "&kapp; má vlastní domovskou stránku na adrese <ulink url=\"http://kwave."
-"sourceforge.net/"
-"\"> http://kwave.sourceforge.net/</ulink>. Zde najdete další informace "
-"k projektu, a stejně tak i informace o aktuální stabilní "
-"a nejnovější vývojářské verzi."
+"sourceforge.net/\"> http://kwave.sourceforge.net/</ulink>. Zde najdete další "
+"informace k projektu, a stejně tak i informace o aktuální stabilní a "
+"nejnovější vývojářské verzi."
 
 #. Tag: para
 #: help_en-work.docbook:235
@@ -431,9 +424,9 @@ msgid ""
 "\"http://kwave.sourceforge.net/download.html\"></ulink> http://kwave."
 "sourceforge.net/download.html and"
 msgstr ""
-"Pokud chcete získat &kapp; vydání, můžete navštívit <ulink url="
-"\"http://kwave.sourceforge.net/download.html\"></ulink> http://kwave."
-"sourceforge.net/download.html a "
+"Pokud chcete získat &kapp; vydání, můžete navštívit <ulink url=\"http://"
+"kwave.sourceforge.net/download.html\"></ulink> http://kwave.sourceforge.net/"
+"download.html a "
 
 #. Tag: para
 #: help_en-work.docbook:240
@@ -475,9 +468,8 @@ msgid ""
 "a programmer. It just needs some developer packages to be installed."
 msgstr ""
 "Nebojte se, protože kompilace Kwave by měla být celkem jednoduchou "
-"záležitostí "
-"i v případě, že nejste programátorem. Je jenom potřeba mít nainstalovány "
-"některé vývojářské balíčky."
+"záležitostí i v případě, že nejste programátorem. Je jenom potřeba mít "
+"nainstalovány některé vývojářské balíčky."
 
 #. Tag: title
 #: help_en-work.docbook:269
@@ -500,12 +492,9 @@ msgid ""
 "working under some other platform / operating system)"
 msgstr ""
 "počítač, na němž běží Linux (&kapp; může být spouštěn i pod některými "
-"dalšími "
-"operačními systémy, ale nikdy jsme tuto možnost nezkoušeli. Dejte nám, "
-"prosím, "
-"vědět, jestliže se vám podaří spustit Kwave na jiné platformě/pod jiným "
-"operačním "
-"systémem)"
+"dalšími operačními systémy, ale nikdy jsme tuto možnost nezkoušeli. Dejte "
+"nám, prosím, vědět, jestliže se vám podaří spustit Kwave na jiné platformě/"
+"pod jiným operačním systémem)"
 
 #. Tag: para
 #: help_en-work.docbook:280
@@ -516,9 +505,8 @@ msgid ""
 "your work?)"
 msgstr ""
 "Pracující přehrávání zvuku (pro použití programu není ve skutečnosti "
-"vyžadováno, "
-"ale co byste asi tak dělal s editorem zvuku, kdybyste si nemohl <emphasis>"
-"poslechnout</emphasis> výsledek vaší práce?)"
+"vyžadováno, ale co byste asi tak dělal s editorem zvuku, kdybyste si nemohl "
+"<emphasis>poslechnout</emphasis> výsledek vaší práce?)"
 
 #. Tag: para
 #: help_en-work.docbook:285
@@ -529,8 +517,7 @@ msgid ""
 msgstr ""
 "KDE ve verzi 4.0 nebo vyšší (alespoň knihovny. V případě, že jste fonouškem "
 "prostředí GNOME, můžete program spouštět také,&kapp; pokud jsou "
-"nainstalovány "
-"ty správné knihovny)."
+"nainstalovány ty správné knihovny)."
 
 #. Tag: para
 #: help_en-work.docbook:290
@@ -569,8 +556,8 @@ msgid ""
 "about 64 MB memory for starting &kapp; (but this may vary depending on your "
 "platform and configuration)"
 msgstr ""
-"asi 64 MB paměti pro spuštění programu &kapp; (ale toto se může lišit "
-"v závislosti na vaší platformě a nastavení)"
+"asi 64 MB paměti pro spuštění programu &kapp; (ale toto se může lišit v "
+"závislosti na vaší platformě a nastavení)"
 
 #. Tag: para
 #: help_en-work.docbook:312
@@ -583,22 +570,21 @@ msgid ""
 "ulink>. This file also contains some special hints for getting &kapp; "
 "running and/or building &kapp; under some distributions."
 msgstr ""
-"Kvůli úplnějšímu a nejnovějšímu seznamu požadavků se, prosím, poraďte "
-"se souborem README. který je zahrnut ve zdrojové distribuci, nebo jej lze "
-"najít zde: <ulink url="
-"\"http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup\"> "
-"\"http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup\"</"
-"ulink>. Tento soubor obsahuje také některé zvláštní tipy, jak program  "
-"&kapp; "
-"pod některými distribucemi  &kapp; spustit a/nebo sestavit."
+"Kvůli úplnějšímu a nejnovějšímu seznamu požadavků se, prosím, poraďte se "
+"souborem README. který je zahrnut ve zdrojové distribuci, nebo jej lze najít "
+"zde: <ulink url=\"http://svn.sourceforge.net/viewvc/kwave/trunk/README?"
+"view=markup\"> \"http://svn.sourceforge.net/viewvc/kwave/trunk/README?"
+"view=markup\"</ulink>. Tento soubor obsahuje také některé zvláštní tipy, jak "
+"program  &kapp; pod některými distribucemi  &kapp; spustit a/nebo sestavit."
 
 #. Tag: para
 #: help_en-work.docbook:322
 #, no-c-format
-msgid "If you intend to compile &kapp; from the sources, you will need at least:"
+msgid ""
+"If you intend to compile &kapp; from the sources, you will need at least:"
 msgstr ""
-"Pokud máte v úmyslu kompilovat program &kapp; ze zdrojových souborů, "
-"budete alespoň potřebovat:"
+"Pokud máte v úmyslu kompilovat program &kapp; ze zdrojových souborů, budete "
+"alespoň potřebovat:"
 
 #. Tag: para
 #: help_en-work.docbook:325
@@ -614,8 +600,7 @@ msgid ""
 "gcc-4.1 and newer) work too."
 msgstr ""
 "C/C++ kompilátor. GCC-3.4 pracuje dobře, některé starší a některé novější "
-"verze "
-"(jako gcc-4.1 a novější) pracují rovněž."
+"verze (jako gcc-4.1 a novější) pracují rovněž."
 
 #. Tag: para
 #: help_en-work.docbook:332
@@ -634,8 +619,8 @@ msgid ""
 "The KDE4 development environment: \"kdelibs4-devel\", \"kdemultimedia4-devel"
 "\", \"kdesdk4\"."
 msgstr ""
-"KDE4 vývojové prostředí: \"kdelibs4-devel\", \"kdemultimedia4-devel"
-"\", \"kdesdk4\"."
+"KDE4 vývojové prostředí: \"kdelibs4-devel\", \"kdemultimedia4-devel\", "
+"\"kdesdk4\"."
 
 #. Tag: para
 #: help_en-work.docbook:341
@@ -644,8 +629,8 @@ msgid ""
 "The Qt4 development environment, the package is normally called \"qt4-devel"
 "\" or similar."
 msgstr ""
-"Qt4 vývojové prostředí, balíček se obyčejně nazývá \"qt4-devel"
-"\" nebo podobně."
+"Qt4 vývojové prostředí, balíček se obyčejně nazývá \"qt4-devel\" nebo "
+"podobně."
 
 #. Tag: para
 #: help_en-work.docbook:345
@@ -689,10 +674,9 @@ msgid ""
 "sourceforge.net/viewvc/kwave/trunk/README?view=markup\"> \"README\"</ulink> "
 "file included in the source package."
 msgstr ""
-"...a mnoho dalších balíčků. Podívejte se, prosím, na  <ulink "
-"url=\"http://svn."
-"sourceforge.net/viewvc/kwave/trunk/README?view=markup\"> \"README\"</ulink> "
-"soubor je zahrnut ve zdrojovém balíčku. "
+"...a mnoho dalších balíčků. Podívejte se, prosím, na  <ulink url=\"http://"
+"svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup\"> \"README\"</"
+"ulink> soubor je zahrnut ve zdrojovém balíčku. "
 
 #. Tag: title
 #: help_en-work.docbook:376
@@ -713,10 +697,8 @@ msgstr ""
 "Od verze 0.7.10 &kapp; používá <ulink url=\"http://www.cmake.org\">cmake</"
 "ulink>, \"make\" systém, který je používán také prostředím KDE. Takže pokud "
 "můžete sestavit jiné KDE aplikace, měl byste moci sestavit i &kapp;. "
-"Jestliže "
-"se setkáte s problémy, nahlašte je, prosím, do &kapp; <link "
-"linkend=\"mailing-list"
-"\">seznamu adres</link>."
+"Jestliže se setkáte s problémy, nahlašte je, prosím, do &kapp; <link linkend="
+"\"mailing-list\">seznamu adres</link>."
 
 #. Tag: para
 #: help_en-work.docbook:387
@@ -728,9 +710,9 @@ msgid ""
 "(temporary) directory."
 msgstr ""
 "Při kompilaci a instalaci &kapp; na váš systém je nejlepší na zkoušku udělat "
-"sestavení programu <emphasis>\"mimo adresářový strom\"</emphasis>. "
-"To znamená, že držíte zdrojové soubory od &kapp; v jednom oadresáři, a "
-"balíček sestavujete v jiném (dočasném) adresáři."
+"sestavení programu <emphasis>\"mimo adresářový strom\"</emphasis>. To "
+"znamená, že držíte zdrojové soubory od &kapp; v jednom oadresáři, a balíček "
+"sestavujete v jiném (dočasném) adresáři."
 
 #. Tag: para
 #: help_en-work.docbook:394
@@ -758,9 +740,8 @@ msgstr ""
 "<prompt>% </prompt><command>make</command>\n"
 "<prompt>% </prompt><command>su root -c \"make install\"</command>\n"
 "</screen> (Určení voleb pro sestavení programu je způsobem, jak umožnit, "
-"nebo "
-"znemožnit zvláštní funkce. Kvůli jejich popisu si prohlédněte následující "
-"sekci.)"
+"nebo znemožnit zvláštní funkce. Kvůli jejich popisu si prohlédněte "
+"následující sekci.)"
 
 #. Tag: title
 #: help_en-work.docbook:409
@@ -777,8 +758,8 @@ msgid ""
 "package. Here is a list of the available options:"
 msgstr ""
 "Určením voleb pro sestavení programu můžete povolit nebo nepovolit některé "
-"funkce &kapp;, např. vyloučení některých částí nebo přídavných modulů "
-"z vytvořeného balíčku. Seznam dostupných voleb je zde:"
+"funkce &kapp;, např. vyloučení některých částí nebo přídavných modulů z "
+"vytvořeného balíčku. Seznam dostupných voleb je zde:"
 
 #. Tag: para
 #: help_en-work.docbook:417
@@ -788,9 +769,8 @@ msgid ""
 "[<literal>on</literal>/<literal>off</literal>, default=<literal>on</literal>]"
 msgstr ""
 "<literal>WITH_ALSA</literal> povolit přehrávání/nahrávání prostřednictvím "
-"ALSA "
-"[<literal>on: zapnuto</literal>/<literal>off: vypnuto</literal>, default=: "
-"výchozí=<literal>on: zapnuto</literal>]"
+"ALSA [<literal>on: zapnuto</literal>/<literal>off: vypnuto</literal>, "
+"default=: výchozí=<literal>on: zapnuto</literal>]"
 
 #. Tag: para
 #: help_en-work.docbook:423
@@ -800,8 +780,8 @@ msgid ""
 "literal>/<literal>off</literal>, default=<literal>on</literal>]"
 msgstr ""
 "<literal>WITH_DOC</literal> sestavit dokumentaci na internetu [<literal>on: "
-"zapnuto</literal>/<literal>off: vypnuto</literal>, default=: výchozí=<"
-"literal>on: zapnuto</literal>]"
+"zapnuto</literal>/<literal>off: vypnuto</literal>, default=: "
+"výchozí=<literal>on: zapnuto</literal>]"
 
 #. Tag: para
 #: help_en-work.docbook:429
@@ -811,8 +791,8 @@ msgid ""
 "literal>/<literal>off</literal>, default=<literal>on</literal>]"
 msgstr ""
 "<literal>WITH_FLAC</literal> povolit podporu souborů FLAC [<literal>on: "
-"zapnuto</literal>/<literal>off: vypnuto</literal>, default=: výchozí=<"
-"literal>on: zapnuto</literal>]"
+"zapnuto</literal>/<literal>off: vypnuto</literal>, default=: "
+"výchozí=<literal>on: zapnuto</literal>]"
 
 #. Tag: para
 #: help_en-work.docbook:435
@@ -823,10 +803,9 @@ msgid ""
 "that you need the permission to use code covered by the MP3 software patents!"
 msgstr ""
 "<literal>WITH_MP3</literal> povolit podporu souborů mp3 [<literal>on: "
-"zapnuto</literal>/<literal>off: vypnuto</literal>, default=: výchozí=<"
-"literal>on: zapnuto</literal>] Všimněte si, prosím, že pro použití kódu "
-"zahrnutého "
-"do patentů k počítačovým programům potřebujete svolení!"
+"zapnuto</literal>/<literal>off: vypnuto</literal>, default=: "
+"výchozí=<literal>on: zapnuto</literal>] Všimněte si, prosím, že pro použití "
+"kódu zahrnutého do patentů k počítačovým programům potřebujete svolení!"
 
 #. Tag: para
 #: help_en-work.docbook:443
@@ -836,8 +815,8 @@ msgid ""
 "literal>/<literal>off</literal>, default=<literal>on</literal>]"
 msgstr ""
 "<literal>WITH_OGG</literal> povolit podporu souborů ogg [<literal>on: "
-"zapnuto</literal>/<literal>off: vypnuto</literal>, default=: výchozí=<"
-"literal>on: zapnuto</literal>]"
+"zapnuto</literal>/<literal>off: vypnuto</literal>, default=: "
+"výchozí=<literal>on: zapnuto</literal>]"
 
 #. Tag: para
 #: help_en-work.docbook:449
@@ -852,27 +831,26 @@ msgstr ""
 
 #. Tag: para
 #: help_en-work.docbook:458
-#, no-c-format
+#, fuzzy, no-c-format
 msgid ""
 "These options can be passed to <literal><command>cmake</command></literal> "
 "with <command><literal>-D</literal><replaceable>option</"
 "replaceable><literal>=</literal><replaceable>value</replaceable></command>. "
-"For example, if you want to leave out generation of the online "
-"documentation, you can pass the corresponding option as follows:"
+"For example, if you want to enable MP3 import, you can pass the "
+"corresponding option as follows:"
 msgstr ""
-"Tyto volby mohou být předány <literal><command>cmake</command></literal> "
-"s <command><literal>-D</literal><replaceable>volba</"
-"replaceable><literal>=</literal><replaceable>hodnota</replaceable></command>."
-" "
-"Pokud například chcete vynechat vytvoření internetové dokumentace, můžete "
-"předat odpovídající volbu, jak následuje:"
+"Tyto volby mohou být předány <literal><command>cmake</command></literal> s "
+"<command><literal>-D</literal><replaceable>volba</replaceable><literal>=</"
+"literal><replaceable>hodnota</replaceable></command>. Pokud například chcete "
+"vynechat vytvoření internetové dokumentace, můžete předat odpovídající "
+"volbu, jak následuje:"
 
 #. Tag: screen
 #: help_en-work.docbook:463
-#, no-c-format
+#, fuzzy, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cmake <replaceable>[source directory]</"
-"replaceable> -DWITH_DOC=off <replaceable>[other options...]</replaceable></"
+"replaceable> -DWITH_MP3=ON <replaceable>[other options...]</replaceable></"
 "command>"
 msgstr ""
 "<prompt>% </prompt><command>cmake <replaceable>[zdrojový adresář]</"
@@ -906,11 +884,10 @@ msgstr ""
 "Jestliže používáte systém s podporou RPM, bude upřednostňovaným způsobem "
 "&kapp; instalace na vašem systému vytvoření hezkého RPM balíčku. Nejprve "
 "byste měl získat aktuální zdrojový soubor z &kapp;, buď jako archiv tar.gz "
-"ze stránky &kapp; určené pro stahování, nebo se mrknout na nejnovější "
-"kopii prostřednictvím <link linkend=\"svn-"
-"repository\">SVN</link> (jak je to popsáno v <link linkend=\"svn_checkout"
-"\">kapitole o SVN</link>) a přečíst si <link linkend="
-"\"building_rpm_from_svn\">další</link> kapitolu."
+"ze stránky &kapp; určené pro stahování, nebo se mrknout na nejnovější kopii "
+"prostřednictvím <link linkend=\"svn-repository\">SVN</link> (jak je to "
+"popsáno v <link linkend=\"svn_checkout\">kapitole o SVN</link>) a přečíst si "
+"<link linkend=\"building_rpm_from_svn\">další</link> kapitolu."
 
 #. Tag: para
 #: help_en-work.docbook:488
@@ -923,13 +900,12 @@ msgid ""
 "<literal>sparc</literal> or whatever, <replaceable>XXX</replaceable> stands "
 "for the version number you have downloaded)."
 msgstr ""
-"Jestliže jste si stáhl archiv tar.gz z &kapp;, vytvořte a instalujte "
-"RPM provedením následujících kroků (kde <replaceable>[arch]</"
-"replaceable> představuje platformu, pro kterou jste balíček vytvořil a může "
-"vypadat nějak takto <literal>i386</literal>, <literal>i586</literal>, "
-"<literal>sparc</literal> nebo i jinak, <replaceable>XXX</replaceable> "
-"představuje "
-"číslo verze, kterou jste si stáhl)."
+"Jestliže jste si stáhl archiv tar.gz z &kapp;, vytvořte a instalujte RPM "
+"provedením následujících kroků (kde <replaceable>[arch]</replaceable> "
+"představuje platformu, pro kterou jste balíček vytvořil a může vypadat nějak "
+"takto <literal>i386</literal>, <literal>i586</literal>, <literal>sparc</"
+"literal> nebo i jinak, <replaceable>XXX</replaceable> představuje číslo "
+"verze, kterou jste si stáhl)."
 
 #. Tag: para
 #: help_en-work.docbook:499
@@ -972,9 +948,9 @@ msgid ""
 "like \"spec file not found\", then go on and read the rest of this section."
 msgstr ""
 "Pokud jste neuviděli nějaké chyby, pak je vše v pořádku a vy můžete "
-"přeskočit "
-"zbytek této kapitoly. Pokud rpm nebylo schopno balíčky vytvořit a říká něco "
-"jako \"spec file not found\", potom pokračujte ve čtení zbytku tohoto oddílu."
+"přeskočit zbytek této kapitoly. Pokud rpm nebylo schopno balíčky vytvořit a "
+"říká něco jako \"spec file not found\", potom pokračujte ve čtení zbytku "
+"tohoto oddílu."
 
 #. Tag: title
 #: help_en-work.docbook:521
@@ -1001,10 +977,9 @@ msgid ""
 "filename> for the redhat distribution or <filename>/usr/src/packages</"
 "filename> if you have the SuSE distribution."
 msgstr ""
-"Jděte do svého RPM \"topdir\". Obvykle se nachází v <filename>"
-"/usr/src/redhat</"
-"filename> v případě distribuce redhat nebo <filename>/usr/src/packages</"
-"filename> jestliže máte distribuci SuSE."
+"Jděte do svého RPM \"topdir\". Obvykle se nachází v <filename>/usr/src/"
+"redhat</filename> v případě distribuce redhat nebo <filename>/usr/src/"
+"packages</filename> jestliže máte distribuci SuSE."
 
 #. Tag: screen
 #: help_en-work.docbook:535
@@ -1023,8 +998,8 @@ msgid ""
 "Put the tar.gz archive into the SOURCES subdirectory (you have to replace "
 "\"somewhere\" with the real directory where the files are, of course)."
 msgstr ""
-"Zkopírujte tar.gz archiv do SOURCES podadresáře (samozřejmě musíte "
-"nahradit \"kdekoli\" sktutečným adresářem, v němž jsou soubory)."
+"Zkopírujte tar.gz archiv do SOURCES podadresáře (samozřejmě musíte nahradit "
+"\"kdekoli\" sktutečným adresářem, v němž jsou soubory)."
 
 #. Tag: screen
 #: help_en-work.docbook:542
@@ -1082,10 +1057,10 @@ msgid ""
 "please remove it first or use the parameter <literal>-U</literal> instead of "
 "<literal>-i</literal> for upgrading instead of installing."
 msgstr ""
-"Pokud vše proběhlo dobře, můžete nainstalovat binární rpm z &kapp;, bude "
-"v adresáři BUILD. Pokud již máte nainstalovánu verzi &kapp; odstraňte,"
-"prosím, nejprve ji, nebo použijte pomocnou proměnnou <literal>-U</literal> "
-"namísto <literal>-i</literal> kvůli aktualizaci místo instalace."
+"Pokud vše proběhlo dobře, můžete nainstalovat binární rpm z &kapp;, bude v "
+"adresáři BUILD. Pokud již máte nainstalovánu verzi &kapp; odstraňte,prosím, "
+"nejprve ji, nebo použijte pomocnou proměnnou <literal>-U</literal> namísto "
+"<literal>-i</literal> kvůli aktualizaci místo instalace."
 
 #. Tag: screen
 #: help_en-work.docbook:567
@@ -1122,10 +1097,9 @@ msgid ""
 msgstr ""
 "Pro počáteční kontrolu zdrojů budete potřebovat prostor na disku (asi 25 MB) "
 "v adresáři dle vašeho výběru, svn balíček vaší oblíbené distribuce a plný "
-"přístup "
-"na internet.Pokud obdržíte hlášení chyb o odmítnutém spojení, buď jste něco "
-"zadal nesprávně, nebo vám váš poskytovatel nedal plný přístup. Dobrým místem "
-"pro zdrojové soubory bude <filename>\"$HOME/src\"</filename>."
+"přístup na internet.Pokud obdržíte hlášení chyb o odmítnutém spojení, buď "
+"jste něco zadal nesprávně, nebo vám váš poskytovatel nedal plný přístup. "
+"Dobrým místem pro zdrojové soubory bude <filename>\"$HOME/src\"</filename>."
 
 #. Tag: para
 #: help_en-work.docbook:594
@@ -1134,8 +1108,8 @@ msgid ""
 "First create the directory that will receive the subdirectoy with &kapp; "
 "sources and change into it:"
 msgstr ""
-"Nejprve vytvořte adresář, který přijme podadresář s &kapp; "
-"zdroji, a přemístěte se do něj:"
+"Nejprve vytvořte adresář, který přijme podadresář s &kapp; zdroji, a "
+"přemístěte se do něj:"
 
 #. Tag: screen
 #: help_en-work.docbook:597
@@ -1180,18 +1154,16 @@ msgid ""
 "the release, with underscores instead of dots. For example "
 "\"<literal>Release-&version_tag;</literal>\" for v&version;."
 msgstr ""
-"nebo můžete následujícím příkazem zkontrolovat přesně stanovené vydání: <"
-"screen "
-"width=\"75\" format=\"linespecific\">\n"
+"nebo můžete následujícím příkazem zkontrolovat přesně stanovené vydání: "
+"<screen width=\"75\" format=\"linespecific\">\n"
 "<prompt>% </prompt><command>svn checkout https://kwave.svn.sourceforge.net/"
 "svnroot/kwave/tags/<replaceable>[release-tag]</replaceable> kwave</command>\n"
 "</screen> Můžete vyhledat názvy jmenovek vydání na internetových stránkách "
-"svn "
-" <ulink url=\"http://svn.sourceforge.net/viewvc/kwave/tags/\">\"http://svn."
-"sourceforge.net/viewvc/kwave/tags/\"</ulink>. Jmenovky vydání jsou vždy "
-"složeny ze slova <literal>Release-</literal> a čísla verze vydání "
-"s podtržítky namísto teček. Například "
-"\"<literal>Release-&version_tag;</literal>\" pro v&version;."
+"svn  <ulink url=\"http://svn.sourceforge.net/viewvc/kwave/tags/\">\"http://"
+"svn.sourceforge.net/viewvc/kwave/tags/\"</ulink>. Jmenovky vydání jsou vždy "
+"složeny ze slova <literal>Release-</literal> a čísla verze vydání s "
+"podtržítky namísto teček. Například \"<literal>Release-&version_tag;</"
+"literal>\" pro v&version;."
 
 #. Tag: para
 #: help_en-work.docbook:616
@@ -1224,10 +1196,8 @@ msgid ""
 msgstr ""
 "Postup popsaný v předchozím oddíle je nezbytné provést pouze jednou. Při "
 "dalších aktualizacích je calá ta věc mnohem jednodušší. Pouze se přesuňte do "
-"adresáře, "
-"ve kterém máte zkontrolované zdroje a proveďte následující kroky: <screen "
-"width=\"75\" "
-"format=\"linespecific\">\n"
+"adresáře, ve kterém máte zkontrolované zdroje a proveďte následující kroky: "
+"<screen width=\"75\" format=\"linespecific\">\n"
 "<prompt>% </prompt><command>svn update</command>\n"
 "</screen> Pak přejděte k dalšímu oddílu a kompilujte jako obvykle."
 
@@ -1243,8 +1213,7 @@ msgstr ""
 "Pokud máte dojem, že jste zmrvil své místní zdroje, nebo když během "
 "aktualizace zaznamenáte konflikty, můžete odstranit všechny soubory a "
 "adresáře ze svého &kapp; zdrojového adresáře, <emphasis>kromě <filename>."
-"svn</filename> "
-"adresáře </emphasis> a pak se o aktualizaci pokusit znovu."
+"svn</filename> adresáře </emphasis> a pak se o aktualizaci pokusit znovu."
 
 #. Tag: title
 #: help_en-work.docbook:642
@@ -1267,12 +1236,10 @@ msgid ""
 msgstr ""
 "Sestavení rpm balíčku z SVN snímku je docela jednoduché. Postup je téměř "
 "totožný s tím, který byl popsán v posledním oddíle, takže má naneštěstí také "
-"ten samý problém s příkazem <command>rpmbuild -ta</command>, který "
-"naše metoda uvnitř používá. Tak jako v předchozí kapitole, <replaceable>"
-"[arch]</"
+"ten samý problém s příkazem <command>rpmbuild -ta</command>, který naše "
+"metoda uvnitř používá. Tak jako v předchozí kapitole, <replaceable>[arch]</"
 "replaceable> stojí na platformě, pro kterou jste balíček sestavil, a která "
-"může být"
-"např. <literal>i386</literal>, <literal>i586</literal>, "
+"může býtnapř. <literal>i386</literal>, <literal>i586</literal>, "
 "<literal>sparc</literal> či jakákoli jiná, <replaceable>XXX</replaceable> "
 
 #. Tag: para
@@ -1284,8 +1251,8 @@ msgid ""
 "src/redhat</filename> too!"
 msgstr ""
 "<emphasis>Poznámka pro uživatele SuSE: </emphasis> Zde musíte rovněž určit "
-"adresář <filename>/usr/src/packages</filename> namísto <filename>/usr/"
-"src/redhat</filename>!"
+"adresář <filename>/usr/src/packages</filename> namísto <filename>/usr/src/"
+"redhat</filename>!"
 
 #. Tag: para
 #: help_en-work.docbook:663
@@ -1296,7 +1263,12 @@ msgid ""
 "already have a version of &kapp; installed, please remove it first or use "
 "<command>rpm -U</command> instead of <command>rpm -i</command> for updating "
 "instead of installing."
-msgstr "Za předpokladu, že jste v kořenovém adresáři, odkud jste se odhlásil z SVN, udělejte pro vytvoření \"makefile\" následující, &kapp; balíček a nainstalujte jej. Jestliže již máte verzi &kapp; nainstalovánu, nejprve ji, prosím, odstraňte, nebo použijte <command>rpm -U</command> namísto <command>rpm -i</command> kvůli aktualizaci místo instalace."
+msgstr ""
+"Za předpokladu, že jste v kořenovém adresáři, odkud jste se odhlásil z SVN, "
+"udělejte pro vytvoření \"makefile\" následující, &kapp; balíček a "
+"nainstalujte jej. Jestliže již máte verzi &kapp; nainstalovánu, nejprve ji, "
+"prosím, odstraňte, nebo použijte <command>rpm -U</command> namísto "
+"<command>rpm -i</command> kvůli aktualizaci místo instalace."
 
 #. Tag: screen
 #: help_en-work.docbook:670
@@ -1327,10 +1299,9 @@ msgid ""
 "follow the instructions in the <link linkend=\"manual_rpm_creation"
 "\">previous</link> chapter."
 msgstr ""
-"Pokud máte stále problémy s <command>make rpm</command>, naleznete "
-" tar.gz archiv, který byl vytvořen v <filename>/tmp</filename>. Následujte, "
-"prosím,  instrukce v <link linkend=\"manual_rpm_creation"
-"\">předchozí</link> kapitole."
+"Pokud máte stále problémy s <command>make rpm</command>, naleznete  tar.gz "
+"archiv, který byl vytvořen v <filename>/tmp</filename>. Následujte, prosím,  "
+"instrukce v <link linkend=\"manual_rpm_creation\">předchozí</link> kapitole."
 
 #. Tag: title
 #: help_en-work.docbook:689
@@ -1348,7 +1319,13 @@ msgid ""
 "systems, whereas the functions dealing with signal manipulation and all "
 "functions that do complex time-frequency operations (like FFT and Sonagram) "
 "will profit most from it."
-msgstr "Pokud jste vlastníkem procesoru Pentium, AMD K6, Athlonu nebo Athlonu XP, je možné, že budete chtít použít optimalizace kompilátoru pro zkompilování své verze &kapp;, která poběží o několik procent rychleji. Nárůst rychlosti bude u některých systémů až o 30 % , u nichž budou z toho mít zisk funkce, které mají co dělat s manipulací se signálem a se všemi funkcemi, které provádějí složité operace spojené s časem a kmitočtem (jako FFT a Sonagram)."
+msgstr ""
+"Pokud jste vlastníkem procesoru Pentium, AMD K6, Athlonu nebo Athlonu XP, je "
+"možné, že budete chtít použít optimalizace kompilátoru pro zkompilování své "
+"verze &kapp;, která poběží o několik procent rychleji. Nárůst rychlosti bude "
+"u některých systémů až o 30 % , u nichž budou z toho mít zisk funkce, které "
+"mají co dělat s manipulací se signálem a se všemi funkcemi, které provádějí "
+"složité operace spojené s časem a kmitočtem (jako FFT a Sonagram)."
 
 #. Tag: para
 #: help_en-work.docbook:699
@@ -1473,7 +1450,11 @@ msgid ""
 "audio processing, without going too much into details. Of course this might "
 "be a bit incomplete, but if you have questions, you can ask at the &kapp; "
 "mailing list or consult some further literature."
-msgstr "Tato kapitola by měla podat krátký úvod do základů digitálního zpracování zvuku, aniž by zacházela do přílišných podrobností. Samozřejmě může být trochu neúplná, ale jestliže máte otázky, můžete je vznést na &kapp; seznamu s adresami nebo se poradit s nějakou další literaturou."
+msgstr ""
+"Tato kapitola by měla podat krátký úvod do základů digitálního zpracování "
+"zvuku, aniž by zacházela do přílišných podrobností. Samozřejmě může být "
+"trochu neúplná, ale jestliže máte otázky, můžete je vznést na &kapp; seznamu "
+"s adresami nebo se poradit s nějakou další literaturou."
 
 #. Tag: title
 #: help_en-work.docbook:795
@@ -1490,7 +1471,13 @@ msgid ""
 "ways to convert analogue audio to digital audio and back again. As the way "
 "from digital to analogue normally is the reversion of the way from analogue "
 "to digital, we only describe the way from analogue to digital."
-msgstr "Nejprve si uvědomme, že svět je postaven na <emphasis>analogu</emphasis> - ale počítače pracují <emphasis>digitálně</emphasis>. A taj je několik způsobů, jak převést analogový zvuk na digitální a zase zpátky. Jelikož cesta z digitálu na analog je obvykle obrácením způsobu, jakým se převádí analogový zvuk na digitální, popíšeme si pouze způsob převodu z analogu na digitál."
+msgstr ""
+"Nejprve si uvědomme, že svět je postaven na <emphasis>analogu</emphasis> - "
+"ale počítače pracují <emphasis>digitálně</emphasis>. A taj je několik "
+"způsobů, jak převést analogový zvuk na digitální a zase zpátky. Jelikož "
+"cesta z digitálu na analog je obvykle obrácením způsobu, jakým se převádí "
+"analogový zvuk na digitální, popíšeme si pouze způsob převodu z analogu na "
+"digitál."
 
 #. Tag: phrase
 #: help_en-work.docbook:811
@@ -1518,8 +1505,14 @@ msgid ""
 "sources of audio. And the \"amplifier\" can be the one that is integrated "
 "into your sound card, where you normally can't see it."
 msgstr ""
-"Před pokračováním se musí analogový zvuk přeměnit na elektronické signály, aby se tak mohl dostat do počítače. Jedním z obvyklých způsobů, jak se to provádí, je použití mikrofonu a zesilovače. Jejich propojením se získá zvuk (změny tlaku vzduchu) na vstupu a napětí na výstupu. Větší rozkmit změn tlaku bude představován větším napětím na výstupu zesilovače. Tento výstup je taktéž nazýván <emphasis>'signál'</emphasis>. Místo mikrofonu si můžete "
-"samozřejmě představit i jiné zdroje zvuku. A \"zesilovač\" může být začleněn ve vaší zvukové kartě, kde jej normálně nemůžete vidět."
+"Před pokračováním se musí analogový zvuk přeměnit na elektronické signály, "
+"aby se tak mohl dostat do počítače. Jedním z obvyklých způsobů, jak se to "
+"provádí, je použití mikrofonu a zesilovače. Jejich propojením se získá zvuk "
+"(změny tlaku vzduchu) na vstupu a napětí na výstupu. Větší rozkmit změn "
+"tlaku bude představován větším napětím na výstupu zesilovače. Tento výstup "
+"je taktéž nazýván <emphasis>'signál'</emphasis>. Místo mikrofonu si můžete "
+"samozřejmě představit i jiné zdroje zvuku. A \"zesilovač\" může být začleněn "
+"ve vaší zvukové kartě, kde jej normálně nemůžete vidět."
 
 #. Tag: phrase
 #: help_en-work.docbook:833
@@ -1539,7 +1532,9 @@ msgstr "<para>Přeměna na elektronický signál</para>"
 msgid ""
 "At this stage, the electrical signal has three limitations that one should "
 "keep in mind:"
-msgstr "Na tomto stupni má elektronický signál tři omezení, jež je třeba mít na mysli:"
+msgstr ""
+"Na tomto stupni má elektronický signál tři omezení, jež je třeba mít na "
+"mysli:"
 
 #. Tag: para
 #: help_en-work.docbook:842
@@ -1551,7 +1546,13 @@ msgid ""
 "long as sounds are not too loud. In that case the signal would be "
 "<emphasis>clipped</emphasis>, which means that the electrical signal will "
 "run against it's margins and the result will be disturbed."
-msgstr "<emphasis>Rozkmit</emphasis> (hlasitost) je omezen na určitou nejvyšší možnou úroveň, což je následek používání elektronických zesilovačů, jež jsou schopny zvládnout napětí v rámci určitého stanoveného rozsahu. Není to žádný problémem, pokud není zvuk příliš hlasitý. V tom případě by byl signál <emphasis>zastřižený</emphasis>, což znamená, že elektrický signál poběží proti svým okrajům a výsledek tak bude narušený."
+msgstr ""
+"<emphasis>Rozkmit</emphasis> (hlasitost) je omezen na určitou nejvyšší "
+"možnou úroveň, což je následek používání elektronických zesilovačů, jež jsou "
+"schopny zvládnout napětí v rámci určitého stanoveného rozsahu. Není to žádný "
+"problémem, pokud není zvuk příliš hlasitý. V tom případě by byl signál "
+"<emphasis>zastřižený</emphasis>, což znamená, že elektrický signál poběží "
+"proti svým okrajům a výsledek tak bude narušený."
 
 #. Tag: para
 #: help_en-work.docbook:852
@@ -1568,8 +1569,16 @@ msgid ""
 "where the human ear is no longer able to hear their results and thus get out "
 "of interest. The human ear normally is not able to hear sound above 20 kHz."
 msgstr ""
-"<emphasis>Kmitočtový rozsah</emphasis> je také omezený. Kvůli mechanickým omezením mikrofonů a omezenému kmitočtovému rozsahu zesilovačů je kmitočtový rozsah signálu omezený. Nejsou pevné hranice, za nimiž zvuk znenadání zmizí, ale pod některými nízkými a nad některými vyššími kmitočty se rozkmit signálu začíná více a více snižovat. Bytí nejveššího možného kmitočtu lze snadno chápat jako omezenou rychlost elektrického signálu při stoupání a klesání. "
-"Používáním vysoce kvalitních zesilovačů a mikrofonů mohou být tato omezení rozšířena až po rozsah, kdy lidské ucho již dále není schopno uslyšet jejich výsledky a tím se o ně přestává zajímat. Lidské ucho obyčejně není schopné zaslechnout zvuk s kmitočtem nad 20 kHz."
+"<emphasis>Kmitočtový rozsah</emphasis> je také omezený. Kvůli mechanickým "
+"omezením mikrofonů a omezenému kmitočtovému rozsahu zesilovačů je kmitočtový "
+"rozsah signálu omezený. Nejsou pevné hranice, za nimiž zvuk znenadání zmizí, "
+"ale pod některými nízkými a nad některými vyššími kmitočty se rozkmit "
+"signálu začíná více a více snižovat. Bytí nejveššího možného kmitočtu lze "
+"snadno chápat jako omezenou rychlost elektrického signálu při stoupání a "
+"klesání. Používáním vysoce kvalitních zesilovačů a mikrofonů mohou být tato "
+"omezení rozšířena až po rozsah, kdy lidské ucho již dále není schopno "
+"uslyšet jejich výsledky a tím se o ně přestává zajímat. Lidské ucho obyčejně "
+"není schopné zaslechnout zvuk s kmitočtem nad 20 kHz."
 
 #. Tag: para
 #: help_en-work.docbook:867
@@ -1586,8 +1595,16 @@ msgid ""
 "better the sound's quality will be. Sounds that have lower volume than the "
 "noise cannot be heart."
 msgstr ""
-"Signál obsahuje <emphasis>šum</emphasis>. Šum je nejošklivějším nepřítelem každému, kdo musí jakkoli zpracovávat audio signál. Šum je typickým účinkem anologu, který vede k tomu, že audio signál je \"neostrý\" a nevyrovnaný. Je vždy přítomen a nelze se mu vyhnout. Člověk může akorát tak používat vysoce kvalitní součástky, které vytvářejí šum nízký natolik, až jak je to vůbec možné, takže jej již nelze slyšet. Obyčejně má šum určitou hlasitost, takže "
-"poutavý zvuk by měl být mnohem hlasitější ve srovnání se šumem. Říká se tomu <emphasis>poměr signálu a šumu (SNR; signal to noise ratio)</emphasis>. Čím je poměr vyšší, tím lepší je kvalita zvuku. Zvuky, u nichž je jejich hlasitost nižší než hlasitost šumu, nelze slyšet."
+"Signál obsahuje <emphasis>šum</emphasis>. Šum je nejošklivějším nepřítelem "
+"každému, kdo musí jakkoli zpracovávat audio signál. Šum je typickým účinkem "
+"anologu, který vede k tomu, že audio signál je \"neostrý\" a nevyrovnaný. Je "
+"vždy přítomen a nelze se mu vyhnout. Člověk může akorát tak používat vysoce "
+"kvalitní součástky, které vytvářejí šum nízký natolik, až jak je to vůbec "
+"možné, takže jej již nelze slyšet. Obyčejně má šum určitou hlasitost, takže "
+"poutavý zvuk by měl být mnohem hlasitější ve srovnání se šumem. Říká se tomu "
+"<emphasis>poměr signálu a šumu (SNR; signal to noise ratio)</emphasis>. Čím "
+"je poměr vyšší, tím lepší je kvalita zvuku. Zvuky, u nichž je jejich "
+"hlasitost nižší než hlasitost šumu, nelze slyšet."
 
 #. Tag: title
 #: help_en-work.docbook:886
@@ -1603,7 +1620,11 @@ msgid ""
 "analogue sound into digital data first. This process is called "
 "<emphasis>digitalization</emphasis>. It converts an electronic signal into a "
 "sequence of digital values."
-msgstr "Když chceme ukládat a přehrávat zvuk v počítači, musíme nejprve převést analogový zvuk na digitální data. Tomuto procesu převodu se říká <emphasis>digitalizace</emphasis>. Dochází při něm k převodu elektronického signálu na sled číslicových hodnot (digitálních)."
+msgstr ""
+"Když chceme ukládat a přehrávat zvuk v počítači, musíme nejprve převést "
+"analogový zvuk na digitální data. Tomuto procesu převodu se říká "
+"<emphasis>digitalizace</emphasis>. Dochází při něm k převodu elektronického "
+"signálu na sled číslicových hodnot (digitálních)."
 
 #. Tag: phrase
 #: help_en-work.docbook:899
@@ -1624,7 +1645,10 @@ msgid ""
 "The conversion can be understood as a repetitive measurement of the "
 "electonic signal's value at certain time, thus taking a <emphasis>sample</"
 "emphasis> of the signal. The result is then encoded as a digital value."
-msgstr "Převod lze chápat jako v určitém čase se opakující měření hodnoty elektronického signálu, čímž se získává <emphasis>vzorek</emphasis> signálu. Výsledek se pak zakóduje jako číslicová hodnota."
+msgstr ""
+"Převod lze chápat jako v určitém čase se opakující měření hodnoty "
+"elektronického signálu, čímž se získává <emphasis>vzorek</emphasis> signálu. "
+"Výsledek se pak zakóduje jako číslicová hodnota."
 
 #. Tag: para
 #: help_en-work.docbook:910
@@ -1636,7 +1660,13 @@ msgid ""
 "sample rates are 8000, 11025, 22050, and 44100 samples per second. In "
 "practice sample rates are also given as frequencies, in Hz or kHz."
 msgstr ""
-"Vzorkování lze provádět v libovolných vzdálenostech nebo ve stálých rozmezích (intervalech). Posledně jmenovaný způsob se dá provést mnohem snadněji, a proto se obvykle používá, se stálým kmitočtem (rychlostí) - tzv. <emphasis>vzorkovací kmitočet (rychlost)</emphasis>. Obyvyklými vzorkovacími kmitočty (rychlostmi) jsou 8000, 11025, 22050, a 44100 vzorků za sekundu. V provozu se vzorkovací kmitočty udávají jako kmitočty (frekvence) v Hz nebo kHz."
+"Vzorkování lze provádět v libovolných vzdálenostech nebo ve stálých "
+"rozmezích (intervalech). Posledně jmenovaný způsob se dá provést mnohem "
+"snadněji, a proto se obvykle používá, se stálým kmitočtem (rychlostí) - tzv. "
+"<emphasis>vzorkovací kmitočet (rychlost)</emphasis>. Obyvyklými vzorkovacími "
+"kmitočty (rychlostmi) jsou 8000, 11025, 22050, a 44100 vzorků za sekundu. V "
+"provozu se vzorkovací kmitočty udávají jako kmitočty (frekvence) v Hz nebo "
+"kHz."
 
 #. Tag: para
 #: help_en-work.docbook:918
@@ -1649,8 +1679,13 @@ msgid ""
 "soundcard already has built-in filters that filter away frequencies that are "
 "higher than half of the used sample rate."
 msgstr ""
-"Vzorkovací kmitočet omezuje nejvyšší kmitočet, který může představovat signál převedený do číslicové podoby (zdigitalizovaný). Podle Shannonovy poučky je nejvyšší použitelný kmitočet polovinou vzorkovacího kmitočtu, takže se vzorkovacím kmitočtem 44.1 kHz nemůžete vzorkovat signály s více než 22 kHz. Aby se předešlo porušení pravidla o polovině vzorkovacího kmitočtu má již vaše zvuková karta zabudovány filtry, které odfiltrují kmitočty, které jsou "
-"vyšší než polovina používaného vzorkovacího kmitočtu."
+"Vzorkovací kmitočet omezuje nejvyšší kmitočet, který může představovat "
+"signál převedený do číslicové podoby (zdigitalizovaný). Podle Shannonovy "
+"poučky je nejvyšší použitelný kmitočet polovinou vzorkovacího kmitočtu, "
+"takže se vzorkovacím kmitočtem 44.1 kHz nemůžete vzorkovat signály s více "
+"než 22 kHz. Aby se předešlo porušení pravidla o polovině vzorkovacího "
+"kmitočtu má již vaše zvuková karta zabudovány filtry, které odfiltrují "
+"kmitočty, které jsou vyšší než polovina používaného vzorkovacího kmitočtu."
 
 #. Tag: phrase
 #: help_en-work.docbook:932
@@ -1677,7 +1712,10 @@ msgid ""
 "The result of the digital sampling process is a sequence of single "
 "<emphasis>samples</emphasis>. One sample is a digital representation of a "
 "signal's value at a certain time."
-msgstr "Výsledkem číslicového vzorkovacího procesu je sled jednoduchých <emphasis>vzorků</emphasis>. Jeden vzorek je číslicovým zachycením hodnoty signálu v určitý čas."
+msgstr ""
+"Výsledkem číslicového vzorkovacího procesu je sled jednoduchých "
+"<emphasis>vzorků</emphasis>. Jeden vzorek je číslicovým zachycením hodnoty "
+"signálu v určitý čas."
 
 #. Tag: para
 #: help_en-work.docbook:946
@@ -1689,7 +1727,13 @@ msgid ""
 "with a constant factor. This is easy to handle, but has the disadvantage "
 "that noise will be audibles especially on low amplitudes, where it disturbes "
 "most, and less audible on high amplitudes, where it is less audible."
-msgstr "Hodnota vzorku může být vykládána a zakódována několika způsoby. Nejjednodušším je <emphasis>přímočaré</emphasis> zakódování. Znamená to, že každá hodnota vzorku přímo vyjadřuje hodnotu analogového signálu násobenou stálým násobkem. Dobře se s tím dá zacházet, ale nevýhodou je, že šum je slyšitelný obzvláště při nízkých rozkmitech, kde ruší nejvíce, a méně slyšitelný u vysokých rozkmitů, kde je to méně slyšet."
+msgstr ""
+"Hodnota vzorku může být vykládána a zakódována několika způsoby. "
+"Nejjednodušším je <emphasis>přímočaré</emphasis> zakódování. Znamená to, že "
+"každá hodnota vzorku přímo vyjadřuje hodnotu analogového signálu násobenou "
+"stálým násobkem. Dobře se s tím dá zacházet, ale nevýhodou je, že šum je "
+"slyšitelný obzvláště při nízkých rozkmitech, kde ruší nejvíce, a méně "
+"slyšitelný u vysokých rozkmitů, kde je to méně slyšet."
 
 #. Tag: para
 #: help_en-work.docbook:955
@@ -1703,8 +1747,13 @@ msgid ""
 "logarithmic amplification curves, used in digital telephony (ITU G.711 "
 "standard)."
 msgstr ""
-"Jedním ze způsobů, jak omezit vliv šumu je <emphasis>nepřímočaré</emphasis> zakódování. Znamená to, že nižší rozkmity jsou zesíleny před zpracováním. Když jsou nižší rozkmity zesíleny, jejich vzdálenost od šumu se zvětší a kvalita zlepší. Nejběžnějšími metodami pro provedení tohoto způsobu jsou zakódování podle <emphasis>pravidla A</"
-"emphasis> a <emphasis>pravidla U</emphasis> - standardizované křivky logaritmického zesílení používané při digitálním telefonování (ITU G.711 standard)."
+"Jedním ze způsobů, jak omezit vliv šumu je <emphasis>nepřímočaré</emphasis> "
+"zakódování. Znamená to, že nižší rozkmity jsou zesíleny před zpracováním. "
+"Když jsou nižší rozkmity zesíleny, jejich vzdálenost od šumu se zvětší a "
+"kvalita zlepší. Nejběžnějšími metodami pro provedení tohoto způsobu jsou "
+"zakódování podle <emphasis>pravidla A</emphasis> a <emphasis>pravidla U</"
+"emphasis> - standardizované křivky logaritmického zesílení používané při "
+"digitálním telefonování (ITU G.711 standard)."
 
 #. Tag: phrase
 #: help_en-work.docbook:969
@@ -1735,8 +1784,13 @@ msgid ""
 "(only positive values, \"zero line\" is at half of the numeric range) and "
 "<emphasis>signed</emphasis> (positive and negative values) integer formats."
 msgstr ""
-"Vzorky se dají ukládat do různých formátů a s různou přesností. Nejběžnější jsou formáty celočíselné (s pevnou desetinnou čárkou), které ukládají hodnoty s <emphasis>pevným kvantováním</emphasis>. V závislosti na tom, kde je určena nulová čára, musí se rozlišovat mezi celočíselnými formáty <emphasis>jsoucí bez znaménka</emphasis> (pouze kladné hodnoty), \"nulová čára\" je v polovině číselného rozsahu), a <emphasis>se znaménkem</emphasis> (kladné a "
-"záporné hodnoty)"
+"Vzorky se dají ukládat do různých formátů a s různou přesností. Nejběžnější "
+"jsou formáty celočíselné (s pevnou desetinnou čárkou), které ukládají "
+"hodnoty s <emphasis>pevným kvantováním</emphasis>. V závislosti na tom, kde "
+"je určena nulová čára, musí se rozlišovat mezi celočíselnými formáty "
+"<emphasis>jsoucí bez znaménka</emphasis> (pouze kladné hodnoty), \"nulová "
+"čára\" je v polovině číselného rozsahu), a <emphasis>se znaménkem</emphasis> "
+"(kladné a záporné hodnoty)"
 
 #. Tag: phrase
 #: help_en-work.docbook:992
@@ -1771,7 +1825,12 @@ msgid ""
 "on low amplitudes, so this method of storing samples is not optimal, but "
 "quite easy and very fast to handle (computers are fast in calculating with "
 "fixed point numbers)."
-msgstr "Protože kvantování ztrácí určitou přesnost, vytváří šum, tzv. <emphasis>šum z kvantování</emphasis>. Tento druh šumu má větší účinek na nízké rozkmity, proto tento způsob ukládání vzorků není nejlepší, ale je docela snadný a velmi rychlý na zvládnutí (počítače jsou rychlé při výpočtech s čísly s pevnou desetinnou čárkou)."
+msgstr ""
+"Protože kvantování ztrácí určitou přesnost, vytváří šum, tzv. <emphasis>šum "
+"z kvantování</emphasis>. Tento druh šumu má větší účinek na nízké rozkmity, "
+"proto tento způsob ukládání vzorků není nejlepší, ale je docela snadný a "
+"velmi rychlý na zvládnutí (počítače jsou rychlé při výpočtech s čísly s "
+"pevnou desetinnou čárkou)."
 
 #. Tag: para
 #: help_en-work.docbook:1013
@@ -1784,8 +1843,13 @@ msgid ""
 "(computers are much slower on calculating with floating point values in "
 "comparison to fixed point numbers)."
 msgstr ""
-"Druhým způsobem je zakódování vzorků s čísly v <emphasis>pohyblivé desetinné čárce</"
-"emphasis>. S čísly v pohyblivé desetinné čárce je šum rozprostřen téměř rovnoměrně po všech rozsazích rozkmitů a výhodně obzvláště u nízkých rozkmitů. Avšak tento formát je mnohem pomalejší, je-li použit při zpracovávání (počítače jsou mnohem pomalejší při výpočtech s hodnotami s pohyblivou desetinnou čárkou, srovnáme-li je s výpočty s čísly s pevnou desetinnou čárkou)."
+"Druhým způsobem je zakódování vzorků s čísly v <emphasis>pohyblivé desetinné "
+"čárce</emphasis>. S čísly v pohyblivé desetinné čárce je šum rozprostřen "
+"téměř rovnoměrně po všech rozsazích rozkmitů a výhodně obzvláště u nízkých "
+"rozkmitů. Avšak tento formát je mnohem pomalejší, je-li použit při "
+"zpracovávání (počítače jsou mnohem pomalejší při výpočtech s hodnotami s "
+"pohyblivou desetinnou čárkou, srovnáme-li je s výpočty s čísly s pevnou "
+"desetinnou čárkou)."
 
 #. Tag: para
 #: help_en-work.docbook:1021
@@ -1796,7 +1860,12 @@ msgid ""
 "higher memory consumption when processing files with lower precision (e.g. 8 "
 "bits), but processing 32 bit numbers is very fast and also leaves some "
 "reserves for internal calculations, as only 24 bits are normally used."
-msgstr "&kapp; vnitřně používá formát <emphasis>celého čísla se znaménkem</emphasis> s přesností 24 bitů ukládaný v 32 bitových celých číslech. Nevýhodou je větší spotřeba paměti při zpracování souborů s nižší přesností (např. 8 bitových), ale zpracování 32 bitových čísel je velmi rychlé a také ponechává určité zálohy pro vnitřní výpočty, protože obyčejně se používá pouze 24 bitů."
+msgstr ""
+"&kapp; vnitřně používá formát <emphasis>celého čísla se znaménkem</emphasis> "
+"s přesností 24 bitů ukládaný v 32 bitových celých číslech. Nevýhodou je "
+"větší spotřeba paměti při zpracování souborů s nižší přesností (např. 8 "
+"bitových), ale zpracování 32 bitových čísel je velmi rychlé a také ponechává "
+"určité zálohy pro vnitřní výpočty, protože obyčejně se používá pouze 24 bitů."
 
 #. Tag: title
 #: help_en-work.docbook:1039
@@ -1810,7 +1879,9 @@ msgstr "Používání &kapp;"
 msgid ""
 "Here is a little screenshot of the &kapp; main window, so that you get an "
 "impression what &kapp; looks like..."
-msgstr "Tady je malý snímek obrazovky &kapp; hlavního okna, takže získáte dojem, jak &kapp; vypadá..."
+msgstr ""
+"Tady je malý snímek obrazovky &kapp; hlavního okna, takže získáte dojem, jak "
+"&kapp; vypadá..."
 
 #. Tag: screeninfo
 #: help_en-work.docbook:1046
@@ -1838,7 +1909,11 @@ msgid ""
 "dialog an modify the settings to be suitable for yor needs and the installed "
 "memory of your computer. You can reach it under <menuchoice> "
 "<guimenu>Options</guimenu><guimenuitem>Memory...</guimenuitem> </menuchoice>."
-msgstr "Při první použití &kapp; byste měl jít do dialogu s nastavením paměti a upravit nastavení tak, aby byla vhodná pro vaše potřeby a přiměřená vzhledem k nainstalované paměti vašeho počítače. Najdete jej pod <menuchoice> <guimenu>Volby</guimenu><guimenuitem>Paměť...</guimenuitem> </menuchoice>."
+msgstr ""
+"Při první použití &kapp; byste měl jít do dialogu s nastavením paměti a "
+"upravit nastavení tak, aby byla vhodná pro vaše potřeby a přiměřená vzhledem "
+"k nainstalované paměti vašeho počítače. Najdete jej pod <menuchoice> "
+"<guimenu>Volby</guimenu><guimenuitem>Paměť...</guimenuitem> </menuchoice>."
 
 #. Tag: screeninfo
 #: help_en-work.docbook:1075
@@ -1875,8 +1950,14 @@ msgid ""
 "might lose some performance when working with big files, because you use "
 "less of the fast physical memory than you could."
 msgstr ""
-"<emphasis>Fyzická paměť</emphasis> je pamětí (RAM), která je instalována ve vašem počítači. Měl byste omezit používání fyzické paměti na rozumnou velikost, přičemž podle pravidla palce by měla být polovina z instalované paměti OK. Pokud nastavíte hodnotu paměti příliš vysoko, Linux si vezme paměť od ostatních aplikací, což by znamenalo, že by hodil paměť ostatních aplikací na disk (swap), což je poněkud pomalé. Pokud naopak nastavíte omezení příliš "
-"nízko, můžete ztratit něco výkonu při práci s velkými soubory, protože používáte méně z rychlé fyzické paměti, než byste mohl."
+"<emphasis>Fyzická paměť</emphasis> je pamětí (RAM), která je instalována ve "
+"vašem počítači. Měl byste omezit používání fyzické paměti na rozumnou "
+"velikost, přičemž podle pravidla palce by měla být polovina z instalované "
+"paměti OK. Pokud nastavíte hodnotu paměti příliš vysoko, Linux si vezme "
+"paměť od ostatních aplikací, což by znamenalo, že by hodil paměť ostatních "
+"aplikací na disk (swap), což je poněkud pomalé. Pokud naopak nastavíte "
+"omezení příliš nízko, můžete ztratit něco výkonu při práci s velkými "
+"soubory, protože používáte méně z rychlé fyzické paměti, než byste mohl."
 
 #. Tag: para
 #: help_en-work.docbook:1103
@@ -1888,7 +1969,13 @@ msgid ""
 "directory, which is much faster and more cooperative to other applications "
 "than using the operating system's swapping. The directory that you configure "
 "should be on your local hard disk."
-msgstr "Pokud povolíte <emphasis>virtuální paměť</emphasis>, &kapp; může nahrávat a zpracovávat soubory, které jsou větší než je množství skutečně instalované fyzické paměti. &kapp; toto může dělat za použití dočasných souborů v nastavitelném adresáři, což je mnohem rychlejší a laskavější k dalším aplikacím, než použití odkládacího prostoru operačním systémem (swap). Adresář, který nastavíte, by se měl nacházet na vašem místním pevném disku."
+msgstr ""
+"Pokud povolíte <emphasis>virtuální paměť</emphasis>, &kapp; může nahrávat a "
+"zpracovávat soubory, které jsou větší než je množství skutečně instalované "
+"fyzické paměti. &kapp; toto může dělat za použití dočasných souborů v "
+"nastavitelném adresáři, což je mnohem rychlejší a laskavější k dalším "
+"aplikacím, než použití odkládacího prostoru operačním systémem (swap). "
+"Adresář, který nastavíte, by se měl nacházet na vašem místním pevném disku."
 
 #. Tag: title
 #: help_en-work.docbook:1119
@@ -1905,7 +1992,12 @@ msgid ""
 "the other files. Each file will be opened in an own new window of the same "
 "&kapp; instance. If you specify wildcards, you can open a large number of "
 "files at once."
-msgstr "Pokud začnete &kapp; z příkazové řádky, můžete určit seznam se soubory, které se mají otevřít. Soubor, který je určen jako první, bude jako první otevřen. Pak budou otevřeny ostatní soubory. Každý soubor se otevře ve vlastním novém okně té samé &kapp úrovně. Pokud určíte divoké karty, můžete otevřít velký počet souborů ihned."
+msgstr ""
+"Pokud začnete &kapp; z příkazové řádky, můžete určit seznam se soubory, "
+"které se mají otevřít. Soubor, který je určen jako první, bude jako první "
+"otevřen. Pak budou otevřeny ostatní soubory. Každý soubor se otevře ve "
+"vlastním novém okně té samé &kapp; úrovně. Pokud určíte divoké karty, můžete "
+"otevřít velký počet souborů ihned."
 
 #. Tag: para
 #: help_en-work.docbook:1128
@@ -1913,7 +2005,9 @@ msgstr "Pokud začnete &kapp; z příkazové řádky, můžete určit seznam se 
 msgid ""
 "For example, the following command starts a &kapp; and opens all sounds of "
 "the KDE window manager, each in a new window:"
-msgstr "Například následující příkaz začíná &kapp;  a otevře všechny zvuky KDE okenního správce, každý v novém okně."
+msgstr ""
+"Například následující příkaz začíná &kapp;  a otevře všechny zvuky KDE "
+"okenního správce, každý v novém okně."
 
 #. Tag: screen
 #: help_en-work.docbook:1131
@@ -1934,9 +2028,10 @@ msgid ""
 "the size and/or position of the first opened &kapp; window and or <literal>-"
 "display</literal> for starting the &kapp; on a different display."
 msgstr ""
-"Dále ještě k seznamu se soubory můžete stanovit seznam <emphasis>Xt "
-"sady softwarových nástrojů</emphasis> voleb jako <literal>-uspořádání</literal> pro určení velikosti a/nebo polohy prvního otevřeného &kapp; okna a nebo <literal>-"
-"zobrazení</literal> pro spuštění &kapp; na jiné obrazovce."
+"Dále ještě k seznamu se soubory můžete stanovit seznam <emphasis>Xt sady "
+"softwarových nástrojů</emphasis> voleb jako <literal>-uspořádání</literal> "
+"pro určení velikosti a/nebo polohy prvního otevřeného &kapp; okna a nebo "
+"<literal>-zobrazení</literal> pro spuštění &kapp; na jiné obrazovce."
 
 #. Tag: para
 #: help_en-work.docbook:1142
@@ -1946,7 +2041,10 @@ msgid ""
 "width of 600 pixels and a height of 400 pixels, with the right border "
 "positioned 30 pixels away from the right and 0 pixels away form the top of "
 "the screen."
-msgstr "Například následující příkaz spustí &kapp; okno s počáteční šířkou 600 pixelů a výškou 400 pixelů, s pravým okrajem umístěným 30 pixelů od pravého okraje obrazovky a 0 pixelů od horního okraje obrazovky"
+msgstr ""
+"Například následující příkaz spustí &kapp; okno s počáteční šířkou 600 "
+"pixelů a výškou 400 pixelů, s pravým okrajem umístěným 30 pixelů od pravého "
+"okraje obrazovky a 0 pixelů od horního okraje obrazovky"
 
 #. Tag: screen
 #: help_en-work.docbook:1147
@@ -1967,8 +2065,11 @@ msgstr "Otevírání a ukládání souborů"
 #. Tag: para
 #: help_en-work.docbook:1157
 #, no-c-format
-msgid "Opening files with &kapp; works like in most other applications, you can"
-msgstr "Otevírání souborů s &kapp; pracuje stejně jako ve většině dalších programů. Můžete"
+msgid ""
+"Opening files with &kapp; works like in most other applications, you can"
+msgstr ""
+"Otevírání souborů s &kapp; pracuje stejně jako ve většině dalších programů. "
+"Můžete"
 
 #. Tag: para
 #: help_en-work.docbook:1161
@@ -1977,8 +2078,8 @@ msgid ""
 "specify a list of files on the <link linkend=\"command_line\">command line</"
 "link> when starting &kapp;,"
 msgstr ""
-"stanovit seznam souborů pomocí <link linkend=\"command_line\">příkazové řádky</"
-"link>, když spouštíte program &kapp;,"
+"stanovit seznam souborů pomocí <link linkend=\"command_line\">příkazové "
+"řádky</link>, když spouštíte program &kapp;,"
 
 #. Tag: para
 #: help_en-work.docbook:1163
@@ -1993,8 +2094,8 @@ msgstr ""
 "otevřít prázdné &kapp; okno (například s <menuchoice> "
 "<shortcut><keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo></"
 "shortcut> <guimenu>Soubor</guimenu><guimenuitem>Nový...</guimenuitem> </"
-"menuchoice> ) a dát do toho soubor prostřednictvím akce<link linkend=\"drag_and_drop"
-"\">\"táhni a pusť\"</link>, nebo můžete"
+"menuchoice> ) a dát do toho soubor prostřednictvím akce<link linkend="
+"\"drag_and_drop\">\"táhni a pusť\"</link>, nebo můžete"
 
 #. Tag: para
 #: help_en-work.docbook:1171
@@ -2005,10 +2106,9 @@ msgid ""
 "shortcut> <guimenu>File</guimenu><guimenuitem>Open</guimenuitem> </"
 "menuchoice>"
 msgstr ""
-"otevřít soubor přes menu s <menuchoice> "
-"<shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></"
-"shortcut> <guimenu>Soubor</guimenu><guimenuitem>Otevřít</guimenuitem> </"
-"menuchoice>"
+"otevřít soubor přes menu s <menuchoice> <shortcut><keycombo><keycap>Ctrl</"
+"keycap><keycap>O</keycap></keycombo></shortcut> <guimenu>Soubor</"
+"guimenu><guimenuitem>Otevřít</guimenuitem> </menuchoice>"
 
 #. Tag: para
 #: help_en-work.docbook:1177
@@ -2041,9 +2141,9 @@ msgid ""
 "keycap></keycombo></shortcut> <guimenu>File</guimenu><guimenuitem>Save</"
 "guimenuitem><guimenuitem>As...</guimenuitem> </menuchoice>"
 msgstr ""
-"uložit pod jiným názvem s <menuchoice> "
-"<shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S</"
-"keycap></keycombo></shortcut> <guimenu>Soubor</guimenu><guimenuitem>Uložit</"
+"uložit pod jiným názvem s <menuchoice> <shortcut><keycombo><keycap>Shift</"
+"keycap><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut> "
+"<guimenu>Soubor</guimenu><guimenuitem>Uložit</"
 "guimenuitem><guimenuitem>Jako...</guimenuitem> </menuchoice>"
 
 #. Tag: para
@@ -2054,8 +2154,10 @@ msgid ""
 "<menuchoice> <guimenu>File</guimenu><guimenuitem>Save</"
 "guimenuitem><guimenuitem>Blocks...</guimenuitem> </menuchoice>"
 msgstr ""
-"uložit všechny oblasti, které jsou oděleny ukazovateli, každou do jejího vlastního souboru, s <menuchoice> <guimenu>Soubor</guimenu><guimenuitem>Uložit</"
-"guimenuitem><guimenuitem>Bloky...</guimenuitem> </menuchoice>"
+"uložit všechny oblasti, které jsou oděleny ukazovateli, každou do jejího "
+"vlastního souboru, s <menuchoice> <guimenu>Soubor</"
+"guimenu><guimenuitem>Uložit</guimenuitem><guimenuitem>Bloky...</guimenuitem> "
+"</menuchoice>"
 
 #. Tag: para
 #: help_en-work.docbook:1204
@@ -2066,8 +2168,8 @@ msgid ""
 "guimenuitem> </menuchoice>"
 msgstr ""
 "nebo jenom současný výběr s <menuchoice> <guimenu>Soubor</"
-"guimenu><guimenuitem>Uložit</guimenuitem><guimenuitem>Výběr...</"
-"guimenuitem> </menuchoice>"
+"guimenu><guimenuitem>Uložit</guimenuitem><guimenuitem>Výběr...</guimenuitem> "
+"</menuchoice>"
 
 #. Tag: title
 #: help_en-work.docbook:1213
@@ -2088,7 +2190,10 @@ msgid ""
 "The favourite file format of &kapp; is (like you can guess from the name) "
 "<filename>.wav</filename>. This format is very common to other \"operating "
 "systems\" and also is commonly used within the KDE environment."
-msgstr "Oblíbeným souborovým formátem &kapp;  je (jak můžete hádat z názvu KWave) <filename>.wav</filename>. Tento formát je velmi běžný u dalších \"operačních systémů\" a je rovněž obyčejně používán v rámci prostředí KDE."
+msgstr ""
+"Oblíbeným souborovým formátem &kapp;  je (jak můžete hádat z názvu KWave) "
+"<filename>.wav</filename>. Tento formát je velmi běžný u dalších "
+"\"operačních systémů\" a je rovněž obyčejně používán v rámci prostředí KDE."
 
 #. Tag: para
 #: help_en-work.docbook:1226
@@ -2100,8 +2205,11 @@ msgid ""
 "The file format will be described <link linkend=\"ascii_format\">below</"
 "link>."
 msgstr ""
-"Druhým formátem, který &kapp; podporuje je \"ASCII\". Můžete vyvést soubor do ASCII, ale v současnosti z něj nelze soubor zavést (toto nyní není v programu uskutečněno). Buďte si, prosím, vědom, že ukládání do tohoto formátu může vytvořit velmi rozsáhlé soubory! Tento souborový formát bude popsán <link linkend=\"ascii_format\">níže</"
-"link>."
+"Druhým formátem, který &kapp; podporuje je \"ASCII\". Můžete vyvést soubor "
+"do ASCII, ale v současnosti z něj nelze soubor zavést (toto nyní není v "
+"programu uskutečněno). Buďte si, prosím, vědom, že ukládání do tohoto "
+"formátu může vytvořit velmi rozsáhlé soubory! Tento souborový formát bude "
+"popsán <link linkend=\"ascii_format\">níže</link>."
 
 #. Tag: para
 #: help_en-work.docbook:1233
@@ -2113,9 +2221,9 @@ msgid ""
 "id3lib.org/\">id3lib</ulink> for decoding ID3 tags."
 msgstr ""
 "<filename>.mp3</filename> a <filename>.mp2</filename> zavádění je dostupné "
-"přes <ulink url=\"http://www.mars.org/home/rob/proj/mpeg/\">libmad</"
-"ulink> pro rozluštění MP3 ve spojení s <ulink url=\"http://www."
-"id3lib.org/\">id3lib</ulink> pro rozluštění ID3 značek."
+"přes <ulink url=\"http://www.mars.org/home/rob/proj/mpeg/\">libmad</ulink> "
+"pro rozluštění MP3 ve spojení s <ulink url=\"http://www.id3lib.org/"
+"\">id3lib</ulink> pro rozluštění ID3 značek."
 
 #. Tag: para
 #: help_en-work.docbook:1242
@@ -2123,7 +2231,10 @@ msgstr ""
 msgid ""
 "Ogg/Vorbis (<filename>*.ogg</filename>) import and export. See <ulink url="
 "\"http://www.xiph.org\">http://www.xiph.org</ulink> for details."
-msgstr "Ogg/Vorbis (<filename>*.ogg</filename>) zavedení souboru a vyvedení do souboru. Viz <ulink url= \"http://www.xiph.org\">http://www.xiph.org</ulink> pro podrobnosti."
+msgstr ""
+"Ogg/Vorbis (<filename>*.ogg</filename>) zavedení souboru a vyvedení do "
+"souboru. Viz <ulink url= \"http://www.xiph.org\">http://www.xiph.org</ulink> "
+"pro podrobnosti."
 
 #. Tag: para
 #: help_en-work.docbook:1249
@@ -2138,10 +2249,10 @@ msgid ""
 msgstr ""
 "Dále &kapp; podporuje mnoho jiných běžných formátů prostřednictvím <ulink "
 "url=\"http://freeware.sgi.com/Installable/audiofile-0.2.3.html\">audiofile</"
-"ulink> přídavného modulu. Můžete zavést soubory jako <filename>*.au</filename> a "
-"<filename>*.snd</filename> (NeXT, Sun Audio), <filename>*.aiff</filename> "
-"(Audio Interchange Format) a <filename>*.sf</filename> (Berkeley, IRCAM,"
-"Carl Sound Format)."
+"ulink> přídavného modulu. Můžete zavést soubory jako <filename>*.au</"
+"filename> a <filename>*.snd</filename> (NeXT, Sun Audio), <filename>*.aiff</"
+"filename> (Audio Interchange Format) a <filename>*.sf</filename> (Berkeley, "
+"IRCAM,Carl Sound Format)."
 
 #. Tag: title
 #: help_en-work.docbook:1265
@@ -2157,7 +2268,11 @@ msgid ""
 "use an external converter program. A good set of tools for this is in the "
 "<ulink url=\"http://sox.sourceforge.net/\">SoX</ulink> package, they have "
 "also some nice documentation!"
-msgstr "Nejlepším způsobem pro práci s jinými formáty než podporovanými &kapp; je použití vnějšího převodního programu. Dobrá sada nástrojů pro toto použití se nachází v balíčku <ulink url=\"http://sox.sourceforge.net/\">SoX</ulink>, pro který rovněž existuje hezká dokumentace!"
+msgstr ""
+"Nejlepším způsobem pro práci s jinými formáty než podporovanými &kapp; je "
+"použití vnějšího převodního programu. Dobrá sada nástrojů pro toto použití "
+"se nachází v balíčku <ulink url=\"http://sox.sourceforge.net/\">SoX</ulink>, "
+"pro který rovněž existuje hezká dokumentace!"
 
 #. Tag: para
 #: help_en-work.docbook:1275
@@ -2167,7 +2282,11 @@ msgid ""
 "more formats and maybe some filter that uses a user-defineable script with a "
 "call to an external filter, so that even formats not supported by "
 "<literal>SoX</literal> (like MP3) can be read and/or written."
-msgstr "Plány na budoucí zahrnutí zaváděcích a také vyváděcích filtrů pro více formátů a možná i nějakých filtrů, které by používaly uživatelsky stanovený skript s voláním vnějšího filtru, takže by mohly být čteny a/nebo zapisovány i formáty nepodporované <literal>SoX</literal> (jako je MP3)."
+msgstr ""
+"Plány na budoucí zahrnutí zaváděcích a také vyváděcích filtrů pro více "
+"formátů a možná i nějakých filtrů, které by používaly uživatelsky stanovený "
+"skript s voláním vnějšího filtru, takže by mohly být čteny a/nebo zapisovány "
+"i formáty nepodporované <literal>SoX</literal> (jako je MP3)."
 
 #. Tag: title
 #: help_en-work.docbook:1283
@@ -2185,12 +2304,19 @@ msgid ""
 "convert it into ASCII. As the format is <emphasis>really</emphasis> simple, "
 "you should not have big problems in writing a converter and most scientific "
 "applications use to have some kind of their own ASCII format for export."
-msgstr "Formát ASCII je docela užitečný pro vědecké a vzdělávací účely. Díky jeho jednoduchému formátu, můžete buď vlastnoručně zapisovat jednoduché soubory v textovém editoru, nebo můžete použít výstup jiné aplikace a převést jej do ASCII. Jelikož je formát <emphasis>skutečně</emphasis>jednoduchý, neměl byste mít velké problémy s psaním převodníku a většina vědeckých programů obvykle má nějaký druh svého vlastního ASCII formátu určeného pro export."
+msgstr ""
+"Formát ASCII je docela užitečný pro vědecké a vzdělávací účely. Díky jeho "
+"jednoduchému formátu, můžete buď vlastnoručně zapisovat jednoduché soubory v "
+"textovém editoru, nebo můžete použít výstup jiné aplikace a převést jej do "
+"ASCII. Jelikož je formát <emphasis>skutečně</emphasis>jednoduchý, neměl "
+"byste mít velké problémy s psaním převodníku a většina vědeckých programů "
+"obvykle má nějaký druh svého vlastního ASCII formátu určeného pro export."
 
 #. Tag: para
 #: help_en-work.docbook:1296
 #, no-c-format
-msgid "The format of an ASCII file is quite simple and has the following rules:"
+msgid ""
+"The format of an ASCII file is quite simple and has the following rules:"
 msgstr "Formát ASCII je docela jednoduchý a řídí se následujícími pravidly:"
 
 #. Tag: para
@@ -2199,7 +2325,8 @@ msgstr "Formát ASCII je docela jednoduchý a řídí se následujícími pravid
 msgid ""
 "At the start of the file comes a block of properties, with one property per "
 "line."
-msgstr "Na začátku souboru se nachází blok s vlastnostmi; jedna vlastnost na řádek."
+msgstr ""
+"Na začátku souboru se nachází blok s vlastnostmi; jedna vlastnost na řádek."
 
 #. Tag: para
 #: help_en-work.docbook:1303
@@ -2213,7 +2340,9 @@ msgstr "Každý řádek s vlastností začíná s <literal>##</literal>."
 msgid ""
 "After the properties comes a list of samples, with one sample per line. When "
 "using multiple channels, the samples are separated by commas."
-msgstr "Po vlastnostech přichází seznam se vzorky - jeden vzorek na řádek. Při použití více kanálů jsou vzorky odděleny čárkami."
+msgstr ""
+"Po vlastnostech přichází seznam se vzorky - jeden vzorek na řádek. Při "
+"použití více kanálů jsou vzorky odděleny čárkami."
 
 #. Tag: para
 #: help_en-work.docbook:1310
@@ -2222,7 +2351,11 @@ msgid ""
 "Lines might end with a carriage return and/or a line feed character (so DOS "
 "files are supported too). But when saving, files will always be saved with "
 "line feed character as the end of the line."
-msgstr "Řádky mohou končit znakem operace, která připravuje další znak, aby byl tištěn nebo zobrazen jako první znak na řádku a/nebo znakem pro posun (takže DOSové soubory jsou podporovány také). Ale při ukládání budou soubory vždy uloženy se znakem pro posun řádku jako konce řádku."
+msgstr ""
+"Řádky mohou končit znakem operace, která připravuje další znak, aby byl "
+"tištěn nebo zobrazen jako první znak na řádku a/nebo znakem pro posun (takže "
+"DOSové soubory jsou podporovány také). Ale při ukládání budou soubory vždy "
+"uloženy se znakem pro posun řádku jako konce řádku."
 
 #. Tag: para
 #: help_en-work.docbook:1316
@@ -2230,7 +2363,9 @@ msgstr "Řádky mohou končit znakem operace, která připravuje další znak, a
 msgid ""
 "Empty lines and characters after a <literal>#</literal> are treated as "
 "comments and are ignored."
-msgstr "S prázdnými řádky a znaky po <literal>#</literal> je zacházeno jako s poznámkami a jsou přehlíženy."
+msgstr ""
+"S prázdnými řádky a znaky po <literal>#</literal> je zacházeno jako s "
+"poznámkami a jsou přehlíženy."
 
 #. Tag: para
 #: help_en-work.docbook:1320
@@ -2239,7 +2374,11 @@ msgid ""
 "Values can be are given in any format that the C library of your system is "
 "able to read and interprete as a floating point or integer number. But when "
 "saving, &kapp; will save as in signed integer format with a 24 bit range."
-msgstr "Hodnoty mohou být vkládány v jakémkoli formátu, který je schopna knihovna C vašeho systému číst a překládat jako číslo s pohyblivou řádovou čárkou nebo celé číslo. Ale při ukládání bude &kapp; ukládat jako ve formátu celé číslo se znaménkem s 24 bitovým rozsahem."
+msgstr ""
+"Hodnoty mohou být vkládány v jakémkoli formátu, který je schopna knihovna C "
+"vašeho systému číst a překládat jako číslo s pohyblivou řádovou čárkou nebo "
+"celé číslo. Ale při ukládání bude &kapp; ukládat jako ve formátu celé číslo "
+"se znaménkem s 24 bitovým rozsahem."
 
 #. Tag: para
 #: help_en-work.docbook:1326
@@ -2247,7 +2386,10 @@ msgstr "Hodnoty mohou být vkládány v jakémkoli formátu, který je schopna k
 msgid ""
 "All values are expected to be in signed format. So if you import a file with "
 "only positive values, you will only see samples that are above the zero line."
-msgstr "Očekává se, že všechny hodnoty budou ve formátu se znaménkem. Takže pokud zavádíte soubor, který má pouze kladné hodnoty, uvidíte jen vzorky, které jsou nad nulovou čárou."
+msgstr ""
+"Očekává se, že všechny hodnoty budou ve formátu se znaménkem. Takže pokud "
+"zavádíte soubor, který má pouze kladné hodnoty, uvidíte jen vzorky, které "
+"jsou nad nulovou čárou."
 
 #. Tag: para
 #: help_en-work.docbook:1331
@@ -2256,13 +2398,17 @@ msgid ""
 "When importing, values can be specified in any range, &kapp; always does a "
 "first pass over the file to get the highest absolute value and defines that "
 "value as \"100%\" before really reading in the file and scaling it."
-msgstr "Při zavádění mohou být hodnoty stanoveny v jakémkoli rozsahu, &kapp; vždy napoprvé přejde soubor, aby získal největší absolutní hodnotu, a určí tu hodnotu jako \"100%\" předtím, než skutečně začne soubor číst a měřit."
+msgstr ""
+"Při zavádění mohou být hodnoty stanoveny v jakémkoli rozsahu, &kapp; vždy "
+"napoprvé přejde soubor, aby získal největší absolutní hodnotu, a určí tu "
+"hodnotu jako \"100%\" předtím, než skutečně začne soubor číst a měřit."
 
 #. Tag: para
 #: help_en-work.docbook:1337
 #, no-c-format
 msgid "Internally all values are stored with 24 bit precision (signed)."
-msgstr "Uvnitř jsou všechny hodnoty ukládány s 24 bitovou přesností (se znaménkem)."
+msgstr ""
+"Uvnitř jsou všechny hodnoty ukládány s 24 bitovou přesností (se znaménkem)."
 
 #. Tag: para
 #: help_en-work.docbook:1343
@@ -2270,7 +2416,9 @@ msgstr "Uvnitř jsou všechny hodnoty ukládány s 24 bitovou přesností (se zn
 msgid ""
 "Here is an example of a simple ASCII file that represents a sine wave with "
 "eleven samples:"
-msgstr " Zde je příklad jednoduchého ASCII souboru, který představuje sinusovou vlnu s jedenácti vzorky:"
+msgstr ""
+" Zde je příklad jednoduchého ASCII souboru, který představuje sinusovou vlnu "
+"s jedenácti vzorky:"
 
 #. Tag: title
 #: help_en-work.docbook:1347
@@ -2332,13 +2480,16 @@ msgstr "Vytvoření nového souboru"
 msgid ""
 "You can create a new and empty file menu under <menuchoice> <guimenu>File</"
 "guimenu><guimenuitem>New...</guimenuitem> </menuchoice>."
-msgstr "Můžete vytvořit nový a prázdný soubor v nabídce hlavní lišty <menuchoice> <guimenu>Soubor</guimenu><guimenuitem>Nový...</guimenuitem> </menuchoice>."
+msgstr ""
+"Můžete vytvořit nový a prázdný soubor v nabídce hlavní lišty <menuchoice> "
+"<guimenu>Soubor</guimenu><guimenuitem>Nový...</guimenuitem> </menuchoice>."
 
 #. Tag: screeninfo
 #: help_en-work.docbook:1368
 #, no-c-format
 msgid "Here's a screenshot of &kapp;'s new file dialog"
-msgstr "Tady je snímek obrazovky &kapp; s dialogem pro vytvoření nového souboru"
+msgstr ""
+"Tady je snímek obrazovky &kapp; s dialogem pro vytvoření nového souboru"
 
 #. Tag: phrase
 #: help_en-work.docbook:1376
@@ -2353,7 +2504,10 @@ msgid ""
 "You can select the sample rate, resolution in bits per sample and the number "
 "of tracks. Per default the file format will be \".wav\", but it can still be "
 "changed at the time when the file is saved."
-msgstr "Můžete zvolit vzorkovací kmitočet, rozlišení v bitech na vzorek a počet stop. Výchozím souborovým formátem je \".wav\", ale ten může být ještě změněn v době, kdy je soubor ukládán."
+msgstr ""
+"Můžete zvolit vzorkovací kmitočet, rozlišení v bitech na vzorek a počet "
+"stop. Výchozím souborovým formátem je \".wav\", ale ten může být ještě "
+"změněn v době, kdy je soubor ukládán."
 
 #. Tag: para
 #: help_en-work.docbook:1386
@@ -2363,7 +2517,11 @@ msgid ""
 "by the number of samples. Additionally you can select it relative to the "
 "highest possible length, which is limited by the available memory and "
 "&kapp;'s internal limit (2 GB)."
-msgstr "Délka nového signálu může být stanovena podle času (hodiny, minuty, sekundy) nebo podle počtu vzorků. Vedle toho ji můžete zvolit poměrně k nějvětší možné délce, která omezena dostupnou pamětí a vnitřním omezením &kapp; (2 GB)."
+msgstr ""
+"Délka nového signálu může být stanovena podle času (hodiny, minuty, sekundy) "
+"nebo podle počtu vzorků. Vedle toho ji můžete zvolit poměrně k nějvětší "
+"možné délce, která omezena dostupnou pamětí a vnitřním omezením &kapp; (2 "
+"GB)."
 
 #. Tag: title
 #: help_en-work.docbook:1398
@@ -2380,7 +2538,12 @@ msgid ""
 "Currently &kapp; records through the old OSS sound interface, and since "
 "v0.7.4 also the newer and more powerful ALSA interface that is the preferred "
 "choice for linux kernel 2.6."
-msgstr "&kapp; může nahrávat zvuková data z různých zdrojů, se všemi vzorkovacími kmitočty, vzorkovacími formáty a jinými způsoby, jež podporuje vyše zvuková karta. Nyní &kapp; nahrává přes staré OSS zvukové rozhraní, a od v0.7.4 také přes novější a mocnější rozhraní ALSA, jež je upřednostňovanou volbou pro linuxové jádro 2.6."
+msgstr ""
+"&kapp; může nahrávat zvuková data z různých zdrojů, se všemi vzorkovacími "
+"kmitočty, vzorkovacími formáty a jinými způsoby, jež podporuje vyše zvuková "
+"karta. Nyní &kapp; nahrává přes staré OSS zvukové rozhraní, a od v0.7.4 také "
+"přes novější a mocnější rozhraní ALSA, jež je upřednostňovanou volbou pro "
+"linuxové jádro 2.6."
 
 #. Tag: para
 #: help_en-work.docbook:1407
@@ -2399,7 +2562,11 @@ msgid ""
 "Here is a screenshot of the &kapp; record dialog, showing the first page "
 "with the recording controls during a running recording session. Like in most "
 "dialogs of &kapp; you can get some help or see tooltips on the controls."
-msgstr "Tady je snímek obrazovky &kapp; s nahrávacím dialogem, na němž je vidět první stránka s ovládáním nahrávání během spuštěného nahrávacího sezení. Tak jako je tomu ve většině dialogů &kapp;, můžete obdržet určitou nápovědu nebo si prohlédnout rady k nástrojům u ovládacích prvků."
+msgstr ""
+"Tady je snímek obrazovky &kapp; s nahrávacím dialogem, na němž je vidět "
+"první stránka s ovládáním nahrávání během spuštěného nahrávacího sezení. Tak "
+"jako je tomu ve většině dialogů &kapp;, můžete obdržet určitou nápovědu nebo "
+"si prohlédnout rady k nástrojům u ovládacích prvků."
 
 #. Tag: screeninfo
 #: help_en-work.docbook:1422
@@ -2435,11 +2602,18 @@ msgid ""
 "press the record button and get the start of the song from what &kapp; has "
 "already pre-recorded before, so that you will no longer miss a start."
 msgstr ""
-"<guilabel>Nahrát předem:</guilabel> Pokud je funkce nahrávání předem &kapp; povolena a nahrávání je spuštěno, &kapp; nahrává do vnitřní vyrovnávací paměti, "
-"která je dlouhá několik sekund. Jestliže stisknete <guibutton>Nahrávací</guibutton> "
-"( <inlinemediaobject> <imageobject> <imagedata fileref=\"krec_record.png\" "
-"format=\"PNG\"/> </imageobject> <textobject> <phrase>tlačítko pro nahrávání</phrase> </textobject> </inlinemediaobject> ) tlačítko znovu, pak nahrávání opravdu začne, a rovněž budou zachována data, která byla nahrána předem. Toto je například užitečné, pokud chcete nahrávat svou oblíbenou skladbu z rádia, ale poznáte příliš pozdě, že písnička už začala. V tom případě můžete stále ještě stisknout nahrávací tlačítko a získat začátek skladby, který byl "
-"již předtím nahrán &kapp;, čímž již vícekrát nezmeškáte žádný začátek."
+"<guilabel>Nahrát předem:</guilabel> Pokud je funkce nahrávání předem &kapp; "
+"povolena a nahrávání je spuštěno, &kapp; nahrává do vnitřní vyrovnávací "
+"paměti, která je dlouhá několik sekund. Jestliže stisknete "
+"<guibutton>Nahrávací</guibutton> ( <inlinemediaobject> <imageobject> "
+"<imagedata fileref=\"krec_record.png\" format=\"PNG\"/> </imageobject> "
+"<textobject> <phrase>tlačítko pro nahrávání</phrase> </textobject> </"
+"inlinemediaobject> ) tlačítko znovu, pak nahrávání opravdu začne, a rovněž "
+"budou zachována data, která byla nahrána předem. Toto je například užitečné, "
+"pokud chcete nahrávat svou oblíbenou skladbu z rádia, ale poznáte příliš "
+"pozdě, že písnička už začala. V tom případě můžete stále ještě stisknout "
+"nahrávací tlačítko a získat začátek skladby, který byl již předtím nahrán "
+"&kapp;, čímž již vícekrát nezmeškáte žádný začátek."
 
 #. Tag: para
 #: help_en-work.docbook:1459
@@ -2453,10 +2627,14 @@ msgid ""
 "format=\"PNG\"/> </imageobject><textobject><phrase>stop button</phrase></"
 "textobject> </inlinemediaobject>) button."
 msgstr ""
-"<guilabel>Čas nahrávání:</guilabel> Pokud by měla být délka nahrávání nějak omezena, můžete spustit toto nastavení a vybrat čas v hodinách, minutách, sekundách pro své nahrávání. Jestliže tato volba povolena není, bude nahrávání spuštěno, dokud nestisknete tlačítko <guibutton>Zastavit nahrávání</guibutton> "
-"(<inlinemediaobject><imageobject> <imagedata fileref=\"record_stop.png\" "
-"format=\"PNG\"/> </imageobject><textobject><phrase>Zastavit nahrávání</phrase></"
-"textobject> </inlinemediaobject>)."
+"<guilabel>Čas nahrávání:</guilabel> Pokud by měla být délka nahrávání nějak "
+"omezena, můžete spustit toto nastavení a vybrat čas v hodinách, minutách, "
+"sekundách pro své nahrávání. Jestliže tato volba povolena není, bude "
+"nahrávání spuštěno, dokud nestisknete tlačítko <guibutton>Zastavit "
+"nahrávání</guibutton> (<inlinemediaobject><imageobject> <imagedata fileref="
+"\"record_stop.png\" format=\"PNG\"/> </"
+"imageobject><textobject><phrase>Zastavit nahrávání</phrase></textobject> </"
+"inlinemediaobject>)."
 
 #. Tag: para
 #: help_en-work.docbook:1469
@@ -2466,7 +2644,11 @@ msgid ""
 "if the volume of the input goes over a certain limit, which can be defined "
 "from 0 to 100% of the highest possible input volume. This is useful if you "
 "do not want to record leading silence."
-msgstr "<guilabel>Spoušť nahrávání:</guilabel> Pokud je povolena, nahrávání začne pouze tehdy, když hlasitost vstupu překročí určitou hranici, jež může být stanovena od 0 do 100 % nejvyšší možné hlasitosti na vstupu. Toto je užitečné, pokud nehodláte nahrávat počáteční ticho."
+msgstr ""
+"<guilabel>Spoušť nahrávání:</guilabel> Pokud je povolena, nahrávání začne "
+"pouze tehdy, když hlasitost vstupu překročí určitou hranici, jež může být "
+"stanovena od 0 do 100 % nejvyšší možné hlasitosti na vstupu. Toto je "
+"užitečné, pokud nehodláte nahrávat počáteční ticho."
 
 #. Tag: para
 #: help_en-work.docbook:1476
@@ -2478,9 +2660,12 @@ msgid ""
 "inlinemediaobject>) button is active when the recording is not running or is "
 "finished, to discard the current file content and start again."
 msgstr ""
-"Tlačítko <guibutton>Nový soubor</guibutton> (<inlinemediaobject><imageobject> <imagedata fileref=\"record_new.png\" format=\"PNG\"/> </"
-"imageobject><textobject><phrase>tlačítko pro nový soubor</phrase></textobject> </"
-"inlinemediaobject>) je činné, když není nahrávání spuštěno nebo je skončeno, aby byl vyhozen obsah současného souboru a začalo se znovu."
+"Tlačítko <guibutton>Nový soubor</guibutton> "
+"(<inlinemediaobject><imageobject> <imagedata fileref=\"record_new.png\" "
+"format=\"PNG\"/> </imageobject><textobject><phrase>tlačítko pro nový soubor</"
+"phrase></textobject> </inlinemediaobject>) je činné, když není nahrávání "
+"spuštěno nebo je skončeno, aby byl vyhozen obsah současného souboru a začalo "
+"se znovu."
 
 #. Tag: para
 #: help_en-work.docbook:1484
@@ -2493,10 +2678,12 @@ msgid ""
 "running or &kapp; is waiting for the trigger. If pressed, the current "
 "progress will be stopped."
 msgstr ""
-"Tlačítko <guibutton>Zastavit nahrávání</guibutton> (<inlinemediaobject><imageobject> <imagedata "
-"fileref=\"record_stop.png\" format=\"PNG\"/> </"
-"imageobject><textobject><phrase>tlačítko pro zastavení nahrávání</phrase></textobject> </"
-"inlinemediaobject>) je činné, když je spuštěno nahrávání, nebo když je spuštěno nahrávání předem, nebo když &kapp; čeká na spoušť. Když je stisknuto, postup současného nahrávání je zastaven."
+"Tlačítko <guibutton>Zastavit nahrávání</guibutton> "
+"(<inlinemediaobject><imageobject> <imagedata fileref=\"record_stop.png\" "
+"format=\"PNG\"/> </imageobject><textobject><phrase>tlačítko pro zastavení "
+"nahrávání</phrase></textobject> </inlinemediaobject>) je činné, když je "
+"spuštěno nahrávání, nebo když je spuštěno nahrávání předem, nebo když &kapp; "
+"čeká na spoušť. Když je stisknuto, postup současného nahrávání je zastaven."
 
 #. Tag: para
 #: help_en-work.docbook:1492
@@ -2511,10 +2698,14 @@ msgid ""
 "blinking and recording will continue immediately, without waiting for a "
 "trigger."
 msgstr ""
-"Tlačítko<guibutton>Pozastavit/Pokračovat</guibutton> (<inlinemediaobject><imageobject> "
-"<imagedata fileref=\"record_pause.png\" format=\"PNG\"/> </"
-"imageobject><textobject><phrase>tlačítko pro pozastavenít</phrase></textobject> </"
-"inlinemediaobject>) je činné, když je spuštěno nahrávání nebo nahrávání předem. Když jej stisknete poprvé, nahrávání je pozastaveno a tlačítko začne poblikávat. Když jej stisknete znovu, tlačítko přestane poblikávat a nahrávání pokračuje okamžitě, bez čekání na spoušť."
+"Tlačítko<guibutton>Pozastavit/Pokračovat</guibutton> "
+"(<inlinemediaobject><imageobject> <imagedata fileref=\"record_pause.png\" "
+"format=\"PNG\"/> </imageobject><textobject><phrase>tlačítko pro "
+"pozastavenít</phrase></textobject> </inlinemediaobject>) je činné, když je "
+"spuštěno nahrávání nebo nahrávání předem. Když jej stisknete poprvé, "
+"nahrávání je pozastaveno a tlačítko začne poblikávat. Když jej stisknete "
+"znovu, tlačítko přestane poblikávat a nahrávání pokračuje okamžitě, bez "
+"čekání na spoušť."
 
 #. Tag: para
 #: help_en-work.docbook:1502
@@ -2528,8 +2719,9 @@ msgid ""
 msgstr ""
 "Tlačítkem <guibutton>Nahrát</guibutton> (<inlinemediaobject><imageobject> "
 "<imagedata fileref=\"krec_record.png\" format=\"PNG\"/> </"
-"imageobject><textobject><phrase>tlačítko pro nahrávání</phrase></textobject> </"
-"inlinemediaobject>) se spouští nahrávání a/nebo nahrávání předem v závislosti na funkcích povolených výše:"
+"imageobject><textobject><phrase>tlačítko pro nahrávání</phrase></textobject> "
+"</inlinemediaobject>) se spouští nahrávání a/nebo nahrávání předem v "
+"závislosti na funkcích povolených výše:"
 
 #. Tag: para
 #: help_en-work.docbook:1509
@@ -2537,7 +2729,9 @@ msgstr ""
 msgid ""
 "If neither prerecording nor trigger level are used, the recording starts as "
 "soon as you press the record button."
-msgstr "Pokud není používáno buď nahrávání předem nebo úroveň spouště, je nahrávání spuštěno, jakmile stisknete tlačítko pro bahrávání."
+msgstr ""
+"Pokud není používáno buď nahrávání předem nebo úroveň spouště, je nahrávání "
+"spuštěno, jakmile stisknete tlačítko pro bahrávání."
 
 #. Tag: para
 #: help_en-work.docbook:1514
@@ -2548,7 +2742,12 @@ msgid ""
 "trigger, you can force the recording to start immediately by pressing the "
 "record button again, otherwise the recording will start automatically when "
 "the trigger level has been reached."
-msgstr "Pokud nahrávání předem není používáno a je nastavena úroveň spouště, první stisknutí nechá &kapp; čekat na úroveň spouště, dokus není dosažena. Při čekání na spoušť můžete urychlit nahrávání tak, aby začalo okamžitě, opětovným stisknutím tlačítka pro nahrávání. Jinak bude nahrávání spuštěno samočinně po dosažení úrovně spouště."
+msgstr ""
+"Pokud nahrávání předem není používáno a je nastavena úroveň spouště, první "
+"stisknutí nechá &kapp; čekat na úroveň spouště, dokus není dosažena. Při "
+"čekání na spoušť můžete urychlit nahrávání tak, aby začalo okamžitě, "
+"opětovným stisknutím tlačítka pro nahrávání. Jinak bude nahrávání spuštěno "
+"samočinně po dosažení úrovně spouště."
 
 #. Tag: para
 #: help_en-work.docbook:1522
@@ -2556,7 +2755,9 @@ msgstr "Pokud nahrávání předem není používáno a je nastavena úroveň sp
 msgid ""
 "If prerecording is enabled, the first press starts only the prerecording and "
 "the second press really starts the recording."
-msgstr "Pokud je povoleno nahrávání předem, první stisknutí spustí pouze nahrávání předem a až druhý stisk skutečně spustí vlastní nahrávání."
+msgstr ""
+"Pokud je povoleno nahrávání předem, první stisknutí spustí pouze nahrávání "
+"předem a až druhý stisk skutečně spustí vlastní nahrávání."
 
 #. Tag: title
 #: help_en-work.docbook:1536
@@ -2570,7 +2771,9 @@ msgstr "Přehrávání"
 msgid ""
 "Depending on the compilation options &kapp; is able to play sounds trough "
 "one of the following playback methods:"
-msgstr "V závislostí na volbách sestavení může &kapp; přehrát zvuky prostřednictvím jednoho z následujících způsobů pro přehrání:"
+msgstr ""
+"V závislostí na volbách sestavení může &kapp; přehrát zvuky prostřednictvím "
+"jednoho z následujících způsobů pro přehrání:"
 
 #. Tag: para
 #: help_en-work.docbook:1543
@@ -2581,7 +2784,12 @@ msgid ""
 "like OSS does, but has a plugin called \"dmix\" as a way out. Newer versions "
 "of ALSA use a dmix like plugin per default, so this should the best choice "
 "for you!"
-msgstr "ALSA (Advanced Linux Sound Architecture): Nahrazuje OSS, podporuje více funkcí a větší množství technického vybavení počítače. Může být v rozporu s KDE a dalšími programy, jako OSS, ale má přídavný modul nazývaný \"dmix\" jako východisko. Novější verze ALSy používají dmix jako přídavný modul již ve výchozím nastavení. Takže ALSA je pro vás tou nejlepším volbou!"
+msgstr ""
+"ALSA (Advanced Linux Sound Architecture): Nahrazuje OSS, podporuje více "
+"funkcí a větší množství technického vybavení počítače. Může být v rozporu s "
+"KDE a dalšími programy, jako OSS, ale má přídavný modul nazývaný \"dmix\" "
+"jako východisko. Novější verze ALSy používají dmix jako přídavný modul již "
+"ve výchozím nastavení. Takže ALSA je pro vás tou nejlepším volbou!"
 
 #. Tag: para
 #: help_en-work.docbook:1551
@@ -2591,7 +2799,11 @@ msgid ""
 "and stereo output. Deprecated since linux kernel 2.6, but still wide spread. "
 "Might collide with KDE or other sound applications, only one application at "
 "a time can use OSS playback !"
-msgstr "OSS (Open Sound System): Nejstarší linuxové provedení umožňující monofonní a stereofonní výstup. Odmítáno od linuxového jádra 2.6 ale dosud široce rozšířeno. Může být v rozporu s KDE nebo dalšími zvukovými programy. Pouze jedna aplikace může používat OSS přehrání ve stejném okamžiku!"
+msgstr ""
+"OSS (Open Sound System): Nejstarší linuxové provedení umožňující monofonní a "
+"stereofonní výstup. Odmítáno od linuxového jádra 2.6 ale dosud široce "
+"rozšířeno. Může být v rozporu s KDE nebo dalšími zvukovými programy. Pouze "
+"jedna aplikace může používat OSS přehrání ve stejném okamžiku!"
 
 #. Tag: para
 #: help_en-work.docbook:1560
@@ -2599,7 +2811,9 @@ msgstr "OSS (Open Sound System): Nejstarší linuxové provedení umožňující
 msgid ""
 "Before trying to play sounds, you should take a look on the playback "
 "configuration dialog:"
-msgstr "Předtím, než se pokusíte přehrát nějaké zvuky, byste se měl podívat na dialog pro nastavení přehrávání:"
+msgstr ""
+"Předtím, než se pokusíte přehrát nějaké zvuky, byste se měl podívat na "
+"dialog pro nastavení přehrávání:"
 
 #. Tag: screeninfo
 #: help_en-work.docbook:1566
@@ -2620,7 +2834,10 @@ msgid ""
 "Currently &kapp; supports only 8 and 16 bit playback, with mono or stereo "
 "output through the OSS interface, but many also all modes your sound "
 "hardware supports through the ALSA interface."
-msgstr "Nyní &kapp; podporuje pouze 8 a 16 bitové přehrávání s mono a stereo výstupem prostřednictvím OSS rozhraní, ale mnoho, také všechny režimy, podporuje vaše zvuková karta prostřednictvím rozhraní ALSA."
+msgstr ""
+"Nyní &kapp; podporuje pouze 8 a 16 bitové přehrávání s mono a stereo "
+"výstupem prostřednictvím OSS rozhraní, ale mnoho, také všechny režimy, "
+"podporuje vaše zvuková karta prostřednictvím rozhraní ALSA."
 
 #. Tag: para
 #: help_en-work.docbook:1585
@@ -2631,7 +2848,13 @@ msgid ""
 "file with three channels and you use stereo playback, the left channel will "
 "play channel 0 (upper) and half of channel 1 (middle), the right channel "
 "will play the half of channel 1 (middle) and channel 2 (lower)."
-msgstr "Pokud váš hudební soubor používá více či méně kanálů, než přehrávání umožňuje, všechny kanály budou během přehrávání smíchány dohromady. Například, jestliže máte soubor se třemi kanály a používáte přehrávání stereo, levý kanál bude přehrávat kanál 0 (horní) a polovinu kanálu 1 (střední), pravý kanál bude přehrávat polovinu kanálu 1 (střední) a kanál 2 (dolní)."
+msgstr ""
+"Pokud váš hudební soubor používá více či méně kanálů, než přehrávání "
+"umožňuje, všechny kanály budou během přehrávání smíchány dohromady. "
+"Například, jestliže máte soubor se třemi kanály a používáte přehrávání "
+"stereo, levý kanál bude přehrávat kanál 0 (horní) a polovinu kanálu 1 "
+"(střední), pravý kanál bude přehrávat polovinu kanálu 1 (střední) a kanál 2 "
+"(dolní)."
 
 #. Tag: para
 #: help_en-work.docbook:1593
@@ -2643,8 +2866,13 @@ msgid ""
 "bigger you set the buffer, the bigger is the latency between the audible "
 "sound and the display of the playback position in the signal display."
 msgstr ""
-"Abyste získal hladké přehrávání bez přerušení, měl byste také nastavit velikost vyrovnávací paměti na vhodnou hodnotu. Pokud se setkáte s potížemi s přerušovaným přehráváním, měl byste v tomto případě zvýšit velikost vyrovnávací paměti. Ale čím větší je velikost vyrovnávací paměti, kterou nastavíte, tím větší je latence mezi slyšitelným zvukem a zobrazením polohy přehrávání při zobrazení signálu (latence: \"prodleva\", časový úsek, dokud se zobrazení "
-"již přehrané polohy neobjeví)."
+"Abyste získal hladké přehrávání bez přerušení, měl byste také nastavit "
+"velikost vyrovnávací paměti na vhodnou hodnotu. Pokud se setkáte s potížemi "
+"s přerušovaným přehráváním, měl byste v tomto případě zvýšit velikost "
+"vyrovnávací paměti. Ale čím větší je velikost vyrovnávací paměti, kterou "
+"nastavíte, tím větší je latence mezi slyšitelným zvukem a zobrazením polohy "
+"přehrávání při zobrazení signálu (latence: \"prodleva\", časový úsek, dokud "
+"se zobrazení již přehrané polohy neobjeví)."
 
 #. Tag: para
 #: help_en-work.docbook:1601
@@ -2653,7 +2881,10 @@ msgid ""
 "The playback settings dialog also provides a button for playing a simple "
 "test sound. You should hear a 440Hz tone that wanders over all speakers, "
 "from one to the next."
-msgstr "Dialog pro nastavení přehrávání rovněž poskytuje tlačítko pro přehrávání jednoduchého zkušebního zvuku. Měl byste slyšet tón o kmitočtu 440Hz, který postupně putuje všemi tlampači od jednoho k druhému."
+msgstr ""
+"Dialog pro nastavení přehrávání rovněž poskytuje tlačítko pro přehrávání "
+"jednoduchého zkušebního zvuku. Měl byste slyšet tón o kmitočtu 440Hz, který "
+"postupně putuje všemi tlampači od jednoho k druhému."
 
 #. Tag: para
 #: help_en-work.docbook:1606
@@ -2663,8 +2894,10 @@ msgid ""
 "&kapp; main window or through the <menuchoice><guimenu>Play</guimenu></"
 "menuchoice> menu or with keyboard shortcuts:"
 msgstr ""
-"Když už máte nastaveno přehrávání, můžete použít ovladače přehrávání v hlavním okně &kapp; nebo prostřednictvím nabídky hlavní lišty <menuchoice><guimenu>Přehrát</guimenu></"
-"menuchoice> nebo přes klávesové zkratky:"
+"Když už máte nastaveno přehrávání, můžete použít ovladače přehrávání v "
+"hlavním okně &kapp; nebo prostřednictvím nabídky hlavní lišty "
+"<menuchoice><guimenu>Přehrát</guimenu></menuchoice> nebo přes klávesové "
+"zkratky:"
 
 #. Tag: para
 #: help_en-work.docbook:1612
@@ -2676,7 +2909,9 @@ msgid ""
 "the current cursor position if nothing was selected. Play only once."
 msgstr ""
 "<menuchoice> <shortcut><keycombo><keycap>P</keycap></keycombo></shortcut> "
-"<guimenu>Hraní</guimenu><guimenuitem>Spustit</guimenuitem> </menuchoice>: Spustí přehrávání současného výběru od jeho začátku nebo celého souboru od nynější polohy ukazatele, pokud nebylo nic vybráno. Přehraje pouze jednou."
+"<guimenu>Hraní</guimenu><guimenuitem>Spustit</guimenuitem> </menuchoice>: "
+"Spustí přehrávání současného výběru od jeho začátku nebo celého souboru od "
+"nynější polohy ukazatele, pokud nebylo nic vybráno. Přehraje pouze jednou."
 
 #. Tag: para
 #: help_en-work.docbook:1620
@@ -2699,7 +2934,8 @@ msgid ""
 msgstr ""
 "<menuchoice> <shortcut><keycombo><keycap>Mezerník</keycap></keycombo></"
 "shortcut> <guimenu>Hraní</guimenu><guimenuitem>Pozastavit</guimenuitem> </"
-"menuchoice>: Pozastaví přehrávání v úrovni nynější polohy. Funkce je dostupná pouze tehdy, když je spuštěno přehrávání."
+"menuchoice>: Pozastaví přehrávání v úrovni nynější polohy. Funkce je "
+"dostupná pouze tehdy, když je spuštěno přehrávání."
 
 #. Tag: para
 #: help_en-work.docbook:1632
@@ -2712,7 +2948,8 @@ msgid ""
 msgstr ""
 "<menuchoice> <shortcut><keycombo><keycap>Mezerník</keycap></keycombo></"
 "shortcut> <guimenu>Hraní</guimenu><guimenuitem>Pokračovat</guimenuitem> </"
-"menuchoice>: Pokračuje se s přehrávání od polohy, kde bylo pozastaveno. Funkce je dostupná pouze tehdy, když je přehrávání pozastaveno."
+"menuchoice>: Pokračuje se s přehrávání od polohy, kde bylo pozastaveno. "
+"Funkce je dostupná pouze tehdy, když je přehrávání pozastaveno."
 
 #. Tag: para
 #: help_en-work.docbook:1639
@@ -2723,7 +2960,8 @@ msgid ""
 "the playback, go back to the start of the selection."
 msgstr ""
 "<menuchoice> <shortcut><keycombo><keycap>Esc</keycap></keycombo></shortcut> "
-"<guimenu>Hraní</guimenu><guimenuitem>Zastavit</guimenuitem> </menuchoice>: Zastaví přehrávání, přejde na začátek výběru."
+"<guimenu>Hraní</guimenu><guimenuitem>Zastavit</guimenuitem> </menuchoice>: "
+"Zastaví přehrávání, přejde na začátek výběru."
 
 #. Tag: title
 #: help_en-work.docbook:1653
@@ -2740,7 +2978,12 @@ msgid ""
 "possible. For example, if you import an MP3 file with ID3 tags, you can keep "
 "those informations when exporting to a Wave file. If &kapp; would lose meta "
 "information when saving, it shows a warning."
-msgstr "&kapp; je schopen si poradit s několika meta informacemi, jež jsou uloženy uvnitř zvukového souboru. Pokouší se zavést a vyvést tolik z těchto údajů, kolik je jen možné. Například, pokud zavedete soubor MP3 se značkami ID3, můžete uchovat tyto údaje i při vyvedení do souboru wav. Pokud by &kapp; ztratil meta informace, když je ukládá, ukáže varování."
+msgstr ""
+"&kapp; je schopen si poradit s několika meta informacemi, jež jsou uloženy "
+"uvnitř zvukového souboru. Pokouší se zavést a vyvést tolik z těchto údajů, "
+"kolik je jen možné. Například, pokud zavedete soubor MP3 se značkami ID3, "
+"můžete uchovat tyto údaje i při vyvedení do souboru wav. Pokud by &kapp; "
+"ztratil meta informace, když je ukládá, ukáže varování."
 
 #. Tag: para
 #: help_en-work.docbook:1663
@@ -2751,9 +2994,10 @@ msgid ""
 "menuchoice>. There you can also change things like sample format, resolution "
 "and compression."
 msgstr ""
-"Můžete si prohlížet a upravovat meta informace v nabídce hlavní lišty <menuchoice> "
-"<guimenu>Úpravy</guimenu><guimenuitem>Vlastnosti souboru...</guimenuitem> </"
-"menuchoice>. Zde můžete trovněž měnit věci, jako jsou vzorkovací formát, rozlišení a zhuštění."
+"Můžete si prohlížet a upravovat meta informace v nabídce hlavní lišty "
+"<menuchoice> <guimenu>Úpravy</guimenu><guimenuitem>Vlastnosti souboru...</"
+"guimenuitem> </menuchoice>. Zde můžete trovněž měnit věci, jako jsou "
+"vzorkovací formát, rozlišení a zhuštění."
 
 #. Tag: screeninfo
 #: help_en-work.docbook:1672
@@ -2780,7 +3024,11 @@ msgid ""
 "&kapp; provides several ways to zoom and navigate, using keyboard shortcuts, "
 "menu commands, toolbar buttons and by using the mouse. The following "
 "sections should give an overview on how to use all of these functions."
-msgstr "&kapp; poskytuje několik způsobů pro přibližování a oddalování a pohyb po souboru za použití klávesových zkratek, příkazů hlavní lišty, nástrojových tlačítek a s využitím myši. Následující oddíly by měly podat přehled způsobů, jak používat všechny tyto funkce."
+msgstr ""
+"&kapp; poskytuje několik způsobů pro přibližování a oddalování a pohyb po "
+"souboru za použití klávesových zkratek, příkazů hlavní lišty, nástrojových "
+"tlačítek a s využitím myši. Následující oddíly by měly podat přehled "
+"způsobů, jak používat všechny tyto funkce."
 
 #. Tag: title
 #: help_en-work.docbook:1700
@@ -2794,7 +3042,9 @@ msgstr "Přibližování a oddalování"
 msgid ""
 "<emphasis>zoom to whole signal:</emphasis> selects a zoom factor that makes "
 "the whole signal visible in the current window."
-msgstr "<emphasis>Najet na celý signál:</emphasis> vybere násobek zvětšení, který předvede celý signál jako viditelný v nynějším okně."
+msgstr ""
+"<emphasis>Najet na celý signál:</emphasis> vybere násobek zvětšení, který "
+"předvede celý signál jako viditelný v nynějším okně."
 
 #. Tag: para
 #: help_en-work.docbook:1709
@@ -2802,7 +3052,9 @@ msgstr "<emphasis>Najet na celý signál:</emphasis> vybere násobek zvětšení
 msgid ""
 "menu entry: <menuchoice> <guimenu>View</guimenu><guimenuitem>Zoom to whole "
 "signal</guimenuitem> </menuchoice>"
-msgstr "položka hlavní lišty: <menuchoice> <guimenu>Pohled</guimenu><guimenuitem>Najet na celý signál</guimenuitem> </menuchoice>"
+msgstr ""
+"položka hlavní lišty: <menuchoice> <guimenu>Pohled</"
+"guimenu><guimenuitem>Najet na celý signál</guimenuitem> </menuchoice>"
 
 #. Tag: para
 #: help_en-work.docbook:1715 help_en-work.docbook:1735
@@ -2823,7 +3075,9 @@ msgstr "tlačítko najet na vše"
 msgid ""
 "<emphasis>zoom to 100%:</emphasis> zooms in up to a scale where on sample is "
 "represented by on pixel on the screen."
-msgstr "<emphasis>Najet na 100%:</emphasis> přiblíží obraz až do takového měřítka, kdy vzorek je na obrazovce představován podle pixelu."
+msgstr ""
+"<emphasis>Najet na 100%:</emphasis> přiblíží obraz až do takového měřítka, "
+"kdy vzorek je na obrazovce představován podle pixelu."
 
 #. Tag: para
 #: help_en-work.docbook:1729
@@ -2832,8 +3086,8 @@ msgid ""
 "menu entry: <menuchoice> <guimenu>View</guimenu><guimenuitem>Zoom to 100%</"
 "guimenuitem> </menuchoice>"
 msgstr ""
-"položka hlavní lišty: <menuchoice> <guimenu>Pohled</guimenu><guimenuitem>Najet na 100%</"
-"guimenuitem> </menuchoice>"
+"položka hlavní lišty: <menuchoice> <guimenu>Pohled</"
+"guimenu><guimenuitem>Najet na 100%</guimenuitem> </menuchoice>"
 
 #. Tag: phrase
 #: help_en-work.docbook:1738
@@ -2847,7 +3101,9 @@ msgstr "tlačítko Najet na 100 %"
 msgid ""
 "<emphasis>zoom in:</emphasis> zooms in to see more details, magnifies by "
 "factor 3."
-msgstr "<emphasis>Přiblížit:</emphasis> přiblíží pro pohled na více podrobností, zvětšuje podle násobku 3."
+msgstr ""
+"<emphasis>Přiblížit:</emphasis> přiblíží pro pohled na více podrobností, "
+"zvětšuje podle násobku 3."
 
 #. Tag: para
 #: help_en-work.docbook:1748
@@ -2875,7 +3131,9 @@ msgstr "tlačítko Přiblížit"
 msgid ""
 "<emphasis>zoom out:</emphasis> zooms in to see less details, shrinks by "
 "factor 3."
-msgstr "<emphasis>Oddálitt:</emphasis> Oddaluje pro pohled na méně podrobností, zmenšuje podle násobku 3."
+msgstr ""
+"<emphasis>Oddálitt:</emphasis> Oddaluje pro pohled na méně podrobností, "
+"zmenšuje podle násobku 3."
 
 #. Tag: para
 #: help_en-work.docbook:1768
@@ -2903,7 +3161,9 @@ msgstr "tlačítko Oddálit"
 msgid ""
 "<emphasis>zoom selection:</emphasis> zooms to a factor where the current "
 "selection is completely visible in the current view."
-msgstr "<emphasis>Najet na výběr:</emphasis> zvětší na násobek, kdy je současný výběr zcela viditelný v nynějším pohledu."
+msgstr ""
+"<emphasis>Najet na výběr:</emphasis> zvětší na násobek, kdy je současný "
+"výběr zcela viditelný v nynějším pohledu."
 
 #. Tag: para
 #: help_en-work.docbook:1789
@@ -2915,9 +3175,9 @@ msgid ""
 "guimenuitem> </menuchoice>"
 msgstr ""
 "položka hlavní lišty/klávesová zkratka: <menuchoice> "
-"<shortcut><keycombo><keycap>Ctrl</keycap><keycap>Mezerník</keycap></keycombo></"
-"shortcut> <guimenu>Pohled</guimenu><guimenuitem>Najet na výběr</guimenuitem> </"
-"menuchoice>"
+"<shortcut><keycombo><keycap>Ctrl</keycap><keycap>Mezerník</keycap></"
+"keycombo></shortcut> <guimenu>Pohled</guimenu><guimenuitem>Najet na výběr</"
+"guimenuitem> </menuchoice>"
 
 #. Tag: para
 #: help_en-work.docbook:1806
@@ -2925,7 +3185,9 @@ msgstr ""
 msgid ""
 "<emphasis>select predefined zoom:</emphasis> select a zoom factor from the "
 "zoom combo box in the toolbar."
-msgstr "<emphasis>Vybrat předem stanovené zvětšení:</emphasis> vybere násobek zvětšení z okénka v nástrojové liště."
+msgstr ""
+"<emphasis>Vybrat předem stanovené zvětšení:</emphasis> vybere násobek "
+"zvětšení z okénka v nástrojové liště."
 
 #. Tag: title
 #: help_en-work.docbook:1815
@@ -2939,7 +3201,9 @@ msgstr "Projíždění vlevo a vpravo"
 msgid ""
 "<emphasis>scroll left:</emphasis> scrolls to the start of the signal by 1/3 "
 "of the current view."
-msgstr "<emphasis>Projíždět vlevo:</emphasis> projíždí na začátek signálu podle 1/3 nynějšího pohledu."
+msgstr ""
+"<emphasis>Projíždět vlevo:</emphasis> projíždí na začátek signálu podle 1/3 "
+"nynějšího pohledu."
 
 #. Tag: para
 #: help_en-work.docbook:1823
@@ -2960,7 +3224,9 @@ msgstr ""
 msgid ""
 "<emphasis>scroll right:</emphasis> scrolls to the end of the signal by 1/3 "
 "of the current view."
-msgstr "<emphasis>Projíždět vpravo:</emphasis> projíždí na konec signálu podle 1/3 nynějšího pohledu."
+msgstr ""
+"<emphasis>Projíždět vpravo:</emphasis> projíždí na konec signálu podle 1/3 "
+"nynějšího pohledu."
 
 #. Tag: para
 #: help_en-work.docbook:1836
@@ -2981,7 +3247,9 @@ msgstr ""
 msgid ""
 "<emphasis>previous page:</emphasis> scrolls to the position right before the "
 "current view (left)."
-msgstr "<emphasis>Předchozí strana:</emphasis> projíždí na polohu právě před nynějším pohledem (vlevo)"
+msgstr ""
+"<emphasis>Předchozí strana:</emphasis> projíždí na polohu právě před "
+"nynějším pohledem (vlevo)"
 
 #. Tag: para
 #: help_en-work.docbook:1849
@@ -2993,7 +3261,8 @@ msgid ""
 msgstr ""
 "položka hlavní lišty/klávesová zkratka: <menuchoice> "
 "<shortcut><keycombo><keycap>Page up</keycap></keycombo></shortcut> "
-"<guimenu>Pohled</guimenu><guimenuitem>Předchozí strana</guimenuitem> </menuchoice>"
+"<guimenu>Pohled</guimenu><guimenuitem>Předchozí strana</guimenuitem> </"
+"menuchoice>"
 
 #. Tag: para
 #: help_en-work.docbook:1858
@@ -3001,7 +3270,9 @@ msgstr ""
 msgid ""
 "<emphasis>next page:</emphasis> scrolls to the position right after the "
 "current view (right)."
-msgstr "<emphasis>Další strana:</emphasis> projíždí na polohu právě po nynějším pohledu (vpravo)"
+msgstr ""
+"<emphasis>Další strana:</emphasis> projíždí na polohu právě po nynějším "
+"pohledu (vpravo)"
 
 #. Tag: para
 #: help_en-work.docbook:1862
@@ -3013,7 +3284,8 @@ msgid ""
 msgstr ""
 "položka hlavní lišty/klávesová zkratka: <menuchoice> "
 "<shortcut><keycombo><keycap>Page down</keycap></keycombo></shortcut> "
-"<guimenu>Pohled</guimenu><guimenuitem>Další strana</guimenuitem> </menuchoice>"
+"<guimenu>Pohled</guimenu><guimenuitem>Další strana</guimenuitem> </"
+"menuchoice>"
 
 #. Tag: para
 #: help_en-work.docbook:1871
@@ -3021,7 +3293,9 @@ msgstr ""
 msgid ""
 "<emphasis>to begin:</emphasis> scrolls the current view so that it starts at "
 "the beginning of the signal."
-msgstr "<emphasis>Na začátek:</emphasis> projíždí nynější pohled, tak aby začínal na začátku signálu."
+msgstr ""
+"<emphasis>Na začátek:</emphasis> projíždí nynější pohled, tak aby začínal na "
+"začátku signálu."
 
 #. Tag: para
 #: help_en-work.docbook:1876
@@ -3041,7 +3315,9 @@ msgstr ""
 msgid ""
 "<emphasis>to end:</emphasis> scrolls the current view so that it ends at the "
 "end of the signal."
-msgstr "<emphasis>Na konec:</emphasis> projíždí nynější pohled, tak aby končil na konci signálu."
+msgstr ""
+"<emphasis>Na konec:</emphasis> projíždí nynější pohled, tak aby končil na "
+"konci signálu."
 
 #. Tag: para
 #: help_en-work.docbook:1889
@@ -3068,7 +3344,10 @@ msgid ""
 "The main screen of &kapp; shows a small <emphasis>overview</emphasis> of the "
 "whole signal above the horizontal scroll bar of the main window. This "
 "overview also provides some functionality for navigating:"
-msgstr "Hlavní obrazovka &kapp; ukazuje malý <emphasis>přehled</emphasis> celého signálu nad vodorovným projížděcím pruhem hlavního okna. Tento přehled také poskytuje určitý rozsah funkcí pro pohyb po dokumentu: "
+msgstr ""
+"Hlavní obrazovka &kapp; ukazuje malý <emphasis>přehled</emphasis> celého "
+"signálu nad vodorovným projížděcím pruhem hlavního okna. Tento přehled také "
+"poskytuje určitý rozsah funkcí pro pohyb po dokumentu: "
 
 #. Tag: para
 #: help_en-work.docbook:1909
@@ -3076,7 +3355,9 @@ msgstr "Hlavní obrazovka &kapp; ukazuje malý <emphasis>přehled</emphasis> cel
 msgid ""
 "<emphasis>single click with left mouse button</emphasis>: directly move the "
 "current view to the clicked position."
-msgstr "<emphasis>Jednoduché klepnutí levým tlačítkem myši</emphasis>: přímo přesune nynější pohled na odklepnutou polohu."
+msgstr ""
+"<emphasis>Jednoduché klepnutí levým tlačítkem myši</emphasis>: přímo přesune "
+"nynější pohled na odklepnutou polohu."
 
 #. Tag: para
 #: help_en-work.docbook:1914
@@ -3084,7 +3365,9 @@ msgstr "<emphasis>Jednoduché klepnutí levým tlačítkem myši</emphasis>: př
 msgid ""
 "<emphasis>double click with left mouse button</emphasis>: directly move the "
 "current view to the clicked position and additionally zoom in."
-msgstr "<emphasis>Dvojité klepnutí levým tlačítkem myši</emphasis>: přímo přesune nynější pohled na odklepnutou polohu a vedle toho pohled přiblíží."
+msgstr ""
+"<emphasis>Dvojité klepnutí levým tlačítkem myši</emphasis>: přímo přesune "
+"nynější pohled na odklepnutou polohu a vedle toho pohled přiblíží."
 
 #. Tag: para
 #: help_en-work.docbook:1920
@@ -3094,8 +3377,9 @@ msgid ""
 "pressed</emphasis>: directly move the current view to the clicked position "
 "and additionally zoom out."
 msgstr ""
-"<emphasis>Dvojité klepnutí levým tlačítkem myši spojené se stisknutím <keycap>shift</keycap> "
-"klávesy</emphasis>: přímo přesune nynější pohled na odklepnutou polohu a vedle toho pohled oddálí."
+"<emphasis>Dvojité klepnutí levým tlačítkem myši spojené se stisknutím "
+"<keycap>shift</keycap> klávesy</emphasis>: přímo přesune nynější pohled na "
+"odklepnutou polohu a vedle toho pohled oddálí."
 
 #. Tag: title
 #: help_en-work.docbook:1931
@@ -3110,8 +3394,8 @@ msgid ""
 "You can zoom the current view vertically by pressing the <keycap>Ctrl</"
 "keycap> key and scrolling with the mouse wheel."
 msgstr ""
-"Současný pohled můžete přibližovat a oddalovat svisle stisknutím klávesy  <keycap>Ctrl</"
-"keycap> a projížděním za pomoci kolečka myši."
+"Současný pohled můžete přibližovat a oddalovat svisle stisknutím klávesy  "
+"<keycap>Ctrl</keycap> a projížděním za pomoci kolečka myši."
 
 #. Tag: title
 #: help_en-work.docbook:1943
@@ -3127,7 +3411,11 @@ msgid ""
 "combination of channels (if you edit a multi-channel file). By selecting a "
 "range of samples (time scope) all following commands will be limited to that "
 "range and by de-selecting a channel it's content will not be changed."
-msgstr "&kapp; vám umožňuje vybrat souvislou řadu vzorků, stejně tak jakékoli spojení kanálů (v případě, že upravujete vícekanálový soubor). Výběrem řady vzorků (časový rozsah) budou všechny následující příkazy omezeny na tuto řadu a zrušením výběru kanálu nebude jeho obsah změněn."
+msgstr ""
+"&kapp; vám umožňuje vybrat souvislou řadu vzorků, stejně tak jakékoli "
+"spojení kanálů (v případě, že upravujete vícekanálový soubor). Výběrem řady "
+"vzorků (časový rozsah) budou všechny následující příkazy omezeny na tuto "
+"řadu a zrušením výběru kanálu nebude jeho obsah změněn."
 
 #. Tag: title
 #: help_en-work.docbook:1952
@@ -3141,7 +3429,9 @@ msgstr "Výběr kanálů"
 msgid ""
 "Selecting or de-selecting a channel is quite simple. Just click on the lamp "
 "symbol on the left side of the signal to toggle it's state:"
-msgstr "Výběr anebo naopak zrušení výběru kanálu je docela jednoduché. Jenom klepněte na symbol žárovky po levé straně signálu, abyste přepli její stav:"
+msgstr ""
+"Výběr anebo naopak zrušení výběru kanálu je docela jednoduché. Jenom "
+"klepněte na symbol žárovky po levé straně signálu, abyste přepli její stav:"
 
 #. Tag: phrase
 #: help_en-work.docbook:1962
@@ -3170,8 +3460,10 @@ msgstr "červená žárovka znamená \"vyřazeno z činnosti\""
 #. Tag: para
 #: help_en-work.docbook:1976
 #, no-c-format
-msgid "Note: If a channel is de-selected it will also not be audible for playback!"
-msgstr "Poznámka: Pokud je výběr kanálu zrušen, nebude taktéž slyšet při přehrávání!"
+msgid ""
+"Note: If a channel is de-selected it will also not be audible for playback!"
+msgstr ""
+"Poznámka: Pokud je výběr kanálu zrušen, nebude taktéž slyšet při přehrávání!"
 
 #. Tag: title
 #: help_en-work.docbook:1981
@@ -3191,7 +3483,13 @@ msgid ""
 "for example if you see no selected range, the \"delete\" function applies to "
 "that single sample."
 msgstr ""
-"Pokud vyberete řadu vzorků v &kapp;, bude tato řada <emphasis>vše zahrnující</emphasis>. Znamená to, že jak první tak poslední vybraný vzorek patří do tohoto výběru a bude jich použito pro následující kroky. Takže, i kdybyste nevybral určítý <emphasis>rozsah</emphasis>, ale pouze jeden vzorek, tento výběr nebude nikdy skutečně \"prázdný\". Takže, například, jestliže nevidíte žádný vybraný rozsah, funkce \"smazání\" bude použita na tento jeden vzorek."
+"Pokud vyberete řadu vzorků v &kapp;, bude tato řada <emphasis>vše "
+"zahrnující</emphasis>. Znamená to, že jak první tak poslední vybraný vzorek "
+"patří do tohoto výběru a bude jich použito pro následující kroky. Takže, i "
+"kdybyste nevybral určítý <emphasis>rozsah</emphasis>, ale pouze jeden "
+"vzorek, tento výběr nebude nikdy skutečně \"prázdný\". Takže, například, "
+"jestliže nevidíte žádný vybraný rozsah, funkce \"smazání\" bude použita na "
+"tento jeden vzorek."
 
 #. Tag: para
 #: help_en-work.docbook:1993
@@ -3201,7 +3499,11 @@ msgid ""
 "mouse. It works like you are used from other applications: just press the "
 "left mouse button at the point you want to let the selection start and "
 "release the button where you want it to end."
-msgstr "Nejsnadnějším způsobem, jak vybrat řadu vzorků, je prostě provést výběr myší. Pracuje to tak, jak jste zvyklý z jiných programů: jen stiskněte levé tlačítko myši nad bodem, který jste zvolili jako začátek výběru, a uvolněte stisk tlačítka tam, kde si přejete, aby výběr končil."
+msgstr ""
+"Nejsnadnějším způsobem, jak vybrat řadu vzorků, je prostě provést výběr "
+"myší. Pracuje to tak, jak jste zvyklý z jiných programů: jen stiskněte levé "
+"tlačítko myši nad bodem, který jste zvolili jako začátek výběru, a uvolněte "
+"stisk tlačítka tam, kde si přejete, aby výběr končil."
 
 #. Tag: para
 #: help_en-work.docbook:1999
@@ -3211,7 +3513,11 @@ msgid ""
 "mouse cursor near to the start or the end of the selection until it changes "
 "from the standard arrow cursor into the left-right arrow cursor and then "
 "press the left mouse button and adjust."
-msgstr "Pokud chcete upravit či posunout začátek nebo konec výběru, můžete pohnout ukazatelem myši poblíž začátku nebo konce výběru, dokud se nezmění z obvyklého ukazatele se šipkou na ukazatel se šipkami na obě strany, a potom stiskněte levé tlačítko myši a proveďte úpravy."
+msgstr ""
+"Pokud chcete upravit či posunout začátek nebo konec výběru, můžete pohnout "
+"ukazatelem myši poblíž začátku nebo konce výběru, dokud se nezmění z "
+"obvyklého ukazatele se šipkou na ukazatel se šipkami na obě strany, a potom "
+"stiskněte levé tlačítko myši a proveďte úpravy."
 
 #. Tag: para
 #: help_en-work.docbook:2005
@@ -3221,7 +3527,11 @@ msgid ""
 "down the shift button while klicking with the left mouse button. Depending "
 "on which border is nearer, the left or right border of the selection will be "
 "set to a new position."
-msgstr "Výběr můžete také rozšířit nebo zmenšit k určitému bodu podržením tlačítka shift, zatímco klepáte levým tlačítkem myši. Podle toho, která hranice výběru je blíže, bude stanovena nová poloha buď levého nebo pravého okraje výběru."
+msgstr ""
+"Výběr můžete také rozšířit nebo zmenšit k určitému bodu podržením tlačítka "
+"shift, zatímco klepáte levým tlačítkem myši. Podle toho, která hranice "
+"výběru je blíže, bude stanovena nová poloha buď levého nebo pravého okraje "
+"výběru."
 
 #. Tag: para
 #: help_en-work.docbook:2011
@@ -3229,7 +3539,9 @@ msgstr "Výběr můžete také rozšířit nebo zmenšit k určitému bodu podr�
 msgid ""
 "There are also some functions available via the menu and of course some "
 "keyboard shortcuts:"
-msgstr "Jsou zde rovněž některé nové činnosti dostupné přes hlavní nabídku a samozřejmě nějaké ty klávesové zkratky:"
+msgstr ""
+"Jsou zde rovněž některé nové činnosti dostupné přes hlavní nabídku a "
+"samozřejmě nějaké ty klávesové zkratky:"
 
 #. Tag: para
 #: help_en-work.docbook:2015
@@ -3255,8 +3567,8 @@ msgid ""
 "guimenuitem> </menuchoice>"
 msgstr ""
 "odstranit všechen výběr a vybrat \"nic\": <menuchoice> "
-"<shortcut><keycombo><keycap>N</keycap></keycombo></shortcut> <guimenu>Úpravy</"
-"guimenu><guimenuitem>Výběr</guimenuitem><guimenuitem>Nic</"
+"<shortcut><keycombo><keycap>N</keycap></keycombo></shortcut> "
+"<guimenu>Úpravy</guimenu><guimenuitem>Výběr</guimenuitem><guimenuitem>Nic</"
 "guimenuitem> </menuchoice>"
 
 #. Tag: para
@@ -3268,9 +3580,8 @@ msgid ""
 "guimenuitem><guimenuitem>Visible</guimenuitem> </menuchoice>"
 msgstr ""
 "v současnosti viditelná oblast: <menuchoice> <shortcut><keycombo><keycap>V</"
-"keycap></keycombo></shortcut> <guimenu>Úpravy</"
-"guimenu><guimenuitem>Výběr</guimenuitem><guimenuitem>Viditelná oblast</"
-"guimenuitem> </menuchoice>"
+"keycap></keycombo></shortcut> <guimenu>Úpravy</guimenu><guimenuitem>Výběr</"
+"guimenuitem><guimenuitem>Viditelná oblast</guimenuitem> </menuchoice>"
 
 #. Tag: para
 #: help_en-work.docbook:2036
@@ -3282,16 +3593,18 @@ msgid ""
 "shortcut> <guimenu>Edit</guimenu><guimenuitem>Selection</"
 "guimenuitem><guimenuitem>Next</guimenuitem> </menuchoice>"
 msgstr ""
-"další blok vzorků, počínaje prvním vzorkem po konci nynějšího výběru a se stejnou délkou: <menuchoice> "
-"<shortcut><keycombo><keycap>Shift</keycap><keycap>+</keycap></keycombo></"
-"shortcut> <guimenu>Úpravy</guimenu><guimenuitem>Výběr</"
-"guimenuitem><guimenuitem>Další</guimenuitem> </menuchoice>"
+"další blok vzorků, počínaje prvním vzorkem po konci nynějšího výběru a se "
+"stejnou délkou: <menuchoice> <shortcut><keycombo><keycap>Shift</"
+"keycap><keycap>+</keycap></keycombo></shortcut> <guimenu>Úpravy</"
+"guimenu><guimenuitem>Výběr</guimenuitem><guimenuitem>Další</guimenuitem> </"
+"menuchoice>"
 
 #. Tag: para
 #: help_en-work.docbook:2044
 #, no-c-format
 msgid "(Hint: use the \"<keycap>+</keycap>\" key from the numeric keypad!)"
-msgstr "(Rada: použijte klávesu \"<keycap>+</keycap>\" na numerické klávesnici!)"
+msgstr ""
+"(Rada: použijte klávesu \"<keycap>+</keycap>\" na numerické klávesnici!)"
 
 #. Tag: para
 #: help_en-work.docbook:2047
@@ -3303,16 +3616,18 @@ msgid ""
 "shortcut> <guimenu>Edit</guimenu><guimenuitem>Selection</"
 "guimenuitem><guimenuitem>Previous</guimenuitem> </menuchoice>"
 msgstr ""
-"předchozí blok vzorků, konče prvním vzorkem před začátkem nynějšího výběru a se stejnou délkou: <menuchoice> "
-"<shortcut><keycombo><keycap>Shift</keycap><keycap>-</keycap></keycombo></"
-"shortcut> <guimenu>Úpravy</guimenu><guimenuitem>Výběr</"
-"guimenuitem><guimenuitem>Předchozí</guimenuitem> </menuchoice>"
+"předchozí blok vzorků, konče prvním vzorkem před začátkem nynějšího výběru a "
+"se stejnou délkou: <menuchoice> <shortcut><keycombo><keycap>Shift</"
+"keycap><keycap>-</keycap></keycombo></shortcut> <guimenu>Úpravy</"
+"guimenu><guimenuitem>Výběr</guimenuitem><guimenuitem>Předchozí</guimenuitem> "
+"</menuchoice>"
 
 #. Tag: para
 #: help_en-work.docbook:2055
 #, no-c-format
 msgid "(Hint: use the \"<keycap>-</keycap>\" key from the numeric keypad!)"
-msgstr "(Rada: použijte klávesu \"<keycap>-</keycap>\" na numerické klávesnici!)"
+msgstr ""
+"(Rada: použijte klávesu \"<keycap>-</keycap>\" na numerické klávesnici!)"
 
 #. Tag: para
 #: help_en-work.docbook:2058
@@ -3352,8 +3667,10 @@ msgid ""
 "shortcut> <guimenu>Edit</guimenu><guimenuitem>Selection</"
 "guimenuitem><guimenuitem>Expand to labels</guimenuitem> </menuchoice>"
 msgstr ""
-"rozšířit výběr nalevo a napravo k dalšímu štítku (nebo po začátek/konec signálu, pokud zde žádný štítek není): <menuchoice> <shortcut><keycombo><keycap>E</keycap></keycombo></"
-"shortcut> <guimenu>Úpravy</guimenu><guimenuitem>Výběr</"
+"rozšířit výběr nalevo a napravo k dalšímu štítku (nebo po začátek/konec "
+"signálu, pokud zde žádný štítek není): <menuchoice> "
+"<shortcut><keycombo><keycap>E</keycap></keycombo></shortcut> "
+"<guimenu>Úpravy</guimenu><guimenuitem>Výběr</"
 "guimenuitem><guimenuitem>Roztáhnout k štítkům</guimenuitem> </menuchoice>"
 
 #. Tag: para
@@ -3366,7 +3683,8 @@ msgid ""
 "keycap></keycombo></shortcut> <guimenu>Edit</guimenu><guimenuitem>Selection</"
 "guimenuitem><guimenuitem>to next labels</guimenuitem> </menuchoice>"
 msgstr ""
-"vybrat oblast mezi dalšími dvěma štítky, které jsou napravo od nynějšího výběru, nebo až po konec signálu: <menuchoice> "
+"vybrat oblast mezi dalšími dvěma štítky, které jsou napravo od nynějšího "
+"výběru, nebo až po konec signálu: <menuchoice> "
 "<shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>N</"
 "keycap></keycombo></shortcut> <guimenu>Úpravy</guimenu><guimenuitem>Výběr</"
 "guimenuitem><guimenuitem>Mezi dalšími štítky</guimenuitem> </menuchoice>"
@@ -3381,7 +3699,8 @@ msgid ""
 "keycap></keycombo></shortcut> <guimenu>Edit</guimenu><guimenuitem>Selection</"
 "guimenuitem><guimenuitem>to previous labels</guimenuitem> </menuchoice>"
 msgstr ""
-"vybrat oblast mezi předchozími dvěma štítky, které jsou nalevo od nynějšího výběru, nebo až po začátek signálu: <menuchoice> "
+"vybrat oblast mezi předchozími dvěma štítky, které jsou nalevo od nynějšího "
+"výběru, nebo až po začátek signálu: <menuchoice> "
 "<shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>P</"
 "keycap></keycombo></shortcut> <guimenu>Úpravy</guimenu><guimenuitem>Výběr</"
 "guimenuitem><guimenuitem>Mezi předchozími štítky</guimenuitem> </menuchoice>"
@@ -3400,7 +3719,11 @@ msgid ""
 "exchange audio data between different &kapp; windows. It might be possible "
 "as well to exchange data between &kapp; and other audio applications, "
 "depending on their ability to use the KDE clipboard."
-msgstr "&kapp; od v0.8.1 se používá schránka KDE. Tímto způsobem lze vyměňovat data mezi různými &kapp; okny. Mělo by být možné stejně tak vyměňovat data mezi &kapp; a jinými programy pracujícími se zvukem v závislosti na jejich schopnosti používat schránku KDE."
+msgstr ""
+"&kapp; od v0.8.1 se používá schránka KDE. Tímto způsobem lze vyměňovat data "
+"mezi různými &kapp; okny. Mělo by být možné stejně tak vyměňovat data mezi "
+"&kapp; a jinými programy pracujícími se zvukem v závislosti na jejich "
+"schopnosti používat schránku KDE."
 
 #. Tag: para
 #: help_en-work.docbook:2119
@@ -3417,8 +3740,7 @@ msgstr ""
 "Při kopírování dat do schránky přes činnost <literal>Kopírovat</literal> "
 "&kapp; používá mime typ <literal>audio/vnd.wave</literal> jako datový "
 "formát, odpovídající <ulink url=\"http://www.faqs.org/rfcs/rfc2361.html"
-"\">RFC 2361</ulink>, který je stejný jako dobře známý <literal>wav</"
-"literal>"
+"\">RFC 2361</ulink>, který je stejný jako dobře známý <literal>wav</literal>"
 
 #. Tag: title
 #: help_en-work.docbook:2136
@@ -3433,7 +3755,10 @@ msgid ""
 "&kapp; supports the KDE Drag and Drop protocol. This enables you to open "
 "files just by picking them up in a <command>konqueror</command> window or "
 "the Desktop and let them drop into a window of &kapp;."
-msgstr "&kapp; podporuje KDE táhni a pusť protokol. Tento vám umožňuje otevřít soubory jejich pouhým vybráním v okně <command>Konqueroru</command> nebo na ploše a nechat je spustit do okna &kapp;."
+msgstr ""
+"&kapp; podporuje KDE táhni a pusť protokol. Tento vám umožňuje otevřít "
+"soubory jejich pouhým vybráním v okně <command>Konqueroru</command> nebo na "
+"ploše a nechat je spustit do okna &kapp;."
 
 #. Tag: para
 #: help_en-work.docbook:2144
@@ -3443,7 +3768,11 @@ msgid ""
 "contains an opened file, the currently opened file will be closed first and "
 "then the file you dropped will be opened in it. If you don't want that, you "
 "should open a new empty &kapp; window first."
-msgstr "Povšimněte si, prosím, že pokud soubor pustíte na okno &kapp;, které již obsahuje otevřený soubor, bude v současnosti otevřený soubor zavřen a pak soubor, který jste upustil, v něm bude otevřen. Pokud zrovna toto nechcete, měl byste nejprve otevřít nové prázdné okno &kapp."
+msgstr ""
+"Povšimněte si, prosím, že pokud soubor pustíte na okno &kapp;, které již "
+"obsahuje otevřený soubor, bude v současnosti otevřený soubor zavřen a pak "
+"soubor, který jste upustil, v něm bude otevřen. Pokud zrovna toto nechcete, "
+"měl byste nejprve otevřít nové prázdné okno &kapp;."
 
 #. Tag: para
 #: help_en-work.docbook:2151
@@ -3455,7 +3784,13 @@ msgid ""
 "inserted at the drop position. By pressing the <keycap moreinfo=\"none"
 "\">Ctrl</keycap> key you can modify this and drag in <emphasis>copy</"
 "emphasis> mode instead."
-msgstr "Také můžete vybrat řadu vzorků a táhnout a pustit je na okno &kapp;. Ve výchozím nastavení je operace táhnutí hotova v režimu <emphasis>posunu</emphasis>, v němž je vybraná oblast smazána v původním umístění a vložena v poloze upuštění. Stisknutím klávesy <keycap moreinfo=\"none\">Ctrl</keycap> můžete tento způsob pozměnit a táhnout místo toho v režimu <emphasis>kopírování</emphasis>."
+msgstr ""
+"Také můžete vybrat řadu vzorků a táhnout a pustit je na okno &kapp;. Ve "
+"výchozím nastavení je operace táhnutí hotova v režimu <emphasis>posunu</"
+"emphasis>, v němž je vybraná oblast smazána v původním umístění a vložena v "
+"poloze upuštění. Stisknutím klávesy <keycap moreinfo=\"none\">Ctrl</keycap> "
+"můžete tento způsob pozměnit a táhnout místo toho v režimu "
+"<emphasis>kopírování</emphasis>."
 
 #. Tag: title
 #: help_en-work.docbook:2264
@@ -3480,8 +3815,13 @@ msgid ""
 "time for writing a tool that converts the doxygen output into something we "
 "can include into the docbook source (the source this page has been built of)."
 msgstr ""
-"Promiňte, ale tato kapitola se musí teprve napsat... V tuto chvíli je zdrojový kód téměř úplně zdokumentován se značkami vhodnými pro KDE dokumentační nástroje. V současnosti dáváme přednost používání <ulink url=\"http://www.stack.nl/~dimitri/doxygen\">doxygen</ulink>. Možná jednoho dne strávíme více času při psaní nástroje, který převede výstup doxygenu do něčeho, co budeme moci začlenit do zdroje docbooku (zdrojový kód této stránky z něj byl "
-"postaven)."
+"Promiňte, ale tato kapitola se musí teprve napsat... V tuto chvíli je "
+"zdrojový kód téměř úplně zdokumentován se značkami vhodnými pro KDE "
+"dokumentační nástroje. V současnosti dáváme přednost používání <ulink url="
+"\"http://www.stack.nl/~dimitri/doxygen\">doxygen</ulink>. Možná jednoho dne "
+"strávíme více času při psaní nástroje, který převede výstup doxygenu do "
+"něčeho, co budeme moci začlenit do zdroje docbooku (zdrojový kód této "
+"stránky z něj byl postaven)."
 
 #. Tag: para
 #: help_en-work.docbook:2287
@@ -3492,8 +3832,10 @@ msgid ""
 "of the authors directly and / or subscribe to the &kapp; <link linkend="
 "\"mailing-list\">mailing list</link>. Help is always welcome!"
 msgstr ""
-"Pokud chcete napsat přídavný modul, přispět něčím tomuto projektu (nebo snad napsat převodník zmíněný výše), pociťujte, prosím, svobodu spojit se přímo s jedním z autorů a/nebo se přihlásit k &kapp; <link linkend="
-"\"mailing-list\">mejlovacímu seznamu</link>. Pomoc je vždy vítána!"
+"Pokud chcete napsat přídavný modul, přispět něčím tomuto projektu (nebo snad "
+"napsat převodník zmíněný výše), pociťujte, prosím, svobodu spojit se přímo s "
+"jedním z autorů a/nebo se přihlásit k &kapp; <link linkend=\"mailing-list"
+"\">mejlovacímu seznamu</link>. Pomoc je vždy vítána!"
 
 #. Tag: title
 #: help_en-work.docbook:2302
@@ -3519,17 +3861,21 @@ msgid ""
 "replaceable><literal>:</literal><replaceable>&lt;name&gt;</replaceable></"
 "command>. Example:"
 msgstr ""
-"Upravit na nejvyšší úrovni<filename>CMakeLists.txt</filename> a přidat nový záznam k seznamu s jazyky. Hledejte proměnnou <literal><symbol>KWAVE_LINGUAS</"
-"symbol></literal> a přidejte řádek s novým jazykem. Každý záznam se skládá z dvojice jazykového <emphasis>kódu</emphasis> a "
-"<emphasis>názvu</emphasis> jazyka, jako je tento: <command><replaceable>&lt;code&gt;</"
-"replaceable><literal>:</literal><replaceable>&lt;název&gt;</replaceable></"
-"command>. Příklad:"
+"Upravit na nejvyšší úrovni<filename>CMakeLists.txt</filename> a přidat nový "
+"záznam k seznamu s jazyky. Hledejte proměnnou "
+"<literal><symbol>KWAVE_LINGUAS</symbol></literal> a přidejte řádek s novým "
+"jazykem. Každý záznam se skládá z dvojice jazykového <emphasis>kódu</"
+"emphasis> a <emphasis>názvu</emphasis> jazyka, jako je tento: "
+"<command><replaceable>&lt;code&gt;</replaceable><literal>:</"
+"literal><replaceable>&lt;název&gt;</replaceable></command>. Příklad:"
 
 #. Tag: screen
 #: help_en-work.docbook:2317
 #, no-c-format
-msgid "<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>"
-msgstr "<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>"
+msgid ""
+"<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>"
+msgstr ""
+"<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>"
 
 #. Tag: para
 #: help_en-work.docbook:2319
@@ -3542,8 +3888,13 @@ msgid ""
 "international standard <ulink url=\"http://www.loc.gov/standards/iso639-2/"
 "php/code_list.php\">ISO 639-2</ulink>."
 msgstr ""
-"Jazykový kód je kód složený ze dvou písmen, který se používá pro adresáře a názvy souborů, jak se také používají v KDE. Název jazyka se uvnitř používá pouze pro docbook dokumentaci a nápovědu, které jsou přístupnéu přímým připojením k internetu. Kvůli seznamu s dostupnými kódy jazyků a názvy se, prosím, podívejte na dokumentaci s mezinárodním standardem <ulink url=\"http://www.loc.gov/standards/iso639-2/"
-"php/code_list.php\">ISO 639-2</ulink>."
+"Jazykový kód je kód složený ze dvou písmen, který se používá pro adresáře a "
+"názvy souborů, jak se také používají v KDE. Název jazyka se uvnitř používá "
+"pouze pro docbook dokumentaci a nápovědu, které jsou přístupnéu přímým "
+"připojením k internetu. Kvůli seznamu s dostupnými kódy jazyků a názvy se, "
+"prosím, podívejte na dokumentaci s mezinárodním standardem <ulink url="
+"\"http://www.loc.gov/standards/iso639-2/php/code_list.php\">ISO 639-2</"
+"ulink>."
 
 #. Tag: emphasis
 #: help_en-work.docbook:2330
@@ -3560,13 +3911,15 @@ msgid ""
 "pot</filename> to the corresponding <filename>.po</filename> file of the "
 "language you want to add: <filename>\"<replaceable>&lt;code&gt;</"
 "replaceable>.po\"</filename>. After that you can translate the file using "
-"your favorite tool, like <filename>kbabel</filename>. Example:"
+"your favorite tool, like <filename>Lokalize</filename>. Example:"
 msgstr ""
-"Jděte do zdrojového adresáře &kapp; (není to adresář se sestavením), přepněte se "
-"na podadresář <filename>po</filename> a zkopírujte soubor <filename>kwave."
-"pot</filename>do odpovídajícího <filename>.po</filename> souboru s jazykem,  "
-"který chcete přidat: <filename>\"<replaceable>&lt;code&gt;</"
-"replaceable>.po\"</filename>. Poté už můžete překládat soubor s pomocí svého oblíbeného nástroje, jakým je třeba <filename>kbabel</filename>. Příklad:"
+"Jděte do zdrojového adresáře &kapp; (není to adresář se sestavením), "
+"přepněte se na podadresář <filename>po</filename> a zkopírujte soubor "
+"<filename>kwave.pot</filename> do odpovídajícího <filename>.po</filename> "
+"souboru s jazykem, který chcete přidat: <filename>\"<replaceable>&lt;code&gt;"
+"</replaceable>.po\"</filename>. Poté už můžete překládat soubor s pomocí "
+"svého oblíbeného nástroje, jakým je třeba <filename>Lokalize</filename>. "
+"Příklad:"
 
 #. Tag: screen
 #: help_en-work.docbook:2339
@@ -3577,14 +3930,14 @@ msgid ""
 "<prompt>% </prompt><command>cd <parameter>po</parameter></command>\n"
 "<prompt>% </prompt><command>cp <parameter>kwave.pot</parameter> "
 "<parameter><replaceable>fr.po</replaceable></parameter></command>\n"
-"<prompt>% </prompt><command>kbabel <parameter>fr.po</parameter></command>"
+"<prompt>% </prompt><command>lokalize <parameter>fr.po</parameter></command>"
 msgstr ""
 "<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</"
 "replaceable></parameter></command>\n"
 "<prompt>% </prompt><command>cd <parameter>po</parameter></command>\n"
 "<prompt>% </prompt><command>cp <parameter>kwave.pot</parameter> "
 "<parameter><replaceable>fr.po</replaceable></parameter></command>\n"
-"<prompt>% </prompt><command>kbabel"
+"<prompt>% </prompt><command>lokalize <parameter>fr.po</parameter></command>"
 
 #. Tag: emphasis
 #: help_en-work.docbook:2343
@@ -3626,8 +3979,11 @@ msgid ""
 "</screen> Now you can translate the <filename>.po</filename> file, like "
 "above:"
 msgstr ""
-"Je to podobné jako postup u uživatelského rozhraní, ale vyžaduje to některé kroky navíc, protože hlavní soubor je v <literal>docbook</literal> formátu "
-"a <filename>.pot</filename> šablona je vytvářeným souborem. Jděte do zdrojového adresáře &kapp; (není to adresář pro sestavení), přepněte se do podadresáře <filename>doc</filename> a vytvořte prázdný <filename>.po</"
+"Je to podobné jako postup u uživatelského rozhraní, ale vyžaduje to některé "
+"kroky navíc, protože hlavní soubor je v <literal>docbook</literal> formátu a "
+"<filename>.pot</filename> šablona je vytvářeným souborem. Jděte do "
+"zdrojového adresáře &kapp; (není to adresář pro sestavení), přepněte se do "
+"podadresáře <filename>doc</filename> a vytvořte prázdný <filename>.po</"
 "filename> soubor: <screen>\n"
 "<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</"
 "replaceable></parameter></command>\n"
@@ -3636,7 +3992,8 @@ msgstr ""
 "replaceable></parameter></command>\n"
 "</screen> Potom změňte svůj adresář pro sestavení (např. někam do <filename>/"
 "tmp</filename>), připravte se na sestavení a pak vytvořte <filename>.pot</"
-"filename> šablonu (bezpečně si nemusíte všímat chybových hlášekkteré v této době přicházejí). Tuto šablonu je potřeba zkopírovat do <filename>.po</"
+"filename> šablonu (bezpečně si nemusíte všímat chybových hlášekkteré v této "
+"době přicházejí). Tuto šablonu je potřeba zkopírovat do <filename>.po</"
 "filename> souboru ve zdrojovém adresáři nápovědy po internetu. Příklad: "
 "<screen>\n"
 "<prompt>% </prompt><command>mkdir <parameter>/tmp/kwave-build</parameter></"
@@ -3649,7 +4006,8 @@ msgstr ""
 "<prompt>% </prompt><command>cp <parameter>doc/help_en.pot</parameter> "
 "<parameter><replaceable>$HOME/src/kwave/doc/help_fr.po</replaceable></"
 "parameter></command>\n"
-"</screen> Nyní můžete překládat <filename>.po</filename> soubor, jak to bylo vysvětleno výše:"
+"</screen> Nyní můžete překládat <filename>.po</filename> soubor, jak to bylo "
+"vysvětleno výše:"
 
 #. Tag: screen
 #: help_en-work.docbook:2361
@@ -3658,13 +4016,13 @@ msgid ""
 "<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</"
 "replaceable></parameter></command>\n"
 "<prompt>% </prompt><command>cd <parameter>doc</parameter></command>\n"
-"<prompt>% </prompt><command>kbabel <parameter><replaceable>help_fr.po</"
+"<prompt>% </prompt><command>lokalize <parameter><replaceable>help_fr.po</"
 "replaceable></parameter></command>"
 msgstr ""
 "<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</"
 "replaceable></parameter></command>\n"
 "<prompt>% </prompt><command>cd <parameter>doc</parameter></command>\n"
-"<prompt>% </prompt><command>kbabel <parameter><replaceable>help_fr.po</"
+"<prompt>% </prompt><command>lokalize <parameter><replaceable>help_fr.po</"
 "replaceable></parameter></command>"
 
 #. Tag: emphasis
@@ -3686,8 +4044,14 @@ msgid ""
 "functionality, otherwise you would not be able to get screenshots of "
 "components that you have disabled."
 msgstr ""
-"Pro nápovědu po internetu rovněž potřebujete snímky obrazovky, jež využívají přeložená sdělení. Toto vyžaduje sestavený a nainstalovaný balíček &kapp;, takže byste měl sledovat kroky zmíněné v oddíle o <link linkend="
-"\"manual_compilation\">Vlastnoruční kompilace a instalace</link>. Samozřejmě, že <emphasis>nesmíte</emphasis> přejít volbu pro sestavení  <literal>WITH_DOC=no</literal> nebo jakoukoli jinou volbu pro sestavení, která odstraňuje funkčnost, jinak nebudete moci získat snímky obrazovky částí, které jste zakázal."
+"Pro nápovědu po internetu rovněž potřebujete snímky obrazovky, jež využívají "
+"přeložená sdělení. Toto vyžaduje sestavený a nainstalovaný balíček &kapp;, "
+"takže byste měl sledovat kroky zmíněné v oddíle o <link linkend="
+"\"manual_compilation\">Vlastnoruční kompilace a instalace</link>. "
+"Samozřejmě, že <emphasis>nesmíte</emphasis> přejít volbu pro sestavení  "
+"<literal>WITH_DOC=no</literal> nebo jakoukoli jinou volbu pro sestavení, "
+"která odstraňuje funkčnost, jinak nebudete moci získat snímky obrazovky "
+"částí, které jste zakázal."
 
 #. Tag: para
 #: help_en-work.docbook:2375
@@ -3699,9 +4063,12 @@ msgid ""
 "follow the <ulink url=\"http://l10n.kde.org/docs/screenshots.php\">KDE "
 "Documentation Screenshots Requirements</ulink>. Here in short:"
 msgstr ""
-"Pro seznam se snímky obrazovky se můžete podívat do jednoho ze jsoucích adresářů ve zdrojovém stromě, například v <filename>$HOME/doc/de</filename>. Všechny "
-"snímky obrazovky jsou v <emphasis><filename>.png</filename></emphasis> a měly by vyplývat z <ulink url=\"http://l10n.kde.org/docs/screenshots.php\"> KDE požadavků na snímky obrazovky (KDE "
-"Documentation Screenshots Requirement)</ulink>. Zde ve zkratce:"
+"Pro seznam se snímky obrazovky se můžete podívat do jednoho ze jsoucích "
+"adresářů ve zdrojovém stromě, například v <filename>$HOME/doc/de</filename>. "
+"Všechny snímky obrazovky jsou v <emphasis><filename>.png</filename></"
+"emphasis> a měly by vyplývat z <ulink url=\"http://l10n.kde.org/docs/"
+"screenshots.php\"> KDE požadavků na snímky obrazovky (KDE Documentation "
+"Screenshots Requirement)</ulink>. Zde ve zkratce:"
 
 #. Tag: para
 #: help_en-work.docbook:2384
@@ -3760,7 +4127,8 @@ msgid ""
 "UTF-8 encoded! Example:"
 msgstr ""
 "Přidat řádek s <emphasis>poznámkou</emphasis> pro nový jazyk k souboru "
-"<filename>kwave/kwave.desktop.in</filename>. Všimněte si, prosím, že tento soubor je zakódován v UTF-8! Příklad:"
+"<filename>kwave/kwave.desktop.in</filename>. Všimněte si, prosím, že tento "
+"soubor je zakódován v UTF-8! Příklad:"
 
 #. Tag: screen
 #: help_en-work.docbook:2414
@@ -3784,7 +4152,9 @@ msgstr "Užitečné odkazy:"
 msgid ""
 "<ulink url=\"http://www.ietf.org/rfc/rfc3066.txt\">RFC 3066</ulink> Tags for "
 "the Identification of Languages"
-msgstr "<ulink url=\"http://www.ietf.org/rfc/rfc3066.txt\">RFC 3066</ulink> Značky pro určení jazyků"
+msgstr ""
+"<ulink url=\"http://www.ietf.org/rfc/rfc3066.txt\">RFC 3066</ulink> Značky "
+"pro určení jazyků"
 
 #. Tag: para
 #: help_en-work.docbook:2426
@@ -3792,19 +4162,21 @@ msgstr "<ulink url=\"http://www.ietf.org/rfc/rfc3066.txt\">RFC 3066</ulink> Zna�
 msgid ""
 "<ulink url=\"http://l10n.kde.org/\">KDE Localization</ulink> contains a lot "
 "of useful links for KDE translators."
-msgstr "<ulink url=\"http://l10n.kde.org/\">KDE Localization</ulink>obsahuje mnoho užitečných odkazů pro překladatele KDE."
+msgstr ""
+"<ulink url=\"http://l10n.kde.org/\">KDE Localization</ulink>obsahuje mnoho "
+"užitečných odkazů pro překladatele KDE."
 
 #. Tag: para
 #: help_en-work.docbook:2430
 #, no-c-format
 msgid ""
-"<ulink url=\"http://kbabel.kde.org/\">KBabel</ulink> is <emphasis>the</"
-"emphasis> standard tool that helps you translating <filename>.po</filename> "
-"files."
+"<ulink url=\"http://userbase.kde.org/Lokalize/\">Lokalize</ulink> is "
+"<emphasis>the</emphasis> standard tool that helps you translating <filename>."
+"po</filename> files."
 msgstr ""
-"<ulink url=\"http://kbabel.kde.org/\">KBabel</ulink> je <emphasis>standardní</"
-"emphasis> nástroj, který vám pomůže s překládáním <filename>.po</filename> "
-"souborů."
+"<ulink url=\"http://userbase.kde.org/Lokalize/\">Lokalize</ulink> je "
+"<emphasis>standardní</emphasis> nástroj, který vám pomůže s překládáním "
+"<filename>.po</filename> souborů."
 
 #. Tag: para
 #: help_en-work.docbook:2435
@@ -3812,7 +4184,9 @@ msgstr ""
 msgid ""
 "<ulink url=\"http://l10n.kde.org/docs/screenshots.php\">KDE Documentation "
 "Screenshots Requirements</ulink>."
-msgstr "<ulink url=\"http://l10n.kde.org/docs/screenshots.php\">Požadavky na snímky obrazovky pro KDE (KDE Documentation Screenshots Requirements)</ulink>."
+msgstr ""
+"<ulink url=\"http://l10n.kde.org/docs/screenshots.php\">Požadavky na snímky "
+"obrazovky pro KDE (KDE Documentation Screenshots Requirements)</ulink>."
 
 #. Tag: title
 #: help_en-work.docbook:2464
@@ -3833,8 +4207,8 @@ msgid ""
 "Read in the <link linkend=\"requirements\">chapter</link> mentioned before. "
 "It compiles with gcc-3.x or gcc-4.x as well."
 msgstr ""
-"Přečtěte si o tom v <link linkend=\"requirements\">kapitole</link>, která byla již zmiňována. "
-"Kompiluje také s gcc-3.x or gcc-4.x."
+"Přečtěte si o tom v <link linkend=\"requirements\">kapitole</link>, která "
+"byla již zmiňována. Kompiluje také s gcc-3.x or gcc-4.x."
 
 #. Tag: para
 #: help_en-work.docbook:2488
@@ -3850,7 +4224,12 @@ msgid ""
 "has to be supported by your operating system and &kapp; uses it's interface "
 "to the operating system's sound driver through a OSS or ALSA interface. So "
 "&kapp; can play on any sound card that KDE is able to play on."
-msgstr "&kapp; nepotřebuje podporu pro nějaké zvláštní zvukové karty. Zvuková karta musí být jen podporována vaším operačním systémem a &kapp; používá svoje rozhraní k ovladači zvuku operačního systému prostřednictvím OSS nebo ALSA rozhraní. Takže &kapp; může hrát na jakékoli zvukové kartě, na které dokáže hrát KDE."
+msgstr ""
+"&kapp; nepotřebuje podporu pro nějaké zvláštní zvukové karty. Zvuková karta "
+"musí být jen podporována vaším operačním systémem a &kapp; používá svoje "
+"rozhraní k ovladači zvuku operačního systému prostřednictvím OSS nebo ALSA "
+"rozhraní. Takže &kapp; může hrát na jakékoli zvukové kartě, na které dokáže "
+"hrát KDE."
 
 #. Tag: para
 #: help_en-work.docbook:2506
@@ -4052,8 +4431,8 @@ msgid ""
 "Program copyright from 1998-2000 Martin Wilz <email>mwilz@ernie.mi.uni-koeln."
 "de</email>"
 msgstr ""
-"Copyright k programu drží od 1998-2000 Martin Wilz <email>mwilz@ernie.mi.uni-koeln."
-"de</email>"
+"Copyright k programu drží od 1998-2000 Martin Wilz <email>mwilz@ernie.mi.uni-"
+"koeln.de</email>"
 
 #. Tag: para
 #: help_en-work.docbook:2731
@@ -4091,14 +4470,19 @@ msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 #. Tag: para
 #: help_en-work.docbook:2753
 #, no-c-format
-msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
-msgstr "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (domovská stránka, překlad do němčiny)"
+msgid ""
+"Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
+msgstr ""
+"Sven-Steffen Arndt <email>ssa29@gmx.de</email> (domovská stránka, překlad do "
+"němčiny)"
 
 #. Tag: para
 #: help_en-work.docbook:2760
 #, no-c-format
 msgid "Ralf Waspe <email>rwaspe@web.de</email> (Help/About plugin)"
-msgstr "Ralf Waspe <email>rwaspe@web.de</email> (Nápověda/Přídavný modul \"O programu\")"
+msgstr ""
+"Ralf Waspe <email>rwaspe@web.de</email> (Nápověda/Přídavný modul \"O programu"
+"\")"
 
 #. Tag: para
 #: help_en-work.docbook:2767
@@ -4106,13 +4490,17 @@ msgstr "Ralf Waspe <email>rwaspe@web.de</email> (Nápověda/Přídavný modul \"
 msgid ""
 "Gilles Caulier <email>caulier.gilles@free.fr</email> (i18n, french "
 "translations, splashscreen, beta tester)"
-msgstr "Gilles Caulier <email>caulier.gilles@free.fr</email> (i18n, překlad do francouzštiny, úvodní obrazovkan, beta tester)"
+msgstr ""
+"Gilles Caulier <email>caulier.gilles@free.fr</email> (i18n, překlad do "
+"francouzštiny, úvodní obrazovkan, beta tester)"
 
 #. Tag: para
 #: help_en-work.docbook:2774
 #, no-c-format
 msgid "Dave Flogeras <email>dflogera@nbnet.nb.ca</email> (Notch Filter plugin)"
-msgstr "Dave Flogeras <email>dflogera@nbnet.nb.ca</email> (přídavný modul Filtr zářezu)"
+msgstr ""
+"Dave Flogeras <email>dflogera@nbnet.nb.ca</email> (přídavný modul Filtr "
+"zářezu)"
 
 #. Tag: para
 #: help_en-work.docbook:2781
@@ -4133,8 +4521,11 @@ msgstr "Poděkování (podle abecedního pořádku"
 #. Tag: para
 #: help_en-work.docbook:2815
 #, no-c-format
-msgid "Jorge Luis Arzola <email>arzolacub@gmx.de</email> (packaging for SuSE Linux)"
-msgstr "Jorge Luis Arzola <email>arzolacub@gmx.de</email> (balíčkování pro SuSE Linux)"
+msgid ""
+"Jorge Luis Arzola <email>arzolacub@gmx.de</email> (packaging for SuSE Linux)"
+msgstr ""
+"Jorge Luis Arzola <email>arzolacub@gmx.de</email> (balíčkování pro SuSE "
+"Linux)"
 
 #. Tag: para
 #: help_en-work.docbook:2822
@@ -4143,8 +4534,8 @@ msgid ""
 "Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (for information "
 "about RPM optimization) </emphasis>"
 msgstr ""
-"Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (za informace"
-"o optimalizaci RPM) </emphasis>"
+"Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (za informaceo "
+"optimalizaci RPM) </emphasis>"
 
 #. Tag: para
 #: help_en-work.docbook:2830
@@ -4185,8 +4576,8 @@ msgid ""
 "T.H.F. Klok and Cedric Tefft (maintainers of the <ulink url=\"http://www."
 "id3lib.org/\"> id3lib</ulink> library)"
 msgstr ""
-"T.H.F. Klok a Cedric Tefft (správcové <ulink url=\"http://www."
-"id3lib.org/\"> id3lib</ulink> knihovny)"
+"T.H.F. Klok a Cedric Tefft (správcové <ulink url=\"http://www.id3lib.org/\"> "
+"id3lib</ulink> knihovny)"
 
 #. Tag: para
 #: help_en-work.docbook:2861
@@ -4195,8 +4586,8 @@ msgid ""
 "Robert Leslie <email>rob@mars.org</email> (author of the <ulink url=\"http://"
 "www.mars.org/home/rob/proj/mpeg/\">mad</ulink> mp3 decoder library)"
 msgstr ""
-"Robert Leslie <email>rob@mars.org</email> (autor <ulink url=\"http://"
-"www.mars.org/home/rob/proj/mpeg/\">mad</ulink> mp3 dekódovací knihovny)"
+"Robert Leslie <email>rob@mars.org</email> (autor <ulink url=\"http://www."
+"mars.org/home/rob/proj/mpeg/\">mad</ulink> mp3 dekódovací knihovny)"
 
 #. Tag: para
 #: help_en-work.docbook:2870
@@ -4205,8 +4596,8 @@ msgid ""
 "Erik de Castro Lopo <email>erikd@zip.com.au</email> (author of the <ulink "
 "url=\"http://www.mega-nerd.com/libsndfile/\">sndfile</ulink> library)"
 msgstr ""
-"Erik de Castro Lopo <email>erikd@zip.com.au</email> (autor <ulink "
-"url=\"http://www.mega-nerd.com/libsndfile/\">sndfile</ulink> knihovny)"
+"Erik de Castro Lopo <email>erikd@zip.com.au</email> (autor <ulink url="
+"\"http://www.mega-nerd.com/libsndfile/\">sndfile</ulink> knihovny)"
 
 #. Tag: para
 #: help_en-work.docbook:2880
@@ -4216,9 +4607,9 @@ msgid ""
 "\"http://freeware.sgi.com/Installable/audiofile-0.2.3.html\">audiofile</"
 "ulink> library)"
 msgstr ""
-"Michael Pruett <email>mpruett@sgi.com</email> (autor <ulink url="
-"\"http://freeware.sgi.com/Installable/audiofile-0.2.3.html\">audiofile</"
-"ulink> knihovny)"
+"Michael Pruett <email>mpruett@sgi.com</email> (autor <ulink url=\"http://"
+"freeware.sgi.com/Installable/audiofile-0.2.3.html\">audiofile</ulink> "
+"knihovny)"
 
 #. Tag: para
 #: help_en-work.docbook:2889
@@ -4227,8 +4618,8 @@ msgid ""
 "Robert M. Stockmann <email>stock@stokkie.net</email> (packaging for "
 "Mandrake / X86_64)"
 msgstr ""
-"Robert M. Stockmann <email>stock@stokkie.net</email> (balíčkování pro"
-"Mandrake / X86_64)"
+"Robert M. Stockmann <email>stock@stokkie.net</email> (balíčkování "
+"proMandrake / X86_64)"
 
 #. Tag: para
 #: help_en-work.docbook:2896
@@ -4237,8 +4628,8 @@ msgid ""
 "Diederick de Vries <email>diederick76@gmail.com</email> (packaging for Crux "
 "Linux)"
 msgstr ""
-"Diederick de Vries <email>diederick76@gmail.com</email> (balíčkování pro Crux "
-"Linux)"
+"Diederick de Vries <email>diederick76@gmail.com</email> (balíčkování pro "
+"Crux Linux)"
 
 #. Tag: para
 #: help_en-work.docbook:2905
@@ -4255,5 +4646,3 @@ msgstr ""
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr "&underFDL; &underGPL;"
-
-

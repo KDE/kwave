@@ -32,7 +32,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2009-06-09</date>
+<date>2009-06-13</date>
 <releaseinfo>&version;</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -2401,13 +2401,13 @@
 		file <filename>kwave.pot</filename> to the corresponding <filename>.po</filename> file of
 		the language you want to add: <filename>"<replaceable>&lt;code&gt;</replaceable>.po"</filename>.
 		After that you can translate the file using your favorite tool, like
-		<filename>kbabel</filename>.
+		<filename>Lokalize</filename>.
 		Example:
 <screen>
 <prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
 <prompt>% </prompt><command>cd <parameter>po</parameter></command>
 <prompt>% </prompt><command>cp <parameter>kwave.pot</parameter> <parameter><replaceable>fr.po</replaceable></parameter></command>
-<prompt>% </prompt><command>kbabel <parameter>fr.po</parameter></command>
+<prompt>% </prompt><command>lokalize <parameter>fr.po</parameter></command>
 </screen>
 	    </para></listitem>
 
@@ -2443,7 +2443,7 @@
 <screen>
 <prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
 <prompt>% </prompt><command>cd <parameter>doc</parameter></command>
-<prompt>% </prompt><command>kbabel <parameter><replaceable>help_fr.po</replaceable></parameter></command>
+<prompt>% </prompt><command>lokalize <parameter><replaceable>help_fr.po</replaceable></parameter></command>
 </screen>
 	    </para></listitem>
 
@@ -2516,7 +2516,7 @@
 		a lot of useful links for KDE translators.
 	    </para></listitem>
 	    <listitem><para>
-		<ulink url="http://kbabel.kde.org/">KBabel</ulink> is
+		<ulink url="http://userbase.kde.org/Lokalize/">Lokalize</ulink> is
 		<emphasis>the</emphasis> standard tool that helps you
 		translating <filename>.po</filename> files.
 	    </para></listitem>

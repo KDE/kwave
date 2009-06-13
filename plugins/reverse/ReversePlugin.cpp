@@ -17,7 +17,12 @@
 
 #include "config.h"
 #include <math.h>
+#include <sched.h>
+
 #include <klocale.h> // for the i18n macro
+#include <threadweaver/Job.h>
+#include <threadweaver/ThreadWeaver.h>
+#include <threadweaver/DebuggingAids.h>
 
 #include <QList>
 #include <QStringList>
@@ -35,19 +40,83 @@
 KWAVE_PLUGIN(ReversePlugin,"reverse","2.1","Thomas Eschenbacher");
 
 //***************************************************************************
-ReversePlugin::ReversePlugin(const PluginContext &context)
-    :Kwave::Plugin(context)
+class ReverseJob: public ThreadWeaver::Job
 {
-     i18n("reverse");
+public:
+
+    /**
+     * Constructor
+     */
+    ReverseJob(
+	PluginManager &manager, unsigned int track,
+	unsigned int first, unsigned int last, unsigned int block_size,
+	SampleReader *src_a, SampleReader *src_b
+    );
+
+    /** Destructor */
+    virtual ~ReverseJob();
+
+    /**
+    * overloaded 'run' function that runns goOn() in the context
+    * of the worker thread.
+    */
+    virtual void run();
+
+private:
+
+    /** reverses the content of an array of samples */
+    void reverse(Kwave::SampleArray &buffer);
+
+private:
+
+    /** plugin manager, for opening a sample writer */
+    PluginManager &m_manager;
+
+    /** index of the track */
+    unsigned int m_track;
+
+    /** first sample (from start) */
+    unsigned int m_first;
+
+    /** last sample (from end) */
+    unsigned int m_last;
+
+    /** block size in samples */
+    unsigned int m_block_size;
+
+    /** reader for start of signal */
+    SampleReader *m_src_a;
+
+    /** reader for end of signal */
+    SampleReader *m_src_b;
+
+};
+
+//***************************************************************************
+ReverseJob::ReverseJob(
+    PluginManager &manager, unsigned int track,
+    unsigned int first, unsigned int last, unsigned int block_size,
+    SampleReader *src_a, SampleReader *src_b)
+    :ThreadWeaver::Job(),
+     m_manager(manager), m_track(track),
+     m_first(first), m_last(last), m_block_size(block_size),
+     m_src_a(src_a), m_src_b(src_b)
+{
 }
 
 //***************************************************************************
-ReversePlugin::~ReversePlugin()
+ReverseJob::~ReverseJob()
 {
+    int i = 0;
+    while (!isFinished()) {
+	qDebug("job %p waiting... #%u", static_cast<void *>(this), i++);
+	sched_yield();
+    }
+    Q_ASSERT(isFinished());
 }
 
 //***************************************************************************
-void ReversePlugin::reverse(Kwave::SampleArray &buffer)
+void ReverseJob::reverse(Kwave::SampleArray &buffer)
 {
     unsigned int count = buffer.size() >> 1;
     if (count <= 1) return;
@@ -59,6 +128,77 @@ void ReversePlugin::reverse(Kwave::SampleArray &buffer)
 	*a++ = *b;
 	*b-- = h;
     }
+}
+
+//***************************************************************************
+void ReverseJob::run()
+{
+    unsigned int start_a = m_first;
+    unsigned int start_b = m_last - m_block_size;
+
+    if (start_a + m_block_size < start_b) {
+	// read from start
+	Kwave::SampleArray buffer_a;
+	buffer_a.resize(m_block_size);
+	*m_src_a >> buffer_a;
+
+	// read from end
+	Kwave::SampleArray buffer_b;
+	buffer_b.resize(m_block_size);
+	m_src_b->seek(start_b);
+	*m_src_b >> buffer_b;
+
+	// swap the contents
+	reverse(buffer_a);
+	reverse(buffer_b);
+
+	// write back buffer from the end at the start
+	SampleWriter *dst_a = m_manager.openSampleWriter(
+	    m_track, Overwrite,
+	    start_a, start_a + m_block_size - 1);
+	Q_ASSERT(dst_a);
+	*dst_a << buffer_b;
+	dst_a->flush();
+	delete dst_a;
+
+	// write back buffer from the start at the end
+	SampleWriter *dst_b = m_manager.openSampleWriter(
+	    m_track, Overwrite,
+	    start_b, start_b + m_block_size - 1);
+	Q_ASSERT(dst_b);
+	*dst_b << buffer_a << flush;
+	delete dst_b;
+    } else {
+	// single buffer with last block
+	Kwave::SampleArray buffer;
+	buffer.resize(m_last - m_first + 1);
+
+	// read from start
+	*m_src_a >> buffer;
+
+	// swap content
+	reverse(buffer);
+
+	// write back
+	SampleWriter *dst = m_manager.openSampleWriter(
+	    m_track, Overwrite, m_first, m_last);
+	(*dst) << buffer << flush;
+	delete dst;
+    }
+
+}
+
+//***************************************************************************
+//***************************************************************************
+ReversePlugin::ReversePlugin(const PluginContext &context)
+    :Kwave::Plugin(context)
+{
+     i18n("reverse");
+}
+
+//***************************************************************************
+ReversePlugin::~ReversePlugin()
+{
 }
 
 //***************************************************************************
@@ -93,63 +233,41 @@ void ReversePlugin::run(QStringList params)
 	    Qt::BlockingQueuedConnection);
 
     // get the buffers for exchanging the data
-    const unsigned int block_size = source_a.blockSize();
+    const unsigned int block_size = 5 * source_a.blockSize();
     Kwave::SampleArray buffer_a(block_size);
     Kwave::SampleArray buffer_b(block_size);
     Q_ASSERT(buffer_a.size() == block_size);
     Q_ASSERT(buffer_b.size() == block_size);
 
+    ThreadWeaver::Weaver weaver;
+    QList<ThreadWeaver::Job *> joblist;
+
     // loop over the sample range
     while ((first < last) && !shouldStop()) {
-	unsigned int start_a = first;
-	unsigned int start_b = last - block_size;
+
+	weaver.suspend();
 
 	// loop over all tracks
 	for (unsigned int track = 0; track < tracks; track++) {
-	    SampleReader *src_a = source_a[track];
-	    SampleReader *src_b = source_b[track];
 
-	    if (start_a + block_size < start_b) {
-		*src_a >> buffer_a; // read from start
-		src_b->seek(start_b);
-		*src_b >> buffer_b; // read from end
+	    ReverseJob *job = new ReverseJob(
+		manager(), track, first, last, block_size,
+		source_a[track], source_b[track]
+	    );
 
-		// swap the contents
-		reverse(buffer_a);
-		reverse(buffer_b);
+	    if (!job) continue;
+	    joblist.append(job);
 
-		// write back buffer from the end at the start
-		SampleWriter *dst_a = manager().openSampleWriter(
-		    track, Overwrite,
-		    start_a, start_a + block_size - 1);
-		Q_ASSERT(dst_a);
-		*dst_a << buffer_b;
-		dst_a->flush();
-		delete dst_a;
+	    // put the job into the thread weaver
+	    weaver.enqueue(job);
+	}
+	weaver.resume();
 
-		// write back buffer from the start at the end
-		SampleWriter *dst_b = manager().openSampleWriter(
-		    track, Overwrite,
-		    start_b, start_b + block_size - 1);
-		Q_ASSERT(dst_b);
-		*dst_b << buffer_a << flush;
-		delete dst_b;
-	    } else {
-		// single buffer with last block
-		buffer_a.resize(last - first + 1);
-
-		// read from start
-		*src_a >> buffer_a;
-
-		// swap content
-		reverse(buffer_a);
-
-		// write back
-		SampleWriter *dst = manager().openSampleWriter(
-		    track, Overwrite, first, last);
-		(*dst) << buffer_a << flush;
-		delete dst;
-	    }
+	if (!joblist.isEmpty()) {
+	    weaver.finish();
+	    Q_ASSERT(weaver.isEmpty());
+	    qDeleteAll(joblist);
+	    joblist.clear();
 	}
 
 	// next positions

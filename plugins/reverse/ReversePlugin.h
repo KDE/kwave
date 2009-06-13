@@ -56,11 +56,6 @@ private slots:
      */
     virtual void updateProgress(unsigned int progress);
 
-private:
-
-    /** reverses the content of an array of samples */
-    void reverse(Kwave::SampleArray &buffer);
-
 };
 
 #endif /* _REVERSE_PLUGIN_H_ */

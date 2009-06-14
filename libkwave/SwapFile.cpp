@@ -28,8 +28,11 @@
 // just for debugging: number of open swapfiles
 static unsigned int g_instances = 0;
 
-// minimum swap file size: 1 MB
-#define MINIMUM_SIZE (1 << 20)
+/** minimum swap file size: 16 MB */
+#define MINIMUM_SIZE (16 << 20)
+
+/** size increment when resizing: 4 MB */
+#define BLOCK_SIZE (4 << 20)
 
 //***************************************************************************
 SwapFile::SwapFile()
@@ -152,8 +155,9 @@ bool SwapFile::resize(size_t size)
 	return true;
     }
 
-    // round up the new size to a full page
-    size_t rounded = round_up(size, m_pagesize);
+    // this file seems to be a growing one:
+    // round up the new size to a full block
+    size_t rounded = round_up(size, BLOCK_SIZE);
 
     // optimization: if rounded size already matches -> done
     if (rounded == m_size) {

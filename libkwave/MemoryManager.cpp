@@ -378,8 +378,8 @@ bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
 	    ((size - current_size) >> 20) > m_physical_limit))
 	{
 	    // too large -> move to virtual memory
-	    qDebug("Kwave::MemoryManager[%9d] - resize(%uMB) -> moving to swap",
-	           handle, static_cast<unsigned int>(size >> 20));
+// 	    qDebug("Kwave::MemoryManager[%9d] - resize(%uMB) -> moving to swap",
+// 	           handle, static_cast<unsigned int>(size >> 20));
 	    return convertToVirtual(handle, size);
 	}
 
@@ -410,10 +410,10 @@ bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
     if (m_unmapped_swap.contains(handle)) {
 	// resize the pagefile
 	SwapFile *swap = m_unmapped_swap[handle];
-	qDebug("Kwave::MemoryManager[%9d] - resize swap %u -> %u MB",
-	        handle,
-	        static_cast<unsigned int>(swap->size() >> 20),
-	        static_cast<unsigned int>(size >> 20));
+// 	qDebug("Kwave::MemoryManager[%9d] - resize swap %u -> %u MB",
+// 	        handle,
+// 	        static_cast<unsigned int>(swap->size() >> 20),
+// 	        static_cast<unsigned int>(size >> 20));
 	return swap->resize(size);
     }
 
@@ -492,8 +492,8 @@ void *Kwave::MemoryManager::map(Kwave::Handle handle)
     if (m_mapped_swap.contains(handle)) {
 	SwapFile *swap = m_mapped_swap[handle];
 	Q_ASSERT(swap->mapCount() >= 1);
-	qDebug("Kwave::MemoryManager[%9d] - mmap -> recursive(%d)",
-		handle, swap->mapCount());
+// 	qDebug("Kwave::MemoryManager[%9d] - mmap -> recursive(%d)",
+// 		handle, swap->mapCount());
 	return swap->map(); // increase map count to 2...
     }
 
@@ -569,8 +569,8 @@ void Kwave::MemoryManager::unmap(Kwave::Handle handle)
 	if (swap->mapCount() > 1) {
 	    // only unmap and internally reduce the map count
 	    swap->unmap();
-	    qDebug("Kwave::MemoryManager[%9d] - unmap -> recursive(%d)",
-		    handle, swap->mapCount());
+// 	    qDebug("Kwave::MemoryManager[%9d] - unmap -> recursive(%d)",
+// 		    handle, swap->mapCount());
 	} else if (swap->mapCount() == 1) {
 	    // move to cache instead of really unmapping
 

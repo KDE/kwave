@@ -39,7 +39,7 @@ Stripe::MappedArray::MappedArray(Stripe &stripe)
 Stripe::MappedArray::~MappedArray()
 {
     if (m_length) resetRawData();
-    m_stripe.unmapStorage();
+    if (m_storage) m_stripe.unmapStorage();
 }
 
 //***************************************************************************
@@ -157,8 +157,10 @@ sample_t *Stripe::StripeStorage::map()
 	Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
 	m_mapped_storage = reinterpret_cast<sample_t*>(
 	    mem.map(m_storage));
+	if (m_mapped_storage) m_map_count++;
+    } else {
+	m_map_count++;
     }
-    m_map_count++;
     return m_mapped_storage;
 }
 

@@ -20,7 +20,7 @@
 #include <errno.h>
 #include <stdio.h>      // for mkstemp (according to the man page)
 #include <stdlib.h>     // for mkstemp (according to reality)
-#include <unistd.h>     // for unlink()
+#include <unistd.h>     // for unlink() and getpagesize()
 #include <sys/mman.h>   // for mmap etc.
 
 #include "SwapFile.h"
@@ -28,13 +28,28 @@
 // just for debugging: number of open swapfiles
 static unsigned int g_instances = 0;
 
+// minimum swap file size: 1 MB
+#define MINIMUM_SIZE (1 << 20)
+
 //***************************************************************************
 SwapFile::SwapFile()
-    :m_file(), m_address(0), m_size(0), m_pagesize(1 << 16)
+    :m_file(), m_address(0), m_size(0), m_pagesize(0), m_map_count(0)
 {
     // determine the system's native page size
-    m_pagesize = 64*1024; // ### fake 64MB pagesize
-    // ### MUST be a power of two !!!
+#if defined(HAVE_GETPAGESIZE)
+    if (!m_pagesize) m_pagesize = getpagesize();
+//     qDebug("getpagesize => %u", m_pagesize);
+#endif
+#if defined(HAVE_SYSCONF) && defined(_SC_PAGE_SIZE)
+    if (!m_pagesize) m_pagesize = sysconf(_SC_PAGESIZE);
+//     qDebug("sysconf(_SC_PAGESIZE) => %u", m_pagesize);
+#endif
+
+    // fallback: assume 4kB pagesize
+    if (static_cast<int>(m_pagesize) <= 0) {
+	qWarning("SwapFile: unable to determine page size, using fallback");
+	m_pagesize = (4 << 10);
+    }
 
     g_instances++;
 }
@@ -49,8 +64,10 @@ SwapFile::~SwapFile()
 //***************************************************************************
 static inline unsigned int round_up(unsigned int size, unsigned int units)
 {
+    if (size < MINIMUM_SIZE) return MINIMUM_SIZE;
+
     unsigned int modulo = (size % units);
-    if (modulo) size += (units-modulo);
+    if (modulo) size += (units - modulo);
     return size;
 }
 
@@ -85,8 +102,28 @@ bool SwapFile::allocate(size_t size, const QString &filename)
     unlink(name.data());
 #endif /* HAVE_UNLINK */
 
-    m_file.seek(round_up(size, m_pagesize));
-    if (static_cast<qint64>(m_file.pos() + 1) < static_cast<qint64>(size)) {
+    // round up the new size to a full page
+    size_t rounded = round_up(size, m_pagesize);
+
+    // touch each new page in order to *really* allocate the disk space
+    size_t offset = 0;
+    while (offset < rounded) {
+	// 	qDebug("SwapFile: touching at offset 0x%08X",
+	// 		static_cast<unsigned int>(offset));
+	m_file.seek(offset);
+	m_file.putChar(0);
+	m_file.flush();
+	if (m_file.pos() != static_cast<qint64>(offset + 1)) {
+	    qWarning("SwapFile::allocate(): seek failed. DISK FULL !?");
+	    return false;
+	}
+	offset += m_pagesize;
+    }
+
+    m_file.seek(rounded - 1);
+    m_file.putChar(0);
+    m_file.flush();
+    if (m_file.pos() + 1 < static_cast<qint64>(size)) {
 	qWarning("SwapFile::allocate(%d MB) failed, DISK FULL ?",
 	         static_cast<unsigned int>(size >> 20));
 	m_size = 0;
@@ -102,48 +139,80 @@ bool SwapFile::allocate(size_t size, const QString &filename)
 }
 
 //***************************************************************************
-SwapFile *SwapFile::resize(size_t size)
+bool SwapFile::resize(size_t size)
 {
     Q_ASSERT(!m_address); // MUST NOT be mappped !
-    if (m_address) return 0;
-    if (size == m_size) return this; // nothing to do
+    Q_ASSERT(!m_map_count);
+    if (m_address || m_map_count) return false;
+    if (size == m_size) return true; // nothing to do
 
     // special case: shutdown
     if (size == 0) {
 	close();
-	return this;
+	return true;
     }
 
     // round up the new size to a full page
-    size = round_up(size, m_pagesize);
+    size_t rounded = round_up(size, m_pagesize);
+
+    // optimization: if rounded size already matches -> done
+    if (rounded == m_size) {
+// 	qDebug("SwapFile::resize(%u MB) -> skipped, already big enough",
+// 	       static_cast<unsigned int>(size >> 20));
+	return true;
+    }
+
+    // do not shrink below minimum size
+    if ((size < m_size) && (size < MINIMUM_SIZE)) {
+// 	qDebug("SwapFile::resize(%u MB) -> skipped, limited by min size",
+// 	       static_cast<unsigned int>(size >> 20));
+	return true;
+    }
 
     // resize the file
     //  qDebug("SwapFile::resize(%u)", size);
-    m_file.seek(size-1);
-    if (static_cast<qint64>(m_file.pos()) == static_cast<qint64>(size - 1)) {
-	if (size > m_size) {
+
+    // touch each new page in order to *really* allocate the disk space
+    size_t offset = static_cast<size_t>((m_size + m_pagesize - 1) / m_pagesize);
+    while (offset < rounded) {
+// 	qDebug("SwapFile: touching at offset 0x%08X",
+// 		static_cast<unsigned int>(offset));
+	m_file.seek(offset);
+	m_file.putChar(0);
+	m_file.flush();
+	if (m_file.pos() != static_cast<qint64>(offset + 1)) {
+	    qWarning("SwapFile::resize(): seek failed. DISK FULL !?");
+	    return false;
+	}
+	offset += m_pagesize;
+    }
+
+    m_file.seek(rounded - 1);
+    if (m_file.pos() == static_cast<qint64>(rounded - 1)) {
+	if (rounded > m_size) {
 	    // growing: mark the new "last byte"
 	    m_file.putChar(0);
 	} else {
 	    // shrinking: only truncate the file
 	    m_file.flush();
-	    int res = ftruncate(m_file.handle(), size);
+	    int res = ftruncate(m_file.handle(), rounded);
 	    if (res) perror("ftruncate failed");
 	}
 
-	m_size = size;
+	m_size = rounded;
     } else {
 	qWarning("SwapFile::resize(): seek failed. DISK FULL !?");
-	return 0;
+	return false;
     }
 
 //  qDebug("SwapFile::resize() to size=%u", m_size);
-    return this;
+    return true;
 }
 
 //***************************************************************************
 void SwapFile::close()
 {
+    Q_ASSERT(!m_map_count);
     if (m_address) munmap(m_address, m_size);
     m_address = 0;
     m_size = 0;
@@ -155,29 +224,48 @@ void SwapFile::close()
 void *SwapFile::map()
 {
 //  qDebug("    SwapFile::map() - m_size=%u", m_size);
+
+    // shortcut if already mapped
+    if (m_map_count) {
+	m_map_count++;
+	Q_ASSERT(m_address);
+	return m_address;
+    }
+
     m_file.flush();
 
     m_address = mmap(0, m_size,
                      PROT_READ | PROT_WRITE, MAP_SHARED,
                      m_file.handle(), 0);
+
+    // map -1 to null pointer
     if (m_address == reinterpret_cast<void *>(-1)) m_address = 0;
+
+    // if succeeded, increase map reference counter
+    if (m_address) m_map_count++;
 
     return m_address;
 }
 
 //***************************************************************************
-void *SwapFile::unmap()
+int SwapFile::unmap()
 {
     Q_ASSERT(m_address);
     Q_ASSERT(m_size);
+    Q_ASSERT(m_map_count);
 
+    // first decrease refcount and do nothing if not zero
+    if (!m_map_count) return 0;
+    if (--m_map_count) return m_map_count;
+
+    // really do the unmap
     if (m_size && m_address) {
 //	qDebug("      --- SwapFile::unmap() (%p)", this);
 	munmap(m_address, m_size);
     }
 
     m_address = 0;
-    return this;
+    return m_map_count;
 }
 
 //***************************************************************************

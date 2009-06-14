@@ -23,7 +23,6 @@
 
 #include <QFile>
 
-class MemoryManager;
 class QString;
 
 class SwapFile
@@ -50,29 +49,28 @@ public:
      * Returns the address of the allocated memory or 0 if
      * nothing has been allocated.
      */
-    inline void *address()   { return m_address; }
+    inline void *address() const   { return m_address; }
 
     /**
      * Returns the size of the allocated memory or 0 if
      * nothing has been allocated.
      */
-    inline size_t size()     { return m_size; }
+    inline size_t size() const     { return m_size; }
+
+    /** returns the map count */
+    inline int mapCount() const    { return m_map_count; }
 
     /**
      * Returns the size of one storage unit in bytes
      */
-    inline size_t pagesize() { return m_pagesize; }
+    inline size_t pagesize() const { return m_pagesize; }
 
     /**
      * Resizes the allocated swap file.
      * @param size the new size
-     * @return pointer to this object or 0 if failed
+     * @return true if successful or false if failed
      */
-    SwapFile *resize(size_t size);
-
-protected:
-
-    friend class MemoryManager;
+    bool resize(size_t size);
 
     /**
      * Map the memory and return the physical address.
@@ -84,10 +82,9 @@ protected:
     /**
      * Unmap a memory area, previously mapped with map()
      *
-     * @param block pointer to the previously mapped block
-     * @param pointer to this
+     * @return current reference count
      */
-    void *unmap();
+    int unmap();
 
     /**
      * Read bytes into a buffer
@@ -119,17 +116,20 @@ private:
 
 private:
 
-    /** File used for swapping */
+    /** file used for swapping */
     QFile m_file;
 
-    /** Address of the allocated virtual memory or 0 */
+    /** address of the allocated virtual memory or 0 */
     void *m_address;
 
-    /** Number of allocated bytes or 0 */
+    /** number of allocated bytes or 0 */
     size_t m_size;
 
     /** size of one storage unit */
     size_t m_pagesize;
+
+    /** reference count for mmap [0...N] */
+    int m_map_count;
 
 };
 

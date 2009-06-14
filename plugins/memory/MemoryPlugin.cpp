@@ -17,9 +17,10 @@
 
 #include "config.h"
 #include <errno.h>
+#include <limits.h>
 
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QString>
+#include <QStringList>
 
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/MemoryManager.h"
@@ -73,9 +74,13 @@ int MemoryPlugin::interpreteParameters(QStringList &params)
     if (!ok) return -EINVAL;
 
     // parameter #4: limit for virtual memory
-    param = params[4];
-    m_virtual_limit = param.toUInt(&ok);
-    if (!ok) return -EINVAL;
+    if (m_virtual_limited) {
+	param = params[4];
+	m_virtual_limit = param.toUInt(&ok);
+	if (!ok) return -EINVAL;
+    } else {
+	m_virtual_limit = INT_MAX;
+    }
 
     // parameter #5: directory for virtual memory files
     param = params[5];
@@ -102,10 +107,10 @@ void MemoryPlugin::load(QStringList &params)
 //***************************************************************************
 void MemoryPlugin::applySettings()
 {
-    MemoryManager &mem = MemoryManager::instance();
+    Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
     mem.setPhysicalLimit(m_physical_limited ? m_physical_limit : 4096);
     mem.setVirtualLimit(m_virtual_enabled ?
-                       (m_virtual_limited ? m_virtual_limit : 4096) :
+                       (m_virtual_limited ? m_virtual_limit : INT_MAX) :
 		       0);
     mem.setSwapDirectory(m_virtual_directory);
     mem.setUndoLimit(m_undo_limit);

@@ -27,6 +27,7 @@
 #include <kdemacros.h>
 
 #include "libkwave/KwaveSampleArray.h"
+#include "libkwave/MemoryManager.h"
 #include "libkwave/Sample.h"
 
 //***************************************************************************
@@ -297,7 +298,7 @@ private:
 	unsigned int m_length;
 
 	/** pointer/handle to a storage object */
-	void *m_storage;
+	Kwave::Handle m_storage;
 
     private:
 

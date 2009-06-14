@@ -1126,7 +1126,7 @@ bool SignalManager::registerUndoAction(UndoAction *action)
     }
 
     // check if the undo action is too large
-    unsigned int limit_mb     = MemoryManager::instance().undoLimit();
+    unsigned int limit_mb     = Kwave::MemoryManager::instance().undoLimit();
     unsigned int needed_size  = action->undoSize();
     unsigned int needed_mb = needed_size  >> 20;
     if (needed_mb > limit_mb) {
@@ -1192,7 +1192,8 @@ unsigned int SignalManager::usedUndoRedoMemory()
 void SignalManager::freeUndoMemory(unsigned int needed)
 {
     unsigned int size = usedUndoRedoMemory() + needed;
-    unsigned int undo_limit = MemoryManager::instance().undoLimit() << 20;
+    unsigned int undo_limit =
+	Kwave::MemoryManager::instance().undoLimit() << 20;
 
     // remove old undo actions if not enough free memory
     while (!m_undo_buffer.isEmpty() && (size > undo_limit)) {
@@ -1260,7 +1261,8 @@ void SignalManager::undo()
     m_undo_enabled = false;
 
     // get free memory for redo
-    unsigned int undo_limit = MemoryManager::instance().undoLimit() << 20;
+    unsigned int undo_limit =
+	Kwave::MemoryManager::instance().undoLimit() << 20;
     unsigned int redo_size = undo_transaction->redoSize();
     unsigned int undo_size = undo_transaction->undoSize();
     UndoTransaction *redo_transaction = 0;
@@ -1385,7 +1387,8 @@ void SignalManager::redo()
     m_undo_enabled = false;
 
     // get free memory for undo
-    unsigned int undo_limit = MemoryManager::instance().undoLimit() << 20;
+    unsigned int undo_limit =
+	Kwave::MemoryManager::instance().undoLimit() << 20;
     unsigned int undo_size = redo_transaction->undoSize();
     unsigned int redo_size = redo_transaction->redoSize();
     UndoTransaction *undo_transaction = 0;

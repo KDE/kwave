@@ -46,7 +46,7 @@ MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
     setupUi(this);
     setModal(true);
 
-    MemoryManager &mem = MemoryManager::instance();
+    Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
     unsigned int total_physical = mem.totalPhysical();
 
     if (!isOK()) return;

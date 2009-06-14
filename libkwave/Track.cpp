@@ -115,7 +115,6 @@ Stripe Track::splitStripe(Stripe &stripe, unsigned int offset)
 
     // create a new stripe with the data that has been split off
     Stripe s(stripe.start() + offset, stripe, offset);
-    Q_ASSERT(s.length());
     if (!s.length()) return Stripe();
 
     // shrink the old stripe

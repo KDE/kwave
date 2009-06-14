@@ -54,6 +54,12 @@
 /* used for creating swap files */
 #cmakedefine HAVE_MKSTEMP
 
+/* used for page size in context of swap files */
+#cmakedefine HAVE_GETPAGESIZE
+
+/* used for determining the page size in context of swap file handling */
+#cmakedefine HAVE_SYSCONF
+
 /* support playback/recording via OSS */
 #cmakedefine HAVE_OSS_SUPPORT
 

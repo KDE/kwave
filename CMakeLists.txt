@@ -233,6 +233,8 @@ ENDIF(NOT HAVE_MEMINFO)
 CHECK_FUNCTION_EXISTS(getrlimit HAVE_GETRLIMIT)
 CHECK_FUNCTION_EXISTS(mkstemp HAVE_MKSTEMP)
 CHECK_FUNCTION_EXISTS(unlink HAVE_UNLINK)
+CHECK_FUNCTION_EXISTS(getpagesize HAVE_GETPAGESIZE)
+CHECK_FUNCTION_EXISTS(sysconf HAVE_SYSCONF)
 
 #############################################################################
 ### libaudiofile support                                                  ###

@@ -25,8 +25,6 @@
 #include "libkwave/Stripe.h"
 #include "libkwave/Track.h"
 
-#include <QList>
-
 // define this for using only slow Qt array functions
 // #define STRICTLY_QT
 
@@ -40,7 +38,7 @@ SampleReader::SampleReader(Kwave::ReaderMode mode, QList<Stripe> stripes,
      m_src_position(left), m_first(left), m_last(right),
      m_buffer(blockSize()),
      m_buffer_used(0), m_buffer_position(0),
-     m_progress_time()
+     m_progress_time(), m_last_seek_pos(right)
 {
     m_progress_time.start();
 }
@@ -218,6 +216,20 @@ void SampleReader::seek(unsigned int pos)
     if (pos == current_pos) return; // nothing to do
 
     if (pos < current_pos) {
+	// if we are in SinglePassReverse mode, discard all stripes
+	// that we already have passed, up to the end
+	if (m_mode == Kwave::SinglePassReverse) {
+	    while (!m_stripes.isEmpty() &&
+		(m_stripes.last().start() > m_last_seek_pos))
+	    {
+// 		qDebug("SampleReader: removing stripe [%9u ... %9u] (end=%9u)",
+// 			m_stripes.last().start(),
+// 			m_stripes.last().end(),
+// 			m_last_seek_pos);
+		m_stripes.removeLast();
+	    }
+	}
+
 	// seek backwards
 	const unsigned int count = current_pos - pos;
 	if (count <= m_buffer_position) {
@@ -232,6 +244,8 @@ void SampleReader::seek(unsigned int pos)
 	// seek forward
 	skip(pos - current_pos);
     }
+
+    m_last_seek_pos = m_src_position;
 }
 
 //***************************************************************************
@@ -310,6 +324,19 @@ unsigned int SampleReader::readSamples(unsigned int offset,
 
     // pad at the end
     if (rest) padBuffer(buffer, buf_offset, rest);
+
+    // if this reader is of "single pass forward only" type: remove all
+    // stripes that we have passed -> there is no way back!
+    if (m_mode == Kwave::SinglePassForward) {
+	m_first = m_src_position;
+	while (!m_stripes.isEmpty() && (m_stripes.first().end() < m_first)) {
+// 	    qDebug("SampleReader: removing stripe [%9u ... %9u] (first=%9u)",
+// 		    m_stripes.first().start(),
+// 		    m_stripes.first().end(),
+// 		    m_first);
+	    m_stripes.removeFirst();
+	}
+    }
 
     return length;
 }

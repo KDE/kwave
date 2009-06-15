@@ -198,6 +198,9 @@ private:
     /** timer for limiting the number of progress signals per second */
     QTime m_progress_time;
 
+    /** last seek position, needed in SinglePassReverse mode */
+    unsigned int m_last_seek_pos;
+
 };
 
 #endif /* _SAMPLE_READER_H_ */

@@ -41,7 +41,7 @@
 #include "SwapFile.h"
 
 /** number of elements in the m_cached_swap list */
-#define CACHE_SIZE 8
+#define CACHE_SIZE 32
 
 /** static instance of the memory manager */
 static Kwave::MemoryManager g_instance;
@@ -195,18 +195,64 @@ Kwave::Handle Kwave::MemoryManager::newHandle()
 }
 
 //***************************************************************************
+bool Kwave::MemoryManager::freePhysical(size_t size)
+{
+    size_t freed = 0;
+
+    if (m_physical.isEmpty()) return false;
+
+    QList<Kwave::Handle> list = m_physical.keys();
+    QMutableListIterator<Kwave::Handle> it(list);
+    it.toBack();
+    while (it.hasPrevious()) {
+	Kwave::Handle handle = it.previous();
+	const physical_memory_t &p = m_physical[handle];
+	if (p.m_mapcount) continue; // in use :-(
+
+	// convert to swapfile
+	qDebug("Kwave::MemoryManager[%9d] - swapping out to make space", handle);
+
+	size_t s = p.m_size;
+	if (convertToVirtual(handle, s)) {
+	    freed += s;
+	    if (freed >= size) return true;
+
+	    // abort if the list is now empty
+	    if (m_physical.isEmpty()) return false;
+
+	    // put the iterator to a sane position again
+	    it.remove();
+	}
+    }
+
+    return false;
+}
+
+//***************************************************************************
 Kwave::Handle Kwave::MemoryManager::allocate(size_t size)
 {
     QMutexLocker lock(&m_lock);
 
     Kwave::Handle handle = allocatePhysical(size);
-    if (!handle)  handle = allocateVirtual(size);
+    if (!handle) {
+	// try to make some room in the physical memory area
+	if (freePhysical(size)) {
+	    // and try again to allocate physical memory
+	    handle = allocatePhysical(size);
+	}
+
+	if (!handle) {
+	    // fallback: allocate a swapfile
+	    handle = allocateVirtual(size);
+	}
+    }
 
     if (!handle) {
 	qWarning("Kwave::MemoryManager::allocate(%u) - out of memory!",
 	          static_cast<unsigned int>(size));
     }
 
+    dump("allocate");
     return handle;
 }
 
@@ -295,6 +341,7 @@ Kwave::Handle Kwave::MemoryManager::allocateVirtual(size_t size)
 	qWarning("Kwave::MemoryManager::allocateVirtual(%u): out of memory, "\
 	         "(used: %uMB, available: %uMB, limit=%uMB)",
 	         static_cast<unsigned int>(size), used, available, limit);
+	dump("allocateVirtual");
         return 0;
     }
 
@@ -355,6 +402,8 @@ bool Kwave::MemoryManager::convertToVirtual(Kwave::Handle handle,
 
     // we now have the old data with new size and old handle in m_unmapped_swap
 //     qDebug("Kwave::MemoryManager[%9d] - moved to swap", handle);
+
+    dump("convertToVirtual");
     return true;
 }
 
@@ -368,28 +417,35 @@ bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
 
     // case 1: physical memory
     if (m_physical.contains(handle)) {
+	physical_memory_t &phys = m_physical[handle];
+
 	// check: it must not be mmapped!
-	Q_ASSERT(!m_physical[handle].m_mapcount);
-	if (m_physical[handle].m_mapcount) return false;
+	Q_ASSERT(!phys.m_mapcount);
+	if (phys.m_mapcount) return false;
 
 	// if we are increasing: check if we get too large
-	size_t current_size = m_physical[handle].m_size;
+	size_t current_size = phys.m_size;
 	if ((size > current_size) && (physicalUsed() +
 	    ((size - current_size) >> 20) > m_physical_limit))
 	{
-	    // too large -> move to virtual memory
-// 	    qDebug("Kwave::MemoryManager[%9d] - resize(%uMB) -> moving to swap",
-// 	           handle, static_cast<unsigned int>(size >> 20));
-	    return convertToVirtual(handle, size);
+	    // first try to swap out some old stuff
+	    if (freePhysical(size)) {
+		// still too large -> move to virtual memory
+		qDebug("Kwave::MemoryManager[%9d] - resize(%uMB) -> moving to swap",
+		    handle, static_cast<unsigned int>(size >> 20));
+		return convertToVirtual(handle, size);
+	    }
 	}
 
 	// try to resize the physical memory
-	void *old_block = m_physical[handle].m_data;
+	void *old_block = phys.m_data;
 	void *new_block = ::realloc(old_block, size);
 	if (new_block) {
-	    m_physical[handle].m_data     = new_block;
-	    m_physical[handle].m_size     = size;
-	    m_physical[handle].m_mapcount = 0;
+	    phys.m_data     = new_block;
+	    phys.m_size     = size;
+	    phys.m_mapcount = 0;
+
+	    dump("resize");
 	    return true;
 	} else {
 	    // resizing failed, try to allocate virtual memory for it
@@ -414,6 +470,8 @@ bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
 // 	        handle,
 // 	        static_cast<unsigned int>(swap->size() >> 20),
 // 	        static_cast<unsigned int>(size >> 20));
+
+	dump("resize");
 	return swap->resize(size);
     }
 
@@ -436,6 +494,8 @@ void Kwave::MemoryManager::free(Kwave::Handle &handle)
 	m_physical.remove(handle);
 	::free(b);
 	handle = 0;
+
+	dump("free");
 	return;
     }
 
@@ -454,6 +514,8 @@ void Kwave::MemoryManager::free(Kwave::Handle &handle)
 	Q_ASSERT(!swap->mapCount());
 	delete swap;
 	handle = 0;
+
+	dump("free");
 	return;
     }
 
@@ -533,6 +595,8 @@ void Kwave::MemoryManager::unmapFromCache(Kwave::Handle handle)
 	m_cached_swap.remove(handle);
 	m_unmapped_swap.insert(handle, swap);
     }
+
+    dump("unmap");
 }
 
 //***************************************************************************
@@ -542,14 +606,14 @@ void Kwave::MemoryManager::unmap(Kwave::Handle handle)
 
     // simple case: physical memory does not really need to be unmapped
     if (m_physical.contains(handle)) {
+// 	qDebug("Kwave::MemoryManager[%9d] - unmap -> physical", handle);
 	Q_ASSERT(m_physical[handle].m_mapcount);
 	if (m_physical[handle].m_mapcount)
 	    m_physical[handle].m_mapcount--;
-// 	qDebug("Kwave::MemoryManager[%9d] - unmap -> physical", handle);
 	return;
     }
 
-//  qDebug("    MemoryManager::unmap(%p)", handle);
+//     qDebug("Kwave::MemoryManager[%9d] - unmap swap", handle);
 
     // just to be sure: should also not be in cache!
     Q_ASSERT(!m_cached_swap.contains(handle));
@@ -583,7 +647,7 @@ void Kwave::MemoryManager::unmap(Kwave::Handle handle)
 	    m_mapped_swap.remove(handle);
 	    m_cached_swap.insert(handle, swap);
 // 	    qDebug("Kwave::MemoryManager[%9d] - unmap -> moved to cache",
-// 		    handle);
+// 	           handle);
 	}
     }
 }
@@ -594,7 +658,6 @@ int Kwave::MemoryManager::readFrom(Kwave::Handle handle, unsigned int offset,
 {
     QMutexLocker lock(&m_lock);
 
-    Q_ASSERT(handle);
     if (!handle) return 0;
 
     // simple case: physical memory -> memcpy(...)
@@ -684,6 +747,46 @@ int Kwave::MemoryManager::writeTo(Kwave::Handle handle, unsigned int offset,
     }
 
     return 0;
+}
+
+//***************************************************************************
+void Kwave::MemoryManager::dump(const char *function)
+{
+#if 0
+    unsigned int v_used  = static_cast<unsigned int>(virtualUsed());
+    unsigned int p_used  = static_cast<unsigned int>(physicalUsed());
+
+    qDebug("------- %s -------", function);
+    foreach (const Kwave::Handle &handle, m_physical.keys())
+	qDebug("        P[%5u]: %5u", static_cast<unsigned int>(handle),
+	                              m_physical[handle].m_size >> 20);
+
+    unsigned int m = 0;
+    foreach (const Kwave::Handle &handle, m_mapped_swap.keys()) {
+	m += m_mapped_swap[handle]->size() >> 20;
+	qDebug("        M[%5u]: %5u", static_cast<unsigned int>(handle),
+	                              m_mapped_swap[handle]->size() >> 20);
+    }
+
+    unsigned int c = 0;
+    foreach (const Kwave::Handle &handle, m_cached_swap.keys()) {
+	c += m_cached_swap[handle]->size() >> 20;
+	qDebug("        C[%5u]: %5u", static_cast<unsigned int>(handle),
+	                              m_cached_swap[handle]->size() >> 20);
+    }
+
+    unsigned int u = 0;
+    foreach (const Kwave::Handle &handle, m_unmapped_swap.keys()) {
+	u += m_unmapped_swap[handle]->size() >> 20;
+	qDebug("        U[%5u]: %5u", static_cast<unsigned int>(handle),
+	                              m_unmapped_swap[handle]->size() >> 20);
+    }
+
+    qDebug("physical: %5u MB, virtual: %5u MB [m:%5u, c:%5u, u:%5u]",
+           p_used, v_used, m, c, u);
+#else
+    Q_UNUSED(function);
+#endif
 }
 
 //***************************************************************************

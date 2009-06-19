@@ -256,8 +256,7 @@ void Track::unlockedDelete(unsigned int offset, unsigned int length,
 // 		qDebug("    splitting off to new stripe @ %u (ofs=%u)",
 // 		    right + 1, right + 1 - start);
 		Stripe new_stripe = splitStripe(s, right + 1 - start);
-		Q_ASSERT(new_stripe.length());
-		if (!new_stripe.length()) break;
+		if (!new_stripe.length()) break; // OOM ?
 		it.next(); // right after "s"
 		it.insert(new_stripe);
 		it.previous(); // before new_stripe == after s

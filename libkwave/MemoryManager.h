@@ -28,6 +28,8 @@
 
 #include <kdemacros.h>
 
+#include "libkwave/LRU_Cache.h"
+
 class SwapFile;
 
 namespace Kwave {
@@ -198,12 +200,24 @@ namespace Kwave {
 	Kwave::Handle newHandle();
 
 	/**
+	 * try to make some room in the physical memory area by kicking
+	 * out the oldest entries to swap if possible.
+	 *
+	 * @param size number of bytes to free
+	 * @return true if successful, false if failed
+	 */
+	bool freePhysical(size_t size);
+
+	/**
 	 * Makes sure that the object is not a swapfile in cache. If so,
 	 * it will be unmapped and moved to the m_unmapped_swap list.
 	 *
 	 * @param handle handle of a block in m_cached_swap
 	 */
 	void unmapFromCache(Kwave::Handle handle) KDE_NO_EXPORT;
+
+	/** dump current state (for debugging) */
+	void dump(const char *function);
 
     private:
 
@@ -234,7 +248,7 @@ namespace Kwave {
 	unsigned int m_undo_limit;
 
 	/** map of objects in physical memory */
-	QHash<Kwave::Handle, physical_memory_t> m_physical;
+	Kwave::LRU_Cache<Kwave::Handle, physical_memory_t> m_physical;
 
 	/** map of swapfile objects that are not mapped into memory */
 	QHash<Kwave::Handle, SwapFile *> m_unmapped_swap;

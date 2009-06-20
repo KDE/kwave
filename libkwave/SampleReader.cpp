@@ -328,7 +328,6 @@ unsigned int SampleReader::readSamples(unsigned int offset,
     // if this reader is of "single pass forward only" type: remove all
     // stripes that we have passed -> there is no way back!
     if (m_mode == Kwave::SinglePassForward) {
-	m_first = m_src_position;
 	while (!m_stripes.isEmpty() && (m_stripes.first().end() < m_first)) {
 // 	    qDebug("SampleReader: removing stripe [%9u ... %9u] (first=%9u)",
 // 		    m_stripes.first().start(),

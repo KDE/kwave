@@ -361,6 +361,15 @@ void Kwave::Plugin::close()
     if (m_thread && m_thread->isRunning() &&
         (QThread::currentThread() != m_thread) )
     {
+	// check: this must be called from the GUI thread only!
+	Q_ASSERT(this->thread() == QThread::currentThread());
+	Q_ASSERT(this->thread() == qApp->thread());
+
+	m_progress_timer.stop();
+	qApp->sendPostedEvents();
+	qApp->processEvents();
+	qApp->syncX();
+
 	stop();
     }
 }

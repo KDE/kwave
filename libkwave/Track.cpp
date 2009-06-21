@@ -241,7 +241,7 @@ void Track::unlockedDelete(unsigned int offset, unsigned int length,
 		// case #4: delete from the right only
 // 		qDebug("    deleting within the stripe");
 		s.deleteRange(ofs - start, end - ofs + 1);
-		Q_ASSERT(s.length());
+		if (!s.length()) break; // OOM ?
 
 		// if deleted from start
 		if (left <= s.start()) {
@@ -269,9 +269,9 @@ void Track::unlockedDelete(unsigned int offset, unsigned int length,
 		s.deleteRange(ofs - start, s.end() - ofs + 1);
 // 		qDebug("length now: %u [%u ... %u]", s.length(),
 // 		    s.start(), s.end());
-		Q_ASSERT(s.length());
+// 		Q_ASSERT(s.length());
 	    }
-	    Q_ASSERT(s.length());
+// 	    Q_ASSERT(s.length());
 	}
     }
 

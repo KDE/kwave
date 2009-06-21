@@ -133,9 +133,12 @@ Stripe::StripeStorage::StripeStorage(const StripeStorage &other)
 	if (!m_storage) {
 	    // allocation failed
 	    qWarning("StripeStorage: DEEP COPY (%u) FAILED - OOM!", m_length);
+	    m_length = 0;
+	    return;
 	}
 
 	// copy the data from the original
+	Q_ASSERT(m_storage);
 	void *original = mem.map(other.m_storage);
 	if (original) {
 	    mem.writeTo(m_storage, 0, original, m_length * sizeof(sample_t));
@@ -155,12 +158,12 @@ sample_t *Stripe::StripeStorage::map()
 
     if (!m_map_count) {
 	Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
-	m_mapped_storage = reinterpret_cast<sample_t*>(
+	m_mapped_storage = reinterpret_cast<sample_t *>(
 	    mem.map(m_storage));
-	if (m_mapped_storage) m_map_count++;
-    } else {
-	m_map_count++;
     }
+
+    if (m_mapped_storage) m_map_count++;
+
     return m_mapped_storage;
 }
 
@@ -236,6 +239,8 @@ Stripe::Stripe(unsigned int start, Stripe &stripe, unsigned int offset)
 
     if (length) {
 	MappedArray _samples(*this);
+	Q_ASSERT(_samples.data());
+	if (!_samples.data()) return; // OOM
 	if (!stripe.read(_samples, 0, offset, length)) resize(0);
     }
 }
@@ -278,6 +283,7 @@ unsigned int Stripe::resizeStorage(unsigned int length)
 {
     if (!m_data) return 0;
     m_data.detach();
+    if (!m_data) return 0; // OOM when detaching
 
     if (m_data->m_length == length) return length; // nothing to do
 //     qDebug("Stripe::resizeStorage(%u)", length);
@@ -329,6 +335,7 @@ unsigned int Stripe::resize(unsigned int length, bool initialize)
 {
     if (!m_data) return 0;
     m_data.detach();
+    if (!m_data) return 0; // OOM when detaching
 
     unsigned int old_length = 0;
     {
@@ -380,6 +387,7 @@ unsigned int Stripe::append(const Kwave::SampleArray &samples,
 
     if (!count || !m_data) return 0; // nothing to do
     m_data.detach();
+    if (!m_data) return 0; // OOM when detaching
 
     {
 	QMutexLocker lock(&m_lock);
@@ -413,6 +421,7 @@ void Stripe::deleteRange(unsigned int offset, unsigned int length)
 //     qDebug("    Stripe::deleteRange(offset=%u, length=%u)", offset, length);
     if (!length || !m_data) return; // nothing to do
     m_data.detach();
+    if (!m_data) return; // OOM when detaching
 
     {
 	QMutexLocker lock(&m_lock);
@@ -459,6 +468,7 @@ void Stripe::overwrite(unsigned int offset,
     QMutexLocker lock(&m_lock);
     if (!m_data) return;
     m_data.detach();
+    if (!m_data) return; // OOM when detaching
 
     Q_ASSERT(!m_data->mapCount());
     Kwave::MemoryManager::instance().writeTo(m_data->m_storage,
@@ -507,6 +517,7 @@ void Stripe::minMax(unsigned int first, unsigned int last,
     min = 0;
     max = 0;
 
+    if (!m_data) return;
     MappedArray _samples(*this);
     const sample_t *buffer = _samples.data();
     if (!buffer || !m_data) return;

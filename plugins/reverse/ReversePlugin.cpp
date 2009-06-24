@@ -31,6 +31,7 @@
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SampleWriter.h"
+#include "libkwave/SignalManager.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "libgui/SelectTimeWidget.h" // for selection mode
@@ -48,7 +49,7 @@ public:
      * Constructor
      */
     ReverseJob(
-	PluginManager &manager, unsigned int track,
+	SignalManager &manager, unsigned int track,
 	unsigned int first, unsigned int last, unsigned int block_size,
 	SampleReader *src_a, SampleReader *src_b
     );
@@ -69,8 +70,8 @@ private:
 
 private:
 
-    /** plugin manager, for opening a sample writer */
-    PluginManager &m_manager;
+    /** signal manager, for opening a sample writer */
+    SignalManager &m_manager;
 
     /** index of the track */
     unsigned int m_track;
@@ -94,7 +95,7 @@ private:
 
 //***************************************************************************
 ReverseJob::ReverseJob(
-    PluginManager &manager, unsigned int track,
+    SignalManager &manager, unsigned int track,
     unsigned int first, unsigned int last, unsigned int block_size,
     SampleReader *src_a, SampleReader *src_b)
     :ThreadWeaver::Job(),
@@ -155,7 +156,8 @@ void ReverseJob::run()
 	// write back buffer from the end at the start
 	SampleWriter *dst_a = m_manager.openSampleWriter(
 	    m_track, Overwrite,
-	    start_a, start_a + m_block_size - 1);
+	    start_a, start_a + m_block_size - 1,
+	    false);
 	Q_ASSERT(dst_a);
 	*dst_a << buffer_b;
 	dst_a->flush();
@@ -164,7 +166,8 @@ void ReverseJob::run()
 	// write back buffer from the start at the end
 	SampleWriter *dst_b = m_manager.openSampleWriter(
 	    m_track, Overwrite,
-	    start_b, start_b + m_block_size - 1);
+	    start_b, start_b + m_block_size - 1,
+	    false);
 	Q_ASSERT(dst_b);
 	*dst_b << buffer_a << flush;
 	delete dst_b;
@@ -181,7 +184,8 @@ void ReverseJob::run()
 
 	// write back
 	SampleWriter *dst = m_manager.openSampleWriter(
-	    m_track, Overwrite, m_first, m_last);
+	    m_track, Overwrite, m_first, m_last,
+	    false);
 	(*dst) << buffer << flush;
 	delete dst;
     }
@@ -251,7 +255,7 @@ void ReversePlugin::run(QStringList params)
 	for (unsigned int track = 0; track < tracks; track++) {
 
 	    ReverseJob *job = new ReverseJob(
-		manager(), track, first, last, block_size,
+		signalManager(), track, first, last, block_size,
 		source_a[track], source_b[track]
 	    );
 

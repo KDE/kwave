@@ -22,14 +22,19 @@
 #include <sys/types.h>  // for size_t
 
 #include <QFile>
+#include <QTemporaryFile>
 
 class QString;
 
 class SwapFile
 {
 public:
-    /** Constructor */
-    SwapFile();
+    /**
+     * Constructor
+     * @param name full path to the swap file, actually a template
+     *             that <b>must</b> contain 6 "X" characters at the end!
+     */
+    SwapFile(const QString &name);
 
     /** Destructor */
     virtual ~SwapFile();
@@ -43,7 +48,7 @@ public:
      *                 that <b>must</b> contain 6 "X" characters at the end!
      * @return true if succeeded, false if failed
      */
-    bool allocate(size_t size, const QString &filename);
+    bool allocate(size_t size);
 
     /**
      * Returns the address of the allocated memory or 0 if
@@ -117,7 +122,7 @@ private:
 private:
 
     /** file used for swapping */
-    QFile m_file;
+    QTemporaryFile m_file;
 
     /** address of the allocated virtual memory or 0 */
     void *m_address;

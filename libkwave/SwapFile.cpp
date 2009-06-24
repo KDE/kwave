@@ -17,11 +17,7 @@
 
 #include "config.h"
 
-#include <errno.h>
-#include <stdio.h>      // for mkstemp (according to the man page)
-#include <stdlib.h>     // for mkstemp (according to reality)
 #include <unistd.h>     // for unlink() and getpagesize()
-#include <sys/mman.h>   // for mmap etc.
 
 #include "SwapFile.h"
 
@@ -35,17 +31,15 @@ static unsigned int g_instances = 0;
 #define BLOCK_SIZE (4 << 20)
 
 //***************************************************************************
-SwapFile::SwapFile()
-    :m_file(), m_address(0), m_size(0), m_pagesize(0), m_map_count(0)
+SwapFile::SwapFile(const QString &name)
+    :m_file(name), m_address(0), m_size(0), m_pagesize(0), m_map_count(0)
 {
     // determine the system's native page size
 #if defined(HAVE_GETPAGESIZE)
     if (!m_pagesize) m_pagesize = getpagesize();
-//     qDebug("getpagesize => %u", m_pagesize);
 #endif
 #if defined(HAVE_SYSCONF) && defined(_SC_PAGE_SIZE)
     if (!m_pagesize) m_pagesize = sysconf(_SC_PAGESIZE);
-//     qDebug("sysconf(_SC_PAGESIZE) => %u", m_pagesize);
 #endif
 
     // fallback: assume 4kB pagesize
@@ -75,34 +69,24 @@ static inline unsigned int round_up(unsigned int size, unsigned int units)
 }
 
 //***************************************************************************
-bool SwapFile::allocate(size_t size, const QString &filename)
+bool SwapFile::allocate(size_t size)
 {
     Q_ASSERT(!m_address); // MUST NOT be mapped !
     if (m_address) return false;
 
     if (m_size) close();
-//     qDebug("SwapFile::allocate(%u), instances: %u",
-// 	   size, g_instances);
+    qDebug("SwapFile::allocate(%u), instances: %u", size, g_instances);
 
     // try to create the temporary file
-    QByteArray name = QFile::encodeName(filename);
-#ifdef HAVE_MKSTEMP
-    int fd = mkstemp(name.data());
-    if (fd < 0) {
-	qDebug("SwapFile::allocate(%u) failed, instances: %u",
-	       static_cast<unsigned int>(size), g_instances);
+    if (!m_file.open()) {
+	qWarning("SwapFile(%s) -> open failed", m_file.fileName().toLocal8Bit().data());
 	return false;
     }
-    m_file.open(fd, QIODevice::Unbuffered | QIODevice::ReadWrite);
-#else /* HAVE_MKSTEMP */
-    m_file.setFileName(filename);
-    m_file.open(QIODevice::Unbuffered | QIODevice::ReadWrite);
-#endif/* HAVE_MKSTEMP */
 
     // when it is created, also try to unlink it so that it will always
     // be removed, even if the application crashes !
 #ifdef HAVE_UNLINK
-    unlink(name.data());
+    unlink(m_file.fileName().toLocal8Bit().data());
 #endif /* HAVE_UNLINK */
 
     // round up the new size to a full page
@@ -217,11 +201,20 @@ bool SwapFile::resize(size_t size)
 void SwapFile::close()
 {
     Q_ASSERT(!m_map_count);
-    if (m_address) munmap(m_address, m_size);
+    if (m_address) m_file.unmap(static_cast<uchar *>(m_address));
     m_address = 0;
     m_size = 0;
+
+    m_file.resize(0);
     if (m_file.isOpen()) m_file.close();
-    if (m_file.exists(m_file.fileName())) m_file.remove();
+
+    if (m_file.exists(m_file.fileName())) {
+	if (!m_file.remove()) {
+	    qWarning("SwapFile(%s) -> remove FAILED",
+	             m_file.fileName().toLocal8Bit().data());
+	}
+    }
+
 }
 
 //***************************************************************************
@@ -238,15 +231,18 @@ void *SwapFile::map()
 
     m_file.flush();
 
-    m_address = mmap(0, m_size,
-                     PROT_READ | PROT_WRITE, MAP_SHARED,
-                     m_file.handle(), 0);
+    m_address = m_file.map(0, m_size, QFile::NoOptions);
 
     // map -1 to null pointer
     if (m_address == reinterpret_cast<void *>(-1)) m_address = 0;
 
     // if succeeded, increase map reference counter
-    if (m_address) m_map_count++;
+    if (m_address) {
+	m_map_count++;
+    } else {
+	qWarning("SwapFile(%s) -> map FAILED",
+	         m_file.fileName().toLocal8Bit().data());
+    }
 
     return m_address;
 }
@@ -265,7 +261,10 @@ int SwapFile::unmap()
     // really do the unmap
     if (m_size && m_address) {
 //	qDebug("      --- SwapFile::unmap() (%p)", this);
-	munmap(m_address, m_size);
+	if (!m_file.unmap(static_cast<uchar *>(m_address))) {
+	    qWarning("SwapFile(%s) -> unmap FAILED",
+	             m_file.fileName().toLocal8Bit().data());
+	}
     }
 
     m_address = 0;

@@ -41,7 +41,7 @@
 #include "SwapFile.h"
 
 /** number of elements in the m_cached_swap list */
-#define CACHE_SIZE 32
+#define CACHE_SIZE 16
 
 /** static instance of the memory manager */
 static Kwave::MemoryManager g_instance;
@@ -201,8 +201,8 @@ bool Kwave::MemoryManager::freePhysical(size_t size)
 
     if (m_physical.isEmpty()) return false;
 
-    QList<Kwave::Handle> list = m_physical.keys();
-    QMutableListIterator<Kwave::Handle> it(list);
+    QList<Kwave::Handle> handles = m_physical.keys();
+    QMutableListIterator<Kwave::Handle> it(handles);
     it.toBack();
     while (it.hasPrevious()) {
 	Kwave::Handle handle = it.previous();
@@ -210,18 +210,16 @@ bool Kwave::MemoryManager::freePhysical(size_t size)
 	if (p.m_mapcount) continue; // in use :-(
 
 	// convert to swapfile
-	qDebug("Kwave::MemoryManager[%9d] - swapping out to make space", handle);
-
 	size_t s = p.m_size;
+	qDebug("Kwave::MemoryManager[%9d] - swapping %2u MB out to make "\
+	       "space for %2u MB", handle, (s >> 20), (size >> 20));
+
 	if (convertToVirtual(handle, s)) {
 	    freed += s;
 	    if (freed >= size) return true;
 
 	    // abort if the list is now empty
 	    if (m_physical.isEmpty()) return false;
-
-	    // put the iterator to a sane position again
-	    it.remove();
 	}
     }
 
@@ -312,18 +310,15 @@ size_t Kwave::MemoryManager::virtualUsed()
 }
 
 //***************************************************************************
-QString Kwave::MemoryManager::nextSwapFileName()
+QString Kwave::MemoryManager::nextSwapFileName(Kwave::Handle handle)
 {
-    static unsigned int nr = 0;
     QFileInfo file;
     QString filename;
 
-    filename = "kwave-";
-    filename += QString::number(nr++);
-    filename += "-";
-
-    // these 6 chars are needed for mkstemp !
-    filename += "XXXXXX";
+    // these 6 'X' chars are needed for mkstemp !
+    filename = "kwave-swapfile-%1-XXXXXX";
+    filename = filename.arg(static_cast<unsigned int>(handle),
+                            10, 10, QChar('0'));
 
     file.setFile(m_swap_dir, filename);
     return file.absoluteFilePath();
@@ -350,11 +345,11 @@ Kwave::Handle Kwave::MemoryManager::allocateVirtual(size_t size)
     if (!handle) return 0; // out of handles :-(
 
     // try to allocate
-    SwapFile *swap = new SwapFile();
+    SwapFile *swap = new SwapFile(nextSwapFileName(handle));
     Q_ASSERT(swap);
     if (!swap) return 0; // out of memory :-(
 
-    if (swap->allocate(size, nextSwapFileName())) {
+    if (swap->allocate(size)) {
 	// succeeded, store the object in our map
 	m_unmapped_swap.insert(handle, swap);
 	return handle;
@@ -393,8 +388,8 @@ bool Kwave::MemoryManager::convertToVirtual(Kwave::Handle handle,
     swap->write(0, mem.m_data, mem.m_size);
 
     // free the old physical memory
-    m_physical.remove(handle);
     ::free(mem.m_data);
+    m_physical.remove(handle);
 
     // discard the new (temporary) handle and re-use the old one
     m_unmapped_swap.remove(temp_handle); // temp_handle is now no longer valid
@@ -408,6 +403,90 @@ bool Kwave::MemoryManager::convertToVirtual(Kwave::Handle handle,
 }
 
 //***************************************************************************
+bool Kwave::MemoryManager::convertToPhysical(Kwave::Handle handle,
+                                             size_t new_size)
+{
+    Q_ASSERT(new_size);
+    if (!new_size) return false;
+
+    // check: it must be in physical space, otherwise the rest makes no sense
+    Q_ASSERT(m_unmapped_swap.contains(handle));
+    if (!m_unmapped_swap.contains(handle)) return false;
+    SwapFile *swap = m_unmapped_swap[handle];
+    Q_ASSERT(swap);
+    if (!swap) return false;
+
+    // allocate a new object, including a new handle
+    // if successful it has been stored in m_physical
+    Kwave::Handle temp_handle = allocatePhysical(new_size);
+    if (!temp_handle) return false;
+
+    physical_memory_t mem = m_physical[temp_handle];
+    Q_ASSERT(mem.m_data);
+    Q_ASSERT(mem.m_size >= new_size);
+    if (!mem.m_data || !mem.m_size) {
+	m_physical.remove(temp_handle);
+	return false;
+    }
+
+    // copy old stuff to new location
+    if (new_size <= swap->size()) {
+	// shrinked
+	swap->read(0, mem.m_data, new_size);
+    } else {
+	// grown
+	swap->read(0, mem.m_data, swap->size());
+    }
+
+    // free the old swapfile
+    m_unmapped_swap.remove(handle);
+    delete swap;
+
+    // discard the new (temporary) handle and re-use the old one
+    m_physical.remove(temp_handle); // temp_handle is now no longer valid
+    m_physical.insert(handle, mem);
+
+    // we now have the old data with new size and old handle in m_physical
+    qDebug("Kwave::MemoryManager[%9d] - reloaded %2u MB from swap",
+           handle, (mem.m_size >> 20));
+
+    dump("convertToPhysical");
+    return true;
+}
+
+//***************************************************************************
+void Kwave::MemoryManager::tryToMakePhysical(Kwave::Handle handle)
+{
+    if (!handle) return;
+    if (m_physical.contains(handle))    return; // already ok
+    if (m_mapped_swap.contains(handle)) return; // not allowed
+    if (m_cached_swap.contains(handle)) return; // already fast enough
+
+    Q_ASSERT(m_unmapped_swap.contains(handle));
+    if (!m_unmapped_swap.contains(handle)) return;
+
+    const SwapFile *swap = m_unmapped_swap[handle];
+    Q_ASSERT(swap);
+    if (!swap) return;
+
+    size_t size = swap->size();
+
+    unsigned limit = totalPhysical();
+    if (m_physical_limit < limit) limit = m_physical_limit;
+    unsigned int used = physicalUsed();
+    unsigned int available = (used < limit) ? (limit - used) : 0;
+
+    // if we would go over the physical limit...
+    if ((size >> 20) >= available) {
+	// ...try to swap out some old stuff
+	if (!freePhysical(size)) return;
+    }
+
+    // try to convert the swapfile back to physical RAM
+    convertToPhysical(handle, size);
+}
+
+//***************************************************************************
 bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
 {
     QMutexLocker lock(&m_lock);
@@ -417,19 +496,23 @@ bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
 
     // case 1: physical memory
     if (m_physical.contains(handle)) {
-	physical_memory_t &phys = m_physical[handle];
+	const physical_memory_t phys_c = m_physical[handle];
 
 	// check: it must not be mmapped!
-	Q_ASSERT(!phys.m_mapcount);
-	if (phys.m_mapcount) return false;
+	Q_ASSERT(!phys_c.m_mapcount);
+	if (phys_c.m_mapcount) return false;
 
 	// if we are increasing: check if we get too large
-	size_t current_size = phys.m_size;
+	size_t current_size = phys_c.m_size;
 	if ((size > current_size) && (physicalUsed() +
 	    ((size - current_size) >> 20) > m_physical_limit))
 	{
 	    // first try to swap out some old stuff
-	    if (freePhysical(size)) {
+	    m_physical[handle].m_mapcount++;
+	    bool physical_freed = freePhysical(size);
+	    m_physical[handle].m_mapcount--;
+
+	    if (!physical_freed) {
 		// still too large -> move to virtual memory
 		qDebug("Kwave::MemoryManager[%9d] - resize(%uMB) -> moving to swap",
 		    handle, static_cast<unsigned int>(size >> 20));
@@ -438,12 +521,14 @@ bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
 	}
 
 	// try to resize the physical memory
+	physical_memory_t phys = m_physical[handle];
 	void *old_block = phys.m_data;
 	void *new_block = ::realloc(old_block, size);
 	if (new_block) {
 	    phys.m_data     = new_block;
 	    phys.m_size     = size;
 	    phys.m_mapcount = 0;
+	    m_physical[handle] = phys;
 
 	    dump("resize");
 	    return true;
@@ -464,14 +549,26 @@ bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
     // case 4: unmapped swapfile -> resize
     Q_ASSERT(m_unmapped_swap.contains(handle));
     if (m_unmapped_swap.contains(handle)) {
-	// resize the pagefile
-	SwapFile *swap = m_unmapped_swap[handle];
+
+	// try to find space in the physical memory
+	if ((physicalUsed() + (size >> 20) > m_physical_limit)) {
+	    // free some space if necessary
+	    if (freePhysical(size)) {
+		if (convertToPhysical(handle, size)) return true;
+	    }
+	} else {
+	    // try to convert into the currently available phys. RAM
+	    if (convertToPhysical(handle, size)) return true;
+	}
+
+	// not enough free RAM: resize the pagefile
 // 	qDebug("Kwave::MemoryManager[%9d] - resize swap %u -> %u MB",
 // 	        handle,
 // 	        static_cast<unsigned int>(swap->size() >> 20),
 // 	        static_cast<unsigned int>(size >> 20));
 
 	dump("resize");
+	SwapFile *swap = m_unmapped_swap[handle];
 	return swap->resize(size);
     }
 
@@ -531,6 +628,9 @@ void *Kwave::MemoryManager::map(Kwave::Handle handle)
     Q_ASSERT(handle);
     if (!handle) return 0; // object not found ?
 
+    // try to convert to physical RAM
+    tryToMakePhysical(handle);
+
     // simple case: physical memory does not really need to be mapped
     if (m_physical.contains(handle)) {
 	m_physical[handle].m_mapcount++;
@@ -565,8 +665,10 @@ void *Kwave::MemoryManager::map(Kwave::Handle handle)
 	SwapFile *swap = m_unmapped_swap[handle];
 	Q_ASSERT(!swap->mapCount());
 	void *mapped = swap->map();
-	Q_ASSERT(mapped);
-	if (!mapped) return 0;
+	if (!mapped) {
+	    qDebug("Kwave::MemoryManager[%9d] - mmap FAILED", handle);
+	    return 0;
+	}
 
 	// remember that we have mapped it, move the entry from the
 	// "unmapped_swap" to the "mapped_swap" list
@@ -660,10 +762,12 @@ int Kwave::MemoryManager::readFrom(Kwave::Handle handle, unsigned int offset,
 
     if (!handle) return 0;
 
+    // try to convert to physical RAM
+    tryToMakePhysical(handle);
+
     // simple case: physical memory -> memcpy(...)
     if (m_physical.contains(handle)) {
-// 	qDebug("Kwave::MemoryManager[%9d] - readFrom -> memcpy / physical",
-// 		handle);
+//  	qDebug("Kwave::MemoryManager[%9d] - readFrom -> physical", handle);
 	char *data = reinterpret_cast<char *>(m_physical[handle].m_data);
         MEMCPY(buffer, data + offset, length);
         return length;
@@ -679,8 +783,7 @@ int Kwave::MemoryManager::readFrom(Kwave::Handle handle, unsigned int offset,
 	Q_ASSERT(data);
 	if (!data) return 0;
 	MEMCPY(buffer, data + offset, length);
-// 	qDebug("Kwave::MemoryManager[%9d] - readFrom -> memcpy / cached swap",
-// 		handle);
+	qDebug("Kwave::MemoryManager[%9d] - readFrom -> cached swap", handle);
 	return length;
     }
 
@@ -692,16 +795,14 @@ int Kwave::MemoryManager::readFrom(Kwave::Handle handle, unsigned int offset,
 	Q_ASSERT(data);
 	if (!data) return 0;
 	MEMCPY(buffer, data + offset, length);
-// 	qDebug("Kwave::MemoryManager[%9d] - readFrom -> memcpy / mapped swap",
-// 	       handle);
+	qDebug("Kwave::MemoryManager[%9d] - readFrom -> mapped swap", handle);
 	return length;
     }
 
     // now it must be in unmapped swap -> read(...)
     Q_ASSERT(m_unmapped_swap.contains(handle));
     if (m_unmapped_swap.contains(handle)) {
-// 	qDebug("Kwave::MemoryManager[%9d] - readFrom -> read unmapped swap",
-// 	       handle);
+	qDebug("Kwave::MemoryManager[%9d] - readFrom -> unmapped swap", handle);
 	SwapFile *swap = m_unmapped_swap[handle];
 	length = swap->read(offset, buffer, length);
 	return length;
@@ -718,11 +819,17 @@ int Kwave::MemoryManager::writeTo(Kwave::Handle handle, unsigned int offset,
 
     if (!handle) return 0;
 
+    // try to convert to physical RAM
+    tryToMakePhysical(handle);
+
     // simple case: memcpy to physical memory
     if (m_physical.contains(handle)) {
-// 	qDebug("Kwave::MemoryManager[%9d] - writeTo -> memcpy / physical",
-// 	       handle);
-	char *data = reinterpret_cast<char *>(m_physical[handle].m_data);
+	physical_memory_t &mem = m_physical[handle];
+// 	qDebug("Kwave::MemoryManager[%9d] - writeTo -> physical", handle);
+	char *data = reinterpret_cast<char *>(mem.m_data);
+	Q_ASSERT(length <= mem.m_size);
+	Q_ASSERT(offset < mem.m_size);
+	Q_ASSERT(offset + length <= mem.m_size);
 	MEMCPY(data + offset, buffer, length);
 	return length;
     }
@@ -739,8 +846,7 @@ int Kwave::MemoryManager::writeTo(Kwave::Handle handle, unsigned int offset,
     // now it must be in unmapped swap
     Q_ASSERT(m_unmapped_swap.contains(handle));
     if (m_unmapped_swap.contains(handle)) {
-// 	qDebug("Kwave::MemoryManager[%9d] - writeTo -> unmapped swap",
-// 	       handle);
+	qDebug("Kwave::MemoryManager[%9d] - writeTo -> unmapped swap", handle);
 	SwapFile *swap = m_unmapped_swap[handle];
 	swap->write(offset, buffer, length);
 	return length;

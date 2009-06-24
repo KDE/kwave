@@ -579,7 +579,8 @@ SampleWriter *SignalManager::openSampleWriter(unsigned int track,
     UndoTransactionGuard guard(*this, 0);
     startUndoTransaction();
     QObject::connect(writer, SIGNAL(destroyed()),
-                     this,   SLOT(closeUndoTransaction()));
+                     this,   SLOT(closeUndoTransaction()),
+                     Qt::QueuedConnection);
 
     // create an undo action for the modification of the samples
     UndoAction *undo = 0;

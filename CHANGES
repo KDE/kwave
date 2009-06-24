@@ -29,6 +29,7 @@
  * speedup: limiting the number of progress bar updates per second
  * memory manager: fixed multithreading issues, improved OOM behaviour
  * bugfix: received SIGBUS in SwapFile when disk was full
+ * improved performance of memory management
 
 0.8.2  [2009-04-25]
 

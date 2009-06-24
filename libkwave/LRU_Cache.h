@@ -71,10 +71,14 @@ namespace Kwave {
 		while (it.hasNext()) {
 		    Pair &p = it.next();
 		    if (p.first == index) {
-			// found it -> move the entry to the start of the list
-			Pair pair = p;
-			it.remove();
-			insert(pair.first, pair.second);
+			if (p.first != QLinkedList<Pair>::first().first) {
+			    // found it -> move the entry to the start of the list
+			    Pair pair = p;
+			    it.remove();
+			    insert(pair.first, pair.second);
+// 			    qDebug("Kwave::MemoryManager[%9d] - reordering",
+// 			           pair.first);
+			}
 
 			// get the newly entered entry again
 			return QLinkedList<Pair>::first().second;

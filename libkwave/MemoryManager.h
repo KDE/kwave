@@ -174,13 +174,19 @@ namespace Kwave {
 	size_t virtualUsed() KDE_NO_EXPORT;
 
 	/** returns a new swap file name */
-	QString nextSwapFileName() KDE_NO_EXPORT;
+	QString nextSwapFileName(Kwave::Handle handle) KDE_NO_EXPORT;
 
 	/** convert a physical memory block into a new larger pagefile */
 	bool convertToVirtual(Kwave::Handle handle, size_t new_size) KDE_NO_EXPORT;
 
+	/** convert a swapfile into a physical memory block */
+	bool convertToPhysical(Kwave::Handle handle, size_t new_size) KDE_NO_EXPORT;
+
 	/** tries to allocate physical memory */
 	Kwave::Handle allocatePhysical(size_t size) KDE_NO_EXPORT;
+
+	/** tries to convert to physical RAM */
+	void tryToMakePhysical(Kwave::Handle handle);
 
 	/**
 	 * Tries to allocate virtual memory

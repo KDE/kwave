@@ -17,6 +17,7 @@
 
 SET(plugin_reverse_LIB_SRCS
     ReversePlugin.cpp
+    UndoReverseAction.cpp
 )
 
 KWAVE_PLUGIN(reverse)

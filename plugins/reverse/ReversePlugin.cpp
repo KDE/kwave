@@ -25,6 +25,7 @@
 #include <threadweaver/DebuggingAids.h>
 
 #include <QList>
+#include <QSharedPointer>
 #include <QStringList>
 
 #include "libkwave/MultiTrackReader.h"
@@ -37,6 +38,7 @@
 #include "libgui/SelectTimeWidget.h" // for selection mode
 
 #include "ReversePlugin.h"
+#include "UndoReverseAction.h"
 
 KWAVE_PLUGIN(ReversePlugin,"reverse","2.1","Thomas Eschenbacher");
 
@@ -208,9 +210,20 @@ ReversePlugin::~ReversePlugin()
 //***************************************************************************
 void ReversePlugin::run(QStringList params)
 {
-    Q_UNUSED(params);
+    QSharedPointer<UndoTransactionGuard> undo_guard;
 
-    UndoTransactionGuard undo_guard(*this, i18n("reverse"));
+    if ((params.count() != 1) || (params.first() != "noundo")) {
+	// undo is enabled, create a undo guard
+	undo_guard = QSharedPointer<UndoTransactionGuard>(
+	    new UndoTransactionGuard(*this, i18n("reverse")));
+	if (!undo_guard) return;
+
+	// try to save undo information
+	UndoAction *undo = new UndoReverseAction(manager());
+	if (!undo_guard->registerUndoAction(undo))
+	    return;
+	undo->store(signalManager());
+    }
 
     // get the current selection
     unsigned int first = 0;

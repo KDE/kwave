@@ -52,4 +52,10 @@ UndoTransactionGuard::~UndoTransactionGuard()
 }
 
 //***************************************************************************
+bool UndoTransactionGuard::registerUndoAction(UndoAction *action)
+{
+    return m_manager.registerUndoAction(action);
+}
+
+//***************************************************************************
 //***************************************************************************

@@ -149,15 +149,12 @@ int Kwave::Plugin::start(QStringList &)
     QMutexLocker lock(&m_thread_lock);
     m_stop = false;
 
-    Q_ASSERT(!m_progress);
-    Q_ASSERT(!m_confirm_cancel);
-
     // check: start() must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
     // create a progress dialog for processing mode (not used for pre-listen)
-    if (m_progress_enabled) {
+    if (m_progress_enabled && !m_progress) {
 	m_progress = new QProgressDialog(parentWidget());
 	Q_ASSERT(m_progress);
     }
@@ -181,9 +178,11 @@ int Kwave::Plugin::start(QStringList &)
 	m_progress->setFixedSize(w, h);
 
 	// use a "proxy" that asks for confirmation of cancel
-	m_confirm_cancel = new ConfirmCancelProxy(m_progress,
+	if (!m_confirm_cancel) {
+	    m_confirm_cancel = new ConfirmCancelProxy(m_progress,
 		0, 0, this, SLOT(cancel()));
-	Q_ASSERT(m_confirm_cancel);
+	    Q_ASSERT(m_confirm_cancel);
+	}
 	connect(m_progress,       SIGNAL(canceled()),
 		m_confirm_cancel, SLOT(cancel()));
 	connect(this,             SIGNAL(setProgressText(const QString &)),
@@ -399,7 +398,7 @@ void Kwave::Plugin::release()
 }
 
 //***************************************************************************
-PluginManager &Kwave::Plugin::manager()
+Kwave::PluginManager &Kwave::Plugin::manager()
 {
     return m_context.m_plugin_manager;
 }

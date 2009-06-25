@@ -20,14 +20,14 @@
 
 #include "config.h"
 
-class PluginManager;
+namespace Kwave { class PluginManager; }
 
 class PluginContext
 {
 public:
     /** Constructor */
     PluginContext(
-	PluginManager &plugin_mgr,
+	Kwave::PluginManager &plugin_mgr,
 	void *mod_handle,
 	const QString &mod_name,
 	const QString &mod_version,
@@ -40,7 +40,7 @@ public:
          m_author(mod_author)
     {}
 
-    PluginManager &m_plugin_manager;
+    Kwave::PluginManager &m_plugin_manager;
 
     void *m_handle;
     QString m_name;

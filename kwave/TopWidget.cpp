@@ -380,7 +380,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	    this, SLOT(updateMenu()));
 
     // create the plugin manager instance
-    m_plugin_manager = new PluginManager(this, *signal_manager);
+    m_plugin_manager = new Kwave::PluginManager(this, *signal_manager);
     Q_ASSERT(m_plugin_manager);
     if (!m_plugin_manager) return;
 

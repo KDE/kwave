@@ -42,8 +42,9 @@ class KStatusBar;
 class KwaveApp;
 class MenuManager;
 class MainWidget;
-class PluginManager;
 class SignalManager;
+
+namespace Kwave { class PluginManager; }
 
 /**
  * Toplevel widget of the Kwave application. Holds a main widget, a menu
@@ -334,7 +335,7 @@ private:
     KwaveApp &m_app;
 
     /** our internal plugin manager */
-    PluginManager *m_plugin_manager;
+    Kwave::PluginManager *m_plugin_manager;
 
     /**
      * the main widget with all views and controls (except menu and

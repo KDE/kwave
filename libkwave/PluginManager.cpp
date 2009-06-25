@@ -50,14 +50,14 @@
 
 //***************************************************************************
 //***************************************************************************
-PluginManager::PluginDeleter::PluginDeleter(Kwave::Plugin *plugin,
-                                            void *handle)
+Kwave::PluginManager::PluginDeleter::PluginDeleter(Kwave::Plugin *plugin,
+                                                   void *handle)
   :QObject(), m_plugin(plugin), m_handle(handle)
 {
 }
 
 //***************************************************************************
-PluginManager::PluginDeleter::~PluginDeleter()
+Kwave::PluginManager::PluginDeleter::~PluginDeleter()
 {
     // delete the plugin, this should also remove everything it has allocated
     if (m_plugin) delete m_plugin;
@@ -71,14 +71,15 @@ PluginManager::PluginDeleter::~PluginDeleter()
 
 // static initializers
 
-QMap<QString, QString> PluginManager::m_plugin_files;
+QMap<QString, QString> Kwave::PluginManager::m_plugin_files;
 
-PluginManager::PluginList PluginManager::m_unique_plugins;
+Kwave::PluginManager::PluginList Kwave::PluginManager::m_unique_plugins;
 
 static QList<PlaybackDeviceFactory *> m_playback_factories;
 
 //***************************************************************************
-PluginManager::PluginManager(QWidget *parent, SignalManager &signal_manager)
+Kwave::PluginManager::PluginManager(QWidget *parent,
+                                    SignalManager &signal_manager)
     :m_loaded_plugins(), m_running_plugins(),
      m_parent_widget(parent), m_signal_manager(signal_manager)
 {
@@ -100,7 +101,7 @@ PluginManager::PluginManager(QWidget *parent, SignalManager &signal_manager)
 }
 
 //***************************************************************************
-PluginManager::~PluginManager()
+Kwave::PluginManager::~PluginManager()
 {
     // inform all plugins and client windows that we close now
     emit sigClosed();
@@ -131,7 +132,7 @@ PluginManager::~PluginManager()
 }
 
 //***************************************************************************
-void PluginManager::loadAllPlugins()
+void Kwave::PluginManager::loadAllPlugins()
 {
     // Try to load all plugins. This has to be called only once per
     // instance of the main window!
@@ -159,7 +160,7 @@ void PluginManager::loadAllPlugins()
 }
 
 //***************************************************************************
-Kwave::Plugin *PluginManager::loadPlugin(const QString &name)
+Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 {
 
     // first find out if the plugin is already loaded and persistent
@@ -289,7 +290,8 @@ Kwave::Plugin *PluginManager::loadPlugin(const QString &name)
 }
 
 //***************************************************************************
-int PluginManager::executePlugin(const QString &name, QStringList *params)
+int Kwave::PluginManager::executePlugin(const QString &name,
+                                        QStringList *params)
 {
     QString command;
     int result = 0;
@@ -307,7 +309,7 @@ int PluginManager::executePlugin(const QString &name, QStringList *params)
 	result = plugin->start(*params);
 
 	// maybe the start() function has called close() ?
-	if (!m_loaded_plugins.contains(plugin)) {
+	if (!plugin->isPersistent() && !m_loaded_plugins.contains(plugin)) {
 	    qDebug("PluginManager: plugin closed itself in start()"); // ###
 	    result = -1;
 	    plugin = 0;
@@ -360,7 +362,7 @@ int PluginManager::executePlugin(const QString &name, QStringList *params)
 }
 
 //***************************************************************************
-bool PluginManager::onePluginRunning()
+bool Kwave::PluginManager::onePluginRunning()
 {
     foreach (KwavePluginPointer plugin, m_loaded_plugins)
 	if (plugin && plugin->isRunning()) return true;
@@ -368,7 +370,7 @@ bool PluginManager::onePluginRunning()
 }
 
 //***************************************************************************
-void PluginManager::sync()
+void Kwave::PluginManager::sync()
 {
     while (onePluginRunning()) {
 	pthread_yield();
@@ -376,7 +378,7 @@ void PluginManager::sync()
 }
 
 //***************************************************************************
-int PluginManager::setupPlugin(const QString &name)
+int Kwave::PluginManager::setupPlugin(const QString &name)
 {
     // load the plugin
     Kwave::Plugin* plugin = loadPlugin(name);
@@ -402,14 +404,14 @@ int PluginManager::setupPlugin(const QString &name)
 }
 
 //***************************************************************************
-FileInfo &PluginManager::fileInfo()
+FileInfo &Kwave::PluginManager::fileInfo()
 {
     return m_signal_manager.fileInfo();
 }
 
 //***************************************************************************
-QStringList PluginManager::loadPluginDefaults(const QString &name,
-	const QString &version)
+QStringList Kwave::PluginManager::loadPluginDefaults(const QString &name,
+                                                     const QString &version)
 {
     QString def_version;
     QString section("plugin ");
@@ -439,9 +441,9 @@ QStringList PluginManager::loadPluginDefaults(const QString &name,
 }
 
 //***************************************************************************
-void PluginManager::savePluginDefaults(const QString &name,
-                                       const QString &version,
-                                       QStringList &params)
+void Kwave::PluginManager::savePluginDefaults(const QString &name,
+                                              const QString &version,
+                                              QStringList &params)
 {
     QString section("plugin ");
     section += name;
@@ -457,50 +459,51 @@ void PluginManager::savePluginDefaults(const QString &name,
 }
 
 //***************************************************************************
-unsigned int PluginManager::signalLength()
+unsigned int Kwave::PluginManager::signalLength()
 {
     return m_signal_manager.length();
 }
 
 //***************************************************************************
-double PluginManager::signalRate()
+double Kwave::PluginManager::signalRate()
 {
     return m_signal_manager.rate();
 }
 
 //***************************************************************************
-const QList<unsigned int> PluginManager::selectedTracks()
+const QList<unsigned int> Kwave::PluginManager::selectedTracks()
 {
     return m_signal_manager.selectedTracks();
 }
 
 //***************************************************************************
-unsigned int PluginManager::selectionStart()
+unsigned int Kwave::PluginManager::selectionStart()
 {
     return m_signal_manager.selection().first();
 }
 
 //***************************************************************************
-unsigned int PluginManager::selectionEnd()
+unsigned int Kwave::PluginManager::selectionEnd()
 {
     return m_signal_manager.selection().last();
 }
 
 //***************************************************************************
-void PluginManager::selectRange(unsigned int offset, unsigned int length)
+void Kwave::PluginManager::selectRange(unsigned int offset,
+                                       unsigned int length)
 {
     m_signal_manager.selectRange(offset, length);
 }
 
 //***************************************************************************
-SampleWriter *PluginManager::openSampleWriter(unsigned int track,
+SampleWriter *Kwave::PluginManager::openSampleWriter(unsigned int track,
 	InsertMode mode, unsigned int left, unsigned int right)
 {
     return m_signal_manager.openSampleWriter(track, mode, left, right, true);
 }
 
 //***************************************************************************
-Kwave::SampleSink *PluginManager::openMultiTrackPlayback(
+Kwave::SampleSink *Kwave::PluginManager::openMultiTrackPlayback(
     unsigned int tracks, const QString *name)
 {
     QString device_name;
@@ -529,25 +532,25 @@ Kwave::SampleSink *PluginManager::openMultiTrackPlayback(
 }
 
 //***************************************************************************
-PlaybackController &PluginManager::playbackController()
+PlaybackController &Kwave::PluginManager::playbackController()
 {
     return m_signal_manager.playbackController();
 }
 
 //***************************************************************************
-void PluginManager::enqueueCommand(const QString &command)
+void Kwave::PluginManager::enqueueCommand(const QString &command)
 {
     emit sigCommand(command);
 }
 
 //***************************************************************************
-void PluginManager::signalClosed()
+void Kwave::PluginManager::signalClosed()
 {
     emit sigClosed();
 }
 
 //***************************************************************************
-void PluginManager::pluginClosed(Kwave::Plugin *p)
+void Kwave::PluginManager::pluginClosed(Kwave::Plugin *p)
 {
     Q_ASSERT(p);
     Q_ASSERT(!m_loaded_plugins.isEmpty() || !m_unique_plugins.isEmpty());
@@ -570,7 +573,7 @@ void PluginManager::pluginClosed(Kwave::Plugin *p)
 }
 
 //***************************************************************************
-void PluginManager::pluginStarted(Kwave::Plugin *p)
+void Kwave::PluginManager::pluginStarted(Kwave::Plugin *p)
 {
     Q_ASSERT(p);
     if (!p) return;
@@ -584,7 +587,7 @@ void PluginManager::pluginStarted(Kwave::Plugin *p)
 }
 
 //***************************************************************************
-void PluginManager::pluginDone(Kwave::Plugin *p)
+void Kwave::PluginManager::pluginDone(Kwave::Plugin *p)
 {
     Q_ASSERT(p);
     if (!p) return;
@@ -597,7 +600,7 @@ void PluginManager::pluginDone(Kwave::Plugin *p)
 }
 
 //***************************************************************************
-void PluginManager::connectPlugin(Kwave::Plugin *plugin)
+void Kwave::PluginManager::connectPlugin(Kwave::Plugin *plugin)
 {
     Q_ASSERT(plugin);
     if (!plugin) return;
@@ -618,7 +621,7 @@ void PluginManager::connectPlugin(Kwave::Plugin *plugin)
 }
 
 //***************************************************************************
-void PluginManager::disconnectPlugin(Kwave::Plugin *plugin)
+void Kwave::PluginManager::disconnectPlugin(Kwave::Plugin *plugin)
 {
     Q_ASSERT(plugin);
     if (!plugin) return;
@@ -639,13 +642,13 @@ void PluginManager::disconnectPlugin(Kwave::Plugin *plugin)
 }
 
 //***************************************************************************
-void PluginManager::setSignalName(const QString &name)
+void Kwave::PluginManager::setSignalName(const QString &name)
 {
     emit sigSignalNameChanged(name);
 }
 
 //***************************************************************************
-void PluginManager::findPlugins()
+void Kwave::PluginManager::findPlugins()
 {
     if (!m_plugin_files.isEmpty()) {
 	// this is not the first call -> bail out
@@ -692,14 +695,14 @@ void PluginManager::findPlugins()
 }
 
 //***************************************************************************
-void PluginManager::registerPlaybackDeviceFactory(
+void Kwave::PluginManager::registerPlaybackDeviceFactory(
     PlaybackDeviceFactory *factory)
 {
     m_playback_factories.append(factory);
 }
 
 //***************************************************************************
-void PluginManager::unregisterPlaybackDeviceFactory(
+void Kwave::PluginManager::unregisterPlaybackDeviceFactory(
     PlaybackDeviceFactory *factory)
 {
     m_playback_factories.removeAll(factory);

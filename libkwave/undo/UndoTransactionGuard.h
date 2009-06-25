@@ -25,6 +25,8 @@
 
 class QString;
 class SignalManager;
+class UndoAction;
+
 namespace Kwave { class Plugin; }
 
 /**
@@ -59,6 +61,21 @@ public:
 
     /** Destructor. */
     virtual ~UndoTransactionGuard();
+
+    /**
+     * Tries to free memory for a new undo action and stores all needed
+     * data if successful.
+     * @param action UndoAction to that is to be registered
+     * @return true if the action is allowed, false if the user has
+     *         choosen to abort the operation if the memory limit of
+     *         the undo buffer would be exceeded. The return value
+     *         will also be false if the action is null.
+     * @note If undo is currently not enabled, the passed UndoAction
+     *       will be ignored and not freed, the return value will
+     *       be false. So it is safer not to call this function if
+     *       undo is not enabled.
+     */
+    bool registerUndoAction(UndoAction *action);
 
 private:
     /** Reference to the responsible SignalManager */

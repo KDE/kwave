@@ -416,13 +416,6 @@ signals:
                             unsigned int length);
 
     /**
-     * Emitted if a command has to be executed by
-     * the next higher instance.
-     * @param command the command to be executed
-     */
-    void sigCommand(const QString &command);
-
-    /**
      * Emitted if the state or description of undo/redo has changed. If
      * undo or redo is unavailable the description will be zero.
      * @see emitUndoRedoInfo

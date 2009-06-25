@@ -35,7 +35,6 @@ class ConfirmCancelProxy;
 class FileInfo;
 class MultiTrackReader;
 class MultiTrackWriter;
-class PluginManager;
 class SampleReader;
 class SignalManager;
 class TopWidget;
@@ -43,6 +42,7 @@ class QStringList;
 class QProgressDialog;
 namespace Kwave { class PluginWorkerThread; }
 namespace Kwave { class Plugin; }
+namespace Kwave { class PluginManager; }
 
 #define KWAVE_PLUGIN(class_name,plugin_name,__version__,author_name) \
     extern "C" const char *name    KDE_EXPORT = plugin_name; \
@@ -177,7 +177,7 @@ namespace Kwave {
 	/**
 	* Returns a reference to the manager of this plugin.
 	*/
-	PluginManager &manager();
+	Kwave::PluginManager &manager();
 
 	/** Returns a reference to the current signal manager */
 	SignalManager &signalManager();
@@ -286,7 +286,7 @@ namespace Kwave {
 
     protected:
 
-	friend class ::PluginManager;
+	friend class Kwave::PluginManager;
 
 	/**
 	* Gets called to execute the plugin's run function in a separate

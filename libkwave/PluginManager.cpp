@@ -95,7 +95,8 @@ Kwave::PluginManager::PluginManager(QWidget *parent,
 	    // the plugin (when it is in use but the plugin manager
 	    // who has created it is already finished)
 	    connect(p,    SIGNAL(sigClosed(Kwave::Plugin *)),
-	            this, SLOT(pluginClosed(Kwave::Plugin *)));
+	            this, SLOT(pluginClosed(Kwave::Plugin *)),
+	            Qt::QueuedConnection);
 	}
     }
 }
@@ -611,13 +612,15 @@ void Kwave::PluginManager::connectPlugin(Kwave::Plugin *plugin)
     }
 
     connect(plugin, SIGNAL(sigClosed(Kwave::Plugin *)),
-	    this, SLOT(pluginClosed(Kwave::Plugin *)));
+	    this, SLOT(pluginClosed(Kwave::Plugin *)),
+	     Qt::QueuedConnection);
 
     connect(plugin, SIGNAL(sigRunning(Kwave::Plugin *)),
 	    this, SLOT(pluginStarted(Kwave::Plugin *)));
 
     connect(plugin, SIGNAL(sigDone(Kwave::Plugin *)),
-	    this, SLOT(pluginDone(Kwave::Plugin *)));
+	    this, SLOT(pluginDone(Kwave::Plugin *)),
+	    Qt::QueuedConnection);
 }
 
 //***************************************************************************

@@ -1,7 +1,5 @@
 -
 
-o specialized undo/redo action for "reverse"
-
 o debug aid: write all actions to a logfile
 
 o debug aid: new plugin for adding a new track with test/debug info:

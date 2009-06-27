@@ -522,12 +522,12 @@ int TopWidget::executeCommand(const QString &line)
     Parser parse_list(command);
     if (parse_list.hasMultipleCommands()) {
 	QStringList macro = parse_list.commandList();
-	for (QStringList::Iterator it=macro.begin(); it!=macro.end(); ++it) {
-	    result = executeCommand("nomacro:"+(*it));
+	foreach (const QString &it, macro) {
+	    result = executeCommand("nomacro:" + it);
 	    Q_ASSERT(!result);
 	    if (result) {
 		qWarning("macro execution of '%s' failed: %d",
-		        (*it).toLocal8Bit().data(), result);
+		         it.toLocal8Bit().data(), result);
 		return result; // macro failed :-(
 	    }
 
@@ -550,6 +550,9 @@ int TopWidget::executeCommand(const QString &line)
     // exclude menu commands from the recorder
     if (parser.command() == "menu") use_recorder = false;
 
+    // only record plugin:execute, not plugin without parameters
+    if (parser.command() == "plugin") use_recorder = false;
+
     // playback commands are always possible
     if (parser.command() == "playback") {
 	return executePlaybackCommand(parser.firstParam()) ? 0 : -1;
@@ -565,7 +568,8 @@ int TopWidget::executeCommand(const QString &line)
     if (use_recorder) {
 	// append the command to the macro recorder
 	// @TODO macro recording...
-	qDebug("TopWidget::executeCommand(%s)", command.toLocal8Bit().data()); // ###
+	qDebug("TopWidget::executeCommand() >>> %s <<<",
+	       command.toLocal8Bit().data()); // ###
     }
 
     if (m_app.executeCommand(command)) {
@@ -573,7 +577,7 @@ int TopWidget::executeCommand(const QString &line)
     CASE_COMMAND("about_kde")
 	// Help / About KDE
 	KHelpMenu *dlg = new KHelpMenu(this, "Kwave");
-	dlg->aboutKDE();
+	if (dlg) dlg->aboutKDE();
     CASE_COMMAND("plugin")
 	QString name = parser.firstParam();
 	QStringList params;

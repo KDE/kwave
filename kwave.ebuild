@@ -22,7 +22,7 @@ SRC_URI="mirror://sourceforge/kwave/${P}-1.tar.bz2"
 SLOT="kde-4"
 LICENSE="GPL-2"
 KEYWORDS="~x86 ~amd64 ~ppc"
-IUSE="alsa debug doc flac mp3 ogg oss mmx"
+IUSE="alsa debug doc flac mp3 ogg oss phonon mmx"
 
 RDEPEND="
 	alsa? ( media-libs/alsa-lib )
@@ -44,13 +44,14 @@ src_prepare() {
 src_configure() {
 	use mmx && append-flags "-mmmx"
 
-	use alsa  || mycmakeargs+=" -DWITH_ALSA=OFF"
-	use doc   || mycmakeargs+=" -DWITH_DOC=OFF"
-	use flac  || mycmakeargs+=" -DWITH_FLAC=OFF"
-	use mp3   && mycmakeargs+=" -DWITH_MP3=ON"
-	use ogg   || mycmakeargs+=" -DWITH_OGG=OFF"
-	use oss   || mycmakeargs+=" -DWITH_OSS=OFF"
-	use debug && mycmakeargs+=" -DDEBUG=ON"
+	use alsa   || mycmakeargs+=" -DWITH_ALSA=OFF"
+	use doc    || mycmakeargs+=" -DWITH_DOC=OFF"
+	use flac   || mycmakeargs+=" -DWITH_FLAC=OFF"
+	use mp3    && mycmakeargs+=" -DWITH_MP3=ON"
+	use ogg    || mycmakeargs+=" -DWITH_OGG=OFF"
+	use oss    || mycmakeargs+=" -DWITH_OSS=OFF"
+	use debug  && mycmakeargs+=" -DDEBUG=ON"
+	use phonon && mycmakeargs+=" -DWITH_PHONON=ON"
 
 	kde4-base_src_configure
 }

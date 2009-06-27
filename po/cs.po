@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-11 19:35+0200\n"
+"POT-Creation-Date: 2009-06-13 10:50+0200\n"
 "PO-Revision-Date: 2009-06-09 18:41+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -4995,13 +4995,13 @@ msgstr "Nahrává..."
 msgid "resolution: "
 msgstr "Rozlišení:"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:41
-#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:69
+#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:196
+#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:209
 #, fuzzy
 msgid "reverse"
 msgstr "&Obrátit"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/KwavePlugin.cpp:198
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/KwavePlugin.cpp:201
 msgid "running plugin '%1' ..."
 msgstr "Spouští se přídavný modul '%1' ..."
 

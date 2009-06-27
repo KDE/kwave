@@ -25,7 +25,6 @@
 #include <threadweaver/DebuggingAids.h>
 
 #include <QList>
-#include <QSharedPointer>
 #include <QStringList>
 
 #include "libkwave/MultiTrackReader.h"
@@ -210,18 +209,19 @@ ReversePlugin::~ReversePlugin()
 //***************************************************************************
 void ReversePlugin::run(QStringList params)
 {
-    QSharedPointer<UndoTransactionGuard> undo_guard;
+    UndoTransactionGuard *undo_guard = 0;
 
     if ((params.count() != 1) || (params.first() != "noundo")) {
 	// undo is enabled, create a undo guard
-	undo_guard = QSharedPointer<UndoTransactionGuard>(
-	    new UndoTransactionGuard(*this, i18n("reverse")));
+	undo_guard = new UndoTransactionGuard(*this, i18n("reverse"));
 	if (!undo_guard) return;
 
 	// try to save undo information
 	UndoAction *undo = new UndoReverseAction(manager());
-	if (!undo_guard->registerUndoAction(undo))
+	if (!undo_guard->registerUndoAction(undo)) {
+	    delete undo_guard;
 	    return;
+	}
 	undo->store(signalManager());
     }
 
@@ -229,12 +229,18 @@ void ReversePlugin::run(QStringList params)
     unsigned int first = 0;
     unsigned int last  = 0;
     unsigned int length = selection(&first, &last, true);
-    if (!length) return;
+    if (!length) {
+	if (undo_guard) delete undo_guard;
+	return;
+    }
 
     // get the list of affected tracks
     QList<unsigned int> track_list = manager().selectedTracks();
     unsigned int tracks = track_list.count();
-    if (!tracks) return;
+    if (!tracks) {
+	if (undo_guard) delete undo_guard;
+	return;
+    }
 
     MultiTrackReader source_a(Kwave::SinglePassForward,
 	signalManager(), track_list, first, last);
@@ -242,7 +248,10 @@ void ReversePlugin::run(QStringList params)
 	signalManager(), track_list, first, last);
 
     // break if aborted
-    if (!source_a.tracks() || !source_b.tracks()) return;
+    if (!source_a.tracks() || !source_b.tracks()) {
+	if (undo_guard) delete undo_guard;
+	return;
+    }
 
     // connect the progress dialog
     connect(&source_a, SIGNAL(progress(unsigned int)),
@@ -293,6 +302,7 @@ void ReversePlugin::run(QStringList params)
     }
 
     close();
+    if (undo_guard) delete undo_guard;
 }
 
 //***************************************************************************

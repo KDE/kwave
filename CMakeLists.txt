@@ -58,7 +58,7 @@ SET(KWAVE_LINGUAS
 #############################################################################
 ### check for the proper cmake version                                    ###
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.4.4 FATAL_ERROR)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6.0 FATAL_ERROR)
 
 #############################################################################
 ### path to additional cmake modules and includes                         ###
@@ -138,7 +138,7 @@ SET(QT_USE_QTCORE ON)
 SET(QT_DONTUSE_QTGUI OFF)
 SET(QT_USE_QTMAIN ON)
 
-FIND_PACKAGE(Qt4 4.5.0 REQUIRED)
+FIND_PACKAGE(Qt4 4.4.0 REQUIRED)
 MESSAGE(STATUS "Found Qt4 version ${QTVERSION}")
 MESSAGE(STATUS "Found Qt4 libraries in ${QT_LIBRARY_DIR}")
 MESSAGE(STATUS "Found Qt4 header files in ${QT_INCLUDE_DIR}")

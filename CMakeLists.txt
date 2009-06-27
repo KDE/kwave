@@ -31,14 +31,14 @@ SET(KWAVE_LINGUAS
 #############################################################################
 ### build options:                                                        ###
 
-# OPTION(DEBUG     "build debug code [default=off]" OFF)
-# OPTION(WITH_ALSA "enable playback/recording via ALSA [default=on]" ON)
-# OPTION(WITH_DOC  "build online documentation [default=on]" ON)
-# OPTION(WITH_FLAC "enable support for FLAC files [default=on]" ON)
-# OPTION(WITH_MP3  "enable support for mp3 files [default=on]" ON)
-# OPTION(WITH_OGG  "enable support for ogg files [default=on]" ON)
-# OPTION(WITH_OSS  "enable playback/recording via OSS [default=on]" ON)
-# OPTION(WITH_PHONON "enable playback via Phonon [default=on]" ON)
+# OPTION(DEBUG       "build debug code [default=off]" OFF)
+# OPTION(WITH_ALSA   "enable playback/recording via ALSA [default=on]" ON)
+# OPTION(WITH_DOC    "build online documentation [default=on]" ON)
+# OPTION(WITH_FLAC   "enable support for FLAC files [default=on]" ON)
+# OPTION(WITH_MP3    "enable support for mp3 files [default=off]" OFF)
+# OPTION(WITH_OGG    "enable support for ogg files [default=on]" ON)
+# OPTION(WITH_OSS    "enable playback/recording via OSS [default=on]" ON)
+# OPTION(WITH_PHONON "enable playback via Phonon [default=off]" OFF)
 
 #############################################################################
 ### toplevel build targets:                                               ###
@@ -138,7 +138,8 @@ SET(QT_USE_QTCORE ON)
 SET(QT_DONTUSE_QTGUI OFF)
 SET(QT_USE_QTMAIN ON)
 
-INCLUDE(FindQt4)
+FIND_PACKAGE(Qt4 4.5.0 REQUIRED)
+MESSAGE(STATUS "Found Qt4 version ${QTVERSION}")
 MESSAGE(STATUS "Found Qt4 libraries in ${QT_LIBRARY_DIR}")
 MESSAGE(STATUS "Found Qt4 header files in ${QT_INCLUDE_DIR}")
 

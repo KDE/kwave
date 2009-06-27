@@ -78,7 +78,10 @@ Kwave::Plugin::Plugin(const PluginContext &c)
      m_progress(0),
      m_confirm_cancel(0),
      m_usage_count(0),
-     m_usage_lock()
+     m_usage_lock(),
+     m_progress_timer(),
+     m_current_progress(-1),
+     m_progress_lock()
 {
     use();
 
@@ -258,6 +261,7 @@ void Kwave::Plugin::updateProgress(unsigned int progress)
     Q_ASSERT(this->thread() == qApp->thread());
 
 //     qDebug("Kwave::Plugin::updateProgress(%u)", progress);
+    QMutexLocker lock(&m_progress_lock);
 
     // take over the current progress
     // note: no lock needed, this is called in the GUI thread context!
@@ -278,6 +282,7 @@ void Kwave::Plugin::updateProgressTick()
     Q_ASSERT(this->thread() == qApp->thread());
 
 //     qDebug("void Kwave::Plugin::updateProgressTick(%d)", m_current_progress);
+    QMutexLocker lock(&m_progress_lock);
     if (m_progress) m_progress->setValue(m_current_progress);
 }
 
@@ -288,11 +293,17 @@ void Kwave::Plugin::closeProgressDialog(Kwave::Plugin *)
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
-    if (m_confirm_cancel) delete m_confirm_cancel;
-    m_confirm_cancel = 0;
-
-    if (m_progress)       delete m_progress;
-    m_progress = 0;
+    QMutexLocker lock(&m_progress_lock);
+    if (m_confirm_cancel) {
+	ConfirmCancelProxy *proxy = m_confirm_cancel;
+	m_confirm_cancel = 0;
+	delete proxy;
+    }
+    if (m_progress) {
+	QProgressDialog *prog = m_progress;
+	m_progress = 0;
+	delete prog;
+    }
 }
 
 //***************************************************************************

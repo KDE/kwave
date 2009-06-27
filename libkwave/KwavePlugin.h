@@ -423,6 +423,9 @@ namespace Kwave {
 	/** latest progress value [percent] */
 	int m_current_progress;
 
+	/** Mutex for locking the progress bar */
+	QMutex m_progress_lock;
+
     };
 
 }

@@ -212,7 +212,9 @@ bool Kwave::MemoryManager::freePhysical(size_t size)
 	// convert to swapfile
 	size_t s = p.m_size;
 	qDebug("Kwave::MemoryManager[%9d] - swapping %2u MB out to make "\
-	       "space for %2u MB", handle, (s >> 20), (size >> 20));
+	       "space for %2u MB", handle,
+	       static_cast<unsigned int>(s >> 20),
+	       static_cast<unsigned int>(size >> 20));
 
 	if (convertToVirtual(handle, s)) {
 	    freed += s;
@@ -448,7 +450,7 @@ bool Kwave::MemoryManager::convertToPhysical(Kwave::Handle handle,
 
     // we now have the old data with new size and old handle in m_physical
     qDebug("Kwave::MemoryManager[%9d] - reloaded %2u MB from swap",
-           handle, (mem.m_size >> 20));
+           handle, static_cast<unsigned int>(mem.m_size >> 20));
 
     dump("convertToPhysical");
     return true;

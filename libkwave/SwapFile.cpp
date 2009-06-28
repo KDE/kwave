@@ -75,7 +75,8 @@ bool SwapFile::allocate(size_t size)
     if (m_address) return false;
 
     if (m_size) close();
-    qDebug("SwapFile::allocate(%u), instances: %u", size, g_instances);
+    qDebug("SwapFile::allocate(%u), instances: %u",
+           static_cast<unsigned int>(size), g_instances);
 
     // try to create the temporary file
     if (!m_file.open()) {

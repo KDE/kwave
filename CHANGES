@@ -2,6 +2,7 @@
 0.8.4  [2009-??-??]
 
  * bugfix: re-enabled detection of optimized memcpy function
+ * bugfix: deadlock in recording plugin and plugin management
 
 0.8.3  [2009-06-28]
 

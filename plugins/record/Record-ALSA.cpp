@@ -1069,7 +1069,7 @@ void RecordALSA::scanDevices()
 		QString name = QString(
 		    i18n("card %1: ", card_name) + "|sound_card||" +
 		    i18n("device %1: ", device_name) + "|sound_subdevice"
-		).arg(card).arg(dev);
+		)/*.arg(card).arg(dev)*/;
 // 		qDebug("# '%s' -> '%s'", hw_device.data(), name.data());
 		m_device_list.insert(name, hw_device);
 	    }

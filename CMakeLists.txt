@@ -98,6 +98,8 @@ IF (_mach_ppc)
     SET(ARCH_PPC 1)
 ENDIF (_mach_ppc)
 
+ADD_DEFINITIONS(-DHAVE_CONFIG_H)
+
 #############################################################################
 ### cmake includes                                                        ###
 

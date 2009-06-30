@@ -1,4 +1,8 @@
 
+0.8.4  [2009-??-??]
+
+ * bugfix: re-enabled detection of optimized memcpy function
+
 0.8.3  [2009-06-28]
 
  * integrated 05-do-not-install-so-symlinks.diff from Debian

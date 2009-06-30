@@ -190,10 +190,10 @@ int Kwave::Plugin::start(QStringList &)
 		m_confirm_cancel, SLOT(cancel()));
 	connect(this,             SIGNAL(setProgressText(const QString &)),
 	        m_progress,       SLOT(setLabelText(const QString &)),
-	        Qt::BlockingQueuedConnection);
+	        Qt::QueuedConnection);
 	connect(this, SIGNAL(sigDone(Kwave::Plugin *)),
 		this, SLOT(closeProgressDialog(Kwave::Plugin *)),
-		Qt::BlockingQueuedConnection);
+		Qt::QueuedConnection);
 	m_progress->setVisible(true);
     }
 

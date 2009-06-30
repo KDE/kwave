@@ -155,7 +155,7 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
             this,     SLOT(recordStopped(int)));
     connect(m_thread, SIGNAL(bufferFull()),
             this,     SLOT(processBuffer()),
-            Qt::BlockingQueuedConnection);
+            Qt::QueuedConnection);
 
     // dummy init -> disable format settings
     m_dialog->setSupportedTracks(0, 0);
@@ -985,7 +985,11 @@ void RecordPlugin::stateChanged(RecordState state)
 	case REC_PAUSED:
 	case REC_DONE:
 	    // reset buffer status
-	    if (m_writers) m_writers->flush();
+	    if (m_writers) {
+		m_writers->flush();
+		delete m_writers;
+		m_writers = 0;
+	    }
 	    m_buffers_recorded = 0;
 	    m_dialog->updateBufferState(0,0);
 	    break;

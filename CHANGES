@@ -3,6 +3,7 @@
 
  * bugfix: re-enabled detection of optimized memcpy function
  * bugfix: deadlock in recording plugin and plugin management
+ * bugfix: ID3 tag import did not work
 
 0.8.3  [2009-06-28]
 

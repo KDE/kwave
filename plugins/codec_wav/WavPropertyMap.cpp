@@ -20,38 +20,98 @@
 //***************************************************************************
 WavPropertyMap::WavPropertyMap()
 {
-    insert("AUTH", INF_AUTHOR        ); // author's name
-    insert("ANNO", INF_ANNOTATION    ); // annotations
-    insert("IARL", INF_ARCHIVAL      ); // archival location
-    insert("IART", INF_PERFORMER     ); // performer
-    insert("ICMS", INF_COMMISSIONED  ); // commissioned
-    insert("ICMT", INF_COMMENTS	     ); // comments
-    insert("ICOP", INF_COPYRIGHT     ); // copyright
-    insert("(c) ", INF_COPYRIGHT     ); // copyright
-    insert("ICRD", INF_CREATION_DATE ); // creation date (iso)
-    insert("IENG", INF_ENGINEER	     ); // engineer
-    insert("IGNR", INF_GENRE	     ); // genre
-    insert("IKEY", INF_KEYWORDS	     ); // keywords
-    insert("IMED", INF_MEDIUM	     ); // medium
-    insert("INAM", INF_NAME	     ); // name
-    insert("IPRD", INF_PRODUCT	     ); // product
-    insert("ISFT", INF_SOFTWARE	     ); // software
-    insert("ISRC", INF_SOURCE	     ); // source
-    insert("ISRF", INF_SOURCE_FORM   ); // source form
-    insert("ITCH", INF_TECHNICAN     ); // technican
-    insert("ISBJ", INF_SUBJECT	     ); // subject
+    // well-known tags:
+    insert(INF_AUTHOR        ,"AUTH"); // author's name
+    insert(INF_ANNOTATION    ,"ANNO"); // annotations
+    insert(INF_ARCHIVAL      ,"IARL"); // archival location
+    insert(INF_PERFORMER     ,"IART"); // performer
+    insert(INF_COMMISSIONED  ,"ICMS"); // commissioned
+    insert(INF_COMMENTS      ,"ICMT"); // comments
+    insert(INF_COPYRIGHT     ,"ICOP"); // copyright
+    insert(INF_COPYRIGHT     ,"(c) "); // copyright
+    insert(INF_CREATION_DATE ,"ICRD"); // creation date (iso)
+    insert(INF_ENGINEER      ,"IENG"); // engineer
+    insert(INF_GENRE         ,"IGNR"); // genre
+    insert(INF_KEYWORDS      ,"IKEY"); // keywords
+    insert(INF_MEDIUM        ,"IMED"); // medium
+    insert(INF_NAME          ,"INAM"); // name
+    insert(INF_ALBUM         ,"IPRD"); // album
+    insert(INF_PRODUCT       ,"IPRD"); // product (alternative)
+    insert(INF_SOFTWARE      ,"ISFT"); // software
+    insert(INF_SOURCE        ,"ISRC"); // source
+    insert(INF_SOURCE_FORM   ,"ISRF"); // source form
+    insert(INF_TECHNICAN     ,"ITCH"); // technican
+    insert(INF_SUBJECT       ,"ISBJ"); // subject
+    insert(INF_TRACK         ,"ISBJ"); // track number (alternative)
 }
 
 //***************************************************************************
-QByteArray WavPropertyMap::findProperty(const FileProperty property)
+void WavPropertyMap::insert(const FileProperty property,
+                            const QByteArray &chunk)
 {
-    return (values().contains(property)) ? key(property) : "";
+    Pair p(property, chunk);
+    append(p);
 }
 
 //***************************************************************************
-bool WavPropertyMap::containsProperty(const FileProperty property)
+QByteArray WavPropertyMap::findProperty(const FileProperty property) const
 {
-    return (findProperty(property).length() != 0);
+    foreach(const Pair &p, QList<Pair>(*this)) {
+	if (p.first == property)
+	    return p.second;
+    }
+    return "";
+}
+
+//***************************************************************************
+bool WavPropertyMap::containsProperty(const FileProperty property) const
+{
+    foreach(const Pair &p, QList<Pair>(*this)) {
+	if (p.first == property)
+	    return true;
+    }
+    return false;
+}
+
+//***************************************************************************
+bool WavPropertyMap::containsChunk(const QByteArray &chunk) const
+{
+    foreach(const Pair &p, QList<Pair>(*this)) {
+	if (p.second == chunk)
+	    return true;
+    }
+    return false;
+}
+
+//***************************************************************************
+QList<QByteArray> WavPropertyMap::chunks() const
+{
+    QList<QByteArray> list;
+    foreach(const Pair &p, QList<Pair>(*this)) {
+	if (!list.contains(p.second))
+	    list.append(p.second);
+    }
+    return list;
+}
+
+//***************************************************************************
+FileProperty WavPropertyMap::property(const QByteArray &chunk) const
+{
+    foreach(const Pair &p, QList<Pair>(*this)) {
+	if (p.second == chunk) return p.first;
+    }
+    return static_cast<FileProperty>(-1);
+}
+
+//***************************************************************************
+QList<FileProperty> WavPropertyMap::properties() const
+{
+    QList<FileProperty> list;
+    foreach(const Pair &p, QList<Pair>(*this)) {
+	if (!list.contains(p.first))
+	    list.append(p.first);
+    }
+    return list;
 }
 
 //***************************************************************************

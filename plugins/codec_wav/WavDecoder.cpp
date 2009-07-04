@@ -79,7 +79,7 @@ WavDecoder::WavDecoder()
     m_known_chunks.append("smpl"); /* Sampler */
 
     // add all sub-chunks of the LIST chunk (properties)
-    foreach (QByteArray name, m_property_map.keys())
+    foreach (QByteArray name, m_property_map.chunks())
 	m_known_chunks.append( name );
 
     // some chunks known from AIFF format
@@ -382,10 +382,10 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	RIFFChunkList &list = info_chunk->subChunks();
 	foreach (RIFFChunk *chunk, list) {
 	    if (!chunk) continue;
-	    if (!m_property_map.contains(chunk->name())) continue;
+	    if (!m_property_map.containsChunk(chunk->name())) continue;
 
 	    // read the content into a QString
-	    FileProperty prop = m_property_map[chunk->name()];
+	    FileProperty prop = m_property_map.property(chunk->name());
 	    unsigned int offset = chunk->dataStart();
 	    unsigned int length = chunk->dataLength();
 	    QByteArray buffer(length+1, 0x00);

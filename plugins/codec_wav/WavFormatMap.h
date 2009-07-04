@@ -19,8 +19,10 @@
 #define _WAV_FORMAT_MAP_H_
 
 #include "config.h"
-#include <qmap.h>
-#include <qstring.h>
+
+#include <QMap>
+#include <QString>
+
 #include "WavFileFormat.h"
 
 /**

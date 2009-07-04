@@ -69,7 +69,7 @@ Encoder *WavEncoder::instance()
 /***************************************************************************/
 QList<FileProperty> WavEncoder::supportedProperties()
 {
-    return m_property_map.values();
+    return m_property_map.properties();
 }
 
 /***************************************************************************/

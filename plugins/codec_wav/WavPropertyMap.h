@@ -21,12 +21,13 @@
 #include "config.h"
 
 #include <QByteArray>
-#include <QMap>
+#include <QList>
+#include <QPair>
 #include <QString>
 
 #include "libkwave/FileInfo.h"
 
-class WavPropertyMap: public QMap<QByteArray, FileProperty>
+class WavPropertyMap: protected QList< QPair<FileProperty, QByteArray> >
 {
 public:
     /** Default constructor, with initializing */
@@ -39,10 +40,44 @@ public:
      * Returns the chunk name of a property or an empty string
      * if nothing found (reverse lookup).
      */
-    QByteArray findProperty(const FileProperty property);
+    QByteArray findProperty(const FileProperty property) const;
 
     /** Returns true if the map contains a given property */
-    bool containsProperty(const FileProperty property);
+    bool containsProperty(const FileProperty property) const;
+
+    /**
+     * insert a new property / chunk mapping
+     *
+     * @param property a Kwave FileProperty
+     * @param chunk a 4-byte chunk name
+     */
+    void insert(const FileProperty property, const QByteArray &chunk);
+
+    /**
+     * returns true if a given chunk is in the list
+     *
+     * @param chunk a 4-byte chunk name
+     * @return true if found, false if not
+     */
+    bool containsChunk(const QByteArray &chunk) const;
+
+    /** returns a list of all known chunks */
+    QList<QByteArray> chunks() const;
+
+    /**
+     * Returns the first FileProperty that matches a given chunk
+     *
+     * @param chunk a 4-byte chunk name
+     * @return a FileProperty
+     */
+    FileProperty property(const QByteArray &chunk) const;
+
+    /** Returns a list with all supported properties */
+    QList<FileProperty> properties() const;
+
+private:
+
+    typedef QPair<FileProperty, QByteArray> Pair;
 
 };
 

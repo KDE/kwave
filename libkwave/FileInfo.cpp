@@ -19,7 +19,7 @@
 #include <klocale.h>
 #include "FileInfo.h"
 
-/** FileInfo flag: for internal usage only, do not so to the user */
+/** FileInfo flag: for internal usage only, do not show to the user */
 #define FP_INTERNAL     0x0001
 
 /** FileInfo flag: readonly, cannot be modified by the user */
@@ -157,7 +157,7 @@ void FileInfo::PropertyTypesMap::fill()
         I18N_NOOP("Organization"),
         i18n("Name of the organization producing the track\n"
              "(i.e. the 'record label')"));
-    append(INF_ORIGINAL, 0,
+    append(INF_ORIGINAL, FP_NO_LOAD_SAVE,
         I18N_NOOP("Original"),
         i18n("Indicates whether the file is an original or a copy"));
     append(INF_PERFORMER, 0,

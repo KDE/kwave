@@ -2577,7 +2577,7 @@ void SignalWidget::dragEnterEvent(QDragEnterEvent *event)
         (event->proposedAction() != Qt::CopyAction))
         return; /* unsupported action */
 
-    if (KwaveDrag::canDecode(event->mimeData()))
+    if (KwaveFileDrag::canDecode(event->mimeData()))
 	event->acceptProposedAction();
 }
 

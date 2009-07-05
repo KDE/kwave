@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-13 10:50+0200\n"
+"POT-Creation-Date: 2009-07-05 09:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -209,12 +209,12 @@ msgid "save the current file"
 msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:226
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1171
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1175
 msgid "Undo"
 msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:231
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1179
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1183
 msgid "Redo"
 msgstr ""
 
@@ -292,65 +292,65 @@ msgstr ""
 msgid "Ready."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:723
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:727
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:798
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:802
 msgid "Open"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:843
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:847
 msgid "Save As"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:866
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:870
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1048
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1052
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1130
 msgid "Length: %1"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1049
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1053
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1131
 msgid "(%1 samples)"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1058
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1062
 msgid "Mode: %1 kHz@%2 bit"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1103
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1107
 msgid "Selected"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1109
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1157
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1113
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1161
 msgid "samples"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1131
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1135
 msgid "Position"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1150
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1154
 #: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:373
 msgid "Playback"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1190
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1194
 msgid "U&ndo"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1196
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1200
 msgid "R&edo"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1393
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1397
 msgid " (modified)"
 msgstr ""
 
@@ -512,7 +512,7 @@ msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1917
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoAddLabelAction.cpp:42
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1548
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1554
 msgid "add label"
 msgstr ""
 
@@ -588,12 +588,12 @@ msgid "modify file information"
 msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteAction.cpp:53
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:813
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:816
 msgid "delete"
 msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoInsertTrack.cpp:39
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:698
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:701
 msgid "insert track"
 msgstr ""
 
@@ -602,12 +602,12 @@ msgid "modify samples"
 msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteLabelAction.cpp:42
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1588
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1594
 msgid "delete label"
 msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteTrack.cpp:45
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:728
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:731
 msgid "delete track"
 msgstr ""
 
@@ -616,28 +616,28 @@ msgstr ""
 msgid "New File"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:191
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:193
 msgid "oops, plugin '%1' is unknown or invalid!"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:193
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:205
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:195
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:207
 msgid "error on loading plugin"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:201
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:203
 msgid ""
 "unable to load the file \n"
 "'%1'\n"
 " that contains the plugin '%2' !"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:224
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:232
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:226
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:234
 msgid "(unknown)"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:677
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:683
 msgid "loading plugin %1..."
 msgstr ""
 
@@ -1804,60 +1804,60 @@ msgstr ""
 msgid "An error occurred while saving the file!"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:438
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:439
 msgid "The file has been truncated and might be corrupted!"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:445
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:447
 msgid "Sorry, the file type is not supported!"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:632
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:635
 msgid "crop"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:691
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:694
 msgid "append track"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1077
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1080
 msgid "Not enough memory for saving undo information."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1079
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1082
 msgid "Do you want to continue without the possibility to undo?"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1081
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1084
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
 "under '%1'/'%2'."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1083
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1086
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:83
 msgid "&Options"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1084
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1087
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:69
 msgid "&Memory"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1231
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1238
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1235
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1242
 msgid "last action"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1493
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1499
 msgid "modify file info"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1653
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1659
 msgid "manual track selection"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1655
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1661
 msgid "manual selection"
 msgstr ""
 
@@ -1928,7 +1928,7 @@ msgstr ""
 msgid "%1 samples"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/KwavePlugin.cpp:201
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/KwavePlugin.cpp:206
 msgid "running plugin '%1' ..."
 msgstr ""
 
@@ -1970,8 +1970,9 @@ msgstr ""
 msgid "pitch shift"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:196
-#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:209
+#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:201
+#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:216
+#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/UndoReverseAction.cpp:42
 msgid "reverse"
 msgstr ""
 
@@ -2494,7 +2495,7 @@ msgstr ""
 msgid "amplify free"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemoryPlugin.cpp:38
+#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemoryPlugin.cpp:39
 msgid "memory"
 msgstr ""
 

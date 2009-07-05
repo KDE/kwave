@@ -1,7 +1,5 @@
 -
 
-o Album and Track cannot be saven in .wav format
-
 o Drag & Drop: dropping a .ogg file does not work !?
 
 o debug aid: write all actions to a logfile
@@ -23,7 +21,9 @@ o get Phonon playback support running correctly
 
 o automatic defragmentation of stripes
 
-o support for sample rate conversion, libsamplerate or soundtouch
+o support for sample rate conversion, libsamplerate
+
+o maybe some effects from soundtouch
 
 o re-activate the "label" menu
 

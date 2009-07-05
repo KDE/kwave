@@ -37,6 +37,7 @@ MACRO(KWAVE_PLUGIN _plugin)
         kwavegui
         kwave
         ${plugin_${_plugin}_LIBS}
+        ${SAMPLERATE_LIBS}
         ${QT_AND_KDECORE_LIBS}
     )
 

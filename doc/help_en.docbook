@@ -32,7 +32,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2009-06-27</date>
+<date>2009-07-05</date>
 <releaseinfo>&version;</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -347,6 +347,9 @@
 	    </para></listitem>
 	    <listitem><para>
 		fftw-3.x
+	    </para></listitem>
+	    <listitem><para>
+		libsamplerate-0.1.3 or higher
 	    </para></listitem>
 	    <listitem><para>
 		mad-devel-0.15 or higher

@@ -45,6 +45,7 @@ DIRECTLY USED EXTERNAL LIBRARIES
 	* OSS-3.8			GPL2, CDDL, BSD
 	* libstdc++-v3.3.6		LGPL2.1
 	* glibc-2.6.1			LGPL2
+	* libsamplerate-0.1.4		GPL2
 
 LICENSE ISSUES
 ==============
@@ -121,6 +122,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	cmake/KwaveEbuild.cmake				GPL2+
 	cmake/KwaveL10N.cmake				GPL2+
 	cmake/KwaveLibaudiofileSupport.cmake		GPL2+
+	cmake/KwaveLibsamplerateSupport.cmake		GPL2+
 	cmake/KwaveOSSSupport.cmake			GPL2+
 	cmake/KwavePackageMessages.cmake		GPL2+
 	cmake/KwavePhononSupport.cmake			GPL2+

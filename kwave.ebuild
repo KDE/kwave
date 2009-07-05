@@ -26,15 +26,16 @@ IUSE="alsa debug doc flac mp3 ogg oss phonon mmx"
 
 RDEPEND="
 	alsa? ( media-libs/alsa-lib )
-	media-libs/audiofile
 	mp3? ( media-libs/id3lib media-libs/libmad )
 	ogg? ( media-libs/libogg media-libs/libvorbis )
 	flac? ( media-libs/flac )
+	media-libs/audiofile
+	media-libs/libsamplerate
 	sci-libs/fftw"
 
 DEPEND="${RDEPEND}
-	>=dev-util/cmake-2.4.6
-	|| ( kde-base/kdesdk-misc kde-base/kdesdk )
+	>=dev-util/cmake-2.6.0
+	kde-base/kdesdk-misc
 	media-gfx/imagemagick"
 
 src_prepare() {

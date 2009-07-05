@@ -24,7 +24,8 @@ Requires:	@RPM_REQUIRE_LIBMAD@ > 0.14
 Requires:	audiofile >= 0.2.3
 Requires:	fftw >= 3.0
 Requires:	flac
-BuildRequires:  cmake >= 2.4.4
+Requires:       libsamplerate >= 0.1.3
+BuildRequires:  cmake >= 2.6.0
 BuildRequires:	flac-devel
 BuildRequires:	id3lib-devel >= 3.8.1
 BuildRequires:	kdemultimedia3-devel
@@ -34,6 +35,7 @@ BuildRequires:	libvorbis >= 1
 BuildRequires:	fftw >= 3.0
 BuildRequires:	kdesdk3-translate
 BuildRequires:  gettext-devel
+BuildRequires:  ImageMagick
 
 Conflicts: 	libkwave
 Obsoletes: 	libkwave

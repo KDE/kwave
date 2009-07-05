@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-13 10:50+0200\n"
+"POT-Creation-Date: 2009-07-05 09:58+0200\n"
 "PO-Revision-Date: 2009-06-09 18:41+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -30,7 +30,7 @@ msgstr " &Hraní"
 msgid " (%1)"
 msgstr " (%1)"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1393
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1397
 msgid " (modified)"
 msgstr " (upraveno)"
 
@@ -472,7 +472,7 @@ msgstr "&Nízký průchod"
 msgid "&Macro"
 msgstr "&Macro"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1084
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1087
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:69
 msgid "&Memory"
 msgstr "&Paměť"
@@ -544,7 +544,7 @@ msgstr "&OK"
 msgid "&Open"
 msgstr "&Otevřít"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1083
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1086
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:83
 msgid "&Options"
 msgstr "&Volby"
@@ -750,7 +750,7 @@ msgstr "&do nového okna"
 msgid "( resulting window size: %1 )"
 msgstr "(výsledná velikost okna: %1)"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1049
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1053
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1131
 msgid "(%1 samples)"
 msgstr "(%1 vzorky)"
@@ -807,8 +807,8 @@ msgstr "(kvadrofonní zvuk)"
 msgid "(stereo)"
 msgstr "(stereofonní zvuk)"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:224
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:232
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:226
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:234
 msgid "(unknown)"
 msgstr "(neznámý)"
 
@@ -1174,7 +1174,7 @@ msgstr ""
 "Pokud není Vaše zařízení zahrnuto v tomto seznamu, můžete zadat název tohoto "
 "zařízení o své vůli, nebo  je hledat v souborovém systému.</p>"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1081
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1084
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
 "under '%1'/'%2'."
@@ -2097,7 +2097,7 @@ msgstr "Stále ještě chcete pokračovat?"
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Chcete pokračovat a nevšímat si všech následujících chyb?"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1079
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1082
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Chcete pokračovat bez možnosti vrátit se \"Zpět\"?"
 
@@ -2696,7 +2696,7 @@ msgstr "Vrstva III"
 msgid "Length"
 msgstr "Délka"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1048
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1052
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1130
 msgid "Length: %1"
 msgstr "Délka: %1"
@@ -2922,7 +2922,7 @@ msgstr "Režim"
 msgid "Mode Extension"
 msgstr "Rozšíření režimu"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1058
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1062
 msgid "Mode: %1 kHz@%2 bit"
 msgstr "Režim: %1 kHz@%2 bitů"
 
@@ -3014,7 +3014,7 @@ msgstr "Pouze formální datový tok zvukového zdroje v bitech za sekundu"
 msgid "None"
 msgstr "Žádný"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1077
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1080
 msgid "Not enough memory for saving undo information."
 msgstr "Pro uložení informace o zpětných krocích není dostatek paměti."
 
@@ -3093,7 +3093,7 @@ msgstr ""
 "Jedna nebo i více kódovacích pomocných proměnných není podporováno. Prosím, "
 "změňte nastavení a zkuste to znovu..."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:798
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:802
 msgid "Open"
 msgstr "Otevřít"
 
@@ -3173,7 +3173,7 @@ msgstr ""
 msgid "Pitch Shift"
 msgstr "Posun výšky tónu"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1150
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1154
 #: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:373
 msgid "Playback"
 msgstr "Přehrávání"
@@ -3229,7 +3229,7 @@ msgstr "Pop/Funk"
 msgid "Porn Groove"
 msgstr "Porn rytmus"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1131
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1135
 msgid "Position"
 msgstr "Místo"
 
@@ -3327,7 +3327,7 @@ msgstr "Quadro"
 msgid "R&B"
 msgstr "R&B"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1196
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1200
 msgid "R&edo"
 msgstr "Z&novu"
 
@@ -3403,7 +3403,7 @@ msgid "Rectangular"
 msgstr "Obdélníkový"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:231
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1179
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1183
 msgid "Redo"
 msgstr "Znovu"
 
@@ -3497,7 +3497,7 @@ msgstr "Vzorky"
 msgid "Satire"
 msgstr "Satira"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:843
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:847
 msgid "Save As"
 msgstr "Uložit jako"
 
@@ -3573,7 +3573,7 @@ msgstr ""
 "Vybrat rozlišení v bitech, ve kterém bude\n"
 "soubor uložen."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1103
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1107
 msgid "Selected"
 msgstr "Vybraný"
 
@@ -3688,7 +3688,7 @@ msgstr ""
 "Promiňte, ale aktuálně vybraný druh komprese nelze použít pro ukládání. "
 "Chcete místo něj použít kompresi G711 ULAW?"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:445
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:447
 msgid "Sorry, the file type is not supported!"
 msgstr "Promiňte, ale tento souborový typ není podporován!"
 
@@ -3918,7 +3918,7 @@ msgstr ""
 "onoho programu tím, že si vyžádáte: \"fuser -v %1\" \n"
 "z příkazové řádky.)"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:866
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:870
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr "Soubor '%1' již existuje. Opravdu si jej přejete přepsat?"
 
@@ -3946,7 +3946,7 @@ msgstr ""
 "Stavba souboru byla poškozena, nebo se nejedná o soubor wav.\n"
 "Má se Kwave pokusit o jeho opravu?"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:438
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:439
 msgid "The file has been truncated and might be corrupted!"
 msgstr "Soubor byl zkrácen a mohl by tedy být poškozen!"
 
@@ -3990,7 +3990,7 @@ msgstr ""
 msgid "This Ogg bitstream does not contain Vorbis audio data."
 msgstr "Tento Ogg datový proud neobsahuje Vorbis zvuková data."
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:723
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:727
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
@@ -4082,7 +4082,7 @@ msgstr "Kmenová hudba"
 msgid "Trip-Hop"
 msgstr "Halucinační poskakování (Trip hop)"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1190
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1194
 msgid "U&ndo"
 msgstr "Z&pět"
 
@@ -4099,7 +4099,7 @@ msgid "Unable to open the file for saving!"
 msgstr "Neschopen otevřít soubor pro ukládání!"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:226
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1171
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1175
 msgid "Undo"
 msgstr "Zpět"
 
@@ -4209,7 +4209,7 @@ msgstr "O"
 
 #: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1917
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoAddLabelAction.cpp:42
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1548
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1554
 msgid "add label"
 msgstr "Přidat štítek"
 
@@ -4229,7 +4229,7 @@ msgstr "Volně zesílit"
 msgid "analyzing volume level..."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:691
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:694
 msgid "append track"
 msgstr "Připojit stopu"
 
@@ -4412,7 +4412,7 @@ msgstr ""
 msgid "creator of the project, development 1998-2000"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:632
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:635
 msgid "crop"
 msgstr "Oříznout"
 
@@ -4460,12 +4460,12 @@ msgid "default device"
 msgstr "Výchozí zařízení"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteAction.cpp:53
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:813
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:816
 msgid "delete"
 msgstr "Smazat"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteLabelAction.cpp:42
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1588
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1594
 msgid "delete label"
 msgstr "&Smazat štítek"
 
@@ -4474,7 +4474,7 @@ msgid "delete the current selection"
 msgstr "Smazat nynější výběr"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoDeleteTrack.cpp:45
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:728
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:731
 msgid "delete track"
 msgstr "Smazat stopu"
 
@@ -4530,8 +4530,8 @@ msgstr "Táhnout a pustit"
 msgid "enable pre-recording"
 msgstr "Umožnit nahrávání předem"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:193
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:205
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:195
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:207
 msgid "error on loading plugin"
 msgstr "Chyba při nahrávání přídavného modulu"
 
@@ -4636,7 +4636,7 @@ msgid "insert the content of clipboard"
 msgstr "Vložit obsah schránky"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoInsertTrack.cpp:39
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:698
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:701
 msgid "insert track"
 msgstr "Vložit stopu"
 
@@ -4672,8 +4672,8 @@ msgstr "Obrátit výběr stopy"
 msgid "label #%1"
 msgstr "Štítek #%1"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1231
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1238
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1235
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1242
 msgid "last action"
 msgstr "Poslední prováděný krok"
 
@@ -4702,7 +4702,7 @@ msgstr "Nahrává se soubor '%1'..."
 msgid "loading main menu..."
 msgstr "Nahrává se hlavní seznam nabídek..."
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:677
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:683
 msgid "loading plugin %1..."
 msgstr "Nahrává se přídavný modul %1..."
 
@@ -4723,11 +4723,11 @@ msgstr "Nízký průchod"
 msgid "maintainers of the 'id3lib' library"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1655
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1661
 msgid "manual selection"
 msgstr "Vlastnoruční výběr"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1653
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1659
 msgid "manual track selection"
 msgstr "Vlastnoruční výběr stopy"
 
@@ -4747,7 +4747,7 @@ msgstr "Megabajty fyzické paměti"
 msgid "megabytes of virtual memory"
 msgstr "Megabajty virtuální paměti"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemoryPlugin.cpp:38
+#: /usr/src/packages/multimedia/sound/kwave/plugins/memory/MemoryPlugin.cpp:39
 msgid "memory"
 msgstr "Paměť"
 
@@ -4763,7 +4763,7 @@ msgstr "Způsob nebo systém, který se používá pro nahrávání"
 msgid "minimum"
 msgstr "Nejmenší"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1493
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1499
 msgid "modify file info"
 msgstr "Upravit informaci o souboru"
 
@@ -4848,7 +4848,7 @@ msgstr "Číslování:"
 msgid "on modifications"
 msgstr "Žádné úpravy"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:191
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:193
 msgid "oops, plugin '%1' is unknown or invalid!"
 msgstr "Jejda, přídavný modul '%1' není znám nebo je neplatný!"
 
@@ -4995,13 +4995,14 @@ msgstr "Nahrává..."
 msgid "resolution: "
 msgstr "Rozlišení:"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:196
-#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:209
+#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:201
+#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/ReversePlugin.cpp:216
+#: /usr/src/packages/multimedia/sound/kwave/plugins/reverse/UndoReverseAction.cpp:42
 #, fuzzy
 msgid "reverse"
 msgstr "&Obrátit"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/KwavePlugin.cpp:201
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/KwavePlugin.cpp:206
 msgid "running plugin '%1' ..."
 msgstr "Spouští se přídavný modul '%1' ..."
 
@@ -5021,8 +5022,8 @@ msgstr "Vzorkovací formát '%1' není podporován. Používá se '%2'"
 msgid "sample rate: "
 msgstr "Vzorkovací kmitočet:"
 
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1109
-#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1157
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1113
+#: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1161
 msgid "samples"
 msgstr "Vzorky"
 
@@ -5218,7 +5219,7 @@ msgstr "Stopy:"
 msgid "trigger level"
 msgstr "Citlivost spouště"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:201
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:203
 msgid ""
 "unable to load the file \n"
 "'%1'\n"

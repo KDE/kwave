@@ -79,6 +79,7 @@ TARGET_LINK_LIBRARIES(kwave_core
     kwavegui
     kwave
     audiofile
+    ${SAMPLERATE_LIBS}
     ${QT_AND_KDECORE_LIBS}
 )
 

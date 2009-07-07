@@ -662,7 +662,7 @@ int RecordALSA::close()
     // close the device handle
     if (m_handle) {
 	snd_pcm_drop(m_handle);
-	snd_pcm_hw_free(handle);
+	snd_pcm_hw_free(m_handle);
 	snd_pcm_close(m_handle);
     }
     m_handle = 0;

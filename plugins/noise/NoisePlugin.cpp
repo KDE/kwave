@@ -42,15 +42,15 @@ NoisePlugin::NoisePlugin(const PluginContext &context)
 void NoisePlugin::run(QStringList)
 {
     unsigned int first, last;
+    QList<unsigned int> tracks;
 
     UndoTransactionGuard undo_guard(*this, i18n("noise"));
 
-    selection(&first, &last, true);
+    selection(&tracks, &first, &last, true);
 
     // create all objects
-    unsigned int tracks = selectedTracks().count();
-    Kwave::MultiTrackSource<NoiseGenerator, true> source(tracks);
-    MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
+    Kwave::MultiTrackSource<NoiseGenerator, true> source(tracks.count());
+    MultiTrackWriter sink(signalManager(), tracks, Overwrite,
         first, last);
 
     // break if aborted

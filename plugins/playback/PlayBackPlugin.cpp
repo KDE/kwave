@@ -505,7 +505,7 @@ void PlayBackPlugin::startDevicePlayBack()
 
     unsigned int first;
     unsigned int last;
-    selection(&first, &last, false);
+    selection(0, &first, &last, false);
 
     if (m_playback_controller.paused()) {
 	// continue after pause

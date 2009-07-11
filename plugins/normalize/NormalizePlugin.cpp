@@ -25,6 +25,7 @@
 
 #include <QList>
 #include <QStringList>
+#include <QVector>
 
 #include <klocale.h> // for the i18n macro
 #include <threadweaver/Job.h>
@@ -38,8 +39,6 @@
 #include "libkwave/PluginManager.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
-
-#include "libgui/SelectTimeWidget.h" // for selection mode
 
 #include "NormalizePlugin.h"
 #include "Normalizer.h"
@@ -173,15 +172,15 @@ void NormalizePlugin::run(QStringList params)
     UndoTransactionGuard undo_guard(*this, i18n("normalize"));
 
     // get the current selection
+    QList<unsigned int> tracks;
     unsigned int first = 0;
     unsigned int last  = 0;
-    unsigned int length = selection(&first, &last, true);
-    if (!length) return;
+    unsigned int length = selection(&tracks, &first, &last, true);
+    if (!length || tracks.isEmpty()) return;
 
     // get the list of affected tracks
-    QList<unsigned int> track_list = manager().selectedTracks();
     MultiTrackReader source(Kwave::SinglePassForward,
-	signalManager(), track_list, first, last);
+	signalManager(), tracks, first, last);
 
     // connect the progress dialog
     connect(&source, SIGNAL(progress(unsigned int)),
@@ -194,10 +193,10 @@ void NormalizePlugin::run(QStringList params)
     double level = getMaxPower(source);
 //     qDebug("NormalizePlugin: level is %g", level);
 
-    MultiTrackWriter sink(signalManager(),   track_list, Overwrite,
+    MultiTrackWriter sink(signalManager(), tracks, Overwrite,
 	first, last);
-    const unsigned int tracks = track_list.count();
-    Kwave::MultiTrackSource<Kwave::Normalizer, true> normalizer(tracks, this);
+    Kwave::MultiTrackSource<Kwave::Normalizer, true> normalizer(
+	tracks.count(), this);
 
     // break if aborted
     if (!sink.tracks()) return;

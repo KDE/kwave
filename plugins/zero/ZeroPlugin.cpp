@@ -50,6 +50,7 @@ ZeroPlugin::~ZeroPlugin()
 //***************************************************************************
 void ZeroPlugin::run(QStringList params)
 {
+    QList<unsigned int> tracks;
     unsigned int first = 0;
     unsigned int last  = 0;
 
@@ -63,7 +64,7 @@ void ZeroPlugin::run(QStringList params)
      */
     if (params.count() == 2) {
 	// get the current selection
-	selection(&first, &last, false);
+	selection(&tracks, &first, &last, false);
 
 	// mode for the time (like in selectrange plugin)
 	bool ok = true;
@@ -90,13 +91,10 @@ void ZeroPlugin::run(QStringList params)
 	    static_cast<SelectTimeWidget::Mode>(mode),
 	    time, signalRate(), signalLength());
 
-	// get the list of affected tracks
-	QList<unsigned int> tracks = manager().selectedTracks();
-
 	// some sanity check
 	Q_ASSERT(length);
-	Q_ASSERT(tracks.count());
-	if (!length || !tracks.count()) return; // nothing to do
+	Q_ASSERT(!tracks.isEmpty());
+	if (!length || tracks.isEmpty()) return; // nothing to do
 
 	last  = first + length - 1;
 	writers = new MultiTrackWriter(signalManager(),

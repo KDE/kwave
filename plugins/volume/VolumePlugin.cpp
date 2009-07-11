@@ -83,9 +83,9 @@ QStringList *VolumePlugin::setup(QStringList &previous_params)
 
     // initialize the overview cache
     SignalManager &mgr = manager().signalManager();
-    QList<unsigned int> tracks = mgr.selectedTracks();
+    QList<unsigned int> tracks;
     unsigned int first, last;
-    unsigned int length = selection(&first, &last, true);
+    unsigned int length = selection(&tracks, &first, &last, true);
     OverViewCache *overview_cache = new OverViewCache(mgr,
         first, length, tracks.isEmpty() ? 0 : &tracks);
     Q_ASSERT(overview_cache);
@@ -120,20 +120,21 @@ QStringList *VolumePlugin::setup(QStringList &previous_params)
 //***************************************************************************
 void VolumePlugin::run(QStringList params)
 {
+    QList<unsigned int> tracks;
     unsigned int first, last;
 
-    UndoTransactionGuard undo_guard(*this, i18n("volume"));
-
     interpreteParameters(params);
-    selection(&first, &last, true);
-    unsigned int tracks = selectedTracks().count();
+    if (!selection(&tracks, &first, &last, true) || tracks.isEmpty())
+	return;
+
+    UndoTransactionGuard undo_guard(*this, i18n("volume"));
 
     // create all objects
     MultiTrackReader source(Kwave::SinglePassForward,
 	signalManager(), selectedTracks(), first, last);
-    MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
+    MultiTrackWriter sink(signalManager(), tracks, Overwrite,
 	first, last);
-    Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks);
+    Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks.count());
 
     // connect the progress dialog
     connect(&source, SIGNAL(progress(unsigned int)),

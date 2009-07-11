@@ -132,19 +132,20 @@ int AmplifyFreePlugin::start(QStringList &params)
 void AmplifyFreePlugin::run(QStringList params)
 {
     unsigned int first, last;
+    QList<unsigned int> track_list;
 
     interpreteParameters(params);
 
     UndoTransactionGuard undo_guard(*this, i18n(m_action_name.toLocal8Bit()));
 
-    unsigned int input_length = selection(&first, &last, true);
-    unsigned int tracks = selectedTracks().count();
+    unsigned int input_length = selection(&track_list, &first, &last, true);
+    unsigned int tracks = track_list.count();
 
     // create all objects
     MultiTrackReader source(Kwave::SinglePassForward,
 	signalManager(), selectedTracks(), first, last);
     Kwave::CurveStreamAdapter curve(m_curve, input_length);
-    MultiTrackWriter sink(signalManager(), selectedTracks(), Overwrite,
+    MultiTrackWriter sink(signalManager(), track_list, Overwrite,
 	first, last);
     Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks, this);
 

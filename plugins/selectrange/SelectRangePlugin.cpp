@@ -53,8 +53,7 @@ QStringList *SelectRangePlugin::setup(QStringList &previous_params)
 
     // create the setup dialog
     double rate = signalRate();
-    unsigned int offset = 0;
-    selection(&offset, 0, false);
+    unsigned int offset = manager().selectionStart();
     unsigned int length = signalLength();
 
     SelectRangeDialog *dialog = new SelectRangeDialog(parentWidget(),

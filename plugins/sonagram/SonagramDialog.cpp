@@ -44,7 +44,7 @@
 //***************************************************************************
 SonagramDialog::SonagramDialog(Kwave::Plugin &p)
     :QDialog(p.parentWidget()), Ui::SonagramDlg(),
-    m_length(p.selection()), m_rate(p.signalRate())
+    m_length(p.selection(0, 0, 0,true)), m_rate(p.signalRate())
 {
     setupUi(this);
     setModal(true);
@@ -55,9 +55,6 @@ SonagramDialog::SonagramDialog(Kwave::Plugin &p)
     if (!pointbox) return;
     if (!pointslider) return;
     if (!windowtypebox) return;
-
-    // if nothing selected, select all
-    if (m_length <= 1) m_length = p.signalLength();
 
     pointslider->setMaximum(m_length / 16);
 

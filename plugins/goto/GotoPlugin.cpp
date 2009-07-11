@@ -51,8 +51,6 @@ QStringList *GotoPlugin::setup(QStringList &previous_params)
 
     // create the setup dialog
     double rate = signalRate();
-    unsigned int offset = 0;
-    selection(&offset, 0, false);
     unsigned int length = signalLength();
 
     GotoDialog *dialog = new GotoDialog(parentWidget(),

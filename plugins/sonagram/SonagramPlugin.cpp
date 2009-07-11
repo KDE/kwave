@@ -164,12 +164,10 @@ int SonagramPlugin::start(QStringList &params)
     QObject::connect(&manager(), SIGNAL(sigClosed()),
                      m_sonagram_window, SLOT(close()));
 
-    unsigned int input_length = selection(&m_first_sample, &m_last_sample);
-    if (m_first_sample == m_last_sample) {
-	input_length = signalLength()-1;
-	m_first_sample = 0;
-	m_last_sample = input_length-1;
-    }
+    unsigned int input_length = selection(&m_selected_channels,
+	&m_first_sample, &m_last_sample, true);
+    if (!input_length || m_selected_channels.isEmpty())
+	return -EINVAL;
 
     // calculate the number of stripes (width of image)
     m_stripes = static_cast<unsigned int>
@@ -181,12 +179,9 @@ int SonagramPlugin::start(QStringList &params)
     createNewImage(m_stripes, m_fft_points/2);
 
     // set the overview
-    m_selected_channels = selectedTracks();
     SignalManager &sig_mgr = manager().signalManager();
-    QList<unsigned int> tracks = sig_mgr.selectedTracks();
     m_overview_cache = new OverViewCache(sig_mgr,
-        m_first_sample, m_last_sample-m_first_sample+1,
-        tracks.isEmpty() ? 0 : &tracks);
+        m_first_sample, input_length, &m_selected_channels);
     Q_ASSERT(m_overview_cache);
     if (!m_overview_cache) return -ENOMEM;
 

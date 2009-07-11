@@ -165,14 +165,14 @@ int Kwave::Plugin::start(QStringList &)
     // set up the progress dialog when in processing (not pre-listen) mode
     if (m_progress_enabled && m_progress) {
 	unsigned int first, last;
-	unsigned int tracks = selectedTracks().count();
+	QList<unsigned int> tracks;
 
-	selection(&first, &last, true);
+	selection(&tracks, &first, &last, true);
 	m_progress->setModal(true);
 	m_progress->setVisible(false);
 	m_progress->setMinimumDuration(2000);
 	m_progress->setAutoClose(false);
-	m_progress->setMaximum((last - first + 1) * tracks);
+	m_progress->setMaximum((last - first + 1) * tracks.count());
 	m_progress->setValue(0);
 	m_progress->setLabelText(progressText());
 	int h = m_progress->sizeHint().height();
@@ -457,8 +457,9 @@ const QList<unsigned int> Kwave::Plugin::selectedTracks()
 }
 
 //***************************************************************************
-unsigned int Kwave::Plugin::selection(unsigned int *left, unsigned int *right,
-                                    bool expand_if_empty)
+unsigned int Kwave::Plugin::selection(QList<unsigned int> *tracks,
+                                      unsigned int *left, unsigned int *right,
+                                      bool expand_if_empty)
 {
     int l = manager().selectionStart();
     int r = manager().selectionEnd();
@@ -466,12 +467,16 @@ unsigned int Kwave::Plugin::selection(unsigned int *left, unsigned int *right,
     // expand to the whole signal if left==right and expand_if_empty is set
     if ((l == r) && (expand_if_empty)) {
 	l = 0;
-	r = manager().signalLength()-1;
+	r = manager().signalLength();
+	if (r) r--;
     }
+
+    // get the list of selected tracks
+    if (tracks) *tracks = manager().selectedTracks();
 
     if (left)  *left  = l;
     if (right) *right = r;
-    return r-l+1;
+    return (r != l) ? (r - l + 1) : 0;
 }
 
 //***************************************************************************

@@ -62,13 +62,13 @@ QStringList *SaveBlocksPlugin::setup(QStringList &previous_params)
     KUrl url(signalName());
     unsigned int selection_left  = 0;
     unsigned int selection_right = 0;
-    selection(&selection_left, &selection_right, false);
+    selection(0, &selection_left, &selection_right, false);
 
     // enable the "selection only" checkbox only if there is something
     // selected but not everything
     bool selected_something = (selection_left != selection_right);
     bool selected_all = ((selection_left == 0) &&
-                         (selection_right+1 >= signalLength()));
+                         (selection_right + 1 >= signalLength()));
     bool enable_selection_only = selected_something && !selected_all;
 
     SaveBlocksDialog *dialog = new SaveBlocksDialog(
@@ -151,7 +151,7 @@ int SaveBlocksPlugin::start(QStringList &params)
     // determine the selection settings
     unsigned int selection_left  = 0;
     unsigned int selection_right = 0;
-    selection(&selection_left, &selection_right, false);
+    selection(0, &selection_left, &selection_right, false);
 
     bool selected_something = (selection_left != selection_right);
     bool selected_all = ((selection_left == 0) &&
@@ -160,7 +160,7 @@ int SaveBlocksPlugin::start(QStringList &params)
     bool selection_only = enable_selection_only && m_selection_only;
 
     if (selection_only) {
-	selection(&selection_left, &selection_right, true);
+	selection(0, &selection_left, &selection_right, true);
     } else {
 	selection_left  = 0;
 	selection_right = signalLength() - 1;
@@ -223,7 +223,7 @@ int SaveBlocksPlugin::start(QStringList &params)
     // save the current selection, we have to restore it afterwards!
     unsigned int saved_selection_left  = 0;
     unsigned int saved_selection_right = 0;
-    selection(&saved_selection_left, &saved_selection_right, false);
+    selection(0, &saved_selection_left, &saved_selection_right, false);
 
     // now we can loop over all blocks and save them
     unsigned int block_start;
@@ -327,7 +327,7 @@ unsigned int SaveBlocksPlugin::blocksToSave(bool selection_only)
     Label label = (it.hasNext()) ? it.next() : Label();
 
     if (selection_only) {
-	selection(&selection_left, &selection_right, true);
+	selection(0, &selection_left, &selection_right, true);
     } else {
 	selection_left = 0;
 	selection_right = signalLength() - 1;

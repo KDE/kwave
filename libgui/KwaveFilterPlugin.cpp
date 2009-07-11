@@ -94,8 +94,8 @@ void Kwave::FilterPlugin::run(QStringList params)
     if (!interpreteParameters(params)) m_params = params;
 
     unsigned int first, last;
-    unsigned int tracks = selectedTracks().count();
-    selection(&first, &last, true);
+    QList<unsigned int> tracks;
+    selection(&tracks, &first, &last, true);
 
     // switch to interactive mode in pre-listen mode
     Kwave::StreamObject::setInteractive(m_listen);
@@ -103,9 +103,9 @@ void Kwave::FilterPlugin::run(QStringList params)
     // create all objects
     MultiTrackReader source(
 	(m_listen) ? Kwave::FullSnapshot : Kwave::SinglePassForward,
-	signalManager(), selectedTracks(), first, last);
+	signalManager(), tracks, first, last);
 
-    Kwave::SampleSource *filter = createFilter(tracks);
+    Kwave::SampleSource *filter = createFilter(tracks.count());
     Q_ASSERT(filter);
 
     if (m_listen) {
@@ -121,7 +121,7 @@ void Kwave::FilterPlugin::run(QStringList params)
 	    Kwave::StreamObject::setInteractive(false);
 	    return;
 	}
-	m_sink = new MultiTrackWriter(signalManager(), selectedTracks(),
+	m_sink = new MultiTrackWriter(signalManager(), tracks,
 	    Overwrite, first, last);
 	Q_ASSERT(m_sink);
     }

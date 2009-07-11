@@ -26,8 +26,6 @@
 
 #include "libkwave/KwavePlugin.h"
 
-class QStringList;
-
 class VolumePlugin: public Kwave::Plugin
 {
     Q_OBJECT

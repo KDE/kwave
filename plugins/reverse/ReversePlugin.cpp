@@ -226,26 +226,25 @@ void ReversePlugin::run(QStringList params)
     }
 
     // get the current selection
+    QList<unsigned int> tracks;
     unsigned int first = 0;
     unsigned int last  = 0;
-    unsigned int length = selection(&first, &last, true);
-    if (!length) {
+    unsigned int length = selection(&tracks, &first, &last, true);
+    if (!length || tracks.isEmpty()) {
 	if (undo_guard) delete undo_guard;
 	return;
     }
 
     // get the list of affected tracks
-    QList<unsigned int> track_list = manager().selectedTracks();
-    unsigned int tracks = track_list.count();
-    if (!tracks) {
+    if (tracks.isEmpty()) {
 	if (undo_guard) delete undo_guard;
 	return;
     }
 
     MultiTrackReader source_a(Kwave::SinglePassForward,
-	signalManager(), track_list, first, last);
+	signalManager(), tracks, first, last);
     MultiTrackReader source_b(Kwave::SinglePassReverse,
-	signalManager(), track_list, first, last);
+	signalManager(), tracks, first, last);
 
     // break if aborted
     if (!source_a.tracks() || !source_b.tracks()) {
@@ -274,7 +273,7 @@ void ReversePlugin::run(QStringList params)
 	weaver.suspend();
 
 	// loop over all tracks
-	for (unsigned int track = 0; track < tracks; track++) {
+	for (int track = 0; track < tracks.count(); track++) {
 
 	    ReverseJob *job = new ReverseJob(
 		signalManager(), track, first, last, block_size,

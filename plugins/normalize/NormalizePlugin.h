@@ -25,7 +25,6 @@
 
 #include <QString>
 #include <QStringList>
-#include <QVector>
 
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/KwaveSampleArray.h"

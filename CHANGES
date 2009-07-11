@@ -3,6 +3,8 @@
 
  * using libsamplerate (new dependency)
  * bugfix: drag&drop of files on the main window was broken
+ * workaround for dubious bug in id3lib which crashed in ID3_Tag::GetSize()
+   with some MP3 files
 
 0.8.3-2 [2009-07-04]
 

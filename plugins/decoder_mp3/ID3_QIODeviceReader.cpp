@@ -83,9 +83,11 @@ ID3_Reader::int_type ID3_QIODeviceReader::peekChar()
 ID3_Reader::size_type ID3_QIODeviceReader::readChars(
     char_type buf[], size_type len)
 {
-    ID3_Reader::size_type size = m_source.read(
-	reinterpret_cast<char *>(&buf[0]), len);
-    return size;
+     qint64 size = m_source.read(
+	reinterpret_cast<char *>(&(buf[0])),
+	static_cast<qint64>(len)
+    );
+    return static_cast<ID3_Reader::size_type>(size);
 }
 
 //***************************************************************************

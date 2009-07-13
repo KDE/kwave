@@ -392,8 +392,10 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
     tag.Link(adapter, static_cast<flags_t>(ID3TT_ALL));
 
     qDebug("NumFrames = %d", static_cast<int>(tag.NumFrames()));
-    /** @bug: id3lib crashes in this line on some MP3 files
-    qDebug("Size = %d",      static_cast<int>(tag.Size())); */
+    /** @bug: id3lib crashes in this line on some MP3 files */
+    if (tag.GetSpec() != ID3V2_UNKNOWN) {
+	qDebug("Size = %d",      static_cast<int>(tag.Size()));
+    }
     qDebug("HasLyrics = %d", tag.HasLyrics());
     qDebug("HasV1Tag = %d",  tag.HasV1Tag());
     qDebug("HasV2Tag = %d",  tag.HasV2Tag());

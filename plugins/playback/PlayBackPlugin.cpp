@@ -335,7 +335,8 @@ void PlayBackPlugin::setMethod(playback_method_t method)
 		device.toLocal8Bit().data());
 	    last_device_name = device;
 	    m_playback_params.device = device;
-	    m_dialog->setDevice(m_playback_params.device);
+	    m_dialog->setSupportedDevices(QList<QString>());
+ 	    m_dialog->setDevice(m_playback_params.device);
 	}
     }
     Q_ASSERT(m_device);

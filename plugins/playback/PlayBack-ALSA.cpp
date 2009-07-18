@@ -853,7 +853,6 @@ next_card:
         m_device_list.insert(NULL_DEVICE, "null");
     }
 
-    snd_config_update_free_global();
 }
 
 //***************************************************************************

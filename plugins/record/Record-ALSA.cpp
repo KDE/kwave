@@ -31,6 +31,9 @@ QMap<QString, QString> RecordALSA::m_device_list;
 /** gui name of the default device */
 #define DEFAULT_DEVICE (i18n("DSNOOP plugin")+QString("|sound_note"))
 
+/** helper macro: returns the number of elements in an array */
+#define ELEMENTS_OF(__array__) (sizeof(__array__) / sizeof(__array__[0]))
+
 //***************************************************************************
 
 /* define some endian dependend symbols that are missing in ALSA */
@@ -191,18 +194,25 @@ static int compression_of(snd_pcm_format_t fmt)
 
 //***************************************************************************
 RecordALSA::RecordALSA()
-    :RecordDevice(), m_handle(0), m_open_result(0), m_tracks(0),
+    :RecordDevice(), m_handle(0), m_hw_params(0),
+     m_sw_params(0), m_open_result(0), m_tracks(0),
      m_rate(0.0), m_compression(0), m_bits_per_sample(0),
      m_bytes_per_sample(0), m_sample_format(SampleFormat::Unknown),
      m_supported_formats(), m_initialized(false), m_buffer_size(0),
      m_chunk_size(0)
 {
+    snd_pcm_hw_params_malloc(&m_hw_params);
+    snd_pcm_sw_params_malloc(&m_sw_params);
+    Q_ASSERT(m_hw_params);
+    Q_ASSERT(m_sw_params);
 }
 
 //***************************************************************************
 RecordALSA::~RecordALSA()
 {
     close();
+    snd_pcm_hw_params_free(m_hw_params);
+    snd_pcm_sw_params_free(m_sw_params);
 }
 
 //***************************************************************************
@@ -212,16 +222,10 @@ void RecordALSA::detectSupportedFormats()
     m_supported_formats.clear();
 
     Q_ASSERT(m_handle);
-    if (!m_handle) return;
+    if (!m_handle || !m_hw_params) return;
 
-    snd_pcm_t *pcm = m_handle;
     int err;
-    snd_pcm_hw_params_t *p;
-
-    snd_pcm_hw_params_alloca(&p);
-    if (!p) return;
-
-    if (!snd_pcm_hw_params_any(pcm, p) < 0) return;
+    if (!snd_pcm_hw_params_any(m_handle, m_hw_params) < 0) return;
 
     // try all known formats
 //     qDebug("--- list of supported formats --- ");
@@ -230,7 +234,7 @@ void RecordALSA::detectSupportedFormats()
     for (unsigned int i=0; i < count; i++) {
 	// test the sample format
 	snd_pcm_format_t format = _known_formats[i];
-	err = snd_pcm_hw_params_test_format(pcm, p, format);
+	err = snd_pcm_hw_params_test_format(m_handle, m_hw_params, format);
 	if (err < 0) continue;
 
 	const snd_pcm_format_t *fmt = &(_known_formats[i]);
@@ -310,8 +314,6 @@ int RecordALSA::initialize()
     int err;
     snd_output_t *output = NULL;
 
-    snd_pcm_hw_params_t *hw_params = 0;
-    snd_pcm_sw_params_t *sw_params = 0;
     snd_pcm_uframes_t buffer_size;
     unsigned period_time = 0; // period time in us
     unsigned buffer_time = 0; // ring buffer length in us
@@ -328,12 +330,9 @@ int RecordALSA::initialize()
     m_buffer_size = 0;
 
     Q_ASSERT(m_handle);
-    if (!m_handle) return -EBADF; // file not opened
+    if (!m_handle || !m_hw_params) return -EBADF; // file not opened
 
     // close the device if it was previously open
-
-    /* caused SIGSEGV on my system for some dubious reason !?
-    snd_pcm_reset(m_handle); */
     snd_pcm_drop(m_handle);
 
     err = snd_output_stdio_attach(&output, stderr, 0);
@@ -341,15 +340,14 @@ int RecordALSA::initialize()
 	qWarning("Output failed: %s", snd_strerror(err));
     }
 
-    snd_pcm_hw_params_alloca(&hw_params);
-    if ((err = snd_pcm_hw_params_any(m_handle, hw_params)) < 0) {
+    if ((err = snd_pcm_hw_params_any(m_handle, m_hw_params)) < 0) {
 	qWarning("Cannot initialize hardware parameters: %s",
 	         snd_strerror(err));
 	snd_output_close(output);
 	return -EIO;
     }
 
-    err = snd_pcm_hw_params_set_access(m_handle, hw_params,
+    err = snd_pcm_hw_params_set_access(m_handle, m_hw_params,
          SND_PCM_ACCESS_RW_INTERLEAVED);
     if (err < 0) {
 	qWarning("Cannot set access type: %s", snd_strerror(err));
@@ -379,8 +377,7 @@ int RecordALSA::initialize()
     m_bytes_per_sample = ((snd_pcm_format_physical_width(
 	_known_formats[format_index])+7) >> 3) * m_tracks;
 
-    err = snd_pcm_hw_params_test_format(m_handle, hw_params, alsa_format);
-    Q_ASSERT(!err);
+    err = snd_pcm_hw_params_test_format(m_handle, m_hw_params, alsa_format);
     if (err) {
 	qWarning("RecordkALSA::setFormat(): format %u is not supported",
 	    static_cast<int>(alsa_format));
@@ -389,15 +386,14 @@ int RecordALSA::initialize()
     }
 
     // activate the settings
-    err = snd_pcm_hw_params_set_format(m_handle, hw_params, alsa_format);
-    Q_ASSERT(!err);
+    err = snd_pcm_hw_params_set_format(m_handle, m_hw_params, alsa_format);
     if (err < 0) {
 	qWarning("Cannot set sample format: %s", snd_strerror(err));
 	snd_output_close(output);
 	return -EINVAL;
     }
 
-    err = snd_pcm_hw_params_set_channels(m_handle, hw_params, m_tracks);
+    err = snd_pcm_hw_params_set_channels(m_handle, m_hw_params, m_tracks);
     if (err < 0) {
 	qWarning("Cannot set channel count: %s", snd_strerror(err));
 	snd_output_close(output);
@@ -406,7 +402,7 @@ int RecordALSA::initialize()
 
     unsigned int rrate = m_rate > 0 ?
 	static_cast<unsigned int>(rint(m_rate)) : 0;
-    err = snd_pcm_hw_params_set_rate_near(m_handle, hw_params, &rrate, 0);
+    err = snd_pcm_hw_params_set_rate_near(m_handle, m_hw_params, &rrate, 0);
     if (err < 0) {
 	qWarning("Cannot set sample rate: %s", snd_strerror(err));
 	snd_output_close(output);
@@ -420,8 +416,7 @@ int RecordALSA::initialize()
     m_rate = rrate;
 
     if ((buffer_time) == 0 && (buffer_frames) == 0) {
-	err = snd_pcm_hw_params_get_buffer_time_max(hw_params, &buffer_time, 0);
-	Q_ASSERT(err >= 0);
+	err = snd_pcm_hw_params_get_buffer_time_max(m_hw_params, &buffer_time, 0);
 	if (buffer_time > 500000) buffer_time = 500000;
     }
 
@@ -433,24 +428,24 @@ int RecordALSA::initialize()
     }
 
     if (period_time > 0) {
-	err = snd_pcm_hw_params_set_period_time_near(m_handle, hw_params,
+	err = snd_pcm_hw_params_set_period_time_near(m_handle, m_hw_params,
 	                                             &period_time, 0);
     } else {
-	err = snd_pcm_hw_params_set_period_size_near(m_handle, hw_params,
+	err = snd_pcm_hw_params_set_period_size_near(m_handle, m_hw_params,
 	                                             &period_frames, 0);
     }
     Q_ASSERT(err >= 0);
     if (buffer_time > 0) {
-	err = snd_pcm_hw_params_set_buffer_time_near(m_handle, hw_params,
+	err = snd_pcm_hw_params_set_buffer_time_near(m_handle, m_hw_params,
 	                                             &buffer_time, 0);
     } else {
-	err = snd_pcm_hw_params_set_buffer_size_near(m_handle, hw_params,
+	err = snd_pcm_hw_params_set_buffer_size_near(m_handle, m_hw_params,
 	                                             &buffer_frames);
     }
     Q_ASSERT(err >= 0);
 
 //     qDebug("   setting hw_params");
-    err = snd_pcm_hw_params(m_handle, hw_params);
+    err = snd_pcm_hw_params(m_handle, m_hw_params);
     if (err < 0) {
 	snd_pcm_dump(m_handle, output);
 	snd_output_close(output);
@@ -458,8 +453,8 @@ int RecordALSA::initialize()
 	return err;
     }
 
-    snd_pcm_hw_params_get_period_size(hw_params, &m_chunk_size, 0);
-    snd_pcm_hw_params_get_buffer_size(hw_params, &buffer_size);
+    snd_pcm_hw_params_get_period_size(m_hw_params, &m_chunk_size, 0);
+    snd_pcm_hw_params_get_buffer_size(m_hw_params, &buffer_size);
     if (m_chunk_size == buffer_size) {
 	qWarning("Can't use period equal to buffer size (%lu == %lu)",
 	         m_chunk_size, buffer_size);
@@ -468,8 +463,7 @@ int RecordALSA::initialize()
     }
 
     /* set software parameters */
-    snd_pcm_sw_params_alloca(&sw_params);
-    err = snd_pcm_sw_params_current(m_handle, sw_params);
+    err = snd_pcm_sw_params_current(m_handle, m_sw_params);
     if (err < 0) {
 	qWarning("Unable to determine current software parameters: %s",
 	         snd_strerror(err));
@@ -477,7 +471,7 @@ int RecordALSA::initialize()
 	return err;
     }
 
-    err = snd_pcm_sw_params_set_avail_min(m_handle, sw_params, m_chunk_size);
+    err = snd_pcm_sw_params_set_avail_min(m_handle, m_sw_params, m_chunk_size);
 
     /* round up to closest transfer boundary */
     n = buffer_size;
@@ -487,19 +481,19 @@ int RecordALSA::initialize()
 
     if (start_threshold < 1) start_threshold = 1;
     if (start_threshold > n) start_threshold = n;
-    err = snd_pcm_sw_params_set_start_threshold(m_handle, sw_params,
+    err = snd_pcm_sw_params_set_start_threshold(m_handle, m_sw_params,
                                                 start_threshold);
     Q_ASSERT(err >= 0);
     stop_threshold = static_cast<snd_pcm_uframes_t>
                      (m_rate * stop_delay / 1000000);
     if (stop_delay <= 0) stop_threshold += buffer_size;
 
-    err = snd_pcm_sw_params_set_stop_threshold(m_handle, sw_params,
+    err = snd_pcm_sw_params_set_stop_threshold(m_handle, m_sw_params,
                                                stop_threshold);
     Q_ASSERT(err >= 0);
 
     // write the software parameters to the recording device
-    err = snd_pcm_sw_params(m_handle, sw_params);
+    err = snd_pcm_sw_params(m_handle, m_sw_params);
     if (err < 0) {
 	qDebug("   activating snd_pcm_sw_params FAILED");
 	snd_pcm_dump(m_handle, output);
@@ -660,6 +654,7 @@ int RecordALSA::read(QByteArray &buffer, unsigned int offset)
 int RecordALSA::close()
 {
     // close the device handle
+
     if (m_handle) {
 	snd_pcm_drop(m_handle);
 	snd_pcm_hw_free(m_handle);
@@ -680,21 +675,16 @@ int RecordALSA::close()
 //***************************************************************************
 int RecordALSA::detectTracks(unsigned int &min, unsigned int &max)
 {
-    snd_pcm_t *pcm = m_handle;
     min = max = 0;
-    snd_pcm_hw_params_t *p;
 
-    if (!pcm) return -1;
+    if (!m_handle || !m_hw_params) return -1;
 
-    snd_pcm_hw_params_alloca(&p);
-    if (!p) return -1;
-
-    if (snd_pcm_hw_params_any(pcm, p) >= 0) {
+    if (snd_pcm_hw_params_any(m_handle, m_hw_params) >= 0) {
 	int err;
-	if ((err = snd_pcm_hw_params_get_channels_min(p, &min)) < 0)
+	if ((err = snd_pcm_hw_params_get_channels_min(m_hw_params, &min)) < 0)
 	    qWarning("RecordALSA::detectTracks: min: %s",
 		     snd_strerror(err));
-	if ((err = snd_pcm_hw_params_get_channels_max(p, &max)) < 0)
+	if ((err = snd_pcm_hw_params_get_channels_max(m_hw_params, &max)) < 0)
 	    qWarning("RecordALSA::detectTracks: max: %s",
 		     snd_strerror(err));
     }
@@ -721,16 +711,11 @@ int RecordALSA::tracks()
 QList<double> RecordALSA::detectSampleRates()
 {
     QList<double> list;
-    snd_pcm_t *pcm = m_handle;
     int err;
-    snd_pcm_hw_params_t *p;
 
-    if (!pcm) return list;
+    if (!m_handle || !m_hw_params) return list;
 
-    snd_pcm_hw_params_alloca(&p);
-    if (!p) return list;
-
-    if (!snd_pcm_hw_params_any(pcm, p) < 0) return list;
+    if (!snd_pcm_hw_params_any(m_handle, m_hw_params) < 0) return list;
 
     static const unsigned int known_rates[] = {
 	  1000, // (just for testing)
@@ -771,10 +756,10 @@ QList<double> RecordALSA::detectSampleRates()
     };
 
     // try all known sample rates
-    for (unsigned int i=0; i < sizeof(known_rates)/sizeof(unsigned int); i++) {
+    for (unsigned int i = 0; i < ELEMENTS_OF(known_rates); i++) {
 	unsigned int rate = known_rates[i];
 
-	err = snd_pcm_hw_params_test_rate(pcm, p, rate, 0);
+	err = snd_pcm_hw_params_test_rate(m_handle, m_hw_params, rate, 0);
 	if (err < 0) continue;
 
 	// do not produce duplicates
@@ -978,10 +963,8 @@ void RecordALSA::scanDevices()
     snd_ctl_t *handle = 0;
     int card, err, dev;
     int idx;
-    snd_ctl_card_info_t *info;
-    snd_pcm_info_t *pcminfo;
-    snd_ctl_card_info_alloca(&info);
-    snd_pcm_info_alloca(&pcminfo);
+    snd_ctl_card_info_t *info    = 0;
+    snd_pcm_info_t      *pcminfo = 0;
 
     m_device_list.clear();
 
@@ -990,6 +973,9 @@ void RecordALSA::scanDevices()
 	qWarning("no soundcards found...");
 	return;
     }
+
+    snd_ctl_card_info_malloc(&info);
+    snd_pcm_info_malloc(&pcminfo);
 
 //     qDebug("**** List of RECORD Hardware Devices ****");
     while (card >= 0) {
@@ -1090,7 +1076,16 @@ next_card:
 	m_device_list.insert(DEFAULT_DEVICE, "plug:dsnoop");
     }
 
-    snd_config_update_free_global();
+    snd_ctl_card_info_free(info);
+    snd_pcm_info_free(pcminfo);
+
+    /*
+     * BUG: this call is allowed due to ALSA documentation, but causes
+     *      SIGSEGV when closing the record device. Somehow the internal
+     *      structures of the PCM devices get messed up :-(
+     *      (THE, 2009-07-18)
+     */
+    /* snd_config_update_free_global(); */
 }
 
 //***************************************************************************

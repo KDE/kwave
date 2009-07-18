@@ -207,8 +207,14 @@ private:
 
 private:
 
-    /** Handle of the source device or null if not open */
+    /** handle of the source device or null if not open */
     snd_pcm_t *m_handle;
+
+    /** ALSA hardware parameters */
+    snd_pcm_hw_params_t *m_hw_params;
+
+    /** ALSA software parameters */
+    snd_pcm_sw_params_t *m_sw_params;
 
     /** result of the "open" call, of interest when m_handle == 0 */
     int m_open_result;

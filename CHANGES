@@ -3,8 +3,10 @@
 
  * using libsamplerate (new dependency)
  * bugfix: drag&drop of files on the main window was broken
- * workaround for dubious bug in id3lib which crashed in ID3_Tag::GetSize()
-   with some MP3 files
+ * workaround for bug in id3lib which crashed in ID3_Tag::GetSize()
+   with some MP3 files (see id3lib upstream bug at SF #2821464)
+ * bugfix: recording via ALSA, crash on snd_pcm_close(),
+   see SF bug #2816544
 
 0.8.3-2 [2009-07-04]
 

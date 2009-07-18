@@ -1,0 +1,19 @@
+[Buildset]
+Number of Builditems=1
+
+[Buildset][Builditem0]
+Itemname=kwave
+Itempath=./
+Projectname=kwave
+
+[CMake]
+BuildDirs=/var/tmp/kwave-build
+CMakeDir=/usr/share/cmake/Modules
+Current CMake Binary=file:///usr/bin/cmake
+CurrentBuildDir=file:///var/tmp/kwave-build
+CurrentBuildType=
+CurrentInstallDir=
+ProjectRootRelative=./
+
+[Project]
+VersionControlSupport=kdevsubversion

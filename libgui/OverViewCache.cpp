@@ -371,8 +371,8 @@ void OverViewCache::slotSamplesDeleted(unsigned int track,
 
     // overlapping
     if (offset < m_src_offset) {
-	unsigned int overlap = (offset+length) - m_src_offset;
-	m_src_offset -= length-overlap;
+	unsigned int overlap = (offset + length) - m_src_offset;
+	m_src_offset -= length - overlap;
 	length -= overlap;
 	offset = m_src_offset;
     }
@@ -385,9 +385,14 @@ void OverViewCache::slotSamplesDeleted(unsigned int track,
 	else
 	    m_src_length = 1;
     }
-    unsigned int first = (offset-m_src_offset) / m_scale;
-    unsigned int last  = sourceLength() / m_scale;
-    if (last != first) last--;
+
+    unsigned int first = offset;
+    unsigned int last  = offset + length - 1;
+    if (first < m_src_offset) first = m_src_offset;
+    first -= m_src_offset;
+    last  -= m_src_offset;
+    first = static_cast<unsigned int>(floor(first / m_scale));
+    last  = static_cast<unsigned int>(ceil(last / m_scale));
     invalidateCache(track, first, last);
     emit changed();
 }
@@ -522,7 +527,11 @@ QImage OverViewCache::getOverView(int width, int height,
 		CacheState *state = m_state[t].data();
 		Q_ASSERT(state);
 		if (!state) continue;
-		if (state[index] != Valid) continue;
+		if (state[index] != Valid) {
+		    if (minimum > 0) minimum = 0;
+		    if (maximum < 0) maximum = 0;
+		    continue;
+		}
 
 		if (min[index] < minimum) minimum = min[index];
 		if (max[index] > maximum) maximum = max[index];

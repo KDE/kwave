@@ -81,7 +81,7 @@ Kwave::Plugin::Plugin(const PluginContext &c)
      m_usage_lock(),
      m_progress_timer(),
      m_current_progress(-1),
-     m_progress_lock()
+     m_progress_lock(QMutex::Recursive)
 {
     use();
 

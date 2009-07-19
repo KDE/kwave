@@ -19,6 +19,7 @@
 
 #include <QBuffer>
 #include <QMutableListIterator>
+#include <QVariant>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Decoder.h"
@@ -52,6 +53,10 @@ bool Kwave::MimeData::encode(QWidget *widget,
 	                     MultiTrackReader &src,
 	                     FileInfo &info)
 {
+    // make a copy of the file info and change to uncompressed mode
+    FileInfo new_info = info;
+    new_info.set(INF_COMPRESSION, QVariant());
+
     // use our default encoder
     Encoder *encoder = CodecManager::encoder(WAVE_FORMAT_PCM);
     Q_ASSERT(encoder);
@@ -64,11 +69,9 @@ bool Kwave::MimeData::encode(QWidget *widget,
     m_data.resize(0);
     QBuffer dst(&m_data);
 
-    // make a copy of the file info and move all labels
-    // to start at the beginning of the selection
+    // move all labels left, to start at the beginning of the selection
     unsigned int first = src.first();
     unsigned int last  = src.last();
-    FileInfo new_info = info;
     LabelList &labels = new_info.labels();
     QMutableListIterator<Label> it(labels);
     while (it.hasNext()) {

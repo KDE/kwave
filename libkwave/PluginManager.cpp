@@ -59,8 +59,17 @@ Kwave::PluginManager::PluginDeleter::PluginDeleter(Kwave::Plugin *plugin,
 //***************************************************************************
 Kwave::PluginManager::PluginDeleter::~PluginDeleter()
 {
+    // empty the event queues before deleting
+    qApp->processEvents();
+    qApp->flush();
+
     // delete the plugin, this should also remove everything it has allocated
     if (m_plugin) delete m_plugin;
+
+    // empty the event queues before unmap, in case the destructors
+    // queued something
+    qApp->processEvents();
+    qApp->flush();
 
     // now the handle of the shared object can be cleared too
     dlclose(m_handle);
@@ -375,6 +384,8 @@ void Kwave::PluginManager::sync()
 {
     while (onePluginRunning()) {
 	pthread_yield();
+	qApp->processEvents();
+	qApp->flush();
     }
 }
 

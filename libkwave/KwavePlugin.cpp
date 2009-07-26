@@ -96,6 +96,9 @@ Kwave::Plugin::~Plugin()
     // delete itself
     close();
 
+    // lock usage
+    QMutexLocker lock(&m_usage_lock);
+
     {
 	QMutexLocker lock(&m_thread_lock);
 	if (m_thread) {
@@ -352,6 +355,12 @@ void Kwave::Plugin::run_wrapper(QStringList params)
     // call the plugin's run function in this worker thread context
     run(params);
 
+    // stop the progress timer and flush events
+    m_progress_timer.stop();
+    qApp->sendPostedEvents();
+    qApp->processEvents();
+    qApp->syncX();
+
     // evaluate the elapsed time
     double seconds = static_cast<double>(t.elapsed()) * 1E-3;
     qDebug("plugin %s done, running for %0.03g seconds",
@@ -381,6 +390,8 @@ void Kwave::Plugin::close()
 	qApp->syncX();
 
 	stop();
+    } else if ((QThread::currentThread() == m_thread)) {
+	qWarning("Kwave::Plugin::close -> called from worker thread?");
     }
 }
 

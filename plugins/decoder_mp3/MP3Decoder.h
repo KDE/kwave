@@ -19,8 +19,11 @@
 #define _MP3_DECODER_H_
 
 #include "config.h"
+
 #include <mad.h>		// needs libmad-devel package
-#include <qstring.h>
+
+#include <QString>
+
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"
 
@@ -73,7 +76,7 @@ public:
                                 struct mad_header const *header,
                                 struct mad_pcm *pcm);
 
-    /** Callback for handling stream errors */                           
+    /** Callback for handling stream errors */
     enum mad_flow handleError(void *data, struct mad_stream *stream,
                               struct mad_frame *frame);
 
@@ -81,7 +84,7 @@ private:
 
     /** parse MP3 headers */
     bool parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget);
-    
+
     /** parse all known ID3 tags */
     bool parseID3Tags(ID3_Tag &tag);
 
@@ -110,10 +113,10 @@ private:
 
     /** number of failures */
     unsigned int m_failures;
-    
+
     /** widget used for displaying error messages */
     QWidget *m_parent_widget;
-    
+
 };
 
 #endif /* _MP3_DECODER_H_ */

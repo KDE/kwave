@@ -149,7 +149,6 @@ void DebugPlugin::run(QStringList params)
     }
 
     delete writers;
-    close();
 }
 
 //***************************************************************************

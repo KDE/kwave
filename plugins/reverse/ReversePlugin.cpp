@@ -300,7 +300,6 @@ void ReversePlugin::run(QStringList params)
 	last  = (last > block_size) ? (last - block_size) : 0;
     }
 
-    close();
     if (undo_guard) delete undo_guard;
 }
 

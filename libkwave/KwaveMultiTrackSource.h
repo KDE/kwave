@@ -62,6 +62,7 @@ namespace Kwave {
 	/** Destructor */
 	virtual ~MultiTrackSource()
 	{
+	    m_weaver.finish();
 	    clear();
 	}
 

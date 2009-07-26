@@ -140,7 +140,6 @@ void ZeroPlugin::run(QStringList params)
     }
 
     delete writers;
-    close();
 }
 
 //***************************************************************************

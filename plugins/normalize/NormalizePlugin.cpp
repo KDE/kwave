@@ -210,7 +210,6 @@ void NormalizePlugin::run(QStringList params)
 	normalizer, SIGNAL(output(Kwave::SampleArray)),
 	sink,       SLOT(input(Kwave::SampleArray)));
     if (!ok) {
-	close();
 	return;
     }
 
@@ -229,8 +228,6 @@ void NormalizePlugin::run(QStringList params)
     }
 
     sink.flush();
-
-    close();
 }
 
 //***************************************************************************

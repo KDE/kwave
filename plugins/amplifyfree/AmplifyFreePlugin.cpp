@@ -164,7 +164,6 @@ void AmplifyFreePlugin::run(QStringList params)
 	mul,    SIGNAL(output(Kwave::SampleArray)),
 	sink,   SLOT(input(Kwave::SampleArray)));
     if (!ok) {
-	close();
 	return;
     }
 
@@ -181,8 +180,6 @@ void AmplifyFreePlugin::run(QStringList params)
 	/* mul.goOn(); */
     }
     qDebug("AmplifyFreePlugin: filter done.");
-
-    close();
 }
 
 //***************************************************************************

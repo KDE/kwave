@@ -117,7 +117,6 @@ void Kwave::FilterPlugin::run(QStringList params)
 	Q_ASSERT(undo_guard);
 	if (!undo_guard) {
 	    if (filter) delete filter;
-	    close();
 	    Kwave::StreamObject::setInteractive(false);
 	    return;
 	}
@@ -130,7 +129,6 @@ void Kwave::FilterPlugin::run(QStringList params)
 	if (undo_guard) delete undo_guard;
 	if (m_sink)     delete m_sink;
 	m_sink = 0;
-	if (!m_listen) close();
 	Kwave::StreamObject::setInteractive(false);
 	return;
     }
@@ -185,7 +183,6 @@ void Kwave::FilterPlugin::run(QStringList params)
     m_listen = false;
 
     Kwave::StreamObject::setInteractive(false);
-    close();
 }
 
 //***************************************************************************

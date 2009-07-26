@@ -159,8 +159,6 @@ void VolumePlugin::run(QStringList params)
 	mul.goOn();
     }
     qDebug("VolumePlugin: filter done.");
-
-    close();
 }
 
 //***************************************************************************

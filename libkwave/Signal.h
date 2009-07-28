@@ -141,6 +141,15 @@ public:
                      unsigned int length);
 
     /**
+     * Inserts some space at a given position
+     * @param track index of the track
+     * @param offset index of the first sample
+     * @param length number of samples
+     */
+    void insertSpace(unsigned int track, unsigned int offset,
+                     unsigned int length);
+
+    /**
      * Returns the length of the signal. This is determined by
      * searching for the highest sample position of all tracks.
      */

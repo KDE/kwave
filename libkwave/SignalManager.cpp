@@ -247,6 +247,7 @@ int SignalManager::loadFile(const KUrl &url)
 	emitStatusInfo();
 	break;
     }
+
     if (!decoder) {
 	qWarning("unknown file type");
 	res = -EINVAL;
@@ -860,6 +861,31 @@ bool SignalManager::deleteRange(unsigned int offset, unsigned int length,
 bool SignalManager::deleteRange(unsigned int offset, unsigned int length)
 {
     return deleteRange(offset, length, selectedTracks());
+}
+
+//***************************************************************************
+bool SignalManager::insertSpace(unsigned int offset, unsigned int length,
+                                const QList<unsigned int> &track_list)
+{
+    if (!length) return true; // nothing to do
+    UndoTransactionGuard undo(*this, i18n("insert space"));
+
+    unsigned int count = track_list.count();
+    if (!count) return true; // nothing to do
+
+    // first store undo data for all tracks
+    unsigned int track;
+    if (m_undo_enabled) {
+	if (!registerUndoAction(new UndoInsertAction(
+	    m_parent_widget, track_list, offset, length))) return false;
+    }
+
+    // then insert space into all tracks
+    foreach (track, track_list) {
+	m_signal.insertSpace(track, offset, length);
+    }
+
+    return true;
 }
 
 //***************************************************************************

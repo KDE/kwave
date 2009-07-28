@@ -205,6 +205,21 @@ void Signal::deleteRange(unsigned int track, unsigned int offset,
 }
 
 //***************************************************************************
+void Signal::insertSpace(unsigned int track, unsigned int offset,
+                         unsigned int length)
+{
+    QReadLocker lock(&m_lock_tracks);
+
+    Q_ASSERT(static_cast<int>(track) < m_tracks.count());
+    if (static_cast<int>(track) >= m_tracks.count())
+	return; // track does not exist !
+
+    Track *t = m_tracks.at(track);
+    Q_ASSERT(t);
+    if (t) t->insertSpace(offset, length);
+}
+
+//***************************************************************************
 unsigned int Signal::tracks()
 {
     QReadLocker lock(&m_lock_tracks);

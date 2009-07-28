@@ -191,6 +191,17 @@ public:
     bool deleteRange(unsigned int offset, unsigned int length);
 
     /**
+     * Inserts space at a given position and creates an undo action.
+     * @param offset position of the first sample to insert
+     * @param length number of samples
+     * @param track_list a list of tracks to be affected
+     * @return true if successful or nothing to do, false if not enough
+     *         memory for undo
+     */
+    bool insertSpace(unsigned int offset, unsigned int length,
+                     const QList<unsigned int> &track_list);
+
+    /**
      * Sets the current start and length of the selection to new values.
      * @param offset index of the first sample
      * @param length number of samples

@@ -95,6 +95,16 @@ public:
     void deleteRange(unsigned int offset, unsigned int length,
                      bool make_gap = false);
 
+    /**
+     * Inserts space at a given offset by moving all stripes that are
+     * are starting at or after the given offset right.
+     *
+     * @param offset position after which everything is moved right
+     * @param length distance of the shift [samples]
+     * @return true if succeeded, false if failed (OOM?)
+     */
+    bool insertSpace(unsigned int offset, unsigned int shift);
+
     /** Returns the "selected" flag. */
     inline bool selected() const { return m_selected; }
 

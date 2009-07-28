@@ -198,6 +198,50 @@ void Track::deleteRange(unsigned int offset, unsigned int length,
 }
 
 //***************************************************************************
+bool Track::insertSpace(unsigned int offset, unsigned int shift)
+{
+//     qDebug("Track::insertSpace(offset=%u,shift=%u)",offset, shift);
+    if (!shift) return true;
+
+    {
+	QWriteLocker lock(&m_lock);
+	unsigned int len = unlockedLength();
+	if (offset < len) {
+	    // find out whether the offset is within a stripe and
+	    // split that one if necessary
+	    QMutableListIterator<Stripe> it(m_stripes);
+	    while (it.hasNext()) {
+		Stripe &s = it.next();
+		unsigned int end    = s.end();
+		if (end < offset) continue; // skip, stripe is at left
+
+		unsigned int start  = s.start();
+		if (start >= offset) break; // not "within" the stripe
+
+		qDebug("Track::insertSpace => splitting [%u...%u]",start,end);
+		Stripe new_stripe = splitStripe(s, offset - start);
+		if (!new_stripe.length()) return false; // OOM ?
+		it.insert(new_stripe);
+		break;
+	    }
+
+	    // move all stripes that are after the offset right
+	    qDebug("Track::insertSpace => moving right");
+	    moveRight(offset, shift);
+	} else {
+	    qDebug("Track::insertSpace => appending stripe at %u", offset + shift - 1);
+	    Stripe s(offset + shift - 1);
+	    s.resize(1);
+	    if (s.length()) m_stripes.append(s);
+	}
+    }
+
+//     dump();
+    emit sigSamplesInserted(this, offset, shift);
+    return true;
+}
+
+//***************************************************************************
 void Track::unlockedDelete(unsigned int offset, unsigned int length,
                            bool make_gap)
 {

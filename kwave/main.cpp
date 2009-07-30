@@ -19,6 +19,8 @@
 
 #include <stdio.h>
 
+#include <QString>
+
 #include <kaboutdata.h>
 #include <kuniqueapplication.h>
 #include <kapplication.h>
@@ -39,7 +41,7 @@ void addDataStrings(KAboutData &aboutdata)
     aboutdata.addAuthor(ki18n("Thomas Eschenbacher"),
                      ki18n("project leader since 2000, core development"),
                      "Thomas.Eschenbacher@gmx.de",
-                     0);
+                     "http://kwave.sourceforge.net");
     aboutdata.addAuthor(ki18n("Martin Wilz"),
                      ki18n("creator of the project, development 1998-2000"),
                      "martin@wilz.de",
@@ -63,7 +65,7 @@ void addDataStrings(KAboutData &aboutdata)
 
     // translators
     aboutdata.setTranslator(ki18n("NAME OF TRANSLATORS"),
-                     ki18n("EMAIL OF TRANSLATORS"));
+                            ki18n("EMAIL OF TRANSLATORS"));
 
     // people who helped
     aboutdata.addCredit(ki18n("Stefan Westerfeld"),
@@ -82,10 +84,10 @@ void addDataStrings(KAboutData &aboutdata)
                      ki18n("packaging for Mandrake / X86_64"),
                      "stock@stokkie.net",
                      0);
-    aboutdata.addCredit(ki18n("Jorge Luis Arzola"),
-                     ki18n("packaging for SuSE Linux"),
-                     "arzolacub@gmx.de",
-                     0);
+//     aboutdata.addCredit(ki18n("Jorge Luis Arzola"),
+//                      ki18n("packaging for SuSE Linux"),
+//                      "arzolacub@gmx.de",
+//                      0);
     aboutdata.addCredit(ki18n("Diederick de Vries"),
                      ki18n("packaging for Crux Linux"),
                      "diederick76@gmail.com",
@@ -113,7 +115,7 @@ void addDataStrings(KAboutData &aboutdata)
     aboutdata.addCredit(ki18n("Pavel Fric"),
                      ki18n("czech translation"),
                      "pavelfric@seznam.cz",
-                     0);
+                     "http://fripohled.blogspot.com");
 
 }
 

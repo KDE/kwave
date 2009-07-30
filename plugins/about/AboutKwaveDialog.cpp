@@ -137,12 +137,36 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
 
     /* the frame containing the translators */
     KwaveAboutContainer *trans = new KwaveAboutContainer(this);
-    foreach (const KAboutPerson &translator, about_data->translators()) {
-	trans->addPerson(translator.name(), translator.emailAddress(),
-	    translator.webAddress(), translator.task());
+    QList<KAboutPerson> translators = about_data->translators();
+    if ((translators.count() == 1) &&
+        (translators.first().name() == "NAME OF TRANSLATORS")) {
+	tabwidget->removeTab(4);
+    } else {
+	foreach (KAboutPerson translator, translators) {
+	    QString website = translator.webAddress();
+
+	    // if the translator is already listed in the "authors" section,
+	    // give him the same web address
+	    foreach (const KAboutPerson &author, about_data->authors())
+		if (author.name() == translator.name()) {
+		    website = author.webAddress();
+		    break;
+		}
+
+	    // if the translator is already listed in the "credits" section,
+	    // give him the same web address
+	    foreach (const KAboutPerson &credit, about_data->credits())
+		if (credit.name() == translator.name()) {
+		    website = credit.webAddress();
+		    break;
+		}
+
+	    trans->addPerson(translator.name(), translator.emailAddress(),
+		website, translator.task());
+	}
+	translatorsframe->setWidget(trans);
+	translatorsframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     }
-    translatorsframe->setWidget(trans);
-    translatorsframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     /* the frame containing the license */
     licenseframe->setReadOnly(true);

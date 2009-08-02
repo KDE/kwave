@@ -1,5 +1,14 @@
 -
 
+o czech screenshots
+
+o abillity to set recording start and stop times in advance
+  (feature requested by John David Thompson, 2006-12-20)
+
+o function for "Edit/Selection/Insert at..."
+
+o support for Spex codec: http://www.speex.org/
+
 o debug aid: write all actions to a logfile
 
 o debug aid: new plugin for adding a new track with test/debug info:
@@ -15,11 +24,7 @@ o use LADSPA
 
 o JACK audio support
 
-o get Phonon playback support running correctly
-
 o automatic defragmentation of stripes
-
-o support for sample rate conversion, libsamplerate
 
 o maybe some effects from soundtouch
 
@@ -42,20 +47,13 @@ o replace "AF_SAMPFMT_xxx" with enum "SampleFormat::yyy" in WavEncoder.cpp,
 
 o more precise handling of the playback pointer
 
-o function for "Edit/Selection/Insert at..."
-
 o audible/silent mode of tracks (speakers)
   speaker controls for "audible" mode
 
 o dithering/noise shaping when loading/saving
 
-o abillity to set recording start and stop times in advance
-  (feature requested by John David Thompson, 2006-12-20)
-
 o auto-detect pause and set markers, for splitting recorded stuff into several
   parts and then save them to disc as separate files
-
-o virtual memory: multiple swap directories
 
 o install a new_handler() for cases in which we run out of memory
 
@@ -68,9 +66,9 @@ o fast playback mode, playback with facor 1.5x, 3x, 5x, 7x...
 o support for compressed wav files, like those found on www.montypython.net
   -> MPEG 3 is still not supported by libaudiofile
 
-o TrackPixmap: implement usage of "extra_samples" for interpolated mode
+o get Phonon playback support running correctly
 
-o support for Spex codec: http://www.speex.org/
+o TrackPixmap: implement usage of "extra_samples" for interpolated mode
 
 o fileinfo plugin: auto-generate filename from "track - title"
 

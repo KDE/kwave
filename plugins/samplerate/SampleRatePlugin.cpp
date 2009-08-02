@@ -87,6 +87,7 @@ int SampleRatePlugin::interpreteParameters(QStringList &params)
 //***************************************************************************
 void SampleRatePlugin::run(QStringList params)
 {
+    SignalManager &mgr = signalManager();
 
     // parse parameters
     if (interpreteParameters(params) < 0)
@@ -105,11 +106,11 @@ void SampleRatePlugin::run(QStringList params)
     if (m_whole_signal) {
 	length = signalLength();
 	last   = (length) ? (length - 1) : 0;
-	tracks = signalManager().allTracks();
+	tracks = mgr.allTracks();
     } else {
 	length = selection(&tracks, &first, &last, true);
 	if ((length == signalLength()) &&
-	    (tracks.count() == static_cast<int>(signalManager().tracks())))
+	    (tracks.count() == static_cast<int>(mgr.tracks())))
 	{
 	    // manually selected the whole signal
 	    m_whole_signal = true;
@@ -128,11 +129,11 @@ void SampleRatePlugin::run(QStringList params)
     if (new_length > length) {
 	qDebug("SampleRatePlugin: inserting %u at %u",
 	       new_length - length + 1, last + 1);
-	signalManager().insertSpace(last + 1, new_length - length + 1, tracks);
+	mgr.insertSpace(last + 1, new_length - length + 1, tracks);
     }
 
     MultiTrackReader source(Kwave::SinglePassForward,
-	signalManager(), tracks, first, last);
+	mgr, tracks, first, last);
 
     // connect the progress dialog
     connect(&source, SIGNAL(progress(unsigned int)),
@@ -150,7 +151,7 @@ void SampleRatePlugin::run(QStringList params)
     converter.setAttribute(SLOT(setRatio(const QVariant)), QVariant(ratio));
 
     // create the writer with the appropriate length
-    MultiTrackWriter sink(signalManager(), tracks, Overwrite,
+    MultiTrackWriter sink(mgr, tracks, Overwrite,
 	first, first + new_length - 1);
 
     // connect the objects
@@ -172,16 +173,38 @@ void SampleRatePlugin::run(QStringList params)
 
     sink.flush();
 
-    // adjust all label positions in the originally selected range
-    // ### TODO ###
-
     // find out how many samples have been written and delete the leftovers
     unsigned int written = sink[0]->position() - first;
-    qDebug("SampleRatePlugin: old=%u, expexted=%u, written=%u",
-	    length, new_length, written);
+//     qDebug("SampleRatePlugin: old=%u, expexted=%u, written=%u",
+// 	    length, new_length, written);
     if (written < length) {
 	unsigned int to_delete = length - written;
-	signalManager().deleteRange(written, to_delete, tracks);
+	mgr.deleteRange(written, to_delete, tracks);
+    }
+
+    // adjust all label positions in the originally selected range
+    foreach (Label label, mgr.labels()) {
+	unsigned int pos = label.pos();
+	if (pos < first) continue;
+	if (pos > last)  continue;
+
+	// label is in our range -> calculate new position
+	pos -= first;
+	pos *= ratio;
+	pos += first;
+
+	// move the label to his new position
+	int index = mgr.labelIndex(label);
+	if (!mgr.findLabel(pos).isNull()) {
+	    // if there is already another label, drop this one
+// 	    qDebug("SampleRatePlugin: deleting label at %u (%u is occupied)",
+// 	           label.pos(), pos);
+	    mgr.deleteLabel(index, true);
+	} else {
+// 	    qDebug("SampleRatePlugin: moving label from %u to %u",
+// 	           label.pos(), pos);
+	    mgr.modifyLabel(index, pos, label.name());
+	}
     }
 
     // set the sample rate of the signal if we modified the whole

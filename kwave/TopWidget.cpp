@@ -661,16 +661,24 @@ int TopWidget::executeCommand(const QString &line)
 //***************************************************************************
 int TopWidget::loadBatch(const KUrl &url)
 {
+    // open the URL, read-only mode is enough
     QFile file(url.path());
     if (!file.open(QIODevice::ReadOnly)) {
 	qWarning("unable to open source in read-only mode!");
 	return -EIO;
     }
 
+    // use a text stream for parsing the commands
     QTextStream stream(&file);
     int result = parseCommands(stream);
 
     file.close();
+
+    // successful run -> add URL to recent files
+    m_app.addRecentFile(url.path());
+    updateMenu();
+    updateToolbar();
+
     return result;
 }
 

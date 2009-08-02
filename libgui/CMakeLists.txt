@@ -41,7 +41,6 @@ SET(libkwavegui_LIB_SRCS
     SignalWidget.cpp
     TrackPixmap.cpp
     TreeWidgetWrapper.cpp
-    UndoModifyLabelAction.cpp
 )
 
 #############################################################################

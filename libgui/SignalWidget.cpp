@@ -63,7 +63,6 @@
 #include "libgui/MenuManager.h"
 #include "libgui/SignalWidget.h"
 #include "libgui/TrackPixmap.h"
-#include "libgui/UndoModifyLabelAction.h"
 
 #include "MouseMark.h"
 
@@ -190,6 +189,8 @@ SignalWidget::SignalWidget(QWidget *parent)
 	this, SLOT(hidePosition()));
     connect(sig, SIGNAL(sigLabelCountChanged()),
 	this, SLOT(refreshMarkersLayer()));
+    connect(sig, SIGNAL(labelsChanged(LabelList)),
+            this, SLOT(refreshMarkersLayer()));
 
     connect(&(sig->selection()), SIGNAL(changed(unsigned int, unsigned int)),
 	this, SLOT(slotSelectionChanged(unsigned int, unsigned int)));
@@ -2065,15 +2066,6 @@ bool SignalWidget::labelProperties(Label &label)
 	    // this might have changed the current index!
 	    index = m_signal_manager.labelIndex(label);
 	}
-
-	UndoModifyLabelAction *undo_modify =
-	    new UndoModifyLabelAction(*this, label);
-	if (!m_signal_manager.registerUndoAction(undo_modify))
-	    return false;
-
-	// now store the label's current position,
-	// for finding it again later
-	undo_modify->setLastPosition(new_pos);
 
 	// modify the label through the signal manager
 	if (!m_signal_manager.modifyLabel(index, new_pos, new_name)) {

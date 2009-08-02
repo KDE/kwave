@@ -23,24 +23,24 @@
 
 #include <QString>
 
+#include <kdemacros.h>
+
 #include "libkwave/undo/UndoAction.h"
 
 class Label;
-class SignalWidget;
 
 /**
  * Undo action for deleting a label.
  */
-class UndoModifyLabelAction: public UndoAction
+class KDE_EXPORT UndoModifyLabelAction: public UndoAction
 {
 public:
 
     /**
      * Constructor
-     * @param signal_widget reference to the SignalWidget
      * @param label reference to the label that has been changed
      */
-    UndoModifyLabelAction(SignalWidget &signal_widget, const Label &label);
+    UndoModifyLabelAction(const Label &label);
 
     /** Destructor */
     virtual ~UndoModifyLabelAction();
@@ -73,9 +73,6 @@ public:
     virtual UndoGroupID group() const { return LabelEdit; }
 
 protected:
-
-    /** reference to the signal widget */
-    SignalWidget &m_signal_widget;
 
     /** the modified label */
     Label m_label;

@@ -93,6 +93,7 @@ SET(libkwave_LIB_SRCS
     undo/UndoInsertAction.cpp
     undo/UndoInsertTrack.cpp
     undo/UndoModifyAction.cpp
+    undo/UndoModifyLabelAction.cpp
     undo/UndoSelection.cpp
     undo/UndoTransaction.cpp
     undo/UndoTransactionGuard.cpp

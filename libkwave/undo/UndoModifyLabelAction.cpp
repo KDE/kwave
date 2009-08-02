@@ -22,15 +22,13 @@
 #include "libkwave/Label.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/undo/UndoAddLabelAction.h"
+#include "libkwave/undo/UndoModifyLabelAction.h"
 
 #include "libgui/SignalWidget.h"
-#include "libgui/UndoModifyLabelAction.h"
 
 //***************************************************************************
-UndoModifyLabelAction::UndoModifyLabelAction(SignalWidget &signal_widget,
-                                             const Label &label)
-    :UndoAction(), m_signal_widget(signal_widget), m_label(),
-     m_last_position(0)
+UndoModifyLabelAction::UndoModifyLabelAction(const Label &label)
+    :UndoAction(), m_label(), m_last_position(0)
 {
     m_label = label;
 }
@@ -90,7 +88,7 @@ UndoAction *UndoModifyLabelAction::undo(SignalManager &manager,
     // store data for redo
     UndoModifyLabelAction *redo = 0;
     if (with_redo) {
-	redo = new UndoModifyLabelAction(m_signal_widget, label);
+	redo = new UndoModifyLabelAction(label);
 	Q_ASSERT(redo);
 	if (redo) {
 	    redo->setLastPosition(m_label.pos());
@@ -101,9 +99,6 @@ UndoAction *UndoModifyLabelAction::undo(SignalManager &manager,
     // modify the label
     int index = manager.labelIndex(label);
     manager.modifyLabel(index, m_label.pos(), m_label.name());
-
-    // redraw the markers layer
-    m_signal_widget.refreshMarkersLayer();
 
     return redo;
 }

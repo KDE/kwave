@@ -59,6 +59,10 @@ Kwave::PluginManager::PluginDeleter::PluginDeleter(Kwave::Plugin *plugin,
 //***************************************************************************
 Kwave::PluginManager::PluginDeleter::~PluginDeleter()
 {
+    // check: this must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     // empty the event queues before deleting
     qApp->processEvents();
     qApp->flush();
@@ -172,6 +176,9 @@ void Kwave::PluginManager::loadAllPlugins()
 //***************************************************************************
 Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 {
+    // check: this must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
 
     // first find out if the plugin is already loaded and persistent
     foreach (KwavePluginPointer p, m_loaded_plugins) {
@@ -306,6 +313,10 @@ int Kwave::PluginManager::executePlugin(const QString &name,
     QString command;
     int result = 0;
 
+    // check: this must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     // synchronize: wait until any currently running plugins are done
     sync();
 
@@ -350,10 +361,8 @@ int Kwave::PluginManager::executePlugin(const QString &name,
 	    // macro recorder
 	    command = "plugin:execute(";
 	    command += name;
-	    for (int i = 0; i < params->count(); i++) {
-		command += ", ";
-		command += params->at(i);
-	    }
+	    foreach (const QString &p, *params)
+		command += ", " + p;
 	    delete params;
 	    command += ")";
 //	    qDebug("PluginManager: command='%s'",command.data());
@@ -374,6 +383,11 @@ int Kwave::PluginManager::executePlugin(const QString &name,
 //***************************************************************************
 bool Kwave::PluginManager::onePluginRunning()
 {
+    // check: this must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
+    if (m_loaded_plugins.isEmpty()) return false;
     foreach (KwavePluginPointer plugin, m_loaded_plugins)
 	if (plugin && plugin->isRunning()) return true;
     return false;
@@ -382,6 +396,10 @@ bool Kwave::PluginManager::onePluginRunning()
 //***************************************************************************
 void Kwave::PluginManager::sync()
 {
+    // check: this must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     while (onePluginRunning()) {
 	pthread_yield();
 	qApp->processEvents();
@@ -564,6 +582,10 @@ void Kwave::PluginManager::signalClosed()
 //***************************************************************************
 void Kwave::PluginManager::pluginClosed(Kwave::Plugin *p)
 {
+    // check: this must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     Q_ASSERT(p);
     Q_ASSERT(!m_loaded_plugins.isEmpty() || !m_unique_plugins.isEmpty());
     if (!p) return;
@@ -601,6 +623,10 @@ void Kwave::PluginManager::pluginStarted(Kwave::Plugin *p)
 //***************************************************************************
 void Kwave::PluginManager::pluginDone(Kwave::Plugin *p)
 {
+    // check: this must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     Q_ASSERT(p);
     if (!p) return;
 
@@ -627,7 +653,8 @@ void Kwave::PluginManager::connectPlugin(Kwave::Plugin *plugin)
 	     Qt::QueuedConnection);
 
     connect(plugin, SIGNAL(sigRunning(Kwave::Plugin *)),
-	    this, SLOT(pluginStarted(Kwave::Plugin *)));
+	    this, SLOT(pluginStarted(Kwave::Plugin *)),
+	    Qt::DirectConnection);
 
     connect(plugin, SIGNAL(sigDone(Kwave::Plugin *)),
 	    this, SLOT(pluginDone(Kwave::Plugin *)),

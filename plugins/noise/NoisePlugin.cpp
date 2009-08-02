@@ -65,7 +65,6 @@ void NoisePlugin::run(QStringList)
     if (!Kwave::connect(source, SIGNAL(output(Kwave::SampleArray)),
                         sink,   SLOT(input(Kwave::SampleArray))))
     {
-	close();
 	return;
     }
 
@@ -75,8 +74,6 @@ void NoisePlugin::run(QStringList)
 	source.goOn();
     }
     qDebug("NoisePlugin: filter done.");
-
-    close();
 }
 
 //***************************************************************************

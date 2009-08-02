@@ -30,6 +30,7 @@
 #include <QFile>
 #include <QFrame>
 #include <QLabel>
+#include <QMap>
 #include <QPixmap>
 #include <QSizePolicy>
 #include <QStringList>
@@ -560,8 +561,9 @@ int TopWidget::executeCommand(const QString &line)
 
     // all others only if no plugin is currently running
     if (m_plugin_manager && m_plugin_manager->onePluginRunning()) {
-	qWarning("TopWidget::executeCommand(...) - currently not possible, "\
-		"a plugin is running :-(");
+	qWarning("TopWidget::executeCommand('%s') - currently not possible, "\
+		"a plugin is running :-(",
+		parser.command().toLocal8Bit().data());
 	return false;
     }
 
@@ -642,7 +644,7 @@ int TopWidget::executeCommand(const QString &line)
     CASE_COMMAND("saveas")
 	result = saveFileAs(false);
     CASE_COMMAND("loadbatch")
-	result = loadBatch(command);
+	result = loadBatch(parser.nextParam());
     CASE_COMMAND("saveselect")
 	result = saveFileAs(true);
     CASE_COMMAND("quit")
@@ -657,16 +659,18 @@ int TopWidget::executeCommand(const QString &line)
 }
 
 //***************************************************************************
-int TopWidget::loadBatch(const QString &str)
+int TopWidget::loadBatch(const KUrl &url)
 {
-    Parser parser(str);
-    QFile file(parser.firstParam());
+    QFile file(url.path());
+    if (!file.open(QIODevice::ReadOnly)) {
+	qWarning("unable to open source in read-only mode!");
+	return -EIO;
+    }
 
-    file.open(QIODevice::ReadOnly);
     QTextStream stream(&file);
     int result = parseCommands(stream);
-    file.close();
 
+    file.close();
     return result;
 }
 
@@ -697,10 +701,58 @@ int TopWidget::executePlaybackCommand(const QString &command)
 int TopWidget::parseCommands(QTextStream &stream)
 {
     int result = 0;
+    QMap<QString, qint64> labels;
+
     while (!stream.atEnd() && !result) {
-	QString line = stream.readLine();
-	result = executeCommand(line);
+	QString line = stream.readLine().simplified();
+	if (line.startsWith("#")) continue; // skip comments
+	if (!line.length()) continue;       // skip empty lines
+
+	// remove stuff after the "#'" (comments)
+	if (line.contains('#')) {
+	}
+
+	if (line.endsWith(':')) {
+	    // this line seems to be a "label"
+	    line = line.left(line.length() - 1).simplified();
+	    if (!labels.contains(line)) {
+		qDebug("new label '%s' at %u", line.toLocal8Bit().data(),
+		       static_cast<unsigned int>(stream.pos()));
+		labels[line] = stream.pos();
+	    }
+	    continue;
+	}
+
+	// the "goto" command
+	if (line.split(' ').at(0) == "goto") {
+	    qDebug(">>> detected 'goto'");
+	    QString label = line.split(' ').at(1).simplified();
+	    if (labels.contains(label)) {
+		qDebug(">>> goto '%s' @ offset %u", label.toLocal8Bit().data(),
+		       static_cast<unsigned int>(labels[label]));
+		stream.seek(labels[label]);
+	    } else {
+		qWarning("label '%s' not found", label.toLocal8Bit().data());
+		break;
+	    }
+	    continue;
+	}
+
+	// synchronize before the command
+	if (m_plugin_manager) m_plugin_manager->sync();
+
+	// prevent this command from being re-added to the macro recorder
+	if (!line.startsWith("nomacro:", Qt::CaseInsensitive))
+	    line = "nomacro:" + line;
+
+	// emit the command
+// 	qDebug(">>> '%s'", line.toLocal8Bit().data());
+	executeCommand(line);
+
+	// synchronize after the command
+	if (m_plugin_manager) m_plugin_manager->sync();
     }
+
     return result;
 }
 
@@ -762,6 +814,13 @@ int TopWidget::loadFile(const KUrl &url)
 
     // abort if new file not valid and local
     if (!url.isLocalFile()) return -1;
+
+    // detect whether it is a macro (batch) file
+    QFileInfo file(url.fileName());
+    QString suffix = file.suffix();
+    if (suffix == "kwave") {
+	return loadBatch(url);
+    }
 
     // try to close the previous file
     if (!closeFile()) return -1;

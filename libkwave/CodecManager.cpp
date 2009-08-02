@@ -180,6 +180,12 @@ QString CodecManager::decodingFilter()
 	    list.append(entry + " (" + extensions + ")");
 	}
     }
+
+    // builtin type for macro files
+    all_extensions += "*.kwave";
+    list.append("*.kwave|" + i18n("Kwave Macro Files") + " (*.kwave)");
+
+    // special entries for "all" and "all supported"
     list.sort();
     list.prepend("*|" + i18n("All Files"));
     list.prepend(all_extensions.join(" ") + "|" + i18n("All Supported Files"));

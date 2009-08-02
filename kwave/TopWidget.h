@@ -98,9 +98,9 @@ public:
     /**
      * Loads a batch file into memory, parses and executes
      * all commands in it.
-     * @param filename name of the batch file
+     * @param url URL of the macro (batch file) to be loaded
      */
-    int loadBatch(const QString &filename);
+    int loadBatch(const KUrl &url);
 
 public slots:
 

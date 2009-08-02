@@ -253,9 +253,8 @@ void MainWidget::slotTrackDeleted(unsigned int /*track*/)
 //***************************************************************************
 int MainWidget::loadFile(const KUrl &url)
 {
-    closeSignal();
     int res = m_signal_widget.loadFile(url);
-    if (res) closeSignal();
+    refreshChannelControls();
     return res;
 }
 
@@ -270,8 +269,8 @@ void MainWidget::closeSignal()
 void MainWidget::newSignal(unsigned int samples, double rate,
                            unsigned int bits, unsigned int tracks)
 {
-    closeSignal();
     m_signal_widget.newSignal(samples, rate, bits, tracks);
+    refreshChannelControls();
 }
 
 //***************************************************************************

@@ -572,12 +572,9 @@ SignalManager &SignalWidget::signalManager()
 //***************************************************************************
 int SignalWidget::loadFile(const KUrl &url)
 {
-    // close the previous signal
-    close();
-
     // load a new signal
     int res = m_signal_manager.loadFile(url);
-    if (m_signal_manager.isClosed() || (res)) {
+    if (m_signal_manager.isClosed() && res) {
 	qWarning("SignalWidget::loadFile() failed:"\
 		" zero-length or out of memory?");
 
@@ -617,7 +614,6 @@ int SignalWidget::loadFile(const KUrl &url)
 void SignalWidget::newSignal(unsigned int samples, double rate,
                              unsigned int bits, unsigned int tracks)
 {
-    close();
     m_signal_manager.newSignal(samples,rate,bits,tracks);
 }
 

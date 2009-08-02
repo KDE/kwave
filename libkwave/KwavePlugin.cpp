@@ -77,14 +77,12 @@ Kwave::Plugin::Plugin(const PluginContext &c)
      m_stop(false),
      m_progress(0),
      m_confirm_cancel(0),
-     m_usage_count(0),
+     m_usage_count(1),
      m_usage_lock(),
      m_progress_timer(),
      m_current_progress(-1),
      m_progress_lock(QMutex::Recursive)
 {
-    use();
-
     connect(&m_progress_timer, SIGNAL(timeout()),
             this, SLOT(updateProgressTick()));
 }
@@ -297,6 +295,10 @@ void Kwave::Plugin::closeProgressDialog(Kwave::Plugin *)
     Q_ASSERT(this->thread() == qApp->thread());
 
     QMutexLocker lock(&m_progress_lock);
+
+    // stop the progress timer
+    m_progress_timer.stop();
+
     if (m_confirm_cancel) {
 	ConfirmCancelProxy *proxy = m_confirm_cancel;
 	m_confirm_cancel = 0;
@@ -354,12 +356,6 @@ void Kwave::Plugin::run_wrapper(QStringList params)
 
     // call the plugin's run function in this worker thread context
     run(params);
-
-    // stop the progress timer and flush events
-    m_progress_timer.stop();
-    qApp->sendPostedEvents();
-    qApp->processEvents();
-    qApp->syncX();
 
     // evaluate the elapsed time
     double seconds = static_cast<double>(t.elapsed()) * 1E-3;

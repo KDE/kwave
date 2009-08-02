@@ -218,7 +218,7 @@ bool Track::insertSpace(unsigned int offset, unsigned int shift)
 		unsigned int start  = s.start();
 		if (start >= offset) break; // not "within" the stripe
 
-		qDebug("Track::insertSpace => splitting [%u...%u]",start,end);
+// 		qDebug("Track::insertSpace => splitting [%u...%u]",start,end);
 		Stripe new_stripe = splitStripe(s, offset - start);
 		if (!new_stripe.length()) return false; // OOM ?
 		it.insert(new_stripe);
@@ -226,10 +226,10 @@ bool Track::insertSpace(unsigned int offset, unsigned int shift)
 	    }
 
 	    // move all stripes that are after the offset right
-	    qDebug("Track::insertSpace => moving right");
+// 	    qDebug("Track::insertSpace => moving right");
 	    moveRight(offset, shift);
 	} else {
-	    qDebug("Track::insertSpace => appending stripe at %u", offset + shift - 1);
+// 	    qDebug("Track::insertSpace => appending stripe at %u", offset + shift - 1);
 	    Stripe s(offset + shift - 1);
 	    s.resize(1);
 	    if (s.length()) m_stripes.append(s);

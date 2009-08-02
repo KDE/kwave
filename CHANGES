@@ -11,6 +11,9 @@
  * bugfix: forcing clipboard and drag&drop data to uncompressed mode
  * bugfix: deadlock in progress bar handling
  * bugfix: crash when unloading plugins with queued events
+ * help/about dialog: hide "translators" tab if no translator available
+ * help/about dialog: hack to allow web addresses of translators
+ * new feature: support for primitive macros (batch files)
 
 0.8.3-2 [2009-07-04]
 

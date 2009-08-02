@@ -251,6 +251,8 @@ bool SignalWidget::isOK()
 //***************************************************************************
 SignalWidget::~SignalWidget()
 {
+    inhibitRepaint();
+
     close();
 
     labels().clear();

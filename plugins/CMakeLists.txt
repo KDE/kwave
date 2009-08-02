@@ -90,6 +90,7 @@ ADD_SUBDIRECTORY( pitch_shift )
 ADD_SUBDIRECTORY( playback )        # needs OSS and/or ALSA
 ADD_SUBDIRECTORY( record )          # needs OSS and/or ALSA
 ADD_SUBDIRECTORY( reverse )
+ADD_SUBDIRECTORY( samplerate )      # needs libsamplerate
 ADD_SUBDIRECTORY( saveblocks )
 ADD_SUBDIRECTORY( selectrange )
 ADD_SUBDIRECTORY( sonagram )        # needs fftw >= 3.0

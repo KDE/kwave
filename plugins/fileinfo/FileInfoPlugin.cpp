@@ -84,10 +84,13 @@ void FileInfoPlugin::apply(FileInfo &new_info)
 	    i18n("&Set Rate"));
 	if (res == KMessageBox::Yes) {
 	    // resample
-	    emitCommand(QString("convert_rate(%1)").arg(new_rate));
+	    emitCommand(QString(
+		"plugin:execute(samplerate,%1,all)").arg(new_rate)
+	    );
+	    new_info.setRate(new_rate);
 	} else if (res == KMessageBox::No) {
 	    // change the rate only
-	    // fileInfo().setRate(new_rate);
+	    new_info.setRate(new_rate);
 	} else {
 	    // canceled -> use old setting
 	    new_info.setRate(fileInfo().rate());
@@ -95,7 +98,7 @@ void FileInfoPlugin::apply(FileInfo &new_info)
     }
 
     // just copy all other properties
-    signalManager().setFileInfo(new_info);
+    signalManager().setFileInfo(new_info, true);
 }
 
 //***************************************************************************

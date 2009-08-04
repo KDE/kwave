@@ -17,7 +17,6 @@
 
 #include "config.h"
 #include <errno.h>
-#include <math.h>
 
 #include <klocale.h> // for the i18n macro
 #include <threadweaver/Job.h>
@@ -214,9 +213,19 @@ void SampleRatePlugin::run(QStringList params)
     }
 
     // update the selection if it was not empty
-    length = selection(0, &first, 0, false);
+    length = selection(0, &first, &last, false);
     if (length) {
-	mgr.selectRange(first, static_cast<unsigned int>(ceil(length * ratio)));
+	if (m_whole_signal) {
+	    // if whole signal selected -> adjust start and end
+	    first *= ratio;
+	    last  *= ratio;
+	    length = last - first + 1;
+	} else {
+	    // only a portion selected -> adjust only length
+	    length *= ratio;
+	}
+
+	mgr.selectRange(first, length);
     }
 
     // set the sample rate if we modified the whole signal

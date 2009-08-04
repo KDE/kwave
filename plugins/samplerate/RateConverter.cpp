@@ -4,9 +4,6 @@
     begin                : Sat Jul 11 2009
     copyright            : (C) 2009 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
-
-    limiter function     : (C) 1999-2005 Chris Vaill <chrisvaill at gmail>
-                           taken from "normalize-0.7.7"
  ***************************************************************************/
 
 /***************************************************************************

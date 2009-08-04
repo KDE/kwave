@@ -186,11 +186,14 @@ SignalWidget::SignalWidget(QWidget *parent)
 	this, SLOT(slotSamplesModified(unsigned int, unsigned int,
 	unsigned int)));
     connect(sig, SIGNAL(sigLabelCountChanged()),
-	this, SLOT(hidePosition()));
+            this, SLOT(hidePosition()),
+            Qt::QueuedConnection);
     connect(sig, SIGNAL(sigLabelCountChanged()),
-	this, SLOT(refreshMarkersLayer()));
+            this, SLOT(refreshMarkersLayer()),
+            Qt::QueuedConnection);
     connect(sig, SIGNAL(labelsChanged(LabelList)),
-            this, SLOT(refreshMarkersLayer()));
+            this, SLOT(refreshMarkersLayer()),
+            Qt::QueuedConnection);
 
     connect(&(sig->selection()), SIGNAL(changed(unsigned int, unsigned int)),
 	this, SLOT(slotSelectionChanged(unsigned int, unsigned int)));

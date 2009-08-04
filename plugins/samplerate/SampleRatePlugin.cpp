@@ -24,6 +24,7 @@
 #include <threadweaver/DebuggingAids.h>
 
 #include <QList>
+#include <QListIterator>
 #include <QStringList>
 
 #include "libkwave/FileInfo.h"
@@ -183,7 +184,11 @@ void SampleRatePlugin::run(QStringList params)
     }
 
     // adjust all label positions in the originally selected range
-    foreach (Label label, mgr.labels()) {
+    // NOTE: if the ratio is > 1, work backwards, otherwise forward
+    QListIterator<Label> it(mgr.labels());
+    (ratio > 1) ? it.toBack() : it.toFront();
+    while ((ratio > 1) ? it.hasPrevious() : it.hasNext()) {
+	Label label = (ratio > 1) ? it.previous() : it.next();
 	unsigned int pos = label.pos();
 	if (pos < first) continue;
 	if (pos > last)  continue;
@@ -197,12 +202,12 @@ void SampleRatePlugin::run(QStringList params)
 	int index = mgr.labelIndex(label);
 	if (!mgr.findLabel(pos).isNull()) {
 	    // if there is already another label, drop this one
-// 	    qDebug("SampleRatePlugin: deleting label at %u (%u is occupied)",
-// 	           label.pos(), pos);
+	    qWarning("SampleRatePlugin: deleting label at %u (%u is occupied)",
+		    label.pos(), pos);
 	    mgr.deleteLabel(index, true);
 	} else {
 // 	    qDebug("SampleRatePlugin: moving label from %u to %u",
-// 	           label.pos(), pos);
+// 		    label.pos(), pos);
 	    mgr.modifyLabel(index, pos, label.name());
 	}
     }

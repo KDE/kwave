@@ -17,6 +17,7 @@
 
 #include "config.h"
 #include <errno.h>
+#include <math.h>
 
 #include <klocale.h> // for the i18n macro
 #include <threadweaver/Job.h>
@@ -212,9 +213,18 @@ void SampleRatePlugin::run(QStringList params)
 	}
     }
 
-    // set the sample rate of the signal if we modified the whole
-    if (m_whole_signal)
-	fileInfo().setRate(m_new_rate);
+    // update the selection if it was not empty
+    length = selection(0, &first, 0, false);
+    if (length) {
+	mgr.selectRange(first, static_cast<unsigned int>(ceil(length * ratio)));
+    }
+
+    // set the sample rate if we modified the whole signal
+    if (m_whole_signal) {
+	FileInfo info = fileInfo();
+	info.setRate(m_new_rate);
+	mgr.setFileInfo(info, true);
+    }
 
 }
 

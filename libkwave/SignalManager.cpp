@@ -1279,6 +1279,12 @@ void SignalManager::undo()
 {
     QMutexLocker lock(&m_undo_transaction_lock);
 
+    // check for modified selection
+    checkSelectionChange();
+
+    // remember the last selection
+    rememberCurrentSelection();
+
     // get the last undo transaction and abort if none present
     if (m_undo_buffer.isEmpty()) return;
     UndoTransaction *undo_transaction = m_undo_buffer.takeLast();
@@ -1359,6 +1365,22 @@ void SignalManager::undo()
 	redo_transaction = 0;
     }
 
+    // check whether the selection has changed, if yes: put a undo action
+    // for this selection change at the end of the redo transaction
+    if (redo_transaction) {
+	bool range_modified = !(m_selection == m_last_selection);
+	QList<unsigned int> tracks = selectedTracks();
+	bool tracks_modified = !(tracks == m_last_track_selection);
+	if (range_modified || tracks_modified) {
+	    UndoAction *redo_action = new UndoSelection(*this,
+		m_last_track_selection,
+		m_last_selection.offset(),
+		m_last_selection.length());
+	    Q_ASSERT(redo_action);
+	    if (redo_action) redo_transaction->append(redo_action);
+	}
+    }
+
     // find out if there is still an action in the undo buffer
     // that has to do with modification of the signal
     if (m_modified) {
@@ -1399,13 +1421,13 @@ void SignalManager::redo()
 {
     QMutexLocker lock(&m_undo_transaction_lock);
 
-    // check for modified selection
-    checkSelectionChange();
-
     // get the last redo transaction and abort if none present
     if (m_redo_buffer.isEmpty()) return;
     UndoTransaction *redo_transaction = m_redo_buffer.first();
     if (!redo_transaction) return;
+
+    // check for modified selection
+    checkSelectionChange();
 
     // remove the redo transaction from the list without deleting it
     m_redo_buffer.takeFirst();

@@ -30,6 +30,17 @@ UndoSelection::UndoSelection(SignalManager &manager)
 }
 
 //***************************************************************************
+UndoSelection::UndoSelection(SignalManager &manager,
+                             QList<unsigned int> selected_tracks,
+                             unsigned int offset,
+                             unsigned int length)
+    :UndoAction(),
+     m_manager(manager), m_offset(offset), m_length(length),
+     m_selected_tracks(selected_tracks)
+{
+}
+
+//***************************************************************************
 UndoSelection::~UndoSelection()
 {
 }

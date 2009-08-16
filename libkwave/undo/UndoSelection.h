@@ -41,6 +41,18 @@ public:
      */
     UndoSelection(SignalManager &manager);
 
+    /**
+     * Constructor.
+     * @param manager reference to the SignalManager
+     * @param selected_tracks list of selected tracks
+     * @param offset start of the selection
+     * @param length number of selected samples
+     */
+    UndoSelection(SignalManager &manager,
+                  QList<unsigned int> selected_tracks,
+                  unsigned int offset,
+                  unsigned int length);
+
     /** virtual destructor */
     virtual ~UndoSelection();
 

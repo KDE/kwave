@@ -1423,14 +1423,11 @@ void SignalManager::redo()
 
     // get the last redo transaction and abort if none present
     if (m_redo_buffer.isEmpty()) return;
-    UndoTransaction *redo_transaction = m_redo_buffer.first();
+    UndoTransaction *redo_transaction = m_redo_buffer.takeFirst();
     if (!redo_transaction) return;
 
     // check for modified selection
     checkSelectionChange();
-
-    // remove the redo transaction from the list without deleting it
-    m_redo_buffer.takeFirst();
 
     // temporarily disable undo while redo is running
     bool old_undo_enabled = m_undo_enabled;

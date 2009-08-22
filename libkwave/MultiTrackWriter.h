@@ -36,8 +36,7 @@ class SignalManager;
  * A MultiTrackWriter encapsulates a set of <c>SampleWriter</c>s for
  * easier use of multi-track signals.
  */
-class KDE_EXPORT MultiTrackWriter:
-    public Kwave::MultiTrackSink<SampleWriter>
+class KDE_EXPORT MultiTrackWriter: public Kwave::MultiTrackSink<SampleWriter>
 {
     Q_OBJECT
 
@@ -73,25 +72,16 @@ public:
     /** Destructor */
     virtual ~MultiTrackWriter();
 
-    /**
-     * Transfers the content of multiple tracks into the destination.
-     * Works the same way as the corresponding operator in
-     * <c>SampleWriter</c>, but for multiple tracks. If the number of
-     * tracks in source and destination do not match, the tracks will
-     * be mixed up / down.
-     */
-    MultiTrackWriter &operator << (MultiTrackReader &source);
-
     /** Returns the last sample index of all streams */
-    unsigned int last() const;
+    virtual unsigned int last() const;
 
     /** Flushes all streams */
-    void flush();
+    virtual void flush();
 
-    /** @see QList::clear() */
+    /** @see Kwave::MultiTrackSink<SampleWriter>::clear() */
     virtual void clear();
 
-    /** @see QList::insert() */
+    /** @see Kwave::MultiTrackSink<SampleWriter>::insert() */
     virtual bool insert(unsigned int track, SampleWriter *writer);
 
     /** returns true if the transfer has been canceled */

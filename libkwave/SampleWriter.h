@@ -69,10 +69,10 @@ public:
     virtual ~SampleWriter();
 
     /** operator for inserting an array of samples */
-    SampleWriter &operator << (const Kwave::SampleArray &samples);
+    virtual SampleWriter &operator << (const Kwave::SampleArray &samples);
 
     /** operator for inserting a single sample */
-    SampleWriter &operator << (const sample_t &sample);
+    virtual SampleWriter &operator << (const sample_t &sample);
 
     /** operator for simple modifiers like flush() */
     inline SampleWriter &operator << (

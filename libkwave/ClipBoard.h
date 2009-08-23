@@ -27,7 +27,6 @@
 #include <kdemacros.h>
 
 class QWidget;
-class MultiTrackWriter;
 class SignalManager;
 class Track;
 

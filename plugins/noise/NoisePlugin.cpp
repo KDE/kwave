@@ -50,7 +50,7 @@ void NoisePlugin::run(QStringList)
 
     // create all objects
     Kwave::MultiTrackSource<NoiseGenerator, true> source(tracks.count());
-    MultiTrackWriter sink(signalManager(), tracks, Overwrite,
+    Kwave::MultiTrackWriter sink(signalManager(), tracks, Overwrite,
         first, last);
 
     // break if aborted

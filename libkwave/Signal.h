@@ -34,7 +34,6 @@
 #include "libkwave/WindowFunction.h"
 
 class MultiTrackReader;
-class MultiTrackWriter;
 class SampleReader;
 class Track;
 namespace Kwave { class Writer; }

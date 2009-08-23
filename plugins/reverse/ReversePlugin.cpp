@@ -28,7 +28,6 @@
 #include <QStringList>
 
 #include "libkwave/MultiTrackReader.h"
-#include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Writer.h"

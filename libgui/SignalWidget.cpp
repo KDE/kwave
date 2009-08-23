@@ -51,7 +51,6 @@
 #include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
-#include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Parser.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SignalManager.h"

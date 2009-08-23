@@ -183,7 +183,7 @@ int SignalManager::loadFile(const KUrl &url)
 	// create the multitrack writer as destination
 	// if length was zero -> append mode / decode a stream ?
 	InsertMode mode = (streaming) ? Append : Overwrite;
-	MultiTrackWriter writers(*this, allTracks(), mode, 0,
+	Kwave::MultiTrackWriter writers(*this, allTracks(), mode, 0,
 	    (length) ? length-1 : 0);
 
 	// try to calculate the resulting length, but if this is

@@ -27,9 +27,9 @@
 #include "libkwave/CodecBase.h"
 #include "libkwave/FileInfo.h"
 
-class MultiTrackWriter;
 class QIODevice;
 class QWidget;
+namespace Kwave { class MultiWriter; }
 
 class KDE_EXPORT Decoder: public QObject, public CodecBase
 {
@@ -60,7 +60,7 @@ public:
      * @param dst Signal that receives the audio data
      * @return true if succeeded, false on errors
      */
-    virtual bool decode(QWidget *widget, MultiTrackWriter &dst) = 0;
+    virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst) = 0;
 
     /**
      * Closes the io device.

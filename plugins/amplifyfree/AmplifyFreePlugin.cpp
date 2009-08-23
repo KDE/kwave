@@ -145,7 +145,7 @@ void AmplifyFreePlugin::run(QStringList params)
     MultiTrackReader source(Kwave::SinglePassForward,
 	signalManager(), selectedTracks(), first, last);
     Kwave::CurveStreamAdapter curve(m_curve, input_length);
-    MultiTrackWriter sink(signalManager(), track_list, Overwrite,
+    Kwave::MultiTrackWriter sink(signalManager(), track_list, Overwrite,
 	first, last);
     Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks, this);
 

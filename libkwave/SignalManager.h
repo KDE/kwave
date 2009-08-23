@@ -41,7 +41,6 @@ class QFile;
 class ClipBoard;
 class KUrl;
 class MultiTrackReader;
-class MultiTrackWriter;
 class SampleReader;
 class SignalWidget;
 class Track;

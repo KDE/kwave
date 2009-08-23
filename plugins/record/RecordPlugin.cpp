@@ -898,7 +898,7 @@ void RecordPlugin::startRecording()
 
 	    // create a sink for our audio data
 	    if (m_writers) delete m_writers;
-	    m_writers = new MultiTrackWriter(signalManager(), Append);
+	    m_writers = new Kwave::MultiTrackWriter(signalManager(), Append);
 	    Q_ASSERT(m_writers);
 	    Q_ASSERT((m_writers) && (m_writers->tracks() == tracks));
 	    if ((!m_writers) || (m_writers->tracks() != tracks)) {

@@ -31,7 +31,7 @@ extern "C" {
 
 #include "libkwave/byteswap.h"
 #include "libkwave/ConfirmCancelProxy.h"
-#include "libkwave/MultiTrackWriter.h"
+#include "libkwave/MultiWriter.h"
 #include "libkwave/Label.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/Sample.h"
@@ -528,7 +528,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 }
 
 //***************************************************************************
-bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
+bool WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
 {
     Q_ASSERT(m_src_adapter);
     Q_ASSERT(m_source);

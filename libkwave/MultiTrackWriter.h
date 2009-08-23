@@ -26,98 +26,54 @@
 
 #include <kdemacros.h>
 
-#include "libkwave/Writer.h"
-#include "libkwave/KwaveMultiTrackSink.h"
+#include "libkwave/InsertMode.h"
+#include "libkwave/MultiWriter.h"
 
-class MultiTrackReader;
 class SignalManager;
 
-/**
- * A MultiTrackWriter encapsulates a set of <c>Writer</c>s for
- * easier use of multi-track signals.
- */
-class KDE_EXPORT MultiTrackWriter: public Kwave::MultiTrackSink<Kwave::Writer>
-{
-    Q_OBJECT
-
-private:
-    /** Default constructor */
-    MultiTrackWriter();
-
-public:
-    /**
-     * Constructor
-     * @param signal_manager reference to a SignalManager
-     * @param track_list array of indices of tracks for reading
-     * @param mode specifies where and how to insert
-     * @param left index of the first sample
-     * @param right index of the last sample
-     */
-    MultiTrackWriter(SignalManager &signal_manager,
-                     const QList<unsigned int> &track_list,
-                     InsertMode mode,
-                     unsigned int left, unsigned int right);
+namespace Kwave {
 
     /**
-     * Constructor that opens a set of Writers using the currently
-     * selected list of tracks and the current selection. If nothing is
-     * selected, the whole signal will be selected.
-     *
-     * @param signal_manager reference to a SignalManager
-     * @param writers reference to a vector that receives all writers.
-     * @param mode specifies where and how to insert
+     * A MultiTrackWriter encapsulates a set of <c>TrackWriter</c>s for
+     * easier use of multi-track signals.
      */
-    MultiTrackWriter(SignalManager &signal_manager, InsertMode mode);
+    class KDE_EXPORT MultiTrackWriter: public Kwave::MultiWriter
+    {
+	Q_OBJECT
 
-    /** Destructor */
-    virtual ~MultiTrackWriter();
+    private:
+	/** Default constructor */
+	MultiTrackWriter();
 
-    /** Returns the last sample index of all streams */
-    virtual unsigned int last() const;
+    public:
+	/**
+	 * Constructor
+	 * @param signal_manager reference to a SignalManager
+	 * @param track_list array of indices of tracks for reading
+	 * @param mode specifies where and how to insert
+	 * @param left index of the first sample
+	 * @param right index of the last sample
+	 */
+	MultiTrackWriter(SignalManager &signal_manager,
+			const QList<unsigned int> &track_list,
+			InsertMode mode,
+			unsigned int left, unsigned int right);
 
-    /** Flushes all streams */
-    virtual void flush();
+	/**
+	 * Constructor that opens a set of Writers using the currently
+	 * selected list of tracks and the current selection. If nothing is
+	 * selected, the whole signal will be selected.
+	 *
+	 * @param signal_manager reference to a SignalManager
+	 * @param writers reference to a vector that receives all writers.
+	 * @param mode specifies where and how to insert
+	 */
+	MultiTrackWriter(SignalManager &signal_manager, InsertMode mode);
 
-    /** @see Kwave::MultiTrackSink<Kwave::Writer>::clear() */
-    virtual void clear();
+	/** Destructor */
+	virtual ~MultiTrackWriter();
 
-    /** @see Kwave::MultiTrackSink<Kwave::Writer>::insert() */
-    virtual bool insert(unsigned int track, Kwave::Writer *writer);
-
-    /** returns true if the transfer has been canceled */
-    inline bool isCanceled() const { return m_canceled; }
-
-signals:
-
-    /**
-     * Emits the current progress in totally processed samples, range is
-     * from zero to the (length of the writer * number of tracks) - 1.
-     */
-    void progress(unsigned int samples);
-
-public slots:
-
-    /**
-     * Can be connected to some progress dialog to cancel the current
-     * transfer.
-     */
-    void cancel();
-
-private slots:
-
-    /**
-     * Connected to each Writer to get informed about their progress.
-     */
-    void proceeded();
-
-protected:
-
-    /**
-     * Initialized as false, will be true if the transfer has
-     * been canceled
-     */
-    bool m_canceled;
-
-};
+    };
+}
 
 #endif /* _MULTI_TRACK_WRITER_H_ */

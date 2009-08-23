@@ -92,7 +92,7 @@ void DebugPlugin::run(QStringList params)
 	    m_buffer[i] = (i & 1) ? SAMPLE_MIN : SAMPLE_MAX;
     }
 
-    MultiTrackWriter *writers = 0;
+    Kwave::MultiTrackWriter *writers = 0;
 
     if (make_new_track) {
 	// append a new track
@@ -102,11 +102,11 @@ void DebugPlugin::run(QStringList params)
 	last = signalLength() - 1;
 	QList<unsigned int> track_list;
 	track_list.append(signalManager().tracks() - 1);
-	writers = new MultiTrackWriter(signalManager(), track_list,
-	                               Overwrite, 0, last);
+	writers = new Kwave::MultiTrackWriter(signalManager(), track_list,
+	                                      Overwrite, 0, last);
     } else {
 	// use all currently selected tracks
-	writers = new MultiTrackWriter(signalManager(), Overwrite);
+	writers = new Kwave::MultiTrackWriter(signalManager(), Overwrite);
     }
 
     Q_ASSERT(writers);

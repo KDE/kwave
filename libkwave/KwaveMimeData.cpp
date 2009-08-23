@@ -26,6 +26,7 @@
 #include "libkwave/Encoder.h"
 #include "libkwave/KwaveMimeData.h"
 #include "libkwave/LabelList.h"
+#include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/Writer.h"

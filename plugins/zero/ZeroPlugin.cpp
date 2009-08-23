@@ -56,7 +56,7 @@ void ZeroPlugin::run(QStringList params)
 
     UndoTransactionGuard undo_guard(*this, i18n("silence"));
 
-    MultiTrackWriter *writers = 0;
+    Kwave::MultiTrackWriter *writers = 0;
 
     /*
      * new mode: insert a range filled with silence:
@@ -97,10 +97,10 @@ void ZeroPlugin::run(QStringList params)
 	if (!length || tracks.isEmpty()) return; // nothing to do
 
 	last  = first + length - 1;
-	writers = new MultiTrackWriter(signalManager(),
+	writers = new Kwave::MultiTrackWriter(signalManager(),
 	    tracks, Insert, first, last);
     } else {
-	writers = new MultiTrackWriter(signalManager(), Overwrite);
+	writers = new Kwave::MultiTrackWriter(signalManager(), Overwrite);
     }
 
     Q_ASSERT(writers);

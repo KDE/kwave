@@ -350,6 +350,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/MemoryManager.h			GPL2+
 	libkwave/MessageBox.h				GPL2+
 	libkwave/MessageBox.cpp				GPL2+
+	libkwave/MultiWriter.cpp			GPL2+
+	libkwave/MultiWriter.h				GPL2+
 	libkwave/MultiTrackReader.cpp			GPL2+
 	libkwave/MultiTrackReader.h			GPL2+
 	libkwave/MultiTrackWriter.cpp			GPL2+
@@ -376,8 +378,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Sample.h				GPL2+
 	libkwave/SampleReader.cpp			GPL2+
 	libkwave/SampleReader.h				GPL2+
-	libkwave/SampleWriter.cpp			GPL2+
-	libkwave/SampleWriter.h				GPL2+
 	libkwave/Selection.h				GPL2+
 	libkwave/Selection.cpp				GPL2+
 	libkwave/Signal.cpp				GPL2+
@@ -392,6 +392,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/SwapFile.h				GPL2+
 	libkwave/Track.cpp				GPL2+
 	libkwave/Track.h				GPL2+
+	libkwave/TrackWriter.cpp			GPL2+
+	libkwave/TrackWriter.h				GPL2+
 	libkwave/TransmissionFunction.h			GPL2+
 	libkwave/Triple.h				GPL2+
 	libkwave/TypesMap.h				GPL2+
@@ -399,6 +401,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/VirtualAudioFile.h			GPL2+
 	libkwave/WindowFunction.cpp			GPL2+
 	libkwave/WindowFunction.h			GPL2+
+	libkwave/Writer.cpp				GPL2+
+	libkwave/Writer.h				GPL2+
 
 	libkwave/modules/CurveStreamAdapter.cpp		GPL2+
 	libkwave/modules/CurveStreamAdapter.h		GPL2+

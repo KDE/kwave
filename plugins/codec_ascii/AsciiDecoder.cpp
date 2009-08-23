@@ -24,7 +24,7 @@
 
 #include "libkwave/CompressionType.h"
 #include "libkwave/MessageBox.h"
-#include "libkwave/MultiTrackWriter.h"
+#include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/Signal.h"
 #include "libkwave/Writer.h"
@@ -100,7 +100,7 @@ bool AsciiDecoder::open(QWidget *widget, QIODevice &src)
 }
 
 //***************************************************************************
-bool AsciiDecoder::decode(QWidget * /* widget */, MultiTrackWriter &dst)
+bool AsciiDecoder::decode(QWidget * /* widget */, Kwave::MultiWriter &dst)
 {
     Q_ASSERT(m_source);
     if (!m_source) return false;

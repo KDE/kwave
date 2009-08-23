@@ -35,7 +35,6 @@
 #include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/MultiTrackReader.h"
-#include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/Signal.h"

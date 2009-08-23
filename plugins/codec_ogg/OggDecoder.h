@@ -47,13 +47,13 @@ public:
     virtual bool open(QWidget *widget, QIODevice &source);
 
     /**
-     * Decodes a stream of bytes into a MultiTrackWriter
+     * Decodes a stream of bytes into a MultiWriter
      * @param widget a widget that can be used for displaying
      *        message boxes or dialogs
-     * @param dst MultiTrackWriter that receives the audio data
+     * @param dst MultiWriter that receives the audio data
      * @return true if succeeded, false on errors
      */
-    virtual bool decode(QWidget *widget, MultiTrackWriter &dst);
+    virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst);
 
     /**
      * Closes the source.

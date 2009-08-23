@@ -41,7 +41,6 @@
 #include "libkwave/Matrix.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
-#include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PlaybackController.h"
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/PluginManager.h"

@@ -27,7 +27,7 @@
 #include "libkwave/CompressionType.h"
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/MessageBox.h"
-#include "libkwave/MultiTrackWriter.h"
+#include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/Signal.h"
 #include "libkwave/StandardBitrates.h"
@@ -289,7 +289,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
 
 //***************************************************************************
 static inline int decodeFrame(float **pcm, unsigned int size,
-                              MultiTrackWriter &dest)
+                              Kwave::MultiWriter &dest)
 {
     bool clipped = false;
     unsigned int track;
@@ -333,7 +333,7 @@ static inline int decodeFrame(float **pcm, unsigned int size,
 }
 
 //***************************************************************************
-bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
+bool OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 {
     Q_ASSERT(m_source);
     if (!m_source) return false;

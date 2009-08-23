@@ -26,7 +26,7 @@
 #include "libkwave/GenreType.h"
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/MessageBox.h"
-#include "libkwave/MultiTrackWriter.h"
+#include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/Signal.h"
 #include "libkwave/Writer.h"
@@ -658,7 +658,7 @@ enum mad_flow MP3Decoder::processOutput(void */*data*/,
 }
 
 //***************************************************************************
-bool MP3Decoder::decode(QWidget *widget, MultiTrackWriter &dst)
+bool MP3Decoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 {
     Q_ASSERT(m_source);
     if (!m_source) return false;

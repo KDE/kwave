@@ -28,7 +28,6 @@
 #include "libkwave/CodecManager.h"
 #include "libkwave/KwaveMimeData.h"
 #include "libkwave/MultiTrackReader.h"
-#include "libkwave/MultiTrackWriter.h"
 #include "libkwave/SignalManager.h"
 
 /** static instance of Kwave's clipboard */

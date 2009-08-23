@@ -58,6 +58,7 @@ SET(libkwave_LIB_SRCS
     memcpy.c
     MemoryManager.cpp
     MessageBox.cpp
+    MultiWriter.cpp
     MultiTrackReader.cpp
     MultiTrackWriter.cpp
     Parser.cpp

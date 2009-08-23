@@ -19,27 +19,23 @@
 #include "config.h"
 
 #include "libkwave/KwaveSampleArray.h"
-#include "libkwave/Matrix.h"
-#include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
-#include "libkwave/Sample.h"
-#include "libkwave/SampleReader.h"
 #include "libkwave/SignalManager.h"
-#include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 //***************************************************************************
-MultiTrackWriter::MultiTrackWriter()
-    :Kwave::MultiTrackSink<Kwave::Writer>(0,0), m_canceled(false)
+Kwave::MultiTrackWriter::MultiTrackWriter()
+    :Kwave::MultiWriter()
 {
 }
 
 //***************************************************************************
-MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
-    const QList<unsigned int> &track_list, InsertMode mode,
-    unsigned int left, unsigned int right)
-    :Kwave::MultiTrackSink<Kwave::Writer>(0),
-     m_canceled(false)
+Kwave::MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
+                                          const QList<unsigned int> &track_list,
+                                          InsertMode mode,
+                                          unsigned int left,
+                                          unsigned int right)
+    :Kwave::MultiWriter()
 {
     UndoTransactionGuard guard(signal_manager, 0);
 
@@ -62,9 +58,9 @@ MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
 }
 
 //***************************************************************************
-MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
-    InsertMode mode)
-    :Kwave::MultiTrackSink<Kwave::Writer>(0,0), m_canceled(false)
+Kwave::MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
+                                          InsertMode mode)
+    :Kwave::MultiWriter()
 {
     UndoTransactionGuard guard(signal_manager, 0);
 
@@ -103,74 +99,12 @@ MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
 }
 
 //***************************************************************************
-MultiTrackWriter::~MultiTrackWriter()
+Kwave::MultiTrackWriter::~MultiTrackWriter()
 {
     clear();
 }
 
 //***************************************************************************
-bool MultiTrackWriter::insert(unsigned int track, Kwave::Writer *writer)
-{
-    if (writer) {
-	connect(
-	    writer, SIGNAL(proceeded()),
-	    this, SLOT(proceeded()),
-	    Qt::DirectConnection
-	);
-    }
-    return Kwave::MultiTrackSink<Kwave::Writer>::insert(track, writer);
-}
-
-//***************************************************************************
-void MultiTrackWriter::proceeded()
-{
-    unsigned int pos = 0;
-    unsigned int track;
-    const unsigned int tracks = this->tracks();
-    for (track = 0; track < tracks; ++track) {
-	Kwave::Writer *w = at(track);
-	if (w) pos += (w->position() - w->first());
-    }
-    emit progress(pos);
-}
-
-//***************************************************************************
-void MultiTrackWriter::cancel()
-{
-    m_canceled = true;
-}
-
-//***************************************************************************
-unsigned int MultiTrackWriter::last() const
-{
-    unsigned int last = 0;
-    const unsigned int tracks = this->tracks();
-    for (unsigned int track = 0; track < tracks; ++track) {
-	const Kwave::Writer *w = at(track);
-	if (w && w->last() > last) last = w->last();
-    }
-    return last;
-}
-
-//***************************************************************************
-void MultiTrackWriter::clear()
-{
-    flush();
-    Kwave::MultiTrackSink<Kwave::Writer>::clear();
-}
-
-//***************************************************************************
-void MultiTrackWriter::flush()
-{
-    const unsigned int tracks = this->tracks();
-    for (unsigned int track = 0; track < tracks; ++track) {
-	Kwave::Writer *w = (*this)[track];
-	if (w) w->flush();
-    }
-}
-
-//***************************************************************************
-using namespace Kwave;
 #include "MultiTrackWriter.moc"
 //***************************************************************************
 //***************************************************************************

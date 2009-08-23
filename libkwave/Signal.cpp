@@ -29,7 +29,6 @@
 
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
-#include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Track.h"
 #include "libkwave/WindowFunction.h"
 

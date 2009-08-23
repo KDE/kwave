@@ -193,7 +193,7 @@ void NormalizePlugin::run(QStringList params)
     double level = getMaxPower(source);
 //     qDebug("NormalizePlugin: level is %g", level);
 
-    MultiTrackWriter sink(signalManager(), tracks, Overwrite,
+    Kwave::MultiTrackWriter sink(signalManager(), tracks, Overwrite,
 	first, last);
     Kwave::MultiTrackSource<Kwave::Normalizer, true> normalizer(
 	tracks.count(), this);

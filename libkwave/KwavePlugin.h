@@ -35,7 +35,6 @@
 class ConfirmCancelProxy;
 class FileInfo;
 class MultiTrackReader;
-class MultiTrackWriter;
 class SampleReader;
 class SignalManager;
 class TopWidget;

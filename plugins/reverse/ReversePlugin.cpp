@@ -30,8 +30,8 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
-#include "libkwave/SampleWriter.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "libgui/SelectTimeWidget.h" // for selection mode
@@ -155,7 +155,7 @@ void ReverseJob::run()
 	reverse(buffer_b);
 
 	// write back buffer from the end at the start
-	SampleWriter *dst_a = m_manager.openSampleWriter(
+	Kwave::Writer *dst_a = m_manager.openWriter(
 	    m_track, Overwrite,
 	    start_a, start_a + m_block_size - 1,
 	    false);
@@ -165,7 +165,7 @@ void ReverseJob::run()
 	delete dst_a;
 
 	// write back buffer from the start at the end
-	SampleWriter *dst_b = m_manager.openSampleWriter(
+	Kwave::Writer *dst_b = m_manager.openWriter(
 	    m_track, Overwrite,
 	    start_b, start_b + m_block_size - 1,
 	    false);
@@ -184,7 +184,7 @@ void ReverseJob::run()
 	reverse(buffer);
 
 	// write back
-	SampleWriter *dst = m_manager.openSampleWriter(
+	Kwave::Writer *dst = m_manager.openWriter(
 	    m_track, Overwrite, m_first, m_last,
 	    false);
 	(*dst) << buffer << flush;

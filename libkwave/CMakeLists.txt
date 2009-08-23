@@ -71,11 +71,11 @@ SET(libkwave_LIB_SRCS
     SampleFIFO.cpp
     SampleFormat.cpp
     SampleReader.cpp
-    SampleWriter.cpp
     StandardBitrates.cpp
     Stripe.cpp
     SwapFile.cpp
     Track.cpp
+    TrackWriter.cpp
     VirtualAudioFile.cpp
     Writer.cpp
     WindowFunction.cpp

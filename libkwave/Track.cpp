@@ -21,9 +21,10 @@
 #include <QWriteLocker>
 
 #include "libkwave/SampleReader.h"
-#include "libkwave/SampleWriter.h"
 #include "libkwave/Stripe.h"
 #include "libkwave/Track.h"
+#include "libkwave/TrackWriter.h"
+#include "libkwave/Writer.h"
 
 /**
  * Optimal size of a stripe [samples].
@@ -142,11 +143,11 @@ unsigned int Track::unlockedLength()
 }
 
 //***************************************************************************
-SampleWriter *Track::openSampleWriter(InsertMode mode,
+Kwave::Writer *Track::openWriter(InsertMode mode,
 	unsigned int left, unsigned int right)
 {
     // create the input stream
-    SampleWriter *stream = new SampleWriter(*this, mode, left, right);
+    Kwave::Writer *stream = new Kwave::TrackWriter(*this, mode, left, right);
     Q_ASSERT(stream);
 
     return stream;

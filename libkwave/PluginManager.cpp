@@ -41,8 +41,8 @@
 #include "libkwave/PlaybackDeviceFactory.h"
 #include "libkwave/PluginContext.h"
 #include "libkwave/SampleReader.h"
-#include "libkwave/SampleWriter.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 #include "libkwave/undo/UndoAction.h"
 #include "libkwave/undo/UndoModifyAction.h"
@@ -526,10 +526,10 @@ void Kwave::PluginManager::selectRange(unsigned int offset,
 }
 
 //***************************************************************************
-SampleWriter *Kwave::PluginManager::openSampleWriter(unsigned int track,
+Kwave::Writer *Kwave::PluginManager::openWriter(unsigned int track,
 	InsertMode mode, unsigned int left, unsigned int right)
 {
-    return m_signal_manager.openSampleWriter(track, mode, left, right, true);
+    return m_signal_manager.openWriter(track, mode, left, right, true);
 }
 
 //***************************************************************************

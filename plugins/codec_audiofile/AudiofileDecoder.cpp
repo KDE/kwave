@@ -31,8 +31,8 @@ extern "C" {
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
-#include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
+#include "libkwave/Writer.h"
 #include "libkwave/VirtualAudioFile.h"
 
 #include "AudiofileDecoder.h"

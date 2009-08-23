@@ -49,10 +49,10 @@
 #include "libkwave/Parser.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
-#include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Track.h"
+#include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 #include "libkwave/undo/UndoAction.h"
 #include "libkwave/undo/UndoAddLabelAction.h"
@@ -562,12 +562,11 @@ const QList<unsigned int> SignalManager::allTracks()
 }
 
 //***************************************************************************
-SampleWriter *SignalManager::openSampleWriter(unsigned int track,
+Kwave::Writer *SignalManager::openWriter(unsigned int track,
 	InsertMode mode, unsigned int left, unsigned int right,
 	bool with_undo)
 {
-    SampleWriter *writer = m_signal.openSampleWriter(
-	track, mode, left, right);
+    Kwave::Writer *writer = m_signal.openWriter(track, mode, left, right);
 
     // skip all that undo stuff below if undo is not enabled
     // or the writer creation has failed

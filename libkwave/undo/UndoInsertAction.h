@@ -70,11 +70,11 @@ public:
 public slots:
 
     /**
-     * Can be connected to a SampleWriter's <c>sigSamplesWritten</c> signal
+     * Can be connected to a Writer's <c>sigSamplesWritten</c> signal
      * if the writer has been opened in insert or append mode. In these
      * cases the undo action's length only is determined when the writer
      * gets closed.
-     * @see SampleWriter::sigSamplesWritten
+     * @see Kwave::Writer::sigSamplesWritten
      */
     void setLength(unsigned int length);
 

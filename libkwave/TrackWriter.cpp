@@ -1,5 +1,5 @@
 /***************************************************************************
-  SampleWriter.cpp  -  stream for inserting samples into a track
+        TrackWriter.cpp  -  stream for inserting samples into a track
 			     -------------------
     begin                : Feb 11 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
@@ -21,14 +21,14 @@
 
 #include "libkwave/memcpy.h"
 #include "libkwave/InsertMode.h"
-#include "libkwave/SampleWriter.h"
 #include "libkwave/Track.h"
+#include "libkwave/TrackWriter.h"
 
 /** minimum time between emitting the "progress()" signal [ms] */
 #define MIN_PROGRESS_INTERVAL 500
 
 //***************************************************************************
-SampleWriter::SampleWriter(Track &track, InsertMode mode,
+Kwave::TrackWriter::TrackWriter(Track &track, InsertMode mode,
     unsigned int left, unsigned int right)
     :Kwave::Writer(mode, left, right),
      m_track(track), m_progress_time()
@@ -38,20 +38,20 @@ SampleWriter::SampleWriter(Track &track, InsertMode mode,
 }
 
 //***************************************************************************
-SampleWriter::~SampleWriter()
+Kwave::TrackWriter::~TrackWriter()
 {
     flush();
     m_track.release();
 }
 
 //***************************************************************************
-bool SampleWriter::write(const Kwave::SampleArray &buffer,
-                         unsigned int &count)
+bool Kwave::TrackWriter::write(const Kwave::SampleArray &buffer,
+                               unsigned int &count)
 {
     if ((m_mode == Overwrite) && (m_position + count > m_last + 1)) {
 	// need clipping
 	count = m_last + 1 - m_position;
-// 	qDebug("SampleWriter::write() clipped to count=%u", count);
+// 	qDebug("TrackWriter::write() clipped to count=%u", count);
     }
 
     if (count == 0) return true; // nothing to flush
@@ -77,6 +77,6 @@ bool SampleWriter::write(const Kwave::SampleArray &buffer,
 }
 
 //***************************************************************************
-#include "SampleWriter.moc"
+#include "TrackWriter.moc"
 //***************************************************************************
 //***************************************************************************

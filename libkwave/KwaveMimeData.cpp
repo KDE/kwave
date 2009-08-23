@@ -28,7 +28,7 @@
 #include "libkwave/LabelList.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
-#include "libkwave/SampleWriter.h"
+#include "libkwave/Writer.h"
 #include "libkwave/Signal.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/MultiTrackReader.h"
@@ -140,11 +140,16 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	unsigned int left  = pos;
 	unsigned int right = left + decoded_length - 1;
 
+	// get sample rates of source and destination
+	double src_rate = sig.rate();
+	double dst_rate = decoder->info().rate();
+
 	if (!sig.tracks()) {
 	    // encode into an empty window -> create tracks
 	    qDebug("Kwave::MimeData::decode(...) -> new signal");
+	    src_rate = dst_rate;
 	    sig.newSignal(0,
-		decoder->info().rate(),
+		dst_rate,
 		decoder->info().bits(),
 		decoded_tracks);
 	    ok = (sig.tracks() == decoded_tracks);
@@ -152,18 +157,31 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 		delete decoder;
 		continue;
 	    }
+
+	    // if the sample rate has to be converted, adjust the
+	    // right border
+	    right -= left;
+	    right *= (dst_rate / src_rate);
+	    right += left;
 	}
 
 	// decode from the mime data
-	MultiTrackWriter dst(sig, sig.selectedTracks(), Insert,
-				left, right);
-	ok = decoder->decode(widget, dst);
+	MultiTrackWriter dst(sig, sig.selectedTracks(), Insert, left, right);
+
+	if (src_rate != dst_rate) {
+	    // pass the data through a sample rate converter
+	    /** @todo sample rate conversion on "paste" */
+	    ok = decoder->decode(widget, dst);
+	} else {
+	    // decode without sample rate conversion
+	    ok = decoder->decode(widget, dst);
+	}
 	dst.flush();
 
 	// take care of the labels, shift all of them by "left" and
 	// add them to the signal
 	LabelList labels = decoder->info().labels();
-	foreach(const Label &label, labels) {
+	foreach (const Label &label, labels) {
 	    sig.addLabel(label.pos() + left, label.name());
 // 	    qDebug("Kwave::MimeData::decode(...) -> new label @ %9d '%s'",
 // 		label.pos(), label.name().toLocal8Bit().data());

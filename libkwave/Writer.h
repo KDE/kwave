@@ -71,7 +71,7 @@ namespace Kwave {
 	}
 
 	/**
-	 * Fill the SampleWriter with data from a SampleReader. If the reader
+	 * Fill the Writer with data from a SampleReader. If the reader
 	 * reaches EOF the writer will be filled up with zeroes.
 	 */
 	Writer &operator << (SampleReader &reader);

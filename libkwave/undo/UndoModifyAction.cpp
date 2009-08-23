@@ -21,8 +21,8 @@
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
-#include "libkwave/SampleWriter.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Writer.h"
 #include "libkwave/undo/UndoModifyAction.h"
 
 /** size of the buffer for internal copy operations */
@@ -61,8 +61,7 @@ bool UndoModifyAction::store(SignalManager &manager)
     Q_ASSERT(reader);
     if (!reader) return false;
 
-    SampleWriter *writer = m_buffer_track.openSampleWriter(
-        Append, 0, m_length-1);
+    Kwave::Writer *writer = m_buffer_track.openWriter(Append, 0, m_length - 1);
     Q_ASSERT(writer);
     if (!writer) {
 	delete reader;
@@ -80,8 +79,8 @@ bool UndoModifyAction::store(SignalManager &manager)
 //***************************************************************************
 UndoAction *UndoModifyAction::undo(SignalManager &manager, bool with_redo)
 {
-    SampleWriter *writer = manager.openSampleWriter(
-	m_track, Overwrite, m_offset, m_offset+m_length-1);
+    Kwave::Writer *writer = manager.openWriter(
+	m_track, Overwrite, m_offset, m_offset + m_length - 1);
     Q_ASSERT(writer);
     if (!writer) return 0;
 
@@ -93,11 +92,11 @@ UndoAction *UndoModifyAction::undo(SignalManager &manager, bool with_redo)
 
 	SampleReader *reader_cur = manager.openSampleReader(
 	    Kwave::SinglePassForward, m_track, m_offset, m_offset+m_length-1);
-	SampleWriter *writer_cur = writer;
+	Kwave::Writer *writer_cur = writer;
 	SampleReader *reader_sav = m_buffer_track.openSampleReader(
 	    Kwave::SinglePassForward, 0, m_length-1);
-	SampleWriter *writer_sav = m_buffer_track.openSampleWriter(
-	    Overwrite, 0, m_length-1);
+	Kwave::Writer *writer_sav = m_buffer_track.openWriter(
+	    Overwrite, 0, m_length - 1);
 
 	// exchange content of the current signal with the content
 	// of the internal buffer

@@ -26,8 +26,8 @@
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
-#include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
+#include "libkwave/Writer.h"
 
 #include "FlacCodecPlugin.h"
 #include "FlacDecoder.h"
@@ -109,9 +109,9 @@ Decoder *FlacDecoder::instance()
     unsigned int mul = (1 << shift);
 
     // decode the samples into a temporary buffer and
-    // flush it to the SampleWriter(s), track by track
+    // flush it to the Writer(s), track by track
     for (unsigned int track=0; track < tracks; track++) {
-	SampleWriter *writer = (*m_dest)[track];
+	Kwave::Writer *writer = (*m_dest)[track];
 	Q_ASSERT(writer);
 	if (!writer) continue;
 	register const FLAC__int32 *src = buffer[track];

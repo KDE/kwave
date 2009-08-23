@@ -37,11 +37,11 @@ class PlaybackController;
 class PlaybackDeviceFactory;
 class QString;
 class QStringList;
-class SampleWriter;
 class SignalManager;
 class QWidget;
 namespace Kwave { class SampleSink; }
 namespace Kwave { class Plugin; }
+namespace Kwave { class Writer; }
 
 /**
  * Manages the loading, initializing, starting, running and closing
@@ -151,7 +151,7 @@ namespace Kwave {
 	 * @param right end of the input (only useful with overwrite mode)
 	 * @see InsertMode
 	 */
-	SampleWriter *openSampleWriter(unsigned int track, InsertMode mode,
+	Kwave::Writer *openWriter(unsigned int track, InsertMode mode,
 	    unsigned int left = 0, unsigned int right = 0);
 
 	/**

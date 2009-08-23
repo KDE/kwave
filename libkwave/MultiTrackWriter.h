@@ -26,17 +26,17 @@
 
 #include <kdemacros.h>
 
-#include "libkwave/SampleWriter.h"
+#include "libkwave/Writer.h"
 #include "libkwave/KwaveMultiTrackSink.h"
 
 class MultiTrackReader;
 class SignalManager;
 
 /**
- * A MultiTrackWriter encapsulates a set of <c>SampleWriter</c>s for
+ * A MultiTrackWriter encapsulates a set of <c>Writer</c>s for
  * easier use of multi-track signals.
  */
-class KDE_EXPORT MultiTrackWriter: public Kwave::MultiTrackSink<SampleWriter>
+class KDE_EXPORT MultiTrackWriter: public Kwave::MultiTrackSink<Kwave::Writer>
 {
     Q_OBJECT
 
@@ -59,7 +59,7 @@ public:
                      unsigned int left, unsigned int right);
 
     /**
-     * Constructor that opens a set of SampleWriters using the currently
+     * Constructor that opens a set of Writers using the currently
      * selected list of tracks and the current selection. If nothing is
      * selected, the whole signal will be selected.
      *
@@ -78,11 +78,11 @@ public:
     /** Flushes all streams */
     virtual void flush();
 
-    /** @see Kwave::MultiTrackSink<SampleWriter>::clear() */
+    /** @see Kwave::MultiTrackSink<Kwave::Writer>::clear() */
     virtual void clear();
 
-    /** @see Kwave::MultiTrackSink<SampleWriter>::insert() */
-    virtual bool insert(unsigned int track, SampleWriter *writer);
+    /** @see Kwave::MultiTrackSink<Kwave::Writer>::insert() */
+    virtual bool insert(unsigned int track, Kwave::Writer *writer);
 
     /** returns true if the transfer has been canceled */
     inline bool isCanceled() const { return m_canceled; }
@@ -106,7 +106,7 @@ public slots:
 private slots:
 
     /**
-     * Connected to each SampleWriter to get informed about their progress.
+     * Connected to each Writer to get informed about their progress.
      */
     void proceeded();
 

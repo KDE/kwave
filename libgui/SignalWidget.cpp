@@ -54,7 +54,6 @@
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Parser.h"
 #include "libkwave/SampleReader.h"
-#include "libkwave/SampleWriter.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Track.h"
 #include "libkwave/undo/UndoTransactionGuard.h"

@@ -41,8 +41,8 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleFIFO.h"
 #include "libkwave/SampleFormat.h"
-#include "libkwave/SampleWriter.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Writer.h"
 
 #include "RecordDevice.h"
 #include "RecordDialog.h"
@@ -1186,7 +1186,7 @@ void RecordPlugin::flushPrerecordingQueue()
 	fifo.crop(); // enforce the correct size
 
 	// push all buffers to the writer, starting at the tail
-	SampleWriter *writer = (*m_writers)[track];
+	Kwave::Writer *writer = (*m_writers)[track];
 	Q_ASSERT(writer);
 	if (writer) {
 	    Kwave::SampleArray buffer(writer->blockSize());
@@ -1329,7 +1329,7 @@ void RecordPlugin::processBuffer()
 		Q_ASSERT(tracks == m_writers->tracks());
 		if (!tracks || (tracks != m_writers->tracks())) break;
 
-		SampleWriter *writer = (*m_writers)[track];
+		Kwave::Writer *writer = (*m_writers)[track];
 		Q_ASSERT(writer);
 		if (writer) (*writer) << decoded;
 		m_controller.setEmpty(false);

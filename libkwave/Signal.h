@@ -36,8 +36,8 @@
 class MultiTrackReader;
 class MultiTrackWriter;
 class SampleReader;
-class SampleWriter;
 class Track;
+namespace Kwave { class Writer; }
 
 //**********************************************************************
 class KDE_EXPORT Signal: public QObject
@@ -110,7 +110,7 @@ public:
      * @param right end of the input (only useful with overwrite mode)
      * @see InsertMode
      */
-    SampleWriter *openSampleWriter(unsigned int track, InsertMode mode,
+    Kwave::Writer *openWriter(unsigned int track, InsertMode mode,
 	unsigned int left = 0, unsigned int right = 0);
 
     /**

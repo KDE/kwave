@@ -35,9 +35,9 @@ extern "C" {
 #include "libkwave/Label.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/Sample.h"
-#include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 #include "libkwave/VirtualAudioFile.h"
+#include "libkwave/Writer.h"
 
 #include "RecoveryBuffer.h"
 #include "RecoveryMapping.h"
@@ -541,13 +541,13 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 
 //     info().dump();
 
-    // allocate an array of SampleWriters, for speeding up
-    QVector<SampleWriter *>writers;
+    // allocate an array of Writers, for speeding up
+    QVector<Kwave::Writer *>writers;
     for (unsigned int t = 0; t < dst.tracks(); t++)
 	writers.append(dst[t]);
     Q_ASSERT(writers.count() == static_cast<int>(dst.tracks()));
     if (writers.count() != static_cast<int>(dst.tracks())) return false;
-    SampleWriter **writer_fast = writers.data();
+    Kwave::Writer **writer_fast = writers.data();
 
     unsigned int frame_size = static_cast<unsigned int>(
 	afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));

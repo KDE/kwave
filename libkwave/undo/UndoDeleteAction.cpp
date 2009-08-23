@@ -20,7 +20,6 @@
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/SampleReader.h"
-#include "libkwave/SampleWriter.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/undo/UndoAction.h"
 #include "libkwave/undo/UndoDeleteAction.h"

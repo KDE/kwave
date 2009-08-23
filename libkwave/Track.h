@@ -32,8 +32,9 @@
 #include "libkwave/ReaderMode.h"
 #include "libkwave/Stripe.h"
 
-class SampleWriter;
 class SampleReader;
+namespace Kwave { class TrackWriter; }
+namespace Kwave { class Writer; }
 
 //***************************************************************************
 class KDE_EXPORT Track: public QObject
@@ -72,7 +73,7 @@ public:
      * @param right end of the input (only useful with overwrite mode)
      * @see InsertMode
      */
-    SampleWriter *openSampleWriter(InsertMode mode,
+    Kwave::Writer *openWriter(InsertMode mode,
 	unsigned int left = 0, unsigned int right = 0);
 
     /**
@@ -221,7 +222,7 @@ private:
 
 protected:
 
-    friend class SampleWriter;
+    friend class Kwave::TrackWriter;
 
     /**
      * Write a block of samples. If necessary it starts, appends to,

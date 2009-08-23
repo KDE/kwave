@@ -24,13 +24,13 @@
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
-#include "libkwave/SampleWriter.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 //***************************************************************************
 MultiTrackWriter::MultiTrackWriter()
-    :Kwave::MultiTrackSink<SampleWriter>(0,0), m_canceled(false)
+    :Kwave::MultiTrackSink<Kwave::Writer>(0,0), m_canceled(false)
 {
 }
 
@@ -38,7 +38,7 @@ MultiTrackWriter::MultiTrackWriter()
 MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
     const QList<unsigned int> &track_list, InsertMode mode,
     unsigned int left, unsigned int right)
-    :Kwave::MultiTrackSink<SampleWriter>(0),
+    :Kwave::MultiTrackSink<Kwave::Writer>(0),
      m_canceled(false)
 {
     UndoTransactionGuard guard(signal_manager, 0);
@@ -47,7 +47,7 @@ MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
     foreach (unsigned int track, track_list) {
 	// NOTE: this function is *nearly* identical to the one in the
 	//       Signal class, except for undo support
-	SampleWriter *s = signal_manager.openSampleWriter(
+	Kwave::Writer *s = signal_manager.openWriter(
 	    track, mode, left, right, true);
 	if (s) {
 	    insert(index++, s);
@@ -64,7 +64,7 @@ MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
 //***************************************************************************
 MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
     InsertMode mode)
-    :Kwave::MultiTrackSink<SampleWriter>(0,0), m_canceled(false)
+    :Kwave::MultiTrackSink<Kwave::Writer>(0,0), m_canceled(false)
 {
     UndoTransactionGuard guard(signal_manager, 0);
 
@@ -87,7 +87,7 @@ MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
     foreach (unsigned int track, track_list) {
 	// NOTE: this function is *nearly* identical to the one in the
 	//       Signal class, except for undo support
-	SampleWriter *s = signal_manager.openSampleWriter(
+	Kwave::Writer *s = signal_manager.openWriter(
 	    track, mode, left, right, true);
 	if (s) {
 	    insert(index++, s);
@@ -109,7 +109,7 @@ MultiTrackWriter::~MultiTrackWriter()
 }
 
 //***************************************************************************
-bool MultiTrackWriter::insert(unsigned int track, SampleWriter *writer)
+bool MultiTrackWriter::insert(unsigned int track, Kwave::Writer *writer)
 {
     if (writer) {
 	connect(
@@ -118,7 +118,7 @@ bool MultiTrackWriter::insert(unsigned int track, SampleWriter *writer)
 	    Qt::DirectConnection
 	);
     }
-    return Kwave::MultiTrackSink<SampleWriter>::insert(track, writer);
+    return Kwave::MultiTrackSink<Kwave::Writer>::insert(track, writer);
 }
 
 //***************************************************************************
@@ -128,7 +128,7 @@ void MultiTrackWriter::proceeded()
     unsigned int track;
     const unsigned int tracks = this->tracks();
     for (track = 0; track < tracks; ++track) {
-	SampleWriter *w = at(track);
+	Kwave::Writer *w = at(track);
 	if (w) pos += (w->position() - w->first());
     }
     emit progress(pos);
@@ -146,7 +146,7 @@ unsigned int MultiTrackWriter::last() const
     unsigned int last = 0;
     const unsigned int tracks = this->tracks();
     for (unsigned int track = 0; track < tracks; ++track) {
-	const SampleWriter *w = at(track);
+	const Kwave::Writer *w = at(track);
 	if (w && w->last() > last) last = w->last();
     }
     return last;
@@ -156,7 +156,7 @@ unsigned int MultiTrackWriter::last() const
 void MultiTrackWriter::clear()
 {
     flush();
-    Kwave::MultiTrackSink<SampleWriter>::clear();
+    Kwave::MultiTrackSink<Kwave::Writer>::clear();
 }
 
 //***************************************************************************
@@ -164,7 +164,7 @@ void MultiTrackWriter::flush()
 {
     const unsigned int tracks = this->tracks();
     for (unsigned int track = 0; track < tracks; ++track) {
-	SampleWriter *w = (*this)[track];
+	Kwave::Writer *w = (*this)[track];
 	if (w) w->flush();
     }
 }

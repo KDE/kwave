@@ -22,8 +22,8 @@
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/SampleReader.h"
-#include "libkwave/SampleWriter.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Writer.h"
 #include "libkwave/undo/UndoInsertTrack.h"
 #include "libkwave/undo/UndoDeleteTrack.h"
 
@@ -65,8 +65,7 @@ bool UndoDeleteTrack::store(SignalManager &manager)
     Q_ASSERT(reader);
     if (!reader) return false;
 
-    SampleWriter *writer = m_buffer_track.openSampleWriter(
-        Append, 0, m_length-1);
+    Kwave::Writer *writer = m_buffer_track.openWriter(Append, 0, m_length - 1);
     Q_ASSERT(writer);
     if (!writer) {
 	delete reader;
@@ -97,7 +96,7 @@ UndoAction *UndoDeleteTrack::undo(SignalManager &manager, bool with_redo)
     m_signal.insertTrack(m_track, m_length);
 
     // restore the sample data from the internal buffer
-    SampleWriter *writer = m_signal.openSampleWriter(m_track,
+    Kwave::Writer *writer = m_signal.openWriter(m_track,
 	Overwrite, 0, m_length-1);
     Q_ASSERT(writer);
 

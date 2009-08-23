@@ -32,8 +32,8 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
-#include "libkwave/SampleWriter.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "RateConverter.h"

@@ -146,7 +146,7 @@ void Signal::deleteTrack(unsigned int index)
 }
 
 //***************************************************************************
-SampleWriter *Signal::openSampleWriter(unsigned int track,
+Kwave::Writer *Signal::openWriter(unsigned int track,
 	InsertMode mode, unsigned int left, unsigned int right)
 {
     QReadLocker lock(&m_lock_tracks);
@@ -158,7 +158,7 @@ SampleWriter *Signal::openSampleWriter(unsigned int track,
 
     Track *t = m_tracks.at(track);
     Q_ASSERT(t);
-    return (t) ? t->openSampleWriter(mode, left, right) : 0;
+    return (t) ? t->openWriter(mode, left, right) : 0;
 }
 
 //***************************************************************************

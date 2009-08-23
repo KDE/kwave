@@ -48,6 +48,7 @@ class Track;
 class UndoAction;
 class UndoTransaction;
 class UndoTransactionGuard;
+namespace Kwave { class Writer; }
 
 #define NEW_FILENAME i18n("New File")
 
@@ -254,7 +255,7 @@ public:
      * @param with_undo if true, an undo action will be created
      * @see InsertMode
      */
-    SampleWriter *openSampleWriter(unsigned int track, InsertMode mode,
+    Kwave::Writer *openWriter(unsigned int track, InsertMode mode,
 	unsigned int left = 0, unsigned int right = 0,
 	bool with_undo = false);
 

@@ -37,7 +37,7 @@ public:
     /**
      * Decodes the given buffer (byte array) by splitting it into
      * it's tracks, decoding all samples and writing the result to
-     * the corresponding SampleWriters.
+     * the corresponding Writers.
      * @param raw_data array with raw undecoded audio data
      * @param decoded array with decoded samples
      */

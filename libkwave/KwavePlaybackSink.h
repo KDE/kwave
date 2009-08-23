@@ -25,8 +25,6 @@
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveSampleSink.h"
 
-class PlayBackDevice;
-
 namespace Kwave {
 
     class PlaybackSink: public Kwave::SampleSink

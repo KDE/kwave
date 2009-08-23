@@ -25,14 +25,10 @@
 
 #include <kdemacros.h>
 
-#include "libkwave/InsertMode.h"
-#include "libkwave/Sample.h"
-#include "libkwave/KwaveSampleArray.h"
-#include "libkwave/KwaveSampleSink.h"
+#include "libkwave/Writer.h"
 
-class SampleReader;
-class Stripe;
 class Track;
+namespace Kwave { class SampleArray; }
 
 /**
  * @class SampleWriter
@@ -46,7 +42,7 @@ class Track;
  *       determining the end of the write access, e.g. for closing an
  *       undo transaction.
  */
-class KDE_EXPORT SampleWriter: public Kwave::SampleSink
+class KDE_EXPORT SampleWriter: public Kwave::Writer
 {
     Q_OBJECT
 public:
@@ -68,25 +64,6 @@ public:
      */
     virtual ~SampleWriter();
 
-    /** operator for inserting an array of samples */
-    virtual SampleWriter &operator << (const Kwave::SampleArray &samples);
-
-    /** operator for inserting a single sample */
-    virtual SampleWriter &operator << (const sample_t &sample);
-
-    /** operator for simple modifiers like flush() */
-    inline SampleWriter &operator << (
-	SampleWriter &(*modifier)(SampleWriter &))
-    {
-	return modifier(*this);
-    }
-
-    /**
-     * Fill the SampleWriter with data from a SampleReader. If the reader
-     * reaches EOF the writer will be filled up with zeroes.
-     */
-    SampleWriter &operator << (SampleReader &reader);
-
     /**
      * Flush the content of a buffer. Normally the buffer is the
      * internal intermediate buffer used for single-sample writes.
@@ -98,92 +75,16 @@ public:
      *              will be internally set to zero if successful
      * @return true if successful, false if failed (e.g. out of memory)
      */
-    bool flush(const Kwave::SampleArray &buffer, unsigned int &count);
-
-    /**
-     * Shortcut for flush(m_buffer, m_buffer_used)
-     * @internal
-     */
-    inline bool flush() { return flush(m_buffer, m_buffer_used); }
-
-    /**
-     * Returns true if the end of the writeable area has been reached if the
-     * writer has been opened in "overwrite" mode. Note that this does not
-     * make sense in append or insert mode, so in these cases the return
-     * value will always be false.
-     */
-    virtual bool eof() const;
-
-    /** the same as eof(), needed for the Kwave::SampleSink interface */
-    virtual bool done() const { return eof(); }
-
-    /** Returns the index of the first sample of the range. */
-    inline unsigned int first() const { return m_first; }
-
-    /**
-     * Returns the current index of the last sample in range or the
-     * index of the last written sample when in insert/append mode.
-     */
-    inline unsigned int last() const {
-	return ((m_mode == Append) ? (m_last + m_buffer_used) : m_last);
-    }
-
-    /**
-     * Returns the current position
-     */
-    inline unsigned int position() const { return m_position; }
-
-signals:
-
-    /**
-     * Is emitted once immediately before the writer gets closed and tells
-     * the receiver the total number of written samples.
-     */
-    void sigSamplesWritten(unsigned int);
-
-    /** Emitted when the internal buffer is flushed or the writer is closed */
-    void proceeded();
-
-public slots:
-
-    /**
-     * Interface for the signal/slot based streaming API.
-     * @param data sample data to write
-     */
-    void input(Kwave::SampleArray data);
+    virtual bool write(const Kwave::SampleArray &buffer, unsigned int &count);
 
 private:
 
-    /** first sample */
-    unsigned int m_first;
-
-    /** last sample */
-    unsigned int m_last;
-
-    /** mode for input (insert, overwrite, ...) */
-    InsertMode m_mode;
-
     /** the track that receives our data */
     Track &m_track;
-
-    /** current position within the track */
-    unsigned int m_position;
-
-    /** intermediate buffer for the input data */
-    Kwave::SampleArray m_buffer;
-
-    /** for speedup: cached buffer size */
-    unsigned int m_buffer_size;
-
-    /** number of used elements in the buffer */
-    unsigned int m_buffer_used;
 
     /** timer for limiting the number of progress signals per second */
     QTime m_progress_time;
 
 };
-
-/** modifier for flushing */
-SampleWriter &flush(SampleWriter &s) KDE_EXPORT;
 
 #endif /* _SAMPLE_WRITER_H_ */

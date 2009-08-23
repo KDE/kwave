@@ -29,6 +29,7 @@
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/KwaveSampleArray.h"
+#include "libkwave/ReaderMode.h"
 #include "libkwave/Stripe.h"
 
 class SampleWriter;

@@ -77,6 +77,7 @@ SET(libkwave_LIB_SRCS
     SwapFile.cpp
     Track.cpp
     VirtualAudioFile.cpp
+    Writer.cpp
     WindowFunction.cpp
 
     modules/CurveStreamAdapter.cpp

@@ -1194,7 +1194,7 @@ void RecordPlugin::flushPrerecordingQueue()
 	    while (rest) {
 		unsigned int read = fifo.get(buffer);
 		if (read < 1) break;
-		writer->flush(buffer, read);
+		writer->write(buffer, read);
 		rest -= read;
 	    }
 	} else {

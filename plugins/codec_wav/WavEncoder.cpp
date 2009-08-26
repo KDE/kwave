@@ -102,7 +102,7 @@ void WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst, FileInfo &info,
     dst.read(reinterpret_cast<char *>(&data_size), 4);
     data_size = LE32_TO_CPU(data_size);
     if (data_size == length * frame_size) {
-	qDebug("(data size written by libaudiofile is correct)");
+// 	qDebug("(data size written by libaudiofile is correct)");
 	return;
     }
 

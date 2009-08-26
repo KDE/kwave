@@ -110,9 +110,6 @@ private:
     /** number of tracks of the content */
     unsigned int m_tracks;
 
-    /** length of the content in samples */
-    unsigned int m_length;
-
 };
 
 #endif /* _CLIP_BOARD_H_ */

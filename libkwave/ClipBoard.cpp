@@ -41,6 +41,7 @@ ClipBoard &ClipBoard::instance()
 
 //***************************************************************************
 ClipBoard::ClipBoard()
+    :m_tracks(0)
 {
 }
 
@@ -111,7 +112,7 @@ bool ClipBoard::paste(QWidget *widget, SignalManager &signal_manager,
     if (!decoded_samples) return false;
 
     // set the selection to the inserted range
-    signal_manager.selectRange(offset, m_length);
+    signal_manager.selectRange(offset, decoded_samples);
     return true;
 }
 

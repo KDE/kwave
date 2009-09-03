@@ -60,9 +60,6 @@ public:
     /** @see UndoAction::undo() */
     virtual UndoAction *undo(SignalManager &manager, bool with_redo);
 
-    /** @see UndoAction::group() */
-    virtual UndoGroupID group() const { return LabelCommands; }
-
 protected:
 
     /** index of the inserted label */

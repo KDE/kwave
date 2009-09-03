@@ -85,43 +85,6 @@ QString UndoTransaction::description()
 }
 
 //***************************************************************************
-UndoAction *UndoTransaction::nextUndo()
-{
-    if (isEmpty()) return 0;
-    UndoAction *next = last();
-
-    QListIterator<UndoAction *> it(*this);
-    it.toBack();
-    while (it.hasPrevious()) {
-	UndoAction *action = it.previous();
-	Q_ASSERT(action);
-	if (!action) continue;
-	Q_ASSERT(next);
-	if (action->group() < next->group())
-	    next = action;
-    }
-    return next;
-}
-
-//***************************************************************************
-UndoAction *UndoTransaction::nextRedo()
-{
-    if (isEmpty()) return 0;
-    UndoAction *next = first();
-
-    QListIterator<UndoAction *> it(*this);
-    while (it.hasNext()) {
-	UndoAction *action = it.next();
-	Q_ASSERT(action);
-	if (!action) continue;
-	Q_ASSERT(next);
-	if (action->group() > next->group())
-	    next = action;
-    }
-    return next;
-}
-
-//***************************************************************************
 bool UndoTransaction::containsModification() const
 {
     if (isEmpty()) return false;
@@ -138,6 +101,23 @@ bool UndoTransaction::containsModification() const
 void UndoTransaction::abort()
 {
     m_aborted = true;
+}
+
+//***************************************************************************
+void UndoTransaction::dump(const QString &indent)
+{
+    qDebug("%s [%s]", indent.toLocal8Bit().data(),
+	   description().toLocal8Bit().data());
+    if (isEmpty()) return;
+
+    QListIterator<UndoAction *> it(*this);
+    it.toBack();
+    while (it.hasPrevious()) {
+	UndoAction *action = it.previous();
+	Q_ASSERT(action);
+	if (!action) continue;
+	action->dump("    ");
+    }
 }
 
 //***************************************************************************

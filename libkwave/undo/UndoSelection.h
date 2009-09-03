@@ -74,6 +74,9 @@ public:
     /** @see UndoAction::containsModification() */
     virtual bool containsModification() const { return false; }
 
+    /** dump, for debugging purposes */
+    virtual void dump(const QString &indent);
+
 private:
 
     /** reference to the SignalManager is needed in redoSize() */

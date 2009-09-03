@@ -106,4 +106,13 @@ UndoAction *UndoDeleteAction::undo(SignalManager &manager, bool with_redo)
 }
 
 //***************************************************************************
+void UndoDeleteAction::dump(const QString &indent)
+{
+    qDebug("%sundo delete from [%u ... %u] (%d)", indent.toLocal8Bit().data(),
+           m_offset,
+           m_offset + (m_length) ? (m_length - 1) : m_length,
+           m_length);
+}
+
+//***************************************************************************
 //***************************************************************************

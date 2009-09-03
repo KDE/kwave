@@ -62,20 +62,6 @@ public:
     QString description();
 
     /**
-     * Returns the next undo action that can be processed, from the end
-     * of the list, within the lowest undo action group.
-     * @return first UndoAction in the lowest undo action group
-     */
-    UndoAction *nextUndo();
-
-    /**
-     * Returns the next undo action that can be processed, from the start
-     * of the list, within the highest undo action group.
-     * @return first UndoAction in the highest undo action group
-     */
-    UndoAction *nextRedo();
-
-    /**
      * Loops over all undo actions to determine wheter there is at least
      * one undo action that contains a modification of the signal.
      * @see UndoAction::containsModification()
@@ -92,6 +78,9 @@ public:
      * Returns true if the undo transaction has been aborted
      */
     bool isAborted() const { return m_aborted; }
+
+        /** dump, for debugging purposes */
+    virtual void dump(const QString &indent);
 
 private:
 

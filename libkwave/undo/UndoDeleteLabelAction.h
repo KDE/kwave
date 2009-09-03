@@ -60,8 +60,8 @@ public:
     /** @see UndoAction::undo() */
     virtual UndoAction *undo(SignalManager &manager, bool with_redo);
 
-    /** @see UndoAction::group() */
-    virtual UndoGroupID group() const { return LabelCommands; };
+    /** dump, for debugging purposes */
+    virtual void dump(const QString &indent);
 
 protected:
 

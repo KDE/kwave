@@ -39,12 +39,6 @@ class UndoAction
 
 public:
 
-    /** IDs for gouping undo actions */
-    enum UndoGroupID {
-	Default = 0,         /**< default, no special order */
-	LabelCommands = 100  /**< label commands: have to be undone later */
-    };
-
     /** Destructor */
     virtual ~UndoAction()
     {
@@ -90,12 +84,6 @@ public:
     virtual UndoAction *undo(SignalManager &manager, bool with_redo) = 0;
 
     /**
-     * Returns the group in which the undo action has to be sorted in
-     * @return the numeric id of the group
-     */
-    virtual UndoGroupID group() const { return Default; }
-
-    /**
      * Determines whether a undo action has to do with a modification
      * of the signal or meta information and leads to a "modified"
      * file. The default implementation returns "true". An example for
@@ -104,6 +92,14 @@ public:
      * @return true if a modification is contained, false if not.
      */
     virtual bool containsModification() const { return true; }
+
+    /** dump, for debugging purposes */
+    virtual void dump(const QString &indent) {
+	qDebug("%s%s",
+	       indent.toLocal8Bit().data(),
+	       description().toLocal8Bit().data()
+	);
+    };
 
 };
 

@@ -67,6 +67,9 @@ public:
      */
     virtual UndoAction *undo(SignalManager &manager, bool with_redo);
 
+        /** dump, for debugging purposes */
+    virtual void dump(const QString &indent);
+
 public slots:
 
     /**

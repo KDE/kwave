@@ -104,4 +104,15 @@ UndoAction *UndoModifyLabelAction::undo(SignalManager &manager,
 }
 
 //***************************************************************************
+void UndoModifyLabelAction::dump(const QString &indent)
+{
+    qDebug("%smodify label, %u -> %u (delta=%u), '%s'",
+           indent.toLocal8Bit().data(),
+           m_last_position, m_label.pos(),
+           abs(m_label.pos() - m_last_position),
+           m_label.name().toLocal8Bit().data()
+          );
+}
+
+//***************************************************************************
 //***************************************************************************

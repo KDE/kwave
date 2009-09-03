@@ -88,6 +88,15 @@ void UndoInsertAction::setLength(unsigned int length)
 }
 
 //***************************************************************************
+void UndoInsertAction::dump(const QString &indent)
+{
+    qDebug("%sundo insert from [%u ... %u] (%d)", indent.toLocal8Bit().data(),
+           m_offset,
+           m_offset + (m_length) ? (m_length - 1) : m_length,
+           m_length);
+}
+
+//***************************************************************************
 #include "UndoInsertAction.moc"
 //***************************************************************************
 //***************************************************************************

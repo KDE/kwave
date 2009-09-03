@@ -813,26 +813,42 @@ SignalManager::~SignalManager()
 bool SignalManager::deleteRange(unsigned int offset, unsigned int length,
                                 const QList<unsigned int> &track_list)
 {
-    if (!length) return true; // nothing to do
+    if (!length || track_list.isEmpty()) return true; // nothing to do
+
     UndoTransactionGuard undo(*this, i18n("delete"));
 
-    unsigned int count = track_list.count();
-    if (!count) return true; // nothing to do
+    // delete all labels in the selected range
+    // after that the selected area should be free of labels
+    // and labels are stored in seperate undo actions
+    foreach (Label label, labels()) {
+	const unsigned int pos = label.pos();
+	const int index        = labelIndex(label);
 
-    // first store undo data for all tracks
-    unsigned int track;
-    if (m_undo_enabled) {
-	if (!registerUndoAction(new UndoDeleteAction(
-	    m_parent_widget, track_list, offset, length))) return false;
+	if ((pos >= offset) && (pos < offset + length)) {
+	    // delete the label
+	    deleteLabel(index, true);
+	}
     }
 
-    // then delete the ranges in all tracks
-    foreach (track, track_list) {
+    // store undo data for all tracks (without labels)
+    if (m_undo_enabled) {
+	if (!registerUndoAction(new UndoDeleteAction(
+	    m_parent_widget, track_list, offset, length))) {
+	    abortUndoTransaction();
+	    return false;
+	}
+    }
+
+    // delete the ranges in all tracks
+    // (this makes all label positions after the selected range invalid)
+    foreach (unsigned int track, track_list) {
 	m_signal.deleteRange(track, offset, length);
     }
 
-    // delete all labels in the selected range
-    // and adjust the labels after the deleted range
+    // adjust the labels after the deleted range
+    // without undo!
+    bool old_undo_enabled = m_undo_enabled;
+    m_undo_enabled = false;
     foreach (Label label, labels()) {
 	const unsigned int pos = label.pos();
 	const int index        = labelIndex(label);
@@ -840,19 +856,20 @@ bool SignalManager::deleteRange(unsigned int offset, unsigned int length,
 	if (pos >= offset + length) {
 	    // move label left
 	    if (!modifyLabel(index, pos - length, label.name())) {
-		// this should never happen: position is already occupied?
+		// this should hopefully not happen:
+		// new position is already occupied ?
 		qWarning("SignalManager::deleteRange() "\
 		         "-> killing duplicate label @ %u", pos);
-		deleteLabel(index, false);
+		m_undo_enabled = old_undo_enabled;
+		deleteLabel(index, true);
+		m_undo_enabled = false;
 	    }
-	} else if ((pos >= offset) && (pos < offset + length)) {
-	    // delete the label
-	    deleteLabel(index, false);
 	}
     }
+    m_undo_enabled = old_undo_enabled;
 
     // finally set the current selection to zero-length
-    selectRange(m_selection.offset(), 0);
+    selectRange(m_selection.offset(), 0); /** @todo why??? */
 
     return true;
 }
@@ -1005,8 +1022,7 @@ void SignalManager::closeUndoTransaction()
 			UndoAction *redo_action;
 
 			// unqueue the undo action
-			undo_action = m_undo_transaction->nextUndo();
-			m_undo_transaction->removeAll(undo_action);
+			undo_action = m_undo_transaction->takeLast();
 			Q_ASSERT(undo_action);
 			if (!undo_action) continue;
 
@@ -1029,6 +1045,10 @@ void SignalManager::closeUndoTransaction()
 		m_undo_transaction = 0;
 	    }
 	}
+
+	// dump, for debugging
+// 	if (m_undo_transaction)
+// 	    m_undo_transaction->dump("closed undo transaction: ");
 
 	// declare the current transaction as "closed"
 	rememberCurrentSelection();
@@ -1289,6 +1309,9 @@ void SignalManager::undo()
     UndoTransaction *undo_transaction = m_undo_buffer.takeLast();
     if (!undo_transaction) return;
 
+    // dump, for debugging
+//     undo_transaction->dump("before undo: ");
+
     // temporarily disable undo while undo itself is running
     bool old_undo_enabled = m_undo_enabled;
     m_undo_enabled = false;
@@ -1329,8 +1352,7 @@ void SignalManager::undo()
 	UndoAction *redo_action;
 
 	// unqueue the undo action
-	undo_action = undo_transaction->nextUndo();
-	undo_transaction->removeAll(undo_action);
+	undo_action = undo_transaction->takeLast();
 	Q_ASSERT(undo_action);
 	if (!undo_action) continue;
 
@@ -1470,8 +1492,7 @@ void SignalManager::redo()
 	UndoAction *redo_action;
 
 	// unqueue the undo action
-	redo_action = redo_transaction->nextRedo();
-	redo_transaction->removeAll(redo_action);
+	redo_action = redo_transaction->takeFirst();
 
 	// execute the redo operation
 	Q_ASSERT(redo_action);
@@ -1525,7 +1546,7 @@ void SignalManager::setModified(bool mod)
 
     if (m_modified != mod) {
 	m_modified = mod;
-	qDebug("SignalManager::setModified(%d)",mod);
+// 	qDebug("SignalManager::setModified(%d)",mod);
 	emit sigModified(m_modified);
     }
 }

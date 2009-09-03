@@ -133,7 +133,12 @@ protected slots:
 protected:
 
     /** State of a cache entry */
-    typedef enum {Invalid, Fuzzy, Valid, Unused} CacheState;
+    typedef enum {
+	Invalid = 0,
+	Fuzzy,
+	Valid,
+	Unused
+    } CacheState;
 
 private:
 

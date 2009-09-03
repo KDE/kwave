@@ -164,13 +164,13 @@ void OverViewCache::scaleDown()
 
     const unsigned int len = sourceLength();
     unsigned int new_scale = static_cast<unsigned int>(
-	rint(ceil(len/CACHE_SIZE)));
+	rint(ceil(len / CACHE_SIZE)));
     if (!new_scale) new_scale = 1;
     if (m_scale == new_scale) return;
 
     m_scale = new_scale;
     for (int track = 0; track < m_state.count(); ++track) {
-	invalidateCache(track, 0, len / m_scale);
+	invalidateCache(track, 0, (len / m_scale) + 1);
     }
 }
 
@@ -200,7 +200,7 @@ void OverViewCache::invalidateCache(unsigned int track, unsigned int first,
 
     QVector<CacheState> &state = m_state[cache_track];
 
-    if (last >= CACHE_SIZE) last = CACHE_SIZE-1;
+    if (last >= CACHE_SIZE) last = CACHE_SIZE - 1;
     unsigned int pos;
     for (pos = first; pos <= last; ++pos) {
 	state[pos] = Invalid;
@@ -262,9 +262,9 @@ void OverViewCache::slotTrackInserted(unsigned int index, Track *)
 
     // mark the new cache content as invalid
     if (sourceLength()) {
-	invalidateCache(index, 0, (sourceLength() / m_scale) - 1);
+	invalidateCache(index, 0, (sourceLength() / m_scale) + 1);
     } else {
-	invalidateCache(index, 0, CACHE_SIZE-1);
+	invalidateCache(index, 0, CACHE_SIZE - 1);
     }
 
     emit changed();
@@ -333,15 +333,7 @@ void OverViewCache::slotSamplesInserted(unsigned int track,
     if ((sourceLength() / m_scale) > CACHE_SIZE) scaleUp();
 
     unsigned int first = (offset - m_src_offset) / m_scale;
-    unsigned int last  = sourceLength() / m_scale;
-    if (last != first) last--;
-
-//    static unsigned int last_length = 0;
-//    if (sourceLength() != last_length) {
-//	last_length = sourceLength();
-//	first = 0;
-//    }
-//
+    unsigned int last  = (sourceLength() / m_scale) + 1;
     invalidateCache(track, first, last);
     emit changed();
 }
@@ -364,7 +356,7 @@ void OverViewCache::slotSamplesDeleted(unsigned int track,
     if (offset > (m_src_offset + sourceLength())) return;
 
     // completely left from us -> just move our own offset left
-    if (offset+length <= m_src_offset) {
+    if (offset + length <= m_src_offset) {
 	m_src_offset -= length;
 	return;
     }
@@ -386,13 +378,8 @@ void OverViewCache::slotSamplesDeleted(unsigned int track,
 	    m_src_length = 1;
     }
 
-    unsigned int first = offset;
-    unsigned int last  = offset + length - 1;
-    if (first < m_src_offset) first = m_src_offset;
-    first -= m_src_offset;
-    last  -= m_src_offset;
-    first = static_cast<unsigned int>(floor(first / m_scale));
-    last  = static_cast<unsigned int>(ceil(last / m_scale));
+    unsigned int first = (offset - m_src_offset) / m_scale;
+    unsigned int last  = (sourceLength() / m_scale) + 1;
     invalidateCache(track, first, last);
     emit changed();
 }
@@ -418,12 +405,12 @@ void OverViewCache::slotSamplesModified(unsigned int track,
     unsigned int first = offset;
     unsigned int last  = offset + length - 1;
     if (first < m_src_offset) first = m_src_offset;
-    if (last > m_src_offset+sourceLength()-1)
-        last = m_src_offset+sourceLength()-1;
+    if (last > m_src_offset + sourceLength() - 1)
+        last = m_src_offset + sourceLength() - 1;
     first -= m_src_offset;
     last  -= m_src_offset;
     first = static_cast<unsigned int>(floor(first / m_scale));
-    last  = static_cast<unsigned int>(ceil(last / m_scale));
+    last  = static_cast<unsigned int>(ceil(last   / m_scale));
     invalidateCache(track, first, last);
     emit changed();
 }
@@ -459,7 +446,7 @@ QImage OverViewCache::getOverView(int width, int height,
 
     MultiTrackReader src(Kwave::SinglePassForward,
 	m_signal, track_list, m_src_offset,
-	m_src_offset+length-1);
+	m_src_offset + length - 1);
     Q_ASSERT(m_min.count() == m_max.count());
     Q_ASSERT(m_min.count() == m_state.count());
 
@@ -494,7 +481,7 @@ QImage OverViewCache::getOverView(int width, int height,
 	}
     }
 
-    if ((width < 2) || (height < 2) || (length/m_scale < 2)) {
+    if ((width < 2) || (height < 2) || (length / m_scale < 2)) {
 	p.end();
 	return bitmap; // empty ?
     }

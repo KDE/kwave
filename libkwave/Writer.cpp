@@ -25,7 +25,15 @@
 #include "libkwave/SampleReader.h"
 
 /** size of m_buffer in samples */
-#define BUFFER_SIZE (256*1024)
+#define BUFFER_SIZE (256 * 1024)
+
+//***************************************************************************
+Kwave::Writer::Writer()
+    :Kwave::SampleSink(0),
+     m_first(0), m_last(0), m_mode(Insert), m_position(0),
+     m_buffer(BUFFER_SIZE), m_buffer_size(BUFFER_SIZE), m_buffer_used(0)
+{
+}
 
 //***************************************************************************
 Kwave::Writer::Writer(InsertMode mode,
@@ -39,7 +47,7 @@ Kwave::Writer::Writer(InsertMode mode,
 //***************************************************************************
 Kwave::Writer::~Writer()
 {
-    Q_ASSERT(m_position <= m_last + 1);
+    Q_ASSERT((m_mode != Overwrite) || (m_position <= m_last + 1));
 
     // inform others that we proceeded
     emit sigSamplesWritten(m_position - m_first);
@@ -83,9 +91,13 @@ Kwave::Writer &Kwave::Writer::operator << (SampleReader &reader)
 
     // transfer data, using our internal buffer
     unsigned int buflen = m_buffer_size;
-    while (!reader.eof() && (m_position <= m_last)) {
-	if (m_position + buflen - 1 > m_last)
-	    buflen = (m_last - m_position) + 1;
+    while (!reader.eof() && !eof()) {
+
+	// overwrite mode -> clip at right border
+	if (m_mode == Overwrite) {
+	    if (m_position + buflen - 1 > m_last)
+		buflen = (m_last - m_position) + 1;
+	}
 
 	m_buffer_used = reader.read(m_buffer, 0, buflen);
 	Q_ASSERT(m_buffer_used);
@@ -95,12 +107,14 @@ Kwave::Writer &Kwave::Writer::operator << (SampleReader &reader)
     }
 
     // pad the rest with zeroes
-    Q_ASSERT(m_position <= m_last + 1);
-    while (m_buffer_used + m_position <= m_last) {
-	*this << static_cast<sample_t>(0);
-	m_position++;
+    if (m_mode == Overwrite) {
+	Q_ASSERT(m_position <= m_last + 1);
+	while (m_buffer_used + m_position <= m_last) {
+	    *this << static_cast<sample_t>(0);
+	    m_position++;
+	}
+	Q_ASSERT(m_position <= m_last + 1);
     }
-    Q_ASSERT(m_position <= m_last + 1);
 
     return *this;
 }

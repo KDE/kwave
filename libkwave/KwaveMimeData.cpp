@@ -24,8 +24,10 @@
 #include "libkwave/CodecManager.h"
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
+#include "libkwave/KwaveConnect.h"
 #include "libkwave/KwaveMimeData.h"
 #include "libkwave/LabelList.h"
+#include "libkwave/MultiStreamWriter.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
@@ -140,6 +142,8 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
 	unsigned int left  = pos;
 	unsigned int right = left + decoded_length - 1;
+	QList<unsigned int> tracks = sig.selectedTracks();
+	if (tracks.isEmpty()) tracks = sig.allTracks();
 
 	// get sample rates of source and destination
 	double src_rate = sig.rate();
@@ -161,9 +165,11 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
 	    // if the sample rate has to be converted, adjust the
 	    // right border
-	    right -= left;
-	    right *= (dst_rate / src_rate);
-	    right += left;
+	    if (src_rate != dst_rate) {
+		right -= left;
+		right *= (dst_rate / src_rate);
+		right += left;
+	    }
 	}
 
 	// decode from the mime data
@@ -171,8 +177,19 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
 	if (src_rate != dst_rate) {
 	    // pass the data through a sample rate converter
-	    /** @todo sample rate conversion on "paste" */
-	    ok = decoder->decode(widget, dst);
+	    // decoder -> adapter -> converter -> dst
+
+	    Kwave::MultiStreamWriter adapter(tracks.count());
+
+	    Kwave::connect(adapter, SIGNAL(output(Kwave::SampleArray)),
+	                   dst,     SLOT(input(Kwave::SampleArray)));
+
+// TODO...
+// 	    Kwave::connect(converter, SIGNAL(output(Kwave::SampleArray)),
+// 	                   dst,       SLOT(input(Kwave::SampleArray)));
+
+	    // this also starts the conversion automatically
+	    ok = decoder->decode(widget, adapter);
 	} else {
 	    // decode without sample rate conversion
 	    ok = decoder->decode(widget, dst);
@@ -183,7 +200,13 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	// add them to the signal
 	LabelList labels = decoder->info().labels();
 	foreach (const Label &label, labels) {
-	    sig.addLabel(label.pos() + left, label.name());
+	    unsigned int pos = label.pos();
+
+	    // adjust label position in case of different sample rate
+	    if (src_rate != dst_rate)
+		pos *= (dst_rate / src_rate);
+
+	    sig.addLabel(pos + left, label.name());
 // 	    qDebug("Kwave::MimeData::decode(...) -> new label @ %9d '%s'",
 // 		label.pos(), label.name().toLocal8Bit().data());
 	}

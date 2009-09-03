@@ -38,11 +38,10 @@ namespace Kwave {
     {
         Q_OBJECT
     public:
-	/**
-	 * Constructor
-	 *
-	 * @param parent a parent object, passed to QObject (optional)
-	 */
+
+	/** default constructor */
+	Writer();
+
 	/**
 	 * Constructor. Creates an input stream for writing.
 	 *

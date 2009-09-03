@@ -350,6 +350,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/MemoryManager.h			GPL2+
 	libkwave/MessageBox.h				GPL2+
 	libkwave/MessageBox.cpp				GPL2+
+	libkwave/MultiStreamWriter.cpp			GPL2+
+	libkwave/MultiStreamWriter.h			GPL2+
 	libkwave/MultiWriter.cpp			GPL2+
 	libkwave/MultiWriter.h				GPL2+
 	libkwave/MultiTrackReader.cpp			GPL2+
@@ -386,6 +388,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/SignalManager.h			GPL2+
 	libkwave/StandardBitrates.cpp			GPL2+
 	libkwave/StandardBitrates.h			GPL2+
+	libkwave/StreamWriter.cpp			GPL2+
+	libkwave/StreamWriter.h				GPL2+
 	libkwave/Stripe.cpp				GPL2+
 	libkwave/Stripe.h				GPL2+
 	libkwave/SwapFile.cpp				GPL2+

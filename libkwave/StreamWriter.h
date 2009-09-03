@@ -1,9 +1,10 @@
 /***************************************************************************
-          TrackWriter.h  -  stream for writing samples into a track
+          StreamWriter.h - adapter between writers and sample source
 			     -------------------
-    begin                : Feb 11 2001
-    copyright            : (C) 2001 by Thomas Eschenbacher
+    begin                : Sun Aug 23 2009
+    copyright            : (C) 2009 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
+
  ***************************************************************************/
 
 /***************************************************************************
@@ -15,13 +16,12 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _TRACK_WRITER_H_
-#define _TRACK_WRITER_H_
+#ifndef _STREAM_WRITER_H_
+#define _STREAM_WRITER_H_
 
 #include "config.h"
 
 #include <QObject>
-#include <QTime>
 
 #include <kdemacros.h>
 
@@ -34,33 +34,26 @@ namespace Kwave {
     class SampleArray;
 
     /**
-     * @class TrackWriter
+     * @class StreamWriter
      * Input stream for transferring samples into a Track.
      *
      * @warning THIS CLASS IS NOT THREADSAFE! It is intended to be owned by
      *          and used from only one thread.
      */
-    class KDE_EXPORT TrackWriter: public Kwave::Writer
+    class KDE_EXPORT StreamWriter: public Kwave::Writer
     {
 	Q_OBJECT
     public:
+
 	/**
-	 * Constructor, creates a writer for write access to a track.
-	 *
-	 * @param track
-	 * @param mode specifies where and how to insert
-	 * @param left start of the input (only useful in insert and
-	 *             overwrite mode)
-	 * @param right end of the input (only useful with overwrite mode)
-	 * @see InsertMode
+	 * Constructor
 	 */
-	TrackWriter(Track &track, InsertMode mode,
-	    unsigned int left = 0, unsigned int right = 0);
+	StreamWriter();
 
 	/**
 	 * Destructor.
 	 */
-	virtual ~TrackWriter();
+	virtual ~StreamWriter();
 
 	/**
 	 * Flush the content of a buffer. Normally the buffer is the
@@ -73,18 +66,16 @@ namespace Kwave {
 	 *              will be internally set to zero if successful
 	 * @return true if successful, false if failed (e.g. out of memory)
 	 */
-	 virtual bool write(const Kwave::SampleArray &buffer, unsigned int &count);
+	 virtual bool write(const Kwave::SampleArray &buffer,
+	                    unsigned int &count);
 
-    private:
+    signals:
 
-	/** the track that receives our data */
-	Track &m_track;
-
-	/** timer for limiting the number of progress signals per second */
-	QTime m_progress_time;
+	/** emits a block with sine wave data */
+	void output(Kwave::SampleArray data);
 
     };
 
 }
 
-#endif /* _TRACK_WRITER_H_ */
+#endif /* _STREAM_WRITER_H_ */

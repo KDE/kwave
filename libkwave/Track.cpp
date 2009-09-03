@@ -187,8 +187,8 @@ void Track::deleteRange(unsigned int offset, unsigned int length,
 {
     if (!length) return;
 
-    qDebug("Track::deleteRange() [%u ... %u] (%u)",
-	offset, offset + length - 1, length);
+//     qDebug("Track::deleteRange() [%u ... %u] (%u)",
+// 	offset, offset + length - 1, length);
 
     {
 	QWriteLocker lock(&m_lock);

@@ -59,6 +59,7 @@ SET(libkwave_LIB_SRCS
     MemoryManager.cpp
     MessageBox.cpp
     MultiWriter.cpp
+    MultiStreamWriter.cpp
     MultiTrackReader.cpp
     MultiTrackWriter.cpp
     Parser.cpp
@@ -73,6 +74,7 @@ SET(libkwave_LIB_SRCS
     SampleFormat.cpp
     SampleReader.cpp
     StandardBitrates.cpp
+    StreamWriter.cpp
     Stripe.cpp
     SwapFile.cpp
     Track.cpp

@@ -667,6 +667,7 @@ bool SignalManager::executeCommand(const QString &command)
 	    );
 	    UndoTransactionGuard undo(*this, i18n("cut"));
 	    deleteRange(offset, length);
+	    selectRange(m_selection.offset(), 0);
 	}
     CASE_COMMAND("clipboard_flush")
 	ClipBoard::instance().clear();
@@ -689,7 +690,10 @@ bool SignalManager::executeCommand(const QString &command)
 	    selectRange(0, length);
 	}
     CASE_COMMAND("delete")
+	UndoTransactionGuard undo(*this, i18n("delete"));
 	deleteRange(offset, length);
+	selectRange(m_selection.offset(), 0);
+
 //    CASE_COMMAND("mixpaste")
 //	if (globals.clipboard) {
 //	    SignalManager *toinsert = globals.clipboard->getSignal();
@@ -856,7 +860,6 @@ bool SignalManager::deleteRange(unsigned int offset, unsigned int length,
 {
     if (!length || track_list.isEmpty()) return true; // nothing to do
 
-    UndoTransactionGuard undo(*this, i18n("delete"));
 
     // delete all labels in the selected range
     // after that the selected area should be free of labels
@@ -908,9 +911,6 @@ bool SignalManager::deleteRange(unsigned int offset, unsigned int length,
 	}
     }
     m_undo_enabled = old_undo_enabled;
-
-    // finally set the current selection to zero-length
-    selectRange(m_selection.offset(), 0); /** @todo why??? */
 
     return true;
 }

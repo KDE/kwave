@@ -643,6 +643,8 @@ bool SignalManager::executeCommand(const QString &command)
 		selectedTracks(),
 		offset, length
 	    );
+	    // remember the last selection
+	    rememberCurrentSelection();
 	}
     CASE_COMMAND("paste")
 	ClipBoard &clip = ClipBoard::instance();
@@ -653,6 +655,9 @@ bool SignalManager::executeCommand(const QString &command)
 	clip.paste(m_parent_widget, *this, offset, length);
     CASE_COMMAND("cut")
 	if (length) {
+	    // remember the last selection
+	    rememberCurrentSelection();
+
 	    ClipBoard &clip = ClipBoard::instance();
 	    clip.copy(
 		m_parent_widget,
@@ -673,6 +678,9 @@ bool SignalManager::executeCommand(const QString &command)
 	if (saveUndoDelete(tracks, offset+length, rest) &&
 	    saveUndoDelete(tracks, 0, offset))
 	{
+	    // remember the last selection
+	    rememberCurrentSelection();
+
 	    unsigned int count = tracks.count();
 	    while (count--) {
 		m_signal.deleteRange(count, offset+length, rest);
@@ -1758,6 +1766,8 @@ void SignalManager::checkSelectionChange()
     if (range_modified || tracks_modified) {
 	// selection has changed since last undo/redo operation
 // 	qDebug("SignalManager::checkSelectionChange() => manually modified");
+// 	qDebug("    before: [%8u...%8u]", m_last_selection.first(), m_last_selection.last());
+// 	qDebug("    after : [%8u...%8u]", m_selection.first(),      m_selection.last());
 
 	// temporarily activate the previous selection (last stored)
 	Selection new_selection(m_selection);

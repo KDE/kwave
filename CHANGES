@@ -15,7 +15,7 @@
  * help/about dialog: hack to allow web addresses of translators
  * new feature: support for primitive macros (batch files), playback only
  * new plugin: change sample rate
- * bugfix: selection was not set after "paste"
+ * bugfix: selection was not set after "paste" and undo of other operations
  * bugfix: label handling in context of "delete" and "undo" was broken
  * bugfix: invalidation of overview cache after delete was not correct
  * bugfix: artefacts in track display in min/max overview mode

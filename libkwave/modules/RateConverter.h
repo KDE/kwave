@@ -24,13 +24,15 @@
 #include <QVariant>
 #include <QVarLengthArray>
 
+#include <kdemacros.h>
+
 #include <samplerate.h>
 
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/KwaveSampleSource.h"
 
 namespace Kwave {
-    class RateConverter: public Kwave::SampleSource
+    class KDE_EXPORT RateConverter: public Kwave::SampleSource
     {
 	Q_OBJECT
     public:

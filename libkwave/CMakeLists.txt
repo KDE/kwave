@@ -27,6 +27,10 @@ ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/ppcasm_string.o
 
 #############################################################################
 
+IF (WITH_SAMPLERATE)
+    SET(libkwave_LIB_SRCS_samplerate modules/RateConverter.cpp)
+ENDIF (WITH_SAMPLERATE)
+
 SET(libkwave_LIB_SRCS
     ClipBoard.cpp
     CodecBase.cpp
@@ -101,6 +105,8 @@ SET(libkwave_LIB_SRCS
     undo/UndoSelection.cpp
     undo/UndoTransaction.cpp
     undo/UndoTransactionGuard.cpp
+
+    ${libkwave_LIB_SRCS_samplerate}
 )
 
 #############################################################################

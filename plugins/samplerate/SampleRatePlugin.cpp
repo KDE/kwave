@@ -34,9 +34,9 @@
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Writer.h"
+#include "libkwave/modules/RateConverter.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
-#include "RateConverter.h"
 #include "SampleRatePlugin.h"
 
 KWAVE_PLUGIN(SampleRatePlugin,"samplerate","2.1","Thomas Eschenbacher");

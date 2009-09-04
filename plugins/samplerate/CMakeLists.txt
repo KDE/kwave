@@ -16,18 +16,9 @@
 #############################################################################
 
 IF (WITH_SAMPLERATE)
-
-    SET(plugin_samplerate_LIB_SRCS
-	RateConverter.cpp
-	SampleRatePlugin.cpp
-    )
-
-    SET(plugin_samplerate_LIBS
-	samplerate
-    )
-
+    SET(plugin_samplerate_LIB_SRCS SampleRatePlugin.cpp)
+    SET(plugin_samplerate_LIBS samplerate)
     KWAVE_PLUGIN(samplerate)
-
 ENDIF (WITH_SAMPLERATE)
 
 #############################################################################

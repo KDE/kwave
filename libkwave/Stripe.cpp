@@ -514,17 +514,14 @@ void Stripe::minMax(unsigned int first, unsigned int last,
 {
     QMutexLocker lock(&m_lock);
 
-    min = 0;
-    max = 0;
-
     if (!m_data) return;
     MappedArray _samples(*this);
     const sample_t *buffer = _samples.data();
     if (!buffer || !m_data) return;
 
     // loop over the mapped storage to get min/max
-    register sample_t lo = SAMPLE_MAX;
-    register sample_t hi = SAMPLE_MIN;
+    register sample_t lo = min;
+    register sample_t hi = max;
     Q_ASSERT(first < m_data->m_length);
     Q_ASSERT(first <= last);
     Q_ASSERT(last < m_data->m_length);

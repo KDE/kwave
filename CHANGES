@@ -1,5 +1,5 @@
 
-0.8.4  [2009-??-??]
+0.8.4  [2009-09-??]
 
  * using libsamplerate (new dependency)
  * bugfix: drag&drop of files on the main window was broken
@@ -16,6 +16,9 @@
  * new feature: support for primitive macros (batch files), playback only
  * new plugin: change sample rate
  * bugfix: selection was not set after "paste"
+ * bugfix: label handling in context of "delete" and "undo" was broken
+ * bugfix: invalidation of overview cache after delete was not correct
+ * bugfix: artefacts in track display in min/max overview mode
 
 0.8.3-2 [2009-07-04]
 

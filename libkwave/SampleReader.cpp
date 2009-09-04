@@ -103,6 +103,8 @@ void SampleReader::minMax(unsigned int first, unsigned int last,
                           sample_t &min, sample_t &max)
 {
     bool empty = true;
+    min = SAMPLE_MAX;
+    max = SAMPLE_MIN;
 
     foreach (Stripe s, m_stripes) {
 	if (!s.length()) continue;

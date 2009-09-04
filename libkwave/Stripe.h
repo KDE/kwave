@@ -158,8 +158,8 @@ public:
      * of samples.
      * @param first index of the first sample
      * @param last index of the last sample
-     * @param min receives the lowest value or 0 if no samples are in range
-     * @param max receives the highest value or 0 if no samples are in range
+     * @param min receives the lowest value (must be initialized)
+     * @param max receives the highest value (must be initialized)
      */
     void minMax(unsigned int first, unsigned int last,
                 sample_t &min, sample_t &max);

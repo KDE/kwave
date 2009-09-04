@@ -301,21 +301,21 @@ bool TrackPixmap::validateBuffer()
 
     while (first < buflen) {
 	// find the first invalid index
-	for (first=last; (first < buflen) && m_valid.testBit(first);
+	for (first = last; (first < buflen) && m_valid.testBit(first);
 		++first)
 	{}
 
 	// break if the first index is out of range
 	if (first >= buflen) {
-	    if (reader) delete reader;
+	    delete reader;
 	    return false; // buffer is already ok
 	}
 
 	// find the last invalid index
-	for (last=first; (last < buflen) && !m_valid[last]; ++last) {
+	for (last = first; (last < buflen) && !m_valid[last]; ++last) {
 	}
 
-	if (last >= buflen) last = buflen-1;
+	if (last >= buflen) last = buflen - 1;
 	if ((last > first) && (m_valid[last])) --last;
 
 	// fill our array(s) with fresh sample data
@@ -366,10 +366,12 @@ bool TrackPixmap::validateBuffer()
         ++last;
     }
 
+#ifdef DEBUG
     for (first = 0; first < m_valid.size(); first++) {
 	if (!m_valid[first]) qWarning("TrackPixmap::validateBuffer(): "\
 		"still invalid index: %u", first);
     }
+#endif /* DEBUG */
 
     delete reader;
 
@@ -401,24 +403,24 @@ void TrackPixmap::repaint()
 
 	// then draw the samples
 	if (m_minmax_mode) {
-	    drawOverview(p, h>>1, h, 0, w-1);
+	    drawOverview(p, h >> 1, h, 0, w - 1);
 	} else {
 	    if (m_zoom < INTERPOLATION_ZOOM) {
-		drawInterpolatedSignal(p, w, h>>1, h);
+		drawInterpolatedSignal(p, w, h >> 1, h);
 	    } else {
-		drawPolyLineSignal(p, w, h>>1, h);
+		drawPolyLineSignal(p, w, h >> 1, h);
 	    }
 	}
 
 	// draw the zero-line
-	int last = samples2pixels(m_track.length()-1 - m_offset);
+	int last = samples2pixels(m_track.length() - 1 - m_offset);
 	p.setPen(m_colors.zero);
 	if (last >= w) {
-	    p.drawLine(0, h>>1, w-1, h>>1);
+	    p.drawLine(0, h >> 1, w - 1, h >> 1);
 	} else {
-	    p.drawLine(0, h>>1, last, h>>1);
+	    p.drawLine(0, h >> 1, last, h >> 1);
 	    p.setPen(m_colors.zero_unused);
-	    p.drawLine(last, h>>1, w, h>>1);
+	    p.drawLine(last, h >> 1, w, h >> 1);
 	}
     }
 
@@ -461,20 +463,19 @@ void TrackPixmap::drawOverview(QPainter &p, int middle, int height,
     // scale_y: pixels per unit
     double scale_y = (m_vertical_zoom * static_cast<double>(height)) /
 	(1 << SAMPLE_BITS);
-    int max = 0, min = 0;
 
     p.setPen(m_colors.sample);
     int last_min = static_cast<int>(m_min_buffer[first] * scale_y);
     int last_max = static_cast<int>(m_max_buffer[first] * scale_y);
     for (int i = first; i <= last; i++) {
 	Q_ASSERT(m_valid[i]);
-	max = static_cast<int>(m_max_buffer[i] * scale_y);
-	min = static_cast<int>(m_min_buffer[i] * scale_y);
+	int max = static_cast<int>(m_max_buffer[i] * scale_y);
+	int min = static_cast<int>(m_min_buffer[i] * scale_y);
 
 	// make sure there is a connection between this
 	// section and the one before, avoid gaps
-	if (min > last_max+1) min = last_max+1;
-	if (max+1 < last_min) max = last_min-1;
+	if (min > last_max + 1) min = last_max + 1;
+	if (max + 1 < last_min) max = last_min - 1;
 
 	p.drawLine(i, middle - max, i, middle - min);
 

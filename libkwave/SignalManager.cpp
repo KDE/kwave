@@ -632,6 +632,39 @@ bool SignalManager::executeCommand(const QString &command)
 	undo();
     CASE_COMMAND("redo")
 	redo();
+    // copy & paste + clipboard
+    CASE_COMMAND("copy")
+	qDebug("copy(%u,%u)", offset, length);
+	if (length) {
+	    ClipBoard &clip = ClipBoard::instance();
+	    clip.copy(
+		m_parent_widget,
+		*this,
+		selectedTracks(),
+		offset, length
+	    );
+	}
+    CASE_COMMAND("paste")
+	ClipBoard &clip = ClipBoard::instance();
+	if (clip.isEmpty()) return false;
+	if (!selectedTracks().size()) return false;
+
+	UndoTransactionGuard undo(*this, i18n("paste"));
+	clip.paste(m_parent_widget, *this, offset, length);
+    CASE_COMMAND("cut")
+	if (length) {
+	    ClipBoard &clip = ClipBoard::instance();
+	    clip.copy(
+		m_parent_widget,
+		*this,
+		selectedTracks(),
+		offset, length
+	    );
+	    UndoTransactionGuard undo(*this, i18n("cut"));
+	    deleteRange(offset, length);
+	}
+    CASE_COMMAND("clipboard_flush")
+	ClipBoard::instance().clear();
     CASE_COMMAND("crop")
 	UndoTransactionGuard undo(*this, i18n("crop"));
 	unsigned int rest = this->length() - offset;

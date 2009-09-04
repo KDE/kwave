@@ -354,46 +354,10 @@ bool SignalWidget::executeCommand(const QString &command)
     InhibitRepaintGuard inhibit(*this);
     Parser parser(command);
 
-    const unsigned int offset = m_signal_manager.selection().offset();
-    const unsigned int length = m_signal_manager.selection().length();
-
     if (!command.length()) return true;
 
     if (executeNavigationCommand(command)) {
 	return true;
-    // copy & paste + clipboard
-    CASE_COMMAND("copy")
-	qDebug("copy(%u,%u)", offset, length);
-	if (length) {
-	    ClipBoard &clip = ClipBoard::instance();
-	    clip.copy(
-		this,
-		m_signal_manager,
-		m_signal_manager.selectedTracks(),
-		offset, length
-	    );
-	}
-    CASE_COMMAND("paste")
-	ClipBoard &clip = ClipBoard::instance();
-	if (clip.isEmpty()) return false;
-	if (!m_signal_manager.selectedTracks().size()) return false;
-
-	UndoTransactionGuard undo(m_signal_manager, i18n("paste"));
-	clip.paste(this, m_signal_manager, offset, length);
-    CASE_COMMAND("cut")
-	if (length) {
-	    ClipBoard &clip = ClipBoard::instance();
-	    clip.copy(
-		this,
-		m_signal_manager,
-		m_signal_manager.selectedTracks(),
-		offset, length
-	    );
-	    UndoTransactionGuard undo(m_signal_manager, i18n("cut"));
-	    m_signal_manager.deleteRange(offset, length);
-	}
-    CASE_COMMAND("clipboard_flush")
-	ClipBoard::instance().clear();
     // label commands
     CASE_COMMAND("label")
 	unsigned int pos = parser.toUInt();

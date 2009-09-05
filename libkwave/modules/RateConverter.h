@@ -43,7 +43,7 @@ namespace Kwave {
 	/** Destructor */
 	virtual ~RateConverter();
 
-	/** does the calculation */
+	/** does nothing, processing is done in input() */
 	virtual void goOn();
 
     signals:
@@ -53,7 +53,7 @@ namespace Kwave {
 
     public slots:
 
-	/** receives input data */
+	/** receives input data and also directly does the calculation */
 	void input(Kwave::SampleArray data);
 
 	/**
@@ -62,9 +62,6 @@ namespace Kwave {
 	void setRatio(const QVariant r);
 
     private:
-
-	/** buffer for input */
-	Kwave::SampleArray m_buffer;
 
 	/** conversion ratio, ((new rate) / (old rate)) */
 	double m_ratio;

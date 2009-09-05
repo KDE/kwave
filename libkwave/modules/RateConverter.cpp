@@ -23,7 +23,7 @@
 
 //***************************************************************************
 Kwave::RateConverter::RateConverter()
-    :Kwave::SampleSource(), m_buffer(), m_ratio(1.0), m_converter(0),
+    :Kwave::SampleSource(), m_ratio(1.0), m_converter(0),
      m_converter_in(), m_converter_out()
 {
     int error = 0;
@@ -42,17 +42,29 @@ Kwave::RateConverter::~RateConverter()
 //***************************************************************************
 void Kwave::RateConverter::goOn()
 {
+}
+
+//***************************************************************************
+void Kwave::RateConverter::input(Kwave::SampleArray data)
+{
+    // shortcut for ratio == 1:1
+    if (m_ratio == 1.0) {
+	emit output(data);
+	return;
+    }
+
+    // normal processing
     Kwave::SampleArray samples_out;
-    const unsigned int in_len = m_buffer.size();
+    const unsigned int in_len = data.size();
 
     // convert the input buffer into an array of floats
     m_converter_in.resize(in_len);
     float          *f_in = m_converter_in.data();
-    const sample_t *s_in = m_buffer.data();
+    const sample_t *s_in = data.data();
     for (unsigned int i = 0; i < in_len; i++)
 	(*f_in++) = sample2float(*(s_in++));
 
-    // prepare the output buffer (estimated size)
+    // prepare the output buffer (estimated size, rounded up)
     const unsigned int out_len =
 	ceil(static_cast<double>(in_len) * m_ratio) + 1;
     m_converter_out.resize(out_len);
@@ -65,7 +77,7 @@ void Kwave::RateConverter::goOn()
     src.output_frames     = out_len;
     src.input_frames_used = 0;
     src.output_frames_gen = 0;
-    src.end_of_input      = (m_buffer.isEmpty() ? 1 : 0);
+    src.end_of_input      = (data.isEmpty() ? 1 : 0);
     src.src_ratio         = m_ratio;
 
     // let the converter run...
@@ -82,12 +94,6 @@ void Kwave::RateConverter::goOn()
 	*(s_out++) = float2sample(*(f_out++));
 
     emit output(out);
-}
-
-//***************************************************************************
-void Kwave::RateConverter::input(Kwave::SampleArray data)
-{
-    m_buffer = data;
 }
 
 //***************************************************************************

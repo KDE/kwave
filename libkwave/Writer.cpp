@@ -47,6 +47,13 @@ Kwave::Writer::Writer(InsertMode mode,
 //***************************************************************************
 Kwave::Writer::~Writer()
 {
+    // If this assert gets hit, you deleted a writer without calling
+    // flush() before. Flushing in the destructor is problematic and
+    // might be too late when the derived classes' destructor was
+    // already done and signal/slot connections were already released!
+    Q_ASSERT(!m_buffer_used);
+    if (m_buffer_used) qWarning("Writer was not flushed!?");
+
     Q_ASSERT((m_mode != Overwrite) || (m_position <= m_last + 1));
 
     // inform others that we proceeded
@@ -58,8 +65,9 @@ Kwave::Writer &Kwave::Writer::operator << (const Kwave::SampleArray &samples)
 {
     unsigned int count = samples.size();
 
-    if (m_buffer_used + count < m_buffer_size) {
-	// append to the internal buffer if there is still some room
+    if (m_buffer_used && (m_buffer_used + count <= m_buffer_size)) {
+	// append to the internal buffer if it is in use
+	// and if there is still some room
 	MEMCPY(&(m_buffer[m_buffer_used]), &(samples[0]),
 	       count * sizeof(sample_t));
 	m_buffer_used += count;

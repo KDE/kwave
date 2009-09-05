@@ -30,6 +30,12 @@ Kwave::StreamWriter::StreamWriter()
 //***************************************************************************
 Kwave::StreamWriter::~StreamWriter()
 {
+    // If this assert gets hit, you deleted a writer without calling
+    // flush() before. Flushing in the destructor is problematic and
+    // might be too late when the derived classes' destructor was
+    // already done and signal/slot connections were already released!
+    Q_ASSERT(!m_buffer_used);
+    if (m_buffer_used) qWarning("StreamWriter was not flushed!?");
 }
 
 //***************************************************************************

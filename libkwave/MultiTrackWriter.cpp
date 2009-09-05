@@ -101,6 +101,7 @@ Kwave::MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
 //***************************************************************************
 Kwave::MultiTrackWriter::~MultiTrackWriter()
 {
+    flush();
     clear();
 }
 

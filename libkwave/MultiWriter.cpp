@@ -79,7 +79,6 @@ unsigned int Kwave::MultiWriter::last() const
 //***************************************************************************
 void Kwave::MultiWriter::clear()
 {
-    flush();
     Kwave::MultiTrackSink<Kwave::Writer>::clear();
 }
 

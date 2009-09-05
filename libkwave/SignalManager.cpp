@@ -112,6 +112,12 @@ SignalManager::SignalManager(QWidget *parent)
 }
 
 //***************************************************************************
+SignalManager::~SignalManager()
+{
+    close();
+}
+
+//***************************************************************************
 int SignalManager::loadFile(const KUrl &url)
 {
     int res = 0;
@@ -846,12 +852,6 @@ void SignalManager::slotSamplesModified(unsigned int track,
 {
     setModified(true);
     emit sigSamplesModified(track, offset, length);
-}
-
-//***************************************************************************
-SignalManager::~SignalManager()
-{
-    close();
 }
 
 //***************************************************************************
@@ -1664,6 +1664,9 @@ bool SignalManager::addLabel(unsigned int pos)
 	return false;
     }
 
+    // register this as a modification
+    setModified(true);
+
     emit sigLabelCountChanged();
     emit labelsChanged(labels());
     return true;
@@ -1681,6 +1684,10 @@ Label SignalManager::addLabel(unsigned int pos, const QString &name)
     // put the label into the list
     labels().append(label);
     labels().sort();
+
+    // register this as a modification
+    setModified(true);
+
     emit sigLabelCountChanged();
     emit labelsChanged(labels());
 
@@ -1704,6 +1711,10 @@ void SignalManager::deleteLabel(int index, bool with_undo)
     }
 
     labels().removeAll(label);
+
+    // register this as a modification
+    setModified(true);
+
     emit sigLabelCountChanged();
     emit labelsChanged(labels());
 }
@@ -1739,6 +1750,9 @@ bool SignalManager::modifyLabel(int index, unsigned int pos,
     label.moveTo(pos);
     label.rename(name);
     labels().sort();
+
+    // register this as a modification
+    setModified(true);
 
     emit labelsChanged(labels());
     return true;

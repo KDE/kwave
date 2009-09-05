@@ -20,6 +20,7 @@
 #include <QBuffer>
 #include <QMutableListIterator>
 #include <QVariant>
+#include <QWidget>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Decoder.h"
@@ -36,6 +37,7 @@
 #include "libkwave/SignalManager.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
+#include "libkwave/modules/RateConverter.h"
 
 // RFC 2361:
 #define WAVE_FORMAT_PCM "audio/vnd.wave" // ; codec=001"
@@ -140,21 +142,25 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	    continue;
 	}
 
+	// get sample rates of source and destination
+	double src_rate = decoder->info().rate();
+	double dst_rate = sig.rate();
+
+	// if the sample rate has to be converted, adjust the length
+	// right border
+	if (src_rate != dst_rate) decoded_length *= (dst_rate / src_rate);
+
 	unsigned int left  = pos;
 	unsigned int right = left + decoded_length - 1;
 	QList<unsigned int> tracks = sig.selectedTracks();
 	if (tracks.isEmpty()) tracks = sig.allTracks();
-
-	// get sample rates of source and destination
-	double src_rate = sig.rate();
-	double dst_rate = decoder->info().rate();
 
 	if (!sig.tracks()) {
 	    // encode into an empty window -> create tracks
 	    qDebug("Kwave::MimeData::decode(...) -> new signal");
 	    src_rate = dst_rate;
 	    sig.newSignal(0,
-		dst_rate,
+		src_rate,
 		decoder->info().bits(),
 		decoded_tracks);
 	    ok = (sig.tracks() == decoded_tracks);
@@ -162,39 +168,51 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 		delete decoder;
 		continue;
 	    }
-
-	    // if the sample rate has to be converted, adjust the
-	    // right border
-	    if (src_rate != dst_rate) {
-		right -= left;
-		right *= (dst_rate / src_rate);
-		right += left;
-	    }
 	}
 
 	// decode from the mime data
 	MultiTrackWriter dst(sig, sig.selectedTracks(), Insert, left, right);
 
 	if (src_rate != dst_rate) {
+#ifdef HAVE_SAMPLERATE_SUPPORT
 	    // pass the data through a sample rate converter
 	    // decoder -> adapter -> converter -> dst
 
 	    Kwave::MultiStreamWriter adapter(tracks.count());
 
-	    Kwave::connect(adapter, SIGNAL(output(Kwave::SampleArray)),
-	                   dst,     SLOT(input(Kwave::SampleArray)));
+	    // create a sample rate converter
+	    Kwave::MultiTrackSource<Kwave::RateConverter, true>
+		converter(tracks.count(), widget);
+	    converter.setAttribute(SLOT(setRatio(const QVariant)),
+	                           QVariant(dst_rate / src_rate));
 
-// TODO...
-// 	    Kwave::connect(converter, SIGNAL(output(Kwave::SampleArray)),
-// 	                   dst,       SLOT(input(Kwave::SampleArray)));
+	    Kwave::connect(adapter,   SIGNAL(output(Kwave::SampleArray)),
+	                   converter, SLOT(input(Kwave::SampleArray)));
+	    Kwave::connect(converter, SIGNAL(output(Kwave::SampleArray)),
+	                   dst,       SLOT(input(Kwave::SampleArray)));
 
 	    // this also starts the conversion automatically
 	    ok = decoder->decode(widget, adapter);
+
+	    // flush all samples that are still in the adapter
+	    adapter.flush();
+#else
+	    ok = false;
+	    #warning sample rate conversion is disabled
+#endif
 	} else {
 	    // decode without sample rate conversion
 	    ok = decoder->decode(widget, dst);
 	}
 	dst.flush();
+
+	// failed :-(
+	Q_ASSERT(ok);
+	if (!ok) {
+	    delete decoder;
+	    decoded_length = 0;
+	    continue;
+	}
 
 	// take care of the labels, shift all of them by "left" and
 	// add them to the signal
@@ -203,8 +221,7 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	    unsigned int pos = label.pos();
 
 	    // adjust label position in case of different sample rate
-	    if (src_rate != dst_rate)
-		pos *= (dst_rate / src_rate);
+	    if (src_rate != dst_rate) pos *= (dst_rate / src_rate);
 
 	    sig.addLabel(pos + left, label.name());
 // 	    qDebug("Kwave::MimeData::decode(...) -> new label @ %9d '%s'",

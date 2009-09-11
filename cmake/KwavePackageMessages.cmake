@@ -25,7 +25,7 @@ ADD_CUSTOM_TARGET(package-messages
     COMMAND $(MAKE) all # first make sure all generated source exists
     COMMAND ${RM_EXECUTABLE} -f po/*.gmo
     COMMAND ${XGETTEXT_EXECUTABLE} -C
-        -ki18n -ktr2i18n -kI18N_NOOP -kki18nc -kki18n
+        -ki18n -ki18np -ki18nc -ki18ncp -ktr2i18n -kI18N_NOOP -kki18nc -kki18n
         # -x ${KDE_POT_FILE}
         `${FIND_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR} -name \\*.h -o -name \\*.cpp`
         `${FIND_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR} -name \\*.h -o -name \\*.cpp`

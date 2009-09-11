@@ -136,8 +136,12 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     connect(sbRecordPre,  SIGNAL(valueChanged(int)),
             this,         SLOT(preRecordingTimeChanged(int)));
 
-    // record time
+    // record time (duration)
     STD_SETUP(record_time_limited, record_time, RecordTime);
+
+    // start time (date & time)
+    chkRecordStartTime->setChecked(m_params.start_time_enabled);
+    startTime->setDateTime(m_params.start_time);
 
     // record trigger
     STD_SETUP_SLIDER(record_trigger_enabled, record_trigger, RecordTrigger);
@@ -205,10 +209,16 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     connect(chkDisplayLevelMeter, SIGNAL(toggled(bool)),
             this, SLOT(displayLevelMeterChecked(bool)));
 
+    // setup controls
     connect(chkRecordTime, SIGNAL(toggled(bool)),
             this, SLOT(recordTimeChecked(bool)));
     connect(sbRecordTime, SIGNAL(valueChanged(int)),
             this, SLOT(recordTimeChanged(int)));
+
+    connect(chkRecordStartTime, SIGNAL(toggled(bool)),
+            this, SLOT(startTimeChecked(bool)));
+    connect(startTime, SIGNAL(valueChanged(const QDateTime &)),
+            this, SLOT(startTimeChanged(const QDateTime &)));
 
     connect(chkRecordTrigger, SIGNAL(toggled(bool)),
             this, SLOT(triggerChecked(bool)));
@@ -1069,6 +1079,7 @@ void RecordDialog::setState(RecordState state)
     slRecordPre->setEnabled(enable_settings &&
                             chkRecordPre->isChecked());
 
+    chkRecordStartTime->setEnabled(enable_settings);
     chkRecordTime->setEnabled(enable_settings);
     sbRecordTime->setEnabled(enable_settings &&
                              chkRecordTime->isChecked());
@@ -1079,6 +1090,8 @@ void RecordDialog::setState(RecordState state)
                                 chkRecordTrigger->isChecked());
     slRecordTrigger->setEnabled(enable_trigger &&
                                 chkRecordTrigger->isChecked());
+    startTime->setEnabled(enable_settings &&
+                          chkRecordStartTime->isChecked());
 
     grpFormat->setEnabled(enable_settings);
     grpSource->setEnabled(enable_settings);
@@ -1116,9 +1129,46 @@ void RecordDialog::updateBufferState(unsigned int count, unsigned int total)
 	case REC_EMPTY:
 	case REC_BUFFERING:
 	case REC_PRERECORDING:
-	case REC_WAITING_FOR_TRIGGER:
 	    txt = "";
 	    break;
+	case REC_WAITING_FOR_TRIGGER: {
+	    txt = "";
+	    QString state_text;
+	    QDateTime now     = QDateTime::currentDateTime();
+	    QDateTime t_start = m_params.start_time;
+
+	    if (m_params.start_time_enabled && (now < t_start)) {
+		// waiting for start time to come...
+
+		int s = now.secsTo(t_start);
+		int m = s / 60;
+		s %= 60;
+		int h = m / 60;
+		m %= 60;
+		int d = h / 24;
+		h %= 24;
+
+		QString days    =
+		    (d) ? i18np("one day ",    "%1 days ",    d) : "";
+		QString hours   =
+		    (h) ? i18np("one hour ",   "%1 hours ",   h) : "";
+		QString minutes =
+		    (m) ? i18np("one minute ", "%1 minutes ", m) : "";
+		QString seconds =
+		    (d | h | m) ?
+		    i18np("and %1 second", "and %1 seconds", s) :
+		    i18np("%1 second", "%1 seconds", s);
+
+		state_text = i18n("waiting for start in %1%2%3%4 ...",
+		                  days, hours, minutes, seconds);
+	    } else {
+		// waiting for trigger...
+		state_text = i18n("waiting for trigger...");
+	    }
+	    lbl_state->changeItem(state_text, ID_STATE);
+
+	    break;
+	}
 	case REC_RECORDING:
 	case REC_PAUSED:
 	case REC_DONE: {
@@ -1167,10 +1217,28 @@ void RecordDialog::recordTimeChanged(int limit)
 }
 
 //***************************************************************************
+void RecordDialog::startTimeChecked(bool enabled)
+{
+    m_params.start_time_enabled = enabled;
+    emit sigTriggerChanged(enabled || m_params.record_trigger_enabled);
+}
+
+//***************************************************************************
+void RecordDialog::startTimeChanged(const QDateTime &datetime)
+{
+    m_params.start_time = datetime;
+
+    // force seconds to zero
+    QTime t = m_params.start_time.time();
+    t.setHMS(t.hour(), t.minute(), 0, 0);
+    m_params.start_time.setTime(t);
+}
+
+//***************************************************************************
 void RecordDialog::triggerChecked(bool enabled)
 {
     m_params.record_trigger_enabled = enabled;
-    emit sigTriggerChanged(enabled);
+    emit sigTriggerChanged(enabled || m_params.start_time_enabled);
 }
 
 //***************************************************************************

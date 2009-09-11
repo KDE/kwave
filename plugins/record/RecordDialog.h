@@ -38,6 +38,7 @@
 
 #include "ui_RecordDlg.h"
 
+class QDateTime;
 class QTreeWidgetItem;
 class QWidget;
 
@@ -255,6 +256,12 @@ private slots:
 
     /** record time has been changed */
     void recordTimeChanged(int record_time);
+
+    /** start time has been enabled/disabled */
+    void startTimeChecked(bool enabled);
+
+    /** start time has been changed */
+    void startTimeChanged(const QDateTime &datetime);
 
     /** record trigger has been enabled/disabled */
     void triggerChecked(bool enabled);

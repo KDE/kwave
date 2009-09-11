@@ -1,266 +1,243 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>RecordDlg</class>
- <widget class="QDialog" name="RecordDlg" >
-  <property name="geometry" >
+ <widget class="QDialog" name="RecordDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>755</width>
-    <height>580</height>
+    <width>738</width>
+    <height>586</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="focusPolicy">
+   <enum>Qt::ClickFocus</enum>
+  </property>
+  <property name="windowTitle">
    <string>Record</string>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="spacing" >
+  <layout class="QVBoxLayout">
+   <property name="spacing">
     <number>10</number>
    </property>
-   <property name="leftMargin" >
-    <number>0</number>
-   </property>
-   <property name="topMargin" >
-    <number>0</number>
-   </property>
-   <property name="rightMargin" >
-    <number>0</number>
-   </property>
-   <property name="bottomMargin" >
+   <property name="margin">
     <number>0</number>
    </property>
    <item>
-    <widget class="QFrame" name="frame7" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+    <widget class="QFrame" name="frame7">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="frameShape" >
+     <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
-     <property name="frameShadow" >
+     <property name="frameShadow">
       <enum>QFrame::Plain</enum>
      </property>
-     <layout class="QVBoxLayout" >
-      <property name="spacing" >
+     <layout class="QVBoxLayout">
+      <property name="spacing">
        <number>10</number>
       </property>
-      <property name="leftMargin" >
-       <number>10</number>
-      </property>
-      <property name="topMargin" >
-       <number>10</number>
-      </property>
-      <property name="rightMargin" >
-       <number>10</number>
-      </property>
-      <property name="bottomMargin" >
+      <property name="margin">
        <number>10</number>
       </property>
       <item>
-       <widget class="QTabWidget" name="tabRecord" >
-        <property name="currentIndex" >
-         <number>3</number>
+       <widget class="QTabWidget" name="tabRecord">
+        <property name="currentIndex">
+         <number>0</number>
         </property>
-        <widget class="QWidget" name="tab" >
-         <attribute name="title" >
+        <widget class="QWidget" name="tab">
+         <attribute name="title">
           <string>Recording</string>
          </attribute>
-         <layout class="QVBoxLayout" >
-          <property name="spacing" >
+         <layout class="QVBoxLayout">
+          <property name="spacing">
            <number>10</number>
           </property>
-          <property name="leftMargin" >
-           <number>10</number>
-          </property>
-          <property name="topMargin" >
-           <number>10</number>
-          </property>
-          <property name="rightMargin" >
-           <number>10</number>
-          </property>
-          <property name="bottomMargin" >
+          <property name="margin">
            <number>10</number>
           </property>
           <item>
-           <widget class="QGroupBox" name="grpRecording" >
-            <property name="title" >
+           <widget class="QGroupBox" name="grpRecording">
+            <property name="title">
              <string>Record Control</string>
             </property>
-            <layout class="QGridLayout" >
-             <item row="0" column="0" >
-              <widget class="QCheckBox" name="chkRecordPre" >
-               <property name="toolTip" >
+            <layout class="QGridLayout">
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="chkRecordPre">
+               <property name="toolTip">
                 <string>enable pre-recording</string>
                </property>
-               <property name="whatsThis" >
-                <string>When using &lt;b>pre-recording&lt;/b>, Kwave already internall records before the real recording starts. This feature is useful if you want some few seconds before you press on the record button to be recorded too. &lt;i>(for example when recording from radio)&lt;/i></string>
+               <property name="whatsThis">
+                <string>When using &lt;b&gt;pre-recording&lt;/b&gt;, Kwave already internall records before the real recording starts. This feature is useful if you want some few seconds before you press on the record button to be recorded too. &lt;i&gt;(for example when recording from radio)&lt;/i&gt;</string>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Pre-Record:</string>
                </property>
-               <property name="checked" >
+               <property name="checked">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="1" column="0" >
-              <widget class="QCheckBox" name="chkRecordTime" >
-               <property name="enabled" >
+             <item row="1" column="0">
+              <widget class="QCheckBox" name="chkRecordTime">
+               <property name="enabled">
                 <bool>true</bool>
                </property>
-               <property name="toolTip" >
-                <string>Limit the recording time</string>
+               <property name="toolTip">
+                <string>limit the recording time</string>
                </property>
-               <property name="whatsThis" >
-                <string>If checked, the &lt;b>record time&lt;/b> is limited and recording will automatically stop when the selected time is reached.</string>
+               <property name="whatsThis">
+                <string>If checked, the &lt;b&gt;record time&lt;/b&gt; is limited and recording will automatically stop when the selected time is reached.</string>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Record &amp;Time:</string>
                </property>
-               <property name="checked" >
+               <property name="checked">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="3" column="0" >
-              <widget class="QCheckBox" name="chkRecordTrigger" >
-               <property name="enabled" >
+             <item row="5" column="0">
+              <widget class="QCheckBox" name="chkRecordTrigger">
+               <property name="enabled">
                 <bool>true</bool>
                </property>
-               <property name="toolTip" >
+               <property name="toolTip">
                 <string>trigger level</string>
                </property>
-               <property name="whatsThis" >
-                <string>If the &lt;b>record trigger&lt;/b> is enabled, recording will start as soon as the volume of the input signal goes over the selected level.</string>
+               <property name="whatsThis">
+                <string>If the &lt;b&gt;record trigger&lt;/b&gt; is enabled, recording will start as soon as the volume of the input signal goes over the selected level.</string>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Record Trigger:</string>
                </property>
-               <property name="checked" >
+               <property name="checked">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="2" column="0" colspan="3" >
-              <widget class="QFrame" name="frame5" >
-               <property name="minimumSize" >
+             <item row="3" column="0" colspan="3">
+              <widget class="QFrame" name="frame5">
+               <property name="minimumSize">
                 <size>
                  <width>0</width>
                  <height>10</height>
                 </size>
                </property>
-               <property name="frameShape" >
+               <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
                </property>
-               <property name="frameShadow" >
+               <property name="frameShadow">
                 <enum>QFrame::Plain</enum>
                </property>
               </widget>
              </item>
-             <item row="6" column="0" colspan="3" >
-              <layout class="QHBoxLayout" >
+             <item row="8" column="0" colspan="3">
+              <layout class="QHBoxLayout">
                <item>
-                <widget class="KPushButton" name="btNew" >
-                 <property name="enabled" >
+                <widget class="KPushButton" name="btNew">
+                 <property name="enabled">
                   <bool>true</bool>
                  </property>
-                 <property name="minimumSize" >
+                 <property name="minimumSize">
                   <size>
                    <width>30</width>
                    <height>30</height>
                   </size>
                  </property>
-                 <property name="toolTip" >
+                 <property name="toolTip">
                   <string>New File</string>
                  </property>
-                 <property name="text" >
+                 <property name="text">
                   <string/>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="KPushButton" name="btStop" >
-                 <property name="enabled" >
+                <widget class="KPushButton" name="btStop">
+                 <property name="enabled">
                   <bool>false</bool>
                  </property>
-                 <property name="minimumSize" >
+                 <property name="minimumSize">
                   <size>
                    <width>30</width>
                    <height>30</height>
                   </size>
                  </property>
-                 <property name="toolTip" >
+                 <property name="toolTip">
                   <string>Stop Recording</string>
                  </property>
-                 <property name="text" >
+                 <property name="text">
                   <string/>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="KPushButton" name="btPause" >
-                 <property name="enabled" >
+                <widget class="KPushButton" name="btPause">
+                 <property name="enabled">
                   <bool>false</bool>
                  </property>
-                 <property name="minimumSize" >
+                 <property name="minimumSize">
                   <size>
                    <width>30</width>
                    <height>30</height>
                   </size>
                  </property>
-                 <property name="toolTip" >
+                 <property name="toolTip">
                   <string>Pause/Continue</string>
                  </property>
-                 <property name="text" >
+                 <property name="text">
                   <string/>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="KPushButton" name="btRecord" >
-                 <property name="minimumSize" >
+                <widget class="KPushButton" name="btRecord">
+                 <property name="minimumSize">
                   <size>
                    <width>30</width>
                    <height>35</height>
                   </size>
                  </property>
-                 <property name="toolTip" >
+                 <property name="toolTip">
                   <string>Record!</string>
                  </property>
-                 <property name="text" >
+                 <property name="text">
                   <string/>
                  </property>
                 </widget>
                </item>
               </layout>
              </item>
-             <item row="5" column="0" colspan="3" >
-              <widget class="QFrame" name="frame5_2" >
-               <property name="minimumSize" >
+             <item row="7" column="0" colspan="3">
+              <widget class="QFrame" name="frame5_2">
+               <property name="minimumSize">
                 <size>
                  <width>0</width>
                  <height>10</height>
                 </size>
                </property>
-               <property name="frameShape" >
+               <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
                </property>
-               <property name="frameShadow" >
+               <property name="frameShadow">
                 <enum>QFrame::Plain</enum>
                </property>
               </widget>
              </item>
-             <item row="4" column="1" >
+             <item row="6" column="1">
               <spacer>
-               <property name="orientation" >
+               <property name="orientation">
                 <enum>Qt::Vertical</enum>
                </property>
-               <property name="sizeType" >
+               <property name="sizeType">
                 <enum>QSizePolicy::Expanding</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>20</width>
                  <height>20</height>
@@ -268,98 +245,101 @@
                </property>
               </spacer>
              </item>
-             <item row="0" column="2" >
-              <widget class="QSlider" name="slRecordPre" >
-               <property name="enabled" >
+             <item row="0" column="2">
+              <widget class="QSlider" name="slRecordPre">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="minimumSize" >
+               <property name="minimumSize">
                 <size>
                  <width>150</width>
                  <height>0</height>
                 </size>
                </property>
-               <property name="minimum" >
+               <property name="minimum">
                 <number>1</number>
                </property>
-               <property name="maximum" >
+               <property name="maximum">
                 <number>60</number>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>10</number>
                </property>
-               <property name="orientation" >
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
               </widget>
              </item>
-             <item row="0" column="1" >
-              <widget class="KIntSpinBox" name="sbRecordPre" >
-               <property name="enabled" >
+             <item row="0" column="1">
+              <widget class="KIntSpinBox" name="sbRecordPre">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="minimumSize" >
+               <property name="minimumSize">
                 <size>
                  <width>100</width>
                  <height>0</height>
                 </size>
                </property>
-               <property name="suffix" >
+               <property name="suffix">
                 <string> s</string>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>10</number>
                </property>
-               <property name="maxValue" stdset="0" >
+               <property name="maxValue" stdset="0">
                 <number>60</number>
                </property>
-               <property name="minValue" stdset="0" >
+               <property name="minValue" stdset="0">
                 <number>1</number>
                </property>
               </widget>
              </item>
-             <item row="3" column="2" >
-              <widget class="QSlider" name="slRecordTrigger" >
-               <property name="enabled" >
+             <item row="5" column="2">
+              <widget class="QSlider" name="slRecordTrigger">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="orientation" >
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
               </widget>
              </item>
-             <item row="3" column="1" >
-              <widget class="QSpinBox" name="sbRecordTrigger" >
-               <property name="enabled" >
+             <item row="5" column="1">
+              <widget class="QSpinBox" name="sbRecordTrigger">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="suffix" >
+               <property name="suffix">
                 <string> %</string>
                </property>
-               <property name="minimum" >
+               <property name="minimum">
                 <number>1</number>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>27</number>
                </property>
               </widget>
              </item>
-             <item row="1" column="1" >
-              <widget class="HMSTimeWidget" native="1" name="sbRecordTime" >
-               <property name="enabled" >
+             <item row="1" column="1">
+              <widget class="HMSTimeWidget" name="sbRecordTime" native="true">
+               <property name="enabled">
                 <bool>false</bool>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::WheelFocus</enum>
                </property>
               </widget>
              </item>
-             <item row="1" column="2" >
+             <item row="1" column="2">
               <spacer>
-               <property name="orientation" >
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeType" >
+               <property name="sizeType">
                 <enum>QSizePolicy::Expanding</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>411</width>
                  <height>20</height>
@@ -367,141 +347,164 @@
                </property>
               </spacer>
              </item>
+             <item row="4" column="0">
+              <widget class="QCheckBox" name="chkRecordStartTime">
+               <property name="toolTip">
+                <string>start at a given date and time</string>
+               </property>
+               <property name="whatsThis">
+                <string>When checked, &lt;b&gt;start the recording at a given date and time&lt;/b&gt;. Please note that if the time is in the past, the recording will be started immediately or as soon as the defined trigger level is reached (if enabled).</string>
+               </property>
+               <property name="text">
+                <string>Start &amp;At:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1" colspan="2">
+              <widget class="KDateTimeWidget" name="startTime">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::WheelFocus</enum>
+               </property>
+              </widget>
+             </item>
             </layout>
            </widget>
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab" >
-         <attribute name="title" >
+        <widget class="QWidget" name="tab">
+         <attribute name="title">
           <string>Level</string>
          </attribute>
-         <layout class="QVBoxLayout" >
+         <layout class="QVBoxLayout">
           <item>
-           <widget class="QGroupBox" name="grpLevel" >
-            <property name="enabled" >
+           <widget class="QGroupBox" name="grpLevel">
+            <property name="enabled">
              <bool>false</bool>
             </property>
-            <property name="title" >
+            <property name="title">
              <string>Level</string>
             </property>
-            <layout class="QGridLayout" >
-             <item row="0" column="2" >
-              <widget class="QSlider" name="slLevelAmplify" >
-               <property name="enabled" >
+            <layout class="QGridLayout">
+             <item row="0" column="2">
+              <widget class="QSlider" name="slLevelAmplify">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="minimum" >
+               <property name="minimum">
                 <number>-42</number>
                </property>
-               <property name="maximum" >
+               <property name="maximum">
                 <number>42</number>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>3</number>
                </property>
-               <property name="orientation" >
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="tickInterval" >
+               <property name="tickInterval">
                 <number>3</number>
                </property>
               </widget>
              </item>
-             <item row="1" column="0" >
-              <widget class="QCheckBox" name="chkLevelAGC" >
-               <property name="enabled" >
+             <item row="1" column="0">
+              <widget class="QCheckBox" name="chkLevelAGC">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>AGC:</string>
                </property>
-               <property name="checked" >
+               <property name="checked">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="0" column="0" >
-              <widget class="QCheckBox" name="chkLevelAmplify" >
-               <property name="enabled" >
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="chkLevelAmplify">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Amplify:</string>
                </property>
-               <property name="checked" >
+               <property name="checked">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="0" column="1" >
-              <widget class="KIntSpinBox" name="sbLevelAmplify" >
-               <property name="enabled" >
+             <item row="0" column="1">
+              <widget class="KIntSpinBox" name="sbLevelAmplify">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="minimumSize" >
+               <property name="minimumSize">
                 <size>
                  <width>90</width>
                  <height>0</height>
                 </size>
                </property>
-               <property name="suffix" >
+               <property name="suffix">
                 <string> dB</string>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>3</number>
                </property>
-               <property name="maxValue" stdset="0" >
+               <property name="maxValue" stdset="0">
                 <number>42</number>
                </property>
-               <property name="minValue" stdset="0" >
+               <property name="minValue" stdset="0">
                 <number>-42</number>
                </property>
               </widget>
              </item>
-             <item row="1" column="1" >
-              <widget class="KIntSpinBox" name="sbLevelAGC" >
-               <property name="enabled" >
+             <item row="1" column="1">
+              <widget class="KIntSpinBox" name="sbLevelAGC">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="suffix" >
+               <property name="suffix">
                 <string> ms</string>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>50</number>
                </property>
-               <property name="maxValue" stdset="0" >
+               <property name="maxValue" stdset="0">
                 <number>1000</number>
                </property>
-               <property name="minValue" stdset="0" >
+               <property name="minValue" stdset="0">
                 <number>10</number>
                </property>
-               <property name="lineStep" stdset="0" >
+               <property name="lineStep" stdset="0">
                 <number>10</number>
                </property>
               </widget>
              </item>
-             <item row="1" column="2" >
-              <widget class="QSlider" name="slLevelAGC" >
-               <property name="enabled" >
+             <item row="1" column="2">
+              <widget class="QSlider" name="slLevelAGC">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="minimum" >
+               <property name="minimum">
                 <number>10</number>
                </property>
-               <property name="maximum" >
+               <property name="maximum">
                 <number>1000</number>
                </property>
-               <property name="singleStep" >
+               <property name="singleStep">
                 <number>10</number>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>50</number>
                </property>
-               <property name="orientation" >
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="tickInterval" >
+               <property name="tickInterval">
                 <number>50</number>
                </property>
               </widget>
@@ -510,81 +513,81 @@
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="grpFading" >
-            <property name="enabled" >
+           <widget class="QGroupBox" name="grpFading">
+            <property name="enabled">
              <bool>false</bool>
             </property>
-            <property name="title" >
+            <property name="title">
              <string>Fading</string>
             </property>
-            <layout class="QGridLayout" >
-             <item row="0" column="0" >
-              <widget class="QCheckBox" name="chkLevelFadeIn" >
-               <property name="enabled" >
+            <layout class="QGridLayout">
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="chkLevelFadeIn">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Fade In</string>
                </property>
-               <property name="checked" >
+               <property name="checked">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="1" column="0" >
-              <widget class="QCheckBox" name="chkLevelFadeOut" >
-               <property name="enabled" >
+             <item row="1" column="0">
+              <widget class="QCheckBox" name="chkLevelFadeOut">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Fade Out</string>
                </property>
-               <property name="checked" >
+               <property name="checked">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="1" column="1" >
-              <widget class="KIntSpinBox" name="sbLevelFadeOut" >
-               <property name="enabled" >
+             <item row="1" column="1">
+              <widget class="KIntSpinBox" name="sbLevelFadeOut">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="suffix" >
+               <property name="suffix">
                 <string> sec</string>
                </property>
-               <property name="maxValue" stdset="0" >
+               <property name="maxValue" stdset="0">
                 <number>30</number>
                </property>
-               <property name="minValue" stdset="0" >
+               <property name="minValue" stdset="0">
                 <number>1</number>
                </property>
               </widget>
              </item>
-             <item row="0" column="1" >
-              <widget class="KIntSpinBox" name="sbLevelFadeIn" >
-               <property name="enabled" >
+             <item row="0" column="1">
+              <widget class="KIntSpinBox" name="sbLevelFadeIn">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="suffix" >
+               <property name="suffix">
                 <string> sec</string>
                </property>
-               <property name="maxValue" stdset="0" >
+               <property name="maxValue" stdset="0">
                 <number>30</number>
                </property>
-               <property name="minValue" stdset="0" >
+               <property name="minValue" stdset="0">
                 <number>1</number>
                </property>
               </widget>
              </item>
-             <item row="0" column="2" >
+             <item row="0" column="2">
               <spacer>
-               <property name="orientation" >
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeType" >
+               <property name="sizeType">
                 <enum>QSizePolicy::Expanding</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>60</width>
                  <height>20</height>
@@ -592,15 +595,15 @@
                </property>
               </spacer>
              </item>
-             <item row="1" column="2" >
+             <item row="1" column="2">
               <spacer>
-               <property name="orientation" >
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeType" >
+               <property name="sizeType">
                 <enum>QSizePolicy::Expanding</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>60</width>
                  <height>20</height>
@@ -613,44 +616,32 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab" >
-         <attribute name="title" >
+        <widget class="QWidget" name="tab">
+         <attribute name="title">
           <string>For&amp;mat</string>
          </attribute>
-         <layout class="QVBoxLayout" >
+         <layout class="QVBoxLayout">
           <item>
-           <widget class="QGroupBox" name="grpFormat" >
-            <property name="title" >
+           <widget class="QGroupBox" name="grpFormat">
+            <property name="title">
              <string>Format</string>
             </property>
-            <layout class="QGridLayout" >
-             <property name="leftMargin" >
+            <layout class="QGridLayout">
+             <property name="margin">
               <number>11</number>
              </property>
-             <property name="topMargin" >
-              <number>11</number>
-             </property>
-             <property name="rightMargin" >
-              <number>11</number>
-             </property>
-             <property name="bottomMargin" >
-              <number>11</number>
-             </property>
-             <property name="horizontalSpacing" >
+             <property name="spacing">
               <number>6</number>
              </property>
-             <property name="verticalSpacing" >
-              <number>6</number>
-             </property>
-             <item row="0" column="1" >
+             <item row="0" column="1">
               <spacer>
-               <property name="orientation" >
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeType" >
+               <property name="sizeType">
                 <enum>QSizePolicy::Fixed</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>20</width>
                  <height>21</height>
@@ -658,49 +649,40 @@
                </property>
               </spacer>
              </item>
-             <item row="0" column="2" >
-              <widget class="KComboBox" name="cbFormatSampleRate" >
-               <property name="whatsThis" >
-                <string>&lt;b>Sample Rate&lt;/b>&lt;br>Here you can select one of the predefined well-known sample rates that your sound card supports.</string>
+             <item row="0" column="2">
+              <widget class="KComboBox" name="cbFormatSampleRate">
+               <property name="whatsThis">
+                <string>&lt;b&gt;Sample Rate&lt;/b&gt;&lt;br&gt;Here you can select one of the predefined well-known sample rates that your sound card supports.</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="3" >
-              <layout class="QHBoxLayout" >
-               <property name="spacing" >
+             <item row="0" column="3">
+              <layout class="QHBoxLayout">
+               <property name="spacing">
                 <number>6</number>
                </property>
-               <property name="leftMargin" >
-                <number>0</number>
-               </property>
-               <property name="topMargin" >
-                <number>0</number>
-               </property>
-               <property name="rightMargin" >
-                <number>0</number>
-               </property>
-               <property name="bottomMargin" >
+               <property name="margin">
                 <number>0</number>
                </property>
                <item>
-                <widget class="QLabel" name="lblSamplesPerSecond" >
-                 <property name="text" >
+                <widget class="QLabel" name="lblSamplesPerSecond">
+                 <property name="text">
                   <string>samples per second</string>
                  </property>
-                 <property name="wordWrap" >
+                 <property name="wordWrap">
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item>
                 <spacer>
-                 <property name="orientation" >
+                 <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
-                 <property name="sizeType" >
+                 <property name="sizeType">
                   <enum>QSizePolicy::Expanding</enum>
                  </property>
-                 <property name="sizeHint" >
+                 <property name="sizeHint" stdset="0">
                   <size>
                    <width>20</width>
                    <height>0</height>
@@ -710,48 +692,48 @@
                </item>
               </layout>
              </item>
-             <item row="0" column="0" >
-              <widget class="QLabel" name="lblRate" >
-               <property name="text" >
+             <item row="0" column="0">
+              <widget class="QLabel" name="lblRate">
+               <property name="text">
                 <string>Sample Rate:</string>
                </property>
-               <property name="wordWrap" >
+               <property name="wordWrap">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="1" column="0" >
-              <widget class="QLabel" name="lblTracks" >
-               <property name="text" >
+             <item row="1" column="0">
+              <widget class="QLabel" name="lblTracks">
+               <property name="text">
                 <string>Tracks:</string>
                </property>
-               <property name="wordWrap" >
+               <property name="wordWrap">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="1" column="2" >
-              <widget class="QSpinBox" name="sbFormatTracks" >
-               <property name="whatsThis" >
-                <string>&lt;b>Number of Tracks&lt;/b>&lt;br>Select a number of tracks, e.g. for mono or stereo recording.</string>
+             <item row="1" column="2">
+              <widget class="QSpinBox" name="sbFormatTracks">
+               <property name="whatsThis">
+                <string>&lt;b&gt;Number of Tracks&lt;/b&gt;&lt;br&gt;Select a number of tracks, e.g. for mono or stereo recording.</string>
                </property>
-               <property name="minimum" >
+               <property name="minimum">
                 <number>1</number>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>1</number>
                </property>
               </widget>
              </item>
-             <item row="1" column="1" >
+             <item row="1" column="1">
               <spacer>
-               <property name="orientation" >
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeType" >
+               <property name="sizeType">
                 <enum>QSizePolicy::Fixed</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>20</width>
                  <height>20</height>
@@ -759,42 +741,33 @@
                </property>
               </spacer>
              </item>
-             <item row="1" column="3" >
-              <layout class="QHBoxLayout" >
-               <property name="spacing" >
+             <item row="1" column="3">
+              <layout class="QHBoxLayout">
+               <property name="spacing">
                 <number>6</number>
                </property>
-               <property name="leftMargin" >
-                <number>0</number>
-               </property>
-               <property name="topMargin" >
-                <number>0</number>
-               </property>
-               <property name="rightMargin" >
-                <number>0</number>
-               </property>
-               <property name="bottomMargin" >
+               <property name="margin">
                 <number>0</number>
                </property>
                <item>
-                <widget class="QLabel" name="lblTracksVerbose" >
-                 <property name="text" >
+                <widget class="QLabel" name="lblTracksVerbose">
+                 <property name="text">
                   <string>?</string>
                  </property>
-                 <property name="wordWrap" >
+                 <property name="wordWrap">
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item>
                 <spacer>
-                 <property name="orientation" >
+                 <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
-                 <property name="sizeType" >
+                 <property name="sizeType">
                   <enum>QSizePolicy::Expanding</enum>
                  </property>
-                 <property name="sizeHint" >
+                 <property name="sizeHint" stdset="0">
                   <size>
                    <width>20</width>
                    <height>0</height>
@@ -804,38 +777,38 @@
                </item>
               </layout>
              </item>
-             <item row="2" column="0" >
-              <widget class="QLabel" name="lblFormatCompression" >
-               <property name="text" >
+             <item row="2" column="0">
+              <widget class="QLabel" name="lblFormatCompression">
+               <property name="text">
                 <string>Compression:</string>
                </property>
-               <property name="wordWrap" >
+               <property name="wordWrap">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="2" column="2" >
-              <widget class="KComboBox" name="cbFormatCompression" >
-               <property name="minimumSize" >
+             <item row="2" column="2">
+              <widget class="KComboBox" name="cbFormatCompression">
+               <property name="minimumSize">
                 <size>
                  <width>200</width>
                  <height>0</height>
                 </size>
                </property>
-               <property name="whatsThis" >
-                <string>&lt;b>Compression&lt;/b>&lt;br>Here you can select one of the compression types if your audio hardware supports it.</string>
+               <property name="whatsThis">
+                <string>&lt;b&gt;Compression&lt;/b&gt;&lt;br&gt;Here you can select one of the compression types if your audio hardware supports it.</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="1" >
+             <item row="2" column="1">
               <spacer>
-               <property name="orientation" >
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeType" >
+               <property name="sizeType">
                 <enum>QSizePolicy::Fixed</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>20</width>
                  <height>21</height>
@@ -843,15 +816,15 @@
                </property>
               </spacer>
              </item>
-             <item row="2" column="3" >
+             <item row="2" column="3">
               <spacer>
-               <property name="orientation" >
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeType" >
+               <property name="sizeType">
                 <enum>QSizePolicy::Expanding</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>239</width>
                  <height>21</height>
@@ -859,15 +832,15 @@
                </property>
               </spacer>
              </item>
-             <item row="4" column="1" >
+             <item row="4" column="1">
               <spacer>
-               <property name="orientation" >
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeType" >
+               <property name="sizeType">
                 <enum>QSizePolicy::Fixed</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>20</width>
                  <height>21</height>
@@ -875,28 +848,28 @@
                </property>
               </spacer>
              </item>
-             <item row="4" column="2" >
-              <widget class="KComboBox" name="cbFormatSampleFormat" >
-               <property name="minimumSize" >
+             <item row="4" column="2">
+              <widget class="KComboBox" name="cbFormatSampleFormat">
+               <property name="minimumSize">
                 <size>
                  <width>200</width>
                  <height>0</height>
                 </size>
                </property>
-               <property name="whatsThis" >
-                <string>&lt;b>Sample Format&lt;/b>&lt;br>Here you can select one of the sample formats that your audio hardware supports. This normally has no big influence on the result, so you can just leave it as it is.</string>
+               <property name="whatsThis">
+                <string>&lt;b&gt;Sample Format&lt;/b&gt;&lt;br&gt;Here you can select one of the sample formats that your audio hardware supports. This normally has no big influence on the result, so you can just leave it as it is.</string>
                </property>
               </widget>
              </item>
-             <item row="4" column="3" >
+             <item row="4" column="3">
               <spacer>
-               <property name="orientation" >
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeType" >
+               <property name="sizeType">
                 <enum>QSizePolicy::Expanding</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>311</width>
                  <height>21</height>
@@ -904,54 +877,54 @@
                </property>
               </spacer>
              </item>
-             <item row="4" column="0" >
-              <widget class="QLabel" name="lblSampleFormat" >
-               <property name="text" >
+             <item row="4" column="0">
+              <widget class="QLabel" name="lblSampleFormat">
+               <property name="text">
                 <string>Sample Format:</string>
                </property>
-               <property name="wordWrap" >
+               <property name="wordWrap">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="3" column="2" >
-              <widget class="QSpinBox" name="sbFormatResolution" >
-               <property name="whatsThis" >
-                <string>&lt;b>Resolution&lt;/b>&lt;br>Select a resolution in bits in which the file will be recorded. Higher values give better quality but also more system load.</string>
+             <item row="3" column="2">
+              <widget class="QSpinBox" name="sbFormatResolution">
+               <property name="whatsThis">
+                <string>&lt;b&gt;Resolution&lt;/b&gt;&lt;br&gt;Select a resolution in bits in which the file will be recorded. Higher values give better quality but also more system load.</string>
                </property>
-               <property name="minimum" >
+               <property name="minimum">
                 <number>8</number>
                </property>
-               <property name="maximum" >
+               <property name="maximum">
                 <number>24</number>
                </property>
-               <property name="singleStep" >
+               <property name="singleStep">
                 <number>1</number>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>16</number>
                </property>
               </widget>
              </item>
-             <item row="3" column="0" >
-              <widget class="QLabel" name="lblResolution" >
-               <property name="text" >
+             <item row="3" column="0">
+              <widget class="QLabel" name="lblResolution">
+               <property name="text">
                 <string>Resolution:</string>
                </property>
-               <property name="wordWrap" >
+               <property name="wordWrap">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="3" column="1" >
+             <item row="3" column="1">
               <spacer>
-               <property name="orientation" >
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeType" >
+               <property name="sizeType">
                 <enum>QSizePolicy::Fixed</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>20</width>
                  <height>20</height>
@@ -959,42 +932,33 @@
                </property>
               </spacer>
              </item>
-             <item row="3" column="3" >
-              <layout class="QHBoxLayout" >
-               <property name="spacing" >
+             <item row="3" column="3">
+              <layout class="QHBoxLayout">
+               <property name="spacing">
                 <number>6</number>
                </property>
-               <property name="leftMargin" >
-                <number>0</number>
-               </property>
-               <property name="topMargin" >
-                <number>0</number>
-               </property>
-               <property name="rightMargin" >
-                <number>0</number>
-               </property>
-               <property name="bottomMargin" >
+               <property name="margin">
                 <number>0</number>
                </property>
                <item>
-                <widget class="QLabel" name="lblBits" >
-                 <property name="text" >
+                <widget class="QLabel" name="lblBits">
+                 <property name="text">
                   <string>bit</string>
                  </property>
-                 <property name="wordWrap" >
+                 <property name="wordWrap">
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item>
                 <spacer>
-                 <property name="orientation" >
+                 <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
-                 <property name="sizeType" >
+                 <property name="sizeType">
                   <enum>QSizePolicy::Expanding</enum>
                  </property>
-                 <property name="sizeHint" >
+                 <property name="sizeHint" stdset="0">
                   <size>
                    <width>20</width>
                    <height>0</height>
@@ -1009,214 +973,214 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab" >
-         <attribute name="title" >
+        <widget class="QWidget" name="tab">
+         <attribute name="title">
           <string>Source</string>
          </attribute>
-         <layout class="QGridLayout" >
-          <item row="0" column="0" >
-           <widget class="QGroupBox" name="grpSource" >
-            <property name="title" >
+         <layout class="QGridLayout">
+          <item row="0" column="0">
+           <widget class="QGroupBox" name="grpSource">
+            <property name="title">
              <string>Source</string>
             </property>
-            <layout class="QGridLayout" >
-             <item row="4" column="0" >
-              <widget class="QLabel" name="textLabel2" >
-               <property name="text" >
+            <layout class="QGridLayout">
+             <item row="4" column="0">
+              <widget class="QLabel" name="textLabel2">
+               <property name="text">
                 <string>Buffer Size:</string>
                </property>
-               <property name="wordWrap" >
+               <property name="wordWrap">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="3" column="0" >
-              <widget class="QLabel" name="textLabel1_4" >
-               <property name="text" >
+             <item row="3" column="0">
+              <widget class="QLabel" name="textLabel1_4">
+               <property name="text">
                 <string>Buffer Count:</string>
                </property>
-               <property name="wordWrap" >
+               <property name="wordWrap">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="0" column="1" >
-              <widget class="KComboBox" name="cbMethod" >
-               <property name="sizePolicy" >
-                <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
+             <item row="0" column="1">
+              <widget class="KComboBox" name="cbMethod">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="minimumSize" >
+               <property name="minimumSize">
                 <size>
                  <width>130</width>
                  <height>30</height>
                 </size>
                </property>
-               <property name="toolTip" >
+               <property name="toolTip">
                 <string>method or system used for recording</string>
                </property>
-               <property name="whatsThis" >
-                <string>&lt;b>Recording Method:&lt;/b>&lt;p>Choose a method or system used for
-recording. Depending on the compilation options you can select one of the following methods:&lt;/p>
-&lt;p>&lt;b>&lt;i>OSS (Open Sound System)&lt;/i>&lt;/b>: The oldest linux implementation, only capable of mono and stereo input. Deprecated since linux kernel 2.6, but still wide spread.&lt;/p>
-&lt;p>&lt;b>&lt;i>ALSA (Advanced Linux Sound Architecture)&lt;/i>&lt;/b>: Supercedes OSS, supports more features and more hardware.&lt;/p></string>
+               <property name="whatsThis">
+                <string>&lt;b&gt;Recording Method:&lt;/b&gt;&lt;p&gt;Choose a method or system used for
+recording. Depending on the compilation options you can select one of the following methods:&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;&lt;i&gt;OSS (Open Sound System)&lt;/i&gt;&lt;/b&gt;: The oldest linux implementation, only capable of mono and stereo input. Deprecated since linux kernel 2.6, but still wide spread.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;&lt;i&gt;ALSA (Advanced Linux Sound Architecture)&lt;/i&gt;&lt;/b&gt;: Supercedes OSS, supports more features and more hardware.&lt;/p&gt;</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="0" >
-              <widget class="QLabel" name="textLabel1_5" >
-               <property name="text" >
+             <item row="0" column="0">
+              <widget class="QLabel" name="textLabel1_5">
+               <property name="text">
                 <string>Recording Method:</string>
                </property>
-               <property name="wordWrap" >
+               <property name="wordWrap">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="1" column="1" >
-              <layout class="QHBoxLayout" >
+             <item row="1" column="1">
+              <layout class="QHBoxLayout">
                <item>
-                <widget class="KComboBox" name="cbDevice" >
-                 <property name="sizePolicy" >
-                  <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+                <widget class="KComboBox" name="cbDevice">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                    <horstretch>10</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="toolTip" >
+                 <property name="toolTip">
                   <string>recording device</string>
                  </property>
-                 <property name="whatsThis" >
-                  <string>&lt;b>Device:&lt;/b>&lt;p>This list shows a selection of some known recording devices suitable for the choosen recording method. If your device is not listed here, you can enter a device name on your own or search through the filesystem.&lt;/p></string>
+                 <property name="whatsThis">
+                  <string>&lt;b&gt;Device:&lt;/b&gt;&lt;p&gt;This list shows a selection of some known recording devices suitable for the choosen recording method. If your device is not listed here, you can enter a device name on your own or search through the filesystem.&lt;/p&gt;</string>
                  </property>
-                 <property name="editable" >
+                 <property name="editable">
                   <bool>true</bool>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="btSourceSelect" >
-                 <property name="sizePolicy" >
-                  <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+                <widget class="QPushButton" name="btSourceSelect">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="toolTip" >
+                 <property name="toolTip">
                   <string>search on the filesystem for a device</string>
                  </property>
-                 <property name="whatsThis" >
-                  <string>&lt;b>Select...&lt;/b>&lt;p>Choose a device name on the harddisk, if your device is not already listed in the list of devices.&lt;/p></string>
+                 <property name="whatsThis">
+                  <string>&lt;b&gt;Select...&lt;/b&gt;&lt;p&gt;Choose a device name on the harddisk, if your device is not already listed in the list of devices.&lt;/p&gt;</string>
                  </property>
-                 <property name="text" >
+                 <property name="text">
                   <string>Selec&amp;t...</string>
                  </property>
-                 <property name="shortcut" >
+                 <property name="shortcut">
                   <string>Alt+T</string>
                  </property>
                 </widget>
                </item>
               </layout>
              </item>
-             <item rowspan="2" row="3" column="1" >
-              <layout class="QGridLayout" >
-               <item row="1" column="1" >
-                <widget class="QSlider" name="slSourceBufferSize" >
-                 <property name="minimum" >
+             <item row="3" column="1" rowspan="2">
+              <layout class="QGridLayout">
+               <item row="1" column="1">
+                <widget class="QSlider" name="slSourceBufferSize">
+                 <property name="minimum">
                   <number>10</number>
                  </property>
-                 <property name="maximum" >
+                 <property name="maximum">
                   <number>18</number>
                  </property>
-                 <property name="pageStep" >
+                 <property name="pageStep">
                   <number>1</number>
                  </property>
-                 <property name="value" >
+                 <property name="value">
                   <number>12</number>
                  </property>
-                 <property name="orientation" >
+                 <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
-                 <property name="tickInterval" >
+                 <property name="tickInterval">
                   <number>1</number>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="1" >
-                <widget class="QSlider" name="slSourceBufferCount" >
-                 <property name="minimum" >
+               <item row="0" column="1">
+                <widget class="QSlider" name="slSourceBufferCount">
+                 <property name="minimum">
                   <number>4</number>
                  </property>
-                 <property name="maximum" >
+                 <property name="maximum">
                   <number>64</number>
                  </property>
-                 <property name="singleStep" >
+                 <property name="singleStep">
                   <number>10</number>
                  </property>
-                 <property name="value" >
+                 <property name="value">
                   <number>32</number>
                  </property>
-                 <property name="orientation" >
+                 <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
-                 <property name="tickInterval" >
+                 <property name="tickInterval">
                   <number>5</number>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0" >
-                <widget class="QLabel" name="txtSourceBuffer" >
-                 <property name="text" >
+               <item row="1" column="0">
+                <widget class="QLabel" name="txtSourceBuffer">
+                 <property name="text">
                   <string>%1 samples</string>
                  </property>
-                 <property name="wordWrap" >
+                 <property name="wordWrap">
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="0" >
-                <widget class="QSpinBox" name="sbSourceBuffer" >
-                 <property name="minimum" >
+               <item row="0" column="0">
+                <widget class="QSpinBox" name="sbSourceBuffer">
+                 <property name="minimum">
                   <number>4</number>
                  </property>
-                 <property name="maximum" >
+                 <property name="maximum">
                   <number>64</number>
                  </property>
-                 <property name="value" >
+                 <property name="value">
                   <number>32</number>
                  </property>
                 </widget>
                </item>
               </layout>
              </item>
-             <item row="1" column="0" >
-              <widget class="QLabel" name="textLabel1" >
-               <property name="text" >
+             <item row="1" column="0">
+              <widget class="QLabel" name="textLabel1">
+               <property name="text">
                 <string>Device:</string>
                </property>
-               <property name="wordWrap" >
+               <property name="wordWrap">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="2" column="0" colspan="2" >
-              <widget class="TreeWidgetWrapper" name="listDevices" >
-               <property name="sizePolicy" >
-                <sizepolicy vsizetype="MinimumExpanding" hsizetype="Expanding" >
+             <item row="2" column="0" colspan="2">
+              <widget class="TreeWidgetWrapper" name="listDevices">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
                  <horstretch>0</horstretch>
                  <verstretch>100</verstretch>
                 </sizepolicy>
                </property>
-               <property name="minimumSize" >
+               <property name="minimumSize">
                 <size>
                  <width>0</width>
                  <height>120</height>
                 </size>
                </property>
                <column>
-                <property name="text" >
+                <property name="text">
                  <string>Device</string>
                 </property>
                </column>
@@ -1227,59 +1191,59 @@ recording. Depending on the compilation options you can select one of the follow
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab" >
-         <attribute name="title" >
+        <widget class="QWidget" name="tab">
+         <attribute name="title">
           <string>Display</string>
          </attribute>
-         <layout class="QVBoxLayout" >
+         <layout class="QVBoxLayout">
           <item>
-           <widget class="QGroupBox" name="grpDisplay" >
-            <property name="enabled" >
+           <widget class="QGroupBox" name="grpDisplay">
+            <property name="enabled">
              <bool>true</bool>
             </property>
-            <property name="title" >
+            <property name="title">
              <string>Visualization</string>
             </property>
-            <layout class="QVBoxLayout" >
+            <layout class="QVBoxLayout">
              <item>
-              <widget class="QCheckBox" name="chkDisplayLevelMeter" >
-               <property name="enabled" >
+              <widget class="QCheckBox" name="chkDisplayLevelMeter">
+               <property name="enabled">
                 <bool>true</bool>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Level Meter</string>
                </property>
-               <property name="checked" >
+               <property name="checked">
                 <bool>true</bool>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="chkDisplayOscilloscope" >
-               <property name="enabled" >
+              <widget class="QCheckBox" name="chkDisplayOscilloscope">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Oscilloscope</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="chkDisplayFFT" >
-               <property name="enabled" >
+              <widget class="QCheckBox" name="chkDisplayFFT">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>FFT</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="chkDisplayOverview" >
-               <property name="enabled" >
+              <widget class="QCheckBox" name="chkDisplayOverview">
+               <property name="enabled">
                 <bool>false</bool>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Overview</string>
                </property>
               </widget>
@@ -1292,32 +1256,32 @@ recording. Depending on the compilation options you can select one of the follow
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" >
-        <item row="0" column="0" >
-         <widget class="QLabel" name="textLabel1_2" >
-          <property name="sizePolicy" >
-           <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
+       <layout class="QGridLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="textLabel1_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="text" >
+          <property name="text">
            <string>Buffer:</string>
           </property>
-          <property name="wordWrap" >
+          <property name="wordWrap">
            <bool>false</bool>
           </property>
          </widget>
         </item>
-        <item row="1" column="1" >
-         <widget class="LevelMeter" native="1" name="level_meter" >
-          <property name="sizePolicy" >
-           <sizepolicy vsizetype="Preferred" hsizetype="MinimumExpanding" >
+        <item row="1" column="1">
+         <widget class="LevelMeter" name="level_meter" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="minimumSize" >
+          <property name="minimumSize">
            <size>
             <width>100</width>
             <height>30</height>
@@ -1325,31 +1289,31 @@ recording. Depending on the compilation options you can select one of the follow
           </property>
          </widget>
         </item>
-        <item row="1" column="0" >
-         <widget class="QLabel" name="lbl_level_meter" >
-          <property name="sizePolicy" >
-           <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
+        <item row="1" column="0">
+         <widget class="QLabel" name="lbl_level_meter">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="text" >
+          <property name="text">
            <string>Level:</string>
           </property>
-          <property name="wordWrap" >
+          <property name="wordWrap">
            <bool>false</bool>
           </property>
          </widget>
         </item>
-        <item row="0" column="1" >
-         <widget class="QProgressBar" name="progress_bar" >
-          <property name="minimumSize" >
+        <item row="0" column="1">
+         <widget class="QProgressBar" name="progress_bar">
+          <property name="minimumSize">
            <size>
             <width>0</width>
             <height>20</height>
            </size>
           </property>
-          <property name="textVisible" >
+          <property name="textVisible">
            <bool>false</bool>
           </property>
          </widget>
@@ -1357,26 +1321,26 @@ recording. Depending on the compilation options you can select one of the follow
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" >
+       <layout class="QHBoxLayout">
         <item>
-         <widget class="QPushButton" name="btHelp" >
-          <property name="text" >
+         <widget class="QPushButton" name="btHelp">
+          <property name="text">
            <string>&amp;Help</string>
           </property>
-          <property name="shortcut" >
+          <property name="shortcut">
            <string>Alt+H</string>
           </property>
          </widget>
         </item>
         <item>
          <spacer>
-          <property name="orientation" >
+          <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeType" >
+          <property name="sizeType">
            <enum>QSizePolicy::MinimumExpanding</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0">
            <size>
             <width>546</width>
             <height>20</height>
@@ -1385,11 +1349,11 @@ recording. Depending on the compilation options you can select one of the follow
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="btClose" >
-          <property name="text" >
+         <widget class="QPushButton" name="btClose">
+          <property name="text">
            <string>&amp;Close</string>
           </property>
-          <property name="shortcut" >
+          <property name="shortcut">
            <string>Alt+C</string>
           </property>
          </widget>
@@ -1400,38 +1364,29 @@ recording. Depending on the compilation options you can select one of the follow
     </widget>
    </item>
    <item>
-    <widget class="QFrame" name="frame8" >
-     <property name="frameShape" >
+    <widget class="QFrame" name="frame8">
+     <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
-     <property name="frameShadow" >
+     <property name="frameShadow">
       <enum>QFrame::Plain</enum>
      </property>
-     <layout class="QHBoxLayout" >
-      <property name="spacing" >
+     <layout class="QHBoxLayout">
+      <property name="spacing">
        <number>0</number>
       </property>
-      <property name="leftMargin" >
-       <number>2</number>
-      </property>
-      <property name="topMargin" >
-       <number>2</number>
-      </property>
-      <property name="rightMargin" >
-       <number>2</number>
-      </property>
-      <property name="bottomMargin" >
+      <property name="margin">
        <number>2</number>
       </property>
       <item>
-       <widget class="KStatusBar" native="1" name="lbl_state" >
-        <property name="sizePolicy" >
-         <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
+       <widget class="KStatusBar" name="lbl_state" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="minimumSize" >
+        <property name="minimumSize">
          <size>
           <width>0</width>
           <height>30</height>
@@ -1444,13 +1399,8 @@ recording. Depending on the compilation options you can select one of the follow
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="10" margin="10" />
+ <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
   <customwidget>
    <class>KIntSpinBox</class>
    <extends>QSpinBox</extends>
@@ -1460,6 +1410,16 @@ recording. Depending on the compilation options you can select one of the follow
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KDateTimeWidget</class>
+   <extends>QWidget</extends>
+   <header>kdatetimewidget.h</header>
   </customwidget>
   <customwidget>
    <class>TreeWidgetWrapper</class>
@@ -1481,7 +1441,7 @@ recording. Depending on the compilation options you can select one of the follow
   <customwidget>
    <class>KStatusBar</class>
    <extends>QWidget</extends>
-   <header location="global" >kstatusbar.h</header>
+   <header location="global">kstatusbar.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -1493,6 +1453,9 @@ recording. Depending on the compilation options you can select one of the follow
   <tabstop>sbRecordPre</tabstop>
   <tabstop>slRecordPre</tabstop>
   <tabstop>chkRecordTime</tabstop>
+  <tabstop>sbRecordTime</tabstop>
+  <tabstop>chkRecordStartTime</tabstop>
+  <tabstop>startTime</tabstop>
   <tabstop>chkRecordTrigger</tabstop>
   <tabstop>sbRecordTrigger</tabstop>
   <tabstop>slRecordTrigger</tabstop>
@@ -1527,11 +1490,11 @@ recording. Depending on the compilation options you can select one of the follow
   <tabstop>chkDisplayOverview</tabstop>
  </tabstops>
  <includes>
-  <include location="global" >klocale.h</include>
-  <include location="local" >libgui/HMSTimeWidget.h</include>
-  <include location="local" >klineedit.h</include>
-  <include location="local" >LevelMeter.h</include>
-  <include location="local" >kstatusbar.h</include>
+  <include location="global">klocale.h</include>
+  <include location="local">libgui/HMSTimeWidget.h</include>
+  <include location="local">klineedit.h</include>
+  <include location="local">LevelMeter.h</include>
+  <include location="local">kstatusbar.h</include>
  </includes>
  <resources/>
  <connections>
@@ -1541,11 +1504,11 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>RecordDlg</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>689</x>
+     <y>523</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -1557,13 +1520,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>sbRecordPre</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>85</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>179</x>
+     <y>85</y>
     </hint>
    </hints>
   </connection>
@@ -1573,13 +1536,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>slRecordPre</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>85</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>512</x>
+     <y>89</y>
     </hint>
    </hints>
   </connection>
@@ -1589,13 +1552,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>slRecordPre</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>179</x>
+     <y>85</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>512</x>
+     <y>89</y>
     </hint>
    </hints>
   </connection>
@@ -1605,13 +1568,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>sbRecordPre</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>512</x>
+     <y>89</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>179</x>
+     <y>85</y>
     </hint>
    </hints>
   </connection>
@@ -1621,13 +1584,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>sbRecordTrigger</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>199</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>179</x>
+     <y>199</y>
     </hint>
    </hints>
   </connection>
@@ -1637,13 +1600,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>slRecordTrigger</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>199</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>512</x>
+     <y>203</y>
     </hint>
    </hints>
   </connection>
@@ -1653,13 +1616,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>slRecordTrigger</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>179</x>
+     <y>199</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>512</x>
+     <y>203</y>
     </hint>
    </hints>
   </connection>
@@ -1669,13 +1632,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>sbRecordTrigger</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>512</x>
+     <y>203</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>179</x>
+     <y>199</y>
     </hint>
    </hints>
   </connection>
@@ -1685,13 +1648,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>sbLevelAmplify</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>112</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>126</x>
+     <y>112</y>
     </hint>
    </hints>
   </connection>
@@ -1701,13 +1664,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>slLevelAmplify</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>112</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>223</x>
+     <y>116</y>
     </hint>
    </hints>
   </connection>
@@ -1717,13 +1680,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>sbLevelAGC</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>169</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>126</x>
+     <y>169</y>
     </hint>
    </hints>
   </connection>
@@ -1733,13 +1696,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>slLevelAmplify</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>126</x>
+     <y>112</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>223</x>
+     <y>116</y>
     </hint>
    </hints>
   </connection>
@@ -1749,13 +1712,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>sbLevelAmplify</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>223</x>
+     <y>116</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>126</x>
+     <y>112</y>
     </hint>
    </hints>
   </connection>
@@ -1765,13 +1728,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>slLevelAGC</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>126</x>
+     <y>169</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>223</x>
+     <y>173</y>
     </hint>
    </hints>
   </connection>
@@ -1781,13 +1744,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>sbLevelAGC</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>223</x>
+     <y>173</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>126</x>
+     <y>169</y>
     </hint>
    </hints>
   </connection>
@@ -1797,13 +1760,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>slLevelAGC</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>169</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>223</x>
+     <y>173</y>
     </hint>
    </hints>
   </connection>
@@ -1813,13 +1776,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>sbLevelFadeIn</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>288</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>136</x>
+     <y>288</y>
     </hint>
    </hints>
   </connection>
@@ -1829,13 +1792,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>sbLevelFadeOut</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>345</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>136</x>
+     <y>345</y>
     </hint>
    </hints>
   </connection>
@@ -1845,13 +1808,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>sbRecordTime</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>115</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>179</x>
+     <y>115</y>
     </hint>
    </hints>
   </connection>
@@ -1861,13 +1824,13 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>slSourceBufferCount</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>181</x>
+     <y>358</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>272</x>
+     <y>362</y>
     </hint>
    </hints>
   </connection>
@@ -1877,13 +1840,29 @@ recording. Depending on the compilation options you can select one of the follow
    <receiver>sbSourceBuffer</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="sourcelabel">
+     <x>272</x>
+     <y>362</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
+    <hint type="destinationlabel">
+     <x>181</x>
+     <y>358</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chkRecordStartTime</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>startTime</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>98</x>
+     <y>148</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>192</x>
+     <y>148</y>
     </hint>
    </hints>
   </connection>

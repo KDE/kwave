@@ -5,6 +5,8 @@
  * new plugin: change sample rate
  * using libsamplerate (new dependency)
  * new feature: sample rate conversion on clipboard data
+ * new feature: abillity to set recording start time in advance
+   (feature requested by John David Thompson)
  * bugfix: drag&drop of files on the main window was broken
  * workaround for bug in id3lib which crashed in ID3_Tag::GetSize()
    with some MP3 files (see id3lib upstream bug at SF #2821464)

@@ -19,6 +19,9 @@
 #define _RECORD_PARAMS_H_
 
 #include "config.h"
+
+#include <QDateTime>
+#include <QString>
 #include <QStringList>
 
 #include "libkwave/SampleFormat.h"
@@ -69,6 +72,9 @@ public:
 
     bool record_time_limited;		/**< record time: limited */
     unsigned int record_time;		/**< record time: limit in seconds */
+
+    bool start_time_enabled;            /**< start time: feature enabled */
+    QDateTime start_time;               /**< start time: date & time */
 
     bool record_trigger_enabled;	/**< record trigger: feature enabled */
     unsigned int record_trigger;	/**< record trigger level in percent */

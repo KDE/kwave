@@ -127,9 +127,14 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
             this,     SLOT(buffersChanged()));
     connect(this,     SIGNAL(sigRecordedSamples(unsigned int)),
             m_dialog, SLOT(setRecordedSamples(unsigned int)));
+
     connect(m_dialog,      SIGNAL(sigTriggerChanged(bool)),
             &m_controller, SLOT(enableTrigger(bool)));
-    m_controller.enableTrigger(m_dialog->params().record_trigger_enabled);
+    m_controller.enableTrigger(
+	m_dialog->params().record_trigger_enabled ||
+	m_dialog->params().start_time_enabled
+    );
+
     connect(m_dialog, SIGNAL(sigPreRecordingChanged(bool)),
             &m_controller, SLOT(enablePrerecording(bool)));
     connect(m_dialog, SIGNAL(sigPreRecordingChanged(bool)),
@@ -1077,6 +1082,12 @@ bool RecordPlugin::checkTrigger(unsigned int track,
     if (!m_writers) return false;
     if (m_trigger_value.size() != static_cast<int>(m_writers->tracks()))
 	return false;
+
+    // check if the recording start time has been reached
+    if (m_dialog->params().start_time_enabled) {
+	if (QDateTime::currentDateTime() < m_dialog->params().start_time)
+	    return false;
+    }
 
     // shortcut if no trigger has been set
     if (!m_dialog->params().record_trigger_enabled) return true;

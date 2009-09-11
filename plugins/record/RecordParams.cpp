@@ -24,6 +24,7 @@ RecordParams::RecordParams()
    :method(RECORD_ALSA),
     pre_record_enabled(false),     pre_record_time(20),
     record_time_limited(false),    record_time(5*60),
+    start_time_enabled(false),     start_time(QDateTime::currentDateTime()),
     record_trigger_enabled(false), record_trigger(30),
     amplification_enabled(false),  amplification(+3),
     agc_enabled(false),            agc_decay(50),
@@ -49,8 +50,8 @@ RecordParams::~RecordParams()
 {
 }
 
-#define GET(index,value,func) \
-	value = list[index].func(&ok); \
+#define GET(value,func) \
+	value = list[index++].func(&ok); \
 	Q_ASSERT(ok); \
 	if (!ok) return -EINVAL;
 
@@ -58,64 +59,89 @@ RecordParams::~RecordParams()
 int RecordParams::fromList(const QStringList &list)
 {
     bool ok;
+    int index = 0;
 
-    if ((list.size() != 26) && (list.size() != 27)) return -EINVAL;
+    // check number of elements:
+    // oldest version has only 26 elements
+    // <= v0.8.3 additionally has a recording method (27 entries)
+    // >= v0.8.4 additionally has a recording time (29 entries)
+    if ((list.size() != 26) &&
+        (list.size() != 27) &&
+        (list.size() != 29)) return -EINVAL;
 
     // pre-record
-    GET( 0, pre_record_enabled, toUInt);
-    GET( 1, pre_record_time, toUInt);
+    GET(pre_record_enabled, toUInt);
+    GET(pre_record_time, toUInt);
 
     // record time
-    GET( 2, record_time_limited, toUInt);
-    GET( 3, record_time, toUInt);
+    GET(record_time_limited, toUInt);
+    GET(record_time, toUInt);
+
+    // record start time
+    if (list.size() >= 29) {
+	GET(start_time_enabled, toUInt);
+	start_time = QDateTime::fromString(list[index++], Qt::ISODate);
+    } else {
+	start_time_enabled = false;
+	start_time = QDateTime::currentDateTime();
+    }
+    // auto-adjust to same hour as last time but not in past
+    if (start_time.date() < QDate::currentDate())
+	start_time.setDate(QDate::currentDate());
+    if (start_time < QDateTime::currentDateTime())
+	start_time = start_time.addDays(1);
+    // set seconds to zero
+    QTime t = start_time.time();
+    t.setHMS(t.hour(), t.minute(), 0, 0);
+    start_time.setTime(t);
 
     // record trigger
-    GET( 4, record_trigger_enabled, toUInt);
-    GET( 5, record_trigger, toUInt);
+    GET(record_trigger_enabled, toUInt);
+    GET(record_trigger, toUInt);
 
     // amplification
-    GET( 6, amplification_enabled, toUInt);
-    GET( 7, amplification, toInt);
+    GET(amplification_enabled, toUInt);
+    GET(amplification, toInt);
 
     // AGC
-    GET( 8, agc_enabled, toUInt);
-    GET( 9, agc_decay, toUInt);
+    GET(agc_enabled, toUInt);
+    GET(agc_decay, toUInt);
 
     // fade in
-    GET(10, fade_in_enabled, toUInt);
-    GET(11, fade_in_time, toUInt);
+    GET(fade_in_enabled, toUInt);
+    GET(fade_in_time, toUInt);
 
     // fade out
-    GET(12, fade_out_enabled, toUInt);
-    GET(13, fade_out_time, toUInt);
+    GET(fade_out_enabled, toUInt);
+    GET(fade_out_time, toUInt);
 
     // device name
-    device_name = list[14];
+    device_name = list[index++];
 
     // tracks, sample rate, compression, sample format, bits per sample
-    GET(15, tracks, toUInt);
-    GET(16, sample_rate, toDouble);
-    GET(17, compression, toUInt);
-    GET(18, bits_per_sample, toUInt);
+    GET(tracks, toUInt);
+    GET(sample_rate, toDouble);
+    GET(compression, toUInt);
+    GET(bits_per_sample, toUInt);
 
     int sf;
-    GET(19, sf, toInt);
+    GET(sf, toInt);
     sample_format.fromInt(sf);
 
     // buffer count and power of buffer size
-    GET(20, buffer_count, toUInt);
-    GET(21, buffer_size, toUInt);
+    GET(buffer_count, toUInt);
+    GET(buffer_size, toUInt);
 
     // various displays: level meter, oscilloscope, FFT, Overview
-    GET(22, display_level_meter, toUInt);
-    GET(23, display_oscilloscope, toUInt);
-    GET(24, display_fft, toUInt);
-    GET(25, display_overview, toUInt);
+    GET(display_level_meter, toUInt);
+    GET(display_oscilloscope, toUInt);
+    GET(display_fft, toUInt);
+    GET(display_overview, toUInt);
 
-    // if we have 27 entries: new version, we have a recording method
-    if (list.size() == 27) {
+    // if we have >= 27 entries: new version, we have a recording method
+    if (list.size() >= 27) {
 	unsigned int method_index;
-	GET(26, method_index, toUInt);
+	GET(method_index, toUInt);
 	method = (method_index < RECORD_INVALID) ?
 	         static_cast<record_method_t>(method_index) : RECORD_INVALID;
     }
@@ -138,6 +164,10 @@ QStringList RecordParams::toList() const
     // record time
     PUT(record_time_limited);
     PUT(record_time);
+
+    // start time
+    PUT(start_time_enabled);
+    list += start_time.toString(Qt::ISODate);
 
     // record trigger
     PUT(record_trigger_enabled);

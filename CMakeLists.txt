@@ -264,7 +264,7 @@ FIND_PACKAGE(Gettext REQUIRED)
 
 OPTION(DEBUG "build debug code [default=off]" OFF)
 IF (DEBUG)
-    SET(CMAKE_DEBUG_FLAGS "-O0 -g -Wall -W -Wextra -pedantic -fstack-protector-all")
+    SET(CMAKE_DEBUG_FLAGS "-O0 -g -Wall -W -Wextra -pedantic -fno-inline -fstack-protector-all")
     SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   ${CMAKE_DEBUG_FLAGS}")
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_DEBUG_FLAGS} -Wstrict-null-sentinel -Wold-style-cast")
     ADD_DEFINITIONS(-DDEBUG -D_DEBUG)

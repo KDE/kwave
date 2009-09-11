@@ -252,6 +252,10 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     connect(btRecord, SIGNAL(clicked()),
             controller, SLOT(actionStart()));
 
+    // stop recording when the window gets closed
+    connect(this, SIGNAL(rejected()), controller, SLOT(actionStop()));
+    connect(this, SIGNAL(accepted()), controller, SLOT(actionStop()));
+
     // connect the notifications/commands of the record controller
     connect(controller, SIGNAL(stateChanged(RecordState)),
             this, SLOT(setState(RecordState )));

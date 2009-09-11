@@ -1078,10 +1078,6 @@ bool RecordPlugin::checkTrigger(unsigned int track,
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return false;
-    if (!buffer.size()) return false;
-    if (!m_writers) return false;
-    if (m_trigger_value.size() != static_cast<int>(m_writers->tracks()))
-	return false;
 
     // check if the recording start time has been reached
     if (m_dialog->params().start_time_enabled) {
@@ -1091,6 +1087,12 @@ bool RecordPlugin::checkTrigger(unsigned int track,
 
     // shortcut if no trigger has been set
     if (!m_dialog->params().record_trigger_enabled) return true;
+
+    // check the input parameters
+    if (!buffer.size()) return false;
+    if (!m_writers) return false;
+    if (m_trigger_value.size() != static_cast<int>(m_writers->tracks()))
+	return false;
 
     // pass the buffer through a rectifier and a lowpass with
     // center frequency about 2Hz to get the amplitude
@@ -1281,7 +1283,8 @@ void RecordPlugin::processBuffer()
     // note: this might change the state, which affects the
     //       processing of all tracks !
     if ((m_state == REC_WAITING_FOR_TRIGGER) ||
-        ((m_state == REC_PRERECORDING) && (params.record_trigger_enabled)))
+        ((m_state == REC_PRERECORDING) && (params.record_trigger_enabled)) ||
+        ((m_state == REC_PRERECORDING) && (params.start_time_enabled)))
     {
 	for (unsigned int track=0; track < tracks; ++track) {
 	    // split off and decode buffer with current track

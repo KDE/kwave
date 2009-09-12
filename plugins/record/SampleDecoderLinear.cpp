@@ -29,7 +29,7 @@
 #include "SampleDecoderLinear.h"
 
 //***************************************************************************
-void decode_NULL(char *src, sample_t *dst, unsigned int count)
+void decode_NULL(const u_int8_t *src, sample_t *dst, unsigned int count)
 {
     while (count--) {
         printf("%02X ", static_cast<int>(*src));
@@ -42,7 +42,12 @@ void decode_NULL(char *src, sample_t *dst, unsigned int count)
 // warning about negative shift value when included directly
 static inline u_int32_t shl(const u_int32_t v, const int s)
 {
-    return (s > 0) ? (v << s) : (v >> s);
+    if (!s)
+	return v;
+    else if (s > 0)
+	return (v << s);
+    else
+	return (v >> (-s));
 }
 
 //***************************************************************************
@@ -56,7 +61,7 @@ static inline u_int32_t shl(const u_int32_t v, const int s)
  */
 template<const unsigned int bits, const bool is_signed,
          const bool is_little_endian>
-void decode_linear(char *src, sample_t *dst, unsigned int count)
+void decode_linear(const u_int8_t *src, sample_t *dst, unsigned int count)
 {
     const int shift = (SAMPLE_BITS - bits);
     const u_int32_t sign = 1 << (SAMPLE_BITS-1);
@@ -68,13 +73,13 @@ void decode_linear(char *src, sample_t *dst, unsigned int count)
 	register u_int32_t s = 0;
 	if (is_little_endian) {
 	    // little endian
-	    for (unsigned int byte=0; byte < bytes; ++byte) {
-		s |= static_cast<unsigned char>(*(src++)) << (byte << 3);
+	    for (unsigned int byte = 0; byte < bytes; ++byte) {
+		s |= static_cast<u_int8_t>(*(src++)) << (byte << 3);
 	    }
 	} else {
 	    // big endian
-	    for (int byte=bytes-1; byte >= 0; --byte) {
-		s |= static_cast<unsigned char>(*(src++)) << (byte << 3);
+	    for (int byte = bytes - 1; byte >= 0; --byte) {
+		s |= static_cast<u_int8_t>(*(src++)) << (byte << 3);
 	    }
 	}
 
@@ -164,7 +169,7 @@ void SampleDecoderLinear::decode(QByteArray &raw_data,
     if (!m_decoder) return;
 
     unsigned int samples = raw_data.size() / m_bytes_per_sample;
-    char *src = raw_data.data();
+    const u_int8_t *src  = reinterpret_cast<const u_int8_t *>(raw_data.data());
     sample_t *dst = decoded.data();
 
     m_decoder(src, dst, samples);

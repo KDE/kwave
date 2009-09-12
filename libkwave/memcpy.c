@@ -33,6 +33,10 @@
  *   by Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
  *   Marked most changes with "#ifdef XINE_COMPILE"
  *
+ * 2009-09-12
+ *   synced with latest cvs version from sourceforge.net,
+ *   xine/xine-lib/src/xine-utils/memcpy.c, rev. 1.44, 2007-07-20 20:00:36
+ *
  */
 
 #ifdef HAVE_CONFIG_H
@@ -155,7 +159,7 @@ __asm__ __volatile__(\
 }
 
 /* linux kernel __memcpy (from: /include/asm/string.h) */
-static __inline__ void * __memcpy (
+static __inline__ void * linux_kernel_memcpy_impl (
 			       void * to,
 			       const void * from,
 			       size_t n)
@@ -240,8 +244,8 @@ static void * sse_memcpy(void * to, const void * from, size_t len)
         "movntps %%xmm2, 32(%1)\n"
         "movntps %%xmm3, 48(%1)\n"
         :: "r" (from), "r" (to) : "memory");
-        from = (const unsigned char *)from + 64;
-        to = (unsigned char *)to + 64;
+        from = ((const unsigned char *)from) + 64;
+        to = ((unsigned char *)to) + 64;
       }
     else
       /*
@@ -269,13 +273,11 @@ static void * sse_memcpy(void * to, const void * from, size_t len)
     /* since movntq is weakly-ordered, a "sfence"
      * is needed to become ordered again. */
     __asm__ __volatile__ ("sfence":::"memory");
-    /* enables to use FPU */
-    __asm__ __volatile__ ("emms":::"memory");
   }
   /*
    *	Now do the tail of the block
    */
-  if(len) __memcpy(to, from, len);
+  if(len) linux_kernel_memcpy_impl(to, from, len);
   return retval;
 }
 
@@ -326,7 +328,7 @@ static void * mmx_memcpy(void * to, const void * from, size_t len)
   /*
    *	Now do the tail of the block
    */
-  if(len) __memcpy(to, from, len);
+  if(len) linux_kernel_memcpy_impl(to, from, len);
   return retval;
 }
 
@@ -396,12 +398,12 @@ static void * mmx2_memcpy(void * to, const void * from, size_t len)
   /*
    *	Now do the tail of the block
    */
-  if(len) __memcpy(to, from, len);
+  if(len) linux_kernel_memcpy_impl(to, from, len);
   return retval;
 }
 
 static void *linux_kernel_memcpy(void *to, const void *from, size_t len) {
-  return __memcpy(to,from,len);
+  return linux_kernel_memcpy_impl(to,from,len);
 }
 #endif /* _MSC_VER */
 #endif /* ARCH_X86 */
@@ -431,9 +433,9 @@ static struct {
 };
 
 #if (defined(ARCH_X86) || defined(ARCH_X86_64)) && defined(HAVE_SYS_TIMES_H)
-static unsigned long long int rdtsc(int config_flags)
+static int64_t rdtsc(int config_flags)
 {
-  unsigned long long int x;
+  int64_t x;
 
   /* that should prevent us from trying cpuid with old cpus */
   if( config_flags & MM_MMX ) {
@@ -453,9 +455,9 @@ static uint64_t rdtsc(int config_flags)
   struct tms tp;
   return times(&tp);
 #else
+	(void)config_flags;
 	return ((uint64_t)0);
 #endif /* HAVE_SYS_TIMES_H */
-  (void)config_flags;
 }
 #endif
 
@@ -489,13 +491,13 @@ void probe_fast_memcpy(void)
 #endif /* XINE_COMPILE */
 {
   uint64_t          t;
-  char              *buf1, *buf2;
+  char             *buf1, *buf2;
   int               i, j, best;
   int               config_flags = -1;
 
 #ifdef XINE_COMPILE
 
-  static const char  *memcpy_methods[] = {
+  static const char *memcpy_methods[] = {
     "probe", "libc",
 #if defined(ARCH_X86) && !defined(_MSC_VER)
     "kernel", "mmx", "mmxext", "sse",
@@ -508,7 +510,7 @@ void probe_fast_memcpy(void)
 
   config_flags = xine_mm_accel();
 
-  best = xine->config->register_enum (xine->config, "misc.memcpy_method", 0,
+  best = xine->config->register_enum (xine->config, "engine.performance.memcpy_method", 0,
 				      memcpy_methods,
 				      _("memcopy method used by xine"),
 				      _("The copying of large memory blocks is one of the most "
@@ -567,7 +569,7 @@ void probe_fast_memcpy(void)
   }
 
 #ifdef XINE_COMPILE
-  xine->config->update_num (xine->config, "misc.memcpy_method", best);
+ xine->config->update_num (xine->config, "engine.performance.memcpy_method", best);
 #else /* XINE_COMPILE */
   xprintf("using -> '%s'\n", memcpy_method[best].name);
   xine_fast_memcpy = memcpy_method[best].function;

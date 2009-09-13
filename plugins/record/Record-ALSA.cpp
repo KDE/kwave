@@ -599,6 +599,8 @@ int RecordALSA::read(QByteArray &buffer, unsigned int offset)
 #endif
 
     // try to read as much as the device accepts
+    Q_ASSERT(samples);
+    Q_ASSERT(offset + samples <= buffer.size());
     int r = snd_pcm_readi(m_handle, buffer.data() + offset, samples);
 
     // handle all negative result codes

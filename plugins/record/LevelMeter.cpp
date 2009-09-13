@@ -53,7 +53,7 @@ LevelMeter::LevelMeter(QWidget *parent)
     :QWidget(parent),
     m_tracks(0), m_sample_rate(0), m_yf(), m_yp(),
     m_fast_queue(), m_peak_queue(),
-    m_current_fast(), m_current_peak(), m_timer(0),
+    m_current_fast(), m_current_peak(), m_timer(),
     m_color_low(Qt::green),
     m_color_normal(Qt::yellow),
     m_color_high(Qt::red)
@@ -215,7 +215,8 @@ void LevelMeter::enqueue(unsigned int track, float fast, float peak,
     // restart the timer if necessary
     if (m_timer && !m_timer->isActive()) {
 	m_timer->setInterval(static_cast<int>(1000 / UPDATES_PER_SECOND));
-	m_timer->start(false);
+	m_timer->setSingleShot(false);
+	m_timer->start();
     }
 }
 

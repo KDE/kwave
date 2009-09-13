@@ -31,11 +31,11 @@
  * It provides only a minimum of necessary functions, like
  * opening/closing and writing samples.
  *
- * @bug this class is not threadsafe on its own, it relies on the
- *      threadsafe implementation of the PlayBack plugin.
- * @bug there aren no checks for avoiding close without open,
- *      opening twice or similar
- * @bug there are no precautions to prevent duplicate instances
+ * @note this class is not threadsafe on its own, it relies on the
+ *       threadsafe implementation of the PlayBack plugin.
+ * @note there aren no checks for avoiding close without open,
+ *       opening twice or similar
+ * @note there are no precautions to prevent duplicate instances
  *
  */
 class PlayBackDevice

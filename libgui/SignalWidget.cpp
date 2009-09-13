@@ -2554,22 +2554,15 @@ void SignalWidget::dropEvent(QDropEvent *event)
 	unsigned int pos = m_offset + pixels2samples(event->pos().x());
 	unsigned int len = 0;
 
-	/** @todo add a converter if rate does not match */
 	if ((len = KwaveDrag::decode(this, event->mimeData(),
 	    m_signal_manager, pos)))
 	{
-	    /**
-	     * @todo after the drop operation: enter the new file info into
-	     * the signal manager if our own file was empty
-	     */
-
 	    // set selection to the new area where the drop was done
 	    selectRange(pos, len);
 	    event->acceptProposedAction();
 	} else {
 	    qWarning("SignalWidget::dropEvent(%s): failed !", event->format(0));
 	    event->ignore();
-	    /** @todo abort the current undo transaction */
 	}
     } else if (event->mimeData()->hasUrls()) {
 	bool first = true;

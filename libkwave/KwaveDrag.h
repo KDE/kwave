@@ -36,7 +36,6 @@ class SignalManager;
 
 /**
  * Simple class for drag & drop of wav data.
- * @todo support for several codecs
  * @todo the current storage mechanism is straight-forward and stupid, it
  *       should be extended to use virtual memory
  */

@@ -87,9 +87,7 @@ protected:
     /**
      * Parse vorbis comments
      *
-     * @param vendor_string vorbis comment with a vendor name
-     * @param comments list of vorbis comments, can be empty
-     * @param count number of vorbis comments in comments_list
+     * @param vorbis_comments list of vorbis comments, can be empty
      */
     void parseVorbisComments(
         const FLAC::Metadata::VorbisComment &vorbis_comments);

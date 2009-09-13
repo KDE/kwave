@@ -237,7 +237,7 @@ private:
      * Calculates the parameters for interpolation of the graphical
      * display when zoomed in. Allocates (new) buffer for the
      * filter coefficients of the low pass filter used for interpolation.
-     * @see #interpolation_alpha
+     * @see m_interpolation_alpha
      */
     void calculateInterpolation();
 

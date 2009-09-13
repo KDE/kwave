@@ -94,7 +94,7 @@ public:
     /**
      * Conversion from samples into time
      * @param mode time mode (byTime, bySamples, byPercents)
-     * @param samples position in samples
+     * @param time position in samples
      * @param rate number of samples per second
      * @param length signal length
      * @return time converted to the given mode

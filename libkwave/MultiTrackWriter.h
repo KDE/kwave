@@ -65,7 +65,6 @@ namespace Kwave {
 	 * selected, the whole signal will be selected.
 	 *
 	 * @param signal_manager reference to a SignalManager
-	 * @param writers reference to a vector that receives all writers.
 	 * @param mode specifies where and how to insert
 	 */
 	MultiTrackWriter(SignalManager &signal_manager, InsertMode mode);

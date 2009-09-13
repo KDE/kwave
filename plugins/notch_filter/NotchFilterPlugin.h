@@ -88,7 +88,7 @@ protected slots:
 
     /**
      * set a new bandwidth
-     * @bw bandwidth [Hz]
+     * @param bw bandwidth [Hz]
      */
     void setBwValue(double bw);
 

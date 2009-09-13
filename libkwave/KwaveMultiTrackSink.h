@@ -32,7 +32,7 @@ namespace Kwave {
     public:
 	/**
 	 * Constructor
-	 *
+	 * @param tracks number of tracks
 	 * @param parent a parent object, passed to QObject (optional)
 	 */
 	MultiTrackSink(unsigned int tracks, QObject *parent = 0)

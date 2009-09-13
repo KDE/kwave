@@ -51,7 +51,7 @@ public:
 
     /**
      * sets the position of the label
-     * @param index pos the position of the label [samples]
+     * @param pos the position of the label [samples]
      * @param length length of the complete signal [samples]
      * @param rate sample rate of the signal
      */

@@ -51,8 +51,8 @@ public:
      * @param mode a reader mode, see Kwave::ReaderMode
      * @param signal_manager reference to a SignalManager
      * @param track_list array of indices of tracks for writing
-     * @param left index of the first sample
-     * @param right index of the last sample
+     * @param first index of the first sample (left)
+     * @param last index of the last sample (right)
      */
     MultiTrackReader(Kwave::ReaderMode mode,
                      SignalManager &signal_manager,

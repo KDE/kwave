@@ -48,7 +48,6 @@ namespace Kwave { class Writer; }
  * of the plugins of kwave. Each instance of a TopWidget creates a
  * new instance of the PluginManager to be independent from other
  * toplevel widgets.
- * @author Thomas Eschenbacher
  */
 namespace Kwave {
     class KDE_EXPORT PluginManager : public QObject
@@ -60,6 +59,7 @@ namespace Kwave {
 	/**
 	 * Constructor.
 	 * @param parent reference to the toplevel widget (our parent)
+	 * @param signal_manager reference to a SignalManager
 	 */
 	PluginManager(QWidget *parent, SignalManager &signal_manager);
 
@@ -245,8 +245,8 @@ namespace Kwave {
 
 	/**
 	 * Called if the name of the current signal has changed. This will be
-	 * forwarded to all plugins by emitting the signal sigSignalChanged.
-	 * @see #sigSignalChanged()
+	 * forwarded to all plugins by emitting the signal sigSignalNameChanged.
+	 * @see sigSignalNameChanged()
 	 */
 	void setSignalName(const QString &name);
 

@@ -68,7 +68,7 @@ private slots:
 
     /**
      * Connected to the SonagramWindow's "destroyed()" signal.
-     * @see #sonagram_window
+     * @see class SonagramWindow
      */
     void windowDestroyed();
 

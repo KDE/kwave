@@ -137,7 +137,7 @@ private slots:
      * has to be shown.
      * @param filename the currently selected filename, including path
      * @param pattern the selected filename pattern
-     * @param the numbering mode
+     * @param mode the numbering mode
      * @param selection_only if true: save only the selection
      */
     void updateExample(

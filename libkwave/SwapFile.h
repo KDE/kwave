@@ -44,8 +44,6 @@ public:
      * Must be mapped into memory before used.
      *
      * @param size number of bytes to allocate
-     * @param filename full path to the swap file, actually a template
-     *                 that <b>must</b> contain 6 "X" characters at the end!
      * @return true if succeeded, false if failed
      */
     bool allocate(size_t size);

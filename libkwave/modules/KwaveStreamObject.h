@@ -68,7 +68,7 @@ namespace Kwave {
 	/**
 	 * Sets an attribute of a Kwave::StreamObject.
 	 * @param attribute name of the attribute, with the signature of
-	 *        a Qt SLOT(<name>(QVariant value))
+	 *        a Qt SLOT(\<name\>(QVariant value))
 	 * @param value the new value of the attribute, stored in a QVariant
 	 */
 	void setAttribute(const QString &attribute, const QVariant &value);

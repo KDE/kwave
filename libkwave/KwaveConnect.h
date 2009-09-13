@@ -38,11 +38,11 @@ namespace Kwave {
      * @param source a Kwave::SampleSource that produces data
      * @param output name of the output, must be formed with the
      *               Qt macro \c SIGNAL(...) \c out of
-     *               a Qt style \c signal \c.
+     *               a Qt style signal.
      * @param sink a Kwave::SampleSink that can receive data
      * @param input name of the inputm must be formed with the
      *              Qt macro \c SLOT(...) \c out of a Qt style
-     *              (public) \c slot \c.
+     *              (public) slot .
      * @return true if successful or false if either
      *         \li an invalid combination of single/multi track
      *             source/sink has been passed

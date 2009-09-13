@@ -67,6 +67,7 @@ public:
      * Constructor
      * @param reader reference to a SampleReader to read from
      * @param average reference to smoothing information
+     * @param window_size length of the sliding window for volume detection
      */
     GetMaxPowerJob(SampleReader &reader, average_t &average,
                    unsigned int window_size);

@@ -41,7 +41,7 @@ public:
 
     /**
      * Constructor, creates a filter from a Kwave command string.
-     * @command part of the Kwave command with parameters
+     * @param command part of the Kwave command with parameters
      */
     Filter(const QString &command);
 

@@ -73,6 +73,7 @@ public:
      * @param widget the widget used for displaying error messages
      * @param e mime source
      * @param sig signal that receives the mime data
+     * @param pos position within the signal where to insert the data
      * @return number of decoded samples if successful, zero if failed
      */
     static unsigned int decode(QWidget *widget, const QMimeData *e,

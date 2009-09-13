@@ -45,7 +45,7 @@ public:
 
     /**
      * Set a new position of the label
-     * @param pos the new position [samples]
+     * @param position the new position [samples]
      */
     virtual void moveTo(unsigned int position);
 

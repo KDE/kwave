@@ -102,7 +102,7 @@ public:
      * are starting at or after the given offset right.
      *
      * @param offset position after which everything is moved right
-     * @param length distance of the shift [samples]
+     * @param shift distance of the shift [samples]
      * @return true if succeeded, false if failed (OOM?)
      */
     bool insertSpace(unsigned int offset, unsigned int shift);
@@ -146,7 +146,6 @@ signals:
 
     /**
      * Emitted whenever the selection of the track has changed.
-     * @param bool selected the current state of the selection
      */
      void sigSelectionChanged();
 
@@ -190,7 +189,7 @@ private:
      * of a stripe is at the given offset, it will not be moved!
      *
      * @param offset position after which everything is moved right
-     * @param length distance of the shift [samples]
+     * @param shift distance of the shift [samples]
      */
     void moveRight(unsigned int offset, unsigned int shift);
 

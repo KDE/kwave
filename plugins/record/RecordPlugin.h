@@ -187,6 +187,7 @@ private:
      * Split off one track from a raw buffer with multiple tracks into
      * a separate buffer
      * @param raw_data the raw buffer with multiple tracks
+     * @param dest byte array that receives the data of the specified track
      * @param bytes_per_sample number of bytes for each sample
      * @param track index of the track to split off [1...n-1]
      * @param tracks number of total tracks

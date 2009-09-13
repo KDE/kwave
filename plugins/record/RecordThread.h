@@ -70,7 +70,6 @@ signals:
     /**
      * emitted when a buffer was full and has been de-queued
      * with dequeue()
-     * @param buffer the buffer with recorded raw bytes
      */
     void bufferFull();
 

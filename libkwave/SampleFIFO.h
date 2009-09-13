@@ -48,7 +48,7 @@ public:
     /**
      * puts samples into the FIFO
      *
-     * @param buffer reference to an array of samples to feed in
+     * @param source reference to an array of samples to feed in
      */
     virtual void put(const Kwave::SampleArray &source);
 

@@ -113,7 +113,7 @@ public:
 
     /**
      * sets the list of supported sample formats
-     * @param comps list of supported sample formats, must not be empty
+     * @param formats list of supported sample formats, must not be empty
      */
     void setSupportedSampleFormats(const QList<SampleFormat> &formats);
 
@@ -126,7 +126,7 @@ public:
 
     /**
      * updates the progress bar with the buffer fill state.
-     * @param filled number of filled/available buffers
+     * @param count number of filled/available buffers
      * @param total maximum amount of buffers
      */
     void updateBufferState(unsigned int count, unsigned int total);

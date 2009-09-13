@@ -70,7 +70,7 @@ public:
     /**
      * Activates a new state, with wrap-around on overflows, limited
      * to [ 0 ... m_pixmaps.count()-1 ].
-     * @param state index of the new state [0...N]
+     * @param newstate index of the new state [0...N]
      */
     void setState(int newstate);
 

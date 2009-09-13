@@ -73,7 +73,7 @@ protected:
      *
      * @param buffer array with samples
      * @param bytes length of the buffer in bytes
-     * @param number of samples
+     * @param samples the number of samples
      * @param current_frame index of the current frame
      * @return FLAC stream encoder write status
      */

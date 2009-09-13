@@ -124,7 +124,7 @@ namespace Kwave {
 	 * Insert a new track with a source.
 	 *
 	 * @param track index of the track [0...N-1]
-	 * @param sink pointer to a Kwave::SampleSource
+	 * @param source pointer to a Kwave::SampleSource
 	 * @return true if successful, false if failed
 	 */
 	inline virtual bool insert(unsigned int track, SOURCE *source) {

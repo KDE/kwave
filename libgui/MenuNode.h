@@ -179,8 +179,6 @@ public:
      *                If not used, pass 0.
      * @param shortcut keyboard shortcut, 0 if unused
      * @param uid unique id string (might be 0)
-     * @param index the positional index within the parent menu, starting
-     *              from 0 or -1 for appending (optional, default=-1)
      * @return pointer to the new branch node
      */
     virtual MenuSub *insertBranch(const QString &name,
@@ -196,8 +194,6 @@ public:
      *                selected (might be 0)
      * @param shortcut keyboard shortcut, 0 if unused
      * @param uid unique id string (might be 0)
-     * @param index the positional index within the parent menu, starting
-     *              from 0 or -1 for appending. Optional, default=-1
      * @return pointer to the new leaf node
      */
     virtual MenuNode *insertLeaf(const QString &name,

@@ -44,7 +44,7 @@ public:
      * @param modal if true, make the dialog modal
      * @param last_url the last used URL
      * @param last_ext the last used extension (preset only)
-     * @param pattern the pattern used for generating the file names
+     * @param filename_pattern the pattern used for generating the file names
      * @param numbering_mode the way the numbers are given
      * @param selection_only if true, save only the selection
      * @param have_selection if true, there is a selection
@@ -80,7 +80,7 @@ signals:
      * has to be shown.
      * @param filename the currently selected filename
      * @param pattern the selected filename pattern
-     * @param the numbering mode
+     * @param mode the numbering mode
      * @param selection_only if true: save only the selection
      */
     void sigSelectionChanged(

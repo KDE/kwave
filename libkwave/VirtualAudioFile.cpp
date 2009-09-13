@@ -35,7 +35,7 @@ static long _last_audiofile_error = -1;
  * @warning NOT THREADSAFE!
  * @param error the numeric error code, >=0, defined in audiofile.h,
  *        something starting with AF_BAD_...
- * @param error text, not localized, so not usable for us :-(
+ * @param str text, not localized, so not usable for us :-(
  */
 static void _handle_audiofile_error(long error, const char *str)
 {

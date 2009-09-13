@@ -27,6 +27,7 @@
  * bugfix: record dialog caused shutdown to hang when closed while recording
  * bugfix: decoding 32bit/sample was broken
  * bugfix: recording level meter consumed 100% cpu
+ * new make target: "make apidoc" for internal doxygen documentation
 
 0.8.3-2 [2009-07-04]
 

@@ -360,15 +360,54 @@ ADD_CUSTOM_TARGET(version-labels
         ${KWAVE_VERSION_DATE_ISO}
 )
 
+#############################################################################
+### "make apidoc"                                                         ###
+
+FIND_PROGRAM(RM_EXECUTABLE rm)
+FIND_PROGRAM(DOXYGEN_EXECUTABLE doxygen)
+
+IF (DOXYGEN_EXECUTABLE AND RM_EXECUTABLE)
+    SET(DOXYFILE ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+    SET(DOXYGEN_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/apidoc)
+    SET(DOXYGEN_LOGFILE ${CMAKE_CURRENT_BINARY_DIR}/doxygen.log)
+
+    MESSAGE(STATUS "Found doxygen: ${DOXYGEN_EXECUTABLE}")
+
+    CONFIGURE_FILE(
+	${CMAKE_CURRENT_SOURCE_DIR}/doxy.cfg.in
+	${DOXYFILE}
+	@ONLY
+    )
+
+    ADD_CUSTOM_TARGET(apidoc
+	COMMAND "${RM_EXECUTABLE}" -R -f "${CMAKE_CURRENT_BINARY_DIR}/html"
+	COMMAND "${DOXYGEN_EXECUTABLE}" "${DOXYFILE}"
+	DEPENDS ${DOXYFILE}
+    )
+
+    SET(KWAVE_ADDITIONAL_CLEAN_FILES
+	${KWAVE_ADDITIONAL_CLEAN_FILES}
+	${DOXYGEN_OUTPUT_DIR}
+	${DOXYGEN_LOGFILE}
+    )
+
+ENDIF (DOXYGEN_EXECUTABLE AND RM_EXECUTABLE)
+
+#############################################################################
+### additional files for "make clean"                                     ###
+
+IF (KWAVE_ADDITIONAL_CLEAN_FILES)
+    SET_DIRECTORY_PROPERTIES(PROPERTIES
+	ADDITIONAL_MAKE_CLEAN_FILES
+	"${KWAVE_ADDITIONAL_CLEAN_FILES}"
+    )
+ENDIF (KWAVE_ADDITIONAL_CLEAN_FILES)
+
+#############################################################################
+
 MESSAGE(STATUS "Using CFLAGS=${CMAKE_C_FLAGS}")
 MESSAGE(STATUS "Using CXXFLAGS=${CMAKE_CXX_FLAGS}")
 MESSAGE(STATUS "Using LDFLAGS=${LDFLAGS}")
-
-#original Makefile.am contents follow:
-
-#apidoc:
-#	-rm -Rf `find . -name \*.moc`
-#	doxygen doxy.cfg
 
 #############################################################################
 #############################################################################

@@ -76,10 +76,30 @@ ADD_CUSTOM_TARGET(html_clean
     COMMAND ${RM_EXECUTABLE} -R -f ${CMAKE_CURRENT_BINARY_DIR}/html
 )
 
+
+#############################################################################
+### png files with the toolbar icons                                      ###
+
+FILE(GLOB _toolbar_xpms "${CMAKE_SOURCE_DIR}/kwave/toolbar/*.xpm")
+FOREACH(_toolbar_xpm ${_toolbar_xpms})
+    GET_FILENAME_COMPONENT(_xpm_file ${_toolbar_xpm} NAME)
+    STRING(REPLACE ".xpm" ".png" _png_file ${_xpm_file})
+    SET(_toolbar_png ${CMAKE_CURRENT_BINARY_DIR}/toolbar_${_png_file})
+    ADD_CUSTOM_COMMAND(OUTPUT ${_toolbar_png}
+        COMMAND ${CONVERT_EXECUTABLE} ${_toolbar_xpm} ${_toolbar_png}
+        DEPENDS ${_toolbar_xpm}
+        COMMENT STATUS "Converting ${_png_file}"
+    )
+    SET(_toolbar_pngs "${_toolbar_pngs}" "${_toolbar_png}")
+ENDFOREACH(_toolbar_xpm ${_toolbar_xpms})
+
+
 #############################################################################
 ### macro for generating the help for each language                       ###
 
 MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
+
+    FILE(GLOB _en_images "${CMAKE_CURRENT_SOURCE_DIR}/en/*.png")
 
     FOREACH (_lang_and_name ${ARGN})
         STRING(REGEX MATCH "^[^:]+" _lang ${_lang_and_name})
@@ -115,6 +135,21 @@ MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
                 DEPENDS ${_help_en_shifted}
                 COMMENT STATUS "Building ${_docbook_basename} (${_lang_name})"
             )
+
+            # copy all images that do not exist in this language
+            # from the english version
+            FOREACH ( _image_file ${_en_images})
+                GET_FILENAME_COMPONENT(_image ${_image_file} NAME)
+                SET(_src_img ${CMAKE_CURRENT_SOURCE_DIR}/${_lang}/${_image})
+                IF (NOT EXISTS ${_src_img})
+                    MESSAGE(STATUS "MISSING: ${_src_img}")
+                    SET(_missing_png_files_${_lang} 
+                        "${_missing_png_files_${_lang}}" 
+                        "${_image_file}"
+                    )
+                ENDIF (NOT EXISTS ${_src_img})
+            ENDFOREACH (_image_file)
+
         ELSE (NOT ${_lang} STREQUAL "en")
             SET(_docbook ${_help_en_docbook})
             GET_FILENAME_COMPONENT(_docbook_basename ${_docbook} NAME)
@@ -156,21 +191,8 @@ MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
                     ${KDE4_MEINPROC_EXECUTABLE} --check ${_docbook}
             COMMAND ${RM_EXECUTABLE} -Rf ${_html_dir}/common
             COMMAND mkdir -p ${_html_dir}/common
-            COMMAND ${CONVERT_EXECUTABLE}
-                ${CMAKE_SOURCE_DIR}/kwave/toolbar/zoomall.xpm
-                ${_html_dir}/toolbar_zoomall.png
-            COMMAND ${CONVERT_EXECUTABLE}
-                ${CMAKE_SOURCE_DIR}/kwave/toolbar/zoomnormal.xpm
-                ${_html_dir}/toolbar_zoomnormal.png
-            COMMAND ${CONVERT_EXECUTABLE}
-                ${CMAKE_SOURCE_DIR}/kwave/toolbar/zoomin.xpm
-                ${_html_dir}/toolbar_zoomin.png
-            COMMAND ${CONVERT_EXECUTABLE}
-                ${CMAKE_SOURCE_DIR}/kwave/toolbar/zoomout.xpm
-                ${_html_dir}/toolbar_zoomout.png
-            COMMAND ${CONVERT_EXECUTABLE}
-                ${CMAKE_SOURCE_DIR}/kwave/toolbar/zoomrange.xpm
-                ${_html_dir}/toolbar_zoorange.png
+            COMMAND ${CP_EXECUTABLE}
+                ${_toolbar_pngs} ${_html_dir}
             COMMAND ${CP_EXECUTABLE}
                 ${CMAKE_CURRENT_SOURCE_DIR}/en/*.png ${_html_dir}
             COMMAND ${CP_EXECUTABLE}
@@ -182,6 +204,7 @@ MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
             COMMAND cd ${_html_dir} && ${CMAKE_CURRENT_SOURCE_DIR}/fix-common
             DEPENDS ${_docbook}
             DEPENDS ${_html_dir}/gpl-translated.html
+            DEPENDS ${_toolbar_pngs}
             COMMENT STATUS "Generating HTML help for ${_lang} (${_lang_name})"
         )
 
@@ -206,7 +229,10 @@ MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
 
         # installation of the *.png files
         FILE(GLOB _png_files_${_lang} "${CMAKE_CURRENT_SOURCE_DIR}/${_lang}/*.png")
-        INSTALL(FILES ${_png_files_${_lang}}
+        INSTALL(FILES 
+                ${_png_files_${_lang}}
+                ${_missing_png_files_${_lang}}
+                ${_toolbar_pngs}
             DESTINATION ${KDE4_HTML_INSTALL_DIR}/${_lang}/kwave/
         )
 
@@ -238,12 +264,16 @@ ADD_CUSTOM_TARGET(html_doc
     DEPENDS ${_docs}
     DEPENDS ${_html_files}
 )
+SET_DIRECTORY_PROPERTIES(PROPERTIES
+    ADDITIONAL_MAKE_CLEAN_FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/html
+)
 
 #############################################################################
 ### "make doc"                                                            ###
 
 ADD_CUSTOM_TARGET(doc ALL
-    DEPENDS ${_docbook_all} ${_index_all}
+    DEPENDS ${_docbook_all} ${_index_all} ${_missing_images} ${_toolbar_pngs}
 )
 
 #############################################################################

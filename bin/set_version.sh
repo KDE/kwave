@@ -88,9 +88,21 @@ cat kwave.lsm | awk -v newver=$NEW_VERSION \
 	    printf("Entered-date:\t%s\n", toupper(newdate))
 	} else
 	    print $0
-	}' > kwave.lsm.new
-mv kwave.lsm /tmp/kwave.lsm.old
+	}' > kwave.lsm.new && \
+mv kwave.lsm /tmp/kwave.lsm.old && \
 mv kwave.lsm.new kwave.lsm
+
+#
+# update the docbook file
+#
+NEW_TAG=`echo ${NEW_VERSION} | sed s/\\\./_/g`
+cat doc/help_en.docbook | \
+    sed s/\<\!ENTITY\ version\ \"*.*.*\"\>/\<\!ENTITY\ version\ \"${NEW_VERSION}\"\>/g | \
+    sed s/\<\!ENTITY\ version_tag\ \"*.*.*\"\>/\<\!ENTITY\ version_tag\ \"${NEW_TAG}\"\>/g | \
+    sed s/\<date\>....-..-..\<\\/date\>/\<date\>${NEW_DATE}\<\\/date\>/g \
+    > doc/help_en.docbook.new && \
+mv doc/help_en.docbook doc/help_en.docbook.old && \
+mv doc/help_en.docbook.new doc/help_en.docbook
 
 echo "new version numbers set."
 

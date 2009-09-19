@@ -37,13 +37,11 @@
 
 //***************************************************************************
 VolumeDialog::VolumeDialog(QWidget *parent, OverViewCache *overview_cache)
-    :QDialog(parent), Ui::VolumeDlg(), m_factor(0.5), m_mode(MODE_PERCENT),
+    :QDialog(parent), Ui::VolumeDlg(), m_factor(1.0), m_mode(MODE_DECIBEL),
      m_enable_updates(true), m_overview_cache(overview_cache)
 {
     setupUi(this);
     setModal(true);
-
-    setMode(m_mode);
 
     // process changed in mode selection
     connect(rbFactor, SIGNAL(toggled(bool)),
@@ -72,6 +70,10 @@ VolumeDialog::VolumeDialog(QWidget *parent, OverViewCache *overview_cache)
     int w = (3 * h) / 4;
     if (sizeHint().width() > w) w = sizeHint().width();
     setFixedSize(w, h);
+
+    // set default: +3dB
+    setMode(m_mode);
+    updateDisplay(+1.412538);
 }
 
 //***************************************************************************
@@ -144,7 +146,7 @@ void VolumeDialog::modeChanged(bool)
 //***************************************************************************
 void VolumeDialog::updateDisplay(double value)
 {
-//    qDebug("VolumeDialog::updateDisplay(%f)", value); // ###
+//  qDebug("VolumeDialog::updateDisplay(%f)", value); // ###
     int new_spinbox_value = 0;
     int new_slider_value  = 0;
     bool old_enable_updates = m_enable_updates;

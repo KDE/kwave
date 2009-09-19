@@ -29,6 +29,7 @@
  * bugfix: recording level meter consumed 100% cpu
  * new make target: "make apidoc" for internal doxygen documentation
  * bugfix: some images and icons in non-english documentation were missing
+ * volume plugin: preview was not updated on first use of plugin
 
 0.8.3-2 [2009-07-04]
 

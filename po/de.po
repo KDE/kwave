@@ -1105,7 +1105,8 @@ msgstr ""
 "Lautsprecher. Wenn Sie Aussetzer hören, sollten Sie einen etwas höheren Wert "
 "einstellen.</p>"
 
-#: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:421, c-format
+#: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:421
+#, fuzzy, c-format
 msgid ""
 "<b>Channels:</b><p>Number of channels used for playback. This does not "
 "necessarily have to be the same as the number of tracks in your current "
@@ -4859,7 +4860,8 @@ msgstr "Rauschen"
 msgid "normalize"
 msgstr "Normalisieren"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:222, c-format
+#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:222
+#, fuzzy, c-format
 msgid "normalizing (%1dB) ..."
 msgstr "normalisiere (%1 dB) ..."
 

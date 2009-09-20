@@ -302,6 +302,9 @@
 	    <listitem><para>
 		flac-1.1.0 or higher (for FLAC import/export)
 	    </para></listitem>
+            <listitem><para>
+                libsamplerate-0.1.3 or higher (sample rate conversion)
+            </para></listitem>
 	    <listitem><para>
 		about 64 MB memory for starting &kapp; (but this may
 		vary depending on your platform and configuration)
@@ -347,9 +350,6 @@
 	    </para></listitem>
 	    <listitem><para>
 		fftw-3.x
-	    </para></listitem>
-	    <listitem><para>
-		libsamplerate-0.1.3 or higher
 	    </para></listitem>
 	    <listitem><para>
 		mad-devel-0.15 or higher
@@ -430,6 +430,12 @@
 		    default=<literal>on</literal>]
 		</para></listitem>
 		<listitem><para>
+		    <literal>WITH_DEBUG</literal>
+		    build a debug version
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>off</literal>]
+		</para></listitem>
+		<listitem><para>
 		    <literal>WITH_DOC</literal>
 		    build online documentation
 		    [<literal>on</literal>/<literal>off</literal>,
@@ -461,8 +467,18 @@
 		    [<literal>on</literal>/<literal>off</literal>,
 		    default=<literal>on</literal>]
 		</para></listitem>
-
-
+		<listitem><para>
+		    <literal>WITH_PHONON</literal>
+		    enable playback via Phonon (for testing only)
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>off</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_SAMPLERATE</literal>
+		    enable sample rate conversion
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
 	    </itemizedlist>
 	</para>
 
@@ -1527,7 +1543,7 @@
 	    before, so that you will no longer miss a start.
 	</para></listitem>
 	<listitem><para>
-	    <guilabel>Record-Time:</guilabel> If the length of the recording
+	    <guilabel>Record Time:</guilabel> If the length of the recording
 	    should be limited to some time, you can activate this setting and
 	    select a time in hours, minutes, seconds for your recording. If
 	    this option is not enabled, the recording runns until you press
@@ -1537,11 +1553,20 @@
             </inlinemediaobject>) button.
 	</para></listitem>
 	<listitem><para>
+	    <guilabel>Start At:</guilabel> If this setting is activated, you
+	    can set a date and time when the recording will be started. Please
+	    keep in mind that if the configured time is in the past, the
+	    recording will start immediately.
+	</para></listitem>
+	<listitem><para>
 	    <guilabel>Record Trigger:</guilabel> If enabled, the recording
 	    starts only if the volume of the input goes over a certain limit,
 	    which can be defined from 0 to 100% of the highest possible
 	    input volume. This is useful if you do not want to record
 	    leading silence.
+	    (Hint: combine this with the prerecording feature mentioned above
+	    to catch also some seconds before reaching the trigger, so that
+	    you don't miss any silent fade-ins.)
 	</para></listitem>
 	<listitem><para>
 	    The <guibutton>New</guibutton> (<inlinemediaobject><imageobject>

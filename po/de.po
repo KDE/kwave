@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-11 20:45+0200\n"
-"PO-Revision-Date: 2009-09-11 20:46+0200\n"
+"POT-Creation-Date: 2009-09-20 10:39+0200\n"
+"PO-Revision-Date: 2009-09-20 10:40+0200\n"
 "Last-Translator: \n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -138,7 +138,7 @@ msgstr "%1 (%2 Samples)"
 msgid "%1 Bytes"
 msgstr "%1 Bytes"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:764
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:768
 msgid "%1 Hz"
 msgstr "%1 Hz"
 
@@ -154,7 +154,7 @@ msgstr "%1 MB (%2 Bytes)"
 msgid "%1 MB of %2 MB done"
 msgstr "%1 MB von %2 MB erledigt"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:862
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:866
 msgid "%1 bit"
 msgstr "%1 Bit"
 
@@ -183,8 +183,8 @@ msgstr "%1 Bytes"
 msgid "%1 channels playback is not supported"
 msgstr "Wiedergabe mit %1 Kanälen wird nicht unterstützt"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/LevelMeter.cpp:273
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/LevelMeter.cpp:297
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/LevelMeter.cpp:274
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/LevelMeter.cpp:298
 msgid "%1 dB"
 msgstr "%1 dB"
 
@@ -202,7 +202,7 @@ msgstr "%1 kB (%2 Bytes)"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileProgress.cpp:345
 #: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDialog.cpp:224
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:574
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:578
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:1069
 msgid "%1 samples"
 msgstr "%1 Samples"
@@ -211,11 +211,11 @@ msgstr "%1 Samples"
 msgid "%1 samples per second"
 msgstr "%1 Samples pro Sekunde"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1160
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1164
 msgid "%1 second"
 msgstr "% Sekunde"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:709
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:713
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:442
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:450
 msgid "%1 tracks"
@@ -753,7 +753,7 @@ msgid "( resulting window size: %1 )"
 msgstr "( resultierende Fenstergröße: %1 )"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1120
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1181
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1185
 msgid "(%1 samples)"
 msgstr "(%1 Samples)"
 
@@ -789,7 +789,7 @@ msgstr "(generiert für KDE %1)"
 msgid "(c) 2006, Thomas Eschenbacher"
 msgstr "(c) 2006, Thomas Eschenbacher"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:982
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:986
 msgid "(empty)"
 msgstr "(leer)"
 
@@ -1105,8 +1105,7 @@ msgstr ""
 "Lautsprecher. Wenn Sie Aussetzer hören, sollten Sie einen etwas höheren Wert "
 "einstellen.</p>"
 
-#: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:421
-#, fuzzy, c-format
+#: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:421, c-format
 msgid ""
 "<b>Channels:</b><p>Number of channels used for playback. This does not "
 "necessarily have to be the same as the number of tracks in your current "
@@ -1275,7 +1274,7 @@ msgid ""
 "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes OSS, "
 "supports more features and more hardware.</p>"
 msgstr ""
-"<b>Aufnahme-Metode:</b><p>Wählen Sie eine Methode bzw. ein System für die \n"
+"<b>Aufnahme-Methode:</b><p>Wählen Sie eine Methode bzw. ein System für die \n"
 "Aufnahme. Abhängig von den Compilier-Optionen können Sie eine der folgenden\n"
 "Methoden wählen:</p>\n"
 "<p><b><i>OSS (Open Sound System)</i></b>: Die älteste Linux-Implementierung, "
@@ -1525,7 +1524,7 @@ msgstr "ALSA (Advanced Linux Sound Architecture)"
 msgid "ALSA playback device (adsp*)"
 msgstr "ALSA-Wiedergabegerät (adsp*)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:593
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:597
 msgid "ALSA record device (adsp*)"
 msgstr "ALSA-Aufnahmegerät (adsp*)"
 
@@ -1691,7 +1690,7 @@ msgid "Annotation"
 msgstr "Anmerkung"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:293
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:594
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:598
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:405
 msgid "Any device (*)"
 msgstr "Anderes Wiedergabegerät (*)"
@@ -2700,7 +2699,7 @@ msgid "Length"
 msgstr "Länge"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1119
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1180
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1184
 msgid "Length: %1"
 msgstr "Länge: %1"
 
@@ -2924,7 +2923,7 @@ msgstr "Modus-Erweiterung"
 msgid "Mode: %1 kHz@%2 bit"
 msgstr "Format: %1 kHz@%2 Bit"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:692
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:696
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:438
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:446
 msgid "Mono"
@@ -3053,7 +3052,7 @@ msgstr "OSS (Open Sound System)"
 msgid "OSS playback device (dsp*)"
 msgstr "OSS-Wiedergabegerät (dsp*)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:592
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:596
 msgid "OSS record device (dsp*)"
 msgstr "OSS-Aufnahmegerät (dsp*)"
 
@@ -3313,7 +3312,7 @@ msgstr "Punk"
 msgid "Punk Rock"
 msgstr "Punk Rock"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:698
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:702
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:440
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:448
 msgid "Quadro"
@@ -3357,7 +3356,7 @@ msgstr "Aufnehmen"
 
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:972
 msgid "Record &Time:"
-msgstr "Aufnahme-&Zeit:"
+msgstr "Aufnahme-&Dauer:"
 
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:958
 msgid "Record Control"
@@ -3554,7 +3553,7 @@ msgstr "Auswahl des Wiedergabegeräts"
 msgid "Select Range..."
 msgstr "Bereich auswählen..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:600
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:604
 msgid "Select Record Device"
 msgstr "Auswahl des Aufnahmegeräts"
 
@@ -3796,7 +3795,7 @@ msgstr ""
 msgid "Stefan Westerfeld"
 msgstr "Stefan Westerfeld"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:695
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:699
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:439
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:447
 msgid "Stereo"
@@ -4248,11 +4247,11 @@ msgstr "Frei Verstärken"
 msgid "amplifyfree"
 msgstr "Frei Verstärken"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:191
+#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:192
 msgid "analyzing volume level..."
 msgstr "Analysiere Lautstärke..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1159
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1163
 msgid "and %1 second"
 msgstr "und %1 Sekunde"
 
@@ -4336,7 +4335,7 @@ msgstr "Bit"
 msgid "browse for a directory to hold page files"
 msgstr "Verzeichnis für Auslagerungsdateien wählen"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:993
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:997
 msgid "buffering..."
 msgstr "buffern..."
 
@@ -4348,8 +4347,8 @@ msgstr "nach Faktor"
 msgid "by Percentage"
 msgstr "nach Prozentsatz"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1042
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1057
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1044
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1059
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:812
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:828
 msgid "card %1: "
@@ -4536,8 +4535,8 @@ msgstr ""
 "existierenden Dateien entstehen</li>\n"
 "</ul>"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1044
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1058
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1046
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1060
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:814
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:830
 msgid "device %1: "
@@ -4551,7 +4550,7 @@ msgstr "Verzeichnis für Auslagerungsdateien"
 msgid "display"
 msgstr "Anzeige"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1055
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1059
 msgid "done"
 msgstr "Fertig"
 
@@ -4855,13 +4854,12 @@ msgstr "keine Kompression"
 msgid "noise"
 msgstr "Rauschen"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:160
-#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:172
+#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:161
+#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:173
 msgid "normalize"
 msgstr "Normalisieren"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:222
-#, fuzzy, c-format
+#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:223, c-format
 msgid "normalizing (%1dB) ..."
 msgstr "normalisiere (%1 dB) ..."
 
@@ -4889,15 +4887,15 @@ msgstr "Nummerierung:"
 msgid "on modifications"
 msgstr "bei Veränderungen"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1152
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1156
 msgid "one day "
 msgstr "ein Tag "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1154
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1158
 msgid "one hour "
 msgstr "eine Stunde "
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1156
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1160
 msgid "one minute "
 msgstr "eine Minute "
 
@@ -4950,7 +4948,7 @@ msgstr "Einfügen"
 msgid "pause playback"
 msgstr "Wiedergabe anhalten"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1044
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1048
 msgid "paused"
 msgstr "Angehalten"
 
@@ -4978,7 +4976,7 @@ msgstr "Wiedergabegerät"
 msgid "playback rate %1 Hz is not supported"
 msgstr "Wiedergabe-Rate %1 Hz wird nicht unterstützt"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:970
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:974
 msgid "please check the source device settings..."
 msgstr "Bitte überprüfen Sie die Einstellungen des Aufnahmegerätes..."
 
@@ -5002,7 +5000,7 @@ msgstr "Polynom, 7ter Grad"
 msgid "polynom, nth degree"
 msgstr "Polynom, n-ter Grad"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1004
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1008
 msgid "prerecording..."
 msgstr "Vorab-Aufnahme..."
 
@@ -5036,7 +5034,7 @@ msgstr "Aufnahme"
 msgid "recording device"
 msgstr "Aufnahmegerät"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1026
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1030
 msgid "recording..."
 msgstr "Aufnahme läuft..."
 
@@ -5227,7 +5225,7 @@ msgstr "Start abgeschlossen."
 msgid "stop playback or loop"
 msgstr "Wiedergabe beenden"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1046
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1048
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:816
 msgid "subdevice %1: "
 msgstr "Subgerät %1: "
@@ -5330,12 +5328,12 @@ msgstr "Version"
 msgid "volume"
 msgstr "Lautstärke"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1162
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1166
 msgid "waiting for start in %1%2%3%4 ..."
 msgstr "warte auf Start in %1%2%3%4 ..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1015
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1166
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1019
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1170
 msgid "waiting for trigger..."
 msgstr "warte auf Trigger..."
 

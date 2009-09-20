@@ -1,4 +1,5 @@
 [Buildset]
+BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
 Number of Builditems=1
 
 [Buildset][Builditem0]

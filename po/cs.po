@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-11 20:45+0200\n"
+"POT-Creation-Date: 2009-09-20 10:39+0200\n"
 "PO-Revision-Date: 2009-06-09 18:41+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -140,7 +140,7 @@ msgstr "%1 (%2 vzorky)"
 msgid "%1 Bytes"
 msgstr "%1 Bajtů"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:764
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:768
 msgid "%1 Hz"
 msgstr "%1 Hz"
 
@@ -156,7 +156,7 @@ msgstr "%1 MB (%2 bajtů)"
 msgid "%1 MB of %2 MB done"
 msgstr "%1 MB of %2 MB hotovo"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:862
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:866
 msgid "%1 bit"
 msgstr "%1 bitů"
 
@@ -184,8 +184,8 @@ msgstr "%1 bajtů"
 msgid "%1 channels playback is not supported"
 msgstr "%1 kanálové přehrávání není podporováno"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/LevelMeter.cpp:273
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/LevelMeter.cpp:297
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/LevelMeter.cpp:274
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/LevelMeter.cpp:298
 msgid "%1 dB"
 msgstr "%1 dB"
 
@@ -203,7 +203,7 @@ msgstr "%1 kB (%2 bajtů)"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileProgress.cpp:345
 #: /usr/src/packages/multimedia/sound/kwave/plugins/fileinfo/FileInfoDialog.cpp:224
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:574
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:578
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:1069
 msgid "%1 samples"
 msgstr "%1 vzorků"
@@ -212,12 +212,12 @@ msgstr "%1 vzorků"
 msgid "%1 samples per second"
 msgstr "%1 vzorků za sekundu"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1160
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1164
 #, fuzzy
 msgid "%1 second"
 msgstr "Sekundy"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:709
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:713
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:442
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:450
 msgid "%1 tracks"
@@ -756,7 +756,7 @@ msgid "( resulting window size: %1 )"
 msgstr "(výsledná velikost okna: %1)"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1120
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1181
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1185
 msgid "(%1 samples)"
 msgstr "(%1 vzorky)"
 
@@ -792,7 +792,7 @@ msgstr "(sestaveno pro KDE %1)"
 msgid "(c) 2006, Thomas Eschenbacher"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:982
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:986
 msgid "(empty)"
 msgstr "(prázdný)"
 
@@ -1524,7 +1524,7 @@ msgstr "ALSA (Advanced Linux Sound Architecture)"
 msgid "ALSA playback device (adsp*)"
 msgstr "ALSA zařízení umožňující přehrávání (adsp*)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:593
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:597
 msgid "ALSA record device (adsp*)"
 msgstr "ALSA zařízení umožňující nahrávání (adsp*)"
 
@@ -1692,7 +1692,7 @@ msgid "Annotation"
 msgstr "Poznámka"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-OSS.cpp:293
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:594
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:598
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:405
 msgid "Any device (*)"
 msgstr "Jakékoli zařízení (*)"
@@ -2702,7 +2702,7 @@ msgid "Length"
 msgstr "Délka"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:1119
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1180
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1184
 msgid "Length: %1"
 msgstr "Délka: %1"
 
@@ -2927,7 +2927,7 @@ msgstr "Rozšíření režimu"
 msgid "Mode: %1 kHz@%2 bit"
 msgstr "Režim: %1 kHz@%2 bitů"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:692
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:696
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:438
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:446
 msgid "Mono"
@@ -3055,7 +3055,7 @@ msgstr "OSS (Open Sound System - Otevřený zvukový systém)"
 msgid "OSS playback device (dsp*)"
 msgstr "Přehrávací zařízení OSS (dsp*)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:592
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:596
 msgid "OSS record device (dsp*)"
 msgstr "Nahrávací zařízení OSS (dsp*)"
 
@@ -3318,7 +3318,7 @@ msgstr "Punk"
 msgid "Punk Rock"
 msgstr "Punk rock"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:698
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:702
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:440
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:448
 msgid "Quadro"
@@ -3558,7 +3558,7 @@ msgstr "Vybrat přehrávací zařízení"
 msgid "Select Range..."
 msgstr "Vybrat rozsah..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:600
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:604
 msgid "Select Record Device"
 msgstr "Vybrat nahrávací zařízení"
 
@@ -3797,7 +3797,7 @@ msgstr ""
 msgid "Stefan Westerfeld"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:695
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:699
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:439
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:447
 msgid "Stereo"
@@ -4238,11 +4238,11 @@ msgstr "Volně zesílit"
 msgid "amplifyfree"
 msgstr "Volně zesílit"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:191
+#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:192
 msgid "analyzing volume level..."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1159
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1163
 msgid "and %1 second"
 msgstr ""
 
@@ -4328,7 +4328,7 @@ msgstr "bitů"
 msgid "browse for a directory to hold page files"
 msgstr "Procházet kvůli adresáři za účelem uchování stránkovacích souborů"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:993
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:997
 msgid "buffering..."
 msgstr "Ukládání do vyrovnávací paměti..."
 
@@ -4340,8 +4340,8 @@ msgstr "Podle faktoru"
 msgid "by Percentage"
 msgstr "Podle procentního podílu"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1042
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1057
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1044
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1059
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:812
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:828
 msgid "card %1: "
@@ -4529,8 +4529,8 @@ msgstr ""
 "existujícími soubory</li>\n"
 "</ul>"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1044
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1058
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1046
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1060
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:814
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:830
 msgid "device %1: "
@@ -4544,7 +4544,7 @@ msgstr "Adresář pro uchovávání souborů swapu na disku"
 msgid "display"
 msgstr "Zobrazit"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1055
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1059
 msgid "done"
 msgstr "Hotovo"
 
@@ -4850,12 +4850,12 @@ msgstr "Bez komprese"
 msgid "noise"
 msgstr "Šum"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:160
-#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:172
+#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:161
+#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:173
 msgid "normalize"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:222
+#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:223
 #, fuzzy, c-format
 msgid "normalizing (%1dB) ..."
 msgstr "Používá se '%1' ..."
@@ -4885,15 +4885,15 @@ msgstr "Číslování:"
 msgid "on modifications"
 msgstr "Žádné úpravy"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1152
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1156
 msgid "one day "
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1154
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1158
 msgid "one hour "
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1156
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1160
 #, fuzzy
 msgid "one minute "
 msgstr "&Pokračovat"
@@ -4947,7 +4947,7 @@ msgstr "Vložit"
 msgid "pause playback"
 msgstr "Pozastavit přehrávání"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1044
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1048
 msgid "paused"
 msgstr "Pozastaveno"
 
@@ -4975,7 +4975,7 @@ msgstr "Přehrávací zařízení"
 msgid "playback rate %1 Hz is not supported"
 msgstr "Kmitočet přehrávání %1 Hz není podporován"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:970
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:974
 msgid "please check the source device settings..."
 msgstr "Zkontrolujte, prosím, nastavení zdrojového zařízení..."
 
@@ -4999,7 +4999,7 @@ msgstr "Polynom, sedmý stupeň"
 msgid "polynom, nth degree"
 msgstr "Polynom, devátý stupeň"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1004
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1008
 msgid "prerecording..."
 msgstr "Náhrává předem..."
 
@@ -5033,7 +5033,7 @@ msgstr "Nahrávat"
 msgid "recording device"
 msgstr "Nahrávací zařízení"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1026
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1030
 msgid "recording..."
 msgstr "Nahrává..."
 
@@ -5226,7 +5226,7 @@ msgstr "Spuštění hotovo."
 msgid "stop playback or loop"
 msgstr "Zastavit přehrávání a tvoření smyček"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1046
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/Record-ALSA.cpp:1048
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-ALSA.cpp:816
 msgid "subdevice %1: "
 msgstr "Dílčí zařízení %1: "
@@ -5329,13 +5329,13 @@ msgstr "Verze"
 msgid "volume"
 msgstr "Hlasitost"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1162
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1166
 #, fuzzy
 msgid "waiting for start in %1%2%3%4 ..."
 msgstr "Čeká na spuštění spouště..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1015
-#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1166
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1019
+#: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:1170
 msgid "waiting for trigger..."
 msgstr "Čeká na spuštění spouště..."
 

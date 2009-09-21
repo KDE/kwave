@@ -142,9 +142,8 @@ MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
                 GET_FILENAME_COMPONENT(_image ${_image_file} NAME)
                 SET(_src_img ${CMAKE_CURRENT_SOURCE_DIR}/${_lang}/${_image})
                 IF (NOT EXISTS ${_src_img})
-                    MESSAGE(STATUS "MISSING: ${_src_img}")
-                    SET(_missing_png_files_${_lang} 
-                        "${_missing_png_files_${_lang}}" 
+                    SET(_missing_png_files_${_lang}
+                        "${_missing_png_files_${_lang}}"
                         "${_image_file}"
                     )
                 ENDIF (NOT EXISTS ${_src_img})
@@ -229,7 +228,7 @@ MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
 
         # installation of the *.png files
         FILE(GLOB _png_files_${_lang} "${CMAKE_CURRENT_SOURCE_DIR}/${_lang}/*.png")
-        INSTALL(FILES 
+        INSTALL(FILES
                 ${_png_files_${_lang}}
                 ${_missing_png_files_${_lang}}
                 ${_toolbar_pngs}

@@ -127,6 +127,12 @@ ELSE (CXX_HAVE_PIC AND C_HAVE_PIC)
     MESSAGE(FATAL_ERROR "shared library support is missing")
 ENDIF (CXX_HAVE_PIC AND C_HAVE_PIC)
 
+# disable annoying warnings from Qt about strict aliasing
+CHECK_CXX_COMPILER_FLAG("-Wno-strict-aliasing" CXX_NO_STRICT_ALIASING)
+IF (CXX_NO_STRICT_ALIASING)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-strict-aliasing")
+ENDIF (CXX_NO_STRICT_ALIASING)
+
 #############################################################################
 
 LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libgui)

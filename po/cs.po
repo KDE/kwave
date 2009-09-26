@@ -1106,7 +1106,8 @@ msgstr ""
 "výstupem zvuku. Pokud se setkáte s přerušeními, měl byste o něco zvýšit "
 "hodnotu tohoto nastavení.</p>"
 
-#: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:421, c-format
+#: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:421
+#, fuzzy, c-format
 msgid ""
 "<b>Channels:</b><p>Number of channels used for playback. This does not "
 "necessarily have to be the same as the number of tracks in your current "
@@ -4141,8 +4142,7 @@ msgid ""
 msgstr ""
 "Když je zaškrtnuto, <b>začne nahrávání v zadaném datu a čase</b>. Všimněte, "
 "si, prosím, že když je čas zadán v minulosti, nahrávání začne okamžitě, nebo "
-"začne, "
-"jakmile je dosaženo stanovené úrovně spouštěče (je-li to povoleno)."
+"začne, jakmile je dosaženo stanovené úrovně spouštěče (je-li to povoleno)."
 
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:963
 msgid ""
@@ -4842,7 +4842,8 @@ msgstr "Šum"
 msgid "normalize"
 msgstr "Uvést do obvyklého stavu"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:223, c-format
+#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:223
+#, c-format
 msgid "normalizing (%1dB) ..."
 msgstr "Uvádí se do obvyklého stavu (%1dB) ..."
 

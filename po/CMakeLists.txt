@@ -25,7 +25,9 @@ FOREACH(_lang ${KWAVE_BUILD_LINGUAS})
     ENDIF (NOT ${_lang_short} STREQUAL "en")
 ENDFOREACH(_lang ${KWAVE_BUILD_LINGUAS})
 
-GETTEXT_CREATE_TRANSLATIONS(kwave.pot ALL ${_po_files})
+IF (DEFINED _po_files )
+    GETTEXT_CREATE_TRANSLATIONS(kwave.pot ALL ${_po_files})
+ENDIF (DEFINED _po_files )
 
 #############################################################################
 #############################################################################

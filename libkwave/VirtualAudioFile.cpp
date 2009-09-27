@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
+#include <stdlib.h>
 #include <qiodevice.h>
 #include "libkwave/VirtualAudioFile.h"
 
@@ -28,6 +29,7 @@ static QMap<AFvirtualfile*,VirtualAudioFile*> *_adapter_map = 0;
 /** Last error number from libaudiofile. -1 if no error occurred */
 static long _last_audiofile_error = -1;
 
+//***************************************************************************
 /**
  * Error handler for libaudiofile
  * @warning NOT THREADSAFE!
@@ -41,11 +43,15 @@ static void _handle_audiofile_error(long error, const char *str)
     _last_audiofile_error = error;
 }
 
+//***************************************************************************
 /** Returns the last libaudiofile error and resets it to -1 */
 static long _lastAudiofileError()
 {
     long err = _last_audiofile_error;
     _last_audiofile_error = -1;
+
+    // ignore "bad alloc", which might occur on a "malloc(0)"
+    if (err == AF_BAD_MALLOC) err = -1;
     return err;
 }
 
@@ -54,7 +60,7 @@ static ssize_t af_file_read(AFvirtualfile *vfile, void *data,
                             size_t nbytes)
 {
     VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
-    return (adapter) ? adapter->read((char*)data, nbytes) : 0;
+    return (adapter) ? adapter->read(static_cast<char *>(data), nbytes) : 0;
 }
 
 //***************************************************************************
@@ -69,7 +75,8 @@ static ssize_t af_file_write(AFvirtualfile *vfile, const void *data,
 	                     size_t nbytes)
 {
     VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
-    return (adapter) ? adapter->write((char*)data, nbytes) : 0;
+    return (adapter) ?
+	adapter->write(static_cast<const char *>(data), nbytes) : 0;
 }
 
 //***************************************************************************
@@ -92,12 +99,27 @@ static long af_file_tell(AFvirtualfile *vfile)
 }
 
 //***************************************************************************
+/**
+ * Replacement of af_virtual_file_new from original libaudiofile code.
+ * Unfortunately the original is not usable because it is not available
+ * through the shared library API of some libaudiofile versions.
+ *
+ * original version: see libaudiofile/af_vfs.c (GPL 2+)
+ * original author: Copyright (C) 1999, Elliot Lee <sopwith@redhat.com>
+ */
+static AFvirtualfile *__af_virtual_file_new(void)
+{
+    return static_cast<AFvirtualfile *>(calloc(sizeof(AFvirtualfile), 1));
+}
+
+//***************************************************************************
+//***************************************************************************
 VirtualAudioFile::VirtualAudioFile(QIODevice &device)
      :m_device(device), m_file_handle(0), m_virtual_file(0),
       m_last_error(-1)
 {
     // create the virtual file structure for libaudiofile
-    m_virtual_file = af_virtual_file_new();
+    m_virtual_file = __af_virtual_file_new();
     Q_ASSERT(m_virtual_file);
     if (!m_virtual_file) return;
 

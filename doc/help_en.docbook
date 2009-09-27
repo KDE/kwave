@@ -30,8 +30,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2007-12-09</date>
-<releaseinfo>0.7.11</releaseinfo>
+<date>2009-09-27</date>
+<releaseinfo>0.7.12</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
 
@@ -200,6 +200,20 @@
 	 helper scripts -->
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
+        <listitem>
+            <para>0.7.12 [2009-09-27]</para>
+            <itemizedlist>
+                <listitem><para>
+                    fixed linking without aRts (integrated SF patch #1900201)
+                </para></listitem>
+                <listitem><para>
+                    fixed linking with external libaudiofile (integrated SF patch #1905335)
+                </para></listitem>
+                <listitem><para>
+                    backported libaudiofile detection / af_virtual_file_new() issue
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
         <listitem>
             <para>0.7.11 [2007-12-09]</para>
             <itemizedlist>

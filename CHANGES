@@ -1,4 +1,10 @@
 
+0.7.12 [2009-09-27]
+
+ * fixed linking without aRts (integrated SF patch #1900201)
+ * fixed linking with external libaudiofile (integrated SF patch #1905335)
+ * backported libaudiofile detection / af_virtual_file_new() issue
+
 0.7.11 [2007-12-09]
 
  * new internal streaming architecture, based on Qt instead of aRts

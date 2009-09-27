@@ -3099,8 +3099,8 @@ msgstr "Mode d'enregistrement :"
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:446
 msgid "Recording with %1 track(s) failed, using %2 track(s)"
 msgstr ""
-"L'enregistrement de la piste « %1 » a échoué. La piste « %2 » sera utilisée "
-"à la place"
+"L'enregistrement de la piste « %1 » a échoué. La piste « %2 » sera utilisée à "
+"la place"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:85
 msgid ""
@@ -3952,8 +3952,8 @@ msgstr "Auteur de la bibliothèque « audiofile »."
 #: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:112
 msgid "author of the 'mad' mp3 decoder library"
 msgstr ""
-"Auteur de la bibliothèque correspondante au codec « mad » pour la gestion "
-"des fichiers MP3."
+"Auteur de la bibliothèque correspondante au codec « mad » pour la gestion des "
+"fichiers MP3."
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/main.cpp:124
 msgid "author of the 'sndfile' library"
@@ -4649,8 +4649,8 @@ msgstr ""
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:655
 msgid "sample format '%1' is not supported, using '%2'"
 msgstr ""
-"le format d'échantillonage «%1» n'est pas géré. Le format «%2» sera utilisé "
-"à la place."
+"le format d'échantillonage «%1» n'est pas géré. Le format «%2» sera utilisé à "
+"la place."
 
 #: /usr/src/packages/multimedia/sound/kwave/libgui/FileProgress.cpp:92
 msgid "sample rate: "

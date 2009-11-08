@@ -326,6 +326,10 @@ int Kwave::Plugin::execute(QStringList &params)
     Q_ASSERT(m_thread);
     if (!m_thread) return -ENOMEM;
 
+    // increment the use count, it is decremented at the end of
+    // the run_wrapper when the thread is finished
+    use();
+
     // start the thread, this executes run()
     m_thread->start();
 
@@ -394,6 +398,7 @@ void Kwave::Plugin::close()
 void Kwave::Plugin::use()
 {
     QMutexLocker lock(&m_usage_lock);
+    Q_ASSERT(m_usage_count); // should be at least 1 (from constructor)
     m_usage_count++;
 }
 

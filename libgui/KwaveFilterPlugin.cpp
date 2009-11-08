@@ -210,7 +210,6 @@ void Kwave::FilterPlugin::startPreListen()
 	m_listen = true;
 	setProgressDialogEnabled(false);
 	static QStringList empty_list;
-	use();
 	execute(empty_list);
     }
 }

@@ -53,6 +53,7 @@ Kwave::PluginManager::PluginDeleter::PluginDeleter(Kwave::Plugin *plugin,
                                                    void *handle)
   :QObject(), m_plugin(plugin), m_handle(handle)
 {
+    Q_ASSERT(m_plugin);
 }
 
 //***************************************************************************
@@ -67,6 +68,7 @@ Kwave::PluginManager::PluginDeleter::~PluginDeleter()
     qApp->flush();
 
     // delete the plugin, this should also remove everything it has allocated
+    Q_ASSERT(m_plugin);
     if (m_plugin) delete m_plugin;
 
     // empty the event queues before unmap, in case the destructors
@@ -95,12 +97,11 @@ Kwave::PluginManager::PluginManager(QWidget *parent,
     :m_loaded_plugins(), m_running_plugins(),
      m_parent_widget(parent), m_signal_manager(signal_manager)
 {
-    // use all unique plugins
-    // this does nothing on the first instance, all other instances
-    // will probably find a non-empty list
+    // connect all unique plugins
     foreach (KwavePluginPointer p, m_unique_plugins) {
 	Q_ASSERT(p && p->isUnique());
-	if (p && p->isUnique()) {
+	if (p) {
+	    // increase the use count of the existing unique plugin
 	    p->use();
 
 	    // maybe we will become responsible for releasing
@@ -123,25 +124,28 @@ Kwave::PluginManager::~PluginManager()
     this->sync();
 
     // release all unique plugins
-    while (!m_unique_plugins.isEmpty()) {
-	KwavePluginPointer p = m_unique_plugins.takeLast();
+    foreach (KwavePluginPointer p, m_unique_plugins) {
 	Q_ASSERT(p && p->isUnique());
-	if (p && p->isUnique()) p->release();
+	if (p) p->release();
+	this->sync();
     }
 
     // release all own persistent plugins
-    while (!m_loaded_plugins.isEmpty()) {
-	KwavePluginPointer p = m_loaded_plugins.takeLast();
+    foreach (KwavePluginPointer p, m_loaded_plugins) {
 	Q_ASSERT(p);
 	if (p && p->isPersistent()) p->release();
+	this->sync();
     }
 
-    // release all own plugins that are left
+    // release all own plugins that are left (should be an empty list!)
     while (!m_loaded_plugins.isEmpty()) {
 	KwavePluginPointer p = m_loaded_plugins.takeLast();
 	Q_ASSERT(p);
+	qWarning("RELEASING LOADED PLUGIN '%s'", p->name().toLocal8Bit().data());
 	if (p) p->release();
+	this->sync();
     }
+
 }
 
 //***************************************************************************
@@ -157,12 +161,13 @@ void Kwave::PluginManager::loadAllPlugins()
 // 	    if (plugin->isPersistent()) state += "(persistent)";
 // 	    if (plugin->isUnique()) state += "(unique)";
 // 	    if (!state.length()) state = "(normal)";
-// 	    qDebug("PluginManager::loadAllPlugins(): plugin '"+
-// 		   plugin->name()+"' "+state);
-	    if (!plugin->isUnique() && !plugin->isPersistent()) {
-		// remove it again if it is neither unique nor persistent
-		plugin->release();
-	    }
+// 	    qDebug("PluginManager::loadAllPlugins(): plugin '%s' %s",
+// 		   plugin->name().toLocal8Bit().data(),
+// 		   state.toLocal8Bit().data());
+
+	    // reduce us count again, unique and persistent plugins
+	    // stay loaded with use count 1
+	    plugin->release();
 	} else {
 	    // loading failed => remove it from the list
 	    qWarning("PluginManager::loadAllPlugins(): removing '%s' "\
@@ -181,11 +186,12 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 
     // first find out if the plugin is already loaded and persistent
     foreach (KwavePluginPointer p, m_loaded_plugins) {
+	Q_ASSERT(p);
 	if (p && p->isPersistent() && (p->name() == name)) {
-	    Q_ASSERT(p->isPersistent());
 	    qDebug("PluginManager::loadPlugin('%s')"\
 	           "-> returning pointer to persistent",
 	           name.toLocal8Bit().data());
+	    p->use();
 	    return p;
 	}
     }
@@ -198,6 +204,7 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 	    qDebug("PluginManager::loadPlugin('%s')"\
 	           "-> returning pointer to unique+persistent",
 	           name.toLocal8Bit().data());
+	    p->use();
 	    return p;
 	}
     }
@@ -282,17 +289,20 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 
     if (plugin->isUnique()) {
 	// append unique plugins to the global list of unique plugins
-	m_unique_plugins.append(plugin);
 	plugin->use();
+	m_unique_plugins.append(plugin);
     } else {
 	// append the plugin into our list of loaded plugins
-	m_loaded_plugins.append(plugin);
 	if (plugin->isPersistent()) {
-	    // increment the usage if it is persistent, we will
-	    // only load it once in this instance
 	    plugin->use();
 	}
+	m_loaded_plugins.append(plugin);
     }
+
+    // now we have a newly created plugin, the use count is
+    // 1 for normal plugins
+    // 2 for persistent plugins
+    // 2 for unique plugins
 
     // connect all necessary signals/slots
     connectPlugin(plugin);
@@ -329,14 +339,14 @@ int Kwave::PluginManager::executePlugin(const QString &name,
 	result = plugin->start(*params);
 
 	// maybe the start() function has called close() ?
-	if (!plugin->isPersistent() && !m_loaded_plugins.contains(plugin)) {
-	    qDebug("PluginManager: plugin closed itself in start()"); // ###
+	if (!m_unique_plugins.contains(plugin) &&
+	    !m_loaded_plugins.contains(plugin)) {
+	    qDebug("PluginManager: plugin closed itself in start()");
 	    result = -1;
 	    plugin = 0;
 	}
 
 	if (plugin && (result >= 0)) {
-	    plugin->use(); // plugin->release() will be called after run()
 	    plugin->execute(*params);
 	}
     } else {
@@ -370,7 +380,7 @@ int Kwave::PluginManager::executePlugin(const QString &name,
 
     // now the plugin is no longer needed here, so delete it
     // if it has not already been detached
-    if (plugin && !plugin->isPersistent()) plugin->release();
+    if (plugin) plugin->release();
 
     // emit a command, let the toplevel window (and macro recorder) get
     // it and call us again later...
@@ -386,9 +396,12 @@ bool Kwave::PluginManager::onePluginRunning()
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
-    if (m_loaded_plugins.isEmpty()) return false;
-    foreach (KwavePluginPointer plugin, m_loaded_plugins)
-	if (plugin && plugin->isRunning()) return true;
+    if (!m_loaded_plugins.isEmpty())
+	foreach (KwavePluginPointer plugin, m_loaded_plugins)
+	    if (plugin && plugin->isRunning()) return true;
+    if (!m_unique_plugins.isEmpty())
+	foreach (KwavePluginPointer plugin, m_unique_plugins)
+	    if (plugin && plugin->isRunning()) return true;
     return false;
 }
 
@@ -398,6 +411,9 @@ void Kwave::PluginManager::sync()
     // check: this must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
+
+    qApp->processEvents();
+    qApp->flush();
 
     while (onePluginRunning()) {
 	pthread_yield();
@@ -423,12 +439,12 @@ int Kwave::PluginManager::setupPlugin(const QString &name)
 	// the setup function has not been aborted.
 	savePluginDefaults(name, plugin->version(), *params);
 	delete params;
-    } else return -1;
+    } else {
+	plugin->release();
+	return -1;
+    }
 
-    // now the plugin is no longer needed here, so delete it
-    // if it has not already been detached and is not persistent
-    if (!plugin->isPersistent()) plugin->release();
-
+    plugin->release();
     return 0;
 }
 
@@ -649,7 +665,7 @@ void Kwave::PluginManager::connectPlugin(Kwave::Plugin *plugin)
 
     connect(plugin, SIGNAL(sigClosed(Kwave::Plugin *)),
 	    this, SLOT(pluginClosed(Kwave::Plugin *)),
-	     Qt::QueuedConnection);
+	    Qt::QueuedConnection);
 
     connect(plugin, SIGNAL(sigRunning(Kwave::Plugin *)),
 	    this, SLOT(pluginStarted(Kwave::Plugin *)),

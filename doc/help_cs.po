@@ -10,13 +10,13 @@ msgstr ""
 "Project-Id-Version: kwave_help_cs\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
 "POT-Creation-Date: 2009-09-22 18:14+0000\n"
-"PO-Revision-Date: 2009-06-09 20:13+0200\n"
+"PO-Revision-Date: 2009-11-14 17:30+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
-"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"Language-Team: Czech <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 0.3\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Tag: title
@@ -550,10 +550,9 @@ msgid "flac-1.1.0 or higher (for FLAC import/export)"
 msgstr "flac ve verzi 1.1.0 nebo vyšší (kvůli importu FLAC)"
 
 #. Tag: para
-#: help_en-work.docbook:305
-#, fuzzy, no-c-format
+#: help_en-work.docbook:305, no-c-format
 msgid "libsamplerate-0.1.3 or higher (sample rate conversion)"
-msgstr "libsamplerate-0.1.3 nebo vyšší"
+msgstr "libsamplerate-0.1.3 nebo vyšší (převod kmitočtu)"
 
 #. Tag: para
 #: help_en-work.docbook:308
@@ -779,15 +778,14 @@ msgstr ""
 "default=: výchozí=<literal>on: zapnuto</literal>]"
 
 #. Tag: para
-#: help_en-work.docbook:426
-#, fuzzy, no-c-format
+#: help_en-work.docbook:426, no-c-format
 msgid ""
 "<literal>WITH_DEBUG</literal> build a debug version [<literal>on</literal>/"
 "<literal>off</literal>, default=<literal>off</literal>]"
 msgstr ""
-"<literal>WITH_DOC</literal> sestavit dokumentaci na internetu [<literal>on: "
+"<literal>WITH_DEBUG</literal> sestavit verzi ladění [<literal>on: "
 "zapnuto</literal>/<literal>off: vypnuto</literal>, default=: "
-"výchozí=<literal>on: zapnuto</literal>]"
+"výchozí=<literal>off: vypnuto</literal>]"
 
 #. Tag: para
 #: help_en-work.docbook:432
@@ -847,31 +845,30 @@ msgstr ""
 "výchozí=<literal>on: zapnuto</literal>]"
 
 #. Tag: para
-#: help_en-work.docbook:464
-#, fuzzy, no-c-format
+#: help_en-work.docbook:464, no-c-format
 msgid ""
 "<literal>WITH_PHONON</literal> enable playback via Phonon (for testing only) "
 "[<literal>on</literal>/<literal>off</literal>, default=<literal>off</"
 "literal>]"
 msgstr ""
-"<literal>WITH_OSS</literal> povolit přehrávání/nahrávání prostřednictvím OSS "
-"[<literal>on: zapnuto</literal>/<literal>off: vypnuto</literal>, default=: "
-"výchozí=<literal>on: zapnuto</literal>]"
+"<literal>WITH_PHONON</literal> povolit přehrávání prostřednictvím Phonon "
+"(pouze kvůli "
+"zkoušení) [<literal>on: zapnuto</literal>/<literal>off: vypnuto</literal>, "
+"default=: "
+"výchozí=<literal>off: vypnuto</literal>]"
 
 #. Tag: para
-#: help_en-work.docbook:470
-#, fuzzy, no-c-format
+#: help_en-work.docbook:470, no-c-format
 msgid ""
 "<literal>WITH_SAMPLERATE</literal> enable sample rate conversion "
 "[<literal>on</literal>/<literal>off</literal>, default=<literal>on</literal>]"
 msgstr ""
-"<literal>WITH_FLAC</literal> povolit podporu souborů FLAC [<literal>on: "
+"<literal>WITH_SAMPLERATE</literal> povolit převod kmitočtu [<literal>on: "
 "zapnuto</literal>/<literal>off: vypnuto</literal>, default=: "
 "výchozí=<literal>on: zapnuto</literal>]"
 
 #. Tag: para
-#: help_en-work.docbook:479
-#, fuzzy, no-c-format
+#: help_en-work.docbook:479, no-c-format
 msgid ""
 "These options can be passed to <literal><command>cmake</command></literal> "
 "with <command><literal>-D</literal><replaceable>option</"
@@ -882,19 +879,17 @@ msgstr ""
 "Tyto volby mohou být předány <literal><command>cmake</command></literal> s "
 "<command><literal>-D</literal><replaceable>volba</replaceable><literal>=</"
 "literal><replaceable>hodnota</replaceable></command>. Pokud například chcete "
-"vynechat vytvoření internetové dokumentace, můžete předat odpovídající "
-"volbu, jak následuje:"
+"zavedení souboru MP3, můžete předat odpovídající volbu, jak následuje:"
 
 #. Tag: screen
-#: help_en-work.docbook:484
-#, fuzzy, no-c-format
+#: help_en-work.docbook:484, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cmake <replaceable>[source directory]</"
 "replaceable> -DWITH_MP3=ON <replaceable>[other options...]</replaceable></"
 "command>"
 msgstr ""
 "<prompt>% </prompt><command>cmake <replaceable>[zdrojový adresář]</"
-"replaceable> -DWITH_DOC=off <replaceable>[další volby...]</replaceable></"
+"replaceable> -DWITH_MP3=ON <replaceable>[další volby...]</replaceable></"
 "command>"
 
 #. Tag: title
@@ -1375,12 +1370,15 @@ msgid ""
 "compiler to compile &kapp;, but maybe you will need some time to get the "
 "compiler itself working and installed."
 msgstr ""
+"Nemusíte toho o programování vědět mnoho, abyste mohli použít vyladěný "
+"kompilér pro sestavení &kapp;, ale je možné, že budete potřebovat čas na "
+"uvedení kompiléru do provozu a předtím také na jeho nainstalování."
 
 #. Tag: title
 #: help_en-work.docbook:727
 #, no-c-format
 msgid "RPM optimizations"
-msgstr ""
+msgstr "Vyladění RPM"
 
 #. Tag: para
 #: help_en-work.docbook:729
@@ -1407,6 +1405,30 @@ msgid ""
 "net/duesti/rpmopt.de.html\"> http://www.keywarrior.net/duesti/rpmopt.en."
 "html</ulink>. Thanks to Matthias Düsterhöft!)."
 msgstr ""
+"Můžete snadno sestavit balíček RPM, který bude vyladěný pro Athlon, "
+"Athlon-XP, Pentium "
+"a Pentium Pro (a některé další procesory) pomocí některých vymezení ve vašem "
+" "
+"<filename>rpmrc</filename> souboru. Rovněž můžete upravit svůj systémový "
+"<filename>rpmrc</filename> soubor v <filename>/usr/lib/rpm</filename> nebo "
+"soubor"
+"<filename>.rpmrc</filename> ve svém domovském adresáři. Můžete přesně určit "
+"řádky s volbami, jako jsou tyto: <screen width=\"40\" "
+"format=\"linespecific\">\n"
+"<userinput moreinfo=\"none\">optflags: i586 -O2 -march=pentium -DNDEBUG -"
+"fomit-frame-pointer</userinput>\n"
+"<userinput moreinfo=\"none\">optflags: i686 -O2 -march=pentiumpro -DNDEBUG -"
+"fomit-frame-pointer</userinput>\n"
+"<userinput moreinfo=\"none\">optflags: athlon -O2 -march=athlon -DNDEBUG -"
+"fomit-frame-pointer</userinput>\n"
+"<userinput moreinfo=\"none\">optflags: k6 -O3 -march=k6 -DNDEBUG -fomit-"
+"frame-pointer</userinput>\n"
+"<userinput moreinfo=\"none\">optflags: k7 -O3 -march=athlon-xp -DNDEBUG -"
+"fomit-frame-pointer</userinput>\n"
+"</screen> (Tato hezká kouzla jsem našel na <ulink url=\"http://www."
+"keywarrior."
+"net/duesti/rpmopt.de.html\"> http://www.keywarrior.net/duesti/rpmopt.en."
+"html</ulink>. Díky Matthiasovi Düsterhöftovi!)."
 
 #. Tag: para
 #: help_en-work.docbook:749
@@ -1420,6 +1442,16 @@ msgid ""
 "RPM is to be created out of a source rpm using <command>rpmbuild --rebuild</"
 "command>."
 msgstr ""
+"Znamená to, že na architektuře <literal>k7</literal> bude balíček rpm "
+"sestaven "
+"pomocí <literal>-O3 -march=athlon-xp -DNDEBUG -fomit-frame-"
+"pointer</literal> jako volbou pro sestavení atd. Můžete ji rozšířit nebo "
+"přizpůsobit "
+"podle svých vlastních potřeb. Nastavení použijte předtím na všechny čísti na "
+"všech"
+"místech, kde je použito <command>rpmbuild -ta</command> nebo, kde má být "
+"vytvořen RPM ze zdrojového rpm pomocí příkazu <command>rpmbuild --rebuild<"
+"/command>."
 
 #. Tag: para
 #: help_en-work.docbook:762
@@ -1430,12 +1462,18 @@ msgid ""
 "optimized package by specifying the additional parameter <command>--"
 "ignorearch</command> and don't care."
 msgstr ""
+"Pokud <command>rpm</command> odmítne instalaci vašeho balíčku, protože to "
+"vypadá, "
+"že nezapadá do architektury vašeho počítače, můžete obvykle nainstalovat "
+"pouze "
+"vyladěný balíček, a to zadáním dodatečného parametru <command>--"
+"ignorearch</command>, a dál si nedělejte starosti."
 
 #. Tag: title
 #: help_en-work.docbook:773
 #, no-c-format
 msgid "How to pass optimizer options to the compiler manually"
-msgstr ""
+msgstr "Jak předat překladač volby pro vyladění ručně"
 
 #. Tag: para
 #: help_en-work.docbook:774
@@ -1447,6 +1485,12 @@ msgid ""
 "compile as usual. For the best settings please consult the documentation or "
 "homepage of the corresponding compiler."
 msgstr ""
+"Vyvolání překladače je docela jednoduché. Obvykle stačí správným způsobem "
+"nastavit proměnné prostředí <literal><symbol>CFLAGS</symbol></literal> a"
+"<literal><symbol>CXXFLAGS</symbol></literal> a potom provést sestavení, jako "
+"obvykle. Kvůli nejlepšímu nastavení se, prosím, poraďte s dokumentací nebo "
+"na "
+"domovských stránkách odpovídajícího překladače."
 
 #. Tag: para
 #: help_en-work.docbook:782
@@ -1455,6 +1499,8 @@ msgid ""
 "If you build &kapp; from a source tree (unpacked tar.gz or from SVN) the "
 "flags need to be specidied before the call. For example:"
 msgstr ""
+"Pokud sestavujete &kapp; ze stromu zdroje (nezabalený tar.gz nebo z SVN) "
+"je potřeba zadat příznaky před zavoláním. Například:"
 
 #. Tag: screen
 #: help_en-work.docbook:786
@@ -1466,6 +1512,11 @@ msgid ""
 "\" \\\n"
 "  cmake <replaceable>[source directory]</replaceable></command>"
 msgstr ""
+"<prompt>% </prompt><command>CFLAGS=\"-O4 -march=athlon-xp -mcpu=athlon-xp -"
+"pipe -fomit-frame-pointer\" \\\n"
+"  CXXFLAGS=\"-O4 -march=athlon-xp -mcpu=athlon-xp -pipe -fomit-frame-pointer"
+"\" \\\n"
+"  cmake <replaceable>[zdrojový adresář]</replaceable></command>"
 
 #. Tag: para
 #: help_en-work.docbook:790
@@ -1475,6 +1526,9 @@ msgid ""
 "instruction in the <link linkend=\"rpm_optimizations\">previous section</"
 "link>."
 msgstr ""
+"Pokud sestavujete znovu &kapp; ze zdrojového rpm balíčku, následujte, "
+"prosím, pokyny v <link linkend=\"rpm_optimizations\">předchozím oddíle</"
+"link>."
 
 #. Tag: title
 #: help_en-work.docbook:806
@@ -2656,8 +2710,7 @@ msgstr ""
 "&kapp;, čímž již vícekrát nezmeškáte žádný začátek."
 
 #. Tag: para
-#: help_en-work.docbook:1480
-#, fuzzy, no-c-format
+#: help_en-work.docbook:1480, no-c-format
 msgid ""
 "<guilabel>Record Time:</guilabel> If the length of the recording should be "
 "limited to some time, you can activate this setting and select a time in "
@@ -2667,13 +2720,15 @@ msgid ""
 "format=\"PNG\"/> </imageobject><textobject><phrase>stop button</phrase></"
 "textobject> </inlinemediaobject>) button."
 msgstr ""
-"<guilabel>Čas nahrávání:</guilabel> Pokud by měla být délka nahrávání nějak "
-"omezena, můžete spustit toto nastavení a vybrat čas v hodinách, minutách, "
-"sekundách pro své nahrávání. Jestliže tato volba povolena není, bude "
-"nahrávání spuštěno, dokud nestisknete tlačítko <guibutton>Zastavit "
-"nahrávání</guibutton> (<inlinemediaobject><imageobject> <imagedata fileref="
-"\"record_stop.png\" format=\"PNG\"/> </"
-"imageobject><textobject><phrase>Zastavit nahrávání</phrase></textobject> </"
+"<guilabel>Čas nahrávání:</guilabel> Pokud by měla být délka nahrávání "
+"omezena na určitý čas, můžete zapnout toto nastavení a pro své nahrávání "
+"vybrat "
+"čas v hodinách, minutách, sekundách. Jestliže tato volba povolena není, "
+"poběží "
+"nahrávání, dokud nestisknete tlačítko <guibutton>Zastavit</guibutton> (<"
+"inlinemediaobject><imageobject> <imagedata fileref=\"record_stop.png\" "
+"format=\"PNG\"/> </imageobject><textobject><phrase>Tlačítko zastavení "
+"nahrávání</phrase></textobject> </"
 "inlinemediaobject>)."
 
 #. Tag: para
@@ -2684,10 +2739,13 @@ msgid ""
 "date and time when the recording will be started. Please keep in mind that "
 "if the configured time is in the past, the recording will start immediately."
 msgstr ""
+"<guilabel>Začít na:</guilabel> Pokud je zapnuta tato volba, můžete nastavit "
+"datum a čas, kdy bude nahrávání spuštěno. Zapamatujte si, prosím, že pokud "
+"je "
+"nastavený čas v minulosti, nahrávání bude spuštěno okamžitě."
 
 #. Tag: para
-#: help_en-work.docbook:1496
-#, fuzzy, no-c-format
+#: help_en-work.docbook:1496, no-c-format
 msgid ""
 "<guilabel>Record Trigger:</guilabel> If enabled, the recording starts only "
 "if the volume of the input goes over a certain limit, which can be defined "
@@ -2699,7 +2757,12 @@ msgstr ""
 "<guilabel>Spoušť nahrávání:</guilabel> Pokud je povolena, nahrávání začne "
 "pouze tehdy, když hlasitost vstupu překročí určitou hranici, jež může být "
 "stanovena od 0 do 100 % nejvyšší možné hlasitosti na vstupu. Toto je "
-"užitečné, pokud nehodláte nahrávat počáteční ticho."
+"užitečné, pokud nehodláte nahrávat počáteční ticho. (Rada: spojte to s "
+"funkcí "
+"nahrávání předem, jež byla zmíněna výše, abyste rovněž získal několik sekund "
+"před "
+"dosažením úrovně spouště, takže nezmeškáte žádné tiché postupné zesílení "
+"zvuku.)"
 
 #. Tag: para
 #: help_en-work.docbook:1506
@@ -2782,7 +2845,7 @@ msgid ""
 "soon as you press the record button."
 msgstr ""
 "Pokud není používáno buď nahrávání předem nebo úroveň spouště, je nahrávání "
-"spuštěno, jakmile stisknete tlačítko pro bahrávání."
+"spuštěno, jakmile stisknete tlačítko pro nahrávání."
 
 #. Tag: para
 #: help_en-work.docbook:1544
@@ -2795,7 +2858,7 @@ msgid ""
 "the trigger level has been reached."
 msgstr ""
 "Pokud nahrávání předem není používáno a je nastavena úroveň spouště, první "
-"stisknutí nechá &kapp; čekat na úroveň spouště, dokus není dosažena. Při "
+"stisknutí nechá &kapp; čekat na úroveň spouště, dokud není dosažena. Při "
 "čekání na spoušť můžete urychlit nahrávání tak, aby začalo okamžitě, "
 "opětovným stisknutím tlačítka pro nahrávání. Jinak bude nahrávání spuštěno "
 "samočinně po dosažení úrovně spouště."
@@ -4297,6 +4360,12 @@ msgid ""
 "avoid trouble. You will get access to them if they are tested and stable "
 "enough."
 msgstr ""
+"Toto je jen z toho důvodu, že jsme se rozhodli, že tyto činnosti nepracují "
+"dostatečně stabilně, abychom je představili běžným uživatelům, a z toho "
+"důvodu "
+"byly vypnuty, aby se předešlo potížím. Přístup k nim obdržíte, až budou "
+"vyzkoušeny "
+"a shledány dostatečně stabilními."
 
 #. Tag: para
 #: help_en-work.docbook:2553
@@ -4305,6 +4374,9 @@ msgid ""
 "Why does &kapp; consume more memory than it can be expected from the size of "
 "the opened file?"
 msgstr ""
+"Proč &kapp; spotřebovává více paměti, než se dá očekávat vzhledem k "
+"velikosti "
+"otevřeného souboru?"
 
 #. Tag: para
 #: help_en-work.docbook:2559
@@ -4316,12 +4388,16 @@ msgid ""
 "consume about four megabytes. Maybe we will change this somewhere in the "
 "future..."
 msgstr ""
+"Důvodem je, že &kapp; uvnitř ukládá všechny vzorky v 32 bitových celých "
+"číslech. Bylo to snadné pro program, zrychlilo jej a zvětšilo jeho "
+"spolehlivost. Takže, pokud nahrajete 8 bitový soubor, který bude mít přes "
+"jeden MB, bude potřebovat asi čtyři MB. Snad tuto záležitost změníme někdy v "
+"budoucnosti..."
 
 #. Tag: para
-#: help_en-work.docbook:2572
-#, fuzzy, no-c-format
+#: help_en-work.docbook:2572, no-c-format
 msgid "Which sound formats does &kapp; support?"
-msgstr "Které zvukové karty &kapp; podporuje?"
+msgstr "Které zvukové formáty &kapp; podporuje?"
 
 #. Tag: para
 #: help_en-work.docbook:2577
@@ -4332,31 +4408,35 @@ msgid ""
 "it can import all file types that libaudiofile supports and some other "
 "formats like Ogg/Vorbis and MP3 (read-only)."
 msgstr ""
+"&kapp; v současnosti podporuje soubory .wav s 8, 16 a 24 bit na vzorek, s "
+"jakýmkoli počtem kanálů (samozřejmě včetně mono a stereo). Dodatečně "
+"může zavést všechny typy souborů, které podporuje libaudiofile, a některé "
+"další "
+"formáty jako jsou Ogg/Vorbis ad MP3 (pouze pro čtení)."
 
 #. Tag: para
 #: help_en-work.docbook:2589
 #, no-c-format
 msgid "What if I have files with a format not supported by &kapp;?"
-msgstr ""
+msgstr "A co když mám soubory ve formátu nepodporovaném &kapp;?"
 
 #. Tag: para
-#: help_en-work.docbook:2595
-#, fuzzy, no-c-format
+#: help_en-work.docbook:2595, no-c-format
 msgid ""
 "If you have to work on an other format, you can convert it into .wav format. "
 "A good set of tools for this is in the <ulink url=\"http://sox.sourceforge."
 "net/\">SoX</ulink> package, they have also some nice documentation!"
 msgstr ""
-"Nejlepším způsobem pro práci s jinými formáty než podporovanými &kapp; je "
-"použití vnějšího převodního programu. Dobrá sada nástrojů pro toto použití "
-"se nachází v balíčku <ulink url=\"http://sox.sourceforge.net/\">SoX</ulink>, "
-"pro který rovněž existuje hezká dokumentace!"
+"Pokud už musíte pracovat s jinými formáty, můžete je převést do formátu .wav."
+" "
+"Dobrou sadou nástrojů pro toto použití je balíček <ulink url=\"http://sox."
+"sourceforge.net/\">SoX</ulink>, pro který rovněž existuje hezká dokumentace!"
 
 #. Tag: para
 #: help_en-work.docbook:2607
 #, no-c-format
 msgid "I get errors when I want to do playback?"
-msgstr ""
+msgstr "Objeví se chyby, když chci přehrávat?"
 
 #. Tag: para
 #: help_en-work.docbook:2612
@@ -4368,12 +4448,21 @@ msgid ""
 "increase the bits per sample and stereo playback step by step. Note that "
 "some playback rates are not at all supported by some sound hardware."
 msgstr ""
+"Je možné, že jste zvolil spojení rychlosti přehrávání a velikosti vzorku, "
+"která není "
+"podporována vaší zvukovou kartou a/nebo zvukovou technikou. Nejprve "
+"vyzkoušejte "
+"přehrávání s 8 bity na vzorek a mono. Potom vyzkoušejte zvýšení počtu bitů "
+"na vzorek "
+"a přehrávání stereo krok za krokem. Všimněte si, že některé rychlosti "
+"přehrávání vůbec "
+"nejsou podporovány některou zvukovou technikou."
 
 #. Tag: para
 #: help_en-work.docbook:2626
 #, no-c-format
 msgid "The playback seems to do something but I hear nothing?"
-msgstr ""
+msgstr "Zdá se, že probíhá přehrávání, ale já neslyším nic?"
 
 #. Tag: para
 #: help_en-work.docbook:2631
@@ -4382,24 +4471,26 @@ msgid ""
 "Maybe you have forgotten to increase the volume of the playback channel. "
 "&kapp; is not responsible for changing the playback volume."
 msgstr ""
+"Možná jste zapomněl zvýšit úroveň hlasitosti přehrávaného kanálu."
+"&kapp; není odpovědný za změnu hlasitosti přehrávání."
 
 #. Tag: para
 #: help_en-work.docbook:2641
 #, no-c-format
 msgid "Some files are played with half-speed?"
-msgstr ""
+msgstr "Některé soubory jsou hrány při poloviční rychlosti?"
 
 #. Tag: para
 #: help_en-work.docbook:2646
 #, no-c-format
 msgid "Try choosing a different sound playback device."
-msgstr ""
+msgstr "Zkuste výběr jiného zařízení pro přehrávání zvuku."
 
 #. Tag: para
 #: help_en-work.docbook:2654
 #, no-c-format
 msgid "The playback sometimes is disturbed and interrupted?"
-msgstr ""
+msgstr "Přehrávání je někdy nevyrovnané a přerušované?"
 
 #. Tag: para
 #: help_en-work.docbook:2659
@@ -4408,12 +4499,16 @@ msgid ""
 "You should increase the size of the playback buffer to get a \"smoother\" "
 "playback (this also makes the playback control reacting a bit slower)."
 msgstr ""
+"Měl byste zvětšit velikost vyrovnávací paměti pro přehrávání, abyste získal "
+"\"plynulejší\" přehrávání (tímto rovněž bude ovládání přehrávání odpovídat o "
+"něco pomaleji)."
 
 #. Tag: para
 #: help_en-work.docbook:2669
 #, no-c-format
 msgid "The playback does not stop if I immediately press the stop button?"
 msgstr ""
+"Přehrávání není zastaveno, když okamžitě stisknu tlačítko pro zastavení?"
 
 #. Tag: para
 #: help_en-work.docbook:2675
@@ -4424,18 +4519,24 @@ msgid ""
 "Decrease the size of the playback buffer and it should react faster (but "
 "makes interruptions more probable)."
 msgstr ""
+"Důvodem je to, že ovladač zvuku již ve chvíli, kdy jste stiskl tlačítko pro "
+"zastavení, "
+"od &kapp; obdržel nějaká data pro přehrávání. Zmenšete velikost vyrovnávací "
+"paměti "
+"pro přehrávání a odpověď by měla být rychlejší (ale je tu větší "
+"pravděpodobnost přerušování)"
 
 #. Tag: para
 #: help_en-work.docbook:2687
 #, no-c-format
 msgid "Is ALSA supported?"
-msgstr ""
+msgstr "Je podporována ALSA?"
 
 #. Tag: para
 #: help_en-work.docbook:2692
 #, no-c-format
 msgid "Yes, since v0.7.4 for playback and recording"
-msgstr ""
+msgstr "Ano. Od verze 0.7.4 pro přehrávání a nahrávání"
 
 #. Tag: para
 #: help_en-work.docbook:2700
@@ -4444,18 +4545,20 @@ msgid ""
 "What about playback with 18, 20, 24 or 32 bits per sample or more than two "
 "channels?"
 msgstr ""
+"A co tak přehrávání s 18, 20, 24 nebo 32 bity na vzorek nebo s více než "
+"dvěma kanály?"
 
 #. Tag: para
 #: help_en-work.docbook:2706
 #, no-c-format
 msgid "This is possible through the ALSA interface, since v0.7.4."
-msgstr ""
+msgstr "Je to možné přes rozhraní ALSA od verze 0.7.4."
 
 #. Tag: para
 #: help_en-work.docbook:2715
 #, no-c-format
 msgid "What about MP3 support?"
-msgstr ""
+msgstr "A co se dá říct o podpoře MP3?"
 
 #. Tag: para
 #: help_en-work.docbook:2720
@@ -4466,6 +4569,11 @@ msgid ""
 "permission to use code covered by the MP3 patents when generating a Kwave "
 "package for distributing!"
 msgstr ""
+"Dobrá, dokud tu jsou otázky kolem patentů, podporujeme pouze zavedení MP3 "
+"prostřednictvím knihovny mad. Žádné vyvedení, promiňte... Dodatečně musíte "
+"mít "
+"dovolení pro použití kódu pokryté patenty MP3 při vytváření balíčku KWave "
+"určeného pro další šíření!"
 
 #. Tag: title
 #: help_en-work.docbook:2753
@@ -4500,8 +4608,7 @@ msgstr ""
 "eschenbacher@gmx.de</email>"
 
 #. Tag: para
-#: help_en-work.docbook:2765
-#, fuzzy, no-c-format
+#: help_en-work.docbook:2765, no-c-format
 msgid ""
 "For a complete list of authors and licenses of all files, please see the "
 "<filename>LICENSES</filename> file, which is included in the sources. It is "
@@ -4509,11 +4616,12 @@ msgid ""
 "kwave/trunk/LICENSES?view=markup\"> \"http://svn.sourceforge.net/viewvc/"
 "kwave/trunk/LICENSES?view=markup\"</ulink>."
 msgstr ""
-"Od &kapp; v0.8.0 není seznam změn nadále začleněn do této příručky . Takže "
-"pokud vás zajímá úplný seznam změn, najdete úplnouhistorii změn zde: <ulink "
-"url=\"http://svn.sourceforge.net/viewvc/kwave/trunk/CHANGES?view=markup\"> "
-"\"http://svn.sourceforge.net/viewvc/kwave/trunk/CHANGES?view=markup\"</"
-"ulink>."
+"Úplný seznam autorů a licencí všech souborů: podívejte se, prosím, na soubor"
+"<filename>LICENSES</filename> , který je zahrnut ve zdrojových souborech. Na "
+"internetu je taktéž dostupný na <ulink url=\"http://svn.sourceforge."
+"net/viewvc/"
+"kwave/trunk/LICENSES?view=markup\"> \"http://svn.sourceforge.net/viewvc/"
+"kwave/trunk/LICENSES?view=markup\"</ulink>."
 
 #. Tag: para
 #: help_en-work.docbook:2773
@@ -4706,3 +4814,5 @@ msgstr ""
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr "&underFDL; &underGPL;"
+
+

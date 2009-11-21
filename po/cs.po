@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-20 10:39+0200\n"
-"PO-Revision-Date: 2009-09-20 21:41+0200\n"
-"Last-Translator: Pavel Fric\n"
+"PO-Revision-Date: 2009-10-31 13:28+0100\n"
+"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -474,7 +474,7 @@ msgstr "&Nízký průchod"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:68
 msgid "&Macro"
-msgstr "&Macro"
+msgstr "&Makro"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1174
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:69
@@ -491,7 +491,7 @@ msgstr "&Udělat finální nahrávku & Vložit"
 
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:72
 msgid "&Moving Average"
-msgstr "&Přesunuje průměr"
+msgstr "&Posunuje průměr"
 
 #: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1122
 msgid "&New"
@@ -999,7 +999,7 @@ msgstr "48000"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/Interpolation.cpp:45
 msgid "5-polynom"
-msgstr "5-polynom"
+msgstr "5-mnohočlen (polynom)"
 
 #: /var/tmp/kwave-build/libgui/ui_SelectTimeWidgetBase.h:306
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:524
@@ -1032,7 +1032,7 @@ msgstr "64K"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/Interpolation.cpp:46
 msgid "7-polynom"
-msgstr "7-polynom"
+msgstr "7-mnohočlen (polynom)"
 
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1275
 #: /var/tmp/kwave-build/plugins/newsignal/ui_NewSigDlg.h:478
@@ -1106,8 +1106,7 @@ msgstr ""
 "výstupem zvuku. Pokud se setkáte s přerušeními, měl byste o něco zvýšit "
 "hodnotu tohoto nastavení.</p>"
 
-#: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:421
-#, fuzzy, c-format
+#: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:421, c-format
 msgid ""
 "<b>Channels:</b><p>Number of channels used for playback. This does not "
 "necessarily have to be the same as the number of tracks in your current "
@@ -3014,7 +3013,7 @@ msgstr "Pro uložení informace o zpětných krocích není dostatek paměti."
 
 #: /var/tmp/kwave-build/plugins/notch_filter/ui_NotchFilterDlg.h:195
 msgid "Notch Filter"
-msgstr "Filtr zářezu"
+msgstr "Vroubkový filtr"
 
 #: /var/tmp/kwave-build/plugins/sonagram/ui_SonagramDlg.h:293
 msgid "Number of FFT points:"
@@ -4142,7 +4141,8 @@ msgid ""
 msgstr ""
 "Když je zaškrtnuto, <b>začne nahrávání v zadaném datu a čase</b>. Všimněte, "
 "si, prosím, že když je čas zadán v minulosti, nahrávání začne okamžitě, nebo "
-"začne, jakmile je dosaženo stanovené úrovně spouštěče (je-li to povoleno)."
+"začne, "
+"jakmile je dosaženo stanovené úrovně spouštěče (je-li to povoleno)."
 
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:963
 msgid ""
@@ -4716,7 +4716,7 @@ msgstr "Přímočarý"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/SampleFormat.cpp:35
 msgid "linear two's complement"
-msgstr "Přímočarý doplněk dvou"
+msgstr "Přímý doplněk dvou"
 
 #: /usr/src/packages/multimedia/sound/kwave/kwave/KwaveApp.cpp:167
 msgid "loading file '%1'..."
@@ -4842,8 +4842,7 @@ msgstr "Šum"
 msgid "normalize"
 msgstr "Uvést do obvyklého stavu"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:223
-#, c-format
+#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:223, c-format
 msgid "normalizing (%1dB) ..."
 msgstr "Uvádí se do obvyklého stavu (%1dB) ..."
 
@@ -5279,7 +5278,7 @@ msgstr "Neznámá chyba 0x%X. Že by byl poškozen soubor?"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/SampleFormat.cpp:37
 msgid "unsigned integer"
-msgstr "celé číslo jsoucí bez znaménka"
+msgstr "Celé číslo bez znaménka"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:210
 msgid "unusable buffer size: %1"

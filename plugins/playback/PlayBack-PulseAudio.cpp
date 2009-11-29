@@ -404,7 +404,7 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
     // connect the stream in playback mode
     int result = pa_stream_connect_playback(
 	m_pa_stream,
-	pa_device.toUtf8().data(),
+	pa_device.length() ? pa_device.toUtf8().data() : 0,
 	0 /* buffer attributes */,
 	static_cast<pa_stream_flags_t>(
 	    PA_STREAM_INTERPOLATE_TIMING |
@@ -481,6 +481,20 @@ void PlayBackPulseAudio::scanDevices()
     // create a list with final names
 //     qDebug("----------------------------------------");
     QMap<QString, sink_info_t> list;
+    
+    // first entry == default device
+    sink_info_t i;
+    pa_sample_spec s;
+    s.format   = PA_SAMPLE_INVALID;
+    s.rate     = 0;
+    s.channels = 0;
+    i.m_name        = QString();
+    i.m_description = "(server default)";
+    i.m_driver      = QString();
+    i.m_card        = -1;
+    i.m_sample_spec = s;
+    list[i18n("(use server default)") + "|sound_note"] = i;
+    
     foreach (QString sink, m_device_list.keys()) {
 	QString name        = m_device_list[sink].m_name;
 	QString description = m_device_list[sink].m_description;

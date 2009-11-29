@@ -386,6 +386,9 @@ void PlayBackPlugin::setDevice(const QString &device)
     QString dev = device;
     if (m_device) {
 	QStringList supported = m_device->supportedDevices();
+	supported.removeAll("#EDIT#");
+	supported.removeAll("#SELECT#");
+	supported.removeAll("#TREE#");
 	if (!supported.isEmpty() && !supported.contains(device)) {
 	    // use the first entry as default
 	    dev = supported.first();

@@ -126,6 +126,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	cmake/KwaveOSSSupport.cmake			GPL2+
 	cmake/KwavePackageMessages.cmake		GPL2+
 	cmake/KwavePhononSupport.cmake			GPL2+
+	cmake/KwavePulseAudioSupport.cmake		GPL2+
 	cmake/KwaveRPMSupport.cmake			GPL2+
 	cmake/uninstall.cmake.in			GPL2+
 
@@ -632,6 +633,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/playback/PlayBackDlg.ui			(should be GPL2+)
 	plugins/playback/PlayBack-OSS.cpp		GPL2+
 	plugins/playback/PlayBack-OSS.h			GPL2+
+	plugins/playback/PlayBack-PulseAudio.cpp	GPL2+
+	plugins/playback/PlayBack-PulseAudio.h		GPL2+
 	plugins/playback/PlayBackParam.h		GPL2+
 	plugins/playback/PlayBackPlugin.cpp		GPL2+
 	plugins/playback/PlayBackPlugin.h		GPL2+

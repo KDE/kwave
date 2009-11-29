@@ -39,6 +39,9 @@
 /* support playback/recording via ALSA */
 #cmakedefine HAVE_ALSA_SUPPORT
 
+/* support playback/recording via PulseAudio */
+#cmakedefine HAVE_PULSEAUDIO_SUPPORT
+
 /* support playback via Phonon */
 #cmakedefine HAVE_PHONON_SUPPORT
 
@@ -65,6 +68,9 @@
 
 /* support playback/recording via OSS */
 #cmakedefine HAVE_OSS_SUPPORT
+
+/* Define to 1 if you have the <signal.h> header file. */
+#cmakedefine HAVE_SIGNAL_H
 
 /* we can include <sys/times.h> */
 #cmakedefine HAVE_SYS_TIMES_H

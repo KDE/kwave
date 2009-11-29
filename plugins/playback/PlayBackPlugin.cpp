@@ -56,6 +56,7 @@
 #include "PlayBack-OSS.h"
 #include "PlayBack-ALSA.h"
 #include "PlayBack-Phonon.h"
+#include "PlayBack-PulseAudio.h"
 
 #include "PlayBackDialog.h"
 #include "PlayBackPlugin.h"
@@ -266,6 +267,11 @@ PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t &method)
 	    case PLAYBACK_PHONON:
 		return new PlayBackPhonon();
 #endif /* HAVE_PHONON_SUPPORT */
+
+#ifdef HAVE_PULSEAUDIO_SUPPORT
+	    case PLAYBACK_PULSEAUDIO:
+		return new PlayBackPulseAudio();
+#endif /* HAVE_PULSEAUDIO_SUPPORT */
 
 	    default:
 		qDebug("unsupported playback method (%d)",
@@ -548,7 +554,6 @@ void PlayBackPlugin::startDevicePlayBack()
     m_old_last = last;
 
     QStringList empty_list;
-    use();
     execute(empty_list);
 }
 

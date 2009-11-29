@@ -39,6 +39,7 @@ SET(KWAVE_LINGUAS
 # OPTION(WITH_OGG        "enable support for ogg files [default=on]" ON)
 # OPTION(WITH_OSS        "enable playback/recording via OSS [default=on]" ON)
 # OPTION(WITH_PHONON     "enable playback via Phonon [default=off]" OFF)
+# OPTION(WITH_PULSEAUDIO "enable playback/recording via PulseAudio [default=on]" ON)
 # OPTION(WITH_SAMPLERATE "enable support for libsamplerate [default=on]" ON)
 
 #############################################################################
@@ -200,11 +201,14 @@ MESSAGE(STATUS "Using ${CMAKE_INSTALL_RPATH} as install RPATH")
 
 CHECK_INCLUDE_FILES(sys/times.h HAVE_SYS_TIMES_H)
 CHECK_INCLUDE_FILES(byteswap.h HAVE_BYTESWAP_H)
+CHECK_INCLUDE_FILES(signal.h HAVE_SIGNAL_H)
 CHECK_INCLUDE_FILES(unistd.h HAVE_UNISTD_H)
-SET(_inc dlfcn.h assert.h ctype.h endian.h errno.h
-    fcntl.h features.h float.h limits.h sched.h stdarg.h stddef.h
-    stdio.h stdlib.h string.h sys/ioctl.h sys/param.h limits.h
-    sys/time.h sys/types.h time.h pthread.h)
+CHECK_INCLUDE_FILES(sys/types.h HAVE_SYS_TYPES_H)
+CHECK_INCLUDE_FILES(stdint.h HAVE_STDINT_H)
+CHECK_INCLUDE_FILES(stddef.h HAVE_STDDEF_H)
+
+SET(_inc dlfcn.h errno.h float.h limits.h sched.h stddef.h stdint.h stdio.h
+         stdlib.h string.h limits.h sys/time.h sys/types.h time.h pthread.h)
 CHECK_INCLUDE_FILES("${_inc}" REQUIRED_STD_HEADERS)
 IF (NOT REQUIRED_STD_HEADERS)
     MESSAGE(FATAL_ERROR "
@@ -212,9 +216,6 @@ IF (NOT REQUIRED_STD_HEADERS)
         ${_inc}")
 ENDIF (NOT REQUIRED_STD_HEADERS)
 
-CHECK_INCLUDE_FILES(sys/types.h HAVE_SYS_TYPES_H)
-CHECK_INCLUDE_FILES(stdint.h HAVE_STDINT_H)
-CHECK_INCLUDE_FILES(stddef.h HAVE_STDDEF_H)
 
 #############################################################################
 ### checks for some functions                                             ###
@@ -253,11 +254,13 @@ INCLUDE(KwaveLibaudiofileSupport)
 INCLUDE(KwaveLibsamplerateSupport)
 
 #############################################################################
-### optionally: OSS, ALSA and Phonon support for playback/recording       ###
+### optionally: OSS, ALSA, PulseAudio and Phonon support                  ###
+### for playback/recording                                                ###
 
 INCLUDE(KwaveOSSSupport)
 INCLUDE(KwaveALSASupport)
 INCLUDE(KwavePhononSupport)
+INCLUDE(KwavePulseAudioSupport)
 
 #############################################################################
 ### cmake includes                                                        ###

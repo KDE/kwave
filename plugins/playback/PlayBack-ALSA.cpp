@@ -892,7 +892,7 @@ QStringList PlayBackALSA::supportedDevices()
     if (list.contains(DEFAULT_DEVICE))
 	list.move(list.indexOf(DEFAULT_DEVICE), 0);
 
-    list.append("#TREE#");
+    if (!list.isEmpty()) list.append("#TREE#");
 
     return list;
 }

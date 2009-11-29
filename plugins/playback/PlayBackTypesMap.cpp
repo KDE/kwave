@@ -52,6 +52,14 @@ void PlayBackTypesMap::fill()
 #endif
 #endif /* HAVE_PHONON_SUPPORT */
 
+#ifdef HAVE_PULSEAUDIO_SUPPORT
+    name = "Pulse Audio";
+    append(index++, PLAYBACK_PULSEAUDIO, "pulseaudio", name);
+#if 0
+    i18n("Pulse Audio");
+#endif
+#endif /* HAVE_PULSEAUDIO_SUPPORT */
+
    Q_ASSERT(index);
    if (!index) qWarning("no playback method defined!");
 }

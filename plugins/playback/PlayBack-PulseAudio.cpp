@@ -36,6 +36,7 @@
 #include <kuser.h>
 
 #include "libkwave/CompressionType.h"
+#include "libkwave/FileInfo.h"
 #include "libkwave/memcpy.h"
 #include "libkwave/SampleFormat.h"
 
@@ -43,17 +44,10 @@
 #include "SampleEncoderLinear.h"
 
 //***************************************************************************
-PlayBackPulseAudio::PlayBackPulseAudio()
-    :PlayBackDevice(),
-    m_rate(0),
-    m_channels(0),
-    m_bufbase(0),
-    m_buffer(),
-    m_buffer_size(0),
-    m_buffer_used(0),
-    m_pa_mainloop(0),
-    m_pa_context(0),
-    m_device_list()
+PlayBackPulseAudio::PlayBackPulseAudio(const FileInfo &info)
+    :PlayBackDevice(), m_info(info), m_rate(0), m_channels(0), m_bufbase(0),
+    m_buffer(), m_buffer_size(0), m_buffer_used(0), m_pa_proplist(0),
+    m_pa_mainloop(0), m_pa_context(0), m_pa_stream(0), m_device_list()
 {
 }
 
@@ -81,6 +75,15 @@ void PlayBackPulseAudio::pa_sink_info_cb(pa_context *c,
 	reinterpret_cast<PlayBackPulseAudio *>(userdata);
     Q_ASSERT(playback_plugin);
     if (playback_plugin) playback_plugin->notifySinkInfo(c, info, eol);
+}
+
+//***************************************************************************
+void PlayBackPulseAudio::pa_stream_state_cb(pa_stream *p, void *userdata)
+{
+    PlayBackPulseAudio *playback_plugin =
+	reinterpret_cast<PlayBackPulseAudio *>(userdata);
+    Q_ASSERT(playback_plugin);
+    if (playback_plugin) playback_plugin->notifyStreamState(p);
 }
 
 //***************************************************************************
@@ -154,8 +157,26 @@ void PlayBackPulseAudio::notifySinkInfo(pa_context *c,
 	m_device_list[name] = i;
 
     } else {
-	qWarning("PlayBackPulseAudio: sink info done");
 	pa_threaded_mainloop_signal(m_pa_mainloop, 0);
+    }
+}
+
+//***************************************************************************
+void PlayBackPulseAudio::notifyStreamState(pa_stream* stream)
+{
+    Q_ASSERT(stream);
+    Q_ASSERT(stream = m_pa_stream);
+    if (!stream || (stream != m_pa_stream)) return;
+
+    switch (pa_stream_get_state(stream)) {
+	case PA_STREAM_UNCONNECTED:
+	case PA_STREAM_CREATING:
+	    break;
+	case PA_STREAM_READY:
+	case PA_STREAM_FAILED:
+	case PA_STREAM_TERMINATED:
+	    pa_threaded_mainloop_signal(m_pa_mainloop, 0);
+	    break;
     }
 }
 
@@ -168,25 +189,24 @@ bool PlayBackPulseAudio::connectToServer()
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
     // create a property list for this application
-    pa_proplist *_pa_proplist = pa_proplist_new();
-    Q_ASSERT(_pa_proplist);
+    m_pa_proplist = pa_proplist_new();
+    Q_ASSERT(m_pa_proplist);
 
-    pa_proplist_sets(_pa_proplist, PA_PROP_APPLICATION_LANGUAGE,
+    pa_proplist_sets(m_pa_proplist, PA_PROP_APPLICATION_LANGUAGE,
                      QLocale::system().name ().toUtf8().data());
-    pa_proplist_sets(_pa_proplist, PA_PROP_APPLICATION_NAME,
+    pa_proplist_sets(m_pa_proplist, PA_PROP_APPLICATION_NAME,
                      qApp->applicationName().toUtf8().data());
-    pa_proplist_sets(_pa_proplist, PA_PROP_APPLICATION_PROCESS_BINARY,
+    pa_proplist_sets(m_pa_proplist, PA_PROP_APPLICATION_PROCESS_BINARY,
                      "kwave");
-    pa_proplist_setf(_pa_proplist, PA_PROP_APPLICATION_PROCESS_ID,
+    pa_proplist_setf(m_pa_proplist, PA_PROP_APPLICATION_PROCESS_ID,
                     "%ld", static_cast<long int>(qApp->applicationPid()));
     KUser user;
-    pa_proplist_sets(_pa_proplist, PA_PROP_APPLICATION_PROCESS_USER,
+    pa_proplist_sets(m_pa_proplist, PA_PROP_APPLICATION_PROCESS_USER,
                      user.loginName().toUtf8().data());
-    pa_proplist_sets(_pa_proplist, PA_PROP_APPLICATION_VERSION,
+    pa_proplist_sets(m_pa_proplist, PA_PROP_APPLICATION_VERSION,
                      qApp->applicationVersion().toUtf8().data());
 
-    pa_proplist_sets(_pa_proplist, PA_PROP_MEDIA_ROLE, "production");
-    qDebug("PlayBackPulseAudio: created property list.");
+    pa_proplist_sets(m_pa_proplist, PA_PROP_MEDIA_ROLE, "production");
 
     // ignore SIGPIPE in this context
 #ifdef HAVE_SIGNAL_H
@@ -196,17 +216,11 @@ bool PlayBackPulseAudio::connectToServer()
     m_pa_mainloop = pa_threaded_mainloop_new();
     Q_ASSERT(m_pa_mainloop);
 
-    qDebug("PlayBackPulseAudio: creating context...");
     m_pa_context = pa_context_new_with_proplist(
 	pa_threaded_mainloop_get_api(m_pa_mainloop),
 	"Kwave",
-	_pa_proplist
+	m_pa_proplist
     );
-    qDebug("PlayBackPulseAudio: context created as %p",
-	   static_cast<void *>(m_pa_context));
-
-    // release the property list again
-    pa_proplist_free(_pa_proplist);
 
     // set the callback for getting informed about the context state
     pa_context_set_state_callback(m_pa_context, pa_context_notify_cb, this);
@@ -254,6 +268,9 @@ bool PlayBackPulseAudio::connectToServer()
 
     // if the connection failed, clean up...
     if (failed) {
+	// release the property list
+	pa_proplist_free(m_pa_proplist);
+
 	// disconnect the pulse context
 	if (context_connected) pa_context_disconnect(m_pa_context);
 	pa_context_unref(m_pa_context);
@@ -263,6 +280,7 @@ bool PlayBackPulseAudio::connectToServer()
 	pa_threaded_mainloop_free(m_pa_mainloop);
 	qDebug("PlayBackPulseAudio: mainloop freed");
 
+	m_pa_proplist = 0;
 	m_pa_context  = 0;
 	m_pa_mainloop = 0;
     }
@@ -278,10 +296,6 @@ void PlayBackPulseAudio::disconnectFromServer()
     // stop the main loop
     if (m_pa_mainloop) pa_threaded_mainloop_stop(m_pa_mainloop);
 
-    /* TODO */
-//  pa_stream_disconnect(...);
-//  pa_stream_unref(...);
-
     // disconnect the pulse context
     if (m_pa_context) {
 	pa_context_disconnect(m_pa_context);
@@ -295,43 +309,124 @@ void PlayBackPulseAudio::disconnectFromServer()
 	m_pa_mainloop = 0;
 	qDebug("PlayBackPulseAudio: mainloop freed");
     }
+
+    // release the property list
+    if (m_pa_proplist) {
+	pa_proplist_free(m_pa_proplist);
+	m_pa_proplist = 0;
+    }
+
 }
 
 //***************************************************************************
 QString PlayBackPulseAudio::open(const QString &device, double rate,
-                           unsigned int channels, unsigned int bits,
-                           unsigned int bufbase)
+                                 unsigned int channels, unsigned int bits,
+                                 unsigned int bufbase)
 {
+    #define SET_PROPERTY(__property__,__info__)              \
+	if (m_info.contains(__info__))                       \
+	    pa_proplist_sets(_proplist, __property__,        \
+	    m_info.get(__info__).toString().toUtf8().data())
+
     qDebug("PlayBackPulseAudio::open(device=%s,rate=%0.1f,channels=%u,"\
 	"bits=%u, bufbase=%u)", device.toLocal8Bit().data(), rate, channels,
 	bits, bufbase);
 
     // close the previous device
-    /* TODO */
+    if (m_pa_stream) close();
 
-    // initialize the list of supported formats
-    /* TODO */
-
-    QString reason;
+    // make sure that we are connected to the sound server
     if (!connectToServer()) {
 	return i18n("Connection to the PulseAudio server failed.");
     }
 
-#if 0
-    /* TODO */
-    int err = openStream(device, rate, channels, bits);
-    if (err) {
-	QString reason;
-	switch (err) {
-	    case ...
-	    default:
-		reason = i18n("Opening the device '%1' failed: %2",
-	            device.section('|',0,0),
-		    QString::fromLocal8Bit(snd_strerror(err)));
-	}
-	return reason;
+    if (!m_device_list.contains(device)) scanDevices();
+    if (!m_device_list.contains(device)) {
+	return i18n(
+	    "The PulseAudio device '%1' is unknown or no longer connected",
+	    device.section('|',0,0).toLocal8Bit().data());
     }
+    QString pa_device = m_device_list[device].m_name;
+
+    // build a property list for the stream
+    pa_proplist *_proplist = pa_proplist_copy(m_pa_proplist);
+    Q_ASSERT(_proplist);
+    SET_PROPERTY(PA_PROP_MEDIA_TITLE,     INF_NAME);
+    SET_PROPERTY(PA_PROP_MEDIA_ARTIST,    INF_AUTHOR);
+    SET_PROPERTY(PA_PROP_MEDIA_COPYRIGHT, INF_COPYRIGHT);
+    SET_PROPERTY(PA_PROP_MEDIA_SOFTWARE,  INF_SOFTWARE);
+//  SET_PROPERTY(PA_PROP_MEDIA_LANGUAGE,  INF_...);
+    SET_PROPERTY(PA_PROP_MEDIA_FILENAME,  INF_FILENAME);
+//  SET_PROPERTY(PA_PROP_MEDIA_ICON_NAME, INF_...);
+
+    // use Kwave's internal sample format as output
+    pa_sample_spec sample_spec;
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
+    sample_spec.format = PA_SAMPLE_S24_32BE;
+#else
+    sample_spec.format = PA_SAMPLE_S24_32LE;
 #endif
+    sample_spec.channels = channels;
+    sample_spec.rate     = static_cast<uint32_t>(rate);
+
+    // use the current title / filename or fixed string as stream name
+    QString name;
+    if (m_info.contains(INF_NAME)) // first choice: title
+	name = m_info.get(INF_NAME).toString().toUtf8().data();
+    if (!name.length() && m_info.contains(INF_FILENAME)) // fallback: filename
+	name = m_info.get(INF_FILENAME).toString().toUtf8().data();
+    if (!name.length()) // last resort: fixed string
+	name = i18n("playback...");
+
+    // run with mainloop locked from here on...
+    pa_threaded_mainloop_lock(m_pa_mainloop);
+
+    // create a new stream
+    m_pa_stream = pa_stream_new_with_proplist(
+	m_pa_context,
+	name.toUtf8().data(),
+	&sample_spec,
+	0 /* const pa_channel_map *map */,
+	_proplist);
+    pa_proplist_free(_proplist);
+
+    if (!m_pa_stream) {
+	pa_threaded_mainloop_unlock(m_pa_mainloop);
+	return i18n("Failed to create a PulseAudio stream (%1).",
+	             pa_strerror(pa_context_errno(m_pa_context)));
+    }
+    qDebug("PlayBackPulseAudio::open(...) - stream created as %p",
+	   static_cast<void *>(m_pa_stream));
+
+    // register a callback for changes in stream state
+    pa_stream_set_state_callback(m_pa_stream, pa_stream_state_cb, this);
+
+    // connect the stream in playback mode
+    int result = pa_stream_connect_playback(
+	m_pa_stream,
+	pa_device.toUtf8().data(),
+	0 /* buffer attributes */,
+	static_cast<pa_stream_flags_t>(
+	    PA_STREAM_INTERPOLATE_TIMING |
+	    PA_STREAM_AUTO_TIMING_UPDATE |
+	    PA_STREAM_START_UNMUTED),
+	0 /* volume */,
+	0 /* sync stream */ );
+
+    if (result >= 0) {
+	pa_threaded_mainloop_wait(m_pa_mainloop);
+	if (pa_stream_get_state(m_pa_stream) != PA_STREAM_READY)
+	    result = -1;
+    }
+    pa_threaded_mainloop_unlock(m_pa_mainloop);
+
+    if (result < 0) {
+	pa_stream_unref(m_pa_stream);
+	m_pa_stream = 0;
+	return i18n("Failed to open a PulseAudio stream for playback (%1).",
+	             pa_strerror(pa_context_errno(m_pa_context)));
+    }
+
     return 0;
 }
 
@@ -354,6 +449,12 @@ int PlayBackPulseAudio::flush()
 int PlayBackPulseAudio::close()
 {
     flush();
+
+    if (m_pa_stream) {
+	pa_stream_disconnect(m_pa_stream);
+	pa_stream_unref(m_pa_stream);
+	m_pa_stream = 0;
+    }
 
     disconnectFromServer();
     m_device_list.clear();

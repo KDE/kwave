@@ -270,7 +270,7 @@ PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t &method)
 
 #ifdef HAVE_PULSEAUDIO_SUPPORT
 	    case PLAYBACK_PULSEAUDIO:
-		return new PlayBackPulseAudio();
+		return new PlayBackPulseAudio(fileInfo());
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
 	    default:

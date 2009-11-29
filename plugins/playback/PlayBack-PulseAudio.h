@@ -26,6 +26,7 @@
 #include <pulse/gccmacro.h>
 #include <pulse/introspect.h>
 #include <pulse/proplist.h>
+#include <pulse/stream.h>
 #include <pulse/thread-mainloop.h>
 
 #include <QList>
@@ -33,6 +34,7 @@
 #include <QSemaphore>
 #include <QString>
 
+#include "libkwave/FileInfo.h"
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/PlayBackDevice.h"
 
@@ -40,8 +42,11 @@ class PlayBackPulseAudio: public PlayBackDevice
 {
 public:
 
-    /** Default constructor */
-    PlayBackPulseAudio();
+    /**
+     * Constructor
+     * @param info the current FileInfo with metadata
+     */
+    PlayBackPulseAudio(const FileInfo &info);
 
     /** Destructor */
     virtual ~PlayBackPulseAudio();
@@ -123,7 +128,16 @@ private:
                                 int eol, void *userdata);
 
     /**
-     * Callback for pulse audio state changes
+     * called from pulse audio to inform about state changes of a
+     * stream.
+     *
+     * @param p pulse audio stream
+     * @param data user data, pointer to a PlayBackPulseAudio object
+     */
+    static void pa_stream_state_cb(pa_stream *p, void *userdata);
+
+    /**
+     * Callback for pulse audio context state changes
      *
      * @param c pulse server context
      */
@@ -138,6 +152,13 @@ private:
      *            positive: end of info, done.
      */
     void notifySinkInfo(pa_context *c, const pa_sink_info *info, int eol);
+
+    /**
+     * Callback for pulse stream state changes
+     *
+     * @param stream pulse audio stream
+     */
+    void notifyStreamState(pa_stream *stream);
 
     /**
      * Try to connect to the PulseAudio server and create a valid context
@@ -166,6 +187,9 @@ private:
 
 private:
 
+    /** file info, for meta info like title, author, name etc. */
+    FileInfo m_info;
+
     /** Playback rate [samples/second] */
     double m_rate;
 
@@ -184,11 +208,17 @@ private:
     /** number of bytes in the buffer */
     unsigned int m_buffer_used;
 
+    /** pulse: property list of the context */
+    pa_proplist *m_pa_proplist;
+
     /** pulse: main loop */
     pa_threaded_mainloop *m_pa_mainloop;
 
     /** pulse: context of the connection to the server */
     pa_context *m_pa_context;
+
+    /** pulse: playback stream */
+    pa_stream *m_pa_stream;
 
     /**
      * list of available devices

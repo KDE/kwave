@@ -19,7 +19,8 @@ OPTION(WITH_OSS "enable playback/recording via OSS [default=on]" ON)
 
 IF (WITH_OSS)
 
-    CHECK_INCLUDE_FILES(sys/soundcard.h HAVE_SYS_SOUNDCARD_H)
+    SET(_oss_inc sys/ioctl.h fcntl.h sys/soundcard.h)
+    CHECK_INCLUDE_FILES("${_oss_inc}" HAVE_SYS_SOUNDCARD_H)
 
     IF (HAVE_SYS_SOUNDCARD_H)
         MESSAGE(STATUS "Enabled OSS for playbay and recording")

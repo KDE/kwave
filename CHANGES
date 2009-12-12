@@ -1,9 +1,11 @@
 
 0.8.5  [2009-??-??]
 
+ * new feature: playback via PulseAudio
  * applied kwave-0.8.2-nolinguas.patch (see gentoo bug #267702)
  * no longer default to english language for documentation and gui l10n
  * fixed use count mismatch of plugins
+ * bugfix: playback control: continuing after pause continued from start
 
 0.8.4  [2009-09-26]
 

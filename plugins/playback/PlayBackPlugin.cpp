@@ -536,7 +536,6 @@ void PlayBackPlugin::startDevicePlayBack()
 		// nothing selected -> select all and move to position
 		m_playback_controller.setStartPos(first);
 		m_playback_controller.setEndPos(signalLength()-1);
-		m_playback_controller.updatePlaybackPos(first);
 	    }
 	}
     } else {

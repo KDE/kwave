@@ -479,11 +479,12 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
     pa_stream_set_latency_update_callback(m_pa_stream, pa_stream_latency_cb, this);
 
     // set buffer attributes
-    int s = ((1 << m_bufbase) * m_bytes_per_sample) / m_bytes_per_sample;
+    if (m_bufbase < 10) m_bufbase = 10;
+    const int s = ((1 << m_bufbase) * m_bytes_per_sample) / m_bytes_per_sample;
     pa_buffer_attr attr;
     attr.fragsize  = -1;
-    attr.maxlength = -1;
-    attr.minreq    =  s;
+    attr.maxlength =  s;
+    attr.minreq    = -1;
     attr.prebuf    = -1;
     attr.tlength   = -1;
 

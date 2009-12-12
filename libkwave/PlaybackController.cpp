@@ -112,7 +112,7 @@ void PlaybackController::playbackContinue()
     emit sigDeviceStartPlayback();
 
     m_paused = false;
-    m_playing=true;
+    m_playing = true;
 
     emit sigPlaybackStarted();
 }

@@ -137,6 +137,32 @@ private:
     static void pa_stream_state_cb(pa_stream *p, void *userdata);
 
     /**
+     * called from pulse audio after data has been written
+     *
+     * @param p pulse audio stream
+     * @param nbytes number of written bytes, maybe (unused)
+     * @param data user data, pointer to a PlayBackPulseAudio object
+     */
+    static void pa_write_cb(pa_stream *p, size_t nbytes, void *userdata);
+
+    /**
+     * called from pulse audio after data has been written
+     *
+     * @param p pulse audio stream
+     * @param success indicates success (unused)
+     * @param data user data, pointer to a PlayBackPulseAudio object
+     */
+    static void pa_stream_success_cb(pa_stream *s, int success, void *userdata);
+
+    /**
+     * called from pulse audio to inform aboutlatency update
+     *
+     * @param p pulse audio stream
+     * @param data user data, pointer to a PlayBackPulseAudio object
+     */
+    static void pa_stream_latency_cb(pa_stream *p, void *userdata);
+
+    /**
      * Callback for pulse audio context state changes
      *
      * @param c pulse server context
@@ -159,6 +185,29 @@ private:
      * @param stream pulse audio stream
      */
     void notifyStreamState(pa_stream *stream);
+
+    /**
+     * Callback after writing data.
+     *
+     * @param stream pulse audio stream
+     * @param nbytes number of written bytes, maybe (unused)
+     */
+    void notifyWrite(pa_stream *stream, size_t nbytes);
+
+    /**
+     * Callback after successful stream operations.
+     *
+     * @param stream pulse audio stream
+     * @param success (unused)
+     */
+    void notifySuccess(pa_stream *stream, int success);
+
+    /**
+     * Callback after successful latency updates.
+     *
+     * @param stream pulse audio stream
+     */
+    void notifyLatency(pa_stream *stream);
 
     /**
      * Try to connect to the PulseAudio server and create a valid context
@@ -196,17 +245,20 @@ private:
     /** Number of channels */
     unsigned int m_channels;
 
-    /** Exponent of the buffer size */
-    unsigned int m_bufbase;
+    /** number of bytes per sample x nr of channels */
+    unsigned int m_bytes_per_sample;
 
     /** buffer with raw device data */
-    QByteArray m_buffer;
+    void *m_buffer;
 
-    /** Buffer size on bytes */
-    unsigned int m_buffer_size;
+    /** buffer size in bytes */
+    size_t m_buffer_size;
 
     /** number of bytes in the buffer */
-    unsigned int m_buffer_used;
+    size_t m_buffer_used;
+
+    /** exponent of the buffer size, buffer size should be (1 << m_bufbase) */
+    unsigned int m_bufbase;
 
     /** pulse: property list of the context */
     pa_proplist *m_pa_proplist;

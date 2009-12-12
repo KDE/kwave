@@ -45,9 +45,10 @@
 
 //***************************************************************************
 PlayBackPulseAudio::PlayBackPulseAudio(const FileInfo &info)
-    :PlayBackDevice(), m_info(info), m_rate(0), m_channels(0), m_bufbase(0),
-    m_buffer(), m_buffer_size(0), m_buffer_used(0), m_pa_proplist(0),
-    m_pa_mainloop(0), m_pa_context(0), m_pa_stream(0), m_device_list()
+    :PlayBackDevice(), m_info(info), m_rate(0), m_channels(0),
+     m_bytes_per_sample(0), m_buffer(0), m_buffer_size(0), m_buffer_used(0),
+     m_bufbase(10), m_pa_proplist(0), m_pa_mainloop(0), m_pa_context(0),
+     m_pa_stream(0), m_device_list()
 {
 }
 
@@ -84,6 +85,35 @@ void PlayBackPulseAudio::pa_stream_state_cb(pa_stream *p, void *userdata)
 	reinterpret_cast<PlayBackPulseAudio *>(userdata);
     Q_ASSERT(playback_plugin);
     if (playback_plugin) playback_plugin->notifyStreamState(p);
+}
+
+//***************************************************************************
+void PlayBackPulseAudio::pa_write_cb(pa_stream *p, size_t nbytes,
+                                     void *userdata)
+{
+    PlayBackPulseAudio *playback_plugin =
+	reinterpret_cast<PlayBackPulseAudio *>(userdata);
+    Q_ASSERT(playback_plugin);
+    if (playback_plugin) playback_plugin->notifyWrite(p, nbytes);
+}
+
+//***************************************************************************
+void PlayBackPulseAudio::pa_stream_success_cb(pa_stream *s, int success,
+                                              void *userdata)
+{
+    PlayBackPulseAudio *playback_plugin =
+	reinterpret_cast<PlayBackPulseAudio *>(userdata);
+    Q_ASSERT(playback_plugin);
+    if (playback_plugin) playback_plugin->notifySuccess(s, success);
+}
+
+//***************************************************************************
+void PlayBackPulseAudio::pa_stream_latency_cb(pa_stream *p, void *userdata)
+{
+    PlayBackPulseAudio *playback_plugin =
+	reinterpret_cast<PlayBackPulseAudio *>(userdata);
+    Q_ASSERT(playback_plugin);
+    if (playback_plugin) playback_plugin->notifyLatency(p);
 }
 
 //***************************************************************************
@@ -181,6 +211,42 @@ void PlayBackPulseAudio::notifyStreamState(pa_stream* stream)
 }
 
 //***************************************************************************
+void PlayBackPulseAudio::notifyWrite(pa_stream *stream, size_t nbytes)
+{
+    Q_UNUSED(nbytes);
+    Q_ASSERT(stream);
+    Q_ASSERT(stream = m_pa_stream);
+    if (!stream || (stream != m_pa_stream)) return;
+
+    qDebug("PlayBackPulseAudio::notifyWrite(stream=%p, nbytes=%u), writable=%u",
+	   static_cast<void *>(stream), nbytes, pa_stream_writable_size(stream));
+//     pa_threaded_mainloop_signal(m_pa_mainloop, 0);
+}
+
+//***************************************************************************
+void PlayBackPulseAudio::notifyLatency(pa_stream *stream)
+{
+    Q_ASSERT(stream);
+    Q_ASSERT(stream = m_pa_stream);
+    if (!stream || (stream != m_pa_stream)) return;
+
+    qDebug("PlayBackPulseAudio::notifyLatency(stream=%p)", stream);
+//     pa_threaded_mainloop_signal(m_pa_mainloop, 0);
+}
+
+//***************************************************************************
+void PlayBackPulseAudio::notifySuccess(pa_stream* stream, int success)
+{
+    Q_ASSERT(stream);
+    Q_ASSERT(stream = m_pa_stream);
+    if (!stream || (stream != m_pa_stream)) return;
+
+    qDebug("PlayBackPulseAudio::notifySuccess(stream=%p, success=%d)",
+	   static_cast<void *>(stream), success);
+    pa_threaded_mainloop_signal(m_pa_mainloop, 0);
+}
+
+//***************************************************************************
 bool PlayBackPulseAudio::connectToServer()
 {
     if (m_pa_context) return true; // already connected
@@ -196,6 +262,8 @@ bool PlayBackPulseAudio::connectToServer()
                      QLocale::system().name ().toUtf8().data());
     pa_proplist_sets(m_pa_proplist, PA_PROP_APPLICATION_NAME,
                      qApp->applicationName().toUtf8().data());
+    pa_proplist_sets(m_pa_proplist, PA_PROP_APPLICATION_ICON_NAME,
+                     "kwave");
     pa_proplist_sets(m_pa_proplist, PA_PROP_APPLICATION_PROCESS_BINARY,
                      "kwave");
     pa_proplist_setf(m_pa_proplist, PA_PROP_APPLICATION_PROCESS_ID,
@@ -251,14 +319,14 @@ bool PlayBackPulseAudio::connectToServer()
 	    qDebug("PlayBackPulseAudio: mainloop started");
 	}
     }
+    bool failed = !mainloop_started;
 
     // wait until the context state is either connected or failed
-    bool failed = !mainloop_started;
     if (mainloop_started) {
 	pa_threaded_mainloop_wait(m_pa_mainloop);
-	if (pa_context_get_state(m_pa_context) != PA_CONTEXT_READY)
-	{
-	    qWarning("PlayBackPulseAudio: context FAILED :-(");
+	if (pa_context_get_state(m_pa_context) != PA_CONTEXT_READY) {
+	    qWarning("PlayBackPulseAudio: context FAILED (%s):-(",
+		pa_strerror(pa_context_errno(m_pa_context)));
 	    failed = true;
 	} else {
 	    qDebug("PlayBackPulseAudio: context is ready :-)");
@@ -348,6 +416,12 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
     }
     QString pa_device = m_device_list[device].m_name;
 
+    // determine the buffer size
+    m_bytes_per_sample = sizeof(sample_t) * channels;
+    m_buffer_size      = 0;
+    m_buffer           = 0;
+    m_bufbase          = bufbase;
+
     // build a property list for the stream
     pa_proplist *_proplist = pa_proplist_copy(m_pa_proplist);
     Q_ASSERT(_proplist);
@@ -361,7 +435,7 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
 
     // use Kwave's internal sample format as output
     pa_sample_spec sample_spec;
-#if Q_BYTE_ORDER == Q_BIG_ENDIAN
+#if (Q_BYTE_ORDER == Q_BIG_ENDIAN)
     sample_spec.format = PA_SAMPLE_S24_32BE;
 #else
     sample_spec.format = PA_SAMPLE_S24_32LE;
@@ -398,8 +472,10 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
     qDebug("PlayBackPulseAudio::open(...) - stream created as %p",
 	   static_cast<void *>(m_pa_stream));
 
-    // register a callback for changes in stream state
+    // register callbacks for changes in stream state and write events
     pa_stream_set_state_callback(m_pa_stream, pa_stream_state_cb, this);
+    pa_stream_set_write_callback(m_pa_stream, pa_write_cb, this);
+    pa_stream_set_latency_update_callback(m_pa_stream, pa_stream_latency_cb, this);
 
     // connect the stream in playback mode
     int result = pa_stream_connect_playback(
@@ -408,8 +484,7 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
 	0 /* buffer attributes */,
 	static_cast<pa_stream_flags_t>(
 	    PA_STREAM_INTERPOLATE_TIMING |
-	    PA_STREAM_AUTO_TIMING_UPDATE |
-	    PA_STREAM_START_UNMUTED),
+	    PA_STREAM_AUTO_TIMING_UPDATE),
 	0 /* volume */,
 	0 /* sync stream */ );
 
@@ -433,27 +508,131 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
 //***************************************************************************
 int PlayBackPulseAudio::write(const Kwave::SampleArray &samples)
 {
-    /* TODO */
-    Q_UNUSED(samples);
+    unsigned int bytes = m_bytes_per_sample;
+
+    // abort if byte per sample is unknown
+    Q_ASSERT(m_bytes_per_sample);
+    Q_ASSERT(m_pa_mainloop);
+    if (!m_bytes_per_sample || !m_pa_mainloop)
+	return -EINVAL;
+
+    // start with a new/empty buffer from PulseAudio
+    if (!m_buffer) {
+	pa_threaded_mainloop_lock(m_pa_mainloop);
+
+	// estimate buffer size and round to whole samples
+	size_t size = -1;
+// ### TODO ###
+// 	size_t size = (1 << m_bufbase) * m_bytes_per_sample;
+// 	m_buffer_size = size;
+
+	// get a buffer from PulseAudio
+	int result = pa_stream_begin_write(m_pa_stream, &m_buffer, &size);
+	size /= m_bytes_per_sample;
+	size *= m_bytes_per_sample;
+
+// ### TODO ###
+// 	// we don't use all of it to reduce latency, use only the
+// 	// minimum of our configured size and pulse audio's offer
+// 	if (size < m_buffer_size)
+	    m_buffer_size = size;
+
+	pa_threaded_mainloop_unlock(m_pa_mainloop);
+
+	if (result < 0) {
+	    qWarning("PlayBackPulseAudio::write(): pa_stream_begin_write failed");
+	    return -EIO;
+	}
+
+// 	qDebug("PlayBackPulseAudio::write(): got buffer %p, size=%u bytes",
+// 	       m_buffer, m_buffer_size);
+    }
+
+    // abort with out-of-memory if failed
+    Q_ASSERT(m_buffer);
+    if (!m_buffer || !m_buffer_size)
+	return -ENOMEM;
+
+    Q_ASSERT (m_buffer_used + bytes <= m_buffer_size);
+    if (m_buffer_used + bytes > m_buffer_size) {
+	qWarning("PlayBackPulseAudio::write(): buffer overflow ?! (%u/%u)",
+	         m_buffer_used, m_buffer_size);
+	m_buffer_used = 0;
+	return -EIO;
+    }
+
+    // copy the samples
+    MEMCPY(reinterpret_cast<u_int8_t *>(m_buffer) + m_buffer_used,
+	   samples.data(), bytes);
+    m_buffer_used += bytes;
+
+    // write the buffer if it is full
+    if (m_buffer_used >= m_buffer_size) return flush();
     return 0;
 }
 
 //***************************************************************************
 int PlayBackPulseAudio::flush()
 {
-    /* TODO */
-    return 0;
+    if (!m_buffer_used || !m_buffer || !m_buffer_used || !m_pa_mainloop)
+	return 0;
+
+    pa_threaded_mainloop_lock(m_pa_mainloop);
+
+    // write out the buffer allocated before in "write"
+//  qDebug("PlayBackPulseAudio::flush(): writing...");
+    int result = pa_stream_write(
+	    m_pa_stream,
+	    m_buffer,
+	    m_buffer_used,
+	    0,
+	    0,
+	    PA_SEEK_RELATIVE
+    );
+    if (result < 0) {
+	qWarning("PlayBackPulseAudio::flush(): pa_stream_write failed");
+	return -EIO;
+    }
+
+    qDebug("PlayBackPulseAudio::flush(): waiting for latency update...");
+    pa_threaded_mainloop_wait(m_pa_mainloop);
+    qDebug("PlayBackPulseAudio::flush(): latency update done.");
+
+    // buffer is written out now
+    m_buffer_used = 0;
+    m_buffer      = 0;
+
+    pa_threaded_mainloop_unlock(m_pa_mainloop);
+
+    return result;
 }
 
 //***************************************************************************
 int PlayBackPulseAudio::close()
 {
-    flush();
 
-    if (m_pa_stream) {
-	pa_stream_disconnect(m_pa_stream);
-	pa_stream_unref(m_pa_stream);
-	m_pa_stream = 0;
+    if (m_buffer_used) flush();
+
+    if (m_pa_mainloop && m_pa_stream) {
+	pa_operation *op = 0;
+	pa_threaded_mainloop_lock(m_pa_mainloop);
+	op = pa_stream_drain(m_pa_stream, pa_stream_success_cb, this);
+	Q_ASSERT(op);
+	if (!op) qWarning("pa_stream_drain() failed: '%s'", pa_strerror(
+	    pa_context_errno(m_pa_context)));
+
+	qDebug("PlayBackPulseAudio::flush(): waiting for drain to finish...");
+	while (op && (pa_operation_get_state(op) != PA_OPERATION_DONE)) {
+	    pa_threaded_mainloop_wait(m_pa_mainloop);
+	}
+	pa_threaded_mainloop_unlock(m_pa_mainloop);
+
+
+	if (m_pa_stream) {
+	    pa_stream_disconnect(m_pa_stream);
+	    pa_stream_unref(m_pa_stream);
+	    m_pa_stream = 0;
+	}
     }
 
     disconnectFromServer();
@@ -481,7 +660,7 @@ void PlayBackPulseAudio::scanDevices()
     // create a list with final names
 //     qDebug("----------------------------------------");
     QMap<QString, sink_info_t> list;
-    
+
     // first entry == default device
     sink_info_t i;
     pa_sample_spec s;
@@ -494,7 +673,7 @@ void PlayBackPulseAudio::scanDevices()
     i.m_card        = -1;
     i.m_sample_spec = s;
     list[i18n("(use server default)") + "|sound_note"] = i;
-    
+
     foreach (QString sink, m_device_list.keys()) {
 	QString name        = m_device_list[sink].m_name;
 	QString description = m_device_list[sink].m_description;

@@ -218,9 +218,9 @@ void PlayBackPulseAudio::notifyWrite(pa_stream *stream, size_t nbytes)
     Q_ASSERT(stream = m_pa_stream);
     if (!stream || (stream != m_pa_stream)) return;
 
-    qDebug("PlayBackPulseAudio::notifyWrite(stream=%p, nbytes=%u), writable=%u",
-	   static_cast<void *>(stream), nbytes, pa_stream_writable_size(stream));
-//     pa_threaded_mainloop_signal(m_pa_mainloop, 0);
+//     qDebug("PlayBackPulseAudio::notifyWrite(stream=%p, nbytes=%u)",
+// 	   static_cast<void *>(stream), nbytes);
+    pa_threaded_mainloop_signal(m_pa_mainloop, 0);
 }
 
 //***************************************************************************
@@ -230,7 +230,8 @@ void PlayBackPulseAudio::notifyLatency(pa_stream *stream)
     Q_ASSERT(stream = m_pa_stream);
     if (!stream || (stream != m_pa_stream)) return;
 
-    qDebug("PlayBackPulseAudio::notifyLatency(stream=%p)", stream);
+//     qDebug("PlayBackPulseAudio::notifyLatency(stream=%p)",
+// 	   static_cast<void *>(stream));
 //     pa_threaded_mainloop_signal(m_pa_mainloop, 0);
 }
 
@@ -477,11 +478,20 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
     pa_stream_set_write_callback(m_pa_stream, pa_write_cb, this);
     pa_stream_set_latency_update_callback(m_pa_stream, pa_stream_latency_cb, this);
 
+    // set buffer attributes
+    int s = ((1 << m_bufbase) * m_bytes_per_sample) / m_bytes_per_sample;
+    pa_buffer_attr attr;
+    attr.fragsize  = -1;
+    attr.maxlength = -1;
+    attr.minreq    =  s;
+    attr.prebuf    = -1;
+    attr.tlength   = -1;
+
     // connect the stream in playback mode
     int result = pa_stream_connect_playback(
 	m_pa_stream,
 	pa_device.length() ? pa_device.toUtf8().data() : 0,
-	0 /* buffer attributes */,
+	&attr /* buffer attributes */,
 	static_cast<pa_stream_flags_t>(
 	    PA_STREAM_INTERPOLATE_TIMING |
 	    PA_STREAM_AUTO_TIMING_UPDATE),
@@ -522,19 +532,17 @@ int PlayBackPulseAudio::write(const Kwave::SampleArray &samples)
 
 	// estimate buffer size and round to whole samples
 	size_t size = -1;
-// ### TODO ###
-// 	size_t size = (1 << m_bufbase) * m_bytes_per_sample;
-// 	m_buffer_size = size;
+	m_buffer_size = (1 << m_bufbase) * m_bytes_per_sample;
 
 	// get a buffer from PulseAudio
 	int result = pa_stream_begin_write(m_pa_stream, &m_buffer, &size);
+// 	qDebug("PlayBackPulseAudio::write(): max buffer size=%u", size);
 	size /= m_bytes_per_sample;
 	size *= m_bytes_per_sample;
 
-// ### TODO ###
-// 	// we don't use all of it to reduce latency, use only the
-// 	// minimum of our configured size and pulse audio's offer
-// 	if (size < m_buffer_size)
+	// we don't use all of it to reduce latency, use only the
+	// minimum of our configured size and pulse audio's offer
+	if (size < m_buffer_size)
 	    m_buffer_size = size;
 
 	pa_threaded_mainloop_unlock(m_pa_mainloop);
@@ -574,29 +582,51 @@ int PlayBackPulseAudio::write(const Kwave::SampleArray &samples)
 //***************************************************************************
 int PlayBackPulseAudio::flush()
 {
-    if (!m_buffer_used || !m_buffer || !m_buffer_used || !m_pa_mainloop)
+    if (!m_buffer_used || !m_pa_mainloop || !m_buffer || !m_buffer_size)
 	return 0;
+//     qWarning("PlayBackPulseAudio::flush(): using buffer %p (%u bytes)",
+// 	     m_buffer, m_buffer_size);
 
     pa_threaded_mainloop_lock(m_pa_mainloop);
 
     // write out the buffer allocated before in "write"
-//  qDebug("PlayBackPulseAudio::flush(): writing...");
-    int result = pa_stream_write(
-	    m_pa_stream,
-	    m_buffer,
-	    m_buffer_used,
-	    0,
-	    0,
-	    PA_SEEK_RELATIVE
-    );
-    if (result < 0) {
-	qWarning("PlayBackPulseAudio::flush(): pa_stream_write failed");
-	return -EIO;
+    int result = 0;
+    while (m_buffer_used) {
+	size_t len;
+
+        while (!(len = pa_stream_writable_size(m_pa_stream))) {
+	    if (!PA_CONTEXT_IS_GOOD(pa_context_get_state(m_pa_context)) ||
+		!PA_STREAM_IS_GOOD(pa_stream_get_state(m_pa_stream))) {
+		qWarning("PlayBackPulseAudio::flush(): bad stream state");
+		result = -1;
+		break;
+	    }
+            pa_threaded_mainloop_wait(m_pa_mainloop);
+        }
+        if (result < 0) break;
+
+	if (len > m_buffer_used) len = m_buffer_used;
+
+// 	qDebug("PlayBackPulseAudio::flush(): writing %u bytes...", len);
+	result = pa_stream_write(
+		m_pa_stream,
+		m_buffer,
+		len,
+		0,
+		0,
+		PA_SEEK_RELATIVE
+	);
+	if (result < 0) {
+	    qWarning("PlayBackPulseAudio::flush(): pa_stream_write failed");
+	    pa_threaded_mainloop_unlock(m_pa_mainloop);
+	    return -EIO;
+	}
+
+	m_buffer       = reinterpret_cast<u_int8_t *>(m_buffer) + len;
+	m_buffer_used -= len;
     }
 
-    qDebug("PlayBackPulseAudio::flush(): waiting for latency update...");
-    pa_threaded_mainloop_wait(m_pa_mainloop);
-    qDebug("PlayBackPulseAudio::flush(): latency update done.");
+//     qDebug("PlayBackPulseAudio::flush(): flush done.");
 
     // buffer is written out now
     m_buffer_used = 0;
@@ -610,10 +640,13 @@ int PlayBackPulseAudio::flush()
 //***************************************************************************
 int PlayBackPulseAudio::close()
 {
+    // set hourglass cursor, we are waiting...
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
     if (m_buffer_used) flush();
 
     if (m_pa_mainloop && m_pa_stream) {
+
 	pa_operation *op = 0;
 	pa_threaded_mainloop_lock(m_pa_mainloop);
 	op = pa_stream_drain(m_pa_stream, pa_stream_success_cb, this);
@@ -623,6 +656,11 @@ int PlayBackPulseAudio::close()
 
 	qDebug("PlayBackPulseAudio::flush(): waiting for drain to finish...");
 	while (op && (pa_operation_get_state(op) != PA_OPERATION_DONE)) {
+	    if (!PA_CONTEXT_IS_GOOD(pa_context_get_state(m_pa_context)) ||
+		!PA_STREAM_IS_GOOD(pa_stream_get_state(m_pa_stream))) {
+		qWarning("PlayBackPulseAudio::close(): bad stream state");
+		break;
+	    }
 	    pa_threaded_mainloop_wait(m_pa_mainloop);
 	}
 	pa_threaded_mainloop_unlock(m_pa_mainloop);
@@ -638,6 +676,7 @@ int PlayBackPulseAudio::close()
     disconnectFromServer();
     m_device_list.clear();
 
+    QApplication::restoreOverrideCursor();
     return 0;
 }
 

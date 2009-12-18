@@ -332,7 +332,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     // check if the choosen compression mode is supported for saving
     if ((compression != AF_COMPRESSION_NONE) &&
         (compression != AF_COMPRESSION_G711_ULAW) &&
-        (compression != AF_COMPRESSION_G711_ALAW) )
+        (compression != AF_COMPRESSION_G711_ALAW))
     {
 	qWarning("compression mode %d not supported!", compression);
 	int what_now = Kwave::MessageBox::warningYesNoCancel(widget,
@@ -345,8 +345,10 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	switch (what_now) {
 	    case (KMessageBox::Yes):
 		compression = AF_COMPRESSION_G711_ULAW;
+		info.set(INF_COMPRESSION, AF_COMPRESSION_G711_ULAW);
 		break;
 	    case (KMessageBox::No):
+		info.set(INF_COMPRESSION, AF_COMPRESSION_NONE);
 		compression = AF_COMPRESSION_NONE;
 		break;
 	    default:
@@ -354,21 +356,33 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	}
     }
 
-    // check for unsupported bits/sample format combinations
-    if (compression == AF_COMPRESSION_NONE) {
-	if ((bits <= 8) && (sample_format != AF_SAMPFMT_UNSIGNED)) {
-	    const SampleFormat format(SampleFormat::Unsigned);
-	    info.set(INF_SAMPLE_FORMAT, QVariant(format.toInt()));
-
-	    sample_format = AF_SAMPFMT_UNSIGNED;
-	    qDebug("auto-switching to unsigned format");
-	} else if ((bits > 8) && (sample_format != AF_SAMPFMT_TWOSCOMP)) {
+    // check for unsupported compression/bits/sample format combinations
+    // G.711 and MSADPCM support only 16 bit signed as input format!
+    if ((compression == AF_COMPRESSION_G711_ULAW) ||
+        (compression == AF_COMPRESSION_G711_ALAW))
+    {
+	if ((sample_format != AF_SAMPFMT_TWOSCOMP) &&
+	    (bits          != 16))
+	{
 	    const SampleFormat format(SampleFormat::Signed);
 	    info.set(INF_SAMPLE_FORMAT, QVariant(format.toInt()));
-
+	    info.setBits(16);
 	    sample_format = AF_SAMPFMT_TWOSCOMP;
-	    qDebug("auto-switching to signed format");
+	    bits          = 16;
+	    qDebug("auto-switching to 16 bit signed format");
 	}
+    } else if ((bits <= 8) && (sample_format != AF_SAMPFMT_UNSIGNED)) {
+	const SampleFormat format(SampleFormat::Unsigned);
+	info.set(INF_SAMPLE_FORMAT, QVariant(format.toInt()));
+
+	sample_format = AF_SAMPFMT_UNSIGNED;
+	qDebug("auto-switching to unsigned format");
+    } else if ((bits > 8) && (sample_format != AF_SAMPFMT_TWOSCOMP)) {
+	const SampleFormat format(SampleFormat::Signed);
+	info.set(INF_SAMPLE_FORMAT, QVariant(format.toInt()));
+
+	sample_format = AF_SAMPFMT_TWOSCOMP;
+	qDebug("auto-switching to signed format");
     }
 
     // open the output device

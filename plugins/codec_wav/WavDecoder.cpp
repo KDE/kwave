@@ -70,6 +70,7 @@ WavDecoder::WavDecoder()
     // native WAVE chunk names
     m_known_chunks.append("cue "); /* Markers */
     m_known_chunks.append("data"); /* Sound Data */
+    m_known_chunks.append("fact"); /* Fact (length in samples) */
     m_known_chunks.append("fmt "); /* Format */
     m_known_chunks.append("inst"); /* Instrument */
     m_known_chunks.append("labl"); /* label */
@@ -289,7 +290,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
 //     qDebug("-------------------------");
 //     qDebug("wav header:");
-//     qDebug("mode        = 0x%04X, (%s)", header.min.format,
+//     qDebug("format      = 0x%04X, (%s)", header.min.format,
 //                                          format_name.toLocal8Bit().data());
 //     qDebug("channels    = %d", header.min.channels);
 //     qDebug("rate        = %u", header.min.samplerate);

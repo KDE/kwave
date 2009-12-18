@@ -6,6 +6,7 @@
  * no longer default to english language for documentation and gui l10n
  * fixed use count mismatch of plugins
  * bugfix: playback control: continuing after pause continued from start
+ * bugfix: G.711 encoded wav files support only 16 bit signed format
 
 0.8.4  [2009-09-26]
 
@@ -767,7 +768,7 @@
  * reworking Curve Class for creation via string, interpolation now
    uses curve objects
  * moved gui functions into a new library (libkwavegui)
- * new Classes: Parser DynamicLoader Filter (prevously was a struct)
+ * new Classes: Parser DynamicLoader Filter (previously was a struct)
  * moved gui-independent functions into a library (libkwave)
  * rework of dialogs into single files and single plugins
  * new calling scheme via string commands. This will allow scripting and macro

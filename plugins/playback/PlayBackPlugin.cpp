@@ -582,8 +582,8 @@ void PlayBackPlugin::run(QStringList)
     // get the list of selected channels
     QList<unsigned int> audible_tracks = selectedTracks();
     unsigned int audible_count = audible_tracks.count();
-    if (!audible_count) {
-	// not even one selected track
+    if (!audible_count || !m_device) {
+	// not even one selected track or no (open) device
 	qDebug("PlayBackPlugin::run(): no audible track(s) !");
 	emit sigPlaybackDone();
 	return;

@@ -54,8 +54,11 @@
 /* resource limits for the memory manager */
 #cmakedefine HAVE_GETRLIMIT
 
-/* meminfo is needed for the memory manager */
-#cmakedefine HAVE_MEMINFO
+/* sysinfo is needed for the memory manager */
+#cmakedefine HAVE_SYSINFO
+
+/* sysinfo structure has the "mem_unit" field? */
+#cmakedefine HAVE_SYSINFO_MEMUNIT
 
 /* used for creating swap files */
 #cmakedefine HAVE_MKSTEMP

@@ -216,36 +216,13 @@ IF (NOT REQUIRED_STD_HEADERS)
         ${_inc}")
 ENDIF (NOT REQUIRED_STD_HEADERS)
 
-
 #############################################################################
 ### checks for some functions                                             ###
 
-SET(_try_src_dir "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp")
-SET(_try_meminfo "${_try_src_dir}/cmake_try_meminfo.c")
-WRITE_FILE("${_try_meminfo}" "
-    #include <sys/sysinfo.h>
-    #include <linux/kernel.h>
-    int main()
-    {
-        struct sysinfo info;
-        unsigned int total;
-        sysinfo(&info);
-        total = info.totalram;
-        return 0;
-    }
-")
-TRY_COMPILE(HAVE_MEMINFO ${CMAKE_BINARY_DIR} ${_try_meminfo} OUTPUT_VARIABLE _out)
-IF (NOT HAVE_MEMINFO)
-    MESSAGE(STATUS "unable to get memory information through 'sysinfo'")
-    MESSAGE(STATUS
-        "!!! You might get inaccurate behaviour of the memory management !!!")
-ENDIF(NOT HAVE_MEMINFO)
-
-CHECK_FUNCTION_EXISTS(getrlimit HAVE_GETRLIMIT)
 CHECK_FUNCTION_EXISTS(mkstemp HAVE_MKSTEMP)
 CHECK_FUNCTION_EXISTS(unlink HAVE_UNLINK)
-CHECK_FUNCTION_EXISTS(getpagesize HAVE_GETPAGESIZE)
-CHECK_FUNCTION_EXISTS(sysconf HAVE_SYSCONF)
+
+INCLUDE(KwaveSysinfo)
 
 #############################################################################
 ### libaudiofile and libsamplerate support                                ###

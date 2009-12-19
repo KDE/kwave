@@ -26,7 +26,7 @@
 #include <QMutexLocker>
 #include <QString>
 
-#ifdef HAVE_MEMINFO
+#ifdef HAVE_SYSINFO
 #include <linux/kernel.h> // for struct sysinfo
 #include <sys/sysinfo.h>  // for sysinfo()
 #endif
@@ -134,17 +134,27 @@ unsigned int Kwave::MemoryManager::undoLimit() const
 //***************************************************************************
 unsigned int Kwave::MemoryManager::totalPhysical()
 {
-    unsigned int total = 4096;
+    quint64 total = 4096;
 
-#ifdef HAVE_MEMINFO
+#ifdef HAVE_SYSINFO
     // get the physically installed memory
-    unsigned int installed_physical = total;
+    quint64 installed_physical = total;
     struct sysinfo info;
 
     sysinfo(&info);
-    installed_physical = (info.totalram >> 20); // convert to megabytes
-    if (installed_physical < total) total = installed_physical;
-#endif
+
+    // find out installed memory and convert to megabytes
+#ifdef HAVE_SYSINFO_MEMUNIT
+    installed_physical = (info.totalram * info.mem_unit) >> 20;
+#else /* HAVE_SYSINFO_MEMUNIT */
+    installed_physical = info.totalram >> 20;
+#endif /* HAVE_SYSINFO_MEMUNIT */
+    qDebug("info.totalram = %lu MB",
+	static_cast<long unsigned int>(installed_physical));
+
+    if (installed_physical && (installed_physical < total))
+	total = installed_physical;
+#endif /* HAVE_SYSINFO */
 
 #ifdef HAVE_GETRLIMIT
     struct rlimit limit;
@@ -161,8 +171,8 @@ unsigned int Kwave::MemoryManager::totalPhysical()
 	unsigned int total_ulimit = limit.rlim_cur >> 20;
 	if (total_ulimit < total) total = total_ulimit;
     }
-#endif
-#endif
+#endif /* RLIMIT_AS */
+#endif /* HAVE_GETRLIMIT */
 
     return total;
 }

@@ -28,6 +28,7 @@
 
 class QComboBox;
 class QScrollBar;
+class QWheelEvent;
 
 class KStatusBar;
 class KUrl;
@@ -112,6 +113,9 @@ protected:
      * the signal widget and the channel controls
      */
     virtual void resizeEvent(QResizeEvent *);
+
+    /** slot for mouse wheel events, for scrolling/zooming */
+    virtual void wheelEvent(QWheelEvent *event);
 
 protected slots:
 

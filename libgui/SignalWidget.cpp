@@ -1599,8 +1599,8 @@ void SignalWidget::wheelEvent(QWheelEvent *event)
 {
     if (!event) return;
 
-    // we currently are only interested in <Ctrl> + <WheelUp/Down>
-    if (event->modifiers() != Qt::ControlModifier) {
+    // we currently are only interested in <Alt> + <WheelUp/Down>
+    if (event->modifiers() != Qt::AltModifier) {
 	event->ignore();
 	return;
     }

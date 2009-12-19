@@ -182,6 +182,7 @@ void OverViewWidget::setSelection(unsigned int offset, unsigned int length,
     m_selection_start  = offset;
     m_selection_length = length;
     m_sample_rate      = rate;
+
     overviewChanged();
 }
 

@@ -26,6 +26,7 @@
 #include <QHBoxLayout>
 #include <QResizeEvent>
 #include <QScrollBar>
+#include <QWheelEvent>
 
 #include <klocale.h>
 
@@ -223,6 +224,52 @@ MainWidget::~MainWidget()
 void MainWidget::resizeEvent(QResizeEvent *)
 {
     refreshChannelControls();
+}
+
+
+//***************************************************************************
+void MainWidget::wheelEvent(QWheelEvent *event)
+{
+    if (!event || !m_overview) return;
+
+    // process only wheel events on the signal and overview frame,
+    // not on the channel controls or scrollbars
+    if (!m_signal_frame.geometry().contains(event->pos()) &&
+	!m_overview->geometry().contains(event->pos()) )
+    {
+	event->ignore();
+	return;
+    }
+
+    switch (event->modifiers()) {
+	case Qt::NoModifier: {
+	    // no modifier + <WheelUp/Down> => scroll left/right
+	    if (event->delta() > 0)
+		m_signal_widget.executeCommand("scrollleft()");
+	    else if (event->delta() < 0)
+		m_signal_widget.executeCommand("scrollright()");
+	    event->accept();
+	    break;
+	}
+	case Qt::ShiftModifier:
+	    // <Shift> + <WheelUp/Down> => page up/down
+	    if (event->delta() > 0)
+		m_signal_widget.executeCommand("viewprev()");
+	    else if (event->delta() < 0)
+		m_signal_widget.executeCommand("viewnext()");
+	    event->accept();
+	    break;
+	case Qt::ControlModifier:
+	    // <Ctrl> + <WheelUp/Down> => zoom in/out
+	    if (event->delta() > 0)
+		m_signal_widget.executeCommand("zoomin()");
+	    else if (event->delta() < 0)
+		m_signal_widget.executeCommand("zoomout()");
+	    event->accept();
+	    break;
+	default:
+	    event->ignore();
+    }
 }
 
 //***************************************************************************
@@ -459,11 +506,14 @@ void MainWidget::refreshHorizontalScrollBar()
 	int pos   = (range) ? static_cast<int>(floor(
 	    static_cast<double>(offset) * static_cast<double>(max) /
 	    static_cast<double>(range))) : 0;
-// 	qDebug("width=%d,max=%d, page=%d, pos=%d",width,max,page,pos);
+	int single = (page / 10);
+	if (!single) single = 1;
+// 	qDebug("width=%d,max=%d, page=%d, single=%d, pos=%d",
+// 	       width, max, page, single, pos);
 
 	m_horizontal_scrollbar->setRange(min, max);
 	m_horizontal_scrollbar->setValue(pos);
-	m_horizontal_scrollbar->setSingleStep(page / 2);
+	m_horizontal_scrollbar->setSingleStep(single);
 	m_horizontal_scrollbar->setPageStep(page);
     } else {
 	m_horizontal_scrollbar->setRange(0,0);

@@ -32,7 +32,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2009-09-26</date>
+<date>2009-12-18</date>
 <releaseinfo>&version;</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -2026,7 +2026,7 @@
     <sect2 id="vertical_zoom"><title>Vertical zoom</title>
     <para>
 	You can zoom the current view vertically by pressing the
-	<keycap>Ctrl</keycap> key and scrolling with the mouse wheel.
+	<keycap>Alt</keycap> key and scrolling with the mouse wheel.
     </para>
     </sect2>
 

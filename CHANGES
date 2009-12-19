@@ -1,5 +1,5 @@
 
-0.8.5  [2009-??-??]
+0.8.5  [2009-12-??]
 
  * new feature: playback via PulseAudio
  * applied kwave-0.8.2-nolinguas.patch (see gentoo bug #267702)
@@ -7,6 +7,11 @@
  * fixed use count mismatch of plugins
  * bugfix: playback control: continuing after pause continued from start
  * bugfix: G.711 encoded wav files support only 16 bit signed format
+ * new assignment for mouse wheel:
+   - without modifier key: scroll left/right
+   - with Shift: page left/right
+   - with Ctrl: zoom in/out
+   - with Alt: vertical zoom in/out
 
 0.8.4  [2009-09-26]
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-20 10:39+0200\n"
+"POT-Creation-Date: 2009-12-21 21:09+0100\n"
 "PO-Revision-Date: 2009-10-31 13:28+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -630,7 +630,7 @@ msgstr "&Znovu"
 msgid "&Remove"
 msgstr "&Odstranit"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:169
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:170
 msgid "&Repair"
 msgstr "&Opravit"
 
@@ -810,10 +810,14 @@ msgstr "(kvadrofonní zvuk)"
 msgid "(stereo)"
 msgstr "(stereofonní zvuk)"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:241
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:249
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:248
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:256
 msgid "(unknown)"
 msgstr "(neznámý)"
+
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:715
+msgid "(use server default)"
+msgstr ""
 
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1320
 msgid "(variable)"
@@ -1106,7 +1110,8 @@ msgstr ""
 "výstupem zvuku. Pokud se setkáte s přerušeními, měl byste o něco zvýšit "
 "hodnotu tohoto nastavení.</p>"
 
-#: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:421, c-format
+#: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:421
+#, fuzzy, c-format
 msgid ""
 "<b>Channels:</b><p>Number of channels used for playback. This does not "
 "necessarily have to be the same as the number of tracks in your current "
@@ -1669,8 +1674,8 @@ msgstr ""
 "se vyskytla chyba na pozici %2."
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:128
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:423
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:354
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:437
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:355
 msgid ""
 "An error occurred while opening the file:\n"
 "'%1'"
@@ -1736,7 +1741,7 @@ msgstr "Autor/Autorské právo (Copyright)"
 msgid "Authors"
 msgstr "Autoři"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:135
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:136
 msgid "Auto-Repair"
 msgstr "Automatická oprava"
 
@@ -1921,6 +1926,10 @@ msgstr "Komprese:"
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_CompressionWidgetBase.h:191
 msgid "CompressionWidgetBase"
 msgstr "Základní kompresní udělátko"
+
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:409
+msgid "Connection to the PulseAudio server failed."
+msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:79
 msgid "Contact"
@@ -2231,6 +2240,14 @@ msgstr "Postupné zesílení signálu"
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:1011
 msgid "Fading"
 msgstr "Prolínání"
+
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:470
+msgid "Failed to create a PulseAudio stream (%1)."
+msgstr ""
+
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:512
+msgid "Failed to open a PulseAudio stream for playback (%1)."
+msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/GenreType.cpp:163
 msgid "Fast Fusion"
@@ -2626,11 +2643,11 @@ msgstr "Kwave"
 msgid "Kwave Macro Files"
 msgstr "Kwave makro soubory"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:168
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:169
 msgid "Kwave auto repair"
 msgstr "Kwave automatické opravení"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:248
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:249
 msgid "Kwave auto-repair"
 msgstr "Kwave automatické opravení"
 
@@ -3178,11 +3195,11 @@ msgstr "Režim přehrávání:"
 msgid "Playback Settings"
 msgstr "Nastavení přehrávání"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:783
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:790
 msgid "Playback Test"
 msgstr "Zkouška přehrávání"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:170
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:171
 msgid ""
 "Playback is currently running.Please stop playback first and then try again"
 msgstr ""
@@ -3300,6 +3317,11 @@ msgstr "Psychedelická hudba"
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/GenreType.cpp:172
 msgid "Psychedelic Rock"
 msgstr "Psychedelický rock"
+
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackTypesMap.cpp:59
+#, fuzzy
+msgid "Pulse Audio"
+msgstr "&Rytmický sled"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/GenreType.cpp:120
 msgid "Punk"
@@ -3668,7 +3690,7 @@ msgid "Sonata"
 msgstr "Sonáta"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ascii/AsciiDecoder.cpp:96
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:172
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:173
 msgid "Sorry"
 msgstr "Promiňte"
 
@@ -3849,7 +3871,11 @@ msgstr "Techno a průmyslová hudba"
 msgid "Thanks To"
 msgstr "Poděkování"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:241
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:415
+msgid "The PulseAudio device '%1' is unknown or no longer connected"
+msgstr ""
+
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:242
 msgid ""
 "The WAV file seems to be damaged: \n"
 "some chunks are duplicate or missing! \n"
@@ -3934,7 +3960,7 @@ msgstr ""
 "Soubor má neplatný kontrolní součet.\n"
 "Stále ještě chcete pokračovatpokračovat?"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:165
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:166
 msgid ""
 "The file has been structurally damaged or is no .wav file.\n"
 "Should Kwave try to repair it?"
@@ -3950,7 +3976,7 @@ msgstr "Soubor byl zkrácen a mohl by tedy být poškozen!"
 msgid "The list ob labels / markers."
 msgstr "Seznam štítků/značek."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:229
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:230
 msgid ""
 "The opened file is no .WAV file or damaged:\n"
 "There is not enough valid sound data.\n"
@@ -4089,7 +4115,7 @@ msgstr "Neschopen otevřít FLAC kodér!"
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_flac/FlacEncoder.cpp:216
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ascii/AsciiEncoder.cpp:85
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_ogg/OggEncoder.cpp:252
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:377
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:391
 msgid "Unable to open the file for saving!"
 msgstr "Neschopen otevřít soubor pro ukládání!"
 
@@ -4141,8 +4167,7 @@ msgid ""
 msgstr ""
 "Když je zaškrtnuto, <b>začne nahrávání v zadaném datu a čase</b>. Všimněte, "
 "si, prosím, že když je čas zadán v minulosti, nahrávání začne okamžitě, nebo "
-"začne, "
-"jakmile je dosaženo stanovené úrovně spouštěče (je-li to povoleno)."
+"začne, jakmile je dosaženo stanovené úrovně spouštěče (je-li to povoleno)."
 
 #: /var/tmp/kwave-build/plugins/record/ui_RecordDlg.h:963
 msgid ""
@@ -4242,7 +4267,7 @@ msgstr "A %1 sekund"
 msgid "append track"
 msgstr "Připojit stopu"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/KwaveFilterPlugin.cpp:229
+#: /usr/src/packages/multimedia/sound/kwave/libgui/KwaveFilterPlugin.cpp:228
 msgid "applying '%1' ..."
 msgstr "Používá se '%1' ..."
 
@@ -4547,8 +4572,8 @@ msgstr "Táhnout a pustit"
 msgid "enable pre-recording"
 msgstr "Umožnit nahrávání předem"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:210
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:222
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:217
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:229
 msgid "error on loading plugin"
 msgstr "Chyba při nahrávání přídavného modulu"
 
@@ -4582,8 +4607,8 @@ msgid "file contains invalid data"
 msgstr "Soubor obsahuje neplatná data"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:110
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:404
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:335
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:418
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:336
 msgid "file header is damaged"
 msgstr "Hlavička souboru je poškozená"
 
@@ -4600,8 +4625,8 @@ msgid "follow selection"
 msgstr "Sledovat výběr"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:104
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:397
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:328
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:411
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:329
 msgid "format or function is not implemented"
 msgstr "Formát nebo funkce není provedena"
 
@@ -4670,8 +4695,8 @@ msgid "into 2nd half"
 msgstr "Do druhé poloviny"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:113
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:407
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:338
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:421
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:339
 msgid "invalid codec type"
 msgstr "Neplatný druh kodeku"
 
@@ -4680,8 +4705,8 @@ msgid "invalid or unknown file type: '%1'"
 msgstr "Neplatný nebo neznámý typ souboru: '%1'"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:122
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:417
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:348
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:431
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:349
 msgid "invalid sample format"
 msgstr "Neplatný vzorkovací formát"
 
@@ -4726,7 +4751,7 @@ msgstr "Nahrává se soubor '%1'..."
 msgid "loading main menu..."
 msgstr "Nahrává se hlavní seznam nabídek..."
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:720
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:736
 msgid "loading plugin %1..."
 msgstr "Nahrává se přídavný modul %1..."
 
@@ -4842,7 +4867,8 @@ msgstr "Šum"
 msgid "normalize"
 msgstr "Uvést do obvyklého stavu"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:223, c-format
+#: /usr/src/packages/multimedia/sound/kwave/plugins/normalize/NormalizePlugin.cpp:223
+#, c-format
 msgid "normalizing (%1dB) ..."
 msgstr "Uvádí se do obvyklého stavu (%1dB) ..."
 
@@ -4882,7 +4908,7 @@ msgstr "Jedna hodina "
 msgid "one minute "
 msgstr "Jedna minuta "
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:208
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:215
 msgid "oops, plugin '%1' is unknown or invalid!"
 msgstr "Jejda, přídavný modul '%1' není znám nebo je neplatný!"
 
@@ -4900,15 +4926,15 @@ msgid "opening the FLAC bitstream failed."
 msgstr "Otevírání datového proudu FLAC selhalo."
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:116
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:411
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:342
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:425
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:343
 msgid "opening the file failed"
 msgstr "Otevírání souboru selhalo."
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/decoder_mp3/MP3Decoder.cpp:477
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:107
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:401
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:332
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:415
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:333
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-OSS.cpp:244
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-Phonon.cpp:148
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-Phonon.cpp:180
@@ -4947,7 +4973,7 @@ msgstr "Posun výšky tónu"
 msgid "play a short test sound"
 msgstr "Přehrát krátký zkušební zvuk"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:92
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:93
 msgid "playback"
 msgstr "Přehrávání"
 
@@ -4959,11 +4985,16 @@ msgstr "Přehrávací zařízení"
 msgid "playback rate %1 Hz is not supported"
 msgstr "Kmitočet přehrávání %1 Hz není podporován"
 
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:454
+#, fuzzy
+msgid "playback..."
+msgstr "Přehrávání"
+
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:974
 msgid "please check the source device settings..."
 msgstr "Zkontrolujte, prosím, nastavení zdrojového zařízení..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:704
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:711
 msgid "please select a playback device first"
 msgstr "Nejprve, prosím, vyberte přehrávací zařízení"
 
@@ -4992,8 +5023,8 @@ msgid "project leader since 2000, core development"
 msgstr "Vedoucí projektu, základní vývoj"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_audiofile/AudiofileDecoder.cpp:119
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:414
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:345
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavEncoder.cpp:428
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:346
 msgid "read access failed"
 msgstr "Přístup ke čtení selhal"
 
@@ -5001,7 +5032,7 @@ msgstr "Přístup ke čtení selhal"
 msgid "reading configuration..."
 msgstr "Nastavení čtení..."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:141
+#: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:142
 msgid "reading..."
 msgstr "Čte..."
 
@@ -5031,7 +5062,7 @@ msgstr "Rozlišení:"
 msgid "reverse"
 msgstr "Obrátit"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/KwavePlugin.cpp:206
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/KwavePlugin.cpp:207
 msgid "running plugin '%1' ..."
 msgstr "Spouští se přídavný modul '%1' ..."
 
@@ -5252,7 +5283,7 @@ msgstr "Stopy:"
 msgid "trigger level"
 msgstr "Citlivost spouště"
 
-#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:218
+#: /usr/src/packages/multimedia/sound/kwave/libkwave/PluginManager.cpp:225
 msgid ""
 "unable to load the file \n"
 "'%1'\n"
@@ -5263,7 +5294,7 @@ msgstr ""
 "který obsahuje přídavný modul '%2' !"
 
 #: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:555
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:461
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:470
 msgid "unable to open '%1'"
 msgstr "Neschopen otevřít '%1'"
 
@@ -5334,7 +5365,7 @@ msgstr "Zvuk wav"
 msgid "yes"
 msgstr "Ano"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:791
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:798
 msgid ""
 "you should now hear a %1Hz test tone...<br><br>(if you hear clicks or "
 "dropouts, please increase<br>the buffer size and try again)"

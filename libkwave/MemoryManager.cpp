@@ -134,7 +134,7 @@ unsigned int Kwave::MemoryManager::undoLimit() const
 //***************************************************************************
 unsigned int Kwave::MemoryManager::totalPhysical()
 {
-    quint64 total = 4096;
+    quint64 total = 2 * 1024;
 
 #ifdef HAVE_SYSINFO
     // get the physically installed memory
@@ -149,9 +149,6 @@ unsigned int Kwave::MemoryManager::totalPhysical()
 #else /* HAVE_SYSINFO_MEMUNIT */
     installed_physical = info.totalram >> 20;
 #endif /* HAVE_SYSINFO_MEMUNIT */
-    qDebug("info.totalram = %lu MB",
-	static_cast<long unsigned int>(installed_physical));
-
     if (installed_physical && (installed_physical < total))
 	total = installed_physical;
 #endif /* HAVE_SYSINFO */
@@ -161,14 +158,16 @@ unsigned int Kwave::MemoryManager::totalPhysical()
 
     // check ulimit of data segment size
     if (getrlimit(RLIMIT_DATA, &limit) == 0) {
-	unsigned int physical_ulimit = limit.rlim_cur >> 20;
+	unsigned int physical_ulimit =
+	    qMin(limit.rlim_cur, limit.rlim_max) >> 20;
 	if (physical_ulimit < total) total = physical_ulimit;
     }
 
     // check ulimit of total (physical+virtual) system memory
 #ifdef RLIMIT_AS
     if (getrlimit(RLIMIT_AS, &limit) == 0) {
-	unsigned int total_ulimit = limit.rlim_cur >> 20;
+	unsigned int total_ulimit =
+	    qMin(limit.rlim_cur, limit.rlim_max) >> 20;
 	if (total_ulimit < total) total = total_ulimit;
     }
 #endif /* RLIMIT_AS */

@@ -13,46 +13,66 @@
 EAPI="2"
 KDE_MINIMAL="4.2"
 KDE_LINGUAS="cs de en fr"
-inherit kde4-base
+inherit gnome2-utils kde4-base
 
 DESCRIPTION="Kwave is a sound editor for KDE."
 HOMEPAGE="http://kwave.sourceforge.net/"
 SRC_URI="mirror://sourceforge/kwave/${P}-1.tar.bz2"
 
-SLOT="kde-4"
 LICENSE="GPL-2"
-KEYWORDS="~x86 ~amd64 ~ppc"
-IUSE="alsa debug doc flac mp3 ogg oss phonon mmx"
+SLOT="4"
+KEYWORDS="~amd64 ~ppc ~x86"
+IUSE="alsa debug doc flac mp3 ogg oss phonon pulseaudio +samplerate mmx"
 
 RDEPEND="
+	!media-sound/kwave:0
+	media-libs/audiofile
+	sci-libs/fftw
 	alsa? ( media-libs/alsa-lib )
+	flac? ( media-libs/flac )
+	media-libs/libsamplerate
 	mp3? ( media-libs/id3lib media-libs/libmad )
 	ogg? ( media-libs/libogg media-libs/libvorbis )
-	flac? ( media-libs/flac )
-	media-libs/audiofile
-	media-libs/libsamplerate
-	sci-libs/fftw"
+	pulseaudio? ( media-sound/pulseaudio )"
 
 DEPEND="${RDEPEND}
 	>=dev-util/cmake-2.6.0
-	kde-base/kdesdk-misc
+	>=kde-base/kdesdk-misc-${KDE_MINIMAL}
 	media-gfx/imagemagick"
 
-src_prepare() {
-	kde4-base_src_prepare
-}
-
 src_configure() {
-	use mmx && append-flags "-mmmx"
+	use mmx && append-flags -mmmx
 
-	use alsa   || mycmakeargs+=" -DWITH_ALSA=OFF"
-	use doc    || mycmakeargs+=" -DWITH_DOC=OFF"
-	use flac   || mycmakeargs+=" -DWITH_FLAC=OFF"
-	use mp3    && mycmakeargs+=" -DWITH_MP3=ON"
-	use ogg    || mycmakeargs+=" -DWITH_OGG=OFF"
-	use oss    || mycmakeargs+=" -DWITH_OSS=OFF"
-	use debug  && mycmakeargs+=" -DDEBUG=ON"
-	use phonon && mycmakeargs+=" -DWITH_PHONON=ON"
+	mycmakeargs="${mycmakeargs}
+		$(cmake-utils_use_with alsa)
+		$(cmake-utils_use_with doc)
+		$(cmake-utils_use_with flac)
+		$(cmake-utils_use_with mp3)
+		$(cmake-utils_use_with ogg)
+		$(cmake-utils_use_with oss)
+		$(cmake-utils_use_with pulseaudio)
+		$(cmake-utils_use_with libsamplerate SAMPLERATE)
+		$(cmake-utils_use debug)"
 
 	kde4-base_src_configure
+}
+
+src_install() {
+	kde4-base_src_install
+
+	cat "${D}"/usr/share/icons/hicolor/scalable/apps/kwave.svgz | gunzip -d > "${D}"/usr/share/icons/hicolor/scalable/apps/kwave.svg
+}
+
+pkg_preinst() {
+	gnome2_icon_savelist
+}
+
+pkg_postinst() {
+	kde4-base_pkg_postinst
+	gnome2_icon_cache_update
+}
+
+pkg_postrm() {
+	kde4-base_pkg_postrm
+	gnome2_icon_cache_update
 }

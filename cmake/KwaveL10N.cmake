@@ -23,13 +23,30 @@ STRING(REGEX REPLACE "[ \t]+" \; OUTPUT "${LINGUAS}")
 SEPARATE_ARGUMENTS(LINGUAS)
 IF ("${LINGUAS}" STREQUAL "")
     SET(LINGUAS ${KWAVE_LINGUAS})
-    MESSAGE(STATUS "LINGUAS not set, building for all supported languages")
 ENDIF ("${LINGUAS}" STREQUAL "")
+
+#############################################################################
+### filter out languages that do not (or no longer) have a corresponding  ###
+### .po file under po/... - the Gentoo build system steals files from the ###
+### unpacked source directory without giving a notice and therefore might ###
+### break our build!                                                      ###
+
+FOREACH (_lingua ${LINGUAS})
+    STRING(REGEX MATCH "^[^:]+" _lang ${_lingua})
+    SET(_pofile "${CMAKE_SOURCE_DIR}/po/${_lang}.po")
+    IF (EXISTS ${_pofile})
+        LIST(APPEND EXISTING_LINGUAS "${_lang}")
+    ENDIF (EXISTS ${_pofile})
+ENDFOREACH(_lingua)
+
+IF (NOT "${EXISTING_LINGUAS}" STREQUAL "")
+    MESSAGE(STATUS "LINGUAS not set, building for all supported languages")
+ENDIF (NOT "${EXISTING_LINGUAS}" STREQUAL "")
 
 #############################################################################
 ### filter out only languages that are supported by Kwave                 ###
 
-FOREACH (_lingua ${LINGUAS})
+FOREACH (_lingua ${EXISTING_LINGUAS})
     STRING(REGEX MATCH "^[^:]+" _lingua_short ${_lingua})
     FOREACH(_known_lang ${KWAVE_LINGUAS})
         STRING(REGEX MATCH "^[^:]+" _lang ${_known_lang})

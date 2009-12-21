@@ -83,7 +83,8 @@ Kwave::Plugin::Plugin(const PluginContext &c)
      m_progress_lock(QMutex::Recursive)
 {
     connect(&m_progress_timer, SIGNAL(timeout()),
-            this, SLOT(updateProgressTick()));
+            this, SLOT(updateProgressTick()),
+            Qt::QueuedConnection);
 }
 
 //***************************************************************************
@@ -111,8 +112,8 @@ Kwave::Plugin::~Plugin()
 	}
     }
 
-    if (m_confirm_cancel) delete m_confirm_cancel;
-    if (m_progress)       delete m_progress;
+    // finally get rid of the confirm/cancel proxy and the progress dialog
+    closeProgressDialog(this);
 }
 
 //***************************************************************************
@@ -383,6 +384,7 @@ void Kwave::Plugin::close()
 	Q_ASSERT(this->thread() == QThread::currentThread());
 	Q_ASSERT(this->thread() == qApp->thread());
 
+	QMutexLocker lock(&m_progress_lock);
 	m_progress_timer.stop();
 	qApp->sendPostedEvents();
 	qApp->processEvents();

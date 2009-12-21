@@ -13,6 +13,8 @@
    - with Ctrl: zoom in/out
    - with Alt: vertical zoom in/out
  * bugfix: support sysinfo.mem_unit when >= 4GB RAM are installed
+ * bugfix: crash in progress dialog handling (crashed when closing a plugin
+   after finishing it's work)
 
 0.8.4  [2009-09-26]
 

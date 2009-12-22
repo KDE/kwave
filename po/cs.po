@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-21 21:09+0100\n"
-"PO-Revision-Date: 2009-10-31 13:28+0100\n"
+"PO-Revision-Date: 2009-12-21 22:07+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -817,7 +817,7 @@ msgstr "(neznámý)"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:715
 msgid "(use server default)"
-msgstr ""
+msgstr "(použít výchozí nastavení serveru)"
 
 #: /var/tmp/kwave-build/plugins/fileinfo/ui_FileInfoDlg.h:1320
 msgid "(variable)"
@@ -1110,8 +1110,7 @@ msgstr ""
 "výstupem zvuku. Pokud se setkáte s přerušeními, měl byste o něco zvýšit "
 "hodnotu tohoto nastavení.</p>"
 
-#: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:421
-#, fuzzy, c-format
+#: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:421, c-format
 msgid ""
 "<b>Channels:</b><p>Number of channels used for playback. This does not "
 "necessarily have to be the same as the number of tracks in your current "
@@ -1123,7 +1122,7 @@ msgid ""
 msgstr ""
 "<b>Kanály:</b><p>Počet kanálů používaných pro přehrávání.Toto číslo se "
 "nemusí nutně shodovat s počtem stop ve vašem nyní používaném souboru. Kwave "
-"automaticky míchá stopy vašeho souboru do kanálů,  které přesně určíte zde. "
+"automaticky míchá stopy vašeho souboru do kanálů,  které zde zadáte. "
 "</p><p><i>Například:</i> jestliže máte tři stopy a nastavíte přehrávání na "
 "\"stereo\", levý kanál bude obsahovat první stopu + 50% druhé stopy, pravý "
 "kanál bude také obsahovat 50% druhé stopy a stopu třetí.</p>"
@@ -1929,7 +1928,7 @@ msgstr "Základní kompresní udělátko"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:409
 msgid "Connection to the PulseAudio server failed."
-msgstr ""
+msgstr "Nepodařilo se navázat spojení se serverem PulseAudio."
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/FileInfo.cpp:79
 msgid "Contact"
@@ -2243,11 +2242,11 @@ msgstr "Prolínání"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:470
 msgid "Failed to create a PulseAudio stream (%1)."
-msgstr ""
+msgstr "Proud PulseAudio se nepodařilo vytvořit (%1)."
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:512
 msgid "Failed to open a PulseAudio stream for playback (%1)."
-msgstr ""
+msgstr "Proud PulseAudio se nepodařilo otevřít pro přehrávání (%1)."
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/GenreType.cpp:163
 msgid "Fast Fusion"
@@ -3319,9 +3318,8 @@ msgid "Psychedelic Rock"
 msgstr "Psychedelický rock"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackTypesMap.cpp:59
-#, fuzzy
 msgid "Pulse Audio"
-msgstr "&Rytmický sled"
+msgstr "Pulse Audio"
 
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/GenreType.cpp:120
 msgid "Punk"
@@ -3873,7 +3871,7 @@ msgstr "Poděkování"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:415
 msgid "The PulseAudio device '%1' is unknown or no longer connected"
-msgstr ""
+msgstr "Zařízení PulseAudio '%1' buď není známé, nebo již není více připojeno"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/WavDecoder.cpp:242
 msgid ""
@@ -4986,9 +4984,8 @@ msgid "playback rate %1 Hz is not supported"
 msgstr "Kmitočet přehrávání %1 Hz není podporován"
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:454
-#, fuzzy
 msgid "playback..."
-msgstr "Přehrávání"
+msgstr "Přehrávání..."
 
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordDialog.cpp:974
 msgid "please check the source device settings..."

@@ -428,8 +428,12 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
     Q_ASSERT(_proplist);
     SET_PROPERTY(PA_PROP_MEDIA_TITLE,     INF_NAME);
     SET_PROPERTY(PA_PROP_MEDIA_ARTIST,    INF_AUTHOR);
+#ifdef PA_PROP_MEDIA_COPYRIGHT
     SET_PROPERTY(PA_PROP_MEDIA_COPYRIGHT, INF_COPYRIGHT);
+#endif
+#ifdef PA_PROP_MEDIA_SOFTWARE
     SET_PROPERTY(PA_PROP_MEDIA_SOFTWARE,  INF_SOFTWARE);
+#endif
 //  SET_PROPERTY(PA_PROP_MEDIA_LANGUAGE,  INF_...);
     SET_PROPERTY(PA_PROP_MEDIA_FILENAME,  INF_FILENAME);
 //  SET_PROPERTY(PA_PROP_MEDIA_ICON_NAME, INF_...);
@@ -565,7 +569,8 @@ int PlayBackPulseAudio::write(const Kwave::SampleArray &samples)
     Q_ASSERT (m_buffer_used + bytes <= m_buffer_size);
     if (m_buffer_used + bytes > m_buffer_size) {
 	qWarning("PlayBackPulseAudio::write(): buffer overflow ?! (%u/%u)",
-	         m_buffer_used, m_buffer_size);
+	         static_cast<unsigned int>(m_buffer_used),
+	         static_cast<unsigned int>(m_buffer_size));
 	m_buffer_used = 0;
 	return -EIO;
     }

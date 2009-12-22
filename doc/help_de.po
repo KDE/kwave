@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-12-21 20:09+0000\n"
-"PO-Revision-Date: 2009-09-20 10:23+0200\n"
+"POT-Creation-Date: 2009-12-21 21:34+0000\n"
+"PO-Revision-Date: 2009-12-22 19:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -3536,13 +3536,14 @@ msgstr "Vertikale Vergrößerung"
 
 #. Tag: para
 #: help_en-work.docbook:1962
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "You can zoom the current view vertically by pressing the <keycap>Alt</"
 "keycap> key and scrolling with the mouse wheel."
 msgstr ""
-"Sie können die aktuelle Ansicht vertikal vergrößern und verkleinern idem Sie "
-"die <keycap>Strg-Taste</keycap> drücken während Sie mit dem Mausrad rollen."
+"Sie können die aktuelle Ansicht vertikal vergrößern und verkleinern indem "
+"Sie "
+"die <keycap>Alt</keycap>-Taste drücken während Sie mit dem Mausrad rollen."
 
 #. Tag: title
 #: help_en-work.docbook:1973
@@ -4861,3 +4862,4 @@ msgstr ""
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr "&underFDL; &underGPL;"
+

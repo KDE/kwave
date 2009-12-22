@@ -1,5 +1,5 @@
 
----
+o support for recording via PULSE audio
 
 o crash in record plugin, maybe if device is busy?
     RecordALSA::read(), after underrun: resuming
@@ -9,13 +9,10 @@ o crash in record plugin, maybe if device is busy?
     RecordThread: read result = -9 (Ungültiger Dateideskriptor)
     RecordThread::run() - done
     KCrash: Application 'kwave' crashing...
-    sock_file=/home/test/.kde4/socket-lisa/kdeinit4__1
 
 o better support to add labels from batch files
 
 o function for "Edit/Selection/Insert at..."
-
-o support for Spex codec: http://www.speex.org/
 
 o debug aid: write all actions to a logfile
 
@@ -25,6 +22,8 @@ o debug aid: new plugin for adding a new track with test/debug info:
   - test pattern: sample offset within stripe
   - test pattern: stripe borders
   - generate labels at stripe borders
+
+o use xml description for device names in playback/record plugins
 
 o use svg graphics instead of pixmaps
 
@@ -40,6 +39,8 @@ o re-activate the "label" menu
 
 o use some xml file for the menu instead of a macro
 
+o support for Spex codec: http://www.speex.org/
+
 o get rid of libaudiofile, it is too buggy, has too few features and
   is no longer actively maintained -> find an alternative
 
@@ -53,6 +54,7 @@ o replace "AF_SAMPFMT_xxx" with enum "SampleFormat::yyy" in WavEncoder.cpp,
   WavDecoder.cpp and PlayBack-OSS.cpp
 
 o more precise handling of the playback pointer
+  -> latency handling
 
 o audible/silent mode of tracks (speakers)
   speaker controls for "audible" mode

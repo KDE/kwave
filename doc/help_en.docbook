@@ -2,8 +2,8 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN" "dtd/kdex.dtd" [
   <!ENTITY kapp "Kwave">
   <!ENTITY kappname "&kapp;">
-  <!ENTITY version "0.8.4">
-  <!ENTITY version_tag "0_8_4">
+  <!ENTITY version "0.8.5">
+  <!ENTITY version_tag "0_8_5">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
@@ -32,7 +32,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2009-12-19</date>
+<date>2009-12-24</date>
 <releaseinfo>&version;</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>

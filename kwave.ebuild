@@ -12,7 +12,7 @@
 
 EAPI="2"
 KDE_MINIMAL="4.2"
-KDE_LINGUAS="cs de en fr"
+KDE_LINGUAS="cs de en_GB fr"
 inherit gnome2-utils kde4-base
 
 DESCRIPTION="Kwave is a sound editor for KDE."

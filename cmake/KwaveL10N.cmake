@@ -23,6 +23,7 @@ STRING(REGEX REPLACE "[ \t]+" \; OUTPUT "${LINGUAS}")
 SEPARATE_ARGUMENTS(LINGUAS)
 IF ("${LINGUAS}" STREQUAL "")
     SET(LINGUAS ${KWAVE_LINGUAS})
+    MESSAGE(STATUS "LINGUAS not set, building for all supported languages")
 ENDIF ("${LINGUAS}" STREQUAL "")
 
 #############################################################################
@@ -32,28 +33,30 @@ ENDIF ("${LINGUAS}" STREQUAL "")
 ### break our build!                                                      ###
 
 FOREACH (_lingua ${LINGUAS})
-    STRING(REGEX MATCH "^[^:]+" _lang ${_lingua})
+    STRING(REGEX MATCH "^[^:]+" _lang_full ${_lingua})
+    STRING(REGEX MATCH "^[^_]+" _lang ${_lang_full})
     SET(_pofile "${CMAKE_SOURCE_DIR}/po/${_lang}.po")
-    IF (EXISTS ${_pofile})
+    IF (EXISTS ${_pofile} OR (_lang STREQUAL "en"))
         LIST(APPEND EXISTING_LINGUAS "${_lang}")
-    ENDIF (EXISTS ${_pofile})
+    ENDIF (EXISTS ${_pofile}  OR (_lang STREQUAL "en"))
 ENDFOREACH(_lingua)
-
-IF (NOT "${EXISTING_LINGUAS}" STREQUAL "")
-    MESSAGE(STATUS "LINGUAS not set, building for all supported languages")
-ENDIF (NOT "${EXISTING_LINGUAS}" STREQUAL "")
 
 #############################################################################
 ### filter out only languages that are supported by Kwave                 ###
 
 FOREACH (_lingua ${EXISTING_LINGUAS})
-    STRING(REGEX MATCH "^[^:]+" _lingua_short ${_lingua})
+    STRING(REGEX MATCH "^[^:]+" _lingua_short_full ${_lingua})
+    STRING(REGEX MATCH "^[^_]+" _lingua_short ${_lingua_short_full})
     FOREACH(_known_lang ${KWAVE_LINGUAS})
         STRING(REGEX MATCH "^[^:]+" _lang ${_known_lang})
         STRING(REGEX MATCH "[^:]+$$" _lang_name ${_known_lang})
         IF (${_lang} STREQUAL ${_lingua_short})
-            LIST(APPEND KWAVE_BUILD_LINGUAS "${_lang}:${_lang_name};")
-            MESSAGE(STATUS "Enabled language support for ${_lingua_short} (${_lang_name})")
+            SET(_new_entry "${_lang}:${_lang_name};")
+            LIST(FIND KWAVE_BUILD_LINGUAS ${_new_entry} _found)
+            IF (_found LESS 0)
+                LIST(APPEND KWAVE_BUILD_LINGUAS ${_new_entry})
+                MESSAGE(STATUS "Enabled language support for ${_lingua_short} (${_lang_name})")
+            ENDIF (_found LESS 0)
         ENDIF (${_lang} STREQUAL ${_lingua_short})
     ENDFOREACH(_known_lang)
 ENDFOREACH(_lingua)

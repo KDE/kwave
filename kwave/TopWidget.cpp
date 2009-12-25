@@ -711,6 +711,9 @@ int TopWidget::parseCommands(QTextStream &stream)
     int result = 0;
     QMap<QString, qint64> labels;
 
+    // set hourglass cursor
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
     while (!stream.atEnd() && !result) {
 	QString line = stream.readLine().simplified();
 	if (line.startsWith("#")) continue; // skip comments
@@ -760,6 +763,9 @@ int TopWidget::parseCommands(QTextStream &stream)
 	// synchronize after the command
 	if (m_plugin_manager) m_plugin_manager->sync();
     }
+
+    // remove hourglass
+    QApplication::restoreOverrideCursor();
 
     return result;
 }

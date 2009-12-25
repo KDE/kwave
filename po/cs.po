@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 21:09+0100\n"
+"POT-Creation-Date: 2009-12-25 08:24+0100\n"
 "PO-Revision-Date: 2009-12-21 22:07+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -26,7 +26,7 @@ msgstr " %"
 msgid " &Play"
 msgstr " &Hraní"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1562
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1575
 msgid " (%1)"
 msgstr " (%1)"
 
@@ -328,7 +328,7 @@ msgstr "&Převést"
 msgid "&Convert label distance to pitch"
 msgstr "&Převést vzdálenost štítku na výšku tónu"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1069
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1082
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:32
 msgid "&Copy"
 msgstr "&Kopírovat"
@@ -341,7 +341,7 @@ msgstr "&Vytvořit"
 msgid "&Crop"
 msgstr "&Oříznout"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1129
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1142
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:38
 msgid "&Delete"
 msgstr "&Smazat"
@@ -370,7 +370,7 @@ msgstr "&Zadat příkaz"
 msgid "&Envelope"
 msgstr "&Obálka"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1095
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1108
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:45
 msgid "&Expand to labels"
 msgstr "&Roztáhnout k štítkům"
@@ -433,7 +433,7 @@ msgstr "&Vložit štítek..."
 msgid "&Invert Selection"
 msgstr "&Obrátit výběr"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1032
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1045
 msgid "&Label"
 msgstr "&Štítek"
 
@@ -493,7 +493,7 @@ msgstr "&Udělat finální nahrávku & Vložit"
 msgid "&Moving Average"
 msgstr "&Posunuje průměr"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1122
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1135
 msgid "&New"
 msgstr "&Nový"
 
@@ -552,7 +552,7 @@ msgstr "&Otevřít"
 msgid "&Options"
 msgstr "&Volby"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1073
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1086
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:84
 msgid "&Paste"
 msgstr "&Vložit"
@@ -601,7 +601,7 @@ msgstr "&Předchozí"
 msgid "&Previous Page"
 msgstr "&Předchozí strana"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1136
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1149
 msgid "&Properties..."
 msgstr "&Vlastnosti..."
 
@@ -621,7 +621,7 @@ msgstr "&Rozsah"
 msgid "&Record"
 msgstr "&Nahrát"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1054
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1067
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:99
 msgid "&Redo"
 msgstr "&Znovu"
@@ -650,7 +650,7 @@ msgstr "&Vzorky"
 msgid "&Save"
 msgstr "&Uložit"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1088
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1101
 msgid "&Save..."
 msgstr "&Uložit..."
 
@@ -667,7 +667,7 @@ msgstr "&Vybrat vše"
 msgid "&Select..."
 msgstr "&Vybrat..."
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1028
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1041
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:109
 msgid "&Selection"
 msgstr "&Výběr"
@@ -720,7 +720,7 @@ msgstr "&Dnes"
 msgid "&Track"
 msgstr "&Stopa"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1044
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1057
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:126
 msgid "&Undo"
 msgstr "&Zpět"
@@ -815,7 +815,7 @@ msgstr "(stereofonní zvuk)"
 msgid "(unknown)"
 msgstr "(neznámý)"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:715
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:720
 msgid "(use server default)"
 msgstr "(použít výchozí nastavení serveru)"
 
@@ -1110,7 +1110,8 @@ msgstr ""
 "výstupem zvuku. Pokud se setkáte s přerušeními, měl byste o něco zvýšit "
 "hodnotu tohoto nastavení.</p>"
 
-#: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:421, c-format
+#: /var/tmp/kwave-build/plugins/playback/ui_PlayBackDlg.h:421
+#, fuzzy, c-format
 msgid ""
 "<b>Channels:</b><p>Number of channels used for playback. This does not "
 "necessarily have to be the same as the number of tracks in your current "
@@ -1122,8 +1123,8 @@ msgid ""
 msgstr ""
 "<b>Kanály:</b><p>Počet kanálů používaných pro přehrávání.Toto číslo se "
 "nemusí nutně shodovat s počtem stop ve vašem nyní používaném souboru. Kwave "
-"automaticky míchá stopy vašeho souboru do kanálů,  které zde zadáte. "
-"</p><p><i>Například:</i> jestliže máte tři stopy a nastavíte přehrávání na "
+"automaticky míchá stopy vašeho souboru do kanálů,  které zde zadáte. </"
+"p><p><i>Například:</i> jestliže máte tři stopy a nastavíte přehrávání na "
 "\"stereo\", levý kanál bude obsahovat první stopu + 50% druhé stopy, pravý "
 "kanál bude také obsahovat 50% druhé stopy a stopu třetí.</p>"
 
@@ -1972,7 +1973,7 @@ msgstr "Země"
 msgid "Create &type"
 msgstr "Vytvořit &druh"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1065
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1078
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:36
 msgid "Cu&t"
 msgstr "Vyj&mout"
@@ -2240,11 +2241,11 @@ msgstr "Postupné zesílení signálu"
 msgid "Fading"
 msgstr "Prolínání"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:470
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:474
 msgid "Failed to create a PulseAudio stream (%1)."
 msgstr "Proud PulseAudio se nepodařilo vytvořit (%1)."
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:512
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:516
 msgid "Failed to open a PulseAudio stream for playback (%1)."
 msgstr "Proud PulseAudio se nepodařilo otevřít pro přehrávání (%1)."
 
@@ -3142,7 +3143,7 @@ msgstr "Osciloskop (elektrický měřící přístroj měřící oscilace)"
 msgid "Other"
 msgstr "Jiné"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:552
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:565
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:828
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:844
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:910
@@ -3998,7 +3999,7 @@ msgstr ""
 msgid "The recording device seems to be busy!"
 msgstr "Zdá se, že nahrávací zařízení je zaneprázdněno!"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2000
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2013
 msgid ""
 "There already is a label at the position you have choosen.\n"
 "Do you want to replace it ?"
@@ -4235,7 +4236,7 @@ msgstr "Editor zvuku pro prostředí KDE"
 msgid "about"
 msgstr "O"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1881
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1894
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoAddLabelAction.cpp:42
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1661
 msgid "add label"
@@ -4518,6 +4519,16 @@ msgstr "Smazat nynější výběr"
 msgid "delete track"
 msgstr "Smazat stopu"
 
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:485
+#, fuzzy
+msgid "deselect all tracks"
+msgstr "Vybrat všechny stopy"
+
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:502
+#, fuzzy
+msgid "deselect track"
+msgstr "Smazat stopu"
+
 #: /usr/src/packages/multimedia/sound/kwave/plugins/codec_wav/RIFFParser.cpp:102
 msgid "detecting endianness (standard search)..."
 msgstr "Objevuje se \"endianness\" (obvyklé hledání)..."
@@ -4561,8 +4572,8 @@ msgstr "Zobrazit"
 msgid "done"
 msgstr "Hotovo"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2504
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2552
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2517
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2565
 msgid "drag and drop"
 msgstr "Táhnout a pustit"
 
@@ -4698,7 +4709,7 @@ msgstr "Do druhé poloviny"
 msgid "invalid codec type"
 msgstr "Neplatný druh kodeku"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:559
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:572
 msgid "invalid or unknown file type: '%1'"
 msgstr "Neplatný nebo neznámý typ souboru: '%1'"
 
@@ -4708,11 +4719,11 @@ msgstr "Neplatný nebo neznámý typ souboru: '%1'"
 msgid "invalid sample format"
 msgstr "Neplatný vzorkovací formát"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:485
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:490
 msgid "invert track selection"
 msgstr "Obrátit výběr stopy"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1559
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1572
 msgid "label #%1"
 msgstr "Štítek #%1"
 
@@ -4818,7 +4829,7 @@ msgstr "Upravit informaci o souboru"
 msgid "modify file information"
 msgstr "Upravit informaci o souboru"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2028
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2041
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoModifyLabelAction.cpp:51
 msgid "modify label"
 msgstr "Upravit štítek"
@@ -4983,7 +4994,7 @@ msgstr "Přehrávací zařízení"
 msgid "playback rate %1 Hz is not supported"
 msgstr "Kmitočet přehrávání %1 Hz není podporován"
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:454
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:458
 msgid "playback..."
 msgstr "Přehrávání..."
 
@@ -5151,20 +5162,25 @@ msgstr "Vyberte pro přímé zadání počtu vzorků"
 msgid "select this to set the length of the file by time"
 msgstr "Vyberte pro nastavení délky souboru podle času"
 
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:498
+#, fuzzy
+msgid "select track"
+msgstr "Smazat stopu"
+
 #: /usr/src/packages/multimedia/sound/kwave/kwave/TopWidget.cpp:344
 msgid "select zoom factor"
 msgstr "Vyberte součinitel přiblížení"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1531
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1544
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoSelection.cpp:51
 msgid "selection"
 msgstr "Výběr"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1569
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1582
 msgid "selection, left border"
 msgstr "Výběr, levý okraj"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1573
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1586
 msgid "selection, right border"
 msgstr "Výběr, pravý okraj"
 
@@ -5262,12 +5278,12 @@ msgstr "Po &začátek"
 msgid "to be done..."
 msgstr "Je hotovo..."
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1103
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1116
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:121
 msgid "to next labels"
 msgstr "Mezi dalšími štítky"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1112
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1125
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:122
 msgid "to previous labels"
 msgstr "Mezi předchozími štítky"
@@ -5290,7 +5306,7 @@ msgstr ""
 "'%1'\n"
 "který obsahuje přídavný modul '%2' !"
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:555
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:568
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:470
 msgid "unable to open '%1'"
 msgstr "Neschopen otevřít '%1'"

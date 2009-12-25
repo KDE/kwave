@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 21:09+0100\n"
+"POT-Creation-Date: 2009-12-25 08:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -383,131 +383,143 @@ msgid "select all tracks"
 msgstr ""
 
 #: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:485
+msgid "deselect all tracks"
+msgstr ""
+
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:490
 msgid "invert track selection"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:552
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:498
+msgid "select track"
+msgstr ""
+
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:502
+msgid "deselect track"
+msgstr ""
+
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:565
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:828
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:844
 #: /usr/src/packages/multimedia/sound/kwave/plugins/record/RecordPlugin.cpp:910
 msgid "Out of memory"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:555
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:568
 #: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBackPlugin.cpp:470
 msgid "unable to open '%1'"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:559
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:572
 msgid "invalid or unknown file type: '%1'"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1028
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1041
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:109
 msgid "&Selection"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1032
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1045
 msgid "&Label"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1044
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1057
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:126
 msgid "&Undo"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1054
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1067
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:99
 msgid "&Redo"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1065
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1078
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:36
 msgid "Cu&t"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1069
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1082
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:32
 msgid "&Copy"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1073
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1086
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:84
 msgid "&Paste"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1088
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1101
 msgid "&Save..."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1095
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1108
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:45
 msgid "&Expand to labels"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1103
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1116
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:121
 msgid "to next labels"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1112
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1125
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:122
 msgid "to previous labels"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1122
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1135
 msgid "&New"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1129
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1142
 #: /var/tmp/kwave-build/kwave/menus_config_i18n.cpp:38
 msgid "&Delete"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1136
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1149
 msgid "&Properties..."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1531
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1544
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoSelection.cpp:51
 msgid "selection"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1559
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1572
 msgid "label #%1"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1562
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1575
 msgid " (%1)"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1569
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1582
 msgid "selection, left border"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1573
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1586
 msgid "selection, right border"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1881
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:1894
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoAddLabelAction.cpp:42
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/SignalManager.cpp:1661
 msgid "add label"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2000
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2013
 msgid ""
 "There already is a label at the position you have choosen.\n"
 "Do you want to replace it ?"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2028
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2041
 #: /usr/src/packages/multimedia/sound/kwave/libkwave/undo/UndoModifyLabelAction.cpp:51
 msgid "modify label"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2504
-#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2552
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2517
+#: /usr/src/packages/multimedia/sound/kwave/libgui/SignalWidget.cpp:2565
 msgid "drag and drop"
 msgstr ""
 
@@ -2896,19 +2908,19 @@ msgstr ""
 msgid "The PulseAudio device '%1' is unknown or no longer connected"
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:454
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:458
 msgid "playback..."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:470
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:474
 msgid "Failed to create a PulseAudio stream (%1)."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:512
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:516
 msgid "Failed to open a PulseAudio stream for playback (%1)."
 msgstr ""
 
-#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:715
+#: /usr/src/packages/multimedia/sound/kwave/plugins/playback/PlayBack-PulseAudio.cpp:720
 msgid "(use server default)"
 msgstr ""
 

@@ -480,6 +480,11 @@ bool SignalWidget::executeCommand(const QString &command)
 	    i18n("select all tracks"));
 	foreach (unsigned int track, m_signal_manager.allTracks())
 	    m_signal_manager.selectTrack(track, true);
+    CASE_COMMAND("deselect_all_tracks")
+	UndoTransactionGuard undo(m_signal_manager,
+	    i18n("deselect all tracks"));
+	foreach (unsigned int track, m_signal_manager.allTracks())
+	    m_signal_manager.selectTrack(track, false);
     CASE_COMMAND("invert_track_selection")
 	UndoTransactionGuard undo(m_signal_manager,
 	    i18n("invert track selection"));
@@ -488,6 +493,14 @@ bool SignalWidget::executeCommand(const QString &command)
 		track,
 		!m_signal_manager.trackSelected(track)
 	    );
+    CASE_COMMAND("select_track")
+	int track = parser.toInt();
+	UndoTransactionGuard undo(m_signal_manager, i18n("select track"));
+	m_signal_manager.selectTrack(track, true);
+    CASE_COMMAND("deselect_track")
+	int track = parser.toInt();
+	UndoTransactionGuard undo(m_signal_manager, i18n("deselect track"));
+	m_signal_manager.selectTrack(track, false);
     } else {
 	return m_signal_manager.executeCommand(command);
     }

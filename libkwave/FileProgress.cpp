@@ -166,7 +166,7 @@ FileProgress::FileProgress(QWidget *parent,
     // activate the layout and show the dialog
     top_layout->activate();
     setFixedHeight(sizeHint().height());
-    setMinimumWidth(sizeHint().width());
+    setMinimumWidth((sizeHint().width() * 110) / 100);
 
     show();
     fitUrlLabel();

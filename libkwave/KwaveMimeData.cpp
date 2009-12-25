@@ -23,6 +23,7 @@
 #include <QWidget>
 
 #include "libkwave/CodecManager.h"
+#include "libkwave/CompressionType.h"
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
 #include "libkwave/KwaveConnect.h"
@@ -60,7 +61,7 @@ bool Kwave::MimeData::encode(QWidget *widget,
 {
     // make a copy of the file info and change to uncompressed mode
     FileInfo new_info = info;
-    new_info.set(INF_COMPRESSION, QVariant());
+    new_info.set(INF_COMPRESSION, QVariant(AF_COMPRESSION_NONE));
 
     // use our default encoder
     Encoder *encoder = CodecManager::encoder(WAVE_FORMAT_PCM);
@@ -95,6 +96,7 @@ bool Kwave::MimeData::encode(QWidget *widget,
 
     // fix the length information in the new file info
     new_info.setLength(last - first + 1);
+    new_info.setTracks(src.tracks());
 
     // encode into the buffer
     encoder->encode(widget, src, dst, new_info);

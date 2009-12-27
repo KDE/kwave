@@ -2,6 +2,7 @@
 0.8.6  [2010-??-??]
 
  * bugfix: copy/paste with partial track selection failed
+ * string/i18n update from Panagiotis Papadopoulos
 
 0.8.5  [2009-12-24]
 

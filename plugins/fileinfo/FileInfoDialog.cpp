@@ -142,12 +142,12 @@ void FileInfoDialog::setupFileInfoTab()
 	unsigned int size = QVariant(m_info.get(INF_FILESIZE)).toUInt();
 	QString dotted = Kwave::Plugin::dottedNumber(size);
 	if (size < 10*1024) {
-	    edFileSize->setText(i18n("%1 Bytes", dotted));
+	    edFileSize->setText(i18n("%1 bytes", dotted));
 	} else if (size < 10*1024*1024) {
-	    edFileSize->setText(i18n("%1 kB (%2 Byte)",
+	    edFileSize->setText(i18n("%1 kB (%2 byte)",
 		QString::number(size / 1024), dotted));
 	} else {
-	    edFileSize->setText(i18n("%1 MB (%2 Byte)",
+	    edFileSize->setText(i18n("%1 MB (%2 byte)",
 		QString::number(size / (1024*1024)), dotted));
 	}
     } else {

@@ -108,13 +108,13 @@ FileProgress::FileProgress(QWidget *parent,
     if (!addInfoLabel(info_layout, i18n("Tracks: "), 4, 0)) return;
     switch (tracks) {
 	case 1:
-	    text = i18n("1 (Mono)");
+	    text = i18n("1 (mono)");
 	    break;
 	case 2:
-	    text = i18n("2 (Stereo)");
+	    text = i18n("2 (stereo)");
 	    break;
 	case 4:
-	    text = i18n("4 (Quadro)");
+	    text = i18n("4 (quadro)");
 	    break;
 	default:
 	    text = text.setNum(tracks);
@@ -312,7 +312,11 @@ void FileProgress::setBytePosition(unsigned int pos)
 
     if (m_progress->value() != percent) {
 	QString newcap;
-	newcap = i18nc("%1=Progress in percentage, %2=path to file", "(%1%) %2", percent, m_url.toString());
+	newcap = i18nc(
+	    "%1=Progress in percentage, %2=path to file",
+	    "(%1%) %2",
+	    percent, m_url.toString()
+	);
 	setWindowTitle(newcap);
 
 	m_progress->setValue(percent);

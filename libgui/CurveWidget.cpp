@@ -79,14 +79,14 @@ CurveWidget::CurveWidget(QWidget *parent)
     QMenu *transform = m_menu->addMenu(i18n("Transform"));
     Q_ASSERT(transform);
     if (!transform) return;
-    transform->addAction(i18n("Flip Horizontal"),
+    transform->addAction(i18n("Flip horizontal"),
 	                 this, SLOT(HFlip()));
-    transform->addAction(i18n("Flip Vertical"),
+    transform->addAction(i18n("Flip vertical"),
                          this, SLOT(VFlip()));
     transform->addSeparator();
-    transform->addAction(i18n("Into First Half"),
+    transform->addAction(i18n("Into first half"),
                          this, SLOT(firstHalf()));
-    transform->addAction(i18n("Into Second Half"),
+    transform->addAction(i18n("Into second half"),
                          this, SLOT(secondHalf()));
 
     QMenu *del = m_menu->addMenu(i18n("Delete"));

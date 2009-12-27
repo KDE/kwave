@@ -1163,8 +1163,10 @@ void RecordDialog::updateBufferState(unsigned int count, unsigned int total)
 		    i18np("and %1 second", "and %1 seconds", s) :
 		    i18np("%1 second", "%1 seconds", s);
 
-		state_text = i18nc("%1=days; %2=hours; %3=minutes; %4=seconds", "Waiting for start in %1%2%3%4...",
-		                  days, hours, minutes, seconds);
+		state_text = i18nc(
+		    "%1=days; %2=hours; %3=minutes; %4=seconds",
+		    "Waiting for start in %1%2%3%4...",
+		    days, hours, minutes, seconds);
 	    } else {
 		// waiting for trigger...
 		state_text = i18n("Waiting for trigger...");

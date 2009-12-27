@@ -36,7 +36,6 @@ LowPassPlugin::LowPassPlugin(const PluginContext &context)
     :Kwave::FilterPlugin(context),
      m_frequency(3500.0), m_last_freq(100)
 {
-     i18n("Low Pass");
 }
 
 //***************************************************************************

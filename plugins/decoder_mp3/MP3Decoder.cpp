@@ -41,15 +41,15 @@ MP3Decoder::MP3Decoder()
      m_parent_widget(0)
 {
     /* included in KDE: */
-    addMimeType("audio/x-mpga",   i18n("MPEG Layer I Audio"),
+    addMimeType("audio/x-mpga",   i18n("MPEG layer I audio"),
                 "*.mpga *.mpg *.mp1");
-    addMimeType("audio/x-mp2",    i18n("MPEG Layer II Audio"), "*.mp2");
-    addMimeType("audio/x-mp3",    i18n("MPEG Layer III Audio"), "*.mp3");
+    addMimeType("audio/x-mp2",    i18n("MPEG layer II audio"), "*.mp2");
+    addMimeType("audio/x-mp3",    i18n("MPEG layer III audio"), "*.mp3");
 
     /* like defined in RFC3003 */
-    addMimeType("audio/mpeg",     i18n("MPEG Audio"), "*.mpga *.mpg *.mp1");
-    addMimeType("audio/mpeg",     i18n("MPEG Layer II Audio"), "*.mp2");
-    addMimeType("audio/mpeg",     i18n("MPEG Layer III Audio"), "*.mp3");
+    addMimeType("audio/mpeg",     i18n("MPEG audio"), "*.mpga *.mpg *.mp1");
+    addMimeType("audio/mpeg",     i18n("MPEG layer II audio"), "*.mp2");
+    addMimeType("audio/mpeg",     i18n("MPEG layer III audio"), "*.mp3");
 
     // NOTE: all mime types above should be recognized in the
     //       fileinfo plugin!

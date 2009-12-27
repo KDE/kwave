@@ -295,18 +295,18 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	playback, SLOT(playbackStop()));
 
     // --- zoom controls ---
-    m_zoom_factors.append(ZoomFactor(i18n("1 ms"),              1L));
-    m_zoom_factors.append(ZoomFactor(i18n("10 ms"),            10L));
-    m_zoom_factors.append(ZoomFactor(i18n("100 ms"),          100L));
-    m_zoom_factors.append(ZoomFactor(i18n("1 sec"),          1000L));
-    m_zoom_factors.append(ZoomFactor(i18n("10 sec"),     10L*1000L));
-    m_zoom_factors.append(ZoomFactor(i18n("30 sec"),     30L*1000L));
-    m_zoom_factors.append(ZoomFactor(i18n("1 min"),   1L*60L*1000L));
-    m_zoom_factors.append(ZoomFactor(i18n("3 min"),   3L*60L*1000L));
-    m_zoom_factors.append(ZoomFactor(i18n("5 min"),   5L*60L*1000L));
-    m_zoom_factors.append(ZoomFactor(i18n("10 min"), 10L*60L*1000L));
-    m_zoom_factors.append(ZoomFactor(i18n("30 min"), 30L*60L*1000L));
-    m_zoom_factors.append(ZoomFactor(i18n("60 min"), 60L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("%1 ms",   1),            1L));
+    m_zoom_factors.append(ZoomFactor(i18n("%1 ms",  10),           10L));
+    m_zoom_factors.append(ZoomFactor(i18n("%1 ms", 100),          100L));
+    m_zoom_factors.append(ZoomFactor(i18n("%1 sec",  1),         1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("%1 sec", 10),     10L*1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("%1 sec", 30),     30L*1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("%1 min",  1),  1L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("%1 min",  3),  3L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("%1 min",  5),  5L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("%1 min", 10), 10L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("%1 min", 30), 30L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("%1 min", 60), 60L*60L*1000L));
 
     KToolBar *toolbar_zoom = toolBar("MainWidget Zoom");
     Q_ASSERT(toolbar_zoom);
@@ -1122,7 +1122,11 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
     if (length) {
 	ms = (rate) ? (static_cast<double>(length) /
 	    static_cast<double>(rate) * 1E3) : 0;
-	txt = i18nc("Length, as in total duration of loaded song", "Length: %1 (%2 Samples)", Kwave::Plugin::ms2string(ms), Kwave::Plugin::dottedNumber(length));
+	txt = " " + i18nc(
+	    "Length, as in total duration of loaded song",
+	    "Length: %1 (%2 samples)",
+	    Kwave::Plugin::ms2string(ms), Kwave::Plugin::dottedNumber(length)
+	) + " ";
     } else txt = "";
     m_lbl_status_size->setText(txt);
 
@@ -1130,7 +1134,7 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
     if (bits) {
 	QString khz = "%0.3f";
 	khz = khz.sprintf("%0.3f", static_cast<double>(rate) * 1E-3);
-	txt = i18n("Mode: %1 kHz @ %2 Bit", khz, bits);
+	txt = " " + i18n("Mode: %1 kHz @ %2 Bit", khz, bits) + " ";
     } else txt = "";
     m_lbl_status_mode->setText(txt);
 
@@ -1169,26 +1173,34 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 
     if (length > 1) {
 	// show offset and length
-	// Selected: 02:00...05:00 (3 min)
 	// Selected: 2000...3000 (1000 samples)
+	// Selected: 02:00...05:00 (3 min)
 	bool sample_mode = false;
 
 	unsigned int last = offset + ((length) ? length-1 : 0);
 	if (rate == 0) sample_mode = true; // force sample mode if rate==0
-	QString txt = i18n("Selected: ")+"%1...%2 (%3)"; //TODO: Fix puzzle string
+	QString txt = " ";
 	if (sample_mode) {
-	    txt = txt.arg(
-	          Kwave::Plugin::dottedNumber(offset)).arg(
-	          Kwave::Plugin::dottedNumber(last)).arg(
-	          Kwave::Plugin::dottedNumber(length) + " " +
-	          i18n("Samples"));
+	    txt += i18nc(
+	        "%1=first sample, %2=last sample, %3=number of samples, "\
+	        "example: 'Selected: 2000...3000 (1000 samples)'",
+	        "Selected: %1...%2 (%3 samples)",
+	        Kwave::Plugin::dottedNumber(offset),
+	        Kwave::Plugin::dottedNumber(last),
+	        Kwave::Plugin::dottedNumber(length)
+	    );
 	} else {
 	    double ms_first = static_cast<double>(offset)   * 1E3 / rate;
 	    double ms_last  = static_cast<double>(last + 1) * 1E3 / rate;
 	    double ms = (ms_last - ms_first);
-	    txt = txt.arg(Kwave::Plugin::ms2string(ms_first)).arg(
-		Kwave::Plugin::ms2string(ms_last)).arg(
-		Kwave::Plugin::ms2string(ms));
+	    txt += i18nc(
+	        "%1=start time, %2=end time, %3=time span, "\
+	        "example: 'Selected: 02:00...05:00 (3 min)'",
+	        "Selected: %1...%2 (%3)",
+	        Kwave::Plugin::ms2string(ms_first),
+	        Kwave::Plugin::ms2string(ms_last),
+	        Kwave::Plugin::ms2string(ms)
+	    );
 	}
 
 	m_lbl_status_cursor->setText("");
@@ -1204,7 +1216,8 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 	    m_lbl_status_cursor->setText("");
 	} else {
 	    double ms_first = static_cast<double>(offset) * 1E3 / rate;
-	    QString txt = i18n("Position: %1", (Kwave::Plugin::ms2string(ms_first)));
+	    QString txt = i18n("Position: %1",
+		Kwave::Plugin::ms2string(ms_first));
 	    m_lbl_status_cursor->setText(txt);
 	}
 
@@ -1224,12 +1237,12 @@ void TopWidget::updatePlaybackPos(unsigned int offset)
     double rate = m_plugin_manager->signalRate();
     if (rate > 0) {
 	double ms = static_cast<double>(offset) * 1E3 / rate;
-	QString txt = i18n("Playback: %1", (Kwave::Plugin::ms2string(ms)));
-    statusBar()->showMessage(txt, 2000);
+	txt = i18n("Playback: %1", Kwave::Plugin::ms2string(ms));
     } else {
- 	QString txt = i18n("%1 Samples", (Kwave::Plugin::dottedNumber(offset)));
+	txt = i18n("Playback: %1 samples",
+	            Kwave::Plugin::dottedNumber(offset));
+    }
     statusBar()->showMessage(txt, 2000);
-   }
 }
 
 //***************************************************************************
@@ -1463,7 +1476,11 @@ void TopWidget::updateCaption()
     }
 
     if (modified)
-	setCaption(i18nc("%1 = Path to modified file", "* %1 (modified)", signalName()));
+	setCaption(i18nc(
+	    "%1 = Path to modified file",
+	    "* %1 (modified)",
+	    signalName())
+	);
     else
 	setCaption(signalName());
 }

@@ -815,7 +815,7 @@ void PlayBackALSA::scanDevices()
 			    "|sound_device||" +
 			    i18n("Subdevice %1: ", idx) + subdevice_name +
 			    "|sound_subdevice"
-			)/*.arg(card).arg(dev).arg(idx)*/;
+			);
 			qDebug("# '%s' -> '%s'",
 			    hwdev.toLocal8Bit().data(),
 			    name.toLocal8Bit().data());

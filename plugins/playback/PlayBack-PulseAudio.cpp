@@ -455,7 +455,7 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
     if (!name.length() && m_info.contains(INF_FILENAME)) // fallback: filename
 	name = m_info.get(INF_FILENAME).toString().toUtf8().data();
     if (!name.length()) // last resort: fixed string
-	name = i18n("Playback...");
+	name = i18n("playback...");
 
     // run with mainloop locked from here on...
     pa_threaded_mainloop_lock(m_pa_mainloop);

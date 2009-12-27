@@ -133,7 +133,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     // prepare a progress dialog
     QProgressDialog progress(widget);
-    progress.setWindowTitle(i18n("Auto-Repair"));
+    progress.setWindowTitle(i18n("Auto Repair"));
     progress.setModal(true);
     progress.setMinimumDuration(0);
     progress.setMaximum(100);
@@ -166,7 +166,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	    i18n("The file has been structurally damaged or "
 	         "it is no WAV file.\n"
 	         "Should Kwave try to repair it?"),
-	    i18n("Kwave Auto-Repair"),
+	    i18n("Kwave Auto Repair"),
 	    i18n("&Repair")) != KMessageBox::Continue)
 	{
 	    // user didn't let us try :-(
@@ -246,7 +246,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	         "If you want to get your file repaired completely,\n"
 	         "please write an email to the Kwave mailing list\n"
 	         "and we will help you."),
-	    i18n("Kwave Auto-Repair")
+	    i18n("Kwave Auto Repair")
 	    ) != KMessageBox::Continue)
 	{
 	    // user decided to abort and repair on his own

@@ -461,9 +461,9 @@ void PlayBackDialog::setChannels(int channels)
 
     QString txt;
     switch (channels) {
-	case 1: txt = i18n("(Mono)");   break;
-	case 2: txt = i18n("(Stereo)"); break;
-	case 4: txt = i18n("(Quadro)"); break;
+	case 1: txt = i18n("(mono)");   break;
+	case 2: txt = i18n("(stereo)"); break;
+	case 4: txt = i18n("(quadro)"); break;
 	default: txt = "";
     }
     lblChannels->setText(txt);

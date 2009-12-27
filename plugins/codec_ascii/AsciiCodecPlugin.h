@@ -56,7 +56,7 @@ private:
 
 #define LOAD_MIME_TYPES { \
     addMimeType("audio/x-audio-ascii", \
-    i18n("ASCII Encoded Audio"), "*.ascii; *.ASCII"); \
+    i18n("ASCII encoded audio"), "*.ascii; *.ASCII"); \
 }
 
 /** prefix used for encoding metadata / properties */

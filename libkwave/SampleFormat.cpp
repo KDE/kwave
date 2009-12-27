@@ -38,7 +38,7 @@ void SampleFormat::Map::fill()
     append(2, SampleFormat::Float,
            i18n("32-bit IEEE Floating-Point"), 0);
     append(3, SampleFormat::Double,
-           i18n("64-bit IEEE Double-Precision Floating-Point"), 0);
+           i18n("64-bit IEEE Double Precision Floating-Point"), 0);
 }
 
 //***************************************************************************

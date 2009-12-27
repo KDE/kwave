@@ -482,7 +482,7 @@ bool SignalWidget::executeCommand(const QString &command)
 	    m_signal_manager.selectTrack(track, true);
     CASE_COMMAND("deselect_all_tracks")
 	UndoTransactionGuard undo(m_signal_manager,
-	    i18n("deselect all tracks"));
+	    i18n("Deselect all tracks"));
 	foreach (unsigned int track, m_signal_manager.allTracks())
 	    m_signal_manager.selectTrack(track, false);
     CASE_COMMAND("invert_track_selection")
@@ -495,11 +495,11 @@ bool SignalWidget::executeCommand(const QString &command)
 	    );
     CASE_COMMAND("select_track")
 	int track = parser.toInt();
-	UndoTransactionGuard undo(m_signal_manager, i18n("select track"));
+	UndoTransactionGuard undo(m_signal_manager, i18n("Select Track"));
 	m_signal_manager.selectTrack(track, true);
     CASE_COMMAND("deselect_track")
 	int track = parser.toInt();
-	UndoTransactionGuard undo(m_signal_manager, i18n("deselect track"));
+	UndoTransactionGuard undo(m_signal_manager, i18n("Deselect Track"));
 	m_signal_manager.selectTrack(track, false);
     } else {
 	return m_signal_manager.executeCommand(command);
@@ -1569,10 +1569,10 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 	    // yes, this code gives the nifty cursor change....
 	    if (!label.isNull()) {
 		setMouseMode(MouseAtSelectionBorder);
-		QString text = i18n("Label #%1", //TODO: Fix puzzle string
-		    m_signal_manager.labelIndex(label));
-		if (label.name().length())
-		    text += i18n(" (%1)", label.name());
+		int index = m_signal_manager.labelIndex(label);
+		QString text = (label.name().length()) ?
+		    i18n("Label #%1 (%2)", index, label.name()) :
+		    i18n("Label #%1", index);
 		showPosition(text, label.pos(), samples2ms(label.pos()), pos);
 		break;
 	    } else if ((first != last) && isSelectionBorder(mouse_x)) {

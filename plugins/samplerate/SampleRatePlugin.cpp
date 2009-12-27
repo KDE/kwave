@@ -97,7 +97,7 @@ void SampleRatePlugin::run(QStringList params)
     double old_rate = fileInfo().rate();
     if ((old_rate <= 0) || (old_rate == m_new_rate)) return;
 
-    UndoTransactionGuard undo_guard(*this, i18n("Change Sample Rate"));
+    UndoTransactionGuard undo_guard(*this, i18n("Change sample rate"));
 
     // get the current selection and the list of affected tracks
     unsigned int first = 0;

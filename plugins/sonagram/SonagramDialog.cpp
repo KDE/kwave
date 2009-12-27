@@ -140,7 +140,7 @@ void SonagramDialog::setPoints(int points)
     text.setNum(points);
     pointbox->setEditText(text);
 
-    windowlabel->setText(i18n("(Resulting window size: %1)",
+    windowlabel->setText(i18n("(resulting window size: %1)",
 	Kwave::Plugin::ms2string(points * 1.0E3 / m_rate)));
 
     bitmaplabel->setText(i18n("Size of bitmap: %1x%2",

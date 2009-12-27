@@ -74,12 +74,12 @@
      </property>
      <item>
       <property name="text">
-       <string>Continue After Highest Index</string>
+       <string>Continue after highest index</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>Always Start With 1, Overwrite If Necessary</string>
+       <string>Always start with 1, overwrite if necessary</string>
       </property>
      </item>
     </widget>

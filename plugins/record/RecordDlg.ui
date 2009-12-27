@@ -943,7 +943,7 @@
                <item>
                 <widget class="QLabel" name="lblBits">
                  <property name="text">
-                  <string>Bit</string>
+                  <string>bit</string>
                  </property>
                  <property name="wordWrap">
                   <bool>false</bool>

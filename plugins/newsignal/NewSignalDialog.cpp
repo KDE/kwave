@@ -297,13 +297,13 @@ void NewSignalDialog::tracksChanged(int)
 {
     switch (tracks()) {
 	case 1:
-	    lblTracksVerbose->setText(i18n("Mono"));
+	    lblTracksVerbose->setText(i18n("(Mono)"));
 	    break;
 	case 2:
-	    lblTracksVerbose->setText(i18n("Stereo"));
+	    lblTracksVerbose->setText(i18n("(Stereo)"));
 	    break;
 	case 4:
-	    lblTracksVerbose->setText(i18n("Quadro"));
+	    lblTracksVerbose->setText(i18n("(Quadro)"));
 	    break;
 	default:
 	    lblTracksVerbose->setText("");

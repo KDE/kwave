@@ -499,11 +499,10 @@ void SonagramWindow::setColorMode(int mode)
 //***************************************************************************
 void SonagramWindow::setName(const QString &name)
 {
-    QString windowname;
-    windowname += i18n("Sonagram of "); //TODO: Fix puzzle string
-    windowname += name.length() ? name : QString(i18n("<nothing>"));
-
-    setCaption(windowname);
+    setCaption((name.length()) ?
+	i18n("Sonagram of %1", name) :
+	i18n("Sonagram")
+    );
 }
 
 //****************************************************************************

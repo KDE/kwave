@@ -38,7 +38,7 @@ UndoInsertAction::UndoInsertAction(QWidget *parent_widget,
 //***************************************************************************
 QString UndoInsertAction::description()
 {
-    return i18n("insert");
+    return i18n("Insert");
 }
 
 //***************************************************************************

@@ -92,7 +92,7 @@ bool AsciiDecoder::open(QWidget *widget, QIODevice &src)
     qDebug("--- THE ASCII DECODER IS NOT FUNCTIONAL YET ---");
     qDebug("---           sorry :-(                     ---");
     Kwave::MessageBox::sorry(widget,
-	i18n("not implemented yet"),
+	i18n("This is not implemented yet."),
 	i18n("Sorry"));
     return false;
 

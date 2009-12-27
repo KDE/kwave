@@ -142,12 +142,12 @@ void FileInfoDialog::setupFileInfoTab()
 	unsigned int size = QVariant(m_info.get(INF_FILESIZE)).toUInt();
 	QString dotted = Kwave::Plugin::dottedNumber(size);
 	if (size < 10*1024) {
-	    edFileSize->setText(i18n("%1 bytes", dotted));
+	    edFileSize->setText(i18n("%1 Bytes", dotted));
 	} else if (size < 10*1024*1024) {
-	    edFileSize->setText(i18n("%1 kB (%2 byte)",
+	    edFileSize->setText(i18n("%1 kB (%2 Byte)",
 		QString::number(size / 1024), dotted));
 	} else {
-	    edFileSize->setText(i18n("%1 MB (%2 byte)",
+	    edFileSize->setText(i18n("%1 MB (%2 Byte)",
 		QString::number(size / (1024*1024)), dotted));
 	}
     } else {
@@ -161,7 +161,7 @@ void FileInfoDialog::setupFileInfoTab()
           only "Unknown" :-(
 */
 //    QString mimetype = QVariant(m_info.get(INF_MIMETYPE)).toString();
-//    lblFileFormat->setText(i18n("File Format")+":");
+//    lblFileFormat->setText(i18n("File format:");
 //    describeWidget(edFileFormat, lblFileFormat->text().left(
 //        lblFileFormat->text().length()-1),
 //        i18n("Format of the file from which the\n"
@@ -178,7 +178,7 @@ void FileInfoDialog::setupFileInfoTab()
     initInfoText(lblFileFormat,   edFileFormat,   INF_MIMETYPE);
 
     /* sample rate */
-    lblSampleRate->setText(i18n("Sample Rate")+":");
+    lblSampleRate->setText(i18n("Sample rate:"));
     describeWidget(cbSampleRate, lblSampleRate->text().left(
         lblSampleRate->text().length()-1),
         i18n("Here you can select one of the predefined\n"
@@ -187,7 +187,7 @@ void FileInfoDialog::setupFileInfoTab()
     cbSampleRate->setEditText(QString::number(m_info.rate()));
 
     /* bits per sample */
-    lblResolution->setText(i18n("Resolution")+":");
+    lblResolution->setText(i18n("Resolution:"));
     describeWidget(sbResolution, lblResolution->text().left(
         lblResolution->text().length()-1),
         i18n("Select a resolution in bits in which the file\n"
@@ -195,7 +195,7 @@ void FileInfoDialog::setupFileInfoTab()
     sbResolution->setValue(m_info.bits());
 
     /* number of tracks */
-    lblTracks->setText(i18n("Tracks")+":");
+    lblTracks->setText(i18n("Tracks:"));
     describeWidget(sbTracks, lblTracks->text().left(
         lblTracks->text().length()-1),
         i18n("Shows the number of tracks of the signal.\n"
@@ -208,7 +208,7 @@ void FileInfoDialog::setupFileInfoTab()
     tracksChanged(sbTracks->value());
 
     /* length of the signal */
-    lblLength->setText(i18n("Length")+":");
+    lblLength->setText(i18n("Length:"));
     describeWidget(txtLength, lblLength->text().left(
         lblLength->text().length() - 1),
         i18n("Shows the length of the file in samples\n"
@@ -365,10 +365,10 @@ void FileInfoDialog::setupMpegTab()
     // 3 - bands 16 to 31  |  on               on   -> 7
     int modeext = QVariant(m_info.get(INF_MPEG_MODEEXT)).toInt();
     if ((modeext >= 0) && (modeext <= 3)) {
-	cbMpegModeExt->addItem(i18n("bands 0 to 31"));
-	cbMpegModeExt->addItem(i18n("bands 8 to 31"));
-	cbMpegModeExt->addItem(i18n("bands 12 to 31"));
-	cbMpegModeExt->addItem(i18n("bands 16 to 31"));
+	cbMpegModeExt->addItem(i18n("Bands 0 to 31"));
+	cbMpegModeExt->addItem(i18n("Bands 8 to 31"));
+	cbMpegModeExt->addItem(i18n("Bands 12 to 31"));
+	cbMpegModeExt->addItem(i18n("Bands 16 to 31"));
 	cbMpegModeExt->setCurrentIndex(modeext);
 	cbMpegIntensityStereo->setEnabled(false);
 	cbMpegMSStereo->setEnabled(false);
@@ -394,13 +394,13 @@ void FileInfoDialog::setupMpegTab()
     initInfo(lblMpegCopyrighted, chkMpegCopyrighted, INF_COPYRIGHTED);
     bool copyrighted = QVariant(m_info.get(INF_COPYRIGHTED)).toBool();
     chkMpegCopyrighted->setChecked(copyrighted);
-    chkMpegCopyrighted->setText((copyrighted) ? i18n("yes") : i18n("no"));
+    chkMpegCopyrighted->setText((copyrighted) ? i18n("Yes") : i18n("No"));
 
     /* Original */
     initInfo(lblMpegOriginal, chkMpegOriginal, INF_ORIGINAL);
     bool original = QVariant(m_info.get(INF_ORIGINAL)).toBool();
     chkMpegOriginal->setChecked(original);
-    chkMpegOriginal->setText((original) ? i18n("yes") : i18n("no"));
+    chkMpegOriginal->setText((original) ? i18n("Yes") : i18n("No"));
 
 }
 

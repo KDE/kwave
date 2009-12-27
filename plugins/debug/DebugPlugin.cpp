@@ -36,7 +36,7 @@ KWAVE_PLUGIN(DebugPlugin,"debug","2.1","Thomas Eschenbacher");
 DebugPlugin::DebugPlugin(const PluginContext &context)
     :Kwave::Plugin(context), m_buffer()
 {
-     i18n("debug");
+     i18n("Debug");
 }
 
 //***************************************************************************
@@ -70,7 +70,7 @@ void DebugPlugin::run(QStringList params)
     if (params.count() != 1) return;
 
     QString command = params.first();
-    QString action = i18n("debug (%1)", command);
+    QString action = i18n("Debug (%1)", command);
     UndoTransactionGuard undo_guard(*this, action);
 
     // get the buffer for faster processing

@@ -197,7 +197,7 @@ void ReverseJob::run()
 ReversePlugin::ReversePlugin(const PluginContext &context)
     :Kwave::Plugin(context)
 {
-     i18n("reverse");
+     i18n("Reverse");
 }
 
 //***************************************************************************
@@ -212,7 +212,7 @@ void ReversePlugin::run(QStringList params)
 
     if ((params.count() != 1) || (params.first() != "noundo")) {
 	// undo is enabled, create a undo guard
-	undo_guard = new UndoTransactionGuard(*this, i18n("reverse"));
+	undo_guard = new UndoTransactionGuard(*this, i18n("Reverse"));
 	if (!undo_guard) return;
 
 	// try to save undo information

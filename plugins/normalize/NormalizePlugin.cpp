@@ -158,7 +158,7 @@ void GetMaxPowerJob::run()
 NormalizePlugin::NormalizePlugin(const PluginContext &context)
     :Kwave::Plugin(context)
 {
-     i18n("normalize");
+     i18n("Normalize");
 }
 
 //***************************************************************************
@@ -170,7 +170,7 @@ NormalizePlugin::~NormalizePlugin()
 void NormalizePlugin::run(QStringList params)
 {
     Q_UNUSED(params);
-    UndoTransactionGuard undo_guard(*this, i18n("normalize"));
+    UndoTransactionGuard undo_guard(*this, i18n("Normalize"));
 
     // get the current selection
     QList<unsigned int> tracks;
@@ -189,7 +189,7 @@ void NormalizePlugin::run(QStringList params)
 	     Qt::BlockingQueuedConnection);
 
     // detect the peak value
-    emit setProgressText(i18n("analyzing volume level..."));
+    emit setProgressText(i18n("Analyzing volume level..."));
 //     qDebug("NormalizePlugin: getting peak...");
     double level = getMaxPower(source);
 //     qDebug("NormalizePlugin: level is %g", level);
@@ -220,7 +220,7 @@ void NormalizePlugin::run(QStringList params)
 
     source.reset();
     QString db;
-    emit setProgressText(i18n("normalizing (%1dB) ...",
+    emit setProgressText(i18n("Normalizing (%1 dB) ...",
 	db.sprintf("%+0.1f", 20 * log10(gain))));
 
     normalizer.setAttribute(SLOT(setGain(const QVariant)), QVariant(gain));

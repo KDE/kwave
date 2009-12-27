@@ -31,7 +31,7 @@ KWAVE_PLUGIN(AsciiCodecPlugin,"codec_ascii","2.1","Thomas Eschenbacher");
 AsciiCodecPlugin::AsciiCodecPlugin(const PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
 {
-    i18n("codec_ascii");
+    i18n("ASCII Codec");
 }
 
 /***************************************************************************/

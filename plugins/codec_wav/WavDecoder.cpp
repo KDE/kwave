@@ -139,7 +139,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     progress.setMaximum(100);
     progress.setAutoClose(true);
     progress.setValue(0);
-    progress.setLabelText(i18n("reading..."));
+    progress.setLabelText(i18n("Reading..."));
     connect(&parser,   SIGNAL(progress(int)),
             &progress, SLOT(setValue(int)));
     connect(&parser,   SIGNAL(action(const QString &)),
@@ -164,9 +164,9 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     if (!riff_chunk || !fmt_chunk || !data_chunk || !parser.isSane()) {
 	if (Kwave::MessageBox::warningContinueCancel(widget,
 	    i18n("The file has been structurally damaged or "
-	         "is no .wav file.\n"
+	         "it is no WAV file.\n"
 	         "Should Kwave try to repair it?"),
-	    i18n("Kwave auto repair"),
+	    i18n("Kwave Auto-Repair"),
 	    i18n("&Repair")) != KMessageBox::Continue)
 	{
 	    // user didn't let us try :-(
@@ -227,9 +227,9 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     if (!data_size) {
 	Kwave::MessageBox::sorry(widget,
-	    i18n("The opened file is no .WAV file or damaged:\n"
+	    i18n("The opened file is no WAV file or it is damaged:\n"
 	    "There is not enough valid sound data.\n\n"
-	    "It makes no sense to continue now..."));
+	    "It makes no sense to continue now."));
 	return false;
     }
 
@@ -239,14 +239,14 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
         (parser.chunkCount("data") != 1))
     {
 	if (Kwave::MessageBox::warningContinueCancel(widget,
-	    i18n("The WAV file seems to be damaged: \n"
-	         "some chunks are duplicate or missing! \n\n"
-	         "Kwave will only use the first ones and ignores\n"
-	         "the rest. This might lead to a loss of data. If\n"
+	    i18n("The WAV file seems to be damaged:\n"
+	         "Some chunks are duplicate or missing.\n\n"
+	         "Kwave will only use the first ones and ignore\n"
+	         "the rest. This might lead to loss of data.\n"
 	         "If you want to get your file repaired completely,\n"
-	         "please write an e-mail to the Kwave mailing list\n"
-	         "and we will help you..."),
-	    i18n("Kwave auto-repair")
+	         "please write an email to the Kwave mailing list\n"
+	         "and we will help you."),
+	    i18n("Kwave Auto-Repair")
 	    ) != KMessageBox::Continue)
 	{
 	    // user decided to abort and repair on his own
@@ -326,27 +326,27 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
 	switch (m_src_adapter->lastError()) {
 	    case AF_BAD_NOT_IMPLEMENTED:
-	        reason = i18n("format or function is not implemented") +
+	        reason = i18n("Format or function is not implemented") +
 		         "\n("+format_name+")";
 	        break;
 	    case AF_BAD_MALLOC:
-	        reason = i18n("out of memory");
+	        reason = i18n("Out of memory");
 	        break;
 	    case AF_BAD_HEADER:
 	        reason = i18n("file header is damaged");
 	        break;
 	    case AF_BAD_CODEC_TYPE:
-	        reason = i18n("invalid codec type") +
+	        reason = i18n("Invalid codec type") +
 		         "\n("+format_name+")";
 	        break;
 	    case AF_BAD_OPEN:
-	        reason = i18n("opening the file failed");
+	        reason = i18n("Opening the file failed");
 	        break;
 	    case AF_BAD_READ:
-	        reason = i18n("read access failed");
+	        reason = i18n("Read access failed");
 	        break;
 	    case AF_BAD_SAMPFMT:
-	        reason = i18n("invalid sample format");
+	        reason = i18n("Invalid sample format");
 	        break;
 	    default:
 		reason = reason.number(m_src_adapter->lastError());

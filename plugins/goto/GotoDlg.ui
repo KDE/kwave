@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Go to position...</string>
+   <string>Go to Position</string>
   </property>
   <layout class="QGridLayout" >
    <property name="margin" >

@@ -42,7 +42,7 @@ UndoDeleteTrack::~UndoDeleteTrack()
 //***************************************************************************
 QString UndoDeleteTrack::description()
 {
-    return i18n("delete track");
+    return i18n("Delete Track");
 }
 
 //***************************************************************************

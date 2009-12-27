@@ -77,7 +77,7 @@ If you do not set a limit, the size of the physically installed memory in your c
          <bool>false</bool>
         </property>
         <property name="toolTip">
-         <string>megabytes of physical memory</string>
+         <string>Megabytes of physical memory</string>
         </property>
         <property name="suffix">
          <string> MB</string>
@@ -138,7 +138,7 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
       <item row="2" column="1">
        <widget class="QLineEdit" name="edDirectory">
         <property name="toolTip">
-         <string>directory for storing swap files</string>
+         <string>Directory for storing swap files</string>
         </property>
         <property name="text">
          <string>/tmp</string>
@@ -148,10 +148,10 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
       <item row="2" column="2">
        <widget class="QPushButton" name="btSearch">
         <property name="toolTip">
-         <string>browse for a directory to hold page files</string>
+         <string>Browse for a directory to hold page files</string>
         </property>
         <property name="text">
-         <string>&amp;Search...</string>
+         <string>&amp;Browse...</string>
         </property>
        </widget>
       </item>
@@ -196,7 +196,7 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
          <bool>false</bool>
         </property>
         <property name="toolTip">
-         <string>megabytes of virtual memory</string>
+         <string>Megabytes of virtual memory</string>
         </property>
         <property name="suffix">
          <string> MB</string>
@@ -273,7 +273,7 @@ If you do not set a limit, the size of the physically installed memory in your c
          <bool>true</bool>
         </property>
         <property name="toolTip">
-         <string>megabytes of memory to be used for undo/redo</string>
+         <string>Megabytes of memory to be used for undo/redo</string>
         </property>
         <property name="suffix">
          <string> MB</string>

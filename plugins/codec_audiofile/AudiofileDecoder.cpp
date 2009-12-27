@@ -45,7 +45,7 @@ AudiofileDecoder::AudiofileDecoder()
 {
     /* defined in RFC 1521 */
     addMimeType("audio/basic",
-                i18n("NeXT,Sun Audio"),
+                i18n("NeXT, Sun Audio"),
                 "*.au; *.AU; *.snd; *.SND");
 
     /* some others, mime types might be wrong (I found no RFC or similar)  */
@@ -56,7 +56,7 @@ AudiofileDecoder::AudiofileDecoder()
                 i18n("Audio Interchange Format"),
                 "*.aif; *.AIF; *.aiff; *.AIFF");
     addMimeType("audio/x-ircam",
-                i18n("Berkeley,IRCAM,Carl Sound Format"),
+                i18n("Berkeley, IRCAM, Carl Sound Format"),
                 "*.sf; *.SF");
 }
 
@@ -101,25 +101,25 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 
 	switch (m_src_adapter->lastError()) {
 	    case AF_BAD_NOT_IMPLEMENTED:
-	        reason = i18n("format or function is not implemented");
+	        reason = i18n("Format or function is not implemented");
 	        break;
 	    case AF_BAD_MALLOC:
-	        reason = i18n("out of memory");
+	        reason = i18n("Out of memory");
 	        break;
 	    case AF_BAD_HEADER:
-	        reason = i18n("file header is damaged");
+	        reason = i18n("File header is damaged");
 	        break;
 	    case AF_BAD_CODEC_TYPE:
-	        reason = i18n("invalid codec type");
+	        reason = i18n("Invalid codec type");
 	        break;
 	    case AF_BAD_OPEN:
-	        reason = i18n("opening the file failed");
+	        reason = i18n("Opening the file failed");
 	        break;
 	    case AF_BAD_READ:
-	        reason = i18n("read access failed");
+	        reason = i18n("Read access failed");
 	        break;
 	    case AF_BAD_SAMPFMT:
-	        reason = i18n("invalid sample format");
+	        reason = i18n("Invalid sample format");
 	        break;
 	    default:
 		reason = reason.number(m_src_adapter->lastError());
@@ -144,16 +144,16 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     QString sample_format_name;
     switch (sample_format) {
 	case AF_SAMPFMT_TWOSCOMP:
-	    sample_format_name = "linear two's complement";
+	    sample_format_name = "Linear Two's Complement";
 	    break;
 	case AF_SAMPFMT_UNSIGNED:
-	    sample_format_name = "unsigned integer";
+	    sample_format_name = "Unsigned Integer";
 	    break;
 	case AF_SAMPFMT_FLOAT:
-	    sample_format_name = "32-bit IEEE floating-point";
+	    sample_format_name = "32-bit IEEE Floating-Point";
 	    break;
 	case AF_SAMPFMT_DOUBLE:
-	    sample_format_name = "64-bit IEEE double-precision floating-point";
+	    sample_format_name = "64-bit IEEE Double-Precision Floating-Point";
 	    break;
 	default:
 	    sample_format_name = "(unknown)";

@@ -971,7 +971,7 @@ void RecordDialog::setState(RecordState state)
     m_state = state;
     switch (state) {
 	case REC_UNINITIALIZED:
-	    state_text = i18n("please check the source device settings...");
+	    state_text = i18n("Please check the source device settings...");
 	    enable_new      = true;
 	    enable_pause    = false;
 	    enable_stop     = false;
@@ -994,7 +994,7 @@ void RecordDialog::setState(RecordState state)
 	    lbl_state->changeItem("", ID_TIME);
 	    break;
 	case REC_BUFFERING:
-	    state_text = i18n("buffering...");
+	    state_text = i18n("Buffering...");
 	    enable_new      = true; /* throw away current FIFO content */
 	    enable_pause    = false;
 	    enable_stop     = true;
@@ -1005,7 +1005,7 @@ void RecordDialog::setState(RecordState state)
 	    pixmaps.push_back(QPixmap(ledlightgreen_xpm));
 	    break;
 	case REC_PRERECORDING:
-	    state_text = i18n("prerecording...");
+	    state_text = i18n("Prerecording...");
 	    enable_new      = false;
 	    enable_pause    = false;
 	    enable_stop     = true;
@@ -1016,7 +1016,7 @@ void RecordDialog::setState(RecordState state)
 	    pixmaps.push_back(QPixmap(ledlightgreen_xpm));
 	    break;
 	case REC_WAITING_FOR_TRIGGER:
-	    state_text = i18n("waiting for trigger...");
+	    state_text = i18n("Waiting for trigger...");
 	    enable_new      = false;
 	    enable_pause    = false;
 	    enable_stop     = true;
@@ -1027,7 +1027,7 @@ void RecordDialog::setState(RecordState state)
 	    pixmaps.push_back(QPixmap(ledlightgreen_xpm));
 	    break;
 	case REC_RECORDING:
-	    state_text = i18n("recording...");
+	    state_text = i18n("Recording...");
 	    enable_new      = false;
 	    enable_pause    = true;
 	    enable_stop     = true;
@@ -1045,7 +1045,7 @@ void RecordDialog::setState(RecordState state)
 	    animation_time = 100;
 	    break;
 	case REC_PAUSED:
-	    state_text = i18n("paused");
+	    state_text = i18n("Paused");
 	    enable_new      = true; /* start again */
 	    enable_pause    = true; /* used for "continue" */
 	    enable_stop     = true;
@@ -1056,7 +1056,7 @@ void RecordDialog::setState(RecordState state)
 	    pixmaps.push_back(QPixmap(ledyellow_xpm));
 	    break;
 	case REC_DONE:
-	    state_text = i18n("done");
+	    state_text = i18n("Done");
 	    enable_new      = true;
 	    enable_pause    = false;
 	    enable_stop     = false;
@@ -1163,11 +1163,11 @@ void RecordDialog::updateBufferState(unsigned int count, unsigned int total)
 		    i18np("and %1 second", "and %1 seconds", s) :
 		    i18np("%1 second", "%1 seconds", s);
 
-		state_text = i18n("waiting for start in %1%2%3%4 ...",
+		state_text = i18nc("%1=days; %2=hours; %3=minutes; %4=seconds", "Waiting for start in %1%2%3%4...",
 		                  days, hours, minutes, seconds);
 	    } else {
 		// waiting for trigger...
-		state_text = i18n("waiting for trigger...");
+		state_text = i18n("Waiting for trigger...");
 	    }
 	    lbl_state->changeItem(state_text, ID_STATE);
 

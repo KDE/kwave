@@ -82,39 +82,39 @@ FileProgress::FileProgress(QWidget *parent,
     top_layout->addLayout(info_layout);
 
     // label with "source"
-    if (!addInfoLabel(info_layout, i18n("source: "), 0, 0)) return;
+    if (!addInfoLabel(info_layout, i18n("Source: "), 0, 0)) return;
     text = "?";
     m_lbl_url = addInfoLabel(info_layout, text, 0, 1);
     if (!m_lbl_url) return;
 
     // label with "length"
-    if (!addInfoLabel(info_layout, i18n("length: "), 1, 0)) return;
+    if (!addInfoLabel(info_layout, i18n("Length: "), 1, 0)) return;
 
     m_lbl_length = addInfoLabel(info_layout, "", 1, 1);
     if (!m_lbl_length) return;
     setLength(samples*tracks);
 
     // label with "rate:"
-    if (!addInfoLabel(info_layout, i18n("sample rate: "), 2, 0)) return;
-    text = i18n("%1 samples per second", rate);
+    if (!addInfoLabel(info_layout, i18n("Sample rate: "), 2, 0)) return;
+    text = i18n("%1 Samples per second", rate);
     if (!addInfoLabel(info_layout, text, 2, 1)) return;
 
     // label with "resolution:"
-    if (!addInfoLabel(info_layout, i18n("resolution: "), 3, 0)) return;
-    text = i18n("%1 bits per sample", bits);
+    if (!addInfoLabel(info_layout, i18n("Resolution: "), 3, 0)) return;
+    text = i18n("%1 Bits per sample", bits);
     if (!addInfoLabel(info_layout, text, 3, 1)) return;
 
     // label with "tracks:"
-    if (!addInfoLabel(info_layout, i18n("tracks: "), 4, 0)) return;
+    if (!addInfoLabel(info_layout, i18n("Tracks: "), 4, 0)) return;
     switch (tracks) {
 	case 1:
-	    text = i18n("1 (mono)");
+	    text = i18n("1 (Mono)");
 	    break;
 	case 2:
-	    text = i18n("2 (stereo)");
+	    text = i18n("2 (Stereo)");
 	    break;
 	case 4:
-	    text = i18n("4 (quadro)");
+	    text = i18n("4 (Quadro)");
 	    break;
 	default:
 	    text = text.setNum(tracks);
@@ -268,7 +268,7 @@ void FileProgress::updateStatistics(double rate, double rest,
 	m = s = 59;
     }
     QTime time(h,m,s,0);
-    text = i18n("%1 KB/s (%2 remain)", num, time.toString());
+    text = i18n("%1 KB/s (%2 remaining)", num, time.toString());
     m_stat_transfer->setText(text);
 
     // right: statistic over the transferred bytes
@@ -312,7 +312,7 @@ void FileProgress::setBytePosition(unsigned int pos)
 
     if (m_progress->value() != percent) {
 	QString newcap;
-	newcap = i18n("(%1%) %2", percent, m_url.toString());
+	newcap = i18nc("%1=Progress in percentage, %2=path to file", "(%1%) %2", percent, m_url.toString());
 	setWindowTitle(newcap);
 
 	m_progress->setValue(percent);

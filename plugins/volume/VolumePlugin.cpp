@@ -127,7 +127,7 @@ void VolumePlugin::run(QStringList params)
     if (!selection(&tracks, &first, &last, true) || tracks.isEmpty())
 	return;
 
-    UndoTransactionGuard undo_guard(*this, i18n("volume"));
+    UndoTransactionGuard undo_guard(*this, i18n("Volume"));
 
     // create all objects
     MultiTrackReader source(Kwave::SinglePassForward,

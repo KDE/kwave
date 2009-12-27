@@ -30,7 +30,7 @@ KWAVE_PLUGIN(OggCodecPlugin,"codec_ogg","2.1","Thomas Eschenbacher");
 OggCodecPlugin::OggCodecPlugin(const PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
 {
-    i18n("codec_ogg");
+    i18n("Ogg Codec");
 }
 
 /***************************************************************************/

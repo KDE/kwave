@@ -90,7 +90,7 @@ PlayBackPlugin::PlayBackPlugin(const PluginContext &context)
 
     // register as a factory for playback devices
     manager().registerPlaybackDeviceFactory(this);
-    i18n("playback");
+    i18n("Playback");
 }
 
 //***************************************************************************
@@ -467,7 +467,7 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 
 	// show an error message box
 	Kwave::MessageBox::error(parentWidget(), result,
-	    i18n("unable to open '%1'",
+	    i18n("Unable to open '%1'",
 	    params.device.section('|',0,0)));
     }
 
@@ -708,7 +708,7 @@ void PlayBackPlugin::testPlayBack()
     // check if we really have selected a playback device
     if (!playback_params.device.length()) {
 	Kwave::MessageBox::sorry(m_dialog, i18n(
-	    "please select a playback device first"));
+	    "Please select a playback device first"));
 	return;
     }
 
@@ -795,8 +795,8 @@ void PlayBackPlugin::testPlayBack()
 	    progress->setValue(1);
 	    progress->setLabelText(
 		"<html><p><br>" +
-		i18n("you should now hear a %1Hz test tone...<br><br>"\
-		     "(if you hear clicks or dropouts, please increase<br>"\
+		i18n("You should now hear a %1 Hz test tone.<br><br>"\
+		     "(If you hear clicks or dropouts, please increase<br>"\
 		     "the buffer size and try again)", static_cast<int>(freq)) +
 		"</p></html>"
 	    );

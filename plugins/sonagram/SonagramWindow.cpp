@@ -110,11 +110,11 @@ SonagramWindow::SonagramWindow(const QString &name)
     if (!file) return ;
 
 //    bar->addAction(i18n("&Spectral Data"), spectral);
-//    file->addAction(i18n("&Import from Bitmap ..."), this, SLOT(load()));
+//    file->addAction(i18n("&Import from Bitmap..."), this, SLOT(load()));
 
     file->addAction(
 	icon_loader.loadIcon("document-export", KIconLoader::Small),
-	i18n("&Export to Bitmap ..."),
+	i18n("&Export to Bitmap..."),
 	this, SLOT(save())
     );
     file->addAction(
@@ -124,7 +124,7 @@ SonagramWindow::SonagramWindow(const QString &name)
 	QKeySequence::Close
     );
 
-//    spectral->addAction (i18n("&reTransform to signal"), this, SLOT(toSignal()));
+//    spectral->addAction (i18n("&Retransform to Signal"), this, SLOT(toSignal()));
 
     KStatusBar *status = statusBar();
     Q_ASSERT(status);
@@ -500,7 +500,7 @@ void SonagramWindow::setColorMode(int mode)
 void SonagramWindow::setName(const QString &name)
 {
     QString windowname;
-    windowname += i18n("Sonagram of ");
+    windowname += i18n("Sonagram of "); //TODO: Fix puzzle string
     windowname += name.length() ? name : QString(i18n("<nothing>"));
 
     setCaption(windowname);
@@ -537,7 +537,7 @@ void SonagramWindow::cursorPosChanged(const QPoint pos)
     } else {
 	a = 0.0;
     }
-    text = i18n("Amplitude: %1 %", static_cast<int>(a));
+    text = i18n("Amplitude: %1%", static_cast<int>(a));
     status->changeItem(text, 3);
 }
 

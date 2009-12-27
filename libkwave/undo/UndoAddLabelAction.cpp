@@ -39,7 +39,7 @@ UndoAddLabelAction::~UndoAddLabelAction()
 //***************************************************************************
 QString UndoAddLabelAction::description()
 {
-    return i18n("add label");
+    return i18n("Add Label");
 }
 
 //***************************************************************************

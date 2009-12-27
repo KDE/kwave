@@ -44,7 +44,7 @@ void NoisePlugin::run(QStringList)
     unsigned int first, last;
     QList<unsigned int> tracks;
 
-    UndoTransactionGuard undo_guard(*this, i18n("noise"));
+    UndoTransactionGuard undo_guard(*this, i18n("Noise"));
 
     selection(&tracks, &first, &last, true);
 

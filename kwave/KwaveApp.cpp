@@ -57,7 +57,7 @@ int KwaveApp::newInstance()
     if (first_time) {
 	first_time = false;
 
-	KwaveSplash::showMessage(i18n("reading configuration..."));
+	KwaveSplash::showMessage(i18n("Reading configuration..."));
 	readConfig();
 
 	// close when the last window closed
@@ -133,7 +133,7 @@ void KwaveApp::addRecentFile(const QString &newfile)
 //***************************************************************************
 bool KwaveApp::newWindow(const KUrl &url)
 {
-    KwaveSplash::showMessage(i18n("opening main window..."));
+    KwaveSplash::showMessage(i18n("Opening main window..."));
     TopWidget *new_top_widget = new TopWidget(*this);
     Q_ASSERT(new_top_widget);
     if (!new_top_widget) return false;
@@ -164,12 +164,12 @@ bool KwaveApp::newWindow(const KUrl &url)
             new_top_widget, SLOT(updateRecentFiles()));
 
     if (!url.isEmpty()) {
-	KwaveSplash::showMessage(i18n("loading file '%1'...",
+	KwaveSplash::showMessage(i18n("Loading file '%1'...",
 	    url.prettyUrl()));
 	new_top_widget->loadFile(url);
     }
 
-    KwaveSplash::showMessage(i18n("startup done."));
+    KwaveSplash::showMessage(i18n("Startup done"));
     return true;
 }
 

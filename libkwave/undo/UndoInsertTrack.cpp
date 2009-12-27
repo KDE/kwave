@@ -36,7 +36,7 @@ UndoInsertTrack::~UndoInsertTrack()
 //***************************************************************************
 QString UndoInsertTrack::description()
 {
-    return i18n("insert track");
+    return i18n("Insert Track");
 }
 
 //***************************************************************************

@@ -84,9 +84,9 @@ CurveWidget::CurveWidget(QWidget *parent)
     transform->addAction(i18n("Flip Vertical"),
                          this, SLOT(VFlip()));
     transform->addSeparator();
-    transform->addAction(i18n("into 1st half"),
+    transform->addAction(i18n("Into First Half"),
                          this, SLOT(firstHalf()));
-    transform->addAction(i18n("into 2nd half"),
+    transform->addAction(i18n("Into Second Half"),
                          this, SLOT(secondHalf()));
 
     QMenu *del = m_menu->addMenu(i18n("Delete"));
@@ -111,10 +111,10 @@ CurveWidget::CurveWidget(QWidget *parent)
 
     del->addAction(
 	icon_loader.loadIcon("edit-delete", KIconLoader::Small),
-	i18n("recently selected Point"),
+	i18n("Currently Selected Point"),
 	this, SLOT(deleteLast()),
 	QKeySequence::Delete);
-    del->addAction(i18n("every 2nd Point"),
+    del->addAction(i18n("Every Second Point"),
 	           this, SLOT(deleteSecond()));
 
     QStringList types = Interpolation::descriptions(true);

@@ -212,9 +212,9 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
     // show a warning and abort if the plugin is unknown
     if (!(m_plugin_files.contains(name))) {
 	QString message =
-	    i18n("oops, plugin '%1' is unknown or invalid!", name);
+	    i18n("The plugin '%1' is unknown or invalid.", name);
 	Kwave::MessageBox::error(m_parent_widget, message,
-	    i18n("error on loading plugin"));
+	    i18n("Error On Loading Plugin"));
 	return 0;
     }
     QString &filename = m_plugin_files[name];
@@ -222,11 +222,11 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
     // try to get the file handle of the plugin's binary
     void *handle = dlopen(filename.toLocal8Bit(), RTLD_NOW);
     if (!handle) {
-	QString message = i18n("unable to load the file \n'%1'\n"\
-	                       " that contains the plugin '%2' !",
+	QString message = i18n("Unable to load the file\n'%1'\n"\
+	                       "that contains the plugin '%2'.",
 	                       filename, name);
 	Kwave::MessageBox::error(m_parent_widget, message,
-	    i18n("error on loading plugin"));
+	    i18n("Error On Loading Plugin"));
 	return 0;
     }
 
@@ -245,7 +245,7 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 	static_cast<const char **>(dlsym(handle, sym_author));
     Q_ASSERT(pauthor);
     if (pauthor) author=*pauthor;
-    if (!author) author = i18n("(unknown)").toLocal8Bit();
+    if (!author) author = i18n("(Unknown)").toLocal8Bit();
 
     // get the plugin's version string
     const char *version = "";
@@ -253,7 +253,7 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 	static_cast<const char **>(dlsym(handle, sym_version));
     Q_ASSERT(pver);
     if (pver) version=*pver;
-    if (!version) version = i18n("(unknown)").toLocal8Bit();
+    if (!version) version = i18n("(Unknown)").toLocal8Bit();
 
     plugin_loader =
         reinterpret_cast<Kwave::Plugin *(*)(const PluginContext *)>(
@@ -733,7 +733,7 @@ void Kwave::PluginManager::findPlugins()
 	    if (!name || !version || !author) continue;
 	    if (!*name || !*version || !*author) continue;
 
-	    emit sigProgress(i18n("loading plugin %1...", *name));
+	    emit sigProgress(i18n("Loading plugin %1...", *name));
 	    QApplication::processEvents();
 
 	    m_plugin_files.insert(*name, file);

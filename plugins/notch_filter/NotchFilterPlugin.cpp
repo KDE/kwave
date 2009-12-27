@@ -112,7 +112,7 @@ void NotchFilterPlugin::updateFilter(Kwave::SampleSource *filter,
 //***************************************************************************
 QString NotchFilterPlugin::actionName()
 {
-    return i18n("notch_filter");
+    return i18n("Notch Filter");
 }
 
 //***************************************************************************

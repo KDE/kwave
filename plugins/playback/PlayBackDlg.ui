@@ -61,10 +61,10 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>playback device</string>
+           <string>Playback device</string>
           </property>
           <property name="whatsThis">
-           <string>&lt;b&gt;Device:&lt;/b&gt;&lt;p&gt;This list shows a selection of some known playback devices suitable for the choosen playback method. If your device is not listed here, you can enter a device name on your own or search through the filesystem.&lt;/p&gt;</string>
+           <string>&lt;b&gt;Device:&lt;/b&gt;&lt;p&gt;This list shows a selection of some known playback devices suitable for the chosen playback method. If your device is not listed here, you can enter a device name on your own or search through the filesystem.&lt;/p&gt;</string>
           </property>
           <property name="editable">
            <bool>true</bool>
@@ -89,7 +89,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>search on the filesystem for a device</string>
+           <string>Search on the filesystem for a device</string>
           </property>
           <property name="whatsThis">
            <string>&lt;b&gt;Select...&lt;/b&gt;&lt;p&gt;Choose a device name on the harddisk, if your device is not already listed in the list of devices.&lt;/p&gt;</string>
@@ -121,7 +121,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>method or system used for playback</string>
+           <string>Method or system used for playback</string>
           </property>
           <property name="whatsThis">
            <string>&lt;b&gt;Playback Method:&lt;/b&gt;&lt;p&gt;Choose a method or system used for
@@ -137,7 +137,7 @@ playback. Depending on the compilation options you can select one of the followi
       <item row="0" column="0" colspan="2">
        <widget class="QLabel" name="textLabel1">
         <property name="text">
-         <string>Playback Method:</string>
+         <string>Playback method:</string>
         </property>
         <property name="wordWrap">
          <bool>false</bool>
@@ -187,10 +187,10 @@ playback. Depending on the compilation options you can select one of the followi
            </size>
           </property>
           <property name="toolTip">
-           <string>size of the playback buffer in bytes</string>
+           <string>Size of the playback buffer in bytes</string>
           </property>
           <property name="whatsThis">
-           <string>&lt;b&gt;Buffer Size:&lt;/b&gt;&lt;p&gt;Select a buffer size for the playback. You should set this numer as small as possible to reduce the playback latency. The latency is the delay between user interface actions like starting/stopping playback, update of the playback position and the real sound output. If you encounter dropouts you should increase this setting a bit.&lt;/p&gt;</string>
+           <string>&lt;b&gt;Buffer size:&lt;/b&gt;&lt;p&gt;Select a buffer size for the playback. You should set this numer as small as possible to reduce the playback latency. The latency is the delay between user interface actions like starting/stopping playback, update of the playback position and the real sound output. If you encounter dropouts you should increase this setting a bit.&lt;/p&gt;</string>
           </property>
           <property name="minimum">
            <number>8</number>
@@ -220,7 +220,7 @@ playback. Depending on the compilation options you can select one of the followi
       <item row="7" column="0" colspan="2">
        <widget class="QLabel" name="textLabel5">
         <property name="text">
-         <string>Buffer Size:</string>
+         <string>Buffer size:</string>
         </property>
         <property name="wordWrap">
          <bool>false</bool>
@@ -256,7 +256,7 @@ playback. Depending on the compilation options you can select one of the followi
       <item row="4" column="0">
        <widget class="QLabel" name="textLabel3">
         <property name="text">
-         <string>Bits per Sample:</string>
+         <string>Bits per sample:</string>
         </property>
         <property name="wordWrap">
          <bool>false</bool>
@@ -283,7 +283,7 @@ playback. Depending on the compilation options you can select one of the followi
            <string>Playback resolution in bits per sample</string>
           </property>
           <property name="whatsThis">
-           <string>&lt;b&gt;Bits per Sample:&lt;/b&gt;&lt;p&gt;Here you can select one of the bit resolutions your playback device supports. This is not necessarily the same resolution as in your audio file, Kwave dithers automatically from it's internal resolution (24 bit) to the setting you specify. Higher resolutions mean better audio quality.&lt;/p&gt;</string>
+           <string>&lt;b&gt;Bits per sample:&lt;/b&gt;&lt;p&gt;Here you can select one of the bit resolutions your playback device supports. This is not necessarily the same resolution as in your audio file, Kwave dithers automatically from its internal resolution (24 bit) to the setting you specify. Higher resolutions mean better audio quality.&lt;/p&gt;</string>
           </property>
           <property name="duplicatesEnabled">
            <bool>false</bool>
@@ -325,10 +325,10 @@ playback. Depending on the compilation options you can select one of the followi
            </size>
           </property>
           <property name="toolTip">
-           <string>Number of channels: mono, stereo...</string>
+           <string>Number of channels: Mono, Stereo...</string>
           </property>
           <property name="whatsThis">
-           <string>&lt;b&gt;Channels:&lt;/b&gt;&lt;p&gt;Number of channels used for playback. This does not necessarily have to be the same as the number of tracks in your current file. Kwave automatically mixes the tracks of your file to the channels you specify here. &lt;/p&gt;&lt;p&gt;&lt;i&gt;For example:&lt;/i&gt; if you have three tracks and set the playback to &quot;stereo&quot;, the left channel will contain the first track + 50% of the second track, the right channel will also contain 50% of the second track and the third track.&lt;/p&gt;</string>
+           <string>&lt;b&gt;Channels:&lt;/b&gt;&lt;p&gt;Number of channels used for playback. This does not necessarily have to be the same as the number of tracks in your current file. Kwave automatically mixes the tracks of your file to the channels you specify here. &lt;/p&gt;&lt;p&gt;&lt;i&gt;For example:&lt;/i&gt; If you have three tracks and set the playback to &quot;Stereo&quot;, the left channel will contain the first track + 50% of the second track, the right channel will also contain 50% of the second track and the third track.&lt;/p&gt;</string>
           </property>
           <property name="value">
            <number>0</number>
@@ -473,13 +473,13 @@ playback. Depending on the compilation options you can select one of the followi
         </size>
        </property>
        <property name="toolTip">
-        <string>play a short test sound</string>
+        <string>Play a short test sound</string>
        </property>
        <property name="whatsThis">
-        <string>&lt;b&gt;Test...&lt;/b&gt;&lt;p&gt;Try to play a short sound using the current settings.&lt;/p&gt;&lt;p&gt;&lt;i&gt;(sorry, not implemented yet!)&lt;/i&gt;&lt;/p&gt;</string>
+        <string>&lt;b&gt;Test&lt;/b&gt;&lt;p&gt;Try to play a short sound using the current settings.&lt;/p&gt;&lt;p&gt;&lt;i&gt;(Sorry, not implemented yet!)&lt;/i&gt;&lt;/p&gt;</string>
        </property>
        <property name="text">
-        <string>&amp;Test...</string>
+        <string>&amp;Test</string>
        </property>
        <property name="shortcut">
         <string>Alt+T</string>

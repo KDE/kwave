@@ -49,7 +49,7 @@ UndoDeleteAction::~UndoDeleteAction()
 //***************************************************************************
 QString UndoDeleteAction::description()
 {
-    return i18n("delete");
+    return i18n("Delete");
 }
 
 //***************************************************************************

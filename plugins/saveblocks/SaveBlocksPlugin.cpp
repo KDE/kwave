@@ -44,7 +44,7 @@ SaveBlocksPlugin::SaveBlocksPlugin(const PluginContext &c)
     :Kwave::Plugin(c), m_url(), m_pattern(), m_numbering_mode(CONTINUE),
      m_selection_only(true)
 {
-    i18n("saveblocks");
+    i18n("Saveblocks");
 }
 
 //***************************************************************************

@@ -69,13 +69,13 @@
              <item row="0" column="0">
               <widget class="QCheckBox" name="chkRecordPre">
                <property name="toolTip">
-                <string>enable pre-recording</string>
+                <string>Enable Pre-recording</string>
                </property>
                <property name="whatsThis">
-                <string>When using &lt;b&gt;pre-recording&lt;/b&gt;, Kwave already internall records before the real recording starts. This feature is useful if you want some few seconds before you press on the record button to be recorded too. &lt;i&gt;(for example when recording from radio)&lt;/i&gt;</string>
+                <string>When using &lt;b&gt;Pre-recording&lt;/b&gt;, Kwave internally already records before the real recording starts. This feature is useful if you want to start recording already a few seconds before you press the record button. &lt;i&gt;(For example when recording from radio)&lt;/i&gt;</string>
                </property>
                <property name="text">
-                <string>Pre-Record:</string>
+                <string>Pre-record:</string>
                </property>
                <property name="checked">
                 <bool>false</bool>
@@ -88,13 +88,13 @@
                 <bool>true</bool>
                </property>
                <property name="toolTip">
-                <string>limit the recording time</string>
+                <string>Limit the recording time</string>
                </property>
                <property name="whatsThis">
-                <string>If checked, the &lt;b&gt;record time&lt;/b&gt; is limited and recording will automatically stop when the selected time is reached.</string>
+                <string>If checked, the &lt;b&gt;Record time&lt;/b&gt; is limited and recording will automatically stop when the selected time is reached.</string>
                </property>
                <property name="text">
-                <string>Record &amp;Time:</string>
+                <string>Record &amp;time:</string>
                </property>
                <property name="checked">
                 <bool>false</bool>
@@ -107,13 +107,13 @@
                 <bool>true</bool>
                </property>
                <property name="toolTip">
-                <string>trigger level</string>
+                <string>Trigger level</string>
                </property>
                <property name="whatsThis">
-                <string>If the &lt;b&gt;record trigger&lt;/b&gt; is enabled, recording will start as soon as the volume of the input signal goes over the selected level.</string>
+                <string>If the &lt;b&gt;Record trigger&lt;/b&gt; is enabled, recording will start as soon as the volume of the input signal goes over the selected level.</string>
                </property>
                <property name="text">
-                <string>Record Trigger:</string>
+                <string>Record trigger:</string>
                </property>
                <property name="checked">
                 <bool>false</bool>
@@ -204,7 +204,7 @@
                   </size>
                  </property>
                  <property name="toolTip">
-                  <string>Record!</string>
+                  <string>Record</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -311,7 +311,7 @@
                 <bool>false</bool>
                </property>
                <property name="suffix">
-                <string> %</string>
+                <string>%</string>
                </property>
                <property name="minimum">
                 <number>1</number>
@@ -350,13 +350,13 @@
              <item row="4" column="0">
               <widget class="QCheckBox" name="chkRecordStartTime">
                <property name="toolTip">
-                <string>start at a given date and time</string>
+                <string>Start at a given date and time</string>
                </property>
                <property name="whatsThis">
-                <string>When checked, &lt;b&gt;start the recording at a given date and time&lt;/b&gt;. Please note that if the time is in the past, the recording will be started immediately or as soon as the defined trigger level is reached (if enabled).</string>
+                <string>When checked, the recording will be started at the given date and time. Please note that if the time is in the past, the recording will be started immediately or as soon as the defined trigger level is reached (if enabled).</string>
                </property>
                <property name="text">
-                <string>Start &amp;At:</string>
+                <string>Start &amp;at:</string>
                </property>
               </widget>
              </item>
@@ -652,7 +652,7 @@
              <item row="0" column="2">
               <widget class="KComboBox" name="cbFormatSampleRate">
                <property name="whatsThis">
-                <string>&lt;b&gt;Sample Rate&lt;/b&gt;&lt;br&gt;Here you can select one of the predefined well-known sample rates that your sound card supports.</string>
+                <string>&lt;b&gt;Sample rate&lt;/b&gt;&lt;br&gt;Here you can select one of the predefined well-known sample rates that your sound card supports.</string>
                </property>
               </widget>
              </item>
@@ -667,7 +667,7 @@
                <item>
                 <widget class="QLabel" name="lblSamplesPerSecond">
                  <property name="text">
-                  <string>samples per second</string>
+                  <string>Samples per second</string>
                  </property>
                  <property name="wordWrap">
                   <bool>false</bool>
@@ -695,7 +695,7 @@
              <item row="0" column="0">
               <widget class="QLabel" name="lblRate">
                <property name="text">
-                <string>Sample Rate:</string>
+                <string>Sample rate:</string>
                </property>
                <property name="wordWrap">
                 <bool>false</bool>
@@ -715,7 +715,7 @@
              <item row="1" column="2">
               <widget class="QSpinBox" name="sbFormatTracks">
                <property name="whatsThis">
-                <string>&lt;b&gt;Number of Tracks&lt;/b&gt;&lt;br&gt;Select a number of tracks, e.g. for mono or stereo recording.</string>
+                <string>&lt;b&gt;Number of tracks&lt;/b&gt;&lt;br&gt;Select a number of tracks, e.g. for mono or stereo recording.</string>
                </property>
                <property name="minimum">
                 <number>1</number>
@@ -857,7 +857,7 @@
                 </size>
                </property>
                <property name="whatsThis">
-                <string>&lt;b&gt;Sample Format&lt;/b&gt;&lt;br&gt;Here you can select one of the sample formats that your audio hardware supports. This normally has no big influence on the result, so you can just leave it as it is.</string>
+                <string>&lt;b&gt;Sample format&lt;/b&gt;&lt;br&gt;Here you can select one of the sample formats that your audio hardware supports. This normally has no big influence on the result, so you can just leave it as it is.</string>
                </property>
               </widget>
              </item>
@@ -880,7 +880,7 @@
              <item row="4" column="0">
               <widget class="QLabel" name="lblSampleFormat">
                <property name="text">
-                <string>Sample Format:</string>
+                <string>Sample format:</string>
                </property>
                <property name="wordWrap">
                 <bool>false</bool>
@@ -943,7 +943,7 @@
                <item>
                 <widget class="QLabel" name="lblBits">
                  <property name="text">
-                  <string>bit</string>
+                  <string>Bit</string>
                  </property>
                  <property name="wordWrap">
                   <bool>false</bool>
@@ -987,7 +987,7 @@
              <item row="4" column="0">
               <widget class="QLabel" name="textLabel2">
                <property name="text">
-                <string>Buffer Size:</string>
+                <string>Buffer size:</string>
                </property>
                <property name="wordWrap">
                 <bool>false</bool>
@@ -997,7 +997,7 @@
              <item row="3" column="0">
               <widget class="QLabel" name="textLabel1_4">
                <property name="text">
-                <string>Buffer Count:</string>
+                <string>Buffer count:</string>
                </property>
                <property name="wordWrap">
                 <bool>false</bool>
@@ -1019,10 +1019,10 @@
                 </size>
                </property>
                <property name="toolTip">
-                <string>method or system used for recording</string>
+                <string>Method or system used for recording</string>
                </property>
                <property name="whatsThis">
-                <string>&lt;b&gt;Recording Method:&lt;/b&gt;&lt;p&gt;Choose a method or system used for
+                <string>&lt;b&gt;Recording method:&lt;/b&gt;&lt;p&gt;Choose a method or system used for
 recording. Depending on the compilation options you can select one of the following methods:&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;&lt;i&gt;OSS (Open Sound System)&lt;/i&gt;&lt;/b&gt;: The oldest linux implementation, only capable of mono and stereo input. Deprecated since linux kernel 2.6, but still wide spread.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;&lt;i&gt;ALSA (Advanced Linux Sound Architecture)&lt;/i&gt;&lt;/b&gt;: Supercedes OSS, supports more features and more hardware.&lt;/p&gt;</string>
@@ -1032,7 +1032,7 @@ recording. Depending on the compilation options you can select one of the follow
              <item row="0" column="0">
               <widget class="QLabel" name="textLabel1_5">
                <property name="text">
-                <string>Recording Method:</string>
+                <string>Recording method:</string>
                </property>
                <property name="wordWrap">
                 <bool>false</bool>
@@ -1050,7 +1050,7 @@ recording. Depending on the compilation options you can select one of the follow
                   </sizepolicy>
                  </property>
                  <property name="toolTip">
-                  <string>recording device</string>
+                  <string>Recording device</string>
                  </property>
                  <property name="whatsThis">
                   <string>&lt;b&gt;Device:&lt;/b&gt;&lt;p&gt;This list shows a selection of some known recording devices suitable for the choosen recording method. If your device is not listed here, you can enter a device name on your own or search through the filesystem.&lt;/p&gt;</string>
@@ -1069,7 +1069,7 @@ recording. Depending on the compilation options you can select one of the follow
                   </sizepolicy>
                  </property>
                  <property name="toolTip">
-                  <string>search on the filesystem for a device</string>
+                  <string>Search on the filesystem for a device</string>
                  </property>
                  <property name="whatsThis">
                   <string>&lt;b&gt;Select...&lt;/b&gt;&lt;p&gt;Choose a device name on the harddisk, if your device is not already listed in the list of devices.&lt;/p&gt;</string>
@@ -1211,7 +1211,7 @@ recording. Depending on the compilation options you can select one of the follow
                 <bool>true</bool>
                </property>
                <property name="text">
-                <string>Level Meter</string>
+                <string>Level meter</string>
                </property>
                <property name="checked">
                 <bool>true</bool>

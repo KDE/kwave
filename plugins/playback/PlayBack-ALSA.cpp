@@ -54,10 +54,10 @@
 QMap<QString, QString> PlayBackALSA::m_device_list;
 
 /** gui name of the default device */
-#define DEFAULT_DEVICE (i18n("default device") + QString("|sound_note"))
+#define DEFAULT_DEVICE (i18n("Default device") + QString("|sound_note"))
 
 /** gui name of the null device */
-#define NULL_DEVICE (i18n("null device") + QString("|sound_note"))
+#define NULL_DEVICE (i18n("Null device") + QString("|sound_note"))
 
 //***************************************************************************
 
@@ -561,16 +561,16 @@ QString PlayBackALSA::open(const QString &device, double rate,
 	    case ENODEV:
 	    case ENXIO:
 	    case EIO:
-		reason = i18n("i/o error, maybe the driver\n"\
+		reason = i18n("I/O error. Maybe the driver\n"\
 		"is not present in your kernel or it is not\n"\
 		"properly configured.");
 		break;
 	    case EBUSY:
 		reason = i18n(
-		"The device is busy. Maybe an other application is \n"\
-		"currently using it. Please try again later. \n"\
-		"(Hint: you might find out the name and process id of \n"\
-		"the program by calling: \"fuser -v %1\" \n"\
+		"The device is busy. Maybe an other application is\n"\
+		"currently using it. Please try again later.\n"\
+		"(Hint: you might find out the name and process ID of\n"\
+		"the program by calling: \"fuser -v %1\"\n"\
 		"on the command line.)",
 		m_device_name);
 		break;
@@ -809,11 +809,11 @@ void PlayBackALSA::scanDevices()
 			QString subdevice_name =
 			    snd_pcm_info_get_subdevice_name(pcminfo);
 			QString name = QString(
-			    i18n("card %1: ", card) + card_name +
+			    i18n("Card %1: ", card) + card_name +
 			    "|sound_card||" +
-			    i18n("device %1: ", dev) + device_name +
+			    i18n("Device %1: ", dev) + device_name +
 			    "|sound_device||" +
-			    i18n("subdevice %1: ", idx) + subdevice_name +
+			    i18n("Subdevice %1: ", idx) + subdevice_name +
 			    "|sound_subdevice"
 			)/*.arg(card).arg(dev).arg(idx)*/;
 			qDebug("# '%s' -> '%s'",
@@ -825,9 +825,9 @@ void PlayBackALSA::scanDevices()
 	    } else {
 		// no sub-devices
 		QString name = QString(
-		    i18n("card %1: ", card) +
+		    i18n("Card %1: ", card) +
 		         card_name + "|sound_card||" +
-		    i18n("device %1: ", dev) +
+		    i18n("Device %1: ", dev) +
 		          device_name + "|sound_subdevice"
 		);
 		qDebug("# '%s' -> '%s'", hw_device.toLocal8Bit().data(),

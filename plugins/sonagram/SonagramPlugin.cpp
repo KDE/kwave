@@ -78,7 +78,7 @@ SonagramPlugin::SonagramPlugin(const PluginContext &c)
     connect(this, SIGNAL(stripeAvailable(StripeInfoPrivate *)),
             this, SLOT(insertStripe(StripeInfoPrivate *)),
             Qt::BlockingQueuedConnection);
-    i18n("sonagram");
+    i18n("Sonagram");
 }
 
 //***************************************************************************

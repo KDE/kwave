@@ -108,7 +108,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 {
     KIconLoader icon_loader;
 
-    showInSplashSreen(i18n("loading main menu..."));
+    showInSplashSreen(i18n("Loading main menu..."));
     KMenuBar *menubar = menuBar();
     Q_ASSERT(menubar);
     if (!menubar) return;
@@ -194,7 +194,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // --- set up the toolbar ---
 
-    showInSplashSreen(i18n("initializing toolbar..."));
+    showInSplashSreen(i18n("Initializing toolbar..."));
     KToolBar *toolbar_file = toolBar("MainWidget File");
     Q_ASSERT(toolbar_file);
     if (!toolbar_file) return;
@@ -203,17 +203,17 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     toolbar_file->addAction(
 	icon_loader.loadIcon("document-new", KIconLoader::Toolbar),
-	i18n("create a new empty file"),
+	i18n("Create a new empty file"),
 	this, SLOT(toolbarFileNew()));
 
     toolbar_file->addAction(
 	icon_loader.loadIcon("document-open", KIconLoader::Toolbar),
-	i18n("open an existing file"),
+	i18n("Open an existing file"),
 	this, SLOT(toolbarFileOpen()));
 
     toolbar_file->addAction(
 	icon_loader.loadIcon("document-save", KIconLoader::Toolbar),
-	i18n("save the current file"),
+	i18n("Save the current file"),
 	this, SLOT(toolbarFileSave()));
 
     // --- edit, cut&paste ---
@@ -234,17 +234,17 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     toolbar_edit->addAction(
 	icon_loader.loadIcon("edit-cut", KIconLoader::Toolbar),
-	i18n("cut the current selection and move it to the clipboard"),
+	i18n("Cut the current selection and move it to the clipboard"),
 	this, SLOT(toolbarEditCut()));
 
     toolbar_edit->addAction(
 	icon_loader.loadIcon("edit-copy", KIconLoader::Toolbar),
-	i18n("copy the current selection to the clipboard"),
+	i18n("Copy the current selection to the clipboard"),
 	this, SLOT(toolbarEditCopy()));
 
     QAction *btPaste = toolbar_edit->addAction(
 	icon_loader.loadIcon("edit-paste", KIconLoader::Toolbar),
-	i18n("insert the content of clipboard"),
+	i18n("Insert the content of clipboard"),
 	this, SLOT(toolbarEditPaste()));
     btPaste->setEnabled(!ClipBoard::instance().isEmpty());
     connect(&ClipBoard::instance(), SIGNAL(clipboardChanged(bool)),
@@ -252,12 +252,12 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     toolbar_edit->addAction(
 	icon_loader.loadIcon("draw-eraser", KIconLoader::Toolbar),
-	i18n("mute the current selection"),
+	i18n("Mute the current selection"),
 	this, SLOT(toolbarEditErase()));
 
     toolbar_edit->addAction(
 	icon_loader.loadIcon("edit-delete", KIconLoader::Toolbar),
-	i18n("delete the current selection"),
+	i18n("Delete the current selection"),
 	this, SLOT(toolbarEditDelete()));
 
 //                  Zoom
@@ -276,37 +276,37 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     m_action_play = toolbar_playback->addAction(
 	QPixmap(xpm_play),
-	i18n("start playback"),
+	i18n("Start playback"),
 	playback, SLOT(playbackStart()));
 
     m_action_loop = toolbar_playback->addAction(
 	QPixmap(xpm_loop),
-	i18n("start playback and loop"),
+	i18n("Start playback and loop"),
 	playback, SLOT(playbackLoop()));
 
     m_action_pause = toolbar_playback->addAction(
 	QPixmap(xpm_pause),
-	i18n("pause playback"),
+	i18n("Pause playback"),
 	this, SLOT(pausePressed()));
 
     m_action_stop = toolbar_playback->addAction(
 	QPixmap(xpm_stop),
-	i18n("stop playback or loop"),
+	i18n("Stop playback or loop"),
 	playback, SLOT(playbackStop()));
 
     // --- zoom controls ---
-    m_zoom_factors.append(ZoomFactor("1 ms",              1L));
-    m_zoom_factors.append(ZoomFactor("10 ms",            10L));
-    m_zoom_factors.append(ZoomFactor("100 ms",          100L));
-    m_zoom_factors.append(ZoomFactor("1 sec",          1000L));
-    m_zoom_factors.append(ZoomFactor("10 sec",     10L*1000L));
-    m_zoom_factors.append(ZoomFactor("30 sec",     30L*1000L));
-    m_zoom_factors.append(ZoomFactor("1 min",   1L*60L*1000L));
-    m_zoom_factors.append(ZoomFactor("3 min",   3L*60L*1000L));
-    m_zoom_factors.append(ZoomFactor("5 min",   5L*60L*1000L));
-    m_zoom_factors.append(ZoomFactor("10 min", 10L*60L*1000L));
-    m_zoom_factors.append(ZoomFactor("30 min", 30L*60L*1000L));
-    m_zoom_factors.append(ZoomFactor("60 min", 60L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("1 ms"),              1L));
+    m_zoom_factors.append(ZoomFactor(i18n("10 ms"),            10L));
+    m_zoom_factors.append(ZoomFactor(i18n("100 ms"),          100L));
+    m_zoom_factors.append(ZoomFactor(i18n("1 sec"),          1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("10 sec"),     10L*1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("30 sec"),     30L*1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("1 min"),   1L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("3 min"),   3L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("5 min"),   5L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("10 min"), 10L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("30 min"), 30L*60L*1000L));
+    m_zoom_factors.append(ZoomFactor(i18n("60 min"), 60L*60L*1000L));
 
     KToolBar *toolbar_zoom = toolBar("MainWidget Zoom");
     Q_ASSERT(toolbar_zoom);
@@ -314,34 +314,34 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     m_action_zoomselection = toolbar_zoom->addAction(
 	QPixmap(xpm_zoomrange),
-	i18n("zoom to selection"),
+	i18n("Zoom to selection"),
 	m_main_widget, SLOT(zoomSelection()));
 
     m_action_zoomin = toolbar_zoom->addAction(
 	QPixmap(xpm_zoomin),
-	i18n("zoom in"),
+	i18n("Zoom in"),
 	m_main_widget, SLOT(zoomIn()));
 
     m_action_zoomout = toolbar_zoom->addAction(
 	QPixmap(xpm_zoomout),
-	i18n("zoom out"),
+	i18n("Zoom out"),
 	m_main_widget, SLOT(zoomOut()));
 
     m_action_zoomnormal = toolbar_zoom->addAction(
 	QPixmap(xpm_zoomnormal),
-	i18n("zoom to 100%%"),
+	i18n("Zoom to 100%"),
 	m_main_widget, SLOT(zoomNormal()));
 
     m_action_zoomall = toolbar_zoom->addAction(
 	QPixmap(xpm_zoomall),
-	i18n("zoom to all"),
+	i18n("Zoom to all"),
 	m_main_widget, SLOT(zoomAll()));
 
     // zoom selection combo box
     m_zoomselect = new KComboBox(this);
     Q_ASSERT(m_zoomselect);
     if (!m_zoomselect) return;
-    m_zoomselect->setToolTip(i18n("select zoom factor"));
+    m_zoomselect->setToolTip(i18n("Select zoom factor"));
     m_zoomselect->setInsertPolicy(QComboBox::InsertAtTop);
     m_zoomselect->setEditable(false);
     foreach (ZoomFactor zoom, m_zoom_factors)
@@ -390,7 +390,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     connect(m_plugin_manager, SIGNAL(sigProgress(const QString &)),
             this, SLOT(showInSplashSreen(const QString &)));
 
-    showInSplashSreen(i18n("scanning plugins..."));
+    showInSplashSreen(i18n("Scanning plugins..."));
     m_plugin_manager->findPlugins();
 
     // set the MainWidget as the main view
@@ -438,7 +438,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     showInSplashSreen(i18n("Loading plugins..."));
     statusBar()->showMessage(i18n("Loading plugins..."));
     m_plugin_manager->loadAllPlugins();
-    statusBar()->showMessage(i18n("Ready."), 1000);
+    statusBar()->showMessage(i18n("Ready"), 1000);
 
     setTrackInfo(0);
     updateMenu();
@@ -1122,9 +1122,7 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
     if (length) {
 	ms = (rate) ? (static_cast<double>(length) /
 	    static_cast<double>(rate) * 1E3) : 0;
-	txt = " " + i18n("Length: %1", Kwave::Plugin::ms2string(ms)) +
-	    " " + i18n("(%1 samples)", Kwave::Plugin::dottedNumber(length)) +
-	    " ";
+	txt = i18nc("Length, as in total duration of loaded song", "Length: %1 (%2 Samples)", Kwave::Plugin::ms2string(ms), Kwave::Plugin::dottedNumber(length));
     } else txt = "";
     m_lbl_status_size->setText(txt);
 
@@ -1132,7 +1130,7 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
     if (bits) {
 	QString khz = "%0.3f";
 	khz = khz.sprintf("%0.3f", static_cast<double>(rate) * 1E-3);
-	txt = " "+i18n("Mode: %1 kHz@%2 bit", khz, bits)+" ";
+	txt = i18n("Mode: %1 kHz @ %2 Bit", khz, bits);
     } else txt = "";
     m_lbl_status_mode->setText(txt);
 
@@ -1177,13 +1175,13 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 
 	unsigned int last = offset + ((length) ? length-1 : 0);
 	if (rate == 0) sample_mode = true; // force sample mode if rate==0
-	QString txt = " "+i18n("Selected")+": %1...%2 (%3)";
+	QString txt = i18n("Selected: ")+"%1...%2 (%3)"; //TODO: Fix puzzle string
 	if (sample_mode) {
 	    txt = txt.arg(
 	          Kwave::Plugin::dottedNumber(offset)).arg(
 	          Kwave::Plugin::dottedNumber(last)).arg(
 	          Kwave::Plugin::dottedNumber(length) + " " +
-	          i18n("samples"));
+	          i18n("Samples"));
 	} else {
 	    double ms_first = static_cast<double>(offset)   * 1E3 / rate;
 	    double ms_last  = static_cast<double>(last + 1) * 1E3 / rate;
@@ -1205,9 +1203,8 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 	if (sample_mode) {
 	    m_lbl_status_cursor->setText("");
 	} else {
-	    QString txt = i18n("Position")+": %1";
 	    double ms_first = static_cast<double>(offset) * 1E3 / rate;
-	    txt = txt.arg(Kwave::Plugin::ms2string(ms_first));
+	    QString txt = i18n("Position: %1", (Kwave::Plugin::ms2string(ms_first)));
 	    m_lbl_status_cursor->setText(txt);
 	}
 
@@ -1223,17 +1220,16 @@ void TopWidget::updatePlaybackPos(unsigned int offset)
 
     bool playing = m_main_widget->playbackController().running();
     if (!playing) return;
-
-    QString txt = i18n("Playback")+": %1";
+    QString txt;
     double rate = m_plugin_manager->signalRate();
     if (rate > 0) {
 	double ms = static_cast<double>(offset) * 1E3 / rate;
-	txt = txt.arg(Kwave::Plugin::ms2string(ms));
-    } else {
-	txt = txt.arg(Kwave::Plugin::dottedNumber(offset) + " " +
-	    i18n("samples"));
-    }
+	QString txt = i18n("Playback: %1", (Kwave::Plugin::ms2string(ms)));
     statusBar()->showMessage(txt, 2000);
+    } else {
+ 	QString txt = i18n("%1 Samples", (Kwave::Plugin::dottedNumber(offset)));
+    statusBar()->showMessage(txt, 2000);
+   }
 }
 
 //***************************************************************************
@@ -1467,7 +1463,7 @@ void TopWidget::updateCaption()
     }
 
     if (modified)
-	setCaption("* "+signalName()+i18n(" (modified)"));
+	setCaption(i18nc("%1 = Path to modified file", "* %1 (modified)", signalName()));
     else
 	setCaption(signalName());
 }

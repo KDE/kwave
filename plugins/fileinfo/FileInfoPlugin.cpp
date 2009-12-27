@@ -31,7 +31,7 @@ KWAVE_PLUGIN(FileInfoPlugin,"fileinfo","2.1","Thomas Eschenbacher");
 FileInfoPlugin::FileInfoPlugin(const PluginContext &context)
     :Kwave::Plugin(context)
 {
-    i18n("fileinfo");
+    i18n("File Info");
 }
 
 //***************************************************************************
@@ -78,7 +78,7 @@ void FileInfoPlugin::apply(FileInfo &new_info)
 		 "the whole file to the new sample rate or do "
 		 "you only want to set the rate information in order "
 		 "to repair a damaged file? Note: changing only the sample "
-		 "rate can cause \"mickey mouse\" effects!"),
+		 "rate can cause \"mickey mouse\" effects."),
 	    0,
 	    i18n("&Convert"),
 	    i18n("&Set Rate"));

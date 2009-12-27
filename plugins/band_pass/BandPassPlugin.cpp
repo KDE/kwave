@@ -117,7 +117,7 @@ void BandPassPlugin::updateFilter(Kwave::SampleSource *filter,
 //***************************************************************************
 QString BandPassPlugin::actionName()
 {
-    return i18n("band_pass");
+    return i18n("Band Pass");
 }
 
 //***************************************************************************

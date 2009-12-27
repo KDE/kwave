@@ -242,14 +242,14 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
     if (ret) {
 	Kwave::MessageBox::sorry(widget, i18n("One or more encoding "
 	    "parameters are not supported. Please change the "
-	    "settings and try again..."));
+	    "settings and try again."));
 	return false;
     }
 
     // open the output device
     if (!dst.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
 	Kwave::MessageBox::error(widget,
-	    i18n("Unable to open the file for saving!"));
+	    i18n("Unable to open the file for saving."));
 	return false;
     }
 

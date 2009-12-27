@@ -63,7 +63,7 @@ RecordPlugin::RecordPlugin(const PluginContext &context)
      m_writers(0), m_buffers_recorded(0), m_inhibit_count(0),
      m_trigger_value()
 {
-    i18n("record");
+    i18n("Record");
 }
 
 //***************************************************************************
@@ -380,7 +380,7 @@ void RecordPlugin::setDevice(const QString &device)
 		    reason = i18n(
 			"Kwave was unable to open the device '%1'.\n"\
 			"Maybe your system lacks support for the corresponding "\
-			" hardware or the hardware is not connected.",
+			"hardware or the hardware is not connected.",
 			short_device_name);
 		    break;
 		case -EBUSY:
@@ -393,7 +393,7 @@ void RecordPlugin::setDevice(const QString &device)
 	    }
 
 	    if (reason.length()) Kwave::MessageBox::sorry(parentWidget(),
-		reason, i18n("unable to open the recording device"));
+		reason, i18n("Unable to open the recording device"));
 	}
 
 	m_device_name = QString::null;
@@ -503,8 +503,8 @@ void RecordPlugin::changeSampleRate(double new_rate)
 	if ((static_cast<int>(new_rate) > 0) &&
 	    (static_cast<int>(rate) > 0) &&
 	    (static_cast<int>(new_rate) != static_cast<int>(rate)))
-	    notice(i18n("%1Hz is not supported, "\
-		        "using %2Hz", sr1, sr2));
+	    notice(i18n("%1 Hz is not supported, "\
+		        "using %2 Hz", sr1, sr2));
     }
     m_dialog->setSupportedSampleRates(supported_rates);
 
@@ -519,7 +519,7 @@ void RecordPlugin::changeSampleRate(double new_rate)
 	if ((static_cast<int>(new_rate) > 0) &&
 	    (static_cast<int>(rate) > 0) &&
 	    (static_cast<int>(new_rate) != static_cast<int>(rate)))
-	    notice(i18n("%1Hz failed, using %2Hz", sr1, sr2));
+	    notice(i18n("%1 Hz failed, using %2 Hz", sr1, sr2));
     }
     m_dialog->setSampleRate(rate);
 
@@ -561,7 +561,7 @@ void RecordPlugin::changeCompression(int new_compression)
 	if (compression != new_compression) {
 	    const QString c1(types.name(types.findFromData(new_compression)));
 	    const QString c2(types.name(types.findFromData(compression)));
-	    notice(i18n("compression '%1' not supported, using '%2'",
+	    notice(i18n("Compression '%1' not supported, using '%2'",
                         c1, c2));
 	}
     }
@@ -578,7 +578,7 @@ void RecordPlugin::changeCompression(int new_compression)
 	    const QString c1(types.name(types.findFromData(compression)));
 	    const QString c2(types.name(types.findFromData(
 	                 m_device->compression())));
-	    notice(i18n("compression %1 failed, using %2.", c1 ,c2));
+	    notice(i18n("Compression '%1' failed, using '%2'.", c1 ,c2));
 	}
     }
     m_dialog->setCompression(compression);
@@ -669,7 +669,7 @@ void RecordPlugin::changeSampleFormat(SampleFormat new_format)
 	const QString s1 = sf.name(sf.findFromData(new_format));
 	const QString s2 = sf.name(sf.findFromData(format));
 	if (!(new_format == -1) && !(new_format == format)) {
-	    notice(i18n("sample format '%1' is not supported, "\
+	    notice(i18n("Sample format '%1' is not supported, "\
 		        "using '%2'", s1, s2));
 	}
     }
@@ -685,7 +685,7 @@ void RecordPlugin::changeSampleFormat(SampleFormat new_format)
 	const QString s1 = sf.name(sf.findFromData(new_format));
 	const QString s2 = sf.name(sf.findFromData(format));
 	if (format > 0) notice(
-	    i18n("sample format '%1' failed, using '%2'", s1, s2));
+	    i18n("Sample format '%1' failed, using '%2'", s1, s2));
     }
     m_dialog->setSampleFormat(format);
 }
@@ -961,11 +961,11 @@ void RecordPlugin::recordStopped(int reason)
 	                       "number and/or size of the record buffers.");
 	    break;
 	case -EBUSY:
-	    description = i18n("The recording device seems to be busy!");
+	    description = i18n("The recording device seems to be busy.");
 	    break;
 	default:
-	    description = i18n("Reading from the recording device failed, "\
-	                       "error number = %1 (%2)", -reason,
+	    description = i18n("Reading from the recording device failed. "\
+	                       "Error number = %1 (%2)", -reason,
 			       QString::fromLocal8Bit(strerror(-reason)));
     }
     Kwave::MessageBox::error(m_dialog, description);

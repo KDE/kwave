@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Set FFT/time resolution parameters</string>
+   <string>Set FFT/Time Resolution Parameters</string>
   </property>
   <layout class="QGridLayout">
    <property name="margin">
@@ -97,10 +97,10 @@
       <item>
        <widget class="QRadioButton" name="rbColor">
         <property name="toolTip">
-         <string>use different colors for amplitude</string>
+         <string>Use different colors for amplitude</string>
         </property>
         <property name="text">
-         <string>use colors</string>
+         <string>Use colors</string>
         </property>
         <property name="checked">
          <bool>true</bool>
@@ -110,10 +110,10 @@
       <item>
        <widget class="QRadioButton" name="rbGreyScale">
         <property name="toolTip">
-         <string>use greyscale only for amplitude</string>
+         <string>Use greyscale only for amplitude</string>
         </property>
         <property name="text">
-         <string>greyscale</string>
+         <string>Greyscale</string>
         </property>
        </widget>
       </item>
@@ -123,7 +123,7 @@
    <item row="1" column="1">
     <widget class="QGroupBox" name="groupBox3">
      <property name="title">
-      <string>update</string>
+      <string>Update</string>
      </property>
      <layout class="QVBoxLayout">
       <item>
@@ -132,10 +132,10 @@
          <bool>false</bool>
         </property>
         <property name="toolTip">
-         <string>automatically update the sonagram &lt;br&gt;if the signal data has changed</string>
+         <string>Automatically update the sonagram &lt;br&gt;if the signal data has changed</string>
         </property>
         <property name="text">
-         <string>on modifications</string>
+         <string>On modifications</string>
         </property>
        </widget>
       </item>
@@ -145,10 +145,10 @@
          <bool>false</bool>
         </property>
         <property name="toolTip">
-         <string>automatically update the sonagram if the selection&lt;br&gt;has been enlarged, reduced or moved</string>
+         <string>Automatically update the sonagram if the selection&lt;br&gt;has been enlarged, reduced or moved</string>
         </property>
         <property name="text">
-         <string>follow selection</string>
+         <string>Follow selection</string>
         </property>
        </widget>
       </item>
@@ -202,7 +202,7 @@
         <item>
          <widget class="QLabel" name="Label2">
           <property name="text">
-           <string>Window Function:</string>
+           <string>Window function:</string>
           </property>
           <property name="wordWrap">
            <bool>false</bool>
@@ -243,13 +243,11 @@
         </property>
         <property name="toolTip">
          <string>Choose windowing function here.&lt;br&gt;
-If fourier transformation should stay reversible,&lt;br&gt;
-use the type &quot;None&quot;.</string>
+If fourier transformation should stay reversible, use the type &quot;None&quot;.</string>
         </property>
         <property name="whatsThis">
          <string>Choose windowing function here.&lt;br&gt;
-If fourier transformation should stay reversible,&lt;br&gt;
-use the type &quot;None&quot;.</string>
+If fourier transformation should stay reversible, use the type &quot;None&quot;.</string>
         </property>
        </widget>
       </item>
@@ -264,12 +262,12 @@ use the type &quot;None&quot;.</string>
         <property name="toolTip">
          <string>&lt;b&gt;Number of FFT points:&lt;/b&gt;&lt;p&gt;&lt;/p&gt;Try to choose numbers with small prime-factors,&lt;br&gt;
 if choosing big window sizes.&lt;br&gt;
-The computation will be much faster !</string>
+The computation will be much faster!</string>
         </property>
         <property name="whatsThis">
          <string>&lt;b&gt;Number of FFT points:&lt;/b&gt;&lt;p&gt;&lt;/p&gt;Try to choose numbers with small prime-factors,&lt;br&gt;
 if choosing big window sizes.&lt;br&gt;
-The computation will be much faster !</string>
+The computation will be much faster!</string>
         </property>
         <property name="editable">
          <bool>true</bool>

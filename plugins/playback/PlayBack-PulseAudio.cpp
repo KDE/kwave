@@ -406,7 +406,7 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
 
     // make sure that we are connected to the sound server
     if (!connectToServer()) {
-	return i18n("Connection to the PulseAudio server failed.");
+	return i18n("Connecting to the PulseAudio server failed.");
     }
 
     if (!m_device_list.contains(device)) scanDevices();
@@ -455,7 +455,7 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
     if (!name.length() && m_info.contains(INF_FILENAME)) // fallback: filename
 	name = m_info.get(INF_FILENAME).toString().toUtf8().data();
     if (!name.length()) // last resort: fixed string
-	name = i18n("playback...");
+	name = i18n("Playback...");
 
     // run with mainloop locked from here on...
     pa_threaded_mainloop_lock(m_pa_mainloop);
@@ -717,7 +717,7 @@ void PlayBackPulseAudio::scanDevices()
     i.m_driver      = QString();
     i.m_card        = -1;
     i.m_sample_spec = s;
-    list[i18n("(use server default)") + "|sound_note"] = i;
+    list[i18n("(Use server default)") + "|sound_note"] = i;
 
     foreach (QString sink, m_device_list.keys()) {
 	QString name        = m_device_list[sink].m_name;

@@ -52,7 +52,7 @@ KwaveSplash::KwaveSplash(const QString &PNGImageFileName)
 
     // get all the strings that we should display
     const KAboutData *about_data = KGlobal::mainComponent().aboutData();
-    QString version     = i18n("v%1", about_data->version());
+    QString version = i18nc("%1=Version number", "v%1", about_data->version());
 
     QFont font;
     font.setBold(true);

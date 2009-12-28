@@ -49,7 +49,8 @@
 /** target volume level [dB] */
 #define TARGET_LEVEL -12
 
-KWAVE_PLUGIN(NormalizePlugin,"normalize","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(NormalizePlugin, "normalize", "2.1",
+             I18N_NOOP("Normalizer"), "Thomas Eschenbacher");
 
 //***************************************************************************
 class GetMaxPowerJob: public ThreadWeaver::Job
@@ -158,7 +159,6 @@ void GetMaxPowerJob::run()
 NormalizePlugin::NormalizePlugin(const PluginContext &context)
     :Kwave::Plugin(context)
 {
-     i18n("Normalize");
 }
 
 //***************************************************************************

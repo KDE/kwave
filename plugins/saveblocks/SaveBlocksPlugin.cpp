@@ -37,14 +37,14 @@
 #include "SaveBlocksDialog.h"
 #include "SaveBlocksPlugin.h"
 
-KWAVE_PLUGIN(SaveBlocksPlugin,"saveblocks","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(SaveBlocksPlugin, "saveblocks", "2.1",
+             I18N_NOOP("Save Blocks"), "Thomas Eschenbacher");
 
 //***************************************************************************
 SaveBlocksPlugin::SaveBlocksPlugin(const PluginContext &c)
     :Kwave::Plugin(c), m_url(), m_pattern(), m_numbering_mode(CONTINUE),
      m_selection_only(true)
 {
-    i18n("Save Blocks");
 }
 
 //***************************************************************************

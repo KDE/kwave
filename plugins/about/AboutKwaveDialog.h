@@ -22,6 +22,9 @@
 
 #include <QObject>
 #include <QDialog>
+#include <QList>
+
+#include "libkwave/PluginManager.h"
 
 #include "ui_KwaveAboutDialogBase.h"
 
@@ -37,8 +40,14 @@ class AboutKwaveDialog: public QDialog,
     Q_OBJECT
 
 public:
-    /** Constructor */
-    AboutKwaveDialog(QWidget *parent);
+
+    /**
+     * Constructor
+     * @param parent the parent widget
+     * @param plugin_info list of plugin info structures (unsorted)
+     */
+    AboutKwaveDialog(QWidget *parent,
+        const QList<Kwave::PluginManager::PluginInfo> &plugin_info);
 
     /** Destructor */
     virtual ~AboutKwaveDialog();

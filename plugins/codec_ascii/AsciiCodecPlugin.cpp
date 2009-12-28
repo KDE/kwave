@@ -25,13 +25,13 @@
 #include "AsciiEncoder.h"
 #include "AsciiDecoder.h"
 
-KWAVE_PLUGIN(AsciiCodecPlugin,"codec_ascii","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(AsciiCodecPlugin, "codec_ascii", "2.1",
+             I18N_NOOP("ASCII Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
 AsciiCodecPlugin::AsciiCodecPlugin(const PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
 {
-    i18n("ASCII Codec");
 }
 
 /***************************************************************************/

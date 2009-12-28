@@ -61,7 +61,8 @@
 #include "PlayBackDialog.h"
 #include "PlayBackPlugin.h"
 
-KWAVE_PLUGIN(PlayBackPlugin,"playback","2.2","Thomas Eschenbacher");
+KWAVE_PLUGIN(PlayBackPlugin, "playback", "2.2",
+             I18N_NOOP("Playback"), "Thomas Eschenbacher");
 
 /** Sets the number of screen refreshes per second when in playback mode */
 #define SCREEN_REFRESHES_PER_SECOND 16
@@ -90,7 +91,6 @@ PlayBackPlugin::PlayBackPlugin(const PluginContext &context)
 
     // register as a factory for playback devices
     manager().registerPlaybackDeviceFactory(this);
-    i18n("Playback");
 }
 
 //***************************************************************************

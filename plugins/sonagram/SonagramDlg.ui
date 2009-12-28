@@ -110,10 +110,10 @@
       <item>
        <widget class="QRadioButton" name="rbGreyScale">
         <property name="toolTip">
-         <string>Use greyscale only for amplitude</string>
+         <string>Use grayscale only for amplitude</string>
         </property>
         <property name="text">
-         <string>Greyscale</string>
+         <string>Grayscale</string>
         </property>
        </widget>
       </item>
@@ -243,11 +243,11 @@
         </property>
         <property name="toolTip">
          <string>Choose windowing function here.&lt;br&gt;
-If fourier transformation should stay reversible, use the type &quot;None&quot;.</string>
+If the transformation should stay reversible, use the type &quot;None&quot;.</string>
         </property>
         <property name="whatsThis">
          <string>Choose windowing function here.&lt;br&gt;
-If fourier transformation should stay reversible, use the type &quot;None&quot;.</string>
+If the transformation should stay reversible, use the type &quot;None&quot;.</string>
         </property>
        </widget>
       </item>

@@ -19,16 +19,18 @@
 #include <errno.h>
 
 #include "libkwave/KwavePlugin.h"
+#include "libkwave/PluginManager.h"
+
 #include "AboutPlugin.h"
 #include "AboutKwaveDialog.h"
 
-KWAVE_PLUGIN(AboutPlugin,"about","2.1","Ralf Waspe & Gilles Caulier");
+KWAVE_PLUGIN(AboutPlugin, "about", "2.1",
+             I18N_NOOP("About Kwave"), "Ralf Waspe & Gilles Caulier");
 
 //***************************************************************************
 AboutPlugin::AboutPlugin(const PluginContext &c)
     :Kwave::Plugin(c)
 {
-    i18n("About");
 }
 
 //***************************************************************************
@@ -37,7 +39,10 @@ int AboutPlugin::start(QStringList& params)
     Q_UNUSED(params);
 
     // create a new "about" dialog and show it
-    AboutKwaveDialog *dlg = new AboutKwaveDialog(parentWidget());
+    AboutKwaveDialog *dlg = new AboutKwaveDialog(
+	parentWidget(),
+	manager().pluginInfoList()
+    );
     Q_ASSERT(dlg);
     if (!dlg) return ENOMEM;
     dlg->exec();

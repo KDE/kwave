@@ -30,7 +30,8 @@
 #include "NoisePlugin.h"
 #include "NoiseGenerator.h"
 
-KWAVE_PLUGIN(NoisePlugin,"noise","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(NoisePlugin, "noise", "2.1",
+             I18N_NOOP("Noise Generator"), "Thomas Eschenbacher");
 
 //***************************************************************************
 NoisePlugin::NoisePlugin(const PluginContext &context)

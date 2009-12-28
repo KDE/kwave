@@ -38,7 +38,8 @@
 #include "ReversePlugin.h"
 #include "UndoReverseAction.h"
 
-KWAVE_PLUGIN(ReversePlugin,"reverse","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(ReversePlugin, "reverse", "2.1",
+             I18N_NOOP("Reverse"), "Thomas Eschenbacher");
 
 //***************************************************************************
 class ReverseJob: public ThreadWeaver::Job
@@ -197,7 +198,6 @@ void ReverseJob::run()
 ReversePlugin::ReversePlugin(const PluginContext &context)
     :Kwave::Plugin(context)
 {
-     i18n("Reverse");
 }
 
 //***************************************************************************

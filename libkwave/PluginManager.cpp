@@ -85,7 +85,8 @@ Kwave::PluginManager::PluginDeleter::~PluginDeleter()
 
 // static initializers
 
-QMap<QString, QString> Kwave::PluginManager::m_plugin_files;
+QMap<QString, Kwave::PluginManager::PluginInfo> \
+    Kwave::PluginManager::m_found_plugins;
 
 Kwave::PluginManager::PluginList Kwave::PluginManager::m_unique_plugins;
 
@@ -154,7 +155,7 @@ void Kwave::PluginManager::loadAllPlugins()
     // Try to load all plugins. This has to be called only once per
     // instance of the main window!
     // NOTE: this also implicitely makes it resident if it is persistent or unique
-    foreach (QString name, m_plugin_files.keys()) {
+    foreach (QString name, m_found_plugins.keys()) {
 	KwavePluginPointer plugin = loadPlugin(name);
 	if (plugin) {
 // 	    QString state = "";
@@ -165,14 +166,14 @@ void Kwave::PluginManager::loadAllPlugins()
 // 		   plugin->name().toLocal8Bit().data(),
 // 		   state.toLocal8Bit().data());
 
-	    // reduce us count again, unique and persistent plugins
+	    // reduce use count again, unique and persistent plugins
 	    // stay loaded with use count 1
 	    plugin->release();
 	} else {
 	    // loading failed => remove it from the list
 	    qWarning("PluginManager::loadAllPlugins(): removing '%s' "\
 	            "from list", name.toLocal8Bit().data());
-	    m_plugin_files.remove(name);
+	    m_found_plugins.remove(name);
 	}
     }
 }
@@ -210,14 +211,14 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
     }
 
     // show a warning and abort if the plugin is unknown
-    if (!(m_plugin_files.contains(name))) {
+    if (!(m_found_plugins.contains(name))) {
 	QString message =
 	    i18n("The plugin '%1' is unknown or invalid.", name);
 	Kwave::MessageBox::error(m_parent_widget, message,
 	    i18n("Error On Loading Plugin"));
 	return 0;
     }
-    QString &filename = m_plugin_files[name];
+    QString &filename = m_found_plugins[name].m_filename;
 
     // try to get the file handle of the plugin's binary
     void *handle = dlopen(filename.toLocal8Bit(), RTLD_NOW);
@@ -706,7 +707,7 @@ void Kwave::PluginManager::setSignalName(const QString &name)
 //***************************************************************************
 void Kwave::PluginManager::findPlugins()
 {
-    if (!m_plugin_files.isEmpty()) {
+    if (!m_found_plugins.isEmpty()) {
 	// this is not the first call -> bail out
 	return;
     }
@@ -726,17 +727,26 @@ void Kwave::PluginManager::findPlugins()
 		static_cast<const char **>(dlsym(handle, "name"));
 	    const char **version =
 		static_cast<const char **>(dlsym(handle, "version"));
+	    const char **description =
+		static_cast<const char **>(dlsym(handle, "description"));
 	    const char **author  =
 		static_cast<const char **>(dlsym(handle, "author"));
 
 	    // skip it if something is missing or null
-	    if (!name || !version || !author) continue;
-	    if (!*name || !*version || !*author) continue;
+	    if (!name || !version || !author || !description) continue;
+	    if (!*name || !*version || !*author || !*description) continue;
 
 	    emit sigProgress(i18n("Loading plugin %1...", *name));
 	    QApplication::processEvents();
 
-	    m_plugin_files.insert(*name, file);
+	    PluginInfo info;
+	    info.m_filename    = file;
+	    info.m_author      = QString::fromUtf8(*author);
+	    info.m_description = i18n(*description);
+	    info.m_version     = QString::fromUtf8(*version);
+
+	    m_found_plugins.insert(*name, info);
+
 	    qDebug("%16s %5s written by %s",
 		*name, *version, *author);
 
@@ -747,7 +757,14 @@ void Kwave::PluginManager::findPlugins()
 	}
     }
 
-    qDebug("--- \n found %d plugins\n", m_plugin_files.count());
+    qDebug("--- \n found %d plugins\n", m_found_plugins.count());
+}
+
+//***************************************************************************
+const QList<Kwave::PluginManager::PluginInfo>
+    Kwave::PluginManager::pluginInfoList() const
+{
+    return m_found_plugins.values();
 }
 
 //***************************************************************************

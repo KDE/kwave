@@ -23,13 +23,13 @@
 #include "WavEncoder.h"
 #include "WavDecoder.h"
 
-KWAVE_PLUGIN(WavCodecPlugin,"codec_wav","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(WavCodecPlugin, "codec_wav", "2.1",
+             I18N_NOOP("WAV Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
 WavCodecPlugin::WavCodecPlugin(const PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
 {
-    i18n("WAV Codec");
 }
 
 /***************************************************************************/

@@ -25,13 +25,13 @@
 #include "FileInfoDialog.h"
 #include "FileInfoPlugin.h"
 
-KWAVE_PLUGIN(FileInfoPlugin,"fileinfo","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(FileInfoPlugin, "fileinfo", "2.1",
+             I18N_NOOP("File Info"), "Thomas Eschenbacher");
 
 //***************************************************************************
 FileInfoPlugin::FileInfoPlugin(const PluginContext &context)
     :Kwave::Plugin(context)
 {
-    i18n("File Info");
 }
 
 //***************************************************************************

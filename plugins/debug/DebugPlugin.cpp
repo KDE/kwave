@@ -23,7 +23,8 @@
 
 #include "DebugPlugin.h"
 
-KWAVE_PLUGIN(DebugPlugin,"debug","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(DebugPlugin, "debug", "2.1",
+             I18N_NOOP("Debug Functions"), "Thomas Eschenbacher");
 
 /** size of the internal buffer */
 #define BUFFER_SIZE (64 * 1024)
@@ -36,7 +37,6 @@ KWAVE_PLUGIN(DebugPlugin,"debug","2.1","Thomas Eschenbacher");
 DebugPlugin::DebugPlugin(const PluginContext &context)
     :Kwave::Plugin(context), m_buffer()
 {
-     i18n("Debug");
 }
 
 //***************************************************************************

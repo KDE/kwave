@@ -39,14 +39,14 @@
 
 #include "SampleRatePlugin.h"
 
-KWAVE_PLUGIN(SampleRatePlugin,"samplerate","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(SampleRatePlugin, "samplerate", "2.1",
+             I18N_NOOP("Sample Rate Conversion"), "Thomas Eschenbacher");
 
 //***************************************************************************
 SampleRatePlugin::SampleRatePlugin(const PluginContext &context)
     :Kwave::Plugin(context), m_params(), m_new_rate(0.0),
      m_whole_signal(false)
 {
-     i18n("Change Sample Rate");
 }
 
 //***************************************************************************

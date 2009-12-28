@@ -44,21 +44,24 @@ namespace Kwave { class PluginWorkerThread; }
 namespace Kwave { class Plugin; }
 namespace Kwave { class PluginManager; }
 
-#define KWAVE_PLUGIN(class_name,plugin_name,__version__,author_name)         \
+#define KWAVE_PLUGIN(__class__,__name__,__version__,                         \
+                     __description__,__author__)                             \
                                                                              \
     extern "C" Kwave::Plugin *load(const PluginContext *c) KDE_EXPORT;       \
     extern "C" const char    *name                         KDE_EXPORT;       \
-    extern "C" const char    *author                       KDE_EXPORT;       \
     extern "C" const char    *version                      KDE_EXPORT;       \
+    extern "C" const char    *description                  KDE_EXPORT;       \
+    extern "C" const char    *author                       KDE_EXPORT;       \
                                                                              \
     extern "C" Kwave::Plugin *load(const PluginContext *c) {                 \
-	class_name *np = (c) ? new class_name(*c) : 0;                       \
+	__class__ *np = (c) ? new __class__(*c) : 0;                         \
 	return np;                                                           \
     }                                                                        \
                                                                              \
-    const char *name    = plugin_name;                                       \
-    const char *author  = author_name;                                       \
-    const char *version = __version__
+    const char *name        = __name__;                                      \
+    const char *version     = __version__;                                   \
+    const char *description = __description__;                               \
+    const char *author      = __author__
 
 namespace Kwave {
 

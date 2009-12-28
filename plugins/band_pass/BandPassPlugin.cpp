@@ -28,7 +28,8 @@
 #include "BandPassPlugin.h"
 #include "BandPassDialog.h"
 
-KWAVE_PLUGIN(BandPassPlugin,"band_pass","2.1","Dave Flogeras");
+KWAVE_PLUGIN(BandPassPlugin, "band_pass", "2.1",
+             I18N_NOOP("Band Pass Filter"), "Dave Flogeras");
 
 //***************************************************************************
 BandPassPlugin::BandPassPlugin(const PluginContext &context)

@@ -206,6 +206,17 @@ namespace Kwave {
 	 */
 	void unregisterPlaybackDeviceFactory(PlaybackDeviceFactory *factory);
 
+	/** structure with information about a plugin */
+	typedef struct  {
+	    QString m_filename;    /**< name of the file           */
+	    QString m_author;      /**< name of the author         */
+	    QString m_description; /**< verbose name / description */
+	    QString m_version;     /**< plugin API version         */
+	} PluginInfo;
+
+	/** returns a list with info of all known plugins */
+	const QList<PluginInfo> pluginInfoList() const;
+
     signals:
 
 	/**
@@ -333,8 +344,13 @@ namespace Kwave {
 	/** connects all signals from and to a plugin */
 	void disconnectPlugin(Kwave::Plugin *plugin);
 
-	/** map for finding plugin files through their name */
-	static QMap<QString, QString> m_plugin_files;
+    private:
+
+	/**
+	 * map with plugin information: key = short name of the plugin,
+	 * data = plugin info (description, author, version etc...)
+	 */
+	static QMap<QString, PluginInfo> m_found_plugins;
 
 	/** list of own loaded plugins */
 	PluginList m_loaded_plugins;

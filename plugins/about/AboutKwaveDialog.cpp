@@ -16,8 +16,8 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <dlfcn.h>
 
+#include <QtAlgorithms>
 #include <QList>
 #include <QListIterator>
 #include <QHBoxLayout>
@@ -39,7 +39,18 @@
 #include "LogoWidget.h"
 
 //***************************************************************************
-AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
+static bool pluginInfoDescriptionLessThan(
+    const Kwave::PluginManager::PluginInfo &info1,
+    const Kwave::PluginManager::PluginInfo &info2)
+{
+    return info1.m_description.toLower() < info2.m_description.toLower();
+}
+
+//***************************************************************************
+AboutKwaveDialog::AboutKwaveDialog(
+    QWidget *parent,
+    const QList<Kwave::PluginManager::PluginInfo> &plugin_info
+)
     :QDialog(parent), Ui::KwaveAboutDialogBase()
 {
     setupUi(this);
@@ -90,37 +101,15 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
     pluginsinfo->setItemsExpandable(false);
     pluginsinfo->setRootIsDecorated(false);
 
-    KStandardDirs dirs;
-    QStringList files = dirs.findAllResources("module",
-	    "plugins/kwave/*", KStandardDirs::NoDuplicates);
-
-    /* fallback: search also in the old location (useful for developers) */
-    files += dirs.findAllResources("data",
-	    "kwave/plugins/*", KStandardDirs::NoDuplicates);
-
-    QStringList::Iterator it_file;
     QList<QTreeWidgetItem *> plugins;
-    foreach (QString file, files) {
-	void *handle = dlopen(file.toLocal8Bit(), RTLD_NOW);
-	if (handle) {
-	    const char **name    =
-		static_cast<const char **>(dlsym(handle, "name"));
-	    const char **version =
-		static_cast<const char **>(dlsym(handle, "version"));
-	    const char **author  =
-		static_cast<const char **>(dlsym(handle, "author"));
 
-	    // skip it if something is missing or null
-	    if (!name || !version || !author) continue;
-	    if (!*name || !*version || !*author) continue;
-
-	    QStringList item;
-	    item << i18n(*name) << *version << *author;
-	    plugins.append(new QTreeWidgetItem(
-		static_cast<QTreeWidget *>(0), item));
-
-	    dlclose (handle);
-        }
+    QList<Kwave::PluginManager::PluginInfo> list = plugin_info;
+    qSort(list.begin(), list.end(), pluginInfoDescriptionLessThan);
+    foreach (const Kwave::PluginManager::PluginInfo &info, list) {
+	QStringList item;
+	item << info.m_description << info.m_version << info.m_author;
+	plugins.append(new QTreeWidgetItem(
+	    static_cast<QTreeWidget *>(0), item));
     }
     pluginsinfo->insertTopLevelItems(0, plugins);
 

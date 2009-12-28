@@ -190,7 +190,7 @@ playback. Depending on the compilation options you can select one of the followi
            <string>Size of the playback buffer in bytes</string>
           </property>
           <property name="whatsThis">
-           <string>&lt;b&gt;Buffer size:&lt;/b&gt;&lt;p&gt;Select a buffer size for the playback. You should set this numer as small as possible to reduce the playback latency. The latency is the delay between user interface actions like starting/stopping playback, update of the playback position and the real sound output. If you encounter dropouts you should increase this setting a bit.&lt;/p&gt;</string>
+           <string>&lt;b&gt;Buffer size:&lt;/b&gt;&lt;p&gt;Select a buffer size for the playback. You should set this number as small as possible to reduce the playback latency. The latency is the delay between user interface actions like starting/stopping playback, update of the playback position and the real sound output. If you encounter dropouts you should increase this setting a bit.&lt;/p&gt;</string>
           </property>
           <property name="minimum">
            <number>8</number>

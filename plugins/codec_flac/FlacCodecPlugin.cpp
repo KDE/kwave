@@ -25,13 +25,13 @@
 #include "FlacEncoder.h"
 #include "FlacDecoder.h"
 
-KWAVE_PLUGIN(FlacCodecPlugin,"codec_flac","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(FlacCodecPlugin, "codec_flac", "2.1",
+             I18N_NOOP("FLAC Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
 FlacCodecPlugin::FlacCodecPlugin(const PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
 {
-    i18n("FLAC Codec");
 }
 
 /***************************************************************************/

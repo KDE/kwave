@@ -22,13 +22,13 @@
 #include "MP3DecoderPlugin.h"
 #include "MP3Decoder.h"
 
-KWAVE_PLUGIN(MP3DecoderPlugin,"decoder_mp3","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(MP3DecoderPlugin, "decoder_mp3", "2.1",
+             I18N_NOOP("MP3 Decoder"), "Thomas Eschenbacher");
 
 /***************************************************************************/
 MP3DecoderPlugin::MP3DecoderPlugin(const PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0)
 {
-    i18n("MP3 Decoder");
 }
 
 /***************************************************************************/

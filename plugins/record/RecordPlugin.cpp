@@ -53,7 +53,8 @@
 #include "Record-ALSA.h"
 #include "Record-OSS.h"
 
-KWAVE_PLUGIN(RecordPlugin,"record","2.2","Thomas Eschenbacher");
+KWAVE_PLUGIN(RecordPlugin, "record", "2.2",
+             I18N_NOOP("Record"), "Thomas Eschenbacher");
 
 //***************************************************************************
 RecordPlugin::RecordPlugin(const PluginContext &context)
@@ -63,7 +64,6 @@ RecordPlugin::RecordPlugin(const PluginContext &context)
      m_writers(0), m_buffers_recorded(0), m_inhibit_count(0),
      m_trigger_value()
 {
-    i18n("Record");
 }
 
 //***************************************************************************

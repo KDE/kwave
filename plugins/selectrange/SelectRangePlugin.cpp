@@ -30,14 +30,14 @@
 #include "SelectRangePlugin.h"
 #include "SelectRangeDialog.h"
 
-KWAVE_PLUGIN(SelectRangePlugin,"selectrange","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(SelectRangePlugin, "selectrange", "2.1",
+             I18N_NOOP("Select Range"), "Thomas Eschenbacher");
 
 //***************************************************************************
 SelectRangePlugin::SelectRangePlugin(const PluginContext &c)
     :Kwave::Plugin(c), m_start_mode(SelectTimeWidget::bySamples),
      m_range_mode(SelectTimeWidget::bySamples), m_range(0)
 {
-     i18n("Select Range");
 }
 
 //***************************************************************************

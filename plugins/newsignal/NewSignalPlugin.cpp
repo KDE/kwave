@@ -23,14 +23,14 @@
 #include "NewSignalPlugin.h"
 #include "NewSignalDialog.h"
 
-KWAVE_PLUGIN(NewSignalPlugin,"newsignal","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(NewSignalPlugin, "newsignal", "2.1",
+             I18N_NOOP("New Signal"), "Thomas Eschenbacher");
 
 //***************************************************************************
 NewSignalPlugin::NewSignalPlugin(const PluginContext &context)
     :Kwave::Plugin(context), m_samples(2646000), m_rate(44100),
     m_bits(16), m_tracks(2), m_bytime(true)
 {
-    i18n("newsignal");
 }
 
 //***************************************************************************

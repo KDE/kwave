@@ -37,9 +37,9 @@ void FileInfo::PropertyTypesMap::fill()
              "that consist of more medias."));
     append(INF_ANNOTATION, 0,
         I18N_NOOP("Annotation"),
-        i18n("Provides general comments about the file or the subject of \n"
-             "the file. If the comment is several sentences long, end \n"
-             "each sentence with a period. Do not include newline \n"
+        i18n("Provides general comments about the file or the subject of\n"
+             "the file. If the comment is several sentences long, end\n"
+             "each sentence with a period. Do not include newline\n"
              "characters!"));
     append(INF_ARCHIVAL, 0,
         I18N_NOOP("Archival location"),
@@ -60,7 +60,7 @@ void FileInfo::PropertyTypesMap::fill()
         i18n("Specifies the upper limit in a VBR bitstream."));
     append(INF_CD, 0,
         I18N_NOOP("CD"),
-        i18n("Number of the CD, if the source is \nan album of more CDROMs"));
+        i18n("Number of the CD, if the source is\nan album of more CDROMs"));
     append(INF_COMMISSIONED, 0,
         I18N_NOOP("Commisioned"),
         i18n("Lists the name of the person or organization\n"
@@ -84,16 +84,15 @@ void FileInfo::PropertyTypesMap::fill()
         I18N_NOOP("Copyright"),
         i18n("Records the copyright information for the file. If there are\n"
              "multiple copyrights, separate them by a semicolon followed\n"
-             "by a space."
-             "\nExample: 'Copyright Linux community 2002'"));
+             "by a space.\n"
+             "Example: 'Copyright Linux community 2002'"));
     append(INF_COPYRIGHTED, 0,
         I18N_NOOP("Copyrighted"),
-        i18n("Indicates whether the file is protected by "
-             "copyright or not."));
+        i18n("Indicates whether the file is protected by copyright or not."));
     append(INF_CREATION_DATE, 0,
         I18N_NOOP("Date"),
-        i18n("Specifies the date the subject of the file was created. "
-             "\nExample: '2001-12-24'"));
+        i18n("Specifies the date the subject of the file was created.\n"
+             "Example: '2001-12-24'"));
     append(INF_ENGINEER, 0,
         I18N_NOOP("Engineer"),
         i18n("Shows the name of the engineer who worked on the file.\n"
@@ -107,8 +106,8 @@ void FileInfo::PropertyTypesMap::fill()
         i18n("Size of the file in bytes"));
     append(INF_GENRE, 0,
         I18N_NOOP("Genre"),
-        i18n("Describes the genre or style of the original work."
-             "\nExamples: 'classic', 'pop'"));
+        i18n("Describes the genre or style of the original work.\n"
+             "Examples: 'classic', 'pop'"));
     append(INF_ISRC, FP_READONLY,
         I18N_NOOP("ISRC"),
         i18n("ISRC number for the track; see the ISRC intro page\n"
@@ -120,20 +119,20 @@ void FileInfo::PropertyTypesMap::fill()
              "file or subject of the file."));
     append(INF_LABELS, FP_INTERNAL,
         I18N_NOOP("Labels"),
-        i18n("The list ob labels / markers."));
+        i18n("The list of labels/markers."));
     append(INF_LICENSE, 0,
         I18N_NOOP("License"),
-        i18n("License information, eg, 'All Rights Reserved',\n"
-             "'Any Use Permitted', a URL to a license or the\n"
+        i18n("License information, e.g., 'All Rights Reserved',\n"
+             "'Any Use Permitted', an URL to a license or the\n"
              "EFF Open Audio License ('distributed under the\n"
              "terms of the Open Audio License.\n"
-             "see http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
+             "See http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
              "for details'), etc."));
     append(INF_MEDIUM, 0,
         I18N_NOOP("Medium"),
         i18n("Describes the original subject of the file,\n"
-             "where it was first recorded."
-             "\nExample: 'orchester'"));
+             "where it was first recorded.\n"
+             "Example: 'orchester'"));
     append(INF_MIMETYPE, FP_READONLY | FP_INTERNAL | FP_NO_LOAD_SAVE,
         I18N_NOOP("Mime Type"),
         i18n("Mime type of the file format"));
@@ -151,8 +150,8 @@ void FileInfo::PropertyTypesMap::fill()
         i18n("MPEG Version, 1, 2 or 2.5"));
     append(INF_NAME, 0,
         I18N_NOOP("Name"),
-        i18n("Stores the title of the subject of the file."
-             "\nExample: 'Symphony No.6, Op.68 \"Pastoral\"'"));
+        i18n("Stores the title of the subject of the file.\n"
+             "Example: \"Symphony No.6, Op.68 'Pastoral'\""));
     append(INF_ORGANIZATION, 0,
         I18N_NOOP("Organization"),
         i18n("Name of the organization producing the track\n"
@@ -170,37 +169,37 @@ void FileInfo::PropertyTypesMap::fill()
         i18n("Indicates whether the subject is private"));
     append(INF_PRODUCT, 0,
         I18N_NOOP("Product"),
-        i18n("Specifies the name or the title the file was\n"
-             "originally intended for."
-             "\nExample: 'Linux audio collection'"));
+        i18n("Specifies the name or the title the\n"
+             "file was originally intended for.\n"
+             "Example: 'Linux audio collection'"));
     append(INF_SAMPLE_FORMAT, FP_INTERNAL | FP_NO_LOAD_SAVE,
         I18N_NOOP("Sample Format"),
-        i18n("Format used for storing the digitized audio samples."
-             "\nExample: '32-bit IEEE floating-point'"));
+        i18n("Format used for storing the digitized audio samples.\n"
+             "Example: '32-bit IEEE floating-point'"));
     append(INF_SOFTWARE, 0,
         I18N_NOOP("Software"),
         i18n("Identifies the name of the software package\n"
-             "used to create the file. "
-             "\nExample: 'Kwave v0.6.4-1'"));
+             "used to create the file.\n"
+             "Example: 'Kwave v0.6.4-1'"));
     append(INF_SOURCE, 0,
         I18N_NOOP("Source"),
         i18n("Identifies the name of the person or organization\n"
-             "who supplied the original subject of the file."
-             "\nExample: 'Chaotic Sound Research'"));
+             "who supplied the original subject of the file.\n"
+             "Example: 'Chaotic Sound Research'"));
     append(INF_SOURCE_FORM, 0,
         I18N_NOOP("Source form"),
-        i18n("Identifies the original form of the material\n"
-             "that was digitized."
-             "\nExamples: 'Record/Vinyl/90RPM', 'Audio DAT', "
+        i18n("Identifies the original form of\n"
+             "the material that was digitized.\n"
+             "Examples: 'Record/Vinyl/90RPM', 'Audio DAT', "
              "'tape/CrO2/60min'"));
     append(INF_SUBJECT, 0,
         I18N_NOOP("Subject"),
-        i18n("Describes the subject of the file."
-             "\nExample: 'Bird voices at early morning'"));
+        i18n("Describes the subject of the file.\n"
+             "Example: 'Bird voices at early morning'"));
     append(INF_TECHNICAN, 0,
         I18N_NOOP("Technican"),
-        i18n("Identifies the technican who digitized the subject file. "
-             "\nExample: 'Torvalds, Linus'"));
+        i18n("Identifies the technican who digitized the subject file.\n"
+             "Example: 'Torvalds, Linus'"));
     append(INF_TRACK, 0,
         I18N_NOOP("Track"),
         i18n("Track of the CD if the source was a CDROM."));

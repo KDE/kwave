@@ -24,13 +24,13 @@
 #include "OggEncoder.h"
 #include "OggDecoder.h"
 
-KWAVE_PLUGIN(OggCodecPlugin,"codec_ogg","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(OggCodecPlugin, "codec_ogg", "2.1",
+             I18N_NOOP("Ogg Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
 OggCodecPlugin::OggCodecPlugin(const PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
 {
-    i18n("codec_ogg");
 }
 
 /***************************************************************************/

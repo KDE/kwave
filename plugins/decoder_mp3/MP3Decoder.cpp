@@ -41,15 +41,15 @@ MP3Decoder::MP3Decoder()
      m_parent_widget(0)
 {
     /* included in KDE: */
-    addMimeType("audio/x-mpga",   i18n("MPEG layer1 audio"),
+    addMimeType("audio/x-mpga",   i18n("MPEG layer I audio"),
                 "*.mpga *.mpg *.mp1");
-    addMimeType("audio/x-mp2",    i18n("MPEG layer2 audio"), "*.mp2");
-    addMimeType("audio/x-mp3",    i18n("MPEG layer3 audio"), "*.mp3");
+    addMimeType("audio/x-mp2",    i18n("MPEG layer II audio"), "*.mp2");
+    addMimeType("audio/x-mp3",    i18n("MPEG layer III audio"), "*.mp3");
 
     /* like defined in RFC3003 */
     addMimeType("audio/mpeg",     i18n("MPEG audio"), "*.mpga *.mpg *.mp1");
-    addMimeType("audio/mpeg",     i18n("MPEG layer2 audio"), "*.mp2");
-    addMimeType("audio/mpeg",     i18n("MPEG layer3 audio"), "*.mp3");
+    addMimeType("audio/mpeg",     i18n("MPEG layer II audio"), "*.mp2");
+    addMimeType("audio/mpeg",     i18n("MPEG layer III audio"), "*.mp3");
 
     // NOTE: all mime types above should be recognized in the
     //       fileinfo plugin!
@@ -407,8 +407,8 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
     const Mp3_Headerinfo *mp3hdr = tag.GetMp3HeaderInfo();
     if (!mp3hdr) {
 	Kwave::MessageBox::sorry(widget,
-	    i18n("The opened file is no MPEG file or is damaged.\n"
-	    "No header information has been found..."));
+	    i18n("The opened file is no MPEG file or it is damaged.\n"
+	    "No header information has been found."));
 	return false;
     }
 
@@ -474,13 +474,13 @@ enum mad_flow MP3Decoder::handleError(void */*data*/,
 	case MAD_ERROR_BUFLEN:
 	case MAD_ERROR_BUFPTR:
 	case MAD_ERROR_NOMEM:
-		error = i18n("out of memory");
+		error = i18n("Out of memory");
 		break;
 	case MAD_ERROR_BADCRC:
-		error = i18n("checksum error");
+		error = i18n("Checksum error");
 		break;
 	case MAD_ERROR_LOSTSYNC:
-		error = i18n("synchronization lost");
+		error = i18n("Synchronization lost");
 		break;
 	case MAD_ERROR_BADLAYER:
 	case MAD_ERROR_BADBITRATE:
@@ -497,10 +497,10 @@ enum mad_flow MP3Decoder::handleError(void */*data*/,
 	case MAD_ERROR_BADHUFFTABLE:
 	case MAD_ERROR_BADHUFFDATA:
 	case MAD_ERROR_BADSTEREO:
-		error = i18n("file contains invalid data");
+		error = i18n("File contains invalid data");
 		break;
 	default:
-		error = i18n("unknown error 0x%X. damaged file?",
+		error = i18n("Unknown error 0x%X. Damaged file?",
 		static_cast<int>(stream->error));
     }
 

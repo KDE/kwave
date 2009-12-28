@@ -276,14 +276,14 @@ bool FlacDecoder::open(QWidget *widget, QIODevice &src)
     FLAC__StreamDecoderInitStatus init_state = init();
     if (init_state > FLAC__STREAM_DECODER_INIT_STATUS_OK) {
         Kwave::MessageBox::error(widget, i18n(
-           "opening the FLAC bitstream failed."));
+           "Opening the FLAC bitstream failed."));
         return false;
     }
 #else /* API v1.1.2 and older */
     FLAC::Decoder::Stream::State init_state = init();
     if (init_state >= FLAC__STREAM_DECODER_END_OF_STREAM) {
         Kwave::MessageBox::error(widget, i18n(
-           "opening the FLAC bitstream failed."));
+           "Opening the FLAC bitstream failed."));
         return false;
     }
 #endif
@@ -294,7 +294,7 @@ bool FlacDecoder::open(QWidget *widget, QIODevice &src)
     FLAC::Decoder::Stream::State state = get_state();
     if (state >= FLAC__STREAM_DECODER_END_OF_STREAM) {
 	Kwave::MessageBox::error(widget, i18n(
-	   "error while parsing FLAC metadata. (%s)"),
+	   "Error while parsing the FLAC metadata. (%s)"),
 	   state.as_cstring());
 	return false;
     }

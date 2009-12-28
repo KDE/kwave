@@ -37,7 +37,8 @@
 #include "VolumePlugin.h"
 #include "VolumeDialog.h"
 
-KWAVE_PLUGIN(VolumePlugin,"volume","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(VolumePlugin, "volume", "2.1",
+             I18N_NOOP("Volume"), "Thomas Eschenbacher");
 
 //***************************************************************************
 VolumePlugin::VolumePlugin(const PluginContext &context)
@@ -127,7 +128,7 @@ void VolumePlugin::run(QStringList params)
     if (!selection(&tracks, &first, &last, true) || tracks.isEmpty())
 	return;
 
-    UndoTransactionGuard undo_guard(*this, i18n("volume"));
+    UndoTransactionGuard undo_guard(*this, i18n("Volume"));
 
     // create all objects
     MultiTrackReader source(Kwave::SinglePassForward,

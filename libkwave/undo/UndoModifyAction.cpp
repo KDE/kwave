@@ -44,7 +44,7 @@ UndoModifyAction::~UndoModifyAction()
 //***************************************************************************
 QString UndoModifyAction::description()
 {
-    return i18n("modify samples");
+    return i18n("Modify Samples");
 }
 
 //***************************************************************************

@@ -28,7 +28,8 @@
 #include "BandPassPlugin.h"
 #include "BandPassDialog.h"
 
-KWAVE_PLUGIN(BandPassPlugin,"band_pass","2.1","Dave Flogeras");
+KWAVE_PLUGIN(BandPassPlugin, "band_pass", "2.1",
+             I18N_NOOP("Band Pass Filter"), "Dave Flogeras");
 
 //***************************************************************************
 BandPassPlugin::BandPassPlugin(const PluginContext &context)
@@ -117,7 +118,7 @@ void BandPassPlugin::updateFilter(Kwave::SampleSource *filter,
 //***************************************************************************
 QString BandPassPlugin::actionName()
 {
-    return i18n("band_pass");
+    return i18n("Band Pass");
 }
 
 //***************************************************************************

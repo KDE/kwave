@@ -336,8 +336,8 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     {
 	qWarning("compression mode %d not supported!", compression);
 	int what_now = Kwave::MessageBox::warningYesNoCancel(widget,
-	    i18n("Sorry, the currently selected compression type can "
-	         "not be used for saving. Do you want to use "
+	    i18n("Sorry, the currently selected compression type cannot "
+	         "be used for saving. Do you want to use "
 	         "G711 ULAW compression instead?"), QString(),
 	    i18n("&Yes, use G711"),
 	    i18n("&No, store uncompressed")
@@ -408,27 +408,27 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
 	switch (outfile.lastError()) {
 	    case AF_BAD_NOT_IMPLEMENTED:
-	        reason = i18n("format or function is not implemented") /*+
+	        reason = i18n("Format or function is not implemented") /*+
 		         "\n("+format_name+")"*/;
 	        break;
 	    case AF_BAD_MALLOC:
-	        reason = i18n("out of memory");
+	        reason = i18n("Out of memory");
 	        break;
 	    case AF_BAD_HEADER:
-	        reason = i18n("file header is damaged");
+	        reason = i18n("File header is damaged");
 	        break;
 	    case AF_BAD_CODEC_TYPE:
-	        reason = i18n("invalid codec type")/* +
+	        reason = i18n("Invalid codec type")/* +
 		         "\n("+format_name+")"*/;
 	        break;
 	    case AF_BAD_OPEN:
-	        reason = i18n("opening the file failed");
+	        reason = i18n("Opening the file failed");
 	        break;
 	    case AF_BAD_READ:
-	        reason = i18n("read access failed");
+	        reason = i18n("Read access failed");
 	        break;
 	    case AF_BAD_SAMPFMT:
-	        reason = i18n("invalid sample format");
+	        reason = i18n("Invalid sample format");
 	        break;
 	    default:
 		reason = reason.number(outfile.lastError());

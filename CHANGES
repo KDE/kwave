@@ -1,4 +1,12 @@
 
+0.8.6  [2010-??-??]
+
+ * bugfix: copy/paste with partial track selection failed
+ * string/i18n update from Panagiotis Papadopoulos
+ * bugfix: invocation of xgettext was wrong, left untranslated strings
+ * plugin API change: support for translateable short description
+ * about plugin: use plugin info from PluginManager
+
 0.8.5  [2009-12-24]
 
  * new feature: playback via PulseAudio

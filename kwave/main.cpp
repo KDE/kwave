@@ -39,27 +39,27 @@ void addDataStrings(KAboutData &aboutdata)
 {
     //Developers
     aboutdata.addAuthor(ki18n("Thomas Eschenbacher"),
-                     ki18n("project leader since 2000, core development"),
+                     ki18n("Project leader since 2000, core development"),
                      "Thomas.Eschenbacher@gmx.de",
                      "http://kwave.sourceforge.net");
     aboutdata.addAuthor(ki18n("Martin Wilz"),
-                     ki18n("creator of the project, development 1998-2000"),
+                     ki18n("Creator of the project, development 1998-2000"),
                      "martin@wilz.de",
                      "http://www.wilz.de");
     aboutdata.addAuthor(ki18n("Ralf Waspe"),
-                     ki18n("creator of the Help/About dialog"),
+                     ki18n("Creator of the Help/About dialog"),
                      "rwaspe@web.de",
                      0);
     aboutdata.addAuthor(ki18n("Caulier Gilles"),
-                     ki18n("french translations, splashscreen, tests and bugfixes"),
+                     ki18n("French translations, splashscreen, tests and bugfixes"),
                      "caulier.gilles@free.fr",
                      "http://caulier.gilles.free.fr");
     aboutdata.addAuthor(ki18n("Dave Flogeras"),
-                     ki18n("notch filter plugin"),
+                     ki18n("Notch filter plugin"),
                      "d.flogeras@unb.ca",
                      0);
     aboutdata.addAuthor(ki18n("Rik Hemsley"),
-                     ki18n("level meter"),
+                     ki18n("Level meter"),
                      "rik@kde.org",
                      "http://rikkus.info/esoundlevelmeter.html");
 
@@ -69,53 +69,57 @@ void addDataStrings(KAboutData &aboutdata)
 
     // people who helped
     aboutdata.addCredit(ki18n("Stefan Westerfeld"),
-                     ki18n("author of aRts"),
+                     ki18n("Author of aRts"),
                      "stefan@space.twc.de",
                      0);
     aboutdata.addCredit(ki18n("Sven-Steffen Arndt"),
-                     ki18n("Kwave homepage and german online help"),
+                     ki18n("Kwave homepage and German online help"),
                      "ssa29@gmx.de",
                      0);
     aboutdata.addCredit(ki18n("Aurelien Jarno"),
-                     ki18n("debian packager"),
+                     ki18n("Debian packager"),
                      "aurel32@debian.org",
                      0);
     aboutdata.addCredit(ki18n("Robert M. Stockmann"),
-                     ki18n("packaging for Mandrake / X86_64"),
+                     ki18n("Packaging for Mandrake / X86_64"),
                      "stock@stokkie.net",
                      0);
 //     aboutdata.addCredit(ki18n("Jorge Luis Arzola"),
-//                      ki18n("packaging for SuSE Linux"),
+//                      ki18n("Packaging for SuSE Linux"),
 //                      "arzolacub@gmx.de",
 //                      0);
     aboutdata.addCredit(ki18n("Diederick de Vries"),
-                     ki18n("packaging for Crux Linux"),
+                     ki18n("Packaging for Crux Linux"),
                      "diederick76@gmail.com",
                      "http://crux.nu/portdb/?command=viewport&repo=diederick&name=kwave");
     aboutdata.addCredit(ki18n("Martin Kuball"),
-                     ki18n("tester"),
+                     ki18n("Tester"),
                      "makube@user.sourceforge.net",
                      0);
     aboutdata.addCredit(ki18n("Robert Leslie"),
-                     ki18n("author of the 'mad' mp3 decoder library"),
+                     ki18n("Author of the 'mad' MP3 decoder library"),
                      "rob@mars.org",
                      "http://www.mars.org/home/rob/proj/mpeg");
     aboutdata.addCredit(ki18n("T.H.F. Klok and Cedric Tefft"),
-                     ki18n("maintainers of the 'id3lib' library"),
+                     ki18n("Maintainers of the 'id3lib' library"),
                      0,
                      "http://www.id3lib.org/");
     aboutdata.addCredit(ki18n("Michael Pruett"),
-                     ki18n("author of the 'audiofile' library"),
+                     ki18n("Author of the 'audiofile' library"),
                      "mpruett@sgi.com",
                      "http://oss.sgi.com/projects/audiofile/");
     aboutdata.addCredit(ki18n("Erik de Castro Lopo"),
-                     ki18n("author of the 'sndfile' library"),
+                     ki18n("Author of the 'sndfile' library"),
                      "erikd@zip.com.au",
                      "http://www.zip.com.au/~erikd/libsndfile/");
     aboutdata.addCredit(ki18n("Pavel Fric"),
-                     ki18n("czech translation"),
+                     ki18n("Czech translation"),
                      "pavelfric@seznam.cz",
                      "http://fripohled.blogspot.com");
+    aboutdata.addCredit(ki18n("Panagiotis Papadopoulos"),
+                     ki18n("String and i18n updates"),
+                     "pano_90@gmx.net",
+                     0);
 
 }
 
@@ -127,13 +131,13 @@ int main( int argc, char **argv )
 {
     static KCmdLineOptions options;
 
-    options.add("!+files", ki18n("List of wav files."), 0 );
+    options.add("!+files", ki18n("List of WAV files"), 0 );
 
     KAboutData about(
 	PACKAGE, "",
 	ki18n("Kwave"),
 	PACKAGE_VERSION,
-	ki18n("a sound editor for KDE"),
+	ki18n("A sound editor for KDE"),
 	KAboutData::License_GPL_V2,
         ki18n("(c) 2006, Thomas Eschenbacher"),
 	ki18n(0),

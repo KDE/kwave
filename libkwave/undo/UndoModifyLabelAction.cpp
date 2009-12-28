@@ -48,7 +48,7 @@ void UndoModifyLabelAction::setLastPosition(unsigned int pos)
 //***************************************************************************
 QString UndoModifyLabelAction::description()
 {
-    return i18n("modify label");
+    return i18n("Modify Label");
 }
 
 //***************************************************************************

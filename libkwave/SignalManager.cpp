@@ -296,7 +296,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 
     if (!tracks || !len) {
 	Kwave::MessageBox::error(m_parent_widget,
-	    i18n("Signal is empty, nothing to save !"));
+	    i18n("Signal is empty, nothing to save."));
 	return 0;
     }
 
@@ -434,7 +434,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 	}
 	if (!encoded) {
 	    Kwave::MessageBox::error(m_parent_widget,
-	        i18n("An error occurred while saving the file!"));
+	        i18n("An error occurred while saving the file."));
 	    res = -1;
 	}
 
@@ -445,14 +445,14 @@ int SignalManager::save(const KUrl &url, bool selection)
 		// user really pressed cancel !
 		Kwave::MessageBox::error(m_parent_widget,
 		    i18n("The file has been truncated and "\
-		         "might be corrupted!"));
+		         "might be corrupted."));
 	    }
 	    dialog->deleteLater();
 	    qApp->flush();
 	}
     } else {
 	Kwave::MessageBox::error(m_parent_widget,
-	    i18n("Sorry, the file type is not supported!"));
+	    i18n("Sorry, the file type is not supported."));
 	res = -EINVAL;
     }
 
@@ -657,7 +657,7 @@ bool SignalManager::executeCommand(const QString &command)
 	if (clip.isEmpty()) return false;
 	if (!selectedTracks().size()) return false;
 
-	UndoTransactionGuard undo(*this, i18n("paste"));
+	UndoTransactionGuard undo(*this, i18n("Paste"));
 	clip.paste(m_parent_widget, *this, offset, length);
     CASE_COMMAND("cut")
 	if (length) {
@@ -671,14 +671,14 @@ bool SignalManager::executeCommand(const QString &command)
 		selectedTracks(),
 		offset, length
 	    );
-	    UndoTransactionGuard undo(*this, i18n("cut"));
+	    UndoTransactionGuard undo(*this, i18n("Cut"));
 	    deleteRange(offset, length);
 	    selectRange(m_selection.offset(), 0);
 	}
     CASE_COMMAND("clipboard_flush")
 	ClipBoard::instance().clear();
     CASE_COMMAND("crop")
-	UndoTransactionGuard undo(*this, i18n("crop"));
+	UndoTransactionGuard undo(*this, i18n("Crop"));
 	unsigned int rest = this->length() - offset;
 	rest = (rest > length) ? (rest-length) : 0;
 	QList<unsigned int> tracks = selectedTracks();
@@ -696,7 +696,7 @@ bool SignalManager::executeCommand(const QString &command)
 	    selectRange(0, length);
 	}
     CASE_COMMAND("delete")
-	UndoTransactionGuard undo(*this, i18n("delete"));
+	UndoTransactionGuard undo(*this, i18n("Delete"));
 	deleteRange(offset, length);
 	selectRange(m_selection.offset(), 0);
 
@@ -743,14 +743,14 @@ bool SignalManager::executeCommand(const QString &command)
 //***************************************************************************
 void SignalManager::appendTrack()
 {
-    UndoTransactionGuard u(*this, i18n("append track"));
+    UndoTransactionGuard u(*this, i18n("Append Track"));
     insertTrack(tracks());
 }
 
 //***************************************************************************
 void SignalManager::insertTrack(unsigned int index)
 {
-    UndoTransactionGuard u(*this, i18n("insert track"));
+    UndoTransactionGuard u(*this, i18n("Insert Track"));
 
     if (m_undo_enabled && !registerUndoAction(
 	new UndoInsertTrack(m_signal, index))) return;
@@ -780,7 +780,7 @@ void SignalManager::insertTrack(unsigned int index)
 //***************************************************************************
 void SignalManager::deleteTrack(unsigned int index)
 {
-    UndoTransactionGuard u(*this, i18n("delete track"));
+    UndoTransactionGuard u(*this, i18n("Delete Track"));
 
     if (m_undo_enabled && !registerUndoAction(
 	new UndoDeleteTrack(m_signal, index))) return;
@@ -926,7 +926,7 @@ bool SignalManager::insertSpace(unsigned int offset, unsigned int length,
                                 const QList<unsigned int> &track_list)
 {
     if (!length) return true; // nothing to do
-    UndoTransactionGuard undo(*this, i18n("insert space"));
+    UndoTransactionGuard undo(*this, i18n("Insert Space"));
 
     unsigned int count = track_list.count();
     if (!count) return true; // nothing to do
@@ -1319,14 +1319,14 @@ void SignalManager::emitUndoRedoInfo()
 	if (!m_undo_buffer.isEmpty()) {
 	    transaction = m_undo_buffer.last();
 	    if (transaction) undo_name = transaction->description();
-	    if (!undo_name.length()) undo_name = i18n("last action");
+	    if (!undo_name.length()) undo_name = i18n("Last Action");
 	}
 
 	// get the description of the last redo action
 	if (!m_redo_buffer.isEmpty()) {
 	    transaction = m_redo_buffer.first();
 	    if (transaction) redo_name = transaction->description();
-	    if (!redo_name.length()) redo_name = i18n("last action");
+	    if (!redo_name.length()) redo_name = i18n("Last Action");
 	}
     }
 
@@ -1603,7 +1603,7 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
 {
     if (m_undo_enabled && with_undo) {
 	/* save data for undo */
-	UndoTransactionGuard undo_transaction(*this, i18n("modify file info"));
+	UndoTransactionGuard undo_transaction(*this, i18n("Modify File Info"));
 	if (!registerUndoAction(new UndoFileInfo(*this))) return;
     }
 
@@ -1658,7 +1658,7 @@ bool SignalManager::addLabel(unsigned int pos)
     labels().sort();
 
     // register the undo action
-    UndoTransactionGuard undo(*this, i18n("add label"));
+    UndoTransactionGuard undo(*this, i18n("Add Label"));
     if (!registerUndoAction(new UndoAddLabelAction(labelIndex(label)))) {
 	labels().removeAll(label);
 	return false;
@@ -1705,7 +1705,7 @@ void SignalManager::deleteLabel(int index, bool with_undo)
 
     // register the undo action
     if (with_undo) {
-	UndoTransactionGuard undo(*this, i18n("delete label"));
+	UndoTransactionGuard undo(*this, i18n("Delete Label"));
 	if (!registerUndoAction(new UndoDeleteLabelAction(label)))
 	    return;
     }
@@ -1790,9 +1790,9 @@ void SignalManager::checkSelectionChange()
 
 	// save the last selection into a undo action
 	if (tracks_modified && !range_modified)
-	    UndoTransactionGuard undo(*this, i18n("manual track selection"));
+	    UndoTransactionGuard undo(*this, i18n("Manual Track Selection"));
 	else
-	    UndoTransactionGuard undo(*this, i18n("manual selection"));
+	    UndoTransactionGuard undo(*this, i18n("Manual Selection"));
 
 	// restore the current selection again
 	m_selection = new_selection;

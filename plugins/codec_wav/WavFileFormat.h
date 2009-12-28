@@ -191,11 +191,11 @@ typedef struct {
 
 #define LOAD_MIME_TYPES { \
     /* included in KDE: */ \
-addMimeType("audio/x-wav",    i18n("wav audio"), "*.wav"); \
+addMimeType("audio/x-wav",    i18n("WAV audio"), "*.wav"); \
     /* defined in RFC 2361 */ \
-addMimeType("audio/vnd.wave", i18n("wav audio"), "*.wav"); \
+addMimeType("audio/vnd.wave", i18n("WAV audio"), "*.wav"); \
     /* defined nowhere, but someone has used that */ \
-addMimeType("audio/wav", i18n("wav audio"), "*.wav"); \
+addMimeType("audio/wav", i18n("WAV audio"), "*.wav"); \
 }
 
 #endif /* _WAV_FILE_FORMAT_H_ */

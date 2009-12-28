@@ -26,7 +26,8 @@
 #include "NotchFilterPlugin.h"
 #include "NotchFilterDialog.h"
 
-KWAVE_PLUGIN(NotchFilterPlugin,"notch_filter","2.1","Dave Flogeras");
+KWAVE_PLUGIN(NotchFilterPlugin, "notch_filter", "2.1",
+             I18N_NOOP("Notch Filter"), "Dave Flogeras");
 
 //***************************************************************************
 NotchFilterPlugin::NotchFilterPlugin(const PluginContext &context)
@@ -112,7 +113,7 @@ void NotchFilterPlugin::updateFilter(Kwave::SampleSource *filter,
 //***************************************************************************
 QString NotchFilterPlugin::actionName()
 {
-    return i18n("notch_filter");
+    return i18n("Notch Filter");
 }
 
 //***************************************************************************

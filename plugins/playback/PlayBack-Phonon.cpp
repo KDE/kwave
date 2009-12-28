@@ -145,7 +145,7 @@ QString PlayBackPhonon::open(const QString &device, double rate,
     // create a new Phonon output device
     m_output = new Phonon::AudioOutput(Phonon::MusicCategory);
     Q_ASSERT(m_output);
-    if (!m_output) return i18n("out of memory");
+    if (!m_output) return i18n("Out of memory");
 
     // try to find the matching device
     QList<Phonon::AudioOutputDevice> devices =
@@ -177,7 +177,7 @@ QString PlayBackPhonon::open(const QString &device, double rate,
     // create a sample encoder
     createEncoder(bits);
     Q_ASSERT(m_encoder);
-    if (!m_encoder) return i18n("out of memory");
+    if (!m_encoder) return i18n("Out of memory");
 
     // calculate the new buffer size
     if (bufbase < 8)

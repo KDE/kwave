@@ -35,7 +35,7 @@ void CompressionType::fill()
 
     /* supported compression schemes */
     append(i++, AF_COMPRESSION_NONE,
-           i18n("no compression"), 0);
+           i18n("No Compression"), 0);
     append(i++, AF_COMPRESSION_G722,
            i18n("G722"), 0);
     append(i++, AF_COMPRESSION_G711_ULAW,
@@ -76,7 +76,7 @@ void CompressionType::fill()
            i18n("MPEG Layer III"), 0);
 
     append(i++, OGG_VORBIS,
-           i18n("Ogg/Vorbis"), 0);
+           i18n("Ogg Vorbis"), 0);
 
     append(i++, FLAC,
            i18n("FLAC"), 0);

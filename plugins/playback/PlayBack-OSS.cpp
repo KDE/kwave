@@ -132,16 +132,16 @@ QString PlayBackOSS::open(const QString &device, double rate,
 	    case ENODEV:
 	    case ENXIO:
 	    case EIO:
-		reason = i18n("i/o error, maybe the driver\n"\
+		reason = i18n("I/O error. Maybe the driver\n"\
 		"is not present in your kernel or it is not\n"\
 		"properly configured.");
 		break;
 	    case EBUSY:
 		reason = i18n(
-		"The device is busy. Maybe an other application is \n"\
-		"currently using it. Please try again later. \n"\
-		"(Hint: you might find out the name and process id of \n"\
-		"the program by calling: \"fuser -v %1\" \n"\
+		"The device is busy. Maybe an other application is\n"\
+		"currently using it. Please try again later.\n"\
+		"(Hint: you might find out the name and process ID of\n"\
+		"the program by calling: \"fuser -v %1\"\n"\
 		"on the command line.)",
 		m_device_name.section('|',0,0));
 		break;
@@ -197,7 +197,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
     int int_rate = static_cast<int>(m_rate);
     if ((ioctl(m_handle, SNDCTL_DSP_SPEED, &int_rate) == -1) ||
 	(int_rate < 0.9 * m_rate) || (int_rate > 1.1 * m_rate)) {
-	return i18n("playback rate %1 Hz is not supported", int_rate);
+	return i18n("Playback rate %1 Hz is not supported", int_rate);
     }
     m_rate = int_rate;
 
@@ -207,7 +207,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
     if (bufbase < MIN_PLAYBACK_BUFFER) bufbase = MIN_PLAYBACK_BUFFER;
     if (bufbase > MAX_PLAYBACK_BUFFER) bufbase = MAX_PLAYBACK_BUFFER;
     if (ioctl(m_handle, SNDCTL_DSP_SETFRAGMENT, &bufbase) == -1) {
-	return i18n("unusable buffer size: %1", 1 << bufbase);
+	return i18n("Unusable buffer size: %1", 1 << bufbase);
     }
 
     // get the real buffer size in bytes
@@ -241,7 +241,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
     }
 
     Q_ASSERT(m_encoder);
-    if (!m_encoder) return i18n("out of memory");
+    if (!m_encoder) return i18n("Out of memory");
 
     // resize the raw buffer
     m_raw_buffer.resize(m_buffer_size);

@@ -48,7 +48,7 @@ UndoSelection::~UndoSelection()
 //***************************************************************************
 QString UndoSelection::description()
 {
-    return i18n("selection");
+    return i18n("Selection");
 }
 
 //***************************************************************************

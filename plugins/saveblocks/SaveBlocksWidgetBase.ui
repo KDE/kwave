@@ -35,7 +35,7 @@
       <string>If checked, &lt;b&gt;save only the blocks that overlap with the current selection&lt;/b&gt;, otherwise the whole file. &lt;br&gt;&lt;i&gt;Please note that this option is disabled if nothing is selected or the selection already covers the whole file.&lt;/i&gt;</string>
      </property>
      <property name="text">
-      <string>save selection only</string>
+      <string>Save selection only</string>
      </property>
      <property name="checked">
       <bool>true</bool>
@@ -45,7 +45,7 @@
    <item row="2" column="0">
     <widget class="QLabel" name="lblNumbering">
      <property name="text">
-      <string>numbering:</string>
+      <string>Numbering:</string>
      </property>
      <property name="wordWrap">
       <bool>false</bool>
@@ -61,9 +61,9 @@
       </sizepolicy>
      </property>
      <property name="whatsThis">
-      <string>determines how the &lt;b&gt;numbering of the files&lt;/b&gt; should happen:&lt;ul&gt;
-&lt;li&gt;continue after the &lt;b&gt;highest index&lt;/b&gt; that can be found, avoiding collissions with existing files&lt;/li&gt;
-&lt;li&gt;always start numbering from &lt;b&gt;one&lt;/b&gt;, possibly colliding with already existing files&lt;/li&gt;
+      <string>Determines how the &lt;b&gt;numbering of the files&lt;/b&gt; should happen:&lt;ul&gt;
+&lt;li&gt;Continue after the &lt;b&gt;highest index&lt;/b&gt; that can be found, avoiding collissions with existing files&lt;/li&gt;
+&lt;li&gt;Always start numbering from &lt;b&gt;one&lt;/b&gt;, possibly colliding with already existing files&lt;/li&gt;
 &lt;/ul&gt;</string>
      </property>
      <property name="editable">
@@ -74,12 +74,12 @@
      </property>
      <item>
       <property name="text">
-       <string>continue after highest index</string>
+       <string>Continue after highest index</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>always start with 1, overwrite if necessary</string>
+       <string>Always start with 1, overwrite if necessary</string>
       </property>
      </item>
     </widget>
@@ -96,7 +96,7 @@
       </sizepolicy>
      </property>
      <property name="whatsThis">
-      <string>example of the first file name that will be saved, using the file name pattern above and the numbering below</string>
+      <string>Example of the first file name that will be saved, using the file name pattern above and the numbering below</string>
      </property>
      <property name="readOnly">
       <bool>true</bool>
@@ -112,7 +112,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>example:</string>
+      <string>Example:</string>
      </property>
      <property name="wordWrap">
       <bool>false</bool>
@@ -128,7 +128,7 @@
       </sizepolicy>
      </property>
      <property name="whatsThis">
-      <string>&lt;p&gt;Select the pattern that is used to create the file name of each saved block. It currently understands the following placeholders:&lt;/p&gt;
+      <string>&lt;p&gt;Select the pattern that is used to create the filename of each saved block. It currently understands the following placeholders:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;tt&gt;&lt;b&gt;[%filename]&lt;/b&gt;&lt;/tt&gt;name of the file, without the path&lt;/li&gt;
 &lt;li&gt;&lt;tt&gt;&lt;b&gt;[&lt;/b&gt;%&lt;i&gt;0&lt;/i&gt;&lt;/tt&gt;&lt;i&gt;N&lt;/i&gt;&lt;tt&gt;&lt;b&gt;nr]&lt;/b&gt;&lt;/tt&gt;the index of the file, optionally with leading zeroes (if &lt;tt&gt;'0&lt;/tt&gt;' prepended) and optionally a fixed number of digits (&lt;tt&gt;N&lt;/tt&gt;)&lt;/li&gt;
@@ -147,7 +147,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="lblPattern">
      <property name="text">
-      <string>file name pattern:</string>
+      <string>Filename pattern:</string>
      </property>
      <property name="wordWrap">
       <bool>false</bool>

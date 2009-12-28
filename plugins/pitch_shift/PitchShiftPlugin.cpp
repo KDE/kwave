@@ -28,7 +28,8 @@
 #include "PitchShiftPlugin.h"
 #include "PitchShiftDialog.h"
 
-KWAVE_PLUGIN(PitchShiftPlugin,"pitch_shift","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(PitchShiftPlugin, "pitch_shift", "2.1",
+             I18N_NOOP("Pitch Shift"), "Thomas Eschenbacher");
 
 //***************************************************************************
 PitchShiftPlugin::PitchShiftPlugin(const PluginContext &context)
@@ -36,7 +37,6 @@ PitchShiftPlugin::PitchShiftPlugin(const PluginContext &context)
      m_speed(1.0), m_frequency(5.0), m_percentage_mode(false),
      m_last_speed(0), m_last_freq(0)
 {
-     i18n("pitch_shift");
 }
 
 //***************************************************************************
@@ -120,7 +120,7 @@ void PitchShiftPlugin::updateFilter(Kwave::SampleSource *filter,
 //***************************************************************************
 QString PitchShiftPlugin::actionName()
 {
-    return i18n("pitch shift");
+    return i18n("Pitch Shift");
 }
 
 //***************************************************************************

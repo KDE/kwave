@@ -32,13 +32,13 @@ SampleFormat::Map::~Map()
 void SampleFormat::Map::fill()
 {
     append(0, SampleFormat::Signed,
-           i18n("linear two's complement"), 0);
+           i18n("Linear Two's Complement"), 0);
     append(1, SampleFormat::Unsigned,
-           i18n("unsigned integer"), 0);
+           i18n("Unsigned Integer"), 0);
     append(2, SampleFormat::Float,
-           i18n("32-bit IEEE floating-point"), 0);
+           i18n("32-bit IEEE Floating-Point"), 0);
     append(3, SampleFormat::Double,
-           i18n("64-bit IEEE double-precision floating-point"), 0);
+           i18n("64-bit IEEE Double Precision Floating-Point"), 0);
 }
 
 //***************************************************************************

@@ -204,7 +204,7 @@ int Kwave::Plugin::start(QStringList &)
 //***************************************************************************
 QString Kwave::Plugin::progressText()
 {
-    return i18n("running plugin '%1' ...", name());
+    return i18n("Running plugin '%1'...", name());
 }
 
 //***************************************************************************

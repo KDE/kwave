@@ -31,7 +31,8 @@
 
 #include "ZeroPlugin.h"
 
-KWAVE_PLUGIN(ZeroPlugin,"zero","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(ZeroPlugin, "zero", "2.1",
+             I18N_NOOP("Zero Generator"), "Thomas Eschenbacher");
 
 #define ZERO_COUNT (64 * 1024)
 
@@ -39,7 +40,6 @@ KWAVE_PLUGIN(ZeroPlugin,"zero","2.1","Thomas Eschenbacher");
 ZeroPlugin::ZeroPlugin(const PluginContext &context)
     :Kwave::Plugin(context), m_zeroes()
 {
-     i18n("zero");
 }
 
 //***************************************************************************
@@ -54,7 +54,7 @@ void ZeroPlugin::run(QStringList params)
     unsigned int first = 0;
     unsigned int last  = 0;
 
-    UndoTransactionGuard undo_guard(*this, i18n("silence"));
+    UndoTransactionGuard undo_guard(*this, i18n("Silence"));
 
     Kwave::MultiTrackWriter *writers = 0;
 

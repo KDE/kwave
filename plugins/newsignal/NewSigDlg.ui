@@ -36,7 +36,7 @@
       <item row="0" column="2">
        <widget class="QComboBox" name="cbSampleRate">
         <property name="whatsThis">
-         <string>&lt;b&gt;Sample Rate&lt;/b&gt;&lt;br&gt;Here you can select one of the predefined well-known sample rates or you can enter any sample rate on your own.</string>
+         <string>&lt;b&gt;Sample rate&lt;/b&gt;&lt;br&gt;Here you can select one of the predefined well-known sample rates or you can enter any sample rate on your own.</string>
         </property>
         <property name="editable">
          <bool>true</bool>
@@ -99,7 +99,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="lblRate">
         <property name="text">
-         <string>Sample Rate:</string>
+         <string>Sample rate:</string>
         </property>
         <property name="wordWrap">
          <bool>false</bool>
@@ -165,7 +165,7 @@
         <item>
          <widget class="QLabel" name="lblSamplesPerSecond">
           <property name="text">
-           <string>samples per second</string>
+           <string>Samples per second</string>
           </property>
           <property name="wordWrap">
            <bool>false</bool>
@@ -221,7 +221,7 @@
         <item>
          <widget class="QLabel" name="lblBits">
           <property name="text">
-           <string>bit</string>
+           <string>Bit</string>
           </property>
           <property name="wordWrap">
            <bool>false</bool>
@@ -298,7 +298,7 @@
       <item row="1" column="2">
        <widget class="QSpinBox" name="sbResolution">
         <property name="whatsThis">
-         <string>&lt;b&gt;Resolution&lt;/b&gt;&lt;br&gt;Select a resolution in bits in which the file will be saved. However, Kwave always uses 24 bits as it's own internal resolution to give the best results when processing the audio data.</string>
+         <string>&lt;b&gt;Resolution&lt;/b&gt;&lt;br&gt;Select a resolution in bits in which the file will be saved. However, Kwave always uses 24 bits as its own internal resolution to give the best results when processing the audio data.</string>
         </property>
         <property name="minimum">
          <number>8</number>
@@ -344,7 +344,7 @@
          <item row="1" column="0">
           <widget class="QRadioButton" name="rbTime">
            <property name="toolTip">
-            <string>select this to set the length of the file by time</string>
+            <string>Select this to set the length of the file by time</string>
            </property>
            <property name="text">
             <string>Time</string>
@@ -354,7 +354,7 @@
          <item row="3" column="0">
           <widget class="QRadioButton" name="rbSamples">
            <property name="toolTip">
-            <string>select this to enter the number of samples directly</string>
+            <string>Select this to enter the number of samples directly</string>
            </property>
            <property name="text">
             <string>Samples</string>
@@ -489,7 +489,7 @@
         <item>
          <widget class="QLabel" name="lblMaximumSize_2_2">
           <property name="text">
-           <string>minimum</string>
+           <string>Minimum</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -518,7 +518,7 @@
         <item>
          <widget class="QLabel" name="TextLabel2_2">
           <property name="text">
-           <string>(file size)</string>
+           <string>(File Size)</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -547,7 +547,7 @@
         <item>
          <widget class="QLabel" name="lblMaximumSize_3">
           <property name="text">
-           <string>maximum</string>
+           <string>Maximum</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -568,7 +568,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>sets the file size by the percentage of the possible maximum</string>
+         <string>Sets the file size by the percentage of the possible maximum</string>
         </property>
         <property name="minimum">
          <number>0</number>

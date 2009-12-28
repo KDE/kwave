@@ -213,7 +213,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	// open the output device
 	if (!dst.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
 	    Kwave::MessageBox::error(widget,
-		i18n("Unable to open the file for saving!"));
+		i18n("Unable to open the file for saving."));
 	    result = false;
 	    break;
 	}
@@ -224,7 +224,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
         if (init_state != FLAC__STREAM_ENCODER_INIT_STATUS_OK) {
             qWarning("state = %d", static_cast<int>(init_state));
             Kwave::MessageBox::error(widget,
-                i18n("Unable to open the FLAC encoder!"));
+                i18n("Unable to open the FLAC encoder."));
             m_info = 0;
             result = false;
             break;
@@ -234,7 +234,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	if (init_state != FLAC__STREAM_ENCODER_OK) {
             qWarning("state = %s", init_state.as_cstring());
             Kwave::MessageBox::error(widget,
-                i18n("Unable to open the FLAC encoder!"));
+                i18n("Unable to open the FLAC encoder."));
             m_info = 0;
             result = false;
             break;
@@ -259,7 +259,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
 	if ((in_buffer.size() < len) || (flac_buffer.size() < tracks))
 	{
-	    Kwave::MessageBox::error(widget, i18n("Out of memory!"));
+	    Kwave::MessageBox::error(widget, i18n("Out of memory"));
 	    result = false;
 	    break;
 	}

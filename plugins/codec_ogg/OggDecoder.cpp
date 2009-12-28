@@ -122,7 +122,7 @@ int OggDecoder::parseHeader(QWidget *widget)
     if (ogg_stream_pagein(&m_os, &m_og) < 0) {
 	// error; stream version mismatch perhaps
 	Kwave::MessageBox::error(widget, i18n(
-	    "Error reading first page of Ogg bitstream data."));
+	    "Error reading first page of the Ogg bitstream data."));
 	return -1;
     }
 
@@ -136,7 +136,7 @@ int OggDecoder::parseHeader(QWidget *widget)
     if (vorbis_synthesis_headerin(&m_vi, &m_vc, &m_op) < 0) {
 	// error case; not a vorbis header
 	Kwave::MessageBox::error(widget, i18n(
-	    "This Ogg bitstream does not contain Vorbis audio data."));
+	    "This Ogg bitstream does not contain any Vorbis audio data."));
 	return -1;
     }
 
@@ -183,7 +183,7 @@ int OggDecoder::parseHeader(QWidget *widget)
 	bytes = m_source->read(m_buffer, 4096);
 	if (!bytes && counter < 2) {
 	    Kwave::MessageBox::error(widget, i18n(
-	        "End of file before finding all Vorbis headers!"));
+	        "End of file before finding all Vorbis headers."));
 	    return -1;
 	}
 	ogg_sync_wrote(&m_oy, bytes);
@@ -351,7 +351,7 @@ bool OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 		if (result < 0) {
 		    // missing or corrupt data at this page position
 		    Kwave::MessageBox::error(widget, i18n(
-		        "Corrupt or missing data in bitstream; continuing..."
+		        "Corrupt or missing data in bitstream. Continuing."
 		        ));
 		} else {
 		    // can safely ignore errors at this point

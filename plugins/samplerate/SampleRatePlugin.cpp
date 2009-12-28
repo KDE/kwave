@@ -39,14 +39,14 @@
 
 #include "SampleRatePlugin.h"
 
-KWAVE_PLUGIN(SampleRatePlugin,"samplerate","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(SampleRatePlugin, "samplerate", "2.1",
+             I18N_NOOP("Sample Rate Conversion"), "Thomas Eschenbacher");
 
 //***************************************************************************
 SampleRatePlugin::SampleRatePlugin(const PluginContext &context)
     :Kwave::Plugin(context), m_params(), m_new_rate(0.0),
      m_whole_signal(false)
 {
-     i18n("change sample rate");
 }
 
 //***************************************************************************
@@ -97,7 +97,7 @@ void SampleRatePlugin::run(QStringList params)
     double old_rate = fileInfo().rate();
     if ((old_rate <= 0) || (old_rate == m_new_rate)) return;
 
-    UndoTransactionGuard undo_guard(*this, i18n("change sample rate"));
+    UndoTransactionGuard undo_guard(*this, i18n("Change sample rate"));
 
     // get the current selection and the list of affected tracks
     unsigned int first = 0;
@@ -141,7 +141,7 @@ void SampleRatePlugin::run(QStringList params)
 	    this,  SLOT(updateProgress(unsigned int)),
 	     Qt::BlockingQueuedConnection);
     emit setProgressText(
-	i18n("changing sample rate from %1 kHz to %2 kHz ...",
+	i18n("Changing sample rate from %1 kHz to %2 kHz...",
 	QString::number(old_rate   / 1E3),
 	QString::number(m_new_rate / 1E3))
     );

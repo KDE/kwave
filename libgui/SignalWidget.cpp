@@ -380,7 +380,7 @@ bool SignalWidget::executeCommand(const QString &command)
 //	saveLabel(command);
     CASE_COMMAND("expandtolabel")
 	UndoTransactionGuard undo(m_signal_manager,
-	    i18n("expand selection to label"));
+	    i18n("Expand Selection to Label"));
 	unsigned int selection_left  = m_signal_manager.selection().first();
 	unsigned int selection_right = m_signal_manager.selection().last();
 	if (labels().isEmpty()) return false; // we need labels for this
@@ -408,7 +408,7 @@ bool SignalWidget::executeCommand(const QString &command)
 
     CASE_COMMAND("selectnextlabels")
 	UndoTransactionGuard undo(m_signal_manager,
-	    i18n("select next labels"));
+	    i18n("Select Next Labels"));
 	unsigned int selection_left;
 	unsigned int selection_right = m_signal_manager.selection().last();
 	Label label_left  = Label();
@@ -445,7 +445,7 @@ bool SignalWidget::executeCommand(const QString &command)
 
     CASE_COMMAND("selectprevlabels")
 	UndoTransactionGuard undo(m_signal_manager,
-	    i18n("select previous labels"));
+	    i18n("Select Previous Labels"));
 	unsigned int selection_left  = m_signal_manager.selection().first();
 	unsigned int selection_right = m_signal_manager.selection().last();
 	Label label_left  = Label();
@@ -477,17 +477,30 @@ bool SignalWidget::executeCommand(const QString &command)
     // track selection
     CASE_COMMAND("select_all_tracks")
 	UndoTransactionGuard undo(m_signal_manager,
-	    i18n("select all tracks"));
+	    i18n("Select All Tracks"));
 	foreach (unsigned int track, m_signal_manager.allTracks())
 	    m_signal_manager.selectTrack(track, true);
+    CASE_COMMAND("deselect_all_tracks")
+	UndoTransactionGuard undo(m_signal_manager,
+	    i18n("Deselect all tracks"));
+	foreach (unsigned int track, m_signal_manager.allTracks())
+	    m_signal_manager.selectTrack(track, false);
     CASE_COMMAND("invert_track_selection")
 	UndoTransactionGuard undo(m_signal_manager,
-	    i18n("invert track selection"));
+	    i18n("Invert Track Selection"));
 	foreach (unsigned int track, m_signal_manager.allTracks())
 	    m_signal_manager.selectTrack(
 		track,
 		!m_signal_manager.trackSelected(track)
 	    );
+    CASE_COMMAND("select_track")
+	int track = parser.toInt();
+	UndoTransactionGuard undo(m_signal_manager, i18n("Select Track"));
+	m_signal_manager.selectTrack(track, true);
+    CASE_COMMAND("deselect_track")
+	int track = parser.toInt();
+	UndoTransactionGuard undo(m_signal_manager, i18n("Deselect Track"));
+	m_signal_manager.selectTrack(track, false);
     } else {
 	return m_signal_manager.executeCommand(command);
     }
@@ -552,11 +565,11 @@ int SignalWidget::loadFile(const KUrl &url)
 		reason = i18n("Out of memory");
 		break;
 	    case -EIO:
-		reason = i18n("unable to open '%1'",
+		reason = i18n("Unable to open '%1'",
 		    url.prettyUrl());
 		break;
 	    case -EINVAL:
-		reason = i18n("invalid or unknown file type: '%1'",
+		reason = i18n("Invalid or unknown file type: '%1'",
 		              url.prettyUrl());
 		break;
 	    default:
@@ -1092,7 +1105,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
     // Selection / &Expand to labels
     QAction *action_select_expand_to_labels = submenu_select->addAction(
-	i18n("&Expand to labels"), this,
+	i18n("&Expand to Labels"), this,
 	SLOT(contextMenuSelectionExpandToLabels()), Qt::Key_E);
     Q_ASSERT(action_select_expand_to_labels);
     if (!action_select_expand_to_labels) return;
@@ -1100,7 +1113,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
     // Selection / to next labels
     QAction *action_select_next_labels = submenu_select->addAction(
-	i18n("to next labels"), this,
+	i18n("To Next Labels"), this,
 	SLOT(contextMenuSelectionNextLabels()),
 	Qt::SHIFT + Qt::CTRL + Qt::Key_N);
     Q_ASSERT(action_select_next_labels);
@@ -1109,7 +1122,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
     // Selection / to previous labels
     QAction *action_select_prev_labels = submenu_select->addAction(
-	i18n("to previous labels"), this,
+	i18n("To Previous Labels"), this,
 	SLOT(contextMenuSelectionPrevLabels()),
 	Qt::SHIFT + Qt::CTRL + Qt::Key_P);
     Q_ASSERT(action_select_prev_labels);
@@ -1528,7 +1541,7 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 	    unsigned int x = m_offset + pixels2samples(mouse_x);
 	    m_selection->update(x);
 	    selectRange(m_selection->left(), m_selection->length());
-	    showPosition(i18n("selection"), x, samples2ms(x), pos);
+	    showPosition(i18n("Selection"), x, samples2ms(x), pos);
 	    break;
 	}
 	default: {
@@ -1556,21 +1569,21 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 	    // yes, this code gives the nifty cursor change....
 	    if (!label.isNull()) {
 		setMouseMode(MouseAtSelectionBorder);
-		QString text = i18n("label #%1",
-		    m_signal_manager.labelIndex(label));
-		if (label.name().length())
-		    text += i18n(" (%1)", label.name());
+		int index = m_signal_manager.labelIndex(label);
+		QString text = (label.name().length()) ?
+		    i18n("Label #%1 (%2)", index, label.name()) :
+		    i18n("Label #%1", index);
 		showPosition(text, label.pos(), samples2ms(label.pos()), pos);
 		break;
 	    } else if ((first != last) && isSelectionBorder(mouse_x)) {
 		setMouseMode(MouseAtSelectionBorder);
 		switch (selectionPosition(mouse_x) & ~Selection) {
 		    case LeftBorder:
-			showPosition(i18n("selection, left border"),
+			showPosition(i18n("Selection, left border"),
 			    first, samples2ms(first), pos);
 			break;
 		    case RightBorder:
-			showPosition(i18n("selection, right border"),
+			showPosition(i18n("Selection, right border"),
 			    last, samples2ms(last), pos);
 			break;
 		    default:
@@ -1878,7 +1891,7 @@ Label SignalWidget::findLabelNearMouse(int x) const
 //***************************************************************************
 void SignalWidget::addLabel(unsigned int pos)
 {
-    UndoTransactionGuard undo(m_signal_manager, i18n("add label"));
+    UndoTransactionGuard undo(m_signal_manager, i18n("Add Label"));
 
     // add a new label, with undo
     if (!m_signal_manager.addLabel(pos)) {
@@ -1998,8 +2011,8 @@ bool SignalWidget::labelProperties(Label &label)
 	{
 	    int res = Kwave::MessageBox::warningYesNoCancel(this, i18n(
 		"There already is a label at the position "\
-		"you have choosen.\n"\
-		"Do you want to replace it ?"));
+		"you have chosen.\n"\
+		"Do you want to replace it?"));
 	    if (res == KMessageBox::Yes) {
 		// delete the label at the target position (with undo)
 		Label old = m_signal_manager.findLabel(new_pos);
@@ -2025,7 +2038,7 @@ bool SignalWidget::labelProperties(Label &label)
 	if ((new_name == label.name()) && (new_pos == label.pos()))
 	    return false;
 
-	UndoTransactionGuard undo(m_signal_manager, i18n("modify label"));
+	UndoTransactionGuard undo(m_signal_manager, i18n("Modify Label"));
 
 	// if there is a label at the target position, remove it first
 	if (old_index >= 0) {
@@ -2501,7 +2514,7 @@ void SignalWidget::startDragging()
 
     // start drag&drop, mode is determined automatically
     InhibitRepaintGuard inhibit(*this);
-    UndoTransactionGuard undo(m_signal_manager, i18n("drag and drop"));
+    UndoTransactionGuard undo(m_signal_manager, i18n("Drag and Drop"));
     Qt::DropAction drop = d->exec(Qt::CopyAction | Qt::MoveAction);
 
     if (drop == Qt::MoveAction) {
@@ -2549,7 +2562,7 @@ void SignalWidget::dropEvent(QDropEvent *event)
     if (!event->mimeData()) return;
 
     if (KwaveDrag::canDecode(event->mimeData())) {
-	UndoTransactionGuard undo(m_signal_manager, i18n("drag and drop"));
+	UndoTransactionGuard undo(m_signal_manager, i18n("Drag and Drop"));
 	InhibitRepaintGuard inhibit(*this);
 	unsigned int pos = m_offset + pixels2samples(event->pos().x());
 	unsigned int len = 0;

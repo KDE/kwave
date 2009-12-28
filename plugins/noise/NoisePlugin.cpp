@@ -30,7 +30,8 @@
 #include "NoisePlugin.h"
 #include "NoiseGenerator.h"
 
-KWAVE_PLUGIN(NoisePlugin,"noise","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(NoisePlugin, "noise", "2.1",
+             I18N_NOOP("Noise Generator"), "Thomas Eschenbacher");
 
 //***************************************************************************
 NoisePlugin::NoisePlugin(const PluginContext &context)
@@ -44,7 +45,7 @@ void NoisePlugin::run(QStringList)
     unsigned int first, last;
     QList<unsigned int> tracks;
 
-    UndoTransactionGuard undo_guard(*this, i18n("noise"));
+    UndoTransactionGuard undo_guard(*this, i18n("Noise"));
 
     selection(&tracks, &first, &last, true);
 

@@ -346,7 +346,7 @@ void Signal::selectTrack(unsigned int track, bool select)
 //    } else {
 //	if (data) delete data;
 //	Kwave::MessageBox::error
-//	(0, i18n("Info"), i18n("No Memory for FFT-buffers available !"), 2);
+//	(0, i18n("Info"), i18n("No Memory for FFT-buffers available."), 2);
 //    }
 //}
 //
@@ -417,7 +417,7 @@ void Signal::selectTrack(unsigned int track, bool select)
 ////    else {
 ////	if (data) delete data;
 ////	Kwave::MessageBox::error
-////	(0, i18n("Info"), i18n("No Memory for FFT-buffers available !"), 2);
+////	(0, i18n("Info"), i18n("No Memory for FFT-buffers available."), 2);
 ////    }
 //}
 ////*********************************************************

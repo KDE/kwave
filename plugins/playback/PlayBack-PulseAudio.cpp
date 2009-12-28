@@ -406,7 +406,7 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
 
     // make sure that we are connected to the sound server
     if (!connectToServer()) {
-	return i18n("Connection to the PulseAudio server failed.");
+	return i18n("Connecting to the PulseAudio server failed.");
     }
 
     if (!m_device_list.contains(device)) scanDevices();
@@ -428,8 +428,12 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
     Q_ASSERT(_proplist);
     SET_PROPERTY(PA_PROP_MEDIA_TITLE,     INF_NAME);
     SET_PROPERTY(PA_PROP_MEDIA_ARTIST,    INF_AUTHOR);
+#ifdef PA_PROP_MEDIA_COPYRIGHT
     SET_PROPERTY(PA_PROP_MEDIA_COPYRIGHT, INF_COPYRIGHT);
+#endif
+#ifdef PA_PROP_MEDIA_SOFTWARE
     SET_PROPERTY(PA_PROP_MEDIA_SOFTWARE,  INF_SOFTWARE);
+#endif
 //  SET_PROPERTY(PA_PROP_MEDIA_LANGUAGE,  INF_...);
     SET_PROPERTY(PA_PROP_MEDIA_FILENAME,  INF_FILENAME);
 //  SET_PROPERTY(PA_PROP_MEDIA_ICON_NAME, INF_...);
@@ -565,7 +569,8 @@ int PlayBackPulseAudio::write(const Kwave::SampleArray &samples)
     Q_ASSERT (m_buffer_used + bytes <= m_buffer_size);
     if (m_buffer_used + bytes > m_buffer_size) {
 	qWarning("PlayBackPulseAudio::write(): buffer overflow ?! (%u/%u)",
-	         m_buffer_used, m_buffer_size);
+	         static_cast<unsigned int>(m_buffer_used),
+	         static_cast<unsigned int>(m_buffer_size));
 	m_buffer_used = 0;
 	return -EIO;
     }
@@ -712,7 +717,7 @@ void PlayBackPulseAudio::scanDevices()
     i.m_driver      = QString();
     i.m_card        = -1;
     i.m_sample_spec = s;
-    list[i18n("(use server default)") + "|sound_note"] = i;
+    list[i18n("(Use server default)") + "|sound_note"] = i;
 
     foreach (QString sink, m_device_list.keys()) {
 	QString name        = m_device_list[sink].m_name;

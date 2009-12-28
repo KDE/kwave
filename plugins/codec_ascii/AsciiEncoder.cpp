@@ -82,7 +82,7 @@ bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	// open the output device
 	if (!dst.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
 	    Kwave::MessageBox::error(widget,
-		i18n("Unable to open the file for saving!"));
+		i18n("Unable to open the file for saving."));
 	    result = false;
 	    break;
 	}

@@ -39,7 +39,7 @@ UndoDeleteLabelAction::~UndoDeleteLabelAction()
 //***************************************************************************
 QString UndoDeleteLabelAction::description()
 {
-    return i18n("delete label");
+    return i18n("Delete Label");
 }
 
 //***************************************************************************

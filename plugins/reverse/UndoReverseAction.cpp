@@ -39,7 +39,7 @@ UndoReverseAction::~UndoReverseAction()
 //***************************************************************************
 QString UndoReverseAction::description()
 {
-    return i18n("reverse");
+    return i18n("Reverse");
 }
 
 //***************************************************************************

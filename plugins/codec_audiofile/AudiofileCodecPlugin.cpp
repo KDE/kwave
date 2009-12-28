@@ -22,13 +22,13 @@
 #include "AudiofileCodecPlugin.h"
 #include "AudiofileDecoder.h"
 
-KWAVE_PLUGIN(AudiofileCodecPlugin,"codec_audiofile","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(AudiofileCodecPlugin, "codec_audiofile", "2.1",
+             I18N_NOOP("Audiofile Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
 AudiofileCodecPlugin::AudiofileCodecPlugin(const PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0)
 {
-    i18n("codec_audiofile");
 }
 
 /***************************************************************************/

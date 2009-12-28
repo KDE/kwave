@@ -35,7 +35,7 @@ UndoFileInfo::~UndoFileInfo()
 //***************************************************************************
 QString UndoFileInfo::description()
 {
-    return i18n("modify file information");
+    return i18n("Modify File Information");
 }
 
 //***************************************************************************

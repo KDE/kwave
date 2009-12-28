@@ -99,7 +99,7 @@ void RIFFParser::detectEndianness()
     }
 
     // ok, our file is damaged at least a bit, try to discover
-    emit action(i18n("detecting endianness (standard search)..."));
+    emit action(i18n("Detecting endianness (standard search)..."));
     emit progress(0);
 
     QList<u_int32_t> riff_offsets = scanForName("RIFF",
@@ -128,7 +128,7 @@ void RIFFParser::detectEndianness()
 
     // not detectable -> detect by searching all known chunks and
     // detect best match
-    emit action(i18n("detecting endianness (statistic search)..."));
+    emit action(i18n("Detecting endianness (statistic search)..."));
     qDebug("doing statistic search to determine endianness...");
     unsigned int le_matches = 0;
     unsigned int be_matches = 0;
@@ -525,7 +525,7 @@ RIFFChunk *RIFFParser::chunkAt(u_int32_t offset)
 //***************************************************************************
 RIFFChunk *RIFFParser::findMissingChunk(const QByteArray &name)
 {
-    emit action(i18n("searching for missing chunk '%1'...", name.data()));
+    emit action(i18n("Searching for missing chunk '%1'...", name.data()));
     emit progress(0);
 
     bool found_something = false;

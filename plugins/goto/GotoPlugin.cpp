@@ -29,13 +29,13 @@
 #include "GotoPlugin.h"
 #include "GotoDialog.h"
 
-KWAVE_PLUGIN(GotoPlugin,"goto","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(GotoPlugin, "goto", "2.1",
+             I18N_NOOP("Goto Position"), "Thomas Eschenbacher");
 
 //***************************************************************************
 GotoPlugin::GotoPlugin(const PluginContext &c)
     :Kwave::Plugin(c), m_mode(SelectTimeWidget::bySamples), m_position(0)
 {
-     i18n("goto");
 }
 
 //***************************************************************************

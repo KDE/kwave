@@ -33,13 +33,13 @@
 #include "AmplifyFreePlugin.h"
 #include "AmplifyFreeDialog.h"
 
-KWAVE_PLUGIN(AmplifyFreePlugin,"amplifyfree","2.1","Thomas Eschenbacher");
+KWAVE_PLUGIN(AmplifyFreePlugin, "amplifyfree", "2.1",
+             I18N_NOOP("Amplify Free"), "Thomas Eschenbacher");
 
 //***************************************************************************
 AmplifyFreePlugin::AmplifyFreePlugin(const PluginContext &context)
     :Kwave::Plugin(context), m_action_name(""), m_params(), m_curve()
 {
-    i18n("amplifyfree");
 }
 
 //***************************************************************************
@@ -118,7 +118,7 @@ QStringList *AmplifyFreePlugin::setup(QStringList &previous_params)
 QString AmplifyFreePlugin::progressText()
 {
     return m_action_name.length() ?
-	i18n(m_action_name.toLocal8Bit()) : i18n("amplify free");
+	i18n(m_action_name.toLocal8Bit()) : i18n("Amplify Free");
 }
 
 //***************************************************************************

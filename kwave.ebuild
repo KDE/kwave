@@ -59,8 +59,6 @@ src_configure() {
 
 src_install() {
 	kde4-base_src_install
-
-	cat "${D}"/usr/share/icons/hicolor/scalable/apps/kwave.svgz | gunzip -d > "${D}"/usr/share/icons/hicolor/scalable/apps/kwave.svg
 }
 
 pkg_preinst() {

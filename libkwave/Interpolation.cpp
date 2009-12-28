@@ -38,17 +38,17 @@ void Interpolation::InterpolationMap::fill()
 #ifdef NEVER_COMPILE_THIS
 #error "this could produce problems in plugins and/or libs when \
         loaded before the main application is up."
-    i18n("linear");
-    i18n("spline");
-    i18n("n-polynom");
-    i18n("3-polynom");
-    i18n("5-polynom");
-    i18n("7-polynom");
-    i18n("polynom, nth degree");
-    i18n("polynom, 3rd degree");
-    i18n("polynom, 5th degree");
-    i18n("polynom, 7th degree");
-    i18n("sample and hold");
+    i18n("Linear");
+    i18n("Spline");
+    i18n("N-Polynom");
+    i18n("3-Polynom");
+    i18n("5-Polynom");
+    i18n("7-Polynom");
+    i18n("Polynom, N-th Degree");
+    i18n("Polynom, 3rd Degree");
+    i18n("Polynom, 5th Degree");
+    i18n("Polynom, 7th Degree");
+    i18n("Sample and Hold");
 #endif
 }
 

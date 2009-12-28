@@ -1041,11 +1041,11 @@ void RecordALSA::scanDevices()
 			QString subdevice_name =
 			    snd_pcm_info_get_subdevice_name(pcminfo);
 			QString name = QString(
-			    i18n("card %1: ", card_name) +
+			    i18n("Card %1: ", card_name) +
 			    "|sound_card||" +
-			    i18n("device %1: ", device_name) +
+			    i18n("Device %1: ", device_name) +
 			    "|sound_device||" +
-			    i18n("subdevice %1: ", subdevice_name) +
+			    i18n("Subdevice %1: ", subdevice_name) +
 			    "|sound_subdevice"
 			)/*.arg(card).arg(dev).arg(idx)*/;
 			qDebug("# '%s' -> '%s'", hwdev.toLocal8Bit().data(),
@@ -1056,8 +1056,8 @@ void RecordALSA::scanDevices()
 	    } else {
 		// no sub-devices
 		QString name = QString(
-		    i18n("card %1: ", card_name) + "|sound_card||" +
-		    i18n("device %1: ", device_name) + "|sound_subdevice"
+		    i18n("Card %1: ", card_name) + "|sound_card||" +
+		    i18n("Device %1: ", device_name) + "|sound_subdevice"
 		)/*.arg(card).arg(dev)*/;
 // 		qDebug("# '%s' -> '%s'", hw_device.data(), name.data());
 		m_device_list.insert(name, hw_device);

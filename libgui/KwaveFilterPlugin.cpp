@@ -225,7 +225,7 @@ void Kwave::FilterPlugin::stopPreListen()
 //***************************************************************************
 QString Kwave::FilterPlugin::progressText()
 {
-    return i18n("applying '%1' ...", actionName());
+    return i18n("Applying '%1'...", actionName());
 }
 
 //***************************************************************************

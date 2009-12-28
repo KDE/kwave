@@ -268,7 +268,7 @@ void FileProgress::updateStatistics(double rate, double rest,
 	m = s = 59;
     }
     QTime time(h,m,s,0);
-    text = i18n("%1 KB/s (%2 remaining)", num, time.toString());
+    text = i18n("%1 kB/s (%2 remaining)", num, time.toString());
     m_stat_transfer->setText(text);
 
     // right: statistic over the transferred bytes

@@ -28,8 +28,10 @@ ADD_CUSTOM_TARGET(package-messages
         -ci18n -ki18n:1 -ki18nc:1c,2 -ki18np:1,2 -ki18ncp:1c,2,3 -ktr2i18n:1
         -kI18N_NOOP:1 -kI18N_NOOP2:1c,2 -kaliasLocale -kki18n:1 -kki18nc:1c,2
         -kki18np:1,2 -kki18ncp:1c,2,3
-        `${FIND_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR} -name \\*.h -o -name \\*.cpp`
-        `${FIND_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR} -name \\*.h -o -name \\*.cpp`
+        -D ${CMAKE_CURRENT_SOURCE_DIR}
+        -D ${CMAKE_CURRENT_BINARY_DIR}
+        `cd ${CMAKE_CURRENT_SOURCE_DIR} && ${FIND_EXECUTABLE} . -name \\*.h -o -name \\*.cpp`
+        `cd ${CMAKE_CURRENT_BINARY_DIR} && ${FIND_EXECUTABLE} . -name \\*.h -o -name \\*.cpp`
         -o ${CMAKE_SOURCE_DIR}/po/kwave.pot
     COMMAND $(MAKE) translations
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/kwave/menus.config

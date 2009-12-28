@@ -3,6 +3,7 @@
 
  * bugfix: copy/paste with partial track selection failed
  * string/i18n update from Panagiotis Papadopoulos
+ * bugfix: invocation of xgettext was wrong, left untranslated strings
 
 0.8.5  [2009-12-24]
 

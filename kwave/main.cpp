@@ -116,6 +116,10 @@ void addDataStrings(KAboutData &aboutdata)
                      ki18n("Czech translation"),
                      "pavelfric@seznam.cz",
                      "http://fripohled.blogspot.com");
+    aboutdata.addCredit(ki18n("Panagiotis Papadopoulos"),
+                     ki18n("String and i18n updates"),
+                     "pano_90@gmx.net",
+                     0);
 
 }
 

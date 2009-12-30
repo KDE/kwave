@@ -5143,7 +5143,7 @@ msgid ""
 "dropouts, please increase<br>the buffer size and try again)"
 msgstr ""
 "Sie sollten nun einen %1Hz Testton hören...<br><br>(Wenn Sie Klicken oder "
-"Aussetzer hören, vergrößern Sie bitte den <br>Aufnahme-Puffer und versuchen "
+"Aussetzer hören, vergrößern Sie bitte den <br>Wiedergabe-Puffer und versuchen "
 "Sie es erneut)"
 
 #: libkwave/Functions.cpp:107

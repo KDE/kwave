@@ -1,5 +1,31 @@
 
+o support for visualization plugins (rev 2498)
+  - redesign / cleanup of TopWidget/MainWidget/SignalWidget
+  - use something like a Q3DockArea + QScrollArea in the main view
+  - use QDockWidget based views for the track display -> "signal views"
+  - provide common base class for signal views (for use in plugins)
+  - allow drag&drop to reorder signal views
+  - resizing of signal views per size grip
+  - splitting of views, left = tool/icon area, right = view
+  - allow plugins to add and remove own signal views
+  - connect scroll actions (offset/range) to the views
+  - connect signal actions (insert/delete/modify) to the views
+  - connect track actions (add/delete/move) to the views
+  - connect label actions (add/delete/modify) to the views
+  - connect playback position updates to the views
+  - connect selection changes to the views
+  - store order and settings of signal views in embedded metadata
+  - store order and settings of signal views in a separate file
+  - provide global database for colors (for signal, labels, etc.)
+  - reordering of tracks according to order of the views
+  - context sensitive toolbar/menu entries when clicking to a view
+  - navigating between views per <Tab> key
+
+o update of kwave.spec.in (very outdated)
+
 o support for recording via PULSE audio
+
+o MP3 export (maybe via calling lame/mpg123/mencoder as an external process)
 
 o crash in record plugin, maybe if device is busy?
     RecordALSA::read(), after underrun: resuming

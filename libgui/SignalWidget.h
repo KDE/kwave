@@ -59,81 +59,56 @@ class TimeOperation;
 class Track;
 class TrackPixmap;
 
+namespace Kwave { class ApplicationContext; }
+
 /**
- * The SignalWidget class is responsible for displaying a signal with
- * multiple tracks. It provides control over selecton, zoom factor and
- * the signal data itself by containing a SignalManager.
+ * The SignalWidget class is responsible for displaying and managing the views
+ * that belong to a signal.
  */
 class KDE_EXPORT SignalWidget : public QWidget
 {
     Q_OBJECT
 
-    friend class InhibitRepaintGuard;
+//     friend class InhibitRepaintGuard;
 
 public:
-    /** Mode of the mouse cursor */
-    enum MouseMode {
-	MouseNormal = 0,        /**< over the signal [default] */
-	MouseInSelection,       /**< within the selection */
-	MouseAtSelectionBorder, /**< near the border of a selection */
-	MouseSelect             /**< during selection */
-    };
+//     /** Mode of the mouse cursor */
+//     enum MouseMode {
+// 	MouseNormal = 0,        /**< over the signal [default] */
+// 	MouseInSelection,       /**< within the selection */
+// 	MouseAtSelectionBorder, /**< near the border of a selection */
+// 	MouseSelect             /**< during selection */
+//     };
 
-    /** Constructor */
-    SignalWidget(QWidget *parent);
+    /**
+     * Constructor
+     * @param parent parent widget
+     * @param context reference to the context of this instance
+     */
+    SignalWidget(QWidget *parent, Kwave::ApplicationContext &context);
 
     /**
      * Returns true if this instance was successfully initialized, or
      * false if something went wrong during initialization.
      */
-    virtual bool isOK();
+    bool isOK();
 
     /** Destructor */
     virtual ~SignalWidget();
 
     /**
-     * Converts a time in milliseconds to a number of samples, based
-     * on the current signal rate.
-     * @param ms time in milliseconds
-     * @return number of samples (rounded)
+     * sets new zoom factor and offset
+     * @param zoom the new zoom factor in pixels/sample
+     * @param offset the index of the first visible sample
      */
-    unsigned int ms2samples(double ms);
-
-    /**
-     * Converts a number of samples to a time in milliseconds, based on the
-     * current signal rate.
-     * @param samples number of samples
-     * @return time in milliseconds
-     */
-    double samples2ms(unsigned int samples);
+    void setZoomAndOffset(double zoom, unsigned int offset);
 
     /**
      * Closes the current signal and loads a new one from a file.
      * @param url URL of the file to be loaded
      * @return 0 if succeeded or error code < 0
      */
-    int loadFile(const KUrl &url);
-
-    /**
-     * Forwards information for creation of a new signal to the
-     * signal manager.
-     * @see TopWidget::newSignal
-     */
-    void newSignal(unsigned int samples, double rate,
-                   unsigned int bits, unsigned int tracks);
-
-    /**
-     * Closes the current signal
-     */
-    void close();
-
-    /**
-     * sets a new zoom factor [samples/pixel], does not refresh the screen
-     * @param new_zoom new zoom value, will be internally limited
-     *                 to [length/width...1/width] (from full display to
-     *                 one visible sample only)
-     */
-    void setZoom(double new_zoom);
+//     int loadFile(const KUrl &url);
 
     /**
      * Checks if a pixel position is near to the left or right border
@@ -142,7 +117,7 @@ public:
      * @param x pixel position to be tested
      * @return true if the position is within range
      */
-    bool isSelectionBorder(int x);
+//     bool isSelectionBorder(int x);
 
     /**
      * Checks if a gpixel position is within the left and right border
@@ -151,53 +126,12 @@ public:
      * @param x pixel position to be tested
      * @return true if the position is within range
      */
-    bool isInSelection(int x);
+//     bool isInSelection(int x);
 
     /** Executes a Kwave text command */
-    bool executeCommand(const QString &command);
+//     bool executeCommand(const QString &command);
 
-    /**
-     * Returns the number of tracks of the current signal or
-     * 0 if no signal is loaded.
-     */
-    int tracks();
-
-    /** returns the signal manager of the current signal */
-    SignalManager &signalManager();
-
-    /** Returns the playback controller */
-    PlaybackController &playbackController();
-
-    /** returns the current display offset */
-    inline unsigned int offset() const {
-	return m_offset;
-    }
-
-    /**
-     * Converts a sample index into a pixel offset using the current zoom
-     * value. Always rounds up or downwards. If the number of pixels or the
-     * current zoom is less than zero, the return value will be zero.
-     * @param pixels pixel offset
-     * @return index of the sample
-     */
-    unsigned int pixels2samples(int pixels) const;
-
-    /**
-     * Converts a pixel offset into a sample index using the current zoom
-     * value. Always rounds op or downwards.
-     * @param samples number of samples to be converted
-     * @return pixel offset
-     */
-    int samples2pixels(int samples) const;
-
-public slots:
-
-    /**
-     * Sets the display offset [samples] and refreshes the screen.
-     * @param new_offset new value for the offset in samples, will be
-     *                   internally limited to [0...length-1]
-     */
-    void setOffset(unsigned int new_offset);
+// public slots:
 
     /**
      * Sets a new selected range of samples. If the length of the
@@ -205,89 +139,47 @@ public slots:
      * @param offset index of the first sample
      * @param length number of samples
      */
-    void selectRange(unsigned int offset, unsigned int length);
+//     void selectRange(unsigned int offset, unsigned int length);
 
     /** forward a sigCommand to the next layer */
-    void forwardCommand(const QString &command);
+//     void forwardCommand(const QString &command);
 
     /**
      * Toggles the "selected" flag of a track.
      * @param track index of the track [0...tracks()-1]
      */
-    void toggleTrackSelection(int track);
+//     void toggleTrackSelection(int track);
 
     /**
      * Called if the playback has been stopped.
      */
-    void playbackStopped();
+//     void playbackStopped();
 
-    /**
-     * Returns the current number of pixels per sample
-     */
-    inline double zoom() { return m_zoom; }
+//     void refreshAllLayers();
 
-    /** Returns the width of the current view in samples */
-    int displaySamples();
-
-    /**
-     * Zooms into the selected range between the left and right marker.
-     */
-    void zoomSelection();
-
-    /**
-     * Zooms the signal to be fully visible. Equivalent to
-     * setZoom(getFullZoom()).
-     * @see #setZoom()
-     * @see #getFullZoom()
-     */
-    void zoomAll();
-
-    /**
-     * Zooms the signal to one-pixel-per-sample. Equivalent to
-     * setZoom(1.0).
-     * @see #setZoom()
-     * @see #getFullZoom()
-     */
-    void zoomNormal();
-
-    /**
-     * Zooms into the signal, the new display will show the middle
-     * 33% of the current display.
-     */
-    void zoomIn();
-
-    /**
-     * Zooms the signal out, the current display will become the
-     * middle 30% of the new display.
-     */
-    void zoomOut();
-
-    void refreshAllLayers();
-
-protected:
+// protected:
 
     /** Starts a drag & drop operation */
-    virtual void startDragging();
+//     virtual void startDragging();
 
     /** @see Qt XDND documentation */
-    virtual void dragEnterEvent(QDragEnterEvent *event);
+//     virtual void dragEnterEvent(QDragEnterEvent *event);
 
     /** @see Qt XDND documentation */
-    virtual void dragLeaveEvent(QDragLeaveEvent *);
+//     virtual void dragLeaveEvent(QDragLeaveEvent *);
 
     /** @see Qt XDND documentation */
-    virtual void dropEvent(QDropEvent *event);
+//     virtual void dropEvent(QDropEvent *event);
 
     /** @see Qt XDND documentation */
-    virtual void dragMoveEvent(QDragMoveEvent *event);
+//     virtual void dragMoveEvent(QDragMoveEvent *event);
 
-    friend class UndoModifyLabelAction;
+//     friend class UndoModifyLabelAction;
 
-protected slots:
+// protected slots:
 
     /** Refreshes the layer with the markers */
-    void refreshMarkersLayer();
-
+//     void refreshMarkersLayer();
 
     /**
      * Allows repainting of the display by decrementing the repaint
@@ -296,12 +188,12 @@ protected slots:
      * @see m_inhibit_repaint
      * @see inhibitRepaint()
      */
-    void allowRepaint(bool repaint);
+//     void allowRepaint(bool repaint);
 
     /** Handler for context menus */
-    void contextMenuEvent(QContextMenuEvent *e);
+//     void contextMenuEvent(QContextMenuEvent *e);
 
-private slots:
+// private slots:
 
     /**
      * Connected to the signal's sigTrackInserted.
@@ -310,7 +202,7 @@ private slots:
      * @see Signal::sigTrackInserted
      * @internal
      */
-    void slotTrackInserted(unsigned int index, Track *track);
+//     void slotTrackInserted(unsigned int index, Track *track);
 
     /**
      * Connected to the signal's sigTrackDeleted.
@@ -318,7 +210,7 @@ private slots:
      * @see Signal::sigTrackInserted
      * @internal
      */
-    void slotTrackDeleted(unsigned int index);
+//     void slotTrackDeleted(unsigned int index);
 
     /**
      * Connected to the signal's sigSamplesInserted.
@@ -328,8 +220,8 @@ private slots:
      * @see Signal::sigSamplesInserted
      * @internal
      */
-    void slotSamplesInserted(unsigned int track, unsigned int offset,
-                             unsigned int length);
+//     void slotSamplesInserted(unsigned int track, unsigned int offset,
+//                              unsigned int length);
 
     /**
      * Connected to the signal's sigSamplesDeleted.
@@ -339,8 +231,8 @@ private slots:
      * @see Signal::sigSamplesDeleted
      * @internal
      */
-    void slotSamplesDeleted(unsigned int track, unsigned int offset,
-                            unsigned int length);
+//     void slotSamplesDeleted(unsigned int track, unsigned int offset,
+//                             unsigned int length);
 
     /**
      * Connected to the signal's sigSamplesModified
@@ -350,112 +242,95 @@ private slots:
      * @see Signal::sigSamplesModified
      * @internal
      */
-    void slotSamplesModified(unsigned int track, unsigned int offset,
-                             unsigned int length);
+//     void slotSamplesModified(unsigned int track, unsigned int offset,
+//                              unsigned int length);
 
     /**
      * Connected to the changed() signal of the SignalManager's selection.
      * @see Selection
      * @internal
      */
-    void slotSelectionChanged(unsigned int offset, unsigned int length);
-
+//     void slotSelectionChanged(unsigned int offset, unsigned int length);
 
     /**
      * Updates the vertical line that represents the current playback
      * position during playback.
      * @param pos last played sample position [0...length-1]
      */
-    void updatePlaybackPointer(unsigned int pos);
+//     void updatePlaybackPointer(unsigned int pos);
 
     /**
      * Refreshes the signal layer. Shortcut to refreshLayer(LAYER_SIGNAL).
      * @see #refreshLayer()
      */
-    void refreshSignalLayer();
+//     void refreshSignalLayer();
 
     /**
      * connected to the m_repaint_timer, called when it has
      * elapsed and the signal has to be repainted
      */
-    void timedRepaint();
+//     void timedRepaint();
 
     /** Hide the current position marker */
-    void hidePosition() {
-	showPosition(0, 0, 0, QPoint(-1,-1));
-    }
+//     void hidePosition() {
+// 	showPosition(0, 0, 0, QPoint(-1,-1));
+//     }
 
     /** context menu: "edit/undo" */
-    void contextMenuEditUndo()   { forwardCommand("undo()"); }
+//     void contextMenuEditUndo()   { forwardCommand("undo()"); }
 
     /** context menu: "edit/redo" */
-    void contextMenuEditRedo()   { forwardCommand("redo()"); }
+//     void contextMenuEditRedo()   { forwardCommand("redo()"); }
 
     /** context menu: "edit/cut" */
-    void contextMenuEditCut()    { forwardCommand("cut()"); }
+//     void contextMenuEditCut()    { forwardCommand("cut()"); }
 
     /** context menu: "edit/copy" */
-    void contextMenuEditCopy()   { forwardCommand("copy()"); }
+//     void contextMenuEditCopy()   { forwardCommand("copy()"); }
 
     /** context menu: "edit/paste" */
-    void contextMenuEditPaste()  { forwardCommand("paste()"); }
+//     void contextMenuEditPaste()  { forwardCommand("paste()"); }
 
     /** context menu: "save selection" */
-    void contextMenuSaveSelection()  { forwardCommand("saveselect()"); }
+//     void contextMenuSaveSelection()  { forwardCommand("saveselect()"); }
 
     /** context menu: "expand to labels" */
-    void contextMenuSelectionExpandToLabels()  {
-	forwardCommand("expandtolabel()");
-    }
+//     void contextMenuSelectionExpandToLabels()  {
+// 	forwardCommand("expandtolabel()");
+//     }
 
     /** context menu: "select next labels" */
-    void contextMenuSelectionNextLabels()  {
-	forwardCommand("selectnextlabels()");
-    }
+//     void contextMenuSelectionNextLabels()  {
+// 	forwardCommand("selectnextlabels()");
+//     }
 
     /** context menu: "select previous labels" */
-    void contextMenuSelectionPrevLabels()  {
-	forwardCommand("selectprevlabels()");
-    }
+//     void contextMenuSelectionPrevLabels()  {
+// 	forwardCommand("selectprevlabels()");
+//     }
 
     /** context menu: "label / new" */
-    void contextMenuLabelNew();
+//     void contextMenuLabelNew();
 
     /** context menu: "label / delete" */
-    void contextMenuLabelDelete();
+//     void contextMenuLabelDelete();
 
     /** context menu: "label / properties..." */
-    void contextMenuLabelProperties();
+//     void contextMenuLabelProperties();
 
-signals:
-
-    /**
-     * Signals a change in the current visible area.
-     * @param offset index of the first visible sample [samples]
-     * @param width the width of the widget in [pixels]
-     * @param length size of the whole signal [samples]
-     */
-    void viewInfo(unsigned int offset, unsigned int width,
-                  unsigned int length);
+// signals:
 
     /**
      * Emits the offset and length of the current selection and the
      * sample rate for converting it into milliseconds
      */
-    void selectedTimeInfo(unsigned int offset, unsigned int length,
-                          double rate);
+//     void selectedTimeInfo(unsigned int offset, unsigned int length,
+//                           double rate);
 
     /**
      * Emits a command to be processed by the next higher instance.
      */
-    void sigCommand(const QString &command);
-
-    /**
-     * Will be emitted if the zoom factor has changed due to a zoom
-     * command or resize.
-     * @param zoom value [samples/pixel]
-     */
-    void sigZoomChanged(double zoom);
+//     void sigCommand(const QString &command);
 
     /**
      * Emits a change in the mouse cursor. This can be used to change
@@ -466,34 +341,34 @@ signals:
      * class SignalWidget *and* of SignalWidget::MouseMouse to avoid the
      * need of including SignalWidget.h in too many files.
      */
-    void sigMouseChanged(int mode);
+//     void sigMouseChanged(int mode);
 
     /**
      * Signals that a track has been inserted.
      * @param track index of the new track [0...tracks()-1]
      */
-    void sigTrackInserted(unsigned int track);
+//     void sigTrackInserted(unsigned int track);
 
     /**
      * Signals that a track has been deleted.
      * @param track index of the deleted track [0...tracks()-1]
      */
-    void sigTrackDeleted(unsigned int track);
+//     void sigTrackDeleted(unsigned int track);
 
     /** The selection state of at least one track has changed */
-    void sigTrackSelectionChanged();
+//     void sigTrackSelectionChanged();
 
-protected:
+// protected:
 
     /**
      * Relationship between a screen position and the current selection.
      */
-    typedef enum {
-	None        = 0x0000,
-	LeftBorder  = 0x0001,
-	RightBorder = 0x0002,
-	Selection   = 0x8000
-    } SelectionPos;
+//     typedef enum {
+// 	None        = 0x0000,
+// 	LeftBorder  = 0x0001,
+// 	RightBorder = 0x0002,
+// 	Selection   = 0x8000
+//     } SelectionPos;
 
     /**
      * Determines the relationship between a screen position and
@@ -501,113 +376,106 @@ protected:
      * @param x screen position
      * @return a SelectionPos
      */
-    int selectionPosition(const int x);
+//     int selectionPosition(const int x);
 
     /**
      * Simple internal guard class for inhibiting and allowing
      * repaints in a SignalWidget.
      */
-    class InhibitRepaintGuard
-    {
-    public:
+//     class InhibitRepaintGuard
+//     {
+//     public:
         /** Constructor, inhibits repaints */
-	InhibitRepaintGuard(SignalWidget &widget, bool repaint=true)
-	    :m_widget(widget), m_repaint(repaint)
-	{
-	    m_widget.inhibitRepaint();
-	}
+// 	InhibitRepaintGuard(SignalWidget &widget, bool repaint=true)
+// 	    :m_widget(widget), m_repaint(repaint)
+// 	{
+// 	    m_widget.inhibitRepaint();
+// 	}
 
 	/** Destructor, allows repaints */
-	~InhibitRepaintGuard() {
-	    m_widget.allowRepaint(m_repaint);
-	}
+// 	~InhibitRepaintGuard() {
+// 	    m_widget.allowRepaint(m_repaint);
+// 	}
 
 	/** reference to our owner */
-	SignalWidget &m_widget;
+// 	SignalWidget &m_widget;
 
 	/** true if repaint is needed after allow */
-	bool m_repaint;
-    };
-
-    class PositionWidget: public QWidget
-    {
-    public:
-	/** Constructor */
-	PositionWidget(QWidget *parent);
-
-	/** Destructor */
-	virtual ~PositionWidget();
-
-	/**
-	 * set a new label text and alignment
-	 * @param text the text of the label, can be multiline and rtf/html
-	 * @param alignment the alignment of the label and the widget,
-	 *                  can be Qt::AlignLeft, Qt::AlignRight or Qt::AlignHCenter
-	 */
-	virtual void setText(const QString &text, Qt::Alignment alignment);
-
-    protected:
-
-	/** event filter */
-	virtual bool event(QEvent *e);
-
-	/** paint event: draws the text and the arrow */
-	virtual void paintEvent(QPaintEvent *);
-
-	/**
-	 * re-creates the mask and the polygon when
-	 * size/alignment has changed
-	 */
-	virtual void updateMask();
-
-    private:
-
-	/** the label that contains the text */
-	QLabel *m_label;
-
-	/** alignment of the label / text */
-	Qt::Alignment m_alignment;
-
-	/** the radius of the corners [pixel] */
-	int m_radius;
-
-	/** the length of the arrows [pixel] */
-	int m_arrow_length;
-
-	/** for detecting changes: previous width */
-	Qt::Alignment m_last_alignment;
-
-	/** for detecting changes: previous size */
-	QSize m_last_size;
-
-	/** polygon used as widget outline */
-	QPolygon m_polygon;
-    };
-
-    /**
-     * Returns the zoom value that will be used to fit the whole signal
-     * into the current window.
-     * @return zoom value [samples/pixel]
-     */
-    double getFullZoom();
+// 	bool m_repaint;
+//     };
+//
+//     class PositionWidget: public QWidget
+//     {
+//     public:
+// 	/** Constructor */
+// 	PositionWidget(QWidget *parent);
+//
+// 	/** Destructor */
+// 	virtual ~PositionWidget();
+//
+// 	/**
+// 	 * set a new label text and alignment
+// 	 * @param text the text of the label, can be multiline and rtf/html
+// 	 * @param alignment the alignment of the label and the widget,
+// 	 *                  can be Qt::AlignLeft, Qt::AlignRight or Qt::AlignHCenter
+// 	 */
+// 	virtual void setText(const QString &text, Qt::Alignment alignment);
+//
+//     protected:
+//
+// 	/** event filter */
+// 	virtual bool event(QEvent *e);
+//
+// 	/** paint event: draws the text and the arrow */
+// 	virtual void paintEvent(QPaintEvent *);
+//
+// 	/**
+// 	 * re-creates the mask and the polygon when
+// 	 * size/alignment has changed
+// 	 */
+// 	virtual void updateMask();
+//
+//     private:
+//
+// 	/** the label that contains the text */
+// 	QLabel *m_label;
+//
+// 	/** alignment of the label / text */
+// 	Qt::Alignment m_alignment;
+//
+// 	/** the radius of the corners [pixel] */
+// 	int m_radius;
+//
+// 	/** the length of the arrows [pixel] */
+// 	int m_arrow_length;
+//
+// 	/** for detecting changes: previous width */
+// 	Qt::Alignment m_last_alignment;
+//
+// 	/** for detecting changes: previous size */
+// 	QSize m_last_size;
+//
+// 	/** polygon used as widget outline */
+// 	QPolygon m_polygon;
+//     };
 
     /** slot for detecting resizing of the widget */
-    virtual void resizeEvent(QResizeEvent *);
+//     virtual void resizeEvent(QResizeEvent *);
 
     /** slot for mouse press, used for selection and drag&drop */
-    virtual void mousePressEvent(QMouseEvent *);
+//     virtual void mousePressEvent(QMouseEvent *);
 
     /** slot for mouse release, used for selection and drag&drop */
-    virtual void mouseReleaseEvent(QMouseEvent *);
+//     virtual void mouseReleaseEvent(QMouseEvent *);
 
     /** slot for mouse moves, used for selection and drag&drop */
-    virtual void mouseMoveEvent(QMouseEvent *);
+//     virtual void mouseMoveEvent(QMouseEvent *);
 
     /** slot for mouse wheel events, used for vertical zoom */
-    virtual void wheelEvent(QWheelEvent *event);
+//     virtual void wheelEvent(QWheelEvent *event);
 
     /** slot for repainting the widget or portions of it */
-    void paintEvent(QPaintEvent *);
+//    void paintEvent(QPaintEvent *); // ###
 
     /**
      * Returns the label that is nearest to the given mouse position
@@ -615,7 +483,7 @@ protected:
      * @param x mouse position, X coordinate, relative to the widget
      * @return nearest label or null if none found.
      */
-    Label findLabelNearMouse(int x) const;
+//     Label findLabelNearMouse(int x) const;
 
     /**
      * Opens a dialog for editing the properties of a label
@@ -623,7 +491,7 @@ protected:
      * @return true if the dialog has been accepted,
      *         otherwise false (canceled)
      */
-    bool labelProperties(Label &label);
+//     bool labelProperties(Label &label);
 
 //    void loadLabel ();
 //    void appendLabel ();
@@ -634,38 +502,24 @@ protected:
 //    void markPeriods (const char *);
 
     /**
-     * Handles commands for navigation and selection.
-     * @param command the string with the command
-     * @return true if the command has been handles, false if unknown
-     */
-    bool executeNavigationCommand(const QString &command);
-
-    /**
      * Inhibits repainting by increasing the repaint inhibit counter.
      * @see m_inhibit_repaint
      * @see allowRepaint()
      */
-    void inhibitRepaint();
+//     void inhibitRepaint();
 
 private:
 
     /**
      * Refreshes a single display layer.
      */
-    void refreshLayer(int layer);
-
-    /**
-     * Fixes the zoom and the offset of the display so that no non-existing
-     * samples (index < 0 or index >= length) have to be displayed and the
-     * current display window of the signal fits into the screen.
-     */
-    void fixZoomAndOffset();
+//     void refreshLayer(int layer);
 
     /**
      * Sets the mode of the mouse cursor and emits sigMouseChanged
      * if it differs from the previous value.
      */
-    void setMouseMode(MouseMode mode);
+//     void setMouseMode(MouseMode mode);
 
     /**
      * Shows the current cursor position as a tooltip
@@ -675,72 +529,59 @@ private:
      * @param mouse the coordinates of the mouse cursor,
      *              relative to this widget [pixel]
      */
-    void showPosition(const QString &text, unsigned int pos, double ms,
-                      const QPoint &mouse);
+//     void showPosition(const QString &text, unsigned int pos, double ms,
+//                       const QPoint &mouse);
 
     /** Shortcut for accessing the label list @note can be modified */
-    inline LabelList &labels() {
-	return m_signal_manager.fileInfo().labels();
-    }
+//     LabelList &labels();
 
     /** Shortcut for accessing the label list @note cannot be modified */
-    inline const LabelList &labels() const {
-	return m_signal_manager.fileInfo().labels();
-    }
+//     const LabelList &labels() const;
 
     /**
      * add a new label
      * @param pos position of the label [samples]
      */
-    void addLabel(unsigned int pos);
+//     void addLabel(unsigned int pos);
 
 private:
 
+    /** context of the Kwave application instance */
+    Kwave::ApplicationContext &m_context;
+
     /** QImage used for composition */
-    QImage m_image;
+//     QImage m_image;
 
     /** QImage for buffering each layer */
-    QImage m_layer[3];
+//     QImage m_layer[3];
 
     /** flags for updating each layer */
-    bool m_update_layer[3];
-
-    /**
-     * Offset from which signal is beeing displayed. This is equal to
-     * the index of the first visible sample.
-     */
-    unsigned int m_offset;
-
-    /** width of the widget in pixels, cached value */
-    int m_width;
+//     bool m_update_layer[3];
 
     /** height of the widget in pixels, cached value */
-    int m_height;
+//     int m_height;
 
     /** last/previous width of the widget, for detecting size changes */
-    int m_last_width;
+//     int m_last_width;
 
     /** last/previous height of the widget, for detecting size changes */
-    int m_last_height;
-
-    /** number of samples per pixel */
-    double m_zoom;
+//     int m_last_height;
 
     /** vertical zoom factor */
-    double m_vertical_zoom;
+//     double m_vertical_zoom;
 
     /**
      * position of the vertical line that indicates the current
      * playback position in [pixels] from 0...m_width-1. If no playback
      * is running the value is negative.
      */
-    int m_playpointer;
+//     int m_playpointer;
 
     /** last/previous value of m_playpointer, for detecting changes */
-    int m_last_playpointer;
+//     int m_last_playpointer;
 
     /** if set, m_pixmap has to be redrawn */
-    bool m_redraw;
+//     bool m_redraw;
 
     /**
      * Counter for inhibiting repaints. If not zero, repaints should
@@ -748,33 +589,30 @@ private:
      * @see allowRepaint()
      * @see inhibitRepaint()
      */
-    unsigned int m_inhibit_repaint;
+//     unsigned int m_inhibit_repaint;
 
-    MouseMark *m_selection;
-
-    /** our signal manager */
-    SignalManager m_signal_manager;
+//     MouseMark *m_selection;
 
     /** list of track pixmaps */
-    QList<TrackPixmap *> m_track_pixmaps;
+//     QList<TrackPixmap *> m_track_pixmaps;
 
     /** mode of the mouse cursor */
-    MouseMode m_mouse_mode;
+//     MouseMode m_mouse_mode;
 
     /**
      * x position where the user last clicked the last time, needed fo
      * finding out where to start a drag&drop operation
      */
-    int m_mouse_down_x;
+//     int m_mouse_down_x;
 
     /** timer for limiting the number of repaints per second */
-    QTimer m_repaint_timer;
+//     QTimer m_repaint_timer;
 
     /** small widget for showing the mouse cursor position */
-    PositionWidget m_position_widget;
+//     PositionWidget m_position_widget;
 
     /** timer for automatic hiding */
-    QTimer m_position_widget_timer;
+//     QTimer m_position_widget_timer;
 
 };
 

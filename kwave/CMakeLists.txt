@@ -29,6 +29,7 @@ ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
 #############################################################################
 
 SET(kwave_SRCS
+    ApplicationContext.cpp
     main.cpp
     KwaveApp.cpp
     KwaveSplash.cpp

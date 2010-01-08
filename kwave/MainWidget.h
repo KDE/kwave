@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <QDockWidget>
 #include <QFrame>
 #include <QList>
 #include <QWidget>
@@ -39,6 +40,8 @@ class OverViewWidget;
 class PlaybackController;
 class SignalManager;
 
+namespace Kwave { class ApplicationContext; }
+
 //***************************************************************************
 class MainWidget : public QWidget
 {
@@ -48,8 +51,9 @@ public:
     /**
      * Constructor.
      * @param parent parent widget
+     * @param context reference to the context of this instance
      */
-    MainWidget(QWidget *parent);
+    MainWidget(QWidget *parent, Kwave::ApplicationContext &context);
 
     /**
      * Returns true if this instance was successfully initialized, or
@@ -60,51 +64,16 @@ public:
     /** Destructor. */
     virtual ~MainWidget();
 
-    /**
-     * Closes the current signal and loads a new one
-     * from a file.
-     * @param url URL of the file to be loaded
-     * @return 0 if succeeded or error code < 0
-     */
-    int loadFile(const KUrl &url);
-
-    /**
-     * Closes the current signal.
-     */
-    void closeSignal();
-
-    /**
-     * Forwards information for creation of a new signal to the
-     * signal widget and then to the signal manager.
-     * @see TopWidget::newSignal
-     */
-    void newSignal(unsigned int samples, double rate,
-                   unsigned int bits, unsigned int tracks);
-
     /** Returns the current zoom factor. */
-    double zoom();
-
-    /**
-     * Returns the current number of tracks of the signal or 0 if
-     * no signal is loaded.
-     */
-    unsigned int tracks();
-
-    /** Returns the signal manager of the current signal */
-    SignalManager &signalManager();
-
-    /** Returns the playback controller */
-    PlaybackController &playbackController();
-
-    /** Returns the width of the current view in samples */
-    inline int displaySamples() {
-	return m_signal_widget.displaySamples();
-    }
+    double zoom() const;
 
     /** Returns the width of the current view in pixels */
     inline int displayWidth() {
 	return m_signal_widget.width();
     }
+
+    /** Returns the width of the current view in samples */
+    int displaySamples() const;
 
 protected:
 
@@ -119,8 +88,11 @@ protected:
 
 protected slots:
 
-    /** refresh the state of the lamps */
-    void refreshChannelControls();
+    /** resize the viewport and its contents */
+    void resizeViewPort();
+
+    /** updates all widgets that depend on the current view range */
+    void updateViewRange();
 
 public slots:
 
@@ -128,49 +100,76 @@ public slots:
 
     void forwardCommand(const QString &command);
 
-    void parseKey(int key);
+//  void parseKey(int key);
 
-    /** calls setZoom() of the signal widget */
-    inline void setZoom(double new_zoom) {
-	m_signal_widget.setZoom(new_zoom);
-    }
+    /**
+     * Sets the display offset [samples] and refreshes the screen.
+     * @param new_offset new value for the offset in samples, will be
+     *                   internally limited to [0...length-1]
+     */
+    void setOffset(unsigned int new_offset);
 
-    /** calls zoomSelection() of the signal widget */
-    inline void zoomSelection() { m_signal_widget.zoomSelection(); }
+    /**
+     * sets a new zoom factor [samples/pixel], does not refresh the screen
+     * @param new_zoom new zoom value, will be internally limited
+     *                 to [length/width...1/width] (from full display to
+     *                 one visible sample only)
+     */
+    void setZoom(double new_zoom);
 
-    /** calls zoomIn() of the signal widget */
-    inline void zoomIn()        { m_signal_widget.zoomIn(); }
+    /**
+     * Zooms into the selected range between the left and right marker.
+     */
+    void zoomSelection();
 
-    /** calls zoomOut() of the signal widget */
-    inline void zoomOut()       { m_signal_widget.zoomOut(); }
+    /**
+     * Zooms the signal to be fully visible. Equivalent to
+     * setZoom(getFullZoom()).
+     * @see #setZoom()
+     * @see #getFullZoom()
+     */
+    void zoomAll();
 
-    /** calls zoomAll() of the signal widget */
-    inline void zoomAll()       { m_signal_widget.zoomAll(); }
+    /**
+     * Zooms the signal to one-pixel-per-sample. Equivalent to
+     * setZoom(1.0).
+     * @see #setZoom()
+     * @see #getFullZoom()
+     */
+    void zoomNormal();
 
-    /** calls zoomNormal() of the signal widget */
-    inline void zoomNormal()    { m_signal_widget.zoomNormal(); }
+    /**
+     * Zooms into the signal, the new display will show the middle
+     * 33% of the current display.
+     */
+    void zoomIn();
+
+    /**
+     * Zooms the signal out, the current display will become the
+     * middle 30% of the new display.
+     */
+    void zoomOut();
 
 private slots:
 
     /**
      * Called if a track has been added. Updates the display by
-     * resizing/re-positioning the channel controls and the signal
-     * display.
-     * @param track index of the inserted track
-     * @see SignalWidget::sigTrackInserted
+     * resizing/re-positioning the signal views.
+     * @param index the index of the inserted track [0...tracks-1]
+     * @param track pointer to the track object (ignored here)
+     * @see SignalManager::sigTrackInserted
      * @internal
      */
-    void slotTrackInserted(unsigned int track);
+    void slotTrackInserted(unsigned int index, Track *track);
 
     /**
      * Called if a track has been deleted. Updates the display by
-     * resizing/re-positioning the channel controls and the signal
-     * display.
-     * @param track index of the deleted track
-     * @see SignalWidget::sigTrackDeleted
+     * resizing/re-positioning the signal views.
+     * @param index the index of the inserted track [0...tracks-1]
+     * @see SignalManager::sigTrackDeleted
      * @internal
      */
-    void slotTrackDeleted(unsigned int track);
+    void slotTrackDeleted(unsigned int index);
 
     /** updates the scrollbar */
     void updateViewInfo(unsigned int, unsigned int, unsigned int);
@@ -217,16 +216,67 @@ signals:
 
 private:
 
+    /**
+     * Converts a time in milliseconds to a number of samples, based
+     * on the current signal rate.
+     * @param ms time in milliseconds
+     * @return number of samples (rounded)
+     */
+    unsigned int ms2samples(double ms);
+
+    /**
+     * Converts a number of samples to a time in milliseconds, based on the
+     * current signal rate.
+     * @param samples number of samples
+     * @return time in milliseconds
+     */
+    double samples2ms(unsigned int samples);
+
+    /**
+     * Converts a sample index into a pixel offset using the current zoom
+     * value. Always rounds up or downwards. If the number of pixels or the
+     * current zoom is less than zero, the return value will be zero.
+     * @param pixels pixel offset
+     * @return index of the sample
+     */
+    unsigned int pixels2samples(int pixels) const;
+
+    /**
+     * Converts a pixel offset into a sample index using the current zoom
+     * value. Always rounds op or downwards.
+     * @param samples number of samples to be converted
+     * @return pixel offset
+     */
+    int samples2pixels(int samples) const;
+
+    /**
+     * Returns the zoom value that will be used to fit the whole signal
+     * into the current window.
+     * @return zoom value [samples/pixel]
+     */
+    double fullZoom();
+
+    /**
+     * Fixes the zoom and the offset of the display so that no non-existing
+     * samples (index < 0 or index >= length) have to be displayed and the
+     * current display window of the signal fits into the screen.
+     * @return true if either offset or zoom has changed, otherwise false
+     */
+    bool fixZoomAndOffset();
+
+private:
+
+    /** context of the Kwave application instance */
+    Kwave::ApplicationContext &m_context;
+
     /** overview widget */
     OverViewWidget *m_overview;
 
     /** QFrame that contains the signal widget. */
-    QFrame m_signal_frame;
+    QFrame m_view_port;
 
-    /** the widget that shows the signal */
+    /** the widget that shows the signal, scrolled within the view port */
     SignalWidget m_signal_widget;
-
-    QFrame *m_frm_channel_controls;
 
     /** vertical scrollbar, only visible if channels do not fit vertically */
     QScrollBar *m_vertical_scrollbar;
@@ -234,11 +284,17 @@ private:
     /** horizontal scrollbar, always visible */
     QScrollBar *m_horizontal_scrollbar;
 
-    /** array of lamps, one for each channel */
-    QList<MultiStateWidget *> m_lamps;
+    /**
+     * Offset from which signal is beeing displayed. This is equal to
+     * the index of the first visible sample.
+     */
+    unsigned int m_offset;
 
-    /** the last number of channels (for detecting changes) */
-    unsigned int m_last_tracks;
+    /** width of the widget in pixels, cached value */
+    int m_width;
+
+    /** number of samples per pixel */
+    double m_zoom;
 
 };
 

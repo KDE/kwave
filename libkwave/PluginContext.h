@@ -22,6 +22,8 @@
 
 namespace Kwave { class PluginManager; }
 
+#include <QString>
+
 class PluginContext
 {
 public:

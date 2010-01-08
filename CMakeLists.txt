@@ -142,7 +142,7 @@ LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libkwave)
 #############################################################################
 ### Qt 4 support                                                          ###
 
-SET(QT_USE_QT3SUPPORT OFF)
+SET(QT_USE_QT3SUPPORT ON)
 SET(QT_USE_QTUITOOLS ON)
 SET(QT_USE_QTCORE ON)
 SET(QT_DONTUSE_QTGUI OFF)
@@ -168,6 +168,7 @@ ADD_DEFINITIONS(${KDE4_DEFINITIONS})
 
 SET(QT_AND_KDECORE_LIBS
     ${QT_QTGUI_LIBRARY}
+    ${QT_QT3SUPPORT_LIBRARY}
     ${QT_LIBRARIES}
     ${KDE4_THREADWEAVER_LIBRARY}
     ${KDE4_KDECORE_LIBS}

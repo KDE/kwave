@@ -22,6 +22,7 @@
 #include "config.h"
 
 #include <QPair>
+#include <QPointer>
 #include <QString>
 #include <QVector>
 
@@ -45,6 +46,7 @@ class MainWidget;
 class SignalManager;
 
 namespace Kwave { class PluginManager; }
+namespace Kwave { class ApplicationContext; }
 
 /**
  * Toplevel widget of the Kwave application. Holds a main widget, a menu
@@ -59,15 +61,16 @@ public:
     /**
      * Constructor. Creates a new toplevel widget including menu bar,
      * buttons, working are an s on.
-     * @param main_app reference to the main kwave aplication object
+     * @param context reference to the context of this instance
      */
-    TopWidget(KwaveApp &main_app);
+    TopWidget(Kwave::ApplicationContext &context);
 
     /**
-     * Returns true if this instance was successfully initialized, or
+     * Does some initialization at startup of the instance
+     * @return true if this instance was successfully initialized, or
      * false if something went wrong during initialization.
      */
-    virtual bool isOK();
+    bool init();
 
     /**
      * Destructor.
@@ -81,11 +84,6 @@ public:
      * @return 0 if successful
      */
     int loadFile(const KUrl &url);
-
-    /**
-     * Returns the reference to the Kwave application
-     */
-    inline KwaveApp &getKwaveApp() { return m_app; }
 
     /**
      * Parses a text stream line by line and executes each line
@@ -314,8 +312,8 @@ protected:
 
 private:
 
-    /** returns a reference to out signal manager */
-    SignalManager &signalManager();
+    /** returns true if we have a non-empty signal */
+    bool haveSignal();
 
     /** returns the name of the signal */
     QString signalName() const;
@@ -328,20 +326,17 @@ private:
 
 private:
 
+    /** reference to the application context of this instance */
+    Kwave::ApplicationContext &m_context;
+
     /** Initialized list of zoom factors */
     QVector< ZoomFactor > m_zoom_factors;
-
-    /** reference to the main kwave application */
-    KwaveApp &m_app;
-
-    /** our internal plugin manager */
-    Kwave::PluginManager *m_plugin_manager;
 
     /**
      * the main widget with all views and controls (except menu and
      * toolbar)
      */
-    MainWidget *m_main_widget;
+    QPointer<MainWidget> m_main_widget;
 
     /** combo box for selection of the zoom factor */
     KComboBox *m_zoomselect;

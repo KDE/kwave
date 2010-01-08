@@ -32,6 +32,7 @@ IF (WITH_SAMPLERATE)
 ENDIF (WITH_SAMPLERATE)
 
 SET(libkwave_LIB_SRCS
+    ApplicationContext.cpp
     ClipBoard.cpp
     CodecBase.cpp
     CodecManager.cpp

@@ -21,6 +21,13 @@
 //***************************************************************************
 
 #include <sys/types.h>
+#include <limits.h>
+
+/** use a unsigned integer for sample offset/count calculations */
+typedef u_int64_t sample_index_t;
+
+/** the highest possible sample index */
+#define SAMPLE_INDEX_MAX UINT_MAX
 
 /** Currently a "sample" is defined as a 32 bit integer with 24 valid bits */
 typedef int32_t sample_t;

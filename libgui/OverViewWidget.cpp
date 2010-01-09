@@ -115,7 +115,7 @@ void OverViewWidget::mousePressEvent(QMouseEvent *e)
     }
 
     // move the clicked position to the center of the viewport
-    unsigned int offset = pixels2offset(e->x());
+    sample_index_t offset = pixels2offset(e->x());
     if (offset != m_last_offset) {
 	m_last_offset = offset;
 	emit valueChanged(offset);
@@ -134,7 +134,7 @@ void OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
     }
 
     // move the clicked position to the center of the viewport
-    unsigned int offset = pixels2offset(e->x());
+    sample_index_t offset = pixels2offset(e->x());
     if (offset != m_last_offset) {
 	m_last_offset = offset;
 	emit valueChanged(offset);
@@ -152,21 +152,21 @@ void OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
 }
 
 //***************************************************************************
-int OverViewWidget::pixels2offset(int pixels)
+sample_index_t OverViewWidget::pixels2offset(unsigned int pixels)
 {
     int width = this->width();
     if (!width) return 0;
 
-    int offset = static_cast<int>(m_signal_length *
+    sample_index_t offset = static_cast<sample_index_t>(m_signal_length *
 	(static_cast<double>(pixels) / static_cast<double>(width)));
-    int center = m_view_width >> 1;
+    unsigned int center = m_view_width >> 1;
     offset = (offset > center) ? (offset - center) : 0;
     return offset;
 }
 
 //***************************************************************************
-void OverViewWidget::setRange(unsigned int offset, unsigned int viewport,
-                              unsigned int total)
+void OverViewWidget::setRange(sample_index_t offset, sample_index_t viewport,
+                              sample_index_t total)
 {
     m_view_offset   = offset;
     m_view_width    = viewport;
@@ -176,7 +176,7 @@ void OverViewWidget::setRange(unsigned int offset, unsigned int viewport,
 }
 
 //***************************************************************************
-void OverViewWidget::setSelection(unsigned int offset, unsigned int length,
+void OverViewWidget::setSelection(sample_index_t offset, sample_index_t length,
                                   double rate)
 {
     m_selection_start  = offset;
@@ -233,16 +233,16 @@ void OverViewWidget::labelsChanged(const LabelList &labels)
 }
 
 //***************************************************************************
-void OverViewWidget::playbackPositionChanged(unsigned int pos)
+void OverViewWidget::playbackPositionChanged(sample_index_t pos)
 {
-    const unsigned int old_pos = m_playback_position;
-    const unsigned int new_pos = pos;
+    const sample_index_t old_pos = m_playback_position;
+    const sample_index_t new_pos = pos;
 
     if (new_pos == old_pos) return; // no change
     m_playback_position = new_pos;
 
     // check for change in pixel units
-    unsigned int length = m_signal_length;
+    sample_index_t length = m_signal_length;
     if (m_view_offset + m_view_width > m_signal_length) {
 	// showing deleted space after signal
 	length = m_view_offset + m_view_width;
@@ -308,7 +308,7 @@ void OverViewWidget::refreshBitmap()
 //***************************************************************************
 void OverViewWidget::calculateBitmap()
 {
-    unsigned int length = m_signal_length;
+    sample_index_t length = m_signal_length;
     if (m_view_offset + m_view_width > m_signal_length) {
 	// showing deleted space after signal
 	length = m_view_offset + m_view_width;
@@ -378,7 +378,7 @@ void OverViewWidget::calculateBitmap()
 
     // draw playback position
     if (m_playback_position) {
-	const unsigned int pos = m_playback_position;
+	const sample_index_t pos = m_playback_position;
 	unsigned int x = static_cast<unsigned int>(
 	    static_cast<double>(pos) * scale);
 

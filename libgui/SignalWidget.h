@@ -324,7 +324,7 @@ public:
      * Emits the offset and length of the current selection and the
      * sample rate for converting it into milliseconds
      */
-//     void selectedTimeInfo(unsigned int offset, unsigned int length,
+//     void selectedTimeInfo(sample_index_t offset, sample_index_t length,
 //                           double rate);
 
     /**

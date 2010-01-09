@@ -66,8 +66,8 @@ public slots:
      * @param viewport width of the visible area
      * @param total width of the whole signal
      */
-    void setRange(unsigned int offset, unsigned int viewport,
-                  unsigned int total);
+    void setRange(sample_index_t offset, sample_index_t viewport,
+                  sample_index_t total);
 
     /**
      * called when the selected time has changed
@@ -75,13 +75,13 @@ public slots:
      * @param length number of selected samples
      * @param rate sample rate [samples/second]
      */
-    void setSelection(unsigned int offset, unsigned int length, double rate);
+    void setSelection(sample_index_t offset, sample_index_t length, double rate);
 
     /** should be called when the list of labels has changed */
     void labelsChanged(const LabelList &labels);
 
     /** should be called to update the current playback posiotion */
-    void playbackPositionChanged(unsigned int pos);
+    void playbackPositionChanged(sample_index_t pos);
 
     /** should be called when playback has been stopped */
     void playbackStopped();
@@ -130,7 +130,7 @@ signals:
      * Will be emitted if the slider position has changed. The value
      * is in user's units (e.g. samples).
      */
-    void valueChanged(unsigned int new_value);
+    void valueChanged(sample_index_t new_value);
 
     /** emitted for zooming in and out via command */
     void sigCommand(const QString &command);
@@ -146,7 +146,7 @@ protected:
      * @param pixels the pixel coordinate [0...width-1]
      * @return an offset [0..length-1]
      */
-    int pixels2offset(int pixels);
+    sample_index_t pixels2offset(unsigned int pixels);
 
     /**
      * draws a little mark at the top and bottom of a line
@@ -187,28 +187,28 @@ private:
 private:
 
     /** index of the first visible sample */
-    unsigned int m_view_offset;
+    sample_index_t m_view_offset;
 
     /** width of the visible area [samples] */
-    unsigned int m_view_width;
+    sample_index_t m_view_width;
 
     /** length of the whole area [samples] */
-    unsigned int m_signal_length;
+    sample_index_t m_signal_length;
 
     /** sample rate of the signal [samples/second] */
     double m_sample_rate;
 
     /** start of the selection [samples] */
-    unsigned int m_selection_start;
+    sample_index_t m_selection_start;
 
     /** length of the selection [samples] */
-    unsigned int m_selection_length;
+    sample_index_t m_selection_length;
 
     /** last playback position */
-    unsigned int m_playback_position;
+    sample_index_t m_playback_position;
 
     /** last emitted offset (for avoiding duplicate events) */
-    unsigned int m_last_offset;
+    sample_index_t m_last_offset;
 
     /** cache with overview data */
     OverViewCache m_cache;

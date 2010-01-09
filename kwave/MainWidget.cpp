@@ -19,20 +19,17 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <QBitmap>
-#include <QComboBox>
 #include <QFrame>
 #include <QGridLayout>
 #include <QHBoxLayout>
-#include <QMainWindow>
 #include <QResizeEvent>
 #include <QScrollBar>
+#include <QtGlobal>
 #include <QWheelEvent>
 
 #include <klocale.h>
 
 #include "libkwave/ApplicationContext.h"
-#include "libkwave/KwavePlugin.h" // for some helper functions
 #include "libkwave/Parser.h"
 #include "libkwave/SignalManager.h"
 
@@ -101,7 +98,7 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
     hbox->addWidget(m_vertical_scrollbar);
     topLayout->addLayout(hbox);
     connect(m_vertical_scrollbar, SIGNAL(valueChanged(int)),
-            this, SLOT(verticalScrollBarMoved(int)));
+            this,                 SLOT(verticalScrollBarMoved(int)));
 
     // -- overview widget --
 
@@ -113,10 +110,10 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
 	QSizePolicy::MinimumExpanding, QSizePolicy::Fixed
     );
     topLayout->addWidget(m_overview);
-    connect(m_overview, SIGNAL(valueChanged(unsigned int)),
-	    this, SLOT(setOffset(unsigned int)));
+    connect(m_overview, SIGNAL(valueChanged(sample_index_t)),
+	    this,       SLOT(setOffset(sample_index_t)));
     connect(m_overview, SIGNAL(sigCommand(const QString &)),
-            this, SLOT(forwardCommand(const QString &)));
+            this,       SIGNAL(sigCommand(const QString &)));
     m_overview->labelsChanged(signal_manager->labels());
 
     // -- horizontal scrollbar --
@@ -127,31 +124,29 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
     m_horizontal_scrollbar->setOrientation(Qt::Horizontal);
     topLayout->addWidget(m_horizontal_scrollbar);
     connect(m_horizontal_scrollbar, SIGNAL(valueChanged(int)),
-	    this, SLOT(horizontalScrollBarMoved(int)));
+	    this,                   SLOT(horizontalScrollBarMoved(int)));
 
-//     connect(&m_signal_widget, SIGNAL(selectedTimeInfo(unsigned int,
-// 	unsigned int, double)),
-// 	m_overview, SLOT(setSelection(unsigned int, unsigned int, double)));
+    // -- selection handling --
 
-//     connect(&(playbackController()), SIGNAL(sigPlaybackPos(unsigned int)),
-// 	m_overview, SLOT(playbackPositionChanged(unsigned int)));
+//     connect(&m_signal_widget, SIGNAL(selectedTimeInfo(sample_index_t,
+// 	sample_index_t, double)),
+// 	m_overview, SLOT(setSelection(sample_index_t, sample_index_t, double)));
+
+    // -- playback position update --
+
+//     connect(&(playbackController()), SIGNAL(sigPlaybackPos(sample_index_t)),
+// 	m_overview, SLOT(playbackPositionChanged(sample_index_t)));
 //     connect(&(playbackController()), SIGNAL(sigPlaybackStopped()),
 // 	m_overview, SLOT(playbackStopped()));
 
-    this->setLayout(topLayout);
+    // -- connect all signals from/to the signal widget --
 
-//     // -- connect all signals from/to the signal widget --
-//
-//     connect(&m_signal_widget, SIGNAL(viewInfo(unsigned int,
-// 	    unsigned int, unsigned int)),
-// 	    this, SLOT(updateViewInfo(unsigned int, unsigned int,
-// 	    unsigned int)));
 //     connect(&m_signal_widget, SIGNAL(sigCommand(const QString &)),
 // 	    this, SLOT(forwardCommand(const QString &)));
-//     connect(&m_signal_widget, SIGNAL(selectedTimeInfo(unsigned int,
-//             unsigned int, double)),
-// 	    this, SIGNAL(selectedTimeInfo(unsigned int,
-//             unsigned int, double)));
+//     connect(&m_signal_widget, SIGNAL(selectedTimeInfo(sample_index_t,
+//             sample_index_t, double)),
+// 	    this, SIGNAL(selectedTimeInfo(sample_index_t,
+//             sample_index_t, double)));
 //     connect(&m_signal_widget, SIGNAL(sigMouseChanged(int)),
 // 	    this, SIGNAL(sigMouseChanged(int)));
 //     connect(signal_manager, SIGNAL(sigTrackSelectionChanged()),
@@ -160,9 +155,11 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
     // -- connect all signals from/to the signal manager --
 
     connect(signal_manager, SIGNAL(sigTrackInserted(unsigned int, Track *)),
-	    this, SLOT(slotTrackInserted(unsigned int, Track *)));
+	    this,           SLOT(slotTrackInserted(unsigned int, Track *)));
     connect(signal_manager, SIGNAL(sigTrackDeleted(unsigned int)),
-	    this, SLOT(slotTrackDeleted(unsigned int)));
+	    this,           SLOT(slotTrackDeleted(unsigned int)));
+
+    this->setLayout(topLayout);
 
     resizeViewPort();
 
@@ -272,21 +269,15 @@ double MainWidget::zoom() const
 }
 
 //***************************************************************************
-void MainWidget::forwardCommand(const QString &command)
-{
-    emit sigCommand(command);
-}
-
-//***************************************************************************
 bool MainWidget::executeCommand(const QString &command)
 {
     SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return 0;
-
-    const unsigned int visible_samples = displayWidth();
     if (!command.length()) return false;
+
     Parser parser(command);
+    const sample_index_t visible_samples = displaySamples();
 
     if (false) {
 
@@ -304,7 +295,7 @@ bool MainWidget::executeCommand(const QString &command)
 
     // -- navigation --
     CASE_COMMAND("goto")
-	unsigned int offset = parser.toUInt();
+	sample_index_t offset = parser.toUInt();
 	setOffset((offset > (visible_samples / 2)) ?
 	          (offset - (visible_samples / 2)) : 0);
 	signal_manager->selectRange(offset, 0);
@@ -317,7 +308,7 @@ bool MainWidget::executeCommand(const QString &command)
 	setOffset(0);
 	signal_manager->selectRange(0, 0);
     CASE_COMMAND("viewend")
-	unsigned int len = signal_manager->length();
+	sample_index_t len = signal_manager->length();
 	if (len >= visible_samples) setOffset(len - visible_samples);
     CASE_COMMAND("viewnext")
 	setOffset(m_offset + visible_samples);
@@ -335,8 +326,8 @@ bool MainWidget::executeCommand(const QString &command)
 	else
 	    signal_manager->selectRange(signal_manager->length() - 1, 0);
     CASE_COMMAND("selectprev")
-	unsigned int ofs = signal_manager->selection().first();
-	unsigned int len = signal_manager->selection().length();
+	sample_index_t ofs = signal_manager->selection().first();
+	sample_index_t len = signal_manager->selection().length();
 	if (!len) len = 1;
 	if (len > ofs) len = ofs;
 	signal_manager->selectRange(ofs-len, len);
@@ -424,7 +415,7 @@ void MainWidget::resizeViewPort()
 }
 
 //***************************************************************************
-void MainWidget::updateViewInfo(unsigned int, unsigned int, unsigned int)
+void MainWidget::updateViewInfo(sample_index_t, sample_index_t, sample_index_t)
 {
     refreshHorizontalScrollBar();
 }
@@ -439,34 +430,35 @@ void MainWidget::refreshHorizontalScrollBar()
     // adjust the limits of the horizontal scrollbar
     if (m_context.signalManager()->length() > 1) {
 	// get the view information in samples
-	unsigned int length  = m_context.signalManager()->length();
-	unsigned int offset  = m_offset;
-	unsigned int visible = displaySamples();
+	sample_index_t length  = m_context.signalManager()->length();
+	sample_index_t visible = displaySamples();
 	if (visible > length) visible = length;
-	unsigned int range   = length - visible;
-	if (range) range--;
-	// in samples:
-	// min  => 0
-	// max  => length - visible - 1
-	// page => visible
-// 	qDebug("range = 0...%u, visible=%u, offset=%u, offset+visible=%d range+visible=%d",
-// 	    range, visible, offset, offset+visible, range+visible);
 
-	// calculate ranges in samples
-	int width = displayWidth();
-	int page  = static_cast<int>(floor(static_cast<double>(width) *
-	    static_cast<double>(visible) / static_cast<double>(length)));
-	if (page < 1) page = 1;
-	if (page > width) page = width;
-	int min   = 0;
-	int max   = width - page;
-	int pos   = (range) ? static_cast<int>(floor(
-	    static_cast<double>(offset) * static_cast<double>(max) /
-	    static_cast<double>(range))) : 0;
-	int single = (page / 10);
-	if (!single) single = 1;
+	// calculate the scrollbar ranges in scrollbar's units
+	//
+	// NOTE: we must take care of possible numeric overflows
+	//       as the scrollbar works internally with "int" and
+	//       the offsets we use for the samples might be bigger!
+	//
+	// [-------------------------------------------##############]
+	// ^                                          ^     ^
+	// min                                      max    page
+	//
+	// max + page = x | x < INT_MAX (!)
+	//                                  x := length / f
+	// page = x * (visible / length)  = visible  / f
+	// max                            = length   / f - page
+	// pos  = (m_offset / length) * x = m_offset / f
+
+	const int f = qMax(1U, SAMPLE_INDEX_MAX / INT_MAX);
+	int page    = visible  / f;
+	int min     = 0;
+	int max     = length   / f - page;
+	int pos     = m_offset / f;
+	int single  = qMax(1, (page / 10));
+	if (page < single) page = single;
 // 	qDebug("width=%d,max=%d, page=%d, single=%d, pos=%d",
-// 	       width, max, page, single, pos);
+// 	       m_width, max, page, single, pos);
 
 	m_horizontal_scrollbar->setRange(min, max);
 	m_horizontal_scrollbar->setValue(pos);
@@ -482,24 +474,9 @@ void MainWidget::refreshHorizontalScrollBar()
 //***************************************************************************
 void MainWidget::horizontalScrollBarMoved(int newval)
 {
-    if (!m_horizontal_scrollbar) return;
-
-    unsigned int max = m_horizontal_scrollbar->maximum();
-    if (max < 1) {
-	setOffset(0);
-	return;
-    }
-
-    // convert the current position into samples
-    unsigned int length = m_context.signalManager()->length();
-    unsigned int visible = displaySamples();
-    if (visible > length) visible = length;
-    unsigned int range   = length - visible;
-    if (range) range--;
-
-    unsigned int pos = static_cast<int>(floor(static_cast<double>(range) *
-	static_cast<double>(newval) / static_cast<double>(max)));
-//     qDebug("horizontalScrollBarMoved(%d) -> %u", newval, pos);
+    // new offset = pos * f
+    const int f = qMax(1U, SAMPLE_INDEX_MAX / INT_MAX);
+    const sample_index_t pos = newval * f;
     setOffset(pos);
 }
 
@@ -507,26 +484,27 @@ void MainWidget::horizontalScrollBarMoved(int newval)
 void MainWidget::updateViewRange()
 {
     SignalManager *signal_manager = m_context.signalManager();
-    unsigned int total = (signal_manager) ? signal_manager->length() : 0;
+    sample_index_t total = (signal_manager) ? signal_manager->length() : 0;
 
     // forward the zoom and offset to the signal widget and overview
     m_signal_widget.setZoomAndOffset(m_zoom, m_offset);
     if (m_overview) m_overview->setRange(m_offset, displaySamples(), total);
+    refreshHorizontalScrollBar();
 }
 
 //***************************************************************************
-unsigned int MainWidget::ms2samples(double ms)
+sample_index_t MainWidget::ms2samples(double ms)
 {
     SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return 0;
 
-    return static_cast<unsigned int>(
+    return static_cast<sample_index_t>(
 	rint(ms * signal_manager->rate() / 1E3));
 }
 
 //***************************************************************************
-double MainWidget::samples2ms(unsigned int samples)
+double MainWidget::samples2ms(sample_index_t samples)
 {
     SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
@@ -538,23 +516,28 @@ double MainWidget::samples2ms(unsigned int samples)
 }
 
 //***************************************************************************
-unsigned int MainWidget::pixels2samples(int pixels) const
+sample_index_t MainWidget::pixels2samples(unsigned int pixels) const
 {
     if ((pixels <= 0) || (m_zoom <= 0.0)) return 0;
-    return static_cast<unsigned int>(rint(
+    return static_cast<sample_index_t>(rint(
 	static_cast<double>(pixels) * m_zoom));
 }
 
 //***************************************************************************
-int MainWidget::samples2pixels(int samples) const
+int MainWidget::samples2pixels(sample_index_t samples) const
 {
     if (m_zoom == 0.0) return 0;
     return static_cast<int>(rint(static_cast<double>(samples) / m_zoom));
 }
 
+//***************************************************************************
+int MainWidget::displayWidth() const
+{
+    return m_width;
+}
 
 //***************************************************************************
-int MainWidget::displaySamples() const
+sample_index_t MainWidget::displaySamples() const
 {
     return pixels2samples(m_width);
 }
@@ -567,11 +550,11 @@ double MainWidget::fullZoom()
     if (!signal_manager) return 0.0;
     if (signal_manager->isEmpty()) return 0.0;    // no zoom if no signal
 
-    unsigned int length = signal_manager->length();
+    sample_index_t length = signal_manager->length();
     if (!length) {
         // no length: streaming mode -> start with a default
         // zoom, use one minute (just guessed)
-        length = static_cast<unsigned int>(ceil(DEFAULT_DISPLAY_TIME *
+        length = static_cast<sample_index_t>(ceil(DEFAULT_DISPLAY_TIME *
 	    signal_manager->rate()));
     }
 
@@ -589,7 +572,7 @@ bool MainWidget::fixZoomAndOffset()
 {
     double max_zoom;
     double min_zoom;
-    unsigned int length;
+    sample_index_t length;
 
     const int   old_width = m_width;
     const double old_zoom = m_zoom;
@@ -603,7 +586,7 @@ bool MainWidget::fixZoomAndOffset()
     length = signal_manager->length();
     if (!length) {
 	// in streaming mode we have to use a guessed length
-	length = static_cast<unsigned int>(ceil(m_width * fullZoom()));
+	length = static_cast<sample_index_t>(ceil(m_width * fullZoom()));
     }
 
     // ensure that m_offset is [0...length-1]
@@ -628,8 +611,8 @@ bool MainWidget::fixZoomAndOffset()
     Q_ASSERT(length >= m_offset);
     if (pixels2samples(m_width - 1) + 1 > length - m_offset) {
 	// there is space after the signal -> move offset right
-	unsigned int shift = pixels2samples(m_width - 1) + 1 -
-	                     (length - m_offset);
+	sample_index_t shift = pixels2samples(m_width - 1) + 1 -
+	                       (length - m_offset);
 	if (shift >= m_offset) {
 	    m_offset = 0;
 	} else {
@@ -665,8 +648,8 @@ bool MainWidget::fixZoomAndOffset()
 //***************************************************************************
 void MainWidget::setZoom(double new_zoom)
 {
-    double       old_zoom   = m_zoom;
-    unsigned int old_offset = m_offset;
+    double         old_zoom   = m_zoom;
+    sample_index_t old_offset = m_offset;
 
     m_zoom = new_zoom;
     fixZoomAndOffset();
@@ -675,10 +658,10 @@ void MainWidget::setZoom(double new_zoom)
 }
 
 //***************************************************************************
-void MainWidget::setOffset(unsigned int new_offset)
+void MainWidget::setOffset(sample_index_t new_offset)
 {
-    double       old_zoom   = m_zoom;
-    unsigned int old_offset = m_offset;
+    double         old_zoom   = m_zoom;
+    sample_index_t old_offset = m_offset;
 
     m_offset = new_offset;
     fixZoomAndOffset();
@@ -693,8 +676,8 @@ void MainWidget::zoomSelection()
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
-    unsigned int ofs = signal_manager->selection().offset();
-    unsigned int len = signal_manager->selection().length();
+    sample_index_t ofs = signal_manager->selection().offset();
+    sample_index_t len = signal_manager->selection().length();
 
     if (len) {
 	m_offset = ofs;
@@ -711,8 +694,8 @@ void MainWidget::zoomAll()
 //***************************************************************************
 void MainWidget::zoomNormal()
 {
-    const unsigned int shift1 = m_width / 2;
-    const unsigned int shift2 = displaySamples() / 2;
+    const sample_index_t shift1 = m_width / 2;
+    const sample_index_t shift2 = displaySamples() / 2;
     m_offset = (m_offset + shift2 >= m_offset) ? (m_offset + shift2) : -shift2;
     m_offset = (m_offset > shift1) ? (m_offset - shift1) : 0;
     setZoom(1.0);
@@ -721,7 +704,7 @@ void MainWidget::zoomNormal()
 //***************************************************************************
 void MainWidget::zoomIn()
 {
-    const unsigned int shift = displaySamples() / 3;
+    const sample_index_t shift = displaySamples() / 3;
     m_offset = (m_offset + shift >= m_offset) ? (m_offset + shift) : -shift;
     setZoom(m_zoom / 3);
 }
@@ -729,7 +712,7 @@ void MainWidget::zoomIn()
 //***************************************************************************
 void MainWidget::zoomOut()
 {
-    const unsigned int shift = displaySamples();
+    const sample_index_t shift = displaySamples();
     m_offset = (m_offset > shift) ? (m_offset - shift) : 0;
     setZoom(m_zoom * 3);
 }

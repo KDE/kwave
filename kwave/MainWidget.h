@@ -20,29 +20,29 @@
 
 #include "config.h"
 
-#include <QDockWidget>
 #include <QFrame>
-#include <QList>
+#include <QString>
 #include <QWidget>
 
 #include "libgui/SignalWidget.h"
 
-class QComboBox;
 class QScrollBar;
 class QWheelEvent;
 
-class KStatusBar;
-class KUrl;
-
-class MenuManager;
-class MultiStateWidget;
 class OverViewWidget;
-class PlaybackController;
 class SignalManager;
 
 namespace Kwave { class ApplicationContext; }
 
 //***************************************************************************
+/**
+ * The main widget is responsible for controlling the zoom on the time axis
+ * and the scrolling. For this purpose it has an optionally enabled vertical
+ * scroll bar at the right side and a horizontal scroll bar plus an overview
+ * widget at the lower side. The main view contains a viewport that contains
+ * a signal widget, which is fit in horizontally and has variable vertical
+ * size (scrolled via the vertical scroll bar if necessary).
+ */
 class MainWidget : public QWidget
 {
     Q_OBJECT
@@ -64,16 +64,14 @@ public:
     /** Destructor. */
     virtual ~MainWidget();
 
-    /** Returns the current zoom factor. */
+    /** Returns the current zoom factor [samples/pixel] */
     double zoom() const;
 
     /** Returns the width of the current view in pixels */
-    inline int displayWidth() {
-	return m_signal_widget.width();
-    }
+    int displayWidth() const;
 
     /** Returns the width of the current view in samples */
-    int displaySamples() const;
+    sample_index_t displaySamples() const;
 
 protected:
 
@@ -98,16 +96,12 @@ public slots:
 
     bool executeCommand(const QString &command);
 
-    void forwardCommand(const QString &command);
-
-//  void parseKey(int key);
-
     /**
      * Sets the display offset [samples] and refreshes the screen.
      * @param new_offset new value for the offset in samples, will be
      *                   internally limited to [0...length-1]
      */
-    void setOffset(unsigned int new_offset);
+    void setOffset(sample_index_t new_offset);
 
     /**
      * sets a new zoom factor [samples/pixel], does not refresh the screen
@@ -172,7 +166,7 @@ private slots:
     void slotTrackDeleted(unsigned int index);
 
     /** updates the scrollbar */
-    void updateViewInfo(unsigned int, unsigned int, unsigned int);
+    void updateViewInfo(sample_index_t, sample_index_t, sample_index_t);
 
     /**
      * Connected to the vertical scrollbar and called if the value
@@ -199,7 +193,7 @@ signals:
      * Emits the offset and length of the current selection and the
      * sample rate for converting it into milliseconds
      */
-    void selectedTimeInfo(unsigned int offset, unsigned int length,
+    void selectedTimeInfo(sample_index_t offset, sample_index_t length,
                           double rate);
 
     /** Emits the current number of tracks */
@@ -222,7 +216,7 @@ private:
      * @param ms time in milliseconds
      * @return number of samples (rounded)
      */
-    unsigned int ms2samples(double ms);
+    sample_index_t ms2samples(double ms);
 
     /**
      * Converts a number of samples to a time in milliseconds, based on the
@@ -230,7 +224,7 @@ private:
      * @param samples number of samples
      * @return time in milliseconds
      */
-    double samples2ms(unsigned int samples);
+    double samples2ms(sample_index_t samples);
 
     /**
      * Converts a sample index into a pixel offset using the current zoom
@@ -239,7 +233,7 @@ private:
      * @param pixels pixel offset
      * @return index of the sample
      */
-    unsigned int pixels2samples(int pixels) const;
+    sample_index_t pixels2samples(unsigned int pixels) const;
 
     /**
      * Converts a pixel offset into a sample index using the current zoom
@@ -247,7 +241,7 @@ private:
      * @param samples number of samples to be converted
      * @return pixel offset
      */
-    int samples2pixels(int samples) const;
+    int samples2pixels(sample_index_t samples) const;
 
     /**
      * Returns the zoom value that will be used to fit the whole signal
@@ -288,7 +282,7 @@ private:
      * Offset from which signal is beeing displayed. This is equal to
      * the index of the first visible sample.
      */
-    unsigned int m_offset;
+    sample_index_t m_offset;
 
     /** width of the widget in pixels, cached value */
     int m_width;

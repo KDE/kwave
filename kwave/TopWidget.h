@@ -30,6 +30,8 @@
 #include <kmainwindow.h>
 #include <kurl.h>
 
+#include "libkwave/Sample.h"
+
 class QCloseEvent;
 class QLabel;
 class QTextStream;
@@ -152,7 +154,7 @@ private slots:
      * @param length number of selected samples
      * @param rate sample rate [samples/second] for converting to time
      */
-    void setSelectedTimeInfo(unsigned int offset, unsigned int length,
+    void setSelectedTimeInfo(sample_index_t offset, sample_index_t length,
                              double rate);
 
     /**

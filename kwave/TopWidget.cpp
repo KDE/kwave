@@ -182,9 +182,9 @@ bool TopWidget::init()
     // connect the main widget
     connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
             this, SLOT(executeCommand(const QString &)));
-    connect(m_main_widget, SIGNAL(selectedTimeInfo(unsigned int,
-            unsigned int, double)),
-            this, SLOT(setSelectedTimeInfo(unsigned int, unsigned int,
+    connect(m_main_widget, SIGNAL(selectedTimeInfo(sample_index_t,
+            sample_index_t, double)),
+            this, SLOT(setSelectedTimeInfo(sample_index_t, sample_index_t,
             double)));
     connect(m_main_widget, SIGNAL(sigTrackCount(unsigned int)),
             this, SLOT(setTrackInfo(unsigned int)));
@@ -1155,7 +1155,8 @@ void TopWidget::setTrackInfo(unsigned int tracks)
 }
 
 //***************************************************************************
-void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
+void TopWidget::setSelectedTimeInfo(sample_index_t offset,
+                                    sample_index_t length,
                                     double rate)
 {
     Q_ASSERT(statusBar());
@@ -1167,7 +1168,7 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 	// Selected: 02:00...05:00 (3 min)
 	bool sample_mode = false;
 
-	unsigned int last = offset + ((length) ? length-1 : 0);
+	sample_index_t last = offset + ((length) ? length-1 : 0);
 	if (rate == 0) sample_mode = true; // force sample mode if rate==0
 	QString txt = " ";
 	if (sample_mode) {

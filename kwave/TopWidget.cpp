@@ -167,7 +167,7 @@ bool TopWidget::init()
     if (!stream.atEnd()) parseCommands(stream);
     menufile.close();
 
-    setStatusInfo(SAMPLE_MAX,99,196000,24); // affects the menu !
+    setStatusInfo(SAMPLE_INDEX_MAX,99,196000,24); // affects the menu !
 
     m_main_widget = new MainWidget(this, m_context);
     Q_ASSERT(m_main_widget);
@@ -186,8 +186,6 @@ bool TopWidget::init()
             sample_index_t, double)),
             this, SLOT(setSelectedTimeInfo(sample_index_t, sample_index_t,
             double)));
-    connect(m_main_widget, SIGNAL(sigTrackCount(unsigned int)),
-            this, SLOT(setTrackInfo(unsigned int)));
     connect(m_main_widget, SIGNAL(sigMouseChanged(int)),
             this, SLOT(mouseChanged(int)));
     connect(&m_context.signalManager()->playbackController(),
@@ -372,26 +370,27 @@ bool TopWidget::init()
 
     // connect the signal manager
     SignalManager *signal_manager = m_context.signalManager();
-    connect(signal_manager, SIGNAL(sigStatusInfo(unsigned int, unsigned int,
-	double, unsigned int)),
-	this, SLOT(setStatusInfo(unsigned int, unsigned int,
-	double, unsigned int)));
+    connect(signal_manager, SIGNAL(sigStatusInfo(sample_index_t, unsigned int,
+                                                 double, unsigned int)),
+             this,          SLOT(setStatusInfo(sample_index_t, unsigned int,
+                                               double, unsigned int)));
     connect(signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
-	const QString&)),
-	this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
+                                                   const QString&)),
+            this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
     connect(signal_manager, SIGNAL(sigModified(bool)),
-            this, SLOT(modifiedChanged(bool)));
+            this,           SLOT(modifiedChanged(bool)));
     connect(signal_manager, SIGNAL(sigLabelCountChanged()),
-	    this, SLOT(updateMenu()));
+            this,           SLOT(updateMenu()));
 
     // create the plugin manager instance
-    connect(m_context.pluginManager(), SIGNAL(sigCommand(const QString &)),
-            this, SLOT(executeCommand(const QString &)));
-    connect(m_context.pluginManager(), SIGNAL(sigProgress(const QString &)),
-            this, SLOT(showInSplashSreen(const QString &)));
+    Kwave::PluginManager *plugin_manager = m_context.pluginManager();
+    connect(plugin_manager, SIGNAL(sigCommand(const QString &)),
+            this,           SLOT(executeCommand(const QString &)));
+    connect(plugin_manager, SIGNAL(sigProgress(const QString &)),
+            this,           SLOT(showInSplashSreen(const QString &)));
 
     showInSplashSreen(i18n("Scanning plugins..."));
-    m_context.pluginManager()->findPlugins();
+    plugin_manager->findPlugins();
 
     // set the MainWidget as the main view
     setCentralWidget(m_main_widget);
@@ -404,7 +403,6 @@ bool TopWidget::init()
     h = qMax(h, height());
     resize(w, h);
 
-    setStatusInfo(0,0,0,0);
     setUndoRedoInfo(0,0);
     setSelectedTimeInfo(0,0,0);
     updateMenu();
@@ -414,10 +412,9 @@ bool TopWidget::init()
     // now we are initialized, load all plugins now
     showInSplashSreen(i18n("Loading plugins..."));
     statusBar()->showMessage(i18n("Loading plugins..."));
-    m_context.pluginManager()->loadAllPlugins();
+    plugin_manager->loadAllPlugins();
     statusBar()->showMessage(i18n("Ready"), 1000);
 
-    setTrackInfo(0);
     updateMenu();
 
     // make sure that everything of our window is visible
@@ -483,6 +480,8 @@ int TopWidget::executeCommand(const QString &line)
     if (!command.length()) return 0; // empty line -> nothing to do
     if (command.trimmed().startsWith("#")) return 0; // only a comment
 
+    Kwave::PluginManager *plugin_manager = m_context.pluginManager();
+
     // special case: if the command contains ";" it is a list of
     // commands -> macro !
     Parser parse_list(command);
@@ -498,8 +497,8 @@ int TopWidget::executeCommand(const QString &line)
 	    }
 
 	    // wait until the command has completed !
-	    Q_ASSERT(m_context.pluginManager());
-	    if (m_context.pluginManager()) m_context.pluginManager()->sync();
+	    Q_ASSERT(plugin_manager);
+	    if (plugin_manager) plugin_manager->sync();
 	}
 	return result;
     }
@@ -525,8 +524,7 @@ int TopWidget::executeCommand(const QString &line)
     }
 
     // all others only if no plugin is currently running
-    if (m_context.pluginManager() &&
-	m_context.pluginManager()->onePluginRunning())
+    if (plugin_manager && plugin_manager->onePluginRunning())
     {
 	qWarning("TopWidget::executeCommand('%s') - currently not possible, "\
 		 "a plugin is running :-(",
@@ -564,9 +562,9 @@ int TopWidget::executeCommand(const QString &line)
 	       name.toLocal8Bit().data());
 	qDebug("TopWidget::executeCommand(): with %d parameter(s)",
 		params.count());
-	Q_ASSERT(m_context.pluginManager());
-	if (m_context.pluginManager())
-	    result = m_context.pluginManager()->executePlugin(name,
+	Q_ASSERT(plugin_manager);
+	if (plugin_manager)
+	    result = plugin_manager->executePlugin(name,
 		params.count() ? &params : 0);
     CASE_COMMAND("plugin:execute")
 	QStringList params;
@@ -575,15 +573,14 @@ int TopWidget::executeCommand(const QString &line)
 	while (--cnt > 0) {
 	    params.append(parser.nextParam());
 	}
-	Q_ASSERT(m_context.pluginManager());
-	result = (m_context.pluginManager()) ?
-	          m_context.pluginManager()->executePlugin(name, &params) :
+	Q_ASSERT(plugin_manager);
+	result = (plugin_manager) ?
+	          plugin_manager->executePlugin(name, &params) :
 	          -ENOMEM;
     CASE_COMMAND("plugin:setup")
 	QString name(parser.firstParam());
-	Q_ASSERT(m_context.pluginManager());
-	if (m_context.pluginManager())
-	    result = m_context.pluginManager()->setupPlugin(name);
+	Q_ASSERT(plugin_manager);
+	if (plugin_manager) result = plugin_manager->setupPlugin(name);
     CASE_COMMAND("menu")
 	Q_ASSERT(m_menu_manager);
 	if (m_menu_manager) /*result = */m_menu_manager->executeCommand(command);
@@ -791,7 +788,7 @@ bool TopWidget::closeFile()
 
     updateMenu();
     updateToolbar();
-    setTrackInfo(0);
+    setStatusInfo(0,0,0,0);
 
     return true;
 }
@@ -1099,7 +1096,7 @@ void TopWidget::setZoomInfo(double zoom)
 }
 
 //***************************************************************************
-void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
+void TopWidget::setStatusInfo(sample_index_t length, unsigned int tracks,
                               double rate, unsigned int bits)
 {
     Q_ASSERT(statusBar());
@@ -1127,14 +1124,6 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
 	txt = " " + i18n("Mode: %1 kHz @ %2 Bit", khz, bits) + " ";
     } else txt = "";
     m_lbl_status_mode->setText(txt);
-
-}
-
-//***************************************************************************
-void TopWidget::setTrackInfo(unsigned int tracks)
-{
-    Q_ASSERT(m_menu_manager);
-    if (!m_menu_manager) return;
 
     // update the list of deletable tracks
     m_menu_manager->clearNumberedMenu("ID_EDIT_TRACK_DELETE");

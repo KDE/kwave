@@ -393,7 +393,7 @@ signals:
      * @param rate sample rate [samples/second]
      * @param bits resolution in bits
      */
-    void sigStatusInfo(unsigned int length, unsigned int tracks,
+    void sigStatusInfo(sample_index_t length, unsigned int tracks,
                        double rate, unsigned int bits);
 
     /**

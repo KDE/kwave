@@ -196,9 +196,6 @@ signals:
     void selectedTimeInfo(sample_index_t offset, sample_index_t length,
                           double rate);
 
-    /** Emits the current number of tracks */
-    void sigTrackCount(unsigned int tracks);
-
     /**
      * Emits a change in the mouse cursor. This can be used to change
      * the content of a status bar if the mouse moves over a selected

@@ -139,14 +139,8 @@ private slots:
      * @param rate sample rate [samples/second]
      * @param bits resolution in bits
      */
-    void setStatusInfo(unsigned int length, unsigned int tracks,
+    void setStatusInfo(sample_index_t length, unsigned int tracks,
                        double rate, unsigned int bits);
-
-    /**
-     * Called if the number of tracks has changed and updates
-     * the menu.
-     */
-    void setTrackInfo(unsigned int tracks);
 
     /**
      * Updates the number of selected samples in the status bar.

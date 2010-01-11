@@ -88,14 +88,6 @@ public:
     int loadFile(const KUrl &url);
 
     /**
-     * Parses a text stream line by line and executes each line
-     * as a command until all commands are done or the first one fails.
-     * @param stream a QTextStream to read from
-     * @return zero if successful, non-zero error code if a command failed
-     */
-    int parseCommands(QTextStream &stream);
-
-    /**
      * Loads a batch file into memory, parses and executes
      * all commands in it.
      * @param url URL of the macro (batch file) to be loaded
@@ -103,8 +95,6 @@ public:
     int loadBatch(const KUrl &url);
 
 public slots:
-
-    int executeCommand(const QString &command);
 
     /**
      * Updates the list of recent files in the menu, maybe some other
@@ -119,6 +109,14 @@ protected slots:
     virtual void closeEvent(QCloseEvent *e);
 
 private slots:
+
+    /**
+     * Execute a Kwave text command
+     * @param command a text command
+     * @return zero if succeeded or negative error code if failed
+     * @retval -ENOSYS is returned if the command is unknown in this component
+     */
+    int executeCommand(const QString &command);
 
     /** called on changes in the zoom selection combo box */
     void selectZoom(int index);
@@ -238,9 +236,7 @@ signals:
      */
     void sigSignalNameChanged(const QString &name);
 
-protected:
-
-    friend class RecordPlugin;
+private:
 
     /**
      * Closes the current file and creates a new empty signal.
@@ -252,8 +248,6 @@ protected:
      */
     int newSignal(unsigned int samples, double rate,
                   unsigned int bits, unsigned int tracks);
-
-protected:
 
     /**
      * Discards all changes to the current file and loads
@@ -306,7 +300,13 @@ protected:
      */
     int executePlaybackCommand(const QString &command);
 
-private:
+    /**
+     * Parses a text stream line by line and executes each line
+     * as a command until all commands are done or the first one fails.
+     * @param stream a QTextStream to read from
+     * @return zero if successful, non-zero error code if a command failed
+     */
+    int parseCommands(QTextStream &stream);
 
     /** returns true if we have a non-empty signal */
     bool haveSignal();

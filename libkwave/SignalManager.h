@@ -101,8 +101,13 @@ public:
     /** Returns a reference to the playback controller. */
     PlaybackController &playbackController();
 
-    /** Executes a Kwave text command */
-    bool executeCommand(const QString &command);
+    /**
+     * Execute a Kwave text command
+     * @param command a text command
+     * @return zero if succeeded or negative error code if failed
+     * @retval -ENOSYS is returned if the command is unknown in this component
+     */
+    int executeCommand(const QString &command);
 
     /**
      * Returns a reference to the FileInfo object associated with the

@@ -94,7 +94,13 @@ protected slots:
 
 public slots:
 
-    bool executeCommand(const QString &command);
+    /**
+     * Execute a Kwave text command
+     * @param command a text command
+     * @return zero if succeeded or negative error code if failed
+     * @retval -ENOSYS is returned if the command is unknown in this component
+     */
+    int executeCommand(const QString &command);
 
     /**
      * Sets the display offset [samples] and refreshes the screen.

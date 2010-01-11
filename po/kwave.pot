@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-28 14:45+0100\n"
+"POT-Creation-Date: 2010-01-11 20:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -190,153 +190,153 @@ msgstr ""
 msgid "This is %1 v%2 (compiled for KDE %3)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:111
+#: kwave/TopWidget.cpp:148
 msgid "Loading main menu..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:197
+#: kwave/TopWidget.cpp:200
 msgid "Initializing toolbar..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:206
+#: kwave/TopWidget.cpp:209
 msgid "Create a new empty file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:211
+#: kwave/TopWidget.cpp:214
 msgid "Open an existing file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:216
+#: kwave/TopWidget.cpp:219
 msgid "Save the current file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:227 kwave/TopWidget.cpp:1257
+#: kwave/TopWidget.cpp:230
 msgid "Undo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:232 kwave/TopWidget.cpp:1265
+#: kwave/TopWidget.cpp:235
 msgid "Redo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:237
+#: kwave/TopWidget.cpp:240
 msgid "Cut the current selection and move it to the clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:242
+#: kwave/TopWidget.cpp:245
 msgid "Copy the current selection to the clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:247
+#: kwave/TopWidget.cpp:250
 msgid "Insert the content of clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:255
+#: kwave/TopWidget.cpp:258
 msgid "Mute the current selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:260
+#: kwave/TopWidget.cpp:263
 msgid "Delete the current selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:279
+#: kwave/TopWidget.cpp:282
 msgid "Start playback"
 msgstr ""
 
-#: kwave/TopWidget.cpp:284
+#: kwave/TopWidget.cpp:287
 msgid "Start playback and loop"
 msgstr ""
 
-#: kwave/TopWidget.cpp:289
+#: kwave/TopWidget.cpp:292
 msgid "Pause playback"
 msgstr ""
 
-#: kwave/TopWidget.cpp:294
+#: kwave/TopWidget.cpp:297
 msgid "Stop playback or loop"
-msgstr ""
-
-#: kwave/TopWidget.cpp:298 kwave/TopWidget.cpp:299 kwave/TopWidget.cpp:300
-#, kde-format
-msgid "%1 ms"
 msgstr ""
 
 #: kwave/TopWidget.cpp:301 kwave/TopWidget.cpp:302 kwave/TopWidget.cpp:303
 #, kde-format
-msgid "%1 sec"
+msgid "%1 ms"
 msgstr ""
 
 #: kwave/TopWidget.cpp:304 kwave/TopWidget.cpp:305 kwave/TopWidget.cpp:306
+#, kde-format
+msgid "%1 sec"
+msgstr ""
+
 #: kwave/TopWidget.cpp:307 kwave/TopWidget.cpp:308 kwave/TopWidget.cpp:309
+#: kwave/TopWidget.cpp:310 kwave/TopWidget.cpp:311 kwave/TopWidget.cpp:312
 #, kde-format
 msgid "%1 min"
 msgstr ""
 
-#: kwave/TopWidget.cpp:317
+#: kwave/TopWidget.cpp:320
 msgid "Zoom to selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:322
+#: kwave/TopWidget.cpp:325
 msgid "Zoom in"
 msgstr ""
 
-#: kwave/TopWidget.cpp:327
+#: kwave/TopWidget.cpp:330
 msgid "Zoom out"
 msgstr ""
 
-#: kwave/TopWidget.cpp:332 kwave/menus_config_i18n.cpp:132
+#: kwave/TopWidget.cpp:335 kwave/menus_config_i18n.cpp:132
 msgid "Zoom to 100%"
 msgstr ""
 
-#: kwave/TopWidget.cpp:337
+#: kwave/TopWidget.cpp:340
 msgid "Zoom to all"
 msgstr ""
 
-#: kwave/TopWidget.cpp:344
+#: kwave/TopWidget.cpp:347
 msgid "Select zoom factor"
 msgstr ""
 
-#: kwave/TopWidget.cpp:393
+#: kwave/TopWidget.cpp:390
 msgid "Scanning plugins..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:438 kwave/TopWidget.cpp:439
+#: kwave/TopWidget.cpp:412 kwave/TopWidget.cpp:413
 msgid "Loading plugins..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:441
+#: kwave/TopWidget.cpp:415
 msgid "Ready"
 msgstr ""
 
-#: kwave/TopWidget.cpp:793
+#: kwave/TopWidget.cpp:768
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:875
+#: kwave/TopWidget.cpp:853
 msgid "Open"
 msgstr ""
 
-#: kwave/TopWidget.cpp:920
+#: kwave/TopWidget.cpp:902
 msgid "Save As"
 msgstr ""
 
-#: kwave/TopWidget.cpp:943
+#: kwave/TopWidget.cpp:925
 #, kde-format
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1127
+#: kwave/TopWidget.cpp:1117
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1137
+#: kwave/TopWidget.cpp:1127
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1187
+#: kwave/TopWidget.cpp:1170
 #, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -344,7 +344,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1199
+#: kwave/TopWidget.cpp:1182
 #, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -352,49 +352,85 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1219
+#: kwave/TopWidget.cpp:1202
 #, kde-format
 msgid "Position: %1"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1240
+#: kwave/TopWidget.cpp:1223
 #, kde-format
 msgid "Playback: %1"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1242
+#: kwave/TopWidget.cpp:1225
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1276
+#: kwave/TopWidget.cpp:1242
+#, kde-format
+msgctxt "tooltip of the undo toolbar button if undo enabled"
+msgid "Undo (%1)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1244
+msgctxt "tooltip of the undo toolbar button if undo disabled"
+msgid "Undo"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1253
+#, kde-format
+msgctxt "tooltip of the redo toolbar button, redo enabled"
+msgid "Redo (%1)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1255
+msgctxt "tooltip of the redo toolbar button, redo disabled"
+msgid "Redo"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1266
+#, kde-format
+msgctxt "menu entry for undo if undo enabled"
+msgid "U&ndo (%1)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1267
+msgctxt "menu entry for undo if undo disabled"
 msgid "U&ndo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1282
+#: kwave/TopWidget.cpp:1273
+#, kde-format
+msgctxt "menu entry for redo if redo enabled"
+msgid "R&edo (%1)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1274
+msgctxt "menu entry for redo if redo disabled"
 msgid "R&edo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1481
+#: kwave/TopWidget.cpp:1485
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr ""
 
-#: kwave/KwaveApp.cpp:60
+#: kwave/KwaveApp.cpp:63
 msgid "Reading configuration..."
 msgstr ""
 
-#: kwave/KwaveApp.cpp:136
+#: kwave/KwaveApp.cpp:139
 msgid "Opening main window..."
 msgstr ""
 
-#: kwave/KwaveApp.cpp:167
+#: kwave/KwaveApp.cpp:169
 #, kde-format
 msgid "Loading file '%1'..."
 msgstr ""
 
-#: kwave/KwaveApp.cpp:172
+#: kwave/KwaveApp.cpp:174
 msgid "Startup done"
 msgstr ""
 
@@ -402,156 +438,6 @@ msgstr ""
 #, kde-format
 msgctxt "%1=Version number"
 msgid "v%1"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:383
-msgid "Expand Selection to Label"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:411
-msgid "Select Next Labels"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:448
-msgid "Select Previous Labels"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:480
-msgid "Select All Tracks"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:485
-msgid "Deselect all tracks"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:490
-msgid "Invert Track Selection"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:498
-msgid "Select Track"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:502
-msgid "Deselect Track"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:565 plugins/codec_flac/FlacEncoder.cpp:262
-#: plugins/decoder_mp3/MP3Decoder.cpp:477
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:107
-#: plugins/record/RecordPlugin.cpp:828 plugins/record/RecordPlugin.cpp:844
-#: plugins/record/RecordPlugin.cpp:910 plugins/codec_wav/WavEncoder.cpp:415
-#: plugins/codec_wav/WavDecoder.cpp:333 plugins/playback/PlayBack-OSS.cpp:244
-#: plugins/playback/PlayBack-Phonon.cpp:148
-#: plugins/playback/PlayBack-Phonon.cpp:180
-msgid "Out of memory"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:568 plugins/playback/PlayBackPlugin.cpp:470
-#, kde-format
-msgid "Unable to open '%1'"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:572
-#, kde-format
-msgid "Invalid or unknown file type: '%1'"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1041 kwave/menus_config_i18n.cpp:109
-msgid "&Selection"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1045
-msgid "&Label"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1057 kwave/menus_config_i18n.cpp:126
-msgid "&Undo"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1067 kwave/menus_config_i18n.cpp:99
-msgid "&Redo"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1078 kwave/menus_config_i18n.cpp:36
-msgid "Cu&t"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1082 kwave/menus_config_i18n.cpp:32
-msgid "&Copy"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1086 kwave/menus_config_i18n.cpp:84
-msgid "&Paste"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1101
-msgid "&Save..."
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1108 kwave/menus_config_i18n.cpp:45
-msgid "&Expand to Labels"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1116 kwave/menus_config_i18n.cpp:121
-msgid "To Next Labels"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1125 kwave/menus_config_i18n.cpp:122
-msgid "To Previous Labels"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1135
-msgid "&New"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1142 kwave/menus_config_i18n.cpp:38
-msgid "&Delete"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1149
-msgid "&Properties..."
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1544 libkwave/undo/UndoSelection.cpp:51
-msgid "Selection"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1574
-#, kde-format
-msgid "Label #%1 (%2)"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1575
-#, kde-format
-msgid "Label #%1"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1582
-msgid "Selection, left border"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1586
-msgid "Selection, right border"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:1894 libkwave/undo/UndoAddLabelAction.cpp:42
-#: libkwave/SignalManager.cpp:1661
-msgid "Add Label"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:2013
-msgid ""
-"There already is a label at the position you have chosen.\n"
-"Do you want to replace it?"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:2041 libkwave/undo/UndoModifyLabelAction.cpp:51
-msgid "Modify Label"
-msgstr ""
-
-#: libgui/SignalWidget.cpp:2517 libgui/SignalWidget.cpp:2565
-msgid "Drag and Drop"
 msgstr ""
 
 #: libgui/KwaveFilterPlugin.cpp:228
@@ -608,6 +494,10 @@ msgstr ""
 msgid "Every Second Point"
 msgstr ""
 
+#: libkwave/undo/UndoModifyLabelAction.cpp:51
+msgid "Modify Label"
+msgstr ""
+
 #: libkwave/undo/UndoInsertAction.cpp:41
 msgid "Insert"
 msgstr ""
@@ -626,6 +516,14 @@ msgstr ""
 
 #: libkwave/undo/UndoDeleteLabelAction.cpp:42 libkwave/SignalManager.cpp:1708
 msgid "Delete Label"
+msgstr ""
+
+#: libkwave/undo/UndoSelection.cpp:51
+msgid "Selection"
+msgstr ""
+
+#: libkwave/undo/UndoAddLabelAction.cpp:42 libkwave/SignalManager.cpp:1661
+msgid "Add Label"
 msgstr ""
 
 #: libkwave/undo/UndoDeleteTrack.cpp:45 libkwave/SignalManager.cpp:783
@@ -1855,11 +1753,11 @@ msgid ""
 "under '%1'/'%2'."
 msgstr ""
 
-#: libkwave/SignalManager.cpp:1173 kwave/menus_config_i18n.cpp:83
+#: libkwave/SignalManager.cpp:1173 kwave/menus_config_i18n.cpp:65
 msgid "&Options"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:1174 kwave/menus_config_i18n.cpp:69
+#: libkwave/SignalManager.cpp:1174 kwave/menus_config_i18n.cpp:53
 msgid "&Memory"
 msgstr ""
 
@@ -2012,7 +1910,7 @@ msgstr ""
 msgid "Sonagram"
 msgstr ""
 
-#: plugins/sonagram/SonagramWindow.cpp:108 kwave/menus_config_i18n.cpp:112
+#: plugins/sonagram/SonagramWindow.cpp:108 kwave/menus_config_i18n.cpp:87
 msgid "&Sonagram"
 msgstr ""
 
@@ -2020,7 +1918,7 @@ msgstr ""
 msgid "&Export to Bitmap..."
 msgstr ""
 
-#: plugins/sonagram/SonagramWindow.cpp:122 kwave/menus_config_i18n.cpp:28
+#: plugins/sonagram/SonagramWindow.cpp:122 kwave/menus_config_i18n.cpp:25
 #: plugins/about/ui_KwaveAboutDialogBase.h:304
 #: plugins/record/ui_RecordDlg.h:1084
 msgid "&Close"
@@ -2096,7 +1994,7 @@ msgstr ""
 msgid "authors"
 msgstr ""
 
-#: plugins/about/AboutKwaveDialog.cpp:116
+#: plugins/about/AboutKwaveDialog.cpp:118
 #, kde-format
 msgid "Plugins found: %1"
 msgstr ""
@@ -2163,6 +2061,17 @@ msgstr ""
 #: plugins/codec_flac/FlacEncoder.cpp:227
 #: plugins/codec_flac/FlacEncoder.cpp:237
 msgid "Unable to open the FLAC encoder."
+msgstr ""
+
+#: plugins/codec_flac/FlacEncoder.cpp:262
+#: plugins/decoder_mp3/MP3Decoder.cpp:477
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:107
+#: plugins/record/RecordPlugin.cpp:828 plugins/record/RecordPlugin.cpp:844
+#: plugins/record/RecordPlugin.cpp:910 plugins/codec_wav/WavEncoder.cpp:415
+#: plugins/codec_wav/WavDecoder.cpp:333 plugins/playback/PlayBack-OSS.cpp:244
+#: plugins/playback/PlayBack-Phonon.cpp:148
+#: plugins/playback/PlayBack-Phonon.cpp:180
+msgid "Out of memory"
 msgstr ""
 
 #: plugins/codec_flac/FlacDecoder.cpp:279
@@ -3012,6 +2921,11 @@ msgid ""
 "Playback is currently running.Please stop playback first and then try again"
 msgstr ""
 
+#: plugins/playback/PlayBackPlugin.cpp:470
+#, kde-format
+msgid "Unable to open '%1'"
+msgstr ""
+
 #: plugins/playback/PlayBackPlugin.cpp:711
 msgid "Please select a playback device first"
 msgstr ""
@@ -3120,7 +3034,7 @@ msgid "New Signal"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:10
-msgid "About &KDE"
+msgid " &Play"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:11
@@ -3140,158 +3054,122 @@ msgid "&All"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:15
-msgid "Amplify &Free"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:16
-msgid "Amplify with &Clipboard"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:17
 msgid "&As..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:18
+#: kwave/menus_config_i18n.cpp:16
 msgid "&Average spectrum"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:19
+#: kwave/menus_config_i18n.cpp:17
 msgid "&Band Pass"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:20
+#: kwave/menus_config_i18n.cpp:18
 msgid "&Begin"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:21
+#: kwave/menus_config_i18n.cpp:19
 msgid "&Blocks..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:22
+#: kwave/menus_config_i18n.cpp:20
 msgid "&Calculate"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:23
+#: kwave/menus_config_i18n.cpp:21
 msgid "&Center Signal"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:24
+#: kwave/menus_config_i18n.cpp:22
 msgid "&Change rate"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:25
+#: kwave/menus_config_i18n.cpp:23
 msgid "&Choose Type"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:26
-msgid "Clip&board"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:27
+#: kwave/menus_config_i18n.cpp:24
 msgid "&Clipboard"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:29
+#: kwave/menus_config_i18n.cpp:26
 msgid "&Contents"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:30
+#: kwave/menus_config_i18n.cpp:27
 msgid "&Continue"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:31
+#: kwave/menus_config_i18n.cpp:28
 msgid "&Convert Label Distance to Pitch"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:33
+#: kwave/menus_config_i18n.cpp:29
+msgid "&Copy"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:30
 msgid "&Create"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:34
-msgid "Create &type"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:35
+#: kwave/menus_config_i18n.cpp:31
 msgid "&Crop"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:37
-msgid "De&lay"
+#: kwave/menus_config_i18n.cpp:32
+msgid "&Delete"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:39
+#: kwave/menus_config_i18n.cpp:33
 msgid "&Distort"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:40
+#: kwave/menus_config_i18n.cpp:34
 msgid "&Edit"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:41
+#: kwave/menus_config_i18n.cpp:35
 msgid "&End"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:42
+#: kwave/menus_config_i18n.cpp:36
 msgid "&Enter Command"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:43
+#: kwave/menus_config_i18n.cpp:37
 msgid "&Envelope"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:44
-msgid "E&xecute"
+#: kwave/menus_config_i18n.cpp:38
+msgid "&Expand to Labels"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:46
-msgid "Fade &In"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:47
-msgid "Fade Intro"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:48
-msgid "Fade Leadout"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:49
-msgid "Fade &Out"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:50
+#: kwave/menus_config_i18n.cpp:39
 msgid "&File"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:51
-msgid "File &Properties..."
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:52
+#: kwave/menus_config_i18n.cpp:40
 msgid "&Filter"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:53
+#: kwave/menus_config_i18n.cpp:41
 msgid "&Flip Phase"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:54
+#: kwave/menus_config_i18n.cpp:42
 msgid "&Flush"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:55
-msgid "F&x"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:56
+#: kwave/menus_config_i18n.cpp:43
 msgid "&Generate"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:57
+#: kwave/menus_config_i18n.cpp:44
 msgid "&Go to Position..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:58 libgui/ui_LabelPropertiesWidgetBase.h:180
+#: kwave/menus_config_i18n.cpp:45 libgui/ui_LabelPropertiesWidgetBase.h:180
 #: plugins/goto/ui_GotoDlg.h:104 plugins/pitch_shift/ui_PitchShiftDlg.h:212
 #: plugins/sonagram/ui_SonagramDlg.h:268
 #: plugins/band_pass/ui_BandPassDlg.h:196 plugins/lowpass/ui_LowPassDlg.h:198
@@ -3304,268 +3182,344 @@ msgstr ""
 msgid "&Help"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:59
+#: kwave/menus_config_i18n.cpp:46
 msgid "&Insert Labels..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:60
+#: kwave/menus_config_i18n.cpp:47
 msgid "&Invert Selection"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:61
-msgid "Label by &Intensity"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:62
-msgid "Label by &Period"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:63
-msgid "Labels..."
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:64
+#: kwave/menus_config_i18n.cpp:48
 msgid "&Labels"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:65
+#: kwave/menus_config_i18n.cpp:49
 msgid "&Load Labels..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:66
+#: kwave/menus_config_i18n.cpp:50
 msgid "&Loop"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:67
+#: kwave/menus_config_i18n.cpp:51
 msgid "&Low Pass"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:68
+#: kwave/menus_config_i18n.cpp:52
 msgid "&Macro"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:70
+#: kwave/menus_config_i18n.cpp:54
 msgid "&Mix"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:71
+#: kwave/menus_config_i18n.cpp:55
 msgid "&Mix & Paste"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:72
+#: kwave/menus_config_i18n.cpp:56
 msgid "&Moving Average"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:73
+#: kwave/menus_config_i18n.cpp:57
 msgid "&New..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:74
-msgid "New &Window"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:75
+#: kwave/menus_config_i18n.cpp:58
 msgid "&Next"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:76
+#: kwave/menus_config_i18n.cpp:59
 msgid "&Next Page"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:77
+#: kwave/menus_config_i18n.cpp:60
 msgid "&Noise"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:78
+#: kwave/menus_config_i18n.cpp:61
 msgid "&Normalize"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:79
+#: kwave/menus_config_i18n.cpp:62
 msgid "&Notch Filter"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:80
+#: kwave/menus_config_i18n.cpp:63
 msgid "&Nothing"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:81
+#: kwave/menus_config_i18n.cpp:64
 msgid "&Open"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:82
-msgid "Open &Recent"
+#: kwave/menus_config_i18n.cpp:66
+msgid "&Paste"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:85
+#: kwave/menus_config_i18n.cpp:67
 msgid "&Pause"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:86
+#: kwave/menus_config_i18n.cpp:68
 msgid "&Periodic Silence"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:87
-msgid "Periods..."
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:88
+#: kwave/menus_config_i18n.cpp:69
 msgid "&Pitch Shift"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:89
-msgid " &Play"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:90
+#: kwave/menus_config_i18n.cpp:70
 msgid "&Play"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:91
+#: kwave/menus_config_i18n.cpp:71
 msgid "&Playback"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:92
+#: kwave/menus_config_i18n.cpp:72
 msgid "&Presets"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:93
+#: kwave/menus_config_i18n.cpp:73
 msgid "&Previous"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:94
+#: kwave/menus_config_i18n.cpp:74
 msgid "&Previous Page"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:95
+#: kwave/menus_config_i18n.cpp:75
 msgid "&Pulse Train"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:96
+#: kwave/menus_config_i18n.cpp:76
 msgid "&Quit"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:97
+#: kwave/menus_config_i18n.cpp:77
 msgid "&Range"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:98
+#: kwave/menus_config_i18n.cpp:78
 msgid "&Record"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:100
-msgid "Re&quantize"
+#: kwave/menus_config_i18n.cpp:79
+msgid "&Redo"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:101
+#: kwave/menus_config_i18n.cpp:80
 msgid "&Resample"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:102
+#: kwave/menus_config_i18n.cpp:81
 msgid "&Reverse"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:103
-msgid "Revert"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:104
-msgid "S&ave"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:105
+#: kwave/menus_config_i18n.cpp:82
 msgid "&Save"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:106
-msgid "Scroll &Left"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:107
-msgid "Scroll &Right"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:108
+#: kwave/menus_config_i18n.cpp:83
 msgid "&Select all"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:110
+#: kwave/menus_config_i18n.cpp:84
+msgid "&Selection"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:85
 msgid "&Selection..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:111
+#: kwave/menus_config_i18n.cpp:86
 msgid "&Silence"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:113
-msgid "Spe&ctrum"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:114
+#: kwave/menus_config_i18n.cpp:88
 msgid "&Start"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:115
+#: kwave/menus_config_i18n.cpp:89
 msgid "&Start recording"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:116
-msgid "S&top"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:117
-msgid "S&top recording"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:118
-msgid "to be done..."
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:119
-msgid "To &End"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:120
+#: kwave/menus_config_i18n.cpp:90
 msgid "&To New Window"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:123
-msgid "To &Start"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:124
+#: kwave/menus_config_i18n.cpp:91
 msgid "&Track"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:125
-msgid "Tri&m"
+#: kwave/menus_config_i18n.cpp:92
+msgid "&Undo"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:127
+#: kwave/menus_config_i18n.cpp:93
 msgid "&View"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:128
+#: kwave/menus_config_i18n.cpp:94
 msgid "&Visible Area"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:129
+#: kwave/menus_config_i18n.cpp:95
 msgid "&Volume"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:130
+#: kwave/menus_config_i18n.cpp:96
+msgid "About &KDE"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:97
+msgid "Amplify &Free"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:98
+msgid "Amplify with &Clipboard"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:99
+msgid "Clip&board"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:100
+msgid "Create &type"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:101
+msgid "Cu&t"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:102
+msgid "De&lay"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:103
+msgid "E&xecute"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:104
+msgid "F&x"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:105
+msgid "Fade &In"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:106
+msgid "Fade &Out"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:107
+msgid "Fade Intro"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:108
+msgid "Fade Leadout"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:109
+msgid "File &Properties..."
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:110
+msgid "Label by &Intensity"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:111
+msgid "Label by &Period"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:112
+msgid "Labels..."
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:113
+msgid "New &Window"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:114
+msgid "Open &Recent"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:115
+msgid "Periods..."
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:116
+msgid "Re&quantize"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:117
+msgid "Revert"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:118
+msgid "S&ave"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:119
+msgid "S&top"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:120
+msgid "S&top recording"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:121
+msgid "Scroll &Left"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:122
+msgid "Scroll &Right"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:123
+msgid "Spe&ctrum"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:124
+msgid "To &End"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:125
+msgid "To &Start"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:126
+msgid "To Next Labels"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:127
+msgid "To Previous Labels"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:128
+msgid "Tri&m"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:129
 msgid "Zoom &In"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:131
+#: kwave/menus_config_i18n.cpp:130
 msgid "Zoom &Out"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:133
+#: kwave/menus_config_i18n.cpp:131
 msgid "Zoom to &Selection"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:134
+#: kwave/menus_config_i18n.cpp:133
 msgid "Zoom to Whole Signal"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:134
+msgid "to be done..."
 msgstr ""
 
 #: libgui/ui_SelectTimeWidgetBase.h:287

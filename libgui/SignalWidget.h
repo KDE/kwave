@@ -128,8 +128,13 @@ public:
      */
 //     bool isInSelection(int x);
 
-    /** Executes a Kwave text command */
-//     bool executeCommand(const QString &command);
+    /**
+     * Execute a Kwave text command
+     * @param command a text command
+     * @return zero if succeeded or negative error code if failed
+     * @retval -ENOSYS is returned if the command is unknown in this component
+     */
+//     int executeCommand(const QString &command);
 
 // public slots:
 

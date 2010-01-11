@@ -16,6 +16,8 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <errno.h>
 #include <math.h>
 #include <stdlib.h>
 
@@ -269,12 +271,12 @@ double MainWidget::zoom() const
 }
 
 //***************************************************************************
-bool MainWidget::executeCommand(const QString &command)
+int MainWidget::executeCommand(const QString &command)
 {
     SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
-    if (!signal_manager) return 0;
-    if (!command.length()) return false;
+    if (!signal_manager) return -EINVAL;
+    if (!command.length()) return -EINVAL;
 
     Parser parser(command);
     const sample_index_t visible_samples = displaySamples();
@@ -341,9 +343,9 @@ bool MainWidget::executeCommand(const QString &command)
 	signal_manager->selectRange(m_offset, pixels2samples(m_width) - 1);
     CASE_COMMAND("selectnone")
 	signal_manager->selectRange(m_offset, 0);
-    } else return false;
+    } else return -ENOSYS;
 
-    return true;
+    return 0;
 }
 
 //***************************************************************************

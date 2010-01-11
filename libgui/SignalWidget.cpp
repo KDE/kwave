@@ -324,7 +324,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // }
 //
 // //***************************************************************************
-// bool SignalWidget::executeCommand(const QString &command)
+// int SignalWidget::executeCommand(const QString &command)
 // {
 //     InhibitRepaintGuard inhibit(*this);
 //     Parser parser(command);
@@ -334,8 +334,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //
 //     if (!command.length()) return true;
 //
-//     if (executeNavigationCommand(command)) {
-// 	return true;
+//     if (false) {
 //     // label commands
 //     CASE_COMMAND("label")
 // 	unsigned int pos = parser.toUInt();

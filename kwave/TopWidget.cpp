@@ -167,8 +167,6 @@ bool TopWidget::init()
     if (!stream.atEnd()) parseCommands(stream);
     menufile.close();
 
-    setStatusInfo(SAMPLE_INDEX_MAX,99,196000,24); // affects the menu !
-
     m_main_widget = new MainWidget(this, m_context);
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return false;
@@ -403,6 +401,7 @@ bool TopWidget::init()
     h = qMax(h, height());
     resize(w, h);
 
+    setStatusInfo(0,0,0,0);
     setUndoRedoInfo(0,0);
     setSelectedTimeInfo(0,0,0);
     updateMenu();
@@ -616,9 +615,13 @@ int TopWidget::executeCommand(const QString &line)
     CASE_COMMAND("quit")
 	result = close();
     } else {
+	// try to forward the command to the main widget
 	Q_ASSERT(m_main_widget);
-	result = (m_main_widget &&
-	    m_main_widget->executeCommand(command)) ? 0 : -1;
+	if (m_main_widget) result = m_main_widget->executeCommand(command);
+
+	// if unknown: try to forward command to the signal manager
+	if ((result == -ENOSYS) && m_context.signalManager())
+	    result = m_context.signalManager()->executeCommand(command);
     }
 
     return result;
@@ -1236,7 +1239,7 @@ void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
     if (m_action_undo) {
 	txt = (undo_enabled) ?
 	    i18nc("tooltip of the undo toolbar button if undo enabled",
-		  "Undo (%1)") :
+		  "Undo (%1)", undo) :
 	    i18nc("tooltip of the undo toolbar button if undo disabled",
 		  "Undo");
 	m_action_undo->setToolTip(txt);
@@ -1245,9 +1248,9 @@ void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
 
     // set the state and tooltip of the redo toolbar button
     if (m_action_redo) {
-	txt = (undo_enabled) ?
+	txt = (redo_enabled) ?
 	    i18nc("tooltip of the redo toolbar button, redo enabled",
-		  "Redo (%1)") :
+		  "Redo (%1)", redo) :
 	    i18nc("tooltip of the redo toolbar button, redo disabled",
 		  "Redo");
 	m_action_redo->setToolTip(txt);
@@ -1260,14 +1263,14 @@ void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
     // set new enable and text of the undo menu entry
     m_menu_manager->setItemEnabled("ID_EDIT_UNDO", undo_enabled);
     txt = (undo_enabled) ?
-	i18nc("menu entry for undo if undo enabled",  "U&ndo (%1)") :
+	i18nc("menu entry for undo if undo enabled",  "U&ndo (%1)", undo) :
 	i18nc("menu entry for undo if undo disabled", "U&ndo");
     m_menu_manager->setItemText("ID_EDIT_UNDO", txt);
 
     // set new enable and text of the undo menu entry
     m_menu_manager->setItemEnabled("ID_EDIT_REDO", redo_enabled);
-    txt = (undo_enabled) ?
-	i18nc("menu entry for redo if redo enabled",  "R&edo (%1)") :
+    txt = (redo_enabled) ?
+	i18nc("menu entry for redo if redo enabled",  "R&edo (%1)", redo) :
 	i18nc("menu entry for redo if redo disabled", "R&edo");
     m_menu_manager->setItemText("ID_EDIT_REDO", txt);
 }

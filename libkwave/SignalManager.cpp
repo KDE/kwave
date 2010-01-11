@@ -625,12 +625,12 @@ Kwave::Writer *SignalManager::openWriter(unsigned int track,
 }
 
 //***************************************************************************
-bool SignalManager::executeCommand(const QString &command)
+int SignalManager::executeCommand(const QString &command)
 {
     unsigned int offset = m_selection.offset();
     unsigned int length = m_selection.length();
 
-    if (!command.length()) return true;
+    if (!command.length()) return -EINVAL;
     Parser parser(command);
 
     if (false) {
@@ -654,8 +654,8 @@ bool SignalManager::executeCommand(const QString &command)
 	}
     CASE_COMMAND("paste")
 	ClipBoard &clip = ClipBoard::instance();
-	if (clip.isEmpty()) return false;
-	if (!selectedTracks().size()) return false;
+	if (clip.isEmpty()) return 0;
+	if (!selectedTracks().size()) return 0;
 
 	UndoTransactionGuard undo(*this, i18n("Paste"));
 	clip.paste(m_parent_widget, *this, offset, length);
@@ -734,10 +734,10 @@ bool SignalManager::executeCommand(const QString &command)
 //	for (unsigned int i = 0; i < m_channels; i++)
 //	    toggleChannel(i);
     } else {
-	return false;
+	return -ENOSYS;
     }
 
-    return true;
+    return 0;
 }
 
 //***************************************************************************

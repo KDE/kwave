@@ -503,6 +503,10 @@ void SignalManager::newSignal(unsigned int samples, double rate,
 //***************************************************************************
 void SignalManager::close()
 {
+    // stop the playback
+    m_playback_controller.playbackStop();
+    m_playback_controller.reset();
+
     // fix the modified flag to false
     enableModifiedChange(true);
     setModified(false);
@@ -519,13 +523,18 @@ void SignalManager::close()
     flushUndoBuffers();
     flushRedoBuffer();
 
+    // reset the selection
+    m_selection.clear();
+
+    // clear the list of label
+    m_file_info.labels().clear();
+
     m_empty = true;
     while (tracks()) deleteTrack(tracks()-1);
     m_signal.close();
     m_file_info.clear();
 
     m_closed = true;
-    m_selection.select(0,0);
     rememberCurrentSelection();
 
     emitStatusInfo();
@@ -634,11 +643,13 @@ int SignalManager::executeCommand(const QString &command)
     Parser parser(command);
 
     if (false) {
+    // --- undo / redo ---
     CASE_COMMAND("undo")
 	undo();
     CASE_COMMAND("redo")
 	redo();
-    // copy & paste + clipboard
+
+    // --- copy & paste + clipboard ---
     CASE_COMMAND("copy")
 	qDebug("copy(%u,%u)", offset, length);
 	if (length) {
@@ -693,7 +704,7 @@ int SignalManager::executeCommand(const QString &command)
 		m_signal.deleteRange(count, offset+length, rest);
 		m_signal.deleteRange(count, 0, offset);
 	    }
-	    selectRange(0, length);
+	    (0, length);
 	}
     CASE_COMMAND("delete")
 	UndoTransactionGuard undo(*this, i18n("Delete"));
@@ -721,18 +732,35 @@ int SignalManager::executeCommand(const QString &command)
 //		}
 //	    }
 //	}
+
+    // --- track related functions ---
     CASE_COMMAND("add_track")
 	appendTrack();
     CASE_COMMAND("delete_track")
 	Parser parser(command);
 	unsigned int track = parser.toUInt();
 	deleteTrack(track);
-//    CASE_COMMAND("selectchannels")
-//	for (unsigned int i = 0; i < m_channels; i++)
-//	    if (signal.at(i)) signal.at(i)->select(true);
-//    CASE_COMMAND("invertchannels")
-//	for (unsigned int i = 0; i < m_channels; i++)
-//	    toggleChannel(i);
+    // track selection
+    CASE_COMMAND("select_all_tracks")
+	UndoTransactionGuard undo(*this, i18n("Select All Tracks"));
+	foreach (unsigned int track, allTracks())
+	    selectTrack(track, true);
+    CASE_COMMAND("deselect_all_tracks")
+	UndoTransactionGuard undo(*this, i18n("Deselect all tracks"));
+	foreach (unsigned int track, allTracks())
+	    selectTrack(track, false);
+    CASE_COMMAND("invert_track_selection")
+	UndoTransactionGuard undo(*this, i18n("Invert Track Selection"));
+	foreach (unsigned int track, allTracks())
+	    selectTrack(track, !trackSelected(track));
+    CASE_COMMAND("select_track")
+	int track = parser.toInt();
+	UndoTransactionGuard undo(*this, i18n("Select Track"));
+	selectTrack(track, true);
+    CASE_COMMAND("deselect_track")
+	int track = parser.toInt();
+	UndoTransactionGuard undo(*this, i18n("Deselect Track"));
+	selectTrack(track, false);
     } else {
 	return -ENOSYS;
     }

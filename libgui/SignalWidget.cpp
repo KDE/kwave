@@ -93,7 +93,7 @@
 /**
  * useful macro for command parsing
  */
-// #define CASE_COMMAND(x) } else if (parser.command() == x) {
+#define CASE_COMMAND(x) } else if (parser.command() == x) {
 
 /** number of milliseconds between repaints */
 // #define REPAINT_INTERVAL 50
@@ -116,6 +116,17 @@
 
 /** vertical zoom factor: increment/decrement factor */
 // #define VERTICAL_ZOOM_STEP_FACTOR 1.5
+
+// namespace Kwave {
+//
+//     class SignalView: public QWidget
+//     {
+// 	Q_OBJECT
+//     public:
+//
+//     };
+//
+// }
 
 //***************************************************************************
 //***************************************************************************
@@ -182,15 +193,15 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context)
 //     m_selection = new MouseMark();
 //     Q_ASSERT(m_selection);
 //     if (!m_selection) return;
-//
-//     // connect to the signal manager's signals
-//     SignalManager *sig = m_context.signalManager();
-//
-//     connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track *)),
-//             this, SLOT(slotTrackInserted(unsigned int, Track *)));
-//     connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),
-//             this, SLOT(slotTrackDeleted(unsigned int)));
-//
+
+    // connect to the signal manager's signals
+    SignalManager *sig = m_context.signalManager();
+
+    connect(sig,  SIGNAL(sigTrackInserted(unsigned int, Track *)),
+            this, SLOT( slotTrackInserted(unsigned int, Track *)));
+    connect(sig,  SIGNAL(sigTrackDeleted(unsigned int)),
+            this, SLOT( slotTrackDeleted(unsigned int)));
+
 //     connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, unsigned int,
 // 	unsigned int)),
 // 	this, SLOT(slotSamplesDeleted(unsigned int, unsigned int,
@@ -261,7 +272,6 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context)
     setAutoFillBackground(true);                                 // ###
     setMinimumHeight(200);                                       // ###
 
-//     setZoom(0.0);
 //    qDebug("SignalWidget::SignalWidget(): done.");
 }
 
@@ -270,7 +280,7 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context)
 // {
 //     refreshLayer(LAYER_SIGNAL);
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::refreshMarkersLayer()
 // {
@@ -292,8 +302,6 @@ SignalWidget::~SignalWidget()
 //
 //     close();
 //
-//     labels().clear();
-//
 //     if (m_selection) delete m_selection;
 //     m_selection = 0;
 //
@@ -303,208 +311,151 @@ SignalWidget::~SignalWidget()
 }
 
 //***************************************************************************
-void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
+void SignalWidget::setZoomAndOffset(double zoom, sample_index_t offset)
 {
-    qDebug("SignalWidget::setZoomAndOffset(%g, %u)", zoom, offset);
+    sample_index_t visible = ((width() - 1) * zoom) + 1;
+    sample_index_t last = offset + visible - 1;
+    qDebug("SignalWidget::setZoomAndOffset(%g, %lu), last visible=%lu",
+	   zoom,
+	   static_cast<unsigned long int>(offset),
+	   static_cast<unsigned long int>(last));
 }
 
 // //***************************************************************************
-// void SignalWidget::toggleTrackSelection(int track)
-// {
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return;
-//
-//     // here we have to convert to unsigned
-//     Q_ASSERT(track >= 0);
-//     if (track < 0) return;
-//     unsigned int t = static_cast<unsigned int>(track);
-//     bool select = !signal_manager->trackSelected(t);
-//     signal_manager->selectTrack(t, select);
-// }
-//
-// //***************************************************************************
-// int SignalWidget::executeCommand(const QString &command)
-// {
-//     InhibitRepaintGuard inhibit(*this);
-//     Parser parser(command);
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return false;
-//
-//     if (!command.length()) return true;
-//
-//     if (false) {
-//     // label commands
-//     CASE_COMMAND("label")
-// 	unsigned int pos = parser.toUInt();
-// 	addLabel(pos);
-//     CASE_COMMAND("deletelabel")
-// 	int index = parser.toInt();
-// 	signal_manager->deleteLabel(index, true);
-// //    CASE_COMMAND("chooselabel")
-// //	Parser parser(command);
-// //	markertype = globals.markertypes.at(parser.toInt());
-// //    CASE_COMMAND("amptolabel")
-// //	markSignal(command);
-// //    CASE_COMMAND("pitch")
-// //	markPeriods(command);
-// //    CASE_COMMAND("labeltopitch")
-// //      convertMarkstoPitch(command);
-// //    CASE_COMMAND("loadlabel")
-// //	loadLabel();
-// //    CASE_COMMAND("savelabel")
-// //	saveLabel(command);
-//     CASE_COMMAND("expandtolabel")
-// 	UndoTransactionGuard undo(*signal_manager,
-// 	    i18n("Expand Selection to Label"));
-// 	unsigned int selection_left  = signal_manager->selection().first();
-// 	unsigned int selection_right = signal_manager->selection().last();
-// 	if (labels().isEmpty()) return false; // we need labels for this
-// 	Label label_left  = Label();
-// 	Label label_right = Label();
-// 	// the last label <= selection start -> label_left
-// 	// the first label >= selection end  -> label_right
-// 	foreach (Label label, labels()) {
-// 	    unsigned int lp = label.pos();
-// 	    if (lp <= selection_left)
-// 		label_left = label;
-// 	    if ((lp >= selection_right) && (label_right.isNull())) {
-// 		label_right = label;
-// 		break; // done
-// 	    }
-// 	}
-// 	// default left label = start of file
-// 	selection_left = (label_left.isNull()) ? 0 :
-// 	    label_left.pos();
-// 	// default right label = end of file
-// 	selection_right = (label_right.isNull()) ?
-// 	    signal_manager->length() - 1 : label_right.pos();
-// 	unsigned int length = selection_right - selection_left + 1;
-// 	selectRange(selection_left, length);
-//
-//     CASE_COMMAND("selectnextlabels")
-// 	UndoTransactionGuard undo(*signal_manager,
-// 	    i18n("Select Next Labels"));
-// 	unsigned int selection_left;
-// 	unsigned int selection_right = signal_manager->selection().last();
-// 	Label label_left  = Label();
-// 	Label label_right = Label();
-// 	if (labels().isEmpty()) return false; // we need labels for this
-//
-// 	// special case: nothing selected -> select up to the first label
-// 	if (selection_right == 0) {
-// 	    label_right = labels().first();
-// 	    selection_left = 0;
-// 	} else {
-// 	    // find the first label starting after the current selection
-// 	    LabelListIterator it(labels());
-// 	    while (it.hasNext()) {
-// 		Label label = it.next();
-// 		if (label.pos() >= selection_right) {
-// 		    // take it as selection start
-// 		    label_left  = label;
-// 		    // and it's next one as selection end (might be null)
-// 		    label_right = it.hasNext() ? it.next() : Label();
-// 		    break;
-// 		}
-// 	    }
-// 	    // default selection start = last label
-// 	    if (label_left.isNull()) label_left = labels().last();
-// 	    if (label_left.isNull()) return false; // no labels at all !?
-// 	    selection_left = label_left.pos();
-// 	}
-// 	// default selection end = end of the file
-// 	selection_right = (label_right.isNull()) ?
-// 	    signal_manager->length() - 1 : label_right.pos();
-// 	unsigned int length = selection_right - selection_left + 1;
-// 	selectRange(selection_left, length);
-//
-//     CASE_COMMAND("selectprevlabels")
-// 	UndoTransactionGuard undo(*signal_manager,
-// 	    i18n("Select Previous Labels"));
-// 	unsigned int selection_left  = signal_manager->selection().first();
-// 	unsigned int selection_right = signal_manager->selection().last();
-// 	Label label_left  = Label();
-// 	Label label_right = Label();
-// 	if (labels().isEmpty()) return false; // we need labels for this
-//
-// 	// find the last label before the start of the selection
-// 	foreach (Label label, labels()) {
-// 	    if (label.pos() > selection_left)
-// 		break; // done
-// 	    label_left  = label_right;
-// 	    label_right = label;
-// 	}
-// 	// default selection start = start of file
-// 	selection_left = (label_left.isNull()) ? 0 :
-// 	    label_left.pos();
-// 	// default selection end = first label
-// 	if (label_right.isNull()) label_right = labels().first();
-// 	if (label_right.isNull()) return false; // no labels at all !?
-// 	selection_right = label_right.pos();
-// 	unsigned int length = selection_right - selection_left + 1;
-// 	selectRange(selection_left, length);
-//
-// //    CASE_COMMAND("markperiod")
-// //	markPeriods(command);
-// //    CASE_COMMAND("saveperiods")
-// //	savePeriods();
-//
-//     // track selection
-//     CASE_COMMAND("select_all_tracks")
-// 	UndoTransactionGuard undo(*signal_manager,
-// 	    i18n("Select All Tracks"));
-// 	foreach (unsigned int track, signal_manager->allTracks())
-// 	    signal_manager->selectTrack(track, true);
-//     CASE_COMMAND("deselect_all_tracks")
-// 	UndoTransactionGuard undo(*signal_manager,
-// 	    i18n("Deselect all tracks"));
-// 	foreach (unsigned int track, signal_manager->allTracks())
-// 	    signal_manager->selectTrack(track, false);
-//     CASE_COMMAND("invert_track_selection")
-// 	UndoTransactionGuard undo(*signal_manager,
-// 	    i18n("Invert Track Selection"));
-// 	foreach (unsigned int track, signal_manager->allTracks())
-// 	    signal_manager->selectTrack(
-// 		track,
-// 		!signal_manager->trackSelected(track)
-// 	    );
-//     CASE_COMMAND("select_track")
-// 	int track = parser.toInt();
-// 	UndoTransactionGuard undo(*signal_manager, i18n("Select Track"));
-// 	signal_manager->selectTrack(track, true);
-//     CASE_COMMAND("deselect_track")
-// 	int track = parser.toInt();
-// 	UndoTransactionGuard undo(*signal_manager, i18n("Deselect Track"));
-// 	signal_manager->selectTrack(track, false);
-//     } else {
-// 	return signal_manager->executeCommand(command);
-//     }
+int SignalWidget::executeCommand(const QString &command)
+{
+//     InhibitRepaintGuard inhibit(*this); ### TODO ###
+    Parser parser(command);
+    SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return false;
 
-//     } else {
-// 	if (parser.command() == "selectchannels")
-// 	    foreach (MultiStateWidget *lamp, m_lamps)
-// 		if (lamp) lamp->setState(0);
-//
-// 	if (parser.command() == "invertchannels")
-// 	    foreach (MultiStateWidget *lamp, m_lamps)
-// 		if (lamp) lamp->nextState();
-//
-// 	return m_signal_widget.executeCommand(command);
-//     }
-//
-//     return true;
-// }
-//
-// //***************************************************************************
-// void SignalWidget::selectRange(unsigned int offset, unsigned int length)
-// {
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (signal_manager) signal_manager->selectRange(offset, length);
-// }
-//
+    if (!command.length()) return true;
+
+    if (false) {
+    // label commands
+    CASE_COMMAND("label")
+	unsigned int pos = parser.toUInt();
+	addLabel(pos);
+    CASE_COMMAND("deletelabel")
+	int index = parser.toInt();
+	signal_manager->deleteLabel(index, true);
+//    CASE_COMMAND("chooselabel")
+//	Parser parser(command);
+//	markertype = globals.markertypes.at(parser.toInt());
+//    CASE_COMMAND("amptolabel")
+//	markSignal(command);
+//    CASE_COMMAND("pitch")
+//	markPeriods(command);
+//    CASE_COMMAND("labeltopitch")
+//      convertMarkstoPitch(command);
+//    CASE_COMMAND("loadlabel")  -> plugin
+//	loadLabel();
+//    CASE_COMMAND("savelabel")  -> plugin
+//	saveLabel(command);
+    CASE_COMMAND("expandtolabel")
+	UndoTransactionGuard undo(*signal_manager,
+	    i18n("Expand Selection to Label"));
+	unsigned int selection_left  = signal_manager->selection().first();
+	unsigned int selection_right = signal_manager->selection().last();
+	LabelList &labels = signal_manager->labels();
+	if (labels.isEmpty()) return false; // we need labels for this
+	Label label_left  = Label();
+	Label label_right = Label();
+	// the last label <= selection start -> label_left
+	// the first label >= selection end  -> label_right
+	foreach (Label label, labels) {
+	    unsigned int lp = label.pos();
+	    if (lp <= selection_left)
+		label_left = label;
+	    if ((lp >= selection_right) && (label_right.isNull())) {
+		label_right = label;
+		break; // done
+	    }
+	}
+	// default left label = start of file
+	selection_left = (label_left.isNull()) ? 0 :
+	    label_left.pos();
+	// default right label = end of file
+	selection_right = (label_right.isNull()) ?
+	    signal_manager->length() - 1 : label_right.pos();
+	unsigned int length = selection_right - selection_left + 1;
+	signal_manager->selectRange(selection_left, length);
+
+    CASE_COMMAND("selectnextlabels")
+	UndoTransactionGuard undo(*signal_manager,
+	    i18n("Select Next Labels"));
+	unsigned int selection_left;
+	unsigned int selection_right = signal_manager->selection().last();
+	Label label_left  = Label();
+	Label label_right = Label();
+	LabelList &labels = signal_manager->labels();
+	if (labels.isEmpty()) return false; // we need labels for this
+
+	// special case: nothing selected -> select up to the first label
+	if (selection_right == 0) {
+	    label_right = labels.first();
+	    selection_left = 0;
+	} else {
+	    // find the first label starting after the current selection
+	    LabelListIterator it(labels);
+	    while (it.hasNext()) {
+		Label label = it.next();
+		if (label.pos() >= selection_right) {
+		    // take it as selection start
+		    label_left  = label;
+		    // and it's next one as selection end (might be null)
+		    label_right = it.hasNext() ? it.next() : Label();
+		    break;
+		}
+	    }
+	    // default selection start = last label
+	    if (label_left.isNull()) label_left = labels.last();
+	    if (label_left.isNull()) return false; // no labels at all !?
+	    selection_left = label_left.pos();
+	}
+	// default selection end = end of the file
+	selection_right = (label_right.isNull()) ?
+	    signal_manager->length() - 1 : label_right.pos();
+	unsigned int length = selection_right - selection_left + 1;
+	signal_manager->selectRange(selection_left, length);
+
+    CASE_COMMAND("selectprevlabels")
+	UndoTransactionGuard undo(*signal_manager,
+	    i18n("Select Previous Labels"));
+	unsigned int selection_left  = signal_manager->selection().first();
+	unsigned int selection_right = signal_manager->selection().last();
+	Label label_left  = Label();
+	Label label_right = Label();
+	LabelList &labels = signal_manager->labels();
+	if (labels.isEmpty()) return false; // we need labels for this
+
+	// find the last label before the start of the selection
+	foreach (Label label, labels) {
+	    if (label.pos() > selection_left)
+		break; // done
+	    label_left  = label_right;
+	    label_right = label;
+	}
+	// default selection start = start of file
+	selection_left = (label_left.isNull()) ? 0 :
+	    label_left.pos();
+	// default selection end = first label
+	if (label_right.isNull()) label_right = labels.first();
+	if (label_right.isNull()) return false; // no labels at all !?
+	selection_right = label_right.pos();
+	unsigned int length = selection_right - selection_left + 1;
+	signal_manager->selectRange(selection_left, length);
+
+//    CASE_COMMAND("markperiod")
+//	markPeriods(command);
+//    CASE_COMMAND("saveperiods")
+//	savePeriods();
+    }
+
+    return true;
+}
+
 // //***************************************************************************
 // void SignalWidget::slotSelectionChanged(unsigned int offset,
 //                                         unsigned int length)
@@ -520,93 +471,13 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //     refreshLayer(LAYER_SELECTION);
 //     emit selectedTimeInfo(offset, length, signal_manager->rate());
 // }
-//
-// //***************************************************************************
-// void SignalWidget::forwardCommand(const QString &command)
-// {
-//     emit sigCommand(command);
-// }
-//
-// //***************************************************************************
-// int SignalWidget::loadFile(const KUrl &url)
-// {
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return -EINVAL;
-//
-//     // load a new signal
-//     int res = signal_manager->loadFile(url);
-//     if (signal_manager->isClosed() && res) {
-// 	qWarning("SignalWidget::loadFile() failed:"\
-// 		" zero-length or out of memory?");
-//
-// 	QString reason;
-// 	switch (res) {
-// 	    case -ENOMEM:
-// 		reason = i18n("Out of memory");
-// 		break;
-// 	    case -EIO:
-// 		reason = i18n("Unable to open '%1'",
-// 		    url.prettyUrl());
-// 		break;
-// 	    case -EINVAL:
-// 		reason = i18n("Invalid or unknown file type: '%1'",
-// 		              url.prettyUrl());
-// 		break;
-// 	    default:
-// 		reason = "";
-// 	}
-//
-//         // show an error message box if the reason was known
-// 	if (reason.length()) {
-// 	    Kwave::MessageBox::error(this, reason);
-// 	}
-//
-// 	close();
-//     }
-//
-//     // if the signal is smaller than expected,
-//     // zoom it to full size
-//     if (m_zoom > fullZoom()) setZoom(fullZoom());
-//
-//     return res;
-// }
-//
-// //***************************************************************************
-// // void SignalWidget::newSignal(unsigned int samples, double rate,
-// //                              unsigned int bits, unsigned int tracks)
-// // {
-// //     m_signal_manager.newSignal(samples,rate,bits,tracks);
-// // }
-//
-// //***************************************************************************
-// // void SignalWidget::close()
-// // {
-// //     // first stop playback
-// //     m_signal_manager.playbackController().playbackStop();
-// //     m_signal_manager.playbackController().reset();
-// //
-// //     // discard all labels
-// //     labels().clear();
-// //
-// //     // clear the display
-// //     qDeleteAll(m_track_pixmaps);
-// //     m_track_pixmaps.clear();
-// //
-// //     setZoom(0.0);
-// //     setOffset(0);
-// //
-// //     // close the signal manager
-// //     m_signal_manager.close();
-// //
-// //     // reset the status, zoom and selection
-// //     selectRange(0, 0);
-// //     zoomAll();
-// //     refreshAllLayers();
-// //
-// //     setMouseMode(MouseNormal);
-// // }
-//
+
+//***************************************************************************
+void SignalWidget::forwardCommand(const QString &command)
+{
+    emit sigCommand(command);
+}
+
 // //***************************************************************************
 // void SignalWidget::setMouseMode(MouseMode mode)
 // {
@@ -630,24 +501,13 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //
 //     emit sigMouseChanged(static_cast<int>(mode));
 // }
-//
-// //***************************************************************************
-// void SignalWidget::resizeEvent(QResizeEvent *)
-// {
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return;
-//
-//     emit viewInfo(m_offset, pixels2samples(QWidget::width()-1)+1,
-//                   signal_manager->length());
-// }
-//
+
 // //***************************************************************************
 // void SignalWidget::inhibitRepaint()
 // {
 //     m_inhibit_repaint++;
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::allowRepaint(bool repaint)
 // {
@@ -670,13 +530,13 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // 	}
 //     }
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::timedRepaint()
 // {
 //     this->repaint();
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::refreshAllLayers()
 // {
@@ -688,7 +548,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //
 //     m_redraw = true;
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::refreshLayer(int layer)
 // {
@@ -702,7 +562,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //
 //     m_redraw = true;
 // }
-//
+
 // //***************************************************************************
 // int SignalWidget::selectionPosition(const int x)
 // {
@@ -740,7 +600,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //
 //     return pos;
 // }
-//
+
 // //***************************************************************************
 // bool SignalWidget::isSelectionBorder(int x)
 // {
@@ -749,13 +609,13 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //
 //     return ((pos & LeftBorder) || (pos & RightBorder));
 // }
-//
+
 // //***************************************************************************
 // bool SignalWidget::isInSelection(int x)
 // {
 //     return (selectionPosition(x) & Selection) != 0;
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::mousePressEvent(QMouseEvent *e)
 // {
@@ -819,137 +679,137 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // 	}
 //     }
 // }
-//
-// //***************************************************************************
-// void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
-// {
-//     Q_ASSERT(e);
+
+//***************************************************************************
+void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
+{
+    Q_ASSERT(e);
 //     Q_ASSERT(m_selection);
 //     if (!e || !m_selection) return;
-//
-//     SignalManager *manager = m_context.signalManager();
-//     bool have_signal = manager && !manager->isEmpty();
-//     if (!have_signal)return;
-//     bool have_selection = manager && (manager->selection().length() > 1);
-//     bool have_labels = !labels().isEmpty();
-//
-//     QMenu *context_menu = new QMenu(this);
-//     Q_ASSERT(context_menu);
-//     if (!context_menu) return;
-//
-//     QMenu *submenu_select = context_menu->addMenu(i18n("&Selection"));
-//     Q_ASSERT(submenu_select);
-//     if (!submenu_select) return;
-//
-//     QMenu *submenu_label = context_menu->addMenu(i18n("&Label"));
-//     Q_ASSERT(submenu_label);
-//     if (!submenu_label) return;
-//
-//     KIconLoader icon_loader;
-//
-//     /* menu items common to all cases */
-//
-//     // undo
-//     QAction *action;
-//     action = context_menu->addAction(
-// 	icon_loader.loadIcon("edit-undo", KIconLoader::Toolbar),
-// 	i18n("&Undo"), this, SLOT(contextMenuEditUndo()),
-// 	Qt::CTRL + Qt::Key_Z);
-//     Q_ASSERT(action);
-//     if (!action) return;
-//     if (!manager || !manager->canUndo())
-// 	action->setEnabled(false);
-//
-//     // redo
-//     action = context_menu->addAction(
-// 	icon_loader.loadIcon("edit-redo", KIconLoader::Toolbar),
-// 	i18n("&Redo"), this, SLOT(contextMenuEditRedo()),
-// 	Qt::CTRL + Qt::Key_Y);
-//     Q_ASSERT(action);
-//     if (!action) return;
-//     if (!manager || !manager->canRedo())
-// 	action->setEnabled(false);
-//     context_menu->addSeparator();
-//
-//     // cut/copy/paste
-//     QAction *action_cut = context_menu->addAction(
-// 	icon_loader.loadIcon("edit-cut", KIconLoader::Toolbar),
-// 	i18n("Cu&t"), this, SLOT(contextMenuEditCut()),
-// 	Qt::CTRL + Qt::Key_X);
-//     QAction *action_copy = context_menu->addAction(
-// 	icon_loader.loadIcon("edit-copy", KIconLoader::Toolbar),
-// 	i18n("&Copy"), this, SLOT(contextMenuEditCopy()),
-// 	Qt::CTRL + Qt::Key_C);
-//     QAction *action_paste = context_menu->addAction(
-// 	icon_loader.loadIcon("edit-paste", KIconLoader::Toolbar),
-// 	i18n("&Paste"), this, SLOT(contextMenuEditPaste()),
-// 	Qt::CTRL + Qt::Key_V);
-//     context_menu->addSeparator();
-//     if (action_cut)   action_cut->setEnabled(have_selection);
-//     if (action_copy)  action_copy->setEnabled(have_selection);
-//     if (action_paste)
-// 	action_paste->setEnabled(!ClipBoard::instance().isEmpty());
-//
-//     int mouse_x = mapFromGlobal(e->globalPos()).x();
-//     if (mouse_x < 0) mouse_x = 0;
-//     if (mouse_x >= width())  mouse_x = width()  - 1;
-//
-//     // Selection / &Save
-//     QAction *action_select_save = submenu_select->addAction(
-// 	icon_loader.loadIcon("document-save", KIconLoader::Toolbar),
-// 	i18n("&Save..."), this, SLOT(contextMenuSaveSelection()));
-//     Q_ASSERT(action_select_save);
-//     if (!action_select_save) return;
-//     action_select_save->setEnabled(have_selection);
-//
-//     // Selection / &Expand to labels
-//     QAction *action_select_expand_to_labels = submenu_select->addAction(
-// 	i18n("&Expand to Labels"), this,
-// 	SLOT(contextMenuSelectionExpandToLabels()), Qt::Key_E);
-//     Q_ASSERT(action_select_expand_to_labels);
-//     if (!action_select_expand_to_labels) return;
-//     action_select_expand_to_labels->setEnabled(have_labels);
-//
-//     // Selection / to next labels
-//     QAction *action_select_next_labels = submenu_select->addAction(
-// 	i18n("To Next Labels"), this,
-// 	SLOT(contextMenuSelectionNextLabels()),
-// 	Qt::SHIFT + Qt::CTRL + Qt::Key_N);
-//     Q_ASSERT(action_select_next_labels);
-//     if (!action_select_next_labels) return;
-//     action_select_next_labels->setEnabled(have_labels);
-//
-//     // Selection / to previous labels
-//     QAction *action_select_prev_labels = submenu_select->addAction(
-// 	i18n("To Previous Labels"), this,
-// 	SLOT(contextMenuSelectionPrevLabels()),
-// 	Qt::SHIFT + Qt::CTRL + Qt::Key_P);
-//     Q_ASSERT(action_select_prev_labels);
-//     if (!action_select_prev_labels) return;
-//     action_select_prev_labels->setEnabled(have_labels);
-//
-//     // label handling
-//     QAction *action_label_new = submenu_label->addAction(
-// 	icon_loader.loadIcon("list-add", KIconLoader::Toolbar),
-// 	i18n("&New"), this, SLOT(contextMenuLabelNew()));
-//     Q_ASSERT(action_label_new);
-//     if (!action_label_new) return;
-//     action_label_new->setEnabled(have_signal);
-//
-//     QAction *action_label_delete = submenu_label->addAction(
-// 	icon_loader.loadIcon("list-remove", KIconLoader::Toolbar),
-// 	i18n("&Delete"), this, SLOT(contextMenuLabelDelete()));
-//     Q_ASSERT(action_label_delete);
-//     if (!action_label_delete) return;
-//     action_label_delete->setEnabled(false);
-//
-//     QAction *action_label_properties = submenu_label->addAction(
-// 	icon_loader.loadIcon("configure", KIconLoader::Toolbar),
-// 	i18n("&Properties..."), this, SLOT(contextMenuLabelProperties()));
-//     Q_ASSERT(action_label_properties);
-//     if (!action_label_properties) return;
-//     action_label_properties->setEnabled(false);
-//
+
+    SignalManager *manager = m_context.signalManager();
+    bool have_signal = manager && !manager->isEmpty();
+    if (!have_signal)return;
+    bool have_selection = manager && (manager->selection().length() > 1);
+    bool have_labels = !manager && manager->labels().isEmpty();
+
+    QMenu *context_menu = new QMenu(this);
+    Q_ASSERT(context_menu);
+    if (!context_menu) return;
+
+    QMenu *submenu_select = context_menu->addMenu(i18n("&Selection"));
+    Q_ASSERT(submenu_select);
+    if (!submenu_select) return;
+
+    QMenu *submenu_label = context_menu->addMenu(i18n("&Label"));
+    Q_ASSERT(submenu_label);
+    if (!submenu_label) return;
+
+    KIconLoader icon_loader;
+
+    /* menu items common to all cases */
+
+    // undo
+    QAction *action;
+    action = context_menu->addAction(
+	icon_loader.loadIcon("edit-undo", KIconLoader::Toolbar),
+	i18n("&Undo"), this, SLOT(contextMenuEditUndo()),
+	Qt::CTRL + Qt::Key_Z);
+    Q_ASSERT(action);
+    if (!action) return;
+    if (!manager || !manager->canUndo())
+	action->setEnabled(false);
+
+    // redo
+    action = context_menu->addAction(
+	icon_loader.loadIcon("edit-redo", KIconLoader::Toolbar),
+	i18n("&Redo"), this, SLOT(contextMenuEditRedo()),
+	Qt::CTRL + Qt::Key_Y);
+    Q_ASSERT(action);
+    if (!action) return;
+    if (!manager || !manager->canRedo())
+	action->setEnabled(false);
+    context_menu->addSeparator();
+
+    // cut/copy/paste
+    QAction *action_cut = context_menu->addAction(
+	icon_loader.loadIcon("edit-cut", KIconLoader::Toolbar),
+	i18n("Cu&t"), this, SLOT(contextMenuEditCut()),
+	Qt::CTRL + Qt::Key_X);
+    QAction *action_copy = context_menu->addAction(
+	icon_loader.loadIcon("edit-copy", KIconLoader::Toolbar),
+	i18n("&Copy"), this, SLOT(contextMenuEditCopy()),
+	Qt::CTRL + Qt::Key_C);
+    QAction *action_paste = context_menu->addAction(
+	icon_loader.loadIcon("edit-paste", KIconLoader::Toolbar),
+	i18n("&Paste"), this, SLOT(contextMenuEditPaste()),
+	Qt::CTRL + Qt::Key_V);
+    context_menu->addSeparator();
+    if (action_cut)   action_cut->setEnabled(have_selection);
+    if (action_copy)  action_copy->setEnabled(have_selection);
+    if (action_paste)
+	action_paste->setEnabled(!ClipBoard::instance().isEmpty());
+
+    int mouse_x = mapFromGlobal(e->globalPos()).x();
+    if (mouse_x < 0) mouse_x = 0;
+    if (mouse_x >= width())  mouse_x = width()  - 1;
+
+    // Selection / &Save
+    QAction *action_select_save = submenu_select->addAction(
+	icon_loader.loadIcon("document-save", KIconLoader::Toolbar),
+	i18n("&Save..."), this, SLOT(contextMenuSaveSelection()));
+    Q_ASSERT(action_select_save);
+    if (!action_select_save) return;
+    action_select_save->setEnabled(have_selection);
+
+    // Selection / &Expand to labels
+    QAction *action_select_expand_to_labels = submenu_select->addAction(
+	i18n("&Expand to Labels"), this,
+	SLOT(contextMenuSelectionExpandToLabels()), Qt::Key_E);
+    Q_ASSERT(action_select_expand_to_labels);
+    if (!action_select_expand_to_labels) return;
+    action_select_expand_to_labels->setEnabled(have_labels);
+
+    // Selection / to next labels
+    QAction *action_select_next_labels = submenu_select->addAction(
+	i18n("To Next Labels"), this,
+	SLOT(contextMenuSelectionNextLabels()),
+	Qt::SHIFT + Qt::CTRL + Qt::Key_N);
+    Q_ASSERT(action_select_next_labels);
+    if (!action_select_next_labels) return;
+    action_select_next_labels->setEnabled(have_labels);
+
+    // Selection / to previous labels
+    QAction *action_select_prev_labels = submenu_select->addAction(
+	i18n("To Previous Labels"), this,
+	SLOT(contextMenuSelectionPrevLabels()),
+	Qt::SHIFT + Qt::CTRL + Qt::Key_P);
+    Q_ASSERT(action_select_prev_labels);
+    if (!action_select_prev_labels) return;
+    action_select_prev_labels->setEnabled(have_labels);
+
+    // label handling
+    QAction *action_label_new = submenu_label->addAction(
+	icon_loader.loadIcon("list-add", KIconLoader::Toolbar),
+	i18n("&New"), this, SLOT(contextMenuLabelNew()));
+    Q_ASSERT(action_label_new);
+    if (!action_label_new) return;
+    action_label_new->setEnabled(have_signal);
+
+    QAction *action_label_delete = submenu_label->addAction(
+	icon_loader.loadIcon("list-remove", KIconLoader::Toolbar),
+	i18n("&Delete"), this, SLOT(contextMenuLabelDelete()));
+    Q_ASSERT(action_label_delete);
+    if (!action_label_delete) return;
+    action_label_delete->setEnabled(false);
+
+    QAction *action_label_properties = submenu_label->addAction(
+	icon_loader.loadIcon("configure", KIconLoader::Toolbar),
+	i18n("&Properties..."), this, SLOT(contextMenuLabelProperties()));
+    Q_ASSERT(action_label_properties);
+    if (!action_label_properties) return;
+    action_label_properties->setEnabled(false);
+
 //     // store the menu position in the mouse selection
 //     unsigned int pos = m_offset + pixels2samples(mouse_x);
 //     m_selection->set(pos, pos);
@@ -973,26 +833,26 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // 	// expand to next marker (left) ?
 //     }
 //
-// //     if (isInSelection(mouse_x) && have_selection) {
-// // 	// context menu: do something with the selection
-// //     }
-//
-//     context_menu->exec(QCursor::pos());
-//     delete context_menu;
-// }
-//
-// //***************************************************************************
-// void SignalWidget::contextMenuLabelNew()
-// {
+//     if (isInSelection(mouse_x) && have_selection) {
+// 	// context menu: do something with the selection
+//     }
+
+    context_menu->exec(QCursor::pos());
+    delete context_menu;
+}
+
+//***************************************************************************
+void SignalWidget::contextMenuLabelNew()
+{
 //     Q_ASSERT(m_selection);
 //     if (!m_selection) return;
 //
 //     forwardCommand(QString("label(%1)").arg(m_selection->left()));
-// }
-//
-// //***************************************************************************
-// void SignalWidget::contextMenuLabelDelete()
-// {
+}
+
+//***************************************************************************
+void SignalWidget::contextMenuLabelDelete()
+{
 //     Q_ASSERT(m_selection);
 //     if (!m_selection) return;
 //
@@ -1004,11 +864,11 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //     if (label.isNull()) return;
 //     int index = signal_manager->labelIndex(label);
 //     forwardCommand(QString("deletelabel(%1)").arg(index));
-// }
-//
-// //***************************************************************************
-// void SignalWidget::contextMenuLabelProperties()
-// {
+}
+
+//***************************************************************************
+void SignalWidget::contextMenuLabelProperties()
+{
 //     Q_ASSERT(m_selection);
 //     if (!m_selection) return;
 //
@@ -1020,8 +880,8 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //     if (label.isNull()) return;
 //
 //     labelProperties(label);
-// }
-//
+}
+
 // //***************************************************************************
 // void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
 // {
@@ -1067,7 +927,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //     }
 //
 // }
-//
+
 // //***************************************************************************
 // SignalWidget::PositionWidget::PositionWidget(QWidget *parent)
 //     :QWidget(parent), m_label(0), m_alignment(0),
@@ -1090,14 +950,14 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //     setFocusPolicy(Qt::NoFocus);
 //     setMouseTracking(true);
 // }
-//
+
 // //***************************************************************************
 // SignalWidget::PositionWidget::~PositionWidget()
 // {
 //     if (m_label) delete m_label;
 //     m_label = 0;
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::PositionWidget::setText(const QString &text,
 //                                            Qt::Alignment alignment)
@@ -1132,7 +992,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //
 //     updateMask();
 // }
-//
+
 // //***************************************************************************
 // bool SignalWidget::PositionWidget::event(QEvent *e)
 // {
@@ -1167,7 +1027,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //     // everything else: let it be handled by QLabel
 //     return QWidget::event(e);
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::PositionWidget::updateMask()
 // {
@@ -1230,7 +1090,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //     m_last_alignment = m_alignment;
 //     m_last_size      = size();
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::PositionWidget::paintEvent(QPaintEvent *)
 // {
@@ -1238,7 +1098,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //     p.setBrush(palette().background().color());
 //     p.drawPolygon(m_polygon);
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::showPosition(const QString &text, unsigned int pos,
 //                                 double ms, const QPoint &mouse)
@@ -1312,7 +1172,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //
 //     setUpdatesEnabled(true);
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 // {
@@ -1421,7 +1281,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // 	}
 //     }
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::wheelEvent(QWheelEvent *event)
 // {
@@ -1452,7 +1312,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // 	event->ignore();
 //     }
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::paintEvent(QPaintEvent *)
 // {
@@ -1650,7 +1510,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // #endif /* DEBUG_REPAINT_TIMES */
 // }
 // #endif
-//
+
 // //***************************************************************************
 // // Label SignalWidget::findLabelNearMouse(int x) const
 // // {
@@ -1678,57 +1538,57 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // //
 // //     return nearest;
 // // }
-//
+
 // //***************************************************************************
 // // LabelList &SignalWidget::labels()
 // // {
 // //     return m_context.signalManager()->fileInfo().labels();
 // // }
-//
+
 // //***************************************************************************
 // // const LabelList &SignalWidget::labels() const
 // // {
 // //     return m_context.signalManager()->fileInfo().labels();
 // // }
-//
-// //***************************************************************************
-// void SignalWidget::addLabel(unsigned int pos)
-// {
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return;
-//
-//     UndoTransactionGuard undo(*signal_manager, i18n("Add Label"));
-//
-//     // add a new label, with undo
-//     if (!signal_manager->addLabel(pos)) {
-// 	signal_manager->abortUndoTransaction();
-// 	return;
-//     }
-//
-//     // find the new label
-//     Label label = signal_manager->findLabel(pos);
-//     if (label.isNull()) return;
-//
-//     // edit the properties of the new label
-//     if (!labelProperties(label)) {
-// 	// aborted or failed -> delete (without undo)
-// 	int index = signal_manager->labelIndex(label);
-// 	signal_manager->deleteLabel(index, false);
-// 	signal_manager->abortUndoTransaction();
-//     }
-//
-//     refreshMarkersLayer();
-//     hidePosition();
-// }
-//
+
+//***************************************************************************
+void SignalWidget::addLabel(unsigned int pos)
+{
+    SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return;
+
+    UndoTransactionGuard undo(*signal_manager, i18n("Add Label"));
+
+    // add a new label, with undo
+    if (!signal_manager->addLabel(pos)) {
+	signal_manager->abortUndoTransaction();
+	return;
+    }
+
+    // find the new label
+    Label label = signal_manager->findLabel(pos);
+    if (label.isNull()) return;
+
+    // edit the properties of the new label
+    if (!labelProperties(label)) {
+	// aborted or failed -> delete (without undo)
+	int index = signal_manager->labelIndex(label);
+	signal_manager->deleteLabel(index, false);
+	signal_manager->abortUndoTransaction();
+    }
+
+//     refreshMarkersLayer(); ### TODO ###
+//     hidePosition(); ### TODO ###
+}
+
 // ////****************************************************************************
 // //void SignalWidget::loadLabel()
 // //{
 // //    labels().clear();    //remove old Labels...
 // //    appendLabel ();
 // //}
-// //
+
 // ////****************************************************************************
 // //void SignalWidget::saveLabel (const char *typestring)
 // //{
@@ -1770,115 +1630,115 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // //	fclose (out);
 // //    }
 // //}
-//
-// //***************************************************************************
-// bool SignalWidget::labelProperties(Label &label)
-// {
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return false;
-//
-//     if (label.isNull()) return false;
-//     int index = signal_manager->labelIndex(label);
-//     Q_ASSERT(index >= 0);
-//     if (index < 0) return false;
-//
-//     // try to modify the label. just in case that the user moves it
-//     // to a position where we already have one, catch this situation
-//     // and ask if he wants to abort, re-enter the label properties
-//     // dialog or just replace (remove) the label at the target position
-//     bool accepted;
-//     unsigned int new_pos  = label.pos();
-//     QString      new_name = label.name();
-//     int old_index = -1;
-//     while (true) {
-// 	// create and prepare the dialog
-// 	LabelPropertiesWidget *dlg = new LabelPropertiesWidget(this);
-// 	Q_ASSERT(dlg);
-// 	if (!dlg) return false;
-// 	dlg->setLabelIndex(index);
-// 	dlg->setLabelPosition(new_pos, signal_manager->length(),
-// 	    signal_manager->rate());
-// 	dlg->setLabelName(new_name);
-//
-// 	// execute the dialog
-// 	accepted = (dlg->exec() == QDialog::Accepted);
-// 	if (!accepted) {
-// 	    // user pressed "cancel"
-// 	    delete dlg;
-// 	    break;
-// 	}
-//
-// 	// if we get here the user pressed "OK"
-// 	new_pos  = dlg->labelPosition();
-// 	new_name = dlg->labelName();
-// 	dlg->saveSettings();
-// 	delete dlg;
-//
-// 	// check: if there already is a label at the new position
-// 	// -> ask the user if he wants to overwrite that one
-// 	if ((new_pos != label.pos()) &&
-// 	    !signal_manager->findLabel(new_pos).isNull())
-// 	{
-// 	    int res = Kwave::MessageBox::warningYesNoCancel(this, i18n(
-// 		"There already is a label at the position "\
-// 		"you have chosen.\n"\
-// 		"Do you want to replace it?"));
-// 	    if (res == KMessageBox::Yes) {
-// 		// delete the label at the target position (with undo)
-// 		Label old = signal_manager->findLabel(new_pos);
-// 		old_index = signal_manager->labelIndex(old);
-// 		break;
-// 	    }
-// 	    if (res == KMessageBox::No) {
-// 		// make another try -> re-enter the dialog
-// 		continue;
-// 	    }
-//
-// 	    // cancel -> abort the whole action
-// 	    accepted = false;
-// 	    break;
-// 	} else {
-// 	    // ok, we can put it there
-// 	    break;
-// 	}
-//     }
-//
-//     if (accepted) {
-// 	// shortcut: abort if nothing has changed
-// 	if ((new_name == label.name()) && (new_pos == label.pos()))
-// 	    return false;
-//
-// 	UndoTransactionGuard undo(*signal_manager, i18n("Modify Label"));
-//
-// 	// if there is a label at the target position, remove it first
-// 	if (old_index >= 0) {
-// 	    signal_manager->deleteLabel(old_index, true);
-// 	    // this might have changed the current index!
-// 	    index = signal_manager->labelIndex(label);
-// 	}
-//
-// 	// modify the label through the signal manager
-// 	if (!signal_manager->modifyLabel(index, new_pos, new_name)) {
-// 	    // position is already occupied
-// 	    signal_manager->abortUndoTransaction();
-// 	    return false;
-// 	}
-//
-// 	// reflect the change in the passed label
-// 	label.moveTo(new_pos);
-// 	label.rename(new_name);
-//
-// 	// NOTE: moving might also change the index, so the complete
-// 	//       markers layer has to be refreshed
-// 	refreshMarkersLayer();
-//     }
-//     else
-// 	signal_manager->abortUndoTransaction();
-//
-//     return accepted;
-// }
-//
+
+//***************************************************************************
+bool SignalWidget::labelProperties(Label &label)
+{
+    SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return false;
+
+    if (label.isNull()) return false;
+    int index = signal_manager->labelIndex(label);
+    Q_ASSERT(index >= 0);
+    if (index < 0) return false;
+
+    // try to modify the label. just in case that the user moves it
+    // to a position where we already have one, catch this situation
+    // and ask if he wants to abort, re-enter the label properties
+    // dialog or just replace (remove) the label at the target position
+    bool accepted;
+    unsigned int new_pos  = label.pos();
+    QString      new_name = label.name();
+    int old_index = -1;
+    while (true) {
+	// create and prepare the dialog
+	LabelPropertiesWidget *dlg = new LabelPropertiesWidget(this);
+	Q_ASSERT(dlg);
+	if (!dlg) return false;
+	dlg->setLabelIndex(index);
+	dlg->setLabelPosition(new_pos, signal_manager->length(),
+	    signal_manager->rate());
+	dlg->setLabelName(new_name);
+
+	// execute the dialog
+	accepted = (dlg->exec() == QDialog::Accepted);
+	if (!accepted) {
+	    // user pressed "cancel"
+	    delete dlg;
+	    break;
+	}
+
+	// if we get here the user pressed "OK"
+	new_pos  = dlg->labelPosition();
+	new_name = dlg->labelName();
+	dlg->saveSettings();
+	delete dlg;
+
+	// check: if there already is a label at the new position
+	// -> ask the user if he wants to overwrite that one
+	if ((new_pos != label.pos()) &&
+	    !signal_manager->findLabel(new_pos).isNull())
+	{
+	    int res = Kwave::MessageBox::warningYesNoCancel(this, i18n(
+		"There already is a label at the position "\
+		"you have chosen.\n"\
+		"Do you want to replace it?"));
+	    if (res == KMessageBox::Yes) {
+		// delete the label at the target position (with undo)
+		Label old = signal_manager->findLabel(new_pos);
+		old_index = signal_manager->labelIndex(old);
+		break;
+	    }
+	    if (res == KMessageBox::No) {
+		// make another try -> re-enter the dialog
+		continue;
+	    }
+
+	    // cancel -> abort the whole action
+	    accepted = false;
+	    break;
+	} else {
+	    // ok, we can put it there
+	    break;
+	}
+    }
+
+    if (accepted) {
+	// shortcut: abort if nothing has changed
+	if ((new_name == label.name()) && (new_pos == label.pos()))
+	    return false;
+
+	UndoTransactionGuard undo(*signal_manager, i18n("Modify Label"));
+
+	// if there is a label at the target position, remove it first
+	if (old_index >= 0) {
+	    signal_manager->deleteLabel(old_index, true);
+	    // this might have changed the current index!
+	    index = signal_manager->labelIndex(label);
+	}
+
+	// modify the label through the signal manager
+	if (!signal_manager->modifyLabel(index, new_pos, new_name)) {
+	    // position is already occupied
+	    signal_manager->abortUndoTransaction();
+	    return false;
+	}
+
+	// reflect the change in the passed label
+	label.moveTo(new_pos);
+	label.rename(new_name);
+
+	// NOTE: moving might also change the index, so the complete
+	//       markers layer has to be refreshed
+// 	refreshMarkersLayer(); ### TODO ###
+    }
+    else
+	signal_manager->abortUndoTransaction();
+
+    return accepted;
+}
+
 // ////****************************************************************************
 // //void SignalWidget::jumptoLabel ()
 // // another fine function contributed by Gerhard Zintel
@@ -1917,7 +1777,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // //	}
 // //    }
 // //}
-// //
+
 // ////****************************************************************************
 // //void SignalWidget::savePeriods ()
 // //{
@@ -1974,7 +1834,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // //	}
 // //    }
 // //}
-//
+
 // ////****************************************************************************
 // //void SignalWidget::markSignal (const char *str)
 // //{
@@ -2031,7 +1891,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // //	}
 // //    }
 // //}
-// //
+
 // ////****************************************************************************
 // //void SignalWidget::markPeriods (const char *str)
 // //{
@@ -2090,7 +1950,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // //	}
 // //    }
 // //}
-//
+
 // ////*****************************************************************************
 // //int findNextRepeat (int *sample, int high)
 // ////autocorellation of a windowed part of the sample
@@ -2120,7 +1980,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // //    }
 // //    return maxpos;
 // //}
-// //
+
 // ////*****************************************************************************
 // //int findNextRepeatOctave (int *sample, int high, double adjust = 1.005)
 // ////autocorellation of a windowed part of the sample
@@ -2170,7 +2030,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // //
 // //    return maxpos;
 // //}
-// //
+
 // //*****************************************************************************
 // //int findFirstMark (int *sample, int len)
 // ////finds first sample that is non-zero, or one that preceeds a zero crossing
@@ -2189,68 +2049,68 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // //	}
 // //    return i;
 // //}
-//
+
 // //***************************************************************************
 // void SignalWidget::playbackStopped()
 // {
 //     InhibitRepaintGuard inhibit(*this);
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::updatePlaybackPointer(unsigned int)
 // {
 //     InhibitRepaintGuard inhibit(*this);
 // }
+
+//***************************************************************************
+void SignalWidget::slotTrackInserted(unsigned int index, Track *track)
+{
+    Q_ASSERT(track);
+    if (!track) return;
+
+//     // insert a new track into the track pixmap list
+//     TrackPixmap *pix = new TrackPixmap(*track);
+//     Q_ASSERT(pix);
+//     m_track_pixmaps.insert(index, pix);
+//     if (!pix) return;
 //
-// //***************************************************************************
-// void SignalWidget::slotTrackInserted(unsigned int index, Track *track)
-// {
-//     Q_ASSERT(track);
-//     if (!track) return;
+//     // first track: start with full zoom
+//     if (tracks() == 1) zoomAll();
 //
-// //     // insert a new track into the track pixmap list
-// //     TrackPixmap *pix = new TrackPixmap(*track);
-// //     Q_ASSERT(pix);
-// //     m_track_pixmaps.insert(index, pix);
-// //     if (!pix) return;
-// //
-// //     // first track: start with full zoom
-// //     if (tracks() == 1) zoomAll();
-// //
-// //     // emit the signal sigTrackInserted now, so that the signal widget
-// //     // gets resized if needed, but the new pixmap is still empty
-// //     emit sigTrackInserted(index);
-// //
-// //     pix->setOffset(m_offset);
-// //     pix->setZoom(m_zoom);
-// //     if (pix->isModified()) refreshSignalLayer();
-// //
-// //     // connect all signals
-// //     connect(pix, SIGNAL(sigModified()),
-// //             this, SLOT(refreshSignalLayer()));
-// //
-// //     connect(track, SIGNAL(sigSelectionChanged()),
-// // 	    this, SIGNAL(sigTrackSelectionChanged()));
-// //     connect(track, SIGNAL(sigSelectionChanged()),
-// //             this, SLOT(refreshSignalLayer()));
-// }
+//     // emit the signal sigTrackInserted now, so that the signal widget
+//     // gets resized if needed, but the new pixmap is still empty
+//     emit sigTrackInserted(index);
 //
-// //***************************************************************************
-// void SignalWidget::slotTrackDeleted(unsigned int index)
-// {
-// //     // delete the track from the list
-// //     if (static_cast<int>(index) < m_track_pixmaps.count()) {
-// // 	TrackPixmap *pixmap = m_track_pixmaps.takeAt(index);
-// // 	if (pixmap) delete pixmap;
-// //     }
-// //
-// //     // emit the signal sigTrackInserted now, so that the signal widget
-// //     // gets resized if needed, but the new pixmap is still empty
-// //     emit sigTrackDeleted(index);
-// //
-// //     refreshSignalLayer();
-// }
+//     pix->setOffset(m_offset);
+//     pix->setZoom(m_zoom);
+//     if (pix->isModified()) refreshSignalLayer();
 //
+//     // connect all signals
+//     connect(pix, SIGNAL(sigModified()),
+//             this, SLOT(refreshSignalLayer()));
+//
+//     connect(track, SIGNAL(sigSelectionChanged()),
+// 	    this, SIGNAL(sigTrackSelectionChanged()));
+//     connect(track, SIGNAL(sigSelectionChanged()),
+//             this, SLOT(refreshSignalLayer()));
+}
+
+//***************************************************************************
+void SignalWidget::slotTrackDeleted(unsigned int index)
+{
+//     // delete the track from the list
+//     if (static_cast<int>(index) < m_track_pixmaps.count()) {
+// 	TrackPixmap *pixmap = m_track_pixmaps.takeAt(index);
+// 	if (pixmap) delete pixmap;
+//     }
+//
+//     // emit the signal sigTrackInserted now, so that the signal widget
+//     // gets resized if needed, but the new pixmap is still empty
+//     emit sigTrackDeleted(index);
+//
+//     refreshSignalLayer();
+}
+
 // //***************************************************************************
 // void SignalWidget::slotSamplesInserted(unsigned int track,
 //     unsigned int offset, unsigned int length)
@@ -2271,7 +2131,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //
 //     refreshMarkersLayer();
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::slotSamplesDeleted(unsigned int track,
 //     unsigned int offset, unsigned int length)
@@ -2292,7 +2152,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //
 //     refreshMarkersLayer();
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::slotSamplesModified(unsigned int /*track*/,
 //     unsigned int /*offset*/, unsigned int /*length*/)
@@ -2300,7 +2160,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // //    qDebug("SignalWidget(): slotSamplesModified(%u, %u,%u)", track,
 // //	offset, length);
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::startDragging()
 // {
@@ -2358,7 +2218,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // 	selectRange((first < f) ? f-len : f, len);
 //     }
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::dragEnterEvent(QDragEnterEvent *event)
 // {
@@ -2370,13 +2230,13 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //     if (KwaveFileDrag::canDecode(event->mimeData()))
 // 	event->acceptProposedAction();
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::dragLeaveEvent(QDragLeaveEvent *)
 // {
 //     setMouseMode(MouseNormal);
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::dropEvent(QDropEvent *event)
 // {
@@ -2424,7 +2284,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 //     qDebug("SignalWidget::dropEvent(): done");
 //     setMouseMode(MouseNormal);
 // }
-//
+
 // //***************************************************************************
 // void SignalWidget::dragMoveEvent(QDragMoveEvent* event)
 // {
@@ -2472,7 +2332,7 @@ void SignalWidget::setZoomAndOffset(double zoom, unsigned int offset)
 // 	event->accept();
 //     } else event->ignore();
 // }
-//
+
 //***************************************************************************
 // void SignalWidget::parseKey(int key)
 // {

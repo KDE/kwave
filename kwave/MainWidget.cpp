@@ -143,8 +143,8 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
 
     // -- connect all signals from/to the signal widget --
 
-//     connect(&m_signal_widget, SIGNAL(sigCommand(const QString &)),
-// 	    this, SLOT(forwardCommand(const QString &)));
+    connect(&m_signal_widget, SIGNAL(sigCommand(const QString &)),
+	    this,             SIGNAL(sigCommand(const QString &)));
 //     connect(&m_signal_widget, SIGNAL(selectedTimeInfo(sample_index_t,
 //             sample_index_t, double)),
 // 	    this, SIGNAL(selectedTimeInfo(sample_index_t,
@@ -453,21 +453,21 @@ void MainWidget::refreshHorizontalScrollBar()
 	// pos  = (m_offset / length) * x = m_offset / f
 
 	const int f = qMax(1U, SAMPLE_INDEX_MAX / INT_MAX);
-	int page    = visible  / f;
+	int page    = (visible  / f);
 	int min     = 0;
-	int max     = length   / f - page;
-	int pos     = m_offset / f;
+	int max     = (length   / f) - page;
+	int pos     = (m_offset / f);
 	int single  = qMax(1, (page / 10));
 	if (page < single) page = single;
-// 	qDebug("width=%d,max=%d, page=%d, single=%d, pos=%d",
-// 	       m_width, max, page, single, pos);
-
+// 	qDebug("width=%d, max=%d, page=%d, single=%d, pos=%d, visible=%d",
+// 	       m_width, max, page, single, pos, visible);
+// 	qDebug("       last=%d", pos + visible - 1);
 	m_horizontal_scrollbar->setRange(min, max);
 	m_horizontal_scrollbar->setValue(pos);
 	m_horizontal_scrollbar->setSingleStep(single);
 	m_horizontal_scrollbar->setPageStep(page);
     } else {
-	m_horizontal_scrollbar->setRange(0,0);
+	m_horizontal_scrollbar->setRange(0, 0);
     }
 
     m_horizontal_scrollbar->blockSignals(false);
@@ -541,7 +541,7 @@ int MainWidget::displayWidth() const
 //***************************************************************************
 sample_index_t MainWidget::displaySamples() const
 {
-    return pixels2samples(m_width);
+    return pixels2samples(m_width - 1) + 1;
 }
 
 //***************************************************************************
@@ -582,8 +582,7 @@ bool MainWidget::fixZoomAndOffset()
     SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return false;
-
-    if (!m_width) return (m_width != old_width);
+    if (!m_width) return false;
 
     length = signal_manager->length();
     if (!length) {
@@ -592,7 +591,7 @@ bool MainWidget::fixZoomAndOffset()
     }
 
     // ensure that m_offset is [0...length-1]
-    if (m_offset > length- 1) m_offset = length - 1;
+    if (m_offset > length - 1) m_offset = length - 1;
 
     // ensure that the zoom is in a proper range
     max_zoom = fullZoom();
@@ -621,25 +620,6 @@ bool MainWidget::fixZoomAndOffset()
 	    m_offset -= shift;
 	}
     }
-
-// not really needed, has side-effects e.g. when a .ogg file
-// has been loaded
-//    // if reducing the offset was not enough, zoom in
-//    if (pixels2samples(m_width - 1) + 1 > length - m_offset) {
-//	// there is still space after the signal -> zoom in
-//	// (this should never happen as the zoom has been limited before)
-//	m_zoom = max_zoom;
-//    }
-
-// this made some strange effects, so I disabled it :-[
-//    // adjust the zoom factor in order to make a whole number
-//    // of samples fit into the current window
-//    int samples = pixels2samples(width) + 1;
-//    zoom = (double)(samples) / (double)(width - 1);
-
-    // do some final range checking
-    if (m_zoom < min_zoom) m_zoom = min_zoom;
-    if (m_zoom > max_zoom) m_zoom = max_zoom;
 
     // emit change in the zoom factor
     if (m_zoom != old_zoom) emit sigZoomChanged(m_zoom);

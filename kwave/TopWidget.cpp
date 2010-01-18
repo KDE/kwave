@@ -819,13 +819,38 @@ int TopWidget::loadFile(const KUrl &url)
 
     emit sigSignalNameChanged(url.path());
 
-    if (signal_manager && !signal_manager->loadFile(url)) {
+    int res = -ENOMEM;
+    if (signal_manager && !(res = signal_manager->loadFile(url))) {
 	// succeeded
 	updateCaption();
 
 	// enable revert after successful load
 	m_menu_manager->setItemEnabled("ID_FILE_REVERT", true);
     } else {
+	qWarning("TopWidget::loadFile() failed: result=%d", res);
+	QString reason;
+	switch (res) {
+	    case -ENOMEM:
+		reason = i18n("Out of memory");
+		break;
+	    case -EIO:
+		reason = i18nc("error message after opening a file failed",
+			       "Unable to open '%1'", url.prettyUrl());
+		break;
+	    case -EINVAL:
+		reason = i18nc("error message after opening a file failed",
+			       "Invalid or unknown file type: '%1'",
+			       url.prettyUrl());
+		break;
+	    default:
+		reason = "";
+	}
+
+	// show an error message box if the reason was known
+	if (reason.length()) {
+	    Kwave::MessageBox::error(this, reason);
+	}
+
 	// load failed
 	closeFile();
     }

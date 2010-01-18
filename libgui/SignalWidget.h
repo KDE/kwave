@@ -47,7 +47,6 @@ class QEvent;
 class QMouseEvent;
 class QMoveEvent;
 class QPaintEvent;
-class QResizeEvent;
 class QWheelEvent;
 
 class KUrl;
@@ -101,14 +100,7 @@ public:
      * @param zoom the new zoom factor in pixels/sample
      * @param offset the index of the first visible sample
      */
-    void setZoomAndOffset(double zoom, unsigned int offset);
-
-    /**
-     * Closes the current signal and loads a new one from a file.
-     * @param url URL of the file to be loaded
-     * @return 0 if succeeded or error code < 0
-     */
-//     int loadFile(const KUrl &url);
+    void setZoomAndOffset(double zoom, sample_index_t offset);
 
     /**
      * Checks if a pixel position is near to the left or right border
@@ -134,20 +126,12 @@ public:
      * @return zero if succeeded or negative error code if failed
      * @retval -ENOSYS is returned if the command is unknown in this component
      */
-//     int executeCommand(const QString &command);
+    int executeCommand(const QString &command);
 
 // public slots:
 
-    /**
-     * Sets a new selected range of samples. If the length of the
-     * area is given as zero, nothing will be selected.
-     * @param offset index of the first sample
-     * @param length number of samples
-     */
-//     void selectRange(unsigned int offset, unsigned int length);
-
     /** forward a sigCommand to the next layer */
-//     void forwardCommand(const QString &command);
+    void forwardCommand(const QString &command);
 
     /**
      * Toggles the "selected" flag of a track.
@@ -181,7 +165,7 @@ public:
 
 //     friend class UndoModifyLabelAction;
 
-// protected slots:
+protected slots:
 
     /** Refreshes the layer with the markers */
 //     void refreshMarkersLayer();
@@ -196,9 +180,9 @@ public:
 //     void allowRepaint(bool repaint);
 
     /** Handler for context menus */
-//     void contextMenuEvent(QContextMenuEvent *e);
+    void contextMenuEvent(QContextMenuEvent *e);
 
-// private slots:
+private slots:
 
     /**
      * Connected to the signal's sigTrackInserted.
@@ -207,7 +191,7 @@ public:
      * @see Signal::sigTrackInserted
      * @internal
      */
-//     void slotTrackInserted(unsigned int index, Track *track);
+    void slotTrackInserted(unsigned int index, Track *track);
 
     /**
      * Connected to the signal's sigTrackDeleted.
@@ -215,7 +199,7 @@ public:
      * @see Signal::sigTrackInserted
      * @internal
      */
-//     void slotTrackDeleted(unsigned int index);
+    void slotTrackDeleted(unsigned int index);
 
     /**
      * Connected to the signal's sigSamplesInserted.
@@ -282,48 +266,48 @@ public:
 //     }
 
     /** context menu: "edit/undo" */
-//     void contextMenuEditUndo()   { forwardCommand("undo()"); }
+    void contextMenuEditUndo()   { forwardCommand("undo()"); }
 
     /** context menu: "edit/redo" */
-//     void contextMenuEditRedo()   { forwardCommand("redo()"); }
+    void contextMenuEditRedo()   { forwardCommand("redo()"); }
 
     /** context menu: "edit/cut" */
-//     void contextMenuEditCut()    { forwardCommand("cut()"); }
+    void contextMenuEditCut()    { forwardCommand("cut()"); }
 
     /** context menu: "edit/copy" */
-//     void contextMenuEditCopy()   { forwardCommand("copy()"); }
+    void contextMenuEditCopy()   { forwardCommand("copy()"); }
 
     /** context menu: "edit/paste" */
-//     void contextMenuEditPaste()  { forwardCommand("paste()"); }
+    void contextMenuEditPaste()  { forwardCommand("paste()"); }
 
     /** context menu: "save selection" */
-//     void contextMenuSaveSelection()  { forwardCommand("saveselect()"); }
+    void contextMenuSaveSelection()  { forwardCommand("saveselect()"); }
 
     /** context menu: "expand to labels" */
-//     void contextMenuSelectionExpandToLabels()  {
-// 	forwardCommand("expandtolabel()");
-//     }
+    void contextMenuSelectionExpandToLabels()  {
+	forwardCommand("expandtolabel()");
+    }
 
     /** context menu: "select next labels" */
-//     void contextMenuSelectionNextLabels()  {
-// 	forwardCommand("selectnextlabels()");
-//     }
+    void contextMenuSelectionNextLabels()  {
+	forwardCommand("selectnextlabels()");
+    }
 
     /** context menu: "select previous labels" */
-//     void contextMenuSelectionPrevLabels()  {
-// 	forwardCommand("selectprevlabels()");
-//     }
+    void contextMenuSelectionPrevLabels()  {
+	forwardCommand("selectprevlabels()");
+    }
 
     /** context menu: "label / new" */
-//     void contextMenuLabelNew();
+    void contextMenuLabelNew();
 
     /** context menu: "label / delete" */
-//     void contextMenuLabelDelete();
+    void contextMenuLabelDelete();
 
     /** context menu: "label / properties..." */
-//     void contextMenuLabelProperties();
+    void contextMenuLabelProperties();
 
-// signals:
+signals:
 
     /**
      * Emits the offset and length of the current selection and the
@@ -335,7 +319,7 @@ public:
     /**
      * Emits a command to be processed by the next higher instance.
      */
-//     void sigCommand(const QString &command);
+    void sigCommand(const QString &command);
 
     /**
      * Emits a change in the mouse cursor. This can be used to change
@@ -363,7 +347,7 @@ public:
     /** The selection state of at least one track has changed */
 //     void sigTrackSelectionChanged();
 
-// protected:
+protected:
 
     /**
      * Relationship between a screen position and the current selection.
@@ -464,9 +448,6 @@ public:
 // 	QPolygon m_polygon;
 //     };
 
-    /** slot for detecting resizing of the widget */
-//     virtual void resizeEvent(QResizeEvent *);
-
     /** slot for mouse press, used for selection and drag&drop */
 //     virtual void mousePressEvent(QMouseEvent *);
 
@@ -496,7 +477,7 @@ public:
      * @return true if the dialog has been accepted,
      *         otherwise false (canceled)
      */
-//     bool labelProperties(Label &label);
+    bool labelProperties(Label &label);
 
 //    void loadLabel ();
 //    void appendLabel ();
@@ -547,7 +528,7 @@ private:
      * add a new label
      * @param pos position of the label [samples]
      */
-//     void addLabel(unsigned int pos);
+    void addLabel(unsigned int pos);
 
 private:
 

@@ -54,6 +54,11 @@ public:
 	emit changed(m_offset, m_length);
     }
 
+    /** Clears the selection (0 samples at offset 0) */
+    inline void clear() {
+	select(0, 0);
+    }
+
     /** Returns the index of the first selected item. */
     inline unsigned int offset() const {
 	return m_offset;

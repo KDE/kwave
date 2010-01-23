@@ -21,7 +21,13 @@ o support for visualization plugins (rev 2498)
   - context sensitive toolbar/menu entries when clicking to a view
   - navigating between views per <Tab> key
 
+o new meta data handling
+  - integrate Kwave::MetaData into SignalManager
+  - substitute Label class with MetaData
+
 o update of kwave.spec.in (very outdated)
+
+o support for multi selection
 
 o support for recording via PULSE audio
 

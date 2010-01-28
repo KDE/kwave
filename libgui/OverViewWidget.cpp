@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <math.h>
+
 #include <QPainter>
 #include <QResizeEvent>
 #include <QMouseEvent>
@@ -152,22 +154,15 @@ void OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
 }
 
 //***************************************************************************
-#include <math.h>
 sample_index_t OverViewWidget::pixels2offset(unsigned int pixels)
 {
     int width = this->width();
     if (!width) return 0;
 
     double zoom = static_cast<double>(m_signal_length - 1) /
-	   static_cast<double>(width - 1);
-
+                  static_cast<double>(width - 1);
     sample_index_t offset = static_cast<sample_index_t>(rint(
-	static_cast<double>(pixels) * zoom));
-
-//     sample_index_t offset = static_cast<sample_index_t>(m_signal_length *
-// 	(static_cast<double>(pixels) / static_cast<double>(width)));
-//     unsigned int center = m_view_width >> 1;
-//     offset = (offset > center) ? (offset - center) : 0;
+                            static_cast<double>(pixels) * zoom));
     return offset;
 }
 

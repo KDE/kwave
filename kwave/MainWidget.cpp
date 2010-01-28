@@ -21,6 +21,7 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <QApplication>
 #include <QFrame>
 #include <QGridLayout>
 #include <QHBoxLayout>
@@ -59,8 +60,9 @@
 
 //***************************************************************************
 MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
-    :QWidget(parent), m_context(context), m_overview(0), m_view_port(this),
-     m_signal_widget(&m_view_port, context), m_vertical_scrollbar(0),
+    :QWidget(parent), m_context(context), m_upper_dock(), m_view_port(this),
+     m_signal_widget(&m_view_port, context, &m_upper_dock, &m_lower_dock),
+     m_lower_dock(), m_overview(0), m_vertical_scrollbar(0),
      m_horizontal_scrollbar(0), m_offset(0), m_width(0), m_zoom(1.0)
 {
     QPalette palette;
@@ -71,12 +73,17 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
     if (!signal_manager) return;
 
     // topLayout:
+    // - upper dock
     // - hbox
+    // - lower dock
     // - overview
     // - horizontal scroll bar
     QVBoxLayout *topLayout = new QVBoxLayout(this);
     Q_ASSERT(topLayout);
     if (!topLayout) return;
+
+    // -- upper dock --
+    topLayout->addLayout(&m_upper_dock);
 
     // -- signal widget --
 
@@ -86,7 +93,6 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
     if (!hbox) return;
 
     // viewport for the SignalWidget, does the clipping
-    m_view_port.setFrameStyle(0);
     hbox->addWidget(&m_view_port);
 
     // -- vertical scrollbar for the view port --
@@ -98,9 +104,12 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
     m_vertical_scrollbar->setFixedWidth(
 	m_vertical_scrollbar->sizeHint().width());
     hbox->addWidget(m_vertical_scrollbar);
-    topLayout->addLayout(hbox);
+    topLayout->addLayout(hbox, 100);
     connect(m_vertical_scrollbar, SIGNAL(valueChanged(int)),
             this,                 SLOT(verticalScrollBarMoved(int)));
+
+    // -- lower dock --
+    topLayout->addLayout(&m_lower_dock);
 
     // -- overview widget --
 
@@ -351,8 +360,11 @@ int MainWidget::executeCommand(const QString &command)
 //***************************************************************************
 void MainWidget::resizeViewPort()
 {
+    // workaround for layout update issues: give the layouts a chance to resize
+    qApp->processEvents();
+
     bool vertical_scrollbar_visible = m_vertical_scrollbar->isVisible();
-    const int min_height = m_signal_widget.minimumHeight();
+    const int min_height = m_signal_widget.sizeHint().height();
     int h = m_view_port.height();
     int w = m_view_port.width();
     const int b = m_vertical_scrollbar->sizeHint().width();
@@ -395,7 +407,7 @@ void MainWidget::resizeViewPort()
 	double val = (m_vertical_scrollbar->value() -
 	    static_cast<double>(min)) / static_cast<double>(max - min);
 
-	h = m_signal_widget.height();
+	h = min_height;
 	min = 0;
 	max = h - m_view_port.height();
 	m_vertical_scrollbar->setRange(min, max);

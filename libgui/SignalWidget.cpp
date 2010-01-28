@@ -62,6 +62,7 @@
 #include "libgui/MenuManager.h"
 #include "libgui/MultiStateWidget.h"
 // #include "libgui/ShortcutWrapper.h"
+#include "libgui/SignalView.h"
 #include "libgui/SignalWidget.h"
 #include "libgui/TrackPixmap.h"
 
@@ -117,17 +118,6 @@
 /** vertical zoom factor: increment/decrement factor */
 // #define VERTICAL_ZOOM_STEP_FACTOR 1.5
 
-// namespace Kwave {
-//
-//     class SignalView: public QWidget
-//     {
-// 	Q_OBJECT
-//     public:
-//
-//     };
-//
-// }
-
 //***************************************************************************
 //***************************************************************************
 // namespace KwaveFileDrag
@@ -160,9 +150,14 @@
 
 //***************************************************************************
 //***************************************************************************
-SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context)
+SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
+                           QVBoxLayout *upper_dock, QVBoxLayout *lower_dock)
     :QWidget(parent),
-     m_context(context) // ,
+     m_context(context),
+     m_views(),
+     m_layout(this),
+     m_upper_dock(upper_dock),
+     m_lower_dock(lower_dock)
 //     m_image(),
 //     m_offset(0),
 //     m_width(0),
@@ -265,12 +260,18 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context)
 // 	        this, SLOT(parseKey(int)));
 //     }
 
+    m_layout.setColumnStretch(0,   0);
+    m_layout.setColumnStretch(1, 100);
+    m_layout.setMargin(5);
+    m_layout.setSpacing(5);
+    setLayout(&m_layout);
 
-    QPalette palette;                                            // ###
-    palette.setBrush(this->backgroundRole(), QBrush(Qt::green)); // ###
-    setPalette(palette);                                         // ###
-    setAutoFillBackground(true);                                 // ###
-    setMinimumHeight(200);                                       // ###
+    // ###
+    QPalette palette;
+    palette.setBrush(this->backgroundRole(), QBrush(Qt::green));
+    setPalette(palette);
+    setAutoFillBackground(true);
+//     setMinimumHeight(200);
 
 //    qDebug("SignalWidget::SignalWidget(): done.");
 }
@@ -2063,23 +2064,92 @@ bool SignalWidget::labelProperties(Label &label)
 // }
 
 //***************************************************************************
-void SignalWidget::slotTrackInserted(unsigned int index, Track *track)
+void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
 {
-    Q_ASSERT(track);
-    if (!track) return;
+    Q_ASSERT(m_upper_dock);
+    Q_ASSERT(m_lower_dock);
+    Q_ASSERT(view);
+    if (!m_upper_dock || !m_lower_dock) return;
+    if (!view) return;
+
+    // find the proper row to insert the track view
+    int index = 0;
+    Kwave::SignalView::Location where = view->preferredLocation();
+    switch (where) {
+	case Kwave::SignalView::UpperDockTop: {
+	    // upper dock area, top
+	    index = 0;
+	    m_upper_dock->insertWidget(0, view);
+	    Q_ASSERT(!controls);
+	    break;
+	}
+	case Kwave::SignalView::UpperDockBottom: {
+	    // upper dock area, bottom
+	    index = m_upper_dock->count();
+	    m_upper_dock->addWidget(view);
+	    Q_ASSERT(!controls);
+	    break;
+	}
+	case Kwave::SignalView::Top: {
+	    // central layout, above all others
+	    index = m_upper_dock->count();
+	    int row = 0;
+	    if (view)     m_layout.addWidget(view,     row, 1);
+	    if (controls) m_layout.addWidget(controls, row, 0);
+	    break;
+	}
+	case Kwave::SignalView::AboveTrackTop:
+	    // above the corresponding track, start of group
+	    // ### TODO ###
+	case Kwave::SignalView::AboveTrackBottom:
+	    // above the corresponding track, end of group
+	    // ### TODO ###
+	case Kwave::SignalView::BelowTrackTop:
+	    // below the corresponding track, start of group
+	    // ### TODO ###
+	case Kwave::SignalView::BelowTrackBottom:
+	    // below the corresponding track, end of group
+	    // ### TODO ###
+	case Kwave::SignalView::Bottom: {
+	    // below all others
+	    int row = m_layout.rowCount();
+	    index = m_upper_dock->count() + row;
+	    if (view)     m_layout.addWidget(view,     row, 1);
+	    if (controls) m_layout.addWidget(controls, row, 0);
+	    break;
+	}
+	case Kwave::SignalView::LowerDockTop: {
+	    // lower dock area, top
+	    index = m_upper_dock->count() + m_layout.rowCount();
+	    m_lower_dock->insertWidget(0, view);
+	    Q_ASSERT(!controls);
+	    break;
+	}
+	case Kwave::SignalView::LowerDockBottom:
+	    // lower dock area, bottom
+	    index = m_upper_dock->count() + m_layout.rowCount() +
+	            m_lower_dock->count();
+	    m_lower_dock->addWidget(view);
+	    Q_ASSERT(!controls);
+	    break;
+    }
+
+    // insert the view into the list of views
+    Q_ASSERT(index >= 0);
+    Q_ASSERT(index < m_upper_dock->count() + m_layout.rowCount() +
+             m_lower_dock->count());
+    m_views.insert(index, view);
+
+    // initially set the current view info
+    // view->setZoomAndOffset(m_zoom, m_offset);
+
+    // connect all signals
 
 //     // insert a new track into the track pixmap list
 //     TrackPixmap *pix = new TrackPixmap(*track);
 //     Q_ASSERT(pix);
 //     m_track_pixmaps.insert(index, pix);
 //     if (!pix) return;
-//
-//     // first track: start with full zoom
-//     if (tracks() == 1) zoomAll();
-//
-//     // emit the signal sigTrackInserted now, so that the signal widget
-//     // gets resized if needed, but the new pixmap is still empty
-//     emit sigTrackInserted(index);
 //
 //     pix->setOffset(m_offset);
 //     pix->setZoom(m_zoom);
@@ -2088,11 +2158,41 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track *track)
 //     // connect all signals
 //     connect(pix, SIGNAL(sigModified()),
 //             this, SLOT(refreshSignalLayer()));
-//
+
+}
+
+//***************************************************************************
+void SignalWidget::slotTrackInserted(unsigned int index, Track *track)
+{
+    Q_ASSERT(track);
+    if (!track) return;
+
+    // create a container widget for the track controls
+    QWidget *controls = 0;
+// ### TODO ###
+//     Q_ASSERT(controls);
+//     if (!controls) return;
+
+    Kwave::SignalView::Location where = Kwave::SignalView::Bottom;
+
+    // create a new view for the track's signal
+    Kwave::SignalView *view = new Kwave::SignalView(
+	this, controls, m_context.signalManager(),
+	where
+    );
+    Q_ASSERT(view);
+    if (!view) {
+	if (controls) delete controls;
+	return;
+    }
+
+// ### TODO ###
 //     connect(track, SIGNAL(sigSelectionChanged()),
 // 	    this, SIGNAL(sigTrackSelectionChanged()));
 //     connect(track, SIGNAL(sigSelectionChanged()),
 //             this, SLOT(refreshSignalLayer()));
+
+    insertView(view, controls);
 }
 
 //***************************************************************************

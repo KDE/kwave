@@ -20,12 +20,14 @@
 
 #include "config.h"
 
+#include <QGridLayout>
 #include <QImage>
 #include <QLabel>
 #include <QList>
 #include <QPainter>
 #include <QPixmap>
 #include <QPoint>
+#include <QPointer>
 #include <QPolygon>
 #include <QSize>
 #include <QTimer>
@@ -37,6 +39,8 @@
 #include "libkwave/PlaybackController.h"
 #include "libkwave/SignalManager.h"
 
+#include "libgui/SignalView.h"
+
 class QBitmap;
 class QContextMenuEvent;
 class QDragEnterEvent;
@@ -47,6 +51,7 @@ class QEvent;
 class QMouseEvent;
 class QMoveEvent;
 class QPaintEvent;
+class QVBoxLayout;
 class QWheelEvent;
 
 class KUrl;
@@ -83,8 +88,11 @@ public:
      * Constructor
      * @param parent parent widget
      * @param context reference to the context of this instance
+     * @param upper_dock layout of the upper docking area
+     * @param lower_dock layout of the lower docking area
      */
-    SignalWidget(QWidget *parent, Kwave::ApplicationContext &context);
+    SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
+                 QVBoxLayout *upper_dock, QVBoxLayout *lower_dock);
 
     /**
      * Returns true if this instance was successfully initialized, or
@@ -101,6 +109,14 @@ public:
      * @param offset the index of the first visible sample
      */
     void setZoomAndOffset(double zoom, sample_index_t offset);
+
+    /**
+     * Insert a new signal view into this widget (or the upper/lower
+     * dock area.
+     * @param view the signal view, must not be a null pointer
+     * @param controls a widget with controls, optionally, can be null
+     */
+    void insertView(Kwave::SignalView *view, QWidget *controls);
 
     /**
      * Checks if a pixel position is near to the left or right border
@@ -534,6 +550,23 @@ private:
 
     /** context of the Kwave application instance */
     Kwave::ApplicationContext &m_context;
+
+    /**
+     * list of signal views. Contains one entry for each signal view, starting
+     * with the ones in m_upper_dock, then the ones in m_layout, and at
+     * the end the ones from m_lower_dock.
+     * The list is sorted in the order of the appearance in the GUI.
+     */
+    QList< QPointer<Kwave::SignalView> > m_views;
+
+    /** the central layout with the views */
+    QGridLayout m_layout;
+
+    /** layout of the upper docking area */
+    QPointer<QVBoxLayout> m_upper_dock;
+
+    /** layout of the lower docking area */
+    QPointer<QVBoxLayout> m_lower_dock;
 
     /** QImage used for composition */
 //     QImage m_image;

@@ -38,6 +38,7 @@ SET(libkwavegui_LIB_SRCS
     OverViewWidget.cpp
     ScaleWidget.cpp
     SelectTimeWidget.cpp
+    SignalView.cpp
     SignalWidget.cpp
     TrackPixmap.cpp
     TreeWidgetWrapper.cpp

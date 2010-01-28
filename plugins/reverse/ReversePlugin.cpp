@@ -210,6 +210,10 @@ void ReversePlugin::run(QStringList params)
 {
     UndoTransactionGuard *undo_guard = 0;
 
+    /**
+     * @todo use a QSharedPointer for undo_guard as soon as
+     * everyone uses >= Qt-4.5
+     */
     if ((params.count() != 1) || (params.first() != "noundo")) {
 	// undo is enabled, create a undo guard
 	undo_guard = new UndoTransactionGuard(*this, i18n("Reverse"));

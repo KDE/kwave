@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QFrame>
 #include <QString>
+#include <QVBoxLayout>
 #include <QWidget>
 
 #include "libgui/SignalWidget.h"
@@ -42,6 +42,31 @@ namespace Kwave { class ApplicationContext; }
  * widget at the lower side. The main view contains a viewport that contains
  * a signal widget, which is fit in horizontally and has variable vertical
  * size (scrolled via the vertical scroll bar if necessary).
+ * @p
+ * The layout looks like this:
+ * @code
+ * /------------------------------------------------------------------------\
+ * | m_upper_dock                                                           |
+ * |------------------------------------------------------------------------|
+ * | /- hbox -------------------------------------------------------------\ |
+ * | +--- m_view_port---------------------------------------------------+-| |
+ * | |/---- m_signal_widget--------------------------------------------\|^| |
+ * | ||          |                                                     ||#| |
+ * | || controls |  SignalView                                         ||#| |
+ * | ||          |                                                     ||#| |
+ * | ||----------+-----------------------------------------------------|||| |
+ * | ||    .     |      .                                              |||| |
+ * | ||    .     |      .                                              |||| |
+ * | ||    .     |      .                                              ||v| |
+ * | \------------------------------------------------------------------+-/ |
+ * |------------------------------------------------------------------------|
+ * | m_lower_dock                                                           |
+ * |------------------------------------------------------------------------|
+ * | ############    m_overview                                             |
+ * |------------------------------------------------------------------------|
+ * | <##### --------- m_horizontal_scrollbar -----------------------------> |
+ * \------------------------------------------------------------------------/
+ * @endcode
  */
 class MainWidget : public QWidget
 {
@@ -266,14 +291,20 @@ private:
     /** context of the Kwave application instance */
     Kwave::ApplicationContext &m_context;
 
-    /** overview widget */
-    OverViewWidget *m_overview;
+    /** upper docking area, managed by the signal widget */
+    QVBoxLayout m_upper_dock;
 
-    /** QFrame that contains the signal widget. */
-    QFrame m_view_port;
+    /** container widget that contains the signal widget. */
+    QWidget m_view_port;
 
     /** the widget that shows the signal, scrolled within the view port */
     SignalWidget m_signal_widget;
+
+    /** lower docking area, managed by the signal widget */
+    QVBoxLayout m_lower_dock;
+
+    /** overview widget */
+    OverViewWidget *m_overview;
 
     /** vertical scrollbar, only visible if channels do not fit vertically */
     QScrollBar *m_vertical_scrollbar;

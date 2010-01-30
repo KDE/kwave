@@ -28,7 +28,9 @@ Kwave::SignalView::SignalView(QWidget *parent, QWidget *controls,
      m_controls(controls),
      m_signal_manager(signal_manager),
      m_preferred_location(preferred_location),
-     m_track_index(track)
+     m_track_index(track),
+     m_offset(0),
+     m_zoom(1.0)
 {
     // ### only for illustration...
     QPalette palette;
@@ -54,6 +56,22 @@ Kwave::SignalView::~SignalView()
 void Kwave::SignalView::setTrack(int track)
 {
     m_track_index = (track >= 0) ? track : -1;
+}
+
+//***************************************************************************
+void Kwave::SignalView::setZoomAndOffset(double zoom, sample_index_t offset)
+{
+    if ((zoom == m_zoom) && (offset == m_offset)) return;
+    m_zoom   = zoom;
+    m_offset = offset;
+
+    sample_index_t visible = ((width() - 1) * zoom) + 1;
+    sample_index_t last = offset + visible - 1;
+    qDebug("SignalView::setZoomAndOffset(%g, %lu), last visible=%lu",
+	   zoom,
+	   static_cast<unsigned long int>(offset),
+	   static_cast<unsigned long int>(last));
+
 }
 
 //***************************************************************************

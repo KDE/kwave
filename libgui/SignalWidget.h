@@ -568,6 +568,15 @@ private:
     /** layout of the lower docking area */
     QPointer<QVBoxLayout> m_lower_dock;
 
+    /**
+     * Offset from which signal is beeing displayed. This is equal to
+     * the index of the first visible sample.
+     */
+    sample_index_t m_offset;
+
+    /** number of samples per pixel */
+    double m_zoom;
+
     /** QImage used for composition */
 //     QImage m_image;
 

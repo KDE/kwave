@@ -157,7 +157,9 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
      m_views(),
      m_layout(this),
      m_upper_dock(upper_dock),
-     m_lower_dock(lower_dock)
+     m_lower_dock(lower_dock),
+     m_offset(0),
+     m_zoom(1.0)
 //     m_image(),
 //     m_offset(0),
 //     m_width(0),
@@ -242,12 +244,10 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
 // //    }
 // //
 // //    markertype = globals.markertypes.first();
-//
-//     QPalette pal = palette();
-//     pal.setColor(QPalette::Window, Qt::green);
+
 //     setMouseTracking(true);
 //     setAcceptDrops(true); // enable drag&drop
-//
+
 //     setAutoFillBackground(false);
 //     setAttribute(Qt::WA_OpaquePaintEvent, true);
 //     setAttribute(Qt::WA_NoSystemBackground, true);
@@ -266,12 +266,7 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
     m_layout.setSpacing(5);
     setLayout(&m_layout);
 
-    // ###
-    QPalette palette;
-    palette.setBrush(this->backgroundRole(), QBrush(Qt::green));
-    setPalette(palette);
-    setAutoFillBackground(true);
-//     setMinimumHeight(200);
+    setMinimumHeight(200);
 
 //    qDebug("SignalWidget::SignalWidget(): done.");
 }
@@ -301,8 +296,6 @@ SignalWidget::~SignalWidget()
 {
 //     inhibitRepaint();
 //
-//     close();
-//
 //     if (m_selection) delete m_selection;
 //     m_selection = 0;
 //
@@ -314,12 +307,8 @@ SignalWidget::~SignalWidget()
 //***************************************************************************
 void SignalWidget::setZoomAndOffset(double zoom, sample_index_t offset)
 {
-    sample_index_t visible = ((width() - 1) * zoom) + 1;
-    sample_index_t last = offset + visible - 1;
-    qDebug("SignalWidget::setZoomAndOffset(%g, %lu), last visible=%lu",
-	   zoom,
-	   static_cast<unsigned long int>(offset),
-	   static_cast<unsigned long int>(last));
+    foreach (QPointer<Kwave::SignalView> view, m_views)
+	view->setZoomAndOffset(zoom, offset);
 }
 
 // //***************************************************************************
@@ -2074,7 +2063,8 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
 
     // find the proper row to insert the track view
     int index = 0;
-    Kwave::SignalView::Location where = view->preferredLocation();
+    int track = (view) ? view->track() : -1;
+    const Kwave::SignalView::Location where = view->preferredLocation();
     switch (where) {
 	case Kwave::SignalView::UpperDockTop: {
 	    // upper dock area, top
@@ -2094,27 +2084,70 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
 	    // central layout, above all others
 	    index = m_upper_dock->count();
 	    int row = 0;
-	    if (view)     m_layout.addWidget(view,     row, 1);
+	    m_layout.addWidget(view, row, 1);
 	    if (controls) m_layout.addWidget(controls, row, 0);
 	    break;
 	}
-	case Kwave::SignalView::AboveTrackTop:
+	case Kwave::SignalView::AboveTrackTop: {
 	    // above the corresponding track, start of group
-	    // ### TODO ###
-	case Kwave::SignalView::AboveTrackBottom:
+	    index = m_upper_dock->count();
+	    int row = 0;
+	    for (;index < m_views.count(); ++row, ++index) {
+		if (m_views[index]->track() >= track) break; // reached top
+		if (m_views[index]->preferredLocation() >=
+		        Kwave::SignalView::Bottom) break;
+	    }
+	    m_layout.addWidget(view, row, 1);
+	    if (controls) m_layout.addWidget(controls, row, 0);
+	    break;
+	}
+	case Kwave::SignalView::AboveTrackBottom: {
 	    // above the corresponding track, end of group
-	    // ### TODO ###
-	case Kwave::SignalView::BelowTrackTop:
+	    index = m_upper_dock->count();
+	    int row = 0;
+	    for (;index < m_views.count(); ++row, ++index) {
+		if (m_views[index]->track() < track) continue; // too early
+		if (m_views[index]->track() != track) break; // next track
+		if (m_views[index]->preferredLocation() !=
+		        Kwave::SignalView::AboveTrackTop) break;
+	    }
+	    m_layout.addWidget(view, row, 1);
+	    if (controls) m_layout.addWidget(controls, row, 0);
+	    break;
+	}
+	case Kwave::SignalView::BelowTrackTop: {
 	    // below the corresponding track, start of group
-	    // ### TODO ###
-	case Kwave::SignalView::BelowTrackBottom:
+	    index = m_upper_dock->count();
+	    int row = 0;
+	    for (;index < m_views.count(); ++row, ++index) {
+		if (m_views[index]->track() < track) continue; // too early
+		if (m_views[index]->track() != track) break; // next track
+		if (m_views[index]->preferredLocation() >=
+		        Kwave::SignalView::BelowTrackTop) break;
+	    }
+	    m_layout.addWidget(view, row, 1);
+	    if (controls) m_layout.addWidget(controls, row, 0);
+	    break;
+	}
+	case Kwave::SignalView::BelowTrackBottom: {
 	    // below the corresponding track, end of group
-	    // ### TODO ###
+	    index = m_upper_dock->count();
+	    int row = 0;
+	    for (;index < m_views.count(); ++row, ++index) {
+		if (m_views[index]->track() < track) continue; // too early
+		if (m_views[index]->track() != track) break; // next track
+		if (m_views[index]->preferredLocation() >=
+		        Kwave::SignalView::Bottom) break;
+	    }
+	    m_layout.addWidget(view, row, 1);
+	    if (controls) m_layout.addWidget(controls, row, 0);
+	    break;
+	}
 	case Kwave::SignalView::Bottom: {
 	    // below all others
 	    int row = m_layout.rowCount();
 	    index = m_upper_dock->count() + row;
-	    if (view)     m_layout.addWidget(view,     row, 1);
+	    m_layout.addWidget(view, row, 1);
 	    if (controls) m_layout.addWidget(controls, row, 0);
 	    break;
 	}
@@ -2139,9 +2172,10 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
     Q_ASSERT(index < m_upper_dock->count() + m_layout.rowCount() +
              m_lower_dock->count());
     m_views.insert(index, view);
+    qDebug("SignalWidget::insertView(...), view count = %d", m_views.count());
 
     // initially set the current view info
-    // view->setZoomAndOffset(m_zoom, m_offset);
+    view->setZoomAndOffset(m_zoom, m_offset);
 
     // connect all signals
 
@@ -2150,11 +2184,7 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
 //     Q_ASSERT(pix);
 //     m_track_pixmaps.insert(index, pix);
 //     if (!pix) return;
-//
-//     pix->setOffset(m_offset);
-//     pix->setZoom(m_zoom);
-//     if (pix->isModified()) refreshSignalLayer();
-//
+
 //     // connect all signals
 //     connect(pix, SIGNAL(sigModified()),
 //             this, SLOT(refreshSignalLayer()));
@@ -2173,18 +2203,28 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track *track)
 //     Q_ASSERT(controls);
 //     if (!controls) return;
 
-    Kwave::SignalView::Location where = Kwave::SignalView::Bottom;
-
     // create a new view for the track's signal
+    /** @todo create a Kwave::TrackView(...) instead */
     Kwave::SignalView *view = new Kwave::SignalView(
-	this, controls, m_context.signalManager(),
-	where
+	this,
+	controls,
+	m_context.signalManager(),
+	Kwave::SignalView::BelowTrackTop
     );
     Q_ASSERT(view);
     if (!view) {
 	if (controls) delete controls;
 	return;
     }
+
+    // loop over all views and adjust the track index of the following ones
+    foreach (QPointer<Kwave::SignalView> view, m_views) {
+	if (view->track() > static_cast<int>(index))
+	    view->setTrack(view->track() + 1);
+    }
+
+    // assign the view to the new track
+    view->setTrack(index);
 
 // ### TODO ###
 //     connect(track, SIGNAL(sigSelectionChanged()),
@@ -2198,17 +2238,26 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track *track)
 //***************************************************************************
 void SignalWidget::slotTrackDeleted(unsigned int index)
 {
-//     // delete the track from the list
-//     if (static_cast<int>(index) < m_track_pixmaps.count()) {
-// 	TrackPixmap *pixmap = m_track_pixmaps.takeAt(index);
-// 	if (pixmap) delete pixmap;
-//     }
-//
-//     // emit the signal sigTrackInserted now, so that the signal widget
-//     // gets resized if needed, but the new pixmap is still empty
-//     emit sigTrackDeleted(index);
-//
-//     refreshSignalLayer();
+    // loop over all views, delete those that are bound to this track
+    // and adjust the index of the following ones
+    bool empty = true;
+    foreach (QPointer<Kwave::SignalView> view, m_views) {
+	if (view->track() == static_cast<int>(index)) {
+	    m_views.removeAll(view);
+	    delete view;
+	} else if (view->track() > static_cast<int>(index)) {
+	    view->setTrack(view->track() - 1);
+	    empty = false;
+	} else if (view->track() != -1)
+	    empty = false;
+    }
+
+    // if there are only views with track() == -1, we are empty,
+    // in that case delete the rest (all views)
+    if (empty) {
+	while (!m_views.isEmpty())
+	    delete m_views.takeFirst();
+    }
 }
 
 // //***************************************************************************

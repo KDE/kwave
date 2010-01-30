@@ -24,6 +24,8 @@
 
 #include "kdemacros.h"
 
+#include "libkwave/Sample.h"
+
 class SignalManager; // forward declaration
 
 namespace Kwave {
@@ -83,6 +85,13 @@ namespace Kwave {
 	 */
 	void setTrack(int track);
 
+	/**
+	 * sets new zoom factor and offset
+	 * @param zoom the new zoom factor in pixels/sample
+	 * @param offset the index of the first visible sample
+	 */
+	void setZoomAndOffset(double zoom, sample_index_t offset);
+
     protected:
 
 	/** widget for displaying associated controls */
@@ -96,6 +105,15 @@ namespace Kwave {
 
 	/** index of the associated track or -1 if no relation to a track */
 	int m_track_index;
+
+	/**
+	 * Offset from which signal is beeing displayed. This is equal to
+	 * the index of the first visible sample.
+	 */
+	sample_index_t m_offset;
+
+	/** number of samples per pixel */
+	double m_zoom;
 
     };
 

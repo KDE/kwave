@@ -704,7 +704,7 @@ int SignalManager::executeCommand(const QString &command)
 		m_signal.deleteRange(count, offset+length, rest);
 		m_signal.deleteRange(count, 0, offset);
 	    }
-	    (0, length);
+	    selectRange(0, length);
 	}
     CASE_COMMAND("delete")
 	UndoTransactionGuard undo(*this, i18n("Delete"));

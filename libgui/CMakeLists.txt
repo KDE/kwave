@@ -41,6 +41,7 @@ SET(libkwavegui_LIB_SRCS
     SignalView.cpp
     SignalWidget.cpp
     TrackPixmap.cpp
+    TrackView.cpp
     TreeWidgetWrapper.cpp
 )
 

@@ -24,6 +24,7 @@
 #include <QImage>
 #include <QLabel>
 #include <QList>
+#include <QObject>
 #include <QPainter>
 #include <QPixmap>
 #include <QPoint>
@@ -109,6 +110,13 @@ public:
      * @param offset the index of the first visible sample
      */
     void setZoomAndOffset(double zoom, sample_index_t offset);
+
+    /**
+     * Returns the width of the viewport with the signal (without
+     * controls)
+     * @return width of the signal area [pixels]
+     */
+    int viewPortWidth();
 
     /**
      * Insert a new signal view into this widget (or the upper/lower

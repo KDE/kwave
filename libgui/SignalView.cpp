@@ -32,19 +32,6 @@ Kwave::SignalView::SignalView(QWidget *parent, QWidget *controls,
      m_offset(0),
      m_zoom(1.0)
 {
-    // ### only for illustration...
-    QPalette palette;
-    palette.setBrush(this->backgroundRole(), QBrush(Qt::blue));
-    setPalette(palette);
-    setAutoFillBackground(true);
-    setMinimumSize(400, 100);
-    if (controls) {
-	palette.setBrush(this->backgroundRole(), QBrush(Qt::yellow));
-	controls->setPalette(palette);
-	controls->setAutoFillBackground(true);
-	controls->setMinimumSize(50, 50);
-    }
-
 }
 
 //***************************************************************************

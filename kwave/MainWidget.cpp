@@ -65,7 +65,7 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
      m_lower_dock(), m_overview(0), m_vertical_scrollbar(0),
      m_horizontal_scrollbar(0), m_offset(0), m_width(0), m_zoom(1.0)
 {
-    QPalette palette;
+//     QPalette palette;
 //    qDebug("MainWidget::MainWidget()");
 
     SignalManager *signal_manager = m_context.signalManager();
@@ -257,10 +257,10 @@ void MainWidget::slotTrackInserted(unsigned int index, Track *track)
     // when the first track has been inserted, set some reasonable zoom
     SignalManager *signal_manager = m_context.signalManager();
     bool first_track = (signal_manager && (signal_manager->tracks() == 1));
-    if (first_track) zoomAll();
 
     resizeViewPort();
     updateViewRange();
+    if (first_track) zoomAll();
 }
 
 //***************************************************************************
@@ -343,13 +343,13 @@ int MainWidget::executeCommand(const QString &command)
 	if (len > ofs) len = ofs;
 	signal_manager->selectRange(ofs-len, len);
     CASE_COMMAND("selecttoleft")
-	signal_manager->selectRange(0, signal_manager->selection().last()+1);
+	signal_manager->selectRange(0, signal_manager->selection().last() + 1);
     CASE_COMMAND("selecttoright")
 	signal_manager->selectRange(signal_manager->selection().first(),
 	    signal_manager->length() - signal_manager->selection().first()
 	);
     CASE_COMMAND("selectvisible")
-	signal_manager->selectRange(m_offset, pixels2samples(m_width) - 1);
+	signal_manager->selectRange(m_offset, displaySamples());
     CASE_COMMAND("selectnone")
 	signal_manager->selectRange(m_offset, 0);
     } else return -ENOSYS;
@@ -361,6 +361,9 @@ int MainWidget::executeCommand(const QString &command)
 void MainWidget::resizeViewPort()
 {
     // workaround for layout update issues: give the layouts a chance to resize
+    layout()->invalidate();
+    layout()->update();
+    layout()->activate();
     qApp->processEvents();
 
     bool vertical_scrollbar_visible = m_vertical_scrollbar->isVisible();
@@ -418,14 +421,17 @@ void MainWidget::resizeViewPort()
     }
 
     // resize the signal widget and the frame with the channel controls
-    if ((m_signal_widget.width() != w) || (m_signal_widget.height() != h)) {
-	m_width = w; // activate new with internally, for zoom range checks
+    if ((m_view_port.width() != w) || (m_signal_widget.height() != h))
+    {
+	m_width = m_width - m_view_port.width() + w;
 	m_signal_widget.resize(w, h);
 	fixZoomAndOffset();
     }
 
+    this->update();
+
     // remember the last width of the signal widget, for zoom calculation
-    m_width = m_signal_widget.width();
+    m_width = m_signal_widget.viewPortWidth();
 }
 
 //***************************************************************************

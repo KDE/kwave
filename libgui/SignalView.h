@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <QObject>
 #include <QWidget>
 
 #include "kdemacros.h"
@@ -83,14 +84,14 @@ namespace Kwave {
 	 * changes the association to a track
 	 * @param track the new track index, or -1 if not associated
 	 */
-	void setTrack(int track);
+	virtual void setTrack(int track);
 
 	/**
 	 * sets new zoom factor and offset
 	 * @param zoom the new zoom factor in pixels/sample
 	 * @param offset the index of the first visible sample
 	 */
-	void setZoomAndOffset(double zoom, sample_index_t offset);
+	virtual void setZoomAndOffset(double zoom, sample_index_t offset);
 
     protected:
 

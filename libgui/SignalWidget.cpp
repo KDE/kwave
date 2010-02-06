@@ -65,6 +65,7 @@
 #include "libgui/SignalView.h"
 #include "libgui/SignalWidget.h"
 #include "libgui/TrackPixmap.h"
+#include "libgui/TrackView.h"
 
 // #include "MouseMark.h"
 //
@@ -248,10 +249,6 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
 //     setMouseTracking(true);
 //     setAcceptDrops(true); // enable drag&drop
 
-//     setAutoFillBackground(false);
-//     setAttribute(Qt::WA_OpaquePaintEvent, true);
-//     setAttribute(Qt::WA_NoSystemBackground, true);
-
 //     // -- accelerator keys for 1...9 --
 //     for (int i = 0; i < 10; i++) {
 // 	Kwave::ShortcutWrapper *shortcut =
@@ -262,8 +259,8 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
 
     m_layout.setColumnStretch(0,   0);
     m_layout.setColumnStretch(1, 100);
-    m_layout.setMargin(5);
-    m_layout.setSpacing(5);
+    m_layout.setMargin(3);
+    m_layout.setSpacing(3);
     setLayout(&m_layout);
 
     setMinimumHeight(200);
@@ -2053,6 +2050,13 @@ bool SignalWidget::labelProperties(Label &label)
 // }
 
 //***************************************************************************
+int SignalWidget::viewPortWidth()
+{
+    if (m_views.isEmpty()) return width(); // if empty
+    return m_layout.cellRect(0, 1).width();
+}
+
+//***************************************************************************
 void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
 {
     Q_ASSERT(m_upper_dock);
@@ -2198,19 +2202,13 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track *track)
     if (!track) return;
 
     // create a container widget for the track controls
-    QWidget *controls = 0;
-// ### TODO ###
-//     Q_ASSERT(controls);
-//     if (!controls) return;
+    QWidget *controls = new QWidget(this);
+    Q_ASSERT(controls);
+    if (!controls) return;
 
     // create a new view for the track's signal
-    /** @todo create a Kwave::TrackView(...) instead */
-    Kwave::SignalView *view = new Kwave::SignalView(
-	this,
-	controls,
-	m_context.signalManager(),
-	Kwave::SignalView::BelowTrackTop
-    );
+    Kwave::SignalView *view = new Kwave::TrackView(
+	this, controls, m_context.signalManager(), track);
     Q_ASSERT(view);
     if (!view) {
 	if (controls) delete controls;
@@ -2231,6 +2229,8 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track *track)
 // 	    this, SIGNAL(sigTrackSelectionChanged()));
 //     connect(track, SIGNAL(sigSelectionChanged()),
 //             this, SLOT(refreshSignalLayer()));
+
+    connect(view, SIGNAL(destroyed()), controls, SLOT(deleteLater()));
 
     insertView(view, controls);
 }

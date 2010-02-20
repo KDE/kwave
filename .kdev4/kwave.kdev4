@@ -26,13 +26,13 @@ Name=Kwave
 Type=Native Application
 
 [Launch][Launch Configuration 0][Data]
-Arguments=--nofork\s
+Arguments=--nofork /var/tmp/test2.wav\s
 Debugger Shell=
 Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
 Dependency Action=Install
 Display Demangle Names=true
 Display Static Members=true
-EnvironmentGroup=Kwave
+EnvironmentGroup=Kwave-Debug
 Executable=file:///var/tmp/kwave-build/kwave/kwave
 Floating Toolbar=false
 GDB Path=

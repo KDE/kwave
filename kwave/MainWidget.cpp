@@ -60,9 +60,10 @@
 
 //***************************************************************************
 MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
-    :QWidget(parent), m_context(context), m_upper_dock(), m_view_port(this),
+    :QWidget(parent), m_context(context), m_upper_dock(), m_lower_dock(),
+     m_view_port(this), 
      m_signal_widget(&m_view_port, context, &m_upper_dock, &m_lower_dock),
-     m_lower_dock(), m_overview(0), m_vertical_scrollbar(0),
+     m_overview(0), m_vertical_scrollbar(0),
      m_horizontal_scrollbar(0), m_offset(0), m_width(0), m_zoom(1.0)
 {
 //     QPalette palette;
@@ -364,7 +365,7 @@ void MainWidget::resizeViewPort()
     layout()->invalidate();
     layout()->update();
     layout()->activate();
-    qApp->processEvents();
+    qApp->sendPostedEvents();
 
     bool vertical_scrollbar_visible = m_vertical_scrollbar->isVisible();
     const int min_height = m_signal_widget.sizeHint().height();
@@ -427,8 +428,6 @@ void MainWidget::resizeViewPort()
 	m_signal_widget.resize(w, h);
 	fixZoomAndOffset();
     }
-
-    this->update();
 
     // remember the last width of the signal widget, for zoom calculation
     m_width = m_signal_widget.viewPortWidth();

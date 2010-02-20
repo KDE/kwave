@@ -2183,13 +2183,6 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
 
     // connect all signals
 
-//     // insert a new track into the track pixmap list
-//     TrackPixmap *pix = new TrackPixmap(*track);
-//     Q_ASSERT(pix);
-//     m_track_pixmaps.insert(index, pix);
-//     if (!pix) return;
-
-//     // connect all signals
 //     connect(pix, SIGNAL(sigModified()),
 //             this, SLOT(refreshSignalLayer()));
 

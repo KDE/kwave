@@ -294,14 +294,14 @@ private:
     /** upper docking area, managed by the signal widget */
     QVBoxLayout m_upper_dock;
 
+    /** lower docking area, managed by the signal widget */
+    QVBoxLayout m_lower_dock;
+
     /** container widget that contains the signal widget. */
     QWidget m_view_port;
 
     /** the widget that shows the signal, scrolled within the view port */
     SignalWidget m_signal_widget;
-
-    /** lower docking area, managed by the signal widget */
-    QVBoxLayout m_lower_dock;
 
     /** overview widget */
     OverViewWidget *m_overview;

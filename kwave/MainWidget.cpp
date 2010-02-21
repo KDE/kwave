@@ -61,7 +61,7 @@
 //***************************************************************************
 MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
     :QWidget(parent), m_context(context), m_upper_dock(), m_lower_dock(),
-     m_view_port(this), 
+     m_view_port(this),
      m_signal_widget(&m_view_port, context, &m_upper_dock, &m_lower_dock),
      m_overview(0), m_vertical_scrollbar(0),
      m_horizontal_scrollbar(0), m_offset(0), m_width(0), m_zoom(1.0)
@@ -192,7 +192,7 @@ MainWidget::~MainWidget()
 //***************************************************************************
 void MainWidget::resizeEvent(QResizeEvent *event)
 {
-    QWidget::resizeEvent(event);
+    Q_UNUSED(event);
     resizeViewPort();
 }
 
@@ -361,6 +361,9 @@ int MainWidget::executeCommand(const QString &command)
 //***************************************************************************
 void MainWidget::resizeViewPort()
 {
+    const int old_h = m_signal_widget.height();
+    const int old_w = m_signal_widget.width();
+
     // workaround for layout update issues: give the layouts a chance to resize
     layout()->invalidate();
     layout()->update();
@@ -421,16 +424,20 @@ void MainWidget::resizeViewPort()
 	m_vertical_scrollbar->setPageStep(m_view_port.height());
     }
 
+//     qDebug("w: %4d -> %4d, h: %4d -> %4d", old_w, w, old_h, h);
+
     // resize the signal widget and the frame with the channel controls
-    if ((m_view_port.width() != w) || (m_signal_widget.height() != h))
+    if ((old_w != w) || (old_h != h))
     {
-	m_width = m_width - m_view_port.width() + w;
+	m_width = m_width + w - old_w;
 	m_signal_widget.resize(w, h);
 	fixZoomAndOffset();
     }
 
     // remember the last width of the signal widget, for zoom calculation
     m_width = m_signal_widget.viewPortWidth();
+
+    repaint();
 }
 
 //***************************************************************************

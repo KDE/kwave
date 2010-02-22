@@ -52,13 +52,12 @@ void Kwave::SignalView::setZoomAndOffset(double zoom, sample_index_t offset)
     m_zoom   = zoom;
     m_offset = offset;
 
-    sample_index_t visible = ((width() - 1) * zoom) + 1;
-    sample_index_t last = offset + visible - 1;
-    qDebug("SignalView::setZoomAndOffset(%g, %lu), last visible=%lu",
-	   zoom,
-	   static_cast<unsigned long int>(offset),
-	   static_cast<unsigned long int>(last));
-
+//     sample_index_t visible = ((width() - 1) * zoom) + 1;
+//     sample_index_t last = offset + visible - 1;
+//     qDebug("SignalView::setZoomAndOffset(%g, %lu), last visible=%lu",
+// 	   zoom,
+// 	   static_cast<unsigned long int>(offset),
+// 	   static_cast<unsigned long int>(last));
 }
 
 //***************************************************************************

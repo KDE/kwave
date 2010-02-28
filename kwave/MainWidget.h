@@ -221,13 +221,6 @@ signals:
     void sigZoomChanged(double zoom);
 
     /**
-     * Emits the offset and length of the current selection and the
-     * sample rate for converting it into milliseconds
-     */
-    void selectedTimeInfo(sample_index_t offset, sample_index_t length,
-                          double rate);
-
-    /**
      * Emits a change in the mouse cursor. This can be used to change
      * the content of a status bar if the mouse moves over a selected
      * area or a marker.

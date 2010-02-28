@@ -180,15 +180,11 @@ bool TopWidget::init()
     // connect the main widget
     connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
             this, SLOT(executeCommand(const QString &)));
-    connect(m_main_widget, SIGNAL(selectedTimeInfo(sample_index_t,
-            sample_index_t, double)),
-            this, SLOT(setSelectedTimeInfo(sample_index_t, sample_index_t,
-            double)));
     connect(m_main_widget, SIGNAL(sigMouseChanged(int)),
             this, SLOT(mouseChanged(int)));
     connect(&m_context.signalManager()->playbackController(),
-            SIGNAL(sigPlaybackPos(unsigned int)),
-            this, SLOT(updatePlaybackPos(unsigned int)));
+            SIGNAL(sigPlaybackPos(sample_index_t)),
+            this, SLOT(updatePlaybackPos(sample_index_t)));
 
     // connect the sigCommand signal to ourself, this is needed
     // for the plugins
@@ -372,6 +368,10 @@ bool TopWidget::init()
                                                  double, unsigned int)),
              this,          SLOT(setStatusInfo(sample_index_t, unsigned int,
                                                double, unsigned int)));
+    connect(&(signal_manager->selection()),
+            SIGNAL(changed(sample_index_t, sample_index_t)),
+            this,
+            SLOT(selectionChanged(sample_index_t,sample_index_t)));
     connect(signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
                                                    const QString&)),
             this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
@@ -403,7 +403,7 @@ bool TopWidget::init()
 
     setStatusInfo(0,0,0,0);
     setUndoRedoInfo(0,0);
-    setSelectedTimeInfo(0,0,0);
+    selectionChanged(0,0);
     updateMenu();
     updateToolbar();
     updateRecentFiles();
@@ -1172,12 +1172,15 @@ void TopWidget::setStatusInfo(sample_index_t length, unsigned int tracks,
 }
 
 //***************************************************************************
-void TopWidget::setSelectedTimeInfo(sample_index_t offset,
-                                    sample_index_t length,
-                                    double rate)
+void TopWidget::selectionChanged(sample_index_t offset, sample_index_t length)
 {
+    SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return;
     Q_ASSERT(statusBar());
     if (!statusBar()) return;
+
+    const double rate = signal_manager->rate();
 
     if (length > 1) {
 	// show offset and length
@@ -1234,7 +1237,7 @@ void TopWidget::setSelectedTimeInfo(sample_index_t offset,
 }
 
 //***************************************************************************
-void TopWidget::updatePlaybackPos(unsigned int offset)
+void TopWidget::updatePlaybackPos(sample_index_t offset)
 {
     if (!m_context.pluginManager()) return;
     if (!m_main_widget) return;
@@ -1311,10 +1314,9 @@ void TopWidget::mouseChanged(int mode)
 // 	case (SignalWidget::MouseAtSelectionBorder) :
 // 	case (SignalWidget::MouseInSelection) :
 // 	{
-// 	    double rate         = signal_manager->rate();
 // 	    unsigned int offset = signal_manager->selection().offset();
 // 	    unsigned int length = signal_manager->selection().length();
-// 	    setSelectedTimeInfo(offset, length, rate);
+// 	    selectionChanged(offset, length);
 // 	    break;
 // 	}
 // 	default:

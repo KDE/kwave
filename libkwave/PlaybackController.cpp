@@ -134,7 +134,7 @@ void PlaybackController::playbackStop()
 }
 
 //***************************************************************************
-void PlaybackController::updatePlaybackPos(unsigned int pos)
+void PlaybackController::updatePlaybackPos(sample_index_t pos)
 {
     m_playback_position = pos;
     emit sigPlaybackPos(m_playback_position);
@@ -192,50 +192,50 @@ void PlaybackController::reset()
 }
 
 //***************************************************************************
-bool PlaybackController::loop()
+bool PlaybackController::loop() const
 {
     return m_loop_mode;
 }
 
 //***************************************************************************
-bool PlaybackController::running()
+bool PlaybackController::running() const
 {
     return m_playing;
 }
 
 //***************************************************************************
-bool PlaybackController::paused()
+bool PlaybackController::paused() const
 {
     return m_paused;
 }
 
 //***************************************************************************
-void PlaybackController::setStartPos(unsigned long int pos)
+void PlaybackController::setStartPos(sample_index_t pos)
 {
     m_playback_start = pos;
 }
 
 
 //***************************************************************************
-void PlaybackController::setEndPos(unsigned long int pos)
+void PlaybackController::setEndPos(sample_index_t pos)
 {
     m_playback_end = pos;
 }
 
 //***************************************************************************
-unsigned long int PlaybackController::startPos()
+sample_index_t PlaybackController::startPos() const
 {
     return m_playback_start;
 }
 
 //***************************************************************************
-unsigned long int PlaybackController::endPos()
+sample_index_t PlaybackController::endPos() const
 {
     return m_playback_end;
 }
 
 //***************************************************************************
-unsigned long int PlaybackController::currentPos()
+sample_index_t PlaybackController::currentPos() const
 {
     return m_playback_position;
 }

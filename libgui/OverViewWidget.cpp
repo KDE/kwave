@@ -68,7 +68,7 @@ void OverViewWidget::WorkerThread::run()
 //***************************************************************************
 OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     :ImageView(parent), m_view_offset(0), m_view_width(0), m_signal_length(0),
-     m_sample_rate(0), m_selection_start(0), m_selection_length(0),
+     m_selection_start(0), m_selection_length(0),
      m_playback_position(0), m_last_offset(0), m_cache(signal),
      m_repaint_timer(), m_labels(), m_worker_thread(this)
 {
@@ -79,6 +79,12 @@ OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     // connect repaint timer
     connect(&m_repaint_timer, SIGNAL(timeout()),
             this, SLOT(refreshBitmap()));
+
+    // get informed about selection changes
+    connect(&(signal.selection()),
+            SIGNAL(changed(sample_index_t, sample_index_t)),
+            this,
+            SLOT(setSelection(sample_index_t,sample_index_t)));
 
     // get informed about label changes
     connect(&signal, SIGNAL(labelsChanged(const LabelList &)),
@@ -178,12 +184,10 @@ void OverViewWidget::setRange(sample_index_t offset, sample_index_t viewport,
 }
 
 //***************************************************************************
-void OverViewWidget::setSelection(sample_index_t offset, sample_index_t length,
-                                  double rate)
+void OverViewWidget::setSelection(sample_index_t offset, sample_index_t length)
 {
     m_selection_start  = offset;
     m_selection_length = length;
-    m_sample_rate      = rate;
 
     overviewChanged();
 }

@@ -32,6 +32,7 @@
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/MemoryManager.h"
 #include "libkwave/Parser.h"
+#include "libkwave/Sample.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/PluginManager.h"
 
@@ -47,6 +48,7 @@ KwaveApp::KwaveApp()
 {
     qRegisterMetaType<Kwave::SampleArray>("Kwave::SampleArray");
     qRegisterMetaType<LabelList>("LabelList");
+    qRegisterMetaType<sample_index_t>("sample_index_t");
 
     // connect the clipboard
     connect(QApplication::clipboard(), SIGNAL(changed(QClipboard::Mode)),

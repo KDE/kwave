@@ -138,12 +138,6 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
     connect(m_horizontal_scrollbar, SIGNAL(valueChanged(int)),
 	    this,                   SLOT(horizontalScrollBarMoved(int)));
 
-    // -- selection handling --
-
-//     connect(&m_signal_widget, SIGNAL(selectedTimeInfo(sample_index_t,
-// 	sample_index_t, double)),
-// 	m_overview, SLOT(setSelection(sample_index_t, sample_index_t, double)));
-
     // -- playback position update --
 
 //     connect(&(playbackController()), SIGNAL(sigPlaybackPos(sample_index_t)),
@@ -155,14 +149,8 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
 
     connect(&m_signal_widget, SIGNAL(sigCommand(const QString &)),
 	    this,             SIGNAL(sigCommand(const QString &)));
-//     connect(&m_signal_widget, SIGNAL(selectedTimeInfo(sample_index_t,
-//             sample_index_t, double)),
-// 	    this, SIGNAL(selectedTimeInfo(sample_index_t,
-//             sample_index_t, double)));
 //     connect(&m_signal_widget, SIGNAL(sigMouseChanged(int)),
 // 	    this, SIGNAL(sigMouseChanged(int)));
-//     connect(signal_manager, SIGNAL(sigTrackSelectionChanged()),
-// 	    this, SLOT(resizeViewPort()));
 
     // -- connect all signals from/to the signal manager --
 

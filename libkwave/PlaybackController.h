@@ -24,6 +24,8 @@
 
 #include <kdemacros.h>
 
+#include "libkwave/Sample.h"
+
 /**
  * \class PlaybackController
  * Provides a generic interface for classes that can contol playback
@@ -56,28 +58,28 @@ public:
     void reset();
 
     /** returns the loop mode flag */
-    bool loop();
+    bool loop() const;
 
     /** returns true if the playback is running */
-    bool running();
+    bool running() const;
 
     /** returns true if the playback is paused */
-    bool paused();
+    bool paused() const;
 
     /** sets a new start position */
-    void setStartPos(unsigned long int pos);
+    void setStartPos(sample_index_t pos);
 
     /** sets a new end position */
-    void setEndPos(unsigned long int pos);
+    void setEndPos(sample_index_t pos);
 
     /** returns the position where the playback starts */
-    unsigned long int startPos();
+    sample_index_t startPos() const;
 
     /** returns the position where the playback ends */
-    unsigned long int endPos();
+    sample_index_t endPos() const;
 
     /** returns the current position of the playback pointer */
-    unsigned long int currentPos();
+    sample_index_t currentPos() const;
 
 public slots:
 
@@ -123,7 +125,7 @@ public slots:
     void reload();
 
     /** Updates the current playback position */
-    void updatePlaybackPos(unsigned int pos);
+    void updatePlaybackPos(sample_index_t);
 
     /** Updates the status if playback is done */
     void playbackDone();
@@ -158,7 +160,7 @@ signals:
     /**
      * Emits the current position of the playback pointer
      */
-    void sigPlaybackPos(unsigned int pos);
+    void sigPlaybackPos(sample_index_t pos);
 
 private:
 
@@ -180,13 +182,13 @@ private:
     bool m_playing;
 
     /** the current play position */
-    unsigned long int m_playback_position;
+    sample_index_t m_playback_position;
 
     /** the start position for playback */
-    unsigned long int m_playback_start;
+    sample_index_t m_playback_start;
 
     /** the end position for playback */
-    unsigned long int m_playback_end;
+    sample_index_t m_playback_end;
 
 };
 

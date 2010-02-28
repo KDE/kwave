@@ -68,15 +68,6 @@
 #include "libgui/TrackView.h"
 
 // #include "MouseMark.h"
-//
-// #ifdef DEBUG
-// #include <time.h>
-// #include <sys/time.h>
-// #endif
-
-// #define LAYER_SIGNAL    0
-// #define LAYER_SELECTION 1
-// #define LAYER_MARKERS   2
 
 // /** table of keyboard shortcuts 0...9 */
 // static const int tbl_keys[10] = {
@@ -161,12 +152,7 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
      m_lower_dock(lower_dock),
      m_offset(0),
      m_zoom(1.0)
-//     m_image(),
 //     m_offset(0),
-//     m_width(0),
-//     m_height(0),
-//     m_last_width(0),
-//     m_last_height(0),
 //     m_zoom(0.0),
 //     m_vertical_zoom(1.0),
 //     m_playpointer(-1),
@@ -183,11 +169,6 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
 {
 //    qDebug("SignalWidget::SignalWidget()");
 
-//     for (int i=0; i < 3; i++) {
-// 	m_layer[i] = QImage();
-// 	m_update_layer[i] = true;
-//     }
-//
 //     m_selection = new MouseMark();
 //     Q_ASSERT(m_selection);
 //     if (!m_selection) return;
@@ -215,19 +196,6 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
 //     connect(sig, SIGNAL(sigLabelCountChanged()),
 //             this, SLOT(hidePosition()),
 //             Qt::QueuedConnection);
-//     connect(sig, SIGNAL(sigLabelCountChanged()),
-//             this, SLOT(refreshMarkersLayer()),
-//             Qt::QueuedConnection);
-//     connect(sig, SIGNAL(labelsChanged(LabelList)),
-//             this, SLOT(refreshMarkersLayer()),
-//             Qt::QueuedConnection);
-//
-//     connect(&(sig->selection()), SIGNAL(changed(unsigned int, unsigned int)),
-// 	this, SLOT(slotSelectionChanged(unsigned int, unsigned int)));
-//
-//     // connect to the playback controller
-//     connect(&(sig->playbackController()), SIGNAL(sigPlaybackPos(unsigned int)),
-//             this, SLOT(updatePlaybackPointer(unsigned int)));
 //
 //     // connect repaint timer
 //     connect(&m_repaint_timer, SIGNAL(timeout()),
@@ -442,22 +410,6 @@ int SignalWidget::executeCommand(const QString &command)
 
     return true;
 }
-
-// //***************************************************************************
-// void SignalWidget::slotSelectionChanged(unsigned int offset,
-//                                         unsigned int length)
-// {
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return;
-//
-//     signal_manager->selectRange(offset, length);
-//     offset = signal_manager->selection().offset();
-//     length = signal_manager->selection().length();
-//
-//     refreshLayer(LAYER_SELECTION);
-//     emit selectedTimeInfo(offset, length, signal_manager->rate());
-// }
 
 //***************************************************************************
 void SignalWidget::forwardCommand(const QString &command)
@@ -1299,204 +1251,6 @@ void SignalWidget::contextMenuLabelProperties()
 // 	event->ignore();
 //     }
 // }
-
-// //***************************************************************************
-// void SignalWidget::paintEvent(QPaintEvent *)
-// {
-//     QPainter p(this);
-//     p.setPen(Qt::white);
-//     p.drawLine(0, 0, width() - 1, height() - 1);
-// }
-// #if 0
-// void SignalWidget::paintEvent(QPaintEvent *)
-// {
-//     InhibitRepaintGuard inhibit(*this, false); // avoid recursion
-//
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return;
-//
-// //     qDebug("SignalWidget::paintEvent()");
-// // #define DEBUG_REPAINT_TIMES
-// #ifdef DEBUG_REPAINT_TIMES
-//     QTime time;
-//     time.start();
-// #endif /* DEBUG_REPAINT_TIMES */
-//
-//     QPainter p;
-//
-//     int n_tracks = signal_manager->isClosed() ? 0 : tracks();
-//
-//     m_width = QWidget::width();
-//     m_height = QWidget::height();
-//
-// //     qDebug("SignalWidget::paintEvent(): width=%d, height=%d",m_width,m_height);
-//
-//     // --- detect size changes and refresh the whole display ---
-//     if ((m_width != m_last_width) || (m_height != m_last_height)) {
-// //	qDebug("SignalWidget::paintEvent(): window size changed from "
-// //	      "%dx%d to %dx%d",lastWidth,lastHeight,m_width,m_height);
-// 	for (int i=0; i<3; i++) {
-// 	    m_layer[i] = QImage(m_width, m_height,
-// 	        QImage::Format_ARGB32_Premultiplied);
-// 	    m_update_layer[i] = true;
-// 	}
-// 	m_image = QImage(m_width, m_height,
-// 	    QImage::Format_ARGB32_Premultiplied);
-//
-// 	m_last_width = m_width;
-// 	m_last_height = m_height;
-//
-// 	// check and correct m_zoom and m_offset
-// 	setZoom(m_zoom);
-//     }
-//
-//     // --- repaint of the signal layer ---
-//     if (m_update_layer[LAYER_SIGNAL]) {
-// // 	qDebug("SignalWidget::paintEvent(): - redraw of signal layer -");
-//
-// 	int track_height = (n_tracks) ? (m_height / n_tracks) : 0;
-// 	int top = 0;
-//
-// 	p.begin(&m_layer[LAYER_SIGNAL]);
-//
-// 	// all black if empty
-// 	if (!n_tracks)
-// 	    p.fillRect(0, 0, m_width, m_height, Qt::black);
-//
-// 	foreach (TrackPixmap *pix, m_track_pixmaps) {
-// 	    if (!pix) continue; // signal closed ?
-//
-// 	    // fix the width and height of the track pixmap
-// 	    if ((pix->width() != m_width) || (pix->height() != track_height))
-// 		pix->resize(m_width, track_height);
-//
-// 	    pix->setVerticalZoom(m_vertical_zoom);
-// 	    if (pix->isModified())
-// 		pix->repaint();
-//
-// 	    p.setCompositionMode(QPainter::CompositionMode_Source);
-// 	    p.drawPixmap(0, top, pix->pixmap());
-//
-// 	    top += track_height;
-// 	}
-// 	p.end();
-//
-// 	m_update_layer[LAYER_SIGNAL] = false;
-//     }
-//
-//     // --- repaint of the markers layer ---
-//     if (m_update_layer[LAYER_MARKERS]) {
-// // 	qDebug("SignalWidget::paintEvent(): - redraw of markers layer -");
-//
-// 	p.begin(&m_layer[LAYER_MARKERS]);
-// 	p.fillRect(0, 0, m_width, m_height, Qt::black);
-//
-// 	int last_marker = -1;
-// 	foreach (const Label label, labels()) {
-// 	    unsigned int pos = label.pos();
-// 	    if (pos < m_offset) continue; // outside left
-// 	    int x = samples2pixels(pos - m_offset);
-// 	    if (x >= m_width) continue; // outside right
-//
-// 	    // position must differ from the last one, otherwise we
-// 	    // would wipe out the last one with XOR mode
-// 	    if (x == last_marker) continue;
-//
-// 	    p.setPen(Qt::cyan);
-// 	    p.setCompositionMode(QPainter::CompositionMode_Exclusion);
-// 	    p.drawLine(x, 0, x, m_height);
-//
-// 	    last_marker = x;
-// 	}
-//
-// 	p.end();
-//
-// 	m_update_layer[LAYER_MARKERS] = false;
-//     }
-//
-//     // --- repaint of the selection layer ---
-//     if (m_update_layer[LAYER_SELECTION]) {
-// // 	qDebug("SignalWidget::paintEvent(): - redraw of selection layer -");
-//
-// 	p.begin(&m_layer[LAYER_SELECTION]);
-// 	p.fillRect(0, 0, m_width, m_height, Qt::black);
-//
-// 	if (n_tracks) {
-// 	    unsigned int left  = signal_manager->selection().first();
-// 	    unsigned int right = signal_manager->selection().last();
-// 	    if ((right > m_offset) && (left < m_offset+pixels2samples(m_width))) {
-// 		// transform to pixel coordinates
-// 		if (left < m_offset) left = m_offset;
-// 		left  = samples2pixels(left - m_offset);
-// 		right = samples2pixels(right - m_offset);
-//
-// 		if (right >= static_cast<unsigned int>(m_width))
-// 		    right=m_width-1;
-// 		if (left > right)
-// 		    left = right;
-//
-// 		p.setPen(Qt::yellow);
-// 		if (left == right) {
-// 		    p.drawLine(left, 0, left, m_height);
-// 		} else {
-// 		    p.setBrush(Qt::yellow);
-// 		    p.drawRect(left, 0, right-left+1, m_height);
-// 		}
-// 	    }
-// 	}
-// 	p.end();
-//
-// 	m_update_layer[LAYER_SELECTION] = false;
-//     }
-//
-//     // bitBlt all layers together
-//     p.begin(&m_image);
-//     p.fillRect(0, 0, m_width, m_height, Qt::black);
-//     const QPainter::CompositionMode layer_rop[3] = {
-// 	QPainter::CompositionMode_Source,    /* LAYER_SIGNAL    */
-// 	QPainter::CompositionMode_Exclusion, /* LAYER_SELECTION */
-// 	QPainter::CompositionMode_Exclusion  /* LAYER_MARKERS   */
-//     };
-//     for (int i=0; i < 3; i++) {
-// 	p.setCompositionMode(layer_rop[i]);
-// 	p.drawImage(0, 0, m_layer[i]);
-//     }
-//     m_last_playpointer = -2;
-//
-//     // --- redraw the playpointer if a signal is present ---
-//     m_playpointer = samples2pixels(
-// 	signal_manager->playbackController().currentPos() - m_offset);
-//
-//     if (n_tracks) {
-// 	p.setPen(Qt::yellow);
-// 	p.setCompositionMode(QPainter::CompositionMode_Exclusion);
-//
-// 	if (m_last_playpointer >= 0)
-// 	    p.drawLine(m_last_playpointer, 0, m_last_playpointer, m_height);
-//
-// 	if ( (signal_manager->playbackController().running() ||
-// 	      signal_manager->playbackController().paused() ) &&
-// 	     ((m_playpointer >= 0) && (m_playpointer < m_width)) )
-// 	{
-// 	    p.drawLine(m_playpointer, 0, m_playpointer, m_height);
-// 	    m_last_playpointer = m_playpointer;
-// 	} else {
-// 	    m_last_playpointer = -1;
-// 	}
-//     }
-//     p.end();
-//
-//     // draw the result
-//     p.begin(this);
-//     p.drawImage(0, 0, m_image);
-//     p.end();
-//
-// #ifdef DEBUG_REPAINT_TIMES
-//    qDebug("SignalWidget::paintEvent() -- done, t=%d ms --", time.elapsed());
-// #endif /* DEBUG_REPAINT_TIMES */
-// }
-// #endif
 
 // //***************************************************************************
 // // Label SignalWidget::findLabelNearMouse(int x) const

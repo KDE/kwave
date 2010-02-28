@@ -78,6 +78,32 @@ namespace Kwave {
 	    return m_track_index;
 	}
 
+	/** returns the current start position */
+	sample_index_t offset() const {
+	    return m_offset;
+	}
+
+	/** returns the current zoom [pixels/sample] */
+	double zoom() const {
+	    return m_zoom;
+	}
+
+	/**
+	 * converts a number of samples into a number of pixels,
+	 * based on the current zoom factor
+	 * @param samples a small number of samples (must be positive)
+	 * @return number of pixels
+	 */
+	int samples2pixels(sample_index_t samples) const;
+
+	/**
+	 * Converts a number of pixels into a number of samples,
+	 * based on the current zoom factor
+	 * @param pixels number of pixels (should be positive)
+	 * @return number of samples
+	 */
+	sample_index_t pixels2samples(int pixels) const;
+
     public slots:
 
 	/**

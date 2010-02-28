@@ -73,9 +73,8 @@ public slots:
      * called when the selected time has changed
      * @param offset index of the first selected sample
      * @param length number of selected samples
-     * @param rate sample rate [samples/second]
      */
-    void setSelection(sample_index_t offset, sample_index_t length, double rate);
+    void setSelection(sample_index_t offset, sample_index_t length);
 
     /** should be called when the list of labels has changed */
     void labelsChanged(const LabelList &labels);
@@ -194,9 +193,6 @@ private:
 
     /** length of the whole area [samples] */
     sample_index_t m_signal_length;
-
-    /** sample rate of the signal [samples/second] */
-    double m_sample_rate;
 
     /** start of the selection [samples] */
     sample_index_t m_selection_start;

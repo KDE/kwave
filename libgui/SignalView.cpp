@@ -61,6 +61,18 @@ void Kwave::SignalView::setZoomAndOffset(double zoom, sample_index_t offset)
 }
 
 //***************************************************************************
+int Kwave::SignalView::samples2pixels(sample_index_t samples) const
+{
+    return (m_zoom > 0.0) ? (samples / m_zoom) : 0;
+}
+
+//***************************************************************************
+sample_index_t Kwave::SignalView::pixels2samples(int pixels) const
+{
+    return pixels * m_zoom;
+}
+
+//***************************************************************************
 #include "SignalView.moc"
 //***************************************************************************
 //***************************************************************************

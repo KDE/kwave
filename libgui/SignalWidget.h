@@ -336,9 +336,12 @@ signals:
     /**
      * Emits the offset and length of the current selection and the
      * sample rate for converting it into milliseconds
+     * @param offset index of the first selected sample
+     * @param length number of selected samples
+     * @param rate sample rate
      */
-//     void selectedTimeInfo(sample_index_t offset, sample_index_t length,
-//                           double rate);
+    void selectedTimeInfo(sample_index_t offset, sample_index_t length,
+                          double rate);
 
     /**
      * Emits a command to be processed by the next higher instance.
@@ -484,9 +487,6 @@ protected:
     /** slot for mouse wheel events, used for vertical zoom */
 //     virtual void wheelEvent(QWheelEvent *event);
 
-    /** slot for repainting the widget or portions of it */
-//    void paintEvent(QPaintEvent *); // ###
-
     /**
      * Returns the label that is nearest to the given mouse position
      * and is visible or null if none found.
@@ -585,9 +585,6 @@ private:
     /** number of samples per pixel */
     double m_zoom;
 
-    /** QImage used for composition */
-//     QImage m_image;
-
     /** QImage for buffering each layer */
 //     QImage m_layer[3];
 
@@ -596,12 +593,6 @@ private:
 
     /** height of the widget in pixels, cached value */
 //     int m_height;
-
-    /** last/previous width of the widget, for detecting size changes */
-//     int m_last_width;
-
-    /** last/previous height of the widget, for detecting size changes */
-//     int m_last_height;
 
     /** vertical zoom factor */
 //     double m_vertical_zoom;

@@ -144,16 +144,14 @@ private slots:
      * Updates the number of selected samples in the status bar.
      * @param offset index of the first selected sample
      * @param length number of selected samples
-     * @param rate sample rate [samples/second] for converting to time
      */
-    void setSelectedTimeInfo(sample_index_t offset, sample_index_t length,
-                             double rate);
+    void selectionChanged(sample_index_t offset, sample_index_t length);
 
     /**
      * updates the playback position in the status bar
      * @param offset the current playback position [samples]
      */
-    void updatePlaybackPos(unsigned int offset);
+    void updatePlaybackPos(sample_index_t offset);
 
     /**
      * Sets the descriptions of the last undo and redo action. If the

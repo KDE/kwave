@@ -6,6 +6,7 @@
  * bugfix: invocation of xgettext was wrong, left untranslated strings
  * plugin API change: support for translateable short description
  * about plugin: use plugin info from PluginManager
+ * bugfix: last directory of file dialogs sometimes got lost
 
 0.8.5  [2009-12-24]
 

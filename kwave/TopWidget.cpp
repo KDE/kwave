@@ -872,7 +872,7 @@ int TopWidget::openRecent(const QString &str)
 int TopWidget::openFile()
 {
     QString filter = CodecManager::decodingFilter();
-    KwaveFileDialog dlg(":<kwave_open_dir>", filter, this, true);
+    KwaveFileDialog dlg("kfiledialog:///kwave_open_dir", filter, this, true);
     dlg.setMode(static_cast<KFile::Modes>(KFile::File | KFile::ExistingOnly));
     dlg.setOperationMode(KFileDialog::Opening);
     dlg.setCaption(i18n("Open"));
@@ -921,7 +921,7 @@ int TopWidget::saveFileAs(bool selection)
 
     KUrl current_url;
     current_url = signalName();
-    KwaveFileDialog dlg(":<kwave_save_as>", CodecManager::encodingFilter(),
+    KwaveFileDialog dlg("kfiledialog:///kwave_save_as", CodecManager::encodingFilter(),
         this, true, current_url.prettyUrl(), "*.wav");
     dlg.setOperationMode(KFileDialog::Saving);
     dlg.setCaption(i18n("Save As"));

@@ -89,7 +89,8 @@ SignalManager::SignalManager(QWidget *parent)
     m_undo_transaction(0),
     m_undo_transaction_level(0),
     m_undo_transaction_lock(QMutex::Recursive),
-    m_file_info()
+    m_file_info(),
+    m_meta_data()
 {
     // connect to the track's signals
     Signal *sig = &m_signal;

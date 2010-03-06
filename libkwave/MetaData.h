@@ -19,8 +19,8 @@
 
 #include "config.h"
 
-#include <QList>
 #include <QMap>
+#include <QMutex>
 #include <QString>
 #include <QSharedData>
 #include <QSharedDataPointer>
@@ -33,6 +33,9 @@ namespace Kwave {
     class KDE_EXPORT MetaData
     {
     public:
+	/** standard property: type of the meta data object */
+	static const QString STDPROP_TYPE;
+
 	/** standard property: list of zero based track indices */
 	static const QString STDPROP_TRACKS;
 
@@ -83,7 +86,10 @@ namespace Kwave {
 	/** List of metadata properties */
 	typedef QMap<QString, QVariant> PropertyList;
 
-	/** default constructor */
+	/**
+	 * default constructor, generates a metadata object
+	 * with a new ID
+	 */
 	MetaData();
 
 	/** constructor */
@@ -91,6 +97,9 @@ namespace Kwave {
 
 	/** destructor */
 	virtual ~MetaData();
+
+	/** returns the ID of the meta data */
+	QString id() const;
 
 	/** returns the scope of the meta data */
 	Scope scope() const;
@@ -161,11 +170,25 @@ namespace Kwave {
 	    /** destructor */
 	    virtual ~MetaDataPriv();
 
+	    /** id of the meta data */
+	    QString m_id;
+
 	    /** scope of the meta data */
 	    Scope m_scope;
 
 	    /** list of properties, user defined */
 	    PropertyList m_properties;
+
+	private:
+
+	    /** creates a new unique ID */
+	    static QString newUid();
+
+	    /** counter for unique id generation */
+	    static quint64 m_id_counter;
+
+	    /** mutex for protecting the id generator */
+	    static QMutex m_id_lock;
 	};
 
 	/** pointer to the shared meta data */

@@ -359,6 +359,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/MessageBox.cpp				GPL2+
 	libkwave/MetaData.cpp				GPL2+
 	libkwave/MetaData.h				GPL2+
+	libkwave/MetaDataList.cpp			GPL2+
+	libkwave/MetaDataList.h				GPL2+
 	libkwave/MultiStreamWriter.cpp			GPL2+
 	libkwave/MultiStreamWriter.h			GPL2+
 	libkwave/MultiWriter.cpp			GPL2+

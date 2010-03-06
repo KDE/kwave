@@ -17,10 +17,16 @@
 
 #include "config.h"
 
+#include <QApplication>
+#include <QDateTime>
+#include <QMutexLocker>
+#include <QUuid>
+
 #include "MetaData.h"
 
 //***************************************************************************
 // initializers of the standard property names
+const QString Kwave::MetaData::STDPROP_TYPE("STDPROP_TYPE");
 const QString Kwave::MetaData::STDPROP_TRACKS("STDPROP_TRACKS");
 const QString Kwave::MetaData::STDPROP_START("STDPROP_START");
 const QString Kwave::MetaData::STDPROP_END("STDPROP_END");
@@ -43,6 +49,12 @@ Kwave::MetaData::MetaData(Scope scope)
 //***************************************************************************
 Kwave::MetaData::~MetaData()
 {
+}
+
+//***************************************************************************
+QString Kwave::MetaData::id() const
+{
+    return (m_data) ? m_data->m_id : QString();
 }
 
 //***************************************************************************
@@ -93,20 +105,54 @@ QVariant &Kwave::MetaData::property(const QString &p)
 
 //***************************************************************************
 //***************************************************************************
+
+/** static initializer: counter for unique id generation */
+quint64 Kwave::MetaData::MetaDataPriv::m_id_counter = 0;
+
+/** static initializer: mutex for protecting the id generator */
+QMutex Kwave::MetaData::MetaDataPriv::m_id_lock;
+
+//***************************************************************************
 Kwave::MetaData::MetaDataPriv::MetaDataPriv()
-    :QSharedData(), m_scope(), m_properties()
+    :QSharedData(),
+     m_id(newUid()),
+     m_scope(),
+     m_properties()
 {
 }
 
 //***************************************************************************
 Kwave::MetaData::MetaDataPriv::MetaDataPriv(const MetaDataPriv &other)
-    :QSharedData(), m_scope(other.m_scope), m_properties(other.m_properties)
+    :QSharedData(),
+     m_id(other.m_id),
+     m_scope(other.m_scope),
+     m_properties(other.m_properties)
 {
 }
 
 //***************************************************************************
 Kwave::MetaData::MetaDataPriv::~MetaDataPriv()
 {
+}
+
+//***************************************************************************
+QString Kwave::MetaData::MetaDataPriv::newUid()
+{
+    // create a new unique ID:
+    // <64 bit number> - <date/time> - <session id> - <pseudo uuid from Qt>
+    QMutexLocker _lock(&m_id_lock);
+
+    QString uid;
+
+    uid += QString::number(++m_id_counter, 16);
+    uid += "-";
+    uid += QDateTime::currentDateTime().toString(Qt::ISODate);
+    uid += "-";
+    uid += qApp->sessionKey();
+    uid += "-";
+    uid += QUuid::createUuid().toString();
+
+    return uid;
 }
 
 //***************************************************************************

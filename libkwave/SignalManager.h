@@ -23,6 +23,7 @@
 #include <stdio.h>
 
 #include <QList>
+#include <QMap>
 #include <QMutex>
 #include <QObject>
 #include <QString>
@@ -31,6 +32,8 @@
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
+#include "libkwave/MetaData.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/PlaybackController.h"
 #include "libkwave/ReaderMode.h"
 #include "libkwave/Selection.h"
@@ -367,6 +370,18 @@ public:
 
     /** Shortcut for accessing the label list @note can be modified */
     inline LabelList &labels() { return m_file_info.labels(); }
+
+    /**
+     * Retrieves the list of meta data objects, mutable
+     * @return list with all MetaData objects
+     */
+    Kwave::MetaDataList metaData() { return m_meta_data; };
+
+    /**
+     * Retrieves the list of meta data objects, const
+     * @return reference to the list of all MetaData objects
+     */
+    const Kwave::MetaDataList &metaData() const { return m_meta_data; }
 
 signals:
 
@@ -719,6 +734,13 @@ private:
 
     /** info about the file, @see class FileInfo */
     FileInfo m_file_info;
+
+    /**
+     * meta data of the signal, map with
+     * @see class MetaData
+     */
+    Kwave::MetaDataList m_meta_data;
+
 };
 
 #endif  /* _SIGNAL_MANAGER_H_ */

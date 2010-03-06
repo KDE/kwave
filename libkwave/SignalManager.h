@@ -375,7 +375,7 @@ public:
      * Retrieves the list of meta data objects, mutable
      * @return list with all MetaData objects
      */
-    Kwave::MetaDataList metaData() { return m_meta_data; };
+    Kwave::MetaDataList &metaData() { return m_meta_data; };
 
     /**
      * Retrieves the list of meta data objects, const

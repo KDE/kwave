@@ -58,7 +58,6 @@ class QWheelEvent;
 class KUrl;
 
 class LabelType;
-class MouseMark;
 class SignalManager;
 class TimeOperation;
 class Track;
@@ -77,13 +76,6 @@ class KDE_EXPORT SignalWidget : public QWidget
 //     friend class InhibitRepaintGuard;
 
 public:
-//     /** Mode of the mouse cursor */
-//     enum MouseMode {
-// 	MouseNormal = 0,        /**< over the signal [default] */
-// 	MouseInSelection,       /**< within the selection */
-// 	MouseAtSelectionBorder, /**< near the border of a selection */
-// 	MouseSelect             /**< during selection */
-//     };
 
     /**
      * Constructor
@@ -127,24 +119,6 @@ public:
     void insertView(Kwave::SignalView *view, QWidget *controls);
 
     /**
-     * Checks if a pixel position is near to the left or right border
-     * of a selection. The tolerance is 2% of the currently
-     * visible area.
-     * @param x pixel position to be tested
-     * @return true if the position is within range
-     */
-//     bool isSelectionBorder(int x);
-
-    /**
-     * Checks if a gpixel position is within the left and right border
-     * of a selection. The tolerance is 2% of the currently
-     * visible area.
-     * @param x pixel position to be tested
-     * @return true if the position is within range
-     */
-//     bool isInSelection(int x);
-
-    /**
      * Execute a Kwave text command
      * @param command a text command
      * @return zero if succeeded or negative error code if failed
@@ -168,8 +142,6 @@ public:
      */
 //     void playbackStopped();
 
-//     void refreshAllLayers();
-
 // protected:
 
     /** Starts a drag & drop operation */
@@ -190,9 +162,6 @@ public:
 //     friend class UndoModifyLabelAction;
 
 protected slots:
-
-    /** Refreshes the layer with the markers */
-//     void refreshMarkersLayer();
 
     /**
      * Allows repainting of the display by decrementing the repaint
@@ -257,32 +226,6 @@ private slots:
      */
 //     void slotSamplesModified(unsigned int track, unsigned int offset,
 //                              unsigned int length);
-
-    /**
-     * Connected to the changed() signal of the SignalManager's selection.
-     * @see Selection
-     * @internal
-     */
-//     void slotSelectionChanged(unsigned int offset, unsigned int length);
-
-    /**
-     * Updates the vertical line that represents the current playback
-     * position during playback.
-     * @param pos last played sample position [0...length-1]
-     */
-//     void updatePlaybackPointer(unsigned int pos);
-
-    /**
-     * Refreshes the signal layer. Shortcut to refreshLayer(LAYER_SIGNAL).
-     * @see #refreshLayer()
-     */
-//     void refreshSignalLayer();
-
-    /**
-     * connected to the m_repaint_timer, called when it has
-     * elapsed and the signal has to be repainted
-     */
-//     void timedRepaint();
 
     /** Hide the current position marker */
 //     void hidePosition() {
@@ -377,24 +320,6 @@ signals:
 protected:
 
     /**
-     * Relationship between a screen position and the current selection.
-     */
-//     typedef enum {
-// 	None        = 0x0000,
-// 	LeftBorder  = 0x0001,
-// 	RightBorder = 0x0002,
-// 	Selection   = 0x8000
-//     } SelectionPos;
-
-    /**
-     * Determines the relationship between a screen position and
-     * the current selection.
-     * @param x screen position
-     * @return a SelectionPos
-     */
-//     int selectionPosition(const int x);
-
-    /**
      * Simple internal guard class for inhibiting and allowing
      * repaints in a SignalWidget.
      */
@@ -481,9 +406,6 @@ protected:
     /** slot for mouse release, used for selection and drag&drop */
 //     virtual void mouseReleaseEvent(QMouseEvent *);
 
-    /** slot for mouse moves, used for selection and drag&drop */
-//     virtual void mouseMoveEvent(QMouseEvent *);
-
     /** slot for mouse wheel events, used for vertical zoom */
 //     virtual void wheelEvent(QWheelEvent *event);
 
@@ -521,11 +443,6 @@ protected:
 private:
 
     /**
-     * Refreshes a single display layer.
-     */
-//     void refreshLayer(int layer);
-
-    /**
      * Sets the mode of the mouse cursor and emits sigMouseChanged
      * if it differs from the previous value.
      */
@@ -541,12 +458,6 @@ private:
      */
 //     void showPosition(const QString &text, unsigned int pos, double ms,
 //                       const QPoint &mouse);
-
-    /** Shortcut for accessing the label list @note can be modified */
-//     LabelList &labels();
-
-    /** Shortcut for accessing the label list @note cannot be modified */
-//     const LabelList &labels() const;
 
     /**
      * add a new label
@@ -617,20 +528,6 @@ private:
      * @see inhibitRepaint()
      */
 //     unsigned int m_inhibit_repaint;
-
-//     MouseMark *m_selection;
-
-    /** list of track pixmaps */
-//     QList<TrackPixmap *> m_track_pixmaps;
-
-    /** mode of the mouse cursor */
-//     MouseMode m_mouse_mode;
-
-    /**
-     * x position where the user last clicked the last time, needed fo
-     * finding out where to start a drag&drop operation
-     */
-//     int m_mouse_down_x;
 
     /** timer for limiting the number of repaints per second */
 //     QTimer m_repaint_timer;

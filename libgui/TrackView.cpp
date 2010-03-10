@@ -256,26 +256,29 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
 	sample_index_t right = m_signal_manager->selection().last();
 	const sample_index_t visible = pixels2samples(width);
 
-	if ((right > 0) && (right >= m_offset) && (left < m_offset + visible)) {
+	if ((right > 0) && (right >= m_offset)) {
 
-	    // clip the selection to the visible range
-	    if (left  < m_offset)           left  = m_offset;
-	    if (right > m_offset + visible) right = m_offset + visible;
+	    // shift and clip the selection, relative to m_offset
+	    left  = (left > m_offset) ? (left - m_offset) : 0;
+	    if (left <= visible) {
+		right -= m_offset;
+		if (right > visible) right = visible + 1;
 
-	    // transform to pixel coordinates
-	    int l = samples2pixels(left  - m_offset);
-	    int r = samples2pixels(right - m_offset);
+		// transform to pixel coordinates
+		int l = samples2pixels(left);
+		int r = samples2pixels(right);
 
-	    // clip to the widget's size
-	    if (r >= width) r = width - 1;
-	    if (l > r)      l = r;
+		// clip to the widget's size
+		if (r >= width) r = width - 1;
+		if (l > r)      l = r;
 
-	    p.setPen(Qt::yellow);
-	    if (l == r) {
-		p.drawLine(l, 0, l, height);
-	    } else {
-		p.setBrush(Qt::yellow);
-		p.drawRect(l, 0, r - l + 1, height);
+		p.setPen(Qt::yellow);
+		if (l == r) {
+		    p.drawLine(l, 0, l, height);
+		} else {
+		    p.setBrush(Qt::yellow);
+		    p.drawRect(l, 0, r - l + 1, height);
+		}
 	    }
 	}
 	p.end();

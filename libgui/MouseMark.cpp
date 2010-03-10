@@ -16,51 +16,51 @@
  ***************************************************************************/
 
 #include "config.h"
+#include <QtGlobal>
 #include "MouseMark.h"
 
 //****************************************************************************
-MouseMark::MouseMark()
+Kwave::MouseMark::MouseMark()
+    :m_initial(0), m_last(0)
 {
-    initial = 0;
-    last = 0;
 }
 
 //****************************************************************************
-void MouseMark::set(unsigned int l, unsigned int r)
+void Kwave::MouseMark::set(sample_index_t l, sample_index_t r)
 {
-    initial = l;
-    last = r;
+    m_initial = l;
+    m_last    = r;
 }
 
 //****************************************************************************
-unsigned int MouseMark::left()
+sample_index_t Kwave::MouseMark::left() const
 {
-    return (initial < last) ? initial : last;
+    return (m_initial < m_last) ? m_initial : m_last;
 }
 
 //****************************************************************************
-unsigned int MouseMark::right()
+sample_index_t Kwave::MouseMark::right() const
 {
-    return (initial > last) ? initial : last;
+    return (m_initial > m_last) ? m_initial : m_last;
 }
 
 //****************************************************************************
-void MouseMark::grep(unsigned int x)
+void Kwave::MouseMark::grep(sample_index_t x)
 {
-    double d_last  = static_cast<double>(last)    - static_cast<double>(x);
-    double d_first = static_cast<double>(initial) - static_cast<double>(x);
-    d_last  *= d_last;
-    d_first *= d_first;
+    const sample_index_t d_last  =
+	(x > m_last)    ? (x - m_last)    : (m_last    - x);
+    const sample_index_t d_first =
+	(x > m_initial) ? (x - m_initial) : (m_initial - x);
     if (d_last > d_first) {
-	initial = last;
+	m_initial = m_last;
     }
-    last = x;
+    m_last = x;
 }
 
 //****************************************************************************
-void MouseMark::update(unsigned int x)
+void Kwave::MouseMark::update(sample_index_t x)
 {
-    last = x;
+    m_last = x;
 }
 
 //****************************************************************************

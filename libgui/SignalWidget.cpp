@@ -67,8 +67,6 @@
 #include "libgui/TrackPixmap.h"
 #include "libgui/TrackView.h"
 
-// #include "MouseMark.h"
-
 // /** table of keyboard shortcuts 0...9 */
 // static const int tbl_keys[10] = {
 //     Qt::Key_1,
@@ -93,13 +91,6 @@
 
 /** number of milliseconds until the position widget disappears */
 // #define POSITION_WIDGET_TIME 5000
-
-/**
- * tolerance in pixel for snapping to a label or selection border
- * @todo selection tolerance should depend on some KDE setting,
- *        but which ?
- */
-// #define SELECTION_TOLERANCE 10
 
 /** vertical zoom factor: minimum value */
 // #define VERTICAL_ZOOM_MIN 1.0
@@ -159,19 +150,12 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
 //     m_last_playpointer(-1),
 //     m_redraw(false),
 //     m_inhibit_repaint(0),
-//     m_selection(0),
 //     m_track_pixmaps(),
-//     m_mouse_mode(MouseNormal),
-//     m_mouse_down_x(0),
 //     m_repaint_timer(this),
 //     m_position_widget(this),
 //     m_position_widget_timer(this)
 {
 //    qDebug("SignalWidget::SignalWidget()");
-
-//     m_selection = new MouseMark();
-//     Q_ASSERT(m_selection);
-//     if (!m_selection) return;
 
     // connect to the signal manager's signals
     SignalManager *sig = m_context.signalManager();
@@ -214,9 +198,6 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
 // //
 // //    markertype = globals.markertypes.first();
 
-//     setMouseTracking(true);
-//     setAcceptDrops(true); // enable drag&drop
-
 //     // -- accelerator keys for 1...9 --
 //     for (int i = 0; i < 10; i++) {
 // 	Kwave::ShortcutWrapper *shortcut =
@@ -236,37 +217,15 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
 //    qDebug("SignalWidget::SignalWidget(): done.");
 }
 
-// //***************************************************************************
-// void SignalWidget::refreshSignalLayer()
-// {
-//     refreshLayer(LAYER_SIGNAL);
-// }
-
-// //***************************************************************************
-// void SignalWidget::refreshMarkersLayer()
-// {
-//     refreshLayer(LAYER_MARKERS);
-// }
-
 //***************************************************************************
 bool SignalWidget::isOK()
 {
-//     Q_ASSERT(m_selection);
-//     return ( m_selection );
     return true;
 }
 
 //***************************************************************************
 SignalWidget::~SignalWidget()
 {
-//     inhibitRepaint();
-//
-//     if (m_selection) delete m_selection;
-//     m_selection = 0;
-//
-// //     for (int i=0; i < 3; i++)
-// // 	m_layer[i] = QImage();
-//
 }
 
 //***************************************************************************
@@ -441,127 +400,12 @@ void SignalWidget::forwardCommand(const QString &command)
 //     emit sigMouseChanged(static_cast<int>(mode));
 // }
 
-// //***************************************************************************
-// void SignalWidget::inhibitRepaint()
-// {
-//     m_inhibit_repaint++;
-// }
-
-// //***************************************************************************
-// void SignalWidget::allowRepaint(bool repaint)
-// {
-//     Q_ASSERT(m_inhibit_repaint);
-//     if (!m_inhibit_repaint) return;
-//
-//     // decrease the number of repaint locks
-//     m_inhibit_repaint--;
-//
-//     // if the number reached zero, *do* the repaint if allowed
-//     if (!m_inhibit_repaint && repaint) {
-// 	if (m_repaint_timer.isActive()) {
-// 	    // repainting is inhibited -> wait until the
-// 	    // repaint timer is elapsed
-// 	    return;
-// 	} else {
-// 	    // start the repaint timer
-// 	    m_repaint_timer.setSingleShot(true);
-// 	    m_repaint_timer.start(REPAINT_INTERVAL);
-// 	}
-//     }
-// }
-
-// //***************************************************************************
-// void SignalWidget::timedRepaint()
-// {
-//     this->repaint();
-// }
-
-// //***************************************************************************
-// void SignalWidget::refreshAllLayers()
-// {
-//     InhibitRepaintGuard inhibit(*this);
-//
-//     for (int i=0; i < 3; i++) {
-// 	m_update_layer[i] = true;
-//     }
-//
-//     m_redraw = true;
-// }
-
-// //***************************************************************************
-// void SignalWidget::refreshLayer(int layer)
-// {
-//     InhibitRepaintGuard inhibit(*this);
-//
-//     Q_ASSERT(layer >= 0);
-//     Q_ASSERT(layer < 3);
-//     if ((layer < 0) || (layer >= 3)) return;
-//
-//     m_update_layer[layer] = true;
-//
-//     m_redraw = true;
-// }
-
-// //***************************************************************************
-// int SignalWidget::selectionPosition(const int x)
-// {
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return None;
-//
-//     const int tol = SELECTION_TOLERANCE;
-//     const unsigned int first = signal_manager->selection().first();
-//     const unsigned int last  = signal_manager->selection().last();
-//     const unsigned int ofs   = m_offset;
-//     Q_ASSERT(first <= last);
-//
-//     // get pixel coordinates
-//     const int l = (first < ofs) ? -(2*tol) : (samples2pixels(first-ofs));
-//     const int r = (last  < ofs) ? -(2*tol) : (samples2pixels(last-ofs));
-//     const int ll = (l > tol) ? (l-tol) : 0;
-//     const int lr = l + tol;
-//     const int rl = (r > tol) ? (r-tol) : 0;
-//     const int rr = r + tol;
-//
-//     // the simple cases...
-//     int pos = None;
-//     if ((x >= ll) && (x <= lr) && (x <= r)) pos |= LeftBorder;
-//     if ((x >= rl) && (x <= rr) && (x >= l)) pos |= RightBorder;
-//     if ((x >   l) && (x <   r)) pos |= Selection;
-//
-//     if ((pos & LeftBorder) && (pos & RightBorder)) {
-// 	// special case: determine which border is nearer
-// 	if ((x - l) < (r - x))
-// 	    pos &= ~RightBorder; // more on the left
-// 	else
-// 	    pos &= ~LeftBorder;  // more on the right
-//     }
-//
-//     return pos;
-// }
-
-// //***************************************************************************
-// bool SignalWidget::isSelectionBorder(int x)
-// {
-//     SelectionPos pos = static_cast<SignalWidget::SelectionPos>(
-// 	selectionPosition(x) & ~Selection);
-//
-//     return ((pos & LeftBorder) || (pos & RightBorder));
-// }
-
-// //***************************************************************************
-// bool SignalWidget::isInSelection(int x)
-// {
-//     return (selectionPosition(x) & Selection) != 0;
-// }
 
 // //***************************************************************************
 // void SignalWidget::mousePressEvent(QMouseEvent *e)
 // {
 //     Q_ASSERT(e);
-//     Q_ASSERT(m_selection);
 //     if (!e) return;
-//     if (!m_selection) return;
 //
 //     SignalManager *signal_manager = m_context.signalManager();
 //     Q_ASSERT(signal_manager);
@@ -623,8 +467,6 @@ void SignalWidget::forwardCommand(const QString &command)
 void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 {
     Q_ASSERT(e);
-//     Q_ASSERT(m_selection);
-//     if (!e || !m_selection) return;
 
     SignalManager *manager = m_context.signalManager();
     bool have_signal = manager && !manager->isEmpty();
@@ -783,18 +625,12 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 //***************************************************************************
 void SignalWidget::contextMenuLabelNew()
 {
-//     Q_ASSERT(m_selection);
-//     if (!m_selection) return;
-//
 //     forwardCommand(QString("label(%1)").arg(m_selection->left()));
 }
 
 //***************************************************************************
 void SignalWidget::contextMenuLabelDelete()
 {
-//     Q_ASSERT(m_selection);
-//     if (!m_selection) return;
-//
 //     SignalManager *signal_manager = m_context.signalManager();
 //     Q_ASSERT(signal_manager);
 //     if (!signal_manager) return;
@@ -808,9 +644,6 @@ void SignalWidget::contextMenuLabelDelete()
 //***************************************************************************
 void SignalWidget::contextMenuLabelProperties()
 {
-//     Q_ASSERT(m_selection);
-//     if (!m_selection) return;
-//
 //     SignalManager *signal_manager = m_context.signalManager();
 //     Q_ASSERT(signal_manager);
 //     if (!signal_manager) return;
@@ -1110,115 +943,6 @@ void SignalWidget::contextMenuLabelProperties()
 //     m_position_widget_timer.start(POSITION_WIDGET_TIME);
 //
 //     setUpdatesEnabled(true);
-// }
-
-// //***************************************************************************
-// void SignalWidget::mouseMoveEvent(QMouseEvent *e)
-// {
-//     Q_ASSERT(e);
-//     Q_ASSERT(m_selection);
-//     Q_ASSERT(m_width);
-//     if (!e) return;
-//     if (!m_selection) return;
-//     if (!m_width) return;
-//
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return;
-//
-//     // abort if no signal is loaded
-//     if (!signal_manager->length()) return;
-//
-//     // there seems to be a BUG in Qt, sometimes e->pos() produces flicker/wrong
-//     // coordinates on the start of a fast move!?
-//     // globalPos() seems not to have this effect
-//     int mouse_x = mapFromGlobal(e->globalPos()).x();
-//     int mouse_y = mapFromGlobal(e->globalPos()).y();
-//     if (mouse_x < 0) mouse_x = 0;
-//     if (mouse_y < 0) mouse_y = 0;
-//     if (mouse_x >= width())  mouse_x = width()  - 1;
-//     if (mouse_y >= height()) mouse_y = height() - 1;
-//     QPoint pos(mouse_x, mouse_y);
-//
-//     // bail out if the position did not change
-//     static int last_x = -1;
-//     static int last_y = -1;
-//     if ((mouse_x == last_x) && (mouse_y == last_y))
-// 	return;
-//     last_x = mouse_x;
-//     last_y = mouse_y;
-//
-//     switch (m_mouse_mode) {
-// 	case MouseSelect: {
-// 	    // in move mode, a new selection was created or an old one grabbed
-// 	    // this does the changes with every mouse move...
-// 	    unsigned int x = m_offset + pixels2samples(mouse_x);
-// 	    m_selection->update(x);
-// 	    selectRange(m_selection->left(), m_selection->length());
-// 	    showPosition(i18n("Selection"), x, samples2ms(x), pos);
-// 	    break;
-// 	}
-// 	default: {
-// 	    unsigned int first = signal_manager->selection().first();
-// 	    unsigned int last  = signal_manager->selection().last();
-// 	    Label label = findLabelNearMouse(mouse_x);
-//
-// 	    // find out what is nearer: label or selection border ?
-// 	    if (!label.isNull() && (first != last) && isSelectionBorder(mouse_x)) {
-// 		const unsigned int pos = m_offset + pixels2samples(mouse_x);
-// 		const unsigned int d_label = (pos > label.pos()) ?
-// 		    (pos - label.pos()) : (label.pos() - pos);
-// 		const unsigned int d_left = (pos > first) ?
-// 		    (pos - first) : (first - pos);
-// 		const unsigned int d_right = (pos > last) ?
-// 		    (pos - last) : (last - pos);
-// 		if ( ((d_label ^ 2) > (d_left ^ 2)) &&
-// 		     ((d_label ^ 2) > (d_right ^ 2)) )
-// 		{
-// 		    // selection borders are nearer
-// 		    label = Label();
-// 		}
-// 	    }
-//
-// 	    // yes, this code gives the nifty cursor change....
-// 	    if (!label.isNull()) {
-// 		setMouseMode(MouseAtSelectionBorder);
-// 		int index = signal_manager->labelIndex(label);
-// 		QString text = (label.name().length()) ?
-// 		    i18n("Label #%1 (%2)", index, label.name()) :
-// 		    i18n("Label #%1", index);
-// 		showPosition(text, label.pos(), samples2ms(label.pos()), pos);
-// 		break;
-// 	    } else if ((first != last) && isSelectionBorder(mouse_x)) {
-// 		setMouseMode(MouseAtSelectionBorder);
-// 		switch (selectionPosition(mouse_x) & ~Selection) {
-// 		    case LeftBorder:
-// 			showPosition(i18n("Selection, left border"),
-// 			    first, samples2ms(first), pos);
-// 			break;
-// 		    case RightBorder:
-// 			showPosition(i18n("Selection, right border"),
-// 			    last, samples2ms(last), pos);
-// 			break;
-// 		    default:
-// 			hidePosition();
-// 		}
-// 	    } else if (isInSelection(mouse_x)) {
-// 		setMouseMode(MouseInSelection);
-// 		hidePosition();
-//                 int dmin = KGlobalSettings::dndEventDelay();
-// 		if ((e->buttons() & Qt::LeftButton) &&
-// 		    ((mouse_x < m_mouse_down_x - dmin) ||
-// 		     (mouse_x > m_mouse_down_x + dmin)) )
-// 		{
-// 		    startDragging();
-// 		}
-// 	    } else {
-// 		setMouseMode(MouseNormal);
-// 		hidePosition();
-// 	    }
-// 	}
-//     }
 // }
 
 // //***************************************************************************

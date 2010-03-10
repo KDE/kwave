@@ -27,6 +27,9 @@
 
 #include "libkwave/Sample.h"
 
+#include "libgui/MouseMark.h"
+
+class QMouseEvent;
 class SignalManager; // forward declaration
 
 namespace Kwave {
@@ -37,8 +40,7 @@ namespace Kwave {
     public:
 
 	/** preferred location of the SignalView */
-	typedef enum
-	{
+	typedef enum {
 	    UpperDockTop,     /**< upper dock area, top               */
 	    UpperDockBottom,  /**< upper dock area, bottom            */
 	    Top,              /**< above all others                   */
@@ -50,6 +52,14 @@ namespace Kwave {
 	    LowerDockTop,     /**< lower dock area, top               */
 	    LowerDockBottom   /**< lower dock area, bottom            */
 	} Location;
+
+	/** Mode of the mouse cursor */
+	typedef enum {
+	    MouseNormal = 0,        /**< over the signal [default] */
+	    MouseInSelection,       /**< within the selection */
+	    MouseAtSelectionBorder, /**< near the border of a selection */
+	    MouseSelect             /**< during selection */
+	} MouseMode;
 
 	/**
 	 * Constructor
@@ -104,6 +114,9 @@ namespace Kwave {
 	 */
 	sample_index_t pixels2samples(int pixels) const;
 
+	/** slot for mouse moves, used for selection and drag&drop */
+	virtual void mouseMoveEvent(QMouseEvent *);
+
     public slots:
 
 	/**
@@ -118,6 +131,44 @@ namespace Kwave {
 	 * @param offset the index of the first visible sample
 	 */
 	virtual void setZoomAndOffset(double zoom, sample_index_t offset);
+
+    protected:
+
+	/**
+	 * Relationship between a screen position and the current selection.
+	 */
+	typedef enum {
+	    None        = 0x0000, /**< not near a border           */
+	    LeftBorder  = 0x0001, /**< close to start of selection */
+	    RightBorder = 0x0002, /**< close to end of selection   */
+	    Selection   = 0x8000  /**< within the selection        */
+	} SelectionPos;
+
+	/**
+	 * Determines the relationship between a screen position and
+	 * the current selection.
+	 * @param x screen position
+	 * @return a SelectionPos
+	 */
+	int selectionPosition(const int x);
+
+	/**
+	 * Checks if a pixel position is near to the left or right border
+	 * of a selection. The tolerance is 2% of the currently
+	 * visible area.
+	 * @param x pixel position to be tested
+	 * @return true if the position is within range
+	 */
+	bool isSelectionBorder(int x);
+
+	/**
+	 * Checks if a pixel position is within the left and right border
+	 * of a selection. The tolerance is 2% of the currently
+	 * visible area.
+	 * @param x pixel position to be tested
+	 * @return true if the position is within range
+	 */
+	bool isInSelection(int x);
 
     protected:
 
@@ -141,6 +192,20 @@ namespace Kwave {
 
 	/** number of samples per pixel */
 	double m_zoom;
+
+    private:
+
+	/** mode of the mouse cursor */
+	MouseMode m_mouse_mode;
+
+	/** selection handler */
+	Kwave::MouseMark m_mouse_selection;
+
+	/**
+	 * x position where the user last clicked the last time, needed fo
+	 * finding out where to start a drag&drop operation [pixel]
+	 */
+	int m_mouse_down_x;
 
     };
 

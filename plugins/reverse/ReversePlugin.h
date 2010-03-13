@@ -60,7 +60,7 @@ private slots:
      * multiplies the progress by factor two and
      * calls Kwave::Plugin::updateProgress
      */
-    virtual void updateProgress(unsigned int progress);
+    virtual void updateProgress(qreal progress);
 
 };
 

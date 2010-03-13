@@ -41,7 +41,7 @@ SelectTimeWidget::SelectTimeWidget(QWidget *widget)
 
 //***************************************************************************
 void SelectTimeWidget::init(Mode mode, unsigned int range, double sample_rate,
-                            unsigned int offset, unsigned int signal_length)
+                            sample_index_t offset, sample_index_t signal_length)
 {
     m_mode  = mode;
     m_range = range;
@@ -410,11 +410,11 @@ void SelectTimeWidget::setTitle(const QString title)
 }
 
 //***************************************************************************
-void SelectTimeWidget::setOffset(unsigned int offset)
+void SelectTimeWidget::setOffset(sample_index_t offset)
 {
     m_offset = offset;
-    unsigned int max_samples = m_length - m_offset;
-    unsigned int samples = edSamples->value();
+    sample_index_t max_samples = m_length - m_offset;
+    sample_index_t samples = edSamples->value();
 
     // the range of the sample edit should always get updated
     edSamples->setSliderEnabled(false);
@@ -451,20 +451,21 @@ void SelectTimeWidget::setOffset(unsigned int offset)
 }
 
 //***************************************************************************
-unsigned int SelectTimeWidget::samples() const
+sample_index_t SelectTimeWidget::samples() const
 {
     return (edSamples) ? edSamples->value() : 0;
 }
 
 //***************************************************************************
-unsigned int SelectTimeWidget::timeToSamples(
-    Mode mode, unsigned int time, double rate, unsigned int length)
+sample_index_t SelectTimeWidget::timeToSamples(
+    SelectTimeWidget::Mode mode, unsigned int time, double rate,
+    sample_index_t length)
 {
-    unsigned int pos = 0;
+    sample_index_t pos = 0;
     switch (mode) {
 	case SelectTimeWidget::byTime:
 	    // convert from ms to samples
-	    pos = static_cast<unsigned int>(ceil(
+	    pos = static_cast<sample_index_t>(ceil(
 		static_cast<double>(time) * rate * 1E-3));
 	    break;
 	case SelectTimeWidget::bySamples:
@@ -484,7 +485,7 @@ unsigned int SelectTimeWidget::timeToSamples(
 
 //***************************************************************************
 unsigned int SelectTimeWidget::samplesToTime(
-    Mode mode, unsigned int samples, double rate, unsigned int length)
+    Mode mode, sample_index_t samples, double rate, sample_index_t length)
 {
     unsigned int time = 0;
 

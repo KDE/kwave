@@ -25,6 +25,7 @@
 
 #include <kdemacros.h>
 
+#include "libkwave/Sample.h"
 #include "libkwave/undo/UndoAction.h"
 
 class Label;
@@ -50,7 +51,7 @@ public:
      * at the time where the undo() happens (in case it has moved).
      * @param pos last known position
      */
-    virtual void setLastPosition(unsigned int pos);
+    virtual void setLastPosition(sample_index_t pos);
 
     /**
      * Returns a verbose short description of the action.
@@ -78,7 +79,7 @@ protected:
     Label m_label;
 
     /** the last known location, for finding it again in undo() */
-    unsigned int m_last_position;
+    sample_index_t m_last_position;
 
 };
 

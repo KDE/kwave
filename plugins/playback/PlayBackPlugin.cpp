@@ -512,8 +512,8 @@ void PlayBackPlugin::startDevicePlayBack()
 	return;
     }
 
-    unsigned int first;
-    unsigned int last;
+    sample_index_t first;
+    sample_index_t last;
     selection(0, &first, &last, false);
 
     if (m_playback_controller.paused()) {

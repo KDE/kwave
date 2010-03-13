@@ -49,7 +49,7 @@ namespace Kwave {
 	virtual ~MultiWriter();
 
 	/** Returns the last sample index of all streams */
-	virtual unsigned int last() const;
+	virtual sample_index_t last() const;
 
 	/** Flushes all streams */
 	virtual void flush();
@@ -66,10 +66,9 @@ namespace Kwave {
     signals:
 
 	/**
-	 * Emits the current progress in totally processed samples, range is
-	 * from zero to the (length of the writer * number of tracks) - 1.
+	 * Emits the current progress in percent.
 	 */
-	void progress(unsigned int samples);
+	void progress(qreal percent);
 
     public slots:
 

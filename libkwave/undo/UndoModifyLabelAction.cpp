@@ -40,7 +40,7 @@ UndoModifyLabelAction::~UndoModifyLabelAction()
 }
 
 //***************************************************************************
-void UndoModifyLabelAction::setLastPosition(unsigned int pos)
+void UndoModifyLabelAction::setLastPosition(sample_index_t pos)
 {
     m_last_position = pos;
 }
@@ -106,10 +106,12 @@ UndoAction *UndoModifyLabelAction::undo(SignalManager &manager,
 //***************************************************************************
 void UndoModifyLabelAction::dump(const QString &indent)
 {
-    qDebug("%smodify label, %u -> %u (delta=%u), '%s'",
+    qDebug("%smodify label, %lu -> %lu (delta=%lu), '%s'",
            indent.toLocal8Bit().data(),
-           m_last_position, m_label.pos(),
-           abs(m_label.pos() - m_last_position),
+           static_cast<unsigned long int>(m_last_position),
+           static_cast<unsigned long int>(m_label.pos()),
+           static_cast<unsigned long int>(
+               abs(m_label.pos() - m_last_position)),
            m_label.name().toLocal8Bit().data()
           );
 }

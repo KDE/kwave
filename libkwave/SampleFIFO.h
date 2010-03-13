@@ -88,13 +88,13 @@ private:
     QQueue<Kwave::SampleArray> m_buffer;
 
     /** maximum number of samples of the content */
-    unsigned int m_size;
+    sample_index_t m_size;
 
     /**
      * number of samples that have already been read out
      * from the first buffer (head, first one to read out)
      */
-    unsigned int m_read_offset;
+    sample_index_t m_read_offset;
 
     /** mutex for access to the FIFO (recursive) */
     QMutex m_lock;

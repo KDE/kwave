@@ -199,12 +199,12 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 
 	    // find out what is nearer: label or selection border ?
 // 	    if (!label.isNull() && (first != last) && isSelectionBorder(mouse_x)) {
-// 		const unsigned int pos = m_offset + pixels2samples(mouse_x);
-// 		const unsigned int d_label = (pos > label.pos()) ?
+// 		const sample_index_t pos = m_offset + pixels2samples(mouse_x);
+// 		const sample_index_t d_label = (pos > label.pos()) ?
 // 		    (pos - label.pos()) : (label.pos() - pos);
-// 		const unsigned int d_left = (pos > first) ?
+// 		const sample_index_t d_left = (pos > first) ?
 // 		    (pos - first) : (first - pos);
-// 		const unsigned int d_right = (pos > last) ?
+// 		const sample_index_t d_right = (pos > last) ?
 // 		    (pos - last) : (last - pos);
 // 		if ( ((d_label ^ 2) > (d_left ^ 2)) &&
 // 		     ((d_label ^ 2) > (d_right ^ 2)) )
@@ -224,25 +224,25 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 // 		showPosition(text, label.pos(), samples2ms(label.pos()), pos);
 // 		break;
 	    /* } else*/ if ((first != last) && isSelectionBorder(mouse_x)) {
-		qDebug("setMouseMode(MouseAtSelectionBorder);");
+// 		qDebug("setMouseMode(MouseAtSelectionBorder);");
 		switch (selectionPosition(mouse_x) & ~Selection) {
 		    case LeftBorder:
-			qDebug("Selection, left border");
+// 			qDebug("Selection, left border");
 // 			showPosition(i18n("Selection, left border"),
 //  			    first, samples2ms(first), pos);
 			break;
 		    case RightBorder:
-			qDebug("Selection, right border");
+// 			qDebug("Selection, right border");
 // 			showPosition(i18n("Selection, right border"),
 // 			    last, samples2ms(last), pos);
 			break;
 		    default:
-			qDebug("hidePosition");
+// 			qDebug("hidePosition");
 // 			hidePosition();
 			;
 		}
 	    } else if (isInSelection(mouse_x)) {
-		qDebug("setMouseMode(MouseInSelection);");
+// 		qDebug("setMouseMode(MouseInSelection);");
 // 		hidePosition();
                 int dmin = KGlobalSettings::dndEventDelay();
 		if ((e->buttons() & Qt::LeftButton) &&
@@ -252,7 +252,7 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 		    qDebug("startDragging();");
 		}
 	    } else {
-		qDebug("setMouseMode(MouseNormal);");
+// 		qDebug("setMouseMode(MouseNormal);");
 // 		hidePosition();
 	    }
 	}

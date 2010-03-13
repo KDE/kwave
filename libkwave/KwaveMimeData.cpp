@@ -76,13 +76,13 @@ bool Kwave::MimeData::encode(QWidget *widget,
     QBuffer dst(&m_data);
 
     // move all labels left, to start at the beginning of the selection
-    unsigned int first = src.first();
-    unsigned int last  = src.last();
+    sample_index_t first = src.first();
+    sample_index_t last  = src.last();
     LabelList &labels = new_info.labels();
     QMutableListIterator<Label> it(labels);
     while (it.hasNext()) {
 	Label &label = it.next();
-	unsigned int pos = label.pos();
+	sample_index_t pos = label.pos();
 	if ((pos < first) || (pos > last)) {
 	    // out of the selected area -> remove
 	    it.remove();
@@ -110,7 +110,7 @@ bool Kwave::MimeData::encode(QWidget *widget,
 
 //***************************************************************************
 unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
-                                     SignalManager &sig, unsigned int pos)
+                                     SignalManager &sig, sample_index_t pos)
 {
     // decode, use the first format that matches
     unsigned int decoded_length = 0;
@@ -152,8 +152,8 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	// right border
 	if (src_rate != dst_rate) decoded_length *= (dst_rate / src_rate);
 
-	unsigned int left  = pos;
-	unsigned int right = left + decoded_length - 1;
+	sample_index_t left  = pos;
+	sample_index_t right = left + decoded_length - 1;
 	QList<unsigned int> tracks = sig.selectedTracks();
 	if (tracks.isEmpty()) tracks = sig.allTracks();
 
@@ -220,7 +220,7 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	// add them to the signal
 	LabelList labels = decoder->info().labels();
 	foreach (const Label &label, labels) {
-	    unsigned int pos = label.pos();
+	    sample_index_t pos = label.pos();
 
 	    // adjust label position in case of different sample rate
 	    if (src_rate != dst_rate) pos *= (dst_rate / src_rate);

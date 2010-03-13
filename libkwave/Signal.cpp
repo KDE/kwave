@@ -45,7 +45,7 @@ Signal::Signal()
 }
 
 //***************************************************************************
-Signal::Signal(unsigned int tracks, unsigned int length)
+Signal::Signal(unsigned int tracks, sample_index_t length)
     :m_tracks(), m_lock_tracks()
 {
     while (tracks--) {
@@ -72,7 +72,7 @@ void Signal::close()
 }
 
 //***************************************************************************
-Track *Signal::insertTrack(unsigned int index, unsigned int length)
+Track *Signal::insertTrack(unsigned int index, sample_index_t length)
 {
     unsigned int track_nr = 0;
     Track *t = 0;
@@ -94,18 +94,18 @@ Track *Signal::insertTrack(unsigned int index, unsigned int length)
 	}
 
 	// connect to the track's signals
-	connect(t, SIGNAL(sigSamplesDeleted(Track *, unsigned int,
-	    unsigned int)),
-	    this, SLOT(slotSamplesDeleted(Track *, unsigned int,
-	    unsigned int)));
-	connect(t, SIGNAL(sigSamplesInserted(Track *, unsigned int,
-	    unsigned int)),
-	    this, SLOT(slotSamplesInserted(Track *, unsigned int,
-	    unsigned int)));
-	connect(t, SIGNAL(sigSamplesModified(Track *, unsigned int,
-	    unsigned int)),
-	    this, SLOT(slotSamplesModified(Track *, unsigned int,
-	    unsigned int)));
+	connect(t, SIGNAL(sigSamplesDeleted(Track *, sample_index_t,
+	    sample_index_t)),
+	    this, SLOT(slotSamplesDeleted(Track *, sample_index_t,
+	    sample_index_t)));
+	connect(t, SIGNAL(sigSamplesInserted(Track *, sample_index_t,
+	    sample_index_t)),
+	    this, SLOT(slotSamplesInserted(Track *, sample_index_t,
+	    sample_index_t)));
+	connect(t, SIGNAL(sigSamplesModified(Track *, sample_index_t,
+	    sample_index_t)),
+	    this, SLOT(slotSamplesModified(Track *, sample_index_t,
+	    sample_index_t)));
     }
 
     // track has been inserted at the end
@@ -115,7 +115,7 @@ Track *Signal::insertTrack(unsigned int index, unsigned int length)
 
 
 //***************************************************************************
-Track *Signal::appendTrack(unsigned int length)
+Track *Signal::appendTrack(sample_index_t length)
 {
     return insertTrack(tracks(), length);
 }
@@ -146,7 +146,7 @@ void Signal::deleteTrack(unsigned int index)
 
 //***************************************************************************
 Kwave::Writer *Signal::openWriter(unsigned int track,
-	InsertMode mode, unsigned int left, unsigned int right)
+	InsertMode mode, sample_index_t left, sample_index_t right)
 {
     QReadLocker lock(&m_lock_tracks);
 
@@ -162,7 +162,7 @@ Kwave::Writer *Signal::openWriter(unsigned int track,
 
 //***************************************************************************
 SampleReader *Signal::openSampleReader(Kwave::ReaderMode mode,
-	unsigned int track, unsigned int left, unsigned int right)
+	unsigned int track, sample_index_t left, sample_index_t right)
 {
     QReadLocker lock(&m_lock_tracks);
 
@@ -189,8 +189,8 @@ QList<unsigned int> Signal::allTracks()
 }
 
 //***************************************************************************
-void Signal::deleteRange(unsigned int track, unsigned int offset,
-                         unsigned int length)
+void Signal::deleteRange(unsigned int track, sample_index_t offset,
+                         sample_index_t length)
 {
     QReadLocker lock(&m_lock_tracks);
 
@@ -204,8 +204,8 @@ void Signal::deleteRange(unsigned int track, unsigned int offset,
 }
 
 //***************************************************************************
-void Signal::insertSpace(unsigned int track, unsigned int offset,
-                         unsigned int length)
+void Signal::insertSpace(unsigned int track, sample_index_t offset,
+                         sample_index_t length)
 {
     QReadLocker lock(&m_lock_tracks);
 
@@ -226,14 +226,14 @@ unsigned int Signal::tracks()
 }
 
 //***************************************************************************
-unsigned int Signal::length()
+sample_index_t Signal::length()
 {
     QReadLocker lock(&m_lock_tracks);
 
-    unsigned int max = 0;
+    sample_index_t max = 0;
     foreach (Track *track, m_tracks) {
 	if (!track) continue;
-	unsigned int len = track->length();
+	sample_index_t len = track->length();
 	if (len > max) max = len;
     }
     return max;
@@ -531,24 +531,24 @@ unsigned int Signal::trackIndex(const Track *track)
 }
 
 //***************************************************************************
-void Signal::slotSamplesInserted(Track *src, unsigned int offset,
-                                 unsigned int length)
+void Signal::slotSamplesInserted(Track *src, sample_index_t offset,
+                                 sample_index_t length)
 {
     unsigned int track = trackIndex(src);
     emit sigSamplesInserted(track, offset, length);
 }
 
 //***************************************************************************
-void Signal::slotSamplesDeleted(Track *src, unsigned int offset,
-                                unsigned int length)
+void Signal::slotSamplesDeleted(Track *src, sample_index_t offset,
+                                sample_index_t length)
 {
     unsigned int track = trackIndex(src);
     emit sigSamplesDeleted(track, offset, length);
 }
 
 //***************************************************************************
-void Signal::slotSamplesModified(Track *src, unsigned int offset,
-                                 unsigned int length)
+void Signal::slotSamplesModified(Track *src, sample_index_t offset,
+                                 sample_index_t length)
 {
     unsigned int track = trackIndex(src);
     emit sigSamplesModified(track, offset, length);

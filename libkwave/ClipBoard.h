@@ -26,6 +26,8 @@
 
 #include <kdemacros.h>
 
+#include "libkwave/Sample.h"
+
 class QWidget;
 class SignalManager;
 class Track;
@@ -61,7 +63,7 @@ public:
      */
     void copy(QWidget *widget, SignalManager &signal_manager,
               const QList<unsigned int> &track_list,
-              unsigned int offset, unsigned int length);
+              sample_index_t offset, sample_index_t length);
 
     /**
      * Transfers all stored data from the clipboard into a SignalManager.
@@ -74,7 +76,7 @@ public:
      * @return true if successful, false if failed
      */
     bool paste(QWidget *widget, SignalManager &signal_manager,
-               unsigned int offset, unsigned int length);
+               sample_index_t offset, sample_index_t length);
 
     /**
      * Clears the internal buffers. The clipboard will be empty after this

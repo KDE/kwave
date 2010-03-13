@@ -165,18 +165,6 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
     connect(sig,  SIGNAL(sigTrackDeleted(unsigned int)),
             this, SLOT( slotTrackDeleted(unsigned int)));
 
-//     connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, unsigned int,
-// 	unsigned int)),
-// 	this, SLOT(slotSamplesDeleted(unsigned int, unsigned int,
-// 	unsigned int)));
-//     connect(sig, SIGNAL(sigSamplesInserted(unsigned int, unsigned int,
-// 	unsigned int)),
-// 	this, SLOT(slotSamplesInserted(unsigned int, unsigned int,
-// 	unsigned int)));
-//     connect(sig, SIGNAL(sigSamplesModified(unsigned int, unsigned int,
-// 	unsigned int)),
-// 	this, SLOT(slotSamplesModified(unsigned int, unsigned int,
-// 	unsigned int)));
 //     connect(sig, SIGNAL(sigLabelCountChanged()),
 //             this, SLOT(hidePosition()),
 //             Qt::QueuedConnection);
@@ -270,8 +258,8 @@ int SignalWidget::executeCommand(const QString &command)
     CASE_COMMAND("expandtolabel")
 	UndoTransactionGuard undo(*signal_manager,
 	    i18n("Expand Selection to Label"));
-	unsigned int selection_left  = signal_manager->selection().first();
-	unsigned int selection_right = signal_manager->selection().last();
+	sample_index_t selection_left  = signal_manager->selection().first();
+	sample_index_t selection_right = signal_manager->selection().last();
 	LabelList &labels = signal_manager->labels();
 	if (labels.isEmpty()) return false; // we need labels for this
 	Label label_left  = Label();
@@ -279,7 +267,7 @@ int SignalWidget::executeCommand(const QString &command)
 	// the last label <= selection start -> label_left
 	// the first label >= selection end  -> label_right
 	foreach (Label label, labels) {
-	    unsigned int lp = label.pos();
+	    sample_index_t lp = label.pos();
 	    if (lp <= selection_left)
 		label_left = label;
 	    if ((lp >= selection_right) && (label_right.isNull())) {
@@ -293,14 +281,14 @@ int SignalWidget::executeCommand(const QString &command)
 	// default right label = end of file
 	selection_right = (label_right.isNull()) ?
 	    signal_manager->length() - 1 : label_right.pos();
-	unsigned int length = selection_right - selection_left + 1;
+	sample_index_t length = selection_right - selection_left + 1;
 	signal_manager->selectRange(selection_left, length);
 
     CASE_COMMAND("selectnextlabels")
 	UndoTransactionGuard undo(*signal_manager,
 	    i18n("Select Next Labels"));
-	unsigned int selection_left;
-	unsigned int selection_right = signal_manager->selection().last();
+	sample_index_t selection_left;
+	sample_index_t selection_right = signal_manager->selection().last();
 	Label label_left  = Label();
 	Label label_right = Label();
 	LabelList &labels = signal_manager->labels();
@@ -331,14 +319,14 @@ int SignalWidget::executeCommand(const QString &command)
 	// default selection end = end of the file
 	selection_right = (label_right.isNull()) ?
 	    signal_manager->length() - 1 : label_right.pos();
-	unsigned int length = selection_right - selection_left + 1;
+	sample_index_t length = selection_right - selection_left + 1;
 	signal_manager->selectRange(selection_left, length);
 
     CASE_COMMAND("selectprevlabels")
 	UndoTransactionGuard undo(*signal_manager,
 	    i18n("Select Previous Labels"));
-	unsigned int selection_left  = signal_manager->selection().first();
-	unsigned int selection_right = signal_manager->selection().last();
+	sample_index_t selection_left  = signal_manager->selection().first();
+	sample_index_t selection_right = signal_manager->selection().last();
 	Label label_left  = Label();
 	Label label_right = Label();
 	LabelList &labels = signal_manager->labels();
@@ -358,7 +346,7 @@ int SignalWidget::executeCommand(const QString &command)
 	if (label_right.isNull()) label_right = labels.first();
 	if (label_right.isNull()) return false; // no labels at all !?
 	selection_right = label_right.pos();
-	unsigned int length = selection_right - selection_left + 1;
+	sample_index_t length = selection_right - selection_left + 1;
 	signal_manager->selectRange(selection_left, length);
 
 //    CASE_COMMAND("markperiod")
@@ -421,8 +409,8 @@ void SignalWidget::forwardCommand(const QString &command)
 // 	int mx = e->pos().x();
 // 	if (mx < 0) mx = 0;
 // 	if (mx >= m_width) mx = m_width-1;
-// 	unsigned int x = m_offset + pixels2samples(mx);
-// 	unsigned int len = signal_manager->selection().length();
+// 	sample_index_t x = m_offset + pixels2samples(mx);
+// 	sample_index_t len = signal_manager->selection().length();
 // 	switch (e->modifiers()) {
 // 	    case Qt::ShiftModifier: {
 // 		// expand the selection to "here"
@@ -592,7 +580,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     action_label_properties->setEnabled(false);
 
 //     // store the menu position in the mouse selection
-//     unsigned int pos = m_offset + pixels2samples(mouse_x);
+//     sample_index_t pos = m_offset + pixels2samples(mouse_x);
 //     m_selection->set(pos, pos);
 //
 //     Label label;
@@ -674,7 +662,7 @@ void SignalWidget::contextMenuLabelProperties()
 //
 //     switch (m_mouse_mode) {
 // 	case MouseSelect: {
-// 	    unsigned int x = m_offset + pixels2samples(e->pos().x());
+// 	    sample_index_t x = m_offset + pixels2samples(e->pos().x());
 // 	    m_selection->update(x);
 // 	    selectRange(m_selection->left(), m_selection->length());
 // 	    setMouseMode(MouseNormal);
@@ -688,7 +676,7 @@ void SignalWidget::contextMenuLabelProperties()
 // 		     (e->pos().x() <= m_mouse_down_x + dmin)) )
 // 	    {
 // 		// deselect if only clicked without moving
-// 		unsigned int pos = m_offset + pixels2samples(e->pos().x());
+// 		sample_index_t pos = m_offset + pixels2samples(e->pos().x());
 // 		selectRange(pos, 0);
 // 		setMouseMode(MouseNormal);
 // 		hidePosition();
@@ -872,7 +860,7 @@ void SignalWidget::contextMenuLabelProperties()
 // }
 
 // //***************************************************************************
-// void SignalWidget::showPosition(const QString &text, unsigned int pos,
+// void SignalWidget::showPosition(const QString &text, sample_index_t pos,
 //                                 double ms, const QPoint &mouse)
 // {
 //     int x = mouse.x();
@@ -980,12 +968,12 @@ void SignalWidget::contextMenuLabelProperties()
 // // Label SignalWidget::findLabelNearMouse(int x) const
 // // {
 // //     const int tol = SELECTION_TOLERANCE;
-// //     unsigned int pos = m_offset + pixels2samples(x);
+// //     sample_index_t pos = m_offset + pixels2samples(x);
 // //     Label nearest;
-// //     unsigned int dmin = pixels2samples(SELECTION_TOLERANCE) + 1;
+// //     sample_index_t dmin = pixels2samples(SELECTION_TOLERANCE) + 1;
 // //
 // //     foreach (Label label, labels()) {
-// // 	unsigned int lp = label.pos();
+// // 	sample_index_t lp = label.pos();
 // // 	if (lp < m_offset) continue; // outside left
 // // 	int lx = samples2pixels(lp - m_offset);
 // // 	if (lx >= m_width) continue; // outside right
@@ -993,7 +981,7 @@ void SignalWidget::contextMenuLabelProperties()
 // // 	if ((lx + tol < x) || (lx > x + tol))
 // // 	    continue; // out of tolerance
 // //
-// // 	unsigned int dist = (pos > lp) ? (pos - lp) : (lp - pos);
+// // 	sample_index_t dist = (pos > lp) ? (pos - lp) : (lp - pos);
 // // 	if (dist < dmin) {
 // // 	    // found a new "nearest" label
 // // 	    dmin = dist;
@@ -1017,7 +1005,7 @@ void SignalWidget::contextMenuLabelProperties()
 // // }
 
 //***************************************************************************
-void SignalWidget::addLabel(unsigned int pos)
+void SignalWidget::addLabel(sample_index_t pos)
 {
     SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
@@ -1113,8 +1101,8 @@ bool SignalWidget::labelProperties(Label &label)
     // and ask if he wants to abort, re-enter the label properties
     // dialog or just replace (remove) the label at the target position
     bool accepted;
-    unsigned int new_pos  = label.pos();
-    QString      new_name = label.name();
+    sample_index_t new_pos  = label.pos();
+    QString        new_name = label.name();
     int old_index = -1;
     while (true) {
 	// create and prepare the dialog
@@ -1522,7 +1510,7 @@ bool SignalWidget::labelProperties(Label &label)
 // }
 
 // //***************************************************************************
-// void SignalWidget::updatePlaybackPointer(unsigned int)
+// void SignalWidget::updatePlaybackPointer(sample_index_t)
 // {
 //     InhibitRepaintGuard inhibit(*this);
 // }
@@ -1732,73 +1720,23 @@ void SignalWidget::slotTrackDeleted(unsigned int index)
 }
 
 // //***************************************************************************
-// void SignalWidget::slotSamplesInserted(unsigned int track,
-//     unsigned int offset, unsigned int length)
-// {
-// //     qDebug("SignalWidget(): slotSamplesInserted(%u, %u,%u)", track,
-// // 	offset, length);
-//     Q_UNUSED(track);
-//     Q_UNUSED(offset);
-//     Q_UNUSED(length);
-//
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return;
-//
-//     // length has changed -> update overview
-//     emit viewInfo(m_offset, pixels2samples(QWidget::width()-1)+1,
-//                   signal_manager->length());
-//
-//     refreshMarkersLayer();
-// }
-
-// //***************************************************************************
-// void SignalWidget::slotSamplesDeleted(unsigned int track,
-//     unsigned int offset, unsigned int length)
-// {
-// //    qDebug("SignalWidget(): slotSamplesDeleted(%u, %u...%u)", track,
-// // 	offset, offset+length-1);
-//     Q_UNUSED(track);
-//     Q_UNUSED(offset);
-//     Q_UNUSED(length);
-//
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return;
-//
-//     // length has changed -> update overview
-//     emit viewInfo(m_offset, pixels2samples(QWidget::width()-1)+1,
-//                   signal_manager->length());
-//
-//     refreshMarkersLayer();
-// }
-
-// //***************************************************************************
-// void SignalWidget::slotSamplesModified(unsigned int /*track*/,
-//     unsigned int /*offset*/, unsigned int /*length*/)
-// {
-// //    qDebug("SignalWidget(): slotSamplesModified(%u, %u,%u)", track,
-// //	offset, length);
-// }
-
-// //***************************************************************************
 // void SignalWidget::startDragging()
 // {
 //     SignalManager *signal_manager = m_context.signalManager();
 //     Q_ASSERT(signal_manager);
 //     if (!signal_manager) return;
 //
-//     const unsigned int length = signal_manager->selection().length();
+//     const sample_index_t length = signal_manager->selection().length();
 //     if (!length) return;
 //
 //     KwaveDrag *d = new KwaveDrag(this);
 //     Q_ASSERT(d);
 //     if (!d) return;
 //
-//     const unsigned int first = signal_manager->selection().first();
-//     const unsigned int last  = signal_manager->selection().last();
-//     const double       rate  = signal_manager->rate();
-//     const unsigned int bits  = signal_manager->bits();
+//     const sample_index_t first = signal_manager->selection().first();
+//     const sample_index_t last  = signal_manager->selection().last();
+//     const double         rate  = signal_manager->rate();
+//     const unsigned int   bits  = signal_manager->bits();
 //
 //     MultiTrackReader src(Kwave::SinglePassForward, *signal_manager,
 // 	signal_manager->selectedTracks(), first, last);
@@ -1822,14 +1760,14 @@ void SignalWidget::slotTrackDeleted(unsigned int index)
 //
 //     if (drop == Qt::MoveAction) {
 // 	// deleting also affects the selection !
-// 	const unsigned int f = signal_manager->selection().first();
-// 	const unsigned int l = signal_manager->selection().last();
-// 	const unsigned int len = l-f+1;
+// 	const sample_index_t f = signal_manager->selection().first();
+// 	const sample_index_t l = signal_manager->selection().last();
+// 	const sample_index_t len = l-f+1;
 //
 // 	// special case: when dropping into the same widget, before
 // 	// the previous selection, the previous range has already
 // 	// been moved to the right !
-// 	unsigned int src = first;
+// 	sample_index_t src = first;
 // 	if ((d->target() == this) && (f < src)) src += len;
 //
 // 	signal_manager->deleteRange(src, len, signal_manager->selectedTracks());
@@ -1870,8 +1808,8 @@ void SignalWidget::slotTrackDeleted(unsigned int index)
 //     if (KwaveDrag::canDecode(event->mimeData())) {
 // 	UndoTransactionGuard undo(*signal_manager, i18n("Drag and Drop"));
 // 	InhibitRepaintGuard inhibit(*this);
-// 	unsigned int pos = m_offset + pixels2samples(event->pos().x());
-// 	unsigned int len = 0;
+// 	sample_index_t pos = m_offset + pixels2samples(event->pos().x());
+// 	sample_index_t len = 0;
 //
 // 	if ((len = KwaveDrag::decode(this, event->mimeData(),
 // 	    *signal_manager, pos)))
@@ -1923,9 +1861,9 @@ void SignalWidget::slotTrackDeleted(unsigned int index)
 // 	    return;
 // 	}
 //
-// 	unsigned int left  = signal_manager->selection().first();
-// 	unsigned int right = signal_manager->selection().last();
-// 	const unsigned int w = pixels2samples(m_width);
+// 	sample_index_t left  = signal_manager->selection().first();
+// 	sample_index_t right = signal_manager->selection().last();
+// 	const sample_index_t w = pixels2samples(m_width);
 // 	QRect r(this->rect());
 //
 // 	// crop selection to widget borders

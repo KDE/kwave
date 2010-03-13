@@ -76,7 +76,7 @@ bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
     // get info: tracks, sample rate
     unsigned int tracks = info.tracks();
     unsigned int bits   = info.bits();
-    unsigned int length = info.length();
+    sample_index_t length = info.length();
 
     do {
 	// open the output device
@@ -115,8 +115,8 @@ bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	          << v.toString().toUtf8() << "'" << endl;
 	}
 
-	unsigned int rest = length;
-	unsigned int pos  = 0;
+	sample_index_t rest = length;
+	sample_index_t pos  = 0;
 	while (rest-- && !src.isCanceled()) {
 	    // write out one track per line
 	    for (unsigned int track=0; track < tracks; track++) {

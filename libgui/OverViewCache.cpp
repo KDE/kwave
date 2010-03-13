@@ -33,8 +33,8 @@
 #define CACHE_SIZE 8192           /* number of cache entries */
 
 //***************************************************************************
-OverViewCache::OverViewCache(SignalManager &signal, unsigned int src_offset,
-                             unsigned int src_length,
+OverViewCache::OverViewCache(SignalManager &signal, sample_index_t src_offset,
+                             sample_index_t src_length,
                              const QList<unsigned int> *src_tracks)
     :m_signal(signal), m_min(), m_max(), m_state(), m_count(0), m_scale(1),
      m_lock(QMutex::Recursive), m_src_offset(src_offset),
@@ -47,18 +47,18 @@ OverViewCache::OverViewCache(SignalManager &signal, unsigned int src_offset,
             this, SLOT(slotTrackInserted(unsigned int, Track *)));
     connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),
             this, SLOT(slotTrackDeleted(unsigned int)));
-    connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, unsigned int,
-	unsigned int)),
-	this, SLOT(slotSamplesDeleted(unsigned int, unsigned int,
-	unsigned int)));
-    connect(sig, SIGNAL(sigSamplesInserted(unsigned int, unsigned int,
-	unsigned int)),
-	this, SLOT(slotSamplesInserted(unsigned int, unsigned int,
-	unsigned int)));
-    connect(sig, SIGNAL(sigSamplesModified(unsigned int, unsigned int,
-	unsigned int)),
-	this, SLOT(slotSamplesModified(unsigned int, unsigned int,
-	unsigned int)));
+    connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, sample_index_t,
+	sample_index_t)),
+	this, SLOT(slotSamplesDeleted(unsigned int, sample_index_t,
+	sample_index_t)));
+    connect(sig, SIGNAL(sigSamplesInserted(unsigned int, sample_index_t,
+	sample_index_t)),
+	this, SLOT(slotSamplesInserted(unsigned int, sample_index_t,
+	sample_index_t)));
+    connect(sig, SIGNAL(sigSamplesModified(unsigned int, sample_index_t,
+	sample_index_t)),
+	this, SLOT(slotSamplesModified(unsigned int, sample_index_t,
+	sample_index_t)));
 
     if (src_tracks && !src_tracks->isEmpty()) {
 	// already having a list of selected tracks
@@ -86,7 +86,7 @@ OverViewCache::~OverViewCache()
 }
 
 //***************************************************************************
-unsigned int OverViewCache::sourceLength()
+sample_index_t OverViewCache::sourceLength()
 {
     return (m_src_length) ? m_src_length : m_signal.length();
 }
@@ -100,7 +100,7 @@ void OverViewCache::scaleUp()
     if (!m_scale) return;
 
     // calculate the new scale
-    const unsigned int len = sourceLength();
+    const sample_index_t len = sourceLength();
     unsigned int shrink = len / (m_scale * CACHE_SIZE);
     Q_ASSERT(shrink);
     while (len > CACHE_SIZE * m_scale * shrink) {
@@ -162,7 +162,7 @@ void OverViewCache::scaleDown()
 {
     QMutexLocker lock(&m_lock);
 
-    const unsigned int len = sourceLength();
+    const sample_index_t len = sourceLength();
     unsigned int new_scale = static_cast<unsigned int>(
 	rint(ceil(len / CACHE_SIZE)));
     if (!new_scale) new_scale = 1;
@@ -307,7 +307,7 @@ void OverViewCache::slotTrackDeleted(unsigned int index)
 
 //***************************************************************************
 void OverViewCache::slotSamplesInserted(unsigned int track,
-    unsigned int offset, unsigned int length)
+    sample_index_t offset, sample_index_t length)
 {
     QMutexLocker lock(&m_lock);
 
@@ -318,7 +318,7 @@ void OverViewCache::slotSamplesInserted(unsigned int track,
     if (!m_src_tracks.isEmpty() && !(m_src_tracks.contains(track))) return;
 
     // right out of our range -> out of interest
-    const unsigned int len = sourceLength();
+    const sample_index_t len = sourceLength();
     if (offset >= (m_src_offset + ((len) ? (len - 1) : 1))) return;
 
     // left from us -> just move our own offset right
@@ -332,15 +332,15 @@ void OverViewCache::slotSamplesInserted(unsigned int track,
     if (m_src_length) m_src_length += length;
     if ((sourceLength() / m_scale) > CACHE_SIZE) scaleUp();
 
-    unsigned int first = (offset - m_src_offset) / m_scale;
-    unsigned int last  = (sourceLength() / m_scale) + 1;
+    sample_index_t first = (offset - m_src_offset) / m_scale;
+    sample_index_t last  = (sourceLength() / m_scale) + 1;
     invalidateCache(track, first, last);
     emit changed();
 }
 
 //***************************************************************************
 void OverViewCache::slotSamplesDeleted(unsigned int track,
-    unsigned int offset, unsigned int length)
+    sample_index_t offset, sample_index_t length)
 {
     QMutexLocker lock(&m_lock);
 
@@ -363,7 +363,7 @@ void OverViewCache::slotSamplesDeleted(unsigned int track,
 
     // overlapping
     if (offset < m_src_offset) {
-	unsigned int overlap = (offset + length) - m_src_offset;
+	sample_index_t overlap = (offset + length) - m_src_offset;
 	m_src_offset -= length - overlap;
 	length -= overlap;
 	offset = m_src_offset;
@@ -386,7 +386,7 @@ void OverViewCache::slotSamplesDeleted(unsigned int track,
 
 //***************************************************************************
 void OverViewCache::slotSamplesModified(unsigned int track,
-    unsigned int offset, unsigned int length)
+    sample_index_t offset, sample_index_t length)
 {
     QMutexLocker lock(&m_lock);
 
@@ -399,11 +399,11 @@ void OverViewCache::slotSamplesModified(unsigned int track,
     if (offset > (m_src_offset + sourceLength())) return;
 
     // completely left from us -> out of interest
-    if (offset+length < m_src_offset) return;
+    if (offset + length < m_src_offset) return;
 
     // overlapping
-    unsigned int first = offset;
-    unsigned int last  = offset + length - 1;
+    sample_index_t first = offset;
+    sample_index_t last  = offset + length - 1;
     if (first < m_src_offset) first = m_src_offset;
     if (last > m_src_offset + sourceLength() - 1)
         last = m_src_offset + sourceLength() - 1;

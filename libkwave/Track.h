@@ -51,7 +51,7 @@ public:
      * Constructor. Creates an empty track with one stripe
      * with specified length.
      */
-    Track(unsigned int length);
+    Track(sample_index_t length);
 
     /**
      * Destructor.
@@ -62,7 +62,7 @@ public:
      * Returns the length of the track. This is equivalent
      * to the position of the last sample of the last Stripe.
      */
-    unsigned int length();
+    sample_index_t length();
 
     /**
      * Opens a stream for writing samples, starting at a
@@ -74,7 +74,7 @@ public:
      * @see InsertMode
      */
     Kwave::Writer *openWriter(InsertMode mode,
-	unsigned int left = 0, unsigned int right = 0);
+	sample_index_t left = 0, sample_index_t right = 0);
 
     /**
      * Opens a stream for reading samples. If the the last position
@@ -84,8 +84,8 @@ public:
      * @param right last position to read (default = UINT_MAX)
      */
     SampleReader *openSampleReader(Kwave::ReaderMode mode,
-	unsigned int left = 0,
-	unsigned int right = UINT_MAX);
+	sample_index_t left = 0,
+	sample_index_t right = SAMPLE_INDEX_MAX);
 
     /**
      * Deletes a range of samples
@@ -94,7 +94,7 @@ public:
      * @param make_gap if true, make a gap into the list of stripes
      *                 instead of moving the stuff from right to left
      */
-    void deleteRange(unsigned int offset, unsigned int length,
+    void deleteRange(sample_index_t offset, sample_index_t length,
                      bool make_gap = false);
 
     /**
@@ -105,7 +105,7 @@ public:
      * @param shift distance of the shift [samples]
      * @return true if succeeded, false if failed (OOM?)
      */
-    bool insertSpace(unsigned int offset, unsigned int shift);
+    bool insertSpace(sample_index_t offset, sample_index_t shift);
 
     /** Returns the "selected" flag. */
     inline bool selected() const { return m_selected; }
@@ -123,8 +123,8 @@ signals:
      * @param length number of samples inserted
      * @see sigSamplesModified
      */
-    void sigSamplesInserted(Track *src, unsigned int offset,
-                            unsigned int length);
+    void sigSamplesInserted(Track *src, sample_index_t offset,
+                            sample_index_t length);
 
     /**
      * Emitted if data has been removed from the track.
@@ -132,8 +132,8 @@ signals:
      * @param offset position from which the data was removed
      * @param length number of samples deleted
      */
-    void sigSamplesDeleted(Track *src, unsigned int offset,
-                           unsigned int length);
+    void sigSamplesDeleted(Track *src, sample_index_t offset,
+                           sample_index_t length);
 
     /**
      * Emitted if some data within the track has been modified.
@@ -141,8 +141,8 @@ signals:
      * @param offset position from which the data was modified
      * @param length number of samples modified
      */
-    void sigSamplesModified(Track *src, unsigned int offset,
-                            unsigned int length);
+    void sigSamplesModified(Track *src, sample_index_t offset,
+                            sample_index_t length);
 
     /**
      * Emitted whenever the selection of the track has changed.
@@ -156,7 +156,7 @@ private:
      * usage from within locked functions.
      * @note this must be private, it does no locking !
      */
-    unsigned int unlockedLength();
+    sample_index_t unlockedLength();
 
     /**
      * Deletes a range of samples, used internally by deleteRange()
@@ -165,7 +165,7 @@ private:
      * @param make_gap if true, make a gap into the list of stripes
      *                 instead of moving the stuff from right to left
      */
-    void unlockedDelete(unsigned int offset, unsigned int length,
+    void unlockedDelete(sample_index_t offset, sample_index_t length,
                         bool make_gap = false);
 
     /**
@@ -179,7 +179,7 @@ private:
      * @param length number of samples to write
      * @return true if successful, false if failed (e.g. out of memory)
      */
-    bool appendAfter(Stripe *stripe, unsigned int offset,
+    bool appendAfter(Stripe *stripe, sample_index_t offset,
                      const Kwave::SampleArray &buffer,
                      unsigned int buf_offset, unsigned int length);
 
@@ -191,14 +191,14 @@ private:
      * @param offset position after which everything is moved right
      * @param shift distance of the shift [samples]
      */
-    void moveRight(unsigned int offset, unsigned int shift);
+    void moveRight(sample_index_t offset, sample_index_t shift);
 
     /**
      * Append a new stripe with a given length.
      *
      * @param length number of samples, zero is allowed
      */
-    void appendStripe(unsigned int length);
+    void appendStripe(sample_index_t length);
 
     /**
      * Split a stripe into two stripes. The new stripe will be created
@@ -235,7 +235,7 @@ protected:
      * @return true if successful, false if failed (e.g. out of memory)
      */
     bool writeSamples(InsertMode mode,
-                      unsigned int offset,
+                      sample_index_t offset,
                       const Kwave::SampleArray &buffer,
                       unsigned int buf_offset,
                       unsigned int length);
@@ -254,7 +254,7 @@ private:
      * @param length number of samples, zero is allowed
      * @note this must be private, it does no locking !
      */
-    Stripe *newStripe(unsigned int start, unsigned int length);
+    Stripe *newStripe(sample_index_t start, unsigned int length);
 
 private:
     /** read/write lock for access to the whole track */

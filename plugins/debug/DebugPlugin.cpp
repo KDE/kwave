@@ -64,8 +64,8 @@ void DebugPlugin::load(QStringList &params)
 //***************************************************************************
 void DebugPlugin::run(QStringList params)
 {
-    unsigned int first = 0;
-    unsigned int last  = 0;
+    sample_index_t first = 0;
+    sample_index_t last  = 0;
 
     if (params.count() != 1) return;
 
@@ -120,8 +120,8 @@ void DebugPlugin::run(QStringList params)
     unsigned int count = writers->tracks();
 
     // connect the progress dialog
-    connect(writers, SIGNAL(progress(unsigned int)),
-	    this,  SLOT(updateProgress(unsigned int)),
+    connect(writers, SIGNAL(progress(qreal)),
+	    this,  SLOT(updateProgress(qreal)),
 	     Qt::BlockingQueuedConnection);
 
     // loop over the sample range

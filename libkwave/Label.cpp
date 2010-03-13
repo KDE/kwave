@@ -25,7 +25,7 @@ Label::Label()
 }
 
 //***************************************************************************
-Label::Label(unsigned int position, const QString &name)
+Label::Label(sample_index_t position, const QString &name)
     :m_data(new LabelData)
 {
     moveTo(position);
@@ -38,13 +38,13 @@ Label::~Label()
 }
 
 //***************************************************************************
-void Label::moveTo(unsigned int position)
+void Label::moveTo(sample_index_t position)
 {
     if (m_data) m_data->m_position = position;
 }
 
 //***************************************************************************
-unsigned int Label::pos() const
+sample_index_t Label::pos() const
 {
     return (m_data) ? m_data->m_position : -1;
 }

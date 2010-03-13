@@ -51,6 +51,9 @@
 /** number of updates of the progress bat per second */
 #define PROGRESS_UPDATES_PER_SECOND 4
 
+/** maximum value of the progress bar */
+#define PROGRESS_MAXIMUM 1000000
+
 /*
    A plugin can be unloaded through two different ways. The possible
    scenarios are:
@@ -165,7 +168,7 @@ int Kwave::Plugin::start(QStringList &)
 
     // set up the progress dialog when in processing (not pre-listen) mode
     if (m_progress_enabled && m_progress) {
-	unsigned int first, last;
+	sample_index_t first, last;
 	QList<unsigned int> tracks;
 
 	selection(&tracks, &first, &last, true);
@@ -173,7 +176,7 @@ int Kwave::Plugin::start(QStringList &)
 	m_progress->setVisible(false);
 	m_progress->setMinimumDuration(2000);
 	m_progress->setAutoClose(false);
-	m_progress->setMaximum((last - first + 1) * tracks.count());
+	m_progress->setMaximum(PROGRESS_MAXIMUM);
 	m_progress->setValue(0);
 	m_progress->setLabelText(progressText());
 	int h = m_progress->sizeHint().height();
@@ -255,18 +258,18 @@ void Kwave::Plugin::setProgressDialogEnabled(bool enable)
 }
 
 //***************************************************************************
-void Kwave::Plugin::updateProgress(unsigned int progress)
+void Kwave::Plugin::updateProgress(qreal progress)
 {
     // check: this must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
-//     qDebug("Kwave::Plugin::updateProgress(%u)", progress);
+//     qDebug("Kwave::Plugin::updateProgress(%0.1f)", progress);
     QMutexLocker lock(&m_progress_lock);
 
     // take over the current progress
     // note: no lock needed, this is called in the GUI thread context!
-    m_current_progress = progress;
+    m_current_progress = qreal(PROGRESS_MAXIMUM / 100.0) * progress;
 
     // start the timer for updating the progress bar if it is not active
     if (!m_progress_timer.isActive()) {
@@ -282,7 +285,6 @@ void Kwave::Plugin::updateProgressTick()
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
-//     qDebug("void Kwave::Plugin::updateProgressTick(%d)", m_current_progress);
     QMutexLocker lock(&m_progress_lock);
     if (m_progress) m_progress->setValue(m_current_progress);
 }
@@ -452,7 +454,7 @@ QString Kwave::Plugin::signalName()
 }
 
 //***************************************************************************
-unsigned int Kwave::Plugin::signalLength()
+sample_index_t Kwave::Plugin::signalLength()
 {
     return manager().signalLength();
 }
@@ -470,12 +472,13 @@ const QList<unsigned int> Kwave::Plugin::selectedTracks()
 }
 
 //***************************************************************************
-unsigned int Kwave::Plugin::selection(QList<unsigned int> *tracks,
-                                      unsigned int *left, unsigned int *right,
-                                      bool expand_if_empty)
+sample_index_t Kwave::Plugin::selection(QList<unsigned int> *tracks,
+                                        sample_index_t *left,
+                                        sample_index_t *right,
+                                        bool expand_if_empty)
 {
-    int l = manager().selectionStart();
-    int r = manager().selectionEnd();
+    sample_index_t l = manager().selectionStart();
+    sample_index_t r = manager().selectionEnd();
 
     // expand to the whole signal if left==right and expand_if_empty is set
     if ((l == r) && (expand_if_empty)) {
@@ -493,7 +496,7 @@ unsigned int Kwave::Plugin::selection(QList<unsigned int> *tracks,
 }
 
 //***************************************************************************
-void Kwave::Plugin::selectRange(unsigned int offset, unsigned int length)
+void Kwave::Plugin::selectRange(sample_index_t offset, sample_index_t length)
 {
     manager().selectRange(offset, length);
 }

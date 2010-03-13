@@ -174,9 +174,9 @@ void NormalizePlugin::run(QStringList params)
 
     // get the current selection
     QList<unsigned int> tracks;
-    unsigned int first = 0;
-    unsigned int last  = 0;
-    unsigned int length = selection(&tracks, &first, &last, true);
+    sample_index_t first = 0;
+    sample_index_t last  = 0;
+    sample_index_t length = selection(&tracks, &first, &last, true);
     if (!length || tracks.isEmpty()) return;
 
     // get the list of affected tracks
@@ -184,8 +184,8 @@ void NormalizePlugin::run(QStringList params)
 	signalManager(), tracks, first, last);
 
     // connect the progress dialog
-    connect(&source, SIGNAL(progress(unsigned int)),
-	    this,  SLOT(updateProgress(unsigned int)),
+    connect(&source, SIGNAL(progress(qreal)),
+	    this,  SLOT(updateProgress(qreal)),
 	     Qt::BlockingQueuedConnection);
 
     // detect the peak value

@@ -81,7 +81,7 @@ signals:
      * processed.
      * @param pos current position within the source, in bytes!
      */
-    void sourceProcessed(unsigned int pos);
+    void sourceProcessed(quint64 pos);
 
 protected:
 

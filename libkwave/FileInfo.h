@@ -27,6 +27,7 @@
 
 #include <kdemacros.h>
 
+#include "libkwave/Sample.h"
 #include "libkwave/TypesMap.h"
 #include "libkwave/LabelList.h"
 
@@ -125,10 +126,10 @@ public:
     }
 
     /** returns the number of samples */
-    inline unsigned int length() const { return m_length; }
+    inline sample_index_t length() const { return m_length; }
 
     /** Sets the length in samples */
-    inline void setLength(unsigned int length) { m_length = length; }
+    inline void setLength(sample_index_t length) { m_length = length; }
 
     /** returns the sample rate [samples/second] */
     inline double rate() const { return m_rate; }
@@ -218,7 +219,7 @@ public:
 private:
 
     /** length in samples */
-    unsigned int m_length;
+    sample_index_t m_length;
 
     /** sample rate */
     double m_rate;

@@ -328,14 +328,14 @@ void FileInfo::dump()
     qDebug("--- dump of file info ---");
 
     qDebug("default properties:");
-    qDebug("   length = %u samples", m_length);
+    qDebug("   length = %lu samples", static_cast<unsigned long int>(m_length));
     qDebug("   rate   = %0.1f Hz", m_rate);
     qDebug("   bits   = %u", m_bits);
     qDebug("   tracks = %u", m_tracks);
 
     qDebug("labels:");
     foreach (Label label, m_labels) {
-	qDebug("   [%10u] = '%s'", label.pos(),
+	qDebug("   [%10lu] = '%s'", static_cast<unsigned long int>(label.pos()),
 	                           label.name().toLocal8Bit().data());
     }
 

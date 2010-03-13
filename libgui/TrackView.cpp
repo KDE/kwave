@@ -167,8 +167,8 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
 
     // --- detect size changes and refresh the whole image ---
     if ((width > m_last_width) || (height != m_last_height)) {
-	qDebug("TrackView::paintEvent(): window size changed from "
-	      "%dx%d to %dx%d", m_last_width, m_last_height, width, height);
+// 	qDebug("TrackView::paintEvent(): window size changed from "
+// 	      "%dx%d to %dx%d", m_last_width, m_last_height, width, height);
 
 	// create new images for the layers
 	const QImage::Format format = QImage::Format_ARGB32_Premultiplied;
@@ -191,7 +191,7 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
 
     // --- repaint of the signal layer ---
     if (m_img_signal_needs_refresh) {
-	qDebug("TrackView::paintEvent(): - redraw of signal layer -");
+// 	qDebug("TrackView::paintEvent(): - redraw of signal layer -");
 
 	p.begin(&m_img_signal);
 
@@ -215,7 +215,7 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
 
     // --- repaint of the markers layer ---
     if (m_img_markers_needs_refresh) {
-	qDebug("TrackView::paintEvent(): - redraw of markers layer -");
+// 	qDebug("TrackView::paintEvent(): - redraw of markers layer -");
 
 	p.begin(&m_img_markers);
 	p.fillRect(0, 0, width, height, Qt::black);
@@ -247,7 +247,7 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
 
     // --- repaint of the selection layer ---
     if (m_img_selection_needs_refresh) {
-	qDebug("TrackView::paintEvent(): - redraw of selection layer -");
+// 	qDebug("TrackView::paintEvent(): - redraw of selection layer -");
 
 	p.begin(&m_img_selection);
 	p.fillRect(0, 0, width, height, Qt::black);

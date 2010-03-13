@@ -131,7 +131,7 @@ int AmplifyFreePlugin::start(QStringList &params)
 //***************************************************************************
 void AmplifyFreePlugin::run(QStringList params)
 {
-    unsigned int first, last;
+    sample_index_t first, last;
     QList<unsigned int> track_list;
 
     interpreteParameters(params);
@@ -168,8 +168,8 @@ void AmplifyFreePlugin::run(QStringList params)
     }
 
     // connect the progress dialog
-    connect(&sink, SIGNAL(progress(unsigned int)),
-	    this,  SLOT(updateProgress(unsigned int)),
+    connect(&sink, SIGNAL(progress(qreal)),
+	    this,  SLOT(updateProgress(qreal)),
 	    Qt::BlockingQueuedConnection);
 
     // transport the samples

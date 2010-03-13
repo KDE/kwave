@@ -194,39 +194,6 @@ private slots:
      */
     void slotTrackDeleted(unsigned int index);
 
-    /**
-     * Connected to the signal's sigSamplesInserted.
-     * @param track index of the source track [0...tracks-1]
-     * @param offset position from which the data was inserted
-     * @param length number of samples inserted
-     * @see Signal::sigSamplesInserted
-     * @internal
-     */
-//     void slotSamplesInserted(unsigned int track, unsigned int offset,
-//                              unsigned int length);
-
-    /**
-     * Connected to the signal's sigSamplesDeleted.
-     * @param track index of the source track [0...tracks-1]
-     * @param offset position from which the data was removed
-     * @param length number of samples deleted
-     * @see Signal::sigSamplesDeleted
-     * @internal
-     */
-//     void slotSamplesDeleted(unsigned int track, unsigned int offset,
-//                             unsigned int length);
-
-    /**
-     * Connected to the signal's sigSamplesModified
-     * @param track index of the source track [0...tracks-1]
-     * @param offset position from which the data was modified
-     * @param length number of samples modified
-     * @see Signal::sigSamplesModified
-     * @internal
-     */
-//     void slotSamplesModified(unsigned int track, unsigned int offset,
-//                              unsigned int length);
-
     /** Hide the current position marker */
 //     void hidePosition() {
 // 	showPosition(0, 0, 0, QPoint(-1,-1));
@@ -456,14 +423,14 @@ private:
      * @param mouse the coordinates of the mouse cursor,
      *              relative to this widget [pixel]
      */
-//     void showPosition(const QString &text, unsigned int pos, double ms,
+//     void showPosition(const QString &text, sample_index_t pos, double ms,
 //                       const QPoint &mouse);
 
     /**
      * add a new label
      * @param pos position of the label [samples]
      */
-    void addLabel(unsigned int pos);
+    void addLabel(sample_index_t pos);
 
 private:
 

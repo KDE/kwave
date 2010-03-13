@@ -45,8 +45,8 @@ public:
      * @param signal_length length of the signal in samples, needed
      *                      for converting samples to percentage
      */
-    GotoDialog(QWidget *widget, Mode mode, unsigned int position,
-               double sample_rate, unsigned int signal_length);
+    GotoDialog(QWidget *widget, Mode mode, sample_index_t position,
+               double sample_rate, sample_index_t signal_length);
 
     /** Destructor */
     virtual ~GotoDialog();

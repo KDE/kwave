@@ -584,10 +584,10 @@ int TopWidget::executeCommand(const QString &line)
 	Q_ASSERT(m_menu_manager);
 	if (m_menu_manager) /*result = */m_menu_manager->executeCommand(command);
     CASE_COMMAND("newsignal")
-	unsigned int samples = parser.toUInt();
-	double       rate    = parser.toDouble();
-	unsigned int bits    = parser.toUInt();
-	unsigned int tracks  = parser.toUInt();
+	sample_index_t samples = parser.toUInt();
+	double         rate    = parser.toDouble();
+	unsigned int   bits    = parser.toUInt();
+	unsigned int   tracks  = parser.toUInt();
 	result = newSignal(samples, rate, bits, tracks);
     CASE_COMMAND("open")
 	QString filename = parser.nextParam();
@@ -1009,7 +1009,7 @@ int TopWidget::saveFileAs(bool selection)
 }
 
 //***************************************************************************
-int TopWidget::newSignal(unsigned int samples, double rate,
+int TopWidget::newSignal(sample_index_t samples, double rate,
                          unsigned int bits, unsigned int tracks)
 {
     SignalManager *signal_manager = m_context.signalManager();
@@ -1314,8 +1314,8 @@ void TopWidget::mouseChanged(int mode)
 // 	case (SignalWidget::MouseAtSelectionBorder) :
 // 	case (SignalWidget::MouseInSelection) :
 // 	{
-// 	    unsigned int offset = signal_manager->selection().offset();
-// 	    unsigned int length = signal_manager->selection().length();
+// 	    sample_index_t offset = signal_manager->selection().offset();
+// 	    sample_index_t length = signal_manager->selection().length();
 // 	    selectionChanged(offset, length);
 // 	    break;
 // 	}

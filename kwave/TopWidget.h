@@ -244,7 +244,7 @@ private:
      * @param tracks number of tracks
      * @return zero if successful, -1 if failed or canceled
      */
-    int newSignal(unsigned int samples, double rate,
+    int newSignal(sample_index_t samples, double rate,
                   unsigned int bits, unsigned int tracks);
 
     /**

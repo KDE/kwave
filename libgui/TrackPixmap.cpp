@@ -72,15 +72,15 @@ Kwave::TrackPixmap::TrackPixmap(Track &track)
     m_colors(color_set_normal)
 {
     // connect all the notification signals of the track
-    connect(&track, SIGNAL(sigSamplesInserted(Track *,unsigned int,
-	unsigned int)), this, SLOT(slotSamplesInserted(Track *,
-	unsigned int, unsigned int)));
-    connect(&track, SIGNAL(sigSamplesDeleted(Track *,unsigned int,
-	unsigned int)), this, SLOT(slotSamplesDeleted(Track *,
-	unsigned int, unsigned int)));
-    connect(&track, SIGNAL(sigSamplesModified(Track *,unsigned int,
-	unsigned int)), this, SLOT(slotSamplesModified(Track *,
-	unsigned int, unsigned int)));
+    connect(&track, SIGNAL(sigSamplesInserted(Track *, sample_index_t,
+	sample_index_t)), this, SLOT(slotSamplesInserted(Track *,
+	sample_index_t, sample_index_t)));
+    connect(&track, SIGNAL(sigSamplesDeleted(Track *, sample_index_t,
+	sample_index_t)), this, SLOT(slotSamplesDeleted(Track *,
+	sample_index_t, sample_index_t)));
+    connect(&track, SIGNAL(sigSamplesModified(Track *, sample_index_t,
+	sample_index_t)), this, SLOT(slotSamplesModified(Track *,
+	sample_index_t, sample_index_t)));
     connect(&track, SIGNAL(sigSelectionChanged()),
             this, SLOT(selectionChanged()));
 }
@@ -93,12 +93,12 @@ Kwave::TrackPixmap::~TrackPixmap()
 }
 
 //***************************************************************************
-void Kwave::TrackPixmap::setOffset(unsigned int offset)
+void Kwave::TrackPixmap::setOffset(sample_index_t offset)
 {
     QMutexLocker lock(&m_lock_buffer);
     if (offset == m_offset) return; // no change
 
-    unsigned int diff;
+    sample_index_t diff;
     unsigned int src;
     unsigned int dst;
     unsigned int buflen = m_valid.size();
@@ -119,8 +119,8 @@ void Kwave::TrackPixmap::setOffset(unsigned int offset)
 	}
 
 	// check for misaligned offset changes
-	if ((  offset % static_cast<unsigned int>(ceil(m_zoom))) !=
-	    (m_offset % static_cast<unsigned int>(ceil(m_zoom)))) {
+	if ((  offset % static_cast<sample_index_t>(ceil(m_zoom))) !=
+	    (m_offset % static_cast<sample_index_t>(ceil(m_zoom)))) {
 
 #ifdef CURRENTLY_UNUSED
 // this will become interesting later, with the offset/zoom optimizations
@@ -155,12 +155,12 @@ void Kwave::TrackPixmap::setOffset(unsigned int offset)
 	    Q_ASSERT(diff);
 	    Q_ASSERT(buflen);
 	    if (diff && buflen) {
-		for (dst=buflen-1, src=dst-diff; dst>=diff; --dst, --src) {
+		for (dst = buflen-1, src=dst-diff; dst>=diff; --dst, --src) {
 		    m_min_buffer[dst] = m_min_buffer[src];
 		    m_max_buffer[dst] = m_max_buffer[src];
 		    m_valid[dst] = m_valid[src];
 		}
-		diff = dst+1;
+		diff = dst + 1;
 		while (diff--) m_valid.clearBit(dst--);
 	    }
 	}
@@ -321,14 +321,14 @@ bool Kwave::TrackPixmap::validateBuffer()
 	    // indices are in pixels, convert to samples
 
 	    // first sample in first pixel
-	    unsigned int s1 = m_offset +
-		static_cast<unsigned int>(floor(first * m_zoom));
+	    sample_index_t s1 = m_offset +
+		static_cast<sample_index_t>(floor(first * m_zoom));
 	    // last sample of last pixel
-	    unsigned int s2 = m_offset +
-		static_cast<unsigned int>(floor((last+1) * m_zoom)) - 1;
+	    sample_index_t s2 = m_offset +
+		static_cast<sample_index_t>(floor((last+1) * m_zoom)) - 1;
 
 	    while (first <= last) {
-		s2 = m_offset + static_cast<unsigned int>(
+		s2 = m_offset + static_cast<sample_index_t>(
 		    floor((first + 1) * m_zoom));
 
 		// get min/max for interval [s1...s2[
@@ -508,7 +508,7 @@ void Kwave::TrackPixmap::calculateInterpolation()
     Fg = m_zoom / 2;
 
     // N: order of the filter, at least 2 * (1/m_zoom)
-    N = static_cast<int>(INTERPOLATION_PRECISION / m_zoom);
+    N = samples2pixels(INTERPOLATION_PRECISION);
     N |= 0x01;    // make N an odd number !
 
     // allocate a buffer for the coefficients
@@ -516,7 +516,7 @@ void Kwave::TrackPixmap::calculateInterpolation()
     m_interpolation_order = N;
 
     Q_ASSERT(m_interpolation_alpha.count() == (N + 1));
-    if (!m_interpolation_alpha.count() != (N + 1)) return;
+    if (m_interpolation_alpha.count() != (N + 1)) return;
 
     // calculate the raw coefficients and
     // apply a Hamming window
@@ -543,8 +543,8 @@ void Kwave::TrackPixmap::calculateInterpolation()
 void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
 	int middle, int height)
 {
-    register float y;
-    register float *sig;
+    float y;
+    float *sig;
     float *sig_buffer;
     float scale_y;
     int i;
@@ -554,7 +554,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     int x;
     int buflen = m_valid.size();
 
-//    qDebug("TrackPixmap::drawInterpolatedSignal()");
+    qDebug("TrackPixmap::drawInterpolatedSignal()");
 
     Q_ASSERT(m_zoom);
     if (m_zoom == 0.0) return;
@@ -564,7 +564,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
 	static_cast<double>((SAMPLE_MAX + 1) << 1);
 
     // N: order of the filter, at least 2 * (1/m_zoom)
-    N = INTERPOLATION_PRECISION * samples2pixels(1);
+    N = samples2pixels(INTERPOLATION_PRECISION);
     N |= 0x01;    // make N an odd number !
 
     // re-calculate the interpolation's filter and buffers
@@ -575,7 +575,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     }
 
     Q_ASSERT(m_interpolation_alpha.count() == (N + 1));
-    if (!m_interpolation_alpha.count() != (N + 1)) return;
+    if (m_interpolation_alpha.count() != (N + 1)) return;
 
     // buffer for intermediate resampled data
     sig_buffer = new float[width + N + 2];
@@ -587,8 +587,8 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
 	sig_buffer[i] = 0.0;
 
     // resample
+    x = -1 * samples2pixels(2);
     sample = -2;    // start some samples left of the window
-    x = samples2pixels(sample);
     sig = sig_buffer + (N / 2);
     while (x <= width + N / 2) {
 	if ((x >= -N / 2) && (sample > 0) && (sample < buflen)) {
@@ -607,7 +607,6 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
 	y = 0.0;
 	for (k = 0; k <= N; k++)
 	    y += *(sig--) * m_interpolation_alpha[k];
-
 	points.append(QPoint(i, middle - static_cast<int>(y)));
     }
 
@@ -640,9 +639,7 @@ void Kwave::TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
 	int middle, int height)
 {
     double scale_y;
-    int y;
     unsigned int sample;
-    int x;
     unsigned int buflen = m_sample_buffer.size();
 
     // scale_y: pixels per unit
@@ -654,7 +651,8 @@ void Kwave::TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
 
     // display the original samples
     sample = 0;
-    x = samples2pixels(sample);
+    int x = 0;
+    int y = 0;
     while (x < width) {
 	// mark original samples
 	sample_t value = (sample < buflen) ? m_sample_buffer[sample] : 0;
@@ -703,8 +701,8 @@ void Kwave::TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
 }
 
 //***************************************************************************
-void Kwave::TrackPixmap::slotSamplesInserted(Track *, unsigned int offset,
-                                      unsigned int length)
+void Kwave::TrackPixmap::slotSamplesInserted(Track *, sample_index_t offset,
+                                             sample_index_t length)
 {
     {
 	QMutexLocker lock(&m_lock_buffer);
@@ -712,11 +710,11 @@ void Kwave::TrackPixmap::slotSamplesInserted(Track *, unsigned int offset,
 	convertOverlap(offset, length);
 	if (!length) return; // false alarm
 
-	Q_ASSERT(offset < static_cast<unsigned int>(m_valid.size()));
-	Q_ASSERT(offset+length <= static_cast<unsigned int>(m_valid.size()));
+	Q_ASSERT(offset < static_cast<sample_index_t>(m_valid.size()));
+	Q_ASSERT(offset+length <= static_cast<sample_index_t>(m_valid.size()));
 
 	// mark all positions from here to right end as "invalid"
-	while (offset < static_cast<unsigned int>(m_valid.size()))
+	while (offset < static_cast<sample_index_t>(m_valid.size()))
 	    m_valid.clearBit(offset++);
 
 	// repaint of the signal is needed
@@ -728,8 +726,8 @@ void Kwave::TrackPixmap::slotSamplesInserted(Track *, unsigned int offset,
 }
 
 //***************************************************************************
-void Kwave::TrackPixmap::slotSamplesDeleted(Track *, unsigned int offset,
-                                     unsigned int length)
+void Kwave::TrackPixmap::slotSamplesDeleted(Track *, sample_index_t offset,
+                                            sample_index_t length)
 {
     {
 	QMutexLocker lock(&m_lock_buffer);
@@ -737,11 +735,11 @@ void Kwave::TrackPixmap::slotSamplesDeleted(Track *, unsigned int offset,
 	convertOverlap(offset, length);
 	if (!length) return; // false alarm
 
-	Q_ASSERT(offset < static_cast<unsigned int>(m_valid.size()));
-	Q_ASSERT(offset+length <= static_cast<unsigned int>(m_valid.size()));
+	Q_ASSERT(offset < static_cast<sample_index_t>(m_valid.size()));
+	Q_ASSERT(offset+length <= static_cast<sample_index_t>(m_valid.size()));
 
 	// mark all positions from here to right end as "invalid"
-	while (offset < static_cast<unsigned int>(m_valid.size()))
+	while (offset < static_cast<sample_index_t>(m_valid.size()))
 	    m_valid.clearBit(offset++);
 
 	// repaint of the signal is needed
@@ -753,8 +751,8 @@ void Kwave::TrackPixmap::slotSamplesDeleted(Track *, unsigned int offset,
 }
 
 //***************************************************************************
-void Kwave::TrackPixmap::slotSamplesModified(Track *, unsigned int offset,
-                                             unsigned int length)
+void Kwave::TrackPixmap::slotSamplesModified(Track *, sample_index_t offset,
+                                             sample_index_t length)
 {
     {
 	QMutexLocker lock(&m_lock_buffer);
@@ -762,8 +760,8 @@ void Kwave::TrackPixmap::slotSamplesModified(Track *, unsigned int offset,
 	convertOverlap(offset, length);
 	if (!length) return; // false alarm
 
-	Q_ASSERT(offset < static_cast<unsigned int>(m_valid.size()));
-	Q_ASSERT(offset+length <= static_cast<unsigned int>(m_valid.size()));
+	Q_ASSERT(offset < static_cast<sample_index_t>(m_valid.size()));
+	Q_ASSERT(offset+length <= static_cast<sample_index_t>(m_valid.size()));
 
 	// mark all overlapping positions as "invalid"
 	while (length--) m_valid.clearBit(offset++);
@@ -777,8 +775,8 @@ void Kwave::TrackPixmap::slotSamplesModified(Track *, unsigned int offset,
 }
 
 //***************************************************************************
-void Kwave::TrackPixmap::convertOverlap(unsigned int &offset,
-                                        unsigned int &length)
+void Kwave::TrackPixmap::convertOverlap(sample_index_t &offset,
+                                        sample_index_t &length)
 {
     Q_ASSERT(m_zoom != 0.0);
     if (m_zoom == 0.0) length = 0;
@@ -798,16 +796,16 @@ void Kwave::TrackPixmap::convertOverlap(unsigned int &offset,
     // calculate the length
     if (m_minmax_mode) {
 	// attention: round up the length int this mode!
-	if (offset >= m_offset + static_cast<unsigned int>(
+	if (offset >= m_offset + static_cast<sample_index_t>(
 	    ceil(buflen * m_zoom)))
 	{
 	    length = 0; // out of view
 	    return;
 	} else {
-	    length = static_cast<unsigned int>(ceil(length / m_zoom));
+	    length = static_cast<sample_index_t>(ceil(length / m_zoom));
 	}
     } else {
-	if (offset >= m_offset+buflen) {
+	if (offset >= m_offset + buflen) {
 	    length = 0; // out of view
 	    return;
 	}
@@ -817,19 +815,19 @@ void Kwave::TrackPixmap::convertOverlap(unsigned int &offset,
     offset = (offset > m_offset) ? offset - m_offset : 0;
     if (m_minmax_mode) {
 	// attention: round down in this mode!
-	unsigned int ofs = static_cast<unsigned int>(floor(offset / m_zoom));
+	sample_index_t ofs = static_cast<sample_index_t>(floor(offset / m_zoom));
 
 	// if offset was rounded down, increment length
-	if (ofs != static_cast<unsigned int>(ceil(offset / m_zoom)))
+	if (ofs != static_cast<sample_index_t>(ceil(offset / m_zoom)))
 	    length++;
 	offset = ofs;
     }
 
     // limit the offset (maybe something happened when rounding)
-    if (offset >= buflen) offset = buflen-1;
+    if (offset >= buflen) offset = buflen - 1;
 
     // limit the length to the end of the buffer
-    if (offset+length > buflen) length = buflen-offset;
+    if (offset + length > buflen) length = buflen - offset;
 
     Q_ASSERT(length);
 }

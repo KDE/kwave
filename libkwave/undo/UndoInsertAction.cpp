@@ -27,7 +27,7 @@
 //***************************************************************************
 UndoInsertAction::UndoInsertAction(QWidget *parent_widget,
                                    const QList<unsigned int> &track_list,
-                                   unsigned int offset, unsigned int length)
+                                   sample_index_t offset, sample_index_t length)
     :QObject(), UndoAction(),
      m_parent_widget(parent_widget),
      m_track_list(track_list),
@@ -82,7 +82,7 @@ UndoAction *UndoInsertAction::undo(SignalManager &manager, bool with_redo)
 }
 
 //***************************************************************************
-void UndoInsertAction::setLength(unsigned int length)
+void UndoInsertAction::setLength(sample_index_t length)
 {
     m_length = length;
 }
@@ -90,10 +90,12 @@ void UndoInsertAction::setLength(unsigned int length)
 //***************************************************************************
 void UndoInsertAction::dump(const QString &indent)
 {
-    qDebug("%sundo insert from [%u ... %u] (%d)", indent.toLocal8Bit().data(),
-           m_offset,
-           m_offset + ((m_length) ? (m_length - 1) : m_length),
-           m_length);
+    qDebug("%sundo insert from [%lu ... %lu] (%lu)",
+           indent.toLocal8Bit().data(),
+           static_cast<unsigned long int>(m_offset),
+           static_cast<unsigned long int>(m_offset + ((m_length) ?
+               (m_length - 1) : m_length)),
+           static_cast<unsigned long int>(m_length));
 }
 
 //***************************************************************************

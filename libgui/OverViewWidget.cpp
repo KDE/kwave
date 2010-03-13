@@ -365,7 +365,7 @@ void OverViewWidget::calculateBitmap()
     // draw labels
     unsigned int last_label_pos = width + 1;;
     foreach (const Label &label, m_labels) {
-	unsigned int pos = label.pos();
+	sample_index_t pos = label.pos();
 	unsigned int x = static_cast<unsigned int>(
 	    static_cast<double>(pos) * scale);
 

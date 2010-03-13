@@ -26,10 +26,12 @@
 #include <QTime>
 
 #include <kdemacros.h>
+#include "libkwave/Sample.h"
 
 class QCloseEvent;
 class QGridLayout;
 class QLabel;
+class QProgressBar;
 class QResizeEvent;
 class KProgress;
 
@@ -49,7 +51,7 @@ public:
      */
     FileProgress(QWidget *parent,
 	const QUrl &url, unsigned int size,
-	unsigned int samples, double rate, unsigned int bits,
+	sample_index_t samples, double rate, unsigned int bits,
 	unsigned int tracks);
 
     /** Destructor */
@@ -70,24 +72,25 @@ signals:
     void canceled();
 
 public slots:
+
     /**
      * Advances the progress to a given position within the file.
-     * @param pos position within the file, in samples
+     * @param percent position within the file, in percent
      */
-    void setValue(unsigned int pos);
+    void setValue(qreal percent);
 
     /**
      * Like setValue, but takes position in bytes as argument
      * @param pos position within the file, in bytes [0...m_size-1]
      */
-    void setBytePosition(unsigned int pos);
+    void setBytePosition(quint64 pos);
 
     /**
      * Updates the length information, needed in stream mode.
      * @param samples total number of samples, must be divided through
      *        the number of tracks for getting the real length
      */
-    void setLength(unsigned int samples);
+    void setLength(quint64 samples);
 
 protected slots:
 
@@ -136,7 +139,7 @@ protected:
      * @param pos position in the file
      * @internal
      */
-    void updateStatistics(double rate, double rest, unsigned int pos);
+    void updateStatistics(double rate, double rest, quint64 pos);
 
 protected:
 
@@ -144,7 +147,7 @@ protected:
     QUrl m_url;
 
     /** size of the file [Bytes] */
-    unsigned int m_size;
+    quint64 m_size;
 
     /** label with the url, shortened when too long */
     QLabel *m_lbl_url;

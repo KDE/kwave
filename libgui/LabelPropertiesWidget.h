@@ -27,6 +27,7 @@
 #include <kdemacros.h>
 
 #include "libgui/ui_LabelPropertiesWidgetBase.h"
+#include "libkwave/Sample.h"
 
 class Label;
 
@@ -55,8 +56,8 @@ public:
      * @param length length of the complete signal [samples]
      * @param rate sample rate of the signal
      */
-    virtual void setLabelPosition(unsigned int pos,
-	unsigned int length, double rate);
+    virtual void setLabelPosition(sample_index_t pos,
+	sample_index_t length, double rate);
 
     /**
      * sets the name/description of the label
@@ -65,7 +66,7 @@ public:
     virtual void setLabelName(const QString &name);
 
     /** returns the label position in samples */
-    virtual unsigned int labelPosition();
+    virtual sample_index_t labelPosition();
 
     /** returns the label's name */
     virtual QString labelName();
@@ -79,7 +80,7 @@ public:
 private:
 
     /** length of the signal, for transforming percentage -> samples */
-    unsigned int m_length;
+    sample_index_t m_length;
 
     /** sample rate, for transforming time -> samples */
     double m_sample_rate;

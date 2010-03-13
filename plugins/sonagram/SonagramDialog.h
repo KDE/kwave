@@ -22,6 +22,7 @@
 
 #include <QDialog>
 
+#include "libkwave/Sample.h"
 #include "libkwave/WindowFunction.h"
 #include "ui_SonagramDlg.h"
 
@@ -77,7 +78,7 @@ public slots:
 private:
 
     /** length of the selection */
-    unsigned int m_length;
+    sample_index_t m_length;
 
     /** sample rate of the signal */
     double m_rate;

@@ -66,7 +66,7 @@ void ClipBoard::slotChanged(QClipboard::Mode mode)
 //***************************************************************************
 void ClipBoard::copy(QWidget *widget, SignalManager &signal_manager,
                      const QList<unsigned int> &track_list,
-                     unsigned int offset, unsigned int length)
+                     sample_index_t offset, sample_index_t length)
 {
     // break if nothing to do
     if (!length || !track_list.count()) return;
@@ -94,7 +94,7 @@ void ClipBoard::copy(QWidget *widget, SignalManager &signal_manager,
 
 //***************************************************************************
 bool ClipBoard::paste(QWidget *widget, SignalManager &signal_manager,
-                      unsigned int offset, unsigned int length)
+                      sample_index_t offset, sample_index_t length)
 {
     Q_ASSERT(!isEmpty());
     if (isEmpty()) return false; // clipboard is empty ?
@@ -104,7 +104,7 @@ bool ClipBoard::paste(QWidget *widget, SignalManager &signal_manager,
     if (length && !signal_manager.deleteRange(offset, length))
 	return false;
 
-    unsigned int decoded_samples = Kwave::MimeData::decode(
+    sample_index_t decoded_samples = Kwave::MimeData::decode(
 	widget,
 	QApplication::clipboard()->mimeData(QClipboard::Clipboard),
 	signal_manager,

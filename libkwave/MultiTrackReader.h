@@ -57,7 +57,7 @@ public:
     MultiTrackReader(Kwave::ReaderMode mode,
                      SignalManager &signal_manager,
                      const QList<unsigned int> &track_list,
-                     unsigned int first, unsigned int last);
+                     sample_index_t first, sample_index_t last);
 
     /** Destructor */
     virtual ~MultiTrackReader();
@@ -66,13 +66,13 @@ public:
      * Returns the offset of the reader, as
      * passed to the constructor as "first"
      */
-    virtual unsigned int first() const;
+    virtual sample_index_t first() const;
 
     /**
      * Returns the last sample offset of the reader, as
      * passed to the constructor as "last"
      */
-    virtual unsigned int last() const;
+    virtual sample_index_t last() const;
 
     /** Returns true if one of the readers has reached eof() */
     virtual bool eof() const;
@@ -91,10 +91,9 @@ public:
 signals:
 
     /**
-     * Emits the current progress in totally processed samples, range is
-     * from zero to the (length of the writer * number of tracks) - 1.
+     * Emits the current progress in percent [0...100].
      */
-    void progress(unsigned int samples);
+    void progress(qreal percent);
 
 public slots:
 
@@ -117,10 +116,10 @@ private slots:
 protected:
 
     /** index of the first sample to read */
-    unsigned int m_first;
+    sample_index_t m_first;
 
     /** index of the last sample to read */
-    unsigned int m_last;
+    sample_index_t m_last;
 
     /**
      * Initialized as false, will be true if the transfer has

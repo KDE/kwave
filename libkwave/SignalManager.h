@@ -84,7 +84,7 @@ public:
      * @param bits number of bits per sample
      * @param tracks number of tracks
      */
-    void newSignal(unsigned int samples, double rate,
+    void newSignal(sample_index_t samples, double rate,
                    unsigned int bits, unsigned int tracks);
 
     /**
@@ -145,7 +145,7 @@ public:
      * Returns the number of samples in the current signal. Will be
      * zero if no signal is loaded.
      */
-    inline unsigned int length() { return m_signal.length(); }
+    inline sample_index_t length() { return m_signal.length(); }
 
     /** Returns a reference to the current selection */
     inline Selection &selection() { return m_selection; }
@@ -185,7 +185,7 @@ public:
      * @return true if successful or nothing to do, false if not enough
      *         memory for undo
      */
-    bool deleteRange(unsigned int offset, unsigned int length,
+    bool deleteRange(sample_index_t offset, sample_index_t length,
                      const QList<unsigned int> &track_list);
 
     /**
@@ -196,7 +196,7 @@ public:
      * @return true if successful or nothing to do, false if not enough
      *         memory for undo
      */
-    bool deleteRange(unsigned int offset, unsigned int length);
+    bool deleteRange(sample_index_t offset, sample_index_t length);
 
     /**
      * Inserts space at a given position and creates an undo action.
@@ -206,7 +206,7 @@ public:
      * @return true if successful or nothing to do, false if not enough
      *         memory for undo
      */
-    bool insertSpace(unsigned int offset, unsigned int length,
+    bool insertSpace(sample_index_t offset, sample_index_t length,
                      const QList<unsigned int> &track_list);
 
     /**
@@ -214,7 +214,7 @@ public:
      * @param offset index of the first sample
      * @param length number of samples
      */
-    void selectRange(unsigned int offset, unsigned int length);
+    void selectRange(sample_index_t offset, sample_index_t length);
 
     /**
      * Inserts a new track with the size of the current signal after
@@ -263,7 +263,7 @@ public:
      * @see InsertMode
      */
     Kwave::Writer *openWriter(unsigned int track, InsertMode mode,
-	unsigned int left = 0, unsigned int right = 0,
+	sample_index_t left = 0, sample_index_t right = 0,
 	bool with_undo = false);
 
     /**
@@ -277,7 +277,7 @@ public:
      */
     inline SampleReader *openSampleReader(Kwave::ReaderMode mode,
 	unsigned int track,
-	unsigned int left = 0, unsigned int right = UINT_MAX)
+	sample_index_t left = 0, sample_index_t right = SAMPLE_INDEX_MAX)
     {
 	return m_signal.openSampleReader(mode, track, left, right);
     }
@@ -319,7 +319,7 @@ public:
      * @param pos position of the label [samples]
      * @return true if successful, false if failed
      */
-    bool addLabel(unsigned int pos);
+    bool addLabel(sample_index_t pos);
 
     /**
      * add a new label, without undo
@@ -327,7 +327,7 @@ public:
      * @param name the name of the label
      * @return pointer to the new created label
      */
-    Label addLabel(unsigned int pos, const QString &name);
+    Label addLabel(sample_index_t pos, const QString &name);
 
     /**
      * delete an existing label
@@ -345,7 +345,7 @@ public:
      * @return true if succeeded, false if the index is out of range or if
      *         the new position is already occupied by an existing label
      */
-    bool modifyLabel(int index, unsigned int pos, const QString &name);
+    bool modifyLabel(int index, sample_index_t pos, const QString &name);
 
     /**
      * find a label by it's index
@@ -366,7 +366,7 @@ public:
      * @param pos position of the label [samples]
      * @return valid label at the position or null label if not found
      */
-    Label findLabel(unsigned int pos);
+    Label findLabel(sample_index_t pos);
 
     /** Shortcut for accessing the label list @note can be modified */
     inline LabelList &labels() { return m_file_info.labels(); }
@@ -390,7 +390,7 @@ signals:
      * @param offset index of the first selected sample
      * @param length number of selected samples
      */
-    void sigSelectionChanged(unsigned int offset, unsigned int length);
+    void sigSelectionChanged(sample_index_t offset, sample_index_t length);
 
     /**
      * Signals that a track has been inserted.
@@ -425,8 +425,8 @@ signals:
      * @param length number of samples inserted
      * @see sigSamplesModified
      */
-    void sigSamplesInserted(unsigned int track, unsigned int offset,
-                            unsigned int length);
+    void sigSamplesInserted(unsigned int track, sample_index_t offset,
+                            sample_index_t length);
 
     /**
      * Emitted if samples have been removed from a track.
@@ -434,8 +434,8 @@ signals:
      * @param offset position from which the data was removed
      * @param length number of samples deleted
      */
-    void sigSamplesDeleted(unsigned int track, unsigned int offset,
-                           unsigned int length);
+    void sigSamplesDeleted(unsigned int track, sample_index_t offset,
+                           sample_index_t length);
 
     /**
      * Emitted if samples within a track have been modified.
@@ -443,8 +443,8 @@ signals:
      * @param offset position from which the data was modified
      * @param length number of samples modified
      */
-    void sigSamplesModified(unsigned int track, unsigned int offset,
-                            unsigned int length);
+    void sigSamplesModified(unsigned int track, sample_index_t offset,
+                            sample_index_t length);
 
     /**
      * Emitted if the state or description of undo/redo has changed. If
@@ -505,8 +505,8 @@ private slots:
      * @see Signal::sigSamplesInserted
      * @internal
      */
-    void slotSamplesInserted(unsigned int track, unsigned int offset,
-                             unsigned int length);
+    void slotSamplesInserted(unsigned int track, sample_index_t offset,
+                             sample_index_t length);
 
     /**
      * Connected to the signal's sigSamplesDeleted.
@@ -516,8 +516,8 @@ private slots:
      * @see Signal::sigSamplesDeleted
      * @internal
      */
-    void slotSamplesDeleted(unsigned int track, unsigned int offset,
-                            unsigned int length);
+    void slotSamplesDeleted(unsigned int track, sample_index_t offset,
+                            sample_index_t length);
 
     /**
      * Connected to the signal's sigSamplesModified
@@ -527,8 +527,8 @@ private slots:
      * @see Signal::sigSamplesModified
      * @internal
      */
-    void slotSamplesModified(unsigned int track, unsigned int offset,
-                             unsigned int length);
+    void slotSamplesModified(unsigned int track, sample_index_t offset,
+                             sample_index_t length);
 
     /**
      * Closes an undo transaction or recurses the current recursion level
@@ -558,8 +558,8 @@ protected:
      * @param length number of samples
      * @see Signal::deleteRange
      */
-    inline void deleteRange(unsigned int track, unsigned int offset,
-                            unsigned int length)
+    inline void deleteRange(unsigned int track, sample_index_t offset,
+                            sample_index_t length)
     {
 	m_signal.deleteRange(track, offset, length);
     }
@@ -594,7 +594,7 @@ protected:
      * @return true if successful, false if out of memory or aborted
      */
     bool saveUndoDelete(QList<unsigned int> &track_list,
-                        unsigned int offset, unsigned int length);
+                        sample_index_t offset, sample_index_t length);
 
     /**
      * Aborts an undo transaction by deleting all of it's undo actions.
@@ -709,7 +709,7 @@ private:
      * added to an empty signal and prevents from the creation of a
      * completely empty new signal.
      */
-    unsigned int m_last_length;
+    sample_index_t m_last_length;
 
     /** the controller for handling of playback */
     PlaybackController m_playback_controller;

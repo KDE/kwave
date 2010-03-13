@@ -85,8 +85,8 @@ QStringList *VolumePlugin::setup(QStringList &previous_params)
     // initialize the overview cache
     SignalManager &mgr = manager().signalManager();
     QList<unsigned int> tracks;
-    unsigned int first, last;
-    unsigned int length = selection(&tracks, &first, &last, true);
+    sample_index_t first, last;
+    sample_index_t length = selection(&tracks, &first, &last, true);
     OverViewCache *overview_cache = new OverViewCache(mgr,
         first, length, tracks.isEmpty() ? 0 : &tracks);
     Q_ASSERT(overview_cache);
@@ -122,7 +122,7 @@ QStringList *VolumePlugin::setup(QStringList &previous_params)
 void VolumePlugin::run(QStringList params)
 {
     QList<unsigned int> tracks;
-    unsigned int first, last;
+    sample_index_t first, last;
 
     interpreteParameters(params);
     if (!selection(&tracks, &first, &last, true) || tracks.isEmpty())
@@ -138,8 +138,8 @@ void VolumePlugin::run(QStringList params)
     Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks.count());
 
     // connect the progress dialog
-    connect(&source, SIGNAL(progress(unsigned int)),
-	    this,  SLOT(updateProgress(unsigned int)),
+    connect(&source, SIGNAL(progress(qreal)),
+	    this,  SLOT(updateProgress(qreal)),
 	     Qt::BlockingQueuedConnection);
 
     // connect them

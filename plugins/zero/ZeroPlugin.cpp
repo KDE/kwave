@@ -51,8 +51,8 @@ ZeroPlugin::~ZeroPlugin()
 void ZeroPlugin::run(QStringList params)
 {
     QList<unsigned int> tracks;
-    unsigned int first = 0;
-    unsigned int last  = 0;
+    sample_index_t first = 0;
+    sample_index_t last  = 0;
 
     UndoTransactionGuard undo_guard(*this, i18n("Silence"));
 
@@ -110,8 +110,8 @@ void ZeroPlugin::run(QStringList params)
     if (!writers->tracks()) return;
 
     // connect the progress dialog
-    connect(writers, SIGNAL(progress(unsigned int)),
-	    this,    SLOT(updateProgress(unsigned int)),
+    connect(writers, SIGNAL(progress(qreal)),
+	    this,    SLOT(updateProgress(qreal)),
 	    Qt::BlockingQueuedConnection);
 
     first = (*writers)[0]->first();

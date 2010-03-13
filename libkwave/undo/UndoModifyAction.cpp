@@ -29,8 +29,8 @@
 #define BUFFER_SIZE 65536
 
 //***************************************************************************
-UndoModifyAction::UndoModifyAction(unsigned int track, unsigned int offset,
-                                   unsigned int length)
+UndoModifyAction::UndoModifyAction(unsigned int track, sample_index_t offset,
+                                   sample_index_t length)
     :UndoAction(), m_track(track), m_offset(offset), m_length(length),
      m_buffer_track()
 {
@@ -84,7 +84,7 @@ UndoAction *UndoModifyAction::undo(SignalManager &manager, bool with_redo)
     Q_ASSERT(writer);
     if (!writer) return 0;
 
-    unsigned int len = m_length;
+    sample_index_t len = m_length;
 
     if (with_redo) {
 	Kwave::SampleArray buf_cur(BUFFER_SIZE);

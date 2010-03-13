@@ -42,7 +42,7 @@ NoisePlugin::NoisePlugin(const PluginContext &context)
 //***************************************************************************
 void NoisePlugin::run(QStringList)
 {
-    unsigned int first, last;
+    sample_index_t first, last;
     QList<unsigned int> tracks;
 
     UndoTransactionGuard undo_guard(*this, i18n("Noise"));
@@ -58,8 +58,8 @@ void NoisePlugin::run(QStringList)
     if (!sink.tracks()) return;
 
     // connect the progress dialog
-    connect(&sink, SIGNAL(progress(unsigned int)),
-	    this,  SLOT(updateProgress(unsigned int)),
+    connect(&sink, SIGNAL(progress(qreal)),
+	    this,  SLOT(updateProgress(qreal)),
 	     Qt::BlockingQueuedConnection);
 
     // connect them
@@ -70,7 +70,9 @@ void NoisePlugin::run(QStringList)
     }
 
     // transport the samples
-    qDebug("NoisePlugin: filter started [%u ... %u] ...", first, last);
+    qDebug("NoisePlugin: filter started [%lu ... %lu] ...",
+	   static_cast<unsigned long int>(first),
+	   static_cast<unsigned long int>(last));
     while (!shouldStop() && !sink.done()) {
 	source.goOn();
     }

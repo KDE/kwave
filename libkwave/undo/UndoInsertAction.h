@@ -24,6 +24,7 @@
 #include <QObject>
 #include <QString>
 
+#include "libkwave/Sample.h"
 #include "libkwave/undo/UndoAction.h"
 
 class QWidget;
@@ -44,8 +45,8 @@ public:
      */
     UndoInsertAction(QWidget *parent_widget,
                      const QList<unsigned int> &track_list,
-                     unsigned int offset,
-                     unsigned int length);
+                     sample_index_t offset,
+                     sample_index_t length);
 
     /** @see UndoAction::description() */
     virtual QString description();
@@ -79,7 +80,7 @@ public slots:
      * gets closed.
      * @see Kwave::Writer::sigSamplesWritten
      */
-    void setLength(unsigned int length);
+    void setLength(sample_index_t length);
 
 protected:
 
@@ -90,10 +91,10 @@ protected:
     QList<unsigned int> m_track_list;
 
     /** first sample */
-    unsigned int m_offset;
+    sample_index_t m_offset;
 
     /** number of samples */
-    unsigned int m_length;
+    sample_index_t m_length;
 
 };
 

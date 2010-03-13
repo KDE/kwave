@@ -22,6 +22,7 @@
 #include "config.h"
 #include <QList>
 
+#include "libkwave/Sample.h"
 #include "libkwave/undo/UndoAction.h"
 
 class SignalManager;
@@ -50,8 +51,8 @@ public:
      */
     UndoSelection(SignalManager &manager,
                   QList<unsigned int> selected_tracks,
-                  unsigned int offset,
-                  unsigned int length);
+                  sample_index_t offset,
+                  sample_index_t length);
 
     /** virtual destructor */
     virtual ~UndoSelection();
@@ -83,10 +84,10 @@ private:
     SignalManager &m_manager;
 
     /** First selected sample */
-    unsigned int m_offset;
+    sample_index_t m_offset;
 
     /** Number of selected samples */
-    unsigned int m_length;
+    sample_index_t m_length;
 
     /** Array with indices of selected tracks. */
     QList<unsigned int> m_selected_tracks;

@@ -54,8 +54,8 @@ public:
      * @param src_tracks list of selected source tracks
      *                   optional, default=0 (whole signal)
      */
-    OverViewCache(SignalManager &signal, unsigned int src_offset = 0,
-                  unsigned int src_length = 0,
+    OverViewCache(SignalManager &signal, sample_index_t src_offset = 0,
+                  sample_index_t src_length = 0,
                   const QList<unsigned int> *src_tracks = 0);
 
     /** Destructor */
@@ -105,8 +105,8 @@ protected slots:
      * @see Signal::sigSamplesInserted
      * @internal
      */
-    void slotSamplesInserted(unsigned int track, unsigned int offset,
-                             unsigned int length);
+    void slotSamplesInserted(unsigned int track, sample_index_t offset,
+                             sample_index_t length);
 
     /**
      * Connected to the signal's sigSamplesDeleted.
@@ -116,8 +116,8 @@ protected slots:
      * @see Signal::sigSamplesDeleted
      * @internal
      */
-    void slotSamplesDeleted(unsigned int track, unsigned int offset,
-                            unsigned int length);
+    void slotSamplesDeleted(unsigned int track, sample_index_t offset,
+                            sample_index_t length);
 
     /**
      * Connected to the signal's sigSamplesModified
@@ -127,8 +127,8 @@ protected slots:
      * @see Signal::sigSamplesModified
      * @internal
      */
-    void slotSamplesModified(unsigned int track, unsigned int offset,
-                             unsigned int length);
+    void slotSamplesModified(unsigned int track, sample_index_t offset,
+                             sample_index_t length);
 
 protected:
 
@@ -159,7 +159,7 @@ private:
     int trackIndex(unsigned int track_nr);
 
     /** Returns the number of selected samples of the source */
-    unsigned int sourceLength();
+    sample_index_t sourceLength();
 
     /**
      * Compresses the cache to hold more samples per entry.
@@ -211,10 +211,10 @@ private:
     QMutex m_lock;
 
     /** first sample index in the source */
-    unsigned int m_src_offset;
+    sample_index_t m_src_offset;
 
     /** length of the source in samples, or zero for "whole signal" */
-    unsigned int m_src_length;
+    sample_index_t m_src_length;
 
     /** list of selected source tracks */
     QList<unsigned int> m_src_tracks;

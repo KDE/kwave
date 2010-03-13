@@ -32,8 +32,8 @@ UndoSelection::UndoSelection(SignalManager &manager)
 //***************************************************************************
 UndoSelection::UndoSelection(SignalManager &manager,
                              QList<unsigned int> selected_tracks,
-                             unsigned int offset,
-                             unsigned int length)
+                             sample_index_t offset,
+                             sample_index_t length)
     :UndoAction(),
      m_manager(manager), m_offset(offset), m_length(length),
      m_selected_tracks(selected_tracks)
@@ -79,8 +79,8 @@ bool UndoSelection::store(SignalManager &manager)
 UndoAction *UndoSelection::undo(SignalManager &manager, bool with_redo)
 {
     // store current selection for later redo
-    unsigned int old_offset = manager.selection().offset();
-    unsigned int old_length = manager.selection().length();
+    sample_index_t old_offset = manager.selection().offset();
+    sample_index_t old_length = manager.selection().length();
     QList<unsigned int> old_selected_tracks = manager.selectedTracks();
 
     // restore the previous selection
@@ -101,10 +101,12 @@ UndoAction *UndoSelection::undo(SignalManager &manager, bool with_redo)
 //***************************************************************************
 void UndoSelection::dump(const QString &indent)
 {
-    qDebug("%sselect from [%u ... %u] (%d)", indent.toLocal8Bit().data(),
-           m_offset,
-           m_offset + ((m_length) ? (m_length - 1) : m_length),
-           m_length);
+    qDebug("%sselect from [%lu ... %lu] (%lu)",
+           indent.toLocal8Bit().data(),
+           static_cast<unsigned long int>(m_offset),
+           static_cast<unsigned long int>(m_offset + ((m_length) ?
+               (m_length - 1) : m_length)),
+           static_cast<unsigned long int>(m_length));
 }
 
 //***************************************************************************

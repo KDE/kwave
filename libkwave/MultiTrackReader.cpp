@@ -33,7 +33,7 @@ MultiTrackReader::MultiTrackReader()
 MultiTrackReader::MultiTrackReader(Kwave::ReaderMode mode,
                                    SignalManager &signal_manager,
                                    const QList<unsigned int> &track_list,
-                                   unsigned int first, unsigned int last)
+                                   sample_index_t first, sample_index_t last)
     :Kwave::MultiTrackSource<SampleReader, false>(0),
      m_first(first), m_last(last), m_canceled(false)
 {
@@ -55,13 +55,13 @@ MultiTrackReader::~MultiTrackReader()
 }
 
 //***************************************************************************
-unsigned int MultiTrackReader::first() const
+sample_index_t MultiTrackReader::first() const
 {
     return m_first;
 }
 
 //***************************************************************************
-unsigned int MultiTrackReader::last() const
+sample_index_t MultiTrackReader::last() const
 {
     return m_last;
 }
@@ -82,27 +82,31 @@ bool MultiTrackReader::eof() const
 //***************************************************************************
 void MultiTrackReader::proceeded()
 {
-    unsigned int pos = 0;
+    qreal sum = 0;
+    qreal total = 0;
     unsigned int track;
     const unsigned int n_tracks = tracks();
-    for (track=0; track < n_tracks; ++track) {
+    for (track = 0; track < n_tracks; ++track) {
 	SampleReader *r = at(track);
-	if (r) pos += (r->pos() - r->first());
+	if (r) {
+	    sum   += (r->pos() - r->first());
+	    total += (r->last() - r->first() + 1);
+	}
     }
-    emit progress(pos);
+
+    emit progress(qreal(100.0) * sum / total);
 }
 
 //***************************************************************************
 void MultiTrackReader::reset()
 {
-    unsigned int pos = 0;
     unsigned int track;
     const unsigned int n_tracks = tracks();
     for (track=0; track < n_tracks; ++track) {
 	SampleReader *r = at(track);
 	if (r) r->reset();
     }
-    emit progress(pos);
+    emit progress(0);
 }
 
 //***************************************************************************

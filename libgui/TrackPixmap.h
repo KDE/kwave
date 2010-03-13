@@ -20,6 +20,8 @@
 
 #include "config.h"
 
+#include <math.h>
+
 #include <QBitArray>
 #include <QColor>
 #include <QMutex>
@@ -132,7 +134,7 @@ namespace Kwave
 	 * will be redrawn.
 	 * @param offset index of the first visible sample
 	 */
-	void setOffset(unsigned int offset);
+	void setOffset(sample_index_t offset);
 
 	/**
 	 * Sets a new zoom factor in samples per pixel. This normally
@@ -151,8 +153,8 @@ namespace Kwave
 	 * @see Track::sigSamplesInserted
 	 * @internal
 	 */
-	void slotSamplesInserted(Track *src, unsigned int offset,
-				unsigned int length);
+	void slotSamplesInserted(Track *src, sample_index_t offset,
+				sample_index_t length);
 
 	/**
 	 * Connected to the track's sigSamplesDeleted.
@@ -162,8 +164,8 @@ namespace Kwave
 	 * @see Track::sigSamplesDeleted
 	 * @internal
 	 */
-	void slotSamplesDeleted(Track *src, unsigned int offset,
-				unsigned int length);
+	void slotSamplesDeleted(Track *src, sample_index_t offset,
+				sample_index_t length);
 
 	/**
 	 * Connected to the track's sigSamplesModified
@@ -173,8 +175,8 @@ namespace Kwave
 	 * @see Track::sigSamplesModified
 	 * @internal
 	 */
-	void slotSamplesModified(Track *src, unsigned int offset,
-				unsigned int length);
+	void slotSamplesModified(Track *src, sample_index_t offset,
+				sample_index_t length);
 
 	/**
 	 * Sets the state of the pixmap to "modified" whenever the
@@ -274,16 +276,17 @@ namespace Kwave
 	/**
 	 * Converts a pixel offset into a sample offset.
 	 */
-	inline unsigned int pixels2samples(int pixels) {
-	    return static_cast<unsigned int>(pixels * m_zoom);
+	inline sample_index_t pixels2samples(int pixels) {
+	    return static_cast<sample_index_t>(rint(
+		static_cast<double>(pixels) * m_zoom));
 	}
 
 	/**
 	 * Converts a sample offset into a pixel offset.
 	 */
-	inline int samples2pixels(unsigned int samples) {
-	    if (m_zoom==0.0) return 0;
-	    return static_cast<int>(samples / m_zoom);
+	inline int samples2pixels(sample_index_t samples) {
+	    if (m_zoom == 0.0) return 0;
+	    return static_cast<int>(rint(static_cast<double>(samples) / m_zoom));
 	}
 
 	/**
@@ -298,7 +301,7 @@ namespace Kwave
 	 * @param length reference to the length in samples, will be converted
 	 *               to the number of buffer indices
 	 */
-	void convertOverlap(unsigned int &offset, unsigned int &length);
+	void convertOverlap(sample_index_t &offset, sample_index_t &length);
 
     private:
 
@@ -315,7 +318,7 @@ namespace Kwave
 	 * positions into absolute sample numbers. This is always
 	 * in units of samples, independend of the current mode!
 	 */
-	unsigned int m_offset;
+	sample_index_t m_offset;
 
 	/**
 	 * Zoom factor in samples/pixel. Needed for converting

@@ -220,13 +220,6 @@ signals:
      */
     void sigZoomChanged(double zoom);
 
-    /**
-     * Emits a change in the mouse cursor. This can be used to change
-     * the content of a status bar if the mouse moves over a selected
-     * area or a marker.
-     */
-    void sigMouseChanged(int mode);
-
     void sigCommand(const QString &command);
 
 private:

@@ -180,8 +180,6 @@ bool TopWidget::init()
     // connect the main widget
     connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
             this, SLOT(executeCommand(const QString &)));
-    connect(m_main_widget, SIGNAL(sigMouseChanged(int)),
-            this, SLOT(mouseChanged(int)));
     connect(&m_context.signalManager()->playbackController(),
             SIGNAL(sigPlaybackPos(sample_index_t)),
             this, SLOT(updatePlaybackPos(sample_index_t)));
@@ -1304,25 +1302,24 @@ void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
 }
 
 //***************************************************************************
-void TopWidget::mouseChanged(int mode)
+void TopWidget::mouseChanged(Kwave::MouseMark::Mode mode)
 {
     SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
-//     switch (static_cast<SignalWidget::MouseMode>(mode)) {
-// 	case (SignalWidget::MouseAtSelectionBorder) :
-// 	case (SignalWidget::MouseInSelection) :
-// 	{
-// 	    sample_index_t offset = signal_manager->selection().offset();
-// 	    sample_index_t length = signal_manager->selection().length();
-// 	    selectionChanged(offset, length);
-// 	    break;
-// 	}
-// 	default:
-// 	    ;
-//     }
-
+    switch (mode) {
+	case (Kwave::MouseMark::MouseAtSelectionBorder) :
+	case (Kwave::MouseMark::MouseInSelection) :
+	{
+	    sample_index_t offset = signal_manager->selection().offset();
+	    sample_index_t length = signal_manager->selection().length();
+	    selectionChanged(offset, length);
+	    break;
+	}
+	default:
+	    ;
+    }
 }
 
 //***************************************************************************

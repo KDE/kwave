@@ -60,14 +60,6 @@ namespace Kwave {
 	    LowerDockBottom   /**< lower dock area, bottom            */
 	} Location;
 
-	/** Mode of the mouse cursor */
-	typedef enum {
-	    MouseNormal = 0,        /**< over the signal [default] */
-	    MouseInSelection,       /**< within the selection */
-	    MouseAtSelectionBorder, /**< near the border of a selection */
-	    MouseSelect             /**< during selection */
-	} MouseMode;
-
 	/**
 	 * Constructor
 	 * @param parent pointer to the parent widget
@@ -139,7 +131,17 @@ namespace Kwave {
 	 * Sets the mode of the mouse cursor and emits sigMouseChanged
 	 * if it differs from the previous value.
 	 */
-	virtual void setMouseMode(MouseMode mode);
+	virtual void setMouseMode(Kwave::MouseMark::Mode mode);
+
+    signals:
+
+	/**
+	 * Emits a change in the mouse cursor. This can be used to change
+	 * the content of a status bar if the mouse moves over a selected
+	 * area or a marker. The "mode" parameter is one of the modes in
+	 * enum MouseMode.
+	 */
+	void sigMouseChanged(Kwave::MouseMark::Mode mode);
 
     public slots:
 
@@ -295,7 +297,7 @@ namespace Kwave {
 
     private:
 	/** mode of the mouse cursor */
-	MouseMode m_mouse_mode;
+	MouseMark::Mode m_mouse_mode;
 
 	/** selection handler */
 	Kwave::MouseMark m_mouse_selection;

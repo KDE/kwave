@@ -254,17 +254,6 @@ signals:
     void sigCommand(const QString &command);
 
     /**
-     * Emits a change in the mouse cursor. This can be used to change
-     * the content of a status bar if the mouse moves over a selected
-     * area or a marker. The "mode" parameter is one of the modes in
-     * enum MouseMode, but casted to int for simplicity.
-     * @todo find out how to use a forward declaration of both the
-     * class SignalWidget *and* of SignalWidget::MouseMouse to avoid the
-     * need of including SignalWidget.h in too many files.
-     */
-//     void sigMouseChanged(int mode);
-
-    /**
      * Signals that a track has been inserted.
      * @param track index of the new track [0...tracks()-1]
      */

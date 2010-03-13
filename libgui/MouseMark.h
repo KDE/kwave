@@ -35,6 +35,14 @@ namespace Kwave {
 
     public:
 
+	/** Mode of the mouse cursor */
+	typedef enum {
+	    MouseNormal = 0,        /**< over the signal [default] */
+	    MouseInSelection,       /**< within the selection */
+	    MouseAtSelectionBorder, /**< near the border of a selection */
+	    MouseSelect             /**< during selection */
+	} Mode;
+
 	/** Constructor */
 	MouseMark();
 

@@ -1366,8 +1366,9 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
 
     // connect all signals
 
-//     connect(pix, SIGNAL(sigModified()),
-//             this, SLOT(refreshSignalLayer()));
+    QWidget *top_widget = reinterpret_cast<QWidget *>(m_context.topWidget());
+    connect(view,       SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode)),
+	    top_widget, SLOT(mouseChanged(Kwave::MouseMark::Mode)));
 
 }
 

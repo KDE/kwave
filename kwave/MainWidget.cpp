@@ -149,8 +149,6 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
 
     connect(&m_signal_widget, SIGNAL(sigCommand(const QString &)),
 	    this,             SIGNAL(sigCommand(const QString &)));
-//     connect(&m_signal_widget, SIGNAL(sigMouseChanged(int)),
-// 	    this, SIGNAL(sigMouseChanged(int)));
 
     // -- connect all signals from/to the signal manager --
 

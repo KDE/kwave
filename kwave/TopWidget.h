@@ -32,6 +32,8 @@
 
 #include "libkwave/Sample.h"
 
+#include "libgui/MouseMark.h"
+
 class QCloseEvent;
 class QLabel;
 class QTextStream;
@@ -164,7 +166,7 @@ private slots:
      * Updates the status bar's content depending on the current status
      * or position of the mouse cursor.
      */
-    void mouseChanged(int mode);
+    void mouseChanged(Kwave::MouseMark::Mode mode);
 
     /** updates the menus when the clipboard has become empty/full */
     void clipboardChanged(bool data_available);

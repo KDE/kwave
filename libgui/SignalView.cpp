@@ -56,7 +56,7 @@ Kwave::SignalView::SignalView(QWidget *parent, QWidget *controls,
      m_track_index(track),
      m_offset(0),
      m_zoom(1.0),
-     m_mouse_mode(MouseNormal),
+     m_mouse_mode(Kwave::MouseMark::MouseNormal),
      m_mouse_selection(),
      m_mouse_down_x(0),
     m_position_widget(this),
@@ -288,7 +288,7 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
     last_y = mouse_y;
 
     switch (m_mouse_mode) {
-	case MouseSelect: {
+	case Kwave::MouseMark::MouseSelect: {
 	    // in move mode, a new selection was created or an old one grabbed
 	    // this does the changes with every mouse move...
 	    sample_index_t x = m_offset + pixels2samples(mouse_x);
@@ -332,7 +332,7 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 // 		showPosition(text, label.pos(), samples2ms(label.pos()), pos);
 // 		break;
 	    /* } else*/ if ((first != last) && isSelectionBorder(mouse_x)) {
-		setMouseMode(MouseAtSelectionBorder);
+		setMouseMode(Kwave::MouseMark::MouseAtSelectionBorder);
 		switch (selectionPosition(mouse_x) & ~Selection) {
 		    case LeftBorder:
 			showPosition(i18n("Selection, left border"),
@@ -346,7 +346,7 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 			hidePosition();
 		}
 	    } else if (isInSelection(mouse_x)) {
-		setMouseMode(MouseInSelection);
+		setMouseMode(Kwave::MouseMark::MouseInSelection);
 		hidePosition();
                 int dmin = KGlobalSettings::dndEventDelay();
 		if ((e->buttons() & Qt::LeftButton) &&
@@ -356,7 +356,7 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 		    qDebug("startDragging();");
 		}
 	    } else {
-		setMouseMode(MouseNormal);
+		setMouseMode(Kwave::MouseMark::MouseNormal);
 		hidePosition();
 	    }
 	}
@@ -366,33 +366,33 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 //***************************************************************************
 void Kwave::SignalView::leaveEvent(QEvent* e)
 {
-    setMouseMode(MouseNormal);
+    setMouseMode(Kwave::MouseMark::MouseNormal);
     hidePosition();
     QWidget::leaveEvent(e);
 }
 
 //***************************************************************************
-void Kwave::SignalView::setMouseMode(MouseMode mode)
+void Kwave::SignalView::setMouseMode(Kwave::MouseMark::Mode mode)
 {
     if (mode == m_mouse_mode) return;
 
     m_mouse_mode = mode;
     switch (mode) {
-	case MouseNormal:
+	case Kwave::MouseMark::MouseNormal:
 	    setCursor(Qt::ArrowCursor);
 	    break;
-	case MouseAtSelectionBorder:
+	case Kwave::MouseMark::MouseAtSelectionBorder:
 	    setCursor(Qt::SizeHorCursor);
 	    break;
-	case MouseInSelection:
+	case Kwave::MouseMark::MouseInSelection:
 	    setCursor(Qt::ArrowCursor);
 	    break;
-	case MouseSelect:
+	case Kwave::MouseMark::MouseSelect:
 	    setCursor(Qt::SizeHorCursor);
 	    break;
     }
 
-//     emit sigMouseChanged(static_cast<int>(mode));
+    emit sigMouseChanged(mode);
 }
 
 //***************************************************************************

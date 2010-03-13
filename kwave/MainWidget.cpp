@@ -518,18 +518,6 @@ sample_index_t MainWidget::ms2samples(double ms)
 }
 
 //***************************************************************************
-double MainWidget::samples2ms(sample_index_t samples)
-{
-    SignalManager *signal_manager = m_context.signalManager();
-    Q_ASSERT(signal_manager);
-    if (!signal_manager) return 0.0;
-
-    double rate = signal_manager->rate();
-    if (rate == 0.0) return 0.0;
-    return static_cast<double>(samples) * 1E3 / rate;
-}
-
-//***************************************************************************
 sample_index_t MainWidget::pixels2samples(unsigned int pixels) const
 {
     if ((pixels <= 0) || (m_zoom <= 0.0)) return 0;

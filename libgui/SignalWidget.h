@@ -194,11 +194,6 @@ private slots:
      */
     void slotTrackDeleted(unsigned int index);
 
-    /** Hide the current position marker */
-//     void hidePosition() {
-// 	showPosition(0, 0, 0, QPoint(-1,-1));
-//     }
-
     /** context menu: "edit/undo" */
     void contextMenuEditUndo()   { forwardCommand("undo()"); }
 
@@ -311,61 +306,6 @@ protected:
 	/** true if repaint is needed after allow */
 // 	bool m_repaint;
 //     };
-//
-//     class PositionWidget: public QWidget
-//     {
-//     public:
-// 	/** Constructor */
-// 	PositionWidget(QWidget *parent);
-//
-// 	/** Destructor */
-// 	virtual ~PositionWidget();
-//
-// 	/**
-// 	 * set a new label text and alignment
-// 	 * @param text the text of the label, can be multiline and rtf/html
-// 	 * @param alignment the alignment of the label and the widget,
-// 	 *                  can be Qt::AlignLeft, Qt::AlignRight or Qt::AlignHCenter
-// 	 */
-// 	virtual void setText(const QString &text, Qt::Alignment alignment);
-//
-//     protected:
-//
-// 	/** event filter */
-// 	virtual bool event(QEvent *e);
-//
-// 	/** paint event: draws the text and the arrow */
-// 	virtual void paintEvent(QPaintEvent *);
-//
-// 	/**
-// 	 * re-creates the mask and the polygon when
-// 	 * size/alignment has changed
-// 	 */
-// 	virtual void updateMask();
-//
-//     private:
-//
-// 	/** the label that contains the text */
-// 	QLabel *m_label;
-//
-// 	/** alignment of the label / text */
-// 	Qt::Alignment m_alignment;
-//
-// 	/** the radius of the corners [pixel] */
-// 	int m_radius;
-//
-// 	/** the length of the arrows [pixel] */
-// 	int m_arrow_length;
-//
-// 	/** for detecting changes: previous width */
-// 	Qt::Alignment m_last_alignment;
-//
-// 	/** for detecting changes: previous size */
-// 	QSize m_last_size;
-//
-// 	/** polygon used as widget outline */
-// 	QPolygon m_polygon;
-//     };
 
     /** slot for mouse press, used for selection and drag&drop */
 //     virtual void mousePressEvent(QMouseEvent *);
@@ -410,23 +350,6 @@ protected:
 private:
 
     /**
-     * Sets the mode of the mouse cursor and emits sigMouseChanged
-     * if it differs from the previous value.
-     */
-//     void setMouseMode(MouseMode mode);
-
-    /**
-     * Shows the current cursor position as a tooltip
-     * @param text description of the position
-     * @param pos marker position [samples]
-     * @param ms marker position in milliseconds
-     * @param mouse the coordinates of the mouse cursor,
-     *              relative to this widget [pixel]
-     */
-//     void showPosition(const QString &text, sample_index_t pos, double ms,
-//                       const QPoint &mouse);
-
-    /**
      * add a new label
      * @param pos position of the label [samples]
      */
@@ -463,15 +386,6 @@ private:
     /** number of samples per pixel */
     double m_zoom;
 
-    /** QImage for buffering each layer */
-//     QImage m_layer[3];
-
-    /** flags for updating each layer */
-//     bool m_update_layer[3];
-
-    /** height of the widget in pixels, cached value */
-//     int m_height;
-
     /** vertical zoom factor */
 //     double m_vertical_zoom;
 
@@ -485,9 +399,6 @@ private:
     /** last/previous value of m_playpointer, for detecting changes */
 //     int m_last_playpointer;
 
-    /** if set, m_pixmap has to be redrawn */
-//     bool m_redraw;
-
     /**
      * Counter for inhibiting repaints. If not zero, repaints should
      * be inhibited.
@@ -495,15 +406,6 @@ private:
      * @see inhibitRepaint()
      */
 //     unsigned int m_inhibit_repaint;
-
-    /** timer for limiting the number of repaints per second */
-//     QTimer m_repaint_timer;
-
-    /** small widget for showing the mouse cursor position */
-//     PositionWidget m_position_widget;
-
-    /** timer for automatic hiding */
-//     QTimer m_position_widget_timer;
 
 };
 

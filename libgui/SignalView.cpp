@@ -17,7 +17,14 @@
 
 #include "config.h"
 
+#include <math.h>
+
+#include <QBitmap>
+#include <QBrush>
+#include <QEvent>
 #include <QMouseEvent>
+#include <QPainter>
+#include <QToolTip>
 
 #include <kglobalsettings.h>
 
@@ -34,6 +41,9 @@
  */
 #define SELECTION_TOLERANCE 10
 
+/** number of milliseconds until the position widget disappears */
+#define POSITION_WIDGET_TIME 5000
+
 //***************************************************************************
 Kwave::SignalView::SignalView(QWidget *parent, QWidget *controls,
                               SignalManager *signal_manager,
@@ -48,8 +58,14 @@ Kwave::SignalView::SignalView(QWidget *parent, QWidget *controls,
      m_zoom(1.0),
      m_mouse_mode(MouseNormal),
      m_mouse_selection(),
-     m_mouse_down_x(0)
+     m_mouse_down_x(0),
+    m_position_widget(this),
+    m_position_widget_timer(this)
 {
+    // connect the timer of the position widget
+    connect(&m_position_widget_timer, SIGNAL(timeout()),
+            &m_position_widget, SLOT(hide()));
+
     setMouseTracking(true);
     setAcceptDrops(true); // enable drag&drop
 }
@@ -90,6 +106,17 @@ int Kwave::SignalView::samples2pixels(sample_index_t samples) const
 sample_index_t Kwave::SignalView::pixels2samples(int pixels) const
 {
     return pixels * m_zoom;
+}
+
+//***************************************************************************
+double Kwave::SignalView::samples2ms(sample_index_t samples)
+{
+    Q_ASSERT(m_signal_manager);
+    if (!m_signal_manager) return 0.0;
+
+    double rate = m_signal_manager->rate();
+    if (rate == 0.0) return 0.0;
+    return static_cast<double>(samples) * 1E3 / rate;
 }
 
 //***************************************************************************
@@ -141,6 +168,87 @@ bool Kwave::SignalView::isInSelection(int x)
 }
 
 //***************************************************************************
+void Kwave::SignalView::showPosition(const QString &text, sample_index_t pos,
+                                     double ms, const QPoint &mouse)
+{
+    int x = mouse.x();
+    int y = mouse.y();
+
+    // x/y == -1/-1 -> reset/hide the position
+    if ((x < 0) && (y < 0)) {
+	m_position_widget_timer.stop();
+	m_position_widget.hide();
+	return;
+    }
+
+    setUpdatesEnabled(false);
+    m_position_widget.hide();
+
+    unsigned int t, h, m, s, tms;
+    t = static_cast<unsigned int>(rint(ms * 10.0));
+    tms = t % 10000;
+    t /= 10000;
+    s = t % 60;
+    t /= 60;
+    m = t % 60;
+    t /= 60;
+    h = t;
+
+    QString str;
+    QString hms_format = i18nc(
+	"time of the position widget, "\
+	"%1=hours, %2=minutes, %3=seconds, %4=milliseconds",
+	"%02u:%02u:%02u.%04u");
+    QString hms;
+    hms.sprintf(hms_format.toUtf8().data(), h, m, s, tms);
+    QString txt = QString("%1\n%2\n%3").arg(text).arg(pos).arg(hms);
+
+    switch (selectionPosition(mouse.x()) & ~Selection) {
+	case LeftBorder:
+	    m_position_widget.setText(txt, Qt::AlignRight);
+	    x = samples2pixels(pos - m_offset) - m_position_widget.width();
+	    if (x < 0) {
+		// switch to left aligned mode
+		m_position_widget.setText(txt, Qt::AlignLeft);
+		x = samples2pixels(pos - m_offset);
+	    }
+	    break;
+	case RightBorder:
+	default:
+	    m_position_widget.setText(txt, Qt::AlignLeft);
+	    x = samples2pixels(pos - m_offset);
+	    if (x + m_position_widget.width() > width()) {
+		// switch to right aligned mode
+		m_position_widget.setText(txt, Qt::AlignRight);
+		x = samples2pixels(pos - m_offset) - m_position_widget.width();
+	    }
+	    break;
+    }
+
+    // adjust the position to avoid vertical clipping
+    int lh = m_position_widget.height();
+    if (y - lh/2 < 0) {
+	y = 0;
+    } else if (y + lh/2 > height()) {
+	y = height() - lh;
+    } else {
+	y -= lh/2;
+    }
+
+    m_position_widget.move(x, y);
+
+    if (!m_position_widget.isVisible())
+	m_position_widget.show();
+
+    m_position_widget_timer.stop();
+    m_position_widget_timer.setSingleShot(true);
+    m_position_widget_timer.start(POSITION_WIDGET_TIME);
+
+    setUpdatesEnabled(true);
+}
+
+
+//***************************************************************************
 void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 {
     Q_ASSERT(e);
@@ -189,7 +297,7 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 		m_mouse_selection.left(),
 		m_mouse_selection.length()
 	    );
-// 	    showPosition(i18n("Selection"), x, samples2ms(x), pos);
+	    showPosition(i18n("Selection"), x, samples2ms(x), pos);
 	    break;
 	}
 	default: {
@@ -224,26 +332,22 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 // 		showPosition(text, label.pos(), samples2ms(label.pos()), pos);
 // 		break;
 	    /* } else*/ if ((first != last) && isSelectionBorder(mouse_x)) {
-// 		qDebug("setMouseMode(MouseAtSelectionBorder);");
+		setMouseMode(MouseAtSelectionBorder);
 		switch (selectionPosition(mouse_x) & ~Selection) {
 		    case LeftBorder:
-// 			qDebug("Selection, left border");
-// 			showPosition(i18n("Selection, left border"),
-//  			    first, samples2ms(first), pos);
+			showPosition(i18n("Selection, left border"),
+ 			    first, samples2ms(first), pos);
 			break;
 		    case RightBorder:
-// 			qDebug("Selection, right border");
-// 			showPosition(i18n("Selection, right border"),
-// 			    last, samples2ms(last), pos);
+			showPosition(i18n("Selection, right border"),
+			    last, samples2ms(last), pos);
 			break;
 		    default:
-// 			qDebug("hidePosition");
-// 			hidePosition();
-			;
+			hidePosition();
 		}
 	    } else if (isInSelection(mouse_x)) {
-// 		qDebug("setMouseMode(MouseInSelection);");
-// 		hidePosition();
+		setMouseMode(MouseInSelection);
+		hidePosition();
                 int dmin = KGlobalSettings::dndEventDelay();
 		if ((e->buttons() & Qt::LeftButton) &&
 		    ((mouse_x < m_mouse_down_x - dmin) ||
@@ -252,11 +356,215 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 		    qDebug("startDragging();");
 		}
 	    } else {
-// 		qDebug("setMouseMode(MouseNormal);");
-// 		hidePosition();
+		setMouseMode(MouseNormal);
+		hidePosition();
 	    }
 	}
     }
+}
+
+//***************************************************************************
+void Kwave::SignalView::leaveEvent(QEvent* e)
+{
+    setMouseMode(MouseNormal);
+    hidePosition();
+    QWidget::leaveEvent(e);
+}
+
+//***************************************************************************
+void Kwave::SignalView::setMouseMode(MouseMode mode)
+{
+    if (mode == m_mouse_mode) return;
+
+    m_mouse_mode = mode;
+    switch (mode) {
+	case MouseNormal:
+	    setCursor(Qt::ArrowCursor);
+	    break;
+	case MouseAtSelectionBorder:
+	    setCursor(Qt::SizeHorCursor);
+	    break;
+	case MouseInSelection:
+	    setCursor(Qt::ArrowCursor);
+	    break;
+	case MouseSelect:
+	    setCursor(Qt::SizeHorCursor);
+	    break;
+    }
+
+//     emit sigMouseChanged(static_cast<int>(mode));
+}
+
+//***************************************************************************
+//***************************************************************************
+Kwave::SignalView::PositionWidget::PositionWidget(QWidget *parent)
+    :QWidget(parent), m_label(0), m_alignment(0),
+     m_radius(10), m_arrow_length(30), m_last_alignment(Qt::AlignHCenter),
+     m_last_size(QSize(0,0)), m_polygon()
+{
+    hide();
+
+    m_label = new QLabel(this);
+    Q_ASSERT(m_label);
+    if (!m_label) return;
+
+    m_label->setFrameStyle(QFrame::Panel | QFrame::Plain);
+    m_label->setPalette(QToolTip::palette()); // use same colors as a QToolTip
+    m_label->setFocusPolicy(Qt::NoFocus);
+    m_label->setMouseTracking(true);
+    m_label->setLineWidth(0);
+
+    setPalette(QToolTip::palette()); // use same colors as a QToolTip
+    setFocusPolicy(Qt::NoFocus);
+    setMouseTracking(true);
+}
+
+//***************************************************************************
+Kwave::SignalView::PositionWidget::~PositionWidget()
+{
+    if (m_label) delete m_label;
+    m_label = 0;
+}
+
+//***************************************************************************
+void Kwave::SignalView::PositionWidget::setText(const QString &text,
+                                                Qt::Alignment alignment)
+{
+    if (!m_label) return;
+
+    m_alignment = alignment;
+
+    m_label->setText(text);
+    m_label->setAlignment(m_alignment);
+    m_label->resize(m_label->sizeHint());
+
+    switch (m_alignment) {
+	case Qt::AlignLeft:
+	    resize(m_arrow_length + m_radius + m_label->width() + m_radius,
+	           m_radius + m_label->height() + m_radius);
+	    m_label->move(m_arrow_length + m_radius, m_radius);
+	    break;
+	case Qt::AlignRight:
+	    resize(m_radius + m_label->width() + m_radius + m_arrow_length,
+	           m_radius + m_label->height() + m_radius);
+	    m_label->move(m_radius, m_radius);
+	    break;
+	case Qt::AlignHCenter:
+	    resize(m_radius + m_label->width() + m_radius,
+	           m_arrow_length + m_radius + m_label->height() + m_radius);
+	    m_label->move(m_radius, m_arrow_length + m_radius);
+	    break;
+	default:
+	    ;
+    }
+
+    updateMask();
+}
+
+//***************************************************************************
+bool Kwave::SignalView::PositionWidget::event(QEvent *e)
+{
+    if (!e) return false;
+
+    // ignore any kind of event that might be of interest
+    // for the parent widget (in our case the SignalWidget)
+    switch (e->type()) {
+	case QEvent::MouseButtonPress:
+	case QEvent::MouseButtonRelease:
+	case QEvent::MouseButtonDblClick:
+	case QEvent::MouseMove:
+	case QEvent::KeyPress:
+	case QEvent::KeyRelease:
+	case QEvent::Shortcut:
+	case QEvent::Wheel:
+	case QEvent::Clipboard:
+	case QEvent::Speech:
+	case QEvent::DragEnter:
+	case QEvent::DragMove:
+	case QEvent::DragLeave:
+	case QEvent::Drop:
+	case QEvent::DragResponse:
+	case QEvent::TabletMove:
+	case QEvent::TabletPress:
+	case QEvent::TabletRelease:
+	    return false;
+	default:
+	    ;
+    }
+
+    // everything else: let it be handled by QLabel
+    return QWidget::event(e);
+}
+
+//***************************************************************************
+void Kwave::SignalView::PositionWidget::updateMask()
+{
+    // bail out if nothing has changed
+    if ((size() == m_last_size) && (m_alignment == m_last_alignment))
+	return;
+
+    QPainter p;
+    QBitmap bmp(size());
+    bmp.fill(Qt::color0);
+    p.begin(&bmp);
+
+    QBrush brush(Qt::color1);
+    p.setBrush(brush);
+    p.setPen(Qt::color1);
+
+    const int h = height();
+    const int w = width();
+
+    // re-create the polygon, depending on alignment
+    switch (m_alignment) {
+	case Qt::AlignLeft:
+	    m_polygon.setPoints(8,
+		m_arrow_length, 0,
+		w-1, 0,
+		w-1, h-1,
+		m_arrow_length, h-1,
+		m_arrow_length, 2*h/3,
+		0, h/2,
+		m_arrow_length, h/3,
+		m_arrow_length, 0
+	    );
+	    break;
+	case Qt::AlignRight:
+	    m_polygon.setPoints(8,
+		0, 0,
+		w-1-m_arrow_length, 0,
+		w-1-m_arrow_length, h/3,
+		w-1, h/2,
+		w-1-m_arrow_length, 2*h/3,
+		w-1-m_arrow_length, h-1,
+		0, h-1,
+		0, 0
+	    );
+	    break;
+	case Qt::AlignHCenter:
+	    break;
+	default:
+	    ;
+    }
+
+    p.drawPolygon(m_polygon);
+    p.end();
+
+    // activate the new widget mask
+    clearMask();
+    setMask(bmp);
+
+    // remember size/alignment for detecing changes
+    m_last_alignment = m_alignment;
+    m_last_size      = size();
+}
+
+//***************************************************************************
+void Kwave::SignalView::PositionWidget::paintEvent(QPaintEvent *)
+{
+    QPainter p(this);
+    p.setBrush(palette().background().color());
+    p.drawPolygon(m_polygon);
 }
 
 //***************************************************************************

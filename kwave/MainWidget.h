@@ -240,14 +240,6 @@ private:
     sample_index_t ms2samples(double ms);
 
     /**
-     * Converts a number of samples to a time in milliseconds, based on the
-     * current signal rate.
-     * @param samples number of samples
-     * @return time in milliseconds
-     */
-    double samples2ms(sample_index_t samples);
-
-    /**
      * Converts a sample index into a pixel offset using the current zoom
      * value. Always rounds up or downwards. If the number of pixels or the
      * current zoom is less than zero, the return value will be zero.

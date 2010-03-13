@@ -21,6 +21,11 @@
 #include "config.h"
 
 #include <QObject>
+#include <QLabel>
+#include <QSize>
+#include <QPolygon>
+#include <QString>
+#include <QTimer>
 #include <QWidget>
 
 #include "kdemacros.h"
@@ -29,7 +34,9 @@
 
 #include "libgui/MouseMark.h"
 
+class QEvent;
 class QMouseEvent;
+class QPaintEvent;
 class SignalManager; // forward declaration
 
 namespace Kwave {
@@ -114,8 +121,25 @@ namespace Kwave {
 	 */
 	sample_index_t pixels2samples(int pixels) const;
 
+	/**
+	 * Converts a number of samples to a time in milliseconds, based on the
+	 * current signal rate.
+	 * @param samples number of samples
+	 * @return time in milliseconds
+	 */
+	double samples2ms(sample_index_t samples);
+
 	/** slot for mouse moves, used for selection and drag&drop */
-	virtual void mouseMoveEvent(QMouseEvent *);
+	virtual void mouseMoveEvent(QMouseEvent *e);
+
+	/** slot when the mouse leaves the widget */
+	virtual void leaveEvent(QEvent *e);
+
+        /**
+	 * Sets the mode of the mouse cursor and emits sigMouseChanged
+	 * if it differs from the previous value.
+	 */
+	virtual void setMouseMode(MouseMode mode);
 
     public slots:
 
@@ -131,6 +155,25 @@ namespace Kwave {
 	 * @param offset the index of the first visible sample
 	 */
 	virtual void setZoomAndOffset(double zoom, sample_index_t offset);
+
+
+    protected slots:
+
+	/**
+	 * Shows the current cursor position as a tooltip
+	 * @param text description of the position
+	 * @param pos marker position [samples]
+	 * @param ms marker position in milliseconds
+	 * @param mouse the coordinates of the mouse cursor,
+	 *              relative to this widget [pixel]
+	 */
+	virtual void showPosition(const QString &text, sample_index_t pos,
+				  double ms, const QPoint &mouse);
+
+	/** Hide the current position marker */
+	virtual void hidePosition() {
+	    showPosition(0, 0, 0, QPoint(-1,-1));
+	}
 
     protected:
 
@@ -195,6 +238,62 @@ namespace Kwave {
 
     private:
 
+	class PositionWidget: public QWidget
+	{
+	public:
+	    /** Constructor */
+	    PositionWidget(QWidget *parent);
+
+	    /** Destructor */
+	    virtual ~PositionWidget();
+
+	    /**
+	     * set a new label text and alignment
+	     * @param text the text of the label, can be multiline and rtf/html
+	     * @param alignment the alignment of the label and the widget,
+	     *                  can be Qt::AlignLeft, Qt::AlignRight or Qt::AlignHCenter
+	     */
+	    virtual void setText(const QString &text, Qt::Alignment alignment);
+
+	protected:
+
+	    /** event filter */
+	    virtual bool event(QEvent *e);
+
+	    /** paint event: draws the text and the arrow */
+	    virtual void paintEvent(QPaintEvent *);
+
+	    /**
+	     * re-creates the mask and the polygon when
+	     * size/alignment has changed
+	     */
+	    virtual void updateMask();
+
+	private:
+
+	    /** the label that contains the text */
+	    QLabel *m_label;
+
+	    /** alignment of the label / text */
+	    Qt::Alignment m_alignment;
+
+	    /** the radius of the corners [pixel] */
+	    int m_radius;
+
+	    /** the length of the arrows [pixel] */
+	    int m_arrow_length;
+
+	    /** for detecting changes: previous width */
+	    Qt::Alignment m_last_alignment;
+
+	    /** for detecting changes: previous size */
+	    QSize m_last_size;
+
+	    /** polygon used as widget outline */
+	    QPolygon m_polygon;
+	};
+
+    private:
 	/** mode of the mouse cursor */
 	MouseMode m_mouse_mode;
 
@@ -206,6 +305,12 @@ namespace Kwave {
 	 * finding out where to start a drag&drop operation [pixel]
 	 */
 	int m_mouse_down_x;
+
+	/** small widget for showing the mouse cursor position */
+	PositionWidget m_position_widget;
+
+	/** timer for automatic hiding */
+	QTimer m_position_widget_timer;
 
     };
 

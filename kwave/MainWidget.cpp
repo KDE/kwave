@@ -298,10 +298,11 @@ int MainWidget::executeCommand(const QString &command)
 	          (offset - (visible_samples / 2)) : 0);
 	signal_manager->selectRange(offset, 0);
     CASE_COMMAND("scrollright")
-	setOffset(m_offset + visible_samples / 10);
+	const unsigned int step = visible_samples / 10;
+	setOffset(m_offset + step);
     CASE_COMMAND("scrollleft")
-	setOffset(((visible_samples / 10) < m_offset) ?
-	          (m_offset - visible_samples / 10) : 0);
+	const unsigned int step = visible_samples / 10;
+	setOffset((step < m_offset) ? (m_offset - step) : 0);
     CASE_COMMAND("viewstart")
 	setOffset(0);
 	signal_manager->selectRange(0, 0);
@@ -467,7 +468,7 @@ void MainWidget::refreshHorizontalScrollBar()
 	int min     = 0;
 	int max     = (length   / f) - page;
 	int pos     = (m_offset / f);
-	int single  = qMax(1, (page / 10));
+	int single  = qMax(1, (page / (10 * qApp->wheelScrollLines())));
 	if (page < single) page = single;
 // 	qDebug("width=%d, max=%d, page=%d, single=%d, pos=%d, visible=%d",
 // 	       m_width, max, page, single, pos, visible);

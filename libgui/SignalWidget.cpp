@@ -1220,18 +1220,6 @@ bool SignalWidget::labelProperties(Label &label)
 // //    return i;
 // //}
 
-// //***************************************************************************
-// void SignalWidget::playbackStopped()
-// {
-//     InhibitRepaintGuard inhibit(*this);
-// }
-
-// //***************************************************************************
-// void SignalWidget::updatePlaybackPointer(sample_index_t)
-// {
-//     InhibitRepaintGuard inhibit(*this);
-// }
-
 //***************************************************************************
 int SignalWidget::viewPortWidth()
 {
@@ -1400,12 +1388,6 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track *track)
 
     // assign the view to the new track
     view->setTrack(index);
-
-// ### TODO ###
-//     connect(track, SIGNAL(sigSelectionChanged()),
-// 	    this, SIGNAL(sigTrackSelectionChanged()));
-//     connect(track, SIGNAL(sigSelectionChanged()),
-//             this, SLOT(refreshSignalLayer()));
 
     connect(view, SIGNAL(destroyed()), controls, SLOT(deleteLater()));
 

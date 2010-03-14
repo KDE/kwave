@@ -554,7 +554,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     int x;
     int buflen = m_valid.size();
 
-    qDebug("TrackPixmap::drawInterpolatedSignal()");
+//     qDebug("TrackPixmap::drawInterpolatedSignal()");
 
     Q_ASSERT(m_zoom);
     if (m_zoom == 0.0) return;

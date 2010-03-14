@@ -94,6 +94,9 @@ void Kwave::SignalView::setZoomAndOffset(double zoom, sample_index_t offset)
 // 	   zoom,
 // 	   static_cast<unsigned long int>(offset),
 // 	   static_cast<unsigned long int>(last));
+
+    // the relation to the position widget has become invalid
+    hidePosition();
 }
 
 //***************************************************************************
@@ -122,18 +125,21 @@ double Kwave::SignalView::samples2ms(sample_index_t samples)
 //***************************************************************************
 int Kwave::SignalView::selectionPosition(const int x)
 {
+    // shortcut: if this view can't handle selection...
+    if (!canHandleSelection()) return 0;
+
     Q_ASSERT(m_signal_manager);
     if (!m_signal_manager) return None;
 
-    const sample_index_t p     = pixels2samples(x) + m_offset;
-    const sample_index_t tol   = pixels2samples(SELECTION_TOLERANCE);
-    const sample_index_t first = m_signal_manager->selection().first();
-    const sample_index_t last  = m_signal_manager->selection().last();
+    const double p     = (m_zoom * x) + m_offset;
+    const double tol   = m_zoom * SELECTION_TOLERANCE;
+    const double first = m_signal_manager->selection().first();
+    const double last  = m_signal_manager->selection().last();
     Q_ASSERT(first <= last);
 
     // get distance to left/right selection border
-    sample_index_t d_left  = (p > first) ? (p - first) : (first - p);
-    sample_index_t d_right = (p > last)  ? (p - last)  : (last  - p);
+    double d_left  = (p > first) ? (p - first) : (first - p);
+    double d_right = (p > last)  ? (p - last)  : (last  - p);
 
     // the simple cases...
     int pos = None;
@@ -165,6 +171,18 @@ bool Kwave::SignalView::isSelectionBorder(int x)
 bool Kwave::SignalView::isInSelection(int x)
 {
     return (selectionPosition(x) & Selection) != 0;
+}
+
+//***************************************************************************
+double Kwave::SignalView::findObject(double offset,
+                                     double tolerance,
+                                     sample_index_t &position,
+                                     QString &description)
+{
+    Q_UNUSED(offset);
+    Q_UNUSED(position);
+    Q_UNUSED(description);
+    return tolerance;
 }
 
 //***************************************************************************
@@ -247,7 +265,6 @@ void Kwave::SignalView::showPosition(const QString &text, sample_index_t pos,
     setUpdatesEnabled(true);
 }
 
-
 //***************************************************************************
 void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 {
@@ -275,7 +292,7 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
     if (mouse_y < 0) mouse_y = 0;
     if (mouse_x >= width())  mouse_x = width()  - 1;
     if (mouse_y >= height()) mouse_y = height() - 1;
-    QPoint pos(mouse_x, mouse_y);
+    QPoint mouse_pos(mouse_x, mouse_y);
 
     // bail out if the position did not change
     static int last_x = -1;
@@ -287,78 +304,86 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
     last_x = mouse_x;
     last_y = mouse_y;
 
-    switch (m_mouse_mode) {
-	case Kwave::MouseMark::MouseSelect: {
+    const sample_index_t pos = m_offset + pixels2samples(mouse_x);
+    const double fine_pos = static_cast<double>(m_offset) +
+	(static_cast<double>(mouse_x) * m_zoom);
+
+    if (m_mouse_mode == Kwave::MouseMark::MouseSelect) {
+	if (canHandleSelection()) {
 	    // in move mode, a new selection was created or an old one grabbed
 	    // this does the changes with every mouse move...
-	    sample_index_t x = m_offset + pixels2samples(mouse_x);
-	    m_mouse_selection.update(x);
+	    m_mouse_selection.update(pos);
 	    m_signal_manager->selectRange(
 		m_mouse_selection.left(),
 		m_mouse_selection.length()
 	    );
-	    showPosition(i18n("Selection"), x, samples2ms(x), pos);
-	    break;
+	    showPosition(i18n("Selection"), pos, samples2ms(pos), mouse_pos);
 	}
-	default: {
-	    sample_index_t first = m_signal_manager->selection().first();
-	    sample_index_t last  = m_signal_manager->selection().last();
-// 	    Label label = findLabelNearMouse(mouse_x);
+    } else {
+	sample_index_t first = m_signal_manager->selection().first();
+	sample_index_t last  = m_signal_manager->selection().last();
+	const double   tol   = m_zoom * SELECTION_TOLERANCE;
 
-	    // find out what is nearer: label or selection border ?
-// 	    if (!label.isNull() && (first != last) && isSelectionBorder(mouse_x)) {
-// 		const sample_index_t pos = m_offset + pixels2samples(mouse_x);
-// 		const sample_index_t d_label = (pos > label.pos()) ?
-// 		    (pos - label.pos()) : (label.pos() - pos);
-// 		const sample_index_t d_left = (pos > first) ?
-// 		    (pos - first) : (first - pos);
-// 		const sample_index_t d_right = (pos > last) ?
-// 		    (pos - last) : (last - pos);
-// 		if ( ((d_label ^ 2) > (d_left ^ 2)) &&
-// 		     ((d_label ^ 2) > (d_right ^ 2)) )
-// 		{
-// 		    // selection borders are nearer
-// 		    label = Label();
-// 		}
-// 	    }
+	// check wheter there is some object near this position
+	sample_index_t obj_pos   = pos;
+	QString        obj_text  = "?";
+	double         d_object  = findObject(fine_pos, tol, obj_pos, obj_text);
+	bool           obj_found = (d_object < tol);
 
-// 	    // yes, this code gives the nifty cursor change....
-// 	    if (!label.isNull()) {
-// 		setMouseMode(MouseAtSelectionBorder);
-// 		int index = signal_manager->labelIndex(label);
-// 		QString text = (label.name().length()) ?
-// 		    i18n("Label #%1 (%2)", index, label.name()) :
-// 		    i18n("Label #%1", index);
-// 		showPosition(text, label.pos(), samples2ms(label.pos()), pos);
-// 		break;
-	    /* } else*/ if ((first != last) && isSelectionBorder(mouse_x)) {
-		setMouseMode(Kwave::MouseMark::MouseAtSelectionBorder);
-		switch (selectionPosition(mouse_x) & ~Selection) {
-		    case LeftBorder:
-			showPosition(i18n("Selection, left border"),
- 			    first, samples2ms(first), pos);
-			break;
-		    case RightBorder:
-			showPosition(i18n("Selection, right border"),
-			    last, samples2ms(last), pos);
-			break;
-		    default:
-			hidePosition();
-		}
-	    } else if (isInSelection(mouse_x)) {
-		setMouseMode(Kwave::MouseMark::MouseInSelection);
-		hidePosition();
-                int dmin = KGlobalSettings::dndEventDelay();
-		if ((e->buttons() & Qt::LeftButton) &&
-		    ((mouse_x < m_mouse_down_x - dmin) ||
-		     (mouse_x > m_mouse_down_x + dmin)) )
-		{
-		    qDebug("startDragging();");
-		}
-	    } else {
-		setMouseMode(Kwave::MouseMark::MouseNormal);
-		hidePosition();
+	// find out what is nearer: object or selection border ?
+	if (obj_found && (first != last) && isSelectionBorder(mouse_x))
+	{
+	    double d_left = (fine_pos > first) ?
+		(fine_pos - first) : (first - fine_pos);
+	    double d_right = (fine_pos > last) ?
+		(fine_pos - last) : (last - fine_pos);
+
+	    // special case: object is at selection left and cursor is left
+	    //               of selection -> take the object
+	    //               (or vice versa at the right border)
+	    bool prefer_the_object =
+		((obj_pos == first) && (fine_pos < first)) ||
+	        ((obj_pos == last)  && (fine_pos > last));
+	    bool selection_is_nearer =
+		(d_left <= d_object) || (d_right <= d_object);
+	    if (selection_is_nearer && !prefer_the_object) {
+		// one of the selection borders is nearer
+		obj_found = false;
 	    }
+
+	}
+
+	// yes, this code gives the nifty cursor change....
+	if (obj_found) {
+	    setMouseMode(Kwave::MouseMark::MouseAtSelectionBorder);
+	    showPosition(obj_text, obj_pos, samples2ms(obj_pos), mouse_pos);
+	} else if ((first != last) && isSelectionBorder(mouse_x)) {
+	    setMouseMode(Kwave::MouseMark::MouseAtSelectionBorder);
+	    switch (selectionPosition(mouse_x) & ~Selection) {
+		case LeftBorder:
+		    showPosition(i18n("Selection, left border"),
+			first, samples2ms(first), mouse_pos);
+		    break;
+		case RightBorder:
+		    showPosition(i18n("Selection, right border"),
+			last, samples2ms(last), mouse_pos);
+		    break;
+		default:
+		    hidePosition();
+	    }
+	} else if (isInSelection(mouse_x)) {
+	    setMouseMode(Kwave::MouseMark::MouseInSelection);
+	    hidePosition();
+	    int dmin = KGlobalSettings::dndEventDelay();
+	    if ((e->buttons() & Qt::LeftButton) &&
+		((mouse_x < m_mouse_down_x - dmin) ||
+		 (mouse_x > m_mouse_down_x + dmin)) )
+	    {
+		qDebug("startDragging();");
+	    }
+	} else {
+	    setMouseMode(Kwave::MouseMark::MouseNormal);
+	    hidePosition();
 	}
     }
 }

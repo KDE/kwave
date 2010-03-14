@@ -681,46 +681,6 @@ void SignalWidget::contextMenuLabelProperties()
 //     }
 // }
 
-// //***************************************************************************
-// // Label SignalWidget::findLabelNearMouse(int x) const
-// // {
-// //     const int tol = SELECTION_TOLERANCE;
-// //     sample_index_t pos = m_offset + pixels2samples(x);
-// //     Label nearest;
-// //     sample_index_t dmin = pixels2samples(SELECTION_TOLERANCE) + 1;
-// //
-// //     foreach (Label label, labels()) {
-// // 	sample_index_t lp = label.pos();
-// // 	if (lp < m_offset) continue; // outside left
-// // 	int lx = samples2pixels(lp - m_offset);
-// // 	if (lx >= m_width) continue; // outside right
-// //
-// // 	if ((lx + tol < x) || (lx > x + tol))
-// // 	    continue; // out of tolerance
-// //
-// // 	sample_index_t dist = (pos > lp) ? (pos - lp) : (lp - pos);
-// // 	if (dist < dmin) {
-// // 	    // found a new "nearest" label
-// // 	    dmin = dist;
-// // 	    nearest = label;
-// // 	}
-// //     }
-// //
-// //     return nearest;
-// // }
-
-// //***************************************************************************
-// // LabelList &SignalWidget::labels()
-// // {
-// //     return m_context.signalManager()->fileInfo().labels();
-// // }
-
-// //***************************************************************************
-// // const LabelList &SignalWidget::labels() const
-// // {
-// //     return m_context.signalManager()->fileInfo().labels();
-// // }
-
 //***************************************************************************
 void SignalWidget::addLabel(sample_index_t pos)
 {

@@ -70,6 +70,31 @@ namespace Kwave {
 	/** slot for repainting the widget or portions of it */
 	void paintEvent(QPaintEvent *);
 
+	/**
+	 * Should be overwritten by subclasses that can display the currently
+	 * selected range and allow the user to change the selection by mouse.
+	 * @return true if mouse selection is handled
+	 */
+	virtual bool canHandleSelection() const { return true; }
+
+	/**
+	 * Tries to find the nearest object that is visible in this view
+	 * (needed for showing a tooltip at that location).
+	 * @param offset position to look at [samples]
+	 * @param tolerance search tolerance [samples]
+	 * @param position will receive the exact position of the object if
+	 *                 found, otherwise remains unchanged
+	 * @param description receives the description of the object, as it
+	 *                    should be shown in the tool tip (translated),
+	 *                    otherwise remains unchanged
+	 * @return distance to the nearest object if something was found,
+	 *         the value of the tolerance parameter or more otherwise
+	 */
+	virtual double findObject(double offset,
+	                          double tolerance,
+	                          sample_index_t &position,
+	                          QString &description);
+
     private slots:
 
 	/** requests a repaint, as soon as the repaint timer elapsed */

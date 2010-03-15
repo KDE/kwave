@@ -73,8 +73,6 @@ class KDE_EXPORT SignalWidget : public QWidget
 {
     Q_OBJECT
 
-//     friend class InhibitRepaintGuard;
-
 public:
 
     /**
@@ -142,35 +140,7 @@ public:
      */
 //     void playbackStopped();
 
-// protected:
-
-    /** Starts a drag & drop operation */
-//     virtual void startDragging();
-
-    /** @see Qt XDND documentation */
-//     virtual void dragEnterEvent(QDragEnterEvent *event);
-
-    /** @see Qt XDND documentation */
-//     virtual void dragLeaveEvent(QDragLeaveEvent *);
-
-    /** @see Qt XDND documentation */
-//     virtual void dropEvent(QDropEvent *event);
-
-    /** @see Qt XDND documentation */
-//     virtual void dragMoveEvent(QDragMoveEvent *event);
-
-//     friend class UndoModifyLabelAction;
-
 protected slots:
-
-    /**
-     * Allows repainting of the display by decrementing the repaint
-     * inhibit counter. If the counter reaches zero, the widget
-     * will be refreshed.
-     * @see m_inhibit_repaint
-     * @see inhibitRepaint()
-     */
-//     void allowRepaint(bool repaint);
 
     /** Handler for context menus */
     void contextMenuEvent(QContextMenuEvent *e);
@@ -270,48 +240,8 @@ signals:
 
 protected:
 
-    /**
-     * Simple internal guard class for inhibiting and allowing
-     * repaints in a SignalWidget.
-     */
-//     class InhibitRepaintGuard
-//     {
-//     public:
-        /** Constructor, inhibits repaints */
-// 	InhibitRepaintGuard(SignalWidget &widget, bool repaint=true)
-// 	    :m_widget(widget), m_repaint(repaint)
-// 	{
-// 	    m_widget.inhibitRepaint();
-// 	}
-
-	/** Destructor, allows repaints */
-// 	~InhibitRepaintGuard() {
-// 	    m_widget.allowRepaint(m_repaint);
-// 	}
-
-	/** reference to our owner */
-// 	SignalWidget &m_widget;
-
-	/** true if repaint is needed after allow */
-// 	bool m_repaint;
-//     };
-
-    /** slot for mouse press, used for selection and drag&drop */
-//     virtual void mousePressEvent(QMouseEvent *);
-
-    /** slot for mouse release, used for selection and drag&drop */
-//     virtual void mouseReleaseEvent(QMouseEvent *);
-
     /** slot for mouse wheel events, used for vertical zoom */
 //     virtual void wheelEvent(QWheelEvent *event);
-
-    /**
-     * Returns the label that is nearest to the given mouse position
-     * and is visible or null if none found.
-     * @param x mouse position, X coordinate, relative to the widget
-     * @return nearest label or null if none found.
-     */
-//     Label findLabelNearMouse(int x) const;
 
     /**
      * Opens a dialog for editing the properties of a label
@@ -320,21 +250,6 @@ protected:
      *         otherwise false (canceled)
      */
     bool labelProperties(Label &label);
-
-//    void loadLabel ();
-//    void appendLabel ();
-//    void deleteLabel ();
-//    void saveLabel (const char *);
-//    void jumptoLabel ();
-//    void markSignal (const char *);
-//    void markPeriods (const char *);
-
-    /**
-     * Inhibits repainting by increasing the repaint inhibit counter.
-     * @see m_inhibit_repaint
-     * @see allowRepaint()
-     */
-//     void inhibitRepaint();
 
 private:
 
@@ -387,14 +302,6 @@ private:
 
     /** last/previous value of m_playpointer, for detecting changes */
 //     int m_last_playpointer;
-
-    /**
-     * Counter for inhibiting repaints. If not zero, repaints should
-     * be inhibited.
-     * @see allowRepaint()
-     * @see inhibitRepaint()
-     */
-//     unsigned int m_inhibit_repaint;
 
 };
 

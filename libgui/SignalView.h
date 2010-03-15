@@ -149,6 +149,12 @@ namespace Kwave {
 	/** slot for mouse moves, used for selection and drag&drop */
 	virtual void mouseMoveEvent(QMouseEvent *e);
 
+	/** slot for mouse press, used for selection and drag&drop */
+	virtual void mousePressEvent(QMouseEvent *e);
+
+	/** slot for mouse release, used for selection and drag&drop */
+	virtual void mouseReleaseEvent(QMouseEvent *e);
+
 	/** slot when the mouse leaves the widget */
 	virtual void leaveEvent(QEvent *e);
 
@@ -201,6 +207,23 @@ namespace Kwave {
 	virtual void hidePosition() {
 	    showPosition(0, 0, 0, QPoint(-1,-1));
 	}
+
+    protected:
+
+    /** Starts a drag & drop operation */
+//     virtual void startDragging();
+
+    /** @see Qt XDND documentation */
+//     virtual void dragEnterEvent(QDragEnterEvent *event);
+
+    /** @see Qt XDND documentation */
+//     virtual void dragLeaveEvent(QDragLeaveEvent *);
+
+    /** @see Qt XDND documentation */
+//     virtual void dropEvent(QDropEvent *event);
+
+    /** @see Qt XDND documentation */
+//     virtual void dragMoveEvent(QDragMoveEvent *event);
 
     protected:
 
@@ -283,9 +306,6 @@ namespace Kwave {
 	    virtual void setText(const QString &text, Qt::Alignment alignment);
 
 	protected:
-
-	    /** event filter */
-	    virtual bool event(QEvent *e);
 
 	    /** paint event: draws the text and the arrow */
 	    virtual void paintEvent(QPaintEvent *);

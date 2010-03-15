@@ -59,8 +59,8 @@ Kwave::SignalView::SignalView(QWidget *parent, QWidget *controls,
      m_mouse_mode(Kwave::MouseMark::MouseNormal),
      m_mouse_selection(),
      m_mouse_down_x(0),
-    m_position_widget(this),
-    m_position_widget_timer(this)
+     m_position_widget(this),
+     m_position_widget_timer(this)
 {
     // connect the timer of the position widget
     connect(&m_position_widget_timer, SIGNAL(timeout()),
@@ -350,7 +350,6 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 		// one of the selection borders is nearer
 		obj_found = false;
 	    }
-
 	}
 
 	// yes, this code gives the nifty cursor change....
@@ -385,6 +384,139 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 	    setMouseMode(Kwave::MouseMark::MouseNormal);
 	    hidePosition();
 	}
+    }
+    e->accept();
+}
+
+//***************************************************************************
+void Kwave::SignalView::mousePressEvent(QMouseEvent *e)
+{
+    Q_ASSERT(e);
+    Q_ASSERT(m_signal_manager);
+    if (!e) return;
+
+    // abort if no signal is loaded
+    if (!m_signal_manager || !m_signal_manager->length()) {
+	e->ignore();
+	return;
+    }
+
+    // ignore all mouse press events in playback mode
+    if (m_signal_manager->playbackController().running()) {
+	e->ignore();
+	return;
+    }
+
+    if (e->button() == Qt::LeftButton) {
+	int mx = e->pos().x();
+	if (mx < 0) mx = 0;
+	if (mx >= width()) mx = width() - 1;
+	sample_index_t x   = m_offset + pixels2samples(mx);
+	sample_index_t len = m_signal_manager->selection().length();
+	switch (e->modifiers()) {
+	    case Qt::ShiftModifier: {
+		// expand the selection to "here"
+		setMouseMode(Kwave::MouseMark::MouseSelect);
+		m_mouse_selection.set(
+		    m_signal_manager->selection().first(),
+		    m_signal_manager->selection().last()
+		);
+		m_mouse_selection.grep(x);
+		m_signal_manager->selectRange(
+		    m_mouse_selection.left(),
+		    m_mouse_selection.length()
+		);
+		break;
+	    }
+	    case Qt::ControlModifier: {
+		if (isInSelection(e->pos().x()) && (len > 1)) {
+		    // start a drag&drop operation in "copy" mode
+// 		    startDragging();
+		}
+		break;
+	    }
+	    case 0: {
+		if (isSelectionBorder(e->pos().x())) {
+		    // modify selection border
+		    setMouseMode(Kwave::MouseMark::MouseSelect);
+		    m_mouse_selection.set(
+			m_signal_manager->selection().first(),
+			m_signal_manager->selection().last()
+		    );
+		    m_mouse_selection.grep(x);
+		    m_signal_manager->selectRange(
+			m_mouse_selection.left(),
+			m_mouse_selection.length()
+		    );
+		} else if (isInSelection(e->pos().x()) && (len > 1)) {
+		    // store the x position for later drag&drop
+		    m_mouse_down_x = e->pos().x();
+		} else if (canHandleSelection()) {
+		    // start a new selection
+		    setMouseMode(Kwave::MouseMark::MouseSelect);
+		    m_mouse_selection.set(x, x);
+		    m_signal_manager->selectRange(x, 0);
+		}
+		break;
+	    }
+	}
+	e->accept();
+    } else {
+	e->ignore();
+    }
+}
+
+//***************************************************************************
+void Kwave::SignalView::mouseReleaseEvent(QMouseEvent *e)
+{
+    Q_ASSERT(e);
+    Q_ASSERT(m_signal_manager);
+    if (!e) return;
+
+    // abort if no signal is loaded
+    if (!m_signal_manager || !m_signal_manager->length()) {
+	e->ignore();
+	return;
+    }
+
+    // ignore all mouse release events in playback mode
+    if (m_signal_manager->playbackController().running()) {
+	e->ignore();
+	return;
+    }
+
+    switch (m_mouse_mode) {
+	case Kwave::MouseMark::MouseSelect: {
+	    if (canHandleSelection()) {
+		sample_index_t x = m_offset + pixels2samples(e->pos().x());
+		m_mouse_selection.update(x);
+		m_signal_manager->selectRange(
+		    m_mouse_selection.left(),
+		    m_mouse_selection.length()
+		);
+		setMouseMode(Kwave::MouseMark::MouseNormal);
+		hidePosition();
+	    }
+	    e->accept();
+	    break;
+	}
+	case Kwave::MouseMark::MouseInSelection: {
+	    int dmin = KGlobalSettings::dndEventDelay();
+	    if ((e->button() & Qt::LeftButton) &&
+		    ((e->pos().x() >= m_mouse_down_x - dmin) ||
+		     (e->pos().x() <= m_mouse_down_x + dmin)) )
+	    {
+		// deselect if only clicked without moving
+		sample_index_t pos = m_offset + pixels2samples(e->pos().x());
+		m_signal_manager->selectRange(pos, 0);
+		setMouseMode(Kwave::MouseMark::MouseNormal);
+		hidePosition();
+	    }
+	    e->accept();
+	    break;
+	}
+	default:
+	    e->ignore();
     }
 }
 
@@ -421,6 +553,178 @@ void Kwave::SignalView::setMouseMode(Kwave::MouseMark::Mode mode)
 }
 
 //***************************************************************************
+// void Kwave::SignalView::startDragging()
+// {
+//     SignalManager *signal_manager = m_context.signalManager();
+//     Q_ASSERT(signal_manager);
+//     if (!signal_manager) return;
+//
+//     const sample_index_t length = signal_manager->selection().length();
+//     if (!length) return;
+//
+//     KwaveDrag *d = new KwaveDrag(this);
+//     Q_ASSERT(d);
+//     if (!d) return;
+//
+//     const sample_index_t first = signal_manager->selection().first();
+//     const sample_index_t last  = signal_manager->selection().last();
+//     const double         rate  = signal_manager->rate();
+//     const unsigned int   bits  = signal_manager->bits();
+//
+//     MultiTrackReader src(Kwave::SinglePassForward, *signal_manager,
+// 	signal_manager->selectedTracks(), first, last);
+//
+//     // create the file info
+//     FileInfo info = signal_manager->fileInfo();
+//     info.setLength(last - first + 1);
+//     info.setRate(rate);
+//     info.setBits(bits);
+//     info.setTracks(src.tracks());
+//
+//     if (!d->encode(this, src, info)) {
+// 	delete d;
+// 	return;
+//     }
+//
+//     // start drag&drop, mode is determined automatically
+//     InhibitRepaintGuard inhibit(*this);
+//     UndoTransactionGuard undo(*signal_manager, i18n("Drag and Drop"));
+//     Qt::DropAction drop = d->exec(Qt::CopyAction | Qt::MoveAction);
+//
+//     if (drop == Qt::MoveAction) {
+// 	// deleting also affects the selection !
+// 	const sample_index_t f = signal_manager->selection().first();
+// 	const sample_index_t l = signal_manager->selection().last();
+// 	const sample_index_t len = l-f+1;
+//
+// 	// special case: when dropping into the same widget, before
+// 	// the previous selection, the previous range has already
+// 	// been moved to the right !
+// 	sample_index_t src = first;
+// 	if ((d->target() == this) && (f < src)) src += len;
+//
+// 	signal_manager->deleteRange(src, len, signal_manager->selectedTracks());
+//
+// 	// restore the new selection
+// 	selectRange((first < f) ? f-len : f, len);
+//     }
+// }
+
+//***************************************************************************
+// void Kwave::SignalView::dragEnterEvent(QDragEnterEvent *event)
+// {
+//     if (!event) return;
+//     if ((event->proposedAction() != Qt::MoveAction) &&
+//         (event->proposedAction() != Qt::CopyAction))
+//         return; /* unsupported action */
+//
+//     if (KwaveFileDrag::canDecode(event->mimeData()))
+// 	event->acceptProposedAction();
+// }
+
+// //***************************************************************************
+// void Kwave::SignalView::dragLeaveEvent(QDragLeaveEvent *)
+// {
+//     setMouseMode(MouseNormal);
+// }
+
+// //***************************************************************************
+// void Kwave::SignalView::dropEvent(QDropEvent *event)
+// {
+//     if (!event) return;
+//     if (!event->mimeData()) return;
+//
+//     SignalManager *signal_manager = m_context.signalManager();
+//     Q_ASSERT(signal_manager);
+//     if (!signal_manager) return;
+//
+//     if (KwaveDrag::canDecode(event->mimeData())) {
+// 	UndoTransactionGuard undo(*signal_manager, i18n("Drag and Drop"));
+// 	InhibitRepaintGuard inhibit(*this);
+// 	sample_index_t pos = m_offset + pixels2samples(event->pos().x());
+// 	sample_index_t len = 0;
+//
+// 	if ((len = KwaveDrag::decode(this, event->mimeData(),
+// 	    *signal_manager, pos)))
+// 	{
+// 	    // set selection to the new area where the drop was done
+// 	    selectRange(pos, len);
+// 	    event->acceptProposedAction();
+// 	} else {
+// 	    qWarning("SignalWidget::dropEvent(%s): failed !", event->format(0));
+// 	    event->ignore();
+// 	}
+//     } else if (event->mimeData()->hasUrls()) {
+// 	bool first = true;
+// 	foreach (QUrl url, event->mimeData()->urls()) {
+// 	    QString filename = url.toLocalFile();
+// 	    QString mimetype = CodecManager::whatContains(filename);
+// 	    if (CodecManager::canDecode(mimetype)) {
+// 		if (first) {
+// 		    // first dropped URL -> open in this window
+// 		    emit sigCommand("open(" + filename + ")");
+// 		    first = false;
+// 		} else {
+// 		    // all others -> open a new window
+// 		    emit sigCommand("newwindow(" + filename + ")");
+// 		}
+// 	    }
+// 	}
+//     }
+//
+//     qDebug("SignalWidget::dropEvent(): done");
+//     setMouseMode(MouseNormal);
+// }
+
+//***************************************************************************
+// void Kwave::SignalView::dragMoveEvent(QDragMoveEvent* event)
+// {
+//     if (!event) return;
+//
+//     const int x = event->pos().x();
+//
+//     if ((event->source() == this) && isInSelection(x)) {
+// 	// disable drag&drop into the selection itself
+// 	// this would be nonsense
+//
+// 	SignalManager *signal_manager = m_context.signalManager();
+// 	Q_ASSERT(signal_manager);
+// 	if (!signal_manager) {
+// 	    event->ignore();
+// 	    return;
+// 	}
+//
+// 	sample_index_t left  = signal_manager->selection().first();
+// 	sample_index_t right = signal_manager->selection().last();
+// 	const sample_index_t w = pixels2samples(m_width);
+// 	QRect r(this->rect());
+//
+// 	// crop selection to widget borders
+// 	if (left < m_offset) left = m_offset;
+// 	if (right > m_offset+w) right = m_offset+w-1;
+//
+// 	// transform to pixel coordinates
+// 	left  = samples2pixels(left - m_offset);
+// 	right = samples2pixels(right - m_offset);
+// 	if (right >= static_cast<unsigned int>(m_width))
+// 	    right=m_width-1;
+// 	if (left > right)
+// 	    left = right;
+//
+// 	r.setLeft(left);
+// 	r.setRight(right);
+// 	event->ignore(r);
+//     } else if (KwaveDrag::canDecode(event->mimeData())) {
+// 	// accept if it is decodeable within the
+// 	// current range (if it's outside our own selection)
+// 	event->acceptProposedAction();
+//     } else if (KwaveFileDrag::canDecode(event->mimeData())) {
+// 	// file drag
+// 	event->accept();
+//     } else event->ignore();
+// }
+
+//***************************************************************************
 //***************************************************************************
 Kwave::SignalView::PositionWidget::PositionWidget(QWidget *parent)
     :QWidget(parent), m_label(0), m_alignment(0),
@@ -440,8 +744,9 @@ Kwave::SignalView::PositionWidget::PositionWidget(QWidget *parent)
     m_label->setLineWidth(0);
 
     setPalette(QToolTip::palette()); // use same colors as a QToolTip
+    setMouseTracking(false);
     setFocusPolicy(Qt::NoFocus);
-    setMouseTracking(true);
+    setAttribute(Qt::WA_TransparentForMouseEvents);
 }
 
 //***************************************************************************
@@ -484,41 +789,6 @@ void Kwave::SignalView::PositionWidget::setText(const QString &text,
     }
 
     updateMask();
-}
-
-//***************************************************************************
-bool Kwave::SignalView::PositionWidget::event(QEvent *e)
-{
-    if (!e) return false;
-
-    // ignore any kind of event that might be of interest
-    // for the parent widget (in our case the SignalWidget)
-    switch (e->type()) {
-	case QEvent::MouseButtonPress:
-	case QEvent::MouseButtonRelease:
-	case QEvent::MouseButtonDblClick:
-	case QEvent::MouseMove:
-	case QEvent::KeyPress:
-	case QEvent::KeyRelease:
-	case QEvent::Shortcut:
-	case QEvent::Wheel:
-	case QEvent::Clipboard:
-	case QEvent::Speech:
-	case QEvent::DragEnter:
-	case QEvent::DragMove:
-	case QEvent::DragLeave:
-	case QEvent::Drop:
-	case QEvent::DragResponse:
-	case QEvent::TabletMove:
-	case QEvent::TabletPress:
-	case QEvent::TabletRelease:
-	    return false;
-	default:
-	    ;
-    }
-
-    // everything else: let it be handled by QLabel
-    return QWidget::event(e);
 }
 
 //***************************************************************************

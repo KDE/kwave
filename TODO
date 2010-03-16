@@ -2,9 +2,7 @@
 o support for visualization plugins (rev 2498)
   - re-enable old standard functionality:
     * display of playback pointer in signal views
-    * mouse mode handling in signal views (selection, labels)
     * track controls (enable/disable)
-    * drag & drop of audio data
     * vertical zoom
   - new functions
     * allow drag&drop to reorder signal views

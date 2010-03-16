@@ -45,9 +45,7 @@
 
 #include "libkwave/ApplicationContext.h"
 #include "libkwave/ClipBoard.h"
-#include "libkwave/CodecManager.h"
 #include "libkwave/FileInfo.h"
-#include "libkwave/KwaveDrag.h"
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
@@ -98,37 +96,6 @@
 /** vertical zoom factor: increment/decrement factor */
 // #define VERTICAL_ZOOM_STEP_FACTOR 1.5
 
-//***************************************************************************
-//***************************************************************************
-// namespace KwaveFileDrag
-// {
-//     static bool canDecode(const QMimeData *source) {
-// 	if (!source) return false;
-//
-// 	if (source->hasUrls()) {
-// 	    // dropping URLs
-// 	    foreach (QUrl url, source->urls()) {
-// 		QString filename = url.toLocalFile();
-// 		QString mimetype = CodecManager::whatContains(filename);
-// 		if (CodecManager::canDecode(mimetype)) {
-// 		    return true;
-// 		}
-// 	    }
-// 	}
-//
-// 	foreach (QString format, source->formats()) {
-// 	    // dropping known mime type
-// 	    if (CodecManager::canDecode(format)) {
-// 		qDebug("KwaveFileDrag::canDecode(%s)",
-// 		       format.toLocal8Bit().data());
-// 		return true;
-// 	    }
-// 	}
-// 	return false;
-//     }
-// }
-
-//***************************************************************************
 //***************************************************************************
 SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
                            QVBoxLayout *upper_dock, QVBoxLayout *lower_dock)
@@ -1195,7 +1162,7 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
     Q_ASSERT(index < m_upper_dock->count() + m_layout.rowCount() +
              m_lower_dock->count());
     m_views.insert(index, view);
-    qDebug("SignalWidget::insertView(...), view count = %d", m_views.count());
+//     qDebug("SignalWidget::insertView(...), view count = %d", m_views.count());
 
     // initially set the current view info
     view->setZoomAndOffset(m_zoom, m_offset);
@@ -1205,6 +1172,10 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
     QWidget *top_widget = reinterpret_cast<QWidget *>(m_context.topWidget());
     connect(view,       SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode)),
 	    top_widget, SLOT(mouseChanged(Kwave::MouseMark::Mode)));
+
+    connect(view,       SIGNAL(sigCommand(QString)),
+	    this,       SIGNAL(sigCommand(QString)),
+	    Qt::QueuedConnection);
 
 }
 

@@ -220,6 +220,7 @@ signals:
      */
     void sigZoomChanged(double zoom);
 
+    /** forward a sigCommand to the next layer */
     void sigCommand(const QString &command);
 
 private:

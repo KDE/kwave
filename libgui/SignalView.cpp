@@ -19,16 +19,23 @@
 
 #include <math.h>
 
+#include <QApplication>
 #include <QBitmap>
 #include <QBrush>
 #include <QEvent>
+#include <QMimeData>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QToolTip>
+#include <QUrl>
 
 #include <kglobalsettings.h>
 
+#include "libkwave/CodecManager.h"
+#include "libkwave/KwaveDrag.h"
+#include "libkwave/MultiTrackReader.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "libgui/MouseMark.h"
 
@@ -36,14 +43,43 @@
 
 /**
  * tolerance in pixel for snapping to a label or selection border
- * @todo selection tolerance should depend on some KDE setting,
- *        but which ?
  */
-#define SELECTION_TOLERANCE 10
+#define SELECTION_TOLERANCE (2 * QApplication::startDragDistance())
 
 /** number of milliseconds until the position widget disappears */
 #define POSITION_WIDGET_TIME 5000
 
+//***************************************************************************
+//***************************************************************************
+namespace KwaveFileDrag
+{
+    static bool canDecode(const QMimeData *source) {
+	if (!source) return false;
+
+	if (source->hasUrls()) {
+	    // dropping URLs
+	    foreach (QUrl url, source->urls()) {
+		QString filename = url.toLocalFile();
+		QString mimetype = CodecManager::whatContains(filename);
+		if (CodecManager::canDecode(mimetype)) {
+		    return true;
+		}
+	    }
+	}
+
+	foreach (QString format, source->formats()) {
+	    // dropping known mime type
+	    if (CodecManager::canDecode(format)) {
+		qDebug("KwaveFileDrag::canDecode(%s)",
+		       format.toLocal8Bit().data());
+		return true;
+	    }
+	}
+	return false;
+    }
+}
+
+//***************************************************************************
 //***************************************************************************
 Kwave::SignalView::SignalView(QWidget *parent, QWidget *controls,
                               SignalManager *signal_manager,
@@ -378,7 +414,7 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 		((mouse_x < m_mouse_down_x - dmin) ||
 		 (mouse_x > m_mouse_down_x + dmin)) )
 	    {
-		qDebug("startDragging();");
+		startDragging();
 	    }
 	} else {
 	    setMouseMode(Kwave::MouseMark::MouseNormal);
@@ -553,176 +589,172 @@ void Kwave::SignalView::setMouseMode(Kwave::MouseMark::Mode mode)
 }
 
 //***************************************************************************
-// void Kwave::SignalView::startDragging()
-// {
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return;
-//
-//     const sample_index_t length = signal_manager->selection().length();
-//     if (!length) return;
-//
-//     KwaveDrag *d = new KwaveDrag(this);
-//     Q_ASSERT(d);
-//     if (!d) return;
-//
-//     const sample_index_t first = signal_manager->selection().first();
-//     const sample_index_t last  = signal_manager->selection().last();
-//     const double         rate  = signal_manager->rate();
-//     const unsigned int   bits  = signal_manager->bits();
-//
-//     MultiTrackReader src(Kwave::SinglePassForward, *signal_manager,
-// 	signal_manager->selectedTracks(), first, last);
-//
-//     // create the file info
-//     FileInfo info = signal_manager->fileInfo();
-//     info.setLength(last - first + 1);
-//     info.setRate(rate);
-//     info.setBits(bits);
-//     info.setTracks(src.tracks());
-//
-//     if (!d->encode(this, src, info)) {
-// 	delete d;
-// 	return;
-//     }
-//
-//     // start drag&drop, mode is determined automatically
-//     InhibitRepaintGuard inhibit(*this);
-//     UndoTransactionGuard undo(*signal_manager, i18n("Drag and Drop"));
-//     Qt::DropAction drop = d->exec(Qt::CopyAction | Qt::MoveAction);
-//
-//     if (drop == Qt::MoveAction) {
-// 	// deleting also affects the selection !
-// 	const sample_index_t f = signal_manager->selection().first();
-// 	const sample_index_t l = signal_manager->selection().last();
-// 	const sample_index_t len = l-f+1;
-//
-// 	// special case: when dropping into the same widget, before
-// 	// the previous selection, the previous range has already
-// 	// been moved to the right !
-// 	sample_index_t src = first;
-// 	if ((d->target() == this) && (f < src)) src += len;
-//
-// 	signal_manager->deleteRange(src, len, signal_manager->selectedTracks());
-//
-// 	// restore the new selection
-// 	selectRange((first < f) ? f-len : f, len);
-//     }
-// }
+void Kwave::SignalView::startDragging()
+{
+    Q_ASSERT(m_signal_manager);
+    if (!m_signal_manager) return;
+
+    const sample_index_t length = m_signal_manager->selection().length();
+    if (!length) return;
+
+    KwaveDrag *d = new KwaveDrag(this);
+    Q_ASSERT(d);
+    if (!d) return;
+
+    const sample_index_t first = m_signal_manager->selection().first();
+    const sample_index_t last  = m_signal_manager->selection().last();
+    const double         rate  = m_signal_manager->rate();
+    const unsigned int   bits  = m_signal_manager->bits();
+
+    MultiTrackReader src(Kwave::SinglePassForward, *m_signal_manager,
+	m_signal_manager->selectedTracks(), first, last);
+
+    // create the file info
+    FileInfo info = m_signal_manager->fileInfo();
+    info.setLength(last - first + 1);
+    info.setRate(rate);
+    info.setBits(bits);
+    info.setTracks(src.tracks());
+
+    if (!d->encode(this, src, info)) {
+	delete d;
+	return;
+    }
+
+    // start drag&drop, mode is determined automatically
+    UndoTransactionGuard undo(*m_signal_manager, i18n("Drag and Drop"));
+    Qt::DropAction drop = d->exec(Qt::CopyAction | Qt::MoveAction);
+
+    if (drop == Qt::MoveAction) {
+	// deleting also affects the selection !
+	const sample_index_t f = m_signal_manager->selection().first();
+	const sample_index_t l = m_signal_manager->selection().last();
+	const sample_index_t len = l - f + 1;
+
+	// special case: when dropping into the same widget, before
+	// the previous selection, the previous range has already
+	// been moved to the right !
+	sample_index_t src = first;
+	if ((d->target() == this) && (f < src)) src += len;
+
+	m_signal_manager->deleteRange(src, len,
+	    m_signal_manager->selectedTracks());
+
+	// restore the new selection
+	m_signal_manager->selectRange((first < f) ? (f - len) : f, len);
+    }
+}
 
 //***************************************************************************
-// void Kwave::SignalView::dragEnterEvent(QDragEnterEvent *event)
-// {
-//     if (!event) return;
-//     if ((event->proposedAction() != Qt::MoveAction) &&
-//         (event->proposedAction() != Qt::CopyAction))
-//         return; /* unsupported action */
-//
-//     if (KwaveFileDrag::canDecode(event->mimeData()))
-// 	event->acceptProposedAction();
-// }
+void Kwave::SignalView::dragEnterEvent(QDragEnterEvent *event)
+{
+    if (!event) return;
+    if ((event->proposedAction() != Qt::MoveAction) &&
+        (event->proposedAction() != Qt::CopyAction))
+        return; /* unsupported action */
 
-// //***************************************************************************
-// void Kwave::SignalView::dragLeaveEvent(QDragLeaveEvent *)
-// {
-//     setMouseMode(MouseNormal);
-// }
-
-// //***************************************************************************
-// void Kwave::SignalView::dropEvent(QDropEvent *event)
-// {
-//     if (!event) return;
-//     if (!event->mimeData()) return;
-//
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return;
-//
-//     if (KwaveDrag::canDecode(event->mimeData())) {
-// 	UndoTransactionGuard undo(*signal_manager, i18n("Drag and Drop"));
-// 	InhibitRepaintGuard inhibit(*this);
-// 	sample_index_t pos = m_offset + pixels2samples(event->pos().x());
-// 	sample_index_t len = 0;
-//
-// 	if ((len = KwaveDrag::decode(this, event->mimeData(),
-// 	    *signal_manager, pos)))
-// 	{
-// 	    // set selection to the new area where the drop was done
-// 	    selectRange(pos, len);
-// 	    event->acceptProposedAction();
-// 	} else {
-// 	    qWarning("SignalWidget::dropEvent(%s): failed !", event->format(0));
-// 	    event->ignore();
-// 	}
-//     } else if (event->mimeData()->hasUrls()) {
-// 	bool first = true;
-// 	foreach (QUrl url, event->mimeData()->urls()) {
-// 	    QString filename = url.toLocalFile();
-// 	    QString mimetype = CodecManager::whatContains(filename);
-// 	    if (CodecManager::canDecode(mimetype)) {
-// 		if (first) {
-// 		    // first dropped URL -> open in this window
-// 		    emit sigCommand("open(" + filename + ")");
-// 		    first = false;
-// 		} else {
-// 		    // all others -> open a new window
-// 		    emit sigCommand("newwindow(" + filename + ")");
-// 		}
-// 	    }
-// 	}
-//     }
-//
-//     qDebug("SignalWidget::dropEvent(): done");
-//     setMouseMode(MouseNormal);
-// }
+    if (KwaveFileDrag::canDecode(event->mimeData()))
+	event->acceptProposedAction();
+}
 
 //***************************************************************************
-// void Kwave::SignalView::dragMoveEvent(QDragMoveEvent* event)
-// {
-//     if (!event) return;
-//
-//     const int x = event->pos().x();
-//
-//     if ((event->source() == this) && isInSelection(x)) {
-// 	// disable drag&drop into the selection itself
-// 	// this would be nonsense
-//
-// 	SignalManager *signal_manager = m_context.signalManager();
-// 	Q_ASSERT(signal_manager);
-// 	if (!signal_manager) {
-// 	    event->ignore();
-// 	    return;
-// 	}
-//
-// 	sample_index_t left  = signal_manager->selection().first();
-// 	sample_index_t right = signal_manager->selection().last();
-// 	const sample_index_t w = pixels2samples(m_width);
-// 	QRect r(this->rect());
-//
-// 	// crop selection to widget borders
-// 	if (left < m_offset) left = m_offset;
-// 	if (right > m_offset+w) right = m_offset+w-1;
-//
-// 	// transform to pixel coordinates
-// 	left  = samples2pixels(left - m_offset);
-// 	right = samples2pixels(right - m_offset);
-// 	if (right >= static_cast<unsigned int>(m_width))
-// 	    right=m_width-1;
-// 	if (left > right)
-// 	    left = right;
-//
-// 	r.setLeft(left);
-// 	r.setRight(right);
-// 	event->ignore(r);
-//     } else if (KwaveDrag::canDecode(event->mimeData())) {
-// 	// accept if it is decodeable within the
-// 	// current range (if it's outside our own selection)
-// 	event->acceptProposedAction();
-//     } else if (KwaveFileDrag::canDecode(event->mimeData())) {
-// 	// file drag
-// 	event->accept();
-//     } else event->ignore();
-// }
+void Kwave::SignalView::dragLeaveEvent(QDragLeaveEvent *)
+{
+    setMouseMode(Kwave::MouseMark::MouseNormal);
+}
+
+//***************************************************************************
+void Kwave::SignalView::dropEvent(QDropEvent *event)
+{
+    if (!event) return;
+    if (!event->mimeData()) return;
+
+    Q_ASSERT(m_signal_manager);
+    if (!m_signal_manager) return;
+
+    if (KwaveDrag::canDecode(event->mimeData())) {
+	UndoTransactionGuard undo(*m_signal_manager, i18n("Drag and Drop"));
+	sample_index_t pos = m_offset + pixels2samples(event->pos().x());
+	sample_index_t len = 0;
+
+	if ((len = KwaveDrag::decode(this, event->mimeData(),
+	    *m_signal_manager, pos)))
+	{
+	    // set selection to the new area where the drop was done
+	    m_signal_manager->selectRange(pos, len);
+	    event->acceptProposedAction();
+	} else {
+	    qWarning("SignalView::dropEvent(%s): failed !", event->format(0));
+	    event->ignore();
+	}
+    } else if (event->mimeData()->hasUrls()) {
+	bool first = true;
+	foreach (QUrl url, event->mimeData()->urls()) {
+	    QString filename = url.toLocalFile();
+	    QString mimetype = CodecManager::whatContains(filename);
+	    if (CodecManager::canDecode(mimetype)) {
+		if (first) {
+		    // first dropped URL -> open in this window
+		    emit sigCommand("open(" + filename + ")");
+		    first = false;
+		} else {
+		    // all others -> open a new window
+		    emit sigCommand("newwindow(" + filename + ")");
+		}
+	    }
+	}
+    }
+
+    qDebug("SignalView::dropEvent(): done");
+    setMouseMode(Kwave::MouseMark::MouseNormal);
+}
+
+//***************************************************************************
+void Kwave::SignalView::dragMoveEvent(QDragMoveEvent* event)
+{
+    if (!event) return;
+
+    const int x = event->pos().x();
+
+    if ((event->source() == this) && isInSelection(x)) {
+	// disable drag&drop into the selection itself
+	// this would be nonsense
+
+	Q_ASSERT(m_signal_manager);
+	if (!m_signal_manager) {
+	    event->ignore();
+	    return;
+	}
+
+	sample_index_t left  = m_signal_manager->selection().first();
+	sample_index_t right = m_signal_manager->selection().last();
+	const sample_index_t w = pixels2samples(width());
+	QRect r(this->rect());
+
+	// crop selection to widget borders
+	if (left < m_offset) left = m_offset;
+	if (right > m_offset+w) right = m_offset+w-1;
+
+	// transform to pixel coordinates
+	left  = samples2pixels(left  - m_offset);
+	right = samples2pixels(right - m_offset);
+	if (right >= static_cast<unsigned int>(width()))
+	    right = width() - 1;
+	if (left > right)
+	    left = right;
+
+	r.setLeft(left);
+	r.setRight(right);
+	event->ignore(r);
+    } else if (KwaveDrag::canDecode(event->mimeData())) {
+	// accept if it is decodeable within the
+	// current range (if it's outside our own selection)
+	event->acceptProposedAction();
+    } else if (KwaveFileDrag::canDecode(event->mimeData())) {
+	// file drag
+	event->accept();
+    } else event->ignore();
+}
 
 //***************************************************************************
 //***************************************************************************

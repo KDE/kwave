@@ -612,9 +612,9 @@ Kwave::Writer *SignalManager::openWriter(unsigned int track,
 	    if (undo) {
 		QObject::connect(
 		    writer,
-		    SIGNAL(sigSamplesWritten(unsigned int)),
+		    SIGNAL(sigSamplesWritten(sample_index_t)),
 		    static_cast<UndoInsertAction *>(undo),
-		    SLOT(setLength(unsigned int)));
+		    SLOT(setLength(sample_index_t)));
 	    }
 	    break;
 	}

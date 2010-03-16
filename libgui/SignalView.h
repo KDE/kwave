@@ -174,6 +174,9 @@ namespace Kwave {
 	 */
 	void sigMouseChanged(Kwave::MouseMark::Mode mode);
 
+	/** forward a sigCommand to the next layer */
+	void sigCommand(const QString &command);
+
     public slots:
 
 	/**
@@ -210,20 +213,20 @@ namespace Kwave {
 
     protected:
 
-    /** Starts a drag & drop operation */
-//     virtual void startDragging();
+	/** Starts a drag & drop operation */
+	virtual void startDragging();
 
-    /** @see Qt XDND documentation */
-//     virtual void dragEnterEvent(QDragEnterEvent *event);
+	/** @see Qt XDND documentation */
+	virtual void dragEnterEvent(QDragEnterEvent *event);
 
-    /** @see Qt XDND documentation */
-//     virtual void dragLeaveEvent(QDragLeaveEvent *);
+	/** @see Qt XDND documentation */
+	virtual void dragLeaveEvent(QDragLeaveEvent *);
 
-    /** @see Qt XDND documentation */
-//     virtual void dropEvent(QDropEvent *event);
+	/** @see Qt XDND documentation */
+	virtual void dropEvent(QDropEvent *event);
 
-    /** @see Qt XDND documentation */
-//     virtual void dragMoveEvent(QDragMoveEvent *event);
+	/** @see Qt XDND documentation */
+	virtual void dragMoveEvent(QDragMoveEvent *event);
 
     protected:
 

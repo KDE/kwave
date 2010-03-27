@@ -41,19 +41,19 @@ FileProgress::FileProgress(QWidget *parent,
 	sample_index_t samples, double rate, unsigned int bits,
 	unsigned int tracks)
     :QDialog(parent),
-    m_url(url),
-    m_size(size),
-    m_lbl_url(0),
-    m_lbl_length(0),
-    m_progress(0),
-    m_stat_transfer(0),
-    m_stat_bytes(0),
-    m_time(),
-    m_canceled(true),
-    m_last_percent(0),
-    m_bits_per_sample(bits),
-    m_sample_rate(rate),
-    m_tracks(tracks)
+     m_url(url),
+     m_size(size),
+     m_lbl_url(0),
+     m_lbl_length(0),
+     m_progress(0),
+     m_stat_transfer(0),
+     m_stat_bytes(0),
+     m_time(),
+     m_canceled(true),
+     m_last_percent(0),
+     m_bits_per_sample(bits),
+     m_sample_rate(rate),
+     m_tracks(tracks)
 {
     setModal(true);
 
@@ -330,7 +330,6 @@ void FileProgress::setBytePosition(quint64 pos)
 	rest = double(m_size - pos) / rate;     // [seconds]
     }
     updateStatistics(rate, rest, pos);
-
 }
 
 //***************************************************************************

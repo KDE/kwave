@@ -65,9 +65,7 @@ void Signal::close()
     QWriteLocker lock(&m_lock_tracks);
 
     while (m_tracks.count()) {
-	Track *t = m_tracks.last();
-	if (t) delete t;
-	m_tracks.removeAll(t);
+	deleteTrack(m_tracks.count() - 1);
     }
 }
 

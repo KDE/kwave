@@ -95,8 +95,11 @@ static QList<PlaybackDeviceFactory *> m_playback_factories;
 //***************************************************************************
 Kwave::PluginManager::PluginManager(QWidget *parent,
                                     SignalManager &signal_manager)
-    :m_loaded_plugins(), m_running_plugins(),
-     m_parent_widget(parent), m_signal_manager(signal_manager)
+    :m_loaded_plugins(),
+     m_running_plugins(),
+     m_parent_widget(parent),
+     m_signal_manager(signal_manager),
+     m_view_manager(0)
 {
     // connect all unique plugins
     foreach (KwavePluginPointer p, m_unique_plugins) {
@@ -581,6 +584,20 @@ Kwave::SampleSink *Kwave::PluginManager::openMultiTrackPlayback(
 PlaybackController &Kwave::PluginManager::playbackController()
 {
     return m_signal_manager.playbackController();
+}
+
+//***************************************************************************
+void Kwave::PluginManager::insertView(Kwave::SignalView *view, QWidget *controls)
+{
+    if (m_view_manager)
+	m_view_manager->insertView(view, controls);
+}
+
+//***************************************************************************
+void Kwave::PluginManager::registerViewManager(Kwave::ViewManager *view_manager)
+{
+    Q_ASSERT(!view_manager || !m_view_manager);
+    m_view_manager = view_manager;
 }
 
 //***************************************************************************

@@ -48,18 +48,30 @@ bool Kwave::MultiWriter::insert(unsigned int track, Kwave::Writer *writer)
 //***************************************************************************
 void Kwave::MultiWriter::proceeded()
 {
-    qreal sum   = 0;
-    qreal total = 0;
-    unsigned int track;
-    const unsigned int tracks = this->tracks();
-    for (track = 0; track < tracks; ++track) {
-	Kwave::Writer *w = at(track);
-	if (w) {
-	    sum   += w->position() - w->first();
-	    total += w->last() - w->first();
+    bool overwrite = tracks() && at(0) && (at(0)->mode() == Overwrite);
+    if (overwrite) {
+	qreal sum   = 0;
+	qreal total = 0;
+	unsigned int track;
+	const unsigned int tracks = this->tracks();
+	for (track = 0; track < tracks; ++track) {
+	    const Kwave::Writer *w = at(track);
+	    if (w) {
+		sum   += w->position() - w->first();
+		total += w->last()     - w->first();
+	    }
 	}
+	emit progress(qreal(100.0) * sum / total);
+    } else {
+	quint64 sum   = 0;
+	unsigned int track;
+	const unsigned int tracks = this->tracks();
+	for (track = 0; track < tracks; ++track) {
+	    const Kwave::Writer *w = at(track);
+	    if (w) sum += w->position() - w->first();
+	}
+	emit written(sum);
     }
-    emit progress(qreal(100.0) * sum / total);
 }
 
 //***************************************************************************

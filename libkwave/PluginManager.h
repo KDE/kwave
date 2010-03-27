@@ -32,6 +32,7 @@
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
+#include "libkwave/ViewManager.h"
 
 class FileInfo;
 class PlaybackController;
@@ -40,16 +41,16 @@ class QString;
 class QStringList;
 class SignalManager;
 class QWidget;
-namespace Kwave { class SampleSink; }
 namespace Kwave { class Plugin; }
+namespace Kwave { class SampleSink; }
 namespace Kwave { class Writer; }
 
-/**
- * Manages the loading, initializing, starting, running and closing
- * of the plugins of kwave. Each instance of a TopWidget creates a
- * new instance of the PluginManager to be independent from other
- * toplevel widgets.
- */
+    /**
+     * Manages the loading, initializing, starting, running and closing
+     * of the plugins of kwave. Each instance of a TopWidget creates a
+     * new instance of the PluginManager to be independent from other
+     * toplevel widgets.
+     */
 namespace Kwave {
     class KDE_EXPORT PluginManager : public QObject
     {
@@ -182,6 +183,19 @@ namespace Kwave {
 	{
 	    return m_signal_manager;
 	}
+
+	/**
+	 * Insert a new signal view into this widget (or the upper/lower
+	 * dock area.
+	 * @param view the signal view, must not be a null pointer
+	 * @param controls a widget with controls, optionally, can be null
+	 */
+	void insertView(Kwave::SignalView *view, QWidget *controls);
+
+	/**
+	 * registers a view manager, must only be called once!
+	 */
+	void registerViewManager(Kwave::ViewManager *view_manager);
 
 	/**
 	 * Enqueues a command that will be processed threadsafe in the X11
@@ -367,6 +381,9 @@ namespace Kwave {
 
 	/** reference to our signal manager */
 	SignalManager &m_signal_manager;
+
+	/** interface for registering a SignalView */
+	ViewManager *m_view_manager;
 
     };
 }

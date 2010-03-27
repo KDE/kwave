@@ -66,9 +66,18 @@ namespace Kwave {
     signals:
 
 	/**
-	 * Emits the current progress in percent.
+	 * Emits the current progress in percent, if the writers
+	 * are in "overwrite" mode
+	 * @see written for insert and append mode
 	 */
 	void progress(qreal percent);
+
+	/**
+	 * Emitts the currently written samples, summed up over all
+	 * tracks, if the writers are in "insert" or "append" mode
+	 * @see progress for overwrite mode
+	 */
+	void written(quint64 samples);
 
     public slots:
 

@@ -210,13 +210,15 @@ int SignalManager::loadFile(const KUrl &url)
 	if (use_src_size) {
 	    // use source size for progress / stream mode
 	    QObject::connect(decoder, SIGNAL(sourceProcessed(quint64)),
-	                     dialog, SLOT(setBytePosition(quint64)));
+	                     dialog,  SLOT(setBytePosition(quint64)));
+	    QObject::connect(&writers, SIGNAL(written(quint64)),
+	                     dialog,   SLOT(setLength(quint64)));
 	} else {
 	    // use resulting size percentage for progress
 	    QObject::connect(&writers, SIGNAL(progress(qreal)),
-	                     dialog, SLOT(setValue(qreal)));
+	                     dialog,   SLOT(setValue(qreal)));
 	}
-	QObject::connect(dialog, SIGNAL(canceled()),
+	QObject::connect(dialog,   SIGNAL(canceled()),
 	                 &writers, SLOT(cancel()));
 
 	// now decode

@@ -73,6 +73,11 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
+    Kwave::PluginManager *plugin_manager = context.pluginManager();
+    Q_ASSERT(plugin_manager);
+    if (!plugin_manager) return;
+    plugin_manager->registerViewManager(&m_signal_widget);
+
     // topLayout:
     // - upper dock
     // - hbox
@@ -173,6 +178,9 @@ bool MainWidget::isOK()
 //***************************************************************************
 MainWidget::~MainWidget()
 {
+    Kwave::PluginManager *plugin_manager = m_context.pluginManager();
+    Q_ASSERT(plugin_manager);
+    if (plugin_manager) plugin_manager->registerViewManager(0);
 }
 
 //***************************************************************************

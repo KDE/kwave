@@ -38,6 +38,7 @@
 
 #include "libkwave/LabelList.h"
 #include "libkwave/PlaybackController.h"
+#include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 
 #include "libgui/SignalView.h"
@@ -69,7 +70,7 @@ namespace Kwave { class ApplicationContext; }
  * The SignalWidget class is responsible for displaying and managing the views
  * that belong to a signal.
  */
-class KDE_EXPORT SignalWidget : public QWidget
+class KDE_EXPORT SignalWidget : public QWidget, public Kwave::ViewManager
 {
     Q_OBJECT
 

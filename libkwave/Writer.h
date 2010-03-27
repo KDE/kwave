@@ -122,6 +122,9 @@ namespace Kwave {
 	 */
 	inline sample_index_t position() const { return m_position; }
 
+	/** Returns the insert mode */
+	inline InsertMode mode() const { return m_mode; }
+
     signals:
 
 	/**

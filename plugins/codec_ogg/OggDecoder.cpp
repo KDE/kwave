@@ -87,8 +87,8 @@ int OggDecoder::parseHeader(QWidget *widget)
     Q_ASSERT(m_buffer);
     if (!m_buffer) return -1;
 
-    unsigned int bytes = m_source->read(m_buffer,4096);
-    if (!bytes && (!m_source->pos())) {
+    long int bytes = static_cast<long int>(m_source->read(m_buffer, 4096));
+    if ((bytes <= 0) && (!m_source->pos())) {
 	Kwave::MessageBox::error(widget, i18n(
 	    "Ogg bitstream has zero-length."));
 	return -1;
@@ -416,7 +416,7 @@ bool OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 	vorbis_info_clear(&m_vi);  // must be called last
 
 	// parse the next header, maybe we parse a stream or chain...
-	if (parseHeader(widget) < 1) break;
+	if (eos || (parseHeader(widget) < 1)) break;
     }
 
     // OK, clean up the framer

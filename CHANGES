@@ -7,6 +7,7 @@
  * plugin API change: support for translateable short description
  * about plugin: use plugin info from PluginManager
  * bugfix: last directory of file dialogs sometimes got lost
+ * bugfix: wrong message when canceling Ogg import
 
 0.8.5  [2009-12-24]
 

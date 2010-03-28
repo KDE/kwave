@@ -72,6 +72,10 @@ OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
      m_playback_position(0), m_last_offset(0), m_cache(signal),
      m_repaint_timer(), m_labels(), m_worker_thread(this)
 {
+    // check: start() must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     // update the bitmap if the cache has changed
     connect(&m_cache, SIGNAL(changed()),
             this, SLOT(overviewChanged()));
@@ -102,6 +106,10 @@ OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
 //***************************************************************************
 OverViewWidget::~OverViewWidget()
 {
+    // check: start() must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     m_repaint_timer.stop();
     m_worker_thread.wait(/* 100 * REPAINT_INTERVAL */);
 }
@@ -213,9 +221,13 @@ QSize OverViewWidget::sizeHint() const
 //***************************************************************************
 void OverViewWidget::overviewChanged()
 {
-    // repainting is inhibited -> wait until the
-    // repaint timer is elapsed
+    // check: start() must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     if (m_repaint_timer.isActive()) {
+	// repainting is inhibited -> wait until the
+	// repaint timer is elapsed
 	return;
     } else {
 	// repaint once and once later...
@@ -230,17 +242,27 @@ void OverViewWidget::overviewChanged()
 //***************************************************************************
 void OverViewWidget::labelsChanged(const LabelList &labels)
 {
+    // check: start() must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     m_labels = labels;
 
     // only re-start the repaint timer, this hides some GUI update artifacts
-    m_repaint_timer.stop();
-    m_repaint_timer.setSingleShot(true);
-    m_repaint_timer.start(REPAINT_INTERVAL);
+    if (!m_repaint_timer.isActive()) {
+	m_repaint_timer.stop();
+	m_repaint_timer.setSingleShot(true);
+	m_repaint_timer.start(REPAINT_INTERVAL);
+    }
 }
 
 //***************************************************************************
 void OverViewWidget::playbackPositionChanged(sample_index_t pos)
 {
+    // check: start() must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     const sample_index_t old_pos = m_playback_position;
     const sample_index_t new_pos = pos;
 
@@ -299,6 +321,10 @@ void OverViewWidget::drawMark(QPainter &p, int x, int height, QColor color)
 //***************************************************************************
 void OverViewWidget::refreshBitmap()
 {
+    // check: start() must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     if (m_worker_thread.isRunning()) {
 	// (re)start the repaint timer if the worker thread is still
 	// running, try again later...

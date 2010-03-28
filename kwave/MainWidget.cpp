@@ -145,10 +145,11 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
 
     // -- playback position update --
 
-//     connect(&(playbackController()), SIGNAL(sigPlaybackPos(sample_index_t)),
-// 	m_overview, SLOT(playbackPositionChanged(sample_index_t)));
-//     connect(&(playbackController()), SIGNAL(sigPlaybackStopped()),
-// 	m_overview, SLOT(playbackStopped()));
+    PlaybackController &playback = signal_manager->playbackController();
+    connect(&playback, SIGNAL(sigPlaybackPos(sample_index_t)),
+	m_overview, SLOT(playbackPositionChanged(sample_index_t)));
+    connect(&playback, SIGNAL(sigPlaybackStopped()),
+	m_overview, SLOT(playbackStopped()));
 
     // -- connect all signals from/to the signal widget --
 
@@ -161,6 +162,9 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
 	    this,           SLOT(slotTrackInserted(unsigned int, Track *)));
     connect(signal_manager, SIGNAL(sigTrackDeleted(unsigned int)),
 	    this,           SLOT(slotTrackDeleted(unsigned int)));
+    connect(signal_manager, SIGNAL(sigStatusInfo(sample_index_t,
+	                           unsigned int, double, unsigned int)),
+	    this, SLOT(updateViewRange()));
 
     this->setLayout(topLayout);
 

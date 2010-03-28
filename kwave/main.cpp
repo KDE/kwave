@@ -88,10 +88,10 @@ void addDataStrings(KAboutData &aboutdata)
 //                      ki18n("Packaging for SuSE Linux"),
 //                      "arzolacub@gmx.de",
 //                      0);
-    aboutdata.addCredit(ki18n("Diederick de Vries"),
-                     ki18n("Packaging for Crux Linux"),
-                     "diederick76@gmail.com",
-                     "http://crux.nu/portdb/?command=viewport&repo=diederick&name=kwave");
+//     aboutdata.addCredit(ki18n("Diederick de Vries"),
+//                      ki18n("Packaging for Crux Linux"),
+//                      "diederick76@gmail.com",
+//                      "http://crux.nu/portdb/?command=viewport&repo=diederick&name=kwave");
     aboutdata.addCredit(ki18n("Martin Kuball"),
                      ki18n("Tester"),
                      "makube@user.sourceforge.net",
@@ -107,11 +107,11 @@ void addDataStrings(KAboutData &aboutdata)
     aboutdata.addCredit(ki18n("Michael Pruett"),
                      ki18n("Author of the 'audiofile' library"),
                      "mpruett@sgi.com",
-                     "http://oss.sgi.com/projects/audiofile/");
+                     "http://www.68k.org/~michael/audiofile/");
     aboutdata.addCredit(ki18n("Erik de Castro Lopo"),
                      ki18n("Author of the 'sndfile' library"),
                      "erikd@zip.com.au",
-                     "http://www.zip.com.au/~erikd/libsndfile/");
+                     "http://www.mega-nerd.com/libsndfile/");
     aboutdata.addCredit(ki18n("Pavel Fric"),
                      ki18n("Czech translation"),
                      "pavelfric@seznam.cz",

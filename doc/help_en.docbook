@@ -32,7 +32,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2010-02-27</date>
+<date>2010-03-27</date>
 <releaseinfo>&version;</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -123,7 +123,7 @@
 	</para></listitem>
 	<listitem><para>
 	    import/export of other audio formats through
-	    <ulink url="http://freeware.sgi.com/Installable/audiofile-0.2.3.html">audiofile</ulink>
+	    <ulink url="http://www.68k.org/~michael/audiofile/">audiofile</ulink>
 	</para></listitem>
 	</itemizedlist>
     </para>
@@ -1315,7 +1315,7 @@
 
 	<listitem><para>
 	    Additionally &kapp; supports many other common formats through the
-	    <ulink url="http://freeware.sgi.com/Installable/audiofile-0.2.3.html">audiofile</ulink>
+	    <ulink url="http://www.68k.org/~michael/audiofile/">audiofile</ulink>
 	    plugin. You can import files like <filename>*.au</filename> and
 	    <filename>*.snd</filename> (NeXT,Sun Audio),
 	    <filename>*.aiff</filename> (Audio Interchange Format) and
@@ -2999,7 +2999,7 @@
 		    Michael Pruett
 		    <email>mpruett@sgi.com</email>
 		    (author of the
-		    <ulink url="http://freeware.sgi.com/Installable/audiofile-0.2.3.html">audiofile</ulink>
+		    <ulink url="http://www.68k.org/~michael/audiofile/">audiofile</ulink>
 		    library)
 		</para>
 	    </listitem>

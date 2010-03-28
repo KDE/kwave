@@ -61,9 +61,9 @@ Track::Track()
 Track::Track(sample_index_t length)
     :m_lock(), m_lock_usage(), m_stripes(), m_selected(true)
 {
-    if (length < 2*STRIPE_LENGTH_OPTIMAL)
-	appendStripe(length);
-    else {
+    if (length < 2*STRIPE_LENGTH_OPTIMAL) {
+	if (length) appendStripe(length);
+    } else {
 	Stripe s(length - STRIPE_LENGTH_OPTIMAL);
 	s.resize(STRIPE_LENGTH_OPTIMAL);
 	if (s.length()) m_stripes.append(s);

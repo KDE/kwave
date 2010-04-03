@@ -73,6 +73,17 @@ SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 INCLUDE(FindKwaveVersion)
 
 #############################################################################
+### show the compiler and it's version                                    ###
+
+EXECUTE_PROCESS(
+    COMMAND ${CMAKE_C_COMPILER} -dumpversion
+    OUTPUT_VARIABLE COMPILER_VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+GET_FILENAME_COMPONENT(COMPILER_SHORT "${CMAKE_C_COMPILER}" NAME_WE CACHE)
+MESSAGE(STATUS "Building with ${COMPILER_SHORT} version ${COMPILER_VERSION}")
+
+#############################################################################
 ### check for the CPU we build for                                        ###
 
 EXECUTE_PROCESS(

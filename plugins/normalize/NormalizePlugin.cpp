@@ -37,6 +37,7 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
+#include "libkwave/SignalManager.h"
 #include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
@@ -236,7 +237,7 @@ double NormalizePlugin::getMaxPower(MultiTrackReader &source)
 {
     double maxpow = 0.0;
     const unsigned int tracks = source.tracks();
-    const double rate = fileInfo().rate();
+    const double rate = signalManager().fileInfo().rate();
     const unsigned int window_size = static_cast<unsigned int>(rate / 100);
     if (!window_size) return 0;
 

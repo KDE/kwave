@@ -132,7 +132,7 @@ void DebugPlugin::run(QStringList params)
 
 	// sawtooth pattern from min to max
 	if (command == "sawtooth") {
-	    unsigned int shift = SAMPLE_BITS - fileInfo().bits();
+	    unsigned int shift = SAMPLE_BITS - signalManager().fileInfo().bits();
 	    for (unsigned int i = 0; i < m_buffer.size(); i++) {
 		m_buffer[i] = v;
 		v += (1 << shift);

@@ -20,16 +20,16 @@
 
 //***************************************************************************
 Label::Label()
-    :m_data(0)
+    :Kwave::MetaData()
 {
 }
 
 //***************************************************************************
 Label::Label(sample_index_t position, const QString &name)
-    :m_data(new LabelData)
+    :Kwave::MetaData()
 {
-    moveTo(position);
-    rename(name);
+    setProperty(Kwave::MetaData::STDPROP_POS, position);
+    setProperty(Kwave::MetaData::STDPROP_DESCRIPTION, name);
 }
 
 //***************************************************************************
@@ -40,49 +40,27 @@ Label::~Label()
 //***************************************************************************
 void Label::moveTo(sample_index_t position)
 {
-    if (m_data) m_data->m_position = position;
+    setProperty(Kwave::MetaData::STDPROP_POS, position);
 }
 
 //***************************************************************************
 sample_index_t Label::pos() const
 {
-    return (m_data) ? m_data->m_position : -1;
+    return static_cast<sample_index_t>(
+	property(Kwave::MetaData::STDPROP_POS).toULongLong()
+    );
 }
 
 //***************************************************************************
 void Label::rename(const QString &name)
 {
-    if (m_data) m_data->m_name = name;
+    setProperty(Kwave::MetaData::STDPROP_DESCRIPTION, name);
 }
 
 //***************************************************************************
 QString Label::name() const
 {
-    return (m_data) ? m_data->m_name : QString();
-}
-
-//***************************************************************************
-bool Label::isNull() const
-{
-    return (m_data == 0);
-}
-
-//***************************************************************************
-//***************************************************************************
-Label::LabelData::LabelData()
-    :QSharedData(), m_position(-1), m_name()
-{
-}
-
-//***************************************************************************
-Label::LabelData::LabelData(const LabelData &other)
-    :QSharedData(), m_position(other.m_position), m_name(other.m_name)
-{
-}
-
-//***************************************************************************
-Label::LabelData::~LabelData()
-{
+    return property(Kwave::MetaData::STDPROP_DESCRIPTION).toString();
 }
 
 //***************************************************************************

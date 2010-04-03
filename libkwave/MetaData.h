@@ -98,6 +98,9 @@ namespace Kwave {
 	/** destructor */
 	virtual ~MetaData();
 
+	/** returns true if this is an empty record */
+	virtual bool isNull() const;
+
 	/** returns the ID of the meta data */
 	QString id() const;
 

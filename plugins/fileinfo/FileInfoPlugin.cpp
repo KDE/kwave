@@ -42,7 +42,7 @@ FileInfoPlugin::~FileInfoPlugin()
 //***************************************************************************
 QStringList *FileInfoPlugin::setup(QStringList &)
 {
-    FileInfo oldInfo(fileInfo());
+    FileInfo oldInfo(signalManager().fileInfo());
 
     // create the setup dialog
     FileInfoDialog *dialog = new FileInfoDialog(parentWidget(), oldInfo);
@@ -67,10 +67,10 @@ QStringList *FileInfoPlugin::setup(QStringList &)
 //***************************************************************************
 void FileInfoPlugin::apply(FileInfo &new_info)
 {
-    if (fileInfo() == new_info) return; // nothing to do
+    if (signalManager().fileInfo() == new_info) return; // nothing to do
 
     /* sample rate */
-    if (fileInfo().rate() != new_info.rate()) {
+    if (signalManager().fileInfo().rate() != new_info.rate()) {
 	// sample rate changed -> only change rate or resample ?
 	double new_rate = new_info.rate();
 	int res = Kwave::MessageBox::questionYesNoCancel(parentWidget(),
@@ -93,7 +93,7 @@ void FileInfoPlugin::apply(FileInfo &new_info)
 	    new_info.setRate(new_rate);
 	} else {
 	    // canceled -> use old setting
-	    new_info.setRate(fileInfo().rate());
+	    new_info.setRate(signalManager().fileInfo().rate());
 	}
     }
 

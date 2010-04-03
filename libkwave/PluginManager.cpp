@@ -453,12 +453,6 @@ int Kwave::PluginManager::setupPlugin(const QString &name)
 }
 
 //***************************************************************************
-FileInfo &Kwave::PluginManager::fileInfo()
-{
-    return m_signal_manager.fileInfo();
-}
-
-//***************************************************************************
 QStringList Kwave::PluginManager::loadPluginDefaults(const QString &name,
                                                      const QString &version)
 {

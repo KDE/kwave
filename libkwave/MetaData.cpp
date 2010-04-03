@@ -52,6 +52,12 @@ Kwave::MetaData::~MetaData()
 }
 
 //***************************************************************************
+bool Kwave::MetaData::isNull() const
+{
+    return (m_data == 0);
+}
+
+//***************************************************************************
 QString Kwave::MetaData::id() const
 {
     return (m_data) ? m_data->m_id : QString();

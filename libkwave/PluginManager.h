@@ -101,12 +101,6 @@ namespace Kwave {
 	int setupPlugin(const QString &name);
 
 	/**
-	 * Returns a reference to the FileInfo object associated with the
-	 * currently opened file.
-	 */
-	FileInfo &fileInfo();
-
-	/**
 	 * Returns the length of the current signal in samples.
 	 * If no signal is present the return value will be 0.
 	 */

@@ -442,12 +442,6 @@ QWidget *Kwave::Plugin::parentWidget()
 }
 
 //***************************************************************************
-FileInfo &Kwave::Plugin::fileInfo()
-{
-    return manager().fileInfo();
-}
-
-//***************************************************************************
 QString Kwave::Plugin::signalName()
 {
     return signalManager().signalName();

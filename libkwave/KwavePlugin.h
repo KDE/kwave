@@ -199,12 +199,6 @@ namespace Kwave {
 	QWidget *parentWidget();
 
 	/**
-	 * Returns a reference to the FileInfo object associated with the
-	 * currently opened file.
-	 */
-	FileInfo &fileInfo();
-
-	/**
 	 * Returns the name of the current signal. This can be used to set the
 	 * caption of a plugin's main window. If no signal is currently loaded
 	 * the returned string is empty.

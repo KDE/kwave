@@ -17,8 +17,7 @@
 
 #include "config.h"
 
-#include <sched.h>
-
+#include <QThread>
 #include <threadweaver/Job.h>
 #include <threadweaver/ThreadWeaver.h>
 
@@ -73,7 +72,7 @@ Kwave::SourceJob::~SourceJob()
     int i = 0;
     while (!isFinished()) {
 	qDebug("job %p waiting... #%u", static_cast<void *>(this), i++);
-	sched_yield();
+	QThread::yieldCurrentThread();
     }
     Q_ASSERT(isFinished());
 }

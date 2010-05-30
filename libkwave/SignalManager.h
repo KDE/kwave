@@ -113,18 +113,6 @@ public:
     int executeCommand(const QString &command);
 
     /**
-     * Returns a reference to the FileInfo object associated with the
-     * currently opened file.
-     */
-    FileInfo &fileInfo() { return m_file_info; }
-
-    /**
-     * Returns a reference to the FileInfo object associated with the
-     * currently opened file (same as above but 'const').
-     */
-    const FileInfo &fileInfo() const { return m_file_info; }
-
-    /**
      * Returns a reference to the current name of the signal. If no signal is
      * loaded the string is zero-length.
      */
@@ -133,10 +121,10 @@ public:
     /**
      * Returns the current sample resolution in bits per sample
      */
-    inline unsigned int bits() const { return m_file_info.bits(); }
+    inline unsigned int bits() const { return m_meta_data.fileInfo().bits(); }
 
     /** Returns the current sample rate in samples per second */
-    inline double rate() const { return m_file_info.rate(); }
+    inline double rate() const { return m_meta_data.fileInfo().rate(); }
 
     /** Returns the current number of tracks */
     inline unsigned int tracks() { return m_signal.tracks(); }
@@ -367,9 +355,6 @@ public:
      * @return valid label at the position or null label if not found
      */
     Label findLabel(sample_index_t pos);
-
-    /** Shortcut for accessing the label list @note can be modified */
-    inline LabelList &labels() { return m_file_info.labels(); }
 
     /**
      * Retrieves the list of meta data objects, mutable
@@ -657,9 +642,6 @@ private:
      */
     void enableModifiedChange(bool en);
 
-    /** Shortcut for accessing the label list @note cannot be modified */
-    inline const LabelList &labels() const { return m_file_info.labels(); }
-
     /** saves the current sample and track selection */
     void rememberCurrentSelection();
 
@@ -732,11 +714,8 @@ private:
     /** mutex for locking undo transactions */
     QMutex m_undo_transaction_lock;
 
-    /** info about the file, @see class FileInfo */
-    FileInfo m_file_info;
-
     /**
-     * meta data of the signal, map with
+     * meta data of the signal
      * @see class MetaData
      */
     Kwave::MetaDataList m_meta_data;

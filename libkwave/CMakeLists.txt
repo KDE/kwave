@@ -96,9 +96,9 @@ SET(libkwave_LIB_SRCS
     modules/KwaveOsc.cpp
     modules/KwaveStreamObject.cpp
 
-    undo/UndoAddLabelAction.cpp
+    undo/UndoAddMetaDataAction.cpp
     undo/UndoDeleteAction.cpp
-    undo/UndoDeleteLabelAction.cpp
+    undo/UndoDeleteMetaDataAction.cpp
     undo/UndoDeleteTrack.cpp
     undo/UndoFileInfo.cpp
     undo/UndoInsertAction.cpp

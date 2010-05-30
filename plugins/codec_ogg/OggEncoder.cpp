@@ -34,6 +34,7 @@
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
@@ -102,7 +103,7 @@ QList<FileProperty> OggEncoder::supportedProperties()
 }
 
 /***************************************************************************/
-void OggEncoder::encodeProperties(FileInfo &info, vorbis_comment *vc)
+void OggEncoder::encodeProperties(const FileInfo &info, vorbis_comment *vc)
 {
     for (unsigned int i=0; i < sizeof(supported_properties) /
                                sizeof(supported_properties[0]); ++i)
@@ -123,7 +124,7 @@ void OggEncoder::encodeProperties(FileInfo &info, vorbis_comment *vc)
 
 /***************************************************************************/
 bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
-                        QIODevice &dst, FileInfo &info)
+                        QIODevice &dst, const Kwave::MetaDataList &meta_data)
 {
     #define BUFFER_SIZE 1024
 
@@ -141,6 +142,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
     int ret = -1;
 
     // get info: tracks, sample rate, bitrate(s)
+    const FileInfo info = meta_data.fileInfo();
     const unsigned int tracks = info.tracks();
     const long sample_rate = static_cast<const long>(info.rate());
 

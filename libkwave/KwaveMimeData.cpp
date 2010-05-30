@@ -57,12 +57,8 @@ Kwave::MimeData::~MimeData()
 //***************************************************************************
 bool Kwave::MimeData::encode(QWidget *widget,
 	                     MultiTrackReader &src,
-	                     FileInfo &info)
+	                     const Kwave::MetaDataList &meta_data)
 {
-    // make a copy of the file info and change to uncompressed mode
-    FileInfo new_info = info;
-    new_info.set(INF_COMPRESSION, QVariant(AF_COMPRESSION_NONE));
-
     // use our default encoder
     Encoder *encoder = CodecManager::encoder(WAVE_FORMAT_PCM);
     Q_ASSERT(encoder);
@@ -71,35 +67,27 @@ bool Kwave::MimeData::encode(QWidget *widget,
     Q_ASSERT(src.tracks());
     if (!src.tracks()) return false;
 
+    sample_index_t first = src.first();
+    sample_index_t last  = src.last();
+    Kwave::MetaDataList new_meta_data = meta_data.selectByRange(first, last);
+
     // create a buffer for the wav data
     m_data.resize(0);
     QBuffer dst(&m_data);
 
-    // move all labels left, to start at the beginning of the selection
-    sample_index_t first = src.first();
-    sample_index_t last  = src.last();
-    LabelList &labels = new_info.labels();
-    QMutableListIterator<Label> it(labels);
-    while (it.hasNext()) {
-	Label &label = it.next();
-	sample_index_t pos = label.pos();
-	if ((pos < first) || (pos > last)) {
-	    // out of the selected area -> remove
-	    it.remove();
-	} else {
-	    // move label left
-	    label.moveTo(pos - first);
-// 	    qDebug("Kwave::MimeData::encode(...) -> new label @ %9d '%s'",
-// 		label.pos(), label.name().toLocal8Bit().data());
-	}
-    }
+    // move all meta data left, to start at the beginning of the selection
+    new_meta_data.shiftLeft(first, first, QList<unsigned int>());
 
     // fix the length information in the new file info
-    new_info.setLength(last - first + 1);
-    new_info.setTracks(src.tracks());
+    // and change to uncompressed mode
+    FileInfo info = meta_data.fileInfo();
+    info.set(INF_COMPRESSION, QVariant(AF_COMPRESSION_NONE));
+    info.setLength(last - first + 1);
+    info.setTracks(src.tracks());
+    new_meta_data.setFileInfo(info);
 
     // encode into the buffer
-    encoder->encode(widget, src, dst, new_info);
+    encoder->encode(widget, src, dst, new_meta_data);
 
     delete encoder;
 
@@ -135,8 +123,8 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	    continue;
 	}
 
-	decoded_length = decoder->info().length();
-	decoded_tracks = decoder->info().tracks();
+	decoded_length = decoder->metaData().fileInfo().length();
+	decoded_tracks = decoder->metaData().fileInfo().tracks();
 	Q_ASSERT(decoded_length);
 	Q_ASSERT(decoded_tracks);
 	if (!decoded_length || !decoded_tracks) {
@@ -145,7 +133,7 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	}
 
 	// get sample rates of source and destination
-	double src_rate = decoder->info().rate();
+	double src_rate = decoder->metaData().fileInfo().rate();
 	double dst_rate = sig.rate();
 
 	// if the sample rate has to be converted, adjust the length
@@ -163,7 +151,7 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	    src_rate = dst_rate;
 	    sig.newSignal(0,
 		src_rate,
-		decoder->info().bits(),
+		decoder->metaData().fileInfo().bits(),
 		decoded_tracks);
 	    ok = (sig.tracks() == decoded_tracks);
 	    if (!ok) {
@@ -216,19 +204,19 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	    continue;
 	}
 
-	// take care of the labels, shift all of them by "left" and
-	// add them to the signal
-	LabelList labels = decoder->info().labels();
-	foreach (const Label &label, labels) {
-	    sample_index_t pos = label.pos();
-
-	    // adjust label position in case of different sample rate
-	    if (src_rate != dst_rate) pos *= (dst_rate / src_rate);
-
-	    sig.addLabel(pos + left, label.name());
-// 	    qDebug("Kwave::MimeData::decode(...) -> new label @ %9d '%s'",
-// 		label.pos(), label.name().toLocal8Bit().data());
-	}
+// 	// take care of the labels, shift all of them by "left" and
+// 	// add them to the signal
+// 	LabelList labels = decoder->info().labels();
+// 	foreach (const Label &label, labels) {
+// 	    sample_index_t pos = label.pos();
+//
+// 	    // adjust label position in case of different sample rate
+// 	    if (src_rate != dst_rate) pos *= (dst_rate / src_rate);
+//
+// 	    sig.addLabel(pos + left, label.name());
+// // 	    qDebug("Kwave::MimeData::decode(...) -> new label @ %9d '%s'",
+// // 		label.pos(), label.name().toLocal8Bit().data());
+// 	}
 
 	delete decoder;
 	break;

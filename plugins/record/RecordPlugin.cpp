@@ -195,8 +195,10 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     m_decoder = 0;
 
     if (m_dialog) {
-	signalManager().fileInfo().setLength(signalLength());
-	signalManager().fileInfo().setTracks(m_dialog->params().tracks);
+	FileInfo info = signalManager().metaData().fileInfo();
+	info.setLength(signalLength());
+	info.setTracks(m_dialog->params().tracks);
+	signalManager().metaData().setFileInfo(info);
 	delete m_dialog;
 	m_dialog = 0;
     }
@@ -884,7 +886,7 @@ void RecordPlugin::startRecording()
 	 */
 	if ((!m_writers) ||
 	    (m_writers->tracks() != tracks) ||
-	    (signalManager().fileInfo().rate() != rate))
+	    (signalManager().metaData().fileInfo().rate() != rate))
 	{
 	    // create a new and empty signal
 
@@ -915,7 +917,7 @@ void RecordPlugin::startRecording()
 	}
 
 	// initialize the file information
-	FileInfo &fileInfo = signalManager().fileInfo();
+	FileInfo fileInfo = signalManager().metaData().fileInfo();
 	fileInfo.setRate(rate);
 	fileInfo.setBits(bits);
 	fileInfo.setTracks(tracks);
@@ -942,6 +944,7 @@ void RecordPlugin::startRecording()
 		now.year(), now.month(), now.day());
 	QVariant value = date.toUtf8();
 	fileInfo.set(INF_CREATION_DATE, value);
+	signalManager().metaData().setFileInfo(fileInfo);
     }
 
     // now the recording can be considered to be started

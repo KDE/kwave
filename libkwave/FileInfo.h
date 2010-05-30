@@ -30,11 +30,14 @@
 #include "libkwave/Sample.h"
 #include "libkwave/TypesMap.h"
 #include "libkwave/LabelList.h"
+#include "libkwave/MetaData.h"
+
+namespace Kwave { class MetaDataList; }
 
 /**
  * @enum FileProperty
  * Enumeration type that lists all file properties. If you extend this list,
- * please don't forget to add a verbose name and a description it in
+ * please don't forget to add a verbose name and a description of it in
  * FileInfo.cpp
  */
 typedef enum {
@@ -46,6 +49,7 @@ typedef enum {
     INF_BITRATE_LOWER,       /**< lower bitrate limit */
     INF_BITRATE_NOMINAL,     /**< nominal bitrate */
     INF_BITRATE_UPPER,       /**< upper bitrate limit */
+    INF_BITS_PER_SAMPLE,     /**< number of bits per sample */
     INF_CD,                  /**< number of the CD in an album */
     INF_COMMISSIONED,        /**< commissioned */
     INF_COMMENTS,            /**< comments */
@@ -61,6 +65,7 @@ typedef enum {
     INF_ISRC,                /**< International Standard Recording Code */
     INF_KEYWORDS,            /**< keywords */
     INF_LABELS,              /**< labels/markers */
+    INF_LENGTH,              /**< length of the file in samples */
     INF_LICENSE,             /**< license information */
     INF_MEDIUM,              /**< medium */
     INF_MIMETYPE,            /**< mime type of the file format */
@@ -75,12 +80,14 @@ typedef enum {
     INF_PRIVATE,             /**< "private" bit */
     INF_PRODUCT,             /**< product */
     INF_SAMPLE_FORMAT,       /**< sample format (libaudiofile) */
+    INF_SAMPLE_RATE,         /**< sample rate (bits/sample) */
     INF_SOFTWARE,            /**< software */
     INF_SOURCE,              /**< source */
     INF_SOURCE_FORM,         /**< source form */
     INF_SUBJECT,             /**< subject */
     INF_TECHNICAN,           /**< technican */
     INF_TRACK,               /**< track of the CD */
+    INF_TRACKS,              /**< number of tracks of the signal */
     INF_VBR_QUALITY,         /**< base quality of an ogg file in VBR mode */
     INF_VERSION              /**< version/remix */
 } FileProperty;
@@ -95,70 +102,52 @@ static inline FileProperty operator ++ (FileProperty &prop) {
  * @class FileInfo
  * Holds various properties of a file.
  */
-class KDE_EXPORT FileInfo
+class KDE_EXPORT FileInfo: public Kwave::MetaData
 {
 public:
 
-    /** Constructor */
+    /** Default constructor, creates an empty file info object */
     FileInfo();
 
-    /** Copy constructor */
-    FileInfo(const FileInfo &inf);
+    /**
+     * Constructor, filters out all file global data from
+     * a list of meta data objects.
+     * @param meta_data_list a meta data list to copy from
+     */
+    FileInfo(const Kwave::MetaDataList &meta_data_list);
 
     /** Destructor */
     virtual ~FileInfo();
 
-    /** Copy everything from another FileInfo */
-    void copy(const FileInfo &source);
-
-    /** Return true if the info is equal to another info */
-    bool equals(const FileInfo &other);
-
-    /** Assignment operator */
-    inline FileInfo & operator = (const FileInfo &source) {
-	copy(source);
-	return *this;
-    }
-
-    /** Compare operator */
-    inline bool operator == (const FileInfo &other) {
-	return equals(other);
-    }
+    /** returns the identifier of the "type" of this meta data object */
+    static QString metaDataType() { return "FILE INFO"; };
 
     /** returns the number of samples */
-    inline sample_index_t length() const { return m_length; }
+    sample_index_t length() const;
 
     /** Sets the length in samples */
-    inline void setLength(sample_index_t length) { m_length = length; }
+    void setLength(sample_index_t length);
 
     /** returns the sample rate [samples/second] */
-    inline double rate() const { return m_rate; }
+    double rate() const;
 
     /** sets a new sample rate */
-    inline void setRate(double rate) { m_rate = rate; }
+    void setRate(double rate);
 
     /** returns the number of bits per sample */
-    inline unsigned int bits() const { return m_bits; }
+    unsigned int bits() const;
 
     /** sets a new resolution in bits per sample */
-    inline void setBits(unsigned int bits) { m_bits = bits; }
+    void setBits(unsigned int bits);
 
     /** returns the number of tracks */
-    inline unsigned int tracks() const { return m_tracks; }
+    unsigned int tracks() const;
 
     /** Sets the number of tracks */
-    inline void setTracks(unsigned int tracks) { m_tracks = tracks; }
-
-    /** Returs the list of labels. @note can be modified! */
-    inline LabelList &labels() { return m_labels; }
-
-    /** Returs the list of labels. @note cannot be modified! */
-    inline const LabelList &labels() const { return m_labels; }
+    void setTracks(unsigned int tracks);
 
     /** Returns true if the given property exists */
-    inline bool contains(const FileProperty property) const {
-	return m_properties.contains(property);
-    }
+    bool contains(const FileProperty property) const;
 
     /**
      * Sets a property to a new value. If the property does not already
@@ -180,61 +169,38 @@ public:
     /**
      * Returns true if a property is only internal.
      */
-    bool isInternal(FileProperty key);
+    bool isInternal(FileProperty key) const;
 
     /**
      * Returns true if a property is intended to be saved into or
      * loaded from a file.
      */
-    bool canLoadSave(FileProperty key);
+    bool canLoadSave(FileProperty key) const;
 
     /**
      * Returns the name of a property.
      */
-    inline QString name(FileProperty key) {
+    inline QString name(FileProperty key) const {
 	return m_property_map.name(key);
     }
 
     /**
      * Returns the localized description of a property.
      */
-    inline QString description(FileProperty key) {
+    inline QString description(FileProperty key) const {
 	return m_property_map.description(key, false);
     }
 
-    /** Returns a reference to the list of non-standard properties */
-    const QMap<FileProperty, QVariant> &properties() const {
-	return m_properties;
-    }
+    /** Returns a list with all properties */
+    const QMap<FileProperty, QVariant> properties() const;
 
     /** Returns a list of all known non-standard properties */
-    QList<FileProperty> allKnownProperties();
-
-    /** Clears the list of all properties. */
-    void clear();
+    QList<FileProperty> allKnownProperties() const;
 
     /** dumps all properties to stdout, useful for debugging */
-    void dump();
+    void dump() const;
 
 private:
-
-    /** length in samples */
-    sample_index_t m_length;
-
-    /** sample rate */
-    double m_rate;
-
-    /** bits per sample */
-    unsigned int m_bits;
-
-    /** number of tracks */
-    unsigned int m_tracks;
-
-    /** list of labels */
-    LabelList m_labels;
-
-    /** list of properties */
-    QMap<FileProperty, QVariant> m_properties;
 
     /**
      * Pre-filled map with property names and descriptions
@@ -242,11 +208,18 @@ private:
     class PropertyTypesMap: public TypesMap<FileProperty, int>
     {
     public:
-	/** fills the list with */
+	/** constructor */
+	explicit PropertyTypesMap()
+	    :TypesMap<FileProperty, int>()
+	{
+	    fill();
+	}
+
+	/** fills the list */
 	virtual void fill();
 
 	/** returns a list of all properties */
-	virtual QList<FileProperty> all();
+	virtual QList<FileProperty> all() const;
     };
 
     /** map with properties and their names and descriptions */
@@ -255,4 +228,3 @@ private:
 };
 
 #endif /* _FILE_INFO_H_ */
-

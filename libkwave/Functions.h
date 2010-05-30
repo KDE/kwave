@@ -65,7 +65,14 @@ private:
     class FunctionTypesMap:
 	public TypesMap< unsigned int, periodic_function_t* >
     {
-	public:
+    public:
+	/** Constructor */
+	explicit FunctionTypesMap()
+	    :TypesMap<unsigned int, Functions::periodic_function_t *>()
+	{
+	    fill();
+	}
+
 	/** fills the types map */
 	virtual void fill();
     };

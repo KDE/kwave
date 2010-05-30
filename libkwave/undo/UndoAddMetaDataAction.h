@@ -1,5 +1,5 @@
 /***************************************************************************
-   UndoAddLabelAction.h  -  Undo action for insertion of labels
+   UndoAddMetaDataAction.h  -  Undo action for insertion of meta data
 			     -------------------
     begin                : Wed Aug 16 2006
     copyright            : (C) 2006 by Thomas Eschenbacher
@@ -16,32 +16,36 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _UNDO_ADD_LABEL_ACTION_H_
-#define _UNDO_ADD_LABEL_ACTION_H_
+#ifndef _UNDO_ADD_META_DATA_ACTION_H_
+#define _UNDO_ADD_META_DATA_ACTION_H_
 
 #include "config.h"
+
+#include <QList>
 #include <QString>
 
+#include "libkwave/Sample.h"
+#include "libkwave/MetaData.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/undo/UndoAction.h"
 
-class Label;
 class SignalManager;
 
 /**
- * Undo action for inserting a label.
+ * Undo action for inserting meta data.
  */
-class UndoAddLabelAction: public UndoAction
+class UndoAddMetaDataAction: public UndoAction
 {
 public:
 
     /**
      * Constructor
-     * @param index numerical index of the inserted label
+     * @param meta_data reference to the meta data that has been inserted
      */
-    UndoAddLabelAction(int index);
+    UndoAddMetaDataAction(const Kwave::MetaDataList &meta_data);
 
     /** Destructor */
-    virtual ~UndoAddLabelAction();
+    virtual ~UndoAddMetaDataAction();
 
     /**
      * Returns a verbose short description of the action.
@@ -62,9 +66,18 @@ public:
 
 protected:
 
-    /** index of the inserted label */
-    unsigned int m_index;
+    /** description of the action */
+    QString m_description;
+
+    /** index of the first sample position */
+    sample_index_t m_first;
+
+    /** index of the last sample position */
+    sample_index_t m_last;
+
+    /** list of affected track inidices */
+    QList<unsigned int> m_tracks;
 
 };
 
-#endif /* _UNDO_ADD_LABEL_ACTION_H_ */
+#endif /* _UNDO_ADD_META_DATA_ACTION_H_ */

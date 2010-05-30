@@ -55,6 +55,7 @@
 #include "libkwave/CodecManager.h"
 #include "libkwave/KwavePlugin.h" // for some helper functions
 #include "libkwave/MessageBox.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/Parser.h"
 #include "libkwave/PlaybackController.h"
 #include "libkwave/PluginManager.h"
@@ -953,8 +954,8 @@ int TopWidget::saveFileAs(bool selection)
     }
 
     // maybe we now have a new mime type
-    QString previous_mimetype_name = signal_manager->fileInfo().get(
-	INF_MIMETYPE).toString();
+    QString previous_mimetype_name =
+	signal_manager->metaData().fileInfo().get(INF_MIMETYPE).toString();
 
     QString new_mimetype_name;
     new_mimetype_name = CodecManager::whatContains(url);
@@ -970,13 +971,12 @@ int TopWidget::saveFileAs(bool selection)
 	    previous_mimetype_name.toLocal8Bit().data() );
 
 	// set the new mimetype
-	signal_manager->fileInfo().set(INF_MIMETYPE,
-	    new_mimetype_name);
+	FileInfo info = signal_manager->metaData().fileInfo();
+	info.set(INF_MIMETYPE, new_mimetype_name);
 	// save the old filename and set the new one
-	QString old_filename = signal_manager->fileInfo().get(
-	    INF_FILENAME).toString();
-	signal_manager->fileInfo().set(INF_FILENAME,
-	    url.prettyUrl());
+	QString old_filename = info.get(INF_FILENAME).toString();
+	info.set(INF_FILENAME, url.prettyUrl());
+	signal_manager->metaData().setFileInfo(info);
 
 	// now call the fileinfo plugin with the new filename and
 	// mimetype
@@ -985,10 +985,10 @@ int TopWidget::saveFileAs(bool selection)
 	    m_context.pluginManager()->setupPlugin("fileinfo") : -1;
 
 	// restore the mime type and the filename
-	signal_manager->fileInfo().set(INF_MIMETYPE,
-	    previous_mimetype_name);
-	signal_manager->fileInfo().set(INF_FILENAME,
-	    url.prettyUrl());
+	info = signal_manager->metaData().fileInfo();
+	info.set(INF_MIMETYPE, previous_mimetype_name);
+	info.set(INF_FILENAME, url.prettyUrl());
+	signal_manager->metaData().setFileInfo(info);
     }
 
     if (!res) res = signal_manager->save(url, selection);
@@ -1357,9 +1357,9 @@ void TopWidget::updateMenu()
     bool have_file = (signalName().length() != 0);
     m_menu_manager->setItemEnabled("@NOT_CLOSED", have_file);
 
-    // enable/disable all items that depend on having a label
-    bool have_labels = (!signal_manager->fileInfo().labels().isEmpty());
-    m_menu_manager->setItemEnabled("@LABELS", have_labels);
+//     // enable/disable all items that depend on having a label
+//     bool have_labels = (!signal_manager->fileInfo().labels().isEmpty());
+//     m_menu_manager->setItemEnabled("@LABELS", have_labels);
 
     // enable/disable all items that depend on having something in the
     // clipboard

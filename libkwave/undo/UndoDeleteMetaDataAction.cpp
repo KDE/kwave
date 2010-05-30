@@ -21,41 +21,79 @@
 
 #include "libkwave/Label.h"
 #include "libkwave/SignalManager.h"
-#include "libkwave/undo/UndoAddLabelAction.h"
-#include "libkwave/undo/UndoDeleteLabelAction.h"
+#include "libkwave/undo/UndoAddMetaDataAction.h"
+#include "libkwave/undo/UndoDeleteMetaDataAction.h"
 
 //***************************************************************************
-UndoDeleteLabelAction::UndoDeleteLabelAction(Label &label)
-    :UndoAction(), m_label(label)
+UndoDeleteMetaDataAction::UndoDeleteMetaDataAction(
+    const Kwave::MetaDataList &meta_data)
+    :UndoAction(), m_meta_data(meta_data)
 {
 }
 
 //***************************************************************************
-UndoDeleteLabelAction::~UndoDeleteLabelAction()
+UndoDeleteMetaDataAction::~UndoDeleteMetaDataAction()
 {
-    m_label = Label();
 }
 
 //***************************************************************************
-QString UndoDeleteLabelAction::description()
+QString UndoDeleteMetaDataAction::description()
 {
-    return i18n("Delete Label");
+    // sanity check: list should not be empty
+    Q_ASSERT(!m_meta_data.isEmpty());
+    if (m_meta_data.isEmpty()) return "";
+
+    QString name;
+    const Kwave::MetaData &m = m_meta_data.values().first();
+    if (m.hasProperty(Kwave::MetaData::STDPROP_TYPE))
+	name = m[Kwave::MetaData::STDPROP_TYPE].toString();
+
+    // if the meta data list contains only one object: try to find
+    // out the object's name
+    if ((m_meta_data.count() == 1) && name.length()) {
+	return i18nc(
+	    "name of the undo action for deleting a meta data object",
+	    "Delete %1",
+	    name
+	);
+    }
+
+    // check if the list contains only objects of the same type
+    bool all_same_type = true;
+    foreach (const Kwave::MetaData &m, m_meta_data) {
+	QString n = m[Kwave::MetaData::STDPROP_TYPE].toString();
+	if (!n.length() || (n != name)) {
+	    all_same_type = false;
+	    break;
+	}
+    }
+    if (all_same_type) {
+	return i18nc(
+	    "name of the undo action for deleting multiple "
+	    "meta data objects of the same type: "
+	    "%1=number of elements, %2=name of one element in singular",
+	    "Delete %1 %2 objects",
+	    name
+	);
+    }
+
+    return i18n("Delete Meta Data");
 }
 
 //***************************************************************************
-unsigned int UndoDeleteLabelAction::undoSize()
+unsigned int UndoDeleteMetaDataAction::undoSize()
 {
-    return sizeof(*this) + sizeof(Label);
+    return sizeof(*this);
 }
 
 //***************************************************************************
-int UndoDeleteLabelAction::redoSize()
+int UndoDeleteMetaDataAction::redoSize()
 {
-    return sizeof(UndoAddLabelAction) + sizeof(Label);
+    return sizeof(UndoAddMetaDataAction);
 }
 
 //***************************************************************************
-bool UndoDeleteLabelAction::store(SignalManager &)
+bool UndoDeleteMetaDataAction::store(SignalManager &)
 {
     // nothing to do, all data has already
     // been stored in the constructor
@@ -63,21 +101,20 @@ bool UndoDeleteLabelAction::store(SignalManager &)
 }
 
 //***************************************************************************
-UndoAction *UndoDeleteLabelAction::undo(SignalManager &manager,
-                                        bool with_redo)
+UndoAction *UndoDeleteMetaDataAction::undo(SignalManager &manager,
+                                           bool with_redo)
 {
     Q_ASSERT(!m_label.isNull());
-    if (m_label.isNull()) return 0;
+    if (m_meta_data.isEmpty()) return 0;
 
     UndoAction *redo = 0;
 
-    // add a new label to the signal manager
-    Label label = manager.addLabel(m_label.pos(), m_label.name());
+    // add the stored meta data to the signal managers' meta data
+    manager.metaData().merge(m_meta_data);
 
     // store data for redo
     if (with_redo) {
-	int index = manager.labelIndex(label);
-	redo = new UndoAddLabelAction(index);
+	redo = new UndoAddMetaDataAction(m_meta_data);
 	Q_ASSERT(redo);
 	if (redo) redo->store(manager);
     }
@@ -86,13 +123,31 @@ UndoAction *UndoDeleteLabelAction::undo(SignalManager &manager,
 }
 
 //***************************************************************************
-void UndoDeleteLabelAction::dump(const QString &indent)
+void UndoDeleteMetaDataAction::dump(const QString &indent)
 {
-    qDebug("%sundo delete label, %lu, '%s'",
-           indent.toLocal8Bit().data(),
-           static_cast<unsigned long int>(m_label.pos()),
-           m_label.name().toLocal8Bit().data()
-          );
+    foreach (const Kwave::MetaData &m, m_meta_data) {
+	qDebug("%sundo delete meta data object '%s'",
+	    indent.toLocal8Bit().data(),
+	    m.id().toLocal8Bit().data()
+	);
+
+	// dump all properties of the object
+	foreach (const QString &key, m.keys()) {
+	    QVariant v = m[key];
+	    QString value = "";
+	    if (v.type() == QVariant::List) {
+		foreach (const QVariant &v1, v.toList())
+		    value += "'" + v1.toString() + "' ";
+	    } else {
+		value = v.toString();
+	    }
+	    qDebug("%s    '%s' = '%s",
+		indent.toLocal8Bit().data(),
+		key.toLocal8Bit().data(),
+		value.toLocal8Bit().data()
+	    );
+	}
+    }
 }
 
 //***************************************************************************

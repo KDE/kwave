@@ -78,7 +78,7 @@ public:
     {
     public:
 	/** Constructor */
-	Map();
+	explicit Map();
 
 	/** Destructor */
 	virtual ~Map();

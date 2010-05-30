@@ -1,5 +1,5 @@
 /***************************************************************************
- UndoAddLabelAction.cpp  -  Undo action for insertion of labels
+ UndoAddMetaDataAction.cpp  -  Undo action for insertion of labels
 			     -------------------
     begin                : Wed Aug 16 2006
     copyright            : (C) 2006 by Thomas Eschenbacher
@@ -17,45 +17,141 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <QVariant>
+#include <QtAlgorithms>
+
 #include <klocale.h>
 
-#include "libkwave/Label.h"
+#include "libkwave/MetaData.h"
 #include "libkwave/SignalManager.h"
-#include "libkwave/undo/UndoAddLabelAction.h"
-#include "libkwave/undo/UndoDeleteLabelAction.h"
+#include "libkwave/undo/UndoAddMetaDataAction.h"
+#include "libkwave/undo/UndoDeleteMetaDataAction.h"
 
 //***************************************************************************
-UndoAddLabelAction::UndoAddLabelAction(int index)
-    :UndoAction(), m_index(index)
+UndoAddMetaDataAction::UndoAddMetaDataAction(
+    const Kwave::MetaDataList &meta_data)
+    :UndoAction(),
+     m_description(),
+     m_first(SAMPLE_INDEX_MAX),
+     m_last(0),
+     m_tracks()
 {
     Q_ASSERT(index >= 0);
+
+    // sanity check: list should not be empty
+    Q_ASSERT(!meta_data.isEmpty());
+    if (meta_data.isEmpty()) return;
+
+    /*
+     * loop over the list to find out the first/last sample offset
+     * and the list of affected tracks
+     */
+    foreach (const Kwave::MetaData &m, meta_data)
+    {
+	// search over a list of known properties which contain range/position
+	QStringList properties = Kwave::MetaData::positionBoundPropertyNames();
+	foreach (const QString &tag, properties) {
+	    // check for a "start" property
+	    QVariant v = m[tag];
+	    bool ok = false;
+	    sample_index_t pos = static_cast<sample_index_t>(v.toULongLong(&ok));
+	    if (ok && (pos < m_first)) m_first = pos;
+	    if (ok && (pos > m_last))  m_last  = pos;
+	}
+
+	// convert the track list into a usable list of unsigned int
+	const QList<QVariant> v_track_list =
+	    m[Kwave::MetaData::STDPROP_TRACKS].toList();
+	QList<unsigned int> bound_tracks;
+	foreach (const QVariant &v, v_track_list) {
+	    bool ok = false;
+	    unsigned int t = v.toUInt(&ok);
+	    if (ok) bound_tracks += t;
+	}
+
+	foreach (unsigned int t, bound_tracks)
+	    if (!m_tracks.contains(t)) m_tracks.append(t);;
+    }
+
+    // fix first/last in case that nothing was found, select everything
+    if (m_first > m_last) {
+	m_first = 0;
+	m_last  = SAMPLE_INDEX_MAX;
+    }
+    qSort(m_tracks);
+
+    /*
+     * determine the description of the action
+     */
+
+    for (;;) {
+	QString name;
+	const Kwave::MetaData &m = meta_data.values().first();
+	if (m.hasProperty(Kwave::MetaData::STDPROP_TYPE))
+	    name = m[Kwave::MetaData::STDPROP_TYPE].toString();
+
+	// if the meta data list contains only one object: try to find
+	// out the object's name
+	if ((meta_data.count() == 1) && name.length()) {
+	    m_description = i18nc(
+		"name of the undo action for inserting a meta data object",
+		"Insert %1",
+		name
+	    );
+	    break;
+	}
+
+	// check if the list contains only objects of the same type
+	bool all_same_type = true;
+	foreach (const Kwave::MetaData &m, meta_data) {
+	    QString n = m[Kwave::MetaData::STDPROP_TYPE].toString();
+	    if (!n.length() || (n != name)) {
+		all_same_type = false;
+		break;
+	    }
+	}
+	if (all_same_type) {
+	    m_description = i18nc(
+		"name of the undo action for inserting multiple "
+		"meta data objects of the same type: "
+		"%1=number of elements, %2=name of one element in singular",
+		"Insert %1 %2 objects",
+		name
+	    );
+	    break;
+	}
+
+	m_description = i18n("Insert Meta Data");
+	break;
+    }
 }
 
 //***************************************************************************
-UndoAddLabelAction::~UndoAddLabelAction()
+UndoAddMetaDataAction::~UndoAddMetaDataAction()
 {
 }
 
 //***************************************************************************
-QString UndoAddLabelAction::description()
+QString UndoAddMetaDataAction::description()
 {
-    return i18n("Add Label");
+    return m_description;
 }
 
 //***************************************************************************
-unsigned int UndoAddLabelAction::undoSize()
+unsigned int UndoAddMetaDataAction::undoSize()
 {
     return sizeof(*this);
 }
 
 //***************************************************************************
-int UndoAddLabelAction::redoSize()
+int UndoAddMetaDataAction::redoSize()
 {
-    return sizeof(UndoDeleteLabelAction);
+    return sizeof(UndoDeleteMetaDataAction);
 }
 
 //***************************************************************************
-bool UndoAddLabelAction::store(SignalManager &)
+bool UndoAddMetaDataAction::store(SignalManager &)
 {
     // nothing to do, all data has already
     // been stored in the constructor
@@ -63,20 +159,22 @@ bool UndoAddLabelAction::store(SignalManager &)
 }
 
 //***************************************************************************
-UndoAction *UndoAddLabelAction::undo(SignalManager &manager, bool with_redo)
+UndoAction *UndoAddMetaDataAction::undo(SignalManager &manager, bool with_redo)
 {
     UndoAction *redo = 0;
-    Label label = manager.labelAtIndex(m_index);
+    Kwave::MetaDataList meta_data =
+	manager.metaData().copy(m_first, m_last, m_tracks);
 
     // store data for redo
-    if (with_redo && !label.isNull()) {
-	redo = new UndoDeleteLabelAction(label);
+    if (with_redo && !meta_data.isEmpty()) {
+	redo = new UndoDeleteMetaDataAction(meta_data);
 	Q_ASSERT(redo);
 	if (redo) redo->store(manager);
     }
 
-    // remove the label from the signal manager
-    manager.deleteLabel(m_index, false);
+    // remove the meta data from the signal manager
+    sample_index_t length = m_last - m_first + 1;
+    manager.metaData().deleteRange(m_first, length, m_tracks);
 
     return redo;
 }

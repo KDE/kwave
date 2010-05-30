@@ -1,7 +1,10 @@
 
+o replace pthread_yield/pthread_yield with QThread::yieldCurrentThread()
+
+o eliminate pthread_xxx functions
+
 o support for visualization plugins (rev 2498)
   - re-enable old standard functionality:
-    * display of playback pointer in signal views
     * track controls (enable/disable)
     * vertical zoom
   - new functions
@@ -14,6 +17,8 @@ o support for visualization plugins (rev 2498)
     * connect label actions (add/delete/modify) to the views
     * connect playback position updates to the views
     * connect selection changes to the views
+    * use Kwave::MetaData for Encoder/Decoder
+
   - enhanced functions (maybe next release)
     * store order and settings of signal views in embedded metadata
     * store order and settings of signal views in a separate file
@@ -25,6 +30,7 @@ o support for visualization plugins (rev 2498)
 o new meta data handling
   - integrate Kwave::MetaData into SignalManager
   - substitute Label class with MetaData
+  - convert FileInfo to meta data list
 
 o update of kwave.spec.in (very outdated)
 

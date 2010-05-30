@@ -28,6 +28,7 @@ Label::Label()
 Label::Label(sample_index_t position, const QString &name)
     :Kwave::MetaData()
 {
+    setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());
     setProperty(Kwave::MetaData::STDPROP_POS, position);
     setProperty(Kwave::MetaData::STDPROP_DESCRIPTION, name);
 }

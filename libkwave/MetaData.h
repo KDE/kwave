@@ -24,6 +24,7 @@
 #include <QString>
 #include <QSharedData>
 #include <QSharedDataPointer>
+#include <QStringList>
 #include <QVariant>
 
 #include <kdemacros.h>
@@ -98,6 +99,9 @@ namespace Kwave {
 	/** destructor */
 	virtual ~MetaData();
 
+	/** removes all properties */
+	virtual void clear();
+
 	/** returns true if this is an empty record */
 	virtual bool isNull() const;
 
@@ -116,7 +120,8 @@ namespace Kwave {
 	/**
 	 * Sets a property to a new value. If the property already exists
 	 * it will be created and if it did not exist, a new one will be
-	 * created.
+	 * created. If the value is not valid (null), the property will
+	 * be deleted.
 	 * @param p name of the property
 	 * @param value a QVariant with the property's data
 	 */
@@ -156,6 +161,15 @@ namespace Kwave {
 	{
 	    return property(p);
 	}
+
+	/** equal operator, compares by data (not by ID) */
+	bool operator == (const MetaData &other) const;
+
+	/** returns a list with all property names */
+	QStringList keys() const;
+
+	/** returns a list of position bount property names */
+	static QStringList positionBoundPropertyNames();
 
     private:
 

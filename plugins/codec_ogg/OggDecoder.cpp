@@ -59,7 +59,7 @@ Decoder *OggDecoder::instance()
 }
 
 //***************************************************************************
-void OggDecoder::parseTag(const char *tag, FileProperty property)
+void OggDecoder::parseTag(FileInfo &info, const char *tag, FileProperty property)
 {
     int count = vorbis_comment_query_count(&m_vc, const_cast<char *>(tag));
     if (count < 1) return;
@@ -69,7 +69,8 @@ void OggDecoder::parseTag(const char *tag, FileProperty property)
 	if (i) value += "; ";
 	value += QString::fromUtf8(text);
     }
-    m_info.set(property, value);
+
+    info.set(property, value);
 }
 
 //***************************************************************************
@@ -203,7 +204,7 @@ int OggDecoder::parseHeader(QWidget *widget)
 //***************************************************************************
 bool OggDecoder::open(QWidget *widget, QIODevice &src)
 {
-    info().clear();
+    metaData().clear();
     Q_ASSERT(!m_source);
     if (m_source) qWarning("OggDecoder::open(), already open !");
 
@@ -223,22 +224,24 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     // read the header the first time
     if (parseHeader(widget) < 0) return false;
 
+    FileInfo info = metaData().fileInfo();
+
     // get the standard properties
-    m_info.setLength(0);         // use streaming
-    m_info.setRate(m_vi.rate);
-    m_info.setBits(SAMPLE_BITS); // use Kwave's internal resolution
-    m_info.setTracks(m_vi.channels);
-    m_info.set(INF_MIMETYPE, DEFAULT_MIME_TYPE);
-    m_info.set(INF_COMPRESSION, CompressionType::OGG_VORBIS);
-    m_info.set(INF_SOURCE, QString(m_vc.vendor));
+    info.setLength(0);         // use streaming
+    info.setRate(m_vi.rate);
+    info.setBits(SAMPLE_BITS); // use Kwave's internal resolution
+    info.setTracks(m_vi.channels);
+    info.set(INF_MIMETYPE, DEFAULT_MIME_TYPE);
+    info.set(INF_COMPRESSION, CompressionType::OGG_VORBIS);
+    info.set(INF_SOURCE, QString(m_vc.vendor));
     if (m_vi.bitrate_nominal > 0)
-	m_info.set(INF_BITRATE_NOMINAL, QVariant(
+	info.set(INF_BITRATE_NOMINAL, QVariant(
 	static_cast<int>(m_vi.bitrate_nominal)));
     if (m_vi.bitrate_lower > 0)
-	m_info.set(INF_BITRATE_LOWER, QVariant(
+	info.set(INF_BITRATE_LOWER, QVariant(
 	static_cast<int>(m_vi.bitrate_lower)));
     if (m_vi.bitrate_upper > 0)
-	m_info.set(INF_BITRATE_UPPER, QVariant(
+	info.set(INF_BITRATE_UPPER, QVariant(
 	static_cast<int>(m_vi.bitrate_upper)));
 
     // the first comment sometimes is used for the software version
@@ -246,16 +249,16 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
 	char **ptr = m_vc.user_comments;
 	QString s = *ptr;
 	if (s.length() && !s.contains('=')) {
-	    m_info.set(INF_SOFTWARE, s);
+	    info.set(INF_SOFTWARE, s);
 	    qDebug("Bitstream is %d channel, %ldHz", m_vi.channels, m_vi.rate);
 	    qDebug("Encoded by: %s\n\n", m_vc.vendor);
 	}
     }
 
     /** convert the date property to a QDate */
-    parseTag("DATE",         INF_CREATION_DATE);
-    if (m_info.contains(INF_CREATION_DATE)) {
-	QString str_date  = QVariant(m_info.get(
+    parseTag(info, "DATE",         INF_CREATION_DATE);
+    if (info.contains(INF_CREATION_DATE)) {
+	QString str_date  = QVariant(info.get(
 	    INF_CREATION_DATE)).toString();
 	QDate date;
 	date = QDate::fromString(str_date, Qt::ISODate);
@@ -263,26 +266,28 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
 	    int year = str_date.toInt();
 	    date.setYMD(year, 1, 1);
 	}
-	if (date.isValid()) m_info.set(INF_CREATION_DATE, date);
+	if (date.isValid()) info.set(INF_CREATION_DATE, date);
     }
 
     // parse all other (simple) properties
-    parseTag("TITLE",        INF_NAME);
-    parseTag("VERSION",      INF_VERSION);
-    parseTag("ALBUM",        INF_ALBUM);
-    parseTag("TRACKNUMBER",  INF_TRACK);
-    parseTag("ARTIST",       INF_AUTHOR);
-    parseTag("PERFORMER",    INF_PERFORMER);
-    parseTag("COPYRIGHT",    INF_COPYRIGHT);
-    parseTag("LICENSE",      INF_LICENSE);
-    parseTag("ORGANIZATION", INF_ORGANIZATION);
-    parseTag("DESCRIPTION",  INF_SUBJECT);
-    parseTag("GENRE",        INF_GENRE);
-    parseTag("LOCATION",     INF_SOURCE);
-    parseTag("CONTACT",      INF_CONTACT);
-    parseTag("ISRC",         INF_ISRC);
-    parseTag("ENCODER",      INF_SOFTWARE);
-    parseTag("VBR_QUALITY",  INF_VBR_QUALITY);
+    parseTag(info, "TITLE",        INF_NAME);
+    parseTag(info, "VERSION",      INF_VERSION);
+    parseTag(info, "ALBUM",        INF_ALBUM);
+    parseTag(info, "TRACKNUMBER",  INF_TRACK);
+    parseTag(info, "ARTIST",       INF_AUTHOR);
+    parseTag(info, "PERFORMER",    INF_PERFORMER);
+    parseTag(info, "COPYRIGHT",    INF_COPYRIGHT);
+    parseTag(info, "LICENSE",      INF_LICENSE);
+    parseTag(info, "ORGANIZATION", INF_ORGANIZATION);
+    parseTag(info, "DESCRIPTION",  INF_SUBJECT);
+    parseTag(info, "GENRE",        INF_GENRE);
+    parseTag(info, "LOCATION",     INF_SOURCE);
+    parseTag(info, "CONTACT",      INF_CONTACT);
+    parseTag(info, "ISRC",         INF_ISRC);
+    parseTag(info, "ENCODER",      INF_SOFTWARE);
+    parseTag(info, "VBR_QUALITY",  INF_VBR_QUALITY);
+
+    metaData().setFileInfo(info);
 
     return true;
 }
@@ -425,8 +430,8 @@ bool OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
     // signal the current position
     emit sourceProcessed(m_source->pos());
 
-    if (!m_info.contains(INF_BITRATE_NOMINAL) &&
-        !m_info.contains(INF_VBR_QUALITY))
+    if (!metaData().fileInfo().contains(INF_BITRATE_NOMINAL) &&
+        !metaData().fileInfo().contains(INF_VBR_QUALITY))
     {
 	qWarning("file contains neither nominal bitrate (ABR mode) "\
 	         "nor quality (VBR mode)");
@@ -434,14 +439,14 @@ bool OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 	const unsigned int samples = dst.last();
 	int bitrate = DEFAULT_BITRATE;
 
-	if (static_cast<int>(m_info.rate()) && samples) {
+	if (static_cast<int>(metaData().fileInfo().rate()) && samples) {
 	    // guess bitrates from the stream
 	    const unsigned int stream_end_pos = m_source->pos();
 	    const unsigned int stream_read = stream_end_pos -
 	                                     stream_start_pos + 1;
 	    double bits = static_cast<double>(stream_read) * 8.0;
 	    double seconds = static_cast<double>(samples) /
-		static_cast<double>(m_info.rate());
+		static_cast<double>(metaData().fileInfo().rate());
 	    bitrate = static_cast<unsigned int>(bits / seconds);
 
 	    // round to neares standard bitrate
@@ -451,8 +456,9 @@ bool OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 	    // guessing not possible -> use default
 	    qDebug("-> using default %d kBits/sec", bitrate);
 	}
-	m_info.set(INF_BITRATE_NOMINAL, QVariant(
-	    static_cast<int>(bitrate)));
+	FileInfo info = metaData().fileInfo();
+	info.set(INF_BITRATE_NOMINAL, QVariant(static_cast<int>(bitrate)));
+	metaData().setFileInfo(info);
     }
 
     // return with a valid Signal, even if the user pressed cancel !

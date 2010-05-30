@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave_help_cs\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-02-27 06:53+0000\n"
+"POT-Creation-Date: 2010-05-29 12:59+0000\n"
 "PO-Revision-Date: 2009-11-14 17:30+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <>\n"
@@ -247,10 +247,10 @@ msgstr "Grafické rozhraní rozšiřitelné přes snadno použitelný přídavn�
 
 #. Tag: para
 #: help_en-work.docbook:124
-#, no-c-format
+#, fuzzy, no-c-format
 msgid ""
-"import/export of other audio formats through <ulink url=\"http://freeware."
-"sgi.com/Installable/audiofile-0.2.3.html\">audiofile</ulink>"
+"import/export of other audio formats through <ulink url=\"http://www.68k.org/"
+"~michael/audiofile/\">audiofile</ulink>"
 msgstr ""
 "Import a export dalších zvukových formátů přes <ulink url=\"http://freeware."
 "sgi.com/Installable/audiofile-0.2.3.html\">zvukový soubor</ulink>"
@@ -2326,14 +2326,13 @@ msgstr ""
 
 #. Tag: para
 #: help_en-work.docbook:1270
-#, no-c-format
+#, fuzzy, no-c-format
 msgid ""
 "Additionally &kapp; supports many other common formats through the <ulink "
-"url=\"http://freeware.sgi.com/Installable/audiofile-0.2.3.html\">audiofile</"
-"ulink> plugin. You can import files like <filename>*.au</filename> and "
-"<filename>*.snd</filename> (NeXT,Sun Audio), <filename>*.aiff</filename> "
-"(Audio Interchange Format) and <filename>*.sf</filename> (Berkeley,IRCAM,"
-"Carl Sound Format)."
+"url=\"http://www.68k.org/~michael/audiofile/\">audiofile</ulink> plugin. You "
+"can import files like <filename>*.au</filename> and <filename>*.snd</"
+"filename> (NeXT,Sun Audio), <filename>*.aiff</filename> (Audio Interchange "
+"Format) and <filename>*.sf</filename> (Berkeley,IRCAM,Carl Sound Format)."
 msgstr ""
 "Dále &kapp; podporuje mnoho jiných běžných formátů prostřednictvím <ulink "
 "url=\"http://freeware.sgi.com/Installable/audiofile-0.2.3.html\">audiofile</"
@@ -4752,11 +4751,10 @@ msgstr ""
 
 #. Tag: para
 #: help_en-work.docbook:2910
-#, no-c-format
+#, fuzzy, no-c-format
 msgid ""
 "Michael Pruett <email>mpruett@sgi.com</email> (author of the <ulink url="
-"\"http://freeware.sgi.com/Installable/audiofile-0.2.3.html\">audiofile</"
-"ulink> library)"
+"\"http://www.68k.org/~michael/audiofile/\">audiofile</ulink> library)"
 msgstr ""
 "Michael Pruett <email>mpruett@sgi.com</email> (autor <ulink url=\"http://"
 "freeware.sgi.com/Installable/audiofile-0.2.3.html\">audiofile</ulink> "

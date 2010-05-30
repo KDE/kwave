@@ -22,6 +22,7 @@
 #include <QString>
 
 #include <kdemacros.h>
+#include <klocale.h>
 
 #include "libkwave/MetaData.h"
 #include "libkwave/Sample.h"
@@ -43,6 +44,9 @@ public:
 
     /** destructor */
     virtual ~Label();
+
+    /** returns the identifier of the "type" of this meta data object */
+    static QString metaDataType() { return I18N_NOOP("Label"); };
 
     /**
      * Set a new position of the label

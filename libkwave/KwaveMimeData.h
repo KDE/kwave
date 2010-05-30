@@ -32,6 +32,7 @@ class QWidget;
 class MultiTrackReader;
 class FileInfo;
 class SignalManager;
+namespace Kwave { class MetaDataList; }
 
 namespace Kwave {
 
@@ -51,13 +52,13 @@ namespace Kwave {
 	     * @param widget the widget used as parent for displaying
 	     *               error messages
 	     * @param src source of the samples
-	     * @param info information about the signal, sample rate,
-	     *             resolution etc
+	     * @param meta_data information about the signal, sample rate,
+	     *                  resolution and other meta data
 	     * @return true if successful
 	     */
 	    virtual bool encode(QWidget *widget,
 	                        MultiTrackReader &src,
-	                        FileInfo &info);
+	                        const Kwave::MetaDataList &meta_data);
 
 	    /**
 	     * Decodes the encoded byte data of the given mime source and

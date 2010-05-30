@@ -21,7 +21,6 @@
 
 #include "libkwave/Label.h"
 #include "libkwave/SignalManager.h"
-#include "libkwave/undo/UndoAddLabelAction.h"
 #include "libkwave/undo/UndoModifyLabelAction.h"
 
 #include "libgui/SignalWidget.h"

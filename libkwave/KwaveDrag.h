@@ -35,6 +35,7 @@ class QWidget;
 class FileInfo;
 class MultiTrackReader;
 class SignalManager;
+namespace Kwave { class MetaDataList; }
 
 /**
  * Simple class for drag & drop of wav data.
@@ -60,10 +61,12 @@ public:
      * array that is compatible with the format of a wav file.
      * @param widget the widget used for displaying error messages
      * @param src source of the samples
-     * @param info information about the signal, sample rate, resolution etc
+     * @param meta_data information about the signal, sample rate,
+     *                  resolution and other meta data
      * @return true if successful
      */
-    bool encode(QWidget *widget, MultiTrackReader &src, FileInfo &info);
+    bool encode(QWidget *widget, MultiTrackReader &src,
+                const Kwave::MetaDataList &meta_data);
 
     /** Returns true if the mime type of the given source can be decoded */
     static bool canDecode(const QMimeData *data);

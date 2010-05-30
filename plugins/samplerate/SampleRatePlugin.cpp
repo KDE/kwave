@@ -29,6 +29,7 @@
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/KwaveConnect.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
@@ -94,7 +95,7 @@ void SampleRatePlugin::run(QStringList params)
     if (interpreteParameters(params) < 0)
 	return;
 
-    double old_rate = signalManager().fileInfo().rate();
+    double old_rate = signalManager().metaData().fileInfo().rate();
     if ((old_rate <= 0) || (old_rate == m_new_rate)) return;
 
     UndoTransactionGuard undo_guard(*this, i18n("Change sample rate"));
@@ -187,34 +188,39 @@ void SampleRatePlugin::run(QStringList params)
 	mgr.deleteRange(written, to_delete, tracks);
     }
 
-    // adjust all label positions in the originally selected range
-    // NOTE: if the ratio is > 1, work backwards, otherwise forward
-    QListIterator<Label> it(mgr.labels());
-    (ratio > 1) ? it.toBack() : it.toFront();
-    while ((ratio > 1) ? it.hasPrevious() : it.hasNext()) {
-	Label label = (ratio > 1) ? it.previous() : it.next();
-	sample_index_t pos = label.pos();
-	if (pos < first) continue;
-	if (pos > last)  continue;
+    // adjust meta data locations
+    Kwave::MetaDataList meta = mgr.metaData().copy(first, last, tracks);
+    if (!meta.isEmpty()) {
+	// adjust all positions in the originally selected range
+	// NOTE: if the ratio is > 1, work backwards, otherwise forward
 
-	// label is in our range -> calculate new position
-	pos -= first;
-	pos *= ratio;
-	pos += first;
+	Kwave::MetaDataList::MutableIterator it(meta);
+	(ratio > 1) ? it.toBack() : it.toFront();
+	while ((ratio > 1) ? it.hasPrevious() : it.hasNext()) {
+	    Kwave::MetaData &m = (ratio > 1) ?
+		it.previous().value() : it.next().value();
 
-	// move the label to his new position
-	int index = mgr.labelIndex(label);
-	if (!mgr.findLabel(pos).isNull()) {
-	    // if there is already another label, drop this one
-	    qWarning("SampleRatePlugin: deleting label at %lu (%lu is occupied)",
-		    static_cast<unsigned long int>(label.pos()),
-		    static_cast<unsigned long int>(pos));
-	    mgr.deleteLabel(index, true);
-	} else {
-// 	    qDebug("SampleRatePlugin: moving label from %u to %u",
-// 		    label.pos(), pos);
-	    mgr.modifyLabel(index, pos, label.name());
+	    QStringList properties = Kwave::MetaData::positionBoundPropertyNames();
+	    foreach (const QString &property, properties) {
+		if (!m.hasProperty(property))
+		    continue;
+
+		sample_index_t pos = static_cast<sample_index_t>(
+		    m[property].toULongLong());
+		if (pos < first) continue;
+		if (pos > last)  continue;
+
+		// is in our range -> calculate new position
+		pos -= first;
+		pos *= ratio;
+		pos += first;
+
+		m[property] = pos;
+	    }
 	}
+
+	mgr.metaData().deleteRange(first, last, tracks);
+	mgr.metaData().merge(meta);
     }
 
     // update the selection if it was not empty
@@ -235,9 +241,9 @@ void SampleRatePlugin::run(QStringList params)
 
     // set the sample rate if we modified the whole signal
     if (m_whole_signal) {
-	FileInfo info = signalManager().fileInfo();
+	FileInfo info = signalManager().metaData().fileInfo();
 	info.setRate(m_new_rate);
-	mgr.setFileInfo(info, true);
+	mgr.metaData().setFileInfo(info);
     }
 
 }

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-02-27 06:53+0000\n"
+"POT-Creation-Date: 2010-05-29 12:59+0000\n"
 "PO-Revision-Date: 2009-12-22 19:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -245,10 +245,10 @@ msgstr "erweiterbar durch ein einfach zu benutzendes Plugin-Interface"
 
 #. Tag: para
 #: help_en-work.docbook:124
-#, no-c-format
+#, fuzzy, no-c-format
 msgid ""
-"import/export of other audio formats through <ulink url=\"http://freeware."
-"sgi.com/Installable/audiofile-0.2.3.html\">audiofile</ulink>"
+"import/export of other audio formats through <ulink url=\"http://www.68k.org/"
+"~michael/audiofile/\">audiofile</ulink>"
 msgstr ""
 "Import/Export anderer Audio-Dateiformate durch <ulink url=\"http://freeware."
 "sgi.com/Installable/audiofile-0.2.3.html\">libaudiofile</ulink>"
@@ -2370,14 +2370,13 @@ msgstr ""
 
 #. Tag: para
 #: help_en-work.docbook:1270
-#, no-c-format
+#, fuzzy, no-c-format
 msgid ""
 "Additionally &kapp; supports many other common formats through the <ulink "
-"url=\"http://freeware.sgi.com/Installable/audiofile-0.2.3.html\">audiofile</"
-"ulink> plugin. You can import files like <filename>*.au</filename> and "
-"<filename>*.snd</filename> (NeXT,Sun Audio), <filename>*.aiff</filename> "
-"(Audio Interchange Format) and <filename>*.sf</filename> (Berkeley,IRCAM,"
-"Carl Sound Format)."
+"url=\"http://www.68k.org/~michael/audiofile/\">audiofile</ulink> plugin. You "
+"can import files like <filename>*.au</filename> and <filename>*.snd</"
+"filename> (NeXT,Sun Audio), <filename>*.aiff</filename> (Audio Interchange "
+"Format) and <filename>*.sf</filename> (Berkeley,IRCAM,Carl Sound Format)."
 msgstr ""
 "Zusätzlich unterstützt &kapp; viele andere Formate durch das <ulink url="
 "\"http://freeware.sgi.com/Installable/audiofile-0.2.3.html/\">audiofile</"
@@ -4817,11 +4816,10 @@ msgstr ""
 
 #. Tag: para
 #: help_en-work.docbook:2910
-#, no-c-format
+#, fuzzy, no-c-format
 msgid ""
 "Michael Pruett <email>mpruett@sgi.com</email> (author of the <ulink url="
-"\"http://freeware.sgi.com/Installable/audiofile-0.2.3.html\">audiofile</"
-"ulink> library)"
+"\"http://www.68k.org/~michael/audiofile/\">audiofile</ulink> library)"
 msgstr ""
 "Michael Pruett <email>mpruett@sgi.com</email> (Autor der <ulink url=\"http://"
 "freeware.sgi.com/Installable/audiofile-0.2.3.html\">audiofile</ulink> "

@@ -420,7 +420,7 @@ void Kwave::PluginManager::sync()
     qApp->flush();
 
     while (onePluginRunning()) {
-	pthread_yield();
+	QThread::yieldCurrentThread();
 	qApp->processEvents();
 	qApp->flush();
     }

@@ -610,13 +610,16 @@ void Kwave::SignalView::startDragging()
 	m_signal_manager->selectedTracks(), first, last);
 
     // create the file info
-    FileInfo info = m_signal_manager->fileInfo();
+    Kwave::MetaDataList meta = m_signal_manager->metaData().selectByTracks(
+	m_signal_manager->selectedTracks());
+    FileInfo info = meta.fileInfo();
     info.setLength(last - first + 1);
     info.setRate(rate);
     info.setBits(bits);
     info.setTracks(src.tracks());
+    meta.setFileInfo(info);
 
-    if (!d->encode(this, src, info)) {
+    if (!d->encode(this, src, meta)) {
 	delete d;
 	return;
     }

@@ -31,6 +31,7 @@
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
@@ -67,13 +68,15 @@ QList<FileProperty> AsciiEncoder::supportedProperties()
 
 /***************************************************************************/
 bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
-                          QIODevice &dst, FileInfo &info)
+                          QIODevice &dst,
+                          const Kwave::MetaDataList &meta_data)
 {
     bool result = true;
 
     qDebug("AsciiEncoder::encode()");
 
     // get info: tracks, sample rate
+    const FileInfo info = meta_data.fileInfo();
     unsigned int tracks = info.tracks();
     unsigned int bits   = info.bits();
     sample_index_t length = info.length();

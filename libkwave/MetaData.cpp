@@ -52,6 +52,12 @@ Kwave::MetaData::~MetaData()
 }
 
 //***************************************************************************
+void Kwave::MetaData::clear()
+{
+    if (m_data == 0) m_data->m_properties.clear();
+}
+
+//***************************************************************************
 bool Kwave::MetaData::isNull() const
 {
     return (m_data == 0);
@@ -79,7 +85,12 @@ void Kwave::MetaData::setScope(Kwave::MetaData::Scope scope)
 void Kwave::MetaData::setProperty(const QString &p,
                                   const QVariant &value)
 {
-    if (m_data) m_data->m_properties[p] = value;
+    if (m_data) {
+	if (value.isValid())
+	    m_data->m_properties[p] = value;
+	else
+	    m_data->m_properties.remove(p);
+    }
 }
 
 //***************************************************************************
@@ -107,6 +118,40 @@ QVariant &Kwave::MetaData::property(const QString &p)
 	dummy.clear();
 	return dummy;
     }
+}
+
+//***************************************************************************
+bool Kwave::MetaData::operator == (const Kwave::MetaData &other) const
+{
+    if (!m_data && !other.m_data)
+	return true; // both are null objects
+
+    if ((!m_data) ^ (!other.m_data))
+	return false; // only one is a null object
+
+    if (m_data->m_scope != other.m_data->m_scope)
+	return false; // different scope
+
+    if (m_data->m_properties != other.m_data->m_properties)
+	return false; // properties differ
+
+    return true; // no mismatch found
+}
+
+//***************************************************************************
+QStringList Kwave::MetaData::keys() const
+{
+    return (m_data) ? m_data->m_properties.keys() : QStringList();
+}
+
+//***************************************************************************
+QStringList Kwave::MetaData::positionBoundPropertyNames()
+{
+    QStringList list;
+    list << Kwave::MetaData::STDPROP_START;
+    list << Kwave::MetaData::STDPROP_END;
+    list << Kwave::MetaData::STDPROP_POS;
+    return list;
 }
 
 //***************************************************************************

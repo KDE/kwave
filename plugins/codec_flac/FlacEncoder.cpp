@@ -33,6 +33,7 @@
 #include <vorbis/vorbisenc.h>
 
 #include "libkwave/FileInfo.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
@@ -43,8 +44,7 @@
 
 /***************************************************************************/
 FlacEncoder::FlacEncoder()
-    :Encoder(), FLAC::Encoder::Stream(), m_vorbis_comment_map(), m_info(0),
-    m_dst(0)
+    :Encoder(), FLAC::Encoder::Stream(), m_vorbis_comment_map(), m_dst(0)
 {
     LOAD_MIME_TYPES;
 }
@@ -146,7 +146,7 @@ FLAC__StreamMetadata *FlacEncoder::VorbisCommentContainer::data()
 }
 
 /***************************************************************************/
-void FlacEncoder::encodeMetaData(FileInfo &info,
+void FlacEncoder::encodeMetaData(const FileInfo &info,
     QVector<FLAC__StreamMetadata *> &flac_metadata)
 {
     // encode all Vorbis comments
@@ -169,25 +169,26 @@ void FlacEncoder::encodeMetaData(FileInfo &info,
 
 /***************************************************************************/
 bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
-                         QIODevice &dst, FileInfo &info)
+                         QIODevice &dst,
+                         const Kwave::MetaDataList &meta_data)
 {
     bool result = true;
 
     qDebug("FlacEncoder::encode()");
-    m_info = &info;
+    const FileInfo info = meta_data.fileInfo();
     m_dst  = &dst;
 
     // get info: tracks, sample rate
-    int tracks          = m_info->tracks();
-    unsigned int bits   = m_info->bits();
-    unsigned int length = m_info->length();
+    int tracks          = info.tracks();
+    unsigned int bits   = info.bits();
+    unsigned int length = info.length();
 
 #if defined(FLAC_API_VERSION_1_1_3) /* or above */
     set_compression_level(5); // @todo make the FLAC compression configurable
 #endif
     set_channels(static_cast<unsigned>(tracks));
     set_bits_per_sample(static_cast<unsigned>(bits));
-    set_sample_rate(static_cast<unsigned>(m_info->rate()));
+    set_sample_rate(static_cast<unsigned>(info.rate()));
     set_total_samples_estimate(static_cast<FLAC__uint64>(length));
     set_verify(false); // <- set to "true" for debugging
 
@@ -225,7 +226,6 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
             qWarning("state = %d", static_cast<int>(init_state));
             Kwave::MessageBox::error(widget,
                 i18n("Unable to open the FLAC encoder."));
-            m_info = 0;
             result = false;
             break;
         }
@@ -326,7 +326,6 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	flac_metadata.remove(0);
     }
 
-    m_info = 0;
     m_dst  = 0;
     dst.close();
 

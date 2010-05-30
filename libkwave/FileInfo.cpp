@@ -17,7 +17,9 @@
 
 #include "config.h"
 #include <klocale.h>
-#include "FileInfo.h"
+
+#include "libkwave/FileInfo.h"
+#include "libkwave/MetaDataList.h"
 
 /** FileInfo flag: for internal usage only, do not show to the user */
 #define FP_INTERNAL     0x0001
@@ -27,6 +29,9 @@
 
 /** FileInfo flag: available for the GUI, but not for loading/saving */
 #define FP_NO_LOAD_SAVE 0x0004
+
+/** prefix of all property names */
+#define FILE_INFO_PROPERTY_PREFIX "FILE_INFO: "
 
 /***************************************************************************/
 void FileInfo::PropertyTypesMap::fill()
@@ -58,6 +63,9 @@ void FileInfo::PropertyTypesMap::fill()
     append(INF_BITRATE_UPPER, FP_NO_LOAD_SAVE,
         I18N_NOOP("Upper Bitrate"),
         i18n("Specifies the upper limit in a VBR bitstream."));
+    append(INF_BITS_PER_SAMPLE, FP_INTERNAL | FP_NO_LOAD_SAVE,
+        I18N_NOOP("Bits per Sample"),
+        i18n("Specifies the number of bits per sample."));
     append(INF_CD, 0,
         I18N_NOOP("CD"),
         i18n("Number of the CD, if the source is\nan album of more CDROMs"));
@@ -120,6 +128,9 @@ void FileInfo::PropertyTypesMap::fill()
     append(INF_LABELS, FP_INTERNAL,
         I18N_NOOP("Labels"),
         i18n("The list of labels/markers."));
+    append(INF_LENGTH, FP_INTERNAL | FP_NO_LOAD_SAVE,
+        I18N_NOOP("Length"),
+        i18n("Length of the file in samples."));
     append(INF_LICENSE, 0,
         I18N_NOOP("License"),
         i18n("License information, e.g., 'All Rights Reserved',\n"
@@ -176,6 +187,9 @@ void FileInfo::PropertyTypesMap::fill()
         I18N_NOOP("Sample Format"),
         i18n("Format used for storing the digitized audio samples.\n"
              "Example: '32-bit IEEE floating-point'"));
+    append(INF_SAMPLE_RATE, FP_INTERNAL | FP_NO_LOAD_SAVE,
+        I18N_NOOP("Sample Rate"),
+        i18n("Number od samples per second\n"));
     append(INF_SOFTWARE, 0,
         I18N_NOOP("Software"),
         i18n("Identifies the name of the software package\n"
@@ -203,6 +217,9 @@ void FileInfo::PropertyTypesMap::fill()
     append(INF_TRACK, 0,
         I18N_NOOP("Track"),
         i18n("Track of the CD if the source was a CDROM."));
+    append(INF_TRACKS, FP_INTERNAL | FP_NO_LOAD_SAVE,
+        I18N_NOOP("Tracks"),
+        i18n("Specifies the number of tracks of the signal."));
     append(INF_VBR_QUALITY, FP_INTERNAL | FP_NO_LOAD_SAVE,
         I18N_NOOP("Base Quality"),
         i18n("Base quality of the compression in VBR mode"));
@@ -217,7 +234,7 @@ void FileInfo::PropertyTypesMap::fill()
 }
 
 /***************************************************************************/
-QList<FileProperty> FileInfo::PropertyTypesMap::all()
+QList<FileProperty> FileInfo::PropertyTypesMap::all() const
 {
     return allKeys();
 }
@@ -225,125 +242,178 @@ QList<FileProperty> FileInfo::PropertyTypesMap::all()
 /***************************************************************************/
 /***************************************************************************/
 FileInfo::FileInfo()
-    :m_length(), m_rate(0.0), m_bits(0), m_tracks(0), m_labels(),
-     m_properties(), m_property_map()
+    :Kwave::MetaData(Kwave::MetaData::Signal),
+     m_property_map()
 {
+    setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());
 }
 
 /***************************************************************************/
-FileInfo::FileInfo(const FileInfo &inf)
+FileInfo::FileInfo(const Kwave::MetaDataList &meta_data_list)
+    :Kwave::MetaData(Kwave::MetaData::Signal),
+     m_property_map()
 {
-    copy(inf);
+    setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());
+
+    foreach (const Kwave::MetaData &meta_data, meta_data_list) {
+	foreach (FileProperty key, m_property_map.allKeys()) {
+	    QString name = FILE_INFO_PROPERTY_PREFIX + m_property_map.name(key);
+	    if (meta_data.hasProperty(name)) {
+		// take over each supported property
+		QVariant value = meta_data[name];
+		setProperty(name, value);
+	    }
+	}
+    }
 }
 
 /***************************************************************************/
 FileInfo::~FileInfo()
 {
-    clear();
 }
 
 /***************************************************************************/
-bool FileInfo::equals(const FileInfo &other)
+bool FileInfo::contains(FileProperty key) const
 {
-    if (m_bits   != other.bits())   return false;
-    if (m_length != other.length()) return false;
-    if (m_rate   != other.rate())   return false;
-    if (m_tracks != other.tracks()) return false;
-    if (m_labels == other.labels()) return false;
-
-    if (m_properties.count() != other.properties().count()) return false;
-
-    QMap<FileProperty, QVariant>::Iterator it;
-    for (it = m_properties.begin(); it != m_properties.end(); ++it) {
-	if (it.value() != other.get(it.key())) return false;
-    }
-
-    return true;
-}
-
-/***************************************************************************/
-void FileInfo::copy(const FileInfo &source)
-{
-    m_length     = source.length();
-    m_rate       = source.rate();
-    m_bits       = source.bits();
-    m_tracks     = source.tracks();
-    m_labels     = source.labels();
-    m_properties = source.properties();
+    if (!m_property_map.allKeys().contains(key))
+	return false;
+    QString name = FILE_INFO_PROPERTY_PREFIX + m_property_map.name(key);
+    return hasProperty(name);
 }
 
 /***************************************************************************/
 void FileInfo::set(FileProperty key, const QVariant &value)
 {
-    if (!value.isValid()) {
-	// delete
-	m_properties.remove(key);
-    } else {
-	// insert or add
-	m_properties[key] = value;
-    }
+    if (!m_property_map.allKeys().contains(key))
+	return;
+    QString name = FILE_INFO_PROPERTY_PREFIX + m_property_map.name(key);
+    setProperty(name, value);
 }
 
 /***************************************************************************/
 QVariant FileInfo::get(FileProperty key) const
 {
-    if (!m_properties.contains(key)) return QVariant();
-    return m_properties[key];
+    if (!m_property_map.allKeys().contains(key))
+	return QVariant();
+    QString name = FILE_INFO_PROPERTY_PREFIX + m_property_map.name(key);
+
+    if (!hasProperty(name)) return QVariant();
+    return property(name);
 }
 
 /***************************************************************************/
-bool FileInfo::isInternal(FileProperty key)
+bool FileInfo::isInternal(FileProperty key) const
 {
     int flags = m_property_map.data(key);
     return (flags & FP_INTERNAL);
 }
 
 /***************************************************************************/
-bool FileInfo::canLoadSave(FileProperty key)
+bool FileInfo::canLoadSave(FileProperty key) const
 {
     int flags = m_property_map.data(key);
     return !(flags & FP_NO_LOAD_SAVE);
 }
 
 /***************************************************************************/
-QList<FileProperty> FileInfo::allKnownProperties()
+QList<FileProperty> FileInfo::allKnownProperties() const
 {
     return m_property_map.all();
 }
 
 /***************************************************************************/
-void FileInfo::clear()
+const QMap<FileProperty, QVariant> FileInfo::properties() const
 {
-    m_length = 0;
-    m_rate   = 0;
-    m_bits   = 0;
-    m_tracks = 0;
-    m_labels.clear();
-    m_properties.clear();
+    QMap<FileProperty, QVariant> map;
+    foreach (FileProperty key, m_property_map.allKeys()) {
+	if (!contains(key)) continue;
+	map[key] = get(key);
+    }
+    return map;
 }
 
 /***************************************************************************/
-void FileInfo::dump()
+sample_index_t FileInfo::length() const
+{
+    QVariant value = get(INF_LENGTH);
+    bool ok = false;
+    sample_index_t len = static_cast<sample_index_t>(value.toULongLong(&ok));
+    return (ok) ? len : 0;
+}
+
+/***************************************************************************/
+void FileInfo::setLength(sample_index_t length)
+{
+    set(INF_LENGTH, QVariant(static_cast<qulonglong>(length)));
+}
+
+/***************************************************************************/
+double FileInfo::rate() const
+{
+    QVariant value = get(INF_SAMPLE_RATE);
+    bool ok = false;
+    double r = value.toDouble(&ok);
+    return (ok) ? r : 0;
+}
+
+/***************************************************************************/
+void FileInfo::setRate(double rate)
+{
+    set(INF_SAMPLE_RATE, rate);
+}
+
+/***************************************************************************/
+unsigned int FileInfo::bits() const
+{
+    QVariant value = get(INF_BITS_PER_SAMPLE);
+    bool ok = false;
+    unsigned int bits = value.toUInt(&ok);
+    return (ok) ? bits : 0;
+}
+
+/***************************************************************************/
+void FileInfo::setBits(unsigned int bits)
+{
+    set(INF_BITS_PER_SAMPLE, bits);
+}
+
+/***************************************************************************/
+unsigned int FileInfo::tracks() const
+{
+    QVariant value = get(INF_TRACKS);
+    bool ok = false;
+    unsigned int tracks = value.toUInt(&ok);
+    return (ok) ? tracks : 0;
+}
+
+/***************************************************************************/
+void FileInfo::setTracks(unsigned int tracks)
+{
+    set(INF_TRACKS, tracks);
+}
+
+/***************************************************************************/
+void FileInfo::dump() const
 {
     qDebug("--- dump of file info ---");
 
     qDebug("default properties:");
-    qDebug("   length = %lu samples", static_cast<unsigned long int>(m_length));
-    qDebug("   rate   = %0.1f Hz", m_rate);
-    qDebug("   bits   = %u", m_bits);
-    qDebug("   tracks = %u", m_tracks);
+    qDebug("   length = %lu samples", static_cast<unsigned long int>(length()));
+    qDebug("   rate   = %0.1f Hz", rate());
+    qDebug("   bits   = %u", bits());
+    qDebug("   tracks = %u", tracks());
 
-    qDebug("labels:");
-    foreach (Label label, m_labels) {
-	qDebug("   [%10lu] = '%s'", static_cast<unsigned long int>(label.pos()),
-	                           label.name().toLocal8Bit().data());
-    }
+//     qDebug("labels:");
+//     foreach (Label label, m_labels) {
+// 	qDebug("   [%10lu] = '%s'", static_cast<unsigned long int>(label.pos()),
+// 	                           label.name().toLocal8Bit().data());
+//     }
 
     qDebug("other properties:");
     QMap<FileProperty, QVariant>::Iterator it;
-    for (it = m_properties.begin(); it != m_properties.end(); ++it) {
-	FileProperty key = it.key();
-	QVariant val = it.value();
+    foreach (FileProperty key, m_property_map.allKeys()) {
+	if (!contains(key)) continue;
+	QVariant val = get(key);
 	QString name = m_property_map.name(key);
 	qDebug("   '%s' = '%s'", name.toLocal8Bit().data(),
 	                         val.toString().toLocal8Bit().data());

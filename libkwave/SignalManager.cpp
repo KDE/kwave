@@ -55,9 +55,9 @@
 #include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 #include "libkwave/undo/UndoAction.h"
-#include "libkwave/undo/UndoAddLabelAction.h"
+#include "libkwave/undo/UndoAddMetaDataAction.h"
 #include "libkwave/undo/UndoDeleteAction.h"
-#include "libkwave/undo/UndoDeleteLabelAction.h"
+#include "libkwave/undo/UndoDeleteMetaDataAction.h"
 #include "libkwave/undo/UndoDeleteTrack.h"
 #include "libkwave/undo/UndoFileInfo.h"
 #include "libkwave/undo/UndoInsertAction.h"
@@ -89,7 +89,6 @@ SignalManager::SignalManager(QWidget *parent)
     m_undo_transaction(0),
     m_undo_transaction_level(0),
     m_undo_transaction_lock(QMutex::Recursive),
-    m_file_info(),
     m_meta_data()
 {
     // connect to the track's signals
@@ -151,18 +150,12 @@ int SignalManager::loadFile(const KUrl &url)
 	    break;
 	}
 
-	// enter the filename/mimetype and size into the decoder
-	QFileInfo fi(src);
-	decoder->info().set(INF_FILENAME, fi.absoluteFilePath());
-	decoder->info().set(INF_FILESIZE,
-	    static_cast<unsigned int>(src.size()));
-	decoder->info().set(INF_MIMETYPE, mimetype);
-
-	// get the file info from the decoder
-	m_file_info = decoder->info();
+	// get the initial meta data from the decoder
+	m_meta_data = decoder->metaData();
+	FileInfo info = m_meta_data.fileInfo();
 
 	// detect stream mode. if so, use one sample as display
-	bool streaming = (!m_file_info.length());
+	bool streaming = (!info.length());
 
 	// we must change to open state to see the file while
 	// it is loaded
@@ -171,12 +164,12 @@ int SignalManager::loadFile(const KUrl &url)
 
 	// create all tracks (empty)
 	unsigned int track;
-	const unsigned int tracks = decoder->info().tracks();
-	const sample_index_t length = decoder->info().length();
+	const unsigned int tracks   = info.tracks();
+	const sample_index_t length = info.length();
 	Q_ASSERT(tracks);
 	if (!tracks) break;
 
-	for (track=0; track < tracks; ++track) {
+	for (track = 0; track < tracks; ++track) {
 	    Track *t = m_signal.appendTrack(length);
 	    Q_ASSERT(t);
 	    if (!t || (t->length() != length)) {
@@ -195,7 +188,6 @@ int SignalManager::loadFile(const KUrl &url)
 
 	// try to calculate the resulting length, but if this is
 	// not possible, we try to use the source length instead
-	FileInfo &info = decoder->info();
 	unsigned int resulting_size = info.tracks() * info.length() *
 	                              (info.bits() >> 3);
 	bool use_src_size = (!resulting_size);
@@ -229,8 +221,8 @@ int SignalManager::loadFile(const KUrl &url)
 	} else {
 	    // read information back from the decoder, some settings
 	    // might have become available during the decoding process
-	    m_file_info = decoder->info();
-	    m_file_info.dump();
+	    m_meta_data = decoder->metaData();
+	    info = m_meta_data.fileInfo();
 	}
 
 	decoder->close();
@@ -241,17 +233,27 @@ int SignalManager::loadFile(const KUrl &url)
 	    writers.flush();
 	    sample_index_t new_length = writers.last();
 	    if (new_length) new_length++;
-	    m_file_info.setLength(new_length);
+	    info.setLength(new_length);
 	} else {
-	    m_file_info.setLength(this->length());
-	    m_file_info.setTracks(tracks);
+	    info.setLength(this->length());
+	    info.setTracks(tracks);
 	}
+
+	// enter the filename/mimetype and size into the file info
+	QFileInfo fi(src);
+	info.set(INF_FILENAME, fi.absoluteFilePath());
+	info.set(INF_FILESIZE, static_cast<unsigned int>(src.size()));
+	info.set(INF_MIMETYPE, mimetype);
+
+	// take over the decoded and updated file info
+	m_meta_data.setFileInfo(info);
+	info.dump();
 
 	// update the length info in the progress dialog if needed
 	if (dialog && use_src_size) {
 	    dialog->setLength(
-		quint64(m_file_info.length()) *
-		quint64(m_file_info.tracks()));
+		quint64(info.length()) *
+		quint64(info.tracks()));
 	    dialog->setBytePosition(src.size());
 	}
 
@@ -286,10 +288,10 @@ int SignalManager::loadFile(const KUrl &url)
 int SignalManager::save(const KUrl &url, bool selection)
 {
     int res = 0;
-    sample_index_t ofs = 0;
-    sample_index_t len = length();
+    sample_index_t ofs  = 0;
+    sample_index_t len  = length();
     unsigned int tracks = this->tracks();
-    unsigned int bits = this->bits();
+    unsigned int bits   = this->bits();
 
     if (selection) {
 	// zero-length -> nothing to do
@@ -312,25 +314,27 @@ int SignalManager::save(const KUrl &url, bool selection)
 	bits, selection);
 
     Encoder *encoder = CodecManager::encoder(mimetype_name);
+    FileInfo file_info = m_meta_data.fileInfo();
     if (encoder) {
+
 	// maybe we now have a new mime type
-	m_file_info.set(INF_MIMETYPE, mimetype_name);
+	file_info.set(INF_MIMETYPE, mimetype_name);
 
 	// check if we lose information and ask the user if this would
 	// be acceptable if so
 	QList<FileProperty> supported = encoder->supportedProperties();
-	QMap<FileProperty, QVariant> properties(m_file_info.properties());
+	QMap<FileProperty, QVariant> properties(file_info.properties());
 	bool all_supported = true;
 	QMap<FileProperty, QVariant>::Iterator it;
 	QString lost_properties;
-	for (it=properties.begin(); it!=properties.end(); ++it) {
+	for (it = properties.begin(); it != properties.end(); ++it) {
 	    if ( (! supported.contains(it.key())) &&
-                 (m_file_info.canLoadSave(it.key())) )
+                 (file_info.canLoadSave(it.key())) )
 	    {
 		qWarning("SignalManager::save(): unsupported property '%s'",
-		    m_file_info.name(it.key()).toLocal8Bit().data());
+		    file_info.name(it.key()).toLocal8Bit().data());
 		all_supported = false;
-		lost_properties += i18n("%1", m_file_info.name(it.key()))
+		lost_properties += i18n("%1", file_info.name(it.key()))
 		    + "\n";
 	    }
 	}
@@ -358,12 +362,12 @@ int SignalManager::save(const KUrl &url, bool selection)
 	    ofs, ofs+len-1);
 
 	// update the file information
-	m_file_info.setLength(len);
-	m_file_info.setRate(rate());
-	m_file_info.setBits(bits);
-	m_file_info.setTracks(tracks);
+	file_info.setLength(len);
+	file_info.setRate(rate());
+	file_info.setBits(bits);
+	file_info.setTracks(tracks);
 
-	if (!m_file_info.contains(INF_SOFTWARE) &&
+	if (!file_info.contains(INF_SOFTWARE) &&
 	    encoder->supportedProperties().contains(INF_SOFTWARE))
 	{
 	    // add our Kwave Software tag
@@ -375,10 +379,10 @@ int SignalManager::save(const KUrl &url, bool selection)
 			       i18n(KDE_VERSION_STRING);
 	    qDebug("adding software tag: '%s'",
 	           software.toLocal8Bit().data());
-	    m_file_info.set(INF_SOFTWARE, software);
+	    file_info.set(INF_SOFTWARE, software);
 	}
 
-	if (!m_file_info.contains(INF_CREATION_DATE) &&
+	if (!file_info.contains(INF_CREATION_DATE) &&
 	    encoder->supportedProperties().contains(INF_CREATION_DATE))
 	{
 	    // add a date tag
@@ -389,15 +393,15 @@ int SignalManager::save(const KUrl &url, bool selection)
 	    QVariant value = date.toUtf8();
 	    qDebug("adding date tag: '%s'",
 	           date.toLocal8Bit().data());
-	    m_file_info.set(INF_CREATION_DATE, value);
+	    file_info.set(INF_CREATION_DATE, value);
 	}
 
 	// prepare and show the progress dialog
 	FileProgress *dialog = new FileProgress(m_parent_widget,
-	    filename, m_file_info.tracks()*m_file_info.length()*
-	    (m_file_info.bits() >> 3),
-	    m_file_info.length(), m_file_info.rate(), m_file_info.bits(),
-	    m_file_info.tracks());
+	    filename, file_info.tracks() * file_info.length() *
+	    (file_info.bits() >> 3),
+	    file_info.length(), file_info.rate(), file_info.bits(),
+	    file_info.tracks());
 	Q_ASSERT(dialog);
 	QObject::connect(&src,   SIGNAL(progress(qreal)),
 	                 dialog, SLOT(setValue(qreal)),
@@ -407,34 +411,30 @@ int SignalManager::save(const KUrl &url, bool selection)
 
 	// invoke the encoder...
 	bool encoded = false;
+	m_meta_data.setFileInfo(file_info);
 
 	if (selection) {
-	    // we have to adjust all labels in the file info
 	    // use a copy, don't touch the original !
-	    FileInfo info = m_file_info;
+	    Kwave::MetaDataList meta = m_meta_data;
 
-	    LabelList &labels = info.labels();
-	    QMutableListIterator<Label> it(labels);
-	    while (it.hasNext()) {
-		Label &label = it.next();
-		unsigned int pos = label.pos();
-		if ((pos < ofs) || (pos >= ofs + len)) {
-		    // out of the selected area -> remove
-		    it.remove();
-		} else {
-		    // move label left
-		    label.moveTo(pos - ofs);
-		}
-	    }
+	    // we have to adjust all position aware meta data
+	    meta.cropByRange(ofs, ofs + len - 1);
+
+	    // filter out all the track bound meta data that is not selected
+	    meta.cropByTracks(selectedTracks());
 
 	    // set the filename in the copy of the fileinfo, the original
 	    // file which is currently open keeps it's name
+	    FileInfo info = meta.fileInfo();
 	    info.set(INF_FILENAME, filename);
-	    encoded = encoder->encode(m_parent_widget, src, dst, info);
+	    meta.setFileInfo(info);
+
+	    encoded = encoder->encode(m_parent_widget, src, dst, meta);
 	} else {
 	    // in case of a "save as" -> modify the current filename
-	    m_file_info.set(INF_FILENAME, filename);
-	    encoded = encoder->encode(m_parent_widget, src, dst, m_file_info);
+	    file_info.set(INF_FILENAME, filename);
+	    m_meta_data.setFileInfo(file_info);
+	    encoded = encoder->encode(m_parent_widget, src, dst, m_meta_data);
 	}
 	if (!encoded) {
 	    Kwave::MessageBox::error(m_parent_widget,
@@ -474,7 +474,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 void SignalManager::newSignal(sample_index_t samples, double rate,
                               unsigned int bits, unsigned int tracks)
 {
-    // enter and stay in not modified state
+    // enter and stay in modified state
     enableModifiedChange(true);
     setModified(true);
     enableModifiedChange(false);
@@ -482,22 +482,26 @@ void SignalManager::newSignal(sample_index_t samples, double rate,
     // disable undo (discards all undo/redo data)
     disableUndo();
 
-    m_file_info.clear();
-    m_file_info.setRate(rate);
-    m_file_info.setBits(bits);
-    emit labelsChanged(labels());
+    m_meta_data.clear();
+    FileInfo file_info = m_meta_data.fileInfo();
+    file_info.setRate(rate);
+    file_info.setBits(bits);
+    file_info.setTracks(tracks);
+    m_meta_data.setFileInfo(file_info);
 
     // now the signal is considered not to be empty
     m_closed = false;
     m_empty = false;
 
+    emit labelsChanged(m_meta_data.labels());
+
     // add all empty tracks
-    m_file_info.setTracks(tracks);
     while (tracks--) m_signal.appendTrack(samples);
 
     // remember the last length
     m_last_length = samples;
-    m_file_info.setLength(length());
+    file_info.setLength(length());
+    m_meta_data.setFileInfo(file_info);
     rememberCurrentSelection();
 
     // from now on, undo is enabled
@@ -530,13 +534,12 @@ void SignalManager::close()
     // reset the selection
     m_selection.clear();
 
-    // clear the list of label
-    m_file_info.labels().clear();
-
     m_empty = true;
     while (tracks()) deleteTrack(tracks()-1);
     m_signal.close();
-    m_file_info.clear();
+
+    // clear all meta data
+    m_meta_data.clear();
 
     m_closed = true;
     rememberCurrentSelection();
@@ -549,7 +552,7 @@ QString SignalManager::signalName()
 {
     // if a file is loaded -> path of the URL if it has one
     KUrl url;
-    url = m_file_info.get(INF_FILENAME).toString();
+    url = m_meta_data.fileInfo().get(INF_FILENAME).toString();
     if (url.isValid()) return url.path();
 
     // we have something, but no name yet
@@ -827,7 +830,11 @@ void SignalManager::slotTrackInserted(unsigned int index,
 	Track *track)
 {
     setModified(true);
-    m_file_info.setTracks(tracks());
+
+    FileInfo file_info = m_meta_data.fileInfo();
+    file_info.setTracks(tracks());
+    m_meta_data.setFileInfo(file_info);
+
     emit sigTrackInserted(index, track);
     emitStatusInfo();
 }
@@ -836,7 +843,11 @@ void SignalManager::slotTrackInserted(unsigned int index,
 void SignalManager::slotTrackDeleted(unsigned int index)
 {
     setModified(true);
-    m_file_info.setTracks(tracks());
+
+    FileInfo file_info = m_meta_data.fileInfo();
+    file_info.setTracks(tracks());
+    m_meta_data.setFileInfo(file_info);
+
     emit sigTrackDeleted(index);
     emitStatusInfo();
 }
@@ -850,17 +861,17 @@ void SignalManager::slotSamplesInserted(unsigned int track,
 
     setModified(true);
 
-    // only adjust the labels once per operation
-    if (track == selectedTracks().at(0)) {
-	QMutableListIterator<Label> it(labels());
-	while (it.hasNext()) {
-	    Label &label = it.next();
-	    sample_index_t pos = label.pos();
-	    if (pos >= offset) {
-		label.moveTo(pos + length);
-	    }
-	}
-    }
+//     // only adjust the labels once per operation
+//     if (track == selectedTracks().at(0)) {
+// 	QMutableListIterator<Label> it(labels());
+// 	while (it.hasNext()) {
+// 	    Label &label = it.next();
+// 	    sample_index_t pos = label.pos();
+// 	    if (pos >= offset) {
+// 		label.moveTo(pos + length);
+// 	    }
+// 	}
+//     }
 
     emit sigSamplesInserted(track, offset, length);
     emitStatusInfo();
@@ -893,57 +904,36 @@ bool SignalManager::deleteRange(sample_index_t offset, sample_index_t length,
 {
     if (!length || track_list.isEmpty()) return true; // nothing to do
 
-
-    // delete all labels in the selected range
-    // after that the selected area should be free of labels
-    // and labels are stored in seperate undo actions
-    foreach (Label label, labels()) {
-	const sample_index_t pos = label.pos();
-	const int index          = labelIndex(label);
-
-	if ((pos >= offset) && (pos < offset + length)) {
-	    // delete the label
-	    deleteLabel(index, true);
-	}
-    }
-
-    // store undo data for all tracks (without labels)
+    // put the selected meta data into a undo action
     if (m_undo_enabled) {
+	if (!registerUndoAction(new UndoDeleteMetaDataAction(
+	    m_meta_data.copy(offset, length, track_list))))
+	{
+	    abortUndoTransaction();
+	    return false;
+	}
+	m_meta_data.deleteRange(offset, length, track_list);
+
+	// store undo data for all audio data (without meta data)
 	if (!registerUndoAction(new UndoDeleteAction(
-	    m_parent_widget, track_list, offset, length))) {
+	    m_parent_widget, track_list, offset, length)))
+	{
 	    abortUndoTransaction();
 	    return false;
 	}
     }
 
     // delete the ranges in all tracks
-    // (this makes all label positions after the selected range invalid)
+    // (this makes all metadata positions after the selected range invalid)
     foreach (unsigned int track, track_list) {
 	m_signal.deleteRange(track, offset, length);
     }
 
-    // adjust the labels after the deleted range
+    // adjust the meta data positions after the deleted range,
     // without undo!
     bool old_undo_enabled = m_undo_enabled;
     m_undo_enabled = false;
-    foreach (Label label, labels()) {
-	const sample_index_t pos = label.pos();
-	const int index          = labelIndex(label);
-
-	if (pos >= offset + length) {
-	    // move label left
-	    if (!modifyLabel(index, pos - length, label.name())) {
-		// this should hopefully not happen:
-		// new position is already occupied ?
-		qWarning("SignalManager::deleteRange() "\
-		         "-> killing duplicate label @ %lu",
-		         static_cast<unsigned long int>(pos));
-		m_undo_enabled = old_undo_enabled;
-		deleteLabel(index, true);
-		m_undo_enabled = false;
-	    }
-	}
-    }
+    m_meta_data.shiftLeft(offset + length, length, track_list);
     m_undo_enabled = old_undo_enabled;
 
     return true;
@@ -1024,7 +1014,7 @@ void SignalManager::selectTrack(unsigned int track, bool select)
 void SignalManager::emitStatusInfo()
 {
     emit sigStatusInfo(length(), tracks(), rate(), bits());
-    emit labelsChanged(labels());
+// //     emit labelsChanged(labels());
 }
 
 //***************************************************************************
@@ -1641,7 +1631,7 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
 	if (!registerUndoAction(new UndoFileInfo(*this))) return;
     }
 
-    m_file_info = new_info;
+    m_meta_data.setFileInfo(new_info);
     setModified(true);
     emitStatusInfo();
     emitUndoRedoInfo();
@@ -1650,12 +1640,12 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
 //***************************************************************************
 Label SignalManager::findLabel(sample_index_t pos)
 {
-    QMutableListIterator<Label> it(labels());
-    while (it.hasNext())
-    {
-	Label &label = it.next();
-	if (label.pos() == pos) return label; // found it
-    }
+//     QMutableListIterator<Label> it(labels());
+//     while (it.hasNext())
+//     {
+// 	Label &label = it.next();
+// 	if (label.pos() == pos) return label; // found it
+//     }
 
     return Label(); // nothing found
 }
@@ -1663,46 +1653,46 @@ Label SignalManager::findLabel(sample_index_t pos)
 //***************************************************************************
 int SignalManager::labelIndex(const Label &label) const
 {
-    int index = 0;
-    foreach (const Label &l, labels()) {
-	if (l == label) return index; // found it
-	index++;
-    }
+//     int index = 0;
+//     foreach (const Label &l, labels()) {
+// 	if (l == label) return index; // found it
+// 	index++;
+//     }
     return -1; // nothing found*/
 }
 
 //***************************************************************************
 Label SignalManager::labelAtIndex(int index)
 {
-    if ((index < 0) || (index >= labels().size())) return Label();
-    return labels().at(index);
+/*    if ((index < 0) || (index >= labels().size()))*/ return Label();
+//     return labels().at(index);
 }
 
 //***************************************************************************
 bool SignalManager::addLabel(sample_index_t pos)
 {
-    // if there already is a label at the given position, do nothing
-    if (!findLabel(pos).isNull()) return false;
-
-    // create a new label
-    Label label(pos, "");
-
-    // put the label into the list
-    labels().append(label);
-    labels().sort();
-
-    // register the undo action
-    UndoTransactionGuard undo(*this, i18n("Add Label"));
-    if (!registerUndoAction(new UndoAddLabelAction(labelIndex(label)))) {
-	labels().removeAll(label);
-	return false;
-    }
+//     // if there already is a label at the given position, do nothing
+//     if (!findLabel(pos).isNull()) return false;
+//
+//     // create a new label
+//     Label label(pos, "");
+//
+//     // put the label into the list
+//     labels().append(label);
+//     labels().sort();
+//
+//     // register the undo action
+//     UndoTransactionGuard undo(*this, i18n("Add Label"));
+//     if (!registerUndoAction(new UndoAddLabelAction(labelIndex(label)))) {
+// 	labels().removeAll(label);
+// 	return false;
+//     }
 
     // register this as a modification
     setModified(true);
 
     emit sigLabelCountChanged();
-    emit labelsChanged(labels());
+//     emit labelsChanged(labels());
     return true;
 }
 
@@ -1710,85 +1700,85 @@ bool SignalManager::addLabel(sample_index_t pos)
 Label SignalManager::addLabel(sample_index_t pos, const QString &name)
 {
     // if there already is a label at the given position, do nothing
-    if (!findLabel(pos).isNull()) return Label();
+/*    if (!findLabel(pos).isNull())*/ return Label();
 
-    // create a new label
-    Label label(pos, name);
-
-    // put the label into the list
-    labels().append(label);
-    labels().sort();
-
-    // register this as a modification
-    setModified(true);
-
-    emit sigLabelCountChanged();
-    emit labelsChanged(labels());
-
-    return label;
+//     // create a new label
+//     Label label(pos, name);
+//
+//     // put the label into the list
+//     labels().append(label);
+//     labels().sort();
+//
+//     // register this as a modification
+//     setModified(true);
+//
+//     emit sigLabelCountChanged();
+//     emit labelsChanged(labels());
+//
+//     return label;
 }
 
 //***************************************************************************
 void SignalManager::deleteLabel(int index, bool with_undo)
 {
-    Q_ASSERT(index >= 0);
-    Q_ASSERT(index < static_cast<int>(labels().count()));
-    if ((index < 0) || (index >= static_cast<int>(labels().count()))) return;
-
-    Label label = labels().at(index);
-
-    // register the undo action
-    if (with_undo) {
-	UndoTransactionGuard undo(*this, i18n("Delete Label"));
-	if (!registerUndoAction(new UndoDeleteLabelAction(label)))
-	    return;
-    }
-
-    labels().removeAll(label);
-
-    // register this as a modification
-    setModified(true);
-
-    emit sigLabelCountChanged();
-    emit labelsChanged(labels());
+//     Q_ASSERT(index >= 0);
+//     Q_ASSERT(index < static_cast<int>(labels().count()));
+//     if ((index < 0) || (index >= static_cast<int>(labels().count()))) return;
+//
+//     Label label = labels().at(index);
+//
+//     // register the undo action
+//     if (with_undo) {
+// 	UndoTransactionGuard undo(*this, i18n("Delete Label"));
+// 	if (!registerUndoAction(new UndoDeleteLabelAction(label)))
+// 	    return;
+//     }
+//
+//     labels().removeAll(label);
+//
+//     // register this as a modification
+//     setModified(true);
+//
+//     emit sigLabelCountChanged();
+//     emit labelsChanged(labels());
 }
 
 //***************************************************************************
 bool SignalManager::modifyLabel(int index, sample_index_t pos,
                                 const QString &name)
 {
-    Q_ASSERT(index >= 0);
-    Q_ASSERT(index < static_cast<int>(labels().count()));
-    if ((index < 0) || (index >= static_cast<int>(labels().count())))
-	return false;
-
-    LabelList &list = labels();
-    Label &label = list[index];
-
-    // check: if the label should be moved and there already is a label
-    // at the new position -> fail
-    if ((pos != label.pos()) && !findLabel(pos).isNull())
-	return false;
-
-    // add a undo action
-    if (m_undo_enabled) {
-	UndoModifyLabelAction *undo_modify = new UndoModifyLabelAction(label);
-	if (!registerUndoAction(undo_modify))
-	    return false;
-	// now store the label's current position,
-	// for finding it again later
-	undo_modify->setLastPosition(pos);
-    }
-
-    // now modify the label
-    label.moveTo(pos);
-    label.rename(name);
-    labels().sort();
-
-    // register this as a modification
-    setModified(true);
-
-    emit labelsChanged(labels());
+//     Q_ASSERT(index >= 0);
+//     Q_ASSERT(index < static_cast<int>(labels().count()));
+//     if ((index < 0) || (index >= static_cast<int>(labels().count())))
+// 	return false;
+//
+//     LabelList &list = labels();
+//     Label &label = list[index];
+//
+//     // check: if the label should be moved and there already is a label
+//     // at the new position -> fail
+//     if ((pos != label.pos()) && !findLabel(pos).isNull())
+// 	return false;
+//
+//     // add a undo action
+//     if (m_undo_enabled) {
+// 	UndoModifyLabelAction *undo_modify = new UndoModifyLabelAction(label);
+// 	if (!registerUndoAction(undo_modify))
+// 	    return false;
+// 	// now store the label's current position,
+// 	// for finding it again later
+// 	undo_modify->setLastPosition(pos);
+//     }
+//
+//     // now modify the label
+//     label.moveTo(pos);
+//     label.rename(name);
+//     labels().sort();
+//
+//     // register this as a modification
+//     setModified(true);
+//
+//     emit labelsChanged(labels());
     return true;
 }
 

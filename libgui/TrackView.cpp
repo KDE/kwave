@@ -111,30 +111,30 @@ double Kwave::TrackView::findObject(double offset,
     Q_ASSERT(m_signal_manager);
     if (!m_signal_manager) return tolerance;
 
-    // our display can contain labels -> find the nearest label
-    double d_min = tolerance;
-    Label nearest;
-    int index = -1;
-    foreach (const Label &label, m_signal_manager->labels()) {
-	index = m_signal_manager->labelIndex(label);
-	double pos = static_cast<double>(label.pos());
-	double d = (pos > offset) ? (pos - offset) : (offset - pos);
-	if (d < d_min) {
-	    d_min = d;
-	    nearest = label;
-	}
-    }
-
-    // found something, get the return values
-    if (d_min < tolerance) {
-	position = nearest.pos();
-	description = (nearest.name().length()) ?
-	    i18nc("tooltip of a label, %1=index, %2=description/name",
-	          "Label #%1 (%2)", index, nearest.name()) :
-	    i18nc("tooltip of a label, without description, %1=index",
-	          "Label #%1", index);
-	return d_min;
-    }
+//     // our display can contain labels -> find the nearest label
+//     double d_min = tolerance;
+//     Label nearest;
+//     int index = -1;
+//     foreach (const Label &label, m_signal_manager->metaData().labels()) {
+// 	index = m_signal_manager->labelIndex(label);
+// 	double pos = static_cast<double>(label.pos());
+// 	double d = (pos > offset) ? (pos - offset) : (offset - pos);
+// 	if (d < d_min) {
+// 	    d_min = d;
+// 	    nearest = label;
+// 	}
+//     }
+//
+//     // found something, get the return values
+//     if (d_min < tolerance) {
+// 	position = nearest.pos();
+// 	description = (nearest.name().length()) ?
+// 	    i18nc("tooltip of a label, %1=index, %2=description/name",
+// 	          "Label #%1 (%2)", index, nearest.name()) :
+// 	    i18nc("tooltip of a label, without description, %1=index",
+// 	          "Label #%1", index);
+// 	return d_min;
+//     }
 
     return tolerance;
 }
@@ -259,7 +259,7 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
 
 	int last_marker = -1;
 	const sample_index_t visible = pixels2samples(width);
-	foreach (const Label &label, m_signal_manager->labels()) {
+	foreach (const Label &label, m_signal_manager->metaData().labels()) {
 	    sample_index_t pos = label.pos();
 	    if (pos < m_offset)           continue; // outside left
 	    if (pos > m_offset + visible) continue; // far outside right

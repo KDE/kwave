@@ -237,7 +237,7 @@ double NormalizePlugin::getMaxPower(MultiTrackReader &source)
 {
     double maxpow = 0.0;
     const unsigned int tracks = source.tracks();
-    const double rate = signalManager().fileInfo().rate();
+    const double rate = signalManager().metaData().fileInfo().rate();
     const unsigned int window_size = static_cast<unsigned int>(rate / 100);
     if (!window_size) return 0;
 

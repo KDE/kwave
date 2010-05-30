@@ -119,6 +119,14 @@ public:
     class InterpolationMap: public TypesMap<interpolation_t, int >
     {
     public:
+
+	/** Constructor */
+        explicit InterpolationMap()
+	    :TypesMap<interpolation_t, int >()
+	{
+	    fill();
+	}
+
 	/** filling function for the map. */
 	void fill();
     };

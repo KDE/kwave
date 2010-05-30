@@ -22,9 +22,12 @@
 #include <QMap>
 #include <QString>
 #include <QVariant>
+#include <QMapIterator>
+#include <QMutableMapIterator>
 
 #include <kdemacros.h>
 
+#include "libkwave/FileInfo.h"
 #include "libkwave/MetaData.h"
 #include "libkwave/Sample.h"
 
@@ -34,14 +37,55 @@ namespace Kwave {
     {
     public:
 
-	/** Iterator for the meta data list */
+	/** const iterator for the meta data list */
 	typedef QMapIterator<QString, MetaData> Iterator;
+
+	/** mutable iterator for the meta data list */
+	typedef QMutableMapIterator<QString, MetaData> MutableIterator;
 
 	/** Default constructor */
 	MetaDataList();
 
 	/** Destructor */
 	virtual ~MetaDataList();
+
+	/**
+	 * Returns a FileInfo object, for easier access to
+	 * file global data.
+	 * @return a FileInfo object
+	 */
+	virtual FileInfo fileInfo() const;
+
+	/**
+	 * Replaces the file global info with the passed file info.
+	 * All file global meta data that has been deleted in the
+	 * file_info will be deleted in this list too.
+	 * @param file_info the file global data to be set
+	 */
+	virtual void setFileInfo(const FileInfo &file_info);
+
+	/**
+	 * Returns a list of Label objects.
+	 * @return a LabelList with a copy of all labels
+	 */
+	virtual LabelList labels() const;
+
+	/**
+	 * Replaces the list of labels with the passed labels.
+	 * All labels that have been deleted in the label list will be
+	 * deleted in this list too.
+	 * @param labels a LabelList
+	 */
+	virtual void setLabels(const LabelList &labels);
+
+	/**
+	 * select elements from the meta data list that have the standard
+	 * property STDPROP_TYPE set to a specific value.
+	 *
+	 * @param type the type to select @see Kwave::MetaData::STDPROP_TYPE
+	 * @return list with found meta data objects
+	 */
+	virtual MetaDataList selectByType(const QString &type) const;
 
 	/**
 	 * select elements from the meta data list that have a specific scope
@@ -55,10 +99,10 @@ namespace Kwave {
 	 * select elements from the meta data list that belong to
 	 * a given track.
 	 *
-	 * @param track index of the track to select
+	 * @param tracks list of track indices to select
 	 * @return list with found meta data objects
 	 */
-	virtual MetaDataList selectByTrack(unsigned int track) const;
+	virtual MetaDataList selectByTracks(const QList<unsigned int> &tracks) const;
 
 	/**
 	 * select elements from the meta data list that overlap a given
@@ -141,6 +185,94 @@ namespace Kwave {
 	 * @param list the list of meta data objects to remove
 	 */
 	virtual void remove(const MetaDataList &list);
+
+	/**
+	 * Crops this list to a given range of samples. All position aware
+	 * elements that are not covered by the given range will be removed,
+	 * all covered elements will be adjusted.
+	 *
+	 * @param first index of the first sample
+	 * @param last  index of the last sample
+	 */
+	virtual void cropByRange(sample_index_t first, sample_index_t last);
+
+	/**
+	 * Crops this list to a given set of tracks. All elements that are
+	 * bound to a track or list of tracks which are not covered by the
+	 * given selection will be removed. The tracks of the remaining
+	 * elements will be re-numbered to start from zero and counted up
+	 * without gaps.
+	 *
+	 * @param tracks list of track indices
+	 */
+	virtual void cropByTracks(const QList<unsigned int> &tracks);
+
+	/**
+	 * copy elements from the meta data list that overlap a given
+	 * range of samples (selects elements with scope "Range" as well
+	 * as elements with scope "Position") and have a binding to a
+	 * track.
+	 *
+	 * @param offset index of the first sample
+	 * @param length number of samples of the range
+	 * @param tracks list of track indices
+	 * @return list with a copy of found meta data objects
+	 */
+	virtual MetaDataList copy(
+	    sample_index_t offset,
+	    sample_index_t length,
+	    const QList<unsigned int> &tracks
+	) const;
+
+	/**
+	 * Merges a list of other meta data items
+	 * @param meta_data list of meta data items
+	 */
+	void merge(const MetaDataList &meta_data);
+
+	/**
+	 * delete elements from the meta data list that overlap a given
+	 * range of samples (selects elements with scope "Range" as well
+	 * as elements with scope "Position") and have a binding to a
+	 * track.
+	 *
+	 * @param offset index of the first sample
+	 * @param length number of samples to delete
+	 * @param tracks list of track indices
+	 * @return list with a copy of found meta data objects
+	 */
+	virtual void deleteRange(
+	    sample_index_t offset,
+	    sample_index_t length,
+	    const QList<unsigned int> &tracks
+	);
+
+	/**
+	 * delete elements from the meta data list that overlap a given
+	 * range of samples (selects elements with scope "Range" as well
+	 * as elements with scope "Position") and have a binding to a
+	 * track.
+	 *
+	 * @param offset index of the first sample
+	 * @param shift number of samples to shift left
+	 * @param tracks list of track indices
+	 * @return list with a copy of found meta data objects
+	 */
+	virtual void shiftLeft(
+	    sample_index_t offset,
+	    sample_index_t shift,
+	    const QList<unsigned int> &tracks
+	);
+
+    protected:
+
+	/**
+	 * Splits the list at a given position
+	 * @param offset index of the sample position before which the
+	 *               list should be split
+	 * @param tracks list of track indices
+	 */
+	void split(sample_index_t offset, const QList<unsigned int> &tracks);
 
     };
 

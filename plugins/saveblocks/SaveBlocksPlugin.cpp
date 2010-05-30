@@ -32,6 +32,7 @@
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
 #include "libkwave/MessageBox.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/SignalManager.h"
 
 #include "SaveBlocksDialog.h"
@@ -228,7 +229,7 @@ int SaveBlocksPlugin::start(QStringList &params)
     // now we can loop over all blocks and save them
     sample_index_t block_start;
     sample_index_t block_end = 0;
-    LabelList labels = signalManager().fileInfo().labels();
+    LabelList labels = signalManager().metaData().labels();
     LabelListIterator it(labels);
     Label label = it.hasNext() ? it.next() : Label();
 
@@ -325,7 +326,7 @@ unsigned int SaveBlocksPlugin::blocksToSave(bool selection_only)
 
     sample_index_t block_start;
     sample_index_t block_end = 0;
-    LabelListIterator it(signalManager().fileInfo().labels());
+    LabelListIterator it(signalManager().metaData().labels());
     Label label = (it.hasNext()) ? it.next() : Label();
 
     if (selection_only) {

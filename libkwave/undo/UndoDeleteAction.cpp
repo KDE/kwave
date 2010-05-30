@@ -23,7 +23,7 @@
 #include "libkwave/SignalManager.h"
 #include "libkwave/undo/UndoAction.h"
 #include "libkwave/undo/UndoDeleteAction.h"
-#include "libkwave/undo/UndoDeleteLabelAction.h"
+#include "libkwave/undo/UndoDeleteMetaDataAction.h"
 #include "libkwave/undo/UndoInsertAction.h"
 
 //***************************************************************************
@@ -71,7 +71,7 @@ bool UndoDeleteAction::store(SignalManager &manager)
 	m_track_list, m_offset, m_offset + m_length - 1);
 
     // encode the data that will be deleted into a Kwave::MimeData container
-    if (!m_mime_data.encode(m_parent_widget, reader, manager.fileInfo())) {
+    if (!m_mime_data.encode(m_parent_widget, reader, manager.metaData())) {
 	m_mime_data.clear();
 	return false;
     }

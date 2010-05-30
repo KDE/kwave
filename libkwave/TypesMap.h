@@ -72,8 +72,7 @@ public:
     }
 
     /** Returns the number of types. */
-    inline unsigned int count() {
-	if (m_list.isEmpty()) fill();
+    inline unsigned int count() const {
 	return m_list.count();
     }
 
@@ -81,7 +80,7 @@ public:
      * Try to find the type from the data. If the data item is not found,
      * the return value is the default value of the type (casted from 0).
      */
-    IDX findFromData(const DATA &data)
+    IDX findFromData(const DATA &data) const
     {
 	IDX it = IDX(0);
 	unsigned int cnt = count();
@@ -96,7 +95,7 @@ public:
      * Try to find the type from a name. If the name is not found,
      * the return value is the default value of the type (casted from 0).
      */
-    IDX findFromName(const QString &name)
+    IDX findFromName(const QString &name) const
     {
 	IDX it = IDX(0);
 	unsigned int cnt = count();
@@ -116,7 +115,7 @@ public:
      *        searched
      */
     IDX findFromDescription(
-	const QString &description, bool localized)
+	const QString &description, bool localized) const
     {
 	IDX it = IDX(0);
 	QString dcr = (localized) ? i18n(description.toAscii()) : description;
@@ -136,16 +135,14 @@ public:
     }
 
     /** Returns the data item of a type. */
-    const DATA &data(IDX type)
+    const DATA &data(IDX type) const
     {
-	if (m_list.isEmpty()) fill();
 	return m_list[type].first();
     }
 
     /** Returns the name of a type. */
-    const QString &name(IDX type)
+    const QString name(IDX type) const
     {
-	if (m_list.isEmpty()) fill();
 	return m_list[type].second();
     }
 
@@ -154,9 +151,8 @@ public:
      * @param type index of the type
      * @param localized if true, the returned description is localized
      */
-    QString description(IDX type, bool localized)
+    QString description(IDX type, bool localized) const
     {
-	if (m_list.isEmpty()) fill();
 	QString s(m_list[type].third());
 	return (localized) ? i18n(s.toAscii()) : s;
     }
@@ -164,7 +160,7 @@ public:
     /**
      * Returns a string list with all names,
      */
-    QStringList allNames()
+    QStringList allNames() const
     {
 	IDX it = IDX(0);
 	unsigned int cnt = count();
@@ -179,7 +175,7 @@ public:
     /**
      * Returns a list with all keys
      */
-    QList<IDX> allKeys()
+    QList<IDX> allKeys() const
     {
 	IDX it = IDX(0);
 	unsigned int cnt = count();
@@ -193,6 +189,7 @@ public:
     }
 
 private:
+
     /** map with index and triples of data, name and description */
     TripleMap m_list;
 

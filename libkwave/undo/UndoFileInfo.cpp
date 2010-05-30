@@ -54,7 +54,7 @@ unsigned int UndoFileInfo::infoSize(const FileInfo &info)
 //***************************************************************************
 unsigned int UndoFileInfo::undoSize()
 {
-    return sizeof(*this) + infoSize(m_manager.fileInfo());
+    return sizeof(*this) + infoSize(m_manager.metaData().fileInfo());
 }
 
 //***************************************************************************
@@ -66,7 +66,7 @@ int UndoFileInfo::redoSize()
 //***************************************************************************
 bool UndoFileInfo::store(SignalManager &manager)
 {
-    m_info = manager.fileInfo();
+    m_info = manager.metaData().fileInfo();
     return true;
 }
 

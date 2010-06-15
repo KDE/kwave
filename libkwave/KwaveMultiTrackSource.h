@@ -35,8 +35,8 @@ namespace Kwave {
      * that consist of multiple independend tracks.
      */
     template <class SOURCE, bool INITIALIZE>
-    class MultiTrackSource: public Kwave::SampleSource,
-	                    private QVector<SOURCE *>
+    class KDE_EXPORT MultiTrackSource: public Kwave::SampleSource,
+	                               private QVector<SOURCE *>
     {
     public:
 	/**

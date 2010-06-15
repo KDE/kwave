@@ -296,7 +296,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
 static inline int decodeFrame(float **pcm, unsigned int size,
                               Kwave::MultiWriter &dest)
 {
-    bool clipped = false;
+//     bool clipped = false;
     unsigned int track;
     unsigned int tracks = dest.tracks();
 
@@ -317,11 +317,11 @@ static inline int decodeFrame(float **pcm, unsigned int size,
 	    // might as well guard against clipping
 	    if (s > SAMPLE_MAX) {
 		s = SAMPLE_MAX;
-		clipped = true;
+// 		clipped = true;
 	    }
 	    if (s < SAMPLE_MIN) {
 		s = SAMPLE_MIN;
-		clipped = true;
+// 		clipped = true;
 	    }
 
 	    // write the clipped sample to the stream

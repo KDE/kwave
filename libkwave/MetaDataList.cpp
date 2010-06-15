@@ -375,11 +375,18 @@ void Kwave::MetaDataList::cropByTracks(const QList<unsigned int> &tracks)
 Kwave::MetaDataList Kwave::MetaDataList::copy(sample_index_t offset,
     sample_index_t length, const QList<unsigned int> &tracks) const
 {
+    Kwave::MetaDataList list(*this);
+    list.cropByRange(offset, offset + length - 1);
+    list.cropByTracks(tracks);
+    return list;
 }
 
 //***************************************************************************
 void Kwave::MetaDataList::merge(const Kwave::MetaDataList &meta_data)
 {
+    foreach (const Kwave::MetaData &meta, meta_data) {
+	//
+    }
 }
 
 //***************************************************************************

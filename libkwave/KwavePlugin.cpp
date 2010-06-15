@@ -21,9 +21,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <dlfcn.h>
-#include <sched.h>
 
 #include <QProgressDialog>
+#include <QThread>
 #include <QTime>
 #include <QVector>
 #include <QWidget>
@@ -499,7 +499,7 @@ void Kwave::Plugin::selectRange(sample_index_t offset, sample_index_t length)
 void Kwave::Plugin::yield()
 {
     pthread_testcancel();
-    sched_yield();
+    QThread::yieldCurrentThread();
 }
 
 //***************************************************************************

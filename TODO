@@ -1,8 +1,4 @@
 
-o replace pthread_yield/pthread_yield with QThread::yieldCurrentThread()
-
-o eliminate pthread_xxx functions
-
 o support for visualization plugins (rev 2498)
   - re-enable old standard functionality:
     * track controls (enable/disable)

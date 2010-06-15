@@ -222,10 +222,10 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     if (fmt_chunk) fmt_offset = fmt_chunk->dataStart();
 //     qDebug("fmt chunk starts at 0x%08X", fmt_offset);
 
-    u_int32_t data_offset = 0;
+//     u_int32_t data_offset = 0;
     u_int32_t data_size = 0;
     if (data_chunk) {
-	data_offset = data_chunk->dataStart();
+// 	data_offset = data_chunk->dataStart();
 	data_size   = data_chunk->physLength();
 // 	qDebug("data chunk at 0x%08X (%u byte)", data_offset, data_size);
     }

@@ -21,10 +21,10 @@
 #include "config.h"
 
 #include <math.h>
-#include <sched.h>
 
 #include <QList>
 #include <QStringList>
+#include <QThread>
 #include <QVector>
 
 #include <klocale.h> // for the i18n macro
@@ -110,7 +110,7 @@ GetMaxPowerJob::~GetMaxPowerJob()
     int i = 0;
     while (!isFinished()) {
 	qDebug("job %p waiting... #%u", static_cast<void *>(this), i++);
-	sched_yield();
+	QThread::yieldCurrentThread();
     }
     Q_ASSERT(isFinished());
 }

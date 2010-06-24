@@ -32,7 +32,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2010-05-29</date>
+<date>2010-06-24</date>
 <releaseinfo>&version;</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -458,6 +458,13 @@
 		<listitem><para>
 		    <literal>WITH_OGG</literal>
 		    enable support for ogg files
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_OPTIMIZED_MEMCPY</literal>
+		    use an optimized version of memcpy, available for
+		    X86, X86_64 and PPC platforms
 		    [<literal>on</literal>/<literal>off</literal>,
 		    default=<literal>on</literal>]
 		</para></listitem>

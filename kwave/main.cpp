@@ -123,8 +123,11 @@ void addDataStrings(KAboutData &aboutdata)
 
 }
 
+#ifdef HAVE_OPTIMIZED_MEMCPY
 /* forward declaration to libkwave/memcpy.c */
 extern "C" void probe_fast_memcpy(void);
+#endif /* HAVE_OPTIMIZED_MEMCPY */
+
 
 //***************************************************************************
 int main( int argc, char **argv )
@@ -158,8 +161,10 @@ int main( int argc, char **argv )
     KwaveApp::addCmdLineOptions();
 
      /* check for an optimized version of memcpy() */
+#ifdef HAVE_OPTIMIZED_MEMCPY
     probe_fast_memcpy();
     printf("\n");
+#endif /* HAVE_OPTIMIZED_MEMCPY */
 
 #ifdef UNIQUE_APP
     if (!KUniqueApplication::start()) {

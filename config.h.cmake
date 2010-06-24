@@ -24,6 +24,9 @@
 /* use X86_64 target optimizations (from xine) */
 #cmakedefine ARCH_X86_64
 
+/* use target optimized memcpy */
+#cmakedefine HAVE_OPTIMIZED_MEMCPY
+
 /* FLAC API of v1.1.1 and before */
 #cmakedefine FLAC_API_VERSION_1_1_1_OR_OLDER
 

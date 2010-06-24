@@ -9,6 +9,8 @@
  * bugfix: last directory of file dialogs sometimes got lost
  * bugfix: wrong message when canceling Ogg import
  * replaced sched_yield() with QThread::yieldCurrentThread()
+ * added cmake parameter for disabling optimized memcpy support
+   -D WITH_OPTIMIZED_MEMCPY=OFF, default is ON
 
 0.8.5  [2009-12-24]
 

@@ -38,6 +38,7 @@ SET(KWAVE_LINGUAS
 # OPTION(WITH_MP3        "enable support for mp3 files [default=off]" OFF)
 # OPTION(WITH_OGG        "enable support for ogg files [default=on]" ON)
 # OPTION(WITH_OSS        "enable playback/recording via OSS [default=on]" ON)
+# OPTION(WITH_OPTIMIZED_MEMCPY "enable optimized memcpy [default=on]" ON)
 # OPTION(WITH_PHONON     "enable playback via Phonon [default=off]" OFF)
 # OPTION(WITH_PULSEAUDIO "enable playback/recording via PulseAudio [default=on]" ON)
 # OPTION(WITH_SAMPLERATE "enable support for libsamplerate [default=on]" ON)
@@ -93,23 +94,34 @@ EXECUTE_PROCESS(
 )
 MESSAGE(STATUS "Building for target ${MACHINE}")
 
-STRING(REGEX MATCH "(i.86-*)|(athlon-*)|(pentium-*)" _mach_x86 ${MACHINE})
-IF (_mach_x86)
-    MESSAGE(STATUS "Found target optimized memcpy() for X86 (from xine)")
-    SET(ARCH_X86 1)
-ENDIF (_mach_x86)
+OPTION(WITH_OPTIMIZED_MEMCPY "enable optimized memcpy [default=on]" ON)
+IF (WITH_OPTIMIZED_MEMCPY)
 
-STRING(REGEX MATCH "(x86_64-*)|(X86_64-*)|(AMD64-*)|(amd64-*)" _mach_x86_64 ${MACHINE})
-IF (_mach_x86_64)
-    MESSAGE(STATUS "Found target optimized memcpy() for X86_64 (from xine)")
-    SET(ARCH_X86_64 1)
-ENDIF (_mach_x86_64)
+    STRING(REGEX MATCH "(i.86-*)|(athlon-*)|(pentium-*)" _mach_x86 ${MACHINE})
+    IF (_mach_x86)
+        MESSAGE(STATUS "Found target optimized memcpy() for X86 (from xine)")
+        SET(ARCH_X86 1)
+    ENDIF (_mach_x86)
 
-STRING(REGEX MATCH "(ppc-*)|(powerpc-*)" _mach_ppc ${MACHINE})
-IF (_mach_ppc)
-    MESSAGE(STATUS "Found target optimized memcpy() for PPC (from xine)")
-    SET(ARCH_PPC 1)
-ENDIF (_mach_ppc)
+    STRING(REGEX MATCH "(x86_64-*)|(X86_64-*)|(AMD64-*)|(amd64-*)" _mach_x86_64 ${MACHINE})
+    IF (_mach_x86_64)
+        MESSAGE(STATUS "Found target optimized memcpy() for X86_64 (from xine)")
+        SET(ARCH_X86_64 1)
+    ENDIF (_mach_x86_64)
+
+    STRING(REGEX MATCH "(ppc-*)|(powerpc-*)" _mach_ppc ${MACHINE})
+    IF (_mach_ppc)
+        MESSAGE(STATUS "Found target optimized memcpy() for PPC (from xine)")
+        SET(ARCH_PPC 1)
+    ENDIF (_mach_ppc)
+
+    IF (NOT ARCH_X86 AND NOT ARCH_X86_64 AND NOT ARCH_PPC)
+        MESSAGE(STATUS "No platform specific memcpy available")
+    ENDIF (NOT ARCH_X86 AND NOT ARCH_X86_64 AND NOT ARCH_PPC)
+
+ELSE (WITH_OPTIMIZED_MEMCPY)
+    MESSAGE(STATUS "Platform specific memcpy is disabled")
+ENDIF (WITH_OPTIMIZED_MEMCPY)
 
 ADD_DEFINITIONS(-DHAVE_CONFIG_H)
 
@@ -153,7 +165,7 @@ LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libkwave)
 #############################################################################
 ### Qt 4 support                                                          ###
 
-SET(QT_USE_QT3SUPPORT ON)
+SET(QT_USE_QT3SUPPORT OFF)
 SET(QT_USE_QTUITOOLS ON)
 SET(QT_USE_QTCORE ON)
 SET(QT_DONTUSE_QTGUI OFF)

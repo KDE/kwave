@@ -15,3 +15,7 @@
 #include <stdlib.h>
 void *ppcasm_cacheable_memcpy(void *, const void *, size_t);
 void *ppcasm_memcpy(void *, const void *, size_t);
+
+#ifndef MM_ACCEL_PPC_CACHE32
+#define MM_ACCEL_PPC_CACHE32    0x02000000
+#endif

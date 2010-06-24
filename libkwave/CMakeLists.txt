@@ -31,6 +31,10 @@ IF (WITH_SAMPLERATE)
     SET(libkwave_LIB_SRCS_samplerate modules/RateConverter.cpp)
 ENDIF (WITH_SAMPLERATE)
 
+IF (WITH_OPTIMIZED_MEMCPY)
+    SET(libkwave_LIB_SRCS_memcpy cputest.c memcpy.c ppcasm_string.S)
+ENDIF (WITH_OPTIMIZED_MEMCPY)
+
 SET(libkwave_LIB_SRCS
     ApplicationContext.cpp
     ClipBoard.cpp
@@ -38,7 +42,6 @@ SET(libkwave_LIB_SRCS
     CodecManager.cpp
     CompressionType.cpp
     ConfirmCancelProxy.cpp
-    cputest.c
     Curve.cpp
     Decoder.cpp
     Encoder.cpp
@@ -60,7 +63,6 @@ SET(libkwave_LIB_SRCS
     KwaveSampleSource.cpp
     Label.cpp
     LabelList.cpp
-    memcpy.c
     MemoryManager.cpp
     MessageBox.cpp
     MetaData.cpp
@@ -73,7 +75,6 @@ SET(libkwave_LIB_SRCS
     PlaybackController.cpp
     PluginManager.cpp
     PluginWorkerThread.cpp
-    ppcasm_string.S
     Selection.cpp
     Signal.cpp
     SignalManager.cpp
@@ -110,6 +111,7 @@ SET(libkwave_LIB_SRCS
     undo/UndoTransactionGuard.cpp
 
     ${libkwave_LIB_SRCS_samplerate}
+    ${libkwave_LIB_SRCS_memcpy}
 )
 
 #############################################################################

@@ -623,7 +623,7 @@ void Kwave::MetaDataList::shiftLeft(sample_index_t offset, sample_index_t shift,
 	sample_index_t meta_first  = meta.firstSample();
 	sample_index_t meta_last   = meta.lastSample();
 
-	// check: is it before the offset
+	// check: is it before the offset ?
 	if (meta_first < offset)
 	    continue;
 
@@ -714,6 +714,73 @@ void Kwave::MetaDataList::shiftLeft(sample_index_t offset, sample_index_t shift,
 void Kwave::MetaDataList::split(sample_index_t offset,
                                 const QList<unsigned int> &tracks)
 {
+    // check: splitting at offset zero makes no sense, but is not forbidden
+    if (!offset) return;
+
+    MutableIterator it(*this);
+    while (it.hasNext()) {
+	it.next();
+	Kwave::MetaData &meta = it.value();
+
+	sample_index_t meta_first  = meta.firstSample();
+	sample_index_t meta_last   = meta.lastSample();
+
+	// check: is the split done in our range?
+	if ((offset <= meta_first) || (offset > meta_last))
+	    continue;
+
+	// check: no range -> no splitting
+	if (!meta.hasProperty(Kwave::MetaData::STDPROP_START) ||
+	    !meta.hasProperty(Kwave::MetaData::STDPROP_END)) {
+	    continue;
+	}
+
+	// only operate on the matching tracks:
+	if (!tracks.isEmpty() &&
+	    meta.hasProperty(Kwave::MetaData::STDPROP_TRACKS)) {
+
+	    // determine list of overlapping/non-overlapping tracks
+	    QList<unsigned int> overlapping_tracks;
+	    QList<unsigned int> non_overlapping_tracks;
+	    QList<unsigned int> meta_tracks  = meta.boundTracks();
+
+	    foreach (unsigned int t, meta_tracks) {
+		if (tracks.contains(t))
+		    overlapping_tracks.append(t);
+		else
+		    non_overlapping_tracks.append(t);
+	    }
+
+	    // skip if no overlap
+	    if (overlapping_tracks.isEmpty())
+		continue;
+
+	    // split all data bound to non-overlapping tracks into
+	    // a separate meta data object
+	    if (!non_overlapping_tracks.isEmpty()) {
+		Kwave::MetaData copy = meta;
+
+		QVariantList list;
+		foreach (unsigned int t, overlapping_tracks)
+		    list.append(QVariant(t));
+		meta.setProperty(Kwave::MetaData::STDPROP_TRACKS, list);
+
+		list.clear();
+		foreach (unsigned int t, non_overlapping_tracks)
+		    list.append(QVariant(t));
+		copy.setProperty(Kwave::MetaData::STDPROP_TRACKS, list);
+
+		add(copy);
+	    }
+	}
+
+	/* --- we have a range/track overlap --- */
+
+	Kwave::MetaData copy = meta;
+	copy[Kwave::MetaData::STDPROP_START] = QVariant(offset);
+	meta[Kwave::MetaData::STDPROP_END]   = QVariant(offset - 1);
+	add(copy);
+    }
 }
 
 //***************************************************************************

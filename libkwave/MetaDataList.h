@@ -268,7 +268,9 @@ namespace Kwave {
     protected:
 
 	/**
-	 * Splits the list at a given position
+	 * Splits the list at a given position. The given position will
+	 * be the start of the new fragment(s), so that splitting multiple
+	 * times at the same offset does not produce further fragments.
 	 * @param offset index of the sample position before which the
 	 *               list should be split
 	 * @param tracks list of track indices

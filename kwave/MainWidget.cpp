@@ -113,6 +113,7 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
     topLayout->addLayout(hbox, 100);
     connect(m_vertical_scrollbar, SIGNAL(valueChanged(int)),
             this,                 SLOT(verticalScrollBarMoved(int)));
+    m_vertical_scrollbar->hide();
 
     // -- lower dock --
     topLayout->addLayout(&m_lower_dock);
@@ -132,6 +133,7 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
     connect(m_overview, SIGNAL(sigCommand(const QString &)),
             this,       SIGNAL(sigCommand(const QString &)));
     m_overview->labelsChanged(signal_manager->metaData().labels());
+    m_overview->hide();
 
     // -- horizontal scrollbar --
 
@@ -142,6 +144,7 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
     topLayout->addWidget(m_horizontal_scrollbar);
     connect(m_horizontal_scrollbar, SIGNAL(valueChanged(int)),
 	    this,                   SLOT(horizontalScrollBarMoved(int)));
+    m_horizontal_scrollbar->hide();
 
     // -- playback position update --
 

@@ -384,8 +384,124 @@ Kwave::MetaDataList Kwave::MetaDataList::copy(sample_index_t offset,
 //***************************************************************************
 void Kwave::MetaDataList::merge(const Kwave::MetaDataList &meta_data)
 {
+    const QStringList position_bound_properties =
+	Kwave::MetaData::positionBoundPropertyNames();
+
     foreach (const Kwave::MetaData &meta, meta_data) {
-	//
+	// check if some meta data with the same type already
+	// exists at an overlapping position
+	bool found = false;
+	if (meta.hasProperty(Kwave::MetaData::STDPROP_TYPE)) {
+	    MutableIterator it(*this);
+	    while (it.hasNext()) {
+		it.next();
+		Kwave::MetaData &other = it.value();
+
+		/* --- analysis phase --- */
+
+		// check: both have the same type?
+		if (!other.hasProperty(Kwave::MetaData::STDPROP_TYPE))
+		    continue;
+		if (other[Kwave::MetaData::STDPROP_TYPE] !=
+		    meta[Kwave::MetaData::STDPROP_TYPE])
+		    continue;
+
+		// check: sampe scope?
+		if (!(meta.scope() == other.scope()))
+		    continue;
+
+		// check: ranges overlap or touch?
+		sample_index_t meta_first  = meta.firstSample();
+		sample_index_t meta_last   = meta.lastSample();
+		sample_index_t other_first = other.firstSample();
+		sample_index_t other_last  = other.lastSample();
+		if ((meta_last < other_first) && (meta_last + 1 != other_first))
+		    continue;
+		if ((meta_first > other_last) && (meta_first != other_last + 1))
+		    continue;
+
+		// determine list of overlapping/non-overlapping tracks
+		QList<unsigned int> overlapping_tracks;
+		QList<unsigned int> non_overlapping_tracks;
+		if (meta.hasProperty(Kwave::MetaData::STDPROP_TRACKS) &&
+		    other.hasProperty(Kwave::MetaData::STDPROP_TRACKS))
+		{
+		    QList<unsigned int> meta_tracks  = meta.boundTracks();
+		    QList<unsigned int> other_tracks = other.boundTracks();
+
+		    foreach (unsigned int t, meta_tracks) {
+			if (other_tracks.contains(t))
+			    overlapping_tracks.append(t);
+			else
+			    non_overlapping_tracks.append(t);
+		    }
+		}
+
+		// check: no overlapping tracks?
+		if (overlapping_tracks.isEmpty())
+		    continue;
+
+		// check: all non-positional properties have to match
+		bool match = true;
+		foreach (const QString &p, meta.keys()) {
+		    if (!other.hasProperty(p)) {
+			match = false;
+			break;
+		    }
+
+		    // ignore internal properties
+		    if (p == Kwave::MetaData::STDPROP_TRACKS)
+			continue;
+		    if (position_bound_properties.contains(p))
+			continue;
+
+		    if (meta[p] != other[p]) {
+			match = false;
+			break;
+		    }
+		}
+		if (!match) continue;
+
+		/* --- merge phase --- */
+
+		found = true;
+
+		// split all data bound to non-overlapping tracks into
+		// a separate meta data object
+		if (!non_overlapping_tracks.isEmpty()) {
+		    Kwave::MetaData copy = other;
+
+		    QVariantList list;
+		    foreach (unsigned int t, non_overlapping_tracks)
+			list.append(QVariant(t));
+		    other.setProperty(Kwave::MetaData::STDPROP_TRACKS, list);
+
+		    list.clear();
+		    foreach (unsigned int t, overlapping_tracks)
+			list.append(QVariant(t));
+		    copy.setProperty(Kwave::MetaData::STDPROP_TRACKS, list);
+
+		    add(copy);
+		}
+
+		// merge range
+		if (other.hasProperty(Kwave::MetaData::STDPROP_START)) {
+		    other.setProperty(
+			Kwave::MetaData::STDPROP_START,
+			qMin(meta_first, other_first));
+		}
+		if (other.hasProperty(Kwave::MetaData::STDPROP_END)) {
+		    other.setProperty(
+			Kwave::MetaData::STDPROP_END,
+			qMax(meta_last, other_last));
+		}
+	    }
+	}
+
+	// no matching meta data item for merging found => add as new one
+	if (!found) {
+	    add(meta);
+	}
     }
 }
 
@@ -394,6 +510,105 @@ void Kwave::MetaDataList::deleteRange(sample_index_t offset,
                                       sample_index_t length,
                                       const QList<unsigned int> &tracks)
 {
+    const sample_index_t del_first = offset;
+    const sample_index_t del_last  = offset + length - 1;
+
+    MutableIterator it(*this);
+    while (it.hasNext()) {
+	it.next();
+	Kwave::MetaData &meta = it.value();
+
+	sample_index_t meta_first  = meta.firstSample();
+	sample_index_t meta_last   = meta.lastSample();
+
+	// check: range overlap?
+	if ((meta_first > del_last) || (meta_last  < del_first))
+	    continue;
+
+	// only operate on the matching tracks:
+	if (!tracks.isEmpty() &&
+	    meta.hasProperty(Kwave::MetaData::STDPROP_TRACKS)) {
+
+	    // determine list of overlapping/non-overlapping tracks
+	    QList<unsigned int> overlapping_tracks;
+	    QList<unsigned int> non_overlapping_tracks;
+	    QList<unsigned int> meta_tracks  = meta.boundTracks();
+
+	    foreach (unsigned int t, meta_tracks) {
+		if (tracks.contains(t))
+		    overlapping_tracks.append(t);
+		else
+		    non_overlapping_tracks.append(t);
+	    }
+
+	    // skip if no overlap
+	    if (overlapping_tracks.isEmpty())
+		continue;
+
+	    // split all data bound to non-overlapping tracks into
+	    // a separate meta data object
+	    if (!non_overlapping_tracks.isEmpty()) {
+		Kwave::MetaData copy = meta;
+
+		QVariantList list;
+		foreach (unsigned int t, non_overlapping_tracks)
+		    list.append(QVariant(t));
+		meta.setProperty(Kwave::MetaData::STDPROP_TRACKS, list);
+
+		list.clear();
+		foreach (unsigned int t, overlapping_tracks)
+		    list.append(QVariant(t));
+		copy.setProperty(Kwave::MetaData::STDPROP_TRACKS, list);
+
+		add(copy);
+	    }
+	}
+
+	/* --- we have a position/range/track overlap --- */
+
+	// position bound -> remove completely
+	if (meta.hasProperty(Kwave::MetaData::STDPROP_POS)) {
+	    it.remove();
+	    continue;
+	}
+
+	// complete overlap -> remove completely
+	if ((meta.scope() & Kwave::MetaData::Range) &&
+	    (meta_first >= del_first) && (meta_last <= del_last)) {
+	    it.remove();
+	    continue;
+	}
+
+	// check: no range -> no adjustment
+	if (!meta.hasProperty(Kwave::MetaData::STDPROP_START) ||
+	    !meta.hasProperty(Kwave::MetaData::STDPROP_END)) {
+	    continue;
+	}
+
+	// cut out a piece from the middle -> split & create a gap
+	if ((del_first > meta_first) && (del_last < meta_last)) {
+	    Kwave::MetaData copy = meta;
+
+	    meta[Kwave::MetaData::STDPROP_END]   = QVariant(del_first - 1);
+	    copy[Kwave::MetaData::STDPROP_START] = QVariant(del_last  + 1);
+	    add(copy);
+	    continue;
+	}
+
+	// cut away a part from left
+	if (del_last < meta_last) {
+	    meta[Kwave::MetaData::STDPROP_START] = QVariant(del_last + 1);
+	    continue;
+	}
+
+	// cut away a part from right
+	if (del_first > meta_first) {
+	    meta[Kwave::MetaData::STDPROP_END] = QVariant(del_first - 1);
+	    continue;
+	}
+
+	Q_ASSERT(false); // we should never reach this, no overlap?
+    }
 }
 
 //***************************************************************************

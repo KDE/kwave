@@ -19,6 +19,7 @@
 
 #include "config.h"
 
+#include <QList>
 #include <QMap>
 #include <QString>
 #include <QVariant>

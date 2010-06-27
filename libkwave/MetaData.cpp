@@ -155,6 +155,72 @@ QStringList Kwave::MetaData::positionBoundPropertyNames()
 }
 
 //***************************************************************************
+sample_index_t Kwave::MetaData::firstSample() const
+{
+    // single position?
+    if ((scope() & Kwave::MetaData::Position) &&
+	hasProperty(Kwave::MetaData::STDPROP_POS)) {
+	bool ok = false;
+	sample_index_t pos =
+	    property(Kwave::MetaData::STDPROP_POS).toULongLong(&ok);
+	if (ok) return pos;
+    }
+
+    // start sample index given
+    if ((scope() & Kwave::MetaData::Range) &&
+	hasProperty(Kwave::MetaData::STDPROP_START)) {
+	bool ok = false;
+	sample_index_t start = static_cast<sample_index_t>(
+	    property(Kwave::MetaData::STDPROP_START).toULongLong(&ok));
+	if (ok) return start;
+    }
+
+    // fallback: start at zero
+    return 0;
+}
+
+//***************************************************************************
+sample_index_t Kwave::MetaData::lastSample() const
+{
+    // single position?
+    if ((scope() & Kwave::MetaData::Position) &&
+	hasProperty(Kwave::MetaData::STDPROP_POS)) {
+	bool ok = false;
+	sample_index_t pos =
+	    property(Kwave::MetaData::STDPROP_POS).toULongLong(&ok);
+	if (ok) return pos;
+    }
+
+    // end sample index given
+    if ((scope() & Kwave::MetaData::Range) &&
+	hasProperty(Kwave::MetaData::STDPROP_END)) {
+	bool ok = false;
+	sample_index_t end = static_cast<sample_index_t>(
+	    property(Kwave::MetaData::STDPROP_END).toULongLong(&ok));
+	if (ok) return end;
+    }
+
+    // fallback: infinite
+    return SAMPLE_INDEX_MAX;
+}
+
+//***************************************************************************
+QList<unsigned int> Kwave::MetaData::boundTracks() const
+{
+    QList<unsigned int> tracks;
+    if (hasProperty(Kwave::MetaData::STDPROP_TRACKS)) {
+	const QList<QVariant> v_track_list =
+	    property(Kwave::MetaData::STDPROP_TRACKS).toList();
+	foreach (const QVariant &v, v_track_list) {
+	    bool ok = false;
+	    unsigned int t = v.toUInt(&ok);
+	    if (ok) tracks += t;
+	}
+    }
+    return tracks;
+}
+
+//***************************************************************************
 //***************************************************************************
 
 /** static initializer: counter for unique id generation */

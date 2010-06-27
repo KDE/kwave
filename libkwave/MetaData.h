@@ -19,6 +19,7 @@
 
 #include "config.h"
 
+#include <QList>
 #include <QMap>
 #include <QMutex>
 #include <QString>
@@ -28,6 +29,8 @@
 #include <QVariant>
 
 #include <kdemacros.h>
+
+#include "libkwave/Sample.h"
 
 namespace Kwave {
 
@@ -170,6 +173,26 @@ namespace Kwave {
 
 	/** returns a list of position bount property names */
 	static QStringList positionBoundPropertyNames();
+
+	/**
+	 * Returns the index of the first sample covered by a given
+	 * meta data item
+	 * @return index of the first sample
+	 */
+	sample_index_t firstSample() const;
+
+	/**
+	 * Returns the index of the last sample covered by a given
+	 * meta data item
+	 * @return index of the last sample
+	 */
+	sample_index_t lastSample() const;
+
+	/**
+	 * Returns a list of tracks a meta data item is bound to
+	 * @return list of bound tracks or empty list if not bound
+	 */
+	QList<unsigned int> boundTracks() const;
 
     private:
 

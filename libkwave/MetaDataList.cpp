@@ -551,12 +551,12 @@ void Kwave::MetaDataList::deleteRange(sample_index_t offset,
 		Kwave::MetaData copy = meta;
 
 		QVariantList list;
-		foreach (unsigned int t, non_overlapping_tracks)
+		foreach (unsigned int t, overlapping_tracks)
 		    list.append(QVariant(t));
 		meta.setProperty(Kwave::MetaData::STDPROP_TRACKS, list);
 
 		list.clear();
-		foreach (unsigned int t, overlapping_tracks)
+		foreach (unsigned int t, non_overlapping_tracks)
 		    list.append(QVariant(t));
 		copy.setProperty(Kwave::MetaData::STDPROP_TRACKS, list);
 
@@ -615,6 +615,99 @@ void Kwave::MetaDataList::deleteRange(sample_index_t offset,
 void Kwave::MetaDataList::shiftLeft(sample_index_t offset, sample_index_t shift,
                                     const QList<unsigned int> &tracks)
 {
+    MutableIterator it(*this);
+    while (it.hasNext()) {
+	it.next();
+	Kwave::MetaData &meta = it.value();
+
+	sample_index_t meta_first  = meta.firstSample();
+	sample_index_t meta_last   = meta.lastSample();
+
+	// check: is it before the offset
+	if (meta_first < offset)
+	    continue;
+
+	// only operate on the matching tracks:
+	if (!tracks.isEmpty() &&
+	    meta.hasProperty(Kwave::MetaData::STDPROP_TRACKS)) {
+
+	    // determine list of overlapping/non-overlapping tracks
+	    QList<unsigned int> overlapping_tracks;
+	    QList<unsigned int> non_overlapping_tracks;
+	    QList<unsigned int> meta_tracks  = meta.boundTracks();
+
+	    foreach (unsigned int t, meta_tracks) {
+		if (tracks.contains(t))
+		    overlapping_tracks.append(t);
+		else
+		    non_overlapping_tracks.append(t);
+	    }
+
+	    // skip if no overlap
+	    if (overlapping_tracks.isEmpty())
+		continue;
+
+	    // split all data bound to non-overlapping tracks into
+	    // a separate meta data object
+	    if (!non_overlapping_tracks.isEmpty()) {
+		Kwave::MetaData copy = meta;
+
+		QVariantList list;
+		foreach (unsigned int t, overlapping_tracks)
+		    list.append(QVariant(t));
+		meta.setProperty(Kwave::MetaData::STDPROP_TRACKS, list);
+
+		list.clear();
+		foreach (unsigned int t, non_overlapping_tracks)
+		    list.append(QVariant(t));
+		copy.setProperty(Kwave::MetaData::STDPROP_TRACKS, list);
+
+		add(copy);
+	    }
+	}
+
+	/* --- we have a position/range/track overlap --- */
+
+	// position bound -> move position
+	if (meta.hasProperty(Kwave::MetaData::STDPROP_POS)) {
+	    bool ok = false;
+	    sample_index_t pos = static_cast<sample_index_t>(
+		meta[Kwave::MetaData::STDPROP_POS].toULongLong(&ok));
+	    if (!ok) continue;
+
+	    Q_ASSERT(pos >= shift);
+	    if (pos >= shift) {
+		// shift position left
+		meta[Kwave::MetaData::STDPROP_POS] = pos - shift;
+	    } else  {
+		// do not produce negative coordinates
+		// -> moving into negative means deleting!
+		it.remove();
+	    }
+	    continue;
+	}
+
+	// check: no range -> no adjustment
+	if (!meta.hasProperty(Kwave::MetaData::STDPROP_START) ||
+	    !meta.hasProperty(Kwave::MetaData::STDPROP_END)) {
+	    continue;
+	}
+
+	// check: moving into negative
+	Q_ASSERT(meta_last >= shift);
+	if (meta_last < shift) {
+	    it.remove();
+	    continue;
+	}
+
+	// move to the left, clip start to zero
+	Q_ASSERT(meta_first >= shift);
+	meta_first  = (meta_first >= shift) ? (meta_first - shift) : 0;
+	meta_last  -= shift;
+
+	meta[Kwave::MetaData::STDPROP_START] = QVariant(meta_first);
+	meta[Kwave::MetaData::STDPROP_END]   = QVariant(meta_last);
+    }
 }
 
 //***************************************************************************

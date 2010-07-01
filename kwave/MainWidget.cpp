@@ -455,6 +455,12 @@ void MainWidget::refreshHorizontalScrollBar()
 
     m_horizontal_scrollbar->blockSignals(true);
 
+    // show/hide the overview widget
+    if (!m_context.signalManager()->isEmpty() && !m_overview->isVisible())
+	m_overview->show();
+    if (m_context.signalManager()->isEmpty() && m_overview->isVisible())
+	m_overview->hide();
+
     // adjust the limits of the horizontal scrollbar
     if (m_context.signalManager()->length() > 1) {
 	// get the view information in samples

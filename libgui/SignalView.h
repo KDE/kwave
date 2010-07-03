@@ -192,7 +192,6 @@ namespace Kwave {
 	 */
 	virtual void setZoomAndOffset(double zoom, sample_index_t offset);
 
-
     protected slots:
 
 	/**

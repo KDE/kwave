@@ -62,6 +62,12 @@ void MultiStateWidget::setState(int state)
 }
 
 //***************************************************************************
+void MultiStateWidget::switchState(bool on)
+{
+    setState((on) ? 1 : 0);
+}
+
+//***************************************************************************
 void MultiStateWidget::nextState()
 {
     setState(m_current_index + 1);

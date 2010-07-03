@@ -67,12 +67,22 @@ public:
      */
     void addPixmap(const QString &filename);
 
+public slots:
+
     /**
      * Activates a new state, with wrap-around on overflows, limited
      * to [ 0 ... m_pixmaps.count()-1 ].
      * @param newstate index of the new state [0...N]
      */
     void setState(int newstate);
+
+    /**
+     * For widgets that have only two states (on and off),
+     * this selects state 1 or 0
+     * @param on if true, switch on (state 1), otherwise
+     *           switch off (state 0)
+     */
+    void switchState(bool on);
 
     /** advance to the next state, with wrap-around to zero */
     void nextState();

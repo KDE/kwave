@@ -81,7 +81,7 @@ Kwave::TrackPixmap::TrackPixmap(Track &track)
     connect(&track, SIGNAL(sigSamplesModified(Track *, sample_index_t,
 	sample_index_t)), this, SLOT(slotSamplesModified(Track *,
 	sample_index_t, sample_index_t)));
-    connect(&track, SIGNAL(sigSelectionChanged()),
+    connect(&track, SIGNAL(sigSelectionChanged(bool)),
             this, SLOT(selectionChanged()));
 }
 

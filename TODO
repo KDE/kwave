@@ -1,19 +1,15 @@
 
 o support for visualization plugins (rev 2498)
-  - re-enable old standard functionality:
-    * track controls (enable/disable)
-    * vertical zoom
+  - re-enable vertical zoom
   - new functions
     * allow drag&drop to reorder signal views
     * resizing of signal views per size grip
     * allow plugins to add and remove own signal views
-    * connect scroll actions (offset/range) to the views
     * connect signal actions (insert/delete/modify) to the views
     * connect track actions (add/delete/move) to the views
     * connect label actions (add/delete/modify) to the views
     * connect playback position updates to the views
     * connect selection changes to the views
-    * use Kwave::MetaData for Encoder/Decoder
 
   - enhanced functions (maybe next release)
     * store order and settings of signal views in embedded metadata
@@ -22,11 +18,6 @@ o support for visualization plugins (rev 2498)
     * reordering of tracks according to order of the views
     * context sensitive toolbar/menu entries when clicking to a view
     * navigating between views per <Tab> key
-
-o new meta data handling
-  - integrate Kwave::MetaData into SignalManager
-  - substitute Label class with MetaData
-  - convert FileInfo to meta data list
 
 o update of kwave.spec.in (very outdated)
 

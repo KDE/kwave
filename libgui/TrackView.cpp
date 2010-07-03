@@ -21,10 +21,13 @@
 #include <QPalette>
 #include <QResizeEvent>
 #include <QTime>
+#include <QVBoxLayout>
 
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/SignalManager.h"
+
+#include "MultiStateWidget.h"
 #include "TrackView.h"
 
 /** interval for limiting the number of repaints per second [ms] */
@@ -61,7 +64,36 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
 
     if (controls) {
 	// add the channel controls, for "enabled" / "disabled"
-	// ### TODO ###
+
+	QVBoxLayout *layout = new QVBoxLayout(controls);
+	Q_ASSERT(layout);
+	if (!layout) return;
+
+	MultiStateWidget *msw = new MultiStateWidget(0, 0);
+	Q_ASSERT(msw);
+	if (!msw) {
+	    delete layout;
+	    return;
+	}
+
+	// add a bitmap for off (0 and on (1)
+	msw->addPixmap("light_off.xpm");
+	msw->addPixmap("light_on.xpm");
+	connect(
+	    msw,   SIGNAL(clicked(int)),
+	    track, SLOT(toggleSelection())
+	);
+	connect(
+	    track, SIGNAL(sigSelectionChanged(bool)),
+	    msw,   SLOT(switchState(bool))
+	);
+
+	msw->setGeometry(5, 5, 20, 20);
+	msw->setMinimumSize(20, 20);
+	msw->switchState(track->selected());
+
+	layout->addWidget(msw);
+	msw->show();
     }
 
     // get informed about label changes
@@ -83,6 +115,10 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
             SIGNAL(sigPlaybackPos(sample_index_t)),
             this,
             SLOT(needRepaint()));
+
+    // update when the track selection changed
+    connect(track, SIGNAL(sigSelectionChanged(bool)),
+            this,  SLOT(refreshSignalLayer()));
 
 }
 

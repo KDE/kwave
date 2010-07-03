@@ -113,6 +113,11 @@ public:
     /** Sets the "selected" flag. */
     void select(bool select);
 
+public slots:
+
+    /** toggles the selection of the slot on/off */
+    void toggleSelection();
+
 signals:
 
     /**
@@ -146,8 +151,9 @@ signals:
 
     /**
      * Emitted whenever the selection of the track has changed.
+     * @param selected true if selected, false if unselected
      */
-     void sigSelectionChanged();
+     void sigSelectionChanged(bool selected);
 
 private:
     /**

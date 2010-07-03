@@ -347,7 +347,13 @@ void Track::select(bool selected)
 {
     if (m_selected == selected) return;
     m_selected = selected;
-    emit sigSelectionChanged();
+    emit sigSelectionChanged(m_selected);
+}
+
+//***************************************************************************
+void Track::toggleSelection()
+{
+    select(!selected());
 }
 
 //***************************************************************************

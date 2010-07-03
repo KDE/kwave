@@ -92,6 +92,7 @@ Kwave::SignalView::SignalView(QWidget *parent, QWidget *controls,
      m_track_index(track),
      m_offset(0),
      m_zoom(1.0),
+     m_vertical_zoom(1.0),
      m_mouse_mode(Kwave::MouseMark::MouseNormal),
      m_mouse_selection(),
      m_mouse_down_x(0),
@@ -133,6 +134,12 @@ void Kwave::SignalView::setZoomAndOffset(double zoom, sample_index_t offset)
 
     // the relation to the position widget has become invalid
     hidePosition();
+}
+
+//***************************************************************************
+void Kwave::SignalView::setVerticalZoom(double zoom)
+{
+    m_vertical_zoom = zoom;
 }
 
 //***************************************************************************

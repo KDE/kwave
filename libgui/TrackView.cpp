@@ -33,6 +33,9 @@
 /** interval for limiting the number of repaints per second [ms] */
 #define REPAINT_INTERVAL 125
 
+/** minimum height of the view in pixel */
+#define MINIMUM_HEIGHT 100
+
 //***************************************************************************
 Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
                             SignalManager *signal_manager,
@@ -52,7 +55,7 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
      m_img_selection_needs_refresh(true),
      m_img_markers_needs_refresh(true)
 {
-    setMinimumSize(400, 100);
+    setMinimumSize(400, MINIMUM_HEIGHT);
 
     // trigger a repaint request when the signal has been modified
     connect(&m_pixmap, SIGNAL(sigModified()),
@@ -136,6 +139,18 @@ void Kwave::TrackView::setZoomAndOffset(double zoom, sample_index_t offset)
     if (m_pixmap.isModified()) {
 	refreshAllLayers();
     }
+}
+
+//***************************************************************************
+void Kwave::TrackView::setVerticalZoom(double zoom)
+{
+    const int h = height();
+    double current_zoom = verticalZoom();
+    if (h > (MINIMUM_HEIGHT * current_zoom)) {
+	zoom *= h / (MINIMUM_HEIGHT * current_zoom);
+    }
+    Kwave::SignalView::setVerticalZoom(zoom);
+    setMinimumHeight(MINIMUM_HEIGHT * zoom);
 }
 
 //***************************************************************************
@@ -271,9 +286,6 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
 	// fix the width and height of the track pixmap
 	if ((m_pixmap.width() < width) || (m_pixmap.height() != height))
 	    m_pixmap.resize(width, height);
-
-	/** @todo vertical zoom */
-// 	m_pixmap.setVerticalZoom(m_vertical_zoom);
 
 	// refresh the pixmap
 	if (m_pixmap.isModified())

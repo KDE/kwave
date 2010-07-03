@@ -97,6 +97,11 @@ namespace Kwave {
 	    return m_zoom;
 	}
 
+	/** returns the current vertical zoom factor */
+	double verticalZoom() const {
+	    return m_vertical_zoom;
+	}
+
 	/**
 	 * converts a number of samples into a number of pixels,
 	 * based on the current zoom factor
@@ -191,6 +196,12 @@ namespace Kwave {
 	 * @param offset the index of the first visible sample
 	 */
 	virtual void setZoomAndOffset(double zoom, sample_index_t offset);
+
+	/**
+	 * sets new vertical zoom factor
+	 * @param zoom vertical zoom factor
+	 */
+	virtual void setVerticalZoom(double zoom);
 
     protected slots:
 
@@ -343,6 +354,10 @@ namespace Kwave {
 	};
 
     private:
+
+	/** zoom factor for vertical size */
+	double m_vertical_zoom;
+
 	/** mode of the mouse cursor */
 	MouseMark::Mode m_mouse_mode;
 

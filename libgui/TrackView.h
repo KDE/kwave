@@ -64,6 +64,12 @@ namespace Kwave {
 	 */
 	virtual void setZoomAndOffset(double zoom, sample_index_t offset);
 
+	/**
+	 * sets new vertical zoom factor
+	 * @param zoom vertical zoom factor
+	 */
+	virtual void setVerticalZoom(double zoom);
+
 	/** called when the widget has been resized */
 	virtual void resizeEvent(QResizeEvent *event);
 

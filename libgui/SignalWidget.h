@@ -131,12 +131,6 @@ public:
     void forwardCommand(const QString &command);
 
     /**
-     * Toggles the "selected" flag of a track.
-     * @param track index of the track [0...tracks()-1]
-     */
-//     void toggleTrackSelection(int track);
-
-    /**
      * Called if the playback has been stopped.
      */
 //     void playbackStopped();
@@ -224,25 +218,13 @@ signals:
      */
     void sigCommand(const QString &command);
 
-    /**
-     * Signals that a track has been inserted.
-     * @param track index of the new track [0...tracks()-1]
-     */
-//     void sigTrackInserted(unsigned int track);
-
-    /**
-     * Signals that a track has been deleted.
-     * @param track index of the deleted track [0...tracks()-1]
-     */
-//     void sigTrackDeleted(unsigned int track);
-
-    /** The selection state of at least one track has changed */
-//     void sigTrackSelectionChanged();
+    /** emitted whenever the size of the content has changed */
+    void contentSizeChanged();
 
 protected:
 
     /** slot for mouse wheel events, used for vertical zoom */
-//     virtual void wheelEvent(QWheelEvent *event);
+    virtual void wheelEvent(QWheelEvent *event);
 
     /**
      * Opens a dialog for editing the properties of a label
@@ -259,6 +241,9 @@ private:
      * @param pos position of the label [samples]
      */
     void addLabel(sample_index_t pos);
+
+    /** propagates the vertical zoom to all views */
+    void setVerticalZoom(double zoom);
 
 private:
 
@@ -292,7 +277,7 @@ private:
     double m_zoom;
 
     /** vertical zoom factor */
-//     double m_vertical_zoom;
+    double m_vertical_zoom;
 
     /**
      * position of the vertical line that indicates the current

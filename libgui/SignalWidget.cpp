@@ -84,17 +84,14 @@
  */
 #define CASE_COMMAND(x) } else if (parser.command() == x) {
 
-/** number of milliseconds between repaints */
-// #define REPAINT_INTERVAL 50
-
 /** vertical zoom factor: minimum value */
-// #define VERTICAL_ZOOM_MIN 1.0
+#define VERTICAL_ZOOM_MIN 1.0
 
 /** vertical zoom factor: maximum value */
-// #define VERTICAL_ZOOM_MAX 100.0
+#define VERTICAL_ZOOM_MAX 100.0
 
 /** vertical zoom factor: increment/decrement factor */
-// #define VERTICAL_ZOOM_STEP_FACTOR 1.5
+#define VERTICAL_ZOOM_STEP_FACTOR 1.5
 
 //***************************************************************************
 SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
@@ -106,8 +103,8 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
      m_upper_dock(upper_dock),
      m_lower_dock(lower_dock),
      m_offset(0),
-     m_zoom(0.0)
-//     m_vertical_zoom(1.0),
+     m_zoom(0.0),
+     m_vertical_zoom(1.0)
 //     m_playpointer(-1),
 //     m_last_playpointer(-1),
 //     m_inhibit_repaint(0),
@@ -507,36 +504,54 @@ void SignalWidget::contextMenuLabelProperties()
 //     labelProperties(label);
 }
 
-// //***************************************************************************
-// void SignalWidget::wheelEvent(QWheelEvent *event)
-// {
-//     if (!event) return;
-//
-//     // we currently are only interested in <Alt> + <WheelUp/Down>
-//     if (event->modifiers() != Qt::AltModifier) {
-// 	event->ignore();
-// 	return;
-//     }
-//
-//     if ((event->delta() > 0) && (m_vertical_zoom < VERTICAL_ZOOM_MAX)) {
-// 	// zom in
-// 	m_vertical_zoom *= VERTICAL_ZOOM_STEP_FACTOR;
-// 	if (m_vertical_zoom > VERTICAL_ZOOM_MAX)
-// 	    m_vertical_zoom = VERTICAL_ZOOM_MAX;
-// 	event->accept();
-// 	refreshSignalLayer();
-//     } else if ((event->delta() < 0) && (m_vertical_zoom > VERTICAL_ZOOM_MIN)) {
-// 	// zoom out
-// 	m_vertical_zoom /= VERTICAL_ZOOM_STEP_FACTOR;
-// 	if (m_vertical_zoom < VERTICAL_ZOOM_MIN)
-// 	    m_vertical_zoom = VERTICAL_ZOOM_MIN;
-// 	event->accept();
-// 	refreshSignalLayer();
-//     } else {
-// 	// no change
-// 	event->ignore();
-//     }
-// }
+//***************************************************************************
+void SignalWidget::wheelEvent(QWheelEvent *event)
+{
+    if (!event) return;
+
+    // we currently are only interested in <Alt> + <WheelUp/Down>
+    if (event->modifiers() != Qt::AltModifier) {
+	event->ignore();
+	return;
+    }
+
+    if (event->delta() > 0) {
+	// zom in
+	setVerticalZoom(m_vertical_zoom  * VERTICAL_ZOOM_STEP_FACTOR);
+	event->accept();
+    } else if (event->delta() < 0) {
+	// zoom out
+	setVerticalZoom(m_vertical_zoom  / VERTICAL_ZOOM_STEP_FACTOR);
+	event->accept();
+    } else {
+	// no change
+	event->ignore();
+    }
+}
+
+//***************************************************************************
+void SignalWidget::setVerticalZoom(double zoom)
+{
+    if (zoom > VERTICAL_ZOOM_MAX) zoom = VERTICAL_ZOOM_MAX;
+    if (zoom < VERTICAL_ZOOM_MIN) zoom = VERTICAL_ZOOM_MIN;
+    if (zoom == m_vertical_zoom) return; // no change
+
+    // take over the zoom factor
+    m_vertical_zoom = zoom;
+
+    // propagate the zoom to all views
+    foreach (QPointer<Kwave::SignalView> view, m_views)
+	if (view) view->setVerticalZoom(m_vertical_zoom);
+
+    // get back the maximum zoom set by the views
+    double max_zoom = VERTICAL_ZOOM_MIN;
+    foreach (QPointer<Kwave::SignalView> view, m_views)
+	if (view && view->verticalZoom() > max_zoom)
+	    max_zoom = view->verticalZoom();
+    if (max_zoom > m_vertical_zoom) m_vertical_zoom = max_zoom;
+
+    emit contentSizeChanged();
+}
 
 //***************************************************************************
 void SignalWidget::addLabel(sample_index_t pos)
@@ -1052,6 +1067,9 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
     Q_ASSERT(view);
     if (!m_upper_dock || !m_lower_dock) return;
     if (!view) return;
+
+    // set initial vertical zoom
+    view->setVerticalZoom(m_vertical_zoom);
 
     // find the proper row to insert the track view
     int index = 0;

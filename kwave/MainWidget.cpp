@@ -101,6 +101,9 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
     // viewport for the SignalWidget, does the clipping
     hbox->addWidget(&m_view_port);
 
+    connect(&m_signal_widget, SIGNAL(contentSizeChanged()),
+	    this, SLOT(resizeViewPort()));
+
     // -- vertical scrollbar for the view port --
 
     m_vertical_scrollbar = new QScrollBar();
@@ -391,6 +394,7 @@ void MainWidget::resizeViewPort()
 	    m_vertical_scrollbar->setShown(false);
 	    vertical_scrollbar_visible = false;
 	    w += b;
+	    m_signal_widget.move(0, 0);
 	    // qDebug("MainWidget::resizeViewPort(): hiding scrollbar");
 	}
     } else {

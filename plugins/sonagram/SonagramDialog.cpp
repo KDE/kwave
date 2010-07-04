@@ -105,7 +105,7 @@ void SonagramDialog::parameters(QStringList &list)
     list.clear();
 
     // parameter #0: number of fft points
-    param = pointbox ? pointbox->currentText() : QString(0);
+    param = pointbox ? pointbox->currentText() : QString();
     list.append(param);
 
     // parameter #1: index of the window function

@@ -36,7 +36,7 @@ LabelPropertiesWidget::LabelPropertiesWidget(QWidget *parent)
 {
     setupUi(this);
     Q_ASSERT(time);
-    if (time) time->setTitle(0);
+    if (time) time->setTitle(QString());
     setFixedSize(sizeHint());
 }
 

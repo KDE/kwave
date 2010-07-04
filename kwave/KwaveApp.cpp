@@ -74,7 +74,7 @@ int KwaveApp::newInstance()
 
     // only one parameter -> open with empty window
     if (argc == 0) {
-	newWindow(KUrl(0));
+	newWindow(KUrl(QString()));
     } else {
 	// open a window for each file specified in the
 	// command line an load it
@@ -103,7 +103,7 @@ bool KwaveApp::executeCommand(const QString &command)
 	if (parser.hasParams()) {
 	    newWindow(KUrl(parser.params().at(0)));
 	} else {
-	    newWindow(KUrl(0));
+	    newWindow(KUrl(QString()));
 	}
     } else if (parser.command() == "help") {
 	KToolInvocation::invokeHelp();

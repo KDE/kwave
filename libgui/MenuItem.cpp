@@ -38,7 +38,7 @@ MenuItem::MenuItem(MenuNode *parent,
                    const QKeySequence &shortcut,
                    const QString &uid)
     :MenuNode(parent, name, command, shortcut, uid),
-     m_exclusive_group(0), m_action(0)
+     m_exclusive_group(), m_action(0)
 {
     Q_ASSERT(parent);
     if (!parent) return;

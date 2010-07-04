@@ -43,8 +43,8 @@ public:
      */
     KwaveFileDialog(const QString& startDir, const QString& filter,
                     QWidget *parent, bool modal,
-                    const QString last_url = 0,
-                    const QString last_ext = 0);
+                    const QString last_url = QString(),
+                    const QString last_ext = QString());
 
     /** Destructor */
     virtual ~KwaveFileDialog()

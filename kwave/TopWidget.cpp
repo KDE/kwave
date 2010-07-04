@@ -1503,7 +1503,7 @@ void TopWidget::updateCaption()
 
     // shortcut if no file loaded
     if (signalName().length() == 0) {
-	setCaption(0);
+	setCaption(QString());
 	return;
     }
 

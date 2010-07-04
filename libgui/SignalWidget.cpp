@@ -1197,6 +1197,14 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
 	    this,       SIGNAL(sigCommand(QString)),
 	    Qt::QueuedConnection);
 
+    // if the view gets removed/deleted, remove the controls as well
+    if (controls) {
+	controls->setAttribute(Qt::WA_DeleteOnClose, true);
+	connect(view,     SIGNAL(destroyed(QObject*)),
+	        controls, SLOT(close()),
+	        Qt::QueuedConnection);
+    }
+
 }
 
 //***************************************************************************
@@ -1206,7 +1214,7 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track *track)
     if (!track) return;
 
     // create a container widget for the track controls
-    QWidget *controls = new QWidget(this);
+    QWidget *controls = new QWidget(0);
     Q_ASSERT(controls);
     if (!controls) return;
 
@@ -1221,14 +1229,12 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track *track)
 
     // loop over all views and adjust the track index of the following ones
     foreach (QPointer<Kwave::SignalView> view, m_views) {
-	if (view->track() > static_cast<int>(index))
+	if (view->track() >= static_cast<int>(index))
 	    view->setTrack(view->track() + 1);
     }
 
     // assign the view to the new track
     view->setTrack(index);
-
-    connect(view, SIGNAL(destroyed()), controls, SLOT(deleteLater()));
 
     insertView(view, controls);
 }
@@ -1239,15 +1245,18 @@ void SignalWidget::slotTrackDeleted(unsigned int index)
     // loop over all views, delete those that are bound to this track
     // and adjust the index of the following ones
     bool empty = true;
-    foreach (QPointer<Kwave::SignalView> view, m_views) {
+    QMutableListIterator<QPointer<Kwave::SignalView> > it(m_views);
+    while (it.hasNext()) {
+	QPointer<Kwave::SignalView> view = it.next();
 	if (view->track() == static_cast<int>(index)) {
-	    m_views.removeAll(view);
+	    it.remove();
 	    delete view;
 	} else if (view->track() > static_cast<int>(index)) {
 	    view->setTrack(view->track() - 1);
 	    empty = false;
-	} else if (view->track() != -1)
+	} else if (view->track() != -1) {
 	    empty = false;
+	}
     }
 
     // if there are only views with track() == -1, we are empty,

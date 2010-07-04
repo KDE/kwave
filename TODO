@@ -1,6 +1,9 @@
 
+o metadata: adjust track indices on insert/delete of tracks
+
+o initialize QString with QString() instead of 0
+
 o support for visualization plugins (rev 2498)
-  - re-enable vertical zoom
   - new functions
     * allow drag&drop to reorder signal views
     * resizing of signal views per size grip
@@ -67,7 +70,7 @@ o use some xml file for the menu instead of a macro
 
 o support for Spex codec: http://www.speex.org/
 
-o get rid of libaudiofile, it is too buggy, has too few features and
+o get rid of libaudiofile, it is buggy, has too few features and
   is no longer actively maintained -> find an alternative
 
 o ALSA record/playback: also detect devices configured in the .asoundrc,

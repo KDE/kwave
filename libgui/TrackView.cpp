@@ -82,6 +82,8 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
 	// add a bitmap for off (0 and on (1)
 	msw->addPixmap("light_off.xpm");
 	msw->addPixmap("light_on.xpm");
+
+	// connect widget <-> track
 	connect(
 	    msw,   SIGNAL(clicked(int)),
 	    track, SLOT(toggleSelection())

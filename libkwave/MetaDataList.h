@@ -265,6 +265,9 @@ namespace Kwave {
 	    const QList<unsigned int> &tracks
 	);
 
+	/** dump all meta data to stdout (for debugging) */
+	virtual void dump() const;
+
     protected:
 
 	/**

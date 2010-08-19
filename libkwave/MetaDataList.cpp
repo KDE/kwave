@@ -784,4 +784,20 @@ void Kwave::MetaDataList::split(sample_index_t offset,
 }
 
 //***************************************************************************
+void Kwave::MetaDataList::dump() const
+{
+    qDebug("--- meta data ---");
+
+    Iterator it(*this);
+    while (it.hasNext()) {
+	it.next();
+	const Kwave::MetaData &meta = it.value();
+	qDebug("* meta data #%s", it.key().toLocal8Bit().data());
+	meta.dump();
+    }
+    qDebug("-----------------");
+}
+
+
+//***************************************************************************
 //***************************************************************************

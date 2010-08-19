@@ -221,6 +221,39 @@ QList<unsigned int> Kwave::MetaData::boundTracks() const
 }
 
 //***************************************************************************
+void Kwave::MetaData::dump() const
+{
+    QString scope_list;
+    const Scope s = scope();
+    if (s == All)
+	scope_list = "all";
+    else {
+	if (s & Signal)   scope_list += " signal";
+	if (s & Track)    scope_list += " track";
+	if (s & Range)    scope_list += " range";
+	if (s & Position) scope_list += " position";
+    }
+    qDebug("    scope =%s", scope_list.toLocal8Bit().data());
+    const QStringList props = keys();
+    foreach (const QString &p, props) {
+	QVariant prop = property(p);
+	const QList<QVariant> v_vals = prop.toList();
+	QString value;
+	if (!v_vals.isEmpty()) {
+	    foreach (QVariant v, v_vals)
+		value += "{'" + v.toString() + "'} ";
+	} else {
+	    value += "'" + prop.toString() + "'";
+	}
+
+	qDebug("    '%s' = '%s'",
+	    p.toLocal8Bit().data(),
+	    value.toLocal8Bit().data()
+	);
+    }
+}
+
+//***************************************************************************
 //***************************************************************************
 
 /** static initializer: counter for unique id generation */

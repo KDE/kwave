@@ -194,6 +194,9 @@ namespace Kwave {
 	 */
 	QList<unsigned int> boundTracks() const;
 
+	/** dump all properties to stdout, for debugging */
+	virtual void dump() const;
+
     private:
 
 	/** internal container class with meta data */

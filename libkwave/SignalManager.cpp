@@ -247,7 +247,7 @@ int SignalManager::loadFile(const KUrl &url)
 
 	// take over the decoded and updated file info
 	m_meta_data.setFileInfo(info);
-	info.dump();
+	m_meta_data.dump();
 
 	// update the length info in the progress dialog if needed
 	if (dialog && use_src_size) {

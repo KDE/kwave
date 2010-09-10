@@ -20,17 +20,19 @@
 
 //***************************************************************************
 Label::Label()
-    :Kwave::MetaData()
+    :Kwave::MetaData(Kwave::MetaData::Position)
 {
+    setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());
 }
 
 //***************************************************************************
 Label::Label(sample_index_t position, const QString &name)
-    :Kwave::MetaData()
+    :Kwave::MetaData(Kwave::MetaData::Position)
 {
     setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());
     setProperty(Kwave::MetaData::STDPROP_POS, position);
-    setProperty(Kwave::MetaData::STDPROP_DESCRIPTION, name);
+    if (name.length())
+	setProperty(Kwave::MetaData::STDPROP_DESCRIPTION, name);
 }
 
 //***************************************************************************
@@ -55,7 +57,10 @@ sample_index_t Label::pos() const
 //***************************************************************************
 void Label::rename(const QString &name)
 {
-    setProperty(Kwave::MetaData::STDPROP_DESCRIPTION, name);
+    if (name.length())
+	setProperty(Kwave::MetaData::STDPROP_DESCRIPTION, name);
+    else
+	setProperty(Kwave::MetaData::STDPROP_DESCRIPTION, QVariant());
 }
 
 //***************************************************************************

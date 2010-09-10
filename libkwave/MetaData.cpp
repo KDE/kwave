@@ -246,7 +246,7 @@ void Kwave::MetaData::dump() const
 	    value += "'" + prop.toString() + "'";
 	}
 
-	qDebug("    '%s' = '%s'",
+	qDebug("    '%s' = %s",
 	    p.toLocal8Bit().data(),
 	    value.toLocal8Bit().data()
 	);

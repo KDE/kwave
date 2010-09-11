@@ -191,13 +191,23 @@ sample_index_t Kwave::MetaData::lastSample() const
 	if (ok) return pos;
     }
 
-    // end sample index given
-    if ((scope() & Kwave::MetaData::Range) &&
-	hasProperty(Kwave::MetaData::STDPROP_END)) {
-	bool ok = false;
-	sample_index_t end = static_cast<sample_index_t>(
-	    property(Kwave::MetaData::STDPROP_END).toULongLong(&ok));
-	if (ok) return end;
+    // bound to a scope
+    if (scope() & Kwave::MetaData::Range) {
+	// end sample index given
+	if (hasProperty(Kwave::MetaData::STDPROP_END)) {
+	    bool ok = false;
+	    sample_index_t end = static_cast<sample_index_t>(
+		property(Kwave::MetaData::STDPROP_END).toULongLong(&ok));
+	    if (ok) return end;
+	}
+
+	// fallback: no end => use start
+	if (hasProperty(Kwave::MetaData::STDPROP_START)) {
+	    bool ok = false;
+	    sample_index_t start = static_cast<sample_index_t>(
+		property(Kwave::MetaData::STDPROP_START).toULongLong(&ok));
+	    if (ok) return start;
+	}
     }
 
     // fallback: infinite

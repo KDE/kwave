@@ -43,6 +43,9 @@ CodecBase::~CodecBase()
 void CodecBase::addMimeType(const QString &name, const QString &description,
                             const QString &patterns)
 {
+    // check for duplicates
+    if (supports(name)) return;
+
     CodecBase::MimeType type;
     KMimeType::Ptr t = KMimeType::mimeType(name);
 
@@ -53,9 +56,20 @@ void CodecBase::addMimeType(const QString &name, const QString &description,
 	type.description = description;
 	type.patterns    = patterns.split("; ", QString::SkipEmptyParts);
     } else {
-	type.name        = t->name();
 	type.description = t->comment();
 	type.patterns    = t->patterns();
+
+	if (t->name() != name) {
+	    // type has been translated (maybe un-alias'ed)
+	    // manually add the original name
+	    type.name    = name;
+	    m_supported_mime_types.append(type);
+	}
+
+	if  (!supports(t->name())) {
+	    // new type or new alias
+	    type.name        = t->name();
+	}
     }
     m_supported_mime_types.append(type);
 }

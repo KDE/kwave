@@ -921,6 +921,9 @@ bool SignalManager::deleteRange(sample_index_t offset, sample_index_t length,
 	    abortUndoTransaction();
 	    return false;
 	}
+    } else {
+	// delete without undo
+	m_meta_data.deleteRange(offset, length, track_list);
     }
 
     // delete the ranges in all tracks

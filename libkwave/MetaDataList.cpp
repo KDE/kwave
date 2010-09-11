@@ -513,6 +513,8 @@ void Kwave::MetaDataList::deleteRange(sample_index_t offset,
     const sample_index_t del_first = offset;
     const sample_index_t del_last  = offset + length - 1;
 
+    if (!length) return;
+
     MutableIterator it(*this);
     while (it.hasNext()) {
 	it.next();

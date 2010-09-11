@@ -31,7 +31,7 @@ extern "C" void *(* xine_fast_memcpy)(void *to, const void *from, size_t len);
 
 #else /* HAVE_OPTIMIZED_MEMCPY */
 
-#include <string.h> /* for memcpy from ligc */
+#include <string.h> /* for memcpy from libc */
 
 /** use standard memcpy() from libc */
 #define MEMCPY memcpy

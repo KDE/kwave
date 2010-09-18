@@ -376,7 +376,7 @@ bool TopWidget::init()
             this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
     connect(signal_manager, SIGNAL(sigModified(bool)),
             this,           SLOT(modifiedChanged(bool)));
-    connect(signal_manager, SIGNAL(sigLabelCountChanged()),
+    connect(signal_manager, SIGNAL(sigMetaDataChanged(const Kwave::MetaDataList &)),
             this,           SLOT(updateMenu()));
 
     // create the plugin manager instance

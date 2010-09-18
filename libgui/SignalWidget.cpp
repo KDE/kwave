@@ -120,7 +120,7 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
     connect(sig,  SIGNAL(sigTrackDeleted(unsigned int)),
             this, SLOT( slotTrackDeleted(unsigned int)));
 
-//     connect(sig, SIGNAL(sigLabelCountChanged()),
+//     connect(sig, SIGNAL(sigMetaDataChanged(const Kwave::MetaDataList &)),
 //             this, SLOT(hidePosition()),
 //             Qt::QueuedConnection);
 //

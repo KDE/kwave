@@ -40,6 +40,8 @@ class QResizeEvent;
 class SignalManager;
 class Track;
 
+namespace Kwave { class MetaDataList; };
+
 class KDE_EXPORT OverViewWidget : public ImageView
 {
     Q_OBJECT
@@ -76,8 +78,11 @@ public slots:
      */
     void setSelection(sample_index_t offset, sample_index_t length);
 
-    /** should be called when the list of labels has changed */
-    void labelsChanged(const LabelList &labels);
+    /**
+     * should be called when meta data has changed
+     * @param meta the list of new meta data
+     */
+    void metaDataChanged(const Kwave::MetaDataList &meta);
 
     /** should be called to update the current playback posiotion */
     void playbackPositionChanged(sample_index_t pos);

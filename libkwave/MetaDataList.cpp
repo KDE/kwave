@@ -707,8 +707,10 @@ void Kwave::MetaDataList::shiftLeft(sample_index_t offset, sample_index_t shift,
 	meta_first  = (meta_first >= shift) ? (meta_first - shift) : 0;
 	meta_last  -= shift;
 
-	meta[Kwave::MetaData::STDPROP_START] = QVariant(meta_first);
-	meta[Kwave::MetaData::STDPROP_END]   = QVariant(meta_last);
+	if (meta.hasProperty(Kwave::MetaData::STDPROP_START))
+	    meta[Kwave::MetaData::STDPROP_START] = QVariant(meta_first);
+	if (meta.hasProperty(Kwave::MetaData::STDPROP_END))
+	    meta[Kwave::MetaData::STDPROP_END]   = QVariant(meta_last);
     }
 }
 

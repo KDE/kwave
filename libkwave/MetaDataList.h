@@ -249,10 +249,8 @@ namespace Kwave {
 	);
 
 	/**
-	 * delete elements from the meta data list that overlap a given
-	 * range of samples (selects elements with scope "Range" as well
-	 * as elements with scope "Position") and have a binding to a
-	 * track.
+	 * shift the positions or start/end of all elements that are after
+	 * a given offset to the left.
 	 *
 	 * @param offset index of the first sample
 	 * @param shift number of samples to shift left
@@ -264,6 +262,21 @@ namespace Kwave {
 	    sample_index_t shift,
 	    const QList<unsigned int> &tracks
 	);
+
+	/**
+	 * shift the positions or start/end of all elements that are after
+	 * a given offset to the right.
+	 *
+	 * @param offset index of the first sample
+	 * @param shift number of samples to shift right
+	 * @param tracks list of track indices
+	 * @return list with a copy of found meta data objects
+	 */
+// 	virtual void shiftRight(
+// 	    sample_index_t offset,
+// 	    sample_index_t shift,
+// 	    const QList<unsigned int> &tracks
+// 	);
 
 	/** dump all meta data to stdout (for debugging) */
 	virtual void dump() const;

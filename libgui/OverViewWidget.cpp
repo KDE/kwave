@@ -26,6 +26,7 @@
 #include <QVBoxLayout>
 
 #include "libkwave/Label.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/SignalManager.h"
 
 #include "OverViewWidget.h"
@@ -90,9 +91,9 @@ OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
             this,
             SLOT(setSelection(sample_index_t,sample_index_t)));
 
-    // get informed about label changes
-    connect(&signal, SIGNAL(labelsChanged(const LabelList &)),
-            this, SLOT(labelsChanged(const LabelList &)));
+    // get informed about meta data changes
+    connect(&signal, SIGNAL(sigMetaDataChanged(const Kwave::MetaDataList &)),
+            this, SLOT(metaDataChanged(const Kwave::MetaDataList &)));
 
     // transport the image calculated in a background thread
     // through the signal/slot mechanism
@@ -240,13 +241,13 @@ void OverViewWidget::overviewChanged()
 }
 
 //***************************************************************************
-void OverViewWidget::labelsChanged(const LabelList &labels)
+void OverViewWidget::metaDataChanged(const Kwave::MetaDataList &meta)
 {
     // check: start() must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
-    m_labels = labels;
+    m_labels = meta.labels();
 
     // only re-start the repaint timer, this hides some GUI update artifacts
     if (!m_repaint_timer.isActive()) {

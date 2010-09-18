@@ -432,6 +432,12 @@ signals:
                             sample_index_t length);
 
     /**
+     * Emitted whenever meta data has changed, after some operation
+     * @param meta the current meta data
+     */
+    void sigMetaDataChanged(const Kwave::MetaDataList &meta);
+
+    /**
      * Emitted if the state or description of undo/redo has changed. If
      * undo or redo is unavailable the description will be zero.
      * @see emitUndoRedoInfo
@@ -444,12 +450,6 @@ signals:
      * @param modified true if now modified, false if no longer
      */
     void sigModified(bool modified);
-
-    /** Emitted whenever the numer of labels has changed */
-    void sigLabelCountChanged();
-
-    /** Emitted whenever a label has been added, deleted or modified */
-    void labelsChanged(const LabelList &labels);
 
 public slots:
 

@@ -493,8 +493,6 @@ void SignalManager::newSignal(sample_index_t samples, double rate,
     m_closed = false;
     m_empty = false;
 
-    emit labelsChanged(m_meta_data.labels());
-
     // add all empty tracks
     while (tracks--) m_signal.appendTrack(samples);
 
@@ -506,6 +504,8 @@ void SignalManager::newSignal(sample_index_t samples, double rate,
 
     // from now on, undo is enabled
     enableUndo();
+
+    emit sigMetaDataChanged(m_meta_data);
 }
 
 //***************************************************************************
@@ -932,12 +932,10 @@ bool SignalManager::deleteRange(sample_index_t offset, sample_index_t length,
 	m_signal.deleteRange(track, offset, length);
     }
 
-    // adjust the meta data positions after the deleted range,
-    // without undo!
-    bool old_undo_enabled = m_undo_enabled;
-    m_undo_enabled = false;
+    // adjust the meta data positions after the deleted range
     m_meta_data.shiftLeft(offset + length, length, track_list);
-    m_undo_enabled = old_undo_enabled;
+    m_meta_data.merge(m_meta_data);
+    emit sigMetaDataChanged(m_meta_data);
 
     return true;
 }
@@ -969,6 +967,11 @@ bool SignalManager::insertSpace(sample_index_t offset, sample_index_t length,
     foreach (track, track_list) {
 	m_signal.insertSpace(track, offset, length);
     }
+
+    // adjust the meta data positions after the inserted range
+    // ### TODO ###
+//     m_meta_data.shiftRight(offset, length, track_list);
+//     emit sigMetaDataChanged(m_meta_data);
 
     return true;
 }
@@ -1017,7 +1020,6 @@ void SignalManager::selectTrack(unsigned int track, bool select)
 void SignalManager::emitStatusInfo()
 {
     emit sigStatusInfo(length(), tracks(), rate(), bits());
-// //     emit labelsChanged(labels());
 }
 
 //***************************************************************************
@@ -1638,6 +1640,7 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
     setModified(true);
     emitStatusInfo();
     emitUndoRedoInfo();
+    emit sigMetaDataChanged(m_meta_data);
 }
 
 //***************************************************************************
@@ -1694,8 +1697,8 @@ bool SignalManager::addLabel(sample_index_t pos)
     // register this as a modification
     setModified(true);
 
-    emit sigLabelCountChanged();
-//     emit labelsChanged(labels());
+    emit sigMetaDataChanged(m_meta_data);
+
     return true;
 }
 
@@ -1715,8 +1718,7 @@ Label SignalManager::addLabel(sample_index_t pos, const QString &name)
 //     // register this as a modification
 //     setModified(true);
 //
-//     emit sigLabelCountChanged();
-//     emit labelsChanged(labels());
+//     emit sigMetaDataChanged(m_meta_data);
 //
 //     return label;
 }
@@ -1742,8 +1744,7 @@ void SignalManager::deleteLabel(int index, bool with_undo)
 //     // register this as a modification
 //     setModified(true);
 //
-//     emit sigLabelCountChanged();
-//     emit labelsChanged(labels());
+//     emit sigMetadataChanged();
 }
 
 //***************************************************************************
@@ -1781,7 +1782,7 @@ bool SignalManager::modifyLabel(int index, sample_index_t pos,
 //     // register this as a modification
 //     setModified(true);
 //
-//     emit labelsChanged(labels());
+//     emit sigMetaDataChanged(m_meta_data);
     return true;
 }
 

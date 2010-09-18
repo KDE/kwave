@@ -101,11 +101,9 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
 	msw->show();
     }
 
-    // get informed about label changes
-    connect(signal_manager, SIGNAL(sigLabelCountChanged()),
-            this,           SLOT(refreshMarkersLayer()),
-            Qt::QueuedConnection);
-    connect(signal_manager, SIGNAL(labelsChanged(LabelList)),
+    // get informed about meta data changes
+    connect(signal_manager, SIGNAL(
+            sigMetaDataChanged(const Kwave::MetaDataList &)),
             this,           SLOT(refreshMarkersLayer()),
             Qt::QueuedConnection);
 

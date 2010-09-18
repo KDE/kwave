@@ -216,7 +216,10 @@ namespace Kwave {
 	virtual void showPosition(const QString &text, sample_index_t pos,
 				  double ms, const QPoint &mouse);
 
-	/** Hide the current position marker */
+	/**
+	 * Hide the current position marker
+	 * @see showPosition
+	 */
 	virtual void hidePosition() {
 	    showPosition(0, 0, 0, QPoint(-1,-1));
 	}

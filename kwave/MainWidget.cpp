@@ -135,7 +135,7 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
 	    this,       SLOT(setOffset(sample_index_t)));
     connect(m_overview, SIGNAL(sigCommand(const QString &)),
             this,       SIGNAL(sigCommand(const QString &)));
-    m_overview->labelsChanged(signal_manager->metaData().labels());
+    m_overview->metaDataChanged(signal_manager->metaData());
     m_overview->hide();
 
     // -- horizontal scrollbar --

@@ -587,13 +587,10 @@ void Kwave::MetaDataList::deleteRange(sample_index_t offset,
 	    continue;
 	}
 
-	// cut out a piece from the middle -> split & create a gap
+	// cut out a piece from the middle -> adjust right
 	if ((del_first > meta_first) && (del_last < meta_last)) {
-	    Kwave::MetaData copy = meta;
-
-	    meta[Kwave::MetaData::STDPROP_END]   = QVariant(del_first - 1);
-	    copy[Kwave::MetaData::STDPROP_START] = QVariant(del_last  + 1);
-	    add(copy);
+	    meta_last -= length;
+	    meta[Kwave::MetaData::STDPROP_END] = QVariant(meta_last);
 	    continue;
 	}
 

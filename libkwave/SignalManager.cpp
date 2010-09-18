@@ -932,9 +932,6 @@ bool SignalManager::deleteRange(sample_index_t offset, sample_index_t length,
 	m_signal.deleteRange(track, offset, length);
     }
 
-    // adjust the meta data positions after the deleted range
-    m_meta_data.shiftLeft(offset + length, length, track_list);
-    m_meta_data.merge(m_meta_data);
     emit sigMetaDataChanged(m_meta_data);
 
     return true;

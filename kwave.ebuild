@@ -37,7 +37,7 @@ RDEPEND="
 
 DEPEND="${RDEPEND}
 	>=dev-util/cmake-2.6.0
-	>=kde-base/kdesdk-misc-${KDE_MINIMAL}
+	>=kde-base/kdesdk-misc-${KDE_MINIMAL}[extras]
 	media-gfx/imagemagick"
 
 src_configure() {

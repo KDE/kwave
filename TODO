@@ -1,7 +1,7 @@
 
 o metadata: adjust track indices on insert/delete of tracks
 
-o initialize QString with QString() instead of 0
+o metadata: adjust ranges/positions on insert/delete of samples
 
 o support for visualization plugins (rev 2498)
   - new functions

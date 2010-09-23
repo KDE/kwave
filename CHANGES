@@ -12,6 +12,7 @@
  * added cmake parameter for disabling optimized memcpy support
    -D WITH_OPTIMIZED_MEMCPY=OFF, default is ON
  * integrated patch #3021795 for Qt-4.7 compatibility
+ * bugfix: optimized memcpy for PPC (SF bug #3068664)
 
 0.8.5  [2009-12-24]
 

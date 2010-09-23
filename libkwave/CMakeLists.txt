@@ -17,14 +17,6 @@
 
 #############################################################################
 
-ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/ppcasm_string.o
-    COMMAND ${CMAKE_C_COMPILER} -I${CMAKE_BINARY_DIR} -Wall -O2
-        -DHAVE_CONFIG_H
-        -o ${CMAKE_CURRENT_BINARY_DIR}/ppcasm_string.o
-        -c ${CMAKE_CURRENT_SOURCE_DIR}/ppcasm_string.S
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/ppcasm_string.S
-)
-
 #############################################################################
 
 IF (WITH_SAMPLERATE)
@@ -33,6 +25,7 @@ ENDIF (WITH_SAMPLERATE)
 
 IF (WITH_OPTIMIZED_MEMCPY)
     SET(libkwave_LIB_SRCS_memcpy cputest.c memcpy.c ppcasm_string.S)
+    SET_SOURCE_FILES_PROPERTIES(ppcasm_string.S PROPERTIES LANGUAGE C)
 ENDIF (WITH_OPTIMIZED_MEMCPY)
 
 SET(libkwave_LIB_SRCS

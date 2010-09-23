@@ -204,9 +204,12 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	    continue;
 	}
 
-// 	// take care of the labels, shift all of them by "left" and
-// 	// add them to the signal
-// 	LabelList labels = decoder->info().labels();
+	// take care of the meta data, shift all it by "left" and
+	// add it to the signal
+// 	Kwave::MetaDataList meta_data = decoder->metaData();
+// 	meta_data.shiftRight(left);
+// 	sig.metaData().add(meta_data);
+
 // 	foreach (const Label &label, labels) {
 // 	    sample_index_t pos = label.pos();
 //

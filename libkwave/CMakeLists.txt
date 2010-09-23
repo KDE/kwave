@@ -17,19 +17,14 @@
 
 #############################################################################
 
-ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/ppcasm_string.o
-    COMMAND ${CMAKE_C_COMPILER} -I${CMAKE_BINARY_DIR} -Wall -O2
-        -DHAVE_CONFIG_H
-        -o ${CMAKE_CURRENT_BINARY_DIR}/ppcasm_string.o
-        -c ${CMAKE_CURRENT_SOURCE_DIR}/ppcasm_string.S
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/ppcasm_string.S
-)
-
-#############################################################################
-
 IF (WITH_SAMPLERATE)
     SET(libkwave_LIB_SRCS_samplerate modules/RateConverter.cpp)
 ENDIF (WITH_SAMPLERATE)
+
+IF (WITH_OPTIMIZED_MEMCPY)
+    SET(libkwave_LIB_SRCS_memcpy cputest.c memcpy.c ppcasm_string.S)
+    SET_SOURCE_FILES_PROPERTIES(ppcasm_string.S PROPERTIES LANGUAGE C)
+ENDIF (WITH_OPTIMIZED_MEMCPY)
 
 SET(libkwave_LIB_SRCS
     ClipBoard.cpp
@@ -37,7 +32,6 @@ SET(libkwave_LIB_SRCS
     CodecManager.cpp
     CompressionType.cpp
     ConfirmCancelProxy.cpp
-    cputest.c
     Curve.cpp
     Decoder.cpp
     Encoder.cpp
@@ -59,7 +53,6 @@ SET(libkwave_LIB_SRCS
     KwaveSampleSource.cpp
     Label.cpp
     LabelList.cpp
-    memcpy.c
     MemoryManager.cpp
     MessageBox.cpp
     MultiWriter.cpp
@@ -70,7 +63,6 @@ SET(libkwave_LIB_SRCS
     PlaybackController.cpp
     PluginManager.cpp
     PluginWorkerThread.cpp
-    ppcasm_string.S
     Selection.cpp
     Signal.cpp
     SignalManager.cpp
@@ -107,6 +99,7 @@ SET(libkwave_LIB_SRCS
     undo/UndoTransactionGuard.cpp
 
     ${libkwave_LIB_SRCS_samplerate}
+    ${libkwave_LIB_SRCS_memcpy}
 )
 
 #############################################################################

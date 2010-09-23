@@ -6,6 +6,7 @@
  * bugfix: invocation of xgettext was wrong, left untranslated strings
  * plugin API change: support for translateable short description
  * about plugin: use plugin info from PluginManager
+ * bugfix: optimized memcpy for PPC (SF bug #3068664)
 
 0.8.5  [2009-12-24]
 

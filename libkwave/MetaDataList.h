@@ -255,7 +255,6 @@ namespace Kwave {
 	 * @param offset index of the first sample
 	 * @param shift number of samples to shift left
 	 * @param tracks list of track indices
-	 * @return list with a copy of found meta data objects
 	 */
 	virtual void shiftLeft(
 	    sample_index_t offset,
@@ -270,13 +269,23 @@ namespace Kwave {
 	 * @param offset index of the first sample
 	 * @param shift number of samples to shift right
 	 * @param tracks list of track indices
-	 * @return list with a copy of found meta data objects
 	 */
-// 	virtual void shiftRight(
-// 	    sample_index_t offset,
-// 	    sample_index_t shift,
-// 	    const QList<unsigned int> &tracks
-// 	);
+	virtual void shiftRight(
+	    sample_index_t offset,
+	    sample_index_t shift,
+	    const QList<unsigned int> &tracks
+	);
+
+	/**
+	 * scale the positions or start/end of all elements by a given factor
+	 *
+	 * @param scale the factor that is applied to all positions
+	 * @param tracks list of track indices
+	 */
+	virtual void scalePositions(
+	    double scale,
+	    const QList<unsigned int> &tracks
+	);
 
 	/** dump all meta data to stdout (for debugging) */
 	virtual void dump() const;

@@ -20,9 +20,8 @@
 
 //***************************************************************************
 Label::Label()
-    :Kwave::MetaData(Kwave::MetaData::Position)
+    :Kwave::MetaData() // must be empty, isNull() should return true
 {
-    setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());
 }
 
 //***************************************************************************
@@ -43,6 +42,7 @@ Label::~Label()
 //***************************************************************************
 void Label::moveTo(sample_index_t position)
 {
+    if (isNull()) setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());
     setProperty(Kwave::MetaData::STDPROP_POS, position);
 }
 
@@ -57,6 +57,7 @@ sample_index_t Label::pos() const
 //***************************************************************************
 void Label::rename(const QString &name)
 {
+    if (isNull()) setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());
     if (name.length())
 	setProperty(Kwave::MetaData::STDPROP_DESCRIPTION, name);
     else

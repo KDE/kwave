@@ -206,20 +206,14 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
 	// take care of the meta data, shift all it by "left" and
 	// add it to the signal
-// 	Kwave::MetaDataList meta_data = decoder->metaData();
-// 	meta_data.shiftRight(left);
-// 	sig.metaData().add(meta_data);
+	Kwave::MetaDataList meta_data = decoder->metaData();
 
-// 	foreach (const Label &label, labels) {
-// 	    sample_index_t pos = label.pos();
-//
-// 	    // adjust label position in case of different sample rate
-// 	    if (src_rate != dst_rate) pos *= (dst_rate / src_rate);
-//
-// 	    sig.addLabel(pos + left, label.name());
-// // 	    qDebug("Kwave::MimeData::decode(...) -> new label @ %9d '%s'",
-// // 		label.pos(), label.name().toLocal8Bit().data());
-// 	}
+        // adjust meta data position in case of different sample rate
+        if (src_rate != dst_rate)
+	    meta_data.scalePositions(dst_rate / src_rate, tracks);
+
+	meta_data.shiftRight(0, left, tracks);
+	sig.metaData().add(meta_data);
 
 	delete decoder;
 	break;

@@ -289,10 +289,6 @@ void Kwave::MetaDataList::cropByRange(sample_index_t first, sample_index_t last)
 		// out of the selected area -> remove
 		it.remove();
 		continue;
-	    } else {
-		// move object left
-		pos -= first;
-		m[Kwave::MetaData::STDPROP_POS] = pos;
 	    }
 	} else if (m.scope() & Kwave::MetaData::Range) {
 	    // if the meta data is bound to a scope, remove it if
@@ -320,8 +316,6 @@ void Kwave::MetaDataList::cropByRange(sample_index_t first, sample_index_t last)
 		if (end   > last)  end   = last;
 
 		// adjust start and end
-		start -= first;
-		end   -= first;
 		m[Kwave::MetaData::STDPROP_START] = start;
 		m[Kwave::MetaData::STDPROP_END]   = end;
 	    }
@@ -703,6 +697,206 @@ void Kwave::MetaDataList::shiftLeft(sample_index_t offset, sample_index_t shift,
 	Q_ASSERT(meta_first >= shift);
 	meta_first  = (meta_first >= shift) ? (meta_first - shift) : 0;
 	meta_last  -= shift;
+
+	if (meta.hasProperty(Kwave::MetaData::STDPROP_START))
+	    meta[Kwave::MetaData::STDPROP_START] = QVariant(meta_first);
+	if (meta.hasProperty(Kwave::MetaData::STDPROP_END))
+	    meta[Kwave::MetaData::STDPROP_END]   = QVariant(meta_last);
+    }
+}
+
+//***************************************************************************
+void Kwave::MetaDataList::shiftRight(sample_index_t offset, sample_index_t shift,
+                                     const QList<unsigned int> &tracks)
+{
+    MutableIterator it(*this);
+    while (it.hasNext()) {
+	it.next();
+	Kwave::MetaData &meta = it.value();
+
+	sample_index_t meta_first  = meta.firstSample();
+	sample_index_t meta_last   = meta.lastSample();
+
+	// check: is it before the offset ?
+	if (meta_first < offset)
+	    continue;
+
+	// only operate on the matching tracks:
+	if (!tracks.isEmpty() &&
+	    meta.hasProperty(Kwave::MetaData::STDPROP_TRACKS)) {
+
+	    // determine list of overlapping/non-overlapping tracks
+	    QList<unsigned int> overlapping_tracks;
+	    QList<unsigned int> non_overlapping_tracks;
+	    QList<unsigned int> meta_tracks  = meta.boundTracks();
+
+	    foreach (unsigned int t, meta_tracks) {
+		if (tracks.contains(t))
+		    overlapping_tracks.append(t);
+		else
+		    non_overlapping_tracks.append(t);
+	    }
+
+	    // skip if no overlap
+	    if (overlapping_tracks.isEmpty())
+		continue;
+
+	    // split all data bound to non-overlapping tracks into
+	    // a separate meta data object
+	    if (!non_overlapping_tracks.isEmpty()) {
+		Kwave::MetaData copy = meta;
+
+		QVariantList list;
+		foreach (unsigned int t, overlapping_tracks)
+		    list.append(QVariant(t));
+		meta.setProperty(Kwave::MetaData::STDPROP_TRACKS, list);
+
+		list.clear();
+		foreach (unsigned int t, non_overlapping_tracks)
+		    list.append(QVariant(t));
+		copy.setProperty(Kwave::MetaData::STDPROP_TRACKS, list);
+
+		add(copy);
+	    }
+	}
+
+	/* --- we have a position/range/track overlap --- */
+
+	// position bound -> move position
+	if (meta.hasProperty(Kwave::MetaData::STDPROP_POS)) {
+	    bool ok = false;
+	    sample_index_t pos = static_cast<sample_index_t>(
+		meta[Kwave::MetaData::STDPROP_POS].toULongLong(&ok));
+	    if (!ok) continue;
+
+	    Q_ASSERT(pos + shift >= pos);
+	    if (pos + shift >= pos) {
+		// shift position right
+		meta[Kwave::MetaData::STDPROP_POS] = pos + shift;
+	    } else  {
+		// do not produce a coordinate overflow
+		// -> moving outside range means deleting!
+		it.remove();
+	    }
+	    continue;
+	}
+
+	// check: no range -> no adjustment
+	if (!meta.hasProperty(Kwave::MetaData::STDPROP_START) ||
+	    !meta.hasProperty(Kwave::MetaData::STDPROP_END)) {
+	    continue;
+	}
+
+	// check: range overflow
+	Q_ASSERT(meta_first + shift >= meta_first);
+	if (meta_first + shift < meta_first) {
+	    it.remove();
+	    continue;
+	}
+
+	// move to the right, clip end to maximum coordinate
+	Q_ASSERT(meta_last + shift >= meta_last);
+	meta_last  = (meta_last + shift >= meta_last) ?
+	    (meta_last + shift) : SAMPLE_INDEX_MAX;
+	meta_first += shift;
+
+	if (meta.hasProperty(Kwave::MetaData::STDPROP_START))
+	    meta[Kwave::MetaData::STDPROP_START] = QVariant(meta_first);
+	if (meta.hasProperty(Kwave::MetaData::STDPROP_END))
+	    meta[Kwave::MetaData::STDPROP_END]   = QVariant(meta_last);
+    }
+}
+
+//***************************************************************************
+void Kwave::MetaDataList::scalePositions(double scale,
+                                         const QList<unsigned int> &tracks)
+{
+    MutableIterator it(*this);
+    while (it.hasNext()) {
+	it.next();
+	Kwave::MetaData &meta = it.value();
+
+	sample_index_t meta_first  = meta.firstSample();
+	sample_index_t meta_last   = meta.lastSample();
+
+	// only operate on the matching tracks:
+	if (!tracks.isEmpty() &&
+	    meta.hasProperty(Kwave::MetaData::STDPROP_TRACKS)) {
+
+	    // determine list of overlapping/non-overlapping tracks
+	    QList<unsigned int> overlapping_tracks;
+	    QList<unsigned int> non_overlapping_tracks;
+	    QList<unsigned int> meta_tracks  = meta.boundTracks();
+
+	    foreach (unsigned int t, meta_tracks) {
+		if (tracks.contains(t))
+		    overlapping_tracks.append(t);
+		else
+		    non_overlapping_tracks.append(t);
+	    }
+
+	    // skip if no overlap
+	    if (overlapping_tracks.isEmpty())
+		continue;
+
+	    // split all data bound to non-overlapping tracks into
+	    // a separate meta data object
+	    if (!non_overlapping_tracks.isEmpty()) {
+		Kwave::MetaData copy = meta;
+
+		QVariantList list;
+		foreach (unsigned int t, overlapping_tracks)
+		    list.append(QVariant(t));
+		meta.setProperty(Kwave::MetaData::STDPROP_TRACKS, list);
+
+		list.clear();
+		foreach (unsigned int t, non_overlapping_tracks)
+		    list.append(QVariant(t));
+		copy.setProperty(Kwave::MetaData::STDPROP_TRACKS, list);
+
+		add(copy);
+	    }
+	}
+
+	/* --- we have a position/range/track overlap --- */
+
+	// position bound -> move position
+	if (meta.hasProperty(Kwave::MetaData::STDPROP_POS)) {
+	    bool ok = false;
+	    sample_index_t pos = static_cast<sample_index_t>(
+		meta[Kwave::MetaData::STDPROP_POS].toULongLong(&ok));
+	    if (!ok) continue;
+
+	    Q_ASSERT((pos * scale) <= SAMPLE_INDEX_MAX);
+	    if ((pos * scale) <= SAMPLE_INDEX_MAX) {
+		// scale position
+		meta[Kwave::MetaData::STDPROP_POS] = (pos * scale);
+	    } else  {
+		// do not produce a coordinate overflow
+		// -> moving outside range means deleting!
+		it.remove();
+	    }
+	    continue;
+	}
+
+	// check: no range -> no adjustment
+	if (!meta.hasProperty(Kwave::MetaData::STDPROP_START) ||
+	    !meta.hasProperty(Kwave::MetaData::STDPROP_END)) {
+	    continue;
+	}
+
+	// check: range overflow
+	Q_ASSERT((meta_first * scale) <= SAMPLE_INDEX_MAX);
+	if ((meta_first * scale) <= SAMPLE_INDEX_MAX) {
+	    it.remove();
+	    continue;
+	}
+
+	// scale, clip end to maximum coordinate
+	Q_ASSERT((meta_last * scale) <= SAMPLE_INDEX_MAX);
+	meta_last  = ((meta_last * scale) <= SAMPLE_INDEX_MAX) ?
+	    (meta_last * scale) : SAMPLE_INDEX_MAX;
+	meta_first *= scale;
 
 	if (meta.hasProperty(Kwave::MetaData::STDPROP_START))
 	    meta[Kwave::MetaData::STDPROP_START] = QVariant(meta_first);

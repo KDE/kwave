@@ -1,56 +1,56 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
-  <!ENTITY kapp "Kwave">
-  <!ENTITY kappname "&kapp;">
-  <!ENTITY version "0.8.5">
-  <!ENTITY version_tag "0_8_5">
+  <!ENTITY kwave "<application>kwave</application>">
+  <!ENTITY kappname "&kwave;">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
+  <!ENTITY version "0.8.5">
+  <!ENTITY version_tag "0_8_5">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
 ]>
 
 <book lang="&language;">
 
 <bookinfo>
-<title>The &kapp; Handbook</title>
+    <title>The &kwave; Handbook</title>
 
-<authorgroup>
-<author>
-<firstname>Thomas</firstname>
-<surname>Eschenbacher</surname>
-<affiliation>
-<address><email>thomas.eschenbacher@gmx.de</email></address>
-</affiliation>
-</author>
+    <authorgroup>
+	<author>
+	    <firstname>Thomas</firstname>
+	    <surname>Eschenbacher</surname>
+	    <affiliation>
+	    <address><email>thomas.eschenbacher@gmx.de</email></address>
+	    </affiliation>
+	</author>
 
-<!-- TRANS:ROLES_OF_TRANSLATORS -->
+	<!-- TRANS:ROLES_OF_TRANSLATORS -->
 
-</authorgroup>
+    </authorgroup>
 
-<copyright><year>1998-2000</year><holder>Martin Wilz</holder></copyright>
-<copyright><year>2009</year><holder>Thomas Eschenbacher</holder></copyright>
+    <copyright><year>1998-2000</year><holder>Martin Wilz</holder></copyright>
+    <copyright><year>2009</year><holder>Thomas Eschenbacher</holder></copyright>
 
-<legalnotice>&FDLNotice;</legalnotice>
+    <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2010-09-17</date>
-<releaseinfo>&version;</releaseinfo>
+    <date>2010-09-25</date>
+    <releaseinfo>&version;</releaseinfo>
 
-<abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
+    <abstract><para>&kwave; is a simple sound editor for KDE.</para></abstract>
 
-<keywordset>
-<keyword>KDE</keyword>
-<keyword>multimedia</keyword>
-<keyword>sound</keyword>
-<keyword>audio</keyword>
-<keyword>Kwave</keyword>
-<keyword>wav</keyword>
-<keyword>editor</keyword>
-<keyword>record</keyword>
-<keyword>playback</keyword>
-<keyword>sonagram</keyword>
-<keyword>FFT</keyword>
-<keyword>Linux</keyword>
-</keywordset>
+    <keywordset>
+	<keyword>KDE</keyword>
+	<keyword>multimedia</keyword>
+	<keyword>sound</keyword>
+	<keyword>audio</keyword>
+	<keyword>Kwave</keyword>
+	<keyword>wav</keyword>
+	<keyword>editor</keyword>
+	<keyword>record</keyword>
+	<keyword>playback</keyword>
+	<keyword>sonagram</keyword>
+	<keyword>FFT</keyword>
+	<keyword>Linux</keyword>
+    </keywordset>
 </bookinfo>
 
 <!-- ###################################################################### -->
@@ -66,7 +66,7 @@
     Basically a long version of the abstract. -->
 
     <para>
-    	This is "&kapp;", a simple sound editor for KDE3.
+    	This is "&kwave;", a simple sound editor for KDE3.
 	Its features include:
 	<itemizedlist>
     	<listitem><para>
@@ -140,11 +140,11 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
     <sect1 id="resources">
-    <title>&kapp; Resources</title>
+    <title>&kwave; Resources</title>
 
     <para>
 	So if you want to get in contact with the developers, need some
-	further help on using &kapp;, submit patches, bug reports or other
+	further help on using &kwave;, submit patches, bug reports or other
 	stuf, the following resources might be of interest for you:
     </para>
 
@@ -153,11 +153,11 @@
         Project Homepage<anchor id="project-homepage"/></para><para>
             For informations about new up-to-date releases or some other
 	    information about this project, take a look at
-	    the <ulink url="http://kwave.sourceforge.net/">&kapp; homepage</ulink>
+	    the <ulink url="http://kwave.sourceforge.net/">&kwave; homepage</ulink>
         </para></listitem>
         <listitem><para>
         Mailing List<anchor id="mailing-list"/></para><para>
-	If you need some help on using &kapp; or want to get involved
+	If you need some help on using &kwave; or want to get involved
 	    in the development, join the Kwave developer mailing list
 	    by visiting
 	    <ulink url="https://lists.sourceforge.net/lists/listinfo/kwave-devel">
@@ -185,7 +185,7 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
     <sect1 id="changes">
-    <title>&kapp; Revision History</title>
+    <title>&kwave; Revision History</title>
 
     <para>
 	This project has been started by Martin Wilz in summer 1998
@@ -198,7 +198,7 @@
     </para>
 
     <para>
-	Since &kapp; v0.8.0 the changlog is no longer included in this
+	Since &kwave; v0.8.0 the changlog is no longer included in this
 	manual. So if you are interested in a complete list of changes,
 	you can find the full history here:
 	<ulink url="http://svn.sourceforge.net/viewvc/kwave/trunk/CHANGES?view=markup">
@@ -221,10 +221,10 @@
 <!-- +++ Section: Getting Kwave                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="getting"><title>How to obtain &kapp;</title>
+    <sect1 id="getting"><title>How to obtain &kwave;</title>
 
     <para>
-    	&kapp; has an own homepage under
+    	&kwave; has an own homepage under
     	<ulink url="http://kwave.sourceforge.net/">
 	http://kwave.sourceforge.net/</ulink>. Here you can
 	find further informations about the project, as well as
@@ -233,7 +233,7 @@
     </para>
 
     <para>
-	If you want to get a &kapp; release, you have the choice to visit
+	If you want to get a &kwave; release, you have the choice to visit
 	<ulink url="http://kwave.sourceforge.net/download.html"></ulink>
 	http://kwave.sourceforge.net/download.html and
 	<itemizedlist>
@@ -269,10 +269,10 @@
     <sect1 id="requirements"><title>Requirements</title>
 
     <para>
-    	In order to successfully use &kapp;, you need:
+    	In order to successfully use &kwave;, you need:
 	<itemizedlist>
 	    <listitem><para>
-		a computer running Linux (&kapp; might also run under
+		a computer running Linux (&kwave; might also run under
 		some other operating system, but we have never tested
 		this, please let us know if you get it working under
 		some other platform / operating system)
@@ -284,7 +284,7 @@
 	    </para></listitem>
 	    <listitem><para>
 		KDE-4.0 or higher (at least the libraries, if you are
-		a gnome fan, you can also run &kapp; if the proper
+		a gnome fan, you can also run &kwave; if the proper
 		libs are installed).
 	    </para></listitem>
 	    <listitem><para>
@@ -306,7 +306,7 @@
                 libsamplerate-0.1.3 or higher (sample rate conversion)
             </para></listitem>
 	    <listitem><para>
-		about 64 MB memory for starting &kapp; (but this may
+		about 64 MB memory for starting &kwave; (but this may
 		vary depending on your platform and configuration)
 	    </para></listitem>
 	</itemizedlist>
@@ -318,12 +318,12 @@
 	can be found here: <ulink
 	url="http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup">
 	"http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup"</ulink>.
-	This file also contains some special hints for getting &kapp; running and/or
-	building &kapp; under some distributions.
+	This file also contains some special hints for getting &kwave; running and/or
+	building &kwave; under some distributions.
     </para>
 
     <para>
-    	If you intend to compile &kapp; from the sources, you will need at least:
+    	If you intend to compile &kwave; from the sources, you will need at least:
 	<itemizedlist>
 	    <listitem><para>
 		<ulink url="http://www.cmake.org">cmake</ulink>-2.4.6 or newer
@@ -359,7 +359,7 @@
 		flac-devel-1.1.0 higher
 	    </para></listitem>
 	    <listitem><para>
-		If you intend to get the &kapp; sources via SVN, you will also
+		If you intend to get the &kwave; sources via SVN, you will also
 		need a current subversion package.
 	    </para></listitem>
 	    <listitem><para>
@@ -379,18 +379,18 @@
     <sect1 id="manual_compilation"><title>Manual Compilation and installation</title>
 
     <para>
-	Since version 0.7.10 &kapp; uses
+	Since version 0.7.10 &kwave; uses
 	<ulink url="http://www.cmake.org">cmake</ulink>, the make system
 	that is also used by KDE itself. So if you can build other KDE
-	applications, you should also be able to build &kapp;.
+	applications, you should also be able to build &kwave;.
 	If you run into problems please report them to
-	the &kapp; <link linkend="mailing-list">mailing list</link>.
+	the &kwave; <link linkend="mailing-list">mailing list</link>.
     </para>
 
     <para>
-	In order to compile and install &kapp; on your system, it is best
+	In order to compile and install &kwave; on your system, it is best
 	practice to do a <emphasis>out-of-tree</emphasis> build. This means
-	that you hold the sources of &kapp; in one directory and build the
+	that you hold the sources of &kwave; in one directory and build the
 	package in another (temporary) directory.
     </para>
 
@@ -419,7 +419,7 @@
 
 	<para>
 	    By specifying build options, you can enable or disable some features
-	    of &kapp;, like excluding some components or plugins from the
+	    of &kwave;, like excluding some components or plugins from the
 	    generated package. Here is a list of the available options:
 
 	    <itemizedlist>
@@ -512,9 +512,9 @@
 
     <para>
 	If you are runnig a system with RPM support, the preferred way to
-	install &kapp; on your system will be the creation of a nice RPM
-	package. First you should get the current source of &kapp;, either
-	as a tar.gz archive from the &kapp; download page or
+	install &kwave; on your system will be the creation of a nice RPM
+	package. First you should get the current source of &kwave;, either
+	as a tar.gz archive from the &kwave; download page or
 	check out an up-to-date copy via
 	<link linkend="svn-repository">SVN</link> (like described in
 	the <link linkend="svn_checkout">chapter about SVN</link>) and read the
@@ -522,7 +522,7 @@
     </para>
 
     <para>
-	If you have downloaded a tar.gz archives of &kapp;,
+	If you have downloaded a tar.gz archives of &kwave;,
 	create and install the RPMs just by doing the following steps
 	(where <replaceable>[arch]</replaceable> stands for the platform you
 	have built the package and might be something like
@@ -533,7 +533,7 @@
     </para>
 
     <para>
-    To build the &kapp; package and install it do:
+    To build the &kwave; package and install it do:
 <screen width="40" format="linespecific">
 <prompt>% </prompt><command>rpmbuild -ta <replaceable>kwave-XXX.tar.gz</replaceable></command>
 <prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/kwave-XXX.[arch].rpm</replaceable></command>
@@ -594,7 +594,7 @@
 	</para></listitem>
 
 	<listitem><para>
-	    Let rpm do the compile job and generate the rpm of &kapp;.
+	    Let rpm do the compile job and generate the rpm of &kwave;.
 	    If you only want to make a binary package, you
 	    can specify <literal>-bb</literal> instead of
 	    <literal>-ba</literal>, or just <literal>-bs</literal> to build
@@ -606,8 +606,8 @@
 
 	<listitem><para>
 	    If everything was ok, you can install the binary rpm of
-	    &kapp;, it will be in the BUILD directory.
-	    If you already have a version of &kapp; installed,
+	    &kwave;, it will be in the BUILD directory.
+	    If you already have a version of &kwave; installed,
 	    please remove it first or use the parameter
 	    <literal>-U</literal> instead
 	    of <literal>-i</literal> for upgrading instead of installing.
@@ -642,7 +642,7 @@
     <orderedlist>
     <listitem><para>
 	First create the directory that will receive the subdirectoy with
-	&kapp; sources and change into it:
+	&kwave; sources and change into it:
 <screen width="40" format="linespecific">
 <prompt>% </prompt><command>mkdir -p <replaceable>$HOME/src</replaceable></command>
 <prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>
@@ -692,7 +692,7 @@
     <note><para>
     If you think that you have messed up your local source or if there
     are conflicts during updating, you can remove all files and
-    directories from your &kapp; source directory, <emphasis>except
+    directories from your &kwave; source directory, <emphasis>except
     the <filename>.svn</filename> directory </emphasis>and then try again.
     </para></note>
     </sect2>
@@ -721,8 +721,8 @@
     <para>
 	Assuming that
 	you are in the root of where you checked out from SVN, do the
-	following to create a Makefile, the &kapp; package and
-	install it. If you already have a version of &kapp; installed,
+	following to create a Makefile, the &kwave; package and
+	install it. If you already have a version of &kwave; installed,
 	please remove it first or use <command>rpm -U</command> instead
 	of <command>rpm -i</command> for updating instead of installing.
 <screen width="40" format="linespecific">
@@ -755,14 +755,14 @@
     <para>
 	If you are owner of a Pentium, an AMD K6, Athlon or Athlon-XP CPU,
 	you might want to use compiler optimizations to compile your version of
-	&kapp; that is running some percents faster. The gain in speed will
+	&kwave; that is running some percents faster. The gain in speed will
 	be up to 30% on some systems, whereas the functions dealing with
 	signal manipulation and all functions that do complex time-frequency
 	operations (like FFT and Sonagram) will profit most from it.
     </para>
     <para>
 	You do not need to understand much about programming for using an
-	optimized compiler to compile &kapp;, but maybe you will need some
+	optimized compiler to compile &kwave;, but maybe you will need some
 	time to get the compiler itself working and installed.
     </para>
 
@@ -829,7 +829,7 @@
 	compiler.
     </para>
     <para>
-	If you build &kapp; from a source tree (unpacked tar.gz or from SVN)
+	If you build &kwave; from a source tree (unpacked tar.gz or from SVN)
 	the flags need to be specidied before the call. For example:
 
 	<screen width="40" format="linespecific">
@@ -841,7 +841,7 @@
 
 
     <para>
-	If you re-build &kapp; from a source rpm package, please follow
+	If you re-build &kwave; from a source rpm package, please follow
 	the instruction in the
 	<link linkend="rpm_optimizations">previous section</link>.
     </para>
@@ -862,7 +862,7 @@
 	This chapter should give a short introduction about the basics of
 	digital audio processing, without going too much into details.
 	Of course this might be a bit incomplete, but if you have questions,
-	you can ask at the &kapp; mailing list or consult some further
+	you can ask at the &kwave; mailing list or consult some further
 	literature.
     </para>
 
@@ -1093,7 +1093,7 @@
 	fixed point numbers).
     </para>
     <note><para>
-	&kapp; internally uses <emphasis>signed integer</emphasis> format with
+	&kwave; internally uses <emphasis>signed integer</emphasis> format with
 	24 bit precision, stored in 32 bit integers. This has the disadvantage
 	of higher memory consumption when processing files with lower precision
 	(e.g. 8 bits), but processing 32 bit numbers is very fast and also
@@ -1110,15 +1110,15 @@
 <!-- ### Chapter: Using Kwave                                           ### -->
 <!-- ###################################################################### -->
 
-<chapter id="using-kwave"><title>Using &kapp;</title>
+<chapter id="using-kwave"><title>Using &kwave;</title>
     <para>
-	Here is a little screenshot of the &kapp; main window, so that you
-	get an impression what &kapp; looks like...
+	Here is a little screenshot of the &kwave; main window, so that you
+	get an impression what &kwave; looks like...
     </para>
     <para>
 	<screenshot>
     	    <screeninfo>
-		Here's a screenshot of &kapp;
+		Here's a screenshot of &kwave;
 	    </screeninfo>
     	    <mediaobject>
 		<imageobject>
@@ -1137,7 +1137,7 @@
     <sect1 id="memory-setup"><title>Memory Setup</title>
 
     <para>
-       When using &kapp; for the first time, you should go to the memory
+       When using &kwave; for the first time, you should go to the memory
        setup dialog an modify the settings to be suitable for yor needs
        and the installed memory of your computer. You can reach it under
        <menuchoice>
@@ -1147,7 +1147,7 @@
     <para>
 	<screenshot>
     	    <screeninfo>
-		Here's a screenshot of &kapp;'s memory setup dialog
+		Here's a screenshot of &kwave;'s memory setup dialog
 	    </screeninfo>
     	    <mediaobject>
 		<imageobject>
@@ -1160,7 +1160,7 @@
 	</screenshot>
     </para>
     <para>
-	&kapp; is able to use two types of memory: <emphasis>physical</emphasis>
+	&kwave; is able to use two types of memory: <emphasis>physical</emphasis>
 	and <emphasis>virtual</emphasis> memory.
     </para>
     <para>
@@ -1175,10 +1175,10 @@
 	because you use less of the fast physical memory than you could.
     </para>
     <para>
-	If you enable <emphasis>virtual memory</emphasis>, &kapp; is able to
+	If you enable <emphasis>virtual memory</emphasis>, &kwave; is able to
 	load and process files
 	that are bigger than the amount of real installed physical memory.
-	&kapp; does this by using temporary files in a configurable directory,
+	&kwave; does this by using temporary files in a configurable directory,
 	which is much faster and more cooperative to other applications than
 	using the operating system's swapping. The directory that you
 	configure should be on your local hard disk.
@@ -1193,14 +1193,14 @@
     <sect1 id="command_line"><title>Command Line</title>
 
     <para>
-    If you start &kapp; from the command line, you can specify a list
+    If you start &kwave; from the command line, you can specify a list
     of files that should be opened. The first specified file will be opened
     first, then the other files. Each file will be opened in an own new
-    window of the same &kapp; instance. If you specify wildcards, you can
+    window of the same &kwave; instance. If you specify wildcards, you can
     open a large number of files at once.
     </para>
     <para>
-    For example, the following command starts a &kapp; and opens all sounds
+    For example, the following command starts a &kwave; and opens all sounds
     of the KDE window manager, each in a new window:
     <screen><prompt>% </prompt><command>kwave <filename>/usr/share/sounds/KDE_Window*.wav</filename></command></screen>
     </para>
@@ -1208,13 +1208,13 @@
     <para>
     In addition to a list of files, you can specify a list of
     <emphasis>Xt toolkit</emphasis> options like <literal>-geometry</literal>
-    for specifying the size and/or position of the first opened &kapp;
-    window and or <literal>-display</literal> for starting the &kapp; on a
+    for specifying the size and/or position of the first opened &kwave;
+    window and or <literal>-display</literal> for starting the &kwave; on a
     different display.
     </para>
 
     <para>
-    For example, the following command starts a &kapp; window with an initial
+    For example, the following command starts a &kwave; window with an initial
     width of 600 pixels and a height of 400 pixels, with the right border
     positioned 30 pixels away from the right and 0 pixels away form the top
     of the screen.
@@ -1229,12 +1229,12 @@
     <sect1 id="open_and_save"><title>Opening and Saving files</title>
 
     <para>
-    Opening files with &kapp; works like in most other applications, you
+    Opening files with &kwave; works like in most other applications, you
     can
     <itemizedlist>
     <listitem><para>specify a list of files on the
-    <link linkend="command_line">command line</link> when starting &kapp;,</para></listitem>
-    <listitem><para>open an empty &kapp; window (for example with
+    <link linkend="command_line">command line</link> when starting &kwave;,</para></listitem>
+    <listitem><para>open an empty &kwave; window (for example with
 	<menuchoice>
 	<shortcut><keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo></shortcut>
 	<guimenu>File</guimenu><guimenuitem>New...</guimenuitem>
@@ -1287,18 +1287,18 @@
     <sect2 id="file_formats"><title>Supported File formats</title>
 
         <para>
-	    &kapp; supports the following file formats:
+	    &kwave; supports the following file formats:
 	</para>
 
     <para>
     <itemizedlist>
 	<listitem><para>
-            The favourite file format of &kapp; is (like you can guess from the
+            The favourite file format of &kwave; is (like you can guess from the
             name) <filename>.wav</filename>. This format is very common to other
 	    "operating systems" and also is commonly used within the KDE environment.
 	</para></listitem>
 	<listitem><para>
-            The second format that &kapp; supports is "ASCII". You can export to
+            The second format that &kwave; supports is "ASCII". You can export to
             ASCII, but currently not import from it (this is currently
             not implemented). Please be aware that storing in this format
             might produce very large files! The file format will be described
@@ -1321,7 +1321,7 @@
 	</para></listitem>
 
 	<listitem><para>
-	    Additionally &kapp; supports many other common formats through the
+	    Additionally &kwave; supports many other common formats through the
 	    <ulink url="http://www.68k.org/~michael/audiofile/">audiofile</ulink>
 	    plugin. You can import files like <filename>*.au</filename> and
 	    <filename>*.snd</filename> (NeXT,Sun Audio),
@@ -1340,7 +1340,7 @@
 
 	<para>
 	    The best way to work with formats other than those supported by
-	    &kapp; is to use an external converter program.
+	    &kwave; is to use an external converter program.
 	    A good set of tools for this is in the
 	    <ulink url="http://sox.sourceforge.net/">SoX</ulink>
 	   package, they have also some nice documentation!
@@ -1394,7 +1394,7 @@
 	    <listitem><para>
 		Values can be are given in any format that the C library of
 		your system is able to read and interprete as a floating
-		point or integer number. But when saving, &kapp; will save
+		point or integer number. But when saving, &kwave; will save
 		as in signed integer format with a 24 bit range.
 	    </para></listitem>
 	    <listitem><para>
@@ -1404,7 +1404,7 @@
 	    </para></listitem>
 	    <listitem><para>
 		When importing, values can be specified in any range,
-		&kapp; always does a first pass over the file to get the
+		&kwave; always does a first pass over the file to get the
 		highest absolute value and defines that value as "100%" before
 		really reading in the file and scaling it.
 	    </para></listitem>
@@ -1459,7 +1459,7 @@
     <para>
 	<screenshot>
 	    <screeninfo>
-		Here's a screenshot of &kapp;'s new file dialog
+		Here's a screenshot of &kwave;'s new file dialog
 	    </screeninfo>
 	    <mediaobject>
 		<imageobject>
@@ -1480,7 +1480,7 @@
 	The length of the new signal can be set by time (hours, minutes,
 	seconds) or by the number of samples. Additionally you can select
 	it relative to the highest possible length, which is limited by
-	the available memory and &kapp;'s internal limit (2 GB).
+	the available memory and &kwave;'s internal limit (2 GB).
     </para>
 
     </sect1>
@@ -1491,9 +1491,9 @@
     <sect1 id="recording"><title>Recording</title>
 
     <para>
-        &kapp; is able to record audio data from various sources, with all
+        &kwave; is able to record audio data from various sources, with all
 	sample rates, sample formats and other modes that your sound
-	hardware supports. Currently &kapp; records through the old OSS
+	hardware supports. Currently &kwave; records through the old OSS
 	sound interface, and since v0.7.4 also the newer and more powerful
 	ALSA interface that is the preferred choice for linux kernel 2.6.
     </para>
@@ -1505,15 +1505,15 @@
     </para>
 
     <para>
-	Here is a screenshot of the &kapp; record dialog, showing the first
+	Here is a screenshot of the &kwave; record dialog, showing the first
 	page with the recording controls during a running recording session.
-	Like in most dialogs of &kapp; you can get some help or see tooltips
+	Like in most dialogs of &kwave; you can get some help or see tooltips
 	on the controls.
     </para>
     <para>
 	<screenshot>
 	    <screeninfo>
-		Here's a screenshot of &kapp;'s record dialog
+		Here's a screenshot of &kwave;'s record dialog
 	    </screeninfo>
 	    <mediaobject>
 		<imageobject>
@@ -1531,7 +1531,7 @@
 	<itemizedlist>
 	<listitem><para>
 	    <guilabel>Pre-Record:</guilabel> If the pre-recording feature of
-	    &kapp; is enabled and the recording is startet, &kapp; records
+	    &kwave; is enabled and the recording is startet, &kwave; records
 	    into an internal buffer which is some seconds long. If you
 	    press the <guibutton>Record</guibutton> (
 	    <inlinemediaobject>
@@ -1546,7 +1546,7 @@
 	    This is useful for example if you want to record your favorite
 	    song from radio, but you recognize too late that the song has
 	    started. In this case you can still press the record button and
-	    get the start of the song from what &kapp; has already pre-recorded
+	    get the start of the song from what &kwave; has already pre-recorded
 	    before, so that you will no longer miss a start.
 	</para></listitem>
 	<listitem><para>
@@ -1588,7 +1588,7 @@
 	    <imagedata fileref="record_stop.png" format="PNG"/>
 	    </imageobject><textobject><phrase>stop button</phrase></textobject>
             </inlinemediaobject>) button is active when the recording or pre-recording
-	    is running or &kapp; is waiting for the trigger. If pressed, the
+	    is running or &kwave; is waiting for the trigger. If pressed, the
 	    current progress will be stopped.
 	</para></listitem>
 	<listitem><para>
@@ -1615,7 +1615,7 @@
 	    </para></listitem>
 	    <listitem><para>
 		If prerecording is not used and a trigger level is set, the
-		first press will let &kapp; wait for the trigger level to be
+		first press will let &kwave; wait for the trigger level to be
 		reached. While waiting for a trigger, you can force the
 		recording to start immediately by pressing the record button again,
 		otherwise the recording will start automatically when the trigger
@@ -1638,7 +1638,7 @@
     <sect1 id="playback"><title>Playback</title>
 
     <para>
-        Depending on the compilation options &kapp; is able to play sounds
+        Depending on the compilation options &kwave; is able to play sounds
 	trough one of the following playback methods:
     </para>
     <para><itemizedlist>
@@ -1666,7 +1666,7 @@
     <para>
 	<screenshot>
 	    <screeninfo>
-		Here's a screenshot of &kapp;'s playback setup dialog
+		Here's a screenshot of &kwave;'s playback setup dialog
 	    </screeninfo>
 	    <mediaobject>
 		<imageobject>
@@ -1680,7 +1680,7 @@
     </para>
 
     <para>
-        Currently &kapp; supports only 8 and 16 bit playback, with mono or
+        Currently &kwave; supports only 8 and 16 bit playback, with mono or
 	stereo output through the OSS interface, but many also
 	all modes your sound hardware supports through the ALSA interface.
     </para>
@@ -1707,7 +1707,7 @@
     </para>
     <para>
         Once you have configured playback, you can use the playback controls
-        of the &kapp; main window or through the
+        of the &kwave; main window or through the
         <menuchoice><guimenu>Play</guimenu></menuchoice> menu or with
         keyboard shortcuts:
         <itemizedlist>
@@ -1755,11 +1755,11 @@
     <sect1 id="fileinfo"><title>File Properties</title>
 
     <para>
-	&kapp; is able to handle several meta information that is stored
+	&kwave; is able to handle several meta information that is stored
 	within an audio file. It tries to import and export as much of
 	these informations as possible. For example, if you import an
 	MP3 file with ID3 tags, you can keep those informations when
-	exporting to a Wave file. If &kapp; would lose meta information
+	exporting to a Wave file. If &kwave; would lose meta information
 	when saving, it shows a warning.
     </para>
     <para>
@@ -1772,7 +1772,7 @@
     <para>
 	<screenshot>
 	    <screeninfo>
-		Here's a screenshot of &kapp;'s file properties dialog
+		Here's a screenshot of &kwave;'s file properties dialog
 	    </screeninfo>
 	    <mediaobject>
 		<imageobject>
@@ -1793,7 +1793,7 @@
     <sect1 id="navigation"><title>Zooming and navigating</title>
 
     <para>
-	&kapp; provides several ways to zoom and navigate, using keyboard
+	&kwave; provides several ways to zoom and navigate, using keyboard
 	shortcuts, menu commands, toolbar buttons and by using the mouse.
 	The following sections should give an overview on how to use all
 	of these functions.
@@ -2003,7 +2003,7 @@
     <sect2 id="navigation_overview"><title>Using the overview</title>
 
     <para>
-	The main screen of &kapp; shows a small <emphasis>overview</emphasis>
+	The main screen of &kwave; shows a small <emphasis>overview</emphasis>
 	of the whole signal above the horizontal scroll bar of the main
 	window. This overview also provides some functionality for navigating:
 	<itemizedlist>
@@ -2045,7 +2045,7 @@
     <sect1 id="selecting"><title>How to select</title>
 
     <para>
-    &kapp; allows you to select a continuous range of samples as well as any
+    &kwave; allows you to select a continuous range of samples as well as any
     combination of channels (if you edit a multi-channel file). By selecting
     a range of samples (time scope) all following commands will be limited to
     that range and by de-selecting a channel it's content will not be changed.
@@ -2083,7 +2083,7 @@
     <sect2 id="selecting_samples"><title>Selecting samples</title>
 
     <para>
-    If you select a range of samples in &kapp;, that range will be
+    If you select a range of samples in &kwave;, that range will be
     <emphasis>inclusive</emphasis>. That means that the first and the last
     selected sample both belong to the selection and will be used for the
     following actions. So even if you not selected a <emphasis>range</emphasis>
@@ -2211,20 +2211,20 @@
     <sect1 id="clipboard"><title>Clipboard</title>
 
     <para>
-    &kapp; since v0.8.1 uses the clipboard of KDE. This way it
-    is possible to exchange audio data between different &kapp; windows.
-    It might be possible as well to exchange data between &kapp; and other
+    &kwave; since v0.8.1 uses the clipboard of KDE. This way it
+    is possible to exchange audio data between different &kwave; windows.
+    It might be possible as well to exchange data between &kwave; and other
     audio applications, depending on their ability to use the KDE
     clipboard.
     </para>
 
     <para>
     When copying data to the clipboard through the <literal>copy</literal>
-    function &kapp; uses the mime type
+    function &kwave; uses the mime type
     <literal>audio/vnd.wave</literal> as data format, conforming to
     <ulink url="http://www.faqs.org/rfcs/rfc2361.html">RFC 2361</ulink>
     which is the same as the well known <literal>wav</literal> format.
-    When pasting from the clipboard into &kapp; all data formats that are
+    When pasting from the clipboard into &kwave; all data formats that are
     available as file import formats are supported, like for example
     Ogg/Vorbis, FLAC and so on.
     </para>
@@ -2238,21 +2238,21 @@
     <sect1 id="drag_and_drop"><title>Drag and Drop</title>
 
     <para>
-    &kapp; supports the KDE Drag and Drop protocol. This enables you
+    &kwave; supports the KDE Drag and Drop protocol. This enables you
     to open files just by picking them up in a <command>konqueror</command>
-    window or the Desktop and let them drop into a window of &kapp;.
+    window or the Desktop and let them drop into a window of &kwave;.
     </para>
 
     <para>
-    Please note that if you drop a file into a &kapp; window that already
+    Please note that if you drop a file into a &kwave; window that already
     contains an opened file, the currently opened file will be closed first
     and then the file you dropped will be opened in it. If you don't want that,
-    you should open a new empty &kapp; window first.
+    you should open a new empty &kwave; window first.
     </para>
 
     <para>
     You can also select a range of samples and drag or drop them into
-    a &kapp; window. Per default the drag operation is done in
+    a &kwave; window. Per default the drag operation is done in
     <emphasis>move</emphasis> mode where the selected range is deleted
     from the original place and inserted at the drop position.
     By pressing the <keycap moreinfo="none">Ctrl</keycap> key you can
@@ -2283,7 +2283,7 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
 <!-- @@@ still to be done ... @@@
-    <sect1 id="kwave-mainwindow"><title>The main &kapp; window</title>
+    <sect1 id="kwave-mainwindow"><title>The main &kwave; window</title>
 
         <para></para>
     	<sect2><title>The File Menu</title>
@@ -2346,7 +2346,7 @@
 
 		    <listitem>
 		    	<para>
-			    <action moreinfo="none">Quits</action> &kapp;
+			    <action moreinfo="none">Quits</action> &kwave;
 			</para>
 		    </listitem>
 		</varlistentry>
@@ -2363,7 +2363,7 @@
 <!-- ### Chapter: Developer's Guide to Kwave                            ### -->
 <!-- ###################################################################### -->
 
-<chapter id="developers"><title>Developer's Guide to &kapp;</title>
+<chapter id="developers"><title>Developer's Guide to &kwave;</title>
 
     <!-- (OPTIONAL) A Programming/Scripting reference chapter should be
     used for apps that use plugins or that provide their own scripting hooks
@@ -2391,7 +2391,7 @@
         project (or maybe write the converter mentioned above), please
 	feel free to contact one of the authors directly
 	and / or subscribe to
-	the &kapp; <link linkend="mailing-list">mailing list</link>.
+	the &kwave; <link linkend="mailing-list">mailing list</link>.
 	Help is always welcome!
     </para>
 
@@ -2433,7 +2433,7 @@
 	    <listitem><para>
 		<emphasis>user interface:</emphasis>
 		</para><para>
-		Go to the source directory of &kapp; (not the build directory),
+		Go to the source directory of &kwave; (not the build directory),
 		change into the subdirectory <filename>po</filename> and copy the
 		file <filename>kwave.pot</filename> to the corresponding <filename>.po</filename> file of
 		the language you want to add: <filename>"<replaceable>&lt;code&gt;</replaceable>.po"</filename>.
@@ -2455,7 +2455,7 @@
 		some extra steps because the master file is in <literal>docbook</literal>
 		format and the <filename>.pot</filename> template is a generated
 		file.
-		Go to the source directory of &kapp; (not the build directory),
+		Go to the source directory of &kwave; (not the build directory),
 		change into the subdirectory <filename>doc</filename> and create
 		an empty <filename>.po</filename> file:
 <screen>
@@ -2488,7 +2488,7 @@
 		<emphasis>screenshots:</emphasis>
 		</para><para>
 		For the online documentation you also need screenshots that use the
-		translated messages. This requires a built and installed &kapp; package,
+		translated messages. This requires a built and installed &kwave; package,
 		so you should follow the steps mentioned in the section about
 		<link linkend="manual_compilation">Manual Compilation and installation</link>.
 		Of course you <emphasis>must not</emphasis> pass the build
@@ -2595,7 +2595,7 @@
     	<qandaentry>
 	    <question>
 	    	<para>
-		    What do I need to compile &kapp;?
+		    What do I need to compile &kwave;?
 		</para>
 	    </question>
     	    <answer>
@@ -2611,16 +2611,16 @@
     	<qandaentry>
 	    <question>
 	    	<para>
-		    Which sound cards does &kapp; support?
+		    Which sound cards does &kwave; support?
 		</para>
 	    </question>
     	    <answer>
 	    	<para>
-		    &kapp; does not need support for any special sound card.
+		    &kwave; does not need support for any special sound card.
 		    The sound card only has to be supported by your
-		    operating system and &kapp; uses it's interface to the
+		    operating system and &kwave; uses it's interface to the
 		    operating system's sound driver through a OSS or ALSA
-		    interface. So &kapp; can play on any sound card that
+		    interface. So &kwave; can play on any sound card that
 		    KDE is able to play on.
 		</para>
 	    </answer>
@@ -2646,13 +2646,13 @@
     	<qandaentry>
 	    <question>
 	    	<para>
-		    Why does &kapp; consume more memory than it can be
+		    Why does &kwave; consume more memory than it can be
 		    expected from the size of the opened file?
 		</para>
 	    </question>
     	    <answer>
 	    	<para>
-		    The reason for this is that &kapp; internally stores
+		    The reason for this is that &kwave; internally stores
 		    all samples in 32-bit integers. This was easy to program,
 		    made the application faster and a bit more reliable.
 		    So if you load an 8-bit file with about one megabyte
@@ -2665,12 +2665,12 @@
     	<qandaentry>
 	    <question>
 	    	<para>
-		    Which sound formats does &kapp; support?
+		    Which sound formats does &kwave; support?
 		</para>
 	    </question>
     	    <answer>
 	    	<para>
-		    &kapp; currently supports .wav files with 8, 16 and
+		    &kwave; currently supports .wav files with 8, 16 and
 		    24 bits per sample, with any number of channels
 		    (of course including mono and stereo). Additionally it
 		    can import all file types that libaudiofile supports
@@ -2683,7 +2683,7 @@
 	    <question>
 	    	<para>
 		    What if I have files with a format not
-		    supported by &kapp;?
+		    supported by &kwave;?
 		</para>
 	    </question>
     	    <answer>
@@ -2725,7 +2725,7 @@
     	    <answer>
 	    	<para>
 		    Maybe you have forgotten to increase the volume of
-		    the playback channel. &kapp; is not responsible for
+		    the playback channel. &kwave; is not responsible for
 		    changing the playback volume.
 		</para>
 	    </answer>
@@ -2769,7 +2769,7 @@
     	    <answer>
 	    	<para>
 		    The reason for this is that the sound driver already
-		    has received some playback data from &kapp; at the
+		    has received some playback data from &kwave; at the
 		    moment when you press the stop button. Decrease the
 		    size of the playback buffer and it should react faster
 		    (but makes interruptions more probable).
@@ -2847,7 +2847,7 @@
 
 <chapter id="credits"><title>Credits and License</title>
 
-    <para>&kapp;</para>
+    <para>&kwave;</para>
 
     <para>
     	Program copyright from 1998-2000 Martin Wilz

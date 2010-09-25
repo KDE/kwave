@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-06-24 18:28+0000\n"
+"POT-Creation-Date: 2010-09-25 13:44+0000\n"
 "PO-Revision-Date: 2010-06-24 20:29+0200\n"
 "Last-Translator: \n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 #. Tag: title
 #: help_en-work.docbook:15
 #, no-c-format
-msgid "The &kapp; Handbook"
-msgstr "Das &kapp; Handbuch"
+msgid "The &kwave; Handbook"
+msgstr "Das &kwave; Handbuch"
 
 #. Tag: author
 #: help_en-work.docbook:18
@@ -56,11 +56,23 @@ msgstr "Martin Wilz"
 msgid "Thomas Eschenbacher"
 msgstr "Thomas Eschenbacher"
 
+#. Tag: date
+#: help_en-work.docbook:35
+#, no-c-format
+msgid "2010-09-25"
+msgstr ""
+
+#. Tag: releaseinfo
+#: help_en-work.docbook:36
+#, no-c-format
+msgid "&version;"
+msgstr ""
+
 #. Tag: para
 #: help_en-work.docbook:38
 #, no-c-format
-msgid "&kapp; is a simple sound editor for KDE."
-msgstr "&kapp; ist ein einfacher Sound-Editor für KDE."
+msgid "&kwave; is a simple sound editor for KDE."
+msgstr "&kwave; ist ein einfacher Sound-Editor für KDE."
 
 #. Tag: keyword
 #: help_en-work.docbook:41
@@ -144,9 +156,9 @@ msgstr "Einleitung"
 #: help_en-work.docbook:68
 #, no-c-format
 msgid ""
-"This is \"&kapp;\", a simple sound editor for KDE3. Its features include:"
+"This is \"&kwave;\", a simple sound editor for KDE3. Its features include:"
 msgstr ""
-"Dies ist \"&kapp;\", ein einfacher Sound-Editor für KDE3. Er enthält "
+"Dies ist \"&kwave;\", ein einfacher Sound-Editor für KDE3. Er enthält "
 "folgende Funktionalität:"
 
 #. Tag: para
@@ -270,19 +282,19 @@ msgstr ""
 #. Tag: title
 #: help_en-work.docbook:143
 #, no-c-format
-msgid "&kapp; Resources"
-msgstr "&kapp; Ressourcen"
+msgid "&kwave; Resources"
+msgstr "&kwave; Ressourcen"
 
 #. Tag: para
 #: help_en-work.docbook:145
 #, no-c-format
 msgid ""
 "So if you want to get in contact with the developers, need some further help "
-"on using &kapp;, submit patches, bug reports or other stuf, the following "
+"on using &kwave;, submit patches, bug reports or other stuf, the following "
 "resources might be of interest for you:"
 msgstr ""
 "Falls Sie also mit den Entwicklern in Kontakt treten wollen, weiterführende "
-"Hilfe zur Benutzung von &kapp; brauchen, Patches, Fehlermeldungen oder "
+"Hilfe zur Benutzung von &kwave; brauchen, Patches, Fehlermeldungen oder "
 "anderes mitteilen wollen, dann werden die folgenden Adressen von Interesse "
 "sein: "
 
@@ -298,11 +310,11 @@ msgstr "Projekt-Homepage"
 msgid ""
 "For informations about new up-to-date releases or some other information "
 "about this project, take a look at the <ulink url=\"http://kwave.sourceforge."
-"net/\">&kapp; homepage</ulink>"
+"net/\">&kwave; homepage</ulink>"
 msgstr ""
 "Für Informationen über aktuelle Releases oder andere Informationen über "
 "dieses Projekt, besuchen Sie bitte die <ulink url=\"http://kwave.sourceforge."
-"net/\">&kapp; Homepage</ulink>."
+"net/\">&kwave; Homepage</ulink>."
 
 #. Tag: para
 #: help_en-work.docbook:158
@@ -314,12 +326,12 @@ msgstr "Mailing-Liste"
 #: help_en-work.docbook:159
 #, no-c-format
 msgid ""
-"If you need some help on using &kapp; or want to get involved in the "
+"If you need some help on using &kwave; or want to get involved in the "
 "development, join the Kwave developer mailing list by visiting <ulink url="
 "\"https://lists.sourceforge.net/lists/listinfo/kwave-devel\"> \"https://"
 "lists.sourceforge.net/lists/listinfo/kwave-devel\"</ulink>."
 msgstr ""
-"Wenn Sie Hilfe zur Verwendung von &kapp; benötigen oder an der Entwicklung "
+"Wenn Sie Hilfe zur Verwendung von &kwave; benötigen oder an der Entwicklung "
 "teilnehmen wollen, treten Sie bitte der Mailing-Liste bei indem Sie folgende "
 "Seite besuchen: <ulink url=\"https://lists.sourceforge.net/lists/listinfo/"
 "kwave-devel\"> \"https://lists.sourceforge.net/lists/listinfo/kwave-devel\"</"
@@ -355,8 +367,8 @@ msgstr ""
 #. Tag: title
 #: help_en-work.docbook:188
 #, no-c-format
-msgid "&kapp; Revision History"
-msgstr "&kapp; - Historischer Rückblick"
+msgid "&kwave; Revision History"
+msgstr "&kwave; - Historischer Rückblick"
 
 #. Tag: para
 #: help_en-work.docbook:190
@@ -380,13 +392,13 @@ msgstr ""
 #: help_en-work.docbook:200
 #, no-c-format
 msgid ""
-"Since &kapp; v0.8.0 the changlog is no longer included in this manual. So if "
-"you are interested in a complete list of changes, you can find the full "
+"Since &kwave; v0.8.0 the changlog is no longer included in this manual. So "
+"if you are interested in a complete list of changes, you can find the full "
 "history here: <ulink url=\"http://svn.sourceforge.net/viewvc/kwave/trunk/"
 "CHANGES?view=markup\"> \"http://svn.sourceforge.net/viewvc/kwave/trunk/"
 "CHANGES?view=markup\"</ulink>."
 msgstr ""
-"Seit &kapp; v0.8.0 ist die Änderungshistorie nicht mehr im Benutzerhandbuch "
+"Seit &kwave; v0.8.0 ist die Änderungshistorie nicht mehr im Benutzerhandbuch "
 "enthalten. Wenn Sie also an einer vollständigen List der Änderungen "
 "interessiert sind, finden Sie die vollständige Historie hier: <ulink url="
 "\"http://svn.sourceforge.net/viewvc/kwave/trunk/CHANGES?view=markup\"> "
@@ -402,19 +414,19 @@ msgstr "Installation"
 #. Tag: title
 #: help_en-work.docbook:224
 #, no-c-format
-msgid "How to obtain &kapp;"
-msgstr "Wie erhält man &kapp;"
+msgid "How to obtain &kwave;"
+msgstr "Wie erhält man &kwave;"
 
 #. Tag: para
 #: help_en-work.docbook:226
 #, no-c-format
 msgid ""
-"&kapp; has an own homepage under <ulink url=\"http://kwave.sourceforge.net/"
+"&kwave; has an own homepage under <ulink url=\"http://kwave.sourceforge.net/"
 "\"> http://kwave.sourceforge.net/</ulink>. Here you can find further "
 "informations about the project, as well as informations about current stable "
 "and up-to-date development versions."
 msgstr ""
-"&kapp; hat eine eigene Homepage unter <ulink url=\"http://kwave.sourceforge."
+"&kwave; hat eine eigene Homepage unter <ulink url=\"http://kwave.sourceforge."
 "net/\"> http://kwave.sourceforge.net/</ulink>. Hier können Sie weitere "
 "Informationen über das Projekt, wie auch Informationen über die aktuelle "
 "stabile sowie neueste Entwicklerversionen finden."
@@ -423,11 +435,11 @@ msgstr ""
 #: help_en-work.docbook:235
 #, no-c-format
 msgid ""
-"If you want to get a &kapp; release, you have the choice to visit <ulink url="
-"\"http://kwave.sourceforge.net/download.html\"></ulink> http://kwave."
+"If you want to get a &kwave; release, you have the choice to visit <ulink "
+"url=\"http://kwave.sourceforge.net/download.html\"></ulink> http://kwave."
 "sourceforge.net/download.html and"
 msgstr ""
-"Wenn Sie eine Release von &kapp; wollen können Sie die Seite <ulink url="
+"Wenn Sie eine Release von &kwave; wollen können Sie die Seite <ulink url="
 "\"http://kwave.sourceforge.net/download.html\"></ulink> http://kwave."
 "sourceforge.net/download.html besuchen und"
 
@@ -482,18 +494,18 @@ msgstr "Anforderungen"
 #. Tag: para
 #: help_en-work.docbook:271
 #, no-c-format
-msgid "In order to successfully use &kapp;, you need:"
-msgstr "Für den erfolgreichen Einsatz von &kapp; brauchen Sie:"
+msgid "In order to successfully use &kwave;, you need:"
+msgstr "Für den erfolgreichen Einsatz von &kwave; brauchen Sie:"
 
 #. Tag: para
 #: help_en-work.docbook:274
 #, no-c-format
 msgid ""
-"a computer running Linux (&kapp; might also run under some other operating "
+"a computer running Linux (&kwave; might also run under some other operating "
 "system, but we have never tested this, please let us know if you get it "
 "working under some other platform / operating system)"
 msgstr ""
-"einen Computer mit installiertem Linux (&kapp; läuft möglicherweise auch "
+"einen Computer mit installiertem Linux (&kwave; läuft möglicherweise auch "
 "unter anderen Betriebssystemen, aber dieses haben wir nicht getestet. Bitte "
 "lassen Sie es uns wissen, wenn Sie es auf anderen Plattformen/ "
 "Betriebssystemen zum laufen gebracht haben)"
@@ -515,9 +527,9 @@ msgstr ""
 #, no-c-format
 msgid ""
 "KDE-4.0 or higher (at least the libraries, if you are a gnome fan, you can "
-"also run &kapp; if the proper libs are installed)."
+"also run &kwave; if the proper libs are installed)."
 msgstr ""
-"KDE-4.0 oder höher (zumindest die Bibliotheken: &kapp; läuft auch unter "
+"KDE-4.0 oder höher (zumindest die Bibliotheken: &kwave; läuft auch unter "
 "gnome, wenn die richtigen Bibliotheken installiert sind)."
 
 #. Tag: para
@@ -560,11 +572,11 @@ msgstr "libsamplerate-0.1.3 oder neuer (Abtastraten-Änderung)"
 #: help_en-work.docbook:308
 #, no-c-format
 msgid ""
-"about 64 MB memory for starting &kapp; (but this may vary depending on your "
+"about 64 MB memory for starting &kwave; (but this may vary depending on your "
 "platform and configuration)"
 msgstr ""
-"etwas mehr als 64 MB Speicher zum Starten von &kapp; (kann jedoch sehr stark "
-"von Ihrer Plattform und Konfiguration abhängen)"
+"etwas mehr als 64 MB Speicher zum Starten von &kwave; (kann jedoch sehr "
+"stark von Ihrer Plattform und Konfiguration abhängen)"
 
 #. Tag: para
 #: help_en-work.docbook:315
@@ -574,23 +586,23 @@ msgid ""
 "is included in the source distribution or can be found here: <ulink url="
 "\"http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup\"> "
 "\"http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup\"</"
-"ulink>. This file also contains some special hints for getting &kapp; "
-"running and/or building &kapp; under some distributions."
+"ulink>. This file also contains some special hints for getting &kwave; "
+"running and/or building &kwave; under some distributions."
 msgstr ""
 "Für eine aktuellere und vollständigere List lesen Sie bitte die README-"
 "Datei, die in der Quellcode-Distribution enthalten ist oder hier gefunden "
 "werden kann: <ulink url=\"http://svn.sourceforge.net/viewvc/kwave/trunk/"
 "README?view=markup\"> \"http://svn.sourceforge.net/viewvc/kwave/trunk/README?"
-"view=markup\"</ulink>. Diese Datei enthält auch einige Tips um &kapp; unter "
+"view=markup\"</ulink>. Diese Datei enthält auch einige Tips um &kwave; unter "
 "anderen Distributionen zum Laufen zu bekommen oder zu kompilieren."
 
 #. Tag: para
 #: help_en-work.docbook:325
 #, no-c-format
 msgid ""
-"If you intend to compile &kapp; from the sources, you will need at least:"
+"If you intend to compile &kwave; from the sources, you will need at least:"
 msgstr ""
-"Wenn Sie vorhaben, &kapp; aus den Quellen zu kompilieren, brauchen Sie "
+"Wenn Sie vorhaben, &kwave; aus den Quellen zu kompilieren, brauchen Sie "
 "zusätzlich mindestens:"
 
 #. Tag: para
@@ -670,10 +682,10 @@ msgstr "flac-devel-1.1.0 oder neuer"
 #: help_en-work.docbook:361
 #, no-c-format
 msgid ""
-"If you intend to get the &kapp; sources via SVN, you will also need a "
+"If you intend to get the &kwave; sources via SVN, you will also need a "
 "current subversion package."
 msgstr ""
-"Falls Sie beabsichtigen &kapp; über SVN zu beziehen, brauchen Sie auch ein "
+"Falls Sie beabsichtigen &kwave; über SVN zu beziehen, brauchen Sie auch ein "
 "aktuelles Subversion-Paket."
 
 #. Tag: para
@@ -698,31 +710,31 @@ msgstr "Kompilierung und Installation"
 #: help_en-work.docbook:381
 #, no-c-format
 msgid ""
-"Since version 0.7.10 &kapp; uses <ulink url=\"http://www.cmake.org\">cmake</"
+"Since version 0.7.10 &kwave; uses <ulink url=\"http://www.cmake.org\">cmake</"
 "ulink>, the make system that is also used by KDE itself. So if you can build "
-"other KDE applications, you should also be able to build &kapp;. If you run "
-"into problems please report them to the &kapp; <link linkend=\"mailing-list"
+"other KDE applications, you should also be able to build &kwave;. If you run "
+"into problems please report them to the &kwave; <link linkend=\"mailing-list"
 "\">mailing list</link>."
 msgstr ""
-"Seit Version 0.7.10 verwendet &kapp; <ulink url=\"http://www.cmake.org"
+"Seit Version 0.7.10 verwendet &kwave; <ulink url=\"http://www.cmake.org"
 "\">cmake</ulink>, das Generiersystem das auch von KDE selbst verwendet wird. "
 "Somit sollten Sie wenn Sie andere KDE-Applikationen generieren können auch "
-"in der Lage sein &kapp; zu generieren. Wenn Sie auf Probleme stossen, melden "
-"Sie diese bitte an die &kapp; <link linkend=\"mailing-list\">Mailing-Liste</"
-"link>."
+"in der Lage sein &kwave; zu generieren. Wenn Sie auf Probleme stossen, "
+"melden Sie diese bitte an die &kwave; <link linkend=\"mailing-list\">Mailing-"
+"Liste</link>."
 
 #. Tag: para
 #: help_en-work.docbook:390
 #, no-c-format
 msgid ""
-"In order to compile and install &kapp; on your system, it is best practice "
+"In order to compile and install &kwave; on your system, it is best practice "
 "to do a <emphasis>out-of-tree</emphasis> build. This means that you hold the "
-"sources of &kapp; in one directory and build the package in another "
+"sources of &kwave; in one directory and build the package in another "
 "(temporary) directory."
 msgstr ""
-"Um &kapp; auf Ihrem System zu generieren und zu installieren, ist es am "
+"Um &kwave; auf Ihrem System zu generieren und zu installieren, ist es am "
 "besten wenn Sie \"<emphasis>out-of-tree</emphasis>\" generieren. Das "
-"bedeudet, dass die Quellen von &kapp; in einem Verzeichnis liegen und die "
+"bedeudet, dass die Quellen von &kwave; in einem Verzeichnis liegen und die "
 "Generierung in einem anderen (temporären) Verzeichnis stattfindet."
 
 #. Tag: para
@@ -765,11 +777,11 @@ msgstr "Generier-Optionen"
 #, no-c-format
 msgid ""
 "By specifying build options, you can enable or disable some features of "
-"&kapp;, like excluding some components or plugins from the generated "
+"&kwave;, like excluding some components or plugins from the generated "
 "package. Here is a list of the available options:"
 msgstr ""
 "Mit Hilfe von Generier-Optionen können Sie einige Funktionalitäten von "
-"&kapp; aktivieren oder deaktivieren, beispielsweise können Sie Plugins von "
+"&kwave; aktivieren oder deaktivieren, beispielsweise können Sie Plugins von "
 "der Generierung ausschliessen. Hier eine Auflistung der verfügbaren Optionen:"
 
 #. Tag: para
@@ -925,17 +937,17 @@ msgstr "Mit funktionierendem rpmbuild -ta"
 #, no-c-format
 msgid ""
 "If you are runnig a system with RPM support, the preferred way to install "
-"&kapp; on your system will be the creation of a nice RPM package. First you "
-"should get the current source of &kapp;, either as a tar.gz archive from the "
-"&kapp; download page or check out an up-to-date copy via <link linkend=\"svn-"
-"repository\">SVN</link> (like described in the <link linkend=\"svn_checkout"
-"\">chapter about SVN</link>) and read the <link linkend="
+"&kwave; on your system will be the creation of a nice RPM package. First you "
+"should get the current source of &kwave;, either as a tar.gz archive from "
+"the &kwave; download page or check out an up-to-date copy via <link linkend="
+"\"svn-repository\">SVN</link> (like described in the <link linkend="
+"\"svn_checkout\">chapter about SVN</link>) and read the <link linkend="
 "\"building_rpm_from_svn\">next</link> chapter."
 msgstr ""
 "Wenn Sie ein System mit RPM-Unterstützung haben, ist die bevorzugte Methode "
 "der Installation die Erstellung eines RPM Paketes. Als erstes sollten Sie "
-"sich die aktuellen Quellen von &kapp; besorgen, entweder als tar.gz Archiv "
-"von der &kapp; Download-Seite oder als aktuelle Kopie via <link linkend="
+"sich die aktuellen Quellen von &kwave; besorgen, entweder als tar.gz Archiv "
+"von der &kwave; Download-Seite oder als aktuelle Kopie via <link linkend="
 "\"svn-repository\">SVN</link> (wie es in dem <link linkend=\"svn_checkout"
 "\">Kapitel über SVN</link> beschrieben ist) und lesen Sie das <link linkend="
 "\"building_rpm_from_svn\">nächste</link> Kapitel."
@@ -944,14 +956,14 @@ msgstr ""
 #: help_en-work.docbook:516
 #, no-c-format
 msgid ""
-"If you have downloaded a tar.gz archives of &kapp;, create and install the "
+"If you have downloaded a tar.gz archives of &kwave;, create and install the "
 "RPMs just by doing the following steps (where <replaceable>[arch]</"
 "replaceable> stands for the platform you have built the package and might be "
 "something like <literal>i386</literal>, <literal>i586</literal>, "
 "<literal>sparc</literal> or whatever, <replaceable>XXX</replaceable> stands "
 "for the version number you have downloaded)."
 msgstr ""
-"Wenn Sie ein tar.gz Archiv von &kapp; heruntergeladen haben, erstellen und "
+"Wenn Sie ein tar.gz Archiv von &kwave; heruntergeladen haben, erstellen und "
 "installieren Sie die RPMs einfach, indem Sie den folgenden Schritten folgen "
 "(wobei <replaceable>[arch]</replaceable> für die Plattform steht, für die "
 "Sie das Paket erstellt haben, und sollte <literal>i386</literal>, "
@@ -962,8 +974,8 @@ msgstr ""
 #. Tag: para
 #: help_en-work.docbook:527
 #, no-c-format
-msgid "To build the &kapp; package and install it do:"
-msgstr "Erstellen Sie das &kapp; Paket und installieren Sie es wie folgt:"
+msgid "To build the &kwave; package and install it do:"
+msgstr "Erstellen Sie das &kwave; Paket und installieren Sie es wie folgt:"
 
 #. Tag: screen
 #: help_en-work.docbook:529
@@ -1088,12 +1100,12 @@ msgstr ""
 #: help_en-work.docbook:579
 #, no-c-format
 msgid ""
-"Let rpm do the compile job and generate the rpm of &kapp;. If you only want "
+"Let rpm do the compile job and generate the rpm of &kwave;. If you only want "
 "to make a binary package, you can specify <literal>-bb</literal> instead of "
 "<literal>-ba</literal>, or just <literal>-bs</literal> to build only a "
 "source package."
 msgstr ""
-"Lassen Sie rpm den Kompiliervorgang und die Generierung des &kapp; RPMs "
+"Lassen Sie rpm den Kompiliervorgang und die Generierung des &kwave; RPMs "
 "ausführen. Wenn Sie nur ein binary Paket erstellen wollen, dann können Sie "
 "<literal>-bb</literal> anstelle von <literal>-ba</literal> angeben, oder "
 "einfach <literal>-bs</literal> um nur ein Source-Paket zu erstellen."
@@ -1108,14 +1120,14 @@ msgstr "<prompt>% </prompt><command>rpmbuild -ba SPECS/kwave.spec</command>"
 #: help_en-work.docbook:588
 #, no-c-format
 msgid ""
-"If everything was ok, you can install the binary rpm of &kapp;, it will be "
-"in the BUILD directory. If you already have a version of &kapp; installed, "
+"If everything was ok, you can install the binary rpm of &kwave;, it will be "
+"in the BUILD directory. If you already have a version of &kwave; installed, "
 "please remove it first or use the parameter <literal>-U</literal> instead of "
 "<literal>-i</literal> for upgrading instead of installing."
 msgstr ""
-"Wenn alles fehlerfrei verlief, können Sie das binary rpm von &kapp; "
+"Wenn alles fehlerfrei verlief, können Sie das binary rpm von &kwave; "
 "installieren, welches sich dann im BUILD Verzeichnis befindet. Wenn Sie "
-"bereits eine Version von &kapp; installiert haben, dann entfernen Sie diese "
+"bereits eine Version von &kwave; installiert haben, dann entfernen Sie diese "
 "zuerst oder verwenden den Parameter <literal>-U</literal> anstelle von "
 "<literal>-i</literal> für ein Uprade anstelle einer Installation."
 
@@ -1164,11 +1176,11 @@ msgstr ""
 #: help_en-work.docbook:622
 #, no-c-format
 msgid ""
-"First create the directory that will receive the subdirectoy with &kapp; "
+"First create the directory that will receive the subdirectoy with &kwave; "
 "sources and change into it:"
 msgstr ""
 "Als erstes erstellen Sie ein Verzeichnis, welches das Unterverzeichnis der "
-"&kapp;-Quellen erhalten wird und wechseln Sie in dieses:"
+"&kwave;-Quellen erhalten wird und wechseln Sie in dieses:"
 
 #. Tag: screen
 #: help_en-work.docbook:625
@@ -1270,10 +1282,10 @@ msgstr ""
 msgid ""
 "If you think that you have messed up your local source or if there are "
 "conflicts during updating, you can remove all files and directories from "
-"your &kapp; source directory, <emphasis>except the <filename>.svn</filename> "
-"directory </emphasis>and then try again."
+"your &kwave; source directory, <emphasis>except the <filename>.svn</"
+"filename> directory </emphasis>and then try again."
 msgstr ""
-"Wenn der Inhalt Ihres lokalen &kapp;-Quellenverzeichnisses durcheinander "
+"Wenn der Inhalt Ihres lokalen &kwave;-Quellenverzeichnisses durcheinander "
 "geraten ist, oder wenn es beim Aktualisieren Konflikte gegeben hat, so "
 "können Sie alle Dateien und Unterverzeichnisse <emphasis>außer dem "
 "<filename>.svn</filename>-Verzeichnis </emphasis> löschen und nochmals "
@@ -1325,14 +1337,14 @@ msgstr ""
 #, no-c-format
 msgid ""
 "Assuming that you are in the root of where you checked out from SVN, do the "
-"following to create a Makefile, the &kapp; package and install it. If you "
-"already have a version of &kapp; installed, please remove it first or use "
+"following to create a Makefile, the &kwave; package and install it. If you "
+"already have a version of &kwave; installed, please remove it first or use "
 "<command>rpm -U</command> instead of <command>rpm -i</command> for updating "
 "instead of installing."
 msgstr ""
 "Vorausgesetzt Sie befinden sich im Wurzelverzeichnis der SVN-Quellen, tun "
-"Sie folgendes um ein Makefile und das &kapp;-Paket zu erstellen und zu "
-"installieren. Wenn Sie bereits eine Version von &kapp; installiert haben, "
+"Sie folgendes um ein Makefile und das &kwave;-Paket zu erstellen und zu "
+"installieren. Wenn Sie bereits eine Version von &kwave; installiert haben, "
 "entfernen Sie diese bitte zuerst oder benutzen Sie <command>rpm -U</command> "
 "anstelle von <command>rpm -i</command> für die Aktualisierung anstelle einer "
 "Installation."
@@ -1382,15 +1394,15 @@ msgstr "Erstellen von CPU-optimierten Paketen"
 #, no-c-format
 msgid ""
 "If you are owner of a Pentium, an AMD K6, Athlon or Athlon-XP CPU, you might "
-"want to use compiler optimizations to compile your version of &kapp; that is "
-"running some percents faster. The gain in speed will be up to 30% on some "
+"want to use compiler optimizations to compile your version of &kwave; that "
+"is running some percents faster. The gain in speed will be up to 30% on some "
 "systems, whereas the functions dealing with signal manipulation and all "
 "functions that do complex time-frequency operations (like FFT and Sonagram) "
 "will profit most from it."
 msgstr ""
 "Wenn Sie eine Pentium, eine AMD K6, Athlon oder Athlon-XP CPU besitzen, "
 "wollen Sie vielleicht einen optimierten Compiler für die Übersetzung Ihrer "
-"eigenen Version von &kapp; verwenden, die einige Prozente schneller läuft. "
+"eigenen Version von &kwave; verwenden, die einige Prozente schneller läuft. "
 "Der Geschwindigkeitsgewinn beträgt bei einigen Systemen bis zu 30%, wobei "
 "die Signalbearbeitungs-Funktionen sowie alle Funktionen die komplexe Zeit-"
 "Frequenz-Operationen (wie FFT und Sonagramm) behandeln, am meisten davon "
@@ -1401,11 +1413,11 @@ msgstr ""
 #, no-c-format
 msgid ""
 "You do not need to understand much about programming for using an optimized "
-"compiler to compile &kapp;, but maybe you will need some time to get the "
+"compiler to compile &kwave;, but maybe you will need some time to get the "
 "compiler itself working and installed."
 msgstr ""
 "Sie brauchen nicht viel über Programmierung zu wissen um einen optimierten "
-"Compiler für die Übersetzung von &kapp; zu benutzen. Aber vielleicht werden "
+"Compiler für die Übersetzung von &kwave; zu benutzen. Aber vielleicht werden "
 "Sie einige Zeit brauchen um den Compiler selbst zu installieren und zum "
 "laufen zu bringen."
 
@@ -1523,10 +1535,10 @@ msgstr ""
 #: help_en-work.docbook:789
 #, no-c-format
 msgid ""
-"If you build &kapp; from a source tree (unpacked tar.gz or from SVN) the "
+"If you build &kwave; from a source tree (unpacked tar.gz or from SVN) the "
 "flags need to be specidied before the call. For example:"
 msgstr ""
-"Wenn Sie &kapp; von einem Quellverzeichnis aus (entpacktes tar.gz oder via "
+"Wenn Sie &kwave; von einem Quellverzeichnis aus (entpacktes tar.gz oder via "
 "SVN) erstellen, sollten die Flags vor dem Aufruf angegeben werden. Zum "
 "Beispiel:"
 
@@ -1550,11 +1562,11 @@ msgstr ""
 #: help_en-work.docbook:797
 #, no-c-format
 msgid ""
-"If you re-build &kapp; from a source rpm package, please follow the "
+"If you re-build &kwave; from a source rpm package, please follow the "
 "instruction in the <link linkend=\"rpm_optimizations\">previous section</"
 "link>."
 msgstr ""
-"Wenn Sie &kapp; aus einem Quell-RPM-Paket erstellen, folgen Sie bitte den "
+"Wenn Sie &kwave; aus einem Quell-RPM-Paket erstellen, folgen Sie bitte den "
 "Anweisungen im <link linkend=\"rpm_optimizations\">vorherigen Abschnitt</"
 "link>."
 
@@ -1570,13 +1582,13 @@ msgstr "Grundlagen digitaler Audiobearbeitung"
 msgid ""
 "This chapter should give a short introduction about the basics of digital "
 "audio processing, without going too much into details. Of course this might "
-"be a bit incomplete, but if you have questions, you can ask at the &kapp; "
+"be a bit incomplete, but if you have questions, you can ask at the &kwave; "
 "mailing list or consult some further literature."
 msgstr ""
 "Dieses Kapitel soll eine kurze Einführung in die Grundlagen der digitalen "
 "Audiobearbeitungen geben, ohne jedoch allzu sehr ins Detail zu gehen. "
 "Natürlich wird dies teilweise unvollständig sein, doch wenn noch Fragen "
-"offen bleiben, können Sie diese auf der &kapp; Mailingliste stellen oder "
+"offen bleiben, können Sie diese auf der &kwave; Mailingliste stellen oder "
 "weiterführende Literatur konsultieren."
 
 #. Tag: title
@@ -1986,13 +1998,13 @@ msgstr ""
 #: help_en-work.docbook:1049
 #, no-c-format
 msgid ""
-"&kapp; internally uses <emphasis>signed integer</emphasis> format with 24 "
+"&kwave; internally uses <emphasis>signed integer</emphasis> format with 24 "
 "bit precision, stored in 32 bit integers. This has the disadvantage of "
 "higher memory consumption when processing files with lower precision (e.g. 8 "
 "bits), but processing 32 bit numbers is very fast and also leaves some "
 "reserves for internal calculations, as only 24 bits are normally used."
 msgstr ""
-"&kapp; verwendet intern ein Format mit <emphasis>vorzeichenbehafteten "
+"&kwave; verwendet intern ein Format mit <emphasis>vorzeichenbehafteten "
 "Festkommazahlen</emphasis> (Integer) mit 24 Bit Genauigkeit, gespeichert als "
 "32-Bit Integer. Das hat zwar den Nachteil von hohem Speicherbedarf, "
 "besonders bei der Verarbeitung von Dateien mit geringerer Auflösung (z.B. 8 "
@@ -2002,24 +2014,24 @@ msgstr ""
 #. Tag: title
 #: help_en-work.docbook:1067
 #, no-c-format
-msgid "Using &kapp;"
-msgstr "&kapp; verwenden"
+msgid "Using &kwave;"
+msgstr "&kwave; verwenden"
 
 #. Tag: para
 #: help_en-work.docbook:1068
 #, no-c-format
 msgid ""
-"Here is a little screenshot of the &kapp; main window, so that you get an "
-"impression what &kapp; looks like..."
+"Here is a little screenshot of the &kwave; main window, so that you get an "
+"impression what &kwave; looks like..."
 msgstr ""
-"Hier ist ein Screenshot vom &kapp; Hauptfenster, um einen Eindruck zu "
-"bekommen, wie &kapp; aussieht..."
+"Hier ist ein Screenshot vom &kwave; Hauptfenster, um einen Eindruck zu "
+"bekommen, wie &kwave; aussieht..."
 
 #. Tag: screeninfo
 #: help_en-work.docbook:1074
 #, no-c-format
-msgid "Here's a screenshot of &kapp;"
-msgstr "Das ist ein Screenshot von &kapp;"
+msgid "Here's a screenshot of &kwave;"
+msgstr "Das ist ein Screenshot von &kwave;"
 
 #. Tag: phrase
 #: help_en-work.docbook:1082
@@ -2037,22 +2049,22 @@ msgstr "Speicher-Einstellungen"
 #: help_en-work.docbook:1093
 #, no-c-format
 msgid ""
-"When using &kapp; for the first time, you should go to the memory setup "
+"When using &kwave; for the first time, you should go to the memory setup "
 "dialog an modify the settings to be suitable for yor needs and the installed "
 "memory of your computer. You can reach it under <menuchoice> "
 "<guimenu>Options</guimenu><guimenuitem>Memory...</guimenuitem> </menuchoice>."
 msgstr ""
-"Wenn Sie &kapp; zum ersten mal benutzen, sollten Sie den Dialog zur Speicher-"
-"Einstellungen öffnen und die Einstellungen Ihren Bedürfnissen und dem auf "
-"Ihrem PC installierten Speicher anpassen. Sie erreichen die Einstellungen "
-"unter <menuchoice><guimenu>Optionen</guimenu><guimenuitem>Speicher</"
-"guimenuitem></menuchoice>."
+"Wenn Sie &kwave; zum ersten mal benutzen, sollten Sie den Dialog zur "
+"Speicher-Einstellungen öffnen und die Einstellungen Ihren Bedürfnissen und "
+"dem auf Ihrem PC installierten Speicher anpassen. Sie erreichen die "
+"Einstellungen unter <menuchoice><guimenu>Optionen</"
+"guimenu><guimenuitem>Speicher</guimenuitem></menuchoice>."
 
 #. Tag: screeninfo
 #: help_en-work.docbook:1103
 #, no-c-format
-msgid "Here's a screenshot of &kapp;'s memory setup dialog"
-msgstr "Hier ein Screenshot von &kapp;'s Speicher-Einstellungen-Dialog"
+msgid "Here's a screenshot of &kwave;'s memory setup dialog"
+msgstr "Hier ein Screenshot von &kwave;'s Speicher-Einstellungen-Dialog"
 
 #. Tag: phrase
 #: help_en-work.docbook:1111
@@ -2064,10 +2076,10 @@ msgstr "Screenshot des Speichereinstellungen-Dialogs"
 #: help_en-work.docbook:1116
 #, no-c-format
 msgid ""
-"&kapp; is able to use two types of memory: <emphasis>physical</emphasis> and "
-"<emphasis>virtual</emphasis> memory."
+"&kwave; is able to use two types of memory: <emphasis>physical</emphasis> "
+"and <emphasis>virtual</emphasis> memory."
 msgstr ""
-"&kapp; kann zwei verschiedene Arten von Speicher verwenden: "
+"&kwave; kann zwei verschiedene Arten von Speicher verwenden: "
 "<emphasis>physicalischer</emphasis> und <emphasis>virtueller</emphasis> "
 "Speicher."
 
@@ -2098,16 +2110,16 @@ msgstr ""
 #: help_en-work.docbook:1131
 #, no-c-format
 msgid ""
-"If you enable <emphasis>virtual memory</emphasis>, &kapp; is able to load "
+"If you enable <emphasis>virtual memory</emphasis>, &kwave; is able to load "
 "and process files that are bigger than the amount of real installed physical "
-"memory. &kapp; does this by using temporary files in a configurable "
+"memory. &kwave; does this by using temporary files in a configurable "
 "directory, which is much faster and more cooperative to other applications "
 "than using the operating system's swapping. The directory that you configure "
 "should be on your local hard disk."
 msgstr ""
-"Wenn Sie <emphasis>virtuellen Speicher</emphasis> verwenden, kann &kapp; "
+"Wenn Sie <emphasis>virtuellen Speicher</emphasis> verwenden, kann &kwave; "
 "Dateien laden und bearbeiten, die größer sind als dies der installierte "
-"physikalische Speicher zulassen würde. &kapp; verwendet in diesem Fall "
+"physikalische Speicher zulassen würde. &kwave; verwendet in diesem Fall "
 "temporäre Dateien in einem einstellbaren Verzeichnis, was um einiges "
 "schneller und kooperativer zu anderen Programmen ist als das Auslagern des "
 "Betriebssystems. Sie sollten für die Auslagerungsdateien ein Verzeichnis auf "
@@ -2123,16 +2135,16 @@ msgstr "Kommandozeile"
 #: help_en-work.docbook:1149
 #, no-c-format
 msgid ""
-"If you start &kapp; from the command line, you can specify a list of files "
+"If you start &kwave; from the command line, you can specify a list of files "
 "that should be opened. The first specified file will be opened first, then "
 "the other files. Each file will be opened in an own new window of the same "
-"&kapp; instance. If you specify wildcards, you can open a large number of "
+"&kwave; instance. If you specify wildcards, you can open a large number of "
 "files at once."
 msgstr ""
-"Wenn Sie &kapp; von der Kommandozeile aus starten, können Sie eine Liste von "
-"Dateien angeben, die geöffnet werden sollen. Die erste angegebene Datei wird "
-"dabei zuerst geöffnet und dann die anderen. Jede Datei wird dabei in einem "
-"neuen eigenen Fenster der selben &kapp; Instanz geöffnet. Wenn Sie "
+"Wenn Sie &kwave; von der Kommandozeile aus starten, können Sie eine Liste "
+"von Dateien angeben, die geöffnet werden sollen. Die erste angegebene Datei "
+"wird dabei zuerst geöffnet und dann die anderen. Jede Datei wird dabei in "
+"einem neuen eigenen Fenster der selben &kwave; Instanz geöffnet. Wenn Sie "
 "Jokerzeichen verwenden, können Sie eine große Anzahl von Dateien auf einmal "
 "öffnen."
 
@@ -2140,10 +2152,10 @@ msgstr ""
 #: help_en-work.docbook:1156
 #, no-c-format
 msgid ""
-"For example, the following command starts a &kapp; and opens all sounds of "
+"For example, the following command starts a &kwave; and opens all sounds of "
 "the KDE window manager, each in a new window:"
 msgstr ""
-"So startet zum Beispiel der folgende Befehl &kapp; und öffnet alle Klänge "
+"So startet zum Beispiel der folgende Befehl &kwave; und öffnet alle Klänge "
 "des KDE-Fenstermanagers in jeweils einem eigenen Fenster:"
 
 #. Tag: screen
@@ -2162,25 +2174,25 @@ msgstr ""
 msgid ""
 "In addition to a list of files, you can specify a list of <emphasis>Xt "
 "toolkit</emphasis> options like <literal>-geometry</literal> for specifying "
-"the size and/or position of the first opened &kapp; window and or <literal>-"
-"display</literal> for starting the &kapp; on a different display."
+"the size and/or position of the first opened &kwave; window and or <literal>-"
+"display</literal> for starting the &kwave; on a different display."
 msgstr ""
 "Zusätzlich zu einer Dateiliste können Sie noch eine Liste von <emphasis>Xt "
 "toolkit</emphasis> Optionen wie <literal>-geometry</literal> angeben, um die "
-"Größe und/oder die Position des ersten geöffneten &kapp; Fenster zu "
+"Größe und/oder die Position des ersten geöffneten &kwave; Fenster zu "
 "spezifizieren. Eine weitere Option ist <literal>-display</literal>, die "
-"&kapp; auf einem anderen Bildschirm startet."
+"&kwave; auf einem anderen Bildschirm startet."
 
 #. Tag: para
 #: help_en-work.docbook:1170
 #, no-c-format
 msgid ""
-"For example, the following command starts a &kapp; window with an initial "
+"For example, the following command starts a &kwave; window with an initial "
 "width of 600 pixels and a height of 400 pixels, with the right border "
 "positioned 30 pixels away from the right and 0 pixels away form the top of "
 "the screen."
 msgstr ""
-"Der folgende Befehl startet zum Beispiel ein &kapp;-Fenster mit einer "
+"Der folgende Befehl startet zum Beispiel ein &kwave;-Fenster mit einer "
 "Startbreite von 600 Pixeln und einer Höhe von 400 Pixeln, mit der rechten "
 "Seite 30 Pixel vom rechten Rand und 0 Pixel vom oberen Rand des Bildschirms "
 "entfernt:"
@@ -2205,9 +2217,9 @@ msgstr "Öffnen und Speichern von Dateien"
 #: help_en-work.docbook:1185
 #, no-c-format
 msgid ""
-"Opening files with &kapp; works like in most other applications, you can"
+"Opening files with &kwave; works like in most other applications, you can"
 msgstr ""
-"Das Öffnen von Dateien mit &kapp; funktioniert genauso wie in den meisten "
+"Das Öffnen von Dateien mit &kwave; funktioniert genauso wie in den meisten "
 "anderen Anwendungen auch, Sie können"
 
 #. Tag: para
@@ -2215,22 +2227,22 @@ msgstr ""
 #, no-c-format
 msgid ""
 "specify a list of files on the <link linkend=\"command_line\">command line</"
-"link> when starting &kapp;,"
+"link> when starting &kwave;,"
 msgstr ""
 "eine Liste von Dateien auf der <link linkend=\"command_line\">Kommandozeile</"
-"link> beim Start von &kapp; eingeben"
+"link> beim Start von &kwave; eingeben"
 
 #. Tag: para
 #: help_en-work.docbook:1191
 #, no-c-format
 msgid ""
-"open an empty &kapp; window (for example with <menuchoice> "
+"open an empty &kwave; window (for example with <menuchoice> "
 "<shortcut><keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo></"
 "shortcut> <guimenu>File</guimenu><guimenuitem>New...</guimenuitem> </"
 "menuchoice> ) and put a file into it via <link linkend=\"drag_and_drop"
 "\">drag and drop</link>, or you can"
 msgstr ""
-"ein leeres &kapp;-Fenster öffnen (zum Beispiel mit <menuchoice> "
+"ein leeres &kwave;-Fenster öffnen (zum Beispiel mit <menuchoice> "
 "<shortcut><keycombo><keycap>Strg</keycap><keycap>W</keycap></keycombo></"
 "shortcut> <guimenu>Datei</guimenu><guimenuitem>Neu...</guimenuitem> </"
 "menuchoice> ) und fügen eine Datei mittels <link linkend=\"drag_and_drop"
@@ -2323,18 +2335,18 @@ msgstr "Unterstützte Dateiformate"
 #. Tag: para
 #: help_en-work.docbook:1243
 #, no-c-format
-msgid "&kapp; supports the following file formats:"
-msgstr "&kapp; unterstützt folgende Dateiformate:"
+msgid "&kwave; supports the following file formats:"
+msgstr "&kwave; unterstützt folgende Dateiformate:"
 
 #. Tag: para
 #: help_en-work.docbook:1249
 #, no-c-format
 msgid ""
-"The favourite file format of &kapp; is (like you can guess from the name) "
+"The favourite file format of &kwave; is (like you can guess from the name) "
 "<filename>.wav</filename>. This format is very common to other \"operating "
 "systems\" and also is commonly used within the KDE environment."
 msgstr ""
-"Das favorisierte Dateiformat von &kapp; ist (wie man vom Namen her bereits "
+"Das favorisierte Dateiformat von &kwave; ist (wie man vom Namen her bereits "
 "vermuten könnte) <filename>*.wav</filename>. Dieses Format ist weit "
 "verbreitet auf anderen \"Betriebssystemen\", sowie auch innerhalb der KDE-"
 "Umgebung."
@@ -2343,13 +2355,13 @@ msgstr ""
 #: help_en-work.docbook:1254
 #, no-c-format
 msgid ""
-"The second format that &kapp; supports is \"ASCII\". You can export to "
+"The second format that &kwave; supports is \"ASCII\". You can export to "
 "ASCII, but currently not import from it (this is currently not implemented). "
 "Please be aware that storing in this format might produce very large files! "
 "The file format will be described <link linkend=\"ascii_format\">below</"
 "link>."
 msgstr ""
-"Das zweite Format das &kapp; unterstützt ist \"ASCII\". Sie können in ASCII "
+"Das zweite Format das &kwave; unterstützt ist \"ASCII\". Sie können in ASCII "
 "exportieren, aber momentan noch nicht importieren (dies ist derzeit noch "
 "nicht implementiert). Bitte beachten Sie dass beim Speichern in diesem "
 "Format sehr grosse Dateien entstehen lönnen! Das Dateiformat wird <link "
@@ -2384,13 +2396,13 @@ msgstr ""
 #: help_en-work.docbook:1277
 #, no-c-format
 msgid ""
-"Additionally &kapp; supports many other common formats through the <ulink "
+"Additionally &kwave; supports many other common formats through the <ulink "
 "url=\"http://www.68k.org/~michael/audiofile/\">audiofile</ulink> plugin. You "
 "can import files like <filename>*.au</filename> and <filename>*.snd</"
 "filename> (NeXT,Sun Audio), <filename>*.aiff</filename> (Audio Interchange "
 "Format) and <filename>*.sf</filename> (Berkeley,IRCAM,Carl Sound Format)."
 msgstr ""
-"Zusätzlich unterstützt &kapp; viele andere Formate durch das <ulink url="
+"Zusätzlich unterstützt &kwave; viele andere Formate durch das <ulink url="
 "\"http://www.68k.org/~michael/audiofile/\">audiofile</ulink>-Plugin. Sie "
 "können Dateien wie <filename>*.au</filename>, <filename>*.snd</filename> "
 "(NeXT,Sun Audio), <filename>*.aiff</filename> (Audio Interchange Format) und "
@@ -2406,14 +2418,14 @@ msgstr "Konvertierung zu und von .wav"
 #: help_en-work.docbook:1295
 #, no-c-format
 msgid ""
-"The best way to work with formats other than those supported by &kapp; is to "
-"use an external converter program. A good set of tools for this is in the "
+"The best way to work with formats other than those supported by &kwave; is "
+"to use an external converter program. A good set of tools for this is in the "
 "<ulink url=\"http://sox.sourceforge.net/\">SoX</ulink> package, they have "
 "also some nice documentation!"
 msgstr ""
-"Im Moment ist es am besten, zum Bearbeiten von Formaten die nicht von &kapp; "
-"unterstützt werden, ein externes Konverter-Programm zu benutzen. Eine gute "
-"Auswahl von Werkzeugen dafür finden Sie im <ulink url=\"http://sox."
+"Im Moment ist es am besten, zum Bearbeiten von Formaten die nicht von "
+"&kwave; unterstützt werden, ein externes Konverter-Programm zu benutzen. "
+"Eine gute Auswahl von Werkzeugen dafür finden Sie im <ulink url=\"http://sox."
 "sourceforge.net/\">SoX</ulink> Paket, dort finden Sie auch gute "
 "Dokumentation!"
 
@@ -2522,11 +2534,12 @@ msgstr ""
 msgid ""
 "Values can be are given in any format that the C library of your system is "
 "able to read and interprete as a floating point or integer number. But when "
-"saving, &kapp; will save as in signed integer format with a 24 bit range."
+"saving, &kwave; will save as in signed integer format with a 24 bit range."
 msgstr ""
 "Werte können in jedem Format angegeben werden das die C-Bibliothek Ihres "
 "Systems versteht, sowohl Fliesskomma als auch Festkomma-Zahlen. Beim "
-"Speichern verwendet &kapp; das vorzeichenbehaftete Integer-Format mit 24 Bit."
+"Speichern verwendet &kwave; das vorzeichenbehaftete Integer-Format mit 24 "
+"Bit."
 
 #. Tag: para
 #: help_en-work.docbook:1354
@@ -2543,12 +2556,12 @@ msgstr ""
 #: help_en-work.docbook:1359
 #, no-c-format
 msgid ""
-"When importing, values can be specified in any range, &kapp; always does a "
+"When importing, values can be specified in any range, &kwave; always does a "
 "first pass over the file to get the highest absolute value and defines that "
 "value as \"100%\" before really reading in the file and scaling it."
 msgstr ""
 "Beim Import können Werte in einem beliebigen Bereich verwendet werden, "
-"&kapp; stellt in einem ersten Durchlauf den Wertebereich automatisch fest "
+"&kwave; stellt in einem ersten Durchlauf den Wertebereich automatisch fest "
 "und skaliert den höchsten gefundenen Wert automatisch auf \"100%\"."
 
 #. Tag: para
@@ -2636,8 +2649,8 @@ msgstr ""
 #. Tag: screeninfo
 #: help_en-work.docbook:1396
 #, no-c-format
-msgid "Here's a screenshot of &kapp;'s new file dialog"
-msgstr "Hier ein Screenshot von &kapp;'s Dialog zum Anlegen neuer Dateien"
+msgid "Here's a screenshot of &kwave;'s new file dialog"
+msgstr "Hier ein Screenshot von &kwave;'s Dialog zum Anlegen neuer Dateien"
 
 #. Tag: phrase
 #: help_en-work.docbook:1404
@@ -2664,12 +2677,12 @@ msgid ""
 "The length of the new signal can be set by time (hours, minutes, seconds) or "
 "by the number of samples. Additionally you can select it relative to the "
 "highest possible length, which is limited by the available memory and "
-"&kapp;'s internal limit (2 GB)."
+"&kwave;'s internal limit (2 GB)."
 msgstr ""
 "Die Länge einer neuen Datei kann über die Zeit (Stunden, Minuten, Sekunden) "
 "oder über die Anzahl der Samples eingestellt werden. Zusätzlich kann man sie "
 "relativ zur größten möglichen Länge einstellen, die durch den vorhandenen "
-"Speicher und durch &kapp; selbst (auf 2GB) begrenzt wird."
+"Speicher und durch &kwave; selbst (auf 2GB) begrenzt wird."
 
 #. Tag: title
 #: help_en-work.docbook:1426
@@ -2681,15 +2694,15 @@ msgstr "Aufnahme"
 #: help_en-work.docbook:1428
 #, no-c-format
 msgid ""
-"&kapp; is able to record audio data from various sources, with all sample "
+"&kwave; is able to record audio data from various sources, with all sample "
 "rates, sample formats and other modes that your sound hardware supports. "
-"Currently &kapp; records through the old OSS sound interface, and since "
+"Currently &kwave; records through the old OSS sound interface, and since "
 "v0.7.4 also the newer and more powerful ALSA interface that is the preferred "
 "choice for linux kernel 2.6."
 msgstr ""
-"&kapp; ist in der Lage, von verschieden Quellen aufnehmen, mit allen "
+"&kwave; ist in der Lage, von verschieden Quellen aufnehmen, mit allen "
 "Abtastraten, Sample-Formaten und Einstellungen die Ihre Soundkarte "
-"unterstützt. Derzeit verwendet &kapp; für die Aufnahme das alte OSS-"
+"unterstützt. Derzeit verwendet &kwave; für die Aufnahme das alte OSS-"
 "Interface, und seit v0.7.4 auch das neuere und leistungsfähigere ALSA-"
 "System, dem System der Wahl für den Linux-Kernel 2.6."
 
@@ -2707,20 +2720,20 @@ msgstr ""
 #: help_en-work.docbook:1442
 #, no-c-format
 msgid ""
-"Here is a screenshot of the &kapp; record dialog, showing the first page "
+"Here is a screenshot of the &kwave; record dialog, showing the first page "
 "with the recording controls during a running recording session. Like in most "
-"dialogs of &kapp; you can get some help or see tooltips on the controls."
+"dialogs of &kwave; you can get some help or see tooltips on the controls."
 msgstr ""
-"Hier ist ein Screenshot der ersten Seite des &kapp;'s Aufnahme-Dialogs mit "
+"Hier ist ein Screenshot der ersten Seite des &kwave;'s Aufnahme-Dialogs mit "
 "den Aufnahmekontrollen, während einer laufenden Aufnahme. Wie in den meisten "
-"Dialogen von &kapp; erhalten Sie einige Hilfestellungen und Tooltips von den "
-"Kontrollelementen."
+"Dialogen von &kwave; erhalten Sie einige Hilfestellungen und Tooltips von "
+"den Kontrollelementen."
 
 #. Tag: screeninfo
 #: help_en-work.docbook:1450
 #, no-c-format
-msgid "Here's a screenshot of &kapp;'s record dialog"
-msgstr "Das ist ein Screenshot von &kapp;'s Aufnahme-Dialog"
+msgid "Here's a screenshot of &kwave;'s record dialog"
+msgstr "Das ist ein Screenshot von &kwave;'s Aufnahme-Dialog"
 
 #. Tag: phrase
 #: help_en-work.docbook:1458
@@ -2738,20 +2751,21 @@ msgstr "Hier haben Sie folgende Einstellmöglichkeiten:"
 #: help_en-work.docbook:1467
 #, no-c-format
 msgid ""
-"<guilabel>Pre-Record:</guilabel> If the pre-recording feature of &kapp; is "
-"enabled and the recording is startet, &kapp; records into an internal buffer "
-"which is some seconds long. If you press the <guibutton>Record</guibutton> "
-"( <inlinemediaobject> <imageobject> <imagedata fileref=\"krec_record.png\" "
-"format=\"PNG\"/> </imageobject> <textobject> <phrase>record button</phrase> "
-"</textobject> </inlinemediaobject> ) button again, then the recording really "
-"starts, and also keeps the already pre-recorded data. This is useful for "
-"example if you want to record your favorite song from radio, but you "
-"recognize too late that the song has started. In this case you can still "
-"press the record button and get the start of the song from what &kapp; has "
-"already pre-recorded before, so that you will no longer miss a start."
+"<guilabel>Pre-Record:</guilabel> If the pre-recording feature of &kwave; is "
+"enabled and the recording is startet, &kwave; records into an internal "
+"buffer which is some seconds long. If you press the <guibutton>Record</"
+"guibutton> ( <inlinemediaobject> <imageobject> <imagedata fileref="
+"\"krec_record.png\" format=\"PNG\"/> </imageobject> <textobject> "
+"<phrase>record button</phrase> </textobject> </inlinemediaobject> ) button "
+"again, then the recording really starts, and also keeps the already pre-"
+"recorded data. This is useful for example if you want to record your "
+"favorite song from radio, but you recognize too late that the song has "
+"started. In this case you can still press the record button and get the "
+"start of the song from what &kwave; has already pre-recorded before, so that "
+"you will no longer miss a start."
 msgstr ""
 "<guilabel>Vorab-Aufnahme:</guilabel> Wenn Sie die Vorab-Aufnahme aktivieren, "
-"und die Aufnahme gestartet wird, nimmt &kapp; in einen internen Ringbuffer "
+"und die Aufnahme gestartet wird, nimmt &kwave; in einen internen Ringbuffer "
 "auf, der einige Sekunden lang ist. Wenn Sie den <guibutton>Aufnahme</"
 "guibutton> ( <inlinemediaobject> <imageobject> <imagedata fileref="
 "\"krec_record.png\" format=\"PNG\"/> </imageobject> <textobject> "
@@ -2761,7 +2775,7 @@ msgstr ""
 "nützlich, wenn Sie Ihren Liblingssong vom Radio aufnehmen wollen, aber zu "
 "spät mitkriegen dass das Stück bereits gestartet ist. In diesem Fall können "
 "Sie immer noch den Aufnahme-Button drücken und den Start des Stücks aus dem "
-"beziehen was &kapp; bereits aufgenommen hat. Somit verpassen Sie nie mehr "
+"beziehen was &kwave; bereits aufgenommen hat. Somit verpassen Sie nie mehr "
 "einen Anfang."
 
 #. Tag: para
@@ -2839,14 +2853,14 @@ msgid ""
 "fileref=\"record_stop.png\" format=\"PNG\"/> </"
 "imageobject><textobject><phrase>stop button</phrase></textobject> </"
 "inlinemediaobject>) button is active when the recording or pre-recording is "
-"running or &kapp; is waiting for the trigger. If pressed, the current "
+"running or &kwave; is waiting for the trigger. If pressed, the current "
 "progress will be stopped."
 msgstr ""
 "Der <guibutton>Stop</guibutton> (<inlinemediaobject><imageobject> <imagedata "
 "fileref=\"record_stop.png\" format=\"PNG\"/> </"
 "imageobject><textobject><phrase>stop button</phrase></textobject> </"
 "inlinemediaobject>)-Button ist aktiv während die Aufnahme oder Vorab-"
-"Aufnahme läuft oder während &kapp; auf das Erreichen eines Triggerpegels "
+"Aufnahme läuft oder während &kwave; auf das Erreichen eines Triggerpegels "
 "wartet. Beim Klicken wird der aktuelle Vorgang angehalten."
 
 #. Tag: para
@@ -2902,13 +2916,13 @@ msgstr ""
 #, no-c-format
 msgid ""
 "If prerecording is not used and a trigger level is set, the first press will "
-"let &kapp; wait for the trigger level to be reached. While waiting for a "
+"let &kwave; wait for the trigger level to be reached. While waiting for a "
 "trigger, you can force the recording to start immediately by pressing the "
 "record button again, otherwise the recording will start automatically when "
 "the trigger level has been reached."
 msgstr ""
 "Wenn die Vorab-Aufnahme aktiviert wurde und ein Triggerpegel gesetzt wurde, "
-"wartet &kapp; nach dem ersten Klicken auf das Erreichen des Triggerpegels. "
+"wartet &kwave; nach dem ersten Klicken auf das Erreichen des Triggerpegels. "
 "Während dem Warten können Sie den Start der Aufnahme erzwingen indem Sie den "
 "Aufnahmebutton nochmals klicken, ansonsten startet die Aufnahme sobald der "
 "Triggerpegel erreicht wurde."
@@ -2933,10 +2947,10 @@ msgstr "Wiedergabe"
 #: help_en-work.docbook:1575
 #, no-c-format
 msgid ""
-"Depending on the compilation options &kapp; is able to play sounds trough "
+"Depending on the compilation options &kwave; is able to play sounds trough "
 "one of the following playback methods:"
 msgstr ""
-"Je nachdem welche Optionen zur Kompilierzeit gesetzt waren, kann &kapp; mit "
+"Je nachdem welche Optionen zur Kompilierzeit gesetzt waren, kann &kwave; mit "
 "Hilfe folgender Wiedergabe-Methoden abspielen:"
 
 #. Tag: para
@@ -2981,8 +2995,8 @@ msgstr ""
 #. Tag: screeninfo
 #: help_en-work.docbook:1603
 #, no-c-format
-msgid "Here's a screenshot of &kapp;'s playback setup dialog"
-msgstr "Das ist ein Screenshot von &kapp;'s Wiedergabe-Einstellungen"
+msgid "Here's a screenshot of &kwave;'s playback setup dialog"
+msgstr "Das ist ein Screenshot von &kwave;'s Wiedergabe-Einstellungen"
 
 #. Tag: phrase
 #: help_en-work.docbook:1611
@@ -2994,11 +3008,11 @@ msgstr "Screenshot der Wiedergabe-Einstellungen"
 #: help_en-work.docbook:1617
 #, no-c-format
 msgid ""
-"Currently &kapp; supports only 8 and 16 bit playback, with mono or stereo "
+"Currently &kwave; supports only 8 and 16 bit playback, with mono or stereo "
 "output through the OSS interface, but many also all modes your sound "
 "hardware supports through the ALSA interface."
 msgstr ""
-"Momentan unterstützt &kapp; die Wiedergabe mit 8 und 16 Bits, mit Mono und "
+"Momentan unterstützt &kwave; die Wiedergabe mit 8 und 16 Bits, mit Mono und "
 "Stereo via OSS, sowie alle andern Modi die von Ihrer Sound-Hardware "
 "unterstützt werden mit Hilfe des ALSA-Systems."
 
@@ -3052,11 +3066,11 @@ msgstr ""
 #, no-c-format
 msgid ""
 "Once you have configured playback, you can use the playback controls of the "
-"&kapp; main window or through the <menuchoice><guimenu>Play</guimenu></"
+"&kwave; main window or through the <menuchoice><guimenu>Play</guimenu></"
 "menuchoice> menu or with keyboard shortcuts:"
 msgstr ""
 "Sobald Sie die Wiedergabe konfiguriert haben, können Sie die Wiedergabe-"
-"Kontrollelemente des &kapp;-Hauptfensters aus dem "
+"Kontrollelemente des &kwave;-Hauptfensters aus dem "
 "<menuchoice><guimenu>Wiedergabe</guimenu></menuchoice>-Menue oder mit "
 "Tastaturkürzel verwenden:"
 
@@ -3136,17 +3150,17 @@ msgstr "Datei-Eigenschaften"
 #: help_en-work.docbook:1692
 #, no-c-format
 msgid ""
-"&kapp; is able to handle several meta information that is stored within an "
+"&kwave; is able to handle several meta information that is stored within an "
 "audio file. It tries to import and export as much of these informations as "
 "possible. For example, if you import an MP3 file with ID3 tags, you can keep "
-"those informations when exporting to a Wave file. If &kapp; would lose meta "
+"those informations when exporting to a Wave file. If &kwave; would lose meta "
 "information when saving, it shows a warning."
 msgstr ""
-"&kapp; kann verschiedene Zusatzinformationen verwalten, die mit in einer "
+"&kwave; kann verschiedene Zusatzinformationen verwalten, die mit in einer "
 "Audio-Datei gespeichert wurden. Es versucht, so viele dieser Informationen "
 "wie möglich zu importieren und zu exportieren. Wenn Sie zum Beispiel MP3-"
 "Dateien mit ID3-Tags importieren, bleiben diese beim Speichern als Wave-"
-"Datei nicht erhalten. Wenn &kapp; Zusatzinformationen beim Speichern "
+"Datei nicht erhalten. Wenn &kwave; Zusatzinformationen beim Speichern "
 "verlieren würde, erscheint eine Warnung."
 
 #. Tag: para
@@ -3166,8 +3180,8 @@ msgstr ""
 #. Tag: screeninfo
 #: help_en-work.docbook:1709
 #, no-c-format
-msgid "Here's a screenshot of &kapp;'s file properties dialog"
-msgstr "Das ist ein Screenshot von &kapp;'s Dialog der Datei-Informationen"
+msgid "Here's a screenshot of &kwave;'s file properties dialog"
+msgstr "Das ist ein Screenshot von &kwave;'s Dialog der Datei-Informationen"
 
 #. Tag: phrase
 #: help_en-work.docbook:1717
@@ -3185,11 +3199,12 @@ msgstr "Zoomen und Navigieren"
 #: help_en-work.docbook:1730
 #, no-c-format
 msgid ""
-"&kapp; provides several ways to zoom and navigate, using keyboard shortcuts, "
-"menu commands, toolbar buttons and by using the mouse. The following "
-"sections should give an overview on how to use all of these functions."
+"&kwave; provides several ways to zoom and navigate, using keyboard "
+"shortcuts, menu commands, toolbar buttons and by using the mouse. The "
+"following sections should give an overview on how to use all of these "
+"functions."
 msgstr ""
-"&kapp; ermöglicht es auf verschiedene Arten und Weisen zu zoomen und zu "
+"&kwave; ermöglicht es auf verschiedene Arten und Weisen zu zoomen und zu "
 "navigieren: über Tastaturkürzel, Werkzeugleiste und mit der Maus. Die "
 "folgenden Abschnitte geben eine Übersicht wie diese Funktionen verwendet "
 "werden."
@@ -3498,11 +3513,11 @@ msgstr "Verwenden der Übersicht"
 #: help_en-work.docbook:1940
 #, no-c-format
 msgid ""
-"The main screen of &kapp; shows a small <emphasis>overview</emphasis> of the "
-"whole signal above the horizontal scroll bar of the main window. This "
+"The main screen of &kwave; shows a small <emphasis>overview</emphasis> of "
+"the whole signal above the horizontal scroll bar of the main window. This "
 "overview also provides some functionality for navigating:"
 msgstr ""
-"Das Hauptfenster von &kapp; enthält oberhalb des horizontalen Scrollbalkens "
+"Das Hauptfenster von &kwave; enthält oberhalb des horizontalen Scrollbalkens "
 "eine kleine <emphasis>Übersicht</emphasis> über das gesamte Signal. Diese "
 "Übersicht stellt ebenfalls Funktionen zum Navigieren zur Verfügung:"
 
@@ -3565,16 +3580,16 @@ msgstr "Die Funktionsweise der Auswahl"
 #: help_en-work.docbook:1982
 #, no-c-format
 msgid ""
-"&kapp; allows you to select a continuous range of samples as well as any "
+"&kwave; allows you to select a continuous range of samples as well as any "
 "combination of channels (if you edit a multi-channel file). By selecting a "
 "range of samples (time scope) all following commands will be limited to that "
 "range and by de-selecting a channel it's content will not be changed."
 msgstr ""
-"&kapp; erlaubt es Ihnen, einen kontinuierlichen Bereich von Samples wie auch "
-"jede Kombination von Kanälen (wenn Sie eine Multi-Kanal-Datei bearbeiten) "
-"auszuwählen. Wenn Sie einen Sample-Bereich (Zeitrahmen) ausgewählt haben, "
-"werden alle folgenden Befehle darauf angewendet, wobei das Deselektieren "
-"eines Kanals den Inhalt nicht verändert."
+"&kwave; erlaubt es Ihnen, einen kontinuierlichen Bereich von Samples wie "
+"auch jede Kombination von Kanälen (wenn Sie eine Multi-Kanal-Datei "
+"bearbeiten) auszuwählen. Wenn Sie einen Sample-Bereich (Zeitrahmen) "
+"ausgewählt haben, werden alle folgenden Befehle darauf angewendet, wobei das "
+"Deselektieren eines Kanals den Inhalt nicht verändert."
 
 #. Tag: title
 #: help_en-work.docbook:1989
@@ -3636,7 +3651,7 @@ msgstr "Auswahl von Samples"
 #: help_en-work.docbook:2020
 #, no-c-format
 msgid ""
-"If you select a range of samples in &kapp;, that range will be "
+"If you select a range of samples in &kwave;, that range will be "
 "<emphasis>inclusive</emphasis>. That means that the first and the last "
 "selected sample both belong to the selection and will be used for the "
 "following actions. So even if you not selected a <emphasis>range</emphasis> "
@@ -3644,7 +3659,7 @@ msgid ""
 "for example if you see no selected range, the \"delete\" function applies to "
 "that single sample."
 msgstr ""
-"Wenn Sei einen Sample-Bereich in &kapp; auswählen, wird dieser Bereich "
+"Wenn Sei einen Sample-Bereich in &kwave; auswählen, wird dieser Bereich "
 "<emphasis>inclusive</emphasis> sein. Das heißt, dass das erste und das "
 "letzte ausgewählte Sample mit zur Auswahl gehören und benutzt werden für die "
 "folgenden Aktionen. Deshalb wird, selbst wenn Sie keinen <emphasis>Bereich</"
@@ -3886,34 +3901,34 @@ msgstr "Zwischenablage"
 #: help_en-work.docbook:2148
 #, no-c-format
 msgid ""
-"&kapp; since v0.8.1 uses the clipboard of KDE. This way it is possible to "
-"exchange audio data between different &kapp; windows. It might be possible "
-"as well to exchange data between &kapp; and other audio applications, "
+"&kwave; since v0.8.1 uses the clipboard of KDE. This way it is possible to "
+"exchange audio data between different &kwave; windows. It might be possible "
+"as well to exchange data between &kwave; and other audio applications, "
 "depending on their ability to use the KDE clipboard."
 msgstr ""
-"&kapp; verwendet seit v0.8.1 die Zwischenablage von KDE. Damit ist es "
-"möglich Audio-Daten zwischen verschiedenen &kapp;-Fenstern auszutauschen. "
-"Ausserdem lassen sich möglicherweise Daten zwischen &kapp; und anderen Audio-"
-"Programmen austauschen, abhängig von deren Fähigkeit die KDE-Zwischenablage "
-"zu nutzen."
+"&kwave; verwendet seit v0.8.1 die Zwischenablage von KDE. Damit ist es "
+"möglich Audio-Daten zwischen verschiedenen &kwave;-Fenstern auszutauschen. "
+"Ausserdem lassen sich möglicherweise Daten zwischen &kwave; und anderen "
+"Audio-Programmen austauschen, abhängig von deren Fähigkeit die KDE-"
+"Zwischenablage zu nutzen."
 
 #. Tag: para
 #: help_en-work.docbook:2156
 #, no-c-format
 msgid ""
 "When copying data to the clipboard through the <literal>copy</literal> "
-"function &kapp; uses the mime type <literal>audio/vnd.wave</literal> as data "
-"format, conforming to <ulink url=\"http://www.faqs.org/rfcs/rfc2361.html"
+"function &kwave; uses the mime type <literal>audio/vnd.wave</literal> as "
+"data format, conforming to <ulink url=\"http://www.faqs.org/rfcs/rfc2361.html"
 "\">RFC 2361</ulink> which is the same as the well known <literal>wav</"
-"literal> format. When pasting from the clipboard into &kapp; all data "
+"literal> format. When pasting from the clipboard into &kwave; all data "
 "formats that are available as file import formats are supported, like for "
 "example Ogg/Vorbis, FLAC and so on."
 msgstr ""
 "Beim kopieren in die Zwischenablage über die <literal>Kopieren</literal>-"
-"Funktion verwendet &kapp; den Medientyp <literal>audio/vnd.wave</literal>, "
+"Funktion verwendet &kwave; den Medientyp <literal>audio/vnd.wave</literal>, "
 "gemäss <ulink url=\"http://www.faqs.org/rfcs/rfc2361.html\">RFC 2361</"
 "ulink>, wie in dem bekannten <literal>wav</literal>-Format. Beim Einfügen "
-"von der Zwischenablage in &kapp; werden alle Datenformate unterstützt die "
+"von der Zwischenablage in &kwave; werden alle Datenformate unterstützt die "
 "als Datei-Import-Formate verfügbar sind, wie beispielsweise Ogg/Vorbis, FLAC "
 "und andere."
 
@@ -3927,35 +3942,35 @@ msgstr "Drag and Drop"
 #: help_en-work.docbook:2175
 #, no-c-format
 msgid ""
-"&kapp; supports the KDE Drag and Drop protocol. This enables you to open "
+"&kwave; supports the KDE Drag and Drop protocol. This enables you to open "
 "files just by picking them up in a <command>konqueror</command> window or "
-"the Desktop and let them drop into a window of &kapp;."
+"the Desktop and let them drop into a window of &kwave;."
 msgstr ""
-"&kapp; unterstützt das KDE Drag and Drop-Protokoll. Dies ermöglicht Ihnen, "
+"&kwave; unterstützt das KDE Drag and Drop-Protokoll. Dies ermöglicht Ihnen, "
 "Dateien einfach mittels der Maus in einem <command>konqueror</command>- "
-"Fenster oder vom Desktop aufzunehmen und sie über einem Fenster von &kapp; "
+"Fenster oder vom Desktop aufzunehmen und sie über einem Fenster von &kwave; "
 "fallen zu lassen, um sie zu öffnen."
 
 #. Tag: para
 #: help_en-work.docbook:2181
 #, no-c-format
 msgid ""
-"Please note that if you drop a file into a &kapp; window that already "
+"Please note that if you drop a file into a &kwave; window that already "
 "contains an opened file, the currently opened file will be closed first and "
 "then the file you dropped will be opened in it. If you don't want that, you "
-"should open a new empty &kapp; window first."
+"should open a new empty &kwave; window first."
 msgstr ""
-"Bitte beachten Sie, dass wenn eine Datei über einen &kapp; Fenster fallen "
+"Bitte beachten Sie, dass wenn eine Datei über einen &kwave; Fenster fallen "
 "gelassen wird, welches bereits eine geöffnete Datei enthält, diese zuerst "
 "geschlossen wird und dann erst die losgelassene Datei geöffnet wird. Wenn "
-"Sie dies nicht wollen, sollten Sie zuerst ein neues leeres &kapp; Fenster "
+"Sie dies nicht wollen, sollten Sie zuerst ein neues leeres &kwave; Fenster "
 "öffnen."
 
 #. Tag: para
 #: help_en-work.docbook:2188
 #, no-c-format
 msgid ""
-"You can also select a range of samples and drag or drop them into a &kapp; "
+"You can also select a range of samples and drag or drop them into a &kwave; "
 "window. Per default the drag operation is done in <emphasis>move</emphasis> "
 "mode where the selected range is deleted from the original place and "
 "inserted at the drop position. By pressing the <keycap moreinfo=\"none"
@@ -3963,7 +3978,7 @@ msgid ""
 "emphasis> mode instead."
 msgstr ""
 "Sie können auch einen Bereich von Samples auswählen und per Drag und Drop in "
-"ein anderes &kapp;-Fenster verschieben. Standardmäßig wird der Vorgang im "
+"ein anderes &kwave;-Fenster verschieben. Standardmäßig wird der Vorgang im "
 "<emphasis>Verschieben</emphasis>-Modus durchgeführt, wobei der ausgewählte "
 "Bereich von seiner ursprünglichen Stelle gelöscht und an der Position des "
 "Fallenlassens eingefügt wird. Durch Drücken der <keycap moreinfo=\"none"
@@ -3973,8 +3988,8 @@ msgstr ""
 #. Tag: title
 #: help_en-work.docbook:2301
 #, no-c-format
-msgid "Developer's Guide to &kapp;"
-msgstr "Entwickler-Handbuch zu &kapp;"
+msgid "Developer's Guide to &kwave;"
+msgstr "Entwickler-Handbuch zu &kwave;"
 
 #. Tag: phrase
 #: help_en-work.docbook:2312
@@ -4008,12 +4023,12 @@ msgstr ""
 msgid ""
 "If you want to write a plugin, contribute something to this project (or "
 "maybe write the converter mentioned above), please feel free to contact one "
-"of the authors directly and / or subscribe to the &kapp; <link linkend="
+"of the authors directly and / or subscribe to the &kwave; <link linkend="
 "\"mailing-list\">mailing list</link>. Help is always welcome!"
 msgstr ""
 "Wenn Sie ein Plugin schreiben und etwas zu diesem Projekt beitragen (oder "
 "vielleicht den oben erwähnten Konverter schreiben) wollen, dann scheuen Sie "
-"sich nicht, einem der Autoren direkt zu schreiben und / oder der &kapp; "
+"sich nicht, einem der Autoren direkt zu schreiben und / oder der &kwave; "
 "<link linkend=\"mailing-list\">Mailing-Liste</link> beizutreten. Hilfe ist "
 "immer willkommen!"
 
@@ -4086,14 +4101,14 @@ msgstr "Benutzerschnittstelle:"
 #: help_en-work.docbook:2368
 #, no-c-format
 msgid ""
-"Go to the source directory of &kapp; (not the build directory), change into "
+"Go to the source directory of &kwave; (not the build directory), change into "
 "the subdirectory <filename>po</filename> and copy the file <filename>kwave."
 "pot</filename> to the corresponding <filename>.po</filename> file of the "
 "language you want to add: <filename>\"<replaceable>&lt;code&gt;</"
 "replaceable>.po\"</filename>. After that you can translate the file using "
 "your favorite tool, like <filename>Lokalize</filename>. Example:"
 msgstr ""
-"Wechseln Sie in das Quellenverzeichnis von  &kapp; (nicht das "
+"Wechseln Sie in das Quellenverzeichnis von  &kwave; (nicht das "
 "Generierverzeichnis), wechseln Sie dann in das Unterverzeichnis "
 "<filename>po</filename> und kopieren Sie die Datei <filename>kwave.pot</"
 "filename> in die entsprechende <filename>.po</filename>-Datei der Sprachee "
@@ -4133,7 +4148,7 @@ msgid ""
 "This is similar to the procedure for the user interface, but requires some "
 "extra steps because the master file is in <literal>docbook</literal> format "
 "and the <filename>.pot</filename> template is a generated file. Go to the "
-"source directory of &kapp; (not the build directory), change into the "
+"source directory of &kwave; (not the build directory), change into the "
 "subdirectory <filename>doc</filename> and create an empty <filename>.po</"
 "filename> file: <screen>\n"
 "<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</"
@@ -4164,9 +4179,9 @@ msgstr ""
 "jedoch ein paar zusätzliche Schritte, weil der Originaltext im "
 "<literal>docbook</literal>-Format vorliegt und die <filename>.pot</filename>-"
 "Vorlage eine generierte Datei ist. Wechseln Sie also in das "
-"Quellenverzeichnis von &kapp; (nicht das Generier-Verzeichnis), wechseln Sie "
-"dort in das Unterverzeichnis <filename>doc</filename> und erzeugen Sie eine "
-"leere <filename>.po</filename>-Datei: <screen>\n"
+"Quellenverzeichnis von &kwave; (nicht das Generier-Verzeichnis), wechseln "
+"Sie dort in das Unterverzeichnis <filename>doc</filename> und erzeugen Sie "
+"eine leere <filename>.po</filename>-Datei: <screen>\n"
 "<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</"
 "replaceable></parameter></command>\n"
 "<prompt>% </prompt><command>cd <parameter>doc</parameter></command>\n"
@@ -4218,7 +4233,7 @@ msgstr "Bildschirmfotos:"
 #, no-c-format
 msgid ""
 "For the online documentation you also need screenshots that use the "
-"translated messages. This requires a built and installed &kapp; package, so "
+"translated messages. This requires a built and installed &kwave; package, so "
 "you should follow the steps mentioned in the section about <link linkend="
 "\"manual_compilation\">Manual Compilation and installation</link>. Of course "
 "you <emphasis>must not</emphasis> pass the build option "
@@ -4227,7 +4242,7 @@ msgid ""
 "components that you have disabled."
 msgstr ""
 "Für die Online-Hilfe benötigen Sie auch noch Screenshots die die übersetzten "
-"Texte enthalten. Dies erfordert ein generiertes und installiertes &kapp;-"
+"Texte enthalten. Dies erfordert ein generiertes und installiertes &kwave;-"
 "Paket, Sie sollten also die in den Anweisungen im Abschnitt <link linkend="
 "\"manual_compilation\">Kompilierung und Installation</link>. Natürlich "
 "dürfen Sie <emphasis>nicht</emphasis> die Generier-"
@@ -4379,8 +4394,8 @@ msgstr "Fragen und Antworten"
 #. Tag: para
 #: help_en-work.docbook:2509
 #, no-c-format
-msgid "What do I need to compile &kapp;?"
-msgstr "Was brauche ich um &kapp; zu kompilieren?"
+msgid "What do I need to compile &kwave;?"
+msgstr "Was brauche ich um &kwave; zu kompilieren?"
 
 #. Tag: para
 #: help_en-work.docbook:2514
@@ -4395,22 +4410,22 @@ msgstr ""
 #. Tag: para
 #: help_en-work.docbook:2525
 #, no-c-format
-msgid "Which sound cards does &kapp; support?"
-msgstr "Welche Soundkarten unterstützt &kapp;?"
+msgid "Which sound cards does &kwave; support?"
+msgstr "Welche Soundkarten unterstützt &kwave;?"
 
 #. Tag: para
 #: help_en-work.docbook:2530
 #, no-c-format
 msgid ""
-"&kapp; does not need support for any special sound card. The sound card only "
-"has to be supported by your operating system and &kapp; uses it's interface "
-"to the operating system's sound driver through a OSS or ALSA interface. So "
-"&kapp; can play on any sound card that KDE is able to play on."
+"&kwave; does not need support for any special sound card. The sound card "
+"only has to be supported by your operating system and &kwave; uses it's "
+"interface to the operating system's sound driver through a OSS or ALSA "
+"interface. So &kwave; can play on any sound card that KDE is able to play on."
 msgstr ""
-"&kapp; braucht keine Unterstützung für irgendeine besondere Soundkarte. Die "
-"Soundkarte muss nur von Ihrem Betriebssystem unterstützt werden und &kapp; "
+"&kwave; braucht keine Unterstützung für irgendeine besondere Soundkarte. Die "
+"Soundkarte muss nur von Ihrem Betriebssystem unterstützt werden und &kwave; "
 "nutzt dann sein Interface zum Betriebssystem-Soundkarten-Treiber mit Hilfe "
-"von OSS oder ALSA. Deshalb kann &kapp; jede Soundkarte benutzen, die unter "
+"von OSS oder ALSA. Deshalb kann &kwave; jede Soundkarte benutzen, die unter "
 "KDE einsetzbar ist."
 
 #. Tag: para
@@ -4437,23 +4452,23 @@ msgstr ""
 #: help_en-work.docbook:2560
 #, no-c-format
 msgid ""
-"Why does &kapp; consume more memory than it can be expected from the size of "
-"the opened file?"
+"Why does &kwave; consume more memory than it can be expected from the size "
+"of the opened file?"
 msgstr ""
-"Warum verbraucht &kapp; mehr Speicher als es die Größe der geöffneten Datei "
+"Warum verbraucht &kwave; mehr Speicher als es die Größe der geöffneten Datei "
 "erwarten lässt?"
 
 #. Tag: para
 #: help_en-work.docbook:2566
 #, no-c-format
 msgid ""
-"The reason for this is that &kapp; internally stores all samples in 32-bit "
+"The reason for this is that &kwave; internally stores all samples in 32-bit "
 "integers. This was easy to program, made the application faster and a bit "
 "more reliable. So if you load an 8-bit file with about one megabyte it will "
 "consume about four megabytes. Maybe we will change this somewhere in the "
 "future..."
 msgstr ""
-"Der Grund dafür liegt im internen Speichersystem von &kapp;, in dem alle "
+"Der Grund dafür liegt im internen Speichersystem von &kwave;, in dem alle "
 "Samples in 32-bit Ganzzahlen (Integers) gespeichert werden. Dies war einfach "
 "zu programmieren, machte die Anwendung schneller und ein bisschen "
 "betriebsicherer. Deshalb werden 8-Bit Dateien mit rund einem Megabyte um die "
@@ -4463,19 +4478,19 @@ msgstr ""
 #. Tag: para
 #: help_en-work.docbook:2579
 #, no-c-format
-msgid "Which sound formats does &kapp; support?"
-msgstr "Welche Soundformate unterstützt &kapp;?"
+msgid "Which sound formats does &kwave; support?"
+msgstr "Welche Soundformate unterstützt &kwave;?"
 
 #. Tag: para
 #: help_en-work.docbook:2584
 #, no-c-format
 msgid ""
-"&kapp; currently supports .wav files with 8, 16 and 24 bits per sample, with "
-"any number of channels (of course including mono and stereo). Additionally "
-"it can import all file types that libaudiofile supports and some other "
-"formats like Ogg/Vorbis and MP3 (read-only)."
+"&kwave; currently supports .wav files with 8, 16 and 24 bits per sample, "
+"with any number of channels (of course including mono and stereo). "
+"Additionally it can import all file types that libaudiofile supports and "
+"some other formats like Ogg/Vorbis and MP3 (read-only)."
 msgstr ""
-"&kapp; unterstützt zur Zeit .wav Dateien mit 8, 16 und 24 bits pro Sample, "
+"&kwave; unterstützt zur Zeit .wav Dateien mit 8, 16 und 24 bits pro Sample, "
 "mit beliebiger Anzahl von Kanälen (einschließlich Mono und Stereo "
 "natürlich). Zusätzlich unterstützt es alle Dateiformate von libaudiofile "
 "sowie andere wie Ogg/Vorbis und MP3 (nur Import)."
@@ -4483,8 +4498,8 @@ msgstr ""
 #. Tag: para
 #: help_en-work.docbook:2596
 #, no-c-format
-msgid "What if I have files with a format not supported by &kapp;?"
-msgstr "Was ist, wenn ich Dateien habe die &kapp; nicht unterstützt?"
+msgid "What if I have files with a format not supported by &kwave;?"
+msgstr "Was ist, wenn ich Dateien habe die &kwave; nicht unterstützt?"
 
 #. Tag: para
 #: help_en-work.docbook:2602
@@ -4534,10 +4549,10 @@ msgstr "Die Wiedergabe scheint etwas zu tun, aber ich höre nichts?"
 #, no-c-format
 msgid ""
 "Maybe you have forgotten to increase the volume of the playback channel. "
-"&kapp; is not responsible for changing the playback volume."
+"&kwave; is not responsible for changing the playback volume."
 msgstr ""
 "Vielleicht haben Sie vergessen die Lautstärke des Wiedergabe- Kanals zu "
-"erhöhen. Für das Ändern der Wiedergabelautstärke ist &kapp; nicht "
+"erhöhen. Für das Ändern der Wiedergabelautstärke ist &kwave; nicht "
 "verantwortlich."
 
 #. Tag: para
@@ -4580,12 +4595,12 @@ msgstr "Die Wiedergabe hält nicht an, wenn ich sofort die Stop-Taste drücke?"
 #, no-c-format
 msgid ""
 "The reason for this is that the sound driver already has received some "
-"playback data from &kapp; at the moment when you press the stop button. "
+"playback data from &kwave; at the moment when you press the stop button. "
 "Decrease the size of the playback buffer and it should react faster (but "
 "makes interruptions more probable)."
 msgstr ""
 "Der Grund dafür ist, dass der Soundtreiber, in dem Moment in dem Sie die "
-"Stop-Taste drücken, bereits Wiedergabedaten von &kapp; erhalten hat. "
+"Stop-Taste drücken, bereits Wiedergabedaten von &kwave; erhalten hat. "
 "Verringern Sie die Größe des Wiedergabe Buffers und die Reaktion sollte "
 "schneller einsetzen (dabei werden aber Aussetzer wahrscheinlicher)."
 
@@ -4647,8 +4662,8 @@ msgstr "Credits und Lizenz"
 #. Tag: para
 #: help_en-work.docbook:2762
 #, no-c-format
-msgid "&kapp;"
-msgstr "&kapp;"
+msgid "&kwave;"
+msgstr "&kwave;"
 
 #. Tag: para
 #: help_en-work.docbook:2764
@@ -4870,4 +4885,3 @@ msgstr ""
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr "&underFDL; &underGPL;"
-

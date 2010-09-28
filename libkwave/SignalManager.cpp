@@ -1058,9 +1058,8 @@ bool SignalManager::insertSpace(sample_index_t offset, sample_index_t length,
     }
 
     // adjust the meta data positions after the inserted range
-    // ### TODO ###
-//     m_meta_data.shiftRight(offset, length, track_list);
-//     emit sigMetaDataChanged(m_meta_data);
+    m_meta_data.shiftRight(offset, length, track_list);
+    emit sigMetaDataChanged(m_meta_data);
 
     return true;
 }

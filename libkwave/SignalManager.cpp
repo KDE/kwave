@@ -281,6 +281,9 @@ int SignalManager::loadFile(const KUrl &url)
     if (dialog) delete dialog;
     if (res) close();
 
+    // we now have new meta data
+    emit sigMetaDataChanged(m_meta_data);
+
     return res;
 }
 
@@ -545,6 +548,7 @@ void SignalManager::close()
     rememberCurrentSelection();
 
     emitStatusInfo();
+    emit sigMetaDataChanged(m_meta_data);
 }
 
 //***************************************************************************
@@ -1591,6 +1595,9 @@ void SignalManager::undo()
     // finished / buffers have changed, emit new undo/redo info
     emitUndoRedoInfo();
 
+    // maybe the meta data has changed
+    emit sigMetaDataChanged(m_meta_data);
+
     // remove hourglass
     QApplication::restoreOverrideCursor();
 }
@@ -1692,6 +1699,9 @@ void SignalManager::redo()
 
     // finished / buffers have changed, emit new undo/redo info
     emitUndoRedoInfo();
+
+    // maybe the meta data has changed
+    emit sigMetaDataChanged(m_meta_data);
 
     // remove hourglass
     QApplication::restoreOverrideCursor();

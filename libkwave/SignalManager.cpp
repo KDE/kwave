@@ -957,17 +957,12 @@ void SignalManager::slotSamplesInserted(unsigned int track,
 
     setModified(true);
 
-//     // only adjust the labels once per operation
-//     if (track == selectedTracks().at(0)) {
-// 	QMutableListIterator<Label> it(labels());
-// 	while (it.hasNext()) {
-// 	    Label &label = it.next();
-// 	    sample_index_t pos = label.pos();
-// 	    if (pos >= offset) {
-// 		label.moveTo(pos + length);
-// 	    }
-// 	}
-//     }
+    // only adjust the meta data once per operation
+    QList<unsigned int> tracks = selectedTracks();
+    if (track == tracks[0]) {
+	m_meta_data.shiftRight(offset, length, tracks);
+	emit sigMetaDataChanged(m_meta_data);
+    }
 
     emit sigSamplesInserted(track, offset, length);
     emitStatusInfo();
@@ -981,6 +976,13 @@ void SignalManager::slotSamplesDeleted(unsigned int track,
     m_last_length = m_signal.length();
 
     setModified(true);
+
+    // only adjust the meta data once per operation
+    QList<unsigned int> tracks = selectedTracks();
+    if (track == tracks[0]) {
+	m_meta_data.shiftLeft(offset, length, tracks);
+	emit sigMetaDataChanged(m_meta_data);
+    }
 
     emit sigSamplesDeleted(track, offset, length);
     emitStatusInfo();
@@ -1060,10 +1062,6 @@ bool SignalManager::insertSpace(sample_index_t offset, sample_index_t length,
     foreach (track, track_list) {
 	m_signal.insertSpace(track, offset, length);
     }
-
-    // adjust the meta data positions after the inserted range
-    m_meta_data.shiftRight(offset, length, track_list);
-    emit sigMetaDataChanged(m_meta_data);
 
     return true;
 }

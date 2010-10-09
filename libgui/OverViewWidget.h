@@ -40,7 +40,7 @@ class QResizeEvent;
 class SignalManager;
 class Track;
 
-namespace Kwave { class MetaDataList; };
+namespace Kwave { class MetaDataList; }
 
 class KDE_EXPORT OverViewWidget : public ImageView
 {

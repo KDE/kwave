@@ -710,15 +710,16 @@ void Kwave::MetaDataList::shiftRight(sample_index_t offset, sample_index_t shift
                                      const QList<unsigned int> &tracks)
 {
     MutableIterator it(*this);
-    while (it.hasNext()) {
-	it.next();
+    it.toBack();
+    while (it.hasPrevious()) {
+	it.previous();
 	Kwave::MetaData &meta = it.value();
 
 	sample_index_t meta_first  = meta.firstSample();
 	sample_index_t meta_last   = meta.lastSample();
 
 	// check: is it before the offset ?
-	if (meta_first < offset)
+	if (meta_last < offset)
 	    continue;
 
 	// only operate on the matching tracks:
@@ -798,7 +799,8 @@ void Kwave::MetaDataList::shiftRight(sample_index_t offset, sample_index_t shift
 	Q_ASSERT(meta_last + shift >= meta_last);
 	meta_last  = (meta_last + shift >= meta_last) ?
 	    (meta_last + shift) : SAMPLE_INDEX_MAX;
-	meta_first += shift;
+	if (meta_first >= offset)
+	    meta_first += shift;
 
 	if (meta.hasProperty(Kwave::MetaData::STDPROP_START))
 	    meta[Kwave::MetaData::STDPROP_START] = QVariant(meta_first);

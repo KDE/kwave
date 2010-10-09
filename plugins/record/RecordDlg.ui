@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>738</width>
-    <height>586</height>
+    <width>752</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="focusPolicy">
@@ -49,7 +49,7 @@
         <property name="currentIndex">
          <number>0</number>
         </property>
-        <widget class="QWidget" name="tab">
+        <widget class="QWidget" name="tab_record">
          <attribute name="title">
           <string>Recording</string>
          </attribute>
@@ -375,7 +375,7 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab">
+        <widget class="QWidget" name="tab_level">
          <attribute name="title">
           <string>Level</string>
          </attribute>
@@ -616,7 +616,7 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab">
+        <widget class="QWidget" name="tab_format">
          <attribute name="title">
           <string>For&amp;mat</string>
          </attribute>
@@ -973,7 +973,7 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab">
+        <widget class="QWidget" name="tab_source">
          <attribute name="title">
           <string>Source</string>
          </attribute>
@@ -1191,7 +1191,7 @@ recording. Depending on the compilation options you can select one of the follow
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab">
+        <widget class="QWidget" name="tab_display">
          <attribute name="title">
           <string>Display</string>
          </attribute>

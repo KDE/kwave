@@ -865,6 +865,10 @@ int SignalManager::executeCommand(const QString &command)
 	int track = parser.toInt();
 	UndoTransactionGuard undo(*this, i18n("Deselect Track"));
 	selectTrack(track, false);
+    CASE_COMMAND("toggle_track_selection")
+	int track = parser.toInt();
+	UndoTransactionGuard undo(*this, i18n("Toggle Track Selection"));
+	selectTrack(track, !(trackSelected(track)));
     } else {
 	return -ENOSYS;
     }

@@ -548,10 +548,11 @@ bool WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
     if (!fh) return false;
 
 //     info().dump();
+    const unsigned int tracks = dst.tracks();
 
     // allocate an array of Writers, for speeding up
     QVector<Kwave::Writer *>writers;
-    for (unsigned int t = 0; t < dst.tracks(); t++)
+    for (unsigned int t = 0; t < tracks; t++)
 	writers.append(dst[t]);
     Q_ASSERT(writers.count() == static_cast<int>(dst.tracks()));
     if (writers.count() != static_cast<int>(dst.tracks())) return false;
@@ -568,7 +569,7 @@ bool WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
     if (!buffer) return false;
 
     // read in from the audiofile source
-    const unsigned int tracks = metaData().fileInfo().tracks();
+    Q_ASSERT(tracks == metaData().fileInfo().tracks());
     unsigned int rest = metaData().fileInfo().length();
     while (rest) {
 	unsigned int frames = buffer_frames;
@@ -589,11 +590,12 @@ bool WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
 
 		// adjust precision
 		if (SAMPLE_STORAGE_BITS != SAMPLE_BITS) {
-		    s /= (1 << (SAMPLE_STORAGE_BITS-SAMPLE_BITS));
+		    s /= (1 << (SAMPLE_STORAGE_BITS - SAMPLE_BITS));
 		}
 
 		// the following cast is only necessary if
 		// sample_t is not equal to a u_int32_t
+		Q_ASSERT(writer_fast[track]);
 		*(writer_fast[track]) << static_cast<sample_t>(s);
 	    }
 	}

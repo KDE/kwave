@@ -43,7 +43,7 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="tab1">
       <attribute name="title">
        <string>File</string>
       </attribute>
@@ -609,7 +609,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="tab2">
       <attribute name="title">
        <string>Compression</string>
       </attribute>
@@ -736,7 +736,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="tab3">
       <attribute name="title">
        <string>MPEG</string>
       </attribute>
@@ -1235,7 +1235,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="tab4">
       <attribute name="title">
        <string>Content</string>
       </attribute>
@@ -1501,7 +1501,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="tab5">
       <attribute name="title">
        <string>Source</string>
       </attribute>
@@ -1846,7 +1846,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="tab6">
       <attribute name="title">
        <string>Author/Copyright</string>
       </attribute>
@@ -2127,7 +2127,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="tab7">
       <attribute name="title">
        <string>Miscellaneous</string>
       </attribute>

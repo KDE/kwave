@@ -34,7 +34,7 @@ KwaveFileDialog::KwaveFileDialog(const QString &startDir,
     const QString &filter, QWidget *parent, bool modal,
     const QString last_url, const QString last_ext)
     :KFileDialog(startDir, filter, parent),
-     m_config_group(0), m_last_url(last_url), m_last_ext(last_ext)
+     m_config_group(), m_last_url(last_url), m_last_ext(last_ext)
 {
     setModal(modal);
 

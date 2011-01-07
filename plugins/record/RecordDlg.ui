@@ -49,7 +49,7 @@
         <property name="currentIndex">
          <number>0</number>
         </property>
-        <widget class="QWidget" name="tab">
+        <widget class="QWidget" name="tab1">
          <attribute name="title">
           <string>Recording</string>
          </attribute>
@@ -375,7 +375,7 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab">
+        <widget class="QWidget" name="tab2">
          <attribute name="title">
           <string>Level</string>
          </attribute>
@@ -616,7 +616,7 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab">
+        <widget class="QWidget" name="tab3">
          <attribute name="title">
           <string>For&amp;mat</string>
          </attribute>
@@ -973,7 +973,7 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab">
+        <widget class="QWidget" name="tab4">
          <attribute name="title">
           <string>Source</string>
          </attribute>

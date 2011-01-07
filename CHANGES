@@ -7,6 +7,8 @@
  * plugin API change: support for translateable short description
  * about plugin: use plugin info from PluginManager
  * bugfix: optimized memcpy for PPC (SF bug #3068664)
+ * doc: upgrade to DocBook XML V4.2 / V1.1
+ * build fixes for qt-4.7
 
 0.8.5  [2009-12-24]
 

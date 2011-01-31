@@ -584,6 +584,13 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/fileinfo/SelectDateDialog.h		GPL2+
 	plugins/fileinfo/SelectDateDlg.ui		(should be GPL2+)
 
+	plugins/labeler/LabelerPlugin.cpp		GPL2+
+	plugins/labeler/LabelerPlugin.h			GPL2+
+	plugins/labeler/Labels.cpp			GPL2+
+	plugins/labeler/Labels.h			GPL2+
+	plugins/labeler/gui/LabelView.cpp		GPL2+
+	plugins/labeler/gui/LabelView.h			GPL2+
+
 	plugins/lowpass/CMakeLists.txt			GPL2+
 	plugins/lowpass/LowPassDialog.cpp		GPL2+
 	plugins/lowpass/LowPassDialog.h			GPL2+

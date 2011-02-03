@@ -86,8 +86,9 @@ void LabelerPlugin::run(QStringList params)
   }
 
   // Just adds some labels to test how they are visualized
-  for (sample_index_t i = 0; i < this->signalManager().length(); i+= this->signalManager().length() / 10) {
-      LabelInstant dataItem(i, QString::number(signalManager().metaData().size() +1));
+  float i = 0.0F, s = (this->signalManager().length() -1) / 10.0F;
+  for (int j = 0; static_cast<sample_index_t>(i) < this->signalManager().length(); i += s, j++) {
+      LabelInstant dataItem(static_cast<sample_index_t>(i), QString("lbl %1").arg(QString::number(j)));
       // Fill custom data of the item */
       dataItem.setProperty("XLABELPROP_COLOR", QVariant("custom label property"));
       dataItem.setProperty(Kwave::MetaData::STDPROP_TRACKS, tracks);

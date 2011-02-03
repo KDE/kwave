@@ -61,7 +61,10 @@ qDebug(" - offset: %llu",  offset());
 
     SignalView::paintEvent(event);
 
-    /* Paint the labels */
+    const sample_index_t offs  = offset();
+    const sample_index_t wdth  = pixels2samples(width());
+
+    // Paint the labels
     QPainter p;
     MetaDataList labels = m_signal_manager->metaData().selectByType(LabelerLabel::METADATA_TYPE);
 //    float f = width() / static_cast<float>(m_signal_manager->length());
@@ -73,24 +76,21 @@ qDebug(" - offset: %llu",  offset());
     p.fillRect(rect(), palette().background().color());
     /* Paint the labels */
     for (MetaDataList::iterator it = labels.begin(); it != labels.end(); it++) {
-
-/*qDebug("iteration\n"),
-it.value().dump();*/
         // Time instant label
         if (it->property(LabelerLabel::LABELPROP_TYPE) == LabelInstant::LABEL_TYPE) {
-// qDebug("painting ....\n");
-            // TODO: dynamic_cast<>() does not work! Why??
-            //const LabelInstant * label = static_cast<const LabelInstant * >(& it.value());
             const LabelInstant label(it.value());
-//qDebug("label: %p  %p\n", label, it.value());.
 
+            // Not visible
+            if (label.pos() < offs || label.pos() > offs + wdth)
+                continue;
+            // convert "first" to relative coordinate, clip left
+            int x = samples2pixels(label.pos() - offs);
+            QRect t = p.fontMetrics().boundingRect(label.name());
+            t.moveCenter(QPoint(x, height() / 2));
             // draw the vertical line at the position of the label
-            int x = samples2pixels(label.pos());
             p.setPen(Qt::black);
             p.drawLine(x, 0, x, height());
             // draw the box with the label
-            QRect t = p.fontMetrics().boundingRect(label.name());
-            t.moveCenter(QPoint(x, height() / 2));
             p.fillRect(t.left() -2, t.top() -2, t.width() + 2, t.height() + 2, QBrush(Qt::blue));
             p.setPen(Qt::white);
             p.drawText(t, label.name());
@@ -117,6 +117,7 @@ void LabelView::setZoomAndOffset(double zoom, sample_index_t offset)
 qDebug("LabelelView::setZoomAndOffset(%lf, %llu) called", zoom, offset);
 
     Kwave::SignalView::setZoomAndOffset(zoom, offset);
+    repaint();
 }
 
 //***************************************************************************

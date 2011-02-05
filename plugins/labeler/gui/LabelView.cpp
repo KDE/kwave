@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include <QPainter>
+#include <QDebug>
 
 #include "gui/LabelView.h"  // relative to LabelerPlugin dir
 #include "Labels.h"
@@ -51,64 +52,94 @@ LabelView::LabelView(QWidget *parent, QWidget *controls, SignalManager *signal_m
 //***************************************************************************
 void LabelView::paintEvent(QPaintEvent * event)
 {
-////// Just temporary
-qDebug("LabelelView::paintEvent() called");
-//qDebug(" - offset: %f", sample2float(offset()));
-//qDebug(" - track:  %d", track());
-qDebug(" - zoom:   %lf", zoom());
-qDebug(" - offset: %llu",  offset());
-//////
+  // TODO: optimize the painting (seems to be quiet complex code). For example, for given zoom, the whole
+  //       labels range could be paint to hidden graphics once, and the visible region could be displayed
+  //       only (depending to the current offset)
 
     SignalView::paintEvent(event);
 
     const sample_index_t offs  = offset();
     const sample_index_t wdth  = pixels2samples(width());
+    const static QChar dots = QChar(0x85); // '...' character
 
     // Paint the labels
-    QPainter p;
+    QPainter painter;
     MetaDataList labels = m_signal_manager->metaData().selectByType(LabelerLabel::METADATA_TYPE);
-//    float f = width() / static_cast<float>(m_signal_manager->length());
 
 //    p.setFont(QFont());
-    p.begin(this);
+    painter.begin(this);
 
     /* Fill the background */
-    p.fillRect(rect(), palette().background().color());
+    painter.fillRect(rect(), palette().background().color());
     /* Paint the labels */
     for (MetaDataList::iterator it = labels.begin(); it != labels.end(); it++) {
-        // Time instant label
-        if (it->property(LabelerLabel::LABELPROP_TYPE) == LabelInstant::LABEL_TYPE) {
-            const LabelInstant label(it.value());
+         // Whole label is not visible
+         if (it->lastSample() < offs || it->firstSample() > offs + wdth)
+             continue;
 
-            // Not visible
-            if (label.pos() < offs || label.pos() > offs + wdth)
-                continue;
-            // convert "first" to relative coordinate, clip left
-            int x = samples2pixels(label.pos() - offs);
-            QRect t = p.fontMetrics().boundingRect(label.name());
-            t.moveCenter(QPoint(x, height() / 2));
-            // draw the vertical line at the position of the label
-            p.setPen(Qt::black);
-            p.drawLine(x, 0, x, height());
-            // draw the box with the label
-            p.fillRect(t.left() -2, t.top() -2, t.width() + 2, t.height() + 2, QBrush(Qt::blue));
-            p.setPen(Qt::white);
-            p.drawText(t, label.name());
+         // The rectangle occupied by the text of the label and the rectangle into which the
+         // label will be paint
+         QString lbltext = it->property(Kwave::MetaData::STDPROP_DESCRIPTION).toString();
+         QRect lblrect = painter.fontMetrics().boundingRect(lbltext);
+         QRect lbldraw(0, (height() - lblrect.height()) / 2 -2, wdth, lblrect.height() +2);
 
-// label.dump();
-// qDebug("pos: %d, f: %f, x: %f, width: %d\n", label.pos(), f, x, width());
+         painter.setPen(Qt::black); // TODO: colour configutable?
 
-            //p.drawRect()
-        }
-        if (it->property(LabelerLabel::LABELPROP_TYPE) == LabelRegion::LABEL_TYPE) {
-            LabelRegion label(it.value());
+         // label region
+         // TODO: use property to determine if the label is instant or region. There may be region label
+         //       with zero length (e.g. misalligned pause) which would result to instant label ....
+         if (it->firstSample() < it->lastSample()) {
+            // The vertical line at the beginning of the label
+            if (it->firstSample() >= offs) {
+                lbldraw.setLeft(samples2pixels(it->firstSample() - offs));
+                painter.drawLine(lbldraw.left(), 0, lbldraw.left(), height());
+            }
+            // The vertical line at the end of the label
+            if (it->lastSample() < offs + wdth) {
+                lbldraw.setRight(samples2pixels(it->lastSample() - offs));
+                painter.drawLine(lbldraw.right(), 0, lbldraw.right(), height());
+            }
+            // Lower the rectangle little bit
+            lbldraw.setLeft(lbldraw.left() +2);
+            lbldraw.setRight(lbldraw.right() -2);
+         }
+         // label instant (first == last)
+         else {
+            lbldraw.moveLeft(samples2pixels(it->firstSample() - offs));
+            painter.drawLine(lbldraw.left(), 0, lbldraw.left(), height());
+            // centre the label box to the label time
+            lbldraw.setWidth(lblrect.width() + 4);
+            lbldraw.moveLeft(lbldraw.left() - lbldraw.width() /2);
+            // correct the width of the rectangle
+            if (lbldraw.width() > width())
+                lbldraw.setWidth(width());
+            // correct the left edge
+            if (lbldraw.left() < 0)
+                lbldraw.moveLeft(0);
+            // correct the right edge
+            if (lbldraw.right() >= width())
+                lbldraw.moveRight(width() -1);
+         }
+         lblrect.moveCenter(lbldraw.center());
 
-            // TODO: finish it!!!
-        }
+         // Shorten the label's text until it will match the rectangle
+         while (lbltext.length() > 0 && lblrect.width() > lbldraw.width()) {
+                if (lbltext.length() <= 2)
+                    lbltext.clear();
+                else {
+                    lbltext.truncate(lbltext.length() / 2);
+                    lbltext.append(dots);
+                }
+                lblrect = painter.fontMetrics().boundingRect(lbltext);
+         }
 
+         // draw the box with the label
+         painter.fillRect(lbldraw, QBrush(Qt::blue)); // TODO: colour configutable?
+         painter.setPen(Qt::white);
+         painter.drawText(lblrect, lbltext);
     }
 
-    p.end();
+    painter.end();
 }
 
 //***************************************************************************

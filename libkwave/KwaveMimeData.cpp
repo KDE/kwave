@@ -176,7 +176,7 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
 	// if the sample rates do not match, then we need a rate converter
 	Kwave::StreamObject *rate_converter = 0;
-	if (src_rate != dst_rate) {
+	if (ok && (src_rate != dst_rate)) {
 #ifdef HAVE_SAMPLERATE_SUPPORT
 	    // create a sample rate converter
 	    qDebug("Kwave::MimeData::decode(...) -> rate conversion: "\
@@ -205,18 +205,18 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
 	    Kwave::StreamObject *last_output = &adapter;
 
-	    if (mixer) {
+	    if (ok && mixer) {
 		// connect the channel mixer
-		Kwave::connect(
+		ok = Kwave::connect(
 		    *last_output, SIGNAL(output(Kwave::SampleArray)),
 		    *mixer,       SLOT(input(Kwave::SampleArray))
 		);
 		last_output = mixer;
 	    }
 
-	    if (rate_converter) {
+	    if (ok && rate_converter) {
 		// connect the rate converter
-		Kwave::connect(
+		ok = Kwave::connect(
 		    *last_output,    SIGNAL(output(Kwave::SampleArray)),
 		    *rate_converter, SLOT(input(Kwave::SampleArray))
 		);
@@ -224,13 +224,16 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	    };
 
 	    // connect the sink
-	    Kwave::connect(
-		*last_output, SIGNAL(output(Kwave::SampleArray)),
-		dst,          SLOT(input(Kwave::SampleArray))
-	    );
+	    if (ok) {
+		ok = Kwave::connect(
+		    *last_output, SIGNAL(output(Kwave::SampleArray)),
+		    dst,          SLOT(input(Kwave::SampleArray))
+		);
+	    }
 
 	    // this also starts the conversion automatically
-	    ok = decoder->decode(widget, adapter);
+	    if (ok)
+		ok = decoder->decode(widget, adapter);
 
 	    // flush all samples that are still in the adapter
 	    adapter.flush();

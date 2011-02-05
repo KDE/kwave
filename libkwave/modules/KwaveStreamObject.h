@@ -44,7 +44,7 @@ namespace Kwave {
 	virtual ~StreamObject();
 
 	/**
-	 * Returns the number of tracks that the source provides
+	 * Returns the default number of tracks that the source provides
 	 * @return number of tracks, default is 1
 	 */
 	virtual unsigned int tracks() const { return 1; }
@@ -53,10 +53,38 @@ namespace Kwave {
 	 * Returns the source that corresponds to one specific track
 	 * if the object has multiple tracks. For single-track objects
 	 * it returns "this" for the first index and 0 for all others
+	 * @param track index of the track
+	 * @return a stream object or NULL
 	 */
 	virtual Kwave::StreamObject * operator [] (unsigned int track)
 	{
 	    return (track == 0) ? this : 0;
+	}
+
+	/**
+	 * Returns the number of tracks of a input or output port.
+	 * Can be overwritten for objects that have a different count
+	 * of inputs and outputs.
+	 * @param port name of the port (name of signal or slot)
+	 * @return number of tracks of a input or output, default is
+	 *         the same as tracks()
+	 */
+	virtual unsigned int tracksOfPort(const QString &port) const
+	{
+	    Q_UNUSED(port);
+	    return tracks();
+	}
+
+	/**
+	 * Returns an indexed port, identified by name
+	 * @param port name of the port (name of signal or slot)
+	 * @param track index of the track
+	 */
+	virtual Kwave::StreamObject *port(const QString &port,
+	                                  unsigned int track)
+	{
+	    Q_UNUSED(port);
+	    return (*this)[track];
 	}
 
 	/**

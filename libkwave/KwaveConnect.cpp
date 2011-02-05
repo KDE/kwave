@@ -28,22 +28,30 @@
 namespace Kwave {
 
     //***********************************************************************
-    static void _connect_one_by_one(
-	Kwave::StreamObject *source, const char *output,
-	Kwave::StreamObject *sink,   const char *input)
+    static bool _connect_one_by_one(
+	Kwave::StreamObject &src, const QString &output, unsigned int src_idx,
+	Kwave::StreamObject &dst, const QString &input,  unsigned int dst_idx)
     {
+	Kwave::StreamObject *s = src.port(output, src_idx);
+	Kwave::StreamObject *d = dst.port(input,  dst_idx);
+	Q_ASSERT(s);
+	Q_ASSERT(d);
+	if (!s || !d) return false;
+
 	QObject::connect(
-	    source, output,
-	    sink,   input,
+	    s, output.toAscii(),
+	    d, input.toAscii(),
 	    Qt::DirectConnection);
+
+	return true;
     }
 
     //***********************************************************************
     bool connect(Kwave::StreamObject &source, const QString &output,
 	         Kwave::StreamObject &sink,   const QString &input)
     {
-	unsigned int src_tracks = source.tracks();
-	unsigned int dst_tracks = sink.tracks();
+	unsigned int src_tracks = source.tracksOfPort(output);
+	unsigned int dst_tracks = sink.tracksOfPort(input);
 
 	if (!src_tracks || !dst_tracks)
 	    return false;
@@ -53,33 +61,19 @@ namespace Kwave {
 	if (!output.length() || !input.length())
 	    return false;
 
-	if ((src_tracks == 1) && (dst_tracks == 1)) {
-	    // 1 output -> 1 input
-	    _connect_one_by_one(
-		source[0], output.toAscii(),
-		sink[0], input.toAscii());
-	} else if ((src_tracks == 1) && (dst_tracks > 1)) {
+	if ((src_tracks == 1) && (dst_tracks > 1)) {
 	    // 1 output -> N inputs
-	    for (unsigned int track=0; track < dst_tracks; track++) {
-		Kwave::StreamObject *sink_n = sink[track];
-		Q_ASSERT(sink_n);
-		if (!sink_n) return false;
-		_connect_one_by_one(
-		    source[0], output.toAscii(),
-		    sink_n, input.toAscii());
+	    for (unsigned int track = 0; track < dst_tracks; track++) {
+		if (!_connect_one_by_one(
+		    source, output, 0,
+		    sink,   input,  track)) return false;
 	    }
 	} else if (src_tracks == dst_tracks) {
 	    // N outputs -> N inputs
 	    for (unsigned int track=0; track < dst_tracks; track++) {
-		Kwave::StreamObject *source_n = source[track];
-		Kwave::StreamObject *sink_n   = sink[track];
-		Q_ASSERT(source_n);
-		Q_ASSERT(sink_n);
-		if (!source_n) return false;
-		if (!sink_n)   return false;
-		_connect_one_by_one(
-		    source_n, output.toAscii(),
-		    sink_n, input.toAscii());
+		if (!_connect_one_by_one(
+		    source, output, track,
+		    sink,   input,  track)) return false;
 	    }
 	} else {
 	    qWarning("invalid source/sink combination, %d:%d tracks",

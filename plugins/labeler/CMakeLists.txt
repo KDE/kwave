@@ -23,7 +23,6 @@
 
 SET(plugin_labeler_LIB_SRCS
     LabelerPlugin.cpp
-    Labels.cpp
     gui/LabelView.cpp
 )
 

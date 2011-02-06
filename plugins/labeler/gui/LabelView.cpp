@@ -19,7 +19,6 @@
 #include <QDebug>
 
 #include "gui/LabelView.h"  // relative to LabelerPlugin dir
-#include "Labels.h"
 
 #include "libkwave/MetaData.h"
 #include "libkwave/MetaDataList.h"
@@ -64,7 +63,7 @@ void LabelView::paintEvent(QPaintEvent * event)
 
     // Paint the labels
     QPainter painter;
-    MetaDataList labels = m_signal_manager->metaData().selectByType(LabelerLabel::METADATA_TYPE);
+    MetaDataList labels = m_signal_manager->metaData().selectByType("Label"); // TODO: from a constant?
 
 //    p.setFont(QFont());
     painter.begin(this);
@@ -85,10 +84,8 @@ void LabelView::paintEvent(QPaintEvent * event)
 
          painter.setPen(Qt::black); // TODO: colour configutable?
 
-         // label region
-         // TODO: use property to determine if the label is instant or region. There may be region label
-         //       with zero length (e.g. misalligned pause) which would result to instant label ....
-         if (it->firstSample() < it->lastSample()) {
+         // label spanning a range of samples
+         if (it->scope() == Kwave::MetaData::Range) {
             // The vertical line at the beginning of the label
             if (it->firstSample() >= offs) {
                 lbldraw.setLeft(samples2pixels(it->firstSample() - offs));
@@ -103,8 +100,8 @@ void LabelView::paintEvent(QPaintEvent * event)
             lbldraw.setLeft(lbldraw.left() +2);
             lbldraw.setRight(lbldraw.right() -2);
          }
-         // label instant (first == last)
-         else {
+         // label assigned to a given position
+         if (it->scope() == Kwave::MetaData::Position) {
             lbldraw.moveLeft(samples2pixels(it->firstSample() - offs));
             painter.drawLine(lbldraw.left(), 0, lbldraw.left(), height());
             // centre the label box to the label time

@@ -88,10 +88,15 @@ void LabelerPlugin::run(QStringList params)
   // Just adds some labels to test how they are visualized
   float i = 0.0F, s = (this->signalManager().length() -1) / 10.0F;
   for (int j = 0; static_cast<sample_index_t>(i) < this->signalManager().length(); i += s, j++) {
-      LabelInstant dataItem(static_cast<sample_index_t>(i), QString("lbl %1").arg(QString::number(j)));
+      // level 0
+//      LabelRegion dataItem(static_cast<sample_index_t>(i), static_cast<sample_index_t>(i +s), QString("lbl %1").arg(QString::number(j)));
+      Kwave::MetaData dataItem(Kwave::MetaData::Position);
       // Fill custom data of the item */
-      dataItem.setProperty("XLABELPROP_COLOR", QVariant("custom label property"));
+      dataItem.setProperty(Kwave::MetaData::STDPROP_POS, static_cast<sample_index_t>(i));
+      dataItem.setProperty(Kwave::MetaData::STDPROP_DESCRIPTION, QString("lbl %1").arg(QString::number(j)));
+      dataItem.setProperty(Kwave::MetaData::STDPROP_TYPE, "Label"); // TODO: is there a pre-defined constant?
       dataItem.setProperty(Kwave::MetaData::STDPROP_TRACKS, tracks);
+      dataItem.setProperty("XLABELPROP_COLOR", QVariant("custom label property"));
       // Store the item into signal manager
       signalManager().metaData().add(dataItem);
   }
@@ -121,7 +126,8 @@ void LabelerPlugin::slotTrackInserted(unsigned int index, Track *track)
 
     // Create the label view
     LabelView * view = new LabelView(this->parentWidget(),  NULL,
-                                   & this->signalManager(), Kwave::SignalView::LowerDockTop, index);
+                                   & this->signalManager(), Kwave::SignalView::Bottom, index);
+
     Q_ASSERT(view);
     view->setMinimumHeight(50);
     view->setMaximumHeight(100);

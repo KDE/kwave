@@ -170,7 +170,7 @@ void SignalWidget::setZoomAndOffset(double zoom, sample_index_t offset)
 	view->setZoomAndOffset(zoom, offset);
 }
 
-// //***************************************************************************
+//***************************************************************************
 int SignalWidget::executeCommand(const QString &command)
 {
 //     InhibitRepaintGuard inhibit(*this); ### TODO ###

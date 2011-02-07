@@ -570,7 +570,7 @@ bool WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
 
     // read in from the audiofile source
     Q_ASSERT(tracks == metaData().fileInfo().tracks());
-    unsigned int rest = metaData().fileInfo().length();
+    sample_index_t rest = metaData().fileInfo().length();
     while (rest) {
 	unsigned int frames = buffer_frames;
 	if (frames > rest) frames = rest;

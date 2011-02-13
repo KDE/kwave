@@ -17,7 +17,6 @@
 
 #include "config.h"
 #include <math.h>
-#include <sched.h>
 
 #include <klocale.h> // for the i18n macro
 #include <threadweaver/Job.h>
@@ -26,6 +25,7 @@
 
 #include <QList>
 #include <QStringList>
+#include <QThread>
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/PluginManager.h"
@@ -51,7 +51,7 @@ public:
      */
     ReverseJob(
 	SignalManager &manager, unsigned int track,
-	unsigned int first, unsigned int last, unsigned int block_size,
+	sample_index_t first, sample_index_t last, unsigned int block_size,
 	SampleReader *src_a, SampleReader *src_b
     );
 
@@ -78,10 +78,10 @@ private:
     unsigned int m_track;
 
     /** first sample (from start) */
-    unsigned int m_first;
+    sample_index_t m_first;
 
     /** last sample (from end) */
-    unsigned int m_last;
+    sample_index_t m_last;
 
     /** block size in samples */
     unsigned int m_block_size;
@@ -97,7 +97,7 @@ private:
 //***************************************************************************
 ReverseJob::ReverseJob(
     SignalManager &manager, unsigned int track,
-    unsigned int first, unsigned int last, unsigned int block_size,
+    sample_index_t first, sample_index_t last, unsigned int block_size,
     SampleReader *src_a, SampleReader *src_b)
     :ThreadWeaver::Job(),
      m_manager(manager), m_track(track),
@@ -112,7 +112,7 @@ ReverseJob::~ReverseJob()
     int i = 0;
     while (!isFinished()) {
 	qDebug("job %p waiting... #%u", static_cast<void *>(this), i++);
-	sched_yield();
+	QThread::yieldCurrentThread();
     }
     Q_ASSERT(isFinished());
 }
@@ -135,8 +135,8 @@ void ReverseJob::reverse(Kwave::SampleArray &buffer)
 //***************************************************************************
 void ReverseJob::run()
 {
-    unsigned int start_a = m_first;
-    unsigned int start_b = m_last - m_block_size;
+    sample_index_t start_a = m_first;
+    sample_index_t start_b = m_last - m_block_size;
 
     if (start_a + m_block_size < start_b) {
 	// read from start
@@ -210,6 +210,10 @@ void ReversePlugin::run(QStringList params)
 {
     UndoTransactionGuard *undo_guard = 0;
 
+    /**
+     * @todo use a QSharedPointer for undo_guard as soon as
+     * everyone uses >= Qt-4.5
+     */
     if ((params.count() != 1) || (params.first() != "noundo")) {
 	// undo is enabled, create a undo guard
 	undo_guard = new UndoTransactionGuard(*this, i18n("Reverse"));
@@ -226,9 +230,9 @@ void ReversePlugin::run(QStringList params)
 
     // get the current selection
     QList<unsigned int> tracks;
-    unsigned int first = 0;
-    unsigned int last  = 0;
-    unsigned int length = selection(&tracks, &first, &last, true);
+    sample_index_t first = 0;
+    sample_index_t last  = 0;
+    sample_index_t length = selection(&tracks, &first, &last, true);
     if (!length || tracks.isEmpty()) {
 	if (undo_guard) delete undo_guard;
 	return;
@@ -252,8 +256,8 @@ void ReversePlugin::run(QStringList params)
     }
 
     // connect the progress dialog
-    connect(&source_a, SIGNAL(progress(unsigned int)),
-	    this,      SLOT(updateProgress(unsigned int)),
+    connect(&source_a, SIGNAL(progress(qreal)),
+	    this,      SLOT(updateProgress(qreal)),
 	    Qt::BlockingQueuedConnection);
 
     // get the buffers for exchanging the data
@@ -303,7 +307,7 @@ void ReversePlugin::run(QStringList params)
 }
 
 //***************************************************************************
-void ReversePlugin::updateProgress(unsigned int progress)
+void ReversePlugin::updateProgress(qreal progress)
 {
     Kwave::Plugin::updateProgress(progress + progress);
 }

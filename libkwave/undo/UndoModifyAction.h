@@ -37,8 +37,8 @@ public:
      * @param offset index of the first modified sample
      * @param length number of samples
      */
-    UndoModifyAction(unsigned int track, unsigned int offset,
-                     unsigned int length);
+    UndoModifyAction(unsigned int track, sample_index_t offset,
+                     sample_index_t length);
 
     /** Destructor */
     virtual ~UndoModifyAction();
@@ -71,10 +71,10 @@ protected:
     unsigned int m_track;
 
     /** first sample */
-    unsigned int m_offset;
+    sample_index_t m_offset;
 
     /** number of samples */
-    unsigned int m_length;
+    sample_index_t m_length;
 
     /** track that serves as buffer with undo data */
     Track m_buffer_track;

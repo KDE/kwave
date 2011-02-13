@@ -25,6 +25,7 @@
 
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/PlaybackDeviceFactory.h"
+#include "libkwave/Sample.h"
 #include "PlayBackParam.h"
 
 class QStringList;
@@ -74,7 +75,7 @@ signals:
     void sigPlaybackDone();
 
     /** Emits the current playback position */
-    void sigPlaybackPos(unsigned int pos);
+    void sigPlaybackPos(sample_index_t pos);
 
 public slots:
 

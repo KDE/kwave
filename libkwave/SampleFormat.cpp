@@ -21,6 +21,7 @@
 SampleFormat::Map::Map()
     :TypesMap<int,SampleFormat::Format>()
 {
+    fill();
 }
 
 //***************************************************************************

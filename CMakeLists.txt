@@ -74,6 +74,17 @@ SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 INCLUDE(FindKwaveVersion)
 
 #############################################################################
+### show the compiler and it's version                                    ###
+
+EXECUTE_PROCESS(
+    COMMAND ${CMAKE_C_COMPILER} -dumpversion
+    OUTPUT_VARIABLE COMPILER_VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+GET_FILENAME_COMPONENT(COMPILER_SHORT "${CMAKE_C_COMPILER}" NAME_WE CACHE)
+MESSAGE(STATUS "Building with ${COMPILER_SHORT} version ${COMPILER_VERSION}")
+
+#############################################################################
 ### check for the CPU we build for                                        ###
 
 EXECUTE_PROCESS(
@@ -106,8 +117,6 @@ IF (WITH_OPTIMIZED_MEMCPY)
 
     IF (NOT ARCH_X86 AND NOT ARCH_X86_64 AND NOT ARCH_PPC)
         MESSAGE(STATUS "No platform specific memcpy available")
-    ELSE (NOT ARCH_X86 AND NOT ARCH_X86_64 AND NOT ARCH_PPC)
-	SET(HAVE_OPTIMIZED_MEMCPY 1)
     ENDIF (NOT ARCH_X86 AND NOT ARCH_X86_64 AND NOT ARCH_PPC)
 
 ELSE (WITH_OPTIMIZED_MEMCPY)

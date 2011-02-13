@@ -31,6 +31,9 @@
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/MemoryManager.h"
 #include "libkwave/Parser.h"
+#include "libkwave/Sample.h"
+#include "libkwave/SignalManager.h"
+#include "libkwave/PluginManager.h"
 
 #include "TopWidget.h"
 #include "KwaveApp.h"
@@ -44,6 +47,7 @@ KwaveApp::KwaveApp()
 {
     qRegisterMetaType<Kwave::SampleArray>("Kwave::SampleArray");
     qRegisterMetaType<LabelList>("LabelList");
+    qRegisterMetaType<sample_index_t>("sample_index_t");
 
     // connect the clipboard
     connect(QApplication::clipboard(), SIGNAL(changed(QClipboard::Mode)),
@@ -69,7 +73,7 @@ int KwaveApp::newInstance()
 
     // only one parameter -> open with empty window
     if (argc == 0) {
-	newWindow(KUrl(0));
+	newWindow(KUrl(QString()));
     } else {
 	// open a window for each file specified in the
 	// command line an load it
@@ -98,7 +102,7 @@ bool KwaveApp::executeCommand(const QString &command)
 	if (parser.hasParams()) {
 	    newWindow(KUrl(parser.params().at(0)));
 	} else {
-	    newWindow(KUrl(0));
+	    newWindow(KUrl(QString()));
 	}
     } else if (parser.command() == "help") {
 	KToolInvocation::invokeHelp();

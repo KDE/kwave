@@ -27,6 +27,7 @@
 #include <kdemacros.h>
 
 #include "libgui/ui_SelectTimeWidgetBase.h"
+#include "libkwave/Sample.h"
 
 /**
  * widget for selecting a time or range
@@ -60,7 +61,7 @@ public:
      *                      for converting samples to percentage
      */
     virtual void init(Mode mode, unsigned int range, double sample_rate,
-                      unsigned int offset, unsigned int signal_length);
+                      sample_index_t offset, sample_index_t signal_length);
 
     /** Destructor */
     virtual ~SelectTimeWidget();
@@ -75,7 +76,7 @@ public:
     unsigned int time() const { return m_range; }
 
     /** Returns the time in units of samples */
-    unsigned int samples() const;
+    sample_index_t samples() const;
 
     /** Sets the title of the, shown in the frame around the controls */
     virtual void setTitle(const QString title);
@@ -88,8 +89,8 @@ public:
      * @param length signal length
      * @return time converted to samples
      */
-    static unsigned int timeToSamples(Mode mode, unsigned int time,
-                                      double rate, unsigned int length);
+    static sample_index_t timeToSamples(Mode mode, unsigned int time,
+                                        double rate, sample_index_t length);
 
     /**
      * Conversion from samples into time
@@ -99,13 +100,13 @@ public:
      * @param length signal length
      * @return time converted to the given mode
      */
-    static unsigned int samplesToTime(Mode mode, unsigned int time,
-                                      double rate, unsigned int length);
+    static unsigned int samplesToTime(Mode mode, sample_index_t time,
+                                      double rate, sample_index_t length);
 
 signals:
 
     /** Emitted when the value has been changed */
-    void valueChanged(unsigned int samples);
+    void valueChanged(sample_index_t samples);
 
 public slots:
 
@@ -115,7 +116,7 @@ public slots:
      * available range.
      * @param offset index of the first selected sample
      */
-    void setOffset(unsigned int offset);
+    void setOffset(sample_index_t offset);
 
 private slots:
 
@@ -148,16 +149,17 @@ private:
     Mode m_mode;
 
     /** selected range in ms, samples or percent */
+    /** @todo 64 bit support? */
     unsigned int m_range;
 
     /** sample rate [samples/second] */
     double m_rate;
 
-    /** start offset of the selectioh [samples] */
-    unsigned int m_offset;
+    /** start offset of the selection [samples] */
+    sample_index_t m_offset;
 
     /** length of the whole signal [samples] */
-    unsigned int m_length;
+    sample_index_t m_length;
 
     /** timer that checks for changes in the sample edit */
     QTimer m_timer;

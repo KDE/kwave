@@ -78,7 +78,7 @@ public:
      * signal widget and then to the signal manager.
      * @see TopWidget::newSignal
      */
-    void newSignal(unsigned int samples, double rate,
+    void newSignal(sample_index_t samples, double rate,
                    unsigned int bits, unsigned int tracks);
 
     /** Returns the current zoom factor. */
@@ -124,31 +124,60 @@ protected slots:
 
 public slots:
 
-    bool executeCommand(const QString &command);
+    /**
+     * Execute a Kwave text command
+     * @param command a text command
+     * @return zero if succeeded or negative error code if failed
+     * @retval -ENOSYS is returned if the command is unknown in this component
+     */
+    int executeCommand(const QString &command);
 
     void forwardCommand(const QString &command);
 
     void parseKey(int key);
 
-    /** calls setZoom() of the signal widget */
+    /**
+     * sets a new zoom factor [samples/pixel], does not refresh the screen
+     * @param new_zoom new zoom value, will be internally limited
+     *                 to [length/width...1/width] (from full display to
+     *                 one visible sample only)
+     */
     inline void setZoom(double new_zoom) {
 	m_signal_widget.setZoom(new_zoom);
     }
 
-    /** calls zoomSelection() of the signal widget */
+    /**
+     * Zooms into the selected range between the left and right marker.
+     */
     inline void zoomSelection() { m_signal_widget.zoomSelection(); }
 
-    /** calls zoomIn() of the signal widget */
-    inline void zoomIn()        { m_signal_widget.zoomIn(); }
-
-    /** calls zoomOut() of the signal widget */
-    inline void zoomOut()       { m_signal_widget.zoomOut(); }
-
-    /** calls zoomAll() of the signal widget */
+    /**
+     * Zooms the signal to be fully visible. Equivalent to
+     * setZoom(getFullZoom()).
+     * @see #setZoom()
+     * @see #getFullZoom()
+     */
     inline void zoomAll()       { m_signal_widget.zoomAll(); }
 
-    /** calls zoomNormal() of the signal widget */
+    /**
+     * Zooms the signal to one-pixel-per-sample. Equivalent to
+     * setZoom(1.0).
+     * @see #setZoom()
+     * @see #getFullZoom()
+     */
     inline void zoomNormal()    { m_signal_widget.zoomNormal(); }
+
+    /**
+     * Zooms into the signal, the new display will show the middle
+     * 33% of the current display.
+     */
+    inline void zoomIn()        { m_signal_widget.zoomIn(); }
+
+    /**
+     * Zooms the signal out, the current display will become the
+     * middle 30% of the new display.
+     */
+    inline void zoomOut()       { m_signal_widget.zoomOut(); }
 
 private slots:
 
@@ -173,7 +202,7 @@ private slots:
     void slotTrackDeleted(unsigned int track);
 
     /** updates the scrollbar */
-    void updateViewInfo(unsigned int, unsigned int, unsigned int);
+    void updateViewInfo(sample_index_t, unsigned int, sample_index_t);
 
     /**
      * Connected to the vertical scrollbar and called if the value
@@ -200,7 +229,7 @@ signals:
      * Emits the offset and length of the current selection and the
      * sample rate for converting it into milliseconds
      */
-    void selectedTimeInfo(unsigned int offset, unsigned int length,
+    void selectedTimeInfo(sample_index_t offset, sample_index_t length,
                           double rate);
 
     /** Emits the current number of tracks */
@@ -211,7 +240,7 @@ signals:
      * the content of a status bar if the mouse moves over a selected
      * area or a marker.
      */
-    void sigMouseChanged(int mode);
+    void sigMouseChanged(Kwave::MouseMark::Mode mode);
 
     void sigCommand(const QString &command);
 
@@ -223,7 +252,7 @@ private:
     /** QFrame that contains the signal widget. */
     QFrame m_signal_frame;
 
-    /** the widget that shows the signal */
+    /** the widget that shows the signal, scrolled within the view port */
     SignalWidget m_signal_widget;
 
     QFrame *m_frm_channel_controls;

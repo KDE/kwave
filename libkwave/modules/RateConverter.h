@@ -19,6 +19,7 @@
 #define _RATE_CONVERTER_H_
 
 #include "config.h"
+#ifdef HAVE_SAMPLERATE_SUPPORT
 
 #include <QObject>
 #include <QVariant>
@@ -77,5 +78,7 @@ namespace Kwave {
 
     };
 }
+
+#endif /* HAVE_SAMPLERATE_SUPPORT */
 
 #endif /* _RATE_CONVERTER_H_ */

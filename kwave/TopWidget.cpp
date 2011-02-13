@@ -61,7 +61,7 @@
 
 #include "libgui/MenuManager.h"
 #include "libgui/KwaveFileDialog.h"
-#include "libgui/SignalWidget.h" // for MouseMode
+#include "libgui/MouseMark.h"
 
 #include "KwaveApp.h"
 #include "KwaveSplash.h"
@@ -175,17 +175,17 @@ TopWidget::TopWidget(KwaveApp &main_app)
     // connect the main widget
     connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
             this, SLOT(executeCommand(const QString &)));
-    connect(m_main_widget, SIGNAL(selectedTimeInfo(unsigned int,
-            unsigned int, double)),
-            this, SLOT(setSelectedTimeInfo(unsigned int, unsigned int,
+    connect(m_main_widget, SIGNAL(selectedTimeInfo(sample_index_t,
+            sample_index_t, double)),
+            this, SLOT(setSelectedTimeInfo(sample_index_t, sample_index_t,
             double)));
     connect(m_main_widget, SIGNAL(sigTrackCount(unsigned int)),
             this, SLOT(setTrackInfo(unsigned int)));
-    connect(m_main_widget, SIGNAL(sigMouseChanged(int)),
-            this, SLOT(mouseChanged(int)));
+    connect(m_main_widget, SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode)),
+            this, SLOT(mouseChanged(Kwave::MouseMark::Mode)));
     connect(&m_main_widget->playbackController(),
-            SIGNAL(sigPlaybackPos(unsigned int)),
-            this, SLOT(updatePlaybackPos(unsigned int)));
+            SIGNAL(sigPlaybackPos(sample_index_t)),
+            this, SLOT(updatePlaybackPos(sample_index_t)));
 
     // connect the sigCommand signal to ourself, this is needed
     // for the plugins
@@ -368,9 +368,9 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // connect the signal manager
     SignalManager *signal_manager = &(m_main_widget->signalManager());
-    connect(signal_manager, SIGNAL(sigStatusInfo(unsigned int, unsigned int,
+    connect(signal_manager, SIGNAL(sigStatusInfo(sample_index_t, unsigned int,
 	double, unsigned int)),
-	this, SLOT(setStatusInfo(unsigned int, unsigned int,
+	this, SLOT(setStatusInfo(sample_index_t, unsigned int,
 	double, unsigned int)));
     connect(signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
 	const QString&)),
@@ -423,7 +423,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     w = qMax(w, m_main_widget->minimumSize().width());
     w = qMax(w, m_main_widget->sizeHint().width());
     w = qMax(w, width());
-    h = qMax(m_main_widget->sizeHint().height(), w*6/10);
+    h = qMax(m_main_widget->sizeHint().height(), (w * 6) / 10);
     h = qMax(h, height());
     resize(w, h);
 
@@ -499,10 +499,10 @@ TopWidget::~TopWidget()
     m_pause_timer = 0;
 
     if (m_main_widget) delete m_main_widget;
-    m_main_widget=0;
+    m_main_widget = 0;
 
     if (m_menu_manager) delete m_menu_manager;
-    m_menu_manager=0;
+    m_menu_manager = 0;
 
     m_app.closeWindow(this);
 }
@@ -514,7 +514,7 @@ int TopWidget::executeCommand(const QString &line)
     bool use_recorder = true;
     QString command = line;
 
-//    qDebug("TopWidget::executeCommand(%s)", command.toLocal8Bit().data()); // ###
+//    qDebug("TopWidget::executeCommand(%s)", command.toLocal8Bit().data());
     if (!command.length()) return 0; // empty line -> nothing to do
     if (command.trimmed().startsWith("#")) return 0; // only a comment
 
@@ -571,7 +571,7 @@ int TopWidget::executeCommand(const QString &line)
 	// append the command to the macro recorder
 	// @TODO macro recording...
 	qDebug("TopWidget::executeCommand() >>> %s <<<",
-	       command.toLocal8Bit().data()); // ###
+	       command.toLocal8Bit().data());
     }
 
     if (m_app.executeCommand(command)) {
@@ -619,10 +619,10 @@ int TopWidget::executeCommand(const QString &line)
 	Q_ASSERT(m_menu_manager);
 	if (m_menu_manager) /*result = */m_menu_manager->executeCommand(command);
     CASE_COMMAND("newsignal")
-	unsigned int samples = parser.toUInt();
-	double       rate    = parser.toDouble();
-	unsigned int bits    = parser.toUInt();
-	unsigned int tracks  = parser.toUInt();
+	sample_index_t samples = parser.toUInt();
+	double         rate    = parser.toDouble();
+	unsigned int   bits    = parser.toUInt();
+	unsigned int   tracks  = parser.toUInt();
 	result = newSignal(samples, rate, bits, tracks);
     CASE_COMMAND("open")
 	QString filename = parser.nextParam();
@@ -650,6 +650,7 @@ int TopWidget::executeCommand(const QString &line)
     CASE_COMMAND("quit")
 	result = close();
     } else {
+	// try to forward the command to the main widget
 	Q_ASSERT(m_main_widget);
 	result = (m_main_widget &&
 	    m_main_widget->executeCommand(command)) ? 0 : -1;
@@ -869,7 +870,7 @@ int TopWidget::openRecent(const QString &str)
 int TopWidget::openFile()
 {
     QString filter = CodecManager::decodingFilter();
-    KwaveFileDialog dlg(":<kwave_open_dir>", filter, this, true);
+    KwaveFileDialog dlg("kfiledialog:///kwave_open_dir", filter, this, true);
     dlg.setMode(static_cast<KFile::Modes>(KFile::File | KFile::ExistingOnly));
     dlg.setOperationMode(KFileDialog::Opening);
     dlg.setCaption(i18n("Open"));
@@ -914,7 +915,7 @@ int TopWidget::saveFileAs(bool selection)
 
     KUrl current_url;
     current_url = signalName();
-    KwaveFileDialog dlg(":<kwave_save_as>", CodecManager::encodingFilter(),
+    KwaveFileDialog dlg("kfiledialog:///kwave_save_as", CodecManager::encodingFilter(),
         this, true, current_url.prettyUrl(), "*.wav");
     dlg.setOperationMode(KFileDialog::Saving);
     dlg.setCaption(i18n("Save As"));
@@ -1002,7 +1003,7 @@ int TopWidget::saveFileAs(bool selection)
 }
 
 //***************************************************************************
-int TopWidget::newSignal(unsigned int samples, double rate,
+int TopWidget::newSignal(sample_index_t samples, double rate,
                          unsigned int bits, unsigned int tracks)
 {
     // abort if the user pressed cancel
@@ -1040,8 +1041,8 @@ void TopWidget::selectZoom(int index)
 	index--;
     }
 
-    const double rate = signalManager().rate();
-    const double ms = m_zoom_factors[index].second;
+    const double rate  = signalManager().rate();
+    const double ms    = m_zoom_factors[index].second;
     unsigned int width = m_main_widget->displayWidth();
     Q_ASSERT(width > 1);
     if (width <= 1) width = 2;
@@ -1109,9 +1110,10 @@ void TopWidget::setZoomInfo(double zoom)
 }
 
 //***************************************************************************
-void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
+void TopWidget::setStatusInfo(sample_index_t length, unsigned int tracks,
                               double rate, unsigned int bits)
 {
+    Q_UNUSED(tracks);
     Q_ASSERT(statusBar());
     Q_ASSERT(m_menu_manager);
     if (!statusBar() || !m_menu_manager) return;
@@ -1165,7 +1167,7 @@ void TopWidget::setTrackInfo(unsigned int tracks)
 }
 
 //***************************************************************************
-void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
+void TopWidget::setSelectedTimeInfo(sample_index_t offset, sample_index_t length,
                                     double rate)
 {
     Q_ASSERT(statusBar());
@@ -1177,7 +1179,7 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 	// Selected: 02:00...05:00 (3 min)
 	bool sample_mode = false;
 
-	unsigned int last = offset + ((length) ? length-1 : 0);
+	sample_index_t last = offset + ((length) ? length-1 : 0);
 	if (rate == 0) sample_mode = true; // force sample mode if rate==0
 	QString txt = " ";
 	if (sample_mode) {
@@ -1212,7 +1214,7 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 	bool sample_mode = false;
 
 	if (rate == 0) sample_mode = true; // force sample mode if rate==0
-	if (sample_mode) {
+	if (sample_mode || !m_main_widget->tracks()) {
 	    m_lbl_status_cursor->setText("");
 	} else {
 	    double ms_first = static_cast<double>(offset) * 1E3 / rate;
@@ -1226,7 +1228,7 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 }
 
 //***************************************************************************
-void TopWidget::updatePlaybackPos(unsigned int offset)
+void TopWidget::updatePlaybackPos(sample_index_t offset)
 {
     if (!m_plugin_manager) return;
     if (!m_main_widget) return;
@@ -1254,16 +1256,22 @@ void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
 
     // set the state and tooltip of the undo toolbar button
     if (m_action_undo) {
-	txt = i18n("Undo");
-	if (undo_enabled) txt += " (" + undo + ")";
+	txt = (undo_enabled) ?
+	    i18nc("tooltip of the undo toolbar button if undo enabled",
+		  "Undo (%1)", undo) :
+	    i18nc("tooltip of the undo toolbar button if undo disabled",
+		  "Undo");
 	m_action_undo->setToolTip(txt);
 	m_action_undo->setEnabled(undo_enabled);
     }
 
     // set the state and tooltip of the redo toolbar button
     if (m_action_redo) {
-	txt = i18n("Redo");
-	if (redo_enabled) txt += " (" + redo + ")";
+	txt = (redo_enabled) ?
+	    i18nc("tooltip of the redo toolbar button, redo enabled",
+		  "Redo (%1)", redo) :
+	    i18nc("tooltip of the redo toolbar button, redo disabled",
+		  "Redo");
 	m_action_redo->setToolTip(txt);
 	m_action_redo->setEnabled(redo_enabled);
     }
@@ -1273,23 +1281,25 @@ void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
 
     // set new enable and text of the undo menu entry
     m_menu_manager->setItemEnabled("ID_EDIT_UNDO", undo_enabled);
-    txt = i18n("U&ndo");
-    if (undo_enabled) txt += " (" + undo + ")";
+    txt = (undo_enabled) ?
+	i18nc("menu entry for undo if undo enabled",  "U&ndo (%1)", undo) :
+	i18nc("menu entry for undo if undo disabled", "U&ndo");
     m_menu_manager->setItemText("ID_EDIT_UNDO", txt);
 
     // set new enable and text of the undo menu entry
     m_menu_manager->setItemEnabled("ID_EDIT_REDO", redo_enabled);
-    txt = i18n("R&edo");
-    if (redo_enabled) txt += " (" + redo + ")";
+    txt = (redo_enabled) ?
+	i18nc("menu entry for redo if redo enabled",  "R&edo (%1)", redo) :
+	i18nc("menu entry for redo if redo disabled", "R&edo");
     m_menu_manager->setItemText("ID_EDIT_REDO", txt);
 }
 
 //***************************************************************************
-void TopWidget::mouseChanged(int mode)
+void TopWidget::mouseChanged(Kwave::MouseMark::Mode mode)
 {
-    switch (static_cast<SignalWidget::MouseMode>(mode)) {
-	case (SignalWidget::MouseAtSelectionBorder) :
-	case (SignalWidget::MouseInSelection) :
+    switch (mode) {
+	case (Kwave::MouseMark::MouseAtSelectionBorder) :
+	case (Kwave::MouseMark::MouseInSelection) :
 	{
 	    double rate         = signalManager().rate();
 	    unsigned int offset = signalManager().selection().offset();
@@ -1471,7 +1481,7 @@ void TopWidget::updateCaption()
 
     // shortcut if no file loaded
     if (signalName().length() == 0) {
-	setCaption(0);
+	setCaption(QString());
 	return;
     }
 

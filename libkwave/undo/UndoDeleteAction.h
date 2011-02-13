@@ -23,6 +23,7 @@
 #include <QList>
 #include <QString>
 
+#include "libkwave/Sample.h"
 #include "libkwave/KwaveMimeData.h"
 #include "libkwave/undo/UndoAction.h"
 
@@ -43,7 +44,7 @@ public:
      */
     UndoDeleteAction(QWidget *parent_widget,
                      const QList<unsigned int> &track_list,
-                     unsigned int offset, unsigned int length);
+                     sample_index_t offset, sample_index_t length);
 
     /** Destructor */
     virtual ~UndoDeleteAction();
@@ -83,10 +84,10 @@ private:
     QList<unsigned int> m_track_list;
 
     /** first deleted sample */
-    unsigned int m_offset;
+    sample_index_t m_offset;
 
     /** number of deleted samples */
-    unsigned int m_length;
+    sample_index_t m_length;
 
     /**
      * Kwave::MimeData container that holds the whole range of samples

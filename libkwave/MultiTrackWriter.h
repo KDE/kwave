@@ -55,9 +55,9 @@ namespace Kwave {
 	 * @param right index of the last sample
 	 */
 	MultiTrackWriter(SignalManager &signal_manager,
-			const QList<unsigned int> &track_list,
-			InsertMode mode,
-			unsigned int left, unsigned int right);
+	                 const QList<unsigned int> &track_list,
+	                 InsertMode mode,
+	                 sample_index_t left, sample_index_t right);
 
 	/**
 	 * Constructor that opens a set of Writers using the currently

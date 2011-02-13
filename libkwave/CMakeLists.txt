@@ -17,6 +17,8 @@
 
 #############################################################################
 
+#############################################################################
+
 IF (WITH_SAMPLERATE)
     SET(libkwave_LIB_SRCS_samplerate modules/RateConverter.cpp)
 ENDIF (WITH_SAMPLERATE)

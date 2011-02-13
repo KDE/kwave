@@ -93,7 +93,7 @@ void Kwave::FilterPlugin::run(QStringList params)
 
     if (!interpreteParameters(params)) m_params = params;
 
-    unsigned int first, last;
+    sample_index_t first, last;
     QList<unsigned int> tracks;
     selection(&tracks, &first, &last, true);
 
@@ -135,8 +135,8 @@ void Kwave::FilterPlugin::run(QStringList params)
 
     // set up the progress dialog when in processing (not pre-listen) mode
     if (!m_listen) {
-	connect(&source, SIGNAL(progress(unsigned int)),
-		this,    SLOT(updateProgress(unsigned int)),
+	connect(&source, SIGNAL(progress(qreal)),
+		this,    SLOT(updateProgress(qreal)),
 		Qt::BlockingQueuedConnection);
     }
 

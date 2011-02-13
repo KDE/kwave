@@ -33,8 +33,8 @@ Kwave::MultiTrackWriter::MultiTrackWriter()
 Kwave::MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
                                           const QList<unsigned int> &track_list,
                                           InsertMode mode,
-                                          unsigned int left,
-                                          unsigned int right)
+                                          sample_index_t left,
+                                          sample_index_t right)
     :Kwave::MultiWriter()
 {
     UndoTransactionGuard guard(signal_manager, 0);
@@ -65,8 +65,8 @@ Kwave::MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
     UndoTransactionGuard guard(signal_manager, 0);
 
     QList<unsigned int> track_list = signal_manager.selectedTracks();
-    unsigned int left = 0;
-    unsigned int right = 0;
+    sample_index_t left = 0;
+    sample_index_t right = 0;
 
     if (signal_manager.length()) {
 	// default if signal is present: current selection

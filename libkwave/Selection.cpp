@@ -18,7 +18,7 @@
 #include "Selection.h"
 
 //***************************************************************************
-Selection::Selection(unsigned int offset, unsigned int length)
+Selection::Selection(sample_index_t offset, sample_index_t length)
     :QObject(), m_offset(offset), m_length(length)
 {
 }

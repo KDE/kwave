@@ -13,6 +13,7 @@ msgstr ""
 "PO-Revision-Date: 2007-08-01 19:04+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1776,8 +1777,8 @@ msgstr "Auteur de la bibliothèque « audiofile »."
 #, fuzzy
 msgid "Author of the 'mad' MP3 decoder library"
 msgstr ""
-"Auteur de la bibliothèque correspondante au codec « mad » pour la gestion des "
-"fichiers MP3."
+"Auteur de la bibliothèque correspondante au codec « mad » pour la gestion "
+"des fichiers MP3."
 
 #: kwave/main.cpp:112
 #, fuzzy
@@ -4183,8 +4184,8 @@ msgstr "Mode d'enregistrement :"
 #, kde-format
 msgid "Recording with %1 track(s) failed, using %2 track(s)"
 msgstr ""
-"L'enregistrement de la piste « %1 » a échoué. La piste « %2 » sera utilisée à "
-"la place"
+"L'enregistrement de la piste « %1 » a échoué. La piste « %2 » sera utilisée "
+"à la place"
 
 #: plugins/record/RecordDialog.cpp:1030
 #, fuzzy
@@ -4314,8 +4315,8 @@ msgstr ""
 #, fuzzy, kde-format
 msgid "Sample format '%1' is not supported, using '%2'"
 msgstr ""
-"le format d'échantillonage «%1» n'est pas géré. Le format «%2» sera utilisé à "
-"la place."
+"le format d'échantillonage «%1» n'est pas géré. Le format «%2» sera utilisé "
+"à la place."
 
 #: plugins/record/ui_RecordDlg.h:1035
 #, fuzzy
@@ -5716,7 +5717,8 @@ msgstr "Oui"
 #~ "newer version of aRts or upgrade the kdelibs package."
 #~ msgstr ""
 #~ "La fonction aRts requise n'est pas implantée. Peut être devez-vous "
-#~ "installer une nouvelle version du serveur aRts ou du paquetage « kdelibs »."
+#~ "installer une nouvelle version du serveur aRts ou du paquetage "
+#~ "« kdelibs »."
 
 #~ msgid "Tracks"
 #~ msgstr "Pistes "

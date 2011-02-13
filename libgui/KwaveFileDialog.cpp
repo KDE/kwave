@@ -38,13 +38,15 @@ KwaveFileDialog::KwaveFileDialog(const QString &startDir,
 {
     setModal(modal);
 
-    if ( (startDir.startsWith(":<") || startDir.startsWith("::<")) &&
-	 (startDir.right(1) == ">"))
+    QString special_prefix = "kfiledialog:///";
+    if (startDir.startsWith(special_prefix))
     {
 	// configuration key given -> load initial settings
-	QString section = startDir.right(startDir.length() -
-	    startDir.indexOf("<") - 1);
-	section = "KwaveFileDialog-"+section.left(section.length()-1);
+	QString section = startDir;
+	section = section.remove(0, special_prefix.length());
+	if (section.contains("/"))
+	    section = section.left(section.indexOf("/"));
+	section.prepend("KwaveFileDialog-");
 	loadConfig(section);
     }
 

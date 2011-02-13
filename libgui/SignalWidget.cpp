@@ -148,8 +148,8 @@ SignalWidget::SignalWidget(QWidget *parent)
     m_offset(0), m_width(0), m_height(0), m_last_width(0), m_last_height(0),
     m_zoom(0.0), m_vertical_zoom(1.0), m_playpointer(-1), m_last_playpointer(-1),
     m_redraw(false), m_inhibit_repaint(0), m_selection(0), m_signal_manager(this),
-    m_track_pixmaps(), m_mouse_mode(MouseNormal), m_mouse_down_x(0),
-    m_repaint_timer(this), m_position_widget(this),
+    m_track_pixmaps(), m_mouse_mode(Kwave::MouseMark::MouseNormal), 
+    m_mouse_down_x(0), m_repaint_timer(this), m_position_widget(this),
     m_position_widget_timer(this)
 {
 //    qDebug("SignalWidget::SignalWidget()");
@@ -159,7 +159,7 @@ SignalWidget::SignalWidget(QWidget *parent)
 	m_update_layer[i] = true;
     }
 
-    m_selection = new MouseMark();
+    m_selection = new Kwave::MouseMark();
     Q_ASSERT(m_selection);
     if (!m_selection) return;
 
@@ -171,18 +171,18 @@ SignalWidget::SignalWidget(QWidget *parent)
     connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),
             this, SLOT(slotTrackDeleted(unsigned int)));
 
-    connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, unsigned int,
-	unsigned int)),
-	this, SLOT(slotSamplesDeleted(unsigned int, unsigned int,
-	unsigned int)));
-    connect(sig, SIGNAL(sigSamplesInserted(unsigned int, unsigned int,
-	unsigned int)),
-	this, SLOT(slotSamplesInserted(unsigned int, unsigned int,
-	unsigned int)));
-    connect(sig, SIGNAL(sigSamplesModified(unsigned int, unsigned int,
-	unsigned int)),
-	this, SLOT(slotSamplesModified(unsigned int, unsigned int,
-	unsigned int)));
+    connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, sample_index_t,
+	sample_index_t)),
+	this, SLOT(slotSamplesDeleted(unsigned int, sample_index_t,
+	sample_index_t)));
+    connect(sig, SIGNAL(sigSamplesInserted(unsigned int, sample_index_t,
+	sample_index_t)),
+	this, SLOT(slotSamplesInserted(unsigned int, sample_index_t,
+	sample_index_t)));
+    connect(sig, SIGNAL(sigSamplesModified(unsigned int, sample_index_t,
+	sample_index_t)),
+	this, SLOT(slotSamplesModified(unsigned int, sample_index_t,
+	sample_index_t)));
     connect(sig, SIGNAL(sigLabelCountChanged()),
             this, SLOT(hidePosition()),
             Qt::QueuedConnection);
@@ -193,12 +193,12 @@ SignalWidget::SignalWidget(QWidget *parent)
             this, SLOT(refreshMarkersLayer()),
             Qt::QueuedConnection);
 
-    connect(&(sig->selection()), SIGNAL(changed(unsigned int, unsigned int)),
-	this, SLOT(slotSelectionChanged(unsigned int, unsigned int)));
+    connect(&(sig->selection()), SIGNAL(changed(sample_index_t, sample_index_t)),
+	this, SLOT(slotSelectionChanged(sample_index_t, sample_index_t)));
 
     // connect to the playback controller
-    connect(&(playbackController()), SIGNAL(sigPlaybackPos(unsigned int)),
-            this, SLOT(updatePlaybackPointer(unsigned int)));
+    connect(&(playbackController()), SIGNAL(sigPlaybackPos(sample_index_t)),
+            this, SLOT(updatePlaybackPointer(sample_index_t)));
 
     // connect repaint timer
     connect(&m_repaint_timer, SIGNAL(timeout()),
@@ -298,7 +298,7 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 	zoomNormal();
     // navigation
     CASE_COMMAND("goto")
-	unsigned int offset = parser.toUInt();
+	sample_index_t offset = parser.toUInt();
 	setOffset((offset > (visible_samples / 2)) ?
 	          (offset - (visible_samples / 2)) : 0);
 	selectRange(offset, 0);
@@ -311,7 +311,7 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 	setOffset(0);
 	selectRange(0,0);
     CASE_COMMAND("viewend")
-	unsigned int len = m_signal_manager.length();
+	sample_index_t len = m_signal_manager.length();
 	if (len >= visible_samples) setOffset(len - visible_samples);
     CASE_COMMAND("viewnext")
 	setOffset(m_offset + visible_samples);
@@ -328,8 +328,8 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 	else
 	    selectRange(m_signal_manager.length() - 1, 0);
     CASE_COMMAND("selectprev")
-	unsigned int ofs = m_signal_manager.selection().first();
-	unsigned int len = m_signal_manager.selection().length();
+	sample_index_t ofs = m_signal_manager.selection().first();
+	sample_index_t len = m_signal_manager.selection().length();
 	if (!len) len = 1;
 	if (len > ofs) len = ofs;
 	selectRange(ofs-len, len);
@@ -349,15 +349,15 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 }
 
 //***************************************************************************
-bool SignalWidget::executeCommand(const QString &command)
+int SignalWidget::executeCommand(const QString &command)
 {
     InhibitRepaintGuard inhibit(*this);
     Parser parser(command);
 
-    if (!command.length()) return true;
+    if (!command.length()) return -EINVAL;
 
     if (executeNavigationCommand(command)) {
-	return true;
+	return 0;
     // label commands
     CASE_COMMAND("label")
 	unsigned int pos = parser.toUInt();
@@ -381,8 +381,8 @@ bool SignalWidget::executeCommand(const QString &command)
     CASE_COMMAND("expandtolabel")
 	UndoTransactionGuard undo(m_signal_manager,
 	    i18n("Expand Selection to Label"));
-	unsigned int selection_left  = m_signal_manager.selection().first();
-	unsigned int selection_right = m_signal_manager.selection().last();
+	sample_index_t selection_left  = m_signal_manager.selection().first();
+	sample_index_t selection_right = m_signal_manager.selection().last();
 	if (labels().isEmpty()) return false; // we need labels for this
 	Label label_left  = Label();
 	Label label_right = Label();
@@ -403,14 +403,14 @@ bool SignalWidget::executeCommand(const QString &command)
 	// default right label = end of file
 	selection_right = (label_right.isNull()) ?
 	    m_signal_manager.length() - 1 : label_right.pos();
-	unsigned int length = selection_right - selection_left + 1;
+	sample_index_t length = selection_right - selection_left + 1;
 	selectRange(selection_left, length);
 
     CASE_COMMAND("selectnextlabels")
 	UndoTransactionGuard undo(m_signal_manager,
 	    i18n("Select Next Labels"));
-	unsigned int selection_left;
-	unsigned int selection_right = m_signal_manager.selection().last();
+	sample_index_t selection_left;
+	sample_index_t selection_right = m_signal_manager.selection().last();
 	Label label_left  = Label();
 	Label label_right = Label();
 	if (labels().isEmpty()) return false; // we need labels for this
@@ -440,14 +440,14 @@ bool SignalWidget::executeCommand(const QString &command)
 	// default selection end = end of the file
 	selection_right = (label_right.isNull()) ?
 	    m_signal_manager.length() - 1 : label_right.pos();
-	unsigned int length = selection_right - selection_left + 1;
+	sample_index_t length = selection_right - selection_left + 1;
 	selectRange(selection_left, length);
 
     CASE_COMMAND("selectprevlabels")
 	UndoTransactionGuard undo(m_signal_manager,
 	    i18n("Select Previous Labels"));
-	unsigned int selection_left  = m_signal_manager.selection().first();
-	unsigned int selection_right = m_signal_manager.selection().last();
+	sample_index_t selection_left  = m_signal_manager.selection().first();
+	sample_index_t selection_right = m_signal_manager.selection().last();
 	Label label_left  = Label();
 	Label label_right = Label();
 	if (labels().isEmpty()) return false; // we need labels for this
@@ -466,7 +466,7 @@ bool SignalWidget::executeCommand(const QString &command)
 	if (label_right.isNull()) label_right = labels().first();
 	if (label_right.isNull()) return false; // no labels at all !?
 	selection_right = label_right.pos();
-	unsigned int length = selection_right - selection_left + 1;
+	sample_index_t length = selection_right - selection_left + 1;
 	selectRange(selection_left, length);
 
 //    CASE_COMMAND("markperiod")
@@ -505,7 +505,7 @@ bool SignalWidget::executeCommand(const QString &command)
 	return m_signal_manager.executeCommand(command);
     }
 
-    return true;
+    return 0;
 }
 
 //***************************************************************************
@@ -515,8 +515,8 @@ void SignalWidget::selectRange(unsigned int offset, unsigned int length)
 }
 
 //***************************************************************************
-void SignalWidget::slotSelectionChanged(unsigned int offset,
-                                        unsigned int length)
+void SignalWidget::slotSelectionChanged(sample_index_t offset,
+                                        sample_index_t length)
 {
     m_signal_manager.selectRange(offset, length);
     offset = m_signal_manager.selection().offset();
@@ -592,7 +592,7 @@ int SignalWidget::loadFile(const KUrl &url)
 }
 
 //***************************************************************************
-void SignalWidget::newSignal(unsigned int samples, double rate,
+void SignalWidget::newSignal(sample_index_t samples, double rate,
                              unsigned int bits, unsigned int tracks)
 {
     m_signal_manager.newSignal(samples,rate,bits,tracks);
@@ -623,11 +623,11 @@ void SignalWidget::close()
     zoomAll();
     refreshAllLayers();
 
-    setMouseMode(MouseNormal);
+    setMouseMode(Kwave::MouseMark::MouseNormal);
 }
 
 //***************************************************************************
-void SignalWidget::setOffset(unsigned int new_offset)
+void SignalWidget::setOffset(sample_index_t new_offset)
 {
     InhibitRepaintGuard inhibit(*this);
 
@@ -635,7 +635,7 @@ void SignalWidget::setOffset(unsigned int new_offset)
     fixZoomAndOffset();
 
     // forward the zoom and offset to all track pixmaps
-    foreach (TrackPixmap *pix, m_track_pixmaps) {
+    foreach (Kwave::TrackPixmap *pix, m_track_pixmaps) {
 	if (!pix) continue;
 	pix->setOffset(m_offset);
 	pix->setZoom(m_zoom);
@@ -651,7 +651,7 @@ double SignalWidget::getFullZoom()
 {
     if (m_signal_manager.isEmpty()) return 0.0;    // no zoom if no signal
 
-    unsigned int length = m_signal_manager.length();
+    sample_index_t length = m_signal_manager.length();
     if (!length) {
         // no length: streaming mode -> start with a default
         // zoom, use one minute (just guessed)
@@ -679,7 +679,7 @@ void SignalWidget::setZoom(double new_zoom)
     if (m_zoom == old_zoom) return; // nothing to do
 
     // forward the zoom and offset to all track pixmaps
-    foreach (TrackPixmap *pix, m_track_pixmaps) {
+    foreach (Kwave::TrackPixmap *pix, m_track_pixmaps) {
 	if (!pix) continue;
 	pix->setOffset(m_offset);
 	pix->setZoom(m_zoom);
@@ -698,7 +698,7 @@ void SignalWidget::fixZoomAndOffset()
 {
     double max_zoom;
     double min_zoom;
-    unsigned int length;
+    sample_index_t length;
 
     length = m_signal_manager.length();
     if (!length) {
@@ -730,8 +730,8 @@ void SignalWidget::fixZoomAndOffset()
     Q_ASSERT(length >= m_offset);
     if (pixels2samples(m_width - 1) + 1 > length-m_offset) {
 	// there is space after the signal -> move offset right
-	unsigned int shift = pixels2samples(m_width - 1) + 1 -
-	                     (length - m_offset);
+	sample_index_t shift = pixels2samples(m_width - 1) + 1 -
+	                       (length - m_offset);
 	if (shift >= m_offset) {
 	    m_offset = 0;
 	} else {
@@ -761,27 +761,27 @@ void SignalWidget::fixZoomAndOffset()
 }
 
 //***************************************************************************
-void SignalWidget::setMouseMode(MouseMode mode)
+void SignalWidget::setMouseMode(Kwave::MouseMark::Mode mode)
 {
     if (mode == m_mouse_mode) return;
 
     m_mouse_mode = mode;
     switch (mode) {
-	case MouseNormal:
+	case Kwave::MouseMark::MouseNormal:
 	    setCursor(Qt::ArrowCursor);
 	    break;
-	case MouseAtSelectionBorder:
+	case Kwave::MouseMark::MouseAtSelectionBorder:
 	    setCursor(Qt::SizeHorCursor);
 	    break;
-	case MouseInSelection:
+	case Kwave::MouseMark::MouseInSelection:
 	    setCursor(Qt::ArrowCursor);
 	    break;
-	case MouseSelect:
+	case Kwave::MouseMark::MouseSelect:
 	    setCursor(Qt::SizeHorCursor);
 	    break;
     }
 
-    emit sigMouseChanged(static_cast<int>(mode));
+    emit sigMouseChanged(mode);
 }
 
 //***************************************************************************
@@ -800,7 +800,7 @@ void SignalWidget::zoomNormal()
 
     m_offset += pixels2samples(m_width) / 2;
     setZoom(1.0);
-    unsigned int shift = pixels2samples(m_width) / 2;
+    sample_index_t shift = pixels2samples(m_width) / 2;
     setOffset((shift < m_offset) ? (m_offset-shift) : 0);
     refreshAllLayers();
 }
@@ -812,7 +812,7 @@ void SignalWidget::zoomOut()
 
     m_offset += pixels2samples(m_width) / 2;
     setZoom(m_zoom*3);
-    unsigned int shift = pixels2samples(m_width) / 2;
+    sample_index_t shift = pixels2samples(m_width) / 2;
     setOffset((shift < m_offset) ? (m_offset-shift) : 0);
     refreshAllLayers();
 }
@@ -824,7 +824,7 @@ void SignalWidget::zoomIn()
 
     m_offset += pixels2samples(m_width) / 2;
     setZoom(m_zoom / 3);
-    unsigned int shift = pixels2samples(m_width) / 2;
+    sample_index_t shift = pixels2samples(m_width) / 2;
     setOffset((shift < m_offset) ? (m_offset-shift) : 0);
 
     refreshAllLayers();
@@ -835,8 +835,8 @@ void SignalWidget::zoomSelection()
 {
     InhibitRepaintGuard inhibit(*this);
 
-    unsigned int ofs = m_signal_manager.selection().offset();
-    unsigned int len = m_signal_manager.selection().length();
+    sample_index_t ofs = m_signal_manager.selection().offset();
+    sample_index_t len = m_signal_manager.selection().length();
 
     if (len) {
 	m_offset = ofs;
@@ -916,9 +916,9 @@ void SignalWidget::refreshLayer(int layer)
 int SignalWidget::selectionPosition(const int x)
 {
     const int tol = SELECTION_TOLERANCE;
-    const unsigned int first = m_signal_manager.selection().first();
-    const unsigned int last  = m_signal_manager.selection().last();
-    const unsigned int ofs   = m_offset;
+    const sample_index_t first = m_signal_manager.selection().first();
+    const sample_index_t last  = m_signal_manager.selection().last();
+    const sample_index_t ofs   = m_offset;
     Q_ASSERT(first <= last);
 
     // get pixel coordinates
@@ -979,8 +979,8 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 	int mx = e->pos().x();
 	if (mx < 0) mx = 0;
 	if (mx >= m_width) mx = m_width-1;
-	unsigned int x = m_offset + pixels2samples(mx);
-	unsigned int len = m_signal_manager.selection().length();
+	sample_index_t x = m_offset + pixels2samples(mx);
+	sample_index_t len = m_signal_manager.selection().length();
 	switch (e->modifiers()) {
 	    case Qt::ShiftModifier: {
 		// expand the selection to "here"
@@ -988,7 +988,7 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 		                 m_signal_manager.selection().last());
 		m_selection->grep(x);
 		selectRange(m_selection->left(), m_selection->length());
-		setMouseMode(MouseSelect);
+		setMouseMode(Kwave::MouseMark::MouseSelect);
 		break;
 	    }
 	    case Qt::ControlModifier: {
@@ -1005,7 +1005,7 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 			             m_signal_manager.selection().last());
 		    m_selection->grep(x);
 		    selectRange(m_selection->left(), m_selection->length());
-		    setMouseMode(MouseSelect);
+		    setMouseMode(Kwave::MouseMark::MouseSelect);
 		} else if (isInSelection(e->pos().x()) && (len > 1)) {
 		    // store the x position for later drag&drop
 		    m_mouse_down_x = e->pos().x();
@@ -1013,7 +1013,7 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 		    // start a new selection
 		    m_selection->set(x, x);
 		    selectRange(x, 0);
-		    setMouseMode(MouseSelect);
+		    setMouseMode(Kwave::MouseMark::MouseSelect);
 		}
 		break;
 	    }
@@ -1230,24 +1230,24 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
     if (m_signal_manager.playbackController().running()) return;
 
     switch (m_mouse_mode) {
-	case MouseSelect: {
-	    unsigned int x = m_offset + pixels2samples(e->pos().x());
+	case Kwave::MouseMark::MouseSelect: {
+	    sample_index_t x = m_offset + pixels2samples(e->pos().x());
 	    m_selection->update(x);
 	    selectRange(m_selection->left(), m_selection->length());
-	    setMouseMode(MouseNormal);
+	    setMouseMode(Kwave::MouseMark::MouseNormal);
 	    hidePosition();
 	    break;
 	}
-	case MouseInSelection: {
+	case Kwave::MouseMark::MouseInSelection: {
 	    int dmin = KGlobalSettings::dndEventDelay();
 	    if ((e->button() & Qt::LeftButton) &&
 		    ((e->pos().x() >= m_mouse_down_x - dmin) ||
 		     (e->pos().x() <= m_mouse_down_x + dmin)) )
 	    {
 		// deselect if only clicked without moving
-		unsigned int pos = m_offset + pixels2samples(e->pos().x());
+		sample_index_t pos = m_offset + pixels2samples(e->pos().x());
 		selectRange(pos, 0);
-		setMouseMode(MouseNormal);
+		setMouseMode(Kwave::MouseMark::MouseNormal);
 		hidePosition();
 	    }
 	    break;
@@ -1429,7 +1429,7 @@ void SignalWidget::PositionWidget::paintEvent(QPaintEvent *)
 }
 
 //***************************************************************************
-void SignalWidget::showPosition(const QString &text, unsigned int pos,
+void SignalWidget::showPosition(const QString &text, sample_index_t pos,
                                 double ms, const QPoint &mouse)
 {
     int x = mouse.x();
@@ -1535,7 +1535,7 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
     last_y = mouse_y;
 
     switch (m_mouse_mode) {
-	case MouseSelect: {
+	case Kwave::MouseMark::MouseSelect: {
 	    // in move mode, a new selection was created or an old one grabbed
 	    // this does the changes with every mouse move...
 	    unsigned int x = m_offset + pixels2samples(mouse_x);
@@ -1568,7 +1568,7 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 
 	    // yes, this code gives the nifty cursor change....
 	    if (!label.isNull()) {
-		setMouseMode(MouseAtSelectionBorder);
+		setMouseMode(Kwave::MouseMark::MouseAtSelectionBorder);
 		int index = m_signal_manager.labelIndex(label);
 		QString text = (label.name().length()) ?
 		    i18n("Label #%1 (%2)", index, label.name()) :
@@ -1576,7 +1576,7 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 		showPosition(text, label.pos(), samples2ms(label.pos()), pos);
 		break;
 	    } else if ((first != last) && isSelectionBorder(mouse_x)) {
-		setMouseMode(MouseAtSelectionBorder);
+		setMouseMode(Kwave::MouseMark::MouseAtSelectionBorder);
 		switch (selectionPosition(mouse_x) & ~Selection) {
 		    case LeftBorder:
 			showPosition(i18n("Selection, left border"),
@@ -1590,7 +1590,7 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 			hidePosition();
 		}
 	    } else if (isInSelection(mouse_x)) {
-		setMouseMode(MouseInSelection);
+		setMouseMode(Kwave::MouseMark::MouseInSelection);
 		hidePosition();
                 int dmin = KGlobalSettings::dndEventDelay();
 		if ((e->buttons() & Qt::LeftButton) &&
@@ -1600,7 +1600,7 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 		    startDragging();
 		}
 	    } else {
-		setMouseMode(MouseNormal);
+		setMouseMode(Kwave::MouseMark::MouseNormal);
 		hidePosition();
 	    }
 	}
@@ -1691,7 +1691,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	if (!n_tracks)
 	    p.fillRect(0, 0, m_width, m_height, Qt::black);
 
-	foreach (TrackPixmap *pix, m_track_pixmaps) {
+	foreach (Kwave::TrackPixmap *pix, m_track_pixmaps) {
 	    if (!pix) continue; // signal closed ?
 
 	    // fix the width and height of the track pixmap
@@ -1825,14 +1825,14 @@ void SignalWidget::paintEvent(QPaintEvent *)
 }
 
 //***************************************************************************
-unsigned int SignalWidget::ms2samples(double ms)
+sample_index_t SignalWidget::ms2samples(double ms)
 {
-    return static_cast<unsigned int>(
+    return static_cast<sample_index_t>(
 	rint(ms * m_signal_manager.rate() / 1E3));
 }
 
 //***************************************************************************
-double SignalWidget::samples2ms(unsigned int samples)
+double SignalWidget::samples2ms(sample_index_t samples)
 {
     double rate = m_signal_manager.rate();
     if (rate == 0.0) return 0.0;
@@ -1840,7 +1840,7 @@ double SignalWidget::samples2ms(unsigned int samples)
 }
 
 //***************************************************************************
-unsigned int SignalWidget::pixels2samples(int pixels) const
+sample_index_t SignalWidget::pixels2samples(int pixels) const
 {
     if ((pixels < 0) || (m_zoom <= 0.0)) return 0;
     return static_cast<unsigned int>(rint(
@@ -1848,7 +1848,7 @@ unsigned int SignalWidget::pixels2samples(int pixels) const
 }
 
 //***************************************************************************
-int SignalWidget::samples2pixels(int samples) const
+int SignalWidget::samples2pixels(sample_index_t samples) const
 {
     if (m_zoom == 0.0) return 0;
     return static_cast<int>(rint(static_cast<double>(samples) / m_zoom));
@@ -1864,9 +1864,9 @@ int SignalWidget::displaySamples()
 Label SignalWidget::findLabelNearMouse(int x) const
 {
     const int tol = SELECTION_TOLERANCE;
-    unsigned int pos = m_offset + pixels2samples(x);
+    sample_index_t pos = m_offset + pixels2samples(x);
     Label nearest;
-    unsigned int dmin = pixels2samples(SELECTION_TOLERANCE) + 1;
+    sample_index_t dmin = pixels2samples(SELECTION_TOLERANCE) + 1;
 
     foreach (Label label, labels()) {
 	unsigned int lp = label.pos();
@@ -1877,7 +1877,7 @@ Label SignalWidget::findLabelNearMouse(int x) const
 	if ((lx + tol < x) || (lx > x + tol))
 	    continue; // out of tolerance
 
-	unsigned int dist = (pos > lp) ? (pos - lp) : (lp - pos);
+	sample_index_t dist = (pos > lp) ? (pos - lp) : (lp - pos);
 	if (dist < dmin) {
 	    // found a new "nearest" label
 	    dmin = dist;
@@ -1889,7 +1889,7 @@ Label SignalWidget::findLabelNearMouse(int x) const
 }
 
 //***************************************************************************
-void SignalWidget::addLabel(unsigned int pos)
+void SignalWidget::addLabel(sample_index_t pos)
 {
     UndoTransactionGuard undo(m_signal_manager, i18n("Add Label"));
 
@@ -1977,8 +1977,8 @@ bool SignalWidget::labelProperties(Label &label)
     // and ask if he wants to abort, re-enter the label properties
     // dialog or just replace (remove) the label at the target position
     bool accepted;
-    unsigned int new_pos  = label.pos();
-    QString      new_name = label.name();
+    sample_index_t new_pos  = label.pos();
+    QString        new_name = label.name();
     int old_index = -1;
     while (true) {
 	// create and prepare the dialog
@@ -2386,7 +2386,7 @@ void SignalWidget::playbackStopped()
 }
 
 //***************************************************************************
-void SignalWidget::updatePlaybackPointer(unsigned int)
+void SignalWidget::updatePlaybackPointer(sample_index_t)
 {
     InhibitRepaintGuard inhibit(*this);
 }
@@ -2398,7 +2398,7 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track *track)
     if (!track) return;
 
     // insert a new track into the track pixmap list
-    TrackPixmap *pix = new TrackPixmap(*track);
+    Kwave::TrackPixmap *pix = new Kwave::TrackPixmap(*track);
     Q_ASSERT(pix);
     m_track_pixmaps.insert(index, pix);
     if (!pix) return;
@@ -2418,9 +2418,9 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track *track)
     connect(pix, SIGNAL(sigModified()),
             this, SLOT(refreshSignalLayer()));
 
-    connect(track, SIGNAL(sigSelectionChanged()),
+    connect(track, SIGNAL(sigSelectionChanged(bool)),
 	    this, SIGNAL(sigTrackSelectionChanged()));
-    connect(track, SIGNAL(sigSelectionChanged()),
+    connect(track, SIGNAL(sigSelectionChanged(bool)),
             this, SLOT(refreshSignalLayer()));
 }
 
@@ -2429,7 +2429,7 @@ void SignalWidget::slotTrackDeleted(unsigned int index)
 {
     // delete the track from the list
     if (static_cast<int>(index) < m_track_pixmaps.count()) {
-	TrackPixmap *pixmap = m_track_pixmaps.takeAt(index);
+	Kwave::TrackPixmap *pixmap = m_track_pixmaps.takeAt(index);
 	if (pixmap) delete pixmap;
     }
 
@@ -2442,7 +2442,7 @@ void SignalWidget::slotTrackDeleted(unsigned int index)
 
 //***************************************************************************
 void SignalWidget::slotSamplesInserted(unsigned int track,
-    unsigned int offset, unsigned int length)
+    sample_index_t offset, sample_index_t length)
 {
 //     qDebug("SignalWidget(): slotSamplesInserted(%u, %u,%u)", track,
 // 	offset, length);
@@ -2459,7 +2459,7 @@ void SignalWidget::slotSamplesInserted(unsigned int track,
 
 //***************************************************************************
 void SignalWidget::slotSamplesDeleted(unsigned int track,
-    unsigned int offset, unsigned int length)
+    sample_index_t offset, sample_index_t length)
 {
 //    qDebug("SignalWidget(): slotSamplesDeleted(%u, %u...%u)", track,
 // 	offset, offset+length-1);
@@ -2476,7 +2476,7 @@ void SignalWidget::slotSamplesDeleted(unsigned int track,
 
 //***************************************************************************
 void SignalWidget::slotSamplesModified(unsigned int /*track*/,
-    unsigned int /*offset*/, unsigned int /*length*/)
+    sample_index_t /*offset*/, sample_index_t /*length*/)
 {
 //    qDebug("SignalWidget(): slotSamplesModified(%u, %u,%u)", track,
 //	offset, length);
@@ -2492,10 +2492,10 @@ void SignalWidget::startDragging()
     Q_ASSERT(d);
     if (!d) return;
 
-    const unsigned int first = m_signal_manager.selection().first();
-    const unsigned int last  = m_signal_manager.selection().last();
-    const double       rate  = m_signal_manager.rate();
-    const unsigned int bits  = m_signal_manager.bits();
+    const sample_index_t first = m_signal_manager.selection().first();
+    const sample_index_t last  = m_signal_manager.selection().last();
+    const double         rate  = m_signal_manager.rate();
+    const unsigned int   bits  = m_signal_manager.bits();
 
     MultiTrackReader src(Kwave::SinglePassForward, m_signal_manager,
 	m_signal_manager.selectedTracks(), first, last);
@@ -2519,14 +2519,14 @@ void SignalWidget::startDragging()
 
     if (drop == Qt::MoveAction) {
 	// deleting also affects the selection !
-	const unsigned int f = m_signal_manager.selection().first();
-	const unsigned int l = m_signal_manager.selection().last();
-	const unsigned int len = l-f+1;
+	const sample_index_t f = m_signal_manager.selection().first();
+	const sample_index_t l = m_signal_manager.selection().last();
+	const sample_index_t len = l-f+1;
 
 	// special case: when dropping into the same widget, before
 	// the previous selection, the previous range has already
 	// been moved to the right !
-	unsigned int src = first;
+	sample_index_t src = first;
 	if ((d->target() == this) && (f < src)) src += len;
 
 	m_signal_manager.deleteRange(src, len,
@@ -2552,7 +2552,7 @@ void SignalWidget::dragEnterEvent(QDragEnterEvent *event)
 //***************************************************************************
 void SignalWidget::dragLeaveEvent(QDragLeaveEvent *)
 {
-    setMouseMode(MouseNormal);
+    setMouseMode(Kwave::MouseMark::MouseNormal);
 }
 
 //***************************************************************************
@@ -2564,8 +2564,8 @@ void SignalWidget::dropEvent(QDropEvent *event)
     if (KwaveDrag::canDecode(event->mimeData())) {
 	UndoTransactionGuard undo(m_signal_manager, i18n("Drag and Drop"));
 	InhibitRepaintGuard inhibit(*this);
-	unsigned int pos = m_offset + pixels2samples(event->pos().x());
-	unsigned int len = 0;
+	sample_index_t pos = m_offset + pixels2samples(event->pos().x());
+	sample_index_t len = 0;
 
 	if ((len = KwaveDrag::decode(this, event->mimeData(),
 	    m_signal_manager, pos)))
@@ -2596,7 +2596,7 @@ void SignalWidget::dropEvent(QDropEvent *event)
     }
 
     qDebug("SignalWidget::dropEvent(): done");
-    setMouseMode(MouseNormal);
+    setMouseMode(Kwave::MouseMark::MouseNormal);
 }
 
 //***************************************************************************
@@ -2610,9 +2610,9 @@ void SignalWidget::dragMoveEvent(QDragMoveEvent* event)
 	// disable drag&drop into the selection itself
 	// this would be nonsense
 
-	unsigned int left  = m_signal_manager.selection().first();
-	unsigned int right = m_signal_manager.selection().last();
-	const unsigned int w = pixels2samples(m_width);
+	sample_index_t left  = m_signal_manager.selection().first();
+	sample_index_t right = m_signal_manager.selection().last();
+	const sample_index_t w = pixels2samples(m_width);
 	QRect r(this->rect());
 
 	// crop selection to widget borders

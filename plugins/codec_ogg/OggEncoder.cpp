@@ -102,7 +102,7 @@ QList<FileProperty> OggEncoder::supportedProperties()
 }
 
 /***************************************************************************/
-void OggEncoder::encodeProperties(FileInfo &info, vorbis_comment *vc)
+void OggEncoder::encodeProperties(const FileInfo &info, vorbis_comment *vc)
 {
     for (unsigned int i=0; i < sizeof(supported_properties) /
                                sizeof(supported_properties[0]); ++i)

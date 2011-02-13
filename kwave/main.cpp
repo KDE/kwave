@@ -88,10 +88,10 @@ void addDataStrings(KAboutData &aboutdata)
 //                      ki18n("Packaging for SuSE Linux"),
 //                      "arzolacub@gmx.de",
 //                      0);
-    aboutdata.addCredit(ki18n("Diederick de Vries"),
-                     ki18n("Packaging for Crux Linux"),
-                     "diederick76@gmail.com",
-                     "http://crux.nu/portdb/?command=viewport&repo=diederick&name=kwave");
+//     aboutdata.addCredit(ki18n("Diederick de Vries"),
+//                      ki18n("Packaging for Crux Linux"),
+//                      "diederick76@gmail.com",
+//                      "http://crux.nu/portdb/?command=viewport&repo=diederick&name=kwave");
     aboutdata.addCredit(ki18n("Martin Kuball"),
                      ki18n("Tester"),
                      "makube@user.sourceforge.net",
@@ -107,11 +107,11 @@ void addDataStrings(KAboutData &aboutdata)
     aboutdata.addCredit(ki18n("Michael Pruett"),
                      ki18n("Author of the 'audiofile' library"),
                      "mpruett@sgi.com",
-                     "http://oss.sgi.com/projects/audiofile/");
+                     "http://www.68k.org/~michael/audiofile/");
     aboutdata.addCredit(ki18n("Erik de Castro Lopo"),
                      ki18n("Author of the 'sndfile' library"),
                      "erikd@zip.com.au",
-                     "http://www.zip.com.au/~erikd/libsndfile/");
+                     "http://www.mega-nerd.com/libsndfile/");
     aboutdata.addCredit(ki18n("Pavel Fric"),
                      ki18n("Czech translation"),
                      "pavelfric@seznam.cz",
@@ -150,10 +150,14 @@ int main( int argc, char **argv )
     addDataStrings(about);
 
     /* show some version info */
-    QString kde_version = QString::fromLatin1(KDE_VERSION_STRING);
-    QString version_text = i18n("This is %1 v%2 (compiled for KDE %3)",
-	about.programName(), about.version(), kde_version);
-    printf("\n%s\n", version_text.toLocal8Bit().data());
+//     QString kde_version = QString::fromLatin1(KDE_VERSION_STRING);
+//     QString version_text = QString("This is %1 v%2 (compiled for KDE %3)").arg(
+// 	about.programName()).arg(about.version()).arg(kde_version);
+    printf("\nThis is %s v%s (compiled for KDE %s)\n",
+	about.productName().toAscii().data(),
+	about.version().toAscii().data(),
+	KDE_VERSION_STRING
+    );
 
     /* process all interesting commandline parameters */
     KCmdLineArgs::init(argc, argv, &about);

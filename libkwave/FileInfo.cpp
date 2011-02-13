@@ -58,6 +58,9 @@ void FileInfo::PropertyTypesMap::fill()
     append(INF_BITRATE_UPPER, FP_NO_LOAD_SAVE,
         I18N_NOOP("Upper Bitrate"),
         i18n("Specifies the upper limit in a VBR bitstream."));
+    append(INF_BITS_PER_SAMPLE, FP_INTERNAL | FP_NO_LOAD_SAVE,
+        I18N_NOOP("Bits per Sample"),
+        i18n("Specifies the number of bits per sample."));
     append(INF_CD, 0,
         I18N_NOOP("CD"),
         i18n("Number of the CD, if the source is\nan album of more CDROMs"));
@@ -120,6 +123,9 @@ void FileInfo::PropertyTypesMap::fill()
     append(INF_LABELS, FP_INTERNAL,
         I18N_NOOP("Labels"),
         i18n("The list of labels/markers."));
+    append(INF_LENGTH, FP_INTERNAL | FP_NO_LOAD_SAVE,
+        I18N_NOOP("Length"),
+        i18n("Length of the file in samples."));
     append(INF_LICENSE, 0,
         I18N_NOOP("License"),
         i18n("License information, e.g., 'All Rights Reserved',\n"
@@ -176,6 +182,9 @@ void FileInfo::PropertyTypesMap::fill()
         I18N_NOOP("Sample Format"),
         i18n("Format used for storing the digitized audio samples.\n"
              "Example: '32-bit IEEE floating-point'"));
+    append(INF_SAMPLE_RATE, FP_INTERNAL | FP_NO_LOAD_SAVE,
+        I18N_NOOP("Sample Rate"),
+        i18n("Number od samples per second\n"));
     append(INF_SOFTWARE, 0,
         I18N_NOOP("Software"),
         i18n("Identifies the name of the software package\n"
@@ -203,6 +212,9 @@ void FileInfo::PropertyTypesMap::fill()
     append(INF_TRACK, 0,
         I18N_NOOP("Track"),
         i18n("Track of the CD if the source was a CDROM."));
+    append(INF_TRACKS, FP_INTERNAL | FP_NO_LOAD_SAVE,
+        I18N_NOOP("Tracks"),
+        i18n("Specifies the number of tracks of the signal."));
     append(INF_VBR_QUALITY, FP_INTERNAL | FP_NO_LOAD_SAVE,
         I18N_NOOP("Base Quality"),
         i18n("Base quality of the compression in VBR mode"));
@@ -217,7 +229,7 @@ void FileInfo::PropertyTypesMap::fill()
 }
 
 /***************************************************************************/
-QList<FileProperty> FileInfo::PropertyTypesMap::all()
+QList<FileProperty> FileInfo::PropertyTypesMap::all() const
 {
     return allKeys();
 }
@@ -239,7 +251,6 @@ FileInfo::FileInfo(const FileInfo &inf)
 /***************************************************************************/
 FileInfo::~FileInfo()
 {
-    clear();
 }
 
 /***************************************************************************/
@@ -292,14 +303,14 @@ QVariant FileInfo::get(FileProperty key) const
 }
 
 /***************************************************************************/
-bool FileInfo::isInternal(FileProperty key)
+bool FileInfo::isInternal(FileProperty key) const
 {
     int flags = m_property_map.data(key);
     return (flags & FP_INTERNAL);
 }
 
 /***************************************************************************/
-bool FileInfo::canLoadSave(FileProperty key)
+bool FileInfo::canLoadSave(FileProperty key) const
 {
     int flags = m_property_map.data(key);
     return !(flags & FP_NO_LOAD_SAVE);
@@ -323,24 +334,24 @@ void FileInfo::clear()
 }
 
 /***************************************************************************/
-void FileInfo::dump()
+void FileInfo::dump() const
 {
     qDebug("--- dump of file info ---");
 
     qDebug("default properties:");
-    qDebug("   length = %u samples", m_length);
-    qDebug("   rate   = %0.1f Hz", m_rate);
-    qDebug("   bits   = %u", m_bits);
-    qDebug("   tracks = %u", m_tracks);
+    qDebug("   length = %lu samples", static_cast<unsigned long int>(length()));
+    qDebug("   rate   = %0.1f Hz", rate());
+    qDebug("   bits   = %u", bits());
+    qDebug("   tracks = %u", tracks());
 
     qDebug("labels:");
     foreach (Label label, m_labels) {
-	qDebug("   [%10u] = '%s'", label.pos(),
+	qDebug("   [%10lu] = '%s'", static_cast<long unsigned int>(label.pos()),
 	                           label.name().toLocal8Bit().data());
     }
 
     qDebug("other properties:");
-    QMap<FileProperty, QVariant>::Iterator it;
+    QMap<FileProperty, QVariant>::ConstIterator it;
     for (it = m_properties.begin(); it != m_properties.end(); ++it) {
 	FileProperty key = it.key();
 	QVariant val = it.value();

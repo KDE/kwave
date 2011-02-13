@@ -83,8 +83,8 @@ PlayBackPlugin::PlayBackPlugin(const PluginContext &context)
 
     connect(this, SIGNAL(sigPlaybackDone()),
             &m_playback_controller, SLOT(playbackDone()));
-    connect(this, SIGNAL(sigPlaybackPos(unsigned int)),
-            &m_playback_controller, SLOT(updatePlaybackPos(unsigned int)));
+    connect(this, SIGNAL(sigPlaybackPos(sample_index_t)),
+            &m_playback_controller, SLOT(updatePlaybackPos(sample_index_t)));
     connect(this, SIGNAL(sigPlaybackDone()),
             this, SLOT(closeDevice()),
             Qt::QueuedConnection);
@@ -512,8 +512,8 @@ void PlayBackPlugin::startDevicePlayBack()
 	return;
     }
 
-    unsigned int first;
-    unsigned int last;
+    sample_index_t first;
+    sample_index_t last;
     selection(0, &first, &last, false);
 
     if (m_playback_controller.paused()) {

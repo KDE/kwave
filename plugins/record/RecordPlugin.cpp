@@ -971,8 +971,9 @@ void RecordPlugin::recordStopped(int reason)
     Kwave::MessageBox::error(m_dialog, description);
 
     if (m_writers) m_writers->flush();
-    qDebug("RecordPlugin::recordStopped(): last=%u",
-           (m_writers) ? m_writers->last() : 0);
+    qDebug("RecordPlugin::recordStopped(): last=%lu",
+	   static_cast<unsigned long int>(
+           (m_writers) ? m_writers->last() : 0));
 
     // flush away all prerecording buffers
     m_prerecording_queue.clear();

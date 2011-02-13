@@ -24,6 +24,13 @@
 class PlayBackTypesMap: public TypesMap<unsigned int, playback_method_t>
 {
 public:
+    /** Constructor */
+    explicit PlayBackTypesMap()
+	:TypesMap<unsigned int, playback_method_t>()
+    {
+	fill();
+    }
+
     /** Destructor */
     virtual ~PlayBackTypesMap() {};
 

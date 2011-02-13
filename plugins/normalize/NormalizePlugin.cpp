@@ -21,10 +21,10 @@
 #include "config.h"
 
 #include <math.h>
-#include <sched.h>
 
 #include <QList>
 #include <QStringList>
+#include <QThread>
 #include <QVector>
 
 #include <klocale.h> // for the i18n macro
@@ -37,6 +37,7 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
+#include "libkwave/SignalManager.h"
 #include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
@@ -109,7 +110,7 @@ GetMaxPowerJob::~GetMaxPowerJob()
     int i = 0;
     while (!isFinished()) {
 	qDebug("job %p waiting... #%u", static_cast<void *>(this), i++);
-	sched_yield();
+	QThread::yieldCurrentThread();
     }
     Q_ASSERT(isFinished());
 }
@@ -174,9 +175,9 @@ void NormalizePlugin::run(QStringList params)
 
     // get the current selection
     QList<unsigned int> tracks;
-    unsigned int first = 0;
-    unsigned int last  = 0;
-    unsigned int length = selection(&tracks, &first, &last, true);
+    sample_index_t first = 0;
+    sample_index_t last  = 0;
+    sample_index_t length = selection(&tracks, &first, &last, true);
     if (!length || tracks.isEmpty()) return;
 
     // get the list of affected tracks
@@ -184,8 +185,8 @@ void NormalizePlugin::run(QStringList params)
 	signalManager(), tracks, first, last);
 
     // connect the progress dialog
-    connect(&source, SIGNAL(progress(unsigned int)),
-	    this,  SLOT(updateProgress(unsigned int)),
+    connect(&source, SIGNAL(progress(qreal)),
+	    this,  SLOT(updateProgress(qreal)),
 	     Qt::BlockingQueuedConnection);
 
     // detect the peak value

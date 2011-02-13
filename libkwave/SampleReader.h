@@ -49,7 +49,7 @@ public:
      * @see InsertMode
      */
     SampleReader(Kwave::ReaderMode mode, QList<Stripe> stripes,
-                 unsigned int left, unsigned int right);
+                 sample_index_t left, sample_index_t right);
 
     /** Destructor */
     virtual ~SampleReader();
@@ -98,29 +98,29 @@ public:
      *
      * @note min and max do not need to be initialized
      */
-    void minMax(unsigned int first, unsigned int last,
+    void minMax(sample_index_t first, sample_index_t last,
 		sample_t &min, sample_t &max);
 
     /** Skips a number of samples. */
-    void skip(unsigned int count);
+    void skip(sample_index_t count);
 
     /** Seeks to a given position */
-    void seek(unsigned int pos);
+    void seek(sample_index_t pos);
 
     /**
      * Returns the current read position.
      */
-    inline unsigned int pos() const {
+    inline sample_index_t pos() const {
 	return (m_src_position + m_buffer_position - m_buffer_used);
     }
 
     /** Returns the position of the first sample */
-    inline unsigned int first() const {
+    inline sample_index_t first() const {
 	return m_first;
     }
 
     /** Returns the position of the last sample */
-    inline unsigned int last() const {
+    inline sample_index_t last() const {
 	return m_last;
     }
 
@@ -161,7 +161,7 @@ protected:
      * @param length number of samples to read
      * @return number of read samples
      */
-    unsigned int readSamples(unsigned int offset,
+    unsigned int readSamples(sample_index_t offset,
                              Kwave::SampleArray &buffer,
                              unsigned int buf_offset,
                              unsigned int length);
@@ -180,13 +180,13 @@ private:
      * internal buffering.
      * @see pos() for the output position
      */
-    unsigned int m_src_position;
+    sample_index_t m_src_position;
 
     /** first sample index */
-    unsigned int m_first;
+    sample_index_t m_first;
 
     /** last sample index */
-    unsigned int m_last;
+    sample_index_t m_last;
 
     /** intermediate buffer for the input data */
     Kwave::SampleArray m_buffer;
@@ -201,7 +201,7 @@ private:
     QTime m_progress_time;
 
     /** last seek position, needed in SinglePassReverse mode */
-    unsigned int m_last_seek_pos;
+    sample_index_t m_last_seek_pos;
 
 };
 

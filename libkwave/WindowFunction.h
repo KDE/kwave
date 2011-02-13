@@ -59,7 +59,7 @@ public:
      * the given number of points. This is similar to Kwave's
      * Interpolation class.
      */
-    QVector<double> points(unsigned int len);
+    QVector<double> points(unsigned int len) const;
 
     /**
      * Returns the window function id through it's numeric index. If
@@ -105,7 +105,7 @@ public:
      * Returns the name of a window function.
      * @param type the type of the window function
      */
-    static const QString &name(window_function_t type)
+    static const QString name(window_function_t type)
     {
 	return m_types_map.name(type);
     }
@@ -133,8 +133,15 @@ public:
     class InitializedTypesMap: public TypesMap<window_function_t,unsigned int>
     {
     public:
+	/** Constructor */
+	explicit InitializedTypesMap()
+	    :TypesMap<window_function_t, unsigned int>()
+	{
+	    fill();
+	}
+
 	/** fill function for the map */
-	void fill();
+	virtual void fill();
     };
 
 private:

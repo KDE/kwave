@@ -116,7 +116,8 @@ int Kwave::PluginWorkerThread::stop(unsigned int timeout)
 
 #ifdef DEBUG_FIND_DEADLOCKS
     if (running()) {
-	qDebug("PluginWorkerThread::stop(): pthread_self()=%08X", (unsigned int)pthread_self());
+	qDebug("PluginWorkerThread::stop(): pthread_self()=%08X",
+	       (unsigned int)pthread_self());
 	void *buf[256];
 	size_t n = backtrace(buf, 256);
 	backtrace_symbols_fd(buf, n, 2);

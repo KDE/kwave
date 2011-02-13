@@ -53,8 +53,8 @@ QStringList *SelectRangePlugin::setup(QStringList &previous_params)
 
     // create the setup dialog
     double rate = signalRate();
-    unsigned int offset = manager().selectionStart();
-    unsigned int length = signalLength();
+    sample_index_t offset = manager().selectionStart();
+    sample_index_t length = signalLength();
 
     SelectRangeDialog *dialog = new SelectRangeDialog(parentWidget(),
         m_start_mode, m_range_mode, m_range, rate, offset, length);
@@ -95,11 +95,11 @@ int SelectRangePlugin::start(QStringList &params)
     if (result) return result;
 
     // get current offset of the signal
-    unsigned int offset = SelectTimeWidget::timeToSamples(
+    sample_index_t offset = SelectTimeWidget::timeToSamples(
 	m_start_mode, m_start, signalRate(), signalLength());
 
     // transform into offset and length [samples]
-    unsigned int length = SelectTimeWidget::timeToSamples(
+    sample_index_t length = SelectTimeWidget::timeToSamples(
 	m_range_mode, m_range, signalRate(), signalLength());
 
     // limit selection to end of signal

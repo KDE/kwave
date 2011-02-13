@@ -449,13 +449,13 @@ static int64_t rdtsc(int config_flags)
 
 static uint64_t rdtsc(int config_flags)
 {
+  (void)config_flags;
   /* FIXME: implement an equivalent for using optimized memcpy on other
             architectures */
 #ifdef HAVE_SYS_TIMES_H
   struct tms tp;
   return times(&tp);
 #else
-	(void)config_flags;
 	return ((uint64_t)0);
 #endif /* HAVE_SYS_TIMES_H */
 }

@@ -37,7 +37,7 @@ Kwave::Writer::Writer()
 
 //***************************************************************************
 Kwave::Writer::Writer(InsertMode mode,
-                      unsigned int left, unsigned int right)
+                      sample_index_t left, sample_index_t right)
     :Kwave::SampleSink(0),
      m_first(left), m_last(right), m_mode(mode), m_position(left),
      m_buffer(BUFFER_SIZE), m_buffer_size(BUFFER_SIZE), m_buffer_used(0)

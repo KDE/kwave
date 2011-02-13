@@ -16,6 +16,8 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <errno.h>
 #include <math.h>
 #include <stdlib.h>
 
@@ -26,6 +28,7 @@
 #include <QHBoxLayout>
 #include <QResizeEvent>
 #include <QScrollBar>
+#include <QtGlobal>
 #include <QWheelEvent>
 
 #include <klocale.h>
@@ -125,12 +128,12 @@ MainWidget::MainWidget(QWidget *parent)
     Q_ASSERT(m_overview);
     if (!m_overview) return;
     topLayout->addWidget(m_overview, 1, 1);
-    connect(&m_signal_widget, SIGNAL(selectedTimeInfo(unsigned int,
-	unsigned int, double)),
-	m_overview, SLOT(setSelection(unsigned int, unsigned int, double)));
+    connect(&m_signal_widget, SIGNAL(selectedTimeInfo(sample_index_t,
+	sample_index_t, double)),
+	m_overview, SLOT(setSelection(sample_index_t, sample_index_t, double)));
     m_overview->labelsChanged(m_signal_widget.signalManager().labels());
-    connect(&(playbackController()), SIGNAL(sigPlaybackPos(unsigned int)),
-	m_overview, SLOT(playbackPositionChanged(unsigned int)));
+    connect(&(playbackController()), SIGNAL(sigPlaybackPos(sample_index_t)),
+	m_overview, SLOT(playbackPositionChanged(sample_index_t)));
     connect(&(playbackController()), SIGNAL(sigPlaybackStopped()),
 	m_overview, SLOT(playbackStopped()));
 
@@ -169,27 +172,27 @@ MainWidget::MainWidget(QWidget *parent)
     connect(m_horizontal_scrollbar, SIGNAL(valueChanged(int)),
 	    this, SLOT(horizontalScrollBarMoved(int)));
 
-    connect(m_overview, SIGNAL(valueChanged(unsigned int)),
-	    &m_signal_widget, SLOT(setOffset(unsigned int)));
+    connect(m_overview, SIGNAL(valueChanged(sample_index_t)),
+	    &m_signal_widget, SLOT(setOffset(sample_index_t)));
     connect(m_overview, SIGNAL(sigCommand(const QString &)),
             this, SLOT(forwardCommand(const QString &)));
-    connect(&m_signal_widget, SIGNAL(viewInfo(unsigned int,
-	    unsigned int, unsigned int)),
-	    m_overview, SLOT(setRange(unsigned int, unsigned int,
-	    unsigned int)));
-    connect(&m_signal_widget, SIGNAL(viewInfo(unsigned int,
-	    unsigned int, unsigned int)),
-	    this, SLOT(updateViewInfo(unsigned int, unsigned int,
-	    unsigned int)));
+    connect(&m_signal_widget, SIGNAL(viewInfo(sample_index_t,
+	    unsigned int, sample_index_t)),
+	    m_overview, SLOT(setRange(sample_index_t, unsigned int,
+	    sample_index_t)));
+    connect(&m_signal_widget, SIGNAL(viewInfo(sample_index_t,
+	    unsigned int, sample_index_t)),
+	    this, SLOT(updateViewInfo(sample_index_t, unsigned int,
+	    sample_index_t)));
 
     connect(&m_signal_widget, SIGNAL(sigZoomChanged(double)),
 	    this, SIGNAL(sigZoomChanged(double)));
     connect(&m_signal_widget, SIGNAL(sigCommand(const QString &)),
 	    this, SLOT(forwardCommand(const QString &)));
-    connect(&m_signal_widget, SIGNAL(selectedTimeInfo(unsigned int,
-            unsigned int, double)),
-	    this, SIGNAL(selectedTimeInfo(unsigned int,
-            unsigned int, double)));
+    connect(&m_signal_widget, SIGNAL(selectedTimeInfo(sample_index_t,
+            sample_index_t, double)),
+	    this, SIGNAL(selectedTimeInfo(sample_index_t,
+            sample_index_t, double)));
     connect(&m_signal_widget, SIGNAL(sigTrackInserted(unsigned int)),
 	    this, SLOT(slotTrackInserted(unsigned int)));
     connect(&m_signal_widget, SIGNAL(sigTrackDeleted(unsigned int)),
@@ -197,8 +200,8 @@ MainWidget::MainWidget(QWidget *parent)
     connect(&m_signal_widget, SIGNAL(sigTrackSelectionChanged()),
 	    this, SLOT(refreshChannelControls()));
 
-    connect(&m_signal_widget, SIGNAL(sigMouseChanged(int)),
-	    this, SIGNAL(sigMouseChanged(int)));
+    connect(&m_signal_widget, SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode)),
+	    this, SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode)));
 
     refreshChannelControls();
 
@@ -313,7 +316,7 @@ void MainWidget::closeSignal()
 }
 
 //***************************************************************************
-void MainWidget::newSignal(unsigned int samples, double rate,
+void MainWidget::newSignal(sample_index_t samples, double rate,
                            unsigned int bits, unsigned int tracks)
 {
     m_signal_widget.newSignal(samples, rate, bits, tracks);
@@ -341,9 +344,9 @@ void MainWidget::forwardCommand(const QString &command)
 }
 
 //***************************************************************************
-bool MainWidget::executeCommand(const QString &command)
+int MainWidget::executeCommand(const QString &command)
 {
-    if (!command.length()) return false;
+    if (!command.length()) return -EINVAL;
     Parser parser(command);
 
     if (false) {
@@ -361,7 +364,7 @@ bool MainWidget::executeCommand(const QString &command)
 	return m_signal_widget.executeCommand(command);
     }
 
-    return true;
+    return 0;
 }
 
 //***************************************************************************
@@ -467,7 +470,7 @@ void MainWidget::refreshChannelControls()
 }
 
 //***************************************************************************
-void MainWidget::updateViewInfo(unsigned int, unsigned int, unsigned int)
+void MainWidget::updateViewInfo(sample_index_t, unsigned int, sample_index_t)
 {
     refreshHorizontalScrollBar();
 }
@@ -534,13 +537,13 @@ void MainWidget::horizontalScrollBarMoved(int newval)
     }
 
     // convert the current position into samples
-    unsigned int length = signalManager().length();
-    unsigned int visible = m_signal_widget.pixels2samples(displayWidth());
+    sample_index_t length = signalManager().length();
+    sample_index_t visible = m_signal_widget.pixels2samples(displayWidth());
     if (visible > length) visible = length;
-    unsigned int range   = length - visible;
+    sample_index_t range   = length - visible;
     if (range) range--;
 
-    unsigned int pos = static_cast<int>(floor(static_cast<double>(range) *
+    sample_index_t pos = static_cast<sample_index_t>(floor(static_cast<double>(range) *
 	static_cast<double>(newval) / static_cast<double>(max)));
 //     qDebug("horizontalScrollBarMoved(%d) -> %u", newval, pos);
     m_signal_widget.setOffset(pos);

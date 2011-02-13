@@ -29,7 +29,7 @@
 //***************************************************************************
 UndoDeleteAction::UndoDeleteAction(QWidget *parent_widget,
                                    const QList<unsigned int> &track_list,
-                                   unsigned int offset, unsigned int length)
+                                   sample_index_t offset, sample_index_t length)
     :UndoAction(),
      m_parent_widget(parent_widget),
      m_track_list(track_list),
@@ -108,10 +108,12 @@ UndoAction *UndoDeleteAction::undo(SignalManager &manager, bool with_redo)
 //***************************************************************************
 void UndoDeleteAction::dump(const QString &indent)
 {
-    qDebug("%sundo delete from [%u ... %u] (%d)", indent.toLocal8Bit().data(),
-           m_offset,
-           m_offset + ((m_length) ? (m_length - 1) : m_length),
-           m_length);
+    qDebug("%sundo delete from [%lu ... %lu] (%lu)",
+           indent.toLocal8Bit().data(),
+           static_cast<unsigned long int>(m_offset),
+           static_cast<unsigned long int>(m_offset + ((m_length) ?
+               (m_length - 1) : m_length)),
+           static_cast<unsigned long int>(m_length));
 }
 
 //***************************************************************************

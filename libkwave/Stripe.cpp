@@ -209,14 +209,14 @@ Stripe::Stripe(const Stripe &other)
 }
 
 //***************************************************************************
-Stripe::Stripe(unsigned int start)
+Stripe::Stripe(sample_index_t start)
     :m_lock(), m_data(new StripeStorage)
 {
     if (m_data) m_data->m_start = start;
 }
 
 //***************************************************************************
-Stripe::Stripe(unsigned int start, const Kwave::SampleArray &samples)
+Stripe::Stripe(sample_index_t start, const Kwave::SampleArray &samples)
     :m_lock(), m_data(new StripeStorage)
 {
     if (m_data) m_data->m_start = start;
@@ -224,7 +224,7 @@ Stripe::Stripe(unsigned int start, const Kwave::SampleArray &samples)
 }
 
 //***************************************************************************
-Stripe::Stripe(unsigned int start, Stripe &stripe, unsigned int offset)
+Stripe::Stripe(sample_index_t start, Stripe &stripe, unsigned int offset)
     :m_lock(), m_data(new StripeStorage)
 {
     if (!m_data) return;
@@ -252,13 +252,13 @@ Stripe::~Stripe()
 }
 
 //***************************************************************************
-unsigned int Stripe::start() const
+sample_index_t Stripe::start() const
 {
     return (m_data) ? m_data->m_start : 0;
 }
 
 //***************************************************************************
-void Stripe::setStart(unsigned int start)
+void Stripe::setStart(sample_index_t start)
 {
     QMutexLocker lock(&m_lock);
     m_data.detach();
@@ -272,7 +272,7 @@ unsigned int Stripe::length() const
 }
 
 //***************************************************************************
-unsigned int Stripe::end() const
+sample_index_t Stripe::end() const
 {
     return (m_data) ? (m_data->m_start +
 	((m_data->m_length) ? (m_data->m_length - 1) : 0)) : 0;

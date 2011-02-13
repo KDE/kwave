@@ -100,9 +100,9 @@ void SampleRatePlugin::run(QStringList params)
     UndoTransactionGuard undo_guard(*this, i18n("Change sample rate"));
 
     // get the current selection and the list of affected tracks
-    unsigned int first = 0;
-    unsigned int last  = 0;
-    unsigned int length;
+    sample_index_t first = 0;
+    sample_index_t last  = 0;
+    sample_index_t length;
     QList<unsigned int> tracks;
     if (m_whole_signal) {
 	length = signalLength();
@@ -117,19 +117,23 @@ void SampleRatePlugin::run(QStringList params)
 	    m_whole_signal = true;
 	}
     }
-    qDebug("SampleRatePlugin: from %9u - %9u (%9u)", first, last, length);
+    qDebug("SampleRatePlugin: from %9lu - %9lu (%9lu)",
+	   static_cast<unsigned long int>(first),
+	   static_cast<unsigned long int>(last),
+	   static_cast<unsigned long int>(length));
     if (!length || tracks.isEmpty()) return;
 
     // calculate the new length
     double ratio = m_new_rate / old_rate;
-    unsigned int new_length = length * ratio;
+    sample_index_t new_length = length * ratio;
     if ((new_length == length) || !new_length) return;
 
     // if the new length is bigger than the current length,
     // insert some space at the end
     if (new_length > length) {
-	qDebug("SampleRatePlugin: inserting %u at %u",
-	       new_length - length + 1, last + 1);
+	qDebug("SampleRatePlugin: inserting %lu at %lu",
+	       static_cast<unsigned long int>(new_length - length + 1),
+	       static_cast<unsigned long int>(last + 1));
 	mgr.insertSpace(last + 1, new_length - length + 1, tracks);
     }
 
@@ -137,8 +141,8 @@ void SampleRatePlugin::run(QStringList params)
 	mgr, tracks, first, last);
 
     // connect the progress dialog
-    connect(&source, SIGNAL(progress(unsigned int)),
-	    this,  SLOT(updateProgress(unsigned int)),
+    connect(&source, SIGNAL(progress(qreal)),
+	    this,  SLOT(updateProgress(qreal)),
 	     Qt::BlockingQueuedConnection);
     emit setProgressText(
 	i18n("Changing sample rate from %1 kHz to %2 kHz...",
@@ -175,11 +179,11 @@ void SampleRatePlugin::run(QStringList params)
     sink.flush();
 
     // find out how many samples have been written and delete the leftovers
-    unsigned int written = sink[0]->position() - first;
+    sample_index_t written = sink[0]->position() - first;
 //     qDebug("SampleRatePlugin: old=%u, expexted=%u, written=%u",
 // 	    length, new_length, written);
     if (written < length) {
-	unsigned int to_delete = length - written;
+	sample_index_t to_delete = length - written;
 	mgr.deleteRange(written, to_delete, tracks);
     }
 
@@ -189,7 +193,7 @@ void SampleRatePlugin::run(QStringList params)
     (ratio > 1) ? it.toBack() : it.toFront();
     while ((ratio > 1) ? it.hasPrevious() : it.hasNext()) {
 	Label label = (ratio > 1) ? it.previous() : it.next();
-	unsigned int pos = label.pos();
+	sample_index_t pos = label.pos();
 	if (pos < first) continue;
 	if (pos > last)  continue;
 
@@ -202,8 +206,9 @@ void SampleRatePlugin::run(QStringList params)
 	int index = mgr.labelIndex(label);
 	if (!mgr.findLabel(pos).isNull()) {
 	    // if there is already another label, drop this one
-	    qWarning("SampleRatePlugin: deleting label at %u (%u is occupied)",
-		    label.pos(), pos);
+	    qWarning("SampleRatePlugin: deleting label at %lu (%lu is occupied)",
+		     static_cast<unsigned long int>(label.pos()),
+		     static_cast<unsigned long int>(pos));
 	    mgr.deleteLabel(index, true);
 	} else {
 // 	    qDebug("SampleRatePlugin: moving label from %u to %u",

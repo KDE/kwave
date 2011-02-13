@@ -66,10 +66,11 @@ protected:
      * Searches for a vorbis comment and renders it into Kwave's FileInfo.
      * If more than one occurance is found, they are concatenated as a
      * semicolon separated list.
+     * @param info the file info object to add the tag value
      * @param tag name of the field to search for
      * @param property specifies the FileProperty for storing the result
      */
-    void parseTag(const char *tag, FileProperty property);
+    void parseTag(FileInfo &info, const char *tag, FileProperty property);
 
     /**
      * Try to parse header frames.

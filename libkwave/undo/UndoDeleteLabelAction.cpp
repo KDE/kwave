@@ -88,9 +88,9 @@ UndoAction *UndoDeleteLabelAction::undo(SignalManager &manager,
 //***************************************************************************
 void UndoDeleteLabelAction::dump(const QString &indent)
 {
-    qDebug("%sundo delete label, %u, '%s'",
+    qDebug("%sundo delete label, %lu, '%s'",
            indent.toLocal8Bit().data(),
-           m_label.pos(),
+           static_cast<unsigned long int>(m_label.pos()),
            m_label.name().toLocal8Bit().data()
           );
 }

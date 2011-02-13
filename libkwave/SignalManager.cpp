@@ -97,18 +97,18 @@ SignalManager::SignalManager(QWidget *parent)
             this, SLOT(slotTrackInserted(unsigned int, Track *)));
     connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),
             this, SLOT(slotTrackDeleted(unsigned int)));
-    connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, unsigned int,
-	unsigned int)),
-	this, SLOT(slotSamplesDeleted(unsigned int, unsigned int,
-	unsigned int)));
-    connect(sig, SIGNAL(sigSamplesInserted(unsigned int, unsigned int,
-	unsigned int)),
-	this, SLOT(slotSamplesInserted(unsigned int, unsigned int,
-	unsigned int)));
-    connect(sig, SIGNAL(sigSamplesModified(unsigned int, unsigned int,
-	unsigned int)),
-	this, SLOT(slotSamplesModified(unsigned int, unsigned int,
-	unsigned int)));
+    connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, sample_index_t,
+	sample_index_t)),
+	this, SLOT(slotSamplesDeleted(unsigned int, sample_index_t,
+	sample_index_t)));
+    connect(sig, SIGNAL(sigSamplesInserted(unsigned int, sample_index_t,
+	sample_index_t)),
+	this, SLOT(slotSamplesInserted(unsigned int, sample_index_t,
+	sample_index_t)));
+    connect(sig, SIGNAL(sigSamplesModified(unsigned int, sample_index_t,
+	sample_index_t)),
+	this, SLOT(slotSamplesModified(unsigned int, sample_index_t,
+	sample_index_t)));
 }
 
 //***************************************************************************
@@ -170,12 +170,12 @@ int SignalManager::loadFile(const KUrl &url)
 
 	// create all tracks (empty)
 	unsigned int track;
-	const unsigned int tracks = decoder->info().tracks();
-	const unsigned int length = decoder->info().length();
+	const unsigned int tracks   = decoder->info().tracks();
+	const sample_index_t length = decoder->info().length();
 	Q_ASSERT(tracks);
 	if (!tracks) break;
 
-	for (track=0; track < tracks; ++track) {
+	for (track = 0; track < tracks; ++track) {
 	    Track *t = m_signal.appendTrack(length);
 	    Q_ASSERT(t);
 	    if (!t || (t->length() != length)) {
@@ -205,18 +205,19 @@ int SignalManager::loadFile(const KUrl &url)
 	    filename, resulting_size,
 	    info.length(), info.rate(), info.bits(), info.tracks());
 	Q_ASSERT(dialog);
+
 	if (use_src_size) {
 	    // use source size for progress / stream mode
-	    QObject::connect(decoder, SIGNAL(sourceProcessed(unsigned int)),
-	                     dialog, SLOT(setBytePosition(unsigned int)));
-	    QObject::connect(&writers, SIGNAL(progress(unsigned int)),
-	                     dialog, SLOT(setLength(unsigned int)));
+	    QObject::connect(decoder, SIGNAL(sourceProcessed(quint64)),
+	                     dialog,  SLOT(setBytePosition(quint64)));
+	    QObject::connect(&writers, SIGNAL(written(quint64)),
+	                     dialog,   SLOT(setLength(quint64)));
 	} else {
-	    // use resulting size for progress
-	    QObject::connect(&writers, SIGNAL(progress(unsigned int)),
-	                     dialog, SLOT(setValue(unsigned int)));
+	    // use resulting size percentage for progress
+	    QObject::connect(&writers, SIGNAL(progress(qreal)),
+	                     dialog,   SLOT(setValue(qreal)));
 	}
-	QObject::connect(dialog, SIGNAL(canceled()),
+	QObject::connect(dialog,   SIGNAL(canceled()),
 	                 &writers, SLOT(cancel()));
 
 	// now decode
@@ -237,17 +238,23 @@ int SignalManager::loadFile(const KUrl &url)
 	if (!res && streaming) {
 	    // source was opened in stream mode -> now we have the length
 	    writers.flush();
-	    unsigned int new_length = writers.last();
+	    sample_index_t new_length = writers.last();
 	    if (new_length) new_length++;
-	    m_file_info.setLength(new_length);
+	    info.setLength(new_length);
 	} else {
-	    m_file_info.setLength(this->length());
-	    m_file_info.setTracks(tracks);
+	    info.setLength(this->length());
+	    info.setTracks(tracks);
 	}
 
+	// enter the filename/mimetype and size into the file info
+	m_file_info.set(INF_FILENAME, fi.absoluteFilePath());
+	m_file_info.set(INF_FILESIZE, static_cast<unsigned int>(src.size()));
+	m_file_info.set(INF_MIMETYPE, mimetype);
 	// update the length info in the progress dialog if needed
 	if (dialog && use_src_size) {
-	    dialog->setLength(m_file_info.length() * m_file_info.tracks());
+	    dialog->setLength(
+		quint64(info.length()) *
+		quint64(info.tracks()));
 	    dialog->setBytePosition(src.size());
 	}
 
@@ -282,10 +289,10 @@ int SignalManager::loadFile(const KUrl &url)
 int SignalManager::save(const KUrl &url, bool selection)
 {
     int res = 0;
-    unsigned int ofs = 0;
-    unsigned int len = length();
+    sample_index_t ofs  = 0;
+    sample_index_t len  = length();
     unsigned int tracks = this->tracks();
-    unsigned int bits = this->bits();
+    unsigned int bits   = this->bits();
 
     if (selection) {
 	// zero-length -> nothing to do
@@ -309,6 +316,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 
     Encoder *encoder = CodecManager::encoder(mimetype_name);
     if (encoder) {
+
 	// maybe we now have a new mime type
 	m_file_info.set(INF_MIMETYPE, mimetype_name);
 
@@ -319,7 +327,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 	bool all_supported = true;
 	QMap<FileProperty, QVariant>::Iterator it;
 	QString lost_properties;
-	for (it=properties.begin(); it!=properties.end(); ++it) {
+	for (it = properties.begin(); it != properties.end(); ++it) {
 	    if ( (! supported.contains(it.key())) &&
                  (m_file_info.canLoadSave(it.key())) )
 	    {
@@ -395,8 +403,8 @@ int SignalManager::save(const KUrl &url, bool selection)
 	    m_file_info.length(), m_file_info.rate(), m_file_info.bits(),
 	    m_file_info.tracks());
 	Q_ASSERT(dialog);
-	QObject::connect(&src,   SIGNAL(progress(unsigned int)),
-	                 dialog, SLOT(setValue(unsigned int)),
+	QObject::connect(&src,   SIGNAL(progress(qreal)),
+	                 dialog, SLOT(setValue(qreal)),
 	                 Qt::QueuedConnection);
 	QObject::connect(dialog, SIGNAL(canceled()),
 	                 &src,   SLOT(cancel()));
@@ -413,7 +421,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 	    QMutableListIterator<Label> it(labels);
 	    while (it.hasNext()) {
 		Label &label = it.next();
-		unsigned int pos = label.pos();
+		sample_index_t pos = label.pos();
 		if ((pos < ofs) || (pos >= ofs + len)) {
 		    // out of the selected area -> remove
 		    it.remove();
@@ -467,10 +475,10 @@ int SignalManager::save(const KUrl &url, bool selection)
 }
 
 //***************************************************************************
-void SignalManager::newSignal(unsigned int samples, double rate,
+void SignalManager::newSignal(sample_index_t samples, double rate,
                               unsigned int bits, unsigned int tracks)
 {
-    // enter and stay in not modified state
+    // enter and stay in modified state
     enableModifiedChange(true);
     setModified(true);
     enableModifiedChange(false);
@@ -503,6 +511,10 @@ void SignalManager::newSignal(unsigned int samples, double rate,
 //***************************************************************************
 void SignalManager::close()
 {
+    // stop the playback
+    m_playback_controller.playbackStop();
+    m_playback_controller.reset();
+
     // fix the modified flag to false
     enableModifiedChange(true);
     setModified(false);
@@ -519,13 +531,17 @@ void SignalManager::close()
     flushUndoBuffers();
     flushRedoBuffer();
 
+    // reset the selection
+    m_selection.clear();
+
     m_empty = true;
     while (tracks()) deleteTrack(tracks()-1);
     m_signal.close();
+
+    // clear all meta data
     m_file_info.clear();
 
     m_closed = true;
-    m_selection.select(0,0);
     rememberCurrentSelection();
 
     emitStatusInfo();
@@ -569,7 +585,7 @@ const QList<unsigned int> SignalManager::allTracks()
 
 //***************************************************************************
 Kwave::Writer *SignalManager::openWriter(unsigned int track,
-	InsertMode mode, unsigned int left, unsigned int right,
+	InsertMode mode, sample_index_t left, sample_index_t right,
 	bool with_undo)
 {
     Kwave::Writer *writer = m_signal.openWriter(track, mode, left, right);
@@ -601,9 +617,9 @@ Kwave::Writer *SignalManager::openWriter(unsigned int track,
 	    if (undo) {
 		QObject::connect(
 		    writer,
-		    SIGNAL(sigSamplesWritten(unsigned int)),
+		    SIGNAL(sigSamplesWritten(sample_index_t)),
 		    static_cast<UndoInsertAction *>(undo),
-		    SLOT(setLength(unsigned int)));
+		    SLOT(setLength(sample_index_t)));
 	    }
 	    break;
 	}
@@ -625,22 +641,25 @@ Kwave::Writer *SignalManager::openWriter(unsigned int track,
 }
 
 //***************************************************************************
-bool SignalManager::executeCommand(const QString &command)
+int SignalManager::executeCommand(const QString &command)
 {
-    unsigned int offset = m_selection.offset();
-    unsigned int length = m_selection.length();
+    sample_index_t offset = m_selection.offset();
+    sample_index_t length = m_selection.length();
 
-    if (!command.length()) return true;
+    if (!command.length()) return -EINVAL;
     Parser parser(command);
 
     if (false) {
+    // --- undo / redo ---
     CASE_COMMAND("undo")
 	undo();
     CASE_COMMAND("redo")
 	redo();
-    // copy & paste + clipboard
+
+    // --- copy & paste + clipboard ---
     CASE_COMMAND("copy")
-	qDebug("copy(%u,%u)", offset, length);
+	qDebug("copy(%lu,%lu)", static_cast<unsigned long int>(offset),
+	       static_cast<unsigned long int>(length));
 	if (length) {
 	    ClipBoard &clip = ClipBoard::instance();
 	    clip.copy(
@@ -654,8 +673,8 @@ bool SignalManager::executeCommand(const QString &command)
 	}
     CASE_COMMAND("paste")
 	ClipBoard &clip = ClipBoard::instance();
-	if (clip.isEmpty()) return false;
-	if (!selectedTracks().size()) return false;
+	if (clip.isEmpty()) return 0;
+	if (!selectedTracks().size()) return 0;
 
 	UndoTransactionGuard undo(*this, i18n("Paste"));
 	clip.paste(m_parent_widget, *this, offset, length);
@@ -679,7 +698,7 @@ bool SignalManager::executeCommand(const QString &command)
 	ClipBoard::instance().clear();
     CASE_COMMAND("crop")
 	UndoTransactionGuard undo(*this, i18n("Crop"));
-	unsigned int rest = this->length() - offset;
+	sample_index_t rest = this->length() - offset;
 	rest = (rest > length) ? (rest-length) : 0;
 	QList<unsigned int> tracks = selectedTracks();
 	if (saveUndoDelete(tracks, offset+length, rest) &&
@@ -734,10 +753,10 @@ bool SignalManager::executeCommand(const QString &command)
 //	for (unsigned int i = 0; i < m_channels; i++)
 //	    toggleChannel(i);
     } else {
-	return false;
+	return -ENOSYS;
     }
 
-    return true;
+    return 0;
 }
 
 //***************************************************************************
@@ -761,7 +780,7 @@ void SignalManager::insertTrack(unsigned int index)
 
     // if the signal is currently empty, use the last
     // known length instead of the current one
-    unsigned int len = (count) ? length() : m_last_length;
+    sample_index_t len = (count) ? length() : m_last_length;
 
     if (index >= count) {
 	// do an "append"
@@ -810,7 +829,7 @@ void SignalManager::slotTrackDeleted(unsigned int index)
 
 //***************************************************************************
 void SignalManager::slotSamplesInserted(unsigned int track,
-	unsigned int offset, unsigned int length)
+	sample_index_t offset, sample_index_t length)
 {
     // remember the last known length
     m_last_length = m_signal.length();
@@ -822,7 +841,7 @@ void SignalManager::slotSamplesInserted(unsigned int track,
 	QMutableListIterator<Label> it(labels());
 	while (it.hasNext()) {
 	    Label &label = it.next();
-	    unsigned int pos = label.pos();
+	    sample_index_t pos = label.pos();
 	    if (pos >= offset) {
 		label.moveTo(pos + length);
 	    }
@@ -835,7 +854,7 @@ void SignalManager::slotSamplesInserted(unsigned int track,
 
 //***************************************************************************
 void SignalManager::slotSamplesDeleted(unsigned int track,
-	unsigned int offset, unsigned int length)
+	sample_index_t offset, sample_index_t length)
 {
     // remember the last known length
     m_last_length = m_signal.length();
@@ -848,25 +867,24 @@ void SignalManager::slotSamplesDeleted(unsigned int track,
 
 //***************************************************************************
 void SignalManager::slotSamplesModified(unsigned int track,
-	unsigned int offset, unsigned int length)
+	sample_index_t offset, sample_index_t length)
 {
     setModified(true);
     emit sigSamplesModified(track, offset, length);
 }
 
 //***************************************************************************
-bool SignalManager::deleteRange(unsigned int offset, unsigned int length,
+bool SignalManager::deleteRange(sample_index_t offset, sample_index_t length,
                                 const QList<unsigned int> &track_list)
 {
     if (!length || track_list.isEmpty()) return true; // nothing to do
-
 
     // delete all labels in the selected range
     // after that the selected area should be free of labels
     // and labels are stored in seperate undo actions
     foreach (Label label, labels()) {
-	const unsigned int pos = label.pos();
-	const int index        = labelIndex(label);
+	const sample_index_t pos = label.pos();
+	const int index          = labelIndex(label);
 
 	if ((pos >= offset) && (pos < offset + length)) {
 	    // delete the label
@@ -894,16 +912,19 @@ bool SignalManager::deleteRange(unsigned int offset, unsigned int length,
     bool old_undo_enabled = m_undo_enabled;
     m_undo_enabled = false;
     foreach (Label label, labels()) {
-	const unsigned int pos = label.pos();
-	const int index        = labelIndex(label);
+	const sample_index_t pos = label.pos();
+	const int index          = labelIndex(label);
 
 	if (pos >= offset + length) {
 	    // move label left
+	    qDebug("modifyLabel(index=%u, pos=%lu, name=%s)", index, 
+		static_cast<long unsigned int>(pos), label.name().toLocal8Bit().data());
 	    if (!modifyLabel(index, pos - length, label.name())) {
 		// this should hopefully not happen:
 		// new position is already occupied ?
 		qWarning("SignalManager::deleteRange() "\
-		         "-> killing duplicate label @ %u", pos);
+		         "-> killing duplicate label @ %lu", 
+		         static_cast<unsigned long int>(pos));
 		m_undo_enabled = old_undo_enabled;
 		deleteLabel(index, true);
 		m_undo_enabled = false;
@@ -916,13 +937,13 @@ bool SignalManager::deleteRange(unsigned int offset, unsigned int length,
 }
 
 //***************************************************************************
-bool SignalManager::deleteRange(unsigned int offset, unsigned int length)
+bool SignalManager::deleteRange(sample_index_t offset, sample_index_t length)
 {
     return deleteRange(offset, length, selectedTracks());
 }
 
 //***************************************************************************
-bool SignalManager::insertSpace(unsigned int offset, unsigned int length,
+bool SignalManager::insertSpace(sample_index_t offset, sample_index_t length,
                                 const QList<unsigned int> &track_list)
 {
     if (!length) return true; // nothing to do
@@ -947,13 +968,13 @@ bool SignalManager::insertSpace(unsigned int offset, unsigned int length,
 }
 
 //***************************************************************************
-void SignalManager::selectRange(unsigned int offset, unsigned int length)
+void SignalManager::selectRange(sample_index_t offset, sample_index_t length)
 {
     // first do some range checking
-    unsigned int len = this->length();
+    sample_index_t len = this->length();
 
-    if (offset >= len) offset = len ? (len-1) : 0;
-    if ((offset+length) > len) length = len - offset;
+    if (offset >= len) offset = len ? (len - 1) : 0;
+    if ((offset + length) > len) length = len - offset;
 
     m_selection.select(offset, length);
 }
@@ -1249,7 +1270,7 @@ bool SignalManager::registerUndoAction(UndoAction *action)
 
 //***************************************************************************
 bool SignalManager::saveUndoDelete(QList<unsigned int> &track_list,
-                                   unsigned int offset, unsigned int length)
+                                   sample_index_t offset, sample_index_t length)
 {
     if (!m_undo_enabled) return true;
     if (track_list.isEmpty()) return true;
@@ -1614,7 +1635,7 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
 }
 
 //***************************************************************************
-Label SignalManager::findLabel(unsigned int pos)
+Label SignalManager::findLabel(sample_index_t pos)
 {
     QMutableListIterator<Label> it(labels());
     while (it.hasNext())
@@ -1645,7 +1666,7 @@ Label SignalManager::labelAtIndex(int index)
 }
 
 //***************************************************************************
-bool SignalManager::addLabel(unsigned int pos)
+bool SignalManager::addLabel(sample_index_t pos)
 {
     // if there already is a label at the given position, do nothing
     if (!findLabel(pos).isNull()) return false;
@@ -1673,7 +1694,7 @@ bool SignalManager::addLabel(unsigned int pos)
 }
 
 //***************************************************************************
-Label SignalManager::addLabel(unsigned int pos, const QString &name)
+Label SignalManager::addLabel(sample_index_t pos, const QString &name)
 {
     // if there already is a label at the given position, do nothing
     if (!findLabel(pos).isNull()) return Label();
@@ -1720,7 +1741,7 @@ void SignalManager::deleteLabel(int index, bool with_undo)
 }
 
 //***************************************************************************
-bool SignalManager::modifyLabel(int index, unsigned int pos,
+bool SignalManager::modifyLabel(int index, sample_index_t pos,
                                 const QString &name)
 {
     Q_ASSERT(index >= 0);

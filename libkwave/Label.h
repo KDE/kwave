@@ -25,6 +25,8 @@
 
 #include <kdemacros.h>
 
+#include "libkwave/Sample.h"
+
 class KDE_EXPORT Label
 {
 public:
@@ -38,7 +40,7 @@ public:
      * @param position the label position [samples]
      * @param name the name of the label, user defined
      */
-    Label(unsigned int position, const QString &name);
+    Label(sample_index_t position, const QString &name);
 
     /** destructor */
     virtual ~Label();
@@ -47,10 +49,10 @@ public:
      * Set a new position of the label
      * @param position the new position [samples]
      */
-    virtual void moveTo(unsigned int position);
+    virtual void moveTo(sample_index_t position);
 
     /** Returns the label's position [samples] */
-    virtual unsigned int pos() const;
+    virtual sample_index_t pos() const;
 
     /**
      * change the name of the label
@@ -90,7 +92,7 @@ private:
 	virtual ~LabelData();
 
 	/** position of the label [samples] */
-	unsigned int m_position;
+	sample_index_t m_position;
 
 	/** name of the label, user defined */
 	QString m_name;

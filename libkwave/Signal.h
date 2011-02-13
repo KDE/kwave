@@ -56,7 +56,7 @@ public:
      * number of tracks and length. Each track will contain
      * only one stripe.
      */
-    Signal(unsigned int tracks, unsigned int length);
+    Signal(unsigned int tracks, sample_index_t length);
 
     /**
      * Destructor.
@@ -78,14 +78,14 @@ public:
      * @return pointer to the created track. If the length is
      *         omitted or zero, the track will have zero length.
      */
-    Track *insertTrack(unsigned int index, unsigned int length = 0);
+    Track *insertTrack(unsigned int index, sample_index_t length = 0);
 
     /**
      * Appends a new track to the end of the tracks list, shortcut for
      * insertTrack(tracks()-1, length)
      * @see insertTrack
      */
-    Track *appendTrack(unsigned int length = 0);
+    Track *appendTrack(sample_index_t length);
 
     /**
      * Deletes a track.
@@ -110,7 +110,7 @@ public:
      * @see InsertMode
      */
     Kwave::Writer *openWriter(unsigned int track, InsertMode mode,
-	unsigned int left = 0, unsigned int right = 0);
+	sample_index_t left = 0, sample_index_t right = 0);
 
     /**
      * Opens a stream for reading samples. If the the last position
@@ -122,8 +122,8 @@ public:
      * @param right last position to read (default = UINT_MAX)
      */
     SampleReader *openSampleReader(Kwave::ReaderMode mode,
-	unsigned int track, unsigned int left = 0,
-	unsigned int right = UINT_MAX);
+	unsigned int track, sample_index_t left = 0,
+	sample_index_t right = SAMPLE_INDEX_MAX);
 
     /**
      * Returns the number of tracks.
@@ -136,8 +136,8 @@ public:
      * @param offset index of the first sample
      * @param length number of samples
      */
-    void deleteRange(unsigned int track, unsigned int offset,
-                     unsigned int length);
+    void deleteRange(unsigned int track, sample_index_t offset,
+                     sample_index_t length);
 
     /**
      * Inserts some space at a given position
@@ -145,14 +145,14 @@ public:
      * @param offset index of the first sample
      * @param length number of samples
      */
-    void insertSpace(unsigned int track, unsigned int offset,
-                     unsigned int length);
+    void insertSpace(unsigned int track, sample_index_t offset,
+                     sample_index_t length);
 
     /**
      * Returns the length of the signal. This is determined by
      * searching for the highest sample position of all tracks.
      */
-    unsigned int length();
+    sample_index_t length();
 
     /**
      * Queries if a track is selected. If the index of the track is
@@ -192,8 +192,8 @@ signals:
      * @param length number of samples inserted
      * @see sigSamplesModified
      */
-    void sigSamplesInserted(unsigned int track, unsigned int offset,
-                            unsigned int length);
+    void sigSamplesInserted(unsigned int track, sample_index_t offset,
+                            sample_index_t length);
 
     /**
      * Emitted if samples have been removed from a track.
@@ -201,8 +201,8 @@ signals:
      * @param offset position from which the data was removed
      * @param length number of samples deleted
      */
-    void sigSamplesDeleted(unsigned int track, unsigned int offset,
-                           unsigned int length);
+    void sigSamplesDeleted(unsigned int track, sample_index_t offset,
+                           sample_index_t length);
 
     /**
      * Emitted if samples within a track have been modified.
@@ -210,8 +210,8 @@ signals:
      * @param offset position from which the data was modified
      * @param length number of samples modified
      */
-    void sigSamplesModified(unsigned int track, unsigned int offset,
-                            unsigned int length);
+    void sigSamplesModified(unsigned int track, sample_index_t offset,
+                            sample_index_t length);
 
 private slots:
 
@@ -223,8 +223,8 @@ private slots:
      * @see Track::sigSamplesInserted
      * @internal
      */
-    void slotSamplesInserted(Track *src, unsigned int offset,
-                             unsigned int length);
+    void slotSamplesInserted(Track *src, sample_index_t offset,
+                             sample_index_t length);
 
     /**
      * Connected to each track's sigSamplesDeleted.
@@ -234,8 +234,8 @@ private slots:
      * @see Track::sigSamplesDeleted
      * @internal
      */
-    void slotSamplesDeleted(Track *src, unsigned int offset,
-                            unsigned int length);
+    void slotSamplesDeleted(Track *src, sample_index_t offset,
+                            sample_index_t length);
 
     /**
      * Connected to each track's sigSamplesModified
@@ -245,8 +245,8 @@ private slots:
      * @see Track::sigSamplesModified
      * @internal
      */
-    void slotSamplesModified(Track *src, unsigned int offset,
-                             unsigned int length);
+    void slotSamplesModified(Track *src, sample_index_t offset,
+                             sample_index_t length);
 
 private:
 

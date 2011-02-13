@@ -21,6 +21,7 @@
 CompressionType::CompressionType()
     :TypesMap<int,int>()
 {
+    fill();
 }
 
 //***************************************************************************

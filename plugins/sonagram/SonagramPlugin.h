@@ -129,10 +129,10 @@ private:
     QList<unsigned int> m_selected_channels;
 
     /** first sample of the selection, inclusive */
-    unsigned int m_first_sample;
+    sample_index_t m_first_sample;
 
     /** last sample of the selection, inclusive */
-    unsigned int m_last_sample;
+    sample_index_t m_last_sample;
 
     /** number of stripes (= width of the image in pixels) */
     unsigned int m_stripes;

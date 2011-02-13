@@ -67,7 +67,7 @@ WindowFunction::~WindowFunction()
 }
 
 //***************************************************************************
-QVector<double> WindowFunction::points(unsigned int len)
+QVector<double> WindowFunction::points(unsigned int len) const
 {
     QVector<double> out(len);
     Q_ASSERT(out.count() == static_cast<int>(len));

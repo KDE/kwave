@@ -47,7 +47,7 @@ public:
      * Constructor. Creates a new zero-length stripe.
      * @param start position within the track
      */
-    Stripe(unsigned int start);
+    Stripe(sample_index_t start);
 
     /**
      * Constructor. Creates a stripe that already contains samples,
@@ -56,7 +56,7 @@ public:
      * @param start position within the track
      * @param samples array with initial samples
      */
-    Stripe(unsigned int start, const Kwave::SampleArray &samples);
+    Stripe(sample_index_t start, const Kwave::SampleArray& samples);
 
     /**
      * Constructor. Creates a stripe that already contains samples,
@@ -66,7 +66,7 @@ public:
      * @param stripe source stripe to copy from
      * @param offset offset within the source stripe
      */
-    Stripe(unsigned int start, Stripe &stripe, unsigned int offset);
+    Stripe(sample_index_t start, Stripe& stripe, unsigned int offset);
 
     /**
      * Destructor.
@@ -76,12 +76,12 @@ public:
     /**
      * Returns the start position of the stripe within the track.
      */
-    unsigned int start() const;
+    sample_index_t start() const;
 
     /**
      * Sets a new start position for the stripe
      */
-    void setStart(unsigned int start);
+    void setStart(sample_index_t start);
 
     /**
      * Returns the current length of the stripe in samples.
@@ -92,7 +92,7 @@ public:
      * Returns the position of the last sample of the stripe,
      * same as (start() + length() ? (length() - 1))
      */
-    unsigned int end() const;
+    sample_index_t end() const;
 
     /**
      * Resizes the stripe to a new number of samples. If the array
@@ -292,7 +292,7 @@ private:
     public:
 
 	/** start position within the track */
-	unsigned int m_start;
+	sample_index_t m_start;
 
 	/** number of samples */
 	unsigned int m_length;

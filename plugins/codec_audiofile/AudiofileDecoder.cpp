@@ -169,7 +169,8 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     qDebug("channels    = %d", info().tracks());
     qDebug("rate        = %0.0f", info().rate());
     qDebug("bits/sample = %d", info().bits());
-    qDebug("length      = %d samples", info().length());
+    qDebug("length      = %lu samples", 
+	   static_cast<unsigned long int>(info().length()));
     qDebug("format      = %d (%s)", sample_format,
                                     sample_format_name.toLocal8Bit().data());
     qDebug("-------------------------");
@@ -210,7 +211,7 @@ bool AudiofileDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
 
     // read in from the audiofile source
     const unsigned int tracks = info().tracks();
-    unsigned int rest = info().length();
+    sample_index_t rest = info().length();
     while (rest) {
 	unsigned int frames = buffer_frames;
 	if (frames > rest) frames = rest;

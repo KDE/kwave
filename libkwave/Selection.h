@@ -24,6 +24,8 @@
 
 #include <kdemacros.h>
 
+#include "libkwave/Sample.h"
+
 class KDE_EXPORT Selection: public QObject
 {
     Q_OBJECT
@@ -33,7 +35,7 @@ public:
      * @param offset index of the first item
      * @param length number of items
      */
-    Selection(unsigned int offset, unsigned int length);
+    Selection(sample_index_t offset, sample_index_t length);
 
     /** copy constructor */
     Selection(const Selection &other);
@@ -46,7 +48,7 @@ public:
      * @param offset index of the first item
      * @param length number of items
      */
-    void select(unsigned int offset, unsigned int length) {
+    void select(sample_index_t offset, sample_index_t length) {
 	if ((offset == m_offset) && (length == m_length))
 	    return;
 	m_offset = offset;
@@ -54,23 +56,28 @@ public:
 	emit changed(m_offset, m_length);
     }
 
+    /** Clears the selection (0 samples at offset 0) */
+    inline void clear() {
+	select(0, 0);
+    }
+
     /** Returns the index of the first selected item. */
-    inline unsigned int offset() const {
+    inline sample_index_t offset() const {
 	return m_offset;
     }
 
     /** Returns the number of selected items. */
-    inline unsigned int length() const {
+    inline sample_index_t length() const {
 	return m_length;
     }
 
     /** Equal to offset(). */
-    inline unsigned int first() const {
+    inline sample_index_t first() const {
 	return offset();
     }
 
     /** Returns the index of the last selected item. */
-    inline unsigned int last() const {
+    inline sample_index_t last() const {
 	return m_offset + (m_length ? (m_length-1) : 0);
     }
 
@@ -94,14 +101,14 @@ signals:
      * @param offset index of the first selected items
      * @param length number of selected items
      */
-    void changed(unsigned int offset, unsigned int length);
+    void changed(sample_index_t offset, sample_index_t length);
 
 private:
     /** index of the first selected item */
-    unsigned int m_offset;
+    sample_index_t m_offset;
 
     /** number of items */
-    unsigned int m_length;
+    sample_index_t m_length;
 };
 
 #endif /* _SELECTION_H_ */

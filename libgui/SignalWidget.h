@@ -20,12 +20,15 @@
 
 #include "config.h"
 
+#include <QGridLayout>
 #include <QImage>
 #include <QLabel>
 #include <QList>
+#include <QObject>
 #include <QPainter>
 #include <QPixmap>
 #include <QPoint>
+#include <QPointer>
 #include <QPolygon>
 #include <QSize>
 #include <QTimer>
@@ -37,6 +40,8 @@
 #include "libkwave/PlaybackController.h"
 #include "libkwave/SignalManager.h"
 
+#include "libgui/MouseMark.h"
+
 class QBitmap;
 class QContextMenuEvent;
 class QDragEnterEvent;
@@ -47,17 +52,18 @@ class QEvent;
 class QMouseEvent;
 class QMoveEvent;
 class QPaintEvent;
+class QVBoxLayout;
 class QResizeEvent;
 class QWheelEvent;
 
 class KUrl;
 
 class LabelType;
-class MouseMark;
+namespace Kwave { class MouseMark; }
 class SignalManager;
 class TimeOperation;
 class Track;
-class TrackPixmap;
+namespace Kwave { class TrackPixmap; }
 
 /**
  * The SignalWidget class is responsible for displaying a signal with
@@ -71,13 +77,6 @@ class KDE_EXPORT SignalWidget : public QWidget
     friend class InhibitRepaintGuard;
 
 public:
-    /** Mode of the mouse cursor */
-    enum MouseMode {
-	MouseNormal = 0,        /**< over the signal [default] */
-	MouseInSelection,       /**< within the selection */
-	MouseAtSelectionBorder, /**< near the border of a selection */
-	MouseSelect             /**< during selection */
-    };
 
     /** Constructor */
     SignalWidget(QWidget *parent);
@@ -86,7 +85,7 @@ public:
      * Returns true if this instance was successfully initialized, or
      * false if something went wrong during initialization.
      */
-    virtual bool isOK();
+    bool isOK();
 
     /** Destructor */
     virtual ~SignalWidget();
@@ -97,7 +96,7 @@ public:
      * @param ms time in milliseconds
      * @return number of samples (rounded)
      */
-    unsigned int ms2samples(double ms);
+    sample_index_t ms2samples(double ms);
 
     /**
      * Converts a number of samples to a time in milliseconds, based on the
@@ -105,7 +104,7 @@ public:
      * @param samples number of samples
      * @return time in milliseconds
      */
-    double samples2ms(unsigned int samples);
+    double samples2ms(sample_index_t samples);
 
     /**
      * Closes the current signal and loads a new one from a file.
@@ -119,7 +118,7 @@ public:
      * signal manager.
      * @see TopWidget::newSignal
      */
-    void newSignal(unsigned int samples, double rate,
+    void newSignal(sample_index_t samples, double rate,
                    unsigned int bits, unsigned int tracks);
 
     /**
@@ -154,7 +153,7 @@ public:
     bool isInSelection(int x);
 
     /** Executes a Kwave text command */
-    bool executeCommand(const QString &command);
+    int executeCommand(const QString &command);
 
     /**
      * Returns the number of tracks of the current signal or
@@ -180,7 +179,7 @@ public:
      * @param pixels pixel offset
      * @return index of the sample
      */
-    unsigned int pixels2samples(int pixels) const;
+    sample_index_t pixels2samples(int pixels) const;
 
     /**
      * Converts a pixel offset into a sample index using the current zoom
@@ -188,7 +187,7 @@ public:
      * @param samples number of samples to be converted
      * @return pixel offset
      */
-    int samples2pixels(int samples) const;
+    int samples2pixels(sample_index_t samples) const;
 
 public slots:
 
@@ -197,7 +196,7 @@ public slots:
      * @param new_offset new value for the offset in samples, will be
      *                   internally limited to [0...length-1]
      */
-    void setOffset(unsigned int new_offset);
+    void setOffset(sample_index_t new_offset);
 
     /**
      * Sets a new selected range of samples. If the length of the
@@ -328,8 +327,8 @@ private slots:
      * @see Signal::sigSamplesInserted
      * @internal
      */
-    void slotSamplesInserted(unsigned int track, unsigned int offset,
-                             unsigned int length);
+    void slotSamplesInserted(unsigned int track, sample_index_t offset,
+                             sample_index_t length);
 
     /**
      * Connected to the signal's sigSamplesDeleted.
@@ -339,8 +338,8 @@ private slots:
      * @see Signal::sigSamplesDeleted
      * @internal
      */
-    void slotSamplesDeleted(unsigned int track, unsigned int offset,
-                            unsigned int length);
+    void slotSamplesDeleted(unsigned int track, sample_index_t offset,
+                            sample_index_t length);
 
     /**
      * Connected to the signal's sigSamplesModified
@@ -350,15 +349,15 @@ private slots:
      * @see Signal::sigSamplesModified
      * @internal
      */
-    void slotSamplesModified(unsigned int track, unsigned int offset,
-                             unsigned int length);
+    void slotSamplesModified(unsigned int track, sample_index_t offset,
+                             sample_index_t length);
 
     /**
      * Connected to the changed() signal of the SignalManager's selection.
      * @see Selection
      * @internal
      */
-    void slotSelectionChanged(unsigned int offset, unsigned int length);
+    void slotSelectionChanged(sample_index_t offset, sample_index_t length);
 
 
     /**
@@ -366,7 +365,7 @@ private slots:
      * position during playback.
      * @param pos last played sample position [0...length-1]
      */
-    void updatePlaybackPointer(unsigned int pos);
+    void updatePlaybackPointer(sample_index_t pos);
 
     /**
      * Refreshes the signal layer. Shortcut to refreshLayer(LAYER_SIGNAL).
@@ -435,14 +434,17 @@ signals:
      * @param width the width of the widget in [pixels]
      * @param length size of the whole signal [samples]
      */
-    void viewInfo(unsigned int offset, unsigned int width,
-                  unsigned int length);
+    void viewInfo(sample_index_t offset, unsigned int width,
+                  sample_index_t length);
 
     /**
      * Emits the offset and length of the current selection and the
      * sample rate for converting it into milliseconds
+     * @param offset index of the first selected sample
+     * @param length number of selected samples
+     * @param rate sample rate
      */
-    void selectedTimeInfo(unsigned int offset, unsigned int length,
+    void selectedTimeInfo(sample_index_t offset, sample_index_t length,
                           double rate);
 
     /**
@@ -460,13 +462,10 @@ signals:
     /**
      * Emits a change in the mouse cursor. This can be used to change
      * the content of a status bar if the mouse moves over a selected
-     * area or a marker. The "mode" parameter is one of the modes in
-     * enum MouseMode, but casted to int for simplicity.
-     * @todo find out how to use a forward declaration of both the
-     * class SignalWidget *and* of SignalWidget::MouseMouse to avoid the
-     * need of including SignalWidget.h in too many files.
+     * area or a marker.
+     * @param mode one of the modes in Kwave::MouseMark::Mode
      */
-    void sigMouseChanged(int mode);
+    void sigMouseChanged(Kwave::MouseMark::Mode mode);
 
     /**
      * Signals that a track has been inserted.
@@ -625,14 +624,6 @@ protected:
      */
     bool labelProperties(Label &label);
 
-//    void loadLabel ();
-//    void appendLabel ();
-//    void deleteLabel ();
-//    void saveLabel (const char *);
-//    void jumptoLabel ();
-//    void markSignal (const char *);
-//    void markPeriods (const char *);
-
     /**
      * Handles commands for navigation and selection.
      * @param command the string with the command
@@ -665,7 +656,7 @@ private:
      * Sets the mode of the mouse cursor and emits sigMouseChanged
      * if it differs from the previous value.
      */
-    void setMouseMode(MouseMode mode);
+    void setMouseMode(Kwave::MouseMark::Mode mode);
 
     /**
      * Shows the current cursor position as a tooltip
@@ -675,7 +666,7 @@ private:
      * @param mouse the coordinates of the mouse cursor,
      *              relative to this widget [pixel]
      */
-    void showPosition(const QString &text, unsigned int pos, double ms,
+    void showPosition(const QString &text, sample_index_t pos, double ms,
                       const QPoint &mouse);
 
     /** Shortcut for accessing the label list @note can be modified */
@@ -692,7 +683,7 @@ private:
      * add a new label
      * @param pos position of the label [samples]
      */
-    void addLabel(unsigned int pos);
+    void addLabel(sample_index_t pos);
 
 private:
 
@@ -750,16 +741,16 @@ private:
      */
     unsigned int m_inhibit_repaint;
 
-    MouseMark *m_selection;
+    Kwave::MouseMark *m_selection;
 
     /** our signal manager */
     SignalManager m_signal_manager;
 
     /** list of track pixmaps */
-    QList<TrackPixmap *> m_track_pixmaps;
+    QList<Kwave::TrackPixmap *> m_track_pixmaps;
 
     /** mode of the mouse cursor */
-    MouseMode m_mouse_mode;
+    Kwave::MouseMark::Mode m_mouse_mode;
 
     /**
      * x position where the user last clicked the last time, needed fo

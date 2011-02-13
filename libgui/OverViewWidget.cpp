@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <math.h>
+
 #include <QPainter>
 #include <QResizeEvent>
 #include <QMouseEvent>
@@ -66,10 +68,14 @@ void OverViewWidget::WorkerThread::run()
 //***************************************************************************
 OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     :ImageView(parent), m_view_offset(0), m_view_width(0), m_signal_length(0),
-     m_sample_rate(0), m_selection_start(0), m_selection_length(0),
+     m_selection_start(0), m_selection_length(0),
      m_playback_position(0), m_last_offset(0), m_cache(signal),
      m_repaint_timer(), m_labels(), m_worker_thread(this)
 {
+    // check: start() must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     // update the bitmap if the cache has changed
     connect(&m_cache, SIGNAL(changed()),
             this, SLOT(overviewChanged()));
@@ -77,6 +83,12 @@ OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     // connect repaint timer
     connect(&m_repaint_timer, SIGNAL(timeout()),
             this, SLOT(refreshBitmap()));
+
+//     // get informed about selection changes
+//     connect(&(signal.selection()),
+//             SIGNAL(changed(sample_index_t, sample_index_t)),
+//             this,
+//             SLOT(setSelection(sample_index_t,sample_index_t)));
 
     // get informed about label changes
     connect(&signal, SIGNAL(labelsChanged(const LabelList &)),
@@ -94,6 +106,10 @@ OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
 //***************************************************************************
 OverViewWidget::~OverViewWidget()
 {
+    // check: start() must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     m_repaint_timer.stop();
     m_worker_thread.wait(/* 100 * REPAINT_INTERVAL */);
 }
@@ -115,7 +131,7 @@ void OverViewWidget::mousePressEvent(QMouseEvent *e)
     }
 
     // move the clicked position to the center of the viewport
-    unsigned int offset = pixels2offset(e->x());
+    sample_index_t offset = pixels2offset(e->x());
     if (offset != m_last_offset) {
 	m_last_offset = offset;
 	emit valueChanged(offset);
@@ -134,7 +150,7 @@ void OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
     }
 
     // move the clicked position to the center of the viewport
-    unsigned int offset = pixels2offset(e->x());
+    sample_index_t offset = pixels2offset(e->x());
     if (offset != m_last_offset) {
 	m_last_offset = offset;
 	emit valueChanged(offset);
@@ -152,21 +168,21 @@ void OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
 }
 
 //***************************************************************************
-int OverViewWidget::pixels2offset(int pixels)
+sample_index_t OverViewWidget::pixels2offset(unsigned int pixels)
 {
     int width = this->width();
     if (!width) return 0;
 
-    int offset = static_cast<int>(m_signal_length *
-	(static_cast<double>(pixels) / static_cast<double>(width)));
-    int center = m_view_width >> 1;
-    offset = (offset > center) ? (offset - center) : 0;
+    double zoom = static_cast<double>(m_signal_length - 1) /
+                  static_cast<double>(width - 1);
+    sample_index_t offset = static_cast<sample_index_t>(rint(
+                            static_cast<double>(pixels) * zoom));
     return offset;
 }
 
 //***************************************************************************
-void OverViewWidget::setRange(unsigned int offset, unsigned int viewport,
-                              unsigned int total)
+void OverViewWidget::setRange(sample_index_t offset, unsigned int viewport,
+                              sample_index_t total)
 {
     m_view_offset   = offset;
     m_view_width    = viewport;
@@ -176,12 +192,14 @@ void OverViewWidget::setRange(unsigned int offset, unsigned int viewport,
 }
 
 //***************************************************************************
-void OverViewWidget::setSelection(unsigned int offset, unsigned int length,
-                                  double rate)
+void OverViewWidget::setSelection(sample_index_t offset, sample_index_t length,
+                                  double rate
+)
 {
+    Q_UNUSED(rate);
+
     m_selection_start  = offset;
     m_selection_length = length;
-    m_sample_rate      = rate;
 
     overviewChanged();
 }
@@ -207,9 +225,13 @@ QSize OverViewWidget::sizeHint() const
 //***************************************************************************
 void OverViewWidget::overviewChanged()
 {
-    // repainting is inhibited -> wait until the
-    // repaint timer is elapsed
+    // check: start() must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     if (m_repaint_timer.isActive()) {
+	// repainting is inhibited -> wait until the
+	// repaint timer is elapsed
 	return;
     } else {
 	// repaint once and once later...
@@ -224,25 +246,35 @@ void OverViewWidget::overviewChanged()
 //***************************************************************************
 void OverViewWidget::labelsChanged(const LabelList &labels)
 {
+    // check: start() must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     m_labels = labels;
 
     // only re-start the repaint timer, this hides some GUI update artifacts
-    m_repaint_timer.stop();
-    m_repaint_timer.setSingleShot(true);
-    m_repaint_timer.start(REPAINT_INTERVAL);
+    if (!m_repaint_timer.isActive()) {
+	m_repaint_timer.stop();
+	m_repaint_timer.setSingleShot(true);
+	m_repaint_timer.start(REPAINT_INTERVAL);
+    }
 }
 
 //***************************************************************************
-void OverViewWidget::playbackPositionChanged(unsigned int pos)
+void OverViewWidget::playbackPositionChanged(sample_index_t pos)
 {
-    const unsigned int old_pos = m_playback_position;
-    const unsigned int new_pos = pos;
+    // check: start() must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
+    const sample_index_t old_pos = m_playback_position;
+    const sample_index_t new_pos = pos;
 
     if (new_pos == old_pos) return; // no change
     m_playback_position = new_pos;
 
     // check for change in pixel units
-    unsigned int length = m_signal_length;
+    sample_index_t length = m_signal_length;
     if (m_view_offset + m_view_width > m_signal_length) {
 	// showing deleted space after signal
 	length = m_view_offset + m_view_width;
@@ -293,6 +325,10 @@ void OverViewWidget::drawMark(QPainter &p, int x, int height, QColor color)
 //***************************************************************************
 void OverViewWidget::refreshBitmap()
 {
+    // check: start() must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     if (m_worker_thread.isRunning()) {
 	// (re)start the repaint timer if the worker thread is still
 	// running, try again later...
@@ -308,7 +344,7 @@ void OverViewWidget::refreshBitmap()
 //***************************************************************************
 void OverViewWidget::calculateBitmap()
 {
-    unsigned int length = m_signal_length;
+    sample_index_t length = m_signal_length;
     if (m_view_offset + m_view_width > m_signal_length) {
 	// showing deleted space after signal
 	length = m_view_offset + m_view_width;
@@ -359,7 +395,7 @@ void OverViewWidget::calculateBitmap()
     // draw labels
     unsigned int last_label_pos = width + 1;;
     foreach (const Label &label, m_labels) {
-	unsigned int pos = label.pos();
+	sample_index_t pos = label.pos();
 	unsigned int x = static_cast<unsigned int>(
 	    static_cast<double>(pos) * scale);
 
@@ -378,7 +414,7 @@ void OverViewWidget::calculateBitmap()
 
     // draw playback position
     if (m_playback_position) {
-	const unsigned int pos = m_playback_position;
+	const sample_index_t pos = m_playback_position;
 	unsigned int x = static_cast<unsigned int>(
 	    static_cast<double>(pos) * scale);
 

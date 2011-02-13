@@ -31,6 +31,7 @@
 #include <kdemacros.h>
 
 #include "libkwave/PluginContext.h"
+#include "libkwave/Sample.h"
 
 class ConfirmCancelProxy;
 class FileInfo;
@@ -214,7 +215,7 @@ namespace Kwave {
 	 * Returns the length of the current signal in samples. If no signal is
 	 * present the return value will be zero.
 	 */
-	virtual unsigned int signalLength();
+	virtual sample_index_t signalLength();
 
 	/**
 	 * Returns the sample rate of the current signal. If no signal is
@@ -244,9 +245,9 @@ namespace Kwave {
 	 *                        equal to the whole signal if left==right
 	 * @return the number of selected samples (right-left+1) [1..length]
 	 */
-	virtual unsigned int selection(
+	virtual sample_index_t selection(
 	    QList<unsigned int> *tracks = 0,
-	    unsigned int *left = 0, unsigned int *right=0,
+	    sample_index_t *left = 0, sample_index_t *right=0,
 	    bool expand_if_empty = false);
 
 	/**
@@ -254,7 +255,7 @@ namespace Kwave {
 	 * @param offset index of the first sample
 	 * @param length number of samples
 	 */
-	virtual void selectRange(unsigned int offset, unsigned int length);
+	virtual void selectRange(sample_index_t offset, sample_index_t length);
 
 	/**
 	 * Gives the control to the next thread. This can be called from
@@ -358,7 +359,7 @@ namespace Kwave {
 	 * update the progress dialog
 	 * @param progress the current progress in percent [0...100]
 	 */
-	virtual void updateProgress(unsigned int progress);
+	virtual void updateProgress(qreal progress);
 
 	/**
 	 * called when the user has pressed "Cancel" in the progress
@@ -434,7 +435,7 @@ namespace Kwave {
 	QTimer m_progress_timer;
 
 	/** latest progress value [percent] */
-	int m_current_progress;
+	qreal m_current_progress;
 
 	/** Mutex for locking the progress bar */
 	QMutex m_progress_lock;

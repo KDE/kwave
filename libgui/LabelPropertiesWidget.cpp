@@ -36,7 +36,7 @@ LabelPropertiesWidget::LabelPropertiesWidget(QWidget *parent)
 {
     setupUi(this);
     Q_ASSERT(time);
-    if (time) time->setTitle(0);
+    if (time) time->setTitle(QString());
     setFixedSize(sizeHint());
 }
 
@@ -53,8 +53,8 @@ void LabelPropertiesWidget::setLabelIndex(unsigned int index)
 }
 
 //***************************************************************************
-void LabelPropertiesWidget::setLabelPosition(unsigned int pos,
-	unsigned int length, double rate)
+void LabelPropertiesWidget::setLabelPosition(sample_index_t pos,
+	sample_index_t length, double rate)
 {
     Q_ASSERT(time);
     if (!time) return;
@@ -82,7 +82,7 @@ void LabelPropertiesWidget::setLabelName(const QString &name)
 }
 
 //***************************************************************************
-unsigned int LabelPropertiesWidget::labelPosition()
+sample_index_t LabelPropertiesWidget::labelPosition()
 {
     Q_ASSERT(time);
     return (time) ? time->samples() : 0;

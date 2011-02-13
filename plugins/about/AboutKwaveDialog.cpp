@@ -112,6 +112,8 @@ AboutKwaveDialog::AboutKwaveDialog(
 	    static_cast<QTreeWidget *>(0), item));
     }
     pluginsinfo->insertTopLevelItems(0, plugins);
+    pluginsinfo->resizeColumnToContents(1);
+    pluginsinfo->resizeColumnToContents(0);
 
     QString num_plugins = i18n("Plugins found: %1", plugins.count());
     pluginsnumval->setText(num_plugins);

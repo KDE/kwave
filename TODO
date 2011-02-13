@@ -1,6 +1,8 @@
 
 o support for recording via PULSE audio
 
+o MP3 export (maybe via calling lame/mpg123/mencoder as an external process)
+
 o crash in record plugin, maybe if device is busy?
     RecordALSA::read(), after underrun: resuming
     RecordALSA::read(), underrun
@@ -41,7 +43,7 @@ o use some xml file for the menu instead of a macro
 
 o support for Spex codec: http://www.speex.org/
 
-o get rid of libaudiofile, it is too buggy, has too few features and
+o get rid of libaudiofile, it is buggy, has too few features and
   is no longer actively maintained -> find an alternative
 
 o ALSA record/playback: also detect devices configured in the .asoundrc,

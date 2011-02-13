@@ -51,7 +51,7 @@ QStringList *GotoPlugin::setup(QStringList &previous_params)
 
     // create the setup dialog
     double rate = signalRate();
-    unsigned int length = signalLength();
+    sample_index_t length = signalLength();
 
     GotoDialog *dialog = new GotoDialog(parentWidget(),
         m_mode, m_position, rate, length);
@@ -88,7 +88,7 @@ int GotoPlugin::start(QStringList &params)
     if (result) return result;
 
     // get current offset of the signal
-    unsigned int offset = SelectTimeWidget::timeToSamples(
+    sample_index_t offset = SelectTimeWidget::timeToSamples(
 	m_mode, m_position, signalRate(), signalLength());
 
     // change the selection through the signal manager

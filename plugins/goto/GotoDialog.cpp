@@ -20,8 +20,8 @@
 #include "GotoDialog.h"
 
 //***************************************************************************
-GotoDialog::GotoDialog(QWidget *widget, Mode mode, unsigned int pos,
-                       double sample_rate, unsigned int signal_length)
+GotoDialog::GotoDialog(QWidget *widget, Mode mode, sample_index_t pos,
+                       double sample_rate, sample_index_t signal_length)
     :QDialog(widget), Ui::GotoDlg()
 {
     setupUi(this);

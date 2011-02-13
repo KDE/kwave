@@ -24,6 +24,13 @@
 class RecordTypesMap: public TypesMap<unsigned int, record_method_t>
 {
 public:
+    /** Constructor */
+    explicit RecordTypesMap()
+	:TypesMap<unsigned int, record_method_t>()
+    {
+	fill();
+    }
+
     /** Destructor */
     virtual ~RecordTypesMap() {};
 

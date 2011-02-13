@@ -20,72 +20,84 @@
 
 #include "config.h"
 
-/**
- * @class MouseMark
- * Simple class that can be used whenever the user selects something
- * with the mouse. Note that the coordinates within this class are
- * not transformed from screen pixels to the user's favorite
- * coordinate system. This must be done outside of here.
- */
-class MouseMark
-{
+#include "libkwave/Sample.h"
 
-public:
-
-    /** Constructor */
-    MouseMark();
-
-    /** Destructor */
-    virtual ~MouseMark()
+namespace Kwave {
+    /**
+     * @class MouseMark
+     * Simple class that can be used whenever the user selects something
+     * with the mouse. Note that the coordinates within this class are
+     * not transformed from screen pixels to the user's favorite
+     * coordinate system. This must be done outside of here.
+     */
+    class MouseMark
     {
-    }
 
-    /**
-     * Sets the selection to a new range.
-     * @param l start position
-     * @param r end position
-     */
-    void set(unsigned int l, unsigned int r);
+    public:
 
-    /**
-     * Update the last known position of the mouse. This should be
-     * used for continuous update of the selection during mouse
-     * movement.
-     * @param x new last position
-     */
-    void update(unsigned int x);
+	/** Mode of the mouse cursor */
+	typedef enum {
+	    MouseNormal = 0,        /**< over the signal [default] */
+	    MouseInSelection,       /**< within the selection */
+	    MouseAtSelectionBorder, /**< near the border of a selection */
+	    MouseSelect             /**< during selection */
+	} Mode;
 
-    /**
-     * Re-enters the selection process at a new position. The last
-     * position will be set to the left or the right margin, depending
-     * on which side is nearer.
-     */
-    void grep(unsigned int x);
+	/** Constructor */
+	MouseMark();
 
-    /**
-     * Returns the left border of the selection.
-     */
-    unsigned int left();
+	/** Destructor */
+	virtual ~MouseMark()
+	{
+	}
 
-    /**
-     * Returns the right border of the selection.
-     */
-    unsigned int right();
+	/**
+	 * Sets the selection to a new range.
+	 * @param l start position
+	 * @param r end position
+	 */
+	void set(sample_index_t l, sample_index_t r);
 
-    /**
-     * Returns the lenght of the selection
-     */
-    inline unsigned int length() {
-	return right() - left() + 1;
-    }
+	/**
+	 * Update the last known position of the mouse. This should be
+	 * used for continuous update of the selection during mouse
+	 * movement.
+	 * @param x new last position
+	 */
+	void update(sample_index_t x);
 
-private:
-    /** initial position of the mouse */
-    unsigned int initial;
+	/**
+	 * Re-enters the selection process at a new position. The last
+	 * position will be set to the left or the right margin, depending
+	 * on which side is nearer.
+	 */
+	void grep(sample_index_t x);
 
-    /** last known position of the mouse */
-    unsigned int last;
-};
+	/**
+	 * Returns the left border of the selection.
+	 */
+	sample_index_t left() const;
+
+	/**
+	 * Returns the right border of the selection.
+	 */
+	sample_index_t right() const;
+
+	/**
+	 * Returns the lenght of the selection
+	 */
+	inline sample_index_t length() const {
+	    return right() - left() + 1;
+	}
+
+    private:
+	/** initial position of the mouse */
+	sample_index_t m_initial;
+
+	/** last known position of the mouse */
+	sample_index_t m_last;
+    };
+}
 
 //***********************************************************
 #endif /*_MOUSE_MARK_H_ */

@@ -16,5 +16,9 @@ CurrentBuildType=
 CurrentInstallDir=
 ProjectRootRelative=./
 
+[MakeBuilder]
+Default Make Environment Profile=Kwave-Debug
+Number Of Jobs=1
+
 [Project]
 VersionControlSupport=kdevsubversion

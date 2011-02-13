@@ -59,7 +59,7 @@ Decoder *OggDecoder::instance()
 }
 
 //***************************************************************************
-void OggDecoder::parseTag(const char *tag, FileProperty property)
+void OggDecoder::parseTag(FileInfo &info, const char *tag, FileProperty property)
 {
     int count = vorbis_comment_query_count(&m_vc, const_cast<char *>(tag));
     if (count < 1) return;
@@ -69,7 +69,8 @@ void OggDecoder::parseTag(const char *tag, FileProperty property)
 	if (i) value += "; ";
 	value += QString::fromUtf8(text);
     }
-    m_info.set(property, value);
+
+    info.set(property, value);
 }
 
 //***************************************************************************
@@ -87,8 +88,8 @@ int OggDecoder::parseHeader(QWidget *widget)
     Q_ASSERT(m_buffer);
     if (!m_buffer) return -1;
 
-    unsigned int bytes = m_source->read(m_buffer,4096);
-    if (!bytes && (!m_source->pos())) {
+    long int bytes = static_cast<long int>(m_source->read(m_buffer, 4096));
+    if ((bytes <= 0) && (!m_source->pos())) {
 	Kwave::MessageBox::error(widget, i18n(
 	    "Ogg bitstream has zero-length."));
 	return -1;
@@ -253,7 +254,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     }
 
     /** convert the date property to a QDate */
-    parseTag("DATE",         INF_CREATION_DATE);
+    parseTag(m_info, "DATE",         INF_CREATION_DATE);
     if (m_info.contains(INF_CREATION_DATE)) {
 	QString str_date  = QVariant(m_info.get(
 	    INF_CREATION_DATE)).toString();
@@ -267,22 +268,23 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     }
 
     // parse all other (simple) properties
-    parseTag("TITLE",        INF_NAME);
-    parseTag("VERSION",      INF_VERSION);
-    parseTag("ALBUM",        INF_ALBUM);
-    parseTag("TRACKNUMBER",  INF_TRACK);
-    parseTag("ARTIST",       INF_AUTHOR);
-    parseTag("PERFORMER",    INF_PERFORMER);
-    parseTag("COPYRIGHT",    INF_COPYRIGHT);
-    parseTag("LICENSE",      INF_LICENSE);
-    parseTag("ORGANIZATION", INF_ORGANIZATION);
-    parseTag("DESCRIPTION",  INF_SUBJECT);
-    parseTag("GENRE",        INF_GENRE);
-    parseTag("LOCATION",     INF_SOURCE);
-    parseTag("CONTACT",      INF_CONTACT);
-    parseTag("ISRC",         INF_ISRC);
-    parseTag("ENCODER",      INF_SOFTWARE);
-    parseTag("VBR_QUALITY",  INF_VBR_QUALITY);
+    parseTag(m_info, "TITLE",        INF_NAME);
+    parseTag(m_info, "VERSION",      INF_VERSION);
+    parseTag(m_info, "ALBUM",        INF_ALBUM);
+    parseTag(m_info, "TRACKNUMBER",  INF_TRACK);
+    parseTag(m_info, "ARTIST",       INF_AUTHOR);
+    parseTag(m_info, "PERFORMER",    INF_PERFORMER);
+    parseTag(m_info, "COPYRIGHT",    INF_COPYRIGHT);
+    parseTag(m_info, "LICENSE",      INF_LICENSE);
+    parseTag(m_info, "ORGANIZATION", INF_ORGANIZATION);
+    parseTag(m_info, "DESCRIPTION",  INF_SUBJECT);
+    parseTag(m_info, "GENRE",        INF_GENRE);
+    parseTag(m_info, "LOCATION",     INF_SOURCE);
+    parseTag(m_info, "CONTACT",      INF_CONTACT);
+    parseTag(m_info, "ISRC",         INF_ISRC);
+    parseTag(m_info, "ENCODER",      INF_SOFTWARE);
+    parseTag(m_info, "VBR_QUALITY",  INF_VBR_QUALITY);
+
 
     return true;
 }
@@ -291,7 +293,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
 static inline int decodeFrame(float **pcm, unsigned int size,
                               Kwave::MultiWriter &dest)
 {
-    bool clipped = false;
+//     bool clipped = false;
     unsigned int track;
     unsigned int tracks = dest.tracks();
 
@@ -312,11 +314,11 @@ static inline int decodeFrame(float **pcm, unsigned int size,
 	    // might as well guard against clipping
 	    if (s > SAMPLE_MAX) {
 		s = SAMPLE_MAX;
-		clipped = true;
+// 		clipped = true;
 	    }
 	    if (s < SAMPLE_MIN) {
 		s = SAMPLE_MIN;
-		clipped = true;
+// 		clipped = true;
 	    }
 
 	    // write the clipped sample to the stream
@@ -416,7 +418,7 @@ bool OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 	vorbis_info_clear(&m_vi);  // must be called last
 
 	// parse the next header, maybe we parse a stream or chain...
-	if (parseHeader(widget) < 1) break;
+	if (eos || (parseHeader(widget) < 1)) break;
     }
 
     // OK, clean up the framer

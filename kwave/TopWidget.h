@@ -22,12 +22,17 @@
 #include "config.h"
 
 #include <QPair>
+#include <QPointer>
 #include <QString>
 #include <QVector>
 
 #include <kdemacros.h>
 #include <kmainwindow.h>
 #include <kurl.h>
+
+#include "libkwave/Sample.h"
+
+#include "libgui/MouseMark.h"
 
 class QCloseEvent;
 class QLabel;
@@ -104,8 +109,6 @@ public:
 
 public slots:
 
-    int executeCommand(const QString &command);
-
     /**
      * Updates the list of recent files in the menu, maybe some other
      * window has changed it. The list of recent files is static and
@@ -119,6 +122,14 @@ protected slots:
     virtual void closeEvent(QCloseEvent *e);
 
 private slots:
+
+    /**
+     * Execute a Kwave text command
+     * @param command a text command
+     * @return zero if succeeded or negative error code if failed
+     * @retval -ENOSYS is returned if the command is unknown in this component
+     */
+    int executeCommand(const QString &command);
 
     /** called on changes in the zoom selection combo box */
     void selectZoom(int index);
@@ -139,7 +150,7 @@ private slots:
      * @param rate sample rate [samples/second]
      * @param bits resolution in bits
      */
-    void setStatusInfo(unsigned int length, unsigned int tracks,
+    void setStatusInfo(sample_index_t length, unsigned int tracks,
                        double rate, unsigned int bits);
 
     /**
@@ -154,14 +165,14 @@ private slots:
      * @param length number of selected samples
      * @param rate sample rate [samples/second] for converting to time
      */
-    void setSelectedTimeInfo(unsigned int offset, unsigned int length,
+    void setSelectedTimeInfo(sample_index_t offset, sample_index_t length,
                              double rate);
 
     /**
      * updates the playback position in the status bar
      * @param offset the current playback position [samples]
      */
-    void updatePlaybackPos(unsigned int offset);
+    void updatePlaybackPos(sample_index_t offset);
 
     /**
      * Sets the descriptions of the last undo and redo action. If the
@@ -174,7 +185,7 @@ private slots:
      * Updates the status bar's content depending on the current status
      * or position of the mouse cursor.
      */
-    void mouseChanged(int mode);
+    void mouseChanged(Kwave::MouseMark::Mode mode);
 
     /** updates the menus when the clipboard has become empty/full */
     void clipboardChanged(bool data_available);
@@ -256,10 +267,8 @@ protected:
      * @param tracks number of tracks
      * @return zero if successful, -1 if failed or canceled
      */
-    int newSignal(unsigned int samples, double rate,
+    int newSignal(sample_index_t samples, double rate,
                   unsigned int bits, unsigned int tracks);
-
-protected:
 
     /**
      * Discards all changes to the current file and loads
@@ -341,7 +350,7 @@ private:
      * the main widget with all views and controls (except menu and
      * toolbar)
      */
-    MainWidget *m_main_widget;
+    QPointer<MainWidget> m_main_widget;
 
     /** combo box for selection of the zoom factor */
     KComboBox *m_zoomselect;

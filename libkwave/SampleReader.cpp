@@ -33,7 +33,7 @@
 
 //***************************************************************************
 SampleReader::SampleReader(Kwave::ReaderMode mode, QList<Stripe> stripes,
-                           unsigned int left, unsigned int right)
+                           sample_index_t left, sample_index_t right)
     :m_mode(mode), m_stripes(stripes),
      m_src_position(left), m_first(left), m_last(right),
      m_buffer(blockSize()),
@@ -99,7 +99,7 @@ void SampleReader::fillBuffer()
 }
 
 //***************************************************************************
-void SampleReader::minMax(unsigned int first, unsigned int last,
+void SampleReader::minMax(sample_index_t first, sample_index_t last,
                           sample_t &min, sample_t &max)
 {
     bool empty = true;
@@ -108,8 +108,8 @@ void SampleReader::minMax(unsigned int first, unsigned int last,
 
     foreach (Stripe s, m_stripes) {
 	if (!s.length()) continue;
-	unsigned int start = s.start();
-	unsigned int end   = s.end();
+	sample_index_t start = s.start();
+	sample_index_t end   = s.end();
 
 	if (end < first) continue; // not yet in range
 	if (start > last)  break;  // done
@@ -118,8 +118,8 @@ void SampleReader::minMax(unsigned int first, unsigned int last,
 	empty = false;
 
 	// get min/max from the stripe
-	unsigned int s1 = (first > start) ? (first - start) : 0;
-	unsigned int s2 = (last < end) ? (last - start) : (end - start);
+	sample_index_t s1 = (first > start) ? (first - start) : 0;
+	sample_index_t s2 = (last < end) ? (last - start) : (end - start);
 	s.minMax(s1, s2, min, max);
     }
 
@@ -196,9 +196,9 @@ unsigned int SampleReader::read(Kwave::SampleArray &buffer,
 }
 
 //***************************************************************************
-void SampleReader::skip(unsigned int count)
+void SampleReader::skip(sample_index_t count)
 {
-    if (m_buffer_position+count < m_buffer_used) {
+    if (m_buffer_position + count < m_buffer_used) {
 	// skip within the buffer
 	m_buffer_position += count;
     } else {
@@ -210,9 +210,9 @@ void SampleReader::skip(unsigned int count)
 }
 
 //***************************************************************************
-void SampleReader::seek(unsigned int pos)
+void SampleReader::seek(sample_index_t pos)
 {
-    const unsigned int current_pos = m_src_position +
+    const sample_index_t current_pos = m_src_position +
 	m_buffer_position - m_buffer_used;
 
     if (pos == current_pos) return; // nothing to do
@@ -233,7 +233,7 @@ void SampleReader::seek(unsigned int pos)
 	}
 
 	// seek backwards
-	const unsigned int count = current_pos - pos;
+	const sample_index_t count = current_pos - pos;
 	if (count <= m_buffer_position) {
 	    // go back within the buffer
 	    m_buffer_position -= count;
@@ -278,7 +278,7 @@ void SampleReader::goOn()
 }
 
 //***************************************************************************
-unsigned int SampleReader::readSamples(unsigned int offset,
+unsigned int SampleReader::readSamples(sample_index_t offset,
                                        Kwave::SampleArray &buffer,
                                        unsigned int buf_offset,
                                        unsigned int length)
@@ -287,18 +287,18 @@ unsigned int SampleReader::readSamples(unsigned int offset,
     if (!length) return 0; // nothing to do !?
     Q_ASSERT(buf_offset + length <= buffer.size());
 
-    unsigned int rest  = length;
-    unsigned int left  = offset;
-    unsigned int right = offset + length - 1;
+    unsigned int   rest  = length;
+    sample_index_t left  = offset;
+    sample_index_t right = offset + length - 1;
 
     foreach (Stripe s, m_stripes) {
 	if (!s.length()) continue;
-	unsigned int start = s.start();
-	unsigned int end   = s.end();
+	sample_index_t start = s.start();
+	sample_index_t end   = s.end();
 
 	if (left < start) {
 	    // gap before the stripe -> pad
-	    unsigned int pad = start - left;
+	    sample_index_t pad = start - left;
 	    if (pad > rest) pad = rest;
 	    padBuffer(buffer, buf_offset, pad);
 	    buf_offset += pad;

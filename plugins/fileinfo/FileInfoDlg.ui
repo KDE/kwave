@@ -43,7 +43,7 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab1">
+     <widget class="QWidget" name="tab_file">
       <attribute name="title">
        <string>File</string>
       </attribute>
@@ -609,7 +609,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab2">
+     <widget class="QWidget" name="tab_compression">
       <attribute name="title">
        <string>Compression</string>
       </attribute>
@@ -736,7 +736,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab3">
+     <widget class="QWidget" name="tab_mpeg">
       <attribute name="title">
        <string>MPEG</string>
       </attribute>
@@ -1235,7 +1235,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab4">
+     <widget class="QWidget" name="tab_content">
       <attribute name="title">
        <string>Content</string>
       </attribute>
@@ -1501,7 +1501,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab5">
+     <widget class="QWidget" name="tab_source">
       <attribute name="title">
        <string>Source</string>
       </attribute>
@@ -1846,7 +1846,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab6">
+     <widget class="QWidget" name="tab_author">
       <attribute name="title">
        <string>Author/Copyright</string>
       </attribute>
@@ -2127,7 +2127,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab7">
+     <widget class="QWidget" name="tab">
       <attribute name="title">
        <string>Miscellaneous</string>
       </attribute>
@@ -2277,9 +2277,9 @@
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
   </customwidget>
   <customwidget>
    <class>KDateWidget</class>
@@ -2287,9 +2287,9 @@
    <header>kdatewidget.h</header>
   </customwidget>
   <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
    <class>KeywordWidget</class>

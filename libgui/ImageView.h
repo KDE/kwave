@@ -73,7 +73,6 @@ public slots:
 
 signals:
 
-    void viewInfo(int, int, int);
     void sigCursorPos(const QPoint pos);
 
 protected:

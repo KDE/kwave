@@ -72,7 +72,7 @@ protected:
     unsigned int m_track;
 
     /** Length of the track in samples */
-    unsigned int m_length;
+    sample_index_t m_length;
 
     /** track that serves as buffer with undo data */
     Track m_buffer_track;

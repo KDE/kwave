@@ -28,6 +28,7 @@
 class FileInfo;
 class QWidget;
 class MultiTrackReader;
+namespace Kwave { class MetaDataList; }
 
 class AsciiEncoder: public Encoder
 {

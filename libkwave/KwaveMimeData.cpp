@@ -71,13 +71,13 @@ bool Kwave::MimeData::encode(QWidget *widget,
     Q_ASSERT(src.tracks());
     if (!src.tracks()) return false;
 
+    sample_index_t first = src.first();
+    sample_index_t last  = src.last();
     // create a buffer for the wav data
     m_data.resize(0);
     QBuffer dst(&m_data);
 
     // move all labels left, to start at the beginning of the selection
-    unsigned int first = src.first();
-    unsigned int last  = src.last();
     LabelList &labels = new_info.labels();
     QMutableListIterator<Label> it(labels);
     while (it.hasNext()) {
@@ -104,13 +104,13 @@ bool Kwave::MimeData::encode(QWidget *widget,
     delete encoder;
 
     // set the mime data into this mime data container
-    setData("audio/vnd.wave", m_data);
+    setData(WAVE_FORMAT_PCM, m_data);
     return true;
 }
 
 //***************************************************************************
 unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
-                                     SignalManager &sig, unsigned int pos)
+                                     SignalManager &sig, sample_index_t pos)
 {
     // decode, use the first format that matches
     unsigned int decoded_length = 0;
@@ -152,11 +152,12 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	// right border
 	if (src_rate != dst_rate) decoded_length *= (dst_rate / src_rate);
 
-	unsigned int left  = pos;
-	unsigned int right = left + decoded_length - 1;
+	sample_index_t left  = pos;
+	sample_index_t right = left + decoded_length - 1;
 	QList<unsigned int> tracks = sig.selectedTracks();
 	if (tracks.isEmpty()) tracks = sig.allTracks();
 
+	// special case: destination is currently empty
 	if (!sig.tracks()) {
 	    // encode into an empty window -> create tracks
 	    qDebug("Kwave::MimeData::decode(...) -> new signal");
@@ -171,42 +172,94 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 		continue;
 	    }
 	}
+	const unsigned int dst_tracks = sig.selectedTracks().count();
 
-	// decode from the mime data
+	// create the final sink
 	MultiTrackWriter dst(sig, sig.selectedTracks(), Insert, left, right);
 
-	if (src_rate != dst_rate) {
+	// if the track count does not match, then we need a channel mixer
+	Kwave::StreamObject *mixer = 0;
+	if (decoded_tracks != dst_tracks) {
+	    qDebug("Kwave::MimeData::decode(...) -> mixing channels: %u -> %u",
+	           decoded_tracks, dst_tracks);
+
+	    // TODO ...
+	}
+
+	// if the sample rates do not match, then we need a rate converter
+	Kwave::StreamObject *rate_converter = 0;
+	if (ok && (src_rate != dst_rate)) {
 #ifdef HAVE_SAMPLERATE_SUPPORT
-	    // pass the data through a sample rate converter
-	    // decoder -> adapter -> converter -> dst
-
-	    Kwave::MultiStreamWriter adapter(tracks.count());
-
 	    // create a sample rate converter
-	    Kwave::MultiTrackSource<Kwave::RateConverter, true>
-		converter(tracks.count(), widget);
-	    converter.setAttribute(SLOT(setRatio(const QVariant)),
-	                           QVariant(dst_rate / src_rate));
-
-	    Kwave::connect(adapter,   SIGNAL(output(Kwave::SampleArray)),
-	                   converter, SLOT(input(Kwave::SampleArray)));
-	    Kwave::connect(converter, SIGNAL(output(Kwave::SampleArray)),
-	                   dst,       SLOT(input(Kwave::SampleArray)));
-
-	    // this also starts the conversion automatically
-	    ok = decoder->decode(widget, adapter);
-
-	    // flush all samples that are still in the adapter
-	    adapter.flush();
+	    qDebug("Kwave::MimeData::decode(...) -> rate conversion: "\
+	           "%0.1f -> %0.1f", src_rate, dst_rate);
+	    rate_converter =
+		new Kwave::MultiTrackSource<Kwave::RateConverter, true>(
+		    dst_tracks, widget);
+	    Q_ASSERT(rate_converter);
+	    if (rate_converter)
+		rate_converter->setAttribute(SLOT(setRatio(const QVariant)),
+	                                     QVariant(dst_rate / src_rate));
+	    else
+		ok = false;
 #else
 	    ok = false;
 	    #warning sample rate conversion is disabled
 #endif
-	} else {
-	    // decode without sample rate conversion
+	}
+
+	if (ok && (rate_converter || mixer)) {
+	    // pass all data through a filter chain
+	    Kwave::MultiStreamWriter adapter(dst_tracks);
+
+	    // pass the data through a sample rate converter
+	    // decoder -> adapter -> [mixer] -> [converter] -> dst
+
+	    Kwave::StreamObject *last_output = &adapter;
+
+	    if (ok && mixer) {
+		// connect the channel mixer
+		ok = Kwave::connect(
+		    *last_output, SIGNAL(output(Kwave::SampleArray)),
+		    *mixer,       SLOT(input(Kwave::SampleArray))
+		);
+		last_output = mixer;
+	    }
+
+	    if (ok && rate_converter) {
+		// connect the rate converter
+		ok = Kwave::connect(
+		    *last_output,    SIGNAL(output(Kwave::SampleArray)),
+		    *rate_converter, SLOT(input(Kwave::SampleArray))
+		);
+		last_output = rate_converter;
+	    };
+
+	    // connect the sink
+	    if (ok) {
+		ok = Kwave::connect(
+		    *last_output, SIGNAL(output(Kwave::SampleArray)),
+		    dst,          SLOT(input(Kwave::SampleArray))
+		);
+	    }
+
+	    // this also starts the conversion automatically
+	    if (ok)
+		ok = decoder->decode(widget, adapter);
+
+	    // flush all samples that are still in the adapter
+	    adapter.flush();
+
+	} else if (ok) {
+	    // decode directly without any filter
 	    ok = decoder->decode(widget, dst);
 	}
+
 	dst.flush();
+
+	// clean up the filter chain
+	if (mixer)          delete mixer;
+	if (rate_converter) delete rate_converter;
 
 	// failed :-(
 	Q_ASSERT(ok);

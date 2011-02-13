@@ -40,7 +40,7 @@ public:
     };
 
     /** Constructor */
-    CompressionType();
+    explicit CompressionType();
 
     /** Destructor */
     virtual ~CompressionType();

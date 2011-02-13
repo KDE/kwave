@@ -58,7 +58,7 @@ public:
 private:
 
     /** Encodes all file properties into a vorbis comment */
-    void encodeProperties(FileInfo &info, vorbis_comment *vc);
+    void encodeProperties(const FileInfo &info, vorbis_comment *vc);
 
 };
 

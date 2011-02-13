@@ -31,6 +31,7 @@
 #include <kdemacros.h>
 
 #include "libkwave/InsertMode.h"
+#include "libkwave/Sample.h"
 
 class FileInfo;
 class PlaybackController;
@@ -39,16 +40,16 @@ class QString;
 class QStringList;
 class SignalManager;
 class QWidget;
-namespace Kwave { class SampleSink; }
 namespace Kwave { class Plugin; }
+namespace Kwave { class SampleSink; }
 namespace Kwave { class Writer; }
 
-/**
- * Manages the loading, initializing, starting, running and closing
- * of the plugins of kwave. Each instance of a TopWidget creates a
- * new instance of the PluginManager to be independent from other
- * toplevel widgets.
- */
+    /**
+     * Manages the loading, initializing, starting, running and closing
+     * of the plugins of kwave. Each instance of a TopWidget creates a
+     * new instance of the PluginManager to be independent from other
+     * toplevel widgets.
+     */
 namespace Kwave {
     class KDE_EXPORT PluginManager : public QObject
     {
@@ -108,7 +109,7 @@ namespace Kwave {
 	 * Returns the length of the current signal in samples.
 	 * If no signal is present the return value will be 0.
 	 */
-	unsigned int signalLength();
+	sample_index_t signalLength();
 
 	/**
 	 * Returns the current sample rate in samples per second.
@@ -125,20 +126,20 @@ namespace Kwave {
 	 * Returns the start of the selection. If nothing is currently
 	 * selected this will be the first sample (0).
 	 */
-	unsigned int selectionStart();
+	sample_index_t selectionStart();
 
 	/**
 	 * Returns the end of the selection. If nothing is currently
 	 * selected this will be the last sample (length-1).
 	 */
-	unsigned int selectionEnd();
+	sample_index_t selectionEnd();
 
 	/**
 	 * Sets the current start and length of the selection to new values.
 	 * @param offset index of the first sample
 	 * @param length number of samples
 	 */
-	void selectRange(unsigned int offset, unsigned int length);
+	void selectRange(sample_index_t offset, sample_index_t length);
 
 	/**
 	 * Opens an input stream for a track, starting at a specified sample
@@ -152,7 +153,7 @@ namespace Kwave {
 	 * @see InsertMode
 	 */
 	Kwave::Writer *openWriter(unsigned int track, InsertMode mode,
-	    unsigned int left = 0, unsigned int right = 0);
+	    sample_index_t left = 0, sample_index_t right = 0);
 
 	/**
 	 * Opens a Kwave::MultiTrackSink for playback purposes.

@@ -95,8 +95,10 @@ static QList<PlaybackDeviceFactory *> m_playback_factories;
 //***************************************************************************
 Kwave::PluginManager::PluginManager(QWidget *parent,
                                     SignalManager &signal_manager)
-    :m_loaded_plugins(), m_running_plugins(),
-     m_parent_widget(parent), m_signal_manager(signal_manager)
+    :m_loaded_plugins(),
+     m_running_plugins(),
+     m_parent_widget(parent),
+     m_signal_manager(signal_manager)
 {
     // connect all unique plugins
     foreach (KwavePluginPointer p, m_unique_plugins) {
@@ -417,7 +419,7 @@ void Kwave::PluginManager::sync()
     qApp->flush();
 
     while (onePluginRunning()) {
-	pthread_yield();
+	QThread::yieldCurrentThread();
 	qApp->processEvents();
 	qApp->flush();
     }
@@ -505,7 +507,7 @@ void Kwave::PluginManager::savePluginDefaults(const QString &name,
 }
 
 //***************************************************************************
-unsigned int Kwave::PluginManager::signalLength()
+sample_index_t Kwave::PluginManager::signalLength()
 {
     return m_signal_manager.length();
 }
@@ -523,27 +525,27 @@ const QList<unsigned int> Kwave::PluginManager::selectedTracks()
 }
 
 //***************************************************************************
-unsigned int Kwave::PluginManager::selectionStart()
+sample_index_t Kwave::PluginManager::selectionStart()
 {
     return m_signal_manager.selection().first();
 }
 
 //***************************************************************************
-unsigned int Kwave::PluginManager::selectionEnd()
+sample_index_t Kwave::PluginManager::selectionEnd()
 {
     return m_signal_manager.selection().last();
 }
 
 //***************************************************************************
-void Kwave::PluginManager::selectRange(unsigned int offset,
-                                       unsigned int length)
+void Kwave::PluginManager::selectRange(sample_index_t offset,
+                                       sample_index_t length)
 {
     m_signal_manager.selectRange(offset, length);
 }
 
 //***************************************************************************
 Kwave::Writer *Kwave::PluginManager::openWriter(unsigned int track,
-	InsertMode mode, unsigned int left, unsigned int right)
+	InsertMode mode, sample_index_t left, sample_index_t right)
 {
     return m_signal_manager.openWriter(track, mode, left, right, true);
 }

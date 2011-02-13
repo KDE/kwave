@@ -55,7 +55,7 @@ namespace Kwave {
 	 * @see InsertMode
 	 */
 	TrackWriter(Track &track, InsertMode mode,
-	    unsigned int left = 0, unsigned int right = 0);
+	    sample_index_t left = 0, sample_index_t right = 0);
 
 	/**
 	 * Destructor.

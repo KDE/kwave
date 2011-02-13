@@ -27,13 +27,14 @@
 
 #include <kdemacros.h>
 
+#include "libkwave/Sample.h"
 #include "libkwave/TypesMap.h"
 #include "libkwave/LabelList.h"
 
 /**
  * @enum FileProperty
  * Enumeration type that lists all file properties. If you extend this list,
- * please don't forget to add a verbose name and a description it in
+ * please don't forget to add a verbose name and a description of it in
  * FileInfo.cpp
  */
 typedef enum {
@@ -45,6 +46,7 @@ typedef enum {
     INF_BITRATE_LOWER,       /**< lower bitrate limit */
     INF_BITRATE_NOMINAL,     /**< nominal bitrate */
     INF_BITRATE_UPPER,       /**< upper bitrate limit */
+    INF_BITS_PER_SAMPLE,     /**< number of bits per sample */
     INF_CD,                  /**< number of the CD in an album */
     INF_COMMISSIONED,        /**< commissioned */
     INF_COMMENTS,            /**< comments */
@@ -60,6 +62,7 @@ typedef enum {
     INF_ISRC,                /**< International Standard Recording Code */
     INF_KEYWORDS,            /**< keywords */
     INF_LABELS,              /**< labels/markers */
+    INF_LENGTH,              /**< length of the file in samples */
     INF_LICENSE,             /**< license information */
     INF_MEDIUM,              /**< medium */
     INF_MIMETYPE,            /**< mime type of the file format */
@@ -74,12 +77,14 @@ typedef enum {
     INF_PRIVATE,             /**< "private" bit */
     INF_PRODUCT,             /**< product */
     INF_SAMPLE_FORMAT,       /**< sample format (libaudiofile) */
+    INF_SAMPLE_RATE,         /**< sample rate (bits/sample) */
     INF_SOFTWARE,            /**< software */
     INF_SOURCE,              /**< source */
     INF_SOURCE_FORM,         /**< source form */
     INF_SUBJECT,             /**< subject */
     INF_TECHNICAN,           /**< technican */
     INF_TRACK,               /**< track of the CD */
+    INF_TRACKS,              /**< number of tracks of the signal */
     INF_VBR_QUALITY,         /**< base quality of an ogg file in VBR mode */
     INF_VERSION              /**< version/remix */
 } FileProperty;
@@ -98,7 +103,7 @@ class KDE_EXPORT FileInfo
 {
 public:
 
-    /** Constructor */
+    /** Default constructor, creates an empty file info object */
     FileInfo();
 
     /** Copy constructor */
@@ -125,7 +130,7 @@ public:
     }
 
     /** returns the number of samples */
-    inline unsigned int length() const { return m_length; }
+    inline sample_index_t length() const { return m_length; }
 
     /** Sets the length in samples */
     inline void setLength(unsigned int length) { m_length = length; }
@@ -179,25 +184,25 @@ public:
     /**
      * Returns true if a property is only internal.
      */
-    bool isInternal(FileProperty key);
+    bool isInternal(FileProperty key) const;
 
     /**
      * Returns true if a property is intended to be saved into or
      * loaded from a file.
      */
-    bool canLoadSave(FileProperty key);
+    bool canLoadSave(FileProperty key) const;
 
     /**
      * Returns the name of a property.
      */
-    inline QString name(FileProperty key) {
+    inline QString name(FileProperty key) const {
 	return m_property_map.name(key);
     }
 
     /**
      * Returns the localized description of a property.
      */
-    inline QString description(FileProperty key) {
+    inline QString description(FileProperty key) const {
 	return m_property_map.description(key, false);
     }
 
@@ -213,7 +218,7 @@ public:
     void clear();
 
     /** dumps all properties to stdout, useful for debugging */
-    void dump();
+    void dump() const;
 
 private:
 
@@ -241,11 +246,21 @@ private:
     class PropertyTypesMap: public TypesMap<FileProperty, int>
     {
     public:
+	/** constructor */
+	explicit PropertyTypesMap()
+	    :TypesMap<FileProperty, int>()
+	{
+	    fill();
+	}
+
+	/** Destructor */
+	virtual ~PropertyTypesMap() {}
+
 	/** fills the list with */
 	virtual void fill();
 
 	/** returns a list of all properties */
-	virtual QList<FileProperty> all();
+	virtual QList<FileProperty> all() const;
     };
 
     /** map with properties and their names and descriptions */

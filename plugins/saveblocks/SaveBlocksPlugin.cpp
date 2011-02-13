@@ -60,8 +60,8 @@ QStringList *SaveBlocksPlugin::setup(QStringList &previous_params)
 
     // create the setup dialog
     KUrl url(signalName());
-    unsigned int selection_left  = 0;
-    unsigned int selection_right = 0;
+    sample_index_t selection_left  = 0;
+    sample_index_t selection_right = 0;
     selection(0, &selection_left, &selection_right, false);
 
     // enable the "selection only" checkbox only if there is something
@@ -149,8 +149,8 @@ int SaveBlocksPlugin::start(QStringList &params)
     QString base = findBase(filename, m_pattern);
 
     // determine the selection settings
-    unsigned int selection_left  = 0;
-    unsigned int selection_right = 0;
+    sample_index_t selection_left  = 0;
+    sample_index_t selection_right = 0;
     selection(0, &selection_left, &selection_right, false);
 
     bool selected_something = (selection_left != selection_right);
@@ -221,13 +221,13 @@ int SaveBlocksPlugin::start(QStringList &params)
     }
 
     // save the current selection, we have to restore it afterwards!
-    unsigned int saved_selection_left  = 0;
-    unsigned int saved_selection_right = 0;
+    sample_index_t saved_selection_left  = 0;
+    sample_index_t saved_selection_right = 0;
     selection(0, &saved_selection_left, &saved_selection_right, false);
 
     // now we can loop over all blocks and save them
-    unsigned int block_start;
-    unsigned int block_end = 0;
+    sample_index_t block_start;
+    sample_index_t block_end = 0;
     LabelList labels = fileInfo().labels();
     LabelListIterator it(labels);
     Label label = it.hasNext() ? it.next() : Label();
@@ -240,8 +240,8 @@ int SaveBlocksPlugin::start(QStringList &params)
 	    // found a block to save...
 	    Q_ASSERT(index < first + count);
 
-	    unsigned int left  = block_start;
-	    unsigned int right = block_end - 1;
+	    sample_index_t left  = block_start;
+	    sample_index_t right = block_end - 1;
 	    if (left  < selection_left)  left  = selection_left;
 	    if (right > selection_right) right = selection_right;
 	    Q_ASSERT(right > left);
@@ -257,7 +257,9 @@ int SaveBlocksPlugin::start(QStringList &params)
 	    url.setFileName(name);
 	    filename = url.prettyUrl();
 
-	    qDebug("saving %9u...%9u -> '%s'", left, right,
+	    qDebug("saving %9lu...%9lu -> '%s'",
+		   static_cast<unsigned long int>(left),
+		   static_cast<unsigned long int>(right),
 		   filename.toLocal8Bit().data());
 	    if (signalManager().save(url, true) < 0)
 		break;
@@ -319,10 +321,10 @@ int SaveBlocksPlugin::interpreteParameters(QStringList &params)
 unsigned int SaveBlocksPlugin::blocksToSave(bool selection_only)
 {
     unsigned int count = 0;
-    unsigned int selection_left, selection_right;
+    sample_index_t selection_left, selection_right;
 
-    unsigned int block_start;
-    unsigned int block_end = 0;
+    sample_index_t block_start;
+    sample_index_t block_end = 0;
     LabelListIterator it(fileInfo().labels());
     Label label = (it.hasNext()) ? it.next() : Label();
 

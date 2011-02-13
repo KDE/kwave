@@ -38,22 +38,22 @@
 //***************************************************************************
 FileProgress::FileProgress(QWidget *parent,
 	const QUrl &url, unsigned int size,
-	unsigned int samples, double rate, unsigned int bits,
+	sample_index_t samples, double rate, unsigned int bits,
 	unsigned int tracks)
     :QDialog(parent),
-    m_url(url),
-    m_size(size),
-    m_lbl_url(0),
-    m_lbl_length(0),
-    m_progress(0),
-    m_stat_transfer(0),
-    m_stat_bytes(0),
-    m_time(),
-    m_canceled(true),
-    m_last_percent(0),
-    m_bits_per_sample(bits),
-    m_sample_rate(rate),
-    m_tracks(tracks)
+     m_url(url),
+     m_size(size),
+     m_lbl_url(0),
+     m_lbl_length(0),
+     m_progress(0),
+     m_stat_transfer(0),
+     m_stat_bytes(0),
+     m_time(),
+     m_canceled(true),
+     m_last_percent(0),
+     m_bits_per_sample(bits),
+     m_sample_rate(rate),
+     m_tracks(tracks)
 {
     setModal(true);
 
@@ -92,7 +92,7 @@ FileProgress::FileProgress(QWidget *parent,
 
     m_lbl_length = addInfoLabel(info_layout, "", 1, 1);
     if (!m_lbl_length) return;
-    setLength(samples*tracks);
+    setLength(quint64(samples) * quint64(tracks));
 
     // label with "rate:"
     if (!addInfoLabel(info_layout, i18n("Sample rate: "), 2, 0)) return;
@@ -248,8 +248,7 @@ QLabel *FileProgress::addInfoLabel(QGridLayout *layout, const QString text,
 }
 
 //***************************************************************************
-void FileProgress::updateStatistics(double rate, double rest,
-	unsigned int pos)
+void FileProgress::updateStatistics(double rate, double rest, quint64 pos)
 {
     QString text;
     QString num;
@@ -291,14 +290,15 @@ void FileProgress::updateStatistics(double rate, double rest,
 }
 
 //***************************************************************************
-void FileProgress::setValue(unsigned int pos)
+void FileProgress::setValue(qreal percent)
 {
     // position is in samples, we need bytes
-    setBytePosition(pos * (m_bits_per_sample >> 3));
+    quint64 pos = percent * qreal(m_size) / qreal(100.0);
+    setBytePosition(pos);
 }
 
 //***************************************************************************
-void FileProgress::setBytePosition(unsigned int pos)
+void FileProgress::setBytePosition(quint64 pos)
 {
     if (!m_progress) return;
 
@@ -330,20 +330,20 @@ void FileProgress::setBytePosition(unsigned int pos)
 	rest = double(m_size - pos) / rate;     // [seconds]
     }
     updateStatistics(rate, rest, pos);
-
 }
 
 //***************************************************************************
-void FileProgress::setLength(unsigned int samples)
+void FileProgress::setLength(quint64 samples)
 {
     QString text;
 
     // length in samples -> h:m:s
-    if (m_sample_rate) {
+    if (m_sample_rate && m_tracks) {
 	// length in ms
 	text = Kwave::Plugin::ms2string(
-	    static_cast<float>(samples/m_tracks)/
-	    static_cast<float>(m_sample_rate) * 1000.0);
+	    1000.0 *
+	    qreal(samples / m_tracks) /
+	    qreal(m_sample_rate));
     } else {
 	// fallback if no rate: length in samples
         text = i18n("%1 samples", samples);

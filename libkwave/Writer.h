@@ -52,7 +52,7 @@ namespace Kwave {
 	 * @see InsertMode
 	 */
 	Writer(InsertMode mode,
-	       unsigned int left = 0, unsigned int right = 0);
+	       sample_index_t left = 0, sample_index_t right = 0);
 
 	/** Destructor */
 	virtual ~Writer();
@@ -107,20 +107,23 @@ namespace Kwave {
 	virtual bool done() const { return eof(); }
 
 	/** Returns the index of the first sample of the range. */
-	inline unsigned int first() const { return m_first; }
+	inline sample_index_t first() const { return m_first; }
 
 	/**
 	 * Returns the current index of the last sample in range or the
 	 * index of the last written sample when in insert/append mode.
 	 */
-	inline unsigned int last() const {
+	inline sample_index_t last() const {
 	    return ((m_mode == Append) ? (m_last + m_buffer_used) : m_last);
 	}
 
 	/**
 	 * Returns the current position
 	 */
-	inline unsigned int position() const { return m_position; }
+	inline sample_index_t position() const { return m_position; }
+
+	/** Returns the insert mode */
+	inline InsertMode mode() const { return m_mode; }
 
     signals:
 
@@ -128,7 +131,7 @@ namespace Kwave {
 	 * Is emitted once immediately before the writer gets closed and tells
 	 * the receiver the total number of written samples.
 	 */
-	void sigSamplesWritten(unsigned int);
+	void sigSamplesWritten(sample_index_t);
 
 	/** Emitted when the internal buffer is flushed or the writer is closed */
 	void proceeded();
@@ -144,16 +147,16 @@ namespace Kwave {
     protected:
 
 	/** first sample */
-	unsigned int m_first;
+	sample_index_t m_first;
 
 	/** last sample */
-	unsigned int m_last;
+	sample_index_t m_last;
 
 	/** mode for input (insert, overwrite, ...) */
 	InsertMode m_mode;
 
 	/** current position within the track */
-	unsigned int m_position;
+	sample_index_t m_position;
 
 	/** intermediate buffer for the input data */
 	Kwave::SampleArray m_buffer;

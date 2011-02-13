@@ -26,10 +26,13 @@
 
 #include <kdemacros.h>
 
+#include "libkwave/Sample.h"
+
 class QWidget;
 class MultiTrackReader;
 class FileInfo;
 class SignalManager;
+namespace Kwave { class MetaDataList; }
 
 namespace Kwave {
 
@@ -67,7 +70,7 @@ namespace Kwave {
 	     * @return number of decoded samples if successful, zero if failed
 	     */
 	    static unsigned int decode(QWidget *widget, const QMimeData *e,
-	                               SignalManager &sig, unsigned int pos);
+	                               SignalManager &sig, sample_index_t pos);
 
 	    /**
 	     * Clears the content, makes the storage an empty byte array

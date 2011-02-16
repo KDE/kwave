@@ -142,20 +142,6 @@ namespace Kwave {
 	void selectRange(sample_index_t offset, sample_index_t length);
 
 	/**
-	 * Opens an input stream for a track, starting at a specified sample
-	 * position. Also handles undo information.
-	 * @param track index of the track. If the track does not exist, this
-	 *        function will fail and return 0
-	 * @param mode specifies where and how to insert
-	 * @param left start of the input (only useful in insert and
-	 *             overwrite mode)
-	 * @param right end of the input (only useful with overwrite mode)
-	 * @see InsertMode
-	 */
-	Kwave::Writer *openWriter(unsigned int track, InsertMode mode,
-	    sample_index_t left = 0, sample_index_t right = 0);
-
-	/**
 	 * Opens a Kwave::MultiTrackSink for playback purposes.
 	 * @param tracks number of tracks
 	 * @param name of the device, optional. If not given, the default

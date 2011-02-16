@@ -21,6 +21,8 @@
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/undo/UndoInsertAction.h"
+#include "libkwave/undo/UndoModifyAction.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 //***************************************************************************
@@ -37,24 +39,10 @@ Kwave::MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
                                           sample_index_t right)
     :Kwave::MultiWriter()
 {
-    UndoTransactionGuard guard(signal_manager, 0);
-
-    unsigned int index = 0;
-    foreach (unsigned int track, track_list) {
-	// NOTE: this function is *nearly* identical to the one in the
-	//       Signal class, except for undo support
-	Kwave::Writer *s = signal_manager.openWriter(
-	    track, mode, left, right, true);
-	if (s) {
-	    insert(index++, s);
-	} else {
-	    // out of memory or aborted
-	    qWarning("MultiTrackWriter constructor: "\
-	             "out of memory or aborted");
-	    clear();
-	    break;
-	}
-    }
+    if (!init(signal_manager, track_list, mode, left, right)) {
+	// out of memory or aborted
+	qWarning("MultiTrackWriter::init FAILED");
+     }
 }
 
 //***************************************************************************
@@ -62,8 +50,6 @@ Kwave::MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
                                           InsertMode mode)
     :Kwave::MultiWriter()
 {
-    UndoTransactionGuard guard(signal_manager, 0);
-
     QList<unsigned int> track_list = signal_manager.selectedTracks();
     sample_index_t left = 0;
     sample_index_t right = 0;
@@ -79,23 +65,10 @@ Kwave::MultiTrackWriter::MultiTrackWriter(SignalManager &signal_manager,
 	}
     }
 
-    unsigned int index = 0;
-    foreach (unsigned int track, track_list) {
-	// NOTE: this function is *nearly* identical to the one in the
-	//       Signal class, except for undo support
-	Kwave::Writer *s = signal_manager.openWriter(
-	    track, mode, left, right, true);
-	if (s) {
-	    insert(index++, s);
-	} else {
-	    // out of memory or aborted
-	    qWarning("MultiTrackWriter constructor: "\
-	             "out of memory or aborted");
-	    clear();
-	    break;
-	}
-    }
-
+    if (!init(signal_manager, track_list, mode, left, right)) {
+	// out of memory or aborted
+	qWarning("MultiTrackWriter::init FAILED");
+     }
 }
 
 //***************************************************************************
@@ -103,6 +76,91 @@ Kwave::MultiTrackWriter::~MultiTrackWriter()
 {
     flush();
     clear();
+}
+
+//***************************************************************************
+bool Kwave::MultiTrackWriter::init(SignalManager &signal_manager,
+                                   const QList<unsigned int> &track_list,
+                                   InsertMode mode,
+                                   sample_index_t left,
+                                   sample_index_t right)
+{
+    UndoTransactionGuard guard(signal_manager, 0);
+
+    unsigned int index = 0;
+    foreach (unsigned int track, track_list) {
+	// NOTE: this function is *nearly* identical to the one in the
+	//       Signal class, except for undo support
+	Kwave::Writer *writer = signal_manager.openWriter(
+	    track, mode, left, right);
+	if (writer) {
+	    insert(index++, writer);
+	    
+	    // get the real/effective left and right sample
+	    left  = writer->first();
+	    right = writer->last();
+	} else {
+	    // out of memory or aborted
+	    clear();
+	    return false;
+	}
+    }
+
+    // skip all that undo handling below if undo is not enabled
+    // or the writer creation has failed
+    if (!signal_manager.undoEnabled()) return true;
+    
+    // enter a new undo transaction and let it close when the writer closes
+    signal_manager.startUndoTransaction();
+    QObject::connect(this, SIGNAL(destroyed()),
+                     &signal_manager,   SLOT(closeUndoTransaction()),
+                     Qt::QueuedConnection);
+
+    // create an undo action for the modification of the samples
+    UndoAction *undo = 0;
+    switch (mode) {
+	case Append:
+	case Insert: {
+	    undo = new UndoInsertAction(
+		signal_manager.parentWidget(), 
+		track_list, 
+		left, 
+		right - left + 1
+	    );
+
+	    if (undo) {
+		Kwave::Writer *last_writer = at(tracks() - 1);
+		QObject::connect(
+		    last_writer,
+		    SIGNAL(sigSamplesWritten(sample_index_t)),
+		    static_cast<UndoInsertAction *>(undo),
+		    SLOT(setLength(sample_index_t)));
+	    }
+	    break;
+	}
+	case Overwrite: {
+	    foreach (unsigned int track, track_list) {
+		undo = new UndoModifyAction(track, left, right - left + 1);
+		if (!signal_manager.registerUndoAction(undo)) {
+		    // aborted, do not continue without undo
+		    clear();
+		    return false;
+		}
+	    }
+	    break;
+	}
+    }
+
+    if ((mode != Overwrite) && !signal_manager.registerUndoAction(undo)) {
+	// aborted, do not continue without undo
+	clear();
+	return false;
+    }
+
+    // Everything was ok, the action now is owned by the current undo
+    // transaction. The transaction is owned by the SignalManager and
+    // will be closed when the writer gets closed.
+    return true;
 }
 
 //***************************************************************************

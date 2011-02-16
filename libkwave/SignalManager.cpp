@@ -585,59 +585,9 @@ const QList<unsigned int> SignalManager::allTracks()
 
 //***************************************************************************
 Kwave::Writer *SignalManager::openWriter(unsigned int track,
-	InsertMode mode, sample_index_t left, sample_index_t right,
-	bool with_undo)
+	InsertMode mode, sample_index_t left, sample_index_t right)
 {
-    Kwave::Writer *writer = m_signal.openWriter(track, mode, left, right);
-
-    // skip all that undo stuff below if undo is not enabled
-    // or the writer creation has failed
-    if (!undoEnabled() || !writer || !with_undo) return writer;
-
-    // get the real/effective left and right sample
-    left  = writer->first();
-    right = writer->last();
-
-    // enter a new undo transaction and let it close when the writer closes
-    UndoTransactionGuard guard(*this, 0);
-    startUndoTransaction();
-    QObject::connect(writer, SIGNAL(destroyed()),
-                     this,   SLOT(closeUndoTransaction()),
-                     Qt::QueuedConnection);
-
-    // create an undo action for the modification of the samples
-    UndoAction *undo = 0;
-    switch (mode) {
-	case Append:
-	case Insert: {
-	    QList<unsigned int> track_list;
-	    track_list.append(track);
-	    undo = new UndoInsertAction(
-		m_parent_widget, track_list, left, right-left+1);
-	    if (undo) {
-		QObject::connect(
-		    writer,
-		    SIGNAL(sigSamplesWritten(sample_index_t)),
-		    static_cast<UndoInsertAction *>(undo),
-		    SLOT(setLength(sample_index_t)));
-	    }
-	    break;
-	}
-	case Overwrite:
-	    undo = new UndoModifyAction(track, left, right-left+1);
-	    break;
-    }
-
-    if (!registerUndoAction(undo)) {
-	// aborted, do not continue without undo
-	delete writer;
-	return 0;
-    }
-
-    // Everything was ok, the action now is owned by the current undo
-    // transaction. The transaction is owned by the SignalManager and
-    // will be closed when the writer gets closed.
-    return writer;
+    return m_signal.openWriter(track, mode, left, right);
 }
 
 //***************************************************************************

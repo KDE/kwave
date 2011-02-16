@@ -150,10 +150,11 @@ int main( int argc, char **argv )
     addDataStrings(about);
 
     /* show some version info */
-    QString kde_version = QString::fromLatin1(KDE_VERSION_STRING);
-    QString version_text = i18n("This is %1 v%2 (compiled for KDE %3)",
-	about.programName(), about.version(), kde_version);
-    printf("\n%s\n", version_text.toLocal8Bit().data());
+    printf("\nThis is %s v%s (compiled for KDE %s)\n",
+	about.productName().toAscii().data(),
+	about.version().toAscii().data(),
+	KDE_VERSION_STRING
+    );
 
     /* process all interesting commandline parameters */
     KCmdLineArgs::init(argc, argv, &about);

@@ -1,7 +1,8 @@
 
-0.8.6  [2010-??-??]
+0.8.6  [2011-??-??]
 
  * bugfix: copy/paste with partial track selection failed
+ * bugfix: labels update after undo of copy&paste failed on multitrack signals
  * string/i18n update from Panagiotis Papadopoulos
  * bugfix: invocation of xgettext was wrong, left untranslated strings
  * plugin API change: support for translateable short description

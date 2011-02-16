@@ -50,6 +50,7 @@ class Track;
 class UndoAction;
 class UndoTransaction;
 class UndoTransactionGuard;
+namespace Kwave { class MultiTrackWriter; }
 namespace Kwave { class Writer; }
 
 #define NEW_FILENAME i18n("New File")
@@ -247,12 +248,10 @@ public:
      * @param left start of the input (only useful in insert and
      *             overwrite mode)
      * @param right end of the input (only useful with overwrite mode)
-     * @param with_undo if true, an undo action will be created
      * @see InsertMode
      */
     Kwave::Writer *openWriter(unsigned int track, InsertMode mode,
-	sample_index_t left = 0, sample_index_t right = 0,
-	bool with_undo = false);
+	sample_index_t left = 0, sample_index_t right = 0);
 
     /**
      * Opens a stream for reading samples. If the the last position
@@ -271,15 +270,15 @@ public:
     }
 
     /** Returns true if undo/redo is currently enabled */
-    inline bool undoEnabled() { return m_undo_enabled; }
+    inline bool undoEnabled() const { return m_undo_enabled; }
 
     /** Return true if undo is possible */
-    inline bool canUndo() {
+    inline bool canUndo() const {
 	return !m_undo_buffer.isEmpty() && undoEnabled();
     }
 
     /** Return true if redo is possible */
-    inline bool canRedo() {
+    inline bool canRedo() const {
 	return !m_redo_buffer.isEmpty() && undoEnabled();
     }
 
@@ -551,9 +550,10 @@ protected:
 
 protected:
 
-    friend class UndoTransactionGuard;
+    friend class Kwave::MultiTrackWriter;
     friend class PluginManager;
     friend class SignalWidget;
+    friend class UndoTransactionGuard;
 
     /**
      * Tries to free memory for a new undo action and stores all needed
@@ -610,6 +610,9 @@ protected:
      * true, otherwise it will be ignored.
      */
     void setModified(bool mod);
+
+    /** returns the associated parent widget, to be used for messages */
+    QWidget *parentWidget() const { return m_parent_widget; }
 
 private:
 

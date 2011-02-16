@@ -157,8 +157,7 @@ void ReverseJob::run()
 	// write back buffer from the end at the start
 	Kwave::Writer *dst_a = m_manager.openWriter(
 	    m_track, Overwrite,
-	    start_a, start_a + m_block_size - 1,
-	    false);
+	    start_a, start_a + m_block_size - 1);
 	Q_ASSERT(dst_a);
 	*dst_a << buffer_b;
 	dst_a->flush();
@@ -167,8 +166,7 @@ void ReverseJob::run()
 	// write back buffer from the start at the end
 	Kwave::Writer *dst_b = m_manager.openWriter(
 	    m_track, Overwrite,
-	    start_b, start_b + m_block_size - 1,
-	    false);
+	    start_b, start_b + m_block_size - 1);
 	Q_ASSERT(dst_b);
 	*dst_b << buffer_a << flush;
 	delete dst_b;
@@ -185,8 +183,7 @@ void ReverseJob::run()
 
 	// write back
 	Kwave::Writer *dst = m_manager.openWriter(
-	    m_track, Overwrite, m_first, m_last,
-	    false);
+	    m_track, Overwrite, m_first, m_last);
 	(*dst) << buffer << flush;
 	delete dst;
     }

@@ -539,13 +539,6 @@ void Kwave::PluginManager::selectRange(sample_index_t offset,
 }
 
 //***************************************************************************
-Kwave::Writer *Kwave::PluginManager::openWriter(unsigned int track,
-	InsertMode mode, sample_index_t left, sample_index_t right)
-{
-    return m_signal_manager.openWriter(track, mode, left, right, true);
-}
-
-//***************************************************************************
 Kwave::SampleSink *Kwave::PluginManager::openMultiTrackPlayback(
     unsigned int tracks, const QString *name)
 {

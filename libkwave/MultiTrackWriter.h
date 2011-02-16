@@ -72,6 +72,23 @@ namespace Kwave {
 	/** Destructor */
 	virtual ~MultiTrackWriter();
 
+    private:
+    
+	/**
+	 * Intializer, see constructor...
+	 * 
+	 * @param signal_manager reference to a SignalManager
+	 * @param track_list array of indices of tracks for reading
+	 * @param mode specifies where and how to insert
+	 * @param left index of the first sample
+	 * @param right index of the last sample
+	 * @internal
+	 */
+	bool init(SignalManager &signal_manager,
+	          const QList<unsigned int> &track_list,
+	          InsertMode mode,
+	          sample_index_t left, sample_index_t right);
+
     };
 }
 

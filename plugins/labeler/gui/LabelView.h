@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include "libgui/SignalView.h"
+#include "libkwave/MetaDataList.h"
 
 
 
@@ -54,6 +55,96 @@ protected:
      */
     virtual void setZoomAndOffset(double zoom, sample_index_t offset);
 
+
+private :
+
+    /** Class representing a region of the signal */
+    class SRegion
+    {
+    public:
+
+      SRegion(sample_index_t beg, sample_index_t len)
+      {
+        m_beg = beg;
+        m_len = len;
+      }
+      SRegion(const SRegion & region)
+      {
+        m_beg = region.m_beg;
+        m_len = region.m_len;
+      }
+
+      /** Gets the first sample on the region */
+      sample_index_t left() const
+      {
+        return m_beg;
+      }
+      /** Gets the last sample on the region */
+      sample_index_t right() const
+      {
+        return m_beg + m_len -1;
+      }
+
+    private:
+
+      sample_index_t m_beg; /**< The index of the first sample in the region */
+      sample_index_t m_len; /**< The number of samples in the region */
+
+    };
+
+    /** In this view it paints vertical position mark lines for the given labels. For the labels
+     *  which are visible (from all the labels set), i.e. the mark lines are paint at their
+     *  positions, the method sets <code>LBRPROP_VIEW_*PIXEL</code> properties set to the
+     *  x-xoordinate of the line for the related property.
+     *  @param painter the instance of painter to paint into
+     *  @param labels the iterator through labels for which to paint the marks (the visible
+     *         labels are detected in the method)
+     *  @param paintregion limits the region to paint into; usually set to <code>this->rect()</code>
+     *  @param samplesregion the region to paint transformed from pixels to samples (for the
+     *         given zoom and offset
+     */
+    void paintVMarks(QPainter & painter, Kwave::MetaDataList::Iterator labels,
+                     const QRect paintregion, const SRegion samplesregion);
+    /** In this view it paints the boxes with label description for the given labels. The
+     *  visibility of labels is determined from the existence of<code>LBRPROP_VIEW_*PIXEL</code>
+     *  properties of the labels.
+     *  @param painter the instance of painter to paint into
+     *  @param labels the iterator through labels for which to paint the marks (the visible
+     *         labels are detected in the method)
+     *  @param paintregion limits the region to paint into; limit the top and the bottom of the
+     *         region to the coordinates to the strip into which boxes will be paint, the width
+     *         must be equal to the region used for ::paintVMarks()
+     *  @see ::paintVMarks()
+     *  @see ::setPaintPos()
+     */
+    void paintLabels(QPainter & painter, Kwave::MetaDataList::Iterator labels,
+                     const QRect paintregion);
+
+    /** For the higher-level labels (those with Kwave::MetaData::STDPROP_TYPE equal to
+     *  "Label[level > 0]" // TODO: to a constant
+     *  updates (or sets) their <code>LBRPROP_VIEW_*PIXEL</code> position properties according
+     *  to the value of the 0-th label which the current label is aligned to. The method must
+     *  be called after ::paintVMarks()
+     *  @param labels the iterator through labels for which to set/update the paint positions
+     *  @see ::paintVMarks()
+     */
+    void setPaintPos(Kwave::MetaDataList::Iterator labels);
+
+    /** Property (stored to range-scope labels) holding the position of the label's beginning
+     *  in this view [in pixels]. The value is of <code>int</code> type, and is defined only if
+     *  the the label's start is visible for the given zoom and offset. <b>The property is for
+     *  internal use only!</b> */
+    static const QString LBRPROP_VIEW_BEGPIXEL;
+    /** Property (stored to range-scope labels) holding the position of the label's end
+     *  in this view [in pixels]. The value is of <code>int</code> type, and is defined only if
+     *  the the label's end is visible for the given zoom and offset. <b>The property is for
+     *  internal use only!</b> */
+    static const QString LBRPROP_VIEW_ENDPIXEL;
+    /** Property (stored to positions-scope labels) holding the position of the label in this
+     *  view [in pixels]. The value is of <code>int</code> type, and is defined only if
+     *  the the label is visible for the given zoom and offset. <b>The property is for internal
+     *  use only!</b> */
+    static const QString LBRPROP_VIEW_POSPIXEL;
 
 };
 

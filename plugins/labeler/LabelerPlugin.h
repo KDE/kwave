@@ -25,6 +25,7 @@
 #include <QStringList>
 
 #include "libkwave/KwavePlugin.h"
+#include "libkwave/Track.h"
 
 
 
@@ -37,6 +38,48 @@ class LabelerPlugin: public Kwave::Plugin
     Q_OBJECT
 
 public:
+
+    /** Labeler property value: this value of Kwave::MetaData::STDPROP_TYPE property
+     *  identifies labels from higher-levels > 0 (labes from 0th level must hold
+     *  standard "Label" value). */
+    static const QString LBRPROP_TYPEVAL;
+
+    /** Labeler property: the level of the label, starting from 1. While labels on
+     *  the 0th level are not required to define the value (they are addressable
+     *  using "Label" value of Kwave::MetaData::STDPROP_TYPE), labels from the higher
+     *  levels are required to define the property, filled by int value determining
+     *  the level of the label */
+    static const QString LBRPROP_LEVEL;
+
+    /** Labeler property: value of the MetaData::id() value of a 0th level label
+     *  with the given higher-level(HL) Kwave::MetaData::Range scoped label is
+     *  aligned with. */
+    static const QString LBRPROP_START_REFID;
+    /** Labeler property: the Kwave::MetaData::STDPROP_* property of the 0th level
+     *  label holding the start sample (inclusive) of the given HL-label. */
+    static const QString LBRPROP_START_REFPOS;
+
+    /** Labeler property: value of the MetaData::id() value of a 0th level label
+     *  with the given higher-level(HL) Kwave::MetaData::Range scoped label is
+     *  aligned with. */
+    static const QString LBRPROP_END_REFID;
+    /** Labeler property: the Kwave::MetaData::STDPROP_* property of the 0th level
+     *  label holding the end sample (inclusive) of the given HL-label. */
+    static const QString LBRPROP_END_REFPOS;
+
+    /** Labeler property: value of the MetaData::id() value of a 0th level label
+     *  with the given higher-level(HL) Kwave::MetaData::Position label is aligned
+     *  with. */
+    static const QString LBRPROP_POS_REFID;
+    /** Labeler property: the Kwave::MetaData::STDPROP_* property of the 0th level
+     *  label holding the position sample (inclusive) of the given HL-label. */
+    static const QString LBRPROP_POS_REFPOS;
+
+    /** Labeler property: the number of label levels, (int number). The property is
+     *  stored in independent Kwave::MetaData item with Kwave::MetaData::Scope::None
+     *  scope. */
+    static const QString LBRPROP_NUMLEVELS;
+
 
     /** Constructor */
     LabelerPlugin(const PluginContext &context);

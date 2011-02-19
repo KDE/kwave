@@ -1161,8 +1161,12 @@ void TopWidget::setTrackInfo(unsigned int tracks)
     m_menu_manager->setItemEnabled("@SIGNAL", have_signal);
 
     // revert is not possible if no signal at all is present
-    if (!have_signal)
+    if (!have_signal) {
 	m_menu_manager->setItemEnabled("ID_FILE_REVERT", false);
+    }
+
+    // remove selection/position display on file close
+    if (!have_signal) setSelectedTimeInfo(0, 0, 0);
 
 }
 
@@ -1214,7 +1218,7 @@ void TopWidget::setSelectedTimeInfo(sample_index_t offset, sample_index_t length
 	bool sample_mode = false;
 
 	if (rate == 0) sample_mode = true; // force sample mode if rate==0
-	if (sample_mode || !m_main_widget->tracks()) {
+	if (sample_mode || !signalManager().tracks()) {
 	    m_lbl_status_cursor->setText("");
 	} else {
 	    double ms_first = static_cast<double>(offset) * 1E3 / rate;

@@ -11,7 +11,6 @@ msgstr ""
 "PO-Revision-Date: 2011-01-21 22:44+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
-"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -125,8 +124,7 @@ msgstr "%1"
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 vzorky)"
 
-#: libkwave/FileProgress.cpp:104
-#, kde-format
+#: libkwave/FileProgress.cpp:104, kde-format
 msgid "%1 Bits per sample"
 msgstr "%1 bitů na vzorek"
 
@@ -140,13 +138,11 @@ msgstr "%1 Bajtů"
 msgid "%1 Hz"
 msgstr "%1 Hz"
 
-#: plugins/record/RecordPlugin.cpp:522
-#, kde-format
+#: plugins/record/RecordPlugin.cpp:522, kde-format
 msgid "%1 Hz failed, using %2 Hz"
 msgstr "%1 Hz selhalo. Používá se %2Hz"
 
-#: plugins/record/RecordPlugin.cpp:506
-#, kde-format
+#: plugins/record/RecordPlugin.cpp:506, kde-format
 msgid "%1 Hz is not supported, using %2 Hz"
 msgstr "%1 Hz není podporováno. Používá se %2Hz"
 
@@ -160,8 +156,7 @@ msgstr "%1 MB (%2 bajtů)"
 msgid "%1 MB of %2 MB done"
 msgstr "%1 MB of %2 MB hotovo"
 
-#: libkwave/FileProgress.cpp:99
-#, kde-format
+#: libkwave/FileProgress.cpp:99, kde-format
 msgid "%1 Samples per second"
 msgstr "%1 vzorků za sekundu"
 
@@ -215,19 +210,16 @@ msgstr "%1 kB"
 msgid "%1 kB (%2 byte)"
 msgstr "%1 kB (%2 bajtů)"
 
-#: libkwave/FileProgress.cpp:271
-#, kde-format
+#: libkwave/FileProgress.cpp:271, kde-format
 msgid "%1 kB/s (%2 remaining)"
 msgstr "%1 kB/s (%2 zůstává)"
 
 #: kwave/TopWidget.cpp:304 kwave/TopWidget.cpp:305 kwave/TopWidget.cpp:306
-#: kwave/TopWidget.cpp:307 kwave/TopWidget.cpp:308 kwave/TopWidget.cpp:309
-#, kde-format
+#: kwave/TopWidget.cpp:307 kwave/TopWidget.cpp:308 kwave/TopWidget.cpp:309, kde-format
 msgid "%1 min"
 msgstr "%1 min"
 
-#: kwave/TopWidget.cpp:298 kwave/TopWidget.cpp:299 kwave/TopWidget.cpp:300
-#, kde-format
+#: kwave/TopWidget.cpp:298 kwave/TopWidget.cpp:299 kwave/TopWidget.cpp:300, kde-format
 msgid "%1 ms"
 msgstr "%1 ms"
 
@@ -237,13 +229,11 @@ msgstr "%1 ms"
 msgid "%1 samples"
 msgstr "%1 vzorků"
 
-#: kwave/TopWidget.cpp:301 kwave/TopWidget.cpp:302 kwave/TopWidget.cpp:303
-#, kde-format
+#: kwave/TopWidget.cpp:301 kwave/TopWidget.cpp:302 kwave/TopWidget.cpp:303, kde-format
 msgid "%1 sec"
 msgstr "%1 sec"
 
-#: plugins/record/RecordDialog.cpp:1164
-#, kde-format
+#: plugins/record/RecordDialog.cpp:1164, kde-format
 msgid "%1 second"
 msgid_plural "%1 seconds"
 msgstr[0] "%1 sekundy"
@@ -754,8 +744,7 @@ msgstr "&Ano, použít G711"
 msgid "(%1 samples)"
 msgstr "(%1 vzorky)"
 
-#: libkwave/FileProgress.cpp:317
-#, kde-format
+#: libkwave/FileProgress.cpp:317, kde-format
 msgctxt "%1=Progress in percentage, %2=path to file"
 msgid "(%1%) %2"
 msgstr "(%1%) %2"
@@ -813,8 +802,7 @@ msgstr "(monofonní zvuk)"
 msgid "(quadro)"
 msgstr "(kvadrofonní zvuk)"
 
-#: plugins/sonagram/SonagramDialog.cpp:143
-#, kde-format
+#: plugins/sonagram/SonagramDialog.cpp:143, kde-format
 msgid "(resulting window size: %1)"
 msgstr "(Výsledná velikost okna: %1)"
 
@@ -827,8 +815,7 @@ msgstr "(stereofonní zvuk)"
 msgid "(variable)"
 msgstr "(proměnlivý)"
 
-#: kwave/TopWidget.cpp:1481
-#, kde-format
+#: kwave/TopWidget.cpp:1481, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr "* %1 (upraveno)"
@@ -1102,13 +1089,13 @@ msgid ""
 msgstr ""
 "<b>Velikost vyrovnávací paměti:</b><p>Vyberte vyrovnávací paměť pro "
 "přehrávání. Toto číslo byste měl nastavit co nejmenší, abyste omezil "
-"prodlevu přehrávání. Prodleva je zpoždění mezi kroky uživatelského rozhraní, "
-"jakými je rozběhnutí/zastavení přehrávání, obnovením pozice přehrávání a "
-"skutečným výstupem zvuku. Pokud se setkáte s přerušeními, měl byste o něco "
-"zvýšit hodnotu tohoto nastavení.</p>"
+"prodlevu "
+"přehrávání. Prodleva je zpoždění mezi kroky uživatelského rozhraní, jakými "
+"je rozběhnutí/zastavení přehrávání, obnovením pozice přehrávání a skutečným "
+"výstupem zvuku. Pokud se setkáte s přerušeními, měl byste o něco zvýšit "
+"hodnotu tohoto nastavení.</p>"
 
-#: plugins/playback/ui_PlayBackDlg.h:421
-#, fuzzy, c-format
+#: plugins/playback/ui_PlayBackDlg.h:421, c-format
 msgid ""
 "<b>Channels:</b><p>Number of channels used for playback. This does not "
 "necessarily have to be the same as the number of tracks in your current "
@@ -1119,8 +1106,8 @@ msgid ""
 "second track and the third track.</p>"
 msgstr ""
 "<b>Kanály:</b><p>Počet kanálů používaných pro přehrávání.Toto číslo se "
-"nemusí nutně shodovat s počtem stop ve vašem nyní používaném souboru. Kwave "
-"automaticky míchá stopy vašeho souboru do kanálů,  které zde zadáte. </"
+"nemusí nutně shodovat s počtem stop ve vašem nyní používaném souboru. "
+"Kwave automaticky míchá stopy vašeho souboru do kanálů,  které zde zadáte. </"
 "p><p><i>Například:</i> jestliže máte tři stopy a nastavíte přehrávání na "
 "\"stereo\", levý kanál bude obsahovat první stopu + 50% druhé stopy, pravý "
 "kanál bude také obsahovat 50% druhé stopy a stopu třetí.</p>"
@@ -1144,7 +1131,8 @@ msgid ""
 "<br>\n"
 "    Of course you can also set a limit for the total size of the page files."
 msgstr ""
-"<b>Nastavit užití virtuální paměti  (soubory swap oddílu na disku).</b><br>\n"
+"<b>Nastavit užití virtuální paměti  (soubory swap oddílu na disku).</"
+"b><br>\n"
 "\n"
 "Jestliže povolíte použití virtuální paměti, můžete přesně stanovit adresář, "
 "v němž bude Kwave vytvářet dočasné soubory, jež může využívat jako rozšíření "
@@ -1183,8 +1171,8 @@ msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
 "under '%1'/'%2'."
 msgstr ""
-"<b>Rada</b>: můžete nastavit množství paměti<br>dostupné pro \"Zpět\" na "
-"'%1'/'%2'."
+"<b>Rada</b>: můžete nastavit množství paměti<br>dostupné pro \"Zpět\" na '%"
+"1'/'%2'."
 
 #: plugins/memory/ui_MemDlg.h:280 plugins/memory/ui_MemDlg.h:314
 msgid ""
@@ -1274,7 +1262,8 @@ msgid ""
 msgstr ""
 "<b>Způsob nahrávání:</b><p>Vyberte způsob nebo systém používaný pro\n"
 "nahrávání. V závislosti na volbách použitých při sestavení programu, můžete "
-"vybrat jeden z následujících  způsobů:</p>\n"
+"vybrat "
+"jeden z následujících  způsobů:</p>\n"
 "<p><b><i>OSS (Open Sound System)</i></b>: Je nejstarším linuxovým "
 "provedením, které je schopné pouze mono a stereo výstupu. Bylo odmítnuto "
 "verzí linuxového jádra 2.6, </p>\n"
@@ -1298,8 +1287,8 @@ msgid ""
 msgstr ""
 "<b>Rozlišení</b><br>Vyberte rozlišení udávané v bitech, ve kterém bude "
 "soubor uložen. Kwave vždy používá 24 bitů jako své vlastní vnitřní "
-"rozlišení, aby poskytl ty nejlepší výsledky, když jsou zvuková data "
-"zpracovávána."
+"rozlišení, aby poskytl "
+"ty nejlepší výsledky, když jsou zvuková data zpracovávána."
 
 #: plugins/record/ui_RecordDlg.h:1033
 msgid ""
@@ -1309,8 +1298,8 @@ msgid ""
 msgstr ""
 "<b>Vzorkovací formát</b><br>Zde můžete vybrat jeden ze vzorkovacích formátů, "
 "jež podporuje vaše technické vybavení počítače určené pro zvuk. Toto "
-"většinou nemá velký vliv na výsledek, takže to prostě můžete nechat tak, jak "
-"to je."
+"většinou nemá "
+"velký vliv na výsledek, takže to prostě můžete nechat tak, jak to je."
 
 #: plugins/newsignal/ui_NewSigDlg.h:490
 msgid ""
@@ -1344,7 +1333,8 @@ msgid ""
 "(Sorry, not implemented yet!)</i></p>"
 msgstr ""
 "<b>Zkoušejte...</b><p>Pokuste se zahrát krátký zvuk a použijte přitom "
-"nynější nastavení.</p><p><i>(Promiňte, ale ještě nebylo provedeno!)</i></p>"
+"nynější nastavení.</p><p><i>(Promiňte, ale ještě nebylo provedeno!)</i></"
+"p>"
 
 #: plugins/fileinfo/ui_CompressionWidgetBase.h:207
 msgid ""
@@ -1474,8 +1464,8 @@ msgid ""
 "</ul>"
 msgstr ""
 "<p>Vyberte vzor, který bude používán pro vytváření názvu souboru každého "
-"ukládaného bloku. V současnosti se tím rozumí následující zástupné znaky:</"
-"p>\n"
+"ukládaného bloku. V současnosti se tím rozumí následující zástupné znaky:</p>"
+"\n"
 "<ul>\n"
 "<li><tt><b>[%filename]</b></tt>název souboru, bez cesty</li>\n"
 "<li><tt><b>[</b>%<i>0</i></tt><i>N</i><tt><b>nr]</b></tt>index  souboru, "
@@ -1656,8 +1646,7 @@ msgstr "Zesílit se &schránkou"
 msgid "Amplify:"
 msgstr "Zesílit:"
 
-#: plugins/sonagram/SonagramWindow.cpp:539
-#, kde-format
+#: plugins/sonagram/SonagramWindow.cpp:539, kde-format
 msgid "Amplitude: %1%"
 msgstr "Rozkmit: %1 %"
 
@@ -1727,8 +1716,7 @@ msgstr "Apple MAC3"
 msgid "Apple MAC6"
 msgstr "Apple MAC6"
 
-#: libgui/KwaveFilterPlugin.cpp:228
-#, kde-format
+#: libgui/KwaveFilterPlugin.cpp:228, kde-format
 msgid "Applying '%1'..."
 msgstr "Používá se '%1'..."
 
@@ -1787,16 +1775,16 @@ msgstr "Automatická oprava"
 #: plugins/sonagram/ui_SonagramDlg.h:285
 msgid "Automatically update the sonagram <br>if the signal data has changed"
 msgstr ""
-"Automaticky obnovit obraz vytvořený ultrazvukem, <br>jestliže se změnila "
-"data signálu"
+"Automaticky obnovit obraz vytvořený ultrazvukem, "
+"<br>jestliže se změnila data signálu"
 
 #: plugins/sonagram/ui_SonagramDlg.h:289
 msgid ""
 "Automatically update the sonagram if the selection<br>has been enlarged, "
 "reduced or moved"
 msgstr ""
-"Automaticky obnovit obraz vytvořený ultrazvukem, jestliže výběr "
-"byl<br>rozšířen, omezen nebo přesunut"
+"Automaticky obnovit obraz vytvořený ultrazvukem, "
+"jestliže výběr byl<br>rozšířen, omezen nebo přesunut"
 
 #: libkwave/GenreType.cpp:169
 msgid "Avantgarde"
@@ -1929,8 +1917,7 @@ msgstr "Kabaret"
 
 #: plugins/record/Record-ALSA.cpp:1044 plugins/record/Record-ALSA.cpp:1059
 #: plugins/playback/PlayBack-ALSA.cpp:812
-#: plugins/playback/PlayBack-ALSA.cpp:828
-#, kde-format
+#: plugins/playback/PlayBack-ALSA.cpp:828, kde-format
 msgid "Card %1: "
 msgstr "Karta %1: "
 
@@ -1950,8 +1937,7 @@ msgstr "Komorní hudba"
 msgid "Change sample rate"
 msgstr "Změnit vzorkovací kmitočet"
 
-#: plugins/samplerate/SampleRatePlugin.cpp:144
-#, kde-format
+#: plugins/samplerate/SampleRatePlugin.cpp:144, kde-format
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
 msgstr "Mění se vzorkovací kmitočet z %1 kHz na %2 kHz..."
 
@@ -2019,13 +2005,11 @@ msgstr "Komprimovaný zvukový výměnný formát"
 msgid "Compression"
 msgstr "Zhuštění"
 
-#: plugins/record/RecordPlugin.cpp:581
-#, kde-format
+#: plugins/record/RecordPlugin.cpp:581, kde-format
 msgid "Compression '%1' failed, using '%2'."
 msgstr "Zhuštění '%1' selhalo. Používá se '%2'."
 
-#: plugins/record/RecordPlugin.cpp:564
-#, kde-format
+#: plugins/record/RecordPlugin.cpp:564, kde-format
 msgid "Compression '%1' not supported, using '%2'"
 msgstr "Zhuštění '%1' není podporováno. Používá se '%2'."
 
@@ -2183,8 +2167,7 @@ msgstr "Smrtící metal"
 msgid "Debian packager"
 msgstr "Balíčkovač pro Debian"
 
-#: plugins/debug/DebugPlugin.cpp:73
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:73, kde-format
 msgid "Debug (%1)"
 msgstr "Ladit (%1)"
 
@@ -2270,7 +2253,8 @@ msgid ""
 msgstr ""
 "Určuje, jak by se mělo<b>provádět</b> číslování souborů:<ul>\n"
 "<li>Pokračovat po <b>nejvyšší index</b>, který se dá najít. Vyhýbat se "
-"střetům se stávajícími soubory</li>\n"
+"střetům "
+"se stávajícími soubory</li>\n"
 "<li>Vždy začít číslování od <b>jedné</b>. Pravděpodobně se bude střetávat se "
 "stávajícími soubory</li>\n"
 "</ul>"
@@ -2281,8 +2265,7 @@ msgstr "Zařízení"
 
 #: plugins/record/Record-ALSA.cpp:1046 plugins/record/Record-ALSA.cpp:1060
 #: plugins/playback/PlayBack-ALSA.cpp:814
-#: plugins/playback/PlayBack-ALSA.cpp:830
-#, kde-format
+#: plugins/playback/PlayBack-ALSA.cpp:830, kde-format
 msgid "Device %1: "
 msgstr "Zařízení %1:"
 
@@ -2403,8 +2386,7 @@ msgid "Error reading initial header packet."
 msgstr ""
 "Při čtení začátečního  hlavičkového datového balíčku se vyskytla chyba."
 
-#: plugins/codec_flac/FlacDecoder.cpp:297
-#, c-format
+#: plugins/codec_flac/FlacDecoder.cpp:297, c-format
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "Chyba při provádění rozboru FLAC metadat. (%s)"
 
@@ -2434,7 +2416,8 @@ msgid ""
 "pattern above and the numbering below"
 msgstr ""
 "Příklad prvního názvu souboru, který bude uložen. Nahoře se využívá vzor "
-"názvu souboru a dole číslování"
+"názvu "
+"souboru a dole číslování"
 
 #: plugins/saveblocks/ui_SaveBlocksWidgetBase.h:146
 msgid "Example:"
@@ -2960,8 +2943,7 @@ msgstr "Do druhé poloviny"
 msgid "Invalid codec type"
 msgstr "Neplatný typ kodeku"
 
-#: libgui/SignalWidget.cpp:572
-#, kde-format
+#: libgui/SignalWidget.cpp:572, kde-format
 msgid "Invalid or unknown file type: '%1'"
 msgstr "Neplatný nebo neznámý typ souboru: '%1'"
 
@@ -3010,8 +2992,7 @@ msgstr "Kwave makro soubory"
 msgid "Kwave homepage and German online help"
 msgstr "Domovská stránka Kwave a německá nápověda po internetu"
 
-#: plugins/record/RecordPlugin.cpp:381
-#, kde-format
+#: plugins/record/RecordPlugin.cpp:381, kde-format
 msgid ""
 "Kwave was unable to open the device '%1'.\n"
 "Maybe your system lacks support for the corresponding hardware or the "
@@ -3021,13 +3002,11 @@ msgstr ""
 "Je možné, že váš systém postrádá podporu pro odpovídající technické vybavení "
 "počítače nebo toto technické vybavení počítače není připojeno."
 
-#: libgui/SignalWidget.cpp:1575
-#, kde-format
+#: libgui/SignalWidget.cpp:1575, kde-format
 msgid "Label #%1"
 msgstr "Štítek #%1"
 
-#: libgui/SignalWidget.cpp:1574
-#, kde-format
+#: libgui/SignalWidget.cpp:1574, kde-format
 msgid "Label #%1 (%2)"
 msgstr "Štítek #%1 (%2)"
 
@@ -3092,8 +3071,7 @@ msgstr "Délka: "
 msgid "Length: %1"
 msgstr "Délka: %1"
 
-#: kwave/TopWidget.cpp:1127
-#, kde-format
+#: kwave/TopWidget.cpp:1127, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
 msgstr "Délka: %1 (%2 vzorky)"
@@ -3176,8 +3154,7 @@ msgstr ""
 msgid "Lo-Fi"
 msgstr "Nízká věrnost (Lo-Fi, Low-Fidelity je opakem Hi-Fi, High Fidelity)"
 
-#: kwave/KwaveApp.cpp:167
-#, kde-format
+#: kwave/KwaveApp.cpp:167, kde-format
 msgid "Loading file '%1'..."
 msgstr "Nahrává se soubor '%1'..."
 
@@ -3185,8 +3162,7 @@ msgstr "Nahrává se soubor '%1'..."
 msgid "Loading main menu..."
 msgstr "Nahrávají se hlavní nabídky..."
 
-#: libkwave/PluginManager.cpp:739
-#, kde-format
+#: libkwave/PluginManager.cpp:739, kde-format
 msgid "Loading plugin %1..."
 msgstr "Nahrává se přídavný modul %1..."
 
@@ -3385,8 +3361,7 @@ msgstr "Režim"
 msgid "Mode Extension"
 msgstr "Rozšíření režimu"
 
-#: kwave/TopWidget.cpp:1137
-#, kde-format
+#: kwave/TopWidget.cpp:1137, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr "Režim: %1 kHz @ %2 bitů"
 
@@ -3521,8 +3496,7 @@ msgstr "Normalizovat"
 msgid "Normalizer"
 msgstr "Normalizátor"
 
-#: plugins/normalize/NormalizePlugin.cpp:223
-#, kde-format
+#: plugins/normalize/NormalizePlugin.cpp:223, kde-format
 msgid "Normalizing (%1 dB) ..."
 msgstr "Normalizuje se (%1dB) ..."
 
@@ -3621,8 +3595,8 @@ msgid ""
 "One or more encoding parameters are not supported. Please change the "
 "settings and try again."
 msgstr ""
-"Jedna nebo i více kódovacích proměnných není podporováno.  Změňte, prosím, "
-"nastavení a zkuste to znovu."
+"Jedna nebo i více kódovacích proměnných není podporováno.  "
+"Změňte, prosím, nastavení a zkuste to znovu."
 
 #: kwave/TopWidget.cpp:875
 msgid "Open"
@@ -3775,14 +3749,14 @@ msgid ""
 "Playback is currently running.Please stop playback first and then try again"
 msgstr ""
 "Přehrávání v současnosti běží. Prosím, nejprve zastavte přehrávání a potom "
-"to zkuste znovu"
+"to "
+"zkuste znovu"
 
 #: plugins/playback/ui_PlayBackDlg.h:399
 msgid "Playback method:"
 msgstr "Postup přehrávání:"
 
-#: plugins/playback/PlayBack-OSS.cpp:200
-#, kde-format
+#: plugins/playback/PlayBack-OSS.cpp:200, kde-format
 msgid "Playback rate %1 Hz is not supported"
 msgstr "Kmitočet přehrávání %1 Hz není podporován"
 
@@ -3790,13 +3764,11 @@ msgstr "Kmitočet přehrávání %1 Hz není podporován"
 msgid "Playback resolution in bits per sample"
 msgstr "Rozlišení přehrávání v bitech na vzorek"
 
-#: kwave/TopWidget.cpp:1240
-#, kde-format
+#: kwave/TopWidget.cpp:1240, kde-format
 msgid "Playback: %1"
 msgstr "Přehrávání: %1"
 
-#: kwave/TopWidget.cpp:1242
-#, kde-format
+#: kwave/TopWidget.cpp:1242, kde-format
 msgid "Playback: %1 samples"
 msgstr "Přehrávání: %1 vzorků"
 
@@ -3857,8 +3829,7 @@ msgstr "Porn rytmus"
 msgid "Position:"
 msgstr "Místo:"
 
-#: kwave/TopWidget.cpp:1219
-#, kde-format
+#: kwave/TopWidget.cpp:1219, kde-format
 msgid "Position: %1"
 msgstr "Poloha: %1"
 
@@ -3980,8 +3951,7 @@ msgstr "Přístup ke čtení selhal"
 msgid "Reading configuration..."
 msgstr "Nastavení čtení..."
 
-#: plugins/record/RecordPlugin.cpp:967
-#, kde-format
+#: plugins/record/RecordPlugin.cpp:967, kde-format
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
 msgstr "Čtení z nahrávacího zařízení selhalo. Chyba číslo = %1 (%2)"
 
@@ -4104,8 +4074,7 @@ msgstr "Rock"
 msgid "Rock & Roll"
 msgstr "Rokenrol"
 
-#: libkwave/KwavePlugin.cpp:207
-#, kde-format
+#: libkwave/KwavePlugin.cpp:207, kde-format
 msgid "Running plugin '%1'..."
 msgstr "Spouští se přídavný modul '%1'..."
 
@@ -4137,13 +4106,11 @@ msgstr "Převod vzorkovacího kmitočtu"
 msgid "Sample and Hold"
 msgstr "Ukazovat vzorky a držet"
 
-#: plugins/record/RecordPlugin.cpp:688
-#, kde-format
+#: plugins/record/RecordPlugin.cpp:688, kde-format
 msgid "Sample format '%1' failed, using '%2'"
 msgstr "Vzorkovací formát '%1' selhal. Používá se '%2'"
 
-#: plugins/record/RecordPlugin.cpp:672
-#, kde-format
+#: plugins/record/RecordPlugin.cpp:672, kde-format
 msgid "Sample format '%1' is not supported, using '%2'"
 msgstr "Vzorkovací formát '%1' není podporován. Používá se '%2'"
 
@@ -4229,8 +4196,7 @@ msgstr "Projíždět &vpravo"
 msgid "Search on the filesystem for a device"
 msgstr "Hledat zařízení v souborovém systému"
 
-#: plugins/codec_wav/RIFFParser.cpp:528
-#, kde-format
+#: plugins/codec_wav/RIFFParser.cpp:528, kde-format
 msgid "Searching for missing chunk '%1'..."
 msgstr "Hledá se chybějící část '%1'..."
 
@@ -4300,8 +4266,7 @@ msgstr "Toto vyberte pro nastavení délky souboru podle času"
 msgid "Select zoom factor"
 msgstr "Vybrat násobek zvětšení"
 
-#: kwave/TopWidget.cpp:1187
-#, kde-format
+#: kwave/TopWidget.cpp:1187, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
 "2000...3000 (1000 samples)'"
@@ -4406,8 +4371,7 @@ msgstr "Ticho"
 msgid "Sinus"
 msgstr "Sinus"
 
-#: plugins/sonagram/SonagramDialog.cpp:146
-#, kde-format
+#: plugins/sonagram/SonagramDialog.cpp:146, kde-format
 msgid "Size of bitmap: %1x%2"
 msgstr "Velikost bitové mapy: %1x%2"
 
@@ -4443,8 +4407,7 @@ msgstr "Program"
 msgid "Sonagram"
 msgstr "Obraz vytvořený ultrazvukem"
 
-#: plugins/sonagram/SonagramWindow.cpp:503
-#, kde-format
+#: plugins/sonagram/SonagramWindow.cpp:503, kde-format
 msgid "Sonagram of %1"
 msgstr "Sonogram %1"
 
@@ -4462,8 +4425,8 @@ msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
 "you want to use G711 ULAW compression instead?"
 msgstr ""
-"Promiňte, ale nyní vybraný druh zhuštění nelze použít pro ukládání. Chcete "
-"místo něj použít zhuštění G711 ULAW?"
+"Promiňte, ale nyní vybraný druh zhuštění nelze použít pro ukládání. "
+"Chcete místo něj použít zhuštění G711 ULAW?"
 
 #: libkwave/SignalManager.cpp:455
 msgid "Sorry, the file type is not supported."
@@ -4575,8 +4538,8 @@ msgid ""
 "parameters."
 msgstr ""
 "Začít nebo zastavit před-poslech nynějšího nastavení. Jestliže je "
-"předposlech umožněn, uslyšíte téměř okamžitě jakoukoli změnu ve vybraných "
-"proměnných."
+"předposlech "
+"umožněn, uslyšíte téměř okamžitě jakoukoli změnu ve vybraných proměnných."
 
 #: kwave/TopWidget.cpp:279
 msgid "Start playback"
@@ -4619,8 +4582,7 @@ msgstr ""
 msgid "String and i18n updates"
 msgstr "Obnovení řetězců a i18n"
 
-#: plugins/record/Record-ALSA.cpp:1048 plugins/playback/PlayBack-ALSA.cpp:816
-#, kde-format
+#: plugins/record/Record-ALSA.cpp:1048 plugins/playback/PlayBack-ALSA.cpp:816, kde-format
 msgid "Subdevice %1: "
 msgstr "Podřízené zařízení %1: "
 
@@ -4734,8 +4696,7 @@ msgstr ""
 "Prosím, zkuste to později znovu."
 
 #: plugins/playback/PlayBack-OSS.cpp:141
-#: plugins/playback/PlayBack-ALSA.cpp:570
-#, kde-format
+#: plugins/playback/PlayBack-ALSA.cpp:570, kde-format
 msgid ""
 "The device is busy. Maybe an other application is\n"
 "currently using it. Please try again later.\n"
@@ -4807,8 +4768,7 @@ msgstr ""
 "\n"
 "Nedávalo by smysl, aby se nyní pokračovalo dále."
 
-#: libkwave/PluginManager.cpp:216
-#, kde-format
+#: libkwave/PluginManager.cpp:216, kde-format
 msgid "The plugin '%1' is unknown or invalid."
 msgstr "Přídavný modul '%1' není znám nebo je neplatný."
 
@@ -4949,8 +4909,7 @@ msgstr "Halucinační poskakování (Trip hop)"
 msgid "U&ndo"
 msgstr "Z&pět"
 
-#: libkwave/PluginManager.cpp:226
-#, kde-format
+#: libkwave/PluginManager.cpp:226, kde-format
 msgid ""
 "Unable to load the file\n"
 "'%1'\n"
@@ -4960,8 +4919,7 @@ msgstr ""
 "'%1',\n"
 "který obsahuje přídavný modul '%2'."
 
-#: libgui/SignalWidget.cpp:568 plugins/playback/PlayBackPlugin.cpp:470
-#, kde-format
+#: libgui/SignalWidget.cpp:568 plugins/playback/PlayBackPlugin.cpp:470, kde-format
 msgid "Unable to open '%1'"
 msgstr "Nelze otevřít '%1'"
 
@@ -4992,8 +4950,7 @@ msgstr "Zpět"
 msgid "Unknown"
 msgstr "Neznámý"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:503
-#, c-format
+#: plugins/decoder_mp3/MP3Decoder.cpp:503, c-format
 msgid "Unknown error 0x%X. Damaged file?"
 msgstr "Neznámá chyba 0x%X. Že by byl poškozen soubor?"
 
@@ -5001,8 +4958,7 @@ msgstr "Neznámá chyba 0x%X. Že by byl poškozen soubor?"
 msgid "Unsigned Integer"
 msgstr "Celé číslo bez znaménka"
 
-#: plugins/playback/PlayBack-OSS.cpp:210
-#, kde-format
+#: plugins/playback/PlayBack-OSS.cpp:210, kde-format
 msgid "Unusable buffer size: %1"
 msgstr "Nepoužitelná velikost vyrovnávací paměti: %1"
 
@@ -5061,8 +5017,7 @@ msgstr "Kodek WAV"
 msgid "WAV audio"
 msgstr "Zvuk WAV"
 
-#: plugins/record/RecordDialog.cpp:1168
-#, kde-format
+#: plugins/record/RecordDialog.cpp:1168, kde-format
 msgctxt "%1=days; %2=hours; %3=minutes; %4=seconds"
 msgid "Waiting for start in %1%2%3%4..."
 msgstr "Čeká se na začátek v %1%2%3%4 ..."
@@ -5077,8 +5032,8 @@ msgid ""
 "Please note that if the time is in the past, the recording will be started "
 "immediately or as soon as the defined trigger level is reached (if enabled)."
 msgstr ""
-"Když je zaškrtnuto, začne nahrávání v zadaném datu a čase. Všimněte si, "
-"prosím, že když je čas zadán v minulosti, nahrávání začne okamžitě, nebo "
+"Když je zaškrtnuto, začne nahrávání v zadaném datu a čase. Všimněte "
+"si, prosím, že když je čas zadán v minulosti, nahrávání začne okamžitě, nebo "
 "začne, jakmile je dosaženo stanovené úrovně spouštěče (je-li to povoleno)."
 
 #: plugins/record/ui_RecordDlg.h:963
@@ -5088,8 +5043,8 @@ msgid ""
 "already a few seconds before you press the record button. <i>(For example "
 "when recording from radio)</i>"
 msgstr ""
-"Když se používá <b>přednahrávání</b>, Kwave již uvnitř nahrává předtím, než "
-"začne skutečné nahrávání. Tento prvek je užitečný, když chcete, aby bylo "
+"Když se používá <b>přednahrávání</b>, Kwave již uvnitř nahrává předtím, "
+"než začne skutečné nahrávání. Tento prvek je užitečný, když chcete, aby bylo "
 "nahráno i těch několik sekundy předtí, než stisknete nahrávací tlačítko. <i>"
 "(Například, když nahráváte z rádia)</i>"
 
@@ -5123,8 +5078,7 @@ msgstr ""
 "Nevybral jste datový tok pro kódování. Chcete pokračovat a kódovat %1 kbps, "
 "nebo zrušit tento krok a vybrat jiný datový tok?"
 
-#: plugins/playback/PlayBackPlugin.cpp:798
-#, kde-format
+#: plugins/playback/PlayBackPlugin.cpp:798, kde-format
 msgid ""
 "You should now hear a %1 Hz test tone.<br><br>(If you hear clicks or "
 "dropouts, please increase<br>the buffer size and try again)"
@@ -5177,8 +5131,7 @@ msgstr "Zvětšit na vše"
 msgid "Zoom to selection"
 msgstr "Zvětšit na výběr"
 
-#: plugins/record/RecordDialog.cpp:1163
-#, kde-format
+#: plugins/record/RecordDialog.cpp:1163, kde-format
 msgid "and %1 second"
 msgid_plural "and %1 seconds"
 msgstr[0] "A %1 sekundu"
@@ -5282,22 +5235,19 @@ msgstr "ms"
 msgid "name"
 msgstr "Název"
 
-#: plugins/record/RecordDialog.cpp:1156
-#, kde-format
+#: plugins/record/RecordDialog.cpp:1156, kde-format
 msgid "one day "
 msgid_plural "%1 days "
 msgstr[0] "Jeden den "
 msgstr[1] "%1 dny"
 
-#: plugins/record/RecordDialog.cpp:1158
-#, kde-format
+#: plugins/record/RecordDialog.cpp:1158, kde-format
 msgid "one hour "
 msgid_plural "%1 hours "
 msgstr[0] "Jedna hodina "
 msgstr[1] "%1 hodiny"
 
-#: plugins/record/RecordDialog.cpp:1160
-#, kde-format
+#: plugins/record/RecordDialog.cpp:1160, kde-format
 msgid "one minute "
 msgid_plural "%1 minutes "
 msgstr[0] "Jedna minuta "
@@ -5341,8 +5291,7 @@ msgstr "Spustit/Zastavit předposlech"
 msgid "to be done..."
 msgstr "Je hotovo..."
 
-#: kwave/KwaveSplash.cpp:55
-#, kde-format
+#: kwave/KwaveSplash.cpp:55, kde-format
 msgctxt "%1=Version number"
 msgid "v%1"
 msgstr "v%1"

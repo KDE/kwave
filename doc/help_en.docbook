@@ -32,7 +32,7 @@
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2011-02-18</date>
+    <date>2011-02-19</date>
     <releaseinfo>&version;</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor for KDE.</para></abstract>
@@ -66,7 +66,7 @@
     Basically a long version of the abstract. -->
 
     <para>
-    	This is "&kwave;", a simple sound editor for KDE3.
+    	This is "&kwave;", a simple sound editor for KDE-4.
 	Its features include:
 	<itemizedlist>
     	<listitem><para>

@@ -702,6 +702,10 @@ int SignalManager::executeCommand(const QString &command)
 //    CASE_COMMAND("invertchannels")
 //	for (unsigned int i = 0; i < m_channels; i++)
 //	    toggleChannel(i);
+    CASE_COMMAND("toggle_track_selection")
+	int track = parser.toInt();
+	UndoTransactionGuard undo(*this, i18n("Toggle Track Selection"));
+	selectTrack(track, !(trackSelected(track)));
     } else {
 	return -ENOSYS;
     }

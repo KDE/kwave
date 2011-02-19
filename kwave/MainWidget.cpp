@@ -148,12 +148,14 @@ MainWidget::MainWidget(QWidget *parent)
     m_vertical_scrollbar->hide();
     m_vertical_scrollbar->setFixedWidth(0);
     signalLayout->addWidget(m_vertical_scrollbar, 0, Qt::AlignRight);
+    m_vertical_scrollbar->hide();
 
     // -- signal widget --
 
     m_signal_widget.setMinimumSize(100, MIN_PIXELS_PER_CHANNEL);
 
     // -- do all the geometry management stuff --
+    m_overview->hide();
 
     topLayout->addWidget(frmChannelsBack, 0, 0);
 
@@ -164,6 +166,7 @@ MainWidget::MainWidget(QWidget *parent)
     topLayout->setColumnStretch(1, 1);
     signalLayout->activate();
     topLayout->activate();
+    m_horizontal_scrollbar->hide();
 
     // -- connect all signals from/to the signal widget --
 
@@ -483,10 +486,14 @@ void MainWidget::refreshHorizontalScrollBar()
     m_horizontal_scrollbar->blockSignals(true);
 
     // show/hide the overview widget
-    if (!signalManager().isEmpty() && m_overview && !m_overview->isVisible())
+    if (!signalManager().isEmpty() && m_overview && !m_overview->isVisible()) {
 	m_overview->show();
-    if (signalManager().isEmpty() && m_overview && m_overview->isVisible())
+	m_horizontal_scrollbar->show();
+    }
+    if (signalManager().isEmpty() && m_overview && m_overview->isVisible()) {
 	m_overview->hide();
+	m_horizontal_scrollbar->hide();
+    }
 
     // adjust the limits of the horizontal scrollbar
     if (signalManager().length() > 1) {

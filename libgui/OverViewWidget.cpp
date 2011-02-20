@@ -19,6 +19,7 @@
 
 #include <math.h>
 
+#include <QApplication>
 #include <QPainter>
 #include <QResizeEvent>
 #include <QMouseEvent>

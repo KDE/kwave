@@ -469,7 +469,7 @@ QList<u_int32_t> RIFFParser::scanForName(const QByteArray &name,
     int progress_start, int progress_count)
 {
     QList<u_int32_t> matches;
-    Q_ASSERT(length >= 4);
+    if (length < 4) return matches;
     u_int32_t end = offset + ((length > 4) ? (length - 4) : 0);
     char buffer[5];
     memset(buffer, 0x00, sizeof(buffer));

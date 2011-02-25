@@ -38,6 +38,8 @@
 #include "libkwave/SignalManager.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
+
+#include "libkwave/modules/ChannelMixer.h"
 #include "libkwave/modules/RateConverter.h"
 
 // RFC 2361:
@@ -166,13 +168,17 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	MultiTrackWriter dst(sig, sig.selectedTracks(), Insert, left, right);
 
 	// if the track count does not match, then we need a channel mixer
-	Kwave::StreamObject *mixer = 0;
-	if (decoded_tracks != dst_tracks) {
+	Q_ASSERT(ok);
+	Kwave::ChannelMixer *mixer = 0;
+	if (ok && (decoded_tracks != dst_tracks)) {
 	    qDebug("Kwave::MimeData::decode(...) -> mixing channels: %u -> %u",
 	           decoded_tracks, dst_tracks);
-
-	    // TODO ...
+	    mixer = new Kwave::ChannelMixer(decoded_tracks, dst_tracks);
+	    Q_ASSERT(mixer);
+	    ok &= (mixer) && mixer->init();
+	    Q_ASSERT(ok);
 	}
+	Q_ASSERT(ok);
 
 	// if the sample rates do not match, then we need a rate converter
 	Kwave::StreamObject *rate_converter = 0;
@@ -195,10 +201,11 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	    #warning sample rate conversion is disabled
 #endif
 	}
+	Q_ASSERT(ok);
 
-	if (ok && (rate_converter || mixer)) {
+	if (ok && ((rate_converter != 0) || (mixer != 0))) {
 	    // pass all data through a filter chain
-	    Kwave::MultiStreamWriter adapter(dst_tracks);
+	    Kwave::MultiStreamWriter adapter(decoded_tracks);
 
 	    // pass the data through a sample rate converter
 	    // decoder -> adapter -> [mixer] -> [converter] -> dst
@@ -221,7 +228,7 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 		    *rate_converter, SLOT(input(Kwave::SampleArray))
 		);
 		last_output = rate_converter;
-	    };
+	    }
 
 	    // connect the sink
 	    if (ok) {

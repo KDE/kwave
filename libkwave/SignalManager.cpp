@@ -1279,11 +1279,10 @@ bool SignalManager::registerUndoAction(UndoAction *action)
     Q_ASSERT(action);
     if (!action) return continueWithoutUndo();
 
-    // if undo is not enabled, this will fail -> no memory leak!
-    Q_ASSERT(m_undo_enabled);
+    // if undo is not enabled, this will fail -> discard the action
     if (!m_undo_enabled) {
 	delete action;
-	return continueWithoutUndo();
+	return true;
     }
 
     // check if the undo action is too large

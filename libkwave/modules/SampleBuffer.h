@@ -45,12 +45,12 @@ namespace Kwave {
 	/** returns a reference to the sample data */
 	virtual Kwave::SampleArray &data();
 
-	/** emit the sample data */
+	/** emit the sample data stored in m_data */
 	virtual void done();
 
     public slots:
 
-	/** slot for taking input data, emits it immediately */
+	/** slot for taking input data, stores it into m_data */
 	virtual void input(Kwave::SampleArray data);
 
     signals:

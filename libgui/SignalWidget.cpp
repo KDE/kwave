@@ -1671,7 +1671,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	m_image = QImage(m_width, m_height,
 	    QImage::Format_ARGB32_Premultiplied);
 
-	m_last_width = m_width;
+	m_last_width  = m_width;
 	m_last_height = m_height;
 
 	// check and correct m_zoom and m_offset

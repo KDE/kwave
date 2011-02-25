@@ -410,8 +410,12 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Writer.cpp				GPL2+
 	libkwave/Writer.h				GPL2+
 
+	libkwave/modules/ChannelMixer.cpp		GPL2+
+	libkwave/modules/ChannelMixer.h			GPL2+
 	libkwave/modules/CurveStreamAdapter.cpp		GPL2+
 	libkwave/modules/CurveStreamAdapter.h		GPL2+
+	libkwave/modules/Indexer.cpp			GPL2+
+	libkwave/modules/Indexer.h			GPL2+
 	libkwave/modules/KwaveDelay.cpp			GPL2+
 	libkwave/modules/KwaveDelay.h			GPL2+
 	libkwave/modules/KwaveMul.cpp			GPL2+
@@ -420,6 +424,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/modules/KwaveOsc.h			GPL2+
 	libkwave/modules/KwaveStreamObject.cpp		GPL2+
 	libkwave/modules/KwaveStreamObject.h		GPL2+
+	libkwave/modules/SampleBuffer.cpp		GPL2+
+	libkwave/modules/SampleBuffer.h			GPL2+
 
 	libkwave/undo/UndoAction.h			GPL2+
 	libkwave/undo/UndoAddLabelAction.cpp		GPL2+

@@ -323,8 +323,6 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     if (!bits) bits = 16;
 
     // check for a valid source
-    Q_ASSERT(tracks);
-    Q_ASSERT(length);
     if ((!tracks) || (!length)) return false;
     Q_ASSERT(src.tracks() == tracks);
     if (src.tracks() != tracks) return false;

@@ -81,11 +81,14 @@ SET(libkwave_LIB_SRCS
     Writer.cpp
     WindowFunction.cpp
 
+    modules/ChannelMixer.cpp
     modules/CurveStreamAdapter.cpp
+    modules/Indexer.cpp
     modules/KwaveDelay.cpp
     modules/KwaveMul.cpp
     modules/KwaveOsc.cpp
     modules/KwaveStreamObject.cpp
+    modules/SampleBuffer.cpp
 
     undo/UndoAddLabelAction.cpp
     undo/UndoDeleteAction.cpp

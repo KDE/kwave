@@ -23,7 +23,7 @@ IF (WITH_OSS)
     CHECK_INCLUDE_FILES("${_oss_inc}" HAVE_SYS_SOUNDCARD_H)
 
     IF (HAVE_SYS_SOUNDCARD_H)
-        MESSAGE(STATUS "Enabled OSS for playbay and recording")
+        MESSAGE(STATUS "Enabled OSS for playback and recording")
         SET(HAVE_OSS_SUPPORT  ON CACHE BOOL "enable OSS support")
     ELSE (HAVE_SYS_SOUNDCARD_H)
         MESSAGE(FATAL_ERROR "Your system lacks OSS support")

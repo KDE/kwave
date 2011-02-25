@@ -67,6 +67,8 @@ int UndoDeleteAction::redoSize()
 //***************************************************************************
 bool UndoDeleteAction::store(SignalManager &manager)
 {
+    if (!m_length) return true; // shortcut: this is an empty action
+
     MultiTrackReader reader(Kwave::SinglePassForward, manager,
 	m_track_list, m_offset, m_offset + m_length - 1);
 
@@ -92,6 +94,8 @@ UndoAction *UndoDeleteAction::undo(SignalManager &manager, bool with_redo)
 	if (!redo_action) return 0;
 	redo_action->store(manager);
     }
+
+    if (!m_length) return redo_action; // shortcut: this is an empty action
 
     // perform the undo operation
     if (!m_mime_data.decode(m_parent_widget, &m_mime_data,

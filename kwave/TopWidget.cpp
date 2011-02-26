@@ -1168,6 +1168,8 @@ void TopWidget::setTrackInfo(unsigned int tracks)
     // remove selection/position display on file close
     if (!have_signal) setSelectedTimeInfo(0, 0, 0);
 
+    // update the toolbar as well
+    updateToolbar();
 }
 
 //***************************************************************************

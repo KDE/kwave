@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <QApplication>
 #include <QBuffer>
 #include <QMutableListIterator>
 #include <QVariant>
@@ -79,6 +80,9 @@ bool Kwave::MimeData::encode(QWidget *widget,
     m_data.resize(0);
     QBuffer dst(&m_data);
 
+    // set hourglass cursor
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
     // move all labels left, to start at the beginning of the selection
     LabelList &labels = new_info.labels();
     QMutableListIterator<Label> it(labels);
@@ -107,6 +111,10 @@ bool Kwave::MimeData::encode(QWidget *widget,
 
     // set the mime data into this mime data container
     setData(WAVE_FORMAT_PCM, m_data);
+
+    // remove hourglass
+    QApplication::restoreOverrideCursor();
+    
     return true;
 }
 
@@ -152,7 +160,8 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
 	// if the sample rate has to be converted, adjust the length
 	// right border
-	if (src_rate != dst_rate) decoded_length *= (dst_rate / src_rate);
+	if ((src_rate != dst_rate) && (dst_rate > 1) && sig.tracks())
+	    decoded_length *= (dst_rate / src_rate);
 
 	sample_index_t left  = pos;
 	sample_index_t right = left + decoded_length - 1;
@@ -163,7 +172,7 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	if (!sig.tracks()) {
 	    // encode into an empty window -> create tracks
 	    qDebug("Kwave::MimeData::decode(...) -> new signal");
-	    src_rate = dst_rate;
+	    dst_rate = src_rate;
 	    sig.newSignal(0,
 		src_rate,
 		decoder->info().bits(),
@@ -214,6 +223,9 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 #endif
 	}
 	Q_ASSERT(ok);
+
+	// set hourglass cursor
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
 	if (ok && ((rate_converter != 0) || (mixer != 0))) {
 	    // pass all data through a filter chain
@@ -267,6 +279,9 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	// clean up the filter chain
 	if (mixer)          delete mixer;
 	if (rate_converter) delete rate_converter;
+
+	// remove hourglass
+	QApplication::restoreOverrideCursor();
 
 	// failed :-(
 	Q_ASSERT(ok);

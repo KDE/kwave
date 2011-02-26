@@ -33,6 +33,7 @@
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/KwaveDrag.h"
+#include "libkwave/KwaveFileDrag.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
@@ -48,36 +49,6 @@
 
 /** number of milliseconds until the position widget disappears */
 #define POSITION_WIDGET_TIME 5000
-
-//***************************************************************************
-//***************************************************************************
-namespace KwaveFileDrag
-{
-    static bool canDecode(const QMimeData *source) {
-	if (!source) return false;
-
-	if (source->hasUrls()) {
-	    // dropping URLs
-	    foreach (QUrl url, source->urls()) {
-		QString filename = url.toLocalFile();
-		QString mimetype = CodecManager::whatContains(filename);
-		if (CodecManager::canDecode(mimetype)) {
-		    return true;
-		}
-	    }
-	}
-
-	foreach (QString format, source->formats()) {
-	    // dropping known mime type
-	    if (CodecManager::canDecode(format)) {
-		qDebug("KwaveFileDrag::canDecode(%s)",
-		       format.toLocal8Bit().data());
-		return true;
-	    }
-	}
-	return false;
-    }
-}
 
 //***************************************************************************
 //***************************************************************************

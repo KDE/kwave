@@ -26,6 +26,8 @@
 
 #include "libgui/SignalWidget.h"
 
+class QDragEnterEvent;
+class QDropEvent;
 class QScrollBar;
 class QWheelEvent;
 
@@ -99,6 +101,15 @@ public:
     sample_index_t displaySamples() const;
 
 protected:
+
+    /** @see Qt XDND documentation */
+    virtual void dragEnterEvent(QDragEnterEvent *event);
+
+    /**
+     * For dropping data into an empty signal 
+     * @see Qt XDND documentation 
+     */
+    virtual void dropEvent(QDropEvent *event);
 
     /**
      * Called if the main widget has been resized and resizes/moves

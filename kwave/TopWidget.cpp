@@ -1171,6 +1171,8 @@ void TopWidget::setStatusInfo(sample_index_t length, unsigned int tracks,
     // remove selection/position display on file close
     if (!have_signal) selectionChanged(0, 0);
 
+    // update the toolbar as well
+    updateToolbar();
 }
 
 //***************************************************************************

@@ -331,6 +331,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/KwaveConnect.h				GPL2+
 	libkwave/KwaveDrag.cpp				GPL2+
 	libkwave/KwaveDrag.h				GPL2+
+	libkwave/KwaveFileDrag.h			GPL2+
 	libkwave/KwaveMultiPlaybackSink.cpp		GPL2+
 	libkwave/KwaveMultiPlaybackSink.h		GPL2+
 	libkwave/KwaveMultiTrackSink.h			GPL2+

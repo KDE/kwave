@@ -33,6 +33,9 @@
 #include <klocale.h>
 
 #include "libkwave/ApplicationContext.h"
+#include "libkwave/CodecManager.h"
+#include "libkwave/KwaveDrag.h"
+#include "libkwave/KwaveFileDrag.h"
 #include "libkwave/Parser.h"
 #include "libkwave/SignalManager.h"
 
@@ -68,6 +71,8 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
 {
 //     QPalette palette;
 //    qDebug("MainWidget::MainWidget()");
+
+    setAcceptDrops(true); // enable drag&drop
 
     SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
@@ -198,6 +203,64 @@ void MainWidget::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event);
     resizeViewPort();
+}
+
+//***************************************************************************
+void MainWidget::dragEnterEvent(QDragEnterEvent *event)
+{
+    if (!event) return;
+    if ((event->proposedAction() != Qt::MoveAction) &&
+        (event->proposedAction() != Qt::CopyAction))
+        return; /* unsupported action */
+
+    if (KwaveFileDrag::canDecode(event->mimeData()))
+	event->acceptProposedAction();
+}
+
+
+//***************************************************************************
+void MainWidget::dropEvent(QDropEvent *event)
+{
+    if (!event) return;
+    if (!event->mimeData()) return;
+
+    SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return;
+
+    if (signal_manager->isEmpty() && KwaveDrag::canDecode(event->mimeData())) {
+	sample_index_t pos = m_offset + pixels2samples(event->pos().x());
+	sample_index_t len = 0;
+
+	if ((len = KwaveDrag::decode(this, event->mimeData(),
+	    *signal_manager, pos)))
+	{
+	    // set selection to the new area where the drop was done
+	    signal_manager->selectRange(pos, len);
+	    event->acceptProposedAction();
+	} else {
+	    qWarning("MainWidget::dropEvent(%s): failed !", event->format(0));
+	    event->ignore();
+	}
+    } else if (event->mimeData()->hasUrls()) {
+	bool first = true;
+	foreach (QUrl url, event->mimeData()->urls()) {
+	    QString filename = url.toLocalFile();
+	    QString mimetype = CodecManager::whatContains(filename);
+	    if (CodecManager::canDecode(mimetype)) {
+		if (first) {
+		    // first dropped URL -> open in this window
+		    emit sigCommand("open(" + filename + ")");
+		    first = false;
+		} else {
+		    // all others -> open a new window
+		    emit sigCommand("newwindow(" + filename + ")");
+		}
+	    }
+	}
+    }
+
+    qDebug("MainWidget::dropEvent(): done");
 }
 
 //***************************************************************************

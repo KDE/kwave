@@ -88,7 +88,7 @@ bool Kwave::ChannelMixer::init()
     //   -------------
     // y |   |   |   | x*y
     //   -------------
-    const double scale = static_cast<double>(m_inputs * m_outputs);
+    const double scale = static_cast<double>(m_inputs);
     for (unsigned int y = 0; y < m_outputs; y++) {
 	const unsigned int y1 = y * m_inputs;
 	const unsigned int y2 = y1 + m_inputs;

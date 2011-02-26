@@ -273,6 +273,9 @@ void Kwave::ChannelMixer::mix()
 
     // emit the output
     foreach (QPointer<Kwave::SampleBuffer> buffer, m_output_buffer) {
+	// shrink output buffer is not enough data is available
+	if (buffer->data().size() > min_len)
+	    buffer->data().resize(min_len);
 	buffer->done();
     }
 }

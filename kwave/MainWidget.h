@@ -26,7 +26,6 @@
 
 #include "libgui/SignalWidget.h"
 
-class QComboBox;
 class QScrollBar;
 class QWheelEvent;
 

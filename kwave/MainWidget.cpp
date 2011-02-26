@@ -232,7 +232,6 @@ void MainWidget::resizeEvent(QResizeEvent *)
     refreshChannelControls();
 }
 
-
 //***************************************************************************
 void MainWidget::wheelEvent(QWheelEvent *event)
 {

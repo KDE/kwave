@@ -37,8 +37,6 @@ UndoAddMetaDataAction::UndoAddMetaDataAction(
      m_last(0),
      m_tracks()
 {
-    Q_ASSERT(index >= 0);
-
     // sanity check: list should not be empty
     Q_ASSERT(!meta_data.isEmpty());
     if (meta_data.isEmpty()) return;

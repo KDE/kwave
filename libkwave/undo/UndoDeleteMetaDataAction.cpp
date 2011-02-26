@@ -104,7 +104,7 @@ bool UndoDeleteMetaDataAction::store(SignalManager &)
 UndoAction *UndoDeleteMetaDataAction::undo(SignalManager &manager,
                                            bool with_redo)
 {
-    Q_ASSERT(!m_label.isNull());
+    Q_ASSERT(!m_meta_data.isEmpty());
     if (m_meta_data.isEmpty()) return 0;
 
     UndoAction *redo = 0;

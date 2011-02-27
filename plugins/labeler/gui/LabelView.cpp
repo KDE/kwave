@@ -76,7 +76,6 @@ void LabelView::paintEvent(QPaintEvent * event)
 
     // Paint the labels
     QPainter painter;
-    SRegion signalregion = SRegion(offset(), pixels2samples(width()));
     QRect labelsregion = this->rect();
     MetaDataList & metadata = m_signal_manager->metaData();
     MetaDataList labels;
@@ -110,7 +109,7 @@ void LabelView::paintEvent(QPaintEvent * event)
     // The labels from the 0th level
     labels = metadata.selectByType("Label");  // TODO: string to a constant?
     // Paint the label markers and their name-boxes
-    paintVMarks(painter, MetaDataList::Iterator(labels), this->rect(), signalregion);
+    paintVMarks(painter, MetaDataList::Iterator(labels), this->rect());
     paintLabels(painter, MetaDataList::Iterator(labels), labelsregion);
 
 //////////////////  !!!! TRICKY CODE !!!! force the labels back to the signal manager.
@@ -128,7 +127,7 @@ void LabelView::paintEvent(QPaintEvent * event)
         // set new paint region
         labelsregion.moveTop(labelsregion.bottom() + levelshspace);
         // Set the draw positions to the labels and paint their name-boxes
-        setPaintPos(MetaDataList::Iterator(labels));
+        setPaintPos(MetaDataList::Iterator(labels), labelsregion);
         paintLabels(painter, MetaDataList::Iterator(labels), labelsregion);
     }
 
@@ -136,7 +135,7 @@ void LabelView::paintEvent(QPaintEvent * event)
 }
 
 //***************************************************************************
-void LabelView::paintVMarks(QPainter & painter, MetaDataList::Iterator labels, const QRect paintregion, const SRegion samplesregion)
+void LabelView::paintVMarks(QPainter & painter, MetaDataList::Iterator labels, const QRect paintregion)
 {
     // Paint the markers
     while (labels.hasNext()) {
@@ -146,37 +145,43 @@ void LabelView::paintVMarks(QPainter & painter, MetaDataList::Iterator labels, c
                                                                                          // TODO: string to a constant!!
          Q_ASSERT(label.hasProperty(Kwave::MetaData::STDPROP_TYPE) && label[Kwave::MetaData::STDPROP_TYPE] == "Label");
 
-         // Remove the properties from label
-         label.setProperty(LBRPROP_VIEW_BEGPIXEL, QVariant::Invalid);
-         label.setProperty(LBRPROP_VIEW_ENDPIXEL, QVariant::Invalid);
-         label.setProperty(LBRPROP_VIEW_POSPIXEL, QVariant::Invalid);
-
          // Whole label is not visible, ignore it
-         if (label.lastSample() < samplesregion.left() || label.firstSample() > samplesregion.right()) {
+         if (label.lastSample() < m_visibleSignal.left() || label.firstSample() > m_visibleSignal.right()) {
+             label.setProperty(LBRPROP_VIEW_BEGPIXEL, QVariant::Invalid);
+             label.setProperty(LBRPROP_VIEW_ENDPIXEL, QVariant::Invalid);
+             label.setProperty(LBRPROP_VIEW_POSPIXEL, QVariant::Invalid);
              continue;
          }
 
          // At least part of the label is visible
-         painter.setPen(Qt::black); // TODO: colour configutable?
+         painter.setPen(Qt::black); // TODO: colour configurable?
 
          // label spanning a range of samples
          if (label.scope() == Kwave::MetaData::Range) {
             // The vertical marker at the beginning of the label
-            if (label.firstSample() >= samplesregion.left()) {
-                int mark = samples2pixels(label.firstSample() - samplesregion.left());
+            if (label.firstSample() >= m_visibleSignal.left()) {
+                int mark = samples2pixels(label.firstSample() - m_visibleSignal.left());
                 label.setProperty(LBRPROP_VIEW_BEGPIXEL, QVariant(mark));
                 painter.drawLine(mark, paintregion.top(), mark, paintregion.height());
             }
+            else {
+                // start at the beginning of the view
+                label.setProperty(LBRPROP_VIEW_BEGPIXEL, paintregion.left());
+            }
             // The vertical marker at the end of the label
-            if (label.lastSample() < samplesregion.right()) {
-                int mark = samples2pixels(label.lastSample() - samplesregion.left());
+            if (label.lastSample() < m_visibleSignal.right()) {
+                int mark = samples2pixels(label.lastSample() - m_visibleSignal.left());
                 label.setProperty(LBRPROP_VIEW_ENDPIXEL, QVariant(mark));
                 painter.drawLine(mark, paintregion.top(), mark, paintregion.height());
+            }
+            else {
+                // finish at the end of the view
+                label.setProperty(LBRPROP_VIEW_ENDPIXEL, paintregion.right());
             }
          }
          // label assigned to a given position
          if (label.scope() == Kwave::MetaData::Position) {
-            int mark = samples2pixels(label.firstSample() - samplesregion.left());
+            int mark = samples2pixels(label.firstSample() - m_visibleSignal.left());
             label.setProperty(LBRPROP_VIEW_POSPIXEL, QVariant(mark));
             painter.drawLine(mark, paintregion.top(), mark, paintregion.height());
          }
@@ -194,12 +199,13 @@ void LabelView::paintLabels(QPainter & painter, MetaDataList::Iterator labels, c
          const Kwave::MetaData & label = labels.value();
 
          Q_ASSERT(label.hasProperty(Kwave::MetaData::STDPROP_TYPE) &&  // TODO: string to a constant!!
-                  (label[Kwave::MetaData::STDPROP_TYPE] == "Label" || label[Kwave::MetaData::STDPROP_TYPE] == "Label[level > 0]"));
+                 (label[Kwave::MetaData::STDPROP_TYPE] == "Label" || label[Kwave::MetaData::STDPROP_TYPE] == "Label[level > 0]"));
+         Q_ASSERT(label.hasProperty(LBRPROP_VIEW_VISIBLE));
 
          // Whole label is not visible. Ignore it.
-         if (label.scope() == Kwave::MetaData::Range && !label.hasProperty(LBRPROP_VIEW_BEGPIXEL) && !label.hasProperty(LBRPROP_VIEW_ENDPIXEL))
+         if (label.scope() == Kwave::MetaData::Range && ! label.hasProperty(LBRPROP_VIEW_POSPIXEL) && ! label.hasProperty(LBRPROP_VIEW_BEGPIXEL))
              continue;
-         if (label.scope() == Kwave::MetaData::Position && !label.hasProperty(LBRPROP_VIEW_POSPIXEL))
+         if (label.scope() == Kwave::MetaData::Position && ! label.hasProperty(LBRPROP_VIEW_POSPIXEL))
              continue;
 
          // The rectangle occupied by the text of the label and the rectangle into which the
@@ -284,11 +290,12 @@ void LabelView::setZoomAndOffset(double zoom, sample_index_t offset)
 qDebug("LabelelView::setZoomAndOffset(%lf, %llu) called", zoom, offset);
 
     Kwave::SignalView::setZoomAndOffset(zoom, offset);
+    m_visibleSignal = SRegion(offset, pixels2samples(width()));
     repaint();
 }
 
 //***************************************************************************
-void LabelView::setPaintPos(MetaDataList::Iterator labels)
+void LabelView::setPaintPos(MetaDataList::Iterator labels, const QRect paintregion)
 {
     // Go through all the labels
     while (labels.hasNext()) {
@@ -297,11 +304,6 @@ void LabelView::setPaintPos(MetaDataList::Iterator labels)
 
          Q_ASSERT(label.hasProperty(Kwave::MetaData::STDPROP_TYPE));
          Q_ASSERT(label[Kwave::MetaData::STDPROP_TYPE] == LabelerPlugin::LBRPROP_TYPEVAL);
-
-         // Clear the old values
-         label.setProperty(LBRPROP_VIEW_BEGPIXEL, QVariant::Invalid);
-         label.setProperty(LBRPROP_VIEW_ENDPIXEL, QVariant::Invalid);
-         label.setProperty(LBRPROP_VIEW_POSPIXEL, QVariant::Invalid);
 
          // copy the necessary position values
          if (label.scope() == Kwave::MetaData::Range) {
@@ -317,14 +319,21 @@ void LabelView::setPaintPos(MetaDataList::Iterator labels)
              // get the reference to the 0-th level bounding labels
              Kwave::MetaData & b = m_signal_manager->metaData()[label[LabelerPlugin::LBRPROP_START_REFID].toString()];
              Kwave::MetaData & e = m_signal_manager->metaData()[label[LabelerPlugin::LBRPROP_END_REFID].toString()];
+             QString bsamplprop(label[LabelerPlugin::LBRPROP_START_REFPOS].toString());
+             QString esamplprop(label[LabelerPlugin::LBRPROP_END_REFPOS].toString());
+             // not visible, ignore
+             if (e[esamplprop].toULongLong() < m_visibleSignal.left() || b[bsamplprop].toULongLong() > m_visibleSignal.right()) {
+                  label.setProperty(LBRPROP_VIEW_BEGPIXEL, QVariant::Invalid);
+                  label.setProperty(LBRPROP_VIEW_ENDPIXEL, QVariant::Invalid);
+                  continue;
+             }
+
+             // pixel position properties
              QString bpixelprop(PROP_PIXELPOS(label[LabelerPlugin::LBRPROP_START_REFPOS].toString()));
              QString epixelprop(PROP_PIXELPOS(label[LabelerPlugin::LBRPROP_END_REFPOS].toString()));
-
              // set the boundary pixels directly to the label
-             if (b.hasProperty(bpixelprop))
-                 label.setProperty(LBRPROP_VIEW_BEGPIXEL, b[bpixelprop]);
-             if (e.hasProperty(epixelprop))
-                 label.setProperty(LBRPROP_VIEW_ENDPIXEL, e[epixelprop]);
+             label.setProperty(LBRPROP_VIEW_BEGPIXEL, b.hasProperty(bpixelprop) ? b[bpixelprop] : paintregion.left());
+             label.setProperty(LBRPROP_VIEW_ENDPIXEL, e.hasProperty(epixelprop) ? e[epixelprop] : paintregion.right());
          }
          if (label.scope() == Kwave::MetaData::Position) {
              // must have the reference properties
@@ -335,11 +344,16 @@ void LabelView::setPaintPos(MetaDataList::Iterator labels)
 
              // get the reference to the 0-th level label
              Kwave::MetaData & l = m_signal_manager->metaData()[label[LabelerPlugin::LBRPROP_POS_REFID].toString()];
-             QString pixelprop(PROP_PIXELPOS(label[LabelerPlugin::LBRPROP_POS_REFPOS].toString()));
+             QString samplprop(label[LabelerPlugin::LBRPROP_POS_REFPOS].toString());
+             // not visible, ignore
+             if (l[samplprop].toULongLong() < m_visibleSignal.left() || l[samplprop].toULongLong() > m_visibleSignal.right()) {
+                  label.setProperty(LBRPROP_VIEW_POSPIXEL, QVariant::Invalid);
+                  continue;
+             }
 
+             QString pixelprop(PROP_PIXELPOS(label[LabelerPlugin::LBRPROP_POS_REFPOS].toString()));
              // set the boundary pixels directly to the label
-             if (l.hasProperty(pixelprop))
-                 label.setProperty(LBRPROP_VIEW_POSPIXEL, l[pixelprop]);
+             label.setProperty(LBRPROP_VIEW_POSPIXEL, l.hasProperty(pixelprop) ? l[pixelprop] : QVariant::Invalid);
          }
     }
 }

@@ -63,6 +63,10 @@ private :
     {
     public:
 
+      SRegion()
+      {
+        m_beg = m_len = 0;
+      }
       SRegion(sample_index_t beg, sample_index_t len)
       {
         m_beg = beg;
@@ -100,11 +104,9 @@ private :
      *  @param labels the iterator through labels for which to paint the marks (the visible
      *         labels are detected in the method)
      *  @param paintregion limits the region to paint into; usually set to <code>this->rect()</code>
-     *  @param samplesregion the region to paint transformed from pixels to samples (for the
-     *         given zoom and offset
      */
     void paintVMarks(QPainter & painter, Kwave::MetaDataList::Iterator labels,
-                     const QRect paintregion, const SRegion samplesregion);
+                     const QRect paintregion);
     /** In this view it paints the boxes with label description for the given labels. The
      *  visibility of labels is determined from the existence of<code>LBRPROP_VIEW_*PIXEL</code>
      *  properties of the labels.
@@ -126,9 +128,17 @@ private :
      *  to the value of the 0-th label which the current label is aligned to. The method must
      *  be called after ::paintVMarks()
      *  @param labels the iterator through labels for which to set/update the paint positions
+     *  @param paintregion the region to paint into, used to determine x-axe constraints; the width
+     *         must be equal to the region used for ::paintVMarks()
      *  @see ::paintVMarks()
      */
-    void setPaintPos(Kwave::MetaDataList::Iterator labels);
+    void setPaintPos(Kwave::MetaDataList::Iterator labels, const QRect paintregion);
+
+
+
+    /** The region of signal visible for the given zoom and offset. The variable is updated by
+     *  ::setZoomAndOffset(double, sample_index_t) method and should only be read in other places. */
+    SRegion m_visibleSignal;
 
     /** Property (stored to range-scope labels) holding the position of the label's beginning
      *  in this view [in pixels]. The value is of <code>int</code> type, and is defined only if

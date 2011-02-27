@@ -25,6 +25,14 @@
 // define this for using only slow Qt array functions
 #undef STRICTLY_QT
 
+#ifndef unlikely
+#define unlikely(x) (__builtin_expect((x),0))
+#endif
+
+#ifndef likely
+#define likely(x) (__builtin_expect((x),1))
+#endif
+
 //***************************************************************************
 //***************************************************************************
 Stripe::MappedArray::MappedArray(Stripe &stripe)
@@ -526,10 +534,22 @@ void Stripe::minMax(unsigned int first, unsigned int last,
     Q_ASSERT(first <= last);
     Q_ASSERT(last < m_data->m_length);
     buffer += first;
-    while (first++ <= last) {
+    unsigned int remaining = last - first + 1;
+
+    // speedup: process a block of 8 samples at once, to allow loop unrolling
+    const unsigned int block = 8;
+    while (likely(remaining >= block)) {
+	for (unsigned int count = 0; count < block; count++) {
+	    register sample_t s = *(buffer++);
+	    if (unlikely(s < lo)) lo = s;
+	    if (unlikely(s > hi)) hi = s;
+	}
+	remaining -= block;
+    }
+    while (likely(remaining--)) {
 	register sample_t s = *(buffer++);
-	if (s < lo) lo = s;
-	if (s > hi) hi = s;
+	if (unlikely(s < lo)) lo = s;
+	if (unlikely(s > hi)) hi = s;
     }
     min = lo;
     max = hi;

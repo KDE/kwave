@@ -30,6 +30,14 @@
 #include "libkwave/modules/Indexer.h"
 #include "libkwave/modules/KwaveStreamObject.h"
 
+#ifndef unlikely
+#define unlikely(x) (__builtin_expect((x),0))
+#endif
+
+#ifndef likely
+#define likely(x) (__builtin_expect((x),1))
+#endif
+
 //***************************************************************************
 Kwave::ChannelMixer::ChannelMixer(unsigned int inputs, unsigned int outputs)
     :Kwave::SampleSource(),
@@ -249,35 +257,25 @@ void Kwave::ChannelMixer::mix()
     }
 
     // mix all channels together, using the mixer matrix
-    QVarLengthArray<sample_t> v_in(m_inputs);
-    for (unsigned int pos = 0; pos < min_len; pos++) {
-	
-	// fill the vector with raw input data
-	for (unsigned int x = 0; x < m_inputs; x++) {
-	    v_in[x] = *(input[x]);
-	    ++(input[x]);
-	}
-
-	// multiply matrix with input to get output
-	for (unsigned int y = 0; y < m_outputs; y++) {
+    for (unsigned int y = 0; y < m_outputs; y++) {
+	sample_t *out = output[y];
+	for (unsigned int pos = 0; pos < min_len; pos++) {
 	    double sum = 0.0;
 	    for (unsigned int x = 0; x < m_inputs; x++) {
 		const double f = (*m_matrix)[x][y];
-		const double i = static_cast<double>(v_in[x]);
+		const double i = static_cast<double>(input[x][pos]);
 		sum += (f * i);
 	    }
-	    *(output[y]) = static_cast<double>(sum);
-	    ++(output[y]);
+	    out[pos] = static_cast<sample_t>(sum);
 	}
+
+	// emit the output
+	QPointer<Kwave::SampleBuffer> out_buf = m_output_buffer[y];
+	if (unlikely(out_buf->data().size() > min_len))
+	    out_buf->data().resize(min_len);
+	out_buf->done();
     }
 
-    // emit the output
-    foreach (QPointer<Kwave::SampleBuffer> buffer, m_output_buffer) {
-	// shrink output buffer is not enough data is available
-	if (buffer->data().size() > min_len)
-	    buffer->data().resize(min_len);
-	buffer->done();
-    }
 }
 
 //***************************************************************************

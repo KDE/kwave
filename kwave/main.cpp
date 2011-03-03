@@ -128,7 +128,6 @@ void addDataStrings(KAboutData &aboutdata)
 extern "C" void probe_fast_memcpy(void);
 #endif /* HAVE_OPTIMIZED_MEMCPY */
 
-
 //***************************************************************************
 int main( int argc, char **argv )
 {
@@ -150,9 +149,6 @@ int main( int argc, char **argv )
     addDataStrings(about);
 
     /* show some version info */
-//     QString kde_version = QString::fromLatin1(KDE_VERSION_STRING);
-//     QString version_text = QString("This is %1 v%2 (compiled for KDE %3)").arg(
-// 	about.programName()).arg(about.version()).arg(kde_version);
     printf("\nThis is %s v%s (compiled for KDE %s)\n",
 	about.productName().toAscii().data(),
 	about.version().toAscii().data(),
@@ -170,12 +166,10 @@ int main( int argc, char **argv )
     printf("\n");
 #endif /* HAVE_OPTIMIZED_MEMCPY */
 
-#ifdef UNIQUE_APP
     if (!KUniqueApplication::start()) {
 	qWarning("Kwave is already running!");
 	exit(0);
     }
-#endif // UNIQUE_APP
 
     KwaveApp app;
     KwaveSplash splash("pics/kwave-splash.png");

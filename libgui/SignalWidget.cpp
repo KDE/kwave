@@ -145,7 +145,7 @@ namespace KwaveFileDrag
 //***************************************************************************
 SignalWidget::SignalWidget(QWidget *parent)
     :QWidget(parent), m_image(),
-    m_offset(0), m_width(0), m_height(0), m_last_width(0), m_last_height(0),
+    m_offset(0), m_width(0), m_height(0),
     m_zoom(0.0), m_vertical_zoom(1.0), m_playpointer(-1), m_last_playpointer(-1),
     m_redraw(false), m_inhibit_repaint(0), m_selection(0), m_signal_manager(this),
     m_track_pixmaps(), m_mouse_mode(Kwave::MouseMark::MouseNormal), 
@@ -1507,7 +1507,6 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 {
     Q_ASSERT(e);
     Q_ASSERT(m_selection);
-    Q_ASSERT(m_width);
     if (!e) return;
     if (!m_selection) return;
     if (!m_width) return;
@@ -1654,25 +1653,22 @@ void SignalWidget::paintEvent(QPaintEvent *)
 
     int n_tracks = m_signal_manager.isClosed() ? 0 : tracks();
 
-    m_width = QWidget::width();
+    m_width  = QWidget::width();
     m_height = QWidget::height();
 
 //     qDebug("SignalWidget::paintEvent(): width=%d, height=%d",m_width,m_height);
 
     // --- detect size changes and refresh the whole display ---
-    if ((m_width != m_last_width) || (m_height != m_last_height)) {
+    if ((m_width != m_image.width()) || (m_height != m_image.height())) {
 //	qDebug("SignalWidget::paintEvent(): window size changed from "
 //	      "%dx%d to %dx%d",lastWidth,lastHeight,m_width,m_height);
-	for (int i=0; i<3; i++) {
+	for (int i = 0; i < 3; i++) {
 	    m_layer[i] = QImage(m_width, m_height,
 	        QImage::Format_ARGB32_Premultiplied);
 	    m_update_layer[i] = true;
 	}
 	m_image = QImage(m_width, m_height,
 	    QImage::Format_ARGB32_Premultiplied);
-
-	m_last_width  = m_width;
-	m_last_height = m_height;
 
 	// check and correct m_zoom and m_offset
 	setZoom(m_zoom);

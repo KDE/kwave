@@ -708,12 +708,6 @@ private:
     /** height of the widget in pixels, cached value */
     int m_height;
 
-    /** last/previous width of the widget, for detecting size changes */
-    int m_last_width;
-
-    /** last/previous height of the widget, for detecting size changes */
-    int m_last_height;
-
     /** number of samples per pixel */
     double m_zoom;
 

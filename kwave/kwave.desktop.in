@@ -16,4 +16,5 @@ Icon=kwave
 MimeType=${KWAVE_DESKTOP_MIME_TYPES}
 Terminal=false
 Categories=Qt;KDE;AudioVideo;Audio;Player;Recorder;AudioVideoEditing;
+X-DBUS-StartupType=Unique
 X-SuSE-translate=true

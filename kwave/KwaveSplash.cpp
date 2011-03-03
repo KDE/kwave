@@ -18,6 +18,7 @@
 #include "config.h"
 
 #include <QApplication>
+#include <QDesktopWidget>
 #include <QFont>
 #include <QLabel>
 #include <QPainter>
@@ -35,10 +36,10 @@
 
 // static pointer to the current instance
 QPointer<KwaveSplash> KwaveSplash::m_splash = 0;
-
+ 
 //***************************************************************************
 KwaveSplash::KwaveSplash(const QString &PNGImageFileName)
-    :QSplashScreen(0),
+    :QFrame(0, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
      m_pixmap(KStandardDirs::locate("appdata", PNGImageFileName))
 {
     m_splash = this;
@@ -86,7 +87,11 @@ KwaveSplash::KwaveSplash(const QString &PNGImageFileName)
     p.drawText(x, y, tw, th, Qt::AlignCenter, version);
 
     p.end();
-    setPixmap(m_pixmap);
+
+    // center on the screen
+    rect = QRect(QPoint(), m_pixmap.size());
+    resize(rect.size());
+    move(QApplication::desktop()->screenGeometry().center() - rect.center());
 
     // auto-close in 4 seconds...
     QTimer::singleShot(4000, this, SLOT(done()));
@@ -109,8 +114,33 @@ KwaveSplash::~KwaveSplash()
 void KwaveSplash::showMessage(const QString &message)
 {
     if (!m_splash) return;
-    static_cast<QSplashScreen *>(m_splash)->showMessage(message);
+    m_splash->m_message = message;
+    m_splash->repaint();
     QApplication::processEvents();
+}
+
+//***************************************************************************
+void KwaveSplash::paintEvent(QPaintEvent *)
+{
+    QRect rect(this->rect());
+    const int border = 5;
+    rect.setRect(
+	rect.x() + border, 
+	rect.y() + border, 
+	rect.width()  - (2 * border), 
+	rect.height() - (2 * border)
+    );
+ 
+    QPainter p(this);
+    p.drawPixmap(this->rect(), m_pixmap);
+    p.setPen(Qt::black);
+    p.drawText(rect, Qt::AlignLeft, m_message);
+}
+
+//***************************************************************************
+void KwaveSplash::mousePressEvent(QMouseEvent *)
+{
+    hide();
 }
 
 //***************************************************************************

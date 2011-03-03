@@ -350,7 +350,7 @@ void OverViewWidget::calculateBitmap()
 
     int width  = this->width();
     int height = this->height();
-    if (!width || !height || !m_view_width || !length)
+    if (!width || !height || !m_view_width || !length || !m_signal_length)
 	return;
 
     const double scale = static_cast<double>(width) /

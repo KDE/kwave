@@ -195,7 +195,6 @@ void PlayBackPulseAudio::notifySinkInfo(pa_context *c,
 void PlayBackPulseAudio::notifyStreamState(pa_stream* stream)
 {
     Q_ASSERT(stream);
-    Q_ASSERT(stream = m_pa_stream);
     if (!stream || (stream != m_pa_stream)) return;
 
     switch (pa_stream_get_state(stream)) {

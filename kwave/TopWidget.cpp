@@ -109,7 +109,7 @@ TopWidget::TopWidget(Kwave::ApplicationContext &context)
      m_lbl_status_size(0), m_lbl_status_mode(0), m_lbl_status_cursor(0)
 {
     KIconLoader icon_loader;
-
+    
     // status bar items
     KStatusBar *status_bar = statusBar();
     Q_ASSERT(status_bar);
@@ -527,14 +527,13 @@ int TopWidget::executeCommand(const QString &line)
 	qWarning("TopWidget::executeCommand('%s') - currently not possible, "\
 		 "a plugin is running :-(",
 		 parser.command().toLocal8Bit().data());
-	return false;
+	return -1;
     }
 
     if (use_recorder) {
 	// append the command to the macro recorder
 	// @TODO macro recording...
-	qDebug("TopWidget::executeCommand() >>> %s <<<",
-	       command.toLocal8Bit().data());
+	qDebug("# %s ", command.toLocal8Bit().data());
     }
 
     if (m_context.application().executeCommand(command)) {
@@ -612,15 +611,11 @@ int TopWidget::executeCommand(const QString &line)
     CASE_COMMAND("saveselect")
 	result = saveFileAs(true);
     CASE_COMMAND("quit")
-	result = close();
+	result = (close()) ? 0 : -1;
     } else {
 	// try to forward the command to the main widget
 	Q_ASSERT(m_main_widget);
-	if (m_main_widget) result = m_main_widget->executeCommand(command);
-
-	// if unknown: try to forward command to the signal manager
-	if ((result == -ENOSYS) && m_context.signalManager())
-	    result = m_context.signalManager()->executeCommand(command);
+	return (m_main_widget) ? m_main_widget->executeCommand(command) : -1;
     }
 
     return result;
@@ -704,6 +699,8 @@ int TopWidget::parseCommands(QTextStream &stream)
 	    continue;
 	}
 
+	Parser parser(line);
+
 	// the "goto" command
 	if (line.split(' ').at(0) == "goto") {
 	    qDebug(">>> detected 'goto'");
@@ -722,16 +719,30 @@ int TopWidget::parseCommands(QTextStream &stream)
 	// synchronize before the command
 	if (m_context.pluginManager()) m_context.pluginManager()->sync();
 
+	// the "msgbox" command (useful for debugging)
+	if (parser.command() == "msgbox") {
+	    QApplication::restoreOverrideCursor();
+	    result = (Kwave::MessageBox::questionYesNo(this, 
+		parser.firstParam()) == KMessageBox::Yes) ? 0 : 1;
+	    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	    continue;
+	}
+
 	// prevent this command from being re-added to the macro recorder
 	if (!line.startsWith("nomacro:", Qt::CaseInsensitive))
 	    line = "nomacro:" + line;
 
 	// emit the command
-// 	qDebug(">>> '%s'", line.toLocal8Bit().data());
-	executeCommand(line);
+	result = executeCommand(line);
+// 	qDebug(">>> '%s' - result=%d", line.toLocal8Bit().data(), result);
 
 	// synchronize after the command
 	if (m_context.pluginManager()) m_context.pluginManager()->sync();
+	
+	// special handling of the "quit" command
+	if (parser.command() == "quit") {
+	    break;
+	}
     }
 
     // remove hourglass

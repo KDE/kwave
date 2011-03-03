@@ -128,7 +128,6 @@ void addDataStrings(KAboutData &aboutdata)
 extern "C" void probe_fast_memcpy(void);
 #endif /* HAVE_OPTIMIZED_MEMCPY */
 
-
 //***************************************************************************
 int main( int argc, char **argv )
 {
@@ -167,12 +166,10 @@ int main( int argc, char **argv )
     printf("\n");
 #endif /* HAVE_OPTIMIZED_MEMCPY */
 
-#ifdef UNIQUE_APP
     if (!KUniqueApplication::start()) {
 	qWarning("Kwave is already running!");
 	exit(0);
     }
-#endif // UNIQUE_APP
 
     KwaveApp app;
     KwaveSplash splash("pics/kwave-splash.png");

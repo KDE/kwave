@@ -16,6 +16,8 @@
  * bugfix: optimized memcpy for PPC (SF bug #3068664)
  * doc: upgrade to DocBook XML V4.2 / V1.1
  * build fixes for qt-4.7
+ * no longer using QSplashScreen (has side effects, operates as modal window)
+ * bugfix: startup as unique application did not work correctly
 
 0.8.5  [2009-12-24]
 

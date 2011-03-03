@@ -18,14 +18,16 @@
 #ifndef _KWAVE_SPLASH_H_
 #define _KWAVE_SPLASH_H_
 
+#include <QFrame>
 #include <QObject>
 #include <QPixmap>
 #include <QPointer>
-#include <QSplashScreen>
+#include <QString>
 
-class QString;
+class QMouseEvent;
+class QPaintEvent;
 
-class KwaveSplash : public QSplashScreen
+class KwaveSplash : public QFrame
 {
 Q_OBJECT
 
@@ -43,6 +45,12 @@ public:
     /** wrapper for QSplashScreen::showMessage with only one parameter */
     static void showMessage(const QString &message);
 
+    /** handles the painting of this splash screen */
+    virtual void paintEvent(QPaintEvent *e);
+    
+    /** hides the splash screen on mouse click */
+    virtual void mousePressEvent(QMouseEvent *);
+    
 private slots:
 
     /** called when the splashscreen timer elapsed */
@@ -52,7 +60,10 @@ private:
 
     /** pixmap with the Kwave logo */
     QPixmap m_pixmap;
-
+ 
+    /** last status message */
+    QString  m_message;
+ 
     /** static instance */
     static QPointer<KwaveSplash> m_splash;
 

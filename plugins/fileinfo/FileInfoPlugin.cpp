@@ -83,16 +83,25 @@ void FileInfoPlugin::apply(FileInfo &new_info)
 	    i18n("&Convert"),
 	    i18n("&Set Rate"));
 	if (res == KMessageBox::Yes) {
-	    // resample
+	    // Yes -> resample
+	    
+	    // take over all properties except the new sample rate, this will
+	    // be detected and changed in the sample rate plugin
+	    new_info.setRate(fileInfo().rate());
+	    signalManager().setFileInfo(new_info, true);
+
+	    // NOTE: this command could be executed asynchronously, thus
+	    //       we cannot change the sample rate afterwards
 	    emitCommand(QString(
 		"plugin:execute(samplerate,%1,all)").arg(new_rate)
 	    );
-	    new_info.setRate(new_rate);
+
+	    return;
 	} else if (res == KMessageBox::No) {
-	    // change the rate only
+	    // No -> only change the rate in the file info
 	    new_info.setRate(new_rate);
 	} else {
-	    // canceled -> use old setting
+	    // canceled -> use old sample rate
 	    new_info.setRate(fileInfo().rate());
 	}
     }

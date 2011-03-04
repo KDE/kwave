@@ -57,7 +57,7 @@ SampleRatePlugin::~SampleRatePlugin()
 //***************************************************************************
 int SampleRatePlugin::interpreteParameters(QStringList &params)
 {
-    bool ok;
+    bool ok = false;
     QString param;
 
     // set defaults
@@ -95,6 +95,7 @@ void SampleRatePlugin::run(QStringList params)
 	return;
 
     double old_rate = fileInfo().rate();
+    qDebug("old_rate=%0.1f, new_rate=%0.1f", old_rate, m_new_rate); // ###
     if ((old_rate <= 0) || (old_rate == m_new_rate)) return;
 
     UndoTransactionGuard undo_guard(*this, i18n("Change sample rate"));

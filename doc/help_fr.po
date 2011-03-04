@@ -2,20 +2,20 @@
 # Gilles CAULIER <caulier.gilles@free.fr>, 2003.
 # CAULIER Gilles <caulier.gilles@free.fr>, 2003.
 # Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>, 2003, 2004, 2005, 2007, 2008.
-# Gilles Caulier <caulier.gilles@free.fr>, 2003.
+# Gilles Caulier <caulier.gilles@free.fr>, 2003, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2011-02-19 09:47+0000\n"
-"PO-Revision-Date: 2008-12-22 20:27+0100\n"
-"Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
-"Language-Team: Deutsch <de@li.org>\n"
+"POT-Creation-Date: 2011-03-04 14:30+0000\n"
+"PO-Revision-Date: 2011-03-04 15:24+0100\n"
+"Last-Translator: \n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.2\n"
 
 #. Tag: title
 #: help_en-work.docbook:15
@@ -63,14 +63,14 @@ msgstr "Thomas Eschenbacher"
 #. Tag: date
 #: help_en-work.docbook:35
 #, no-c-format
-msgid "2011-02-19"
-msgstr ""
+msgid "2011-03-04"
+msgstr "2011-03-04"
 
 #. Tag: releaseinfo
 #: help_en-work.docbook:36
 #, no-c-format
 msgid "&version;"
-msgstr ""
+msgstr "&version;"
 
 #. Tag: para
 #: help_en-work.docbook:38
@@ -4414,6 +4414,12 @@ msgstr ""
 #. Tag: para
 #: help_en-work.docbook:2874
 #, no-c-format
+msgid "Pavel Fric <email>pavelfric@seznam.cz</email> (Czech translation)"
+msgstr ""
+
+#. Tag: para
+#: help_en-work.docbook:2881
+#, no-c-format
 msgid ""
 "Aurelien Jarno <email>aurel32@debian.org</email> (<ulink url=\"http://www."
 "debian.org\">debian</ulink> packager)"
@@ -4422,20 +4428,20 @@ msgstr ""
 "distribution <ulink url=\"http://www.debian.org\">debian</ulink>)"
 
 #. Tag: para
-#: help_en-work.docbook:2881
+#: help_en-work.docbook:2888
 #, no-c-format
 msgid "Martin Kuball <email>makube@user.sourceforge.net</email> (beta tester)"
 msgstr ""
 "Martin Kuball <email>makube@user.sourceforge.net</email> (bêta testeur)"
 
 #. Tag: para
-#: help_en-work.docbook:2887
+#: help_en-work.docbook:2894
 #, no-c-format
 msgid "my wife Ximena González<emphasis> (for her patience)</emphasis>"
 msgstr "Ma femme Ximena González<emphasis> (pour toute sa patience)</emphasis>"
 
 #. Tag: para
-#: help_en-work.docbook:2891
+#: help_en-work.docbook:2898
 #, no-c-format
 msgid ""
 "T.H.F. Klok and Cedric Tefft (maintainers of the <ulink url=\"http://www."
@@ -4445,7 +4451,7 @@ msgstr ""
 "\"http://www.id3lib.org/\"> id3lib</ulink>)"
 
 #. Tag: para
-#: help_en-work.docbook:2898
+#: help_en-work.docbook:2905
 #, no-c-format
 msgid ""
 "Robert Leslie <email>rob@mars.org</email> (author of the <ulink url=\"http://"
@@ -4456,7 +4462,7 @@ msgstr ""
 "décodage des fichiers MP3)"
 
 #. Tag: para
-#: help_en-work.docbook:2907
+#: help_en-work.docbook:2914
 #, no-c-format
 msgid ""
 "Erik de Castro Lopo <email>erikd@zip.com.au</email> (author of the <ulink "
@@ -4467,7 +4473,7 @@ msgstr ""
 "</ulink>)"
 
 #. Tag: para
-#: help_en-work.docbook:2917
+#: help_en-work.docbook:2924
 #, fuzzy, no-c-format
 msgid ""
 "Michael Pruett <email>mpruett@sgi.com</email> (author of the <ulink url="
@@ -4478,7 +4484,7 @@ msgstr ""
 "« audiofile »</ulink>)"
 
 #. Tag: para
-#: help_en-work.docbook:2926
+#: help_en-work.docbook:2933
 #, no-c-format
 msgid ""
 "Robert M. Stockmann <email>stock@stokkie.net</email> (packaging for "
@@ -4486,7 +4492,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2933
+#: help_en-work.docbook:2940
 #, no-c-format
 msgid ""
 "Diederick de Vries <email>diederick76@gmail.com</email> (packaging for Crux "
@@ -4494,17 +4500,17 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en-work.docbook:2942
+#: help_en-work.docbook:2949
 #, fuzzy, no-c-format
 msgid ""
-"Documentation copyright (C) 2006 Thomas Eschenbacher <email>thomas."
+"Documentation copyright (C) 2011 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 msgstr ""
 "Documentation copyright (C) 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 
 #. Tag: chapter
-#: help_en-work.docbook:2945
+#: help_en-work.docbook:2952
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr ""

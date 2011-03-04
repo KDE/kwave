@@ -4,8 +4,8 @@
   <!ENTITY kappname "&kwave;">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "0.8.5">
-  <!ENTITY version_tag "0_8_5">
+  <!ENTITY version "0.8.6">
+  <!ENTITY version_tag "0_8_6">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
 ]>
 
@@ -28,11 +28,11 @@
     </authorgroup>
 
     <copyright><year>1998-2000</year><holder>Martin Wilz</holder></copyright>
-    <copyright><year>2009</year><holder>Thomas Eschenbacher</holder></copyright>
+    <copyright><year>2011</year><holder>Thomas Eschenbacher</holder></copyright>
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2011-02-19</date>
+    <date>2011-03-04</date>
     <releaseinfo>&version;</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor for KDE.</para></abstract>
@@ -2960,6 +2960,13 @@
 	    </listitem>
 	    <listitem>
 	        <para>
+		    Pavel Fric
+		    <email>pavelfric@seznam.cz</email>
+		    (Czech translation)
+		</para>
+	    </listitem>
+	    <listitem>
+	        <para>
 		    Aurelien Jarno
 		    <email>aurel32@debian.org</email>
 		    (<ulink url="http://www.debian.org">debian</ulink> packager)
@@ -3028,7 +3035,7 @@
     </para>
 
     <para>
-	Documentation copyright (C) 2006 Thomas Eschenbacher
+	Documentation copyright (C) 2011 Thomas Eschenbacher
 	<email>thomas.eschenbacher@gmx.de</email>
     </para>
 

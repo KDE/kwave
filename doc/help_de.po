@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2011-02-19 09:47+0000\n"
-"PO-Revision-Date: 2011-02-19 10:37+0100\n"
+"POT-Creation-Date: 2011-03-04 14:30+0000\n"
+"PO-Revision-Date: 2011-03-04 15:34+0100\n"
 "Last-Translator: \n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -60,8 +60,8 @@ msgstr "Thomas Eschenbacher"
 #. Tag: date
 #: help_en-work.docbook:35
 #, no-c-format
-msgid "2011-02-19"
-msgstr ""
+msgid "2011-03-04"
+msgstr "2011-03-04"
 
 #. Tag: releaseinfo
 #: help_en-work.docbook:36
@@ -4792,6 +4792,13 @@ msgstr ""
 #. Tag: para
 #: help_en-work.docbook:2874
 #, no-c-format
+msgid "Pavel Fric <email>pavelfric@seznam.cz</email> (Czech translation)"
+msgstr ""
+"Pavel Fric <email>pavelfric@seznam.cz</email> (Tschechische Übersetzung)"
+
+#. Tag: para
+#: help_en-work.docbook:2881
+#, no-c-format
 msgid ""
 "Aurelien Jarno <email>aurel32@debian.org</email> (<ulink url=\"http://www."
 "debian.org\">debian</ulink> packager)"
@@ -4800,19 +4807,19 @@ msgstr ""
 "debian.org\">Debian</ulink>-Pakete)"
 
 #. Tag: para
-#: help_en-work.docbook:2881
+#: help_en-work.docbook:2888
 #, no-c-format
 msgid "Martin Kuball <email>makube@user.sourceforge.net</email> (beta tester)"
 msgstr "Martin Kuball <email>makube@user.sourceforge.net</email> (Beta-Tester)"
 
 #. Tag: para
-#: help_en-work.docbook:2887
+#: help_en-work.docbook:2894
 #, no-c-format
 msgid "my wife Ximena González<emphasis> (for her patience)</emphasis>"
 msgstr "meine Frau Ximena González <emphasis>(für ihre Geduld)</emphasis>"
 
 #. Tag: para
-#: help_en-work.docbook:2891
+#: help_en-work.docbook:2898
 #, no-c-format
 msgid ""
 "T.H.F. Klok and Cedric Tefft (maintainers of the <ulink url=\"http://www."
@@ -4822,7 +4829,7 @@ msgstr ""
 "org/\"> id3lib</ulink> Bibliothek)"
 
 #. Tag: para
-#: help_en-work.docbook:2898
+#: help_en-work.docbook:2905
 #, no-c-format
 msgid ""
 "Robert Leslie <email>rob@mars.org</email> (author of the <ulink url=\"http://"
@@ -4832,7 +4839,7 @@ msgstr ""
 "www.mars.org/home/rob/proj/mpeg/\">mad</ulink> mp3-Decoder-Bibliothek)"
 
 #. Tag: para
-#: help_en-work.docbook:2907
+#: help_en-work.docbook:2914
 #, no-c-format
 msgid ""
 "Erik de Castro Lopo <email>erikd@zip.com.au</email> (author of the <ulink "
@@ -4842,7 +4849,7 @@ msgstr ""
 "\"http://www.zip.com.au/~erikd/libsndfile/\">sndfile</ulink>-Bibliothek)"
 
 #. Tag: para
-#: help_en-work.docbook:2917
+#: help_en-work.docbook:2924
 #, no-c-format
 msgid ""
 "Michael Pruett <email>mpruett@sgi.com</email> (author of the <ulink url="
@@ -4852,7 +4859,7 @@ msgstr ""
 "www.68k.org/~michael/audiofile/\">audiofile</ulink> Bibliothek)"
 
 #. Tag: para
-#: help_en-work.docbook:2926
+#: help_en-work.docbook:2933
 #, no-c-format
 msgid ""
 "Robert M. Stockmann <email>stock@stokkie.net</email> (packaging for "
@@ -4862,7 +4869,7 @@ msgstr ""
 "X86_64)"
 
 #. Tag: para
-#: help_en-work.docbook:2933
+#: help_en-work.docbook:2940
 #, no-c-format
 msgid ""
 "Diederick de Vries <email>diederick76@gmail.com</email> (packaging for Crux "
@@ -4872,17 +4879,18 @@ msgstr ""
 "Linux)"
 
 #. Tag: para
-#: help_en-work.docbook:2942
+#: help_en-work.docbook:2949
 #, no-c-format
 msgid ""
-"Documentation copyright (C) 2006 Thomas Eschenbacher <email>thomas."
+"Documentation copyright (C) 2011 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 msgstr ""
-"Dokumentation Copyright (C) 2006 Thomas Eschenbacher <email>thomas."
+"Dokumentation Copyright (C) 2011 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 
 #. Tag: chapter
-#: help_en-work.docbook:2945
+#: help_en-work.docbook:2952
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr "&underFDL; &underGPL;"
+

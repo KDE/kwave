@@ -4,20 +4,20 @@
 #
 # Pavel Fric <pavel@seznam.cz>, 2009.
 # Pavel Fric <pavelfric@seznam.cz>, 2009.
-# Pavel Fric <pavelfric@yahoo.com>, 2009.
+# Pavel Fric <pavelfric@yahoo.com>, 2009, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave_help_cs\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2011-02-19 09:47+0000\n"
-"PO-Revision-Date: 2009-11-14 17:30+0100\n"
-"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
-"Language-Team: Czech <>\n"
+"POT-Creation-Date: 2011-03-04 14:30+0000\n"
+"PO-Revision-Date: 2011-03-04 15:32+0100\n"
+"Last-Translator: \n"
+"Language-Team: Czech <kde-i18n-de@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Tag: title
@@ -62,14 +62,14 @@ msgstr "Thomas Eschenbacher"
 #. Tag: date
 #: help_en-work.docbook:35
 #, no-c-format
-msgid "2011-02-19"
-msgstr ""
+msgid "2011-03-04"
+msgstr "2011-03-04"
 
 #. Tag: releaseinfo
 #: help_en-work.docbook:36
 #, no-c-format
 msgid "&version;"
-msgstr ""
+msgstr "&version;"
 
 #. Tag: para
 #: help_en-work.docbook:38
@@ -260,13 +260,13 @@ msgstr "Grafické rozhraní rozšiřitelné přes snadno použitelný přídavn�
 
 #. Tag: para
 #: help_en-work.docbook:124
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "import/export of other audio formats through <ulink url=\"http://www.68k.org/"
 "~michael/audiofile/\">audiofile</ulink>"
 msgstr ""
-"Import a export dalších zvukových formátů přes <ulink url=\"http://freeware."
-"sgi.com/Installable/audiofile-0.2.3.html\">zvukový soubor</ulink>"
+"Import a export dalších zvukových formátů přes <ulink url=\"www.68k.org/"
+"~michael/audiofile/\">zvukový soubor</ulink>"
 
 #. Tag: para
 #: help_en-work.docbook:131
@@ -2352,7 +2352,7 @@ msgstr ""
 
 #. Tag: para
 #: help_en-work.docbook:1277
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Additionally &kwave; supports many other common formats through the <ulink "
 "url=\"http://www.68k.org/~michael/audiofile/\">audiofile</ulink> plugin. You "
@@ -2361,11 +2361,11 @@ msgid ""
 "Format) and <filename>*.sf</filename> (Berkeley,IRCAM,Carl Sound Format)."
 msgstr ""
 "Dále &kwave; podporuje mnoho jiných běžných formátů prostřednictvím <ulink "
-"url=\"http://freeware.sgi.com/Installable/audiofile-0.2.3.html\">audiofile</"
-"ulink> přídavného modulu. Můžete zavést soubory jako <filename>*.au</"
-"filename> a <filename>*.snd</filename> (NeXT, Sun Audio), <filename>*.aiff</"
-"filename> (Audio Interchange Format) a <filename>*.sf</filename> (Berkeley, "
-"IRCAM,Carl Sound Format)."
+"url=\"http://www.68k.org/~michael/audiofile/\">audiofile</ulink> přídavného "
+"modulu. Můžete zavést soubory jako <filename>*.au</filename> a <filename>*."
+"snd</filename> (NeXT, Sun Audio), <filename>*.aiff</filename> (Audio "
+"Interchange Format) a <filename>*.sf</filename> (Berkeley, IRCAM,Carl Sound "
+"Format)."
 
 #. Tag: title
 #: help_en-work.docbook:1293
@@ -4729,6 +4729,12 @@ msgstr ""
 #. Tag: para
 #: help_en-work.docbook:2874
 #, no-c-format
+msgid "Pavel Fric <email>pavelfric@seznam.cz</email> (Czech translation)"
+msgstr ""
+
+#. Tag: para
+#: help_en-work.docbook:2881
+#, no-c-format
 msgid ""
 "Aurelien Jarno <email>aurel32@debian.org</email> (<ulink url=\"http://www."
 "debian.org\">debian</ulink> packager)"
@@ -4737,19 +4743,19 @@ msgstr ""
 "debian.org\">tvůrce balíčků</ulink> pro debian)"
 
 #. Tag: para
-#: help_en-work.docbook:2881
+#: help_en-work.docbook:2888
 #, no-c-format
 msgid "Martin Kuball <email>makube@user.sourceforge.net</email> (beta tester)"
 msgstr "Martin Kuball <email>makube@user.sourceforge.net</email> (beta tester)"
 
 #. Tag: para
-#: help_en-work.docbook:2887
+#: help_en-work.docbook:2894
 #, no-c-format
 msgid "my wife Ximena González<emphasis> (for her patience)</emphasis>"
 msgstr "moje žena Ximena González<emphasis> (za její trpělivost)</emphasis>"
 
 #. Tag: para
-#: help_en-work.docbook:2891
+#: help_en-work.docbook:2898
 #, no-c-format
 msgid ""
 "T.H.F. Klok and Cedric Tefft (maintainers of the <ulink url=\"http://www."
@@ -4759,7 +4765,7 @@ msgstr ""
 "id3lib</ulink> knihovny)"
 
 #. Tag: para
-#: help_en-work.docbook:2898
+#: help_en-work.docbook:2905
 #, no-c-format
 msgid ""
 "Robert Leslie <email>rob@mars.org</email> (author of the <ulink url=\"http://"
@@ -4769,7 +4775,7 @@ msgstr ""
 "mars.org/home/rob/proj/mpeg/\">mad</ulink> mp3 dekódovací knihovny)"
 
 #. Tag: para
-#: help_en-work.docbook:2907
+#: help_en-work.docbook:2914
 #, no-c-format
 msgid ""
 "Erik de Castro Lopo <email>erikd@zip.com.au</email> (author of the <ulink "
@@ -4779,18 +4785,17 @@ msgstr ""
 "\"http://www.mega-nerd.com/libsndfile/\">sndfile</ulink> knihovny)"
 
 #. Tag: para
-#: help_en-work.docbook:2917
-#, fuzzy, no-c-format
+#: help_en-work.docbook:2924
+#, no-c-format
 msgid ""
 "Michael Pruett <email>mpruett@sgi.com</email> (author of the <ulink url="
 "\"http://www.68k.org/~michael/audiofile/\">audiofile</ulink> library)"
 msgstr ""
 "Michael Pruett <email>mpruett@sgi.com</email> (autor <ulink url=\"http://"
-"freeware.sgi.com/Installable/audiofile-0.2.3.html\">audiofile</ulink> "
-"knihovny)"
+"www.68k.org/~michael/audiofile/\">audiofile</ulink> knihovny)"
 
 #. Tag: para
-#: help_en-work.docbook:2926
+#: help_en-work.docbook:2933
 #, no-c-format
 msgid ""
 "Robert M. Stockmann <email>stock@stokkie.net</email> (packaging for "
@@ -4800,7 +4805,7 @@ msgstr ""
 "proMandrake / X86_64)"
 
 #. Tag: para
-#: help_en-work.docbook:2933
+#: help_en-work.docbook:2940
 #, no-c-format
 msgid ""
 "Diederick de Vries <email>diederick76@gmail.com</email> (packaging for Crux "
@@ -4810,17 +4815,18 @@ msgstr ""
 "Crux Linux)"
 
 #. Tag: para
-#: help_en-work.docbook:2942
+#: help_en-work.docbook:2949
 #, no-c-format
 msgid ""
-"Documentation copyright (C) 2006 Thomas Eschenbacher <email>thomas."
+"Documentation copyright (C) 2011 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 msgstr ""
-"Copyright (C) k dokumentaci 2006 Thomas Eschenbacher <email>thomas."
+"Copyright (C) k dokumentaci 2011 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 
 #. Tag: chapter
-#: help_en-work.docbook:2945
+#: help_en-work.docbook:2952
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr "&underFDL; &underGPL;"
+

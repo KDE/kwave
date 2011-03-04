@@ -1,5 +1,5 @@
 
-0.8.6  [2011-??-??]
+0.8.6  [2011-03-07]
 
  * bugfix: copy/paste with partial track selection failed
  * bugfix: labels update after undo of copy&paste failed on multitrack signals
@@ -18,6 +18,7 @@
  * build fixes for qt-4.7
  * no longer using QSplashScreen (has side effects, operates as modal window)
  * bugfix: startup as unique application did not work correctly
+ * bugfix: potential crash in message loop of progress dialog
 
 0.8.5  [2009-12-24]
 

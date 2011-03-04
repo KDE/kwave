@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-19 10:48+0100\n"
+"POT-Creation-Date: 2011-03-04 15:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -162,19 +162,19 @@ msgstr ""
 msgid "String and i18n updates"
 msgstr ""
 
-#: kwave/main.cpp:137
+#: kwave/main.cpp:136
 msgid "List of WAV files"
 msgstr ""
 
-#: kwave/main.cpp:141
+#: kwave/main.cpp:140
 msgid "Kwave"
 msgstr ""
 
-#: kwave/main.cpp:143
+#: kwave/main.cpp:142
 msgid "A sound editor for KDE"
 msgstr ""
 
-#: kwave/main.cpp:145
+#: kwave/main.cpp:144
 msgid "(c) 2006, Thomas Eschenbacher"
 msgstr ""
 
@@ -294,37 +294,37 @@ msgstr ""
 msgid "Ready"
 msgstr ""
 
-#: kwave/TopWidget.cpp:794
+#: kwave/TopWidget.cpp:809
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:876
+#: kwave/TopWidget.cpp:891
 msgid "Open"
 msgstr ""
 
-#: kwave/TopWidget.cpp:921
+#: kwave/TopWidget.cpp:936
 msgid "Save As"
 msgstr ""
 
-#: kwave/TopWidget.cpp:944
+#: kwave/TopWidget.cpp:959
 #, kde-format
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1129
+#: kwave/TopWidget.cpp:1144
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1139
+#: kwave/TopWidget.cpp:1154
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1193
+#: kwave/TopWidget.cpp:1210
 #, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -332,7 +332,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1205
+#: kwave/TopWidget.cpp:1222
 #, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -340,66 +340,66 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1225
+#: kwave/TopWidget.cpp:1242
 #, kde-format
 msgid "Position: %1"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1246
+#: kwave/TopWidget.cpp:1263
 #, kde-format
 msgid "Playback: %1"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1248
+#: kwave/TopWidget.cpp:1265
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1265
+#: kwave/TopWidget.cpp:1282
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1267
+#: kwave/TopWidget.cpp:1284
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1276
+#: kwave/TopWidget.cpp:1293
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1278
+#: kwave/TopWidget.cpp:1295
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1289
+#: kwave/TopWidget.cpp:1306
 #, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "U&ndo (%1)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1290
+#: kwave/TopWidget.cpp:1307
 msgctxt "menu entry for undo if undo disabled"
 msgid "U&ndo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1296
+#: kwave/TopWidget.cpp:1313
 #, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "R&edo (%1)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1297
+#: kwave/TopWidget.cpp:1314
 msgctxt "menu entry for redo if redo disabled"
 msgid "R&edo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1495
+#: kwave/TopWidget.cpp:1512
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
@@ -422,7 +422,7 @@ msgstr ""
 msgid "Startup done"
 msgstr ""
 
-#: kwave/KwaveSplash.cpp:55
+#: kwave/KwaveSplash.cpp:56
 #, kde-format
 msgctxt "%1=Version number"
 msgid "v%1"
@@ -464,7 +464,7 @@ msgstr ""
 #: plugins/decoder_mp3/MP3Decoder.cpp:477
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:107
 #: plugins/record/RecordPlugin.cpp:828 plugins/record/RecordPlugin.cpp:844
-#: plugins/record/RecordPlugin.cpp:910 plugins/codec_wav/WavEncoder.cpp:415
+#: plugins/record/RecordPlugin.cpp:910 plugins/codec_wav/WavEncoder.cpp:413
 #: plugins/codec_wav/WavDecoder.cpp:333 plugins/playback/PlayBack-OSS.cpp:244
 #: plugins/playback/PlayBack-Phonon.cpp:148
 #: plugins/playback/PlayBack-Phonon.cpp:180
@@ -537,44 +537,44 @@ msgstr ""
 msgid "&Properties..."
 msgstr ""
 
-#: libgui/SignalWidget.cpp:1544 libkwave/undo/UndoSelection.cpp:51
+#: libgui/SignalWidget.cpp:1543 libkwave/undo/UndoSelection.cpp:51
 msgid "Selection"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:1574
+#: libgui/SignalWidget.cpp:1573
 #, kde-format
 msgid "Label #%1 (%2)"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:1575
+#: libgui/SignalWidget.cpp:1574
 #, kde-format
 msgid "Label #%1"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:1582
+#: libgui/SignalWidget.cpp:1581
 msgid "Selection, left border"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:1586
+#: libgui/SignalWidget.cpp:1585
 msgid "Selection, right border"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:1894 libkwave/undo/UndoAddLabelAction.cpp:42
-#: libkwave/SignalManager.cpp:1636
+#: libgui/SignalWidget.cpp:1890 libkwave/undo/UndoAddLabelAction.cpp:42
+#: libkwave/SignalManager.cpp:1635
 msgid "Add Label"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:2013
+#: libgui/SignalWidget.cpp:2009
 msgid ""
 "There already is a label at the position you have chosen.\n"
 "Do you want to replace it?"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:2041 libkwave/undo/UndoModifyLabelAction.cpp:51
+#: libgui/SignalWidget.cpp:2037 libkwave/undo/UndoModifyLabelAction.cpp:51
 msgid "Modify Label"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:2517 libgui/SignalWidget.cpp:2565
+#: libgui/SignalWidget.cpp:2513 libgui/SignalWidget.cpp:2561
 msgid "Drag and Drop"
 msgstr ""
 
@@ -648,7 +648,7 @@ msgstr ""
 msgid "Modify Samples"
 msgstr ""
 
-#: libkwave/undo/UndoDeleteLabelAction.cpp:42 libkwave/SignalManager.cpp:1683
+#: libkwave/undo/UndoDeleteLabelAction.cpp:42 libkwave/SignalManager.cpp:1682
 msgid "Delete Label"
 msgstr ""
 
@@ -1924,19 +1924,19 @@ msgstr ""
 msgid "&Memory"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:1297 libkwave/SignalManager.cpp:1304
+#: libkwave/SignalManager.cpp:1296 libkwave/SignalManager.cpp:1303
 msgid "Last Action"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:1581
+#: libkwave/SignalManager.cpp:1580
 msgid "Modify File Info"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:1768
+#: libkwave/SignalManager.cpp:1767
 msgid "Manual Track Selection"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:1770
+#: libkwave/SignalManager.cpp:1769
 msgid "Manual Selection"
 msgstr ""
 
@@ -2494,11 +2494,11 @@ msgstr ""
 msgid "Sample Rate Conversion"
 msgstr ""
 
-#: plugins/samplerate/SampleRatePlugin.cpp:100
+#: plugins/samplerate/SampleRatePlugin.cpp:101
 msgid "Change sample rate"
 msgstr ""
 
-#: plugins/samplerate/SampleRatePlugin.cpp:148
+#: plugins/samplerate/SampleRatePlugin.cpp:149
 #, kde-format
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
 msgstr ""
@@ -2520,37 +2520,37 @@ msgid "Berkeley, IRCAM, Carl Sound Format"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:104
-#: plugins/codec_wav/WavEncoder.cpp:411 plugins/codec_wav/WavDecoder.cpp:329
+#: plugins/codec_wav/WavEncoder.cpp:409 plugins/codec_wav/WavDecoder.cpp:329
 msgid "Format or function is not implemented"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:110
-#: plugins/codec_wav/WavEncoder.cpp:418
+#: plugins/codec_wav/WavEncoder.cpp:416
 msgid "File header is damaged"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:113
-#: plugins/codec_wav/WavEncoder.cpp:421 plugins/codec_wav/WavDecoder.cpp:339
+#: plugins/codec_wav/WavEncoder.cpp:419 plugins/codec_wav/WavDecoder.cpp:339
 msgid "Invalid codec type"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:116
-#: plugins/codec_wav/WavEncoder.cpp:425 plugins/codec_wav/WavDecoder.cpp:343
+#: plugins/codec_wav/WavEncoder.cpp:423 plugins/codec_wav/WavDecoder.cpp:343
 msgid "Opening the file failed"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:119
-#: plugins/codec_wav/WavEncoder.cpp:428 plugins/codec_wav/WavDecoder.cpp:346
+#: plugins/codec_wav/WavEncoder.cpp:426 plugins/codec_wav/WavDecoder.cpp:346
 msgid "Read access failed"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:122
-#: plugins/codec_wav/WavEncoder.cpp:431 plugins/codec_wav/WavDecoder.cpp:349
+#: plugins/codec_wav/WavEncoder.cpp:429 plugins/codec_wav/WavDecoder.cpp:349
 msgid "Invalid sample format"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:128
-#: plugins/codec_wav/WavEncoder.cpp:437 plugins/codec_wav/WavDecoder.cpp:355
+#: plugins/codec_wav/WavEncoder.cpp:435 plugins/codec_wav/WavDecoder.cpp:355
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -2940,21 +2940,21 @@ msgstr ""
 msgid "Searching for missing chunk '%1'..."
 msgstr ""
 
-#: plugins/codec_wav/WavEncoder.cpp:339
+#: plugins/codec_wav/WavEncoder.cpp:337
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
 "you want to use G711 ULAW compression instead?"
 msgstr ""
 
-#: plugins/codec_wav/WavEncoder.cpp:342
+#: plugins/codec_wav/WavEncoder.cpp:340
 msgid "&Yes, use G711"
 msgstr ""
 
-#: plugins/codec_wav/WavEncoder.cpp:343
+#: plugins/codec_wav/WavEncoder.cpp:341
 msgid "&No, store uncompressed"
 msgstr ""
 
-#: plugins/codec_wav/WavEncoder.cpp:391
+#: plugins/codec_wav/WavEncoder.cpp:389
 msgid "Unable to open the file for saving!"
 msgstr ""
 
@@ -3009,30 +3009,30 @@ msgstr ""
 msgid "WAV audio"
 msgstr ""
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:409
+#: plugins/playback/PlayBack-PulseAudio.cpp:408
 msgid "Connecting to the PulseAudio server failed."
 msgstr ""
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:415
+#: plugins/playback/PlayBack-PulseAudio.cpp:414
 #, kde-format
 msgid "The PulseAudio device '%1' is unknown or no longer connected"
 msgstr ""
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:458
+#: plugins/playback/PlayBack-PulseAudio.cpp:457
 msgid "playback..."
 msgstr ""
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:474
+#: plugins/playback/PlayBack-PulseAudio.cpp:473
 #, kde-format
 msgid "Failed to create a PulseAudio stream (%1)."
 msgstr ""
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:516
+#: plugins/playback/PlayBack-PulseAudio.cpp:515
 #, kde-format
 msgid "Failed to open a PulseAudio stream for playback (%1)."
 msgstr ""
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:720
+#: plugins/playback/PlayBack-PulseAudio.cpp:719
 msgid "(Use server default)"
 msgstr ""
 

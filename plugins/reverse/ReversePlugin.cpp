@@ -225,18 +225,12 @@ void ReversePlugin::run(QStringList params)
 	undo->store(signalManager());
     }
 
-    // get the current selection
+    // get the current selection and the list of affected tracks
     QList<unsigned int> tracks;
     sample_index_t first = 0;
     sample_index_t last  = 0;
     sample_index_t length = selection(&tracks, &first, &last, true);
     if (!length || tracks.isEmpty()) {
-	if (undo_guard) delete undo_guard;
-	return;
-    }
-
-    // get the list of affected tracks
-    if (tracks.isEmpty()) {
 	if (undo_guard) delete undo_guard;
 	return;
     }
@@ -276,7 +270,7 @@ void ReversePlugin::run(QStringList params)
 	for (int track = 0; track < tracks.count(); track++) {
 
 	    ReverseJob *job = new ReverseJob(
-		signalManager(), track, first, last, block_size,
+		signalManager(), tracks[track], first, last, block_size,
 		source_a[track], source_b[track]
 	    );
 

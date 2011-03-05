@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-03-04 15:15+0100\n"
-"PO-Revision-Date: 2011-01-21 22:44+0100\n"
-"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
+"PO-Revision-Date: 2011-03-04 23:16+0100\n"
+"Last-Translator: Pavel Fric\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -1108,7 +1108,7 @@ msgstr ""
 "zvýšit hodnotu tohoto nastavení.</p>"
 
 #: plugins/playback/ui_PlayBackDlg.h:421
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "<b>Channels:</b><p>Number of channels used for playback. This does not "
 "necessarily have to be the same as the number of tracks in your current "
@@ -1120,8 +1120,8 @@ msgid ""
 msgstr ""
 "<b>Kanály:</b><p>Počet kanálů používaných pro přehrávání.Toto číslo se "
 "nemusí nutně shodovat s počtem stop ve vašem nyní používaném souboru. Kwave "
-"automaticky míchá stopy vašeho souboru do kanálů,  které zde zadáte. </"
-"p><p><i>Například:</i> jestliže máte tři stopy a nastavíte přehrávání na "
+"automaticky míchá stopy vašeho souboru do kanálů, které zde zadáte. </"
+"p><p><i>Například:</i> Jestliže máte tři stopy a nastavíte přehrávání na "
 "\"stereo\", levý kanál bude obsahovat první stopu + 50% druhé stopy, pravý "
 "kanál bude také obsahovat 50% druhé stopy a stopu třetí.</p>"
 
@@ -1869,9 +1869,8 @@ msgid "Bitrate"
 msgstr "Datový tok"
 
 #: libkwave/FileInfo.cpp:62
-#, fuzzy
 msgid "Bits per Sample"
-msgstr "Bitů na vzorek:"
+msgstr "Bitů na vzorek"
 
 #: plugins/playback/ui_PlayBackDlg.h:410
 msgid "Bits per sample:"
@@ -3082,9 +3081,8 @@ msgid "Length"
 msgstr "Délka"
 
 #: libkwave/FileInfo.cpp:128
-#, fuzzy
 msgid "Length of the file in samples."
-msgstr "Velikost souboru v bajtech"
+msgstr "Velikost souboru ve vzorcích."
 
 #: plugins/fileinfo/FileInfoDialog.cpp:211
 msgid "Length:"
@@ -3560,9 +3558,8 @@ msgid "Number of channels: mono, stereo..."
 msgstr "Počet kanálů: monofonních, stereofonních..."
 
 #: libkwave/FileInfo.cpp:187
-#, fuzzy
 msgid "Number of samples per second\n"
-msgstr "vzorků za sekundu"
+msgstr "Počet vzorků za sekundu\n"
 
 #: libkwave/FileInfo.cpp:66
 msgid ""
@@ -3960,16 +3957,15 @@ msgid "R&B"
 msgstr "R&B"
 
 #: kwave/TopWidget.cpp:1314
-#, fuzzy
 msgctxt "menu entry for redo if redo disabled"
 msgid "R&edo"
 msgstr "Z&novu"
 
 #: kwave/TopWidget.cpp:1313
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "R&edo (%1)"
-msgstr "Z&novu"
+msgstr "Z&novu (%1)"
 
 #: kwave/main.cpp:49
 msgid "Ralf Waspe"
@@ -4067,16 +4063,15 @@ msgid "Redo"
 msgstr "Znovu"
 
 #: kwave/TopWidget.cpp:1295
-#, fuzzy
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr "Znovu"
 
 #: kwave/TopWidget.cpp:1293
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
-msgstr " (%1)"
+msgstr "Znovu (%1)"
 
 #: libkwave/GenreType.cpp:93
 msgid "Reggae"
@@ -4158,9 +4153,8 @@ msgid "Sample Format"
 msgstr "Vzorkovací formát"
 
 #: libkwave/FileInfo.cpp:186
-#, fuzzy
 msgid "Sample Rate"
-msgstr "Vzorkovací kmitočet:"
+msgstr "Vzorkovací kmitočet"
 
 #: plugins/samplerate/SampleRatePlugin.cpp:43
 msgid "Sample Rate Conversion"
@@ -4563,13 +4557,12 @@ msgstr ""
 "Příklad: 'Sbírka zvukového signálu v Linuxu'"
 
 #: libkwave/FileInfo.cpp:63
-#, fuzzy
 msgid "Specifies the number of bits per sample."
-msgstr "Přesně určuje horní mezní hodnotu v proudu proměnlivého datového toku."
+msgstr "Stanovuje počet bitů na vzorek."
 
 #: libkwave/FileInfo.cpp:217
 msgid "Specifies the number of tracks of the signal."
-msgstr ""
+msgstr "Stanovuje počet stop signálu."
 
 #: libkwave/FileInfo.cpp:60
 msgid "Specifies the upper limit in a VBR bitstream."
@@ -4926,9 +4919,8 @@ msgid "To Previous Labels"
 msgstr "K předchozím štítkům"
 
 #: libkwave/SignalManager.cpp:707
-#, fuzzy
 msgid "Toggle Track Selection"
-msgstr "Obrátit výběr stopy"
+msgstr "Přepnout výběr stopy"
 
 #: libkwave/GenreType.cpp:137
 msgid "Top 40"
@@ -4992,16 +4984,15 @@ msgid "Trip-Hop"
 msgstr "Halucinační poskakování (Trip hop)"
 
 #: kwave/TopWidget.cpp:1307
-#, fuzzy
 msgctxt "menu entry for undo if undo disabled"
 msgid "U&ndo"
 msgstr "Z&pět"
 
 #: kwave/TopWidget.cpp:1306
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "U&ndo (%1)"
-msgstr "Z&pět"
+msgstr "Z&pět (%1)"
 
 #: libkwave/PluginManager.cpp:228
 #, kde-format
@@ -5043,16 +5034,15 @@ msgid "Undo"
 msgstr "Zpět"
 
 #: kwave/TopWidget.cpp:1284
-#, fuzzy
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr "Zpět"
 
 #: kwave/TopWidget.cpp:1282
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
-msgstr " (%1)"
+msgstr "Zpět (%1)"
 
 #: libkwave/GenreType.cpp:213
 msgid "Unknown"

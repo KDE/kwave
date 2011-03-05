@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: kwave_help_cs\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
 "POT-Creation-Date: 2011-03-04 14:30+0000\n"
-"PO-Revision-Date: 2011-03-04 15:32+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2011-03-04 23:20+0100\n"
+"Last-Translator: Pavel Fric\n"
 "Language-Team: Czech <kde-i18n-de@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Tag: title
@@ -850,15 +850,15 @@ msgstr ""
 
 #. Tag: para
 #: help_en-work.docbook:458
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<literal>WITH_OPTIMIZED_MEMCPY</literal> use an optimized version of memcpy, "
 "available for X86, X86_64 and PPC platforms [<literal>on</literal>/"
 "<literal>off</literal>, default=<literal>on</literal>]"
 msgstr ""
-"<literal>WITH_DOC</literal> sestavit dokumentaci na internetu [<literal>on: "
-"zapnuto</literal>/<literal>off: vypnuto</literal>, default=: "
-"výchozí=<literal>on: zapnuto</literal>]"
+"<literal>WITH_OPTIMIZED_MEMCPY</literal> použít vyladěnou verzi memcpy, "
+"dostupná pro platformy X86, X86_64 a PPC [<literal>zapnuto</literal>/"
+"<literal>vypnuto</literal>, výchozí=<literal>zapnuto</literal>]"
 
 #. Tag: para
 #: help_en-work.docbook:465
@@ -3522,7 +3522,7 @@ msgstr "Svislý pohled"
 
 #. Tag: para
 #: help_en-work.docbook:1969
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "You can zoom the current view vertically by pressing the <keycap>Alt</"
 "keycap> key and scrolling with the mouse wheel."
@@ -4730,7 +4730,7 @@ msgstr ""
 #: help_en-work.docbook:2874
 #, no-c-format
 msgid "Pavel Fric <email>pavelfric@seznam.cz</email> (Czech translation)"
-msgstr ""
+msgstr "Pavel Fric <email>pavelfric@seznam.cz</email> (český překlad)"
 
 #. Tag: para
 #: help_en-work.docbook:2881
@@ -4829,4 +4829,5 @@ msgstr ""
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr "&underFDL; &underGPL;"
+
 

@@ -31,7 +31,7 @@ RDEPEND="
 	alsa? ( media-libs/alsa-lib )
 	flac? ( media-libs/flac )
 	media-libs/libsamplerate
-	mp3? ( media-libs/id3lib media-libs/libmad )
+	mad? ( media-libs/id3lib media-libs/libmad )
 	ogg? ( media-libs/libogg media-libs/libvorbis )
 	pulseaudio? ( media-sound/pulseaudio )"
 

@@ -1,4 +1,6 @@
 
+o add a "record" button to the toolbar
+
 o support for recording via PULSE audio
 
 o MP3 export (maybe via calling lame/mpg123/mencoder as an external process)

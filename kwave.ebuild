@@ -22,7 +22,7 @@ SRC_URI="mirror://sourceforge/kwave/${P}-1.tar.bz2"
 LICENSE="GPL-2"
 SLOT="4"
 KEYWORDS="~amd64 ~ppc ~x86"
-IUSE="alsa debug doc flac mp3 ogg oss phonon pulseaudio +samplerate mmx"
+IUSE="alsa debug doc flac mp3 ogg oss phonon pulseaudio mmx"
 
 RDEPEND="
 	!media-sound/kwave:0
@@ -51,7 +51,6 @@ src_configure() {
 		$(cmake-utils_use_with ogg)
 		$(cmake-utils_use_with oss)
 		$(cmake-utils_use_with pulseaudio)
-		$(cmake-utils_use_with libsamplerate SAMPLERATE)
 		$(cmake-utils_use debug)"
 
 	kde4-base_src_configure

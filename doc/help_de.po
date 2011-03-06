@@ -4699,8 +4699,8 @@ msgid ""
 msgstr ""
 "Für eine vollständige Liste der Autoren und Lizenzen lesen Sie bitte die "
 "Datei <filename>LICENSES</filename>, die in der Quellcode-Distribution "
-"enthalten ist oder hier gefunden werden kann: <ulink url=\"http://svn."
-"sourceforge.net/viewvc/kwave/trunk/LICENSES?view=markup\"> \"http://svn."
+"enthalten ist oder hier gefunden werden kann: <ulink url=\"http://kwave.svn."
+"sourceforge.net/viewvc/kwave/trunk/LICENSES?view=markup\"> \"http://kwave.svn."
 "sourceforge.net/viewvc/kwave/trunk/LICENSES?view=markup\"</ulink>."
 
 #. Tag: para

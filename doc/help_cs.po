@@ -4630,8 +4630,8 @@ msgid ""
 msgstr ""
 "Úplný seznam autorů a licencí všech souborů: podívejte se, prosím, na "
 "soubor<filename>LICENSES</filename> , který je zahrnut ve zdrojových "
-"souborech. Na internetu je taktéž dostupný na <ulink url=\"http://svn."
-"sourceforge.net/viewvc/kwave/trunk/LICENSES?view=markup\"> \"http://svn."
+"souborech. Na internetu je taktéž dostupný na <ulink url=\"http://kwave.svn."
+"sourceforge.net/viewvc/kwave/trunk/LICENSES?view=markup\"> \"http://kwave.svn."
 "sourceforge.net/viewvc/kwave/trunk/LICENSES?view=markup\"</ulink>."
 
 #. Tag: para

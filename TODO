@@ -3,15 +3,6 @@ o support for recording via PULSE audio
 
 o MP3 export (maybe via calling lame/mpg123/mencoder as an external process)
 
-o crash in record plugin, maybe if device is busy?
-    RecordALSA::read(), after underrun: resuming
-    RecordALSA::read(), underrun
-    ALSA lib pcm_direct.c:1280:(snd1_pcm_direct_set_timer_params) unable to set timer parameters
-    RecordALSA::read(), resume after underrun failed: Ungültiger Dateideskriptor
-    RecordThread: read result = -9 (Ungültiger Dateideskriptor)
-    RecordThread::run() - done
-    KCrash: Application 'kwave' crashing...
-
 o better support to add labels from batch files
 
 o function for "Edit/Selection/Insert at..."
@@ -151,5 +142,14 @@ o switch to use float as sample_t (requires much work...)
   -> version 0.9
 
 o about plugin: auto-scroll for contents
+
+o crash in record plugin, maybe if device is busy? (last seen ~2009)
+    RecordALSA::read(), after underrun: resuming
+    RecordALSA::read(), underrun
+    ALSA lib pcm_direct.c:1280:(snd1_pcm_direct_set_timer_params) unable to set timer parameters
+    RecordALSA::read(), resume after underrun failed: Ungültiger Dateideskriptor
+    RecordThread: read result = -9 (Ungültiger Dateideskriptor)
+    RecordThread::run() - done
+    KCrash: Application 'kwave' crashing...
 
 ### EOF ###

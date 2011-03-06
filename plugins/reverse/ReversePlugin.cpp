@@ -24,6 +24,7 @@
 #include <threadweaver/DebuggingAids.h>
 
 #include <QList>
+#include <QSharedPointer>
 #include <QStringList>
 #include <QThread>
 
@@ -209,23 +210,18 @@ ReversePlugin::~ReversePlugin()
 //***************************************************************************
 void ReversePlugin::run(QStringList params)
 {
-    UndoTransactionGuard *undo_guard = 0;
+    QSharedPointer<UndoTransactionGuard> undo_guard;
 
-    /**
-     * @todo use a QSharedPointer for undo_guard as soon as
-     * everyone uses >= Qt-4.5
-     */
     if ((params.count() != 1) || (params.first() != "noundo")) {
 	// undo is enabled, create a undo guard
-	undo_guard = new UndoTransactionGuard(*this, i18n("Reverse"));
+	undo_guard = QSharedPointer<UndoTransactionGuard>(
+	    new UndoTransactionGuard(*this, i18n("Reverse")));
 	if (!undo_guard) return;
 
 	// try to save undo information
 	UndoAction *undo = new UndoReverseAction(manager());
-	if (!undo_guard->registerUndoAction(undo)) {
-	    delete undo_guard;
+	if (!undo_guard->registerUndoAction(undo))
 	    return;
-	}
 	undo->store(signalManager());
     }
 
@@ -234,10 +230,8 @@ void ReversePlugin::run(QStringList params)
     sample_index_t first = 0;
     sample_index_t last  = 0;
     sample_index_t length = selection(&tracks, &first, &last, true);
-    if (!length || tracks.isEmpty()) {
-	if (undo_guard) delete undo_guard;
+    if (!length || tracks.isEmpty())
 	return;
-    }
 
     MultiTrackReader source_a(Kwave::SinglePassForward,
 	signalManager(), tracks, first, last);
@@ -245,10 +239,8 @@ void ReversePlugin::run(QStringList params)
 	signalManager(), tracks, first, last);
 
     // break if aborted
-    if (!source_a.tracks() || !source_b.tracks()) {
-	if (undo_guard) delete undo_guard;
+    if (!source_a.tracks() || !source_b.tracks())
 	return;
-    }
 
     // connect the progress dialog
     connect(&source_a, SIGNAL(progress(qreal)),
@@ -297,8 +289,6 @@ void ReversePlugin::run(QStringList params)
 	first += block_size;
 	last  = (last > block_size) ? (last - block_size) : 0;
     }
-
-    if (undo_guard) delete undo_guard;
 }
 
 //***************************************************************************

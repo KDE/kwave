@@ -14,8 +14,8 @@ Vendor: 	@RPM_VENDOR@
 BuildRoot: 	@RPM_BUILDROOT@
 Prefix:   	@prefix@
 Provides:	@RPM_NAME@
-Requires: 	libqt-mt.so.3 >= 3.0
-Requires: 	kdelibs3 >= 3.0
+Requires: 	libqt.so.4 >= 4.5
+Requires: 	kdelibs4 >= 4.0
 Requires:	@RPM_REQUIRE_ID3LIB@ >= 3.8.1
 Requires:	libvorbis.so.0 >= 0.2.0
 Requires:	libvorbisenc.so.2 >= 2.0.0

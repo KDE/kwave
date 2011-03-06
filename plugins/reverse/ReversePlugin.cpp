@@ -136,7 +136,8 @@ void ReverseJob::reverse(Kwave::SampleArray &buffer)
 void ReverseJob::run()
 {
     sample_index_t start_a = m_first;
-    sample_index_t start_b = m_last - m_block_size;
+    sample_index_t start_b = (m_last >= m_block_size) ?
+	(m_last - m_block_size) : 0;
 
     if (start_a + m_block_size < start_b) {
 	// read from start
@@ -159,6 +160,7 @@ void ReverseJob::run()
 	    m_track, Overwrite,
 	    start_a, start_a + m_block_size - 1);
 	Q_ASSERT(dst_a);
+	if (!dst_a) return;
 	*dst_a << buffer_b;
 	dst_a->flush();
 	delete dst_a;
@@ -168,6 +170,7 @@ void ReverseJob::run()
 	    m_track, Overwrite,
 	    start_b, start_b + m_block_size - 1);
 	Q_ASSERT(dst_b);
+	if (!dst_b) return;
 	*dst_b << buffer_a << flush;
 	delete dst_b;
     } else {
@@ -184,6 +187,7 @@ void ReverseJob::run()
 	// write back
 	Kwave::Writer *dst = m_manager.openWriter(
 	    m_track, Overwrite, m_first, m_last);
+	if (!dst) return;
 	(*dst) << buffer << flush;
 	delete dst;
     }

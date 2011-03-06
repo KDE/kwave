@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-04 15:15+0100\n"
+"POT-Creation-Date: 2011-03-06 11:17+0100\n"
 "PO-Revision-Date: 2007-08-01 19:04+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
@@ -4259,7 +4259,7 @@ msgstr "Résolution :"
 msgid "Retro"
 msgstr "Rétro"
 
-#: plugins/reverse/ReversePlugin.cpp:42 plugins/reverse/ReversePlugin.cpp:216
+#: plugins/reverse/ReversePlugin.cpp:43 plugins/reverse/ReversePlugin.cpp:218
 #: plugins/reverse/UndoReverseAction.cpp:42
 #, fuzzy
 msgid "Reverse"

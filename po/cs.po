@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-04 15:15+0100\n"
+"POT-Creation-Date: 2011-03-06 11:17+0100\n"
 "PO-Revision-Date: 2011-03-04 23:16+0100\n"
 "Last-Translator: Pavel Fric\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -4090,7 +4090,7 @@ msgstr "Rozlišení: "
 msgid "Retro"
 msgstr "Ve starém stylu (retrostylu)"
 
-#: plugins/reverse/ReversePlugin.cpp:42 plugins/reverse/ReversePlugin.cpp:216
+#: plugins/reverse/ReversePlugin.cpp:43 plugins/reverse/ReversePlugin.cpp:218
 #: plugins/reverse/UndoReverseAction.cpp:42
 msgid "Reverse"
 msgstr "Obrátit"

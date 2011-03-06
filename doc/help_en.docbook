@@ -32,7 +32,7 @@
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2011-03-04</date>
+    <date>2011-03-06</date>
     <releaseinfo>&version;</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor for KDE.</para></abstract>
@@ -201,8 +201,8 @@
 	Since &kwave; v0.8.0 the changlog is no longer included in this
 	manual. So if you are interested in a complete list of changes,
 	you can find the full history here:
-	<ulink url="http://svn.sourceforge.net/viewvc/kwave/trunk/CHANGES?view=markup">
-	"http://svn.sourceforge.net/viewvc/kwave/trunk/CHANGES?view=markup"</ulink>.
+	<ulink url="http://kwave.svn.sourceforge.net/viewvc/kwave/trunk/CHANGES?view=markup">
+	"http://kwave.svn.sourceforge.net/viewvc/kwave/trunk/CHANGES?view=markup"</ulink>.
     </para>
 
     <!-- changlog cut out, this gives a smaller online help
@@ -316,8 +316,8 @@
 	For a more complete and up-to-date list, please consult the
 	README file that is included in the source distribution or
 	can be found here: <ulink
-	url="http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup">
-	"http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup"</ulink>.
+	url="http://kwave.svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup">
+	"http://kwave.svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup"</ulink>.
 	This file also contains some special hints for getting &kwave; running and/or
 	building &kwave; under some distributions.
     </para>
@@ -364,7 +364,7 @@
 	    </para></listitem>
 	    <listitem><para>
 		...many other packages, please take a look at the
-		<ulink url="http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup">
+		<ulink url="http://kwave.svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup">
 		"README"</ulink> file included in the source package.
 	    </para></listitem>
 	</itemizedlist>
@@ -661,7 +661,7 @@
 <prompt>% </prompt><command>svn checkout https://kwave.svn.sourceforge.net/svnroot/kwave/tags/<replaceable>[release-tag]</replaceable> kwave</command>
 </screen>
 	You can look up the names of the release tags in the web svn page at
-	<ulink url="http://svn.sourceforge.net/viewvc/kwave/tags/">"http://svn.sourceforge.net/viewvc/kwave/tags/"</ulink>.
+	<ulink url="http://kwave.svn.sourceforge.net/viewvc/kwave/tags/">"http://kwave.svn.sourceforge.net/viewvc/kwave/tags/"</ulink>.
 	The release tags are always built out of the word <literal>Release-</literal> and
 	the version number of the release, with underscores instead of dots.
 	For example "<literal>Release-&version_tag;</literal>" for v&version;.
@@ -2861,8 +2861,8 @@
 	For a complete list of authors and licenses of all files,
 	please see the <filename>LICENSES</filename> file, which is included in the sources.
 	It is also available online at
-	<ulink url="http://svn.sourceforge.net/viewvc/kwave/trunk/LICENSES?view=markup">
-	"http://svn.sourceforge.net/viewvc/kwave/trunk/LICENSES?view=markup"</ulink>.
+	<ulink url="http://kwave.svn.sourceforge.net/viewvc/kwave/trunk/LICENSES?view=markup">
+	"http://kwave.svn.sourceforge.net/viewvc/kwave/trunk/LICENSES?view=markup"</ulink>.
     </para>
 
     <para>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2011-03-04 17:28+0000\n"
+"POT-Creation-Date: 2011-03-06 10:16+0000\n"
 "PO-Revision-Date: 2011-03-04 15:24+0100\n"
 "Last-Translator: \n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -62,8 +62,8 @@ msgstr "Thomas Eschenbacher"
 
 #. Tag: date
 #: help_en-work.docbook:35
-#, no-c-format
-msgid "2011-03-04"
+#, fuzzy, no-c-format
+msgid "2011-03-06"
 msgstr "2011-03-04"
 
 #. Tag: releaseinfo
@@ -263,7 +263,7 @@ msgstr ""
 
 #. Tag: para
 #: help_en-work.docbook:124
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "import/export of other audio formats through <ulink url=\"http://www.68k.org/"
 "~michael/audiofile/\">audiofile</ulink>"
@@ -345,9 +345,9 @@ msgstr ""
 
 #. Tag: para
 #: help_en-work.docbook:166
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "SVN Repository"
-msgstr "Le dépôt CVS"
+msgstr "Le dépôt SVN"
 
 #. Tag: para
 #: help_en-work.docbook:169
@@ -401,9 +401,9 @@ msgstr ""
 msgid ""
 "Since &kwave; v0.8.0 the changlog is no longer included in this manual. So "
 "if you are interested in a complete list of changes, you can find the full "
-"history here: <ulink url=\"http://svn.sourceforge.net/viewvc/kwave/trunk/"
-"CHANGES?view=markup\"> \"http://svn.sourceforge.net/viewvc/kwave/trunk/"
-"CHANGES?view=markup\"</ulink>."
+"history here: <ulink url=\"http://kwave.svn.sourceforge.net/viewvc/kwave/"
+"trunk/CHANGES?view=markup\"> \"http://kwave.svn.sourceforge.net/viewvc/kwave/"
+"trunk/CHANGES?view=markup\"</ulink>."
 msgstr ""
 "Pour un liste plus complète de mise à jour, consultez le fichier README "
 "inclut dans les sources du programme. Il peut être également trouvé à cette "
@@ -569,22 +569,22 @@ msgstr "la bibliothèque « samplerate-0.1.3 » ou supérieure"
 
 #. Tag: para
 #: help_en-work.docbook:308
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "about 64 MB memory for starting &kwave; (but this may vary depending on your "
 "platform and configuration)"
 msgstr ""
-"D'environ 32 Mo de mémoire pour lancer &kwave; (mais cela peut varier en "
+"D'environ 64 Mo de mémoire pour lancer &kwave; (mais cela peut varier en "
 "fonction de votre plate-forme et de votre configuration)."
 
 #. Tag: para
 #: help_en-work.docbook:315
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "For a more complete and up-to-date list, please consult the README file that "
 "is included in the source distribution or can be found here: <ulink url="
-"\"http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup\"> "
-"\"http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup\"</"
+"\"http://kwave.svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup\"> "
+"\"http://kwave.svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup\"</"
 "ulink>. This file also contains some special hints for getting &kwave; "
 "running and/or building &kwave; under some distributions."
 msgstr ""
@@ -687,9 +687,9 @@ msgstr ""
 #: help_en-work.docbook:365
 #, fuzzy, no-c-format
 msgid ""
-"...many other packages, please take a look at the <ulink url=\"http://svn."
-"sourceforge.net/viewvc/kwave/trunk/README?view=markup\"> \"README\"</ulink> "
-"file included in the source package."
+"...many other packages, please take a look at the <ulink url=\"http://kwave."
+"svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup\"> \"README\"</"
+"ulink> file included in the source package."
 msgstr ""
 "...d'autres paquetages logiciels. Pour plus d'informations, veuillez "
 "consultez le fichier <ulink url=\"http://cvs.sourceforge.net/cgi-bin/viewcvs."
@@ -1173,10 +1173,10 @@ msgid ""
 "<prompt>% </prompt><command>svn checkout https://kwave.svn.sourceforge.net/"
 "svnroot/kwave/tags/<replaceable>[release-tag]</replaceable> kwave</command>\n"
 "</screen> You can look up the names of the release tags in the web svn page "
-"at <ulink url=\"http://svn.sourceforge.net/viewvc/kwave/tags/\">\"http://svn."
-"sourceforge.net/viewvc/kwave/tags/\"</ulink>. The release tags are always "
-"built out of the word <literal>Release-</literal> and the version number of "
-"the release, with underscores instead of dots. For example "
+"at <ulink url=\"http://kwave.svn.sourceforge.net/viewvc/kwave/tags/\">"
+"\"http://kwave.svn.sourceforge.net/viewvc/kwave/tags/\"</ulink>. The release "
+"tags are always built out of the word <literal>Release-</literal> and the "
+"version number of the release, with underscores instead of dots. For example "
 "\"<literal>Release-&version_tag;</literal>\" for v&version;."
 msgstr ""
 
@@ -4316,9 +4316,9 @@ msgstr ""
 msgid ""
 "For a complete list of authors and licenses of all files, please see the "
 "<filename>LICENSES</filename> file, which is included in the sources. It is "
-"also available online at <ulink url=\"http://svn.sourceforge.net/viewvc/"
-"kwave/trunk/LICENSES?view=markup\"> \"http://svn.sourceforge.net/viewvc/"
-"kwave/trunk/LICENSES?view=markup\"</ulink>."
+"also available online at <ulink url=\"http://kwave.svn.sourceforge.net/"
+"viewvc/kwave/trunk/LICENSES?view=markup\"> \"http://kwave.svn.sourceforge."
+"net/viewvc/kwave/trunk/LICENSES?view=markup\"</ulink>."
 msgstr ""
 "Pour un liste plus complète de mise à jour, consultez le fichier README "
 "inclut dans les sources du programme. Il peut être également trouvé à cette "

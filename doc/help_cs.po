@@ -4686,10 +4686,10 @@ msgstr ""
 #, no-c-format
 msgid ""
 "Rik Hemsley <email>rik@kde.org</email> (<ulink url=\"http://rikkus.info/"
-"esoundlevelmeter.html\">level meter</ulink>)"
+"esound-level-meter/\">level meter</ulink>)"
 msgstr ""
 "Rik Hemsley <email>rik@kde.org</email> (<ulink url=\"http://rikkus.info/"
-"esoundlevelmeter.html\">ukazatel hladin</ulink>)"
+"esound-level-meter/\">ukazatel hladin</ulink>)"
 
 #. Tag: para
 #: help_en-work.docbook:2845

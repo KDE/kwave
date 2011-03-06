@@ -20,6 +20,8 @@
  * bugfix: startup as unique application did not work correctly
  * bugfix: potential crash in message loop of progress dialog
  * bugfix: handling of track selection was wrong in reverse plugin
+ * workaround for bug in libaudiofile: some files have sampe rate zero,
+   falling back to 8000 samples/sec in that case (audio/x-ircam, sun, BE)
 
 0.8.5  [2009-12-24]
 

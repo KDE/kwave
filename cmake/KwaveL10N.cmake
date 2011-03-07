@@ -36,9 +36,9 @@ FOREACH (_lingua ${LINGUAS})
     STRING(REGEX MATCH "^[^:]+" _lang_full ${_lingua})
     STRING(REGEX MATCH "^[^_]+" _lang ${_lang_full})
     SET(_pofile "${CMAKE_SOURCE_DIR}/po/${_lang}.po")
-    IF (EXISTS ${_pofile} OR ("${_lang}" STREQUAL "en"))
+    IF ((EXISTS "${_pofile}") OR ("${_lang}" STREQUAL "en"))
         LIST(APPEND EXISTING_LINGUAS "${_lang}")
-    ENDIF (EXISTS ${_pofile}  OR ("${_lang}" STREQUAL "en"))
+    ENDIF ((EXISTS "${_pofile}") OR ("${_lang}" STREQUAL "en"))
 ENDFOREACH(_lingua)
 
 #############################################################################

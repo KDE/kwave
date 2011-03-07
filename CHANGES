@@ -23,6 +23,7 @@
  * workaround for bug in libaudiofile: some files have sampe rate zero,
    falling back to 8000 samples/sec in that case (audio/x-ircam, sun, BE)
  * bugfix: reverse failed on files smaller than the internal block size
+ * using entities for URLs in handbook, to simplify maintenance
 
 0.8.5  [2009-12-24]
 

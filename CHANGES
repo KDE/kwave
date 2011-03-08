@@ -1,4 +1,9 @@
 
+0.8.7  [2011-??-??]
+
+ * ebuild update for media-gfx/imagemagick <-> media-gfx/graphicsmagick
+   (see gentoo bug #314325)
+
 0.8.6  [2011-03-07]
 
  * bugfix: copy/paste with partial track selection failed

@@ -38,7 +38,7 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	>=dev-util/cmake-2.6.0
 	>=kde-base/kdesdk-misc-${KDE_MINIMAL}[extras]
-	media-gfx/imagemagick"
+	|| ( media-gfx/imagemagick[png?] media-gfx/graphicsmagick[imagemagick,png?] )"
 
 src_configure() {
 	use mmx && append-flags -mmmx

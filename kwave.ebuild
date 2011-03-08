@@ -22,7 +22,7 @@ SRC_URI="mirror://sourceforge/kwave/${P}-1.tar.bz2"
 LICENSE="GPL-2"
 SLOT="4"
 KEYWORDS="~amd64 ~ppc ~x86"
-IUSE="alsa debug doc flac mp3 ogg oss phonon pulseaudio +samplerate mmx"
+IUSE="alsa debug flac handbook mad mmx ogg oss phonon pulseaudio"
 
 RDEPEND="
 	!media-sound/kwave:0
@@ -31,7 +31,7 @@ RDEPEND="
 	alsa? ( media-libs/alsa-lib )
 	flac? ( media-libs/flac )
 	media-libs/libsamplerate
-	mp3? ( media-libs/id3lib media-libs/libmad )
+	mad? ( media-libs/id3lib media-libs/libmad )
 	ogg? ( media-libs/libogg media-libs/libvorbis )
 	pulseaudio? ( media-sound/pulseaudio )"
 
@@ -44,15 +44,14 @@ src_configure() {
 	use mmx && append-flags -mmmx
 
 	mycmakeargs="${mycmakeargs}
-		$(cmake-utils_use_with alsa)
-		$(cmake-utils_use_with doc)
-		$(cmake-utils_use_with flac)
-		$(cmake-utils_use_with mp3)
-		$(cmake-utils_use_with ogg)
-		$(cmake-utils_use_with oss)
-		$(cmake-utils_use_with pulseaudio)
-		$(cmake-utils_use_with libsamplerate SAMPLERATE)
-		$(cmake-utils_use debug)"
+		$(cmake-utils_use_with alsa ALSA)
+		$(cmake-utils_use_with handbook DOC)
+		$(cmake-utils_use_with flac FLAC)
+		$(cmake-utils_use_with mad MP3)
+		$(cmake-utils_use_with ogg OGG)
+		$(cmake-utils_use_with oss OSS)
+		$(cmake-utils_use_with pulseaudio PULSEAUDIO)
+		$(cmake-utils_use debug DEBUG)"
 
 	kde4-base_src_configure
 }

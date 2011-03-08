@@ -61,7 +61,18 @@ void Kwave::RateConverter::input(Kwave::SampleArray data)
     m_converter_in.resize(in_len);
     float          *f_in = m_converter_in.data();
     const sample_t *s_in = data.data();
-    for (unsigned int i = 0; i < in_len; i++)
+
+    // work blockwise to allow loop unrolling
+    unsigned int remaining = in_len;
+    const unsigned int block_size = 16;
+    while (remaining >= block_size) {
+	for (unsigned int i = 0; i < block_size; i++)
+	    f_in[i] = sample2float(s_in[i]);
+	f_in      += block_size;
+	s_in      += block_size;
+	remaining -= block_size;
+    }
+    while (remaining--)
 	(*f_in++) = sample2float(*(s_in++));
 
     // prepare the output buffer (estimated size, rounded up)
@@ -90,7 +101,17 @@ void Kwave::RateConverter::input(Kwave::SampleArray data)
     Kwave::SampleArray out(gen);
     const float *f_out = src.data_out;
     sample_t    *s_out = out.data();
-    for (unsigned int i = 0; i < gen; i++)
+
+    // work blockwise to allow loop unrolling
+    remaining = gen;
+    while (remaining >= block_size) {
+	for (unsigned int i = 0; i < block_size; i++)
+	    s_out[i] = float2sample(f_out[i]);
+	s_out     += block_size;
+	f_out     += block_size;
+	remaining -= block_size;
+    }
+    while (remaining--)
 	*(s_out++) = float2sample(*(f_out++));
 
     emit output(out);

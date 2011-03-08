@@ -112,7 +112,7 @@ MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
         SET(_common_dir ${KDE4_HTML_INSTALL_DIR}/${_lang}/common)
 
         # translation of the po and the docbook file not for english
-        IF (NOT ${_lang} STREQUAL "en")
+        IF (NOT "${_lang}" STREQUAL "en")
             SET(_docbook ${CMAKE_CURRENT_BINARY_DIR}/help_${_lang}.docbook)
             GET_FILENAME_COMPONENT(_docbook_basename ${_docbook} NAME)
 
@@ -149,10 +149,10 @@ MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
                 ENDIF (NOT EXISTS ${_src_img})
             ENDFOREACH (_image_file)
 
-        ELSE (NOT ${_lang} STREQUAL "en")
+        ELSE (NOT "${_lang}" STREQUAL "en")
             SET(_docbook ${_help_en_docbook})
             GET_FILENAME_COMPONENT(_docbook_basename ${_docbook} NAME)
-        ENDIF (NOT ${_lang} STREQUAL "en")
+        ENDIF (NOT "${_lang}" STREQUAL "en")
 
         # generated search index index_<lang>.cache.bz2
         SET(_index "${CMAKE_CURRENT_BINARY_DIR}/index_${_lang}.cache.bz2")
@@ -166,15 +166,15 @@ MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
         # special handling for the GPL license file
         SET(_gpl_translated "${KDE4_HTML_INSTALL_DIR}/${_lang}/common/gpl-translated.html")
         SET(_gpl_english    "${KDE4_HTML_INSTALL_DIR}/en/common/gpl-license.html")
-        IF (${_lang} STREQUAL "en")
+        IF ("${_lang}" STREQUAL "en")
             SET(_gpl ${_gpl_english})
-        ELSE (${_lang} STREQUAL "en")
+        ELSE ("${_lang}" STREQUAL "en")
             IF (EXISTS ${_gpl_translated})
                 SET(_gpl ${_gpl_translated})
             ELSE (EXISTS ${_gpl_translated})
                 SET(_gpl ${_gpl_english})
             ENDIF (EXISTS ${_gpl_translated})
-        ENDIF (${_lang} STREQUAL "en")
+        ENDIF ("${_lang}" STREQUAL "en")
 
         ADD_CUSTOM_COMMAND(OUTPUT ${_html_dir}/gpl-translated.html
             COMMAND mkdir -p ${_html_dir}

@@ -4,9 +4,37 @@
   <!ENTITY kappname "&kwave;">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "0.8.5">
-  <!ENTITY version_tag "0_8_5">
+  <!ENTITY version "0.8.6">
+  <!ENTITY version_tag "0_8_6">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
+  
+  <!ENTITY url_changelog "http://kwave.svn.sourceforge.net/viewvc/kwave/trunk/CHANGES?view=markup">
+  <!ENTITY url_cmake "http://www.cmake.org">
+  <!ENTITY url_debian "http://www.debian.org">
+  <!ENTITY url_download "http://kwave.sourceforge.net/download.html">
+  <!ENTITY url_doxygen "http://www.stack.nl/~dimitri/doxygen">
+  <!ENTITY url_homepage "http://kwave.sourceforge.net/">
+  <!ENTITY url_id3lib "http://www.id3lib.org/">
+  <!ENTITY url_iso639 "http://www.loc.gov/standards/iso639-2/php/code_list.php">
+  <!ENTITY url_kde_l10n "http://l10n.kde.org/">
+  <!ENTITY url_kde_localize "http://userbase.kde.org/Lokalize/">
+  <!ENTITY url_kde_screenshots "http://l10n.kde.org/docs/screenshots.php">
+  <!ENTITY url_levelmeter "http://rikkus.info/esound-level-meter/">
+  <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
+  <!ENTITY url_libmad "http://www.mars.org/home/rob/proj/mpeg/">
+  <!ENTITY url_libsndfile "http://www.mega-nerd.com/libsndfile/">
+  <!ENTITY url_licenses "http://kwave.svn.sourceforge.net/viewvc/kwave/trunk/LICENSES?view=markup">
+  <!ENTITY url_mailinglist "https://lists.sourceforge.net/lists/listinfo/kwave-devel">
+  <!ENTITY url_ogg_vorbis "http://www.xiph.org">
+  <!ENTITY url_readme "http://kwave.svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup">
+  <!ENTITY url_rfc2361 "http://www.faqs.org/rfcs/rfc2361.html">
+  <!ENTITY url_rfc3066 "http://www.ietf.org/rfc/rfc3066.txt">
+  <!ENTITY url_sourceforge "http://sourceforge.net">
+  <!ENTITY url_sox "http://sox.sourceforge.net/">
+  <!ENTITY url_svn_instructions "http://sourceforge.net/svn/?group_id=6478">
+  <!ENTITY url_svn_list_tags "http://kwave.svn.sourceforge.net/viewvc/kwave/tags/">
+  <!ENTITY url_svn_tags "https://kwave.svn.sourceforge.net/svnroot/kwave/tags/">
+  <!ENTITY url_svn_trunk "https://kwave.svn.sourceforge.net/svnroot/kwave/trunk">
 ]>
 
 <book lang="&language;">
@@ -28,11 +56,11 @@
     </authorgroup>
 
     <copyright><year>1998-2000</year><holder>Martin Wilz</holder></copyright>
-    <copyright><year>2009</year><holder>Thomas Eschenbacher</holder></copyright>
+    <copyright><year>2011</year><holder>Thomas Eschenbacher</holder></copyright>
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2011-02-07</date>
+    <date>2011-03-08</date>
     <releaseinfo>&version;</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor for KDE.</para></abstract>
@@ -66,7 +94,7 @@
     Basically a long version of the abstract. -->
 
     <para>
-    	This is "&kwave;", a simple sound editor for KDE3.
+    	This is "&kwave;", a simple sound editor for KDE-4.
 	Its features include:
 	<itemizedlist>
     	<listitem><para>
@@ -123,7 +151,7 @@
 	</para></listitem>
 	<listitem><para>
 	    import/export of other audio formats through
-	    <ulink url="http://www.68k.org/~michael/audiofile/">audiofile</ulink>
+	    <ulink url="&url_libaudiofile;">audiofile</ulink>
 	</para></listitem>
 	</itemizedlist>
     </para>
@@ -153,27 +181,26 @@
         Project Homepage<anchor id="project-homepage"/></para><para>
             For informations about new up-to-date releases or some other
 	    information about this project, take a look at
-	    the <ulink url="http://kwave.sourceforge.net/">&kwave; homepage</ulink>
+	    the <ulink url="&url_homepage;">&kwave; homepage</ulink>
         </para></listitem>
         <listitem><para>
         Mailing List<anchor id="mailing-list"/></para><para>
 	If you need some help on using &kwave; or want to get involved
 	    in the development, join the Kwave developer mailing list
 	    by visiting
-	    <ulink url="https://lists.sourceforge.net/lists/listinfo/kwave-devel">
-	    "https://lists.sourceforge.net/lists/listinfo/kwave-devel"</ulink>.
+	    <ulink url="&url_mailinglist;"> "&url_mailinglist;"</ulink>.
 	</para></listitem>
 	<listitem><para>
 	    SVN Repository<anchor id="svn-repository"/>
 	</para>
 	<para>
 	    There also is a SVN repository, hosted by
-	    <ulink url="http://sourceforge.net">SourceForge</ulink> where
+	    <ulink url="&url_sourceforge;">SourceForge</ulink> where
 	    you can get the sources of the latest development version.
 	    For instructions on how to get access to the repository, read
 	    in the chapter
 	    about <link linkend="building_rpm_from_svn">building from SVN</link>,
-	    look at <ulink url="http://sourceforge.net/svn/?group_id=6478">"http://sourceforge.net/svn/?group_id=6478"</ulink>, or just
+	    look at <ulink url="&url_svn_instructions;">"&url_svn_instructions;"</ulink>, or just
 	    browse through the SVN tree through a nice web interface.
         </para></listitem>
     </itemizedlist>
@@ -201,8 +228,7 @@
 	Since &kwave; v0.8.0 the changlog is no longer included in this
 	manual. So if you are interested in a complete list of changes,
 	you can find the full history here:
-	<ulink url="http://svn.sourceforge.net/viewvc/kwave/trunk/CHANGES?view=markup">
-	"http://svn.sourceforge.net/viewvc/kwave/trunk/CHANGES?view=markup"</ulink>.
+	<ulink url="&url_changelog;"> &url_changelog;</ulink>.
     </para>
 
     <!-- changlog cut out, this gives a smaller online help
@@ -225,8 +251,7 @@
 
     <para>
     	&kwave; has an own homepage under
-    	<ulink url="http://kwave.sourceforge.net/">
-	http://kwave.sourceforge.net/</ulink>. Here you can
+    	<ulink url="&url_homepage;">&url_homepage;</ulink>. Here you can
 	find further informations about the project, as well as
 	informations about current stable and up-to-date development
 	versions.
@@ -234,8 +259,7 @@
 
     <para>
 	If you want to get a &kwave; release, you have the choice to visit
-	<ulink url="http://kwave.sourceforge.net/download.html"></ulink>
-	http://kwave.sourceforge.net/download.html and
+	<ulink url="&url_download;"></ulink> &url_download; and
 	<itemizedlist>
 	<listitem><para>
 	    download a binary package of the latest stable version, if
@@ -315,9 +339,7 @@
     <para>
 	For a more complete and up-to-date list, please consult the
 	README file that is included in the source distribution or
-	can be found here: <ulink
-	url="http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup">
-	"http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup"</ulink>.
+	can be found here: <ulink url="&url_readme;"> &url_readme;</ulink>.
 	This file also contains some special hints for getting &kwave; running and/or
 	building &kwave; under some distributions.
     </para>
@@ -326,7 +348,7 @@
     	If you intend to compile &kwave; from the sources, you will need at least:
 	<itemizedlist>
 	    <listitem><para>
-		<ulink url="http://www.cmake.org">cmake</ulink>-2.4.6 or newer
+		<ulink url="&url_cmake;">cmake</ulink>-2.4.6 or newer
 	    </para></listitem>
 	    <listitem><para>
 		A C/C++ compiler. GCC-3.4 works fine, some older and any
@@ -364,8 +386,8 @@
 	    </para></listitem>
 	    <listitem><para>
 		...many other packages, please take a look at the
-		<ulink url="http://svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup">
-		"README"</ulink> file included in the source package.
+		<ulink url="&url_readme;"> "README"</ulink> file included in 
+		the source package.
 	    </para></listitem>
 	</itemizedlist>
     </para>
@@ -380,7 +402,7 @@
 
     <para>
 	Since version 0.7.10 &kwave; uses
-	<ulink url="http://www.cmake.org">cmake</ulink>, the make system
+	<ulink url="&url_cmake;">cmake</ulink>, the make system
 	that is also used by KDE itself. So if you can build other KDE
 	applications, you should also be able to build &kwave;.
 	If you run into problems please report them to
@@ -652,16 +674,16 @@
 	<para>
 	    Then check out the latest sources from the SVN server:
 <screen width="75" format="linespecific">
-<prompt>% </prompt><command>svn checkout https://kwave.svn.sourceforge.net/svnroot/kwave/trunk kwave</command>
+<prompt>% </prompt><command>svn checkout &url_svn_trunk; kwave</command>
 </screen>
 	</para>
 	<para>
 	or you can check out a specific release with the following command:
 <screen width="75" format="linespecific">
-<prompt>% </prompt><command>svn checkout https://kwave.svn.sourceforge.net/svnroot/kwave/tags/<replaceable>[release-tag]</replaceable> kwave</command>
+<prompt>% </prompt><command>svn checkout &url_svn_tags;<replaceable>[release-tag]</replaceable> kwave</command>
 </screen>
 	You can look up the names of the release tags in the web svn page at
-	<ulink url="http://svn.sourceforge.net/viewvc/kwave/tags/">"http://svn.sourceforge.net/viewvc/kwave/tags/"</ulink>.
+	<ulink url="&url_svn_list_tags;"> &url_svn_list_tags;</ulink>.
 	The release tags are always built out of the word <literal>Release-</literal> and
 	the version number of the release, with underscores instead of dots.
 	For example "<literal>Release-&version_tag;</literal>" for v&version;.
@@ -787,7 +809,7 @@
 </screen>
 
 	(I found those nice tricks at
-	<ulink url="http://www.keywarrior.net/duesti/rpmopt.de.html">
+	<ulink url="http://www.keywarrior.net/duesti/rpmopt.en.html">
 	http://www.keywarrior.net/duesti/rpmopt.en.html</ulink>.
 	Thanks to Matthias Düsterhöft!).
     </para>
@@ -1307,22 +1329,22 @@
 	<listitem><para>
 	    <filename>.mp3</filename> and <filename>.mp2</filename> import
 	    is available through
-	    <ulink url="http://www.mars.org/home/rob/proj/mpeg/">libmad</ulink>
+	    <ulink url="&url_libmad;">libmad</ulink>
 	    for the MP3 decoding in combination with
-	    <ulink url="http://www.id3lib.org/">id3lib</ulink> for decoding
+	    <ulink url="&url_id3lib;">id3lib</ulink> for decoding
 	    ID3 tags.
 	</para></listitem>
 
 	<listitem><para>
 	    Ogg/Vorbis (<filename>*.ogg</filename>) import and export.
 	    See
-	    <ulink url="http://www.xiph.org">http://www.xiph.org</ulink>
+	    <ulink url="&url_ogg_vorbis;">&url_ogg_vorbis;</ulink>
 	    for details.
 	</para></listitem>
 
 	<listitem><para>
 	    Additionally &kwave; supports many other common formats through the
-	    <ulink url="http://www.68k.org/~michael/audiofile/">audiofile</ulink>
+	    <ulink url="&url_libaudiofile;">audiofile</ulink>
 	    plugin. You can import files like <filename>*.au</filename> and
 	    <filename>*.snd</filename> (NeXT,Sun Audio),
 	    <filename>*.aiff</filename> (Audio Interchange Format) and
@@ -1342,7 +1364,7 @@
 	    The best way to work with formats other than those supported by
 	    &kwave; is to use an external converter program.
 	    A good set of tools for this is in the
-	    <ulink url="http://sox.sourceforge.net/">SoX</ulink>
+	    <ulink url="&url_sox;">SoX</ulink>
 	   package, they have also some nice documentation!
 	</para>
 
@@ -2222,7 +2244,7 @@
     When copying data to the clipboard through the <literal>copy</literal>
     function &kwave; uses the mime type
     <literal>audio/vnd.wave</literal> as data format, conforming to
-    <ulink url="http://www.faqs.org/rfcs/rfc2361.html">RFC 2361</ulink>
+    <ulink url="&url_rfc2361;">RFC 2361</ulink>
     which is the same as the well known <literal>wav</literal> format.
     When pasting from the clipboard into &kwave; all data formats that are
     available as file import formats are supported, like for example
@@ -2381,7 +2403,7 @@
 	Sorry, this chapter is still to be written... At the moment the
 	source code is nearly completely documented with tags suitable with
 	the KDE documentation tools. We currently prefer using
-	<ulink url="http://www.stack.nl/~dimitri/doxygen">doxygen</ulink>. Maybe some day we will spend some time for
+	<ulink url="&url_doxygen;">doxygen</ulink>. Maybe some day we will spend some time for
 	writing a tool that converts the doxygen output into something
 	we can include into the docbook source (the source this page has
 	been built of).
@@ -2427,7 +2449,7 @@
 		docbook online documentation and the online help only.
 		For a list of available language codes and names, please
 		refer to the documentation of the international standard
-		<ulink url="http://www.loc.gov/standards/iso639-2/php/code_list.php">ISO 639-2</ulink>.
+		<ulink url="&url_iso639;">ISO 639-2</ulink>.
 	    </para></listitem>
 
 	    <listitem><para>
@@ -2500,7 +2522,7 @@
 		in the source tree, for example in <filename>$HOME/doc/de</filename>.
 		All screenshots are in <emphasis><filename>.png</filename></emphasis> and
 		should follow the
-		<ulink url="http://l10n.kde.org/docs/screenshots.php">KDE
+		<ulink url="&url_kde_screenshots;">KDE
 		Documentation Screenshots Requirements</ulink>.
 		Here in short:
 		<itemizedlist>
@@ -2545,20 +2567,20 @@
 	Useful links:
 	<itemizedlist>
 	    <listitem><para>
-		<ulink url="http://www.ietf.org/rfc/rfc3066.txt">RFC 3066</ulink>
+		<ulink url="&url_rfc3066;">RFC 3066</ulink>
 		Tags for the Identification of Languages
 	    </para></listitem>
 	    <listitem><para>
-		<ulink url="http://l10n.kde.org/">KDE Localization</ulink> contains
+		<ulink url="&url_kde_l10n;">KDE Localization</ulink> contains
 		a lot of useful links for KDE translators.
 	    </para></listitem>
 	    <listitem><para>
-		<ulink url="http://userbase.kde.org/Lokalize/">Lokalize</ulink> is
+		<ulink url="&url_kde_localize;">Lokalize</ulink> is
 		<emphasis>the</emphasis> standard tool that helps you
 		translating <filename>.po</filename> files.
 	    </para></listitem>
 	    <listitem><para>
-		<ulink url="http://l10n.kde.org/docs/screenshots.php">KDE
+		<ulink url="&url_kde_screenshots;">KDE
 		Documentation Screenshots Requirements</ulink>.
 	    </para></listitem>
 	</itemizedlist>
@@ -2691,7 +2713,7 @@
 		    If you have to work on an other format, you can convert
 		    it into .wav format. A good set of tools for this is
 		    in the
-	            <ulink url="http://sox.sourceforge.net/">SoX</ulink> package, they have also some nice
+	            <ulink url="&url_sox;">SoX</ulink> package, they have also some nice
 		    documentation!
 		</para>
 	    </answer>
@@ -2860,9 +2882,7 @@
     <para>
 	For a complete list of authors and licenses of all files,
 	please see the <filename>LICENSES</filename> file, which is included in the sources.
-	It is also available online at
-	<ulink url="http://svn.sourceforge.net/viewvc/kwave/trunk/LICENSES?view=markup">
-	"http://svn.sourceforge.net/viewvc/kwave/trunk/LICENSES?view=markup"</ulink>.
+	It is also available online at <ulink url="&url_licenses;"> &url_licenses;</ulink>.
     </para>
 
     <para>
@@ -2906,7 +2926,7 @@
 	        <para>
 		    Rik Hemsley
 		    <email>rik@kde.org</email>
-		    (<ulink url="http://rikkus.info/esoundlevelmeter.html">level meter</ulink>)
+		    (<ulink url="&url_levelmeter;">level meter</ulink>)
 		</para>
 	    </listitem>
 
@@ -2960,9 +2980,16 @@
 	    </listitem>
 	    <listitem>
 	        <para>
+		    Pavel Fric
+		    <email>pavelfric@seznam.cz</email>
+		    (Czech translation)
+		</para>
+	    </listitem>
+	    <listitem>
+	        <para>
 		    Aurelien Jarno
 		    <email>aurel32@debian.org</email>
-		    (<ulink url="http://www.debian.org">debian</ulink> packager)
+		    (<ulink url="&url_debian;">debian</ulink> packager)
 		</para>
 	    </listitem>
 	    <listitem>
@@ -2978,7 +3005,7 @@
 	    <listitem>
 	        <para>
 		    T.H.F. Klok and Cedric Tefft
-		    (maintainers of the <ulink url="http://www.id3lib.org/">
+		    (maintainers of the <ulink url="&url_id3lib;">
 		     id3lib</ulink> library)
 		</para>
 	    </listitem>
@@ -2987,7 +3014,7 @@
 		    Robert Leslie
 		    <email>rob@mars.org</email>
 		    (author of the
-		     <ulink url="http://www.mars.org/home/rob/proj/mpeg/">mad</ulink>
+		     <ulink url="&url_libmad;">mad</ulink>
 		     mp3 decoder library)
 		</para>
 	    </listitem>
@@ -2996,7 +3023,7 @@
 		    Erik de Castro Lopo
 		    <email>erikd@zip.com.au</email>
 		    (author of the
-		    <ulink url="http://www.mega-nerd.com/libsndfile/">sndfile</ulink>
+		    <ulink url="&url_libsndfile;">sndfile</ulink>
 		    library)
 		</para>
 	    </listitem>
@@ -3006,7 +3033,7 @@
 		    Michael Pruett
 		    <email>mpruett@sgi.com</email>
 		    (author of the
-		    <ulink url="http://www.68k.org/~michael/audiofile/">audiofile</ulink>
+		    <ulink url="&url_libaudiofile;">audiofile</ulink>
 		    library)
 		</para>
 	    </listitem>
@@ -3028,7 +3055,7 @@
     </para>
 
     <para>
-	Documentation copyright (C) 2006 Thomas Eschenbacher
+	Documentation copyright (C) 2011 Thomas Eschenbacher
 	<email>thomas.eschenbacher@gmx.de</email>
     </para>
 

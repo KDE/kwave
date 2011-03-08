@@ -58,7 +58,7 @@ SampleRatePlugin::~SampleRatePlugin()
 //***************************************************************************
 int SampleRatePlugin::interpreteParameters(QStringList &params)
 {
-    bool ok;
+    bool ok = false;
     QString param;
 
     // set defaults

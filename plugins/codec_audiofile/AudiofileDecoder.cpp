@@ -139,7 +139,16 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     int sample_format;
     afGetVirtualSampleFormat(fh, AF_DEFAULT_TRACK, &sample_format,
 	reinterpret_cast<int *>(&bits));
+    
+    // get sample rate, with fallback to 8kHz
     rate = static_cast<int>(afGetRate(fh, AF_DEFAULT_TRACK));
+    if (rate < 1) {
+	qWarning("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"\
+	         "WARNING: file has no sample rate!\n"\
+	         "         => using 8000 samples/sec as fallback\n"\
+	         "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+	rate = 8000;
+    }
 
     QString sample_format_name;
     switch (sample_format) {
@@ -159,6 +168,8 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 	    sample_format_name = "(unknown)";
     }
     if (static_cast<signed int>(bits) < 0) bits = 0;
+    
+    int compression = afGetCompression(fh, AF_DEFAULT_TRACK); // just for debug
 
     FileInfo info = metaData().fileInfo();
     info.setRate(rate);
@@ -168,11 +179,12 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     metaData().setFileInfo(info);
     qDebug("-------------------------");
     qDebug("info:");
+    qDebug("compression = %d", compression);
     qDebug("channels    = %d", info.tracks());
     qDebug("rate        = %0.0f", info.rate());
     qDebug("bits/sample = %d", info.bits());
-    qDebug("length      = %lu samples",
-           static_cast<unsigned long int>(info.length()));
+    qDebug("length      = %lu samples", 
+	   static_cast<unsigned long int>(info.length()));
     qDebug("format      = %d (%s)", sample_format,
                                     sample_format_name.toLocal8Bit().data());
     qDebug("-------------------------");

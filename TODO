@@ -34,15 +34,6 @@ o support for recording via PULSE audio
 
 o MP3 export (maybe via calling lame/mpg123/mencoder as an external process)
 
-o crash in record plugin, maybe if device is busy?
-    RecordALSA::read(), after underrun: resuming
-    RecordALSA::read(), underrun
-    ALSA lib pcm_direct.c:1280:(snd1_pcm_direct_set_timer_params) unable to set timer parameters
-    RecordALSA::read(), resume after underrun failed: Ungültiger Dateideskriptor
-    RecordThread: read result = -9 (Ungültiger Dateideskriptor)
-    RecordThread::run() - done
-    KCrash: Application 'kwave' crashing...
-
 o better support to add labels from batch files
 
 o function for "Edit/Selection/Insert at..."
@@ -56,6 +47,19 @@ o debug aid: new plugin for adding a new track with test/debug info:
   - test pattern: stripe borders
   - generate labels at stripe borders
 
+o spurious valgrind error:
+    ==13087== Conditional jump or move depends on uninitialised value(s)
+    ==13087==    at 0x40F29EE: Kwave::Mul::multiply() (KwaveMul.cpp:117)
+
+o spurious valgrind error:
+    ==13087== Invalid read of size 8
+    ==13087==    at 0x4BF10544: QList<QTouchEvent::TouchPoint>::~QList() (qlist.h:716)
+    ==13087==    by 0x4C1CD41B: QRasterPaintEngine::drawLines(QLineF const*, int) (qpaintengine_raster_p.h:278)
+    ==13087==    by 0x4C1D386A: QRasterPaintEngine::drawRects(QRectF const*, int) (qpaintengine_raster_p.h:272)
+    ==13087==    by 0x4C110A63: QPainter::drawImage(QPointF const&, QImage const&) (qpainterpath.h:310)
+    ==13087==    by 0x404C4B5: OverViewWidget::calculateBitmap() (qpainter.h:925)
+    ==13087==    by 0x404D091: OverViewWidget::WorkerThread::run() (OverViewWidget.cpp:65)
+    
 o use xml description for device names in playback/record plugins
 
 o use svg graphics instead of pixmaps
@@ -169,5 +173,14 @@ o switch to use float as sample_t (requires much work...)
   -> version 0.9
 
 o about plugin: auto-scroll for contents
+
+o crash in record plugin, maybe if device is busy? (last seen ~2009)
+    RecordALSA::read(), after underrun: resuming
+    RecordALSA::read(), underrun
+    ALSA lib pcm_direct.c:1280:(snd1_pcm_direct_set_timer_params) unable to set timer parameters
+    RecordALSA::read(), resume after underrun failed: Ungültiger Dateideskriptor
+    RecordThread: read result = -9 (Ungültiger Dateideskriptor)
+    RecordThread::run() - done
+    KCrash: Application 'kwave' crashing...
 
 ### EOF ###

@@ -1,5 +1,5 @@
 
-0.8.6  [2011-??-??]
+0.8.6  [2011-03-07]
 
  * bugfix: copy/paste with partial track selection failed
  * bugfix: labels update after undo of copy&paste failed on multitrack signals
@@ -18,6 +18,13 @@
  * build fixes for qt-4.7
  * no longer using QSplashScreen (has side effects, operates as modal window)
  * bugfix: startup as unique application did not work correctly
+ * bugfix: potential crash in message loop of progress dialog
+ * bugfix: handling of track selection was wrong in reverse plugin
+ * workaround for bug in libaudiofile: some files have sampe rate zero,
+   falling back to 8000 samples/sec in that case (audio/x-ircam, sun, BE)
+ * bugfix: reverse failed on files smaller than the internal block size
+ * using entities for URLs in handbook, to simplify maintenance
+ * bugfix in cmake files: some invocations of STREQUAL lacked quotes
 
 0.8.5  [2009-12-24]
 

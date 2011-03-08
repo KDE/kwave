@@ -24,6 +24,7 @@
 #include <threadweaver/DebuggingAids.h>
 
 #include <QList>
+#include <QSharedPointer>
 #include <QStringList>
 #include <QThread>
 
@@ -136,7 +137,8 @@ void ReverseJob::reverse(Kwave::SampleArray &buffer)
 void ReverseJob::run()
 {
     sample_index_t start_a = m_first;
-    sample_index_t start_b = m_last - m_block_size;
+    sample_index_t start_b = (m_last >= m_block_size) ?
+	(m_last - m_block_size) : 0;
 
     if (start_a + m_block_size < start_b) {
 	// read from start
@@ -159,6 +161,7 @@ void ReverseJob::run()
 	    m_track, Overwrite,
 	    start_a, start_a + m_block_size - 1);
 	Q_ASSERT(dst_a);
+	if (!dst_a) return;
 	*dst_a << buffer_b;
 	dst_a->flush();
 	delete dst_a;
@@ -168,6 +171,7 @@ void ReverseJob::run()
 	    m_track, Overwrite,
 	    start_b, start_b + m_block_size - 1);
 	Q_ASSERT(dst_b);
+	if (!dst_b) return;
 	*dst_b << buffer_a << flush;
 	delete dst_b;
     } else {
@@ -184,6 +188,7 @@ void ReverseJob::run()
 	// write back
 	Kwave::Writer *dst = m_manager.openWriter(
 	    m_track, Overwrite, m_first, m_last);
+	if (!dst) return;
 	(*dst) << buffer << flush;
 	delete dst;
     }
@@ -205,41 +210,28 @@ ReversePlugin::~ReversePlugin()
 //***************************************************************************
 void ReversePlugin::run(QStringList params)
 {
-    UndoTransactionGuard *undo_guard = 0;
+    QSharedPointer<UndoTransactionGuard> undo_guard;
 
-    /**
-     * @todo use a QSharedPointer for undo_guard as soon as
-     * everyone uses >= Qt-4.5
-     */
     if ((params.count() != 1) || (params.first() != "noundo")) {
 	// undo is enabled, create a undo guard
-	undo_guard = new UndoTransactionGuard(*this, i18n("Reverse"));
+	undo_guard = QSharedPointer<UndoTransactionGuard>(
+	    new UndoTransactionGuard(*this, i18n("Reverse")));
 	if (!undo_guard) return;
 
 	// try to save undo information
 	UndoAction *undo = new UndoReverseAction(manager());
-	if (!undo_guard->registerUndoAction(undo)) {
-	    delete undo_guard;
+	if (!undo_guard->registerUndoAction(undo))
 	    return;
-	}
 	undo->store(signalManager());
     }
 
-    // get the current selection
+    // get the current selection and the list of affected tracks
     QList<unsigned int> tracks;
     sample_index_t first = 0;
     sample_index_t last  = 0;
     sample_index_t length = selection(&tracks, &first, &last, true);
-    if (!length || tracks.isEmpty()) {
-	if (undo_guard) delete undo_guard;
+    if (!length || tracks.isEmpty())
 	return;
-    }
-
-    // get the list of affected tracks
-    if (tracks.isEmpty()) {
-	if (undo_guard) delete undo_guard;
-	return;
-    }
 
     MultiTrackReader source_a(Kwave::SinglePassForward,
 	signalManager(), tracks, first, last);
@@ -247,10 +239,8 @@ void ReversePlugin::run(QStringList params)
 	signalManager(), tracks, first, last);
 
     // break if aborted
-    if (!source_a.tracks() || !source_b.tracks()) {
-	if (undo_guard) delete undo_guard;
+    if (!source_a.tracks() || !source_b.tracks())
 	return;
-    }
 
     // connect the progress dialog
     connect(&source_a, SIGNAL(progress(qreal)),
@@ -276,7 +266,7 @@ void ReversePlugin::run(QStringList params)
 	for (int track = 0; track < tracks.count(); track++) {
 
 	    ReverseJob *job = new ReverseJob(
-		signalManager(), track, first, last, block_size,
+		signalManager(), tracks[track], first, last, block_size,
 		source_a[track], source_b[track]
 	    );
 
@@ -299,8 +289,6 @@ void ReversePlugin::run(QStringList params)
 	first += block_size;
 	last  = (last > block_size) ? (last - block_size) : 0;
     }
-
-    if (undo_guard) delete undo_guard;
 }
 
 //***************************************************************************

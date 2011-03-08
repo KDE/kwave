@@ -1,5 +1,5 @@
 [Buildset]
-BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00\n\x00k\x00w\x00a\x00v\x00e)
+BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
 Number of Builditems=1
 
 [Buildset][Builditem0]
@@ -22,27 +22,30 @@ Launch Configurations=Launch Configuration 0
 [Launch][Launch Configuration 0]
 Configured Launch Modes=execute
 Configured Launchers=nativeAppLauncher
-Name=Kwave
+Name=Kwave_Debug
 Type=Native Application
 
 [Launch][Launch Configuration 0][Data]
-Arguments=/var/tmp/test2.wav\s
+Arguments=
 Debugger Shell=
 Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
-Dependency Action=Build
+Dependency Action=Install
 Display Demangle Names=true
 Display Static Members=true
 EnvironmentGroup=Kwave-Debug
-Executable=file:///var/tmp/kwave-build/kwave/kwave
-Floating Toolbar=false
-GDB Path=
+Executable=file:///var/tmp/kwave-install/usr/bin/kwave
+External Terminal=konsole --noclose --workdir %workdir -e %exe
+GDB Path=file:///usr/bin/gdb-7.2.50.20110222
 Remote GDB Config Script=
-Remote GDB Run Script=
+Remote GDB Run Script=file:///usr/src/packages/multimedia/sound/kwave/.gdbinit
 Remote GDB Shell Script=
-Separate Terminal For Application IO=false
-Try Setting Breakpoints On Loading Libraries=true
-Working Directory=file:///var/tmp/kwave-build
+Use External Terminal=false
+Working Directory=
 isExecutable=true
+
+[MakeBuilder]
+Default Make Environment Profile=Kwave-Debug
+Number Of Jobs=1
 
 [Project]
 VersionControlSupport=kdevsubversion

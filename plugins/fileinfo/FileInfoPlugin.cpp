@@ -67,6 +67,7 @@ QStringList *FileInfoPlugin::setup(QStringList &)
 //***************************************************************************
 void FileInfoPlugin::apply(FileInfo &new_info)
 {
+    /** @todo storing undo info for fileinfo changes */
     FileInfo old_info = signalManager().metaData().fileInfo();
     if (old_info == new_info) return; // nothing to do
 
@@ -84,16 +85,25 @@ void FileInfoPlugin::apply(FileInfo &new_info)
 	    i18n("&Convert"),
 	    i18n("&Set Rate"));
 	if (res == KMessageBox::Yes) {
-	    // resample
+	    // Yes -> resample
+	    
+	    // take over all properties except the new sample rate, this will
+	    // be detected and changed in the sample rate plugin
+	    new_info.setRate(old_info.rate());
+	    signalManager().metaData().setFileInfo(new_info);
+
+	    // NOTE: this command could be executed asynchronously, thus
+	    //       we cannot change the sample rate afterwards
 	    emitCommand(QString(
 		"plugin:execute(samplerate,%1,all)").arg(new_rate)
 	    );
-	    new_info.setRate(new_rate);
+
+	    return;
 	} else if (res == KMessageBox::No) {
-	    // change the rate only
+	    // No -> only change the rate in the file info
 	    new_info.setRate(new_rate);
 	} else {
-	    // canceled -> use old setting
+	    // canceled -> use old sample rate
 	    new_info.setRate(old_info.rate());
 	}
     }

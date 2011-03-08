@@ -612,8 +612,6 @@ int SignalManager::executeCommand(const QString &command)
 
     // --- copy & paste + clipboard ---
     CASE_COMMAND("copy")
-	qDebug("copy(%lu,%lu)", static_cast<unsigned long int>(offset),
-	       static_cast<unsigned long int>(length));
 	if (length) {
 	    ClipBoard &clip = ClipBoard::instance();
 	    clip.copy(

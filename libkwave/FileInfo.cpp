@@ -396,7 +396,7 @@ void FileInfo::setTracks(unsigned int tracks)
 void FileInfo::dump() const
 {
     qDebug("--- dump of file info ---");
-
+    qDebug("    id = #%s", id().toLocal8Bit().data());
     qDebug("default properties:");
     qDebug("   length = %lu samples", static_cast<unsigned long int>(length()));
     qDebug("   rate   = %0.1f Hz", rate());

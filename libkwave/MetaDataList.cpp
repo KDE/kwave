@@ -226,9 +226,8 @@ Kwave::MetaDataList Kwave::MetaDataList::selectByValue(
 //***************************************************************************
 bool Kwave::MetaDataList::contains(const Kwave::MetaData &metadata) const
 {
-    Kwave::MetaDataList list;
-
     QString id = metadata.id();
+
     Iterator it(*this);
     while (it.hasNext()) {
 	it.next();

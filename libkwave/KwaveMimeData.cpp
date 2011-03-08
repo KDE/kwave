@@ -288,6 +288,12 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	    meta_data.scalePositions(dst_rate / src_rate, tracks);
 
 	meta_data.shiftRight(0, left, tracks);
+
+	// remove the file info, this must not be handled here, otherwise
+	// this would overwrite the file info of the destination
+	meta_data.remove(meta_data.selectByType(FileInfo::metaDataType()));
+
+	// add the remaining meta data (e.g. labels etc)
 	sig.metaData().add(meta_data);
 
 	delete decoder;

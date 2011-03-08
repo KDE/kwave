@@ -410,7 +410,7 @@ int MainWidget::executeCommand(const QString &command)
 	sample_index_t len = signal_manager->selection().length();
 	if (!len) len = 1;
 	if (len > ofs) len = ofs;
-	signal_manager->selectRange(ofs-len, len);
+	signal_manager->selectRange(ofs - len, len);
     CASE_COMMAND("selecttoleft")
 	signal_manager->selectRange(0, signal_manager->selection().last() + 1);
     CASE_COMMAND("selecttoright")
@@ -421,7 +421,10 @@ int MainWidget::executeCommand(const QString &command)
 	signal_manager->selectRange(m_offset, displaySamples());
     CASE_COMMAND("selectnone")
 	signal_manager->selectRange(m_offset, 0);
-    } else return -ENOSYS;
+    } else {
+	return (signal_manager) ? 
+	    signal_manager->executeCommand(command) : -ENOSYS;
+    }
 
     return 0;
 }

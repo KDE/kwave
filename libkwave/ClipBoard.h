@@ -104,6 +104,7 @@ public slots:
     /**
      * emits clipboardChanged() whenever the clipboard has changed
      * from empty to filled (with decodeable data) or vice versa
+     * (connected to the Qt clipboard)
      */
     void slotChanged(QClipboard::Mode mode);
 

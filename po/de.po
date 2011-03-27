@@ -630,7 +630,7 @@ msgstr "&Aufnehmen"
 
 #: libgui/SignalWidget.cpp:1067 kwave/menus_config_i18n.cpp:99
 msgid "&Redo"
-msgstr "&Rückgängig"
+msgstr "&Wiederherstellen"
 
 #: plugins/fileinfo/ui_KeywordWidgetBase.h:97
 msgid "&Remove"

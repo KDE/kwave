@@ -84,22 +84,16 @@ namespace Kwave {
 	virtual bool canHandleSelection() const { return true; }
 
 	/**
-	 * Tries to find the nearest object that is visible in this view
-	 * (needed for showing a tooltip at that location).
+	 * Tries to find the nearest item that is visible in this view
+	 * at a given position
+	 * 
 	 * @param offset position to look at [samples]
 	 * @param tolerance search tolerance [samples]
-	 * @param position will receive the exact position of the object if
-	 *                 found, otherwise remains unchanged
-	 * @param description receives the description of the object, as it
-	 *                    should be shown in the tool tip (translated),
-	 *                    otherwise remains unchanged
-	 * @return distance to the nearest object if something was found,
-	 *         the value of the tolerance parameter or more otherwise
+	 * @return the nearest ViewObject in range 
+	 *         or a null pointer if nothing found
 	 */
-	virtual double findObject(double offset,
-	                          double tolerance,
-	                          sample_index_t &position,
-	                          QString &description);
+	virtual QSharedPointer<Kwave::ViewItem> findObject(
+	    double offset, double tolerance);
 
     private slots:
 

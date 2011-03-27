@@ -5,8 +5,6 @@ o metadata: adjust track indices on insert/delete of tracks
 
 o metadata: enable/disable menu entries depending of labels
 
-o metadata: adjust ranges/positions on insert/delete of samples
-
 o metadata: position dependent iterator
 
 o support for visualization plugins (rev 2498)

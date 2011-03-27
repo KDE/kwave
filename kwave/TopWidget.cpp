@@ -60,6 +60,7 @@
 #include "libkwave/PlaybackController.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Utils.h"
 
 #include "libgui/MenuManager.h"
 #include "libgui/KwaveFileDialog.h"
@@ -1110,7 +1111,7 @@ void TopWidget::setZoomInfo(double zoom)
 	} else {
 	    // percent mode
 	    double percent = 100.0 / zoom;
-	    strZoom = Kwave::Plugin::zoom2string(percent);
+	    strZoom = Kwave::zoom2string(percent);
 	}
     }
 
@@ -1149,7 +1150,7 @@ void TopWidget::setStatusInfo(sample_index_t length, unsigned int tracks,
 	txt = " " + i18nc(
 	    "Length, as in total duration of loaded song",
 	    "Length: %1 (%2 samples)",
-	    Kwave::Plugin::ms2string(ms), Kwave::Plugin::dottedNumber(length)
+	    Kwave::ms2string(ms), Kwave::dottedNumber(length)
 	) + " ";
     } else txt = "";
     m_lbl_status_size->setText(txt);
@@ -1211,9 +1212,9 @@ void TopWidget::selectionChanged(sample_index_t offset, sample_index_t length)
 	        "%1=first sample, %2=last sample, %3=number of samples, "\
 	        "example: 'Selected: 2000...3000 (1000 samples)'",
 	        "Selected: %1...%2 (%3 samples)",
-	        Kwave::Plugin::dottedNumber(offset),
-	        Kwave::Plugin::dottedNumber(last),
-	        Kwave::Plugin::dottedNumber(length)
+	        Kwave::dottedNumber(offset),
+	        Kwave::dottedNumber(last),
+	        Kwave::dottedNumber(length)
 	    );
 	} else {
 	    double ms_first = static_cast<double>(offset)   * 1E3 / rate;
@@ -1223,9 +1224,9 @@ void TopWidget::selectionChanged(sample_index_t offset, sample_index_t length)
 	        "%1=start time, %2=end time, %3=time span, "\
 	        "example: 'Selected: 02:00...05:00 (3 min)'",
 	        "Selected: %1...%2 (%3)",
-	        Kwave::Plugin::ms2string(ms_first),
-	        Kwave::Plugin::ms2string(ms_last),
-	        Kwave::Plugin::ms2string(ms)
+	        Kwave::ms2string(ms_first),
+	        Kwave::ms2string(ms_last),
+	        Kwave::ms2string(ms)
 	    );
 	}
 
@@ -1243,7 +1244,7 @@ void TopWidget::selectionChanged(sample_index_t offset, sample_index_t length)
 	} else {
 	    double ms_first = static_cast<double>(offset) * 1E3 / rate;
 	    QString txt = i18n("Position: %1",
-		Kwave::Plugin::ms2string(ms_first));
+		Kwave::ms2string(ms_first));
 	    m_lbl_status_cursor->setText(txt);
 	}
 
@@ -1263,10 +1264,10 @@ void TopWidget::updatePlaybackPos(sample_index_t offset)
     double rate = m_context.pluginManager()->signalRate();
     if (rate > 0) {
 	double ms = static_cast<double>(offset) * 1E3 / rate;
-	txt = i18n("Playback: %1", Kwave::Plugin::ms2string(ms));
+	txt = i18n("Playback: %1", Kwave::ms2string(ms));
     } else {
 	txt = i18n("Playback: %1 samples",
-	            Kwave::Plugin::dottedNumber(offset));
+	            Kwave::dottedNumber(offset));
     }
     statusBar()->showMessage(txt, 2000);
 }

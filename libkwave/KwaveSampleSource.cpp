@@ -22,6 +22,7 @@
 #include <threadweaver/ThreadWeaver.h>
 
 #include "libkwave/KwaveSampleSource.h"
+#include "libkwave/Utils.h"
 
 //***************************************************************************
 Kwave::SampleSource::SampleSource(QObject *parent)
@@ -72,7 +73,7 @@ Kwave::SourceJob::~SourceJob()
     int i = 0;
     while (!isFinished()) {
 	qDebug("job %p waiting... #%u", static_cast<void *>(this), i++);
-	QThread::yieldCurrentThread();
+	Kwave::yield();
     }
     Q_ASSERT(isFinished());
 }

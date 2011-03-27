@@ -27,8 +27,10 @@
 #include "libkwave/LabelList.h"
 #include "libkwave/SignalManager.h"
 
+#include "LabelItem.h"
 #include "MultiStateWidget.h"
 #include "TrackView.h"
+#include "ViewItem.h"
 
 /** interval for limiting the number of repaints per second [ms] */
 #define REPAINT_INTERVAL 125
@@ -154,40 +156,35 @@ void Kwave::TrackView::setVerticalZoom(double zoom)
 }
 
 //***************************************************************************
-double Kwave::TrackView::findObject(double offset,
-                                    double tolerance,
-                                    sample_index_t &position,
-                                    QString &description)
+QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findObject(
+    double offset, double tolerance)
 {
     Q_ASSERT(m_signal_manager);
-    if (!m_signal_manager) return tolerance;
+    if (!m_signal_manager) return QSharedPointer<Kwave::ViewItem>(0);
 
-//     // our display can contain labels -> find the nearest label
-//     double d_min = tolerance;
-//     Label nearest;
-//     int index = -1;
-//     foreach (const Label &label, m_signal_manager->metaData().labels()) {
-// 	index = m_signal_manager->labelIndex(label);
-// 	double pos = static_cast<double>(label.pos());
-// 	double d = (pos > offset) ? (pos - offset) : (offset - pos);
-// 	if (d < d_min) {
-// 	    d_min = d;
-// 	    nearest = label;
-// 	}
-//     }
-//
-//     // found something, get the return values
-//     if (d_min < tolerance) {
-// 	position = nearest.pos();
-// 	description = (nearest.name().length()) ?
-// 	    i18nc("tooltip of a label, %1=index, %2=description/name",
-// 	          "Label #%1 (%2)", index, nearest.name()) :
-// 	    i18nc("tooltip of a label, without description, %1=index",
-// 	          "Label #%1", index);
-// 	return d_min;
-//     }
+    // our display can contain labels -> find the nearest label
+    double d_min = tolerance;
+    Label nearest;
+    int index = 0;
+    foreach (const Label &label, m_signal_manager->metaData().labels()) {
+	index++;
+	double pos = static_cast<double>(label.pos());
+	double d = (pos > offset) ? (pos - offset) : (offset - pos);
+	if (d < d_min) {
+	    d_min = d;
+	    nearest = label;
+	}
+    }
 
-    return tolerance;
+    // found something, get the return value
+    if (d_min < tolerance) {
+	double ms = samples2ms(nearest.pos());
+	return QSharedPointer<Kwave::ViewItem>(
+	    new Kwave::LabelItem(index, ms, nearest)
+	);
+    }
+
+    return QSharedPointer<Kwave::ViewItem>(0);
 }
 
 //***************************************************************************

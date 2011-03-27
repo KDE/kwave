@@ -252,6 +252,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/KwaveFileDialog.h			GPL2+
 	libgui/KwaveFilterPlugin.cpp			GPL2+
 	libgui/KwaveFilterPlugin.h			GPL2+
+	libgui/LabelItem.cpp				GPL2+
+	libgui/LabelItem.h				GPL2+
 	libgui/LabelPropertiesWidget.cpp		GPL2+
 	libgui/LabelPropertiesWidget.h			GPL2+
 	libgui/LabelPropertiesWidgetBase.ui		GPL2+
@@ -290,6 +292,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/TreeWidgetWrapper.h			GPL2+
 	libgui/UndoModifyLabelAction.cpp		GPL2+
 	libgui/UndoModifyLabelAction.h			GPL2+
+	libgui/ViewItem.cpp				GPL2+
+	libgui/ViewItem.h				GPL2+
 
 	libkwave/ApplicationContext.cpp			GPL2+
 	libkwave/ApplicationContext.h			GPL2+
@@ -413,6 +417,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/TransmissionFunction.h			GPL2+
 	libkwave/Triple.h				GPL2+
 	libkwave/TypesMap.h				GPL2+
+	libkwave/Utils.h				GPL2+
+	libkwave/Utils.cpp				GPL2+
 	libkwave/VirtualAudioFile.cpp			GPL2+
 	libkwave/VirtualAudioFile.h			GPL2+
 	libkwave/WindowFunction.cpp			GPL2+

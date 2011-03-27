@@ -31,6 +31,7 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
@@ -113,7 +114,7 @@ ReverseJob::~ReverseJob()
     int i = 0;
     while (!isFinished()) {
 	qDebug("job %p waiting... #%u", static_cast<void *>(this), i++);
-	QThread::yieldCurrentThread();
+	Kwave::yield();
     }
     Q_ASSERT(isFinished());
 }

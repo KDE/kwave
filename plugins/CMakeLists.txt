@@ -80,6 +80,7 @@ ADD_SUBDIRECTORY( debug )
 ADD_SUBDIRECTORY( decoder_mp3 )     # needs libmad and id3lib
 ADD_SUBDIRECTORY( fileinfo )
 ADD_SUBDIRECTORY( goto )
+# ADD_SUBDIRECTORY( labeler )
 ADD_SUBDIRECTORY( lowpass )
 ADD_SUBDIRECTORY( memory )
 ADD_SUBDIRECTORY( newsignal )

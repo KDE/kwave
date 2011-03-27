@@ -24,6 +24,7 @@
 #include <QLabel>
 #include <QSize>
 #include <QPolygon>
+#include <QSharedPointer>
 #include <QString>
 #include <QTimer>
 #include <QWidget>
@@ -33,6 +34,7 @@
 #include "libkwave/Sample.h"
 
 #include "libgui/MouseMark.h"
+#include "libgui/ViewItem.h"
 
 class QEvent;
 class QMouseEvent;
@@ -134,22 +136,16 @@ namespace Kwave {
 	virtual bool canHandleSelection() const { return false; }
 
 	/**
-	 * Tries to find the nearest object that is visible in this view
-	 * (needed for showing a tooltip at that location).
+	 * Tries to find the nearest item that is visible in this view
+	 * at a given position
+	 * 
 	 * @param offset position to look at [samples]
 	 * @param tolerance search tolerance [samples]
-	 * @param position will receive the exact position of the object if
-	 *                 found, otherwise remains unchanged
-	 * @param description receives the description of the object, as it
-	 *                    should be shown in the tool tip (translated),
-	 *                    otherwise remains unchanged
-	 * @return distance to the nearest object if something was found,
-	 *         the value of the tolerance parameter or more otherwise
+	 * @return the nearest ViewObject in range 
+	 *         or a null pointer if nothing found
 	 */
-	virtual double findObject(double offset,
-	                          double tolerance,
-	                          sample_index_t &position,
-	                          QString &description);
+	virtual QSharedPointer<Kwave::ViewItem> findObject(
+	    double offset, double tolerance);
 
 	/** slot for mouse moves, used for selection and drag&drop */
 	virtual void mouseMoveEvent(QMouseEvent *e);
@@ -209,19 +205,18 @@ namespace Kwave {
 	 * Shows the current cursor position as a tooltip
 	 * @param text description of the position
 	 * @param pos marker position [samples]
-	 * @param ms marker position in milliseconds
 	 * @param mouse the coordinates of the mouse cursor,
 	 *              relative to this widget [pixel]
 	 */
 	virtual void showPosition(const QString &text, sample_index_t pos,
-				  double ms, const QPoint &mouse);
+				  const QPoint &mouse);
 
 	/**
 	 * Hide the current position marker
 	 * @see showPosition
 	 */
 	virtual void hidePosition() {
-	    showPosition(0, 0, 0, QPoint(-1,-1));
+	    showPosition(QString(), 0, QPoint(-1,-1));
 	}
 
     protected:

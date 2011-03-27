@@ -36,6 +36,7 @@
 #include "libkwave/KwaveFileDrag.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Utils.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "libgui/MouseMark.h"
@@ -188,20 +189,17 @@ bool Kwave::SignalView::isInSelection(int x)
 }
 
 //***************************************************************************
-double Kwave::SignalView::findObject(double offset,
-                                     double tolerance,
-                                     sample_index_t &position,
-                                     QString &description)
+QSharedPointer<Kwave::ViewItem> Kwave::SignalView::findObject(
+    double offset, double tolerance)
 {
     Q_UNUSED(offset);
-    Q_UNUSED(position);
-    Q_UNUSED(description);
-    return tolerance;
+    Q_UNUSED(tolerance);
+    return QSharedPointer<Kwave::ViewItem>(0);
 }
 
 //***************************************************************************
 void Kwave::SignalView::showPosition(const QString &text, sample_index_t pos,
-                                     double ms, const QPoint &mouse)
+                                     const QPoint &mouse)
 {
     int x = mouse.x();
     int y = mouse.y();
@@ -216,42 +214,23 @@ void Kwave::SignalView::showPosition(const QString &text, sample_index_t pos,
     setUpdatesEnabled(false);
     m_position_widget.hide();
 
-    unsigned int t, h, m, s, tms;
-    t = static_cast<unsigned int>(rint(ms * 10.0));
-    tms = t % 10000;
-    t /= 10000;
-    s = t % 60;
-    t /= 60;
-    m = t % 60;
-    t /= 60;
-    h = t;
-
-    QString str;
-    QString hms_format = i18nc(
-	"time of the position widget, "\
-	"%1=hours, %2=minutes, %3=seconds, %4=milliseconds",
-	"%02u:%02u:%02u.%04u");
-    QString hms;
-    hms.sprintf(hms_format.toUtf8().data(), h, m, s, tms);
-    QString txt = QString("%1\n%2\n%3").arg(text).arg(pos).arg(hms);
-
     switch (selectionPosition(mouse.x()) & ~Selection) {
 	case LeftBorder:
-	    m_position_widget.setText(txt, Qt::AlignRight);
+	    m_position_widget.setText(text, Qt::AlignRight);
 	    x = samples2pixels(pos - m_offset) - m_position_widget.width();
 	    if (x < 0) {
 		// switch to left aligned mode
-		m_position_widget.setText(txt, Qt::AlignLeft);
+		m_position_widget.setText(text, Qt::AlignLeft);
 		x = samples2pixels(pos - m_offset);
 	    }
 	    break;
 	case RightBorder:
 	default:
-	    m_position_widget.setText(txt, Qt::AlignLeft);
+	    m_position_widget.setText(text, Qt::AlignLeft);
 	    x = samples2pixels(pos - m_offset);
 	    if (x + m_position_widget.width() > width()) {
 		// switch to right aligned mode
-		m_position_widget.setText(txt, Qt::AlignRight);
+		m_position_widget.setText(text, Qt::AlignRight);
 		x = samples2pixels(pos - m_offset) - m_position_widget.width();
 	    }
 	    break;
@@ -331,58 +310,85 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 		m_mouse_selection.left(),
 		m_mouse_selection.length()
 	    );
-	    showPosition(i18n("Selection"), pos, samples2ms(pos), mouse_pos);
+
+	    QString txt = i18nc(
+		"tooltip within the selection, "
+		"%1=position in samples, "
+		"%2=position as a time",
+		"Selection\n%1\n%2",
+		pos, Kwave::ms2hms(samples2ms(pos)));
+	    showPosition(txt, pos, mouse_pos);
 	}
     } else {
-	sample_index_t first = m_signal_manager->selection().first();
-	sample_index_t last  = m_signal_manager->selection().last();
-	const double   tol   = m_zoom * SELECTION_TOLERANCE;
+	sample_index_t selection_first = m_signal_manager->selection().first();
+	sample_index_t selection_last  = m_signal_manager->selection().last();
+	const double   tol             = m_zoom * SELECTION_TOLERANCE;
+	const bool     selection_is_empty = (selection_first == selection_last);
 
-	// check wheter there is some object near this position
-	sample_index_t obj_pos   = pos;
-	QString        obj_text  = "?";
-	double         d_object  = findObject(fine_pos, tol, obj_pos, obj_text);
-	bool           obj_found = (d_object < tol);
+	// check whether there is some object near this position
+	QSharedPointer<Kwave::ViewItem> item       = findObject(fine_pos, tol);
+	bool                            item_found = !item.isNull();
 
 	// find out what is nearer: object or selection border ?
-	if (obj_found && (first != last) && isSelectionBorder(mouse_x))
+	if (item_found && (!selection_is_empty) && isSelectionBorder(mouse_x))
 	{
-	    double d_left = (fine_pos > first) ?
-		(fine_pos - first) : (first - fine_pos);
-	    double d_right = (fine_pos > last) ?
-		(fine_pos - last) : (last - fine_pos);
+	    double d_left  = (fine_pos > selection_first) ?
+		(fine_pos - selection_first) : (selection_first - fine_pos);
+	    double d_right = (fine_pos > selection_last) ?
+		(fine_pos - selection_last) : (selection_last - fine_pos);
+	    sample_index_t item_first = item->first();
+	    sample_index_t item_last  = item->last();
+	    double d_item  = qMin(
+		(pos < item_first) ? (item_first - pos) : (pos - item_first),
+		(pos < item_last)  ? (item_last  - pos) : (pos - item_last)
+	    );
 
 	    // special case: object is at selection left and cursor is left
 	    //               of selection -> take the object
 	    //               (or vice versa at the right border)
 	    bool prefer_the_object =
-		((obj_pos == first) && (fine_pos < first)) ||
-	        ((obj_pos == last)  && (fine_pos > last));
+		((pos == selection_first) && (fine_pos < selection_first)) ||
+	        ((pos == selection_last)  && (fine_pos > selection_last));
 	    bool selection_is_nearer =
-		(d_left <= d_object) || (d_right <= d_object);
+		(d_left <= d_item) || (d_right <= d_item);
 	    if (selection_is_nearer && !prefer_the_object) {
 		// one of the selection borders is nearer
-		obj_found = false;
+		item_found = false;
 	    }
 	}
 
-	// yes, this code gives the nifty cursor change....
-	if (obj_found) {
+	if (item_found) {
+	    // we have an item to show, activate the position window
+	    QString        item_text = item->toolTip(pos);
+	    sample_index_t item_pos  = item->first();
 	    setMouseMode(Kwave::MouseMark::MouseAtSelectionBorder);
-	    showPosition(obj_text, obj_pos, samples2ms(obj_pos), mouse_pos);
-	} else if ((first != last) && isSelectionBorder(mouse_x)) {
-	    setMouseMode(Kwave::MouseMark::MouseAtSelectionBorder);
+	    showPosition(item_text, item_pos, mouse_pos);
+	} else if ((!selection_is_empty) && isSelectionBorder(mouse_x)) {
+	    // show position window for start or end of the selection
+
+	    sample_index_t position = 0;
+	    QString description;
 	    switch (selectionPosition(mouse_x) & ~Selection) {
 		case LeftBorder:
-		    showPosition(i18n("Selection, left border"),
-			first, samples2ms(first), mouse_pos);
+		    description = i18n("Selection, left border");
+		    position    = selection_first;
 		    break;
 		case RightBorder:
-		    showPosition(i18n("Selection, right border"),
-			last, samples2ms(last), mouse_pos);
+		    description = i18n("Selection, right border");
+		    position    = selection_last;
 		    break;
 		default:
 		    hidePosition();
+	    }
+
+	    setMouseMode(Kwave::MouseMark::MouseAtSelectionBorder);
+
+	    if (description.length()) {
+		QString hms = Kwave::ms2hms(samples2ms(position));
+		QString txt = 
+		    QString("%1\n%2\n%3").arg(description).arg(position).arg(hms);
+
+		showPosition(txt, position, mouse_pos);
 	    }
 	} else if (isInSelection(mouse_x)) {
 	    setMouseMode(Kwave::MouseMark::MouseInSelection);

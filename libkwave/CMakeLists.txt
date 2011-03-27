@@ -80,6 +80,7 @@ SET(libkwave_LIB_SRCS
     SwapFile.cpp
     Track.cpp
     TrackWriter.cpp
+    Utils.cpp
     VirtualAudioFile.cpp
     Writer.cpp
     WindowFunction.cpp

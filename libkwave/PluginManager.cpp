@@ -41,6 +41,7 @@
 #include "libkwave/PluginContext.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 #include "libkwave/undo/UndoAction.h"
@@ -420,7 +421,7 @@ void Kwave::PluginManager::sync()
     qApp->flush();
 
     while (onePluginRunning()) {
-	QThread::yieldCurrentThread();
+	Kwave::yield();
 	qApp->processEvents();
 	qApp->flush();
     }

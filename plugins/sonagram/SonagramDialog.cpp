@@ -38,6 +38,7 @@
 
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/WindowFunction.h"
+#include "libkwave/Utils.h"
 
 #include "SonagramDialog.h"
 
@@ -141,7 +142,7 @@ void SonagramDialog::setPoints(int points)
     pointbox->setEditText(text);
 
     windowlabel->setText(i18n("(resulting window size: %1)",
-	Kwave::Plugin::ms2string(points * 1.0E3 / m_rate)));
+	Kwave::ms2string(points * 1.0E3 / m_rate)));
 
     bitmaplabel->setText(i18n("Size of bitmap: %1x%2",
 	(m_length / points) + 1,

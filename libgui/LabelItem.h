@@ -72,7 +72,7 @@ namespace Kwave {
 	 * @param parent context menu to add items
 	 */
 	virtual void appendContextMenu(QMenu *parent);
-	
+
     private:
 
 	/** index of the label */

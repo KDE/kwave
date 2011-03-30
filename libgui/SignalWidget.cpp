@@ -287,8 +287,11 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 	action_paste->setEnabled(!ClipBoard::instance().isEmpty());
 
     int mouse_x = mapFromGlobal(e->globalPos()).x();
+    int mouse_y = mapFromGlobal(e->globalPos()).y();
     if (mouse_x < 0) mouse_x = 0;
-    if (mouse_x >= width())  mouse_x = width()  - 1;
+    if (mouse_y < 0) mouse_y = 0;
+    if (mouse_x >= width())   mouse_x = width()   - 1;
+    if (mouse_y >= height())  mouse_y = height()  - 1;
 
     // Selection / &Save
     QAction *action_select_save = submenu_select->addAction(
@@ -346,6 +349,27 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     if (!action_label_properties) return;
     action_label_properties->setEnabled(false);
 
+    // find out whether there was a click within a signal view
+    foreach (QPointer<Kwave::SignalView> view, m_views) {
+	// map the rect of the view to our coordinate system
+	const QRect view_rect = QRect(
+	    view->mapToParent(view->rect().topLeft()), 
+	    view->mapToParent(view->rect().bottomRight()));
+
+	// check: mouse click was into that view?
+	if (view_rect.contains(mouse_x, mouse_y)) {
+	    // map mouse click position to coordinate system of the view
+	    QPoint pos = view->mapFromParent(QPoint(mouse_x, mouse_y));
+	    
+	    // try to find a view item at these coordinates
+	    QSharedPointer<Kwave::ViewItem> item = view->findItem(pos);
+	    
+	    // if found, give the item the chance to extend the context menu
+	    if (!item.isNull())
+		item->appendContextMenu(context_menu);
+	}
+    }
+    
 //     // store the menu position in the mouse selection
 //     sample_index_t pos = m_offset + pixels2samples(mouse_x);
 //     m_selection->set(pos, pos);
@@ -361,7 +385,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 // 	pos = label.pos();
 // 	m_selection->set(pos, pos);
 //     }
-//
+
 //     if (isSelectionBorder(mouse_x)) {
 // 	// context menu: do something with the selection border
 //

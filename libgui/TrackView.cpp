@@ -156,11 +156,13 @@ void Kwave::TrackView::setVerticalZoom(double zoom)
 }
 
 //***************************************************************************
-QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findObject(
-    double offset, double tolerance)
+QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findItem(const QPoint &pos)
 {
     Q_ASSERT(m_signal_manager);
     if (!m_signal_manager) return QSharedPointer<Kwave::ViewItem>(0);
+
+    double offset    = m_offset + pixels2samples(pos.x()); // [samples]
+    double tolerance = m_zoom * selectionTolerance();      // [samples]
 
     // our display can contain labels -> find the nearest label
     double d_min = tolerance;

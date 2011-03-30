@@ -19,6 +19,10 @@
 
 #include <math.h>
 
+#include <QAction>
+#include <QList>
+#include <QMenu>
+
 #include "klocalizedstring.h"
 
 #include "libkwave/Label.h"
@@ -77,7 +81,19 @@ QString Kwave::LabelItem::toolTip(sample_index_t ofs)
 //***************************************************************************
 void Kwave::LabelItem::appendContextMenu(QMenu *parent)
 {
-    Q_UNUSED(parent);
+    Q_ASSERT(parent);
+    if (!parent) return;
+    
+    // locate the "label" menu
+    QAction *label_menu = 0;
+    QList<QAction *> actions = parent->actions();
+    foreach (QAction *action, actions) {
+	if (action->text() == i18n("&Label")) {
+	    qDebug("----- BINGO :-) -----");
+	    label_menu = action;
+	    break;
+	}
+    }
 }
 
 //***************************************************************************

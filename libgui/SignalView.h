@@ -39,6 +39,7 @@
 class QEvent;
 class QMouseEvent;
 class QPaintEvent;
+class QPoint;
 class SignalManager; // forward declaration
 
 namespace Kwave {
@@ -139,13 +140,11 @@ namespace Kwave {
 	 * Tries to find the nearest item that is visible in this view
 	 * at a given position
 	 * 
-	 * @param offset position to look at [samples]
-	 * @param tolerance search tolerance [samples]
+	 * @param pos position to look at, relative to view [pixels]
 	 * @return the nearest ViewObject in range 
 	 *         or a null pointer if nothing found
 	 */
-	virtual QSharedPointer<Kwave::ViewItem> findObject(
-	    double offset, double tolerance);
+	virtual QSharedPointer<Kwave::ViewItem> findItem(const QPoint &pos);
 
 	/** slot for mouse moves, used for selection and drag&drop */
 	virtual void mouseMoveEvent(QMouseEvent *e);
@@ -164,6 +163,12 @@ namespace Kwave {
 	 * if it differs from the previous value.
 	 */
 	virtual void setMouseMode(Kwave::MouseMark::Mode mode);
+
+	/**
+	 * tolerance in pixel for snapping to a label or selection border
+	 * @return number of pixels
+	 */
+	virtual int selectionTolerance() const;
 
     signals:
 

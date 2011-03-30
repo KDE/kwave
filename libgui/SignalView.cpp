@@ -43,11 +43,6 @@
 
 #include "SignalView.h"
 
-/**
- * tolerance in pixel for snapping to a label or selection border
- */
-#define SELECTION_TOLERANCE (2 * QApplication::startDragDistance())
-
 /** number of milliseconds until the position widget disappears */
 #define POSITION_WIDGET_TIME 5000
 
@@ -147,7 +142,7 @@ int Kwave::SignalView::selectionPosition(const int x)
     if (!m_signal_manager) return None;
 
     const double p     = (m_zoom * x) + m_offset;
-    const double tol   = m_zoom * SELECTION_TOLERANCE;
+    const double tol   = m_zoom * selectionTolerance();
     const double first = m_signal_manager->selection().first();
     const double last  = m_signal_manager->selection().last();
     Q_ASSERT(first <= last);
@@ -189,11 +184,9 @@ bool Kwave::SignalView::isInSelection(int x)
 }
 
 //***************************************************************************
-QSharedPointer<Kwave::ViewItem> Kwave::SignalView::findObject(
-    double offset, double tolerance)
+QSharedPointer<Kwave::ViewItem> Kwave::SignalView::findItem(const QPoint &pos)
 {
-    Q_UNUSED(offset);
-    Q_UNUSED(tolerance);
+    Q_UNUSED(pos);
     return QSharedPointer<Kwave::ViewItem>(0);
 }
 
@@ -322,11 +315,11 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
     } else {
 	sample_index_t selection_first = m_signal_manager->selection().first();
 	sample_index_t selection_last  = m_signal_manager->selection().last();
-	const double   tol             = m_zoom * SELECTION_TOLERANCE;
 	const bool     selection_is_empty = (selection_first == selection_last);
 
 	// check whether there is some object near this position
-	QSharedPointer<Kwave::ViewItem> item       = findObject(fine_pos, tol);
+	const QPoint mouse_pos = QPoint(mouse_x, mouse_y);
+	QSharedPointer<Kwave::ViewItem> item       = findItem(mouse_pos);
 	bool                            item_found = !item.isNull();
 
 	// find out what is nearer: object or selection border ?
@@ -570,6 +563,12 @@ void Kwave::SignalView::setMouseMode(Kwave::MouseMark::Mode mode)
     }
 
     emit sigMouseChanged(mode);
+}
+
+//***************************************************************************
+int Kwave::SignalView::selectionTolerance() const
+{
+    return (2 * QApplication::startDragDistance());
 }
 
 //***************************************************************************

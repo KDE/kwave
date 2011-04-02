@@ -125,7 +125,7 @@ public:
      */
     int executeCommand(const QString &command);
 
-// public slots:
+public slots:
 
     /** forward a sigCommand to the next layer */
     void forwardCommand(const QString &command);
@@ -194,12 +194,6 @@ private slots:
 
     /** context menu: "label / new" */
     void contextMenuLabelNew();
-
-    /** context menu: "label / delete" */
-    void contextMenuLabelDelete();
-
-    /** context menu: "label / properties..." */
-    void contextMenuLabelProperties();
 
 signals:
 

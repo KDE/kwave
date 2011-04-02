@@ -40,6 +40,7 @@ namespace Kwave {
 	/** 
 	 * Constructor 
 	 * @param index the one-based index of the label
+	 * @param ms position of the label in ms
 	 * @param label reference to the label
 	 */
 	LabelItem(unsigned int index, double ms, const Label &label);
@@ -72,6 +73,14 @@ namespace Kwave {
 	 * @param parent context menu to add items
 	 */
 	virtual void appendContextMenu(QMenu *parent);
+
+    private slots:
+
+	/** context menu: "label / delete" */
+	void contextMenuLabelDelete();
+
+	/** context menu: "label / properties..." */
+	void contextMenuLabelProperties();
 
     private:
 

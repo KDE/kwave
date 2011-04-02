@@ -23,6 +23,7 @@
 #include <QList>
 #include <QMenu>
 
+#include "kiconloader.h"
 #include "klocalizedstring.h"
 
 #include "libkwave/Label.h"
@@ -85,15 +86,59 @@ void Kwave::LabelItem::appendContextMenu(QMenu *parent)
     if (!parent) return;
     
     // locate the "label" menu
-    QAction *label_menu = 0;
-    QList<QAction *> actions = parent->actions();
-    foreach (QAction *action, actions) {
+    QMenu *label_menu = 0;
+    foreach (const QAction *action, parent->actions()) {
 	if (action->text() == i18n("&Label")) {
-	    qDebug("----- BINGO :-) -----");
-	    label_menu = action;
+	    label_menu = action->menu();
 	    break;
 	}
     }
+
+    // the context menu of a label has been activated
+    if (label_menu) {
+	KIconLoader icon_loader;
+
+	// find the "New" action and disable it
+	foreach (QAction *action, label_menu->actions()) {
+	    if (action->text() == i18n("&New")) {
+		action->setEnabled(false);
+		break;
+	    }
+	}
+
+	QAction *action_label_delete = label_menu->addAction(
+	    icon_loader.loadIcon("list-remove", KIconLoader::Toolbar),
+	    i18n("&Delete"), this, SLOT(contextMenuLabelDelete()));
+	Q_ASSERT(action_label_delete);
+	if (!action_label_delete) return;
+
+	QAction *action_label_properties = label_menu->addAction(
+	    icon_loader.loadIcon("configure", KIconLoader::Toolbar),
+	    i18n("&Properties..."), this, SLOT(contextMenuLabelProperties()));
+	Q_ASSERT(action_label_properties);
+	if (!action_label_properties) return;
+    }
+
+}
+
+//***************************************************************************
+void Kwave::LabelItem::contextMenuLabelDelete()
+{
+    emit sigCommand(QString("deletelabel(%1)").arg(m_index));
+}
+
+//***************************************************************************
+void Kwave::LabelItem::contextMenuLabelProperties()
+{
+    qDebug(">>> EDIT");
+//     SignalManager *signal_manager = m_context.signalManager();
+//     Q_ASSERT(signal_manager);
+//     if (!signal_manager) return;
+//
+//     Label label = signal_manager->findLabel(m_selection->left());
+//     if (label.isNull()) return;
+//
+//     labelProperties(label);
 }
 
 //***************************************************************************

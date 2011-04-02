@@ -693,6 +693,10 @@ int SignalManager::executeCommand(const QString &command)
 //	    }
 //	}
 
+    CASE_COMMAND("deletelabel")
+	int index = parser.toInt();
+	deleteLabel(index, true);
+
     CASE_COMMAND("expandtolabel")
 	UndoTransactionGuard undo(*this, i18n("Expand Selection to Label"));
 	sample_index_t selection_left  = m_selection.first();
@@ -1773,25 +1777,30 @@ Label SignalManager::addLabel(sample_index_t pos, const QString &name)
 //***************************************************************************
 void SignalManager::deleteLabel(int index, bool with_undo)
 {
-//     Q_ASSERT(index >= 0);
-//     Q_ASSERT(index < static_cast<int>(labels().count()));
-//     if ((index < 0) || (index >= static_cast<int>(labels().count()))) return;
-//
-//     Label label = labels().at(index);
-//
-//     // register the undo action
-//     if (with_undo) {
-// 	UndoTransactionGuard undo(*this, i18n("Delete Label"));
-// 	if (!registerUndoAction(new UndoDeleteLabelAction(label)))
-// 	    return;
-//     }
-//
-//     labels().removeAll(label);
-//
-//     // register this as a modification
-//     setModified(true);
-//
-//     emit sigMetadataChanged();
+    LabelList labels = m_meta_data.labels();
+
+    Q_ASSERT(index >= 0);
+    Q_ASSERT(index < static_cast<int>(labels.count()));
+    if ((index < 0) || (index >= static_cast<int>(labels.count()))) return;
+
+    Kwave::MetaData label(labels.at(index));
+
+    // register the undo action
+    if (with_undo) {
+	UndoTransactionGuard undo(*this, i18n("Delete Label"));
+
+	Kwave::MetaDataList copy_for_undo;
+	copy_for_undo.add(label);
+	if (!registerUndoAction(new UndoDeleteMetaDataAction(copy_for_undo)))
+	    return;
+    }
+
+    m_meta_data.remove(label);
+
+    // register this as a modification
+    setModified(true);
+
+    emit sigMetaDataChanged(m_meta_data);
 }
 
 //***************************************************************************

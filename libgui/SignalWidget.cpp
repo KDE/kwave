@@ -186,9 +186,6 @@ int SignalWidget::executeCommand(const QString &command)
     CASE_COMMAND("label")
 	unsigned int pos = parser.toUInt();
 	addLabel(pos);
-    CASE_COMMAND("deletelabel")
-	int index = parser.toInt();
-	signal_manager->deleteLabel(index, true);
 //    CASE_COMMAND("chooselabel")
 //	Parser parser(command);
 //	markertype = globals.markertypes.at(parser.toInt());
@@ -335,21 +332,8 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     if (!action_label_new) return;
     action_label_new->setEnabled(have_signal);
 
-    QAction *action_label_delete = submenu_label->addAction(
-	icon_loader.loadIcon("list-remove", KIconLoader::Toolbar),
-	i18n("&Delete"), this, SLOT(contextMenuLabelDelete()));
-    Q_ASSERT(action_label_delete);
-    if (!action_label_delete) return;
-    action_label_delete->setEnabled(false);
-
-    QAction *action_label_properties = submenu_label->addAction(
-	icon_loader.loadIcon("configure", KIconLoader::Toolbar),
-	i18n("&Properties..."), this, SLOT(contextMenuLabelProperties()));
-    Q_ASSERT(action_label_properties);
-    if (!action_label_properties) return;
-    action_label_properties->setEnabled(false);
-
     // find out whether there was a click within a signal view
+    QSharedPointer<Kwave::ViewItem> item(0);
     foreach (QPointer<Kwave::SignalView> view, m_views) {
 	// map the rect of the view to our coordinate system
 	const QRect view_rect = QRect(
@@ -362,11 +346,14 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 	    QPoint pos = view->mapFromParent(QPoint(mouse_x, mouse_y));
 	    
 	    // try to find a view item at these coordinates
-	    QSharedPointer<Kwave::ViewItem> item = view->findItem(pos);
+	    item = view->findItem(pos);
 	    
 	    // if found, give the item the chance to extend the context menu
-	    if (!item.isNull())
+	    if (!item.isNull()) {
+		connect(item.data(), SIGNAL(sigCommand(const QString &)),
+		        this, SLOT(forwardCommand(const QString &)));
 		item->appendContextMenu(context_menu);
+	    }
 	}
     }
     
@@ -386,17 +373,6 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 // 	m_selection->set(pos, pos);
 //     }
 
-//     if (isSelectionBorder(mouse_x)) {
-// 	// context menu: do something with the selection border
-//
-// 	// expand to next marker (right) ?
-// 	// expand to next marker (left) ?
-//     }
-//
-//     if (isInSelection(mouse_x) && have_selection) {
-// 	// context menu: do something with the selection
-//     }
-
     context_menu->exec(QCursor::pos());
     delete context_menu;
 }
@@ -404,33 +380,8 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 //***************************************************************************
 void SignalWidget::contextMenuLabelNew()
 {
-//     forwardCommand(QString("label(%1)").arg(m_selection->left()));
-}
-
-//***************************************************************************
-void SignalWidget::contextMenuLabelDelete()
-{
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return;
-//
-//     Label label = signal_manager->findLabel(m_selection->left());
-//     if (label.isNull()) return;
-//     int index = signal_manager->labelIndex(label);
-//     forwardCommand(QString("deletelabel(%1)").arg(index));
-}
-
-//***************************************************************************
-void SignalWidget::contextMenuLabelProperties()
-{
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return;
-//
-//     Label label = signal_manager->findLabel(m_selection->left());
-//     if (label.isNull()) return;
-//
-//     labelProperties(label);
+    qDebug(">> NEW");
+//     forwardCommand(QString("label(%1)").arg(m_pos));
 }
 
 //***************************************************************************

@@ -71,6 +71,11 @@ namespace Kwave
 	 */
 	virtual void appendContextMenu(QMenu *parent);
 
+    signals:
+	
+	/** forward a sigCommand to the next layer */
+	void sigCommand(const QString &command);
+
     };
 }
 

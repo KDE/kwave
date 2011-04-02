@@ -719,7 +719,7 @@ void Kwave::SignalView::dragMoveEvent(QDragMoveEvent* event)
 
 	// crop selection to widget borders
 	if (left < m_offset) left = m_offset;
-	if (right > m_offset+w) right = m_offset+w-1;
+	if (right > m_offset + w) right = m_offset + w - 1;
 
 	// transform to pixel coordinates
 	left  = samples2pixels(left  - m_offset);
@@ -833,24 +833,24 @@ void Kwave::SignalView::PositionWidget::updateMask()
 	case Qt::AlignLeft:
 	    m_polygon.setPoints(8,
 		m_arrow_length, 0,
-		w-1, 0,
-		w-1, h-1,
-		m_arrow_length, h-1,
-		m_arrow_length, 2*h/3,
-		0, h/2,
-		m_arrow_length, h/3,
+		w - 1, 0,
+		w - 1, h - 1,
+		m_arrow_length, h - 1,
+		m_arrow_length, (2 * h) / 3,
+		0, h / 2,
+		m_arrow_length, h / 3,
 		m_arrow_length, 0
 	    );
 	    break;
 	case Qt::AlignRight:
 	    m_polygon.setPoints(8,
 		0, 0,
-		w-1-m_arrow_length, 0,
-		w-1-m_arrow_length, h/3,
-		w-1, h/2,
-		w-1-m_arrow_length, 2*h/3,
-		w-1-m_arrow_length, h-1,
-		0, h-1,
+		w - 1 - m_arrow_length, 0,
+		w - 1 - m_arrow_length, h / 3,
+		w - 1, h/2,
+		w - 1 - m_arrow_length, (2 * h) / 3,
+		w - 1 - m_arrow_length, h - 1,
+		0, h - 1,
 		0, 0
 	    );
 	    break;

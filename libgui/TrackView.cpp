@@ -166,23 +166,25 @@ QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findItem(const QPoint &pos)
 
     // our display can contain labels -> find the nearest label
     double d_min = tolerance;
-    Label nearest;
+    Label nearest_label;
+    int  nearest_index = 0;
     int index = 0;
     foreach (const Label &label, m_signal_manager->metaData().labels()) {
-	index++;
 	double pos = static_cast<double>(label.pos());
 	double d = (pos > offset) ? (pos - offset) : (offset - pos);
 	if (d < d_min) {
 	    d_min = d;
-	    nearest = label;
+	    nearest_label = label;
+	    nearest_index = index;
 	}
+	index++;
     }
 
     // found something, get the return value
     if (d_min < tolerance) {
-	double ms = samples2ms(nearest.pos());
+	double ms = samples2ms(nearest_label.pos());
 	return QSharedPointer<Kwave::ViewItem>(
-	    new Kwave::LabelItem(index, ms, nearest)
+	    new Kwave::LabelItem(nearest_index, ms, nearest_label)
 	);
     }
 

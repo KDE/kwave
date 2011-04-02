@@ -35,17 +35,10 @@ LabelList::LabelList(const Kwave::MetaDataList &meta_data_list)
     :QList<Label>()
 {
     foreach (const Kwave::MetaData &meta_data, meta_data_list) {
-	QVariant v_pos  = meta_data[Kwave::MetaData::STDPROP_POS];
-	QVariant v_name = meta_data[Kwave::MetaData::STDPROP_DESCRIPTION];
-
-	bool ok = false;
-	sample_index_t pos = v_pos.toULongLong(&ok);
-	if (!ok) continue;
-
-	QString name = v_name.toString();
-
-	// create a new label, from name and position
-	Label label(pos, name);
+	// create a copy of the label
+	Label label(meta_data);
+	
+	// and append it to the list
 	append(label);
     }
     sort();

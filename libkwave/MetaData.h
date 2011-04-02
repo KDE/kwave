@@ -96,6 +96,12 @@ namespace Kwave {
 	 */
 	MetaData();
 
+	/**
+	 * copy constructor
+	 * @param other the other meta data object to copy from
+	 */
+	MetaData(const MetaData &other);
+
 	/** constructor */
 	MetaData(Scope scope);
 

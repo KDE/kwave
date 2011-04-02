@@ -40,6 +40,12 @@ Kwave::MetaData::MetaData()
 }
 
 //***************************************************************************
+Kwave::MetaData::MetaData(const Kwave::MetaData &other)
+    :m_data(other.m_data)
+{
+}
+
+//***************************************************************************
 Kwave::MetaData::MetaData(Scope scope)
     :m_data(new MetaDataPriv)
 {

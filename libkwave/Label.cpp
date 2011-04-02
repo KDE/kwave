@@ -25,6 +25,12 @@ Label::Label()
 }
 
 //***************************************************************************
+Label::Label(const Kwave::MetaData &meta_data)
+    :Kwave::MetaData(meta_data)
+{
+}
+
+//***************************************************************************
 Label::Label(sample_index_t position, const QString &name)
     :Kwave::MetaData(Kwave::MetaData::Position)
 {

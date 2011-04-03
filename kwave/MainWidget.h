@@ -276,6 +276,20 @@ private:
      */
     bool fixZoomAndOffset();
 
+    /**
+     * add a new label
+     * @param pos position of the label [samples]
+     */
+    void addLabel(sample_index_t pos);
+
+    /**
+     * Opens a dialog for editing the properties of a label
+     * @param label a Label that should be edited
+     * @return true if the dialog has been accepted,
+     *         otherwise false (canceled)
+     */
+    bool labelProperties(Label &label);
+
 private:
 
     /** context of the Kwave application instance */

@@ -17,11 +17,14 @@
 
 #include "config.h"
 
+#include <QMenu>
 #include <QPainter>
 #include <QPalette>
 #include <QResizeEvent>
 #include <QTime>
 #include <QVBoxLayout>
+
+#include <kiconloader.h>
 
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
@@ -55,7 +58,8 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
      m_img_markers(),
      m_img_signal_needs_refresh(true),
      m_img_selection_needs_refresh(true),
-     m_img_markers_needs_refresh(true)
+     m_img_markers_needs_refresh(true),
+     m_mouse_click_position(0)
 {
     setMinimumSize(400, MINIMUM_HEIGHT);
 
@@ -189,6 +193,32 @@ QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findItem(const QPoint &pos)
     }
 
     return QSharedPointer<Kwave::ViewItem>(0);
+}
+
+//***************************************************************************
+void Kwave::TrackView::handleContextMenu(const QPoint &pos, QMenu *menu)
+{
+    KIconLoader icon_loader;
+
+    QMenu *submenu_label = menu->addMenu(i18n("&Label"));
+    Q_ASSERT(submenu_label);
+    if (!submenu_label) return;
+
+    // add label
+    QAction *action_label_new = submenu_label->addAction(
+	icon_loader.loadIcon("list-add", KIconLoader::Toolbar),
+	i18n("&New"), this, SLOT(contextMenuLabelNew()));
+    Q_ASSERT(action_label_new);
+    if (!action_label_new) return;
+
+    // store the menu position
+    m_mouse_click_position = m_offset + pixels2samples(pos.x());
+}
+
+//***************************************************************************
+void Kwave::TrackView::contextMenuLabelNew()
+{
+    emit sigCommand(QString("label(%1)").arg(m_mouse_click_position));
 }
 
 //***************************************************************************

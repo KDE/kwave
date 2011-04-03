@@ -572,6 +572,13 @@ int Kwave::SignalView::selectionTolerance() const
 }
 
 //***************************************************************************
+void Kwave::SignalView::handleContextMenu(const QPoint &pos, QMenu *menu)
+{
+    Q_UNUSED(pos);
+    Q_UNUSED(menu);
+}
+
+//***************************************************************************
 void Kwave::SignalView::startDragging()
 {
     Q_ASSERT(m_signal_manager);

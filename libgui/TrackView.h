@@ -94,6 +94,13 @@ namespace Kwave {
 	 */
 	virtual QSharedPointer<Kwave::ViewItem> findItem(const QPoint &pos);
 
+	/**
+	 * Called when the context menu has been activated over this view
+	 * @param pos a position in pixel within this widget
+	 * @param menu pointer to the context menu
+	 */
+	virtual void handleContextMenu(const QPoint &pos, QMenu *menu);
+
     private slots:
 
 	/** requests a repaint, as soon as the repaint timer elapsed */
@@ -113,6 +120,9 @@ namespace Kwave {
 
 	/** requests a refresh of all layers */
 	void refreshAllLayers();
+
+	/** context menu: "label / new" */
+	void contextMenuLabelNew();
 
     private:
 
@@ -151,6 +161,9 @@ namespace Kwave {
 
 	/** if true, the markers layer needs to be refreshed */
 	bool m_img_markers_needs_refresh;
+
+	/** position of the last mouse click in samples */
+	sample_index_t m_mouse_click_position;
 
     };
 }

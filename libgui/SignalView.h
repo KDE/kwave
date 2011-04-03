@@ -170,6 +170,13 @@ namespace Kwave {
 	 */
 	virtual int selectionTolerance() const;
 
+	/**
+	 * Called when the context menu has been activated over this view
+	 * @param pos a position in pixel within this widget
+	 * @param menu pointer to the context menu
+	 */
+	virtual void handleContextMenu(const QPoint &pos, QMenu *menu);
+
     signals:
 
 	/**

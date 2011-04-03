@@ -1697,81 +1697,53 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
 //***************************************************************************
 Label SignalManager::findLabel(sample_index_t pos)
 {
-//     QMutableListIterator<Label> it(labels());
-//     while (it.hasNext())
-//     {
-// 	Label &label = it.next();
-// 	if (label.pos() == pos) return label; // found it
-//     }
-
+    LabelList labels = m_meta_data.labels();
+    foreach (const Label &label, labels) {
+	if (label.pos() == pos) return label; // found it
+    }
     return Label(); // nothing found
 }
 
 //***************************************************************************
 int SignalManager::labelIndex(const Label &label) const
 {
-//     int index = 0;
-//     foreach (const Label &l, labels()) {
-// 	if (l == label) return index; // found it
-// 	index++;
-//     }
+    int index = 0;
+    LabelList labels = m_meta_data.labels();
+    foreach (const Label &l, labels) {
+	if (l == label) return index; // found it
+	index++;
+    }
     return -1; // nothing found*/
-}
-
-//***************************************************************************
-Label SignalManager::labelAtIndex(int index)
-{
-/*    if ((index < 0) || (index >= labels().size()))*/ return Label();
-//     return labels().at(index);
-}
-
-//***************************************************************************
-bool SignalManager::addLabel(sample_index_t pos)
-{
-//     // if there already is a label at the given position, do nothing
-//     if (!findLabel(pos).isNull()) return false;
-//
-//     // create a new label
-//     Label label(pos, "");
-//
-//     // put the label into the list
-//     labels().append(label);
-//     labels().sort();
-//
-//     // register the undo action
-//     UndoTransactionGuard undo(*this, i18n("Add Label"));
-//     if (!registerUndoAction(new UndoAddLabelAction(labelIndex(label)))) {
-// 	labels().removeAll(label);
-// 	return false;
-//     }
-
-    // register this as a modification
-    setModified(true);
-
-    emit sigMetaDataChanged(m_meta_data);
-
-    return true;
 }
 
 //***************************************************************************
 Label SignalManager::addLabel(sample_index_t pos, const QString &name)
 {
     // if there already is a label at the given position, do nothing
-/*    if (!findLabel(pos).isNull())*/ return Label();
+    if (!findLabel(pos).isNull()) return Label();
 
-//     // create a new label
-//     Label label(pos, name);
-//
-//     // put the label into the list
-//     labels().append(label);
-//     labels().sort();
-//
-//     // register this as a modification
-//     setModified(true);
-//
-//     emit sigMetaDataChanged(m_meta_data);
-//
-//     return label;
+    // create a new label
+    Label label(pos, name);
+
+    // register the undo action
+    if (m_undo_enabled) {
+	UndoTransactionGuard undo(*this, i18n("Add Label"));
+
+	Kwave::MetaDataList copy_for_undo;
+	copy_for_undo.add(label);
+	if (!registerUndoAction(new UndoAddMetaDataAction(copy_for_undo)))
+	    return Label();
+    }
+
+    // put the label into the list
+    m_meta_data.add(label);
+
+    // register this as a modification
+    setModified(true);
+
+    emit sigMetaDataChanged(m_meta_data);
+
+    return label;
 }
 
 //***************************************************************************
@@ -1807,38 +1779,42 @@ void SignalManager::deleteLabel(int index, bool with_undo)
 bool SignalManager::modifyLabel(int index, sample_index_t pos,
                                 const QString &name)
 {
-//     Q_ASSERT(index >= 0);
-//     Q_ASSERT(index < static_cast<int>(labels().count()));
-//     if ((index < 0) || (index >= static_cast<int>(labels().count())))
-// 	return false;
-//
-//     LabelList &list = labels();
-//     Label &label = list[index];
-//
-//     // check: if the label should be moved and there already is a label
-//     // at the new position -> fail
-//     if ((pos != label.pos()) && !findLabel(pos).isNull())
-// 	return false;
-//
-//     // add a undo action
-//     if (m_undo_enabled) {
-// 	UndoModifyLabelAction *undo_modify = new UndoModifyLabelAction(label);
+    LabelList labels = m_meta_data.labels();
+    Q_ASSERT(index >= 0);
+    Q_ASSERT(index < static_cast<int>(labels.count()));
+    if ((index < 0) || (index >= static_cast<int>(labels.count())))
+	return false;
+
+    Label label = labels.at(index);
+
+    // check: if the label should be moved and there already is a label
+    // at the new position -> fail
+    if ((pos != label.pos()) && !findLabel(pos).isNull())
+	return false;
+
+    // add a undo action
+    if (m_undo_enabled) {
+	Kwave::MetaDataList copy_for_undo;
+	copy_for_undo.add(label);
+
+// 	UndoModifyMetaDataAction *undo_modify = 
+// 	    new UndoModifyMetaDataAction(copy_for_undo);
 // 	if (!registerUndoAction(undo_modify))
 // 	    return false;
 // 	// now store the label's current position,
 // 	// for finding it again later
 // 	undo_modify->setLastPosition(pos);
-//     }
-//
-//     // now modify the label
-//     label.moveTo(pos);
-//     label.rename(name);
-//     labels().sort();
-//
-//     // register this as a modification
-//     setModified(true);
-//
-//     emit sigMetaDataChanged(m_meta_data);
+    }
+
+    // now modify the label
+    label.moveTo(pos);
+    label.rename(name);
+    m_meta_data.add(label);
+
+    // register this as a modification
+    setModified(true);
+
+    emit sigMetaDataChanged(m_meta_data);
     return true;
 }
 

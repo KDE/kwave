@@ -48,15 +48,12 @@
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
-#include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Parser.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Track.h"
-#include "libkwave/undo/UndoTransactionGuard.h"
 
-#include "libgui/LabelPropertiesWidget.h"
 #include "libgui/MenuManager.h"
 #include "libgui/MultiStateWidget.h"
 // #include "libgui/ShortcutWrapper.h"
@@ -171,45 +168,6 @@ void SignalWidget::setZoomAndOffset(double zoom, sample_index_t offset)
 }
 
 //***************************************************************************
-int SignalWidget::executeCommand(const QString &command)
-{
-//     InhibitRepaintGuard inhibit(*this); ### TODO ###
-    Parser parser(command);
-    SignalManager *signal_manager = m_context.signalManager();
-    Q_ASSERT(signal_manager);
-    if (!signal_manager) return false;
-
-    if (!command.length()) return true;
-
-    if (false) {
-    // label commands
-    CASE_COMMAND("label")
-	unsigned int pos = parser.toUInt();
-	addLabel(pos);
-//    CASE_COMMAND("chooselabel")
-//	Parser parser(command);
-//	markertype = globals.markertypes.at(parser.toInt());
-//    CASE_COMMAND("amptolabel")
-//	markSignal(command);
-//    CASE_COMMAND("pitch")
-//	markPeriods(command);
-//    CASE_COMMAND("labeltopitch")
-//      convertMarkstoPitch(command);
-//    CASE_COMMAND("loadlabel")  -> plugin
-//	loadLabel();
-//    CASE_COMMAND("savelabel")  -> plugin
-//	saveLabel(command);
-
-//    CASE_COMMAND("markperiod")
-//	markPeriods(command);
-//    CASE_COMMAND("saveperiods")
-//	savePeriods();
-    }
-
-    return true;
-}
-
-//***************************************************************************
 void SignalWidget::forwardCommand(const QString &command)
 {
     emit sigCommand(command);
@@ -229,14 +187,6 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     QMenu *context_menu = new QMenu(this);
     Q_ASSERT(context_menu);
     if (!context_menu) return;
-
-    QMenu *submenu_select = context_menu->addMenu(i18n("&Selection"));
-    Q_ASSERT(submenu_select);
-    if (!submenu_select) return;
-
-    QMenu *submenu_label = context_menu->addMenu(i18n("&Label"));
-    Q_ASSERT(submenu_label);
-    if (!submenu_label) return;
 
     KIconLoader icon_loader;
 
@@ -290,6 +240,11 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     if (mouse_x >= width())   mouse_x = width()   - 1;
     if (mouse_y >= height())  mouse_y = height()  - 1;
 
+
+    QMenu *submenu_select = context_menu->addMenu(i18n("&Selection"));
+    Q_ASSERT(submenu_select);
+    if (!submenu_select) return;
+    
     // Selection / &Save
     QAction *action_select_save = submenu_select->addAction(
 	icon_loader.loadIcon("document-save", KIconLoader::Toolbar),
@@ -324,14 +279,6 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     if (!action_select_prev_labels) return;
     action_select_prev_labels->setEnabled(have_labels);
 
-    // label handling
-    QAction *action_label_new = submenu_label->addAction(
-	icon_loader.loadIcon("list-add", KIconLoader::Toolbar),
-	i18n("&New"), this, SLOT(contextMenuLabelNew()));
-    Q_ASSERT(action_label_new);
-    if (!action_label_new) return;
-    action_label_new->setEnabled(have_signal);
-
     // find out whether there was a click within a signal view
     QSharedPointer<Kwave::ViewItem> item(0);
     foreach (QPointer<Kwave::SignalView> view, m_views) {
@@ -344,44 +291,27 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 	if (view_rect.contains(mouse_x, mouse_y)) {
 	    // map mouse click position to coordinate system of the view
 	    QPoint pos = view->mapFromParent(QPoint(mouse_x, mouse_y));
-	    
+
+	    // give the view the chance to extend the context menu
+	    view->handleContextMenu(pos, context_menu);
+
 	    // try to find a view item at these coordinates
 	    item = view->findItem(pos);
-	    
+
 	    // if found, give the item the chance to extend the context menu
 	    if (!item.isNull()) {
 		connect(item.data(), SIGNAL(sigCommand(const QString &)),
 		        this, SLOT(forwardCommand(const QString &)));
 		item->appendContextMenu(context_menu);
 	    }
+	    
+	    // we process only one view, views cannot overlap!
+	    break;
 	}
     }
-    
-//     // store the menu position in the mouse selection
-//     sample_index_t pos = m_offset + pixels2samples(mouse_x);
-//     m_selection->set(pos, pos);
-//
-//     Label label;
-//     if (!((label = findLabelNearMouse(mouse_x)).isNull())) {
-// 	// delete label ?
-// 	// label properties ?
-// 	action_label_new->setEnabled(false);
-// 	action_label_properties->setEnabled(true);
-// 	action_label_delete->setEnabled(true);
-//
-// 	pos = label.pos();
-// 	m_selection->set(pos, pos);
-//     }
 
     context_menu->exec(QCursor::pos());
     delete context_menu;
-}
-
-//***************************************************************************
-void SignalWidget::contextMenuLabelNew()
-{
-    qDebug(">> NEW");
-//     forwardCommand(QString("label(%1)").arg(m_pos));
 }
 
 //***************************************************************************
@@ -432,505 +362,6 @@ void SignalWidget::setVerticalZoom(double zoom)
 
     emit contentSizeChanged();
 }
-
-//***************************************************************************
-void SignalWidget::addLabel(sample_index_t pos)
-{
-    SignalManager *signal_manager = m_context.signalManager();
-    Q_ASSERT(signal_manager);
-    if (!signal_manager) return;
-
-    UndoTransactionGuard undo(*signal_manager, i18n("Add Label"));
-
-    // add a new label, with undo
-    if (!signal_manager->addLabel(pos)) {
-	signal_manager->abortUndoTransaction();
-	return;
-    }
-
-    // find the new label
-    Label label = signal_manager->findLabel(pos);
-    if (label.isNull()) return;
-
-    // edit the properties of the new label
-    if (!labelProperties(label)) {
-	// aborted or failed -> delete (without undo)
-	int index = signal_manager->labelIndex(label);
-	signal_manager->deleteLabel(index, false);
-	signal_manager->abortUndoTransaction();
-    }
-
-//     refreshMarkersLayer(); ### TODO ###
-//     hidePosition(); ### TODO ###
-}
-
-// ////****************************************************************************
-// //void SignalWidget::loadLabel()
-// //{
-// //    labels().clear();    //remove old Labels...
-// //    appendLabel ();
-// //}
-
-// ////****************************************************************************
-// //void SignalWidget::saveLabel (const char *typestring)
-// //{
-// //    QString name = KFileDialog::getSaveFileName (0, "*.label", this);
-// //    if (!name.isNull()) {
-// //	FILE *out;
-// //	out = fopen (name.local8Bit(), "w");
-// //
-// //	Parser parser (typestring);
-// //	Label *tmp;
-// //	LabelType *act;
-// //
-// //	const char *actstring = parser.getFirstParam();
-// //
-// //	while (actstring) {
-// //	    printf ("selecting %s\n", actstring);
-// //	    for (act = globals.markertypes.first(); act; act = globals.markertypes.next())
-// //		if (strcmp(act->name, actstring) == 0) {
-// //		    printf ("selected\n");
-// //		    act->selected = true;
-// //		    break;
-// //		}
-// //	    actstring = parser.getNextParam();
-// //	}
-// //
-// //	for (act = globals.markertypes.first(); act; act = globals.markertypes.next())
-// //	    //write out all selected label types
-// //	    if (act->selected)
-// //		fprintf (out, "%s\n", act->getCommand());
-// //
-// //	//ended writing of types, so go on with the labels...
-// //
-// //	for (tmp = labels().first(); tmp; tmp = labels().next())  //write out labels
-// //	{
-// //	    fprintf (out, tmp->getCommand());
-// //	    fprintf (out, "\n");
-// //	}
-// //
-// //	fclose (out);
-// //    }
-// //}
-
-//***************************************************************************
-bool SignalWidget::labelProperties(Label &label)
-{
-    SignalManager *signal_manager = m_context.signalManager();
-    Q_ASSERT(signal_manager);
-    if (!signal_manager) return false;
-
-    if (label.isNull()) return false;
-    int index = signal_manager->labelIndex(label);
-    Q_ASSERT(index >= 0);
-    if (index < 0) return false;
-
-    // try to modify the label. just in case that the user moves it
-    // to a position where we already have one, catch this situation
-    // and ask if he wants to abort, re-enter the label properties
-    // dialog or just replace (remove) the label at the target position
-    bool accepted;
-    sample_index_t new_pos  = label.pos();
-    QString        new_name = label.name();
-    int old_index = -1;
-    while (true) {
-	// create and prepare the dialog
-	LabelPropertiesWidget *dlg = new LabelPropertiesWidget(this);
-	Q_ASSERT(dlg);
-	if (!dlg) return false;
-	dlg->setLabelIndex(index);
-	dlg->setLabelPosition(new_pos, signal_manager->length(),
-	    signal_manager->rate());
-	dlg->setLabelName(new_name);
-
-	// execute the dialog
-	accepted = (dlg->exec() == QDialog::Accepted);
-	if (!accepted) {
-	    // user pressed "cancel"
-	    delete dlg;
-	    break;
-	}
-
-	// if we get here the user pressed "OK"
-	new_pos  = dlg->labelPosition();
-	new_name = dlg->labelName();
-	dlg->saveSettings();
-	delete dlg;
-
-	// check: if there already is a label at the new position
-	// -> ask the user if he wants to overwrite that one
-	if ((new_pos != label.pos()) &&
-	    !signal_manager->findLabel(new_pos).isNull())
-	{
-	    int res = Kwave::MessageBox::warningYesNoCancel(this, i18n(
-		"There already is a label at the position "\
-		"you have chosen.\n"\
-		"Do you want to replace it?"));
-	    if (res == KMessageBox::Yes) {
-		// delete the label at the target position (with undo)
-		Label old = signal_manager->findLabel(new_pos);
-		old_index = signal_manager->labelIndex(old);
-		break;
-	    }
-	    if (res == KMessageBox::No) {
-		// make another try -> re-enter the dialog
-		continue;
-	    }
-
-	    // cancel -> abort the whole action
-	    accepted = false;
-	    break;
-	} else {
-	    // ok, we can put it there
-	    break;
-	}
-    }
-
-    if (accepted) {
-	// shortcut: abort if nothing has changed
-	if ((new_name == label.name()) && (new_pos == label.pos()))
-	    return false;
-
-	UndoTransactionGuard undo(*signal_manager, i18n("Modify Label"));
-
-	// if there is a label at the target position, remove it first
-	if (old_index >= 0) {
-	    signal_manager->deleteLabel(old_index, true);
-	    // this might have changed the current index!
-	    index = signal_manager->labelIndex(label);
-	}
-
-	// modify the label through the signal manager
-	if (!signal_manager->modifyLabel(index, new_pos, new_name)) {
-	    // position is already occupied
-	    signal_manager->abortUndoTransaction();
-	    return false;
-	}
-
-	// reflect the change in the passed label
-	label.moveTo(new_pos);
-	label.rename(new_name);
-
-	// NOTE: moving might also change the index, so the complete
-	//       markers layer has to be refreshed
-// 	refreshMarkersLayer(); ### TODO ###
-    }
-    else
-	signal_manager->abortUndoTransaction();
-
-    return accepted;
-}
-
-// ////****************************************************************************
-// //void SignalWidget::jumptoLabel ()
-// // another fine function contributed by Gerhard Zintel
-// // if lmarker == rmarker (no range selected) cursor jumps to the nearest label
-// // if lmarker <  rmarker (range is selected) lmarker jumps to next lower label or zero
-// // rmarker jumps to next higher label or end
-// //{
-// //    if (signalmanage) {
-// //	int lmarker = signalmanage->getLMarker();
-// //	int rmarker = signalmanage->getRMarker();
-// //	bool RangeSelected = (rmarker - lmarker) > 0;
-// //	if (!labels().isEmpty()) {
-// //	    Label *tmp;
-// //	    int position = 0;
-// //	    for (tmp = labels->first(); tmp; tmp = labels->next())
-// //		if (RangeSelected) {
-// //		    if (tmp->pos < lmarker)
-// //			if (qAbs(lmarker - position) >
-// //			    qAbs(lmarker - ms2samples(tmp->pos)))
-// //			    position = ms2samples(tmp->pos);
-// //		} else if (qAbs(lmarker - position) >
-// //			   qAbs(lmarker - ms2samples(tmp->pos)))
-// //		    position = ms2samples(tmp->pos);
-// //
-// //	    lmarker = position;
-// //	    position = signalmanage->getLength();
-// //	    for (tmp = labels->first(); tmp; tmp = labels->next())
-// //		if (tmp->pos > rmarker)
-// //		    if (qAbs(rmarker - position) >
-// //			qAbs(rmarker - ms2samples(tmp->pos)))
-// //			position = ms2samples(tmp->pos);
-// //	    rmarker = position;
-// //	    if (RangeSelected) setRange(lmarker, rmarker);
-// //	    else setRange (lmarker, lmarker);
-// //	    refresh ();
-// //	}
-// //    }
-// //}
-
-// ////****************************************************************************
-// //void SignalWidget::savePeriods ()
-// //{
-// //    if (signalmanage) {
-// //	Dialog *dialog =
-// //	    DynamicLoader::getDialog ("marksave", new DialogOperation(&globals, signalmanage->getRate(), 0, 0));
-// //
-// //	if ((dialog) && (dialog->exec())) {
-// //	    selectMarkers (dialog->getCommand());
-// //
-// //	    LabelType *act;
-// //	    Label *tmp;
-// //	    int last = 0;
-// //	    int rate = signalmanage->getRate ();
-// //
-// //	    QString name = KFileDialog::getSaveFileName (0, "*.dat", this);
-// //	    if (!name.isNull()) {
-// //		QFile out(name.local8Bit());
-// //		char buf[160];
-// //		float freq = 0, time, lastfreq = 0;
-// //		out.open (QIODevice::WriteOnly);
-// //		int first = true;
-// //
-// //		for (act = globals.markertypes.first(); act; act = globals.markertypes.next())
-// //		    //write only selected label type
-// //		    if (act->selected)
-// //			//traverse list of all labels
-// //			for (tmp = labels->first(); tmp; tmp = labels->next()) {
-// //			    if (tmp->getType() == act) {
-// //				freq = tmp->pos - last;
-// //				time = last * 1000 / rate;
-// //
-// //				if ((!first) && (freq != lastfreq)) {
-// //				    lastfreq = freq;
-// //				    freq = 1 / (freq / rate);
-// //				    snprintf (buf, sizeof(buf), "%f %f\n",
-// //					time, freq);
-// //				    out.writeBlock (&buf[0], strlen(buf));
-// //				} else lastfreq = freq;
-// //				first = false;
-// //				last = ms2samples(tmp->pos);
-// //			    }
-// //			}
-// //
-// //		if (!first) //make sure last tone gets its length
-// //		{
-// //		    time = last * 1000 / rate;
-// //		    snprintf (buf, sizeof(buf), "%f %f\n", time, freq);
-// //		    out.writeBlock (&buf[0], strlen(buf));
-// //		}
-// //
-// //		out.close ();
-// //	    }
-// //	}
-// //    }
-// //}
-
-// ////****************************************************************************
-// //void SignalWidget::markSignal (const char *str)
-// //{
-// //    if (signalmanage) {
-// //	Label *newmark;
-// //
-// //	Parser parser (str);
-// //
-// //	int level = (int) (parser.toDouble() / 100 * (1 << 23));
-// //
-// //	int len = signalmanage->getLength();
-// //	int *sam = signalmanage->getSignal(0)->getSample();    // ### @@@ ###
-// //	LabelType *start = findMarkerType(parser.getNextParam());
-// //	LabelType *stop = findMarkerType (parser.getNextParam());
-// //	int time = (int) (parser.toDouble () * signalmanage->getRate() / 1000);
-// //
-// //	printf ("%d %d\n", level, time);
-// //	printf ("%s %s\n", start->name, stop->name);
-// //
-// //	ProgressDialog *dialog =
-// //	    new ProgressDialog (len, "Searching for Signal portions...");
-// //
-// //	if (dialog && start && stop) {
-// //	    dialog->show();
-// //
-// //	    newmark = new Label(0, start);     //generate initial Label
-// //
-// //	    labels->inSort (newmark);
-// //
-// //	    for (int i = 0; i < len; i++) {
-// //		if (qAbs(sam[i]) < level) {
-// //		    int j = i;
-// //		    while ((i < len) && (qAbs(sam[i]) < level)) i++;
-// //
-// //		    if (i - j > time) {
-// //			//insert labels...
-// //			newmark = new Label(i, start);
-// //			labels->inSort (newmark);
-// //
-// //			if (start != stop) {
-// //			    newmark = new Label(j, stop);
-// //			    labels->inSort (newmark);
-// //			}
-// //		    }
-// //		}
-// //		dialog->setProgress (i);
-// //	    }
-// //
-// //	    newmark = new Label(len - 1, stop);
-// //	    labels->inSort (newmark);
-// //
-// //	    refresh ();
-// //	    delete dialog;
-// //	}
-// //    }
-// //}
-
-// ////****************************************************************************
-// //void SignalWidget::markPeriods (const char *str)
-// //{
-// //    if (signalmanage) {
-// //	Parser parser (str);
-// //
-// //	int high = signalmanage->getRate() / parser.toInt();
-// //	int low = signalmanage->getRate() / parser.toInt();
-// //	int octave = parser.toBool ("true");
-// //	double adjust = parser.toDouble ();
-// //
-// //	for (int i = 0; i < AUTOKORRWIN; i++)
-// //	    autotable[i] = 1 - (((double)i * i * i) / (AUTOKORRWIN * AUTOKORRWIN * AUTOKORRWIN));    //generate static weighting function
-// //
-// //	if (octave) for (int i = 0; i < AUTOKORRWIN; i++) weighttable[i] = 1;    //initialise moving weight table
-// //
-// //	Label *newmark;
-// //	int next;
-// //	int len = signalmanage->getLength();
-// //	int *sam = signalmanage->getSignal(0)->getSample();    // ### @@@ ###
-// //	LabelType *start = markertype;
-// //	int cnt = findFirstMark (sam, len);
-// //
-// //	ProgressDialog *dialog = new ProgressDialog (len - AUTOKORRWIN, "Correlating Signal to find Periods:");
-// //	if (dialog) {
-// //	    dialog->show();
-// //
-// //	    newmark = new Label(cnt, start);
-// //	    labels->inSort (newmark);
-// //
-// //	    while (cnt < len - 2*AUTOKORRWIN) {
-// //		if (octave)
-// //		    next = findNextRepeatOctave (&sam[cnt], high, adjust);
-// //		else
-// //		    next = findNextRepeat (&sam[cnt], high);
-// //
-// //		if ((next < low) && (next > high)) {
-// //		    newmark = new Label(cnt, start);
-// //
-// //		    labels->inSort (newmark);
-// //		}
-// //		if (next < AUTOKORRWIN) cnt += next;
-// //		else
-// //		    if (cnt < len - AUTOKORRWIN) {
-// //			int a = findFirstMark (&sam[cnt], len - cnt);
-// //			if (a > 0) cnt += a;
-// //			else cnt += high;
-// //		    } else cnt = len;
-// //
-// //		dialog->setProgress (cnt);
-// //	    }
-// //
-// //	    delete dialog;
-// //
-// //	    refresh ();
-// //	}
-// //    }
-// //}
-
-// ////*****************************************************************************
-// //int findNextRepeat (int *sample, int high)
-// ////autocorellation of a windowed part of the sample
-// ////returns length of period, if found
-// //{
-// //    int i, j;
-// //    double gmax = 0, max, c;
-// //    int maxpos = AUTOKORRWIN;
-// //    int down, up;         //flags
-// //
-// //    max = 0;
-// //    for (j = 0; j < AUTOKORRWIN; j++)
-// //	gmax += ((double)sample[j]) * sample [j];
-// //
-// //    //correlate signal with itself for finding maximum integral
-// //
-// //    down = 0;
-// //    up = 0;
-// //    i = high;
-// //    max = 0;
-// //    while (i < AUTOKORRWIN) {
-// //	c = 0;
-// //	for (j = 0; j < AUTOKORRWIN; j++) c += ((double)sample[j]) * sample [i + j];
-// //	c = c * autotable[i];    //multiply window with weight for preference of high frequencies
-// //	if (c > max) max = c, maxpos = i;
-// //	i++;
-// //    }
-// //    return maxpos;
-// //}
-
-// ////*****************************************************************************
-// //int findNextRepeatOctave (int *sample, int high, double adjust = 1.005)
-// ////autocorellation of a windowed part of the sample
-// ////same as above only with an adaptive weighting to decrease fast period changes
-// //{
-// //    int i, j;
-// //    double gmax = 0, max, c;
-// //    int maxpos = AUTOKORRWIN;
-// //    int down, up;         //flags
-// //
-// //    max = 0;
-// //    for (j = 0; j < AUTOKORRWIN; j++)
-// //	gmax += ((double)sample[j]) * sample [j];
-// //
-// //    //correlate signal with itself for finding maximum integral
-// //
-// //    down = 0;
-// //    up = 0;
-// //    i = high;
-// //    max = 0;
-// //    while (i < AUTOKORRWIN) {
-// //	c = 0;
-// //	for (j = 0; j < AUTOKORRWIN; j++) c += ((double)sample[j]) * sample [i + j];
-// //	c = c * autotable[i] * weighttable[i];
-// //	//multiply window with weight for preference of high frequencies
-// //	if (c > max) max = c, maxpos = i;
-// //	i++;
-// //    }
-// //
-// //    for (int i = 0; i < AUTOKORRWIN; i++) weighttable[i] /= adjust;
-// //
-// //    weighttable[maxpos] = 1;
-// //    weighttable[maxpos + 1] = .9;
-// //    weighttable[maxpos - 1] = .9;
-// //    weighttable[maxpos + 2] = .8;
-// //    weighttable[maxpos - 2] = .8;
-// //
-// //    float buf[7];
-// //
-// //    for (int i = 0; i < 7; buf[i++] = .1)
-// //
-// //	//low pass filter
-// //	for (int i = high; i < AUTOKORRWIN - 3; i++) {
-// //	    buf[i % 7] = weighttable[i + 3];
-// //	    weighttable[i] = (buf[0] + buf[1] + buf[2] + buf[3] + buf[4] + buf[5] + buf[6]) / 7;
-// //	}
-// //
-// //    return maxpos;
-// //}
-
-// //*****************************************************************************
-// //int findFirstMark (int *sample, int len)
-// ////finds first sample that is non-zero, or one that preceeds a zero crossing
-// //{
-// //    int i = 1;
-// //    int last = sample[0];
-// //    int act = last;
-// //    if ((last < 100) && (last > -100)) i = 0;
-// //    else
-// //	while (i < len) {
-// //	    act = sample[i];
-// //	    if ((act < 0) && (last >= 0)) break;
-// //	    if ((act > 0) && (last <= 0)) break;
-// //	    last = act;
-// //	    i++;
-// //	}
-// //    return i;
-// //}
 
 //***************************************************************************
 int SignalWidget::viewPortWidth()

@@ -117,14 +117,6 @@ public:
      */
     void insertView(Kwave::SignalView *view, QWidget *controls);
 
-    /**
-     * Execute a Kwave text command
-     * @param command a text command
-     * @return zero if succeeded or negative error code if failed
-     * @retval -ENOSYS is returned if the command is unknown in this component
-     */
-    int executeCommand(const QString &command);
-
 public slots:
 
     /** forward a sigCommand to the next layer */
@@ -192,9 +184,6 @@ private slots:
 	forwardCommand("selectprevlabels()");
     }
 
-    /** context menu: "label / new" */
-    void contextMenuLabelNew();
-
 signals:
 
     /**
@@ -220,21 +209,7 @@ protected:
     /** slot for mouse wheel events, used for vertical zoom */
     virtual void wheelEvent(QWheelEvent *event);
 
-    /**
-     * Opens a dialog for editing the properties of a label
-     * @param label a Label that should be edited
-     * @return true if the dialog has been accepted,
-     *         otherwise false (canceled)
-     */
-    bool labelProperties(Label &label);
-
 private:
-
-    /**
-     * add a new label
-     * @param pos position of the label [samples]
-     */
-    void addLabel(sample_index_t pos);
 
     /** propagates the vertical zoom to all views */
     void setVerticalZoom(double zoom);

@@ -302,13 +302,6 @@ public:
     void setFileInfo(FileInfo &new_info, bool with_undo = true);
 
     /**
-     * add a new label
-     * @param pos position of the label [samples]
-     * @return true if successful, false if failed
-     */
-    bool addLabel(sample_index_t pos);
-
-    /**
      * add a new label, without undo
      * @param pos position of the label [samples]
      * @param name the name of the label
@@ -333,13 +326,6 @@ public:
      *         the new position is already occupied by an existing label
      */
     bool modifyLabel(int index, sample_index_t pos, const QString &name);
-
-    /**
-     * find a label by it's index
-     * @param index the index of the label [0...N-1]
-     * @return a valid label or a "null" label if not found
-     */
-    Label labelAtIndex(int index);
 
     /**
      * Returns the index of a label, counting from zero
@@ -552,7 +538,7 @@ protected:
 
     friend class Kwave::MultiTrackWriter;
     friend class PluginManager;
-    friend class SignalWidget;
+    friend class MainWidget;
     friend class UndoTransactionGuard;
 
     /**

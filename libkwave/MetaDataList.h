@@ -160,18 +160,28 @@ namespace Kwave {
 	 * Adds a single meta data object to the list. If it is already
 	 * present, the old version will be silently replaced.
 	 *
-	 * @param metadata the object that should be added
+	 * @param metadata the meta data object that should be added
 	 */
 	virtual void add(const MetaData &metadata);
-
 
 	/**
 	 * Adds a list of meta data objects to the list. Old versions of
 	 * existing objects will be silently replaced.
 	 *
-	 * @param list the object that should be added
+	 * @param list list of meta data objects that should be added
 	 */
 	virtual void add(const MetaDataList &list);
+
+	/**
+	 * Replaces a list of meta data objects. If an object does not
+	 * exist, it will be created, so this is practically the same
+	 * as "add"
+	 * 
+	 * @param list listof meta data objects that should be replaced
+	 */
+	virtual void replace(const MetaDataList &list) {
+	    add(list);
+	}
 
 	/**
 	 * Removes one meta data object from the list (if it exists).

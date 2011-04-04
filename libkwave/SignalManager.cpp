@@ -63,7 +63,7 @@
 #include "libkwave/undo/UndoInsertAction.h"
 #include "libkwave/undo/UndoInsertTrack.h"
 #include "libkwave/undo/UndoModifyAction.h"
-#include "libkwave/undo/UndoModifyLabelAction.h"
+#include "libkwave/undo/UndoModifyMetaDataAction.h"
 #include "libkwave/undo/UndoSelection.h"
 #include "libkwave/undo/UndoTransaction.h"
 
@@ -1797,13 +1797,10 @@ bool SignalManager::modifyLabel(int index, sample_index_t pos,
 	Kwave::MetaDataList copy_for_undo;
 	copy_for_undo.add(label);
 
-// 	UndoModifyMetaDataAction *undo_modify = 
-// 	    new UndoModifyMetaDataAction(copy_for_undo);
-// 	if (!registerUndoAction(undo_modify))
-// 	    return false;
-// 	// now store the label's current position,
-// 	// for finding it again later
-// 	undo_modify->setLastPosition(pos);
+	UndoModifyMetaDataAction *undo_modify = 
+	    new UndoModifyMetaDataAction(copy_for_undo);
+	if (!registerUndoAction(undo_modify))
+	    return false;
     }
 
     // now modify the label

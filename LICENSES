@@ -460,6 +460,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/undo/UndoInsertTrack.h			GPL2+
 	libkwave/undo/UndoModifyAction.cpp		GPL2+
 	libkwave/undo/UndoModifyAction.h		GPL2+
+	libkwave/undo/UndoModifyMetaDataAction.cpp	GPL2+
+	libkwave/undo/UndoModifyMetaDataAction.h	GPL2+
 	libkwave/undo/UndoSelection.cpp			GPL2+
 	libkwave/undo/UndoSelection.h			GPL2+
 	libkwave/undo/UndoTransaction.cpp		GPL2+

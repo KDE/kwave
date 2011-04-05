@@ -124,21 +124,13 @@ void Kwave::LabelItem::appendContextMenu(QMenu *parent)
 //***************************************************************************
 void Kwave::LabelItem::contextMenuLabelDelete()
 {
-    emit sigCommand(QString("deletelabel(%1)").arg(m_index));
+    emit sigCommand(QString("delete_label(%1)").arg(m_index));
 }
 
 //***************************************************************************
 void Kwave::LabelItem::contextMenuLabelProperties()
 {
-    qDebug(">>> EDIT");
-//     SignalManager *signal_manager = m_context.signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return;
-//
-//     Label label = signal_manager->findLabel(m_selection->left());
-//     if (label.isNull()) return;
-//
-//     labelProperties(label);
+    emit sigCommand(QString("nomacro:edit_label(%1)").arg(m_index));
 }
 
 //***************************************************************************

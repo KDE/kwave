@@ -693,7 +693,7 @@ int SignalManager::executeCommand(const QString &command)
 //	    }
 //	}
 
-    CASE_COMMAND("deletelabel")
+    CASE_COMMAND("delete_label")
 	int index = parser.toInt();
 	deleteLabel(index, true);
 

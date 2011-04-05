@@ -279,8 +279,9 @@ private:
     /**
      * add a new label
      * @param pos position of the label [samples]
+     * @param description optional label description
      */
-    void addLabel(sample_index_t pos);
+    void addLabel(sample_index_t pos, const QString &description);
 
     /**
      * Opens a dialog for editing the properties of a label

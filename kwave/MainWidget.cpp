@@ -426,9 +426,18 @@ int MainWidget::executeCommand(const QString &command)
 	signal_manager->selectRange(m_offset, 0);
 	
     // label handling
-    CASE_COMMAND("label")
+    CASE_COMMAND("add_label")
 	unsigned int pos = parser.toUInt();
-	addLabel(pos);
+	QString description = parser.nextParam();
+	addLabel(pos, description);
+    CASE_COMMAND("edit_label")
+	int index = parser.toInt();
+	LabelList labels = signal_manager->metaData().labels();
+	if ((index >= labels.count()) || (index < 0))
+	    return -EINVAL;
+	Label label = labels.at(index);
+	labelProperties(label);
+
 //    CASE_COMMAND("chooselabel")
 //	Parser parser(command);
 //	markertype = globals.markertypes.at(parser.toInt());
@@ -816,7 +825,7 @@ void MainWidget::zoomOut()
 }
 
 //***************************************************************************
-void MainWidget::addLabel(sample_index_t pos)
+void MainWidget::addLabel(sample_index_t pos, const QString &description)
 {
     SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
@@ -825,7 +834,7 @@ void MainWidget::addLabel(sample_index_t pos)
     UndoTransactionGuard undo(*signal_manager, i18n("Add Label"));
 
     // add a new label, with undo
-    Label label = signal_manager->addLabel(pos, QString());
+    Label label = signal_manager->addLabel(pos, description);
     if (label.isNull()) {
 	signal_manager->abortUndoTransaction();
 	return;

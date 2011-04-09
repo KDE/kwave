@@ -33,10 +33,13 @@ UndoAddMetaDataAction::UndoAddMetaDataAction(
     const Kwave::MetaDataList &meta_data)
     :UndoAction(),
      m_description(),
-     m_first(SAMPLE_INDEX_MAX),
-     m_last(0),
+     m_offset(0),
+     m_length(SAMPLE_INDEX_MAX),
      m_tracks()
 {
+    sample_index_t first = SAMPLE_INDEX_MAX;
+    sample_index_t last  = 0;
+
     // sanity check: list should not be empty
     Q_ASSERT(!meta_data.isEmpty());
     if (meta_data.isEmpty()) return;
@@ -54,8 +57,8 @@ UndoAddMetaDataAction::UndoAddMetaDataAction(
 	    QVariant v = m[tag];
 	    bool ok = false;
 	    sample_index_t pos = static_cast<sample_index_t>(v.toULongLong(&ok));
-	    if (ok && (pos < m_first)) m_first = pos;
-	    if (ok && (pos > m_last))  m_last  = pos;
+	    if (ok && (pos < first)) first = pos;
+	    if (ok && (pos > last))  last  = pos;
 	}
 
 	// convert the track list into a usable list of unsigned int
@@ -73,9 +76,12 @@ UndoAddMetaDataAction::UndoAddMetaDataAction(
     }
 
     // fix first/last in case that nothing was found, select everything
-    if (m_first > m_last) {
-	m_first = 0;
-	m_last  = SAMPLE_INDEX_MAX;
+    if (first > last) {
+	m_offset = 0;
+	m_length = SAMPLE_INDEX_MAX;
+    } else {
+	m_offset = first;
+	m_length = (last - first) + 1;
     }
     qSort(m_tracks);
 
@@ -160,8 +166,9 @@ bool UndoAddMetaDataAction::store(SignalManager &)
 UndoAction *UndoAddMetaDataAction::undo(SignalManager &manager, bool with_redo)
 {
     UndoAction *redo = 0;
+
     Kwave::MetaDataList meta_data =
-	manager.metaData().copy(m_first, m_last, m_tracks);
+	manager.metaData().copy(m_offset, m_length, m_tracks);
 
     // store data for redo
     if (with_redo && !meta_data.isEmpty()) {
@@ -171,8 +178,7 @@ UndoAction *UndoAddMetaDataAction::undo(SignalManager &manager, bool with_redo)
     }
 
     // remove the meta data from the signal manager
-    sample_index_t length = m_last - m_first + 1;
-    manager.metaData().deleteRange(m_first, length, m_tracks);
+    manager.metaData().deleteRange(m_offset, m_length, m_tracks);
 
     return redo;
 }

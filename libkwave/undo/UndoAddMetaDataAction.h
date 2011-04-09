@@ -70,10 +70,10 @@ protected:
     QString m_description;
 
     /** index of the first sample position */
-    sample_index_t m_first;
+    sample_index_t m_offset;
 
-    /** index of the last sample position */
-    sample_index_t m_last;
+    /** number of affected samples */
+    sample_index_t m_length;
 
     /** list of affected track inidices */
     QList<unsigned int> m_tracks;

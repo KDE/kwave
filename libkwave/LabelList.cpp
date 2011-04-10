@@ -34,14 +34,22 @@ LabelList::LabelList()
 LabelList::LabelList(const Kwave::MetaDataList &meta_data_list)
     :QList<Label>()
 {
-    foreach (const Kwave::MetaData &meta_data, meta_data_list) {
-	// create a copy of the label
-	Label label(meta_data);
-	
-	// and append it to the list
-	append(label);
+    Kwave::MetaDataList list(
+	meta_data_list.selectByType(Label::metaDataType())
+    );
+
+    if (!list.isEmpty()) {
+	foreach (const Kwave::MetaData &meta_data, list) {
+	    // skip everything that is not a label
+
+	    // create a copy of the label
+	    Label label(meta_data);
+	    
+	    // and append it to the list
+	    append(label);
+	}
+	sort();
     }
-    sort();
 }
 
 //***************************************************************************

@@ -37,7 +37,8 @@ public:
     LabelList();
 
     /**
-     * Constructor, creates a label list from a list of meta data objects
+     * Constructor, creates a label list from a list of meta data objects,
+     * by filtering out all objects of label type
      * @param meta_data_list list of meta data
      */
     LabelList(const Kwave::MetaDataList &meta_data_list);

@@ -433,7 +433,7 @@ int MainWidget::executeCommand(const QString &command)
 	addLabel(pos, description);
     CASE_COMMAND("edit_label")
 	int index = parser.toInt();
-	LabelList labels = signal_manager->metaData().labels();
+	LabelList labels(signal_manager->metaData());
 	if ((index >= labels.count()) || (index < 0))
 	    return -EINVAL;
 	Label label = labels.at(index);

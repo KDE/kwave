@@ -514,7 +514,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     writeInfoChunk(dst, info);
 
     // write the labels list
-    writeLabels(dst, meta_data.labels());
+    writeLabels(dst, LabelList(meta_data));
 
     return true;
 }

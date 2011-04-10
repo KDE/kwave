@@ -700,7 +700,7 @@ int SignalManager::executeCommand(const QString &command)
 	UndoTransactionGuard undo(*this, i18n("Expand Selection to Label"));
 	sample_index_t selection_left  = m_selection.first();
 	sample_index_t selection_right = m_selection.last();
-	LabelList labels = m_meta_data.labels();
+	LabelList labels(m_meta_data);
 	if (labels.isEmpty()) return false; // we need labels for this
 	Label label_left  = Label();
 	Label label_right = Label();
@@ -731,7 +731,7 @@ int SignalManager::executeCommand(const QString &command)
 	sample_index_t selection_right = m_selection.last();
 	Label label_left  = Label();
 	Label label_right = Label();
-	LabelList labels = m_meta_data.labels();
+	LabelList labels(m_meta_data);
 	if (labels.isEmpty()) return false; // we need labels for this
 
 	// special case: nothing selected -> select up to the first label
@@ -768,7 +768,7 @@ int SignalManager::executeCommand(const QString &command)
 	sample_index_t selection_right = selection().last();
 	Label label_left  = Label();
 	Label label_right = Label();
-	LabelList labels = m_meta_data.labels();
+	LabelList labels(m_meta_data);
 	if (labels.isEmpty()) return false; // we need labels for this
 
 	// find the last label before the start of the selection
@@ -1696,7 +1696,7 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
 //***************************************************************************
 Label SignalManager::findLabel(sample_index_t pos)
 {
-    LabelList labels = m_meta_data.labels();
+    LabelList labels(m_meta_data);
     foreach (const Label &label, labels) {
 	if (label.pos() == pos) return label; // found it
     }
@@ -1707,7 +1707,7 @@ Label SignalManager::findLabel(sample_index_t pos)
 int SignalManager::labelIndex(const Label &label) const
 {
     int index = 0;
-    LabelList labels = m_meta_data.labels();
+    LabelList labels(m_meta_data);
     foreach (const Label &l, labels) {
 	if (l == label) return index; // found it
 	index++;
@@ -1745,7 +1745,7 @@ Label SignalManager::addLabel(sample_index_t pos, const QString &name)
 //***************************************************************************
 void SignalManager::deleteLabel(int index, bool with_undo)
 {
-    LabelList labels = m_meta_data.labels();
+    LabelList labels(m_meta_data);
 
     Q_ASSERT(index >= 0);
     Q_ASSERT(index < static_cast<int>(labels.count()));
@@ -1772,7 +1772,7 @@ void SignalManager::deleteLabel(int index, bool with_undo)
 bool SignalManager::modifyLabel(int index, sample_index_t pos,
                                 const QString &name)
 {
-    LabelList labels = m_meta_data.labels();
+    LabelList labels(m_meta_data);
     Q_ASSERT(index >= 0);
     Q_ASSERT(index < static_cast<int>(labels.count()));
     if ((index < 0) || (index >= static_cast<int>(labels.count())))

@@ -229,7 +229,7 @@ int SaveBlocksPlugin::start(QStringList &params)
     // now we can loop over all blocks and save them
     sample_index_t block_start;
     sample_index_t block_end = 0;
-    LabelList labels = signalManager().metaData().labels();
+    LabelList labels(signalManager().metaData());
     LabelListIterator it(labels);
     Label label = it.hasNext() ? it.next() : Label();
 
@@ -326,7 +326,8 @@ unsigned int SaveBlocksPlugin::blocksToSave(bool selection_only)
 
     sample_index_t block_start;
     sample_index_t block_end = 0;
-    LabelListIterator it(signalManager().metaData().labels());
+    LabelList labels(signalManager().metaData());
+    LabelListIterator it(labels);
     Label label = (it.hasNext()) ? it.next() : Label();
 
     if (selection_only) {

@@ -248,7 +248,7 @@ void OverViewWidget::metaDataChanged(Kwave::MetaDataList meta)
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
-    m_labels = meta.labels();
+    m_labels = LabelList(meta);
 
     // only re-start the repaint timer, this hides some GUI update artifacts
     if (!m_repaint_timer.isActive()) {

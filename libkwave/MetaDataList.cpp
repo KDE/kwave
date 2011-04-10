@@ -40,13 +40,6 @@ Kwave::MetaDataList::~MetaDataList()
 }
 
 //***************************************************************************
-LabelList Kwave::MetaDataList::labels() const
-{
-    LabelList label_list(selectByType(Label::metaDataType()));
-    return label_list;
-}
-
-//***************************************************************************
 void Kwave::MetaDataList::setLabels(const LabelList &labels)
 {
     // remove all existing labels

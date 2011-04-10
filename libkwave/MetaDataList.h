@@ -60,12 +60,6 @@ namespace Kwave {
 	virtual ~MetaDataList();
 
 	/**
-	 * Returns a list of Label objects.
-	 * @return a LabelList with a copy of all labels
-	 */
-	virtual LabelList labels() const __attribute__((deprecated));
-
-	/**
 	 * Replaces the list of labels with the passed labels.
 	 * All labels that have been deleted in the label list will be
 	 * deleted in this list too.

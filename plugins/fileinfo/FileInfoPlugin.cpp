@@ -42,7 +42,7 @@ FileInfoPlugin::~FileInfoPlugin()
 //***************************************************************************
 QStringList *FileInfoPlugin::setup(QStringList &)
 {
-    FileInfo oldInfo(signalManager().metaData().fileInfo());
+    FileInfo oldInfo(signalManager().metaData());
 
     // create the setup dialog
     FileInfoDialog *dialog = new FileInfoDialog(parentWidget(), oldInfo);
@@ -67,12 +67,12 @@ QStringList *FileInfoPlugin::setup(QStringList &)
 //***************************************************************************
 void FileInfoPlugin::apply(FileInfo &new_info)
 {
-    /** @todo storing undo info for fileinfo changes */
-    FileInfo old_info = signalManager().metaData().fileInfo();
+    FileInfo old_info(signalManager().metaData());
     if (old_info == new_info) return; // nothing to do
 
     /* sample rate */
     if (old_info.rate() != new_info.rate()) {
+
 	// sample rate changed -> only change rate or resample ?
 	double new_rate = new_info.rate();
 	int res = Kwave::MessageBox::questionYesNoCancel(parentWidget(),
@@ -90,7 +90,9 @@ void FileInfoPlugin::apply(FileInfo &new_info)
 	    // take over all properties except the new sample rate, this will
 	    // be detected and changed in the sample rate plugin
 	    new_info.setRate(old_info.rate());
-	    signalManager().metaData().setFileInfo(new_info);
+	    if (new_info != old_info) {
+		signalManager().setFileInfo(new_info, true);
+	    } // else: nothing except sample rate changed
 
 	    // NOTE: this command could be executed asynchronously, thus
 	    //       we cannot change the sample rate afterwards
@@ -109,7 +111,9 @@ void FileInfoPlugin::apply(FileInfo &new_info)
     }
 
     // just copy all other properties
-    signalManager().metaData().setFileInfo(new_info);
+    if (new_info != old_info) {
+	signalManager().setFileInfo(new_info, true);
+    }
 }
 
 //***************************************************************************

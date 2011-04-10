@@ -76,7 +76,7 @@ bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
     qDebug("AsciiEncoder::encode()");
 
     // get info: tracks, sample rate
-    const FileInfo info = meta_data.fileInfo();
+    const FileInfo info(meta_data);
     unsigned int tracks = info.tracks();
     unsigned int bits   = info.bits();
     sample_index_t length = info.length();

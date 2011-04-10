@@ -250,7 +250,11 @@ FileInfo::FileInfo()
 
 /***************************************************************************/
 FileInfo::FileInfo(const Kwave::MetaDataList &meta_data_list)
-    :Kwave::MetaData(Kwave::MetaData::Signal),
+    :Kwave::MetaData(
+	(meta_data_list.selectByType(metaDataType()).isEmpty()) ?
+	Kwave::MetaData(Kwave::MetaData::Signal) :
+	meta_data_list.selectByType(metaDataType()).values().first()
+    ),
      m_property_map()
 {
     setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());

@@ -34,8 +34,6 @@ o support for recording via PULSE audio
 
 o MP3 export (maybe via calling lame/mpg123/mencoder as an external process)
 
-o better support to add labels from batch files
-
 o function for "Edit/Selection/Insert at..."
 
 o debug aid: write all actions to a logfile

@@ -175,7 +175,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
     bool result = true;
 
     qDebug("FlacEncoder::encode()");
-    const FileInfo info = meta_data.fileInfo();
+    const FileInfo info(meta_data);
     m_dst  = &dst;
 
     // get info: tracks, sample rate

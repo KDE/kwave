@@ -46,30 +46,24 @@ namespace Kwave {
 
 	/** Default constructor */
 	MetaDataList();
+	
+	/**
+	 * Constructor, creates a meta data list with only one single meta 
+	 * data item. In some cases you need to pass a meta data list to a
+	 * function but you have only a single meta data item, so this might 
+	 * be quite handy
+	 * @param meta const reference to a single meta data item
+	 */
+	MetaDataList(const MetaData &meta);
 
 	/** Destructor */
 	virtual ~MetaDataList();
 
 	/**
-	 * Returns a FileInfo object, for easier access to
-	 * file global data.
-	 * @return a FileInfo object
-	 */
-	virtual FileInfo fileInfo() const;
-
-	/**
-	 * Replaces the file global info with the passed file info.
-	 * All file global meta data that has been deleted in the
-	 * file_info will be deleted in this list too.
-	 * @param file_info the file global data to be set
-	 */
-	virtual void setFileInfo(const FileInfo &file_info);
-
-	/**
 	 * Returns a list of Label objects.
 	 * @return a LabelList with a copy of all labels
 	 */
-	virtual LabelList labels() const;
+	virtual LabelList labels() const __attribute__((deprecated));
 
 	/**
 	 * Replaces the list of labels with the passed labels.
@@ -77,7 +71,7 @@ namespace Kwave {
 	 * deleted in this list too.
 	 * @param labels a LabelList
 	 */
-	virtual void setLabels(const LabelList &labels);
+	virtual void setLabels(const LabelList &labels) __attribute__((deprecated));
 
 	/**
 	 * select elements from the meta data list that have the standard

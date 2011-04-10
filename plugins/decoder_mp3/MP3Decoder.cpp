@@ -71,7 +71,7 @@ Decoder *MP3Decoder::instance()
 //***************************************************************************
 bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
 {
-    FileInfo info = metaData().fileInfo();
+    FileInfo info(metaData());
 
     /* first of all check CRC, it might be senseless if the file is broken */
     qDebug("crc = 0x%08X", header.crc);
@@ -184,7 +184,7 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
     info.setBits(SAMPLE_BITS);      // fake Kwave's default resolution
     info.setLength(header.time * header.frequency);
 
-    metaData().setFileInfo(info);
+    metaData().replace(info);
 
     return true;
 }
@@ -243,11 +243,11 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	    case ID3FID_CONTENTTYPE: { // Content type (Genre)
 		parseId3Frame(frame, INF_GENRE);
 
-		FileInfo info = metaData().fileInfo();
+		FileInfo info(metaData());
 		QString genre = QVariant(info.get(INF_GENRE)).toString();
 		int id = GenreType::fromID3(genre);
 		info.set(INF_GENRE, GenreType::name(id));
-		metaData().setFileInfo(info);
+		metaData().replace(info);
 
 		break;
 	    }
@@ -373,9 +373,9 @@ void MP3Decoder::parseId3Frame(ID3_Frame *frame, FileProperty property)
     if (!frame) return;
     char *text = ID3_GetString(frame, ID3FN_TEXT);
     if (text) {
-	FileInfo info = metaData().fileInfo();
+	FileInfo info(metaData());
 	info.set(property, QVariant(text));
-	metaData().setFileInfo(info);
+	metaData().replace(info);
 	delete [] text;
     }
 }
@@ -430,9 +430,9 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
 
     /* accept the source */
     m_source = &src;
-    FileInfo info = metaData().fileInfo();
+    FileInfo info(metaData());
     info.set(INF_MIMETYPE, "audio/mpeg");
-    metaData().setFileInfo(info);
+    metaData().replace(info);
 
     // allocate a transfer buffer with 128 kB
     if (m_buffer) delete m_buffer;

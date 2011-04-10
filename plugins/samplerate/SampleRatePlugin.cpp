@@ -95,7 +95,7 @@ void SampleRatePlugin::run(QStringList params)
     if (interpreteParameters(params) < 0)
 	return;
 
-    double old_rate = signalManager().metaData().fileInfo().rate();
+    double old_rate = FileInfo(signalManager().metaData()).rate();
     if ((old_rate <= 0) || (old_rate == m_new_rate)) return;
 
     UndoTransactionGuard undo_guard(*this, i18n("Change sample rate"));
@@ -241,9 +241,9 @@ void SampleRatePlugin::run(QStringList params)
 
     // set the sample rate if we modified the whole signal
     if (m_whole_signal) {
-	FileInfo info = signalManager().metaData().fileInfo();
+	FileInfo info(signalManager().metaData());
 	info.setRate(m_new_rate);
-	mgr.metaData().setFileInfo(info);
+	mgr.setFileInfo(info, false);
     }
 
 }

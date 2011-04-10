@@ -59,7 +59,6 @@
 #include "libkwave/undo/UndoDeleteAction.h"
 #include "libkwave/undo/UndoDeleteMetaDataAction.h"
 #include "libkwave/undo/UndoDeleteTrack.h"
-#include "libkwave/undo/UndoFileInfo.h"
 #include "libkwave/undo/UndoInsertAction.h"
 #include "libkwave/undo/UndoInsertTrack.h"
 #include "libkwave/undo/UndoModifyAction.h"
@@ -152,7 +151,7 @@ int SignalManager::loadFile(const KUrl &url)
 
 	// get the initial meta data from the decoder
 	m_meta_data = decoder->metaData();
-	FileInfo info = m_meta_data.fileInfo();
+	FileInfo info(m_meta_data);
 
 	// detect stream mode. if so, use one sample as display
 	bool streaming = (!info.length());
@@ -222,7 +221,7 @@ int SignalManager::loadFile(const KUrl &url)
 	    // read information back from the decoder, some settings
 	    // might have become available during the decoding process
 	    m_meta_data = decoder->metaData();
-	    info = m_meta_data.fileInfo();
+	    info = FileInfo(m_meta_data);
 	}
 
 	decoder->close();
@@ -246,7 +245,7 @@ int SignalManager::loadFile(const KUrl &url)
 	info.set(INF_MIMETYPE, mimetype);
 
 	// take over the decoded and updated file info
-	m_meta_data.setFileInfo(info);
+	m_meta_data.replace(info);
 	m_meta_data.dump();
 
 	// update the length info in the progress dialog if needed
@@ -317,7 +316,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 	bits, selection);
 
     Encoder *encoder = CodecManager::encoder(mimetype_name);
-    FileInfo file_info = m_meta_data.fileInfo();
+    FileInfo file_info(m_meta_data);
     if (encoder) {
 
 	// maybe we now have a new mime type
@@ -414,7 +413,7 @@ int SignalManager::save(const KUrl &url, bool selection)
 
 	// invoke the encoder...
 	bool encoded = false;
-	m_meta_data.setFileInfo(file_info);
+	m_meta_data.replace(file_info);
 
 	if (selection) {
 	    // use a copy, don't touch the original !
@@ -428,15 +427,15 @@ int SignalManager::save(const KUrl &url, bool selection)
 
 	    // set the filename in the copy of the fileinfo, the original
 	    // file which is currently open keeps it's name
-	    FileInfo info = meta.fileInfo();
+	    FileInfo info(meta);
 	    info.set(INF_FILENAME, filename);
-	    meta.setFileInfo(info);
+	    meta.replace(info);
 
 	    encoded = encoder->encode(m_parent_widget, src, dst, meta);
 	} else {
 	    // in case of a "save as" -> modify the current filename
 	    file_info.set(INF_FILENAME, filename);
-	    m_meta_data.setFileInfo(file_info);
+	    m_meta_data.replace(file_info);
 	    encoded = encoder->encode(m_parent_widget, src, dst, m_meta_data);
 	}
 	if (!encoded) {
@@ -469,6 +468,8 @@ int SignalManager::save(const KUrl &url, bool selection)
 	enableModifiedChange(true);
 	setModified(false);
     }
+
+    emit sigMetaDataChanged(m_meta_data);
     qDebug("SignalManager::save(): res=%d",res);
     return res;
 }
@@ -486,11 +487,11 @@ void SignalManager::newSignal(sample_index_t samples, double rate,
     disableUndo();
 
     m_meta_data.clear();
-    FileInfo file_info = m_meta_data.fileInfo();
+    FileInfo file_info(m_meta_data);
     file_info.setRate(rate);
     file_info.setBits(bits);
     file_info.setTracks(tracks);
-    m_meta_data.setFileInfo(file_info);
+    m_meta_data.replace(file_info);
 
     // now the signal is considered not to be empty
     m_closed = false;
@@ -502,7 +503,7 @@ void SignalManager::newSignal(sample_index_t samples, double rate,
     // remember the last length
     m_last_length = samples;
     file_info.setLength(length());
-    m_meta_data.setFileInfo(file_info);
+    m_meta_data.replace(file_info);
     rememberCurrentSelection();
 
     // from now on, undo is enabled
@@ -556,7 +557,7 @@ QString SignalManager::signalName()
 {
     // if a file is loaded -> path of the URL if it has one
     KUrl url;
-    url = m_meta_data.fileInfo().get(INF_FILENAME).toString();
+    url = FileInfo(m_meta_data).get(INF_FILENAME).toString();
     if (url.isValid()) return url.path();
 
     // we have something, but no name yet
@@ -573,7 +574,7 @@ const QList<unsigned int> SignalManager::selectedTracks()
     QList<unsigned int> list;
     const unsigned int tracks = this->tracks();
 
-    for (track=0; track < tracks; track++) {
+    for (track = 0; track < tracks; track++) {
 	if (!m_signal.trackSelected(track)) continue;
 	list.append(track);
     }
@@ -883,9 +884,9 @@ void SignalManager::slotTrackInserted(unsigned int index,
 {
     setModified(true);
 
-    FileInfo file_info = m_meta_data.fileInfo();
+    FileInfo file_info(m_meta_data);
     file_info.setTracks(tracks());
-    m_meta_data.setFileInfo(file_info);
+    m_meta_data.replace(file_info);
 
     emit sigTrackInserted(index, track);
     emitStatusInfo();
@@ -896,9 +897,9 @@ void SignalManager::slotTrackDeleted(unsigned int index)
 {
     setModified(true);
 
-    FileInfo file_info = m_meta_data.fileInfo();
+    FileInfo file_info(m_meta_data);
     file_info.setTracks(tracks());
-    m_meta_data.setFileInfo(file_info);
+    m_meta_data.replace(file_info);
 
     emit sigTrackDeleted(index);
     emitStatusInfo();
@@ -1684,10 +1685,11 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
     if (m_undo_enabled && with_undo) {
 	/* save data for undo */
 	UndoTransactionGuard undo_transaction(*this, i18n("Modify File Info"));
-	if (!registerUndoAction(new UndoFileInfo(*this))) return;
+	FileInfo old_inf(m_meta_data);
+	if (!registerUndoAction(new UndoModifyMetaDataAction(old_inf))) return;
     }
 
-    m_meta_data.setFileInfo(new_info);
+    m_meta_data.replace(new_info);
     setModified(true);
     emitStatusInfo();
     emitUndoRedoInfo();
@@ -1728,10 +1730,7 @@ Label SignalManager::addLabel(sample_index_t pos, const QString &name)
     // register the undo action
     if (m_undo_enabled) {
 	UndoTransactionGuard undo(*this, i18n("Add Label"));
-
-	Kwave::MetaDataList copy_for_undo;
-	copy_for_undo.add(label);
-	if (!registerUndoAction(new UndoAddMetaDataAction(copy_for_undo)))
+	if (!registerUndoAction(new UndoAddMetaDataAction(label)))
 	    return Label();
     }
 
@@ -1760,10 +1759,7 @@ void SignalManager::deleteLabel(int index, bool with_undo)
     // register the undo action
     if (with_undo) {
 	UndoTransactionGuard undo(*this, i18n("Delete Label"));
-
-	Kwave::MetaDataList copy_for_undo;
-	copy_for_undo.add(label);
-	if (!registerUndoAction(new UndoDeleteMetaDataAction(copy_for_undo)))
+	if (!registerUndoAction(new UndoDeleteMetaDataAction(label)))
 	    return;
     }
 
@@ -1794,11 +1790,8 @@ bool SignalManager::modifyLabel(int index, sample_index_t pos,
 
     // add a undo action
     if (m_undo_enabled) {
-	Kwave::MetaDataList copy_for_undo;
-	copy_for_undo.add(label);
-
 	UndoModifyMetaDataAction *undo_modify = 
-	    new UndoModifyMetaDataAction(copy_for_undo);
+	    new UndoModifyMetaDataAction(label);
 	if (!registerUndoAction(undo_modify))
 	    return false;
     }

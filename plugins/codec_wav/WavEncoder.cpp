@@ -306,7 +306,7 @@ void WavEncoder::writeLabels(QIODevice &dst, const LabelList &labels)
 bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
                         QIODevice &dst, const Kwave::MetaDataList &meta_data)
 {
-    FileInfo info = meta_data.fileInfo();
+    FileInfo info(meta_data);
 
     /* first get and check some header information */
     const unsigned int tracks = info.tracks();

@@ -86,11 +86,11 @@ bool Kwave::MimeData::encode(QWidget *widget,
 
     // fix the length information in the new file info
     // and change to uncompressed mode
-    FileInfo info = meta_data.fileInfo();
+    FileInfo info(meta_data);
     info.set(INF_COMPRESSION, QVariant(AF_COMPRESSION_NONE));
     info.setLength(last - first + 1);
     info.setTracks(src.tracks());
-    new_meta_data.setFileInfo(info);
+    new_meta_data.replace(info);
 
     // encode into the buffer
     encoder->encode(widget, src, dst, new_meta_data);
@@ -133,8 +133,8 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	    continue;
 	}
 
-	decoded_length = decoder->metaData().fileInfo().length();
-	decoded_tracks = decoder->metaData().fileInfo().tracks();
+	decoded_length = FileInfo(decoder->metaData()).length();
+	decoded_tracks = FileInfo(decoder->metaData()).tracks();
 	Q_ASSERT(decoded_length);
 	Q_ASSERT(decoded_tracks);
 	if (!decoded_length || !decoded_tracks) {
@@ -143,7 +143,7 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	}
 
 	// get sample rates of source and destination
-	double src_rate = decoder->metaData().fileInfo().rate();
+	double src_rate = FileInfo(decoder->metaData()).rate();
 	double dst_rate = sig.rate();
 
 	// if the sample rate has to be converted, adjust the length
@@ -163,7 +163,7 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	    dst_rate = src_rate;
 	    sig.newSignal(0,
 		src_rate,
-		decoder->metaData().fileInfo().bits(),
+		FileInfo(decoder->metaData()).bits(),
 		decoded_tracks);
 	    ok = (sig.tracks() == decoded_tracks);
 	    if (!ok) {

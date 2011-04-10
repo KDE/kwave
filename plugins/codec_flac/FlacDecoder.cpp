@@ -95,7 +95,7 @@ Decoder *FlacDecoder::instance()
 
     const unsigned int samples = frame->header.blocksize;
 
-    const unsigned int tracks  = metaData().fileInfo().tracks();
+    const unsigned int tracks  = FileInfo(metaData()).tracks();
     Q_ASSERT(samples);
     Q_ASSERT(tracks);
     if (!samples || !tracks)
@@ -104,7 +104,7 @@ Decoder *FlacDecoder::instance()
     Kwave::SampleArray dst(samples);
 
     // expand the samples up to the correct number of bits
-    int shift = SAMPLE_BITS - metaData().fileInfo().bits();
+    int shift = SAMPLE_BITS - FileInfo(metaData()).bits();
     if (shift < 0) shift = 0;
     unsigned int mul = (1 << shift);
 
@@ -149,12 +149,12 @@ void FlacDecoder::parseStreamInfo(
     qDebug("\tmin_framesize   = %d", stream_info.get_min_framesize());
     qDebug("\tmax_framesize   = %d", stream_info.get_max_framesize());
 
-    FileInfo info = metaData().fileInfo();
+    FileInfo info(metaData());
     info.setRate(stream_info.get_sample_rate());
     info.setTracks(stream_info.get_channels());
     info.setBits(stream_info.get_bits_per_sample());
     info.setLength(stream_info.get_total_samples());
-    metaData().setFileInfo(info);
+    metaData().replace(info);
 
     qDebug("Bitstream is %u channel, %uHz",
            stream_info.get_channels(),
@@ -165,7 +165,7 @@ void FlacDecoder::parseStreamInfo(
 void FlacDecoder::parseVorbisComments(
         const FLAC::Metadata::VorbisComment &vorbis_comments)
 {
-    FileInfo info = metaData().fileInfo();
+    FileInfo info(metaData());
 
     // first of all: the vendor string, specifying the software
 #if defined(FLAC_API_VERSION_1_1_2) || defined(FLAC_API_VERSION_1_1_3)
@@ -210,7 +210,7 @@ void FlacDecoder::parseVorbisComments(
 	if (date.isValid()) info.set(INF_CREATION_DATE, date);
      }
 
-     metaData().setFileInfo(info);
+     metaData().replace(info);
 }
 
 //***************************************************************************
@@ -305,10 +305,10 @@ bool FlacDecoder::open(QWidget *widget, QIODevice &src)
     }
 
     // set some more standard properties
-    FileInfo info = metaData().fileInfo();
+    FileInfo info(metaData());
     info.set(INF_MIMETYPE, DEFAULT_MIME_TYPE);
     info.set(INF_COMPRESSION, CompressionType::FLAC);
-    metaData().setFileInfo(info);
+    metaData().replace(info);
 
     return true;
 }
@@ -326,9 +326,9 @@ bool FlacDecoder::decode(QWidget * /* widget */, Kwave::MultiWriter &dst)
     process_until_end_of_stream();
 
     m_dest = 0;
-    FileInfo info = metaData().fileInfo();
+    FileInfo info(metaData());
     info.setLength(dst.last() ? (dst.last() + 1) : 0);
-    metaData().setFileInfo(info);
+    metaData().replace(info);
 
     // return with a valid Signal, even if the user pressed cancel !
     return true;

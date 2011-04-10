@@ -28,25 +28,15 @@ Kwave::MetaDataList::MetaDataList()
 }
 
 //***************************************************************************
+Kwave::MetaDataList::MetaDataList(const Kwave::MetaData &meta)
+    :QMap<QString, Kwave::MetaData>()
+{
+    add(meta);
+}
+
+//***************************************************************************
 Kwave::MetaDataList::~MetaDataList()
 {
-}
-
-//***************************************************************************
-FileInfo Kwave::MetaDataList::fileInfo() const
-{
-    FileInfo file_info(selectByType(FileInfo::metaDataType()));
-    return file_info;
-}
-
-//***************************************************************************
-void Kwave::MetaDataList::setFileInfo(const FileInfo &file_info)
-{
-    // remove the old file info completely
-    remove(selectByType(FileInfo::metaDataType()));
-
-    // set the new file info (FileInfo is derived from MetaData)
-    add(file_info);
 }
 
 //***************************************************************************

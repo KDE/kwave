@@ -41,7 +41,7 @@ UndoModifyMetaDataAction::~UndoModifyMetaDataAction()
 QString UndoModifyMetaDataAction::description()
 {
     // sanity check: list should not be empty
-    Q_ASSERT(!m_meta_data.isEmpty());
+    Q_ASSERT(!m_saved_data.isEmpty());
     if (m_saved_data.isEmpty()) return "";
 
     QString name;
@@ -111,8 +111,14 @@ UndoAction *UndoModifyMetaDataAction::undo(SignalManager &manager,
     if (with_redo) {
 	Kwave::MetaDataList old_data;
 	Kwave::MetaDataList current_data = manager.metaData();
+
 	foreach (const Kwave::MetaData &meta, m_saved_data) {
-	    old_data.add(current_data[meta.id()]);
+	    if (current_data.contains(meta)) {
+		old_data.add(current_data[meta.id()]);
+	    } else {
+		qWarning("UndoModifyMetaDataAction used for adding:");
+		meta.dump();
+	    }
 	}
 
 	// restore the saved meta data

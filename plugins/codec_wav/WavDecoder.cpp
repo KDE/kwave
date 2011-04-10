@@ -520,7 +520,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	}
     }
     labels.sort();
-    metaData().setFileInfo(info);
+    metaData().replace(info);
     metaData().setLabels(labels);
 
     // set up libaudiofile to produce Kwave's internal sample format
@@ -569,8 +569,8 @@ bool WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
     if (!buffer) return false;
 
     // read in from the audiofile source
-    Q_ASSERT(tracks == metaData().fileInfo().tracks());
-    sample_index_t rest = metaData().fileInfo().length();
+    Q_ASSERT(tracks == FileInfo(metaData()).tracks());
+    sample_index_t rest = FileInfo(metaData()).length();
     while (rest) {
 	unsigned int frames = buffer_frames;
 	if (frames > rest) frames = rest;

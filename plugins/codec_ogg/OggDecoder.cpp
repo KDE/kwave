@@ -224,7 +224,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     // read the header the first time
     if (parseHeader(widget) < 0) return false;
 
-    FileInfo info = metaData().fileInfo();
+    FileInfo info(metaData());
 
     // get the standard properties
     info.setLength(0);         // use streaming
@@ -287,7 +287,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     parseTag(info, "ENCODER",      INF_SOFTWARE);
     parseTag(info, "VBR_QUALITY",  INF_VBR_QUALITY);
 
-    metaData().setFileInfo(info);
+    metaData().replace(info);
 
     return true;
 }
@@ -430,8 +430,8 @@ bool OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
     // signal the current position
     emit sourceProcessed(m_source->pos());
 
-    if (!metaData().fileInfo().contains(INF_BITRATE_NOMINAL) &&
-        !metaData().fileInfo().contains(INF_VBR_QUALITY))
+    if (!FileInfo(metaData()).contains(INF_BITRATE_NOMINAL) &&
+        !FileInfo(metaData()).contains(INF_VBR_QUALITY))
     {
 	qWarning("file contains neither nominal bitrate (ABR mode) "\
 	         "nor quality (VBR mode)");
@@ -439,14 +439,14 @@ bool OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 	const unsigned int samples = dst.last();
 	int bitrate = DEFAULT_BITRATE;
 
-	if (static_cast<int>(metaData().fileInfo().rate()) && samples) {
+	if (static_cast<int>(FileInfo(metaData()).rate()) && samples) {
 	    // guess bitrates from the stream
 	    const unsigned int stream_end_pos = m_source->pos();
 	    const unsigned int stream_read = stream_end_pos -
 	                                     stream_start_pos + 1;
 	    double bits = static_cast<double>(stream_read) * 8.0;
 	    double seconds = static_cast<double>(samples) /
-		static_cast<double>(metaData().fileInfo().rate());
+		static_cast<double>(FileInfo(metaData()).rate());
 	    bitrate = static_cast<unsigned int>(bits / seconds);
 
 	    // round to neares standard bitrate
@@ -456,9 +456,9 @@ bool OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 	    // guessing not possible -> use default
 	    qDebug("-> using default %d kBits/sec", bitrate);
 	}
-	FileInfo info = metaData().fileInfo();
+	FileInfo info(metaData());
 	info.set(INF_BITRATE_NOMINAL, QVariant(static_cast<int>(bitrate)));
-	metaData().setFileInfo(info);
+	metaData().replace(info);
     }
 
     // return with a valid Signal, even if the user pressed cancel !

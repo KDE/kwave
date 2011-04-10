@@ -967,7 +967,7 @@ int TopWidget::saveFileAs(bool selection)
 
     // maybe we now have a new mime type
     QString previous_mimetype_name =
-	signal_manager->metaData().fileInfo().get(INF_MIMETYPE).toString();
+	FileInfo(signal_manager->metaData()).get(INF_MIMETYPE).toString();
 
     QString new_mimetype_name;
     new_mimetype_name = CodecManager::whatContains(url);
@@ -983,12 +983,12 @@ int TopWidget::saveFileAs(bool selection)
 	    previous_mimetype_name.toLocal8Bit().data() );
 
 	// set the new mimetype
-	FileInfo info = signal_manager->metaData().fileInfo();
+	FileInfo info(signal_manager->metaData());
 	info.set(INF_MIMETYPE, new_mimetype_name);
 	// save the old filename and set the new one
 	QString old_filename = info.get(INF_FILENAME).toString();
 	info.set(INF_FILENAME, url.prettyUrl());
-	signal_manager->metaData().setFileInfo(info);
+	signal_manager->setFileInfo(info, false);
 
 	// now call the fileinfo plugin with the new filename and
 	// mimetype
@@ -997,10 +997,10 @@ int TopWidget::saveFileAs(bool selection)
 	    m_context.pluginManager()->setupPlugin("fileinfo") : -1;
 
 	// restore the mime type and the filename
-	info = signal_manager->metaData().fileInfo();
+	info = FileInfo(signal_manager->metaData());
 	info.set(INF_MIMETYPE, previous_mimetype_name);
 	info.set(INF_FILENAME, url.prettyUrl());
-	signal_manager->metaData().setFileInfo(info);
+	signal_manager->setFileInfo(info, false);
     }
 
     if (!res) res = signal_manager->save(url, selection);

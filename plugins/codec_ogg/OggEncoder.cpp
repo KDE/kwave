@@ -142,7 +142,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
     int ret = -1;
 
     // get info: tracks, sample rate, bitrate(s)
-    const FileInfo info = meta_data.fileInfo();
+    const FileInfo info(meta_data);
     const unsigned int tracks = info.tracks();
     const long sample_rate = static_cast<const long>(info.rate());
 

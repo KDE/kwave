@@ -152,7 +152,7 @@ namespace Kwave {
 	QVariant property(const QString &p) const;
 
 	/** Same as above, for using through the [] operator */
-	QVariant operator [] (const QString p) const
+	inline QVariant operator [] (const QString p) const
 	{
 	    return property(p);
 	}
@@ -166,13 +166,19 @@ namespace Kwave {
 	QVariant &property(const QString &p);
 
 	/** Same as above, for using through the [] operator */
-	QVariant &operator [] (const QString p)
+	inline QVariant &operator [] (const QString p) 
 	{
 	    return property(p);
 	}
 
 	/** equal operator, compares by data (not by ID) */
 	bool operator == (const MetaData &other) const;
+
+	/** not equal operator, compares by data (not by ID) */
+	inline bool operator != (const MetaData &other) const 
+	{
+	    return !(operator == (other));
+	}
 
 	/** returns a list with all property names */
 	QStringList keys() const;

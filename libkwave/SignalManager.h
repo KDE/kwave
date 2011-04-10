@@ -122,10 +122,10 @@ public:
     /**
      * Returns the current sample resolution in bits per sample
      */
-    inline unsigned int bits() const { return m_meta_data.fileInfo().bits(); }
+    inline unsigned int bits() const { return FileInfo(m_meta_data).bits(); }
 
     /** Returns the current sample rate in samples per second */
-    inline double rate() const { return m_meta_data.fileInfo().rate(); }
+    inline double rate() const { return FileInfo(m_meta_data).rate(); }
 
     /** Returns the current number of tracks */
     inline unsigned int tracks() { return m_signal.tracks(); }
@@ -298,8 +298,10 @@ public:
 
     /**
      * Sets a complete set of file infos, including undo information
+     * @param new_info a new FileInfo
+     * @param with_undo if true, store undo information
      */
-    void setFileInfo(FileInfo &new_info, bool with_undo = true);
+    void setFileInfo(FileInfo &new_info, bool with_undo);
 
     /**
      * add a new label, without undo

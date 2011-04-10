@@ -119,9 +119,9 @@ bool AsciiDecoder::decode(QWidget * /* widget */, Kwave::MultiWriter &dst)
     }
 
     m_dest = 0;
-    FileInfo info = metaData().fileInfo();
+    FileInfo info(metaData());
     info.setLength(dst.last() ? (dst.last() + 1) : 0);
-    metaData().setFileInfo(info);
+    metaData().replace(info);
 
     // return with a valid Signal, even if the user pressed cancel !
     return true;

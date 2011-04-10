@@ -171,12 +171,12 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     
     int compression = afGetCompression(fh, AF_DEFAULT_TRACK); // just for debug
 
-    FileInfo info = metaData().fileInfo();
+    FileInfo info(metaData());
     info.setRate(rate);
     info.setBits(bits);
     info.setTracks(tracks);
     info.setLength(length);
-    metaData().setFileInfo(info);
+    metaData().replace(info);
     qDebug("-------------------------");
     qDebug("info:");
     qDebug("compression = %d", compression);
@@ -224,8 +224,8 @@ bool AudiofileDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
     if (!buffer) return false;
 
     // read in from the audiofile source
-    const unsigned int tracks = metaData().fileInfo().tracks();
-    sample_index_t rest = metaData().fileInfo().length();
+    const unsigned int tracks = FileInfo(metaData()).tracks();
+    sample_index_t rest = FileInfo(metaData()).length();
     while (rest) {
 	unsigned int frames = buffer_frames;
 	if (frames > rest) frames = rest;

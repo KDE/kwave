@@ -1,6 +1,4 @@
 
-o undo of meta data changes, e.g. in fileinfo plugin
-
 o metadata: adjust track indices on insert/delete of tracks
 
 o metadata: enable/disable menu entries depending of labels
@@ -12,11 +10,6 @@ o support for visualization plugins (rev 2498)
     * allow drag&drop to reorder signal views
     * resizing of signal views per size grip
     * allow plugins to add and remove own signal views
-    * connect signal actions (insert/delete/modify) to the views
-    * connect track actions (add/delete/move) to the views
-    * connect label actions (add/delete/modify) to the views
-    * connect playback position updates to the views
-    * connect selection changes to the views
 
   - enhanced functions (maybe next release)
     * store order and settings of signal views in embedded metadata

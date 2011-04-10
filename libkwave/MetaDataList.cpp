@@ -40,6 +40,22 @@ Kwave::MetaDataList::~MetaDataList()
 }
 
 //***************************************************************************
+static bool isLessThan(const Kwave::MetaData &m1, const Kwave::MetaData &m2)
+{
+     return m1.firstSample() < m2.firstSample();
+}
+
+//***************************************************************************
+QList<Kwave::MetaData> Kwave::MetaDataList::toSortedList() const
+{
+    QList<Kwave::MetaData> list = this->values();
+
+    qStableSort(list.begin(), list.end(), isLessThan);
+    
+    return list;
+}
+
+//***************************************************************************
 Kwave::MetaDataList Kwave::MetaDataList::selectByType(const QString &type) const
 {
     return selectByValue(Kwave::MetaData::STDPROP_TYPE, type);

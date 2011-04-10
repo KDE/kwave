@@ -46,7 +46,7 @@ namespace Kwave {
 
 	/** Default constructor */
 	MetaDataList();
-	
+
 	/**
 	 * Constructor, creates a meta data list with only one single meta 
 	 * data item. In some cases you need to pass a meta data list to a
@@ -58,6 +58,14 @@ namespace Kwave {
 
 	/** Destructor */
 	virtual ~MetaDataList();
+
+	/**
+	 * Create a simple list of meta data items, sorted by the position 
+	 * of the first sample. All meta data items that do not correspond 
+	 * to a position or a "first" sample are mapped to the start (zero).
+	 * @return a QList of meta data, sorted by position 
+	 */
+	virtual QList<Kwave::MetaData> toSortedList() const;
 
 	/**
 	 * select elements from the meta data list that have the standard

@@ -521,7 +521,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     }
     labels.sort();
     metaData().replace(info);
-    metaData().setLabels(labels);
+    metaData().replace(labels.toMetaDataList());
 
     // set up libaudiofile to produce Kwave's internal sample format
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN

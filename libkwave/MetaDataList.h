@@ -60,14 +60,6 @@ namespace Kwave {
 	virtual ~MetaDataList();
 
 	/**
-	 * Replaces the list of labels with the passed labels.
-	 * All labels that have been deleted in the label list will be
-	 * deleted in this list too.
-	 * @param labels a LabelList
-	 */
-	virtual void setLabels(const LabelList &labels) __attribute__((deprecated));
-
-	/**
 	 * select elements from the meta data list that have the standard
 	 * property STDPROP_TYPE set to a specific value.
 	 *
@@ -145,6 +137,18 @@ namespace Kwave {
 	virtual bool contains(const MetaData &metadata) const;
 
 	/**
+	 * Replaces all meta data objects that have the same type as one
+	 * of the objects in the passed list with newer versions. If an
+	 * object did not exist, it will be created. If an object is not
+	 * in the passed list, it will be deleted.
+	 * 
+	 * @param list listof meta data objects that should be replaced
+	 * @note affects only objects with a type that was found in the
+	 *       passed list
+	 */
+	virtual void replace(const MetaDataList &list);
+
+	/**
 	 * Adds a single meta data object to the list. If it is already
 	 * present, the old version will be silently replaced.
 	 *
@@ -159,17 +163,6 @@ namespace Kwave {
 	 * @param list list of meta data objects that should be added
 	 */
 	virtual void add(const MetaDataList &list);
-
-	/**
-	 * Replaces a list of meta data objects. If an object does not
-	 * exist, it will be created, so this is practically the same
-	 * as "add"
-	 * 
-	 * @param list listof meta data objects that should be replaced
-	 */
-	virtual void replace(const MetaDataList &list) {
-	    add(list);
-	}
 
 	/**
 	 * Removes one meta data object from the list (if it exists).

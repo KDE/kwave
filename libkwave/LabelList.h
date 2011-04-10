@@ -49,6 +49,12 @@ public:
     /** sorts the list by ascending position */
     virtual void sort();
 
+    /** 
+     * returns the content of this list as a list of Kwave::MetaData objects
+     * @return a meta data list
+     */
+    Kwave::MetaDataList toMetaDataList() const;
+
 };
 
 /** Iterator for the list of labels */

@@ -40,18 +40,6 @@ Kwave::MetaDataList::~MetaDataList()
 }
 
 //***************************************************************************
-void Kwave::MetaDataList::setLabels(const LabelList &labels)
-{
-    // remove all existing labels
-    remove(selectByType(Label::metaDataType()));
-
-    // add the new labels
-    foreach (const Label &label, labels) {
-	add(label);
-    }
-}
-
-//***************************************************************************
 Kwave::MetaDataList Kwave::MetaDataList::selectByType(const QString &type) const
 {
     return selectByValue(Kwave::MetaData::STDPROP_TYPE, type);
@@ -219,6 +207,37 @@ bool Kwave::MetaDataList::contains(const Kwave::MetaData &metadata) const
 	    return true;
     }
     return false;
+}
+
+//***************************************************************************
+void Kwave::MetaDataList::replace(const Kwave::MetaDataList &list)
+{
+    if (list.isEmpty()) return;
+    
+    // find out which meta data types are affected
+    QStringList types;
+    foreach (const Kwave::MetaData &meta, list) {
+	QString type = meta[Kwave::MetaData::STDPROP_TYPE].toString();
+	if (!types.contains(type)) {
+	    // remember this type in our list
+	    types.append(type);
+	    
+	    // remove all elements of that type that are not in the new list
+	    MutableIterator it(*this);
+	    while (it.hasNext()) {
+		it.next();
+		Kwave::MetaData &m = it.value();
+		if (m[Kwave::MetaData::STDPROP_TYPE] == type) {
+		    if (!list.contains(m)) {
+			it.remove();
+		    }
+		}
+	    }
+	}
+    }
+    
+    // now the same as in add() has to be done
+    add(list);
 }
 
 //***************************************************************************

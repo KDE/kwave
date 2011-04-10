@@ -70,4 +70,13 @@ void LabelList::sort()
 }
 
 //***************************************************************************
+Kwave::MetaDataList LabelList::toMetaDataList() const
+{
+    Kwave::MetaDataList list;
+    foreach (const Label &label, *this)
+	list.add(label);
+    return list;
+}
+
+//***************************************************************************
 //***************************************************************************

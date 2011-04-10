@@ -109,7 +109,7 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
 
     // get informed about meta data changes
     connect(signal_manager, SIGNAL(
-            sigMetaDataChanged(const Kwave::MetaDataList &)),
+            sigMetaDataChanged(Kwave::MetaDataList)),
             this,           SLOT(refreshMarkersLayer()),
             Qt::QueuedConnection);
 

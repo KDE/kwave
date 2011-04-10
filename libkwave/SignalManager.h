@@ -378,17 +378,6 @@ signals:
     void sigTrackDeleted(unsigned int index);
 
     /**
-     * Emits status information of the signal if it has been changed
-     * or become valid.
-     * @param length number of samples
-     * @param tracks number of tracks
-     * @param rate sample rate [samples/second]
-     * @param bits resolution in bits
-     */
-    void sigStatusInfo(sample_index_t length, unsigned int tracks,
-                       double rate, unsigned int bits);
-
-    /**
      * Emitted if samples have been inserted into a track. This implies
      * a modification of the inserted data, so no extra sigSamplesModified
      * is emitted.
@@ -422,7 +411,7 @@ signals:
      * Emitted whenever meta data has changed, after some operation
      * @param meta the current meta data
      */
-    void sigMetaDataChanged(const Kwave::MetaDataList &meta);
+    void sigMetaDataChanged(Kwave::MetaDataList meta);
 
     /**
      * Emitted if the state or description of undo/redo has changed. If
@@ -603,9 +592,6 @@ protected:
     QWidget *parentWidget() const { return m_parent_widget; }
 
 private:
-
-    /** Shortcut for emitting a sigStatusInfo */
-    void emitStatusInfo();
 
     /**
      * Ask the user if he wants to continue without undo, maybe

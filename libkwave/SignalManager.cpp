@@ -256,7 +256,6 @@ int SignalManager::loadFile(const KUrl &url)
 	    dialog->setBytePosition(src.size());
 	}
 
-	emitStatusInfo();
 	break;
     }
 
@@ -548,7 +547,6 @@ void SignalManager::close()
     m_closed = true;
     rememberCurrentSelection();
 
-    emitStatusInfo();
     emit sigMetaDataChanged(m_meta_data);
 }
 
@@ -884,12 +882,12 @@ void SignalManager::slotTrackInserted(unsigned int index,
 {
     setModified(true);
 
+    emit sigTrackInserted(index, track);
+
     FileInfo file_info(m_meta_data);
     file_info.setTracks(tracks());
     m_meta_data.replace(file_info);
-
-    emit sigTrackInserted(index, track);
-    emitStatusInfo();
+    emit sigMetaDataChanged(m_meta_data);
 }
 
 //***************************************************************************
@@ -897,12 +895,12 @@ void SignalManager::slotTrackDeleted(unsigned int index)
 {
     setModified(true);
 
+    emit sigTrackDeleted(index);
+
     FileInfo file_info(m_meta_data);
     file_info.setTracks(tracks());
     m_meta_data.replace(file_info);
-
-    emit sigTrackDeleted(index);
-    emitStatusInfo();
+    emit sigMetaDataChanged(m_meta_data);
 }
 
 //***************************************************************************
@@ -918,11 +916,14 @@ void SignalManager::slotSamplesInserted(unsigned int track,
     QList<unsigned int> tracks = selectedTracks();
     if (track == tracks[0]) {
 	m_meta_data.shiftRight(offset, length, tracks);
-	emit sigMetaDataChanged(m_meta_data);
     }
 
     emit sigSamplesInserted(track, offset, length);
-    emitStatusInfo();
+
+    FileInfo info(m_meta_data);
+    info.setLength(m_last_length);
+    m_meta_data.replace(info);
+    emit sigMetaDataChanged(m_meta_data);
 }
 
 //***************************************************************************
@@ -938,11 +939,14 @@ void SignalManager::slotSamplesDeleted(unsigned int track,
     QList<unsigned int> tracks = selectedTracks();
     if (track == tracks[0]) {
 	m_meta_data.shiftLeft(offset, length, tracks);
-	emit sigMetaDataChanged(m_meta_data);
     }
 
     emit sigSamplesDeleted(track, offset, length);
-    emitStatusInfo();
+
+    FileInfo info(m_meta_data);
+    info.setLength(m_last_length);
+    m_meta_data.replace(info);
+    emit sigMetaDataChanged(m_meta_data);
 }
 
 //***************************************************************************
@@ -1061,12 +1065,6 @@ void SignalManager::selectTrack(unsigned int track, bool select)
 	    m_playback_controller.reload();
 	}
     }
-}
-
-//***************************************************************************
-void SignalManager::emitStatusInfo()
-{
-    emit sigStatusInfo(length(), tracks(), rate(), bits());
 }
 
 //***************************************************************************
@@ -1691,7 +1689,6 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
 
     m_meta_data.replace(new_info);
     setModified(true);
-    emitStatusInfo();
     emitUndoRedoInfo();
     emit sigMetaDataChanged(m_meta_data);
 }

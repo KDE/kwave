@@ -132,15 +132,10 @@ private slots:
     void setZoomInfo(double zoom);
 
     /**
-     * Called if the status information of the signal has been changed
-     * or become valid.
-     * @param length number of samples
-     * @param tracks number of tracks
-     * @param rate sample rate [samples/second]
-     * @param bits resolution in bits
+     * Called when the meta data of the current signal has changed
+     * @param meta_data the new meta data, after the change
      */
-    void setStatusInfo(sample_index_t length, unsigned int tracks,
-                       double rate, unsigned int bits);
+    void metaDataChanged(Kwave::MetaDataList meta_data);
 
     /**
      * Updates the number of selected samples in the status bar.

@@ -93,8 +93,8 @@ OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
             SLOT(setSelection(sample_index_t,sample_index_t)));
 
     // get informed about meta data changes
-    connect(&signal, SIGNAL(sigMetaDataChanged(const Kwave::MetaDataList &)),
-            this, SLOT(metaDataChanged(const Kwave::MetaDataList &)));
+    connect(&signal, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
+            this, SLOT(metaDataChanged(Kwave::MetaDataList)));
 
     // transport the image calculated in a background thread
     // through the signal/slot mechanism
@@ -242,7 +242,7 @@ void OverViewWidget::overviewChanged()
 }
 
 //***************************************************************************
-void OverViewWidget::metaDataChanged(const Kwave::MetaDataList &meta)
+void OverViewWidget::metaDataChanged(Kwave::MetaDataList meta)
 {
     // check: start() must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());

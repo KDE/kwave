@@ -364,10 +364,6 @@ bool TopWidget::init()
 
     // connect the signal manager
     SignalManager *signal_manager = m_context.signalManager();
-    connect(signal_manager, SIGNAL(sigStatusInfo(sample_index_t, unsigned int,
-                                                 double, unsigned int)),
-             this,          SLOT(setStatusInfo(sample_index_t, unsigned int,
-                                               double, unsigned int)));
     connect(&(signal_manager->selection()),
             SIGNAL(changed(sample_index_t, sample_index_t)),
             this,
@@ -377,8 +373,8 @@ bool TopWidget::init()
             this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
     connect(signal_manager, SIGNAL(sigModified(bool)),
             this,           SLOT(modifiedChanged(bool)));
-    connect(signal_manager, SIGNAL(sigMetaDataChanged(const Kwave::MetaDataList &)),
-            this,           SLOT(updateMenu()));
+    connect(signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
+            this,           SLOT(metaDataChanged(Kwave::MetaDataList)));
 
     // create the plugin manager instance
     Kwave::PluginManager *plugin_manager = m_context.pluginManager();
@@ -401,7 +397,7 @@ bool TopWidget::init()
     h = qMax(h, height());
     resize(w, h);
 
-    setStatusInfo(0,0,0,0);
+    metaDataChanged(Kwave::MetaData());
     setUndoRedoInfo(0,0);
     selectionChanged(0,0);
     updateMenu();
@@ -802,7 +798,7 @@ bool TopWidget::closeFile()
 
     updateMenu();
     updateToolbar();
-    setStatusInfo(0,0,0,0);
+    metaDataChanged(Kwave::MetaData());
 
     return true;
 }
@@ -1134,14 +1130,20 @@ void TopWidget::setZoomInfo(double zoom)
 }
 
 //***************************************************************************
-void TopWidget::setStatusInfo(sample_index_t length, unsigned int tracks,
-                              double rate, unsigned int bits)
+void TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 {
+
     Q_ASSERT(statusBar());
     Q_ASSERT(m_menu_manager);
     if (!statusBar() || !m_menu_manager) return;
     double ms;
     QString txt;
+
+    const FileInfo info(meta_data);
+    sample_index_t length = info.length();
+    unsigned int tracks   = info.tracks();
+    double rate           = info.rate();
+    unsigned int bits     = info.bits();
 
     // length in milliseconds
     if (length) {
@@ -1182,6 +1184,9 @@ void TopWidget::setStatusInfo(sample_index_t length, unsigned int tracks,
 
     // remove selection/position display on file close
     if (!have_signal) selectionChanged(0, 0);
+
+    // update the menu
+    updateMenu();
 
     // update the toolbar as well
     updateToolbar();

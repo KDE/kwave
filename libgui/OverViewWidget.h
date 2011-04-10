@@ -30,6 +30,7 @@
 #include <kdemacros.h>
 
 #include "libkwave/LabelList.h"
+#include "libkwave/MetaDataList.h"
 
 #include "libgui/ImageView.h"
 #include "libgui/OverViewCache.h"
@@ -39,8 +40,6 @@ class QPainter;
 class QResizeEvent;
 class SignalManager;
 class Track;
-
-namespace Kwave { class MetaDataList; }
 
 class KDE_EXPORT OverViewWidget : public ImageView
 {
@@ -82,7 +81,7 @@ public slots:
      * should be called when meta data has changed
      * @param meta the list of new meta data
      */
-    void metaDataChanged(const Kwave::MetaDataList &meta);
+    void metaDataChanged(Kwave::MetaDataList meta);
 
     /** should be called to update the current playback posiotion */
     void playbackPositionChanged(sample_index_t pos);

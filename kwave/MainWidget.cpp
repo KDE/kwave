@@ -176,9 +176,10 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
 	    this,           SLOT(slotTrackInserted(unsigned int, Track *)));
     connect(signal_manager, SIGNAL(sigTrackDeleted(unsigned int)),
 	    this,           SLOT(slotTrackDeleted(unsigned int)));
-    connect(signal_manager, SIGNAL(sigStatusInfo(sample_index_t,
-	                           unsigned int, double, unsigned int)),
-	    this, SLOT(updateViewRange()));
+    connect(signal_manager, 
+            SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
+            this, 
+            SLOT(updateViewRange()));
 
     this->setLayout(topLayout);
 

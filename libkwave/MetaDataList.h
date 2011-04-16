@@ -159,6 +159,8 @@ namespace Kwave {
 	/**
 	 * Adds a single meta data object to the list. If it is already
 	 * present, the old version will be silently replaced.
+	 * If the object is a null object and an object with the same
+	 * ID exists in the list, this will work as remove().
 	 *
 	 * @param metadata the meta data object that should be added
 	 */
@@ -285,6 +287,23 @@ namespace Kwave {
 	    double scale,
 	    const QList<unsigned int> &tracks
 	);
+
+	/**
+	 * makes place for a new track by adjusting the track indices of all 
+	 * meta data items after that track by plus one
+	 * 
+	 * @param track index of the track that is inserted
+	 */
+	virtual void insertTrack(unsigned int track);
+
+	/**
+	 * delete all meta data that was bound to a specific track and
+	 * adjust the track indices of all meta data items after that
+	 * track by minus one
+	 * 
+	 * @param track index of the track that is to be deleted
+	 */
+	virtual void deleteTrack(unsigned int track);
 
 	/** dump all meta data to stdout (for debugging) */
 	virtual void dump() const;

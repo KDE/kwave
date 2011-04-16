@@ -60,13 +60,13 @@ Kwave::MetaData::~MetaData()
 //***************************************************************************
 void Kwave::MetaData::clear()
 {
-    if (m_data == 0) m_data->m_properties.clear();
+    if (m_data != 0) m_data->m_properties.clear();
 }
 
 //***************************************************************************
 bool Kwave::MetaData::isNull() const
 {
-    return (m_data == 0);
+    return ((m_data == 0) || (m_data->m_properties.isEmpty()));
 }
 
 //***************************************************************************

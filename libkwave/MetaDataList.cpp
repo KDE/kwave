@@ -84,31 +84,27 @@ Kwave::MetaDataList Kwave::MetaDataList::selectByTracks(
     Kwave::MetaDataList list;
     Iterator it(*this);
     while (it.hasNext()) {
+	// iterate over all meta data items
 	it.next();
 	const Kwave::MetaData &m = it.value();
 	if (m.hasProperty(Kwave::MetaData::STDPROP_TRACKS)) {
-	    // iterate over the list of tracks
+	    // iterate over the list of tracks of the item
+	    bool match = false;
 	    QList<QVariant> track_list =
 		m[Kwave::MetaData::STDPROP_TRACKS].toList();
 	    foreach (const QVariant &v, track_list) {
 		bool ok = false;
-		bool match = false;
-		foreach (unsigned int track, tracks) {
-		    if ((v.toUInt(&ok) == track) && ok) {
-			match = true;
-			break;
-		    }
-		}
-		if (match) {
-		    if (!list.keys().contains(m.id())) list.add(m);
+		unsigned int t = v.toUInt(&ok);
+		Q_ASSERT(ok);
+		if (ok && (tracks.contains(t))) {
+		    match = true;
 		    break;
 		}
 	    }
-	}
-	else
-	{
-	    // element is not bound to a track
-	    if (!list.keys().contains(m.id())) list.add(m);
+	    if (match) {
+		Q_ASSERT(!list.keys().contains(m.id()));
+		if (!list.keys().contains(m.id())) list.add(m);
+	    }
 	}
     }
     return list;
@@ -259,7 +255,10 @@ void Kwave::MetaDataList::replace(const Kwave::MetaDataList &list)
 //***************************************************************************
 void Kwave::MetaDataList::add(const Kwave::MetaData &metadata)
 {
-    (*this)[metadata.id()] = metadata;
+    if (!metadata.isNull())
+	(*this)[metadata.id()] = metadata;
+    else
+	remove(metadata);
 }
 
 //***************************************************************************
@@ -921,6 +920,61 @@ void Kwave::MetaDataList::scalePositions(double scale,
 	    meta[Kwave::MetaData::STDPROP_START] = QVariant(meta_first);
 	if (meta.hasProperty(Kwave::MetaData::STDPROP_END))
 	    meta[Kwave::MetaData::STDPROP_END]   = QVariant(meta_last);
+    }
+}
+
+//***************************************************************************
+void Kwave::MetaDataList::insertTrack(unsigned int track)
+{
+    const QString prop = Kwave::MetaData::STDPROP_TRACKS;
+    MutableIterator it(*this);
+    while (it.hasNext()) {
+	it.next();
+	const Kwave::MetaData &m = it.value();
+	if (m.hasProperty(prop)) {
+	    // iterate over the list of tracks
+	    QList<QVariant> old_list = m[prop].toList();
+	    QList<QVariant> new_list;
+	    foreach (const QVariant &v, old_list) {
+		bool ok = false;
+		unsigned int t = v.toUInt(&ok);
+		if (ok && (t >= track)) 
+		    new_list.append(QVariant(t + 1));
+		else
+		    new_list.append(v);
+	    }
+	    m[prop] = new_list; // set updated list of bound tracks
+	}
+    }
+}
+
+//***************************************************************************
+void Kwave::MetaDataList::deleteTrack(unsigned int track)
+{
+    const QString prop = Kwave::MetaData::STDPROP_TRACKS;
+    MutableIterator it(*this);
+    while (it.hasNext()) {
+	it.next();
+	Kwave::MetaData &m = it.value();
+	if (m.hasProperty(prop)) {
+	    // iterate over the list of tracks
+	    QList<QVariant> old_list = m[prop].toList();
+	    QList<QVariant> new_list;
+	    foreach (const QVariant &v, old_list) {
+		bool ok = false;
+		unsigned int t = v.toUInt(&ok);
+		Q_ASSERT(ok);
+		if (!ok) continue;
+		if (t < track)
+		    new_list.append(v);
+		else if (t > track)
+		    new_list.append(QVariant(t - 1));
+	    }
+	    if (!new_list.isEmpty())
+		m[prop] = new_list; // set updated list of bound tracks
+	    else
+		it.remove(); // list is empty now -> delete whole item
+	}
     }
 }
 

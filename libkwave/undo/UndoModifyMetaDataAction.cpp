@@ -114,10 +114,13 @@ UndoAction *UndoModifyMetaDataAction::undo(SignalManager &manager,
 
 	foreach (const Kwave::MetaData &meta, m_saved_data) {
 	    if (current_data.contains(meta)) {
+		// add a new entry that will replace the old one
 		old_data.add(current_data[meta.id()]);
 	    } else {
-		qWarning("UndoModifyMetaDataAction used for adding:");
-		meta.dump();
+		// add an empty entry that will delete the old one when added
+		Kwave::MetaData empty_element(meta);
+		old_data.add(empty_element);
+		old_data[empty_element.id()].clear();
 	    }
 	}
 

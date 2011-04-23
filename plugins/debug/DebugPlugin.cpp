@@ -59,6 +59,8 @@ void DebugPlugin::load(QStringList &params)
 //     MENU_ENTRY("offset_in_stripe",  "Offset in Stripe");
 //     MENU_ENTRY("stripe_borders",    "Show Stripe Borders");
 //     MENU_ENTRY("labels_at_stripes", "Generate Labels at Stripe borders");
+
+    emitCommand("menu (dump_metadata(), &Help/Dump &Meta Data)");
 }
 
 //***************************************************************************

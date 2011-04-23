@@ -44,9 +44,9 @@
 //***************************************************************************
 Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
                             SignalManager *signal_manager,
-                            QPointer<Track> track)
+                            Track *track)
     :Kwave::SignalView(parent, controls, signal_manager,
-                       Kwave::SignalView::BelowTrackTop),
+                       Kwave::SignalView::AboveTrackTop),
      m_signal_manager(signal_manager),
      m_pixmap(*track),
      m_repaint_timer(),

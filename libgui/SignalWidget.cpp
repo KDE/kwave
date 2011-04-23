@@ -371,6 +371,59 @@ int SignalWidget::viewPortWidth()
 }
 
 //***************************************************************************
+void SignalWidget::insertRow(int index, Kwave::SignalView *view, 
+                             QWidget *controls)
+{
+    const int rows = m_layout.rowCount();
+    const int cols = m_layout.columnCount();
+
+    // update the layout: move all items from the index on to the next row
+    for (int row = rows; row > index; row--) {
+	for (int col = 0; col < cols; col++) {
+	    QLayoutItem *item = m_layout.itemAtPosition(row - 1, col);
+	    if (item) {
+		m_layout.removeItem(item);
+		m_layout.addItem(item, row, col);
+	    }
+	}
+    }
+
+    // add the widget to the layout
+    m_layout.addWidget(view, index, 1);
+
+    if (controls) {
+	// add the controls to the layout
+	m_layout.addWidget(controls, index, 0);
+
+	// associate the controls to the view, so that when the view 
+	// gets removed/deleted, the controls get removed as well
+	view->addSibling(controls);
+    }
+}
+
+//***************************************************************************
+void SignalWidget::deleteRow(int index)
+{
+    const int rows = m_layout.rowCount();
+    const int cols = m_layout.columnCount();
+
+    if (index >= rows)
+	return;
+
+    // update the layout: move all items from this row to the previous
+    for (int row = index; row < (rows - 1); row++) {
+	for (int col = 0; col < cols; col++) {
+	    QLayoutItem *item = m_layout.itemAtPosition(row + 1, col);
+	    if (item) {
+		m_layout.removeItem(item);
+		m_layout.addItem(item, row, col);
+	    }
+	}
+    }
+   
+}
+
+//***************************************************************************
 void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
 {
     Q_ASSERT(m_upper_dock);
@@ -405,8 +458,7 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
 	    // central layout, above all others
 	    index = m_upper_dock->count();
 	    int row = 0;
-	    m_layout.addWidget(view, row, 1);
-	    if (controls) m_layout.addWidget(controls, row, 0);
+	    insertRow(row, view, controls);
 	    break;
 	}
 	case Kwave::SignalView::AboveTrackTop: {
@@ -418,8 +470,7 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
 		if (m_views[index]->preferredLocation() >=
 		        Kwave::SignalView::Bottom) break;
 	    }
-	    m_layout.addWidget(view, row, 1);
-	    if (controls) m_layout.addWidget(controls, row, 0);
+	    insertRow(row, view, controls);
 	    break;
 	}
 	case Kwave::SignalView::AboveTrackBottom: {
@@ -432,8 +483,7 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
 		if (m_views[index]->preferredLocation() !=
 		        Kwave::SignalView::AboveTrackTop) break;
 	    }
-	    m_layout.addWidget(view, row, 1);
-	    if (controls) m_layout.addWidget(controls, row, 0);
+	    insertRow(row, view, controls);
 	    break;
 	}
 	case Kwave::SignalView::BelowTrackTop: {
@@ -446,8 +496,7 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
 		if (m_views[index]->preferredLocation() >=
 		        Kwave::SignalView::BelowTrackTop) break;
 	    }
-	    m_layout.addWidget(view, row, 1);
-	    if (controls) m_layout.addWidget(controls, row, 0);
+	    insertRow(row, view, controls);
 	    break;
 	}
 	case Kwave::SignalView::BelowTrackBottom: {
@@ -460,16 +509,14 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
 		if (m_views[index]->preferredLocation() >=
 		        Kwave::SignalView::Bottom) break;
 	    }
-	    m_layout.addWidget(view, row, 1);
-	    if (controls) m_layout.addWidget(controls, row, 0);
+	    insertRow(row, view, controls);
 	    break;
 	}
 	case Kwave::SignalView::Bottom: {
 	    // below all others
 	    int row = m_layout.rowCount();
 	    index = m_upper_dock->count() + row;
-	    m_layout.addWidget(view, row, 1);
-	    if (controls) m_layout.addWidget(controls, row, 0);
+	    insertRow(row, view, controls);
 	    break;
 	}
 	case Kwave::SignalView::LowerDockTop: {
@@ -493,7 +540,6 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
     Q_ASSERT(index < m_upper_dock->count() + m_layout.rowCount() +
              m_lower_dock->count());
     m_views.insert(index, view);
-//     qDebug("SignalWidget::insertView(...), view count = %d", m_views.count());
 
     // initially set the current view info
     view->setZoomAndOffset(m_zoom, m_offset);
@@ -507,14 +553,6 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
     connect(view,       SIGNAL(sigCommand(QString)),
 	    this,       SIGNAL(sigCommand(QString)),
 	    Qt::QueuedConnection);
-
-    // if the view gets removed/deleted, remove the controls as well
-    if (controls) {
-	controls->setAttribute(Qt::WA_DeleteOnClose, true);
-	connect(view,     SIGNAL(destroyed(QObject*)),
-	        controls, SLOT(close()),
-	        Qt::QueuedConnection);
-    }
 
 }
 
@@ -558,7 +596,7 @@ void SignalWidget::slotTrackDeleted(unsigned int index)
     bool empty = true;
     QMutableListIterator<QPointer<Kwave::SignalView> > it(m_views);
     while (it.hasNext()) {
-	QPointer<Kwave::SignalView> view = it.next();
+	Kwave::SignalView *view = it.next();
 	if (view->track() == static_cast<int>(index)) {
 	    it.remove();
 	    delete view;
@@ -570,6 +608,21 @@ void SignalWidget::slotTrackDeleted(unsigned int index)
 	}
     }
 
+    // find out if there are any empty rows in the grid now
+    const int rows = m_layout.rowCount();
+    const int cols = m_layout.columnCount();
+    for (int row = 0; row < rows; row++) {
+	bool empty = true;
+	for (int col = 0; col < cols; col++) {
+	    QLayoutItem *item = m_layout.itemAtPosition(row, col);
+	    if (item) {
+		empty = false;
+		break;
+	    }
+	}
+	if (empty) deleteRow(row);
+    }
+    
     // if there are only views with track() == -1, we are empty,
     // in that case delete the rest (all views)
     if (empty) {

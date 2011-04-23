@@ -53,7 +53,7 @@ namespace Kwave {
 	 */
 	TrackView(QWidget *parent, QWidget *controls,
 	          SignalManager *signal_manager,
-	          QPointer<Track> track);
+	          Track *track);
 
 	/** Destructor */
 	virtual ~TrackView();

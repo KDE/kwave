@@ -246,7 +246,6 @@ int SignalManager::loadFile(const KUrl &url)
 
 	// take over the decoded and updated file info
 	m_meta_data.replace(info);
-	m_meta_data.dump();
 
 	// update the length info in the progress dialog if needed
 	if (dialog && use_src_size) {
@@ -278,6 +277,8 @@ int SignalManager::loadFile(const KUrl &url)
 
     if (dialog) delete dialog;
     if (res) close();
+
+    m_meta_data.dump();
 
     // we now have new meta data
     emit sigMetaDataChanged(m_meta_data);
@@ -795,6 +796,11 @@ int SignalManager::executeCommand(const QString &command)
 	Parser parser(command);
 	unsigned int track = parser.toUInt();
 	deleteTrack(track);
+    CASE_COMMAND("insert_track")
+	Parser parser(command);
+	unsigned int track = parser.toUInt();
+	insertTrack(track);
+
     // track selection
     CASE_COMMAND("select_all_tracks")
 	UndoTransactionGuard undo(*this, i18n("Select All Tracks"));
@@ -820,6 +826,11 @@ int SignalManager::executeCommand(const QString &command)
 	int track = parser.toInt();
 	UndoTransactionGuard undo(*this, i18n("Toggle Track Selection"));
 	selectTrack(track, !(trackSelected(track)));
+	
+    CASE_COMMAND("dump_metadata")
+	qDebug("DUMP OF META DATA => %s", 
+	    parser.firstParam().toLocal8Bit().data());
+	m_meta_data.dump();
     } else {
 	return -ENOSYS;
     }
@@ -839,12 +850,13 @@ void SignalManager::insertTrack(unsigned int index)
 {
     UndoTransactionGuard u(*this, i18n("Insert Track"));
 
-    if (m_undo_enabled && !registerUndoAction(
-	new UndoInsertTrack(m_signal, index))) return;
-
-    unsigned int count = tracks();
+    const unsigned int count = tracks();
     Q_ASSERT(index <= count);
     if (index > count) index = count;
+
+    // undo action for the track insert
+    if (m_undo_enabled && !registerUndoAction(
+	new UndoInsertTrack(m_signal, index))) return;
 
     // if the signal is currently empty, use the last
     // known length instead of the current one
@@ -852,12 +864,22 @@ void SignalManager::insertTrack(unsigned int index)
 
     if (index >= count) {
 	// do an "append"
-//	qDebug("SignalManager::insertTrack(): appending");
 	m_signal.appendTrack(len);
     } else {
+	if (m_undo_enabled) {
+	    // undo action for the corresponding meta data change
+	    QList<unsigned int> tracks;
+	    for (unsigned int t = index; t < count; t++) tracks.append(t);
+	    Kwave::MetaDataList list = m_meta_data.selectByTracks(tracks);
+	    if (!list.isEmpty() && !registerUndoAction(
+		new UndoModifyMetaDataAction(list))) return;
+	}
+
+	// adjust the track bound meta data
+	m_meta_data.insertTrack(index);
+
 	// insert into the list
-	qWarning("m_signal.insertTrack(index, len) - NOT IMPLEMENTED !");
-	// ### TODO ### m_signal.insertTrack(index, len);
+	m_signal.insertTrack(index, len);
     }
 
     // remember the last length
@@ -869,9 +891,25 @@ void SignalManager::deleteTrack(unsigned int index)
 {
     UndoTransactionGuard u(*this, i18n("Delete Track"));
 
-    if (m_undo_enabled && !registerUndoAction(
-	new UndoDeleteTrack(m_signal, index))) return;
+    const unsigned int count = tracks();
+    Q_ASSERT(index <= count);
+    if (index > count) return;
 
+    if (m_undo_enabled) {
+	// undo action for the track deletion
+	if (!registerUndoAction(new UndoDeleteTrack(m_signal, index))) return;
+
+	// undo action for the corresponding meta data change
+	QList<unsigned int> tracks;
+	for (unsigned int t = index; t < count; t++) tracks.append(t);
+	Kwave::MetaDataList list = m_meta_data.selectByTracks(tracks);
+	if (!list.isEmpty() && !registerUndoAction(
+	    new UndoModifyMetaDataAction(list))) return;
+    }
+
+    // adjust the track bound meta data
+    m_meta_data.deleteTrack(index);
+    
     setModified(true);
     m_signal.deleteTrack(index);
 }
@@ -882,11 +920,11 @@ void SignalManager::slotTrackInserted(unsigned int index,
 {
     setModified(true);
 
-    emit sigTrackInserted(index, track);
-
     FileInfo file_info(m_meta_data);
     file_info.setTracks(tracks());
     m_meta_data.replace(file_info);
+    
+    emit sigTrackInserted(index, track);
     emit sigMetaDataChanged(m_meta_data);
 }
 
@@ -895,11 +933,11 @@ void SignalManager::slotTrackDeleted(unsigned int index)
 {
     setModified(true);
 
-    emit sigTrackDeleted(index);
-
     FileInfo file_info(m_meta_data);
     file_info.setTracks(tracks());
     m_meta_data.replace(file_info);
+
+    emit sigTrackDeleted(index);
     emit sigMetaDataChanged(m_meta_data);
 }
 

@@ -214,6 +214,22 @@ private:
     /** propagates the vertical zoom to all views */
     void setVerticalZoom(double zoom);
 
+    /** 
+     * insert a row in the m_layout, shifting all following rows to
+     * the end by one
+     * @param index the index if the row
+     * @param view a view widget, must not be null
+     * @param controls a widget with controls, can be null
+     */
+    void insertRow(int index, Kwave::SignalView *view, QWidget *controls);
+
+    /** 
+     * delete a row in the m_layout, shifting all following rows back to
+     * the start by one
+     * @param index the index if the row
+     */
+    void deleteRow(int index);
+
 private:
 
     /** context of the Kwave application instance */

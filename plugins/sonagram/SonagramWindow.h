@@ -20,7 +20,6 @@
 
 #include "config.h"
 
-#include <QPointer>
 #include <QTimer>
 
 #include <kmainwindow.h>

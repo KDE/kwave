@@ -64,7 +64,8 @@ Kwave::SignalView::SignalView(QWidget *parent, QWidget *controls,
      m_mouse_selection(),
      m_mouse_down_x(0),
      m_position_widget(this),
-     m_position_widget_timer(this)
+     m_position_widget_timer(this),
+     m_siblings()
 {
     // connect the timer of the position widget
     connect(&m_position_widget_timer, SIGNAL(timeout()),
@@ -77,6 +78,21 @@ Kwave::SignalView::SignalView(QWidget *parent, QWidget *controls,
 //***************************************************************************
 Kwave::SignalView::~SignalView()
 {
+    if (!m_siblings.isEmpty()) {
+	QMutableListIterator<QPointer<QWidget> > it(m_siblings);
+	it.toBack();
+	while (it.hasPrevious()) {
+	    QWidget *widget = it.previous();
+	    it.remove();
+	    if (widget) delete widget;
+	}
+    }
+}
+
+//***************************************************************************
+void Kwave::SignalView::addSibling(QWidget *widget)
+{
+    m_siblings.append(QPointer<QWidget>(widget));
 }
 
 //***************************************************************************

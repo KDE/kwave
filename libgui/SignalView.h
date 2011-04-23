@@ -22,6 +22,8 @@
 
 #include <QObject>
 #include <QLabel>
+#include <QList>
+#include <QPointer>
 #include <QSize>
 #include <QPolygon>
 #include <QSharedPointer>
@@ -176,6 +178,12 @@ namespace Kwave {
 	 * @param menu pointer to the context menu
 	 */
 	virtual void handleContextMenu(const QPoint &pos, QMenu *menu);
+
+	/**
+	 * Adds a widget to the list of associated widgets
+	 * @param widget a QWidget that is associated to this view
+	 */
+	virtual void addSibling(QWidget *widget);
 
     signals:
 
@@ -385,6 +393,9 @@ namespace Kwave {
 
 	/** timer for automatic hiding */
 	QTimer m_position_widget_timer;
+
+	/** list of associated widgets, e.g. controls etc */
+	QList<QPointer<QWidget> > m_siblings;
 
     };
 

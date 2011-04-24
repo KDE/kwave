@@ -182,7 +182,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     bool have_signal = manager && !manager->isEmpty();
     if (!have_signal)return;
     bool have_selection = manager && (manager->selection().length() > 1);
-    bool have_labels = !manager && LabelList(manager->metaData()).isEmpty();
+    bool have_labels = manager && !(LabelList(manager->metaData()).isEmpty());
 
     QMenu *context_menu = new QMenu(this);
     Q_ASSERT(context_menu);

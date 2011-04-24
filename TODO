@@ -1,5 +1,5 @@
 
-o metadata: enable/disable menu entries depending of labels
+o Application asked to unregister timer 0x7f000005 which is not registered in this thread. Fix application
 
 o support for visualization plugins (rev 2498)
   - new functions

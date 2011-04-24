@@ -54,6 +54,7 @@
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
 #include "libkwave/KwavePlugin.h" // for some helper functions
+#include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/Parser.h"
@@ -1380,9 +1381,10 @@ void TopWidget::updateMenu()
     bool have_file = (signalName().length() != 0);
     m_menu_manager->setItemEnabled("@NOT_CLOSED", have_file);
 
-//     // enable/disable all items that depend on having a label
-//     bool have_labels = (!signal_manager->fileInfo().labels().isEmpty());
-//     m_menu_manager->setItemEnabled("@LABELS", have_labels);
+    // enable/disable all items that depend on having a label
+    LabelList labels(signal_manager->metaData());
+    bool have_labels = (!labels.isEmpty());
+    m_menu_manager->setItemEnabled("@LABELS", have_labels);
 
     // enable/disable all items that depend on having something in the
     // clipboard

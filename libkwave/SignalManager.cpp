@@ -623,6 +623,17 @@ int SignalManager::executeCommand(const QString &command)
 	    // remember the last selection
 	    rememberCurrentSelection();
 	}
+    CASE_COMMAND("insert_at")
+	ClipBoard &clip = ClipBoard::instance();
+	if (clip.isEmpty()) return 0;
+	if (!selectedTracks().size()) return 0;
+	sample_index_t offset = parser.toUInt();
+
+	UndoTransactionGuard undo(*this, i18n("Insert Clipboard at position"));
+
+	selectRange(offset, 0);
+	clip.paste(m_parent_widget, *this, offset, 0);
+
     CASE_COMMAND("paste")
 	ClipBoard &clip = ClipBoard::instance();
 	if (clip.isEmpty()) return 0;

@@ -1,8 +1,8 @@
 /***************************************************************************
-         GotoPlugin.cpp  -  Plugin for moving the view to a certain position
+     InsertAtPlugin.cpp  -  plugin for insertin the clipboard at a position
                              -------------------
-    begin                : Sat Dec 06 2008
-    copyright            : (C) 2008 by Thomas Eschenbacher
+    begin                : Thu May 12 2011
+    copyright            : (C) 2011 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -14,39 +14,38 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
 #include "config.h"
 
 #include <QString>
 #include <klocale.h>
 
 #include "libkwave/KwavePlugin.h"
-#include "GotoPlugin.h"
+#include "InsertAtPlugin.h"
 
-KWAVE_PLUGIN(GotoPlugin, "goto", "2.1",
-             I18N_NOOP("Goto Position"), "Thomas Eschenbacher");
+KWAVE_PLUGIN(InsertAtPlugin, "insert_at", "2.1",
+             I18N_NOOP("Insert At"), "Thomas Eschenbacher");
 
 //***************************************************************************
-GotoPlugin::GotoPlugin(const PluginContext &c)
+InsertAtPlugin::InsertAtPlugin(const PluginContext &c)
     :GotoPluginBase(c)
 {
 }
 
 //***************************************************************************
-GotoPlugin::~GotoPlugin()
+InsertAtPlugin::~InsertAtPlugin()
 {
 }
 
 //***************************************************************************
-QString GotoPlugin::command() const
-{ 
-    return "goto";
-}
-    
-//***************************************************************************
-QString GotoPlugin::title() const 
+QString InsertAtPlugin::command() const
 {
-    return i18n("Goto...");
+    return "insert_at";
+}
+   
+//***************************************************************************
+QString InsertAtPlugin::title() const 
+{
+    return i18n("Insert At...");
 }
 
 //***************************************************************************

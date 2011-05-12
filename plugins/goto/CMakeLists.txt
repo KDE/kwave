@@ -16,6 +16,7 @@
 #############################################################################
 
 SET(plugin_goto_LIB_SRCS
+    GotoPluginBase.cpp
     GotoPlugin.cpp
     GotoDialog.cpp
 )
@@ -25,6 +26,20 @@ SET(plugin_goto_LIB_UI
 )
 
 KWAVE_PLUGIN(goto)
+
+#############################################################################
+
+SET(plugin_insert_at_LIB_SRCS
+    GotoPluginBase.cpp
+    GotoDialog.cpp
+    InsertAtPlugin.cpp
+)
+
+SET(plugin_insert_at_LIB_UI
+    GotoDlg.ui
+)
+
+KWAVE_PLUGIN(insert_at)
 
 #############################################################################
 #############################################################################

@@ -26,6 +26,7 @@
 #include <QMimeData>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QThread>
 #include <QToolTip>
 #include <QUrl>
 
@@ -210,6 +211,10 @@ QSharedPointer<Kwave::ViewItem> Kwave::SignalView::findItem(const QPoint &pos)
 void Kwave::SignalView::showPosition(const QString &text, sample_index_t pos,
                                      const QPoint &mouse)
 {
+    // check: showPosition() must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
     int x = mouse.x();
     int y = mouse.y();
 

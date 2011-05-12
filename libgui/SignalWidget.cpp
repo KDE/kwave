@@ -117,19 +117,6 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
     connect(sig,  SIGNAL(sigTrackDeleted(unsigned int)),
             this, SLOT( slotTrackDeleted(unsigned int)));
 
-//     connect(sig, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
-//             this, SLOT(hidePosition()),
-//             Qt::QueuedConnection);
-//
-// //    m_menu_manager.clearNumberedMenu("ID_LABELS_TYPE");
-// //    for (LabelType *tmp = globals.markertypes.first(); tmp;
-// //         tmp = globals.markertypes.next())
-// //    {
-// //	m_menu_manager.addNumberedMenuEntry("ID_LABELS_TYPE", (char *)tmp->name);
-// //    }
-// //
-// //    markertype = globals.markertypes.first();
-
 //     // -- accelerator keys for 1...9 --
 //     for (int i = 0; i < 10; i++) {
 // 	Kwave::ShortcutWrapper *shortcut =

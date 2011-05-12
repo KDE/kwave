@@ -3,6 +3,7 @@
 
  * ebuild update for media-gfx/imagemagick <-> media-gfx/graphicsmagick
    (see gentoo bug #314325)
+ * new feature: "insert at", paste clipboard at given position
 
 0.8.6  [2011-03-07]
 

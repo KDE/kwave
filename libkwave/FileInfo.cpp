@@ -189,7 +189,7 @@ void FileInfo::PropertyTypesMap::fill()
              "Example: '32-bit IEEE floating-point'"));
     append(INF_SAMPLE_RATE, FP_INTERNAL | FP_NO_LOAD_SAVE,
         I18N_NOOP("Sample Rate"),
-        i18n("Number od samples per second\n"));
+        i18n("Number of samples per second\n"));
     append(INF_SOFTWARE, 0,
         I18N_NOOP("Software"),
         i18n("Identifies the name of the software package\n"

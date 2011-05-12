@@ -1,8 +1,8 @@
 /***************************************************************************
-           GotoPlugin.h  -  Plugin for moving the view to a certain position
+       InsertAtPlugin.h  -  plugin for insertin the clipboard at a position
                              -------------------
-    begin                : Sat Dec 06 2008
-    copyright            : (C) 2008 by Thomas Eschenbacher
+    begin                : Thu May 12 2011
+    copyright            : (C) 2011 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _GOTO_PLUGIN_H_
-#define _GOTO_PLUGIN_H_
+#ifndef _INSERT_AT_PLUGIN_H_
+#define _INSERT_AT_PLUGIN_H_
 
 #include "config.h"
 
@@ -26,24 +26,24 @@
 
 class PluginContext;
 
-class GotoPlugin: public GotoPluginBase
+class InsertAtPlugin: public GotoPluginBase
 {
 public:
 
     /** Constructor */
-    GotoPlugin(const PluginContext &context);
-
+    InsertAtPlugin(const PluginContext &context);
+ 
     /** Destructor */
-    virtual ~GotoPlugin();
+    virtual ~InsertAtPlugin();
 
 protected:
 
     /** Returns the command to be emitted */
     virtual QString command() const;
-    
+
     /** Returns the title of the dialog */
     virtual QString title() const;
 
 };
 
-#endif /* _GOTO_PLUGIN_H_ */
+#endif /* _INSERT_AT_PLUGIN_H_ */

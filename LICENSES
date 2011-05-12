@@ -575,6 +575,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/goto/GotoDlg.ui				(should be GPL2+)
 	plugins/goto/GotoPlugin.cpp			GPL2+
 	plugins/goto/GotoPlugin.h			GPL2+
+	plugins/goto/GotoPluginBase.cpp			GPL2+
+	plugins/goto/GotoPluginBase.h			GPL2+
+	plugins/goto/InsertAtPlugin.cpp			GPL2+
+	plugins/goto/InsertAtPlugin.h			GPL2+
 
 	plugins/fileinfo/BitrateSpinBox.cpp		GPL2+
 	plugins/fileinfo/BitrateSpinBox.h		GPL2+

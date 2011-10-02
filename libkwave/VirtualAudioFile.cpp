@@ -17,6 +17,7 @@
 
 #include "config.h"
 #include <stdlib.h> // for calloc()
+#include <unistd.h>
 #include <QIODevice>
 #include "libkwave/VirtualAudioFile.h"
 
@@ -64,7 +65,7 @@ static ssize_t af_file_read(AFvirtualfile *vfile, void *data,
 }
 
 //***************************************************************************
-static long af_file_length(AFvirtualfile *vfile)
+static AFfileoffset af_file_length(AFvirtualfile *vfile)
 {
     VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
     return (adapter) ? adapter->length() : -1;
@@ -85,14 +86,14 @@ static void af_file_destroy(AFvirtualfile */*vfile*/)
 }
 
 //***************************************************************************
-static long af_file_seek(AFvirtualfile *vfile, long offset, int is_relative)
+static AFfileoffset af_file_seek(AFvirtualfile *vfile, AFfileoffset offset, int is_relative)
 {
     VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
     return (adapter) ? adapter->seek(offset, is_relative) : -1;
 }
 
 //***************************************************************************
-static long af_file_tell(AFvirtualfile *vfile)
+static AFfileoffset af_file_tell(AFvirtualfile *vfile)
 {
     VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
     return (adapter) ? adapter->tell() : -1;

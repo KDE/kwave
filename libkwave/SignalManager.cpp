@@ -1326,7 +1326,6 @@ bool SignalManager::registerUndoAction(UndoAction *action)
 {
     QMutexLocker lock(&m_undo_transaction_lock);
 
-    Q_ASSERT(action);
     if (!action) return continueWithoutUndo();
 
     // if undo is not enabled, this will fail -> discard the action

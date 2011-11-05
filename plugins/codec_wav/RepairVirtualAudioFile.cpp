@@ -71,7 +71,7 @@ unsigned int RepairVirtualAudioFile::read(char *data, unsigned int nbytes)
 }
 
 //***************************************************************************
-long RepairVirtualAudioFile::length()
+qint64 RepairVirtualAudioFile::length()
 {
     Q_ASSERT(m_repair_list);
     if (!m_repair_list) return 0;
@@ -79,7 +79,7 @@ long RepairVirtualAudioFile::length()
     Q_ASSERT(last);
     if (!last) return 0;
 
-    return last->offset() + last->length();
+    return static_cast<qint64>(last->offset() + last->length());
 }
 
 //***************************************************************************
@@ -91,23 +91,20 @@ unsigned int RepairVirtualAudioFile::write(const char */*data*/,
 }
 
 //***************************************************************************
-long RepairVirtualAudioFile::seek(long offset, int is_relative)
+qint64 RepairVirtualAudioFile::seek(qint64 offset, bool is_relative)
 {
-    if (is_relative == SEEK_CUR)
+    if (is_relative)
 	m_position += offset;
-    else if (is_relative == SEEK_SET)
-	m_position = offset;
     else
-	return -1;
+	m_position = offset;
 
-    if (static_cast<long>(m_position) >= length()) return -1;
-    return 0;
+    return (static_cast<qint64>(m_position) < length()) ? m_position : -1;
 }
 
 //***************************************************************************
-long RepairVirtualAudioFile::tell()
+qint64 RepairVirtualAudioFile::tell()
 {
-    return m_position;
+    return static_cast<qint64>(m_position);
 }
 
 //***************************************************************************

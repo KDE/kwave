@@ -64,14 +64,20 @@ public:
     /** Returns the virtual file for use in libaudiofile */
     inline AFvirtualfile *file() { return m_virtual_file; }
 
-    /** Returns the las error from libaudiofile (-1 means "no error") */
-    inline long lastError() { return m_last_error; }
+    /** Returns the last error from libaudiofile (-1 means "no error") */
+    inline long int lastError() { return m_last_error; }
 
+    /**
+     * returns the last error text from libaudiofile, not localized
+     * @note this is only valid in case of lastError is not -1
+     */
+    inline QString lastErrorText() { return m_last_error_text; }
+    
     /** reads a block of data */
     virtual unsigned int read(char *data, unsigned int nbytes);
 
     /** returns the length of the file */
-    virtual long length();
+    virtual qint64 length();
 
     /** writes a block of data */
     virtual unsigned int write(const char *data, unsigned int nbytes);
@@ -80,10 +86,10 @@ public:
     virtual void destroy();
 
     /** seek to a file position */
-    virtual long seek(long offset, int is_relative);
+    virtual qint64 seek(qint64 offset, bool is_relative);
 
     /** returns the file position */
-    virtual long tell();
+    virtual qint64 tell();
 
     /** returns a VirtualAudioFile for a libasound virtual file */
     static VirtualAudioFile *adapter(AFvirtualfile *vfile);
@@ -100,7 +106,10 @@ private:
     AFvirtualfile *m_virtual_file;
 
     /** last error code from libaudiofile */
-    long m_last_error;
+    long int m_last_error;
+
+    /** last error text from libaudiofile */
+    QString m_last_error_text;
 
 };
 

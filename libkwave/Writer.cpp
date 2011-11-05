@@ -25,7 +25,10 @@
 #include "libkwave/SampleReader.h"
 
 /** size of m_buffer in samples */
-#define BUFFER_SIZE (256 * 1024)
+#define BUFFER_SIZE (1024 * 1024)
+
+/** minimum block size used for direct block i/o */
+#define MIN_DIRECT_IO_BLOCK_SIZE (BUFFER_SIZE / 2)
 
 //***************************************************************************
 Kwave::Writer::Writer()
@@ -65,9 +68,13 @@ Kwave::Writer &Kwave::Writer::operator << (const Kwave::SampleArray &samples)
 {
     unsigned int count = samples.size();
 
-    if (m_buffer_used && (m_buffer_used + count <= m_buffer_size)) {
-	// append to the internal buffer if it is in use
-	// and if there is still some room
+    if ( (m_buffer_used || (count < MIN_DIRECT_IO_BLOCK_SIZE)) &&
+	 (m_buffer_used + count <= m_buffer_size) )
+    {
+	// append to the internal buffer if it is already in use
+	// and if there is still some room, 
+	// or if the buffer so small that it would make too much overhead
+	// to process it by block operation
 	MEMCPY(&(m_buffer[m_buffer_used]), &(samples[0]),
 	       count * sizeof(sample_t));
 	m_buffer_used += count;

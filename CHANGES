@@ -5,7 +5,8 @@
    (see gentoo bug #314325)
  * new feature: "insert at", paste clipboard at given position
  * fix for API change in libaudiofile v0.3.1
- 
+ * speedup: file loading is much faster now (e.g. up to factor 10 for Ogg/MP3)
+
 0.8.6  [2011-03-07]
 
  * bugfix: copy/paste with partial track selection failed

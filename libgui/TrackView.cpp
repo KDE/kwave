@@ -457,8 +457,7 @@ void Kwave::TrackView::needRepaint()
 //     qDebug("Kwave::TrackView[%d]::needRepaint()", track());
     if (!m_repaint_timer.isActive()) {
 	// repaint once and once later...
-	m_pixmap.repaint();
-	repaint();
+	refreshBitmap();
 
 	// start the repaint timer
 	m_repaint_timer.setSingleShot(true);

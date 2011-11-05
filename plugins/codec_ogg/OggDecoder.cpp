@@ -302,7 +302,7 @@ static inline int decodeFrame(float **pcm, unsigned int size,
 
     // convert floats to 16 bit signed ints
     // (host order) and interleave
-    for (track=0; track < tracks; track++) {
+    for (track = 0; track < tracks; track++) {
 	float *mono = pcm[track];
 	int bout = size;
 	unsigned int ofs = 0;

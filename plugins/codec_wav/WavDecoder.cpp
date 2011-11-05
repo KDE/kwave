@@ -349,11 +349,14 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	        reason = i18n("Invalid sample format");
 	        break;
 	    default:
-		reason = reason.number(m_src_adapter->lastError());
+		reason = i18n("internal libaudiofile error #%1: '%2'",
+		    m_src_adapter->lastError(),
+		    m_src_adapter->lastErrorText()
+		);
 	}
 
-	QString text= i18n("An error occurred while opening the "\
-	    "file:\n'%1'", reason);
+	QString text= i18n("An error occurred while opening the file:\n'%1'", 
+	                    reason);
 	Kwave::MessageBox::error(widget, text);
 
 	return false;

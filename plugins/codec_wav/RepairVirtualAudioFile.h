@@ -44,16 +44,16 @@ public:
     virtual unsigned int read(char *data, unsigned int nbytes);
 
     /** returns the length of the file */
-    virtual long length();
+    virtual qint64 length();
 
     /** writes a block of data */
     virtual unsigned int write(const char *data, unsigned int nbytes);
 
     /** seek to a file position */
-    virtual long seek(long offset, int is_relative);
+    virtual qint64 seek(qint64 offset, bool is_relative);
 
     /** returns the file position */
-    virtual long tell();
+    virtual qint64 tell();
 
 private:
 

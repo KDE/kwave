@@ -17,6 +17,7 @@
 
 #include "config.h"
 #include <stdlib.h> // for calloc()
+#include <unistd.h>
 #include <QIODevice>
 #include "libkwave/VirtualAudioFile.h"
 
@@ -29,6 +30,9 @@ static QMap<AFvirtualfile*,VirtualAudioFile*> *_adapter_map = 0;
 /** Last error number from libaudiofile. -1 if no error occurred */
 static long _last_audiofile_error = -1;
 
+/** Last error text from libaudiofile, empty if no error occurred */
+static QString _last_audiofile_error_text;
+
 //***************************************************************************
 /**
  * Error handler for libaudiofile
@@ -37,10 +41,11 @@ static long _last_audiofile_error = -1;
  *        something starting with AF_BAD_...
  * @param str text, not localized, so not usable for us :-(
  */
-static void _handle_audiofile_error(long error, const char *str)
+static void _handle_audiofile_error(long int error, const char *str)
 {
     qDebug("libaudiofile error %ld: '%s'", error, str);
     _last_audiofile_error = error;
+    _last_audiofile_error_text = QString::fromAscii(str);
 }
 
 //***************************************************************************
@@ -60,14 +65,18 @@ static ssize_t af_file_read(AFvirtualfile *vfile, void *data,
                             size_t nbytes)
 {
     VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
-    return (adapter) ? adapter->read(static_cast<char *>(data), nbytes) : 0;
+    return (adapter) ?
+	static_cast<ssize_t>(adapter->read(
+	    static_cast<char *>(data),
+	    static_cast<unsigned int>(nbytes)
+	)) : 0;
 }
 
 //***************************************************************************
-static long af_file_length(AFvirtualfile *vfile)
+static AFfileoffset af_file_length(AFvirtualfile *vfile)
 {
     VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
-    return (adapter) ? adapter->length() : -1;
+    return (adapter) ? static_cast<AFfileoffset>(adapter->length()) : -1;
 }
 
 //***************************************************************************
@@ -76,7 +85,10 @@ static ssize_t af_file_write(AFvirtualfile *vfile, const void *data,
 {
     VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
     return (adapter) ?
-	adapter->write(static_cast<const char *>(data), nbytes) : 0;
+	static_cast<ssize_t>(adapter->write(
+	    static_cast<const char *>(data),
+	    static_cast<unsigned int>(nbytes)
+	)) : 0;
 }
 
 //***************************************************************************
@@ -85,17 +97,22 @@ static void af_file_destroy(AFvirtualfile */*vfile*/)
 }
 
 //***************************************************************************
-static long af_file_seek(AFvirtualfile *vfile, long offset, int is_relative)
+static AFfileoffset af_file_seek(AFvirtualfile *vfile, AFfileoffset offset, 
+                                 int is_relative)
 {
     VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
-    return (adapter) ? adapter->seek(offset, is_relative) : -1;
+    return (adapter) ?
+	static_cast<AFfileoffset>(adapter->seek(
+	    static_cast<qint64>(offset),
+	    (is_relative != 0)
+	)) : -1;
 }
 
 //***************************************************************************
-static long af_file_tell(AFvirtualfile *vfile)
+static AFfileoffset af_file_tell(AFvirtualfile *vfile)
 {
     VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
-    return (adapter) ? adapter->tell() : -1;
+    return (adapter) ? static_cast<AFfileoffset>(adapter->tell()) : -1;
 }
 
 //***************************************************************************
@@ -116,7 +133,7 @@ static AFvirtualfile *__af_virtual_file_new(void)
 //***************************************************************************
 VirtualAudioFile::VirtualAudioFile(QIODevice &device)
      :m_device(device), m_file_handle(0), m_virtual_file(0),
-      m_last_error(-1)
+      m_last_error(-1), m_last_error_text()
 {
     // create the virtual file structure for libaudiofile
     m_virtual_file = __af_virtual_file_new();
@@ -151,8 +168,9 @@ void VirtualAudioFile::open(VirtualAudioFile *x, AFfilesetup setup)
     old_handler = afSetErrorHandler(_handle_audiofile_error);
 
     // open the virtual file and get a handle for it
-    m_file_handle = afOpenVirtualFile(m_virtual_file, mode, setup);
-    m_last_error = _lastAudiofileError();
+    m_file_handle     = afOpenVirtualFile(m_virtual_file, mode, setup);
+    m_last_error      = _lastAudiofileError();
+    m_last_error_text = _last_audiofile_error_text;
 
     afSetErrorHandler(old_handler);
 }
@@ -185,7 +203,7 @@ unsigned int VirtualAudioFile::read(char *data, unsigned int nbytes)
 }
 
 //***************************************************************************
-long VirtualAudioFile::length()
+qint64 VirtualAudioFile::length()
 {
     return m_device.size();
 }
@@ -204,19 +222,15 @@ void VirtualAudioFile::destroy()
 }
 
 //***************************************************************************
-long VirtualAudioFile::seek(long offset, int is_relative)
+qint64 VirtualAudioFile::seek(qint64 offset, bool is_relative)
 {
-    if (is_relative == SEEK_CUR)
-	m_device.seek(m_device.pos() + offset);
-    else if (is_relative == SEEK_SET)
-	m_device.seek(offset);
-    else
-	return -1;
-    return 0;
+    bool ok = (is_relative) ?
+	m_device.seek(m_device.pos() + offset) : m_device.seek(offset);
+    return (ok) ? m_device.pos() : -1;
 }
 
 //***************************************************************************
-long VirtualAudioFile::tell()
+qint64 VirtualAudioFile::tell()
 {
     return m_device.pos();
 }

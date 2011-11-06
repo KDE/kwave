@@ -82,6 +82,14 @@ namespace Kwave {
 	/** Destructor */
 	virtual ~SignalView();
 
+	/**
+	 * refresh the content of the view.
+	 * The default implementation calls repaint().
+	 * Can be overwritten to trigger more complex refresh scenarios.
+	 * @see TrackView::refresh() for an example
+	 */
+	virtual void refresh();
+
 	/** returns the preferred location */
 	Location preferredLocation() const {
 	    return m_preferred_location;
@@ -186,6 +194,14 @@ namespace Kwave {
 	virtual void addSibling(QWidget *widget);
 
     signals:
+
+	/**
+	 * Can be emitted to signal that this view needs to be repainted,
+	 * probably after synchronizing with other views and additionally
+	 * throttled to reduce GUI load
+	 * @param view pointer to the view that needs to be repainted
+	 */
+	void sigNeedRepaint(Kwave::SignalView *view);
 
 	/**
 	 * Emits a change in the mouse cursor. This can be used to change

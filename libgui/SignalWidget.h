@@ -30,6 +30,7 @@
 #include <QPoint>
 #include <QPointer>
 #include <QPolygon>
+#include <QQueue>
 #include <QSize>
 #include <QTimer>
 #include <QWidget>
@@ -117,15 +118,21 @@ public:
      */
     void insertView(Kwave::SignalView *view, QWidget *controls);
 
+signals:
+
+    /** child views can connected to this signal to synchronize repaints */
+    void sigRepaint();
+    
 public slots:
 
+    /**
+     * can be called by views to request a repaint, synchronized and
+     * throttled through our repaint timer
+     */
+    void requestRepaint(Kwave::SignalView *view);
+    
     /** forward a sigCommand to the next layer */
     void forwardCommand(const QString &command);
-
-    /**
-     * Called if the playback has been stopped.
-     */
-//     void playbackStopped();
 
 protected slots:
 
@@ -134,6 +141,12 @@ protected slots:
 
 private slots:
 
+    /**
+     * called when the repaint timer has elapsed, to refresh all views that
+     * have requested a repaint and are in the repaint queue
+     */
+    void repaintTimerElapsed();
+    
     /**
      * Connected to the signal's sigTrackInserted.
      * @param index numeric index of the inserted track
@@ -270,16 +283,16 @@ private:
     /** vertical zoom factor */
     double m_vertical_zoom;
 
+    /** timer for limiting the number of repaints per second */
+    QTimer m_repaint_timer;
+
     /**
-     * position of the vertical line that indicates the current
-     * playback position in [pixels] from 0...m_width-1. If no playback
-     * is running the value is negative.
+     * list of signal views. Contains one entry for each signal view, starting
+     * with the ones in m_upper_dock, then the ones in m_layout, and at
+     * the end the ones from m_lower_dock.
+     * The list is sorted in the order of the appearance in the GUI.
      */
-//     int m_playpointer;
-
-    /** last/previous value of m_playpointer, for detecting changes */
-//     int m_last_playpointer;
-
+    QQueue< QPointer<Kwave::SignalView> > m_repaint_queue;
 };
 
 #endif /* _SIGNAL_WIDGET_H_ */

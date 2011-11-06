@@ -24,7 +24,6 @@
 #include <QObject>
 #include <QPoint>
 #include <QPointer>
-#include <QTimer>
 #include <QWidget>
 
 #include "kdemacros.h"
@@ -57,6 +56,9 @@ namespace Kwave {
 
 	/** Destructor */
 	virtual ~TrackView();
+
+	/** refreshes the bitmap that displays the signal */
+	virtual void refresh();
 
 	/**
 	 * sets new zoom factor and offset
@@ -104,10 +106,7 @@ namespace Kwave {
     private slots:
 
 	/** requests a repaint, as soon as the repaint timer elapsed */
-	void needRepaint();
-
-	/** refreshes the bitmap that displays the signal */
-	void refreshBitmap();
+	void refreshPlaybackPointer();
 
 	/** requests a refresh of the signal layer */
 	void refreshSignalLayer();
@@ -131,9 +130,6 @@ namespace Kwave {
 
 	/** the track pixmap */
 	Kwave::TrackPixmap m_pixmap;
-
-	/** timer for limiting the number of repaints per second */
-	QTimer m_repaint_timer;
 
 	/** last/previous width of the widget, for detecting size changes */
 	int m_last_width;

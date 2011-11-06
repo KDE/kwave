@@ -90,6 +90,9 @@
 /** vertical zoom factor: increment/decrement factor */
 #define VERTICAL_ZOOM_STEP_FACTOR 1.5
 
+/** interval for limiting the number of repaints per second [ms] */
+#define REPAINT_INTERVAL 125
+
 //***************************************************************************
 SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
                            QVBoxLayout *upper_dock, QVBoxLayout *lower_dock)
@@ -101,11 +104,8 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
      m_lower_dock(lower_dock),
      m_offset(0),
      m_zoom(0.0),
-     m_vertical_zoom(1.0)
-//     m_playpointer(-1),
-//     m_last_playpointer(-1),
-//     m_inhibit_repaint(0),
-//     m_repaint_timer(this),
+     m_vertical_zoom(1.0),
+     m_repaint_timer()
 {
 //    qDebug("SignalWidget::SignalWidget()");
 
@@ -116,6 +116,11 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
             this, SLOT( slotTrackInserted(unsigned int, Track *)));
     connect(sig,  SIGNAL(sigTrackDeleted(unsigned int)),
             this, SLOT( slotTrackDeleted(unsigned int)));
+
+    // use a timer for limiting the repaint rate
+    m_repaint_timer.setSingleShot(true);
+    connect(&m_repaint_timer, SIGNAL(timeout()),
+            this,             SLOT(repaintTimerElapsed()));
 
 //     // -- accelerator keys for 1...9 --
 //     for (int i = 0; i < 10; i++) {
@@ -158,6 +163,32 @@ void SignalWidget::setZoomAndOffset(double zoom, sample_index_t offset)
 void SignalWidget::forwardCommand(const QString &command)
 {
     emit sigCommand(command);
+}
+
+//***************************************************************************
+void SignalWidget::requestRepaint(Kwave::SignalView *view)
+{
+    // add the view to the repaint queue (if not already there)
+    if (!m_repaint_queue.contains(view))
+	m_repaint_queue.enqueue(view);
+
+    if (!m_repaint_timer.isActive()) {
+	// start the repaint timer
+	m_repaint_timer.start(REPAINT_INTERVAL);
+    }
+    // else: repainting is inhibited -> wait until the
+    // repaint timer is elapsed
+}
+
+//***************************************************************************
+void SignalWidget::repaintTimerElapsed()
+{
+    while (!m_repaint_queue.isEmpty())
+    {
+	Kwave::SignalView *view = m_repaint_queue.dequeue();
+	if (!view) continue;
+	view->refresh();
+    }
 }
 
 //***************************************************************************
@@ -540,6 +571,9 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
     connect(view,       SIGNAL(sigCommand(QString)),
 	    this,       SIGNAL(sigCommand(QString)),
 	    Qt::QueuedConnection);
+
+    connect(view,       SIGNAL(sigNeedRepaint(Kwave::SignalView *)),
+	    this,       SLOT(requestRepaint(Kwave::SignalView *)));
 
 }
 

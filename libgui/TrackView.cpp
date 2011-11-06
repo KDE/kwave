@@ -35,9 +35,6 @@
 #include "TrackView.h"
 #include "ViewItem.h"
 
-/** interval for limiting the number of repaints per second [ms] */
-#define REPAINT_INTERVAL 125
-
 /** minimum height of the view in pixel */
 #define MINIMUM_HEIGHT 100
 
@@ -49,7 +46,6 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
                        Kwave::SignalView::AboveTrackTop),
      m_signal_manager(signal_manager),
      m_pixmap(*track),
-     m_repaint_timer(),
      m_last_width(-1),
      m_last_height(-1),
      m_image(),
@@ -66,10 +62,6 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
     // trigger a repaint request when the signal has been modified
     connect(&m_pixmap, SIGNAL(sigModified()),
             this,      SLOT(refreshSignalLayer()));
-
-    // use a timer for limiting the repaint rate
-    connect(&m_repaint_timer, SIGNAL(timeout()),
-            this,             SLOT(refreshBitmap()));
 
     if (controls) {
 	// add the channel controls, for "enabled" / "disabled"
@@ -123,7 +115,7 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
     connect(&(signal_manager->playbackController()),
             SIGNAL(sigPlaybackPos(sample_index_t)),
             this,
-            SLOT(needRepaint()));
+            SLOT(refreshPlaybackPointer()));
 
     // update when the track selection changed
     connect(track, SIGNAL(sigSelectionChanged(bool)),
@@ -134,6 +126,14 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
 //***************************************************************************
 Kwave::TrackView::~TrackView()
 {
+}
+
+//***************************************************************************
+void Kwave::TrackView::refresh()
+{
+//     qDebug("Kwave::TrackView[%d]::refresh()", track());
+    m_pixmap.repaint();
+    repaint();
 }
 
 //***************************************************************************
@@ -239,21 +239,21 @@ void Kwave::TrackView::resizeEvent(QResizeEvent *event)
 void Kwave::TrackView::refreshSignalLayer()
 {
     m_img_signal_needs_refresh = true;
-    needRepaint();
+    emit sigNeedRepaint(this);
 }
 
 //***************************************************************************
 void Kwave::TrackView::refreshSelectionLayer()
 {
     m_img_selection_needs_refresh = true;
-    needRepaint();
+    emit sigNeedRepaint(this);
 }
 
 //***************************************************************************
 void Kwave::TrackView::refreshMarkersLayer()
 {
     m_img_markers_needs_refresh = true;
-    needRepaint();
+    emit sigNeedRepaint(this);
 }
 
 //***************************************************************************
@@ -262,7 +262,7 @@ void Kwave::TrackView::refreshAllLayers()
     m_img_signal_needs_refresh    = true;
     m_img_selection_needs_refresh = true;
     m_img_markers_needs_refresh   = true;
-    needRepaint();
+    emit sigNeedRepaint(this);
 }
 
 //***************************************************************************
@@ -452,28 +452,9 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
 }
 
 //***************************************************************************
-void Kwave::TrackView::needRepaint()
+void Kwave::TrackView::refreshPlaybackPointer()
 {
-//     qDebug("Kwave::TrackView[%d]::needRepaint()", track());
-    if (!m_repaint_timer.isActive()) {
-	// repaint once and once later...
-	refreshBitmap();
-
-	// start the repaint timer
-	m_repaint_timer.setSingleShot(true);
-	m_repaint_timer.start(REPAINT_INTERVAL);
-    }
-    // else: repainting is inhibited -> wait until the
-    // repaint timer is elapsed
-
-}
-
-//***************************************************************************
-void Kwave::TrackView::refreshBitmap()
-{
-//     qDebug("Kwave::TrackView[%d]::refreshBitmap()", track());
-    m_pixmap.repaint();
-    repaint();
+    emit sigNeedRepaint(this);
 }
 
 //***************************************************************************

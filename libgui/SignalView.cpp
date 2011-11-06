@@ -91,6 +91,12 @@ Kwave::SignalView::~SignalView()
 }
 
 //***************************************************************************
+void Kwave::SignalView::refresh()
+{
+    repaint();
+}
+
+//***************************************************************************
 void Kwave::SignalView::addSibling(QWidget *widget)
 {
     m_siblings.append(QPointer<QWidget>(widget));

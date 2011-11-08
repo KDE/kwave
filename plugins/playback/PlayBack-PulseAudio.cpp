@@ -450,9 +450,9 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
     // use the current title / filename or fixed string as stream name
     QString name;
     if (m_info.contains(INF_NAME)) // first choice: title
-	name = m_info.get(INF_NAME).toString().toUtf8().data();
+	name = m_info.get(INF_NAME).toString();
     if (!name.length() && m_info.contains(INF_FILENAME)) // fallback: filename
-	name = m_info.get(INF_FILENAME).toString().toUtf8().data();
+	name = m_info.get(INF_FILENAME).toString();
     if (!name.length()) // last resort: fixed string
 	name = i18n("playback...");
 

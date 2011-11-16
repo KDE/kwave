@@ -309,13 +309,22 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
 	    // expose the buffer to submit data
 	    float **buffer = vorbis_analysis_buffer(&vd, BUFFER_SIZE);
-	    unsigned int pos;
-	    sample_t s;
-	    for (pos=0; (pos < BUFFER_SIZE)  && !src.eof(); ++pos) {
-		for (unsigned int track = 0; (track < tracks); ++track) {
-		    *(src[track]) >> s;
-		    buffer[track][pos] = static_cast<float>(s) /
-			static_cast<float>(SAMPLE_MAX);
+	    unsigned int pos = 0;
+	    Kwave::SampleArray samples(BUFFER_SIZE);
+	    for (unsigned int track = 0; (track < tracks); ++track) {
+		float *p = buffer[track];
+		unsigned int len = src[track]->read(samples, 0, BUFFER_SIZE);
+		const sample_t *s = samples.data();
+
+		const unsigned int block = 8;
+		pos = 0;
+		while (pos + block < len) {
+		    for (unsigned int i = 0; i < block; i++, pos++)
+			p[pos] = sample2float(s[pos]);
+		}
+		while (pos < len) {
+		    p[pos] = sample2float(s[pos]);
+		    pos++;
 		}
 	    }
 
@@ -326,12 +335,12 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	// vorbis does some data preanalysis, then divvies up blocks for
 	// more involved (potentially parallel) processing.  Get a single
 	// block for encoding now
-	while(vorbis_analysis_blockout(&vd, &vb) == 1) {
+	while (vorbis_analysis_blockout(&vd, &vb) == 1) {
 	    // analysis, assume we want to use bitrate management
 	    vorbis_analysis(&vb, NULL);
 	    vorbis_bitrate_addblock(&vb);
 
-	    while(vorbis_bitrate_flushpacket(&vd, &op)) {
+	    while (vorbis_bitrate_flushpacket(&vd, &op)) {
 		// weld the packet into the bitstream
 		ogg_stream_packetin(&os, &op);
 

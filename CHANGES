@@ -1,5 +1,5 @@
 
-0.8.7  [2011-??-??]
+0.8.7  [2011-11-27]
 
  * ebuild update for media-gfx/imagemagick <-> media-gfx/graphicsmagick
    (see gentoo bug #314325)

@@ -1,5 +1,11 @@
 
-o fix playback pointer handling
+o license change to GPL v3
+
+o new import/export plugin using ffmpeg/libavcodec
+
+o scrolling left/right while playback is running
+
+o clipping of position widget
 
 o support for visualization plugins (rev 2498)
   - new functions

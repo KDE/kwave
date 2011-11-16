@@ -17,8 +17,7 @@
 
 FIND_PACKAGE(RequiredProgram REQUIRED)
 
-SET(_help_en_docbook_orig ${CMAKE_CURRENT_SOURCE_DIR}/help_en.docbook)
-SET(_help_en_docbook ${CMAKE_CURRENT_BINARY_DIR}/help_en-work.docbook)
+SET(_help_en_docbook ${CMAKE_CURRENT_SOURCE_DIR}/help_en.docbook)
 SET(_help_en_shifted ${CMAKE_CURRENT_BINARY_DIR}/help_en-shifted.docbook)
 SET(_help_en_pot ${CMAKE_CURRENT_BINARY_DIR}/help_en.pot)
 SET(_version ${PROJECT_SOURCE_DIR}/VERSION)
@@ -37,16 +36,15 @@ FIND_REQUIRED_PROGRAM(CHECKXML_EXECUTABLE checkXML)
 #############################################################################
 ### update of the original docbook file                                   ###
 ADD_CUSTOM_COMMAND(OUTPUT ${_help_en_docbook}
-    COMMAND ${CAT_EXECUTABLE} ${_help_en_docbook_orig} |
+    COMMAND ${CAT_EXECUTABLE} ${_help_en_docbook} |
         ${AWK_EXECUTABLE}
         -v newdate=${KWAVE_VERSION_DATE_ISO}
         -v newrelease=${KWAVE_VERSION_FULL}
         -f ${PROJECT_SOURCE_DIR}/bin/date_release.awk
-        > ${_help_en_docbook}
+        > ${_help_en_docbook}.tmp
     COMMAND ${CMAKE_COMMAND} -E copy
-        ${_help_en_docbook} ${_help_en_docbook_orig}
+        ${_help_en_docbook}.tmp ${_help_en_docbook}
     DEPENDS ${_version}
-    DEPENDS ${_help_en_docbook_orig}
     COMMENT "Updating help_en.docbook"
 )
 SET_SOURCE_FILES_PROPERTIES(${_help_en_docbook} PROPERTIES GENERATED false)

@@ -18,6 +18,12 @@
 #############################################################################
 ### generate menus_config_i18n.cpp                                        ###
 
+# check for programs needed by the script
+FIND_REQUIRED_PROGRAM(AWK_EXECUTABLE gawk awk)
+FIND_REQUIRED_PROGRAM(CAT_EXECUTABLE cat)
+FIND_REQUIRED_PROGRAM(SORT_EXECUTABLE sort)
+FIND_REQUIRED_PROGRAM(UNIQ_EXECUTABLE uniq)
+
 ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
     COMMAND ${PROJECT_SOURCE_DIR}/bin/menusconfig2cpp.sh
         ${CMAKE_CURRENT_SOURCE_DIR}/menus.config

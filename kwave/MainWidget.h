@@ -159,10 +159,8 @@ public slots:
     void zoomSelection();
 
     /**
-     * Zooms the signal to be fully visible. Equivalent to
-     * setZoom(getFullZoom()).
+     * Zooms the signal to be fully visible.
      * @see #setZoom()
-     * @see #getFullZoom()
      */
     void zoomAll();
 
@@ -170,7 +168,6 @@ public slots:
      * Zooms the signal to one-pixel-per-sample. Equivalent to
      * setZoom(1.0).
      * @see #setZoom()
-     * @see #getFullZoom()
      */
     void zoomNormal();
 

@@ -132,7 +132,7 @@ private:
      * stream.
      *
      * @param p pulse audio stream
-     * @param data user data, pointer to a PlayBackPulseAudio object
+     * @param userdata user data, pointer to a PlayBackPulseAudio object
      */
     static void pa_stream_state_cb(pa_stream *p, void *userdata);
 
@@ -141,16 +141,16 @@ private:
      *
      * @param p pulse audio stream
      * @param nbytes number of written bytes, maybe (unused)
-     * @param data user data, pointer to a PlayBackPulseAudio object
+     * @param userdata user data, pointer to a PlayBackPulseAudio object
      */
     static void pa_write_cb(pa_stream *p, size_t nbytes, void *userdata);
 
     /**
      * called from pulse audio after data has been written
      *
-     * @param p pulse audio stream
+     * @param s pulse audio stream
      * @param success indicates success (unused)
-     * @param data user data, pointer to a PlayBackPulseAudio object
+     * @param userdata user data, pointer to a PlayBackPulseAudio object
      */
     static void pa_stream_success_cb(pa_stream *s, int success, void *userdata);
 
@@ -158,7 +158,7 @@ private:
      * called from pulse audio to inform aboutlatency update
      *
      * @param p pulse audio stream
-     * @param data user data, pointer to a PlayBackPulseAudio object
+     * @param userdata user data, pointer to a PlayBackPulseAudio object
      */
     static void pa_stream_latency_cb(pa_stream *p, void *userdata);
 

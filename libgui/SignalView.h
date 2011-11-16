@@ -71,7 +71,7 @@ namespace Kwave {
 	 * @param controls container widget for associated controls
 	 * @param signal_manager the signal manager
 	 * @param preferred_location the location where to insert the view
-	 * @param index (optional) index of the associated track or -1 if
+	 * @param track (optional) index of the associated track or -1 if
 	 *              not related to a specific track (default)
 	 */
 	SignalView(QWidget *parent, QWidget *controls,

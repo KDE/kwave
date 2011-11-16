@@ -49,6 +49,7 @@ namespace Kwave {
 	 * @param parent pointer to the parent widget
 	 * @param controls container widget for associated controls
 	 * @param signal_manager the signal manager
+	 * @param track the track object this view is bound to
 	 */
 	TrackView(QWidget *parent, QWidget *controls,
 	          SignalManager *signal_manager,

@@ -109,8 +109,7 @@ namespace Kwave {
 	 * select elements from the meta data list that are exactly at a
 	 * given position.
 	 *
-	 * @param first index of the first sample
-	 * @param last index of the last sample
+	 * @param pos index of the sample to select
 	 * @return list with found meta data objects
 	 */
 	virtual MetaDataList selectByPosition(sample_index_t pos) const;

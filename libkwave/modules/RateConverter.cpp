@@ -19,7 +19,7 @@
 
 #include <math.h>
 
-#include "RateConverter.h"
+#include "libkwave/modules/RateConverter.h"
 
 //***************************************************************************
 Kwave::RateConverter::RateConverter()

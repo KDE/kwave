@@ -87,9 +87,10 @@ Kwave::MetaDataList Kwave::MetaDataList::selectByTracks(
 	// iterate over all meta data items
 	it.next();
 	const Kwave::MetaData &m = it.value();
+	bool match = true;
 	if (m.hasProperty(Kwave::MetaData::STDPROP_TRACKS)) {
 	    // iterate over the list of tracks of the item
-	    bool match = false;
+	    match = false;
 	    QList<QVariant> track_list =
 		m[Kwave::MetaData::STDPROP_TRACKS].toList();
 	    foreach (const QVariant &v, track_list) {
@@ -101,10 +102,10 @@ Kwave::MetaDataList Kwave::MetaDataList::selectByTracks(
 		    break;
 		}
 	    }
-	    if (match) {
-		Q_ASSERT(!list.keys().contains(m.id()));
-		if (!list.keys().contains(m.id())) list.add(m);
-	    }
+	}
+	if (match) {
+	    Q_ASSERT(!list.keys().contains(m.id()));
+	    if (!list.keys().contains(m.id())) list.add(m);
 	}
     }
     return list;

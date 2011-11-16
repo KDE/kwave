@@ -133,7 +133,7 @@ int main( int argc, char **argv )
 {
     static KCmdLineOptions options;
 
-    options.add("!+files", ki18n("List of WAV files"), 0 );
+    options.add("!+files", ki18n("List of audio files"), 0 );
 
     KAboutData about(
 	PACKAGE, "",
@@ -141,7 +141,7 @@ int main( int argc, char **argv )
 	PACKAGE_VERSION,
 	ki18n("A sound editor for KDE"),
 	KAboutData::License_GPL_V2,
-        ki18n("(c) 2006, Thomas Eschenbacher"),
+        ki18n("(c) 2011, Thomas Eschenbacher"),
 	ki18n(0),
 	"http://kwave.sourceforge.net",
 	"Thomas.Eschenbacher@gmx.de"

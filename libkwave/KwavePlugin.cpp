@@ -86,7 +86,7 @@ Kwave::Plugin::Plugin(const PluginContext &c)
 {
     connect(&m_progress_timer, SIGNAL(timeout()),
             this, SLOT(updateProgressTick()),
-            Qt::QueuedConnection);
+            Qt::DirectConnection);
 }
 
 //***************************************************************************
@@ -271,7 +271,7 @@ void Kwave::Plugin::updateProgress(qreal progress)
     m_current_progress = qreal(PROGRESS_MAXIMUM / 100.0) * progress;
 
     // start the timer for updating the progress bar if it is not active
-    if (!m_progress_timer.isActive()) {
+    if (!m_progress_timer.isActive() && m_progress) {
 	m_progress_timer.setSingleShot(true);
 	m_progress_timer.start(1000 / PROGRESS_UPDATES_PER_SECOND);
     }
@@ -299,16 +299,24 @@ void Kwave::Plugin::closeProgressDialog(Kwave::Plugin *)
 
     // stop the progress timer
     m_progress_timer.stop();
+    m_progress_timer.disconnect();
 
+    if (m_confirm_cancel) m_confirm_cancel->disconnect();
+    if (m_progress)       m_progress->disconnect();
+
+    // NOTE: as the progress dialog is *modal*, it is higly probable
+    //       that this function is called from the context of the event
+    //       loop that is provided by the progress dialog
+    //       => deleting this object should be done somewhere later...
     if (m_confirm_cancel) {
-	ConfirmCancelProxy *proxy = m_confirm_cancel;
+	m_confirm_cancel->deleteLater();
 	m_confirm_cancel = 0;
-	delete proxy;
     }
+
     if (m_progress) {
-	QProgressDialog *prog = m_progress;
+	m_progress->done(0);
+	m_progress->deleteLater();
 	m_progress = 0;
-	delete prog;
     }
 }
 
@@ -385,12 +393,7 @@ void Kwave::Plugin::close()
 	Q_ASSERT(this->thread() == QThread::currentThread());
 	Q_ASSERT(this->thread() == qApp->thread());
 
-	QMutexLocker lock(&m_progress_lock);
-	m_progress_timer.stop();
-	qApp->sendPostedEvents();
-	qApp->processEvents();
-	qApp->syncX();
-
+	closeProgressDialog(this);
 	stop();
     } else if ((QThread::currentThread() == m_thread)) {
 	qWarning("Kwave::Plugin::close -> called from worker thread?");

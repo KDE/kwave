@@ -7,6 +7,8 @@ o scrolling left/right while playback is running
 
 o clipping of position widget
 
+o undo of file info changes (file info plugin)
+
 o support for visualization plugins (rev 2498)
   - new functions
     * allow drag&drop to reorder signal views

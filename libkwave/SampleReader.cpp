@@ -173,7 +173,16 @@ unsigned int SampleReader::read(Kwave::SampleArray &buffer,
 	    // buffer is empty now
 	    m_buffer_position = m_buffer_used = 0;
 	}
-	if (!rest) return count; // done
+
+	if (!rest) {
+	    // inform others that we proceeded
+	    if (m_progress_time.elapsed() > MIN_PROGRESS_INTERVAL) {
+		m_progress_time.restart();
+		emit proceeded();
+		QApplication::sendPostedEvents();
+	    }
+	    return count; // done
+	}
     }
 
     // take the rest directly out of the stripe(s)
@@ -191,6 +200,7 @@ unsigned int SampleReader::read(Kwave::SampleArray &buffer,
     if (m_progress_time.elapsed() > MIN_PROGRESS_INTERVAL) {
 	m_progress_time.restart();
 	emit proceeded();
+	QApplication::sendPostedEvents();
     }
     return count;
 }

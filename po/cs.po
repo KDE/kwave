@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-16 10:55+0100\n"
+"POT-Creation-Date: 2011-11-16 15:50+0100\n"
 "PO-Revision-Date: 2011-03-04 23:16+0100\n"
 "Last-Translator: Pavel Fric\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -456,7 +456,7 @@ msgstr "&Vložit štítky..."
 msgid "&Invert Selection"
 msgstr "&Obrátit výběr"
 
-#: libgui/LabelItem.cpp:91 libgui/TrackView.cpp:203
+#: libgui/TrackView.cpp:203 libgui/LabelItem.cpp:91
 msgid "&Label"
 msgstr "&Štítek"
 
@@ -514,7 +514,7 @@ msgstr "&Udělat finální nahrávku & Vložit"
 msgid "&Moving Average"
 msgstr "&Posunuje průměr"
 
-#: libgui/LabelItem.cpp:103 libgui/TrackView.cpp:210
+#: libgui/TrackView.cpp:210 libgui/LabelItem.cpp:103
 msgid "&New"
 msgstr "&Nový"
 
@@ -3292,16 +3292,6 @@ msgstr "Nižší datový tok"
 msgid "MP3 Decoder"
 msgstr "Dekodér MP3"
 
-#: plugins/codec_alac/ALAC_CodecPlugin.cpp:28
-#, fuzzy
-msgid "MP4 / ALAC Codec"
-msgstr "Kodek FLAC"
-
-#: plugins/codec_alac/ALAC_CodecPlugin.h:59
-#, fuzzy
-msgid "MP4 audio (ALAC)"
-msgstr "MPEG zvuk"
-
 #: plugins/fileinfo/ui_FileInfoDlg.h:1349
 msgid "MPEG"
 msgstr "MPEG"
@@ -4192,8 +4182,8 @@ msgstr "Rozlišení: "
 msgid "Retro"
 msgstr "Ve starém stylu (retrostylu)"
 
-#: plugins/reverse/ReversePlugin.cpp:44 plugins/reverse/ReversePlugin.cpp:227
 #: plugins/reverse/UndoReverseAction.cpp:42
+#: plugins/reverse/ReversePlugin.cpp:44 plugins/reverse/ReversePlugin.cpp:227
 msgid "Reverse"
 msgstr "Obrátit"
 
@@ -4536,10 +4526,6 @@ msgstr "Ukázat skladby"
 #: libkwave/SignalManager.cpp:307
 msgid "Signal is empty, nothing to save."
 msgstr "Bez signálu. Není co uložit."
-
-#: plugins/labeler/LabelerPlugin.cpp:42
-msgid "Signal labeler"
-msgstr ""
 
 #: plugins/zero/ZeroPlugin.cpp:57
 msgid "Silence"
@@ -5037,11 +5023,6 @@ msgstr "K předchozím štítkům"
 #: libkwave/SignalManager.cpp:838
 msgid "Toggle Track Selection"
 msgstr "Přepnout výběr stopy"
-
-#: plugins/labeler/gui/LabelView.cpp:104
-#, c-format
-msgid "Too many label levels to paint. Only %d will be shown"
-msgstr ""
 
 #: libkwave/GenreType.cpp:137
 msgid "Top 40"
@@ -5543,235 +5524,3 @@ msgstr "Verze"
 msgid "yes"
 msgstr "Ano"
 
-#~ msgid "&Amplify"
-#~ msgstr "&Zesílit"
-
-#~ msgid "&Free"
-#~ msgstr "&Volné"
-
-#~ msgid "&Frequencies"
-#~ msgstr "&Kmitočty"
-
-#~ msgid "&Low pass"
-#~ msgstr "&Nízký průchod"
-
-#~ msgid "&Search..."
-#~ msgstr "&Hledat..."
-
-#~ msgid "&Undo and Redo"
-#~ msgstr "&Zpět a znovu"
-
-#~ msgid "(file size)"
-#~ msgstr "(velikost souboru)"
-
-#~ msgid "<nothing>"
-#~ msgstr "<nic>"
-
-#~ msgid "Diederick de Vries"
-#~ msgstr "Diederick de Vries"
-
-#~ msgid "Kwave auto-repair"
-#~ msgstr "Kwave automatické opravení"
-
-#~ msgid "MPEG layer2 audio"
-#~ msgstr "MPEG úroveň zvuku 2"
-
-#~ msgid "MPEG layer3 audio"
-#~ msgstr "MPEG úroveň zvuku 3"
-
-#~ msgid "Modify File Information"
-#~ msgstr "Upravit souborové údaje"
-
-#~ msgid "Out of memory!"
-#~ msgstr "Mimo paměť!"
-
-#~ msgid "Packaging for Crux Linux"
-#~ msgstr "Zabalení pro Crux Linux"
-
-#~ msgid "Position"
-#~ msgstr "Místo"
-
-#~ msgid ""
-#~ "Provides general comments about the file or the subject of \n"
-#~ "the file. If the comment is several sentences long, end \n"
-#~ "each sentence with a period. Do not include newline \n"
-#~ "characters!"
-#~ msgstr ""
-#~ "Poskytuje obecné poznámky o souboru nebo předloze \n"
-#~ "souboru. V případě, že poznámka má několik vět, zakončete \n"
-#~ "každou větu tečkou. Nezařazujte znaky \n"
-#~ "nového řádku!"
-
-#~ msgid "Record!"
-#~ msgstr "Nahrát!"
-
-#~ msgid "Resolution"
-#~ msgstr "Rozlišení"
-
-#~ msgid "Selected"
-#~ msgstr "Vybraný"
-
-#~ msgid "This is %1 v%2 (compiled for KDE %3)"
-#~ msgstr "Toto je %1 v%2 (zkompilováno pro KDE %3)"
-
-#~ msgid ""
-#~ "Unable to save undo information. Do you want to continue without undo?"
-#~ msgstr ""
-#~ "Neschopen uložit informaci o kroku zpět. Chcete pokračovat bez tohoto "
-#~ "kroku zpět?"
-
-#~ msgid "about"
-#~ msgstr "O"
-
-#~ msgid "amplify free"
-#~ msgstr "Volně zesílit"
-
-#~ msgid "amplifyfree"
-#~ msgstr "Volně zesílit"
-
-#~ msgid "band_pass"
-#~ msgstr "Pásmo propustnosti filtru"
-
-#~ msgid "codec_ascii"
-#~ msgstr "Kodek (zařízení zahrnující kodér i dekodér) ascii"
-
-#~ msgid "codec_audiofile"
-#~ msgstr "Kodek (zařízení zahrnující kodér i dekodér) audiofile"
-
-#~ msgid "codec_flac"
-#~ msgstr "Kodek (zařízení zahrnující kodér i dekodér) flac"
-
-#~ msgid "codec_ogg"
-#~ msgstr "Kodek (zařízení zahrnující kodér i dekodér) ogg"
-
-#~ msgid "codec_wav"
-#~ msgstr "Kodek (zařízení zahrnující kodér i dekodér) wav"
-
-#~ msgid "crop"
-#~ msgstr "Oříznout"
-
-#~ msgid "cut"
-#~ msgstr "Vyjmout"
-
-#~ msgid "debug"
-#~ msgstr "Odladit"
-
-#~ msgid "decoder_mp3"
-#~ msgstr "Dekodér MP3"
-
-#~ msgid "delete"
-#~ msgstr "Smazat"
-
-#~ msgid "done"
-#~ msgstr "Hotovo"
-
-#~ msgid "fileinfo"
-#~ msgstr "Informace o souboru"
-
-#~ msgid "goto"
-#~ msgstr "Přejít na"
-
-#~ msgid "length: "
-#~ msgstr "Délka:"
-
-#~ msgid "level meter"
-#~ msgstr "Měřič úrovně"
-
-#~ msgid "low pass"
-#~ msgstr "Nízký průchod"
-
-#~ msgid "lowpass"
-#~ msgstr "Nízký průchod"
-
-#~ msgid "memory"
-#~ msgstr "Paměť"
-
-#~ msgid "n-polynom"
-#~ msgstr "n-polynom"
-
-#~ msgid "newsignal"
-#~ msgstr "Nový signál"
-
-#~ msgid "no"
-#~ msgstr "Ne"
-
-#~ msgid "no compression"
-#~ msgstr "Bez komprese"
-
-#~ msgid "noise"
-#~ msgstr "Šum"
-
-#~ msgid "normalize"
-#~ msgstr "Uvést do obvyklého stavu"
-
-#~ msgid "notch_filter"
-#~ msgstr "Vroubkový filtr"
-
-#~ msgid "out of memory"
-#~ msgstr "Mimo rozsah paměti"
-
-#~ msgid "paste"
-#~ msgstr "Vložit"
-
-#~ msgid "paused"
-#~ msgstr "Pozastaveno"
-
-#~ msgid "pitch shift"
-#~ msgstr "Posun výšky tónu"
-
-#~ msgid "pitch_shift"
-#~ msgstr "Posun výšky tónu"
-
-#~ msgid "playback"
-#~ msgstr "Přehrávání"
-
-#~ msgid "polynom, nth degree"
-#~ msgstr "Polynom, devátý stupeň"
-
-#~ msgid "record"
-#~ msgstr "Nahrávat"
-
-#~ msgid "resolution: "
-#~ msgstr "Rozlišení:"
-
-#~ msgid "reverse"
-#~ msgstr "Obrátit"
-
-#~ msgid "samples"
-#~ msgstr "Vzorky"
-
-#~ msgid "saveblocks"
-#~ msgstr "Uložit bloky"
-
-#~ msgid "select range"
-#~ msgstr "Vybrat rozsah"
-
-#~ msgid "selection"
-#~ msgstr "Výběr"
-
-#~ msgid "selectrange"
-#~ msgstr "Vybrat rozsah"
-
-#~ msgid "silence"
-#~ msgstr "Ticho"
-
-#~ msgid "sonagram"
-#~ msgstr "Obraz vytvořený ultrazvukem neboli sonogram"
-
-#~ msgid "to &Maximum"
-#~ msgstr "Na &nejvyšší možnou míru"
-
-#~ msgid "tracks: "
-#~ msgstr "Stopy:"
-
-#~ msgid "volume"
-#~ msgstr "Hlasitost"
-
-#~ msgid "wav audio"
-#~ msgstr "Zvuk wav"
-
-#~ msgid "zero"
-#~ msgstr "Nula"
-
-#~ msgid "zoom to 100%%"
-#~ msgstr "Najet na 100 %"

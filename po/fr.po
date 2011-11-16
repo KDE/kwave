@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-16 10:55+0100\n"
+"POT-Creation-Date: 2011-11-16 15:50+0100\n"
 "PO-Revision-Date: 2007-08-01 19:04+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
@@ -481,7 +481,7 @@ msgstr "&Insertion de labels..."
 msgid "&Invert Selection"
 msgstr "&Inversion de la sélection"
 
-#: libgui/LabelItem.cpp:91 libgui/TrackView.cpp:203
+#: libgui/TrackView.cpp:203 libgui/LabelItem.cpp:91
 msgid "&Label"
 msgstr "&Label"
 
@@ -541,7 +541,7 @@ msgstr "&Mixer & Coller"
 msgid "&Moving Average"
 msgstr "Déplacer la &moyenne"
 
-#: libgui/LabelItem.cpp:103 libgui/TrackView.cpp:210
+#: libgui/TrackView.cpp:210 libgui/LabelItem.cpp:103
 msgid "&New"
 msgstr "&Nouveau..."
 
@@ -3391,16 +3391,6 @@ msgstr "Débit faible"
 msgid "MP3 Decoder"
 msgstr ""
 
-#: plugins/codec_alac/ALAC_CodecPlugin.cpp:28
-#, fuzzy
-msgid "MP4 / ALAC Codec"
-msgstr "FLAC audio"
-
-#: plugins/codec_alac/ALAC_CodecPlugin.h:59
-#, fuzzy
-msgid "MP4 audio (ALAC)"
-msgstr "Audio MPEG"
-
 #: plugins/fileinfo/ui_FileInfoDlg.h:1349
 msgid "MPEG"
 msgstr "MPEG"
@@ -4357,8 +4347,8 @@ msgstr "Résolution :"
 msgid "Retro"
 msgstr "Rétro"
 
-#: plugins/reverse/ReversePlugin.cpp:44 plugins/reverse/ReversePlugin.cpp:227
 #: plugins/reverse/UndoReverseAction.cpp:42
+#: plugins/reverse/ReversePlugin.cpp:44 plugins/reverse/ReversePlugin.cpp:227
 #, fuzzy
 msgid "Reverse"
 msgstr "Inve&rser"
@@ -4736,10 +4726,6 @@ msgstr "Showtunes"
 #, fuzzy
 msgid "Signal is empty, nothing to save."
 msgstr "Le signal est vide, il n'y a rien à enregistrer !"
-
-#: plugins/labeler/LabelerPlugin.cpp:42
-msgid "Signal labeler"
-msgstr ""
 
 #: plugins/zero/ZeroPlugin.cpp:57
 #, fuzzy
@@ -5267,11 +5253,6 @@ msgstr "vers les labels précédents"
 #, fuzzy
 msgid "Toggle Track Selection"
 msgstr "&Inversion de la sélection"
-
-#: plugins/labeler/gui/LabelView.cpp:104
-#, c-format
-msgid "Too many label levels to paint. Only %d will be shown"
-msgstr ""
 
 #: libkwave/GenreType.cpp:137
 msgid "Top 40"
@@ -5869,6 +5850,14 @@ msgstr "Oui"
 #~ msgstr ""
 #~ "Le chargement de la bibliothèque aRts à échoué. Ceci est probablement du "
 #~ "à un problème avec l'installation de aRts."
+
+#, fuzzy
+#~ msgid "MP4 / ALAC Codec"
+#~ msgstr "FLAC audio"
+
+#, fuzzy
+#~ msgid "MP4 audio (ALAC)"
+#~ msgstr "Audio MPEG"
 
 #~ msgid "MPEG layer2 audio"
 #~ msgstr "Format audio MPEG niveau 2"

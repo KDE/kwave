@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-16 10:55+0100\n"
-"PO-Revision-Date: 2011-05-12 12:17+0200\n"
+"POT-Creation-Date: 2011-11-16 15:50+0100\n"
+"PO-Revision-Date: 2011-11-16 15:49+0100\n"
 "Last-Translator: \n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -455,7 +455,7 @@ msgstr "Markierung &einfügen..."
 msgid "&Invert Selection"
 msgstr "Auswahl &umkehren"
 
-#: libgui/LabelItem.cpp:91 libgui/TrackView.cpp:203
+#: libgui/TrackView.cpp:203 libgui/LabelItem.cpp:91
 msgid "&Label"
 msgstr "&Markierung"
 
@@ -513,7 +513,7 @@ msgstr "&Mischen und Einfügen"
 msgid "&Moving Average"
 msgstr "&Mittelwert-Verschiebung"
 
-#: libgui/LabelItem.cpp:103 libgui/TrackView.cpp:210
+#: libgui/TrackView.cpp:210 libgui/LabelItem.cpp:103
 msgid "&New"
 msgstr "&Neu"
 
@@ -805,9 +805,8 @@ msgid "(built for KDE %1)"
 msgstr "(generiert für KDE %1)"
 
 #: kwave/main.cpp:144
-#, fuzzy
 msgid "(c) 2011, Thomas Eschenbacher"
-msgstr "(c) 2006, Thomas Eschenbacher"
+msgstr "(c) 2011, Thomas Eschenbacher"
 
 #: plugins/record/RecordDialog.cpp:987
 msgid "(empty)"
@@ -1447,7 +1446,6 @@ msgid "<h1>Kwave - a sound editor for KDE</h1>"
 msgstr "<h1>Kwave - Ein Sound-Editor für KDE</h1>"
 
 #: plugins/about/ui_KwaveAboutDialogBase.h:287
-#, fuzzy
 msgid ""
 "<h2>Kwave is a sound editor designed for the KDE Desktop Environment. </"
 "h2><br>\n"
@@ -1462,13 +1460,13 @@ msgid ""
 "and scroll capability."
 msgstr ""
 "<h2>Kwave ist ein Sound-Editor für die KDE Desktop-Umgebung.</h2><br>\n"
-"Mit Kwave können Sie viele Arten von wav-Dateien \n"
+"Mit Kwave können Sie viele Arten von Audio-Dateien \n"
 "bearbeiten, auch solche mit vielen Tracks. \n"
 "Sie können jeden Track einzeln verändern \n"
 "und abspielen.<br>\n"
 "Kwave enthält ebenfalls viele Plugins (von denen\n"
-"einige noch in Entwicklung sind) um die \n"
-"wave-Datei auf verschiedene Arten zu transformieren \n"
+"einige noch in Entwicklung sind) um \n"
+"Audio-Daten auf verschiedene Arten zu transformieren \n"
 "und eine graphische Ansicht mit ausgereiften Zoom- und "
 "Navigationsmöglichkeiten."
 
@@ -3235,9 +3233,8 @@ msgid "Linear Two's Complement"
 msgstr "Linear im Zweierkomplement"
 
 #: kwave/main.cpp:136
-#, fuzzy
 msgid "List of audio files"
-msgstr "Liste von WAV-Dateien"
+msgstr "Liste von Audio-Dateien"
 
 #: plugins/fileinfo/ui_KeywordWidgetBase.h:108
 msgid "List of keywords."
@@ -3288,16 +3285,6 @@ msgstr "minimale Bitrate"
 #: plugins/decoder_mp3/MP3DecoderPlugin.cpp:26
 msgid "MP3 Decoder"
 msgstr "MP3-Decoder"
-
-#: plugins/codec_alac/ALAC_CodecPlugin.cpp:28
-#, fuzzy
-msgid "MP4 / ALAC Codec"
-msgstr "FLAC Codec"
-
-#: plugins/codec_alac/ALAC_CodecPlugin.h:59
-#, fuzzy
-msgid "MP4 audio (ALAC)"
-msgstr "MPEG Audio"
 
 #: plugins/fileinfo/ui_FileInfoDlg.h:1349
 msgid "MPEG"
@@ -4189,8 +4176,8 @@ msgstr "Auflösung: "
 msgid "Retro"
 msgstr "Retro"
 
-#: plugins/reverse/ReversePlugin.cpp:44 plugins/reverse/ReversePlugin.cpp:227
 #: plugins/reverse/UndoReverseAction.cpp:42
+#: plugins/reverse/ReversePlugin.cpp:44 plugins/reverse/ReversePlugin.cpp:227
 msgid "Reverse"
 msgstr "Umkehren"
 
@@ -4540,10 +4527,6 @@ msgstr "Showtunes"
 #: libkwave/SignalManager.cpp:307
 msgid "Signal is empty, nothing to save."
 msgstr "Signal ist leer, nichts zu speichern."
-
-#: plugins/labeler/LabelerPlugin.cpp:42
-msgid "Signal labeler"
-msgstr "Markierungen"
 
 #: plugins/zero/ZeroPlugin.cpp:57
 msgid "Silence"
@@ -5046,11 +5029,6 @@ msgstr "Zu den vorhergehenden Markierungen"
 msgid "Toggle Track Selection"
 msgstr "Track-Auswahl umkehren"
 
-#: plugins/labeler/gui/LabelView.cpp:104
-#, c-format
-msgid "Too many label levels to paint. Only %d will be shown"
-msgstr "Zu viele Markierungen zum Zeichnen. Nur %1 werden angezeigt."
-
 #: libkwave/GenreType.cpp:137
 msgid "Top 40"
 msgstr "Top 40"
@@ -5465,7 +5443,7 @@ msgstr "Index der Markierung"
 #: plugins/codec_wav/WavDecoder.cpp:357
 #, kde-format
 msgid "internal libaudiofile error #%1: '%2'"
-msgstr ""
+msgstr "interner libaudiofile-Fehler #%1: '%2'"
 
 #: plugins/fileinfo/ui_CompressionWidgetBase.h:202
 #: plugins/fileinfo/ui_CompressionWidgetBase.h:214
@@ -5587,6 +5565,12 @@ msgstr "Ja"
 #~ msgid "Kwave auto-repair"
 #~ msgstr "Kwave automatische Reparatur"
 
+#~ msgid "MP4 / ALAC Codec"
+#~ msgstr "MP4 / ALAC Codec"
+
+#~ msgid "MP4 audio (ALAC)"
+#~ msgstr "MP4 Audio (ALAC)"
+
 #~ msgid "MPEG layer2 audio"
 #~ msgstr "MPEG Layer2 Audio"
 
@@ -5624,8 +5608,14 @@ msgstr "Ja"
 #~ msgid "Selected"
 #~ msgstr "Ausgewählt"
 
+#~ msgid "Signal labeler"
+#~ msgstr "Markierungen"
+
 #~ msgid "This is %1 v%2 (compiled for KDE %3)"
 #~ msgstr "Dies ist %1 v%2 (für KDE %3)"
+
+#~ msgid "Too many label levels to paint. Only %d will be shown"
+#~ msgstr "Zu viele Markierungen zum Zeichnen. Nur %1 werden angezeigt."
 
 #~ msgid ""
 #~ "Unable to save undo information. Do you want to continue without undo?"

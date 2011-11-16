@@ -41,12 +41,12 @@ Conflicts: 	libkwave
 Obsoletes: 	libkwave
 
 %description
-With Kwave you can edit many sorts of wav-files
+With Kwave you can edit many sorts of audio files
 including multi-channel files. You are able to
 alter and play back each channel on its own.
 Kwave also includes many plugins (most are
-still under development) to transform the
-wave-file in several ways and presents a
+still under development) to transform
+audio data in several ways and presents a
 graphical view with a complete zoom-and scroll capability.
 
 %prep

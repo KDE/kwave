@@ -7,8 +7,6 @@ o scrolling left/right while playback is running
 
 o clipping of position widget
 
-o undo of file info changes (file info plugin)
-
 o add a "record" button to the toolbar
 
 o support for visualization plugins (rev 2498)

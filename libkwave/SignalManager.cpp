@@ -1652,6 +1652,7 @@ void SignalManager::redo()
 
     // execute all redo actions and store the resulting undo
     // actions into the undo transaction
+    bool modified = false;
     while (!redo_transaction->isEmpty()) {
 	UndoAction *undo_action;
 	UndoAction *redo_action;
@@ -1662,6 +1663,7 @@ void SignalManager::redo()
 	// execute the redo operation
 	Q_ASSERT(redo_action);
 	if (!redo_action) continue;
+	modified |= redo_transaction->containsModification();
 	undo_action = redo_action->undo(*this, (undo_transaction != 0));
 
 	// remove the old redo action if no longer used
@@ -1691,6 +1693,10 @@ void SignalManager::redo()
 	delete undo_transaction;
     }
 
+    // if the redo operation modified something, 
+    // we have to update the "modified" flag of the current signal
+    if (modified) setModified(true);
+    
     // remember the last selection
     rememberCurrentSelection();
 

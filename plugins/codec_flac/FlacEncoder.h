@@ -35,7 +35,6 @@
 class QIODevice;
 class QWidget;
 
-class FileInfo;
 class MultiTrackReader;
 
 class FlacEncoder: public Encoder,
@@ -57,11 +56,12 @@ public:
      *        message boxes or dialogs
      * @param src MultiTrackReader used as source of the audio data
      * @param dst file or other source to receive a stream of bytes
-     * @param info information about the file to be saved
+     * @param meta_data meta data of the file to save
      * @return true if succeeded, false on errors
      */
     virtual bool encode(QWidget *widget, MultiTrackReader &src,
-                        QIODevice &dst, FileInfo &info);
+                        QIODevice &dst,
+                        const Kwave::MetaDataList &meta_data);
 
     /** Returns a list of supported file properties */
     virtual QList<FileProperty> supportedProperties();
@@ -101,7 +101,7 @@ protected:
      * @param info information about the file to be saved
      * @param flac_metadata QList with collects the FLAC metadata
      */
-    virtual void encodeMetaData(FileInfo &info,
+    virtual void encodeMetaData(const FileInfo &info,
         QVector<FLAC__StreamMetadata *> &flac_metadata);
 
 protected:
@@ -135,9 +135,6 @@ private:
 
     /** map for translating vorbis comments to FileInfo properties */
     VorbisCommentMap m_vorbis_comment_map;
-
-    /** pointer to the Kwave FileInfo with meta informations */
-    FileInfo *m_info;
 
     /** pointer to the QIODevice for storing, used while encoding */
     QIODevice *m_dst;

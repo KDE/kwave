@@ -64,7 +64,7 @@ bool Kwave::ChannelMixer::init()
     // create the buffers for the output data
     for (unsigned int index = 0; index < m_outputs; index++) {
 	// create a buffer for the input
-	QPointer<Kwave::SampleBuffer> out_buffer = new Kwave::SampleBuffer();
+	Kwave::SampleBuffer *out_buffer = new Kwave::SampleBuffer();
 	Q_ASSERT(out_buffer);
 	if (!out_buffer) return false;
 	m_output_buffer.append(out_buffer);
@@ -72,7 +72,7 @@ bool Kwave::ChannelMixer::init()
     
     // create indexing proxies and connect their output to this mixer
     for (unsigned int index = 0; index < m_inputs; index++) {
-	QPointer<Kwave::StreamObject> indexer = new Kwave::Indexer(index);
+	Kwave::StreamObject *indexer = new Kwave::Indexer(index);
 	Q_ASSERT(indexer);
 	if (!indexer) return false;
 
@@ -124,7 +124,7 @@ Kwave::ChannelMixer::~ChannelMixer()
     QMutexLocker _lock(&m_lock);
 
     while (!m_indexer.isEmpty()) {
-	QPointer<Kwave::StreamObject> indexer = m_indexer[0];
+	Kwave::StreamObject *indexer = m_indexer[0];
 	if (indexer) delete indexer;
 	m_indexer.remove(0);
     }
@@ -132,7 +132,7 @@ Kwave::ChannelMixer::~ChannelMixer()
     m_input_queue.clear();
 
     while (!m_output_buffer.isEmpty()) {
-	QPointer<Kwave::SampleBuffer> buffer = m_output_buffer[0];
+	Kwave::SampleBuffer *buffer = m_output_buffer[0];
 	if (buffer) delete buffer;
 	m_output_buffer.remove(0);
     }
@@ -242,7 +242,7 @@ void Kwave::ChannelMixer::mix()
     // and build an array of pointers to the raw data, for speeding up
     QVarLengthArray<sample_t *> output(m_outputs);
     for (unsigned int track = 0; track < m_outputs; track++) {
-	QPointer<Kwave::SampleBuffer> buffer = m_output_buffer[track];
+	Kwave::SampleBuffer *buffer = m_output_buffer[track];
 	Q_ASSERT(buffer);
 	if (!buffer) return;
 	if (buffer->data().size() < min_len)
@@ -270,7 +270,7 @@ void Kwave::ChannelMixer::mix()
 	}
 
 	// emit the output
-	QPointer<Kwave::SampleBuffer> out_buf = m_output_buffer[y];
+	Kwave::SampleBuffer *out_buf = m_output_buffer[y];
 	if (unlikely(out_buf->data().size() > min_len))
 	    out_buf->data().resize(min_len);
 	out_buf->done();

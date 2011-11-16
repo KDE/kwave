@@ -34,6 +34,8 @@ extern "C" {
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Label.h"
 #include "libkwave/MessageBox.h"
+#include "libkwave/MetaData.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/Sample.h"
 #include "libkwave/Signal.h"
 #include "libkwave/VirtualAudioFile.h"
@@ -111,7 +113,10 @@ Decoder *WavDecoder::instance()
 //***************************************************************************
 bool WavDecoder::open(QWidget *widget, QIODevice &src)
 {
-    info().clear();
+    FileInfo info;
+    LabelList labels;
+    metaData().clear();
+
     Q_ASSERT(!m_source);
     bool need_repair = false;
     if (m_source) qWarning("WavDecoder::open(), already open !");
@@ -372,12 +377,12 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     int compression = afGetCompression(fh, AF_DEFAULT_TRACK);
     if (static_cast<signed int>(bits) < 0) bits = 0;
 
-    info().setRate(rate);
-    info().setBits(bits);
-    info().setTracks(tracks);
-    info().setLength(length);
-    info().set(INF_SAMPLE_FORMAT, sample_format);
-    info().set(INF_COMPRESSION, compression);
+    info.setRate(rate);
+    info.setBits(bits);
+    info.setTracks(tracks);
+    info.setLength(length);
+    info.set(INF_SAMPLE_FORMAT, sample_format);
+    info.set(INF_COMPRESSION, compression);
 
     // read in all info from the LIST (INFO) chunk
     RIFFChunk *info_chunk = parser.findChunk("/RIFF:WAVE/LIST:INFO");
@@ -398,7 +403,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	    buffer[length] = 0;
 	    QString value;
 	    value = QString::fromUtf8(buffer);
-	    info().set(prop, value);
+	    info.set(prop, value);
 	}
     }
 
@@ -514,10 +519,12 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
 	    // put a new label into the list
 	    QString str = QString::fromUtf8(name);
-	    info().labels().append(Label(position, str));
+	    labels.append(Label(position, str));
 	}
     }
-    info().labels().sort();
+    labels.sort();
+    metaData().replace(info);
+    metaData().replace(labels.toMetaDataList());
 
     // set up libaudiofile to produce Kwave's internal sample format
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
@@ -565,7 +572,8 @@ bool WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
     if (!buffer) return false;
 
     // read in from the audiofile source
-    sample_index_t rest = info().length();
+    Q_ASSERT(tracks == FileInfo(metaData()).tracks());
+    sample_index_t rest = FileInfo(metaData()).length();
     while (rest) {
 	unsigned int frames = buffer_frames;
 	if (frames > rest) frames = rest;

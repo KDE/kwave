@@ -32,7 +32,7 @@
 #include <kstandardguiitem.h>
 
 #include "libkwave/FileProgress.h"
-#include "libkwave/KwavePlugin.h"  // for ms2string
+#include "libkwave/Utils.h"  // for ms2string
 #include "libkwave/MessageBox.h"
 
 //***************************************************************************
@@ -340,7 +340,7 @@ void FileProgress::setLength(quint64 samples)
     // length in samples -> h:m:s
     if (m_sample_rate && m_tracks) {
 	// length in ms
-	text = Kwave::Plugin::ms2string(
+	text = Kwave::ms2string(
 	    1000.0 *
 	    qreal(samples / m_tracks) /
 	    qreal(m_sample_rate));

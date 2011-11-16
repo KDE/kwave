@@ -29,6 +29,7 @@ IF (WITH_OPTIMIZED_MEMCPY)
 ENDIF (WITH_OPTIMIZED_MEMCPY)
 
 SET(libkwave_LIB_SRCS
+    ApplicationContext.cpp
     ClipBoard.cpp
     CodecBase.cpp
     CodecManager.cpp
@@ -57,6 +58,8 @@ SET(libkwave_LIB_SRCS
     LabelList.cpp
     MemoryManager.cpp
     MessageBox.cpp
+    MetaData.cpp
+    MetaDataList.cpp
     MultiWriter.cpp
     MultiStreamWriter.cpp
     MultiTrackReader.cpp
@@ -77,6 +80,7 @@ SET(libkwave_LIB_SRCS
     SwapFile.cpp
     Track.cpp
     TrackWriter.cpp
+    Utils.cpp
     VirtualAudioFile.cpp
     Writer.cpp
     WindowFunction.cpp
@@ -90,15 +94,14 @@ SET(libkwave_LIB_SRCS
     modules/KwaveStreamObject.cpp
     modules/SampleBuffer.cpp
 
-    undo/UndoAddLabelAction.cpp
+    undo/UndoAddMetaDataAction.cpp
     undo/UndoDeleteAction.cpp
-    undo/UndoDeleteLabelAction.cpp
+    undo/UndoDeleteMetaDataAction.cpp
     undo/UndoDeleteTrack.cpp
-    undo/UndoFileInfo.cpp
     undo/UndoInsertAction.cpp
     undo/UndoInsertTrack.cpp
     undo/UndoModifyAction.cpp
-    undo/UndoModifyLabelAction.cpp
+    undo/UndoModifyMetaDataAction.cpp
     undo/UndoSelection.cpp
     undo/UndoTransaction.cpp
     undo/UndoTransactionGuard.cpp

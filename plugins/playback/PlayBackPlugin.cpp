@@ -270,7 +270,8 @@ PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t &method)
 
 #ifdef HAVE_PULSEAUDIO_SUPPORT
 	    case PLAYBACK_PULSEAUDIO:
-		return new PlayBackPulseAudio(fileInfo());
+		return new PlayBackPulseAudio(
+		    FileInfo(signalManager().metaData()));
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
 	    default:
@@ -426,7 +427,7 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 	// use default parameters if none given
 	params          = m_playback_params;
 	if (!signalManager().isClosed() && !signalManager().isEmpty()) {
-	    params.rate     = fileInfo().rate();
+	    params.rate     = FileInfo(signalManager().metaData()).rate();
 	    params.channels = selectedTracks().count();
 	}
     } else {

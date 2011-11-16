@@ -183,9 +183,9 @@ void WavEncoder::writeInfoChunk(QIODevice &dst, FileInfo &info)
 }
 
 /***************************************************************************/
-void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
+void WavEncoder::writeLabels(QIODevice &dst, const LabelList &labels)
 {
-    const unsigned int labels_count = info.labels().count();
+    const unsigned int labels_count = labels.count();
     u_int32_t size, additional_size = 0, index, data;
 
     // shortcut: nothing to do if no labels present
@@ -199,7 +199,7 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
 
     // now the size of the labels
     unsigned int size_of_labels = 0;
-    foreach (const Label &label, info.labels()) {
+    foreach (const Label &label, labels) {
 	if (label.isNull()) continue;
 	unsigned int name_len = label.name().toUtf8().size();
 	if (!name_len) continue; // skip zero-length names
@@ -237,7 +237,7 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
     dst.write(reinterpret_cast<char *>(&size), 4);
 
     index = 0;
-    foreach (const Label &label, info.labels()) {
+    foreach (const Label &label, labels) {
 	if (label.isNull()) continue;
 	/*
 	 * typedef struct {
@@ -268,7 +268,7 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
 	dst.write(reinterpret_cast<char *>(&size), 4);
 	dst.write("adtl", 4);
 	index = 0;
-	foreach (const Label &label, info.labels()) {
+	foreach (const Label &label, labels) {
 	    if (label.isNull()) continue;
 	    QByteArray name = label.name().toUtf8();
 
@@ -304,8 +304,10 @@ void WavEncoder::writeLabels(QIODevice &dst, FileInfo &info)
 
 /***************************************************************************/
 bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
-                        QIODevice &dst, FileInfo &info)
+                        QIODevice &dst, const Kwave::MetaDataList &meta_data)
 {
+    FileInfo info(meta_data);
+
     /* first get and check some header information */
     const unsigned int tracks = info.tracks();
     const unsigned int length = info.length();
@@ -512,7 +514,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     writeInfoChunk(dst, info);
 
     // write the labels list
-    writeLabels(dst, info);
+    writeLabels(dst, LabelList(meta_data));
 
     return true;
 }

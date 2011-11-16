@@ -54,7 +54,7 @@ Decoder *AsciiDecoder::instance()
 //***************************************************************************
 bool AsciiDecoder::open(QWidget *widget, QIODevice &src)
 {
-    info().clear();
+    metaData().clear();
     Q_ASSERT(!m_source);
     if (m_source) qWarning("AsciiDecoder::open(), already open !");
 
@@ -119,7 +119,9 @@ bool AsciiDecoder::decode(QWidget * /* widget */, Kwave::MultiWriter &dst)
     }
 
     m_dest = 0;
-    m_info.setLength(dst.last() ? dst.last()+1 : 0);
+    FileInfo info(metaData());
+    info.setLength(dst.last() ? (dst.last() + 1) : 0);
+    metaData().replace(info);
 
     // return with a valid Signal, even if the user pressed cancel !
     return true;

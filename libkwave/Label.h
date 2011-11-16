@@ -20,19 +20,25 @@
 #include "config.h"
 
 #include <QString>
-#include <QSharedData>
-#include <QSharedDataPointer>
 
 #include <kdemacros.h>
+#include <klocale.h>
 
+#include "libkwave/MetaData.h"
 #include "libkwave/Sample.h"
 
-class KDE_EXPORT Label
+class KDE_EXPORT Label: public Kwave::MetaData
 {
 public:
 
     /** Default constructor, creates an empty label */
     Label();
+
+    /**
+     * Constructor, takes over the identity of a MetaData object
+     * @param meta_data reference to a meta data object
+     */
+    Label(const Kwave::MetaData &meta_data);
 
     /**
      * Constructor
@@ -44,6 +50,9 @@ public:
 
     /** destructor */
     virtual ~Label();
+
+    /** returns the identifier of the "type" of this meta data object */
+    static QString metaDataType() { return I18N_NOOP("Label"); };
 
     /**
      * Set a new position of the label
@@ -63,9 +72,6 @@ public:
     /** returns the name of the string */
     virtual QString name() const;
 
-    /** returns true if this is an empty label */
-    virtual bool isNull() const;
-
     /** less-than operator, needed for sorting the list */
     inline bool operator < (const Label &other) const {
 	return (pos() < other.pos());
@@ -75,31 +81,6 @@ public:
     inline bool operator == (const Label &other) const {
 	return ((pos() == other.pos()) && (name() == other.name()));
     }
-
-private:
-
-    /** internal container class with label data */
-    class LabelData: public QSharedData {
-    public:
-
-	/** constructor */
-	LabelData();
-
-	/** copy constructor */
-	LabelData(const LabelData &other);
-
-	/** destructor */
-	virtual ~LabelData();
-
-	/** position of the label [samples] */
-	sample_index_t m_position;
-
-	/** name of the label, user defined */
-	QString m_name;
-    };
-
-    /** pointer to the shared label data */
-    QSharedDataPointer<LabelData> m_data;
 
 };
 

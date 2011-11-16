@@ -1,5 +1,5 @@
 /***************************************************************************
-    UndoDeleteLabelAction.h  -  Undo action for deleting labels
+    UndoDeleteMetaDataAction.h  -  Undo action for deleting meta data
 			     -------------------
     begin                : Wed Aug 16 2006
     copyright            : (C) 2006 by Thomas Eschenbacher
@@ -16,32 +16,32 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _UNDO_DELETE_LABEL_ACTION_H_
-#define _UNDO_DELETE_LABEL_ACTION_H_
+#ifndef _UNDO_DELETE_META_DATA_ACTION_H_
+#define _UNDO_DELETE_META_DATA_ACTION_H_
 
 #include "config.h"
 #include <QString>
 
+#include "libkwave/MetaDataList.h"
 #include "libkwave/undo/UndoAction.h"
 
-class Label;
 class SignalManager;
 
 /**
- * Undo action for deleting a label.
+ * Undo action for deleting a list of meta data items.
  */
-class UndoDeleteLabelAction: public UndoAction
+class UndoDeleteMetaDataAction: public UndoAction
 {
 public:
 
     /**
      * Constructor
-     * @param label reference to the label that should be deleted
+     * @param meta_data reference to the meta data that should be deleted
      */
-    UndoDeleteLabelAction(Label &label);
+    UndoDeleteMetaDataAction(const Kwave::MetaDataList &meta_data);
 
     /** Destructor */
-    virtual ~UndoDeleteLabelAction();
+    virtual ~UndoDeleteMetaDataAction();
 
     /**
      * Returns a verbose short description of the action.
@@ -65,9 +65,9 @@ public:
 
 protected:
 
-    /** the deleted label */
-    Label m_label;
+    /** the list of deleted meta data items */
+    Kwave::MetaDataList m_meta_data;
 
 };
 
-#endif /* _UNDO_DELETE_LABEL_ACTION_H_ */
+#endif /* _UNDO_DELETE_META_DATA_ACTION_H_ */

@@ -95,7 +95,7 @@ Decoder *FlacDecoder::instance()
 
     const unsigned int samples = frame->header.blocksize;
 
-    const unsigned int tracks  = m_info.tracks();
+    const unsigned int tracks  = FileInfo(metaData()).tracks();
     Q_ASSERT(samples);
     Q_ASSERT(tracks);
     if (!samples || !tracks)
@@ -104,7 +104,7 @@ Decoder *FlacDecoder::instance()
     Kwave::SampleArray dst(samples);
 
     // expand the samples up to the correct number of bits
-    int shift = SAMPLE_BITS - m_info.bits();
+    int shift = SAMPLE_BITS - FileInfo(metaData()).bits();
     if (shift < 0) shift = 0;
     unsigned int mul = (1 << shift);
 
@@ -149,10 +149,12 @@ void FlacDecoder::parseStreamInfo(
     qDebug("\tmin_framesize   = %d", stream_info.get_min_framesize());
     qDebug("\tmax_framesize   = %d", stream_info.get_max_framesize());
 
-    m_info.setRate(stream_info.get_sample_rate());
-    m_info.setTracks(stream_info.get_channels());
-    m_info.setBits(stream_info.get_bits_per_sample());
-    m_info.setLength(stream_info.get_total_samples());
+    FileInfo info(metaData());
+    info.setRate(stream_info.get_sample_rate());
+    info.setTracks(stream_info.get_channels());
+    info.setBits(stream_info.get_bits_per_sample());
+    info.setLength(stream_info.get_total_samples());
+    metaData().replace(info);
 
     qDebug("Bitstream is %u channel, %uHz",
            stream_info.get_channels(),
@@ -163,12 +165,14 @@ void FlacDecoder::parseStreamInfo(
 void FlacDecoder::parseVorbisComments(
         const FLAC::Metadata::VorbisComment &vorbis_comments)
 {
+    FileInfo info(metaData());
+
     // first of all: the vendor string, specifying the software
 #if defined(FLAC_API_VERSION_1_1_2) || defined(FLAC_API_VERSION_1_1_3)
     QString vendor = QString::fromUtf8(reinterpret_cast<const char *>(
 	vorbis_comments.get_vendor_string()));
     if (vendor.length()) {
-	m_info.set(INF_SOFTWARE, vendor);
+	info.set(INF_SOFTWARE, vendor);
 	qDebug("Encoded by: '%s'\n\n", vendor.toLocal8Bit().data());
     }
 #else
@@ -191,21 +195,22 @@ void FlacDecoder::parseVorbisComments(
 
 	// we have a known vorbis tag
 	FileProperty prop = m_vorbis_comment_map[name];
-	m_info.set(prop, value);
+	info.set(prop, value);
     }
 
     // convert the date property to a QDate
-    if (m_info.contains(INF_CREATION_DATE)) {
-	QString str_date  = QVariant(m_info.get(
-	    INF_CREATION_DATE)).toString();
+    if (info.contains(INF_CREATION_DATE)) {
+	QString str_date  = QVariant(info.get(INF_CREATION_DATE)).toString();
 	QDate date;
 	date = QDate::fromString(str_date, Qt::ISODate);
 	if (!date.isValid()) {
 	    int year = str_date.toInt();
 	    date.setYMD(year, 1, 1);
 	}
-	if (date.isValid()) m_info.set(INF_CREATION_DATE, date);
+	if (date.isValid()) info.set(INF_CREATION_DATE, date);
      }
+
+     metaData().replace(info);
 }
 
 //***************************************************************************
@@ -254,7 +259,7 @@ void FlacDecoder::error_callback(::FLAC__StreamDecoderErrorStatus status)
 //***************************************************************************
 bool FlacDecoder::open(QWidget *widget, QIODevice &src)
 {
-    info().clear();
+    metaData().clear();
     Q_ASSERT(!m_source);
     if (m_source) qWarning("FlacDecoder::open(), already open !");
 
@@ -300,8 +305,10 @@ bool FlacDecoder::open(QWidget *widget, QIODevice &src)
     }
 
     // set some more standard properties
-    m_info.set(INF_MIMETYPE, DEFAULT_MIME_TYPE);
-    m_info.set(INF_COMPRESSION, CompressionType::FLAC);
+    FileInfo info(metaData());
+    info.set(INF_MIMETYPE, DEFAULT_MIME_TYPE);
+    info.set(INF_COMPRESSION, CompressionType::FLAC);
+    metaData().replace(info);
 
     return true;
 }
@@ -319,7 +326,9 @@ bool FlacDecoder::decode(QWidget * /* widget */, Kwave::MultiWriter &dst)
     process_until_end_of_stream();
 
     m_dest = 0;
-    m_info.setLength(dst.last() ? dst.last()+1 : 0);
+    FileInfo info(metaData());
+    info.setLength(dst.last() ? (dst.last() + 1) : 0);
+    metaData().replace(info);
 
     // return with a valid Signal, even if the user pressed cancel !
     return true;

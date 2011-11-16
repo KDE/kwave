@@ -72,7 +72,6 @@ void Signal::close()
 //***************************************************************************
 Track *Signal::insertTrack(unsigned int index, sample_index_t length)
 {
-    unsigned int track_nr = 0;
     Track *t = 0;
     {
 	QWriteLocker lock(&m_lock_tracks);
@@ -81,17 +80,14 @@ Track *Signal::insertTrack(unsigned int index, sample_index_t length)
 	Q_ASSERT(t);
 	if (!t) return 0;
 
-	if (static_cast<int>(index) < m_tracks.count()) {
-	    // insert into the list
-	    track_nr = index;
-	    m_tracks.insert(index, t);
-	} else {
-	    // append to the end ot the list
-	    track_nr = m_tracks.count();
-	    m_tracks.append(t);
-	}
+	// clip the track index
+	if (static_cast<int>(index) > m_tracks.count())
+	    index = m_tracks.count();
+	    
+	// insert / append to the list
+	m_tracks.insert(index, t);
 
-	// connect to the track's signals
+	// connect to the new track's signals
 	connect(t, SIGNAL(sigSamplesDeleted(Track *, sample_index_t,
 	    sample_index_t)),
 	    this, SLOT(slotSamplesDeleted(Track *, sample_index_t,
@@ -106,8 +102,8 @@ Track *Signal::insertTrack(unsigned int index, sample_index_t length)
 	    sample_index_t)));
     }
 
-    // track has been inserted at the end
-    if (t) emit sigTrackInserted(track_nr, t);
+    // track has been inserted
+    emit sigTrackInserted(index, t);
     return t;
 }
 

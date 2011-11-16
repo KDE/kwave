@@ -27,6 +27,7 @@
 #include <QVBoxLayout>
 
 #include "libkwave/Label.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/SignalManager.h"
 
 #include "OverViewWidget.h"
@@ -85,15 +86,15 @@ OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
     connect(&m_repaint_timer, SIGNAL(timeout()),
             this, SLOT(refreshBitmap()));
 
-//     // get informed about selection changes
-//     connect(&(signal.selection()),
-//             SIGNAL(changed(sample_index_t, sample_index_t)),
-//             this,
-//             SLOT(setSelection(sample_index_t,sample_index_t)));
+    // get informed about selection changes
+    connect(&(signal.selection()),
+            SIGNAL(changed(sample_index_t, sample_index_t)),
+            this,
+            SLOT(setSelection(sample_index_t,sample_index_t)));
 
-    // get informed about label changes
-    connect(&signal, SIGNAL(labelsChanged(const LabelList &)),
-            this, SLOT(labelsChanged(const LabelList &)));
+    // get informed about meta data changes
+    connect(&signal, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
+            this, SLOT(metaDataChanged(Kwave::MetaDataList)));
 
     // transport the image calculated in a background thread
     // through the signal/slot mechanism
@@ -182,7 +183,7 @@ sample_index_t OverViewWidget::pixels2offset(unsigned int pixels)
 }
 
 //***************************************************************************
-void OverViewWidget::setRange(sample_index_t offset, unsigned int viewport,
+void OverViewWidget::setRange(sample_index_t offset, sample_index_t viewport,
                               sample_index_t total)
 {
     m_view_offset   = offset;
@@ -193,12 +194,8 @@ void OverViewWidget::setRange(sample_index_t offset, unsigned int viewport,
 }
 
 //***************************************************************************
-void OverViewWidget::setSelection(sample_index_t offset, sample_index_t length,
-                                  double rate
-)
+void OverViewWidget::setSelection(sample_index_t offset, sample_index_t length)
 {
-    Q_UNUSED(rate);
-
     m_selection_start  = offset;
     m_selection_length = length;
 
@@ -245,13 +242,13 @@ void OverViewWidget::overviewChanged()
 }
 
 //***************************************************************************
-void OverViewWidget::labelsChanged(const LabelList &labels)
+void OverViewWidget::metaDataChanged(Kwave::MetaDataList meta)
 {
     // check: start() must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
-    m_labels = labels;
+    m_labels = LabelList(meta);
 
     // only re-start the repaint timer, this hides some GUI update artifacts
     if (!m_repaint_timer.isActive()) {

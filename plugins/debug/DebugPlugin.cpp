@@ -59,6 +59,8 @@ void DebugPlugin::load(QStringList &params)
 //     MENU_ENTRY("offset_in_stripe",  "Offset in Stripe");
 //     MENU_ENTRY("stripe_borders",    "Show Stripe Borders");
 //     MENU_ENTRY("labels_at_stripes", "Generate Labels at Stripe borders");
+
+    emitCommand("menu (dump_metadata(), &Help/Dump &Meta Data)");
 }
 
 //***************************************************************************
@@ -132,7 +134,8 @@ void DebugPlugin::run(QStringList params)
 
 	// sawtooth pattern from min to max
 	if (command == "sawtooth") {
-	    unsigned int shift = SAMPLE_BITS - fileInfo().bits();
+	    unsigned int shift = SAMPLE_BITS -
+		FileInfo(signalManager().metaData()).bits();
 	    for (unsigned int i = 0; i < m_buffer.size(); i++) {
 		m_buffer[i] = v;
 		v += (1 << shift);

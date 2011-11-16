@@ -452,7 +452,7 @@ QImage OverViewCache::getOverView(int width, int height,
 
     // abort if the track count has recently changed
     if (m_state.count() != static_cast<int>(src.tracks())) {
-// 	qWarning("OverViewCache::getOverView(): track count has changed");
+	qWarning("OverViewCache::getOverView(): track count has changed");
 	p.end();
 	return bitmap;
     }

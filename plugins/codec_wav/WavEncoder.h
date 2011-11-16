@@ -23,6 +23,7 @@
 #include <QList>
 
 #include "libkwave/Encoder.h"
+#include "libkwave/MetaDataList.h"
 
 #include "WavPropertyMap.h"
 
@@ -46,11 +47,11 @@ public:
      *        message boxes or dialogs
      * @param src MultiTrackReader used as source of the audio data
      * @param dst file or other source to receive a stream of bytes
-     * @param info information about the file to be saved
+     * @param meta_data meta data of the file to save
      * @return true if succeeded, false on errors
      */
     virtual bool encode(QWidget *widget, MultiTrackReader &src,
-                        QIODevice &dst, FileInfo &info);
+                        QIODevice &dst, const Kwave::MetaDataList &meta_data);
 
     /** Returns a list of supported file properties */
     virtual QList<FileProperty> supportedProperties();
@@ -69,9 +70,9 @@ private:
      * write the 'cue list' and the label names (if any)
      *
      * @param dst file or other source to receive a stream of bytes
-     * @param info information about the file to be saved, including labels
+     * @param labels a list of labels
      */
-    void writeLabels(QIODevice &dst, FileInfo &info);
+    void writeLabels(QIODevice &dst, const LabelList &labels);
 
     /**
      * Fix the size of the "data" and the "RIFF" chunk, as libaudiofile

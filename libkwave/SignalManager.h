@@ -32,6 +32,8 @@
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
+#include "libkwave/MetaData.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/PlaybackController.h"
 #include "libkwave/ReaderMode.h"
 #include "libkwave/Selection.h"
@@ -112,18 +114,6 @@ public:
     int executeCommand(const QString &command);
 
     /**
-     * Returns a reference to the FileInfo object associated with the
-     * currently opened file.
-     */
-    FileInfo &fileInfo() { return m_file_info; }
-
-    /**
-     * Returns a reference to the FileInfo object associated with the
-     * currently opened file (same as above but 'const').
-     */
-    const FileInfo &fileInfo() const { return m_file_info; }
-
-    /**
      * Returns a reference to the current name of the signal. If no signal is
      * loaded the string is zero-length.
      */
@@ -132,10 +122,10 @@ public:
     /**
      * Returns the current sample resolution in bits per sample
      */
-    inline unsigned int bits() const { return m_file_info.bits(); }
+    inline unsigned int bits() const { return FileInfo(m_meta_data).bits(); }
 
     /** Returns the current sample rate in samples per second */
-    inline double rate() const { return m_file_info.rate(); }
+    inline double rate() const { return FileInfo(m_meta_data).rate(); }
 
     /** Returns the current number of tracks */
     inline unsigned int tracks() { return m_signal.tracks(); }
@@ -308,15 +298,10 @@ public:
 
     /**
      * Sets a complete set of file infos, including undo information
+     * @param new_info a new FileInfo
+     * @param with_undo if true, store undo information
      */
-    void setFileInfo(FileInfo &new_info, bool with_undo = true);
-
-    /**
-     * add a new label
-     * @param pos position of the label [samples]
-     * @return true if successful, false if failed
-     */
-    bool addLabel(sample_index_t pos);
+    void setFileInfo(FileInfo &new_info, bool with_undo);
 
     /**
      * add a new label, without undo
@@ -345,13 +330,6 @@ public:
     bool modifyLabel(int index, sample_index_t pos, const QString &name);
 
     /**
-     * find a label by it's index
-     * @param index the index of the label [0...N-1]
-     * @return a valid label or a "null" label if not found
-     */
-    Label labelAtIndex(int index);
-
-    /**
      * Returns the index of a label, counting from zero
      * @param label reference to a Label
      * @return index [0...N-1] or -1 if label is a null pointer or not found
@@ -365,8 +343,17 @@ public:
      */
     Label findLabel(sample_index_t pos);
 
-    /** Shortcut for accessing the label list @note can be modified */
-    inline LabelList &labels() { return m_file_info.labels(); }
+    /**
+     * Retrieves the list of meta data objects, mutable
+     * @return list with all MetaData objects
+     */
+    Kwave::MetaDataList &metaData() { return m_meta_data; };
+
+    /**
+     * Retrieves the list of meta data objects, const
+     * @return reference to the list of all MetaData objects
+     */
+    const Kwave::MetaDataList &metaData() const { return m_meta_data; }
 
 signals:
 
@@ -389,17 +376,6 @@ signals:
      * @param index position of the deleted track [0...tracks()-1]
      */
     void sigTrackDeleted(unsigned int index);
-
-    /**
-     * Emits status information of the signal if it has been changed
-     * or become valid.
-     * @param length number of samples
-     * @param tracks number of tracks
-     * @param rate sample rate [samples/second]
-     * @param bits resolution in bits
-     */
-    void sigStatusInfo(sample_index_t length, unsigned int tracks,
-                       double rate, unsigned int bits);
 
     /**
      * Emitted if samples have been inserted into a track. This implies
@@ -431,12 +407,11 @@ signals:
     void sigSamplesModified(unsigned int track, sample_index_t offset,
                             sample_index_t length);
 
-
-    /** Emitted whenever the numer of labels has changed */
-    void sigLabelCountChanged();
-
-    /** Emitted whenever a label has been added, deleted or modified */
-    void labelsChanged(const LabelList &labels);
+    /**
+     * Emitted whenever meta data has changed, after some operation
+     * @param meta the current meta data
+     */
+    void sigMetaDataChanged(Kwave::MetaDataList meta);
 
     /**
      * Emitted if the state or description of undo/redo has changed. If
@@ -554,7 +529,7 @@ protected:
 
     friend class Kwave::MultiTrackWriter;
     friend class PluginManager;
-    friend class SignalWidget;
+    friend class MainWidget;
     friend class UndoTransactionGuard;
 
     /**
@@ -618,9 +593,6 @@ protected:
 
 private:
 
-    /** Shortcut for emitting a sigStatusInfo */
-    void emitStatusInfo();
-
     /**
      * Ask the user if he wants to continue without undo, maybe
      * registering an undo action has failed due to out-of-memory.
@@ -646,9 +618,6 @@ private:
      * @param en new value for m_modified_enabled
      */
     void enableModifiedChange(bool en);
-
-    /** Shortcut for accessing the label list @note cannot be modified */
-    inline const LabelList &labels() const { return m_file_info.labels(); }
 
     /** saves the current sample and track selection */
     void rememberCurrentSelection();
@@ -722,8 +691,12 @@ private:
     /** mutex for locking undo transactions */
     QMutex m_undo_transaction_lock;
 
-    /** info about the file, @see class FileInfo */
-    FileInfo m_file_info;
+    /**
+     * meta data of the signal
+     * @see class MetaData
+     */
+    Kwave::MetaDataList m_meta_data;
+
 };
 
 #endif  /* _SIGNAL_MANAGER_H_ */

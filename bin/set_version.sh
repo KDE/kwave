@@ -28,7 +28,7 @@
 # the updated files are:
 # - VERSION
 # - kwave.lsm
-# - plugins/about/AboutDialog.cpp
+# - doc/help_en.docbook
 #
 # NOTE: - this should be considered a quick hack, no error
 #         checking is performed !!!
@@ -64,6 +64,16 @@
 cd $1
 NEW_VERSION=$2
 NEW_DATE="$3"
+
+#
+# parameter check + usage
+#
+if test -z $3; then
+{
+    echo "usage: " $0 "<source directory> <version> <date>"
+    exit -1
+}
+fi
 
 #
 # show the new settings to the user

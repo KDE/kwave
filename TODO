@@ -1,13 +1,35 @@
 
-o add a "record" button to the toolbar
+o license change to GPL v3
+
+o new import/export plugin using ffmpeg/libavcodec
+
+o scrolling left/right while playback is running
+
+o clipping of position widget
+
+o undo of file info changes (file info plugin)
+
+o support for visualization plugins (rev 2498)
+  - new functions
+    * allow drag&drop to reorder signal views
+    * resizing of signal views per size grip
+    * allow plugins to add and remove own signal views
+
+  - enhanced functions (maybe next release)
+    * store order and settings of signal views in embedded metadata
+    * store order and settings of signal views in a separate file
+    * provide global database for colors (for signal, labels, etc.)
+    * reordering of tracks according to order of the views
+    * context sensitive toolbar/menu entries when clicking to a view
+    * navigating between views per <Tab> key
+
+o update of kwave.spec.in (very outdated)
+
+o support for multi selection
 
 o support for recording via PULSE audio
 
 o MP3 export (maybe via calling lame/mpg123/mencoder as an external process)
-
-o better support to add labels from batch files
-
-o function for "Edit/Selection/Insert at..."
 
 o debug aid: write all actions to a logfile
 

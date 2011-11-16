@@ -26,13 +26,34 @@
 
 #include "Label.h"
 
+namespace Kwave { class MetaDataList; }
+
 /** not more than a typedef since Qt4 */
 class KDE_EXPORT LabelList: public QList<Label>
 {
 public:
 
+    /** Default constructor */
+    LabelList();
+
+    /**
+     * Constructor, creates a label list from a list of meta data objects,
+     * by filtering out all objects of label type
+     * @param meta_data_list list of meta data
+     */
+    LabelList(const Kwave::MetaDataList &meta_data_list);
+
+    /** Destructor */
+    virtual ~LabelList();
+
     /** sorts the list by ascending position */
-    void sort();
+    virtual void sort();
+
+    /** 
+     * returns the content of this list as a list of Kwave::MetaData objects
+     * @return a meta data list
+     */
+    Kwave::MetaDataList toMetaDataList() const;
 
 };
 

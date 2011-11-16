@@ -195,8 +195,10 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     m_decoder = 0;
 
     if (m_dialog) {
-	fileInfo().setLength(signalLength());
-	fileInfo().setTracks(m_dialog->params().tracks);
+	FileInfo info(signalManager().metaData());
+	info.setLength(signalLength());
+	info.setTracks(m_dialog->params().tracks);
+	signalManager().setFileInfo(info, false);
 	delete m_dialog;
 	m_dialog = 0;
     }
@@ -884,7 +886,7 @@ void RecordPlugin::startRecording()
 	 */
 	if ((!m_writers) ||
 	    (m_writers->tracks() != tracks) ||
-	    (fileInfo().rate() != rate))
+	    (FileInfo(signalManager().metaData()).rate() != rate))
 	{
 	    // create a new and empty signal
 
@@ -915,13 +917,14 @@ void RecordPlugin::startRecording()
 	}
 
 	// initialize the file information
-	fileInfo().setRate(rate);
-	fileInfo().setBits(bits);
-	fileInfo().setTracks(tracks);
-	fileInfo().set(INF_MIMETYPE, "audio/vnd.wave");
-	fileInfo().set(INF_SAMPLE_FORMAT,
+	FileInfo fileInfo(signalManager().metaData());
+	fileInfo.setRate(rate);
+	fileInfo.setBits(bits);
+	fileInfo.setTracks(tracks);
+	fileInfo.set(INF_MIMETYPE, "audio/vnd.wave");
+	fileInfo.set(INF_SAMPLE_FORMAT,
 	    m_dialog->params().sample_format.toInt());
-	fileInfo().set(INF_COMPRESSION, m_dialog->params().compression);
+	fileInfo.set(INF_COMPRESSION, m_dialog->params().compression);
 
 	// add our Kwave Software tag
 	const KAboutData *about_data =
@@ -932,7 +935,7 @@ void RecordPlugin::startRecording()
 			    i18n(KDE_VERSION_STRING);
 	qDebug("adding software tag: '%s'",
 		software.toLocal8Bit().data());
-	fileInfo().set(INF_SOFTWARE, software);
+	fileInfo.set(INF_SOFTWARE, software);
 
 	// add a date tag, ISO format
 	QDate now(QDate::currentDate());
@@ -940,7 +943,8 @@ void RecordPlugin::startRecording()
 	date = date.sprintf("%04d-%02d-%02d",
 		now.year(), now.month(), now.day());
 	QVariant value = date.toUtf8();
-	fileInfo().set(INF_CREATION_DATE, value);
+	fileInfo.set(INF_CREATION_DATE, value);
+	signalManager().setFileInfo(fileInfo, false);
     }
 
     // now the recording can be considered to be started

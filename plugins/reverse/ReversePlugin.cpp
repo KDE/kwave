@@ -31,6 +31,7 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
@@ -113,7 +114,7 @@ ReverseJob::~ReverseJob()
     int i = 0;
     while (!isFinished()) {
 	qDebug("job %p waiting... #%u", static_cast<void *>(this), i++);
-	QThread::yieldCurrentThread();
+	Kwave::yield();
     }
     Q_ASSERT(isFinished());
 }
@@ -212,6 +213,14 @@ void ReversePlugin::run(QStringList params)
 {
     QSharedPointer<UndoTransactionGuard> undo_guard;
 
+    // get the current selection and the list of affected tracks
+    QList<unsigned int> tracks;
+    sample_index_t first = 0;
+    sample_index_t last  = 0;
+    sample_index_t length = selection(&tracks, &first, &last, true);
+    if (!length || tracks.isEmpty())
+	return;
+
     if ((params.count() != 1) || (params.first() != "noundo")) {
 	// undo is enabled, create a undo guard
 	undo_guard = QSharedPointer<UndoTransactionGuard>(
@@ -224,14 +233,6 @@ void ReversePlugin::run(QStringList params)
 	    return;
 	undo->store(signalManager());
     }
-
-    // get the current selection and the list of affected tracks
-    QList<unsigned int> tracks;
-    sample_index_t first = 0;
-    sample_index_t last  = 0;
-    sample_index_t length = selection(&tracks, &first, &last, true);
-    if (!length || tracks.isEmpty())
-	return;
 
     MultiTrackReader source_a(Kwave::SinglePassForward,
 	signalManager(), tracks, first, last);

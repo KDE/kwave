@@ -199,12 +199,6 @@ namespace Kwave {
 	QWidget *parentWidget();
 
 	/**
-	 * Returns a reference to the FileInfo object associated with the
-	 * currently opened file.
-	 */
-	FileInfo &fileInfo();
-
-	/**
 	 * Returns the name of the current signal. This can be used to set the
 	 * caption of a plugin's main window. If no signal is currently loaded
 	 * the returned string is empty.
@@ -256,47 +250,6 @@ namespace Kwave {
 	 * @param length number of samples
 	 */
 	virtual void selectRange(sample_index_t offset, sample_index_t length);
-
-	/**
-	 * Gives the control to the next thread. This can be called from
-	 * within the run() function.
-	 */
-	virtual void yield();
-
-	/**
-	 * Converts a zoom factor into a string. The number of decimals
-	 * is automatically adjusted in order to give a nice formated
-	 * percent value. If the zoom factor gets too high for a reasonable
-	 * display in percent, the factor is displayed as a numeric
-	 * multiplier.
-	 * examples: "0.1 %", "12.3 %", "468 %", "11x"
-	 * @param percent the zoom factor to be formated, a value of "100.0"
-	 *             means "100%", "0.1" means "0.1%" and so on.
-	 */
-	static QString zoom2string(double percent);
-
-	/**
-	 * Converts a time in milliseconds into a string. Times below one
-	 * millisecond are formated with an automatically adjusted number
-	 * of decimals. Times below one second are formated like "9.9 ms".
-	 * Times above one second and below one minute are rounded up
-	 * to full seconds and shown as "12.3 s". From one full minute
-	 * upwards time is shown as "12:34" (like most CD players do).
-	 * @param ms time in milliseconds
-	 * @param precision number of digits after the comma, for limiting
-	 *                  the length. optional, default = 6 digits,
-	 *                  must be >= 3 !
-	 * @return time formatted as user-readable string
-	 */
-	static QString ms2string(double ms, int precision = 6);
-
-	/**
-	 * Converts the given number into a string with the current locale's
-	 * separator between the thousands.
-	 * @param number the unsigned number to be converted
-	 * @return QString with the number
-	 */
-	static QString dottedNumber(unsigned int number);
 
     protected:
 

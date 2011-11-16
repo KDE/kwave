@@ -26,6 +26,7 @@
 
 #include "libkwave/CodecBase.h"
 #include "libkwave/FileInfo.h"
+#include "libkwave/MetaDataList.h"
 
 class QIODevice;
 class QWidget;
@@ -68,10 +69,10 @@ public:
     virtual void close() = 0;
 
     /**
-     * Returns the information of the file, only valid after
+     * Returns the meta data of the file, only valid after
      * open() has successfully been called.
      */
-    virtual inline FileInfo &info() { return m_info; }
+    virtual inline Kwave::MetaDataList &metaData() { return m_meta_data; }
 
 signals:
 
@@ -85,8 +86,8 @@ signals:
 
 protected:
 
-    /** information about the file */
-    FileInfo m_info;
+    /** meta data of the file */
+    Kwave::MetaDataList m_meta_data;
 
 };
 

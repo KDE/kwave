@@ -38,6 +38,7 @@
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
@@ -110,7 +111,7 @@ GetMaxPowerJob::~GetMaxPowerJob()
     int i = 0;
     while (!isFinished()) {
 	qDebug("job %p waiting... #%u", static_cast<void *>(this), i++);
-	QThread::yieldCurrentThread();
+	Kwave::yield();
     }
     Q_ASSERT(isFinished());
 }
@@ -237,7 +238,7 @@ double NormalizePlugin::getMaxPower(MultiTrackReader &source)
 {
     double maxpow = 0.0;
     const unsigned int tracks = source.tracks();
-    const double rate = fileInfo().rate();
+    const double rate = FileInfo(signalManager().metaData()).rate();
     const unsigned int window_size = static_cast<unsigned int>(rate / 100);
     if (!window_size) return 0;
 

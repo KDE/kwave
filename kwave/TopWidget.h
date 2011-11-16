@@ -50,6 +50,7 @@ class MainWidget;
 class SignalManager;
 
 namespace Kwave { class PluginManager; }
+namespace Kwave { class ApplicationContext; }
 
 /**
  * Toplevel widget of the Kwave application. Holds a main widget, a menu
@@ -64,15 +65,16 @@ public:
     /**
      * Constructor. Creates a new toplevel widget including menu bar,
      * buttons, working are an s on.
-     * @param main_app reference to the main kwave aplication object
+     * @param context reference to the context of this instance
      */
-    TopWidget(KwaveApp &main_app);
+    TopWidget(Kwave::ApplicationContext &context);
 
     /**
-     * Returns true if this instance was successfully initialized, or
+     * Does some initialization at startup of the instance
+     * @return true if this instance was successfully initialized, or
      * false if something went wrong during initialization.
      */
-    virtual bool isOK();
+    bool init();
 
     /**
      * Destructor.
@@ -86,19 +88,6 @@ public:
      * @return 0 if successful
      */
     int loadFile(const KUrl &url);
-
-    /**
-     * Returns the reference to the Kwave application
-     */
-    inline KwaveApp &getKwaveApp() { return m_app; }
-
-    /**
-     * Parses a text stream line by line and executes each line
-     * as a command until all commands are done or the first one fails.
-     * @param stream a QTextStream to read from
-     * @return zero if successful, non-zero error code if a command failed
-     */
-    int parseCommands(QTextStream &stream);
 
     /**
      * Loads a batch file into memory, parses and executes
@@ -143,30 +132,17 @@ private slots:
     void setZoomInfo(double zoom);
 
     /**
-     * Called if the status information of the signal has been changed
-     * or become valid.
-     * @param length number of samples
-     * @param tracks number of tracks
-     * @param rate sample rate [samples/second]
-     * @param bits resolution in bits
+     * Called when the meta data of the current signal has changed
+     * @param meta_data the new meta data, after the change
      */
-    void setStatusInfo(sample_index_t length, unsigned int tracks,
-                       double rate, unsigned int bits);
-
-    /**
-     * Called if the number of tracks has changed and updates
-     * the menu.
-     */
-    void setTrackInfo(unsigned int tracks);
+    void metaDataChanged(Kwave::MetaDataList meta_data);
 
     /**
      * Updates the number of selected samples in the status bar.
      * @param offset index of the first selected sample
      * @param length number of selected samples
-     * @param rate sample rate [samples/second] for converting to time
      */
-    void setSelectedTimeInfo(sample_index_t offset, sample_index_t length,
-                             double rate);
+    void selectionChanged(sample_index_t offset, sample_index_t length);
 
     /**
      * updates the playback position in the status bar
@@ -255,9 +231,7 @@ signals:
      */
     void sigSignalNameChanged(const QString &name);
 
-protected:
-
-    friend class RecordPlugin;
+private:
 
     /**
      * Closes the current file and creates a new empty signal.
@@ -321,10 +295,16 @@ protected:
      */
     int executePlaybackCommand(const QString &command);
 
-private:
+    /**
+     * Parses a text stream line by line and executes each line
+     * as a command until all commands are done or the first one fails.
+     * @param stream a QTextStream to read from
+     * @return zero if successful, non-zero error code if a command failed
+     */
+    int parseCommands(QTextStream &stream);
 
-    /** returns a reference to out signal manager */
-    SignalManager &signalManager();
+    /** returns true if we have a non-empty signal */
+    bool haveSignal();
 
     /** returns the name of the signal */
     QString signalName() const;
@@ -337,14 +317,11 @@ private:
 
 private:
 
+    /** reference to the application context of this instance */
+    Kwave::ApplicationContext &m_context;
+
     /** Initialized list of zoom factors */
     QVector< ZoomFactor > m_zoom_factors;
-
-    /** reference to the main kwave application */
-    KwaveApp &m_app;
-
-    /** our internal plugin manager */
-    Kwave::PluginManager *m_plugin_manager;
 
     /**
      * the main widget with all views and controls (except menu and

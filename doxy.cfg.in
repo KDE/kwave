@@ -1262,7 +1262,12 @@ INCLUDE_FILE_PATTERNS  =
 # undefined via #undef or recursively expanded use the := operator
 # instead of the = operator.
 
-PREDEFINED             =
+PREDEFINED             = \
+    HAVE_SAMPLERATE_SUPPORT \
+    HAVE_ALSA_SUPPORT \
+    HAVE_PULSEAUDIO_SUPPORT \
+    HAVE_PHONON_SUPPORT \
+    HAVE_OSS_SUPPORT \
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.

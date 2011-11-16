@@ -20,19 +20,14 @@
 
 #include "config.h"
 
-#include <QObject>
 #include <QString>
-#include <QStringList>
 
-#include "libkwave/KwavePlugin.h"
-#include "libgui/SelectTimeWidget.h"
+#include "GotoPluginBase.h"
 
-class QStringList;
+class PluginContext;
 
-class GotoPlugin: public Kwave::Plugin
+class GotoPlugin: public GotoPluginBase
 {
-    Q_OBJECT
-
 public:
 
     /** Constructor */
@@ -41,31 +36,13 @@ public:
     /** Destructor */
     virtual ~GotoPlugin();
 
-    /**
-     * Shows a dialog for selecting the range and emits a command
-     * for applying the selection if OK has been pressed.
-     * @see Kwave::Plugin::setup
-     */
-    virtual QStringList *setup(QStringList &previous_params);
-
-    /**
-     * selects the position
-     * @see Kwave::Plugin::start()
-     */
-    virtual int start(QStringList &params);
-
 protected:
 
-    /** Reads values from the parameter list */
-    int interpreteParameters(QStringList &params);
-
-private:
-
-    /** selected mode for position: by time, samples, percentage */
-    SelectTimeWidget::Mode m_mode;
-
-    /** position in milliseconds, samples or percents */
-    unsigned int m_position;
+    /** Returns the command to be emitted */
+    virtual QString command() const;
+    
+    /** Returns the title of the dialog */
+    virtual QString title() const;
 
 };
 

@@ -42,7 +42,7 @@ FileInfoPlugin::~FileInfoPlugin()
 //***************************************************************************
 QStringList *FileInfoPlugin::setup(QStringList &)
 {
-    FileInfo oldInfo(fileInfo());
+    FileInfo oldInfo(signalManager().metaData());
 
     // create the setup dialog
     FileInfoDialog *dialog = new FileInfoDialog(parentWidget(), oldInfo);
@@ -67,10 +67,12 @@ QStringList *FileInfoPlugin::setup(QStringList &)
 //***************************************************************************
 void FileInfoPlugin::apply(FileInfo &new_info)
 {
-    if (fileInfo() == new_info) return; // nothing to do
+    FileInfo old_info(signalManager().metaData());
+    if (old_info == new_info) return; // nothing to do
 
     /* sample rate */
-    if (fileInfo().rate() != new_info.rate()) {
+    if (old_info.rate() != new_info.rate()) {
+
 	// sample rate changed -> only change rate or resample ?
 	double new_rate = new_info.rate();
 	int res = Kwave::MessageBox::questionYesNoCancel(parentWidget(),
@@ -87,8 +89,10 @@ void FileInfoPlugin::apply(FileInfo &new_info)
 	    
 	    // take over all properties except the new sample rate, this will
 	    // be detected and changed in the sample rate plugin
-	    new_info.setRate(fileInfo().rate());
-	    signalManager().setFileInfo(new_info, true);
+	    new_info.setRate(old_info.rate());
+	    if (new_info != old_info) {
+		signalManager().setFileInfo(new_info, true);
+	    } // else: nothing except sample rate changed
 
 	    // NOTE: this command could be executed asynchronously, thus
 	    //       we cannot change the sample rate afterwards
@@ -102,12 +106,14 @@ void FileInfoPlugin::apply(FileInfo &new_info)
 	    new_info.setRate(new_rate);
 	} else {
 	    // canceled -> use old sample rate
-	    new_info.setRate(fileInfo().rate());
+	    new_info.setRate(old_info.rate());
 	}
     }
 
     // just copy all other properties
-    signalManager().setFileInfo(new_info, true);
+    if (new_info != old_info) {
+	signalManager().setFileInfo(new_info, true);
+    }
 }
 
 //***************************************************************************

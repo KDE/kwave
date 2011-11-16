@@ -32,6 +32,7 @@
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
+#include "libkwave/ViewManager.h"
 
 class FileInfo;
 class PlaybackController;
@@ -100,12 +101,6 @@ namespace Kwave {
 	int setupPlugin(const QString &name);
 
 	/**
-	 * Returns a reference to the FileInfo object associated with the
-	 * currently opened file.
-	 */
-	FileInfo &fileInfo();
-
-	/**
 	 * Returns the length of the current signal in samples.
 	 * If no signal is present the return value will be 0.
 	 */
@@ -168,6 +163,19 @@ namespace Kwave {
 	{
 	    return m_signal_manager;
 	}
+
+	/**
+	 * Insert a new signal view into this widget (or the upper/lower
+	 * dock area.
+	 * @param view the signal view, must not be a null pointer
+	 * @param controls a widget with controls, optionally, can be null
+	 */
+	void insertView(Kwave::SignalView *view, QWidget *controls);
+
+	/**
+	 * registers a view manager, must only be called once!
+	 */
+	void registerViewManager(Kwave::ViewManager *view_manager);
 
 	/**
 	 * Enqueues a command that will be processed threadsafe in the X11
@@ -353,6 +361,9 @@ namespace Kwave {
 
 	/** reference to our signal manager */
 	SignalManager &m_signal_manager;
+
+	/** interface for registering a SignalView */
+	ViewManager *m_view_manager;
 
     };
 }

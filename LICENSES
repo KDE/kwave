@@ -103,11 +103,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	VERSION						(should be GPL2+)
 	CMakeLists.txt					GPL2+
 
-	bin/beautify-source				GPL2+
-	bin/changes-to-docbook.awk			GPL2+
-	bin/date_release.awk				GPL2+
 	bin/get_lsm_entry.sh				GPL2+
-	bin/insert-changes.sh				GPL2+
 	bin/menusconfig2cpp.sh				GPL2+
 	bin/set_version.sh				GPL2+ / portions of Martin Wilz
 
@@ -192,6 +188,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doc/fr/kwave-volume.png				(should be FDL)
 
 	kwave/CMakeLists.txt				GPL2+
+	kwave/ApplicationContext.cpp			GPL2+
 	kwave/KwaveApp.cpp				GPL2+
 	kwave/KwaveApp.h				GPL2+
 	kwave/kwave.desktop				(should be GPL2+)
@@ -251,6 +248,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/KwaveFileDialog.h			GPL2+
 	libgui/KwaveFilterPlugin.cpp			GPL2+
 	libgui/KwaveFilterPlugin.h			GPL2+
+	libgui/LabelItem.cpp				GPL2+
+	libgui/LabelItem.h				GPL2+
 	libgui/LabelPropertiesWidget.cpp		GPL2+
 	libgui/LabelPropertiesWidget.h			GPL2+
 	libgui/LabelPropertiesWidgetBase.ui		GPL2+
@@ -283,11 +282,17 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/SignalWidget.h				GPL2+
 	libgui/TrackPixmap.cpp				GPL2+
 	libgui/TrackPixmap.h				GPL2+
+	libgui/TrackView.cpp				GPL2+
+	libgui/TrackView.h				GPL2+
 	libgui/TreeWidgetWrapper.cpp			GPL2+
 	libgui/TreeWidgetWrapper.h			GPL2+
 	libgui/UndoModifyLabelAction.cpp		GPL2+
 	libgui/UndoModifyLabelAction.h			GPL2+
+	libgui/ViewItem.cpp				GPL2+
+	libgui/ViewItem.h				GPL2+
 
+	libkwave/ApplicationContext.cpp			GPL2+
+	libkwave/ApplicationContext.h			GPL2+
 	libkwave/ByteOrder.h				GPL2+
 	libkwave/byteswap.h				GPL2+
 	libkwave/ClipBoard.cpp				GPL2+
@@ -353,6 +358,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/MemoryManager.h			GPL2+
 	libkwave/MessageBox.h				GPL2+
 	libkwave/MessageBox.cpp				GPL2+
+	libkwave/MetaData.cpp				GPL2+
+	libkwave/MetaData.h				GPL2+
+	libkwave/MetaDataList.cpp			GPL2+
+	libkwave/MetaDataList.h				GPL2+
 	libkwave/MultiStreamWriter.cpp			GPL2+
 	libkwave/MultiStreamWriter.h			GPL2+
 	libkwave/MultiWriter.cpp			GPL2+
@@ -404,6 +413,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/TransmissionFunction.h			GPL2+
 	libkwave/Triple.h				GPL2+
 	libkwave/TypesMap.h				GPL2+
+	libkwave/Utils.h				GPL2+
+	libkwave/Utils.cpp				GPL2+
 	libkwave/VirtualAudioFile.cpp			GPL2+
 	libkwave/VirtualAudioFile.h			GPL2+
 	libkwave/WindowFunction.cpp			GPL2+
@@ -429,22 +440,22 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/modules/SampleBuffer.h			GPL2+
 
 	libkwave/undo/UndoAction.h			GPL2+
-	libkwave/undo/UndoAddLabelAction.cpp		GPL2+
-	libkwave/undo/UndoAddLabelAction.h		GPL2+
+	libkwave/undo/UndoAddMetaDataAction.cpp		GPL2+
+	libkwave/undo/UndoAddMetaDataAction.h		GPL2+
 	libkwave/undo/UndoDeleteAction.cpp		GPL2+
 	libkwave/undo/UndoDeleteAction.h		GPL2+
-	libkwave/undo/UndoDeleteLabelAction.cpp		GPL2+
-	libkwave/undo/UndoDeleteLabelAction.h		GPL2+
+	libkwave/undo/UndoDeleteMetaDataAction.cpp	GPL2+
+	libkwave/undo/UndoDeleteMetaDataAction.h	GPL2+
 	libkwave/undo/UndoDeleteTrack.cpp		GPL2+
 	libkwave/undo/UndoDeleteTrack.h			GPL2+
-	libkwave/undo/UndoFileInfo.cpp			GPL2+
-	libkwave/undo/UndoFileInfo.h			GPL2+
 	libkwave/undo/UndoInsertAction.cpp		GPL2+
 	libkwave/undo/UndoInsertAction.h		GPL2+
 	libkwave/undo/UndoInsertTrack.cpp		GPL2+
 	libkwave/undo/UndoInsertTrack.h			GPL2+
 	libkwave/undo/UndoModifyAction.cpp		GPL2+
 	libkwave/undo/UndoModifyAction.h		GPL2+
+	libkwave/undo/UndoModifyMetaDataAction.cpp	GPL2+
+	libkwave/undo/UndoModifyMetaDataAction.h	GPL2+
 	libkwave/undo/UndoSelection.cpp			GPL2+
 	libkwave/undo/UndoSelection.h			GPL2+
 	libkwave/undo/UndoTransaction.cpp		GPL2+
@@ -560,6 +571,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/goto/GotoDlg.ui				(should be GPL2+)
 	plugins/goto/GotoPlugin.cpp			GPL2+
 	plugins/goto/GotoPlugin.h			GPL2+
+	plugins/goto/GotoPluginBase.cpp			GPL2+
+	plugins/goto/GotoPluginBase.h			GPL2+
+	plugins/goto/InsertAtPlugin.cpp			GPL2+
+	plugins/goto/InsertAtPlugin.h			GPL2+
 
 	plugins/fileinfo/BitrateSpinBox.cpp		GPL2+
 	plugins/fileinfo/BitrateSpinBox.h		GPL2+
@@ -581,6 +596,11 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/fileinfo/SelectDateDialog.cpp		GPL2+
 	plugins/fileinfo/SelectDateDialog.h		GPL2+
 	plugins/fileinfo/SelectDateDlg.ui		(should be GPL2+)
+
+	plugins/labeler/LabelerPlugin.cpp		GPL2+
+	plugins/labeler/LabelerPlugin.h			GPL2+
+	plugins/labeler/gui/LabelView.cpp		GPL2+
+	plugins/labeler/gui/LabelView.h			GPL2+
 
 	plugins/lowpass/CMakeLists.txt			GPL2+
 	plugins/lowpass/LowPassDialog.cpp		GPL2+

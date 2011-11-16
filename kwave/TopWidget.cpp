@@ -50,18 +50,22 @@
 #include <kstandarddirs.h>
 #include <ktoolbar.h>
 
+#include "libkwave/ApplicationContext.h"
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
 #include "libkwave/KwavePlugin.h" // for some helper functions
+#include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/Parser.h"
 #include "libkwave/PlaybackController.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Utils.h"
 
 #include "libgui/MenuManager.h"
 #include "libgui/KwaveFileDialog.h"
-#include "libgui/MouseMark.h"
+#include "libgui/SignalWidget.h" // for MouseMode
 
 #include "KwaveApp.h"
 #include "KwaveSplash.h"
@@ -97,8 +101,8 @@ KToolBar *TopWidget::toolBar(const QString &name)
 
 //***************************************************************************
 //***************************************************************************
-TopWidget::TopWidget(KwaveApp &main_app)
-    :KMainWindow(), m_zoom_factors(), m_app(main_app), m_plugin_manager(0),
+TopWidget::TopWidget(Kwave::ApplicationContext &context)
+    :KMainWindow(), m_context(context), m_zoom_factors(),
      m_main_widget(0), m_zoomselect(0), m_menu_manager(0), m_pause_timer(0),
      m_blink_on(false), m_action_undo(0), m_action_redo(0), m_action_play(0),
      m_action_loop(0), m_action_pause(0),m_action_stop(0),
@@ -108,20 +112,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
 {
     KIconLoader icon_loader;
     
-    showInSplashSreen(i18n("Loading main menu..."));
-    KMenuBar *menubar = menuBar();
-    Q_ASSERT(menubar);
-    if (!menubar) return;
-    m_menu_manager = new MenuManager(this, *menubar);
-    Q_ASSERT(m_menu_manager);
-    if (!m_menu_manager) return;
-
-    // connect clicked menu entries with main communication channel of kwave
-    connect(m_menu_manager, SIGNAL(sigMenuCommand(const QString &)),
-	    this, SLOT(executeCommand(const QString &)));
-    connect(&ClipBoard::instance(), SIGNAL(clipboardChanged(bool)),
-	    this, SLOT(clipboardChanged(bool)));
-
     // status bar items
     KStatusBar *status_bar = statusBar();
     Q_ASSERT(status_bar);
@@ -151,8 +141,26 @@ TopWidget::TopWidget(KwaveApp &main_app)
     status_bar->addWidget(m_lbl_status_size);
     m_lbl_status_size->setSizePolicy(policy);
     m_lbl_status_size->setFrameStyle(frame_style);
+}
 
-    setStatusInfo(SAMPLE_MAX,99,196000,24); // affects the menu !
+//***************************************************************************
+bool TopWidget::init()
+{
+    KIconLoader icon_loader;
+
+    showInSplashSreen(i18n("Loading main menu..."));
+    KMenuBar *menubar = menuBar();
+    Q_ASSERT(menubar);
+    if (!menubar) return false;
+    m_menu_manager = new MenuManager(this, *menubar);
+    Q_ASSERT(m_menu_manager);
+    if (!m_menu_manager) return false;
+
+    // connect clicked menu entries with main communication channel of kwave
+    connect(m_menu_manager, SIGNAL(sigMenuCommand(const QString &)),
+	    this, SLOT(executeCommand(const QString &)));
+    connect(&ClipBoard::instance(), SIGNAL(clipboardChanged(bool)),
+	    this, SLOT(clipboardChanged(bool)));
 
     // load the menu from file
     QFile menufile(KStandardDirs::locate("data", "kwave/menus.config"));
@@ -162,28 +170,20 @@ TopWidget::TopWidget(KwaveApp &main_app)
     if (!stream.atEnd()) parseCommands(stream);
     menufile.close();
 
-    m_main_widget = new MainWidget(this);
+    m_main_widget = new MainWidget(this, m_context);
     Q_ASSERT(m_main_widget);
-    if (!m_main_widget) return;
+    if (!m_main_widget) return false;
     if (!(m_main_widget->isOK())) {
 	qWarning("TopWidget::TopWidget(): failed at creating main widget");
 	delete m_main_widget;
-	m_main_widget=0;
-	return;
+	m_main_widget = 0;
+	return false;
     }
 
     // connect the main widget
     connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
             this, SLOT(executeCommand(const QString &)));
-    connect(m_main_widget, SIGNAL(selectedTimeInfo(sample_index_t,
-            sample_index_t, double)),
-            this, SLOT(setSelectedTimeInfo(sample_index_t, sample_index_t,
-            double)));
-    connect(m_main_widget, SIGNAL(sigTrackCount(unsigned int)),
-            this, SLOT(setTrackInfo(unsigned int)));
-    connect(m_main_widget, SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode)),
-            this, SLOT(mouseChanged(Kwave::MouseMark::Mode)));
-    connect(&m_main_widget->playbackController(),
+    connect(&m_context.signalManager()->playbackController(),
             SIGNAL(sigPlaybackPos(sample_index_t)),
             this, SLOT(updatePlaybackPos(sample_index_t)));
 
@@ -197,7 +197,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     showInSplashSreen(i18n("Initializing toolbar..."));
     KToolBar *toolbar_file = toolBar("MainWidget File");
     Q_ASSERT(toolbar_file);
-    if (!toolbar_file) return;
+    if (!toolbar_file) return false;
 
     // --- file open and save ---
 
@@ -220,7 +220,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     KToolBar *toolbar_edit = toolBar("MainWidget Edit");
     Q_ASSERT(toolbar_edit);
-    if (!toolbar_edit) return;
+    if (!toolbar_edit) return false;
 
     m_action_undo = toolbar_edit->addAction(
 	icon_loader.loadIcon("edit-undo", KIconLoader::Toolbar),
@@ -269,10 +269,10 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // --- playback controls ---
 
-    QObject *playback = &(m_main_widget->playbackController());
+    QObject *playback = &(m_context.signalManager()->playbackController());
     KToolBar *toolbar_playback = toolBar("MainWidget Playback");
     Q_ASSERT(toolbar_playback);
-    if (!toolbar_playback) return;
+    if (!toolbar_playback) return false;
 
     m_action_play = toolbar_playback->addAction(
 	QPixmap(xpm_play),
@@ -310,7 +310,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     KToolBar *toolbar_zoom = toolBar("MainWidget Zoom");
     Q_ASSERT(toolbar_zoom);
-    if (!toolbar_zoom) return;
+    if (!toolbar_zoom) return false;
 
     m_action_zoomselection = toolbar_zoom->addAction(
 	QPixmap(xpm_zoomrange),
@@ -340,7 +340,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     // zoom selection combo box
     m_zoomselect = new KComboBox(this);
     Q_ASSERT(m_zoomselect);
-    if (!m_zoomselect) return;
+    if (!m_zoomselect) return false;
     m_zoomselect->setToolTip(i18n("Select zoom factor"));
     m_zoomselect->setInsertPolicy(QComboBox::InsertAtTop);
     m_zoomselect->setEditable(false);
@@ -356,80 +356,51 @@ TopWidget::TopWidget(KwaveApp &main_app)
     m_zoomselect->setMinimumWidth(h*5);
 
     // connect the playback controller
-    connect(&(m_main_widget->playbackController()),
-            SIGNAL(sigPlaybackStarted()),
-            this, SLOT(updatePlaybackControls()));
-    connect(&(m_main_widget->playbackController()),
-            SIGNAL(sigPlaybackPaused()),
-            this, SLOT(playbackPaused()));
-    connect(&(m_main_widget->playbackController()),
-            SIGNAL(sigPlaybackStopped()),
-            this, SLOT(updatePlaybackControls()));
+    connect(playback, SIGNAL(sigPlaybackStarted()),
+            this,     SLOT(updatePlaybackControls()));
+    connect(playback, SIGNAL(sigPlaybackPaused()),
+            this,     SLOT(playbackPaused()));
+    connect(playback, SIGNAL(sigPlaybackStopped()),
+            this,     SLOT(updatePlaybackControls()));
 
     // connect the signal manager
-    SignalManager *signal_manager = &(m_main_widget->signalManager());
-    connect(signal_manager, SIGNAL(sigStatusInfo(sample_index_t, unsigned int,
-	double, unsigned int)),
-	this, SLOT(setStatusInfo(sample_index_t, unsigned int,
-	double, unsigned int)));
+    SignalManager *signal_manager = m_context.signalManager();
+    connect(&(signal_manager->selection()),
+            SIGNAL(changed(sample_index_t, sample_index_t)),
+            this,
+            SLOT(selectionChanged(sample_index_t,sample_index_t)));
     connect(signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
-	const QString&)),
-	this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
+                                                   const QString&)),
+            this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
     connect(signal_manager, SIGNAL(sigModified(bool)),
-            this, SLOT(modifiedChanged(bool)));
-    connect(signal_manager, SIGNAL(sigLabelCountChanged()),
-	    this, SLOT(updateMenu()));
+            this,           SLOT(modifiedChanged(bool)));
+    connect(signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
+            this,           SLOT(metaDataChanged(Kwave::MetaDataList)));
 
     // create the plugin manager instance
-    m_plugin_manager = new Kwave::PluginManager(this, *signal_manager);
-    Q_ASSERT(m_plugin_manager);
-    if (!m_plugin_manager) return;
-
-    connect(m_plugin_manager, SIGNAL(sigCommand(const QString &)),
-            this, SLOT(executeCommand(const QString &)));
-    connect(m_plugin_manager, SIGNAL(sigProgress(const QString &)),
-            this, SLOT(showInSplashSreen(const QString &)));
+    Kwave::PluginManager *plugin_manager = m_context.pluginManager();
+    connect(plugin_manager, SIGNAL(sigCommand(const QString &)),
+            this,           SLOT(executeCommand(const QString &)));
+    connect(plugin_manager, SIGNAL(sigProgress(const QString &)),
+            this,           SLOT(showInSplashSreen(const QString &)));
 
     showInSplashSreen(i18n("Scanning plugins..."));
-    m_plugin_manager->findPlugins();
+    plugin_manager->findPlugins();
 
     // set the MainWidget as the main view
     setCentralWidget(m_main_widget);
 
-    // limit the window to a reasonable minimum size
-    int w = m_main_widget->minimumSize().width();
-    h = qMax(m_main_widget->minimumSize().height(), 150);
-    setMinimumSize(w, h);
-
-    // Find out the width for which the menu bar would only use
-    // one line. This is tricky because sizeHint().width() always
-    // returns -1  :-((     -> just try and find out...
-    int wmax = qMax(w,100) * 10;
-    int wmin = w;
-    int hmin = menuBar()->heightForWidth(wmax);
-    while (wmax-wmin > 5) {
-	w = (wmax + wmin) / 2;
-	int mh = menuBar()->heightForWidth(w);
-	if (mh > hmin) {
-	    wmin = w;
-	} else {
-	    wmax = w;
-	    hmin = mh;
-	}
-    }
-
     // set a nice initial size
-    w = wmax;
-    w = qMax(w, m_main_widget->minimumSize().width());
+    int w = m_main_widget->minimumSize().width();
     w = qMax(w, m_main_widget->sizeHint().width());
     w = qMax(w, width());
     h = qMax(m_main_widget->sizeHint().height(), (w * 6) / 10);
     h = qMax(h, height());
     resize(w, h);
 
-    setStatusInfo(0,0,0,0);
+    metaDataChanged(Kwave::MetaData());
     setUndoRedoInfo(0,0);
-    setSelectedTimeInfo(0,0,0);
+    selectionChanged(0,0);
     updateMenu();
     updateToolbar();
     updateRecentFiles();
@@ -437,10 +408,9 @@ TopWidget::TopWidget(KwaveApp &main_app)
     // now we are initialized, load all plugins now
     showInSplashSreen(i18n("Loading plugins..."));
     statusBar()->showMessage(i18n("Loading plugins..."));
-    m_plugin_manager->loadAllPlugins();
+    plugin_manager->loadAllPlugins();
     statusBar()->showMessage(i18n("Ready"), 1000);
 
-    setTrackInfo(0);
     updateMenu();
 
     // make sure that everything of our window is visible
@@ -472,17 +442,8 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	}
 	cfg.writeEntry("toolbars", magic);
     }
-  
-}
 
-//***************************************************************************
-bool TopWidget::isOK()
-{
-    Q_ASSERT(m_menu_manager);
-    Q_ASSERT(m_main_widget);
-    Q_ASSERT(m_plugin_manager);
-
-    return ( m_menu_manager && m_main_widget && m_plugin_manager);
+    return true;
 }
 
 //***************************************************************************
@@ -491,10 +452,6 @@ TopWidget::~TopWidget()
 
     // close the current file (no matter what the user wants)
     closeFile();
-
-    // close all plugins and the plugin manager itself
-    if (m_plugin_manager) delete m_plugin_manager;
-    m_plugin_manager = 0;
 
     if (m_pause_timer) delete m_pause_timer;
     m_pause_timer = 0;
@@ -505,7 +462,7 @@ TopWidget::~TopWidget()
     if (m_menu_manager) delete m_menu_manager;
     m_menu_manager = 0;
 
-    m_app.closeWindow(this);
+    m_context.application().closeWindow(this);
 }
 
 //***************************************************************************
@@ -518,6 +475,8 @@ int TopWidget::executeCommand(const QString &line)
 //    qDebug("TopWidget::executeCommand(%s)", command.toLocal8Bit().data());
     if (!command.length()) return 0; // empty line -> nothing to do
     if (command.trimmed().startsWith("#")) return 0; // only a comment
+
+    Kwave::PluginManager *plugin_manager = m_context.pluginManager();
 
     // special case: if the command contains ";" it is a list of
     // commands -> macro !
@@ -534,8 +493,8 @@ int TopWidget::executeCommand(const QString &line)
 	    }
 
 	    // wait until the command has completed !
-	    Q_ASSERT(m_plugin_manager);
-	    if (m_plugin_manager) m_plugin_manager->sync();
+	    Q_ASSERT(plugin_manager);
+	    if (plugin_manager) plugin_manager->sync();
 	}
 	return result;
     }
@@ -561,10 +520,11 @@ int TopWidget::executeCommand(const QString &line)
     }
 
     // all others only if no plugin is currently running
-    if (m_plugin_manager && m_plugin_manager->onePluginRunning()) {
+    if (plugin_manager && plugin_manager->onePluginRunning())
+    {
 	qWarning("TopWidget::executeCommand('%s') - currently not possible, "\
-		"a plugin is running :-(",
-		parser.command().toLocal8Bit().data());
+		 "a plugin is running :-(",
+		 parser.command().toLocal8Bit().data());
 	return -1;
     }
 
@@ -574,7 +534,7 @@ int TopWidget::executeCommand(const QString &line)
 	qDebug("# %s ", command.toLocal8Bit().data());
     }
 
-    if (m_app.executeCommand(command)) {
+    if (m_context.application().executeCommand(command)) {
 	return 0;
     CASE_COMMAND("about_kde")
 	// Help / About KDE
@@ -597,9 +557,9 @@ int TopWidget::executeCommand(const QString &line)
 	       name.toLocal8Bit().data());
 	qDebug("TopWidget::executeCommand(): with %d parameter(s)",
 		params.count());
-	Q_ASSERT(m_plugin_manager);
-	if (m_plugin_manager)
-	    result = m_plugin_manager->executePlugin(name,
+	Q_ASSERT(plugin_manager);
+	if (plugin_manager)
+	    result = plugin_manager->executePlugin(name,
 		params.count() ? &params : 0);
     CASE_COMMAND("plugin:execute")
 	QStringList params;
@@ -608,13 +568,14 @@ int TopWidget::executeCommand(const QString &line)
 	while (--cnt > 0) {
 	    params.append(parser.nextParam());
 	}
-	Q_ASSERT(m_plugin_manager);
-	result = (m_plugin_manager) ?
-	          m_plugin_manager->executePlugin(name, &params) : -ENOMEM;
+	Q_ASSERT(plugin_manager);
+	result = (plugin_manager) ?
+	          plugin_manager->executePlugin(name, &params) :
+	          -ENOMEM;
     CASE_COMMAND("plugin:setup")
 	QString name(parser.firstParam());
-	Q_ASSERT(m_plugin_manager);
-	if (m_plugin_manager) result = m_plugin_manager->setupPlugin(name);
+	Q_ASSERT(plugin_manager);
+	if (plugin_manager) result = plugin_manager->setupPlugin(name);
     CASE_COMMAND("menu")
 	Q_ASSERT(m_menu_manager);
 	if (m_menu_manager) /*result = */m_menu_manager->executeCommand(command);
@@ -675,7 +636,7 @@ int TopWidget::loadBatch(const KUrl &url)
     file.close();
 
     // successful run -> add URL to recent files
-    m_app.addRecentFile(url.path());
+    m_context.application().addRecentFile(url.path());
     updateMenu();
     updateToolbar();
 
@@ -685,10 +646,12 @@ int TopWidget::loadBatch(const KUrl &url)
 //***************************************************************************
 int TopWidget::executePlaybackCommand(const QString &command)
 {
-    Q_ASSERT(m_main_widget);
-    if (!m_main_widget) return -1;
+    SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return -1;
 
-    PlaybackController &controller = m_main_widget->playbackController();
+    PlaybackController &controller =
+	m_context.signalManager()->playbackController();
     if (command == "start") {
 	controller.playbackStart();
     } else if (command == "loop") {
@@ -752,7 +715,7 @@ int TopWidget::parseCommands(QTextStream &stream)
 	}
 
 	// synchronize before the command
-	if (m_plugin_manager) m_plugin_manager->sync();
+	if (m_context.pluginManager()) m_context.pluginManager()->sync();
 
 	// the "msgbox" command (useful for debugging)
 	if (parser.command() == "msgbox") {
@@ -772,7 +735,7 @@ int TopWidget::parseCommands(QTextStream &stream)
 // 	qDebug(">>> '%s' - result=%d", line.toLocal8Bit().data(), result);
 
 	// synchronize after the command
-	if (m_plugin_manager) m_plugin_manager->sync();
+	if (m_context.pluginManager()) m_context.pluginManager()->sync();
 	
 	// special handling of the "quit" command
 	if (parser.command() == "quit") {
@@ -798,13 +761,17 @@ int TopWidget::revert()
 //***************************************************************************
 bool TopWidget::closeFile()
 {
-    if (m_plugin_manager && m_plugin_manager->onePluginRunning()) {
+    SignalManager *signal_manager = m_context.signalManager();
+
+    if (m_context.pluginManager() &&
+	m_context.pluginManager()->onePluginRunning())
+    {
 	qWarning("TopWidget::closeFile() - currently not possible, "\
 	         "a plugin is running :-(");
 	return false;
     }
 
-    if (signalManager().isModified()) {
+    if (signal_manager && signal_manager->isModified()) {
 	int res =  Kwave::MessageBox::warningYesNoCancel(this,
 	    i18n("This file has been modified.\nDo you want to save it?"));
 	if (res == KMessageBox::Cancel) return false;
@@ -817,13 +784,14 @@ bool TopWidget::closeFile()
     }
 
     // close all plugins that still might use the current signal
-    if (m_plugin_manager) {
-	m_plugin_manager->sync();
-	m_plugin_manager->signalClosed();
+    if (m_context.pluginManager()) {
+	m_context.pluginManager()->sync();
+	m_context.pluginManager()->signalClosed();
     }
 
-    Q_ASSERT(m_main_widget);
-    if (m_main_widget) m_main_widget->closeSignal();
+//     Q_ASSERT(m_main_widget);
+//     if (m_main_widget) m_main_widget->closeSignal();
+    signal_manager->close();
 
     updateCaption();
     if (m_zoomselect) m_zoomselect->clearEditText();
@@ -831,7 +799,7 @@ bool TopWidget::closeFile()
 
     updateMenu();
     updateToolbar();
-    setTrackInfo(0);
+    metaDataChanged(Kwave::MetaData());
 
     return true;
 }
@@ -839,6 +807,8 @@ bool TopWidget::closeFile()
 //***************************************************************************
 int TopWidget::loadFile(const KUrl &url)
 {
+    SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return -1;
 
@@ -857,17 +827,42 @@ int TopWidget::loadFile(const KUrl &url)
 
     emit sigSignalNameChanged(url.path());
 
-    if (!m_main_widget->loadFile(url)) {
+    int res = -ENOMEM;
+    if (signal_manager && !(res = signal_manager->loadFile(url))) {
 	// succeeded
 	updateCaption();
 
 	// enable revert after successful load
 	m_menu_manager->setItemEnabled("ID_FILE_REVERT", true);
     } else {
+	qWarning("TopWidget::loadFile() failed: result=%d", res);
+	QString reason;
+	switch (res) {
+	    case -ENOMEM:
+		reason = i18n("Out of memory");
+		break;
+	    case -EIO:
+		reason = i18nc("error message after opening a file failed",
+			       "Unable to open '%1'", url.prettyUrl());
+		break;
+	    case -EINVAL:
+		reason = i18nc("error message after opening a file failed",
+			       "Invalid or unknown file type: '%1'",
+			       url.prettyUrl());
+		break;
+	    default:
+		reason = "";
+	}
+
+	// show an error message box if the reason was known
+	if (reason.length()) {
+	    Kwave::MessageBox::error(this, reason);
+	}
+
 	// load failed
 	closeFile();
     }
-    m_app.addRecentFile(signalName());
+    m_context.application().addRecentFile(signalName());
     updateMenu();
     updateToolbar();
 
@@ -899,13 +894,15 @@ int TopWidget::openFile()
 int TopWidget::saveFile()
 {
     int res = 0;
+    SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return -EINVAL;
+    if (!signal_manager) return -EINVAL;
 
     if (signalName() != NEW_FILENAME) {
 	KUrl url;
 	url = signalName();
-	res = signalManager().save(url, false);
+	res = signal_manager->save(url, false);
 
 	// if saving in current format is not possible (no encoder),
 	// then try to "save/as" instead...
@@ -924,9 +921,11 @@ int TopWidget::saveFile()
 //***************************************************************************
 int TopWidget::saveFileAs(bool selection)
 {
+    SignalManager *signal_manager = m_context.signalManager();
     int res = 0;
     Q_ASSERT(m_main_widget);
-    if (!m_main_widget) return -EINVAL;
+    Q_ASSERT(signal_manager);
+    if (!m_main_widget || !signal_manager) return -EINVAL;
 
     KUrl current_url;
     current_url = signalName();
@@ -964,8 +963,8 @@ int TopWidget::saveFileAs(bool selection)
     }
 
     // maybe we now have a new mime type
-    QString previous_mimetype_name = signalManager().fileInfo().get(
-	INF_MIMETYPE).toString();
+    QString previous_mimetype_name =
+	FileInfo(signal_manager->metaData()).get(INF_MIMETYPE).toString();
 
     QString new_mimetype_name;
     new_mimetype_name = CodecManager::whatContains(url);
@@ -981,31 +980,30 @@ int TopWidget::saveFileAs(bool selection)
 	    previous_mimetype_name.toLocal8Bit().data() );
 
 	// set the new mimetype
-	signalManager().fileInfo().set(INF_MIMETYPE,
-	    new_mimetype_name);
+	FileInfo info(signal_manager->metaData());
+	info.set(INF_MIMETYPE, new_mimetype_name);
 	// save the old filename and set the new one
-	QString old_filename = signalManager().fileInfo().get(
-	    INF_FILENAME).toString();
-	signalManager().fileInfo().set(INF_FILENAME,
-	    url.prettyUrl());
+	QString old_filename = info.get(INF_FILENAME).toString();
+	info.set(INF_FILENAME, url.prettyUrl());
+	signal_manager->setFileInfo(info, false);
 
 	// now call the fileinfo plugin with the new filename and
 	// mimetype
-	Q_ASSERT(m_plugin_manager);
-	res = (m_plugin_manager) ?
-	    m_plugin_manager->setupPlugin("fileinfo") : -1;
+	Q_ASSERT(m_context.pluginManager());
+	res = (m_context.pluginManager()) ?
+	    m_context.pluginManager()->setupPlugin("fileinfo") : -1;
 
 	// restore the mime type and the filename
-	signalManager().fileInfo().set(INF_MIMETYPE,
-	    previous_mimetype_name);
-	signalManager().fileInfo().set(INF_FILENAME,
-	    url.prettyUrl());
+	info = FileInfo(signal_manager->metaData());
+	info.set(INF_MIMETYPE, previous_mimetype_name);
+	info.set(INF_FILENAME, url.prettyUrl());
+	signal_manager->setFileInfo(info, false);
     }
 
-    if (!res) res = signalManager().save(url, selection);
+    if (!res) res = signal_manager->save(url, selection);
 
     updateCaption();
-    m_app.addRecentFile(signalName());
+    m_context.application().addRecentFile(signalName());
     updateMenu();
 
     if (!res && !selection) {
@@ -1021,11 +1019,15 @@ int TopWidget::saveFileAs(bool selection)
 int TopWidget::newSignal(sample_index_t samples, double rate,
                          unsigned int bits, unsigned int tracks)
 {
+    SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return -1;
+
     // abort if the user pressed cancel
     if (!closeFile()) return -1;
     emit sigSignalNameChanged(signalName());
 
-    m_main_widget->newSignal(samples, rate, bits, tracks);
+    signal_manager->newSignal(samples, rate, bits, tracks);
 
     updateCaption();
     updateMenu();
@@ -1037,8 +1039,11 @@ int TopWidget::newSignal(sample_index_t samples, double rate,
 //***************************************************************************
 void TopWidget::selectZoom(int index)
 {
+    SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
     Q_ASSERT(m_main_widget);
     Q_ASSERT(m_zoomselect);
+    if (!signal_manager) return;
     if (!m_main_widget) return;
     if (!m_zoomselect) return;
     if (index < 0) return;
@@ -1056,8 +1061,8 @@ void TopWidget::selectZoom(int index)
 	index--;
     }
 
-    const double rate  = signalManager().rate();
-    const double ms    = m_zoom_factors[index].second;
+    const double rate = signal_manager->rate();
+    const double ms = m_zoom_factors[index].second;
     unsigned int width = m_main_widget->displayWidth();
     Q_ASSERT(width > 1);
     if (width <= 1) width = 2;
@@ -1074,6 +1079,7 @@ void TopWidget::selectZoom(int index)
 //***************************************************************************
 void TopWidget::setZoomInfo(double zoom)
 {
+    SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(zoom >= 0);
     Q_ASSERT(m_zoomselect);
 
@@ -1081,8 +1087,8 @@ void TopWidget::setZoomInfo(double zoom)
     if (!m_zoomselect) return;
 
     QString strZoom;
-    if ((m_main_widget) && (m_main_widget->tracks())) {
-	double rate = signalManager().rate();
+    if ((signal_manager) && (signal_manager->tracks())) {
+	double rate = signal_manager->rate();
 	if (rate > 0) {
 	    // time display mode
 	    double ms = m_main_widget->displaySamples() * 1E3 / rate;
@@ -1102,7 +1108,7 @@ void TopWidget::setZoomInfo(double zoom)
 	} else {
 	    // percent mode
 	    double percent = 100.0 / zoom;
-	    strZoom = Kwave::Plugin::zoom2string(percent);
+	    strZoom = Kwave::zoom2string(percent);
 	}
     }
 
@@ -1125,15 +1131,20 @@ void TopWidget::setZoomInfo(double zoom)
 }
 
 //***************************************************************************
-void TopWidget::setStatusInfo(sample_index_t length, unsigned int tracks,
-                              double rate, unsigned int bits)
+void TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 {
-    Q_UNUSED(tracks);
+
     Q_ASSERT(statusBar());
     Q_ASSERT(m_menu_manager);
     if (!statusBar() || !m_menu_manager) return;
     double ms;
     QString txt;
+
+    const FileInfo info(meta_data);
+    sample_index_t length = info.length();
+    unsigned int tracks   = info.tracks();
+    double rate           = info.rate();
+    unsigned int bits     = info.bits();
 
     // length in milliseconds
     if (length) {
@@ -1142,7 +1153,7 @@ void TopWidget::setStatusInfo(sample_index_t length, unsigned int tracks,
 	txt = " " + i18nc(
 	    "Length, as in total duration of loaded song",
 	    "Length: %1 (%2 samples)",
-	    Kwave::Plugin::ms2string(ms), Kwave::Plugin::dottedNumber(length)
+	    Kwave::ms2string(ms), Kwave::dottedNumber(length)
 	) + " ";
     } else txt = "";
     m_lbl_status_size->setText(txt);
@@ -1154,14 +1165,6 @@ void TopWidget::setStatusInfo(sample_index_t length, unsigned int tracks,
 	txt = " " + i18n("Mode: %1 kHz @ %2 Bit", khz, bits) + " ";
     } else txt = "";
     m_lbl_status_mode->setText(txt);
-
-}
-
-//***************************************************************************
-void TopWidget::setTrackInfo(unsigned int tracks)
-{
-    Q_ASSERT(m_menu_manager);
-    if (!m_menu_manager) return;
 
     // update the list of deletable tracks
     m_menu_manager->clearNumberedMenu("ID_EDIT_TRACK_DELETE");
@@ -1181,18 +1184,25 @@ void TopWidget::setTrackInfo(unsigned int tracks)
     }
 
     // remove selection/position display on file close
-    if (!have_signal) setSelectedTimeInfo(0, 0, 0);
+    if (!have_signal) selectionChanged(0, 0);
+
+    // update the menu
+    updateMenu();
 
     // update the toolbar as well
     updateToolbar();
 }
 
 //***************************************************************************
-void TopWidget::setSelectedTimeInfo(sample_index_t offset, sample_index_t length,
-                                    double rate)
+void TopWidget::selectionChanged(sample_index_t offset, sample_index_t length)
 {
+    SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return;
     Q_ASSERT(statusBar());
     if (!statusBar()) return;
+
+    const double rate = signal_manager->rate();
 
     if (length > 1) {
 	// show offset and length
@@ -1208,9 +1218,9 @@ void TopWidget::setSelectedTimeInfo(sample_index_t offset, sample_index_t length
 	        "%1=first sample, %2=last sample, %3=number of samples, "\
 	        "example: 'Selected: 2000...3000 (1000 samples)'",
 	        "Selected: %1...%2 (%3 samples)",
-	        Kwave::Plugin::dottedNumber(offset),
-	        Kwave::Plugin::dottedNumber(last),
-	        Kwave::Plugin::dottedNumber(length)
+	        Kwave::dottedNumber(offset),
+	        Kwave::dottedNumber(last),
+	        Kwave::dottedNumber(length)
 	    );
 	} else {
 	    double ms_first = static_cast<double>(offset)   * 1E3 / rate;
@@ -1220,9 +1230,9 @@ void TopWidget::setSelectedTimeInfo(sample_index_t offset, sample_index_t length
 	        "%1=start time, %2=end time, %3=time span, "\
 	        "example: 'Selected: 02:00...05:00 (3 min)'",
 	        "Selected: %1...%2 (%3)",
-	        Kwave::Plugin::ms2string(ms_first),
-	        Kwave::Plugin::ms2string(ms_last),
-	        Kwave::Plugin::ms2string(ms)
+	        Kwave::ms2string(ms_first),
+	        Kwave::ms2string(ms_last),
+	        Kwave::ms2string(ms)
 	    );
 	}
 
@@ -1235,12 +1245,12 @@ void TopWidget::setSelectedTimeInfo(sample_index_t offset, sample_index_t length
 	bool sample_mode = false;
 
 	if (rate == 0) sample_mode = true; // force sample mode if rate==0
-	if (sample_mode || !signalManager().tracks()) {
+	if (sample_mode || !signal_manager->tracks()) {
 	    m_lbl_status_cursor->setText("");
 	} else {
 	    double ms_first = static_cast<double>(offset) * 1E3 / rate;
 	    QString txt = i18n("Position: %1",
-		Kwave::Plugin::ms2string(ms_first));
+		Kwave::ms2string(ms_first));
 	    m_lbl_status_cursor->setText(txt);
 	}
 
@@ -1251,19 +1261,19 @@ void TopWidget::setSelectedTimeInfo(sample_index_t offset, sample_index_t length
 //***************************************************************************
 void TopWidget::updatePlaybackPos(sample_index_t offset)
 {
-    if (!m_plugin_manager) return;
+    if (!m_context.pluginManager()) return;
     if (!m_main_widget) return;
 
-    bool playing = m_main_widget->playbackController().running();
+    bool playing = m_context.signalManager()->playbackController().running();
     if (!playing) return;
     QString txt;
-    double rate = m_plugin_manager->signalRate();
+    double rate = m_context.pluginManager()->signalRate();
     if (rate > 0) {
 	double ms = static_cast<double>(offset) * 1E3 / rate;
-	txt = i18n("Playback: %1", Kwave::Plugin::ms2string(ms));
+	txt = i18n("Playback: %1", Kwave::ms2string(ms));
     } else {
 	txt = i18n("Playback: %1 samples",
-	            Kwave::Plugin::dottedNumber(offset));
+	            Kwave::dottedNumber(offset));
     }
     statusBar()->showMessage(txt, 2000);
 }
@@ -1318,14 +1328,17 @@ void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
 //***************************************************************************
 void TopWidget::mouseChanged(Kwave::MouseMark::Mode mode)
 {
+    SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return;
+
     switch (mode) {
 	case (Kwave::MouseMark::MouseAtSelectionBorder) :
 	case (Kwave::MouseMark::MouseInSelection) :
 	{
-	    double rate         = signalManager().rate();
-	    unsigned int offset = signalManager().selection().offset();
-	    unsigned int length = signalManager().selection().length();
-	    setSelectedTimeInfo(offset, length, rate);
+	    sample_index_t offset = signal_manager->selection().offset();
+	    sample_index_t length = signal_manager->selection().length();
+	    selectionChanged(offset, length);
 	    break;
 	}
 	default:
@@ -1348,7 +1361,7 @@ void TopWidget::updateRecentFiles()
 
     m_menu_manager->clearNumberedMenu("ID_FILE_OPEN_RECENT");
 
-    QStringList recent_files = m_app.recentFiles();
+    QStringList recent_files = m_context.application().recentFiles();
     QStringList::Iterator it;
     for (it = recent_files.begin(); it != recent_files.end(); ++it) {
 	m_menu_manager->addNumberedMenuEntry("ID_FILE_OPEN_RECENT", *it);
@@ -1358,6 +1371,9 @@ void TopWidget::updateRecentFiles()
 //***************************************************************************
 void TopWidget::updateMenu()
 {
+    SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return;
     Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
 
@@ -1366,7 +1382,8 @@ void TopWidget::updateMenu()
     m_menu_manager->setItemEnabled("@NOT_CLOSED", have_file);
 
     // enable/disable all items that depend on having a label
-    bool have_labels = (!signalManager().fileInfo().labels().isEmpty());
+    LabelList labels(signal_manager->metaData());
+    bool have_labels = (!labels.isEmpty());
     m_menu_manager->setItemEnabled("@LABELS", have_labels);
 
     // enable/disable all items that depend on having something in the
@@ -1378,10 +1395,11 @@ void TopWidget::updateMenu()
 //***************************************************************************
 void TopWidget::updateToolbar()
 {
-    Q_ASSERT(m_main_widget);
-    if (!m_main_widget) return;
+    SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return;
 
-    bool have_signal = m_main_widget->tracks();
+    bool have_signal = signal_manager->tracks();
 
     if (m_action_zoomselection)
 	m_action_zoomselection->setEnabled(have_signal);
@@ -1402,12 +1420,13 @@ void TopWidget::updateToolbar()
 //***************************************************************************
 void TopWidget::updatePlaybackControls()
 {
-    Q_ASSERT(m_main_widget);
-    if (!m_main_widget) return;
+    SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return;
 
-    bool have_signal = m_main_widget->tracks();
-    bool playing = m_main_widget->playbackController().running();
-    bool paused  = m_main_widget->playbackController().paused();
+    bool have_signal = signal_manager->tracks();
+    bool playing = signal_manager->playbackController().running();
+    bool paused  = signal_manager->playbackController().paused();
 
     // stop blinking
     if (m_pause_timer) {
@@ -1473,20 +1492,20 @@ void TopWidget::blinkPause()
 //***************************************************************************
 void TopWidget::pausePressed()
 {
-    Q_ASSERT(m_main_widget);
-    if (!m_main_widget) return;
+    SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return;
 
-    bool have_signal = (m_main_widget->tracks());
-    bool playing = m_main_widget->playbackController().running();
+    bool have_signal = signal_manager->tracks();
+    bool playing     = signal_manager->playbackController().running();
 
     if (!have_signal) return;
 
     if (playing) {
-	m_main_widget->playbackController().playbackPause();
+	signal_manager->playbackController().playbackPause();
     } else {
-	m_main_widget->playbackController().playbackContinue();
+	signal_manager->playbackController().playbackContinue();
     }
-
 }
 
 //***************************************************************************
@@ -1498,7 +1517,10 @@ void TopWidget::modifiedChanged(bool)
 //***************************************************************************
 void TopWidget::updateCaption()
 {
-    bool modified = signalManager().isModified();
+    SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return;
+    bool modified = signal_manager->isModified();
 
     // shortcut if no file loaded
     if (signalName().length() == 0) {
@@ -1523,16 +1545,17 @@ void TopWidget::closeEvent(QCloseEvent *e)
 }
 
 //***************************************************************************
-SignalManager &TopWidget::signalManager()
+bool TopWidget::haveSignal()
 {
-    return m_plugin_manager->signalManager();
+    SignalManager *signal_manager = m_context.signalManager();
+    return (signal_manager) ? (signal_manager->tracks()) : false;
 }
 
 //***************************************************************************
 QString TopWidget::signalName() const
 {
-    if (!m_plugin_manager) return QString();
-    return m_plugin_manager->signalManager().signalName();
+    if (!m_context.pluginManager()) return QString();
+    return m_context.pluginManager()->signalManager().signalName();
 }
 
 //***************************************************************************

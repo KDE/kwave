@@ -30,6 +30,7 @@
 #include <kdemacros.h>
 
 #include "libkwave/LabelList.h"
+#include "libkwave/MetaDataList.h"
 
 #include "libgui/ImageView.h"
 #include "libgui/OverViewCache.h"
@@ -39,8 +40,6 @@ class QPainter;
 class QResizeEvent;
 class SignalManager;
 class Track;
-
-namespace Kwave { class MetaDataList; }
 
 class KDE_EXPORT OverViewWidget : public ImageView
 {
@@ -68,19 +67,21 @@ public slots:
      * @param viewport width of the visible area
      * @param total width of the whole signal
      */
-    void setRange(sample_index_t offset, unsigned int viewport,
+    void setRange(sample_index_t offset, sample_index_t viewport,
                   sample_index_t total);
 
     /**
      * called when the selected time has changed
      * @param offset index of the first selected sample
      * @param length number of selected samples
-     * @param rate sample rate
      */
-    void setSelection(sample_index_t offset, sample_index_t length, double rate);
+    void setSelection(sample_index_t offset, sample_index_t length);
 
-    /** should be called when the list of labels has changed */
-    void labelsChanged(const LabelList &labels);
+    /**
+     * should be called when meta data has changed
+     * @param meta the list of new meta data
+     */
+    void metaDataChanged(Kwave::MetaDataList meta);
 
     /** should be called to update the current playback posiotion */
     void playbackPositionChanged(sample_index_t pos);

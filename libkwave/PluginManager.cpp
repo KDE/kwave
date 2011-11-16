@@ -41,6 +41,7 @@
 #include "libkwave/PluginContext.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 #include "libkwave/undo/UndoAction.h"
@@ -98,7 +99,8 @@ Kwave::PluginManager::PluginManager(QWidget *parent,
     :m_loaded_plugins(),
      m_running_plugins(),
      m_parent_widget(parent),
-     m_signal_manager(signal_manager)
+     m_signal_manager(signal_manager),
+     m_view_manager(0)
 {
     // connect all unique plugins
     foreach (KwavePluginPointer p, m_unique_plugins) {
@@ -419,7 +421,7 @@ void Kwave::PluginManager::sync()
     qApp->flush();
 
     while (onePluginRunning()) {
-	QThread::yieldCurrentThread();
+	Kwave::yield();
 	qApp->processEvents();
 	qApp->flush();
     }
@@ -449,12 +451,6 @@ int Kwave::PluginManager::setupPlugin(const QString &name)
 
     plugin->release();
     return 0;
-}
-
-//***************************************************************************
-FileInfo &Kwave::PluginManager::fileInfo()
-{
-    return m_signal_manager.fileInfo();
 }
 
 //***************************************************************************
@@ -576,6 +572,20 @@ Kwave::SampleSink *Kwave::PluginManager::openMultiTrackPlayback(
 PlaybackController &Kwave::PluginManager::playbackController()
 {
     return m_signal_manager.playbackController();
+}
+
+//***************************************************************************
+void Kwave::PluginManager::insertView(Kwave::SignalView *view, QWidget *controls)
+{
+    if (m_view_manager)
+	m_view_manager->insertView(view, controls);
+}
+
+//***************************************************************************
+void Kwave::PluginManager::registerViewManager(Kwave::ViewManager *view_manager)
+{
+    Q_ASSERT(!view_manager || !m_view_manager);
+    m_view_manager = view_manager;
 }
 
 //***************************************************************************

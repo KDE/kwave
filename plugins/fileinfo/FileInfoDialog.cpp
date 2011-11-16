@@ -48,8 +48,8 @@
 
 #include "libkwave/CompressionType.h"
 #include "libkwave/FileInfo.h"
-#include "libkwave/KwavePlugin.h"
 #include "libkwave/SampleFormat.h"
+#include "libkwave/Utils.h"
 
 #include "BitrateWidget.h"
 #include "CompressionWidget.h"
@@ -140,7 +140,7 @@ void FileInfoDialog::setupFileInfoTab()
     initInfo(lblFileSize, edFileSize, INF_FILESIZE);
     if (m_info.contains(INF_FILESIZE)) {
 	unsigned int size = QVariant(m_info.get(INF_FILESIZE)).toUInt();
-	QString dotted = Kwave::Plugin::dottedNumber(size);
+	QString dotted = Kwave::dottedNumber(size);
 	if (size < 10*1024) {
 	    edFileSize->setText(i18n("%1 bytes", dotted));
 	} else if (size < 10*1024*1024) {
@@ -218,11 +218,11 @@ void FileInfoDialog::setupFileInfoTab()
     if (rate != 0) {
 	double ms = static_cast<double>(samples) * 1E3 / rate;
 	txtLength->setText(i18n("%1 (%2 samples)",
-	    Kwave::Plugin::ms2string(ms),
-	    Kwave::Plugin::dottedNumber(samples)));
+	    Kwave::ms2string(ms),
+	    Kwave::dottedNumber(samples)));
     } else {
 	txtLength->setText(i18n("%1 samples",
-	    Kwave::Plugin::dottedNumber(samples)));
+	    Kwave::dottedNumber(samples)));
     }
 
     /* sample format */

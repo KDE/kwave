@@ -26,6 +26,7 @@
 #include <kconfiggroup.h>
 #include <ktoolinvocation.h>
 
+#include "libkwave/ApplicationContext.h"
 #include "libkwave/ClipBoard.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/KwaveSampleArray.h"
@@ -48,6 +49,7 @@ KwaveApp::KwaveApp()
     qRegisterMetaType<Kwave::SampleArray>("Kwave::SampleArray");
     qRegisterMetaType<LabelList>("LabelList");
     qRegisterMetaType<sample_index_t>("sample_index_t");
+    qRegisterMetaType<Kwave::MetaDataList>("Kwave::MetaDataList");
 
     // connect the clipboard
     connect(QApplication::clipboard(), SIGNAL(changed(QClipboard::Mode)),
@@ -138,16 +140,15 @@ void KwaveApp::addRecentFile(const QString &newfile)
 bool KwaveApp::newWindow(const KUrl &url)
 {
     KwaveSplash::showMessage(i18n("Opening main window..."));
-    TopWidget *new_top_widget = new TopWidget(*this);
-    Q_ASSERT(new_top_widget);
-    if (!new_top_widget) return false;
 
-    if ( !(new_top_widget->isOK()) ) {
-	qWarning("KwaveApp::newWindow() failed!");
-	delete new_top_widget;
+    Kwave::ApplicationContext *context = new Kwave::ApplicationContext(*this);
+    if (!context) return false;
+    if (!context->init()) {
+	delete context;
 	return false;
     }
 
+    TopWidget *new_top_widget = context->topWidget();
     if (m_topwidget_list.isEmpty()) {
 	// the first widget is the main widget !
 	setTopWidget(new_top_widget); // sets geometry and other properties

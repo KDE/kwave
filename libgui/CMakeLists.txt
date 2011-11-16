@@ -25,6 +25,7 @@ SET(libkwavegui_LIB_SRCS
     InvertableSpinBox.cpp
     KwaveFileDialog.cpp
     KwaveFilterPlugin.cpp
+    LabelItem.cpp
     LabelPropertiesWidget.cpp
     MenuNode.cpp
     MenuGroup.cpp
@@ -38,9 +39,12 @@ SET(libkwavegui_LIB_SRCS
     OverViewWidget.cpp
     ScaleWidget.cpp
     SelectTimeWidget.cpp
+    SignalView.cpp
     SignalWidget.cpp
     TrackPixmap.cpp
+    TrackView.cpp
     TreeWidgetWrapper.cpp
+    ViewItem.cpp
 )
 
 #############################################################################

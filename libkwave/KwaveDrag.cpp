@@ -48,7 +48,8 @@ bool KwaveDrag::canDecode(const QMimeData *data)
 }
 
 //***************************************************************************
-bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src, FileInfo &info)
+bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src,
+                       const Kwave::MetaDataList &meta_data)
 {
     Q_ASSERT(src.tracks());
     if (!src.tracks()) return false;
@@ -61,7 +62,7 @@ bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src, FileInfo &info)
     if (!mime_data) return false;
 
     // encode into the mime data
-    if (!mime_data->encode(widget, src, info)) {
+    if (!mime_data->encode(widget, src, meta_data)) {
 	delete mime_data;
 	return false;
     }
@@ -72,8 +73,8 @@ bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src, FileInfo &info)
 }
 
 //***************************************************************************
-sample_index_t KwaveDrag::decode(QWidget *widget, const QMimeData *e,
-                                 SignalManager &sig, sample_index_t pos)
+unsigned int KwaveDrag::decode(QWidget *widget, const QMimeData *e,
+                               SignalManager &sig, sample_index_t pos)
 {
     return Kwave::MimeData::decode(widget, e, sig, pos);
 }

@@ -16,25 +16,19 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <errno.h>
-#include <math.h>
 
 #include <QString>
 #include <klocale.h>
 
 #include "libkwave/KwavePlugin.h"
-#include "libkwave/PluginManager.h"
-#include "libkwave/SignalManager.h"
-
 #include "GotoPlugin.h"
-#include "GotoDialog.h"
 
 KWAVE_PLUGIN(GotoPlugin, "goto", "2.1",
              I18N_NOOP("Goto Position"), "Thomas Eschenbacher");
 
 //***************************************************************************
 GotoPlugin::GotoPlugin(const PluginContext &c)
-    :Kwave::Plugin(c), m_mode(SelectTimeWidget::bySamples), m_position(0)
+    :GotoPluginBase(c)
 {
 }
 
@@ -44,97 +38,16 @@ GotoPlugin::~GotoPlugin()
 }
 
 //***************************************************************************
-QStringList *GotoPlugin::setup(QStringList &previous_params)
+QString GotoPlugin::command() const
+{ 
+    return "goto";
+}
+    
+//***************************************************************************
+QString GotoPlugin::title() const 
 {
-    // try to interprete the previous parameters
-    interpreteParameters(previous_params);
-
-    // create the setup dialog
-    double rate = signalRate();
-    sample_index_t length = signalLength();
-
-    GotoDialog *dialog = new GotoDialog(parentWidget(),
-        m_mode, m_position, rate, length);
-    Q_ASSERT(dialog);
-    if (!dialog) return 0;
-
-    QStringList *list = new QStringList();
-    Q_ASSERT(list);
-    if (list && dialog->exec()) {
-	// user has pressed "OK"
-	*list << QString::number(dialog->mode());
-	*list << QString::number(dialog->pos());
-
-	emitCommand("plugin:execute(goto," +
-	    QString::number(dialog->mode()) + "," +
-	    QString::number(dialog->pos()) +
-	    ")"
-	);
-    } else {
-	// user pressed "Cancel"
-	if (list) delete list;
-	list = 0;
-    }
-
-    if (dialog) delete dialog;
-    return list;
+    return i18n("Goto...");
 }
 
-//***************************************************************************
-int GotoPlugin::start(QStringList &params)
-{
-    // interprete the parameters
-    int result = interpreteParameters(params);
-    if (result) return result;
-
-    // get current offset of the signal
-    sample_index_t offset = SelectTimeWidget::timeToSamples(
-	m_mode, m_position, signalRate(), signalLength());
-
-    // change the selection through the signal manager
-    QString command = "nomacro:goto(%1)";
-    emitCommand(command.arg(offset));
-
-    return result;
-}
-
-//***************************************************************************
-int GotoPlugin::interpreteParameters(QStringList &params)
-{
-    bool ok;
-    QString param;
-    int mode;
-
-    // evaluate the parameter list
-    if (params.count() != 2) {
-	return -EINVAL;
-    }
-
-    // selection mode for start
-    param = params[0];
-    mode = param.toInt(&ok);
-    Q_ASSERT(ok);
-    if (!ok) return -EINVAL;
-    Q_ASSERT((mode == static_cast<int>(SelectTimeWidget::byTime)) ||
-           (mode == static_cast<int>(SelectTimeWidget::bySamples)) ||
-           (mode == static_cast<int>(SelectTimeWidget::byPercents)));
-    if ((mode != static_cast<int>(SelectTimeWidget::byTime)) &&
-        (mode != static_cast<int>(SelectTimeWidget::bySamples)) &&
-        (mode != static_cast<int>(SelectTimeWidget::byPercents)))
-    {
-	return -EINVAL;
-    }
-    m_mode = static_cast<SelectTimeWidget::Mode>(mode);
-
-    // position in ms, samples or percent
-    param = params[1];
-    m_position = param.toUInt(&ok);
-    if (!ok) return -EINVAL;
-
-    return 0;
-}
-
-//***************************************************************************
-#include "GotoPlugin.moc"
 //***************************************************************************
 //***************************************************************************

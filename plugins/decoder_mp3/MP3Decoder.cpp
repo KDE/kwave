@@ -71,6 +71,8 @@ Decoder *MP3Decoder::instance()
 //***************************************************************************
 bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
 {
+    FileInfo info(metaData());
+
     /* first of all check CRC, it might be senseless if the file is broken */
     qDebug("crc = 0x%08X", header.crc);
     if ((header.crc == MP3CRC_MISMATCH) || (header.crc == MP3CRC_ERROR_SIZE)){
@@ -83,19 +85,19 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
     /* MPEG layer */
     switch (header.layer) {
 	case MPEGLAYER_I:
-	    m_info.set(INF_COMPRESSION,
-	               QVariant(CompressionType::MPEG_LAYER_I));
-	    m_info.set(INF_MPEG_LAYER, QVariant(1));
+	    info.set(INF_COMPRESSION,
+	             QVariant(CompressionType::MPEG_LAYER_I));
+	    info.set(INF_MPEG_LAYER, QVariant(1));
 	    break;
 	case MPEGLAYER_II:
-	    m_info.set(INF_COMPRESSION,
-	               QVariant(CompressionType::MPEG_LAYER_II));
-	    m_info.set(INF_MPEG_LAYER, QVariant(2));
+	    info.set(INF_COMPRESSION,
+	             QVariant(CompressionType::MPEG_LAYER_II));
+	    info.set(INF_MPEG_LAYER, QVariant(2));
 	    break;
 	case MPEGLAYER_III:
-	    m_info.set(INF_COMPRESSION,
-	               QVariant(CompressionType::MPEG_LAYER_III));
-	    m_info.set(INF_MPEG_LAYER, QVariant(3));
+	    info.set(INF_COMPRESSION,
+	             QVariant(CompressionType::MPEG_LAYER_III));
+	    info.set(INF_MPEG_LAYER, QVariant(3));
 	    break;
 	default:
 	    qWarning("unknown mpeg layer '%d'", header.layer);
@@ -104,20 +106,20 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
     /* MPEG version */
     switch (header.version) {
 	case MPEGVERSION_1:
-	    m_info.set(INF_MPEG_VERSION, QVariant(1));
+	    info.set(INF_MPEG_VERSION, QVariant(1));
 	    break;
 	case MPEGVERSION_2:
-	    m_info.set(INF_MPEG_VERSION, QVariant(2));
+	    info.set(INF_MPEG_VERSION, QVariant(2));
 	    break;
 	case MPEGVERSION_2_5:
-	    m_info.set(INF_MPEG_VERSION, QVariant(2.5));
+	    info.set(INF_MPEG_VERSION, QVariant(2.5));
 	    break;
 	default:
 	    qWarning("unknown mpeg version '%d'", header.version);
     }
 
     /* bit rate */
-    if (header.bitrate > 0) m_info.set(INF_BITRATE_NOMINAL,
+    if (header.bitrate > 0) info.set(INF_BITRATE_NOMINAL,
         QVariant(header.bitrate));
     // NOTE: this is an enum value in libid3, but can also be treated
     // as unsigned integer without problems!
@@ -145,7 +147,7 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
 	             "%1\nAssuming Mono...", mode))
 	             != KMessageBox::Continue) return false;
     }
-    m_info.setTracks(tracks);
+    info.setTracks(tracks);
 
     /* MPEG Mode Extension */
     // only in "Joint Stereo" mode, then depends on Layer
@@ -160,7 +162,7 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
     if (header.channelmode == MP3CHANNELMODE_JOINT_STEREO) {
 	int modeext = header.modeext;
 	if (header.layer >= 3) modeext += 4;
-	m_info.set(INF_MPEG_MODEEXT, modeext);
+	info.set(INF_MPEG_MODEEXT, modeext);
     }
 
     /* Emphasis mode */
@@ -169,18 +171,20 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
     // 2 = reserved
     // 3 = CCIT J.17
     if (header.emphasis > 0)
-        m_info.set(INF_MPEG_EMPHASIS, header.emphasis);
+        info.set(INF_MPEG_EMPHASIS, header.emphasis);
 
 //  qDebug("framesize=%d", header.framesize);
 //  qDebug("frames = %u", header.frames);
 
-    if (header.privatebit)  m_info.set(INF_PRIVATE, header.privatebit);
-    if (header.copyrighted) m_info.set(INF_COPYRIGHTED, header.copyrighted);
-    if (header.original)    m_info.set(INF_ORIGINAL, header.original);
+    if (header.privatebit)  info.set(INF_PRIVATE, header.privatebit);
+    if (header.copyrighted) info.set(INF_COPYRIGHTED, header.copyrighted);
+    if (header.original)    info.set(INF_ORIGINAL, header.original);
 
-    m_info.setRate(header.frequency); // sample rate
-    m_info.setBits(SAMPLE_BITS);      // fake Kwave's default resolution
-    m_info.setLength(header.time * header.frequency);
+    info.setRate(header.frequency); // sample rate
+    info.setBits(SAMPLE_BITS);      // fake Kwave's default resolution
+    info.setLength(header.time * header.frequency);
+
+    metaData().replace(info);
 
     return true;
 }
@@ -238,9 +242,13 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 
 	    case ID3FID_CONTENTTYPE: { // Content type (Genre)
 		parseId3Frame(frame, INF_GENRE);
-		QString genre = QVariant(m_info.get(INF_GENRE)).toString();
+
+		FileInfo info(metaData());
+		QString genre = QVariant(info.get(INF_GENRE)).toString();
 		int id = GenreType::fromID3(genre);
-		m_info.set(INF_GENRE, GenreType::name(id));
+		info.set(INF_GENRE, GenreType::name(id));
+		metaData().replace(info);
+
 		break;
 	    }
 	    case ID3FID_COPYRIGHT:     // Copyright message.
@@ -365,7 +373,9 @@ void MP3Decoder::parseId3Frame(ID3_Frame *frame, FileProperty property)
     if (!frame) return;
     char *text = ID3_GetString(frame, ID3FN_TEXT);
     if (text) {
-	m_info.set(property, QVariant(text));
+	FileInfo info(metaData());
+	info.set(property, QVariant(text));
+	metaData().replace(info);
 	delete [] text;
     }
 }
@@ -374,7 +384,7 @@ void MP3Decoder::parseId3Frame(ID3_Frame *frame, FileProperty property)
 bool MP3Decoder::open(QWidget *widget, QIODevice &src)
 {
     qDebug("MP3Decoder::open()");
-    info().clear();
+    metaData().clear();
     Q_ASSERT(!m_source);
     if (m_source) qWarning("MP3Decoder::open(), already open !");
 
@@ -420,8 +430,9 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
 
     /* accept the source */
     m_source = &src;
-    m_info.set(INF_MIMETYPE, "audio/mpeg");
-
+    FileInfo info(metaData());
+    info.set(INF_MIMETYPE, "audio/mpeg");
+    metaData().replace(info);
 
     // allocate a transfer buffer with 128 kB
     if (m_buffer) delete m_buffer;

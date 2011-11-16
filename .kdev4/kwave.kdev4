@@ -45,7 +45,7 @@ isExecutable=true
 
 [MakeBuilder]
 Default Make Environment Profile=Kwave-Debug
-Number Of Jobs=1
+Number Of Jobs=5
 
 [Project]
 VersionControlSupport=kdevsubversion

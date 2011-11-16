@@ -1,10 +1,12 @@
 
-0.8.7  [2011-??-??]
+0.8.7  [2011-11-27]
 
  * ebuild update for media-gfx/imagemagick <-> media-gfx/graphicsmagick
    (see gentoo bug #314325)
+ * new feature: "insert at", paste clipboard at given position
  * fix for API change in libaudiofile v0.3.1
  * speedup: file loading is much faster now (e.g. up to factor 10 for Ogg/MP3)
+ * bugfix: stream name of pulse audio playback used wrong encoding
 
 0.8.6  [2011-03-07]
 

@@ -1,8 +1,8 @@
 /***************************************************************************
-         UndoFileInfo.h  -  Undo action for file info
+   UndoAddMetaDataAction.h  -  Undo action for insertion of meta data
 			     -------------------
-    begin                : Sun Jul 21 2002
-    copyright            : (C) 2002 by Thomas Eschenbacher
+    begin                : Wed Aug 16 2006
+    copyright            : (C) 2006 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
 
  ***************************************************************************/
@@ -16,36 +16,40 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _UNDO_FILE_INFO_H_
-#define _UNDO_FILE_INFO_H_
+#ifndef _UNDO_ADD_META_DATA_ACTION_H_
+#define _UNDO_ADD_META_DATA_ACTION_H_
 
 #include "config.h"
 
+#include <QList>
 #include <QString>
 
-#include "libkwave/FileInfo.h"
+#include "libkwave/Sample.h"
+#include "libkwave/MetaData.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/undo/UndoAction.h"
 
 class SignalManager;
 
 /**
- * This Undo action simply stores the current file info.
+ * Undo action for inserting meta data.
  */
-class UndoFileInfo: public UndoAction
+class UndoAddMetaDataAction: public UndoAction
 {
-
 public:
 
     /**
-     * Constructor.
-     * @param manager reference to the SignalManager
+     * Constructor
+     * @param meta_data reference to the meta data that has been inserted
      */
-    UndoFileInfo(SignalManager &manager);
+    UndoAddMetaDataAction(const Kwave::MetaDataList &meta_data);
 
-    /** virtual destructor */
-    virtual ~UndoFileInfo();
+    /** Destructor */
+    virtual ~UndoAddMetaDataAction();
 
-    /** @see UndoAction::description() */
+    /**
+     * Returns a verbose short description of the action.
+     */
     virtual QString description();
 
     /** @see UndoAction::undoSize() */
@@ -62,20 +66,18 @@ public:
 
 protected:
 
-    /**
-     * Calculates the size in bytes needed for storing a FileInfo, but
-     * not the FileInfo object itself.
-     */
-    unsigned int infoSize(const FileInfo &info);
+    /** description of the action */
+    QString m_description;
 
-private:
+    /** index of the first sample position */
+    sample_index_t m_offset;
 
-    /** signal manager, needed for calculating sizes */
-    SignalManager &m_manager;
+    /** number of affected samples */
+    sample_index_t m_length;
 
-    /** Array with indices of selected tracks. */
-    FileInfo m_info;
+    /** list of affected track inidices */
+    QList<unsigned int> m_tracks;
 
 };
 
-#endif /* _UNDO_FILE_INFO_H_ */
+#endif /* _UNDO_ADD_META_DATA_ACTION_H_ */

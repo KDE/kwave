@@ -1,8 +1,8 @@
 /***************************************************************************
-    UndoModifyLabelAction.h  -  Undo action for modifying labels
+    UndoModifyMetaDataAction.h  -  Undo action for modifying meta data
 			     -------------------
-    begin                : Sun Sep 03 2006
-    copyright            : (C) 2006 by Thomas Eschenbacher
+    begin                : Sun Apr 03 2011
+    copyright            : (C) 2011 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
 
  ***************************************************************************/
@@ -16,8 +16,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _UNDO_MODIFY_LABEL_ACTION_H_
-#define _UNDO_MODIFY_LABEL_ACTION_H_
+#ifndef _UNDO_MODIFY_META_DATA_ACTION_H_
+#define _UNDO_MODIFY_META_DATA_ACTION_H_
 
 #include "config.h"
 
@@ -25,33 +25,24 @@
 
 #include <kdemacros.h>
 
-#include "libkwave/Sample.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/undo/UndoAction.h"
 
-class Label;
-
 /**
- * Undo action for deleting a label.
+ * Undo action for modifying meta data
  */
-class KDE_EXPORT UndoModifyLabelAction: public UndoAction
+class KDE_EXPORT UndoModifyMetaDataAction: public UndoAction
 {
 public:
 
     /**
      * Constructor
-     * @param label reference to the label that has been changed
+     * @param meta_data reference to the list of meta data that has been changed
      */
-    UndoModifyLabelAction(const Label &label);
+    UndoModifyMetaDataAction(const Kwave::MetaDataList &meta_data);
 
     /** Destructor */
-    virtual ~UndoModifyLabelAction();
-
-    /**
-     * Sets the last known position of the label, for finding it
-     * at the time where the undo() happens (in case it has moved).
-     * @param pos last known position
-     */
-    virtual void setLastPosition(sample_index_t pos);
+    virtual ~UndoModifyMetaDataAction();
 
     /**
      * Returns a verbose short description of the action.
@@ -75,12 +66,9 @@ public:
 
 protected:
 
-    /** the modified label */
-    Label m_label;
-
-    /** the last known location, for finding it again in undo() */
-    sample_index_t m_last_position;
+    /** the unmodified metadata */
+    Kwave::MetaDataList m_saved_data;
 
 };
 
-#endif /* _UNDO_MODIFY_LABEL_ACTION_H_ */
+#endif /* _UNDO_MODIFY_META_DATA_ACTION_H_ */

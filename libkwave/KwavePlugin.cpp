@@ -29,7 +29,6 @@
 #include <QWidget>
 
 #include <kapplication.h>
-#include <kglobal.h>
 #include <klocale.h>
 
 #include "libkwave/ConfirmCancelProxy.h"
@@ -445,12 +444,6 @@ QWidget *Kwave::Plugin::parentWidget()
 }
 
 //***************************************************************************
-FileInfo &Kwave::Plugin::fileInfo()
-{
-    return manager().fileInfo();
-}
-
-//***************************************************************************
 QString Kwave::Plugin::signalName()
 {
     return signalManager().signalName();
@@ -505,86 +498,9 @@ void Kwave::Plugin::selectRange(sample_index_t offset, sample_index_t length)
 }
 
 //***************************************************************************
-void Kwave::Plugin::yield()
-{
-    pthread_testcancel();
-    QThread::yieldCurrentThread();
-}
-
-//***************************************************************************
 void *Kwave::Plugin::handle()
 {
     return m_context.m_handle;
-}
-
-//***************************************************************************
-QString Kwave::Plugin::zoom2string(double percent)
-{
-    QString result = "";
-
-    if (percent < 1.0) {
-	int digits = static_cast<int>(ceil(1.0 - log10(percent)));
-	QString format;
-	format = "%0."+format.setNum(digits)+"f %%";
-	result = format.sprintf(format.toUtf8(), percent);
-    } else if (percent < 10.0) {
-	result = result.sprintf("%0.1f %%", percent);
-    } else if (percent < 1000.0) {
-	result = result.sprintf("%0.0f %%", percent);
-    } else {
-	result = result.sprintf("x %d",
-	    static_cast<int>(rint(percent / 100.0)));
-    }
-    return result;
-}
-
-//***************************************************************************
-QString Kwave::Plugin::ms2string(double ms, int precision)
-{
-    char buf[128];
-    int bufsize = 128;
-
-    if (ms < 1.0) {
-	char format[128];
-	// limit precision, use 0.0 for exact zero
-	int digits = (ms != 0.0) ? static_cast<int>(ceil(1.0 - log10(ms))) : 1;
-	if ( (digits < 0) || (digits > precision)) digits = precision;
-
-	snprintf(format, sizeof(format), "%%0.%df ms", digits);
-	snprintf(buf, bufsize, format, ms);
-    } else if (ms < 1000.0) {
-	snprintf(buf, bufsize, "%0.1f ms", ms);
-    } else {
-	int s = static_cast<int>(round(ms / 1000.0));
-	int m = static_cast<int>(floor(s / 60.0));
-
-	if (m < 1) {
-	    char format[128];
-	    int digits = static_cast<int>(
-		ceil(static_cast<double>(precision+1) - log10(ms)));
-	    snprintf(format, sizeof(format), "%%0.%df s", digits);
-	    snprintf(buf, bufsize, format, ms / 1000.0);
-	} else {
-	    snprintf(buf, bufsize, "%02d:%02d min", m, s % 60);
-	}
-    }
-
-    QString result(buf);
-    return result;
-}
-
-//***************************************************************************
-QString Kwave::Plugin::dottedNumber(unsigned int number)
-{
-    const QString num = QString::number(number);
-    QString dotted = "";
-    const QString dot = KGlobal::locale()->thousandsSeparator();
-    const int len = num.length();
-    for (int i=len-1; i >= 0; i--) {
-	if ((i != len-1) && !((len-i-1) % 3)) dotted = dot + dotted;
-	dotted = num.at(i) + dotted;
-    }
-    return dotted;
 }
 
 //***************************************************************************

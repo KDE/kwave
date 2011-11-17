@@ -337,7 +337,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	// block for encoding now
 	while (vorbis_analysis_blockout(&vd, &vb) == 1) {
 	    // analysis, assume we want to use bitrate management
-	    vorbis_analysis(&vb, NULL);
+	    vorbis_analysis(&vb, 0);
 	    vorbis_bitrate_addblock(&vb);
 
 	    while (vorbis_bitrate_flushpacket(&vd, &op)) {
@@ -346,7 +346,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
 		// write out pages (if any)
 		while (!eos) {
-		    int result = ogg_stream_pageout(&os,&og);
+		    int result = ogg_stream_pageout(&os, &og);
 		    if (!result) break;
 		    dst.write(reinterpret_cast<char*>(og.header), og.header_len);
 		    dst.write(reinterpret_cast<char *>(og.body), og.body_len);
@@ -354,7 +354,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 		    // this could be set above, but for illustrative
 		    // purposes, I do it here (to show that vorbis
 		    // does know where the stream ends)
-		    if (ogg_page_eos(&og)) eos=true;
+		    if (ogg_page_eos(&og)) eos = true;
 		}
 	    }
 	}

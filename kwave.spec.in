@@ -1,44 +1,204 @@
+#############################################################################
+##    Kwave                - kwave.spec
+##                           -------------------
+##    begin                : Sun Feb 03 2008
+##    copyright            : (C) 2008 by Thomas Eschenbacher
+##    email                : Thomas.Eschenbacher@gmx.de
+#############################################################################
+#
+#############################################################################
+##                                                                          #
+##    This program is free software; you can redistribute it and/or modify  #
+##    it under the terms of the GNU General Public License as published by  #
+##    the Free Software Foundation; either version 2 of the License, or     #
+##    (at your option) any later version.                                   #
+##                                                                          #
+#############################################################################
+
+# openSUSE_Factory -> :-)
+# openSUSE_11.2    -> :-)
+# Fedora_12        -> :-)
+# Fedora_11        -> :-)
+# Mandriva_2010    -> :-)
+# CentOS_5         -> :-( pulseaudio is too old, Qt is too old, ...
+
+# norootforbuild
+
 %define ver @RPM_SHORT_VERSION@
 %define release @RPM_RELEASE@
-%define filelist %{name}-@RPM_SHORT_VERSION@/files.list.%{name}
+%define filelist /tmp/%{name}-%{version}-files.list
 
 Summary:	@RPM_SUMMARY@
 Name:		@RPM_NAME@
 Version: 	@RPM_SHORT_VERSION@
 Release: 	@RPM_RELEASE@
-License:	GPL and others, see LICENSES file
-Source0: 	kwave-@RPM_FULL_VERSION@.tar.gz
-Group:  	Productivity/Multimedia/Sound/Editors
+License:	@RPM_COPYRIGHT@
+Source0: 	kwave-@RPM_FULL_VERSION@.tar.bz2
+# Source1: 	%{name}%{version}-rpmlintrc
+Group:  	"Productivity/Multimedia/Sound/Editors and Convertors"
 URL:		@RPM_URL@
 Vendor: 	@RPM_VENDOR@
-BuildRoot: 	@RPM_BUILDROOT@
-Prefix:   	@prefix@
-Provides:	@RPM_NAME@
-Requires: 	libqt.so.4 >= 4.5
-Requires: 	kdelibs4 >= 4.0
-Requires:	@RPM_REQUIRE_ID3LIB@ >= 3.8.1
-Requires:	libvorbis.so.0 >= 0.2.0
+BuildRoot: 	%{_tmppath}/%{name}-%{version}-build
+# Provides:	kwave
+
+# common for all distributions
+Requires:	audiofile >= 0.2.3
 Requires:	libvorbisenc.so.2 >= 2.0.0
 Requires:	libogg.so.0 >= 0.4.0
-Requires:	@RPM_REQUIRE_LIBMAD@ > 0.14
-Requires:	audiofile >= 0.2.3
-Requires:	fftw >= 3.0
 Requires:	flac
-Requires:       libsamplerate >= 0.1.3
-BuildRequires:  cmake >= 2.6.0
-BuildRequires:	flac-devel
-BuildRequires:	id3lib-devel >= 3.8.1
-BuildRequires:	kdemultimedia3-devel
-BuildRequires:	libogg-devel >= 1
-BuildRequires:	audiofile > 0.2.3
-BuildRequires:	libvorbis >= 1
-BuildRequires:	fftw >= 3.0
-BuildRequires:	kdesdk3-translate
-BuildRequires:  gettext-devel
-BuildRequires:  ImageMagick
+Requires:	libvorbis >= 1
+Requires:	libsamplerate >= 0.1.3
+BuildRequires:	cmake >= 2.6.0
+BuildRequires:	gettext-devel
+BuildRequires:	ImageMagick
+BuildRequires:	sed
 
-Conflicts: 	libkwave
-Obsoletes: 	libkwave
+# SuSE specific:
+%if %{defined suse_version}
+Prefix:   	/usr
+Requires:	%kde4_runtime_requires
+Requires:	alsa
+Requires:	fftw3 >= 3.0
+Requires:	libqt4 >= 4.2
+Requires:	pulseaudio >= 0.9.16
+BuildRequires:	audiofile-devel >= 0.2.3
+BuildRequires:	libqt4-devel > 4.5
+BuildRequires:	libkde4-devel >= 3.93
+BuildRequires:	alsa-devel
+BuildRequires:	flac-devel
+BuildRequires:	fftw3-devel >= 3.0
+BuildRequires:	kde4-l10n-devel
+BuildRequires:	kdemultimedia4-devel
+BuildRequires:	awk
+BuildRequires:	libogg-devel >= 1
+BuildRequires:	libvorbis-devel
+BuildRequires:	pulseaudio-devel
+BuildRequires:	libsamplerate-devel
+BuildRequires:	update-desktop-files
+%define EXTRA_OPTS ""
+%endif
+
+# CentOS specific:
+%if %{defined centos_version}
+Prefix:   	/usr
+Requires: 	kdelibs >= 4.0
+Requires:	alsa-lib
+BuildRequires:	audiofile-devel >= 0.2.3
+BuildRequires:	alsa-lib-devel
+BuildRequires:	libogg-devel >= 1
+BuildRequires:	libvorbis-devel
+BuildRequires:	libsamplerate-devel
+BuildRequires:	flac-devel
+BuildRequires:	gcc-c++
+BuildRequires:	kdesdk >= 4.0
+BuildRequires:	kdemultimedia-devel >= 4.0
+BuildRequires:	gawk
+BuildRequires:	pulseaudio-devel
+%define EXTRA_OPTS ""
+%endif
+
+# Fedora specific:
+%if %{defined fedora_version}
+Prefix:   	/usr
+Requires:	qt4 >= 4.5
+Requires:	qt4-x11 >= 4.5
+Requires:	kdelibs4 >= 3.94
+Requires:	alsa-lib
+Requires:	fftw3 >= 3.0
+BuildRequires:	audiofile-devel >= 0.2.3
+BuildRequires:	alsa-lib-devel
+BuildRequires:	fftw3-devel >= 3.0
+BuildRequires:	flac-devel
+BuildRequires:	libogg-devel >= 1
+BuildRequires:	libsamplerate-devel
+BuildRequires:	libvorbis-devel
+BuildRequires:	gcc-c++
+BuildRequires:	qt4-devel >= 4.5.0
+BuildRequires:	kdesdk >= 3.94
+BuildRequires:	kdelibs4-devel >= 3.94
+BuildRequires:	kdemultimedia-devel >= 3.94
+BuildRequires:	gawk
+%define EXTRA_OPTS -DQT_DBUSXML2CPP_EXECUTABLE=/usr/lib/qt4/bin/qdbusxml2cpp
+%define EXTRA_PATH /usr/lib/qt4/bin
+%if %{fedora_version} <= 11
+%define EXTRA_OPTS -DQT_DBUSXML2CPP_EXECUTABLE=/usr/lib/qt4/bin/qdbusxml2cpp -DWITH_PULSEAUDIO=OFF
+%else
+Requires:	pulseaudio >= 0.9.16
+BuildRequires:	pulseaudio-devel
+%endif
+%endif
+
+# RedHat specific:
+%if %{defined rhel_version}
+Requires:	qt4 >= 4.5
+Requires:	qt4-x11 >= 4.5
+Requires:	kdelibs >= 4.0
+Requires:	alsa-lib
+Requires:	audiofile
+Requires:	pulseaudio >= 0.9.16
+Requires:	pulseaudio-libs >= 0.9.16
+BuildRequires:	kernel
+BuildRequires:	libogg >= 1
+BuildRequires:	libvorbis
+BuildRequires:	audiofile-devel >= 0.2.3
+BuildRequires:	alsa-lib-devel
+BuildRequires:	flac
+BuildRequires:	gcc-c++
+BuildRequires:	qt-devel >= 4.5
+BuildRequires:	kdesdk
+BuildRequires:	kdelibs-devel >= 4.0
+# BuildRequires:	kdemultimedia-devel >= 3.94
+BuildRequires:	gawk
+# BuildRequires:	kdemultimedia4-devel
+BuildRequires:	pulseaudio-libs-devel
+%define EXTRA_OPTS ""
+%endif
+
+# Mandriva specific:
+%if %{defined mandriva_version}
+Prefix:   	/usr
+Requires: 	kdelibs4 >= 4.0
+Requires:	kdemultimedia4 >= 4.0
+Requires:	alsa-lib
+Requires:	fftw3 >= 3.0
+Requires:	id3lib >= 3.8.1
+BuildRequires:	kernel-xen
+BuildRequires:	audiofile-devel >= 0.2.3
+BuildRequires:	libmad >= 0.14
+BuildRequires:	libsamplerate-devel
+BuildRequires:	alsa-lib-devel
+BuildRequires:	libogg-devel >= 1
+BuildRequires:	libvorbis-devel
+BuildRequires:	libflac++-devel
+BuildRequires:	gcc-c++
+BuildRequires:	kdesdk4 >= 4.0
+BuildRequires: 	kdelibs4-devel
+BuildRequires:	kdemultimedia4-devel  >= 3.93
+BuildRequires:	fftw3-devel >= 3.0
+BuildRequires:	gawk
+BuildRequires:	libmad-devel >= 0.14
+BuildRequires:	id3lib-devel >= 3.8.1
+BuildRequires: 	phonon-xine
+BuildRequires: 	free-kde4-config
+BuildRequires: 	kde4-l10n-de >= 4.0
+BuildRequires: 	kde4-l10n-fr >= 4.0
+BuildRequires: 	kde4-l10n-cs >= 4.0
+BuildRequires: 	mandriva-theme-Free
+BuildRequires: 	wget
+BuildRequires: 	mandriva-theme-Free-screensaver
+BuildRequires: 	kernel-xen
+%define EXTRA_OPTS -DWITH_PULSEAUDIO=OFF
+
+
+# Mandriva has paid for using patented MP3 code and therefore are
+# allowed to ship with MP3 support
+%define MP3ENABLED "-DWITH_MP3=ON"
+%define EXTRA_OPTS ""
+%else
+# all other distributions are not allowed to ship with MP3 support,
+# at least not in the USA
+%define MP3ENABLED "-DWITH_MP3=OFF"
+%endif
 
 %description
 With Kwave you can edit many sorts of audio files
@@ -53,47 +213,167 @@ graphical view with a complete zoom-and scroll capability.
 
 %setup
 
-rm -rf "$RPM_BUILD_ROOT"
-DESTDIR=""
+PATH=%{EXTRA_PATH}:${PATH}
 unset DESTDIR
-
 mkdir build
+pwd
 cd build
-PATH=${PATH}:%{prefix}/bin \
-    CXXFLAGS="${CXXFLAGS} ${RPM_OPT_FLAGS}" \
-    CFLAGS="${CFLAGS} ${RPM_OPT_FLAGS}" \
-    cmake .. \
-    ${CONFIGURE_OPTS}
+pwd
+CXXFLAGS="${CXXFLAGS} ${RPM_OPT_FLAGS}" CFLAGS="${CFLAGS} ${RPM_OPT_FLAGS}" \
+	cmake ${CONFIGURE_OPTS} %{MP3ENABLED} %{EXTRA_OPTS} ..
+pwd
 
 %build
-DESTDIR=""
 unset DESTDIR
 make -C build $MAKE_FLAGS
 
 %install
-rm -rf "$RPM_BUILD_ROOT"
 make -C build DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
 
 cd "$RPM_BUILD_ROOT"
-echo "%defattr(-,root,root)" > "$RPM_BUILD_DIR"/%{filelist}
-find . -type d | sed '1,2d;s,^\.,\%attr(-\,root\,root) \%dir ,' >> "$RPM_BUILD_DIR"/%{filelist}
-find . -type f | sed 's,^\.,\%attr(-\,root\,root) \%dir ,' >> "$RPM_BUILD_DIR"/%{filelist}
-find . -type l | sed 's,^\.,\%attr(-\,root\,root) \%dir ,' >> "$RPM_BUILD_DIR"/%{filelist}
-# remove files/directories that should not get into the package
-mv "$RPM_BUILD_DIR"/%{filelist} /tmp/files.lst.tmp
-cat /tmp/files.lst.tmp | grep -v /default$ | \
-	grep -v /de$ | grep -v /en$ > /tmp/files.list.%{name}
-rm -f /tmp/files.lst.tmp
+echo "%defattr(-,root,root)" > %{filelist}
+find . -type d -user abuild | grep kwave | sed '1,2d;s,^\.,\%attr(-\,root\,root) \%dir ,' >> %{filelist}
+%if %{defined suse_version}
+echo "%attr(-,root,root) %dir /usr/share/doc/kde/HTML/cs"       >> %{filelist}
+echo "%attr(-,root,root) %dir /usr/share/doc/kde/HTML/de"       >> %{filelist}
+echo "%attr(-,root,root) %dir /usr/share/doc/kde/HTML/fr"       >> %{filelist}
+echo "%attr(-,root,root) %dir /usr/share/doc/kde/HTML/de/kwave" >> %{filelist}
+echo "%attr(-,root,root) %dir /usr/share/doc/kde/HTML/cs/kwave" >> %{filelist}
+echo "%attr(-,root,root) %dir /usr/share/doc/kde/HTML/de/kwave" >> %{filelist}
+echo "%attr(-,root,root) %dir /usr/share/doc/kde/HTML/en/kwave" >> %{filelist}
+echo "%attr(-,root,root) %dir /usr/share/doc/kde/HTML/fr/kwave" >> %{filelist}
+echo "%attr(-,root,root) %dir /usr/share/kde4/apps/kwave"       >> %{filelist}
+echo "%attr(-,root,root) %dir /usr/share/kde4/apps/kwave/pics"  >> %{filelist}
+echo "%attr(-,root,root) %dir /usr/lib*/kde4/plugins/kwave"     >> %{filelist}
+%endif
+find . -type f -user abuild | grep kwave | sed 's,^\.,\%attr(-\,root\,root) ,' >> %{filelist}
+find . -type l -user abuild | grep kwave | sed 's,^\.,\%attr(-\,root\,root) ,' >> %{filelist}
 
-%files -f /tmp/files.list.%{name}
+cat %{filelist}
 
-%doc
+%files -f %{filelist}
+%defattr(-,root,root)
+
+
+%doc GNU-LICENSE AUTHORS LICENSES CHANGES README TODO kwave.lsm
+%defattr(-,root,root)
 
 %clean
 rm -Rf "$RPM_BUILD_ROOT"
+rm -fv %{filelist}
 
 %post
 ldconfig
 
 %postun
 ldconfig
+
+%changelog
+
+* Sun Nov 27 2011 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+- v0.8.7 - ebuild update for media-gfx/imagemagick vs media-gfx/graphicsmagick
+   (see gentoo bug #314325)
+- new feature: "insert at", paste clipboard at given position
+- fix for API change in libaudiofile v0.3.1
+- speedup: loading ogg/mp3 is much faster now (up to factor 2)
+- bugfix: stream name of pulse audio playback used wrong encoding
+- update of the Kwave spec file (synced with OpenSuSE build service version)
+* Mon Mar 07 2011 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+- v0.8.6 - bugfix: copy/paste with partial track selection failed
+- bugfix: labels update after undo of copy&paste failed on multitrack signals
+- string/i18n update from Panagiotis Papadopoulos
+- bugfix: invocation of xgettext was wrong, left untranslated strings
+- plugin API change: support for translateable short description
+- about plugin: use plugin info from PluginManager
+- bugfix: last directory of file dialogs sometimes got lost
+- bugfix: wrong message when canceling Ogg import
+- replaced sched_yield() with QThread::yieldCurrentThread()
+- added cmake parameter for disabling optimized memcpy support
+   -D WITH_OPTIMIZED_MEMCPY=OFF, default is ON
+- integrated patch #3021795 for Qt-4.7 compatibility
+- bugfix: optimized memcpy for PPC (SF bug #3068664)
+- doc: upgrade to DocBook XML V4.2 / V1.1
+- build fixes for qt-4.7
+- no longer using QSplashScreen (has side effects, operates as modal window)
+- bugfix: startup as unique application did not work correctly
+- bugfix: potential crash in message loop of progress dialog
+- bugfix: handling of track selection was wrong in reverse plugin
+- workaround for bug in libaudiofile: some files have sampe rate zero,
+   falling back to 8000 samples/sec in that case (audio/x-ircam, sun, BE)
+- bugfix: reverse failed on files smaller than the internal block size
+* Thu Dec 24 2009 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+- v0.8.5 - new feature: playback via PulseAudio
+- applied kwave-0.8.2-nolinguas.patch (see gentoo bug #267702)
+- support for the Gentoo build system that steals .po files
+- no longer default to english language for documentation and gui l10n
+- fixed use count mismatch of plugins
+- bugfix: playback control: continuing after pause continued from start
+- bugfix: G.711 encoded wav files support only 16 bit signed format
+- new assignment for mouse wheel:
+   - without modifier key: scroll left/right
+   - with Shift: page left/right
+   - with Ctrl: zoom in/out
+   - with Alt: vertical zoom in/out
+- bugfix: support sysinfo.mem_unit when >= 4GB RAM are installed
+- bugfix: crash in progress dialog handling (crashed when closing a plugin
+   after finishing it's work)
+- new ebuild for Gentoo
+* Sat Sep 09 2009 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+- v0.8.4 - new plugin: change sample rate
+- new feature: support for primitive macros (batch files), playback only
+- using libsamplerate (new dependency)
+- new feature: sample rate conversion on clipboard data
+- new feature: abillity to set recording start time in advance
+   (feature requested by John David Thompson)
+- bugfix: drag&drop of files on the main window was broken
+- workaround for bug in id3lib which crashed in ID3_Tag::GetSize()
+   with some MP3 files (see id3lib upstream bug at SF #2821464)
+- bugfix: recording via ALSA, crash on snd_pcm_close(),
+   see SF bug #2816544
+- bugfix: playback plugin: infinite loop when switching from OSS to ALSA
+- bugfix: forcing clipboard and drag&drop data to uncompressed mode
+- bugfix: deadlock in progress bar handling
+- bugfix: crash when unloading plugins with queued events
+- help/about dialog: hide "translators" tab if no translator available
+- help/about dialog: hack to allow web addresses of translators
+- bugfix: selection was not set after "paste" and undo of other operations
+- bugfix: label handling in context of "delete" and "undo" was broken
+- bugfix: invalidation of overview cache after delete was not correct
+- bugfix: artefacts in track display in min/max overview mode
+- bugfix: add/delete/modify of labels did not set the state of the
+   current file to "modified"
+- bugfix: record dialog caused shutdown to hang when closed while recording
+- bugfix: decoding 32bit/sample was broken
+- bugfix: recording level meter consumed 100% cpu
+- new make target: "make apidoc" for internal doxygen documentation
+- bugfix: some images and icons in non-english documentation were missing
+- volume plugin: preview was not updated on first use of plugin
+* Sat Jul 04 2009 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+- v0.8.3-2 - bugfix: re-enabled detection of optimized memcpy function
+- bugfix: deadlock in recording plugin and plugin management
+- bugfix: ID3 tag import did not work
+- taking ID3 tag for "album" as "product" in wav meta data
+- taking ID3 tag for "track" as "subject" in wav meta data
+* Sat Jun 27 2009 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+- v0.8.3-1 - speedups of GUI and memory management
+- new plugin "normalize"
+- new plugin "reverse"
+* Sat Apr 18 2009 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+- v0.8.2-2 - bugfix release
+- added czech gui translation from Pavel Fric <pavelfric@seznam.cz>
+- speed optimizations
+* Tue Dec 23 2008 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+- v0.8.1-1 - bugfixes in label handling
+- new clipboard implementation, using the clipboard of KDE (X11)
+- fixed enable/disable of copy/paste functions depending on clipboard state
+- re-enabled function "flush clipboard"
+- re-enabled function "invert track selection"
+- re-enabled function "select all tracks"
+- implemented plugin for "go to position..."
+- new features for status bar and overview widget
+- no longer using builtin version of libaudiofile
+* Sat Oct 10 2008 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+- v0.8.0-2 - replaced application icon, using a scalable svg image
+- replaced GSL with FFTW3, which is license compatible with Kwave
+* Sat Sep 27 2008 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+- v0.8.0 - first version for KDE-4 / Qt-4

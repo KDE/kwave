@@ -58,15 +58,9 @@ GET_LSM(RPM_SUMMARY "Keywords")
 GET_LSM(RPM_NAME "Title")
 GET_LSM(RPM_COPYRIGHT "Copying-policy")
 GET_LSM(RPM_URL "Homepage")
+GET_LSM(RPM_VENDOR "Maintained-by")
 SET(RPM_VENDOR "Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>")
-SET(RPM_BUILDROOT "/tmp/kwave-%{version}.root")
 SET(prefix "${KDE4_INSTALL_DIR}")
-
-#############################################################################
-### conditional fields                                                    ###
-
-SET(RPM_REQUIRE_ID3LIB id3lib)
-SET(RPM_REQUIRE_LIBMAD libmad)
 
 #############################################################################
 ### generate the .spec file                                               ###

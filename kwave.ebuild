@@ -10,8 +10,11 @@
 ##                                                                          #
 #############################################################################
 
-EAPI="2"
-KDE_MINIMAL="4.2"
+EAPI=4
+
+KDE_HANDBOOK="optional"
+CMAKE_MIN_VERSION="2.6.0"
+KDE_MINIMAL="4.7"
 KDE_LINGUAS="cs de en fr"
 inherit gnome2-utils kde4-base
 
@@ -24,9 +27,11 @@ SLOT="4"
 KEYWORDS="~amd64 ~ppc ~x86"
 IUSE="alsa debug flac handbook mad mmx ogg oss phonon pulseaudio"
 
+DOCS=( AUTHORS LICENSES CHANGES TODO README )
+
 RDEPEND="
 	!media-sound/kwave:0
-	media-libs/audiofile
+	>=media-libs/audiofile-0.3.1
 	sci-libs/fftw
 	alsa? ( media-libs/alsa-lib )
 	flac? ( media-libs/flac )
@@ -38,7 +43,7 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	>=dev-util/cmake-2.6.0
 	>=kde-base/kdesdk-misc-${KDE_MINIMAL}[extras]
-	|| ( media-gfx/imagemagick[png?] media-gfx/graphicsmagick[imagemagick,png?] )"
+	|| ( media-gfx/imagemagick[png] media-gfx/graphicsmagick[imagemagick,png] )"
 
 src_configure() {
 	use mmx && append-flags -mmmx

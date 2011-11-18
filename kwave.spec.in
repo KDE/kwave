@@ -68,7 +68,7 @@ BuildRequires:	alsa-devel
 BuildRequires:	flac-devel
 BuildRequires:	fftw3-devel >= 3.0
 BuildRequires:	kde4-l10n-devel
-BuildRequires:	kdemultimedia4-devel
+BuildRequires:	kdemultimedia4
 BuildRequires:	awk
 BuildRequires:	libogg-devel >= 1
 BuildRequires:	libvorbis-devel

@@ -16,6 +16,13 @@
 #############################################################################
 
 INCLUDE(CheckLibraryExists)
+INCLUDE(FindPkgConfig)
+INCLUDE(UsePkgConfig)
+
+PKG_CHECK_MODULES(LIBAUDIOFILE REQUIRED audiofile>=0.3.0)
+IF (NOT LIBAUDIOFILE_FOUND)
+    MESSAGE(FATAL_ERROR "audiofile library not found or too old")
+ENDIF(NOT LIBAUDIOFILE_FOUND)
 
 #############################################################################
 ### checks for some data types                                            ###

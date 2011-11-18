@@ -38,14 +38,14 @@ DIRECTLY USED EXTERNAL LIBRARIES
 	* FFTW-3.x			GPL2+
 	* audiofile-0.2.6		LGPL2+ / GPL2+
 	* id3lib-3.8.3			LGPL2.1
-	* mad-0.15.1b			GPL-2 <= possible patent issue !!!
+	* mad-0.15.1b			GPL2+ <= possible patent issue !!!
 	* ogg-1.1.3			~BSD style
 	* flac-1.2.1			Xiph.Org's BSD-like + GPL2 + LGPL2
 	* alsa-lib-1.0.16		LGPL2.1
 	* OSS-3.8			GPL2, CDDL, BSD
 	* libstdc++-v3.3.6		LGPL2.1
 	* glibc-2.6.1			LGPL2
-	* libsamplerate-0.1.4		GPL2
+	* libsamplerate-0.1.4		GPL2+
 
 LICENSE ISSUES
 ==============
@@ -104,6 +104,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	CMakeLists.txt					GPL2+
 
 	bin/get_lsm_entry.sh				GPL2+
+	bin/make-specfile-changelog.pl			GPL2+
 	bin/menusconfig2cpp.sh				GPL2+
 	bin/set_version.sh				GPL2+ / portions of Martin Wilz
 

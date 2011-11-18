@@ -3,7 +3,7 @@ Title:          kwave
 Version:	0.8.7
 Entered-date:	27NOV2011
 Description:    A sound editor for KDE.
-Keywords:       KDE, Qt, WAV, Sound, Sonagram, Sample, Effects, 24 Bit, Ogg, Vorbis, FLAC, ALSA, OSS, playback, recording
+Keywords:       KDE, Qt, WAV, Sound, Editor, Effects, playback, recording
 Author:         Martin Wilz <martin@wilz.de>
 Maintained-by:  Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
 Homepage:       http://kwave.sourceforge.net

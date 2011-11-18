@@ -22,9 +22,10 @@
 
 #include <sys/types.h>
 #include <limits.h>
+#include <QtGlobal>
 
 /** use a unsigned integer for sample offset/count calculations */
-typedef u_int64_t sample_index_t;
+typedef qulonglong sample_index_t;
 
 /** the highest possible sample index */
 #define SAMPLE_INDEX_MAX UINT_MAX

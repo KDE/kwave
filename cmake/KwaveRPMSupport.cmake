@@ -63,25 +63,38 @@ SET(RPM_VENDOR "Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>")
 SET(prefix "${KDE4_INSTALL_DIR}")
 
 #############################################################################
+### generate the .changes file                                            ###
+
+SET(_changes ${DISTFILES_DIR}/kwave.changes)
+ADD_CUSTOM_COMMAND(OUTPUT ${_changes}
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/bin/make-specfile-changelog.pl
+        ${CMAKE_CURRENT_SOURCE_DIR}/CHANGES
+        ${_changes}
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CHANGES
+)
+
+SET(KWAVE_ADDITIONAL_CLEAN_FILES ${KWAVE_ADDITIONAL_CLEAN_FILES} ${_changes})
+
+#############################################################################
 ### generate the .spec file                                               ###
 
-SET(_specfile kwave.spec)
+SET(_specfile ${DISTFILES_DIR}/kwave.spec)
 CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/kwave.spec.in
-    ${CMAKE_CURRENT_BINARY_DIR}/${_specfile}
+    ${_specfile}
     @ONLY
 )
 
 #############################################################################
 ### "make tarball"                                                        ###
 
-SET(_tarball /tmp/kwave-${RPM_FULL_VERSION}.tar)
+SET(_tarball ${DISTFILES_DIR}/kwave-${RPM_FULL_VERSION}.tar)
 SET(_tarball_bz2 ${_tarball}.bz2)
 
 ADD_CUSTOM_COMMAND(OUTPUT ${_tarball_bz2}
     COMMAND ${TAR_EXECUTABLE}
         -c
-        --exclude=.svn --exclude=testfiles
+        --exclude=.svn --exclude=testfiles --exclude=*~
         --owner=root --group=root
         -C ${CMAKE_SOURCE_DIR}
         --transform=s+^./+kwave-${RPM_SHORT_VERSION}/+g
@@ -89,17 +102,19 @@ ADD_CUSTOM_COMMAND(OUTPUT ${_tarball_bz2}
         .
     COMMAND ${TAR_EXECUTABLE} --append -f ${_tarball}
         --owner=root --group=root
-        -C ${CMAKE_BINARY_DIR}
-        --transform=s+^./+kwave-${RPM_SHORT_VERSION}/+g
-        ./${_specfile}
+        -C ${DISTFILES_DIR}
+        --transform=s+^+kwave-${RPM_SHORT_VERSION}/+g
+        kwave.spec
     COMMAND ${RM_EXECUTABLE} -f ${_tarball_bz2}
     COMMAND ${BZIP2_EXECUTABLE} ${_tarball}
-    DEPENDS ${CMAKE_BINARY_DIR}/${_specfile}
+    DEPENDS ${_specfile}
 )
 
 ADD_CUSTOM_TARGET(tarball
     DEPENDS ${_tarball_bz2}
 )
+
+SET(KWAVE_ADDITIONAL_CLEAN_FILES ${KWAVE_ADDITIONAL_CLEAN_FILES} ${_tarball_bz2})
 
 #############################################################################
 ### source RPM                                                            ###
@@ -124,7 +139,7 @@ ADD_CUSTOM_COMMAND(OUTPUT ${_src_rpm}
 )
 
 ADD_CUSTOM_TARGET(src_rpm
-    DEPENDS ${_src_rpm} ${CMAKE_CURRENT_BINARY_DIR}/${_specfile}
+    DEPENDS ${_src_rpm} ${_specfile} ${_changes}
 )
 
 #############################################################################
@@ -132,7 +147,17 @@ ADD_CUSTOM_TARGET(src_rpm
 
 ADD_CUSTOM_TARGET(rpm
     COMMAND ${RPMBUILD_EXECUTABLE} --rebuild --nodeps ${_src_rpm}
-    DEPENDS ${_src_rpm} ${CMAKE_CURRENT_BINARY_DIR}/${_specfile}
+    DEPENDS ${_src_rpm} ${_specfile}
+)
+
+#############################################################################
+### add files to the list of distribution files                           ###
+
+SET(KWAVE_DISTFILES
+    ${KWAVE_DISTFILES}
+    ${_tarball_bz2}
+    ${_specfile}
+    ${_changes}
 )
 
 #############################################################################

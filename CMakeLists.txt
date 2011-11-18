@@ -304,6 +304,10 @@ INCLUDE(KwavePackageMessages)
 #############################################################################
 ### RPM support                                                           ###
 
+# directory that receives the files of the "distfiles" target
+SET(DISTFILES_DIR ${CMAKE_BINARY_DIR}/v${KWAVE_VERSION_FULL})
+FILE(MAKE_DIRECTORY ${DISTFILES_DIR})
+
 INCLUDE(KwaveRPMSupport)
 
 #############################################################################
@@ -347,6 +351,20 @@ CONFIGURE_FILE(
 ### Gentoo support                                                        ###
 
 INCLUDE(KwaveEbuild)
+
+#############################################################################
+### collection of all files used for distribution                         ###
+
+SET(_distfiles_md5sum ${DISTFILES_DIR}/MD5SUMS-${KWAVE_VERSION_FULL})
+
+ADD_CUSTOM_COMMAND(OUTPUT ${_distfiles_md5sum}
+    COMMAND md5sum ${KWAVE_DISTFILES} > ${_distfiles_md5sum}
+    DEPENDS ${KWAVE_DISTFILES}
+)
+
+ADD_CUSTOM_TARGET(distfiles
+    DEPENDS ${KWAVE_DISTFILES} ${_distfiles_md5sum}
+)
 
 #############################################################################
 ### uninstall support                                                     ###

@@ -8,6 +8,7 @@
  * speedup: loading ogg/mp3 is much faster now (up to factor 2)
  * bugfix: stream name of pulse audio playback used wrong encoding
  * update of the Kwave spec file (synced with OpenSuSE build service version)
+ * new build target "distfiles"
 
 0.8.6  [2011-03-07]
 
@@ -638,7 +639,7 @@
  * Help menu aligned to the right side (MenuRoot now is able to process
    the special command "#separator")
 
-0.5.2-1...0.5.2-8 [...2000-05-18]
+0.5.2-8 [2000-05-18]
 
  * replaced all occurances of sprintf with snprintf, strcpy with strncpy
    (in 92 places) !
@@ -682,7 +683,7 @@
  * bugfix in KWaveApp: now sets globals.app to this if it was null before,
    now doesn't crash if it loads a file specified at cmdline
 
-0.5.1-4
+0.5.1-4 [2000-04-16]
 
  * >>> now compiles and runns under RedHat 6.1 / Halloween IV <<<
    >>> as well as under SuSE 6.2                              <<<
@@ -700,7 +701,7 @@
  * all plugins are automatically found and compiled
  * new target "make src.rpm" makes only the source rpm
 
-0.5.1-3
+0.5.1-3 [2000-04-03]
 
  * display will be scrolled left or zoomed if something from the end
    of the signal is deleted
@@ -748,7 +749,7 @@
  * corrected the call of "delete", now really deletes instead of cutting
    and copying the selection to the clipboard (saves clipboard content)
 
-1999-12-18 (by mwilz@ernie.mi.uni-koeln.de)
+1999-12-18 (by Martin Wilz <mwilz@ernie.mi.uni-koeln.de>)
 
  * changed filenames to reflect class names
  * one class per file is now the standard
@@ -792,7 +793,7 @@
 
  * merged with Martin Wilz's version
 
-1999-11
+1999-11-12 (by Martin Wilz <mwilz@ernie.mi.uni-koeln.de>)
 
  * version numbering script donated by Thomas Eschenbacher
  * now using KTMainwindow for top level widgets
@@ -801,7 +802,7 @@
  * labelling code rewritten, now incompatible with old releases
  * batch loading routines
 
-1999-10
+1999-09-07 (by Martin Wilz <mwilz@ernie.mi.uni-koeln.de>)
 
  * deleting channels works again
  * fixed savelabel dialog
@@ -825,11 +826,11 @@
  * io functions and playback adapted to SignalManager
  * Introduction of SignalManager class for multiple channel management
 
-0.29.5 [1998-04]
+0.29.5 [1998-12-25] (by Martin Wilz <mwilz@ernie.mi.uni-koeln.de>)
 
  * Just a fix for an annoying bug while zooming out
 
-0.29.4 [1998-03]
+0.29.4 [1998-12-22] (by Martin Wilz <mwilz@ernie.mi.uni-koeln.de>)
 
  * removed a memory leak in playback
  * triple-checked the missing Accelerators in the Menumanager. It seems to
@@ -841,7 +842,7 @@
    before 0.29.3 and corrected some otherwise screwed-up behaviour
  * _now_ all parameters to destructors should have vanished
 
-0.29.3 [1998-02]
+0.29.3 [1998-12-18] (by Martin Wilz <mwilz@ernie.mi.uni-koeln.de>)
 
  * developement has slowed down a bit, this release is not as complete as I
    wished but since 0.29.2 has a destructor with parameters accidently left
@@ -855,18 +856,18 @@
    are still missing
  * Halt button by Gerhard Zintel
 
-0.29.2
+0.29.2 [1998-12-15] (by Martin Wilz <mwilz@ernie.mi.uni-koeln.de>)
 
  * moved clipboard functionality to its own class
  * dynamic allocation of menu entries used by all classes but TopWidget
  * import of ascii data files
 
-0.29.1
+0.29.1 [1998-12-13] (by Martin Wilz <mwilz@ernie.mi.uni-koeln.de>)
 
  * Bugfix for multichannel save. Now the saved files should work with other prgs
  * local snap to peak by Gerhard Zintel
 
-0.29.0
+0.29.0 [1998-11-12] (by Martin Wilz <mwilz@ernie.mi.uni-koeln.de>)
 
  * changed version numbering and filename as suggested by
    Version 1.1 of "How To Name Things" from sunsite. The last digit will
@@ -893,7 +894,7 @@
  * Improved ProgressDialog and Interpolation class to allow multiple threads
  * fixed some minor bugs
 
-0.28 [1998-07-15]
+0.28 [1998-07-15] (by Martin Wilz <mwilz@ernie.mi.uni-koeln.de>)
 
  * changes in curvewidget (recent point has another pixmap).
  * sorting of labels now works without overwriting of QGList::compareItems.
@@ -902,7 +903,7 @@
  * signal finding function in markers.cpp: gui improved.
  * some smaller bug fixes.
 
-0.27
+0.27 [1998-07-14] (by Martin Wilz <mwilz@ernie.mi.uni-koeln.de>)
 
  * first release, but never uploaded, because ftp.kde.org was down.
 

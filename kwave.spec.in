@@ -269,7 +269,6 @@ ldconfig
 ldconfig
 
 %changelog
-
 * Sun Nov 27 2011 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
 - v0.8.7 - ebuild update for media-gfx/imagemagick vs media-gfx/graphicsmagick
    (see gentoo bug #314325)

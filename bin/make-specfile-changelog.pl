@@ -68,7 +68,7 @@ while (<IN>) {
 
 	print OUT "\n";
 	print OUT "-------------------------------------------------------------------\n";
-	print OUT $date . " " . $author . "\n";
+	print OUT $date . " - " . $author . "\n";
 	print OUT "\n";
 	if ($version) {
 	    print OUT "- " . $version . "\n";

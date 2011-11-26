@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-16 15:50+0100\n"
+"POT-Creation-Date: 2011-11-26 15:56+0100\n"
 "PO-Revision-Date: 2011-11-16 15:49+0100\n"
 "Last-Translator: \n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1581,7 +1581,7 @@ msgstr "Acid Punk"
 msgid "Acoustic"
 msgstr "Acoustic"
 
-#: kwave/MainWidget.cpp:835 libkwave/SignalManager.cpp:1777
+#: kwave/MainWidget.cpp:835 libkwave/SignalManager.cpp:1783
 msgid "Add Label"
 msgstr "Markierung hinzufügen"
 
@@ -2228,7 +2228,7 @@ msgctxt ""
 msgid "Delete %1 %2 objects"
 msgstr "Löschen von %1 Objekten des Typs %2"
 
-#: libkwave/SignalManager.cpp:1806
+#: libkwave/SignalManager.cpp:1812
 msgid "Delete Label"
 msgstr "Markierung löschen"
 
@@ -3354,11 +3354,11 @@ msgstr "MS Stereo"
 msgid "Maintainers of the 'id3lib' library"
 msgstr "Betreuer der 'id3lib'-Bibliothek"
 
-#: libkwave/SignalManager.cpp:1890
+#: libkwave/SignalManager.cpp:1896
 msgid "Manual Selection"
 msgstr "Manuelle Auswahl"
 
-#: libkwave/SignalManager.cpp:1888
+#: libkwave/SignalManager.cpp:1894
 msgid "Manual Track Selection"
 msgstr "Manuelle Track-Auswahl"
 
@@ -3480,7 +3480,7 @@ msgctxt ""
 msgid "Modify %1 %2 objects"
 msgstr "Ändern von %1 Objekten des Typs %2"
 
-#: libkwave/SignalManager.cpp:1733
+#: libkwave/SignalManager.cpp:1739
 msgid "Modify File Info"
 msgstr "Datei-Information ändern"
 

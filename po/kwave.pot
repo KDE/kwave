@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-16 15:56+0100\n"
+"POT-Creation-Date: 2011-11-26 15:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -451,7 +451,7 @@ msgstr ""
 msgid "(c) 2011, Thomas Eschenbacher"
 msgstr ""
 
-#: kwave/MainWidget.cpp:835 libkwave/SignalManager.cpp:1777
+#: kwave/MainWidget.cpp:835 libkwave/SignalManager.cpp:1783
 msgid "Add Label"
 msgstr ""
 
@@ -1478,19 +1478,19 @@ msgstr ""
 msgid "Last Action"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:1733
+#: libkwave/SignalManager.cpp:1739
 msgid "Modify File Info"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:1806
+#: libkwave/SignalManager.cpp:1812
 msgid "Delete Label"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:1888
+#: libkwave/SignalManager.cpp:1894
 msgid "Manual Track Selection"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:1890
+#: libkwave/SignalManager.cpp:1896
 msgid "Manual Selection"
 msgstr ""
 
@@ -3278,6 +3278,83 @@ msgstr ""
 msgid "Silence"
 msgstr ""
 
+#: libgui/ui_SelectTimeWidgetBase.h:287
+msgid "frmLength"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:290
+msgid "select by number of samples"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:292
+msgid "&Samples"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:294
+msgid "select by time"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:296
+msgid "&Time"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:298
+msgid "select by percentage of the signal's length"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:300
+msgid "&Percent"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:301 plugins/newsignal/ui_NewSigDlg.h:515
+msgid "Minutes"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:302
+msgid "Milliseconds"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:303 plugins/newsignal/ui_NewSigDlg.h:514
+msgid "Seconds"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:304 plugins/newsignal/ui_NewSigDlg.h:516
+msgid "Hours"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:305 plugins/newsignal/ui_NewSigDlg.h:523
+msgid "0%"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:306 plugins/newsignal/ui_NewSigDlg.h:524
+msgid "50%"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:307 plugins/newsignal/ui_NewSigDlg.h:525
+msgid "100%"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:309
+msgid "sets the selection by the percentage of the whole signal"
+msgstr ""
+
+#: libgui/ui_HMSTimeWidgetBase.h:78
+msgid "HMSTimeWidgetBase"
+msgstr ""
+
+#: libgui/ui_HMSTimeWidgetBase.h:79
+msgid " h"
+msgstr ""
+
+#: libgui/ui_HMSTimeWidgetBase.h:80
+msgid " min"
+msgstr ""
+
+#: libgui/ui_HMSTimeWidgetBase.h:81 plugins/record/ui_RecordDlg.h:1014
+#: plugins/record/ui_RecordDlg.h:1015
+msgid " sec"
+msgstr ""
+
 #: libgui/ui_LabelPropertiesWidgetBase.h:158
 msgid "Label Properties..."
 msgstr ""
@@ -3373,83 +3450,6 @@ msgstr ""
 #: libgui/ui_LabelPropertiesWidgetBase.h:185
 #: plugins/playback/ui_PlayBackDlg.h:439 plugins/record/ui_RecordDlg.h:1085
 msgid "Alt+C"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:287
-msgid "frmLength"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:290
-msgid "select by number of samples"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:292
-msgid "&Samples"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:294
-msgid "select by time"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:296
-msgid "&Time"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:298
-msgid "select by percentage of the signal's length"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:300
-msgid "&Percent"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:301 plugins/newsignal/ui_NewSigDlg.h:515
-msgid "Minutes"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:302
-msgid "Milliseconds"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:303 plugins/newsignal/ui_NewSigDlg.h:514
-msgid "Seconds"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:304 plugins/newsignal/ui_NewSigDlg.h:516
-msgid "Hours"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:305 plugins/newsignal/ui_NewSigDlg.h:523
-msgid "0%"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:306 plugins/newsignal/ui_NewSigDlg.h:524
-msgid "50%"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:307 plugins/newsignal/ui_NewSigDlg.h:525
-msgid "100%"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:309
-msgid "sets the selection by the percentage of the whole signal"
-msgstr ""
-
-#: libgui/ui_HMSTimeWidgetBase.h:78
-msgid "HMSTimeWidgetBase"
-msgstr ""
-
-#: libgui/ui_HMSTimeWidgetBase.h:79
-msgid " h"
-msgstr ""
-
-#: libgui/ui_HMSTimeWidgetBase.h:80
-msgid " min"
-msgstr ""
-
-#: libgui/ui_HMSTimeWidgetBase.h:81 plugins/record/ui_RecordDlg.h:1014
-#: plugins/record/ui_RecordDlg.h:1015
-msgid " sec"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:10

@@ -29,7 +29,7 @@ Name:           @RPM_NAME@
 Version:        @RPM_SHORT_VERSION@
 Release:        @RPM_RELEASE@
 License:        @RPM_COPYRIGHT@
-Source0:        kwave-%{version}.tar.bz2
+Source0:        kwave-%{version}-1.tar.bz2
 Group:          Productivity/Multimedia/Sound/Editors and Convertors
 Url:            @RPM_URL@
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build

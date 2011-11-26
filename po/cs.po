@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-16 15:50+0100\n"
+"POT-Creation-Date: 2011-11-26 15:56+0100\n"
 "PO-Revision-Date: 2011-11-16 16:51+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -1577,7 +1577,7 @@ msgstr "Kyselý Punk"
 msgid "Acoustic"
 msgstr "Sluchový"
 
-#: kwave/MainWidget.cpp:835 libkwave/SignalManager.cpp:1777
+#: kwave/MainWidget.cpp:835 libkwave/SignalManager.cpp:1783
 msgid "Add Label"
 msgstr "Přidat štítek"
 
@@ -2225,7 +2225,7 @@ msgctxt ""
 msgid "Delete %1 %2 objects"
 msgstr "Smazat  %1 %2 předměty"
 
-#: libkwave/SignalManager.cpp:1806
+#: libkwave/SignalManager.cpp:1812
 msgid "Delete Label"
 msgstr "Smazat štítek"
 
@@ -3352,11 +3352,11 @@ msgstr "MS Stereo"
 msgid "Maintainers of the 'id3lib' library"
 msgstr "Správci knihovny 'id3lib'"
 
-#: libkwave/SignalManager.cpp:1890
+#: libkwave/SignalManager.cpp:1896
 msgid "Manual Selection"
 msgstr "Vlastnoruční výběr"
 
-#: libkwave/SignalManager.cpp:1888
+#: libkwave/SignalManager.cpp:1894
 msgid "Manual Track Selection"
 msgstr "Vlastnoruční výběr stopy"
 
@@ -3478,7 +3478,7 @@ msgctxt ""
 msgid "Modify %1 %2 objects"
 msgstr "Upravit %1 %2 předměty"
 
-#: libkwave/SignalManager.cpp:1733
+#: libkwave/SignalManager.cpp:1739
 msgid "Modify File Info"
 msgstr "Upravit souborové údaje"
 
@@ -5517,5 +5517,3 @@ msgstr "Verze"
 #: plugins/fileinfo/ui_FileInfoDlg.h:1348
 msgid "yes"
 msgstr "Ano"
-
-

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-16 15:50+0100\n"
+"POT-Creation-Date: 2011-11-26 15:56+0100\n"
 "PO-Revision-Date: 2007-08-01 19:04+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
@@ -1579,7 +1579,7 @@ msgstr "Acid Punk"
 msgid "Acoustic"
 msgstr "Acoustique"
 
-#: kwave/MainWidget.cpp:835 libkwave/SignalManager.cpp:1777
+#: kwave/MainWidget.cpp:835 libkwave/SignalManager.cpp:1783
 #, fuzzy
 msgid "Add Label"
 msgstr "Ajouter un label"
@@ -2279,7 +2279,7 @@ msgctxt ""
 msgid "Delete %1 %2 objects"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:1806
+#: libkwave/SignalManager.cpp:1812
 #, fuzzy
 msgid "Delete Label"
 msgstr "supprimer un label"
@@ -3463,12 +3463,12 @@ msgstr "Stéréo MS"
 msgid "Maintainers of the 'id3lib' library"
 msgstr "Mainteneur de la bibliothèque « id3lib »"
 
-#: libkwave/SignalManager.cpp:1890
+#: libkwave/SignalManager.cpp:1896
 #, fuzzy
 msgid "Manual Selection"
 msgstr "Sélection"
 
-#: libkwave/SignalManager.cpp:1888
+#: libkwave/SignalManager.cpp:1894
 #, fuzzy
 msgid "Manual Track Selection"
 msgstr "zoomer la sélection"
@@ -3595,7 +3595,7 @@ msgctxt ""
 msgid "Modify %1 %2 objects"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:1733
+#: libkwave/SignalManager.cpp:1739
 #, fuzzy
 msgid "Modify File Info"
 msgstr "modifier les informations du fichier"

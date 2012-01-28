@@ -141,7 +141,7 @@ void GenreType::fill()
 	    i18n("Native American"),
 	    i18n("Cabaret"),
 	    i18n("New Wave"),
-	    i18n("Psychadelic"),
+	    i18n("Psychedelic"),
 	    i18n("Rave"),
 	    i18n("Showtunes"),
 	    i18n("Trailer"),

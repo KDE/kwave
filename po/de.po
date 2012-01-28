@@ -4013,8 +4013,8 @@ msgstr ""
 "einem Punkt enden. Keine Zeilenumbrücke einfügen!"
 
 #: libkwave/GenreType.cpp:144
-msgid "Psychadelic"
-msgstr "Psychadelic"
+msgid "Psychedelic"
+msgstr "Psychedelic"
 
 #: libkwave/GenreType.cpp:172
 msgid "Psychedelic Rock"

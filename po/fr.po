@@ -4167,7 +4167,7 @@ msgstr ""
 "N'utilisez pas de retour chariot !"
 
 #: libkwave/GenreType.cpp:144
-msgid "Psychadelic"
+msgid "Psychedelic"
 msgstr "Psychédélique"
 
 #: libkwave/GenreType.cpp:172

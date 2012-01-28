@@ -4011,7 +4011,7 @@ msgstr ""
 "nového řádku!"
 
 #: libkwave/GenreType.cpp:144
-msgid "Psychadelic"
+msgid "Psychedelic"
 msgstr "Psychedelická hudba"
 
 #: libkwave/GenreType.cpp:172

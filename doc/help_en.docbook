@@ -2727,7 +2727,7 @@
 	    </question>
     	    <answer>
 	    	<para>
-		    Maybe you have choosen a combination of playback
+		    Maybe you have chosen a combination of playback
 		    rate and sample size that is not supported by your
 		    sound driver and / or sound hardware. Try playback with
 		    8 bits per sample and mono first, this should always

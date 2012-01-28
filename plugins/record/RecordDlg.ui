@@ -1053,7 +1053,7 @@ recording. Depending on the compilation options you can select one of the follow
                   <string>Recording device</string>
                  </property>
                  <property name="whatsThis">
-                  <string>&lt;b&gt;Device:&lt;/b&gt;&lt;p&gt;This list shows a selection of some known recording devices suitable for the choosen recording method. If your device is not listed here, you can enter a device name on your own or search through the filesystem.&lt;/p&gt;</string>
+                  <string>&lt;b&gt;Device:&lt;/b&gt;&lt;p&gt;This list shows a selection of some known recording devices suitable for the chosen recording method. If your device is not listed here, you can enter a device name on your own or search through the filesystem.&lt;/p&gt;</string>
                  </property>
                  <property name="editable">
                   <bool>true</bool>

@@ -329,7 +329,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     Q_ASSERT(src.tracks() == tracks);
     if (src.tracks() != tracks) return false;
 
-    // check if the choosen compression mode is supported for saving
+    // check if the chosen compression mode is supported for saving
     if ((compression != AF_COMPRESSION_NONE) &&
         (compression != AF_COMPRESSION_G711_ULAW) &&
         (compression != AF_COMPRESSION_G711_ALAW))

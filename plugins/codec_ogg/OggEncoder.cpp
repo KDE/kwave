@@ -166,7 +166,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	if (Kwave::MessageBox::warningContinueCancel(widget,
 	    i18n("You have not selected any bitrate for the encoding. "
 	         "Do you want to continue and encode with %1 kBit/s "
-	         "or cancel and chose a different bitrate?",
+	         "or cancel and choose a different bitrate?",
 	         DEFAULT_BITRATE/1000)) !=
 	    KMessageBox::Continue)
 	    return false; // <- canceled

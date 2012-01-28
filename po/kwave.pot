@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-28 09:01+0100\n"
+"POT-Creation-Date: 2012-01-28 09:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2322,7 +2322,7 @@ msgstr ""
 #, kde-format
 msgid ""
 "You have not selected any bitrate for the encoding. Do you want to continue "
-"and encode with %1 kBit/s or cancel and chose a different bitrate?"
+"and encode with %1 kBit/s or cancel and choose a different bitrate?"
 msgstr ""
 
 #: plugins/codec_ogg/OggEncoder.cpp:245
@@ -4921,9 +4921,8 @@ msgstr ""
 #: plugins/record/ui_RecordDlg.h:1059
 msgid ""
 "<b>Device:</b><p>This list shows a selection of some known recording devices "
-"suitable for the choosen recording method. If your device is not listed "
-"here, you can enter a device name on your own or search through the "
-"filesystem.</p>"
+"suitable for the chosen recording method. If your device is not listed here, "
+"you can enter a device name on your own or search through the filesystem.</p>"
 msgstr ""
 
 #: plugins/record/ui_RecordDlg.h:1067

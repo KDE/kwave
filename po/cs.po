@@ -1210,7 +1210,7 @@ msgstr ""
 
 #: plugins/sonagram/ui_SonagramDlg.h:314 plugins/sonagram/ui_SonagramDlg.h:319
 msgid ""
-"<b>Number of FFT points:</b><p></p>Try to choose numbers with small prime-"
+"<b>Number of FFT points:</b><p></p>Try to choose numbers with small prime "
 "factors,<br>\n"
 "if choosing big window sizes.<br>\n"
 "The computation will be much faster!"

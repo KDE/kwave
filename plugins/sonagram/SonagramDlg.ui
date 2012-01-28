@@ -260,12 +260,12 @@ If the transformation should stay reversible, use the type &quot;None&quot;.</st
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>&lt;b&gt;Number of FFT points:&lt;/b&gt;&lt;p&gt;&lt;/p&gt;Try to choose numbers with small prime-factors,&lt;br&gt;
+         <string>&lt;b&gt;Number of FFT points:&lt;/b&gt;&lt;p&gt;&lt;/p&gt;Try to choose numbers with small prime factors,&lt;br&gt;
 if choosing big window sizes.&lt;br&gt;
 The computation will be much faster!</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Number of FFT points:&lt;/b&gt;&lt;p&gt;&lt;/p&gt;Try to choose numbers with small prime-factors,&lt;br&gt;
+         <string>&lt;b&gt;Number of FFT points:&lt;/b&gt;&lt;p&gt;&lt;/p&gt;Try to choose numbers with small prime factors,&lt;br&gt;
 if choosing big window sizes.&lt;br&gt;
 The computation will be much faster!</string>
         </property>

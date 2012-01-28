@@ -98,7 +98,7 @@ that is sometimes problematic (see below).
 
 The binary rpm package of kwave is "relocatable". This means that you can
 build the package on a system with the KDE base directory set to some
-location (like for example /usr) and install it on an other system
+location (like for example /usr) and install it on some other system
 and/or into a different directory.
 
 rpm -Uvh --prefix=/usr/local kwave-0.8.4-1.i586.rpm

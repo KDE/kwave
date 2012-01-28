@@ -1382,7 +1382,7 @@
 	    purposes.
 	    Due to it's simple format, you can either write simple
 	    files on your own with a text editor or you can use the output
-	    of an other application and convert it into ASCII. As the format is
+	    of some other application and convert it into ASCII. As the format is
 	    <emphasis>really</emphasis> simple, you
 	    should not have big problems in writing a converter and most scientific
 	    applications use to have some kind of their own ASCII format for
@@ -2710,7 +2710,7 @@
 	    </question>
     	    <answer>
 	    	<para>
-		    If you have to work on an other format, you can convert
+		    If you have to work on a different format, you can convert
 		    it into .wav format. A good set of tools for this is
 		    in the
 	            <ulink url="&url_sox;">SoX</ulink> package, they have also some nice

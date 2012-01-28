@@ -138,7 +138,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
 		break;
 	    case EBUSY:
 		reason = i18n(
-		"The device is busy. Maybe an other application is\n"\
+		"The device is busy. Maybe some other application is\n"\
 		"currently using it. Please try again later.\n"\
 		"(Hint: you might find out the name and process ID of\n"\
 		"the program by calling: \"fuser -v %1\"\n"\

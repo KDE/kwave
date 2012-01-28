@@ -29,7 +29,7 @@
 
 /**
  * This is the class for submenu entries in a Menu. It is normally owned by a
- * root menu node, a toplevel menu or an other submenu.
+ * root menu node, a toplevel menu or another submenu.
  * @author Thomas Eschenbacher
  */
 class MenuSub : public MenuNode

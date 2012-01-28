@@ -67,7 +67,7 @@ public:
      * data if successful.
      * @param action UndoAction to that is to be registered
      * @return true if the action is allowed, false if the user has
-     *         choosen to abort the operation if the memory limit of
+     *         chosen to abort the operation if the memory limit of
      *         the undo buffer would be exceeded. The return value
      *         will also be false if the action is null.
      * @note If undo is currently not enabled, the passed UndoAction

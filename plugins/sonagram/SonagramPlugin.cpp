@@ -198,7 +198,7 @@ int SonagramPlugin::start(QStringList &params)
     }
 
     // activate the window with an initial image
-    // and all necessary informations
+    // and all necessary information
     m_sonagram_window->setColorMode((m_color) ? 1 : 0);
     m_sonagram_window->setImage(m_image);
     m_sonagram_window->setPoints(m_fft_points);

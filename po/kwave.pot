@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-26 15:56+0100\n"
+"POT-Creation-Date: 2012-01-28 09:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2322,7 +2322,7 @@ msgstr ""
 #, kde-format
 msgid ""
 "You have not selected any bitrate for the encoding. Do you want to continue "
-"and encode with %1 kBit/s or cancel and choose a different bitrate?"
+"and encode with %1 kBit/s or cancel and chose a different bitrate?"
 msgstr ""
 
 #: plugins/codec_ogg/OggEncoder.cpp:245
@@ -4332,8 +4332,8 @@ msgstr ""
 #: plugins/fileinfo/ui_KeywordWidgetBase.h:103
 msgid ""
 "<b>Auto-Generate Keywords</b><br>\n"
-"Create a list of keywords by going through all present file informations and "
-"merge them with the current list of keywords."
+"Create a list of keywords by going through all present file information and "
+"merge it with the current list of keywords."
 msgstr ""
 
 #: plugins/fileinfo/ui_KeywordWidgetBase.h:106

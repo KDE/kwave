@@ -439,7 +439,7 @@ int MainWidget::executeCommand(const QString &command)
 	Label label = labels.at(index);
 	labelProperties(label);
 
-//    CASE_COMMAND("chooselabel")
+//    CASE_COMMAND("choselabel")
 //	Parser parser(command);
 //	markertype = globals.markertypes.at(parser.toInt());
 //    CASE_COMMAND("amptolabel")

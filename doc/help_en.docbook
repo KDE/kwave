@@ -179,7 +179,7 @@
     <itemizedlist>
         <listitem><para>
         Project Homepage<anchor id="project-homepage"/></para><para>
-            For informations about new up-to-date releases or some other
+            For information about new up-to-date releases or some other
 	    information about this project, take a look at
 	    the <ulink url="&url_homepage;">&kwave; homepage</ulink>
         </para></listitem>
@@ -252,8 +252,8 @@
     <para>
     	&kwave; has an own homepage under
     	<ulink url="&url_homepage;">&url_homepage;</ulink>. Here you can
-	find further informations about the project, as well as
-	informations about current stable and up-to-date development
+	find further information about the project, as well as
+	information about current stable and up-to-date development
 	versions.
     </para>
 
@@ -1779,8 +1779,8 @@
     <para>
 	&kwave; is able to handle several meta information that is stored
 	within an audio file. It tries to import and export as much of
-	these informations as possible. For example, if you import an
-	MP3 file with ID3 tags, you can keep those informations when
+	that information as possible. For example, if you import an
+	MP3 file with ID3 tags, you can keep that information when
 	exporting to a Wave file. If &kwave; would lose meta information
 	when saving, it shows a warning.
     </para>

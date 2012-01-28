@@ -63,7 +63,7 @@
      </property>
      <property name="whatsThis">
       <string>&lt;b&gt;Auto-Generate Keywords&lt;/b&gt;&lt;br&gt;
-Create a list of keywords by going through all present file informations and merge them with the current list of keywords.</string>
+Create a list of keywords by going through all present file information and merge it with the current list of keywords.</string>
      </property>
      <property name="text">
       <string>A&amp;uto</string>

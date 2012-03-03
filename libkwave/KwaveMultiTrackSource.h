@@ -168,8 +168,8 @@ namespace Kwave {
 	                 QObject *parent = 0)
 	    :Kwave::MultiTrackSource<SOURCE, false>(0, parent)
 	{
-	    for (unsigned int i=0; i < tracks; i++)
-		insert(i, new SOURCE());
+	    for (unsigned int i = 0; i < tracks; i++)
+		this->insert(i, new SOURCE());
 	}
 
 	/** Destructor */

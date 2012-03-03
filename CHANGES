@@ -10,6 +10,7 @@
  * update of the Kwave spec file (synced with OpenSuSE build service version)
  * new build target "distfiles"
  * updated version of the GPL v2 document (GNU-LICENSE)
+ * support for visualization plugins
 
 0.8.6  [2011-03-07]
 

@@ -1,4 +1,8 @@
 
+0.8.8  [2012-??-??]
+
+ * migration to git source code management
+
 0.8.7  [2011-11-27]
 
  * ebuild update for media-gfx/imagemagick <-> media-gfx/graphicsmagick

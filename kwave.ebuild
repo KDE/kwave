@@ -12,7 +12,7 @@ DESCRIPTION="Kwave is a sound editor for KDE"
 HOMEPAGE="http://kwave.sourceforge.net/"
 SRC_URI="mirror://sourceforge/kwave/${P}-1.tar.bz2"
 
-LICENSE="GPL-2
+LICENSE="BSD GPL-2 LGPL-2
 	handbook? ( FDL-1.2 )"
 SLOT="4"
 KEYWORDS="~amd64 ~ppc ~x86"

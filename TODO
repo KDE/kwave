@@ -1,13 +1,15 @@
 
+o toolbar: buttons for forward/backward and record
+
+o simplify loading/unloading of plugins
+
 o license change to GPL v3
 
 o new import/export plugin using ffmpeg/libavcodec
 
-o scrolling left/right while playback is running
-
 o clipping of position widget
 
-o add a "record" button to the toolbar
+o make target "html_doc"
 
 o support for visualization plugins (rev 2498)
   - new functions

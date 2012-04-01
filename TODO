@@ -167,13 +167,6 @@ o switch to use float as sample_t (requires much work...)
 
 o about plugin: auto-scroll for contents
 
-o crash in record plugin, maybe if device is busy? (last seen ~2009)
-    RecordALSA::read(), after underrun: resuming
-    RecordALSA::read(), underrun
-    ALSA lib pcm_direct.c:1280:(snd1_pcm_direct_set_timer_params) unable to set timer parameters
-    RecordALSA::read(), resume after underrun failed: Ungültiger Dateideskriptor
-    RecordThread: read result = -9 (Ungültiger Dateideskriptor)
-    RecordThread::run() - done
-    KCrash: Application 'kwave' crashing...
+o re-run cmake automatically when VERSION file has changed
 
 ### EOF ###

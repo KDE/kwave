@@ -49,6 +49,7 @@ SET(KWAVE_LINGUAS
 # all            - default target, build all files
 # clean          - clean up the current build directory
 # doc            - generate docbook files for online help
+# distfiles      - generate subdirectory with all files for distribution
 # html_doc       - generate HTML help (for the web)
 # install        - install the package, with support for DESTDIR
 # rpm            - create a RPM package + a src.rpm file

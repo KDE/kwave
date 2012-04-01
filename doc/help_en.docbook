@@ -4,11 +4,13 @@
   <!ENTITY kappname "&kwave;">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "0.8.7">
-  <!ENTITY version_tag "0_8_7">
+  <!ENTITY version "0.8.7-2">
+  <!ENTITY version_tag "0_8_7-2">
+  <!ENTITY version_year "2012">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   
-  <!ENTITY url_changelog "http://kwave.svn.sourceforge.net/viewvc/kwave/trunk/CHANGES?view=markup">
+  <!ENTITY url_authors "http://kwave.git.sourceforge.net/git/gitweb.cgi?p=kwave/kwave;a=blob_plain;f=AUTHORS;hb=HEAD">
+  <!ENTITY url_changelog "http://kwave.git.sourceforge.net/git/gitweb.cgi?p=kwave/kwave;a=blob_plain;f=CHANGES;hb=HEAD">
   <!ENTITY url_cmake "http://www.cmake.org">
   <!ENTITY url_debian "http://www.debian.org">
   <!ENTITY url_download "http://kwave.sourceforge.net/download.html">
@@ -23,18 +25,18 @@
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
   <!ENTITY url_libmad "http://www.mars.org/home/rob/proj/mpeg/">
   <!ENTITY url_libsndfile "http://www.mega-nerd.com/libsndfile/">
-  <!ENTITY url_licenses "http://kwave.svn.sourceforge.net/viewvc/kwave/trunk/LICENSES?view=markup">
+  <!ENTITY url_licenses "http://kwave.git.sourceforge.net/git/gitweb.cgi?p=kwave/kwave;a=blob_plain;f=LICENSES;hb=HEAD">
   <!ENTITY url_mailinglist "https://lists.sourceforge.net/lists/listinfo/kwave-devel">
   <!ENTITY url_ogg_vorbis "http://www.xiph.org">
-  <!ENTITY url_readme "http://kwave.svn.sourceforge.net/viewvc/kwave/trunk/README?view=markup">
+  <!ENTITY url_readme "http://kwave.git.sourceforge.net/git/gitweb.cgi?p=kwave/kwave;a=blob_plain;f=README;hb=HEAD">
   <!ENTITY url_rfc2361 "http://www.faqs.org/rfcs/rfc2361.html">
   <!ENTITY url_rfc3066 "http://www.ietf.org/rfc/rfc3066.txt">
   <!ENTITY url_sourceforge "http://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
-  <!ENTITY url_svn_instructions "http://sourceforge.net/svn/?group_id=6478">
-  <!ENTITY url_svn_list_tags "http://kwave.svn.sourceforge.net/viewvc/kwave/tags/">
-  <!ENTITY url_svn_tags "https://kwave.svn.sourceforge.net/svnroot/kwave/tags/">
-  <!ENTITY url_svn_trunk "https://kwave.svn.sourceforge.net/svnroot/kwave/trunk">
+  <!ENTITY url_git_instructions "http://sourceforge.net/scm/?type=git&amp;group_id=6478">
+  <!ENTITY url_git_web "http://kwave.git.sourceforge.net/git/gitweb.cgi?p=kwave/kwave;a=summary">
+  <!ENTITY url_git_list_tags "http://kwave.git.sourceforge.net/git/gitweb.cgi?p=kwave/kwave;a=tags">
+  <!ENTITY url_git_master "git://kwave.git.sourceforge.net/gitroot/kwave/kwave">
 ]>
 
 <book lang="&language;">
@@ -56,11 +58,11 @@
     </authorgroup>
 
     <copyright><year>1998-2000</year><holder>Martin Wilz</holder></copyright>
-    <copyright><year>2011</year><holder>Thomas Eschenbacher</holder></copyright>
+    <copyright><year>&version_year;</year><holder>Thomas Eschenbacher</holder></copyright>
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2011-11-27</date>
+    <date>2012-04-01</date>
     <releaseinfo>&version;</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor for KDE.</para></abstract>
@@ -191,17 +193,19 @@
 	    <ulink url="&url_mailinglist;"> "&url_mailinglist;"</ulink>.
 	</para></listitem>
 	<listitem><para>
-	    SVN Repository<anchor id="svn-repository"/>
+	    GIT Repository<anchor id="git-repository"/>
 	</para>
 	<para>
-	    There also is a SVN repository, hosted by
+	    There also is a GIT repository, hosted by
 	    <ulink url="&url_sourceforge;">SourceForge</ulink> where
 	    you can get the sources of the latest development version.
 	    For instructions on how to get access to the repository, read
-	    in the chapter
-	    about <link linkend="building_rpm_from_svn">building from SVN</link>,
-	    look at <ulink url="&url_svn_instructions;">"&url_svn_instructions;"</ulink>, or just
-	    browse through the SVN tree through a nice web interface.
+	    in the chapter about
+	    <link linkend="building_rpm_from_git">building from GIT</link>,
+	    or look at
+	    <ulink url="&url_git_instructions;">"&url_git_instructions;"</ulink>.
+	    There also is a nice <ulink url="&url_git_web;">web interface</ulink>
+	    you can use to browse through the sources.
         </para></listitem>
     </itemizedlist>
 
@@ -228,7 +232,9 @@
 	Since &kwave; v0.8.0 the changlog is no longer included in this
 	manual. So if you are interested in a complete list of changes,
 	you can find the full history here:
-	<ulink url="&url_changelog;"> &url_changelog;</ulink>.
+	<ulink url="&url_changelog;"> &url_changelog;</ulink> or browse
+	through the sources on your own through the
+	<ulink url="&url_git_web;">GIT web interface</ulink>.
     </para>
 
     <!-- changlog cut out, this gives a smaller online help
@@ -269,11 +275,11 @@
 	    download a source RPM package of the latest stable version,
 	</para></listitem>
 	<listitem><para>
-	    compile on your own, from a .tar.gz archive with the source code
+	    compile on your own, from a .tar.bz2 archive with the source code
 	    of the latest stable version,
 	</para></listitem>
 	<listitem><para>
-	    compile on your own, from the latest SVN source.
+	    compile on your own, from the latest GIT source.
 	</para></listitem>
 	</itemizedlist>
     </para>
@@ -307,12 +313,12 @@
 		<emphasis>hear</emphasis> the result of your work?)
 	    </para></listitem>
 	    <listitem><para>
-		KDE-4.0 or higher (at least the libraries, if you are
+		KDE-4.5 or higher (at least the libraries, if you are
 		a gnome fan, you can also run &kwave; if the proper
 		libs are installed).
 	    </para></listitem>
 	    <listitem><para>
-		qt-4.1 or higher (normally comes with KDE4)
+		Qt-4.5.0 or higher (normally comes with KDE4)
 	    </para></listitem>
 	    <listitem><para>
 		ALSA 1.0.14 or higher (for record/playback)
@@ -338,8 +344,8 @@
 
     <para>
 	For a more complete and up-to-date list, please consult the
-	README file that is included in the source distribution or
-	can be found here: <ulink url="&url_readme;"> &url_readme;</ulink>.
+	<ulink url="&url_readme;">'README'</ulink> file that is included
+	in the source distribution.
 	This file also contains some special hints for getting &kwave; running and/or
 	building &kwave; under some distributions.
     </para>
@@ -368,25 +374,28 @@
 		the package is normally called "qt4-devel" or similar.
 	    </para></listitem>
 	    <listitem><para>
-		id3lib-devel-3.8.1 or higher
+		pulseaudio-0.9.16 or newer
 	    </para></listitem>
 	    <listitem><para>
-		fftw-3.x
+		id3lib-devel-3.8.1 or newer
 	    </para></listitem>
 	    <listitem><para>
-		mad-devel-0.15 or higher
+		fftw-3.0 or newer
+	    </para></listitem>
+	    <listitem><para>
+		mad-devel-0.15 or newer
 		(if you have the permission to use MP3 code)
 	    </para></listitem>
 	    <listitem><para>
-		flac-devel-1.1.0 higher
+		flac-devel-1.1.0 newer
 	    </para></listitem>
 	    <listitem><para>
-		If you intend to get the &kwave; sources via SVN, you will also
-		need a current subversion package.
+		If you intend to get the &kwave; sources via GIT, you will also
+		need a current git package.
 	    </para></listitem>
 	    <listitem><para>
 		...many other packages, please take a look at the
-		<ulink url="&url_readme;"> "README"</ulink> file included in 
+		<ulink url="&url_readme;">'README'</ulink> file included in
 		the source package.
 	    </para></listitem>
 	</itemizedlist>
@@ -402,9 +411,9 @@
 
     <para>
 	Since version 0.7.10 &kwave; uses
-	<ulink url="&url_cmake;">cmake</ulink>, the make system
-	that is also used by KDE itself. So if you can build other KDE
-	applications, you should also be able to build &kwave;.
+	<ulink url="&url_cmake;">cmake</ulink>, a make system
+	that is also used by KDE itself. So if you know how to build other KDE
+	applications, you should not have any difficulties in building &kwave;.
 	If you run into problems please report them to
 	the &kwave; <link linkend="mailing-list">mailing list</link>.
     </para>
@@ -420,7 +429,7 @@
 	For example, assuming that your sources are already
 	unpacked in <filename><replaceable>$HOME/src/kwave-&version;</replaceable></filename>, you
 	can do the following:
-<screen width="40" format="linespecific">
+<screen width="50" format="linespecific">
 <prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
 <prompt>% </prompt><command>cd /tmp/kwave-build</command>
 <prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave-&version;</replaceable> <replaceable>[build options]</replaceable></command>
@@ -503,6 +512,12 @@
 		    default=<literal>off</literal>]
 		</para></listitem>
 		<listitem><para>
+		    <literal>WITH_PULSEAUDIO</literal>
+		    enable playback via PulseAudio
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
 		    <literal>WITH_SAMPLERATE</literal>
 		    enable sample rate conversion
 		    [<literal>on</literal>/<literal>off</literal>,
@@ -516,18 +531,18 @@
 	    with <command><literal>-D</literal><replaceable>option</replaceable><literal>=</literal><replaceable>value</replaceable></command>.
 	    For example, if you want to enable MP3 import,
 	    you can pass the corresponding option as follows:
-<screen width="40" format="linespecific">
+<screen width="70" format="linespecific">
 <prompt>% </prompt><command>cmake <replaceable>[source directory]</replaceable> -DWITH_MP3=ON <replaceable>[other options...]</replaceable></command>
 </screen>
 	</para>
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: Building RPM packages from tar.gz archives            +++ -->
+<!-- +++ Section: Building RPM packages from tar.bz2 archives           +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="building_rpm_from_targz">
-    <title>Building RPM packages from tar.gz archives</title>
+    <sect1 id="building_rpm_from_tarbz2">
+    <title>Building RPM packages from tar.bz2 archives</title>
 
     <sect2 id="building_with_rpm_ta">
     <title>With working rpmbuild -ta</title>
@@ -536,19 +551,19 @@
 	If you are runnig a system with RPM support, the preferred way to
 	install &kwave; on your system will be the creation of a nice RPM
 	package. First you should get the current source of &kwave;, either
-	as a tar.gz archive from the &kwave; download page or
+	as a tar.bz2 archive from the &kwave; download page or
 	check out an up-to-date copy via
-	<link linkend="svn-repository">SVN</link> (like described in
-	the <link linkend="svn_checkout">chapter about SVN</link>) and read the
-	<link linkend="building_rpm_from_svn">next</link> chapter.
+	<link linkend="git-repository">GIT</link> (like described in
+	the <link linkend="git_checkout">chapter about GIT</link>) and read the
+	<link linkend="building_rpm_from_git">next</link> chapter.
     </para>
 
     <para>
-	If you have downloaded a tar.gz archives of &kwave;,
+	If you have downloaded a tar.bz2 archives of &kwave;,
 	create and install the RPMs just by doing the following steps
 	(where <replaceable>[arch]</replaceable> stands for the platform you
 	have built the package and might be something like
-	<literal>i386</literal>, <literal>i586</literal>,
+	<literal>i586</literal>, <literal>i686</literal>,
 	<literal>sparc</literal> or whatever,
 	<replaceable>XXX</replaceable> stands for the version number
 	you have downloaded).
@@ -556,8 +571,8 @@
 
     <para>
     To build the &kwave; package and install it do:
-<screen width="40" format="linespecific">
-<prompt>% </prompt><command>rpmbuild -ta <replaceable>kwave-XXX.tar.gz</replaceable></command>
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>rpmbuild -ta <replaceable>kwave-XXX.tar.bz2</replaceable></command>
 <prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/kwave-XXX.[arch].rpm</replaceable></command>
 </screen>
     </para>
@@ -593,25 +608,25 @@
 	    for the redhat distribution
 	    or <filename>/usr/src/packages</filename> if you
 	    have the SuSE distribution.
-<screen width="40" format="linespecific">
+<screen width="70" format="linespecific">
 <prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></command>
 </screen>
 	</para></listitem>
 
 	<listitem><para>
-	    Put the tar.gz archive into the SOURCES subdirectory (you
+	    Put the tar.bz2 archive into the SOURCES subdirectory (you
 	    have to replace "somewhere" with the real directory where
 	    the files are, of course).
-<screen width="40" format="linespecific">
-<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.gz</replaceable> SOURCES</command>
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.bz2</replaceable> SOURCES</command>
 </screen>
 	</para></listitem>
 
 	<listitem><para>
 	    Extract the spec file from the archives and put it into
 	    the SPEC subdirectory.
-<screen width="40" format="linespecific">
-<prompt>% </prompt><command>tar -xOzf SOURCES/<replaceable>kwave-XXX.tar.gz</replaceable> \*.spec > SPECS/kwave.spec</command>
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>tar -xOjf SOURCES/<replaceable>kwave-XXX.tar.bz2</replaceable> \*.spec > SPECS/kwave.spec</command>
 </screen>
 	</para></listitem>
 
@@ -621,7 +636,7 @@
 	    can specify <literal>-bb</literal> instead of
 	    <literal>-ba</literal>, or just <literal>-bs</literal> to build
 	    only a source package.
-<screen width="40" format="linespecific">
+<screen width="70" format="linespecific">
 <prompt>% </prompt><command>rpmbuild -ba SPECS/kwave.spec</command>
 </screen>
 	</para></listitem>
@@ -633,7 +648,7 @@
 	    please remove it first or use the parameter
 	    <literal>-U</literal> instead
 	    of <literal>-i</literal> for upgrading instead of installing.
-<screen width="40" format="linespecific">
+<screen width="70" format="linespecific">
 <prompt>% </prompt><command>rpm -ivh BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
 </screen>
 	</para></listitem>
@@ -644,17 +659,17 @@
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: Building RPM packages from SVN                        +++ -->
+<!-- +++ Section: Building RPM packages from GIT                        +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="building_rpm_from_svn">
-    <title>Building RPM packages from SVN</title>
+    <sect1 id="building_rpm_from_git">
+    <title>Building RPM packages from GIT</title>
 
-    <sect2 id="svn_checkout"><title>Checking out the sources</title>
+    <sect2 id="git_checkout"><title>Checking out the sources</title>
 
     <para>
 	For initially checking out the sources you will need some disk space
-	(about 25 megabytes) in a directory of your choice, the svn package
+	(about 25 megabytes) in a directory of your choice, the git package
 	of your favorite distribution and full access to the internet. If you
 	get error messages about rejected connections you either have typed
 	something wrong or your provider doesn't give you full access.
@@ -672,18 +687,20 @@
     </para></listitem>
     <listitem>
 	<para>
-	    Then check out the latest sources from the SVN server:
-<screen width="75" format="linespecific">
-<prompt>% </prompt><command>svn checkout &url_svn_trunk; kwave</command>
+	    Then check out the latest sources from the GIT server:
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>git clone &url_git_master;</command>
 </screen>
 	</para>
 	<para>
-	or you can check out a specific release with the following command:
-<screen width="75" format="linespecific">
-<prompt>% </prompt><command>svn checkout &url_svn_tags;<replaceable>[release-tag]</replaceable> kwave</command>
+	or you can check out a specific release with the following commands:
+<screen width="70" format="linespecific">
+    <prompt>% </prompt><command>git clone &url_git_master;</command>
+    <prompt>% </prompt><command>cd kwave</command>
+    <prompt>% </prompt><command>git checkout tags/<replaceable>[release-tag]</replaceable> </command>
 </screen>
-	You can look up the names of the release tags in the web svn page at
-	<ulink url="&url_svn_list_tags;"> &url_svn_list_tags;</ulink>.
+	You can look up the names of the release tags in the git web page at
+	<ulink url="&url_git_list_tags;"> &url_git_list_tags;</ulink>.
 	The release tags are always built out of the word <literal>Release-</literal> and
 	the version number of the release, with underscores instead of dots.
 	For example "<literal>Release-&version_tag;</literal>" for v&version;.
@@ -694,34 +711,40 @@
     <warning><para>
 	There <emphasis>must not</emphasis> be a directory named
 	<filename>kwave</filename> under
-	the directory you want to check out. Otherwise the svn program will
+	the directory you want to check out. Otherwise the git program will
 	complain about already existing files and the checkout will
 	not work.
     </para></warning>
 
     </sect2>
 
-    <sect2 id="svn_update"><title>Updating sources from SVN</title>
+    <sect2 id="git_update"><title>Updating fresh sources from GIT</title>
     <para>
 	The procedure described in the previous section is only necessary
 	once. For further updates it is much easier. Just change into the
-	directory where you have the checked out sources and do the following:
-<screen width="75" format="linespecific">
-<prompt>% </prompt><command>svn update</command>
+	directory where you have the checked out sources and do the following
+	to update to the latest version:
+<screen width="40" format="linespecific">
+<prompt>% </prompt><command>git pull</command>
 </screen>
 	Then go on to the next section and compile as usual.
     </para>
     <note><para>
-    If you think that you have messed up your local source or if there
-    are conflicts during updating, you can remove all files and
-    directories from your &kwave; source directory, <emphasis>except
-    the <filename>.svn</filename> directory </emphasis>and then try again.
+	If you think that you have messed up your local source tree or if there
+	are conflicts during updating and you want to start through from a clean
+	state, you can do the following to discard all local changes and switch
+	back to the latest version from the master branch:
+<screen width="40" format="linespecific">
+<prompt>% </prompt><command>git clean --force -d</command>
+<prompt>% </prompt><command>git reset --hard</command>
+<prompt>% </prompt><command>git checkout <replaceable>master</replaceable></command>
+</screen>
     </para></note>
     </sect2>
 
-    <sect2 id="svn_compiling"><title>Compiling</title>
+    <sect2 id="git_compiling"><title>Compiling</title>
     <para>
-	Building rpm package from a SVN snapshot is quite simple. The procedure
+	Building rpm package from a GIT snapshot is quite simple. The procedure
 	is nearly the same as described in the last section, so it unhappily also
 	has the same problem with the <command>rpmbuild -ta</command> command
 	our method internally uses.
@@ -742,12 +765,12 @@
 
     <para>
 	Assuming that
-	you are in the root of where you checked out from SVN, do the
+	you are in the root of where you checked out from GIT, do the
 	following to create a Makefile, the &kwave; package and
 	install it. If you already have a version of &kwave; installed,
 	please remove it first or use <command>rpm -U</command> instead
 	of <command>rpm -i</command> for updating instead of installing.
-<screen width="40" format="linespecific">
+<screen width="70" format="linespecific">
 <prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
 <prompt>% </prompt><command>cd /tmp/kwave-build</command>
 <prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave</replaceable></command>
@@ -758,7 +781,7 @@
 
     <note><para>
 	If you still have problems with <command>make rpm</command>,
-	you will find the tar.gz
+	you will find the tar.bz2
 	archive that was produced in <filename>/tmp</filename>.
 	Please follow the instructions in the
 	<link linkend="manual_rpm_creation">previous</link> chapter.
@@ -800,7 +823,7 @@
 	<filename>.rpmrc</filename> file in your home directory.
 	There you can specify option lines like these:
 
-<screen width="40" format="linespecific">
+<screen width="70" format="linespecific">
 <userinput moreinfo="none">optflags: i586 -O2 -march=pentium -DNDEBUG -fomit-frame-pointer</userinput>
 <userinput moreinfo="none">optflags: i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer</userinput>
 <userinput moreinfo="none">optflags: athlon -O2 -march=athlon -DNDEBUG -fomit-frame-pointer</userinput>
@@ -851,12 +874,12 @@
 	compiler.
     </para>
     <para>
-	If you build &kwave; from a source tree (unpacked tar.gz or from SVN)
+	If you build &kwave; from a source tree (unpacked tar.bz2 or from GIT)
 	the flags need to be specidied before the call. For example:
 
-	<screen width="40" format="linespecific">
-<prompt>% </prompt><command>CFLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe -fomit-frame-pointer" \
-  CXXFLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe -fomit-frame-pointer" \
+	<screen width="70" format="linespecific">
+<prompt>% </prompt><command>CFLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe" \
+  CXXFLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe" \
   cmake <replaceable>[source directory]</replaceable></command>
 </screen>
     </para>
@@ -2624,8 +2647,7 @@
 	    	<para>
 		    Read in the
 		    <link linkend="requirements">chapter</link>
-		    mentioned before. It compiles with
-		    gcc-3.x or gcc-4.x as well.
+		    mentioned before.
 		</para>
 	    </answer>
 	</qandaentry>
@@ -2644,23 +2666,6 @@
 		    operating system's sound driver through a OSS or ALSA
 		    interface. So &kwave; can play on any sound card that
 		    KDE is able to play on.
-		</para>
-	    </answer>
-	</qandaentry>
-
-    	<qandaentry>
-	    <question>
-	    	<para>
-		    Why are some menu entries / features always disabled?
-		</para>
-	    </question>
-    	    <answer>
-	    	<para>
-		    This is just because we decided that those actions
-		    are not working stable enough to present them to
-		    the normal user and therefore disabled them to
-		    avoid trouble. You will get access to them if they
-		    are tested and stable enough.
 		</para>
 	    </answer>
 	</qandaentry>
@@ -2873,210 +2878,394 @@
 
     <para>
     	Program copyright from 1998-2000 Martin Wilz
-	<email>mwilz@ernie.mi.uni-koeln.de</email>
+	<email>martin@wilz.de</email>
     </para>
     <para>
     	Program copyright since 2000 Thomas Eschenbacher
 	<email>thomas.eschenbacher@gmx.de</email>
     </para>
     <para>
-	For a complete list of authors and licenses of all files,
-	please see the <filename>LICENSES</filename> file, which is included in the sources.
-	It is also available online at <ulink url="&url_licenses;"> &url_licenses;</ulink>.
+	For a complete list of authors and licenses of all files, please
+	refer to th <ulink url="&url_licenses;"><filename>LICENSES</filename></ulink>
+	file, which is included in the sources. There also is a file with the
+	name <ulink url="&url_authors;"><filename>AUTHORS</filename></ulink>
+	that lists all authors and contributors of &kwave;
     </para>
 
     <para>
-    	Contributors / Authors:
-    	<itemizedlist>
-	    <listitem>
-	    	<para>
-		    Thomas Eschenbacher
-		    <email>thomas.eschenbacher@gmx.de</email>
-		</para>
-	    </listitem>
-	    <listitem>
-		<para>
-		    Sven-Steffen Arndt
-		    <email>ssa29@gmx.de</email>
-		    (homepage, german translation)
-		</para>
-	    </listitem>
-	    <listitem>
-		<para>
-		    Ralf Waspe
-		    <email>rwaspe@web.de</email>
-		    (Help/About plugin)
-		</para>
-	    </listitem>
-	    <listitem>
-	    	<para>
-		    Gilles Caulier
-		    <email>caulier.gilles@free.fr</email>
-		    (i18n, french translations, splashscreen, beta tester)
-		</para>
-	    </listitem>
-	    <listitem>
-	    	<para>
-		    Dave Flogeras
-		    <email>dflogera@nbnet.nb.ca</email>
-		    (Notch Filter plugin)
-		</para>
-	    </listitem>
-	    <listitem>
-	        <para>
-		    Rik Hemsley
-		    <email>rik@kde.org</email>
-		    (<ulink url="&url_levelmeter;">level meter</ulink>)
-		</para>
-	    </listitem>
-
-<!--
-	    <listitem><para>Juhana Kouhia</para></listitem>
-    	    <listitem><para>Gerhard Zintel</para></listitem>
-    	    <listitem><para>Gael Duval</para></listitem>
-    	    <listitem><para>Aaron Johnson</para></listitem>
-    	    <listitem><para>Uwe Steinmann</para></listitem>
-    	    <listitem><para>Juhana Kouhia</para></listitem>
-    	    <listitem><para>Dave Phillips</para></listitem>
-    	    <listitem><para>Martin Petriska</para></listitem>
-    	    <listitem><para>Winfried Truemper</para></listitem>
-    	    <listitem><para>Bruce Garlock</para></listitem>
-    	    <listitem><para>Christoph Raab</para></listitem>
-    	    <listitem ><para>tOpHEr lAfaTA</para></listitem>
-    	    <listitem><para>Nemosoft</para></listitem>
-    	    <listitem><para>Guido</para></listitem>
-    	    <listitem><para>Eero</para></listitem>
--->
-	</itemizedlist>
-    </para>
-
-    <para>
-    	Thanks to (in alphabetical order):
-    	<itemizedlist>
-<!--	    <listitem><para>Carsten Jacobi</para></listitem> -->
-<!--	    <listitem><para>Frank Christian Stoffel</para></listitem> -->
-<!--	    <listitem><para>Achim Dahlhaus</para></listitem> -->
-	    <listitem>
-	        <para>
-		    Jorge Luis Arzola
-		    <email>arzolacub@gmx.de</email>
-		    (packaging for SuSE Linux)
-		</para>
-	    </listitem>
-	    <listitem>
-		<para>
-		    Matthias Düsterhöft
-		    <email>duesti@gmx.de</email>
-		    <emphasis> (for information about RPM optimization)
-		    </emphasis>
-		</para>
-	    </listitem>
-	    <listitem>
-	        <para>
-		    Michael Favreau
-		    <email>michel.favreau@free.fr</email>
-		    (packaging for Arch Linux)
-		</para>
-	    </listitem>
-	    <listitem>
-	        <para>
-		    Pavel Fric
-		    <email>pavelfric@seznam.cz</email>
-		    (Czech translation)
-		</para>
-	    </listitem>
-	    <listitem>
-	        <para>
-		    Aurelien Jarno
-		    <email>aurel32@debian.org</email>
-		    (<ulink url="&url_debian;">debian</ulink> packager)
-		</para>
-	    </listitem>
-	    <listitem>
-	        <para>
-		    Martin Kuball
-		    <email>makube@user.sourceforge.net</email>
-		    (beta tester)
-		</para>
-	    </listitem>
-	    <listitem><para>my wife Ximena González<emphasis> (for
-	    her patience)</emphasis>
-	    </para></listitem>
-	    <listitem>
-	        <para>
-		    T.H.F. Klok and Cedric Tefft
-		    (maintainers of the <ulink url="&url_id3lib;">
-		     id3lib</ulink> library)
-		</para>
-	    </listitem>
-	    <listitem>
-	        <para>
-		    Robert Leslie
-		    <email>rob@mars.org</email>
-		    (author of the
-		     <ulink url="&url_libmad;">mad</ulink>
-		     mp3 decoder library)
-		</para>
-	    </listitem>
-	    <listitem>
-	        <para>
-		    Erik de Castro Lopo
-		    <email>erikd@zip.com.au</email>
-		    (author of the
-		    <ulink url="&url_libsndfile;">sndfile</ulink>
-		    library)
-		</para>
-	    </listitem>
-<!--    	    <listitem><para>Klaus Hendrik Lorenz</para></listitem> -->
-	    <listitem>
-	        <para>
-		    Michael Pruett
-		    <email>mpruett@sgi.com</email>
-		    (author of the
-		    <ulink url="&url_libaudiofile;">audiofile</ulink>
-		    library)
-		</para>
-	    </listitem>
-	    <listitem>
-	        <para>
-		    Robert M. Stockmann
-		    <email>stock@stokkie.net</email>
-		    (packaging for Mandrake / X86_64)
-		</para>
-	    </listitem>
-	    <listitem>
-	        <para>
-		    Diederick de Vries
-		    <email>diederick76@gmail.com</email>
-		    (packaging for Crux Linux)
-		</para>
-	    </listitem>
-	</itemizedlist>
-    </para>
-
-    <para>
-	Documentation copyright (C) 2011 Thomas Eschenbacher
+	Documentation copyright (C) &version_year; Thomas Eschenbacher
 	<email>thomas.eschenbacher@gmx.de</email>
     </para>
-
-<!--
-    <para>
-	Translations will be done by:
-	<itemizedlist>
-	    <listitem>
-	    	<para>
-		    Babel D. Fish
-		    <email>babelfish@kde.org</email> (Sanskrit)
-		</para>
-	    </listitem>
-	</itemizedlist>
-    </para>
--->
 
 &underFDL;
 &underGPL;
 
-<!-- &license-links; -->
+    <sect1 id="main_authors"><title>Main Authors</title>
+    <para>
+    	<itemizedlist>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Martin Wilz
+		    <email>martin@wilz.de</email>
+		</emphasis></para><para>
+		    creator of the project, active development 1998-2000
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Thomas Eschenbacher
+		    <email>thomas.eschenbacher@gmx.de</email>
+		</emphasis></para><para>
+		    maintainer since 2000, core development
+		</para>
+	    </listitem>
+	</itemizedlist>
+    </para>
+    </sect1>
+
+    <sect1 id="major_contributors"><title>Major Contributors</title>
+    <para>
+	<itemizedlist>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Aurelien Jarno
+		    <email>aurel32@debian.org</email>
+		</emphasis></para><para>
+		    <ulink url="&url_debian;">debian</ulink> packager,
+		    patches
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Daniel Tihelka
+		    <email>dtihelka@kky.zcu.cz</email>
+		</emphasis></para><para>
+		    visualization plugins
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    David Flogeras
+		    <email>dflogera@nbnet.nb.ca</email>
+		</emphasis></para><para>
+		    Notch Filter plugin
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Gilles Caulier
+		    <email>caulier.gilles@free.fr</email>
+		</emphasis></para><para>
+		    i18n, french translations, splashscreen, beta tester
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Pavel Fric
+		    <email>pavelfric@seznam.cz</email>
+		</emphasis></para><para>
+		    Czech translation
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Ralf Waspe
+		    <email>rwaspe@web.de</email>
+		</emphasis></para><para>
+		    Help/About plugin
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Sven-Steffen Arndt
+		    <email>ssa29@gmx.de</email>
+		</emphasis></para><para>
+		    homepage, german translation
+		</para>
+	    </listitem>
+	</itemizedlist>
+    </para>
+    </sect1>
+
+    <sect1 id="minor_contributors"><title>Minor contributors, copyright holders and others</title>
+    <para>
+    	<itemizedlist>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Andreas Schneider
+		    <email>mail@cynapses.org</email>
+		</emphasis><emphasis>[historic]</emphasis></para><para>
+		    cmake/FindARTS.cmake
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Bertrand Songis <email>bsongis@gmail.com</email>
+		</emphasis><emphasis>[historic]</emphasis></para><para>
+		    french translation fixes,
+		    substitutes for patented libaudiofile code,
+		    debian bug 419124
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Carsten Lohrke <email>carlo@gentoo.org</email>
+		</emphasis></para><para>
+		    svn r2163, patch for libaudiofile detection
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Chris Vaill <email>chrisvaill@gmail</email>
+		</emphasis></para><para>
+		    code base for the normalize plugin
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    David Faure <email>faure@kde.org</email>
+		</emphasis></para><para>
+		    cmake/FindAlsa.cmake
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Diederick de Vries
+		    <email>diederick76@gmail.com</email>
+		</emphasis></para><para>
+		    packaging for Crux Linux
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Espen Sand <email>espen@kde.org</email> +
+		    Mirko Boehm <email>mirko@kde.org</email>
+		</emphasis></para><para>
+		    K3AboutContainer, base of KwaveAboutContainer
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Everaldo Coelho <email>contact@everaldo.com</email>
+		</emphasis></para><para>
+		    the crystal icon theme http://www.everaldo.com/crystal/
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Fabrice Bellard (extracted) + H. Dietz (mmx.h) + R. Fisher (mmx.h)
+		</emphasis></para><para>
+		    libkwave/cputest.c
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Jaroslav Kysela
+		</emphasis></para><para>
+		    parts of plugins/playback/PlayBack-ALSA.cpp
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Jeff Tranter
+		</emphasis></para><para>
+		    parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Juhana Sadeharju <email>kouhia@nic.funet.fi</email>
+		</emphasis></para><para>
+		    plugins/band_pass/BandPass.{h,cpp},
+		    plugins/lowpass/LowPassFilter.cpp,
+		    plugins/notch_filter/NotchFilter.{h,cpp}
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Kurt Roeck <email>Q@ping.be</email>
+		</emphasis></para><para>
+		    svn r1370, fix for debian bug#288781, compilation for amd64
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Mark Donohoe (KDE) <email>donohoe@kde.org</email>
+		</emphasis></para><para>
+		    some icons and bitmaps for toolbar and GUI
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Matthias Kretz, <email>kretz@kde.org</email>
+		</emphasis></para><para>
+		    cmake/FindAlsa.cmake
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Miguel Freitas
+		</emphasis></para><para>
+		    parts of libkwave/memcpy.c
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Paul Mackerras <email>paulus@samba.org</email>
+		</emphasis></para><para>
+		    libkwave/ppcasm_string.h,
+		    libkwave/ppcasm_string.S,
+		    libkwave/ppc_asm.tmpl
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Richard Laerkaeng, <email>richard@goteborg.utfors.se</email>
+		</emphasis></para><para>
+		    cmake/FindOggVorbis.cmake
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Rik Hemsley
+		    <email>rik@kde.org</email>
+		</emphasis></para><para>
+		    <ulink url="&url_levelmeter;">level meter</ulink>
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Stefan Westerfeld <email>stefan@space.twc.de</email>
+		</emphasis></para><para>
+		    parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Stichting Mathematisch Centrum, Amsterdam
+		</emphasis><emphasis>[historic]</emphasis></para><para>
+		    libaudiofile/modules/adpcm.c
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Sun Microsystems, Inc.
+		</emphasis><emphasis>[historic]</emphasis></para><para>
+		    libaudiofile/g711.c, libaudiofile/g711.h
+		</para>
+	    </listitem>
+	</itemizedlist>
+    </para>
+    </sect1>
+
+    <sect1 id="thanks_to"><title>Thanks To</title>
+    <para>
+    	<itemizedlist>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Martin Kuball
+		    <email>makube@user.sourceforge.net</email>
+		</emphasis></para><para>
+		    beta tester
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Jorge Luis Arzola
+		    <email>arzolacub@gmx.de</email>
+		</emphasis></para><para>
+		    packaging for SuSE Linux
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Michael Favreau
+		    <email>michel.favreau@free.fr</email>
+		</emphasis></para><para>
+		    packaging for Arch Linux
+		</para>
+	    </listitem>
+
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Matthias Düsterhöft
+		    <email>duesti@gmx.de</email>
+		</emphasis></para><para>
+		    for information about RPM optimization
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    T.H.F. Klok and Cedric Tefft
+		</emphasis></para><para>
+		    maintainers of the <ulink url="&url_id3lib;">
+		    id3lib</ulink> library
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Robert Leslie
+		    <email>rob@mars.org</email>
+		</emphasis></para><para>
+		    author of the
+		     <ulink url="&url_libmad;">mad</ulink>
+		     mp3 decoder library
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Robert M. Stockmann
+		    <email>stock@stokkie.net</email>
+		</emphasis></para><para>
+		    packaging for Mandrake / X86_64
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Erik de Castro Lopo
+		    <email>erikd@zip.com.au</email>
+		</emphasis></para><para>
+		    author of the
+		    <ulink url="&url_libsndfile;">sndfile</ulink>
+		    library
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
+		    Michael Pruett
+		    <email>mpruett@sgi.com</email>
+		</emphasis></para><para>
+		    author of the
+		    <ulink url="&url_libaudiofile;">audiofile</ulink>
+		    library
+		</para>
+	    </listitem>
+	</itemizedlist>
+    </para>
+    </sect1>
+
+<!--
+    historical entries:
+    <listitem><para>Juhana Kouhia</para></listitem>
+    <listitem><para>Gerhard Zintel</para></listitem>
+    <listitem><para>Gael Duval</para></listitem>
+    <listitem><para>Aaron Johnson</para></listitem>
+    <listitem><para>Uwe Steinmann</para></listitem>
+    <listitem><para>Juhana Kouhia</para></listitem>
+    <listitem><para>Dave Phillips</para></listitem>
+    <listitem><para>Martin Petriska</para></listitem>
+    <listitem><para>Winfried Truemper</para></listitem>
+    <listitem><para>Bruce Garlock</para></listitem>
+    <listitem><para>Christoph Raab</para></listitem>
+    <listitem><para>tOpHEr lAfaTA</para></listitem>
+    <listitem><para>Nemosoft</para></listitem>
+    <listitem><para>Guido</para></listitem>
+    <listitem><para>Eero</para></listitem>
+    <listitem><para>Carsten Jacobi</para></listitem>
+    <listitem><para>Frank Christian Stoffel</para></listitem>
+    <listitem><para>Achim Dahlhaus</para></listitem>
+    <listitem><para>Klaus Hendrik Lorenz</para></listitem>
+-->
 
 </chapter>
 

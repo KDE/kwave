@@ -94,8 +94,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doxy.cfg.in					GPL2+
 	GNU-LICENSE					free
 	kwave.ebuild					GPL2+ / Gentoo
-	Kwave.kdevelop					(should be GPL2+)
-	Kwave.kdevelop.filelist				(should be GPL2+)
+	kwave.kdev4					(should be GPL2+)
 	kwave.lsm					(should be GPL2+)
 	kwave.spec.in					(should be GPL2+)
 	README						(should be GPL2+)

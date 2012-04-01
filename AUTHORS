@@ -20,105 +20,124 @@ project. If you think that you should be listed here, or the
 description of what you have done needs is incorrect or incomplete,
 please let us know!
 
-Developers
-==========
+Maintainers
+===========
 
-Martin Wilz <martin@wilz.de>
+Martin Wilz <martin@wilz.de> [historic]
 	* creator of the project, active development 1998-2000
 
 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
 	* maintainer since 2000, core development
 
-Contributors
-============
 
-Ralf Waspe <rwaspe@web.de>
-	* Help/About dialog
+Major Contributors
+==================
+
+Aurelien Jarno <aurel32@debian.org>
+	* debian packager
+
+Daniel Tihelka <dtihelka@kky.zcu.cz>
+	* visualization plugins
+
+David Flogeras <d.flogeras@unb.ca>
+	* notch filter plugin
+	* band pass plugin
 
 Gilles Caulier <caulier.gilles@free.fr>
 	* french translations
 	* splashscreen
 	* tests and minor bugfixes
 
-Dave Flogeras <d.flogeras@unb.ca>
-	* notch filter plugin
-	* band pass plugin
+Pavel Fric <pavelfric@seznam.cz>
+	* czech translation
+
+Ralf Waspe <rwaspe@web.de>
+	* Help/About dialog
 
 Sven-Steffen Arndt <ssa29@gmx.de>
 	* Kwave homepage
 	* german online help
 
-Aurelien Jarno <aurel32@debian.org>
-	* debian packager
 
-Robert M. Stockmann <stock@stokkie.net>
-	* packaging for Mandrake / X86_64
+minor contributors, copyright holders and others
+================================================
 
-Others, authors and copyright holders
-=====================================
+Andreas Schneider, <mail@cynapses.org> [historic]
+	* cmake/FindARTS.cmake
+
+Bertrand Songis <bsongis@gmail.com>
+	* french translation fixes
+	* substitutes for patented libaudiofile code, debian bug 419124 [historic]
+
+Carsten Lohrke <carlo@gentoo.org>
+	* svn r2163, patch for libaudiofile detection
 
 Chris Vaill <chrisvaill at gmail>
 	* code base for the normalize plugin
+
+David Faure, <faure@kde.org>
+	* cmake/FindAlsa.cmake
+
+Diederick de Vries, <diederick76@gmail.com>
+	* packaging for Crux Linux
+
+Espen Sand (espen@kde.org) + Mirko Boehm (mirko@kde.org)
+	* K3AboutContainer (base of KwaveAboutContainer)
 
 Everaldo Coelho <contact@everaldo.com>
 	* the crystal icon theme
 	  http://www.everaldo.com/crystal/
 
-Stefan Westerfeld <stefan@space.twc.de>
-	* parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}
-
-Mark Donohoe (KDE) <donohoe@kde.org>
-	* some icons and bitmaps for toolbar and GUI
-
-David Faure, <faure@kde.org>
-	* cmake/FindAlsa.cmake
-
-Matthias Kretz, <kretz@kde.org>
-	* cmake/FindAlsa.cmake
-
-Andreas Schneider, <mail@cynapses.org>
-	* cmake/FindARTS.cmake
-
-Richard Laerkaeng, <richard@goteborg.utfors.se>
-	* cmake/FindOggVorbis.cmake
-
-H. Dietz (mmx.h)
-R. Fisher (mmx.h)
-Fabrice Bellard (extracted)
+Fabrice Bellard (extracted) + H. Dietz (mmx.h) + R. Fisher (mmx.h)
 	* libkwave/cputest.c
 
-Paul Mackerras <paulus@samba.org>
-	* libkwave/ppcasm_string.h
-	* libkwave/ppcasm_string.S
-	* libkwave/ppc_asm.tmpl
+Jaroslav Kysela
+	* parts of plugins/playback/PlayBack-ALSA.cpp
+
+Jeff Tranter
+	* parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}
 
 Juhana Sadeharju <kouhia@nic.funet.fi>
 	* plugins/band_pass/BandPass.{h,cpp}
 	* plugins/lowpass/LowPassFilter.cpp
 	* plugins/notch_filter/NotchFilter.{h,cpp}
 
-Jeff Tranter
-	* parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}
+Kurt Roeck <Q@ping.be>
+	* svn r1370, fix for debian bug#288781, compilation for amd64
 
-Jaroslav Kysela
-	* parts of plugins/playback/PlayBack-ALSA.cpp
+Mark Donohoe (KDE) <donohoe@kde.org>
+	* some icons and bitmaps for toolbar and GUI
 
-Rik Hemsley
-	* plugins/record/LevelMeter.cpp
-	* plugins/record/LevelMeter.h
-
-Stichting Mathematisch Centrum, Amsterdam
-	* libaudiofile/modules/adpcm.c
-
-Sun Microsystems, Inc.
-	* libaudiofile/g711.c
-	* libaudiofile/g711.h
+Matthias Kretz, <kretz@kde.org>
+	* cmake/FindAlsa.cmake
 
 Miguel Freitas
 	* parts of libkwave/memcpy.c
 
-Mirko Boehm (mirko@kde.org)
-Espen Sand (espen@kde.org)
-	* K3AboutContainer (base of KwaveAboutContainer)
+Paul Mackerras <paulus@samba.org>
+	* libkwave/ppcasm_string.h
+	* libkwave/ppcasm_string.S
+	* libkwave/ppc_asm.tmpl
+
+Richard Laerkaeng, <richard@goteborg.utfors.se>
+	* cmake/FindOggVorbis.cmake
+
+Rik Hemsley <rik@kde.org>
+	* plugins/record/LevelMeter.cpp
+	* plugins/record/LevelMeter.h
+
+Robert M. Stockmann <stock@stokkie.net>
+	* packaging for Mandrake / X86_64
+
+Stefan Westerfeld <stefan@space.twc.de>
+	* parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}
+
+Stichting Mathematisch Centrum, Amsterdam [historic]
+	* libaudiofile/modules/adpcm.c
+
+Sun Microsystems, Inc. [historic]
+	* libaudiofile/g711.c
+	* libaudiofile/g711.h
+
 
 ### EOF ###

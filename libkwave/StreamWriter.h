@@ -27,11 +27,10 @@
 
 #include "libkwave/Writer.h"
 
-class Track;
-
 namespace Kwave {
 
     class SampleArray;
+    class Track;
 
     /**
      * @class StreamWriter

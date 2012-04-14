@@ -70,13 +70,13 @@ void Signal::close()
 }
 
 //***************************************************************************
-Track *Signal::insertTrack(unsigned int index, sample_index_t length)
+Kwave::Track *Signal::insertTrack(unsigned int index, sample_index_t length)
 {
-    Track *t = 0;
+    Kwave::Track *t = 0;
     {
 	QWriteLocker lock(&m_lock_tracks);
 
-	t = new Track(length);
+	t = new Kwave::Track(length);
 	Q_ASSERT(t);
 	if (!t) return 0;
 
@@ -88,17 +88,17 @@ Track *Signal::insertTrack(unsigned int index, sample_index_t length)
 	m_tracks.insert(index, t);
 
 	// connect to the new track's signals
-	connect(t, SIGNAL(sigSamplesDeleted(Track *, sample_index_t,
+	connect(t, SIGNAL(sigSamplesDeleted(Kwave::Track *, sample_index_t,
 	    sample_index_t)),
-	    this, SLOT(slotSamplesDeleted(Track *, sample_index_t,
+	    this, SLOT(slotSamplesDeleted(Kwave::Track *, sample_index_t,
 	    sample_index_t)));
-	connect(t, SIGNAL(sigSamplesInserted(Track *, sample_index_t,
+	connect(t, SIGNAL(sigSamplesInserted(Kwave::Track *, sample_index_t,
 	    sample_index_t)),
-	    this, SLOT(slotSamplesInserted(Track *, sample_index_t,
+	    this, SLOT(slotSamplesInserted(Kwave::Track *, sample_index_t,
 	    sample_index_t)));
-	connect(t, SIGNAL(sigSamplesModified(Track *, sample_index_t,
+	connect(t, SIGNAL(sigSamplesModified(Kwave::Track *, sample_index_t,
 	    sample_index_t)),
-	    this, SLOT(slotSamplesModified(Track *, sample_index_t,
+	    this, SLOT(slotSamplesModified(Kwave::Track *, sample_index_t,
 	    sample_index_t)));
     }
 
@@ -109,7 +109,7 @@ Track *Signal::insertTrack(unsigned int index, sample_index_t length)
 
 
 //***************************************************************************
-Track *Signal::appendTrack(sample_index_t length)
+Kwave::Track *Signal::appendTrack(sample_index_t length)
 {
     return insertTrack(tracks(), length);
 }
@@ -118,7 +118,7 @@ Track *Signal::appendTrack(sample_index_t length)
 void Signal::deleteTrack(unsigned int index)
 {
     // remove the track from the list but do not delete it
-    Track *t = 0;
+    Kwave::Track *t = 0;
     {
 	QWriteLocker lock(&m_lock_tracks);
 	if (static_cast<int>(index) > m_tracks.count())
@@ -149,7 +149,7 @@ Kwave::Writer *Signal::openWriter(unsigned int track,
 	return 0; // track does not exist !
     }
 
-    Track *t = m_tracks.at(track);
+    Kwave::Track *t = m_tracks.at(track);
     Q_ASSERT(t);
     return (t) ? t->openWriter(mode, left, right) : 0;
 }
@@ -163,7 +163,7 @@ SampleReader *Signal::openSampleReader(Kwave::ReaderMode mode,
     if (static_cast<int>(track) >= m_tracks.count())
 	return 0; // track does not exist !
 
-    Track *t = m_tracks.at(track);
+    Kwave::Track *t = m_tracks.at(track);
     Q_ASSERT(t);
     return (t) ? t->openSampleReader(mode, left, right) : 0;
 }
@@ -192,7 +192,7 @@ void Signal::deleteRange(unsigned int track, sample_index_t offset,
     if (static_cast<int>(track) >= m_tracks.count())
 	return; // track does not exist !
 
-    Track *t = m_tracks.at(track);
+    Kwave::Track *t = m_tracks.at(track);
     Q_ASSERT(t);
     if (t) t->deleteRange(offset, length);
 }
@@ -207,7 +207,7 @@ void Signal::insertSpace(unsigned int track, sample_index_t offset,
     if (static_cast<int>(track) >= m_tracks.count())
 	return; // track does not exist !
 
-    Track *t = m_tracks.at(track);
+    Kwave::Track *t = m_tracks.at(track);
     Q_ASSERT(t);
     if (t) t->insertSpace(offset, length);
 }
@@ -225,7 +225,7 @@ sample_index_t Signal::length()
     QReadLocker lock(&m_lock_tracks);
 
     sample_index_t max = 0;
-    foreach (Track *track, m_tracks) {
+    foreach (Kwave::Track *track, m_tracks) {
 	if (!track) continue;
 	sample_index_t len = track->length();
 	if (len > max) max = len;
@@ -516,16 +516,16 @@ void Signal::selectTrack(unsigned int track, bool select)
 //    }
 
 //***************************************************************************
-unsigned int Signal::trackIndex(const Track *track)
+unsigned int Signal::trackIndex(const Kwave::Track *track)
 {
     QReadLocker lock(&m_lock_tracks);
 
-    int index = m_tracks.indexOf(const_cast<Track *>(track));
+    int index = m_tracks.indexOf(const_cast<Kwave::Track *>(track));
     return (index >= 0) ? index : m_tracks.count();
 }
 
 //***************************************************************************
-void Signal::slotSamplesInserted(Track *src, sample_index_t offset,
+void Signal::slotSamplesInserted(Kwave::Track *src, sample_index_t offset,
                                  sample_index_t length)
 {
     unsigned int track = trackIndex(src);
@@ -533,7 +533,7 @@ void Signal::slotSamplesInserted(Track *src, sample_index_t offset,
 }
 
 //***************************************************************************
-void Signal::slotSamplesDeleted(Track *src, sample_index_t offset,
+void Signal::slotSamplesDeleted(Kwave::Track *src, sample_index_t offset,
                                 sample_index_t length)
 {
     unsigned int track = trackIndex(src);
@@ -541,7 +541,7 @@ void Signal::slotSamplesDeleted(Track *src, sample_index_t offset,
 }
 
 //***************************************************************************
-void Signal::slotSamplesModified(Track *src, sample_index_t offset,
+void Signal::slotSamplesModified(Kwave::Track *src, sample_index_t offset,
                                  sample_index_t length)
 {
     unsigned int track = trackIndex(src);

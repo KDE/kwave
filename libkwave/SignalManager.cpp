@@ -92,8 +92,8 @@ SignalManager::SignalManager(QWidget *parent)
 {
     // connect to the track's signals
     Signal *sig = &m_signal;
-    connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track *)),
-            this, SLOT(slotTrackInserted(unsigned int, Track *)));
+    connect(sig, SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
+            this, SLOT(slotTrackInserted(unsigned int, Kwave::Track *)));
     connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),
             this, SLOT(slotTrackDeleted(unsigned int)));
     connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, sample_index_t,
@@ -169,7 +169,7 @@ int SignalManager::loadFile(const KUrl &url)
 	if (!tracks) break;
 
 	for (track = 0; track < tracks; ++track) {
-	    Track *t = m_signal.appendTrack(length);
+	    Kwave::Track *t = m_signal.appendTrack(length);
 	    Q_ASSERT(t);
 	    if (!t || (t->length() != length)) {
 		qWarning("out of memory");
@@ -927,7 +927,7 @@ void SignalManager::deleteTrack(unsigned int index)
 
 //***************************************************************************
 void SignalManager::slotTrackInserted(unsigned int index,
-	Track *track)
+                                      Kwave::Track *track)
 {
     setModified(true);
 

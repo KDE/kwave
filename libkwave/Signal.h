@@ -35,7 +35,7 @@
 
 class MultiTrackReader;
 class SampleReader;
-class Track;
+namespace Kwave { class Track; }
 namespace Kwave { class Writer; }
 
 //**********************************************************************
@@ -78,14 +78,14 @@ public:
      * @return pointer to the created track. If the length is
      *         omitted or zero, the track will have zero length.
      */
-    Track *insertTrack(unsigned int index, sample_index_t length = 0);
+    Kwave::Track *insertTrack(unsigned int index, sample_index_t length = 0);
 
     /**
      * Appends a new track to the end of the tracks list, shortcut for
      * insertTrack(tracks()-1, length)
      * @see insertTrack
      */
-    Track *appendTrack(sample_index_t length);
+    Kwave::Track *appendTrack(sample_index_t length);
 
     /**
      * Deletes a track.
@@ -175,7 +175,7 @@ signals:
      * @param index position of the new track [0...tracks()-1]
      * @param track reference to the new track
      */
-    void sigTrackInserted(unsigned int index, Track *track);
+    void sigTrackInserted(unsigned int index, Kwave::Track *track);
 
     /**
      * Signals that a track has been deleted.
@@ -223,7 +223,7 @@ private slots:
      * @see Track::sigSamplesInserted
      * @internal
      */
-    void slotSamplesInserted(Track *src, sample_index_t offset,
+    void slotSamplesInserted(Kwave::Track *src, sample_index_t offset,
                              sample_index_t length);
 
     /**
@@ -234,7 +234,7 @@ private slots:
      * @see Track::sigSamplesDeleted
      * @internal
      */
-    void slotSamplesDeleted(Track *src, sample_index_t offset,
+    void slotSamplesDeleted(Kwave::Track *src, sample_index_t offset,
                             sample_index_t length);
 
     /**
@@ -245,7 +245,7 @@ private slots:
      * @see Track::sigSamplesModified
      * @internal
      */
-    void slotSamplesModified(Track *src, sample_index_t offset,
+    void slotSamplesModified(Kwave::Track *src, sample_index_t offset,
                              sample_index_t length);
 
 private:
@@ -255,7 +255,7 @@ private:
      * @param track reference to the trac to be looked up
      * @returns index of the track [0...tracks()-1] or tracks() if not found
      */
-    unsigned int trackIndex(const Track *track);
+    unsigned int trackIndex(const Kwave::Track *track);
 
 //    //signal modifying functions
 //    void replaceStutter (int, int);
@@ -269,7 +269,7 @@ private:
 //    void averageFFT (int points, window_function_t windowtype);
 
     /** list of tracks */
-    QList<Track *> m_tracks;
+    QList<Kwave::Track *> m_tracks;
 
     /** mutex for access to the track list */
     QReadWriteLock m_lock_tracks;

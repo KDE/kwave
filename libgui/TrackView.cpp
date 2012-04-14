@@ -29,6 +29,7 @@
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Track.h"
 
 #include "LabelItem.h"
 #include "MultiStateWidget.h"
@@ -41,7 +42,7 @@
 //***************************************************************************
 Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
                             SignalManager *signal_manager,
-                            Track *track)
+                            Kwave::Track *track)
     :Kwave::SignalView(parent, controls, signal_manager,
                        Kwave::SignalView::AboveTrackTop),
      m_signal_manager(signal_manager),

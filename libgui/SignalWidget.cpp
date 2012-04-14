@@ -112,8 +112,8 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
     // connect to the signal manager's signals
     SignalManager *sig = m_context.signalManager();
 
-    connect(sig,  SIGNAL(sigTrackInserted(unsigned int, Track *)),
-            this, SLOT( slotTrackInserted(unsigned int, Track *)));
+    connect(sig,  SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
+            this, SLOT( slotTrackInserted(unsigned int, Kwave::Track *)));
     connect(sig,  SIGNAL(sigTrackDeleted(unsigned int)),
             this, SLOT( slotTrackDeleted(unsigned int)));
 
@@ -578,7 +578,7 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
 }
 
 //***************************************************************************
-void SignalWidget::slotTrackInserted(unsigned int index, Track *track)
+void SignalWidget::slotTrackInserted(unsigned int index, Kwave::Track *track)
 {
     Q_ASSERT(track);
     if (!track) return;

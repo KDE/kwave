@@ -3,6 +3,7 @@
 
  * migration to GIT as source code management
  * documentation update
+ * fix for namespace collision with libaudiofile
 
 0.8.7  [2011-11-27]
 

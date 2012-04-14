@@ -1,5 +1,5 @@
 /***************************************************************************
-                Track.h  -  collects one or more stripes in one track
+                 Track.h -  collects one or more stripes in one track
 			     -------------------
     begin                : Feb 09 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
@@ -33,248 +33,253 @@
 #include "libkwave/Stripe.h"
 
 class SampleReader;
-namespace Kwave { class TrackWriter; }
-namespace Kwave { class Writer; }
 
 //***************************************************************************
-class KDE_EXPORT Track: public QObject
-{
-    Q_OBJECT
-public:
-    /**
-     * Default constructor. Creates a new and empty track with
-     * zero-length and no stripes
-     */
-    Track();
+namespace Kwave {
 
-    /**
-     * Constructor. Creates an empty track with one stripe
-     * with specified length.
-     */
-    Track(sample_index_t length);
+    class TrackWriter;
+    class Writer;
 
-    /**
-     * Destructor.
-     */
-    virtual ~Track();
+    class KDE_EXPORT Track: public QObject
+    {
+	Q_OBJECT
+    public:
+	/**
+	 * Default constructor. Creates a new and empty track with
+	 * zero-length and no stripes
+	 */
+	Track();
 
-    /**
-     * Returns the length of the track. This is equivalent
-     * to the position of the last sample of the last Stripe.
-     */
-    sample_index_t length();
+	/**
+	 * Constructor. Creates an empty track with one stripe
+	 * with specified length.
+	 */
+	Track(sample_index_t length);
 
-    /**
-     * Opens a stream for writing samples, starting at a
-     * sample position.
-     * @param mode specifies where and how to insert
-     * @param left start of the input (only useful in insert and
-     *             overwrite mode)
-     * @param right end of the input (only useful with overwrite mode)
-     * @see InsertMode
-     */
-    Kwave::Writer *openWriter(InsertMode mode,
-	sample_index_t left = 0, sample_index_t right = 0);
+	/**
+	 * Destructor.
+	 */
+	virtual ~Track();
 
-    /**
-     * Opens a stream for reading samples. If the the last position
-     * is omitted, the value UINT_MAX will be used.
-     * @param mode read mode, see Kwave::ReaderMode
-     * @param left first offset to be read (default = 0)
-     * @param right last position to read (default = UINT_MAX)
-     */
-    SampleReader *openSampleReader(Kwave::ReaderMode mode,
-	sample_index_t left = 0,
-	sample_index_t right = SAMPLE_INDEX_MAX);
+	/**
+	 * Returns the length of the track. This is equivalent
+	 * to the position of the last sample of the last Stripe.
+	 */
+	sample_index_t length();
 
-    /**
-     * Deletes a range of samples
-     * @param offset index of the first sample
-     * @param length number of samples
-     * @param make_gap if true, make a gap into the list of stripes
-     *                 instead of moving the stuff from right to left
-     */
-    void deleteRange(sample_index_t offset, sample_index_t length,
-                     bool make_gap = false);
+	/**
+	 * Opens a stream for writing samples, starting at a
+	 * sample position.
+	 * @param mode specifies where and how to insert
+	 * @param left start of the input (only useful in insert and
+	 *             overwrite mode)
+	 * @param right end of the input (only useful with overwrite mode)
+	 * @see InsertMode
+	 */
+	Kwave::Writer *openWriter(InsertMode mode,
+	                          sample_index_t left = 0,
+	                          sample_index_t right = 0);
 
-    /**
-     * Inserts space at a given offset by moving all stripes that are
-     * are starting at or after the given offset right.
-     *
-     * @param offset position after which everything is moved right
-     * @param shift distance of the shift [samples]
-     * @return true if succeeded, false if failed (OOM?)
-     */
-    bool insertSpace(sample_index_t offset, sample_index_t shift);
+	/**
+	 * Opens a stream for reading samples. If the the last position
+	 * is omitted, the value UINT_MAX will be used.
+	 * @param mode read mode, see Kwave::ReaderMode
+	 * @param left first offset to be read (default = 0)
+	 * @param right last position to read (default = UINT_MAX)
+	 */
+	SampleReader *openSampleReader(Kwave::ReaderMode mode,
+	                               sample_index_t left = 0,
+	                               sample_index_t right = SAMPLE_INDEX_MAX);
 
-    /** Returns the "selected" flag. */
-    inline bool selected() const { return m_selected; }
+	/**
+	 * Deletes a range of samples
+	 * @param offset index of the first sample
+	 * @param length number of samples
+	 * @param make_gap if true, make a gap into the list of stripes
+	 *                 instead of moving the stuff from right to left
+	 */
+	void deleteRange(sample_index_t offset, sample_index_t length,
+	                 bool make_gap = false);
 
-    /** Sets the "selected" flag. */
-    void select(bool select);
+	/**
+	 * Inserts space at a given offset by moving all stripes that are
+	 * are starting at or after the given offset right.
+	 *
+	 * @param offset position after which everything is moved right
+	 * @param shift distance of the shift [samples]
+	 * @return true if succeeded, false if failed (OOM?)
+	 */
+	bool insertSpace(sample_index_t offset, sample_index_t shift);
 
-public slots:
+	/** Returns the "selected" flag. */
+	inline bool selected() const { return m_selected; }
 
-    /** toggles the selection of the slot on/off */
-    void toggleSelection();
+	/** Sets the "selected" flag. */
+	void select(bool select);
 
-signals:
+    public slots:
 
-    /**
-     * Emitted if the track has grown. This implies a modification of
-     * the inserted data, so no extra sigSamplesModified is emitted.
-     * @param src source track of the signal (*this)
-     * @param offset position from which the data was inserted
-     * @param length number of samples inserted
-     * @see sigSamplesModified
-     */
-    void sigSamplesInserted(Track *src, sample_index_t offset,
-                            sample_index_t length);
+	/** toggles the selection of the slot on/off */
+	void toggleSelection();
 
-    /**
-     * Emitted if data has been removed from the track.
-     * @param src source track of the signal (*this)
-     * @param offset position from which the data was removed
-     * @param length number of samples deleted
-     */
-    void sigSamplesDeleted(Track *src, sample_index_t offset,
-                           sample_index_t length);
+    signals:
 
-    /**
-     * Emitted if some data within the track has been modified.
-     * @param src source track of the signal (*this)
-     * @param offset position from which the data was modified
-     * @param length number of samples modified
-     */
-    void sigSamplesModified(Track *src, sample_index_t offset,
-                            sample_index_t length);
+	/**
+	 * Emitted if the track has grown. This implies a modification of
+	 * the inserted data, so no extra sigSamplesModified is emitted.
+	 * @param src source track of the signal (*this)
+	 * @param offset position from which the data was inserted
+	 * @param length number of samples inserted
+	 * @see sigSamplesModified
+	 */
+	void sigSamplesInserted(Kwave::Track *src, sample_index_t offset,
+	                        sample_index_t length);
 
-    /**
-     * Emitted whenever the selection of the track has changed.
-     * @param selected true if selected, false if unselected
-     */
-     void sigSelectionChanged(bool selected);
+	/**
+	 * Emitted if data has been removed from the track.
+	 * @param src source track of the signal (*this)
+	 * @param offset position from which the data was removed
+	 * @param length number of samples deleted
+	 */
+	void sigSamplesDeleted(Kwave::Track *src, sample_index_t offset,
+                               sample_index_t length);
 
-private:
-    /**
-     * Returns the current length of the stripe in samples. This
-     * function uses no locks and is therefore reserved for internal
-     * usage from within locked functions.
-     * @note this must be private, it does no locking !
-     */
-    sample_index_t unlockedLength();
+	/**
+	 * Emitted if some data within the track has been modified.
+	 * @param src source track of the signal (*this)
+	 * @param offset position from which the data was modified
+	 * @param length number of samples modified
+	 */
+	void sigSamplesModified(Kwave::Track *src, sample_index_t offset,
+	                        sample_index_t length);
 
-    /**
-     * Deletes a range of samples, used internally by deleteRange()
-     * @param offset index of the first sample
-     * @param length number of samples
-     * @param make_gap if true, make a gap into the list of stripes
-     *                 instead of moving the stuff from right to left
-     */
-    void unlockedDelete(sample_index_t offset, sample_index_t length,
-                        bool make_gap = false);
+	/**
+	 * Emitted whenever the selection of the track has changed.
+	 * @param selected true if selected, false if unselected
+	 */
+	void sigSelectionChanged(bool selected);
 
-    /**
-     * Append samples after a given stripe.
-     *
-     * @param stripe the stripe after which to instert. Null pointer is
-     *               allowed, in this case a new stripe is created
-     * @param offset position where the new data should start
-     * @param buffer array with samples
-     * @param buf_offset offset within the buffer
-     * @param length number of samples to write
-     * @return true if successful, false if failed (e.g. out of memory)
-     */
-    bool appendAfter(Stripe *stripe, sample_index_t offset,
-                     const Kwave::SampleArray &buffer,
-                     unsigned int buf_offset, unsigned int length);
+    private:
+	/**
+	 * Returns the current length of the stripe in samples. This
+	 * function uses no locks and is therefore reserved for internal
+	 * usage from within locked functions.
+	 * @note this must be private, it does no locking !
+	 */
+	sample_index_t unlockedLength();
 
-    /**
-     * Move all stripes after an offset to the right. Only looks at the
-     * start position of the stripes, comparing with ">=", if the start
-     * of a stripe is at the given offset, it will not be moved!
-     *
-     * @param offset position after which everything is moved right
-     * @param shift distance of the shift [samples]
-     */
-    void moveRight(sample_index_t offset, sample_index_t shift);
+	/**
+	 * Deletes a range of samples, used internally by deleteRange()
+	 * @param offset index of the first sample
+	 * @param length number of samples
+	 * @param make_gap if true, make a gap into the list of stripes
+	 *                 instead of moving the stuff from right to left
+	 */
+	void unlockedDelete(sample_index_t offset, sample_index_t length,
+	                    bool make_gap = false);
 
-    /**
-     * Append a new stripe with a given length.
-     *
-     * @param length number of samples, zero is allowed
-     */
-    void appendStripe(sample_index_t length);
+	/**
+	 * Append samples after a given stripe.
+	 *
+	 * @param stripe the stripe after which to instert. Null pointer is
+	 *               allowed, in this case a new stripe is created
+	 * @param offset position where the new data should start
+	 * @param buffer array with samples
+	 * @param buf_offset offset within the buffer
+	 * @param length number of samples to write
+	 * @return true if successful, false if failed (e.g. out of memory)
+	 */
+	bool appendAfter(Stripe *stripe, sample_index_t offset,
+	                 const Kwave::SampleArray &buffer,
+	                 unsigned int buf_offset, unsigned int length);
 
-    /**
-     * Split a stripe into two stripes. The new stripe will be created
-     * from the right portion of the given stripe and the original
-     * stripe will be shrinked to it's new size. The newly created stripe
-     * will be inserted into m_stripes after the old one.
-     *
-     * @param stripe the stripe to be split
-     * @param offset the offset within the stripe, which becomes the first
-     *               sample in the new stripe
-     * @return the new created stripe
-     */
-    Stripe splitStripe(Stripe &stripe, unsigned int offset);
+	/**
+	 * Move all stripes after an offset to the right. Only looks at the
+	 * start position of the stripes, comparing with ">=", if the start
+	 * of a stripe is at the given offset, it will not be moved!
+	 *
+	 * @param offset position after which everything is moved right
+	 * @param shift distance of the shift [samples]
+	 */
+	void moveRight(sample_index_t offset, sample_index_t shift);
 
-    /**
-     * dump the list of stripes, for debugging
-     * @internal for debugging only
-     */
-    void dump();
+	/**
+	 * Append a new stripe with a given length.
+	 *
+	 * @param length number of samples, zero is allowed
+	 */
+	void appendStripe(sample_index_t length);
 
-protected:
+	/**
+	 * Split a stripe into two stripes. The new stripe will be created
+	 * from the right portion of the given stripe and the original
+	 * stripe will be shrinked to it's new size. The newly created stripe
+	 * will be inserted into m_stripes after the old one.
+	 *
+	 * @param stripe the stripe to be split
+	 * @param offset the offset within the stripe, which becomes the first
+	 *               sample in the new stripe
+	 * @return the new created stripe
+	 */
+	Stripe splitStripe(Stripe &stripe, unsigned int offset);
 
-    friend class Kwave::TrackWriter;
+	/**
+	 * dump the list of stripes, for debugging
+	 * @internal for debugging only
+	 */
+	void dump();
 
-    /**
-     * Write a block of samples. If necessary it starts, appends to,
-     * or splits a stripe.
-     *
-     * @param mode a InsertMode (append/overwrite/insert)
-     * @param offset position where to start the write operation
-     * @param buffer array with samples
-     * @param buf_offset offset within the buffer
-     * @param length number of samples to write
-     * @return true if successful, false if failed (e.g. out of memory)
-     */
-    bool writeSamples(InsertMode mode,
-                      sample_index_t offset,
-                      const Kwave::SampleArray &buffer,
-                      unsigned int buf_offset,
-                      unsigned int length);
+    protected:
 
-    /** increments the usage counter (read lock to m_lock_usage) */
-    void use();
+	friend class Kwave::TrackWriter;
 
-    /** decrements the usage counter (read lock to m_lock_usage) */
-    void release();
+	/**
+	 * Write a block of samples. If necessary it starts, appends to,
+	 * or splits a stripe.
+	 *
+	 * @param mode a InsertMode (append/overwrite/insert)
+	 * @param offset position where to start the write operation
+	 * @param buffer array with samples
+	 * @param buf_offset offset within the buffer
+	 * @param length number of samples to write
+	 * @return true if successful, false if failed (e.g. out of memory)
+	 */
+	bool writeSamples(InsertMode mode,
+	                  sample_index_t offset,
+	                  const Kwave::SampleArray &buffer,
+	                  unsigned int buf_offset,
+	                  unsigned int length);
 
-private:
+	/** increments the usage counter (read lock to m_lock_usage) */
+	void use();
 
-    /**
-     * Creates a new stripe with a start position and a length.
-     * @param start offset of the first sample
-     * @param length number of samples, zero is allowed
-     * @note this must be private, it does no locking !
-     */
-    Stripe *newStripe(sample_index_t start, unsigned int length);
+	/** decrements the usage counter (read lock to m_lock_usage) */
+	void release();
 
-private:
-    /** read/write lock for access to the whole track */
-    QReadWriteLock m_lock;
+    private:
 
-    /** lock to protect against deletion while the track is in use */
-    QReadWriteLock m_lock_usage;
+	/**
+	 * Creates a new stripe with a start position and a length.
+	 * @param start offset of the first sample
+	 * @param length number of samples, zero is allowed
+	 * @note this must be private, it does no locking !
+	 */
+	Stripe *newStripe(sample_index_t start, unsigned int length);
 
-    /** list of stripes (a track actually is a container for stripes) */
-    QList<Stripe> m_stripes;
+    private:
+	/** read/write lock for access to the whole track */
+	QReadWriteLock m_lock;
 
-    /** True if the track is selected */
-    bool m_selected;
+	/** lock to protect against deletion while the track is in use */
+	QReadWriteLock m_lock_usage;
 
-};
+	/** list of stripes (a track actually is a container for stripes) */
+	QList<Stripe> m_stripes;
+
+	/** True if the track is selected */
+	bool m_selected;
+
+    };
+}
 
 #endif /* _TRACK_H_ */

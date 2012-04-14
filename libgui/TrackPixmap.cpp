@@ -63,7 +63,7 @@ static Kwave::TrackPixmap::color_set_t color_set_disabled =
 };
 
 //***************************************************************************
-Kwave::TrackPixmap::TrackPixmap(Track &track)
+Kwave::TrackPixmap::TrackPixmap(Kwave::Track &track)
     :QObject(), m_pixmap(), m_track(track), m_offset(0), m_zoom(0.0),
     m_vertical_zoom(1.0), m_minmax_mode(false),
     m_sample_buffer(), m_min_buffer(), m_max_buffer(),
@@ -72,14 +72,16 @@ Kwave::TrackPixmap::TrackPixmap(Track &track)
     m_colors(color_set_normal)
 {
     // connect all the notification signals of the track
-    connect(&track, SIGNAL(sigSamplesInserted(Track *, sample_index_t,
-	sample_index_t)), this, SLOT(slotSamplesInserted(Track *,
+    connect(&track,
+	SIGNAL(sigSamplesInserted(Kwave::Track *, sample_index_t,
+	sample_index_t)), this,
+	SLOT(slotSamplesInserted(Kwave::Track *,
 	sample_index_t, sample_index_t)));
-    connect(&track, SIGNAL(sigSamplesDeleted(Track *, sample_index_t,
-	sample_index_t)), this, SLOT(slotSamplesDeleted(Track *,
+    connect(&track, SIGNAL(sigSamplesDeleted(Kwave::Track *, sample_index_t,
+	sample_index_t)), this, SLOT(slotSamplesDeleted(Kwave::Track *,
 	sample_index_t, sample_index_t)));
-    connect(&track, SIGNAL(sigSamplesModified(Track *, sample_index_t,
-	sample_index_t)), this, SLOT(slotSamplesModified(Track *,
+    connect(&track, SIGNAL(sigSamplesModified(Kwave::Track *, sample_index_t,
+	sample_index_t)), this, SLOT(slotSamplesModified(Kwave::Track *,
 	sample_index_t, sample_index_t)));
     connect(&track, SIGNAL(sigSelectionChanged(bool)),
             this, SLOT(selectionChanged()));
@@ -701,7 +703,8 @@ void Kwave::TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
 }
 
 //***************************************************************************
-void Kwave::TrackPixmap::slotSamplesInserted(Track *, sample_index_t offset,
+void Kwave::TrackPixmap::slotSamplesInserted(Kwave::Track *,
+                                             sample_index_t offset,
                                              sample_index_t length)
 {
     {
@@ -726,7 +729,8 @@ void Kwave::TrackPixmap::slotSamplesInserted(Track *, sample_index_t offset,
 }
 
 //***************************************************************************
-void Kwave::TrackPixmap::slotSamplesDeleted(Track *, sample_index_t offset,
+void Kwave::TrackPixmap::slotSamplesDeleted(Kwave::Track *,
+                                            sample_index_t offset,
                                             sample_index_t length)
 {
     {
@@ -751,7 +755,8 @@ void Kwave::TrackPixmap::slotSamplesDeleted(Track *, sample_index_t offset,
 }
 
 //***************************************************************************
-void Kwave::TrackPixmap::slotSamplesModified(Track *, sample_index_t offset,
+void Kwave::TrackPixmap::slotSamplesModified(Kwave::Track *,
+                                             sample_index_t offset,
                                              sample_index_t length)
 {
     {

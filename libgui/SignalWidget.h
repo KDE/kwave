@@ -62,7 +62,7 @@ class KUrl;
 class LabelType;
 class SignalManager;
 class TimeOperation;
-class Track;
+namespace Kwave { class Track; }
 class TrackPixmap;
 
 namespace Kwave { class ApplicationContext; }
@@ -154,7 +154,7 @@ private slots:
      * @see Signal::sigTrackInserted
      * @internal
      */
-    void slotTrackInserted(unsigned int index, Track *track);
+    void slotTrackInserted(unsigned int index, Kwave::Track *track);
 
     /**
      * Connected to the signal's sigTrackDeleted.

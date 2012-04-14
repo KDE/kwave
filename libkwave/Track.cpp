@@ -52,13 +52,13 @@
 #define STRIPE_LENGTH_MINIMUM (STRIPE_LENGTH_OPTIMAL / 2)
 
 //***************************************************************************
-Track::Track()
+Kwave::Track::Track()
     :m_lock(), m_lock_usage(), m_stripes(), m_selected(true)
 {
 }
 
 //***************************************************************************
-Track::Track(sample_index_t length)
+Kwave::Track::Track(sample_index_t length)
     :m_lock(), m_lock_usage(), m_stripes(), m_selected(true)
 {
     if (length < 2*STRIPE_LENGTH_OPTIMAL) {
@@ -71,7 +71,7 @@ Track::Track(sample_index_t length)
 }
 
 //***************************************************************************
-Track::~Track()
+Kwave::Track::~Track()
 {
     // wait until all readers are finished
     QWriteLocker lock_usage(&m_lock_usage);
@@ -84,7 +84,7 @@ Track::~Track()
 }
 
 //***************************************************************************
-void Track::appendStripe(sample_index_t length)
+void Kwave::Track::appendStripe(sample_index_t length)
 {
 //     SharedLockGuard lock(m_lock, true);
     sample_index_t start = unlockedLength();
@@ -107,7 +107,7 @@ void Track::appendStripe(sample_index_t length)
 }
 
 //***************************************************************************
-Stripe Track::splitStripe(Stripe &stripe, unsigned int offset)
+Stripe Kwave::Track::splitStripe(Stripe &stripe, unsigned int offset)
 {
     Q_ASSERT(offset < stripe.length());
     Q_ASSERT(offset);
@@ -121,21 +121,21 @@ Stripe Track::splitStripe(Stripe &stripe, unsigned int offset)
     // shrink the old stripe
     stripe.resize(offset);
 
-//     qDebug("Track::splitStripe(%p, %u): new stripe at [%u ... %u] (%u)",
+//     qDebug("Kwave::Track::splitStripe(%p, %u): new stripe at [%u ... %u] (%u)",
 //            stripe, offset, s->start(), s->end(), s->length());
 
     return s;
 }
 
 //***************************************************************************
-sample_index_t Track::length()
+sample_index_t Kwave::Track::length()
 {
     QReadLocker lock(&m_lock);
     return unlockedLength();
 }
 
 //***************************************************************************
-sample_index_t Track::unlockedLength()
+sample_index_t Kwave::Track::unlockedLength()
 {
     if (m_stripes.isEmpty()) return 0;
     const Stripe &s = m_stripes.last();
@@ -143,7 +143,7 @@ sample_index_t Track::unlockedLength()
 }
 
 //***************************************************************************
-Kwave::Writer *Track::openWriter(InsertMode mode,
+Kwave::Writer *Kwave::Track::openWriter(InsertMode mode,
 	sample_index_t left, sample_index_t right)
 {
     // create the input stream
@@ -154,7 +154,7 @@ Kwave::Writer *Track::openWriter(InsertMode mode,
 }
 
 //***************************************************************************
-SampleReader *Track::openSampleReader(Kwave::ReaderMode mode,
+SampleReader *Kwave::Track::openSampleReader(Kwave::ReaderMode mode,
 	sample_index_t left, sample_index_t right)
 {
     QReadLocker lock(&m_lock);
@@ -182,12 +182,12 @@ SampleReader *Track::openSampleReader(Kwave::ReaderMode mode,
 }
 
 //***************************************************************************
-void Track::deleteRange(sample_index_t offset, sample_index_t length,
-                        bool make_gap)
+void Kwave::Track::deleteRange(sample_index_t offset, sample_index_t length,
+                               bool make_gap)
 {
     if (!length) return;
 
-//     qDebug("Track::deleteRange() [%u ... %u] (%u)",
+//     qDebug("Kwave::Track::deleteRange() [%u ... %u] (%u)",
 // 	offset, offset + length - 1, length);
 
     {
@@ -199,9 +199,9 @@ void Track::deleteRange(sample_index_t offset, sample_index_t length,
 }
 
 //***************************************************************************
-bool Track::insertSpace(sample_index_t offset, sample_index_t shift)
+bool Kwave::Track::insertSpace(sample_index_t offset, sample_index_t shift)
 {
-//     qDebug("Track::insertSpace(offset=%u,shift=%u)",offset, shift);
+//     qDebug("Kwave::Track::insertSpace(offset=%u,shift=%u)",offset, shift);
     if (!shift) return true;
 
     {
@@ -219,7 +219,7 @@ bool Track::insertSpace(sample_index_t offset, sample_index_t shift)
 		sample_index_t start  = s.start();
 		if (start >= offset) break; // not "within" the stripe
 
-// 		qDebug("Track::insertSpace => splitting [%u...%u]",start,end);
+// 		qDebug("Kwave::Track::insertSpace => splitting [%u...%u]",start,end);
 		Stripe new_stripe = splitStripe(s, offset - start);
 		if (!new_stripe.length()) return false; // OOM ?
 		it.insert(new_stripe);
@@ -227,10 +227,10 @@ bool Track::insertSpace(sample_index_t offset, sample_index_t shift)
 	    }
 
 	    // move all stripes that are after the offset right
-// 	    qDebug("Track::insertSpace => moving right");
+// 	    qDebug("Kwave::Track::insertSpace => moving right");
 	    moveRight(offset, shift);
 	} else {
-// 	    qDebug("Track::insertSpace => appending stripe at %u", offset + shift - 1);
+// 	    qDebug("Kwave::Track::insertSpace => appending stripe at %u", offset + shift - 1);
 	    Stripe s(offset + shift - 1);
 	    s.resize(1);
 	    if (s.length()) m_stripes.append(s);
@@ -243,8 +243,8 @@ bool Track::insertSpace(sample_index_t offset, sample_index_t shift)
 }
 
 //***************************************************************************
-void Track::unlockedDelete(sample_index_t offset, sample_index_t length,
-                           bool make_gap)
+void Kwave::Track::unlockedDelete(sample_index_t offset, sample_index_t length,
+                                  bool make_gap)
 {
     if (!length) return;
 
@@ -343,7 +343,7 @@ void Track::unlockedDelete(sample_index_t offset, sample_index_t length,
 }
 
 //***************************************************************************
-void Track::select(bool selected)
+void Kwave::Track::select(bool selected)
 {
     if (m_selected == selected) return;
     m_selected = selected;
@@ -351,15 +351,15 @@ void Track::select(bool selected)
 }
 
 //***************************************************************************
-void Track::toggleSelection()
+void Kwave::Track::toggleSelection()
 {
     select(!selected());
 }
 
 //***************************************************************************
-bool Track::appendAfter(Stripe *stripe,  sample_index_t offset,
-                        const Kwave::SampleArray &buffer,
-                        unsigned int buf_offset, unsigned int length)
+bool Kwave::Track::appendAfter(Stripe *stripe,  sample_index_t offset,
+                               const Kwave::SampleArray &buffer,
+                               unsigned int buf_offset, unsigned int length)
 {
     Q_ASSERT(buf_offset + length <= buffer.size());
     if (buf_offset + length > buffer.size()) return false;
@@ -373,7 +373,7 @@ bool Track::appendAfter(Stripe *stripe,  sample_index_t offset,
 	if (len + stripe->length() > STRIPE_LENGTH_MAXIMUM)
 	    len = STRIPE_LENGTH_MAXIMUM - stripe->length();
 
-// 	qDebug("Track::appendAfter(): appending %u samples to %p",
+// 	qDebug("Kwave::Track::appendAfter(): appending %u samples to %p",
 // 	       len, stripe);
 	if (!stripe->append(buffer, buf_offset, len))
 	    return false; // out of memory
@@ -391,13 +391,13 @@ bool Track::appendAfter(Stripe *stripe,  sample_index_t offset,
 	if (len > STRIPE_LENGTH_MAXIMUM)
 	    len = STRIPE_LENGTH_MAXIMUM;
 
-// 	qDebug("Track::appendAfter: new stripe, ofs=%u, len=%u",
+// 	qDebug("Kwave::Track::appendAfter: new stripe, ofs=%u, len=%u",
 // 	       offset, len);
 	Stripe new_stripe(offset);
 
 	// append to the new stripe
 	if (!new_stripe.append(buffer, buf_offset, len)) {
-	    qWarning("Track::appendAfter FAILED / OOM");
+	    qWarning("Kwave::Track::appendAfter FAILED / OOM");
 	    return false; /* out of memory */
 	}
 	Q_ASSERT(new_stripe.length() == len);
@@ -408,12 +408,12 @@ bool Track::appendAfter(Stripe *stripe,  sample_index_t offset,
 	if (index_before >= 0) {
 	    // insert after the last one
 	    index_before++;
-// 	    qDebug("Track::appendAfter: insert after %p [%10u - %10u]",
+// 	    qDebug("Kwave::Track::appendAfter: insert after %p [%10u - %10u]",
 // 		stripe, stripe->start(), stripe->end());
 	    m_stripes.insert(index_before, new_stripe);
 	} else {
 	    // the one and only or insert before all others
-// 	    qDebug("Track::appendAfter: prepending");
+// 	    qDebug("Kwave::Track::appendAfter: prepending");
 	    m_stripes.prepend(new_stripe);
 	    index_before = 0;
 	}
@@ -426,7 +426,7 @@ bool Track::appendAfter(Stripe *stripe,  sample_index_t offset,
 }
 
 //***************************************************************************
-void Track::moveRight(sample_index_t offset, sample_index_t shift)
+void Kwave::Track::moveRight(sample_index_t offset, sample_index_t shift)
 {
     if (m_stripes.isEmpty()) return;
     QMutableListIterator<Stripe> it(m_stripes);
@@ -441,11 +441,11 @@ void Track::moveRight(sample_index_t offset, sample_index_t shift)
 }
 
 //***************************************************************************
-bool Track::writeSamples(InsertMode mode,
-                         sample_index_t offset,
-                         const Kwave::SampleArray &buffer,
-                         unsigned int buf_offset,
-                         unsigned int length)
+bool Kwave::Track::writeSamples(InsertMode mode,
+                                sample_index_t offset,
+                                const Kwave::SampleArray &buffer,
+                                unsigned int buf_offset,
+                                unsigned int length)
 {
     Q_ASSERT(length);
     if (!length) return true; // nothing to do !?
@@ -470,7 +470,7 @@ bool Track::writeSamples(InsertMode mode,
 	case Insert: {
 	    m_lock.lockForWrite();
 
-// 	    qDebug("Track::writeSamples() - Insert @ %u, length=%u",
+// 	    qDebug("Kwave::Track::writeSamples() - Insert @ %u, length=%u",
 // 		   offset, length);
 
 	    // find the stripe into which we insert
@@ -577,19 +577,19 @@ bool Track::writeSamples(InsertMode mode,
 }
 
 //***************************************************************************
-void Track::use()
+void Kwave::Track::use()
 {
     m_lock_usage.lockForRead();
 }
 
 //***************************************************************************
-void Track::release()
+void Kwave::Track::release()
 {
     m_lock_usage.unlock();
 }
 
 //***************************************************************************
-void Track::dump()
+void Kwave::Track::dump()
 {
     qDebug("------------------------------------");
     unsigned int index = 0;

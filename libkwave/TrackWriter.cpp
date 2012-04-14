@@ -28,7 +28,7 @@
 #define MIN_PROGRESS_INTERVAL 500
 
 //***************************************************************************
-Kwave::TrackWriter::TrackWriter(Track &track, InsertMode mode,
+Kwave::TrackWriter::TrackWriter(Kwave::Track &track, InsertMode mode,
     sample_index_t left, sample_index_t right)
     :Kwave::Writer(mode, left, right),
      m_track(track), m_progress_time()

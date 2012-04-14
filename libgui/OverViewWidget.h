@@ -39,7 +39,7 @@ class QMouseEvent;
 class QPainter;
 class QResizeEvent;
 class SignalManager;
-class Track;
+namespace Kwave { class Track; }
 
 class KDE_EXPORT OverViewWidget : public ImageView
 {

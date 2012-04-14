@@ -30,7 +30,6 @@
 
 class QWidget;
 class SignalManager;
-class Track;
 
 /**
  * Implements a global clipboard for Kwave. It supports only the three

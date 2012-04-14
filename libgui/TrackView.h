@@ -29,7 +29,6 @@
 #include "kdemacros.h"
 
 #include "libkwave/Sample.h"
-#include "libkwave/Track.h"
 
 #include "libgui/SignalView.h"
 #include "libgui/TrackPixmap.h"
@@ -39,6 +38,8 @@ class QResizeEvent;
 class SignalManager; // forward declaration
 
 namespace Kwave {
+
+    class Track;
 
     class KDE_EXPORT TrackView: public SignalView
     {
@@ -53,7 +54,7 @@ namespace Kwave {
 	 */
 	TrackView(QWidget *parent, QWidget *controls,
 	          SignalManager *signal_manager,
-	          Track *track);
+	          Kwave::Track *track);
 
 	/** Destructor */
 	virtual ~TrackView();

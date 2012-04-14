@@ -37,7 +37,6 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/Signal.h"
-#include "libkwave/Track.h"
 #include "libkwave/PluginContext.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/PluginWorkerThread.h"

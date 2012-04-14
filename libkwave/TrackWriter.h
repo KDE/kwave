@@ -27,11 +27,10 @@
 
 #include "libkwave/Writer.h"
 
-class Track;
-
 namespace Kwave {
 
     class SampleArray;
+    class Track;
 
     /**
      * @class TrackWriter
@@ -54,7 +53,7 @@ namespace Kwave {
 	 * @param right end of the input (only useful with overwrite mode)
 	 * @see InsertMode
 	 */
-	TrackWriter(Track &track, InsertMode mode,
+	TrackWriter(Kwave::Track &track, InsertMode mode,
 	    sample_index_t left = 0, sample_index_t right = 0);
 
 	/**
@@ -78,7 +77,7 @@ namespace Kwave {
     private:
 
 	/** the track that receives our data */
-	Track &m_track;
+	Kwave::Track &m_track;
 
 	/** timer for limiting the number of progress signals per second */
 	QTime m_progress_time;

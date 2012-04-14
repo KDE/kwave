@@ -75,7 +75,7 @@ protected:
     sample_index_t m_length;
 
     /** track that serves as buffer with undo data */
-    Track m_buffer_track;
+    Kwave::Track m_buffer_track;
 
 };
 

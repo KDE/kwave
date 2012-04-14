@@ -23,7 +23,6 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/Stripe.h"
-#include "libkwave/Track.h"
 
 // define this for using only slow Qt array functions
 // #define STRICTLY_QT

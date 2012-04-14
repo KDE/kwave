@@ -172,8 +172,10 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
 
     // -- connect all signals from/to the signal manager --
 
-    connect(signal_manager, SIGNAL(sigTrackInserted(unsigned int, Track *)),
-	    this,           SLOT(slotTrackInserted(unsigned int, Track *)));
+    connect(signal_manager,
+	    SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
+	    this,
+	    SLOT(slotTrackInserted(unsigned int, Kwave::Track *)));
     connect(signal_manager, SIGNAL(sigTrackDeleted(unsigned int)),
 	    this,           SLOT(slotTrackDeleted(unsigned int)));
     connect(signal_manager, 
@@ -319,7 +321,7 @@ void MainWidget::verticalScrollBarMoved(int newval)
 }
 
 //***************************************************************************
-void MainWidget::slotTrackInserted(unsigned int index, Track *track)
+void MainWidget::slotTrackInserted(unsigned int index, Kwave::Track *track)
 {
 //     qDebug("MainWidget::slotTrackInserted(%u, %p)",
 // 	   index, static_cast<void *>(track));

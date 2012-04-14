@@ -43,8 +43,8 @@ OverViewCache::OverViewCache(SignalManager &signal, sample_index_t src_offset,
     // connect to the signal manager
     SignalManager *sig = &signal;
     Q_ASSERT(sig);
-    connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track *)),
-            this, SLOT(slotTrackInserted(unsigned int, Track *)));
+    connect(sig, SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
+            this, SLOT(slotTrackInserted(unsigned int, Kwave::Track *)));
     connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),
             this, SLOT(slotTrackDeleted(unsigned int)));
     connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, sample_index_t,
@@ -208,7 +208,7 @@ void OverViewCache::invalidateCache(unsigned int track, unsigned int first,
 }
 
 //***************************************************************************
-void OverViewCache::slotTrackInserted(unsigned int index, Track *)
+void OverViewCache::slotTrackInserted(unsigned int index, Kwave::Track *)
 {
     QMutexLocker lock(&m_lock);
 

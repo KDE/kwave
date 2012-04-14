@@ -193,7 +193,7 @@ private slots:
      * @see SignalManager::sigTrackInserted
      * @internal
      */
-    void slotTrackInserted(unsigned int index, Track *track);
+    void slotTrackInserted(unsigned int index, Kwave::Track *track);
 
     /**
      * Called if a track has been deleted. Updates the display by

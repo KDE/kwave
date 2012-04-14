@@ -34,8 +34,6 @@
 #include "libkwave/Sample.h"
 #include "libkwave/KwaveSampleArray.h"
 
-class Track;
-
 /**
  * The TrackPixmap is a graphical representation of a track's sample
  * data. It is connected directly to a Track object so that it is able
@@ -62,6 +60,8 @@ class Track;
  */
 namespace Kwave
 {
+    class Track;
+
     class KDE_EXPORT TrackPixmap : public QObject
     {
 	Q_OBJECT
@@ -69,7 +69,7 @@ namespace Kwave
     public:
 
 	/** Default constructor */
-	TrackPixmap(Track &track);
+	TrackPixmap(Kwave::Track &track);
 
 	/** Destructor */
 	virtual ~TrackPixmap();
@@ -153,7 +153,7 @@ namespace Kwave
 	 * @see Track::sigSamplesInserted
 	 * @internal
 	 */
-	void slotSamplesInserted(Track *src, sample_index_t offset,
+	void slotSamplesInserted(Kwave::Track *src, sample_index_t offset,
 				sample_index_t length);
 
 	/**
@@ -164,7 +164,7 @@ namespace Kwave
 	 * @see Track::sigSamplesDeleted
 	 * @internal
 	 */
-	void slotSamplesDeleted(Track *src, sample_index_t offset,
+	void slotSamplesDeleted(Kwave::Track *src, sample_index_t offset,
 				sample_index_t length);
 
 	/**
@@ -175,7 +175,7 @@ namespace Kwave
 	 * @see Track::sigSamplesModified
 	 * @internal
 	 */
-	void slotSamplesModified(Track *src, sample_index_t offset,
+	void slotSamplesModified(Kwave::Track *src, sample_index_t offset,
 				sample_index_t length);
 
 	/**
@@ -311,7 +311,7 @@ namespace Kwave
 	/**
 	 * Reference to the track with our sample data.
 	 */
-	Track &m_track;
+	Kwave::Track &m_track;
 
 	/**
 	 * Index of the first sample. Needed for converting pixel

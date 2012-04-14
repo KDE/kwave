@@ -46,11 +46,11 @@ class KUrl;
 class MultiTrackReader;
 class SampleReader;
 class SignalWidget;
-class Track;
 class UndoAction;
 class UndoTransaction;
 class UndoTransactionGuard;
 namespace Kwave { class MultiTrackWriter; }
+namespace Kwave { class Track; }
 namespace Kwave { class Writer; }
 
 #define NEW_FILENAME i18n("New File")
@@ -369,7 +369,7 @@ signals:
      * @param index position of the new track [0...tracks()-1]
      * @param track reference to the new track
      */
-    void sigTrackInserted(unsigned int index, Track *track);
+    void sigTrackInserted(unsigned int index, Kwave::Track *track);
 
     /**
      * Signals that a track has been deleted.
@@ -448,7 +448,7 @@ private slots:
      * @see Signal::sigTrackInserted
      * @internal
      */
-    void slotTrackInserted(unsigned int index, Track *track);
+    void slotTrackInserted(unsigned int index, Kwave::Track *track);
 
     /**
      * Connected to the signal's sigTrackInserted.

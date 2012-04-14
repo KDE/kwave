@@ -141,7 +141,8 @@ int Kwave::SignalView::samples2pixels(sample_index_t samples) const
 //***************************************************************************
 sample_index_t Kwave::SignalView::pixels2samples(int pixels) const
 {
-    return pixels * m_zoom;
+    if ((pixels <= 0) || (m_zoom <= 0.0)) return 0;
+    return static_cast<sample_index_t>(static_cast<double>(pixels) * m_zoom);
 }
 
 //***************************************************************************
@@ -405,7 +406,7 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 
 	    if (description.length()) {
 		QString hms = Kwave::ms2hms(samples2ms(position));
-		QString txt = 
+		QString txt =
 		    QString("%1\n%2\n%3").arg(description).arg(position).arg(hms);
 
 		showPosition(txt, position, mouse_pos);

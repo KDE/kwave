@@ -178,9 +178,9 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
 	    SLOT(slotTrackInserted(unsigned int, Kwave::Track *)));
     connect(signal_manager, SIGNAL(sigTrackDeleted(unsigned int)),
 	    this,           SLOT(slotTrackDeleted(unsigned int)));
-    connect(signal_manager, 
+    connect(signal_manager,
             SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
-            this, 
+            this,
             SLOT(updateViewRange()));
 
     this->setLayout(topLayout);
@@ -427,7 +427,7 @@ int MainWidget::executeCommand(const QString &command)
 	signal_manager->selectRange(m_offset, displaySamples());
     CASE_COMMAND("selectnone")
 	signal_manager->selectRange(m_offset, 0);
-	
+
     // label handling
     CASE_COMMAND("add_label")
 	unsigned int pos = parser.toUInt();
@@ -458,9 +458,9 @@ int MainWidget::executeCommand(const QString &command)
 //	markPeriods(command);
 //    CASE_COMMAND("saveperiods")
 //	savePeriods();
-	
+
     } else {
-	return (signal_manager) ? 
+	return (signal_manager) ?
 	    signal_manager->executeCommand(command) : -ENOSYS;
     }
 
@@ -649,8 +649,7 @@ sample_index_t MainWidget::ms2samples(double ms)
 sample_index_t MainWidget::pixels2samples(unsigned int pixels) const
 {
     if ((pixels <= 0) || (m_zoom <= 0.0)) return 0;
-    return static_cast<sample_index_t>(rint(
-	static_cast<double>(pixels) * m_zoom));
+    return static_cast<sample_index_t>(static_cast<double>(pixels) * m_zoom);
 }
 
 //***************************************************************************

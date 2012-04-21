@@ -72,6 +72,7 @@
 #include "MainWidget.h"
 #include "TopWidget.h"
 
+#include "pics/krec_record.xpm"
 #include "pics/playback_loop.xpm"
 #include "pics/playback_pause.xpm"
 #include "pics/playback_pause2.xpm"
@@ -89,29 +90,33 @@
  */
 #define CASE_COMMAND(x) } else if (parser.command() == x) {
 
-//***************************************************************************
-KToolBar *TopWidget::toolBar(const QString &name)
-{
-    KToolBar *toolbar = KMainWindow::toolBar(name);
-    if (!toolbar) return 0;
-    toolbar->setFloatable(false);
-    toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-    return toolbar;
-}
+
+/** toolbar name: file operations */
+#define TOOLBAR_FILE        "MainWidget File"
+
+/** toolbar name: edit operations */
+#define TOOLBAR_EDIT        "MainWidget Edit"
+
+/** toolbar name: record and playback */
+#define TOOLBAR_RECORD_PLAY "MainWidget Record/Playback"
+
+/** toolbar name: zoom controls */
+#define TOOLBAR_ZOOM        "MainWidget Zoom"
 
 //***************************************************************************
 //***************************************************************************
 TopWidget::TopWidget(Kwave::ApplicationContext &context)
     :KMainWindow(), m_context(context), m_zoom_factors(),
      m_main_widget(0), m_zoomselect(0), m_menu_manager(0), m_pause_timer(0),
-     m_blink_on(false), m_action_undo(0), m_action_redo(0), m_action_play(0),
+     m_blink_on(false), m_action_undo(0), m_action_redo(0),
+     m_action_record(0), m_action_play(0),
      m_action_loop(0), m_action_pause(0),m_action_stop(0),
      m_action_zoomselection(0), m_action_zoomin(0), m_action_zoomout(0),
      m_action_zoomnormal(0), m_action_zoomall(0), m_action_zoomselect(0),
      m_lbl_status_size(0), m_lbl_status_mode(0), m_lbl_status_cursor(0)
 {
     KIconLoader icon_loader;
-    
+
     // status bar items
     KStatusBar *status_bar = statusBar();
     Q_ASSERT(status_bar);
@@ -195,7 +200,7 @@ bool TopWidget::init()
     // --- set up the toolbar ---
 
     showInSplashSreen(i18n("Initializing toolbar..."));
-    KToolBar *toolbar_file = toolBar("MainWidget File");
+    KToolBar *toolbar_file = toolBar(TOOLBAR_FILE);
     Q_ASSERT(toolbar_file);
     if (!toolbar_file) return false;
 
@@ -218,7 +223,7 @@ bool TopWidget::init()
 
     // --- edit, cut&paste ---
 
-    KToolBar *toolbar_edit = toolBar("MainWidget Edit");
+    KToolBar *toolbar_edit = toolBar(TOOLBAR_EDIT);
     Q_ASSERT(toolbar_edit);
     if (!toolbar_edit) return false;
 
@@ -234,17 +239,17 @@ bool TopWidget::init()
 
     toolbar_edit->addAction(
 	icon_loader.loadIcon("edit-cut", KIconLoader::Toolbar),
-	i18n("Cut the current selection and move it to the clipboard"),
+	i18n("Cut"),
 	this, SLOT(toolbarEditCut()));
 
     toolbar_edit->addAction(
 	icon_loader.loadIcon("edit-copy", KIconLoader::Toolbar),
-	i18n("Copy the current selection to the clipboard"),
+	i18n("Copy"),
 	this, SLOT(toolbarEditCopy()));
 
     QAction *btPaste = toolbar_edit->addAction(
 	icon_loader.loadIcon("edit-paste", KIconLoader::Toolbar),
-	i18n("Insert the content of clipboard"),
+	i18n("Insert"),
 	this, SLOT(toolbarEditPaste()));
     btPaste->setEnabled(!ClipBoard::instance().isEmpty());
     connect(&ClipBoard::instance(), SIGNAL(clipboardChanged(bool)),
@@ -252,12 +257,12 @@ bool TopWidget::init()
 
     toolbar_edit->addAction(
 	icon_loader.loadIcon("draw-eraser", KIconLoader::Toolbar),
-	i18n("Mute the current selection"),
+	i18n("Mute selection"),
 	this, SLOT(toolbarEditErase()));
 
     toolbar_edit->addAction(
 	icon_loader.loadIcon("edit-delete", KIconLoader::Toolbar),
-	i18n("Delete the current selection"),
+	i18n("Delete selection"),
 	this, SLOT(toolbarEditDelete()));
 
 //                  Zoom
@@ -267,29 +272,34 @@ bool TopWidget::init()
 
 //                  Help
 
-    // --- playback controls ---
+    // --- record/playback controls ---
+
+    KToolBar *toolbar_record_playback = toolBar(TOOLBAR_RECORD_PLAY);
+    Q_ASSERT(toolbar_record_playback);
+    if (!toolbar_record_playback) return false;
 
     QObject *playback = &(m_context.signalManager()->playbackController());
-    KToolBar *toolbar_playback = toolBar("MainWidget Playback");
-    Q_ASSERT(toolbar_playback);
-    if (!toolbar_playback) return false;
+    m_action_record = toolbar_record_playback->addAction(
+	QPixmap(xpm_krec_record),
+	i18n("Record"),
+	this, SLOT(toolbarRecord()));
 
-    m_action_play = toolbar_playback->addAction(
+    m_action_play = toolbar_record_playback->addAction(
 	QPixmap(xpm_play),
 	i18n("Start playback"),
 	playback, SLOT(playbackStart()));
 
-    m_action_loop = toolbar_playback->addAction(
+    m_action_loop = toolbar_record_playback->addAction(
 	QPixmap(xpm_loop),
 	i18n("Start playback and loop"),
 	playback, SLOT(playbackLoop()));
 
-    m_action_pause = toolbar_playback->addAction(
+    m_action_pause = toolbar_record_playback->addAction(
 	QPixmap(xpm_pause),
 	i18n("Pause playback"),
 	this, SLOT(pausePressed()));
 
-    m_action_stop = toolbar_playback->addAction(
+    m_action_stop = toolbar_record_playback->addAction(
 	QPixmap(xpm_stop),
 	i18n("Stop playback or loop"),
 	playback, SLOT(playbackStop()));
@@ -308,7 +318,7 @@ bool TopWidget::init()
     m_zoom_factors.append(ZoomFactor(i18n("%1 min", 30), 30L*60L*1000L));
     m_zoom_factors.append(ZoomFactor(i18n("%1 min", 60), 60L*60L*1000L));
 
-    KToolBar *toolbar_zoom = toolBar("MainWidget Zoom");
+    KToolBar *toolbar_zoom = toolBar(TOOLBAR_ZOOM);
     Q_ASSERT(toolbar_zoom);
     if (!toolbar_zoom) return false;
 
@@ -357,11 +367,11 @@ bool TopWidget::init()
 
     // connect the playback controller
     connect(playback, SIGNAL(sigPlaybackStarted()),
-            this,     SLOT(updatePlaybackControls()));
+            this,     SLOT(updateRecordPlaybackControls()));
     connect(playback, SIGNAL(sigPlaybackPaused()),
             this,     SLOT(playbackPaused()));
     connect(playback, SIGNAL(sigPlaybackStopped()),
-            this,     SLOT(updatePlaybackControls()));
+            this,     SLOT(updateRecordPlaybackControls()));
 
     // connect the signal manager
     SignalManager *signal_manager = m_context.signalManager();
@@ -431,15 +441,16 @@ bool TopWidget::init()
     // workaround for KDE4: detect first startup and set all toolbars
     // to "only symbols" mode
     KConfigGroup cfg = KGlobal::config()->group("MainWindow");
-    QString magic = "1";
+    QString magic = "2";
     if (cfg.readEntry("toolbars") != magic) {
-	qDebug("FIRST RUN => forcing toolbars to 'symbols only' mode");
-	foreach(KToolBar *bar, toolBars()) {
-	    bar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-	    bar->update();
-	    bar->hide();
-	    bar->show();
-	}
+	qDebug("toolbar layout changed => resetting toolbars to defaults");
+
+	// unlock all toolbars
+	KToolBar::setToolBarsLocked(false);
+
+	// reset all toolbars to default layout
+	resetToolbarToDefaults();
+
 	cfg.writeEntry("toolbars", magic);
     }
 
@@ -720,7 +731,7 @@ int TopWidget::parseCommands(QTextStream &stream)
 	// the "msgbox" command (useful for debugging)
 	if (parser.command() == "msgbox") {
 	    QApplication::restoreOverrideCursor();
-	    result = (Kwave::MessageBox::questionYesNo(this, 
+	    result = (Kwave::MessageBox::questionYesNo(this,
 		parser.firstParam()) == KMessageBox::Yes) ? 0 : 1;
 	    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	    continue;
@@ -736,7 +747,7 @@ int TopWidget::parseCommands(QTextStream &stream)
 
 	// synchronize after the command
 	if (m_context.pluginManager()) m_context.pluginManager()->sync();
-	
+
 	// special handling of the "quit" command
 	if (parser.command() == "quit") {
 	    break;
@@ -1393,6 +1404,46 @@ void TopWidget::updateMenu()
 }
 
 //***************************************************************************
+void TopWidget::resetToolbarToDefaults()
+{
+    KToolBar *toolbar_file        = toolBar(TOOLBAR_FILE);
+    KToolBar *toolbar_edit        = toolBar(TOOLBAR_EDIT);
+    KToolBar *toolbar_record_play = toolBar(TOOLBAR_RECORD_PLAY);
+    KToolBar *toolbar_zoom        = toolBar(TOOLBAR_ZOOM);
+
+    int icon_size_def = style()->pixelMetric(QStyle::PM_ToolBarIconSize);
+    int icon_size_big = style()->pixelMetric(QStyle::PM_LargeIconSize);
+
+    // change style to "symbols only mode" and set standard size
+    foreach(KToolBar *bar, toolBars()) {
+	bar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+	bar->setIconSize( QSize(icon_size_def, icon_size_def) );
+    }
+
+    // re-order the tool bars:
+    // -----------------------
+    // file  |  edit  |
+    // -----------------------
+    // record/play  |  zoom  |
+    // -----------------------
+    insertToolBar(toolbar_zoom,        toolbar_record_play);
+    insertToolBar(toolbar_record_play, toolbar_edit);
+    insertToolBar(toolbar_edit,        toolbar_file);
+
+    // move record/playback into a seperate line, below file/edit
+    insertToolBarBreak(toolbar_record_play);
+
+    // let record/playback and zoom use bigger icons
+    toolbar_record_play->setIconSize(QSize(icon_size_big, icon_size_big));
+    toolbar_zoom->setIconSize(QSize(icon_size_big, icon_size_big));
+
+    foreach(KToolBar *bar, toolBars()) {
+	bar->update();
+	bar->show();
+    }
+}
+
+//***************************************************************************
 void TopWidget::updateToolbar()
 {
     SignalManager *signal_manager = m_context.signalManager();
@@ -1414,11 +1465,11 @@ void TopWidget::updateToolbar()
     if (m_action_zoomselect)
         m_action_zoomselect->setEnabled(have_signal);
 
-    updatePlaybackControls();
+    updateRecordPlaybackControls();
 }
 
 //***************************************************************************
-void TopWidget::updatePlaybackControls()
+void TopWidget::updateRecordPlaybackControls()
 {
     SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
@@ -1439,6 +1490,8 @@ void TopWidget::updatePlaybackControls()
 
     // enable/disable the buttons
 
+    if (m_action_record)
+	m_action_record->setEnabled(!playing && !paused);
     if (m_action_play)
 	m_action_play->setEnabled(have_signal && !playing);
     if (m_action_loop)
@@ -1448,6 +1501,8 @@ void TopWidget::updatePlaybackControls()
     if (m_action_stop)
 	m_action_stop->setEnabled(have_signal && (playing || paused));
 
+    m_menu_manager->setItemEnabled("ID_RECORD",
+	!playing && !paused);
     m_menu_manager->setItemEnabled("ID_PLAYBACK_START",
 	have_signal && !playing);
     m_menu_manager->setItemEnabled("ID_PLAYBACK_LOOP",

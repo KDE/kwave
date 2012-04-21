@@ -169,11 +169,16 @@ private slots:
     /** Updates the menu by enabling/disabling some entries */
     void updateMenu();
 
+    /** resets the toolbar layout to default settings */
+    void resetToolbarToDefaults();
+
     /** updates all elements in the toolbar */
     void updateToolbar();
 
-    /** updates only the playback controls */
-    void updatePlaybackControls();
+    /** updates only the record/playback controls */
+    void updateRecordPlaybackControls();
+
+    void toolbarRecord()    { executeCommand("plugin(record)"); }
 
     /** called if the playback has been paused */
     void playbackPaused();
@@ -309,9 +314,6 @@ private:
     /** returns the name of the signal */
     QString signalName() const;
 
-    /** creates a toolbar with Kwave's default settings */
-    virtual KToolBar *toolBar(const QString &name);
-
     /** typedef for an entry in the list of zoom factors */
     typedef QPair<QString, unsigned int> ZoomFactor;
 
@@ -346,6 +348,9 @@ private:
 
     /** member id of the "edit redo" toolbar button */
     QAction *m_action_redo;
+
+    /** member id of the "start record" toolbar button */
+    QAction *m_action_record;
 
     /** member id of the "start playback" toolbar button */
     QAction *m_action_play;

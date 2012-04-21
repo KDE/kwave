@@ -1,5 +1,5 @@
 
-o toolbar: buttons for forward/backward and record
+o toolbar: buttons for forward/backward
 
 o simplify loading/unloading of plugins
 
@@ -8,8 +8,6 @@ o license change to GPL v3
 o new import/export plugin using ffmpeg/libavcodec
 
 o clipping of position widget
-
-o make target "html_doc"
 
 o support for visualization plugins (rev 2498)
   - new functions
@@ -52,7 +50,7 @@ o spurious valgrind error:
     ==13087==    by 0x4C110A63: QPainter::drawImage(QPointF const&, QImage const&) (qpainterpath.h:310)
     ==13087==    by 0x404C4B5: OverViewWidget::calculateBitmap() (qpainter.h:925)
     ==13087==    by 0x404D091: OverViewWidget::WorkerThread::run() (OverViewWidget.cpp:65)
-    
+
 o use xml description for device names in playback/record plugins
 
 o use svg graphics instead of pixmaps

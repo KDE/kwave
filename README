@@ -72,7 +72,7 @@ rpmbuild -ta --target i586 kwave-0.8.4-1.tar.bz2
 compiles for i586 architecture.
 
 
-2.2 Building a source and binary rpm from the source tree (SVN):
+2.2 Building a source and binary rpm from the source tree (GIT):
 ---------------------------------------------------------------
 
 Assuming that you already have unpacked the source archive in some
@@ -83,14 +83,14 @@ make src.rpm          (and you get only a source rpm)
 ***OR***
 make rpm              (and you get both, a binary and a source rpm)
 
-Instructions on how to get the sources via SVN can be found in the
+Instructions on how to get the sources via GIT can be found in the
 Kwave handbook and on the Kwave project homepage at SourceForge
-(see "http://sourceforge.net/svn/?group_id=6478").
+(see "http://sourceforge.net/git/?group_id=6478").
 
-Please note that the online documentation in not included in SVN, so you
-have to go to the "doc" subdirectory, remove the file "changes.docbook"
-and type "make" there. This requires a working docbook/sgml environment
-that is sometimes problematic (see below).
+Please note that the online documentation in not included in GIT, it will
+created from the corresponding docbook source which is included.
+This requires a working docbook/sgml environment that is sometimes
+problematic (see below).
 
 
 3. RELOCATING THE BINARY RPM:
@@ -183,26 +183,7 @@ above.
 currently tested distributions:
 -------------------------------------------
 
-I have currently installed some distributions for testing purposes and
-for getting an impression how Kwave builds/behaves on them. Here what I
-made running and what I had to install additionally:
-
-* OpenSuSE-10.2
-	mad-0.15.1b-1.pm.3.i586.rpm
-	mad-devel-0.15.1b-1.pm.3.i586.rpm
-	had to build and update cmake-2.4.6 from source rpm,
-	for example from
-	ftp://rm.mirror.garr.it/mirrors/opensuse/opensuse/distribution/SL-OSS-factory/inst-source/suse/src
-
-* Debian (e.g. ppc)
-	for getting a newer version of cmake (>= 2.4.6) I had to do:
-	in sources.lst: deb-src http://ftp.de.debian.org/debian testing main contrib
-	apt-get -b -t testing source cmake
-	dpkg --install cmake_<version>_<arch>.deb
-	apt-get install kdemultimedia-dev libflac++dev libid3-dev imagemagick kdesdk
-
-(other distributions should work out-of-the-box,
- see http://kwave.sourceforge.net/distributions.html)
+see http://kwave.sourceforge.net/distributions.html
 
 5. KNOWN PROBLEMS / SOME HINTS:
 ==============================
@@ -210,8 +191,10 @@ made running and what I had to install additionally:
 * missing files:
   -------------
   Depending on your distribution, one ore more components might require
-  additional packages. For example if there is a package like
-  kdelibs-artsd-devel, install it too!
+  additional packages. Often you will need the "-devel" packages for
+  building (only) Kwave, e.g. it might not be sufficient to have the
+  package "libaudiofile" installed, additionally the corresponding package
+  "audiofile-devel" might be required too!
 
   Hint for SuSE users:
   => on CD1 (or on the DVD1) there is a file named "ARCHIVES.gz".

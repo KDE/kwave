@@ -621,6 +621,13 @@ int TopWidget::executeCommand(const QString &line)
 	result = saveFileAs(true);
     CASE_COMMAND("quit")
 	result = (close()) ? 0 : -1;
+    CASE_COMMAND("reset_toolbars")
+	if ((result = (Kwave::MessageBox::questionYesNo(this,
+	    i18n("Reset the toolbar to default settings?"))
+	    == KMessageBox::Yes) ? 1 : 0))
+	{
+	    resetToolbarToDefaults();
+	}
     } else {
 	// try to forward the command to the main widget
 	Q_ASSERT(m_main_widget);

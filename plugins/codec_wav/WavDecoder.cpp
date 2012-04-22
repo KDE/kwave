@@ -22,6 +22,7 @@ extern "C" {
 #include <audiofile.h>
 }
 
+#include <QApplication>
 #include <QList>
 #include <QProgressDialog>
 #include <QtGlobal>
@@ -231,6 +232,11 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     }
 
     if (!data_size) {
+	// hide progress bar, finally
+	progress.hide();
+	qApp->processEvents();
+
+	// show final error message
 	Kwave::MessageBox::sorry(widget,
 	    i18n("The opened file is no WAV file or it is damaged:\n"
 	    "There is not enough valid sound data.\n\n"
@@ -243,6 +249,10 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     if ((parser.chunkCount("fmt ") != 1) ||
         (parser.chunkCount("data") != 1))
     {
+	// hide progress bar, temporarily
+	progress.hide();
+	qApp->processEvents();
+
 	if (Kwave::MessageBox::warningContinueCancel(widget,
 	    i18n("The WAV file seems to be damaged:\n"
 	         "Some chunks are duplicate or missing.\n\n"
@@ -259,6 +269,10 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	    return false;
 	}
 	need_repair = true;
+
+	// show progress bar again
+	progress.show();
+	qApp->processEvents();
     }
 
     // source successfully opened
@@ -360,7 +374,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 		);
 	}
 
-	QString text= i18n("An error occurred while opening the file:\n'%1'", 
+	QString text= i18n("An error occurred while opening the file:\n'%1'",
 	                    reason);
 	Kwave::MessageBox::error(widget, text);
 

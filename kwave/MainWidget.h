@@ -106,8 +106,8 @@ protected:
     virtual void dragEnterEvent(QDragEnterEvent *event);
 
     /**
-     * For dropping data into an empty signal 
-     * @see Qt XDND documentation 
+     * For dropping data into an empty signal
+     * @see Qt XDND documentation
      */
     virtual void dropEvent(QDropEvent *event);
 
@@ -269,9 +269,10 @@ private:
      * Fixes the zoom and the offset of the display so that no non-existing
      * samples (index < 0 or index >= length) have to be displayed and the
      * current display window of the signal fits into the screen.
-     * @return true if either offset or zoom has changed, otherwise false
+     * @param zoom new zoom value [samples/pixel]
+     * @param offset new offset value [samples]
      */
-    bool fixZoomAndOffset();
+    void fixZoomAndOffset(double zoom, sample_index_t offset);
 
     /**
      * add a new label

@@ -541,7 +541,7 @@ void MainWidget::resizeViewPort()
     {
 	m_width = m_width + w - old_w;
 	m_signal_widget.resize(w, h);
-	fixZoomAndOffset();
+	fixZoomAndOffset(m_zoom, m_offset);
     }
 
     // remember the last width of the signal widget, for zoom calculation
@@ -697,19 +697,22 @@ double MainWidget::fullZoom()
 }
 
 //***************************************************************************
-bool MainWidget::fixZoomAndOffset()
+void MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
 {
     double max_zoom;
     double min_zoom;
     sample_index_t length;
 
-    const int   old_width = m_width;
-    const double old_zoom = m_zoom;
+    const double         old_zoom   = m_zoom;
+    const sample_index_t old_offset = m_offset;
+
+    m_zoom   = zoom;
+    m_offset = offset;
 
     SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
-    if (!signal_manager) return false;
-    if (!m_width) return false;
+    if (!signal_manager) return;
+    if (!m_width) return;
 
     length = signal_manager->length();
     if (!length) {
@@ -751,31 +754,20 @@ bool MainWidget::fixZoomAndOffset()
     // emit change in the zoom factor
     if (m_zoom != old_zoom) emit sigZoomChanged(m_zoom);
 
-    return ((m_width != old_width) || (m_zoom != old_zoom));
+    if ((m_offset != old_offset) || (m_zoom != old_zoom))
+	updateViewRange();
 }
 
 //***************************************************************************
 void MainWidget::setZoom(double new_zoom)
 {
-    double         old_zoom   = m_zoom;
-    sample_index_t old_offset = m_offset;
-
-    m_zoom = new_zoom;
-    fixZoomAndOffset();
-    if ((m_offset != old_offset) || (m_zoom != old_zoom))
-	updateViewRange();
+    fixZoomAndOffset(new_zoom, m_offset);
 }
 
 //***************************************************************************
 void MainWidget::setOffset(sample_index_t new_offset)
 {
-    double         old_zoom   = m_zoom;
-    sample_index_t old_offset = m_offset;
-
-    m_offset = new_offset;
-    fixZoomAndOffset();
-    if ((m_offset != old_offset) || (m_zoom != old_zoom))
-	updateViewRange();
+    fixZoomAndOffset(m_zoom, new_offset);
 }
 
 //***************************************************************************

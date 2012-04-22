@@ -6,6 +6,7 @@
  * fix for namespace collision with libaudiofile
  * bugfix: mouse selection update with negative offset failed
  * bugfix: wrong focus of progress dialog when repairing damaged wav files
+ * bugfix: missing updates of zoom selection combo box
  * added toolbar icon for "record"
 
 0.8.7  [2011-11-27]

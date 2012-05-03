@@ -15,30 +15,35 @@
 ##                                                                          #
 #############################################################################
 
-SET(plugin_goto_LIB_SRCS
-    GotoPluginBase.cpp
-    GotoPlugin.cpp
+SET(plugin_goto_common_LIB_SRCS
     GotoDialog.cpp
+    GotoPluginBase.cpp
 )
 
-SET(plugin_goto_LIB_UI
+SET(plugin_goto_common_LIB_UI
     GotoDlg.ui
 )
 
+KDE4_ADD_UI_FILES(plugin_goto_common_LIB_SRCS ${plugin_goto_common_LIB_UI})
+QT4_AUTOMOC(${plugin_common_LIB_SRCS})
+KDE4_ADD_LIBRARY(plugin_goto_common STATIC ${plugin_goto_common_LIB_SRCS})
+
+#############################################################################
+
+SET(plugin_goto_LIB_SRCS
+    GotoPlugin.cpp
+)
+
+SET(plugin_goto_LIBS plugin_goto_common)
 KWAVE_PLUGIN(goto)
 
 #############################################################################
 
 SET(plugin_insert_at_LIB_SRCS
-    GotoPluginBase.cpp
-    GotoDialog.cpp
     InsertAtPlugin.cpp
 )
 
-SET(plugin_insert_at_LIB_UI
-    GotoDlg.ui
-)
-
+SET(plugin_insert_at_LIBS plugin_goto_common)
 KWAVE_PLUGIN(insert_at)
 
 #############################################################################

@@ -54,7 +54,6 @@
 #include "libkwave/SignalManager.h"
 #include "libkwave/Track.h"
 
-#include "libgui/MenuManager.h"
 #include "libgui/MultiStateWidget.h"
 // #include "libgui/ShortcutWrapper.h"
 #include "libgui/SignalView.h"
@@ -262,7 +261,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     QMenu *submenu_select = context_menu->addMenu(i18n("&Selection"));
     Q_ASSERT(submenu_select);
     if (!submenu_select) return;
-    
+
     // Selection / &Save
     QAction *action_select_save = submenu_select->addAction(
 	icon_loader.loadIcon("document-save", KIconLoader::Toolbar),
@@ -302,7 +301,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     foreach (QPointer<Kwave::SignalView> view, m_views) {
 	// map the rect of the view to our coordinate system
 	const QRect view_rect = QRect(
-	    view->mapToParent(view->rect().topLeft()), 
+	    view->mapToParent(view->rect().topLeft()),
 	    view->mapToParent(view->rect().bottomRight()));
 
 	// check: mouse click was into that view?
@@ -322,7 +321,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 		        this, SLOT(forwardCommand(const QString &)));
 		item->appendContextMenu(context_menu);
 	    }
-	    
+
 	    // we process only one view, views cannot overlap!
 	    break;
 	}
@@ -389,7 +388,7 @@ int SignalWidget::viewPortWidth()
 }
 
 //***************************************************************************
-void SignalWidget::insertRow(int index, Kwave::SignalView *view, 
+void SignalWidget::insertRow(int index, Kwave::SignalView *view,
                              QWidget *controls)
 {
     const int rows = m_layout.rowCount();
@@ -413,7 +412,7 @@ void SignalWidget::insertRow(int index, Kwave::SignalView *view,
 	// add the controls to the layout
 	m_layout.addWidget(controls, index, 0);
 
-	// associate the controls to the view, so that when the view 
+	// associate the controls to the view, so that when the view
 	// gets removed/deleted, the controls get removed as well
 	view->addSibling(controls);
     }
@@ -438,7 +437,7 @@ void SignalWidget::deleteRow(int index)
 	    }
 	}
     }
-   
+
 }
 
 //***************************************************************************
@@ -643,7 +642,7 @@ void SignalWidget::slotTrackDeleted(unsigned int index)
 	}
 	if (empty) deleteRow(row);
     }
-    
+
     // if there are only views with track() == -1, we are empty,
     // in that case delete the rest (all views)
     if (empty) {

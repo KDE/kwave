@@ -36,6 +36,8 @@
 #include "libkwave/CodecManager.h"
 #include "libkwave/KwaveDrag.h"
 #include "libkwave/KwaveFileDrag.h"
+#include "libkwave/Label.h"
+#include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/Parser.h"
 #include "libkwave/SignalManager.h"
@@ -60,9 +62,9 @@
 
 /**
  * Default widht of the display in seconds when in streaming mode,
- * where no initial length information is available
+ * where no initial length information is available (guess: 5min)
  */
-#define DEFAULT_DISPLAY_TIME 60.0
+#define DEFAULT_DISPLAY_TIME (5 * 60.0)
 
 //***************************************************************************
 MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
@@ -287,26 +289,26 @@ void MainWidget::wheelEvent(QWheelEvent *event)
 	case Qt::NoModifier: {
 	    // no modifier + <WheelUp/Down> => scroll left/right
 	    if (event->delta() > 0)
-		executeCommand("scrollleft()");
+		executeCommand("view:scroll_left()");
 	    else if (event->delta() < 0)
-		executeCommand("scrollright()");
+		executeCommand("view:scroll_right()");
 	    event->accept();
 	    break;
 	}
 	case Qt::ShiftModifier:
 	    // <Shift> + <WheelUp/Down> => page up/down
 	    if (event->delta() > 0)
-		executeCommand("viewprev()");
+		executeCommand("view:scroll_prev()");
 	    else if (event->delta() < 0)
-		executeCommand("viewnext()");
+		executeCommand("view:scroll_next()");
 	    event->accept();
 	    break;
 	case Qt::ControlModifier:
 	    // <Ctrl> + <WheelUp/Down> => zoom in/out
 	    if (event->delta() > 0)
-		executeCommand("zoomin()");
+		executeCommand("view:zoom_in()");
 	    else if (event->delta() < 0)
-		executeCommand("zoomout()");
+		executeCommand("view:zoom_out()");
 	    event->accept();
 	    break;
 	default:
@@ -363,19 +365,20 @@ int MainWidget::executeCommand(const QString &command)
 
     Parser parser(command);
     const sample_index_t visible_samples = displaySamples();
+    const sample_index_t signal_length   = signal_manager->length();
 
     if (false) {
 
     // -- zoom --
-    CASE_COMMAND("zoomin")
+    CASE_COMMAND("view:zoom_in")
 	zoomIn();
-    CASE_COMMAND("zoomout")
+    CASE_COMMAND("view:zoom_out")
 	zoomOut();
-    CASE_COMMAND("zoomselection")
+    CASE_COMMAND("view:zoom_selection")
 	zoomSelection();
-    CASE_COMMAND("zoomall")
+    CASE_COMMAND("view:zoom_all")
 	zoomAll();
-    CASE_COMMAND("zoomnormal")
+    CASE_COMMAND("view:zoom_normal")
 	zoomNormal();
 
     // -- navigation --
@@ -384,24 +387,37 @@ int MainWidget::executeCommand(const QString &command)
 	setOffset((offset > (visible_samples / 2)) ?
 	          (offset - (visible_samples / 2)) : 0);
 	signal_manager->selectRange(offset, 0);
-    CASE_COMMAND("scrollright")
+    CASE_COMMAND("view:scroll_right")
 	const unsigned int step = visible_samples / 10;
 	setOffset(m_offset + step);
-    CASE_COMMAND("scrollleft")
+    CASE_COMMAND("view:scroll_left")
 	const unsigned int step = visible_samples / 10;
 	setOffset((step < m_offset) ? (m_offset - step) : 0);
-    CASE_COMMAND("viewstart")
+    CASE_COMMAND("view:scroll_start")
 	setOffset(0);
 	signal_manager->selectRange(0, 0);
-    CASE_COMMAND("viewend")
-	sample_index_t len = signal_manager->length();
-	if (len >= visible_samples) setOffset(len - visible_samples);
-    CASE_COMMAND("viewnext")
+    CASE_COMMAND("view:scroll_end")
+	if (signal_length >= visible_samples)
+	    setOffset(signal_length - visible_samples);
+    CASE_COMMAND("view:scroll_next")
 	setOffset(m_offset + visible_samples);
-    CASE_COMMAND("viewprev")
+    CASE_COMMAND("view:scroll_prev")
 	setOffset((visible_samples < m_offset) ?
 	          (m_offset - visible_samples) : 0);
-
+    CASE_COMMAND("view:scroll_next_label")
+	sample_index_t ofs =
+	    LabelList(signal_manager->metaData()).nextLabelRight(
+		m_offset + (visible_samples / 2));
+	if (ofs > signal_length)
+	    ofs = signal_length - 1;
+	setOffset((ofs > (visible_samples / 2)) ?
+	          (ofs - (visible_samples / 2)) : 0);
+    CASE_COMMAND("view:scroll_prev_label")
+	sample_index_t ofs =
+	    LabelList(signal_manager->metaData()).nextLabelLeft(
+		m_offset + (visible_samples / 2));
+	setOffset((ofs > (visible_samples / 2)) ?
+	          (ofs - (visible_samples / 2)) : 0);
     // -- selection --
     CASE_COMMAND("selectall")
 	signal_manager->selectRange(0, signal_manager->length());
@@ -551,12 +567,6 @@ void MainWidget::resizeViewPort()
 }
 
 //***************************************************************************
-void MainWidget::updateViewInfo(sample_index_t, sample_index_t, sample_index_t)
-{
-    refreshHorizontalScrollBar();
-}
-
-//***************************************************************************
 void MainWidget::refreshHorizontalScrollBar()
 {
     if (!m_horizontal_scrollbar || !m_context.signalManager()) return;
@@ -649,6 +659,7 @@ sample_index_t MainWidget::ms2samples(double ms)
 sample_index_t MainWidget::pixels2samples(unsigned int pixels) const
 {
     if ((pixels <= 0) || (m_zoom <= 0.0)) return 0;
+
     return static_cast<sample_index_t>(static_cast<double>(pixels) * m_zoom);
 }
 
@@ -672,7 +683,7 @@ sample_index_t MainWidget::displaySamples() const
 }
 
 //***************************************************************************
-double MainWidget::fullZoom()
+double MainWidget::fullZoom() const
 {
     SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
@@ -682,7 +693,7 @@ double MainWidget::fullZoom()
     sample_index_t length = signal_manager->length();
     if (!length) {
         // no length: streaming mode -> start with a default
-        // zoom, use one minute (just guessed)
+        // zoom, use five minutes (just guessed)
         length = static_cast<sample_index_t>(ceil(DEFAULT_DISPLAY_TIME *
 	    signal_manager->rate()));
     }
@@ -692,8 +703,15 @@ double MainWidget::fullZoom()
     //          -> 49.5 [pixels / sample]
     //          -> zoom = 1 / 49.5 [samples / pixel]
     // => full zoom [samples/pixel] = (length - 1) / (width - 1)
-    return static_cast<double>(length - 1) /
-	   static_cast<double>(m_width - 1);
+    if (length < static_cast<sample_index_t>(m_width) * 2) {
+	// zoom is small enough, no error compensation needed
+	return (static_cast<double>(length) - 1.0) /
+	        static_cast<double>(m_width - 1);
+    } else {
+	// zoom is big, pre-compensate rounding errors
+	return (static_cast<double>(length) - 0.5) /
+	        static_cast<double>(m_width - 1);
+    }
 }
 
 //***************************************************************************
@@ -719,9 +737,13 @@ void MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
 	// in streaming mode we have to use a guessed length
 	length = static_cast<sample_index_t>(ceil(m_width * fullZoom()));
     }
+    if (!length) {
+	m_offset = 0;
+	return;
+    };
 
     // ensure that m_offset is [0...length-1]
-    if (m_offset > length - 1) m_offset = length - 1;
+    if (m_offset >= length) m_offset = (length - 1);
 
     // ensure that the zoom is in a proper range
     max_zoom = fullZoom();
@@ -740,7 +762,7 @@ void MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
     //             = (99/49.5) + 1 = 3
     //          -> decrease offset by 3 - 2 = 1
     Q_ASSERT(length >= m_offset);
-    if (pixels2samples(m_width - 1) + 1 > length - m_offset) {
+    if ((pixels2samples(m_width - 1) + 1) > (length - m_offset)) {
 	// there is space after the signal -> move offset right
 	sample_index_t shift = pixels2samples(m_width - 1) + 1 -
 	                       (length - m_offset);
@@ -754,8 +776,10 @@ void MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
     // emit change in the zoom factor
     if (m_zoom != old_zoom) emit sigZoomChanged(m_zoom);
 
-    if ((m_offset != old_offset) || (m_zoom != old_zoom))
+    if ((m_offset != old_offset) || (m_zoom != old_zoom)) {
+	emit sigVisibleRangeChanged(m_offset, displaySamples(), length);
 	updateViewRange();
+    }
 }
 
 //***************************************************************************
@@ -768,6 +792,27 @@ void MainWidget::setZoom(double new_zoom)
 void MainWidget::setOffset(sample_index_t new_offset)
 {
     fixZoomAndOffset(m_zoom, new_offset);
+}
+
+//***************************************************************************
+void MainWidget::scrollTo(sample_index_t pos)
+{
+    sample_index_t visible = displaySamples();
+
+    if ( (pos < (m_offset + (visible / 10))) ||
+	 (pos > (m_offset + (visible /  2))) )
+    {
+	// new position is out of range or too close to the border
+	sample_index_t offset = (visible / 2);
+	pos = (pos > offset) ? (pos - offset) : 0;
+	if (pos != m_offset) {
+	    // check: is the difference >= 1 pixel ?
+	    sample_index_t diff = (pos > m_offset) ?
+		(pos - m_offset) : (m_offset - pos);
+	    if (samples2pixels(diff) >= 1)
+		setOffset(pos);
+	}
+    }
 }
 
 //***************************************************************************
@@ -997,45 +1042,6 @@ bool MainWidget::labelProperties(Label &label)
 
     return accepted;
 }
-
-// ////****************************************************************************
-// //void MainWidget::jumptoLabel ()
-// // another fine function contributed by Gerhard Zintel
-// // if lmarker == rmarker (no range selected) cursor jumps to the nearest label
-// // if lmarker <  rmarker (range is selected) lmarker jumps to next lower label or zero
-// // rmarker jumps to next higher label or end
-// //{
-// //    if (signalmanage) {
-// //	int lmarker = signalmanage->getLMarker();
-// //	int rmarker = signalmanage->getRMarker();
-// //	bool RangeSelected = (rmarker - lmarker) > 0;
-// //	if (!labels().isEmpty()) {
-// //	    Label *tmp;
-// //	    int position = 0;
-// //	    for (tmp = labels->first(); tmp; tmp = labels->next())
-// //		if (RangeSelected) {
-// //		    if (tmp->pos < lmarker)
-// //			if (qAbs(lmarker - position) >
-// //			    qAbs(lmarker - ms2samples(tmp->pos)))
-// //			    position = ms2samples(tmp->pos);
-// //		} else if (qAbs(lmarker - position) >
-// //			   qAbs(lmarker - ms2samples(tmp->pos)))
-// //		    position = ms2samples(tmp->pos);
-// //
-// //	    lmarker = position;
-// //	    position = signalmanage->getLength();
-// //	    for (tmp = labels->first(); tmp; tmp = labels->next())
-// //		if (tmp->pos > rmarker)
-// //		    if (qAbs(rmarker - position) >
-// //			qAbs(rmarker - ms2samples(tmp->pos)))
-// //			position = ms2samples(tmp->pos);
-// //	    rmarker = position;
-// //	    if (RangeSelected) setRange(lmarker, rmarker);
-// //	    else setRange (lmarker, lmarker);
-// //	    refresh ();
-// //	}
-// //    }
-// //}
 
 // ////****************************************************************************
 // //void MainWidget::savePeriods ()

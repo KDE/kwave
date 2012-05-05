@@ -45,8 +45,8 @@ SelectRangeDialog::SelectRangeDialog(QWidget *widget,
     if (select_range) select_range->init(
         range_mode, range, sample_rate, offset, signal_length);
 
-    connect(select_start, SIGNAL(valueChanged(unsigned int)),
-            select_range, SLOT(setOffset(unsigned int)));
+    connect(select_start, SIGNAL(valueChanged(sample_index_t)),
+            select_range, SLOT(setOffset(sample_index_t)));
 
     setMinimumSize(sizeHint());
     setFixedSize(sizeHint());

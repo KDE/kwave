@@ -44,6 +44,8 @@ LabelList::LabelList(const Kwave::MetaDataList &meta_data_list)
 	    foreach (const Kwave::MetaData &meta_data, list)
 		append(Label(meta_data));
 	}
+
+	sort();
     }
 }
 
@@ -71,6 +73,36 @@ Kwave::MetaDataList LabelList::toMetaDataList() const
     foreach (const Label &label, *this)
 	list.add(label);
     return list;
+}
+
+//***************************************************************************
+sample_index_t LabelList::nextLabelLeft(sample_index_t from)
+{
+    sample_index_t best  = 0;
+    bool           found = false;
+    if (!isEmpty()) {
+	foreach (const Label &label, *this) {
+	    sample_index_t lp = label.pos();
+	    if (lp >= from) break;
+	    best  = lp;
+	    found = true;
+	}
+    }
+    return (found) ? best : 0;
+}
+
+//***************************************************************************
+sample_index_t LabelList::nextLabelRight(sample_index_t from)
+{
+    if (!isEmpty()) {
+	foreach (const Label &label, *this) {
+	    sample_index_t lp = label.pos();
+	    if (lp  > from)
+		return lp; // found the first label after "from"
+	}
+    }
+    // nothing found: return "infinite"
+    return SAMPLE_INDEX_MAX;
 }
 
 //***************************************************************************

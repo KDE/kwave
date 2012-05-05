@@ -146,6 +146,12 @@ public slots:
     void setOffset(sample_index_t new_offset);
 
     /**
+     * Scrolls the display so that the given position gets visible,
+     * centered within the display if possible.
+     */
+    void scrollTo(sample_index_t pos);
+
+    /**
      * sets a new zoom factor [samples/pixel], does not refresh the screen
      * @param new_zoom new zoom value, will be internally limited
      *                 to [length/width...1/width] (from full display to
@@ -204,9 +210,6 @@ private slots:
      */
     void slotTrackDeleted(unsigned int index);
 
-    /** updates the scrollbar */
-    void updateViewInfo(sample_index_t, sample_index_t, sample_index_t);
-
     /**
      * Connected to the vertical scrollbar and called if the value
      * has changed so that the signal display and the channel
@@ -230,6 +233,11 @@ signals:
 
     /** forward a sigCommand to the next layer */
     void sigCommand(const QString &command);
+
+    /** emitted when the visible range has changed */
+    void sigVisibleRangeChanged(sample_index_t offset,
+                                sample_index_t visible,
+                                sample_index_t total);
 
 private:
 
@@ -263,7 +271,7 @@ private:
      * into the current window.
      * @return zoom value [samples/pixel]
      */
-    double fullZoom();
+    double fullZoom() const;
 
     /**
      * Fixes the zoom and the offset of the display so that no non-existing

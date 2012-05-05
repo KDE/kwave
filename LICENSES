@@ -14,6 +14,10 @@ LIST OF LICENSES FOUND IN THE SOURCES
 	* LGPL2 - GNU Library General Public License, version 2 or newer
 	  - some icons
 
+	* Creative Common Attribution-ShareAlike 3.0 License
+	  or the GNU Library General Public License 3.0
+	  - Oxygen icons
+
 	* Kitware (cmake)
 	  - cmake/Copyright.txt
 	  - cmake/FindGettext.cmake
@@ -200,6 +204,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/menus.config				GPL2+
 	kwave/ShortcutWrapper.cpp			GPL2+
 	kwave/ShortcutWrapper.h				GPL2+
+	kwave/PlayerToolBar.cpp				GPL2+
+	kwave/PlayerToolBar.h				GPL2+
 	kwave/TopWidget.cpp				GPL2+ / Martin Wilz
 	kwave/TopWidget.h				GPL2+ / Martin Wilz
 
@@ -214,22 +220,28 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/pics/light_on.xpm				LGPL2 (crystal project) [copied from greenled.png]
 	kwave/pics/logo.xpm				(should be GPL2+ / Martin Wilz)
 	kwave/pics/noise.png				(should be GPL2+)
-	kwave/pics/playback_loop.xpm			LGPL2 (crystal project) [derived from player_start.png]
-	kwave/pics/playback_pause2.xpm			LGPL2 (crystal project) [derived from player_pause.png]
-	kwave/pics/playback_pause.xpm			LGPL2 (crystal project) [derived from player_pause.png]
-	kwave/pics/playback_start.xpm			LGPL2 (crystal project) [derived from player_start.png]
-	kwave/pics/playback_stop.xpm			LGPL2 (crystal project) [derived from player_stop.png]
 	kwave/pics/selectedknob.xpm			LGPL2 (crystal project) [derived from greenled.png]
 	kwave/pics/sound_card.png			LGPL2 (crystal project) [copied from kcmpci.png]
 	kwave/pics/sound_device.png			LGPL2 (crystal project) [copied from multimedia.png]
 	kwave/pics/sound_note.png			LGPL2 (crystal project) [copied from knotify.png]
 	kwave/pics/sound_subdevice.png			LGPL2 (crystal project) [copied from kcmsound.png]
 
-	kwave/toolbar/zoomall.xpm			LGPL2 (crystal project) [copied from viewmagfit.png]
-	kwave/toolbar/zoomin.xpm			LGPL2 (crystal project) [copied from viewmag+.png]
-	kwave/toolbar/zoomnormal.xpm			LGPL2 (crystal project) [copied from viewmag1.png]
-	kwave/toolbar/zoomout.xpm			LGPL2 (crystal project) [copied from viewmag-.png]
-	kwave/toolbar/zoomrange.xpm			LGPL2 (crystal project) [copied from viewmag.png]
+	kwave/toolbar/kwave_player_bg.svgz		derived from "Oxygen" icons
+	kwave/toolbar/kwave_player_end.svgz		derived from "Oxygen" icons
+	kwave/toolbar/kwave_player_fwd.svgz		derived from "Oxygen" icons
+	kwave/toolbar/kwave_player_loop.svgz		derived from "Oxygen" icons
+	kwave/toolbar/kwave_player_pause.svgz		derived from "Oxygen" icons
+	kwave/toolbar/kwave_player_pause_2.svgz		derived from "Oxygen" icons
+	kwave/toolbar/kwave_player_play.svgz		derived from "Oxygen" icons
+	kwave/toolbar/kwave_player_record.svgz		derived from "Oxygen" icons
+	kwave/toolbar/kwave_player_rew.svgz		derived from "Oxygen" icons
+	kwave/toolbar/kwave_player_start.svgz		derived from "Oxygen" icons
+	kwave/toolbar/kwave_player_stop.svgz		derived from "Oxygen" icons
+	kwave/toolbar/kwave_viewmag.svgz		derived from "Oxygen" icons
+	kwave/toolbar/kwave_viewmagfit.svgz		derived from "Oxygen" icons
+	kwave/toolbar/kwave_zoom_in.svgz		derived from "Oxygen" icons
+	kwave/toolbar/kwave_zoom_original.svgz		derived from "Oxygen" icons
+	kwave/toolbar/kwave_zoom_out.svgz		derived from "Oxygen" icons
 
 	libgui/CMakeLists.txt				GPL2+
 	libgui/ConfirmCancelProxy.cpp			GPL2+

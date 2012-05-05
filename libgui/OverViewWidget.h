@@ -109,10 +109,11 @@ protected:
     /**
      * On double click with the left mouse button, without shift:
      * move the current viewport center to the clicked position, like
-     * on a single-click, but also zoom in (by sending "zoomin()").
+     * on a single-click, but also zoom in (by sending "view:zoom_in()").
      *
      * When double clicked with the left mouse button with shift:
-     * The same as above, but zoom out instead of in (by sending "zoomout()").
+     * The same as above, but zoom out instead of in
+     * (by sending "view:zoom_out()").
      */
     void mouseDoubleClickEvent(QMouseEvent *e);
 

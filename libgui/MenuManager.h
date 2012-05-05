@@ -84,6 +84,15 @@ public:
     void selectItem(const QString &group, const QString &uid);
 
     /**
+     * Sets the text of a menu entry to a new value.
+     * @param uid unique id string of the menu node
+     * @param text the new text of the item
+     */
+    void setItemText(const QString &uid, const QString &text);
+
+public slots:
+
+    /**
      * Checks/unchecks a menu node.
      * @param uid unique id string of the menu node
      * @param check true to set a checkmark, false to remove
@@ -96,13 +105,6 @@ public:
      * @param enable true to enable, false to disable
      */
     void setItemEnabled(const QString &uid, bool enable);
-
-    /**
-     * Sets the text of a menu entry to a new value.
-     * @param uid unique id string of the menu node
-     * @param text the new text of the item
-     */
-    void setItemText(const QString &uid, const QString &text);
 
 signals:
 

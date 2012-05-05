@@ -26,6 +26,7 @@
 #include <QCursor>
 #include <QFile>
 #include <QMutex>
+#include <QMutexLocker>
 #include <QProgressDialog>
 #include <QString>
 #include <QDateTime>
@@ -65,7 +66,7 @@ KWAVE_PLUGIN(PlayBackPlugin, "playback", "2.2",
              I18N_NOOP("Playback"), "Thomas Eschenbacher");
 
 /** Sets the number of screen refreshes per second when in playback mode */
-#define SCREEN_REFRESHES_PER_SECOND 16
+#define SCREEN_REFRESHES_PER_SECOND 10
 
 //***************************************************************************
 PlayBackPlugin::PlayBackPlugin(const PluginContext &context)
@@ -73,7 +74,8 @@ PlayBackPlugin::PlayBackPlugin(const PluginContext &context)
     m_device(0), m_lock_device(), m_playback_params(),
     m_playback_controller(manager().playbackController()),
     m_old_first(0),
-    m_old_last(0)
+    m_old_last(0),
+    m_lock_seek(), m_should_seek(false), m_seek_pos(0)
 {
 #ifdef HAVE_ALSA_SUPPORT
     // set builtin defaults to ALSA
@@ -84,7 +86,8 @@ PlayBackPlugin::PlayBackPlugin(const PluginContext &context)
     connect(this, SIGNAL(sigPlaybackDone()),
             &m_playback_controller, SLOT(playbackDone()));
     connect(this, SIGNAL(sigPlaybackPos(sample_index_t)),
-            &m_playback_controller, SLOT(updatePlaybackPos(sample_index_t)));
+            &m_playback_controller, SLOT(updatePlaybackPos(sample_index_t)),
+	    Qt::BlockingQueuedConnection);
     connect(this, SIGNAL(sigPlaybackDone()),
             this, SLOT(closeDevice()),
             Qt::QueuedConnection);
@@ -160,6 +163,8 @@ void PlayBackPlugin::load(QStringList &params)
             this, SLOT(startDevicePlayBack()));
     connect(&m_playback_controller, SIGNAL(sigDeviceStopPlayback()),
             this, SLOT(stopDevicePlayBack()));
+    connect(&m_playback_controller, SIGNAL(sigDeviceSeekTo(sample_index_t)),
+	    this, SLOT(seekTo(sample_index_t)));
 }
 
 //***************************************************************************
@@ -572,6 +577,14 @@ void PlayBackPlugin::stopDevicePlayBack()
 }
 
 //***************************************************************************
+void PlayBackPlugin::seekTo(sample_index_t pos)
+{
+    QMutexLocker lock(&m_lock_seek);
+    m_seek_pos    = pos;
+    m_should_seek = true;
+}
+
+//***************************************************************************
 void PlayBackPlugin::run(QStringList)
 {
     QMutexLocker lock(&m_lock_device);
@@ -633,7 +646,7 @@ void PlayBackPlugin::run(QStringList)
 	// if current position is after start -> skip the passed
 	// samples (this happens when resuming after a pause)
 	if (pos > first) {
-	    for (x=0; x < audible_count; x++) {
+	    for (x = 0; x < audible_count; x++) {
 		SampleReader *stream = input[x];
 		if (stream) stream->skip(pos-first);
 	    }
@@ -641,7 +654,24 @@ void PlayBackPlugin::run(QStringList)
 
 	while ((pos++ <= last) && !shouldStop()) {
 	    unsigned int x;
-	    for (x=0; x < audible_count; x++) {
+
+	    // check for seek requests
+	    if (m_should_seek) {
+		QMutexLocker lock(&m_lock_seek);
+		if (m_seek_pos < first) m_seek_pos = first;
+		if (m_seek_pos > last)  { pos = last; break; }
+		if (pos != m_seek_pos) {
+		    pos = m_seek_pos;
+		    for (x = 0; x < audible_count; x++) {
+			SampleReader *stream = input[x];
+			if (stream) stream->seek(pos);
+		    }
+		}
+		m_should_seek = false;
+		m_playback_controller.seekDone(pos);
+	    }
+
+	    for (x = 0; x < audible_count; x++) {
 		in_samples[x] = 0;
 		SampleReader *stream = input[x];
 		Q_ASSERT(stream);
@@ -654,7 +684,7 @@ void PlayBackPlugin::run(QStringList)
 
 	    // multiply matrix with input to get output
 	    unsigned int y;
-	    for (y=0; y < out_channels; y++) {
+	    for (y = 0; y < out_channels; y++) {
 		double sum = 0;
 		for (x=0; x < audible_count; x++) {
 		    sum += static_cast<double>(in_samples[x]) * matrix[x][y];

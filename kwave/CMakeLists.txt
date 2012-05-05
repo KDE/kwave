@@ -40,6 +40,7 @@ SET(kwave_SRCS
     KwaveApp.cpp
     KwaveSplash.cpp
     MainWidget.cpp
+    PlayerToolBar.cpp
     ShortcutWrapper.cpp
     TopWidget.cpp
     ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
@@ -58,21 +59,32 @@ SET(kwave_PIXMAPS
     pics/light_on.xpm
     pics/logo.xpm
     pics/noise.png
-    pics/playback_loop.xpm
-    pics/playback_start.xpm
-    pics/playback_stop.xpm
-    pics/playback_pause.xpm
-    pics/playback_pause2.xpm
     pics/selectedknob.xpm
     pics/sound_device.png
     pics/sound_subdevice.png
     pics/sound_card.png
     pics/sound_note.png
-    toolbar/zoomall.xpm
-    toolbar/zoomin.xpm
-    toolbar/zoomnormal.xpm
-    toolbar/zoomout.xpm
-    toolbar/zoomrange.xpm
+)
+
+#############################################################################
+### scalable action icons to be installed in the icon dir                 ###
+
+SET(kwave_ACTION_ICONS
+    toolbar/kwave_player_end.svgz
+    toolbar/kwave_player_fwd.svgz
+    toolbar/kwave_player_pause.svgz
+    toolbar/kwave_player_pause_2.svgz
+    toolbar/kwave_player_play.svgz
+    toolbar/kwave_player_loop.svgz
+    toolbar/kwave_player_record.svgz
+    toolbar/kwave_player_rew.svgz
+    toolbar/kwave_player_start.svgz
+    toolbar/kwave_player_stop.svgz
+    toolbar/kwave_viewmagfit.svgz
+    toolbar/kwave_viewmag.svgz
+    toolbar/kwave_zoom_in.svgz
+    toolbar/kwave_zoom_original.svgz
+    toolbar/kwave_zoom_out.svgz
 )
 
 #############################################################################
@@ -106,6 +118,12 @@ INSTALL(FILES ${kwave_PIXMAPS} DESTINATION ${DESTDIR}${KDE4_DATA_INSTALL_DIR}/kw
 INSTALL(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/kwave.desktop
     DESTINATION ${KDE4_XDG_APPS_INSTALL_DIR}
+)
+
+# action icons
+INSTALL(
+    FILES ${kwave_ACTION_ICONS}
+    DESTINATION ${DESTDIR}${KDE4_ICON_INSTALL_DIR}/hicolor/scalable/actions
 )
 
 # application icon

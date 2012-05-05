@@ -1,5 +1,19 @@
 
-o toolbar: buttons for forward/backward
+o bug: scroll with overview widget to left (negative x? )
+
+o bug: playback pointer does not disappear after play - pause - stop
+
+o hotkeys for playback/scroll
+
+o WAV @ G.711 export from MP3
+
+o create label without text ?
+
+o save as: file name with multiple "." -> take last one, not first
+
+o "close" while playback running
+
+o move label with mouse (drag&drop)
 
 o simplify loading/unloading of plugins
 

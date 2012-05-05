@@ -51,7 +51,7 @@ QList<Kwave::MetaData> Kwave::MetaDataList::toSortedList() const
     QList<Kwave::MetaData> list = this->values();
 
     qStableSort(list.begin(), list.end(), isLessThan);
-    
+
     return list;
 }
 
@@ -226,7 +226,7 @@ bool Kwave::MetaDataList::contains(const Kwave::MetaData &metadata) const
 void Kwave::MetaDataList::replace(const Kwave::MetaDataList &list)
 {
     if (list.isEmpty()) return;
-    
+
     // find out which meta data types are affected
     QStringList types;
     foreach (const Kwave::MetaData &meta, list) {
@@ -234,7 +234,7 @@ void Kwave::MetaDataList::replace(const Kwave::MetaDataList &list)
 	if (!types.contains(type)) {
 	    // remember this type in our list
 	    types.append(type);
-	    
+
 	    // remove all elements of that type that are not in the new list
 	    MutableIterator it(*this);
 	    while (it.hasNext()) {
@@ -248,7 +248,7 @@ void Kwave::MetaDataList::replace(const Kwave::MetaDataList &list)
 	    }
 	}
     }
-    
+
     // now the same as in add() has to be done
     add(list);
 }
@@ -685,7 +685,6 @@ void Kwave::MetaDataList::shiftLeft(sample_index_t offset, sample_index_t shift,
 		meta[Kwave::MetaData::STDPROP_POS].toULongLong(&ok));
 	    if (!ok) continue;
 
-	    Q_ASSERT(pos >= shift);
 	    if (pos >= shift) {
 		// shift position left
 		meta[Kwave::MetaData::STDPROP_POS] = pos - shift;
@@ -939,7 +938,7 @@ void Kwave::MetaDataList::insertTrack(unsigned int track)
 	    foreach (const QVariant &v, old_list) {
 		bool ok = false;
 		unsigned int t = v.toUInt(&ok);
-		if (ok && (t >= track)) 
+		if (ok && (t >= track))
 		    new_list.append(QVariant(t + 1));
 		else
 		    new_list.append(v);

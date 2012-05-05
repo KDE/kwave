@@ -134,6 +134,27 @@ void PlaybackController::playbackStop()
 }
 
 //***************************************************************************
+void PlaybackController::seekTo(sample_index_t pos)
+{
+    if (pos < m_playback_start) pos = m_playback_start;
+    if (pos > m_playback_end)   pos = m_playback_end;
+
+    emit sigDeviceSeekTo(pos);
+    if (m_paused) {
+	// if playback is paused, we want an update of the playback
+	// position anyway. as this will not come from the device layer,
+	// fake an update right here
+	updatePlaybackPos(pos);
+    }
+}
+
+//***************************************************************************
+void PlaybackController::seekDone(sample_index_t pos)
+{
+    emit sigSeekDone(pos);
+}
+
+//***************************************************************************
 void PlaybackController::updatePlaybackPos(sample_index_t pos)
 {
     m_playback_position = pos;

@@ -77,6 +77,9 @@ signals:
     /** Emits the current playback position */
     void sigPlaybackPos(sample_index_t pos);
 
+    /** Emitted after a successful seek operation */
+    void sigSeekDone(sample_index_t pos);
+
 public slots:
 
     /**
@@ -88,6 +91,12 @@ public slots:
      * Stops playback.
      */
     void stopDevicePlayBack();
+
+    /**
+     * Seek to a new playback position
+     * @param pos the new position in samples, absolute
+     */
+    void seekTo(sample_index_t pos);
 
     /**
      * Plays a sample sound for testing the playback
@@ -171,7 +180,7 @@ private:
     /** The playback device used for playback */
     PlayBackDevice *m_device;
 
-    /** Mutex for locking acces to the playback device */
+    /** Mutex for locking access to the playback device */
     QMutex m_lock_device;
 
     /** the parameters used for playback */
@@ -185,6 +194,15 @@ private:
 
     /** End of the selection when playback started */
     unsigned int m_old_last;
+
+    /** Mutex for locking access to m_should_seek and m_seek_pos */
+    QMutex m_lock_seek;
+
+    /** if true, m_seek_pos is valid and a seek has been requested */
+    bool m_should_seek;
+
+    /** position to seek to */
+    sample_index_t m_seek_pos;
 
 };
 

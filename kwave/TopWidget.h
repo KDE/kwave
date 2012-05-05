@@ -49,6 +49,7 @@ class MenuManager;
 class MainWidget;
 class SignalManager;
 
+namespace Kwave { class PlayerToolBar; }
 namespace Kwave { class PluginManager; }
 namespace Kwave { class ApplicationContext; }
 
@@ -175,19 +176,7 @@ private slots:
     /** updates all elements in the toolbar */
     void updateToolbar();
 
-    /** updates only the record/playback controls */
-    void updateRecordPlaybackControls();
-
     void toolbarRecord()    { executeCommand("plugin(record)"); }
-
-    /** called if the playback has been paused */
-    void playbackPaused();
-
-    /** connected to the clicked() signal of the pause button */
-    void pausePressed();
-
-    /** toggles the state of the pause button */
-    void blinkPause();
 
     /** toolbar: "file/new" */
     void toolbarFileNew()    { executeCommand("plugin(newsignal)"); }
@@ -295,12 +284,6 @@ private:
     void updateCaption();
 
     /**
-     * handle playback commands, like play/stop/pause etc...
-     * @return zero if succeeded, non-zero if failed
-     */
-    int executePlaybackCommand(const QString &command);
-
-    /**
      * Parses a text stream line by line and executes each line
      * as a command until all commands are done or the first one fails.
      * @param stream a QTextStream to read from
@@ -331,55 +314,37 @@ private:
      */
     QPointer<MainWidget> m_main_widget;
 
+    /** toolbar with playback/record and seek controls */
+    Kwave::PlayerToolBar *m_toolbar_record_playback;
+
     /** combo box for selection of the zoom factor */
     KComboBox *m_zoomselect;
 
     /** menu manager for this window */
     MenuManager *m_menu_manager;
 
-    /** Timer used to let the pause button blink... */
-    QTimer *m_pause_timer;
-
-    /** determines the state of blinking toolbar buttons */
-    bool m_blink_on;
-
-    /** member id of the "edit undo" toolbar button */
+    /** action of the "edit undo" toolbar button */
     QAction *m_action_undo;
 
-    /** member id of the "edit redo" toolbar button */
+    /** action of the "edit redo" toolbar button */
     QAction *m_action_redo;
 
-    /** member id of the "start record" toolbar button */
-    QAction *m_action_record;
-
-    /** member id of the "start playback" toolbar button */
-    QAction *m_action_play;
-
-    /** member id of the "start playback and loop" toolbar button */
-    QAction *m_action_loop;
-
-    /** member id of the "pause playback" toolbar button */
-    QAction *m_action_pause;
-
-    /** member id of the "stop playback" toolbar button */
-    QAction *m_action_stop;
-
-    /** member id of the "zoom to selection" toolbar button */
+    /** action of the "zoom to selection" toolbar button */
     QAction *m_action_zoomselection;
 
-    /** member id of the "zoom in" toolbar button */
+    /** action of the "zoom in" toolbar button */
     QAction *m_action_zoomin;
 
-    /** member id of the "zoom out" toolbar button */
+    /** action of the "zoom out" toolbar button */
     QAction *m_action_zoomout;
 
-    /** member id of the "zoom to 100%" toolbar button */
+    /** action of the "zoom to 100%" toolbar button */
     QAction *m_action_zoomnormal;
 
-    /** member id of the "zoom to all" toolbar button */
+    /** action of the "zoom to all" toolbar button */
     QAction *m_action_zoomall;
 
-    /** member id of the "zoom factor" combobox in the toolbar */
+    /** action of the "zoom factor" combobox in the toolbar */
     QAction *m_action_zoomselect;
 
     /** status bar label for length of the signal */

@@ -124,8 +124,14 @@ public slots:
      */
     void reload();
 
+    /** Seeks to a new position */
+    void seekTo(sample_index_t pos);
+
+    /** Called when the seek has finished */
+    void seekDone(sample_index_t pos);
+
     /** Updates the current playback position */
-    void updatePlaybackPos(sample_index_t);
+    void updatePlaybackPos(sample_index_t pos);
 
     /** Updates the status if playback is done */
     void playbackDone();
@@ -141,6 +147,11 @@ signals:
      * Signals that playback should be stopped.
      */
     void sigDeviceStopPlayback();
+
+    /**
+     * Signals that the device should seek to a new position
+     */
+    void sigDeviceSeekTo(sample_index_t pos);
 
     /**
      * Signals that playback has started.
@@ -161,6 +172,11 @@ signals:
      * Emits the current position of the playback pointer
      */
     void sigPlaybackPos(sample_index_t pos);
+
+    /**
+     * Emits the current position after a seek operation
+     */
+    void sigSeekDone(sample_index_t pos);
 
 private:
 

@@ -70,26 +70,13 @@
 #include "KwaveApp.h"
 #include "KwaveSplash.h"
 #include "MainWidget.h"
+#include "PlayerToolBar.h"
 #include "TopWidget.h"
-
-#include "pics/krec_record.xpm"
-#include "pics/playback_loop.xpm"
-#include "pics/playback_pause.xpm"
-#include "pics/playback_pause2.xpm"
-#include "pics/playback_start.xpm"
-#include "pics/playback_stop.xpm"
-
-#include "toolbar/zoomrange.xpm"
-#include "toolbar/zoomin.xpm"
-#include "toolbar/zoomout.xpm"
-#include "toolbar/zoomnormal.xpm"
-#include "toolbar/zoomall.xpm"
 
 /**
  * useful macro for command parsing
  */
 #define CASE_COMMAND(x) } else if (parser.command() == x) {
-
 
 /** toolbar name: file operations */
 #define TOOLBAR_FILE        "MainWidget File"
@@ -107,16 +94,12 @@
 //***************************************************************************
 TopWidget::TopWidget(Kwave::ApplicationContext &context)
     :KMainWindow(), m_context(context), m_zoom_factors(),
-     m_main_widget(0), m_zoomselect(0), m_menu_manager(0), m_pause_timer(0),
-     m_blink_on(false), m_action_undo(0), m_action_redo(0),
-     m_action_record(0), m_action_play(0),
-     m_action_loop(0), m_action_pause(0),m_action_stop(0),
+     m_main_widget(0), m_toolbar_record_playback(0), m_zoomselect(0),
+     m_menu_manager(0), m_action_undo(0), m_action_redo(0),
      m_action_zoomselection(0), m_action_zoomin(0), m_action_zoomout(0),
      m_action_zoomnormal(0), m_action_zoomall(0), m_action_zoomselect(0),
      m_lbl_status_size(0), m_lbl_status_mode(0), m_lbl_status_cursor(0)
 {
-    KIconLoader icon_loader;
-
     // status bar items
     KStatusBar *status_bar = statusBar();
     Q_ASSERT(status_bar);
@@ -152,6 +135,7 @@ TopWidget::TopWidget(Kwave::ApplicationContext &context)
 bool TopWidget::init()
 {
     KIconLoader icon_loader;
+    const int max_s = KIconLoader::SizeEnormous;
 
     showInSplashSreen(i18n("Loading main menu..."));
     KMenuBar *menubar = menuBar();
@@ -191,6 +175,9 @@ bool TopWidget::init()
     connect(&m_context.signalManager()->playbackController(),
             SIGNAL(sigPlaybackPos(sample_index_t)),
             this, SLOT(updatePlaybackPos(sample_index_t)));
+    connect(&m_context.signalManager()->playbackController(),
+            SIGNAL(sigSeekDone(sample_index_t)),
+            m_main_widget, SLOT(scrollTo(sample_index_t)));
 
     // connect the sigCommand signal to ourself, this is needed
     // for the plugins
@@ -274,35 +261,20 @@ bool TopWidget::init()
 
     // --- record/playback controls ---
 
-    KToolBar *toolbar_record_playback = toolBar(TOOLBAR_RECORD_PLAY);
-    Q_ASSERT(toolbar_record_playback);
-    if (!toolbar_record_playback) return false;
+    m_toolbar_record_playback = new Kwave::PlayerToolBar(
+	this, TOOLBAR_RECORD_PLAY,
+	m_context.signalManager()->playbackController(),
+	*m_menu_manager);
 
-    QObject *playback = &(m_context.signalManager()->playbackController());
-    m_action_record = toolbar_record_playback->addAction(
-	QPixmap(xpm_krec_record),
-	i18n("Record"),
-	this, SLOT(toolbarRecord()));
+    Q_ASSERT(m_toolbar_record_playback);
+    if (!m_toolbar_record_playback) return false;
 
-    m_action_play = toolbar_record_playback->addAction(
-	QPixmap(xpm_play),
-	i18n("Start playback"),
-	playback, SLOT(playbackStart()));
-
-    m_action_loop = toolbar_record_playback->addAction(
-	QPixmap(xpm_loop),
-	i18n("Start playback and loop"),
-	playback, SLOT(playbackLoop()));
-
-    m_action_pause = toolbar_record_playback->addAction(
-	QPixmap(xpm_pause),
-	i18n("Pause playback"),
-	this, SLOT(pausePressed()));
-
-    m_action_stop = toolbar_record_playback->addAction(
-	QPixmap(xpm_stop),
-	i18n("Stop playback or loop"),
-	playback, SLOT(playbackStop()));
+    connect(m_toolbar_record_playback, SIGNAL(sigCommand(const QString &)),
+            this,                    SLOT(executeCommand(const QString &)));
+    connect(m_main_widget, SIGNAL(sigVisibleRangeChanged(sample_index_t,
+	    sample_index_t, sample_index_t)),
+	    m_toolbar_record_playback, SLOT(visibleRangeChanged(sample_index_t,
+	    sample_index_t, sample_index_t)) );
 
     // --- zoom controls ---
     m_zoom_factors.append(ZoomFactor(i18n("%1 ms",   1),            1L));
@@ -323,27 +295,27 @@ bool TopWidget::init()
     if (!toolbar_zoom) return false;
 
     m_action_zoomselection = toolbar_zoom->addAction(
-	QPixmap(xpm_zoomrange),
+	icon_loader.loadIcon("kwave_viewmag", KIconLoader::Toolbar, max_s),
 	i18n("Zoom to selection"),
 	m_main_widget, SLOT(zoomSelection()));
 
     m_action_zoomin = toolbar_zoom->addAction(
-	QPixmap(xpm_zoomin),
+	icon_loader.loadIcon("kwave_zoom_in", KIconLoader::Toolbar, max_s),
 	i18n("Zoom in"),
 	m_main_widget, SLOT(zoomIn()));
 
     m_action_zoomout = toolbar_zoom->addAction(
-	QPixmap(xpm_zoomout),
+	icon_loader.loadIcon("kwave_zoom_out", KIconLoader::Toolbar, max_s),
 	i18n("Zoom out"),
 	m_main_widget, SLOT(zoomOut()));
 
     m_action_zoomnormal = toolbar_zoom->addAction(
-	QPixmap(xpm_zoomnormal),
+	icon_loader.loadIcon("kwave_zoom_original", KIconLoader::Toolbar, max_s),
 	i18n("Zoom to 100%"),
 	m_main_widget, SLOT(zoomNormal()));
 
     m_action_zoomall = toolbar_zoom->addAction(
-	QPixmap(xpm_zoomall),
+	icon_loader.loadIcon("kwave_viewmagfit", KIconLoader::Toolbar, max_s),
 	i18n("Zoom to all"),
 	m_main_widget, SLOT(zoomAll()));
 
@@ -365,14 +337,6 @@ bool TopWidget::init()
     int h = m_zoomselect->sizeHint().height();
     m_zoomselect->setMinimumWidth(h*5);
 
-    // connect the playback controller
-    connect(playback, SIGNAL(sigPlaybackStarted()),
-            this,     SLOT(updateRecordPlaybackControls()));
-    connect(playback, SIGNAL(sigPlaybackPaused()),
-            this,     SLOT(playbackPaused()));
-    connect(playback, SIGNAL(sigPlaybackStopped()),
-            this,     SLOT(updateRecordPlaybackControls()));
-
     // connect the signal manager
     SignalManager *signal_manager = m_context.signalManager();
     connect(&(signal_manager->selection()),
@@ -386,8 +350,11 @@ bool TopWidget::init()
             this,           SLOT(modifiedChanged(bool)));
     connect(signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
             this,           SLOT(metaDataChanged(Kwave::MetaDataList)));
+    connect(signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
+            m_toolbar_record_playback,
+                            SLOT(metaDataChanged(Kwave::MetaDataList)));
 
-    // create the plugin manager instance
+    // connect the plugin manager
     Kwave::PluginManager *plugin_manager = m_context.pluginManager();
     connect(plugin_manager, SIGNAL(sigCommand(const QString &)),
             this,           SLOT(executeCommand(const QString &)));
@@ -464,9 +431,6 @@ TopWidget::~TopWidget()
     // close the current file (no matter what the user wants)
     closeFile();
 
-    if (m_pause_timer) delete m_pause_timer;
-    m_pause_timer = 0;
-
     if (m_main_widget) delete m_main_widget;
     m_main_widget = 0;
 
@@ -526,12 +490,18 @@ int TopWidget::executeCommand(const QString &line)
     if (parser.command() == "plugin") use_recorder = false;
 
     // playback commands are always possible
-    if (parser.command() == "playback") {
-	return executePlaybackCommand(parser.firstParam()) ? 0 : -1;
+    if ( (parser.command() == "playback") && (m_toolbar_record_playback) )
+    {
+	return m_toolbar_record_playback->executeCommand(parser.firstParam());
     }
 
+    // let through all commands that handle zoom/view or playback like fwd/rew
+    bool allow_always =
+	parser.command().startsWith("view:") ||
+	parser.command().startsWith("playback:");
+
     // all others only if no plugin is currently running
-    if (plugin_manager && plugin_manager->onePluginRunning())
+    if (!allow_always && plugin_manager && plugin_manager->onePluginRunning())
     {
 	qWarning("TopWidget::executeCommand('%s') - currently not possible, "\
 		 "a plugin is running :-(",
@@ -659,31 +629,6 @@ int TopWidget::loadBatch(const KUrl &url)
     updateToolbar();
 
     return result;
-}
-
-//***************************************************************************
-int TopWidget::executePlaybackCommand(const QString &command)
-{
-    SignalManager *signal_manager = m_context.signalManager();
-    Q_ASSERT(signal_manager);
-    if (!signal_manager) return -1;
-
-    PlaybackController &controller =
-	m_context.signalManager()->playbackController();
-    if (command == "start") {
-	controller.playbackStart();
-    } else if (command == "loop") {
-	controller.playbackLoop();
-    } else if (command == "stop") {
-	controller.playbackStop();
-    } else if (command == "pause") {
-	pausePressed();
-    } else if (command == "continue") {
-	pausePressed();
-    } else {
-	return -EINVAL;
-    }
-    return 0;
 }
 
 //***************************************************************************
@@ -1294,6 +1239,9 @@ void TopWidget::updatePlaybackPos(sample_index_t offset)
 	            Kwave::dottedNumber(offset));
     }
     statusBar()->showMessage(txt, 2000);
+
+    // make sure that the current playback position is visible
+    m_main_widget->scrollTo(offset);
 }
 
 //***************************************************************************
@@ -1428,13 +1376,13 @@ void TopWidget::resetToolbarToDefaults()
     }
 
     // re-order the tool bars:
-    // -----------------------
-    // file  |  edit  |
-    // -----------------------
-    // record/play  |  zoom  |
-    // -----------------------
-    insertToolBar(toolbar_zoom,        toolbar_record_play);
-    insertToolBar(toolbar_record_play, toolbar_edit);
+    // ---------------------------
+    // file  |  edit  |  zoom  |
+    // ---------------------------
+    // record/play  |
+    // ---------------------------
+    insertToolBar(toolbar_record_play, toolbar_zoom);
+    insertToolBar(toolbar_zoom,        toolbar_edit);
     insertToolBar(toolbar_edit,        toolbar_file);
 
     // move record/playback into a seperate line, below file/edit
@@ -1471,103 +1419,6 @@ void TopWidget::updateToolbar()
         m_action_zoomall->setEnabled(have_signal);
     if (m_action_zoomselect)
         m_action_zoomselect->setEnabled(have_signal);
-
-    updateRecordPlaybackControls();
-}
-
-//***************************************************************************
-void TopWidget::updateRecordPlaybackControls()
-{
-    SignalManager *signal_manager = m_context.signalManager();
-    Q_ASSERT(signal_manager);
-    if (!signal_manager) return;
-
-    bool have_signal = signal_manager->tracks();
-    bool playing = signal_manager->playbackController().running();
-    bool paused  = signal_manager->playbackController().paused();
-
-    // stop blinking
-    if (m_pause_timer) {
-	m_pause_timer->stop();
-	delete m_pause_timer;
-	m_pause_timer = 0;
-	if (m_action_pause)
-	    m_action_pause->setIcon(QIcon(QPixmap(xpm_pause)));
-    }
-
-    // enable/disable the buttons
-
-    if (m_action_record)
-	m_action_record->setEnabled(!playing && !paused);
-    if (m_action_play)
-	m_action_play->setEnabled(have_signal && !playing);
-    if (m_action_loop)
-	m_action_loop->setEnabled(have_signal && !playing);
-    if (m_action_pause)
-	m_action_pause->setEnabled(have_signal && (playing || paused));
-    if (m_action_stop)
-	m_action_stop->setEnabled(have_signal && (playing || paused));
-
-    m_menu_manager->setItemEnabled("ID_RECORD",
-	!playing && !paused);
-    m_menu_manager->setItemEnabled("ID_PLAYBACK_START",
-	have_signal && !playing);
-    m_menu_manager->setItemEnabled("ID_PLAYBACK_LOOP",
-	have_signal && !playing);
-    m_menu_manager->setItemEnabled("ID_PLAYBACK_PAUSE",
-	have_signal && (playing));
-    m_menu_manager->setItemEnabled("ID_PLAYBACK_CONTINUE",
-	have_signal && (paused));
-    m_menu_manager->setItemEnabled("ID_PLAYBACK_STOP",
-	have_signal && (playing || paused));
-
-}
-
-//***************************************************************************
-void TopWidget::playbackPaused()
-{
-    updateToolbar();
-
-    if (!m_pause_timer) {
-	m_pause_timer = new QTimer(this);
-	Q_ASSERT(m_pause_timer);
-	if (!m_pause_timer) return;
-
-	m_pause_timer->start(500);
-	connect(m_pause_timer, SIGNAL(timeout()),
-	        this, SLOT(blinkPause()));
-	if (m_action_pause) m_action_pause->setIcon(QIcon(xpm_pause2));
-	m_blink_on = true;
-    }
-}
-
-//***************************************************************************
-void TopWidget::blinkPause()
-{
-    Q_ASSERT(m_action_pause);
-    if (!m_action_pause) return;
-    m_action_pause->setIcon(QIcon(m_blink_on ?
-	QPixmap(xpm_pause2) : QPixmap(xpm_pause)));
-    m_blink_on = !m_blink_on;
-}
-
-//***************************************************************************
-void TopWidget::pausePressed()
-{
-    SignalManager *signal_manager = m_context.signalManager();
-    Q_ASSERT(signal_manager);
-    if (!signal_manager) return;
-
-    bool have_signal = signal_manager->tracks();
-    bool playing     = signal_manager->playbackController().running();
-
-    if (!have_signal) return;
-
-    if (playing) {
-	signal_manager->playbackController().playbackPause();
-    } else {
-	signal_manager->playbackController().playbackContinue();
-    }
 }
 
 //***************************************************************************

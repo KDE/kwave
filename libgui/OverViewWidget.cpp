@@ -160,10 +160,10 @@ void OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
 
     if (e->modifiers() == Qt::NoModifier) {
 	// double click without shift => zoom in
-	emit sigCommand("zoomin()");
+	emit sigCommand("view:zoom_in()");
     } else if (e->modifiers() == Qt::ShiftModifier) {
 	// double click with shift => zoom out
-	emit sigCommand("zoomout()");
+	emit sigCommand("view:zoom_out()");
     }
 
     e->accept();

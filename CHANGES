@@ -16,6 +16,7 @@
  * bugfix: wrong view when moving slider of overview widget to negative value
  * bugfix: playback pointer did not disappear after play - pause - stop
  * bugfix: creating a label without text was not possible
+ * bugfix: saving WAV with G.711 and non-16bits/sample produced broken output
 
 0.8.7  [2011-11-27]
 

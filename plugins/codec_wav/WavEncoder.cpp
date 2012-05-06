@@ -361,7 +361,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     if ((compression == AF_COMPRESSION_G711_ULAW) ||
         (compression == AF_COMPRESSION_G711_ALAW))
     {
-	if ((sample_format != AF_SAMPFMT_TWOSCOMP) &&
+	if ((sample_format != AF_SAMPFMT_TWOSCOMP) ||
 	    (bits          != 16))
 	{
 	    const SampleFormat format(SampleFormat::Signed);

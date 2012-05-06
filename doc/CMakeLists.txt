@@ -61,18 +61,18 @@ ADD_CUSTOM_TARGET(html_clean
 #############################################################################
 ### png files with the toolbar icons                                      ###
 
-FILE(GLOB _toolbar_xpms "${CMAKE_SOURCE_DIR}/kwave/toolbar/*.xpm")
-FOREACH(_toolbar_xpm ${_toolbar_xpms})
-    GET_FILENAME_COMPONENT(_xpm_file ${_toolbar_xpm} NAME)
-    STRING(REPLACE ".xpm" ".png" _png_file ${_xpm_file})
+FILE(GLOB _toolbar_icons "${CMAKE_SOURCE_DIR}/kwave/toolbar/*.svgz")
+FOREACH(_toolbar_icon ${_toolbar_icons})
+    GET_FILENAME_COMPONENT(_svgz_file ${_toolbar_icon} NAME)
+    STRING(REPLACE ".svgz" ".png" _png_file ${_svgz_file})
     SET(_toolbar_png ${CMAKE_CURRENT_BINARY_DIR}/toolbar_${_png_file})
     ADD_CUSTOM_COMMAND(OUTPUT ${_toolbar_png}
-        COMMAND ${CONVERT_EXECUTABLE} ${_toolbar_xpm} ${_toolbar_png}
-        DEPENDS ${_toolbar_xpm}
+        COMMAND ${CONVERT_EXECUTABLE} ${_toolbar_icon} -resize 32x32 ${_toolbar_png}
+        DEPENDS ${_toolbar_icon}
         COMMENT STATUS "Converting ${_png_file}"
     )
     SET(_toolbar_pngs "${_toolbar_pngs}" "${_toolbar_png}")
-ENDFOREACH(_toolbar_xpm ${_toolbar_xpms})
+ENDFOREACH(_toolbar_icon ${_toolbar_icons})
 
 
 #############################################################################

@@ -1,6 +1,4 @@
 
-o toolbar icons in online help and html doc
-
 o WAV @ G.711 export from MP3
 
 o save as: file name with multiple "." -> take last one, not first
@@ -74,9 +72,6 @@ o re-activate the "label" menu
 o use some xml file for the menu instead of a macro
 
 o support for Spex codec: http://www.speex.org/
-
-o get rid of libaudiofile, it is buggy, has too few features and
-  is no longer actively maintained -> find an alternative
 
 o ALSA record/playback: also detect devices configured in the .asoundrc,
   and not only hardware devices

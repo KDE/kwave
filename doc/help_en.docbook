@@ -8,7 +8,7 @@
   <!ENTITY version_tag "0_8_7-2">
   <!ENTITY version_year "2012">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
-  
+
   <!ENTITY url_authors "http://kwave.git.sourceforge.net/git/gitweb.cgi?p=kwave/kwave;a=blob_plain;f=AUTHORS;hb=HEAD">
   <!ENTITY url_changelog "http://kwave.git.sourceforge.net/git/gitweb.cgi?p=kwave/kwave;a=blob_plain;f=CHANGES;hb=HEAD">
   <!ENTITY url_cmake "http://www.cmake.org">
@@ -1861,7 +1861,7 @@
 	    </para></listitem>
 	    <listitem><para>
 		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_zoomall.png" format="PNG"/>
+		<imagedata fileref="toolbar_kwave_viewmagfit.png" format="PNG"/>
 		</imageobject><textobject><phrase>zoom all button</phrase></textobject>
 		</inlinemediaobject>
 	    </para></listitem>
@@ -1881,7 +1881,7 @@
 	    </para></listitem>
 	    <listitem><para>
 		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_zoomnormal.png" format="PNG"/>
+		<imagedata fileref="toolbar_kwave_zoom_original.png" format="PNG"/>
 		</imageobject><textobject><phrase>zoom to 100% button</phrase></textobject>
 		</inlinemediaobject>
 	    </para></listitem>
@@ -1901,7 +1901,7 @@
 	    </para></listitem>
 	    <listitem><para>
 		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_zoomin.png" format="PNG"/>
+		<imagedata fileref="toolbar_kwave_zoom_in.png" format="PNG"/>
 		</imageobject><textobject><phrase>zoom in button</phrase></textobject>
 		</inlinemediaobject>
 	    </para></listitem>
@@ -1921,7 +1921,7 @@
 	    </para></listitem>
 	    <listitem><para>
 		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_zoomout.png" format="PNG"/>
+		<imagedata fileref="toolbar_kwave_zoom_out.png" format="PNG"/>
 		</imageobject><textobject><phrase>zoom out button</phrase></textobject>
 		</inlinemediaobject>
 	    </para></listitem>
@@ -1940,13 +1940,12 @@
 		<guimenu>View</guimenu><guimenuitem>Zoom to Selection</guimenuitem>
 		</menuchoice>
 	    </para></listitem>
-<!--	    <listitem><para>
+	    <listitem><para>
 		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_zoomselect.png" format="PNG"/>
+		<imagedata fileref="toolbar_kwave_viewmag.png" format="PNG"/>
 		</imageobject><textobject><phrase>zoom to selection button</phrase></textobject>
 		</inlinemediaobject>
 	    </para></listitem>
--->
 	    </itemizedlist>
         </para></listitem>
 	<!-- zoom predefined time range -->
@@ -1974,6 +1973,12 @@
 		<guimenu>View</guimenu><guimenuitem>Scroll left</guimenuitem>
 		</menuchoice>
 	    </para>
+	    <para>
+		toolbar button: <inlinemediaobject><imageobject>
+		<imagedata fileref="toolbar_kwave_player_rew.png" format="PNG"/>
+		</imageobject><textobject><phrase>scroll left button</phrase></textobject>
+		</inlinemediaobject>
+	    </para>
         </listitem>
 	<!-- scroll right -->
         <listitem><para>
@@ -1986,6 +1991,12 @@
 		<shortcut><keycombo><keycap>cursor right</keycap></keycombo></shortcut>
 		<guimenu>View</guimenu><guimenuitem>Scroll right</guimenuitem>
 		</menuchoice>
+	    </para>
+	    <para>
+		toolbar button: <inlinemediaobject><imageobject>
+		<imagedata fileref="toolbar_kwave_player_fwd.png" format="PNG"/>
+		</imageobject><textobject><phrase>scroll right button</phrase></textobject>
+		</inlinemediaobject>
 	    </para>
         </listitem>
 	<!-- previous page -->
@@ -2000,6 +2011,12 @@
 		<guimenu>View</guimenu><guimenuitem>Previous Page</guimenuitem>
 		</menuchoice>
 	    </para>
+	    <para>
+		toolbar button: <inlinemediaobject><imageobject>
+		<imagedata fileref="toolbar_kwave_player_start.png" format="PNG"/>
+		</imageobject><textobject><phrase>previous page button</phrase></textobject>
+		</inlinemediaobject>
+	    </para>
         </listitem>
 	<!-- next page -->
        <listitem><para>
@@ -2012,6 +2029,12 @@
 		<shortcut><keycombo><keycap>Page down</keycap></keycombo></shortcut>
 		<guimenu>View</guimenu><guimenuitem>Next Page</guimenuitem>
 		</menuchoice>
+	    </para>
+	    <para>
+		toolbar button: <inlinemediaobject><imageobject>
+		<imagedata fileref="toolbar_kwave_player_end.png" format="PNG"/>
+		</imageobject><textobject><phrase>next page button</phrase></textobject>
+		</inlinemediaobject>
 	    </para>
         </listitem>
 	<!-- to begin -->

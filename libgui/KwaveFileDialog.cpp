@@ -54,10 +54,7 @@ KwaveFileDialog::KwaveFileDialog(const QString &startDir,
     if (m_last_url.length()) setUrl(KUrl(m_last_url));
 
     // if a filename was passed, try to re-use it
-    if (last_url.length()) {
-	QFileInfo fi(last_url);
-	setSelection(fi.completeBaseName());
-    }
+    if (last_url.length()) setSelection(last_url);
 
     // put the last extension to the top of the list
     // and thus make it selected

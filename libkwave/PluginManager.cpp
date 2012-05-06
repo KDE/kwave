@@ -183,6 +183,25 @@ void Kwave::PluginManager::loadAllPlugins()
 }
 
 //***************************************************************************
+void Kwave::PluginManager::stopAllPlugins()
+{
+    // check: this must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
+    if (!m_loaded_plugins.isEmpty())
+	foreach (KwavePluginPointer plugin, m_loaded_plugins)
+	    if (plugin && plugin->isRunning())
+		plugin->stop() ;
+    if (!m_unique_plugins.isEmpty())
+	foreach (KwavePluginPointer plugin, m_unique_plugins)
+	    if (plugin && plugin->isRunning())
+		plugin->stop();
+
+    sync();
+}
+
+//***************************************************************************
 Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 {
     // check: this must be called from the GUI thread only!
@@ -393,6 +412,23 @@ int Kwave::PluginManager::executePlugin(const QString &name,
 
     return result;
 }
+
+//***************************************************************************
+bool Kwave::PluginManager::canClose()
+{
+    // check: this must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
+    if (!m_loaded_plugins.isEmpty())
+	foreach (KwavePluginPointer plugin, m_loaded_plugins)
+	    if (plugin && !plugin->canClose()) return false;
+    if (!m_unique_plugins.isEmpty())
+	foreach (KwavePluginPointer plugin, m_unique_plugins)
+	    if (plugin && !plugin->canClose()) return false;
+    return true;
+}
+
 
 //***************************************************************************
 bool Kwave::PluginManager::onePluginRunning()

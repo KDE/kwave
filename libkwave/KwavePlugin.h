@@ -127,6 +127,12 @@ namespace Kwave {
 	virtual QString progressText();
 
 	/**
+	 * Returns true if the plugin can be closed.
+	 * The default implementation returns "!isRunning()"
+	 */
+	virtual bool canClose();
+
+	/**
 	 * Returns true if the plugin has a running thread.
 	 */
 	bool isRunning();

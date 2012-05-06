@@ -346,6 +346,12 @@ int Kwave::Plugin::execute(QStringList &params)
 }
 
 //***************************************************************************
+bool Kwave::Plugin::canClose()
+{
+    return !isRunning();
+}
+
+//***************************************************************************
 bool Kwave::Plugin::isRunning()
 {
     return (m_thread) && m_thread->isRunning();

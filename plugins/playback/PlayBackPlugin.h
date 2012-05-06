@@ -58,9 +58,12 @@ public:
      * This plugin needs to be persistent!
      * @see Kwave::Plugin::isPersistent()
      */
-    virtual bool isPersistent() { return true; };
+    virtual bool isPersistent() { return true; }
 
-    virtual bool isUnique() { return false; };
+    virtual bool isUnique() { return false; }
+
+    /** this plugin can be interrupted at any time */
+    virtual bool canClose() { return true; }
 
     /**
      * Does playback in a thread.

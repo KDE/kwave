@@ -506,7 +506,10 @@ int TopWidget::executeCommand(const QString &line)
     // let through all commands that handle zoom/view or playback like fwd/rew
     bool allow_always =
 	parser.command().startsWith("view:") ||
-	parser.command().startsWith("playback:");
+	parser.command().startsWith("playback:") ||
+	(parser.command() == "close") ||
+	(parser.command() == "quit")
+	;
 
     // all others only if no plugin is currently running
     if (!allow_always && plugin_manager && plugin_manager->onePluginRunning())
@@ -732,10 +735,10 @@ int TopWidget::revert()
 //***************************************************************************
 bool TopWidget::closeFile()
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    SignalManager        *signal_manager = m_context.signalManager();
+    Kwave::PluginManager *plugin_manager = m_context.pluginManager();
 
-    if (m_context.pluginManager() &&
-	m_context.pluginManager()->onePluginRunning())
+    if (plugin_manager && !plugin_manager->canClose())
     {
 	qWarning("TopWidget::closeFile() - currently not possible, "\
 	         "a plugin is running :-(");
@@ -755,13 +758,11 @@ bool TopWidget::closeFile()
     }
 
     // close all plugins that still might use the current signal
-    if (m_context.pluginManager()) {
-	m_context.pluginManager()->sync();
-	m_context.pluginManager()->signalClosed();
+    if (plugin_manager) {
+	plugin_manager->stopAllPlugins();
+	plugin_manager->signalClosed();
     }
 
-//     Q_ASSERT(m_main_widget);
-//     if (m_main_widget) m_main_widget->closeSignal();
     signal_manager->close();
 
     updateCaption();

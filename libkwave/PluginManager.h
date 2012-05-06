@@ -80,10 +80,21 @@ namespace Kwave {
 	void loadAllPlugins();
 
 	/**
+	 * Stops all currently running plugins
+	 */
+	void stopAllPlugins();
+
+	/**
 	 * Executes a plugin in the context of a given parent widget.
 	 * @return zero on success or negative error code
 	 */
 	int executePlugin(const QString &name, QStringList *params);
+
+	/**
+	 * Returns true if there is no running plugin that blocks
+	 * a "close" operation.
+	 */
+	bool canClose();
 
 	/** Returns true if at least one plugin is currently running */
 	bool onePluginRunning();

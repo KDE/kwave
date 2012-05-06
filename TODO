@@ -5,8 +5,6 @@ o WAV @ G.711 export from MP3
 
 o save as: file name with multiple "." -> take last one, not first
 
-o "close" while playback running
-
 o move label with mouse (drag&drop)
 
 o simplify loading/unloading of plugins

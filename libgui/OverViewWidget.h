@@ -150,7 +150,7 @@ protected:
      * @param pixels the pixel coordinate [0...width-1]
      * @return an offset [0..length-1]
      */
-    sample_index_t pixels2offset(unsigned int pixels);
+    sample_index_t pixels2offset(int pixels);
 
     /**
      * draws a little mark at the top and bottom of a line

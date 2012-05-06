@@ -135,6 +135,8 @@ void OverViewWidget::mousePressEvent(QMouseEvent *e)
     // move the clicked position to the center of the viewport
     sample_index_t offset = pixels2offset(e->x());
     if (offset != m_last_offset) {
+	sample_index_t half = (m_view_width / 2);
+	offset = (offset > half) ? (offset - half) : 0;
 	m_last_offset = offset;
 	emit valueChanged(offset);
     }
@@ -170,11 +172,12 @@ void OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
 }
 
 //***************************************************************************
-sample_index_t OverViewWidget::pixels2offset(unsigned int pixels)
+sample_index_t OverViewWidget::pixels2offset(int pixels)
 {
     int width = this->width();
     if (!width) return 0;
 
+    if (pixels < 0) pixels = 0;
     double zoom = static_cast<double>(m_signal_length - 1) /
                   static_cast<double>(width - 1);
     sample_index_t offset = static_cast<sample_index_t>(rint(

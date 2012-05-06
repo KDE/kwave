@@ -12,6 +12,7 @@
  * bugfix: missing updates of zoom selection combo box
  * bugfix: when viewing with full zoom, scroll by 1 sample was possible
  * bugfix: focus was wrong on program start (zoom combo box)
+ * bugfix: wrong view when moving slider of overview widget to negative value
 
 0.8.7  [2011-11-27]
 

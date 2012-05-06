@@ -13,6 +13,7 @@
  * bugfix: when viewing with full zoom, scroll by 1 sample was possible
  * bugfix: focus was wrong on program start (zoom combo box)
  * bugfix: wrong view when moving slider of overview widget to negative value
+ * bugfix: playback pointer did not disappear after play - pause - stop
 
 0.8.7  [2011-11-27]
 

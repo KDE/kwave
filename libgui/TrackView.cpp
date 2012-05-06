@@ -117,6 +117,10 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
             SIGNAL(sigPlaybackPos(sample_index_t)),
             this,
             SLOT(refreshPlaybackPointer()));
+    connect(&(signal_manager->playbackController()),
+            SIGNAL(sigPlaybackStopped()),
+            this,
+            SLOT(refreshPlaybackPointer()));
 
     // update when the track selection changed
     connect(track, SIGNAL(sigSelectionChanged(bool)),

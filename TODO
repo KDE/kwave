@@ -1,5 +1,5 @@
 
-o bug: playback pointer does not disappear after play - pause - stop
+o toolbar icons in online help and html doc
 
 o WAV @ G.711 export from MP3
 
@@ -17,7 +17,7 @@ o license change to GPL v3
 
 o new import/export plugin using ffmpeg/libavcodec
 
-o clipping of position widget
+o more intelligent clipping of position widget
 
 o support for visualization plugins (rev 2498)
   - new functions

@@ -1012,7 +1012,7 @@ bool MainWidget::labelProperties(Label &label)
     if (accepted) {
 	// shortcut: abort if nothing has changed
 	if ((new_name == label.name()) && (new_pos == label.pos()))
-	    return false;
+	    return true;
 
 	UndoTransactionGuard undo(*signal_manager, i18n("Modify Label"));
 

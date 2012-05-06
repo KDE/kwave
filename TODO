@@ -3,8 +3,6 @@ o bug: scroll with overview widget to left (negative x? )
 
 o bug: playback pointer does not disappear after play - pause - stop
 
-o hotkeys for playback/scroll
-
 o WAV @ G.711 export from MP3
 
 o create label without text ?

@@ -145,6 +145,7 @@ void PlaybackController::seekTo(sample_index_t pos)
 	// position anyway. as this will not come from the device layer,
 	// fake an update right here
 	updatePlaybackPos(pos);
+	seekDone(pos);
     }
 }
 

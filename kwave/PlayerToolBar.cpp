@@ -139,6 +139,8 @@ Kwave::PlayerToolBar::~PlayerToolBar()
 //***************************************************************************
 void Kwave::PlayerToolBar::toolbarRewindPrev()
 {
+    if (!m_action_prev || !m_action_prev->isEnabled()) return;
+
     const bool play = m_playback.running() || m_playback.paused();
     if (play) {
 	const sample_index_t first = m_playback.startPos();
@@ -165,6 +167,8 @@ void Kwave::PlayerToolBar::toolbarRewindPrev()
 //***************************************************************************
 void Kwave::PlayerToolBar::toolbarRewind()
 {
+    if (!m_action_rewind || !m_action_rewind->isEnabled()) return;
+
     const bool play = m_playback.running() || m_playback.paused();
     if (play) {
 	sample_index_t first = m_playback.startPos();
@@ -194,6 +198,8 @@ void Kwave::PlayerToolBar::toolbarRewind()
 //***************************************************************************
 void Kwave::PlayerToolBar::toolbarRecord()
 {
+    if (!m_action_record || !m_action_record->isEnabled()) return;
+
     emit sigCommand("plugin(record)");
 }
 
@@ -218,6 +224,8 @@ void Kwave::PlayerToolBar::playbackPaused()
 //***************************************************************************
 void Kwave::PlayerToolBar::pausePressed()
 {
+    if (!m_action_pause || !m_action_pause->isEnabled()) return;
+
     const bool have_signal = (m_last_length && m_last_tracks);
     const bool playing     = m_playback.running();
 
@@ -251,6 +259,8 @@ void Kwave::PlayerToolBar::blinkPause()
 //***************************************************************************
 void Kwave::PlayerToolBar::toolbarForward()
 {
+    if (!m_action_forward || !m_action_forward->isEnabled()) return;
+
     const bool play = m_playback.running() || m_playback.paused();
     if (play) {
 	sample_index_t first = m_playback.startPos();
@@ -280,6 +290,8 @@ void Kwave::PlayerToolBar::toolbarForward()
 //***************************************************************************
 void Kwave::PlayerToolBar::toolbarForwardNext()
 {
+    if (!m_action_next || !m_action_next->isEnabled()) return;
+
     const bool play = m_playback.running() || m_playback.paused();
     if (play) {
 	sample_index_t last = m_playback.endPos();
@@ -328,6 +340,14 @@ void Kwave::PlayerToolBar::updateState()
 	UPDATE_MENU(rewind, "ID_PLAYBACK_REWIND");
 	UPDATE_MENU(forward,"ID_PLAYBACK_FORWARD");
 	UPDATE_MENU(next,   "ID_PLAYBACK_NEXT");
+
+	// scroll controls per menu
+	m_menu_manager.setItemEnabled("ID_SCROLL_START", false);
+	m_menu_manager.setItemEnabled("ID_SCROLL_END",   false);
+	m_menu_manager.setItemEnabled("ID_SCROLL_PREV",  false);
+	m_menu_manager.setItemEnabled("ID_SCROLL_NEXT",  false);
+	m_menu_manager.setItemEnabled("ID_SCROLL_RIGHT", false);
+	m_menu_manager.setItemEnabled("ID_SCROLL_LEFT",  false);
     } else {
 	// seek buttons in normal mode
 	m_action_prev->setEnabled(    have_signal && !at_start);
@@ -338,6 +358,14 @@ void Kwave::PlayerToolBar::updateState()
 	m_menu_manager.setItemEnabled("ID_PLAYBACK_REWIND",  false);
 	m_menu_manager.setItemEnabled("ID_PLAYBACK_FORWARD", false);
 	m_menu_manager.setItemEnabled("ID_PLAYBACK_NEXT",    false);
+
+	// scroll controls per menu
+	m_menu_manager.setItemEnabled("ID_SCROLL_START", !at_start);
+	m_menu_manager.setItemEnabled("ID_SCROLL_END",   !at_end);
+	m_menu_manager.setItemEnabled("ID_SCROLL_PREV",  !at_start);
+	m_menu_manager.setItemEnabled("ID_SCROLL_NEXT",  !at_end);
+	m_menu_manager.setItemEnabled("ID_SCROLL_RIGHT", !at_end);
+	m_menu_manager.setItemEnabled("ID_SCROLL_LEFT",  !at_start);
     }
 
     /* --- standard record/playback controls --- */
@@ -352,14 +380,6 @@ void Kwave::PlayerToolBar::updateState()
     UPDATE_MENU(stop,   "ID_PLAYBACK_STOP");
     m_menu_manager.setItemEnabled("ID_PLAYBACK_PAUSE",    playing);
     m_menu_manager.setItemEnabled("ID_PLAYBACK_CONTINUE", paused);
-
-    /* --- scroll controls --- */
-    m_menu_manager.setItemEnabled("ID_SCROLL_START", !at_start);
-    m_menu_manager.setItemEnabled("ID_SCROLL_END",   !at_end);
-    m_menu_manager.setItemEnabled("ID_SCROLL_NEXT",  !at_end);
-    m_menu_manager.setItemEnabled("ID_SCROLL_PREV",  !at_start);
-    m_menu_manager.setItemEnabled("ID_SCROLL_RIGHT", !at_end);
-    m_menu_manager.setItemEnabled("ID_SCROLL_LEFT",  !at_start);
 
     /* handling of blink timer */
     if (m_pause_timer && !paused) {

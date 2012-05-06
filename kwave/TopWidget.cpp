@@ -129,6 +129,9 @@ TopWidget::TopWidget(Kwave::ApplicationContext &context)
     status_bar->addWidget(m_lbl_status_size);
     m_lbl_status_size->setSizePolicy(policy);
     m_lbl_status_size->setFrameStyle(frame_style);
+
+    // direct all kind of focus to this window per default
+    setFocusPolicy(Qt::WheelFocus);
 }
 
 //***************************************************************************
@@ -335,7 +338,8 @@ bool TopWidget::init()
     connect(m_main_widget, SIGNAL(sigZoomChanged(double)),
             this, SLOT(setZoomInfo(double)));
     int h = m_zoomselect->sizeHint().height();
-    m_zoomselect->setMinimumWidth(h*5);
+    m_zoomselect->setMinimumWidth(h * 5);
+    m_zoomselect->setFocusPolicy(Qt::FocusPolicy(Qt::ClickFocus | Qt::TabFocus));
 
     // connect the signal manager
     SignalManager *signal_manager = m_context.signalManager();
@@ -420,6 +424,10 @@ bool TopWidget::init()
 
 	cfg.writeEntry("toolbars", magic);
     }
+
+    // make sure we have the focus, not the zoom combo box
+    m_zoomselect->clearFocus();
+    setFocus();
 
     return true;
 }

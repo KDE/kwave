@@ -108,6 +108,9 @@ Kurt Roeck <Q@ping.be>
 Mark Donohoe (KDE) <donohoe@kde.org>
 	* some icons and bitmaps for toolbar and GUI
 
+Martin Hinsch <vidas@sourceforge.net>
+	* Matrix.h
+
 Matthias Kretz, <kretz@kde.org>
 	* cmake/FindAlsa.cmake
 

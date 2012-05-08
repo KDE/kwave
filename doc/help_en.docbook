@@ -3120,6 +3120,13 @@
 	    </listitem>
 	    <listitem>
 	    	<para><emphasis role="bold">
+		    Martin Hinsch <email>vidas@sourceforge.net</email>
+		</emphasis></para><para>
+		    Matrix class
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para><emphasis role="bold">
 		    Matthias Kretz, <email>kretz@kde.org</email>
 		</emphasis></para><para>
 		    cmake/FindAlsa.cmake

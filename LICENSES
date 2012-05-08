@@ -364,7 +364,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Label.h				GPL2+
 	libkwave/LabelList.cpp				GPL2+
 	libkwave/LabelList.h				GPL2+
-	libkwave/Matrix.h				GPL2+
+	libkwave/Matrix.h				GPL2+ (Martin Hinsch)
 	libkwave/memcpy.c				GPL2+ / xine
 	libkwave/memcpy.h				GPL2+
 	libkwave/MemoryManager.cpp			GPL2+

@@ -74,9 +74,9 @@ bool MultiTrackReader::eof() const
 	SampleReader *reader = at(r);
 	Q_ASSERT(reader);
 	if (!reader) continue;
-	if (reader->eof()) return true;
+	if (!reader->eof()) return false;
     }
-    return false;
+    return true;
 }
 
 //***************************************************************************
@@ -121,6 +121,28 @@ bool MultiTrackReader::insert(unsigned int track, SampleReader *reader)
     }
     return Kwave::MultiTrackSource<SampleReader, false>::insert(
         track, reader);
+}
+
+//***************************************************************************
+void MultiTrackReader::skip(sample_index_t count)
+{
+    unsigned int track;
+    const unsigned int n_tracks = tracks();
+    for (track=0; track < n_tracks; ++track) {
+	SampleReader *r = at(track);
+	if (r) r->skip(count);
+    }
+}
+
+//***************************************************************************
+void MultiTrackReader::seek(sample_index_t pos)
+{
+    unsigned int track;
+    const unsigned int n_tracks = tracks();
+    for (track=0; track < n_tracks; ++track) {
+	SampleReader *r = at(track);
+	if (r) r->seek(pos);
+    }
 }
 
 //***************************************************************************

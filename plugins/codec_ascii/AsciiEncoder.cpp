@@ -128,8 +128,8 @@ bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
 		if (!reader) break;
 
 		// read one single sample
-		sample_t sample;
-		(*reader) >> sample;
+		sample_t sample = 0;
+		if (!reader->eof()) (*reader) >> sample;
 
 		// print out the sample value
 		m_dst.setFieldWidth(9);

@@ -284,10 +284,12 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 		Q_ASSERT(reader);
 		if (!reader) break;
 
-		(*reader) >> in_buffer; // read samples into in_buffer
-		len = in_buffer.size(); // in_buffer might have been shrinked!
-		Q_ASSERT(len);
-		if (!len) break;
+		(*reader) >> in_buffer;           // read samples into in_buffer
+		unsigned int l = in_buffer.size();// in_buffer might be empty!
+		if (l < len) {
+		    in_buffer.resize(len);
+		    while (l < len) in_buffer[l++] = 0;
+		}
 
 		FLAC__int32 *buf = flac_buffer.at(track);
 		Q_ASSERT(buf);

@@ -470,9 +470,8 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	for (unsigned int pos = 0; pos < count; pos++) {
 	    for (unsigned int track = 0; track < tracks; track++) {
 		SampleReader *stream = src[track];
-		sample_t sample;
-		Q_ASSERT(!stream->eof());
-		(*stream) >> sample;
+		sample_t sample = 0;
+		if (!stream->eof()) (*stream) >> sample;
 
 		// the following cast is only necessary if
 		// sample_t is not equal to a 32bit int

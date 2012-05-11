@@ -88,6 +88,12 @@ public:
     /** @see QList::insert() */
     virtual bool insert(unsigned int track, SampleReader *reader);
 
+    /** Skips a number of samples. */
+    virtual void skip(sample_index_t count);
+
+    /** Seeks to a given position */
+    virtual void seek(sample_index_t pos);
+
 signals:
 
     /**

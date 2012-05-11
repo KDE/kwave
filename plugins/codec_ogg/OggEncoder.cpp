@@ -144,6 +144,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
     // get info: tracks, sample rate, bitrate(s)
     const FileInfo info(meta_data);
     const unsigned int tracks = info.tracks();
+    const unsigned int length = info.length();
     const long sample_rate = static_cast<const long>(info.rate());
 
     // ABR bitrates
@@ -297,6 +298,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	}
     }
 
+    unsigned int rest = length;
     while (!eos && !src.isCanceled()) {
 	if (src.eof()) {
 	    // end of file.  this can be done implicitly in the mainline,
@@ -310,22 +312,25 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	    // expose the buffer to submit data
 	    float **buffer = vorbis_analysis_buffer(&vd, BUFFER_SIZE);
 	    unsigned int pos = 0;
+	    unsigned int len = (rest > BUFFER_SIZE) ? BUFFER_SIZE : rest;
 	    Kwave::SampleArray samples(BUFFER_SIZE);
 	    for (unsigned int track = 0; (track < tracks); ++track) {
 		float *p = buffer[track];
-		unsigned int len = src[track]->read(samples, 0, BUFFER_SIZE);
+		unsigned int l = src[track]->read(samples, 0, len);
 		const sample_t *s = samples.data();
 
 		const unsigned int block = 8;
 		pos = 0;
-		while (pos + block < len) {
+		while (pos + block < l) {
 		    for (unsigned int i = 0; i < block; i++, pos++)
 			p[pos] = sample2float(s[pos]);
 		}
-		while (pos < len) {
+		while (pos < l) {
 		    p[pos] = sample2float(s[pos]);
 		    pos++;
 		}
+		while (pos < len)
+		    p[pos++] = 0;
 	    }
 
 	    // tell the library how much we actually submitted

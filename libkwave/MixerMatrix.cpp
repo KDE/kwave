@@ -22,7 +22,7 @@
 
 //***************************************************************************
 Kwave::MixerMatrix::MixerMatrix(unsigned int inputs, unsigned int outputs)
-    :Matrix<double>(inputs, outputs)
+    :Kwave::Matrix<double>(inputs, outputs)
 {
     for (unsigned int y = 0; y < outputs; y++) {
 	unsigned int m1, m2;

@@ -27,7 +27,7 @@
 
 namespace Kwave {
 
-    class KDE_EXPORT MixerMatrix: public Matrix<double>
+    class KDE_EXPORT MixerMatrix: public Kwave::Matrix<double>
     {
     public:
 	/**

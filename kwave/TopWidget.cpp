@@ -90,10 +90,19 @@
 /** toolbar name: zoom controls */
 #define TOOLBAR_ZOOM        "MainWidget Zoom"
 
+/** role value for entries in the zoom combo box, "predefined" flag (bool) */
+#define ZOOM_DATA_PREDEFINED (Qt::UserRole + 0)
+
+/** role value for entries in the zoom combo box, "time" in ms (double) */
+#define ZOOM_DATA_TIME       (Qt::UserRole + 1)
+
+/** returns the number of elements of an array */
+#define ELEMENTS_OF(__x__) (sizeof(__x__) / sizeof(__x__[0]))
+
 //***************************************************************************
 //***************************************************************************
 TopWidget::TopWidget(Kwave::ApplicationContext &context)
-    :KMainWindow(), m_context(context), m_zoom_factors(),
+    :KMainWindow(), m_context(context),
      m_main_widget(0), m_toolbar_record_playback(0), m_zoomselect(0),
      m_menu_manager(0), m_action_undo(0), m_action_redo(0),
      m_action_zoomselection(0), m_action_zoomin(0), m_action_zoomout(0),
@@ -280,18 +289,6 @@ bool TopWidget::init()
 	    sample_index_t, sample_index_t)) );
 
     // --- zoom controls ---
-    m_zoom_factors.append(ZoomFactor(i18n("%1 ms",   1),            1L));
-    m_zoom_factors.append(ZoomFactor(i18n("%1 ms",  10),           10L));
-    m_zoom_factors.append(ZoomFactor(i18n("%1 ms", 100),          100L));
-    m_zoom_factors.append(ZoomFactor(i18n("%1 sec",  1),         1000L));
-    m_zoom_factors.append(ZoomFactor(i18n("%1 sec", 10),     10L*1000L));
-    m_zoom_factors.append(ZoomFactor(i18n("%1 sec", 30),     30L*1000L));
-    m_zoom_factors.append(ZoomFactor(i18n("%1 min",  1),  1L*60L*1000L));
-    m_zoom_factors.append(ZoomFactor(i18n("%1 min",  3),  3L*60L*1000L));
-    m_zoom_factors.append(ZoomFactor(i18n("%1 min",  5),  5L*60L*1000L));
-    m_zoom_factors.append(ZoomFactor(i18n("%1 min", 10), 10L*60L*1000L));
-    m_zoom_factors.append(ZoomFactor(i18n("%1 min", 30), 30L*60L*1000L));
-    m_zoom_factors.append(ZoomFactor(i18n("%1 min", 60), 60L*60L*1000L));
 
     KToolBar *toolbar_zoom = toolBar(TOOLBAR_ZOOM);
     Q_ASSERT(toolbar_zoom);
@@ -329,8 +326,33 @@ bool TopWidget::init()
     m_zoomselect->setToolTip(i18n("Select zoom factor"));
     m_zoomselect->setInsertPolicy(QComboBox::InsertAtTop);
     m_zoomselect->setEditable(false);
-    foreach (ZoomFactor zoom, m_zoom_factors)
-	m_zoomselect->addItem(zoom.first);
+
+    /** Initialized list of zoom factors */
+    struct {
+	const QString text;
+	unsigned int ms;
+    } zoom_factors[] = {
+	{ i18n("%1 ms",   1),            1L},
+	{ i18n("%1 ms",  10),           10L},
+	{ i18n("%1 ms", 100),          100L},
+	{ i18n("%1 sec",  1),         1000L},
+	{ i18n("%1 sec", 10),     10L*1000L},
+	{ i18n("%1 sec", 30),     30L*1000L},
+	{ i18n("%1 min",  1),  1L*60L*1000L},
+	{ i18n("%1 min",  3),  3L*60L*1000L},
+	{ i18n("%1 min",  5),  5L*60L*1000L},
+	{ i18n("%1 min", 10), 10L*60L*1000L},
+	{ i18n("%1 min", 30), 30L*60L*1000L},
+	{ i18n("%1 min", 60), 60L*60L*1000L},
+    };
+
+    for (unsigned int i = 0; i < ELEMENTS_OF(zoom_factors); i++) {
+	m_zoomselect->addItem(zoom_factors[i].text);
+	int index = m_zoomselect->count() - 1;
+	unsigned int time = zoom_factors[i].ms;
+	m_zoomselect->setItemData(index, QVariant(true), ZOOM_DATA_PREDEFINED);
+	m_zoomselect->setItemData(index, QVariant(time), ZOOM_DATA_TIME);
+    }
 
     m_action_zoomselect = toolbar_zoom->addWidget(m_zoomselect);
     connect(m_zoomselect, SIGNAL(activated(int)),
@@ -1020,26 +1042,19 @@ void TopWidget::selectZoom(int index)
     if (!m_main_widget) return;
     if (!m_zoomselect) return;
     if (index < 0) return;
-    if (index >= m_zoom_factors.count()) return;
+    if (index >= m_zoomselect->count()) return;
 
-    if (m_zoomselect->count() > m_zoom_factors.count()) {
-	// selected the special entry at top
-	if (index == 0) return;
-
-	// remove user-defined entry
-	m_zoomselect->blockSignals(true);
-	while (m_zoomselect->count() > m_zoom_factors.count())
-	    m_zoomselect->removeItem(0);
-	m_zoomselect->blockSignals(false);
-	index--;
-    }
+    QVariant v = m_zoomselect->itemData(index, ZOOM_DATA_TIME);
+    unsigned int ms = 1;
+    bool ok = false;
+    if (v.isValid()) ms = v.toUInt(&ok);
+    if (!ok) ms = 1;
 
     const double rate = signal_manager->rate();
-    const double ms = m_zoom_factors[index].second;
     unsigned int width = m_main_widget->displayWidth();
     Q_ASSERT(width > 1);
     if (width <= 1) width = 2;
-    const double new_zoom = rint(((rate * ms) / 1E3) -1 ) /
+    const double new_zoom = rint(((rate * ms) / 1.0E3) -1 ) /
 	static_cast<double>(width - 1);
     m_main_widget->setZoom(new_zoom);
 
@@ -1059,18 +1074,20 @@ void TopWidget::setZoomInfo(double zoom)
     if (zoom <= 0.0) return; // makes no sense or signal is empty
     if (!m_zoomselect) return;
 
+    double rate = (signal_manager) ? signal_manager->rate() : 0.0;
+    double ms   = (rate > 0) ?
+	(((m_main_widget->displaySamples()) * 1E3) / rate) : 0;
+
     QString strZoom;
     if ((signal_manager) && (signal_manager->tracks())) {
-	double rate = signal_manager->rate();
 	if (rate > 0) {
 	    // time display mode
-	    double ms = m_main_widget->displaySamples() * 1E3 / rate;
-	    int s = static_cast<int>(floor(ms / 1000.0));
-	    int m = static_cast<int>(floor(s / 60.0));
+	    int s = static_cast<int>(ms) / 1000;
+	    int m = s / 60;
 
-	    if (m >= 1) {
+	    if (ms >= 60*1000) {
 		strZoom = strZoom.sprintf("%02d:%02d min", m, s % 60);
-	    } else if (s >= 1) {
+	    } else if (ms >= 1000) {
 		strZoom = strZoom.sprintf("%d sec", s);
 	    } else if (ms >= 1) {
 		strZoom = strZoom.sprintf("%d ms",
@@ -1085,28 +1102,60 @@ void TopWidget::setZoomInfo(double zoom)
 	}
     }
 
+    m_zoomselect->blockSignals(true);
+
+    // if the text is equal to an entry in the current list -> keep it
     if (m_zoomselect->contains(strZoom)) {
-	// select existing entry
-	m_zoomselect->blockSignals(true);
-	while (m_zoomselect->count() > m_zoom_factors.count())
-	    m_zoomselect->removeItem(0);
+	// select existing entry, string match
 	m_zoomselect->setCurrentIndex(m_zoomselect->findText(strZoom));
-	m_zoomselect->blockSignals(false);
     } else {
-	// add a new entry at the top
-	m_zoomselect->blockSignals(true);
-	while (m_zoomselect->count() > m_zoom_factors.count())
-	    m_zoomselect->removeItem(0);
-	m_zoomselect->insertItem(-1, strZoom);
-	m_zoomselect->setCurrentIndex(0);
-	m_zoomselect->blockSignals(false);
+	// remove user defined entries and scan for more or less exact match
+	int i = 0;
+	int match = -1;
+	while (i < m_zoomselect->count()) {
+	    QVariant v = m_zoomselect->itemData(i, ZOOM_DATA_PREDEFINED);
+	    if (!v.isValid() || !v.toBool()) {
+		m_zoomselect->removeItem(i);
+	    } else {
+		QVariant v = m_zoomselect->itemData(i, ZOOM_DATA_TIME);
+		bool ok = false;
+		double t = v.toDouble(&ok);
+		if (ok && (t > 0) && fabs(1 - (t / ms)) < (1.0 / 60.0)) {
+		    match = i;
+		}
+		i++;
+	    }
+	}
+
+	if (match >= 0) {
+	    // use an exact match from the list
+	    i = match;
+	} else if (rate > 0) {
+	    // time mode:
+	    // find the best index where to insert the new user defined value
+	    for (i = 0; i < m_zoomselect->count(); i++) {
+		QVariant v = m_zoomselect->itemData(i, ZOOM_DATA_TIME);
+		bool ok = false;
+		double t = v.toDouble(&ok);
+		if (!ok) continue;
+		if (t > ms) break;
+	    }
+	    m_zoomselect->insertItem(i, strZoom);
+	    m_zoomselect->setItemData(i, QVariant(ms), ZOOM_DATA_TIME);
+	} else {
+	    // percent mode -> just insert at top
+	    m_zoomselect->insertItem(-1, strZoom);
+	    i = 0;
+	}
+	m_zoomselect->setCurrentIndex(i);
     }
+
+    m_zoomselect->blockSignals(false);
 }
 
 //***************************************************************************
 void TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 {
-
     Q_ASSERT(statusBar());
     Q_ASSERT(m_menu_manager);
     if (!statusBar() || !m_menu_manager) return;

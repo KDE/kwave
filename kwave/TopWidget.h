@@ -24,7 +24,6 @@
 #include <QPair>
 #include <QPointer>
 #include <QString>
-#include <QVector>
 
 #include <kdemacros.h>
 #include <kmainwindow.h>
@@ -297,16 +296,10 @@ private:
     /** returns the name of the signal */
     QString signalName() const;
 
-    /** typedef for an entry in the list of zoom factors */
-    typedef QPair<QString, unsigned int> ZoomFactor;
-
 private:
 
     /** reference to the application context of this instance */
     Kwave::ApplicationContext &m_context;
-
-    /** Initialized list of zoom factors */
-    QVector< ZoomFactor > m_zoom_factors;
 
     /**
      * the main widget with all views and controls (except menu and

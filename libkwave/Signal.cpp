@@ -83,7 +83,7 @@ Kwave::Track *Signal::insertTrack(unsigned int index, sample_index_t length)
 	// clip the track index
 	if (static_cast<int>(index) > m_tracks.count())
 	    index = m_tracks.count();
-	    
+
 	// insert / append to the list
 	m_tracks.insert(index, t);
 
@@ -100,6 +100,9 @@ Kwave::Track *Signal::insertTrack(unsigned int index, sample_index_t length)
 	    sample_index_t)),
 	    this, SLOT(slotSamplesModified(Kwave::Track *, sample_index_t,
 	    sample_index_t)));
+
+	connect(t, SIGNAL(sigSelectionChanged(bool)),
+	    this, SIGNAL(sigTrackSelectionChanged(bool)));
     }
 
     // track has been inserted

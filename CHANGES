@@ -7,6 +7,7 @@
  * documentation update
  * allowing zoom and scroll while a plugin is running
  * allow "close" and "quit" while playback is running
+ * allow track selection change during playback
  * fix for namespace collision with libaudiofile
  * bugfix: mouse selection update with negative offset failed
  * bugfix: wrong focus of progress dialog when repairing damaged wav files

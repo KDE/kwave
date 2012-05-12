@@ -378,6 +378,12 @@ signals:
     void sigTrackDeleted(unsigned int index);
 
     /**
+     * Signals that the selection of one of the tracks has changed
+     * @param enabled state of the track, true=selected
+     */
+    void sigTrackSelectionChanged(bool enabled);
+
+    /**
      * Emitted if samples have been inserted into a track. This implies
      * a modification of the inserted data, so no extra sigSamplesModified
      * is emitted.

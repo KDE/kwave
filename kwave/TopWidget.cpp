@@ -507,6 +507,7 @@ int TopWidget::executeCommand(const QString &line)
     bool allow_always =
 	parser.command().startsWith("view:") ||
 	parser.command().startsWith("playback:") ||
+	parser.command().startsWith("select_track:") ||
 	(parser.command() == "close") ||
 	(parser.command() == "quit")
 	;

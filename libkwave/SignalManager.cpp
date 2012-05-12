@@ -96,18 +96,20 @@ SignalManager::SignalManager(QWidget *parent)
             this, SLOT(slotTrackInserted(unsigned int, Kwave::Track *)));
     connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),
             this, SLOT(slotTrackDeleted(unsigned int)));
+    connect(sig, SIGNAL(sigTrackSelectionChanged(bool)),
+            this,SIGNAL(sigTrackSelectionChanged(bool)));
     connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, sample_index_t,
-	sample_index_t)),
-	this, SLOT(slotSamplesDeleted(unsigned int, sample_index_t,
-	sample_index_t)));
+            sample_index_t)),
+            this, SLOT(slotSamplesDeleted(unsigned int, sample_index_t,
+            sample_index_t)));
     connect(sig, SIGNAL(sigSamplesInserted(unsigned int, sample_index_t,
-	sample_index_t)),
-	this, SLOT(slotSamplesInserted(unsigned int, sample_index_t,
-	sample_index_t)));
+            sample_index_t)),
+            this, SLOT(slotSamplesInserted(unsigned int, sample_index_t,
+            sample_index_t)));
     connect(sig, SIGNAL(sigSamplesModified(unsigned int, sample_index_t,
-	sample_index_t)),
-	this, SLOT(slotSamplesModified(unsigned int, sample_index_t,
-	sample_index_t)));
+            sample_index_t)),
+            this, SLOT(slotSamplesModified(unsigned int, sample_index_t,
+            sample_index_t)));
 }
 
 //***************************************************************************
@@ -813,33 +815,33 @@ int SignalManager::executeCommand(const QString &command)
 	insertTrack(track);
 
     // track selection
-    CASE_COMMAND("select_all_tracks")
+    CASE_COMMAND("select_track:all")
 	UndoTransactionGuard undo(*this, i18n("Select All Tracks"));
 	foreach (unsigned int track, allTracks())
 	    selectTrack(track, true);
-    CASE_COMMAND("deselect_all_tracks")
+    CASE_COMMAND("select_track:none")
 	UndoTransactionGuard undo(*this, i18n("Deselect all tracks"));
 	foreach (unsigned int track, allTracks())
 	    selectTrack(track, false);
-    CASE_COMMAND("invert_track_selection")
+    CASE_COMMAND("select_track:invert")
 	UndoTransactionGuard undo(*this, i18n("Invert Track Selection"));
 	foreach (unsigned int track, allTracks())
 	    selectTrack(track, !trackSelected(track));
-    CASE_COMMAND("select_track")
+    CASE_COMMAND("select_track:on")
 	int track = parser.toInt();
 	UndoTransactionGuard undo(*this, i18n("Select Track"));
 	selectTrack(track, true);
-    CASE_COMMAND("deselect_track")
+    CASE_COMMAND("select_track:off")
 	int track = parser.toInt();
 	UndoTransactionGuard undo(*this, i18n("Deselect Track"));
 	selectTrack(track, false);
-    CASE_COMMAND("toggle_track_selection")
+    CASE_COMMAND("select_track:toggle")
 	int track = parser.toInt();
 	UndoTransactionGuard undo(*this, i18n("Toggle Track Selection"));
 	selectTrack(track, !(trackSelected(track)));
-	
+
     CASE_COMMAND("dump_metadata")
-	qDebug("DUMP OF META DATA => %s", 
+	qDebug("DUMP OF META DATA => %s",
 	    parser.firstParam().toLocal8Bit().data());
 	m_meta_data.dump();
     } else {
@@ -920,7 +922,7 @@ void SignalManager::deleteTrack(unsigned int index)
 
     // adjust the track bound meta data
     m_meta_data.deleteTrack(index);
-    
+
     setModified(true);
     m_signal.deleteTrack(index);
 }
@@ -934,7 +936,7 @@ void SignalManager::slotTrackInserted(unsigned int index,
     FileInfo file_info(m_meta_data);
     file_info.setTracks(tracks());
     m_meta_data.replace(file_info);
-    
+
     emit sigTrackInserted(index, track);
     emit sigMetaDataChanged(m_meta_data);
 }
@@ -1108,11 +1110,6 @@ void SignalManager::selectTrack(unsigned int track, bool select)
     bool old_select = m_signal.trackSelected(track);
     if (select != old_select) {
 	m_signal.selectTrack(track, select);
-
-	// if selection changed during playback, reload with pause/continue
-	if (m_playback_controller.running()) {
-	    m_playback_controller.reload();
-	}
     }
 }
 
@@ -1693,10 +1690,10 @@ void SignalManager::redo()
 	delete undo_transaction;
     }
 
-    // if the redo operation modified something, 
+    // if the redo operation modified something,
     // we have to update the "modified" flag of the current signal
     if (modified) setModified(true);
-    
+
     // remember the last selection
     rememberCurrentSelection();
 
@@ -1841,7 +1838,7 @@ bool SignalManager::modifyLabel(int index, sample_index_t pos,
 
     // add a undo action
     if (m_undo_enabled) {
-	UndoModifyMetaDataAction *undo_modify = 
+	UndoModifyMetaDataAction *undo_modify =
 	    new UndoModifyMetaDataAction(label);
 	if (!registerUndoAction(undo_modify))
 	    return false;

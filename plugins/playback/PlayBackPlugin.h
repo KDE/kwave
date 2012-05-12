@@ -34,6 +34,8 @@ class PluginContext;
 class PlayBackDevice;
 class PlayBackDialog;
 
+namespace Kwave { class MixerMatrix; }
+
 class PlayBackPlugin: public Kwave::Plugin, public PlaybackDeviceFactory
 {
     Q_OBJECT
@@ -100,6 +102,9 @@ public slots:
      * @param pos the new position in samples, absolute
      */
     void seekTo(sample_index_t pos);
+
+    /** updates the mixer matrix if the track selection has changed */
+    void trackSelectionChanged();
 
     /**
      * Plays a sample sound for testing the playback
@@ -198,14 +203,20 @@ private:
     /** End of the selection when playback started */
     unsigned int m_old_last;
 
-    /** Mutex for locking access to m_should_seek and m_seek_pos */
-    QMutex m_lock_seek;
+    /**
+     * Mutex for locking access to members that control the playback
+     * loop, like m_should_seek, m_seek_pos and m_mixer
+     */
+    QMutex m_lock_playback;
 
     /** if true, m_seek_pos is valid and a seek has been requested */
     bool m_should_seek;
 
     /** position to seek to */
     sample_index_t m_seek_pos;
+
+    /** notification flag, true if the track selection has changed */
+    bool m_track_selection_changed;
 
 };
 

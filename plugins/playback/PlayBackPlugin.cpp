@@ -39,7 +39,7 @@
 #include "libkwave/KwaveMultiPlaybackSink.h"
 #include "libkwave/KwaveMultiTrackSource.h"
 #include "libkwave/KwavePlugin.h"
-#include "libkwave/Matrix.h"
+#include "libkwave/MixerMatrix.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/PlaybackController.h"
@@ -75,7 +75,8 @@ PlayBackPlugin::PlayBackPlugin(const PluginContext &context)
     m_playback_controller(manager().playbackController()),
     m_old_first(0),
     m_old_last(0),
-    m_lock_seek(), m_should_seek(false), m_seek_pos(0)
+    m_lock_playback(), m_should_seek(false), m_seek_pos(0),
+    m_track_selection_changed(false)
 {
 #ifdef HAVE_ALSA_SUPPORT
     // set builtin defaults to ALSA
@@ -91,6 +92,9 @@ PlayBackPlugin::PlayBackPlugin(const PluginContext &context)
     connect(this, SIGNAL(sigPlaybackDone()),
             this, SLOT(closeDevice()),
             Qt::QueuedConnection);
+
+    connect(&signalManager(), SIGNAL(sigTrackSelectionChanged(bool)),
+	    this,             SLOT(trackSelectionChanged()));
 
     // register as a factory for playback devices
     manager().registerPlaybackDeviceFactory(this);
@@ -579,24 +583,34 @@ void PlayBackPlugin::stopDevicePlayBack()
 //***************************************************************************
 void PlayBackPlugin::seekTo(sample_index_t pos)
 {
-    QMutexLocker lock(&m_lock_seek);
+    QMutexLocker lock(&m_lock_playback);
+    qDebug("seekTo(%llu)", pos);
     m_seek_pos    = pos;
     m_should_seek = true;
 }
 
 //***************************************************************************
+void PlayBackPlugin::trackSelectionChanged()
+{
+    QMutexLocker lock(&m_lock_playback);
+    m_track_selection_changed = true;
+}
+
+//***************************************************************************
 void PlayBackPlugin::run(QStringList)
 {
-    QMutexLocker lock(&m_lock_device);
-
+    Kwave::MixerMatrix *mixer = 0;
     unsigned int first = m_playback_controller.startPos();
     unsigned int last  = m_playback_controller.endPos();
     unsigned int out_channels = m_playback_params.channels;
 
-    // get the list of selected channels
+    QList<unsigned int> all_tracks = signalManager().allTracks();
+    unsigned int tracks = all_tracks.count();
     QList<unsigned int> audible_tracks = selectedTracks();
     unsigned int audible_count = audible_tracks.count();
-    if (!audible_count || !m_device) {
+
+    // get the list of selected channels
+    if (!tracks || !m_device) {
 	// not even one selected track or no (open) device
 	qDebug("PlayBackPlugin::run(): no audible track(s) !");
 	emit sigPlaybackDone();
@@ -606,34 +620,15 @@ void PlayBackPlugin::run(QStringList)
     // set up a set of sample reader (streams)
     MultiTrackReader input(
 	Kwave::FullSnapshot,
-	signalManager(), audible_tracks, first, last);
+	signalManager(), all_tracks, first, last);
 
-    // create a translation matrix for mixing up/down to the desired
+    // create a new translation matrix for mixing up/down to the desired
     // number of output channels
-    Matrix<double> matrix(audible_count, out_channels);
-    unsigned int x, y;
-    for (y = 0; y < out_channels; y++) {
-	unsigned int m1, m2;
-	m1 = y * audible_count;
-	m2 = (y + 1) * audible_count;
-
-	for (x = 0; x < audible_count; x++) {
-	    unsigned int n1, n2;
-	    n1 = x * out_channels;
-	    n2 = n1 + out_channels;
-
-	    // get the common area of [n1..n2] and [m1..m2]
-	    unsigned int l = (n1 > m1) ? n1 : m1;
-	    unsigned int r = (n2 < m2) ? n2 : m2;
-
-	    matrix[x][y] = (r > l) ? static_cast<double>(r-l) /
-		static_cast<double>(audible_count) : 0.0;
-	}
-    }
+    m_track_selection_changed = false;
 
     // loop until process is stopped
     // or run once if not in loop mode
-    Kwave::SampleArray in_samples(audible_count);
+    Kwave::SampleArray in_samples(tracks);
     Kwave::SampleArray out_samples(out_channels);
     unsigned int pos = m_playback_controller.currentPos();
 
@@ -645,55 +640,73 @@ void PlayBackPlugin::run(QStringList)
 
 	// if current position is after start -> skip the passed
 	// samples (this happens when resuming after a pause)
-	if (pos > first) {
-	    for (x = 0; x < audible_count; x++) {
-		SampleReader *stream = input[x];
-		if (stream) stream->skip(pos-first);
-	    }
-	}
+	if (pos > first) input.skip(pos - first);
 
 	while ((pos++ <= last) && !shouldStop()) {
 	    unsigned int x;
+	    unsigned int y;
+	    bool seek_again = false;
+	    bool seek_done  = false;
 
-	    // check for seek requests
-	    if (m_should_seek) {
-		QMutexLocker lock(&m_lock_seek);
-		if (m_seek_pos < first) m_seek_pos = first;
-		if (m_seek_pos > last)  { pos = last; break; }
-		if (pos != m_seek_pos) {
-		    pos = m_seek_pos;
-		    for (x = 0; x < audible_count; x++) {
-			SampleReader *stream = input[x];
-			if (stream) stream->seek(pos);
-		    }
+	    {
+		QMutexLocker _lock(&m_lock_playback);
+
+		// check for track selection change (need for new mixer)
+		if (m_track_selection_changed) {
+		    if (mixer) delete mixer;
+		    mixer = 0;
+		    m_track_selection_changed = false;
 		}
-		m_should_seek = false;
-		m_playback_controller.seekDone(pos);
+
+		if (!mixer) {
+		    audible_tracks = selectedTracks();
+		    audible_count = audible_tracks.count();
+		    mixer = new Kwave::MixerMatrix(audible_count, out_channels);
+		    Q_ASSERT(mixer);
+		    if (!mixer) break;
+		    seek_again = true; // re-synchronize all reader positions
+		}
+
+		// check for seek requests
+		if (m_should_seek && (m_seek_pos != pos)) {
+		    if (m_seek_pos < first) m_seek_pos = first;
+		    if (m_seek_pos > last)  { pos = last; break; }
+		    pos = m_seek_pos;
+		    m_should_seek = false;
+		    seek_again = true;
+		    seek_done  = true;
+		}
 	    }
 
+	    if (seek_again) input.seek(pos);
+	    if (seek_done)  m_playback_controller.seekDone(pos);;
+
+	    // fill input buffer with samples
 	    for (x = 0; x < audible_count; x++) {
 		in_samples[x] = 0;
-		SampleReader *stream = input[x];
+		SampleReader *stream = input[audible_tracks[x]];
 		Q_ASSERT(stream);
 		if (!stream) continue;
 
-		sample_t act;
-		(*stream) >> act;
-		in_samples[x] = act;
+		if (!stream->eof()) (*stream) >> in_samples[x];
 	    }
 
 	    // multiply matrix with input to get output
-	    unsigned int y;
 	    for (y = 0; y < out_channels; y++) {
 		double sum = 0;
-		for (x=0; x < audible_count; x++) {
-		    sum += static_cast<double>(in_samples[x]) * matrix[x][y];
+		for (x = 0; x < audible_count; x++) {
+		    sum += static_cast<double>(in_samples[x]) * (*mixer)[x][y];
 		}
 		out_samples[y] = static_cast<sample_t>(sum);
 	    }
 
 	    // write samples to the playback device
-	    int result = m_device->write(out_samples);
+	    int result = -1;
+	    {
+		QMutexLocker lock(&m_lock_device);
+		if (m_device)
+		    result = m_device->write(out_samples);
+	    }
 	    if (result) {
 		cancel();
 		pos = last;
@@ -720,7 +733,7 @@ void PlayBackPlugin::run(QStringList)
 
     // playback is done
     emit sigPlaybackDone();
-//    qDebug("PlayBackPlugin::run() done.");
+//     qDebug("PlayBackPlugin::run() done.");
 }
 
 //***************************************************************************

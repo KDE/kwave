@@ -60,6 +60,7 @@ SET(libkwave_LIB_SRCS
     MessageBox.cpp
     MetaData.cpp
     MetaDataList.cpp
+    MixerMatrix.cpp
     MultiWriter.cpp
     MultiStreamWriter.cpp
     MultiTrackReader.cpp

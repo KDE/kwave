@@ -81,9 +81,6 @@ o replace "AF_SAMPFMT_xxx" with enum "SampleFormat::yyy" in WavEncoder.cpp,
 o more precise handling of the playback pointer
   -> latency handling
 
-o audible/silent mode of tracks (speakers)
-  speaker controls for "audible" mode
-
 o dithering/noise shaping when loading/saving
 
 o auto-detect pause and set markers, for splitting recorded stuff into several

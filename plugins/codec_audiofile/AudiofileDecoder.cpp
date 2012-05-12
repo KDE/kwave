@@ -31,7 +31,6 @@ extern "C" {
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
-#include "libkwave/Signal.h"
 #include "libkwave/Writer.h"
 #include "libkwave/VirtualAudioFile.h"
 
@@ -139,7 +138,7 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     int sample_format;
     afGetVirtualSampleFormat(fh, AF_DEFAULT_TRACK, &sample_format,
 	reinterpret_cast<int *>(&bits));
-    
+
     // get sample rate, with fallback to 8kHz
     rate = static_cast<int>(afGetRate(fh, AF_DEFAULT_TRACK));
     if (rate < 1) {
@@ -168,7 +167,7 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 	    sample_format_name = "(unknown)";
     }
     if (static_cast<signed int>(bits) < 0) bits = 0;
-    
+
     int compression = afGetCompression(fh, AF_DEFAULT_TRACK); // just for debug
 
     FileInfo info(metaData());
@@ -183,7 +182,7 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     qDebug("channels    = %d", info.tracks());
     qDebug("rate        = %0.0f", info.rate());
     qDebug("bits/sample = %d", info.bits());
-    qDebug("length      = %lu samples", 
+    qDebug("length      = %lu samples",
 	   static_cast<unsigned long int>(info.length()));
     qDebug("format      = %d (%s)", sample_format,
                                     sample_format_name.toLocal8Bit().data());

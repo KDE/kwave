@@ -39,248 +39,252 @@ namespace Kwave { class Track; }
 namespace Kwave { class Writer; }
 
 //**********************************************************************
-class KDE_EXPORT Signal: public QObject
-{
-    Q_OBJECT
 
-public:
+namespace Kwave {
 
-    /**
-     * Default Constructor. Creates an empty signal with
-     * zero-length and no tracks
-     */
-    Signal();
+    class KDE_EXPORT Signal: public QObject
+    {
+	Q_OBJECT
 
-    /**
-     * Constructor. Creates an empty signal with a specified
-     * number of tracks and length. Each track will contain
-     * only one stripe.
-     */
-    Signal(unsigned int tracks, sample_index_t length);
+    public:
 
-    /**
-     * Destructor.
-     */
-    virtual ~Signal();
+	/**
+	 * Default Constructor. Creates an empty signal with
+	 * zero-length and no tracks
+	 */
+	Signal();
 
-    /**
-     * Closes the signal by removing all tracks.
-     */
-    void close();
+	/**
+	 * Constructor. Creates an empty signal with a specified
+	 * number of tracks and length. Each track will contain
+	 * only one stripe.
+	 */
+	Signal(unsigned int tracks, sample_index_t length);
 
-    /**
-     * Inserts a new track to into the track list or appends it to the end.
-     * @param index the position where to insert [0...tracks()]. If the
-     *        position is at or after the last track, the new track will
-     *        be appended to the end.
-     * @param length number of samples of the new track. Optional, if omitted
-     *        the track will be zero-length.
-     * @return pointer to the created track. If the length is
-     *         omitted or zero, the track will have zero length.
-     */
-    Kwave::Track *insertTrack(unsigned int index, sample_index_t length = 0);
+	/**
+	 * Destructor.
+	 */
+	virtual ~Signal();
 
-    /**
-     * Appends a new track to the end of the tracks list, shortcut for
-     * insertTrack(tracks()-1, length)
-     * @see insertTrack
-     */
-    Kwave::Track *appendTrack(sample_index_t length);
+	/**
+	 * Closes the signal by removing all tracks.
+	 */
+	void close();
 
-    /**
-     * Deletes a track.
-     * @param index the index of the track to be deleted [0...tracks()-1]
-     */
-    void deleteTrack(unsigned int index);
+	/**
+	 * Inserts a new track to into the track list or appends it to the end.
+	 * @param index the position where to insert [0...tracks()]. If the
+	 *        position is at or after the last track, the new track will
+	 *        be appended to the end.
+	 * @param length number of samples of the new track. Optional, if omitted
+	 *        the track will be zero-length.
+	 * @return pointer to the created track. If the length is
+	 *         omitted or zero, the track will have zero length.
+	 */
+	Kwave::Track *insertTrack(unsigned int index, sample_index_t length = 0);
 
-    /**
-     * Returns an array of indices of all present tracks.
-     */
-     QList<unsigned int> allTracks();
+	/**
+	 * Appends a new track to the end of the tracks list, shortcut for
+	 * insertTrack(tracks()-1, length)
+	 * @see insertTrack
+	 */
+	Kwave::Track *appendTrack(sample_index_t length);
 
-    /**
-     * Opens an input stream for a track, starting at a specified sample
-     * position.
-     * @param track index of the track. If the track does not exist, this
-     *        function will fail and return 0
-     * @param mode specifies where and how to insert
-     * @param left start of the input (only useful in insert and
-     *             overwrite mode)
-     * @param right end of the input (only useful with overwrite mode)
-     * @see InsertMode
-     */
-    Kwave::Writer *openWriter(unsigned int track, InsertMode mode,
-	sample_index_t left = 0, sample_index_t right = 0);
+	/**
+	 * Deletes a track.
+	 * @param index the index of the track to be deleted [0...tracks()-1]
+	 */
+	void deleteTrack(unsigned int index);
 
-    /**
-     * Opens a stream for reading samples. If the the last position
-     * is omitted, the value UINT_MAX will be used.
-     * @param mode a reader mode, see Kwave::ReaderMode
-     * @param track index of the track. If the track does not exist, this
-     *        function will fail and return 0
-     * @param left first offset to be read (default = 0)
-     * @param right last position to read (default = UINT_MAX)
-     */
-    SampleReader *openSampleReader(Kwave::ReaderMode mode,
-	unsigned int track, sample_index_t left = 0,
-	sample_index_t right = SAMPLE_INDEX_MAX);
+	/**
+	 * Returns an array of indices of all present tracks.
+	 */
+	QList<unsigned int> allTracks();
 
-    /**
-     * Returns the number of tracks.
-     */
-    unsigned int tracks();
+	/**
+	 * Opens an input stream for a track, starting at a specified sample
+	 * position.
+	 * @param track index of the track. If the track does not exist, this
+	 *        function will fail and return 0
+	 * @param mode specifies where and how to insert
+	 *  @param left start of the input (only useful in insert and
+	 *             overwrite mode)
+	 * @param right end of the input (only useful with overwrite mode)
+	 * @see InsertMode
+	 */
+	Kwave::Writer *openWriter(unsigned int track, InsertMode mode,
+	    sample_index_t left = 0, sample_index_t right = 0);
 
-    /**
-     * Deletes a range of samples
-     * @param track index of the track
-     * @param offset index of the first sample
-     * @param length number of samples
-     */
-    void deleteRange(unsigned int track, sample_index_t offset,
-                     sample_index_t length);
+	/**
+	 * Opens a stream for reading samples. If the the last position
+	 * is omitted, the value UINT_MAX will be used.
+	 * @param mode a reader mode, see Kwave::ReaderMode
+	 * @param track index of the track. If the track does not exist, this
+	 *        function will fail and return 0
+	 * @param left first offset to be read (default = 0)
+	 * @param right last position to read (default = UINT_MAX)
+	 */
+	SampleReader *openSampleReader(Kwave::ReaderMode mode,
+	    unsigned int track, sample_index_t left = 0,
+	    sample_index_t right = SAMPLE_INDEX_MAX);
 
-    /**
-     * Inserts some space at a given position
-     * @param track index of the track
-     * @param offset index of the first sample
-     * @param length number of samples
-     */
-    void insertSpace(unsigned int track, sample_index_t offset,
-                     sample_index_t length);
+	/**
+	 * Returns the number of tracks.
+	 */
+	unsigned int tracks();
 
-    /**
-     * Returns the length of the signal. This is determined by
-     * searching for the highest sample position of all tracks.
-     */
-    sample_index_t length();
+	/**
+	 * Deletes a range of samples
+	 * @param track index of the track
+	 * @param offset index of the first sample
+	 * @param length number of samples
+	 */
+	void deleteRange(unsigned int track, sample_index_t offset,
+	                 sample_index_t length);
 
-    /**
-     * Queries if a track is selected. If the index of the track is
-     * out of range, the return value will be false.
-     */
-    bool trackSelected(unsigned int track);
+	/**
+	 * Inserts some space at a given position
+	 * @param track index of the track
+	 * @param offset index of the first sample
+	 * @param length number of samples
+	 */
+	void insertSpace(unsigned int track, sample_index_t offset,
+	                 sample_index_t length);
 
-    /**
-     * Sets the "selected" flag of a track.
-     * @param track index of the track [0...tracks-1]
-     * @param select true if the track should be selected,
-     *               false for de-selecting
-     */
-    void selectTrack(unsigned int track, bool select);
+	/**
+	 * Returns the length of the signal. This is determined by
+	 * searching for the highest sample position of all tracks.
+	 */
+	sample_index_t length();
 
-signals:
+	/**
+	 * Queries if a track is selected. If the index of the track is
+	 * out of range, the return value will be false.
+	 */
+	bool trackSelected(unsigned int track);
 
-    /**
-     * Signals that a track has been inserted.
-     * @param index position of the new track [0...tracks()-1]
-     * @param track reference to the new track
-     */
-    void sigTrackInserted(unsigned int index, Kwave::Track *track);
+	/**
+	 * Sets the "selected" flag of a track.
+	 * @param track index of the track [0...tracks-1]
+	 * @param select true if the track should be selected,
+	 *               false for de-selecting
+	 */
+	void selectTrack(unsigned int track, bool select);
 
-    /**
-     * Signals that a track has been deleted.
-     * @param index position of the deleted track [0...tracks()-1]
-     */
-    void sigTrackDeleted(unsigned int index);
+    signals:
 
-    /**
-     * Signals that the selection of one of the tracks has changed
-     * @param enabled state of the track, true=selected
-     */
-    void sigTrackSelectionChanged(bool enabled);
+	/**
+	 * Signals that a track has been inserted.
+	 * @param index position of the new track [0...tracks()-1]
+	 * @param track reference to the new track
+	 */
+	void sigTrackInserted(unsigned int index, Kwave::Track *track);
 
-    /**
-     * Emitted if samples have been inserted into a track. This implies
-     * a modification of the inserted data, so no extra sigSamplesModified
-     * is emitted.
-     * @param track index of the track
-     * @param offset position from which the data was inserted
-     * @param length number of samples inserted
-     * @see sigSamplesModified
-     */
-    void sigSamplesInserted(unsigned int track, sample_index_t offset,
-                            sample_index_t length);
+	/**
+	 * Signals that a track has been deleted.
+	 * @param index position of the deleted track [0...tracks()-1]
+	 */
+	void sigTrackDeleted(unsigned int index);
 
-    /**
-     * Emitted if samples have been removed from a track.
-     * @param track index of the track
-     * @param offset position from which the data was removed
-     * @param length number of samples deleted
-     */
-    void sigSamplesDeleted(unsigned int track, sample_index_t offset,
-                           sample_index_t length);
+	/**
+	 * Signals that the selection of one of the tracks has changed
+	 * @param enabled state of the track, true=selected
+	 */
+	void sigTrackSelectionChanged(bool enabled);
 
-    /**
-     * Emitted if samples within a track have been modified.
-     * @param track index of the track
-     * @param offset position from which the data was modified
-     * @param length number of samples modified
-     */
-    void sigSamplesModified(unsigned int track, sample_index_t offset,
-                            sample_index_t length);
+	/**
+	 * Emitted if samples have been inserted into a track. This implies
+	 * a modification of the inserted data, so no extra sigSamplesModified
+	 * is emitted.
+	 * @param track index of the track
+	 * @param offset position from which the data was inserted
+	 * @param length number of samples inserted
+	 * @see sigSamplesModified
+	 */
+	void sigSamplesInserted(unsigned int track, sample_index_t offset,
+	                        sample_index_t length);
 
-private slots:
+	/**
+	 * Emitted if samples have been removed from a track.
+	 * @param track index of the track
+	 * @param offset position from which the data was removed
+	 * @param length number of samples deleted
+	 */
+	void sigSamplesDeleted(unsigned int track, sample_index_t offset,
+	                       sample_index_t length);
 
-    /**
-     * Connected to each track's sigSamplesInserted.
-     * @param src source track
-     * @param offset position from which the data was inserted
-     * @param length number of samples inserted
-     * @see Track::sigSamplesInserted
-     * @internal
-     */
-    void slotSamplesInserted(Kwave::Track *src, sample_index_t offset,
-                             sample_index_t length);
+	/**
+	 * Emitted if samples within a track have been modified.
+	 * @param track index of the track
+	 * @param offset position from which the data was modified
+	 * @param length number of samples modified
+	 */
+	void sigSamplesModified(unsigned int track, sample_index_t offset,
+	                        sample_index_t length);
 
-    /**
-     * Connected to each track's sigSamplesDeleted.
-     * @param src source track
-     * @param offset position from which the data was removed
-     * @param length number of samples deleted
-     * @see Track::sigSamplesDeleted
-     * @internal
-     */
-    void slotSamplesDeleted(Kwave::Track *src, sample_index_t offset,
-                            sample_index_t length);
+    private slots:
 
-    /**
-     * Connected to each track's sigSamplesModified
-     * @param src source track
-     * @param offset position from which the data was modified
-     * @param length number of samples modified
-     * @see Track::sigSamplesModified
-     * @internal
-     */
-    void slotSamplesModified(Kwave::Track *src, sample_index_t offset,
-                             sample_index_t length);
+	/**
+	 * Connected to each track's sigSamplesInserted.
+	 * @param src source track
+	 * @param offset position from which the data was inserted
+	 * @param length number of samples inserted
+	 * @see Track::sigSamplesInserted
+	 * @internal
+	 */
+	void slotSamplesInserted(Kwave::Track *src, sample_index_t offset,
+	                         sample_index_t length);
 
-private:
+	/**
+	 * Connected to each track's sigSamplesDeleted.
+	 * @param src source track
+	 * @param offset position from which the data was removed
+	 * @param length number of samples deleted
+	 * @see Track::sigSamplesDeleted
+	 * @internal
+	 */
+	void slotSamplesDeleted(Kwave::Track *src, sample_index_t offset,
+	                        sample_index_t length);
 
-    /**
-     * Looks up the index of a trackin the track list
-     * @param track reference to the trac to be looked up
-     * @returns index of the track [0...tracks()-1] or tracks() if not found
-     */
-    unsigned int trackIndex(const Kwave::Track *track);
+	/**
+	 * Connected to each track's sigSamplesModified
+	 * @param src source track
+	 * @param offset position from which the data was modified
+	 * @param length number of samples modified
+	 * @see Track::sigSamplesModified
+	 * @internal
+	 */
+	void slotSamplesModified(Kwave::Track *src, sample_index_t offset,
+	                         sample_index_t length);
 
-//    //signal modifying functions
-//    void replaceStutter (int, int);
-//    void delayRecursive (int, int);
-//    void delay (int, int);
-//    void movingFilter (Filter *filter, int tap, Curve *points, int low, int high);
+    private:
+
+	/**
+	 * Looks up the index of a trackin the track list
+	 * @param track reference to the trac to be looked up
+	 * @returns index of the track [0...tracks()-1] or tracks() if not found
+	 */
+	unsigned int trackIndex(const Kwave::Track *track);
+
+//        //signal modifying functions
+//        void replaceStutter (int, int);
+//        void delayRecursive (int, int);
+//        void delay (int, int);
+//        void movingFilter (Filter *filter, int tap, Curve *points, int low, int high);
 //
-//    //functions creating a new Object
+//        //functions creating a new Object
 //
-//    void fft (int, bool);
-//    void averageFFT (int points, window_function_t windowtype);
+//        void fft (int, bool);
+//        void averageFFT (int points, window_function_t windowtype);
 
-    /** list of tracks */
-    QList<Kwave::Track *> m_tracks;
+	/** list of tracks */
+	QList<Kwave::Track *> m_tracks;
 
-    /** mutex for access to the track list */
-    QReadWriteLock m_lock_tracks;
+	/** mutex for access to the track list */
+	QReadWriteLock m_lock_tracks;
 
-};
+    };
+}
 
 //**********************************************************************
 #endif  /* _SIGNAL_H_ */

@@ -25,7 +25,7 @@
 
 #include "libkwave/undo/UndoAction.h"
 
-class Signal;
+namespace Kwave { class Signal; }
 
 /**
  * Undo action for inserting a track.
@@ -40,7 +40,7 @@ public:
      * @param signal reference to the signal
      * @param track index of the inserted track.
      */
-    UndoInsertTrack(Signal &signal, unsigned int track);
+    UndoInsertTrack(Kwave::Signal &signal, unsigned int track);
 
     /** Destructor */
     virtual ~UndoInsertTrack();
@@ -65,7 +65,7 @@ public:
 protected:
 
     /** Reference to the signal */
-    Signal &m_signal;
+    Kwave::Signal &m_signal;
 
     /** Index of the inserted track */
     unsigned int m_track;

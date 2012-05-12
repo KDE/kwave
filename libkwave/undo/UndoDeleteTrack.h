@@ -27,7 +27,7 @@
 #include "libkwave/Track.h"
 #include "libkwave/undo/UndoAction.h"
 
-class Signal;
+namespace Kwave { class Signal; }
 
 /**
  * Undo action for deleting a track.
@@ -41,7 +41,7 @@ public:
      * @param signal reference to the signal
      * @param track index of the deleted track.
      */
-    UndoDeleteTrack(Signal &signal, unsigned int track);
+    UndoDeleteTrack(Kwave::Signal &signal, unsigned int track);
 
     /** Destructor */
     virtual ~UndoDeleteTrack();
@@ -66,7 +66,7 @@ public:
 protected:
 
     /** Reference to the signal */
-    Signal &m_signal;
+    Kwave::Signal &m_signal;
 
     /** Index of the deleted track */
     unsigned int m_track;

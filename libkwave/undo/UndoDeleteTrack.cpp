@@ -28,7 +28,7 @@
 #include "libkwave/undo/UndoDeleteTrack.h"
 
 //***************************************************************************
-UndoDeleteTrack::UndoDeleteTrack(Signal &signal, unsigned int track)
+UndoDeleteTrack::UndoDeleteTrack(Kwave::Signal &signal, unsigned int track)
     :UndoAction(), m_signal(signal), m_track(track),
      m_length(signal.length()), m_buffer_track()
 {

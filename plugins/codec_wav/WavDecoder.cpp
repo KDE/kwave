@@ -38,7 +38,6 @@ extern "C" {
 #include "libkwave/MetaData.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/Sample.h"
-#include "libkwave/Signal.h"
 #include "libkwave/VirtualAudioFile.h"
 #include "libkwave/Writer.h"
 

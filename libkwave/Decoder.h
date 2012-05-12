@@ -58,7 +58,7 @@ public:
      * Decodes a stream of bytes into a signal
      * @param widget a widget that can be used for displaying
      *        message boxes or dialogs
-     * @param dst Signal that receives the audio data
+     * @param dst writer that receives the audio data
      * @return true if succeeded, false on errors
      */
     virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst) = 0;

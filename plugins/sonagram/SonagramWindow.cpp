@@ -396,7 +396,7 @@ void SonagramWindow::toSignal()
 //    Q_ASSERT(win);
 //    if (win) {
 //
-//	Signal *newsig = new Signal (length, rate);
+//	Kwave::Signal *newsig = new Kwave::Signal(length, rate);
 //	Q_ASSERT(newsig);
 //
 //	//assure 10 Hz for correction signal, this should not be audible

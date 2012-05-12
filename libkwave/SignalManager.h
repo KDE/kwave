@@ -658,7 +658,7 @@ private:
     bool m_modified_enabled;
 
     /** signal with multiple tracks */
-    Signal m_signal;
+    Kwave::Signal m_signal;
 
     /** the current selection */
     Selection m_selection;

@@ -91,7 +91,7 @@ SignalManager::SignalManager(QWidget *parent)
     m_meta_data()
 {
     // connect to the track's signals
-    Signal *sig = &m_signal;
+    Kwave::Signal *sig = &m_signal;
     connect(sig, SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
             this, SLOT(slotTrackInserted(unsigned int, Kwave::Track *)));
     connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),

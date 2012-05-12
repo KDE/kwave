@@ -39,13 +39,13 @@
 #include "Filter.h"
 
 //***************************************************************************
-Signal::Signal()
+Kwave::Signal::Signal()
     :m_tracks(), m_lock_tracks()
 {
 }
 
 //***************************************************************************
-Signal::Signal(unsigned int tracks, sample_index_t length)
+Kwave::Signal::Signal(unsigned int tracks, sample_index_t length)
     :m_tracks(), m_lock_tracks()
 {
     while (tracks--) {
@@ -54,13 +54,13 @@ Signal::Signal(unsigned int tracks, sample_index_t length)
 }
 
 //***************************************************************************
-Signal::~Signal()
+Kwave::Signal::~Signal()
 {
     close();
 }
 
 //***************************************************************************
-void Signal::close()
+void Kwave::Signal::close()
 {
     QWriteLocker lock(&m_lock_tracks);
 
@@ -70,7 +70,8 @@ void Signal::close()
 }
 
 //***************************************************************************
-Kwave::Track *Signal::insertTrack(unsigned int index, sample_index_t length)
+Kwave::Track *Kwave::Signal::insertTrack(unsigned int index,
+                                         sample_index_t length)
 {
     Kwave::Track *t = 0;
     {
@@ -112,13 +113,13 @@ Kwave::Track *Signal::insertTrack(unsigned int index, sample_index_t length)
 
 
 //***************************************************************************
-Kwave::Track *Signal::appendTrack(sample_index_t length)
+Kwave::Track *Kwave::Signal::appendTrack(sample_index_t length)
 {
     return insertTrack(tracks(), length);
 }
 
 //***************************************************************************
-void Signal::deleteTrack(unsigned int index)
+void Kwave::Signal::deleteTrack(unsigned int index)
 {
     // remove the track from the list but do not delete it
     Kwave::Track *t = 0;
@@ -142,7 +143,7 @@ void Signal::deleteTrack(unsigned int index)
 }
 
 //***************************************************************************
-Kwave::Writer *Signal::openWriter(unsigned int track,
+Kwave::Writer *Kwave::Signal::openWriter(unsigned int track,
 	InsertMode mode, sample_index_t left, sample_index_t right)
 {
     QReadLocker lock(&m_lock_tracks);
@@ -158,7 +159,7 @@ Kwave::Writer *Signal::openWriter(unsigned int track,
 }
 
 //***************************************************************************
-SampleReader *Signal::openSampleReader(Kwave::ReaderMode mode,
+SampleReader *Kwave::Signal::openSampleReader(Kwave::ReaderMode mode,
 	unsigned int track, sample_index_t left, sample_index_t right)
 {
     QReadLocker lock(&m_lock_tracks);
@@ -172,7 +173,7 @@ SampleReader *Signal::openSampleReader(Kwave::ReaderMode mode,
 }
 
 //***************************************************************************
-QList<unsigned int> Signal::allTracks()
+QList<unsigned int> Kwave::Signal::allTracks()
 {
     unsigned int track;
     unsigned int tracks = this->tracks();
@@ -186,8 +187,8 @@ QList<unsigned int> Signal::allTracks()
 }
 
 //***************************************************************************
-void Signal::deleteRange(unsigned int track, sample_index_t offset,
-                         sample_index_t length)
+void Kwave::Signal::deleteRange(unsigned int track, sample_index_t offset,
+                                sample_index_t length)
 {
     QReadLocker lock(&m_lock_tracks);
 
@@ -201,8 +202,8 @@ void Signal::deleteRange(unsigned int track, sample_index_t offset,
 }
 
 //***************************************************************************
-void Signal::insertSpace(unsigned int track, sample_index_t offset,
-                         sample_index_t length)
+void Kwave::Signal::insertSpace(unsigned int track, sample_index_t offset,
+                                sample_index_t length)
 {
     QReadLocker lock(&m_lock_tracks);
 
@@ -216,14 +217,14 @@ void Signal::insertSpace(unsigned int track, sample_index_t offset,
 }
 
 //***************************************************************************
-unsigned int Signal::tracks()
+unsigned int Kwave::Signal::tracks()
 {
     QReadLocker lock(&m_lock_tracks);
     return m_tracks.count();
 }
 
 //***************************************************************************
-sample_index_t Signal::length()
+sample_index_t Kwave::Signal::length()
 {
     QReadLocker lock(&m_lock_tracks);
 
@@ -237,7 +238,7 @@ sample_index_t Signal::length()
 }
 
 //***************************************************************************
-bool Signal::trackSelected(unsigned int track)
+bool Kwave::Signal::trackSelected(unsigned int track)
 {
     QReadLocker lock(&m_lock_tracks);
 
@@ -248,7 +249,7 @@ bool Signal::trackSelected(unsigned int track)
 }
 
 //***************************************************************************
-void Signal::selectTrack(unsigned int track, bool select)
+void Kwave::Signal::selectTrack(unsigned int track, bool select)
 {
     QReadLocker lock(&m_lock_tracks);
 
@@ -418,7 +419,7 @@ void Signal::selectTrack(unsigned int track, bool select)
 ////    }
 //}
 ////*********************************************************
-//void Signal::movingFilter (Filter *filter, int tap, Curve *points, int low, int high)
+//void Kwave::Signal::movingFilter (Filter *filter, int tap, Curve *points, int low, int high)
 //{
 //    Interpolation interpolation (0);
 //
@@ -490,7 +491,7 @@ void Signal::selectTrack(unsigned int track, bool select)
 //}
 //
 ////*********************************************************
-//void Signal::replaceStutter (int len1, int len2) {
+//void Kwave::Signal::replaceStutter (int len1, int len2) {
 //    int *sample = &(this->sample[lmarker]);
 //
 //    int j;
@@ -504,7 +505,7 @@ void Signal::selectTrack(unsigned int track, bool select)
 //}
 //
 ////**********************************************************
-//void Signal::mixPaste (Signal *signal) {
+//void Kwave::Signal::mixPaste (Signal *signal) {
 //    int pastelength = signal->getLength ();
 //    int *paste = signal->getSample();
 //    int marked = (lmarker != rmarker) ? rmarker - lmarker + 1 : length;
@@ -519,7 +520,7 @@ void Signal::selectTrack(unsigned int track, bool select)
 //    }
 
 //***************************************************************************
-unsigned int Signal::trackIndex(const Kwave::Track *track)
+unsigned int Kwave::Signal::trackIndex(const Kwave::Track *track)
 {
     QReadLocker lock(&m_lock_tracks);
 
@@ -528,24 +529,27 @@ unsigned int Signal::trackIndex(const Kwave::Track *track)
 }
 
 //***************************************************************************
-void Signal::slotSamplesInserted(Kwave::Track *src, sample_index_t offset,
-                                 sample_index_t length)
+void Kwave::Signal::slotSamplesInserted(Kwave::Track *src,
+                                        sample_index_t offset,
+                                        sample_index_t length)
 {
     unsigned int track = trackIndex(src);
     emit sigSamplesInserted(track, offset, length);
 }
 
 //***************************************************************************
-void Signal::slotSamplesDeleted(Kwave::Track *src, sample_index_t offset,
-                                sample_index_t length)
+void Kwave::Signal::slotSamplesDeleted(Kwave::Track *src,
+                                       sample_index_t offset,
+                                       sample_index_t length)
 {
     unsigned int track = trackIndex(src);
     emit sigSamplesDeleted(track, offset, length);
 }
 
 //***************************************************************************
-void Signal::slotSamplesModified(Kwave::Track *src, sample_index_t offset,
-                                 sample_index_t length)
+void Kwave::Signal::slotSamplesModified(Kwave::Track *src,
+                                        sample_index_t offset,
+                                        sample_index_t length)
 {
     unsigned int track = trackIndex(src);
     emit sigSamplesModified(track, offset, length);

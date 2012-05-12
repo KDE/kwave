@@ -28,7 +28,6 @@
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
-#include "libkwave/Signal.h"
 #include "libkwave/Writer.h"
 
 #include "MP3Decoder.h"

@@ -32,12 +32,11 @@
 #include "libkwave/modules/KwaveStreamObject.h"
 #include "libkwave/modules/SampleBuffer.h"
 
-// forward declarations
-template <class T> class Matrix;
-
 //***************************************************************************
 namespace Kwave {
-    
+
+    class MixerMatrix;
+
     class KDE_EXPORT ChannelMixer: public Kwave::SampleSource
     {
 	Q_OBJECT
@@ -52,7 +51,7 @@ namespace Kwave {
 	    /** Destructor */
 	    virtual ~ChannelMixer();
 
-	    /** 
+	    /**
 	     * Init function, you must call it once after creating and before
 	     * using this object. If the return value is false, you should
 	     * delete this object.
@@ -90,7 +89,7 @@ namespace Kwave {
 
 	public slots:
 
-	    /** 
+	    /**
 	     * dummy implementation, the real "input" is a multi-track slot
 	     * and available through the port(...) interface only
 	     */
@@ -109,7 +108,7 @@ namespace Kwave {
 	private:
 
 	    /** mixer matrix */
-	    Matrix<double> *m_matrix;
+	    Kwave::MixerMatrix *m_matrix;
 
 	    /** number of inputs */
 	    unsigned int m_inputs;

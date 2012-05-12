@@ -24,7 +24,7 @@
 #include <QtGlobal>
 #include <QVarLengthArray>
 
-#include "libkwave/Matrix.h"
+#include "libkwave/MixerMatrix.h"
 #include "libkwave/Sample.h"
 #include "libkwave/modules/ChannelMixer.h"
 #include "libkwave/modules/Indexer.h"
@@ -69,7 +69,7 @@ bool Kwave::ChannelMixer::init()
 	if (!out_buffer) return false;
 	m_output_buffer.append(out_buffer);
     }
-    
+
     // create indexing proxies and connect their output to this mixer
     for (unsigned int index = 0; index < m_inputs; index++) {
 	Kwave::StreamObject *indexer = new Kwave::Indexer(index);
@@ -87,33 +87,10 @@ bool Kwave::ChannelMixer::init()
     // create the mixer matrix
     // create a translation matrix for mixing up/down to the desired
     // number of output channels
-    m_matrix = new Matrix<double>(m_inputs, m_outputs);
+    m_matrix = new Kwave::MixerMatrix(m_inputs, m_outputs);
     Q_ASSERT(m_matrix);
     if (!m_matrix) return false;
 
-    //   -------------
-    // x |     |     | 
-    //   -------------
-    // y |   |   |   | x*y
-    //   -------------
-    const double scale = static_cast<double>(m_inputs);
-    for (unsigned int y = 0; y < m_outputs; y++) {
-	const unsigned int y1 = y * m_inputs;
-	const unsigned int y2 = y1 + m_inputs;
-
-	for (unsigned int x = 0; x < m_inputs; x++) {
-	    const unsigned int x1 = x * m_outputs;
-	    const unsigned int x2 = x1 + m_outputs;
-
-	    // get the common area of [x1 .. x2] and [y1 .. y2]
-	    const unsigned int l = qMax(x1, y1);
-	    const unsigned int r = qMin(x2, y2);
-
-	    (*m_matrix)[x][y] = (r > l) ? 
-		(static_cast<double>(r - l) / scale) : 0.0;
-	}
-    }
-    
     // everything succeeded
     return true;
 }
@@ -155,7 +132,7 @@ unsigned int Kwave::ChannelMixer::tracksOfPort(const QString &port) const
     } else if (_sig(port) == _sig(SIGNAL(output(Kwave::SampleArray)))) {
 	// output ports
 	return m_outputs;
-    } else if (_sig(port) == 
+    } else if (_sig(port) ==
                _sig(SLOT(idxInput(unsigned int, Kwave::SampleArray)))) {
 	return 1;
     }
@@ -179,7 +156,7 @@ Kwave::StreamObject *Kwave::ChannelMixer::port(const QString &port,
 	Q_ASSERT(static_cast<int>(track) < m_output_buffer.count());
 	if (static_cast<int>(track) >= m_output_buffer.count()) return 0;
 	return m_output_buffer[track];
-    } else if (_sig(port) == 
+    } else if (_sig(port) ==
 	       _sig(SLOT(idxInput(unsigned int, Kwave::SampleArray)))) {
 	return this;
     }

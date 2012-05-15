@@ -1,11 +1,11 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
-  <!ENTITY kwave "<application>kwave</application>">
+  <!ENTITY kwave "<application>Kwave</application>">
   <!ENTITY kappname "&kwave;">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "0.8.7-2">
-  <!ENTITY version_tag "0_8_7-2">
+  <!ENTITY version "0.8.8">
+  <!ENTITY version_tag "0_8_8">
   <!ENTITY version_year "2012">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
 
@@ -15,6 +15,7 @@
   <!ENTITY url_debian "http://www.debian.org">
   <!ENTITY url_download "http://kwave.sourceforge.net/download.html">
   <!ENTITY url_doxygen "http://www.stack.nl/~dimitri/doxygen">
+  <!ENTITY url_flac "http://flac.sourceforge.net/">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://www.id3lib.org/">
   <!ENTITY url_iso639 "http://www.loc.gov/standards/iso639-2/php/code_list.php">
@@ -62,7 +63,7 @@
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2012-04-01</date>
+    <date>2012-05-14</date>
     <releaseinfo>&version;</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor for KDE.</para></abstract>
@@ -229,7 +230,7 @@
     </para>
 
     <para>
-	Since &kwave; v0.8.0 the changlog is no longer included in this
+	Since &kwave; v0.8.0 the changelog is no longer included in this
 	manual. So if you are interested in a complete list of changes,
 	you can find the full history here:
 	<ulink url="&url_changelog;"> &url_changelog;</ulink> or browse
@@ -237,7 +238,7 @@
 	<ulink url="&url_git_web;">GIT web interface</ulink>.
     </para>
 
-    <!-- changlog cut out, this gives a smaller online help
+    <!-- changelog cut out, this gives a smaller online help
          and *much* less work for the translators... -->
 
     </sect1>
@@ -265,7 +266,7 @@
 
     <para>
 	If you want to get a &kwave; release, you have the choice to visit
-	<ulink url="&url_download;"></ulink> &url_download; and
+	<ulink url="&url_download;">&url_download;</ulink> and
 	<itemizedlist>
 	<listitem><para>
 	    download a binary package of the latest stable version, if
@@ -875,7 +876,7 @@
     </para>
     <para>
 	If you build &kwave; from a source tree (unpacked tar.bz2 or from GIT)
-	the flags need to be specidied before the call. For example:
+	the flags need to be specified before the call. For example:
 
 	<screen width="70" format="linespecific">
 <prompt>% </prompt><command>CFLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe" \
@@ -1357,12 +1358,13 @@
 	    <ulink url="&url_id3lib;">id3lib</ulink> for decoding
 	    ID3 tags.
 	</para></listitem>
-
 	<listitem><para>
 	    Ogg/Vorbis (<filename>*.ogg</filename>) import and export.
-	    See
-	    <ulink url="&url_ogg_vorbis;">&url_ogg_vorbis;</ulink>
-	    for details.
+	    See <ulink url="&url_ogg_vorbis;">&url_ogg_vorbis;</ulink> for details.
+	</para></listitem>
+	<listitem><para>
+	    FLAC (<filename>*.flac</filename>) import and export.
+	    See <ulink url="&url_flac;">&url_flac;</ulink> for details.
 	</para></listitem>
 
 	<listitem><para>
@@ -2495,7 +2497,7 @@
 		docbook online documentation and the online help only.
 		For a list of available language codes and names, please
 		refer to the documentation of the international standard
-		<ulink url="&url_iso639;">ISO 639-2</ulink>.
+		<ulink url="&url_iso639;">ISO 639.2</ulink>.
 	    </para></listitem>
 
 	    <listitem><para>
@@ -2909,10 +2911,10 @@
     </para>
     <para>
 	For a complete list of authors and licenses of all files, please
-	refer to th <ulink url="&url_licenses;"><filename>LICENSES</filename></ulink>
+	refer to the <ulink url="&url_licenses;"><filename>LICENSES</filename></ulink>
 	file, which is included in the sources. There also is a file with the
 	name <ulink url="&url_authors;"><filename>AUTHORS</filename></ulink>
-	that lists all authors and contributors of &kwave;
+	that lists all authors and contributors of &kwave;.
     </para>
 
     <para>
@@ -3127,7 +3129,7 @@
 	    </listitem>
 	    <listitem>
 	    	<para><emphasis role="bold">
-		    Matthias Kretz, <email>kretz@kde.org</email>
+		    Matthias Kretz <email>kretz@kde.org</email>
 		</emphasis></para><para>
 		    cmake/FindAlsa.cmake
 		</para>

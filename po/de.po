@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-13 08:01+0200\n"
+"POT-Creation-Date: 2012-05-17 20:10+0200\n"
 "PO-Revision-Date: 2012-05-15 19:57+0200\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1114,8 +1114,8 @@ msgid ""
 "update of the playback position and the real sound output. If you encounter "
 "dropouts you should increase this setting a bit.</p>"
 msgstr ""
-"<b>Puffer-Grösse:</b><p>Wählen Sie eine Puffer-Grösse für die Wiedergabe. Sie "
-"sollten diese Grösse so klein wie möglich halten, und die Latenz bei der "
+"<b>Puffer-Grösse:</b><p>Wählen Sie eine Puffer-Grösse für die Wiedergabe. "
+"Sie sollten diese Grösse so klein wie möglich halten, und die Latenz bei der "
 "Wiedergabe zu verringern. Die Latenz ist die Verzögerung zwischen Aktionen "
 "der Benutzer-Schnittstelle wie z.B. Starten oder Stoppen der Wiedergabe, "
 "Aktualisierung der Wiedergabeposition, und der wirklichen Ausgabe zum "
@@ -1919,8 +1919,8 @@ msgstr "Puffer-Anzahl:"
 msgid ""
 "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
-"Buffer-Überlauf. Bitte erhöhen Sie die Anzahl der Buffer und/oder vergrössern "
-"Sie die Puffergrösse."
+"Buffer-Überlauf. Bitte erhöhen Sie die Anzahl der Buffer und/oder "
+"vergrössern Sie die Puffergrösse."
 
 #: plugins/playback/ui_PlayBackDlg.h:408 plugins/record/ui_RecordDlg.h:1043
 msgid "Buffer size:"
@@ -3789,11 +3789,10 @@ msgstr "Andere"
 #: kwave/TopWidget.cpp:837 plugins/codec_audiofile/AudiofileDecoder.cpp:106
 #: plugins/codec_flac/FlacEncoder.cpp:262 plugins/codec_wav/WavDecoder.cpp:351
 #: plugins/codec_wav/WavEncoder.cpp:415 plugins/decoder_mp3/MP3Decoder.cpp:487
-#: plugins/playback/PlayBack-OSS.cpp:244
 #: plugins/playback/PlayBack-Phonon.cpp:148
 #: plugins/playback/PlayBack-Phonon.cpp:180
-#: plugins/record/RecordPlugin.cpp:830 plugins/record/RecordPlugin.cpp:846
-#: plugins/record/RecordPlugin.cpp:912
+#: plugins/playback/PlayBack-OSS.cpp:244 plugins/record/RecordPlugin.cpp:830
+#: plugins/record/RecordPlugin.cpp:846 plugins/record/RecordPlugin.cpp:912
 msgid "Out of memory"
 msgstr "Zu wenig Speicher"
 

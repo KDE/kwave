@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2012-05-15 19:34+0000\n"
+"POT-Creation-Date: 2012-05-17 18:43+0000\n"
 "PO-Revision-Date: 2012-05-15 21:37+0200\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -60,8 +60,8 @@ msgstr "Thomas Eschenbacher"
 #. Tag: date
 #: help_en.docbook:66
 #, no-c-format
-msgid "2012-05-14"
-msgstr "2012-05-14"
+msgid "2012-05-20"
+msgstr "2012-05-20"
 
 #. Tag: releaseinfo
 #: help_en.docbook:67
@@ -4329,20 +4329,20 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:2485
 #, no-c-format
-msgid "Window decoration: Plastik"
-msgstr "Fensterdekoration: Plastik"
+msgid "Window decoration: Oxygen"
+msgstr "Fensterdekoration: Oxygen"
 
 #. Tag: para
 #: help_en.docbook:2488
 #, no-c-format
-msgid "Widget style: Plastik"
-msgstr "Stil: Plastik"
+msgid "Widget style: Oxygen"
+msgstr "Stil: Oxygen"
 
 #. Tag: para
 #: help_en.docbook:2491
 #, no-c-format
-msgid "Colors: KDE Default"
-msgstr "Farben: KDE-Standard"
+msgid "Colors: Oxygen"
+msgstr "Farben: Oxygen"
 
 #. Tag: para
 #: help_en.docbook:2494
@@ -5290,6 +5290,9 @@ msgid ""
 "author of the <ulink url=\"&url_libaudiofile;\">audiofile</ulink> library"
 msgstr ""
 "Autor der <ulink url=\"&url_libaudiofile;\">audiofile</ulink> Bibliothek"
+
+#~ msgid "Colors: KDE Default"
+#~ msgstr "Farben: KDE-Standard"
 
 #~ msgid "2011-11-27"
 #~ msgstr "2011-11-27"

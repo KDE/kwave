@@ -63,7 +63,7 @@
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2012-05-14</date>
+    <date>2012-05-20</date>
     <releaseinfo>&version;</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor for KDE.</para></abstract>
@@ -2575,13 +2575,13 @@
 		Here in short:
 		<itemizedlist>
 		    <listitem><para>
-			Window decoration: Plastik
+			Window decoration: Oxygen
 		    </para></listitem>
 		    <listitem><para>
-			Widget style: Plastik
+			Widget style: Oxygen
 		    </para></listitem>
 		    <listitem><para>
-			Colors: KDE Default
+			Colors: Oxygen
 		    </para></listitem>
 		    <listitem><para>
 			Background: Flat color - Color must be white

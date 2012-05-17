@@ -2,20 +2,20 @@
 # Gilles CAULIER <caulier.gilles@free.fr>, 2003.
 # CAULIER Gilles <caulier.gilles@free.fr>, 2003.
 # Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>, 2003, 2004, 2005, 2007, 2008.
-# Gilles Caulier <caulier.gilles@free.fr>, 2003, 2011.
+# Gilles Caulier <caulier.gilles@free.fr>, 2003, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2012-05-15 19:34+0000\n"
-"PO-Revision-Date: 2011-03-04 15:24+0100\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2012-05-17 18:43+0000\n"
+"PO-Revision-Date: 2012-05-17 20:26+0200\n"
+"Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
-"Language: \n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. Tag: title
 #: help_en.docbook:46
@@ -63,7 +63,7 @@ msgstr "Thomas Eschenbacher"
 #. Tag: date
 #: help_en.docbook:66
 #, no-c-format
-msgid "2012-05-14"
+msgid "2012-05-20"
 msgstr ""
 
 #. Tag: releaseinfo
@@ -1100,9 +1100,9 @@ msgstr ""
 
 #. Tag: title
 #: help_en.docbook:646
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Building RPM packages from GIT"
-msgstr "La construction d'un paquetage RPM à partir du CVS"
+msgstr "La construction d'un paquetage RPM à partir du GIT"
 
 #. Tag: title
 #: help_en.docbook:648
@@ -2518,6 +2518,24 @@ msgid ""
 " -5930752,   5930496 #           10\n"
 "# EOF"
 msgstr ""
+"## 'rate'=44100\n"
+"## 'tracks'=2\n"
+"## 'bits'=16\n"
+"## 'length'=11\n"
+"## 'Date'='2007-04-22'\n"
+"## 'Software'='Kwave-0.7.9 for KDE 3.5.5'\n"
+"  5930496,   5930496 #            0\n"
+"        0,   8388352 #            1\n"
+" -5930752,   5930496 #            2\n"
+" -8388608,         0 #            3\n"
+" -5930752,  -5930752 #            4\n"
+"        0,  -8388608 #            5\n"
+"  5930496,  -5930752 #            6\n"
+"  8388352,         0 #            7\n"
+"  5930496,   5930496 #            8\n"
+"        0,   8388352 #            9\n"
+" -5930752,   5930496 #           10\n"
+"# EOF"
 
 #. Tag: title
 #: help_en.docbook:1427
@@ -3823,6 +3841,7 @@ msgstr ""
 msgid ""
 "<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>"
 msgstr ""
+"<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>"
 
 #. Tag: para
 #: help_en.docbook:2420
@@ -3959,19 +3978,19 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:2485
 #, no-c-format
-msgid "Window decoration: Plastik"
+msgid "Window decoration: Oxygen"
 msgstr ""
 
 #. Tag: para
 #: help_en.docbook:2488
 #, no-c-format
-msgid "Widget style: Plastik"
+msgid "Widget style: Oxygen"
 msgstr ""
 
 #. Tag: para
 #: help_en.docbook:2491
 #, no-c-format
-msgid "Colors: KDE Default"
+msgid "Colors: Oxygen"
 msgstr ""
 
 #. Tag: para
@@ -4322,12 +4341,12 @@ msgstr "&kwave;"
 
 #. Tag: para
 #: help_en.docbook:2810
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Program copyright from 1998-2000 Martin Wilz <email>martin@wilz.de</email>"
 msgstr ""
-"Programme sous copyright de 1998 à 2000 Martin Wilz <email>mwilz@ernie.mi."
-"uni-koeln.de</email>"
+"Programme sous copyright de 1998 à 2000 Martin Wilz <email>martin@wilz.de</"
+"email>"
 
 #. Tag: para
 #: help_en.docbook:2814
@@ -4356,19 +4375,19 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:2826
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Documentation copyright (C) &version_year; Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 msgstr ""
-"Documentation copyright (C) 2000 Thomas Eschenbacher <email>thomas."
+"Documentation copyright (C) &version_year; Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 
 #. Tag: chapter
 #: help_en.docbook:2829
 #, no-c-format
 msgid "&underFDL; &underGPL;"
-msgstr ""
+msgstr "&underFDL; &underGPL;"
 
 #. Tag: title
 #: help_en.docbook:2834
@@ -4380,7 +4399,7 @@ msgstr ""
 #: help_en.docbook:2838
 #, no-c-format
 msgid "Martin Wilz <email>martin@wilz.de</email>"
-msgstr ""
+msgstr "Martin Wilz <email>martin@wilz.de</email>"
 
 #. Tag: para
 #: help_en.docbook:2841
@@ -4408,25 +4427,22 @@ msgstr ""
 
 #. Tag: emphasis
 #: help_en.docbook:2861
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Aurelien Jarno <email>aurel32@debian.org</email>"
-msgstr ""
-"Aurelien Jarno <email>aurel32@debian.org</email> (Paquetage pour la "
-"distribution <ulink url=\"&url_debian;\">debian</ulink>)"
+msgstr "Aurelien Jarno <email>aurel32@debian.org</email>"
 
 #. Tag: para
 #: help_en.docbook:2864
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "<ulink url=\"&url_debian;\">debian</ulink> packager, patches"
 msgstr ""
-"Aurelien Jarno <email>aurel32@debian.org</email> (Paquetage pour la "
-"distribution <ulink url=\"&url_debian;\">debian</ulink>)"
+"Paquetage pour la distribution <ulink url=\"&url_debian;\">debian</ulink>"
 
 #. Tag: emphasis
 #: help_en.docbook:2870
 #, no-c-format
 msgid "Daniel Tihelka <email>dtihelka@kky.zcu.cz</email>"
-msgstr ""
+msgstr "Daniel Tihelka <email>dtihelka@kky.zcu.cz</email>"
 
 #. Tag: para
 #: help_en.docbook:2873
@@ -4436,11 +4452,9 @@ msgstr ""
 
 #. Tag: emphasis
 #: help_en.docbook:2878
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "David Flogeras <email>dflogera@nbnet.nb.ca</email>"
-msgstr ""
-"Dave Flogeras <email>dflogera@nbnet.nb.ca</email> (module externe « "
-"notch_filter »)"
+msgstr "David Flogeras <email>dflogera@nbnet.nb.ca</email>"
 
 #. Tag: para
 #: help_en.docbook:2881
@@ -4450,25 +4464,21 @@ msgstr ""
 
 #. Tag: emphasis
 #: help_en.docbook:2886
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Gilles Caulier <email>caulier.gilles@free.fr</email>"
-msgstr ""
-"Gilles CAULIER <email>caulier.gilles@free.fr</email> (Internationalisation, "
-"traductions Françaises, bêta testeur)"
+msgstr "Gilles Caulier <email>caulier.gilles@free.fr</email>"
 
 #. Tag: para
 #: help_en.docbook:2889
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "i18n, french translations, splashscreen, beta tester"
-msgstr ""
-"Gilles CAULIER <email>caulier.gilles@free.fr</email> (Internationalisation, "
-"traductions Françaises, bêta testeur)"
+msgstr "Internationalisation, traductions Françaises, bêta testeur"
 
 #. Tag: emphasis
 #: help_en.docbook:2894
 #, no-c-format
 msgid "Pavel Fric <email>pavelfric@seznam.cz</email>"
-msgstr ""
+msgstr "Pavel Fric <email>pavelfric@seznam.cz</email>"
 
 #. Tag: para
 #: help_en.docbook:2897
@@ -4478,10 +4488,9 @@ msgstr ""
 
 #. Tag: emphasis
 #: help_en.docbook:2902
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Ralf Waspe <email>rwaspe@web.de</email>"
-msgstr ""
-"Ralf Waspe <email>rwaspe@web.de</email> (Boîte de dialogue « A propos de »)"
+msgstr "Ralf Waspe <email>rwaspe@web.de</email>"
 
 #. Tag: para
 #: help_en.docbook:2905
@@ -4491,11 +4500,9 @@ msgstr ""
 
 #. Tag: emphasis
 #: help_en.docbook:2910
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email>"
-msgstr ""
-"Sven-Steffen Arndt <email>ssa29@gmx.de</email> (page web, traductions en "
-"Allemand)"
+msgstr "Sven-Steffen Arndt <email>ssa29@gmx.de</email>"
 
 #. Tag: para
 #: help_en.docbook:2913
@@ -4543,7 +4550,7 @@ msgstr ""
 #: help_en.docbook:2942
 #, no-c-format
 msgid "Carsten Lohrke <email>carlo@gentoo.org</email>"
-msgstr ""
+msgstr "Carsten Lohrke <email>carlo@gentoo.org</email>"
 
 #. Tag: para
 #: help_en.docbook:2944
@@ -4555,7 +4562,7 @@ msgstr ""
 #: help_en.docbook:2949
 #, no-c-format
 msgid "Chris Vaill <email>chrisvaill@gmail</email>"
-msgstr ""
+msgstr "Chris Vaill <email>chrisvaill@gmail</email>"
 
 #. Tag: para
 #: help_en.docbook:2951
@@ -4567,7 +4574,7 @@ msgstr ""
 #: help_en.docbook:2956
 #, no-c-format
 msgid "David Faure <email>faure@kde.org</email>"
-msgstr ""
+msgstr "David Faure <email>faure@kde.org</email>"
 
 #. Tag: para
 #: help_en.docbook:2958 help_en.docbook:3039
@@ -4579,7 +4586,7 @@ msgstr ""
 #: help_en.docbook:2963
 #, no-c-format
 msgid "Diederick de Vries <email>diederick76@gmail.com</email>"
-msgstr ""
+msgstr "Diederick de Vries <email>diederick76@gmail.com</email>"
 
 #. Tag: para
 #: help_en.docbook:2966
@@ -4605,7 +4612,7 @@ msgstr ""
 #: help_en.docbook:2979
 #, no-c-format
 msgid "Everaldo Coelho <email>contact@everaldo.com</email>"
-msgstr ""
+msgstr "Everaldo Coelho <email>contact@everaldo.com</email>"
 
 #. Tag: para
 #: help_en.docbook:2981
@@ -4629,7 +4636,7 @@ msgstr ""
 #: help_en.docbook:2993
 #, no-c-format
 msgid "Jaroslav Kysela"
-msgstr ""
+msgstr "Jaroslav Kysela"
 
 #. Tag: para
 #: help_en.docbook:2995
@@ -4641,7 +4648,7 @@ msgstr ""
 #: help_en.docbook:3000
 #, no-c-format
 msgid "Jeff Tranter"
-msgstr ""
+msgstr "Jeff Tranter"
 
 #. Tag: para
 #: help_en.docbook:3002 help_en.docbook:3077
@@ -4653,7 +4660,7 @@ msgstr ""
 #: help_en.docbook:3007
 #, no-c-format
 msgid "Juhana Sadeharju <email>kouhia@nic.funet.fi</email>"
-msgstr ""
+msgstr "Juhana Sadeharju <email>kouhia@nic.funet.fi</email>"
 
 #. Tag: para
 #: help_en.docbook:3009
@@ -4662,12 +4669,14 @@ msgid ""
 "plugins/band_pass/BandPass.{h,cpp}, plugins/lowpass/LowPassFilter.cpp, "
 "plugins/notch_filter/NotchFilter.{h,cpp}"
 msgstr ""
+"plugins/band_pass/BandPass.{h,cpp}, plugins/lowpass/LowPassFilter.cpp, "
+"plugins/notch_filter/NotchFilter.{h,cpp}"
 
 #. Tag: emphasis
 #: help_en.docbook:3016
 #, no-c-format
 msgid "Kurt Roeck <email>Q@ping.be</email>"
-msgstr ""
+msgstr "Kurt Roeck <email>Q@ping.be</email>"
 
 #. Tag: para
 #: help_en.docbook:3018
@@ -4679,7 +4688,7 @@ msgstr ""
 #: help_en.docbook:3023
 #, no-c-format
 msgid "Mark Donohoe (KDE) <email>donohoe@kde.org</email>"
-msgstr ""
+msgstr "Mark Donohoe (KDE) <email>donohoe@kde.org</email>"
 
 #. Tag: para
 #: help_en.docbook:3025
@@ -4689,10 +4698,9 @@ msgstr ""
 
 #. Tag: emphasis
 #: help_en.docbook:3030
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Martin Hinsch <email>vidas@sourceforge.net</email>"
-msgstr ""
-"Martin Kuball <email>makube@user.sourceforge.net</email> (bêta testeur)"
+msgstr "Martin Hinsch <email>vidas@sourceforge.net</email>"
 
 #. Tag: para
 #: help_en.docbook:3032
@@ -4702,17 +4710,15 @@ msgstr ""
 
 #. Tag: emphasis
 #: help_en.docbook:3037
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Matthias Kretz <email>kretz@kde.org</email>"
-msgstr ""
-"Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (pour toutes les "
-"informations concernant les optimisations sur les RPM) </emphasis>"
+msgstr "Matthias Kretz <email>kretz@kde.org</email>"
 
 #. Tag: emphasis
 #: help_en.docbook:3044
 #, no-c-format
 msgid "Miguel Freitas"
-msgstr ""
+msgstr "Miguel Freitas"
 
 #. Tag: para
 #: help_en.docbook:3046
@@ -4724,7 +4730,7 @@ msgstr ""
 #: help_en.docbook:3051
 #, no-c-format
 msgid "Paul Mackerras <email>paulus@samba.org</email>"
-msgstr ""
+msgstr "Paul Mackerras <email>paulus@samba.org</email>"
 
 #. Tag: para
 #: help_en.docbook:3053
@@ -4732,24 +4738,25 @@ msgstr ""
 msgid ""
 "libkwave/ppcasm_string.h, libkwave/ppcasm_string.S, libkwave/ppc_asm.tmpl"
 msgstr ""
+"libkwave/ppcasm_string.h, libkwave/ppcasm_string.S, libkwave/ppc_asm.tmpl"
 
 #. Tag: emphasis
 #: help_en.docbook:3060
 #, no-c-format
 msgid "Richard Laerkaeng, <email>richard@goteborg.utfors.se</email>"
-msgstr ""
+msgstr "Richard Laerkaeng, <email>richard@goteborg.utfors.se</email>"
 
 #. Tag: para
 #: help_en.docbook:3062
 #, no-c-format
 msgid "cmake/FindOggVorbis.cmake"
-msgstr ""
+msgstr "cmake/FindOggVorbis.cmake"
 
 #. Tag: emphasis
 #: help_en.docbook:3067
 #, no-c-format
 msgid "Rik Hemsley <email>rik@kde.org</email>"
-msgstr ""
+msgstr "Rik Hemsley <email>rik@kde.org</email>"
 
 #. Tag: ulink
 #: help_en.docbook:3071
@@ -4761,7 +4768,7 @@ msgstr ""
 #: help_en.docbook:3075
 #, no-c-format
 msgid "Stefan Westerfeld <email>stefan@space.twc.de</email>"
-msgstr ""
+msgstr "Stefan Westerfeld <email>stefan@space.twc.de</email>"
 
 #. Tag: para
 #: help_en.docbook:3082
@@ -4775,7 +4782,7 @@ msgstr ""
 #: help_en.docbook:3084
 #, no-c-format
 msgid "libaudiofile/modules/adpcm.c"
-msgstr ""
+msgstr "libaudiofile/modules/adpcm.c"
 
 #. Tag: para
 #: help_en.docbook:3089
@@ -4789,7 +4796,7 @@ msgstr ""
 #: help_en.docbook:3091
 #, no-c-format
 msgid "libaudiofile/g711.c, libaudiofile/g711.h"
-msgstr ""
+msgstr "libaudiofile/g711.c, libaudiofile/g711.h"
 
 #. Tag: title
 #: help_en.docbook:3099
@@ -4799,22 +4806,21 @@ msgstr ""
 
 #. Tag: emphasis
 #: help_en.docbook:3103
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Martin Kuball <email>makube@user.sourceforge.net</email>"
-msgstr ""
-"Martin Kuball <email>makube@user.sourceforge.net</email> (bêta testeur)"
+msgstr "Martin Kuball <email>makube@user.sourceforge.net</email>"
 
 #. Tag: para
 #: help_en.docbook:3106
 #, no-c-format
 msgid "beta tester"
-msgstr ""
+msgstr "bêta testeur"
 
 #. Tag: emphasis
 #: help_en.docbook:3111
 #, no-c-format
 msgid "Jorge Luis Arzola <email>arzolacub@gmx.de</email>"
-msgstr ""
+msgstr "Jorge Luis Arzola <email>arzolacub@gmx.de</email>"
 
 #. Tag: para
 #: help_en.docbook:3114
@@ -4826,7 +4832,7 @@ msgstr ""
 #: help_en.docbook:3119
 #, no-c-format
 msgid "Michael Favreau <email>michel.favreau@free.fr</email>"
-msgstr ""
+msgstr "Michael Favreau <email>michel.favreau@free.fr</email>"
 
 #. Tag: para
 #: help_en.docbook:3122
@@ -4836,11 +4842,9 @@ msgstr ""
 
 #. Tag: emphasis
 #: help_en.docbook:3128
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Matthias Düsterhöft <email>duesti@gmx.de</email>"
-msgstr ""
-"Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (pour toutes les "
-"informations concernant les optimisations sur les RPM) </emphasis>"
+msgstr "Matthias Düsterhöft <email>duesti@gmx.de</email>"
 
 #. Tag: para
 #: help_en.docbook:3131
@@ -4852,36 +4856,35 @@ msgstr ""
 #: help_en.docbook:3136
 #, no-c-format
 msgid "T.H.F. Klok and Cedric Tefft"
-msgstr ""
+msgstr "T.H.F. Klok and Cedric Tefft"
 
 #. Tag: para
 #: help_en.docbook:3138
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "maintainers of the <ulink url=\"&url_id3lib;\"> id3lib</ulink> library"
 msgstr ""
-"T.H.F. Klok et Cedric Tefft (mainteneurs de la bibliothèque <ulink url="
-"\"&url_id3lib;\"> id3lib</ulink>)"
+"mainteneurs de la bibliothèque <ulink url=\"&url_id3lib;\"> id3lib</ulink>"
 
 #. Tag: emphasis
 #: help_en.docbook:3144
 #, no-c-format
 msgid "Robert Leslie <email>rob@mars.org</email>"
-msgstr ""
+msgstr "Robert Leslie <email>rob@mars.org</email>"
 
 #. Tag: para
 #: help_en.docbook:3147
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "author of the <ulink url=\"&url_libmad;\">mad</ulink> mp3 decoder library"
 msgstr ""
-"Robert Leslie <email>rob@mars.org</email> (auteur de la bibliothèque <ulink "
-"url=\"&url_libmad;\"> « mad »</ulink> pour le décodage des fichiers MP3)"
+"auteur de la bibliothèque <ulink url=\"&url_libmad;\"> « mad »</ulink> pour "
+"le décodage des fichiers MP3"
 
 #. Tag: emphasis
 #: help_en.docbook:3154
 #, no-c-format
 msgid "Robert M. Stockmann <email>stock@stokkie.net</email>"
-msgstr ""
+msgstr "Robert M. Stockmann <email>stock@stokkie.net</email>"
 
 #. Tag: para
 #: help_en.docbook:3157
@@ -4893,30 +4896,30 @@ msgstr ""
 #: help_en.docbook:3162
 #, no-c-format
 msgid "Erik de Castro Lopo <email>erikd@zip.com.au</email>"
-msgstr ""
+msgstr "Erik de Castro Lopo <email>erikd@zip.com.au</email>"
 
 #. Tag: para
 #: help_en.docbook:3165
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "author of the <ulink url=\"&url_libsndfile;\">sndfile</ulink> library"
 msgstr ""
-"Erik de Castro Lopo <email>erikd@zip.com.au</email> (auteur de la "
-"bibliothèque <ulink url=\"&url_libsndfile;\">« sndfile » </ulink>)"
+"auteur de la bibliothèque <ulink url=\"&url_libsndfile;\">« sndfile » </"
+"ulink>"
 
 #. Tag: emphasis
 #: help_en.docbook:3172
 #, no-c-format
 msgid "Michael Pruett <email>mpruett@sgi.com</email>"
-msgstr ""
+msgstr "Michael Pruett <email>mpruett@sgi.com</email>"
 
 #. Tag: para
 #: help_en.docbook:3175
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "author of the <ulink url=\"&url_libaudiofile;\">audiofile</ulink> library"
 msgstr ""
-"Michael Pruett <email>mpruett@sgi.com</email> (auteur de la bibliothèque "
-"<ulink url=\"&url_libaudiofile;\"> « audiofile »</ulink>)"
+"auteur de la bibliothèque <ulink url=\"&url_libaudiofile;\"> « audiofile »</"
+"ulink>"
 
 #, fuzzy
 #~ msgid "2011-11-27"

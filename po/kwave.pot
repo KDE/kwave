@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-15 21:34+0200\n"
+"POT-Creation-Date: 2012-05-17 20:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-
-#: kwave/KwaveSplash.cpp:56
-#, kde-format
-msgctxt "%1=Version number"
-msgid "v%1"
-msgstr ""
 
 #: kwave/KwaveApp.cpp:66
 msgid "Reading configuration..."
@@ -39,6 +33,300 @@ msgstr ""
 
 #: kwave/KwaveApp.cpp:177
 msgid "Startup done"
+msgstr ""
+
+#: kwave/KwaveSplash.cpp:56
+#, kde-format
+msgctxt "%1=Version number"
+msgid "v%1"
+msgstr ""
+
+#: kwave/MainWidget.cpp:873 libkwave/SignalManager.cpp:1780
+msgid "Add Label"
+msgstr ""
+
+#: kwave/MainWidget.cpp:990
+msgid ""
+"There already is a label at the position you have chosen.\n"
+"Do you want to replace it?"
+msgstr ""
+
+#: kwave/MainWidget.cpp:1017
+msgid "Modify Label"
+msgstr ""
+
+#: kwave/PlayerToolBar.cpp:75 kwave/menus_config_i18n.cpp:97
+msgid "Previous"
+msgstr ""
+
+#: kwave/PlayerToolBar.cpp:80 kwave/menus_config_i18n.cpp:110
+msgid "Rewind"
+msgstr ""
+
+#: kwave/PlayerToolBar.cpp:85 plugins/record/RecordPlugin.cpp:57
+#: plugins/record/ui_RecordDlg.h:957 plugins/record/ui_RecordDlg.h:993
+msgid "Record"
+msgstr ""
+
+#: kwave/PlayerToolBar.cpp:90
+msgid "Start playback"
+msgstr ""
+
+#: kwave/PlayerToolBar.cpp:95
+msgid "Start playback and loop"
+msgstr ""
+
+#: kwave/PlayerToolBar.cpp:100
+msgid "Pause playback"
+msgstr ""
+
+#: kwave/PlayerToolBar.cpp:105
+msgid "Stop playback or loop"
+msgstr ""
+
+#: kwave/PlayerToolBar.cpp:110 kwave/menus_config_i18n.cpp:55
+msgid "Forward"
+msgstr ""
+
+#: kwave/PlayerToolBar.cpp:115 kwave/menus_config_i18n.cpp:77
+msgid "Next"
+msgstr ""
+
+#: kwave/TopWidget.cpp:152
+msgid "Loading main menu..."
+msgstr ""
+
+#: kwave/TopWidget.cpp:201
+msgid "Initializing toolbar..."
+msgstr ""
+
+#: kwave/TopWidget.cpp:210
+msgid "Create a new empty file"
+msgstr ""
+
+#: kwave/TopWidget.cpp:215
+msgid "Open an existing file"
+msgstr ""
+
+#: kwave/TopWidget.cpp:220
+msgid "Save the current file"
+msgstr ""
+
+#: kwave/TopWidget.cpp:231
+msgid "Undo"
+msgstr ""
+
+#: kwave/TopWidget.cpp:236
+msgid "Redo"
+msgstr ""
+
+#: kwave/TopWidget.cpp:241 libkwave/SignalManager.cpp:658
+msgid "Cut"
+msgstr ""
+
+#: kwave/TopWidget.cpp:246
+msgid "Copy"
+msgstr ""
+
+#: kwave/TopWidget.cpp:251 libkwave/undo/UndoInsertAction.cpp:41
+msgid "Insert"
+msgstr ""
+
+#: kwave/TopWidget.cpp:259
+msgid "Mute selection"
+msgstr ""
+
+#: kwave/TopWidget.cpp:264
+msgid "Delete selection"
+msgstr ""
+
+#: kwave/TopWidget.cpp:299
+msgid "Zoom to selection"
+msgstr ""
+
+#: kwave/TopWidget.cpp:304
+msgid "Zoom in"
+msgstr ""
+
+#: kwave/TopWidget.cpp:309
+msgid "Zoom out"
+msgstr ""
+
+#: kwave/TopWidget.cpp:314 kwave/menus_config_i18n.cpp:139
+msgid "Zoom to 100%"
+msgstr ""
+
+#: kwave/TopWidget.cpp:319
+msgid "Zoom to all"
+msgstr ""
+
+#: kwave/TopWidget.cpp:326
+msgid "Select zoom factor"
+msgstr ""
+
+#: kwave/TopWidget.cpp:335 kwave/TopWidget.cpp:336 kwave/TopWidget.cpp:337
+#, kde-format
+msgid "%1 ms"
+msgstr ""
+
+#: kwave/TopWidget.cpp:338 kwave/TopWidget.cpp:339 kwave/TopWidget.cpp:340
+#, kde-format
+msgid "%1 sec"
+msgstr ""
+
+#: kwave/TopWidget.cpp:341 kwave/TopWidget.cpp:342 kwave/TopWidget.cpp:343
+#: kwave/TopWidget.cpp:344 kwave/TopWidget.cpp:345 kwave/TopWidget.cpp:346
+#, kde-format
+msgid "%1 min"
+msgstr ""
+
+#: kwave/TopWidget.cpp:390
+msgid "Scanning plugins..."
+msgstr ""
+
+#: kwave/TopWidget.cpp:412 kwave/TopWidget.cpp:413
+msgid "Loading plugins..."
+msgstr ""
+
+#: kwave/TopWidget.cpp:415
+msgid "Ready"
+msgstr ""
+
+#: kwave/TopWidget.cpp:630
+msgid "Reset the toolbar to default settings?"
+msgstr ""
+
+#: kwave/TopWidget.cpp:773
+msgid ""
+"This file has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+
+#: kwave/TopWidget.cpp:837 plugins/codec_audiofile/AudiofileDecoder.cpp:106
+#: plugins/codec_flac/FlacEncoder.cpp:262 plugins/codec_wav/WavDecoder.cpp:351
+#: plugins/codec_wav/WavEncoder.cpp:415 plugins/decoder_mp3/MP3Decoder.cpp:487
+#: plugins/playback/PlayBack-Phonon.cpp:148
+#: plugins/playback/PlayBack-Phonon.cpp:180
+#: plugins/playback/PlayBack-OSS.cpp:244 plugins/record/RecordPlugin.cpp:830
+#: plugins/record/RecordPlugin.cpp:846 plugins/record/RecordPlugin.cpp:912
+msgid "Out of memory"
+msgstr ""
+
+#: kwave/TopWidget.cpp:841
+#, kde-format
+msgctxt "error message after opening a file failed"
+msgid "Unable to open '%1'"
+msgstr ""
+
+#: kwave/TopWidget.cpp:845
+#, kde-format
+msgctxt "error message after opening a file failed"
+msgid "Invalid or unknown file type: '%1'"
+msgstr ""
+
+#: kwave/TopWidget.cpp:881
+msgid "Open"
+msgstr ""
+
+#: kwave/TopWidget.cpp:930
+msgid "Save As"
+msgstr ""
+
+#: kwave/TopWidget.cpp:953
+#, kde-format
+msgid "The file '%1' already exists. Do you really want to overwrite it?"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1177
+#, kde-format
+msgctxt "Length, as in total duration of loaded song"
+msgid "Length: %1 (%2 samples)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1187
+#, kde-format
+msgid "Mode: %1 kHz @ %2 Bit"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1242
+#, kde-format
+msgctxt ""
+"%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
+"2000...3000 (1000 samples)'"
+msgid "Selected: %1...%2 (%3 samples)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1254
+#, kde-format
+msgctxt ""
+"%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
+"(3 min)'"
+msgid "Selected: %1...%2 (%3)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1274
+#, kde-format
+msgid "Position: %1"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1295
+#, kde-format
+msgid "Playback: %1"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1297
+#, kde-format
+msgid "Playback: %1 samples"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1317
+#, kde-format
+msgctxt "tooltip of the undo toolbar button if undo enabled"
+msgid "Undo (%1)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1319
+msgctxt "tooltip of the undo toolbar button if undo disabled"
+msgid "Undo"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1328
+#, kde-format
+msgctxt "tooltip of the redo toolbar button, redo enabled"
+msgid "Redo (%1)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1330
+msgctxt "tooltip of the redo toolbar button, redo disabled"
+msgid "Redo"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1341
+#, kde-format
+msgctxt "menu entry for undo if undo enabled"
+msgid "U&ndo (%1)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1342
+msgctxt "menu entry for undo if undo disabled"
+msgid "U&ndo"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1348
+#, kde-format
+msgctxt "menu entry for redo if redo enabled"
+msgid "R&edo (%1)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1349
+msgctxt "menu entry for redo if redo disabled"
+msgid "R&edo"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1506
+#, kde-format
+msgctxt "%1 = Path to modified file"
+msgid "* %1 (modified)"
 msgstr ""
 
 #: kwave/main.cpp:41
@@ -201,295 +489,6 @@ msgstr ""
 msgid "(c) 2011, Thomas Eschenbacher"
 msgstr ""
 
-#: kwave/TopWidget.cpp:152
-msgid "Loading main menu..."
-msgstr ""
-
-#: kwave/TopWidget.cpp:201
-msgid "Initializing toolbar..."
-msgstr ""
-
-#: kwave/TopWidget.cpp:210
-msgid "Create a new empty file"
-msgstr ""
-
-#: kwave/TopWidget.cpp:215
-msgid "Open an existing file"
-msgstr ""
-
-#: kwave/TopWidget.cpp:220
-msgid "Save the current file"
-msgstr ""
-
-#: kwave/TopWidget.cpp:231
-msgid "Undo"
-msgstr ""
-
-#: kwave/TopWidget.cpp:236
-msgid "Redo"
-msgstr ""
-
-#: kwave/TopWidget.cpp:241 libkwave/SignalManager.cpp:658
-msgid "Cut"
-msgstr ""
-
-#: kwave/TopWidget.cpp:246
-msgid "Copy"
-msgstr ""
-
-#: kwave/TopWidget.cpp:251 libkwave/undo/UndoInsertAction.cpp:41
-msgid "Insert"
-msgstr ""
-
-#: kwave/TopWidget.cpp:259
-msgid "Mute selection"
-msgstr ""
-
-#: kwave/TopWidget.cpp:264
-msgid "Delete selection"
-msgstr ""
-
-#: kwave/TopWidget.cpp:299
-msgid "Zoom to selection"
-msgstr ""
-
-#: kwave/TopWidget.cpp:304
-msgid "Zoom in"
-msgstr ""
-
-#: kwave/TopWidget.cpp:309
-msgid "Zoom out"
-msgstr ""
-
-#: kwave/TopWidget.cpp:314 kwave/menus_config_i18n.cpp:139
-msgid "Zoom to 100%"
-msgstr ""
-
-#: kwave/TopWidget.cpp:319
-msgid "Zoom to all"
-msgstr ""
-
-#: kwave/TopWidget.cpp:326
-msgid "Select zoom factor"
-msgstr ""
-
-#: kwave/TopWidget.cpp:335 kwave/TopWidget.cpp:336 kwave/TopWidget.cpp:337
-#, kde-format
-msgid "%1 ms"
-msgstr ""
-
-#: kwave/TopWidget.cpp:338 kwave/TopWidget.cpp:339 kwave/TopWidget.cpp:340
-#, kde-format
-msgid "%1 sec"
-msgstr ""
-
-#: kwave/TopWidget.cpp:341 kwave/TopWidget.cpp:342 kwave/TopWidget.cpp:343
-#: kwave/TopWidget.cpp:344 kwave/TopWidget.cpp:345 kwave/TopWidget.cpp:346
-#, kde-format
-msgid "%1 min"
-msgstr ""
-
-#: kwave/TopWidget.cpp:390
-msgid "Scanning plugins..."
-msgstr ""
-
-#: kwave/TopWidget.cpp:412 kwave/TopWidget.cpp:413
-msgid "Loading plugins..."
-msgstr ""
-
-#: kwave/TopWidget.cpp:415
-msgid "Ready"
-msgstr ""
-
-#: kwave/TopWidget.cpp:630
-msgid "Reset the toolbar to default settings?"
-msgstr ""
-
-#: kwave/TopWidget.cpp:773
-msgid ""
-"This file has been modified.\n"
-"Do you want to save it?"
-msgstr ""
-
-#: kwave/TopWidget.cpp:837 plugins/codec_audiofile/AudiofileDecoder.cpp:106
-#: plugins/codec_flac/FlacEncoder.cpp:262 plugins/codec_wav/WavDecoder.cpp:351
-#: plugins/codec_wav/WavEncoder.cpp:415 plugins/decoder_mp3/MP3Decoder.cpp:487
-#: plugins/playback/PlayBack-OSS.cpp:244
-#: plugins/playback/PlayBack-Phonon.cpp:148
-#: plugins/playback/PlayBack-Phonon.cpp:180
-#: plugins/record/RecordPlugin.cpp:830 plugins/record/RecordPlugin.cpp:846
-#: plugins/record/RecordPlugin.cpp:912
-msgid "Out of memory"
-msgstr ""
-
-#: kwave/TopWidget.cpp:841
-#, kde-format
-msgctxt "error message after opening a file failed"
-msgid "Unable to open '%1'"
-msgstr ""
-
-#: kwave/TopWidget.cpp:845
-#, kde-format
-msgctxt "error message after opening a file failed"
-msgid "Invalid or unknown file type: '%1'"
-msgstr ""
-
-#: kwave/TopWidget.cpp:881
-msgid "Open"
-msgstr ""
-
-#: kwave/TopWidget.cpp:930
-msgid "Save As"
-msgstr ""
-
-#: kwave/TopWidget.cpp:953
-#, kde-format
-msgid "The file '%1' already exists. Do you really want to overwrite it?"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1177
-#, kde-format
-msgctxt "Length, as in total duration of loaded song"
-msgid "Length: %1 (%2 samples)"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1187
-#, kde-format
-msgid "Mode: %1 kHz @ %2 Bit"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1242
-#, kde-format
-msgctxt ""
-"%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
-"2000...3000 (1000 samples)'"
-msgid "Selected: %1...%2 (%3 samples)"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1254
-#, kde-format
-msgctxt ""
-"%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
-"(3 min)'"
-msgid "Selected: %1...%2 (%3)"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1274
-#, kde-format
-msgid "Position: %1"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1295
-#, kde-format
-msgid "Playback: %1"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1297
-#, kde-format
-msgid "Playback: %1 samples"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1317
-#, kde-format
-msgctxt "tooltip of the undo toolbar button if undo enabled"
-msgid "Undo (%1)"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1319
-msgctxt "tooltip of the undo toolbar button if undo disabled"
-msgid "Undo"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1328
-#, kde-format
-msgctxt "tooltip of the redo toolbar button, redo enabled"
-msgid "Redo (%1)"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1330
-msgctxt "tooltip of the redo toolbar button, redo disabled"
-msgid "Redo"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1341
-#, kde-format
-msgctxt "menu entry for undo if undo enabled"
-msgid "U&ndo (%1)"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1342
-msgctxt "menu entry for undo if undo disabled"
-msgid "U&ndo"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1348
-#, kde-format
-msgctxt "menu entry for redo if redo enabled"
-msgid "R&edo (%1)"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1349
-msgctxt "menu entry for redo if redo disabled"
-msgid "R&edo"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1506
-#, kde-format
-msgctxt "%1 = Path to modified file"
-msgid "* %1 (modified)"
-msgstr ""
-
-#: kwave/PlayerToolBar.cpp:75 kwave/menus_config_i18n.cpp:97
-msgid "Previous"
-msgstr ""
-
-#: kwave/PlayerToolBar.cpp:80 kwave/menus_config_i18n.cpp:110
-msgid "Rewind"
-msgstr ""
-
-#: kwave/PlayerToolBar.cpp:85 plugins/record/RecordPlugin.cpp:57
-#: plugins/record/ui_RecordDlg.h:957 plugins/record/ui_RecordDlg.h:993
-msgid "Record"
-msgstr ""
-
-#: kwave/PlayerToolBar.cpp:90
-msgid "Start playback"
-msgstr ""
-
-#: kwave/PlayerToolBar.cpp:95
-msgid "Start playback and loop"
-msgstr ""
-
-#: kwave/PlayerToolBar.cpp:100
-msgid "Pause playback"
-msgstr ""
-
-#: kwave/PlayerToolBar.cpp:105
-msgid "Stop playback or loop"
-msgstr ""
-
-#: kwave/PlayerToolBar.cpp:110 kwave/menus_config_i18n.cpp:55
-msgid "Forward"
-msgstr ""
-
-#: kwave/PlayerToolBar.cpp:115 kwave/menus_config_i18n.cpp:77
-msgid "Next"
-msgstr ""
-
-#: kwave/MainWidget.cpp:873 libkwave/SignalManager.cpp:1780
-msgid "Add Label"
-msgstr ""
-
-#: kwave/MainWidget.cpp:990
-msgid ""
-"There already is a label at the position you have chosen.\n"
-"Do you want to replace it?"
-msgstr ""
-
-#: kwave/MainWidget.cpp:1017
-msgid "Modify Label"
-msgstr ""
-
 #: libgui/CurveWidget.cpp:74
 msgid "Interpolation"
 msgstr ""
@@ -634,40 +633,6 @@ msgstr ""
 msgid "To Previous Labels"
 msgstr ""
 
-#: libkwave/undo/UndoDeleteTrack.cpp:45 libkwave/SignalManager.cpp:905
-msgid "Delete Track"
-msgstr ""
-
-#: libkwave/undo/UndoInsertTrack.cpp:39 libkwave/SignalManager.cpp:864
-msgid "Insert Track"
-msgstr ""
-
-#: libkwave/undo/UndoSelection.cpp:51
-msgid "Selection"
-msgstr ""
-
-#: libkwave/undo/UndoModifyAction.cpp:47
-msgid "Modify Samples"
-msgstr ""
-
-#: libkwave/undo/UndoModifyMetaDataAction.cpp:57
-#, kde-format
-msgctxt "name of the undo action for modifying a meta data object"
-msgid "Modify %1"
-msgstr ""
-
-#: libkwave/undo/UndoModifyMetaDataAction.cpp:76
-#, kde-format
-msgctxt ""
-"name of the undo action for modifying multiple meta data objects of the same "
-"type: %1=number of elements, %2=name of one element in singular"
-msgid "Modify %1 %2 objects"
-msgstr ""
-
-#: libkwave/undo/UndoModifyMetaDataAction.cpp:81
-msgid "Modify Meta Data"
-msgstr ""
-
 #: libkwave/undo/UndoAddMetaDataAction.cpp:103
 #, kde-format
 msgctxt "name of the undo action for inserting a meta data object"
@@ -704,598 +669,38 @@ msgstr ""
 msgid "Delete Meta Data"
 msgstr ""
 
-#: libkwave/CodecManager.cpp:186
-msgid "Kwave Macro Files"
+#: libkwave/undo/UndoDeleteTrack.cpp:45 libkwave/SignalManager.cpp:905
+msgid "Delete Track"
 msgstr ""
 
-#: libkwave/CodecManager.cpp:190
-msgid "All Files"
+#: libkwave/undo/UndoInsertTrack.cpp:39 libkwave/SignalManager.cpp:864
+msgid "Insert Track"
 msgstr ""
 
-#: libkwave/CodecManager.cpp:191
-msgid "All Supported Files"
+#: libkwave/undo/UndoModifyAction.cpp:47
+msgid "Modify Samples"
 msgstr ""
 
-#: libkwave/ConfirmCancelProxy.cpp:50
-msgid "Do you really want to abort the current action?"
+#: libkwave/undo/UndoModifyMetaDataAction.cpp:57
+#, kde-format
+msgctxt "name of the undo action for modifying a meta data object"
+msgid "Modify %1"
 msgstr ""
 
-#: libkwave/Functions.cpp:100
-msgid "Sinus"
+#: libkwave/undo/UndoModifyMetaDataAction.cpp:76
+#, kde-format
+msgctxt ""
+"name of the undo action for modifying multiple meta data objects of the same "
+"type: %1=number of elements, %2=name of one element in singular"
+msgid "Modify %1 %2 objects"
 msgstr ""
 
-#: libkwave/Functions.cpp:101
-msgid "Rectangular"
+#: libkwave/undo/UndoModifyMetaDataAction.cpp:81
+msgid "Modify Meta Data"
 msgstr ""
 
-#: libkwave/Functions.cpp:102
-msgid "Sawtooth"
-msgstr ""
-
-#: libkwave/Functions.cpp:103
-msgid "Inverse Sawtooth"
-msgstr ""
-
-#: libkwave/Functions.cpp:104 libkwave/WindowFunction.cpp:49
-msgid "Triangular"
-msgstr ""
-
-#: libkwave/Functions.cpp:105
-msgid "Square Sinus"
-msgstr ""
-
-#: libkwave/Functions.cpp:106
-msgid "Cubic Sinus"
-msgstr ""
-
-#: libkwave/Functions.cpp:107
-msgid "Zero"
-msgstr ""
-
-#: libkwave/GenreType.cpp:77
-msgid "Blues"
-msgstr ""
-
-#: libkwave/GenreType.cpp:78
-msgid "Classic Rock"
-msgstr ""
-
-#: libkwave/GenreType.cpp:79
-msgid "Country"
-msgstr ""
-
-#: libkwave/GenreType.cpp:80
-msgid "Dance"
-msgstr ""
-
-#: libkwave/GenreType.cpp:81
-msgid "Disco"
-msgstr ""
-
-#: libkwave/GenreType.cpp:82
-msgid "Funk"
-msgstr ""
-
-#: libkwave/GenreType.cpp:83
-msgid "Grunge"
-msgstr ""
-
-#: libkwave/GenreType.cpp:84
-msgid "Hip-Hop"
-msgstr ""
-
-#: libkwave/GenreType.cpp:85
-msgid "Jazz"
-msgstr ""
-
-#: libkwave/GenreType.cpp:86
-msgid "Metal"
-msgstr ""
-
-#: libkwave/GenreType.cpp:87
-msgid "New Age"
-msgstr ""
-
-#: libkwave/GenreType.cpp:88
-msgid "Oldies"
-msgstr ""
-
-#: libkwave/GenreType.cpp:89
-msgid "Other"
-msgstr ""
-
-#: libkwave/GenreType.cpp:90
-msgid "Pop"
-msgstr ""
-
-#: libkwave/GenreType.cpp:91
-msgid "R&B"
-msgstr ""
-
-#: libkwave/GenreType.cpp:92
-msgid "Rap"
-msgstr ""
-
-#: libkwave/GenreType.cpp:93
-msgid "Reggae"
-msgstr ""
-
-#: libkwave/GenreType.cpp:94
-msgid "Rock"
-msgstr ""
-
-#: libkwave/GenreType.cpp:95
-msgid "Techno"
-msgstr ""
-
-#: libkwave/GenreType.cpp:96
-msgid "Industrial"
-msgstr ""
-
-#: libkwave/GenreType.cpp:97
-msgid "Alternative"
-msgstr ""
-
-#: libkwave/GenreType.cpp:98
-msgid "Ska"
-msgstr ""
-
-#: libkwave/GenreType.cpp:99
-msgid "Death Metal"
-msgstr ""
-
-#: libkwave/GenreType.cpp:100
-msgid "Pranks"
-msgstr ""
-
-#: libkwave/GenreType.cpp:101
-msgid "Soundtrack"
-msgstr ""
-
-#: libkwave/GenreType.cpp:102
-msgid "Euro-Techno"
-msgstr ""
-
-#: libkwave/GenreType.cpp:103
-msgid "Ambient"
-msgstr ""
-
-#: libkwave/GenreType.cpp:104
-msgid "Trip-Hop"
-msgstr ""
-
-#: libkwave/GenreType.cpp:105
-msgid "Vocal"
-msgstr ""
-
-#: libkwave/GenreType.cpp:106
-msgid "Jazz+Funk"
-msgstr ""
-
-#: libkwave/GenreType.cpp:107
-msgid "Fusion"
-msgstr ""
-
-#: libkwave/GenreType.cpp:108
-msgid "Trance"
-msgstr ""
-
-#: libkwave/GenreType.cpp:109
-msgid "Classical"
-msgstr ""
-
-#: libkwave/GenreType.cpp:110
-msgid "Instrumental"
-msgstr ""
-
-#: libkwave/GenreType.cpp:111
-msgid "Acid"
-msgstr ""
-
-#: libkwave/GenreType.cpp:112
-msgid "House"
-msgstr ""
-
-#: libkwave/GenreType.cpp:113
-msgid "Game"
-msgstr ""
-
-#: libkwave/GenreType.cpp:114
-msgid "Sound Clip"
-msgstr ""
-
-#: libkwave/GenreType.cpp:115
-msgid "Gospel"
-msgstr ""
-
-#: libkwave/GenreType.cpp:116 plugins/noise/NoisePlugin.cpp:48
-msgid "Noise"
-msgstr ""
-
-#: libkwave/GenreType.cpp:117
-msgid "AlternRock"
-msgstr ""
-
-#: libkwave/GenreType.cpp:118
-msgid "Bass"
-msgstr ""
-
-#: libkwave/GenreType.cpp:119
-msgid "Soul"
-msgstr ""
-
-#: libkwave/GenreType.cpp:120
-msgid "Punk"
-msgstr ""
-
-#: libkwave/GenreType.cpp:121
-msgid "Space"
-msgstr ""
-
-#: libkwave/GenreType.cpp:122
-msgid "Meditative"
-msgstr ""
-
-#: libkwave/GenreType.cpp:123
-msgid "Instrumental Pop"
-msgstr ""
-
-#: libkwave/GenreType.cpp:124
-msgid "Instrumental Rock"
-msgstr ""
-
-#: libkwave/GenreType.cpp:125
-msgid "Ethnic"
-msgstr ""
-
-#: libkwave/GenreType.cpp:126
-msgid "Gothic"
-msgstr ""
-
-#: libkwave/GenreType.cpp:127
-msgid "Darkwave"
-msgstr ""
-
-#: libkwave/GenreType.cpp:128
-msgid "Techno-Industrial"
-msgstr ""
-
-#: libkwave/GenreType.cpp:129
-msgid "Electronic"
-msgstr ""
-
-#: libkwave/GenreType.cpp:130
-msgid "Pop-Folk"
-msgstr ""
-
-#: libkwave/GenreType.cpp:131
-msgid "Eurodance"
-msgstr ""
-
-#: libkwave/GenreType.cpp:132
-msgid "Dream"
-msgstr ""
-
-#: libkwave/GenreType.cpp:133
-msgid "Southern Rock"
-msgstr ""
-
-#: libkwave/GenreType.cpp:134
-msgid "Comedy"
-msgstr ""
-
-#: libkwave/GenreType.cpp:135
-msgid "Cult"
-msgstr ""
-
-#: libkwave/GenreType.cpp:136
-msgid "Gangsta"
-msgstr ""
-
-#: libkwave/GenreType.cpp:137
-msgid "Top 40"
-msgstr ""
-
-#: libkwave/GenreType.cpp:138
-msgid "Christian Rap"
-msgstr ""
-
-#: libkwave/GenreType.cpp:139
-msgid "Pop/Funk"
-msgstr ""
-
-#: libkwave/GenreType.cpp:140
-msgid "Jungle"
-msgstr ""
-
-#: libkwave/GenreType.cpp:141
-msgid "Native American"
-msgstr ""
-
-#: libkwave/GenreType.cpp:142
-msgid "Cabaret"
-msgstr ""
-
-#: libkwave/GenreType.cpp:143
-msgid "New Wave"
-msgstr ""
-
-#: libkwave/GenreType.cpp:144
-msgid "Psychedelic"
-msgstr ""
-
-#: libkwave/GenreType.cpp:145
-msgid "Rave"
-msgstr ""
-
-#: libkwave/GenreType.cpp:146
-msgid "Showtunes"
-msgstr ""
-
-#: libkwave/GenreType.cpp:147
-msgid "Trailer"
-msgstr ""
-
-#: libkwave/GenreType.cpp:148
-msgid "Lo-Fi"
-msgstr ""
-
-#: libkwave/GenreType.cpp:149
-msgid "Tribal"
-msgstr ""
-
-#: libkwave/GenreType.cpp:150
-msgid "Acid Punk"
-msgstr ""
-
-#: libkwave/GenreType.cpp:151
-msgid "Acid Jazz"
-msgstr ""
-
-#: libkwave/GenreType.cpp:152
-msgid "Polka"
-msgstr ""
-
-#: libkwave/GenreType.cpp:153
-msgid "Retro"
-msgstr ""
-
-#: libkwave/GenreType.cpp:154
-msgid "Musical"
-msgstr ""
-
-#: libkwave/GenreType.cpp:155
-msgid "Rock & Roll"
-msgstr ""
-
-#: libkwave/GenreType.cpp:156
-msgid "Hard Rock"
-msgstr ""
-
-#: libkwave/GenreType.cpp:159
-msgid "Folk"
-msgstr ""
-
-#: libkwave/GenreType.cpp:160
-msgid "Folk-Rock"
-msgstr ""
-
-#: libkwave/GenreType.cpp:161
-msgid "National Folk"
-msgstr ""
-
-#: libkwave/GenreType.cpp:162
-msgid "Swing"
-msgstr ""
-
-#: libkwave/GenreType.cpp:163
-msgid "Fast Fusion"
-msgstr ""
-
-#: libkwave/GenreType.cpp:164
-msgid "Bebob"
-msgstr ""
-
-#: libkwave/GenreType.cpp:165
-msgid "Latin"
-msgstr ""
-
-#: libkwave/GenreType.cpp:166
-msgid "Revival"
-msgstr ""
-
-#: libkwave/GenreType.cpp:167
-msgid "Celtic"
-msgstr ""
-
-#: libkwave/GenreType.cpp:168
-msgid "Bluegrass"
-msgstr ""
-
-#: libkwave/GenreType.cpp:169
-msgid "Avantgarde"
-msgstr ""
-
-#: libkwave/GenreType.cpp:170
-msgid "Gothic Rock"
-msgstr ""
-
-#: libkwave/GenreType.cpp:171
-msgid "Progressive Rock"
-msgstr ""
-
-#: libkwave/GenreType.cpp:172
-msgid "Psychedelic Rock"
-msgstr ""
-
-#: libkwave/GenreType.cpp:173
-msgid "Symphonic Rock"
-msgstr ""
-
-#: libkwave/GenreType.cpp:174
-msgid "Slow Rock"
-msgstr ""
-
-#: libkwave/GenreType.cpp:175
-msgid "Big Band"
-msgstr ""
-
-#: libkwave/GenreType.cpp:176
-msgid "Chorus"
-msgstr ""
-
-#: libkwave/GenreType.cpp:177
-msgid "Easy Listening"
-msgstr ""
-
-#: libkwave/GenreType.cpp:178
-msgid "Acoustic"
-msgstr ""
-
-#: libkwave/GenreType.cpp:179
-msgid "Humour"
-msgstr ""
-
-#: libkwave/GenreType.cpp:180
-msgid "Speech"
-msgstr ""
-
-#: libkwave/GenreType.cpp:181
-msgid "Chanson"
-msgstr ""
-
-#: libkwave/GenreType.cpp:182
-msgid "Opera"
-msgstr ""
-
-#: libkwave/GenreType.cpp:183
-msgid "Chamber Music"
-msgstr ""
-
-#: libkwave/GenreType.cpp:184
-msgid "Sonata"
-msgstr ""
-
-#: libkwave/GenreType.cpp:185
-msgid "Symphony"
-msgstr ""
-
-#: libkwave/GenreType.cpp:186
-msgid "Booty Bass"
-msgstr ""
-
-#: libkwave/GenreType.cpp:187
-msgid "Primus"
-msgstr ""
-
-#: libkwave/GenreType.cpp:188
-msgid "Porn Groove"
-msgstr ""
-
-#: libkwave/GenreType.cpp:189
-msgid "Satire"
-msgstr ""
-
-#: libkwave/GenreType.cpp:190
-msgid "Slow Jam"
-msgstr ""
-
-#: libkwave/GenreType.cpp:191
-msgid "Club"
-msgstr ""
-
-#: libkwave/GenreType.cpp:192
-msgid "Tango"
-msgstr ""
-
-#: libkwave/GenreType.cpp:193
-msgid "Samba"
-msgstr ""
-
-#: libkwave/GenreType.cpp:194
-msgid "Folklore"
-msgstr ""
-
-#: libkwave/GenreType.cpp:195
-msgid "Ballad"
-msgstr ""
-
-#: libkwave/GenreType.cpp:196
-msgid "Power Ballad"
-msgstr ""
-
-#: libkwave/GenreType.cpp:197
-msgid "Rhythmic Soul"
-msgstr ""
-
-#: libkwave/GenreType.cpp:198
-msgid "Freestyle"
-msgstr ""
-
-#: libkwave/GenreType.cpp:199
-msgid "Duet"
-msgstr ""
-
-#: libkwave/GenreType.cpp:200
-msgid "Punk Rock"
-msgstr ""
-
-#: libkwave/GenreType.cpp:201
-msgid "Drum Solo"
-msgstr ""
-
-#: libkwave/GenreType.cpp:202
-msgid "Acapella"
-msgstr ""
-
-#: libkwave/GenreType.cpp:203
-msgid "Euro-House"
-msgstr ""
-
-#: libkwave/GenreType.cpp:204
-msgid "Dance Hall"
-msgstr ""
-
-#: libkwave/GenreType.cpp:213
-msgid "Unknown"
-msgstr ""
-
-#: libkwave/Utils.cpp:112
-#, c-format
-msgctxt "time of label tooltip, %1=hour, %2=minute, %3=second, %4=milliseconds"
-msgid "%02u:%02u:%02u.%04u"
-msgstr ""
-
-#: libkwave/WindowFunction.cpp:45 plugins/fileinfo/ui_FileInfoDlg.h:1312
-msgid "None"
-msgstr ""
-
-#: libkwave/WindowFunction.cpp:46
-msgid "Hamming"
-msgstr ""
-
-#: libkwave/WindowFunction.cpp:47
-msgid "Hanning"
-msgstr ""
-
-#: libkwave/WindowFunction.cpp:48
-msgid "Blackman"
-msgstr ""
-
-#: libkwave/SampleFormat.cpp:36
-msgid "Linear Two's Complement"
-msgstr ""
-
-#: libkwave/SampleFormat.cpp:38
-msgid "Unsigned Integer"
-msgstr ""
-
-#: libkwave/SampleFormat.cpp:40
-msgid "32-bit IEEE Floating-Point"
-msgstr ""
-
-#: libkwave/SampleFormat.cpp:42
-msgid "64-bit IEEE Double Precision Floating-Point"
+#: libkwave/undo/UndoSelection.cpp:51
+msgid "Selection"
 msgstr ""
 
 #: libkwave/CompressionType.cpp:39
@@ -1939,6 +1344,523 @@ msgstr ""
 msgid "%1 samples"
 msgstr ""
 
+#: libkwave/Label.h:55
+msgid "Label"
+msgstr ""
+
+#: libkwave/GenreType.cpp:77
+msgid "Blues"
+msgstr ""
+
+#: libkwave/GenreType.cpp:78
+msgid "Classic Rock"
+msgstr ""
+
+#: libkwave/GenreType.cpp:79
+msgid "Country"
+msgstr ""
+
+#: libkwave/GenreType.cpp:80
+msgid "Dance"
+msgstr ""
+
+#: libkwave/GenreType.cpp:81
+msgid "Disco"
+msgstr ""
+
+#: libkwave/GenreType.cpp:82
+msgid "Funk"
+msgstr ""
+
+#: libkwave/GenreType.cpp:83
+msgid "Grunge"
+msgstr ""
+
+#: libkwave/GenreType.cpp:84
+msgid "Hip-Hop"
+msgstr ""
+
+#: libkwave/GenreType.cpp:85
+msgid "Jazz"
+msgstr ""
+
+#: libkwave/GenreType.cpp:86
+msgid "Metal"
+msgstr ""
+
+#: libkwave/GenreType.cpp:87
+msgid "New Age"
+msgstr ""
+
+#: libkwave/GenreType.cpp:88
+msgid "Oldies"
+msgstr ""
+
+#: libkwave/GenreType.cpp:89
+msgid "Other"
+msgstr ""
+
+#: libkwave/GenreType.cpp:90
+msgid "Pop"
+msgstr ""
+
+#: libkwave/GenreType.cpp:91
+msgid "R&B"
+msgstr ""
+
+#: libkwave/GenreType.cpp:92
+msgid "Rap"
+msgstr ""
+
+#: libkwave/GenreType.cpp:93
+msgid "Reggae"
+msgstr ""
+
+#: libkwave/GenreType.cpp:94
+msgid "Rock"
+msgstr ""
+
+#: libkwave/GenreType.cpp:95
+msgid "Techno"
+msgstr ""
+
+#: libkwave/GenreType.cpp:96
+msgid "Industrial"
+msgstr ""
+
+#: libkwave/GenreType.cpp:97
+msgid "Alternative"
+msgstr ""
+
+#: libkwave/GenreType.cpp:98
+msgid "Ska"
+msgstr ""
+
+#: libkwave/GenreType.cpp:99
+msgid "Death Metal"
+msgstr ""
+
+#: libkwave/GenreType.cpp:100
+msgid "Pranks"
+msgstr ""
+
+#: libkwave/GenreType.cpp:101
+msgid "Soundtrack"
+msgstr ""
+
+#: libkwave/GenreType.cpp:102
+msgid "Euro-Techno"
+msgstr ""
+
+#: libkwave/GenreType.cpp:103
+msgid "Ambient"
+msgstr ""
+
+#: libkwave/GenreType.cpp:104
+msgid "Trip-Hop"
+msgstr ""
+
+#: libkwave/GenreType.cpp:105
+msgid "Vocal"
+msgstr ""
+
+#: libkwave/GenreType.cpp:106
+msgid "Jazz+Funk"
+msgstr ""
+
+#: libkwave/GenreType.cpp:107
+msgid "Fusion"
+msgstr ""
+
+#: libkwave/GenreType.cpp:108
+msgid "Trance"
+msgstr ""
+
+#: libkwave/GenreType.cpp:109
+msgid "Classical"
+msgstr ""
+
+#: libkwave/GenreType.cpp:110
+msgid "Instrumental"
+msgstr ""
+
+#: libkwave/GenreType.cpp:111
+msgid "Acid"
+msgstr ""
+
+#: libkwave/GenreType.cpp:112
+msgid "House"
+msgstr ""
+
+#: libkwave/GenreType.cpp:113
+msgid "Game"
+msgstr ""
+
+#: libkwave/GenreType.cpp:114
+msgid "Sound Clip"
+msgstr ""
+
+#: libkwave/GenreType.cpp:115
+msgid "Gospel"
+msgstr ""
+
+#: libkwave/GenreType.cpp:116 plugins/noise/NoisePlugin.cpp:48
+msgid "Noise"
+msgstr ""
+
+#: libkwave/GenreType.cpp:117
+msgid "AlternRock"
+msgstr ""
+
+#: libkwave/GenreType.cpp:118
+msgid "Bass"
+msgstr ""
+
+#: libkwave/GenreType.cpp:119
+msgid "Soul"
+msgstr ""
+
+#: libkwave/GenreType.cpp:120
+msgid "Punk"
+msgstr ""
+
+#: libkwave/GenreType.cpp:121
+msgid "Space"
+msgstr ""
+
+#: libkwave/GenreType.cpp:122
+msgid "Meditative"
+msgstr ""
+
+#: libkwave/GenreType.cpp:123
+msgid "Instrumental Pop"
+msgstr ""
+
+#: libkwave/GenreType.cpp:124
+msgid "Instrumental Rock"
+msgstr ""
+
+#: libkwave/GenreType.cpp:125
+msgid "Ethnic"
+msgstr ""
+
+#: libkwave/GenreType.cpp:126
+msgid "Gothic"
+msgstr ""
+
+#: libkwave/GenreType.cpp:127
+msgid "Darkwave"
+msgstr ""
+
+#: libkwave/GenreType.cpp:128
+msgid "Techno-Industrial"
+msgstr ""
+
+#: libkwave/GenreType.cpp:129
+msgid "Electronic"
+msgstr ""
+
+#: libkwave/GenreType.cpp:130
+msgid "Pop-Folk"
+msgstr ""
+
+#: libkwave/GenreType.cpp:131
+msgid "Eurodance"
+msgstr ""
+
+#: libkwave/GenreType.cpp:132
+msgid "Dream"
+msgstr ""
+
+#: libkwave/GenreType.cpp:133
+msgid "Southern Rock"
+msgstr ""
+
+#: libkwave/GenreType.cpp:134
+msgid "Comedy"
+msgstr ""
+
+#: libkwave/GenreType.cpp:135
+msgid "Cult"
+msgstr ""
+
+#: libkwave/GenreType.cpp:136
+msgid "Gangsta"
+msgstr ""
+
+#: libkwave/GenreType.cpp:137
+msgid "Top 40"
+msgstr ""
+
+#: libkwave/GenreType.cpp:138
+msgid "Christian Rap"
+msgstr ""
+
+#: libkwave/GenreType.cpp:139
+msgid "Pop/Funk"
+msgstr ""
+
+#: libkwave/GenreType.cpp:140
+msgid "Jungle"
+msgstr ""
+
+#: libkwave/GenreType.cpp:141
+msgid "Native American"
+msgstr ""
+
+#: libkwave/GenreType.cpp:142
+msgid "Cabaret"
+msgstr ""
+
+#: libkwave/GenreType.cpp:143
+msgid "New Wave"
+msgstr ""
+
+#: libkwave/GenreType.cpp:144
+msgid "Psychedelic"
+msgstr ""
+
+#: libkwave/GenreType.cpp:145
+msgid "Rave"
+msgstr ""
+
+#: libkwave/GenreType.cpp:146
+msgid "Showtunes"
+msgstr ""
+
+#: libkwave/GenreType.cpp:147
+msgid "Trailer"
+msgstr ""
+
+#: libkwave/GenreType.cpp:148
+msgid "Lo-Fi"
+msgstr ""
+
+#: libkwave/GenreType.cpp:149
+msgid "Tribal"
+msgstr ""
+
+#: libkwave/GenreType.cpp:150
+msgid "Acid Punk"
+msgstr ""
+
+#: libkwave/GenreType.cpp:151
+msgid "Acid Jazz"
+msgstr ""
+
+#: libkwave/GenreType.cpp:152
+msgid "Polka"
+msgstr ""
+
+#: libkwave/GenreType.cpp:153
+msgid "Retro"
+msgstr ""
+
+#: libkwave/GenreType.cpp:154
+msgid "Musical"
+msgstr ""
+
+#: libkwave/GenreType.cpp:155
+msgid "Rock & Roll"
+msgstr ""
+
+#: libkwave/GenreType.cpp:156
+msgid "Hard Rock"
+msgstr ""
+
+#: libkwave/GenreType.cpp:159
+msgid "Folk"
+msgstr ""
+
+#: libkwave/GenreType.cpp:160
+msgid "Folk-Rock"
+msgstr ""
+
+#: libkwave/GenreType.cpp:161
+msgid "National Folk"
+msgstr ""
+
+#: libkwave/GenreType.cpp:162
+msgid "Swing"
+msgstr ""
+
+#: libkwave/GenreType.cpp:163
+msgid "Fast Fusion"
+msgstr ""
+
+#: libkwave/GenreType.cpp:164
+msgid "Bebob"
+msgstr ""
+
+#: libkwave/GenreType.cpp:165
+msgid "Latin"
+msgstr ""
+
+#: libkwave/GenreType.cpp:166
+msgid "Revival"
+msgstr ""
+
+#: libkwave/GenreType.cpp:167
+msgid "Celtic"
+msgstr ""
+
+#: libkwave/GenreType.cpp:168
+msgid "Bluegrass"
+msgstr ""
+
+#: libkwave/GenreType.cpp:169
+msgid "Avantgarde"
+msgstr ""
+
+#: libkwave/GenreType.cpp:170
+msgid "Gothic Rock"
+msgstr ""
+
+#: libkwave/GenreType.cpp:171
+msgid "Progressive Rock"
+msgstr ""
+
+#: libkwave/GenreType.cpp:172
+msgid "Psychedelic Rock"
+msgstr ""
+
+#: libkwave/GenreType.cpp:173
+msgid "Symphonic Rock"
+msgstr ""
+
+#: libkwave/GenreType.cpp:174
+msgid "Slow Rock"
+msgstr ""
+
+#: libkwave/GenreType.cpp:175
+msgid "Big Band"
+msgstr ""
+
+#: libkwave/GenreType.cpp:176
+msgid "Chorus"
+msgstr ""
+
+#: libkwave/GenreType.cpp:177
+msgid "Easy Listening"
+msgstr ""
+
+#: libkwave/GenreType.cpp:178
+msgid "Acoustic"
+msgstr ""
+
+#: libkwave/GenreType.cpp:179
+msgid "Humour"
+msgstr ""
+
+#: libkwave/GenreType.cpp:180
+msgid "Speech"
+msgstr ""
+
+#: libkwave/GenreType.cpp:181
+msgid "Chanson"
+msgstr ""
+
+#: libkwave/GenreType.cpp:182
+msgid "Opera"
+msgstr ""
+
+#: libkwave/GenreType.cpp:183
+msgid "Chamber Music"
+msgstr ""
+
+#: libkwave/GenreType.cpp:184
+msgid "Sonata"
+msgstr ""
+
+#: libkwave/GenreType.cpp:185
+msgid "Symphony"
+msgstr ""
+
+#: libkwave/GenreType.cpp:186
+msgid "Booty Bass"
+msgstr ""
+
+#: libkwave/GenreType.cpp:187
+msgid "Primus"
+msgstr ""
+
+#: libkwave/GenreType.cpp:188
+msgid "Porn Groove"
+msgstr ""
+
+#: libkwave/GenreType.cpp:189
+msgid "Satire"
+msgstr ""
+
+#: libkwave/GenreType.cpp:190
+msgid "Slow Jam"
+msgstr ""
+
+#: libkwave/GenreType.cpp:191
+msgid "Club"
+msgstr ""
+
+#: libkwave/GenreType.cpp:192
+msgid "Tango"
+msgstr ""
+
+#: libkwave/GenreType.cpp:193
+msgid "Samba"
+msgstr ""
+
+#: libkwave/GenreType.cpp:194
+msgid "Folklore"
+msgstr ""
+
+#: libkwave/GenreType.cpp:195
+msgid "Ballad"
+msgstr ""
+
+#: libkwave/GenreType.cpp:196
+msgid "Power Ballad"
+msgstr ""
+
+#: libkwave/GenreType.cpp:197
+msgid "Rhythmic Soul"
+msgstr ""
+
+#: libkwave/GenreType.cpp:198
+msgid "Freestyle"
+msgstr ""
+
+#: libkwave/GenreType.cpp:199
+msgid "Duet"
+msgstr ""
+
+#: libkwave/GenreType.cpp:200
+msgid "Punk Rock"
+msgstr ""
+
+#: libkwave/GenreType.cpp:201
+msgid "Drum Solo"
+msgstr ""
+
+#: libkwave/GenreType.cpp:202
+msgid "Acapella"
+msgstr ""
+
+#: libkwave/GenreType.cpp:203
+msgid "Euro-House"
+msgstr ""
+
+#: libkwave/GenreType.cpp:204
+msgid "Dance Hall"
+msgstr ""
+
+#: libkwave/GenreType.cpp:213
+msgid "Unknown"
+msgstr ""
+
+#: libkwave/KwavePlugin.cpp:207
+#, kde-format
+msgid "Running plugin '%1'..."
+msgstr ""
+
 #: libkwave/PluginManager.cpp:239
 #, kde-format
 msgid "The plugin '%1' is unknown or invalid."
@@ -1963,19 +1885,6 @@ msgstr ""
 #: libkwave/PluginManager.cpp:780
 #, kde-format
 msgid "Loading plugin %1..."
-msgstr ""
-
-#: libkwave/Label.h:55
-msgid "Label"
-msgstr ""
-
-#: libkwave/KwavePlugin.cpp:207
-#, kde-format
-msgid "Running plugin '%1'..."
-msgstr ""
-
-#: libkwave/SignalManager.h:56 plugins/record/ui_RecordDlg.h:981
-msgid "New File"
 msgstr ""
 
 #: libkwave/SignalManager.cpp:309
@@ -2109,6 +2018,96 @@ msgstr ""
 
 #: libkwave/SignalManager.cpp:1893
 msgid "Manual Selection"
+msgstr ""
+
+#: libkwave/SignalManager.h:56 plugins/record/ui_RecordDlg.h:981
+msgid "New File"
+msgstr ""
+
+#: libkwave/Utils.cpp:112
+#, c-format
+msgctxt "time of label tooltip, %1=hour, %2=minute, %3=second, %4=milliseconds"
+msgid "%02u:%02u:%02u.%04u"
+msgstr ""
+
+#: libkwave/CodecManager.cpp:186
+msgid "Kwave Macro Files"
+msgstr ""
+
+#: libkwave/CodecManager.cpp:190
+msgid "All Files"
+msgstr ""
+
+#: libkwave/CodecManager.cpp:191
+msgid "All Supported Files"
+msgstr ""
+
+#: libkwave/ConfirmCancelProxy.cpp:50
+msgid "Do you really want to abort the current action?"
+msgstr ""
+
+#: libkwave/Functions.cpp:100
+msgid "Sinus"
+msgstr ""
+
+#: libkwave/Functions.cpp:101
+msgid "Rectangular"
+msgstr ""
+
+#: libkwave/Functions.cpp:102
+msgid "Sawtooth"
+msgstr ""
+
+#: libkwave/Functions.cpp:103
+msgid "Inverse Sawtooth"
+msgstr ""
+
+#: libkwave/Functions.cpp:104 libkwave/WindowFunction.cpp:49
+msgid "Triangular"
+msgstr ""
+
+#: libkwave/Functions.cpp:105
+msgid "Square Sinus"
+msgstr ""
+
+#: libkwave/Functions.cpp:106
+msgid "Cubic Sinus"
+msgstr ""
+
+#: libkwave/Functions.cpp:107
+msgid "Zero"
+msgstr ""
+
+#: libkwave/SampleFormat.cpp:36
+msgid "Linear Two's Complement"
+msgstr ""
+
+#: libkwave/SampleFormat.cpp:38
+msgid "Unsigned Integer"
+msgstr ""
+
+#: libkwave/SampleFormat.cpp:40
+msgid "32-bit IEEE Floating-Point"
+msgstr ""
+
+#: libkwave/SampleFormat.cpp:42
+msgid "64-bit IEEE Double Precision Floating-Point"
+msgstr ""
+
+#: libkwave/WindowFunction.cpp:45 plugins/fileinfo/ui_FileInfoDlg.h:1312
+msgid "None"
+msgstr ""
+
+#: libkwave/WindowFunction.cpp:46
+msgid "Hamming"
+msgstr ""
+
+#: libkwave/WindowFunction.cpp:47
+msgid "Hanning"
+msgstr ""
+
+#: libkwave/WindowFunction.cpp:48
+msgid "Blackman"
 msgstr ""
 
 #: plugins/about/AboutPlugin.cpp:28
@@ -2279,11 +2278,6 @@ msgstr ""
 msgid "FLAC audio"
 msgstr ""
 
-#: plugins/codec_flac/FlacEncoder.cpp:228
-#: plugins/codec_flac/FlacEncoder.cpp:237
-msgid "Unable to open the FLAC encoder."
-msgstr ""
-
 #: plugins/codec_flac/FlacDecoder.cpp:283
 #: plugins/codec_flac/FlacDecoder.cpp:290
 msgid "Opening the FLAC bitstream failed."
@@ -2292,6 +2286,11 @@ msgstr ""
 #: plugins/codec_flac/FlacDecoder.cpp:301
 #, c-format
 msgid "Error while parsing the FLAC metadata. (%s)"
+msgstr ""
+
+#: plugins/codec_flac/FlacEncoder.cpp:228
+#: plugins/codec_flac/FlacEncoder.cpp:237
+msgid "Unable to open the FLAC encoder."
 msgstr ""
 
 #: plugins/codec_ogg/OggCodecPlugin.cpp:28
@@ -2717,6 +2716,83 @@ msgstr ""
 msgid "Pitch Shift"
 msgstr ""
 
+#: plugins/playback/PlayBack-Phonon.cpp:162
+#, kde-format
+msgid "Opening the device '%1' failed."
+msgstr ""
+
+#: plugins/playback/PlayBackTypesMap.cpp:35
+#: plugins/record/RecordTypesMap.cpp:35
+msgid "ALSA (Advanced Linux Sound Architecture)"
+msgstr ""
+
+#: plugins/playback/PlayBackTypesMap.cpp:43
+#: plugins/record/RecordTypesMap.cpp:43
+msgid "OSS (Open Sound System)"
+msgstr ""
+
+#: plugins/playback/PlayBackTypesMap.cpp:51
+msgid "Phonon (KDE)"
+msgstr ""
+
+#: plugins/playback/PlayBackTypesMap.cpp:59
+msgid "Pulse Audio"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:366
+#, kde-format
+msgid "%1 Bytes"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:368
+#, kde-format
+msgid "%1 kB"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:464
+msgid "(mono)"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:465
+#: plugins/playback/ui_PlayBackDlg.h:423
+msgid "(stereo)"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:466
+msgid "(quadro)"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:494
+msgid "Select Playback Device"
+msgstr ""
+
+#: plugins/playback/PlayBack-PulseAudio.cpp:408
+msgid "Connecting to the PulseAudio server failed."
+msgstr ""
+
+#: plugins/playback/PlayBack-PulseAudio.cpp:414
+#, kde-format
+msgid "The PulseAudio device '%1' is unknown or no longer connected"
+msgstr ""
+
+#: plugins/playback/PlayBack-PulseAudio.cpp:457
+msgid "playback..."
+msgstr ""
+
+#: plugins/playback/PlayBack-PulseAudio.cpp:473
+#, kde-format
+msgid "Failed to create a PulseAudio stream (%1)."
+msgstr ""
+
+#: plugins/playback/PlayBack-PulseAudio.cpp:515
+#, kde-format
+msgid "Failed to open a PulseAudio stream for playback (%1)."
+msgstr ""
+
+#: plugins/playback/PlayBack-PulseAudio.cpp:719
+msgid "(Use server default)"
+msgstr ""
+
 #: plugins/playback/PlayBack-ALSA.cpp:57
 msgid "Default device"
 msgstr ""
@@ -2808,83 +2884,6 @@ msgstr ""
 #: plugins/playback/PlayBack-OSS.cpp:405 plugins/record/Record-OSS.cpp:293
 #: plugins/record/RecordDialog.cpp:599
 msgid "Any device (*)"
-msgstr ""
-
-#: plugins/playback/PlayBack-Phonon.cpp:162
-#, kde-format
-msgid "Opening the device '%1' failed."
-msgstr ""
-
-#: plugins/playback/PlayBackTypesMap.cpp:35
-#: plugins/record/RecordTypesMap.cpp:35
-msgid "ALSA (Advanced Linux Sound Architecture)"
-msgstr ""
-
-#: plugins/playback/PlayBackTypesMap.cpp:43
-#: plugins/record/RecordTypesMap.cpp:43
-msgid "OSS (Open Sound System)"
-msgstr ""
-
-#: plugins/playback/PlayBackTypesMap.cpp:51
-msgid "Phonon (KDE)"
-msgstr ""
-
-#: plugins/playback/PlayBackTypesMap.cpp:59
-msgid "Pulse Audio"
-msgstr ""
-
-#: plugins/playback/PlayBackDialog.cpp:366
-#, kde-format
-msgid "%1 Bytes"
-msgstr ""
-
-#: plugins/playback/PlayBackDialog.cpp:368
-#, kde-format
-msgid "%1 kB"
-msgstr ""
-
-#: plugins/playback/PlayBackDialog.cpp:464
-msgid "(mono)"
-msgstr ""
-
-#: plugins/playback/PlayBackDialog.cpp:465
-#: plugins/playback/ui_PlayBackDlg.h:423
-msgid "(stereo)"
-msgstr ""
-
-#: plugins/playback/PlayBackDialog.cpp:466
-msgid "(quadro)"
-msgstr ""
-
-#: plugins/playback/PlayBackDialog.cpp:494
-msgid "Select Playback Device"
-msgstr ""
-
-#: plugins/playback/PlayBack-PulseAudio.cpp:408
-msgid "Connecting to the PulseAudio server failed."
-msgstr ""
-
-#: plugins/playback/PlayBack-PulseAudio.cpp:414
-#, kde-format
-msgid "The PulseAudio device '%1' is unknown or no longer connected"
-msgstr ""
-
-#: plugins/playback/PlayBack-PulseAudio.cpp:457
-msgid "playback..."
-msgstr ""
-
-#: plugins/playback/PlayBack-PulseAudio.cpp:473
-#, kde-format
-msgid "Failed to create a PulseAudio stream (%1)."
-msgstr ""
-
-#: plugins/playback/PlayBack-PulseAudio.cpp:515
-#, kde-format
-msgid "Failed to open a PulseAudio stream for playback (%1)."
-msgstr ""
-
-#: plugins/playback/PlayBack-PulseAudio.cpp:719
-msgid "(Use server default)"
 msgstr ""
 
 #: plugins/playback/PlayBackPlugin.cpp:66
@@ -3198,6 +3197,16 @@ msgstr ""
 msgid "Start"
 msgstr ""
 
+#: plugins/sonagram/SonagramDialog.cpp:144
+#, kde-format
+msgid "(resulting window size: %1)"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:147
+#, kde-format
+msgid "Size of bitmap: %1x%2"
+msgstr ""
+
 #: plugins/sonagram/SonagramPlugin.cpp:48
 #: plugins/sonagram/SonagramPlugin.cpp:82
 #: plugins/sonagram/SonagramWindow.cpp:504
@@ -3266,16 +3275,6 @@ msgstr ""
 msgid "Amplitude: %1%"
 msgstr ""
 
-#: plugins/sonagram/SonagramDialog.cpp:144
-#, kde-format
-msgid "(resulting window size: %1)"
-msgstr ""
-
-#: plugins/sonagram/SonagramDialog.cpp:147
-#, kde-format
-msgid "Size of bitmap: %1x%2"
-msgstr ""
-
 #: plugins/volume/VolumePlugin.cpp:41 plugins/volume/VolumePlugin.cpp:131
 #: plugins/volume/ui_VolumeDlg.h:254 plugins/volume/ui_VolumeDlg.h:281
 #: plugins/volume/ui_VolumeDlg.h:284
@@ -3288,66 +3287,6 @@ msgstr ""
 
 #: plugins/zero/ZeroPlugin.cpp:57
 msgid "Silence"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:287
-msgid "frmLength"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:290
-msgid "select by number of samples"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:292
-msgid "&Samples"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:294
-msgid "select by time"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:296
-msgid "&Time"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:298
-msgid "select by percentage of the signal's length"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:300
-msgid "&Percent"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:301 plugins/newsignal/ui_NewSigDlg.h:515
-msgid "Minutes"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:302
-msgid "Milliseconds"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:303 plugins/newsignal/ui_NewSigDlg.h:514
-msgid "Seconds"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:304 plugins/newsignal/ui_NewSigDlg.h:516
-msgid "Hours"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:305 plugins/newsignal/ui_NewSigDlg.h:523
-msgid "0%"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:306 plugins/newsignal/ui_NewSigDlg.h:524
-msgid "50%"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:307 plugins/newsignal/ui_NewSigDlg.h:525
-msgid "100%"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:309
-msgid "sets the selection by the percentage of the whole signal"
 msgstr ""
 
 #: libgui/ui_HMSTimeWidgetBase.h:78
@@ -3462,6 +3401,66 @@ msgstr ""
 #: libgui/ui_LabelPropertiesWidgetBase.h:185
 #: plugins/playback/ui_PlayBackDlg.h:439 plugins/record/ui_RecordDlg.h:1085
 msgid "Alt+C"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:287
+msgid "frmLength"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:290
+msgid "select by number of samples"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:292
+msgid "&Samples"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:294
+msgid "select by time"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:296
+msgid "&Time"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:298
+msgid "select by percentage of the signal's length"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:300
+msgid "&Percent"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:301 plugins/newsignal/ui_NewSigDlg.h:515
+msgid "Minutes"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:302
+msgid "Milliseconds"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:303 plugins/newsignal/ui_NewSigDlg.h:514
+msgid "Seconds"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:304 plugins/newsignal/ui_NewSigDlg.h:516
+msgid "Hours"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:305 plugins/newsignal/ui_NewSigDlg.h:523
+msgid "0%"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:306 plugins/newsignal/ui_NewSigDlg.h:524
+msgid "50%"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:307 plugins/newsignal/ui_NewSigDlg.h:525
+msgid "100%"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:309
+msgid "sets the selection by the percentage of the whole signal"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:10

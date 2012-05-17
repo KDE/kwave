@@ -23,6 +23,8 @@ o support for visualization plugins (rev 2498)
     * context sensitive toolbar/menu entries when clicking to a view
     * navigating between views per <Tab> key
 
+o show sonagram as "signal view" below each track or below the whole signal
+
 o support for multi selection
 
 o support for recording via PULSE audio

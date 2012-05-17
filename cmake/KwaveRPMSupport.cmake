@@ -91,23 +91,46 @@ CONFIGURE_FILE(
 SET(_tarball ${DISTFILES_DIR}/kwave-${RPM_FULL_VERSION}.tar)
 SET(_tarball_bz2 ${_tarball}.bz2)
 
+SET(_git "${CMAKE_SOURCE_DIR}/.git")
+IF (EXISTS ${_git})
+    FIND_PROGRAM(GIT_EXECUTABLE NAMES git)
+    IF (GIT_EXECUTABLE)
+	MESSAGE(STATUS "Found git: ${GIT_EXECUTABLE}")
+	SET(files_lst "${CMAKE_BINARY_DIR}/files.lst")
+	ADD_CUSTOM_COMMAND(OUTPUT ${files_lst}
+	    COMMENT "Building file list from local .git repository"
+	    COMMAND "${GIT_EXECUTABLE}" ls-tree -r --name-only HEAD ">" ${files_lst}
+	    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+	)
+	SET(file_selection "--files-from=${files_lst}")
+    ELSE (GIT_EXECUTABLE)
+	MESSAGE(STATUS "Warning: .git exists but git program not found")
+    ENDIF (GIT_EXECUTABLE)
+ELSE (EXISTS ${_git})
+    MESSAGE(STATUS "No git version control files")
+ENDIF (EXISTS ${_git})
+IF (NOT file_selection)
+    SET(file_selection ".")
+ENDIF (NOT file_selection)
+
 ADD_CUSTOM_COMMAND(OUTPUT ${_tarball_bz2}
     COMMAND ${TAR_EXECUTABLE}
         -c
-        --exclude=.svn --exclude=testfiles --exclude=*~
-        --owner=root --group=root
+        --exclude=.git --exclude=testfiles --exclude=*~
+        --transform=s+^./++g
+        --transform=s+^+kwave-${RPM_SHORT_VERSION}/+g
+        --owner=root --group=root --mode=a+rX,go-w
         -C ${CMAKE_SOURCE_DIR}
-        --transform=s+^./+kwave-${RPM_SHORT_VERSION}/+g
         -f ${_tarball}
-        .
+        ${file_selection}
     COMMAND ${TAR_EXECUTABLE} --append -f ${_tarball}
-        --owner=root --group=root
+        --owner=root --group=root --mode=a+rX,go-w
         -C ${DISTFILES_DIR}
         --transform=s+^+kwave-${RPM_SHORT_VERSION}/+g
         kwave.spec
     COMMAND ${RM_EXECUTABLE} -f ${_tarball_bz2}
     COMMAND ${BZIP2_EXECUTABLE} ${_tarball}
-    DEPENDS ${_specfile}
+    DEPENDS ${_specfile} ${files_lst}
 )
 
 ADD_CUSTOM_TARGET(tarball

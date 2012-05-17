@@ -357,12 +357,10 @@ msgstr ""
 "Je zde Git repozitář, který je hostován <ulink url=\"&url_sourceforge;"
 "\">SourceForge</ulink> , kde můžete získat zdrojové soubory poslední "
 "vývojářské verze. Instrukce, jak získat přístup k repozitáři, si přečtěte v "
-"kapitole <link linkend=\"building_rpm_from_svn\">o sestavování z Git</"
-"link>Podívejte se rovněž na <ulink url=\"&url_git_instructions;"
-"\">\"&url_git_instructions;\"</ulink>, nebo jednoduše procházejte stromem "
-"Git "
-"za pomoci hezkého webového rozhraní <ulink url="
-"\"&url_git_web;\">."
+"kapitole <link linkend=\"building_rpm_from_git\">o sestavování z Git</"
+"link>. Podívejte se rovněž na <ulink url=\"&url_git_instructions;\">\"&url_git_instructions;\"</ulink>,"
+"nebo jednoduše procházejte stromem Git za pomoci hezkého webového"
+"<ulink url=\"&url_git_web;\">rozhraní pro Git na internetu</ulink>."
 
 #. Tag: title
 #: help_en.docbook:220
@@ -962,7 +960,7 @@ msgstr ""
 "ze stránky &kwave; určené pro stahování, nebo se mrknout na nejnovější kopii "
 "prostřednictvím <link linkend=\"git-repository\">Git</link> (jak je to "
 "popsáno v <link linkend=\"git_checkout\">kapitole o Git</link>) a přečíst si "
-"<link linkend=\"building_rpm_from_svn\">další</link> kapitolu."
+"<link linkend=\"building_rpm_from_git\">další</link> kapitolu."
 
 #. Tag: para
 #: help_en.docbook:554
@@ -4669,14 +4667,11 @@ msgid ""
 "<ulink url=\"&url_authors;\"><filename>AUTHORS</filename></ulink> that lists "
 "all authors and contributors of &kwave;."
 msgstr ""
-"Úplný seznam autorů a licencí všech souborů: podívejte se, prosím, na "
-" <ulink url=\"&url_licenses;\"><filename><filename>LICENSES</filename><"
-"/ulink>, "
-"který je zahrnut ve zdrojových souborech. Na internetu je taktéž dostupný "
-"soubor s názvem "
-"<ulink url=\"&url_authors;\"><filename>AUTHORS</filename></ulink>, který "
-"uvádí "
-"všechny autory a přispěvatele &kwave;."
+"Úplný seznam autorů a licencí všech souborů: podívejte se, prosím, na  "
+"<ulink url=\"&url_licenses;\"><filename>LICENSES</filename></"
+"ulink>, který je zahrnut ve zdrojových souborech. Na internetu je taktéž "
+"dostupný soubor s názvem <ulink url=\"&url_authors;\"><filename>AUTHORS</"
+"filename></ulink>, který uvádí všechny autory a přispěvatele &kwave;."
 
 #. Tag: para
 #: help_en.docbook:2826

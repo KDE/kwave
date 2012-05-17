@@ -3,21 +3,21 @@
 # This file is distributed under the same license as the Kwave package.
 #
 # Pavel Fric <pavel@seznam.cz>, 2009.
-# Pavel Fric <pavelfric@seznam.cz>, 2009.
+# Pavel Fric <pavelfric@seznam.cz>, 2009, 2012.
 # Pavel Fric <pavelfric@yahoo.com>, 2009, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave_help_cs\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
 "POT-Creation-Date: 2012-05-15 19:34+0000\n"
-"PO-Revision-Date: 2011-03-07 10:38+0100\n"
-"Last-Translator: Pavel Fric\n"
-"Language-Team: Czech <kde-i18n-de@kde.org>\n"
+"PO-Revision-Date: 2012-05-17 14:20+0200\n"
+"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
+"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Tag: title
@@ -63,7 +63,7 @@ msgstr "Thomas Eschenbacher"
 #: help_en.docbook:66
 #, no-c-format
 msgid "2012-05-14"
-msgstr ""
+msgstr "2012-05-14"
 
 #. Tag: releaseinfo
 #: help_en.docbook:67
@@ -303,7 +303,7 @@ msgstr ""
 #: help_en.docbook:183
 #, no-c-format
 msgid "Project Homepage<anchor id=\"project-homepage\"/>"
-msgstr ""
+msgstr "Domovská stránka projektu<anchor id=\"project-homepage\"/>"
 
 #. Tag: para
 #: help_en.docbook:184
@@ -321,7 +321,7 @@ msgstr ""
 #: help_en.docbook:189
 #, no-c-format
 msgid "Mailing List<anchor id=\"mailing-list\"/>"
-msgstr ""
+msgstr "Poštovní seznam<anchor id=\"mailing-list\"/>"
 
 #. Tag: para
 #: help_en.docbook:190
@@ -339,11 +339,11 @@ msgstr ""
 #: help_en.docbook:196
 #, no-c-format
 msgid "GIT Repository<anchor id=\"git-repository\"/>"
-msgstr ""
+msgstr "Skladiště Git<anchor id=\"git-repository\"/>"
 
 #. Tag: para
 #: help_en.docbook:199
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "There also is a GIT repository, hosted by <ulink url=\"&url_sourceforge;"
 "\">SourceForge</ulink> where you can get the sources of the latest "
@@ -354,13 +354,15 @@ msgid ""
 "\"&url_git_web;\">web interface</ulink> you can use to browse through the "
 "sources."
 msgstr ""
-"Je zde SVN repozitář, který je hostován <ulink url=\"&url_sourceforge;"
+"Je zde Git repozitář, který je hostován <ulink url=\"&url_sourceforge;"
 "\">SourceForge</ulink> , kde můžete získat zdrojové soubory poslední "
 "vývojářské verze. Instrukce, jak získat přístup k repozitáři, si přečtěte v "
-"kapitole <link linkend=\"building_rpm_from_svn\">o sestavování z SVN</"
-"link>Podívejte se rovněž na <ulink url=\"&url_svn_instructions;\">"
-"\"&url_svn_instructions;\"</ulink>, nebo jednoduše procházejte stromem SVN "
-"za pomoci hezkého webového rozhraní."
+"kapitole <link linkend=\"building_rpm_from_svn\">o sestavování z Git</"
+"link>Podívejte se rovněž na <ulink url=\"&url_git_instructions;"
+"\">\"&url_git_instructions;\"</ulink>, nebo jednoduše procházejte stromem "
+"Git "
+"za pomoci hezkého webového rozhraní <ulink url="
+"\"&url_git_web;\">."
 
 #. Tag: title
 #: help_en.docbook:220
@@ -388,7 +390,7 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:232
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Since &kwave; v0.8.0 the changelog is no longer included in this manual. So "
 "if you are interested in a complete list of changes, you can find the full "
@@ -397,8 +399,10 @@ msgid ""
 "\">GIT web interface</ulink>."
 msgstr ""
 "Od &kwave; v0.8.0 není seznam změn nadále začleněn do této příručky . Takže "
-"pokud vás zajímá úplný seznam změn, najdete úplnouhistorii změn zde: <ulink "
-"url=\"&url_changelog;\"> &url_changelog;</ulink>."
+"pokud vás zajímá úplný seznam změn, najdete úplnou historii změn zde: <ulink "
+"url=\"&url_changelog;\"> &url_changelog;</ulink> nebo procházejte zdroji "
+"pomocí "
+" <ulink url=\"&url_git_web;\">rozhraní pro Git na internetu</ulink>.."
 
 #. Tag: title
 #: help_en.docbook:251
@@ -427,7 +431,7 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:267
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "If you want to get a &kwave; release, you have the choice to visit <ulink "
 "url=\"&url_download;\">&url_download;</ulink> and"
@@ -453,19 +457,19 @@ msgstr "stáhnout si zdrojový RPM balíček poslední stabilní verze, "
 
 #. Tag: para
 #: help_en.docbook:278
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "compile on your own, from a .tar.bz2 archive with the source code of the "
 "latest stable version,"
 msgstr ""
-"zkompilovat si program vlastními silami z .tar.gz archivu obsahujícího "
+"sestavit si program vlastními silami z .tar.bz2 archivu obsahujícího "
 "zdrojový kód poslední stabilní verze,"
 
 #. Tag: para
 #: help_en.docbook:282
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "compile on your own, from the latest GIT source."
-msgstr "zkompilovat si program vlastními silami z poslední SVN verze."
+msgstr "sestavit si program vlastními silami z poslední Git verze."
 
 #. Tag: para
 #: help_en.docbook:288
@@ -517,20 +521,20 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:316
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "KDE-4.5 or higher (at least the libraries, if you are a gnome fan, you can "
 "also run &kwave; if the proper libs are installed)."
 msgstr ""
-"KDE ve verzi 4.0 nebo vyšší (alespoň knihovny. V případě, že jste fonouškem "
+"KDE ve verzi 4.5 nebo vyšší (alespoň knihovny. V případě, že jste fonouškem "
 "prostředí GNOME, můžete program spouštět také,&kwave; pokud jsou "
 "nainstalovány ty správné knihovny)."
 
 #. Tag: para
 #: help_en.docbook:321
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Qt-4.5.0 or higher (normally comes with KDE4)"
-msgstr "qt ve verzi 4.1 nebo vyšší (normálně je k dispozici s KDE4)"
+msgstr "qt ve verzi 4.5.0 nebo vyšší (normálně je k dispozici s KDE4)"
 
 #. Tag: para
 #: help_en.docbook:324
@@ -574,7 +578,7 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:346
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "For a more complete and up-to-date list, please consult the <ulink url="
 "\"&url_readme;\">'README'</ulink> file that is included in the source "
@@ -646,11 +650,11 @@ msgstr ""
 #: help_en.docbook:377
 #, no-c-format
 msgid "pulseaudio-0.9.16 or newer"
-msgstr ""
+msgstr "pulseaudio-0.9.16  nebo vyšší"
 
 #. Tag: para
 #: help_en.docbook:380
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "id3lib-devel-3.8.1 or newer"
 msgstr "id3lib-devel-3.8.1 nebo vyšší"
 
@@ -658,33 +662,33 @@ msgstr "id3lib-devel-3.8.1 nebo vyšší"
 #: help_en.docbook:383
 #, no-c-format
 msgid "fftw-3.0 or newer"
-msgstr ""
+msgstr "fftw-3.0 nebo vyšší"
 
 #. Tag: para
 #: help_en.docbook:386
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "mad-devel-0.15 or newer (if you have the permission to use MP3 code)"
 msgstr "mad-devel-0.15 nebo vyšší (pokud máte oprávnění používat kód MP3)"
 
 #. Tag: para
 #: help_en.docbook:390
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "flac-devel-1.1.0 newer"
 msgstr "flac-devel-1.1.0 nebo vyšší"
 
 #. Tag: para
 #: help_en.docbook:393
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "If you intend to get the &kwave; sources via GIT, you will also need a "
 "current git package."
 msgstr ""
-"Pokud máte v úmyslu získat &kwave; zdrojové soubory prostřednictvím SVN, "
-"budete také potřebovat aktuální balíček \"subversion\"."
+"Pokud máte v úmyslu získat &kwave; zdrojové soubory prostřednictvím Git, "
+"budete také potřebovat aktuální balíček \"Git\"."
 
 #. Tag: para
 #: help_en.docbook:397
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "...many other packages, please take a look at the <ulink url=\"&url_readme;"
 "\">'README'</ulink> file included in the source package."
@@ -700,7 +704,7 @@ msgstr "Vlastnoruční kompilace a instalace"
 
 #. Tag: para
 #: help_en.docbook:413
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Since version 0.7.10 &kwave; uses <ulink url=\"&url_cmake;\">cmake</ulink>, "
 "a make system that is also used by KDE itself. So if you know how to build "
@@ -712,7 +716,7 @@ msgstr ""
 "\"make\" systém, který je používán také prostředím KDE. Takže pokud můžete "
 "sestavit jiné KDE aplikace, měl byste moci sestavit i &kwave;. Jestliže se "
 "setkáte s problémy, nahlašte je, prosím, do &kwave; <link linkend=\"mailing-"
-"list\">seznamu adres</link>."
+"list\">poštovního seznamu</link>."
 
 #. Tag: para
 #: help_en.docbook:422
@@ -730,7 +734,7 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:429
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "For example, assuming that your sources are already unpacked in "
 "<filename><replaceable>$HOME/src/kwave-&version;</replaceable></filename>, "
@@ -880,13 +884,14 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:509
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<literal>WITH_PULSEAUDIO</literal> enable playback via PulseAudio "
 "[<literal>on</literal>/<literal>off</literal>, default=<literal>on</literal>]"
 msgstr ""
-"<literal>WITH_ALSA</literal> povolit přehrávání/nahrávání prostřednictvím "
-"ALSA [<literal>on: zapnuto</literal>/<literal>off: vypnuto</literal>, "
+"<literal>WITH_PULSEAUDIO</literal> povolit přehrávání/nahrávání "
+"prostřednictvím "
+"PulseAudio [<literal>on: zapnuto</literal>/<literal>off: vypnuto</literal>, "
 "default=: výchozí=<literal>on: zapnuto</literal>]"
 
 #. Tag: para
@@ -929,9 +934,9 @@ msgstr ""
 
 #. Tag: title
 #: help_en.docbook:538
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Building RPM packages from tar.bz2 archives"
-msgstr "Vytvoření balíčků RPM z archivů tar.gz"
+msgstr "Vytvoření balíčků RPM z archivů tar.bz2"
 
 #. Tag: title
 #: help_en.docbook:541
@@ -941,7 +946,7 @@ msgstr "S pracujícím rpmbuild -ta"
 
 #. Tag: para
 #: help_en.docbook:543
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "If you are runnig a system with RPM support, the preferred way to install "
 "&kwave; on your system will be the creation of a nice RPM package. First you "
@@ -953,15 +958,15 @@ msgid ""
 msgstr ""
 "Jestliže používáte systém s podporou RPM, bude upřednostňovaným způsobem "
 "&kwave; instalace na vašem systému vytvoření hezkého RPM balíčku. Nejprve "
-"byste měl získat aktuální zdrojový soubor z &kwave;, buď jako archiv tar.gz "
+"byste měl získat aktuální zdrojový soubor z &kwave;, buď jako archiv tar.bz2 "
 "ze stránky &kwave; určené pro stahování, nebo se mrknout na nejnovější kopii "
-"prostřednictvím <link linkend=\"svn-repository\">SVN</link> (jak je to "
-"popsáno v <link linkend=\"svn_checkout\">kapitole o SVN</link>) a přečíst si "
+"prostřednictvím <link linkend=\"git-repository\">Git</link> (jak je to "
+"popsáno v <link linkend=\"git_checkout\">kapitole o Git</link>) a přečíst si "
 "<link linkend=\"building_rpm_from_svn\">další</link> kapitolu."
 
 #. Tag: para
 #: help_en.docbook:554
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "If you have downloaded a tar.bz2 archives of &kwave;, create and install the "
 "RPMs just by doing the following steps (where <replaceable>[arch]</"
@@ -970,10 +975,10 @@ msgid ""
 "<literal>sparc</literal> or whatever, <replaceable>XXX</replaceable> stands "
 "for the version number you have downloaded)."
 msgstr ""
-"Jestliže jste si stáhl archiv tar.gz z &kwave;, vytvořte a instalujte RPM "
+"Jestliže jste si stáhl archiv tar.bz2 z &kwave;, vytvořte a instalujte RPM "
 "provedením následujících kroků (kde <replaceable>[arch]</replaceable> "
 "představuje platformu, pro kterou jste balíček vytvořil a může vypadat nějak "
-"takto <literal>i386</literal>, <literal>i586</literal>, <literal>sparc</"
+"takto <literal>i586</literal>, <literal>i686</literal>, <literal>sparc</"
 "literal> nebo i jinak, <replaceable>XXX</replaceable> představuje číslo "
 "verze, kterou jste si stáhl)."
 
@@ -985,14 +990,14 @@ msgstr "Vytvořit &kwave; balíček a instalovat jej do:"
 
 #. Tag: screen
 #: help_en.docbook:567
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<prompt>% </prompt><command>rpmbuild -ta <replaceable>kwave-XXX.tar.bz2</"
 "replaceable></command>\n"
 "<prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/"
 "kwave-XXX.[arch].rpm</replaceable></command>"
 msgstr ""
-"<prompt>% </prompt><command>rpmbuild -ta <replaceable>kwave-XXX.tar.gz</"
+"<prompt>% </prompt><command>rpmbuild -ta <replaceable>kwave-XXX.tar.bz2</"
 "replaceable></command>\n"
 "<prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/"
 "kwave-XXX.[arch].rpm</replaceable></command>"
@@ -1063,22 +1068,22 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:604
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Put the tar.bz2 archive into the SOURCES subdirectory (you have to replace "
 "\"somewhere\" with the real directory where the files are, of course)."
 msgstr ""
-"Zkopírujte tar.gz archiv do SOURCES podadresáře (samozřejmě musíte nahradit "
-"\"kdekoli\" sktutečným adresářem, v němž jsou soubory)."
+"Zkopírujte tar.bz2 archiv do SOURCES podadresáře (samozřejmě musíte nahradit "
+"\"kdekoli\" skutečným adresářem, v němž jsou soubory)."
 
 #. Tag: screen
 #: help_en.docbook:608
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.bz2</"
 "replaceable> SOURCES</command>"
 msgstr ""
-"<prompt>% </prompt><command>cp <replaceable>/kdekoli/kwave-XXX.tar.gz</"
+"<prompt>% </prompt><command>cp <replaceable>/kdekoli/kwave-XXX.tar.bz2</"
 "replaceable> SOURCES</command>"
 
 #. Tag: para
@@ -1091,12 +1096,13 @@ msgstr "Získejte z archivu soubor spec a vložte jej do podadresáře SPEC"
 
 #. Tag: screen
 #: help_en.docbook:614
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<prompt>% </prompt><command>tar -xOjf SOURCES/<replaceable>kwave-XXX.tar."
 "bz2</replaceable> \\*.spec > SPECS/kwave.spec</command>"
 msgstr ""
-"<prompt>% </prompt><command>tar -xOzf SOURCES/<replaceable>kwave-XXX.tar.gz</"
+"<prompt>% </prompt><command>tar -xOzf SOURCES/<replaceable>kwave-XXX.tar."
+"bz2</"
 "replaceable> \\*.spec > SPECS/kwave.spec</command>"
 
 #. Tag: para
@@ -1144,19 +1150,19 @@ msgstr ""
 
 #. Tag: title
 #: help_en.docbook:646
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Building RPM packages from GIT"
-msgstr "Tvoření RPM balíčků z SVN"
+msgstr "Tvoření RPM balíčků z Git"
 
 #. Tag: title
 #: help_en.docbook:648
 #, no-c-format
 msgid "Checking out the sources"
-msgstr "Kontrola zdrojů"
+msgstr "Stažení zdrojů"
 
 #. Tag: para
 #: help_en.docbook:650
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "For initially checking out the sources you will need some disk space (about "
 "25 megabytes) in a directory of your choice, the git package of your "
@@ -1165,8 +1171,8 @@ msgid ""
 "your provider doesn't give you full access. A good place for the source "
 "files will be <filename>\"$HOME/src\"</filename>."
 msgstr ""
-"Pro počáteční kontrolu zdrojů budete potřebovat prostor na disku (asi 25 MB) "
-"v adresáři dle vašeho výběru, svn balíček vaší oblíbené distribuce a plný "
+"Pro počáteční stažení zdrojů budete potřebovat prostor na disku (asi 25 MB) "
+"v adresáři dle vašeho výběru, git balíček vaší oblíbené distribuce a plný "
 "přístup na internet.Pokud obdržíte hlášení chyb o odmítnutém spojení, buď "
 "jste něco zadal nesprávně, nebo vám váš poskytovatel nedal plný přístup. "
 "Dobrým místem pro zdrojové soubory bude <filename>\"$HOME/src\"</filename>."
@@ -1195,20 +1201,19 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:666
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Then check out the latest sources from the GIT server:"
-msgstr "Potom zkontrolujte poslední zdroje z SVN serveru:"
+msgstr "Potom stáhněte poslední zdroje z Git serveru:"
 
 #. Tag: screen
 #: help_en.docbook:668
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "<prompt>% </prompt><command>git clone &url_git_master;</command>"
-msgstr ""
-"<prompt>% </prompt><command>svn checkout &url_svn_trunk; kwave</command>"
+msgstr "<prompt>% </prompt><command>git clone &url_git_master;</command>"
 
 #. Tag: para
 #: help_en.docbook:670
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "or you can check out a specific release with the following commands: <screen "
 "width=\"70\" format=\"linespecific\">\n"
@@ -1222,37 +1227,40 @@ msgid ""
 "and the version number of the release, with underscores instead of dots. For "
 "example \"<literal>Release-&version_tag;</literal>\" for v&version;."
 msgstr ""
-"nebo můžete následujícím příkazem zkontrolovat přesně stanovené vydání: "
-"<screen width=\"75\" format=\"linespecific\">\n"
-"<prompt>% </prompt><command>svn checkout &url_svn_tags;<replaceable>[release-"
-"tag]</replaceable> kwave</command>\n"
+"nebo můžete následujícím příkazem stáhnout určité vydání: "
+"<screen width=\"70\" format=\"linespecific\">\n"
+"<prompt>% </prompt><command>git clone &url_git_master;</command>\n"
+"    <prompt>% </prompt><command>cd kwave</command>\n"
+"    <prompt>% </prompt><command>git checkout tags/<replaceable>[release-tag]"
+"</replaceable> </command>\n"
 "</screen> Můžete vyhledat názvy jmenovek vydání na internetových stránkách "
-"svn  <ulink url=\"&url_svn_list_tags;\"> &url_svn_list_tags;</ulink>. "
+"svn  <ulink url=\"&url_git_list_tags;\"> &url_git_list_tags;</ulink>. "
 "Jmenovky vydání jsou vždy složeny ze slova <literal>Release-</literal> a "
 "čísla verze vydání s podtržítky namísto teček. Například \"<literal>Release-"
 "&version_tag;</literal>\" pro v&version;."
 
 #. Tag: para
 #: help_en.docbook:682
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "There <emphasis>must not</emphasis> be a directory named <filename>kwave</"
 "filename> under the directory you want to check out. Otherwise the git "
 "program will complain about already existing files and the checkout will not "
 "work."
 msgstr ""
-"Nemusí <emphasis>tam</emphasis> být adresář nazvaný <filename>kwave</"
-"filename> "
+"Nesmí tu být <emphasis>žádný</emphasis> nazvaný <filename>kwave</"
+"filename> v adresáři, který chcete stahovat. Jinak si bude program Git "
+"stěžovat na již existující soubory a načtení nebude pracovat."
 
 #. Tag: title
 #: help_en.docbook:692
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Updating fresh sources from GIT"
-msgstr "Aktualizace zdrojů z SVN"
+msgstr "Aktualizace zdrojů z Git"
 
 #. Tag: para
 #: help_en.docbook:693
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "The procedure described in the previous section is only necessary once. For "
 "further updates it is much easier. Just change into the directory where you "
@@ -1262,38 +1270,42 @@ msgid ""
 "</screen> Then go on to the next section and compile as usual."
 msgstr ""
 "Postup popsaný v předchozím oddíle je nezbytné provést pouze jednou. Při "
-"dalších aktualizacích je calá ta věc mnohem jednodušší. Pouze se přesuňte do "
-"adresáře, ve kterém máte zkontrolované zdroje a proveďte následující kroky: "
-"<screen width=\"75\" format=\"linespecific\">\n"
-"<prompt>% </prompt><command>svn update</command>\n"
+"dalších aktualizacích je celá ta věc mnohem jednodušší. Pouze se přesuňte do "
+"adresáře, ve kterém máte stažené zdroje a proveďte následující kroky: "
+"<screen width=\"40\" format=\"linespecific\">\n"
+"<prompt>% </prompt><command>git pull</command>\n"
 "</screen> Pak přejděte k dalšímu oddílu a kompilujte jako obvykle."
 
 #. Tag: para
 #: help_en.docbook:701
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "If you think that you have messed up your local source tree or if there are "
 "conflicts during updating and you want to start through from a clean state, "
 "you can do the following to discard all local changes and switch back to the "
 "latest version from the master branch:"
 msgstr ""
-"Pokud máte dojem, že jste zmrvil své místní zdroje, nebo když během "
-"aktualizace zaznamenáte konflikty, můžete odstranit všechny soubory a "
-"adresáře ze svého &kwave; zdrojového adresáře, <emphasis>kromě <filename>."
-"svn</filename> adresáře </emphasis> a pak se o aktualizaci pokusit znovu."
+"Pokud máte dojem, že jste zmrvil obsah svých místní zdrojových adresářů "
+"kwave, "
+"nebo když jste během aktualizace zaznamenal konflikty, nebo chcete začít s "
+"čistým stavem, "
+"můžete pro zahození všech místních změn udělat následující a přepnout se "
+"zpět "
+"do poslední verze z hlavní větve:"
 
 #. Tag: screen
 #: help_en.docbook:706
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<prompt>% </prompt><command>git clean --force -d</command>\n"
 "<prompt>% </prompt><command>git reset --hard</command>\n"
 "<prompt>% </prompt><command>git checkout <replaceable>master</replaceable></"
 "command>"
 msgstr ""
-"<prompt>% </prompt><command>mkdir -p <replaceable>$HOME/src</replaceable></"
-"command>\n"
-"<prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>"
+"<prompt>% </prompt><command>git clean --force -d</command>\n"
+"<prompt>% </prompt><command>git reset --hard</command>\n"
+"<prompt>% </prompt><command>git checkout <replaceable>master</replaceable></"
+"command>"
 
 #. Tag: title
 #: help_en.docbook:710
@@ -1303,7 +1315,7 @@ msgstr "Kompilace"
 
 #. Tag: para
 #: help_en.docbook:711
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Building rpm package from a GIT snapshot is quite simple. The procedure is "
 "nearly the same as described in the last section, so it unhappily also has "
@@ -1314,13 +1326,14 @@ msgid ""
 "<literal>sparc</literal> or whatever, <replaceable>XXX</replaceable> stands "
 "for the version number you have checked out."
 msgstr ""
-"Sestavení rpm balíčku z SVN snímku je docela jednoduché. Postup je téměř "
+"Sestavení rpm balíčku ze snímku Git je docela jednoduché. Postup je téměř "
 "totožný s tím, který byl popsán v posledním oddíle, takže má naneštěstí také "
 "ten samý problém s příkazem <command>rpmbuild -ta</command>, který naše "
 "metoda uvnitř používá. Tak jako v předchozí kapitole, <replaceable>[arch]</"
 "replaceable> stojí na platformě, pro kterou jste balíček sestavil, a která "
-"může býtnapř. <literal>i386</literal>, <literal>i586</literal>, "
+"může být např. <literal>i386</literal>, <literal>i586</literal>, "
 "<literal>sparc</literal> či jakákoli jiná, <replaceable>XXX</replaceable> "
+"zastupuje číslo verze, kterou jste stáhl."
 
 #. Tag: para
 #: help_en.docbook:724
@@ -1336,7 +1349,7 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:731
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Assuming that you are in the root of where you checked out from GIT, do the "
 "following to create a Makefile, the &kwave; package and install it. If you "
@@ -1344,8 +1357,8 @@ msgid ""
 "<command>rpm -U</command> instead of <command>rpm -i</command> for updating "
 "instead of installing."
 msgstr ""
-"Za předpokladu, že jste v kořenovém adresáři, odkud jste se odhlásil z SVN, "
-"udělejte pro vytvoření \"makefile\" následující, &kwave; balíček a "
+"Za předpokladu, že jste v kořenovém adresáři, kam jste se přepnul z Git, "
+"udělejte pro vytvoření Makefile následující, &kwave; balíček a "
 "nainstalujte jej. Jestliže již máte verzi &kwave; nainstalovánu, nejprve ji, "
 "prosím, odstraňte, nebo použijte <command>rpm -U</command> namísto "
 "<command>rpm -i</command> kvůli aktualizaci místo instalace."
@@ -1372,14 +1385,14 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:741
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "If you still have problems with <command>make rpm</command>, you will find "
 "the tar.bz2 archive that was produced in <filename>/tmp</filename>. Please "
 "follow the instructions in the <link linkend=\"manual_rpm_creation"
 "\">previous</link> chapter."
 msgstr ""
-"Pokud máte stále problémy s <command>make rpm</command>, naleznete  tar.gz "
+"Pokud máte stále problémy s <command>make rpm</command>, naleznete  tar.bz2 "
 "archiv, který byl vytvořen v <filename>/tmp</filename>. Následujte, prosím,  "
 "instrukce v <link linkend=\"manual_rpm_creation\">předchozí</link> kapitole."
 
@@ -1427,7 +1440,7 @@ msgstr "Vyladění RPM"
 
 #. Tag: para
 #: help_en.docbook:776
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "You can easily compile the RPM package optimized for Athlon, Athlon-XP, "
 "Pentium and Pentium Pro (and some other CPUs) by using some defines in your "
@@ -1455,7 +1468,7 @@ msgstr ""
 "vymezení ve vašem  <filename>rpmrc</filename> souboru. Rovněž můžete upravit "
 "svůj systémový <filename>rpmrc</filename> soubor v <filename>/usr/lib/rpm</"
 "filename> nebo soubor<filename>.rpmrc</filename> ve svém domovském adresáři. "
-"Můžete přesně určit řádky s volbami, jako jsou tyto: <screen width=\"40\" "
+"Můžete přesně určit řádky s volbami, jako jsou tyto: <screen width=\"70\" "
 "format=\"linespecific\">\n"
 "<userinput moreinfo=\"none\">optflags: i586 -O2 -march=pentium -DNDEBUG -"
 "fomit-frame-pointer</userinput>\n"
@@ -1529,17 +1542,18 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:829
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "If you build &kwave; from a source tree (unpacked tar.bz2 or from GIT) the "
 "flags need to be specified before the call. For example:"
 msgstr ""
-"Pokud sestavujete &kwave; ze stromu zdroje (nezabalený tar.gz nebo z SVN) je "
+"Pokud sestavujete &kwave; ze stromu zdroje (nezabalený tar.bz2 nebo z Git) "
+"je "
 "potřeba zadat příznaky před zavoláním. Například:"
 
 #. Tag: screen
 #: help_en.docbook:833
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<prompt>% </prompt><command>CFLAGS=\"-O4 -march=athlon-xp -mcpu=athlon-xp -"
 "pipe\" \\\n"
@@ -1547,9 +1561,8 @@ msgid ""
 "  cmake <replaceable>[source directory]</replaceable></command>"
 msgstr ""
 "<prompt>% </prompt><command>CFLAGS=\"-O4 -march=athlon-xp -mcpu=athlon-xp -"
-"pipe -fomit-frame-pointer\" \\\n"
-"  CXXFLAGS=\"-O4 -march=athlon-xp -mcpu=athlon-xp -pipe -fomit-frame-pointer"
-"\" \\\n"
+"pipe\" \\\n"
+"  CXXFLAGS=\"-O4 -march=athlon-xp -mcpu=athlon-xp -pipe\" \\\n"
 "  cmake <replaceable>[zdrojový adresář]</replaceable></command>"
 
 #. Tag: para
@@ -2367,14 +2380,13 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:1313
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "FLAC (<filename>*.flac</filename>) import and export. See <ulink url="
 "\"&url_flac;\">&url_flac;</ulink> for details."
 msgstr ""
-"Ogg/Vorbis (<filename>*.ogg</filename>) zavedení souboru a vyvedení do "
-"souboru. Viz <ulink url= \"&url_ogg_vorbis;\">&url_ogg_vorbis;</ulink> pro "
-"podrobnosti."
+"FLAC (<filename>*.flac</filename>) zavedení souboru a vyvedení do "
+"souboru. Viz <ulink url=\"&url_flac;\">&url_flac;</ulink> pro podrobnosti."
 
 #. Tag: para
 #: help_en.docbook:1318
@@ -3340,9 +3352,9 @@ msgstr ""
 
 #. Tag: phrase
 #: help_en.docbook:1877
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "zoom to selection button"
-msgstr "tlačítko Přiblížit"
+msgstr "tlačítko Přiblížit výběr"
 
 #. Tag: para
 #: help_en.docbook:1883
@@ -3385,9 +3397,9 @@ msgstr ""
 
 #. Tag: phrase
 #: help_en.docbook:1910
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "scroll left button"
-msgstr "tlačítko Oddálit"
+msgstr "tlačítko Projíždět doleva"
 
 #. Tag: para
 #: help_en.docbook:1915
@@ -3414,9 +3426,9 @@ msgstr ""
 
 #. Tag: phrase
 #: help_en.docbook:1929
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "scroll right button"
-msgstr "tlačítko Přiblížit"
+msgstr "tlačítko Projíždět doprava"
 
 #. Tag: para
 #: help_en.docbook:1934
@@ -3445,7 +3457,7 @@ msgstr ""
 #: help_en.docbook:1948
 #, no-c-format
 msgid "previous page button"
-msgstr ""
+msgstr "tlačítko Předchozí strana"
 
 #. Tag: para
 #: help_en.docbook:1953
@@ -3474,7 +3486,7 @@ msgstr ""
 #: help_en.docbook:1967
 #, no-c-format
 msgid "next page button"
-msgstr ""
+msgstr "tlačítko Další strana"
 
 #. Tag: para
 #: help_en.docbook:1972
@@ -4067,7 +4079,7 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:2420
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "The language code is a 2-letter code which is used for directories and "
 "filenames, as it is also used in KDE. The language name is used internally "
@@ -4077,7 +4089,7 @@ msgid ""
 msgstr ""
 "Jazykový kód je kód složený ze dvou písmen, který se používá pro adresáře a "
 "názvy souborů, jak se také používají v KDE. Název jazyka se uvnitř používá "
-"pouze pro docbook dokumentaci a nápovědu, které jsou přístupnéu přímým "
+"pouze pro docbook dokumentaci a nápovědu, které jsou přístupnému přímým "
 "připojením k internetu. Kvůli seznamu s dostupnými kódy jazyků a názvy se, "
 "prosím, podívejte na dokumentaci s mezinárodním standardem <ulink url="
 "\"&url_iso639;\">ISO 639-2</ulink>."
@@ -4386,12 +4398,12 @@ msgstr "Co potřebuji, abych mohl dát dohromady &kwave;?"
 
 #. Tag: para
 #: help_en.docbook:2578
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Read in the <link linkend=\"requirements\">chapter</link> mentioned before."
 msgstr ""
 "Přečtěte si o tom v <link linkend=\"requirements\">kapitole</link>, která "
-"byla již zmiňována. Kompiluje také s gcc-3.x or gcc-4.x."
+"byla již zmiňována."
 
 #. Tag: para
 #: help_en.docbook:2588
@@ -4611,7 +4623,8 @@ msgid ""
 "package for distributing!"
 msgstr ""
 "Dobrá, dokud tu jsou otázky kolem patentů, podporujeme pouze zavedení MP3 "
-"prostřednictvím knihovny mad. Žádné vyvedení, promiňte... Dodatečně musíte "
+"prostřednictvím knihovny mad. Žádné vyvedení do souboru, promiňte... "
+"Dodatečně musíte "
 "mít dovolení pro použití kódu pokryté patenty MP3 při vytváření balíčku "
 "KWave určeného pro další šíření!"
 
@@ -4619,7 +4632,7 @@ msgstr ""
 #: help_en.docbook:2806
 #, no-c-format
 msgid "Credits and License"
-msgstr "Kredity a licence"
+msgstr "Zásluhy a licence"
 
 #. Tag: para
 #: help_en.docbook:2808
@@ -4629,12 +4642,11 @@ msgstr "&kwave;"
 
 #. Tag: para
 #: help_en.docbook:2810
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Program copyright from 1998-2000 Martin Wilz <email>martin@wilz.de</email>"
 msgstr ""
-"Copyright k programu drží od 1998-2000 Martin Wilz <email>mwilz@ernie.mi.uni-"
-"koeln.de</email>"
+"Autorské právo k programu 1998-2000 Martin Wilz <email>martin@wilz.de</email>"
 
 #. Tag: para
 #: help_en.docbook:2814
@@ -4643,12 +4655,13 @@ msgid ""
 "Program copyright since 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 msgstr ""
-"Copyright k programu drží od roku 2000 Thomas Eschenbacher <email>thomas."
+"Autorské právo (C) k programu drží od roku 2000 Thomas Eschenbacher <email>"
+"thomas."
 "eschenbacher@gmx.de</email>"
 
 #. Tag: para
 #: help_en.docbook:2818
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "For a complete list of authors and licenses of all files, please refer to "
 "the <ulink url=\"&url_licenses;\"><filename>LICENSES</filename></ulink> "
@@ -4657,18 +4670,22 @@ msgid ""
 "all authors and contributors of &kwave;."
 msgstr ""
 "Úplný seznam autorů a licencí všech souborů: podívejte se, prosím, na "
-"soubor<filename>LICENSES</filename> , který je zahrnut ve zdrojových "
-"souborech. Na internetu je taktéž dostupný na <ulink url=\"&url_licenses;\"> "
-"&url_licenses;</ulink>."
+" <ulink url=\"&url_licenses;\"><filename><filename>LICENSES</filename><"
+"/ulink>, "
+"který je zahrnut ve zdrojových souborech. Na internetu je taktéž dostupný "
+"soubor s názvem "
+"<ulink url=\"&url_authors;\"><filename>AUTHORS</filename></ulink>, který "
+"uvádí "
+"všechny autory a přispěvatele &kwave;."
 
 #. Tag: para
 #: help_en.docbook:2826
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Documentation copyright (C) &version_year; Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 msgstr ""
-"Copyright (C) k dokumentaci 2011 Thomas Eschenbacher <email>thomas."
+"Copyright (C) k dokumentaci &version_year; Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 
 #. Tag: chapter
@@ -4681,19 +4698,19 @@ msgstr "&underFDL; &underGPL;"
 #: help_en.docbook:2834
 #, no-c-format
 msgid "Main Authors"
-msgstr ""
+msgstr "Hlavní autoři"
 
 #. Tag: emphasis
 #: help_en.docbook:2838
 #, no-c-format
 msgid "Martin Wilz <email>martin@wilz.de</email>"
-msgstr ""
+msgstr "Martin Wilz <email>martin@wilz.de</email>"
 
 #. Tag: para
 #: help_en.docbook:2841
 #, no-c-format
 msgid "creator of the project, active development 1998-2000"
-msgstr ""
+msgstr "Tvůrce projektu, aktivní vývoj 1998-2000"
 
 #. Tag: emphasis
 #: help_en.docbook:2846
@@ -4705,117 +4722,103 @@ msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 #: help_en.docbook:2849
 #, no-c-format
 msgid "maintainer since 2000, core development"
-msgstr ""
+msgstr "Správce od roku 2000, hlavní vývojář"
 
 #. Tag: title
 #: help_en.docbook:2857
 #, no-c-format
 msgid "Major Contributors"
-msgstr ""
+msgstr "Hlavní přispěvatelé"
 
 #. Tag: emphasis
 #: help_en.docbook:2861
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Aurelien Jarno <email>aurel32@debian.org</email>"
-msgstr ""
-"Aurelien Jarno <email>aurel32@debian.org</email> (<ulink url=\"&url_debian;"
-"\">tvůrce balíčků</ulink> pro debian)"
+msgstr "Aurelien Jarno <email>aurel32@debian.org</email>"
 
 #. Tag: para
 #: help_en.docbook:2864
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "<ulink url=\"&url_debian;\">debian</ulink> packager, patches"
-msgstr ""
-"Aurelien Jarno <email>aurel32@debian.org</email> (<ulink url=\"&url_debian;"
-"\">tvůrce balíčků</ulink> pro debian)"
+msgstr "<ulink url=\"&url_debian;\">tvůrce balíčků pro debian</ulink>, záplaty"
 
 #. Tag: emphasis
 #: help_en.docbook:2870
 #, no-c-format
 msgid "Daniel Tihelka <email>dtihelka@kky.zcu.cz</email>"
-msgstr ""
+msgstr "Daniel Tihelka <email>dtihelka@kky.zcu.cz</email>"
 
 #. Tag: para
 #: help_en.docbook:2873
 #, no-c-format
 msgid "visualization plugins"
-msgstr ""
+msgstr "Vizualizační přídavné moduly"
 
 #. Tag: emphasis
 #: help_en.docbook:2878
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "David Flogeras <email>dflogera@nbnet.nb.ca</email>"
-msgstr ""
-"Dave Flogeras <email>dflogera@nbnet.nb.ca</email> (přídavný modul Filtr "
-"zářezu)"
+msgstr "David Flogeras <email>dflogera@nbnet.nb.ca</email>"
 
 #. Tag: para
 #: help_en.docbook:2881
 #, no-c-format
 msgid "Notch Filter plugin"
-msgstr ""
+msgstr "Přídavný modul vroubkový filtr"
 
 #. Tag: emphasis
 #: help_en.docbook:2886
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Gilles Caulier <email>caulier.gilles@free.fr</email>"
-msgstr ""
-"Gilles Caulier <email>caulier.gilles@free.fr</email> (i18n, překlad do "
-"francouzštiny, úvodní obrazovkan, beta tester)"
+msgstr "Gilles Caulier <email>caulier.gilles@free.fr</email>"
 
 #. Tag: para
 #: help_en.docbook:2889
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "i18n, french translations, splashscreen, beta tester"
-msgstr ""
-"Gilles Caulier <email>caulier.gilles@free.fr</email> (i18n, překlad do "
-"francouzštiny, úvodní obrazovkan, beta tester)"
+msgstr "i18n, překlad do francouzštiny, úvodní obrazovka, beta tester"
 
 #. Tag: emphasis
 #: help_en.docbook:2894
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Pavel Fric <email>pavelfric@seznam.cz</email>"
-msgstr "Pavel Fric <email>pavelfric@seznam.cz</email> (český překlad)"
+msgstr "Pavel Fric <email>pavelfric@seznam.cz</email>"
 
 #. Tag: para
 #: help_en.docbook:2897
 #, no-c-format
 msgid "Czech translation"
-msgstr ""
+msgstr "Překlad do češtiny"
 
 #. Tag: emphasis
 #: help_en.docbook:2902
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Ralf Waspe <email>rwaspe@web.de</email>"
-msgstr ""
-"Ralf Waspe <email>rwaspe@web.de</email> (Nápověda/Přídavný modul \"O programu"
-"\")"
+msgstr "Ralf Waspe <email>rwaspe@web.de</email>"
 
 #. Tag: para
 #: help_en.docbook:2905
 #, no-c-format
 msgid "Help/About plugin"
-msgstr ""
+msgstr "Nápověda/Přídavný modul \"O programu\""
 
 #. Tag: emphasis
 #: help_en.docbook:2910
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email>"
-msgstr ""
-"Sven-Steffen Arndt <email>ssa29@gmx.de</email> (domovská stránka, překlad do "
-"němčiny)"
+msgstr "Sven-Steffen Arndt <email>ssa29@gmx.de</email>"
 
 #. Tag: para
 #: help_en.docbook:2913
 #, no-c-format
 msgid "homepage, german translation"
-msgstr ""
+msgstr "Domovská stránka, překlad do němčiny"
 
 #. Tag: title
 #: help_en.docbook:2921
 #, no-c-format
 msgid "Minor contributors, copyright holders and others"
-msgstr ""
+msgstr "Další přispěvatelé, držitelé autorských práv a jiní"
 
 #. Tag: para
 #: help_en.docbook:2925
@@ -4824,12 +4827,14 @@ msgid ""
 "<emphasis role=\"bold\"> Andreas Schneider <email>mail@cynapses.org</email> "
 "</emphasis><emphasis>[historic]</emphasis>"
 msgstr ""
+"<emphasis role=\"bold\"> Andreas Schneider <email>mail@cynapses.org</email> "
+"</emphasis><emphasis>[historický]</emphasis>"
 
 #. Tag: para
 #: help_en.docbook:2928
 #, no-c-format
 msgid "cmake/FindARTS.cmake"
-msgstr ""
+msgstr "cmake/FindARTS.cmake"
 
 #. Tag: para
 #: help_en.docbook:2933
@@ -4838,6 +4843,8 @@ msgid ""
 "<emphasis role=\"bold\"> Bertrand Songis <email>bsongis@gmail.com</email> </"
 "emphasis><emphasis>[historic]</emphasis>"
 msgstr ""
+"<emphasis role=\"bold\"> Bertrand Songis <email>bsongis@gmail.com</email> </"
+"emphasis><emphasis>[historický]</emphasis>"
 
 #. Tag: para
 #: help_en.docbook:2935
@@ -4846,56 +4853,56 @@ msgid ""
 "french translation fixes, substitutes for patented libaudiofile code, debian "
 "bug 419124"
 msgstr ""
+"Opravy ve francouzském překladu, náhrada za patentovaný kód "
+"v libaudiofile, chyba v Debianu 419124"
 
 #. Tag: emphasis
 #: help_en.docbook:2942
 #, no-c-format
 msgid "Carsten Lohrke <email>carlo@gentoo.org</email>"
-msgstr ""
+msgstr "Carsten Lohrke <email>carlo@gentoo.org</email>"
 
 #. Tag: para
 #: help_en.docbook:2944
 #, no-c-format
 msgid "svn r2163, patch for libaudiofile detection"
-msgstr ""
+msgstr "svn r2163, záplata pro detekci libaudiofile"
 
 #. Tag: emphasis
 #: help_en.docbook:2949
 #, no-c-format
 msgid "Chris Vaill <email>chrisvaill@gmail</email>"
-msgstr ""
+msgstr "Chris Vaill <email>chrisvaill@gmail</email>"
 
 #. Tag: para
 #: help_en.docbook:2951
 #, no-c-format
 msgid "code base for the normalize plugin"
-msgstr ""
+msgstr "Kód pro přídavný modul normalizace"
 
 #. Tag: emphasis
 #: help_en.docbook:2956
 #, no-c-format
 msgid "David Faure <email>faure@kde.org</email>"
-msgstr ""
+msgstr "David Faure <email>faure@kde.org</email>"
 
 #. Tag: para
 #: help_en.docbook:2958 help_en.docbook:3039
 #, no-c-format
 msgid "cmake/FindAlsa.cmake"
-msgstr ""
+msgstr "cmake/FindAlsa.cmake"
 
 #. Tag: emphasis
 #: help_en.docbook:2963
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Diederick de Vries <email>diederick76@gmail.com</email>"
-msgstr ""
-"Diederick de Vries <email>diederick76@gmail.com</email> (balíčkování pro "
-"Crux Linux)"
+msgstr "Diederick de Vries <email>diederick76@gmail.com</email>"
 
 #. Tag: para
 #: help_en.docbook:2966
 #, no-c-format
 msgid "packaging for Crux Linux"
-msgstr ""
+msgstr "Balíčkování pro Crux Linux"
 
 #. Tag: emphasis
 #: help_en.docbook:2971
@@ -4904,66 +4911,68 @@ msgid ""
 "Espen Sand <email>espen@kde.org</email> + Mirko Boehm <email>mirko@kde.org</"
 "email>"
 msgstr ""
+"Espen Sand <email>espen@kde.org</email> + Mirko Boehm <email>mirko@kde.org</"
+"email>"
 
 #. Tag: para
 #: help_en.docbook:2974
 #, no-c-format
 msgid "K3AboutContainer, base of KwaveAboutContainer"
-msgstr ""
+msgstr "K3AboutContainer, základ KwaveAboutContainer"
 
 #. Tag: emphasis
 #: help_en.docbook:2979
 #, no-c-format
 msgid "Everaldo Coelho <email>contact@everaldo.com</email>"
-msgstr ""
+msgstr "Everaldo Coelho <email>contact@everaldo.com</email>"
 
 #. Tag: para
 #: help_en.docbook:2981
 #, no-c-format
 msgid "the crystal icon theme http://www.everaldo.com/crystal/"
-msgstr ""
+msgstr "Sada ikon crystal http://www.everaldo.com/crystal/"
 
 #. Tag: emphasis
 #: help_en.docbook:2986
 #, no-c-format
 msgid "Fabrice Bellard (extracted) + H. Dietz (mmx.h) + R. Fisher (mmx.h)"
-msgstr ""
+msgstr "Fabrice Bellard (extracted) + H. Dietz (mmx.h) + R. Fisher (mmx.h)"
 
 #. Tag: para
 #: help_en.docbook:2988
 #, no-c-format
 msgid "libkwave/cputest.c"
-msgstr ""
+msgstr "libkwave/cputest.c"
 
 #. Tag: emphasis
 #: help_en.docbook:2993
 #, no-c-format
 msgid "Jaroslav Kysela"
-msgstr ""
+msgstr "Jaroslav Kysela"
 
 #. Tag: para
 #: help_en.docbook:2995
 #, no-c-format
 msgid "parts of plugins/playback/PlayBack-ALSA.cpp"
-msgstr ""
+msgstr "Části plugins/playback/PlayBack-ALSA.cpp"
 
 #. Tag: emphasis
 #: help_en.docbook:3000
 #, no-c-format
 msgid "Jeff Tranter"
-msgstr ""
+msgstr "Jeff Tranter"
 
 #. Tag: para
 #: help_en.docbook:3002 help_en.docbook:3077
 #, no-c-format
 msgid "parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}"
-msgstr ""
+msgstr "Části plugins/pitch_shift/PitchShiftFilter.{h,cpp}"
 
 #. Tag: emphasis
 #: help_en.docbook:3007
 #, no-c-format
 msgid "Juhana Sadeharju <email>kouhia@nic.funet.fi</email>"
-msgstr ""
+msgstr "Juhana Sadeharju <email>kouhia@nic.funet.fi</email>"
 
 #. Tag: para
 #: help_en.docbook:3009
@@ -4972,68 +4981,68 @@ msgid ""
 "plugins/band_pass/BandPass.{h,cpp}, plugins/lowpass/LowPassFilter.cpp, "
 "plugins/notch_filter/NotchFilter.{h,cpp}"
 msgstr ""
+"plugins/band_pass/BandPass.{h,cpp}, plugins/lowpass/LowPassFilter.cpp, "
+"plugins/notch_filter/NotchFilter.{h,cpp}"
 
 #. Tag: emphasis
 #: help_en.docbook:3016
 #, no-c-format
 msgid "Kurt Roeck <email>Q@ping.be</email>"
-msgstr ""
+msgstr "Kurt Roeck <email>Q@ping.be</email>"
 
 #. Tag: para
 #: help_en.docbook:3018
 #, no-c-format
 msgid "svn r1370, fix for debian bug#288781, compilation for amd64"
-msgstr ""
+msgstr "svn r1370, oprava chyby pro Debian-Bug#288781, sestavení pro amd64"
 
 #. Tag: emphasis
 #: help_en.docbook:3023
 #, no-c-format
 msgid "Mark Donohoe (KDE) <email>donohoe@kde.org</email>"
-msgstr ""
+msgstr "Mark Donohoe (KDE) <email>donohoe@kde.org</email>"
 
 #. Tag: para
 #: help_en.docbook:3025
 #, no-c-format
 msgid "some icons and bitmaps for toolbar and GUI"
-msgstr ""
+msgstr "Několik ikon a obrázků pro nástrojový pruh a rozhraní"
 
 #. Tag: emphasis
 #: help_en.docbook:3030
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Martin Hinsch <email>vidas@sourceforge.net</email>"
-msgstr "Martin Kuball <email>makube@user.sourceforge.net</email> (beta tester)"
+msgstr "Martin Hinsch <email>vidas@sourceforge.net</email>"
 
 #. Tag: para
 #: help_en.docbook:3032
 #, no-c-format
 msgid "Matrix class"
-msgstr ""
+msgstr "Třída Matrix"
 
 #. Tag: emphasis
 #: help_en.docbook:3037
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Matthias Kretz <email>kretz@kde.org</email>"
-msgstr ""
-"Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (za informaceo "
-"optimalizaci RPM) </emphasis>"
+msgstr "Matthias Kretz <email>kretz@kde.org</email>"
 
 #. Tag: emphasis
 #: help_en.docbook:3044
 #, no-c-format
 msgid "Miguel Freitas"
-msgstr ""
+msgstr "Miguel Freitas"
 
 #. Tag: para
 #: help_en.docbook:3046
 #, no-c-format
 msgid "parts of libkwave/memcpy.c"
-msgstr ""
+msgstr "Části libkwave/memcpy.c"
 
 #. Tag: emphasis
 #: help_en.docbook:3051
 #, no-c-format
 msgid "Paul Mackerras <email>paulus@samba.org</email>"
-msgstr ""
+msgstr "Paul Mackerras <email>paulus@samba.org</email>"
 
 #. Tag: para
 #: help_en.docbook:3053
@@ -5041,36 +5050,37 @@ msgstr ""
 msgid ""
 "libkwave/ppcasm_string.h, libkwave/ppcasm_string.S, libkwave/ppc_asm.tmpl"
 msgstr ""
+"libkwave/ppcasm_string.h, libkwave/ppcasm_string.S, libkwave/ppc_asm.tmpl"
 
 #. Tag: emphasis
 #: help_en.docbook:3060
 #, no-c-format
 msgid "Richard Laerkaeng, <email>richard@goteborg.utfors.se</email>"
-msgstr ""
+msgstr "Richard Laerkaeng, <email>richard@goteborg.utfors.se</email>"
 
 #. Tag: para
 #: help_en.docbook:3062
 #, no-c-format
 msgid "cmake/FindOggVorbis.cmake"
-msgstr ""
+msgstr "cmake/FindOggVorbis.cmake"
 
 #. Tag: emphasis
 #: help_en.docbook:3067
 #, no-c-format
 msgid "Rik Hemsley <email>rik@kde.org</email>"
-msgstr ""
+msgstr "Rik Hemsley <email>rik@kde.org</email>"
 
 #. Tag: ulink
 #: help_en.docbook:3071
 #, no-c-format
 msgid "level meter"
-msgstr ""
+msgstr "Měřič úrovně"
 
 #. Tag: emphasis
 #: help_en.docbook:3075
 #, no-c-format
 msgid "Stefan Westerfeld <email>stefan@space.twc.de</email>"
-msgstr ""
+msgstr "Stefan Westerfeld <email>stefan@space.twc.de</email>"
 
 #. Tag: para
 #: help_en.docbook:3082
@@ -5079,12 +5089,14 @@ msgid ""
 "<emphasis role=\"bold\"> Stichting Mathematisch Centrum, Amsterdam </"
 "emphasis><emphasis>[historic]</emphasis>"
 msgstr ""
+"<emphasis role=\"bold\"> Stichting Mathematisch Centrum, Amsterdam </"
+"emphasis><emphasis>[historický]</emphasis>"
 
 #. Tag: para
 #: help_en.docbook:3084
 #, no-c-format
 msgid "libaudiofile/modules/adpcm.c"
-msgstr ""
+msgstr "libaudiofile/modules/adpcm.c"
 
 #. Tag: para
 #: help_en.docbook:3089
@@ -5093,144 +5105,130 @@ msgid ""
 "<emphasis role=\"bold\"> Sun Microsystems, Inc. </emphasis><emphasis>"
 "[historic]</emphasis>"
 msgstr ""
+"<emphasis role=\"bold\"> Sun Microsystems, Inc. </emphasis><emphasis>"
+"[historisch]</emphasis>"
 
 #. Tag: para
 #: help_en.docbook:3091
 #, no-c-format
 msgid "libaudiofile/g711.c, libaudiofile/g711.h"
-msgstr ""
+msgstr "libaudiofile/g711.c, libaudiofile/g711.h"
 
 #. Tag: title
 #: help_en.docbook:3099
 #, no-c-format
 msgid "Thanks To"
-msgstr ""
+msgstr "Poděkování"
 
 #. Tag: emphasis
 #: help_en.docbook:3103
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Martin Kuball <email>makube@user.sourceforge.net</email>"
-msgstr "Martin Kuball <email>makube@user.sourceforge.net</email> (beta tester)"
+msgstr "Martin Kuball <email>makube@user.sourceforge.net</email>"
 
 #. Tag: para
 #: help_en.docbook:3106
 #, no-c-format
 msgid "beta tester"
-msgstr ""
+msgstr "Zkoušeč"
 
 #. Tag: emphasis
 #: help_en.docbook:3111
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Jorge Luis Arzola <email>arzolacub@gmx.de</email>"
-msgstr ""
-"Jorge Luis Arzola <email>arzolacub@gmx.de</email> (balíčkování pro SuSE "
-"Linux)"
+msgstr "Jorge Luis Arzola <email>arzolacub@gmx.de</email>"
 
 #. Tag: para
 #: help_en.docbook:3114
 #, no-c-format
 msgid "packaging for SuSE Linux"
-msgstr ""
+msgstr "Balíčkování pro SuSE Linux"
 
 #. Tag: emphasis
 #: help_en.docbook:3119
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Michael Favreau <email>michel.favreau@free.fr</email>"
-msgstr ""
-"Michael Favreau <email>michel.favreau@free.fr</email> (balíčkování pro Arch "
-"Linux)"
+msgstr "Michael Favreau <email>michel.favreau@free.fr</email>"
 
 #. Tag: para
 #: help_en.docbook:3122
 #, no-c-format
 msgid "packaging for Arch Linux"
-msgstr ""
+msgstr "Balíčkování pro Arch Linux"
 
 #. Tag: emphasis
 #: help_en.docbook:3128
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Matthias Düsterhöft <email>duesti@gmx.de</email>"
-msgstr ""
-"Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (za informaceo "
-"optimalizaci RPM) </emphasis>"
+msgstr "Matthias Düsterhöft <email>duesti@gmx.de</email>"
 
 #. Tag: para
 #: help_en.docbook:3131
 #, no-c-format
 msgid "for information about RPM optimization"
-msgstr ""
+msgstr "Za informace o optimalizaci RPM"
 
 #. Tag: emphasis
 #: help_en.docbook:3136
 #, no-c-format
 msgid "T.H.F. Klok and Cedric Tefft"
-msgstr ""
+msgstr "T.H.F. Klok a Cedric Tefft"
 
 #. Tag: para
 #: help_en.docbook:3138
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "maintainers of the <ulink url=\"&url_id3lib;\"> id3lib</ulink> library"
-msgstr ""
-"T.H.F. Klok a Cedric Tefft (správcové <ulink url=\"&url_id3lib;\"> id3lib</"
-"ulink> knihovny)"
+msgstr "Udržovatelé knihovny <ulink url=\"&url_id3lib;\"> id3lib</ulink>"
 
 #. Tag: emphasis
 #: help_en.docbook:3144
 #, no-c-format
 msgid "Robert Leslie <email>rob@mars.org</email>"
-msgstr ""
+msgstr "Robert Leslie <email>rob@mars.org</email>"
 
 #. Tag: para
 #: help_en.docbook:3147
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "author of the <ulink url=\"&url_libmad;\">mad</ulink> mp3 decoder library"
-msgstr ""
-"Robert Leslie <email>rob@mars.org</email> (autor <ulink url=\"&url_libmad;"
-"\">mad</ulink> mp3 dekódovací knihovny)"
+msgstr "Autor knihovny dekodéru MP3 <ulink url=\"&url_libmad;\">mad</ulink>"
 
 #. Tag: emphasis
 #: help_en.docbook:3154
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Robert M. Stockmann <email>stock@stokkie.net</email>"
-msgstr ""
-"Robert M. Stockmann <email>stock@stokkie.net</email> (balíčkování "
-"proMandrake / X86_64)"
+msgstr "Robert M. Stockmann <email>stock@stokkie.net</email>"
 
 #. Tag: para
 #: help_en.docbook:3157
 #, no-c-format
 msgid "packaging for Mandrake / X86_64"
-msgstr ""
+msgstr "Balíčkování pro Mandrake / X86_64"
 
 #. Tag: emphasis
 #: help_en.docbook:3162
 #, no-c-format
 msgid "Erik de Castro Lopo <email>erikd@zip.com.au</email>"
-msgstr ""
+msgstr "Erik de Castro Lopo <email>erikd@zip.com.au</email>"
 
 #. Tag: para
 #: help_en.docbook:3165
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "author of the <ulink url=\"&url_libsndfile;\">sndfile</ulink> library"
-msgstr ""
-"Erik de Castro Lopo <email>erikd@zip.com.au</email> (autor <ulink url="
-"\"&url_libsndfile;\">sndfile</ulink> knihovny)"
+msgstr "Autor knihovny <ulink url=\"&url_libsndfile;\">sndfile</ulink>"
 
 #. Tag: emphasis
 #: help_en.docbook:3172
 #, no-c-format
 msgid "Michael Pruett <email>mpruett@sgi.com</email>"
-msgstr ""
+msgstr "Michael Pruett <email>mpruett@sgi.com</email>"
 
 #. Tag: para
 #: help_en.docbook:3175
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "author of the <ulink url=\"&url_libaudiofile;\">audiofile</ulink> library"
-msgstr ""
-"Michael Pruett <email>mpruett@sgi.com</email> (autor <ulink url="
-"\"&url_libaudiofile;\">audiofile</ulink> knihovny)"
+msgstr "Autor knihovny <ulink url=\"&url_libaudiofile;\">audiofile</ulink>"
 
 #, fuzzy
 #~ msgid "2011-11-27"

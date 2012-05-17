@@ -2,13 +2,13 @@
 # Copyright (C) 2009 Pavel Fric
 # This file is distributed under the same license as the Kwave package.
 #
-# Pavel Fric <pavelfric@seznam.cz>, 2009, 2010, 2011.
+# Pavel Fric <pavelfric@seznam.cz>, 2009, 2010, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-13 08:01+0200\n"
-"PO-Revision-Date: 2011-11-16 16:51+0100\n"
+"PO-Revision-Date: 2012-05-16 09:25+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -19,7 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: kwave/menus_config_i18n.cpp:92
-#, fuzzy
 msgid "   &Play"
 msgstr " &Hra"
 
@@ -660,7 +659,7 @@ msgstr "&Převzorkovat"
 
 #: kwave/menus_config_i18n.cpp:107
 msgid "&Reset Toolbar"
-msgstr ""
+msgstr "&Nastavit nástrojový pruh znovu"
 
 #: kwave/menus_config_i18n.cpp:108
 msgid "&Reverse"
@@ -2082,9 +2081,8 @@ msgid "Continue after highest index"
 msgstr "Pokračovat po nejvyšší index"
 
 #: kwave/TopWidget.cpp:246
-#, fuzzy
 msgid "Copy"
-msgstr "&Kopírovat"
+msgstr "Kopírovat"
 
 #: libkwave/FileInfo.cpp:92
 msgid "Copyright"
@@ -2243,9 +2241,8 @@ msgid "Delete Track"
 msgstr "Smazat stopu"
 
 #: kwave/TopWidget.cpp:264
-#, fuzzy
 msgid "Delete selection"
-msgstr "Smazat nynější výběr"
+msgstr "Smazat výběr"
 
 #: libkwave/FileInfo.cpp:117
 msgid ""
@@ -2641,7 +2638,7 @@ msgstr ""
 
 #: kwave/PlayerToolBar.cpp:110 kwave/menus_config_i18n.cpp:55
 msgid "Forward"
-msgstr ""
+msgstr "Vpřed"
 
 #: libkwave/GenreType.cpp:198
 msgid "Freestyle"
@@ -3510,9 +3507,8 @@ msgid "Musical"
 msgstr "Muzikál"
 
 #: kwave/TopWidget.cpp:259
-#, fuzzy
 msgid "Mute selection"
-msgstr "Vlastnoruční výběr"
+msgstr "Ztlumit výběr"
 
 #: libkwave/Interpolation.cpp:42
 msgid "N-Polynom"
@@ -3580,9 +3576,8 @@ msgid "New Wave"
 msgstr "Nová vlna"
 
 #: kwave/PlayerToolBar.cpp:115 kwave/menus_config_i18n.cpp:77
-#, fuzzy
 msgid "Next"
-msgstr "&Další"
+msgstr "Další"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:397
 #: plugins/fileinfo/FileInfoDialog.cpp:403
@@ -3983,9 +3978,8 @@ msgid "Presets"
 msgstr "Nastavení"
 
 #: kwave/PlayerToolBar.cpp:75 kwave/menus_config_i18n.cpp:97
-#, fuzzy
 msgid "Previous"
-msgstr "&Předchozí"
+msgstr "Předchozí"
 
 #: libkwave/GenreType.cpp:187
 msgid "Primus"
@@ -4179,7 +4173,7 @@ msgstr "Regé"
 
 #: kwave/TopWidget.cpp:630
 msgid "Reset the toolbar to default settings?"
-msgstr ""
+msgstr "Nastavit nástrojový pruh na výchozí nastavení?"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:190
 #: plugins/newsignal/ui_NewSigDlg.h:495 plugins/record/ui_RecordDlg.h:1039
@@ -4209,7 +4203,7 @@ msgstr "Obrození"
 
 #: kwave/PlayerToolBar.cpp:80 kwave/menus_config_i18n.cpp:110
 msgid "Rewind"
-msgstr ""
+msgstr "Přetočit zpět"
 
 #: libkwave/GenreType.cpp:197
 msgid "Rhythmic Soul"
@@ -5297,12 +5291,12 @@ msgstr ""
 "způsobit účinek nazývaný \"myšák Miky\"!"
 
 #: plugins/codec_ogg/OggEncoder.cpp:168
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "You have not selected any bitrate for the encoding. Do you want to continue "
 "and encode with %1 kBit/s or cancel and choose a different bitrate?"
 msgstr ""
-"Nevybral jste datový tok pro kódování. Chcete pokračovat a kódovat %1 kbps, "
+"Nevybral jste datový tok pro kódování. Chcete pokračovat a kódovat %1 kB/s, "
 "nebo zrušit tento krok a vybrat jiný datový tok?"
 
 #: plugins/playback/PlayBackPlugin.cpp:842

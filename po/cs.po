@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-17 20:10+0200\n"
+"POT-Creation-Date: 2012-05-17 20:40+0200\n"
 "PO-Revision-Date: 2012-05-16 09:25+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -307,7 +307,7 @@ msgstr "&Procházet..."
 
 #: kwave/menus_config_i18n.cpp:22
 msgid "&Calculate"
-msgstr "&Počty"
+msgstr "Výp&očty"
 
 #: libgui/ui_LabelPropertiesWidgetBase.h:184
 #: plugins/amplifyfree/ui_AmplifyFreeDlg.h:149
@@ -384,7 +384,7 @@ msgstr "&Zkreslit"
 
 #: kwave/menus_config_i18n.cpp:40
 msgid "&Edit"
-msgstr "&Úpravy"
+msgstr "Úp&ravy"
 
 #: plugins/memory/ui_MemDlg.h:298
 msgid "&Enable usage of virtual memory"
@@ -2411,7 +2411,7 @@ msgstr "Ukončení souboru, dokud nebudou nalezeny všechny hlavičky Vorbis."
 
 #: libkwave/FileInfo.cpp:105
 msgid "Engineer"
-msgstr "Připravit"
+msgstr "Zvukař"
 
 #: kwave/main.cpp:111
 msgid "Erik de Castro Lopo"
@@ -2473,7 +2473,7 @@ msgstr "Rozšířit výběr ke štítku"
 
 #: kwave/menus_config_i18n.cpp:56
 msgid "F&x"
-msgstr "Úč&inky"
+msgstr "&Efekty"
 
 #: plugins/band_pass/ui_BandPassDlg.h:197 plugins/lowpass/ui_LowPassDlg.h:199
 #: plugins/notch_filter/ui_NotchFilterDlg.h:231
@@ -3193,7 +3193,7 @@ msgstr "Povolení"
 
 #: plugins/about/ui_KwaveAboutDialogBase.h:303
 msgid "License agreement"
-msgstr "Souhlas s licencí"
+msgstr "Povolení"
 
 #: libkwave/FileInfo.cpp:136
 msgid ""
@@ -3411,7 +3411,7 @@ msgstr "Nastavení paměti"
 
 #: plugins/memory/ui_MemDlg.h:318
 msgid "Memory for &Undo/Redo"
-msgstr "Paměť pro &Zpět/Znovu"
+msgstr "Paměť pro &zpět/znovu"
 
 #: libkwave/GenreType.cpp:86
 msgid "Metal"
@@ -3909,7 +3909,7 @@ msgstr "Nalezené přídavné moduly: %1"
 
 #: plugins/about/ui_KwaveAboutDialogBase.h:301
 msgid "Plugins info"
-msgstr "Informace o přídavných modulech"
+msgstr "Moduly"
 
 #: libkwave/GenreType.cpp:152
 msgid "Polka"

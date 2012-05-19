@@ -28,6 +28,7 @@ KDE4_ADD_UI_FILES(plugin_goto_common_LIB_SRCS ${plugin_goto_common_LIB_UI})
 QT4_AUTOMOC(${plugin_goto_common_LIB_SRCS})
 KDE4_ADD_LIBRARY(plugin_goto_common STATIC ${plugin_goto_common_LIB_SRCS})
 ADD_DEPENDENCIES(plugin_goto_common libkwave libkwavegui)
+TARGET_LINK_LIBRARIES(plugin_goto_common kwavegui kwave)
 
 #############################################################################
 

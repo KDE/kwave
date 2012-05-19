@@ -23,7 +23,7 @@ use Date::Format;
 my $in = $ARGV[0];
 my $out = $ARGV[1];
 
-my $default_author = "Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>";
+my $default_author = "Thomas Eschenbacher <Thomas.Eschenbacher\@gmx.de>";
 
 open(IN,  "<" . $in ) or die "cannot open input file "  . $in;
 open(OUT, ">" . $out) or die "cannot open output file " . $out;
@@ -54,7 +54,7 @@ while (<IN>) {
 	    $description = "[" . $version . "]";
 	    $version = "";
 	}
-	
+
 	# prepend a "v" in front of version numbers
 	if ($version =~ /\d+\.\d+[\.\d+]?[\-\d+]?/) {
 	    $version = "v" . $version;
@@ -77,7 +77,7 @@ while (<IN>) {
     elsif ($a)
     {
 	# expand leading tabs to spaces
-	
+
 	# remove first space
 	$a =~s+^\ ++g;
 
@@ -86,7 +86,7 @@ while (<IN>) {
 
 	# replace leading bullets '*' -> '-'
 	$a =~ s+^\*+\-+g;
-	
+
 	print OUT $a . "\n";
     }
 

@@ -78,11 +78,18 @@ SET(KWAVE_ADDITIONAL_CLEAN_FILES ${KWAVE_ADDITIONAL_CLEAN_FILES} ${_changes})
 #############################################################################
 ### generate the .spec file                                               ###
 
+SET(_specfile_without_changelog ${CMAKE_CURRENT_BINARY_DIR}/kwave.spec.no-chglog)
 SET(_specfile ${DISTFILES_DIR}/kwave.spec)
 CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/kwave.spec.in
-    ${_specfile}
+    ${_specfile_without_changelog}
     @ONLY
+)
+
+ADD_CUSTOM_COMMAND(OUTPUT ${_specfile}
+    COMMAND ${CAT_EXECUTABLE} ${_specfile_without_changelog} > ${_specfile}
+    COMMAND ${CAT_EXECUTABLE} ${_changes} >> ${_specfile}
+    DEPENDS ${_specfile_without_changelog} ${_changes}
 )
 
 #############################################################################

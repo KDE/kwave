@@ -33,6 +33,30 @@ FIND_REQUIRED_PROGRAM(PO2XML_EXECUTABLE po2xml)
 FIND_REQUIRED_PROGRAM(CHECKXML_EXECUTABLE checkXML)
 
 #############################################################################
+### how to convert from svg to png                                        ###
+
+FIND_PROGRAM(RSVG_EXECUTABLE rsvg)
+IF (RSVG_EXECUTABLE)
+    MESSAGE(STATUS "Converting svg to png with ${RSVG_EXECUTABLE}")
+    MACRO(SVG2PNG _infile _outfile _name)
+	ADD_CUSTOM_COMMAND(OUTPUT ${_outfile}
+	    COMMAND ${RSVG_EXECUTABLE} -w 32 -h 32 -f png ${_infile} ${_outfile}
+	    DEPENDS ${_infile}
+	    COMMENT STATUS "Converting ${_name}"
+	)
+    ENDMACRO(SVG2PNG)
+ELSE (RSVG_EXECUTABLE)
+    MESSAGE(STATUS "Converting svg to png with ${CONVERT_EXECUTABLE}")
+    MACRO(SVG2PNG _infile _outfile _name)
+	ADD_CUSTOM_COMMAND(OUTPUT ${_outfile}
+	    COMMAND ${CONVERT_EXECUTABLE} -resize 32x32 ${_infile} ${_outfile}
+	    DEPENDS ${_infile}
+	    COMMENT STATUS "Converting ${_name}"
+	)
+    ENDMACRO(SVG2PNG)
+ENDIF(RSVG_EXECUTABLE)
+
+#############################################################################
 ### help_en.docbook -> help_en.pot                                        ###
 
 ADD_CUSTOM_COMMAND(OUTPUT ${_help_en_pot}
@@ -66,11 +90,7 @@ FOREACH(_toolbar_icon ${_toolbar_icons})
     GET_FILENAME_COMPONENT(_svgz_file ${_toolbar_icon} NAME)
     STRING(REPLACE ".svgz" ".png" _png_file ${_svgz_file})
     SET(_toolbar_png ${CMAKE_CURRENT_BINARY_DIR}/toolbar_${_png_file})
-    ADD_CUSTOM_COMMAND(OUTPUT ${_toolbar_png}
-        COMMAND ${CONVERT_EXECUTABLE} ${_toolbar_icon} -resize 32x32 ${_toolbar_png}
-        DEPENDS ${_toolbar_icon}
-        COMMENT STATUS "Converting ${_png_file}"
-    )
+    SVG2PNG(${_toolbar_icon} ${_toolbar_png} ${_png_file})
     SET(_toolbar_pngs "${_toolbar_pngs}" "${_toolbar_png}")
 ENDFOREACH(_toolbar_icon ${_toolbar_icons})
 

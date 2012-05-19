@@ -78,10 +78,12 @@ BuildRequires:  pulseaudio-devel
 BuildRequires:  libsamplerate-devel
 BuildRequires:  update-desktop-files
 
+%if 0%{?suse_version} <= 1140
 # hack for converting svg to png, with broken ImageMagick
 BuildRequires:  librsvg
 BuildRequires:  rsvg-view
 BuildRequires:  python
+%endif
 
 %define EXTRA_OPTS ""
 %define FDUPES %fdupes -s %{buildroot}

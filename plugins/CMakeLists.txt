@@ -44,7 +44,7 @@ MACRO(KWAVE_PLUGIN _plugin)
     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES SUFFIX "")
     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES OUTPUT_NAME "${_plugin}")
     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES LINK_FLAGS
-        "-Wl,--export-dynamic -Wl,--add-needed")
+        "-Wl,--export-dynamic")
     SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
     #########################################################################

@@ -1,3 +1,6 @@
+0.8.9  [2012-??-??]
+
+ * fix for SF #3528848, removed -Wl,--add-needed from plugin LINK_FLAGS
 
 0.8.8  [2012-05-20]
 

@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-17 20:40+0200\n"
-"PO-Revision-Date: 2012-05-16 09:25+0200\n"
-"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
+"PO-Revision-Date: 2012-05-26 12:44+0200\n"
+"Last-Translator: Pavel <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: kwave/menus_config_i18n.cpp:92
 msgid "   &Play"
-msgstr " &Hra"
+msgstr " &Přehrávání"
 
 #: plugins/fileinfo/ui_CompressionWidgetBase.h:213
 msgid " %"
@@ -28,7 +28,7 @@ msgstr " %"
 
 #: kwave/menus_config_i18n.cpp:93
 msgid " &Play"
-msgstr " &Hra"
+msgstr " &Přehrávání"
 
 #: plugins/band_pass/ui_BandPassDlg.h:194 plugins/lowpass/ui_LowPassDlg.h:197
 #: plugins/notch_filter/ui_NotchFilterDlg.h:204
@@ -153,12 +153,12 @@ msgstr "%1 Hz"
 #: plugins/record/RecordPlugin.cpp:524
 #, kde-format
 msgid "%1 Hz failed, using %2 Hz"
-msgstr "%1 Hz selhalo. Používá se %2Hz"
+msgstr "%1 Hz selhalo. Používá se %2 Hz"
 
 #: plugins/record/RecordPlugin.cpp:508
 #, kde-format
 msgid "%1 Hz is not supported, using %2 Hz"
-msgstr "%1 Hz není podporováno. Používá se %2Hz"
+msgstr "%1 Hz není podporováno. Používá se %2 Hz"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:150
 #, kde-format
@@ -168,7 +168,7 @@ msgstr "%1 MB (%2 bajtů)"
 #: libkwave/FileProgress.cpp:275
 #, kde-format
 msgid "%1 MB of %2 MB done"
-msgstr "%1 MB of %2 MB hotovo"
+msgstr "%1 MB z %2 MB hotovo"
 
 #: libkwave/FileProgress.cpp:99
 #, kde-format
@@ -408,7 +408,7 @@ msgstr "&Roztáhnout k štítkům"
 
 #: plugins/sonagram/SonagramWindow.cpp:117
 msgid "&Export to Bitmap..."
-msgstr "&Vyvést do bitmapy..."
+msgstr "&Uložit jako obrázek..."
 
 #: plugins/volume/ui_VolumeDlg.h:263
 msgid "&Factor"
@@ -536,7 +536,7 @@ msgstr "&Další strana"
 
 #: plugins/codec_wav/WavEncoder.cpp:343
 msgid "&No, store uncompressed"
-msgstr "&Ne, paměť počítače nestlačena"
+msgstr "&Ne, uložení nezkomprimováno"
 
 #: kwave/menus_config_i18n.cpp:80
 msgid "&Noise"
@@ -571,7 +571,7 @@ msgstr "&Otevřít"
 
 #: libkwave/SignalManager.cpp:1293 kwave/menus_config_i18n.cpp:86
 msgid "&Options"
-msgstr "&Volby"
+msgstr "Nas&tavení"
 
 #: libgui/SignalWidget.cpp:245 kwave/menus_config_i18n.cpp:87
 msgid "&Paste"
@@ -603,7 +603,7 @@ msgstr "&Posun výšky tónu"
 
 #: kwave/menus_config_i18n.cpp:94
 msgid "&Play"
-msgstr "&Hra"
+msgstr "&Přehrávání"
 
 #: kwave/menus_config_i18n.cpp:95
 msgid "&Playback"
@@ -778,7 +778,7 @@ msgstr "(%1%) %2"
 
 #: plugins/newsignal/ui_NewSigDlg.h:518
 msgid "(File Size)"
-msgstr "(Velikost souboru)"
+msgstr "(velikost souboru)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:513
 #: plugins/newsignal/NewSignalDialog.cpp:300
@@ -1146,8 +1146,8 @@ msgid ""
 "<b>Compression</b><br>Here you can select one of the compression types if "
 "your audio hardware supports it."
 msgstr ""
-"<b>Zhuštění</b><br>Zde můžete vybrat jeden z druhů zhuštění, pokud to "
-"podporuje technické vybavení vašeho počítače."
+"<b>Komprese</b><br>Zde můžete vybrat jeden z druhů komprese, pokud to "
+"podporuje technické vybavení vašeho počítače pro zvuk."
 
 #: plugins/memory/ui_MemDlg.h:291
 msgid ""
@@ -1429,7 +1429,7 @@ msgid ""
 "change the index itself, but change the label's position."
 msgstr ""
 "<b>Rejstřík štítků</b><br>\n"
-"Toto je pouze číselný restřík ke štítkům, který začíná nulou. Štítky jsou "
+"Toto je pouze číselný rejstřík ke štítkům, který začíná nulou. Štítky jsou "
 "roztříděny podle své pozice. Nižší index znamená 'levý', vyšší index znamená "
 "'pravý'. Nemůžete měnit samotný index, ale měníte pozici štítku."
 
@@ -1747,7 +1747,7 @@ msgstr "Používá se '%1'..."
 
 #: libkwave/FileInfo.cpp:50
 msgid "Archival location"
-msgstr "Archivní umístění"
+msgstr "Místo archivace"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:55
 msgid "Audio Interchange Format"
@@ -1827,7 +1827,7 @@ msgstr ""
 #: plugins/band_pass/BandPassPlugin.cpp:121
 #: plugins/band_pass/ui_BandPassDlg.h:193
 msgid "Band Pass"
-msgstr "Průchod pásmem"
+msgstr "Průchod nízkým a vysokým kmitočtem signálu"
 
 #: plugins/band_pass/BandPassPlugin.cpp:32
 msgid "Band Pass Filter"
@@ -1855,7 +1855,7 @@ msgstr "Základní kvalita"
 
 #: libkwave/FileInfo.cpp:225
 msgid "Base quality of the compression in VBR mode"
-msgstr "Základní kvalita zhuštění v režimu proměnlivého datového toku"
+msgstr "Základní kvalita komprese v režimu proměnlivého datového toku"
 
 #: libkwave/GenreType.cpp:118
 msgid "Bass"
@@ -2034,25 +2034,25 @@ msgstr "Komprimovaný zvukový výměnný formát"
 
 #: libkwave/FileInfo.cpp:83 plugins/fileinfo/ui_FileInfoDlg.h:1292
 msgid "Compression"
-msgstr "Zhuštění"
+msgstr "Stlačení"
 
 #: plugins/record/RecordPlugin.cpp:583
 #, kde-format
 msgid "Compression '%1' failed, using '%2'."
-msgstr "Zhuštění '%1' selhalo. Používá se '%2'."
+msgstr "Komprese '%1' selhala. Používá se '%2'."
 
 #: plugins/record/RecordPlugin.cpp:566
 #, kde-format
 msgid "Compression '%1' not supported, using '%2'"
-msgstr "Zhuštění '%1' není podporováno. Používá se '%2'."
+msgstr "Komprese '%1' není podporována. Používá se '%2'."
 
 #: plugins/record/ui_RecordDlg.h:1028
 msgid "Compression:"
-msgstr "Zhuštění:"
+msgstr "Komprese:"
 
 #: plugins/fileinfo/ui_CompressionWidgetBase.h:191
 msgid "CompressionWidgetBase"
-msgstr "Základní zhušťovací udělátko"
+msgstr "Základní stlačovací udělátko"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:408
 msgid "Connecting to the PulseAudio server failed."
@@ -3273,11 +3273,11 @@ msgstr "Nahrává přídavné moduly..."
 
 #: plugins/lowpass/LowPassPlugin.cpp:108 plugins/lowpass/ui_LowPassDlg.h:180
 msgid "Low Pass"
-msgstr "Průchod nízkým pásmem"
+msgstr "Průchod nízkým kmitočtem signálu"
 
 #: plugins/lowpass/LowPassPlugin.cpp:33
 msgid "Low Pass Filter"
-msgstr "Nízkopásmový filtr"
+msgstr "Filtr pro průchod nízkým kmitočtem signálu"
 
 #: libkwave/FileInfo.cpp:58
 msgid "Lower Bitrate"
@@ -3586,7 +3586,7 @@ msgstr "Žádná"
 
 #: libkwave/CompressionType.cpp:39
 msgid "No Compression"
-msgstr "Žádné zhuštění"
+msgstr "Žádná komprese"
 
 #: libkwave/GenreType.cpp:116 plugins/noise/NoisePlugin.cpp:48
 msgid "Noise"
@@ -4294,7 +4294,7 @@ msgstr "Vzorky"
 
 #: plugins/newsignal/ui_NewSigDlg.h:493 plugins/record/ui_RecordDlg.h:1021
 msgid "Samples per second"
-msgstr "Vzorků za sekundu"
+msgstr "vzorků za sekundu"
 
 #: libkwave/GenreType.cpp:189
 msgid "Satire"
@@ -4483,7 +4483,7 @@ msgid ""
 "Sets a mode for compressing the audio\n"
 "data to reduce disk space."
 msgstr ""
-"Nastaví režim zhuštění zvukových dat,\n"
+"Nastaví režim pro kompresi zvukových dat,\n"
 "aby zabírala méně diskového prostoru."
 
 #: plugins/newsignal/ui_NewSigDlg.h:521
@@ -4603,8 +4603,8 @@ msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
 "you want to use G711 ULAW compression instead?"
 msgstr ""
-"Promiňte, ale nyní vybraný druh zhuštění nelze použít pro ukládání. Chcete "
-"místo něj použít zhuštění G711 ULAW?"
+"Promiňte, ale nyní vybraný druh komprese nelze použít pro ukládání. Chcete "
+"místo něj použít kompresi G711 ULAW?"
 
 #: libkwave/SignalManager.cpp:463
 msgid "Sorry, the file type is not supported."
@@ -4862,7 +4862,7 @@ msgstr ""
 
 #: plugins/record/RecordPlugin.cpp:823
 msgid "The current compression type is not supported!"
-msgstr "Nynější druh zhuštění není podporován."
+msgstr "Nynější druh komprese není podporován."
 
 #: plugins/record/RecordPlugin.cpp:813
 msgid "The current sample format is not supported!"

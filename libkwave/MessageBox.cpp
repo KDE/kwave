@@ -34,10 +34,12 @@ Kwave::MessageBox::MessageBox()
 //***************************************************************************
 Kwave::MessageBox::MessageBox(KMessageBox::DialogType mode, QWidget *parent,
     QString message, QString caption,
-    const QString &button1, const QString &button2)
+    const QString &button1, const QString &button2,
+    const QString &dontAskAgainName)
     :QObject(0), m_semaphore(0), m_retval(-1),
      m_mode(mode), m_parent(parent), m_message(message), m_caption(caption),
-     m_button1(button1), m_button2(button2)
+     m_button1(button1), m_button2(button2),
+     m_dont_ask_again_name(dontAskAgainName)
 {
     if (QThread::currentThread() == QApplication::instance()->thread()) {
 	// we are already in the GUI thread -> direct call
@@ -66,19 +68,23 @@ Kwave::MessageBox::~MessageBox()
 //***************************************************************************
 int Kwave::MessageBox::questionYesNo(QWidget *parent,
     QString message, QString caption,
-    const QString buttonYes, const QString buttonNo)
+    const QString buttonYes, const QString buttonNo,
+    const QString &dontAskAgainName)
 {
     return Kwave::MessageBox::exec(KMessageBox::QuestionYesNo,
-	parent, message, caption, buttonYes, buttonNo);
+	parent, message, caption, buttonYes, buttonNo,
+	dontAskAgainName);
 }
 
 //***************************************************************************
 int Kwave::MessageBox::questionYesNoCancel(QWidget *parent,
     QString message, QString caption,
-    const QString buttonYes, const QString buttonNo)
+    const QString buttonYes, const QString buttonNo,
+    const QString &dontAskAgainName)
 {
     return Kwave::MessageBox::exec(KMessageBox::QuestionYesNoCancel,
-	parent, message, caption, buttonYes, buttonNo);
+	parent, message, caption, buttonYes, buttonNo,
+	dontAskAgainName);
 }
 
 //***************************************************************************
@@ -92,28 +98,34 @@ int Kwave::MessageBox::sorry(QWidget *parent,
 //***************************************************************************
 int Kwave::MessageBox::warningYesNo(QWidget *parent,
     QString message, QString caption,
-    const QString buttonYes, const QString buttonNo)
+    const QString buttonYes, const QString buttonNo,
+    const QString &dontAskAgainName)
 {
     return Kwave::MessageBox::exec(KMessageBox::WarningYesNo,
-	parent, message, caption, buttonYes, buttonNo);
+	parent, message, caption, buttonYes, buttonNo,
+	dontAskAgainName);
 }
 
 //***************************************************************************
 int Kwave::MessageBox::warningYesNoCancel(QWidget *parent,
     QString message, QString caption,
-    const QString buttonYes, const QString buttonNo)
+    const QString buttonYes, const QString buttonNo,
+    const QString &dontAskAgainName)
 {
     return Kwave::MessageBox::exec(KMessageBox::WarningYesNoCancel,
-	parent, message, caption, buttonYes, buttonNo);
+	parent, message, caption, buttonYes, buttonNo,
+	dontAskAgainName);
 }
 
 //***************************************************************************
 int Kwave::MessageBox::warningContinueCancel(QWidget *parent,
     QString message, QString caption,
-    const QString buttonContinue, const QString buttonCancel)
+    const QString buttonContinue, const QString buttonCancel,
+    const QString &dontAskAgainName)
 {
     return Kwave::MessageBox::exec(KMessageBox::WarningContinueCancel,
-	parent, message, caption, buttonContinue, buttonCancel);
+	parent, message, caption, buttonContinue, buttonCancel,
+	dontAskAgainName);
 }
 
 //***************************************************************************
@@ -127,9 +139,14 @@ int Kwave::MessageBox::error(QWidget *parent,
 //***************************************************************************
 int Kwave::MessageBox::exec(KMessageBox::DialogType mode, QWidget *parent,
     QString message, QString caption,
-    const QString &button1, const QString &button2)
+    const QString &button1, const QString &button2,
+    const QString &dontAskAgainName)
 {
-    Kwave::MessageBox box(mode, parent, message, caption, button1, button2);
+    Kwave::MessageBox box(
+	mode, parent, message, caption,
+	button1, button2,
+	dontAskAgainName
+    );
     return box.retval();
 }
 
@@ -144,7 +161,8 @@ void Kwave::MessageBox::show()
 		(!m_button1.isEmpty()) ? KGuiItem(m_button1) :
 		                         KStandardGuiItem::yes(),
 		(!m_button2.isEmpty()) ? KGuiItem(m_button2) :
-		                         KStandardGuiItem::no());
+		                         KStandardGuiItem::no(),
+		m_dont_ask_again_name);
 	    break;
 	// QuestionYesNoCancel
 	case KMessageBox::QuestionYesNoCancel:
@@ -153,7 +171,9 @@ void Kwave::MessageBox::show()
 		(!m_button1.isEmpty()) ? KGuiItem(m_button1) :
 		                         KStandardGuiItem::yes(),
 		(!m_button2.isEmpty()) ? KGuiItem(m_button2) :
-		                         KStandardGuiItem::no());
+		                         KStandardGuiItem::no(),
+		KStandardGuiItem::cancel(),
+		m_dont_ask_again_name);
 	    break;
 	// Sorry
 	case KMessageBox::Sorry:
@@ -166,7 +186,9 @@ void Kwave::MessageBox::show()
 		(!m_button1.isEmpty()) ? KGuiItem(m_button1) :
 		                         KStandardGuiItem::yes(),
 		(!m_button2.isEmpty()) ? KGuiItem(m_button2) :
-		                         KStandardGuiItem::no());
+		                         KStandardGuiItem::no(),
+		KStandardGuiItem::cancel(),
+		m_dont_ask_again_name);
 	    break;
 	// WarningYesNo
 	case KMessageBox::WarningYesNo:
@@ -175,7 +197,8 @@ void Kwave::MessageBox::show()
 		(!m_button1.isEmpty()) ? KGuiItem(m_button1) :
 		                         KStandardGuiItem::yes(),
 		(!m_button2.isEmpty()) ? KGuiItem(m_button2) :
-		                         KStandardGuiItem::no());
+		                         KStandardGuiItem::no(),
+		m_dont_ask_again_name);
 	    break;
 	// WarningContinueCancel
 	case KMessageBox::WarningContinueCancel:
@@ -184,7 +207,8 @@ void Kwave::MessageBox::show()
 		(!m_button1.isEmpty()) ? KGuiItem(m_button1) :
 		                         KStandardGuiItem::cont(),
 		(!m_button2.isEmpty()) ? KGuiItem(m_button2) :
-		                         KStandardGuiItem::cancel());
+		                         KStandardGuiItem::cancel(),
+		m_dont_ask_again_name);
 	    break;
 	// Error
 	case KMessageBox::Error:

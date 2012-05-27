@@ -40,13 +40,15 @@ namespace Kwave {
 	static int questionYesNo(QWidget *widget,
 	    QString message, QString caption = QString(),
 	    const QString buttonYes = QString(),
-	    const QString buttonNo  = QString());
+	    const QString buttonNo  = QString(),
+	    const QString &dontAskAgainName = QString());
 
 	/** @see KMessageBox::questionYesNoCancel */
 	static int questionYesNoCancel(QWidget *widget,
 	    QString message, QString caption = QString(),
 	    const QString buttonYes = QString(),
-	    const QString buttonNo = QString());
+	    const QString buttonNo = QString(),
+	    const QString &dontAskAgainName = QString());
 
 	/** @see KMessageBox::sorry */
 	static int sorry(QWidget *widget,
@@ -56,19 +58,22 @@ namespace Kwave {
 	static int warningYesNo(QWidget *widget,
 	    QString message, QString caption = QString(),
 	    const QString buttonYes = QString(),
-	    const QString buttonNo = QString());
+	    const QString buttonNo = QString(),
+	    const QString &dontAskAgainName = QString());
 
 	/** @see KMessageBox::warningYesNoCancel */
 	static int warningYesNoCancel(QWidget *widget,
 	    QString message, QString caption = QString(),
 	    const QString buttonYes = QString(),
-	    const QString buttonNo = QString());
+	    const QString buttonNo = QString(),
+	    const QString &dontAskAgainName = QString());
 
 	/** @see KMessageBox::warningContinueCancel */
 	static int warningContinueCancel(QWidget *widget,
 	    QString message, QString caption = QString(),
 	    const QString buttonContinue = QString(),
-	    const QString buttonCancel = QString());
+	    const QString buttonCancel = QString(),
+	    const QString &dontAskAgainName = QString());
 
 	/** @see KMessageBox::error */
 	static int error(QWidget *widget,
@@ -87,12 +92,14 @@ namespace Kwave {
 	 * @param caption title of the window
 	 * @param button1 a KGuiItem for the first button (optional)
 	 * @param button2 a KGuiItem for the second button (optional)
+	 * @param dontAskAgainName tag name for "dont ask again"
 	 * @return the return value of the KMessageBox
 	 */
 	MessageBox(KMessageBox::DialogType mode, QWidget *parent,
 	    QString message, QString caption,
 	    const QString &button1 = QString(),
-	    const QString &button2 = QString());
+	    const QString &button2 = QString(),
+	    const QString &dontAskAgainName = QString());
 
 	/** Destructor */
 	virtual ~MessageBox();
@@ -111,12 +118,14 @@ namespace Kwave {
 	 * @param caption the window title (optional)
 	 * @param button1 a KGuiItem for the first button (optional)
 	 * @param button2 a KGuiItem for the second button (optional)
+	 * @param dontAskAgainName tag name for "dont ask again"
 	 * @return the result of the call to KMessageBox::xxx or -1
 	 */
 	static int exec(KMessageBox::DialogType mode, QWidget *parent,
 	    QString message, QString caption = QString(),
 	    const QString &button1 = QString(),
-	    const QString &button2 = QString());
+	    const QString &button2 = QString(),
+	    const QString &dontAskAgainName = QString());
 
     protected:
 	/**
@@ -176,6 +185,9 @@ namespace Kwave {
 
 	/** second button (optional) */
 	const QString m_button2;
+
+	/** tag for "dont ask again" (optional) */
+	const QString m_dont_ask_again_name;
     };
 }
 

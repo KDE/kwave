@@ -46,6 +46,7 @@
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kmenubar.h>
+#include <kmessagebox.h>
 #include <kstatusbar.h>
 #include <kstandarddirs.h>
 #include <ktoolbar.h>
@@ -559,7 +560,7 @@ int TopWidget::executeCommand(const QString &line)
 	QString name = parser.firstParam();
 	QStringList params;
 
-	int cnt=parser.count();
+	int cnt = parser.count();
 	if (cnt > 1) {
 	    while (cnt--) {
 		const QString &par = parser.nextParam();
@@ -631,6 +632,16 @@ int TopWidget::executeCommand(const QString &line)
 	    == KMessageBox::Yes) ? 1 : 0))
 	{
 	    resetToolbarToDefaults();
+	}
+    CASE_COMMAND("reenable_dna")
+	if ((result = (Kwave::MessageBox::questionYesNo(this,
+	    i18n("Re-enable all disabled notifications?\n"
+		 "All messages that you previously turned off by activating "
+		 "the \"Do not ask again\" checkbox will then be enabled again."
+	    ))
+	    == KMessageBox::Yes) ? 1 : 0))
+	{
+	    KMessageBox::enableAllMessages();
 	}
     } else {
 	// try to forward the command to the main widget

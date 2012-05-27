@@ -21,15 +21,24 @@
 # check for programs needed by the script
 FIND_REQUIRED_PROGRAM(AWK_EXECUTABLE gawk awk)
 FIND_REQUIRED_PROGRAM(CAT_EXECUTABLE cat)
+FIND_REQUIRED_PROGRAM(DATE_EXECUTABLE date)
+FIND_REQUIRED_PROGRAM(SED_EXECUTABLE sed)
 FIND_REQUIRED_PROGRAM(SORT_EXECUTABLE sort)
 FIND_REQUIRED_PROGRAM(UNIQ_EXECUTABLE uniq)
 
+SET(MENUSCONFIG2CPP ${CMAKE_BINARY_DIR}/kwave/menusconfig2cpp.sh)
+
+CONFIGURE_FILE(
+    ${CMAKE_SOURCE_DIR}/bin/menusconfig2cpp.sh.in
+    ${MENUSCONFIG2CPP}
+)
+
 ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
-    COMMAND ${PROJECT_SOURCE_DIR}/bin/menusconfig2cpp.sh
+    COMMAND ${MENUSCONFIG2CPP}
         ${CMAKE_CURRENT_SOURCE_DIR}/menus.config
         ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/menus.config
-    DEPENDS ${PROJECT_SOURCE_DIR}/bin/menusconfig2cpp.sh
+    DEPENDS ${MENUSCONFIG2CPP}
 )
 
 #############################################################################

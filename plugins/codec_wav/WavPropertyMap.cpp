@@ -20,29 +20,51 @@
 //***************************************************************************
 WavPropertyMap::WavPropertyMap()
 {
-    // well-known tags:
+    // NOTE #1: the left column is allowed to have multiple entries with the
+    //          same property, when encoding the first one is used, when
+    //          decoding, the other ones serve as alternatives
+    // NOTE #2: the chunk names in the right column must be *unique* !
+    // well-known tags
     insert(INF_AUTHOR        ,"AUTH"); // author's name
     insert(INF_ANNOTATION    ,"ANNO"); // annotations
-    insert(INF_ARCHIVAL      ,"IARL"); // archival location
-    insert(INF_PERFORMER     ,"IART"); // performer
-    insert(INF_COMMISSIONED  ,"ICMS"); // commissioned
-    insert(INF_COMMENTS      ,"ICMT"); // comments
-    insert(INF_COPYRIGHT     ,"ICOP"); // copyright
+    insert(INF_ARCHIVAL      ,"IARL"); // archival location (EXIF 2.3)
+    insert(INF_PERFORMER     ,"IART"); // performer  (EXIF 2.3)
+    insert(INF_COMMISSIONED  ,"ICMS"); // commissioned  (EXIF 2.3)
+    insert(INF_COMMENTS      ,"ICMT"); // comments  (EXIF 2.3)
+    insert(INF_COPYRIGHT     ,"ICOP"); // copyright  (EXIF 2.3)
+    insert(INF_CREATION_DATE ,"ICRD"); // creation date (iso)  (EXIF 2.3)
+    insert(INF_ENGINEER      ,"IENG"); // engineer  (EXIF 2.3)
+    insert(INF_GENRE         ,"IGNR"); // genre  (EXIF 2.3)
+    insert(INF_KEYWORDS      ,"IKEY"); // keywords  (EXIF 2.3)
+    insert(INF_MEDIUM        ,"IMED"); // medium  (EXIF 2.3)
+    insert(INF_NAME          ,"INAM"); // name  (EXIF 2.3)
+    insert(INF_PRODUCT       ,"IPRD"); // product  (EXIF 2.3)
+    insert(INF_SOFTWARE      ,"ISFT"); // software  (EXIF 2.3)
+    insert(INF_SOURCE        ,"ISRC"); // source  (EXIF 2.3)
+    insert(INF_SOURCE_FORM   ,"ISRF"); // source form  (EXIF 2.3)
+    insert(INF_TECHNICAN     ,"ITCH"); // technican  (EXIF 2.3)
+    insert(INF_SUBJECT       ,"ISBJ"); // subject  (EXIF 2.3)
+
+    // tags from SoundForge Pro
+    insert(INF_TRACK         ,"TRCK"); // track number
+    insert(INF_VERSION       ,"TVER"); // version/remix
+    insert(INF_ORGANIZATION  ,"TORG"); // organization/label
+
+    // some others, alternatives
+    insert(INF_ALBUM         ,"IALB"); // name of the album
     insert(INF_COPYRIGHT     ,"(c) "); // copyright
-    insert(INF_CREATION_DATE ,"ICRD"); // creation date (iso)
-    insert(INF_ENGINEER      ,"IENG"); // engineer
-    insert(INF_GENRE         ,"IGNR"); // genre
-    insert(INF_KEYWORDS      ,"IKEY"); // keywords
-    insert(INF_MEDIUM        ,"IMED"); // medium
-    insert(INF_NAME          ,"INAM"); // name
-    insert(INF_ALBUM         ,"IPRD"); // album
-    insert(INF_PRODUCT       ,"IPRD"); // product (alternative)
-    insert(INF_SOFTWARE      ,"ISFT"); // software
-    insert(INF_SOURCE        ,"ISRC"); // source
-    insert(INF_SOURCE_FORM   ,"ISRF"); // source form
-    insert(INF_TECHNICAN     ,"ITCH"); // technican
-    insert(INF_SUBJECT       ,"ISBJ"); // subject
-    insert(INF_TRACK         ,"ISBJ"); // track number (alternative)
+    insert(INF_CREATION_DATE ,"DTIM"); // date/time original
+    insert(INF_CREATION_DATE ,"YEAR"); // year  (MovieID ref12)
+    insert(INF_GENRE         ,"GENR"); // genre (MovieID ref12)
+    insert(INF_GENRE         ,"ISGN"); // second genre (IMDB)
+    insert(INF_AUTHOR        ,"IWRI"); // written by (IMDB)
+    insert(INF_ENGINEER      ,"IEDT"); // edited by (IMDB)
+    insert(INF_CD            ,"IPTR"); // part (?)
+
+    // non-standard, probably only known by Kwave
+    insert(INF_CONTACT       ,"cnt "); // contact information for creator
+    insert(INF_ISRC          ,"isrc"); // International Standard Recording Code
+    insert(INF_LICENSE       ,"lic "); // license information
 }
 
 //***************************************************************************

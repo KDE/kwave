@@ -136,6 +136,8 @@ void WavEncoder::writeInfoChunk(QIODevice &dst, FileInfo &info)
 	if (!m_property_map.containsProperty(property)) continue;
 
 	QByteArray chunk_id = m_property_map.findProperty(property);
+	if (info_chunks.contains(chunk_id)) continue; // already encoded
+
 	QByteArray value = QVariant(properties[property]).toString().toUtf8();
 	info_chunks.insert(chunk_id, value);
 	info_size += 4 + 4 + value.length();

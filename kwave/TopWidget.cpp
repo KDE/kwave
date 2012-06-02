@@ -961,8 +961,9 @@ int TopWidget::saveFileAs(bool selection)
     // if it is not the old filename
     if ((name != signalName()) && (path.exists())) {
 	if (Kwave::MessageBox::warningYesNo(this,
-	    i18n("The file '%1' already exists. Do you really "\
-	    "want to overwrite it?", name)) != KMessageBox::Yes)
+	    i18n("The file '%1' already exists.\n"
+	         "Do you really want to overwrite it?", name)) !=
+	         KMessageBox::Yes)
 	{
 	    return -1;
 	}

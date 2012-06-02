@@ -349,7 +349,11 @@ int SignalManager::save(const KUrl &url, bool selection)
 		     "additional file attribute(s):\n"
 		     "%1\n"
 		     "Do you still want to continue?",
-		     lost_properties)
+		     lost_properties),
+		QString(),
+		QString(),
+		QString(),
+		"accept_lose_attributes_on_export"
 		) != KMessageBox::Continue)
 	    {
 		delete encoder;

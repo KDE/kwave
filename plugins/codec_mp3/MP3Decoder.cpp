@@ -30,45 +30,34 @@
 #include "libkwave/Sample.h"
 #include "libkwave/Writer.h"
 
+#include "MP3CodecPlugin.h"
 #include "MP3Decoder.h"
 #include "ID3_QIODeviceReader.h"
 
 //***************************************************************************
-MP3Decoder::MP3Decoder()
+Kwave::MP3Decoder::MP3Decoder()
     :Decoder(), m_source(0), m_dest(0), m_buffer(0), m_buffer_size(0),
      m_prepended_bytes(0), m_appended_bytes(0), m_failures(0),
      m_parent_widget(0)
 {
-    /* included in KDE: */
-    addMimeType("audio/x-mpga",   i18n("MPEG layer I audio"),
-                "*.mpga *.mpg *.mp1");
-    addMimeType("audio/x-mp2",    i18n("MPEG layer II audio"), "*.mp2");
-    addMimeType("audio/x-mp3",    i18n("MPEG layer III audio"), "*.mp3");
-
-    /* like defined in RFC3003 */
-    addMimeType("audio/mpeg",     i18n("MPEG audio"), "*.mpga *.mpg *.mp1");
-    addMimeType("audio/mpeg",     i18n("MPEG layer II audio"), "*.mp2");
-    addMimeType("audio/mpeg",     i18n("MPEG layer III audio"), "*.mp3");
-
-    // NOTE: all mime types above should be recognized in the
-    //       fileinfo plugin!
-
+    LOAD_MIME_TYPES;
 }
 
 //***************************************************************************
-MP3Decoder::~MP3Decoder()
+Kwave::MP3Decoder::~MP3Decoder()
 {
     if (m_source) close();
 }
 
 //***************************************************************************
-Decoder *MP3Decoder::instance()
+Decoder *Kwave::MP3Decoder::instance()
 {
     return new MP3Decoder();
 }
 
 //***************************************************************************
-bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
+bool Kwave::MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header,
+                                       QWidget *widget)
 {
     FileInfo info(metaData());
 
@@ -189,7 +178,7 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
 }
 
 //***************************************************************************
-bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
+bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 {
     if (tag.NumFrames() < 1) return true; // no tags, nothing to do
 
@@ -367,7 +356,7 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 }
 
 //***************************************************************************
-void MP3Decoder::parseId3Frame(ID3_Frame *frame, FileProperty property)
+void Kwave::MP3Decoder::parseId3Frame(ID3_Frame *frame, FileProperty property)
 {
     if (!frame) return;
     char *text = ID3_GetString(frame, ID3FN_TEXT);
@@ -380,7 +369,7 @@ void MP3Decoder::parseId3Frame(ID3_Frame *frame, FileProperty property)
 }
 
 //***************************************************************************
-bool MP3Decoder::open(QWidget *widget, QIODevice &src)
+bool Kwave::MP3Decoder::open(QWidget *widget, QIODevice &src)
 {
     qDebug("MP3Decoder::open()");
     metaData().clear();
@@ -446,7 +435,7 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
 //***************************************************************************
 static enum mad_flow _input_adapter(void *data, struct mad_stream *stream)
 {
-    MP3Decoder *decoder = reinterpret_cast<MP3Decoder *>(data);
+    Kwave::MP3Decoder *decoder = reinterpret_cast<Kwave::MP3Decoder *>(data);
     Q_ASSERT(decoder);
     return (decoder) ? decoder->fillInput(stream) : MAD_FLOW_STOP;
 }
@@ -456,7 +445,7 @@ static enum mad_flow _output_adapter(void *data,
                                      struct mad_header const *header,
                                      struct mad_pcm *pcm)
 {
-    MP3Decoder *decoder = reinterpret_cast<MP3Decoder *>(data);
+    Kwave::MP3Decoder *decoder = reinterpret_cast<Kwave::MP3Decoder *>(data);
     Q_ASSERT(decoder);
     return (decoder) ?
         decoder->processOutput(data, header, pcm) : MAD_FLOW_STOP;
@@ -466,14 +455,14 @@ static enum mad_flow _output_adapter(void *data,
 static enum mad_flow _error_adapter(void *data, struct mad_stream *stream,
                                     struct mad_frame *frame)
 {
-    MP3Decoder *decoder = reinterpret_cast<MP3Decoder *>(data);
+    Kwave::MP3Decoder *decoder = reinterpret_cast<Kwave::MP3Decoder *>(data);
     Q_ASSERT(decoder);
     return (decoder) ?
         decoder->handleError(data, stream, frame) : MAD_FLOW_BREAK;
 }
 
 //***************************************************************************
-enum mad_flow MP3Decoder::handleError(void */*data*/,
+enum mad_flow Kwave::MP3Decoder::handleError(void */*data*/,
     struct mad_stream *stream, struct mad_frame */*frame*/)
 {
     if (m_failures >= 2) return MAD_FLOW_CONTINUE; // ignore errors
@@ -535,7 +524,7 @@ enum mad_flow MP3Decoder::handleError(void */*data*/,
 }
 
 //***************************************************************************
-enum mad_flow MP3Decoder::fillInput(struct mad_stream *stream)
+enum mad_flow Kwave::MP3Decoder::fillInput(struct mad_stream *stream)
 {
     Q_ASSERT(m_source);
     if (!m_source) return MAD_FLOW_STOP;
@@ -641,7 +630,7 @@ static inline int32_t audio_linear_dither(unsigned int bits,
 }
 
 //***************************************************************************
-enum mad_flow MP3Decoder::processOutput(void */*data*/,
+enum mad_flow Kwave::MP3Decoder::processOutput(void */*data*/,
     struct mad_header const */*header*/, struct mad_pcm *pcm)
 {
     static struct audio_dither dither;
@@ -668,7 +657,7 @@ enum mad_flow MP3Decoder::processOutput(void */*data*/,
 }
 
 //***************************************************************************
-bool MP3Decoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
+bool Kwave::MP3Decoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 {
     Q_ASSERT(m_source);
     if (!m_source) return false;
@@ -698,7 +687,7 @@ bool MP3Decoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 }
 
 //***************************************************************************
-void MP3Decoder::close()
+void Kwave::MP3Decoder::close()
 {
     m_source = 0;
 }

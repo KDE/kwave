@@ -1,8 +1,8 @@
 /*************************************************************************
-   MP3DecoderPlugin.cpp  -  import of MP3 data
+     MP3CodecPlugin.cpp  -  import and export of MP3 data
                              -------------------
-    begin                : Wed Aug 07 2002
-    copyright            : (C) 2002 by Thomas Eschenbacher
+    begin                : Mon May 28 2012
+    copyright            : (C) 2012 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -19,32 +19,40 @@
 
 #include "libkwave/CodecManager.h"
 
-#include "MP3DecoderPlugin.h"
+#include "MP3CodecPlugin.h"
 #include "MP3Decoder.h"
+#include "MP3Encoder.h"
 
-KWAVE_PLUGIN(MP3DecoderPlugin, "decoder_mp3", "2.1",
-             I18N_NOOP("MP3 Decoder"), "Thomas Eschenbacher");
+KWAVE_PLUGIN(Kwave::MP3CodecPlugin, "codec_mp3", "2.1",
+             I18N_NOOP("MP3 Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
-MP3DecoderPlugin::MP3DecoderPlugin(const PluginContext &c)
-    :Kwave::Plugin(c), m_decoder(0)
+Kwave::MP3CodecPlugin::MP3CodecPlugin(const PluginContext &c)
+    :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
 {
 }
 
 /***************************************************************************/
-MP3DecoderPlugin::~MP3DecoderPlugin()
+Kwave::MP3CodecPlugin::~MP3CodecPlugin()
 {
+    m_encoder = 0;
+    m_decoder = 0;
 }
 
 /***************************************************************************/
-void MP3DecoderPlugin::load(QStringList &/* params */)
+void Kwave::MP3CodecPlugin::load(QStringList &/* params */)
 {
-    if (!m_decoder) m_decoder = new MP3Decoder();
+    if (!m_decoder) m_decoder = new Kwave::MP3Decoder();
     Q_ASSERT(m_decoder);
     if (m_decoder) CodecManager::registerDecoder(*m_decoder);
+
+    if (!m_encoder) m_encoder = new Kwave::MP3Encoder();
+    Q_ASSERT(m_encoder);
+    if (m_encoder) CodecManager::registerEncoder(*m_encoder);
+
 }
 
 //***************************************************************************
-#include "MP3DecoderPlugin.moc"
+#include "MP3CodecPlugin.moc"
 //***************************************************************************
 //***************************************************************************

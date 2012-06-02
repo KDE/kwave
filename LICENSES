@@ -572,13 +572,17 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/debug/DebugPlugin.cpp			GPL2+
 	plugins/debug/DebugPlugin.h			GPL2+
 
-	plugins/decoder_mp3/CMakeLists.txt		GPL2+
-	plugins/decoder_mp3/ID3_QIODeviceReader.cpp	GPL2+
-	plugins/decoder_mp3/ID3_QIODeviceReader.h	GPL2+
-	plugins/decoder_mp3/MP3Decoder.cpp		GPL2+
-	plugins/decoder_mp3/MP3Decoder.h		GPL2+
-	plugins/decoder_mp3/MP3DecoderPlugin.cpp	GPL2+
-	plugins/decoder_mp3/MP3DecoderPlugin.h		GPL2+
+	plugins/codec_mp3/CMakeLists.txt		GPL2+
+	plugins/codec_mp3/ID3_QIODeviceReader.cpp	GPL2+
+	plugins/codec_mp3/ID3_QIODeviceReader.h		GPL2+
+	plugins/codec_mp3/ID3_QIODeviceWriter.cpp	GPL2+
+	plugins/codec_mp3/ID3_QIODeviceWriter.h		GPL2+
+	plugins/codec_mp3/MP3CodecPlugin.cpp		GPL2+
+	plugins/codec_mp3/MP3CodecPlugin.h		GPL2+
+	plugins/codec_mp3/MP3Decoder.cpp		GPL2+
+	plugins/codec_mp3/MP3Decoder.h			GPL2+
+	plugins/codec_mp3/MP3Encoder.cpp		GPL2+
+	plugins/codec_mp3/MP3Encoder.h			GPL2+
 
 	plugins/goto/CMakeLists.txt			GPL2+
 	plugins/goto/GotoDialog.cpp			GPL2+

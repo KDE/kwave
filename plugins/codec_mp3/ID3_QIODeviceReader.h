@@ -22,53 +22,54 @@
 
 #include <id3/globals.h>
 #include <id3/reader.h>
-//#include <id3/tag.h>
 
 class QIODevice;
 
-/**
- * @class ID3_QIODeviceReader
- * Adapter between QIODevice and ID3_Reader
- */
-class ID3_QIODeviceReader: public ID3_Reader
-{
-public:
+namespace Kwave {
+    /**
+     * @class ID3_QIODeviceReader
+     * Adapter between QIODevice and ID3_Reader
+     */
+    class ID3_QIODeviceReader: public ID3_Reader
+    {
+    public:
 
-    /** Constructor */
-    ID3_QIODeviceReader(QIODevice &source);
+	/** Constructor */
+	ID3_QIODeviceReader(QIODevice &source);
 
-    /** Destructor */
-    virtual ~ID3_QIODeviceReader();
+	/** Destructor */
+	virtual ~ID3_QIODeviceReader();
 
-    /** Close the source. Not implemented. */
-    virtual void close();
+	/** Close the source. Not implemented. */
+	virtual void close();
 
-    /** Get the start position, always zero */
-    virtual ID3_Reader::pos_type getBeg();
+	/** Get the start position, always zero */
+	virtual ID3_Reader::pos_type getBeg();
 
-    /** Get the end position, identical to size()-1 */
-    virtual ID3_Reader::pos_type getEnd();
+	/** Get the end position, identical to size()-1 */
+	virtual ID3_Reader::pos_type getEnd();
 
-    /** Returns the current position */
-    virtual ID3_Reader::pos_type getCur();
+	/** Returns the current position */
+	virtual ID3_Reader::pos_type getCur();
 
-    /** Sets a new position and returns the new one */
-    virtual ID3_Reader::pos_type setCur(ID3_Reader::pos_type pos=0);
+	/** Sets a new position and returns the new one */
+	virtual ID3_Reader::pos_type setCur(ID3_Reader::pos_type pos=0);
 
-    /** Reads out one single character */
-    virtual ID3_Reader::int_type readChar();
+	/** Reads out one single character */
+	virtual ID3_Reader::int_type readChar();
 
-    /** Reads one character without advancing the current position */
-    virtual ID3_Reader::int_type peekChar();
+	/** Reads one character without advancing the current position */
+	virtual ID3_Reader::int_type peekChar();
 
-    /** Read out a block of characters */
-    virtual size_type readChars(char_type buf[], size_type len);
-    virtual size_type readChars(char buf[], size_type len);
+	/** Read out a block of characters */
+	virtual size_type readChars(char_type buf[], size_type len);
+	virtual size_type readChars(char buf[], size_type len);
 
-private:
+    private:
 
-    /** reference to a QIODevice that is used as source */
-    QIODevice &m_source;
-};
+	/** reference to a QIODevice that is used as source */
+	QIODevice &m_source;
+    };
+}
 
 #endif /* _ID3_QIODEVICE_READER_H_ */

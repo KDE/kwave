@@ -1,8 +1,8 @@
 /*************************************************************************
-    ID3_QIODeviceReader.cpp  -  Adapter between QIODevice and ID3_Reader
+    ID3_QIODeviceWriter.cpp  -  Adapter between QIODevice and ID3_Writer
                              -------------------
-    begin                : Wed Aug 14 2002
-    copyright            : (C) 2002 by Thomas Eschenbacher
+    begin                : Mon May 28 2012
+    copyright            : (C) 2012 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -19,82 +19,81 @@
 
 #include <QIODevice>
 
-#include "ID3_QIODeviceReader.h"
+#include "ID3_QIODeviceWriter.h"
 
 //***************************************************************************
-ID3_QIODeviceReader::ID3_QIODeviceReader(QIODevice &source)
-        :ID3_Reader(), m_source(source)
+Kwave::ID3_QIODeviceWriter::ID3_QIODeviceWriter(QIODevice &dest)
+    :ID3_Writer(), m_dest(dest), m_written(0)
 {
 }
 
 //***************************************************************************
-ID3_QIODeviceReader::~ID3_QIODeviceReader()
+Kwave::ID3_QIODeviceWriter::~ID3_QIODeviceWriter()
 {
 }
 
 //***************************************************************************
-void ID3_QIODeviceReader::close()
+void Kwave::ID3_QIODeviceWriter::close()
 {
 }
 
 //***************************************************************************
-ID3_Reader::pos_type ID3_QIODeviceReader::getBeg()
+void Kwave::ID3_QIODeviceWriter::flush()
+{
+}
+
+//***************************************************************************
+ID3_Writer::pos_type Kwave::ID3_QIODeviceWriter::getBeg()
 {
     return 0;
 }
 
 //***************************************************************************
-ID3_Reader::pos_type ID3_QIODeviceReader::getEnd()
+ID3_Writer::pos_type Kwave::ID3_QIODeviceWriter::getEnd()
 {
-    return static_cast<ID3_Reader::pos_type>(m_source.size());
+    return getMaxSize();
 }
 
 //***************************************************************************
-ID3_Reader::pos_type ID3_QIODeviceReader::getCur()
+ID3_Writer::pos_type Kwave::ID3_QIODeviceWriter::getCur()
 {
-    return static_cast<ID3_Reader::pos_type>(m_source.pos());
+    return m_written;
 }
 
 //***************************************************************************
-ID3_Reader::pos_type ID3_QIODeviceReader::setCur(ID3_Reader::pos_type pos)
+ID3_Writer::size_type Kwave::ID3_QIODeviceWriter::getSize()
 {
-    m_source.seek(static_cast<qint64>(pos));
-    return m_source.pos();
+    return m_written;
 }
 
 //***************************************************************************
-ID3_Reader::int_type ID3_QIODeviceReader::readChar()
+ID3_Writer::size_type Kwave::ID3_QIODeviceWriter::getMaxSize()
 {
-    unsigned char c = 0;
-    m_source.getChar(reinterpret_cast<char *>(&c));
-    return static_cast<ID3_Reader::int_type>(c);
+    return (1 << ((sizeof(ID3_Writer::size_type) * 8) - 1));
 }
 
 //***************************************************************************
-ID3_Reader::int_type ID3_QIODeviceReader::peekChar()
+ID3_Writer::size_type Kwave::ID3_QIODeviceWriter::writeChars(
+	    const ID3_Writer::char_type buf[], ID3_Writer::size_type len)
 {
-    qint64 pos = m_source.pos();
-    ID3_Reader::int_type ch = readChar();
-    m_source.seek(pos);
-    return ch;
+    return this->writeChars(reinterpret_cast<const char *>(buf), len);
 }
 
 //***************************************************************************
-ID3_Reader::size_type ID3_QIODeviceReader::readChars(
-    char_type buf[], size_type len)
+ID3_Writer::size_type Kwave::ID3_QIODeviceWriter::writeChars(
+	    const char buf[], ID3_Writer::size_type len)
 {
-     qint64 size = m_source.read(
-	reinterpret_cast<char *>(&(buf[0])),
-	static_cast<qint64>(len)
-    );
-    return static_cast<ID3_Reader::size_type>(size);
+    ID3_Writer::size_type bytes =  static_cast<ID3_Writer::size_type>(
+	m_dest.write(&(buf[0]), static_cast<qint64>(len)));
+    if (bytes > 0)
+	m_written += bytes;
+    return bytes;
 }
 
 //***************************************************************************
-ID3_Reader::size_type ID3_QIODeviceReader::readChars(
-    char buf[], size_type len)
+bool Kwave::ID3_QIODeviceWriter::atEnd()
 {
-    return this->readChars(reinterpret_cast<char_type *>(buf), len);
+    return false;
 }
 
 //***************************************************************************

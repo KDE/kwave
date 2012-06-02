@@ -1,5 +1,5 @@
 #############################################################################
-##    Kwave                - plugins/decoder_mp3/CMakeLists.txt
+##    Kwave                - plugins/codec_mp3/CMakeLists.txt
 ##                           -------------------
 ##    begin                : Sat Jun 02 2007
 ##    copyright            : (C) 2007 by Thomas Eschenbacher
@@ -88,17 +88,19 @@ IF (WITH_MP3)
 
 #############################################################################
 
-    SET(plugin_decoder_mp3_LIB_SRCS
+    SET(plugin_codec_mp3_LIB_SRCS
         ID3_QIODeviceReader.cpp
+        ID3_QIODeviceWriter.cpp
+        MP3CodecPlugin.cpp
         MP3Decoder.cpp
-        MP3DecoderPlugin.cpp
+        MP3Encoder.cpp
     )
 
-    SET(plugin_decoder_mp3_LIBS
+    SET(plugin_codec_mp3_LIBS
         mad id3 stdc++ z
     )
 
-    KWAVE_PLUGIN(decoder_mp3)
+    KWAVE_PLUGIN(codec_mp3)
 
 ENDIF (WITH_MP3)
 

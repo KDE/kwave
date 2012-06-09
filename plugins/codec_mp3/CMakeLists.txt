@@ -94,6 +94,12 @@ IF (WITH_MP3)
         MP3CodecPlugin.cpp
         MP3Decoder.cpp
         MP3Encoder.cpp
+        MP3EncoderDialog.cpp
+        MP3EncoderSettings.cpp
+    )
+
+    SET(plugin_codec_mp3_LIB_UI
+        MP3EncoderDialogBase.ui
     )
 
     SET(plugin_codec_mp3_LIBS

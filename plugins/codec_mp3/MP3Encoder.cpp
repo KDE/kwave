@@ -40,6 +40,7 @@
 #include "ID3_QIODeviceWriter.h"
 #include "MP3CodecPlugin.h"
 #include "MP3Encoder.h"
+#include "MP3EncoderSettings.h"
 
 /***************************************************************************/
 static const struct {
@@ -133,6 +134,13 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
     tag.Update();
 }
 
+#define OPTION(__field__) \
+    if (settings.__field__.length()) m_params.append(settings.__field__)
+
+#define OPTION_P(__field__, __value__) \
+    if (settings.__field__.length()) \
+	m_params.append(settings.__field__.arg(__value__))
+
 /***************************************************************************/
 bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
                                QIODevice &dst,
@@ -140,6 +148,9 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
 {
     bool result = true;
     ID3_Tag id3_tag;
+    Kwave::MP3EncoderSettings settings;
+
+    settings.load();
 
     ID3_TagType id3_tag_type = ID3TT_ID3V2;
     id3_tag.SetSpec(ID3V2_LATEST);
@@ -183,45 +194,27 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
     ID3_QIODeviceWriter id3_writer(dst);
     encodeID3Tags(meta_data, id3_tag);
 
+    OPTION(m_flags.m_prepend);          // optional paramters at the very start
+
     // mandantory audio input format and encoding options
-    m_params.append("-r"); // input is raw audio
+    OPTION(m_input.m_raw_format);       // input is raw audio
+    OPTION(m_input.m_byte_order);       // byte swapping
+    OPTION(m_input.m_signed);           // signed sample format
 
     // supported sample rates [kHz]
     // 8 / 11.025 / 12 / 16 / 22.05 / 24 /32 / 44.1 / 48
     // if our rate is not supported, lame automatically resamples with the
     // next higher supported rate
-    m_params.append(QString("-s %1").arg(rate));
+    OPTION_P(m_format.m_sample_rate, rate); // sample rate
 
     // bits per sample, supported are: 8 / 16 / 24 / 32
-    m_params.append(QString("-bitwidth=%1").arg(bits));
+    OPTION_P(m_format.m_bits_per_sample, bits);
 
-    m_params.append("--signed");        // always signed
-
-#if Q_BYTE_ORDER == Q_BIG_ENDIAN
-    m_params.append("--big-endian");
-#else
-    m_params.append("--little-endian");
-#endif
     // encode one track as "mono" and two tracks as "joint-stereo"
-    m_params.append(QString("-m%1").arg((tracks == 1) ? "m" : "j"));
-
-    if (info.contains(INF_COPYRIGHTED) && info.get(INF_COPYRIGHTED).toBool())
-	m_params.append("-c"); // copyrighted
-
-    if (info.contains(INF_ORIGINAL) && !info.get(INF_ORIGINAL).toBool())
-	m_params.append("-o"); // original
-
-    /* MPEG emphasis mode */
-    if (info.contains(INF_MPEG_EMPHASIS)) {
-	int emphasis = info.get(INF_MPEG_EMPHASIS).toInt();
-	char emp = -1;
-	switch (emphasis) {
-	    case  0: emp = 'n'; break; // 0 = none
-	    case  1: emp = '5'; break; // 1 = 50/15ms
-	    case  3: emp = 'c'; break; // 3 = CCIT J.17
-	    default: emp = -1;
-	}
-	if (emp != -1) m_params.append(QString("-e %1").arg(emp));
+    if (tracks == 1) {
+	OPTION(m_format.m_channels.m_mono);
+    } else {
+	OPTION(m_format.m_channels.m_stereo);
     }
 
     // nominal / lower / upper bitrate
@@ -232,27 +225,57 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
 	// nominal bitrate => use ABR mode
 	bitrate_nom = info.get(INF_BITRATE_NOMINAL).toInt() / 1000;
 	bitrate_nom = qBound(bitrate_min, bitrate_nom, bitrate_max);
-	m_params.append(QString("--abr %1").arg(bitrate_nom));
+	OPTION_P(m_quality.m_bitrate.m_avg, bitrate_nom);
     }
     if (info.contains(INF_BITRATE_LOWER)) {
 	int bitrate = info.get(INF_BITRATE_LOWER).toInt() / 1000;
 	bitrate_min = qBound(bitrate_min, bitrate, bitrate_nom);
-	m_params.append(QString("-b %1").arg(bitrate_min));
+	OPTION_P(m_quality.m_bitrate.m_min, bitrate_min);
     }
     if (info.contains(INF_BITRATE_UPPER)) {
 	int bitrate = info.get(INF_BITRATE_UPPER).toInt() / 1000;
 	bitrate_max = qBound(bitrate_nom, bitrate, bitrate_max);
-	m_params.append(QString("-B %1").arg(bitrate_max));
+	OPTION_P(m_quality.m_bitrate.m_max, bitrate_max);
     }
     //  INF_MPEG_LAYER,          /**< MPEG Layer, I/II/III */
     //  INF_MPEG_MODEEXT,        /**< MPEG mode extension */
     //  INF_MPEG_VERSION,        /**< MPEG version */
 
-    m_params.append("--silent");
+    /* MPEG emphasis mode */
+    if (info.contains(INF_MPEG_EMPHASIS)) {
+	int emphasis = info.get(INF_MPEG_EMPHASIS).toInt();
+	switch (emphasis) {
+	    case  1:
+		OPTION(m_encoding.m_emphasis.m_50_15ms);   // 1 = 50/15ms
+		break;
+	    case  3:
+		OPTION(m_encoding.m_emphasis.m_ccit_j17); // 3 = CCIT J.17
+		break;
+	    case  0: /* FALLTHROUGH */
+	    default:
+		OPTION(m_encoding.m_emphasis.m_none);      // 0 = none
+		break;
+	}
+    }
+
+    OPTION(m_encoding.m_noise_shaping); // noise shaping settings
+    OPTION(m_encoding.m_compatibility); // compatibility options
+
+    if (info.contains(INF_COPYRIGHTED) && info.get(INF_COPYRIGHTED).toBool()) {
+	OPTION(m_flags.m_copyright);     // copyrighted
+    }
+
+    if (info.contains(INF_ORIGINAL) && !info.get(INF_ORIGINAL).toBool()) {
+	OPTION(m_flags.m_original);     // original
+    }
+
+    OPTION(m_flags.m_protect);          // CRC protection
+    OPTION(m_flags.m_append);           // optional paramters at the end
+
     m_params.append("-"); // infile  = stdin
     m_params.append("-"); // outfile = stdout
 
-    m_program = "lame";
+    m_program = settings.m_path;
 
     m_process.setReadChannel(QProcess::StandardOutput);
 

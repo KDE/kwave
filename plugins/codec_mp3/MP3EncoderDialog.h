@@ -1,0 +1,84 @@
+/***************************************************************************
+     MP3EncoderDialog.h  -  dialog for configuring the MP3 encoer
+                            -------------------
+    begin                : Sun Jun 03 2012
+    copyright            : (C) 2012 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+#ifndef _MP3_ENCODER_DIALOG_H_
+#define _MP3_ENCODER_DIALOG_H_
+
+#include "config.h"
+
+#include <QDialog>
+#include <QString>
+#include <QMap>
+
+#include "MP3EncoderSettings.h"
+
+#include "ui_MP3EncoderDialogBase.h"
+
+class QAbstractButton;
+class QWidget;
+
+namespace Kwave {
+
+    class MP3EncoderDialog :public QDialog,
+                            public Ui::MP3EncoderDialogBase
+    {
+	Q_OBJECT
+
+    public:
+	/** Constructor */
+	MP3EncoderDialog(QWidget *parent);
+
+	/** Destructor */
+	virtual ~MP3EncoderDialog();
+
+    public slots:
+
+	/** load all settings from the config file */
+	void load();
+
+	/** store all settings to a config file */
+	void save();
+
+    private slots:
+
+	/** called when the selection of the program has changed */
+	void selectProgram(int index);
+
+	/** called whenever an edit field has changed its value */
+	void switchToUserDefined();
+
+	/** evaluates a click to one of the standard buttons */
+	void buttonClicked(QAbstractButton *button);
+
+	/** auto-detect settings */
+	void autoDetect();
+
+	/** search for the program, file browser */
+	void browseFile();
+
+	/** test the settings */
+	void testSettings();
+
+    private:
+
+	/** current encoder settings, complete struct */
+	Kwave::MP3EncoderSettings m_settings;
+    };
+}
+
+//*****************************************************************************
+#endif /* _MP3_ENCODER_DIALOG_H_ */

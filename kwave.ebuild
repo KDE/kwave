@@ -16,7 +16,7 @@ LICENSE="BSD GPL-2 LGPL-2
 	handbook? ( FDL-1.2 )"
 SLOT="4"
 KEYWORDS="~amd64 ~ppc ~x86"
-IUSE="alsa debug flac handbook mad mmx oss phonon pulseaudio vorbis"
+IUSE="alsa debug flac handbook mp3 mmx oss phonon pulseaudio vorbis"
 
 RDEPEND="
 	media-libs/audiofile
@@ -24,9 +24,10 @@ RDEPEND="
 	media-libs/libsamplerate
 	alsa? ( media-libs/alsa-lib )
 	flac? ( media-libs/flac )
-	mad? (
+	mp3? (
 		media-libs/id3lib
 		media-libs/libmad
+		media-sound/lame
 	)
 	pulseaudio? ( media-sound/pulseaudio )
 	vorbis? (
@@ -48,7 +49,7 @@ src_configure() {
 		$(cmake-utils_use_with alsa ALSA)
 		$(cmake-utils_use_with handbook DOC)
 		$(cmake-utils_use_with flac FLAC)
-		$(cmake-utils_use_with mad MP3)
+		$(cmake-utils_use_with mp3 MP3)
 		$(cmake-utils_use_with vorbis OGG)
 		$(cmake-utils_use_with oss OSS)
 		$(cmake-utils_use_with phonon PHONON)

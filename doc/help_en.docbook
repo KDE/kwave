@@ -22,6 +22,7 @@
   <!ENTITY url_kde_l10n "http://l10n.kde.org/">
   <!ENTITY url_kde_localize "http://userbase.kde.org/Lokalize/">
   <!ENTITY url_kde_screenshots "http://l10n.kde.org/docs/screenshots.php">
+  <!ENTITY url_lame "http://lame.sourceforge.net/">
   <!ENTITY url_levelmeter "http://rikkus.info/esound-level-meter/">
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
   <!ENTITY url_libmad "http://www.mars.org/home/rob/proj/mpeg/">
@@ -125,7 +126,7 @@
 	    Recording via ALSA and OSS
 	</para></listitem>
     	<listitem><para>
-	    MP3 import
+	    MP3 import/export
 	</para></listitem>
     	<listitem><para>
 	    Ogg/Vorbis import/export
@@ -328,7 +329,7 @@
 		id3lib-3.8.1 or higher (for ID3 tags)
 	    </para></listitem>
 	    <listitem><para>
-		mad-0.15 or higher (optionally for MP3 import)
+		mad-0.15 or higher (optionally for MP3 import/export)
 	    </para></listitem>
 	    <listitem><para>
 		flac-1.1.0 or higher (for FLAC import/export)
@@ -530,7 +531,7 @@
 	<para>
 	    These options can be passed to <literal><command>cmake</command></literal>
 	    with <command><literal>-D</literal><replaceable>option</replaceable><literal>=</literal><replaceable>value</replaceable></command>.
-	    For example, if you want to enable MP3 import,
+	    For example, if you want to enable MP3 support,
 	    you can pass the corresponding option as follows:
 <screen width="70" format="linespecific">
 <prompt>% </prompt><command>cmake <replaceable>[source directory]</replaceable> -DWITH_MP3=ON <replaceable>[other options...]</replaceable></command>
@@ -1356,7 +1357,8 @@
 	    <ulink url="&url_libmad;">libmad</ulink>
 	    for the MP3 decoding in combination with
 	    <ulink url="&url_id3lib;">id3lib</ulink> for decoding
-	    ID3 tags.
+	    ID3 tags and
+	    <ulink url="&url_lame;">lame</ulink> for encoding.
 	</para></listitem>
 	<listitem><para>
 	    Ogg/Vorbis (<filename>*.ogg</filename>) import and export.
@@ -2726,7 +2728,7 @@
 		    24 bits per sample, with any number of channels
 		    (of course including mono and stereo). Additionally it
 		    can import all file types that libaudiofile supports
-		    and some other formats like Ogg/Vorbis and MP3 (read-only).
+		    and some other formats like Ogg/Vorbis and MP3.
 		</para>
 	    </answer>
 	</qandaentry>
@@ -2866,7 +2868,8 @@
     	    <answer>
 	    	<para>
 		    Well, as long as there are patent issues, we support only MP3
-		    import through the mad library. No export, sorry...
+		    import through the mad library and export via the external
+		    program <ulink url="&url_lame;">lame</ulink>.
 		    Additionally you need to have the permission to use code
 		    covered by the MP3 patents when generating a Kwave package
 		    for distributing!

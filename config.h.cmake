@@ -99,5 +99,8 @@
 /* The size of `size_t', as computed by sizeof. */
 #cmakedefine SIZEOF_SIZE_T @SIZEOF_SIZE_T@
 
+/* suffix of executable files */
+#cmakedefine EXECUTABLE_SUFFIX @CMAKE_EXECUTABLE_SUFFIX@
+
 /***************************************************************************/
 /***************************************************************************/

@@ -47,6 +47,15 @@ namespace Kwave {
 	 */
 	virtual void load(QStringList &/* params */);
 
+	/**
+	 * Shows a dialog to set up the plugin, configure all paths,
+	 * presets and other parameters...
+	 * @param previous_params the parameters of a previous call
+	 * @return a string list with all parameters or null if the
+	 *         setup (dialog) has been canceled
+	 */
+	virtual QStringList *setup(QStringList &previous_params);
+
     private:
 
 	/** decoder used as factory */

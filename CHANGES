@@ -5,6 +5,7 @@
  * bugfix: meta data lost when writing wav files that had meta data for
    product/album or subect/track at the same time
  * MP3 export via external program "lame"
+ * bugfix: broken signal/slot connection in SaveBlocks plugin
 
 0.8.8  [2012-05-20]
 

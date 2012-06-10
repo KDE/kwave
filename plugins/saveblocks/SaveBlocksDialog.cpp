@@ -51,8 +51,8 @@ SaveBlocksDialog::SaveBlocksDialog(const QString &startDir,
     // if something in the file selection changes
     connect(this, SIGNAL(filterChanged(const QString &)),
             this, SLOT(textChanged(const QString &)));
-    connect(locationEdit(), SIGNAL(textChanged(const QString &)),
-            this, SLOT(editTextChanged(const QString &)));
+    connect(locationEdit(), SIGNAL(editTextChanged(const QString &)),
+            this, SLOT(textChanged(const QString &)));
 }
 
 //***************************************************************************

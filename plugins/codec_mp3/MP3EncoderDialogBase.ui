@@ -32,14 +32,7 @@
       <string>Program</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="2" column="0">
-       <widget class="QLabel" name="lblPath">
-        <property name="text">
-         <string>Path:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="3">
+      <item row="1" column="0" colspan="7">
        <widget class="QFrame" name="frame">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
@@ -55,27 +48,14 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="2">
+      <item row="2" column="6">
        <widget class="QPushButton" name="btSearch">
         <property name="text">
-         <string>&amp;Search...</string>
+         <string>&amp;Select...</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="edPath">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>100</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" colspan="3">
+      <item row="0" column="0" colspan="7">
        <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,0,0">
         <item>
          <widget class="QComboBox" name="cbProgram"/>
@@ -99,11 +79,45 @@
         <item>
          <widget class="QPushButton" name="btDetect">
           <property name="text">
-           <string>&amp;Detect...</string>
+           <string>&amp;Auto Detect...</string>
           </property>
          </widget>
         </item>
        </layout>
+      </item>
+      <item row="2" column="4">
+       <widget class="QPushButton" name="btEncoderHelp">
+        <property name="text">
+         <string>&amp;Usage</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="edPath">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>100</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="lblPath">
+        <property name="text">
+         <string>Path:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5">
+       <widget class="QPushButton" name="btLocate">
+        <property name="text">
+         <string>&amp;Locate</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -130,19 +144,6 @@
           <string>Input</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="3" column="2">
-           <spacer name="verticalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>85</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
           <item row="2" column="0" colspan="2">
            <widget class="QLabel" name="lblSign">
             <property name="text">
@@ -187,6 +188,19 @@
              <string/>
             </property>
            </widget>
+          </item>
+          <item row="3" column="2">
+           <spacer name="verticalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>85</height>
+             </size>
+            </property>
+           </spacer>
           </item>
           <item row="0" column="0" colspan="2">
            <widget class="QLabel" name="lblRawFormat">
@@ -842,6 +856,90 @@
           </item>
          </layout>
         </widget>
+        <widget class="QWidget" name="tab">
+         <attribute name="title">
+          <string>Info</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_6">
+          <item row="0" column="0">
+           <widget class="QLabel" name="lblHelp">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Encoder Help:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" rowspan="2">
+           <widget class="QLineEdit" name="edEncoderHelp">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>100</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" rowspan="2">
+           <widget class="QLabel" name="lblEncoderInfo">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Version Info:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <spacer name="verticalSpacer_10">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>116</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="edVersionInfo">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>100</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </widget>
       </item>
      </layout>
@@ -910,6 +1008,8 @@
   <tabstop>cbProgram</tabstop>
   <tabstop>btDetect</tabstop>
   <tabstop>edPath</tabstop>
+  <tabstop>btEncoderHelp</tabstop>
+  <tabstop>btLocate</tabstop>
   <tabstop>btSearch</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>edRawFormat</tabstop>
@@ -932,6 +1032,8 @@
   <tabstop>edProtect</tabstop>
   <tabstop>edPrepend</tabstop>
   <tabstop>edAppend</tabstop>
+  <tabstop>edEncoderHelp</tabstop>
+  <tabstop>edVersionInfo</tabstop>
   <tabstop>btTest</tabstop>
  </tabstops>
  <resources/>

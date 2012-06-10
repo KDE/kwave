@@ -78,6 +78,11 @@ namespace Kwave {
 	    QString m_append;           /**< additional to append        */
 	} m_flags;
 
+	struct {
+	    QString m_help;             /**< encoder help                */
+	    QString m_version;          /**< encoder version             */
+	} m_info;
+
     } MP3EncoderSettings;
 
 }

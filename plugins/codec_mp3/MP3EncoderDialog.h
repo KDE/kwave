@@ -67,11 +67,47 @@ namespace Kwave {
 	/** auto-detect settings */
 	void autoDetect();
 
+	/** locate the full path of the file */
+	void locatePath();
+
 	/** search for the program, file browser */
 	void browseFile();
 
 	/** test the settings */
 	void testSettings();
+
+	/** show help about the encoder */
+	void encoderHelp();
+
+    private:
+
+	/**
+	 * Calls the program with one parameter and returns the output
+	 * of stderr/stdout (combined) as a string
+	 * @param path the path of the program to call
+	 * @param param a command line parameter
+	 * @return string with combined stdout/stderr
+	 */
+	QString callWithParam(const QString &path, const QString &param);
+
+	/**
+	 * Retrieves the title/name of an encoder by calling it once
+	 * @param path the path of the encoder program
+	 * @param param the command line parameter to get the version
+	 * @return title of the encoder
+	 */
+	QString encoderVersion(const QString &path, const QString &param);
+
+	/**
+	 * Search for an encoder in the system PATH
+	 * @param program name of the program
+	 * @return full path where it can be found,
+	 *         or the value of the parameter "program" if not found
+	 */
+	QString searchPath(const QString &program);
+
+	/** updates the version info string of the current encoder */
+	void updateEncoderInfo();
 
     private:
 

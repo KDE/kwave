@@ -139,7 +139,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 
 #define OPTION_P(__field__, __value__) \
     if (settings.__field__.length()) \
-	m_params.append(settings.__field__.arg(__value__))
+	m_params.append(QString(settings.__field__.arg(__value__)).split(' '))
 
 /***************************************************************************/
 bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
@@ -155,7 +155,6 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
     ID3_TagType id3_tag_type = ID3TT_ID3V2;
     id3_tag.SetSpec(ID3V2_LATEST);
 
-    qDebug("MP3Encoder::encode()");
     const FileInfo info(meta_data);
 
     // get info: tracks, sample rate
@@ -205,7 +204,15 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
     // 8 / 11.025 / 12 / 16 / 22.05 / 24 /32 / 44.1 / 48
     // if our rate is not supported, lame automatically resamples with the
     // next higher supported rate
-    OPTION_P(m_format.m_sample_rate, rate); // sample rate
+    if (settings.m_format.m_sample_rate.length()) {
+	QString str = settings.m_format.m_sample_rate;
+	if (str.contains("[%khz]")) {
+	    str = str.replace("[%khz]", "%1").arg(rate / 1000.0, 1, 'f', 1);
+	    m_params.append(str.split(' '));
+	} else {
+	    m_params.append(str.arg(rate).split(' '));
+	}
+    }
 
     // bits per sample, supported are: 8 / 16 / 24 / 32
     OPTION_P(m_format.m_bits_per_sample, bits);
@@ -277,15 +284,17 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
 
     m_program = settings.m_path;
 
+    qDebug("MP3Encoder::encode(): %s %s",
+	m_program.toLocal8Bit().data(),
+	m_params.join(" ").toLocal8Bit().data()
+    );
+
     m_process.setReadChannel(QProcess::StandardOutput);
 
     m_process.start(m_program, m_params);
     QString stdError;
     if (!m_process.waitForStarted()) {
 	qWarning("cannot start program '%s'", m_program.toLocal8Bit().data());
-	stdError = QString::fromLocal8Bit(m_process.readAllStandardError());
-	qWarning("stderr output: %s", stdError.toLocal8Bit().data());
-
 	m_process.waitForFinished();
 	result = false;
     }

@@ -18,15 +18,27 @@
 #include "config.h"
 
 #include <QAbstractButton>
+#include <QBuffer>
+#include <QCursor>
 #include <QDialogButtonBox>
 #include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QLineEdit>
+#include <QApplication>
+#include <QProcess>
 #include <QtGlobal>
 
+#include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"
+#include "libkwave/MetaDataList.h"
+#include "libkwave/MultiTrackReader.h"
+#include "libkwave/ReaderMode.h"
+#include "libkwave/SignalManager.h"
+
 #include "libgui/KwaveFileDialog.h"
 
+#include "MP3Encoder.h"
 #include "MP3EncoderDialog.h"
 #include "MP3EncoderSettings.h"
 
@@ -60,8 +72,8 @@ const Kwave::MP3EncoderSettings g_predefined_settings[] =
 	    "-s %1",                   // sample rate
 	    "-bitwidth=%1",            // bits per sample
 	    {
-		"-m m",                // mono
-		"-m j"                 // stereo
+		"-mm",                 // mono
+		"-mj"                  // stereo
 	    }
 	},
 	{
@@ -73,9 +85,9 @@ const Kwave::MP3EncoderSettings g_predefined_settings[] =
 	},
 	{
 	    {
-		"-e n",                // no emphasis
-		"-e 5",                // 50/15ms
-		"-e c"                 // CCIT J17
+		"-en",                 // no emphasis
+		"-e5",                 // 50/15ms
+		"-ec"                  // CCIT J17
 	    },
 	    "-q 2",                    // noise shaping
 	    "--strictly-enforce-ISO"   // compatibility
@@ -86,6 +98,10 @@ const Kwave::MP3EncoderSettings g_predefined_settings[] =
 	    "-p",                      // protect
 	    "",                        // prepended
 	    "--silent"                 // appended
+	},
+	{
+	    "--longhelp",              // encoder help
+	    "--version"                // encoder version
 	}
     },
     /***********************************************************************/
@@ -102,25 +118,25 @@ const Kwave::MP3EncoderSettings g_predefined_settings[] =
 	    ""                         // signed
 	},
 	{
-	    "--samplerate %1",         // sample rate
-	    "--samplesize %1",         // bits per sample
+	    "--samplerate=%1",         // sample rate
+	    "--samplesize=%1",         // bits per sample
 	    {
-		"--channels 1 --mode mono",  // mono
-		"--channels 2 --mode joint"  // stereo
+		"--channels=1 --mode=mono",  // mono
+		"--channels=2 --mode=joint"  // stereo
 	    }
 	},
 	{
 	    {
-		"--bitrate %1",        // average bitrate
+		"--bitrate=%1",        // average bitrate
 		"",                    // minimum bitrate
-		"--max-bitrate %1"     // maximum bitrate
+		"--max-bitrate=%1"     // maximum bitrate
 	    }
 	},
 	{
 	    {
-		"--deemphasis n",      // no emphasis
-		"--deemphasis 5",      // 50/15ms
-		"--deemphasis c"       // CCIT J17
+		"--deemphasis=n",      // no emphasis
+		"--deemphasis=5",      // 50/15ms
+		"--deemphasis=c"       // CCIT J17
 	    },
 	    "",                        // noise shaping
 	    ""                         // compatibility
@@ -131,6 +147,10 @@ const Kwave::MP3EncoderSettings g_predefined_settings[] =
 	    "--protect",               // protect
 	    "",                        // prepended
 	    "--quiet"                  // appended
+	},
+	{
+	    "--help",                  // encoder help
+	    "--help"                   // encoder version
 	}
     },
     /***********************************************************************/
@@ -147,11 +167,11 @@ const Kwave::MP3EncoderSettings g_predefined_settings[] =
 	    ""                         // signed
 	},
 	{
-	    "-s %1",                   // sample rate
+	    "-s [%khz]",               // sample rate
 	    "-bitwidth=%1",            // bits per sample
 	    {
-		"-m m",                // mono
-		"-m j"                 // stereo
+		"-mm",                 // mono
+		"-mj"                  // stereo
 	    }
 	},
 	{
@@ -163,9 +183,9 @@ const Kwave::MP3EncoderSettings g_predefined_settings[] =
 	},
 	{
 	    {
-		"-d n",                // no emphasis
-		"-d 5",                // 50/15ms
-		"-d c"                 // CCIT J17
+		"-dn",                 // no emphasis
+		"-d5",                 // 50/15ms
+		"-dc"                  // CCIT J17
 	    },
 	    "",                        // noise shaping
 	    ""                         // compatibility
@@ -176,6 +196,10 @@ const Kwave::MP3EncoderSettings g_predefined_settings[] =
 	    "-e",                      // protect
 	    "",                        // prepended
 	    "-t 0"                     // appended
+	},
+	{
+	    "-help",                   // encoder help
+	    "-version"                 // encoder version
 	}
     }
 };
@@ -228,9 +252,17 @@ Kwave::MP3EncoderDialog::MP3EncoderDialog(QWidget *parent)
 
     // set up the combo box with all presets
     cbProgram->clear();
-    for (unsigned int i = 0; i < ELEMENTS_OF(g_predefined_settings); i++)
-	cbProgram->addItem(g_predefined_settings[i].m_name, QVariant(i));
-    cbProgram->addItem(PRESET_NAME_USER_DEFINED, QVariant(-1));
+    for (unsigned int i = 0; i < ELEMENTS_OF(g_predefined_settings); i++) {
+	QString name    = g_predefined_settings[i].m_name;
+	QString path    = searchPath(g_predefined_settings[i].m_path);
+	QString param   = g_predefined_settings[i].m_info.m_version;
+	QString version = encoderVersion(path, param);
+	if (version.length() >= name.length())
+	    cbProgram->addItem(version);
+	else
+	    cbProgram->addItem(name);
+    }
+    cbProgram->addItem(PRESET_NAME_USER_DEFINED);
 
     // load the saved settings from the config file
     m_settings.load();
@@ -245,13 +277,19 @@ Kwave::MP3EncoderDialog::MP3EncoderDialog(QWidget *parent)
 	    this, SLOT(buttonClicked(QAbstractButton *)));
 
     // auto-detec button
-    connect(btDetect, SIGNAL(clicked()), this, SLOT(autoDetect()));
+    connect(btDetect, SIGNAL(clicked()),      this, SLOT(autoDetect()));
+
+    // locate file path button
+    connect(btLocate, SIGNAL(clicked()),      this, SLOT(locatePath()));
 
     // search for program (file browser)
-    connect(btSearch, SIGNAL(clicked()), this, SLOT(browseFile()));
+    connect(btSearch, SIGNAL(clicked()),      this, SLOT(browseFile()));
 
     // test setup
-    connect(btTest, SIGNAL(clicked()),   this, SLOT(testSettings()));
+    connect(btTest, SIGNAL(clicked()),        this, SLOT(testSettings()));
+
+    // builtin help of the encoder
+    connect(btEncoderHelp, SIGNAL(clicked()), this, SLOT(encoderHelp()));
 
     // whenever a setting has been manally edited, check if that is a
     // user defined setting or a predefined set of parameters
@@ -283,6 +321,8 @@ Kwave::MP3EncoderDialog::MP3EncoderDialog(QWidget *parent)
     CONNECT(edPrepend);
     CONNECT(edAppend);
 
+    CONNECT(edEncoderHelp);
+    CONNECT(edVersionInfo);
 }
 
 /***************************************************************************/
@@ -298,7 +338,9 @@ void Kwave::MP3EncoderDialog::load()
     bool use_preset = false;
     for (i = 0; i < ELEMENTS_OF(g_predefined_settings); i++) {
 	if (g_predefined_settings[i].m_name == m_settings.m_name) {
+	    QString path = m_settings.m_path;
 	    m_settings = g_predefined_settings[i];
+	    m_settings.m_path = path;
 	    cbProgram->setCurrentIndex(i);
 	    use_preset = true;
 	    break;
@@ -337,11 +379,24 @@ void Kwave::MP3EncoderDialog::load()
     LOAD(m_flags.m_protect,                edProtect);
     LOAD(m_flags.m_prepend,                edPrepend);
     LOAD(m_flags.m_append,                 edAppend);
+
+    LOAD(m_info.m_help,                    edEncoderHelp);
+    LOAD(m_info.m_version,                 edVersionInfo);
+
+    updateEncoderInfo();
 }
 
 /***************************************************************************/
 void Kwave::MP3EncoderDialog::save()
 {
+    // get the content of the combo box
+    int index = cbProgram->currentIndex();
+    if (index < static_cast<int>(ELEMENTS_OF(g_predefined_settings))) {
+	m_settings.m_name = g_predefined_settings[index].m_name;
+    } else {
+	m_settings.m_name = "*";
+    }
+
     // fetch all settings from the dialog content
     SAVE(m_path,                           edPath);
 
@@ -371,6 +426,9 @@ void Kwave::MP3EncoderDialog::save()
     SAVE(m_flags.m_prepend,                edPrepend);
     SAVE(m_flags.m_append,                 edAppend);
 
+    SAVE(m_info.m_help,                    edEncoderHelp);
+    SAVE(m_info.m_version,                 edVersionInfo);
+
     m_settings.save();
 }
 
@@ -387,12 +445,14 @@ void Kwave::MP3EncoderDialog::selectProgram(int index)
 /***************************************************************************/
 void Kwave::MP3EncoderDialog::switchToUserDefined()
 {
+    int index = cbProgram->currentIndex();
+
     for (unsigned i = 0; i < ELEMENTS_OF(g_predefined_settings); i++) {
 	const Kwave::MP3EncoderSettings &settings =
 	    g_predefined_settings[i];
 	bool match = true;
 
-	match &= bool(settings.m_path.contains(edPath->text().simplified(),
+	match &= bool(edPath->text().simplified().contains(settings.m_path,
 	    Qt::CaseInsensitive));
 
 	CHECK(m_input.m_raw_format,             edRawFormat);
@@ -421,15 +481,22 @@ void Kwave::MP3EncoderDialog::switchToUserDefined()
 	CHECK(m_flags.m_prepend,                edPrepend);
 	CHECK(m_flags.m_append,                 edAppend);
 
+	CHECK(m_info.m_help,                    edEncoderHelp);
+	CHECK(m_info.m_version,                 edVersionInfo);
+
 	if (match) {
 	    // found a match against known preset
-	    cbProgram->setCurrentIndex(i);
+	    if (static_cast<int>(i) != index) {
+		cbProgram->setCurrentIndex(i);
+		updateEncoderInfo();
+	    }
 	    return;
 	}
     }
 
     // fallback: "user defined"
     cbProgram->setCurrentIndex(ELEMENTS_OF(g_predefined_settings));
+    updateEncoderInfo();
 }
 
 /***************************************************************************/
@@ -437,6 +504,10 @@ void Kwave::MP3EncoderDialog::buttonClicked(QAbstractButton *button)
 {
     if (!button || !buttonBox) return;
     switch (buttonBox->standardButton(button)) {
+	case QDialogButtonBox::Ok:
+	    // save settings and accept
+	    save();
+	    break;
 	case QDialogButtonBox::Reset:
 	    // reset to last saved state
 	    load();
@@ -453,29 +524,24 @@ void Kwave::MP3EncoderDialog::buttonClicked(QAbstractButton *button)
 /***************************************************************************/
 void Kwave::MP3EncoderDialog::autoDetect()
 {
-    const QFile::Permissions executable =
-	(QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
-    QStringList path =
-	QString(qgetenv("PATH")).split(":", QString::SkipEmptyParts);
-
     for (unsigned i = 0; i < ELEMENTS_OF(g_predefined_settings); i++) {
-	const QString prog = g_predefined_settings[i].m_path;
-
-	foreach (const QString &dir, path) {
-	    QString p = dir;
-	    if (!p.endsWith(QDir::separator()))
-		p += QDir::separator();
-	    p += prog;
-
-	    QFile f(p);
-	    qDebug("testing '%s'", p.toLocal8Bit().data());
-	    if (f.exists() && (f.permissions() & executable)) {
-		// found it :)
-		cbProgram->setCurrentIndex(i);
-		edPath->setText(p);
-		return;
-	    }
+	QFile f(searchPath(g_predefined_settings[i].m_path));
+	if (f.exists()) {
+	    // found it :)
+	    cbProgram->setCurrentIndex(i);
+	    return;
 	}
+    }
+}
+
+/***************************************************************************/
+void Kwave::MP3EncoderDialog::locatePath()
+{
+    const QString prog_orig = edPath->text().simplified();
+    const QString prog      = searchPath(prog_orig);
+    if (prog != prog_orig) {
+	edPath->setText(prog);
+	updateEncoderInfo();
     }
 }
 
@@ -500,10 +566,164 @@ void Kwave::MP3EncoderDialog::browseFile()
 /***************************************************************************/
 void Kwave::MP3EncoderDialog::testSettings()
 {
-    qDebug("%s",__FUNCTION__);
-    Kwave::MessageBox::sorry(this,
-	i18n("This is not implemented yet."),
-	i18n("Sorry"));
+    const sample_index_t test_length = 128 * 1024; // 128k samples
+    const double         sample_rate = 44100.0;
+    const unsigned int   bits        = 16;
+    const unsigned int   tracks      = 2;
+
+    // save all data, so that the encoder can read it
+    save();
+
+    // us a dummy sink in memory
+    QBuffer dst;
+
+    // create some dummy audio data (stereo)
+    SignalManager manager(this);
+    manager.newSignal(test_length, sample_rate, bits, tracks);
+    Kwave::MetaDataList meta_data = manager.metaData();
+
+    // add some dummy meta data, to cover all parameters of the encoder
+    FileInfo info(meta_data);
+    info.set(INF_BITRATE_NOMINAL, QVariant(128000));
+    info.set(INF_BITRATE_LOWER,   QVariant( 64000));
+    info.set(INF_BITRATE_UPPER,   QVariant(192000));
+    info.set(INF_MPEG_EMPHASIS,   QVariant(3));
+    info.set(INF_COPYRIGHTED,     QVariant(1));
+    info.set(INF_ORIGINAL,        QVariant(1));
+    meta_data.replace(info);
+
+    // create a multi track reader
+    QList<unsigned int> track_list;
+    track_list.append(0);
+    track_list.append(1);
+    sample_index_t first = 0;
+    sample_index_t last  = test_length - 1;
+    MultiTrackReader src(Kwave::SinglePassForward,
+	manager, track_list, first, last);
+
+    // create an encoder
+    MP3Encoder encoder;
+
+    // pass the data through the encoder
+    bool succeeded = encoder.encode(this, src, dst, meta_data);
+
+    // check return code
+    if (succeeded) {
+	KMessageBox::information(this, i18n(
+	    "Congratulation, the test was successful!"));
+    } // else: the plugin has already shown an error message
+}
+
+/***************************************************************************/
+void Kwave::MP3EncoderDialog::encoderHelp()
+{
+    // show complete help
+    QString program = edPath->text().simplified();
+    QString param   = QString(edEncoderHelp->text()).simplified();
+
+    QString text    = callWithParam(program, param);
+
+    KMessageBox::information(this, text);
+}
+
+/***************************************************************************/
+QString Kwave::MP3EncoderDialog::callWithParam(const QString &path,
+                                               const QString &param)
+{
+    QStringList params(param);
+
+    // set hourglass cursor
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+    QProcess process;
+    process.setProcessChannelMode(QProcess::MergedChannels);
+    process.start(path, params);
+    process.waitForStarted();
+    if (process.state() != QProcess::NotRunning) process.waitForFinished();
+
+    QString text = QString::fromLocal8Bit(process.readAllStandardOutput());
+    qDebug("stdout output: %s", text.toLocal8Bit().data());
+
+    // remove hourglass
+    QApplication::restoreOverrideCursor();
+
+    return text;
+}
+
+/***************************************************************************/
+QString Kwave::MP3EncoderDialog::encoderVersion(const QString &path,
+                                                const QString &param)
+{
+    QString text = callWithParam(path, param);
+
+    QStringList lines = text.split('\n');
+
+    // take the first non-zero line
+    while (lines.count() && !lines.first().simplified().length())
+	lines.removeFirst();
+
+    return (!lines.isEmpty()) ? lines.first().simplified() : QString();
+}
+
+/***************************************************************************/
+QString Kwave::MP3EncoderDialog::searchPath(const QString &program)
+{
+    const QFile::Permissions executable =
+	(QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
+    QStringList path =
+	QString(qgetenv("PATH")).split(":", QString::SkipEmptyParts);
+
+    QFileInfo f(program);
+    QString d = f.path();
+    if (d.length()) path.prepend(d);
+
+    foreach (const QString &dir, path) {
+	QString p = dir;
+	if (!p.endsWith(QDir::separator()))
+	    p += QDir::separator();
+	p += f.fileName();
+
+	QFile f(p);
+	qDebug("testing '%s'", p.toLocal8Bit().data());
+	if (f.exists() && (f.permissions() & executable)) {
+	    // found it :)
+	    return p;
+	}
+    }
+
+    return program;
+}
+
+/***************************************************************************/
+void Kwave::MP3EncoderDialog::updateEncoderInfo()
+{
+    int index = cbProgram->currentIndex();
+    QString title;
+
+    if (index >= static_cast<int>(ELEMENTS_OF(g_predefined_settings))) {
+	title = PRESET_NAME_USER_DEFINED;
+    }
+
+    // detect by using the currently selected path
+    if (!title.length()) {
+	// first try with user defined full path
+	QString name    = g_predefined_settings[index].m_name;
+	QString program = QFileInfo(edPath->text().simplified()).filePath();
+	QString param   = edVersionInfo->text().simplified();
+	QString version = encoderVersion(program, param);
+	if (version.length() >= name.length()) {
+	    title = version;
+	} else {
+	    // fallback: detect by using list of predefined settings
+	    QString param   = g_predefined_settings[index].m_info.m_version;
+	    program         = searchPath(g_predefined_settings[index].m_path);
+	    version         = encoderVersion(program, param);
+	    if (version.length() >= name.length())
+		title = version;
+	}
+    }
+
+    cbProgram->setItemText(index, title);
 }
 
 /***************************************************************************/

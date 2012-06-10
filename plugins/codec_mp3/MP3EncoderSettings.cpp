@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <QDir>
+
 #include <kconfiggroup.h>
 #include <kglobal.h>
 #include <ksharedconfig.h>
@@ -57,7 +59,9 @@ static QString sanitized(const QString &in)
     for (int i = 0; i < str.length(); i++) {
 	QCharRef c = str[i];
 	if ( c.isLetterOrNumber() || c.isSpace() ||
-	     (c == '-') || (c == '%') || (c == '=') )
+	     (c == '-') || (c == '%') || (c == '=') || (c == '.') ||
+	     (c == '[') || (c == ']') ||
+	     (c == QDir::separator()) )
 	{
 	    out += c;
 	}
@@ -98,6 +102,9 @@ void Kwave::MP3EncoderSettings::load()
     LOAD(m_flags.m_protect,                "flags_protect______________");
     LOAD(m_flags.m_prepend,                "flags_prepend______________");
     LOAD(m_flags.m_append,                 "flags_append_______________");
+
+    LOAD(m_info.m_help,                    "info_help__________________");
+    LOAD(m_info.m_version,                 "info_version_______________");
 }
 
 /***************************************************************************/
@@ -133,6 +140,9 @@ void Kwave::MP3EncoderSettings::save()
     SAVE(m_flags.m_protect,                "flags_protect______________");
     SAVE(m_flags.m_prepend,                "flags_prepend______________");
     SAVE(m_flags.m_append,                 "flags_append_______________");
+
+    SAVE(m_info.m_help,                    "info_help__________________");
+    SAVE(m_info.m_version,                 "info_version_______________");
 }
 
 /***************************************************************************/

@@ -63,11 +63,19 @@ bool Kwave::MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header,
 
     /* first of all check CRC, it might be senseless if the file is broken */
     qDebug("crc = 0x%08X", header.crc);
-    if ((header.crc == MP3CRC_MISMATCH) || (header.crc == MP3CRC_ERROR_SIZE)){
-	if (Kwave::MessageBox::warningContinueCancel(widget,
-	    i18n("The file has an invalid checksum.\n"
-	         "Do you still want to continue?"))
-	             != KMessageBox::Continue) return false;
+    if ((header.crc == MP3CRC_MISMATCH) || (header.crc == MP3CRC_ERROR_SIZE)) {
+
+	if (header.layer == MPEGLAYER_II) {
+	    qWarning("WARNING: file is MPEG layer II, CRC calculation "
+	             "in id3lib is probably wrong - CRC check skipped");
+	} else {
+	    if (Kwave::MessageBox::warningContinueCancel(widget,
+		i18n("The file has an invalid checksum.\n"
+		    "Do you still want to continue?"),
+		    QString(), QString(), QString(),
+		    "accept_mp3_invalid_checksum")
+			!= KMessageBox::Continue) return false;
+	}
     }
 
     /* MPEG layer */

@@ -6,6 +6,8 @@
    product/album or subect/track at the same time
  * MP3 export via external program "lame"
  * bugfix: broken signal/slot connection in SaveBlocks plugin
+ * workaround for bug in id3lib, SF #3534143:
+   ignore id3lib crc check result for MPEG Layer II files
 
 0.8.8  [2012-05-20]
 

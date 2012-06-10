@@ -169,8 +169,8 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
     if (tracks > 2) {
 	if (Kwave::MessageBox::warningContinueCancel(
 	    widget,
-	    i18n("The file format you have chosen supports only mono or"
-		 "stereo. This file will be mixed down to stereo when"
+	    i18n("The file format you have chosen supports only mono or "
+		 "stereo. This file will be mixed down to stereo when "
 		 "saving."),
 	    QString(), QString(), QString(),
 	    "accept_down_mix_on_export") != KMessageBox::Continue)

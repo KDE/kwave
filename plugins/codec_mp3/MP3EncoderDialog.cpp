@@ -529,6 +529,8 @@ void Kwave::MP3EncoderDialog::autoDetect()
 	if (f.exists()) {
 	    // found it :)
 	    cbProgram->setCurrentIndex(i);
+	    selectProgram(i);
+	    locatePath();
 	    return;
 	}
     }

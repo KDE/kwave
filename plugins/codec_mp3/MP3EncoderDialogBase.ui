@@ -50,6 +50,9 @@
       </item>
       <item row="2" column="6">
        <widget class="QPushButton" name="btSearch">
+        <property name="toolTip">
+         <string>manually browse for the encoder</string>
+        </property>
         <property name="text">
          <string>&amp;Select...</string>
         </property>
@@ -58,7 +61,11 @@
       <item row="0" column="0" colspan="7">
        <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,0,0">
         <item>
-         <widget class="QComboBox" name="cbProgram"/>
+         <widget class="QComboBox" name="cbProgram">
+          <property name="toolTip">
+           <string>select one of the predefined encoder setups</string>
+          </property>
+         </widget>
         </item>
         <item>
          <spacer name="horizontalSpacer_2">
@@ -78,6 +85,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="btDetect">
+          <property name="toolTip">
+           <string>auto-detect the installed encoder</string>
+          </property>
           <property name="text">
            <string>&amp;Auto Detect...</string>
           </property>
@@ -87,6 +97,9 @@
       </item>
       <item row="2" column="4">
        <widget class="QPushButton" name="btEncoderHelp">
+        <property name="toolTip">
+         <string>show the usage information of the encoder</string>
+        </property>
         <property name="text">
          <string>&amp;Usage</string>
         </property>
@@ -99,6 +112,9 @@
           <horstretch>100</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>path to the encoder</string>
         </property>
         <property name="text">
          <string/>
@@ -114,6 +130,9 @@
       </item>
       <item row="2" column="5">
        <widget class="QPushButton" name="btLocate">
+        <property name="toolTip">
+         <string>find the full path to the encoder</string>
+        </property>
         <property name="text">
          <string>&amp;Locate</string>
         </property>
@@ -165,6 +184,9 @@
               <height>0</height>
              </size>
             </property>
+            <property name="toolTip">
+             <string>parameter for switching the byte order</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -183,6 +205,9 @@
               <width>200</width>
               <height>0</height>
              </size>
+            </property>
+            <property name="toolTip">
+             <string>parameter for telling the encoder to use raw data as input format</string>
             </property>
             <property name="text">
              <string/>
@@ -230,6 +255,9 @@
               <height>0</height>
              </size>
             </property>
+            <property name="toolTip">
+             <string>parameter to use signed sample format</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -263,6 +291,10 @@
               <height>0</height>
              </size>
             </property>
+            <property name="toolTip">
+             <string>sample rate in Hz (use %1 as placeholder) 
+or kHz (use [%khz] as placeholder)</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -288,6 +320,10 @@
               <width>200</width>
               <height>0</height>
              </size>
+            </property>
+            <property name="toolTip">
+             <string>bits per sample,
+use %1 as placeholder</string>
             </property>
             <property name="text">
              <string/>
@@ -328,6 +364,9 @@
               <height>0</height>
              </size>
             </property>
+            <property name="toolTip">
+             <string>parameter for single-channel files (mono)</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -359,6 +398,10 @@
               <width>200</width>
               <height>0</height>
              </size>
+            </property>
+            <property name="toolTip">
+             <string>parameter for multi-channel files
+(stereo or more channels)</string>
             </property>
             <property name="text">
              <string/>
@@ -438,6 +481,10 @@
               <height>0</height>
              </size>
             </property>
+            <property name="toolTip">
+             <string>parameter for minimum bitrate in bits/sec
+(use %1 as placeholder)</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -457,6 +504,10 @@
               <height>0</height>
              </size>
             </property>
+            <property name="toolTip">
+             <string>parameter for maximum bitrate in bits/sec
+(use %1 as placeholder)</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -465,7 +516,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="lblBitrate">
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bitrate:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>Bitrate:</string>
             </property>
            </widget>
           </item>
@@ -495,6 +546,10 @@
               <width>100</width>
               <height>0</height>
              </size>
+            </property>
+            <property name="toolTip">
+             <string>parameter for average bitrate in bits/sec
+(use %1 as placeholder)</string>
             </property>
             <property name="text">
              <string/>
@@ -548,6 +603,9 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="toolTip">
+             <string>parameter for no emphasis</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -579,6 +637,9 @@
               <width>100</width>
               <height>0</height>
              </size>
+            </property>
+            <property name="toolTip">
+             <string>parameter for 50/15ms emphasis</string>
             </property>
             <property name="text">
              <string/>
@@ -612,6 +673,9 @@
               <height>0</height>
              </size>
             </property>
+            <property name="toolTip">
+             <string>parameter for CCIT J17 emphasis</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -638,6 +702,9 @@
               <height>0</height>
              </size>
             </property>
+            <property name="toolTip">
+             <string>parameters for configuring noise shaping</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -663,6 +730,9 @@
               <width>200</width>
               <height>0</height>
              </size>
+            </property>
+            <property name="toolTip">
+             <string>parameters for compatibility settings</string>
             </property>
             <property name="text">
              <string/>
@@ -716,6 +786,9 @@
               <height>0</height>
              </size>
             </property>
+            <property name="toolTip">
+             <string>parameter for marking the file as copyrighted</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -748,6 +821,9 @@
               <height>0</height>
              </size>
             </property>
+            <property name="toolTip">
+             <string>parameter for marking the signal as original (not a copy)</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -779,6 +855,9 @@
               <width>200</width>
               <height>0</height>
              </size>
+            </property>
+            <property name="toolTip">
+             <string>parameter to enable CRC protection</string>
             </property>
             <property name="text">
              <string/>
@@ -816,6 +895,9 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="toolTip">
+             <string>additional parameters to put at the start of the encoder command line</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -835,6 +917,9 @@
               <horstretch>100</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>additional parameters to append at the end of the encoder command line</string>
             </property>
             <property name="text">
              <string/>
@@ -864,7 +949,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="lblHelp">
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Encoder Help:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>Encoder Help:</string>
             </property>
            </widget>
           </item>
@@ -888,6 +973,9 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="toolTip">
+             <string>parameter for getting usage information of the encoder</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -896,7 +984,7 @@
           <item row="1" column="0" rowspan="2">
            <widget class="QLabel" name="lblEncoderInfo">
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Version Info:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>Version Info:</string>
             </property>
            </widget>
           </item>
@@ -933,6 +1021,9 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="toolTip">
+             <string>parameter for getting the encoder version information</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -965,6 +1056,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="btTest">
+       <property name="toolTip">
+        <string>try to encode some short test signal with the current settings</string>
+       </property>
        <property name="text">
         <string>Test...</string>
        </property>

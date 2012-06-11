@@ -27,7 +27,7 @@ RDEPEND="
 	mp3? (
 		media-libs/id3lib
 		media-libs/libmad
-		media-sound/lame
+		( media-sound/lame | mesia-sound/twolame | media-sound/toolame )
 	)
 	pulseaudio? ( media-sound/pulseaudio )
 	vorbis? (
@@ -37,7 +37,7 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}
 	$(add_kdebase_dep kdesdk-misc extras)
-	|| ( media-gfx/imagemagick[png] media-gfx/graphicsmagick[imagemagick,png] )
+	|| ( media-gfx/imagemagick[png,svg] media-gfx/graphicsmagick[imagemagick,png,svg] )
 "
 
 DOCS=( AUTHORS LICENSES CHANGES README TODO )

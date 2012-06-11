@@ -8,6 +8,8 @@
  * bugfix: broken signal/slot connection in SaveBlocks plugin
  * workaround for bug in id3lib, SF #3534143:
    ignore id3lib crc check result for MPEG Layer II files
+ * bugfix: Gentoo ebuild lacked required svg use flag for media-gfx/imagemagick
+   and media-gfx/graphicsmagick
 
 0.8.8  [2012-05-20]
 

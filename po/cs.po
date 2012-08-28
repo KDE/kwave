@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-10 20:45+0200\n"
+"POT-Creation-Date: 2012-08-28 22:37+0200\n"
 "PO-Revision-Date: 2012-05-26 12:44+0200\n"
 "Last-Translator: Pavel <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -192,6 +192,11 @@ msgstr "%1 bitů na vzorek není podporováno. Používá se %2 bitů na vzorek"
 msgid "%1 bytes"
 msgstr "%1 bajtů"
 
+#: plugins/record/RecordPlugin.cpp:444 plugins/record/RecordPlugin.cpp:452
+#, fuzzy, kde-format
+msgid "%1 channels"
+msgstr "%1 stopy"
+
 #: plugins/playback/PlayBack-OSS.cpp:193
 #, kde-format
 msgid "%1 channels playback is not supported"
@@ -251,8 +256,7 @@ msgid_plural "%1 seconds"
 msgstr[0] "%1 sekundy"
 msgstr[1] "%1 sekund"
 
-#: plugins/record/RecordDialog.cpp:714 plugins/record/RecordPlugin.cpp:444
-#: plugins/record/RecordPlugin.cpp:452
+#: plugins/record/RecordDialog.cpp:714
 #, kde-format
 msgid "%1 tracks"
 msgstr "%1 stop"
@@ -1248,7 +1252,7 @@ msgstr ""
 
 #: plugins/record/ui_RecordDlg.h:1025
 msgid ""
-"<b>Number of tracks</b><br>Select a number of tracks, e.g. for mono or "
+"<b>Number of channels</b><br>Select a number of channels, e.g. for mono or "
 "stereo recording."
 msgstr ""
 "<b>Počet stop</b><br>Vyberte počet stop, např. počet stop pro monofonní nebo "
@@ -1464,14 +1468,14 @@ msgstr "<h1>Kwave - editor zvuku pro prostředí KDE</h1>"
 msgid ""
 "<h2>Kwave is a sound editor designed for the KDE Desktop Environment. </"
 "h2><br>\n"
-"With Kwave you can edit many sorts of \n"
-"audio files including multi channel files.\n"
-"You are able to alter and play back each \n"
-"channel on its own.<br>\n"
-"Kwave also includes many plugins (some \n"
-"are still under development) to transform \n"
+"With Kwave you can edit many sorts of\n"
+"audio files including multi track files.\n"
+"You are able to alter and play back each\n"
+"track on its own.<br>\n"
+"Kwave also includes many plugins (some\n"
+"are still under development) to transform\n"
 "the audio data in several ways and presents\n"
-"a graphical view with a complete zoom \n"
+"a graphical view with a complete zoom\n"
 "and scroll capability."
 msgstr ""
 "<h2>Kwave je editor zvuku navržený pro prostředí KDE </h2><br>\n"
@@ -2017,6 +2021,10 @@ msgstr "Změnit vzorkovací kmitočet"
 #, kde-format
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
 msgstr "Mění se vzorkovací kmitočet z %1 kHz na %2 kHz..."
+
+#: libkwave/FileInfo.cpp:221
+msgid "Channels"
+msgstr "Stopy"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:744
 #: plugins/playback/ui_PlayBackDlg.h:409
@@ -4281,7 +4289,7 @@ msgstr "Postup nahrávání:"
 
 #: plugins/record/RecordPlugin.cpp:466
 #, kde-format
-msgid "Recording with %1 track(s) failed, using %2 track(s)"
+msgid "Recording with %1 channels(s) failed, using %2 channels(s)"
 msgstr "Nahrávání %1  stop(y) selhalo. Používá se  %2 stop(a)"
 
 #: plugins/record/RecordDialog.cpp:1031
@@ -4841,7 +4849,7 @@ msgid "Specifies the number of bits per sample."
 msgstr "Stanovuje počet bitů na vzorek."
 
 #: libkwave/FileInfo.cpp:222
-msgid "Specifies the number of tracks of the signal."
+msgid "Specifies the number of channels of the signal."
 msgstr "Stanovuje počet stop signálu."
 
 #: libkwave/FileInfo.cpp:65
@@ -5226,10 +5234,6 @@ msgstr "Stopa"
 #: libkwave/FileInfo.cpp:219
 msgid "Track of the CD if the source was a CDROM."
 msgstr "Stopa na CD v případě, že zdrojem byl malý disk (CD)."
-
-#: libkwave/FileInfo.cpp:221
-msgid "Tracks"
-msgstr "Stopy"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:198
 #: plugins/newsignal/ui_NewSigDlg.h:494 plugins/record/ui_RecordDlg.h:1023

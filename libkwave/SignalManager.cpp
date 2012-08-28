@@ -1,5 +1,5 @@
 /***************************************************************************
-       SignalManager.cpp -  manager class for multi-channel signals
+       SignalManager.cpp -  manager class for multi channel signals
 			     -------------------
     begin                : Sun Oct 15 2000
     copyright            : (C) 2000 by Thomas Eschenbacher

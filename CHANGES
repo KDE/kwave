@@ -3,7 +3,7 @@
  * fix for SF #3528848, removed -Wl,--add-needed from plugin LINK_FLAGS
  * wav import/export: support for some more meta data tags
  * bugfix: meta data lost when writing wav files that had meta data for
-   product/album or subect/track at the same time
+   product/album or subject/track at the same time
  * MP3 export via external program "lame"
  * bugfix: broken signal/slot connection in SaveBlocks plugin
  * workaround for bug in id3lib, SF #3534143:

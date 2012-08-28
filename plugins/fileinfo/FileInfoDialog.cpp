@@ -195,17 +195,17 @@ void FileInfoDialog::setupFileInfoTab()
     sbResolution->setValue(m_info.bits());
 
     /* number of tracks */
-    lblTracks->setText(i18n("Tracks:"));
-    describeWidget(sbTracks, lblTracks->text().left(
-        lblTracks->text().length()-1),
+    lblChannels->setText(i18n("Tracks:"));
+    describeWidget(sbChannels, lblChannels->text().left(
+        lblChannels->text().length()-1),
         i18n("Shows the number of tracks of the signal.\n"
              "You can add or delete tracks via the Edit menu."));
-    sbTracks->setMaximum(m_info.tracks());
-    sbTracks->setMinimum(m_info.tracks());
-    sbTracks->setValue(m_info.tracks());
-    connect(sbTracks, SIGNAL(valueChanged(int)),
+    sbChannels->setMaximum(m_info.tracks());
+    sbChannels->setMinimum(m_info.tracks());
+    sbChannels->setValue(m_info.tracks());
+    connect(sbChannels, SIGNAL(valueChanged(int)),
             this, SLOT(tracksChanged(int)));
-    tracksChanged(sbTracks->value());
+    tracksChanged(sbChannels->value());
 
     /* length of the signal */
     lblLength->setText(i18n("Length:"));
@@ -510,16 +510,16 @@ void FileInfoDialog::tracksChanged(int tracks)
 {
     switch (tracks) {
 	case 1:
-	    lblTracksVerbose->setText(i18n("(Mono)"));
+	    lblChannelsVerbose->setText(i18n("(Mono)"));
 	    break;
 	case 2:
-	    lblTracksVerbose->setText(i18n("(Stereo)"));
+	    lblChannelsVerbose->setText(i18n("(Stereo)"));
 	    break;
 	case 4:
-	    lblTracksVerbose->setText(i18n("(Quadro)"));
+	    lblChannelsVerbose->setText(i18n("(Quadro)"));
 	    break;
 	default:
-	    lblTracksVerbose->setText("");
+	    lblChannelsVerbose->setText("");
 	    break;
     }
 }

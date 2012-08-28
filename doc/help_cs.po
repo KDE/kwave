@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave_help_cs\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2012-06-02 16:19+0000\n"
+"POT-Creation-Date: 2012-08-26 07:37+0000\n"
 "PO-Revision-Date: 2012-05-18 05:40+0200\n"
 "Last-Translator: Pavel <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -239,14 +239,14 @@ msgstr "Volně volitelné vzorkovacá kmitočty"
 #. Tag: para
 #: help_en.docbook:146
 #, no-c-format
-msgid "support for editing of multi-channel files"
+msgid "support for editing of multi channel files"
 msgstr "Podpora pro upravování mnohakanálových souborů"
 
 #. Tag: para
 #: help_en.docbook:149
 #, no-c-format
 msgid ""
-"playback of multi-channel audio files (audio output will be mixed down to "
+"playback of multi channel audio files (audio output will be mixed down to "
 "mono or stereo)"
 msgstr ""
 "Přehrávání mnohakanálových zvukových souborů (zvukový výstup bude smíchán na "
@@ -3614,7 +3614,7 @@ msgstr ""
 #: help_en.docbook:2055
 #, no-c-format
 msgid "Selecting channels"
-msgstr "Výběr kanálů"
+msgstr "Výběr vzorků"
 
 #. Tag: para
 #: help_en.docbook:2056
@@ -5216,6 +5216,9 @@ msgstr "Michael Pruett <email>mpruett@sgi.com</email>"
 msgid ""
 "author of the <ulink url=\"&url_libaudiofile;\">audiofile</ulink> library"
 msgstr "Autor knihovny <ulink url=\"&url_libaudiofile;\">audiofile</ulink>"
+
+#~ msgid "Selecting tracks"
+#~ msgstr "Výběr kanálů"
 
 #~ msgid "MP3 import"
 #~ msgstr "Import MP3"

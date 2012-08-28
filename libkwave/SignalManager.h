@@ -1,5 +1,5 @@
 /***************************************************************************
-         SignalManager.h -  manager class for multi-channel signals
+         SignalManager.h -  manager class for multi channel signals
 			     -------------------
     begin                : Sun Oct 15 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -56,7 +56,7 @@ namespace Kwave { class Writer; }
 #define NEW_FILENAME i18n("New File")
 
 /**
- * The SignalManager class manages multi-channel signals.
+ * The SignalManager class manages multi channel signals.
  */
 class KDE_EXPORT SignalManager : public QObject
 {

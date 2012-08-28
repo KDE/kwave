@@ -217,9 +217,9 @@ void FileInfo::PropertyTypesMap::fill()
     append(INF_TRACK, 0,
         I18N_NOOP("Track"),
         i18n("Track of the CD if the source was a CDROM."));
-    append(INF_TRACKS, FP_INTERNAL | FP_NO_LOAD_SAVE,
-        I18N_NOOP("Tracks"),
-        i18n("Specifies the number of tracks of the signal."));
+    append(INF_CHANNELS, FP_INTERNAL | FP_NO_LOAD_SAVE,
+        I18N_NOOP("Channels"),
+        i18n("Specifies the number of channels of the signal."));
     append(INF_VBR_QUALITY, FP_INTERNAL | FP_NO_LOAD_SAVE,
         I18N_NOOP("Base Quality"),
         i18n("Base quality of the compression in VBR mode"));
@@ -384,7 +384,7 @@ void FileInfo::setBits(unsigned int bits)
 /***************************************************************************/
 unsigned int FileInfo::tracks() const
 {
-    QVariant value = get(INF_TRACKS);
+    QVariant value = get(INF_CHANNELS);
     bool ok = false;
     unsigned int tracks = value.toUInt(&ok);
     return (ok) ? tracks : 0;
@@ -393,7 +393,7 @@ unsigned int FileInfo::tracks() const
 /***************************************************************************/
 void FileInfo::setTracks(unsigned int tracks)
 {
-    set(INF_TRACKS, tracks);
+    set(INF_CHANNELS, tracks);
 }
 
 /***************************************************************************/

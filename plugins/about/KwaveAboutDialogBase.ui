@@ -145,14 +145,14 @@
          </property>
          <property name="text">
           <string>&lt;h2&gt;Kwave is a sound editor designed for the KDE Desktop Environment. &lt;/h2&gt;&lt;br&gt;
-With Kwave you can edit many sorts of 
-audio files including multi channel files.
-You are able to alter and play back each 
-channel on its own.&lt;br&gt;
-Kwave also includes many plugins (some 
-are still under development) to transform 
+With Kwave you can edit many sorts of
+audio files including multi track files.
+You are able to alter and play back each
+track on its own.&lt;br&gt;
+Kwave also includes many plugins (some
+are still under development) to transform
 the audio data in several ways and presents
-a graphical view with a complete zoom 
+a graphical view with a complete zoom
 and scroll capability.</string>
          </property>
          <property name="textFormat">

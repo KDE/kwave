@@ -51,6 +51,7 @@ typedef enum {
     INF_BITRATE_UPPER,       /**< upper bitrate limit */
     INF_BITS_PER_SAMPLE,     /**< number of bits per sample */
     INF_CD,                  /**< number of the CD in an album */
+    INF_CHANNELS,            /**< number of tracks of the signal */
     INF_COMMISSIONED,        /**< commissioned */
     INF_COMMENTS,            /**< comments */
     INF_COMPRESSION,         /**< compression mode (libaudiofile) */
@@ -87,7 +88,6 @@ typedef enum {
     INF_SUBJECT,             /**< subject */
     INF_TECHNICAN,           /**< technican */
     INF_TRACK,               /**< track of the CD */
-    INF_TRACKS,              /**< number of tracks of the signal */
     INF_VBR_QUALITY,         /**< base quality of an ogg file in VBR mode */
     INF_VERSION              /**< version/remix */
 } FileProperty;

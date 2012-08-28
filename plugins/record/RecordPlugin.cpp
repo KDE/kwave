@@ -428,28 +428,28 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
     unsigned int min = 0;
     unsigned int max = 0;
     m_device->detectTracks(min, max);
-    unsigned int tracks = new_tracks;
-    if ((tracks < min) || (tracks > max)) {
+    unsigned int channels = new_tracks;
+    if ((channels < min) || (channels > max)) {
 	// clip to the supported number of tracks
-	if (tracks < min) tracks = min;
-	if (tracks > max) tracks = max;
+	if (channels < min) channels = min;
+	if (channels > max) channels = max;
 
-	if ((new_tracks && tracks) && (new_tracks != tracks)) {
+	if ((new_tracks && channels) && (new_tracks != channels)) {
 	    QString s1;
 	    switch (new_tracks) {
 		case 1: s1 = i18n("Mono");   break;
 		case 2: s1 = i18n("Stereo"); break;
 		case 4: s1 = i18n("Quadro"); break;
 		default:
-		    s1 = i18n("%1 tracks", new_tracks);
+		    s1 = i18n("%1 channels", new_tracks);
 	    }
 	    QString s2;
-	    switch (tracks) {
+	    switch (channels) {
 		case 1: s2 = i18n("Mono");   break;
 		case 2: s2 = i18n("Stereo"); break;
 		case 4: s2 = i18n("Quadro"); break;
 		default:
-		    s2 = i18n("%1 tracks", tracks);
+		    s2 = i18n("%1 channels", channels);
 	    }
 
 	    notice(i18n("%1 is not supported, using %2", s1, s2));
@@ -458,15 +458,15 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
     m_dialog->setSupportedTracks(min, max);
 
     // try to activate the new number of tracks
-    int err = m_device->setTracks(tracks);
+    int err = m_device->setTracks(channels);
     if (err < 0) {
 	// revert to the current device setting if failed
-	tracks = m_device->tracks();
-	if (new_tracks && (tracks > 0)) notice(
-	    i18n("Recording with %1 track(s) failed, "\
-		 "using %2 track(s)", new_tracks, tracks));
+	channels = m_device->tracks();
+	if (new_tracks && (channels > 0)) notice(
+	    i18n("Recording with %1 channels(s) failed, "\
+		 "using %2 channels(s)", new_tracks, channels));
     }
-    m_dialog->setTracks(tracks);
+    m_dialog->setTracks(channels);
 
     // activate the new sample rate
     changeSampleRate(m_dialog->params().sample_rate);

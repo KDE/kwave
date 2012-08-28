@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2012-06-02 16:19+0000\n"
+"POT-Creation-Date: 2012-08-26 07:37+0000\n"
 "PO-Revision-Date: 2012-05-17 20:26+0200\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -240,14 +240,14 @@ msgstr "Une sélection libre du taux d'échantillonnage."
 #. Tag: para
 #: help_en.docbook:146
 #, no-c-format
-msgid "support for editing of multi-channel files"
+msgid "support for editing of multi channel files"
 msgstr "Le support des multicanaux pour l'édition de fichiers sonores."
 
 #. Tag: para
 #: help_en.docbook:149
 #, no-c-format
 msgid ""
-"playback of multi-channel audio files (audio output will be mixed down to "
+"playback of multi channel audio files (audio output will be mixed down to "
 "mono or stereo)"
 msgstr ""
 "La lecture de fichiers sonores multicanaux (l'écoute des pistes audio est "
@@ -3388,7 +3388,7 @@ msgstr ""
 #: help_en.docbook:2055
 #, no-c-format
 msgid "Selecting channels"
-msgstr "La sélection de canaux sonores"
+msgstr "La sélection d'échantillons"
 
 #. Tag: para
 #: help_en.docbook:2056
@@ -4920,6 +4920,9 @@ msgid ""
 msgstr ""
 "auteur de la bibliothèque <ulink url=\"&url_libaudiofile;\"> « audiofile »</"
 "ulink>"
+
+#~ msgid "Selecting tracks"
+#~ msgstr "La sélection de canaux sonores"
 
 #~ msgid "MP3 import"
 #~ msgstr "Importation de fichier au format MP3."

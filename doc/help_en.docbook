@@ -144,10 +144,10 @@
 	    free selectable sample rates
 	</para></listitem>
     	<listitem><para>
-	    support for editing of multi-channel files
+	    support for editing of multi channel files
 	</para></listitem>
     	<listitem><para>
-	    playback of multi-channel audio files (audio output will be
+	    playback of multi channel audio files (audio output will be
 	    mixed down to mono or stereo)
 	</para></listitem>
 	<listitem><para>

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-10 20:45+0200\n"
+"POT-Creation-Date: 2012-08-28 22:37+0200\n"
 "PO-Revision-Date: 2007-08-01 19:04+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
@@ -201,6 +201,11 @@ msgstr ""
 msgid "%1 bytes"
 msgstr "%1 octets"
 
+#: plugins/record/RecordPlugin.cpp:444 plugins/record/RecordPlugin.cpp:452
+#, kde-format
+msgid "%1 channels"
+msgstr "%1 pistes"
+
 #: plugins/playback/PlayBack-OSS.cpp:193
 #, fuzzy, kde-format
 msgid "%1 channels playback is not supported"
@@ -240,31 +245,30 @@ msgid "%1 min"
 msgstr " min"
 
 #: kwave/TopWidget.cpp:336 kwave/TopWidget.cpp:337 kwave/TopWidget.cpp:338
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 ms"
-msgstr " ms"
+msgstr "%1 ms"
 
 #: libkwave/FileProgress.cpp:349 plugins/fileinfo/FileInfoDialog.cpp:224
 #: plugins/record/RecordDialog.cpp:579 plugins/record/ui_RecordDlg.h:1069
 #, kde-format
 msgid "%1 samples"
-msgstr "%1 échantillons "
+msgstr "%1 échantillons"
 
 #: kwave/TopWidget.cpp:339 kwave/TopWidget.cpp:340 kwave/TopWidget.cpp:341
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 sec"
-msgstr " sec"
+msgstr "%1 sec"
 
 #: plugins/record/RecordDialog.cpp:1165
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 second"
 msgid_plural "%1 seconds"
 msgstr[0] "Secondes"
 msgstr[1] "Secondes"
 
-#: plugins/record/RecordDialog.cpp:714 plugins/record/RecordPlugin.cpp:444
-#: plugins/record/RecordPlugin.cpp:452
-#, kde-format
+#: plugins/record/RecordDialog.cpp:714
+#, fuzzy, kde-format
 msgid "%1 tracks"
 msgstr "%1 pistes"
 
@@ -780,8 +784,9 @@ msgid "&Today"
 msgstr "Au&jourd'hui"
 
 #: kwave/menus_config_i18n.cpp:130
+#, fuzzy
 msgid "&Track"
-msgstr "Pis&te"
+msgstr "Piste "
 
 #: libgui/SignalWidget.cpp:216 kwave/menus_config_i18n.cpp:132
 #, fuzzy
@@ -1288,7 +1293,7 @@ msgstr ""
 #: plugins/record/ui_RecordDlg.h:1025
 #, fuzzy
 msgid ""
-"<b>Number of tracks</b><br>Select a number of tracks, e.g. for mono or "
+"<b>Number of channels</b><br>Select a number of channels, e.g. for mono or "
 "stereo recording."
 msgstr ""
 "<b>Nombre de pistes sonores</b><br>Paramètre le nombre de pistes sonores "
@@ -1474,14 +1479,14 @@ msgstr "<h1>Kwave - Un éditeur de sons pour KDE</h1>"
 msgid ""
 "<h2>Kwave is a sound editor designed for the KDE Desktop Environment. </"
 "h2><br>\n"
-"With Kwave you can edit many sorts of \n"
-"audio files including multi channel files.\n"
-"You are able to alter and play back each \n"
-"channel on its own.<br>\n"
-"Kwave also includes many plugins (some \n"
-"are still under development) to transform \n"
+"With Kwave you can edit many sorts of\n"
+"audio files including multi track files.\n"
+"You are able to alter and play back each\n"
+"track on its own.<br>\n"
+"Kwave also includes many plugins (some\n"
+"are still under development) to transform\n"
 "the audio data in several ways and presents\n"
-"a graphical view with a complete zoom \n"
+"a graphical view with a complete zoom\n"
 "and scroll capability."
 msgstr ""
 " <h2>Kwave est un éditeur de pistes sonores pour l'environnement de bureau "
@@ -2049,6 +2054,11 @@ msgstr "Fréquence d'échantillonnage : "
 #, kde-format
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
 msgstr ""
+
+#: libkwave/FileInfo.cpp:221
+#, fuzzy
+msgid "Channels"
+msgstr "Pistes :"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:744
 #: plugins/playback/ui_PlayBackDlg.h:409
@@ -4445,8 +4455,8 @@ msgid "Recording method:"
 msgstr "Mode d'enregistrement :"
 
 #: plugins/record/RecordPlugin.cpp:466
-#, kde-format
-msgid "Recording with %1 track(s) failed, using %2 track(s)"
+#, fuzzy, kde-format
+msgid "Recording with %1 channels(s) failed, using %2 channels(s)"
 msgstr ""
 "L'enregistrement de la piste « %1 » a échoué. La piste « %2 » sera utilisée "
 "à la place"
@@ -5051,8 +5061,9 @@ msgid "Specifies the number of bits per sample."
 msgstr "Spécifie la limite haute d'un flux VBR."
 
 #: libkwave/FileInfo.cpp:222
-msgid "Specifies the number of tracks of the signal."
-msgstr ""
+#, fuzzy
+msgid "Specifies the number of channels of the signal."
+msgstr "Spécifie la limite haute d'un flux VBR."
 
 #: libkwave/FileInfo.cpp:65
 msgid "Specifies the upper limit in a VBR bitstream."
@@ -5460,10 +5471,6 @@ msgstr "Piste "
 #: libkwave/FileInfo.cpp:219
 msgid "Track of the CD if the source was a CDROM."
 msgstr "Piste du CD si la source est un CDROM."
-
-#: libkwave/FileInfo.cpp:221
-msgid "Tracks"
-msgstr "Pistes "
 
 #: plugins/fileinfo/FileInfoDialog.cpp:198
 #: plugins/newsignal/ui_NewSigDlg.h:494 plugins/record/ui_RecordDlg.h:1023
@@ -6157,6 +6164,9 @@ msgstr "Oui"
 #~ msgid "&Amplify"
 #~ msgstr "&Amplification"
 
+#~ msgid "&Channel"
+#~ msgstr "Pis&te"
+
 #~ msgid "&Free"
 #~ msgstr "&Libre"
 
@@ -6215,6 +6225,10 @@ msgstr "Oui"
 #, fuzzy
 #~ msgid "Cut the current selection and move it to the clipboard"
 #~ msgstr "couper la sélection courante et la déplacer dans le presse papier"
+
+#, fuzzy
+#~ msgid "Deselect all channels"
+#~ msgstr "supprimer une piste"
 
 #, fuzzy
 #~ msgid "E&xit"
@@ -6308,6 +6322,9 @@ msgstr "Oui"
 
 #~ msgid "band_pass"
 #~ msgstr "filtre passe bande"
+
+#~ msgid "channels: "
+#~ msgstr "pistes :"
 
 #~ msgid "codec_ascii"
 #~ msgstr "codec ASCII"
@@ -6430,9 +6447,6 @@ msgstr "Oui"
 
 #~ msgid "to &Maximum"
 #~ msgstr "au &maximum"
-
-#~ msgid "tracks: "
-#~ msgstr "pistes :"
 
 #~ msgid "unable to open aRts playback stream"
 #~ msgstr "impossible d'ouvrir le flux de lecture aRts"

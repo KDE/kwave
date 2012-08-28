@@ -703,7 +703,7 @@
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="lblTracks">
+              <widget class="QLabel" name="lblChannels">
                <property name="text">
                 <string>Tracks:</string>
                </property>
@@ -715,7 +715,7 @@
              <item row="1" column="2">
               <widget class="QSpinBox" name="sbFormatTracks">
                <property name="whatsThis">
-                <string>&lt;b&gt;Number of tracks&lt;/b&gt;&lt;br&gt;Select a number of tracks, e.g. for mono or stereo recording.</string>
+                <string>&lt;b&gt;Number of channels&lt;/b&gt;&lt;br&gt;Select a number of channels, e.g. for mono or stereo recording.</string>
                </property>
                <property name="minimum">
                 <number>1</number>

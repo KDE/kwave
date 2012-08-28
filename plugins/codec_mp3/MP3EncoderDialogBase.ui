@@ -292,7 +292,7 @@
              </size>
             </property>
             <property name="toolTip">
-             <string>sample rate in Hz (use %1 as placeholder) 
+             <string>sample rate in Hz (use %1 as placeholder)
 or kHz (use [%khz] as placeholder)</string>
             </property>
             <property name="text">
@@ -365,7 +365,7 @@ use %1 as placeholder</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>parameter for single-channel files (mono)</string>
+             <string>parameter for single channel files (mono)</string>
             </property>
             <property name="text">
              <string/>
@@ -400,7 +400,7 @@ use %1 as placeholder</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>parameter for multi-channel files
+             <string>parameter for multi channel files
 (stereo or more channels)</string>
             </property>
             <property name="text">

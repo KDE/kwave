@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-10 20:45+0200\n"
+"POT-Creation-Date: 2012-08-28 22:37+0200\n"
 "PO-Revision-Date: 2012-06-10 20:45+0200\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -191,6 +191,11 @@ msgstr "%1 Bits pro Sample wird nicht unterstützt, verwende %2 Bits pro Sample"
 msgid "%1 bytes"
 msgstr "%1 Bytes"
 
+#: plugins/record/RecordPlugin.cpp:444 plugins/record/RecordPlugin.cpp:452
+#, kde-format
+msgid "%1 channels"
+msgstr "%1 Kanäle"
+
 #: plugins/playback/PlayBack-OSS.cpp:193
 #, kde-format
 msgid "%1 channels playback is not supported"
@@ -250,11 +255,10 @@ msgid_plural "%1 seconds"
 msgstr[0] "%1 Sekunde"
 msgstr[1] "%1 Sekunden"
 
-#: plugins/record/RecordDialog.cpp:714 plugins/record/RecordPlugin.cpp:444
-#: plugins/record/RecordPlugin.cpp:452
+#: plugins/record/RecordDialog.cpp:714
 #, kde-format
 msgid "%1 tracks"
-msgstr "%1 Stimmen"
+msgstr "%1 Spuren"
 
 #: kwave/menus_config_i18n.cpp:11
 msgid "&About Kwave"
@@ -739,7 +743,7 @@ msgstr "&Heute"
 
 #: kwave/menus_config_i18n.cpp:130
 msgid "&Track"
-msgstr "&Track"
+msgstr "&Spur"
 
 #: libgui/SignalWidget.cpp:216 kwave/menus_config_i18n.cpp:132
 msgid "&Undo"
@@ -1243,16 +1247,16 @@ msgid ""
 "<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
 "you are not sure now, you can add or delete tracks later in the program."
 msgstr ""
-"<b>Anzahl der Tracks</b><br>Wählen Sie die Anzahl der Tracks der neuen Datei."
+"<b>Anzahl der Spuren</b><br>Wählen Sie die Anzahl der Spuren der neuen Datei."
 "Wenn Sie jetzt noch nicht sicher sind, dann können Sie im Programm jederzeit "
-"Tracks hinzufügen oder löschen."
+"Spuren hinzufügen oder löschen."
 
 #: plugins/record/ui_RecordDlg.h:1025
 msgid ""
-"<b>Number of tracks</b><br>Select a number of tracks, e.g. for mono or "
+"<b>Number of channels</b><br>Select a number of channels, e.g. for mono or "
 "stereo recording."
 msgstr ""
-"<b>Anzahl der Tracks</b><br>Wählen Sie die Anzahl der Tracks, beispielsweise "
+"<b>Anzahl der Kanäle</b><br>Wählen Sie die Anzahl der Kanäle, beispielsweise "
 "Mono oder Stereo."
 
 #: plugins/playback/ui_PlayBackDlg.h:393
@@ -1466,20 +1470,20 @@ msgstr "<h1>Kwave - Ein Sound-Editor für KDE</h1>"
 msgid ""
 "<h2>Kwave is a sound editor designed for the KDE Desktop Environment. </"
 "h2><br>\n"
-"With Kwave you can edit many sorts of \n"
-"audio files including multi channel files.\n"
-"You are able to alter and play back each \n"
-"channel on its own.<br>\n"
-"Kwave also includes many plugins (some \n"
-"are still under development) to transform \n"
+"With Kwave you can edit many sorts of\n"
+"audio files including multi track files.\n"
+"You are able to alter and play back each\n"
+"track on its own.<br>\n"
+"Kwave also includes many plugins (some\n"
+"are still under development) to transform\n"
 "the audio data in several ways and presents\n"
-"a graphical view with a complete zoom \n"
+"a graphical view with a complete zoom\n"
 "and scroll capability."
 msgstr ""
 "<h2>Kwave ist ein Sound-Editor für die KDE Desktop-Umgebung.</h2><br>\n"
 "Mit Kwave können Sie viele Arten von Audio-Dateien \n"
-"bearbeiten, auch solche mit vielen Tracks. \n"
-"Sie können jeden Track einzeln verändern \n"
+"bearbeiten, auch solche mit vielen Spuren. \n"
+"Sie können jede Spur einzeln verändern \n"
 "und abspielen.<br>\n"
 "Kwave enthält ebenfalls viele Plugins (von denen\n"
 "einige noch in Entwicklung sind) um \n"
@@ -1748,11 +1752,11 @@ msgstr "Anderes Wiedergabegerät (*)"
 
 #: libkwave/SignalManager.cpp:861
 msgid "Append Track"
-msgstr "Track Anhängen"
+msgstr "Spur hinzufügen"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:824
 msgid "Append:"
-msgstr "Anhängen:"
+msgstr "Hinzufügen:"
 
 #: libkwave/CompressionType.cpp:49
 msgid "Apple ACE2"
@@ -2015,6 +2019,10 @@ msgstr "Abtastrate ändern"
 #, kde-format
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
 msgstr "Ändere Abtastrate von %1 kHz nach %2 kHz..."
+
+#: libkwave/FileInfo.cpp:221
+msgid "Channels"
+msgstr "Kanäle"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:744
 #: plugins/playback/ui_PlayBackDlg.h:409
@@ -2296,7 +2304,7 @@ msgstr "Löschen von Metadaten"
 
 #: libkwave/undo/UndoDeleteTrack.cpp:45 libkwave/SignalManager.cpp:909
 msgid "Delete Track"
-msgstr "Track löschen"
+msgstr "Spur löschen"
 
 #: kwave/TopWidget.cpp:265
 msgid "Delete selection"
@@ -2334,11 +2342,11 @@ msgstr "Beschreibung:"
 
 #: libkwave/SignalManager.cpp:840
 msgid "Deselect Track"
-msgstr "Track-Auswahl aufheben"
+msgstr "Auswahl dieser Spur aufheben"
 
 #: libkwave/SignalManager.cpp:827
 msgid "Deselect all tracks"
-msgstr "Auswahl aller Tracks aufheben"
+msgstr "Auswahl aller Spuren aufheben"
 
 #: plugins/codec_wav/RIFFParser.cpp:102
 msgid "Detecting endianness (standard search)..."
@@ -3074,7 +3082,7 @@ msgstr "Platz einfügen"
 
 #: libkwave/undo/UndoInsertTrack.cpp:39 libkwave/SignalManager.cpp:868
 msgid "Insert Track"
-msgstr "Track einfügen"
+msgstr "Spur einfügen"
 
 #: libkwave/GenreType.cpp:110
 msgid "Instrumental"
@@ -3126,7 +3134,7 @@ msgstr "Umgekehrter Sägezahn"
 
 #: libkwave/SignalManager.cpp:831
 msgid "Invert Track Selection"
-msgstr "Track-Auswahl umkehren"
+msgstr "Spur-Auswahl umkehren"
 
 #: libkwave/GenreType.cpp:85
 msgid "Jazz"
@@ -3451,7 +3459,7 @@ msgstr "Manuelle Auswahl"
 
 #: libkwave/SignalManager.cpp:1895
 msgid "Manual Track Selection"
-msgstr "Manuelle Track-Auswahl"
+msgstr "Manuelle Spur-Auswahl"
 
 #: kwave/main.cpp:95
 msgid "Martin Kuball"
@@ -4270,7 +4278,7 @@ msgstr "Aufnahme-Methode:"
 
 #: plugins/record/RecordPlugin.cpp:466
 #, kde-format
-msgid "Recording with %1 track(s) failed, using %2 track(s)"
+msgid "Recording with %1 channels(s) failed, using %2 channels(s)"
 msgstr "Aufnahme mit %1 Kanälen ist fehlgeschlagen, verwende %2 Kanäle."
 
 #: plugins/record/RecordDialog.cpp:1031
@@ -4519,7 +4527,7 @@ msgstr "Aus&wählen..."
 
 #: libkwave/SignalManager.cpp:823
 msgid "Select All Tracks"
-msgstr "Alle Tracks auswählen"
+msgstr "Alle Spuren auswählen"
 
 #: plugins/fileinfo/ui_SelectDateDlg.h:97
 msgid "Select Date"
@@ -4553,7 +4561,7 @@ msgstr "Auswahl des Aufnahmegeräts"
 
 #: libkwave/SignalManager.cpp:836
 msgid "Select Track"
-msgstr "Track auswählen"
+msgstr "Spur auswählen"
 
 #: plugins/fileinfo/ui_FileInfoDlg.h:1356
 msgid "Select a date from the calendar."
@@ -4682,8 +4690,8 @@ msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
 msgstr ""
-"Zeigt die Anzahl der Tracks der Datei. Sie können\n"
-"über das \"Bearbeiten\"-Menü Tracks hinzufügen\n"
+"Zeigt die Anzahl der Spuren der Datei. Sie können\n"
+"über das \"Bearbeiten\"-Menü Spuren hinzufügen\n"
 "oder löschen."
 
 #: libkwave/GenreType.cpp:146
@@ -4831,8 +4839,8 @@ msgid "Specifies the number of bits per sample."
 msgstr "Setzt die Anzahl der Bits pro Sample."
 
 #: libkwave/FileInfo.cpp:222
-msgid "Specifies the number of tracks of the signal."
-msgstr "Setzt die Anzahl der Tracks des Signals."
+msgid "Specifies the number of channels of the signal."
+msgstr "Setzt die Anzahl der Spuren des Signals."
 
 #: libkwave/FileInfo.cpp:65
 msgid "Specifies the upper limit in a VBR bitstream."
@@ -5076,7 +5084,7 @@ msgid ""
 "The file contains an invalid channel mode 0x%1\n"
 "Assuming Mono..."
 msgstr ""
-"Die Datei enthält einen ungültigen Kanal-Modus 0x%1\n"
+"Die Datei enthält eine ungültige Anzahl von Kanälen: 0x%1\n"
 "Mono wird angenommen..."
 
 #: plugins/codec_mp3/MP3Encoder.cpp:172
@@ -5212,7 +5220,7 @@ msgstr "Zu den vorhergehenden Markierungen"
 
 #: libkwave/SignalManager.cpp:844
 msgid "Toggle Track Selection"
-msgstr "Track-Auswahl umkehren"
+msgstr "Spur-Auswahl umkehren"
 
 #: libkwave/GenreType.cpp:137
 msgid "Top 40"
@@ -5226,18 +5234,14 @@ msgstr "Track"
 msgid "Track of the CD if the source was a CDROM."
 msgstr "Track der CD wenn die Quelle eine CDROM war."
 
-#: libkwave/FileInfo.cpp:221
-msgid "Tracks"
-msgstr "Tracks"
-
 #: plugins/fileinfo/FileInfoDialog.cpp:198
 #: plugins/newsignal/ui_NewSigDlg.h:494 plugins/record/ui_RecordDlg.h:1023
 msgid "Tracks:"
-msgstr "Tracks: "
+msgstr "Spuren: "
 
 #: libkwave/FileProgress.cpp:108
 msgid "Tracks: "
-msgstr "Tracks: "
+msgstr "Spuren: "
 
 #: libkwave/GenreType.cpp:147
 msgid "Trailer"
@@ -5786,7 +5790,7 @@ msgstr "Parameter für keine Emphase"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:747
 msgid "parameter for single-channel files (mono)"
-msgstr "Parameter für Dateien mit einem einzigen Kanal (mono)"
+msgstr "Parameter für Dateien mit nur einem Kanal (mono)"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:718
 msgid "parameter for switching the byte order"
@@ -5905,6 +5909,9 @@ msgstr "Ja"
 #~ msgid "&Amplify"
 #~ msgstr "&Verstärken"
 
+#~ msgid "&Channel"
+#~ msgstr "&Channel"
+
 #~ msgid "&Free"
 #~ msgstr "&Frei"
 
@@ -5937,6 +5944,9 @@ msgstr "Ja"
 
 #~ msgid "Cut the current selection and move it to the clipboard"
 #~ msgstr "Auswahl ausschneiden und in der Zwischenablage speichern"
+
+#~ msgid "Deselect all channels"
+#~ msgstr "Auswahl aller Spuren aufheben"
 
 #~ msgid "Diederick de Vries"
 #~ msgstr "Diederick de Vries"
@@ -6004,6 +6014,9 @@ msgstr "Ja"
 
 #~ msgid "Too many label levels to paint. Only %d will be shown"
 #~ msgstr "Zu viele Markierungen zum Zeichnen. Nur %1 werden angezeigt."
+
+#~ msgid "Tracks"
+#~ msgstr "Tracks"
 
 #~ msgid ""
 #~ "Unable to save undo information. Do you want to continue without undo?"
@@ -6151,9 +6164,6 @@ msgstr "Ja"
 
 #~ msgid "to &Maximum"
 #~ msgstr "finde &Maximum"
-
-#~ msgid "tracks: "
-#~ msgstr "Stimmen: "
 
 #~ msgid "volume"
 #~ msgstr "Lautstärke"

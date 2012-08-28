@@ -317,7 +317,7 @@ private:
     /** overview widget */
     OverViewWidget *m_overview;
 
-    /** vertical scrollbar, only visible if channels do not fit vertically */
+    /** vertical scrollbar, only visible if tracks do not fit vertically */
     QScrollBar *m_vertical_scrollbar;
 
     /** horizontal scrollbar, always visible */

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-28 22:37+0200\n"
+"POT-Creation-Date: 2012-08-28 22:51+0200\n"
 "PO-Revision-Date: 2012-05-26 12:44+0200\n"
 "Last-Translator: Pavel <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -21,6 +21,11 @@ msgstr ""
 #: plugins/fileinfo/ui_CompressionWidgetBase.h:213
 msgid " %"
 msgstr " %"
+
+#: plugins/fileinfo/ui_FileInfoDlg.h:1405
+#: plugins/fileinfo/ui_FileInfoDlg.h:1406
+msgid " / "
+msgstr " / "
 
 #: plugins/band_pass/ui_BandPassDlg.h:194 plugins/lowpass/ui_LowPassDlg.h:197
 #: plugins/notch_filter/ui_NotchFilterDlg.h:204
@@ -63,45 +68,45 @@ msgstr " s"
 msgid " sec"
 msgstr " sec"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1265
-#: plugins/fileinfo/ui_FileInfoDlg.h:1266
-#: plugins/fileinfo/ui_FileInfoDlg.h:1267
-#: plugins/fileinfo/ui_FileInfoDlg.h:1269
-#: plugins/fileinfo/ui_FileInfoDlg.h:1270
-#: plugins/fileinfo/ui_FileInfoDlg.h:1271
-#: plugins/fileinfo/ui_FileInfoDlg.h:1287
-#: plugins/fileinfo/ui_FileInfoDlg.h:1288
-#: plugins/fileinfo/ui_FileInfoDlg.h:1290
+#: plugins/fileinfo/ui_FileInfoDlg.h:1298
 #: plugins/fileinfo/ui_FileInfoDlg.h:1299
-#: plugins/fileinfo/ui_FileInfoDlg.h:1306
-#: plugins/fileinfo/ui_FileInfoDlg.h:1308
-#: plugins/fileinfo/ui_FileInfoDlg.h:1309
-#: plugins/fileinfo/ui_FileInfoDlg.h:1316
-#: plugins/fileinfo/ui_FileInfoDlg.h:1317
-#: plugins/fileinfo/ui_FileInfoDlg.h:1345
+#: plugins/fileinfo/ui_FileInfoDlg.h:1300
+#: plugins/fileinfo/ui_FileInfoDlg.h:1302
+#: plugins/fileinfo/ui_FileInfoDlg.h:1303
+#: plugins/fileinfo/ui_FileInfoDlg.h:1304
+#: plugins/fileinfo/ui_FileInfoDlg.h:1320
+#: plugins/fileinfo/ui_FileInfoDlg.h:1321
+#: plugins/fileinfo/ui_FileInfoDlg.h:1323
+#: plugins/fileinfo/ui_FileInfoDlg.h:1332
+#: plugins/fileinfo/ui_FileInfoDlg.h:1339
+#: plugins/fileinfo/ui_FileInfoDlg.h:1341
+#: plugins/fileinfo/ui_FileInfoDlg.h:1342
+#: plugins/fileinfo/ui_FileInfoDlg.h:1349
 #: plugins/fileinfo/ui_FileInfoDlg.h:1350
-#: plugins/fileinfo/ui_FileInfoDlg.h:1351
-#: plugins/fileinfo/ui_FileInfoDlg.h:1352
-#: plugins/fileinfo/ui_FileInfoDlg.h:1353
-#: plugins/fileinfo/ui_FileInfoDlg.h:1354
-#: plugins/fileinfo/ui_FileInfoDlg.h:1370
-#: plugins/fileinfo/ui_FileInfoDlg.h:1371
-#: plugins/fileinfo/ui_FileInfoDlg.h:1372
-#: plugins/fileinfo/ui_FileInfoDlg.h:1373
-#: plugins/fileinfo/ui_FileInfoDlg.h:1374
-#: plugins/fileinfo/ui_FileInfoDlg.h:1375
-#: plugins/fileinfo/ui_FileInfoDlg.h:1376
-#: plugins/fileinfo/ui_FileInfoDlg.h:1377
-#: plugins/fileinfo/ui_FileInfoDlg.h:1379
-#: plugins/fileinfo/ui_FileInfoDlg.h:1380
-#: plugins/fileinfo/ui_FileInfoDlg.h:1381
-#: plugins/fileinfo/ui_FileInfoDlg.h:1382
+#: plugins/fileinfo/ui_FileInfoDlg.h:1378
 #: plugins/fileinfo/ui_FileInfoDlg.h:1383
 #: plugins/fileinfo/ui_FileInfoDlg.h:1384
 #: plugins/fileinfo/ui_FileInfoDlg.h:1385
 #: plugins/fileinfo/ui_FileInfoDlg.h:1386
-#: plugins/fileinfo/ui_FileInfoDlg.h:1388
-#: plugins/fileinfo/ui_FileInfoDlg.h:1389
+#: plugins/fileinfo/ui_FileInfoDlg.h:1387
+#: plugins/fileinfo/ui_FileInfoDlg.h:1403
+#: plugins/fileinfo/ui_FileInfoDlg.h:1404
+#: plugins/fileinfo/ui_FileInfoDlg.h:1407
+#: plugins/fileinfo/ui_FileInfoDlg.h:1408
+#: plugins/fileinfo/ui_FileInfoDlg.h:1409
+#: plugins/fileinfo/ui_FileInfoDlg.h:1410
+#: plugins/fileinfo/ui_FileInfoDlg.h:1411
+#: plugins/fileinfo/ui_FileInfoDlg.h:1412
+#: plugins/fileinfo/ui_FileInfoDlg.h:1414
+#: plugins/fileinfo/ui_FileInfoDlg.h:1415
+#: plugins/fileinfo/ui_FileInfoDlg.h:1416
+#: plugins/fileinfo/ui_FileInfoDlg.h:1417
+#: plugins/fileinfo/ui_FileInfoDlg.h:1418
+#: plugins/fileinfo/ui_FileInfoDlg.h:1419
+#: plugins/fileinfo/ui_FileInfoDlg.h:1420
+#: plugins/fileinfo/ui_FileInfoDlg.h:1421
+#: plugins/fileinfo/ui_FileInfoDlg.h:1423
+#: plugins/fileinfo/ui_FileInfoDlg.h:1424
 msgid "#"
 msgstr "#"
 
@@ -116,7 +121,7 @@ msgctxt "time of label tooltip, %1=hour, %2=minute, %3=second, %4=milliseconds"
 msgid "%02u:%02u:%02u.%04u"
 msgstr "%02u:%02u:%02u.%04u"
 
-#: libkwave/SignalManager.cpp:341 plugins/fileinfo/ui_FileInfoDlg.h:1268
+#: libkwave/SignalManager.cpp:341 plugins/fileinfo/ui_FileInfoDlg.h:1301
 #: plugins/newsignal/ui_NewSigDlg.h:497 plugins/newsignal/ui_NewSigDlg.h:526
 #, kde-format
 msgid "%1"
@@ -314,7 +319,7 @@ msgstr "Výp&očty"
 #: plugins/amplifyfree/ui_AmplifyFreeDlg.h:149
 #: plugins/band_pass/ui_BandPassDlg.h:208
 #: plugins/fileinfo/ui_SelectDateDlg.h:99
-#: plugins/fileinfo/ui_FileInfoDlg.h:1395 plugins/goto/ui_GotoDlg.h:106
+#: plugins/fileinfo/ui_FileInfoDlg.h:1430 plugins/goto/ui_GotoDlg.h:106
 #: plugins/lowpass/ui_LowPassDlg.h:210 plugins/memory/ui_MemDlg.h:327
 #: plugins/newsignal/ui_NewSigDlg.h:530
 #: plugins/notch_filter/ui_NotchFilterDlg.h:242
@@ -442,7 +447,7 @@ msgstr "&Jít na místo..."
 #: libgui/ui_LabelPropertiesWidgetBase.h:180 kwave/menus_config_i18n.cpp:59
 #: plugins/amplifyfree/ui_AmplifyFreeDlg.h:147
 #: plugins/band_pass/ui_BandPassDlg.h:196
-#: plugins/fileinfo/ui_FileInfoDlg.h:1391 plugins/goto/ui_GotoDlg.h:104
+#: plugins/fileinfo/ui_FileInfoDlg.h:1426 plugins/goto/ui_GotoDlg.h:104
 #: plugins/lowpass/ui_LowPassDlg.h:198 plugins/memory/ui_MemDlg.h:324
 #: plugins/newsignal/ui_NewSigDlg.h:527
 #: plugins/notch_filter/ui_NotchFilterDlg.h:230
@@ -562,7 +567,7 @@ msgstr "&Nic"
 #: plugins/amplifyfree/ui_AmplifyFreeDlg.h:148
 #: plugins/band_pass/ui_BandPassDlg.h:206
 #: plugins/fileinfo/ui_SelectDateDlg.h:98
-#: plugins/fileinfo/ui_FileInfoDlg.h:1393 plugins/lowpass/ui_LowPassDlg.h:208
+#: plugins/fileinfo/ui_FileInfoDlg.h:1428 plugins/lowpass/ui_LowPassDlg.h:208
 #: plugins/memory/ui_MemDlg.h:326 plugins/notch_filter/ui_NotchFilterDlg.h:240
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:222
 #: plugins/playback/ui_PlayBackDlg.h:436 plugins/sonagram/ui_SonagramDlg.h:270
@@ -687,7 +692,7 @@ msgid "&Select all"
 msgstr "&Vybrat vše"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:694
-#: plugins/fileinfo/ui_FileInfoDlg.h:1361
+#: plugins/fileinfo/ui_FileInfoDlg.h:1394
 #: plugins/playback/ui_PlayBackDlg.h:387
 msgid "&Select..."
 msgstr "&Vybrat..."
@@ -739,7 +744,7 @@ msgstr "&Čas"
 msgid "&To New Window"
 msgstr "&Do nového okna"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1368
+#: plugins/fileinfo/ui_FileInfoDlg.h:1401
 msgid "&Today"
 msgstr "&Dnes"
 
@@ -853,7 +858,7 @@ msgstr "(stereofonní zvuk)"
 msgid "(user defined)"
 msgstr ""
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1320
+#: plugins/fileinfo/ui_FileInfoDlg.h:1353
 msgid "(variable)"
 msgstr "(proměnlivý)"
 
@@ -887,7 +892,7 @@ msgstr "1 (monofonní zvuk)"
 msgid "100%"
 msgstr "100%"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1276 plugins/newsignal/ui_NewSigDlg.h:479
+#: plugins/fileinfo/ui_FileInfoDlg.h:1309 plugins/newsignal/ui_NewSigDlg.h:479
 msgid "10000"
 msgstr "10000"
 
@@ -895,15 +900,15 @@ msgstr "10000"
 msgid "1024"
 msgstr "1024"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1277 plugins/newsignal/ui_NewSigDlg.h:480
+#: plugins/fileinfo/ui_FileInfoDlg.h:1310 plugins/newsignal/ui_NewSigDlg.h:480
 msgid "11025"
 msgstr "11025"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1330
+#: plugins/fileinfo/ui_FileInfoDlg.h:1363
 msgid "112K"
 msgstr "112K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1278 plugins/newsignal/ui_NewSigDlg.h:481
+#: plugins/fileinfo/ui_FileInfoDlg.h:1311 plugins/newsignal/ui_NewSigDlg.h:481
 msgid "12000"
 msgstr "12000"
 
@@ -911,31 +916,31 @@ msgstr "12000"
 msgid "128"
 msgstr "128"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1331
+#: plugins/fileinfo/ui_FileInfoDlg.h:1364
 msgid "128K"
 msgstr "128K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1332
+#: plugins/fileinfo/ui_FileInfoDlg.h:1365
 msgid "144K"
 msgstr "144K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1279 plugins/newsignal/ui_NewSigDlg.h:482
+#: plugins/fileinfo/ui_FileInfoDlg.h:1312 plugins/newsignal/ui_NewSigDlg.h:482
 msgid "16000"
 msgstr "16000"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1333
+#: plugins/fileinfo/ui_FileInfoDlg.h:1366
 msgid "160K"
 msgstr "160K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1322
+#: plugins/fileinfo/ui_FileInfoDlg.h:1355
 msgid "16K"
 msgstr "16K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1334
+#: plugins/fileinfo/ui_FileInfoDlg.h:1367
 msgid "176K"
 msgstr "176K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1335
+#: plugins/fileinfo/ui_FileInfoDlg.h:1368
 msgid "192K"
 msgstr "192K"
 
@@ -947,15 +952,15 @@ msgstr "2 (stereofonní zvuk)"
 msgid "2048"
 msgstr "2048"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1280 plugins/newsignal/ui_NewSigDlg.h:483
+#: plugins/fileinfo/ui_FileInfoDlg.h:1313 plugins/newsignal/ui_NewSigDlg.h:483
 msgid "22050"
 msgstr "22050"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1336
+#: plugins/fileinfo/ui_FileInfoDlg.h:1369
 msgid "224K"
 msgstr "224K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1323
+#: plugins/fileinfo/ui_FileInfoDlg.h:1356
 msgid "24K"
 msgstr "24K"
 
@@ -967,11 +972,11 @@ msgstr "256"
 msgid "256 Bytes"
 msgstr "256 Bajtů"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1337
+#: plugins/fileinfo/ui_FileInfoDlg.h:1370
 msgid "256K"
 msgstr "256K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1338
+#: plugins/fileinfo/ui_FileInfoDlg.h:1371
 msgid "288K"
 msgstr "288K"
 
@@ -983,23 +988,23 @@ msgstr "3-mnohočlen (polynom)"
 msgid "32-bit IEEE Floating-Point"
 msgstr "32-bitový IEEE s pohyblivou desetinnou čárkou"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1281 plugins/newsignal/ui_NewSigDlg.h:484
+#: plugins/fileinfo/ui_FileInfoDlg.h:1314 plugins/newsignal/ui_NewSigDlg.h:484
 msgid "32000"
 msgstr "32000"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1339
+#: plugins/fileinfo/ui_FileInfoDlg.h:1372
 msgid "320K"
 msgstr "320K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1324
+#: plugins/fileinfo/ui_FileInfoDlg.h:1357
 msgid "32K"
 msgstr "32K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1340
+#: plugins/fileinfo/ui_FileInfoDlg.h:1373
 msgid "352K"
 msgstr "352K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1341
+#: plugins/fileinfo/ui_FileInfoDlg.h:1374
 msgid "384K"
 msgstr "384K"
 
@@ -1011,23 +1016,23 @@ msgstr "4 (kvadrofonní zvuk)"
 msgid "4096"
 msgstr "4096"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1325
+#: plugins/fileinfo/ui_FileInfoDlg.h:1358
 msgid "40K"
 msgstr "40K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1342
+#: plugins/fileinfo/ui_FileInfoDlg.h:1375
 msgid "416K"
 msgstr "416K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1282 plugins/newsignal/ui_NewSigDlg.h:485
+#: plugins/fileinfo/ui_FileInfoDlg.h:1315 plugins/newsignal/ui_NewSigDlg.h:485
 msgid "44100"
 msgstr "44100"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1343
+#: plugins/fileinfo/ui_FileInfoDlg.h:1376
 msgid "448K"
 msgstr "448K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1283 plugins/newsignal/ui_NewSigDlg.h:486
+#: plugins/fileinfo/ui_FileInfoDlg.h:1316 plugins/newsignal/ui_NewSigDlg.h:486
 msgid "48000"
 msgstr "48000"
 
@@ -1040,7 +1045,7 @@ msgid "50%"
 msgstr "50%"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:783
-#: plugins/fileinfo/ui_FileInfoDlg.h:1313
+#: plugins/fileinfo/ui_FileInfoDlg.h:1346
 msgid "50/15ms"
 msgstr "50/15 ms"
 
@@ -1048,7 +1053,7 @@ msgstr "50/15 ms"
 msgid "512"
 msgstr "512"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1326
+#: plugins/fileinfo/ui_FileInfoDlg.h:1359
 msgid "56K"
 msgstr "56K"
 
@@ -1060,7 +1065,7 @@ msgstr "64"
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-bitový IEEE s dvojnásobnou přesností pohyblivé desetinné čárky"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1327
+#: plugins/fileinfo/ui_FileInfoDlg.h:1360
 msgid "64K"
 msgstr "64K"
 
@@ -1068,23 +1073,23 @@ msgstr "64K"
 msgid "7-Polynom"
 msgstr "7-mnohočlen (polynom)"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1275 plugins/newsignal/ui_NewSigDlg.h:478
+#: plugins/fileinfo/ui_FileInfoDlg.h:1308 plugins/newsignal/ui_NewSigDlg.h:478
 msgid "8000"
 msgstr "8000"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1328
+#: plugins/fileinfo/ui_FileInfoDlg.h:1361
 msgid "80K"
 msgstr "80K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1321
+#: plugins/fileinfo/ui_FileInfoDlg.h:1354
 msgid "8K"
 msgstr "8K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1284 plugins/newsignal/ui_NewSigDlg.h:487
+#: plugins/fileinfo/ui_FileInfoDlg.h:1317 plugins/newsignal/ui_NewSigDlg.h:487
 msgid "96000"
 msgstr "96000"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1329
+#: plugins/fileinfo/ui_FileInfoDlg.h:1362
 msgid "96K"
 msgstr "96K"
 
@@ -1621,7 +1626,7 @@ msgid "Alt+C"
 msgstr "Alt+C"
 
 #: libgui/ui_LabelPropertiesWidgetBase.h:181
-#: plugins/fileinfo/ui_FileInfoDlg.h:1392 plugins/memory/ui_MemDlg.h:325
+#: plugins/fileinfo/ui_FileInfoDlg.h:1427 plugins/memory/ui_MemDlg.h:325
 #: plugins/newsignal/ui_NewSigDlg.h:528 plugins/playback/ui_PlayBackDlg.h:427
 #: plugins/record/ui_RecordDlg.h:1083 plugins/sonagram/ui_SonagramDlg.h:269
 msgid "Alt+H"
@@ -1637,7 +1642,7 @@ msgstr "Alt+K"
 msgid "Alt+L"
 msgstr "Alt+L"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1394
+#: plugins/fileinfo/ui_FileInfoDlg.h:1429
 #: plugins/playback/ui_PlayBackDlg.h:437
 msgid "Alt+O"
 msgstr "Alt+O"
@@ -1697,7 +1702,7 @@ msgstr "Rozkmit: --- %"
 msgid "Amplitude: 0 %"
 msgstr "Rozkmit: 0 %"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:424
+#: plugins/codec_mp3/MP3Encoder.cpp:415
 #, fuzzy, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -1816,7 +1821,7 @@ msgstr "Autor dekódovací knihovny 'mad' mp3"
 msgid "Author of the 'sndfile' library"
 msgstr "Autor knihovny 'sndfile'"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1387
+#: plugins/fileinfo/ui_FileInfoDlg.h:1422
 msgid "Author/Copyright"
 msgstr "Autor"
 
@@ -1977,7 +1982,7 @@ msgstr "Ukládání do vyrovnávací paměti..."
 msgid "Byte Order:"
 msgstr ""
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1314
+#: plugins/fileinfo/ui_FileInfoDlg.h:1347
 msgid "CCIT J.17"
 msgstr "CCIT J.17"
 
@@ -2091,7 +2096,7 @@ msgstr ""
 msgid "Compressed Audio Interchange Format"
 msgstr "Komprimovaný zvukový výměnný formát"
 
-#: libkwave/FileInfo.cpp:83 plugins/fileinfo/ui_FileInfoDlg.h:1292
+#: libkwave/FileInfo.cpp:83 plugins/fileinfo/ui_FileInfoDlg.h:1325
 msgid "Compression"
 msgstr "Stlačení"
 
@@ -2135,7 +2140,7 @@ msgstr ""
 "stopy. Může to URL, e-mailová adresa,\n"
 "fyzická adresa hudební vydavatelství"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1369
+#: plugins/fileinfo/ui_FileInfoDlg.h:1402
 msgid "Content"
 msgstr "Obsah"
 
@@ -2484,7 +2489,7 @@ msgstr "Dekodér MP3"
 msgid "Encoding"
 msgstr "Režim kódování:"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1291
+#: plugins/fileinfo/ui_FileInfoDlg.h:1324
 msgid "Encoding Mode:"
 msgstr "Režim kódování:"
 
@@ -2630,7 +2635,7 @@ msgstr "Proud PulseAudio se nepodařilo otevřít pro přehrávání (%1)."
 msgid "Fast Fusion"
 msgstr "Rychlá směsice"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1289
+#: plugins/fileinfo/ui_FileInfoDlg.h:1322
 msgid "File"
 msgstr "Soubor"
 
@@ -2639,7 +2644,7 @@ msgid "File &Properties..."
 msgstr "&Vlastnosti souboru"
 
 #: plugins/fileinfo/FileInfoPlugin.cpp:29
-#: plugins/fileinfo/ui_FileInfoDlg.h:1264
+#: plugins/fileinfo/ui_FileInfoDlg.h:1297
 msgid "File Info"
 msgstr "Informace o souboru"
 
@@ -3101,7 +3106,7 @@ msgstr "Nástrojový pop"
 msgid "Instrumental Rock"
 msgstr "Nástrojový rock"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1346
+#: plugins/fileinfo/ui_FileInfoDlg.h:1379
 msgid "Intensity Stereo"
 msgstr "Mohutnost sterea"
 
@@ -3232,15 +3237,15 @@ msgstr "Románský"
 msgid "Layer"
 msgstr "Vrstva"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1302
+#: plugins/fileinfo/ui_FileInfoDlg.h:1335
 msgid "Layer I"
 msgstr "Vrstva I"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1303
+#: plugins/fileinfo/ui_FileInfoDlg.h:1336
 msgid "Layer II"
 msgstr "Vrstva II"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1304
+#: plugins/fileinfo/ui_FileInfoDlg.h:1337
 msgid "Layer III"
 msgstr "Vrstva III"
 
@@ -3395,7 +3400,7 @@ msgstr "Nastavení paměti"
 msgid "MP3 Encoder Setup"
 msgstr "Dekodér MP3"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1349
+#: plugins/fileinfo/ui_FileInfoDlg.h:1382
 msgid "MPEG"
 msgstr "MPEG"
 
@@ -3419,15 +3424,15 @@ msgstr "MPEG vrstva I, II nebo III"
 msgid "MPEG Mode Extension (only if Joint Stereo)"
 msgstr "Rozšíření režimu MPEG (jen při sdruženém stereu: Joint Stereo)"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1295
+#: plugins/fileinfo/ui_FileInfoDlg.h:1328
 msgid "MPEG Version 1 (ISO/IEC 11172-3)"
 msgstr "MPEG Verze 1 (ISO/IEC 11172-3)"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1296
+#: plugins/fileinfo/ui_FileInfoDlg.h:1329
 msgid "MPEG Version 2 (ISO/IEC 13818-3)"
 msgstr "MPEG Verze 2 (ISO/IEC 13818-3)"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1297
+#: plugins/fileinfo/ui_FileInfoDlg.h:1330
 msgid "MPEG Version 2.5 (unofficial)"
 msgstr "MPEG Verze 2.5 (nepotvrzená)"
 
@@ -3455,7 +3460,7 @@ msgstr "Zvuk MPEG úroveň III"
 msgid "MS ADPCM"
 msgstr "MS ADPCM"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1347
+#: plugins/fileinfo/ui_FileInfoDlg.h:1380
 msgid "MS Stereo"
 msgstr "MS Stereo"
 
@@ -3557,7 +3562,7 @@ msgstr "Nejmenší"
 msgid "Minutes"
 msgstr "Minuty"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1390
+#: plugins/fileinfo/ui_FileInfoDlg.h:1425
 msgid "Miscellaneous"
 msgstr "Různé"
 
@@ -3716,7 +3721,7 @@ msgstr "Jmenovitý datový tok"
 msgid "Nominal bitrate of the audio stream in bits per second"
 msgstr "Jmenovitý datový tok zvukového zdroje v bitech za sekundu"
 
-#: libkwave/WindowFunction.cpp:45 plugins/fileinfo/ui_FileInfoDlg.h:1312
+#: libkwave/WindowFunction.cpp:45 plugins/fileinfo/ui_FileInfoDlg.h:1345
 msgid "None"
 msgstr "Žádný"
 
@@ -3871,7 +3876,7 @@ msgstr "Otevření zařízení '%1' se nezdařilo: %2"
 msgid "Opening the file failed"
 msgstr "Otevření souboru se nepodařilo."
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1359
+#: plugins/fileinfo/ui_FileInfoDlg.h:1392
 msgid "Opens a dialog for selecting a date from the calendar."
 msgstr "Otevře dialog pro výběr data z kalendáře."
 
@@ -4574,7 +4579,7 @@ msgstr "Vybrat nahrávací zařízení"
 msgid "Select Track"
 msgstr "Vybrat stopu"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1356
+#: plugins/fileinfo/ui_FileInfoDlg.h:1389
 msgid "Select a date from the calendar."
 msgstr "Vybrat datum z kalendáře."
 
@@ -4643,8 +4648,8 @@ msgstr "Výběr, pravý okraj"
 msgid "Set FFT/Time Resolution Parameters"
 msgstr "Nastavit proměnné rozlišení FFT/čas"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1363
-#: plugins/fileinfo/ui_FileInfoDlg.h:1366
+#: plugins/fileinfo/ui_FileInfoDlg.h:1396
+#: plugins/fileinfo/ui_FileInfoDlg.h:1399
 msgid "Set the date to today."
 msgstr "Nastavit datum na dnešní den"
 
@@ -4796,7 +4801,7 @@ msgstr "Ukázka zvuku"
 msgid "Soundtrack"
 msgstr "Zvuková stopa"
 
-#: libkwave/FileInfo.cpp:199 plugins/fileinfo/ui_FileInfoDlg.h:1378
+#: libkwave/FileInfo.cpp:199 plugins/fileinfo/ui_FileInfoDlg.h:1413
 #: plugins/record/ui_RecordDlg.h:1042 plugins/record/ui_RecordDlg.h:1073
 msgid "Source"
 msgstr "Zdroj"
@@ -5093,7 +5098,7 @@ msgstr ""
 "Soubor obsahuje neplatný kanálový režim 0x%1\n"
 "v případě monofonního zvuku..."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:172
+#: plugins/codec_mp3/MP3Encoder.cpp:163
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
 "be mixed down to stereo when saving."
@@ -5318,7 +5323,7 @@ msgstr "Nelze otevřít '%1'"
 msgid "Unable to open the FLAC encoder."
 msgstr "Nelze otevřít kodér FLAC."
 
-#: plugins/codec_wav/WavEncoder.cpp:393 plugins/codec_mp3/MP3Encoder.cpp:185
+#: plugins/codec_wav/WavEncoder.cpp:393 plugins/codec_mp3/MP3Encoder.cpp:176
 msgid "Unable to open the file for saving!"
 msgstr "Neschopen otevřít soubor pro ukládání!"
 
@@ -5576,7 +5581,7 @@ msgstr ""
 msgid "bandwidth"
 msgstr "Šířka pásma"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1272 plugins/record/ui_RecordDlg.h:1040
+#: plugins/fileinfo/ui_FileInfoDlg.h:1305 plugins/record/ui_RecordDlg.h:1040
 msgid "bit"
 msgstr "bitů"
 
@@ -5820,7 +5825,7 @@ msgid ""
 "or kHz (use [%khz] as placeholder)"
 msgstr ""
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1286
+#: plugins/fileinfo/ui_FileInfoDlg.h:1319
 msgid "samples per second"
 msgstr "vzorků za sekundu"
 
@@ -5881,8 +5886,8 @@ msgstr "v%1"
 msgid "version"
 msgstr "Verze"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1307
-#: plugins/fileinfo/ui_FileInfoDlg.h:1348
+#: plugins/fileinfo/ui_FileInfoDlg.h:1340
+#: plugins/fileinfo/ui_FileInfoDlg.h:1381
 msgid "yes"
 msgstr "Ano"
 

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-28 22:37+0200\n"
+"POT-Creation-Date: 2012-08-28 22:51+0200\n"
 "PO-Revision-Date: 2012-06-10 20:45+0200\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -19,6 +19,11 @@ msgstr ""
 #: plugins/fileinfo/ui_CompressionWidgetBase.h:213
 msgid " %"
 msgstr " %"
+
+#: plugins/fileinfo/ui_FileInfoDlg.h:1405
+#: plugins/fileinfo/ui_FileInfoDlg.h:1406
+msgid " / "
+msgstr " / "
 
 #: plugins/band_pass/ui_BandPassDlg.h:194 plugins/lowpass/ui_LowPassDlg.h:197
 #: plugins/notch_filter/ui_NotchFilterDlg.h:204
@@ -61,45 +66,45 @@ msgstr " s"
 msgid " sec"
 msgstr "Sec"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1265
-#: plugins/fileinfo/ui_FileInfoDlg.h:1266
-#: plugins/fileinfo/ui_FileInfoDlg.h:1267
-#: plugins/fileinfo/ui_FileInfoDlg.h:1269
-#: plugins/fileinfo/ui_FileInfoDlg.h:1270
-#: plugins/fileinfo/ui_FileInfoDlg.h:1271
-#: plugins/fileinfo/ui_FileInfoDlg.h:1287
-#: plugins/fileinfo/ui_FileInfoDlg.h:1288
-#: plugins/fileinfo/ui_FileInfoDlg.h:1290
+#: plugins/fileinfo/ui_FileInfoDlg.h:1298
 #: plugins/fileinfo/ui_FileInfoDlg.h:1299
-#: plugins/fileinfo/ui_FileInfoDlg.h:1306
-#: plugins/fileinfo/ui_FileInfoDlg.h:1308
-#: plugins/fileinfo/ui_FileInfoDlg.h:1309
-#: plugins/fileinfo/ui_FileInfoDlg.h:1316
-#: plugins/fileinfo/ui_FileInfoDlg.h:1317
-#: plugins/fileinfo/ui_FileInfoDlg.h:1345
+#: plugins/fileinfo/ui_FileInfoDlg.h:1300
+#: plugins/fileinfo/ui_FileInfoDlg.h:1302
+#: plugins/fileinfo/ui_FileInfoDlg.h:1303
+#: plugins/fileinfo/ui_FileInfoDlg.h:1304
+#: plugins/fileinfo/ui_FileInfoDlg.h:1320
+#: plugins/fileinfo/ui_FileInfoDlg.h:1321
+#: plugins/fileinfo/ui_FileInfoDlg.h:1323
+#: plugins/fileinfo/ui_FileInfoDlg.h:1332
+#: plugins/fileinfo/ui_FileInfoDlg.h:1339
+#: plugins/fileinfo/ui_FileInfoDlg.h:1341
+#: plugins/fileinfo/ui_FileInfoDlg.h:1342
+#: plugins/fileinfo/ui_FileInfoDlg.h:1349
 #: plugins/fileinfo/ui_FileInfoDlg.h:1350
-#: plugins/fileinfo/ui_FileInfoDlg.h:1351
-#: plugins/fileinfo/ui_FileInfoDlg.h:1352
-#: plugins/fileinfo/ui_FileInfoDlg.h:1353
-#: plugins/fileinfo/ui_FileInfoDlg.h:1354
-#: plugins/fileinfo/ui_FileInfoDlg.h:1370
-#: plugins/fileinfo/ui_FileInfoDlg.h:1371
-#: plugins/fileinfo/ui_FileInfoDlg.h:1372
-#: plugins/fileinfo/ui_FileInfoDlg.h:1373
-#: plugins/fileinfo/ui_FileInfoDlg.h:1374
-#: plugins/fileinfo/ui_FileInfoDlg.h:1375
-#: plugins/fileinfo/ui_FileInfoDlg.h:1376
-#: plugins/fileinfo/ui_FileInfoDlg.h:1377
-#: plugins/fileinfo/ui_FileInfoDlg.h:1379
-#: plugins/fileinfo/ui_FileInfoDlg.h:1380
-#: plugins/fileinfo/ui_FileInfoDlg.h:1381
-#: plugins/fileinfo/ui_FileInfoDlg.h:1382
+#: plugins/fileinfo/ui_FileInfoDlg.h:1378
 #: plugins/fileinfo/ui_FileInfoDlg.h:1383
 #: plugins/fileinfo/ui_FileInfoDlg.h:1384
 #: plugins/fileinfo/ui_FileInfoDlg.h:1385
 #: plugins/fileinfo/ui_FileInfoDlg.h:1386
-#: plugins/fileinfo/ui_FileInfoDlg.h:1388
-#: plugins/fileinfo/ui_FileInfoDlg.h:1389
+#: plugins/fileinfo/ui_FileInfoDlg.h:1387
+#: plugins/fileinfo/ui_FileInfoDlg.h:1403
+#: plugins/fileinfo/ui_FileInfoDlg.h:1404
+#: plugins/fileinfo/ui_FileInfoDlg.h:1407
+#: plugins/fileinfo/ui_FileInfoDlg.h:1408
+#: plugins/fileinfo/ui_FileInfoDlg.h:1409
+#: plugins/fileinfo/ui_FileInfoDlg.h:1410
+#: plugins/fileinfo/ui_FileInfoDlg.h:1411
+#: plugins/fileinfo/ui_FileInfoDlg.h:1412
+#: plugins/fileinfo/ui_FileInfoDlg.h:1414
+#: plugins/fileinfo/ui_FileInfoDlg.h:1415
+#: plugins/fileinfo/ui_FileInfoDlg.h:1416
+#: plugins/fileinfo/ui_FileInfoDlg.h:1417
+#: plugins/fileinfo/ui_FileInfoDlg.h:1418
+#: plugins/fileinfo/ui_FileInfoDlg.h:1419
+#: plugins/fileinfo/ui_FileInfoDlg.h:1420
+#: plugins/fileinfo/ui_FileInfoDlg.h:1421
+#: plugins/fileinfo/ui_FileInfoDlg.h:1423
+#: plugins/fileinfo/ui_FileInfoDlg.h:1424
 msgid "#"
 msgstr "#"
 
@@ -114,7 +119,7 @@ msgctxt "time of label tooltip, %1=hour, %2=minute, %3=second, %4=milliseconds"
 msgid "%02u:%02u:%02u.%04u"
 msgstr "%02u:%02u:%02u.%04u"
 
-#: libkwave/SignalManager.cpp:341 plugins/fileinfo/ui_FileInfoDlg.h:1268
+#: libkwave/SignalManager.cpp:341 plugins/fileinfo/ui_FileInfoDlg.h:1301
 #: plugins/newsignal/ui_NewSigDlg.h:497 plugins/newsignal/ui_NewSigDlg.h:526
 #, kde-format
 msgid "%1"
@@ -312,7 +317,7 @@ msgstr "Be&rechne"
 #: plugins/amplifyfree/ui_AmplifyFreeDlg.h:149
 #: plugins/band_pass/ui_BandPassDlg.h:208
 #: plugins/fileinfo/ui_SelectDateDlg.h:99
-#: plugins/fileinfo/ui_FileInfoDlg.h:1395 plugins/goto/ui_GotoDlg.h:106
+#: plugins/fileinfo/ui_FileInfoDlg.h:1430 plugins/goto/ui_GotoDlg.h:106
 #: plugins/lowpass/ui_LowPassDlg.h:210 plugins/memory/ui_MemDlg.h:327
 #: plugins/newsignal/ui_NewSigDlg.h:530
 #: plugins/notch_filter/ui_NotchFilterDlg.h:242
@@ -440,7 +445,7 @@ msgstr "&Gehe zu Position..."
 #: libgui/ui_LabelPropertiesWidgetBase.h:180 kwave/menus_config_i18n.cpp:59
 #: plugins/amplifyfree/ui_AmplifyFreeDlg.h:147
 #: plugins/band_pass/ui_BandPassDlg.h:196
-#: plugins/fileinfo/ui_FileInfoDlg.h:1391 plugins/goto/ui_GotoDlg.h:104
+#: plugins/fileinfo/ui_FileInfoDlg.h:1426 plugins/goto/ui_GotoDlg.h:104
 #: plugins/lowpass/ui_LowPassDlg.h:198 plugins/memory/ui_MemDlg.h:324
 #: plugins/newsignal/ui_NewSigDlg.h:527
 #: plugins/notch_filter/ui_NotchFilterDlg.h:230
@@ -560,7 +565,7 @@ msgstr "N&ichts"
 #: plugins/amplifyfree/ui_AmplifyFreeDlg.h:148
 #: plugins/band_pass/ui_BandPassDlg.h:206
 #: plugins/fileinfo/ui_SelectDateDlg.h:98
-#: plugins/fileinfo/ui_FileInfoDlg.h:1393 plugins/lowpass/ui_LowPassDlg.h:208
+#: plugins/fileinfo/ui_FileInfoDlg.h:1428 plugins/lowpass/ui_LowPassDlg.h:208
 #: plugins/memory/ui_MemDlg.h:326 plugins/notch_filter/ui_NotchFilterDlg.h:240
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:222
 #: plugins/playback/ui_PlayBackDlg.h:436 plugins/sonagram/ui_SonagramDlg.h:270
@@ -685,7 +690,7 @@ msgid "&Select all"
 msgstr "&Alles auswählen"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:694
-#: plugins/fileinfo/ui_FileInfoDlg.h:1361
+#: plugins/fileinfo/ui_FileInfoDlg.h:1394
 #: plugins/playback/ui_PlayBackDlg.h:387
 msgid "&Select..."
 msgstr "Aus&wählen..."
@@ -737,7 +742,7 @@ msgstr "&Zeit"
 msgid "&To New Window"
 msgstr "In &neues Fenster"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1368
+#: plugins/fileinfo/ui_FileInfoDlg.h:1401
 msgid "&Today"
 msgstr "&Heute"
 
@@ -851,7 +856,7 @@ msgstr "(Stereo)"
 msgid "(user defined)"
 msgstr "(benutzerdefiniert)"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1320
+#: plugins/fileinfo/ui_FileInfoDlg.h:1353
 msgid "(variable)"
 msgstr "(variabel)"
 
@@ -885,7 +890,7 @@ msgstr "1 (Mono)"
 msgid "100%"
 msgstr "100%"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1276 plugins/newsignal/ui_NewSigDlg.h:479
+#: plugins/fileinfo/ui_FileInfoDlg.h:1309 plugins/newsignal/ui_NewSigDlg.h:479
 msgid "10000"
 msgstr "10000"
 
@@ -893,15 +898,15 @@ msgstr "10000"
 msgid "1024"
 msgstr "1024"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1277 plugins/newsignal/ui_NewSigDlg.h:480
+#: plugins/fileinfo/ui_FileInfoDlg.h:1310 plugins/newsignal/ui_NewSigDlg.h:480
 msgid "11025"
 msgstr "11025"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1330
+#: plugins/fileinfo/ui_FileInfoDlg.h:1363
 msgid "112K"
 msgstr "112K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1278 plugins/newsignal/ui_NewSigDlg.h:481
+#: plugins/fileinfo/ui_FileInfoDlg.h:1311 plugins/newsignal/ui_NewSigDlg.h:481
 msgid "12000"
 msgstr "12000"
 
@@ -909,31 +914,31 @@ msgstr "12000"
 msgid "128"
 msgstr "128"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1331
+#: plugins/fileinfo/ui_FileInfoDlg.h:1364
 msgid "128K"
 msgstr "128K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1332
+#: plugins/fileinfo/ui_FileInfoDlg.h:1365
 msgid "144K"
 msgstr "144K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1279 plugins/newsignal/ui_NewSigDlg.h:482
+#: plugins/fileinfo/ui_FileInfoDlg.h:1312 plugins/newsignal/ui_NewSigDlg.h:482
 msgid "16000"
 msgstr "16000"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1333
+#: plugins/fileinfo/ui_FileInfoDlg.h:1366
 msgid "160K"
 msgstr "160K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1322
+#: plugins/fileinfo/ui_FileInfoDlg.h:1355
 msgid "16K"
 msgstr "16K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1334
+#: plugins/fileinfo/ui_FileInfoDlg.h:1367
 msgid "176K"
 msgstr "176K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1335
+#: plugins/fileinfo/ui_FileInfoDlg.h:1368
 msgid "192K"
 msgstr "192K"
 
@@ -945,15 +950,15 @@ msgstr "2 (Stereo)"
 msgid "2048"
 msgstr "2048"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1280 plugins/newsignal/ui_NewSigDlg.h:483
+#: plugins/fileinfo/ui_FileInfoDlg.h:1313 plugins/newsignal/ui_NewSigDlg.h:483
 msgid "22050"
 msgstr "22050"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1336
+#: plugins/fileinfo/ui_FileInfoDlg.h:1369
 msgid "224K"
 msgstr "224K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1323
+#: plugins/fileinfo/ui_FileInfoDlg.h:1356
 msgid "24K"
 msgstr "24K"
 
@@ -965,11 +970,11 @@ msgstr "256"
 msgid "256 Bytes"
 msgstr "256 Bytes"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1337
+#: plugins/fileinfo/ui_FileInfoDlg.h:1370
 msgid "256K"
 msgstr "256K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1338
+#: plugins/fileinfo/ui_FileInfoDlg.h:1371
 msgid "288K"
 msgstr "288K"
 
@@ -981,23 +986,23 @@ msgstr "3-Polynom"
 msgid "32-bit IEEE Floating-Point"
 msgstr "32-Bit IEEE Fliesskomma"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1281 plugins/newsignal/ui_NewSigDlg.h:484
+#: plugins/fileinfo/ui_FileInfoDlg.h:1314 plugins/newsignal/ui_NewSigDlg.h:484
 msgid "32000"
 msgstr "32000"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1339
+#: plugins/fileinfo/ui_FileInfoDlg.h:1372
 msgid "320K"
 msgstr "320K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1324
+#: plugins/fileinfo/ui_FileInfoDlg.h:1357
 msgid "32K"
 msgstr "32K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1340
+#: plugins/fileinfo/ui_FileInfoDlg.h:1373
 msgid "352K"
 msgstr "352K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1341
+#: plugins/fileinfo/ui_FileInfoDlg.h:1374
 msgid "384K"
 msgstr "384K"
 
@@ -1009,23 +1014,23 @@ msgstr "4 (Quadro)"
 msgid "4096"
 msgstr "4096"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1325
+#: plugins/fileinfo/ui_FileInfoDlg.h:1358
 msgid "40K"
 msgstr "40K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1342
+#: plugins/fileinfo/ui_FileInfoDlg.h:1375
 msgid "416K"
 msgstr "416K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1282 plugins/newsignal/ui_NewSigDlg.h:485
+#: plugins/fileinfo/ui_FileInfoDlg.h:1315 plugins/newsignal/ui_NewSigDlg.h:485
 msgid "44100"
 msgstr "44100"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1343
+#: plugins/fileinfo/ui_FileInfoDlg.h:1376
 msgid "448K"
 msgstr "448K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1283 plugins/newsignal/ui_NewSigDlg.h:486
+#: plugins/fileinfo/ui_FileInfoDlg.h:1316 plugins/newsignal/ui_NewSigDlg.h:486
 msgid "48000"
 msgstr "48000"
 
@@ -1038,7 +1043,7 @@ msgid "50%"
 msgstr "50%"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:783
-#: plugins/fileinfo/ui_FileInfoDlg.h:1313
+#: plugins/fileinfo/ui_FileInfoDlg.h:1346
 msgid "50/15ms"
 msgstr "50/15ms"
 
@@ -1046,7 +1051,7 @@ msgstr "50/15ms"
 msgid "512"
 msgstr "512"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1326
+#: plugins/fileinfo/ui_FileInfoDlg.h:1359
 msgid "56K"
 msgstr "56K"
 
@@ -1058,7 +1063,7 @@ msgstr "64"
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-Bit IEEE Fliesskomma mit doppelter Genauigkeit"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1327
+#: plugins/fileinfo/ui_FileInfoDlg.h:1360
 msgid "64K"
 msgstr "64K"
 
@@ -1066,23 +1071,23 @@ msgstr "64K"
 msgid "7-Polynom"
 msgstr "7-Polynom"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1275 plugins/newsignal/ui_NewSigDlg.h:478
+#: plugins/fileinfo/ui_FileInfoDlg.h:1308 plugins/newsignal/ui_NewSigDlg.h:478
 msgid "8000"
 msgstr "8000"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1328
+#: plugins/fileinfo/ui_FileInfoDlg.h:1361
 msgid "80K"
 msgstr "80K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1321
+#: plugins/fileinfo/ui_FileInfoDlg.h:1354
 msgid "8K"
 msgstr "8K"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1284 plugins/newsignal/ui_NewSigDlg.h:487
+#: plugins/fileinfo/ui_FileInfoDlg.h:1317 plugins/newsignal/ui_NewSigDlg.h:487
 msgid "96000"
 msgstr "96000"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1329
+#: plugins/fileinfo/ui_FileInfoDlg.h:1362
 msgid "96K"
 msgstr "96K"
 
@@ -1624,7 +1629,7 @@ msgid "Alt+C"
 msgstr "Alt+C"
 
 #: libgui/ui_LabelPropertiesWidgetBase.h:181
-#: plugins/fileinfo/ui_FileInfoDlg.h:1392 plugins/memory/ui_MemDlg.h:325
+#: plugins/fileinfo/ui_FileInfoDlg.h:1427 plugins/memory/ui_MemDlg.h:325
 #: plugins/newsignal/ui_NewSigDlg.h:528 plugins/playback/ui_PlayBackDlg.h:427
 #: plugins/record/ui_RecordDlg.h:1083 plugins/sonagram/ui_SonagramDlg.h:269
 msgid "Alt+H"
@@ -1640,7 +1645,7 @@ msgstr "Alt+K"
 msgid "Alt+L"
 msgstr "Alt+L"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1394
+#: plugins/fileinfo/ui_FileInfoDlg.h:1429
 #: plugins/playback/ui_PlayBackDlg.h:437
 msgid "Alt+O"
 msgstr "Alt+O"
@@ -1700,7 +1705,7 @@ msgstr "Amplitude: --- %"
 msgid "Amplitude: 0 %"
 msgstr "Amplitude: 0 %"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:424
+#: plugins/codec_mp3/MP3Encoder.cpp:415
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -1819,7 +1824,7 @@ msgstr "Autor der 'mad'-Bibliothek zur MP3-Decodierung"
 msgid "Author of the 'sndfile' library"
 msgstr "Autor der 'sndfile'-Bibliothek"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1387
+#: plugins/fileinfo/ui_FileInfoDlg.h:1422
 msgid "Author/Copyright"
 msgstr "Author/Copyright"
 
@@ -1976,7 +1981,7 @@ msgstr "Puffern..."
 msgid "Byte Order:"
 msgstr "Byteorder:"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1314
+#: plugins/fileinfo/ui_FileInfoDlg.h:1347
 msgid "CCIT J.17"
 msgstr "CCIT J.17"
 
@@ -2090,7 +2095,7 @@ msgstr "Kompatibilität:"
 msgid "Compressed Audio Interchange Format"
 msgstr "Komprimiertes Audio Interchange Format"
 
-#: libkwave/FileInfo.cpp:83 plugins/fileinfo/ui_FileInfoDlg.h:1292
+#: libkwave/FileInfo.cpp:83 plugins/fileinfo/ui_FileInfoDlg.h:1325
 msgid "Compression"
 msgstr "Kompression"
 
@@ -2134,7 +2139,7 @@ msgstr ""
 "des Stücks. Dies kann ein URL, eine E-Mail Adresse,\n"
 "oder eine Adresse des Hersteller-Labels sein."
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1369
+#: plugins/fileinfo/ui_FileInfoDlg.h:1402
 msgid "Content"
 msgstr "Inhalt"
 
@@ -2479,7 +2484,7 @@ msgstr "Encoder-Hilfe:"
 msgid "Encoding"
 msgstr "Kodierung"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1291
+#: plugins/fileinfo/ui_FileInfoDlg.h:1324
 msgid "Encoding Mode:"
 msgstr "Codierungs-Methode:"
 
@@ -2624,7 +2629,7 @@ msgstr "Konnte keinen PulseAudio-Stream für die Wiedergabe öffnen (%1)."
 msgid "Fast Fusion"
 msgstr "Fast Fusion"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1289
+#: plugins/fileinfo/ui_FileInfoDlg.h:1322
 msgid "File"
 msgstr "Datei"
 
@@ -2633,7 +2638,7 @@ msgid "File &Properties..."
 msgstr "Datei-&Informationen..."
 
 #: plugins/fileinfo/FileInfoPlugin.cpp:29
-#: plugins/fileinfo/ui_FileInfoDlg.h:1264
+#: plugins/fileinfo/ui_FileInfoDlg.h:1297
 msgid "File Info"
 msgstr "Datei-Informationen"
 
@@ -3096,7 +3101,7 @@ msgstr "Instrumental Pop"
 msgid "Instrumental Rock"
 msgstr "Instrumental Rock"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1346
+#: plugins/fileinfo/ui_FileInfoDlg.h:1379
 msgid "Intensity Stereo"
 msgstr "Stereo-Intensität"
 
@@ -3227,15 +3232,15 @@ msgstr "Latin"
 msgid "Layer"
 msgstr "Layer"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1302
+#: plugins/fileinfo/ui_FileInfoDlg.h:1335
 msgid "Layer I"
 msgstr "Layer I"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1303
+#: plugins/fileinfo/ui_FileInfoDlg.h:1336
 msgid "Layer II"
 msgstr "Layer II"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1304
+#: plugins/fileinfo/ui_FileInfoDlg.h:1337
 msgid "Layer III"
 msgstr "Layer III"
 
@@ -3385,7 +3390,7 @@ msgstr "MP3-Encoder-Einstellungen"
 msgid "MP3 Encoder Setup"
 msgstr "MP3-Encoder-Einstellungen"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1349
+#: plugins/fileinfo/ui_FileInfoDlg.h:1382
 msgid "MPEG"
 msgstr "MPEG"
 
@@ -3409,15 +3414,15 @@ msgstr "MPEG Layer, I, II oder III"
 msgid "MPEG Mode Extension (only if Joint Stereo)"
 msgstr "MPEG Modus-Erweiterung (nur im Joint-Stereo Modus)"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1295
+#: plugins/fileinfo/ui_FileInfoDlg.h:1328
 msgid "MPEG Version 1 (ISO/IEC 11172-3)"
 msgstr "MPEG Version 1 (ISO/IEC 11172-3)"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1296
+#: plugins/fileinfo/ui_FileInfoDlg.h:1329
 msgid "MPEG Version 2 (ISO/IEC 13818-3)"
 msgstr "MPEG Version 2 (ISO/IEC 13818-3)"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1297
+#: plugins/fileinfo/ui_FileInfoDlg.h:1330
 msgid "MPEG Version 2.5 (unofficial)"
 msgstr "MPEG Version 2.5 (inoffiziell)"
 
@@ -3445,7 +3450,7 @@ msgstr "MPEG Layer III Audio"
 msgid "MS ADPCM"
 msgstr "MS ADPCM"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1347
+#: plugins/fileinfo/ui_FileInfoDlg.h:1380
 msgid "MS Stereo"
 msgstr "MS Stereo"
 
@@ -3547,7 +3552,7 @@ msgstr "Minimum"
 msgid "Minutes"
 msgstr "Minuten"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1390
+#: plugins/fileinfo/ui_FileInfoDlg.h:1425
 msgid "Miscellaneous"
 msgstr "Verschiedenes"
 
@@ -3706,7 +3711,7 @@ msgstr "Nominale Bitrate"
 msgid "Nominal bitrate of the audio stream in bits per second"
 msgstr "Nominale Bitrate des Audio-Stroms in Bits pro Sekunde"
 
-#: libkwave/WindowFunction.cpp:45 plugins/fileinfo/ui_FileInfoDlg.h:1312
+#: libkwave/WindowFunction.cpp:45 plugins/fileinfo/ui_FileInfoDlg.h:1345
 msgid "None"
 msgstr "Keine"
 
@@ -3760,7 +3765,7 @@ msgid ""
 "an album of more CDROMs"
 msgstr ""
 "Nummer der CD, wenn es sich um ein Album\n"
-"aus mehren CDROMs handelt"
+"aus mehreren CDs handelt"
 
 #: plugins/saveblocks/ui_SaveBlocksWidgetBase.h:131
 msgid "Numbering:"
@@ -3862,7 +3867,7 @@ msgstr "Öffnen des Gerätes '%1' ist fehlgeschlagen: %2"
 msgid "Opening the file failed"
 msgstr "Öffnen der Datei ist fehlgeschlagen"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1359
+#: plugins/fileinfo/ui_FileInfoDlg.h:1392
 msgid "Opens a dialog for selecting a date from the calendar."
 msgstr "Öffnet einen Dialog um ein Datum von einem Kalender auszuwählen."
 
@@ -4563,7 +4568,7 @@ msgstr "Auswahl des Aufnahmegeräts"
 msgid "Select Track"
 msgstr "Spur auswählen"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1356
+#: plugins/fileinfo/ui_FileInfoDlg.h:1389
 msgid "Select a date from the calendar."
 msgstr "Datum per Kalender auswählen."
 
@@ -4632,8 +4637,8 @@ msgstr "Auswahl, rechter Rand"
 msgid "Set FFT/Time Resolution Parameters"
 msgstr "Parameter der FFT/Zeit-Auflösung setzen"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1363
-#: plugins/fileinfo/ui_FileInfoDlg.h:1366
+#: plugins/fileinfo/ui_FileInfoDlg.h:1396
+#: plugins/fileinfo/ui_FileInfoDlg.h:1399
 msgid "Set the date to today."
 msgstr "Setzt das Datum auf den heutigen Tag."
 
@@ -4787,7 +4792,7 @@ msgstr "Sound Clip"
 msgid "Soundtrack"
 msgstr "Soundtrack"
 
-#: libkwave/FileInfo.cpp:199 plugins/fileinfo/ui_FileInfoDlg.h:1378
+#: libkwave/FileInfo.cpp:199 plugins/fileinfo/ui_FileInfoDlg.h:1413
 #: plugins/record/ui_RecordDlg.h:1042 plugins/record/ui_RecordDlg.h:1073
 msgid "Source"
 msgstr "Quelle"
@@ -5087,7 +5092,7 @@ msgstr ""
 "Die Datei enthält eine ungültige Anzahl von Kanälen: 0x%1\n"
 "Mono wird angenommen..."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:172
+#: plugins/codec_mp3/MP3Encoder.cpp:163
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
 "be mixed down to stereo when saving."
@@ -5317,7 +5322,7 @@ msgstr "'%1' konnte nicht geöffnet werden"
 msgid "Unable to open the FLAC encoder."
 msgstr "Der FLAC-Encoder konnte nicht geöffnet werden."
 
-#: plugins/codec_wav/WavEncoder.cpp:393 plugins/codec_mp3/MP3Encoder.cpp:185
+#: plugins/codec_wav/WavEncoder.cpp:393 plugins/codec_mp3/MP3Encoder.cpp:176
 msgid "Unable to open the file for saving!"
 msgstr "Datei konnte nicht zum Speichern geöffnet werden!"
 
@@ -5581,7 +5586,7 @@ msgstr "Durchschnitt"
 msgid "bandwidth"
 msgstr "Bandbreite"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1272 plugins/record/ui_RecordDlg.h:1040
+#: plugins/fileinfo/ui_FileInfoDlg.h:1305 plugins/record/ui_RecordDlg.h:1040
 msgid "bit"
 msgstr "Bit"
 
@@ -5834,7 +5839,7 @@ msgstr ""
 "Abtastrate in Hz (wählen Sie %1 als Platzhalter)\n"
 "oder kHz (wählen Sie [%khz] als Platzhalter)"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1286
+#: plugins/fileinfo/ui_FileInfoDlg.h:1319
 msgid "samples per second"
 msgstr "Samples pro Sekunde"
 
@@ -5895,8 +5900,8 @@ msgstr "v%1"
 msgid "version"
 msgstr "Version"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1307
-#: plugins/fileinfo/ui_FileInfoDlg.h:1348
+#: plugins/fileinfo/ui_FileInfoDlg.h:1340
+#: plugins/fileinfo/ui_FileInfoDlg.h:1381
 msgid "yes"
 msgstr "Ja"
 

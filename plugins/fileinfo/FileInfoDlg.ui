@@ -41,7 +41,7 @@
       </sizepolicy>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="tab_file">
       <attribute name="title">
@@ -1544,23 +1544,37 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="KIntSpinBox" name="sbTrack"/>
+          <widget class="KIntSpinBox" name="sbTrack">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
          </item>
          <item>
-          <spacer name="Spacer39">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
+          <widget class="QLabel" name="label_2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Expanding</enum>
+           <property name="text">
+            <string> / </string>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>0</height>
-            </size>
+          </widget>
+         </item>
+         <item>
+          <widget class="KIntSpinBox" name="sbTracks">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-          </spacer>
+          </widget>
          </item>
         </layout>
        </item>
@@ -1589,23 +1603,37 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="KIntSpinBox" name="sbCD"/>
+          <widget class="KIntSpinBox" name="sbCD">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
          </item>
          <item>
-          <spacer name="Spacer38">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
+          <widget class="QLabel" name="label">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Expanding</enum>
+           <property name="text">
+            <string> / </string>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>0</height>
-            </size>
+          </widget>
+         </item>
+         <item>
+          <widget class="KIntSpinBox" name="sbCDs">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-          </spacer>
+          </widget>
          </item>
         </layout>
        </item>
@@ -2277,9 +2305,9 @@
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
    <class>KDateWidget</class>
@@ -2287,9 +2315,9 @@
    <header>kdatewidget.h</header>
   </customwidget>
   <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
   </customwidget>
   <customwidget>
    <class>KeywordWidget</class>
@@ -2329,13 +2357,16 @@
   <tabstop>edSubject</tabstop>
   <tabstop>edVersion</tabstop>
   <tabstop>edGenre</tabstop>
+  <tabstop>dateEdit</tabstop>
   <tabstop>btSelectDate</tabstop>
   <tabstop>btSelectDateNow</tabstop>
   <tabstop>edSource</tabstop>
   <tabstop>edSourceForm</tabstop>
   <tabstop>edAlbum</tabstop>
   <tabstop>sbCD</tabstop>
+  <tabstop>sbCDs</tabstop>
   <tabstop>sbTrack</tabstop>
+  <tabstop>sbTracks</tabstop>
   <tabstop>edSoftware</tabstop>
   <tabstop>edEngineer</tabstop>
   <tabstop>edTechnican</tabstop>
@@ -2348,6 +2379,7 @@
   <tabstop>edArchival</tabstop>
   <tabstop>edContact</tabstop>
   <tabstop>edCommissioned</tabstop>
+  <tabstop>btHelp</tabstop>
  </tabstops>
  <includes>
   <include location="global">klocale.h</include>

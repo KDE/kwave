@@ -191,7 +191,7 @@
        </layout>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="lblTracks">
+       <widget class="QLabel" name="lblChannels">
         <property name="text">
          <string>Tracks:</string>
         </property>
@@ -283,7 +283,7 @@
        </layout>
       </item>
       <item row="2" column="2">
-       <widget class="QSpinBox" name="sbTracks">
+       <widget class="QSpinBox" name="sbChannels">
         <property name="whatsThis">
          <string>&lt;b&gt;Number of Tracks&lt;/b&gt;&lt;br&gt;Select a number of tracks of the new signal. If you are not sure now, you can add or delete tracks later in the program.</string>
         </property>

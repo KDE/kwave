@@ -69,6 +69,9 @@ void FileInfo::PropertyTypesMap::fill()
     append(INF_CD, 0,
         I18N_NOOP("CD"),
         i18n("Number of the CD, if the source is\nan album of more CDROMs"));
+    append(INF_CDS, 0,
+        I18N_NOOP("CDS"),
+        i18n("Number of CDs, if the source is\nan album of more CDROMs"));
     append(INF_COMMISSIONED, 0,
         I18N_NOOP("Commisioned"),
         i18n("Lists the name of the person or organization\n"
@@ -217,6 +220,9 @@ void FileInfo::PropertyTypesMap::fill()
     append(INF_TRACK, 0,
         I18N_NOOP("Track"),
         i18n("Track of the CD if the source was a CDROM."));
+    append(INF_TRACKS, 0,
+        I18N_NOOP("Tracks"),
+        i18n("Number of tracks of the CD if the source was a CDROM."));
     append(INF_CHANNELS, FP_INTERNAL | FP_NO_LOAD_SAVE,
         I18N_NOOP("Channels"),
         i18n("Specifies the number of channels of the signal."));

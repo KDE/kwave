@@ -58,7 +58,7 @@ NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
     // connect the file format controls
     connect(cbSampleRate, SIGNAL(editTextChanged(const QString&)),
             this, SLOT(sampleRateChanged(const QString&)));
-    connect(sbTracks, SIGNAL(valueChanged(int)),
+    connect(sbChannels, SIGNAL(valueChanged(int)),
             this, SLOT(tracksChanged(int)));
     connect(sbResolution, SIGNAL(valueChanged(int)),
             this, SLOT(checkTimeAndLengthInfo(int)));
@@ -90,7 +90,7 @@ NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
     // initialize the controls
     cbSampleRate->setEditText(QString::number(rate));
     sbResolution->setValue(bits);
-    sbTracks->setValue(tracks);
+    sbChannels->setValue(tracks);
     if (by_time) {
 	rbSamples->setChecked(false);
 	rbTime->setChecked(true);
@@ -146,7 +146,7 @@ void NewSignalDialog::checkNewSampleEdit()
 //***************************************************************************
 unsigned int NewSignalDialog::tracks()
 {
-    return sbTracks->value();
+    return sbChannels->value();
 }
 
 //***************************************************************************

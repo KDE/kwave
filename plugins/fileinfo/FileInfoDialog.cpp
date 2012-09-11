@@ -439,10 +439,20 @@ void FileInfoDialog::setupSourceTab()
 	QVariant(m_info.get(INF_CD)).toInt() : 0;
     sbCD->setValue(cd);
 
+    initInfo(0, sbCDs, INF_CDS);
+    int cds = (m_info.contains(INF_CDS)) ?
+	QVariant(m_info.get(INF_CDS)).toInt() : 0;
+    sbCDs->setValue(cds);
+
     initInfo(lblTrack, sbTrack, INF_TRACK);
     int track = (m_info.contains(INF_TRACK)) ?
 	QVariant(m_info.get(INF_TRACK)).toInt() : 0;
     sbTrack->setValue(track);
+
+    initInfo(0, sbTracks, INF_TRACKS);
+    int tracks = (m_info.contains(INF_TRACKS)) ?
+	QVariant(m_info.get(INF_TRACKS)).toInt() : 0;
+    sbTracks->setValue(tracks);
 
 
     /* software, engineer, technican */
@@ -729,10 +739,14 @@ void FileInfoDialog::accept()
     acceptEdit(INF_ALBUM,       edAlbum->text());
 
     /* CD and track */
-    int cd    = sbCD->value();
-    int track = sbTrack->value();
-    m_info.set(INF_CD,    (cd    != 0) ? QVariant(cd)    : QVariant());
-    m_info.set(INF_TRACK, (track != 0) ? QVariant(track) : QVariant());
+    int cd     = sbCD->value();
+    int cds    = sbCDs->value();
+    int track  = sbTrack->value();
+    int tracks = sbTracks->value();
+    m_info.set(INF_CD,     (cd     != 0) ? QVariant(cd)     : QVariant());
+    m_info.set(INF_CDS,    (cds    != 0) ? QVariant(cds)    : QVariant());
+    m_info.set(INF_TRACK,  (track  != 0) ? QVariant(track)  : QVariant());
+    m_info.set(INF_TRACKS, (tracks != 0) ? QVariant(tracks) : QVariant());
 
     /* product, archival, contact */
     acceptEdit(INF_PRODUCT,     edProduct->text());

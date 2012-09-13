@@ -1,0 +1,116 @@
+/*************************************************************************
+    ID3_PropertyMap.h    -  map for translating properties to ID3 frame tags
+                             -------------------
+    begin                : Sat Jul 30 2012
+    copyright            : (C) 2012 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+#ifndef _ID3_PROPERTY_MAP_H_
+#define _ID3_PROPERTY_MAP_H_
+
+#include "config.h"
+
+#include <QList>
+#include <QPair>
+
+#include <id3/globals.h>
+
+#include "libkwave/FileInfo.h"
+
+namespace Kwave {
+
+    class ID3_PropertyMap
+    {
+    public:
+
+	/** encoding of the ID3 tag */
+	typedef enum {
+	    ENC_NONE = 0,
+	    ENC_TEXT,           /**< text, appended by ';'             */
+	    ENC_TEXT_SLASH,     /**< text list, seperated by slash '/' */
+	    ENC_TEXT_LIST,      /**< list of zero terminated strings   */
+	    ENC_TEXT_URL,       /**< URL                               */
+	    ENC_TEXT_PARTINSET  /**< part in set (x/y)                 */
+	} Encoding;
+
+	/** Default constructor, with initializing */
+	ID3_PropertyMap();
+
+	/** Destructor */
+	virtual ~ID3_PropertyMap() {}
+
+	/**
+	 * Returns the frame ID of a property or an empty string
+	 * if nothing found (reverse lookup).
+	 */
+	ID3_FrameID findProperty(const FileProperty property) const;
+
+	/** Returns true if the map contains a given property */
+	bool containsProperty(const FileProperty property) const;
+
+	/**
+	 * insert a new property / frame ID mapping
+	 *
+	 * @param property a Kwave FileProperty
+	 * @param id a ID3 frame ID
+	 * @param encoding the type of the encoding of the tag
+	 */
+	void insert(const FileProperty property, const ID3_FrameID id,
+	            const Encoding encoding);
+
+	/**
+	 * returns true if a given ID3 frame ID is in the map
+	 *
+	 * @param id a ID3 frame ID
+	 * @return true if found, false if not
+	 */
+	bool containsID(const ID3_FrameID id) const;
+
+	/**
+	 * returns the encoding of the ID3 frame
+	 *
+	 * @param id a ID3 frame ID
+	 * @return the encoding of the content of the frame
+	 */
+	Encoding encoding(const ID3_FrameID id) const;
+
+	/** returns a list of all known ID3 frame IDs */
+	QList<ID3_FrameID> knownIDs() const;
+
+	/**
+	 * Returns the first FileProperty that matches a given ID3 frame ID
+	 *
+	 * @param id a ID3 frame ID
+	 * @return a FileProperty
+	 */
+	FileProperty property(const ID3_FrameID id) const;
+
+	/** Returns a list with all supported properties */
+	QList<FileProperty> properties() const;
+
+    private:
+
+	/** container for one mapping */
+	typedef struct
+	{
+	    FileProperty m_property; /**< the Kwave property */
+	    ID3_FrameID  m_frame_id; /**< ID3 frame ID       */
+	    Encoding     m_encoding; /**< data encoding      */
+	} Mapping;
+
+	/** list of mappings */
+	QList<Mapping> m_list;
+    };
+}
+
+#endif /* _ID3_PROPERTY_MAP_H_ */

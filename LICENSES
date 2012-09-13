@@ -573,6 +573,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/debug/DebugPlugin.h			GPL2+
 
 	plugins/codec_mp3/CMakeLists.txt		GPL2+
+	plugins/codec_mp3/ID3_PropertyMap.cpp		GPL2+
+	plugins/codec_mp3/ID3_PropertyMap.h		GPL2+
 	plugins/codec_mp3/ID3_QIODeviceReader.cpp	GPL2+
 	plugins/codec_mp3/ID3_QIODeviceReader.h		GPL2+
 	plugins/codec_mp3/ID3_QIODeviceWriter.cpp	GPL2+

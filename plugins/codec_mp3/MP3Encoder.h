@@ -28,6 +28,8 @@
 
 #include "libkwave/Encoder.h"
 
+#include "ID3_PropertyMap.h"
+
 class ID3_Tag;
 class QIODevice;
 class QWidget;
@@ -80,6 +82,9 @@ namespace Kwave {
 	                   ID3_Tag &tag);
 
     private:
+
+	/** property - to - ID3 mapping */
+	ID3_PropertyMap m_property_map;
 
 	/** lock for protecting m_dst and m_process */
 	QMutex m_lock;

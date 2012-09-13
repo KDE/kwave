@@ -43,36 +43,6 @@
 #include "MP3EncoderSettings.h"
 
 /***************************************************************************/
-static const struct {
-    FileProperty property;
-    ID3_FrameID id;
-} supported_ids[] = {
-    { INF_COMMENTS,      ID3FID_COMMENT    }, // Comments
-    { INF_CONTACT,       ID3FID_OWNERSHIP  }, // contact info for creator
-    { INF_ALBUM,         ID3FID_ALBUM      }, // Album/Movie/Show title
-    { INF_GENRE,         ID3FID_CONTENTTYPE}, // Content type (Genre)
-    { INF_COPYRIGHT,     ID3FID_COPYRIGHT},   // Copyright message.
-    { INF_TECHNICAN,     ID3FID_ENCODEDBY},   // Encoded by.
-    { INF_NAME,          ID3FID_TITLE},   // Title/songname/content description
-    { INF_ANNOTATION,    ID3FID_SUBTITLE},// Subtitle/Description refinement
-    { INF_MEDIUM,        ID3FID_MEDIATYPE},   // Medium type
-    { INF_PERFORMER,     ID3FID_LYRICIST},    // Lyricist/Text writer
-    { INF_AUTHOR,        ID3FID_ORIGARTIST},  // Original artist(s)/performer(s)
-    { INF_LICENSE,       ID3FID_FILEOWNER},   // File owner/licensee
-    { INF_PERFORMER,     ID3FID_LEADARTIST},  // Lead performer(s)/Soloist(s).
-    { INF_VERSION,       ID3FID_MIXARTIST},// Interpreted, remixed / modified by
-    { INF_CD,            ID3FID_PARTINSET},   // Part of a set
-    { INF_ORGANIZATION,  ID3FID_PRODUCEDNOTICE}, // Produced notice
-    { INF_ORGANIZATION,  ID3FID_PUBLISHER},   // Publisher
-    { INF_TRACK,         ID3FID_TRACKNUM},    // Track number/Position in set
-    { INF_ISRC,          ID3FID_ISRC},        // ISRC
-    { INF_VERSION,       ID3FID_SETSUBTITLE}, // Set subtitle
-    { INF_ANNOTATION,    ID3FID_USERTEXT}     // User defined text information
-};
-
-#define ELEMENTS_OF(__x__) (sizeof(__x__) / sizeof(__x__[0]))
-
-/***************************************************************************/
 Kwave::MP3Encoder::MP3Encoder()
     :Encoder(), m_lock(), m_dst(0), m_process(this), m_program(), m_params()
 {
@@ -96,10 +66,7 @@ Encoder *Kwave::MP3Encoder::instance()
 /***************************************************************************/
 QList<FileProperty> Kwave::MP3Encoder::supportedProperties()
 {
-    QList<FileProperty> list;
-    for (unsigned int i = 0; i < ELEMENTS_OF(supported_ids); ++i)
-	list.append(supported_ids[i].property);
-    return list;
+    return m_property_map.properties();
 }
 
 /***************************************************************************/
@@ -108,26 +75,57 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 {
     const FileInfo info(meta_data);
 
-    for (unsigned int i = 0; i < ELEMENTS_OF(supported_ids); ++i) {
-	if (!info.contains(supported_ids[i].property)) continue;
+    foreach (const FileProperty &property, m_property_map.properties()) {
+	if (!info.contains(property)) continue;
+
+	ID3_FrameID id = m_property_map.findProperty(property);
+	if (id == ID3FID_NOFRAME) continue;
+
+	if (info.contains(INF_CD) && (property == INF_CDS))
+	    continue; /* INF_CDS has already been handled by INF_CD */
 
 	ID3_Frame *frame = new ID3_Frame;
 	Q_ASSERT(frame);
 	if (!frame) break;
 
-	QVariant value = info.get(supported_ids[i].property);
+	QVariant value = info.get(property);
 	QString  str   = value.toString();
 
 	// encode in UCS16
-	frame->SetID(supported_ids[i].id);
+	frame->SetID(id);
 	ID3_Field *field = frame->GetField(ID3FN_TEXT);
 	Q_ASSERT(field);
 	if (field) {
-	    field->SetEncoding(ID3TE_UTF16);
-	    field->Set(static_cast<const unicode_t *>(str.utf16()));
+	    ID3_PropertyMap::Encoding encoding = m_property_map.encoding(id);
+	    switch (encoding) {
+		ENC_TEXT_PARTINSET:
+		{
+		    field->SetEncoding(ID3TE_UTF16);
+
+		    // if "number of CDs is available: append with "/"
+		    int cds = info.get(INF_CDS).toInt();
+		    if (cds > 0)
+			str += QString("/%1").arg(cds);
+
+		    field->Set(static_cast<const unicode_t *>(str.utf16()));
+		    break;
+		}
+		ENC_TEXT_SLASH: /* FALLTHROUGH */
+		ENC_TEXT_URL:   /* FALLTHROUGH */
+		ENC_TEXT:
+		    field->SetEncoding(ID3TE_UTF16);
+		    field->Set(static_cast<const unicode_t *>(str.utf16()));
+		    break;
+		ENC_NONE: /* FALLTHROUGH */
+		default:
+		    // ignore
+		    delete frame;
+		    frame = 0;
+		    break;
+	    }
 	}
 
-	tag.AttachFrame(frame);
+	if (frame) tag.AttachFrame(frame);
     }
 
     tag.Strip();

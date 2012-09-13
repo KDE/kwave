@@ -89,6 +89,7 @@ IF (WITH_MP3)
 #############################################################################
 
     SET(plugin_codec_mp3_LIB_SRCS
+        ID3_PropertyMap.cpp
         ID3_QIODeviceReader.cpp
         ID3_QIODeviceWriter.cpp
         MP3CodecPlugin.cpp

@@ -41,6 +41,7 @@ namespace Kwave { class MetaDataList; }
  * FileInfo.cpp
  */
 typedef enum {
+    INF_UNKNOWN = 0,         /**< dummy for unknown/unsupported property */
     // please sort in new items alphabetically...
     INF_ALBUM = 0,           /**< name of the album */
     INF_ANNOTATION,          /**< annotation/comment */

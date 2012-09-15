@@ -36,6 +36,8 @@
 /***************************************************************************/
 void FileInfo::PropertyTypesMap::fill()
 {
+    append(INF_UNKNOWN, FP_INTERNAL | FP_NO_LOAD_SAVE, QString(), QString());
+
     append(INF_ALBUM, 0,
         I18N_NOOP("Album"),
         i18n("Name of the album if the source is an album\n"

@@ -36,9 +36,9 @@
 
 //***************************************************************************
 Kwave::MP3Decoder::MP3Decoder()
-    :Decoder(), m_source(0), m_dest(0), m_buffer(0), m_buffer_size(0),
-     m_prepended_bytes(0), m_appended_bytes(0), m_failures(0),
-     m_parent_widget(0)
+    :Decoder(), m_property_map(), m_source(0), m_dest(0), m_buffer(0),
+     m_buffer_size(0), m_prepended_bytes(0), m_appended_bytes(0),
+     m_failures(0), m_parent_widget(0)
 {
     LOAD_MIME_TYPES;
 }
@@ -192,50 +192,47 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 
     ID3_Tag::Iterator *it = tag.CreateIterator();
     ID3_Frame *frame;
+    FileInfo info(metaData());
     while (it && (frame = it->GetNext())) {
-	ID3_FrameID id = frame->GetID();
-        switch (id) {
-	    //ID3FID_AUDIOCRYPTO       // Audio encryption.
-	    //ID3FID_PICTURE           // Attached picture.
-	    //ID3FID_AUDIOSEEKPOINT    // Audio seek point index.
+	const ID3_FrameID id = frame->GetID();
+	const FileProperty property = m_property_map.property(id);
+	const ID3_PropertyMap::Encoding encoding = m_property_map.encoding(id);
+	switch (encoding) {
+	    case ID3_PropertyMap::ENC_TEXT_PARTINSET:
+	    {
+		QString s = parseId3Frame2String(frame);
+		int cd  = 0;
+		int cds = 0;
+		if (s.contains('/')) {
+		    int i = s.indexOf('/');
+		    cd = s.left(i).toInt();
+		    cds = s.mid(i + 1).toInt();
+		} else {
+		    cd = s.toInt();
+		}
+		if (cd  > 0) info.set(INF_CD , QVariant(cd));
+		if (cds > 0) info.set(INF_CDS, QVariant(cds));
+		break;
+	    }
+	    case ID3_PropertyMap::ENC_TEXT_SLASH: /* FALLTHROUGH */
+	    case ID3_PropertyMap::ENC_TEXT_URL:   /* FALLTHROUGH */
+	    case ID3_PropertyMap::ENC_TEXT:
+		info.set(property, QVariant(parseId3Frame2String(frame)));
+		break;
+	    case ID3_PropertyMap::ENC_NONE: /* FALLTHROUGH */
+	    default:
+	    {
+		QString s = parseId3Frame2String(frame);
+		qWarning("unsupported ID3 tag: %d, descr: '%s', text: '%s'",
+			 id, frame->GetDescription(),
+			 s.toLocal8Bit().data());
+		break;
+	    }
+	}
+    }
+    metaData().replace(info);
 
-	    case ID3FID_COMMENT: // Comments.
-		parseId3Frame(frame, INF_COMMENTS); break;
-
-	    //ID3FID_COMMERCIAL        // Commercial frame.
-	    //ID3FID_CRYPTOREG         // Encryption method registration.
-	    //ID3FID_EQUALIZATION2     // Equalisation (2).
-	    //ID3FID_EQUALIZATION      // Equalization.
-	    //ID3FID_EVENTTIMING       // Event timing codes.
-	    //ID3FID_GENERALOBJECT     // General encapsulated object.
-	    //ID3FID_GROUPINGREG       // Group identification registration.
-	    //ID3FID_INVOLVEDPEOPLE    // Involved people list.
-	    //ID3FID_LINKEDINFO        // Linked information.
-	    //ID3FID_CDID              // Music CD identifier.
-	    //ID3FID_MPEGLOOKUP        // MPEG location lookup table.
-
-	    case ID3FID_OWNERSHIP:     // Ownership frame.
-		parseId3Frame(frame, INF_CONTACT); break;
-
-	    //ID3FID_PRIVATE           // Private frame.
-	    //ID3FID_PLAYCOUNTER       // Play counter.
-	    //ID3FID_POPULARIMETER     // Popularimeter.
-	    //ID3FID_POSITIONSYNC      // Position synchronisation frame.
-	    //ID3FID_BUFFERSIZE        // Recommended buffer size.
-	    //ID3FID_VOLUMEADJ2        // Relative volume adjustment (2).
-	    //ID3FID_VOLUMEADJ         // Relative volume adjustment.
-	    //ID3FID_REVERB            // Reverb.
-	    //ID3FID_SEEKFRAME         // Seek frame.
-	    //ID3FID_SIGNATURE         // Signature frame.
-	    //ID3FID_SYNCEDLYRICS      // Synchronized lyric/text.
-	    //ID3FID_SYNCEDTEMPO       // Synchronized tempo codes.
-
-	    case ID3FID_ALBUM:         // Album/Movie/Show title.
-		parseId3Frame(frame, INF_ALBUM); break;
-
-	    //ID3FID_BPM               // BPM (beats per minute).
-	    //ID3FID_COMPOSER          // Composer.
-
+#if 0
 	    case ID3FID_CONTENTTYPE: { // Content type (Genre)
 		parseId3Frame(frame, INF_GENRE);
 
@@ -244,136 +241,20 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		int id = GenreType::fromID3(genre);
 		info.set(INF_GENRE, GenreType::name(id));
 		metaData().replace(info);
-
-		break;
-	    }
-	    case ID3FID_COPYRIGHT:     // Copyright message.
-		parseId3Frame(frame, INF_COPYRIGHT); break;
-
-	    //ID3FID_DATE              // Date.
-	    //ID3FID_ENCODINGTIME      // Encoding time.
-	    //ID3FID_PLAYLISTDELAY     // Playlist delay.
-	    //ID3FID_ORIGRELEASETIME   // Original release time.
-	    //ID3FID_RECORDINGTIME     // Recording time.
-	    //ID3FID_RELEASETIME       // Release time.
-	    //ID3FID_TAGGINGTIME       // Tagging time.
-	    //ID3FID_INVOLVEDPEOPLE2   // Involved people list.
-	    //ID3FID_ENCODEDBY         //
-
-	    case ID3FID_ENCODEDBY:     // Encoded by.
-		parseId3Frame(frame, INF_TECHNICAN); break;
-
-	    //ID3FID_FILETYPE          // File type.
-	    //ID3FID_TIME              // Time.
-	    //ID3FID_CONTENTGROUP      // Content group description.
-
-	    case ID3FID_TITLE:        // Title/songname/content description.
-		parseId3Frame(frame, INF_NAME); break;
-
-	    case ID3FID_SUBTITLE:     // Subtitle/Description refinement.
-		parseId3Frame(frame, INF_ANNOTATION); break;
-
-	    //ID3FID_INITIALKEY       // Initial key.
-	    //ID3FID_LANGUAGE         // Language(s).
-	    //ID3FID_SONGLEN          // Length.
-	    //ID3FID_MUSICIANCREDITLIST // Musician credits list.
-
-	    case ID3FID_MEDIATYPE:    // Medium type.
-		parseId3Frame(frame, INF_MEDIUM); break;
-
-	    //ID3FID_MOOD             // Mood.
-	    //ID3FID_ORIGALBUM        // Original album/movie/show title.
-	    //ID3FID_ORIGFILENAME     // Original filename.
-
-	    case ID3FID_LYRICIST:     // Lyricist/Text writer.
-	    case ID3FID_ORIGLYRICIST: // Original lyricist(s)/text writer(s).
-		parseId3Frame(frame, INF_PERFORMER); break;
-
-	    case ID3FID_ORIGARTIST:   // Original artist(s)/performer(s).
-		parseId3Frame(frame, INF_AUTHOR); break;
-
-	    //ID3FID_ORIGYEAR         // Original release year.
-	    case ID3FID_FILEOWNER:    // File owner/licensee.
-		parseId3Frame(frame, INF_LICENSE); break;
-	    case ID3FID_LEADARTIST:   // Lead performer(s)/Soloist(s).
-		parseId3Frame(frame, INF_PERFORMER); break;
-
-	    //ID3FID_BAND             // Band/orchestra/accompaniment.
-	    //ID3FID_CONDUCTOR        // Conductor/performer refinement.
-	    case ID3FID_MIXARTIST:    // Interpreted, remixed, or otherwise
-	                              // modified by
-		parseId3Frame(frame, INF_VERSION); break;
-	    case ID3FID_PARTINSET:    // Part of a set.
-		parseId3Frame(frame, INF_CD); break;
-
-	    case ID3FID_PRODUCEDNOTICE:// Produced notice.
-		parseId3Frame(frame, INF_ORGANIZATION); break;
-	    case ID3FID_PUBLISHER:    // Publisher.
-		parseId3Frame(frame, INF_ORGANIZATION); break;
-	    case ID3FID_TRACKNUM:     // Track number/Position in set.
-		parseId3Frame(frame, INF_TRACK); break;
-
-	    //ID3FID_RECORDINGDATES   // Recording dates.
-	    //ID3FID_NETRADIOSTATION  // Internet radio station name.
-	    //ID3FID_NETRADIOOWNER    // Internet radio station owner.
-	    //ID3FID_SIZE             // Size.
-	    //ID3FID_ALBUMSORTORDER   // Album sort order.
-	    //ID3FID_PERFORMERSORTORDER// Performer sort order.
-	    //ID3FID_TITLESORTORDER   // Title sort order.
-
-	    case ID3FID_ISRC:         // ISRC (international standard
-	                              // recording code).
-		parseId3Frame(frame, INF_ISRC); break;
-
-	    //ID3FID_ENCODERSETTINGS  // Software/Hardware and settings
-	                              // used for encoding.
-
-	    case ID3FID_SETSUBTITLE:  // Set subtitle.
-		parseId3Frame(frame, INF_VERSION); break;
-	    case ID3FID_USERTEXT:     // User defined text information.
-		parseId3Frame(frame, INF_ANNOTATION); break;
-
-	    //ID3FID_YEAR             // Year.
-	    //ID3FID_UNIQUEFILEID     // Unique file identifier.
-	    //ID3FID_TERMSOFUSE       // Terms of use.
-	    //ID3FID_UNSYNCEDLYRICS   // Unsynchronized lyric/text
-	                              // transcription
-	    //ID3FID_WWWCOMMERCIALINFO// Commercial information.
-	    //ID3FID_WWWCOPYRIGHT     // Copyright/Legal information.
-	    //ID3FID_WWWAUDIOFILE     // Official audio file webpage.
-	    //ID3FID_WWWARTIST        // Official artist/performer webpage.
-	    //ID3FID_WWWAUDIOSOURCE   // Official audio source webpage.
-	    //ID3FID_WWWRADIOPAGE     // Official internet radio station
-	                              // homepage.
-	    //ID3FID_WWWPAYMENT       // Payment.
-	    //ID3FID_WWWPUBLISHER     // Official publisher webpage.
-	    //ID3FID_WWWUSER          // User defined URL link.
-	    //ID3FID_METACRYPTO       // Encrypted meta frame (id3v2.2.x).
-	    //ID3FID_METACOMPRESSION  // Compressed meta frame (id3v2.2.1).
-
-	    default:
-		char *text = ID3_GetString(frame, ID3FN_TEXT);
-		qDebug("frame with id=%d, descr=%s, text=%s",
-		      id, frame->GetDescription(), text);
-		if (text) delete [] text;
-	}
-
-    }
-
+#endif
     return true;
 }
 
 //***************************************************************************
-void Kwave::MP3Decoder::parseId3Frame(ID3_Frame *frame, FileProperty property)
+QString Kwave::MP3Decoder::parseId3Frame2String(const ID3_Frame *frame)
 {
-    if (!frame) return;
+    QString s;
     char *text = ID3_GetString(frame, ID3FN_TEXT);
     if (text) {
-	FileInfo info(metaData());
-	info.set(property, QVariant(text));
-	metaData().replace(info);
+	s = QString(text);
 	delete [] text;
     }
+    return s;
 }
 
 //***************************************************************************
@@ -570,8 +451,8 @@ enum mad_flow Kwave::MP3Decoder::fillInput(struct mad_stream *stream)
  * @author Rob Leslie
  */
 struct audio_dither {
-  mad_fixed_t error[3];
-  mad_fixed_t random;
+    mad_fixed_t error[3];
+    mad_fixed_t random;
 };
 
 /**
@@ -581,7 +462,7 @@ struct audio_dither {
  */
 static inline unsigned long prng(unsigned long state)
 {
-  return (state * 0x0019660dL + 0x3c6ef35fL) & 0xffffffffL;
+    return (state * 0x0019660dL + 0x3c6ef35fL) & 0xffffffffL;
 }
 
 /**

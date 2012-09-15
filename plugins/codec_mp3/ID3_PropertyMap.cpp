@@ -155,6 +155,8 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
     // Set subtitle
     insert(INF_VERSION,       ID3FID_SETSUBTITLE        , ENC_TEXT); // ### TODO ### TSST
     //                        ID3FID_PRIVATE => user defined data
+
+    insert(INF_UNKNOWN,       ID3FID_NOFRAME            , ENC_NONE);
 }
 
 //***************************************************************************
@@ -228,7 +230,7 @@ FileProperty Kwave::ID3_PropertyMap::property(const ID3_FrameID id) const
     foreach(const Kwave::ID3_PropertyMap::Mapping &m, m_list) {
 	if (m.m_frame_id == id) return m.m_property;
     }
-    return static_cast<FileProperty>(-1);
+    return INF_UNKNOWN;
 }
 
 //***************************************************************************

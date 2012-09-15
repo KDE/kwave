@@ -673,9 +673,9 @@ QString Kwave::MP3EncoderDialog::searchPath(const QString &program)
     const QFile::Permissions executable =
 	(QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
 #ifdef Q_OS_WIN
-    const QLatin1Char separator = ';';
+    const QLatin1Char separator = QLatin1Char(';');
 #else
-    const QLatin1Char separator = ':';
+    const QLatin1Char separator = QLatin1Char(':');
 #endif
     QStringList path =
 	QString(qgetenv("PATH")).split(separator, QString::SkipEmptyParts);

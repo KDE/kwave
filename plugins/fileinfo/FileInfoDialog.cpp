@@ -112,11 +112,9 @@ void FileInfoDialog::describeWidget(QWidget *widget, const QString &name,
 void FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
                               FileProperty property)
 {
-    Q_ASSERT(label);
-    Q_ASSERT(widget);
     if (label) label->setText(i18n(m_info.name(property).toAscii()) + ":");
-    describeWidget(widget, i18n(m_info.name(property).toAscii()),
-                   m_info.description(property));
+    if (widget) describeWidget(widget, i18n(m_info.name(property).toAscii()),
+                               m_info.description(property));
 }
 
 //***************************************************************************

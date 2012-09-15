@@ -44,7 +44,8 @@
 
 /***************************************************************************/
 Kwave::MP3Encoder::MP3Encoder()
-    :Encoder(), m_lock(), m_dst(0), m_process(this), m_program(), m_params()
+    :Encoder(), m_property_map(), m_lock(), m_dst(0), m_process(this),
+     m_program(), m_params()
 {
     LOAD_MIME_TYPES;
 
@@ -98,7 +99,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 	if (field) {
 	    ID3_PropertyMap::Encoding encoding = m_property_map.encoding(id);
 	    switch (encoding) {
-		ENC_TEXT_PARTINSET:
+		case ID3_PropertyMap::ENC_TEXT_PARTINSET:
 		{
 		    field->SetEncoding(ID3TE_UTF16);
 
@@ -110,13 +111,13 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 		    field->Set(static_cast<const unicode_t *>(str.utf16()));
 		    break;
 		}
-		ENC_TEXT_SLASH: /* FALLTHROUGH */
-		ENC_TEXT_URL:   /* FALLTHROUGH */
-		ENC_TEXT:
+		case ID3_PropertyMap::ENC_TEXT_SLASH: /* FALLTHROUGH */
+		case ID3_PropertyMap::ENC_TEXT_URL:   /* FALLTHROUGH */
+		case ID3_PropertyMap::ENC_TEXT:
 		    field->SetEncoding(ID3TE_UTF16);
 		    field->Set(static_cast<const unicode_t *>(str.utf16()));
 		    break;
-		ENC_NONE: /* FALLTHROUGH */
+		case ID3_PropertyMap::ENC_NONE: /* FALLTHROUGH */
 		default:
 		    // ignore
 		    delete frame;

@@ -27,6 +27,8 @@
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"
 
+#include "ID3_PropertyMap.h"
+
 class Mp3_Headerinfo;
 class ID3_Frame;
 class ID3_Tag;
@@ -89,10 +91,17 @@ namespace Kwave {
 	/** parse all known ID3 tags */
 	bool parseID3Tags(ID3_Tag &tag);
 
-	/** parse a FileInfo property from a ID3 frame */
-	void parseId3Frame(ID3_Frame *frame, FileProperty property);
+	/**
+	 * parse a ID3 frame into a string
+	 * @param frame a ID3 frame
+	 * @return QString with the content
+	 */
+	QString parseId3Frame2String(const ID3_Frame *frame);
 
     private:
+
+	/** property - to - ID3 mapping */
+	ID3_PropertyMap m_property_map;
 
 	/** source of the raw mp3 data */
 	QIODevice *m_source;

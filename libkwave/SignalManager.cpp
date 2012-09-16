@@ -844,6 +844,23 @@ int SignalManager::executeCommand(const QString &command)
 	UndoTransactionGuard undo(*this, i18n("Toggle Track Selection"));
 	selectTrack(track, !(trackSelected(track)));
 
+    CASE_COMMAND("fileinfo")
+	QString property = parser.firstParam();
+	QString value    = parser.nextParam();
+	FileInfo info(m_meta_data);
+	bool found = false;
+	foreach (FileProperty p, info.allKnownProperties()) {
+	    if (info.name(p) == property) {
+		info.set(p, QVariant(value));
+		found = true;
+		break;
+	    }
+	}
+
+	if (found)
+	    m_meta_data.replace(info);
+	else
+	    return -EINVAL;
     CASE_COMMAND("dump_metadata")
 	qDebug("DUMP OF META DATA => %s",
 	    parser.firstParam().toLocal8Bit().data());

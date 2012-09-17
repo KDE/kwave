@@ -66,21 +66,22 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
     insert(INF_COMMISSIONED,  ID3FID_NETRADIOOWNER      , ENC_TEXT);
     // Comments
     insert(INF_COMMENTS,      ID3FID_COMMENT            , ENC_COMMENT);
-    // contact info for creator
-    insert(INF_CONTACT,       ID3FID_OWNERSHIP          , ENC_TEXT); // ### TODO ### OWNE
     // Official audio source webpage
-    insert(INF_CONTACT,       ID3FID_WWWAUDIOSOURCE     , ENC_TEXT_URL);
+    insert(INF_CONTACT,       ID3FID_WWWAUDIOSOURCE     , ENC_TEXT_SLASH);
     // Official internet radio station homepage
-    insert(INF_CONTACT,       ID3FID_WWWRADIOPAGE       , ENC_TEXT_URL);
+    insert(INF_CONTACT,       ID3FID_WWWRADIOPAGE       , ENC_TEXT_SLASH);
     // Official audio file webpage
-    insert(INF_CONTACT,       ID3FID_WWWAUDIOFILE       , ENC_TEXT_URL);
+    insert(INF_CONTACT,       ID3FID_WWWAUDIOFILE       , ENC_TEXT_SLASH);
+    // Ownership (not supported by id3lib)
+    // ert(INF_CONTACT,       ID3FID_OWNERSHIP          , ENC_OWNERSHIP?);
     // Copyright message.
-    insert(INF_COPYRIGHT,     ID3FID_COPYRIGHT          , ENC_TEXT); // ### TODO ### TCOP
+    insert(INF_COPYRIGHT,     ID3FID_COPYRIGHT          , ENC_TEXT);
     // Copyright/Legal infromation
     insert(INF_COPYRIGHT,     ID3FID_WWWCOPYRIGHT       , ENC_TEXT_URL);
     // Terms of use
-    insert(INF_COPYRIGHT,     ID3FID_TERMSOFUSE         , ENC_TEXT); // ### TODO ### USER
+    insert(INF_COPYRIGHT,     ID3FID_TERMSOFUSE         , ENC_TERMS_OF_USE);
     //     INF_COPYRIGHTED
+
     // Recording dates
     insert(INF_CREATION_DATE, ID3FID_RECORDINGDATES     , ENC_TEXT); // ### TODO ### TRDA
     // Recording time
@@ -101,11 +102,12 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
     insert(INF_CREATION_DATE, ID3FID_TAGGINGTIME        , ENC_TEXT); // ### TODO ### TDTG
     // Encoding time
     insert(INF_CREATION_DATE, ID3FID_ENCODINGTIME       , ENC_TEXT); // ### TODO ### TDEN
+
     //     INF_ENGINEER
     //     INF_FILENAME
     //     INF_FILESIZE
     // Content type (Genre)
-    insert(INF_GENRE,         ID3FID_CONTENTTYPE        , ENC_TEXT); // ### TODO ### TCON
+    insert(INF_GENRE,         ID3FID_CONTENTTYPE        , ENC_GENRE_TYPE);
     // ISRC
     insert(INF_ISRC,          ID3FID_ISRC               , ENC_TEXT);
     //     INF_KEYWORDS

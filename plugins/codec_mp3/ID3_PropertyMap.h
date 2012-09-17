@@ -37,6 +37,8 @@ namespace Kwave {
 	typedef enum {
 	    ENC_NONE = 0,
 	    ENC_COMMENT,        /**< comment frame                     */
+	    ENC_GENRE_TYPE,     /**< genre type, numeric or text       */
+	    ENC_TERMS_OF_USE,   /**< terms of use                      */
 	    ENC_TEXT,           /**< text, appended by ';'             */
 	    ENC_TEXT_SLASH,     /**< text list, seperated by slash '/' */
 	    ENC_TEXT_LIST,      /**< list of zero terminated strings   */

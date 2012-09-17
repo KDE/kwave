@@ -20,7 +20,7 @@
 #include "GenreType.h"
 
 //***************************************************************************
-QMap<int, QString> GenreType::m_map;
+QMap<int, const char *> GenreType::m_map;
 
 //***************************************************************************
 GenreType::GenreType()
@@ -28,189 +28,199 @@ GenreType::GenreType()
 }
 
 //***************************************************************************
-QString GenreType::name(int id)
+QString GenreType::name(int id, bool localized)
 {
     fill();
-    if (!m_map.contains(id)) id = -1;
-    return m_map[id];
+
+    if (m_map.contains(id))
+	return QString((localized) ? i18n(m_map[id]) : m_map[id]);
+    else
+	return QString::number(id);
 }
 
 //***************************************************************************
 int GenreType::fromID3(const QString &tag)
 {
     fill();
-    if (tag.startsWith("(") && tag.endsWith(")")) {
-	QString s = tag.mid(1, tag.length()-2);
-	return s.toInt();
-    } else {
-	return id(tag);
-    }
+
+    QString s = tag;
+
+    // remove brackets (optional)
+    if (s.startsWith("(") && s.endsWith(")"))
+	s = s.mid(1, tag.length()-2);
+
+    bool ok = false;
+    int i = s.toInt(&ok);
+    if ((i < 0) || (i >= m_map.count())) ok = false;
+
+    return (ok) ? i : id(tag);
 }
 
 //***************************************************************************
 int GenreType::id(const QString &name)
 {
     fill();
-    QMap<int, QString>::Iterator it;
-    for (it=m_map.begin(); it != m_map.end(); ++it) {
-	if (it.value() == name) return it.key();
+    QMap<int, const char *>::Iterator it;
+    for (it = m_map.begin(); it != m_map.end(); ++it) {
+	if (QString(it.value()) == name) return it.key();
+	if (i18n(it.value()) == name) return it.key();
     }
     return -1;
 }
 
+//***************************************************************************
+QStringList GenreType::allTypes()
+{
+    fill();
+
+    QStringList list;
+    foreach (const char *item, m_map.values())
+	list.append(i18n(item));
+
+    return list;
+}
 
 //***************************************************************************
 void GenreType::fill()
 {
     if (m_map.count()) return;
     {
-
-// replace i18n with a macro, i18n sometimes makes trouble when
-// called in static initializers
-#ifdef i18n
-#undef i18n
-#endif
-#define i18n(x) x
-
 	static const char *map[] = {
 	    // The following genres is defined in ID3v1
-	    i18n("Blues"),
-	    i18n("Classic Rock"),
-	    i18n("Country"),
-	    i18n("Dance"),
-	    i18n("Disco"),
-	    i18n("Funk"),
-	    i18n("Grunge"),
-	    i18n("Hip-Hop"),
-	    i18n("Jazz"),
-	    i18n("Metal"),
-	    i18n("New Age"),
-	    i18n("Oldies"),
-	    i18n("Other"),
-	    i18n("Pop"),
-	    i18n("R&B"),
-	    i18n("Rap"),
-	    i18n("Reggae"),
-	    i18n("Rock"),
-	    i18n("Techno"),
-	    i18n("Industrial"),
-	    i18n("Alternative"),
-	    i18n("Ska"),
-	    i18n("Death Metal"),
-	    i18n("Pranks"),
-	    i18n("Soundtrack"),
-	    i18n("Euro-Techno"),
-	    i18n("Ambient"),
-	    i18n("Trip-Hop"),
-	    i18n("Vocal"),
-	    i18n("Jazz+Funk"),
-	    i18n("Fusion"),
-	    i18n("Trance"),
-	    i18n("Classical"),
-	    i18n("Instrumental"),
-	    i18n("Acid"),
-	    i18n("House"),
-	    i18n("Game"),
-	    i18n("Sound Clip"),
-	    i18n("Gospel"),
-	    i18n("Noise"),
-	    i18n("AlternRock"),
-	    i18n("Bass"),
-	    i18n("Soul"),
-	    i18n("Punk"),
-	    i18n("Space"),
-	    i18n("Meditative"),
-	    i18n("Instrumental Pop"),
-	    i18n("Instrumental Rock"),
-	    i18n("Ethnic"),
-	    i18n("Gothic"),
-	    i18n("Darkwave"),
-	    i18n("Techno-Industrial"),
-	    i18n("Electronic"),
-	    i18n("Pop-Folk"),
-	    i18n("Eurodance"),
-	    i18n("Dream"),
-	    i18n("Southern Rock"),
-	    i18n("Comedy"),
-	    i18n("Cult"),
-	    i18n("Gangsta"),
-	    i18n("Top 40"),
-	    i18n("Christian Rap"),
-	    i18n("Pop/Funk"),
-	    i18n("Jungle"),
-	    i18n("Native American"),
-	    i18n("Cabaret"),
-	    i18n("New Wave"),
-	    i18n("Psychedelic"),
-	    i18n("Rave"),
-	    i18n("Showtunes"),
-	    i18n("Trailer"),
-	    i18n("Lo-Fi"),
-	    i18n("Tribal"),
-	    i18n("Acid Punk"),
-	    i18n("Acid Jazz"),
-	    i18n("Polka"),
-	    i18n("Retro"),
-	    i18n("Musical"),
-	    i18n("Rock & Roll"),
-	    i18n("Hard Rock"),
+	    I18N_NOOP("Blues"),
+	    I18N_NOOP("Classic Rock"),
+	    I18N_NOOP("Country"),
+	    I18N_NOOP("Dance"),
+	    I18N_NOOP("Disco"),
+	    I18N_NOOP("Funk"),
+	    I18N_NOOP("Grunge"),
+	    I18N_NOOP("Hip-Hop"),
+	    I18N_NOOP("Jazz"),
+	    I18N_NOOP("Metal"),
+	    I18N_NOOP("New Age"),
+	    I18N_NOOP("Oldies"),
+	    I18N_NOOP("Other"),
+	    I18N_NOOP("Pop"),
+	    I18N_NOOP("R&B"),
+	    I18N_NOOP("Rap"),
+	    I18N_NOOP("Reggae"),
+	    I18N_NOOP("Rock"),
+	    I18N_NOOP("Techno"),
+	    I18N_NOOP("Industrial"),
+	    I18N_NOOP("Alternative"),
+	    I18N_NOOP("Ska"),
+	    I18N_NOOP("Death Metal"),
+	    I18N_NOOP("Pranks"),
+	    I18N_NOOP("Soundtrack"),
+	    I18N_NOOP("Euro-Techno"),
+	    I18N_NOOP("Ambient"),
+	    I18N_NOOP("Trip-Hop"),
+	    I18N_NOOP("Vocal"),
+	    I18N_NOOP("Jazz+Funk"),
+	    I18N_NOOP("Fusion"),
+	    I18N_NOOP("Trance"),
+	    I18N_NOOP("Classical"),
+	    I18N_NOOP("Instrumental"),
+	    I18N_NOOP("Acid"),
+	    I18N_NOOP("House"),
+	    I18N_NOOP("Game"),
+	    I18N_NOOP("Sound Clip"),
+	    I18N_NOOP("Gospel"),
+	    I18N_NOOP("Noise"),
+	    I18N_NOOP("AlternRock"),
+	    I18N_NOOP("Bass"),
+	    I18N_NOOP("Soul"),
+	    I18N_NOOP("Punk"),
+	    I18N_NOOP("Space"),
+	    I18N_NOOP("Meditative"),
+	    I18N_NOOP("Instrumental Pop"),
+	    I18N_NOOP("Instrumental Rock"),
+	    I18N_NOOP("Ethnic"),
+	    I18N_NOOP("Gothic"),
+	    I18N_NOOP("Darkwave"),
+	    I18N_NOOP("Techno-Industrial"),
+	    I18N_NOOP("Electronic"),
+	    I18N_NOOP("Pop-Folk"),
+	    I18N_NOOP("Eurodance"),
+	    I18N_NOOP("Dream"),
+	    I18N_NOOP("Southern Rock"),
+	    I18N_NOOP("Comedy"),
+	    I18N_NOOP("Cult"),
+	    I18N_NOOP("Gangsta"),
+	    I18N_NOOP("Top 40"),
+	    I18N_NOOP("Christian Rap"),
+	    I18N_NOOP("Pop/Funk"),
+	    I18N_NOOP("Jungle"),
+	    I18N_NOOP("Native American"),
+	    I18N_NOOP("Cabaret"),
+	    I18N_NOOP("New Wave"),
+	    I18N_NOOP("Psychedelic"),
+	    I18N_NOOP("Rave"),
+	    I18N_NOOP("Showtunes"),
+	    I18N_NOOP("Trailer"),
+	    I18N_NOOP("Lo-Fi"),
+	    I18N_NOOP("Tribal"),
+	    I18N_NOOP("Acid Punk"),
+	    I18N_NOOP("Acid Jazz"),
+	    I18N_NOOP("Polka"),
+	    I18N_NOOP("Retro"),
+	    I18N_NOOP("Musical"),
+	    I18N_NOOP("Rock & Roll"),
+	    I18N_NOOP("Hard Rock"),
 
 	    // The following genres are Winamp extensions
-	    i18n("Folk"),
-	    i18n("Folk-Rock"),
-	    i18n("National Folk"),
-	    i18n("Swing"),
-	    i18n("Fast Fusion"),
-	    i18n("Bebob"),
-	    i18n("Latin"),
-	    i18n("Revival"),
-	    i18n("Celtic"),
-	    i18n("Bluegrass"),
-	    i18n("Avantgarde"),
-	    i18n("Gothic Rock"),
-	    i18n("Progressive Rock"),
-	    i18n("Psychedelic Rock"),
-	    i18n("Symphonic Rock"),
-	    i18n("Slow Rock"),
-	    i18n("Big Band"),
-	    i18n("Chorus"),
-	    i18n("Easy Listening"),
-	    i18n("Acoustic"),
-	    i18n("Humour"),
-	    i18n("Speech"),
-	    i18n("Chanson"),
-	    i18n("Opera"),
-	    i18n("Chamber Music"),
-	    i18n("Sonata"),
-	    i18n("Symphony"),
-	    i18n("Booty Bass"),
-	    i18n("Primus"),
-	    i18n("Porn Groove"),
-	    i18n("Satire"),
-	    i18n("Slow Jam"),
-	    i18n("Club"),
-	    i18n("Tango"),
-	    i18n("Samba"),
-	    i18n("Folklore"),
-	    i18n("Ballad"),
-	    i18n("Power Ballad"),
-	    i18n("Rhythmic Soul"),
-	    i18n("Freestyle"),
-	    i18n("Duet"),
-	    i18n("Punk Rock"),
-	    i18n("Drum Solo"),
-	    i18n("Acapella"),
-	    i18n("Euro-House"),
-	    i18n("Dance Hall")
+	    I18N_NOOP("Folk"),
+	    I18N_NOOP("Folk-Rock"),
+	    I18N_NOOP("National Folk"),
+	    I18N_NOOP("Swing"),
+	    I18N_NOOP("Fast Fusion"),
+	    I18N_NOOP("Bebob"),
+	    I18N_NOOP("Latin"),
+	    I18N_NOOP("Revival"),
+	    I18N_NOOP("Celtic"),
+	    I18N_NOOP("Bluegrass"),
+	    I18N_NOOP("Avantgarde"),
+	    I18N_NOOP("Gothic Rock"),
+	    I18N_NOOP("Progressive Rock"),
+	    I18N_NOOP("Psychedelic Rock"),
+	    I18N_NOOP("Symphonic Rock"),
+	    I18N_NOOP("Slow Rock"),
+	    I18N_NOOP("Big Band"),
+	    I18N_NOOP("Chorus"),
+	    I18N_NOOP("Easy Listening"),
+	    I18N_NOOP("Acoustic"),
+	    I18N_NOOP("Humour"),
+	    I18N_NOOP("Speech"),
+	    I18N_NOOP("Chanson"),
+	    I18N_NOOP("Opera"),
+	    I18N_NOOP("Chamber Music"),
+	    I18N_NOOP("Sonata"),
+	    I18N_NOOP("Symphony"),
+	    I18N_NOOP("Booty Bass"),
+	    I18N_NOOP("Primus"),
+	    I18N_NOOP("Porn Groove"),
+	    I18N_NOOP("Satire"),
+	    I18N_NOOP("Slow Jam"),
+	    I18N_NOOP("Club"),
+	    I18N_NOOP("Tango"),
+	    I18N_NOOP("Samba"),
+	    I18N_NOOP("Folklore"),
+	    I18N_NOOP("Ballad"),
+	    I18N_NOOP("Power Ballad"),
+	    I18N_NOOP("Rhythmic Soul"),
+	    I18N_NOOP("Freestyle"),
+	    I18N_NOOP("Duet"),
+	    I18N_NOOP("Punk Rock"),
+	    I18N_NOOP("Drum Solo"),
+	    I18N_NOOP("Acapella"),
+	    I18N_NOOP("Euro-House"),
+	    I18N_NOOP("Dance Hall")
 	};
 
-// now use normal i18n
-#undef i18n
+	for (unsigned int i = 0; i < sizeof(map) / sizeof(map[0]); ++i)
+	    m_map.insert(i, map[i]);
 
-	for (unsigned int i=0; i < sizeof(map)/sizeof(map[0]); ++i)
-	    m_map.insert(i, i18n(map[i]));
-
-	m_map.insert(     -1, i18n("Unknown"));
+	m_map.insert(     -1, I18N_NOOP("Unknown"));
     }
 
 }

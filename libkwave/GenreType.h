@@ -24,6 +24,7 @@
 
 #include <QMap>
 #include <QString>
+#include <QStringList>
 
 class KDE_EXPORT GenreType
 {
@@ -37,14 +38,22 @@ public:
     /** Destructor */
     virtual ~GenreType() {}
 
-    /** get the localized name from the id */
-    static QString name(int id);
+    /**
+     * get the localized name from the id
+     * @param id the numeric id of the genre type
+     * @param localized if true, return a localized name, otherwise raw (en)
+     * @return name of the genre
+     */
+    static QString name(int id, bool localized);
 
     /** parse the numeric id from an ID3 tag */
     static int fromID3(const QString &tag);
 
     /** try to find the numeric id from the name */
     static int id(const QString &name);
+
+    /** returns a list with all known genre types (localized) */
+    static QStringList allTypes();
 
 protected:
 
@@ -54,7 +63,7 @@ protected:
 private:
 
     /** map with numeric ids and names */
-    static QMap<int, QString> m_map;
+    static QMap<int, const char*> m_map;
 
 };
 

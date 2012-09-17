@@ -31,6 +31,7 @@
 #include <kglobal.h>
 
 #include "libkwave/FileInfo.h"
+#include "libkwave/GenreType.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MixerMatrix.h"
@@ -138,6 +139,9 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 		field->Set(static_cast<const unicode_t *>(str_val.utf16()));
 		break;
 	    }
+	    case ID3_PropertyMap::ENC_TERMS_OF_USE:
+		// the same as ENC_COMMENT, but without "Description"
+		/* FALLTHROUGH */
 	    case ID3_PropertyMap::ENC_COMMENT:
 	    {
 		// detect language at the start "[xxx] "
@@ -149,6 +153,15 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 			static_cast<const unicode_t *>(lang.utf16()));
 		}
 		/* frame->GetField(ID3FN_DESCRIPTION)->Set(""); */
+		field->SetEncoding(ID3TE_UTF16);
+		field->Set(static_cast<const unicode_t *>(str_val.utf16()));
+		break;
+	    }
+	    case ID3_PropertyMap::ENC_GENRE_TYPE:
+	    {
+		int id = GenreType::fromID3(str_val);
+		str_val = GenreType::name(id, false);
+
 		field->SetEncoding(ID3TE_UTF16);
 		field->Set(static_cast<const unicode_t *>(str_val.utf16()));
 		break;

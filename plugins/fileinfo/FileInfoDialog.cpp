@@ -48,6 +48,7 @@
 
 #include "libkwave/CompressionType.h"
 #include "libkwave/FileInfo.h"
+#include "libkwave/GenreType.h"
 #include "libkwave/SampleFormat.h"
 #include "libkwave/Utils.h"
 
@@ -410,7 +411,13 @@ void FileInfoDialog::setupContentTab()
     initInfoText(lblName,         edName,         INF_NAME);
     initInfoText(lblSubject,      edSubject,      INF_SUBJECT);
     initInfoText(lblVersion,      edVersion,      INF_VERSION);
-    initInfoText(lblGenre,        edGenre,        INF_GENRE);
+
+    // genre type
+    cbGenre->addItems(GenreType::allTypes());
+    QString genre =
+	GenreType::name(GenreType::id(m_info.get(INF_GENRE).toString()), true);
+    initInfo(lblGenre,            cbGenre,        INF_GENRE);
+    cbGenre->setCurrentIndex(cbGenre->findText(genre));
 
     /* date widget */
     initInfo(lblDate, dateEdit, INF_CREATION_DATE);
@@ -451,7 +458,6 @@ void FileInfoDialog::setupSourceTab()
     int tracks = (m_info.contains(INF_TRACKS)) ?
 	QVariant(m_info.get(INF_TRACKS)).toInt() : 0;
     sbTracks->setValue(tracks);
-
 
     /* software, engineer, technican */
     initInfoText(lblSoftware,     edSoftware,     INF_SOFTWARE);
@@ -545,7 +551,7 @@ void FileInfoDialog::autoGenerateKeywords()
     list += edName->text().split(" ");
     list += edSubject->text().split(" ");
     list += edVersion->text().split(" ");
-    list += edGenre->text().split(" ");
+    list += cbGenre->currentText();
     list += edAuthor->text().split(" ");
     list += edOrganization->text().split(" ");
     list += edCopyright->text().split(" ");
@@ -720,7 +726,7 @@ void FileInfoDialog::accept()
     acceptEdit(INF_NAME,         edName->text());
     acceptEdit(INF_SUBJECT,      edSubject->text());
     acceptEdit(INF_VERSION,      edVersion->text());
-    acceptEdit(INF_GENRE,        edGenre->text());
+    acceptEdit(INF_GENRE,        cbGenre->currentText());
     acceptEdit(INF_AUTHOR,       edAuthor->text());
     acceptEdit(INF_ORGANIZATION, edOrganization->text());
     acceptEdit(INF_COPYRIGHT,    edCopyright->text());

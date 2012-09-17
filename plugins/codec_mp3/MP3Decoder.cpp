@@ -231,6 +231,9 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		if (tracks > 0) info.set(INF_TRACKS, QVariant(tracks));
 		break;
 	    }
+	    case ID3_PropertyMap::ENC_TERMS_OF_USE:
+		// the same as ENC_COMMENT, but without "Description"
+		/* FALLTHROUGH */
 	    case ID3_PropertyMap::ENC_COMMENT:
 	    {
 		QString s = parseId3Frame2String(frame);
@@ -246,6 +249,13 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		if (info.contains(property))
 		    s = info.get(property).toString() + QString(" / ") + s;
 		info.set(property, QVariant(s));
+		break;
+	    }
+	    case ID3_PropertyMap::ENC_GENRE_TYPE:
+	    {
+		QString s = parseId3Frame2String(frame);
+		int id = GenreType::fromID3(s);
+		info.set(property, QVariant(GenreType::name(id, false)));
 		break;
 	    }
 	    case ID3_PropertyMap::ENC_TEXT_SLASH:
@@ -274,16 +284,6 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
     }
     metaData().replace(info);
 
-#if 0
-	    case ID3FID_CONTENTTYPE: { // Content type (Genre)
-		parseId3Frame(frame, INF_GENRE);
-
-		FileInfo info(metaData());
-		QString genre = QVariant(info.get(INF_GENRE)).toString();
-		int id = GenreType::fromID3(genre);
-		info.set(INF_GENRE, GenreType::name(id));
-		metaData().replace(info);
-#endif
     return true;
 }
 

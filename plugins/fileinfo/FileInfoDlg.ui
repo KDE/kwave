@@ -41,7 +41,7 @@
       </sizepolicy>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_file">
       <attribute name="title">
@@ -1276,7 +1276,7 @@
         <widget class="QLineEdit" name="edName"/>
        </item>
        <item row="3" column="2">
-        <widget class="QLineEdit" name="edGenre"/>
+        <widget class="QComboBox" name="cbGenre"/>
        </item>
        <item row="4" column="0" colspan="3">
         <widget class="QFrame" name="Frame3_3">
@@ -2356,7 +2356,7 @@
   <tabstop>edName</tabstop>
   <tabstop>edSubject</tabstop>
   <tabstop>edVersion</tabstop>
-  <tabstop>edGenre</tabstop>
+  <tabstop>cbGenre</tabstop>
   <tabstop>dateEdit</tabstop>
   <tabstop>btSelectDate</tabstop>
   <tabstop>btSelectDateNow</tabstop>

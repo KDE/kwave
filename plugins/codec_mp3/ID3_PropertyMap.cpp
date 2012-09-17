@@ -15,6 +15,10 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
+#include <id3/field.h>
+
 #include "ID3_PropertyMap.h"
 
 //***************************************************************************
@@ -61,7 +65,7 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
     // Internet radio station owner
     insert(INF_COMMISSIONED,  ID3FID_NETRADIOOWNER      , ENC_TEXT);
     // Comments
-    insert(INF_COMMENTS,      ID3FID_COMMENT            , ENC_TEXT); // ### TODO ### COMM
+    insert(INF_COMMENTS,      ID3FID_COMMENT            , ENC_COMMENT);
     // contact info for creator
     insert(INF_CONTACT,       ID3FID_OWNERSHIP          , ENC_TEXT); // ### TODO ### OWNE
     // Official audio source webpage
@@ -119,12 +123,12 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
     //     INF_MPEG_VERSION
     // Title/songname/content description
     insert(INF_NAME,          ID3FID_TITLE              , ENC_TEXT);
-    // Produced notice
-    insert(INF_ORGANIZATION,  ID3FID_PRODUCEDNOTICE     , ENC_TEXT); // ### TODO ### TPRO
     // Composer
     insert(INF_ORGANIZATION,  ID3FID_COMPOSER           , ENC_TEXT_SLASH);
     // Publisher
-    insert(INF_ORGANIZATION,  ID3FID_PUBLISHER          , ENC_TEXT);
+    insert(INF_ORGANIZATION,  ID3FID_PUBLISHER          , ENC_TEXT_SLASH);
+    // Produced notice
+    insert(INF_ORGANIZATION,  ID3FID_PRODUCEDNOTICE     , ENC_TEXT_SLASH);
     //     INF_ORIGINAL
     // Lyricist/Text writer
     insert(INF_PERFORMER,     ID3FID_LYRICIST           , ENC_TEXT_SLASH);
@@ -146,9 +150,9 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
     // Encoded by.
     insert(INF_TECHNICAN,     ID3FID_ENCODEDBY          , ENC_TEXT);
     // Track number/Position in set
-    insert(INF_TRACK,         ID3FID_TRACKNUM           , ENC_TEXT); // ### TODO ### TRCK
+    insert(INF_TRACK,         ID3FID_TRACKNUM           , ENC_TRACK_NUM);
     // Number of Tracks
-    insert(INF_TRACKS,        ID3FID_TRACKNUM           , ENC_TEXT); // ### TODO ### TRCK
+    insert(INF_TRACKS,        ID3FID_TRACKNUM           , ENC_TRACK_NUM);
     //     INF_VBR_QUALITY
     // Interpreted, remixed / modified by
     insert(INF_VERSION,       ID3FID_MIXARTIST          , ENC_TEXT);
@@ -176,7 +180,7 @@ ID3_FrameID Kwave::ID3_PropertyMap::findProperty(
     const FileProperty property) const
 {
     foreach(const Kwave::ID3_PropertyMap::Mapping &m, m_list) {
-	if (m.m_property == property)
+	if ((m.m_property == property) && supported(m.m_frame_id))
 	    return m.m_frame_id;
     }
     return ID3FID_NOFRAME;
@@ -186,7 +190,7 @@ ID3_FrameID Kwave::ID3_PropertyMap::findProperty(
 bool Kwave::ID3_PropertyMap::containsProperty(const FileProperty property) const
 {
     foreach(const Kwave::ID3_PropertyMap::Mapping &m, m_list) {
-	if (m.m_property == property)
+	if ((m.m_property == property) && supported(m.m_frame_id))
 	    return true;
     }
     return false;
@@ -195,6 +199,9 @@ bool Kwave::ID3_PropertyMap::containsProperty(const FileProperty property) const
 //***************************************************************************
 bool Kwave::ID3_PropertyMap::containsID(const ID3_FrameID id) const
 {
+    if (!supported(id))
+	return false;
+
     foreach(const Kwave::ID3_PropertyMap::Mapping &m, m_list) {
 	if (m.m_frame_id == id)
 	    return true;
@@ -242,6 +249,13 @@ QList<FileProperty> Kwave::ID3_PropertyMap::properties() const
 	    list.append(m.m_property);
     }
     return list;
+}
+
+//***************************************************************************
+bool Kwave::ID3_PropertyMap::supported(const ID3_FrameID id) const
+{
+    ID3_FrameInfo frameInfo;
+    return (frameInfo.NumFields(id) != 0);
 }
 
 //***************************************************************************

@@ -36,11 +36,13 @@ namespace Kwave {
 	/** encoding of the ID3 tag */
 	typedef enum {
 	    ENC_NONE = 0,
+	    ENC_COMMENT,        /**< comment frame                     */
 	    ENC_TEXT,           /**< text, appended by ';'             */
 	    ENC_TEXT_SLASH,     /**< text list, seperated by slash '/' */
 	    ENC_TEXT_LIST,      /**< list of zero terminated strings   */
 	    ENC_TEXT_URL,       /**< URL                               */
-	    ENC_TEXT_PARTINSET  /**< part in set (x/y)                 */
+	    ENC_TEXT_PARTINSET, /**< part in set (x/y)                 */
+	    ENC_TRACK_NUM       /**< track/tracks (x/y)                */
 	} Encoding;
 
 	/** Default constructor, with initializing */
@@ -100,6 +102,10 @@ namespace Kwave {
 
     private:
 
+	/** returns true if a frame is supported by id3lib */
+	bool supported(const ID3_FrameID id) const;
+
+    private:
 	/** container for one mapping */
 	typedef struct
 	{

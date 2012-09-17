@@ -23,6 +23,7 @@
 
 #include <QByteArray>
 #include <QList>
+#include <QMap>
 
 #include <klocale.h>
 #include <kmimetype.h>
@@ -75,55 +76,95 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
                                       ID3_Tag &tag)
 {
     const FileInfo info(meta_data);
+    ID3_FrameInfo frameInfo;
 
-    foreach (const FileProperty &property, m_property_map.properties()) {
-	if (!info.contains(property)) continue;
+    const QMap<FileProperty, QVariant> properties(info.properties());
+    QMap<FileProperty, QVariant>::const_iterator it;
+    for (it = properties.begin(); it != properties.end(); ++it) {
+	const FileProperty &property = it.key();
+	const QVariant     &value    = it.value();
 
 	ID3_FrameID id = m_property_map.findProperty(property);
 	if (id == ID3FID_NOFRAME) continue;
 
 	if (info.contains(INF_CD) && (property == INF_CDS))
 	    continue; /* INF_CDS has already been handled by INF_CD */
+	if (info.contains(INF_TRACK) && (property == INF_TRACKS))
+	    continue; /* INF_TRACKS has already been handled by INF_TRACK */
 
 	ID3_Frame *frame = new ID3_Frame;
 	Q_ASSERT(frame);
 	if (!frame) break;
 
-	QVariant value = info.get(property);
-	QString  str   = value.toString();
+	QString str_val = value.toString();
+// 	qDebug("encoding ID3 tag #%02d, property='%s', value='%s'",
+// 	    static_cast<int>(id),
+// 	    info.name(property).toLocal8Bit().data(),
+// 	    str_val.toLocal8Bit().data()
+// 	);
 
 	// encode in UCS16
 	frame->SetID(id);
 	ID3_Field *field = frame->GetField(ID3FN_TEXT);
-	Q_ASSERT(field);
-	if (field) {
-	    ID3_PropertyMap::Encoding encoding = m_property_map.encoding(id);
-	    switch (encoding) {
-		case ID3_PropertyMap::ENC_TEXT_PARTINSET:
-		{
-		    field->SetEncoding(ID3TE_UTF16);
+	if (!field) {
+	    qWarning("no field, frame id=%d", static_cast<int>(id));
+	    delete frame;
+	    continue;
+	}
 
-		    // if "number of CDs is available: append with "/"
-		    int cds = info.get(INF_CDS).toInt();
-		    if (cds > 0)
-			str += QString("/%1").arg(cds);
+	ID3_PropertyMap::Encoding encoding = m_property_map.encoding(id);
+	switch (encoding) {
+	    case ID3_PropertyMap::ENC_TEXT_PARTINSET:
+	    {
+		field->SetEncoding(ID3TE_UTF16);
 
-		    field->Set(static_cast<const unicode_t *>(str.utf16()));
-		    break;
-		}
-		case ID3_PropertyMap::ENC_TEXT_SLASH: /* FALLTHROUGH */
-		case ID3_PropertyMap::ENC_TEXT_URL:   /* FALLTHROUGH */
-		case ID3_PropertyMap::ENC_TEXT:
-		    field->SetEncoding(ID3TE_UTF16);
-		    field->Set(static_cast<const unicode_t *>(str.utf16()));
-		    break;
-		case ID3_PropertyMap::ENC_NONE: /* FALLTHROUGH */
-		default:
-		    // ignore
-		    delete frame;
-		    frame = 0;
-		    break;
+		// if "number of CDs is available: append with "/"
+		int cds = info.get(INF_CDS).toInt();
+		if (cds > 0)
+		    str_val += QString("/%1").arg(cds);
+
+		field->Set(static_cast<const unicode_t *>(str_val.utf16()));
+		break;
 	    }
+	    case ID3_PropertyMap::ENC_TRACK_NUM:
+	    {
+		field->SetEncoding(ID3TE_UTF16);
+
+		// if "number of tracks is available: append with "/"
+		int tracks = info.get(INF_TRACKS).toInt();
+		if (tracks > 0)
+		    str_val += QString("/%1").arg(tracks);
+
+		field->Set(static_cast<const unicode_t *>(str_val.utf16()));
+		break;
+	    }
+	    case ID3_PropertyMap::ENC_COMMENT:
+	    {
+		// detect language at the start "[xxx] "
+		QString lang;
+		if (str_val.startsWith('[') && (str_val.at(4) == ']')) {
+		    lang = str_val.mid(1,3);
+		    str_val  = str_val.mid(4);
+		    frame->GetField(ID3FN_LANGUAGE)->Set(
+			static_cast<const unicode_t *>(lang.utf16()));
+		}
+		/* frame->GetField(ID3FN_DESCRIPTION)->Set(""); */
+		field->SetEncoding(ID3TE_UTF16);
+		field->Set(static_cast<const unicode_t *>(str_val.utf16()));
+		break;
+	    }
+	    case ID3_PropertyMap::ENC_TEXT_SLASH: /* FALLTHROUGH */
+	    case ID3_PropertyMap::ENC_TEXT_URL:   /* FALLTHROUGH */
+	    case ID3_PropertyMap::ENC_TEXT:
+		field->SetEncoding(ID3TE_UTF16);
+		field->Set(static_cast<const unicode_t *>(str_val.utf16()));
+		break;
+	    case ID3_PropertyMap::ENC_NONE: /* FALLTHROUGH */
+	    default:
+		// ignore
+		delete frame;
+		frame = 0;
+		break;
 	}
 
 	if (frame) tag.AttachFrame(frame);

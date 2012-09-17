@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <string.h>
 #include <id3/globals.h>
 #include <id3/tag.h>
 #include <id3/misc_support.h>
@@ -214,7 +215,48 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		if (cds > 0) info.set(INF_CDS, QVariant(cds));
 		break;
 	    }
-	    case ID3_PropertyMap::ENC_TEXT_SLASH: /* FALLTHROUGH */
+	    case ID3_PropertyMap::ENC_TRACK_NUM:
+	    {
+		QString s = parseId3Frame2String(frame);
+		int track  = 0;
+		int tracks = 0;
+		if (s.contains('/')) {
+		    int i = s.indexOf('/');
+		    track = s.left(i).toInt();
+		    tracks = s.mid(i + 1).toInt();
+		} else {
+		    track = s.toInt();
+		}
+		if (track  > 0) info.set(INF_TRACK , QVariant(track));
+		if (tracks > 0) info.set(INF_TRACKS, QVariant(tracks));
+		break;
+	    }
+	    case ID3_PropertyMap::ENC_COMMENT:
+	    {
+		QString s = parseId3Frame2String(frame);
+
+		// optionally prepend language
+		char *lang = ID3_GetString(frame, ID3FN_LANGUAGE);
+		if (lang) {
+		    s = "[" + QString(lang) + "] " + s;
+		    ID3_FreeString(lang);
+		}
+
+		// append to already existing tag, seperated by a slash
+		if (info.contains(property))
+		    s = info.get(property).toString() + QString(" / ") + s;
+		info.set(property, QVariant(s));
+		break;
+	    }
+	    case ID3_PropertyMap::ENC_TEXT_SLASH:
+	    {
+		// append to already existing tag, seperated by a slash
+		QString s = parseId3Frame2String(frame);
+		if (info.contains(property))
+		    s = info.get(property).toString() + QString(" / ") + s;
+		info.set(property, QVariant(s));
+		break;
+	    }
 	    case ID3_PropertyMap::ENC_TEXT_URL:   /* FALLTHROUGH */
 	    case ID3_PropertyMap::ENC_TEXT:
 		info.set(property, QVariant(parseId3Frame2String(frame)));
@@ -250,9 +292,9 @@ QString Kwave::MP3Decoder::parseId3Frame2String(const ID3_Frame *frame)
 {
     QString s;
     char *text = ID3_GetString(frame, ID3FN_TEXT);
-    if (text) {
+    if (text && strlen(text)) {
 	s = QString(text);
-	delete [] text;
+	ID3_FreeString(text);
     }
     return s;
 }

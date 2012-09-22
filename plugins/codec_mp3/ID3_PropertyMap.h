@@ -38,6 +38,7 @@ namespace Kwave {
 	    ENC_NONE = 0,
 	    ENC_COMMENT,        /**< comment frame                     */
 	    ENC_GENRE_TYPE,     /**< genre type, numeric or text       */
+	    ENC_LENGTH,         /**< string with length in ms          */
 	    ENC_TERMS_OF_USE,   /**< terms of use                      */
 	    ENC_TEXT,           /**< text, appended by ';'             */
 	    ENC_TEXT_SLASH,     /**< text list, seperated by slash '/' */

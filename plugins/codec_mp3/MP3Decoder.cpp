@@ -17,7 +17,10 @@
 
 #include "config.h"
 
+#include <math.h>
+#include <stdlib.h>
 #include <string.h>
+
 #include <id3/globals.h>
 #include <id3/tag.h>
 #include <id3/misc_support.h>
@@ -48,6 +51,7 @@ Kwave::MP3Decoder::MP3Decoder()
 Kwave::MP3Decoder::~MP3Decoder()
 {
     if (m_source) close();
+    if (m_buffer) free(m_buffer);
 }
 
 //***************************************************************************
@@ -258,6 +262,20 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		info.set(property, QVariant(GenreType::name(id, false)));
 		break;
 	    }
+	    case ID3_PropertyMap::ENC_LENGTH:
+	    {
+		// length in ms -> convert this to samples
+		QString       s    = parseId3Frame2String(frame);
+		const double  rate = info.rate();
+		bool          ok   = false;
+		const double  ms   = s.toDouble(&ok) + 0.5;
+		if (ok && (rate > 0)) {
+		    sample_index_t length = static_cast<sample_index_t>(
+			(rate * ms) / 1000.0);
+		    info.setLength(length);
+		}
+		break;
+	    }
 	    case ID3_PropertyMap::ENC_TEXT_SLASH:
 	    {
 		// append to already existing tag, seperated by a slash
@@ -354,7 +372,7 @@ bool Kwave::MP3Decoder::open(QWidget *widget, QIODevice &src)
     metaData().replace(info);
 
     // allocate a transfer buffer with 128 kB
-    if (m_buffer) delete m_buffer;
+    if (m_buffer) free(m_buffer);
     m_buffer_size = (128 << 10);
 
     m_buffer = static_cast<unsigned char *>(malloc(m_buffer_size));

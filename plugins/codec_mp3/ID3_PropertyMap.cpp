@@ -113,7 +113,7 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
     //     INF_KEYWORDS
     //     INF_LABELS
     // Length
-    insert(INF_LENGTH,	      ID3FID_SONGLEN            , ENC_TEXT); // ### TODO ### TLEN
+    insert(INF_LENGTH,	      ID3FID_SONGLEN            , ENC_LENGTH);
     // File owner/licensee
     insert(INF_LICENSE,       ID3FID_FILEOWNER          , ENC_TEXT);
     // Medium type
@@ -137,7 +137,7 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
     // Lead performer(s)/Soloist(s).
     insert(INF_PERFORMER,     ID3FID_LEADARTIST         , ENC_TEXT_SLASH);
     // Musician credits list
-    insert(INF_PERFORMER,     ID3FID_MUSICIANCREDITLIST , ENC_TEXT); // ### TODO ### TMCL
+    insert(INF_PERFORMER,     ID3FID_MUSICIANCREDITLIST , ENC_TEXT_SLASH);
     // Conductor/performer refinement
     insert(INF_PERFORMER,     ID3FID_CONDUCTOR          , ENC_TEXT);
     // Private frame
@@ -159,7 +159,7 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
     // Interpreted, remixed / modified by
     insert(INF_VERSION,       ID3FID_MIXARTIST          , ENC_TEXT);
     // Set subtitle
-    insert(INF_VERSION,       ID3FID_SETSUBTITLE        , ENC_TEXT); // ### TODO ### TSST
+    insert(INF_VERSION,       ID3FID_SETSUBTITLE        , ENC_TEXT);
     //                        ID3FID_PRIVATE => user defined data
 
     insert(INF_UNKNOWN,       ID3FID_NOFRAME            , ENC_NONE);

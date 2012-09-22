@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <math.h>
+
 #include <id3/globals.h>
 #include <id3/tag.h>
 #include <id3/misc_support.h>
@@ -164,6 +166,25 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 
 		field->SetEncoding(ID3TE_UTF16);
 		field->Set(static_cast<const unicode_t *>(str_val.utf16()));
+		break;
+	    }
+	    case ID3_PropertyMap::ENC_LENGTH:
+	    {
+		// length in milliseconds
+		const double         rate    = info.rate();
+		const sample_index_t samples = info.length();
+		if ((rate > 0) && samples) {
+		    const sample_index_t ms = static_cast<sample_index_t>(
+			(static_cast<double>(samples) * 1E3) / rate);
+
+		    str_val = QString::number(ms);
+
+		    field->SetEncoding(ID3TE_UTF16);
+		    field->Set(static_cast<const unicode_t *>(str_val.utf16()));
+		} else {
+		    delete frame;
+		    frame = 0;
+		}
 		break;
 	    }
 	    case ID3_PropertyMap::ENC_TEXT_SLASH: /* FALLTHROUGH */

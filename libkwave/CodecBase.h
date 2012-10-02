@@ -55,6 +55,9 @@ public:
     /** Returns a list of supported mime types */
     virtual const QList<CodecBase::MimeType> mimeTypes();
 
+    /** Returns a list of supported compression types */
+    virtual const QList<int> compressionTypes();
+
     /**
      * Adds a new mime type to the internal list of supported mime
      * types. First it tries to find the mime type in the system,
@@ -71,6 +74,13 @@ public:
                              const QString &patterns);
 
     /**
+     * Adds a new compression type to the internal list of supported
+     * compression types.
+     * @param compression the compression type
+     */
+    virtual void addCompression(int compression);
+
+    /**
      * Tries to find the name of a mime type by a URL. If not found, it
      * returns the default mime type, never an empty string.
      * @param url a KUrl, only the filename's extension will be inspected
@@ -82,6 +92,9 @@ private:
 
     /** list of supported mime types */
     QList<MimeType> m_supported_mime_types;
+
+    /** list of supported compression types */
+    QList<int> m_supported_compression_types;
 
 };
 

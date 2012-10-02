@@ -123,6 +123,9 @@ public:
      */
     static QString whatContains(const KUrl &url);
 
+    /** Returns a list of supported mime types for encoding */
+    static QStringList encodingMimeTypes();
+
 private:
     /** list of all encoders */
     static QList<Encoder *> m_encoders;

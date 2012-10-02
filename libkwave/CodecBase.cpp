@@ -29,7 +29,7 @@
 
 /***************************************************************************/
 CodecBase::CodecBase()
-    :m_supported_mime_types()
+    :m_supported_mime_types(), m_supported_compression_types()
 {
 }
 
@@ -37,6 +37,7 @@ CodecBase::CodecBase()
 CodecBase::~CodecBase()
 {
     m_supported_mime_types.clear();
+    m_supported_compression_types.clear();
 }
 
 /***************************************************************************/
@@ -75,6 +76,15 @@ void CodecBase::addMimeType(const QString &name, const QString &description,
 }
 
 /***************************************************************************/
+void CodecBase::addCompression(int compression)
+{
+    if (m_supported_compression_types.contains(compression)) return;
+
+    m_supported_compression_types.append(compression);
+    qSort(m_supported_compression_types);
+}
+
+/***************************************************************************/
 bool CodecBase::supports(const KMimeType &mimetype)
 {
     return supports(mimetype.name());
@@ -93,6 +103,12 @@ bool CodecBase::supports(const QString &mimetype_name)
 const QList<CodecBase::MimeType> CodecBase::mimeTypes()
 {
     return m_supported_mime_types;
+}
+
+/***************************************************************************/
+const QList<int> CodecBase::compressionTypes()
+{
+    return m_supported_compression_types;
 }
 
 /***************************************************************************/

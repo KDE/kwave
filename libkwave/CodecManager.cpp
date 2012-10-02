@@ -23,6 +23,7 @@
 #include "libkwave/CodecManager.h"
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
+#include <plugins/codec_wav/WavFileFormat.h>
 
 //***************************************************************************
 /* static initializers */
@@ -86,6 +87,21 @@ QString CodecManager::whatContains(const KUrl &url)
 	if (mime_type != KMimeType::defaultMimeType()) return mime_type;
     }
     return KMimeType::findByUrl(url)->name();
+}
+
+//***************************************************************************
+QStringList CodecManager::encodingMimeTypes()
+{
+    QStringList list;
+    foreach (Encoder *e, m_encoders) {
+	if (!e) continue;
+	foreach (const CodecBase::MimeType &mime_type, e->mimeTypes()) {
+	    const QString &name = mime_type.name;
+	    if (!list.contains(name))
+		list.append(name);
+	}
+    }
+    return list;
 }
 
 //***************************************************************************

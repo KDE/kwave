@@ -152,8 +152,8 @@ void FlacEncoder::encodeMetaData(const FileInfo &info,
     // encode all Vorbis comments
     VorbisCommentMap::ConstIterator it;
     VorbisCommentContainer vc;
-    for (it = m_vorbis_comment_map.begin();
-         it != m_vorbis_comment_map.end();
+    for (it = m_vorbis_comment_map.constBegin();
+         it != m_vorbis_comment_map.constEnd();
          ++it)
     {
 	if (!info.contains(it.value())) continue; // not present -> skip

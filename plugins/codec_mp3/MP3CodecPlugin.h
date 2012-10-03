@@ -19,6 +19,7 @@
 #define _MP3_CODEC_PLUGIN_H_
 
 #include "config.h"
+#include "libkwave/CompressionType.h"
 #include "libkwave/KwavePlugin.h"
 
 class Decoder;
@@ -67,7 +68,7 @@ namespace Kwave {
 
 }
 
-#define LOAD_MIME_TYPES {                                                    \
+#define REGISTER_MIME_TYPES {                                                \
     /* included in KDE: */                                                   \
     addMimeType("audio/x-mpga",   i18n("MPEG layer I audio"),                \
                 "*.mpga *.mpg *.mp1");                                       \
@@ -78,6 +79,12 @@ namespace Kwave {
     addMimeType("audio/mpeg",     i18n("MPEG audio"), "*.mpga *.mpg *.mp1"); \
     addMimeType("audio/mpeg",     i18n("MPEG layer II audio"), "*.mp2");     \
     addMimeType("audio/mpeg",     i18n("MPEG layer III audio"), "*.mp3");    \
+}
+
+#define REGISTER_COMPRESSION_TYPES {     \
+    addCompression(CompressionType::MPEG_LAYER_I);   \
+    addCompression(CompressionType::MPEG_LAYER_II);  \
+    addCompression(CompressionType::MPEG_LAYER_III); \
 }
 
 #endif /* _MP3_CODEC_PLUGIN_H_ */

@@ -44,7 +44,8 @@ Kwave::MP3Decoder::MP3Decoder()
      m_buffer_size(0), m_prepended_bytes(0), m_appended_bytes(0),
      m_failures(0), m_parent_widget(0)
 {
-    LOAD_MIME_TYPES;
+    REGISTER_MIME_TYPES;
+    REGISTER_COMPRESSION_TYPES;
 }
 
 //***************************************************************************
@@ -270,6 +271,7 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		bool          ok   = false;
 		const double  ms   = s.toDouble(&ok) + 0.5;
 		if (ok && (rate > 0)) {
+		    // NOTE: this overwrites the length found in the header!
 		    sample_index_t length = static_cast<sample_index_t>(
 			(rate * ms) / 1000.0);
 		    info.setLength(length);

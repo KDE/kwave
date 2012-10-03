@@ -19,6 +19,7 @@
 #define _WAV_FILE_FORMAT_H_
 
 #include <sys/types.h>
+#include <QList>
 
 typedef enum /* Here is the list of known format tags */
 {
@@ -188,15 +189,23 @@ typedef struct {
     u_int32_t samples;
 } fact_chunk_t;
 
+/**
+ * Returns a list with all compression types supported by libaudiofile
+ */
+QList<int> audiofileCompressionTypes();
 
-#define LOAD_MIME_TYPES { \
+#define REGISTER_MIME_TYPES { \
     /* included in KDE: */ \
-addMimeType("audio/x-wav",    i18n("WAV audio"), "*.wav"); \
+    addMimeType("audio/x-wav",    i18n("WAV audio"), "*.wav"); \
     /* defined in RFC 2361 */ \
-addMimeType("audio/vnd.wave", i18n("WAV audio"), "*.wav"); \
+    addMimeType("audio/vnd.wave", i18n("WAV audio"), "*.wav"); \
     /* defined nowhere, but someone has used that */ \
-addMimeType("audio/wav", i18n("WAV audio"), "*.wav"); \
+    addMimeType("audio/wav", i18n("WAV audio"), "*.wav"); \
 }
+
+#define REGISTER_COMPRESSION_TYPES \
+    foreach (int comp, audiofileCompressionTypes()) \
+	addCompression(comp)
 
 #endif /* _WAV_FILE_FORMAT_H_ */
 //***************************************************************************

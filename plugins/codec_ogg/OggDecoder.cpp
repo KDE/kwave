@@ -42,7 +42,8 @@
 OggDecoder::OggDecoder()
     :Decoder(), m_source(0)
 {
-    LOAD_MIME_TYPES;
+    REGISTER_MIME_TYPES;
+    REGISTER_COMPRESSION_TYPES;
 }
 
 //***************************************************************************

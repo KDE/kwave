@@ -18,9 +18,7 @@
 #include "config.h"
 #include <stdlib.h>
 
-extern "C" {
 #include <audiofile.h>
-}
 
 #include <QApplication>
 #include <QList>
@@ -67,7 +65,8 @@ WavDecoder::WavDecoder()
     :Decoder(), m_source(0), m_src_adapter(0), m_known_chunks(),
      m_property_map()
 {
-    LOAD_MIME_TYPES;
+    REGISTER_MIME_TYPES;
+    REGISTER_COMPRESSION_TYPES;
 
     // native WAVE chunk names
     m_known_chunks.append("cue "); /* Markers */

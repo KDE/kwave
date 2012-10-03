@@ -55,9 +55,13 @@ private:
     Encoder *m_encoder;
 };
 
-#define LOAD_MIME_TYPES { \
+#define REGISTER_MIME_TYPES { \
     /* included in KDE: */ \
     addMimeType("audio/x-flac", i18n("FLAC audio"), "*.flac; *.FLAC"); \
+}
+
+#define REGISTER_COMPRESSION_TYPES { \
+    addCompression(CompressionType::FLAC);   \
 }
 
 #define DEFAULT_MIME_TYPE "audio/x-flac"

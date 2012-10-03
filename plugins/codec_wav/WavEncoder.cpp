@@ -52,7 +52,8 @@
 WavEncoder::WavEncoder()
     :Encoder(), m_property_map()
 {
-    LOAD_MIME_TYPES;
+    REGISTER_MIME_TYPES;
+    REGISTER_COMPRESSION_TYPES;
 }
 
 /***************************************************************************/

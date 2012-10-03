@@ -32,6 +32,7 @@
 
 #include <vorbis/vorbisenc.h>
 
+#include "libkwave/CompressionType.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MetaDataList.h"
@@ -74,7 +75,8 @@ static const struct {
 OggEncoder::OggEncoder()
     :Encoder()
 {
-    LOAD_MIME_TYPES;
+    REGISTER_MIME_TYPES;
+    REGISTER_COMPRESSION_TYPES;
 }
 
 /***************************************************************************/

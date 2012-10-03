@@ -54,7 +54,7 @@ private:
     Encoder *m_encoder;
 };
 
-#define LOAD_MIME_TYPES { \
+#define REGISTER_MIME_TYPES { \
     /* original from Ogg Vorbis documentation: */ \
     addMimeType("audio/x-ogg",       i18n("Ogg Vorbis audio"), "*.ogg; *.OGG"); \
     /* included in KDE: */ \
@@ -63,6 +63,10 @@ private:
     addMimeType("application/ogg", i18n("Ogg Vorbis audio"), "*.ogg; *.OGG"); \
     /* fond in KDE 4: */ \
     addMimeType("audio/x-vorbis+ogg", i18n("Ogg Vorbis audio"), "*.ogg; *.OGG"); \
+}
+
+#define REGISTER_COMPRESSION_TYPES { \
+    addCompression(CompressionType::OGG_VORBIS);   \
 }
 
 #define DEFAULT_MIME_TYPE "application/ogg"

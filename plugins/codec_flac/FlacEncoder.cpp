@@ -32,6 +32,7 @@
 
 #include <vorbis/vorbisenc.h>
 
+#include "libkwave/CompressionType.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/MessageBox.h"
@@ -46,7 +47,8 @@
 FlacEncoder::FlacEncoder()
     :Encoder(), FLAC::Encoder::Stream(), m_vorbis_comment_map(), m_dst(0)
 {
-    LOAD_MIME_TYPES;
+    REGISTER_MIME_TYPES;
+    REGISTER_COMPRESSION_TYPES;
 }
 
 /***************************************************************************/

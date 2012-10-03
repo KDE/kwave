@@ -25,6 +25,7 @@ SET(plugin_codec_wav_LIB_SRCS
     WavCodecPlugin.cpp
     WavDecoder.cpp
     WavEncoder.cpp
+    WavFileFormat.cpp
     WavFormatMap.cpp
     WavPropertyMap.cpp
 )

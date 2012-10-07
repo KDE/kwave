@@ -96,8 +96,8 @@ QStringList CodecManager::encodingMimeTypes()
     foreach (Encoder *e, m_encoders) {
 	if (!e) continue;
 	foreach (const CodecBase::MimeType &mime_type, e->mimeTypes()) {
-	    const QString &name = mime_type.name;
-	    if (!list.contains(name))
+	    QString name = mime_type.name;
+	    if (list.isEmpty() || !list.contains(name))
 		list.append(name);
 	}
     }

@@ -52,6 +52,9 @@ public:
     /** Returns true if the given mime type is supported */
     virtual bool supports(const QString &mimetype_name);
 
+    /** Returns a list of supported file extensions */
+    virtual QStringList extensions(const QString &mimetype_name) const;
+
     /** Returns a list of supported mime types */
     virtual const QList<CodecBase::MimeType> mimeTypes();
 

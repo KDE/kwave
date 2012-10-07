@@ -100,6 +100,17 @@ bool CodecBase::supports(const QString &mimetype_name)
 }
 
 /***************************************************************************/
+QStringList CodecBase::extensions(const QString &mimetype_name) const
+{
+    foreach (const CodecBase::MimeType &mime, m_supported_mime_types) {
+	if (mime.name == mimetype_name) {
+	    return mime.patterns;
+	}
+    }
+    return QStringList();
+}
+
+/***************************************************************************/
 const QList<CodecBase::MimeType> CodecBase::mimeTypes()
 {
     return m_supported_mime_types;

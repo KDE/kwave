@@ -50,17 +50,17 @@ KwaveFileDialog::KwaveFileDialog(const QString &startDir,
 	loadConfig(section);
     }
 
-    // apply the last url if found one
-    if (m_last_url.length()) setUrl(KUrl(m_last_url));
-
     // if a filename was passed, try to re-use it
-    if (last_url.length()) setSelection(last_url);
+    if (m_last_url.length()) {
+	setUrl(KUrl(KUrl(m_last_url).path()));
+	setSelection(KUrl(m_last_url).fileName());
+    }
 
     // put the last extension to the top of the list
     // and thus make it selected
     if (m_last_ext.length() && filter.length()) {
 	QStringList filter_list = filter.split("\n");
-	QString best = 0;
+	QString best;
 	foreach (QString f, filter_list) {
 	    if (f.contains("|")) f = f.left(f.indexOf("|"));
 	    if (!f.length()) continue;
@@ -70,7 +70,7 @@ KwaveFileDialog::KwaveFileDialog(const QString &startDir,
 		    best = f;
 	    }
 	}
-	if (!best.isNull()) {
+	if (best.length()) {
 	    filter_list.removeAll(best);
 	    filter_list.prepend(best);
 	    QString new_filter = filter_list.join("\n");
@@ -88,8 +88,21 @@ void KwaveFileDialog::loadConfig(const QString &section)
     if (!section.length()) return;
     const KConfigGroup cfg = KGlobal::config()->group(section);
     m_config_group = section;
-    m_last_url = cfg.readEntry("last_url", m_last_url);
-    m_last_ext = cfg.readEntry("last_ext", m_last_ext);
+    if (m_last_url.length()) {
+	QString last_path = cfg.readEntry("last_url", m_last_url);
+	if (last_path.length()) {
+	    // take last path, but user defined file name
+	    KUrl    url  = KUrl(last_path);
+	    QFile f(m_last_url);
+	    QString file = f.fileName();
+	    url.setFileName(file);
+	    m_last_url = url.prettyUrl();
+	}
+    } else {
+	m_last_url = cfg.readEntry("last_url", m_last_url);
+    }
+    if (!m_last_ext.length())
+	m_last_ext = cfg.readEntry("last_ext", m_last_ext);
 }
 
 //***************************************************************************

@@ -54,6 +54,7 @@
 #include "libkwave/ApplicationContext.h"
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
+#include "libkwave/Encoder.h"
 #include "libkwave/KwavePlugin.h" // for some helper functions
 #include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
@@ -935,8 +936,32 @@ int TopWidget::saveFileAs(bool selection)
 
     KUrl current_url;
     current_url = signalName();
-    KwaveFileDialog dlg("kfiledialog:///kwave_save_as", CodecManager::encodingFilter(),
-        this, true, current_url.prettyUrl(), "*.wav");
+
+    QString what  = CodecManager::whatContains(current_url);
+    Encoder *encoder = CodecManager::encoder(what);
+    QString extension; // = "*.wav";
+    if (!encoder) {
+	// no extension selected yet, use mime type from file info
+	QString mime_type =
+	    FileInfo(signal_manager->metaData()).get(INF_MIMETYPE).toString();
+	encoder = CodecManager::encoder(mime_type);
+	if (encoder) {
+	    QStringList extensions = encoder->extensions(mime_type);
+	    if (!extensions.isEmpty()) {
+		QString ext = extensions.first().split(" ").first();
+		if (ext.length()) {
+		    extension = ext;
+		    QString filename = current_url.fileName();
+		    filename += extension.mid(1); // remove the "*"
+		    current_url.setFileName(filename);
+		}
+	    }
+	}
+    }
+
+    QString filter = CodecManager::encodingFilter();
+    KwaveFileDialog dlg("kfiledialog:///kwave_save_as",
+        filter, this, true, current_url.prettyUrl(), extension);
     dlg.setOperationMode(KFileDialog::Saving);
     dlg.setCaption(i18n("Save As"));
     if (dlg.exec() != QDialog::Accepted) return -1;
@@ -973,8 +998,7 @@ int TopWidget::saveFileAs(bool selection)
     QString previous_mimetype_name =
 	FileInfo(signal_manager->metaData()).get(INF_MIMETYPE).toString();
 
-    QString new_mimetype_name;
-    new_mimetype_name = CodecManager::whatContains(url);
+    QString new_mimetype_name = CodecManager::whatContains(url);
 
     if (new_mimetype_name != previous_mimetype_name) {
 	// saving to a different mime type

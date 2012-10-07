@@ -10,6 +10,8 @@
    ignore id3lib crc check result for MPEG Layer II files
  * bugfix: Gentoo ebuild lacked required svg use flag for media-gfx/imagemagick
    and media-gfx/graphicsmagick
+ * bugfix: File/SaveAs now uses last recently used directory and extension
+   plus the user defined file name
 
 0.8.8  [2012-05-20]
 

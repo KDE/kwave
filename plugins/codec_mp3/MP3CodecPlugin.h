@@ -69,16 +69,17 @@ namespace Kwave {
 }
 
 #define REGISTER_MIME_TYPES {                                                \
-    /* included in KDE: */                                                   \
-    addMimeType("audio/x-mpga",   i18n("MPEG layer I audio"),                \
-                "*.mpga *.mpg *.mp1");                                       \
-    addMimeType("audio/x-mp2",    i18n("MPEG layer II audio"), "*.mp2");     \
     addMimeType("audio/x-mp3",    i18n("MPEG layer III audio"), "*.mp3");    \
                                                                              \
     /* like defined in RFC3003 */                                            \
     addMimeType("audio/mpeg",     i18n("MPEG audio"), "*.mpga *.mpg *.mp1"); \
     addMimeType("audio/mpeg",     i18n("MPEG layer II audio"), "*.mp2");     \
     addMimeType("audio/mpeg",     i18n("MPEG layer III audio"), "*.mp3");    \
+                                                                             \
+    /* included in KDE: */                                                   \
+    addMimeType("audio/x-mpga",   i18n("MPEG layer I audio"),                \
+                "*.mpga *.mpg *.mp1");                                       \
+    addMimeType("audio/x-mp2",    i18n("MPEG layer II audio"), "*.mp2");     \
 }
 
 #define REGISTER_COMPRESSION_TYPES {     \

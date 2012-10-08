@@ -55,6 +55,18 @@ private slots:
     /** updates the verbose description of the number of tracks */
     void tracksChanged(int tracks);
 
+    /**
+     * update the combo box with the list of available compressions,
+     * according to the current mime type
+     */
+    void updateAvailableCompressions();
+
+    /** called when the compression mode has changed */
+    void compressionChanged();
+
+    /** called when the MPEG layer combo box has changed */
+    void mpegLayerChanged();
+
     /** auto-generate the list of keywords */
     void autoGenerateKeywords();
 

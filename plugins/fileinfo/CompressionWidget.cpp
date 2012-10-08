@@ -57,6 +57,9 @@ CompressionWidget::CompressionWidget(QWidget *parent)
             this, SLOT(lowestChanged(int)));
     connect(abrHighestBitrate, SIGNAL(valueChanged(int)),
             this, SLOT(highestChanged(int)));
+
+    enableABR(false, false, false);
+    enableVBR(false);
 }
 
 //***************************************************************************
@@ -105,14 +108,13 @@ void CompressionWidget::enableABR(bool enable, bool lowest, bool highest)
     rbABR->setEnabled(enable);
     if (!enable) rbABR->setChecked(false);
 
-    if (!rbABR->isChecked() || !enable) {
-	lblCompressionNominalBitrate->setEnabled(false);
-	abrBitrate->setEnabled(false);
-	abrHighestBitrate->setEnabled(false);
-	abrLowestBitrate->setEnabled(false);
-	chkHighestBitrate->setEnabled(false);
-	chkLowestBitrate->setEnabled(false);
-    }
+    const bool on = (rbABR->isChecked() && enable);
+    lblCompressionNominalBitrate->setEnabled(on);
+    abrBitrate->setEnabled(on);
+    abrHighestBitrate->setEnabled(on);
+    abrLowestBitrate->setEnabled(on);
+    chkHighestBitrate->setEnabled(on);
+    chkLowestBitrate->setEnabled(on);
 
     chkLowestBitrate->setChecked(lowest);
     chkHighestBitrate->setChecked(highest);
@@ -124,11 +126,11 @@ void CompressionWidget::enableVBR(bool enable)
     rbVBR->setEnabled(enable);
     if (!enable) rbVBR->setChecked(false);
 
-    if (!rbVBR->isChecked() || !enable) {
-	lblCompressionBaseQuality->setEnabled(false);
-	sbBaseQuality->setEnabled(false);
-	slBaseQuality->setEnabled(false);
-    }
+    const bool on = (rbVBR->isChecked() && enable);
+    lblCompressionBaseQuality->setEnabled(on);
+    sbBaseQuality->setEnabled(on);
+    slBaseQuality->setEnabled(on);
+
 }
 
 //***************************************************************************

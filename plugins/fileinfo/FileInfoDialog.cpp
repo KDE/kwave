@@ -19,13 +19,13 @@
 
 #include <QtGlobal>
 #include <QCheckBox>
+#include <QComboBox>
 #include <QDateTime>
 #include <QDialog>
 #include <QFileInfo>
 #include <QLabel>
 #include <QLineEdit>
 #include <QListWidget>
-#include <QComboBox>
 #include <QPushButton>
 #include <QRadioButton>
 #include <QSlider>
@@ -46,7 +46,9 @@
 #include <knuminput.h>
 #include <ktoolinvocation.h>
 
+#include "libkwave/CodecManager.h"
 #include "libkwave/CompressionType.h"
+#include "libkwave/Encoder.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/GenreType.h"
 #include "libkwave/SampleFormat.h"
@@ -79,6 +81,10 @@ FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
 
     qDebug("mimetype = %s",mimetype.toLocal8Bit().data());
 
+    connect(cbCompression, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(compressionChanged()));
+    connect(cbMpegLayer, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(mpegLayerChanged()));
     connect(btHelp, SIGNAL(clicked()),
             this,   SLOT(invokeHelp()));
 
@@ -231,31 +237,37 @@ void FileInfoDialog::setupFileInfoTab()
     SampleFormat format;
     format.fromInt(QVariant(m_info.get(INF_SAMPLE_FORMAT)).toInt());
     cbSampleFormat->setCurrentIndex(sf.findFromData(format));
-    if (m_is_mpeg || m_is_ogg) cbSampleFormat->setEnabled(false);
-
 }
 
 //***************************************************************************
 void FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
 {
-    /* compression */
-    CompressionType compressions;
-    initInfo(lblCompression, cbCompression, INF_COMPRESSION);
-    cbCompression->insertItems(-1, compressions.allNames());
-    int compression = QVariant(m_info.get(INF_COMPRESSION)).toInt();
-    cbCompression->setCurrentIndex(compressions.findFromData(compression));
-    if (m_is_mpeg || m_is_ogg) cbCompression->setEnabled(false);
 
+    /*
+     * mime type @ file info -> available compressions
+     * compression @ file info / available compressions -> selected compression
+     * selected compression -> mime type (edit field)
+     * mime type -> mpeg/ogg/flac mode
+     * mgeg layer -> compression
+     */
+
+    /* compression */
+    updateAvailableCompressions();
+    initInfo(lblCompression, cbCompression, INF_COMPRESSION);
+
+    compressionWidget->init(m_info);
+    compressionWidget->setMode(m_info.contains(INF_VBR_QUALITY) ?
+        CompressionWidget::VBR_MODE : CompressionWidget::ABR_MODE);
 
     // enable/disable ABR/VBR controls, depending on mime type
+    bool lower = m_info.contains(INF_BITRATE_LOWER);
+    bool upper = m_info.contains(INF_BITRATE_UPPER);
     if (m_is_mpeg) {
-	// MPEG file -> not supported yet
-	compressionWidget->enableABR(false, false, false);
+	// MPEG file
+	compressionWidget->enableABR(true, lower, upper);
 	compressionWidget->enableVBR(false);
     } else if (m_is_ogg) {
 	// Ogg/Vorbis file
-	bool lower = m_info.contains(INF_BITRATE_LOWER);
-	bool upper = m_info.contains(INF_BITRATE_UPPER);
 	compressionWidget->enableABR(true, lower, upper);
 	compressionWidget->enableVBR(true);
     } else {
@@ -282,9 +294,7 @@ void FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
               cfg.readEntry("default_vbr_quality", -1);
     compressionWidget->setQuality(quality);
 
-    compressionWidget->init(m_info);
-    compressionWidget->setMode(m_info.contains(INF_VBR_QUALITY) ?
-        CompressionWidget::VBR_MODE : CompressionWidget::ABR_MODE);
+    compressionChanged();
 
 //    // this is not visible, not implemented yet...
 //    InfoTab->setCurrentPage(5);
@@ -295,61 +305,29 @@ void FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
 }
 
 //***************************************************************************
-//void FileInfoDialog::sampleRateChanged(int)
-//{
-//    int rate = (int)m_info.rate();
-//    switch (rate) {
-//	 8000:
-//	11025:
-//	22050:
-//	32000:
-//	44100:
-//    }
-//}
-
-//***************************************************************************
 void FileInfoDialog::setupMpegTab()
 {
     // the whole tab is only enabled in mpeg mode
-    if (!m_is_mpeg) {
-	InfoTab->setTabEnabled(2, false);
-	return;
-    }
+    InfoTab->setTabEnabled(2, m_is_mpeg);
 
     /* MPEG layer */
     initInfo(lblMpegLayer,   cbMpegLayer,    INF_MPEG_LAYER);
-    int layer = m_is_mpeg ? QVariant(m_info.get(INF_MPEG_LAYER)).toInt() : 0;
-    if (layer <= 0) {
-	cbMpegLayer->setEditable(true);
-	cbMpegLayer->clearEditText();
-	cbMpegLayer->setEnabled(false);
-    } else cbMpegLayer->setCurrentIndex(layer-1);
+    int layer = m_info.get(INF_MPEG_LAYER).toInt();
+    if ((layer < 1) || (layer > 3))
+	layer = 3; // default = layer III
+    cbMpegLayer->setCurrentIndex(layer - 1);
 
     /* MPEG version */
     initInfo(lblMpegVersion, cbMpegVersion,  INF_MPEG_VERSION);
-    int ver = m_is_mpeg ? static_cast<int>(
-        (2.0 * QVariant(m_info.get(INF_MPEG_VERSION)).toDouble())) : 0;
-    // 0, 1, 2, 2.5 -> 0, 2, 4, 5
-    if (ver > 3) ver++; // 0, 2, 4, 6
-    ver >>= 1; // 0, 1, 2, 3
-    ver--; // -1, 0, 1, 2
-    if (ver < 0) {
-	cbMpegVersion->setEditable(true);
-	cbMpegVersion->clearEditText();
-	cbMpegVersion->setEnabled(false);
-    } else cbMpegVersion->setCurrentIndex(ver);
-
-    /* Bitrate in bits/s */
-    initInfo(lblMpegBitrate, cbMpegBitrate,  INF_BITRATE_NOMINAL);
-    int bitrate = QVariant(m_info.get(INF_BITRATE_NOMINAL)).toInt();
-    if (bitrate) {
-	QString s;
-	s.setNum(bitrate / 1000);
-	s += "K";
-	s = i18n(s.toAscii());
-	int index = cbMpegBitrate->findText(s);
-	cbMpegBitrate->setCurrentIndex(index);
-    }
+    int ver = static_cast<int>(
+        (2.0 * QVariant(m_info.get(INF_MPEG_VERSION)).toDouble()));
+    // 1, 2, 2.5 -> 2, 4, 5
+    if ((ver < 1) || (ver > 5)) ver = 4; // default = version 2
+    if (ver > 3) ver++; // 2, 4, 6
+    ver >>= 1;          // 1, 2, 3
+    ver--;              // 0, 1, 2
+    if ((ver < 0) || (ver > 2)) ver = 1; // default = version 2
+    cbMpegVersion->setCurrentIndex(ver);
 
     /* Mode extension */
     initInfo(lblMpegModeExt, cbMpegModeExt, INF_MPEG_MODEEXT);
@@ -401,6 +379,7 @@ void FileInfoDialog::setupMpegTab()
     chkMpegOriginal->setChecked(original);
     chkMpegOriginal->setText((original) ? i18n("Yes") : i18n("No"));
 
+    mpegLayerChanged();
 }
 
 //***************************************************************************
@@ -539,6 +518,164 @@ void FileInfoDialog::tracksChanged(int tracks)
 }
 
 //***************************************************************************
+void FileInfoDialog::updateAvailableCompressions()
+{
+    cbCompression->blockSignals(true);
+
+    CompressionType compressions;
+    QList<int> supported_compressions;
+    QString mime_type = m_info.get(INF_MIMETYPE).toString();
+
+    // switch by mime type:
+    if (mime_type.length()) {
+	// mime type is present -> offer only matching compressions
+	Encoder *encoder = CodecManager::encoder(mime_type);
+	if (encoder) supported_compressions = encoder->compressionTypes();
+    } else {
+	// no mime type -> allow all mimetypes suitable for encoding
+	supported_compressions.append(AF_COMPRESSION_NONE);
+
+	QStringList mime_types = CodecManager::encodingMimeTypes();
+	foreach (QString m, mime_types) {
+	    Encoder *encoder = CodecManager::encoder(m);
+	    if (!encoder) continue;
+	    QList<int> comps = encoder->compressionTypes();
+	    foreach (int c, comps)
+		if (!supported_compressions.contains(c))
+		    supported_compressions.append(c);
+	}
+    }
+
+    // if nothing is supported, then use only "none"
+    if (supported_compressions.isEmpty())
+	supported_compressions.append(AF_COMPRESSION_NONE);
+
+    // add supported compressions to the combo box
+    cbCompression->clear();
+    foreach (int compression, supported_compressions) {
+	cbCompression->addItem(
+	    compressions.name(compressions.findFromData(compression)),
+	    compression);
+    }
+
+    cbCompression->blockSignals(false);
+
+    int c = QVariant(m_info.get(INF_COMPRESSION)).toInt();
+    int old_index = cbCompression->currentIndex();
+    int new_index = cbCompression->findData(c);
+    if (new_index != old_index)
+	cbCompression->setCurrentIndex(compressions.findFromData(c));
+}
+
+//***************************************************************************
+void FileInfoDialog::compressionChanged()
+{
+    if (!cbCompression || !edFileFormat) return;
+
+
+    int compression = cbCompression->itemData(
+	cbCompression->currentIndex()).toInt();
+
+    // selected compression -> mime type (edit field)
+    QString file_mime_type = m_info.get(INF_MIMETYPE).toString();
+    if (!file_mime_type.length()) {
+	// if mime type is given by file info -> keep it
+	// otherwise select one by evaluating the compression
+	QStringList mime_types = CodecManager::encodingMimeTypes();
+	foreach (const QString &mime_type, mime_types) {
+	    Encoder *encoder = CodecManager::encoder(mime_type);
+	    if (!encoder) continue;
+	    QList<int> comps = encoder->compressionTypes();
+	    if (comps.contains(compression)) {
+		edFileFormat->setText(mime_type);
+		break;
+	    }
+	}
+    }
+
+    // if mpeg mode selected -> select mpeg layer
+    int mpeg_layer = -1;
+    switch (compression)
+    {
+	case CompressionType::MPEG_LAYER_I:
+	    mpeg_layer = 1;
+	    m_is_mpeg = true;
+	    m_is_ogg  = false;
+	    break;
+	case CompressionType::MPEG_LAYER_II:
+	    mpeg_layer = 2;
+	    m_is_mpeg = true;
+	    m_is_ogg  = false;
+	    break;
+	case CompressionType::MPEG_LAYER_III:
+	    mpeg_layer = 3;
+	    m_is_mpeg = true;
+	    m_is_ogg  = false;
+	    break;
+	case CompressionType::OGG_VORBIS:
+	    m_is_mpeg = false;
+	    m_is_ogg  = true;
+	    break;
+	case CompressionType::FLAC:
+	case AF_COMPRESSION_NONE: /* FALLTHROUGH */
+	default:
+	    m_is_mpeg = false;
+	    m_is_ogg  = false;
+	    break;
+    }
+
+    InfoTab->setTabEnabled(2, m_is_mpeg);
+    if (m_is_mpeg || m_is_ogg) cbSampleFormat->setEnabled(false);
+
+    if ((mpeg_layer > 0) && (cbMpegLayer->currentIndex() != (mpeg_layer - 1)))
+	cbMpegLayer->setCurrentIndex(mpeg_layer - 1);
+
+    // enable/disable ABR/VBR controls, depending on mime type
+    bool lower = compressionWidget->lowestEnabled();
+    bool upper = compressionWidget->highestEnabled();
+    if (m_is_mpeg) {
+	// MPEG file
+	compressionWidget->enableABR(true, lower, upper);
+	compressionWidget->enableVBR(false);
+	compressionWidget->setMode(CompressionWidget::ABR_MODE);
+    } else if (m_is_ogg) {
+	// Ogg/Vorbis file
+	compressionWidget->enableABR(true, lower, upper);
+	compressionWidget->enableVBR(true);
+    } else {
+	// other...
+	compressionWidget->enableABR(false, lower, upper);
+	compressionWidget->enableVBR(false);
+    }
+
+}
+
+//***************************************************************************
+void FileInfoDialog::mpegLayerChanged()
+{
+    if (!cbMpegLayer || !m_is_mpeg) return;
+
+    int layer = cbMpegLayer->currentIndex() + 1;
+    int compression = AF_COMPRESSION_NONE;
+    switch (layer) {
+	case 1:
+	    compression = CompressionType::MPEG_LAYER_I;
+	    break;
+	case 2:
+	    compression = CompressionType::MPEG_LAYER_II;
+	    break;
+	case 3:
+	    compression = CompressionType::MPEG_LAYER_III;
+	    break;
+    }
+
+    if (compression != AF_COMPRESSION_NONE) {
+	int index = cbCompression->findData(compression);
+	if (index >= 0) cbCompression->setCurrentIndex(index);
+    }
+}
+
+//***************************************************************************
 void FileInfoDialog::autoGenerateKeywords()
 {
     // start with the current list
@@ -666,6 +803,9 @@ void FileInfoDialog::accept()
     qDebug("FileInfoDialog::accept()");
     m_info.dump();
 
+    /* mime type */
+    m_info.set(INF_MIMETYPE, edFileFormat->text());
+
     /* bits per sample */
     m_info.setBits(sbResolution->value());
 
@@ -688,8 +828,14 @@ void FileInfoDialog::accept()
     m_info.set(INF_COMPRESSION, (compression != AF_COMPRESSION_NONE) ?
         QVariant(compression) : QVariant());
 
-    /* bitrate in Ogg/Vorbis mode */
-    if (m_is_ogg) {
+    /* MPEG layer */
+    if (m_is_mpeg) {
+	int layer = cbMpegLayer->currentIndex() + 1;
+	m_info.set(INF_MPEG_LAYER, layer);
+    }
+
+    /* bitrate in Ogg/Vorbis or MPEG mode */
+    if (m_is_ogg || m_is_mpeg) {
         CompressionWidget::Mode mode = compressionWidget->mode();
         QVariant del;
 
@@ -718,7 +864,6 @@ void FileInfoDialog::accept()
 	        break;
 	    }
 	}
-
     }
 
     /* name, subject, version, genre, title, author, organization,

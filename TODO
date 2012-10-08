@@ -4,10 +4,6 @@ o support for OPUS codec (.opus, using Ogg as container)
 o better meta data handling, especially for more ID3 tags in MP3
   (use meta data instead of file info)
 
-o configurable command line options + program name for external mp3 encoder
-
-o support for lame / toolame / twolame (presets)
-
 o move label with mouse (drag&drop)
 
 o simplify loading/unloading of plugins
@@ -17,20 +13,6 @@ o license change to GPL v3
 o new import/export plugin using ffmpeg/libavcodec
 
 o more intelligent clipping of position widget
-
-o support for visualization plugins (rev 2498)
-  - new functions
-    * allow drag&drop to reorder signal views
-    * resizing of signal views per size grip
-    * allow plugins to add and remove own signal views
-
-  - enhanced functions (maybe next release)
-    * store order and settings of signal views in embedded metadata
-    * store order and settings of signal views in a separate file
-    * provide global database for colors (for signal, labels, etc.)
-    * reordering of tracks according to order of the views
-    * context sensitive toolbar/menu entries when clicking to a view
-    * navigating between views per <Tab> key
 
 o show sonagram as "signal view" below each track or below the whole signal
 
@@ -48,19 +30,6 @@ o debug aid: new plugin for adding a new track with test/debug info:
   - test pattern: sample offset within stripe
   - test pattern: stripe borders
   - generate labels at stripe borders
-
-o spurious valgrind error:
-    ==13087== Conditional jump or move depends on uninitialised value(s)
-    ==13087==    at 0x40F29EE: Kwave::Mul::multiply() (KwaveMul.cpp:117)
-
-o spurious valgrind error:
-    ==13087== Invalid read of size 8
-    ==13087==    at 0x4BF10544: QList<QTouchEvent::TouchPoint>::~QList() (qlist.h:716)
-    ==13087==    by 0x4C1CD41B: QRasterPaintEngine::drawLines(QLineF const*, int) (qpaintengine_raster_p.h:278)
-    ==13087==    by 0x4C1D386A: QRasterPaintEngine::drawRects(QRectF const*, int) (qpaintengine_raster_p.h:272)
-    ==13087==    by 0x4C110A63: QPainter::drawImage(QPointF const&, QImage const&) (qpainterpath.h:310)
-    ==13087==    by 0x404C4B5: OverViewWidget::calculateBitmap() (qpainter.h:925)
-    ==13087==    by 0x404D091: OverViewWidget::WorkerThread::run() (OverViewWidget.cpp:65)
 
 o use xml description for device names in playback/record plugins
 
@@ -171,5 +140,18 @@ o switch to use float as sample_t (requires much work...)
 o about plugin: auto-scroll for contents
 
 o re-run cmake automatically when VERSION file has changed
+
+o support for visualization plugins (rev 2498) => DROPPED
+  - new functions
+    * allow drag&drop to reorder signal views
+    * resizing of signal views per size grip
+    * allow plugins to add and remove own signal views
+  - enhanced functions (maybe next release)
+    * store order and settings of signal views in embedded metadata
+    * store order and settings of signal views in a separate file
+    * provide global database for colors (for signal, labels, etc.)
+    * reordering of tracks according to order of the views
+    * context sensitive toolbar/menu entries when clicking to a view
+    * navigating between views per <Tab> key
 
 ### EOF ###

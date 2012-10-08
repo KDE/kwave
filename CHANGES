@@ -1,17 +1,19 @@
 0.8.9  [2012-??-??]
 
+ * new feature: MP3 export via external program "lame", "toolame" and
+   "twolame", with configurable command line options
+ * new feature: allow change of compression type via file info
  * fix for SF #3528848, removed -Wl,--add-needed from plugin LINK_FLAGS
  * wav import/export: support for some more meta data tags
  * bugfix: meta data lost when writing wav files that had meta data for
    product/album or subject/track at the same time
- * MP3 export via external program "lame"
  * bugfix: broken signal/slot connection in SaveBlocks plugin
  * workaround for bug in id3lib, SF #3534143:
    ignore id3lib crc check result for MPEG Layer II files
  * bugfix: Gentoo ebuild lacked required svg use flag for media-gfx/imagemagick
    and media-gfx/graphicsmagick
  * bugfix: File/SaveAs now uses last recently used directory and extension
-   plus the user defined file name
+   together with the user defined file name
 
 0.8.8  [2012-05-20]
 

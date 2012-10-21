@@ -45,6 +45,7 @@ namespace Kwave {
 	    ENC_TEXT_LIST,      /**< list of zero terminated strings   */
 	    ENC_TEXT_URL,       /**< URL                               */
 	    ENC_TEXT_PARTINSET, /**< part in set (x/y)                 */
+	    ENC_TEXT_TIMESTAMP, /**< ISO 8601 timestamp                */
 	    ENC_TRACK_NUM       /**< track/tracks (x/y)                */
 	} Encoding;
 

@@ -24,6 +24,8 @@
 #include <id3/misc_support.h>
 
 #include <QByteArray>
+#include <QDate>
+#include <QDateTime>
 #include <QList>
 #include <QMap>
 
@@ -185,6 +187,55 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 		} else {
 		    delete frame;
 		    frame = 0;
+		}
+		break;
+	    }
+	    case ID3_PropertyMap::ENC_TEXT_TIMESTAMP:
+	    {
+		// ISO 8601 timestamp: "yyyy-MM-ddTHH:mm:ss"
+		const Qt::DateFormat formats[] = {
+		    Qt::ISODate,
+		    Qt::TextDate,
+		    Qt::SystemLocaleShortDate,
+		    Qt::SystemLocaleLongDate,
+		    Qt::DefaultLocaleShortDate,
+		    Qt::DefaultLocaleLongDate
+		};
+		QString s;
+		const unsigned int fmt_count =
+		    sizeof(formats) / sizeof(formats[0]);
+
+		// try all date/time formats supported by Qt
+		for (unsigned int i = 0; i < fmt_count; i++) {
+		    Qt::DateFormat fmt = formats[i];
+
+		    QDateTime dt = QDateTime::fromString(str_val, fmt);
+		    s = QString();
+		    if (dt.isValid()) {
+			// full timestamp, including time
+			s = dt.toString("yyyy-MM-ddThh:mm:ss");
+		    }
+		    if (!s.length()) {
+			// date only, without time
+			dt = QDateTime(QDate::fromString(str_val), QTime(0,0));
+			s = dt.toString("yyyy-MM-dd");
+		    }
+
+		    if (s.length()) {
+			str_val = s;
+			break;
+		    }
+		}
+
+		if (!s.length()) {
+		    // date is invalid, unknown format
+		    qWarning("MP3Encoder::encodeID3Tags(): invalid date: '%s'",
+			     str_val.toLocal8Bit().data());
+		    delete frame;
+		    frame = 0;
+		} else {
+		    field->SetEncoding(ID3TE_UTF16);
+		    field->Set(static_cast<const unicode_t *>(str_val.utf16()));
 		}
 		break;
 	    }

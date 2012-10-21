@@ -83,25 +83,25 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
     //     INF_COPYRIGHTED
 
     // Recording dates
-    insert(INF_CREATION_DATE, ID3FID_RECORDINGDATES     , ENC_TEXT); // ### TODO ### TRDA
+    insert(INF_CREATION_DATE, ID3FID_RECORDINGDATES     , ENC_TEXT_TIMESTAMP);
     // Recording time
-    insert(INF_CREATION_DATE, ID3FID_RECORDINGTIME      , ENC_TEXT); // ### TODO ### TDRC
+    insert(INF_CREATION_DATE, ID3FID_RECORDINGTIME      , ENC_TEXT_TIMESTAMP);
     // Date
-    insert(INF_CREATION_DATE, ID3FID_DATE               , ENC_TEXT); // ### TODO ### TDAT
+    insert(INF_CREATION_DATE, ID3FID_DATE               , ENC_TEXT_TIMESTAMP);
     // Year
-    insert(INF_CREATION_DATE, ID3FID_YEAR               , ENC_TEXT); // ### TODO ### TYER
+    insert(INF_CREATION_DATE, ID3FID_YEAR               , ENC_TEXT_TIMESTAMP);
     // Time
-    insert(INF_CREATION_DATE, ID3FID_TIME               , ENC_TEXT); // ### TODO ### TIME
+    insert(INF_CREATION_DATE, ID3FID_TIME               , ENC_TEXT_TIMESTAMP);
     // Release time
-    insert(INF_CREATION_DATE, ID3FID_RELEASETIME        , ENC_TEXT); // ### TODO ### TDRL
+    insert(INF_CREATION_DATE, ID3FID_RELEASETIME        , ENC_TEXT_TIMESTAMP);
     // Original release year
-    insert(INF_CREATION_DATE, ID3FID_ORIGYEAR           , ENC_TEXT); // ### TODO ### TORY
+    insert(INF_CREATION_DATE, ID3FID_ORIGYEAR           , ENC_TEXT_TIMESTAMP);
     // Original release time
-    insert(INF_CREATION_DATE, ID3FID_ORIGRELEASETIME    , ENC_TEXT); // ### TODO ### TDOR
+    insert(INF_CREATION_DATE, ID3FID_ORIGRELEASETIME    , ENC_TEXT_TIMESTAMP);
     // Tagging time
-    insert(INF_CREATION_DATE, ID3FID_TAGGINGTIME        , ENC_TEXT); // ### TODO ### TDTG
+    insert(INF_CREATION_DATE, ID3FID_TAGGINGTIME        , ENC_TEXT_TIMESTAMP);
     // Encoding time
-    insert(INF_CREATION_DATE, ID3FID_ENCODINGTIME       , ENC_TEXT); // ### TODO ### TDEN
+    insert(INF_CREATION_DATE, ID3FID_ENCODINGTIME       , ENC_TEXT_TIMESTAMP);
 
     //     INF_ENGINEER
     //     INF_FILENAME

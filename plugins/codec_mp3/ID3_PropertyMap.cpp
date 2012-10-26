@@ -73,7 +73,7 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
     // Official audio file webpage
     insert(INF_CONTACT,       ID3FID_WWWAUDIOFILE       , ENC_TEXT_SLASH);
     // Ownership (not supported by id3lib)
-    // ert(INF_CONTACT,       ID3FID_OWNERSHIP          , ENC_OWNERSHIP?);
+    //    (INF_CONTACT,       ID3FID_OWNERSHIP          , ENC_OWNERSHIP?);
     // Copyright message.
     insert(INF_COPYRIGHT,     ID3FID_COPYRIGHT          , ENC_TEXT);
     // Copyright/Legal infromation
@@ -84,24 +84,24 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
 
     // Recording dates
     insert(INF_CREATION_DATE, ID3FID_RECORDINGDATES     , ENC_TEXT_TIMESTAMP);
-    // Recording time
-    insert(INF_CREATION_DATE, ID3FID_RECORDINGTIME      , ENC_TEXT_TIMESTAMP);
+    // Recording time (not supported by id3lib)
+    //    (INF_CREATION_DATE, ID3FID_RECORDINGTIME      , ENC_TEXT_TIMESTAMP);
     // Date
     insert(INF_CREATION_DATE, ID3FID_DATE               , ENC_TEXT_TIMESTAMP);
     // Year
     insert(INF_CREATION_DATE, ID3FID_YEAR               , ENC_TEXT_TIMESTAMP);
     // Time
     insert(INF_CREATION_DATE, ID3FID_TIME               , ENC_TEXT_TIMESTAMP);
-    // Release time
-    insert(INF_CREATION_DATE, ID3FID_RELEASETIME        , ENC_TEXT_TIMESTAMP);
+    // Release time (not supported by id3lib)
+    //    (INF_CREATION_DATE, ID3FID_RELEASETIME        , ENC_TEXT_TIMESTAMP);
     // Original release year
     insert(INF_CREATION_DATE, ID3FID_ORIGYEAR           , ENC_TEXT_TIMESTAMP);
-    // Original release time
-    insert(INF_CREATION_DATE, ID3FID_ORIGRELEASETIME    , ENC_TEXT_TIMESTAMP);
-    // Tagging time
-    insert(INF_CREATION_DATE, ID3FID_TAGGINGTIME        , ENC_TEXT_TIMESTAMP);
-    // Encoding time
-    insert(INF_CREATION_DATE, ID3FID_ENCODINGTIME       , ENC_TEXT_TIMESTAMP);
+    // Original release time (not supported by id3lib)
+    //    (INF_CREATION_DATE, ID3FID_ORIGRELEASETIME    , ENC_TEXT_TIMESTAMP);
+    // Tagging time (not supported by id3lib)
+    //    (INF_CREATION_DATE, ID3FID_TAGGINGTIME        , ENC_TEXT_TIMESTAMP);
+    // Encoding time (not supported by id3lib)
+    //    (INF_CREATION_DATE, ID3FID_ENCODINGTIME       , ENC_TEXT_TIMESTAMP);
 
     //     INF_ENGINEER
     //     INF_FILENAME

@@ -25,6 +25,10 @@
 #include <id3/tag.h>
 #include <id3/misc_support.h>
 
+#include <QDate>
+#include <QDateTime>
+#include <QTime>
+
 #include "libkwave/CompressionType.h"
 #include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/GenreType.h"
@@ -32,6 +36,7 @@
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
+#include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 
 #include "MP3CodecPlugin.h"
@@ -196,6 +201,13 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 {
     if (tag.NumFrames() < 1) return true; // no tags, nothing to do
 
+    QDate creation_date;
+    QTime creation_time;
+    bool time_complete = false;
+    int year  = -1;
+    int month = -1;
+    int day   = -1;
+
     ID3_Tag::Iterator *it = tag.CreateIterator();
     ID3_Frame *frame;
     FileInfo info(metaData());
@@ -278,6 +290,48 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		}
 		break;
 	    }
+	    case ID3_PropertyMap::ENC_TEXT_TIMESTAMP:
+	    {
+		if (!creation_date.isValid()) {
+		    QString s = parseId3Frame2String(frame);
+		    switch (id)
+		    {
+			case ID3FID_RECORDINGDATES:
+			    // should be a ISO 8601 timestamp or similar
+			    s = Kwave::string2date(s);
+			    if (s.length())
+				creation_date =
+				    QDate::fromString(s, Qt::ISODate);
+			    break;
+			case ID3FID_DATE: {
+			    // DDMM
+			    unsigned int ddmm = s.toUInt();
+			    day   = ddmm / 100;
+			    month = ddmm % 100;
+			    break;
+			}
+			case ID3FID_YEAR: /* FALLTHROUGH */
+			case ID3FID_ORIGYEAR:
+			    // YYYY
+			    year = s.toUInt();
+			    break;
+			default:
+			    break;
+		    }
+		}
+
+		if (!time_complete) {
+		    switch (id)
+		    {
+			case ID3FID_TIME:
+			    creation_time = QTime::fromString("hhmm");
+			    break;
+			default:
+			    break;
+		    }
+		}
+		break;
+	    }
 	    case ID3_PropertyMap::ENC_TEXT_SLASH:
 	    {
 		// append to already existing tag, seperated by a slash
@@ -302,6 +356,23 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	    }
 	}
     }
+
+    /*
+     * try to build a valid creation date/time
+     */
+    if (!creation_date.isValid()) {
+	// no complete creation date - try to reassemble from found y/m/d
+	creation_date = QDate(year, month, day);
+    }
+    if (creation_date.isValid() && creation_time.isValid()) {
+	// full date + time
+	QDateTime dt(creation_date, creation_time);
+	info.set(INF_CREATION_DATE, dt.toString("yyyy-MM-ddTHH:mm:ss"));
+    } else if (creation_date.isValid()) {
+	// date without time
+	info.set(INF_CREATION_DATE, creation_date.toString("yyyy-MM-dd"));
+    }
+
     metaData().replace(info);
 
     return true;

@@ -22,6 +22,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <QDate>
+#include <QDateTime>
 #include <QString>
 #include <QThread>
 
@@ -128,6 +130,57 @@ QString Kwave::dottedNumber(unsigned int number)
 	dotted = num.at(i) + dotted;
     }
     return dotted;
+}
+
+//***************************************************************************
+QString Kwave::string2date(const QString &str)
+{
+    const Qt::DateFormat formats[] = {
+	Qt::ISODate,
+	Qt::TextDate,
+	Qt::SystemLocaleShortDate,
+	Qt::SystemLocaleLongDate,
+	Qt::DefaultLocaleShortDate,
+	Qt::DefaultLocaleLongDate
+    };
+    QString s;
+    const unsigned int fmt_count =
+	sizeof(formats) / sizeof(formats[0]);
+    QDateTime dt;
+
+    // try ID3 full date/time
+    dt = QDateTime::fromString(str, "yyyy-MM-ddThh:mm:ss");
+    if (dt.isValid())
+	return str; // already in complete date/time format
+
+    // type ID3 date without time
+    dt = QDateTime::fromString(str, "yyyy-MM-dd");
+    if (dt.isValid())
+	return str; // already a valid date
+
+    // try all date/time formats supported by Qt
+    for (unsigned int i = 0; i < fmt_count; i++) {
+	Qt::DateFormat fmt = formats[i];
+	s = QString();
+
+	dt = QDateTime::fromString(str, fmt);
+
+	if (dt.isValid()) {
+	    // full timestamp, including time
+	    s = dt.toString("yyyy-MM-ddThh:mm:ss");
+	}
+	if (!s.length()) {
+	    // date only, without time
+	    dt = QDateTime(QDate::fromString(str), QTime(0,0));
+	    s = dt.toString("yyyy-MM-dd");
+	}
+
+	if (s.length()) {
+	    return s;
+	}
+    }
+
+    return QString();
 }
 
 //***************************************************************************

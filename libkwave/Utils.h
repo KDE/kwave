@@ -66,7 +66,7 @@ namespace Kwave {
      * @return time formatted as HH:MM:SS:mmmm
      */
     QString KDE_EXPORT ms2hms(double ms);
-    
+
     /**
      * Converts the given number into a string with the current locale's
      * separator between the thousands.
@@ -74,6 +74,14 @@ namespace Kwave {
      * @return QString with the number
      */
     QString KDE_EXPORT dottedNumber(unsigned int number);
+
+    /**
+     * Tries to convert a string into a QDate
+     * @param s string to convert
+     * @return a ISO 8601 timestamp: "yyyy-MM-ddTHH:mm:ss"
+     *         or shortened as date "yyyy-MM-dd"
+     */
+    QString KDE_EXPORT string2date(const QString &s);
 
 }
 

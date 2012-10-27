@@ -46,10 +46,10 @@
 
 #include "libkwave/CompressionType.h"
 #include "libkwave/memcpy.h"
+#include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/SampleFormat.h"
 
 #include "PlayBack-ALSA.h"
-#include "SampleEncoderLinear.h"
 
 QMap<QString, QString> PlayBackALSA::m_device_list;
 

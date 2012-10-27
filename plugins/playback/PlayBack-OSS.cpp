@@ -36,9 +36,9 @@
 #include "libkwave/memcpy.h"
 #include "libkwave/ByteOrder.h"
 #include "libkwave/CompressionType.h"
+#include "libkwave/SampleEncoderLinear.h"
 
 #include "PlayBack-OSS.h"
-#include "SampleEncoderLinear.h"
 
 /** use at least 2^8 = 256 bytes for playback buffer !!! */
 #define MIN_PLAYBACK_BUFFER 8

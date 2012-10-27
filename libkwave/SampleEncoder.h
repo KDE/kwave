@@ -20,12 +20,14 @@
 
 #include "config.h"
 
+#include <kdemacros.h>
+
 #include <QByteArray>
 
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
 
-class SampleEncoder
+class KDE_EXPORT SampleEncoder
 {
 public:
     /** Constructor */

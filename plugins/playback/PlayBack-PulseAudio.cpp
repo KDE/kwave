@@ -38,10 +38,10 @@
 #include "libkwave/CompressionType.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/memcpy.h"
+#include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/SampleFormat.h"
 
 #include "PlayBack-PulseAudio.h"
-#include "SampleEncoderLinear.h"
 
 //***************************************************************************
 PlayBackPulseAudio::PlayBackPulseAudio(const FileInfo &info)

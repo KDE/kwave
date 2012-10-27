@@ -72,6 +72,7 @@ SET(libkwave_LIB_SRCS
     Selection.cpp
     Signal.cpp
     SignalManager.cpp
+    SampleEncoderLinear.cpp
     SampleFIFO.cpp
     SampleFormat.cpp
     SampleReader.cpp

@@ -21,9 +21,9 @@
 #include <errno.h>
 
 #include "libkwave/memcpy.h"
+#include "libkwave/SampleEncoderLinear.h"
 
 #include "PlayBack-Phonon.h"
-#include "SampleEncoderLinear.h"
 
 //***************************************************************************
 PlayBackPhonon::PlayBackPhonon()

@@ -38,7 +38,6 @@ SET(plugin_playback_LIB_SRCS
     PlayBackDialog.cpp
     PlayBackPlugin.cpp
     PlayBackTypesMap.cpp
-    SampleEncoderLinear.cpp
     ${PLAYBACK_SOURCES}
 )
 

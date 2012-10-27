@@ -203,7 +203,6 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 
     QDate creation_date;
     QTime creation_time;
-    bool time_complete = false;
     int year  = -1;
     int month = -1;
     int day   = -1;
@@ -320,7 +319,7 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		    }
 		}
 
-		if (!time_complete) {
+		if (creation_time.isValid()) {
 		    switch (id)
 		    {
 			case ID3FID_TIME:
@@ -371,6 +370,10 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
     } else if (creation_date.isValid()) {
 	// date without time
 	info.set(INF_CREATION_DATE, creation_date.toString("yyyy-MM-dd"));
+    } else if (year > 0) {
+	// only year
+	creation_date = QDate(year, 1, 1);
+	info.set(INF_CREATION_DATE, creation_date.toString("yyyy"));
     }
 
     metaData().replace(info);

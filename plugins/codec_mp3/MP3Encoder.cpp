@@ -135,13 +135,12 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 	    }
 	    case ID3_PropertyMap::ENC_TRACK_NUM:
 	    {
-		field->SetEncoding(ID3TE_UTF16);
-
 		// if "number of tracks is available: append with "/"
 		int tracks = info.get(INF_TRACKS).toInt();
 		if (tracks > 0)
 		    str_val += QString("/%1").arg(tracks);
 
+		field->SetEncoding(ID3TE_UTF16);
 		field->Set(static_cast<const unicode_t *>(str_val.utf16()));
 		break;
 	    }
@@ -195,15 +194,33 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 	    {
 		// ISO 8601 timestamp: "yyyy-MM-ddTHH:mm:ss"
 		QString s = Kwave::string2date(str_val);
+
+		// if failed, try "yyyy" format (year only)
 		if (!s.length()) {
+		    int year = str_val.toInt();
+		    if ((year > 0) && (year < 9999)) {
+			frame->SetID(ID3FID_YEAR);
+			// -> re-get the field !
+			// it has become invalid through "SetID()"
+			field = frame->GetField(ID3FN_TEXT);
+			if (!field) {
+			    qWarning("no field, frame id=%d",
+			             static_cast<int>(id));
+			    break;
+			}
+			s = QString("%1").arg(year, 4, 10, QChar('0'));
+		    }
+		}
+
+		if (s.length()) {
+		    field->SetEncoding(ID3TE_UTF16);
+		    field->Set(static_cast<const unicode_t *>(s.utf16()));
+		} else {
 		    // date is invalid, unknown format
 		    qWarning("MP3Encoder::encodeID3Tags(): invalid date: '%s'",
 			     str_val.toLocal8Bit().data());
 		    delete frame;
 		    frame = 0;
-		} else {
-		    field->SetEncoding(ID3TE_UTF16);
-		    field->Set(static_cast<const unicode_t *>(str_val.utf16()));
 		}
 		break;
 	    }
@@ -451,7 +468,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
 
 	    // sample conversion from 24bit to raw PCM, native endian
 	    for (y = 0; y < out_tracks; y++) {
-		sample_t s = *(src_buf++);
+		register sample_t s = *(src_buf++);
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
 		// big endian
 		if (bits >= 8)

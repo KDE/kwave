@@ -401,9 +401,22 @@ void FileInfoDialog::setupContentTab()
     /* date widget */
     initInfo(lblDate, dateEdit, INF_CREATION_DATE);
     QDate date;
-    date = (m_info.contains(INF_CREATION_DATE)) ?
-        QDate::fromString(QVariant(m_info.get(INF_CREATION_DATE)).toString(),
-        Qt::ISODate) : QDate::currentDate();
+    QString date_str = QVariant(m_info.get(INF_CREATION_DATE)).toString();
+    if (m_info.contains(INF_CREATION_DATE)) {
+        if (date_str.length())
+	    date = QDate::fromString(date_str, Qt::ISODate);
+    }
+    if (!date.isValid()) {
+	// fall back to "year only"
+	int year = date_str.toInt();
+	if ((year > 0) && (year <= 9999))
+	    date = QDate(year, 1, 1);
+    }
+    if (!date.isValid()) {
+	// fall back to "now"
+	date = QDate::currentDate();
+    }
+
     dateEdit->setDate(date);
     connect(btSelectDate, SIGNAL(clicked()), this, SLOT(selectDate()));
     connect(btSelectDateNow, SIGNAL(clicked()), this, SLOT(setDateNow()));

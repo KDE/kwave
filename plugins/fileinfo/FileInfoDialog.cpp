@@ -564,7 +564,7 @@ void FileInfoDialog::updateAvailableCompressions()
     int old_index = cbCompression->currentIndex();
     int new_index = cbCompression->findData(c);
     if (new_index != old_index)
-	cbCompression->setCurrentIndex(compressions.findFromData(c));
+	cbCompression->setCurrentIndex(new_index);
 }
 
 //***************************************************************************

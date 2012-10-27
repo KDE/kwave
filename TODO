@@ -20,8 +20,6 @@ o support for multi selection
 
 o support for recording via PULSE audio
 
-o MP3 export (maybe via calling lame/mpg123/mencoder as an external process)
-
 o debug aid: write all actions to a logfile
 
 o debug aid: new plugin for adding a new track with test/debug info:
@@ -34,6 +32,10 @@ o debug aid: new plugin for adding a new track with test/debug info:
 o use xml description for device names in playback/record plugins
 
 o use svg graphics instead of pixmaps
+
+o INF_COMMENTS cannot be modified per FileInfoDialog
+
+o INF_PERFORMER cannot be modified per FileInfoDialog
 
 o use LADSPA
 

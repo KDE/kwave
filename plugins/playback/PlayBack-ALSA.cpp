@@ -205,7 +205,7 @@ int PlayBackALSA::setFormat(snd_pcm_hw_params_t *hw_params, unsigned int bits)
     m_bytes_per_sample =
 	((snd_pcm_format_physical_width(m_format) + 7) >> 3) * m_channels;
 
-    m_encoder = new SampleEncoderLinear(
+    m_encoder = new Kwave::SampleEncoderLinear(
 	sample_format_of(m_format),
 	m_bits,
 	endian_of(m_format)

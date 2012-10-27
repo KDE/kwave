@@ -37,7 +37,7 @@
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/PlayBackDevice.h"
 
-class SampleEncoder;
+namespace Kwave { class SampleEncoder; }
 
 class PlayBackALSA: public PlayBackDevice
 {
@@ -223,7 +223,7 @@ private:
     QList<int> m_supported_formats;
 
     /** encoder for conversion from samples to raw */
-    SampleEncoder *m_encoder;
+    Kwave::SampleEncoder *m_encoder;
 
 };
 

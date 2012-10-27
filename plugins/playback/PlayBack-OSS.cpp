@@ -219,23 +219,23 @@ QString PlayBackOSS::open(const QString &device, double rate,
 
     switch (m_bits) {
 	case 8:
-	    m_encoder = new SampleEncoderLinear(
+	    m_encoder = new Kwave::SampleEncoderLinear(
 		SampleFormat::Unsigned, 8, LittleEndian);
 	    break;
 	case 24:
 	    if (m_oss_version >= 0x040000) {
-		m_encoder = new SampleEncoderLinear(
+		m_encoder = new Kwave::SampleEncoderLinear(
 		SampleFormat::Signed, 24, LittleEndian);
 		break;
 	    }
 	case 32:
 	    if (m_oss_version >= 0x040000) {
-		m_encoder = new SampleEncoderLinear(
+		m_encoder = new Kwave::SampleEncoderLinear(
 		    SampleFormat::Signed, 32, LittleEndian);
 		break;
 	    }
 	default:
-	    m_encoder = new SampleEncoderLinear(
+	    m_encoder = new Kwave::SampleEncoderLinear(
 		SampleFormat::Signed, 16, LittleEndian);
 	    break;
     }

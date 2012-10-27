@@ -48,19 +48,19 @@ void PlayBackPhonon::createEncoder(unsigned int bits)
 
     switch (bits) {
 	case 8:
-	    m_encoder = new SampleEncoderLinear(
+	    m_encoder = new Kwave::SampleEncoderLinear(
 		SampleFormat::Unsigned, 8, LittleEndian);
 	    break;
 	case 24:
-	    m_encoder = new SampleEncoderLinear(
+	    m_encoder = new Kwave::SampleEncoderLinear(
 	    SampleFormat::Signed, 24, LittleEndian);
 	    break;
 	case 32:
-	    m_encoder = new SampleEncoderLinear(
+	    m_encoder = new Kwave::SampleEncoderLinear(
 		SampleFormat::Signed, 32, LittleEndian);
 	    break;
 	default:
-	    m_encoder = new SampleEncoderLinear(
+	    m_encoder = new Kwave::SampleEncoderLinear(
 		SampleFormat::Signed, 16, LittleEndian);
 	    break;
     }

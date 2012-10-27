@@ -106,7 +106,7 @@ if (sample_format != SampleFormat::Unsigned) {         \
 }
 
 //***************************************************************************
-SampleEncoderLinear::SampleEncoderLinear(
+Kwave::SampleEncoderLinear::SampleEncoderLinear(
     SampleFormat sample_format,
     unsigned int bits_per_sample,
     byte_order_t endianness
@@ -163,21 +163,21 @@ SampleEncoderLinear::SampleEncoderLinear(
 }
 
 //***************************************************************************
-SampleEncoderLinear::~SampleEncoderLinear()
+Kwave::SampleEncoderLinear::~SampleEncoderLinear()
 {
 }
 
 //***************************************************************************
-void SampleEncoderLinear::encode(const Kwave::SampleArray &samples,
-                                 unsigned int count,
-                                 QByteArray &raw_data)
+void Kwave::SampleEncoderLinear::encode(const Kwave::SampleArray &samples,
+                                        unsigned int count,
+                                        QByteArray &raw_data)
 {
     Q_ASSERT(m_encoder);
     if (!m_encoder) return;
 
     Q_ASSERT(count * m_bytes_per_sample <=
 	static_cast<unsigned int>(raw_data.size()));
-    if (count * m_bytes_per_sample > \
+    if (count * m_bytes_per_sample >
 	static_cast<unsigned int>(raw_data.size())) return;
 
     const sample_t *src = samples.data();
@@ -187,7 +187,7 @@ void SampleEncoderLinear::encode(const Kwave::SampleArray &samples,
 }
 
 //***************************************************************************
-unsigned int SampleEncoderLinear::rawBytesPerSample()
+unsigned int Kwave::SampleEncoderLinear::rawBytesPerSample()
 {
     return m_bytes_per_sample;
 }

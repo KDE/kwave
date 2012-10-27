@@ -29,7 +29,7 @@
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/SampleFormat.h"
 
-class SampleEncoder;
+namespace Kwave { class SampleEncoder; }
 
 class PlayBackOSS: public PlayBackDevice
 {
@@ -147,7 +147,7 @@ protected:
     unsigned int m_buffer_used;
 
     /** encoder for converting from samples to raw format */
-    SampleEncoder *m_encoder;
+    Kwave::SampleEncoder *m_encoder;
 
     /** OSS driver version */
     int m_oss_version;

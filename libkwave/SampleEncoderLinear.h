@@ -27,44 +27,47 @@
 
 #include "SampleEncoder.h"
 
-class KDE_EXPORT SampleEncoderLinear: public SampleEncoder
+namespace Kwave
 {
-public:
+    class KDE_EXPORT SampleEncoderLinear: public Kwave::SampleEncoder
+    {
+    public:
 
-    /**
-     * Constructor
-     * @param sample_format index of the sample format (signed/unsigned)
-     * @param bits_per_sample number of bits per sample in the raw data
-     * @param endianness either SOURCE_LITTLE_ENDIAN or SOURCE_BIG_ENDIAN
-     */
-    SampleEncoderLinear(SampleFormat sample_format,
-                        unsigned int bits_per_sample,
-                        byte_order_t endianness);
+	/**
+	 * Constructor
+	 * @param sample_format index of the sample format (signed/unsigned)
+	 * @param bits_per_sample number of bits per sample in the raw data
+	 * @param endianness either SOURCE_LITTLE_ENDIAN or SOURCE_BIG_ENDIAN
+	 */
+	SampleEncoderLinear(SampleFormat sample_format,
+	                    unsigned int bits_per_sample,
+	                    byte_order_t endianness);
 
-    /** Destructor */
-    virtual ~SampleEncoderLinear();
+	/** Destructor */
+	virtual ~SampleEncoderLinear();
 
-    /**
-     * Encodes a buffer with samples into a buffer with raw data.
-     * @param samples array with samples
-     * @param count number of samples
-     * @param raw_data array with raw encoded audio data
-     */
-    virtual void encode(const Kwave::SampleArray &samples,
-                        unsigned int count,
-                        QByteArray &raw_data);
+	/**
+	 * Encodes a buffer with samples into a buffer with raw data.
+	 * @param samples array with samples
+	 * @param count number of samples
+	 * @param raw_data array with raw encoded audio data
+	 */
+	virtual void encode(const Kwave::SampleArray &samples,
+	                    unsigned int count,
+	                    QByteArray &raw_data);
 
-    /** Returns the number of bytes per sample in raw (encoded) form */
-    virtual unsigned int rawBytesPerSample();
+	/** Returns the number of bytes per sample in raw (encoded) form */
+	virtual unsigned int rawBytesPerSample();
 
-private:
+    private:
 
-    /** number of bytes per raw sample */
-    unsigned int m_bytes_per_sample;
+	/** number of bytes per raw sample */
+	unsigned int m_bytes_per_sample;
 
-    /** optimized function used for encoding the given format */
-    void (*m_encoder)(const sample_t *, u_int8_t *, unsigned int);
+	/** optimized function used for encoding the given format */
+	void (*m_encoder)(const sample_t *, u_int8_t *, unsigned int);
 
-};
+    };
+}
 
 #endif /* _SAMPLE_ENCODER_LINEAR_H_ */

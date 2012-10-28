@@ -402,6 +402,9 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/ReaderMode.h				GPL2+
 	libkwave/SampleFIFO.cpp				GPL2+
 	libkwave/SampleFIFO.h				GPL2+
+	libkwave/SampleEncoder.h			GPL2+
+	libkwave/SampleEncoderLinear.h			GPL2+
+	libkwave/SampleEncoderLinear.cpp		GPL2+
 	libkwave/SampleFormat.cpp			GPL2+
 	libkwave/SampleFormat.h				GPL2+
 	libkwave/Sample.h				GPL2+
@@ -682,6 +685,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/playback/PlayBackDlg.ui			(should be GPL2+)
 	plugins/playback/PlayBack-OSS.cpp		GPL2+
 	plugins/playback/PlayBack-OSS.h			GPL2+
+	plugins/playback/PlayBack-Phonon.cpp		GPL2+
+	plugins/playback/PlayBack-Phonon.h		GPL2+
 	plugins/playback/PlayBack-PulseAudio.cpp	GPL2+
 	plugins/playback/PlayBack-PulseAudio.h		GPL2+
 	plugins/playback/PlayBackParam.h		GPL2+

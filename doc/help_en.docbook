@@ -8,9 +8,8 @@
   <!ENTITY version_tag "0_8_8">
   <!ENTITY version_year "2012">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
-
-  <!ENTITY url_authors "http://kwave.git.sourceforge.net/git/gitweb.cgi?p=kwave/kwave;a=blob_plain;f=AUTHORS;hb=HEAD">
-  <!ENTITY url_changelog "http://kwave.git.sourceforge.net/git/gitweb.cgi?p=kwave/kwave;a=blob_plain;f=CHANGES;hb=HEAD">
+  <!ENTITY url_authors "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/AUTHORS">
+  <!ENTITY url_changelog "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/CHANGES">
   <!ENTITY url_cmake "http://www.cmake.org">
   <!ENTITY url_debian "http://www.debian.org">
   <!ENTITY url_download "http://kwave.sourceforge.net/download.html">
@@ -27,18 +26,18 @@
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
   <!ENTITY url_libmad "http://www.mars.org/home/rob/proj/mpeg/">
   <!ENTITY url_libsndfile "http://www.mega-nerd.com/libsndfile/">
-  <!ENTITY url_licenses "http://kwave.git.sourceforge.net/git/gitweb.cgi?p=kwave/kwave;a=blob_plain;f=LICENSES;hb=HEAD">
+  <!ENTITY url_licenses "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/LICENSES">
   <!ENTITY url_mailinglist "https://lists.sourceforge.net/lists/listinfo/kwave-devel">
   <!ENTITY url_ogg_vorbis "http://www.xiph.org">
-  <!ENTITY url_readme "http://kwave.git.sourceforge.net/git/gitweb.cgi?p=kwave/kwave;a=blob_plain;f=README;hb=HEAD">
+  <!ENTITY url_readme "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/README">
   <!ENTITY url_rfc2361 "http://www.faqs.org/rfcs/rfc2361.html">
   <!ENTITY url_rfc3066 "http://www.ietf.org/rfc/rfc3066.txt">
   <!ENTITY url_sourceforge "http://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
-  <!ENTITY url_git_instructions "http://sourceforge.net/scm/?type=git&amp;group_id=6478">
-  <!ENTITY url_git_web "http://kwave.git.sourceforge.net/git/gitweb.cgi?p=kwave/kwave;a=summary">
-  <!ENTITY url_git_list_tags "http://kwave.git.sourceforge.net/git/gitweb.cgi?p=kwave/kwave;a=tags">
-  <!ENTITY url_git_master "git://kwave.git.sourceforge.net/gitroot/kwave/kwave">
+  <!ENTITY url_git_instructions "http://sourceforge.net/p/kwave/code/">
+  <!ENTITY url_git_web "http://sourceforge.net/p/kwave/code/commit_browser">
+  <!ENTITY url_git_list_tags "http://sourceforge.net/p/kwave/code/ref/master~/tags/">
+  <!ENTITY url_git_master "git://git.code.sf.net/p/kwave/code">
 ]>
 
 <book lang="&language;">
@@ -691,13 +690,13 @@
 	<para>
 	    Then check out the latest sources from the GIT server:
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>git clone &url_git_master;</command>
+<prompt>% </prompt><command>git clone &url_git_master; kwave</command>
 </screen>
 	</para>
 	<para>
 	or you can check out a specific release with the following commands:
 <screen width="70" format="linespecific">
-    <prompt>% </prompt><command>git clone &url_git_master;</command>
+    <prompt>% </prompt><command>git clone &url_git_master; kwave</command>
     <prompt>% </prompt><command>cd kwave</command>
     <prompt>% </prompt><command>git checkout tags/<replaceable>[release-tag]</replaceable> </command>
 </screen>
@@ -2961,14 +2960,6 @@
 		</emphasis></para><para>
 		    <ulink url="&url_debian;">debian</ulink> packager,
 		    patches
-		</para>
-	    </listitem>
-	    <listitem>
-	    	<para><emphasis role="bold">
-		    Daniel Tihelka
-		    <email>dtihelka@kky.zcu.cz</email>
-		</emphasis></para><para>
-		    visualization plugins
 		</para>
 	    </listitem>
 	    <listitem>

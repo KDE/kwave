@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-28 22:51+0200\n"
-"PO-Revision-Date: 2012-06-10 20:45+0200\n"
+"POT-Creation-Date: 2012-10-28 16:54+0100\n"
+"PO-Revision-Date: 2012-10-28 17:23+0100\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -13,15 +13,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Revision-Date: 2001-05-21 18:58+GMT\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: plugins/fileinfo/ui_CompressionWidgetBase.h:213
 msgid " %"
 msgstr " %"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1405
-#: plugins/fileinfo/ui_FileInfoDlg.h:1406
+#: plugins/fileinfo/ui_FileInfoDlg.h:1348
+#: plugins/fileinfo/ui_FileInfoDlg.h:1349
 msgid " / "
 msgstr " / "
 
@@ -66,45 +66,44 @@ msgstr " s"
 msgid " sec"
 msgstr "Sec"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1298
-#: plugins/fileinfo/ui_FileInfoDlg.h:1299
+#: plugins/fileinfo/ui_FileInfoDlg.h:1269
+#: plugins/fileinfo/ui_FileInfoDlg.h:1270
+#: plugins/fileinfo/ui_FileInfoDlg.h:1271
+#: plugins/fileinfo/ui_FileInfoDlg.h:1273
+#: plugins/fileinfo/ui_FileInfoDlg.h:1274
+#: plugins/fileinfo/ui_FileInfoDlg.h:1275
+#: plugins/fileinfo/ui_FileInfoDlg.h:1291
+#: plugins/fileinfo/ui_FileInfoDlg.h:1292
+#: plugins/fileinfo/ui_FileInfoDlg.h:1294
 #: plugins/fileinfo/ui_FileInfoDlg.h:1300
-#: plugins/fileinfo/ui_FileInfoDlg.h:1302
+#: plugins/fileinfo/ui_FileInfoDlg.h:1301
 #: plugins/fileinfo/ui_FileInfoDlg.h:1303
 #: plugins/fileinfo/ui_FileInfoDlg.h:1304
-#: plugins/fileinfo/ui_FileInfoDlg.h:1320
-#: plugins/fileinfo/ui_FileInfoDlg.h:1321
-#: plugins/fileinfo/ui_FileInfoDlg.h:1323
-#: plugins/fileinfo/ui_FileInfoDlg.h:1332
-#: plugins/fileinfo/ui_FileInfoDlg.h:1339
-#: plugins/fileinfo/ui_FileInfoDlg.h:1341
-#: plugins/fileinfo/ui_FileInfoDlg.h:1342
-#: plugins/fileinfo/ui_FileInfoDlg.h:1349
+#: plugins/fileinfo/ui_FileInfoDlg.h:1317
+#: plugins/fileinfo/ui_FileInfoDlg.h:1324
+#: plugins/fileinfo/ui_FileInfoDlg.h:1326
+#: plugins/fileinfo/ui_FileInfoDlg.h:1327
+#: plugins/fileinfo/ui_FileInfoDlg.h:1328
+#: plugins/fileinfo/ui_FileInfoDlg.h:1329
+#: plugins/fileinfo/ui_FileInfoDlg.h:1330
+#: plugins/fileinfo/ui_FileInfoDlg.h:1346
+#: plugins/fileinfo/ui_FileInfoDlg.h:1347
 #: plugins/fileinfo/ui_FileInfoDlg.h:1350
-#: plugins/fileinfo/ui_FileInfoDlg.h:1378
-#: plugins/fileinfo/ui_FileInfoDlg.h:1383
-#: plugins/fileinfo/ui_FileInfoDlg.h:1384
-#: plugins/fileinfo/ui_FileInfoDlg.h:1385
-#: plugins/fileinfo/ui_FileInfoDlg.h:1386
-#: plugins/fileinfo/ui_FileInfoDlg.h:1387
-#: plugins/fileinfo/ui_FileInfoDlg.h:1403
-#: plugins/fileinfo/ui_FileInfoDlg.h:1404
-#: plugins/fileinfo/ui_FileInfoDlg.h:1407
-#: plugins/fileinfo/ui_FileInfoDlg.h:1408
-#: plugins/fileinfo/ui_FileInfoDlg.h:1409
-#: plugins/fileinfo/ui_FileInfoDlg.h:1410
-#: plugins/fileinfo/ui_FileInfoDlg.h:1411
-#: plugins/fileinfo/ui_FileInfoDlg.h:1412
-#: plugins/fileinfo/ui_FileInfoDlg.h:1414
-#: plugins/fileinfo/ui_FileInfoDlg.h:1415
-#: plugins/fileinfo/ui_FileInfoDlg.h:1416
-#: plugins/fileinfo/ui_FileInfoDlg.h:1417
-#: plugins/fileinfo/ui_FileInfoDlg.h:1418
-#: plugins/fileinfo/ui_FileInfoDlg.h:1419
-#: plugins/fileinfo/ui_FileInfoDlg.h:1420
-#: plugins/fileinfo/ui_FileInfoDlg.h:1421
-#: plugins/fileinfo/ui_FileInfoDlg.h:1423
-#: plugins/fileinfo/ui_FileInfoDlg.h:1424
+#: plugins/fileinfo/ui_FileInfoDlg.h:1351
+#: plugins/fileinfo/ui_FileInfoDlg.h:1352
+#: plugins/fileinfo/ui_FileInfoDlg.h:1353
+#: plugins/fileinfo/ui_FileInfoDlg.h:1354
+#: plugins/fileinfo/ui_FileInfoDlg.h:1355
+#: plugins/fileinfo/ui_FileInfoDlg.h:1357
+#: plugins/fileinfo/ui_FileInfoDlg.h:1358
+#: plugins/fileinfo/ui_FileInfoDlg.h:1359
+#: plugins/fileinfo/ui_FileInfoDlg.h:1360
+#: plugins/fileinfo/ui_FileInfoDlg.h:1361
+#: plugins/fileinfo/ui_FileInfoDlg.h:1362
+#: plugins/fileinfo/ui_FileInfoDlg.h:1363
+#: plugins/fileinfo/ui_FileInfoDlg.h:1364
+#: plugins/fileinfo/ui_FileInfoDlg.h:1366
+#: plugins/fileinfo/ui_FileInfoDlg.h:1367
 msgid "#"
 msgstr "#"
 
@@ -113,19 +112,19 @@ msgstr "#"
 msgid "%"
 msgstr "%"
 
-#: libkwave/Utils.cpp:112
+#: libkwave/Utils.cpp:114
 #, c-format
 msgctxt "time of label tooltip, %1=hour, %2=minute, %3=second, %4=milliseconds"
 msgid "%02u:%02u:%02u.%04u"
 msgstr "%02u:%02u:%02u.%04u"
 
-#: libkwave/SignalManager.cpp:341 plugins/fileinfo/ui_FileInfoDlg.h:1301
+#: libkwave/SignalManager.cpp:341 plugins/fileinfo/ui_FileInfoDlg.h:1272
 #: plugins/newsignal/ui_NewSigDlg.h:497 plugins/newsignal/ui_NewSigDlg.h:526
 #, kde-format
 msgid "%1"
 msgstr "%1"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:220
+#: plugins/fileinfo/FileInfoDialog.cpp:225
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 Samples)"
@@ -155,7 +154,7 @@ msgstr "%1Hz ist fehlgeschlagen, verwende %2Hz"
 msgid "%1 Hz is not supported, using %2 Hz"
 msgstr "%1Hz wird nicht unterstützt, verwende %2Hz"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:150
+#: plugins/fileinfo/FileInfoDialog.cpp:155
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr "%1 MB (%2 Bytes)"
@@ -191,7 +190,7 @@ msgstr ""
 msgid "%1 bits per sample is not supported, using %2 bits per sample"
 msgstr "%1 Bits pro Sample wird nicht unterstützt, verwende %2 Bits pro Sample"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:145
+#: plugins/fileinfo/FileInfoDialog.cpp:150
 #, kde-format
 msgid "%1 bytes"
 msgstr "%1 Bytes"
@@ -221,7 +220,7 @@ msgstr "'%1' wird nicht unterstützt, verwende '%2'"
 msgid "%1 kB"
 msgstr "%1 kB"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:147
+#: plugins/fileinfo/FileInfoDialog.cpp:152
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr "%1 kB (%2 Bytes)"
@@ -231,24 +230,24 @@ msgstr "%1 kB (%2 Bytes)"
 msgid "%1 kB/s (%2 remaining)"
 msgstr "%1 kB/s (%2 verbleiben)"
 
-#: kwave/TopWidget.cpp:342 kwave/TopWidget.cpp:343 kwave/TopWidget.cpp:344
-#: kwave/TopWidget.cpp:345 kwave/TopWidget.cpp:346 kwave/TopWidget.cpp:347
+#: kwave/TopWidget.cpp:343 kwave/TopWidget.cpp:344 kwave/TopWidget.cpp:345
+#: kwave/TopWidget.cpp:346 kwave/TopWidget.cpp:347 kwave/TopWidget.cpp:348
 #, kde-format
 msgid "%1 min"
 msgstr "%1 min"
 
-#: kwave/TopWidget.cpp:336 kwave/TopWidget.cpp:337 kwave/TopWidget.cpp:338
+#: kwave/TopWidget.cpp:337 kwave/TopWidget.cpp:338 kwave/TopWidget.cpp:339
 #, kde-format
 msgid "%1 ms"
 msgstr "%1 ms"
 
-#: libkwave/FileProgress.cpp:349 plugins/fileinfo/FileInfoDialog.cpp:224
+#: libkwave/FileProgress.cpp:349 plugins/fileinfo/FileInfoDialog.cpp:229
 #: plugins/record/RecordDialog.cpp:579 plugins/record/ui_RecordDlg.h:1069
 #, kde-format
 msgid "%1 samples"
 msgstr "%1 Samples"
 
-#: kwave/TopWidget.cpp:339 kwave/TopWidget.cpp:340 kwave/TopWidget.cpp:341
+#: kwave/TopWidget.cpp:340 kwave/TopWidget.cpp:341 kwave/TopWidget.cpp:342
 #, kde-format
 msgid "%1 sec"
 msgstr "%1 sec"
@@ -317,7 +316,7 @@ msgstr "Be&rechne"
 #: plugins/amplifyfree/ui_AmplifyFreeDlg.h:149
 #: plugins/band_pass/ui_BandPassDlg.h:208
 #: plugins/fileinfo/ui_SelectDateDlg.h:99
-#: plugins/fileinfo/ui_FileInfoDlg.h:1430 plugins/goto/ui_GotoDlg.h:106
+#: plugins/fileinfo/ui_FileInfoDlg.h:1373 plugins/goto/ui_GotoDlg.h:106
 #: plugins/lowpass/ui_LowPassDlg.h:210 plugins/memory/ui_MemDlg.h:327
 #: plugins/newsignal/ui_NewSigDlg.h:530
 #: plugins/notch_filter/ui_NotchFilterDlg.h:242
@@ -445,7 +444,7 @@ msgstr "&Gehe zu Position..."
 #: libgui/ui_LabelPropertiesWidgetBase.h:180 kwave/menus_config_i18n.cpp:59
 #: plugins/amplifyfree/ui_AmplifyFreeDlg.h:147
 #: plugins/band_pass/ui_BandPassDlg.h:196
-#: plugins/fileinfo/ui_FileInfoDlg.h:1426 plugins/goto/ui_GotoDlg.h:104
+#: plugins/fileinfo/ui_FileInfoDlg.h:1369 plugins/goto/ui_GotoDlg.h:104
 #: plugins/lowpass/ui_LowPassDlg.h:198 plugins/memory/ui_MemDlg.h:324
 #: plugins/newsignal/ui_NewSigDlg.h:527
 #: plugins/notch_filter/ui_NotchFilterDlg.h:230
@@ -510,7 +509,7 @@ msgstr "&Tiefpass"
 msgid "&Macro"
 msgstr "&Makro"
 
-#: libkwave/SignalManager.cpp:1298 kwave/menus_config_i18n.cpp:71
+#: libkwave/SignalManager.cpp:1315 kwave/menus_config_i18n.cpp:71
 msgid "&Memory"
 msgstr "&Speicher"
 
@@ -542,7 +541,7 @@ msgstr "&Nächstes"
 msgid "&Next Page"
 msgstr "&Nächste Seite"
 
-#: plugins/codec_wav/WavEncoder.cpp:345
+#: plugins/codec_wav/WavEncoder.cpp:346
 msgid "&No, store uncompressed"
 msgstr "&Nein, unkomprimiert speichern"
 
@@ -565,7 +564,7 @@ msgstr "N&ichts"
 #: plugins/amplifyfree/ui_AmplifyFreeDlg.h:148
 #: plugins/band_pass/ui_BandPassDlg.h:206
 #: plugins/fileinfo/ui_SelectDateDlg.h:98
-#: plugins/fileinfo/ui_FileInfoDlg.h:1428 plugins/lowpass/ui_LowPassDlg.h:208
+#: plugins/fileinfo/ui_FileInfoDlg.h:1371 plugins/lowpass/ui_LowPassDlg.h:208
 #: plugins/memory/ui_MemDlg.h:326 plugins/notch_filter/ui_NotchFilterDlg.h:240
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:222
 #: plugins/playback/ui_PlayBackDlg.h:436 plugins/sonagram/ui_SonagramDlg.h:270
@@ -577,7 +576,7 @@ msgstr "&OK"
 msgid "&Open"
 msgstr "&Öffnen"
 
-#: libkwave/SignalManager.cpp:1297 kwave/menus_config_i18n.cpp:86
+#: libkwave/SignalManager.cpp:1314 kwave/menus_config_i18n.cpp:86
 msgid "&Options"
 msgstr "&Einstellungen"
 
@@ -657,7 +656,7 @@ msgstr "&Wiederherstellen"
 msgid "&Remove"
 msgstr "&Löschen"
 
-#: plugins/codec_wav/WavDecoder.cpp:175
+#: plugins/codec_wav/WavDecoder.cpp:174
 msgid "&Repair"
 msgstr "&Reparieren"
 
@@ -690,7 +689,7 @@ msgid "&Select all"
 msgstr "&Alles auswählen"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:694
-#: plugins/fileinfo/ui_FileInfoDlg.h:1394
+#: plugins/fileinfo/ui_FileInfoDlg.h:1337
 #: plugins/playback/ui_PlayBackDlg.h:387
 msgid "&Select..."
 msgstr "Aus&wählen..."
@@ -742,7 +741,7 @@ msgstr "&Zeit"
 msgid "&To New Window"
 msgstr "In &neues Fenster"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1401
+#: plugins/fileinfo/ui_FileInfoDlg.h:1344
 msgid "&Today"
 msgstr "&Heute"
 
@@ -774,7 +773,7 @@ msgstr "&Sichtbarer Bereich"
 msgid "&Volume"
 msgstr "&Lautstärke"
 
-#: plugins/codec_wav/WavEncoder.cpp:344
+#: plugins/codec_wav/WavEncoder.cpp:345
 msgid "&Yes, use G711"
 msgstr "&Ja, G711 verwenden"
 
@@ -793,12 +792,12 @@ msgstr "(%1%) %2"
 msgid "(File Size)"
 msgstr "(Dateigrösse)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:513
+#: plugins/fileinfo/FileInfoDialog.cpp:526
 #: plugins/newsignal/NewSignalDialog.cpp:300
 msgid "(Mono)"
 msgstr "(Mono)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:519
+#: plugins/fileinfo/FileInfoDialog.cpp:532
 #: plugins/newsignal/NewSignalDialog.cpp:306
 msgid "(Quadro)"
 msgstr "(Quadro)"
@@ -808,7 +807,7 @@ msgstr "(Quadro)"
 msgid "(Resulting file size: %1 MB)"
 msgstr "(Resultierende Dateigrösse: %1 MB)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:516
+#: plugins/fileinfo/FileInfoDialog.cpp:529
 #: plugins/newsignal/NewSignalDialog.cpp:303
 msgid "(Stereo)"
 msgstr "(Stereo)"
@@ -856,11 +855,7 @@ msgstr "(Stereo)"
 msgid "(user defined)"
 msgstr "(benutzerdefiniert)"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1353
-msgid "(variable)"
-msgstr "(variabel)"
-
-#: kwave/TopWidget.cpp:1518
+#: kwave/TopWidget.cpp:1542
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
@@ -890,7 +885,7 @@ msgstr "1 (Mono)"
 msgid "100%"
 msgstr "100%"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1309 plugins/newsignal/ui_NewSigDlg.h:479
+#: plugins/fileinfo/ui_FileInfoDlg.h:1280 plugins/newsignal/ui_NewSigDlg.h:479
 msgid "10000"
 msgstr "10000"
 
@@ -898,15 +893,11 @@ msgstr "10000"
 msgid "1024"
 msgstr "1024"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1310 plugins/newsignal/ui_NewSigDlg.h:480
+#: plugins/fileinfo/ui_FileInfoDlg.h:1281 plugins/newsignal/ui_NewSigDlg.h:480
 msgid "11025"
 msgstr "11025"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1363
-msgid "112K"
-msgstr "112K"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1311 plugins/newsignal/ui_NewSigDlg.h:481
+#: plugins/fileinfo/ui_FileInfoDlg.h:1282 plugins/newsignal/ui_NewSigDlg.h:481
 msgid "12000"
 msgstr "12000"
 
@@ -914,33 +905,9 @@ msgstr "12000"
 msgid "128"
 msgstr "128"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1364
-msgid "128K"
-msgstr "128K"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1365
-msgid "144K"
-msgstr "144K"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1312 plugins/newsignal/ui_NewSigDlg.h:482
+#: plugins/fileinfo/ui_FileInfoDlg.h:1283 plugins/newsignal/ui_NewSigDlg.h:482
 msgid "16000"
 msgstr "16000"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1366
-msgid "160K"
-msgstr "160K"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1355
-msgid "16K"
-msgstr "16K"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1367
-msgid "176K"
-msgstr "176K"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1368
-msgid "192K"
-msgstr "192K"
 
 #: libkwave/FileProgress.cpp:114
 msgid "2 (stereo)"
@@ -950,17 +917,9 @@ msgstr "2 (Stereo)"
 msgid "2048"
 msgstr "2048"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1313 plugins/newsignal/ui_NewSigDlg.h:483
+#: plugins/fileinfo/ui_FileInfoDlg.h:1284 plugins/newsignal/ui_NewSigDlg.h:483
 msgid "22050"
 msgstr "22050"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1369
-msgid "224K"
-msgstr "224K"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1356
-msgid "24K"
-msgstr "24K"
 
 #: plugins/sonagram/ui_SonagramDlg.h:307
 msgid "256"
@@ -970,14 +929,6 @@ msgstr "256"
 msgid "256 Bytes"
 msgstr "256 Bytes"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1370
-msgid "256K"
-msgstr "256K"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1371
-msgid "288K"
-msgstr "288K"
-
 #: libkwave/Interpolation.cpp:43
 msgid "3-Polynom"
 msgstr "3-Polynom"
@@ -986,25 +937,9 @@ msgstr "3-Polynom"
 msgid "32-bit IEEE Floating-Point"
 msgstr "32-Bit IEEE Fliesskomma"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1314 plugins/newsignal/ui_NewSigDlg.h:484
+#: plugins/fileinfo/ui_FileInfoDlg.h:1285 plugins/newsignal/ui_NewSigDlg.h:484
 msgid "32000"
 msgstr "32000"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1372
-msgid "320K"
-msgstr "320K"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1357
-msgid "32K"
-msgstr "32K"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1373
-msgid "352K"
-msgstr "352K"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1374
-msgid "384K"
-msgstr "384K"
 
 #: libkwave/FileProgress.cpp:117
 msgid "4 (quadro)"
@@ -1014,23 +949,11 @@ msgstr "4 (Quadro)"
 msgid "4096"
 msgstr "4096"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1358
-msgid "40K"
-msgstr "40K"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1375
-msgid "416K"
-msgstr "416K"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1315 plugins/newsignal/ui_NewSigDlg.h:485
+#: plugins/fileinfo/ui_FileInfoDlg.h:1286 plugins/newsignal/ui_NewSigDlg.h:485
 msgid "44100"
 msgstr "44100"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1376
-msgid "448K"
-msgstr "448K"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1316 plugins/newsignal/ui_NewSigDlg.h:486
+#: plugins/fileinfo/ui_FileInfoDlg.h:1287 plugins/newsignal/ui_NewSigDlg.h:486
 msgid "48000"
 msgstr "48000"
 
@@ -1043,17 +966,13 @@ msgid "50%"
 msgstr "50%"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:783
-#: plugins/fileinfo/ui_FileInfoDlg.h:1346
+#: plugins/fileinfo/ui_FileInfoDlg.h:1308
 msgid "50/15ms"
 msgstr "50/15ms"
 
 #: plugins/sonagram/ui_SonagramDlg.h:308
 msgid "512"
 msgstr "512"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1359
-msgid "56K"
-msgstr "56K"
 
 #: plugins/sonagram/ui_SonagramDlg.h:305
 msgid "64"
@@ -1063,33 +982,17 @@ msgstr "64"
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-Bit IEEE Fliesskomma mit doppelter Genauigkeit"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1360
-msgid "64K"
-msgstr "64K"
-
 #: libkwave/Interpolation.cpp:45
 msgid "7-Polynom"
 msgstr "7-Polynom"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1308 plugins/newsignal/ui_NewSigDlg.h:478
+#: plugins/fileinfo/ui_FileInfoDlg.h:1279 plugins/newsignal/ui_NewSigDlg.h:478
 msgid "8000"
 msgstr "8000"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1361
-msgid "80K"
-msgstr "80K"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1354
-msgid "8K"
-msgstr "8K"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1317 plugins/newsignal/ui_NewSigDlg.h:487
+#: plugins/fileinfo/ui_FileInfoDlg.h:1288 plugins/newsignal/ui_NewSigDlg.h:487
 msgid "96000"
 msgstr "96000"
-
-#: plugins/fileinfo/ui_FileInfoDlg.h:1362
-msgid "96K"
-msgstr "96K"
 
 #: plugins/fileinfo/ui_KeywordWidgetBase.h:103
 msgid ""
@@ -1213,7 +1116,7 @@ msgstr ""
 "können Sie einen Gerätenamen manuell eintragen oder im Dateisystem suchen.</"
 "p>"
 
-#: libkwave/SignalManager.cpp:1295
+#: libkwave/SignalManager.cpp:1312
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -1554,7 +1457,7 @@ msgstr "AGC:"
 msgid "ALSA (Advanced Linux Sound Architecture)"
 msgstr "ALSA (Advanced Linux Sound Architecture)"
 
-#: plugins/playback/PlayBack-OSS.cpp:402
+#: plugins/playback/PlayBack-OSS.cpp:405
 msgid "ALSA playback device (adsp*)"
 msgstr "ALSA-Wiedergabegerät (adsp*)"
 
@@ -1587,39 +1490,39 @@ msgstr "Über &KDE"
 msgid "About Kwave"
 msgstr "Über Kwave"
 
-#: libkwave/GenreType.cpp:202
+#: libkwave/GenreType.cpp:218
 msgid "Acapella"
 msgstr "Acapella"
 
-#: libkwave/GenreType.cpp:111
+#: libkwave/GenreType.cpp:127
 msgid "Acid"
 msgstr "Acid"
 
-#: libkwave/GenreType.cpp:151
+#: libkwave/GenreType.cpp:167
 msgid "Acid Jazz"
 msgstr "Acid Jazz"
 
-#: libkwave/GenreType.cpp:150
+#: libkwave/GenreType.cpp:166
 msgid "Acid Punk"
 msgstr "Acid Punk"
 
-#: libkwave/GenreType.cpp:178
+#: libkwave/GenreType.cpp:194
 msgid "Acoustic"
 msgstr "Acoustic"
 
-#: kwave/MainWidget.cpp:873 libkwave/SignalManager.cpp:1784
+#: kwave/MainWidget.cpp:873 libkwave/SignalManager.cpp:1801
 msgid "Add Label"
 msgstr "Markierung hinzufügen"
 
-#: libkwave/FileInfo.cpp:40
+#: libkwave/FileInfo.cpp:42
 msgid "Album"
 msgstr "Album"
 
-#: libkwave/CodecManager.cpp:190
+#: libkwave/CodecManager.cpp:206
 msgid "All Files"
 msgstr "Alle Dateien"
 
-#: libkwave/CodecManager.cpp:191
+#: libkwave/CodecManager.cpp:207
 msgid "All Supported Files"
 msgstr "Alle unterstützten Dateien"
 
@@ -1629,7 +1532,7 @@ msgid "Alt+C"
 msgstr "Alt+C"
 
 #: libgui/ui_LabelPropertiesWidgetBase.h:181
-#: plugins/fileinfo/ui_FileInfoDlg.h:1427 plugins/memory/ui_MemDlg.h:325
+#: plugins/fileinfo/ui_FileInfoDlg.h:1370 plugins/memory/ui_MemDlg.h:325
 #: plugins/newsignal/ui_NewSigDlg.h:528 plugins/playback/ui_PlayBackDlg.h:427
 #: plugins/record/ui_RecordDlg.h:1083 plugins/sonagram/ui_SonagramDlg.h:269
 msgid "Alt+H"
@@ -1645,7 +1548,7 @@ msgstr "Alt+K"
 msgid "Alt+L"
 msgstr "Alt+L"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1429
+#: plugins/fileinfo/ui_FileInfoDlg.h:1372
 #: plugins/playback/ui_PlayBackDlg.h:437
 msgid "Alt+O"
 msgstr "Alt+O"
@@ -1658,11 +1561,11 @@ msgstr "Alt+S"
 msgid "Alt+T"
 msgstr "Alt+T"
 
-#: libkwave/GenreType.cpp:117
+#: libkwave/GenreType.cpp:133
 msgid "AlternRock"
 msgstr "AlternRock"
 
-#: libkwave/GenreType.cpp:97
+#: libkwave/GenreType.cpp:113
 msgid "Alternative"
 msgstr "Alternative"
 
@@ -1670,7 +1573,7 @@ msgstr "Alternative"
 msgid "Always start with 1, overwrite if necessary"
 msgstr "Immer mit 1 starten, überschreiben wenn nötig"
 
-#: libkwave/GenreType.cpp:103
+#: libkwave/GenreType.cpp:119
 msgid "Ambient"
 msgstr "Ambient"
 
@@ -1705,7 +1608,7 @@ msgstr "Amplitude: --- %"
 msgid "Amplitude: 0 %"
 msgstr "Amplitude: 0 %"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:415
+#: plugins/codec_mp3/MP3Encoder.cpp:544
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -1717,7 +1620,7 @@ msgstr ""
 "\n"
 "%2"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:516
+#: plugins/codec_mp3/MP3Decoder.cpp:535
 #, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -1729,7 +1632,7 @@ msgstr ""
 "bei Position %2."
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:127
-#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:439
+#: plugins/codec_wav/WavDecoder.cpp:375 plugins/codec_wav/WavEncoder.cpp:440
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -1746,16 +1649,16 @@ msgstr "Beim Speichern der Datei ist ein Fehler aufgetreten."
 msgid "Analyzing volume level..."
 msgstr "Analysiere Lautstärke..."
 
-#: libkwave/FileInfo.cpp:44
+#: libkwave/FileInfo.cpp:46
 msgid "Annotation"
 msgstr "Anmerkung"
 
-#: plugins/playback/PlayBack-OSS.cpp:405 plugins/record/Record-OSS.cpp:293
+#: plugins/playback/PlayBack-OSS.cpp:408 plugins/record/Record-OSS.cpp:293
 #: plugins/record/RecordDialog.cpp:599
 msgid "Any device (*)"
 msgstr "Anderes Wiedergabegerät (*)"
 
-#: libkwave/SignalManager.cpp:861
+#: libkwave/SignalManager.cpp:878
 msgid "Append Track"
 msgstr "Spur hinzufügen"
 
@@ -1784,7 +1687,7 @@ msgstr "Apple MAC6"
 msgid "Applying '%1'..."
 msgstr "'%1' wird angewendet..."
 
-#: libkwave/FileInfo.cpp:50
+#: libkwave/FileInfo.cpp:52
 msgid "Archival location"
 msgstr "Archivierungs-Ort"
 
@@ -1792,7 +1695,7 @@ msgstr "Archivierungs-Ort"
 msgid "Audio Interchange Format"
 msgstr "Audio Interchange Format"
 
-#: libkwave/FileInfo.cpp:152
+#: libkwave/FileInfo.cpp:157
 msgid "Audio emphasis mode"
 msgstr "Audio-Emphase Einstellung"
 
@@ -1804,7 +1707,7 @@ msgstr "Audiofile Codec"
 msgid "Aurelien Jarno"
 msgstr "Aurelien Jarno"
 
-#: libkwave/FileInfo.cpp:53
+#: libkwave/FileInfo.cpp:55
 msgid "Author"
 msgstr "Autor"
 
@@ -1824,7 +1727,7 @@ msgstr "Autor der 'mad'-Bibliothek zur MP3-Decodierung"
 msgid "Author of the 'sndfile' library"
 msgstr "Autor der 'sndfile'-Bibliothek"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1422
+#: plugins/fileinfo/ui_FileInfoDlg.h:1365
 msgid "Author/Copyright"
 msgstr "Author/Copyright"
 
@@ -1832,7 +1735,7 @@ msgstr "Author/Copyright"
 msgid "Authors"
 msgstr "Autoren"
 
-#: plugins/codec_wav/WavDecoder.cpp:141
+#: plugins/codec_wav/WavDecoder.cpp:140
 msgid "Auto Repair"
 msgstr "Automatische Reparatur"
 
@@ -1849,7 +1752,7 @@ msgstr ""
 "vergrössert das Sonagramm automatisch, wenn die<br>Auswahl vergrössert, "
 "reduziert oder verschoben wurde"
 
-#: libkwave/GenreType.cpp:169
+#: libkwave/GenreType.cpp:185
 msgid "Avantgarde"
 msgstr "Avantgarde"
 
@@ -1857,7 +1760,7 @@ msgstr "Avantgarde"
 msgid "Average Bitrate Mode"
 msgstr "Mittlere Bitrate"
 
-#: libkwave/GenreType.cpp:195
+#: libkwave/GenreType.cpp:211
 msgid "Ballad"
 msgstr "Ballade"
 
@@ -1870,35 +1773,35 @@ msgstr "Bandpass"
 msgid "Band Pass Filter"
 msgstr "Bandpass-Filter"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:368
+#: plugins/fileinfo/FileInfoDialog.cpp:345
 msgid "Bands 0 to 31"
 msgstr "Bänder 0 bis 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:370
+#: plugins/fileinfo/FileInfoDialog.cpp:347
 msgid "Bands 12 to 31"
 msgstr "Bänder 12 bis 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:371
+#: plugins/fileinfo/FileInfoDialog.cpp:348
 msgid "Bands 16 to 31"
 msgstr "Bänder 16 bis 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:369
+#: plugins/fileinfo/FileInfoDialog.cpp:346
 msgid "Bands 8 to 31"
 msgstr "Bänder 8 bis 31"
 
-#: libkwave/FileInfo.cpp:224 plugins/fileinfo/ui_CompressionWidgetBase.h:215
+#: libkwave/FileInfo.cpp:232 plugins/fileinfo/ui_CompressionWidgetBase.h:215
 msgid "Base Quality"
 msgstr "Basis-Qualität"
 
-#: libkwave/FileInfo.cpp:225
+#: libkwave/FileInfo.cpp:233
 msgid "Base quality of the compression in VBR mode"
 msgstr "Basisqualität der Kompression im VBR-Modus"
 
-#: libkwave/GenreType.cpp:118
+#: libkwave/GenreType.cpp:134
 msgid "Bass"
 msgstr "Bass"
 
-#: libkwave/GenreType.cpp:164
+#: libkwave/GenreType.cpp:180
 msgid "Bebob"
 msgstr "Bebob"
 
@@ -1906,7 +1809,7 @@ msgstr "Bebob"
 msgid "Berkeley, IRCAM, Carl Sound Format"
 msgstr "Berkeley, IRCAM, Carl Sound Format"
 
-#: libkwave/GenreType.cpp:175
+#: libkwave/GenreType.cpp:191
 msgid "Big Band"
 msgstr "Big Band"
 
@@ -1914,7 +1817,7 @@ msgstr "Big Band"
 msgid "Bit"
 msgstr "Bit"
 
-#: libkwave/FileInfo.cpp:61
+#: libkwave/FileInfo.cpp:63
 msgid "Bitrate"
 msgstr "Bitrate"
 
@@ -1922,7 +1825,7 @@ msgstr "Bitrate"
 msgid "Bitrate:"
 msgstr "Bitrate:"
 
-#: libkwave/FileInfo.cpp:67
+#: libkwave/FileInfo.cpp:69
 msgid "Bits per Sample"
 msgstr "Bits pro Sample"
 
@@ -1938,15 +1841,15 @@ msgstr "Bits pro Sample:"
 msgid "Blackman"
 msgstr "Blackman"
 
-#: libkwave/GenreType.cpp:168
+#: libkwave/GenreType.cpp:184
 msgid "Bluegrass"
 msgstr "Bluegrass"
 
-#: libkwave/GenreType.cpp:77
+#: libkwave/GenreType.cpp:93
 msgid "Blues"
 msgstr "Blues"
 
-#: libkwave/GenreType.cpp:186
+#: libkwave/GenreType.cpp:202
 msgid "Booty Bass"
 msgstr "Booty Bass"
 
@@ -1981,7 +1884,7 @@ msgstr "Puffern..."
 msgid "Byte Order:"
 msgstr "Byteorder:"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1347
+#: plugins/fileinfo/ui_FileInfoDlg.h:1309
 msgid "CCIT J.17"
 msgstr "CCIT J.17"
 
@@ -1989,11 +1892,15 @@ msgstr "CCIT J.17"
 msgid "CCIT J17"
 msgstr "CCIT J.17"
 
-#: libkwave/FileInfo.cpp:70
+#: libkwave/FileInfo.cpp:72
 msgid "CD"
 msgstr "CD"
 
-#: libkwave/GenreType.cpp:142
+#: libkwave/FileInfo.cpp:75
+msgid "CDS"
+msgstr "CDs"
+
+#: libkwave/GenreType.cpp:158
 msgid "Cabaret"
 msgstr "Kabarett"
 
@@ -2008,11 +1915,11 @@ msgstr "Karte %1: "
 msgid "Caulier Gilles"
 msgstr "Caulier Gilles"
 
-#: libkwave/GenreType.cpp:167
+#: libkwave/GenreType.cpp:183
 msgid "Celtic"
 msgstr "Celtic"
 
-#: libkwave/GenreType.cpp:183
+#: libkwave/GenreType.cpp:199
 msgid "Chamber Music"
 msgstr "Kammermusik"
 
@@ -2025,7 +1932,7 @@ msgstr "Abtastrate ändern"
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
 msgstr "Ändere Abtastrate von %1 kHz nach %2 kHz..."
 
-#: libkwave/FileInfo.cpp:221
+#: libkwave/FileInfo.cpp:229
 msgid "Channels"
 msgstr "Kanäle"
 
@@ -2034,11 +1941,11 @@ msgstr "Kanäle"
 msgid "Channels:"
 msgstr "Kanäle:"
 
-#: libkwave/GenreType.cpp:181
+#: libkwave/GenreType.cpp:197
 msgid "Chanson"
 msgstr "Chanson"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:487
+#: plugins/codec_mp3/MP3Decoder.cpp:506
 msgid "Checksum error"
 msgstr "Prüfsummen-Fehler"
 
@@ -2051,19 +1958,19 @@ msgstr ""
 "Wenn die Transformation umkehrbar sein soll,<br>\n"
 "wählen Sie den Typ \"Keine\"."
 
-#: libkwave/GenreType.cpp:176
+#: libkwave/GenreType.cpp:192
 msgid "Chorus"
 msgstr "Chorus"
 
-#: libkwave/GenreType.cpp:138
+#: libkwave/GenreType.cpp:154
 msgid "Christian Rap"
 msgstr "Christlicher Rap"
 
-#: libkwave/GenreType.cpp:78
+#: libkwave/GenreType.cpp:94
 msgid "Classic Rock"
 msgstr "Klassischer Rock"
 
-#: libkwave/GenreType.cpp:109
+#: libkwave/GenreType.cpp:125
 msgid "Classical"
 msgstr "Klassik"
 
@@ -2071,19 +1978,19 @@ msgstr "Klassik"
 msgid "Clip&board"
 msgstr "&Zwischenablage"
 
-#: libkwave/GenreType.cpp:191
+#: libkwave/GenreType.cpp:207
 msgid "Club"
 msgstr "Club"
 
-#: libkwave/GenreType.cpp:134
+#: libkwave/GenreType.cpp:150
 msgid "Comedy"
 msgstr "Comedy"
 
-#: libkwave/FileInfo.cpp:77
+#: libkwave/FileInfo.cpp:82
 msgid "Comments"
 msgstr "Kommentare"
 
-#: libkwave/FileInfo.cpp:73
+#: libkwave/FileInfo.cpp:78
 msgid "Commisioned"
 msgstr "Genehmigt"
 
@@ -2095,7 +2002,7 @@ msgstr "Kompatibilität:"
 msgid "Compressed Audio Interchange Format"
 msgstr "Komprimiertes Audio Interchange Format"
 
-#: libkwave/FileInfo.cpp:83 plugins/fileinfo/ui_FileInfoDlg.h:1325
+#: libkwave/FileInfo.cpp:88 plugins/fileinfo/ui_FileInfoDlg.h:1296
 msgid "Compression"
 msgstr "Kompression"
 
@@ -2125,11 +2032,11 @@ msgstr "Herzlichen Glückwunsch, der Test war erfolgreich!"
 msgid "Connecting to the PulseAudio server failed."
 msgstr "Verbindung zum PulseAudio-Server fehlgeschlagen."
 
-#: libkwave/FileInfo.cpp:87
+#: libkwave/FileInfo.cpp:92
 msgid "Contact"
 msgstr "Kontakt"
 
-#: libkwave/FileInfo.cpp:88
+#: libkwave/FileInfo.cpp:93
 msgid ""
 "Contact information for the creators or distributors of\n"
 "the track. This could be a URL, an email address, the\n"
@@ -2139,7 +2046,7 @@ msgstr ""
 "des Stücks. Dies kann ein URL, eine E-Mail Adresse,\n"
 "oder eine Adresse des Hersteller-Labels sein."
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1402
+#: plugins/fileinfo/ui_FileInfoDlg.h:1345
 msgid "Content"
 msgstr "Inhalt"
 
@@ -2147,11 +2054,11 @@ msgstr "Inhalt"
 msgid "Continue after highest index"
 msgstr "Nach dem höchsten Index fortsetzen"
 
-#: kwave/TopWidget.cpp:247
+#: kwave/TopWidget.cpp:248
 msgid "Copy"
 msgstr "Kopieren"
 
-#: libkwave/FileInfo.cpp:92
+#: libkwave/FileInfo.cpp:97
 msgid "Copyright"
 msgstr "Copyright"
 
@@ -2159,19 +2066,19 @@ msgstr "Copyright"
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: libkwave/FileInfo.cpp:98
+#: libkwave/FileInfo.cpp:103
 msgid "Copyrighted"
 msgstr "Copyright"
 
-#: plugins/codec_ogg/OggDecoder.cpp:358
+#: plugins/codec_ogg/OggDecoder.cpp:359
 msgid "Corrupt or missing data in bitstream. Continuing."
 msgstr "Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt."
 
-#: plugins/codec_ogg/OggDecoder.cpp:172
+#: plugins/codec_ogg/OggDecoder.cpp:173
 msgid "Corrupt secondary header. Exiting."
 msgstr "Beschädigter sekundärer Header. Vorgang wird abgebrochen."
 
-#: libkwave/GenreType.cpp:79
+#: libkwave/GenreType.cpp:95
 msgid "Country"
 msgstr "Country"
 
@@ -2179,7 +2086,7 @@ msgstr "Country"
 msgid "Create &type"
 msgstr "&Typ erzeugen"
 
-#: kwave/TopWidget.cpp:211
+#: kwave/TopWidget.cpp:212
 msgid "Create a new empty file"
 msgstr "Neue leere Datei erzeugen"
 
@@ -2203,7 +2110,7 @@ msgstr "&Ausschneiden"
 msgid "Cubic Sinus"
 msgstr "Sinus hoch 3"
 
-#: libkwave/GenreType.cpp:135
+#: libkwave/GenreType.cpp:151
 msgid "Cult"
 msgstr "Cult"
 
@@ -2211,7 +2118,7 @@ msgstr "Cult"
 msgid "Currently Selected Point"
 msgstr "Aktuell ausgewählter Punkt"
 
-#: kwave/TopWidget.cpp:242 libkwave/SignalManager.cpp:662
+#: kwave/TopWidget.cpp:243 libkwave/SignalManager.cpp:662
 msgid "Cut"
 msgstr "Ausschneiden"
 
@@ -2235,19 +2142,19 @@ msgstr "DV"
 msgid "DVI Audio / IMA"
 msgstr "DVI Audio / IMA"
 
-#: libkwave/GenreType.cpp:80
+#: libkwave/GenreType.cpp:96
 msgid "Dance"
 msgstr "Dance"
 
-#: libkwave/GenreType.cpp:204
+#: libkwave/GenreType.cpp:220
 msgid "Dance Hall"
 msgstr "Dance Hall"
 
-#: libkwave/GenreType.cpp:127
+#: libkwave/GenreType.cpp:143
 msgid "Darkwave"
 msgstr "Darkwave"
 
-#: libkwave/FileInfo.cpp:101
+#: libkwave/FileInfo.cpp:106
 msgid "Date"
 msgstr "Datum"
 
@@ -2259,7 +2166,7 @@ msgstr "Dave Flogeras"
 msgid "De&lay"
 msgstr "Ver&zögerung"
 
-#: libkwave/GenreType.cpp:99
+#: libkwave/GenreType.cpp:115
 msgid "Death Metal"
 msgstr "Death Metal"
 
@@ -2299,7 +2206,7 @@ msgctxt ""
 msgid "Delete %1 %2 objects"
 msgstr "Löschen von %1 Objekten des Typs %2"
 
-#: libkwave/SignalManager.cpp:1813
+#: libkwave/SignalManager.cpp:1830
 msgid "Delete Label"
 msgstr "Markierung löschen"
 
@@ -2307,15 +2214,15 @@ msgstr "Markierung löschen"
 msgid "Delete Meta Data"
 msgstr "Löschen von Metadaten"
 
-#: libkwave/undo/UndoDeleteTrack.cpp:45 libkwave/SignalManager.cpp:909
+#: libkwave/undo/UndoDeleteTrack.cpp:45 libkwave/SignalManager.cpp:926
 msgid "Delete Track"
 msgstr "Spur löschen"
 
-#: kwave/TopWidget.cpp:265
+#: kwave/TopWidget.cpp:266
 msgid "Delete selection"
 msgstr "Auswahl löschen"
 
-#: libkwave/FileInfo.cpp:117
+#: libkwave/FileInfo.cpp:122
 msgid ""
 "Describes the genre or style of the original work.\n"
 "Examples: 'classic', 'pop'"
@@ -2323,7 +2230,7 @@ msgstr ""
 "Beschreibt das Genre bzw. den Stil des Originalwerkes.\n"
 "Beispiele: 'Klassik', 'Pop'"
 
-#: libkwave/FileInfo.cpp:144
+#: libkwave/FileInfo.cpp:149
 msgid ""
 "Describes the original subject of the file,\n"
 "where it was first recorded.\n"
@@ -2333,7 +2240,7 @@ msgstr ""
 "des Stücks, bei der erstmaligen Aufnahme.\n"
 "Beispiel: 'Orchester'"
 
-#: libkwave/FileInfo.cpp:211
+#: libkwave/FileInfo.cpp:216
 msgid ""
 "Describes the subject of the file.\n"
 "Example: 'Bird voices at early morning'"
@@ -2400,7 +2307,7 @@ msgstr "Verzeichnis für Auslagerungsdateien"
 msgid "Directory:"
 msgstr "Verzeichnis:"
 
-#: libkwave/GenreType.cpp:81
+#: libkwave/GenreType.cpp:97
 msgid "Disco"
 msgstr "Disco"
 
@@ -2416,15 +2323,15 @@ msgstr "Wollen Sie den aktuellen Vorgang wirklich abbrechen?"
 msgid "Do you really want to abort the operation?"
 msgstr "Wollen Sie den Vorgang wirklich abbrechen?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:521
+#: plugins/codec_mp3/MP3Decoder.cpp:540
 msgid "Do you still want to continue?"
 msgstr "Wollen Sie trotzdem fortsetzen?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:526
+#: plugins/codec_mp3/MP3Decoder.cpp:545
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Wollen Sie fortsetzen und alle weiteren Fehler ignorieren?"
 
-#: libkwave/SignalManager.cpp:1293
+#: libkwave/SignalManager.cpp:1310
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Wollen Sie fortsetzen ohne die Möglichkeit rückgängig zu machen?"
 
@@ -2436,15 +2343,15 @@ msgstr "Keine"
 msgid "Drag and Drop"
 msgstr "Drag & Drop"
 
-#: libkwave/GenreType.cpp:132
+#: libkwave/GenreType.cpp:148
 msgid "Dream"
 msgstr "Dream"
 
-#: libkwave/GenreType.cpp:201
+#: libkwave/GenreType.cpp:217
 msgid "Drum Solo"
 msgstr "Drum Solo"
 
-#: libkwave/GenreType.cpp:199
+#: libkwave/GenreType.cpp:215
 msgid "Duet"
 msgstr "Duett"
 
@@ -2456,15 +2363,15 @@ msgstr "&Ausführen"
 msgid "EMAIL OF TRANSLATORS"
 msgstr "Thomas.Eschenbacher@gmx.de"
 
-#: libkwave/GenreType.cpp:177
+#: libkwave/GenreType.cpp:193
 msgid "Easy Listening"
 msgstr "Easy Listening"
 
-#: libkwave/GenreType.cpp:129
+#: libkwave/GenreType.cpp:145
 msgid "Electronic"
 msgstr "Electronic"
 
-#: libkwave/FileInfo.cpp:151
+#: libkwave/FileInfo.cpp:156
 msgid "Emphasis"
 msgstr "Emphasis"
 
@@ -2484,15 +2391,15 @@ msgstr "Encoder-Hilfe:"
 msgid "Encoding"
 msgstr "Kodierung"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1324
+#: plugins/fileinfo/ui_FileInfoDlg.h:1295
 msgid "Encoding Mode:"
 msgstr "Codierungs-Methode:"
 
-#: plugins/codec_ogg/OggDecoder.cpp:186
+#: plugins/codec_ogg/OggDecoder.cpp:187
 msgid "End of file before finding all Vorbis headers."
 msgstr "Dateiende erreicht vor dem Einlesen aller Vorbis-Header."
 
-#: libkwave/FileInfo.cpp:105
+#: libkwave/FileInfo.cpp:110
 msgid "Engineer"
 msgstr "Ton-Techniker"
 
@@ -2504,32 +2411,32 @@ msgstr "Erik de Castro Lopo"
 msgid "Error On Loading Plugin"
 msgstr "Fehler beim Laden des Plugins"
 
-#: plugins/codec_ogg/OggDecoder.cpp:125
+#: plugins/codec_ogg/OggDecoder.cpp:126
 msgid "Error reading first page of the Ogg bitstream data."
 msgstr "Fehler beim Lesen des ersten Abschnitts des Ogg-Bitstroms."
 
-#: plugins/codec_ogg/OggDecoder.cpp:132
+#: plugins/codec_ogg/OggDecoder.cpp:133
 msgid "Error reading initial header packet."
 msgstr "Fehler beim Lesen des ersten Kopfdaten-Pakets."
 
-#: plugins/codec_flac/FlacDecoder.cpp:301
+#: plugins/codec_flac/FlacDecoder.cpp:302
 #, c-format
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "Fehler beim Parsen der FLAC-Metadaten. (%s)"
 
-#: libkwave/GenreType.cpp:125
+#: libkwave/GenreType.cpp:141
 msgid "Ethnic"
 msgstr "Ethnic"
 
-#: libkwave/GenreType.cpp:203
+#: libkwave/GenreType.cpp:219
 msgid "Euro-House"
 msgstr "Euro-House"
 
-#: libkwave/GenreType.cpp:102
+#: libkwave/GenreType.cpp:118
 msgid "Euro-Techno"
 msgstr "Euro-Techno"
 
-#: libkwave/GenreType.cpp:131
+#: libkwave/GenreType.cpp:147
 msgid "Eurodance"
 msgstr "Eurodance"
 
@@ -2625,11 +2532,11 @@ msgstr "Konnte keinen PulseAudio-Stream öffnen (%1)."
 msgid "Failed to open a PulseAudio stream for playback (%1)."
 msgstr "Konnte keinen PulseAudio-Stream für die Wiedergabe öffnen (%1)."
 
-#: libkwave/GenreType.cpp:163
+#: libkwave/GenreType.cpp:179
 msgid "Fast Fusion"
 msgstr "Fast Fusion"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1322
+#: plugins/fileinfo/ui_FileInfoDlg.h:1293
 msgid "File"
 msgstr "Datei"
 
@@ -2638,24 +2545,24 @@ msgid "File &Properties..."
 msgstr "Datei-&Informationen..."
 
 #: plugins/fileinfo/FileInfoPlugin.cpp:29
-#: plugins/fileinfo/ui_FileInfoDlg.h:1297
+#: plugins/fileinfo/ui_FileInfoDlg.h:1268
 msgid "File Info"
 msgstr "Datei-Informationen"
 
-#: libkwave/FileInfo.cpp:113
+#: libkwave/FileInfo.cpp:118
 msgid "File Size"
 msgstr "Dateigrösse"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:507
+#: plugins/codec_mp3/MP3Decoder.cpp:526
 msgid "File contains invalid data"
 msgstr "Datei enthält ungültige Daten"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:109
-#: plugins/codec_wav/WavEncoder.cpp:420
+#: plugins/codec_wav/WavEncoder.cpp:421
 msgid "File header is damaged"
 msgstr "Datei-Header ist beschädigt"
 
-#: libkwave/FileInfo.cpp:110
+#: libkwave/FileInfo.cpp:115
 msgid "Filename"
 msgstr "Dateiname"
 
@@ -2679,15 +2586,15 @@ msgstr "Horizontal spiegeln"
 msgid "Flip vertical"
 msgstr "Vertikal spiegeln"
 
-#: libkwave/GenreType.cpp:159
+#: libkwave/GenreType.cpp:175
 msgid "Folk"
 msgstr "Folk"
 
-#: libkwave/GenreType.cpp:160
+#: libkwave/GenreType.cpp:176
 msgid "Folk-Rock"
 msgstr "Folk-Rock"
 
-#: libkwave/GenreType.cpp:194
+#: libkwave/GenreType.cpp:210
 msgid "Folklore"
 msgstr "Folklore"
 
@@ -2710,11 +2617,11 @@ msgid "Format"
 msgstr "Format"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:103
-#: plugins/codec_wav/WavDecoder.cpp:347 plugins/codec_wav/WavEncoder.cpp:413
+#: plugins/codec_wav/WavDecoder.cpp:346 plugins/codec_wav/WavEncoder.cpp:414
 msgid "Format or function is not implemented"
 msgstr "Format oder Funktion ist nicht implementiert"
 
-#: libkwave/FileInfo.cpp:188
+#: libkwave/FileInfo.cpp:193
 msgid ""
 "Format used for storing the digitized audio samples.\n"
 "Example: '32-bit IEEE floating-point'"
@@ -2726,7 +2633,7 @@ msgstr ""
 msgid "Forward"
 msgstr "Vorspulen"
 
-#: libkwave/GenreType.cpp:198
+#: libkwave/GenreType.cpp:214
 msgid "Freestyle"
 msgstr "Freistil"
 
@@ -2752,11 +2659,11 @@ msgstr "Frequenz: ------ Hz"
 msgid "Frequency: 0 Hz"
 msgstr "Frequenz: 0 Hz"
 
-#: libkwave/GenreType.cpp:82
+#: libkwave/GenreType.cpp:98
 msgid "Funk"
 msgstr "Funk"
 
-#: libkwave/GenreType.cpp:107
+#: libkwave/GenreType.cpp:123
 msgid "Fusion"
 msgstr "Fusion"
 
@@ -2784,15 +2691,15 @@ msgstr "G728"
 msgid "GSM"
 msgstr "GSM"
 
-#: libkwave/GenreType.cpp:113
+#: libkwave/GenreType.cpp:129
 msgid "Game"
 msgstr "Spiel"
 
-#: libkwave/GenreType.cpp:136
+#: libkwave/GenreType.cpp:152
 msgid "Gangsta"
 msgstr "Gangsta"
 
-#: libkwave/FileInfo.cpp:116
+#: libkwave/FileInfo.cpp:121
 msgid "Genre"
 msgstr "Genre"
 
@@ -2800,15 +2707,15 @@ msgstr "Genre"
 msgid "Go to Position"
 msgstr "Gehe zu Position"
 
-#: libkwave/GenreType.cpp:115
+#: libkwave/GenreType.cpp:131
 msgid "Gospel"
 msgstr "Gospel"
 
-#: libkwave/GenreType.cpp:126
+#: libkwave/GenreType.cpp:142
 msgid "Gothic"
 msgstr "Gothic"
 
-#: libkwave/GenreType.cpp:170
+#: libkwave/GenreType.cpp:186
 msgid "Gothic Rock"
 msgstr "Gothic Rock"
 
@@ -2824,7 +2731,7 @@ msgstr "Gehe zu..."
 msgid "Grayscale"
 msgstr "Graustufen"
 
-#: libkwave/GenreType.cpp:83
+#: libkwave/GenreType.cpp:99
 msgid "Grunge"
 msgstr "Grunge"
 
@@ -2840,11 +2747,11 @@ msgstr "Hamming"
 msgid "Hanning"
 msgstr "Hanning"
 
-#: libkwave/GenreType.cpp:156
+#: libkwave/GenreType.cpp:172
 msgid "Hard Rock"
 msgstr "Hard Rock"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:184
+#: plugins/fileinfo/FileInfoDialog.cpp:189
 msgid ""
 "Here you can select one of the predefined\n"
 "well-known sample rates or you can enter\n"
@@ -2854,7 +2761,7 @@ msgstr ""
 "auswählen oder direkt eine eigene Abtastrate\n"
 "eingeben."
 
-#: libkwave/GenreType.cpp:84
+#: libkwave/GenreType.cpp:100
 msgid "Hip-Hop"
 msgstr "Hip-Hop"
 
@@ -2862,11 +2769,11 @@ msgstr "Hip-Hop"
 msgid "Hours"
 msgstr "Stunden"
 
-#: libkwave/GenreType.cpp:112
+#: libkwave/GenreType.cpp:128
 msgid "House"
 msgstr "House"
 
-#: libkwave/GenreType.cpp:179
+#: libkwave/GenreType.cpp:195
 msgid "Humour"
 msgstr "Humor"
 
@@ -2887,11 +2794,11 @@ msgstr ""
 "Treiber in Ihrem Kernel oder er ist nicht\n"
 "korrekt konfiguriert."
 
-#: libkwave/FileInfo.cpp:120
+#: libkwave/FileInfo.cpp:125
 msgid "ISRC"
 msgstr "ISRC"
 
-#: libkwave/FileInfo.cpp:121
+#: libkwave/FileInfo.cpp:126
 msgid ""
 "ISRC number for the track; see the ISRC intro page\n"
 "for more information on ISRC numbers.\n"
@@ -2901,7 +2808,7 @@ msgstr ""
 "Nummern siehe die ISRC-Einführungs-Seite unter:\n"
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 
-#: libkwave/FileInfo.cpp:54
+#: libkwave/FileInfo.cpp:56
 msgid ""
 "Identifies the name of the author of the original\n"
 "subject of the file.\n"
@@ -2911,7 +2818,7 @@ msgstr ""
 "Werkes oder der Datei.\n"
 "Beispiel: 'van Beethoven, Ludwig'"
 
-#: libkwave/FileInfo.cpp:200
+#: libkwave/FileInfo.cpp:205
 msgid ""
 "Identifies the name of the person or organization\n"
 "who supplied the original subject of the file.\n"
@@ -2922,7 +2829,7 @@ msgstr ""
 "zur Verfügung gestellt hat.\n"
 "Beispiel: 'Chaotic Sound Research'"
 
-#: libkwave/FileInfo.cpp:195
+#: libkwave/FileInfo.cpp:200
 msgid ""
 "Identifies the name of the software package\n"
 "used to create the file.\n"
@@ -2932,7 +2839,7 @@ msgstr ""
 "zur Erstellung der Datei verwendet wurde.\n"
 "Beispiel: 'Kwave v0.6.4-1'"
 
-#: libkwave/FileInfo.cpp:205
+#: libkwave/FileInfo.cpp:210
 msgid ""
 "Identifies the original form of\n"
 "the material that was digitized.\n"
@@ -2941,7 +2848,7 @@ msgstr ""
 "Gibt an von welchem Ursprungs-Medium das Stück digitalisiert wurde.\n"
 "Beispiele: 'Langspielplatte/Vinyl/90UPM', 'Audio-DAT', 'Kassette/CrO2/60min'"
 
-#: libkwave/FileInfo.cpp:215
+#: libkwave/FileInfo.cpp:220
 msgid ""
 "Identifies the technican who digitized the subject file.\n"
 "Example: 'Torvalds, Linus'"
@@ -3006,24 +2913,24 @@ msgstr ""
 msgid "Index:"
 msgstr "Index:"
 
-#: libkwave/FileInfo.cpp:51
+#: libkwave/FileInfo.cpp:53
 msgid "Indicates where the subject of the file is archived."
 msgstr "Gibt an wo der Inhalt der Datei archiviert wird."
 
-#: libkwave/FileInfo.cpp:172
+#: libkwave/FileInfo.cpp:177
 msgid "Indicates whether the file is an original or a copy"
 msgstr "Gibt an ob es sich beim Inhalt der Datei um ein Original handelt."
 
-#: libkwave/FileInfo.cpp:99
+#: libkwave/FileInfo.cpp:104
 msgid "Indicates whether the file is protected by copyright or not."
 msgstr ""
 "Gibt an ob der Inhalt der Datei urheberrechtlich geschützt ist oder nicht."
 
-#: libkwave/FileInfo.cpp:180
+#: libkwave/FileInfo.cpp:185
 msgid "Indicates whether the subject is private"
 msgstr "Gibt an ob der Inhalt der Datei nur für privaten Gebrauch ist."
 
-#: libkwave/GenreType.cpp:96
+#: libkwave/GenreType.cpp:112
 msgid "Industrial"
 msgstr "Industrial"
 
@@ -3031,7 +2938,7 @@ msgstr "Industrial"
 msgid "Info"
 msgstr "Info"
 
-#: kwave/TopWidget.cpp:202
+#: kwave/TopWidget.cpp:203
 msgid "Initializing toolbar..."
 msgstr "Initialisiere Werkzeugleiste..."
 
@@ -3039,11 +2946,11 @@ msgstr "Initialisiere Werkzeugleiste..."
 msgid "Input"
 msgstr "Eingangsdaten"
 
-#: plugins/codec_ogg/OggDecoder.cpp:105
+#: plugins/codec_ogg/OggDecoder.cpp:106
 msgid "Input does not appear to be an Ogg bitstream."
 msgstr "Die Eingabe scheint nicht im Ogg-Format zu sein."
 
-#: kwave/TopWidget.cpp:252 libkwave/undo/UndoInsertAction.cpp:41
+#: kwave/TopWidget.cpp:253 libkwave/undo/UndoInsertAction.cpp:41
 msgid "Insert"
 msgstr "Einfügen"
 
@@ -3081,27 +2988,27 @@ msgstr "Zwischenablage einfügen an Position"
 msgid "Insert Meta Data"
 msgstr "Einfügen von Metadaten"
 
-#: libkwave/SignalManager.cpp:1065
+#: libkwave/SignalManager.cpp:1082
 msgid "Insert Space"
 msgstr "Platz einfügen"
 
-#: libkwave/undo/UndoInsertTrack.cpp:39 libkwave/SignalManager.cpp:868
+#: libkwave/undo/UndoInsertTrack.cpp:39 libkwave/SignalManager.cpp:885
 msgid "Insert Track"
 msgstr "Spur einfügen"
 
-#: libkwave/GenreType.cpp:110
+#: libkwave/GenreType.cpp:126
 msgid "Instrumental"
 msgstr "Instrumental"
 
-#: libkwave/GenreType.cpp:123
+#: libkwave/GenreType.cpp:139
 msgid "Instrumental Pop"
 msgstr "Instrumental Pop"
 
-#: libkwave/GenreType.cpp:124
+#: libkwave/GenreType.cpp:140
 msgid "Instrumental Rock"
 msgstr "Instrumental Rock"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1379
+#: plugins/fileinfo/ui_FileInfoDlg.h:1297
 msgid "Intensity Stereo"
 msgstr "Stereo-Intensität"
 
@@ -3118,18 +3025,18 @@ msgid "Into second half"
 msgstr "In die zweite Hälfte"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:112
-#: plugins/codec_wav/WavDecoder.cpp:357 plugins/codec_wav/WavEncoder.cpp:423
+#: plugins/codec_wav/WavDecoder.cpp:356 plugins/codec_wav/WavEncoder.cpp:424
 msgid "Invalid codec type"
 msgstr "Ungültiger Codec-Typ"
 
-#: kwave/TopWidget.cpp:856
+#: kwave/TopWidget.cpp:857
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
 msgstr "Ungültiger oder unbekannter Dateityp: '%1'"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:121
-#: plugins/codec_wav/WavDecoder.cpp:367 plugins/codec_wav/WavEncoder.cpp:433
+#: plugins/codec_wav/WavDecoder.cpp:366 plugins/codec_wav/WavEncoder.cpp:434
 msgid "Invalid sample format"
 msgstr "Ungültiges Sample-Format"
 
@@ -3141,19 +3048,19 @@ msgstr "Umgekehrter Sägezahn"
 msgid "Invert Track Selection"
 msgstr "Spur-Auswahl umkehren"
 
-#: libkwave/GenreType.cpp:85
+#: libkwave/GenreType.cpp:101
 msgid "Jazz"
 msgstr "Jazz"
 
-#: libkwave/GenreType.cpp:106
+#: libkwave/GenreType.cpp:122
 msgid "Jazz+Funk"
 msgstr "Jazz+Funk"
 
-#: libkwave/GenreType.cpp:140
+#: libkwave/GenreType.cpp:156
 msgid "Jungle"
 msgstr "Jungle"
 
-#: libkwave/FileInfo.cpp:125 plugins/fileinfo/ui_KeywordWidgetBase.h:96
+#: libkwave/FileInfo.cpp:130 plugins/fileinfo/ui_KeywordWidgetBase.h:96
 msgid "Keywords"
 msgstr "Schlüsselworte"
 
@@ -3161,11 +3068,11 @@ msgstr "Schlüsselworte"
 msgid "Kwave"
 msgstr "Kwave"
 
-#: plugins/codec_wav/WavDecoder.cpp:174 plugins/codec_wav/WavDecoder.cpp:263
+#: plugins/codec_wav/WavDecoder.cpp:173 plugins/codec_wav/WavDecoder.cpp:262
 msgid "Kwave Auto Repair"
 msgstr "Kwave automatische Reparatur"
 
-#: libkwave/CodecManager.cpp:186
+#: libkwave/CodecManager.cpp:202
 msgid "Kwave Macro Files"
 msgstr "Kwave Makro-Dateien"
 
@@ -3212,7 +3119,7 @@ msgstr "Markierung nach &Lautstärke"
 msgid "Label by &Period"
 msgstr "Markierung nach &Wiederholung"
 
-#: libkwave/FileInfo.cpp:129
+#: libkwave/FileInfo.cpp:134
 msgid "Labels"
 msgstr "Markierung"
 
@@ -3220,40 +3127,40 @@ msgstr "Markierung"
 msgid "Labels..."
 msgstr "Markierungen..."
 
-#: libkwave/SignalManager.cpp:1444 libkwave/SignalManager.cpp:1451
+#: libkwave/SignalManager.cpp:1461 libkwave/SignalManager.cpp:1468
 msgid "Last Action"
 msgstr "Letzte Aktion"
 
-#: libkwave/GenreType.cpp:165
+#: libkwave/GenreType.cpp:181
 msgid "Latin"
 msgstr "Latin"
 
-#: libkwave/FileInfo.cpp:154
+#: libkwave/FileInfo.cpp:159
 msgid "Layer"
 msgstr "Layer"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1335
+#: plugins/fileinfo/ui_FileInfoDlg.h:1320
 msgid "Layer I"
 msgstr "Layer I"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1336
+#: plugins/fileinfo/ui_FileInfoDlg.h:1321
 msgid "Layer II"
 msgstr "Layer II"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1337
+#: plugins/fileinfo/ui_FileInfoDlg.h:1322
 msgid "Layer III"
 msgstr "Layer III"
 
-#: libkwave/FileInfo.cpp:132 libgui/ui_SelectTimeWidgetBase.h:288
+#: libkwave/FileInfo.cpp:137 libgui/ui_SelectTimeWidgetBase.h:288
 #: plugins/newsignal/ui_NewSigDlg.h:504
 msgid "Length"
 msgstr "Länge"
 
-#: libkwave/FileInfo.cpp:133
+#: libkwave/FileInfo.cpp:138
 msgid "Length of the file in samples."
 msgstr "Länge der Datei in Samples."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:211
+#: plugins/fileinfo/FileInfoDialog.cpp:216
 msgid "Length:"
 msgstr "Länge:"
 
@@ -3266,7 +3173,7 @@ msgstr "Länge: "
 msgid "Length: %1"
 msgstr "Länge: %1"
 
-#: kwave/TopWidget.cpp:1189
+#: kwave/TopWidget.cpp:1213
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
@@ -3284,7 +3191,7 @@ msgstr "Aussteuerungsanzeige"
 msgid "Level:"
 msgstr "Pegel:"
 
-#: libkwave/FileInfo.cpp:135
+#: libkwave/FileInfo.cpp:140
 msgid "License"
 msgstr "Lizenz"
 
@@ -3292,7 +3199,7 @@ msgstr "Lizenz"
 msgid "License agreement"
 msgstr "Lizenzbestimmungen"
 
-#: libkwave/FileInfo.cpp:136
+#: libkwave/FileInfo.cpp:141
 msgid ""
 "License information, e.g., 'All Rights Reserved',\n"
 "'Any Use Permitted', an URL to a license or the\n"
@@ -3336,7 +3243,7 @@ msgstr "Liste von Audio-Dateien"
 msgid "List of keywords."
 msgstr "Liste von Schlüsselworten."
 
-#: libkwave/FileInfo.cpp:74
+#: libkwave/FileInfo.cpp:79
 msgid ""
 "Lists the name of the person or organization\n"
 "that commissioned the subject of the file."
@@ -3344,7 +3251,7 @@ msgstr ""
 "Enthält den Namen der Person oder Organisation,\n"
 "die das Thema der Datei genehmigt hat."
 
-#: libkwave/GenreType.cpp:148
+#: libkwave/GenreType.cpp:164
 msgid "Lo-Fi"
 msgstr "Lo-Fi"
 
@@ -3353,7 +3260,7 @@ msgstr "Lo-Fi"
 msgid "Loading file '%1'..."
 msgstr "Lade Datei '%1'..."
 
-#: kwave/TopWidget.cpp:153
+#: kwave/TopWidget.cpp:154
 msgid "Loading main menu..."
 msgstr "Lade Hauptmenü..."
 
@@ -3362,7 +3269,7 @@ msgstr "Lade Hauptmenü..."
 msgid "Loading plugin %1..."
 msgstr "Lade Plugin %1..."
 
-#: kwave/TopWidget.cpp:413 kwave/TopWidget.cpp:414
+#: kwave/TopWidget.cpp:414 kwave/TopWidget.cpp:415
 msgid "Loading plugins..."
 msgstr "Lade Plugins..."
 
@@ -3374,7 +3281,7 @@ msgstr "Tiefpass"
 msgid "Low Pass Filter"
 msgstr "Tiefpass-Filter"
 
-#: libkwave/FileInfo.cpp:58
+#: libkwave/FileInfo.cpp:60
 msgid "Lower Bitrate"
 msgstr "minimale Bitrate"
 
@@ -3390,7 +3297,7 @@ msgstr "MP3-Encoder-Einstellungen"
 msgid "MP3 Encoder Setup"
 msgstr "MP3-Encoder-Einstellungen"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1382
+#: plugins/fileinfo/ui_FileInfoDlg.h:1325
 msgid "MPEG"
 msgstr "MPEG"
 
@@ -3406,43 +3313,43 @@ msgstr "MPEG Layer II"
 msgid "MPEG Layer III"
 msgstr "MPEG Layer III"
 
-#: libkwave/FileInfo.cpp:155
+#: libkwave/FileInfo.cpp:160
 msgid "MPEG Layer, I, II or III"
 msgstr "MPEG Layer, I, II oder III"
 
-#: libkwave/FileInfo.cpp:158
+#: libkwave/FileInfo.cpp:163
 msgid "MPEG Mode Extension (only if Joint Stereo)"
 msgstr "MPEG Modus-Erweiterung (nur im Joint-Stereo Modus)"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1328
+#: plugins/fileinfo/ui_FileInfoDlg.h:1313
 msgid "MPEG Version 1 (ISO/IEC 11172-3)"
 msgstr "MPEG Version 1 (ISO/IEC 11172-3)"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1329
+#: plugins/fileinfo/ui_FileInfoDlg.h:1314
 msgid "MPEG Version 2 (ISO/IEC 13818-3)"
 msgstr "MPEG Version 2 (ISO/IEC 13818-3)"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1330
+#: plugins/fileinfo/ui_FileInfoDlg.h:1315
 msgid "MPEG Version 2.5 (unofficial)"
 msgstr "MPEG Version 2.5 (inoffiziell)"
 
-#: libkwave/FileInfo.cpp:161
+#: libkwave/FileInfo.cpp:166
 msgid "MPEG Version, 1, 2 or 2.5"
 msgstr "MPEG Version, 1, 2 oder 2.5"
 
-#: plugins/codec_mp3/MP3CodecPlugin.h:78
+#: plugins/codec_mp3/MP3CodecPlugin.h:75
 msgid "MPEG audio"
 msgstr "MPEG Audio"
 
-#: plugins/codec_mp3/MP3CodecPlugin.h:72
+#: plugins/codec_mp3/MP3CodecPlugin.h:80
 msgid "MPEG layer I audio"
 msgstr "MPEG Layer I Audio"
 
-#: plugins/codec_mp3/MP3CodecPlugin.h:74 plugins/codec_mp3/MP3CodecPlugin.h:79
+#: plugins/codec_mp3/MP3CodecPlugin.h:76 plugins/codec_mp3/MP3CodecPlugin.h:82
 msgid "MPEG layer II audio"
 msgstr "MPEG Layer II Audio"
 
-#: plugins/codec_mp3/MP3CodecPlugin.h:75 plugins/codec_mp3/MP3CodecPlugin.h:80
+#: plugins/codec_mp3/MP3CodecPlugin.h:72 plugins/codec_mp3/MP3CodecPlugin.h:77
 msgid "MPEG layer III audio"
 msgstr "MPEG Layer III Audio"
 
@@ -3450,7 +3357,7 @@ msgstr "MPEG Layer III Audio"
 msgid "MS ADPCM"
 msgstr "MS ADPCM"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1380
+#: plugins/fileinfo/ui_FileInfoDlg.h:1298
 msgid "MS Stereo"
 msgstr "MS Stereo"
 
@@ -3458,11 +3365,11 @@ msgstr "MS Stereo"
 msgid "Maintainers of the 'id3lib' library"
 msgstr "Betreuer der 'id3lib'-Bibliothek"
 
-#: libkwave/SignalManager.cpp:1897
+#: libkwave/SignalManager.cpp:1914
 msgid "Manual Selection"
 msgstr "Manuelle Auswahl"
 
-#: libkwave/SignalManager.cpp:1895
+#: libkwave/SignalManager.cpp:1912
 msgid "Manual Track Selection"
 msgstr "Manuelle Spur-Auswahl"
 
@@ -3478,7 +3385,7 @@ msgstr "Martin Wilz"
 msgid "Maximum"
 msgstr "Maximum"
 
-#: libkwave/FileInfo.cpp:228
+#: libkwave/FileInfo.cpp:236
 msgid ""
 "May be used to differentiate multiple versions\n"
 "of the same track title in a single collection.\n"
@@ -3488,11 +3395,11 @@ msgstr ""
 "des selben Stücks in einer Single-Sammlung zu unterscheiden.\n"
 "(z.B. Name des Remixes)"
 
-#: libkwave/GenreType.cpp:122
+#: libkwave/GenreType.cpp:138
 msgid "Meditative"
 msgstr "Meditative"
 
-#: libkwave/FileInfo.cpp:143
+#: libkwave/FileInfo.cpp:148
 msgid "Medium"
 msgstr "Medium"
 
@@ -3516,7 +3423,7 @@ msgstr "Speicher Einstellungen"
 msgid "Memory for &Undo/Redo"
 msgstr "Speicher für &Rückgängig/Wiederherstellen"
 
-#: libkwave/GenreType.cpp:86
+#: libkwave/GenreType.cpp:102
 msgid "Metal"
 msgstr "Metal"
 
@@ -3536,11 +3443,11 @@ msgstr "Michael Pruett"
 msgid "Milliseconds"
 msgstr "Millisekunden"
 
-#: libkwave/FileInfo.cpp:148
+#: libkwave/FileInfo.cpp:153
 msgid "Mime Type"
 msgstr "Mime-Typ"
 
-#: libkwave/FileInfo.cpp:149
+#: libkwave/FileInfo.cpp:154
 msgid "Mime type of the file format"
 msgstr "Mime-Typ des Dateiformates"
 
@@ -3552,7 +3459,7 @@ msgstr "Minimum"
 msgid "Minutes"
 msgstr "Minuten"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1425
+#: plugins/fileinfo/ui_FileInfoDlg.h:1368
 msgid "Miscellaneous"
 msgstr "Verschiedenes"
 
@@ -3561,11 +3468,11 @@ msgstr "Verschiedenes"
 msgid "Mode"
 msgstr "Modus"
 
-#: libkwave/FileInfo.cpp:157
+#: libkwave/FileInfo.cpp:162
 msgid "Mode Extension"
 msgstr "Modus-Erweiterung"
 
-#: kwave/TopWidget.cpp:1199
+#: kwave/TopWidget.cpp:1223
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr "Format: %1 kHz @ %2 Bit"
@@ -3584,7 +3491,7 @@ msgctxt ""
 msgid "Modify %1 %2 objects"
 msgstr "Ändern von %1 Objekten des Typs %2"
 
-#: libkwave/SignalManager.cpp:1740
+#: libkwave/SignalManager.cpp:1757
 msgid "Modify File Info"
 msgstr "Datei-Information ändern"
 
@@ -3605,11 +3512,11 @@ msgstr "Samples ändern"
 msgid "Mono"
 msgstr "Mono"
 
-#: libkwave/GenreType.cpp:154
+#: libkwave/GenreType.cpp:170
 msgid "Musical"
 msgstr "Musical"
 
-#: kwave/TopWidget.cpp:260
+#: kwave/TopWidget.cpp:261
 msgid "Mute selection"
 msgstr "Auswahl stumm schalten"
 
@@ -3621,11 +3528,11 @@ msgstr "N-Polynom"
 msgid "NAME OF TRANSLATORS"
 msgstr "Thomas Eschenbacher"
 
-#: libkwave/FileInfo.cpp:163
+#: libkwave/FileInfo.cpp:168
 msgid "Name"
 msgstr "Name"
 
-#: libkwave/FileInfo.cpp:41
+#: libkwave/FileInfo.cpp:43
 msgid ""
 "Name of the album if the source is an album\n"
 "that consist of more medias."
@@ -3633,11 +3540,11 @@ msgstr ""
 "Name des Albums wenn es sich um ein Album\n"
 "aus mehreren Medien besteht."
 
-#: libkwave/FileInfo.cpp:111
+#: libkwave/FileInfo.cpp:116
 msgid "Name of the opened file"
 msgstr "Name der geöffneten Datei"
 
-#: libkwave/FileInfo.cpp:168
+#: libkwave/FileInfo.cpp:173
 msgid ""
 "Name of the organization producing the track\n"
 "(i.e. the 'record label')"
@@ -3645,11 +3552,11 @@ msgstr ""
 "Name der Organisation die das Stück produziert hat\n"
 "(z.B. der \"Platten-Label\")"
 
-#: libkwave/GenreType.cpp:161
+#: libkwave/GenreType.cpp:177
 msgid "National Folk"
 msgstr "National Folk"
 
-#: libkwave/GenreType.cpp:141
+#: libkwave/GenreType.cpp:157
 msgid "Native American"
 msgstr "Native American"
 
@@ -3661,7 +3568,7 @@ msgstr "NeXT, Sun Audio"
 msgid "New &Window"
 msgstr "Neues &Fenster"
 
-#: libkwave/GenreType.cpp:87
+#: libkwave/GenreType.cpp:103
 msgid "New Age"
 msgstr "New Age"
 
@@ -3674,7 +3581,7 @@ msgstr "Neue Datei"
 msgid "New Signal"
 msgstr "Neue Datei"
 
-#: libkwave/GenreType.cpp:143
+#: libkwave/GenreType.cpp:159
 msgid "New Wave"
 msgstr "New Wave"
 
@@ -3682,8 +3589,8 @@ msgstr "New Wave"
 msgid "Next"
 msgstr "Nächstes"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:397
-#: plugins/fileinfo/FileInfoDialog.cpp:403
+#: plugins/fileinfo/FileInfoDialog.cpp:374
+#: plugins/fileinfo/FileInfoDialog.cpp:380
 msgid "No"
 msgstr "Nein"
 
@@ -3691,7 +3598,7 @@ msgstr "Nein"
 msgid "No Compression"
 msgstr "Keine Kompression"
 
-#: libkwave/GenreType.cpp:116 plugins/noise/NoisePlugin.cpp:48
+#: libkwave/GenreType.cpp:132 plugins/noise/NoisePlugin.cpp:48
 msgid "Noise"
 msgstr "Rauschen"
 
@@ -3707,11 +3614,11 @@ msgstr "Rauschformung:"
 msgid "Nominal Bitrate"
 msgstr "Nominale Bitrate"
 
-#: libkwave/FileInfo.cpp:62
+#: libkwave/FileInfo.cpp:64
 msgid "Nominal bitrate of the audio stream in bits per second"
 msgstr "Nominale Bitrate des Audio-Stroms in Bits pro Sekunde"
 
-#: libkwave/WindowFunction.cpp:45 plugins/fileinfo/ui_FileInfoDlg.h:1345
+#: libkwave/WindowFunction.cpp:45 plugins/fileinfo/ui_FileInfoDlg.h:1307
 msgid "None"
 msgstr "Keine"
 
@@ -3728,7 +3635,7 @@ msgstr "Normalisierer"
 msgid "Normalizing (%1 dB) ..."
 msgstr "Normalisiere (%1 dB) ..."
 
-#: libkwave/SignalManager.cpp:1291
+#: libkwave/SignalManager.cpp:1308
 msgid "Not enough memory for saving undo information."
 msgstr ""
 "Nicht genügend Speicher zum Sichern der Wiederherstellungs-Informationen."
@@ -3747,6 +3654,14 @@ msgstr "Kerbfilter-Plugin"
 msgid "Null device"
 msgstr "Null-Gerät"
 
+#: libkwave/FileInfo.cpp:76
+msgid ""
+"Number of CDs, if the source is\n"
+"an album of more CDROMs"
+msgstr ""
+"Anzahl der CDs, wenn es sich um ein Album\n"
+"aus mehreren CDs handelt"
+
 #: plugins/sonagram/ui_SonagramDlg.h:293
 msgid "Number of FFT points:"
 msgstr "Anzahl der FFT-Punkte:"
@@ -3755,17 +3670,21 @@ msgstr "Anzahl der FFT-Punkte:"
 msgid "Number of channels: mono, stereo..."
 msgstr "Anzahl der Kanäle: Mono, Stereo, ..."
 
-#: libkwave/FileInfo.cpp:192
+#: libkwave/FileInfo.cpp:197
 msgid "Number of samples per second\n"
 msgstr "Anzahl der Samples pro Sekunde\n"
 
-#: libkwave/FileInfo.cpp:71
+#: libkwave/FileInfo.cpp:73
 msgid ""
 "Number of the CD, if the source is\n"
 "an album of more CDROMs"
 msgstr ""
 "Nummer der CD, wenn es sich um ein Album\n"
 "aus mehreren CDs handelt"
+
+#: libkwave/FileInfo.cpp:227
+msgid "Number of tracks of the CD if the source was a CDROM."
+msgstr "Nummer des Tracks wenn die Quelle eine CD war."
 
 #: plugins/saveblocks/ui_SaveBlocksWidgetBase.h:131
 msgid "Numbering:"
@@ -3782,7 +3701,7 @@ msgstr "O&K"
 msgid "OSS (Open Sound System)"
 msgstr "OSS (Open Sound System)"
 
-#: plugins/playback/PlayBack-OSS.cpp:399
+#: plugins/playback/PlayBack-OSS.cpp:402
 msgid "OSS playback device (dsp*)"
 msgstr "OSS-Wiedergabegerät (dsp*)"
 
@@ -3811,11 +3730,11 @@ msgstr "Ogg Vorbis"
 msgid "Ogg Vorbis audio"
 msgstr "Ogg Vorbis Audio"
 
-#: plugins/codec_ogg/OggDecoder.cpp:93
+#: plugins/codec_ogg/OggDecoder.cpp:94
 msgid "Ogg bitstream has zero-length."
 msgstr "Ogg-Bitstrom hat die Länge Null."
 
-#: libkwave/GenreType.cpp:88
+#: libkwave/GenreType.cpp:104
 msgid "Oldies"
 msgstr "Oldies"
 
@@ -3823,7 +3742,7 @@ msgstr "Oldies"
 msgid "On modifications"
 msgstr "Bei Veränderungen"
 
-#: plugins/codec_ogg/OggEncoder.cpp:246
+#: plugins/codec_ogg/OggEncoder.cpp:248
 msgid ""
 "One or more encoding parameters are not supported. Please change the "
 "settings and try again."
@@ -3831,7 +3750,7 @@ msgstr ""
 "Ein oder mehrere Codierungs-Parameter werden nicht unterstützt. Bitte ändern "
 "Sie die Codierungs-Einstellungen und versuchen Sie es nochmal."
 
-#: kwave/TopWidget.cpp:892
+#: kwave/TopWidget.cpp:893
 msgid "Open"
 msgstr "Öffnen"
 
@@ -3839,7 +3758,7 @@ msgstr "Öffnen"
 msgid "Open &Recent"
 msgstr "Zu&letzt geöffnete Dateien"
 
-#: kwave/TopWidget.cpp:216
+#: kwave/TopWidget.cpp:217
 msgid "Open an existing file"
 msgstr "Existierende Datei öffnen"
 
@@ -3847,8 +3766,8 @@ msgstr "Existierende Datei öffnen"
 msgid "Opening main window..."
 msgstr "Öffne Hauptfenster..."
 
-#: plugins/codec_flac/FlacDecoder.cpp:283
-#: plugins/codec_flac/FlacDecoder.cpp:290
+#: plugins/codec_flac/FlacDecoder.cpp:284
+#: plugins/codec_flac/FlacDecoder.cpp:291
 msgid "Opening the FLAC bitstream failed."
 msgstr "Der FLAC-Bitstrom konnte nicht geöffnet werden."
 
@@ -3863,23 +3782,23 @@ msgid "Opening the device '%1' failed: %2"
 msgstr "Öffnen des Gerätes '%1' ist fehlgeschlagen: %2"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:115
-#: plugins/codec_wav/WavDecoder.cpp:361 plugins/codec_wav/WavEncoder.cpp:427
+#: plugins/codec_wav/WavDecoder.cpp:360 plugins/codec_wav/WavEncoder.cpp:428
 msgid "Opening the file failed"
 msgstr "Öffnen der Datei ist fehlgeschlagen"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1392
+#: plugins/fileinfo/ui_FileInfoDlg.h:1335
 msgid "Opens a dialog for selecting a date from the calendar."
 msgstr "Öffnet einen Dialog um ein Datum von einem Kalender auszuwählen."
 
-#: libkwave/GenreType.cpp:182
+#: libkwave/GenreType.cpp:198
 msgid "Opera"
 msgstr "Oper"
 
-#: libkwave/FileInfo.cpp:167
+#: libkwave/FileInfo.cpp:172
 msgid "Organization"
 msgstr "Organisation"
 
-#: libkwave/FileInfo.cpp:171
+#: libkwave/FileInfo.cpp:176
 msgid "Original"
 msgstr "Original"
 
@@ -3891,18 +3810,18 @@ msgstr "Original:"
 msgid "Oscilloscope"
 msgstr "Oszilloskop"
 
-#: libkwave/GenreType.cpp:89
+#: libkwave/GenreType.cpp:105
 msgid "Other"
 msgstr "Andere"
 
-#: kwave/TopWidget.cpp:848 plugins/codec_audiofile/AudiofileDecoder.cpp:106
-#: plugins/codec_flac/FlacEncoder.cpp:262 plugins/codec_wav/WavDecoder.cpp:351
-#: plugins/codec_wav/WavEncoder.cpp:417
+#: kwave/TopWidget.cpp:849 plugins/codec_audiofile/AudiofileDecoder.cpp:106
+#: plugins/codec_flac/FlacEncoder.cpp:264 plugins/codec_wav/WavDecoder.cpp:350
+#: plugins/codec_wav/WavEncoder.cpp:418
 #: plugins/playback/PlayBack-Phonon.cpp:148
 #: plugins/playback/PlayBack-Phonon.cpp:180
-#: plugins/playback/PlayBack-OSS.cpp:244 plugins/record/RecordPlugin.cpp:830
+#: plugins/playback/PlayBack-OSS.cpp:247 plugins/record/RecordPlugin.cpp:830
 #: plugins/record/RecordPlugin.cpp:846 plugins/record/RecordPlugin.cpp:912
-#: plugins/codec_mp3/MP3Decoder.cpp:484
+#: plugins/codec_mp3/MP3Decoder.cpp:503
 msgid "Out of memory"
 msgstr "Zu wenig Speicher"
 
@@ -3946,7 +3865,7 @@ msgstr "Angehalten"
 msgid "Pavel Fric"
 msgstr "Pavel Fric"
 
-#: libkwave/FileInfo.cpp:174
+#: libkwave/FileInfo.cpp:179
 msgid "Performer"
 msgstr "Darsteller"
 
@@ -4005,12 +3924,12 @@ msgstr "Wiedergabe-Rate %1 Hz wird nicht unterstützt"
 msgid "Playback resolution in bits per sample"
 msgstr "Wiedergabe-Auflösung in Bits pro Sample"
 
-#: kwave/TopWidget.cpp:1307
+#: kwave/TopWidget.cpp:1331
 #, kde-format
 msgid "Playback: %1"
 msgstr "Wiedergabe: %1"
 
-#: kwave/TopWidget.cpp:1309
+#: kwave/TopWidget.cpp:1333
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "Wiedergabe: %1 Samples"
@@ -4032,7 +3951,7 @@ msgstr "gefundene Plugins: %1"
 msgid "Plugins info"
 msgstr "Plugin-Informationen"
 
-#: libkwave/GenreType.cpp:152
+#: libkwave/GenreType.cpp:168
 msgid "Polka"
 msgstr "Polka"
 
@@ -4052,19 +3971,19 @@ msgstr "Polynom, 7ter Grad"
 msgid "Polynom, N-th Degree"
 msgstr "Polynom, 5ter Grad"
 
-#: libkwave/GenreType.cpp:90
+#: libkwave/GenreType.cpp:106
 msgid "Pop"
 msgstr "Pop"
 
-#: libkwave/GenreType.cpp:130
+#: libkwave/GenreType.cpp:146
 msgid "Pop-Folk"
 msgstr "Pop-Folk"
 
-#: libkwave/GenreType.cpp:139
+#: libkwave/GenreType.cpp:155
 msgid "Pop/Funk"
 msgstr "Pop/Funk"
 
-#: libkwave/GenreType.cpp:188
+#: libkwave/GenreType.cpp:204
 msgid "Porn Groove"
 msgstr "Porn Groove"
 
@@ -4072,16 +3991,16 @@ msgstr "Porn Groove"
 msgid "Position:"
 msgstr "Position:"
 
-#: kwave/TopWidget.cpp:1286
+#: kwave/TopWidget.cpp:1310
 #, kde-format
 msgid "Position: %1"
 msgstr "Position: %1"
 
-#: libkwave/GenreType.cpp:196
+#: libkwave/GenreType.cpp:212
 msgid "Power Ballad"
 msgstr "Power Ballad"
 
-#: libkwave/GenreType.cpp:100
+#: libkwave/GenreType.cpp:116
 msgid "Pranks"
 msgstr "Pranks"
 
@@ -4105,15 +4024,15 @@ msgstr "Voreinstellungen"
 msgid "Previous"
 msgstr "Vorherige"
 
-#: libkwave/GenreType.cpp:187
+#: libkwave/GenreType.cpp:203
 msgid "Primus"
 msgstr "Primus"
 
-#: libkwave/FileInfo.cpp:179
+#: libkwave/FileInfo.cpp:184
 msgid "Private"
 msgstr "Privat"
 
-#: libkwave/FileInfo.cpp:182
+#: libkwave/FileInfo.cpp:187
 msgid "Product"
 msgstr "Produkt"
 
@@ -4121,7 +4040,7 @@ msgstr "Produkt"
 msgid "Program"
 msgstr "Programm"
 
-#: libkwave/GenreType.cpp:171
+#: libkwave/GenreType.cpp:187
 msgid "Progressive Rock"
 msgstr "Progressive Rock"
 
@@ -4133,7 +4052,7 @@ msgstr "Leiter des Projekts seit 2000, Kern-Entwicklung"
 msgid "Protect:"
 msgstr "Schutz:"
 
-#: libkwave/FileInfo.cpp:126
+#: libkwave/FileInfo.cpp:131
 msgid ""
 "Provides a list of keywords that refer to the\n"
 "file or subject of the file."
@@ -4141,7 +4060,7 @@ msgstr ""
 "Enthält eine Liste von Schlüsselworten die sich\n"
 "auf die Datei oder deren Inhalt beziehen."
 
-#: libkwave/FileInfo.cpp:45 libkwave/FileInfo.cpp:78
+#: libkwave/FileInfo.cpp:47 libkwave/FileInfo.cpp:83
 msgid ""
 "Provides general comments about the file or the subject of\n"
 "the file. If the comment is several sentences long, end\n"
@@ -4152,11 +4071,11 @@ msgstr ""
 "der Datei. Bei mehrzeiligen Kommentaren sollte jede Zeile mit\n"
 "einem Punkt enden. Keine Zeilenumbrüche einfügen!"
 
-#: libkwave/GenreType.cpp:144
+#: libkwave/GenreType.cpp:160
 msgid "Psychedelic"
 msgstr "Psychedelic"
 
-#: libkwave/GenreType.cpp:172
+#: libkwave/GenreType.cpp:188
 msgid "Psychedelic Rock"
 msgstr "Psychedelic Rock"
 
@@ -4164,11 +4083,11 @@ msgstr "Psychedelic Rock"
 msgid "Pulse Audio"
 msgstr "Pulse Audio"
 
-#: libkwave/GenreType.cpp:120
+#: libkwave/GenreType.cpp:136
 msgid "Punk"
 msgstr "Punk"
 
-#: libkwave/GenreType.cpp:200
+#: libkwave/GenreType.cpp:216
 msgid "Punk Rock"
 msgstr "Punk Rock"
 
@@ -4181,16 +4100,16 @@ msgstr "Quadro"
 msgid "Quality"
 msgstr "Qualität"
 
-#: libkwave/GenreType.cpp:91
+#: libkwave/GenreType.cpp:107
 msgid "R&B"
 msgstr "R&B"
 
-#: kwave/TopWidget.cpp:1361
+#: kwave/TopWidget.cpp:1385
 msgctxt "menu entry for redo if redo disabled"
 msgid "R&edo"
 msgstr "Wieder&herstellen"
 
-#: kwave/TopWidget.cpp:1360
+#: kwave/TopWidget.cpp:1384
 #, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "R&edo (%1)"
@@ -4200,11 +4119,11 @@ msgstr "Wieder&herstellen (%1)"
 msgid "Ralf Waspe"
 msgstr "Ralf Waspe"
 
-#: libkwave/GenreType.cpp:92
+#: libkwave/GenreType.cpp:108
 msgid "Rap"
 msgstr "Rap"
 
-#: libkwave/GenreType.cpp:145
+#: libkwave/GenreType.cpp:161
 msgid "Rave"
 msgstr "Rave"
 
@@ -4220,7 +4139,7 @@ msgstr "Neu &quantisieren"
 msgid "Re-enable all \"Do not ask again\" messages"
 msgstr "Reaktiviere alle \"Diese Nachfrage nicht mehr anzeigen\"-Meldungen"
 
-#: kwave/TopWidget.cpp:638
+#: kwave/TopWidget.cpp:639
 msgid ""
 "Re-enable all disabled notifications?\n"
 "All messages that you previously turned off by activating the \"Do not ask "
@@ -4231,7 +4150,7 @@ msgstr ""
 "Checkbox absgeschaltet haben werden wieder freigegeben."
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:118
-#: plugins/codec_wav/WavDecoder.cpp:364 plugins/codec_wav/WavEncoder.cpp:430
+#: plugins/codec_wav/WavDecoder.cpp:363 plugins/codec_wav/WavEncoder.cpp:431
 msgid "Read access failed"
 msgstr "Lesezugriff fehlgeschlagen"
 
@@ -4244,11 +4163,11 @@ msgstr "Lade Einstellungen..."
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
 msgstr "Vom Aufnahmegerät konnte nicht gelesen werden, Fehler Nummer %1 (%2)"
 
-#: plugins/codec_wav/WavDecoder.cpp:147
+#: plugins/codec_wav/WavDecoder.cpp:146
 msgid "Reading..."
 msgstr "Lese..."
 
-#: kwave/TopWidget.cpp:416
+#: kwave/TopWidget.cpp:417
 msgid "Ready"
 msgstr "Bereit"
 
@@ -4290,7 +4209,7 @@ msgstr "Aufnahme mit %1 Kanälen ist fehlgeschlagen, verwende %2 Kanäle."
 msgid "Recording..."
 msgstr "Aufnahme läuft..."
 
-#: libkwave/FileInfo.cpp:93
+#: libkwave/FileInfo.cpp:98
 msgid ""
 "Records the copyright information for the file. If there are\n"
 "multiple copyrights, separate them by a semicolon followed\n"
@@ -4306,31 +4225,31 @@ msgstr ""
 msgid "Rectangular"
 msgstr "Rechteck"
 
-#: kwave/TopWidget.cpp:237
+#: kwave/TopWidget.cpp:238
 msgid "Redo"
 msgstr "Wiederherstellen"
 
-#: kwave/TopWidget.cpp:1342
+#: kwave/TopWidget.cpp:1366
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr "Wiederherstellen"
 
-#: kwave/TopWidget.cpp:1340
+#: kwave/TopWidget.cpp:1364
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
 msgstr "Wiederherstellen (%1)"
 
-#: libkwave/GenreType.cpp:93
+#: libkwave/GenreType.cpp:109
 msgid "Reggae"
 msgstr "Reggae"
 
-#: kwave/TopWidget.cpp:631
+#: kwave/TopWidget.cpp:632
 msgid "Reset the toolbar to default settings?"
 msgstr ""
 "Wollen Sie die Werkzeugleiste auf ihre Standardeinstellung zurücksetzen?"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:190
+#: plugins/fileinfo/FileInfoDialog.cpp:195
 #: plugins/newsignal/ui_NewSigDlg.h:495 plugins/record/ui_RecordDlg.h:1039
 msgid "Resolution:"
 msgstr "Auflösung:"
@@ -4339,7 +4258,7 @@ msgstr "Auflösung:"
 msgid "Resolution: "
 msgstr "Auflösung: "
 
-#: libkwave/GenreType.cpp:153
+#: libkwave/GenreType.cpp:169
 msgid "Retro"
 msgstr "Retro"
 
@@ -4352,7 +4271,7 @@ msgstr "Umkehren"
 msgid "Revert"
 msgstr "Zurücksetzen"
 
-#: libkwave/GenreType.cpp:166
+#: libkwave/GenreType.cpp:182
 msgid "Revival"
 msgstr "Revival"
 
@@ -4360,7 +4279,7 @@ msgstr "Revival"
 msgid "Rewind"
 msgstr "Zurückspulen"
 
-#: libkwave/GenreType.cpp:197
+#: libkwave/GenreType.cpp:213
 msgid "Rhythmic Soul"
 msgstr "Rhythmischer Soul"
 
@@ -4376,11 +4295,11 @@ msgstr "Robert Leslie"
 msgid "Robert M. Stockmann"
 msgstr "Robert M. Stockmann"
 
-#: libkwave/GenreType.cpp:94
+#: libkwave/GenreType.cpp:110
 msgid "Rock"
 msgstr "Rock"
 
-#: libkwave/GenreType.cpp:155
+#: libkwave/GenreType.cpp:171
 msgid "Rock & Roll"
 msgstr "Rock & Roll"
 
@@ -4401,15 +4320,15 @@ msgstr "&Stop"
 msgid "S&top recording"
 msgstr "Aufnahme &beenden"
 
-#: libkwave/GenreType.cpp:193
+#: libkwave/GenreType.cpp:209
 msgid "Samba"
 msgstr "Samba"
 
-#: libkwave/FileInfo.cpp:187
+#: libkwave/FileInfo.cpp:192
 msgid "Sample Format"
 msgstr "Sample-Format"
 
-#: libkwave/FileInfo.cpp:191
+#: libkwave/FileInfo.cpp:196
 msgid "Sample Rate"
 msgstr "Abtastrate"
 
@@ -4439,7 +4358,7 @@ msgstr "Sample-Format '%1' wird nicht unterstützt, verwende '%2'"
 msgid "Sample format:"
 msgstr "Sample-Format:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:181
+#: plugins/fileinfo/FileInfoDialog.cpp:186
 #: plugins/newsignal/ui_NewSigDlg.h:492 plugins/record/ui_RecordDlg.h:1022
 msgid "Sample rate:"
 msgstr "Abtastrate:"
@@ -4456,11 +4375,11 @@ msgstr "Samples"
 msgid "Samples per second"
 msgstr "Samples pro Sekunde"
 
-#: libkwave/GenreType.cpp:189
+#: libkwave/GenreType.cpp:205
 msgid "Satire"
 msgstr "Satire"
 
-#: kwave/TopWidget.cpp:941
+#: kwave/TopWidget.cpp:966
 msgid "Save As"
 msgstr "Speichern &unter"
 
@@ -4481,7 +4400,7 @@ msgstr "Sonagramm speichern"
 msgid "Save selection only"
 msgstr "Nur Auswahl speichern"
 
-#: kwave/TopWidget.cpp:221
+#: kwave/TopWidget.cpp:222
 msgid "Save the current file"
 msgstr "Aktuelle Datei speichern"
 
@@ -4501,7 +4420,7 @@ msgstr ""
 msgid "Sawtooth"
 msgstr "Sägezahn"
 
-#: kwave/TopWidget.cpp:391
+#: kwave/TopWidget.cpp:392
 msgid "Scanning plugins..."
 msgstr "Suche Plugins..."
 
@@ -4568,11 +4487,11 @@ msgstr "Auswahl des Aufnahmegeräts"
 msgid "Select Track"
 msgstr "Spur auswählen"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1389
+#: plugins/fileinfo/ui_FileInfoDlg.h:1332
 msgid "Select a date from the calendar."
 msgstr "Datum per Kalender auswählen."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:193
+#: plugins/fileinfo/FileInfoDialog.cpp:198
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
@@ -4588,11 +4507,11 @@ msgstr "Wählen Sie dies um die Anzahl der Samples direkt einzugeben"
 msgid "Select this to set the length of the file by time"
 msgstr "Wählen Sie dies um die Länge der Datei nach Zeit auszuwählen"
 
-#: kwave/TopWidget.cpp:327
+#: kwave/TopWidget.cpp:328
 msgid "Select zoom factor"
 msgstr "Vergrösserungsfaktor auswählen"
 
-#: kwave/TopWidget.cpp:1254
+#: kwave/TopWidget.cpp:1278
 #, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -4600,7 +4519,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr "Ausgewählt: %1...%2 (%3 Samples)"
 
-#: kwave/TopWidget.cpp:1266
+#: kwave/TopWidget.cpp:1290
 #, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -4637,12 +4556,12 @@ msgstr "Auswahl, rechter Rand"
 msgid "Set FFT/Time Resolution Parameters"
 msgstr "Parameter der FFT/Zeit-Auflösung setzen"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1396
-#: plugins/fileinfo/ui_FileInfoDlg.h:1399
+#: plugins/fileinfo/ui_FileInfoDlg.h:1339
+#: plugins/fileinfo/ui_FileInfoDlg.h:1342
 msgid "Set the date to today."
 msgstr "Setzt das Datum auf den heutigen Tag."
 
-#: libkwave/FileInfo.cpp:84
+#: libkwave/FileInfo.cpp:89
 msgid ""
 "Sets a mode for compressing the audio\n"
 "data to reduce disk space."
@@ -4672,7 +4591,7 @@ msgstr ""
 "Setzt die Lautstärke auf einen Prozentsatz der ursprünglichen Lautstärke. \n"
 "Zum Beispiel: \"50 %\", \"75%\" oder \"125%\""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:214
+#: plugins/fileinfo/FileInfoDialog.cpp:219
 msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
@@ -4680,7 +4599,7 @@ msgstr ""
 "Zeigt die Länge der Datei in Samples\n"
 "und wenn möglich als Zeit."
 
-#: libkwave/FileInfo.cpp:106
+#: libkwave/FileInfo.cpp:111
 msgid ""
 "Shows the name of the engineer who worked on the file.\n"
 "If there are multiple engineers, separate the names by\n"
@@ -4690,7 +4609,7 @@ msgstr ""
 "Bei mehreren Technikern sind die Namen durch ein Semikolon\n"
 "und ein Leerzeichen zu trennen."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:201
+#: plugins/fileinfo/FileInfoDialog.cpp:206
 msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
@@ -4699,7 +4618,7 @@ msgstr ""
 "über das \"Bearbeiten\"-Menü Spuren hinzufügen\n"
 "oder löschen."
 
-#: libkwave/GenreType.cpp:146
+#: libkwave/GenreType.cpp:162
 msgid "Showtunes"
 msgstr "Showtunes"
 
@@ -4724,7 +4643,7 @@ msgstr "Sinus"
 msgid "Size of bitmap: %1x%2"
 msgstr "Grösse der Bitmap: %1x%2"
 
-#: libkwave/FileInfo.cpp:114
+#: libkwave/FileInfo.cpp:119
 msgid "Size of the file in bytes"
 msgstr "Grösse der Datei in Bytes"
 
@@ -4732,19 +4651,19 @@ msgstr "Grösse der Datei in Bytes"
 msgid "Size of the playback buffer in bytes"
 msgstr "Grösse des Wiedergabe-Puffers in Bytes"
 
-#: libkwave/GenreType.cpp:98
+#: libkwave/GenreType.cpp:114
 msgid "Ska"
 msgstr "Ska"
 
-#: libkwave/GenreType.cpp:190
+#: libkwave/GenreType.cpp:206
 msgid "Slow Jam"
 msgstr "Slow Jam"
 
-#: libkwave/GenreType.cpp:174
+#: libkwave/GenreType.cpp:190
 msgid "Slow Rock"
 msgstr "Slow Rock"
 
-#: libkwave/FileInfo.cpp:194
+#: libkwave/FileInfo.cpp:199
 msgid "Software"
 msgstr "Software"
 
@@ -4759,7 +4678,7 @@ msgstr "Sonagramm"
 msgid "Sonagram of %1"
 msgstr "Sonagramm von %1"
 
-#: libkwave/GenreType.cpp:184
+#: libkwave/GenreType.cpp:200
 msgid "Sonata"
 msgstr "Sonate"
 
@@ -4768,7 +4687,7 @@ msgstr "Sonate"
 msgid "Sorry"
 msgstr "Entschuldigung"
 
-#: plugins/codec_wav/WavEncoder.cpp:341
+#: plugins/codec_wav/WavEncoder.cpp:342
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
 "you want to use G711 ULAW compression instead?"
@@ -4780,24 +4699,24 @@ msgstr ""
 msgid "Sorry, the file type is not supported."
 msgstr "Sorry, dieser Datei-Typ wird nicht unterstützt."
 
-#: libkwave/GenreType.cpp:119
+#: libkwave/GenreType.cpp:135
 msgid "Soul"
 msgstr "Soul"
 
-#: libkwave/GenreType.cpp:114
+#: libkwave/GenreType.cpp:130
 msgid "Sound Clip"
 msgstr "Sound Clip"
 
-#: libkwave/GenreType.cpp:101
+#: libkwave/GenreType.cpp:117
 msgid "Soundtrack"
 msgstr "Soundtrack"
 
-#: libkwave/FileInfo.cpp:199 plugins/fileinfo/ui_FileInfoDlg.h:1413
+#: libkwave/FileInfo.cpp:204 plugins/fileinfo/ui_FileInfoDlg.h:1356
 #: plugins/record/ui_RecordDlg.h:1042 plugins/record/ui_RecordDlg.h:1073
 msgid "Source"
 msgstr "Quelle"
 
-#: libkwave/FileInfo.cpp:204
+#: libkwave/FileInfo.cpp:209
 msgid "Source form"
 msgstr "Ursprungs-Form"
 
@@ -4805,11 +4724,11 @@ msgstr "Ursprungs-Form"
 msgid "Source: "
 msgstr "Quelle: "
 
-#: libkwave/GenreType.cpp:133
+#: libkwave/GenreType.cpp:149
 msgid "Southern Rock"
 msgstr "Southern Rock"
 
-#: libkwave/GenreType.cpp:121
+#: libkwave/GenreType.cpp:137
 msgid "Space"
 msgstr "Space"
 
@@ -4817,7 +4736,7 @@ msgstr "Space"
 msgid "Spe&ctrum"
 msgstr "Spe&ktrum"
 
-#: libkwave/FileInfo.cpp:102
+#: libkwave/FileInfo.cpp:107
 msgid ""
 "Specifies the date the subject of the file was created.\n"
 "Example: '2001-12-24'"
@@ -4825,11 +4744,11 @@ msgstr ""
 "Gibt das Datum an zu dem der ursprüngliche Titel erzeugt wurde.\n"
 "Beispiel: '2001-12-24'"
 
-#: libkwave/FileInfo.cpp:59
+#: libkwave/FileInfo.cpp:61
 msgid "Specifies the lower limit in a VBR bitstream."
 msgstr "Setzt die Untergrenze für die Bitrate in einem VBR-Bitstrom."
 
-#: libkwave/FileInfo.cpp:183
+#: libkwave/FileInfo.cpp:188
 msgid ""
 "Specifies the name or the title the\n"
 "file was originally intended for.\n"
@@ -4839,19 +4758,19 @@ msgstr ""
 "Produkts für den die Datei ursprünglich gedacht war.\n"
 "Beispiel: 'Linux Audio-Sammlung'"
 
-#: libkwave/FileInfo.cpp:68
+#: libkwave/FileInfo.cpp:70
 msgid "Specifies the number of bits per sample."
 msgstr "Setzt die Anzahl der Bits pro Sample."
 
-#: libkwave/FileInfo.cpp:222
+#: libkwave/FileInfo.cpp:230
 msgid "Specifies the number of channels of the signal."
 msgstr "Setzt die Anzahl der Spuren des Signals."
 
-#: libkwave/FileInfo.cpp:65
+#: libkwave/FileInfo.cpp:67
 msgid "Specifies the upper limit in a VBR bitstream."
 msgstr "Setzt die Obergrenze der Bitrate in einem VBR-Bitstrom."
 
-#: libkwave/GenreType.cpp:180
+#: libkwave/GenreType.cpp:196
 msgid "Speech"
 msgstr "Sprache"
 
@@ -4925,7 +4844,7 @@ msgstr "Aufnahme beenden"
 msgid "Stop playback or loop"
 msgstr "Wiedergabe beenden"
 
-#: libkwave/FileInfo.cpp:164
+#: libkwave/FileInfo.cpp:169
 msgid ""
 "Stores the title of the subject of the file.\n"
 "Example: \"Symphony No.6, Op.68 'Pastoral'\""
@@ -4942,7 +4861,7 @@ msgstr "Texte und i18n-Aktualisierungen"
 msgid "Subdevice %1: "
 msgstr "Untergerät %1: "
 
-#: libkwave/FileInfo.cpp:210
+#: libkwave/FileInfo.cpp:215
 msgid "Subject"
 msgstr "Thema"
 
@@ -4950,19 +4869,19 @@ msgstr "Thema"
 msgid "Sven-Steffen Arndt"
 msgstr "Sven-Steffen Arndt"
 
-#: libkwave/GenreType.cpp:162
+#: libkwave/GenreType.cpp:178
 msgid "Swing"
 msgstr "Swing"
 
-#: libkwave/GenreType.cpp:173
+#: libkwave/GenreType.cpp:189
 msgid "Symphonic Rock"
 msgstr "Symphonic Rock"
 
-#: libkwave/GenreType.cpp:185
+#: libkwave/GenreType.cpp:201
 msgid "Symphony"
 msgstr "Symphonie"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:490
+#: plugins/codec_mp3/MP3Decoder.cpp:509
 msgid "Synchronization lost"
 msgstr "Synchronisation verloren"
 
@@ -4970,19 +4889,19 @@ msgstr "Synchronisation verloren"
 msgid "T.H.F. Klok and Cedric Tefft"
 msgstr "T.H.F. Klok und Cedric Tefft"
 
-#: libkwave/GenreType.cpp:192
+#: libkwave/GenreType.cpp:208
 msgid "Tango"
 msgstr "Tango"
 
-#: libkwave/FileInfo.cpp:214
+#: libkwave/FileInfo.cpp:219
 msgid "Technican"
 msgstr "Techniker"
 
-#: libkwave/GenreType.cpp:95
+#: libkwave/GenreType.cpp:111
 msgid "Techno"
 msgstr "Techno"
 
-#: libkwave/GenreType.cpp:128
+#: libkwave/GenreType.cpp:144
 msgid "Techno-Industrial"
 msgstr "Techno-Industrial"
 
@@ -5003,7 +4922,7 @@ msgstr "Dank an"
 msgid "The PulseAudio device '%1' is unknown or no longer connected"
 msgstr "Das PulseAudio-Gerät '%1' ist unbekannt oder nicht mehr angeschlossen"
 
-#: plugins/codec_wav/WavDecoder.cpp:256
+#: plugins/codec_wav/WavDecoder.cpp:255
 msgid ""
 "The WAV file seems to be damaged:\n"
 "Some chunks are duplicate or missing.\n"
@@ -5024,7 +4943,7 @@ msgstr ""
 "an die Kwave Mailingliste und wir werden versuchen \n"
 "Ihnen zu helfen..."
 
-#: libkwave/FileInfo.cpp:175
+#: libkwave/FileInfo.cpp:180
 msgid ""
 "The artist(s) who performed the work. In classical\n"
 "music this would be the conductor, orchestra, soloists.\n"
@@ -5074,7 +4993,7 @@ msgstr ""
 "Programms herauszufinden:\n"
 "\"fuser -v %1\" )"
 
-#: kwave/TopWidget.cpp:964
+#: kwave/TopWidget.cpp:989
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -5083,7 +5002,7 @@ msgstr ""
 "Die Datei '%1' existiert bereits.\n"
 "Wollen Sie diese wirklich überschreiben?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:142
+#: plugins/codec_mp3/MP3Decoder.cpp:153
 #, kde-format
 msgid ""
 "The file contains an invalid channel mode 0x%1\n"
@@ -5092,7 +5011,7 @@ msgstr ""
 "Die Datei enthält eine ungültige Anzahl von Kanälen: 0x%1\n"
 "Mono wird angenommen..."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:163
+#: plugins/codec_mp3/MP3Encoder.cpp:286
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
 "be mixed down to stereo when saving."
@@ -5100,7 +5019,7 @@ msgstr ""
 "Das von Ihnen gewählte Dateiformat unterstützt nur mono oder stereo. Diese "
 "Datei wird beim Speichern auf stereo herunter-gemischt."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:73
+#: plugins/codec_mp3/MP3Decoder.cpp:84
 msgid ""
 "The file has an invalid checksum.\n"
 "Do you still want to continue?"
@@ -5108,7 +5027,7 @@ msgstr ""
 "Diese Datei hat eine ungültige Prüfsumme.\n"
 "Wollen Sie sie trotzdem öffnen?"
 
-#: plugins/codec_wav/WavDecoder.cpp:171
+#: plugins/codec_wav/WavDecoder.cpp:170
 msgid ""
 "The file has been structurally damaged or it is no WAV file.\n"
 "Should Kwave try to repair it?"
@@ -5121,11 +5040,11 @@ msgid "The file has been truncated and might be corrupted."
 msgstr ""
 "Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt."
 
-#: libkwave/FileInfo.cpp:130
+#: libkwave/FileInfo.cpp:135
 msgid "The list of labels/markers."
 msgstr "Liste der Markierungen."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:416
+#: plugins/codec_mp3/MP3Decoder.cpp:435
 msgid ""
 "The opened file is no MPEG file or it is damaged.\n"
 "No header information has been found."
@@ -5133,7 +5052,7 @@ msgstr ""
 "Die geöffnete Datei ist keine MPEG-Datei oder sie ist beschädigt.\n"
 "Es konnten keine Kopfinformationen gefunden werden."
 
-#: plugins/codec_wav/WavDecoder.cpp:240
+#: plugins/codec_wav/WavDecoder.cpp:239
 msgid ""
 "The opened file is no WAV file or it is damaged:\n"
 "There is not enough valid sound data.\n"
@@ -5162,11 +5081,11 @@ msgstr ""
 "An der von Ihnen gewählten Position befindet sich bereits eine Markierung.\n"
 "Wollen Sie diese ersetzen?"
 
-#: plugins/codec_ogg/OggDecoder.cpp:139
+#: plugins/codec_ogg/OggDecoder.cpp:140
 msgid "This Ogg bitstream does not contain any Vorbis audio data."
 msgstr "Der Ogg-Bitstrom enthält keine Vorbis Audio-Daten."
 
-#: kwave/TopWidget.cpp:784
+#: kwave/TopWidget.cpp:785
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
@@ -5227,32 +5146,36 @@ msgstr "Zu den vorhergehenden Markierungen"
 msgid "Toggle Track Selection"
 msgstr "Spur-Auswahl umkehren"
 
-#: libkwave/GenreType.cpp:137
+#: libkwave/GenreType.cpp:153
 msgid "Top 40"
 msgstr "Top 40"
 
-#: libkwave/FileInfo.cpp:218
+#: libkwave/FileInfo.cpp:223
 msgid "Track"
 msgstr "Track"
 
-#: libkwave/FileInfo.cpp:219
+#: libkwave/FileInfo.cpp:224
 msgid "Track of the CD if the source was a CDROM."
 msgstr "Track der CD wenn die Quelle eine CDROM war."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:198
+#: libkwave/FileInfo.cpp:226
+msgid "Tracks"
+msgstr "Tracks"
+
+#: plugins/fileinfo/FileInfoDialog.cpp:203
 #: plugins/newsignal/ui_NewSigDlg.h:494 plugins/record/ui_RecordDlg.h:1023
 msgid "Tracks:"
-msgstr "Spuren: "
+msgstr "Spuren:"
 
 #: libkwave/FileProgress.cpp:108
 msgid "Tracks: "
 msgstr "Spuren: "
 
-#: libkwave/GenreType.cpp:147
+#: libkwave/GenreType.cpp:163
 msgid "Trailer"
 msgstr "Trailer"
 
-#: libkwave/GenreType.cpp:108
+#: libkwave/GenreType.cpp:124
 msgid "Trance"
 msgstr "Trance"
 
@@ -5272,7 +5195,7 @@ msgstr "&Trimmen"
 msgid "Triangular"
 msgstr "Dreieck"
 
-#: libkwave/GenreType.cpp:149
+#: libkwave/GenreType.cpp:165
 msgid "Tribal"
 msgstr "Tribal"
 
@@ -5280,16 +5203,16 @@ msgstr "Tribal"
 msgid "Trigger level"
 msgstr "Triggerpegel"
 
-#: libkwave/GenreType.cpp:104
+#: libkwave/GenreType.cpp:120
 msgid "Trip-Hop"
 msgstr "Trip-Hop"
 
-#: kwave/TopWidget.cpp:1354
+#: kwave/TopWidget.cpp:1378
 msgctxt "menu entry for undo if undo disabled"
 msgid "U&ndo"
 msgstr "&Rückgängig"
 
-#: kwave/TopWidget.cpp:1353
+#: kwave/TopWidget.cpp:1377
 #, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "U&ndo (%1)"
@@ -5311,23 +5234,23 @@ msgstr ""
 msgid "Unable to open '%1'"
 msgstr "'%1' konnte nicht geöffnet werden"
 
-#: kwave/TopWidget.cpp:852
+#: kwave/TopWidget.cpp:853
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
 msgstr "'%1' konnte nicht geöffnet werden"
 
-#: plugins/codec_flac/FlacEncoder.cpp:228
-#: plugins/codec_flac/FlacEncoder.cpp:237
+#: plugins/codec_flac/FlacEncoder.cpp:230
+#: plugins/codec_flac/FlacEncoder.cpp:239
 msgid "Unable to open the FLAC encoder."
 msgstr "Der FLAC-Encoder konnte nicht geöffnet werden."
 
-#: plugins/codec_wav/WavEncoder.cpp:393 plugins/codec_mp3/MP3Encoder.cpp:176
+#: plugins/codec_wav/WavEncoder.cpp:394 plugins/codec_mp3/MP3Encoder.cpp:299
 msgid "Unable to open the file for saving!"
 msgstr "Datei konnte nicht zum Speichern geöffnet werden!"
 
 #: plugins/codec_ascii/AsciiEncoder.cpp:88
-#: plugins/codec_flac/FlacEncoder.cpp:217 plugins/codec_ogg/OggEncoder.cpp:255
+#: plugins/codec_flac/FlacEncoder.cpp:219 plugins/codec_ogg/OggEncoder.cpp:257
 msgid "Unable to open the file for saving."
 msgstr "Datei konnte nicht zum Speichern geöffnet werden."
 
@@ -5335,26 +5258,26 @@ msgstr "Datei konnte nicht zum Speichern geöffnet werden."
 msgid "Unable to open the recording device"
 msgstr "Das Aufnahmegerät konnte nicht geöffnet werden"
 
-#: kwave/TopWidget.cpp:232
+#: kwave/TopWidget.cpp:233
 msgid "Undo"
 msgstr "Rückgängig"
 
-#: kwave/TopWidget.cpp:1331
+#: kwave/TopWidget.cpp:1355
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr "Rückgängig"
 
-#: kwave/TopWidget.cpp:1329
+#: kwave/TopWidget.cpp:1353
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
 msgstr "Rückgängig (%1)"
 
-#: libkwave/GenreType.cpp:213
+#: libkwave/GenreType.cpp:226
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:510
+#: plugins/codec_mp3/MP3Decoder.cpp:529
 #, c-format
 msgid "Unknown error 0x%X. Damaged file?"
 msgstr "Unbekannter Fehler 0x%X. Datei beschädigt?"
@@ -5372,7 +5295,7 @@ msgstr "Puffer-Grösse kann nicht verwendet werden: %1"
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: libkwave/FileInfo.cpp:64
+#: libkwave/FileInfo.cpp:66
 msgid "Upper Bitrate"
 msgstr "maximale Bitrate"
 
@@ -5396,7 +5319,7 @@ msgstr "VBR:"
 msgid "Variable Bitrate Mode"
 msgstr "Variable Bitrate"
 
-#: libkwave/FileInfo.cpp:160 libkwave/FileInfo.cpp:227
+#: libkwave/FileInfo.cpp:165 libkwave/FileInfo.cpp:235
 msgid "Version"
 msgstr "Version"
 
@@ -5408,7 +5331,7 @@ msgstr "Versions-Info:"
 msgid "Visualization"
 msgstr "Visualisierung"
 
-#: libkwave/GenreType.cpp:105
+#: libkwave/GenreType.cpp:121
 msgid "Vocal"
 msgstr "Vocal"
 
@@ -5422,8 +5345,8 @@ msgstr "Lautstärke"
 msgid "WAV Codec"
 msgstr "WAV Codec"
 
-#: plugins/codec_wav/WavFileFormat.h:194 plugins/codec_wav/WavFileFormat.h:196
-#: plugins/codec_wav/WavFileFormat.h:198
+#: plugins/codec_wav/WavFileFormat.h:199 plugins/codec_wav/WavFileFormat.h:201
+#: plugins/codec_wav/WavFileFormat.h:203
 msgid "WAV audio"
 msgstr "FLAC Audio"
 
@@ -5465,8 +5388,8 @@ msgstr ""
 msgid "Window function:"
 msgstr "Fensterfunktion:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:397
-#: plugins/fileinfo/FileInfoDialog.cpp:403
+#: plugins/fileinfo/FileInfoDialog.cpp:374
+#: plugins/fileinfo/FileInfoDialog.cpp:380
 msgid "Yes"
 msgstr "Ja"
 
@@ -5482,7 +5405,7 @@ msgstr ""
 "ändern? Hinweis: wenn Sie nur die Angabe der Abtastrate ändern, kann dies zu "
 "\"Mickey-Maus\"-Effekten führen."
 
-#: plugins/codec_ogg/OggEncoder.cpp:168
+#: plugins/codec_ogg/OggEncoder.cpp:170
 #, kde-format
 msgid ""
 "You have not selected any bitrate for the encoding. Do you want to continue "
@@ -5518,11 +5441,11 @@ msgstr "Vergrössern"
 msgid "Zoom &Out"
 msgstr "Ver&kleinern"
 
-#: kwave/TopWidget.cpp:305
+#: kwave/TopWidget.cpp:306
 msgid "Zoom in"
 msgstr "Vergrössern"
 
-#: kwave/TopWidget.cpp:310
+#: kwave/TopWidget.cpp:311
 msgid "Zoom out"
 msgstr "Verkleinern"
 
@@ -5530,7 +5453,7 @@ msgstr "Verkleinern"
 msgid "Zoom to &Selection"
 msgstr "Zoom auf &Auswahl"
 
-#: kwave/TopWidget.cpp:315 kwave/menus_config_i18n.cpp:138
+#: kwave/TopWidget.cpp:316 kwave/menus_config_i18n.cpp:138
 msgid "Zoom to 100%"
 msgstr "auf 100% vergrössern"
 
@@ -5538,11 +5461,11 @@ msgstr "auf 100% vergrössern"
 msgid "Zoom to Whole Signal"
 msgstr "Zoom auf das gesamte Signal"
 
-#: kwave/TopWidget.cpp:320
+#: kwave/TopWidget.cpp:321
 msgid "Zoom to all"
 msgstr "Auf gesamtes Signal vergrössern"
 
-#: kwave/TopWidget.cpp:300
+#: kwave/TopWidget.cpp:301
 msgid "Zoom to selection"
 msgstr "Auf Auswahl vergrössern"
 
@@ -5586,7 +5509,7 @@ msgstr "Durchschnitt"
 msgid "bandwidth"
 msgstr "Bandbreite"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1305 plugins/record/ui_RecordDlg.h:1040
+#: plugins/fileinfo/ui_FileInfoDlg.h:1276 plugins/record/ui_RecordDlg.h:1040
 msgid "bit"
 msgstr "Bit"
 
@@ -5651,7 +5574,7 @@ msgstr "dB"
 msgid "display"
 msgstr "Anzeige"
 
-#: plugins/codec_wav/WavDecoder.cpp:354
+#: plugins/codec_wav/WavDecoder.cpp:353
 msgid "file header is damaged"
 msgstr "Datei-Header ist beschädigt"
 
@@ -5671,7 +5594,7 @@ msgstr "höchste"
 msgid "index of the label"
 msgstr "Index der Markierung"
 
-#: plugins/codec_wav/WavDecoder.cpp:370
+#: plugins/codec_wav/WavDecoder.cpp:369
 #, kde-format
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "interner libaudiofile-Fehler #%1: '%2'"
@@ -5783,19 +5706,19 @@ msgstr ""
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:752
 msgid ""
-"parameter for multi-channel files\n"
+"parameter for multi channel files\n"
 "(stereo or more channels)"
 msgstr ""
-"Parameter für Dateien mit mehreren Kanälen\n"
-"(stereo oder mehr Kanäle)"
+"Parameter für Dateien mit mehreren Spuren\n"
+"(stereo oder mehr Spuren)"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:780
 msgid "parameter for no emphasis"
 msgstr "Parameter für keine Emphase"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:747
-msgid "parameter for single-channel files (mono)"
-msgstr "Parameter für Dateien mit nur einem Kanal (mono)"
+msgid "parameter for single channel files (mono)"
+msgstr "Parameter für Dateien mit nur einer Spur (mono)"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:718
 msgid "parameter for switching the byte order"
@@ -5833,13 +5756,13 @@ msgstr "Wiedergabe..."
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:734
 #, kde-format
 msgid ""
-"sample rate in Hz (use %1 as placeholder) \n"
+"sample rate in Hz (use %1 as placeholder)\n"
 "or kHz (use [%khz] as placeholder)"
 msgstr ""
 "Abtastrate in Hz (wählen Sie %1 als Platzhalter)\n"
 "oder kHz (wählen Sie [%khz] als Platzhalter)"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1319
+#: plugins/fileinfo/ui_FileInfoDlg.h:1290
 msgid "samples per second"
 msgstr "Samples pro Sekunde"
 
@@ -5900,8 +5823,8 @@ msgstr "v%1"
 msgid "version"
 msgstr "Version"
 
-#: plugins/fileinfo/ui_FileInfoDlg.h:1340
-#: plugins/fileinfo/ui_FileInfoDlg.h:1381
+#: plugins/fileinfo/ui_FileInfoDlg.h:1299
+#: plugins/fileinfo/ui_FileInfoDlg.h:1302
 msgid "yes"
 msgstr "Ja"
 
@@ -5934,6 +5857,78 @@ msgstr "Ja"
 
 #~ msgid "(file size)"
 #~ msgstr "(Dateigröße)"
+
+#~ msgid "(variable)"
+#~ msgstr "(variabel)"
+
+#~ msgid "112K"
+#~ msgstr "112K"
+
+#~ msgid "128K"
+#~ msgstr "128K"
+
+#~ msgid "144K"
+#~ msgstr "144K"
+
+#~ msgid "160K"
+#~ msgstr "160K"
+
+#~ msgid "16K"
+#~ msgstr "16K"
+
+#~ msgid "176K"
+#~ msgstr "176K"
+
+#~ msgid "192K"
+#~ msgstr "192K"
+
+#~ msgid "224K"
+#~ msgstr "224K"
+
+#~ msgid "24K"
+#~ msgstr "24K"
+
+#~ msgid "256K"
+#~ msgstr "256K"
+
+#~ msgid "288K"
+#~ msgstr "288K"
+
+#~ msgid "320K"
+#~ msgstr "320K"
+
+#~ msgid "32K"
+#~ msgstr "32K"
+
+#~ msgid "352K"
+#~ msgstr "352K"
+
+#~ msgid "384K"
+#~ msgstr "384K"
+
+#~ msgid "40K"
+#~ msgstr "40K"
+
+#~ msgid "416K"
+#~ msgstr "416K"
+
+#~ msgid "448K"
+#~ msgstr "448K"
+
+#~ msgid "56K"
+#~ msgstr "56K"
+
+#~ msgid "64K"
+#~ msgstr "64K"
+
+#~ msgid "80K"
+#~ msgstr "80K"
+
+#~ msgid "8K"
+#~ msgstr "8K"
+
+#~ msgid "96K"
+#~ msgstr "96K"
 
 #~ msgid "<html><head/><body><p>Bitrate:</p></body></html>"
 #~ msgstr "<html><head/><body><p>Bitrate:</p></body></html>"
@@ -6019,9 +6014,6 @@ msgstr "Ja"
 
 #~ msgid "Too many label levels to paint. Only %d will be shown"
 #~ msgstr "Zu viele Markierungen zum Zeichnen. Nur %1 werden angezeigt."
-
-#~ msgid "Tracks"
-#~ msgstr "Tracks"
 
 #~ msgid ""
 #~ "Unable to save undo information. Do you want to continue without undo?"

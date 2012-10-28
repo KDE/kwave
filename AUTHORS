@@ -36,9 +36,6 @@ Major Contributors
 Aurelien Jarno <aurel32@debian.org>
 	* debian packager
 
-Daniel Tihelka <dtihelka@kky.zcu.cz>
-	* visualization plugins
-
 David Flogeras <d.flogeras@unb.ca>
 	* notch filter plugin
 	* band pass plugin

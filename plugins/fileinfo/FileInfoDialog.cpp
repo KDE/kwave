@@ -393,8 +393,15 @@ void FileInfoDialog::setupContentTab()
 
     // genre type
     cbGenre->addItems(GenreType::allTypes());
-    QString genre =
-	GenreType::name(GenreType::id(m_info.get(INF_GENRE).toString()), true);
+    QString genre = m_info.get(INF_GENRE).toString();
+    int genre_id = GenreType::id(genre);
+    if (genre_id >= 0) {
+	// well known genre type
+	genre = GenreType::name(genre_id, true);
+    } else {
+	// user defined genre type
+	cbGenre->addItem(genre);
+    }
     initInfo(lblGenre,            cbGenre,        INF_GENRE);
     cbGenre->setCurrentIndex(cbGenre->findText(genre));
 

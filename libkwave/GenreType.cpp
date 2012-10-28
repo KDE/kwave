@@ -62,9 +62,12 @@ int GenreType::id(const QString &name)
     fill();
     QMap<int, const char *>::Iterator it;
     for (it = m_map.begin(); it != m_map.end(); ++it) {
-	if (QString(it.value()) == name) return it.key();
-	if (i18n(it.value()) == name) return it.key();
+	if (QString(it.value()).compare(name, Qt::CaseInsensitive) == 0)
+	    return it.key();
+	if (i18n(it.value()).compare(name, Qt::CaseInsensitive) == 0)
+	    return it.key();
     }
+
     return -1;
 }
 

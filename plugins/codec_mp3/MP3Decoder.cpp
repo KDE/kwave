@@ -271,7 +271,9 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	    {
 		QString s = parseId3Frame2String(frame);
 		int id = GenreType::fromID3(s);
-		info.set(property, QVariant(GenreType::name(id, false)));
+		if (id >= 0)
+		    s = GenreType::name(id, false);
+		info.set(property, QVariant(s));
 		break;
 	    }
 	    case ID3_PropertyMap::ENC_LENGTH:

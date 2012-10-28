@@ -274,7 +274,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
     // get info: tracks, sample rate
     const unsigned int tracks     = src.tracks();
     const unsigned int length     = src.last() - src.first() + 1;
-    const unsigned int bits       = qBound(8U, ((info.bits() + 7) & ~0x7), 32U);
+    unsigned int       bits       = qBound(8U, ((info.bits() + 7) & ~0x7), 32U);
     const double       rate       = info.rate();
     const unsigned int out_tracks = qMax(tracks, 2U);
 
@@ -307,7 +307,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
     ID3_QIODeviceWriter id3_writer(dst);
     encodeID3Tags(meta_data, id3_tag);
 
-    OPTION(m_flags.m_prepend);          // optional paramters at the very start
+    OPTION(m_flags.m_prepend);          // optional parameters at the very start
 
     // mandantory audio input format and encoding options
     OPTION(m_input.m_raw_format);       // input is raw audio
@@ -321,15 +321,21 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
     if (settings.m_format.m_sample_rate.length()) {
 	QString str = settings.m_format.m_sample_rate;
 	if (str.contains("[%khz]")) {
-	    str = str.replace("[%khz]", "%1").arg(rate / 1000.0, 1, 'f', 1);
+	    str = str.replace("[%khz]", "%1").arg(rate / 1000.0, 1, 'f', 2);
 	    m_params.append(str.split(' '));
 	} else {
 	    m_params.append(str.arg(rate).split(' '));
 	}
     }
 
-    // bits per sample, supported are: 8 / 16 / 24 / 32
-    OPTION_P(m_format.m_bits_per_sample, bits);
+    // bits per sample, supported by Kwave are: 8 / 16 / 24 / 32
+    if (!settings.m_format.m_bits_per_sample.contains('%')) {
+	// bits/sample are not selectable => use default=16bit
+	bits = 16;
+	OPTION(m_format.m_bits_per_sample);
+    } else {
+	OPTION_P(m_format.m_bits_per_sample, bits);
+    }
 
     // encode one track as "mono" and two tracks as "joint-stereo"
     if (tracks == 1) {

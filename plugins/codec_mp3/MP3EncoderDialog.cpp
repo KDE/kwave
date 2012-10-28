@@ -70,7 +70,7 @@ const Kwave::MP3EncoderSettings g_predefined_settings[] =
 	},
 	{
 	    "-s %1",                   // sample rate
-	    "-bitwidth=%1",            // bits per sample
+	    "--bitwidth %1",           // bits per sample
 	    {
 		"-mm",                 // mono
 		"-mj"                  // stereo
@@ -119,7 +119,7 @@ const Kwave::MP3EncoderSettings g_predefined_settings[] =
 	},
 	{
 	    "--samplerate=%1",         // sample rate
-	    "--samplesize=%1",         // bits per sample
+	    "--samplesize=16",         // bits per sample (supports only 16)
 	    {
 		"--channels=1 --mode=mono",  // mono
 		"--channels=2 --mode=joint"  // stereo
@@ -168,7 +168,7 @@ const Kwave::MP3EncoderSettings g_predefined_settings[] =
 	},
 	{
 	    "-s [%khz]",               // sample rate
-	    "-bitwidth=%1",            // bits per sample
+	    "",                        // bits per sample (supports only 16)
 	    {
 		"-mm",                 // mono
 		"-mj"                  // stereo

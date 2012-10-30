@@ -27,7 +27,7 @@ RDEPEND="
 	mp3? (
 		media-libs/id3lib
 		media-libs/libmad
-		( media-sound/lame | mesia-sound/twolame | media-sound/toolame )
+		|| ( media-sound/lame media-sound/twolame media-sound/toolame )
 	)
 	pulseaudio? ( media-sound/pulseaudio )
 	vorbis? (

@@ -3,9 +3,6 @@ o support for OPUS codec (.opus, using Ogg as container)
 
 o support for "raw" import/export
 
-o better meta data handling, especially for more ID3 tags in MP3
-  (use meta data instead of file info)
-
 o move label with mouse (drag&drop)
 
 o simplify loading/unloading of plugins
@@ -145,7 +142,7 @@ o about plugin: auto-scroll for contents
 
 o re-run cmake automatically when VERSION file has changed
 
-o support for visualization plugins (rev 2498) => DROPPED
+o support for visualization plugins (svn rev 2498) => DROPPED
   - new functions
     * allow drag&drop to reorder signal views
     * resizing of signal views per size grip

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-28 16:54+0100\n"
-"PO-Revision-Date: 2012-05-26 12:44+0200\n"
-"Last-Translator: Pavel <pavelfric@seznam.cz>\n"
+"PO-Revision-Date: 2012-10-31 13:46+0100\n"
+"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -197,9 +197,9 @@ msgid "%1 bytes"
 msgstr "%1 bajtů"
 
 #: plugins/record/RecordPlugin.cpp:444 plugins/record/RecordPlugin.cpp:452
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 channels"
-msgstr "%1 stopy"
+msgstr "%1 kanály"
 
 #: plugins/playback/PlayBack-OSS.cpp:193
 #, kde-format
@@ -286,9 +286,8 @@ msgid "&As..."
 msgstr "&Jako..."
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:701
-#, fuzzy
 msgid "&Auto Detect..."
-msgstr "&Vybrat..."
+msgstr "&Automaticky zjistit..."
 
 #: kwave/menus_config_i18n.cpp:18
 msgid "&Average spectrum"
@@ -493,7 +492,7 @@ msgstr "&Nahrát štítky..."
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:714
 msgid "&Locate"
-msgstr ""
+msgstr "&Najít"
 
 #: plugins/volume/ui_VolumeDlg.h:279
 msgid "&Logarithmic"
@@ -757,7 +756,7 @@ msgstr "&Zpět"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:705
 msgid "&Usage"
-msgstr ""
+msgstr "&Použití"
 
 #: kwave/menus_config_i18n.cpp:133
 msgid "&View"
@@ -855,7 +854,7 @@ msgstr "(stereofonní zvuk)"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:46
 msgid "(user defined)"
-msgstr ""
+msgstr "(Stanoveno uživatelem)"
 
 #: kwave/TopWidget.cpp:1542
 #, kde-format
@@ -1606,15 +1605,16 @@ msgid "Amplitude: 0 %"
 msgstr "Rozkmit: 0 %"
 
 #: plugins/codec_mp3/MP3Encoder.cpp:544
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
 "An error occurred while calling the external encoder '%1':\n"
 "\n"
 "%2"
 msgstr ""
-"Při otevírání souboru:\n"
-"'%1' se vyskytla chyba."
+"Při volání vnějšího kodéru '%1' se vyskytla chyba:\n"
+"\n"
+"%2"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:535
 #, kde-format
@@ -1659,9 +1659,8 @@ msgid "Append Track"
 msgstr "Připojit stopu"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:824
-#, fuzzy
 msgid "Append:"
-msgstr "Připojit stopu"
+msgstr "Připojit:"
 
 #: libkwave/CompressionType.cpp:49
 msgid "Apple ACE2"
@@ -1821,18 +1820,16 @@ msgid "Bitrate"
 msgstr "Datový tok"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:769
-#, fuzzy
 msgid "Bitrate:"
-msgstr "Datový tok"
+msgstr "Datový tok:"
 
 #: libkwave/FileInfo.cpp:69
 msgid "Bits per Sample"
 msgstr "Bitů na vzorek"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:738
-#, fuzzy
 msgid "Bits per Sample:"
-msgstr "Bitů na vzorek"
+msgstr "Bitů na vzorek:"
 
 #: plugins/playback/ui_PlayBackDlg.h:410
 msgid "Bits per sample:"
@@ -1883,25 +1880,23 @@ msgstr "Ukládání do vyrovnávací paměti..."
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:726
 msgid "Byte Order:"
-msgstr ""
+msgstr "Pořadí bytů"
 
 #: plugins/fileinfo/ui_FileInfoDlg.h:1309
 msgid "CCIT J.17"
 msgstr "CCIT J.17"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:788
-#, fuzzy
 msgid "CCIT J17"
-msgstr "CCIT J.17"
+msgstr "CCIT J17"
 
 #: libkwave/FileInfo.cpp:72
 msgid "CD"
 msgstr "CD"
 
 #: libkwave/FileInfo.cpp:75
-#, fuzzy
 msgid "CDS"
-msgstr "CD"
+msgstr "CDS"
 
 #: libkwave/GenreType.cpp:158
 msgid "Cabaret"
@@ -1998,7 +1993,7 @@ msgstr "Oprávněný"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:798
 msgid "Compatibility:"
-msgstr ""
+msgstr "Slučitelnost:"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:52
 msgid "Compressed Audio Interchange Format"
@@ -2028,7 +2023,7 @@ msgstr "Základní stlačovací udělátko"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:615
 msgid "Congratulation, the test was successful!"
-msgstr ""
+msgstr "Skvělé. Zkouška proběhla úspěšně!"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:408
 msgid "Connecting to the PulseAudio server failed."
@@ -2065,9 +2060,8 @@ msgid "Copyright"
 msgstr "Autorské právo"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:804
-#, fuzzy
 msgid "Copyright:"
-msgstr "Autorské právo"
+msgstr "Autorské právo:"
 
 #: libkwave/FileInfo.cpp:103
 msgid "Copyrighted"
@@ -2379,23 +2373,20 @@ msgid "Emphasis"
 msgstr "Zdůraznění"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:777
-#, fuzzy
 msgid "Emphasis:"
-msgstr "Zdůraznění"
+msgstr "Zdůraznění:"
 
 #: plugins/record/ui_RecordDlg.h:960
 msgid "Enable Pre-recording"
 msgstr "Povolit přednahrávání"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:830
-#, fuzzy
 msgid "Encoder Help:"
-msgstr "Dekodér MP3"
+msgstr "Nápověda ke kodéru:"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:803
-#, fuzzy
 msgid "Encoding"
-msgstr "Režim kódování:"
+msgstr "Kódování"
 
 #: plugins/fileinfo/ui_FileInfoDlg.h:1295
 msgid "Encoding Mode:"
@@ -2583,7 +2574,7 @@ msgstr "Vtěsnat"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:829
 msgid "Flags"
-msgstr ""
+msgstr "Příznaky"
 
 #: libgui/CurveWidget.cpp:82
 msgid "Flip horizontal"
@@ -2940,9 +2931,8 @@ msgid "Industrial"
 msgstr "Průmyslová hudba"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:840
-#, fuzzy
 msgid "Info"
-msgstr "Informace o souboru"
+msgstr "Informace"
 
 #: kwave/TopWidget.cpp:203
 msgid "Initializing toolbar..."
@@ -2950,7 +2940,7 @@ msgstr "Spouští nástrojový pruh..."
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:731
 msgid "Input"
-msgstr ""
+msgstr "Vstup"
 
 #: plugins/codec_ogg/OggDecoder.cpp:106
 msgid "Input does not appear to be an Ogg bitstream."
@@ -3294,19 +3284,16 @@ msgid "Lower Bitrate"
 msgstr "Nižší datový tok"
 
 #: plugins/codec_mp3/MP3CodecPlugin.cpp:28
-#, fuzzy
 msgid "MP3 Codec"
-msgstr "Dekodér MP3"
+msgstr "Kodek MP3"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:689
-#, fuzzy
 msgid "MP3 Encoder Settings"
-msgstr "Nastavení paměti"
+msgstr "Nastavení kodéru MP3"
 
 #: plugins/codec_mp3/MP3CodecPlugin.cpp:55
-#, fuzzy
 msgid "MP3 Encoder Setup"
-msgstr "Dekodér MP3"
+msgstr "Nastavení kodéru MP3"
 
 #: plugins/fileinfo/ui_FileInfoDlg.h:1325
 msgid "MPEG"
@@ -3619,7 +3606,7 @@ msgstr "Vyvíječ šumu"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:793
 msgid "Noise Shaping:"
-msgstr ""
+msgstr "Tvarování šumu:"
 
 #: plugins/fileinfo/ui_CompressionWidgetBase.h:212
 msgid "Nominal Bitrate"
@@ -3665,13 +3652,12 @@ msgid "Null device"
 msgstr "Nulové zařízení"
 
 #: libkwave/FileInfo.cpp:76
-#, fuzzy
 msgid ""
 "Number of CDs, if the source is\n"
 "an album of more CDROMs"
 msgstr ""
-"Počet malých disků (CD), když zdrojem je \n"
-"album vytvořené z více malých disků"
+"Počet CD, když zdrojem je \n"
+"album vytvořené z více CD"
 
 #: plugins/sonagram/ui_SonagramDlg.h:293
 msgid "Number of FFT points:"
@@ -3690,13 +3676,12 @@ msgid ""
 "Number of the CD, if the source is\n"
 "an album of more CDROMs"
 msgstr ""
-"Počet malých disků (CD), když zdrojem je \n"
-"album vytvořené z více malých disků"
+"Počet CD, když zdrojem je \n"
+"album vytvořené z více CDROM"
 
 #: libkwave/FileInfo.cpp:227
-#, fuzzy
 msgid "Number of tracks of the CD if the source was a CDROM."
-msgstr "Stopa na CD v případě, že zdrojem byl malý disk (CD)."
+msgstr "Počet stop na CD v případě, že zdrojem byl CDROM."
 
 #: plugins/saveblocks/ui_SaveBlocksWidgetBase.h:131
 msgid "Numbering:"
@@ -3815,9 +3800,8 @@ msgid "Original"
 msgstr "Originál"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:809
-#, fuzzy
 msgid "Original:"
-msgstr "Originál"
+msgstr "Originál:"
 
 #: plugins/record/ui_RecordDlg.h:1076
 msgid "Oscilloscope"
@@ -3852,7 +3836,7 @@ msgstr "Panagiotis Papadopoulos"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:715
 msgid "Parameters"
-msgstr ""
+msgstr "Parametry"
 
 #: libkwave/SignalManager.cpp:648
 msgid "Paste"
@@ -3860,7 +3844,7 @@ msgstr "Vložit"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:710
 msgid "Path:"
-msgstr ""
+msgstr "Cesta:"
 
 #: kwave/PlayerToolBar.cpp:100
 msgid "Pause playback"
@@ -4023,7 +4007,7 @@ msgstr "Přednahrát:"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:819
 msgid "Prepend:"
-msgstr ""
+msgstr "Připojit dopředu:"
 
 #: plugins/record/RecordDialog.cpp:1009
 msgid "Prerecording..."
@@ -4050,9 +4034,8 @@ msgid "Product"
 msgstr "Výrobek"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:690
-#, fuzzy
 msgid "Program"
-msgstr "Obraz vytvořený ultrazvukem"
+msgstr "Program"
 
 #: libkwave/GenreType.cpp:187
 msgid "Progressive Rock"
@@ -4064,7 +4047,7 @@ msgstr "Vedoucí projektu od roku 2000, základní vývoj"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:814
 msgid "Protect:"
-msgstr ""
+msgstr "Chránit:"
 
 #: libkwave/FileInfo.cpp:131
 msgid ""
@@ -4112,9 +4095,8 @@ msgid "Quadro"
 msgstr "Quadro"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:776
-#, fuzzy
 msgid "Quality"
-msgstr "Základní kvalita"
+msgstr "Kvalita"
 
 #: libkwave/GenreType.cpp:107
 msgid "R&B"
@@ -4144,9 +4126,8 @@ msgid "Rave"
 msgstr "Rave"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:725
-#, fuzzy
 msgid "Raw Format:"
-msgstr "Formát"
+msgstr "Formát RAW:"
 
 #: kwave/menus_config_i18n.cpp:104
 msgid "Re&quantize"
@@ -4154,7 +4135,7 @@ msgstr "Pře&kvantování"
 
 #: kwave/menus_config_i18n.cpp:103
 msgid "Re-enable all \"Do not ask again\" messages"
-msgstr ""
+msgstr "Povolit znovu všechny zprávy Neptat se znovu"
 
 #: kwave/TopWidget.cpp:639
 msgid ""
@@ -4162,6 +4143,9 @@ msgid ""
 "All messages that you previously turned off by activating the \"Do not ask "
 "again\" checkbox will then be enabled again."
 msgstr ""
+"Povolit znovu všechna zakázaná oznámení?\n"
+"Všechny zprávy, jež jste předtím vypnul zaškrtnutím "
+"pole Neptat se znovu, budou opět povoleny."
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:118
 #: plugins/codec_wav/WavDecoder.cpp:363 plugins/codec_wav/WavEncoder.cpp:431
@@ -4179,7 +4163,7 @@ msgstr "Čtení z nahrávacího zařízení selhalo. Chyba číslo = %1 (%2)"
 
 #: plugins/codec_wav/WavDecoder.cpp:146
 msgid "Reading..."
-msgstr "Čte..."
+msgstr "Čte se..."
 
 #: kwave/TopWidget.cpp:417
 msgid "Ready"
@@ -4349,9 +4333,8 @@ msgid "Sample Rate Conversion"
 msgstr "Převod vzorkovacího kmitočtu"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:732
-#, fuzzy
 msgid "Sample Rate:"
-msgstr "Vzorkovací kmitočet"
+msgstr "Vzorkovací kmitočet:"
 
 #: libkwave/Interpolation.cpp:50
 msgid "Sample and Hold"
@@ -4471,9 +4454,8 @@ msgid "Select Date"
 msgstr "Vybrat datum"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:561
-#, fuzzy
 msgid "Select MP3 Encoder"
-msgstr "Dekodér MP3"
+msgstr "Vybrat kodér MP3"
 
 #: libkwave/SignalManager.cpp:747
 msgid "Select Next Labels"
@@ -4633,6 +4615,7 @@ msgid "Showtunes"
 msgstr "Ukázat skladby"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:716
+#, fuzzy
 msgid "Sign:"
 msgstr ""
 
@@ -4919,7 +4902,6 @@ msgid "Techno-Industrial"
 msgstr "Techno a průmyslová hudba"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:844
-#, fuzzy
 msgid "Test..."
 msgstr "&Vyzkoušet..."
 
@@ -5005,11 +4987,13 @@ msgstr ""
 "z příkazové řádky.)"
 
 #: kwave/TopWidget.cpp:989
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "The file '%1' already exists.\n"
 "Do you really want to overwrite it?"
-msgstr "Soubor '%1' již existuje. Opravdu si jej přejete přepsat?"
+msgstr ""
+"Soubor '%1' již existuje.\n"
+"Opravdu si jej přejete přepsat?"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:153
 #, kde-format
@@ -5025,6 +5009,8 @@ msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
 "be mixed down to stereo when saving."
 msgstr ""
+"Formát souboru, který jste zvolil, podporuje pouze mono nebo stereo. "
+"Tento soubor bude při uložení smíchán do sterea."
 
 #: plugins/codec_mp3/MP3Decoder.cpp:84
 msgid ""
@@ -5163,9 +5149,8 @@ msgid "Track of the CD if the source was a CDROM."
 msgstr "Stopa na CD v případě, že zdrojem byl malý disk (CD)."
 
 #: libkwave/FileInfo.cpp:226
-#, fuzzy
 msgid "Tracks"
-msgstr "Stopy:"
+msgstr "Stopy"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:203
 #: plugins/newsignal/ui_NewSigDlg.h:494 plugins/record/ui_RecordDlg.h:1023
@@ -5329,9 +5314,8 @@ msgid "Version"
 msgstr "Verze"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:835
-#, fuzzy
 msgid "Version Info:"
-msgstr "Verze"
+msgstr "Verze:"
 
 #: plugins/record/ui_RecordDlg.h:1074
 msgid "Visualization"
@@ -5474,11 +5458,11 @@ msgstr "Zvětšit na výběr"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:826
 msgid "additional parameters to append at the end of the encoder command line"
-msgstr ""
+msgstr "Dodatečné parametry k připojení na konec příkazového řádku pro kodér"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:821
 msgid "additional parameters to put at the start of the encoder command line"
-msgstr ""
+msgstr "Dodatečné parametry k položení na začátek příkazového řádku pro kodér"
 
 #: plugins/record/RecordDialog.cpp:1164
 #, kde-format
@@ -5493,7 +5477,7 @@ msgstr "Autoři"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:699
 msgid "auto-detect the installed encoder"
-msgstr ""
+msgstr "Automaticky zjistit nainstalovaný kodér"
 
 #: plugins/fileinfo/ui_KeywordWidgetBase.h:100
 msgid "auto-generate keywords"
@@ -5501,7 +5485,7 @@ msgstr "Automaticky vytvářet klíčová slova"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:770
 msgid "avg"
-msgstr ""
+msgstr "prům"
 
 #: plugins/notch_filter/ui_NotchFilterDlg.h:214
 #: plugins/notch_filter/ui_NotchFilterDlg.h:222
@@ -5513,11 +5497,13 @@ msgid "bit"
 msgstr "bitů"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:740
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "bits per sample,\n"
 "use %1 as placeholder"
-msgstr "%1 bitů na vzorek selhalo. Používá se %2 bitů na vzorek"
+msgstr ""
+"Bitů na vzorek.\n"
+"Použít se %1 jako zástupný znak"
 
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:263
 msgid "by Factor"
@@ -5577,7 +5563,7 @@ msgstr "Hlavička souboru je poškozená"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:712
 msgid "find the full path to the encoder"
-msgstr ""
+msgstr "Najít úplnou cestu ke kodéru"
 
 #: libgui/ui_SelectTimeWidgetBase.h:287
 msgid "frmLength"
@@ -5602,23 +5588,20 @@ msgid "lowest"
 msgstr "Nejnižší"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:692
-#, fuzzy
 msgid "manually browse for the encoder"
-msgstr "Nelze otevřít kodér FLAC."
+msgstr "Ručně procházet ke kodéru"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:757
 msgid "max"
-msgstr ""
+msgstr "Nejvíce"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:758
-#, fuzzy
 msgid "min"
-msgstr " min"
+msgstr "Nejméně"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:745
-#, fuzzy
 msgid "mono:"
-msgstr "(monofonní zvuk)"
+msgstr "Mono:"
 
 #: plugins/amplifyfree/AmplifyFreeDialog.cpp:37
 msgid "ms"
@@ -5630,7 +5613,7 @@ msgstr "Název"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:778
 msgid "none"
-msgstr ""
+msgstr "Žádný"
 
 #: plugins/record/RecordDialog.cpp:1157
 #, kde-format
@@ -5655,11 +5638,11 @@ msgstr[1] "%1 minuty"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:785
 msgid "parameter for 50/15ms emphasis"
-msgstr ""
+msgstr "Parametr pro zdůraznění 50/15 ms"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:790
 msgid "parameter for CCIT J17 emphasis"
-msgstr ""
+msgstr "Parametr pro zdůraznění CCIT J17"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:772
 #, kde-format
@@ -5667,22 +5650,24 @@ msgid ""
 "parameter for average bitrate in bits/sec\n"
 "(use %1 as placeholder)"
 msgstr ""
+"Parametr pro průměrný datový tok v b/s\n"
+"(použít %1 jako zástupný znak)"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:837
 msgid "parameter for getting the encoder version information"
-msgstr ""
+msgstr "Parametr pro získání informace o verzi kodéru"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:832
 msgid "parameter for getting usage information of the encoder"
-msgstr ""
+msgstr "Parametr pro získání informace o použití kodéru"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:806
 msgid "parameter for marking the file as copyrighted"
-msgstr ""
+msgstr "Parametr pro označení souboru jako spadajícího pod autorské právo"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:811
 msgid "parameter for marking the signal as original (not a copy)"
-msgstr ""
+msgstr "Parametr pro označení signálu jako původního (originál ne kopie)"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:765
 #, kde-format
@@ -5690,6 +5675,8 @@ msgid ""
 "parameter for maximum bitrate in bits/sec\n"
 "(use %1 as placeholder)"
 msgstr ""
+"Parametr pro největší datový tok v b/s\n"
+"(použít %1 jako zástupný znak)"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:760
 #, kde-format
@@ -5697,49 +5684,53 @@ msgid ""
 "parameter for minimum bitrate in bits/sec\n"
 "(use %1 as placeholder)"
 msgstr ""
+"Parametr pro nejmenší datový tok v b/s\n"
+"(použít %1 jako zástupný znak)"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:752
 msgid ""
 "parameter for multi channel files\n"
 "(stereo or more channels)"
 msgstr ""
+"Parametr pro vícekanálové soubory\n"
+"(kanály stereo nebo mono)"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:780
 msgid "parameter for no emphasis"
-msgstr ""
+msgstr "Parametr pro žádné zdůraznění"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:747
 msgid "parameter for single channel files (mono)"
-msgstr ""
+msgstr "Parametr pro jednokanálové soubory (mono)"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:718
 msgid "parameter for switching the byte order"
-msgstr ""
+msgstr "Parametr pro přepnutí pořadí bytů"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:722
 msgid "parameter for telling the encoder to use raw data as input format"
 msgstr ""
+"Parametr pro sdělení kodéru, aby použil surová data (RAW) jako vstupní formát"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:816
 msgid "parameter to enable CRC protection"
-msgstr ""
+msgstr "Parametr pro povolení ochrany CRC"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:728
 msgid "parameter to use signed sample format"
-msgstr ""
+msgstr "Parametr pro použití vzorkovacího formátu se znaménkem"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:800
 msgid "parameters for compatibility settings"
-msgstr ""
+msgstr "Parametry pro nastavení slučitelnosti"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:795
 msgid "parameters for configuring noise shaping"
-msgstr ""
+msgstr "Parametry pro nastavení tvarování šumu"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:707
-#, fuzzy
 msgid "path to the encoder"
-msgstr "Nelze otevřít kodér FLAC."
+msgstr "Cesta ke kodéru"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:457
 msgid "playback..."
@@ -5751,6 +5742,8 @@ msgid ""
 "sample rate in Hz (use %1 as placeholder)\n"
 "or kHz (use [%khz] as placeholder)"
 msgstr ""
+"Vzorkovací kmitočet v Hz (použít %1 jako zástupný znak)\n"
+"nebo kHz (použít [%khz] jako zástupný znak)"
 
 #: plugins/fileinfo/ui_FileInfoDlg.h:1290
 msgid "samples per second"
@@ -5770,7 +5763,7 @@ msgstr "Vybrat podle času"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:696
 msgid "select one of the predefined encoder setups"
-msgstr ""
+msgstr "Vybrat jedno z předem stanovených nastavení kodéru"
 
 #: libgui/ui_SelectTimeWidgetBase.h:309
 msgid "sets the selection by the percentage of the whole signal"
@@ -5778,7 +5771,7 @@ msgstr "Nastavuje výběr podle procentního podílu z celého signálu"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:703
 msgid "show the usage information of the encoder"
-msgstr ""
+msgstr "Ukázat informace o použití kodéru"
 
 #: libgui/ui_LabelPropertiesWidgetBase.h:165
 msgid "some description of the label (optional)"
@@ -5791,9 +5784,8 @@ msgid "start/stop pre-listening"
 msgstr "Spustit/Zastavit předposlech"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:750
-#, fuzzy
 msgid "stereo:"
-msgstr "(stereofonní zvuk)"
+msgstr "Stereo:"
 
 #: kwave/menus_config_i18n.cpp:124
 msgid "to be done..."
@@ -5801,7 +5793,7 @@ msgstr "Je hotovo..."
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:842
 msgid "try to encode some short test signal with the current settings"
-msgstr ""
+msgstr "Zkusit se současným nastavením zakódovat nějaký krátký zkušební signál"
 
 #: kwave/KwaveSplash.cpp:56
 #, kde-format

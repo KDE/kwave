@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: kwave_help_cs\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
 "POT-Creation-Date: 2012-10-28 16:18+0000\n"
-"PO-Revision-Date: 2012-05-18 05:40+0200\n"
-"Last-Translator: Pavel <pavelfric@seznam.cz>\n"
+"PO-Revision-Date: 2012-10-31 13:52+0100\n"
+"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -202,9 +202,9 @@ msgstr "Nahrávání prostřednictvím ALSA a OSS"
 
 #. Tag: para
 #: help_en.docbook:127
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "MP3 import/export"
-msgstr "Import a export FLAC"
+msgstr "Zavedení a vyvedení MP3"
 
 #. Tag: para
 #: help_en.docbook:130
@@ -548,9 +548,9 @@ msgstr "id3lib ve verzi 1.0.14 nebo vyšší (kvůli ID3 značkám)"
 
 #. Tag: para
 #: help_en.docbook:330
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "mad-0.15 or higher (optionally for MP3 import/export)"
-msgstr "mad ve verzi 0.15 nebo vyšší (volitelně kvůli importu MP3)"
+msgstr "mad ve verzi 0.15 nebo vyšší (volitelně kvůli zavedení/vyvedení MP3)"
 
 #. Tag: para
 #: help_en.docbook:333
@@ -904,7 +904,7 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:524
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "These options can be passed to <literal><command>cmake</command></literal> "
 "with <command><literal>-D</literal><replaceable>option</"
@@ -1203,13 +1203,13 @@ msgstr "Potom stáhněte poslední zdroje z Git serveru:"
 
 #. Tag: screen
 #: help_en.docbook:668
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "<prompt>% </prompt><command>git clone &url_git_master; kwave</command>"
-msgstr "<prompt>% </prompt><command>git clone &url_git_master;</command>"
+msgstr "<prompt>% </prompt><command>git clone &url_git_master; kwave</command>"
 
 #. Tag: para
 #: help_en.docbook:670
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "or you can check out a specific release with the following commands: <screen "
 "width=\"70\" format=\"linespecific\">\n"
@@ -1225,7 +1225,7 @@ msgid ""
 msgstr ""
 "nebo můžete následujícím příkazem stáhnout určité vydání: <screen width="
 "\"70\" format=\"linespecific\">\n"
-"<prompt>% </prompt><command>git clone &url_git_master;</command>\n"
+"    <prompt>% </prompt><command>git clone &url_git_master; kwave</command>\n"
 "    <prompt>% </prompt><command>cd kwave</command>\n"
 "    <prompt>% </prompt><command>git checkout tags/<replaceable>[release-tag]"
 "</replaceable> </command>\n"
@@ -2347,7 +2347,7 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:1301
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<filename>.mp3</filename> and <filename>.mp2</filename> import is available "
 "through <ulink url=\"&url_libmad;\">libmad</ulink> for the MP3 decoding in "
@@ -2355,9 +2355,9 @@ msgid ""
 "tags and <ulink url=\"&url_lame;\">lame</ulink> for encoding."
 msgstr ""
 "<filename>.mp3</filename> a <filename>.mp2</filename> zavádění je dostupné "
-"přes <ulink url=\"&url_libmad;\">libmad</ulink> pro rozluštění MP3 ve "
-"spojení s <ulink url=\"&url_id3lib;\">id3lib</ulink> pro rozluštění ID3 "
-"značek."
+"přes <ulink url=\"&url_libmad;\">libmad</ulink> pro dekódování MP3 ve "
+"spojení s <ulink url=\"&url_id3lib;\">id3lib</ulink> pro dekódování ID3 "
+"značek a <ulink url=\"&url_lame;\">lame</ulink> pro zakódování."
 
 #. Tag: para
 #: help_en.docbook:1310
@@ -4268,7 +4268,7 @@ msgstr "Výzdoba okna: Oxygen"
 
 #. Tag: para
 #: help_en.docbook:2489
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Widget style: Oxygen"
 msgstr "Styl prvku: Oxygen"
 
@@ -4452,7 +4452,7 @@ msgstr "Které zvukové formáty &kwave; podporuje?"
 
 #. Tag: para
 #: help_en.docbook:2631
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "&kwave; currently supports .wav files with 8, 16 and 24 bits per sample, "
 "with any number of channels (of course including mono and stereo). "
@@ -4462,7 +4462,7 @@ msgstr ""
 "&kwave; v současnosti podporuje soubory .wav s 8, 16 a 24 bit na vzorek, s "
 "jakýmkoli počtem kanálů (samozřejmě včetně mono a stereo). Dodatečně může "
 "zavést všechny typy souborů, které podporuje libaudiofile, a některé další "
-"formáty jako jsou Ogg/Vorbis ad MP3 (pouze pro čtení)."
+"formáty jako jsou Ogg/Vorbis a MP3."
 
 #. Tag: para
 #: help_en.docbook:2643
@@ -4607,7 +4607,7 @@ msgstr "A co se dá říct o podpoře MP3?"
 
 #. Tag: para
 #: help_en.docbook:2774
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Well, as long as there are patent issues, we support only MP3 import through "
 "the mad library and export via the external program <ulink url=\"&url_lame;"
@@ -4615,9 +4615,11 @@ msgid ""
 "covered by the MP3 patents when generating a Kwave package for distributing!"
 msgstr ""
 "Dobrá, dokud tu jsou otázky kolem patentů, podporujeme pouze zavedení MP3 "
-"prostřednictvím knihovny mad. Žádné vyvedení do souboru, promiňte... "
-"Dodatečně musíte mít dovolení pro použití kódu pokryté patenty MP3 při "
-"vytváření balíčku KWave určeného pro další šíření!"
+"prostřednictvím knihovny mad a vyvedení do souboru přes vnější program "
+"<ulink url=\"&url_lame;\">lame</ulink>. "
+"Dodatečně musíte mít vytváření balíčku KWave určeného pro další šíření "
+"povolení "
+"pro použití kódu pokrytého patenty MP3 při !"
 
 #. Tag: title
 #: help_en.docbook:2808

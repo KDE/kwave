@@ -583,8 +583,16 @@ void FileInfoDialog::updateAvailableCompressions()
     int c = QVariant(m_info.get(INF_COMPRESSION)).toInt();
     int old_index = cbCompression->currentIndex();
     int new_index = cbCompression->findData(c);
-    if (new_index != old_index)
+    if (new_index != old_index) {
+	// selection of the compression type changed
+
+	// take the highest supported compression if changed to "invalid"
+	// (assuming that the last entry in the list is the best one)
+	if (new_index < 0)
+	    new_index = cbCompression->count() - 1;
+
 	cbCompression->setCurrentIndex(new_index);
+    }
 }
 
 //***************************************************************************

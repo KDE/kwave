@@ -36,6 +36,8 @@ Kwave::Writer::Writer()
      m_first(0), m_last(0), m_mode(Insert), m_position(0),
      m_buffer(BUFFER_SIZE), m_buffer_size(BUFFER_SIZE), m_buffer_used(0)
 {
+    // use the internal buffer in raw mode, for better performance
+    m_buffer.setRawData(m_buffer.data(), m_buffer.size());
 }
 
 //***************************************************************************
@@ -45,6 +47,8 @@ Kwave::Writer::Writer(InsertMode mode,
      m_first(left), m_last(right), m_mode(mode), m_position(left),
      m_buffer(BUFFER_SIZE), m_buffer_size(BUFFER_SIZE), m_buffer_used(0)
 {
+    // use the internal buffer in raw mode, for better performance
+    m_buffer.setRawData(m_buffer.data(), m_buffer.size());
 }
 
 //***************************************************************************
@@ -61,6 +65,10 @@ Kwave::Writer::~Writer()
 
     // inform others that we proceeded
     emit sigSamplesWritten(m_position - m_first);
+
+    // end the raw mode and reset the internal buffer
+    m_buffer.resetRawData();
+    m_buffer.resize(0);
 }
 
 //***************************************************************************
@@ -72,7 +80,7 @@ Kwave::Writer &Kwave::Writer::operator << (const Kwave::SampleArray &samples)
 	 (m_buffer_used + count <= m_buffer_size) )
     {
 	// append to the internal buffer if it is already in use
-	// and if there is still some room, 
+	// and if there is still some room,
 	// or if the buffer so small that it would make too much overhead
 	// to process it by block operation
 	MEMCPY(&(m_buffer[m_buffer_used]), &(samples[0]),

@@ -4,6 +4,7 @@
    "twolame", with configurable command line options
  * new feature: allow change of compression type via file info
  * fix for SF #3528848, removed -Wl,--add-needed from plugin LINK_FLAGS
+ * speedup: improved performance of sample writer
  * wav import/export: support for some more meta data tags
  * bugfix: meta data lost when writing wav files that had meta data for
    product/album or subject/track at the same time

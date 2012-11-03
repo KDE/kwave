@@ -8,13 +8,16 @@ Itempath=./
 Projectname=kwave
 
 [CMake]
-BuildDirs=/var/tmp/kwave-build
+Build Directory Count=1
 CMakeDir=/usr/share/cmake/Modules
-Current CMake Binary=file:///usr/bin/cmake
-CurrentBuildDir=file:///var/tmp/kwave-build
-CurrentBuildType=
-CurrentInstallDir=
+Current Build Directory Index=0
 ProjectRootRelative=./
+
+[CMake][CMake Build Directory 0]
+Build Directory Path=file:///var/tmp/kwave-build
+Build Type=Release
+CMake Binary=file:///usr/bin/cmake
+Install Directory=file:///usr/local
 
 [Launch]
 Launch Configurations=Launch Configuration 0

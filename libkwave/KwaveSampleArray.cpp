@@ -24,12 +24,14 @@
 
 //***************************************************************************
 Kwave::SampleArray::SampleArray()
+    :m_raw_size(0), m_raw_data(0)
 {
     m_storage = new SampleStorage;
 }
 
 //***************************************************************************
 Kwave::SampleArray::SampleArray(unsigned int size)
+    :m_raw_size(0), m_raw_data(0)
 {
     m_storage = new SampleStorage;
     resize(size);
@@ -38,33 +40,31 @@ Kwave::SampleArray::SampleArray(unsigned int size)
 //***************************************************************************
 Kwave::SampleArray::~SampleArray()
 {
+    Q_ASSERT(m_raw_size == 0);
+    Q_ASSERT(m_raw_data == 0);
 }
 
 //***************************************************************************
 void Kwave::SampleArray::setRawData(sample_t *data, unsigned int size)
 {
-    if (!m_storage) return;
-    resize(0);
-    m_storage->m_raw_data = data;
-    m_storage->m_size     = size;
+    m_raw_data = data;
+    m_raw_size = size;
 }
 
 //***************************************************************************
 void Kwave::SampleArray::resetRawData()
 {
-    if (!m_storage) return;
-    m_storage->m_raw_data = 0;
-    m_storage->m_size = 0;
+    m_raw_data = 0;
+    m_raw_size = 0;
 }
 
 //***************************************************************************
 void Kwave::SampleArray::fill(sample_t value)
 {
-    if (!m_storage) return;
     sample_t *p = data();
     Q_ASSERT(p);
     if (!p) return;
-    unsigned int count = m_storage->m_size;
+    unsigned int count = size();
     Q_ASSERT(count);
     while (count--) {
 	*p = value;
@@ -77,7 +77,10 @@ sample_t & Kwave::SampleArray::operator [] (unsigned int index)
 {
     static sample_t dummy;
     sample_t *p = data();
-    return (p) ? (*(p + index)) : dummy;
+    if (KDE_ISLIKELY(p))
+	return (*(p + index));
+    else
+	return dummy;
 }
 
 //***************************************************************************
@@ -85,23 +88,26 @@ const sample_t & Kwave::SampleArray::operator [] (unsigned int index) const
 {
     static const sample_t dummy = 0;
     const sample_t *p = data();
-    return (p) ? (*(p + index)) : dummy;
+    if (KDE_ISLIKELY(p))
+	return (*(p + index));
+    else
+	return dummy;
 }
 
 //***************************************************************************
 void Kwave::SampleArray::resize(unsigned int size)
 {
+    if (size == this->size()) return;
     if (!m_storage) return;
-    if (size == m_storage->m_size) return;
 
-    Q_ASSERT(m_storage->m_raw_data == 0);
+    Q_ASSERT(m_raw_data == 0);
     m_storage->resize(size);
 }
 
 //***************************************************************************
 unsigned int Kwave::SampleArray::size() const
 {
-    return m_storage->m_size;
+    return (m_raw_data) ? m_raw_size : m_storage->m_size;
 }
 
 //***************************************************************************
@@ -110,7 +116,6 @@ Kwave::SampleArray::SampleStorage::SampleStorage()
 {
     m_size     = 0;
     m_data     = 0;
-    m_raw_data = 0;
 }
 
 //***************************************************************************
@@ -119,19 +124,17 @@ Kwave::SampleArray::SampleStorage::SampleStorage(const SampleStorage &other)
 {
     m_data     = 0;
     m_size     = 0;
-    m_raw_data = 0;
-    Q_ASSERT(other.m_raw_data == 0);
 
-    if (other.m_size) {
+    const unsigned int other_size = other.m_size;
+    const sample_t    *other_data = other.m_data;
+
+    if (other_size) {
 	m_data = static_cast<sample_t *>(
-	    ::malloc(other.m_size * sizeof(sample_t))
+	    ::malloc(other_size * sizeof(sample_t))
 	);
 	if (m_data) {
-	    m_size = other.m_size;
-	    MEMCPY(m_data,
-		(other.m_raw_data) ? other.m_raw_data : other.m_data,
-		m_size * sizeof(sample_t)
-	    );
+	    m_size = other_size;
+	    MEMCPY(m_data, other_data, m_size * sizeof(sample_t));
 	}
     }
 }
@@ -139,15 +142,12 @@ Kwave::SampleArray::SampleStorage::SampleStorage(const SampleStorage &other)
 //***************************************************************************
 Kwave::SampleArray::SampleStorage::~SampleStorage()
 {
-    Q_ASSERT(m_raw_data == 0);
     if (m_data) ::free(m_data);
 }
 
 //***************************************************************************
 void Kwave::SampleArray::SampleStorage::resize(unsigned int size)
 {
-    Q_ASSERT(m_raw_data == 0);
-
     if (size) {
 	// resize using realloc, keep existing data
 	sample_t *new_data = static_cast<sample_t *>(

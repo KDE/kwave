@@ -14,6 +14,7 @@
    and media-gfx/graphicsmagick
  * bugfix: File/SaveAs now uses last recently used directory and extension
    together with the user defined file name
+ * bugfix: PluginManager::sync caused application slowdown or stale GUI
 
 0.8.8  [2012-05-20]
 

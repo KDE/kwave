@@ -460,6 +460,7 @@ void Kwave::PluginManager::sync()
 	Kwave::yield();
 	qApp->processEvents();
 	qApp->flush();
+	usleep(100000);
     }
 }
 

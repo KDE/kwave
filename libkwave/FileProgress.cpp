@@ -23,6 +23,7 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QProgressBar>
+#include <QThread>
 #include <QTimer>
 #include <QVBoxLayout>
 
@@ -279,13 +280,15 @@ void FileProgress::updateStatistics(double rate, double rest, quint64 pos)
 
     // process events for some short time, otherwise we would
     // not have GUI updates and the "cancel" button would not work
+    // check: this must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
     QTimer t;
     t.setSingleShot(true);
     t.start(5);
     while (t.isActive()) {
 	qApp->sendPostedEvents();
 	qApp->processEvents();
-	qApp->syncX();
     }
 }
 

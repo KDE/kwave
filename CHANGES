@@ -1,4 +1,4 @@
-0.8.9  [2012-??-??]
+0.8.9  [2012-11-06]
 
  * new feature: MP3 export via external program "lame", "toolame" and
    "twolame", with configurable command line options

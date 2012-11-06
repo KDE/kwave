@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2012-10-28 16:18+0000\n"
+"POT-Creation-Date: 2012-11-06 18:10+0000\n"
 "PO-Revision-Date: 2012-10-28 17:35+0100\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -60,8 +60,8 @@ msgstr "Thomas Eschenbacher"
 #. Tag: date
 #: help_en.docbook:66
 #, no-c-format
-msgid "2012-05-20"
-msgstr "2012-05-20"
+msgid "2012-11-06"
+msgstr "2012-11-06"
 
 #. Tag: releaseinfo
 #: help_en.docbook:67
@@ -916,8 +916,7 @@ msgstr ""
 "<command><literal>-D</literal><replaceable>option</replaceable><literal>=</"
 "literal><replaceable>value</replaceable></command> übergeben werden. Wenn "
 "Sie beispielsweise die Unterstützung von MP3-Dateien aktivieren wollen, "
-"können Sie "
-"die entsprechende Option wie folgt übergeben:"
+"können Sie die entsprechende Option wie folgt übergeben:"
 
 #. Tag: screen
 #: help_en.docbook:529
@@ -2400,8 +2399,8 @@ msgid ""
 "tags and <ulink url=\"&url_lame;\">lame</ulink> for encoding."
 msgstr ""
 "<filename>.mp3</filename> und <filename>.mp2</filename> Import mit Hilfe der "
-"<ulink url=\"&url_libmad;\">libmad-Bibliothek</ulink> zum Importieren von MP3 "
-"in Kombination mit <ulink url=\"&url_id3lib;\">id3lib</ulink> zur "
+"<ulink url=\"&url_libmad;\">libmad-Bibliothek</ulink> zum Importieren von "
+"MP3 in Kombination mit <ulink url=\"&url_id3lib;\">id3lib</ulink> zur "
 "Decodierung von ID3-Tags und <ulink url=\"&url_lame;\">lame</ulink> zum "
 "Exportieren."
 
@@ -4531,9 +4530,9 @@ msgid ""
 "some other formats like Ogg/Vorbis and MP3."
 msgstr ""
 "&kwave; unterstützt zur Zeit .wav Dateien mit 8, 16 und 24 bits pro Sample, "
-"mit beliebiger Anzahl von Spuren (einschließlich Mono und Stereo "
-"natürlich). Zusätzlich unterstützt es alle Dateiformate von libaudiofile "
-"sowie andere wie Ogg/Vorbis und MP3."
+"mit beliebiger Anzahl von Spuren (einschließlich Mono und Stereo natürlich). "
+"Zusätzlich unterstützt es alle Dateiformate von libaudiofile sowie andere "
+"wie Ogg/Vorbis und MP3."
 
 #. Tag: para
 #: help_en.docbook:2643
@@ -4689,10 +4688,10 @@ msgid ""
 msgstr ""
 "Solange es noch Patent-Probleme mit MP3 gibt, unterstützen wir nur den "
 "Import mit Hilfe der \"mad\"-Bibliothek und den Export über das externe "
-"Programm  <ulink url=\"&url_lame;\">lame</ulink>. Ausserdem "
-"müssen Sie die Berechtigung haben Programmcode zu verwenden der von den MP3-"
-"Patenten geschützt ist wenn Sie ein Kwave-Paket für eine Distribution "
-"erstellen wollen!"
+"Programm  <ulink url=\"&url_lame;\">lame</ulink>. Ausserdem müssen Sie die "
+"Berechtigung haben Programmcode zu verwenden der von den MP3-Patenten "
+"geschützt ist wenn Sie ein Kwave-Paket für eine Distribution erstellen "
+"wollen!"
 
 #. Tag: title
 #: help_en.docbook:2808

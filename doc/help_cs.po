@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave_help_cs\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2012-10-28 16:18+0000\n"
+"POT-Creation-Date: 2012-11-06 18:10+0000\n"
 "PO-Revision-Date: 2012-10-31 13:52+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -62,8 +62,8 @@ msgstr "Thomas Eschenbacher"
 #. Tag: date
 #: help_en.docbook:66
 #, no-c-format
-msgid "2012-05-20"
-msgstr "2012-05-20"
+msgid "2012-11-06"
+msgstr "2012-11-06"
 
 #. Tag: releaseinfo
 #: help_en.docbook:67
@@ -4616,10 +4616,9 @@ msgid ""
 msgstr ""
 "Dobrá, dokud tu jsou otázky kolem patentů, podporujeme pouze zavedení MP3 "
 "prostřednictvím knihovny mad a vyvedení do souboru přes vnější program "
-"<ulink url=\"&url_lame;\">lame</ulink>. "
-"Dodatečně musíte mít vytváření balíčku KWave určeného pro další šíření "
-"povolení "
-"pro použití kódu pokrytého patenty MP3 při !"
+"<ulink url=\"&url_lame;\">lame</ulink>. Dodatečně musíte mít vytváření "
+"balíčku KWave určeného pro další šíření povolení pro použití kódu pokrytého "
+"patenty MP3 při !"
 
 #. Tag: title
 #: help_en.docbook:2808

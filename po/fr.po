@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-28 16:54+0100\n"
+"POT-Creation-Date: 2012-11-06 19:09+0100\n"
 "PO-Revision-Date: 2007-08-01 19:04+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
@@ -132,7 +132,7 @@ msgstr "%1"
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 échantillons)"
 
-#: libkwave/FileProgress.cpp:104
+#: libkwave/FileProgress.cpp:105
 #, fuzzy, kde-format
 msgid "%1 Bits per sample"
 msgstr "%1 bits par échantillon"
@@ -166,12 +166,12 @@ msgstr ""
 msgid "%1 MB (%2 byte)"
 msgstr "%1 Mo (%2 octets)"
 
-#: libkwave/FileProgress.cpp:275
+#: libkwave/FileProgress.cpp:276
 #, kde-format
 msgid "%1 MB of %2 MB done"
 msgstr "%1 Mo de %2 Mo réalisés"
 
-#: libkwave/FileProgress.cpp:99
+#: libkwave/FileProgress.cpp:100
 #, fuzzy, kde-format
 msgid "%1 Samples per second"
 msgstr "%1 échantillons par seconde"
@@ -237,7 +237,7 @@ msgstr "%1 kB"
 msgid "%1 kB (%2 byte)"
 msgstr "%1 Ko (%2 octets)"
 
-#: libkwave/FileProgress.cpp:270
+#: libkwave/FileProgress.cpp:271
 #, fuzzy, kde-format
 msgid "%1 kB/s (%2 remaining)"
 msgstr "%1 ko/s (%2 restant)"
@@ -253,7 +253,7 @@ msgstr " min"
 msgid "%1 ms"
 msgstr "%1 ms"
 
-#: libkwave/FileProgress.cpp:349 plugins/fileinfo/FileInfoDialog.cpp:229
+#: libkwave/FileProgress.cpp:352 plugins/fileinfo/FileInfoDialog.cpp:229
 #: plugins/record/RecordDialog.cpp:579 plugins/record/ui_RecordDlg.h:1069
 #, kde-format
 msgid "%1 samples"
@@ -828,7 +828,7 @@ msgstr "&Oui, utiliser « G711 »"
 msgid "(%1 samples)"
 msgstr "(%2 échantillons)"
 
-#: libkwave/FileProgress.cpp:317
+#: libkwave/FileProgress.cpp:320
 #, fuzzy, kde-format
 msgctxt "%1=Progress in percentage, %2=path to file"
 msgid "(%1%) %2"
@@ -926,7 +926,7 @@ msgstr "0%"
 msgid "1"
 msgstr "%1"
 
-#: libkwave/FileProgress.cpp:111
+#: libkwave/FileProgress.cpp:112
 msgid "1 (mono)"
 msgstr "1 (mono)"
 
@@ -958,7 +958,7 @@ msgstr "128"
 msgid "16000"
 msgstr "16000"
 
-#: libkwave/FileProgress.cpp:114
+#: libkwave/FileProgress.cpp:115
 msgid "2 (stereo)"
 msgstr "2 (stéréo)"
 
@@ -992,7 +992,7 @@ msgstr "Nombre à virgule flottante sur 32 bits au format IEEE"
 msgid "32000"
 msgstr "32000"
 
-#: libkwave/FileProgress.cpp:117
+#: libkwave/FileProgress.cpp:118
 msgid "4 (quadro)"
 msgstr "4 (quadro)"
 
@@ -2380,7 +2380,7 @@ msgstr "Affichage"
 msgid "Do you really want to abort the current action?"
 msgstr "Voulez-vous réellement annuler l'operation en cours ?"
 
-#: libkwave/FileProgress.cpp:193
+#: libkwave/FileProgress.cpp:194
 msgid "Do you really want to abort the operation?"
 msgstr "Voulez-vous réellement annuler l'operation ?"
 
@@ -3269,7 +3269,7 @@ msgstr "Taille du fichier en octets"
 msgid "Length:"
 msgstr "Taille "
 
-#: libkwave/FileProgress.cpp:91
+#: libkwave/FileProgress.cpp:92
 #, fuzzy
 msgid "Length: "
 msgstr "Taille : %1"
@@ -3377,7 +3377,7 @@ msgstr "Traitement de « %1 » en cours..."
 msgid "Loading main menu..."
 msgstr "Chargement des modules externes..."
 
-#: libkwave/PluginManager.cpp:780
+#: libkwave/PluginManager.cpp:781
 #, fuzzy, kde-format
 msgid "Loading plugin %1..."
 msgstr "Chargement des modules externes..."
@@ -4439,7 +4439,7 @@ msgstr ""
 msgid "Resolution:"
 msgstr "Résolution :"
 
-#: libkwave/FileProgress.cpp:103
+#: libkwave/FileProgress.cpp:104
 #, fuzzy
 msgid "Resolution: "
 msgstr "Résolution :"
@@ -4560,7 +4560,7 @@ msgstr "Format d'échantillonnage :"
 msgid "Sample rate:"
 msgstr "Période d'échantillonnage : "
 
-#: libkwave/FileProgress.cpp:98
+#: libkwave/FileProgress.cpp:99
 #, fuzzy
 msgid "Sample rate: "
 msgstr "Fréquence d'échantillonnage : "
@@ -4942,7 +4942,7 @@ msgstr "Source "
 msgid "Source form"
 msgstr "Type de source "
 
-#: libkwave/FileProgress.cpp:85
+#: libkwave/FileProgress.cpp:86
 #, fuzzy
 msgid "Source: "
 msgstr "Fichier  : "
@@ -5409,7 +5409,7 @@ msgstr "Pistes : "
 msgid "Tracks:"
 msgstr "Pistes : "
 
-#: libkwave/FileProgress.cpp:108
+#: libkwave/FileProgress.cpp:109
 #, fuzzy
 msgid "Tracks: "
 msgstr "Pistes : "

@@ -28,7 +28,7 @@
 #include "libkwave/Sample.h"
 #include "libkwave/modules/ChannelMixer.h"
 #include "libkwave/modules/Indexer.h"
-#include "libkwave/modules/KwaveStreamObject.h"
+#include "libkwave/modules/StreamObject.h"
 
 #ifndef unlikely
 #define unlikely(x) (__builtin_expect((x),0))

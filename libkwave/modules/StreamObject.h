@@ -1,5 +1,5 @@
 /*************************************************************************
-    KwaveStreamObject.h  -  base class with a generic sample source/sink
+         StreamObject.h  -  base class with a generic sample source/sink
                              -------------------
     begin                : Thu Nov 01 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_STREAM_OBJECT_H_
-#define _KWAVE_STREAM_OBJECT_H_
+#ifndef _STREAM_OBJECT_H_
+#define _STREAM_OBJECT_H_
 
 #include "config.h"
 
@@ -128,4 +128,7 @@ namespace Kwave {
     };
 }
 
-#endif /* _KWAVE_STREAM_OBJECT_H_ */
+#endif /* _STREAM_OBJECT_H_ */
+
+//***************************************************************************
+//***************************************************************************

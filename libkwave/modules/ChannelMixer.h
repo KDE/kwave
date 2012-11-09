@@ -29,7 +29,7 @@
 #include "libkwave/Connect.h"
 #include "libkwave/SampleSink.h"
 #include "libkwave/SampleSource.h"
-#include "libkwave/modules/KwaveStreamObject.h"
+#include "libkwave/modules/StreamObject.h"
 #include "libkwave/modules/SampleBuffer.h"
 
 //***************************************************************************

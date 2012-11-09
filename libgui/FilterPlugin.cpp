@@ -30,7 +30,7 @@
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SampleSink.h"
-#include "libkwave/modules/KwaveStreamObject.h"
+#include "libkwave/modules/StreamObject.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "libgui/FilterPlugin.h"

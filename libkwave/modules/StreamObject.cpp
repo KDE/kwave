@@ -1,5 +1,5 @@
 /*************************************************************************
-    KwaveStreamObject.cpp  -  base class with a generic sample source/sink
+       StreamObject.cpp  -  base class with a generic sample source/sink
                              -------------------
     begin                : Thu Nov 10 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -20,7 +20,7 @@
 #include <QString>
 #include <QVariant>
 
-#include "libkwave/modules/KwaveStreamObject.h"
+#include "libkwave/modules/StreamObject.h"
 
 /** interactive mode */
 bool Kwave::StreamObject::m_interactive = false;
@@ -74,6 +74,6 @@ void Kwave::StreamObject::setInteractive(bool interactive)
 }
 
 //***************************************************************************
-#include "KwaveStreamObject.moc"
+#include "StreamObject.moc"
 //***************************************************************************
 //***************************************************************************

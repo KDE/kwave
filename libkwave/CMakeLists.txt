@@ -93,8 +93,8 @@ SET(libkwave_LIB_SRCS
     modules/KwaveDelay.cpp
     modules/KwaveMul.cpp
     modules/KwaveOsc.cpp
-    modules/KwaveStreamObject.cpp
     modules/SampleBuffer.cpp
+    modules/StreamObject.cpp
 
     undo/UndoAddMetaDataAction.cpp
     undo/UndoDeleteAction.cpp

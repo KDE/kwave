@@ -454,10 +454,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/modules/KwaveMul.h			GPL2+
 	libkwave/modules/KwaveOsc.cpp			GPL2+
 	libkwave/modules/KwaveOsc.h			GPL2+
-	libkwave/modules/KwaveStreamObject.cpp		GPL2+
-	libkwave/modules/KwaveStreamObject.h		GPL2+
 	libkwave/modules/SampleBuffer.cpp		GPL2+
 	libkwave/modules/SampleBuffer.h			GPL2+
+	libkwave/modules/StreamObject.cpp		GPL2+
+	libkwave/modules/StreamObject.h			GPL2+
 
 	libkwave/undo/UndoAction.h			GPL2+
 	libkwave/undo/UndoAddMetaDataAction.cpp		GPL2+

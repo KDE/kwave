@@ -1,5 +1,5 @@
 /***************************************************************************
-           KwaveDelay.h  -  delay line for small delays
+                Delay.h  -  delay line for small delays
                              -------------------
     begin                : Sun Nov 11 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_DELAY_H_
-#define _KWAVE_DELAY_H_
+#ifndef _DELAY_H_
+#define _DELAY_H_
 
 #include "config.h"
 
@@ -72,4 +72,7 @@ namespace Kwave {
     };
 }
 
-#endif /* _KWAVE_DELAY_H_ */
+#endif /* _DELAY_H_ */
+
+//***************************************************************************
+//***************************************************************************

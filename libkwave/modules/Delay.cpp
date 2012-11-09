@@ -1,5 +1,5 @@
 /***************************************************************************
-         KwaveDelay.cpp  -  delay line for small delays
+              Delay.cpp  -  delay line for small delays
                              -------------------
     begin                : Sun Nov 11 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -18,7 +18,7 @@
 #include "config.h"
 #include <QString>
 
-#include "libkwave/modules/KwaveDelay.h"
+#include "libkwave/modules/Delay.h"
 
 //***************************************************************************
 Kwave::Delay::Delay()
@@ -65,6 +65,6 @@ void Kwave::Delay::setDelay(const QVariant &d)
 }
 
 //***************************************************************************
-#include "KwaveDelay.moc"
+#include "Delay.moc"
 //***************************************************************************
 //***************************************************************************

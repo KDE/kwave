@@ -50,7 +50,7 @@
 #include "libkwave/SignalManager.h"
 
 #include "libkwave/modules/CurveStreamAdapter.h"
-#include "libkwave/modules/KwaveDelay.h"
+#include "libkwave/modules/Delay.h"
 #include "libkwave/modules/Mul.h"
 #include "libkwave/modules/Osc.h"
 

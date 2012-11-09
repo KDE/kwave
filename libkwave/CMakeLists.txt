@@ -90,7 +90,7 @@ SET(libkwave_LIB_SRCS
     modules/ChannelMixer.cpp
     modules/CurveStreamAdapter.cpp
     modules/Indexer.cpp
-    modules/KwaveDelay.cpp
+    modules/Delay.cpp
     modules/Mul.cpp
     modules/Osc.cpp
     modules/SampleBuffer.cpp

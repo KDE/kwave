@@ -446,10 +446,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/modules/ChannelMixer.h			GPL2+
 	libkwave/modules/CurveStreamAdapter.cpp		GPL2+
 	libkwave/modules/CurveStreamAdapter.h		GPL2+
+	libkwave/modules/Delay.cpp			GPL2+
+	libkwave/modules/Delay.h			GPL2+
 	libkwave/modules/Indexer.cpp			GPL2+
 	libkwave/modules/Indexer.h			GPL2+
-	libkwave/modules/KwaveDelay.cpp			GPL2+
-	libkwave/modules/KwaveDelay.h			GPL2+
 	libkwave/modules/Mul.cpp			GPL2+
 	libkwave/modules/Mul.h				GPL2+
 	libkwave/modules/Osc.cpp			GPL2+

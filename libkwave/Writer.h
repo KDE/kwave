@@ -26,7 +26,7 @@
 #include <kdemacros.h>
 
 #include "libkwave/InsertMode.h"
-#include "libkwave/KwaveSampleSink.h"
+#include "libkwave/SampleSink.h"
 
 class SampleReader;
 

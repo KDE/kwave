@@ -23,7 +23,7 @@
 #include <QObject>
 
 #include "libkwave/KwaveSampleArray.h"
-#include "libkwave/KwaveSampleSink.h"
+#include "libkwave/SampleSink.h"
 
 namespace Kwave {
 

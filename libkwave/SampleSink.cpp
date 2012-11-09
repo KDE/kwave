@@ -1,5 +1,5 @@
 /*************************************************************************
-    KwaveSampleSink.cpp -  base class with a generic sample sink
+         SampleSink.cpp -  base class with a generic sample sink
                              -------------------
     begin                : Sun Oct 07 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
-#include "libkwave/KwaveSampleSink.h"
+#include "libkwave/SampleSink.h"
 
 //***************************************************************************
 Kwave::SampleSink::SampleSink(QObject *parent)
@@ -30,6 +30,6 @@ Kwave::SampleSink::~SampleSink()
 }
 
 //***************************************************************************
-#include "KwaveSampleSink.moc"
+#include "SampleSink.moc"
 //***************************************************************************
 //***************************************************************************

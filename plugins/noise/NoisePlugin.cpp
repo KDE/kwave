@@ -22,7 +22,7 @@
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/KwaveConnect.h"
 #include "libkwave/SampleSource.h"
-#include "libkwave/KwaveSampleSink.h"
+#include "libkwave/SampleSink.h"
 #include "libkwave/KwaveMultiTrackSource.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/undo/UndoTransactionGuard.h"

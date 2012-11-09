@@ -1,5 +1,5 @@
 /*************************************************************************
-    KwaveSampleSink.h  -  base class with a generic sample sink
+           SampleSink.h  -  base class with a generic sample sink
                              -------------------
     begin                : Sun Oct 07 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_SAMPLE_SINK_H_
-#define _KWAVE_SAMPLE_SINK_H_
+#ifndef _SAMPLE_SINK_H_
+#define _SAMPLE_SINK_H_
 
 #include "config.h"
 #include <QObject>
@@ -51,4 +51,4 @@ namespace Kwave {
     };
 }
 
-#endif /* _KWAVE_SAMPLE_SINK_H_ */
+#endif /* _SAMPLE_SINK_H_ */

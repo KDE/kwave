@@ -28,7 +28,7 @@
 
 #include "libkwave/KwaveSampleArray.h"
 #include "libkwave/SampleSource.h"
-#include "libkwave/KwaveSampleSink.h"
+#include "libkwave/SampleSink.h"
 
 class QVariant;
 

@@ -21,7 +21,7 @@
 #include <QString>
 
 #include "libkwave/KwaveConnect.h"
-#include "libkwave/KwaveSampleSink.h"
+#include "libkwave/SampleSink.h"
 #include "libkwave/SampleSource.h"
 
 //***************************************************************************

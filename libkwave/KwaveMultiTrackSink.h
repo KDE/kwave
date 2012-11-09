@@ -22,7 +22,7 @@
 #include <QObject>
 #include <QVector>
 
-#include "libkwave/KwaveSampleSink.h"
+#include "libkwave/SampleSink.h"
 
 namespace Kwave {
     template <class SINK>

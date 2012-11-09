@@ -25,7 +25,7 @@
 
 #include <klocale.h>
 
-#include "libkwave/KwaveConnect.h"
+#include "libkwave/Connect.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"

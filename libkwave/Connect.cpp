@@ -20,7 +20,7 @@
 #include <QObject>
 #include <QString>
 
-#include "libkwave/KwaveConnect.h"
+#include "libkwave/Connect.h"
 #include "libkwave/SampleSink.h"
 #include "libkwave/SampleSource.h"
 

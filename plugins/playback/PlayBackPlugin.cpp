@@ -35,7 +35,7 @@
 #include <kconfig.h>
 
 #include "libkwave/Curve.h"
-#include "libkwave/KwaveConnect.h"
+#include "libkwave/Connect.h"
 #include "libkwave/Plugin.h"
 #include "libkwave/MixerMatrix.h"
 #include "libkwave/MessageBox.h"

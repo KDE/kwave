@@ -1,5 +1,5 @@
 /*************************************************************************
-    KwaveConnect.h  -  function for connecting Kwave streaming objects
+    Connect.h  -  function for connecting Kwave streaming objects
                              -------------------
     begin                : Sat Oct 27 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_CONNECT_H_
-#define _KWAVE_CONNECT_H_
+#ifndef _CONNECT_H_
+#define _CONNECT_H_
 
 #include "config.h"
 #include <kdemacros.h>
@@ -54,4 +54,4 @@ namespace Kwave {
                  KDE_EXPORT;
 }
 
-#endif /* _KWAVE_CONNECT_H_ */
+#endif /* _CONNECT_H_ */

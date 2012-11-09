@@ -317,6 +317,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/CodecManager.h				GPL2+
 	libkwave/CompressionType.cpp			GPL2+
 	libkwave/CompressionType.h			GPL2+
+	libkwave/Connect.cpp				GPL2+
+	libkwave/Connect.h				GPL2+
 	libkwave/cputest.c				GPL2+ / H. Dietz + R. Fisher + Fabrice Bellard
 	libkwave/cputest.h				GPL2+
 	libkwave/Curve.cpp				GPL2+
@@ -343,8 +345,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/InsertMode.h				GPL2+
 	libkwave/Interpolation.cpp			GPL2+
 	libkwave/Interpolation.h			GPL2+
-	libkwave/KwaveConnect.cpp			GPL2+
-	libkwave/KwaveConnect.h				GPL2+
 	libkwave/Label.cpp				GPL2+
 	libkwave/Label.h				GPL2+
 	libkwave/LabelList.cpp				GPL2+

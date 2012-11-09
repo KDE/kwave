@@ -21,7 +21,7 @@
 
 #include "libkwave/MultiTrackSource.h"
 #include "libkwave/MultiTrackWriter.h"
-#include "libkwave/KwaveConnect.h"
+#include "libkwave/Connect.h"
 #include "libkwave/SampleSource.h"
 #include "libkwave/SampleSink.h"
 #include "libkwave/PluginManager.h"

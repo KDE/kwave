@@ -35,6 +35,7 @@ SET(libkwave_LIB_SRCS
     CodecManager.cpp
     CompressionType.cpp
     ConfirmCancelProxy.cpp
+    Connect.cpp
     Curve.cpp
     Decoder.cpp
     Drag.cpp
@@ -46,7 +47,6 @@ SET(libkwave_LIB_SRCS
     Functions.cpp
     GenreType.cpp
     Interpolation.cpp
-    KwaveConnect.cpp
     Label.cpp
     LabelList.cpp
     MemoryManager.cpp

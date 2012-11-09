@@ -27,7 +27,7 @@
 #include "libkwave/CompressionType.h"
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
-#include "libkwave/KwaveConnect.h"
+#include "libkwave/Connect.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/MimeData.h"
 #include "libkwave/MultiStreamWriter.h"

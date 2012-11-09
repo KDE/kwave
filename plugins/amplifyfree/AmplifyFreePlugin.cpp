@@ -20,7 +20,7 @@
 #include <QStringList>
 #include <klocale.h>
 
-#include "libkwave/KwaveConnect.h"
+#include "libkwave/Connect.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackSource.h"
 #include "libkwave/MultiTrackWriter.h"

@@ -26,7 +26,7 @@
 #include <QPointer>
 #include <QQueue>
 
-#include "libkwave/KwaveConnect.h"
+#include "libkwave/Connect.h"
 #include "libkwave/SampleSink.h"
 #include "libkwave/SampleSource.h"
 #include "libkwave/modules/KwaveStreamObject.h"

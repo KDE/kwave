@@ -23,13 +23,13 @@
 #include "libkwave/undo/UndoTransaction.h"
 
 //***************************************************************************
-UndoTransaction::UndoTransaction(const QString &name)
+Kwave::UndoTransaction::UndoTransaction(const QString &name)
     :QList<UndoAction *>(), m_description(name), m_aborted(false)
 {
 }
 
 //***************************************************************************
-UndoTransaction::~UndoTransaction()
+Kwave::UndoTransaction::~UndoTransaction()
 {
     while (!isEmpty()) {
 	UndoAction *action = takeLast();
@@ -38,7 +38,7 @@ UndoTransaction::~UndoTransaction()
 }
 
 //***************************************************************************
-unsigned int UndoTransaction::undoSize()
+unsigned int Kwave::UndoTransaction::undoSize()
 {
     unsigned int s = 0;
     QListIterator<UndoAction *> it(*this);
@@ -50,7 +50,7 @@ unsigned int UndoTransaction::undoSize()
 }
 
 //***************************************************************************
-unsigned int UndoTransaction::redoSize()
+unsigned int Kwave::UndoTransaction::redoSize()
 {
     unsigned int s = 0;
     QListIterator<UndoAction *> it(*this);
@@ -62,7 +62,7 @@ unsigned int UndoTransaction::redoSize()
 }
 
 //***************************************************************************
-QString UndoTransaction::description()
+QString Kwave::UndoTransaction::description()
 {
     // if description exists, return it
     if (m_description.length()) return m_description;
@@ -85,7 +85,7 @@ QString UndoTransaction::description()
 }
 
 //***************************************************************************
-bool UndoTransaction::containsModification() const
+bool Kwave::UndoTransaction::containsModification() const
 {
     if (isEmpty()) return false;
     QListIterator<UndoAction *> it(*this);
@@ -98,13 +98,13 @@ bool UndoTransaction::containsModification() const
 }
 
 //***************************************************************************
-void UndoTransaction::abort()
+void Kwave::UndoTransaction::abort()
 {
     m_aborted = true;
 }
 
 //***************************************************************************
-void UndoTransaction::dump(const QString &indent)
+void Kwave::UndoTransaction::dump(const QString &indent)
 {
     qDebug("%s [%s]", indent.toLocal8Bit().data(),
 	   description().toLocal8Bit().data());

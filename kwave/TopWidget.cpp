@@ -173,7 +173,7 @@ bool TopWidget::init()
     if (!stream.atEnd()) parseCommands(stream);
     menufile.close();
 
-    m_main_widget = new MainWidget(this, m_context);
+    m_main_widget = new Kwave::MainWidget(this, m_context);
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return false;
     if (!(m_main_widget->isOK())) {
@@ -366,7 +366,7 @@ bool TopWidget::init()
     m_zoomselect->setFocusPolicy(Qt::FocusPolicy(Qt::ClickFocus | Qt::TabFocus));
 
     // connect the signal manager
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     connect(&(signal_manager->selection()),
             SIGNAL(changed(sample_index_t, sample_index_t)),
             this,
@@ -770,7 +770,7 @@ int TopWidget::revert()
 //***************************************************************************
 bool TopWidget::closeFile()
 {
-    SignalManager        *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Kwave::PluginManager *plugin_manager = m_context.pluginManager();
 
     if (plugin_manager && !plugin_manager->canClose())
@@ -814,7 +814,7 @@ bool TopWidget::closeFile()
 //***************************************************************************
 int TopWidget::loadFile(const KUrl &url)
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return -1;
@@ -901,7 +901,7 @@ int TopWidget::openFile()
 int TopWidget::saveFile()
 {
     int res = 0;
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return -EINVAL;
     if (!signal_manager) return -EINVAL;
@@ -928,7 +928,7 @@ int TopWidget::saveFile()
 //***************************************************************************
 int TopWidget::saveFileAs(bool selection)
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     int res = 0;
     Q_ASSERT(m_main_widget);
     Q_ASSERT(signal_manager);
@@ -1050,7 +1050,7 @@ int TopWidget::saveFileAs(bool selection)
 int TopWidget::newSignal(sample_index_t samples, double rate,
                          unsigned int bits, unsigned int tracks)
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return -1;
 
@@ -1070,7 +1070,7 @@ int TopWidget::newSignal(sample_index_t samples, double rate,
 //***************************************************************************
 void TopWidget::selectZoom(int index)
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     Q_ASSERT(m_main_widget);
     Q_ASSERT(m_zoomselect);
@@ -1103,7 +1103,7 @@ void TopWidget::selectZoom(int index)
 //***************************************************************************
 void TopWidget::setZoomInfo(double zoom)
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(zoom >= 0);
     Q_ASSERT(m_zoomselect);
 
@@ -1254,7 +1254,7 @@ void TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 //***************************************************************************
 void TopWidget::selectionChanged(sample_index_t offset, sample_index_t length)
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
     Q_ASSERT(statusBar());
@@ -1389,7 +1389,7 @@ void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
 //***************************************************************************
 void TopWidget::mouseChanged(Kwave::MouseMark::Mode mode)
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
@@ -1432,7 +1432,7 @@ void TopWidget::updateRecentFiles()
 //***************************************************************************
 void TopWidget::updateMenu()
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
     Q_ASSERT(m_menu_manager);
@@ -1496,7 +1496,7 @@ void TopWidget::resetToolbarToDefaults()
 //***************************************************************************
 void TopWidget::updateToolbar()
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
@@ -1525,7 +1525,7 @@ void TopWidget::modifiedChanged(bool)
 //***************************************************************************
 void TopWidget::updateCaption()
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
     bool modified = signal_manager->isModified();
@@ -1555,7 +1555,7 @@ void TopWidget::closeEvent(QCloseEvent *e)
 //***************************************************************************
 bool TopWidget::haveSignal()
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     return (signal_manager) ? (signal_manager->tracks()) : false;
 }
 

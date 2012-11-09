@@ -37,13 +37,9 @@ class ConfirmCancelProxy;
 class FileInfo;
 class MultiTrackReader;
 class SampleReader;
-class SignalManager;
 class TopWidget;
 class QStringList;
 class QProgressDialog;
-namespace Kwave { class PluginWorkerThread; }
-namespace Kwave { class Plugin; }
-namespace Kwave { class PluginManager; }
 
 #define KWAVE_PLUGIN(__class__,__name__,__version__,                         \
                      __description__,__author__)                             \
@@ -65,6 +61,10 @@ namespace Kwave { class PluginManager; }
     const char *author      = __author__
 
 namespace Kwave {
+
+    class PluginWorkerThread;
+    class PluginManager;
+    class SignalManager;
 
     /**
      * Generic class that should be used for all types of Kwave plugins.
@@ -196,7 +196,7 @@ namespace Kwave {
 	Kwave::PluginManager &manager();
 
 	/** Returns a reference to the current signal manager */
-	SignalManager &signalManager();
+	Kwave::SignalManager &signalManager();
 
 	/**
 	 * Returns the parent widget of the plugin. This normally should be

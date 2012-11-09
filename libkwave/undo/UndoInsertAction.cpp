@@ -22,12 +22,12 @@
 #include "libkwave/undo/UndoAction.h"
 #include "libkwave/undo/UndoDeleteAction.h"
 #include "libkwave/undo/UndoInsertAction.h"
-#include "libkwave/undo/UndoTransaction.h"
 
 //***************************************************************************
-UndoInsertAction::UndoInsertAction(QWidget *parent_widget,
-                                   const QList<unsigned int> &track_list,
-                                   sample_index_t offset, sample_index_t length)
+Kwave::UndoInsertAction::UndoInsertAction(QWidget *parent_widget,
+                                          const QList<unsigned int> &track_list,
+                                          sample_index_t offset,
+                                          sample_index_t length)
     :QObject(), UndoAction(),
      m_parent_widget(parent_widget),
      m_track_list(track_list),
@@ -36,39 +36,40 @@ UndoInsertAction::UndoInsertAction(QWidget *parent_widget,
 }
 
 //***************************************************************************
-QString UndoInsertAction::description()
+QString Kwave::UndoInsertAction::description()
 {
     return i18n("Insert");
 }
 
 //***************************************************************************
-unsigned int UndoInsertAction::undoSize()
+unsigned int Kwave::UndoInsertAction::undoSize()
 {
     return sizeof(*this);
 }
 
 //***************************************************************************
-int UndoInsertAction::redoSize()
+int Kwave::UndoInsertAction::redoSize()
 {
     return sizeof(UndoDeleteAction) +
 	    (m_length * sizeof(sample_t) * m_track_list.count());
 }
 
 //***************************************************************************
-bool UndoInsertAction::store(SignalManager &)
+bool Kwave::UndoInsertAction::store(SignalManager &)
 {
     // we delete -> nothing to store
     return true;
 }
 
 //***************************************************************************
-UndoAction *UndoInsertAction::undo(SignalManager &manager, bool with_redo)
+Kwave::UndoAction *Kwave::UndoInsertAction::undo(
+    Kwave::SignalManager &manager, bool with_redo)
 {
-    UndoAction *redo_action = 0;
+    Kwave::UndoAction *redo_action = 0;
 
     // store data for redo
     if (with_redo) {
-	redo_action = new UndoDeleteAction(
+	redo_action = new Kwave::UndoDeleteAction(
 	    m_parent_widget, m_track_list, m_offset, m_length);
 	Q_ASSERT(redo_action);
 	if (!redo_action) return 0;
@@ -82,13 +83,13 @@ UndoAction *UndoInsertAction::undo(SignalManager &manager, bool with_redo)
 }
 
 //***************************************************************************
-void UndoInsertAction::setLength(sample_index_t length)
+void Kwave::UndoInsertAction::setLength(sample_index_t length)
 {
     m_length = length;
 }
 
 //***************************************************************************
-void UndoInsertAction::dump(const QString &indent)
+void Kwave::UndoInsertAction::dump(const QString &indent)
 {
     qDebug("%sundo insert from [%lu ... %lu] (%lu)",
            indent.toLocal8Bit().data(),

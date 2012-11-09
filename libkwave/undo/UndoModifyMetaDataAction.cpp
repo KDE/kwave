@@ -26,19 +26,19 @@
 #include "libgui/SignalWidget.h"
 
 //***************************************************************************
-UndoModifyMetaDataAction::UndoModifyMetaDataAction(
+Kwave::UndoModifyMetaDataAction::UndoModifyMetaDataAction(
     const Kwave::MetaDataList &meta_data)
     :UndoAction(), m_saved_data(meta_data)
 {
 }
 
 //***************************************************************************
-UndoModifyMetaDataAction::~UndoModifyMetaDataAction()
+Kwave::UndoModifyMetaDataAction::~UndoModifyMetaDataAction()
 {
 }
 
 //***************************************************************************
-QString UndoModifyMetaDataAction::description()
+QString Kwave::UndoModifyMetaDataAction::description()
 {
     // sanity check: list should not be empty
     Q_ASSERT(!m_saved_data.isEmpty());
@@ -82,19 +82,19 @@ QString UndoModifyMetaDataAction::description()
 }
 
 //***************************************************************************
-unsigned int UndoModifyMetaDataAction::undoSize()
+unsigned int Kwave::UndoModifyMetaDataAction::undoSize()
 {
     return sizeof(*this) + sizeof(m_saved_data);
 }
 
 //***************************************************************************
-int UndoModifyMetaDataAction::redoSize()
+int Kwave::UndoModifyMetaDataAction::redoSize()
 {
     return undoSize();
 }
 
 //***************************************************************************
-bool UndoModifyMetaDataAction::store(SignalManager &)
+bool Kwave::UndoModifyMetaDataAction::store(Kwave::SignalManager &)
 {
     // nothing to do, all data has already
     // been stored in the constructor
@@ -102,8 +102,8 @@ bool UndoModifyMetaDataAction::store(SignalManager &)
 }
 
 //***************************************************************************
-UndoAction *UndoModifyMetaDataAction::undo(SignalManager &manager,
-                                           bool with_redo)
+Kwave::UndoAction *Kwave::UndoModifyMetaDataAction::undo(
+    Kwave::SignalManager &manager, bool with_redo)
 {
     if (m_saved_data.isEmpty()) return 0;
 
@@ -139,7 +139,7 @@ UndoAction *UndoModifyMetaDataAction::undo(SignalManager &manager,
 }
 
 //***************************************************************************
-void UndoModifyMetaDataAction::dump(const QString &indent)
+void Kwave::UndoModifyMetaDataAction::dump(const QString &indent)
 {
    foreach (const Kwave::MetaData &m, m_saved_data) {
 	qDebug("%sundo modify meta data object '%s'",

@@ -108,7 +108,8 @@ bool Kwave::MimeData::encode(QWidget *widget,
 
 //***************************************************************************
 unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
-                                     SignalManager &sig, sample_index_t pos)
+                                     Kwave::SignalManager &sig,
+                                     sample_index_t pos)
 {
     // decode, use the first format that matches
     unsigned int decoded_length = 0;

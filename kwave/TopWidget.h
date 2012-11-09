@@ -45,12 +45,16 @@ class KStatusBar;
 
 class KwaveApp;
 class MenuManager;
-class MainWidget;
-class SignalManager;
 
-namespace Kwave { class PlayerToolBar; }
-namespace Kwave { class PluginManager; }
-namespace Kwave { class ApplicationContext; }
+namespace Kwave {
+
+    class MainWidget;
+    class SignalManager;
+    class PlayerToolBar;
+    class PluginManager;
+    class ApplicationContext;
+
+}
 
 /**
  * Toplevel widget of the Kwave application. Holds a main widget, a menu
@@ -305,7 +309,7 @@ private:
      * the main widget with all views and controls (except menu and
      * toolbar)
      */
-    QPointer<MainWidget> m_main_widget;
+    QPointer<Kwave::MainWidget> m_main_widget;
 
     /** toolbar with playback/record and seek controls */
     Kwave::PlayerToolBar *m_toolbar_record_playback;

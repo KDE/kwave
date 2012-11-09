@@ -27,58 +27,64 @@
 
 #include "libkwave/undo/UndoAction.h"
 
-class UndoModifyAction: public UndoAction
-{
-public:
+namespace Kwave {
 
-    /**
-     * Constructor.
-     * @param track index of the track
-     * @param offset index of the first modified sample
-     * @param length number of samples
-     */
-    UndoModifyAction(unsigned int track, sample_index_t offset,
-                     sample_index_t length);
+    class UndoModifyAction: public UndoAction
+    {
+    public:
 
-    /** Destructor */
-    virtual ~UndoModifyAction();
+	/**
+	 * Constructor.
+	 * @param track index of the track
+	 * @param offset index of the first modified sample
+	 * @param length number of samples
+	 */
+	UndoModifyAction(unsigned int track, sample_index_t offset,
+	                 sample_index_t length);
 
-    /** @see UndoAction::description() */
-    virtual QString description();
+	/** Destructor */
+	virtual ~UndoModifyAction();
 
-    /** @see UndoAction::undoSize() */
-    virtual unsigned int undoSize();
+	/** @see UndoAction::description() */
+	virtual QString description();
 
-    /** @see UndoAction::redoSize() */
-    virtual int redoSize() { return undoSize(); }
+	/** @see UndoAction::undoSize() */
+	virtual unsigned int undoSize();
 
-    /**
-     * @see UndoAction::store()
-     */
-    virtual bool store(SignalManager &manager);
+	/** @see UndoAction::redoSize() */
+	virtual int redoSize() { return undoSize(); }
 
-    /**
-     * Exchange samples from the current signal and the internal undo
-     * buffer. So this instance will be re-used for redo and so does not
-     * require any extra memory for redo.
-     * @see UndoAction::undo()
-     */
-    virtual UndoAction *undo(SignalManager &manager, bool with_redo);
+	/**
+	* @see UndoAction::store()
+	*/
+	virtual bool store(Kwave::SignalManager &manager);
 
-protected:
+	/**
+	 * Exchange samples from the current signal and the internal undo
+	 * buffer. So this instance will be re-used for redo and so does not
+	 * require any extra memory for redo.
+	 * @see UndoAction::undo()
+	 */
+	virtual UndoAction *undo(Kwave::SignalManager &manager, bool with_redo);
 
-    /** index of the modified track */
-    unsigned int m_track;
+    protected:
 
-    /** first sample */
-    sample_index_t m_offset;
+	/** index of the modified track */
+	unsigned int m_track;
 
-    /** number of samples */
-    sample_index_t m_length;
+	/** first sample */
+	sample_index_t m_offset;
 
-    /** track that serves as buffer with undo data */
-    Kwave::Track m_buffer_track;
+	/** number of samples */
+	sample_index_t m_length;
 
-};
+	/** track that serves as buffer with undo data */
+	Kwave::Track m_buffer_track;
+
+    };
+}
 
 #endif /* _UNDO_MODIFY_ACTION_H_ */
+
+//***************************************************************************
+//***************************************************************************

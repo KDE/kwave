@@ -31,7 +31,7 @@ MultiTrackReader::MultiTrackReader()
 
 //***************************************************************************
 MultiTrackReader::MultiTrackReader(Kwave::ReaderMode mode,
-                                   SignalManager &signal_manager,
+                                   Kwave::SignalManager &signal_manager,
                                    const QList<unsigned int> &track_list,
                                    sample_index_t first, sample_index_t last)
     :Kwave::MultiTrackSource<SampleReader, false>(0),

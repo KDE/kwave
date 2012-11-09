@@ -31,8 +31,12 @@
 #include "libkwave/Sample.h"
 
 class QColor;
-class SignalManager;
-namespace Kwave { class Track; }
+
+namespace Kwave {
+
+    class SignalManager;
+    class Track;
+}
 
 /**
  * @class OverViewCache
@@ -54,7 +58,8 @@ public:
      * @param src_tracks list of selected source tracks
      *                   optional, default=0 (whole signal)
      */
-    OverViewCache(SignalManager &signal, sample_index_t src_offset = 0,
+    OverViewCache(Kwave::SignalManager &signal,
+                  sample_index_t src_offset = 0,
                   sample_index_t src_length = 0,
                   const QList<unsigned int> *src_tracks = 0);
 
@@ -190,7 +195,7 @@ private:
 private:
 
     /** signal with the data to be shown */
-    SignalManager &m_signal;
+    Kwave::SignalManager &m_signal;
 
     /** list of minimum value arrays, one array per track */
     QList< QVector <sample_t> > m_min;

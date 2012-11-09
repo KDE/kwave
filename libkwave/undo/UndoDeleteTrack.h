@@ -27,56 +27,60 @@
 #include "libkwave/Track.h"
 #include "libkwave/undo/UndoAction.h"
 
-namespace Kwave { class Signal; }
+namespace Kwave {
 
-/**
- * Undo action for deleting a track.
- */
-class UndoDeleteTrack: public UndoAction
-{
-public:
+    class Signal;
 
     /**
-     * Constructor
-     * @param signal reference to the signal
-     * @param track index of the deleted track.
+     * Undo action for deleting a track.
      */
-    UndoDeleteTrack(Kwave::Signal &signal, unsigned int track);
+    class UndoDeleteTrack: public Kwave::UndoAction
+    {
+    public:
 
-    /** Destructor */
-    virtual ~UndoDeleteTrack();
+	/**
+	 * Constructor
+	 * @param signal reference to the signal
+	 * @param track index of the deleted track.
+	 */
+	UndoDeleteTrack(Kwave::Signal &signal, unsigned int track);
 
-    /**
-     * Returns a verbose short description of the action.
-     */
-    virtual QString description();
+	/** Destructor */
+	virtual ~UndoDeleteTrack();
 
-    /** @see UndoAction::undoSize() */
-    virtual unsigned int undoSize();
+	/**
+	 * Returns a verbose short description of the action.
+	 */
+	virtual QString description();
 
-    /** @see UndoAction::redoSize() */
-    virtual int redoSize();
+	/** @see UndoAction::undoSize() */
+	virtual unsigned int undoSize();
 
-    /** @see UndoAction::store() */
-    virtual bool store(SignalManager &manager);
+	/** @see UndoAction::redoSize() */
+	virtual int redoSize();
 
-    /** @see UndoAction::undo() */
-    virtual UndoAction *undo(SignalManager &manager, bool with_redo);
+	/** @see UndoAction::store() */
+	virtual bool store(SignalManager &manager);
 
-protected:
+	/** @see UndoAction::undo() */
+	virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
+	                                bool with_redo);
 
-    /** Reference to the signal */
-    Kwave::Signal &m_signal;
+    protected:
 
-    /** Index of the deleted track */
-    unsigned int m_track;
+	/** Reference to the signal */
+	Kwave::Signal &m_signal;
 
-    /** Length of the track in samples */
-    sample_index_t m_length;
+	/** Index of the deleted track */
+	unsigned int m_track;
 
-    /** track that serves as buffer with undo data */
-    Kwave::Track m_buffer_track;
+	/** Length of the track in samples */
+	sample_index_t m_length;
 
-};
+	/** track that serves as buffer with undo data */
+	Kwave::Track m_buffer_track;
+
+    };
+}
 
 #endif /* _UNDO_DELETE_TRACK_H_ */

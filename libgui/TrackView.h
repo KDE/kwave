@@ -35,10 +35,10 @@
 
 class QPaintEvent;
 class QResizeEvent;
-class SignalManager; // forward declaration
 
 namespace Kwave {
 
+    class SignalManager; // forward declaration
     class Track;
 
     class KDE_EXPORT TrackView: public SignalView
@@ -53,7 +53,7 @@ namespace Kwave {
 	 * @param track the track object this view is bound to
 	 */
 	TrackView(QWidget *parent, QWidget *controls,
-	          SignalManager *signal_manager,
+	          Kwave::SignalManager *signal_manager,
 	          Kwave::Track *track);
 
 	/** Destructor */
@@ -91,9 +91,9 @@ namespace Kwave {
 	/**
 	 * Tries to find the nearest item that is visible in this view
 	 * at a given position
-	 * 
+	 *
 	 * @param pos position to look at, relative to view [pixels]
-	 * @return the nearest ViewObject in range 
+	 * @return the nearest ViewObject in range
 	 *         or a null pointer if nothing found
 	 */
 	virtual QSharedPointer<Kwave::ViewItem> findItem(const QPoint &pos);
@@ -128,7 +128,7 @@ namespace Kwave {
     private:
 
 	/** reference to the signal manager */
-	QPointer<SignalManager> m_signal_manager;
+	QPointer<Kwave::SignalManager> m_signal_manager;
 
 	/** the track pixmap */
 	Kwave::TrackPixmap m_pixmap;

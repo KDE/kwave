@@ -28,76 +28,81 @@
 #include "libkwave/undo/UndoAction.h"
 
 class QWidget;
-class SignalManager;
 
-class UndoDeleteAction: public UndoAction
-{
-public:
+namespace Kwave {
 
-    /**
-     * Constructor.
-     * @param parent_widget the widget used as parent for displaying
-     *                      error messages
-     * @param track_list list of affected tracks
-     * @param offset index of the first deleted sample
-     * @param length number of samples to delete
-     */
-    UndoDeleteAction(QWidget *parent_widget,
-                     const QList<unsigned int> &track_list,
-                     sample_index_t offset, sample_index_t length);
+    class SignalManager;
 
-    /** Destructor */
-    virtual ~UndoDeleteAction();
+    class UndoDeleteAction: public Kwave::UndoAction
+    {
+    public:
 
-    /** @see UndoAction::description() */
-    virtual QString description();
+	/**
+	 * Constructor.
+	 * @param parent_widget the widget used as parent for displaying
+	 *                      error messages
+	 * @param track_list list of affected tracks
+	 * @param offset index of the first deleted sample
+	 * @param length number of samples to delete
+	 */
+	UndoDeleteAction(QWidget *parent_widget,
+	                 const QList<unsigned int> &track_list,
+	                 sample_index_t offset, sample_index_t length);
 
-    /** @see UndoAction::undoSize() */
-    virtual unsigned int undoSize();
+	/** Destructor */
+	virtual ~UndoDeleteAction();
 
-    /** @see UndoAction::redoSize() */
-    virtual int redoSize();
+	/** @see UndoAction::description() */
+	virtual QString description();
 
-    /**
-     * Stores the data needed for undo.
-     * @param manager the SignalManager for modifying the signal
-     * @note this is the second step, after size() has been called
-     * @return true if successful, false if failed (e.g. out of memory)
-     */
-    virtual bool store(SignalManager &manager);
+	/** @see UndoAction::undoSize() */
+	virtual unsigned int undoSize();
 
-    /**
-     * Copies the samples to be deleted to the internal buffer.
-     * @see UndoAction::undo()
-     */
-    virtual UndoAction *undo(SignalManager &manager, bool with_redo);
+	/** @see UndoAction::redoSize() */
+	virtual int redoSize();
 
-    /** dump, for debugging purposes */
-    virtual void dump(const QString &indent);
+	/**
+	 * Stores the data needed for undo.
+	 * @param manager the SignalManager for modifying the signal
+	 * @note this is the second step, after size() has been called
+	 * @return true if successful, false if failed (e.g. out of memory)
+	 */
+	virtual bool store(Kwave::SignalManager &manager);
 
-private:
+	/**
+	 * Copies the samples to be deleted to the internal buffer.
+	 * @see UndoAction::undo()
+	 */
+	virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
+	                                bool with_redo);
 
-    /** parent widget for showing error messages */
-    QWidget *m_parent_widget;
+	/** dump, for debugging purposes */
+	virtual void dump(const QString &indent);
 
-    /** list of affected tracks */
-    QList<unsigned int> m_track_list;
+    private:
 
-    /** first deleted sample */
-    sample_index_t m_offset;
+	/** parent widget for showing error messages */
+	QWidget *m_parent_widget;
 
-    /** number of deleted samples */
-    sample_index_t m_length;
+	/** list of affected tracks */
+	QList<unsigned int> m_track_list;
 
-    /**
-     * Kwave::MimeData container that holds the whole range of samples
-     * and deleted labels
-     */
-    Kwave::MimeData m_mime_data;
+	/** first deleted sample */
+	sample_index_t m_offset;
 
-    /** memory needed for undo */
-    unsigned int m_undo_size;
+	/** number of deleted samples */
+	sample_index_t m_length;
 
-};
+	/**
+	 * Kwave::MimeData container that holds the whole range of samples
+	 * and deleted labels
+	 */
+	Kwave::MimeData m_mime_data;
+
+	/** memory needed for undo */
+	unsigned int m_undo_size;
+
+    };
+}
 
 #endif /* _UNDO_DELETE_ACTION_H_ */

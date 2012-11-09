@@ -41,7 +41,7 @@
 
 //***************************************************************************
 Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
-                            SignalManager *signal_manager,
+                            Kwave::SignalManager *signal_manager,
                             Kwave::Track *track)
     :Kwave::SignalView(parent, controls, signal_manager,
                        Kwave::SignalView::AboveTrackTop),

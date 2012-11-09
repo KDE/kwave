@@ -39,11 +39,14 @@ class PlaybackController;
 class PlaybackDeviceFactory;
 class QString;
 class QStringList;
-class SignalManager;
 class QWidget;
-namespace Kwave { class Plugin; }
-namespace Kwave { class SampleSink; }
-namespace Kwave { class Writer; }
+
+namespace Kwave {
+
+    class Plugin;
+    class SampleSink;
+    class SignalManager;
+    class Writer;
 
     /**
      * Manages the loading, initializing, starting, running and closing
@@ -51,7 +54,6 @@ namespace Kwave { class Writer; }
      * new instance of the PluginManager to be independent from other
      * toplevel widgets.
      */
-namespace Kwave {
     class KDE_EXPORT PluginManager : public QObject
     {
 	Q_OBJECT
@@ -63,7 +65,7 @@ namespace Kwave {
 	 * @param parent reference to the toplevel widget (our parent)
 	 * @param signal_manager reference to a SignalManager
 	 */
-	PluginManager(QWidget *parent, SignalManager &signal_manager);
+	PluginManager(QWidget *parent, Kwave::SignalManager &signal_manager);
 
 	/**
 	 * Default destructor
@@ -170,7 +172,7 @@ namespace Kwave {
 	}
 
 	/** returns a reference to our signal manager */
-	inline SignalManager &signalManager()
+	inline Kwave::SignalManager &signalManager()
 	{
 	    return m_signal_manager;
 	}
@@ -371,7 +373,7 @@ namespace Kwave {
 	QPointer<QWidget> m_parent_widget;
 
 	/** reference to our signal manager */
-	SignalManager &m_signal_manager;
+	Kwave::SignalManager &m_signal_manager;
 
 	/** interface for registering a SignalView */
 	ViewManager *m_view_manager;

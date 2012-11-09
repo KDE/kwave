@@ -23,36 +23,37 @@
 #include "libkwave/undo/UndoDeleteTrack.h"
 
 //***************************************************************************
-UndoInsertTrack::UndoInsertTrack(Kwave::Signal &signal, unsigned int track)
+Kwave::UndoInsertTrack::UndoInsertTrack(Kwave::Signal &signal,
+                                        unsigned int track)
     :UndoAction(), m_signal(signal), m_track(track)
 {
 }
 
 //***************************************************************************
-UndoInsertTrack::~UndoInsertTrack()
+Kwave::UndoInsertTrack::~UndoInsertTrack()
 {
 }
 
 //***************************************************************************
-QString UndoInsertTrack::description()
+QString Kwave::UndoInsertTrack::description()
 {
     return i18n("Insert Track");
 }
 
 //***************************************************************************
-unsigned int UndoInsertTrack::undoSize()
+unsigned int Kwave::UndoInsertTrack::undoSize()
 {
     return sizeof(*this);
 }
 
 //***************************************************************************
-int UndoInsertTrack::redoSize()
+int Kwave::UndoInsertTrack::redoSize()
 {
     return (m_signal.length() * sizeof(sample_t)) + sizeof(UndoDeleteTrack);
 }
 
 //***************************************************************************
-bool UndoInsertTrack::store(SignalManager &)
+bool Kwave::UndoInsertTrack::store(Kwave::SignalManager &)
 {
     // nothing to do, the track number has already
     // been stored in the constructor
@@ -60,13 +61,14 @@ bool UndoInsertTrack::store(SignalManager &)
 }
 
 //***************************************************************************
-UndoAction *UndoInsertTrack::undo(SignalManager &manager, bool with_redo)
+Kwave::UndoAction *Kwave::UndoInsertTrack::undo(
+    Kwave::SignalManager &manager, bool with_redo)
 {
-    UndoAction *redo = 0;
+    Kwave::UndoAction *redo = 0;
 
     // store data for redo
     if (with_redo) {
-	redo = new UndoDeleteTrack(m_signal, m_track);
+	redo = new Kwave::UndoDeleteTrack(m_signal, m_track);
 	Q_ASSERT(redo);
 	if (redo) redo->store(manager);
     }

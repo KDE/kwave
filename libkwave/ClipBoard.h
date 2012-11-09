@@ -29,7 +29,11 @@
 #include "libkwave/Sample.h"
 
 class QWidget;
-class SignalManager;
+
+namespace Kwave {
+
+    class SignalManager;
+}
 
 /**
  * Implements a global clipboard for Kwave. It supports only the three
@@ -60,7 +64,7 @@ public:
      * @param offset first sample to copy
      * @param length number of samples
      */
-    void copy(QWidget *widget, SignalManager &signal_manager,
+    void copy(QWidget *widget, Kwave::SignalManager &signal_manager,
               const QList<unsigned int> &track_list,
               sample_index_t offset, sample_index_t length);
 
@@ -74,7 +78,7 @@ public:
      * @param length length of the current selection in samples
      * @return true if successful, false if failed
      */
-    bool paste(QWidget *widget, SignalManager &signal_manager,
+    bool paste(QWidget *widget, Kwave::SignalManager &signal_manager,
                sample_index_t offset, sample_index_t length);
 
     /**

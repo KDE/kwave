@@ -29,9 +29,9 @@
 #include "libkwave/undo/UndoDeleteMetaDataAction.h"
 
 //***************************************************************************
-UndoAddMetaDataAction::UndoAddMetaDataAction(
+Kwave::UndoAddMetaDataAction::UndoAddMetaDataAction(
     const Kwave::MetaDataList &meta_data)
-    :UndoAction(),
+    :Kwave::UndoAction(),
      m_description(),
      m_offset(0),
      m_length(SAMPLE_INDEX_MAX),
@@ -132,30 +132,30 @@ UndoAddMetaDataAction::UndoAddMetaDataAction(
 }
 
 //***************************************************************************
-UndoAddMetaDataAction::~UndoAddMetaDataAction()
+Kwave::UndoAddMetaDataAction::~UndoAddMetaDataAction()
 {
 }
 
 //***************************************************************************
-QString UndoAddMetaDataAction::description()
+QString Kwave::UndoAddMetaDataAction::description()
 {
     return m_description;
 }
 
 //***************************************************************************
-unsigned int UndoAddMetaDataAction::undoSize()
+unsigned int Kwave::UndoAddMetaDataAction::undoSize()
 {
     return sizeof(*this);
 }
 
 //***************************************************************************
-int UndoAddMetaDataAction::redoSize()
+int Kwave::UndoAddMetaDataAction::redoSize()
 {
     return sizeof(UndoDeleteMetaDataAction);
 }
 
 //***************************************************************************
-bool UndoAddMetaDataAction::store(SignalManager &)
+bool Kwave::UndoAddMetaDataAction::store(Kwave::SignalManager &)
 {
     // nothing to do, all data has already
     // been stored in the constructor
@@ -163,16 +163,17 @@ bool UndoAddMetaDataAction::store(SignalManager &)
 }
 
 //***************************************************************************
-UndoAction *UndoAddMetaDataAction::undo(SignalManager &manager, bool with_redo)
+Kwave::UndoAction *Kwave::UndoAddMetaDataAction::undo(
+    Kwave::SignalManager &manager, bool with_redo)
 {
-    UndoAction *redo = 0;
+    Kwave::UndoAction *redo = 0;
 
     Kwave::MetaDataList meta_data =
 	manager.metaData().copy(m_offset, m_length, m_tracks);
 
     // store data for redo
     if (with_redo && !meta_data.isEmpty()) {
-	redo = new UndoDeleteMetaDataAction(meta_data);
+	redo = new Kwave::UndoDeleteMetaDataAction(meta_data);
 	Q_ASSERT(redo);
 	if (redo) redo->store(manager);
     }

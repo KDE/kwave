@@ -50,7 +50,7 @@
 //***************************************************************************
 //***************************************************************************
 Kwave::SignalView::SignalView(QWidget *parent, QWidget *controls,
-                              SignalManager *signal_manager,
+                              Kwave::SignalManager *signal_manager,
                               Location preferred_location,
                               int track)
     :QWidget(parent),
@@ -643,7 +643,7 @@ void Kwave::SignalView::startDragging()
     }
 
     // start drag&drop, mode is determined automatically
-    UndoTransactionGuard undo(*m_signal_manager, i18n("Drag and Drop"));
+    Kwave::UndoTransactionGuard undo(*m_signal_manager, i18n("Drag and Drop"));
     Qt::DropAction drop = d->exec(Qt::CopyAction | Qt::MoveAction);
 
     if (drop == Qt::MoveAction) {
@@ -694,7 +694,8 @@ void Kwave::SignalView::dropEvent(QDropEvent *event)
     if (!m_signal_manager) return;
 
     if (KwaveDrag::canDecode(event->mimeData())) {
-	UndoTransactionGuard undo(*m_signal_manager, i18n("Drag and Drop"));
+	Kwave::UndoTransactionGuard undo(*m_signal_manager,
+	                                 i18n("Drag and Drop"));
 	sample_index_t pos = m_offset + pixels2samples(event->pos().x());
 	sample_index_t len = 0;
 

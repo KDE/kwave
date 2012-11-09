@@ -109,7 +109,7 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
 //    qDebug("SignalWidget::SignalWidget()");
 
     // connect to the signal manager's signals
-    SignalManager *sig = m_context.signalManager();
+    Kwave::SignalManager *sig = m_context.signalManager();
 
     connect(sig,  SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
             this, SLOT( slotTrackInserted(unsigned int, Kwave::Track *)));
@@ -195,7 +195,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 {
     Q_ASSERT(e);
 
-    SignalManager *manager = m_context.signalManager();
+    Kwave::SignalManager *manager = m_context.signalManager();
     bool have_signal = manager && !manager->isEmpty();
     if (!have_signal)return;
     bool have_selection = manager && (manager->selection().length() > 1);

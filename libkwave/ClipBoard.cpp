@@ -64,7 +64,7 @@ void ClipBoard::slotChanged(QClipboard::Mode mode)
 }
 
 //***************************************************************************
-void ClipBoard::copy(QWidget *widget, SignalManager &signal_manager,
+void ClipBoard::copy(QWidget *widget, Kwave::SignalManager &signal_manager,
                      const QList<unsigned int> &track_list,
                      sample_index_t offset, sample_index_t length)
 {
@@ -93,7 +93,7 @@ void ClipBoard::copy(QWidget *widget, SignalManager &signal_manager,
 }
 
 //***************************************************************************
-bool ClipBoard::paste(QWidget *widget, SignalManager &signal_manager,
+bool ClipBoard::paste(QWidget *widget, Kwave::SignalManager &signal_manager,
                       sample_index_t offset, sample_index_t length)
 {
     Q_ASSERT(!isEmpty());

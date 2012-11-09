@@ -892,7 +892,7 @@ void RecordPlugin::startRecording()
 
 	    emitCommand(QString("newsignal(%1,%2,%3,%4)").arg(
 		samples).arg(rate).arg(bits).arg(tracks));
-	    SignalManager &mgr = signalManager();
+	    Kwave::SignalManager &mgr = signalManager();
 	    if ((mgr.rate() != rate) || (mgr.bits() != bits) ||
 	        (mgr.tracks() != tracks))
 	    {

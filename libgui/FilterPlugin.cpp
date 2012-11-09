@@ -88,7 +88,7 @@ QStringList *Kwave::FilterPlugin::setup(QStringList &previous_params)
 //***************************************************************************
 void Kwave::FilterPlugin::run(QStringList params)
 {
-    UndoTransactionGuard *undo_guard = 0;
+    Kwave::UndoTransactionGuard *undo_guard = 0;
     m_pause = false;
 
     if (!interpreteParameters(params)) m_params = params;
@@ -113,7 +113,7 @@ void Kwave::FilterPlugin::run(QStringList params)
 	Q_ASSERT(m_sink);
     } else {
 	// normal mode, with undo
-	undo_guard = new UndoTransactionGuard(*this, actionName());
+	undo_guard = new Kwave::UndoTransactionGuard(*this, actionName());
 	Q_ASSERT(undo_guard);
 	if (!undo_guard) {
 	    if (filter) delete filter;

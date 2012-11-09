@@ -60,12 +60,14 @@ class QWheelEvent;
 class KUrl;
 
 class LabelType;
-class SignalManager;
 class TimeOperation;
-namespace Kwave { class Track; }
 class TrackPixmap;
 
-namespace Kwave { class ApplicationContext; }
+namespace Kwave {
+    class ApplicationContext;
+    class SignalManager;
+    class Track;
+}
 
 /**
  * The SignalWidget class is responsible for displaying and managing the views
@@ -122,7 +124,7 @@ signals:
 
     /** child views can connected to this signal to synchronize repaints */
     void sigRepaint();
-    
+
 public slots:
 
     /**
@@ -130,7 +132,7 @@ public slots:
      * throttled through our repaint timer
      */
     void requestRepaint(Kwave::SignalView *view);
-    
+
     /** forward a sigCommand to the next layer */
     void forwardCommand(const QString &command);
 
@@ -146,7 +148,7 @@ private slots:
      * have requested a repaint and are in the repaint queue
      */
     void repaintTimerElapsed();
-    
+
     /**
      * Connected to the signal's sigTrackInserted.
      * @param index numeric index of the inserted track
@@ -227,7 +229,7 @@ private:
     /** propagates the vertical zoom to all views */
     void setVerticalZoom(double zoom);
 
-    /** 
+    /**
      * insert a row in the m_layout, shifting all following rows to
      * the end by one
      * @param index the index if the row
@@ -236,7 +238,7 @@ private:
      */
     void insertRow(int index, Kwave::SignalView *view, QWidget *controls);
 
-    /** 
+    /**
      * delete a row in the m_layout, shifting all following rows back to
      * the start by one
      * @param index the index if the row

@@ -73,7 +73,7 @@ void DebugPlugin::run(QStringList params)
 
     QString command = params.first();
     QString action = i18n("Debug (%1)", command);
-    UndoTransactionGuard undo_guard(*this, action);
+    Kwave::UndoTransactionGuard undo_guard(*this, action);
 
     // get the buffer for faster processing
     if (m_buffer.size() != BUFFER_SIZE) {

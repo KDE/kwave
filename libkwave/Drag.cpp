@@ -74,7 +74,7 @@ bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src,
 
 //***************************************************************************
 unsigned int KwaveDrag::decode(QWidget *widget, const QMimeData *e,
-                               SignalManager &sig, sample_index_t pos)
+                               Kwave::SignalManager &sig, sample_index_t pos)
 {
     return Kwave::MimeData::decode(widget, e, sig, pos);
 }

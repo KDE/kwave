@@ -45,7 +45,7 @@ bool Kwave::ApplicationContext::init()
     Q_ASSERT(m_top_widget);
     if (!m_top_widget) return false;
 
-    m_signal_manager = new SignalManager(m_top_widget);
+    m_signal_manager = new Kwave::SignalManager(m_top_widget);
     Q_ASSERT(m_signal_manager);
     if (!m_signal_manager) return false;
 

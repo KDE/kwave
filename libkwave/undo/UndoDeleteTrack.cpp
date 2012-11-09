@@ -28,37 +28,38 @@
 #include "libkwave/undo/UndoDeleteTrack.h"
 
 //***************************************************************************
-UndoDeleteTrack::UndoDeleteTrack(Kwave::Signal &signal, unsigned int track)
+Kwave::UndoDeleteTrack::UndoDeleteTrack(Kwave::Signal &signal,
+                                        unsigned int track)
     :UndoAction(), m_signal(signal), m_track(track),
      m_length(signal.length()), m_buffer_track()
 {
 }
 
 //***************************************************************************
-UndoDeleteTrack::~UndoDeleteTrack()
+Kwave::UndoDeleteTrack::~UndoDeleteTrack()
 {
 }
 
 //***************************************************************************
-QString UndoDeleteTrack::description()
+QString Kwave::UndoDeleteTrack::description()
 {
     return i18n("Delete Track");
 }
 
 //***************************************************************************
-unsigned int UndoDeleteTrack::undoSize()
+unsigned int Kwave::UndoDeleteTrack::undoSize()
 {
     return sizeof(*this) + m_length * sizeof(sample_t);
 }
 
 //***************************************************************************
-int UndoDeleteTrack::redoSize()
+int Kwave::UndoDeleteTrack::redoSize()
 {
-    return sizeof(UndoInsertTrack);
+    return sizeof(Kwave::UndoInsertTrack);
 }
 
 //***************************************************************************
-bool UndoDeleteTrack::store(SignalManager &manager)
+bool Kwave::UndoDeleteTrack::store(Kwave::SignalManager &manager)
 {
     SampleReader *reader = manager.openSampleReader(
 	Kwave::SinglePassForward, m_track, 0, m_length-1);
@@ -81,13 +82,14 @@ bool UndoDeleteTrack::store(SignalManager &manager)
 }
 
 //***************************************************************************
-UndoAction *UndoDeleteTrack::undo(SignalManager &manager, bool with_redo)
+Kwave::UndoAction *Kwave::UndoDeleteTrack::undo(Kwave::SignalManager &manager,
+                                                bool with_redo)
 {
-    UndoAction *redo_action = 0;
+    Kwave::UndoAction *redo_action = 0;
 
     // create a redo action
     if (with_redo) {
-	redo_action = new UndoInsertTrack(m_signal, m_track);
+	redo_action = new Kwave::UndoInsertTrack(m_signal, m_track);
 	Q_ASSERT(redo_action);
 	if (redo_action) redo_action->store(manager);
     }

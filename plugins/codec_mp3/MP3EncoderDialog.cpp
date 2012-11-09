@@ -580,7 +580,7 @@ void Kwave::MP3EncoderDialog::testSettings()
     QBuffer dst;
 
     // create some dummy audio data (stereo)
-    SignalManager manager(this);
+    Kwave::SignalManager manager(this);
     manager.newSignal(test_length, sample_rate, bits, tracks);
     Kwave::MetaDataList meta_data = manager.metaData();
 

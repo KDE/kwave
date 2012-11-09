@@ -25,71 +25,74 @@
 
 class UndoAction;
 
-/**
- * @class UndoTransaction
- * Groups multiple UndoAction objects together to one transaction. As most
- * user actions consist of a number of small actions that belong together
- * and don't make sense or leave an inconsistent state if separated, they
- * get grouped together to one transaction.
- */
-class UndoTransaction: public QList<UndoAction *>
-{
-
-public:
+namespace Kwave {
 
     /**
-     * Constructor.
-     * @param name description of the undo transaction as a user-readable
-     * localized string.
+     * @class UndoTransaction
+     * Groups multiple UndoAction objects together to one transaction. As most
+     * user actions consist of a number of small actions that belong together
+     * and don't make sense or leave an inconsistent state if separated, they
+     * get grouped together to one transaction.
      */
-    UndoTransaction(const QString &name);
+    class UndoTransaction: public QList<UndoAction *>
+    {
 
-    /** Destructor */
-    virtual ~UndoTransaction();
+    public:
 
-    /** Returns the size in bytes summed up over all undo actions */
-    unsigned int undoSize();
+	/**
+	 * Constructor.
+	 * @param name description of the undo transaction as a user-readable
+	 * localized string.
+	 */
+	UndoTransaction(const QString &name);
 
-    /** Returns the additional memory needed for storing redo data */
-    unsigned int redoSize();
+	/** Destructor */
+	virtual ~UndoTransaction();
 
-    /**
-     * Returns the description of the undo transaction as a user-readable
-     * localized string. If no name has been passed at initialization
-     * time, a list of all action's descriptions will be generated.
-     * @todo avoid duplicates, give a useful name/description
-     */
-    QString description();
+	/** Returns the size in bytes summed up over all undo actions */
+	unsigned int undoSize();
 
-    /**
-     * Loops over all undo actions to determine wheter there is at least
-     * one undo action that contains a modification of the signal.
-     * @see UndoAction::containsModification()
-     * @return true if a modification is contained, false if not.
-     */
-    bool containsModification() const;
+	/** Returns the additional memory needed for storing redo data */
+	unsigned int redoSize();
 
-    /**
-     * aborts the undo transaction
-     */
-    void abort();
+	/**
+	 * Returns the description of the undo transaction as a user-readable
+	 * localized string. If no name has been passed at initialization
+	 * time, a list of all action's descriptions will be generated.
+	 * @todo avoid duplicates, give a useful name/description
+	 */
+	QString description();
 
-    /**
-     * Returns true if the undo transaction has been aborted
-     */
-    bool isAborted() const { return m_aborted; }
+	/**
+	 * Loops over all undo actions to determine wheter there is at least
+	 * one undo action that contains a modification of the signal.
+	 * @see UndoAction::containsModification()
+	 * @return true if a modification is contained, false if not.
+	 */
+	bool containsModification() const;
 
-        /** dump, for debugging purposes */
-    virtual void dump(const QString &indent);
+	/**
+	 * aborts the undo transaction
+	 */
+	void abort();
 
-private:
+	/**
+	 * Returns true if the undo transaction has been aborted
+	 */
+	bool isAborted() const { return m_aborted; }
 
-    /** name of the action */
-    QString m_description;
+	    /** dump, for debugging purposes */
+	virtual void dump(const QString &indent);
 
-    /** if true, the transaction has been aborted */
-    bool m_aborted;
+    private:
 
-};
+	/** name of the action */
+	QString m_description;
+
+	/** if true, the transaction has been aborted */
+	bool m_aborted;
+
+    };
+}
 
 #endif /* _UNDO_TRANSACTION_H_ */

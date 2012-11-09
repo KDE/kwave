@@ -25,73 +25,78 @@
 #include "libkwave/Sample.h"
 #include "libkwave/undo/UndoAction.h"
 
-class SignalManager;
 
-/**
- * This Undo action simply stores the combination of the currently selected
- * tracks and the currently selected range of samples.
- */
-class UndoSelection: public UndoAction
-{
+namespace Kwave {
 
-public:
+    class SignalManager;
 
     /**
-     * Constructor.
-     * @param manager reference to the SignalManager
+     * This Undo action simply stores the combination of the currently selected
+     * tracks and the currently selected range of samples.
      */
-    UndoSelection(SignalManager &manager);
+    class UndoSelection: public UndoAction
+    {
 
-    /**
-     * Constructor.
-     * @param manager reference to the SignalManager
-     * @param selected_tracks list of selected tracks
-     * @param offset start of the selection
-     * @param length number of selected samples
-     */
-    UndoSelection(SignalManager &manager,
-                  QList<unsigned int> selected_tracks,
-                  sample_index_t offset,
-                  sample_index_t length);
+    public:
 
-    /** virtual destructor */
-    virtual ~UndoSelection();
+	/**
+	 * Constructor.
+	 * @param manager reference to the SignalManager
+	 */
+	UndoSelection(Kwave::SignalManager &manager);
 
-    /** @see UndoAction::description() */
-    virtual QString description();
+	/**
+	 * Constructor.
+	 * @param manager reference to the SignalManager
+	 * @param selected_tracks list of selected tracks
+	 * @param offset start of the selection
+	 * @param length number of selected samples
+	 */
+	UndoSelection(Kwave::SignalManager &manager,
+	              QList<unsigned int> selected_tracks,
+	              sample_index_t offset,
+	              sample_index_t length);
 
-    /** @see UndoAction::undoSize() */
-    virtual unsigned int undoSize();
+	/** virtual destructor */
+	virtual ~UndoSelection();
 
-    /** @see UndoAction::redoSize() */
-    virtual int redoSize();
+	/** @see UndoAction::description() */
+	virtual QString description();
 
-    /** @see UndoAction::store() */
-    virtual bool store(SignalManager &manager);
+	/** @see UndoAction::undoSize() */
+	virtual unsigned int undoSize();
 
-    /** @see UndoAction::undo() */
-    virtual UndoAction *undo(SignalManager &manager, bool with_redo);
+	/** @see UndoAction::redoSize() */
+	virtual int redoSize();
 
-    /** @see UndoAction::containsModification() */
-    virtual bool containsModification() const { return false; }
+	/** @see UndoAction::store() */
+	virtual bool store(Kwave::SignalManager &manager);
 
-    /** dump, for debugging purposes */
-    virtual void dump(const QString &indent);
+	/** @see UndoAction::undo() */
+	virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
+	                                bool with_redo);
 
-private:
+	/** @see UndoAction::containsModification() */
+	virtual bool containsModification() const { return false; }
 
-    /** reference to the SignalManager is needed in redoSize() */
-    SignalManager &m_manager;
+	/** dump, for debugging purposes */
+	virtual void dump(const QString &indent);
 
-    /** First selected sample */
-    sample_index_t m_offset;
+    private:
 
-    /** Number of selected samples */
-    sample_index_t m_length;
+	/** reference to the SignalManager is needed in redoSize() */
+	Kwave::SignalManager &m_manager;
 
-    /** Array with indices of selected tracks. */
-    QList<unsigned int> m_selected_tracks;
+	/** First selected sample */
+	sample_index_t m_offset;
 
-};
+	/** Number of selected samples */
+	sample_index_t m_length;
+
+	/** Array with indices of selected tracks. */
+	QList<unsigned int> m_selected_tracks;
+
+    };
+}
 
 #endif /* _UNDO_SELECTION_H_ */

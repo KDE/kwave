@@ -136,7 +136,7 @@ void AmplifyFreePlugin::run(QStringList params)
 
     interpreteParameters(params);
 
-    UndoTransactionGuard undo_guard(*this, i18n(m_action_name.toLocal8Bit()));
+    Kwave::UndoTransactionGuard undo_guard(*this, i18n(m_action_name.toLocal8Bit()));
 
     unsigned int input_length = selection(&track_list, &first, &last, true);
     unsigned int tracks = track_list.count();

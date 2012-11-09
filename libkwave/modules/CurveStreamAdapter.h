@@ -26,6 +26,7 @@
 #include "libkwave/SampleSource.h"
 
 namespace Kwave {
+
     class KDE_EXPORT CurveStreamAdapter :public Kwave::SampleSource
     {
         Q_OBJECT

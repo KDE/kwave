@@ -28,16 +28,16 @@
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 //***************************************************************************
-UndoTransactionGuard::UndoTransactionGuard(SignalManager &manager,
-                                           const QString &name)
+Kwave::UndoTransactionGuard::UndoTransactionGuard(Kwave::SignalManager &manager,
+                                                  const QString &name)
     :m_manager(manager)
 {
     m_manager.startUndoTransaction(name);
 }
 
 //***************************************************************************
-UndoTransactionGuard::UndoTransactionGuard(Kwave::Plugin &plugin,
-                                           const QString &name)
+Kwave::UndoTransactionGuard::UndoTransactionGuard(Kwave::Plugin &plugin,
+                                                  const QString &name)
     :m_manager(plugin.manager().signalManager())
 {
     QString description = (name.length()) ?
@@ -46,13 +46,13 @@ UndoTransactionGuard::UndoTransactionGuard(Kwave::Plugin &plugin,
 }
 
 //***************************************************************************
-UndoTransactionGuard::~UndoTransactionGuard()
+Kwave::UndoTransactionGuard::~UndoTransactionGuard()
 {
     m_manager.closeUndoTransaction();
 }
 
 //***************************************************************************
-bool UndoTransactionGuard::registerUndoAction(UndoAction *action)
+bool Kwave::UndoTransactionGuard::registerUndoAction(UndoAction *action)
 {
     return m_manager.registerUndoAction(action);
 }

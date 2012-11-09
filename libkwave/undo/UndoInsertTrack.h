@@ -25,51 +25,58 @@
 
 #include "libkwave/undo/UndoAction.h"
 
-namespace Kwave { class Signal; }
+namespace Kwave {
 
-/**
- * Undo action for inserting a track.
- */
-class UndoInsertTrack :public UndoAction
-{
-
-public:
+    class Signal;
 
     /**
-     * Constructor
-     * @param signal reference to the signal
-     * @param track index of the inserted track.
+     * Undo action for inserting a track.
      */
-    UndoInsertTrack(Kwave::Signal &signal, unsigned int track);
+    class UndoInsertTrack :public UndoAction
+    {
 
-    /** Destructor */
-    virtual ~UndoInsertTrack();
+    public:
 
-    /**
-     * Returns a verbose short description of the action.
-     */
-    virtual QString description();
+	/**
+	 * Constructor
+	 * @param signal reference to the signal
+	 * @param track index of the inserted track.
+	 */
+	UndoInsertTrack(Kwave::Signal &signal, unsigned int track);
 
-    /** @see UndoAction::undoSize() */
-    virtual unsigned int undoSize();
+	/** Destructor */
+	virtual ~UndoInsertTrack();
 
-    /** @see UndoAction::redoSize() */
-    virtual int redoSize();
+	/**
+	 * Returns a verbose short description of the action.
+	 */
+	virtual QString description();
 
-    /** @see UndoAction::store() */
-    virtual bool store(SignalManager &manager);
+	/** @see UndoAction::undoSize() */
+	virtual unsigned int undoSize();
 
-    /** @see UndoAction::undo() */
-    virtual UndoAction *undo(SignalManager &manager, bool with_redo);
+	/** @see UndoAction::redoSize() */
+	virtual int redoSize();
 
-protected:
+	/** @see UndoAction::store() */
+	virtual bool store(Kwave::SignalManager &manager);
 
-    /** Reference to the signal */
-    Kwave::Signal &m_signal;
+	/** @see UndoAction::undo() */
+	virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
+	                                bool with_redo);
 
-    /** Index of the inserted track */
-    unsigned int m_track;
+    protected:
 
-};
+	/** Reference to the signal */
+	Kwave::Signal &m_signal;
+
+	/** Index of the inserted track */
+	unsigned int m_track;
+
+    };
+}
 
 #endif /* _UNDO_INSERT_TRACK_H_ */
+
+//***************************************************************************
+//***************************************************************************

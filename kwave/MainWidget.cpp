@@ -67,7 +67,8 @@
 #define DEFAULT_DISPLAY_TIME (5 * 60.0)
 
 //***************************************************************************
-MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
+Kwave::MainWidget::MainWidget(QWidget *parent,
+			      Kwave::ApplicationContext &context)
     :QWidget(parent), m_context(context), m_upper_dock(), m_lower_dock(),
      m_view_port(this),
      m_signal_widget(&m_view_port, context, &m_upper_dock, &m_lower_dock),
@@ -79,7 +80,7 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
 
     setAcceptDrops(true); // enable drag&drop
 
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
@@ -193,13 +194,13 @@ MainWidget::MainWidget(QWidget *parent, Kwave::ApplicationContext &context)
 }
 
 //***************************************************************************
-bool MainWidget::isOK()
+bool Kwave::MainWidget::isOK()
 {
     return (m_vertical_scrollbar && m_horizontal_scrollbar && m_overview);
 }
 
 //***************************************************************************
-MainWidget::~MainWidget()
+Kwave::MainWidget::~MainWidget()
 {
     Kwave::PluginManager *plugin_manager = m_context.pluginManager();
     Q_ASSERT(plugin_manager);
@@ -207,14 +208,14 @@ MainWidget::~MainWidget()
 }
 
 //***************************************************************************
-void MainWidget::resizeEvent(QResizeEvent *event)
+void Kwave::MainWidget::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event);
     resizeViewPort();
 }
 
 //***************************************************************************
-void MainWidget::dragEnterEvent(QDragEnterEvent *event)
+void Kwave::MainWidget::dragEnterEvent(QDragEnterEvent *event)
 {
     if (!event) return;
     if ((event->proposedAction() != Qt::MoveAction) &&
@@ -227,12 +228,12 @@ void MainWidget::dragEnterEvent(QDragEnterEvent *event)
 
 
 //***************************************************************************
-void MainWidget::dropEvent(QDropEvent *event)
+void Kwave::MainWidget::dropEvent(QDropEvent *event)
 {
     if (!event) return;
     if (!event->mimeData()) return;
 
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
@@ -272,7 +273,7 @@ void MainWidget::dropEvent(QDropEvent *event)
 }
 
 //***************************************************************************
-void MainWidget::wheelEvent(QWheelEvent *event)
+void Kwave::MainWidget::wheelEvent(QWheelEvent *event)
 {
     if (!event || !m_overview) return;
 
@@ -317,13 +318,14 @@ void MainWidget::wheelEvent(QWheelEvent *event)
 }
 
 //***************************************************************************
-void MainWidget::verticalScrollBarMoved(int newval)
+void Kwave::MainWidget::verticalScrollBarMoved(int newval)
 {
     m_signal_widget.move(0, -newval); // move the signal views
 }
 
 //***************************************************************************
-void MainWidget::slotTrackInserted(unsigned int index, Kwave::Track *track)
+void Kwave::MainWidget::slotTrackInserted(unsigned int index,
+                                          Kwave::Track *track)
 {
 //     qDebug("MainWidget::slotTrackInserted(%u, %p)",
 // 	   index, static_cast<void *>(track));
@@ -331,7 +333,7 @@ void MainWidget::slotTrackInserted(unsigned int index, Kwave::Track *track)
     Q_UNUSED(track);
 
     // when the first track has been inserted, set some reasonable zoom
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     bool first_track = (signal_manager && (signal_manager->tracks() == 1));
 
     resizeViewPort();
@@ -340,7 +342,7 @@ void MainWidget::slotTrackInserted(unsigned int index, Kwave::Track *track)
 }
 
 //***************************************************************************
-void MainWidget::slotTrackDeleted(unsigned int index)
+void Kwave::MainWidget::slotTrackDeleted(unsigned int index)
 {
 //     qDebug("MainWidget::slotTrackDeleted(%u)", index);
     Q_UNUSED(index);
@@ -350,15 +352,15 @@ void MainWidget::slotTrackDeleted(unsigned int index)
 }
 
 //***************************************************************************
-double MainWidget::zoom() const
+double Kwave::MainWidget::zoom() const
 {
     return m_zoom;
 }
 
 //***************************************************************************
-int MainWidget::executeCommand(const QString &command)
+int Kwave::MainWidget::executeCommand(const QString &command)
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return -EINVAL;
     if (!command.length()) return -EINVAL;
@@ -484,7 +486,7 @@ int MainWidget::executeCommand(const QString &command)
 }
 
 //***************************************************************************
-void MainWidget::resizeViewPort()
+void Kwave::MainWidget::resizeViewPort()
 {
     const int old_h = m_signal_widget.height();
     const int old_w = m_signal_widget.width();
@@ -567,7 +569,7 @@ void MainWidget::resizeViewPort()
 }
 
 //***************************************************************************
-void MainWidget::refreshHorizontalScrollBar()
+void Kwave::MainWidget::refreshHorizontalScrollBar()
 {
     if (!m_horizontal_scrollbar || !m_context.signalManager()) return;
 
@@ -624,7 +626,7 @@ void MainWidget::refreshHorizontalScrollBar()
 }
 
 //***************************************************************************
-void MainWidget::horizontalScrollBarMoved(int newval)
+void Kwave::MainWidget::horizontalScrollBarMoved(int newval)
 {
     // new offset = pos * f
     const int f = qMax(1U, SAMPLE_INDEX_MAX / INT_MAX);
@@ -633,9 +635,9 @@ void MainWidget::horizontalScrollBarMoved(int newval)
 }
 
 //***************************************************************************
-void MainWidget::updateViewRange()
+void Kwave::MainWidget::updateViewRange()
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     sample_index_t total = (signal_manager) ? signal_manager->length() : 0;
 
     // forward the zoom and offset to the signal widget and overview
@@ -645,9 +647,9 @@ void MainWidget::updateViewRange()
 }
 
 //***************************************************************************
-sample_index_t MainWidget::ms2samples(double ms)
+sample_index_t Kwave::MainWidget::ms2samples(double ms)
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return 0;
 
@@ -656,7 +658,7 @@ sample_index_t MainWidget::ms2samples(double ms)
 }
 
 //***************************************************************************
-sample_index_t MainWidget::pixels2samples(unsigned int pixels) const
+sample_index_t Kwave::MainWidget::pixels2samples(unsigned int pixels) const
 {
     if ((pixels <= 0) || (m_zoom <= 0.0)) return 0;
 
@@ -664,28 +666,28 @@ sample_index_t MainWidget::pixels2samples(unsigned int pixels) const
 }
 
 //***************************************************************************
-int MainWidget::samples2pixels(sample_index_t samples) const
+int Kwave::MainWidget::samples2pixels(sample_index_t samples) const
 {
     if (m_zoom == 0.0) return 0;
     return static_cast<int>(rint(static_cast<double>(samples) / m_zoom));
 }
 
 //***************************************************************************
-int MainWidget::displayWidth() const
+int Kwave::MainWidget::displayWidth() const
 {
     return m_width;
 }
 
 //***************************************************************************
-sample_index_t MainWidget::displaySamples() const
+sample_index_t Kwave::MainWidget::displaySamples() const
 {
     return pixels2samples(m_width - 1) + 1;
 }
 
 //***************************************************************************
-double MainWidget::fullZoom() const
+double Kwave::MainWidget::fullZoom() const
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return 0.0;
     if (signal_manager->isEmpty()) return 0.0;    // no zoom if no signal
@@ -715,7 +717,7 @@ double MainWidget::fullZoom() const
 }
 
 //***************************************************************************
-void MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
+void Kwave::MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
 {
     double max_zoom;
     double min_zoom;
@@ -727,7 +729,7 @@ void MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
     m_zoom   = zoom;
     m_offset = offset;
 
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
     if (!m_width) return;
@@ -783,19 +785,19 @@ void MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
 }
 
 //***************************************************************************
-void MainWidget::setZoom(double new_zoom)
+void Kwave::MainWidget::setZoom(double new_zoom)
 {
     fixZoomAndOffset(new_zoom, m_offset);
 }
 
 //***************************************************************************
-void MainWidget::setOffset(sample_index_t new_offset)
+void Kwave::MainWidget::setOffset(sample_index_t new_offset)
 {
     fixZoomAndOffset(m_zoom, new_offset);
 }
 
 //***************************************************************************
-void MainWidget::scrollTo(sample_index_t pos)
+void Kwave::MainWidget::scrollTo(sample_index_t pos)
 {
     sample_index_t visible = displaySamples();
 
@@ -816,9 +818,9 @@ void MainWidget::scrollTo(sample_index_t pos)
 }
 
 //***************************************************************************
-void MainWidget::zoomSelection()
+void Kwave::MainWidget::zoomSelection()
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
@@ -832,13 +834,13 @@ void MainWidget::zoomSelection()
 }
 
 //***************************************************************************
-void MainWidget::zoomAll()
+void Kwave::MainWidget::zoomAll()
 {
     setZoom(fullZoom());
 }
 
 //***************************************************************************
-void MainWidget::zoomNormal()
+void Kwave::MainWidget::zoomNormal()
 {
     const sample_index_t shift1 = m_width / 2;
     const sample_index_t shift2 = displaySamples() / 2;
@@ -848,7 +850,7 @@ void MainWidget::zoomNormal()
 }
 
 //***************************************************************************
-void MainWidget::zoomIn()
+void Kwave::MainWidget::zoomIn()
 {
     const sample_index_t shift = displaySamples() / 3;
     m_offset = (m_offset + shift >= m_offset) ? (m_offset + shift) : -shift;
@@ -856,7 +858,7 @@ void MainWidget::zoomIn()
 }
 
 //***************************************************************************
-void MainWidget::zoomOut()
+void Kwave::MainWidget::zoomOut()
 {
     const sample_index_t shift = displaySamples();
     m_offset = (m_offset > shift) ? (m_offset - shift) : 0;
@@ -864,13 +866,13 @@ void MainWidget::zoomOut()
 }
 
 //***************************************************************************
-void MainWidget::addLabel(sample_index_t pos, const QString &description)
+void Kwave::MainWidget::addLabel(sample_index_t pos, const QString &description)
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
-    UndoTransactionGuard undo(*signal_manager, i18n("Add Label"));
+    Kwave::UndoTransactionGuard undo(*signal_manager, i18n("Add Label"));
 
     // add a new label, with undo
     Label label = signal_manager->addLabel(pos, description);
@@ -938,9 +940,9 @@ void MainWidget::addLabel(sample_index_t pos, const QString &description)
 // //}
 
 //***************************************************************************
-bool MainWidget::labelProperties(Label &label)
+bool Kwave::MainWidget::labelProperties(Label &label)
 {
-    SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return false;
 
@@ -1014,7 +1016,7 @@ bool MainWidget::labelProperties(Label &label)
 	if ((new_name == label.name()) && (new_pos == label.pos()))
 	    return true;
 
-	UndoTransactionGuard undo(*signal_manager, i18n("Modify Label"));
+	Kwave::UndoTransactionGuard undo(*signal_manager, i18n("Modify Label"));
 
 	// if there is a label at the target position, remove it first
 	if (old_index >= 0) {

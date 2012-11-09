@@ -83,7 +83,7 @@ QStringList *VolumePlugin::setup(QStringList &previous_params)
     interpreteParameters(previous_params);
 
     // initialize the overview cache
-    SignalManager &mgr = manager().signalManager();
+    Kwave::SignalManager &mgr = manager().signalManager();
     QList<unsigned int> tracks;
     sample_index_t first, last;
     sample_index_t length = selection(&tracks, &first, &last, true);
@@ -128,7 +128,7 @@ void VolumePlugin::run(QStringList params)
     if (!selection(&tracks, &first, &last, true) || tracks.isEmpty())
 	return;
 
-    UndoTransactionGuard undo_guard(*this, i18n("Volume"));
+    Kwave::UndoTransactionGuard undo_guard(*this, i18n("Volume"));
 
     // create all objects
     MultiTrackReader source(Kwave::SinglePassForward,

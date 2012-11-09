@@ -25,19 +25,19 @@
 #include "libkwave/undo/UndoDeleteMetaDataAction.h"
 
 //***************************************************************************
-UndoDeleteMetaDataAction::UndoDeleteMetaDataAction(
+Kwave::UndoDeleteMetaDataAction::UndoDeleteMetaDataAction(
     const Kwave::MetaDataList &meta_data)
     :UndoAction(), m_meta_data(meta_data)
 {
 }
 
 //***************************************************************************
-UndoDeleteMetaDataAction::~UndoDeleteMetaDataAction()
+Kwave::UndoDeleteMetaDataAction::~UndoDeleteMetaDataAction()
 {
 }
 
 //***************************************************************************
-QString UndoDeleteMetaDataAction::description()
+QString Kwave::UndoDeleteMetaDataAction::description()
 {
     // sanity check: list should not be empty
     Q_ASSERT(!m_meta_data.isEmpty());
@@ -81,19 +81,19 @@ QString UndoDeleteMetaDataAction::description()
 }
 
 //***************************************************************************
-unsigned int UndoDeleteMetaDataAction::undoSize()
+unsigned int Kwave::UndoDeleteMetaDataAction::undoSize()
 {
     return sizeof(*this);
 }
 
 //***************************************************************************
-int UndoDeleteMetaDataAction::redoSize()
+int Kwave::UndoDeleteMetaDataAction::redoSize()
 {
-    return sizeof(UndoAddMetaDataAction);
+    return sizeof(Kwave::UndoAddMetaDataAction);
 }
 
 //***************************************************************************
-bool UndoDeleteMetaDataAction::store(SignalManager &)
+bool Kwave::UndoDeleteMetaDataAction::store(Kwave::SignalManager &)
 {
     // nothing to do, all data has already
     // been stored in the constructor
@@ -101,20 +101,20 @@ bool UndoDeleteMetaDataAction::store(SignalManager &)
 }
 
 //***************************************************************************
-UndoAction *UndoDeleteMetaDataAction::undo(SignalManager &manager,
-                                           bool with_redo)
+Kwave::UndoAction *Kwave::UndoDeleteMetaDataAction::undo(
+    Kwave::SignalManager &manager, bool with_redo)
 {
     Q_ASSERT(!m_meta_data.isEmpty());
     if (m_meta_data.isEmpty()) return 0;
 
-    UndoAction *redo = 0;
+    Kwave::UndoAction *redo = 0;
 
     // add the stored meta data to the signal managers' meta data
     manager.metaData().merge(m_meta_data);
 
     // store data for redo
     if (with_redo) {
-	redo = new UndoAddMetaDataAction(m_meta_data);
+	redo = new Kwave::UndoAddMetaDataAction(m_meta_data);
 	Q_ASSERT(redo);
 	if (redo) redo->store(manager);
     }
@@ -123,7 +123,7 @@ UndoAction *UndoDeleteMetaDataAction::undo(SignalManager &manager,
 }
 
 //***************************************************************************
-void UndoDeleteMetaDataAction::dump(const QString &indent)
+void Kwave::UndoDeleteMetaDataAction::dump(const QString &indent)
 {
     foreach (const Kwave::MetaData &m, m_meta_data) {
 	qDebug("%sundo delete meta data object '%s'",

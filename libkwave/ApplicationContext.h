@@ -27,12 +27,12 @@
 class QApplication;
 class QWidget;
 class KwaveApp;
-class SignalManager;
 class TopWidget;
 
 namespace Kwave {
 
     class PluginManager;
+    class SignalManager;
 
     class KDE_EXPORT ApplicationContext
     {
@@ -65,7 +65,7 @@ namespace Kwave {
 	TopWidget     *topWidget();
 
 	/** returns a pointer to the instance's signal manager */
-	SignalManager *signalManager();
+	Kwave::SignalManager *signalManager();
 
 	/** returns a pointer to the instance's plugin manager */
 	PluginManager *pluginManager();
@@ -79,7 +79,7 @@ namespace Kwave {
 	QPointer<TopWidget> m_top_widget;
 
 	/** instance of our signal manager */
-	QPointer<SignalManager> m_signal_manager;
+	QPointer<Kwave::SignalManager> m_signal_manager;
 
 	/** instance of our plugin manager */
 	QPointer<Kwave::PluginManager> m_plugin_manager;

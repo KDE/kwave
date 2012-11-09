@@ -28,47 +28,54 @@
 #include "libkwave/MetaDataList.h"
 #include "libkwave/undo/UndoAction.h"
 
-/**
- * Undo action for modifying meta data
- */
-class KDE_EXPORT UndoModifyMetaDataAction: public UndoAction
-{
-public:
+namespace Kwave {
 
     /**
-     * Constructor
-     * @param meta_data reference to the list of meta data that has been changed
+     * Undo action for modifying meta data
      */
-    UndoModifyMetaDataAction(const Kwave::MetaDataList &meta_data);
+    class KDE_EXPORT UndoModifyMetaDataAction: public UndoAction
+    {
+    public:
 
-    /** Destructor */
-    virtual ~UndoModifyMetaDataAction();
+	/**
+	 * Constructor
+	 * @param meta_data reference to the list of meta data that has been changed
+	 */
+	UndoModifyMetaDataAction(const Kwave::MetaDataList &meta_data);
 
-    /**
-     * Returns a verbose short description of the action.
-     */
-    virtual QString description();
+	/** Destructor */
+	virtual ~UndoModifyMetaDataAction();
 
-    /** @see UndoAction::undoSize() */
-    virtual unsigned int undoSize();
+	/**
+	* Returns a verbose short description of the action.
+	*/
+	virtual QString description();
 
-    /** @see UndoAction::redoSize() */
-    virtual int redoSize();
+	/** @see UndoAction::undoSize() */
+	virtual unsigned int undoSize();
 
-    /** @see UndoAction::store() */
-    virtual bool store(SignalManager &manager);
+	/** @see UndoAction::redoSize() */
+	virtual int redoSize();
 
-    /** @see UndoAction::undo() */
-    virtual UndoAction *undo(SignalManager &manager, bool with_redo);
+	/** @see UndoAction::store() */
+	virtual bool store(Kwave::SignalManager &manager);
 
-    /** dump, for debugging purposes */
-    virtual void dump(const QString &indent);
+	/** @see UndoAction::undo() */
+	virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
+	                                bool with_redo);
 
-protected:
+	/** dump, for debugging purposes */
+	virtual void dump(const QString &indent);
 
-    /** the unmodified metadata */
-    Kwave::MetaDataList m_saved_data;
+    protected:
 
-};
+	/** the unmodified metadata */
+	Kwave::MetaDataList m_saved_data;
+
+    };
+}
 
 #endif /* _UNDO_MODIFY_META_DATA_ACTION_H_ */
+
+//***************************************************************************
+//***************************************************************************

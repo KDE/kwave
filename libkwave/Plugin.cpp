@@ -436,7 +436,7 @@ Kwave::PluginManager &Kwave::Plugin::manager()
 }
 
 //***************************************************************************
-SignalManager &Kwave::Plugin::signalManager()
+Kwave::SignalManager &Kwave::Plugin::signalManager()
 {
     return manager().signalManager();
 }

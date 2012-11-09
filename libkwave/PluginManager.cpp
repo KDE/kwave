@@ -95,7 +95,7 @@ static QList<PlaybackDeviceFactory *> m_playback_factories;
 
 //***************************************************************************
 Kwave::PluginManager::PluginManager(QWidget *parent,
-                                    SignalManager &signal_manager)
+                                    Kwave::SignalManager &signal_manager)
     :m_loaded_plugins(),
      m_running_plugins(),
      m_parent_widget(parent),

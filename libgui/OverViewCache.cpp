@@ -33,7 +33,8 @@
 #define CACHE_SIZE 8192           /* number of cache entries */
 
 //***************************************************************************
-OverViewCache::OverViewCache(SignalManager &signal, sample_index_t src_offset,
+OverViewCache::OverViewCache(Kwave::SignalManager &signal,
+                             sample_index_t src_offset,
                              sample_index_t src_length,
                              const QList<unsigned int> *src_tracks)
     :m_signal(signal), m_min(), m_max(), m_state(), m_count(0), m_scale(1),
@@ -41,7 +42,7 @@ OverViewCache::OverViewCache(SignalManager &signal, sample_index_t src_offset,
      m_src_length(src_length), m_src_tracks(), m_src_deleted()
 {
     // connect to the signal manager
-    SignalManager *sig = &signal;
+    Kwave::SignalManager *sig = &signal;
     Q_ASSERT(sig);
     connect(sig, SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
             this, SLOT(slotTrackInserted(unsigned int, Kwave::Track *)));

@@ -26,43 +26,45 @@
 #include "UndoReverseAction.h"
 
 //***************************************************************************
-UndoReverseAction::UndoReverseAction(Kwave::PluginManager &plugin_manager)
+Kwave::UndoReverseAction::UndoReverseAction(
+    Kwave::PluginManager &plugin_manager)
     :m_plugin_manager(plugin_manager)
 {
 }
 
 //***************************************************************************
-UndoReverseAction::~UndoReverseAction()
+Kwave::UndoReverseAction::~UndoReverseAction()
 {
 }
 
 //***************************************************************************
-QString UndoReverseAction::description()
+QString Kwave::UndoReverseAction::description()
 {
     return i18n("Reverse");
 }
 
 //***************************************************************************
-unsigned int UndoReverseAction::undoSize()
+unsigned int Kwave::UndoReverseAction::undoSize()
 {
     return sizeof(*this);
 }
 
 //***************************************************************************
-int UndoReverseAction::redoSize()
+int Kwave::UndoReverseAction::redoSize()
 {
     return sizeof(*this);
 }
 
 //***************************************************************************
-bool UndoReverseAction::store(SignalManager &manager)
+bool Kwave::UndoReverseAction::store(Kwave::SignalManager &manager)
 {
     Q_UNUSED(manager);
     return true;
 }
 
 //***************************************************************************
-UndoAction *UndoReverseAction::undo(SignalManager &manager, bool with_redo)
+Kwave::UndoAction *Kwave::UndoReverseAction::undo(Kwave::SignalManager &manager,
+                                                  bool with_redo)
 {
     Q_UNUSED(manager);
     m_plugin_manager.enqueueCommand(

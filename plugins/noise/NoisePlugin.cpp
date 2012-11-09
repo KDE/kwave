@@ -45,7 +45,7 @@ void NoisePlugin::run(QStringList)
     sample_index_t first, last;
     QList<unsigned int> tracks;
 
-    UndoTransactionGuard undo_guard(*this, i18n("Noise"));
+    Kwave::UndoTransactionGuard undo_guard(*this, i18n("Noise"));
 
     selection(&tracks, &first, &last, true);
 

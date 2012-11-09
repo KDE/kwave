@@ -29,32 +29,33 @@
 #define BUFFER_SIZE 65536
 
 //***************************************************************************
-UndoModifyAction::UndoModifyAction(unsigned int track, sample_index_t offset,
-                                   sample_index_t length)
+Kwave::UndoModifyAction::UndoModifyAction(unsigned int track,
+                                          sample_index_t offset,
+                                          sample_index_t length)
     :UndoAction(), m_track(track), m_offset(offset), m_length(length),
      m_buffer_track()
 {
 }
 
 //***************************************************************************
-UndoModifyAction::~UndoModifyAction()
+Kwave::UndoModifyAction::~UndoModifyAction()
 {
 }
 
 //***************************************************************************
-QString UndoModifyAction::description()
+QString Kwave::UndoModifyAction::description()
 {
     return i18n("Modify Samples");
 }
 
 //***************************************************************************
-unsigned int UndoModifyAction::undoSize()
+unsigned int Kwave::UndoModifyAction::undoSize()
 {
     return sizeof(*this) + (m_length * sizeof(sample_t));
 }
 
 //***************************************************************************
-bool UndoModifyAction::store(SignalManager &manager)
+bool Kwave::UndoModifyAction::store(Kwave::SignalManager &manager)
 {
     SampleReader *reader = manager.openSampleReader(
 	Kwave::SinglePassForward, m_track, m_offset, m_offset+m_length-1);
@@ -77,7 +78,8 @@ bool UndoModifyAction::store(SignalManager &manager)
 }
 
 //***************************************************************************
-UndoAction *UndoModifyAction::undo(SignalManager &manager, bool with_redo)
+Kwave::UndoAction *Kwave::UndoModifyAction::undo(
+    Kwave::SignalManager &manager, bool with_redo)
 {
     Kwave::Writer *writer = manager.openWriter(
 	m_track, Overwrite, m_offset, m_offset + m_length - 1);

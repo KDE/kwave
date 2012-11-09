@@ -69,7 +69,7 @@
 #define CASE_COMMAND(x) } else if (parser.command() == x) {
 
 //***************************************************************************
-SignalManager::SignalManager(QWidget *parent)
+Kwave::SignalManager::SignalManager(QWidget *parent)
     :QObject(),
     m_parent_widget(parent),
     m_closed(true),
@@ -113,13 +113,13 @@ SignalManager::SignalManager(QWidget *parent)
 }
 
 //***************************************************************************
-SignalManager::~SignalManager()
+Kwave::SignalManager::~SignalManager()
 {
     close();
 }
 
 //***************************************************************************
-int SignalManager::loadFile(const KUrl &url)
+int Kwave::SignalManager::loadFile(const KUrl &url)
 {
     int res = 0;
     FileProgress *dialog = 0;
@@ -289,7 +289,7 @@ int SignalManager::loadFile(const KUrl &url)
 }
 
 //***************************************************************************
-int SignalManager::save(const KUrl &url, bool selection)
+int Kwave::SignalManager::save(const KUrl &url, bool selection)
 {
     int res = 0;
     sample_index_t ofs  = 0;
@@ -481,8 +481,8 @@ int SignalManager::save(const KUrl &url, bool selection)
 }
 
 //***************************************************************************
-void SignalManager::newSignal(sample_index_t samples, double rate,
-                              unsigned int bits, unsigned int tracks)
+void Kwave::SignalManager::newSignal(sample_index_t samples, double rate,
+                                     unsigned int bits, unsigned int tracks)
 {
     // enter and stay in modified state
     enableModifiedChange(true);
@@ -519,7 +519,7 @@ void SignalManager::newSignal(sample_index_t samples, double rate,
 }
 
 //***************************************************************************
-void SignalManager::close()
+void Kwave::SignalManager::close()
 {
     // stop the playback
     m_playback_controller.playbackStop();
@@ -558,7 +558,7 @@ void SignalManager::close()
 }
 
 //***************************************************************************
-QString SignalManager::signalName()
+QString Kwave::SignalManager::signalName()
 {
     // if a file is loaded -> path of the URL if it has one
     KUrl url;
@@ -573,7 +573,7 @@ QString SignalManager::signalName()
 }
 
 //***************************************************************************
-const QList<unsigned int> SignalManager::selectedTracks()
+const QList<unsigned int> Kwave::SignalManager::selectedTracks()
 {
     unsigned int track;
     QList<unsigned int> list;
@@ -588,20 +588,20 @@ const QList<unsigned int> SignalManager::selectedTracks()
 }
 
 //***************************************************************************
-const QList<unsigned int> SignalManager::allTracks()
+const QList<unsigned int> Kwave::SignalManager::allTracks()
 {
     return m_signal.allTracks();
 }
 
 //***************************************************************************
-Kwave::Writer *SignalManager::openWriter(unsigned int track,
+Kwave::Writer *Kwave::SignalManager::openWriter(unsigned int track,
 	InsertMode mode, sample_index_t left, sample_index_t right)
 {
     return m_signal.openWriter(track, mode, left, right);
 }
 
 //***************************************************************************
-int SignalManager::executeCommand(const QString &command)
+int Kwave::SignalManager::executeCommand(const QString &command)
 {
     sample_index_t offset = m_selection.offset();
     sample_index_t length = m_selection.length();
@@ -635,7 +635,8 @@ int SignalManager::executeCommand(const QString &command)
 	if (!selectedTracks().size()) return 0;
 	sample_index_t offset = parser.toUInt();
 
-	UndoTransactionGuard undo(*this, i18n("Insert Clipboard at position"));
+	Kwave::UndoTransactionGuard undo(*this,
+	                                 i18n("Insert Clipboard at position"));
 
 	selectRange(offset, 0);
 	clip.paste(m_parent_widget, *this, offset, 0);
@@ -645,7 +646,7 @@ int SignalManager::executeCommand(const QString &command)
 	if (clip.isEmpty()) return 0;
 	if (!selectedTracks().size()) return 0;
 
-	UndoTransactionGuard undo(*this, i18n("Paste"));
+	Kwave::UndoTransactionGuard undo(*this, i18n("Paste"));
 	clip.paste(m_parent_widget, *this, offset, length);
     CASE_COMMAND("cut")
 	if (length) {
@@ -659,14 +660,14 @@ int SignalManager::executeCommand(const QString &command)
 		selectedTracks(),
 		offset, length
 	    );
-	    UndoTransactionGuard undo(*this, i18n("Cut"));
+	    Kwave::UndoTransactionGuard undo(*this, i18n("Cut"));
 	    deleteRange(offset, length);
 	    selectRange(m_selection.offset(), 0);
 	}
     CASE_COMMAND("clipboard_flush")
 	ClipBoard::instance().clear();
     CASE_COMMAND("crop")
-	UndoTransactionGuard undo(*this, i18n("Crop"));
+	Kwave::UndoTransactionGuard undo(*this, i18n("Crop"));
 	sample_index_t rest = this->length() - offset;
 	rest = (rest > length) ? (rest-length) : 0;
 	QList<unsigned int> tracks = selectedTracks();
@@ -684,7 +685,7 @@ int SignalManager::executeCommand(const QString &command)
 	    selectRange(0, length);
 	}
     CASE_COMMAND("delete")
-	UndoTransactionGuard undo(*this, i18n("Delete"));
+	Kwave::UndoTransactionGuard undo(*this, i18n("Delete"));
 	deleteRange(offset, length);
 	selectRange(m_selection.offset(), 0);
 
@@ -715,7 +716,8 @@ int SignalManager::executeCommand(const QString &command)
 	deleteLabel(index, true);
 
     CASE_COMMAND("expandtolabel")
-	UndoTransactionGuard undo(*this, i18n("Expand Selection to Label"));
+	Kwave::UndoTransactionGuard undo(*this,
+	                                 i18n("Expand Selection to Label"));
 	sample_index_t selection_left  = m_selection.first();
 	sample_index_t selection_right = m_selection.last();
 	LabelList labels(m_meta_data);
@@ -744,7 +746,7 @@ int SignalManager::executeCommand(const QString &command)
 	selectRange(selection_left, len);
 
     CASE_COMMAND("selectnextlabels")
-	UndoTransactionGuard undo(*this, i18n("Select Next Labels"));
+	Kwave::UndoTransactionGuard undo(*this, i18n("Select Next Labels"));
 	sample_index_t selection_left;
 	sample_index_t selection_right = m_selection.last();
 	Label label_left  = Label();
@@ -781,7 +783,7 @@ int SignalManager::executeCommand(const QString &command)
 	selectRange(selection_left, len);
 
     CASE_COMMAND("selectprevlabels")
-	UndoTransactionGuard undo(*this, i18n("Select Previous Labels"));
+	Kwave::UndoTransactionGuard undo(*this, i18n("Select Previous Labels"));
 	sample_index_t selection_left  = selection().first();
 	sample_index_t selection_right = selection().last();
 	Label label_left  = Label();
@@ -820,28 +822,28 @@ int SignalManager::executeCommand(const QString &command)
 
     // track selection
     CASE_COMMAND("select_track:all")
-	UndoTransactionGuard undo(*this, i18n("Select All Tracks"));
+	Kwave::UndoTransactionGuard undo(*this, i18n("Select All Tracks"));
 	foreach (unsigned int track, allTracks())
 	    selectTrack(track, true);
     CASE_COMMAND("select_track:none")
-	UndoTransactionGuard undo(*this, i18n("Deselect all tracks"));
+	Kwave::UndoTransactionGuard undo(*this, i18n("Deselect all tracks"));
 	foreach (unsigned int track, allTracks())
 	    selectTrack(track, false);
     CASE_COMMAND("select_track:invert")
-	UndoTransactionGuard undo(*this, i18n("Invert Track Selection"));
+	Kwave::UndoTransactionGuard undo(*this, i18n("Invert Track Selection"));
 	foreach (unsigned int track, allTracks())
 	    selectTrack(track, !trackSelected(track));
     CASE_COMMAND("select_track:on")
 	int track = parser.toInt();
-	UndoTransactionGuard undo(*this, i18n("Select Track"));
+	Kwave::UndoTransactionGuard undo(*this, i18n("Select Track"));
 	selectTrack(track, true);
     CASE_COMMAND("select_track:off")
 	int track = parser.toInt();
-	UndoTransactionGuard undo(*this, i18n("Deselect Track"));
+	Kwave::UndoTransactionGuard undo(*this, i18n("Deselect Track"));
 	selectTrack(track, false);
     CASE_COMMAND("select_track:toggle")
 	int track = parser.toInt();
-	UndoTransactionGuard undo(*this, i18n("Toggle Track Selection"));
+	Kwave::UndoTransactionGuard undo(*this, i18n("Toggle Track Selection"));
 	selectTrack(track, !(trackSelected(track)));
 
     CASE_COMMAND("fileinfo")
@@ -873,16 +875,16 @@ int SignalManager::executeCommand(const QString &command)
 }
 
 //***************************************************************************
-void SignalManager::appendTrack()
+void Kwave::SignalManager::appendTrack()
 {
-    UndoTransactionGuard u(*this, i18n("Append Track"));
+    Kwave::UndoTransactionGuard u(*this, i18n("Append Track"));
     insertTrack(tracks());
 }
 
 //***************************************************************************
-void SignalManager::insertTrack(unsigned int index)
+void Kwave::SignalManager::insertTrack(unsigned int index)
 {
-    UndoTransactionGuard u(*this, i18n("Insert Track"));
+    Kwave::UndoTransactionGuard u(*this, i18n("Insert Track"));
 
     const unsigned int count = tracks();
     Q_ASSERT(index <= count);
@@ -890,7 +892,7 @@ void SignalManager::insertTrack(unsigned int index)
 
     // undo action for the track insert
     if (m_undo_enabled && !registerUndoAction(
-	new UndoInsertTrack(m_signal, index))) return;
+	new Kwave::UndoInsertTrack(m_signal, index))) return;
 
     // if the signal is currently empty, use the last
     // known length instead of the current one
@@ -906,7 +908,7 @@ void SignalManager::insertTrack(unsigned int index)
 	    for (unsigned int t = index; t < count; t++) tracks.append(t);
 	    Kwave::MetaDataList list = m_meta_data.selectByTracks(tracks);
 	    if (!list.isEmpty() && !registerUndoAction(
-		new UndoModifyMetaDataAction(list))) return;
+		new Kwave::UndoModifyMetaDataAction(list))) return;
 	}
 
 	// adjust the track bound meta data
@@ -921,9 +923,9 @@ void SignalManager::insertTrack(unsigned int index)
 }
 
 //***************************************************************************
-void SignalManager::deleteTrack(unsigned int index)
+void Kwave::SignalManager::deleteTrack(unsigned int index)
 {
-    UndoTransactionGuard u(*this, i18n("Delete Track"));
+    Kwave::UndoTransactionGuard u(*this, i18n("Delete Track"));
 
     const unsigned int count = tracks();
     Q_ASSERT(index <= count);
@@ -938,7 +940,7 @@ void SignalManager::deleteTrack(unsigned int index)
 	for (unsigned int t = index; t < count; t++) tracks.append(t);
 	Kwave::MetaDataList list = m_meta_data.selectByTracks(tracks);
 	if (!list.isEmpty() && !registerUndoAction(
-	    new UndoModifyMetaDataAction(list))) return;
+	    new Kwave::UndoModifyMetaDataAction(list))) return;
     }
 
     // adjust the track bound meta data
@@ -949,8 +951,8 @@ void SignalManager::deleteTrack(unsigned int index)
 }
 
 //***************************************************************************
-void SignalManager::slotTrackInserted(unsigned int index,
-                                      Kwave::Track *track)
+void Kwave::SignalManager::slotTrackInserted(unsigned int index,
+                                             Kwave::Track *track)
 {
     setModified(true);
 
@@ -963,7 +965,7 @@ void SignalManager::slotTrackInserted(unsigned int index,
 }
 
 //***************************************************************************
-void SignalManager::slotTrackDeleted(unsigned int index)
+void Kwave::SignalManager::slotTrackDeleted(unsigned int index)
 {
     setModified(true);
 
@@ -976,7 +978,7 @@ void SignalManager::slotTrackDeleted(unsigned int index)
 }
 
 //***************************************************************************
-void SignalManager::slotSamplesInserted(unsigned int track,
+void Kwave::SignalManager::slotSamplesInserted(unsigned int track,
 	sample_index_t offset, sample_index_t length)
 {
     // remember the last known length
@@ -999,7 +1001,7 @@ void SignalManager::slotSamplesInserted(unsigned int track,
 }
 
 //***************************************************************************
-void SignalManager::slotSamplesDeleted(unsigned int track,
+void Kwave::SignalManager::slotSamplesDeleted(unsigned int track,
 	sample_index_t offset, sample_index_t length)
 {
     // remember the last known length
@@ -1022,7 +1024,7 @@ void SignalManager::slotSamplesDeleted(unsigned int track,
 }
 
 //***************************************************************************
-void SignalManager::slotSamplesModified(unsigned int track,
+void Kwave::SignalManager::slotSamplesModified(unsigned int track,
 	sample_index_t offset, sample_index_t length)
 {
     setModified(true);
@@ -1030,8 +1032,8 @@ void SignalManager::slotSamplesModified(unsigned int track,
 }
 
 //***************************************************************************
-bool SignalManager::deleteRange(sample_index_t offset, sample_index_t length,
-                                const QList<unsigned int> &track_list)
+bool Kwave::SignalManager::deleteRange(sample_index_t offset,
+    sample_index_t length, const QList<unsigned int> &track_list)
 {
     if (!length || track_list.isEmpty()) return true; // nothing to do
 
@@ -1069,17 +1071,19 @@ bool SignalManager::deleteRange(sample_index_t offset, sample_index_t length,
 }
 
 //***************************************************************************
-bool SignalManager::deleteRange(sample_index_t offset, sample_index_t length)
+bool Kwave::SignalManager::deleteRange(sample_index_t offset,
+                                       sample_index_t length)
 {
     return deleteRange(offset, length, selectedTracks());
 }
 
 //***************************************************************************
-bool SignalManager::insertSpace(sample_index_t offset, sample_index_t length,
-                                const QList<unsigned int> &track_list)
+bool Kwave::SignalManager::insertSpace(sample_index_t offset,
+                                       sample_index_t length,
+                                       const QList<unsigned int> &track_list)
 {
     if (!length) return true; // nothing to do
-    UndoTransactionGuard undo(*this, i18n("Insert Space"));
+    Kwave::UndoTransactionGuard undo(*this, i18n("Insert Space"));
 
     unsigned int count = track_list.count();
     if (!count) return true; // nothing to do
@@ -1087,7 +1091,7 @@ bool SignalManager::insertSpace(sample_index_t offset, sample_index_t length,
     // first store undo data for all tracks
     unsigned int track;
     if (m_undo_enabled) {
-	if (!registerUndoAction(new UndoInsertAction(
+	if (!registerUndoAction(new Kwave::UndoInsertAction(
 	    m_parent_widget, track_list, offset, length))) return false;
     }
 
@@ -1100,7 +1104,8 @@ bool SignalManager::insertSpace(sample_index_t offset, sample_index_t length,
 }
 
 //***************************************************************************
-void SignalManager::selectRange(sample_index_t offset, sample_index_t length)
+void Kwave::SignalManager::selectRange(sample_index_t offset,
+                                       sample_index_t length)
 {
     // first do some range checking
     sample_index_t len = this->length();
@@ -1112,7 +1117,7 @@ void SignalManager::selectRange(sample_index_t offset, sample_index_t length)
 }
 
 //***************************************************************************
-void SignalManager::selectTracks(QList<unsigned int> &track_list)
+void Kwave::SignalManager::selectTracks(QList<unsigned int> &track_list)
 {
     unsigned int track;
     unsigned int n_tracks = tracks();
@@ -1126,7 +1131,7 @@ void SignalManager::selectTracks(QList<unsigned int> &track_list)
 }
 
 //***************************************************************************
-void SignalManager::selectTrack(unsigned int track, bool select)
+void Kwave::SignalManager::selectTrack(unsigned int track, bool select)
 {
     bool old_select = m_signal.trackSelected(track);
     if (select != old_select) {
@@ -1135,13 +1140,13 @@ void SignalManager::selectTrack(unsigned int track, bool select)
 }
 
 //***************************************************************************
-PlaybackController &SignalManager::playbackController()
+PlaybackController &Kwave::SignalManager::playbackController()
 {
     return m_playback_controller;
 }
 
 //***************************************************************************
-void SignalManager::startUndoTransaction(const QString &name)
+void Kwave::SignalManager::startUndoTransaction(const QString &name)
 {
     if (!m_undo_enabled) return; // undo is currently not enabled
 
@@ -1159,13 +1164,13 @@ void SignalManager::startUndoTransaction(const QString &name)
 	// if a new action starts, discard all redo actions !
 	flushRedoBuffer();
 
-	m_undo_transaction = new UndoTransaction(name);
+	m_undo_transaction = new Kwave::UndoTransaction(name);
 	Q_ASSERT(m_undo_transaction);
 	if (!m_undo_transaction) return;
 
 	// if it is the start of the transaction, also create one
 	// for the selection
-	UndoAction *selection = new UndoSelection(*this);
+	UndoAction *selection = new Kwave::UndoSelection(*this);
 	Q_ASSERT(selection);
 	if (selection) {
 	    if (selection->store(*this)) {
@@ -1181,7 +1186,7 @@ void SignalManager::startUndoTransaction(const QString &name)
 }
 
 //***************************************************************************
-void SignalManager::closeUndoTransaction()
+void Kwave::SignalManager::closeUndoTransaction()
 {
     QMutexLocker lock(&m_undo_transaction_lock);
 
@@ -1240,14 +1245,14 @@ void SignalManager::closeUndoTransaction()
 }
 
 //***************************************************************************
-void SignalManager::enableUndo()
+void Kwave::SignalManager::enableUndo()
 {
     m_undo_enabled = true;
     emitUndoRedoInfo();
 }
 
 //***************************************************************************
-void SignalManager::disableUndo()
+void Kwave::SignalManager::disableUndo()
 {
     Q_ASSERT(m_undo_transaction_level == 0);
 
@@ -1256,7 +1261,7 @@ void SignalManager::disableUndo()
 }
 
 //***************************************************************************
-void SignalManager::flushUndoBuffers()
+void Kwave::SignalManager::flushUndoBuffers()
 {
     QMutexLocker lock(&m_undo_transaction_lock);
 
@@ -1276,14 +1281,14 @@ void SignalManager::flushUndoBuffers()
 }
 
 //***************************************************************************
-void SignalManager::abortUndoTransaction()
+void Kwave::SignalManager::abortUndoTransaction()
 {
     // abort the current transaction
     if (m_undo_transaction) m_undo_transaction->abort();
 }
 
 //***************************************************************************
-void SignalManager::flushRedoBuffer()
+void Kwave::SignalManager::flushRedoBuffer()
 {
     qDeleteAll(m_redo_buffer);
     m_redo_buffer.clear();
@@ -1291,7 +1296,7 @@ void SignalManager::flushRedoBuffer()
 }
 
 //***************************************************************************
-bool SignalManager::continueWithoutUndo()
+bool Kwave::SignalManager::continueWithoutUndo()
 {
     // undo has not been enabled before?
     if (!m_undo_transaction) return true;
@@ -1323,7 +1328,7 @@ bool SignalManager::continueWithoutUndo()
 
 	// flush the current undo transaction
 	while (!m_undo_transaction->isEmpty()) {
-	    UndoAction *undo_action = m_undo_transaction->takeLast();
+	    Kwave::UndoAction *undo_action = m_undo_transaction->takeLast();
 	    if (undo_action) delete undo_action;
 	}
 
@@ -1340,7 +1345,7 @@ bool SignalManager::continueWithoutUndo()
 }
 
 //***************************************************************************
-bool SignalManager::registerUndoAction(UndoAction *action)
+bool Kwave::SignalManager::registerUndoAction(Kwave::UndoAction *action)
 {
     QMutexLocker lock(&m_undo_transaction_lock);
 
@@ -1387,8 +1392,9 @@ bool SignalManager::registerUndoAction(UndoAction *action)
 }
 
 //***************************************************************************
-bool SignalManager::saveUndoDelete(QList<unsigned int> &track_list,
-                                   sample_index_t offset, sample_index_t length)
+bool Kwave::SignalManager::saveUndoDelete(QList<unsigned int> &track_list,
+                                          sample_index_t offset,
+                                          sample_index_t length)
 {
     if (!m_undo_enabled) return true;
     if (track_list.isEmpty()) return true;
@@ -1402,21 +1408,21 @@ bool SignalManager::saveUndoDelete(QList<unsigned int> &track_list,
 }
 
 //***************************************************************************
-unsigned int SignalManager::usedUndoRedoMemory()
+unsigned int Kwave::SignalManager::usedUndoRedoMemory()
 {
     unsigned int size = 0;
 
-    foreach (UndoTransaction *undo, m_undo_buffer)
+    foreach (Kwave::UndoTransaction *undo, m_undo_buffer)
 	if (undo) size += undo->undoSize();
 
-    foreach (UndoTransaction *redo, m_redo_buffer)
+    foreach (Kwave::UndoTransaction *redo, m_redo_buffer)
 	if (redo) size += redo->undoSize();
 
     return size;
 }
 
 //***************************************************************************
-void SignalManager::freeUndoMemory(unsigned int needed)
+void Kwave::SignalManager::freeUndoMemory(unsigned int needed)
 {
     unsigned int size = usedUndoRedoMemory() + needed;
     unsigned int undo_limit =
@@ -1424,7 +1430,7 @@ void SignalManager::freeUndoMemory(unsigned int needed)
 
     // remove old undo actions if not enough free memory
     while (!m_undo_buffer.isEmpty() && (size > undo_limit)) {
-	UndoTransaction *undo = m_undo_buffer.takeFirst();
+	Kwave::UndoTransaction *undo = m_undo_buffer.takeFirst();
 	if (!undo) continue;
 	unsigned int s = undo->undoSize();
 	size = (size >= s) ? (size - s) : 0;
@@ -1437,7 +1443,7 @@ void SignalManager::freeUndoMemory(unsigned int needed)
 
     // remove old redo actions if still not enough memory
     while (!m_redo_buffer.isEmpty() && (size > undo_limit)) {
-	UndoTransaction *redo = m_redo_buffer.takeLast();
+	Kwave::UndoTransaction *redo = m_redo_buffer.takeLast();
 	if (!redo) continue;
 	unsigned int s = redo->undoSize();
 	size = (size >= s) ? (size - s) : 0;
@@ -1446,13 +1452,13 @@ void SignalManager::freeUndoMemory(unsigned int needed)
 }
 
 //***************************************************************************
-void SignalManager::emitUndoRedoInfo()
+void Kwave::SignalManager::emitUndoRedoInfo()
 {
     QString undo_name = 0;
     QString redo_name = 0;
 
     if (m_undo_enabled) {
-	UndoTransaction *transaction;
+	Kwave::UndoTransaction *transaction;
 
 	// get the description of the last undo action
 	if (!m_undo_buffer.isEmpty()) {
@@ -1474,7 +1480,7 @@ void SignalManager::emitUndoRedoInfo()
 }
 
 //***************************************************************************
-void SignalManager::undo()
+void Kwave::SignalManager::undo()
 {
     QMutexLocker lock(&m_undo_transaction_lock);
 
@@ -1486,7 +1492,7 @@ void SignalManager::undo()
 
     // get the last undo transaction and abort if none present
     if (m_undo_buffer.isEmpty()) return;
-    UndoTransaction *undo_transaction = m_undo_buffer.takeLast();
+    Kwave::UndoTransaction *undo_transaction = m_undo_buffer.takeLast();
     if (!undo_transaction) return;
 
     // dump, for debugging
@@ -1501,7 +1507,7 @@ void SignalManager::undo()
 	Kwave::MemoryManager::instance().undoLimit() << 20;
     unsigned int redo_size = undo_transaction->redoSize();
     unsigned int undo_size = undo_transaction->undoSize();
-    UndoTransaction *redo_transaction = 0;
+    Kwave::UndoTransaction *redo_transaction = 0;
     if ((redo_size > undo_size) && (redo_size - undo_size > undo_limit)) {
 	// not enough memory for redo
 	qWarning("SignalManager::undo(): not enough memory for redo !");
@@ -1511,7 +1517,7 @@ void SignalManager::undo()
 
 	// create a new redo transaction
 	QString name = undo_transaction->description();
-	redo_transaction = new UndoTransaction(name);
+	redo_transaction = new Kwave::UndoTransaction(name);
 	Q_ASSERT(redo_transaction);
     }
 
@@ -1573,7 +1579,7 @@ void SignalManager::undo()
 	QList<unsigned int> tracks = selectedTracks();
 	bool tracks_modified = !(tracks == m_last_track_selection);
 	if (range_modified || tracks_modified) {
-	    UndoAction *redo_action = new UndoSelection(*this,
+	    UndoAction *redo_action = new Kwave::UndoSelection(*this,
 		m_last_track_selection,
 		m_last_selection.offset(),
 		m_last_selection.length());
@@ -1586,7 +1592,7 @@ void SignalManager::undo()
     // that has to do with modification of the signal
     if (m_modified) {
 	bool stay_modified = false;
-	foreach (UndoTransaction *transaction, m_undo_buffer) {
+	foreach (Kwave::UndoTransaction *transaction, m_undo_buffer) {
 	    if (!transaction) continue;
 	    if (transaction->containsModification()) {
 		stay_modified = true;
@@ -1621,13 +1627,13 @@ void SignalManager::undo()
 }
 
 //***************************************************************************
-void SignalManager::redo()
+void Kwave::SignalManager::redo()
 {
     QMutexLocker lock(&m_undo_transaction_lock);
 
     // get the last redo transaction and abort if none present
     if (m_redo_buffer.isEmpty()) return;
-    UndoTransaction *redo_transaction = m_redo_buffer.takeFirst();
+    Kwave::UndoTransaction *redo_transaction = m_redo_buffer.takeFirst();
     if (!redo_transaction) return;
 
     // check for modified selection
@@ -1642,7 +1648,7 @@ void SignalManager::redo()
 	Kwave::MemoryManager::instance().undoLimit() << 20;
     unsigned int undo_size = redo_transaction->undoSize();
     unsigned int redo_size = redo_transaction->redoSize();
-    UndoTransaction *undo_transaction = 0;
+    Kwave::UndoTransaction *undo_transaction = 0;
     if ((undo_size > redo_size) && (undo_size - redo_size > undo_limit)) {
 	// not enough memory for undo
 	qWarning("SignalManager::redo(): not enough memory for undo !");
@@ -1652,7 +1658,7 @@ void SignalManager::redo()
 
 	// create a new undo transaction
 	QString name = redo_transaction->description();
-	undo_transaction = new UndoTransaction(name);
+	undo_transaction = new Kwave::UndoTransaction(name);
 	Q_ASSERT(undo_transaction);
     }
 
@@ -1732,7 +1738,7 @@ void SignalManager::redo()
 }
 
 //***************************************************************************
-void SignalManager::setModified(bool mod)
+void Kwave::SignalManager::setModified(bool mod)
 {
     if (!m_modified_enabled) return;
 
@@ -1744,19 +1750,22 @@ void SignalManager::setModified(bool mod)
 }
 
 //***************************************************************************
-void SignalManager::enableModifiedChange(bool en)
+void Kwave::SignalManager::enableModifiedChange(bool en)
 {
     m_modified_enabled = en;
 }
 
 //***************************************************************************
-void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
+void Kwave::SignalManager::setFileInfo(FileInfo &new_info,
+                                       bool with_undo)
 {
     if (m_undo_enabled && with_undo) {
 	/* save data for undo */
-	UndoTransactionGuard undo_transaction(*this, i18n("Modify File Info"));
+	Kwave::UndoTransactionGuard undo_transaction(*this,
+	                                             i18n("Modify File Info"));
 	FileInfo old_inf(m_meta_data);
-	if (!registerUndoAction(new UndoModifyMetaDataAction(old_inf))) return;
+	if (!registerUndoAction(new Kwave::UndoModifyMetaDataAction(old_inf)))
+	    return;
     }
 
     m_meta_data.replace(new_info);
@@ -1766,7 +1775,7 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
 }
 
 //***************************************************************************
-Label SignalManager::findLabel(sample_index_t pos)
+Label Kwave::SignalManager::findLabel(sample_index_t pos)
 {
     LabelList labels(m_meta_data);
     foreach (const Label &label, labels) {
@@ -1776,7 +1785,7 @@ Label SignalManager::findLabel(sample_index_t pos)
 }
 
 //***************************************************************************
-int SignalManager::labelIndex(const Label &label) const
+int Kwave::SignalManager::labelIndex(const Label &label) const
 {
     int index = 0;
     LabelList labels(m_meta_data);
@@ -1788,7 +1797,8 @@ int SignalManager::labelIndex(const Label &label) const
 }
 
 //***************************************************************************
-Label SignalManager::addLabel(sample_index_t pos, const QString &name)
+Label Kwave::SignalManager::addLabel(sample_index_t pos,
+                                     const QString &name)
 {
     // if there already is a label at the given position, do nothing
     if (!findLabel(pos).isNull()) return Label();
@@ -1798,7 +1808,7 @@ Label SignalManager::addLabel(sample_index_t pos, const QString &name)
 
     // register the undo action
     if (m_undo_enabled) {
-	UndoTransactionGuard undo(*this, i18n("Add Label"));
+	Kwave::UndoTransactionGuard undo(*this, i18n("Add Label"));
 	if (!registerUndoAction(new UndoAddMetaDataAction(label)))
 	    return Label();
     }
@@ -1815,7 +1825,7 @@ Label SignalManager::addLabel(sample_index_t pos, const QString &name)
 }
 
 //***************************************************************************
-void SignalManager::deleteLabel(int index, bool with_undo)
+void Kwave::SignalManager::deleteLabel(int index, bool with_undo)
 {
     LabelList labels(m_meta_data);
 
@@ -1827,7 +1837,7 @@ void SignalManager::deleteLabel(int index, bool with_undo)
 
     // register the undo action
     if (with_undo) {
-	UndoTransactionGuard undo(*this, i18n("Delete Label"));
+	Kwave::UndoTransactionGuard undo(*this, i18n("Delete Label"));
 	if (!registerUndoAction(new UndoDeleteMetaDataAction(label)))
 	    return;
     }
@@ -1841,8 +1851,8 @@ void SignalManager::deleteLabel(int index, bool with_undo)
 }
 
 //***************************************************************************
-bool SignalManager::modifyLabel(int index, sample_index_t pos,
-                                const QString &name)
+bool Kwave::SignalManager::modifyLabel(int index, sample_index_t pos,
+                                       const QString &name)
 {
     LabelList labels(m_meta_data);
     Q_ASSERT(index >= 0);
@@ -1859,8 +1869,8 @@ bool SignalManager::modifyLabel(int index, sample_index_t pos,
 
     // add a undo action
     if (m_undo_enabled) {
-	UndoModifyMetaDataAction *undo_modify =
-	    new UndoModifyMetaDataAction(label);
+	Kwave::UndoModifyMetaDataAction *undo_modify =
+	    new Kwave::UndoModifyMetaDataAction(label);
 	if (!registerUndoAction(undo_modify))
 	    return false;
     }
@@ -1878,14 +1888,14 @@ bool SignalManager::modifyLabel(int index, sample_index_t pos,
 }
 
 //***************************************************************************
-void SignalManager::rememberCurrentSelection()
+void Kwave::SignalManager::rememberCurrentSelection()
 {
     m_last_selection       = m_selection;
     m_last_track_selection = selectedTracks();
 }
 
 //***************************************************************************
-void SignalManager::checkSelectionChange()
+void Kwave::SignalManager::checkSelectionChange()
 {
     if (m_undo_transaction_level) return;
 
@@ -1909,9 +1919,11 @@ void SignalManager::checkSelectionChange()
 
 	// save the last selection into a undo action
 	if (tracks_modified && !range_modified)
-	    UndoTransactionGuard undo(*this, i18n("Manual Track Selection"));
+	    Kwave::UndoTransactionGuard undo(*this,
+	                                     i18n("Manual Track Selection"));
 	else
-	    UndoTransactionGuard undo(*this, i18n("Manual Selection"));
+	    Kwave::UndoTransactionGuard undo(*this,
+	                                     i18n("Manual Selection"));
 
 	// restore the current selection again
 	m_selection = new_selection;
@@ -1921,6 +1933,7 @@ void SignalManager::checkSelectionChange()
 }
 
 //***************************************************************************
+using namespace Kwave;
 #include "SignalManager.moc"
 //***************************************************************************
 //***************************************************************************

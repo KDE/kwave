@@ -54,7 +54,7 @@ void ZeroPlugin::run(QStringList params)
     sample_index_t first = 0;
     sample_index_t last  = 0;
 
-    UndoTransactionGuard undo_guard(*this, i18n("Silence"));
+    Kwave::UndoTransactionGuard undo_guard(*this, i18n("Silence"));
 
     Kwave::MultiTrackWriter *writers = 0;
 

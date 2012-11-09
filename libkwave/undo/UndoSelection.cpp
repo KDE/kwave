@@ -23,17 +23,17 @@
 #include "libkwave/undo/UndoSelection.h"
 
 //***************************************************************************
-UndoSelection::UndoSelection(SignalManager &manager)
+Kwave::UndoSelection::UndoSelection(Kwave::SignalManager &manager)
     :UndoAction(),
      m_manager(manager), m_offset(0), m_length(0), m_selected_tracks()
 {
 }
 
 //***************************************************************************
-UndoSelection::UndoSelection(SignalManager &manager,
-                             QList<unsigned int> selected_tracks,
-                             sample_index_t offset,
-                             sample_index_t length)
+Kwave::UndoSelection::UndoSelection(Kwave::SignalManager &manager,
+                                    QList<unsigned int> selected_tracks,
+                                    sample_index_t offset,
+                                    sample_index_t length)
     :UndoAction(),
      m_manager(manager), m_offset(offset), m_length(length),
      m_selected_tracks(selected_tracks)
@@ -41,32 +41,32 @@ UndoSelection::UndoSelection(SignalManager &manager,
 }
 
 //***************************************************************************
-UndoSelection::~UndoSelection()
+Kwave::UndoSelection::~UndoSelection()
 {
 }
 
 //***************************************************************************
-QString UndoSelection::description()
+QString Kwave::UndoSelection::description()
 {
     return i18n("Selection");
 }
 
 //***************************************************************************
-unsigned int UndoSelection::undoSize()
+unsigned int Kwave::UndoSelection::undoSize()
 {
     return sizeof(*this) +
 	(m_selected_tracks.count() * sizeof(unsigned int));
 }
 
 //***************************************************************************
-int UndoSelection::redoSize()
+int Kwave::UndoSelection::redoSize()
 {
     return sizeof(*this) +
 	(m_manager.selectedTracks().count() * sizeof(unsigned int));
 }
 
 //***************************************************************************
-bool UndoSelection::store(SignalManager &manager)
+bool Kwave::UndoSelection::store(Kwave::SignalManager &manager)
 {
     m_offset = manager.selection().offset();
     m_length = manager.selection().length();
@@ -76,7 +76,8 @@ bool UndoSelection::store(SignalManager &manager)
 }
 
 //***************************************************************************
-UndoAction *UndoSelection::undo(SignalManager &manager, bool with_redo)
+Kwave::UndoAction *Kwave::UndoSelection::undo(Kwave::SignalManager &manager,
+                                              bool with_redo)
 {
     // store current selection for later redo
     sample_index_t old_offset = manager.selection().offset();
@@ -99,7 +100,7 @@ UndoAction *UndoSelection::undo(SignalManager &manager, bool with_redo)
 }
 
 //***************************************************************************
-void UndoSelection::dump(const QString &indent)
+void Kwave::UndoSelection::dump(const QString &indent)
 {
     qDebug("%sselect from [%lu ... %lu] (%lu)",
            indent.toLocal8Bit().data(),

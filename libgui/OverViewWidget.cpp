@@ -68,7 +68,7 @@ void OverViewWidget::WorkerThread::run()
 
 //***************************************************************************
 //***************************************************************************
-OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
+OverViewWidget::OverViewWidget(Kwave::SignalManager &signal, QWidget *parent)
     :ImageView(parent), m_view_offset(0), m_view_width(0), m_signal_length(0),
      m_selection_start(0), m_selection_length(0),
      m_playback_position(0), m_last_offset(0), m_cache(signal),

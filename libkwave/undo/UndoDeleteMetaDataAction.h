@@ -25,49 +25,53 @@
 #include "libkwave/MetaDataList.h"
 #include "libkwave/undo/UndoAction.h"
 
-class SignalManager;
+namespace Kwave {
 
-/**
- * Undo action for deleting a list of meta data items.
- */
-class UndoDeleteMetaDataAction: public UndoAction
-{
-public:
+    class SignalManager;
 
     /**
-     * Constructor
-     * @param meta_data reference to the meta data that should be deleted
+     * Undo action for deleting a list of meta data items.
      */
-    UndoDeleteMetaDataAction(const Kwave::MetaDataList &meta_data);
+    class UndoDeleteMetaDataAction: public Kwave::UndoAction
+    {
+    public:
 
-    /** Destructor */
-    virtual ~UndoDeleteMetaDataAction();
+	/**
+	 * Constructor
+	 * @param meta_data reference to the meta data that should be deleted
+	 */
+	UndoDeleteMetaDataAction(const Kwave::MetaDataList &meta_data);
 
-    /**
-     * Returns a verbose short description of the action.
-     */
-    virtual QString description();
+	/** Destructor */
+	virtual ~UndoDeleteMetaDataAction();
 
-    /** @see UndoAction::undoSize() */
-    virtual unsigned int undoSize();
+	/**
+	 * Returns a verbose short description of the action.
+	 */
+	virtual QString description();
 
-    /** @see UndoAction::redoSize() */
-    virtual int redoSize();
+	/** @see UndoAction::undoSize() */
+	virtual unsigned int undoSize();
 
-    /** @see UndoAction::store() */
-    virtual bool store(SignalManager &manager);
+	/** @see UndoAction::redoSize() */
+	virtual int redoSize();
 
-    /** @see UndoAction::undo() */
-    virtual UndoAction *undo(SignalManager &manager, bool with_redo);
+	/** @see UndoAction::store() */
+	virtual bool store(Kwave::SignalManager &manager);
 
-    /** dump, for debugging purposes */
-    virtual void dump(const QString &indent);
+	/** @see UndoAction::undo() */
+	virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
+	                                bool with_redo);
 
-protected:
+	/** dump, for debugging purposes */
+	virtual void dump(const QString &indent);
 
-    /** the list of deleted meta data items */
-    Kwave::MetaDataList m_meta_data;
+    protected:
 
-};
+	/** the list of deleted meta data items */
+	Kwave::MetaDataList m_meta_data;
+
+    };
+}
 
 #endif /* _UNDO_DELETE_META_DATA_ACTION_H_ */

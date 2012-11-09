@@ -172,7 +172,7 @@ NormalizePlugin::~NormalizePlugin()
 void NormalizePlugin::run(QStringList params)
 {
     Q_UNUSED(params);
-    UndoTransactionGuard undo_guard(*this, i18n("Normalize"));
+    Kwave::UndoTransactionGuard undo_guard(*this, i18n("Normalize"));
 
     // get the current selection
     QList<unsigned int> tracks;

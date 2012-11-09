@@ -29,7 +29,11 @@
 #include "libkwave/MultiTrackSource.h"
 #include "libkwave/SampleReader.h"
 
-class SignalManager;
+namespace Kwave {
+
+    class SignalManager;
+
+}
 
 /**
  * A MultiTrackReader encapsulates a set of <c>SampleReader</c>s for
@@ -55,7 +59,7 @@ public:
      * @param last index of the last sample (right)
      */
     MultiTrackReader(Kwave::ReaderMode mode,
-                     SignalManager &signal_manager,
+                     Kwave::SignalManager &signal_manager,
                      const QList<unsigned int> &track_list,
                      sample_index_t first, sample_index_t last);
 

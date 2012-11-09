@@ -34,8 +34,12 @@ class QWidget;
 
 class FileInfo;
 class MultiTrackReader;
-class SignalManager;
-namespace Kwave { class MetaDataList; }
+
+namespace Kwave {
+
+    class MetaDataList;
+    class SignalManager;
+}
 
 /**
  * Simple class for drag & drop of wav data.
@@ -81,7 +85,8 @@ public:
      * @return number of decoded samples if successful, zero if failed
      */
     static unsigned int decode(QWidget *widget, const QMimeData *e,
-                               SignalManager &sig, sample_index_t pos);
+                               Kwave::SignalManager &sig,
+                               sample_index_t pos);
 
 };
 

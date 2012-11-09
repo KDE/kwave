@@ -38,15 +38,19 @@
 class QMouseEvent;
 class QPainter;
 class QResizeEvent;
-class SignalManager;
-namespace Kwave { class Track; }
+
+namespace Kwave {
+
+    class SignalManager;
+    class Track;
+}
 
 class KDE_EXPORT OverViewWidget : public ImageView
 {
     Q_OBJECT
 public:
     /** Constructor */
-    OverViewWidget(SignalManager &signal, QWidget *parent = 0);
+    OverViewWidget(Kwave::SignalManager &signal, QWidget *parent = 0);
 
     /** Destructor */
     virtual ~OverViewWidget();

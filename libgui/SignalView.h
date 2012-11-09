@@ -42,9 +42,10 @@ class QEvent;
 class QMouseEvent;
 class QPaintEvent;
 class QPoint;
-class SignalManager; // forward declaration
 
 namespace Kwave {
+
+    class SignalManager; // forward declaration
 
     class KDE_EXPORT SignalView: public QWidget
     {
@@ -75,7 +76,7 @@ namespace Kwave {
 	 *              not related to a specific track (default)
 	 */
 	SignalView(QWidget *parent, QWidget *controls,
-	           SignalManager *signal_manager,
+	           Kwave::SignalManager *signal_manager,
 	           Location preferred_location,
 	           int track = -1);
 
@@ -149,9 +150,9 @@ namespace Kwave {
 	/**
 	 * Tries to find the nearest item that is visible in this view
 	 * at a given position
-	 * 
+	 *
 	 * @param pos position to look at, relative to view [pixels]
-	 * @return the nearest ViewObject in range 
+	 * @return the nearest ViewObject in range
 	 *         or a null pointer if nothing found
 	 */
 	virtual QSharedPointer<Kwave::ViewItem> findItem(const QPoint &pos);
@@ -316,7 +317,7 @@ namespace Kwave {
 	QWidget *m_controls;
 
 	/** the signal manager */
-	SignalManager *m_signal_manager;
+	Kwave::SignalManager *m_signal_manager;
 
 	/** the preferred location, as per construction */
 	Location m_preferred_location;

@@ -29,9 +29,9 @@
 #include "libkwave/InsertMode.h"
 #include "libkwave/MultiWriter.h"
 
-class SignalManager;
-
 namespace Kwave {
+
+    class SignalManager;
 
     /**
      * A MultiTrackWriter encapsulates a set of <c>TrackWriter</c>s for
@@ -54,10 +54,10 @@ namespace Kwave {
 	 * @param left index of the first sample
 	 * @param right index of the last sample
 	 */
-	MultiTrackWriter(SignalManager &signal_manager,
-			const QList<unsigned int> &track_list,
-			InsertMode mode,
-			sample_index_t left, sample_index_t right);
+	MultiTrackWriter(Kwave::SignalManager &signal_manager,
+	                 const QList<unsigned int> &track_list,
+	                 InsertMode mode,
+	                 sample_index_t left, sample_index_t right);
 
 	/**
 	 * Constructor that opens a set of Writers using the currently
@@ -67,16 +67,16 @@ namespace Kwave {
 	 * @param signal_manager reference to a SignalManager
 	 * @param mode specifies where and how to insert
 	 */
-	MultiTrackWriter(SignalManager &signal_manager, InsertMode mode);
+	MultiTrackWriter(Kwave::SignalManager &signal_manager, InsertMode mode);
 
 	/** Destructor */
 	virtual ~MultiTrackWriter();
 
     private:
-    
+
 	/**
 	 * Intializer, see constructor...
-	 * 
+	 *
 	 * @param signal_manager reference to a SignalManager
 	 * @param track_list array of indices of tracks for reading
 	 * @param mode specifies where and how to insert
@@ -84,7 +84,7 @@ namespace Kwave {
 	 * @param right index of the last sample
 	 * @internal
 	 */
-	bool init(SignalManager &signal_manager,
+	bool init(Kwave::SignalManager &signal_manager,
 	          const QList<unsigned int> &track_list,
 	          InsertMode mode,
 	          sample_index_t left, sample_index_t right);

@@ -37,7 +37,7 @@ TopWidget *Kwave::ApplicationContext::topWidget()
 }
 
 //***************************************************************************
-SignalManager *Kwave::ApplicationContext::signalManager()
+Kwave::SignalManager *Kwave::ApplicationContext::signalManager()
 {
     Q_ASSERT(m_signal_manager);
     return m_signal_manager;

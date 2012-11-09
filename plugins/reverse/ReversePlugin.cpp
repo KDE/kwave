@@ -52,7 +52,7 @@ public:
      * Constructor
      */
     ReverseJob(
-	SignalManager &manager, unsigned int track,
+	Kwave::SignalManager &manager, unsigned int track,
 	sample_index_t first, sample_index_t last, unsigned int block_size,
 	SampleReader *src_a, SampleReader *src_b
     );
@@ -74,7 +74,7 @@ private:
 private:
 
     /** signal manager, for opening a sample writer */
-    SignalManager &m_manager;
+    Kwave::SignalManager &m_manager;
 
     /** index of the track */
     unsigned int m_track;
@@ -98,7 +98,7 @@ private:
 
 //***************************************************************************
 ReverseJob::ReverseJob(
-    SignalManager &manager, unsigned int track,
+    Kwave::SignalManager &manager, unsigned int track,
     sample_index_t first, sample_index_t last, unsigned int block_size,
     SampleReader *src_a, SampleReader *src_b)
     :ThreadWeaver::Job(),
@@ -211,7 +211,7 @@ ReversePlugin::~ReversePlugin()
 //***************************************************************************
 void ReversePlugin::run(QStringList params)
 {
-    QSharedPointer<UndoTransactionGuard> undo_guard;
+    QSharedPointer<Kwave::UndoTransactionGuard> undo_guard;
 
     // get the current selection and the list of affected tracks
     QList<unsigned int> tracks;
@@ -223,12 +223,12 @@ void ReversePlugin::run(QStringList params)
 
     if ((params.count() != 1) || (params.first() != "noundo")) {
 	// undo is enabled, create a undo guard
-	undo_guard = QSharedPointer<UndoTransactionGuard>(
-	    new UndoTransactionGuard(*this, i18n("Reverse")));
+	undo_guard = QSharedPointer<Kwave::UndoTransactionGuard>(
+	    new Kwave::UndoTransactionGuard(*this, i18n("Reverse")));
 	if (!undo_guard) return;
 
 	// try to save undo information
-	UndoAction *undo = new UndoReverseAction(manager());
+	Kwave::UndoAction *undo = new Kwave::UndoReverseAction(manager());
 	if (!undo_guard->registerUndoAction(undo))
 	    return;
 	undo->store(signalManager());

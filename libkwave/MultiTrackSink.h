@@ -1,5 +1,5 @@
 /*************************************************************************
-    KwaveMultiTrackSink.h  -  template for multi-track sinks
+       MultiTrackSink.h  -  template for multi-track sinks
 			    -------------------
     begin                : Sat Oct 20 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -15,8 +15,8 @@
 *                                                                         *
 ***************************************************************************/
 
-#ifndef _KWAVE_MULTI_TRACK_SINK_H_
-#define _KWAVE_MULTI_TRACK_SINK_H_
+#ifndef _MULTI_TRACK_SINK_H_
+#define _MULTI_TRACK_SINK_H_
 
 #include "config.h"
 #include <QObject>
@@ -105,4 +105,4 @@ namespace Kwave {
     };
 }
 
-#endif /* _KWAVE_MULTI_TRACK_SINK_H_ */
+#endif /* __MULTI_TRACK_SINK_H_ */

@@ -26,7 +26,7 @@
 
 #include <kdemacros.h>
 
-#include "libkwave/KwaveMultiTrackSink.h"
+#include "libkwave/MultiTrackSink.h"
 #include "libkwave/PlaybackSink.h"
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/SampleArray.h"

@@ -26,8 +26,8 @@
 
 #include <kdemacros.h>
 
+#include "libkwave/MultiTrackSink.h"
 #include "libkwave/Writer.h"
-#include "libkwave/KwaveMultiTrackSink.h"
 
 class MultiTrackReader;
 

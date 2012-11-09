@@ -1,5 +1,5 @@
 /***************************************************************************
-    KwaveFileDrag.h  -  check if Kwave can handle a mime type per drag&drop
+             FileDrag.h  -  check if Kwave can handle a mime type per drag&drop
 			     -------------------
     begin                : Sat Feb 26 2011
     copyright            : (C) 2011 by Thomas Eschenbacher
@@ -14,6 +14,9 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+
+#ifndef _FILE_DRAG_H_
+#define _FILE_DRAG_H_
 
 #include "config.h"
 
@@ -50,6 +53,8 @@ namespace KwaveFileDrag
 	return false;
     }
 }
+
+#endif /* _FILE_DRAG_H_ */
 
 //***************************************************************************
 //***************************************************************************

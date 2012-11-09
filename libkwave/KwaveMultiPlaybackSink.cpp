@@ -22,7 +22,7 @@
 
 #include "libkwave/memcpy.h"
 #include "libkwave/KwaveMultiPlaybackSink.h"
-#include "libkwave/KwavePlaybackSink.h"
+#include "libkwave/PlaybackSink.h"
 #include "libkwave/PlayBackDevice.h"
 
 //***************************************************************************

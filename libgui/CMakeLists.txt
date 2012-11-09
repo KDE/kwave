@@ -19,12 +19,12 @@
 
 SET(libkwavegui_LIB_SRCS
     CurveWidget.cpp
+    FileDialog.cpp
     FilterPlugin.cpp
     FrequencyResponseWidget.cpp
     HMSTimeWidget.cpp
     ImageView.cpp
     InvertableSpinBox.cpp
-    KwaveFileDialog.cpp
     LabelItem.cpp
     LabelPropertiesWidget.cpp
     MenuNode.cpp

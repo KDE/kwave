@@ -24,7 +24,7 @@
 #include <QString>
 #include <QWidget>
 
-#include "libgui/KwaveFileDialog.h"
+#include "libgui/FileDialog.h"
 #include "SaveBlocksPlugin.h"
 
 class KURL;

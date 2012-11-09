@@ -1,3 +1,7 @@
+0.8.10 [2013-xx-xx]
+
+ * file name cleanup: removed "Kwave" prefix
+
 0.8.9  [2012-11-06]
 
  * new feature: MP3 export via external program "lame", "toolame" and

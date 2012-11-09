@@ -36,7 +36,7 @@
 #include "libkwave/ReaderMode.h"
 #include "libkwave/SignalManager.h"
 
-#include "libgui/KwaveFileDialog.h"
+#include "libgui/FileDialog.h"
 
 #include "MP3Encoder.h"
 #include "MP3EncoderDialog.h"

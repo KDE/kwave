@@ -44,8 +44,8 @@
 #include "libkwave/SampleFormat.h"
 #include "libkwave/Utils.h"
 
+#include "libgui/FileDialog.h"
 #include "libgui/HMSTimeWidget.h"
-#include "libgui/KwaveFileDialog.h"
 
 #include "LevelMeter.h"
 #include "RecordDevice.h"

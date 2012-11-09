@@ -1,5 +1,5 @@
 /*************************************************************************
-      KwaveFileDialog.h  -  enhanced KFileDialog
+      FileDialog.h  -  enhanced KFileDialog
                              -------------------
     begin                : Thu May 30 2002
     copyright            : (C) 2002 by Thomas Eschenbacher
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_FILE_DIALOG_H_
-#define _KWAVE_FILE_DIALOG_H_
+#ifndef _FILE_DIALOG_H_
+#define _FILE_DIALOG_H_
 
 #include "config.h"
 
@@ -79,4 +79,7 @@ private:
 
 };
 
-#endif /* _KWAVE_FILE_DIALOG_H_ */
+#endif /* _FILE_DIALOG_H_ */
+
+//***************************************************************************
+//***************************************************************************

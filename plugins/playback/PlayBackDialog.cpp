@@ -35,8 +35,10 @@
 #include <kpushbutton.h>
 #include <ktoolinvocation.h>
 
-#include "libgui/KwaveFileDialog.h"
 #include "libkwave/Plugin.h"
+
+#include "libgui/FileDialog.h"
+
 #include "PlayBackDialog.h"
 #include "PlayBackPlugin.h"
 

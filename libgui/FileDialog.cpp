@@ -27,7 +27,7 @@
 #include <kconfig.h>
 #include <kfilefiltercombo.h>
 
-#include "KwaveFileDialog.h"
+#include "FileDialog.h"
 
 //***************************************************************************
 KwaveFileDialog::KwaveFileDialog(const QString &startDir,
@@ -150,6 +150,6 @@ QString KwaveFileDialog::selectedExtension()
 }
 
 //***************************************************************************
-#include "KwaveFileDialog.moc"
+#include "FileDialog.moc"
 //***************************************************************************
 //***************************************************************************

@@ -26,7 +26,7 @@
 #include <kdemacros.h>
 
 #include "libkwave/KwavePlugin.h"
-#include "libkwave/KwavePluginSetupDialog.h"
+#include "libkwave/PluginSetupDialog.h"
 
 class QStringList;
 class QWidget;

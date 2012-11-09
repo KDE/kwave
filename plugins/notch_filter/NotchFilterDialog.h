@@ -22,7 +22,7 @@
 #include <QObject>
 #include <QString>
 
-#include "libkwave/KwavePluginSetupDialog.h"
+#include "libkwave/PluginSetupDialog.h"
 
 #include "ui_NotchFilterDlg.h"
 

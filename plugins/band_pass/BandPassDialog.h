@@ -25,7 +25,7 @@
 #include <QString>
 #include <QStringList>
 
-#include "libkwave/KwavePluginSetupDialog.h"
+#include "libkwave/PluginSetupDialog.h"
 #include "ui_BandPassDlg.h"
 
 class QStringList;

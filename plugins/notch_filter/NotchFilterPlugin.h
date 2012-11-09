@@ -23,7 +23,7 @@
 #include <QString>
 #include <QStringList>
 
-#include "libkwave/KwavePluginSetupDialog.h"
+#include "libkwave/PluginSetupDialog.h"
 #include "libkwave/KwavePlugin.h"
 
 #include "libgui/KwaveFilterPlugin.h"

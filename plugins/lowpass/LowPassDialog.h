@@ -24,7 +24,7 @@
 #include <QDialog>
 #include <QString>
 
-#include "libkwave/KwavePluginSetupDialog.h"
+#include "libkwave/PluginSetupDialog.h"
 
 #include "ui_LowPassDlg.h"
 

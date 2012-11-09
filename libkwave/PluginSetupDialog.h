@@ -1,5 +1,5 @@
 /***************************************************************************
-    KwavePluginSetupDialog.h  -  abstract interface for plugin setup dialogs
+    PluginSetupDialog.h  -  abstract interface for plugin setup dialogs
                              -------------------
     begin                : Sat Jun 07 2003
     copyright            : (C) 2003 by Thomas Eschenbacher
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_PLUGIN_SETUP_DIALOG_H_
-#define _KWAVE_PLUGIN_SETUP_DIALOG_H_
+#ifndef _PLUGIN_SETUP_DIALOG_H_
+#define _PLUGIN_SETUP_DIALOG_H_
 
 #include "config.h"
 #include <QStringList>
@@ -48,4 +48,4 @@ public:
     virtual QDialog *dialog() = 0;
 };
 
-#endif /* _KWAVE_PLUGIN_SETUP_DIALOG_H_ */
+#endif /* _PLUGIN_SETUP_DIALOG_H_ */

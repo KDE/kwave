@@ -92,7 +92,7 @@ SET(libkwave_LIB_SRCS
     modules/Indexer.cpp
     modules/KwaveDelay.cpp
     modules/KwaveMul.cpp
-    modules/KwaveOsc.cpp
+    modules/Osc.cpp
     modules/SampleBuffer.cpp
     modules/StreamObject.cpp
 

@@ -1,5 +1,5 @@
 /***************************************************************************
-           KwaveOsc.cpp  -  simple sine oscillator
+                Osc.cpp  -  simple sine oscillator
                              -------------------
     begin                : Tue Nov 06 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -16,8 +16,10 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <math.h>
-#include "libkwave/modules/KwaveOsc.h"
+
+#include "libkwave/modules/Osc.h"
 
 //***************************************************************************
 Kwave::Osc::Osc()
@@ -75,6 +77,6 @@ void Kwave::Osc::setAmplitude(const QVariant &a)
 }
 
 //***************************************************************************
-#include "KwaveOsc.moc"
+#include "Osc.moc"
 //***************************************************************************
 //***************************************************************************

@@ -1,5 +1,5 @@
 /***************************************************************************
-             KwaveOsc.h  -  simple sine oscillator
+                  Osc.h  -  simple sine oscillator
                              -------------------
     begin                : Tue Nov 06 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_OSC_H_
-#define _KWAVE_OSC_H_
+#ifndef _OSC_H_
+#define _OSC_H_
 
 #include "config.h"
 
@@ -83,4 +83,7 @@ namespace Kwave {
     };
 }
 
-#endif /* _KWAVE_OSC_H_ */
+#endif /* _OSC_H_ */
+
+//***************************************************************************
+//***************************************************************************

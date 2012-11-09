@@ -358,8 +358,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/KwaveSampleArray.h			GPL2+
 	libkwave/KwaveSampleSink.cpp			GPL2+
 	libkwave/KwaveSampleSink.h			GPL2+
-	libkwave/KwaveSampleSource.cpp			GPL2+
-	libkwave/KwaveSampleSource.h			GPL2+
 	libkwave/Label.cpp				GPL2+
 	libkwave/Label.h				GPL2+
 	libkwave/LabelList.cpp				GPL2+
@@ -410,6 +408,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Sample.h				GPL2+
 	libkwave/SampleReader.cpp			GPL2+
 	libkwave/SampleReader.h				GPL2+
+	libkwave/SampleSource.cpp			GPL2+
+	libkwave/SampleSource.h				GPL2+
 	libkwave/Selection.h				GPL2+
 	libkwave/Selection.cpp				GPL2+
 	libkwave/Signal.cpp				GPL2+

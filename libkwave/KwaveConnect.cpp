@@ -22,7 +22,7 @@
 
 #include "libkwave/KwaveConnect.h"
 #include "libkwave/KwaveSampleSink.h"
-#include "libkwave/KwaveSampleSource.h"
+#include "libkwave/SampleSource.h"
 
 //***************************************************************************
 namespace Kwave {

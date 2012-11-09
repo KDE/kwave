@@ -19,7 +19,7 @@
 #define _NOISE_GENERATOR_H_
 
 #include "config.h"
-#include "libkwave/KwaveSampleSource.h"
+#include "libkwave/SampleSource.h"
 
 class NoiseGenerator: public Kwave::SampleSource
 {

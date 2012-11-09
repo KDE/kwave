@@ -26,7 +26,7 @@
 #include <kdemacros.h>
 
 #include "libkwave/KwaveSampleArray.h"
-#include "libkwave/KwaveSampleSource.h"
+#include "libkwave/SampleSource.h"
 #include "libkwave/SampleFIFO.h"
 
 namespace Kwave {

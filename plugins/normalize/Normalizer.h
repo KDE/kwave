@@ -27,7 +27,7 @@
 #include <QVariant>
 
 #include "libkwave/KwaveSampleArray.h"
-#include "libkwave/KwaveSampleSource.h"
+#include "libkwave/SampleSource.h"
 
 namespace Kwave {
     class Normalizer: public Kwave::SampleSource

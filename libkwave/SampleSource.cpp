@@ -1,5 +1,5 @@
 /*************************************************************************
-    KwaveSampleSource.cpp -  base class with a generic sample source
+    SampleSource.cpp -  base class with a generic sample source
                              -------------------
     begin                : Sun Oct 07 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -21,7 +21,7 @@
 #include <threadweaver/Job.h>
 #include <threadweaver/ThreadWeaver.h>
 
-#include "libkwave/KwaveSampleSource.h"
+#include "libkwave/SampleSource.h"
 #include "libkwave/Utils.h"
 
 //***************************************************************************
@@ -105,6 +105,6 @@ ThreadWeaver::Job *Kwave::SampleSource::enqueue(ThreadWeaver::Weaver *weaver)
 }
 
 //***************************************************************************
-#include "KwaveSampleSource.moc"
+#include "SampleSource.moc"
 //***************************************************************************
 //***************************************************************************

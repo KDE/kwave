@@ -32,7 +32,7 @@
 #include "libkwave/Sample.h"
 #include "libkwave/Stripe.h"
 #include "libkwave/KwaveSampleArray.h"
-#include "libkwave/KwaveSampleSource.h"
+#include "libkwave/SampleSource.h"
 
 class KDE_EXPORT SampleReader: public Kwave::SampleSource
 {

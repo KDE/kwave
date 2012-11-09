@@ -30,7 +30,7 @@
 #include <samplerate.h>
 
 #include "libkwave/KwaveSampleArray.h"
-#include "libkwave/KwaveSampleSource.h"
+#include "libkwave/SampleSource.h"
 
 namespace Kwave {
     class KDE_EXPORT RateConverter: public Kwave::SampleSource

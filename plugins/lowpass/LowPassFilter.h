@@ -24,7 +24,7 @@
 #include <QVariant>
 
 #include "libkwave/KwaveSampleArray.h"
-#include "libkwave/KwaveSampleSource.h"
+#include "libkwave/SampleSource.h"
 #include "libkwave/TransmissionFunction.h"
 
 class LowPassFilter: public Kwave::SampleSource,

@@ -1,4 +1,10 @@
 
+o cleanup: remove old FLAC API support
+
+o namespace cleanup
+
+o filename fixes in libkwave (remove prefix)
+
 o support for OPUS codec (.opus, using Ogg as container)
 
 o support for "raw" import/export

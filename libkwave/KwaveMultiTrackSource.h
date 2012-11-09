@@ -26,7 +26,7 @@
 #include <threadweaver/ThreadWeaver.h>
 #include <threadweaver/DebuggingAids.h>
 
-#include "libkwave/KwaveSampleSource.h"
+#include "libkwave/SampleSource.h"
 
 namespace Kwave {
 

@@ -1,5 +1,5 @@
 /***************************************************************************
-    KwaveMultiPlaybackSink.cpp  -  multi-track Kwave playback sink
+  MultiPlaybackSink.cpp  -  multi-track Kwave playback sink
                              -------------------
     begin                : Sun Nov 04 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -21,7 +21,7 @@
 #include <QMutexLocker>
 
 #include "libkwave/memcpy.h"
-#include "libkwave/KwaveMultiPlaybackSink.h"
+#include "libkwave/MultiPlaybackSink.h"
 #include "libkwave/PlaybackSink.h"
 #include "libkwave/PlayBackDevice.h"
 
@@ -101,6 +101,6 @@ void Kwave::MultiPlaybackSink::input(unsigned int track,
 }
 
 //***************************************************************************
-#include "KwaveMultiPlaybackSink.moc"
+#include "MultiPlaybackSink.moc"
 //***************************************************************************
 //***************************************************************************

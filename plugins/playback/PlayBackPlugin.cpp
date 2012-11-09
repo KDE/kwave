@@ -36,10 +36,10 @@
 
 #include "libkwave/Curve.h"
 #include "libkwave/KwaveConnect.h"
-#include "libkwave/KwaveMultiPlaybackSink.h"
 #include "libkwave/Plugin.h"
 #include "libkwave/MixerMatrix.h"
 #include "libkwave/MessageBox.h"
+#include "libkwave/MultiPlaybackSink.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackSource.h"
 #include "libkwave/PlaybackController.h"

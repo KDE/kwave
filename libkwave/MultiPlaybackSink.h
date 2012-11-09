@@ -1,5 +1,5 @@
 /***************************************************************************
-    KwaveMultiPlaybackSink.h  -  multi-track Kwave playback sink
+    MultiPlaybackSink.h  -  multi-track Kwave playback sink
                              -------------------
     begin                : Sun Nov 04 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_MULTI_PLAYBACK_SINK_H_
-#define _KWAVE_MULTI_PLAYBACK_SINK_H_
+#ifndef _MULTI_PLAYBACK_SINK_H_
+#define _MULTI_PLAYBACK_SINK_H_
 
 #include "config.h"
 
@@ -79,4 +79,4 @@ namespace Kwave {
     };
 }
 
-#endif /* _KWAVE_MULTI_PLAYBACK_SINK_H_ */
+#endif /* _MULTI_PLAYBACK_SINK_H_ */

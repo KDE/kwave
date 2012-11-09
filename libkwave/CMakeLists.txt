@@ -48,7 +48,6 @@ SET(libkwave_LIB_SRCS
     KwaveConnect.cpp
     KwaveDrag.cpp
     KwaveMimeData.cpp
-    KwaveMultiPlaybackSink.cpp
     Label.cpp
     LabelList.cpp
     MemoryManager.cpp
@@ -56,10 +55,11 @@ SET(libkwave_LIB_SRCS
     MetaData.cpp
     MetaDataList.cpp
     MixerMatrix.cpp
-    MultiWriter.cpp
+    MultiPlaybackSink.cpp
     MultiStreamWriter.cpp
     MultiTrackReader.cpp
     MultiTrackWriter.cpp
+    MultiWriter.cpp
     Parser.cpp
     PlaybackController.cpp
     PlaybackSink.cpp

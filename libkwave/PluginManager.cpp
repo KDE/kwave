@@ -31,9 +31,9 @@
 #include <kstandarddirs.h>
 #include <klocale.h>
 
-#include "libkwave/KwaveMultiPlaybackSink.h"
 #include "libkwave/Plugin.h"
 #include "libkwave/MessageBox.h"
+#include "libkwave/MultiPlaybackSink.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Parser.h"
 #include "libkwave/PlayBackDevice.h"

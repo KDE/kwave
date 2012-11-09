@@ -91,7 +91,7 @@ SET(libkwave_LIB_SRCS
     modules/CurveStreamAdapter.cpp
     modules/Indexer.cpp
     modules/KwaveDelay.cpp
-    modules/KwaveMul.cpp
+    modules/Mul.cpp
     modules/Osc.cpp
     modules/SampleBuffer.cpp
     modules/StreamObject.cpp

@@ -29,7 +29,7 @@
 #include "libkwave/Parser.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
-#include "libkwave/modules/KwaveMul.h"
+#include "libkwave/modules/Mul.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "libgui/OverViewCache.h"

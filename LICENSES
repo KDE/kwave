@@ -450,10 +450,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/modules/Indexer.h			GPL2+
 	libkwave/modules/KwaveDelay.cpp			GPL2+
 	libkwave/modules/KwaveDelay.h			GPL2+
-	libkwave/modules/KwaveMul.cpp			GPL2+
-	libkwave/modules/KwaveMul.h			GPL2+
-	libkwave/modules/KwaveOsc.cpp			GPL2+
-	libkwave/modules/KwaveOsc.h			GPL2+
+	libkwave/modules/Mul.cpp			GPL2+
+	libkwave/modules/Mul.h				GPL2+
+	libkwave/modules/Osc.cpp			GPL2+
+	libkwave/modules/Osc.h				GPL2+
 	libkwave/modules/SampleBuffer.cpp		GPL2+
 	libkwave/modules/SampleBuffer.h			GPL2+
 	libkwave/modules/StreamObject.cpp		GPL2+

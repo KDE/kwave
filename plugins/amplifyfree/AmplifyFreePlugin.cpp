@@ -27,7 +27,7 @@
 #include "libkwave/Parser.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/modules/CurveStreamAdapter.h"
-#include "libkwave/modules/KwaveMul.h"
+#include "libkwave/modules/Mul.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "AmplifyFreePlugin.h"

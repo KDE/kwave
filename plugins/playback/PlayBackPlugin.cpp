@@ -51,7 +51,7 @@
 
 #include "libkwave/modules/CurveStreamAdapter.h"
 #include "libkwave/modules/KwaveDelay.h"
-#include "libkwave/modules/KwaveMul.h"
+#include "libkwave/modules/Mul.h"
 #include "libkwave/modules/Osc.h"
 
 #include "PlayBack-OSS.h"

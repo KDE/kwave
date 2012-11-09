@@ -1,5 +1,5 @@
 /***************************************************************************
-           KwaveMul.cpp  -  multiplier
+                Mul.cpp  -  multiplier
                              -------------------
     begin                : Thu Nov 01 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -20,7 +20,7 @@
 #include <QMutexLocker>
 #include <QVariant>
 
-#include "libkwave/modules/KwaveMul.h"
+#include "libkwave/modules/Mul.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 
@@ -169,6 +169,6 @@ void Kwave::Mul::set_b(const QVariant &b)
 
 /***************************************************************************/
 using namespace Kwave;
-#include "KwaveMul.moc"
+#include "Mul.moc"
 /***************************************************************************/
 /***************************************************************************/

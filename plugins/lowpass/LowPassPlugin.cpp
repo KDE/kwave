@@ -24,7 +24,7 @@
 
 #include <klocale.h>
 
-#include "libkwave/KwaveMultiTrackSource.h"
+#include "libkwave/MultiTrackSource.h"
 #include "LowPassFilter.h"
 #include "LowPassPlugin.h"
 #include "LowPassDialog.h"

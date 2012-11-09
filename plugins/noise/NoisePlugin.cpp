@@ -19,11 +19,11 @@
 
 #include <klocale.h> // for the i18n macro
 
+#include "libkwave/MultiTrackSource.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/KwaveConnect.h"
 #include "libkwave/SampleSource.h"
 #include "libkwave/SampleSink.h"
-#include "libkwave/KwaveMultiTrackSource.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 

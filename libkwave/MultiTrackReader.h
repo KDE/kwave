@@ -26,8 +26,8 @@
 
 #include <kdemacros.h>
 
+#include "libkwave/MultiTrackSource.h"
 #include "libkwave/SampleReader.h"
-#include "libkwave/KwaveMultiTrackSource.h"
 
 class SignalManager;
 

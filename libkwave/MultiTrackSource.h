@@ -1,5 +1,5 @@
 /*************************************************************************
-    KwaveMultiTrackSource.h  -  template for multi-track sources
+    MultiTrackSource.h  -  template for multi-track sources
                              -------------------
     begin                : Sat Oct 20 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_MULTI_TRACK_SOURCE_H_
-#define _KWAVE_MULTI_TRACK_SOURCE_H_
+#ifndef _MULTI_TRACK_SOURCE_H_
+#define _MULTI_TRACK_SOURCE_H_
 
 #include "config.h"
 #include <QObject>
@@ -178,4 +178,4 @@ namespace Kwave {
 
 }
 
-#endif /* _KWAVE_MULTI_TRACK_SOURCE_H_ */
+#endif /* _MULTI_TRACK_SOURCE_H_ */

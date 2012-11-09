@@ -23,7 +23,7 @@
 
 #include <klocale.h>
 
-#include "libkwave/KwaveMultiTrackSource.h"
+#include "libkwave/MultiTrackSource.h"
 #include "PitchShiftFilter.h"
 #include "PitchShiftPlugin.h"
 #include "PitchShiftDialog.h"

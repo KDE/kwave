@@ -23,7 +23,7 @@
 #include <QStringList>
 #include <klocale.h>
 
-#include "libkwave/KwaveMultiTrackSource.h"
+#include "libkwave/MultiTrackSource.h"
 #include "BandPass.h"
 #include "BandPassPlugin.h"
 #include "BandPassDialog.h"

@@ -21,7 +21,7 @@
 #include <qstringlist.h>
 #include <klocale.h>
 
-#include "libkwave/KwaveMultiTrackSource.h"
+#include "libkwave/MultiTrackSource.h"
 #include "NotchFilter.h"
 #include "NotchFilterPlugin.h"
 #include "NotchFilterDialog.h"

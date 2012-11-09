@@ -348,7 +348,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/KwaveMultiPlaybackSink.cpp		GPL2+
 	libkwave/KwaveMultiPlaybackSink.h		GPL2+
 	libkwave/KwaveMultiTrackSink.h			GPL2+
-	libkwave/KwaveMultiTrackSource.h		GPL2+
 	libkwave/Label.cpp				GPL2+
 	libkwave/Label.h				GPL2+
 	libkwave/LabelList.cpp				GPL2+
@@ -368,6 +367,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/MetaDataList.h				GPL2+
 	libkwave/MultiStreamWriter.cpp			GPL2+
 	libkwave/MultiStreamWriter.h			GPL2+
+	libkwave/MultiTrackSource.h			GPL2+
 	libkwave/MultiWriter.cpp			GPL2+
 	libkwave/MultiWriter.h				GPL2+
 	libkwave/MultiTrackReader.cpp			GPL2+

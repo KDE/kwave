@@ -26,7 +26,7 @@
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
-#include "libkwave/KwaveMimeData.h"
+#include "libkwave/MimeData.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/SignalManager.h"
 

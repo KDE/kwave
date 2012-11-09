@@ -47,13 +47,13 @@ SET(libkwave_LIB_SRCS
     Interpolation.cpp
     KwaveConnect.cpp
     KwaveDrag.cpp
-    KwaveMimeData.cpp
     Label.cpp
     LabelList.cpp
     MemoryManager.cpp
     MessageBox.cpp
     MetaData.cpp
     MetaDataList.cpp
+    MimeData.cpp
     MixerMatrix.cpp
     MultiPlaybackSink.cpp
     MultiStreamWriter.cpp

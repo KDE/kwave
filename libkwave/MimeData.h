@@ -1,5 +1,5 @@
 /***************************************************************************
-        KwaveMimeData.h  -  mime data container for Kwave's audio data
+             MimeData.h  -  mime data container for Kwave's audio data
 			     -------------------
     begin                : Oct 04 2008
     copyright            : (C) 2008 by Thomas Eschenbacher
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_MIME_DATA_H_
-#define _KWAVE_MIME_DATA_H_
+#ifndef _MIME_DATA_H_
+#define _MIME_DATA_H_
 
 #include "config.h"
 
@@ -84,4 +84,4 @@ namespace Kwave {
     };
 }
 
-#endif /* _KWAVE_MIME_DATA_H_ */
+#endif /* _MIME_DATA_H_ */

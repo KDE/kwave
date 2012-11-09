@@ -21,7 +21,7 @@
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/KwaveDrag.h"
-#include "libkwave/KwaveMimeData.h"
+#include "libkwave/MimeData.h"
 #include "libkwave/MultiTrackReader.h"
 
 // RFC 2361:

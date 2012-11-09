@@ -23,8 +23,8 @@
 #include <QList>
 #include <QString>
 
+#include "libkwave/MimeData.h"
 #include "libkwave/Sample.h"
-#include "libkwave/KwaveMimeData.h"
 #include "libkwave/undo/UndoAction.h"
 
 class QWidget;

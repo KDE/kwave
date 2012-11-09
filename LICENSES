@@ -350,6 +350,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/LabelList.cpp				GPL2+
 	libkwave/LabelList.h				GPL2+
 	libkwave/Matrix.h				GPL2+ (Martin Hinsch)
+	libkwave/MimeData.cpp				GPL2+
+	libkwave/MimeData.h				GPL2+
 	libkwave/MixerMatrix.cpp			GPL2+
 	libkwave/MixerMatrix.h				GPL2+
 	libkwave/memcpy.c				GPL2+ / xine

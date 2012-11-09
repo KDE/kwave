@@ -28,17 +28,17 @@
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
 #include "libkwave/KwaveConnect.h"
-#include "libkwave/KwaveMimeData.h"
 #include "libkwave/LabelList.h"
+#include "libkwave/MimeData.h"
 #include "libkwave/MultiStreamWriter.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
-#include "libkwave/Writer.h"
 #include "libkwave/Signal.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
+#include "libkwave/Writer.h"
 
 #include "libkwave/modules/ChannelMixer.h"
 #include "libkwave/modules/RateConverter.h"
@@ -102,7 +102,7 @@ bool Kwave::MimeData::encode(QWidget *widget,
 
     // remove hourglass
     QApplication::restoreOverrideCursor();
-    
+
     return true;
 }
 
@@ -311,6 +311,6 @@ void Kwave::MimeData::clear()
 }
 
 //***************************************************************************
-#include "KwaveMimeData.moc"
+#include "MimeData.moc"
 //***************************************************************************
 //***************************************************************************

@@ -26,7 +26,7 @@
 #include <threadweaver/Job.h>
 #include <threadweaver/ThreadWeaver.h>
 
-#include "libkwave/KwaveSampleArray.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/modules/KwaveStreamObject.h"
 
 

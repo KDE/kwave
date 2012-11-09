@@ -18,8 +18,8 @@
 #include "config.h"
 #include <klocale.h>
 
-#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Writer.h"

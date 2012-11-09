@@ -22,8 +22,8 @@
 
 #include <QByteArray>
 
-#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleArray.h"
 
 class SampleDecoder
 {

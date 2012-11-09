@@ -27,9 +27,9 @@
 #include <QVector>
 
 #include "libkwave/KwavePlugin.h"
-#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/SampleFIFO.h"
 #include "libkwave/SampleFormat.h"
 

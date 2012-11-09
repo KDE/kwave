@@ -35,8 +35,8 @@
 #include <QString>
 
 #include "libkwave/FileInfo.h"
-#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/PlayBackDevice.h"
+#include "libkwave/SampleArray.h"
 
 class PlayBackPulseAudio: public PlayBackDevice
 {

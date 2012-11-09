@@ -26,7 +26,7 @@
 #include <qobject.h>
 #include <qvariant.h>
 
-#include "libkwave/KwaveSampleArray.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/SampleSource.h"
 #include "libkwave/TransmissionFunction.h"
 

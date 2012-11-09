@@ -1,5 +1,5 @@
 /*************************************************************************
-    KwaveSampleArray.h  -  array with Kwave's internal sample_t
+          SampleArray.h  -  array with Kwave's internal sample_t
                              -------------------
     begin                : Sun Oct 07 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_SAMPLE_ARRAY_H_
-#define _KWAVE_SAMPLE_ARRAY_H_
+#ifndef _SAMPLE_ARRAY_H_
+#define _SAMPLE_ARRAY_H_
 
 #include "config.h"
 
@@ -155,4 +155,4 @@ namespace Kwave {
     };
 }
 
-#endif /* _KWAVE_SAMPLE_ARRAY_H_ */
+#endif /* _SAMPLE_ARRAY_H_ */

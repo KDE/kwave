@@ -26,7 +26,7 @@
 #include <QObject>
 #include <QVariant>
 
-#include "libkwave/KwaveSampleArray.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/SampleSource.h"
 
 namespace Kwave {

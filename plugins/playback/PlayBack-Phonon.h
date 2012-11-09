@@ -34,8 +34,8 @@
 #include <phonon/mediasource.h>
 #include <phonon/path.h>
 
-#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/PlayBackDevice.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/SampleFormat.h"
 
 namespace Kwave { class SampleEncoder; }

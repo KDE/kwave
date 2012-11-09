@@ -28,8 +28,8 @@
 #include <kdemacros.h>
 
 #include "libkwave/InsertMode.h"
-#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/ReaderMode.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/Stripe.h"
 
 class SampleReader;

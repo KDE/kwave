@@ -26,7 +26,8 @@
 
 #include <kdemacros.h>
 
-#include "libkwave/KwaveSampleArray.h"
+#include "libkwave/SampleArray.h"
+
 #include "libkwave/MemoryManager.h"
 #include "libkwave/Sample.h"
 

@@ -25,8 +25,8 @@
 #include <QList>
 #include <QString>
 
-#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/PlayBackDevice.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/SampleFormat.h"
 
 namespace Kwave { class SampleEncoder; }

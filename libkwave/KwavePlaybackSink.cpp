@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include "libkwave/KwaveSampleArray.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/KwavePlaybackSink.h"
 #include "libkwave/PlayBackDevice.h"
 

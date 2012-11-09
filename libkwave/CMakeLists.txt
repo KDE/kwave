@@ -51,7 +51,6 @@ SET(libkwave_LIB_SRCS
     KwaveMultiPlaybackSink.cpp
     KwavePlaybackSink.cpp
     KwavePlugin.cpp
-    KwaveSampleArray.cpp
     Label.cpp
     LabelList.cpp
     MemoryManager.cpp
@@ -67,6 +66,7 @@ SET(libkwave_LIB_SRCS
     PlaybackController.cpp
     PluginManager.cpp
     PluginWorkerThread.cpp
+    SampleArray.cpp
     SampleSink.cpp
     SampleSource.cpp
     Selection.cpp

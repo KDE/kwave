@@ -28,8 +28,8 @@
 #include <QQueue>
 #include <QWidget>
 
-#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleArray.h"
 
 class QPaintEvent;
 class QTimer;

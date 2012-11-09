@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-#include "libkwave/KwaveSampleArray.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/modules/KwaveStreamObject.h"
 
 //***************************************************************************

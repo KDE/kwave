@@ -29,10 +29,10 @@
 #include "libkwave/ApplicationContext.h"
 #include "libkwave/ClipBoard.h"
 #include "libkwave/LabelList.h"
-#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/MemoryManager.h"
 #include "libkwave/Parser.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/PluginManager.h"
 

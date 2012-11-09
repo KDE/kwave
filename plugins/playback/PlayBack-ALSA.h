@@ -34,8 +34,8 @@
 #include <QMap>
 #include <QList>
 
-#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/PlayBackDevice.h"
+#include "libkwave/SampleArray.h"
 
 namespace Kwave { class SampleEncoder; }
 

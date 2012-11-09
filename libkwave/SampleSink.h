@@ -21,7 +21,7 @@
 #include "config.h"
 #include <QObject>
 
-#include "libkwave/KwaveSampleArray.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/modules/KwaveStreamObject.h"
 
 namespace Kwave {

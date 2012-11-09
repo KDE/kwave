@@ -1,5 +1,5 @@
 /*************************************************************************
-    KwaveSampleArray.cpp  -  array with Kwave's internal sample_t
+        SampleArray.cpp  -  array with Kwave's internal sample_t
                              -------------------
     begin                : Wed Jan 02 2008
     copyright            : (C) 2008 by Thomas Eschenbacher
@@ -20,7 +20,7 @@
 #include <stdlib.h>
 
 #include "memcpy.h"
-#include "KwaveSampleArray.h"
+#include "SampleArray.h"
 
 //***************************************************************************
 Kwave::SampleArray::SampleArray()

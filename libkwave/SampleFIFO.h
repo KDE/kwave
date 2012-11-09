@@ -25,7 +25,7 @@
 
 #include <kdemacros.h>
 
-#include "libkwave/KwaveSampleArray.h"
+#include "libkwave/SampleArray.h"
 
 class KDE_EXPORT SampleFIFO
 {

@@ -32,7 +32,7 @@
 #include <kdemacros.h>
 
 #include "libkwave/Sample.h"
-#include "libkwave/KwaveSampleArray.h"
+#include "libkwave/SampleArray.h"
 
 /**
  * The TrackPixmap is a graphical representation of a track's sample

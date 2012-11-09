@@ -32,10 +32,10 @@
 #include "libkwave/CompressionType.h"
 #include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/GenreType.h"
-#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 

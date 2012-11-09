@@ -18,7 +18,7 @@
 
 #include "config.h"
 
-#include "libkwave/KwaveSampleArray.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/StreamWriter.h"
 
 //***************************************************************************

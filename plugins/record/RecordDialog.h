@@ -26,8 +26,8 @@
 #include <QList>
 #include <QMap>
 
-#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/SampleFormat.h"
 
 #include "RecordController.h"

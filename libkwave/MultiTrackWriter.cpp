@@ -18,8 +18,8 @@
 
 #include "config.h"
 
-#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/MultiTrackWriter.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/undo/UndoInsertAction.h"
 #include "libkwave/undo/UndoModifyAction.h"
@@ -95,7 +95,7 @@ bool Kwave::MultiTrackWriter::init(SignalManager &signal_manager,
 	    track, mode, left, right);
 	if (writer) {
 	    insert(index++, writer);
-	    
+
 	    // get the real/effective left and right sample
 	    left  = writer->first();
 	    right = writer->last();
@@ -109,7 +109,7 @@ bool Kwave::MultiTrackWriter::init(SignalManager &signal_manager,
     // skip all that undo handling below if undo is not enabled
     // or the writer creation has failed
     if (!signal_manager.undoEnabled()) return true;
-    
+
     // enter a new undo transaction and let it close when the writer closes
     signal_manager.startUndoTransaction();
     QObject::connect(this, SIGNAL(destroyed()),
@@ -122,9 +122,9 @@ bool Kwave::MultiTrackWriter::init(SignalManager &signal_manager,
 	case Append:
 	case Insert: {
 	    undo = new UndoInsertAction(
-		signal_manager.parentWidget(), 
-		track_list, 
-		left, 
+		signal_manager.parentWidget(),
+		track_list,
+		left,
 		right - left + 1
 	    );
 

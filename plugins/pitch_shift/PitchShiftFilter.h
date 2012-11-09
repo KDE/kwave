@@ -29,7 +29,7 @@
 #include <QVariant>
 #include <QVector>
 
-#include "libkwave/KwaveSampleArray.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/SampleSource.h"
 
 class PitchShiftFilter: public Kwave::SampleSource

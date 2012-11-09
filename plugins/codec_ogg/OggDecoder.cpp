@@ -25,10 +25,10 @@
 #include <kmimetype.h>
 
 #include "libkwave/CompressionType.h"
-#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/StandardBitrates.h"
 #include "libkwave/Writer.h"
 

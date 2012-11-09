@@ -354,8 +354,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/KwavePlugin.cpp			GPL2+
 	libkwave/KwavePlugin.h				GPL2+
 	libkwave/KwavePluginSetupDialog.h		GPL2+
-	libkwave/KwaveSampleArray.cpp			GPL2+
-	libkwave/KwaveSampleArray.h			GPL2+
 	libkwave/Label.cpp				GPL2+
 	libkwave/Label.h				GPL2+
 	libkwave/LabelList.cpp				GPL2+
@@ -396,14 +394,16 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/ppcasm_string.S			GPL2+ / Paul Mackerras
 	libkwave/ppc_asm.tmpl				GPL2+ / Paul Mackerras
 	libkwave/ReaderMode.h				GPL2+
-	libkwave/SampleFIFO.cpp				GPL2+
-	libkwave/SampleFIFO.h				GPL2+
+	libkwave/Sample.h				GPL2+
+	libkwave/SampleArray.cpp			GPL2+
+	libkwave/SampleArray.h				GPL2+
 	libkwave/SampleEncoder.h			GPL2+
 	libkwave/SampleEncoderLinear.h			GPL2+
 	libkwave/SampleEncoderLinear.cpp		GPL2+
+	libkwave/SampleFIFO.cpp				GPL2+
+	libkwave/SampleFIFO.h				GPL2+
 	libkwave/SampleFormat.cpp			GPL2+
 	libkwave/SampleFormat.h				GPL2+
-	libkwave/Sample.h				GPL2+
 	libkwave/SampleReader.cpp			GPL2+
 	libkwave/SampleReader.h				GPL2+
 	libkwave/SampleSink.cpp				GPL2+

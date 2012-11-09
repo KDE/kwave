@@ -29,7 +29,7 @@
 
 #include <samplerate.h>
 
-#include "libkwave/KwaveSampleArray.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/SampleSource.h"
 
 namespace Kwave {

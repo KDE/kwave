@@ -26,9 +26,9 @@
 
 #include <kdemacros.h>
 
-#include "libkwave/KwaveSampleArray.h"
-#include "libkwave/SampleSource.h"
+#include "libkwave/SampleArray.h"
 #include "libkwave/SampleSink.h"
+#include "libkwave/SampleSource.h"
 
 class QVariant;
 

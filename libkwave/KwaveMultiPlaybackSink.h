@@ -28,8 +28,8 @@
 
 #include "libkwave/KwaveMultiTrackSink.h"
 #include "libkwave/KwavePlaybackSink.h"
-#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/PlayBackDevice.h"
+#include "libkwave/SampleArray.h"
 
 namespace Kwave {
     class KDE_EXPORT MultiPlaybackSink

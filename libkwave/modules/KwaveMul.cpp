@@ -21,8 +21,8 @@
 #include <QVariant>
 
 #include "libkwave/modules/KwaveMul.h"
-#include "libkwave/KwaveSampleArray.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleArray.h"
 
 /***************************************************************************/
 Kwave::Mul::Mul()

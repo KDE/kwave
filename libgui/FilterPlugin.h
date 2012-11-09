@@ -1,5 +1,5 @@
 /***************************************************************************
-    KwaveFilterPlugin.h  -  generic class for filter plugins with setup
+    FilterPlugin.h  -  generic class for filter plugins with setup
                              -------------------
     begin                : Sat Jun 07 2003
     copyright            : (C) 2003 by Thomas Eschenbacher
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_FILTER_PLUGIN_H_
-#define _KWAVE_FILTER_PLUGIN_H_
+#ifndef _FILTER_PLUGIN_H_
+#define _FILTER_PLUGIN_H_
 
 #include "config.h"
 
@@ -135,4 +135,4 @@ namespace Kwave {
     };
 }
 
-#endif /* _KWAVE_FILTER_PLUGIN_H_ */
+#endif /* _FILTER_PLUGIN_H_ */

@@ -27,7 +27,7 @@
 #include "libkwave/PluginSetupDialog.h"
 #include "libkwave/Plugin.h"
 
-#include "libgui/KwaveFilterPlugin.h"
+#include "libgui/FilterPlugin.h"
 
 class QStringList;
 namespace Kwave { class KwaveSampleSource; }

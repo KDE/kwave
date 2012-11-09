@@ -1,5 +1,5 @@
 /***************************************************************************
-  KwaveFilterPlugin.cpp  -  generic class for filter plugins with setup
+       FilterPlugin.cpp  -  generic class for filter plugins with setup
                              -------------------
     begin                : Sat Jun 07 2003
     copyright            : (C) 2003 by Thomas Eschenbacher
@@ -33,7 +33,7 @@
 #include "libkwave/modules/KwaveStreamObject.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
-#include "libgui/KwaveFilterPlugin.h"
+#include "libgui/FilterPlugin.h"
 
 //***************************************************************************
 Kwave::FilterPlugin::FilterPlugin(const PluginContext &context)
@@ -230,6 +230,6 @@ QString Kwave::FilterPlugin::progressText()
 
 //***************************************************************************
 using namespace Kwave;
-#include "KwaveFilterPlugin.moc"
+#include "FilterPlugin.moc"
 //***************************************************************************
 //***************************************************************************

@@ -248,6 +248,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/ConfirmCancelProxy.h			GPL2+
 	libgui/CurveWidget.cpp				GPL2+
 	libgui/CurveWidget.h				GPL2+
+	libgui/FilterPlugin.cpp				GPL2+
+	libgui/FilterPlugin.h				GPL2+
 	libgui/FrequencyResponseWidget.cpp		GPL2+
 	libgui/FrequencyResponseWidget.h		GPL2+
 	libgui/HMSTimeWidgetBase.ui			(should be GPL2+)
@@ -259,8 +261,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/InvertableSpinBox.h			GPL2+
 	libgui/KwaveFileDialog.cpp			GPL2+
 	libgui/KwaveFileDialog.h			GPL2+
-	libgui/KwaveFilterPlugin.cpp			GPL2+
-	libgui/KwaveFilterPlugin.h			GPL2+
 	libgui/LabelItem.cpp				GPL2+
 	libgui/LabelItem.h				GPL2+
 	libgui/LabelPropertiesWidget.cpp		GPL2+

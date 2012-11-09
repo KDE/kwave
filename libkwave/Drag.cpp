@@ -20,7 +20,7 @@
 #include <QMimeData>
 
 #include "libkwave/CodecManager.h"
-#include "libkwave/KwaveDrag.h"
+#include "libkwave/Drag.h"
 #include "libkwave/MimeData.h"
 #include "libkwave/MultiTrackReader.h"
 
@@ -80,6 +80,6 @@ unsigned int KwaveDrag::decode(QWidget *widget, const QMimeData *e,
 }
 
 //***************************************************************************
-#include "KwaveDrag.moc"
+#include "Drag.moc"
 //***************************************************************************
 //***************************************************************************

@@ -1,5 +1,5 @@
 /***************************************************************************
-            KwaveDrag.h  -  Drag&Drop container for Kwave's audio data
+            Drag.h  -  Drag&Drop container for Kwave's audio data
 			     -------------------
     begin                : Jan 24 2002
     copyright            : (C) 2002 by Thomas Eschenbacher
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_DRAG_H_
-#define _KWAVE_DRAG_H_
+#ifndef _DRAG_H_
+#define _DRAG_H_
 
 #include "config.h"
 
@@ -85,4 +85,7 @@ public:
 
 };
 
-#endif /* _KWAVE_DRAG_H_ */
+#endif /* _DRAG_H_ */
+
+//***************************************************************************
+//***************************************************************************

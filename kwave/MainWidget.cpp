@@ -34,7 +34,7 @@
 
 #include "libkwave/ApplicationContext.h"
 #include "libkwave/CodecManager.h"
-#include "libkwave/KwaveDrag.h"
+#include "libkwave/Drag.h"
 #include "libkwave/FileDrag.h"
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"

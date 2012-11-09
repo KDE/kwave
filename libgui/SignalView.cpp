@@ -33,7 +33,7 @@
 #include <kglobalsettings.h>
 
 #include "libkwave/CodecManager.h"
-#include "libkwave/KwaveDrag.h"
+#include "libkwave/Drag.h"
 #include "libkwave/FileDrag.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/SignalManager.h"

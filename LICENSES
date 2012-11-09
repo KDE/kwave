@@ -323,6 +323,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Curve.h				GPL2+
 	libkwave/Decoder.cpp				GPL2+
 	libkwave/Decoder.h				GPL2+
+	libkwave/Drag.cpp				GPL2+
+	libkwave/Drag.h					GPL2+
 	libkwave/Encoder.cpp				GPL2+
 	libkwave/Encoder.h				GPL2+
 	libkwave/FileDrag.h				GPL2+
@@ -343,8 +345,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Interpolation.h			GPL2+
 	libkwave/KwaveConnect.cpp			GPL2+
 	libkwave/KwaveConnect.h				GPL2+
-	libkwave/KwaveDrag.cpp				GPL2+
-	libkwave/KwaveDrag.h				GPL2+
 	libkwave/Label.cpp				GPL2+
 	libkwave/Label.h				GPL2+
 	libkwave/LabelList.cpp				GPL2+

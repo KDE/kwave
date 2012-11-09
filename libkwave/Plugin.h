@@ -1,5 +1,5 @@
 /***************************************************************************
-          KwavePlugin.h  -  bas class of all Kwave plugins
+               Plugin.h  -  base class of all Kwave plugins
                              -------------------
     begin                : Thu Jul 27 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_PLUGIN_H_
-#define _KWAVE_PLUGIN_H_
+#ifndef _PLUGIN_H_
+#define _PLUGIN_H_
 
 #include "config.h"
 
@@ -403,6 +403,6 @@ namespace Kwave {
 
 }
 
-#endif /* _KWAVE_PLUGIN_H_ */
+#endif /* _PLUGIN_H_ */
 
-// end of KwavePlugin.h
+// end of Plugin.h

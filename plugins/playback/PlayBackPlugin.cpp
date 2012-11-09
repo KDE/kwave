@@ -38,7 +38,7 @@
 #include "libkwave/KwaveConnect.h"
 #include "libkwave/KwaveMultiPlaybackSink.h"
 #include "libkwave/KwaveMultiTrackSource.h"
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 #include "libkwave/MixerMatrix.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"

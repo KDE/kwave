@@ -25,7 +25,7 @@
 #include <QStringList>
 
 #include "libkwave/Curve.h"
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 
 /** @todo add support for logarithmic scale */
 class AmplifyFreePlugin: public Kwave::Plugin

@@ -50,7 +50,6 @@ SET(libkwave_LIB_SRCS
     KwaveMimeData.cpp
     KwaveMultiPlaybackSink.cpp
     KwavePlaybackSink.cpp
-    KwavePlugin.cpp
     Label.cpp
     LabelList.cpp
     MemoryManager.cpp
@@ -64,6 +63,7 @@ SET(libkwave_LIB_SRCS
     MultiTrackWriter.cpp
     Parser.cpp
     PlaybackController.cpp
+    Plugin.cpp
     PluginManager.cpp
     PluginWorkerThread.cpp
     SampleArray.cpp

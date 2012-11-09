@@ -30,7 +30,7 @@
 #include <QString>
 #include <QImage>
 
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/Sample.h"

@@ -20,7 +20,7 @@
 #include <QString>
 #include <klocale.h>
 
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 #include "GotoPlugin.h"
 
 KWAVE_PLUGIN(GotoPlugin, "goto", "2.1",

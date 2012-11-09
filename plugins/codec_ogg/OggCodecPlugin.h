@@ -19,7 +19,7 @@
 #define _OGG_CODEC_PLUGIN_H_
 
 #include "config.h"
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 
 class Encoder;
 class Decoder;

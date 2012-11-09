@@ -24,7 +24,7 @@
 #include <QString>
 #include <QStringList>
 
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 #include "libgui/SelectTimeWidget.h"
 
 class QStringList;

@@ -36,7 +36,7 @@
 #include <ktoolinvocation.h>
 
 #include "libgui/KwaveFileDialog.h"
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 #include "PlayBackDialog.h"
 #include "PlayBackPlugin.h"
 

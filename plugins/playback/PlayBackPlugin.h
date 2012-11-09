@@ -23,7 +23,7 @@
 #include <QMutex>
 #include <QString>
 
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 #include "libkwave/PlaybackDeviceFactory.h"
 #include "libkwave/Sample.h"
 #include "PlayBackParam.h"

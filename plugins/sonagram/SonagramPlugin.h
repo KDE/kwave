@@ -23,7 +23,7 @@
 #include <QList>
 #include <QString>
 
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 #include "libkwave/WindowFunction.h"
 
 class OverViewCache;

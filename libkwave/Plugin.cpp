@@ -1,5 +1,5 @@
 /***************************************************************************
-        KwavePlugin.cpp  -  base class of all Kwave plugins
+             Plugin.cpp  -  base class of all Kwave plugins
                              -------------------
     begin                : Thu Jul 27 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -32,7 +32,7 @@
 #include <klocale.h>
 
 #include "libkwave/ConfirmCancelProxy.h"
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
@@ -514,6 +514,6 @@ void Kwave::Plugin::emitCommand(const QString &command)
 }
 
 //***************************************************************************
-#include "KwavePlugin.moc"
+#include "Plugin.moc"
 //***************************************************************************
 //***************************************************************************

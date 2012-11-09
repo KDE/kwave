@@ -23,7 +23,7 @@
 #include <QString>
 #include <QStringList>
 
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 
 class NoisePlugin: public Kwave::Plugin
 {

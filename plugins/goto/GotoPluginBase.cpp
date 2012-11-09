@@ -23,7 +23,7 @@
 #include <QString>
 #include <klocale.h>
 
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 

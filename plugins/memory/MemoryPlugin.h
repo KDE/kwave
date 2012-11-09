@@ -22,7 +22,7 @@
 #include <QObject>
 #include <QString>
 
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 
 class QStringlist;
 class PluginContext;

@@ -20,7 +20,7 @@
 
 #include "config.h"
 #include "libkwave/CompressionType.h"
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 
 class Decoder;
 class Encoder;

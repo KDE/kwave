@@ -36,7 +36,7 @@
 #include <klocale.h>
 #include <ktoolinvocation.h>
 
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 #include "libkwave/WindowFunction.h"
 #include "libkwave/Utils.h"
 

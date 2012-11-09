@@ -351,8 +351,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/KwaveMultiTrackSource.h		GPL2+
 	libkwave/KwavePlaybackSink.cpp			GPL2+
 	libkwave/KwavePlaybackSink.h			GPL2+
-	libkwave/KwavePlugin.cpp			GPL2+
-	libkwave/KwavePlugin.h				GPL2+
 	libkwave/Label.cpp				GPL2+
 	libkwave/Label.h				GPL2+
 	libkwave/LabelList.cpp				GPL2+
@@ -384,6 +382,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/PlaybackController.h			GPL2+
 	libkwave/PlaybackDeviceFactory.h		GPL2+
 	libkwave/PlayBackDevice.h			GPL2+
+	libkwave/Plugin.cpp				GPL2+
+	libkwave/Plugin.h				GPL2+
 	libkwave/PluginContext.h			GPL2+
 	libkwave/PluginManager.cpp			GPL2+
 	libkwave/PluginManager.h			GPL2+

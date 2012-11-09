@@ -30,7 +30,7 @@
 #include <error.h>   // for strerror()
 #endif
 
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 #include "libkwave/PluginWorkerThread.h"
 
 //***************************************************************************

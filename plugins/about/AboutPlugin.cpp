@@ -18,7 +18,7 @@
 #include "config.h"
 #include <errno.h>
 
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 #include "libkwave/PluginManager.h"
 
 #include "AboutPlugin.h"

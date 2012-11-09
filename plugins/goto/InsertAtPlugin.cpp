@@ -19,7 +19,7 @@
 #include <QString>
 #include <klocale.h>
 
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 #include "InsertAtPlugin.h"
 
 KWAVE_PLUGIN(InsertAtPlugin, "insert_at", "2.1",

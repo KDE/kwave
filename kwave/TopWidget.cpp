@@ -55,7 +55,7 @@
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
 #include "libkwave/Encoder.h"
-#include "libkwave/KwavePlugin.h" // for some helper functions
+#include "libkwave/Plugin.h" // for some helper functions
 #include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MetaDataList.h"

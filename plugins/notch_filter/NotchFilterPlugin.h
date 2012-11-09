@@ -24,7 +24,7 @@
 #include <QStringList>
 
 #include "libkwave/PluginSetupDialog.h"
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 
 #include "libgui/KwaveFilterPlugin.h"
 

@@ -22,7 +22,7 @@
 #include <QString>
 #include <QStringList>
 
-#include "libkwave/KwavePlugin.h"
+#include "libkwave/Plugin.h"
 #include "libkwave/MemoryManager.h"
 
 #include "MemoryPlugin.h"

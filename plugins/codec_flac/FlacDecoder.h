@@ -38,7 +38,7 @@
 class QWidget;
 class QIODevice;
 
-class FlacDecoder: public Decoder,
+class FlacDecoder: public Kwave::Decoder,
                    protected FLAC::Decoder::Stream
 {
 public:
@@ -49,7 +49,7 @@ public:
     virtual ~FlacDecoder();
 
     /** Returns a new instance of the decoder */
-    virtual Decoder *instance();
+    virtual Kwave::Decoder *instance();
 
     /**
      * Opens the source and decodes the header information.

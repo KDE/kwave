@@ -27,78 +27,85 @@
 
 #include "libkwave/SampleArray.h"
 
-class KDE_EXPORT SampleFIFO
+namespace Kwave
 {
-public:
-    /** Constructor */
-    SampleFIFO();
 
-    /** copy constructor */
-    SampleFIFO(const SampleFIFO &other);
+    class KDE_EXPORT SampleFIFO
+    {
+    public:
+	/** Constructor */
+	SampleFIFO();
 
-    /** Destructor */
-    virtual ~SampleFIFO();
+	/** copy constructor */
+	SampleFIFO(const SampleFIFO &other);
 
-    /**
-     * Reset the FIFO. This destroys the content and sets
-     * all pointers to their initial value.
-     */
-     virtual void flush();
+	/** Destructor */
+	virtual ~SampleFIFO();
 
-    /**
-     * puts samples into the FIFO
-     *
-     * @param source reference to an array of samples to feed in
-     */
-    virtual void put(const Kwave::SampleArray &source);
+	/**
+	 * Reset the FIFO. This destroys the content and sets
+	 * all pointers to their initial value.
+	 */
+	virtual void flush();
 
-    /**
-     * gets and removes samples from the FIFO
-     *
-     * @param buffer reference to an array of samples to be filled
-     * @return number of received samples
-     */
-    virtual unsigned int get(Kwave::SampleArray &buffer);
+	/**
+	 * puts samples into the FIFO
+	 *
+	 * @param source reference to an array of samples to feed in
+	 */
+	virtual void put(const Kwave::SampleArray &source);
 
-    /**
-     * Returns the number of samples that can be read out.
-     * @see m_written
-     */
-    virtual unsigned int length();
+	/**
+	 * gets and removes samples from the FIFO
+	 *
+	 * @param buffer reference to an array of samples to be filled
+	 * @return number of received samples
+	 */
+	virtual unsigned int get(Kwave::SampleArray &buffer);
 
-    /**
-     * sets the maximum size of the content
-     */
-    virtual void setSize(unsigned int size);
+	/**
+	 * Returns the number of samples that can be read out.
+	 * @see m_written
+	 */
+	virtual unsigned int length();
 
-    /**
-     * discards all superflous content until the size
-     * condition is met.
-     */
-    virtual void crop();
+	/**
+	 * sets the maximum size of the content
+	 */
+	virtual void setSize(unsigned int size);
 
-private:
+	/**
+	 * discards all superflous content until the size
+	 * condition is met.
+	 */
+	virtual void crop();
 
-    /** internal version of length(), without locking */
-    unsigned int unlockedLength();
+    private:
 
-private:
+	/** internal version of length(), without locking */
+	unsigned int unlockedLength();
 
-    /** list of buffers with sample data */
-    QQueue<Kwave::SampleArray> m_buffer;
+    private:
 
-    /** maximum number of samples of the content */
-    sample_index_t m_size;
+	/** list of buffers with sample data */
+	QQueue<Kwave::SampleArray> m_buffer;
 
-    /**
-     * number of samples that have already been read out
-     * from the first buffer (head, first one to read out)
-     */
-    sample_index_t m_read_offset;
+	/** maximum number of samples of the content */
+	sample_index_t m_size;
 
-    /** mutex for access to the FIFO (recursive) */
-    QMutex m_lock;
+	/**
+	 * number of samples that have already been read out
+	 * from the first buffer (head, first one to read out)
+	 */
+	sample_index_t m_read_offset;
 
-};
+	/** mutex for access to the FIFO (recursive) */
+	QMutex m_lock;
+
+    };
+}
 
 #endif /* _SAMPLE_FIFO_H_ */
+
+//***************************************************************************
+//***************************************************************************

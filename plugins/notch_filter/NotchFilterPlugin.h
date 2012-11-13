@@ -38,13 +38,13 @@ class NotchFilterPlugin: public Kwave::FilterPlugin
 public:
 
     /** Constructor */
-    NotchFilterPlugin(const PluginContext &context);
+    NotchFilterPlugin(const Kwave::PluginContext &context);
 
     /** Destructor */
     virtual ~NotchFilterPlugin();
 
     /** Creates the setup dialog and connects it's signals */
-    virtual KwavePluginSetupDialog *createDialog(QWidget *parent);
+    virtual Kwave::PluginSetupDialog *createDialog(QWidget *parent);
 
     /**
      * Creates a multi-track filter with the given number of tracks

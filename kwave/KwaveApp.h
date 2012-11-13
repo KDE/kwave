@@ -26,7 +26,6 @@
 #include <kuniqueapplication.h>
 #include <kapplication.h>
 
-class ClipBoard;
 class KUrl;
 class MemoryManager;
 class QString;

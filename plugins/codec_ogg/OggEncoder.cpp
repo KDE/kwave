@@ -32,13 +32,11 @@
 
 #include <vorbis/vorbisenc.h>
 
-#include "libkwave/CompressionType.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
-#include "libkwave/SampleReader.h"
 
 #include "OggCodecPlugin.h"
 #include "OggEncoder.h"
@@ -48,32 +46,32 @@
 
 /***************************************************************************/
 static const struct {
-    FileProperty property;
+    Kwave::FileProperty property;
     const char *name;
 } supported_properties[] = {
-	{ INF_NAME,         "TITLE" },
-	{ INF_VERSION,      "VERSION" },
-	{ INF_ALBUM,        "ALBUM" },
-	{ INF_TRACK,        "TRACKNUMBER" },
-	{ INF_AUTHOR,       "ARTIST" },
-	{ INF_PERFORMER,    "PERFORMER" },
-	{ INF_COPYRIGHT,    "COPYRIGHT" },
-	{ INF_LICENSE,      "LICENSE" },
-	{ INF_ORGANIZATION, "ORGANIZATION" },
-	{ INF_SUBJECT,      "DESCRIPTION" },
-	{ INF_GENRE,        "GENRE" },
-	{ INF_SOURCE,       "LOCATION" },
-	{ INF_CONTACT,      "CONTACT" },
-	{ INF_ISRC,         "ISRC" },
-	{ INF_SOFTWARE,     "ENCODER" },
-	{ INF_CREATION_DATE,"DATE" },
-	{ INF_VBR_QUALITY,  "VBR_QUALITY" },
-	{ INF_MIMETYPE,     0 }
+	{ Kwave::INF_NAME,         "TITLE" },
+	{ Kwave::INF_VERSION,      "VERSION" },
+	{ Kwave::INF_ALBUM,        "ALBUM" },
+	{ Kwave::INF_TRACK,        "TRACKNUMBER" },
+	{ Kwave::INF_AUTHOR,       "ARTIST" },
+	{ Kwave::INF_PERFORMER,    "PERFORMER" },
+	{ Kwave::INF_COPYRIGHT,    "COPYRIGHT" },
+	{ Kwave::INF_LICENSE,      "LICENSE" },
+	{ Kwave::INF_ORGANIZATION, "ORGANIZATION" },
+	{ Kwave::INF_SUBJECT,      "DESCRIPTION" },
+	{ Kwave::INF_GENRE,        "GENRE" },
+	{ Kwave::INF_SOURCE,       "LOCATION" },
+	{ Kwave::INF_CONTACT,      "CONTACT" },
+	{ Kwave::INF_ISRC,         "ISRC" },
+	{ Kwave::INF_SOFTWARE,     "ENCODER" },
+	{ Kwave::INF_CREATION_DATE,"DATE" },
+	{ Kwave::INF_VBR_QUALITY,  "VBR_QUALITY" },
+	{ Kwave::INF_MIMETYPE,     0 }
 };
 
 /***************************************************************************/
 OggEncoder::OggEncoder()
-    :Encoder()
+    :Kwave::Encoder()
 {
     REGISTER_MIME_TYPES;
     REGISTER_COMPRESSION_TYPES;
@@ -85,15 +83,15 @@ OggEncoder::~OggEncoder()
 }
 
 /***************************************************************************/
-Encoder *OggEncoder::instance()
+Kwave::Encoder *OggEncoder::instance()
 {
     return new OggEncoder();
 }
 
 /***************************************************************************/
-QList<FileProperty> OggEncoder::supportedProperties()
+QList<Kwave::FileProperty> OggEncoder::supportedProperties()
 {
-    QList<FileProperty> list;
+    QList<Kwave::FileProperty> list;
 
     for (unsigned int i=0; i < sizeof(supported_properties) /
                                sizeof(supported_properties[0]); ++i)
@@ -105,12 +103,13 @@ QList<FileProperty> OggEncoder::supportedProperties()
 }
 
 /***************************************************************************/
-void OggEncoder::encodeProperties(const FileInfo &info, vorbis_comment *vc)
+void OggEncoder::encodeProperties(const Kwave::FileInfo &info,
+                                  vorbis_comment *vc)
 {
     for (unsigned int i=0; i < sizeof(supported_properties) /
                                sizeof(supported_properties[0]); ++i)
     {
-	FileProperty property = supported_properties[i].property;
+	Kwave::FileProperty property = supported_properties[i].property;
 
 	if (!info.contains(property)) continue; // skip if not present
 
@@ -125,7 +124,7 @@ void OggEncoder::encodeProperties(const FileInfo &info, vorbis_comment *vc)
 }
 
 /***************************************************************************/
-bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
+bool OggEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
                         QIODevice &dst, const Kwave::MetaDataList &meta_data)
 {
     #define BUFFER_SIZE 1024
@@ -144,22 +143,22 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
     int ret = -1;
 
     // get info: tracks, sample rate, bitrate(s)
-    const FileInfo info(meta_data);
+    const Kwave::FileInfo info(meta_data);
     const unsigned int tracks = info.tracks();
     const unsigned int length = info.length();
     const long sample_rate = static_cast<const long>(info.rate());
 
     // ABR bitrates
-    int bitrate_nominal = info.contains(INF_BITRATE_NOMINAL) ?
-        QVariant(info.get(INF_BITRATE_NOMINAL)).toInt() : -1;
-    int bitrate_lower = info.contains(INF_BITRATE_LOWER) ?
-        QVariant(info.get(INF_BITRATE_LOWER)).toInt() : -1;
-    int bitrate_upper = info.contains(INF_BITRATE_UPPER) ?
-        QVariant(info.get(INF_BITRATE_UPPER)).toInt() : -1;
+    int bitrate_nominal = info.contains(Kwave::INF_BITRATE_NOMINAL) ?
+        QVariant(info.get(Kwave::INF_BITRATE_NOMINAL)).toInt() : -1;
+    int bitrate_lower = info.contains(Kwave::INF_BITRATE_LOWER) ?
+        QVariant(info.get(Kwave::INF_BITRATE_LOWER)).toInt() : -1;
+    int bitrate_upper = info.contains(Kwave::INF_BITRATE_UPPER) ?
+        QVariant(info.get(Kwave::INF_BITRATE_UPPER)).toInt() : -1;
 
     // VBR quality
-    int vbr_quality = info.contains(INF_VBR_QUALITY) ?
-        QVariant(info.get(INF_VBR_QUALITY)).toInt() : -1;
+    int vbr_quality = info.contains(Kwave::INF_VBR_QUALITY) ?
+        QVariant(info.get(Kwave::INF_VBR_QUALITY)).toInt() : -1;
 
     qDebug("OggEncoder: ABR=%d...%d...%d Bits/s, VBR=%d%%",
            bitrate_lower,bitrate_nominal,bitrate_upper,vbr_quality);

@@ -251,7 +251,7 @@ void OverViewWidget::metaDataChanged(Kwave::MetaDataList meta)
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
-    m_labels = LabelList(meta);
+    m_labels = Kwave::LabelList(meta);
 
     // only re-start the repaint timer, this hides some GUI update artifacts
     if (!m_repaint_timer.isActive()) {
@@ -395,7 +395,7 @@ void OverViewWidget::calculateBitmap()
 
     // draw labels
     unsigned int last_label_pos = width + 1;;
-    foreach (const Label &label, m_labels) {
+    foreach (const Kwave::Label &label, m_labels) {
 	sample_index_t pos = label.pos();
 	unsigned int x = static_cast<unsigned int>(
 	    static_cast<double>(pos) * scale);

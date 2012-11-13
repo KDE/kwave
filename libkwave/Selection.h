@@ -26,89 +26,90 @@
 
 #include "libkwave/Sample.h"
 
-class KDE_EXPORT Selection: public QObject
+namespace Kwave
 {
-    Q_OBJECT
-public:
-    /**
-     * constructor.
-     * @param offset index of the first item
-     * @param length number of items
-     */
-    Selection(sample_index_t offset, sample_index_t length);
 
-    /** copy constructor */
-    Selection(const Selection &other);
+    class KDE_EXPORT Selection: public QObject
+    {
+	Q_OBJECT
+    public:
+	/**
+	 * constructor.
+	 * @param offset index of the first item
+	 * @param length number of items
+	 */
+	Selection(sample_index_t offset, sample_index_t length);
 
-    /** Destructor */
-    virtual ~Selection();
+	/** copy constructor */
+	Selection(const Selection &other);
 
-    /**
-     * Sets a new offset and length.
-     * @param offset index of the first item
-     * @param length number of items
-     */
-    void select(sample_index_t offset, sample_index_t length) {
-	if ((offset == m_offset) && (length == m_length))
-	    return;
-	m_offset = offset;
-	m_length = length;
-	emit changed(m_offset, m_length);
-    }
+	/** Destructor */
+	virtual ~Selection();
 
-    /** Clears the selection (0 samples at offset 0) */
-    inline void clear() {
-	select(0, 0);
-    }
+	/**
+	 * Sets a new offset and length.
+	 * @param offset index of the first item
+	 * @param length number of items
+	 */
+	void select(sample_index_t offset, sample_index_t length);
 
-    /** Returns the index of the first selected item. */
-    inline sample_index_t offset() const {
-	return m_offset;
-    }
+	/** Clears the selection (0 samples at offset 0) */
+	inline void clear() {
+	    select(0, 0);
+	}
 
-    /** Returns the number of selected items. */
-    inline sample_index_t length() const {
-	return m_length;
-    }
+	/** Returns the index of the first selected item. */
+	inline sample_index_t offset() const {
+	    return m_offset;
+	}
 
-    /** Equal to offset(). */
-    inline sample_index_t first() const {
-	return offset();
-    }
+	/** Returns the number of selected items. */
+	inline sample_index_t length() const {
+	    return m_length;
+	}
 
-    /** Returns the index of the last selected item. */
-    inline sample_index_t last() const {
-	return m_offset + (m_length ? (m_length-1) : 0);
-    }
+	/** Equal to offset(). */
+	inline sample_index_t first() const {
+	    return offset();
+	}
 
-    /** compare operator */
-    bool operator == (const Selection &other) const {
-	return ((m_offset == other.offset()) &&
-	        (m_length == other.length()));
-    }
+	/** Returns the index of the last selected item. */
+	inline sample_index_t last() const {
+	    return m_offset + (m_length ? (m_length-1) : 0);
+	}
 
-    /** Assignment operator */
-    Selection & operator = (const Selection &source) {
-	m_offset = source.offset();
-	m_length = source.length();
-	return *this;
-    }
+	/** compare operator */
+	bool operator == (const Selection &other) const {
+	    return ((m_offset == other.offset()) &&
+		    (m_length == other.length()));
+	}
 
-signals:
+	/** Assignment operator */
+	Selection & operator = (const Selection &source) {
+	    m_offset = source.offset();
+	    m_length = source.length();
+	    return *this;
+	}
 
-    /**
-     * Emits a change in the selected range.
-     * @param offset index of the first selected items
-     * @param length number of selected items
-     */
-    void changed(sample_index_t offset, sample_index_t length);
+    signals:
 
-private:
-    /** index of the first selected item */
-    sample_index_t m_offset;
+	/**
+	 * Emits a change in the selected range.
+	 * @param offset index of the first selected items
+	 * @param length number of selected items
+	 */
+	void changed(sample_index_t offset, sample_index_t length);
 
-    /** number of items */
-    sample_index_t m_length;
-};
+    private:
+	/** index of the first selected item */
+	sample_index_t m_offset;
+
+	/** number of items */
+	sample_index_t m_length;
+    };
+}
 
 #endif /* _SELECTION_H_ */
+
+//***************************************************************************
+//***************************************************************************

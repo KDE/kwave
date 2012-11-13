@@ -53,7 +53,7 @@ QString AmplifyFreeDialog::getCommand()
 {
     QString cmd;
     Q_ASSERT(curveWidget);
-    Parser p(curveWidget->getCommand());
+    Kwave::Parser p(curveWidget->getCommand());
 
     cmd = "amplifyfree(";
     if (p.hasParams()) cmd += p.nextParam();

@@ -24,7 +24,8 @@
 #include <QMutableLinkedListIterator>
 #include <QPair>
 
-namespace Kwave {
+namespace Kwave
+{
 
     template<class IDX, class DATA> class LRU_Cache
         :public QLinkedList< QPair<IDX, DATA> >
@@ -155,3 +156,6 @@ namespace Kwave {
 }
 
 #endif /* _LRU_CACHE_H_ */
+
+//***************************************************************************
+//***************************************************************************

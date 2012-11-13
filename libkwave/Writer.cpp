@@ -33,7 +33,7 @@
 //***************************************************************************
 Kwave::Writer::Writer()
     :Kwave::SampleSink(0),
-     m_first(0), m_last(0), m_mode(Insert), m_position(0),
+     m_first(0), m_last(0), m_mode(Kwave::Insert), m_position(0),
      m_buffer(BUFFER_SIZE), m_buffer_size(BUFFER_SIZE), m_buffer_used(0)
 {
     // use the internal buffer in raw mode, for better performance
@@ -41,7 +41,7 @@ Kwave::Writer::Writer()
 }
 
 //***************************************************************************
-Kwave::Writer::Writer(InsertMode mode,
+Kwave::Writer::Writer(Kwave::InsertMode mode,
                       sample_index_t left, sample_index_t right)
     :Kwave::SampleSink(0),
      m_first(left), m_last(right), m_mode(mode), m_position(left),
@@ -61,7 +61,7 @@ Kwave::Writer::~Writer()
     Q_ASSERT(!m_buffer_used);
     if (m_buffer_used) qWarning("Writer was not flushed!?");
 
-    Q_ASSERT((m_mode != Overwrite) || (m_position <= m_last + 1));
+    Q_ASSERT((m_mode != Kwave::Overwrite) || (m_position <= m_last + 1));
 
     // inform others that we proceeded
     emit sigSamplesWritten(m_position - m_first);
@@ -108,7 +108,7 @@ Kwave::Writer &Kwave::Writer::operator << (const sample_t &sample)
 }
 
 //***************************************************************************
-Kwave::Writer &Kwave::Writer::operator << (SampleReader &reader)
+Kwave::Writer &Kwave::Writer::operator << (Kwave::SampleReader &reader)
 {
     if (m_buffer_used) flush();
 
@@ -117,7 +117,7 @@ Kwave::Writer &Kwave::Writer::operator << (SampleReader &reader)
     while (!reader.eof() && !eof()) {
 
 	// overwrite mode -> clip at right border
-	if (m_mode == Overwrite) {
+	if (m_mode == Kwave::Overwrite) {
 	    if (m_position + buflen - 1 > m_last)
 		buflen = (m_last - m_position) + 1;
 	}
@@ -130,7 +130,7 @@ Kwave::Writer &Kwave::Writer::operator << (SampleReader &reader)
     }
 
     // pad the rest with zeroes
-    if (m_mode == Overwrite) {
+    if (m_mode == Kwave::Overwrite) {
 	Q_ASSERT(m_position <= m_last + 1);
 	while (m_buffer_used + m_position <= m_last) {
 	    *this << static_cast<sample_t>(0);
@@ -145,7 +145,7 @@ Kwave::Writer &Kwave::Writer::operator << (SampleReader &reader)
 //***************************************************************************
 bool Kwave::Writer::eof() const
 {
-    return (m_mode == Overwrite) ? (m_position > m_last) : false;
+    return (m_mode == Kwave::Overwrite) ? (m_position > m_last) : false;
 }
 
 //***************************************************************************

@@ -34,15 +34,14 @@
 #include "libkwave/Sample.h"
 #include "libkwave/ViewManager.h"
 
-class FileInfo;
-class PlaybackController;
-class PlaybackDeviceFactory;
 class QString;
 class QStringList;
 class QWidget;
 
-namespace Kwave {
-
+namespace Kwave
+{
+    class PlaybackController;
+    class PlaybackDeviceFactory;
     class Plugin;
     class SampleSink;
     class SignalManager;
@@ -163,7 +162,7 @@ namespace Kwave {
 	 * Returns a reference to the current playback controller. This is
 	 * only needed for plugins doing playback.
 	 */
-	PlaybackController &playbackController();
+	Kwave::PlaybackController &playbackController();
 
 	/** returns a pointer to the parent widget */
 	inline QPointer<QWidget> parentWidget()
@@ -207,12 +206,14 @@ namespace Kwave {
 	/**
 	 * Registers a PlaybackDeviceFactory
 	 */
-	void registerPlaybackDeviceFactory(PlaybackDeviceFactory *factory);
+	void registerPlaybackDeviceFactory(
+	    Kwave::PlaybackDeviceFactory *factory);
 
 	/**
 	 * Unregisters a PlaybackDeviceFactory
 	 */
-	void unregisterPlaybackDeviceFactory(PlaybackDeviceFactory *factory);
+	void unregisterPlaybackDeviceFactory(
+	    Kwave::PlaybackDeviceFactory *factory);
 
 	/** structure with information about a plugin */
 	typedef struct  {
@@ -382,3 +383,6 @@ namespace Kwave {
 }
 
 #endif /* _PLUGIN_MANAGER_H_ */
+
+//***************************************************************************
+//***************************************************************************

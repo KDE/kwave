@@ -27,119 +27,125 @@
 #include <kdemacros.h>
 
 //*****************************************************************************
-class KDE_EXPORT Parser
+namespace Kwave
 {
-public:
-    /**
-     * Constructor. Parses the given string into an optional
-     * command part and a list of parameters.
-     */
-    Parser(const QString &init);
+    class KDE_EXPORT Parser
+    {
+    public:
+	/**
+	 * Constructor. Parses the given string into an optional
+	 * command part and a list of parameters.
+	 */
+	Parser(const QString &init);
 
-    /** Destructor. */
-    virtual ~Parser();
+	/** Destructor. */
+	virtual ~Parser();
 
-    /** Returns the command part of the line */
-    inline QString command() {
-	return m_command;
-    }
+	/** Returns the command part of the line */
+	inline QString command() {
+	    return m_command;
+	}
 
-    /** Returns the complete list of parameters */
-    inline const QStringList &params() {
-	return m_param;
-    }
+	/** Returns the complete list of parameters */
+	inline const QStringList &params() {
+	    return m_param;
+	}
 
-    /** Returns true if the parameter list is not empty. */
-    inline bool hasParams() {
-	return (m_param.count() != 0);
-    }
+	/** Returns true if the parameter list is not empty. */
+	inline bool hasParams() {
+	    return (m_param.count() != 0);
+	}
 
-    /** Returns true if a list of commands was parsed */
-    inline bool hasMultipleCommands() {
-	return (m_commands.count() > 1);
-    }
+	/** Returns true if a list of commands was parsed */
+	inline bool hasMultipleCommands() {
+	    return (m_commands.count() > 1);
+	}
 
-    /** Returns the list of commands */
-    inline QStringList commandList() { return m_commands; };
+	/** Returns the list of commands */
+	inline QStringList commandList() { return m_commands; };
 
-    /** Returns true if the end of the parameter list has been reached. */
-    inline bool isDone () {
-	return (static_cast<int>(m_current) >= m_param.count());
-    }
+	/** Returns true if the end of the parameter list has been reached. */
+	inline bool isDone () {
+	    return (static_cast<int>(m_current) >= m_param.count());
+	}
 
-    /** Returns the number of parameters. */
-    inline unsigned int count() {
-	return m_param.count();
-    }
+	/** Returns the number of parameters. */
+	inline unsigned int count() {
+	    return m_param.count();
+	}
 
-    /**
-     * Returns the first parameter and sets the current
-     * position to the next.
-     */
-    const QString &firstParam();
+	/**
+	 * Returns the first parameter and sets the current
+	 * position to the next.
+	 */
+	const QString &firstParam();
 
-    /**
-     * Returns the next parameter and increases the current
-     * position if not already at the end of the parameter
-     * list. If the end of the parameter list has been
-     * reached, the return value will be a zero-length string.
-     */
-    const QString &nextParam();
+	/**
+	 * Returns the next parameter and increases the current
+	 * position if not already at the end of the parameter
+	 * list. If the end of the parameter list has been
+	 * reached, the return value will be a zero-length string.
+	 */
+	const QString &nextParam();
 
-    /**
-     * Skips a parameter and advances the current position
-     * by one if the end has not already been reached.
-     */
-    void skipParam();
+	/**
+	 * Skips a parameter and advances the current position
+	 * by one if the end has not already been reached.
+	 */
+	void skipParam();
 
-    /**
-     * Gets the next parameter through calling nextParam() and
-     * interpretes it as a "bool" value. It will recognize the
-     * strings "true" and "false" (not case-sensitive) and
-     * numeric values (true means not zero). On errors the
-     * return value will be false.
-     */
-    bool toBool();
+	/**
+	 * Gets the next parameter through calling nextParam() and
+	 * interpretes it as a "bool" value. It will recognize the
+	 * strings "true" and "false" (not case-sensitive) and
+	 * numeric values (true means not zero). On errors the
+	 * return value will be false.
+	 */
+	bool toBool();
 
-    /**
-     * Gets the next parameter through calling nextParam() and
-     * interpretes it as an "int" value. On errors the
-     * return value will be zero.
-     */
-    int toInt();
+	/**
+	 * Gets the next parameter through calling nextParam() and
+	 * interpretes it as an "int" value. On errors the
+	 * return value will be zero.
+	 */
+	int toInt();
 
-    /**
-     * Gets the next parameter through calling nextParam() and
-     * interpretes it as an "unsigned int" value. On errors the
-     * return value will be zero.
-     */
-    unsigned int toUInt();
+	/**
+	 * Gets the next parameter through calling nextParam() and
+	 * interpretes it as an "unsigned int" value. On errors the
+	 * return value will be zero.
+	 */
+	unsigned int toUInt();
 
-    /**
-     * Gets the next parameter through calling nextParam() and
-     * interpretes it as a "double" value. On errors the
-     * return value will be zero.
-     */
-    double toDouble();
+	/**
+	 * Gets the next parameter through calling nextParam() and
+	 * interpretes it as a "double" value. On errors the
+	 * return value will be zero.
+	 */
+	double toDouble();
 
-protected:
+    protected:
 
-    /** Splits a line into a list of commands */
-    QStringList splitCommands(QString &line);
+	/** Splits a line into a list of commands */
+	QStringList splitCommands(QString &line);
 
-private:
-    /** the command part of the line */
-    QString m_command;
+    private:
+	/** the command part of the line */
+	QString m_command;
 
-    /** list of parsed parameters */
-    QStringList m_param;
+	/** list of parsed parameters */
+	QStringList m_param;
 
-    /** number of the "current" parameter */
-    unsigned int m_current;
+	/** number of the "current" parameter */
+	unsigned int m_current;
 
-    /** if it has multiple commands, the list of command strings */
-    QStringList m_commands;
+	/** if it has multiple commands, the list of command strings */
+	QStringList m_commands;
 
-};
+    };
+}
 
 #endif /* _PARSER_H_ */
+
+//***************************************************************************
+//***************************************************************************

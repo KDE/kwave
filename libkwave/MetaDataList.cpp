@@ -17,8 +17,6 @@
 
 #include "config.h"
 
-#include "libkwave/FileInfo.h"
-#include "libkwave/Label.h"
 #include "libkwave/MetaDataList.h"
 
 //***************************************************************************

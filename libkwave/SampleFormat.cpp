@@ -18,37 +18,38 @@
 #include "SampleFormat.h"
 
 //***************************************************************************
-SampleFormat::Map::Map()
-    :TypesMap<int,SampleFormat::Format>()
+Kwave::SampleFormat::Map::Map()
+    :Kwave::TypesMap<int,Kwave::SampleFormat::Format>()
 {
     fill();
 }
 
 //***************************************************************************
-SampleFormat::Map::~Map()
+Kwave::SampleFormat::Map::~Map()
 {
 }
 
 //***************************************************************************
-void SampleFormat::Map::fill()
+void Kwave::SampleFormat::Map::fill()
 {
-    append(0, SampleFormat::Signed,
+    append(0, Kwave::SampleFormat::Signed,
            i18n("Linear Two's Complement"), 0);
-    append(1, SampleFormat::Unsigned,
+    append(1, Kwave::SampleFormat::Unsigned,
            i18n("Unsigned Integer"), 0);
-    append(2, SampleFormat::Float,
+    append(2, Kwave::SampleFormat::Float,
            i18n("32-bit IEEE Floating-Point"), 0);
-    append(3, SampleFormat::Double,
+    append(3, Kwave::SampleFormat::Double,
            i18n("64-bit IEEE Double Precision Floating-Point"), 0);
 }
 
 //***************************************************************************
-void SampleFormat::fromInt(int i)
+void Kwave::SampleFormat::fromInt(int i)
 {
-    SampleFormat::Map map;
-    SampleFormat::Format format = static_cast<SampleFormat::Format>(i);
+    Kwave::SampleFormat::Map map;
+    Kwave::SampleFormat::Format format =
+	static_cast<Kwave::SampleFormat::Format>(i);
     int index = map.findFromData(format);
-    m_format = (index >= 0) ? format : SampleFormat::Unknown;
+    m_format = (index >= 0) ? format : Kwave::SampleFormat::Unknown;
 }
 
 //***************************************************************************

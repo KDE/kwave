@@ -24,7 +24,9 @@
 
 #include "libkwave/SampleSink.h"
 
-namespace Kwave {
+namespace Kwave
+{
+
     template <class SINK>
     class MultiTrackSink: public Kwave::SampleSink,
                           private QVector<SINK *>
@@ -106,3 +108,6 @@ namespace Kwave {
 }
 
 #endif /* __MULTI_TRACK_SINK_H_ */
+
+//***************************************************************************
+//***************************************************************************

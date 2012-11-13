@@ -36,7 +36,7 @@
 #include "libgui/FilterPlugin.h"
 
 //***************************************************************************
-Kwave::FilterPlugin::FilterPlugin(const PluginContext &context)
+Kwave::FilterPlugin::FilterPlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context), m_params(),
      m_listen(false), m_pause(false), m_sink(0)
 {
@@ -55,7 +55,7 @@ QStringList *Kwave::FilterPlugin::setup(QStringList &previous_params)
 	m_params = previous_params;
 
     // create the setup dialog
-    KwavePluginSetupDialog *setup_dialog = createDialog(parentWidget());
+    Kwave::PluginSetupDialog *setup_dialog = createDialog(parentWidget());
     Q_ASSERT(setup_dialog);
     if (!setup_dialog) return 0;
 
@@ -101,7 +101,7 @@ void Kwave::FilterPlugin::run(QStringList params)
     Kwave::StreamObject::setInteractive(m_listen);
 
     // create all objects
-    MultiTrackReader source(
+    Kwave::MultiTrackReader source(
 	(m_listen) ? Kwave::FullSnapshot : Kwave::SinglePassForward,
 	signalManager(), tracks, first, last);
 
@@ -121,7 +121,7 @@ void Kwave::FilterPlugin::run(QStringList params)
 	    return;
 	}
 	m_sink = new MultiTrackWriter(signalManager(), tracks,
-	    Overwrite, first, last);
+	    Kwave::Overwrite, first, last);
 	Q_ASSERT(m_sink);
     }
     if (!filter || !m_sink || m_sink->done()) {

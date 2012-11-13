@@ -37,7 +37,7 @@ KWAVE_PLUGIN(AmplifyFreePlugin, "amplifyfree", "2.1",
              I18N_NOOP("Amplify Free"), "Thomas Eschenbacher");
 
 //***************************************************************************
-AmplifyFreePlugin::AmplifyFreePlugin(const PluginContext &context)
+AmplifyFreePlugin::AmplifyFreePlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context), m_action_name(""), m_params(), m_curve()
 {
 }
@@ -99,7 +99,7 @@ QStringList *AmplifyFreePlugin::setup(QStringList &previous_params)
 	// user has pressed "OK"
 	*list << "amplify free";
 	QString cmd = dialog->getCommand();
-	Parser p(cmd);
+	Kwave::Parser p(cmd);
 	while (!p.isDone()) *list << p.nextParam();
 
 	qDebug("setup -> emitCommand('%s')",cmd.toLocal8Bit().data());
@@ -142,10 +142,10 @@ void AmplifyFreePlugin::run(QStringList params)
     unsigned int tracks = track_list.count();
 
     // create all objects
-    MultiTrackReader source(Kwave::SinglePassForward,
+    Kwave::MultiTrackReader source(Kwave::SinglePassForward,
 	signalManager(), selectedTracks(), first, last);
     Kwave::CurveStreamAdapter curve(m_curve, input_length);
-    Kwave::MultiTrackWriter sink(signalManager(), track_list, Overwrite,
+    Kwave::MultiTrackWriter sink(signalManager(), track_list, Kwave::Overwrite,
 	first, last);
     Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks, this);
 

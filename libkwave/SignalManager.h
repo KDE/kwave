@@ -41,21 +41,20 @@
 
 class QBitmap;
 class QFile;
-class ClipBoard;
 class KUrl;
-class MultiTrackReader;
-class SampleReader;
 class SignalWidget;
 
 #define NEW_FILENAME i18n("New File")
 
-namespace Kwave {
+namespace Kwave
+{
 
     class UndoAction;
     class UndoInsertAction;
     class UndoTransaction;
     class UndoTransactionGuard;
     class MultiTrackWriter;
+    class SampleReader;
     class Track;
     class Writer;
 
@@ -107,7 +106,7 @@ namespace Kwave {
 	inline bool isModified() { return m_modified; }
 
 	/** Returns a reference to the playback controller. */
-	PlaybackController &playbackController();
+	Kwave::PlaybackController &playbackController();
 
 	/**
 	* Execute a Kwave text command
@@ -126,10 +125,14 @@ namespace Kwave {
 	/**
 	 * Returns the current sample resolution in bits per sample
 	 */
-	inline unsigned int bits() const { return FileInfo(m_meta_data).bits(); }
+	inline unsigned int bits() const {
+	    return Kwave::FileInfo(m_meta_data).bits();
+	}
 
 	/** Returns the current sample rate in samples per second */
-	inline double rate() const { return FileInfo(m_meta_data).rate(); }
+	inline double rate() const {
+	    return Kwave::FileInfo(m_meta_data).rate();
+	}
 
 	/** Returns the current number of tracks */
 	inline unsigned int tracks() { return m_signal.tracks(); }
@@ -141,7 +144,7 @@ namespace Kwave {
 	inline sample_index_t length() { return m_signal.length(); }
 
 	/** Returns a reference to the current selection */
-	inline Selection &selection() { return m_selection; }
+	inline Kwave::Selection &selection() { return m_selection; }
 
 	/**
 	 * Returns true if a given track is selected. If the track does
@@ -254,7 +257,7 @@ namespace Kwave {
 	 * @param right end of the input (only useful with overwrite mode)
 	 * @see InsertMode
 	 */
-	Kwave::Writer *openWriter(unsigned int track, InsertMode mode,
+	Kwave::Writer *openWriter(unsigned int track, Kwave::InsertMode mode,
 	    sample_index_t left = 0, sample_index_t right = 0);
 
 	/**
@@ -266,7 +269,7 @@ namespace Kwave {
 	 * @param left first offset to be read (default = 0)
 	 * @param right last position to read (default = UINT_MAX)
 	 */
-	inline SampleReader *openSampleReader(Kwave::ReaderMode mode,
+	inline Kwave::SampleReader *openSampleReader(Kwave::ReaderMode mode,
 	    unsigned int track,
 	    sample_index_t left = 0, sample_index_t right = SAMPLE_INDEX_MAX)
 	{
@@ -305,7 +308,7 @@ namespace Kwave {
 	 * @param new_info a new FileInfo
 	 * @param with_undo if true, store undo information
 	 */
-	void setFileInfo(FileInfo &new_info, bool with_undo);
+	void setFileInfo(Kwave::FileInfo &new_info, bool with_undo);
 
 	/**
 	 * add a new label, without undo
@@ -313,7 +316,7 @@ namespace Kwave {
 	 * @param name the name of the label
 	 * @return pointer to the new created label
 	 */
-	Label addLabel(sample_index_t pos, const QString &name);
+	Kwave::Label addLabel(sample_index_t pos, const QString &name);
 
 	/**
 	 * delete an existing label
@@ -338,14 +341,14 @@ namespace Kwave {
 	 * @param label reference to a Label
 	 * @return index [0...N-1] or -1 if label is a null pointer or not found
 	 */
-	int labelIndex(const Label &label) const;
+	int labelIndex(const Kwave::Label &label) const;
 
 	/**
 	 * returns the label at a given exact position
 	 * @param pos position of the label [samples]
 	 * @return valid label at the position or null label if not found
 	 */
-	Label findLabel(sample_index_t pos);
+	Kwave::Label findLabel(sample_index_t pos);
 
 	/**
 	 * Retrieves the list of meta data objects, mutable
@@ -665,10 +668,10 @@ namespace Kwave {
 	Kwave::Signal m_signal;
 
 	/** the current selection */
-	Selection m_selection;
+	Kwave::Selection m_selection;
 
 	/** the last selection (stored in undo) */
-	Selection m_last_selection;
+	Kwave::Selection m_last_selection;
 
 	/** the last track selection (stored in undo) */
 	QList <unsigned int> m_last_track_selection;
@@ -681,7 +684,7 @@ namespace Kwave {
 	sample_index_t m_last_length;
 
 	/** the controller for handling of playback */
-	PlaybackController m_playback_controller;
+	Kwave::PlaybackController m_playback_controller;
 
 	/** flag for "undo enabled" */
 	bool m_undo_enabled;

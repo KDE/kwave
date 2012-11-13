@@ -45,12 +45,7 @@
 
 #include "libkwave/ApplicationContext.h"
 #include "libkwave/ClipBoard.h"
-#include "libkwave/FileInfo.h"
-#include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
-#include "libkwave/MultiTrackReader.h"
-#include "libkwave/Parser.h"
-#include "libkwave/SampleReader.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Track.h"
 
@@ -199,7 +194,8 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     bool have_signal = manager && !manager->isEmpty();
     if (!have_signal)return;
     bool have_selection = manager && (manager->selection().length() > 1);
-    bool have_labels = manager && !(LabelList(manager->metaData()).isEmpty());
+    bool have_labels = manager &&
+	!(Kwave::LabelList(manager->metaData()).isEmpty());
 
     QMenu *context_menu = new QMenu(this);
     Q_ASSERT(context_menu);
@@ -248,7 +244,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     if (action_cut)   action_cut->setEnabled(have_selection);
     if (action_copy)  action_copy->setEnabled(have_selection);
     if (action_paste)
-	action_paste->setEnabled(!ClipBoard::instance().isEmpty());
+	action_paste->setEnabled(!Kwave::ClipBoard::instance().isEmpty());
 
     int mouse_x = mapFromGlobal(e->globalPos()).x();
     int mouse_y = mapFromGlobal(e->globalPos()).y();

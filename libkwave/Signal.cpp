@@ -28,12 +28,10 @@
 #include <klocale.h>
 
 #include "libkwave/MessageBox.h"
-#include "libkwave/MultiTrackReader.h"
 #include "libkwave/Track.h"
 #include "libkwave/WindowFunction.h"
 
 #include "Signal.h"
-#include "Parser.h"
 #include "Interpolation.h"
 #include "Curve.h"
 #include "Filter.h"
@@ -144,7 +142,7 @@ void Kwave::Signal::deleteTrack(unsigned int index)
 
 //***************************************************************************
 Kwave::Writer *Kwave::Signal::openWriter(unsigned int track,
-	InsertMode mode, sample_index_t left, sample_index_t right)
+	Kwave::InsertMode mode, sample_index_t left, sample_index_t right)
 {
     QReadLocker lock(&m_lock_tracks);
 
@@ -159,7 +157,7 @@ Kwave::Writer *Kwave::Signal::openWriter(unsigned int track,
 }
 
 //***************************************************************************
-SampleReader *Kwave::Signal::openSampleReader(Kwave::ReaderMode mode,
+Kwave::SampleReader *Kwave::Signal::openSampleReader(Kwave::ReaderMode mode,
 	unsigned int track, sample_index_t left, sample_index_t right)
 {
     QReadLocker lock(&m_lock_tracks);
@@ -419,9 +417,10 @@ void Kwave::Signal::selectTrack(unsigned int track, bool select)
 ////    }
 //}
 ////*********************************************************
-//void Kwave::Signal::movingFilter (Filter *filter, int tap, Curve *points, int low, int high)
+//void Kwave::Signal::movingFilter (Kwave::Filter *filter, int tap,
+//                                  Kwave::Curve *points, int low, int high)
 //{
-//    Interpolation interpolation (0);
+//    Kwave::Interpolation interpolation (0);
 //
 //    QMemArray<double> *move = interpolation.interpolation (points, len);
 //    if (move) {

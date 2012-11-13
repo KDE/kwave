@@ -26,28 +26,34 @@
 
 #include "TypesMap.h"
 
-class KDE_EXPORT CompressionType: public TypesMap<int, int>
+namespace Kwave
 {
-public:
+    class KDE_EXPORT CompressionType: public Kwave::TypesMap<int, int>
+    {
+    public:
 
-    /** extended compression types, not from libaudiofile */
-    enum {
-	MPEG_LAYER_I = 600,
-	MPEG_LAYER_II,
-	MPEG_LAYER_III,
-	OGG_VORBIS,
-	FLAC
+	/** extended compression types, not from libaudiofile */
+	enum {
+	    MPEG_LAYER_I = 600,
+	    MPEG_LAYER_II,
+	    MPEG_LAYER_III,
+	    OGG_VORBIS,
+	    FLAC
+	};
+
+	/** Constructor */
+	explicit CompressionType();
+
+	/** Destructor */
+	virtual ~CompressionType();
+
+	/** fills the list */
+	virtual void fill();
+
     };
-
-    /** Constructor */
-    explicit CompressionType();
-
-    /** Destructor */
-    virtual ~CompressionType();
-
-    /** fills the list */
-    virtual void fill();
-
-};
+}
 
 #endif /* _COMPRESSION_TYPE_H_ */
+
+//***************************************************************************
+//***************************************************************************

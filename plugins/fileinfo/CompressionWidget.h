@@ -19,12 +19,14 @@
 #define _COMPRESSION_WIDGET_H_
 
 #include "config.h"
+
 #include <QObject>
+#include <QWidget>
+
 #include "libkwave/FileInfo.h"
 #include "ui_CompressionWidgetBase.h"
 
-class FileInfo;
-class QWidget;
+namespace Kwave { class FileInfo; }
 
 class CompressionWidget: public QWidget,
                          public Ui::CompressionWidgetBase
@@ -46,7 +48,7 @@ public:
     /**
      * @param info the FileInfo used for getting the property descriptions
      */
-    virtual void init(FileInfo &info);
+    virtual void init(Kwave::FileInfo &info);
 
     /**
      * Enable or disable ABR mode controls
@@ -139,8 +141,8 @@ private:
      * @param property the file property which it belongs to
      * @param info the FileInfo used for getting the property descriptions
      */
-    void initInfo(QLabel *label, QWidget *widget, FileProperty property,
-                  FileInfo &info);
+    void initInfo(QLabel *label, QWidget *widget, Kwave::FileProperty property,
+                  Kwave::FileInfo &info);
 
 
 };

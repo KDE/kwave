@@ -34,7 +34,7 @@ KWAVE_PLUGIN(NoisePlugin, "noise", "2.1",
              I18N_NOOP("Noise Generator"), "Thomas Eschenbacher");
 
 //***************************************************************************
-NoisePlugin::NoisePlugin(const PluginContext &context)
+NoisePlugin::NoisePlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context)
 {
 }
@@ -51,7 +51,7 @@ void NoisePlugin::run(QStringList)
 
     // create all objects
     Kwave::MultiTrackSource<NoiseGenerator, true> source(tracks.count());
-    Kwave::MultiTrackWriter sink(signalManager(), tracks, Overwrite,
+    Kwave::MultiTrackWriter sink(signalManager(), tracks, Kwave::Overwrite,
         first, last);
 
     // break if aborted

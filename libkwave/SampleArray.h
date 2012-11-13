@@ -27,7 +27,9 @@
 
 #include "libkwave/Sample.h"
 
-namespace Kwave {
+namespace Kwave
+{
+
     /**
      * array with sample_t, for use in KwaveSampleSource, KwaveSampleSink
      * and other streaming classes.
@@ -156,3 +158,6 @@ namespace Kwave {
 }
 
 #endif /* _SAMPLE_ARRAY_H_ */
+
+//***************************************************************************
+//***************************************************************************

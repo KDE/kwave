@@ -43,7 +43,7 @@ class NormalizePlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    NormalizePlugin(const PluginContext &c);
+    NormalizePlugin(const Kwave::PluginContext &c);
 
     /** Destructor */
     virtual ~NormalizePlugin();
@@ -56,7 +56,7 @@ private:
     /**
      * get the maximum power level of the input
      */
-    double getMaxPower(MultiTrackReader &source);
+    double getMaxPower(Kwave::MultiTrackReader &source);
 
 };
 

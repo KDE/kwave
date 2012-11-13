@@ -42,7 +42,6 @@
 #include "libkwave/MultiPlaybackSink.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackSource.h"
-#include "libkwave/PlaybackController.h"
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/Sample.h"
@@ -69,7 +68,7 @@ KWAVE_PLUGIN(PlayBackPlugin, "playback", "2.2",
 #define SCREEN_REFRESHES_PER_SECOND 10
 
 //***************************************************************************
-PlayBackPlugin::PlayBackPlugin(const PluginContext &context)
+PlayBackPlugin::PlayBackPlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context), m_dialog(0),
     m_device(0), m_lock_device(), m_playback_params(),
     m_playback_controller(manager().playbackController()),
@@ -256,7 +255,7 @@ bool PlayBackPlugin::supportsDevice(const QString &name)
 }
 
 //***************************************************************************
-PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t &method)
+Kwave::PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t &method)
 {
     bool searching = false;
     do {
@@ -280,7 +279,7 @@ PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t &method)
 #ifdef HAVE_PULSEAUDIO_SUPPORT
 	    case PLAYBACK_PULSEAUDIO:
 		return new PlayBackPulseAudio(
-		    FileInfo(signalManager().metaData()));
+		    Kwave::FileInfo(signalManager().metaData()));
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
 	    default:
@@ -423,12 +422,12 @@ void PlayBackPlugin::setDevice(const QString &device)
 }
 
 //***************************************************************************
-PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
+Kwave::PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
     int tracks, const PlayBackParam *playback_params)
 {
     QString device_name = name;
     PlayBackParam params;
-    PlayBackDevice *device = 0;
+    Kwave::PlayBackDevice *device = 0;
 
     qDebug("PlayBackPlugin::openDevice('%s',params)",name.toLocal8Bit().data());
 
@@ -436,7 +435,7 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 	// use default parameters if none given
 	params          = m_playback_params;
 	if (!signalManager().isClosed() && !signalManager().isEmpty()) {
-	    params.rate     = FileInfo(signalManager().metaData()).rate();
+	    params.rate = Kwave::FileInfo(signalManager().metaData()).rate();
 	    params.channels = selectedTracks().count();
 	}
     } else {
@@ -618,7 +617,7 @@ void PlayBackPlugin::run(QStringList)
     }
 
     // set up a set of sample reader (streams)
-    MultiTrackReader input(
+    Kwave::MultiTrackReader input(
 	Kwave::FullSnapshot,
 	signalManager(), all_tracks, first, last);
 
@@ -684,7 +683,7 @@ void PlayBackPlugin::run(QStringList)
 	    // fill input buffer with samples
 	    for (x = 0; x < audible_count; x++) {
 		in_samples[x] = 0;
-		SampleReader *stream = input[audible_tracks[x]];
+		Kwave::SampleReader *stream = input[audible_tracks[x]];
 		Q_ASSERT(stream);
 		if (!stream) continue;
 
@@ -774,7 +773,7 @@ void PlayBackPlugin::testPlayBack()
     unsigned int curve_length = static_cast<unsigned int>(t_period * rate);
 
     // create all objects
-    Curve curve;
+    Kwave::Curve curve;
     curve.insert(0.0, 0.0);
     if (tracks < 2) {
 	// mono

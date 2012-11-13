@@ -31,28 +31,28 @@
 #include "libkwave/SignalManager.h"
 
 /** static instance of Kwave's clipboard */
-static ClipBoard g_clipboard;
+static Kwave::ClipBoard g_clipboard;
 
 //***************************************************************************
-ClipBoard &ClipBoard::instance()
+Kwave::ClipBoard &Kwave::ClipBoard::instance()
 {
     return g_clipboard;
 }
 
 //***************************************************************************
-ClipBoard::ClipBoard()
+Kwave::ClipBoard::ClipBoard()
     :m_tracks(0)
 {
 }
 
 //***************************************************************************
-ClipBoard::~ClipBoard()
+Kwave::ClipBoard::~ClipBoard()
 {
     // clear() must have been before, e.g. in the application's destructor !
 }
 
 //***************************************************************************
-void ClipBoard::slotChanged(QClipboard::Mode mode)
+void Kwave::ClipBoard::slotChanged(QClipboard::Mode mode)
 {
     if (mode != QClipboard::Clipboard) return;
     bool data_available = !isEmpty();
@@ -64,9 +64,10 @@ void ClipBoard::slotChanged(QClipboard::Mode mode)
 }
 
 //***************************************************************************
-void ClipBoard::copy(QWidget *widget, Kwave::SignalManager &signal_manager,
-                     const QList<unsigned int> &track_list,
-                     sample_index_t offset, sample_index_t length)
+void Kwave::ClipBoard::copy(QWidget *widget,
+                            Kwave::SignalManager &signal_manager,
+                            const QList<unsigned int> &track_list,
+                            sample_index_t offset, sample_index_t length)
 {
     // break if nothing to do
     if (!length || !track_list.count()) return;
@@ -77,7 +78,7 @@ void ClipBoard::copy(QWidget *widget, Kwave::SignalManager &signal_manager,
     if (!buffer) return;
 
     // encode into the mime data container
-    MultiTrackReader src(Kwave::SinglePassForward, signal_manager,
+    Kwave::MultiTrackReader src(Kwave::SinglePassForward, signal_manager,
 	track_list, offset, offset + length - 1);
 
     if (!buffer->encode(widget, src, signal_manager.metaData())) {
@@ -93,8 +94,9 @@ void ClipBoard::copy(QWidget *widget, Kwave::SignalManager &signal_manager,
 }
 
 //***************************************************************************
-bool ClipBoard::paste(QWidget *widget, Kwave::SignalManager &signal_manager,
-                      sample_index_t offset, sample_index_t length)
+bool Kwave::ClipBoard::paste(QWidget *widget,
+                             Kwave::SignalManager &signal_manager,
+                             sample_index_t offset, sample_index_t length)
 {
     Q_ASSERT(!isEmpty());
     if (isEmpty()) return false; // clipboard is empty ?
@@ -117,13 +119,13 @@ bool ClipBoard::paste(QWidget *widget, Kwave::SignalManager &signal_manager,
 }
 
 //***************************************************************************
-void ClipBoard::clear()
+void Kwave::ClipBoard::clear()
 {
     QApplication::clipboard()->clear();
 }
 
 //***************************************************************************
-bool ClipBoard::isEmpty()
+bool Kwave::ClipBoard::isEmpty()
 {
     const QMimeData *mime_data =
 	QApplication::clipboard()->mimeData(QClipboard::Clipboard);
@@ -133,7 +135,7 @@ bool ClipBoard::isEmpty()
 
     // there is a format that we can decode -> not empty
     foreach (QString format, mime_data->formats())
-	if (CodecManager::canDecode(format)) return false;
+	if (Kwave::CodecManager::canDecode(format)) return false;
 
     // nothing to decode -> empty
     return true;

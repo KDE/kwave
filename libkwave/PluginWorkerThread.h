@@ -28,9 +28,9 @@
 
 #include <kdemacros.h>
 
-namespace Kwave { class Plugin; }
-
-namespace Kwave {
+namespace Kwave
+{
+    class Plugin;
 
     class KDE_EXPORT PluginWorkerThread : public QThread
     {
@@ -100,3 +100,6 @@ namespace Kwave {
 }
 
 #endif /* _PLUGIN_WORKER_THREAD_H_ */
+
+//***************************************************************************
+//***************************************************************************

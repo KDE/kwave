@@ -30,7 +30,7 @@ class QStringList;
 class NotchFilter;
 
 class NotchFilterDialog: public QDialog,
-                         public KwavePluginSetupDialog,
+                         public Kwave::PluginSetupDialog,
                          public Ui::NotchFilterDlg
 {
     Q_OBJECT

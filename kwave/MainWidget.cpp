@@ -162,7 +162,7 @@ Kwave::MainWidget::MainWidget(QWidget *parent,
 
     // -- playback position update --
 
-    PlaybackController &playback = signal_manager->playbackController();
+    Kwave::PlaybackController &playback = signal_manager->playbackController();
     connect(&playback, SIGNAL(sigPlaybackPos(sample_index_t)),
 	m_overview, SLOT(playbackPositionChanged(sample_index_t)));
     connect(&playback, SIGNAL(sigPlaybackStopped()),
@@ -222,7 +222,7 @@ void Kwave::MainWidget::dragEnterEvent(QDragEnterEvent *event)
         (event->proposedAction() != Qt::CopyAction))
         return; /* unsupported action */
 
-    if (KwaveFileDrag::canDecode(event->mimeData()))
+    if (Kwave::FileDrag::canDecode(event->mimeData()))
 	event->acceptProposedAction();
 }
 
@@ -237,11 +237,13 @@ void Kwave::MainWidget::dropEvent(QDropEvent *event)
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
-    if (signal_manager->isEmpty() && KwaveDrag::canDecode(event->mimeData())) {
+    if (signal_manager->isEmpty() &&
+	Kwave::Drag::canDecode(event->mimeData()))
+    {
 	sample_index_t pos = m_offset + pixels2samples(event->pos().x());
 	sample_index_t len = 0;
 
-	if ((len = KwaveDrag::decode(this, event->mimeData(),
+	if ((len = Kwave::Drag::decode(this, event->mimeData(),
 	    *signal_manager, pos)))
 	{
 	    // set selection to the new area where the drop was done
@@ -255,8 +257,8 @@ void Kwave::MainWidget::dropEvent(QDropEvent *event)
 	bool first = true;
 	foreach (QUrl url, event->mimeData()->urls()) {
 	    QString filename = url.toLocalFile();
-	    QString mimetype = CodecManager::whatContains(filename);
-	    if (CodecManager::canDecode(mimetype)) {
+	    QString mimetype = Kwave::CodecManager::whatContains(filename);
+	    if (Kwave::CodecManager::canDecode(mimetype)) {
 		if (first) {
 		    // first dropped URL -> open in this window
 		    emit sigCommand("open(" + filename + ")");
@@ -365,7 +367,7 @@ int Kwave::MainWidget::executeCommand(const QString &command)
     if (!signal_manager) return -EINVAL;
     if (!command.length()) return -EINVAL;
 
-    Parser parser(command);
+    Kwave::Parser parser(command);
     const sample_index_t visible_samples = displaySamples();
     const sample_index_t signal_length   = signal_manager->length();
 
@@ -408,7 +410,7 @@ int Kwave::MainWidget::executeCommand(const QString &command)
 	          (m_offset - visible_samples) : 0);
     CASE_COMMAND("view:scroll_next_label")
 	sample_index_t ofs =
-	    LabelList(signal_manager->metaData()).nextLabelRight(
+	    Kwave::LabelList(signal_manager->metaData()).nextLabelRight(
 		m_offset + (visible_samples / 2));
 	if (ofs > signal_length)
 	    ofs = signal_length - 1;
@@ -416,7 +418,7 @@ int Kwave::MainWidget::executeCommand(const QString &command)
 	          (ofs - (visible_samples / 2)) : 0);
     CASE_COMMAND("view:scroll_prev_label")
 	sample_index_t ofs =
-	    LabelList(signal_manager->metaData()).nextLabelLeft(
+	    Kwave::LabelList(signal_manager->metaData()).nextLabelLeft(
 		m_offset + (visible_samples / 2));
 	setOffset((ofs > (visible_samples / 2)) ?
 	          (ofs - (visible_samples / 2)) : 0);
@@ -453,14 +455,14 @@ int Kwave::MainWidget::executeCommand(const QString &command)
 	addLabel(pos, description);
     CASE_COMMAND("edit_label")
 	int index = parser.toInt();
-	LabelList labels(signal_manager->metaData());
+	Kwave::LabelList labels(signal_manager->metaData());
 	if ((index >= labels.count()) || (index < 0))
 	    return -EINVAL;
-	Label label = labels.at(index);
+	Kwave::Label label = labels.at(index);
 	labelProperties(label);
 
 //    CASE_COMMAND("chooselabel")
-//	Parser parser(command);
+//	Kwave::Parser parser(command);
 //	markertype = globals.markertypes.at(parser.toInt());
 //    CASE_COMMAND("amptolabel")
 //	markSignal(command);
@@ -875,7 +877,7 @@ void Kwave::MainWidget::addLabel(sample_index_t pos, const QString &description)
     Kwave::UndoTransactionGuard undo(*signal_manager, i18n("Add Label"));
 
     // add a new label, with undo
-    Label label = signal_manager->addLabel(pos, description);
+    Kwave::Label label = signal_manager->addLabel(pos, description);
     if (label.isNull()) {
 	signal_manager->abortUndoTransaction();
 	return;
@@ -905,8 +907,8 @@ void Kwave::MainWidget::addLabel(sample_index_t pos, const QString &description)
 // //	FILE *out;
 // //	out = fopen (name.local8Bit(), "w");
 // //
-// //	Parser parser (typestring);
-// //	Label *tmp;
+// //	Kwave::Parser parser (typestring);
+// //	Kwave::Label *tmp;
 // //	LabelType *act;
 // //
 // //	const char *actstring = parser.getFirstParam();
@@ -940,7 +942,7 @@ void Kwave::MainWidget::addLabel(sample_index_t pos, const QString &description)
 // //}
 
 //***************************************************************************
-bool Kwave::MainWidget::labelProperties(Label &label)
+bool Kwave::MainWidget::labelProperties(Kwave::Label &label)
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
@@ -993,7 +995,7 @@ bool Kwave::MainWidget::labelProperties(Label &label)
 		"Do you want to replace it?"));
 	    if (res == KMessageBox::Yes) {
 		// delete the label at the target position (with undo)
-		Label old = signal_manager->findLabel(new_pos);
+		Kwave::Label old = signal_manager->findLabel(new_pos);
 		old_index = signal_manager->labelIndex(old);
 		break;
 	    }
@@ -1056,7 +1058,7 @@ bool Kwave::MainWidget::labelProperties(Label &label)
 // //	    selectMarkers (dialog->getCommand());
 // //
 // //	    LabelType *act;
-// //	    Label *tmp;
+// //	    Kwave::Label *tmp;
 // //	    int last = 0;
 // //	    int rate = signalmanage->getRate ();
 // //
@@ -1106,9 +1108,9 @@ bool Kwave::MainWidget::labelProperties(Label &label)
 // //void MainWidget::markSignal (const char *str)
 // //{
 // //    if (signalmanage) {
-// //	Label *newmark;
+// //	Kwave::Label *newmark;
 // //
-// //	Parser parser (str);
+// //	Kwave::Parser parser (str);
 // //
 // //	int level = (int) (parser.toDouble() / 100 * (1 << 23));
 // //
@@ -1127,7 +1129,7 @@ bool Kwave::MainWidget::labelProperties(Label &label)
 // //	if (dialog && start && stop) {
 // //	    dialog->show();
 // //
-// //	    newmark = new Label(0, start);     //generate initial Label
+// //	    newmark = new Kwave::Label(0, start);     //generate initial Kwave::Label
 // //
 // //	    labels->inSort (newmark);
 // //
@@ -1138,11 +1140,11 @@ bool Kwave::MainWidget::labelProperties(Label &label)
 // //
 // //		    if (i - j > time) {
 // //			//insert labels...
-// //			newmark = new Label(i, start);
+// //			newmark = new Kwave::Label(i, start);
 // //			labels->inSort (newmark);
 // //
 // //			if (start != stop) {
-// //			    newmark = new Label(j, stop);
+// //			    newmark = new Kwave::Label(j, stop);
 // //			    labels->inSort (newmark);
 // //			}
 // //		    }
@@ -1150,7 +1152,7 @@ bool Kwave::MainWidget::labelProperties(Label &label)
 // //		dialog->setProgress (i);
 // //	    }
 // //
-// //	    newmark = new Label(len - 1, stop);
+// //	    newmark = new Kwave::Label(len - 1, stop);
 // //	    labels->inSort (newmark);
 // //
 // //	    refresh ();
@@ -1163,7 +1165,7 @@ bool Kwave::MainWidget::labelProperties(Label &label)
 // //void MainWidget::markPeriods (const char *str)
 // //{
 // //    if (signalmanage) {
-// //	Parser parser (str);
+// //	Kwave::Parser parser (str);
 // //
 // //	int high = signalmanage->getRate() / parser.toInt();
 // //	int low = signalmanage->getRate() / parser.toInt();
@@ -1175,7 +1177,7 @@ bool Kwave::MainWidget::labelProperties(Label &label)
 // //
 // //	if (octave) for (int i = 0; i < AUTOKORRWIN; i++) weighttable[i] = 1;    //initialise moving weight table
 // //
-// //	Label *newmark;
+// //	Kwave::Label *newmark;
 // //	int next;
 // //	int len = signalmanage->getLength();
 // //	int *sam = signalmanage->getSignal(0)->getSample();    // ### @@@ ###
@@ -1186,7 +1188,7 @@ bool Kwave::MainWidget::labelProperties(Label &label)
 // //	if (dialog) {
 // //	    dialog->show();
 // //
-// //	    newmark = new Label(cnt, start);
+// //	    newmark = new Kwave::Label(cnt, start);
 // //	    labels->inSort (newmark);
 // //
 // //	    while (cnt < len - 2*AUTOKORRWIN) {
@@ -1196,7 +1198,7 @@ bool Kwave::MainWidget::labelProperties(Label &label)
 // //		    next = findNextRepeat (&sam[cnt], high);
 // //
 // //		if ((next < low) && (next > high)) {
-// //		    newmark = new Label(cnt, start);
+// //		    newmark = new Kwave::Label(cnt, start);
 // //
 // //		    labels->inSort (newmark);
 // //		}

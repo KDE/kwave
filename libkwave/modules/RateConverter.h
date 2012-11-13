@@ -32,7 +32,9 @@
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleSource.h"
 
-namespace Kwave {
+namespace Kwave
+{
+
     class KDE_EXPORT RateConverter: public Kwave::SampleSource
     {
 	Q_OBJECT
@@ -82,3 +84,6 @@ namespace Kwave {
 #endif /* HAVE_SAMPLERATE_SUPPORT */
 
 #endif /* _RATE_CONVERTER_H_ */
+
+//***************************************************************************
+//***************************************************************************

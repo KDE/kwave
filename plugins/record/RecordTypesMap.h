@@ -21,12 +21,12 @@
 #include "libkwave/TypesMap.h"
 #include "RecordParams.h"
 
-class RecordTypesMap: public TypesMap<unsigned int, record_method_t>
+class RecordTypesMap: public Kwave::TypesMap<unsigned int, record_method_t>
 {
 public:
     /** Constructor */
     explicit RecordTypesMap()
-	:TypesMap<unsigned int, record_method_t>()
+	:Kwave::TypesMap<unsigned int, record_method_t>()
     {
 	fill();
     }

@@ -25,7 +25,8 @@
 
 #include "libkwave/Matrix.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     class KDE_EXPORT MixerMatrix: public Kwave::Matrix<double>
     {
@@ -46,3 +47,6 @@ namespace Kwave {
 }
 
 #endif /* _MIXER_MATRIX_H_ */
+
+//***************************************************************************
+//***************************************************************************

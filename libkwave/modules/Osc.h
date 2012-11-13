@@ -27,7 +27,8 @@
 
 #include "libkwave/SampleSource.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     class KDE_EXPORT Osc: public Kwave::SampleSource
     {

@@ -28,7 +28,9 @@
 #include <QtGlobal>
 
 #include "libkwave/byteswap.h"
+#include "libkwave/CompressionType.h"
 #include "libkwave/FileInfo.h"
+#include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
@@ -50,7 +52,7 @@
 
 /***************************************************************************/
 WavEncoder::WavEncoder()
-    :Encoder(), m_property_map()
+    :Kwave::Encoder(), m_property_map()
 {
     REGISTER_MIME_TYPES;
     REGISTER_COMPRESSION_TYPES;
@@ -62,25 +64,25 @@ WavEncoder::~WavEncoder()
 }
 
 /***************************************************************************/
-Encoder *WavEncoder::instance()
+Kwave::Encoder *WavEncoder::instance()
 {
     return new WavEncoder();
 }
 
 /***************************************************************************/
-QList<FileProperty> WavEncoder::supportedProperties()
+QList<Kwave::FileProperty> WavEncoder::supportedProperties()
 {
     return m_property_map.properties();
 }
 
 /***************************************************************************/
-void WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst, FileInfo &info,
+void WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst, Kwave::FileInfo &info,
                                              unsigned int frame_size)
 {
     const unsigned int length = info.length();
     u_int32_t correct_size = length * frame_size;
-    const int compression = info.contains(INF_COMPRESSION) ?
-                      info.get(INF_COMPRESSION).toInt() :
+    const int compression = info.contains(Kwave::INF_COMPRESSION) ?
+                      info.get(Kwave::INF_COMPRESSION).toInt() :
 	    AF_COMPRESSION_NONE;
     if (compression != AF_COMPRESSION_NONE) {
 	qWarning("WARNING: libaudiofile might have produced a broken header!");
@@ -124,16 +126,16 @@ void WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst, FileInfo &info,
 }
 
 /***************************************************************************/
-void WavEncoder::writeInfoChunk(QIODevice &dst, FileInfo &info)
+void WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
 {
     // create a list of chunk names and properties for the INFO chunk
-    QMap<FileProperty, QVariant> properties(info.properties());
+    QMap<Kwave::FileProperty, QVariant> properties(info.properties());
     QMap<QByteArray, QByteArray> info_chunks;
     unsigned int info_size = 0;
 
-    QMap<FileProperty, QVariant>::Iterator it;
+    QMap<Kwave::FileProperty, QVariant>::Iterator it;
     for (it = properties.begin(); it != properties.end(); ++it) {
-	FileProperty property = it.key();
+	Kwave::FileProperty property = it.key();
 	if (!m_property_map.containsProperty(property)) continue;
 
 	QByteArray chunk_id = m_property_map.findProperty(property);
@@ -186,7 +188,7 @@ void WavEncoder::writeInfoChunk(QIODevice &dst, FileInfo &info)
 }
 
 /***************************************************************************/
-void WavEncoder::writeLabels(QIODevice &dst, const LabelList &labels)
+void WavEncoder::writeLabels(QIODevice &dst, const Kwave::LabelList &labels)
 {
     const unsigned int labels_count = labels.count();
     u_int32_t size, additional_size = 0, index, data;
@@ -202,7 +204,7 @@ void WavEncoder::writeLabels(QIODevice &dst, const LabelList &labels)
 
     // now the size of the labels
     unsigned int size_of_labels = 0;
-    foreach (const Label &label, labels) {
+    foreach (const Kwave::Label &label, labels) {
 	if (label.isNull()) continue;
 	unsigned int name_len = label.name().toUtf8().size();
 	if (!name_len) continue; // skip zero-length names
@@ -240,7 +242,7 @@ void WavEncoder::writeLabels(QIODevice &dst, const LabelList &labels)
     dst.write(reinterpret_cast<char *>(&size), 4);
 
     index = 0;
-    foreach (const Label &label, labels) {
+    foreach (const Kwave::Label &label, labels) {
 	if (label.isNull()) continue;
 	/*
 	 * typedef struct {
@@ -271,7 +273,7 @@ void WavEncoder::writeLabels(QIODevice &dst, const LabelList &labels)
 	dst.write(reinterpret_cast<char *>(&size), 4);
 	dst.write("adtl", 4);
 	index = 0;
-	foreach (const Label &label, labels) {
+	foreach (const Kwave::Label &label, labels) {
 	    if (label.isNull()) continue;
 	    QByteArray name = label.name().toUtf8();
 
@@ -306,21 +308,21 @@ void WavEncoder::writeLabels(QIODevice &dst, const LabelList &labels)
 }
 
 /***************************************************************************/
-bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
+bool WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
                         QIODevice &dst, const Kwave::MetaDataList &meta_data)
 {
-    FileInfo info(meta_data);
+    Kwave::FileInfo info(meta_data);
 
     /* first get and check some header information */
     const unsigned int tracks = info.tracks();
     const unsigned int length = info.length();
     unsigned int bits = info.bits();
     const double rate = info.rate();
-    int sample_format = info.contains(INF_SAMPLE_FORMAT) ?
-                        info.get(INF_SAMPLE_FORMAT).toInt() :
+    int sample_format = info.contains(Kwave::INF_SAMPLE_FORMAT) ?
+                        info.get(Kwave::INF_SAMPLE_FORMAT).toInt() :
                         AF_SAMPFMT_TWOSCOMP;
-    int compression = info.contains(INF_COMPRESSION) ?
-                      info.get(INF_COMPRESSION).toInt() :
+    int compression = info.contains(Kwave::INF_COMPRESSION) ?
+                      info.get(Kwave::INF_COMPRESSION).toInt() :
                       AF_COMPRESSION_NONE;
 
     // use default bit resolution if missing
@@ -348,10 +350,10 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	switch (what_now) {
 	    case (KMessageBox::Yes):
 		compression = AF_COMPRESSION_G711_ULAW;
-		info.set(INF_COMPRESSION, AF_COMPRESSION_G711_ULAW);
+		info.set(Kwave::INF_COMPRESSION, AF_COMPRESSION_G711_ULAW);
 		break;
 	    case (KMessageBox::No):
-		info.set(INF_COMPRESSION, AF_COMPRESSION_NONE);
+		info.set(Kwave::INF_COMPRESSION, AF_COMPRESSION_NONE);
 		compression = AF_COMPRESSION_NONE;
 		break;
 	    default:
@@ -367,22 +369,22 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	if ((sample_format != AF_SAMPFMT_TWOSCOMP) ||
 	    (bits          != 16))
 	{
-	    const SampleFormat format(SampleFormat::Signed);
-	    info.set(INF_SAMPLE_FORMAT, QVariant(format.toInt()));
+	    const Kwave::SampleFormat format(Kwave::SampleFormat::Signed);
+	    info.set(Kwave::INF_SAMPLE_FORMAT, QVariant(format.toInt()));
 	    info.setBits(16);
 	    sample_format = AF_SAMPFMT_TWOSCOMP;
 	    bits          = 16;
 	    qDebug("auto-switching to 16 bit signed format");
 	}
     } else if ((bits <= 8) && (sample_format != AF_SAMPFMT_UNSIGNED)) {
-	const SampleFormat format(SampleFormat::Unsigned);
-	info.set(INF_SAMPLE_FORMAT, QVariant(format.toInt()));
+	const Kwave::SampleFormat format(Kwave::SampleFormat::Unsigned);
+	info.set(Kwave::INF_SAMPLE_FORMAT, QVariant(format.toInt()));
 
 	sample_format = AF_SAMPFMT_UNSIGNED;
 	qDebug("auto-switching to unsigned format");
     } else if ((bits > 8) && (sample_format != AF_SAMPFMT_TWOSCOMP)) {
-	const SampleFormat format(SampleFormat::Signed);
-	info.set(INF_SAMPLE_FORMAT, QVariant(format.toInt()));
+	const Kwave::SampleFormat format(Kwave::SampleFormat::Signed);
+	info.set(Kwave::INF_SAMPLE_FORMAT, QVariant(format.toInt()));
 
 	sample_format = AF_SAMPFMT_TWOSCOMP;
 	qDebug("auto-switching to signed format");
@@ -402,7 +404,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     afInitCompression(setup, AF_DEFAULT_TRACK, compression);
     afInitRate (setup, AF_DEFAULT_TRACK, rate);
 
-    VirtualAudioFile outfile(dst);
+    Kwave::VirtualAudioFile outfile(dst);
     outfile.open(&outfile, setup);
 
     AFfilehandle fh = outfile.handle();
@@ -472,7 +474,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
 	for (unsigned int pos = 0; pos < count; pos++) {
 	    for (unsigned int track = 0; track < tracks; track++) {
-		SampleReader *stream = src[track];
+		Kwave::SampleReader *stream = src[track];
 		sample_t sample = 0;
 		if (!stream->eof()) (*stream) >> sample;
 
@@ -516,7 +518,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     writeInfoChunk(dst, info);
 
     // write the labels list
-    writeLabels(dst, LabelList(meta_data));
+    writeLabels(dst, Kwave::LabelList(meta_data));
 
     return true;
 }

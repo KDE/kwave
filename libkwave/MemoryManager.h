@@ -30,9 +30,9 @@
 
 #include "libkwave/LRU_Cache.h"
 
-class SwapFile;
-
-namespace Kwave {
+namespace Kwave
+{
+    class SwapFile;
 
     /** handle for memory manager */
     typedef int Handle;
@@ -257,17 +257,17 @@ namespace Kwave {
 	Kwave::LRU_Cache<Kwave::Handle, physical_memory_t> m_physical;
 
 	/** map of swapfile objects that are not mapped into memory */
-	QHash<Kwave::Handle, SwapFile *> m_unmapped_swap;
+	QHash<Kwave::Handle, Kwave::SwapFile *> m_unmapped_swap;
 
 	/** map of swapfile objects that are already mapped into memory */
-	QHash<Kwave::Handle, SwapFile *> m_mapped_swap;
+	QHash<Kwave::Handle, Kwave::SwapFile *> m_mapped_swap;
 
 	/**
 	 * cache for swapfiles that have been recently used, are mapped
 	 * and get unmapped if the queue is full. The queue will be used
 	 * as a FIFO with fixed size.
 	 */
-	QHash<Kwave::Handle, SwapFile *> m_cached_swap;
+	QHash<Kwave::Handle, Kwave::SwapFile *> m_cached_swap;
 
 	/** mutex for ensuring exclusive access */
 	QMutex m_lock;
@@ -279,3 +279,6 @@ namespace Kwave {
 }
 
 #endif /* _MEMORY_MANAGER_H_ */
+
+//***************************************************************************
+//***************************************************************************

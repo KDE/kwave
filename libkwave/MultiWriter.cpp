@@ -48,7 +48,7 @@ bool Kwave::MultiWriter::insert(unsigned int track, Kwave::Writer *writer)
 //***************************************************************************
 void Kwave::MultiWriter::proceeded()
 {
-    bool overwrite = tracks() && at(0) && (at(0)->mode() == Overwrite);
+    bool overwrite = tracks() && at(0) && (at(0)->mode() == Kwave::Overwrite);
     if (overwrite) {
 	qreal sum   = 0;
 	qreal total = 0;

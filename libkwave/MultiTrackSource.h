@@ -28,7 +28,8 @@
 
 #include "libkwave/SampleSource.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     /**
      * Template for easier handling of Kwave::SampleSource objects
@@ -179,3 +180,6 @@ namespace Kwave {
 }
 
 #endif /* _MULTI_TRACK_SOURCE_H_ */
+
+//***************************************************************************
+//***************************************************************************

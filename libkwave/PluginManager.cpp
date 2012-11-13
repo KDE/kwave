@@ -20,6 +20,7 @@
 #include <dlfcn.h>
 #include <errno.h>
 #include <pthread.h>
+#include <unistd.h>
 
 #include <QApplication>
 #include <QMutableListIterator>
@@ -34,12 +35,9 @@
 #include "libkwave/Plugin.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiPlaybackSink.h"
-#include "libkwave/MultiTrackReader.h"
-#include "libkwave/Parser.h"
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/PlaybackDeviceFactory.h"
 #include "libkwave/PluginContext.h"
-#include "libkwave/SampleReader.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
@@ -91,7 +89,7 @@ QMap<QString, Kwave::PluginManager::PluginInfo> \
 
 Kwave::PluginManager::PluginList Kwave::PluginManager::m_unique_plugins;
 
-static QList<PlaybackDeviceFactory *> m_playback_factories;
+static QList<Kwave::PlaybackDeviceFactory *> m_playback_factories;
 
 //***************************************************************************
 Kwave::PluginManager::PluginManager(QWidget *parent,
@@ -255,7 +253,7 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
     }
 
     // get the loader function
-    Kwave::Plugin *(*plugin_loader)(const PluginContext *c) = 0;
+    Kwave::Plugin *(*plugin_loader)(const Kwave::PluginContext *c) = 0;
 
     // hardcoded, should always work when the
     // symbols are declared as extern "C"
@@ -280,7 +278,7 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
     if (!version) version = i18n("(Unknown)").toLocal8Bit();
 
     plugin_loader =
-        reinterpret_cast<Kwave::Plugin *(*)(const PluginContext *)>(
+        reinterpret_cast<Kwave::Plugin *(*)(const Kwave::PluginContext *)>(
 	reinterpret_cast<qint64>(dlsym(handle, sym_loader)));
     Q_ASSERT(plugin_loader);
     if (!plugin_loader) {
@@ -293,7 +291,7 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 	return 0;
     }
 
-    PluginContext context(
+    Kwave::PluginContext context(
 	*this,
 	handle,
 	name,
@@ -584,9 +582,9 @@ Kwave::SampleSink *Kwave::PluginManager::openMultiTrackPlayback(
 
     // locate the corresponding playback device factory (plugin)
     device_name = (name) ? QString(*name) : QString("");
-    PlayBackDevice *device = 0;
-    PlaybackDeviceFactory *factory = 0;
-    foreach (PlaybackDeviceFactory *f, m_playback_factories) {
+    Kwave::PlayBackDevice *device = 0;
+    Kwave::PlaybackDeviceFactory *factory = 0;
+    foreach (Kwave::PlaybackDeviceFactory *f, m_playback_factories) {
 	Q_ASSERT(f);
 	if (f && f->supportsDevice(device_name)) {
 	    factory = f;
@@ -606,7 +604,7 @@ Kwave::SampleSink *Kwave::PluginManager::openMultiTrackPlayback(
 }
 
 //***************************************************************************
-PlaybackController &Kwave::PluginManager::playbackController()
+Kwave::PlaybackController &Kwave::PluginManager::playbackController()
 {
     return m_signal_manager.playbackController();
 }
@@ -811,14 +809,14 @@ const QList<Kwave::PluginManager::PluginInfo>
 
 //***************************************************************************
 void Kwave::PluginManager::registerPlaybackDeviceFactory(
-    PlaybackDeviceFactory *factory)
+    Kwave::PlaybackDeviceFactory *factory)
 {
     m_playback_factories.append(factory);
 }
 
 //***************************************************************************
 void Kwave::PluginManager::unregisterPlaybackDeviceFactory(
-    PlaybackDeviceFactory *factory)
+    Kwave::PlaybackDeviceFactory *factory)
 {
     m_playback_factories.removeAll(factory);
 }

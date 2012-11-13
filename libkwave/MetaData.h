@@ -32,7 +32,8 @@
 
 #include "libkwave/Sample.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     class KDE_EXPORT MetaData
     {
@@ -166,7 +167,7 @@ namespace Kwave {
 	QVariant &property(const QString &p);
 
 	/** Same as above, for using through the [] operator */
-	inline QVariant &operator [] (const QString p) 
+	inline QVariant &operator [] (const QString p)
 	{
 	    return property(p);
 	}
@@ -175,7 +176,7 @@ namespace Kwave {
 	bool operator == (const MetaData &other) const;
 
 	/** not equal operator, compares by data (not by ID) */
-	inline bool operator != (const MetaData &other) const 
+	inline bool operator != (const MetaData &other) const
 	{
 	    return !(operator == (other));
 	}
@@ -252,3 +253,6 @@ namespace Kwave {
 }
 
 #endif /* _META_DATA_H_ */
+
+//***************************************************************************
+//***************************************************************************

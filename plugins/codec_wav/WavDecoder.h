@@ -33,10 +33,12 @@
 class RecoverySource;
 class RIFFChunk;
 class RIFFParser;
-class VirtualAudioFile;
+
 class QCString;
 
-class WavDecoder: public Decoder
+namespace Kwave { class VirtualAudioFile; }
+
+class WavDecoder: public Kwave::Decoder
 {
 public:
     /** Constructor */
@@ -46,7 +48,7 @@ public:
     virtual ~WavDecoder();
 
     /** Returns a new instance of the decoder */
-    virtual Decoder *instance();
+    virtual Kwave::Decoder *instance();
 
     /**
      * Opens the source and decodes the header information.
@@ -90,7 +92,7 @@ protected:
 private:
 
     /** adds an entry to m_known_chunks and to m_property_map */
-    void addPropertyChunk(const FileProperty property,
+    void addPropertyChunk(const Kwave::FileProperty property,
                           const QByteArray &chunk_name);
 
 private:
@@ -99,7 +101,7 @@ private:
     QIODevice *m_source;
 
     /** adapter for libaudiofile */
-    VirtualAudioFile *m_src_adapter;
+    Kwave::VirtualAudioFile *m_src_adapter;
 
     /** list of all known chunk names */
     QStringList m_known_chunks;

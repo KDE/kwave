@@ -26,7 +26,13 @@
 #include <kdemacros.h>
 
 class QPaintEvent;
-class TransmissionFunction;
+
+namespace Kwave
+{
+
+    class TransmissionFunction;
+
+}
 
 /**
  * displays a frequency response
@@ -53,7 +59,7 @@ public:
     virtual void init(double freq, int db_min, int db_max);
 
     /** Set a new transmission function and update the display */
-    virtual void setFilter(TransmissionFunction *func);
+    virtual void setFilter(Kwave::TransmissionFunction *func);
 
     /** @see QWidget::paintEvent() */
     virtual void paintEvent(QPaintEvent *);
@@ -76,7 +82,7 @@ private:
      * Pointer to a transmission function object, used for
      * painting the frequency response.
      */
-    TransmissionFunction *m_function;
+    Kwave::TransmissionFunction *m_function;
 
 };
 

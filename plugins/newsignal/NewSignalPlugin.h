@@ -30,7 +30,7 @@ class NewSignalPlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    NewSignalPlugin(const PluginContext &context);
+    NewSignalPlugin(const Kwave::PluginContext &context);
 
     /** virtual Destructor */
     virtual ~NewSignalPlugin();

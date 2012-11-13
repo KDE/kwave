@@ -24,11 +24,10 @@
 #include <QWidget>
 
 #include "libkwave/CodecManager.h"
-#include "libkwave/CompressionType.h"
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
+#include "libkwave/CompressionType.h"
 #include "libkwave/Connect.h"
-#include "libkwave/LabelList.h"
 #include "libkwave/MimeData.h"
 #include "libkwave/MultiStreamWriter.h"
 #include "libkwave/MultiTrackWriter.h"
@@ -59,11 +58,11 @@ Kwave::MimeData::~MimeData()
 
 //***************************************************************************
 bool Kwave::MimeData::encode(QWidget *widget,
-	                     MultiTrackReader &src,
+	                     Kwave::MultiTrackReader &src,
 	                     const Kwave::MetaDataList &meta_data)
 {
     // use our default encoder
-    Encoder *encoder = CodecManager::encoder(WAVE_FORMAT_PCM);
+    Kwave::Encoder *encoder = Kwave::CodecManager::encoder(WAVE_FORMAT_PCM);
     Q_ASSERT(encoder);
     if (!encoder) return false;
 
@@ -86,8 +85,8 @@ bool Kwave::MimeData::encode(QWidget *widget,
 
     // fix the length information in the new file info
     // and change to uncompressed mode
-    FileInfo info(meta_data);
-    info.set(INF_COMPRESSION, QVariant(AF_COMPRESSION_NONE));
+    Kwave::FileInfo info(meta_data);
+    info.set(Kwave::INF_COMPRESSION, QVariant(AF_COMPRESSION_NONE));
     info.setLength(last - first + 1);
     info.setTracks(src.tracks());
     new_meta_data.replace(info);
@@ -118,9 +117,9 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
     // try to find a suitable decoder
     foreach (QString format, e->formats()) {
 	// skip all non-supported formats
-	if (!CodecManager::canDecode(format)) continue;
+	if (!Kwave::CodecManager::canDecode(format)) continue;
 
-	Decoder *decoder = CodecManager::decoder(format);
+	Kwave::Decoder *decoder = Kwave::CodecManager::decoder(format);
 	Q_ASSERT(decoder);
 	if (!decoder) return 0;
 
@@ -134,8 +133,8 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	    continue;
 	}
 
-	decoded_length = FileInfo(decoder->metaData()).length();
-	decoded_tracks = FileInfo(decoder->metaData()).tracks();
+	decoded_length = Kwave::FileInfo(decoder->metaData()).length();
+	decoded_tracks = Kwave::FileInfo(decoder->metaData()).tracks();
 	Q_ASSERT(decoded_length);
 	Q_ASSERT(decoded_tracks);
 	if (!decoded_length || !decoded_tracks) {
@@ -144,7 +143,7 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	}
 
 	// get sample rates of source and destination
-	double src_rate = FileInfo(decoder->metaData()).rate();
+	double src_rate = Kwave::FileInfo(decoder->metaData()).rate();
 	double dst_rate = sig.rate();
 
 	// if the sample rate has to be converted, adjust the length
@@ -164,7 +163,7 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	    dst_rate = src_rate;
 	    sig.newSignal(0,
 		src_rate,
-		FileInfo(decoder->metaData()).bits(),
+		Kwave::FileInfo(decoder->metaData()).bits(),
 		decoded_tracks);
 	    ok = (sig.tracks() == decoded_tracks);
 	    if (!ok) {
@@ -175,7 +174,8 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	const unsigned int dst_tracks = sig.selectedTracks().count();
 
 	// create the final sink
-	MultiTrackWriter dst(sig, sig.selectedTracks(), Insert, left, right);
+	Kwave::MultiTrackWriter dst(sig, sig.selectedTracks(),
+	                            Kwave::Insert, left, right);
 
 	// if the track count does not match, then we need a channel mixer
 	Q_ASSERT(ok);
@@ -292,7 +292,8 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
 	// remove the file info, this must not be handled here, otherwise
 	// this would overwrite the file info of the destination
-	meta_data.remove(meta_data.selectByType(FileInfo::metaDataType()));
+	meta_data.remove(meta_data.selectByType(
+	    Kwave::FileInfo::metaDataType()));
 
 	// add the remaining meta data (e.g. labels etc)
 	sig.metaData().add(meta_data);

@@ -33,7 +33,7 @@ class BandPass;
 class QWidget;
 
 class BandPassDialog: public QDialog,
-                      public KwavePluginSetupDialog,
+                      public Kwave::PluginSetupDialog,
                       public Ui::BandPassDlg
 {
     Q_OBJECT

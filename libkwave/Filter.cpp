@@ -25,10 +25,10 @@
 #include "Parser.h"
 
 //***************************************************************************
-Filter::Filter(const QString &command)
+Kwave::Filter::Filter(const QString &command)
     :m_fir(true), m_rate(0), m_coeff(), m_delay()
 {
-    Parser parse(command);
+    Kwave::Parser parse(command);
 
     m_rate = parse.toInt();
     m_fir = (parse.nextParam().toLower() == "fir");
@@ -41,19 +41,19 @@ Filter::Filter(const QString &command)
 }
 
 //***************************************************************************
-Filter::Filter(int rate)
+Kwave::Filter::Filter(int rate)
     :m_fir(true), m_rate(rate), m_coeff(), m_delay()
 {
 }
 
 //***************************************************************************
-Filter::~Filter()
+Kwave::Filter::~Filter()
 {
     resize(0);
 }
 
 //***************************************************************************
-QString Filter::command()
+QString Kwave::Filter::command()
 {
     QString s;
 
@@ -73,7 +73,7 @@ QString Filter::command()
 }
 
 //***************************************************************************
-unsigned int Filter::resize(unsigned int newnum)
+unsigned int Kwave::Filter::resize(unsigned int newnum)
 {
     unsigned int oldnum = count();
     if (newnum == oldnum) return oldnum; // nothing to do
@@ -96,42 +96,42 @@ unsigned int Filter::resize(unsigned int newnum)
 }
 
 //***************************************************************************
-unsigned int Filter::count()
+unsigned int Kwave::Filter::count()
 {
     Q_ASSERT(m_coeff.count() == m_delay.count());
     return m_coeff.count();
 }
 
 //***************************************************************************
-double Filter::coeff(unsigned int index)
+double Kwave::Filter::coeff(unsigned int index)
 {
     Q_ASSERT(static_cast<int>(index) < m_coeff.count());
     return m_coeff[index];
 }
 
 //***************************************************************************
-void Filter::setCoeff(unsigned int index, double newval)
+void Kwave::Filter::setCoeff(unsigned int index, double newval)
 {
     Q_ASSERT(static_cast<int>(index) < m_coeff.count());
     m_coeff[index] = newval;
 }
 
 //***************************************************************************
-unsigned int Filter::delay(unsigned int index)
+unsigned int Kwave::Filter::delay(unsigned int index)
 {
     Q_ASSERT(static_cast<int>(index) < m_delay.count());
     return m_delay[index];
 }
 
 //***************************************************************************
-void Filter::setDelay(unsigned int index, unsigned int newval)
+void Kwave::Filter::setDelay(unsigned int index, unsigned int newval)
 {
     Q_ASSERT(static_cast<int>(index) < m_delay.count());
     m_delay[index] = newval;
 }
 
 //***************************************************************************
-void Filter::save(const QString &filename)
+void Kwave::Filter::save(const QString &filename)
 {
     QString name(filename);
     Q_ASSERT(name.length());
@@ -154,7 +154,7 @@ void Filter::save(const QString &filename)
 }
 
 //***************************************************************************
-void Filter::load(const QString &filename)
+void Kwave::Filter::load(const QString &filename)
 {
     unsigned int i;
     bool ok;

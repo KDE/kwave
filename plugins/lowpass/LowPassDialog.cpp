@@ -28,7 +28,6 @@
 #include <knuminput.h>
 #include <klocale.h>
 
-#include "libkwave/Parser.h"
 #include "libgui/ScaleWidget.h"
 #include "libgui/FrequencyResponseWidget.h"
 
@@ -37,7 +36,7 @@
 
 //***************************************************************************
 LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
-    :QDialog(parent), Ui::LowPassDlg(), KwavePluginSetupDialog(),
+    :QDialog(parent), Ui::LowPassDlg(), Kwave::PluginSetupDialog(),
      m_frequency(3500),
      m_sample_rate(sample_rate), m_filter(0)
 {

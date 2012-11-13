@@ -23,29 +23,36 @@
 
 class QDialog;
 
-class KwavePluginSetupDialog
+namespace Kwave
 {
-public:
 
-    /** virtual destructor, really needed for proper shutdown */
-    virtual ~KwavePluginSetupDialog() {}
+    class PluginSetupDialog
+    {
+    public:
 
-    /**
-     * Sets the parameters, from a string list representation
-     */
-    virtual void setParams(QStringList &params) = 0;
+	/** virtual destructor, really needed for proper shutdown */
+	virtual ~PluginSetupDialog() {}
 
-    /**
-     * Returns the current parameters as string list
-     */
-    virtual QStringList params() = 0;
+	/**
+	 * Sets the parameters, from a string list representation
+	 */
+	virtual void setParams(QStringList &params) = 0;
 
-    /**
-     * Needed due to problems with inheritance.
-     * @return a pointer to the derived dialog, as a QDialog
-     * @see PitchShiftDialog::dialog()
-     */
-    virtual QDialog *dialog() = 0;
-};
+	/**
+	 * Returns the current parameters as string list
+	 */
+	virtual QStringList params() = 0;
+
+	/**
+	 * Needed due to problems with inheritance.
+	 * @return a pointer to the derived dialog, as a QDialog
+	 * @see PitchShiftDialog::dialog()
+	 */
+	virtual QDialog *dialog() = 0;
+    };
+}
 
 #endif /* _PLUGIN_SETUP_DIALOG_H_ */
+
+//***************************************************************************
+//***************************************************************************

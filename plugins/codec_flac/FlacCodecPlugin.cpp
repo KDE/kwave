@@ -29,7 +29,7 @@ KWAVE_PLUGIN(FlacCodecPlugin, "codec_flac", "2.1",
              I18N_NOOP("FLAC Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
-FlacCodecPlugin::FlacCodecPlugin(const PluginContext &c)
+FlacCodecPlugin::FlacCodecPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
 {
 }
@@ -46,11 +46,11 @@ void FlacCodecPlugin::load(QStringList &/* params */)
 {
     if (!m_encoder) m_encoder = new FlacEncoder();
     Q_ASSERT(m_encoder);
-    if (m_encoder) CodecManager::registerEncoder(*m_encoder);
+    if (m_encoder) Kwave::CodecManager::registerEncoder(*m_encoder);
 
     if (!m_decoder) m_decoder = new FlacDecoder();
     Q_ASSERT(m_decoder);
-    if (m_decoder) CodecManager::registerDecoder(*m_decoder);
+    if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
 }
 
 /***************************************************************************/

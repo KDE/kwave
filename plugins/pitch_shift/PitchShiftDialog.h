@@ -31,7 +31,7 @@ class QStringList;
 
 class PitchShiftDialog: public QDialog,
                         public Ui::PitchShiftDlg,
-                        public KwavePluginSetupDialog
+                        public Kwave::PluginSetupDialog
 {
     Q_OBJECT
 public:

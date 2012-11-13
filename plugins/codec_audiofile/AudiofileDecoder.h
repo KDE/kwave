@@ -24,12 +24,14 @@
 
 class QIODevice;
 class QWidget;
+
 class RecoverySource;
 class RIFFChunk;
 class RIFFParser;
-class VirtualAudioFile;
 
-class AudiofileDecoder: public Decoder
+namespace Kwave { class VirtualAudioFile; }
+
+class AudiofileDecoder: public Kwave::Decoder
 {
 public:
     /** Constructor */
@@ -39,7 +41,7 @@ public:
     virtual ~AudiofileDecoder();
 
     /** Returns a new instance of the decoder */
-    virtual Decoder *instance();
+    virtual Kwave::Decoder *instance();
 
     /**
      * Opens the source and decodes the header information.
@@ -70,7 +72,7 @@ private:
     QIODevice *m_source;
 
     /** adapter for libaudiofile */
-    VirtualAudioFile *m_src_adapter;
+    Kwave::VirtualAudioFile *m_src_adapter;
 };
 
 #endif /* _AUDIOFILE_DECODER_H_ */

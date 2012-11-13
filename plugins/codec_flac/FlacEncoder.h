@@ -35,9 +35,9 @@
 class QIODevice;
 class QWidget;
 
-class MultiTrackReader;
+namespace Kwave { class MultiTrackReader; }
 
-class FlacEncoder: public Encoder,
+class FlacEncoder: public Kwave::Encoder,
                    protected FLAC::Encoder::Stream
 {
 public:
@@ -48,7 +48,7 @@ public:
     virtual ~FlacEncoder();
 
     /** Returns a new instance of the encoder */
-    virtual Encoder *instance();
+    virtual Kwave::Encoder *instance();
 
     /**
      * Encodes a signal into a stream of bytes.
@@ -59,12 +59,12 @@ public:
      * @param meta_data meta data of the file to save
      * @return true if succeeded, false on errors
      */
-    virtual bool encode(QWidget *widget, MultiTrackReader &src,
+    virtual bool encode(QWidget *widget, Kwave::MultiTrackReader &src,
                         QIODevice &dst,
                         const Kwave::MetaDataList &meta_data);
 
     /** Returns a list of supported file properties */
-    virtual QList<FileProperty> supportedProperties();
+    virtual QList<Kwave::FileProperty> supportedProperties();
 
 protected:
 
@@ -101,7 +101,7 @@ protected:
      * @param info information about the file to be saved
      * @param flac_metadata QList with collects the FLAC metadata
      */
-    virtual void encodeMetaData(const FileInfo &info,
+    virtual void encodeMetaData(const Kwave::FileInfo &info,
         QVector<FLAC__StreamMetadata *> &flac_metadata);
 
 protected:

@@ -21,13 +21,13 @@
 #include "libkwave/memcpy.h"
 
 //***************************************************************************
-SampleFIFO::SampleFIFO()
+Kwave::SampleFIFO::SampleFIFO()
     :m_buffer(), m_size(0), m_read_offset(0), m_lock(QMutex::Recursive)
 {
 }
 
 //***************************************************************************
-SampleFIFO::SampleFIFO(const SampleFIFO &other)
+Kwave::SampleFIFO::SampleFIFO(const Kwave::SampleFIFO &other)
     :m_buffer(other.m_buffer), m_size(other.m_size),
      m_read_offset(other.m_read_offset),
      m_lock(QMutex::Recursive)
@@ -35,14 +35,14 @@ SampleFIFO::SampleFIFO(const SampleFIFO &other)
 }
 
 //***************************************************************************
-SampleFIFO::~SampleFIFO()
+Kwave::SampleFIFO::~SampleFIFO()
 {
     QMutexLocker _lock(&m_lock);
     flush();
 }
 
 //***************************************************************************
-void SampleFIFO::flush()
+void Kwave::SampleFIFO::flush()
 {
     QMutexLocker _lock(&m_lock);
 
@@ -51,7 +51,7 @@ void SampleFIFO::flush()
 }
 
 //***************************************************************************
-void SampleFIFO::put(const Kwave::SampleArray &buffer)
+void Kwave::SampleFIFO::put(const Kwave::SampleArray &buffer)
 {
     if (buffer.isEmpty()) return;
     QMutexLocker _lock(&m_lock);
@@ -67,7 +67,7 @@ void SampleFIFO::put(const Kwave::SampleArray &buffer)
 }
 
 //***************************************************************************
-unsigned int SampleFIFO::get(Kwave::SampleArray &buffer)
+unsigned int Kwave::SampleFIFO::get(Kwave::SampleArray &buffer)
 {
     QMutexLocker _lock(&m_lock);
 
@@ -110,7 +110,7 @@ unsigned int SampleFIFO::get(Kwave::SampleArray &buffer)
 }
 
 //***************************************************************************
-unsigned int SampleFIFO::unlockedLength()
+unsigned int Kwave::SampleFIFO::unlockedLength()
 {
     unsigned int len = 0;
     foreach (Kwave::SampleArray buf, m_buffer)
@@ -119,21 +119,21 @@ unsigned int SampleFIFO::unlockedLength()
 }
 
 //***************************************************************************
-unsigned int SampleFIFO::length()
+unsigned int Kwave::SampleFIFO::length()
 {
     QMutexLocker _lock(&m_lock);
     return unlockedLength();
 }
 
 //***************************************************************************
-void SampleFIFO::setSize(unsigned int size)
+void Kwave::SampleFIFO::setSize(unsigned int size)
 {
     QMutexLocker _lock(&m_lock);
     m_size = size;
 }
 
 //***************************************************************************
-void SampleFIFO::crop()
+void Kwave::SampleFIFO::crop()
 {
     QMutexLocker _lock(&m_lock);
 

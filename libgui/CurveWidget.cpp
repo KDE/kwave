@@ -49,7 +49,8 @@
 //***************************************************************************
 CurveWidget::CurveWidget(QWidget *parent)
     :QWidget(parent), m_width(0), m_height(0), m_curve(), m_menu(0),
-     m_preset_menu(0), m_current(Curve::NoPoint), m_last(Curve::NoPoint),
+     m_preset_menu(0), m_current(Kwave::Curve::NoPoint),
+     m_last(Kwave::Curve::NoPoint),
      m_down(false), m_knob(), m_selected_knob()
 {
     KIconLoader icon_loader;
@@ -117,7 +118,7 @@ CurveWidget::CurveWidget(QWidget *parent)
     del->addAction(i18n("Every Second Point"),
 	           this, SLOT(deleteSecond()));
 
-    QStringList types = Interpolation::descriptions(true);
+    QStringList types = Kwave::Interpolation::descriptions(true);
     int id = 0;
     foreach (QString text, types) {
 	QAction *action = new QAction(interpolation);
@@ -165,7 +166,7 @@ void CurveWidget::selectInterpolationType(QAction *action)
     QVariant data = action->data();
     int index = data.toInt();
 
-    m_curve.setInterpolationType(Interpolation::findByIndex(index));
+    m_curve.setInterpolationType(Kwave::Interpolation::findByIndex(index));
 
     repaint();
 }
@@ -221,8 +222,8 @@ void CurveWidget::loadPreset(QAction *action)
     if (!m_preset_menu || !action) return;
 
     // invalidate the current selection
-    m_current = Curve::NoPoint;
-    m_last    = Curve::NoPoint;
+    m_current = Kwave::Curve::NoPoint;
+    m_last    = Kwave::Curve::NoPoint;
 
     KStandardDirs stddirs;
     stddirs.addResourceType("curves", 0, QString("presets") +
@@ -246,7 +247,7 @@ void CurveWidget::loadPreset(QAction *action)
 void CurveWidget::secondHalf()
 {
     m_curve.secondHalf ();
-    m_last = Curve::NoPoint;
+    m_last = Kwave::Curve::NoPoint;
     repaint();
 }
 
@@ -254,7 +255,7 @@ void CurveWidget::secondHalf()
 void CurveWidget::firstHalf()
 {
     m_curve.firstHalf ();
-    m_last = Curve::NoPoint;
+    m_last = Kwave::Curve::NoPoint;
     repaint();
 }
 
@@ -262,16 +263,16 @@ void CurveWidget::firstHalf()
 void CurveWidget::deleteSecond()
 {
     m_curve.deleteSecondPoint();
-    m_last = Curve::NoPoint;
+    m_last = Kwave::Curve::NoPoint;
     repaint ();
 }
 
 //****************************************************************************
 void CurveWidget::deleteLast()
 {
-    if (m_last != Curve::NoPoint) {
+    if (m_last != Kwave::Curve::NoPoint) {
 	m_curve.deletePoint(m_last, true);
-	m_last = Curve::NoPoint;
+	m_last = Kwave::Curve::NoPoint;
 	repaint();
     }
 }
@@ -301,17 +302,17 @@ void CurveWidget::scaleFit()
 void CurveWidget::addPoint(double newx, double newy)
 {
     m_curve.insert(newx, newy);
-    m_last = Curve::NoPoint;
+    m_last = Kwave::Curve::NoPoint;
     repaint();
 }
 
 //***************************************************************************
-Curve::Point CurveWidget::findPoint(int sx, int sy)
+Kwave::Curve::Point CurveWidget::findPoint(int sx, int sy)
 // checks, if given coordinates fit to a control point in the list...
 {
     Q_ASSERT(m_width > 1);
     Q_ASSERT(m_height > 1);
-    if ((m_width <= 1) || (m_width <= 1)) return Curve::NoPoint;
+    if ((m_width <= 1) || (m_width <= 1)) return Kwave::Curve::NoPoint;
 
     return m_curve.findPoint((static_cast<double>(sx)) / (m_width-1),
 	(static_cast<double>(m_height) - sy) / (m_height-1));
@@ -333,7 +334,7 @@ void CurveWidget::mousePressEvent(QMouseEvent *e)
 	// left mouse button -> select existing or create new point
         m_down = true;
 	m_current = findPoint(e->pos().x(), e->pos().y());
-	if (m_current == Curve::NoPoint) {
+	if (m_current == Kwave::Curve::NoPoint) {
 	    // no matching point is found -> generate a new one !
 	    addPoint(static_cast<double>(e->pos().x()) / (m_width-1),
 		     static_cast<double>(m_height - e->pos().y()) /
@@ -348,7 +349,7 @@ void CurveWidget::mousePressEvent(QMouseEvent *e)
 void CurveWidget::mouseReleaseEvent(QMouseEvent *)
 {
     m_last = m_current;
-    m_current = Curve::NoPoint;
+    m_current = Kwave::Curve::NoPoint;
     m_down = false;
     repaint();
 }
@@ -365,7 +366,7 @@ void CurveWidget::mouseMoveEvent(QMouseEvent *e )
     int y = e->pos().y();
 
     // if a point is selected...
-    if (m_current != Curve::NoPoint) {
+    if (m_current != Kwave::Curve::NoPoint) {
 	if (m_current == m_curve.first()) x = 0;
 	if (m_current == m_curve.last())  x = m_width-1;
 
@@ -381,7 +382,7 @@ void CurveWidget::mouseMoveEvent(QMouseEvent *e )
 
 	double dx = (1.0 / static_cast<double>(m_width-1));
 	do {
-	    Curve::Point nearest = m_curve.findPoint(
+	    Kwave::Curve::Point nearest = m_curve.findPoint(
 		m_current.x(), m_current.y(), 1.0);
 	    if (nearest.x() == m_current.x()) {
 		if (nearest == m_curve.last())
@@ -396,7 +397,7 @@ void CurveWidget::mouseMoveEvent(QMouseEvent *e )
 
 	repaint ();
     } else {
-	if (findPoint(x, y) != Curve::NoPoint)
+	if (findPoint(x, y) != Kwave::Curve::NoPoint)
 	    setCursor(Qt::SizeAllCursor);
 	else
 	    setCursor(Qt::ArrowCursor);
@@ -438,7 +439,7 @@ void CurveWidget::paintEvent(QPaintEvent *)
     }
 
     // draw the points (knobs)
-    foreach (Curve::Point pt, m_curve) {
+    foreach (Kwave::Curve::Point pt, m_curve) {
 	lx = static_cast<int>(pt.x() * (m_width-1));
 	ly = (m_height-1) - static_cast<int>(pt.y() * (m_height-1));
 

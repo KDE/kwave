@@ -28,7 +28,7 @@
 #include "libkwave/TransmissionFunction.h"
 
 class LowPassFilter: public Kwave::SampleSource,
-                     public TransmissionFunction
+                     public Kwave::TransmissionFunction
 {
     Q_OBJECT
 public:

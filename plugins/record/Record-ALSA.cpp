@@ -23,6 +23,8 @@
 
 #include <QtGlobal>
 
+#include "libkwave/CompressionType.h"
+
 #include "Record-ALSA.h"
 
 /** initializer for the list of devices */
@@ -144,21 +146,21 @@ static const unsigned int g_sleep_min = 0;
 
 //***************************************************************************
 /** find out the SampleFormat of an ALSA format */
-static SampleFormat sample_format_of(snd_pcm_format_t fmt)
+static Kwave::SampleFormat sample_format_of(snd_pcm_format_t fmt)
 {
     if (snd_pcm_format_float(fmt)) {
 	if (snd_pcm_format_width(fmt) == 32)
-	    return SampleFormat::Float;
+	    return Kwave::SampleFormat::Float;
 	if (snd_pcm_format_width(fmt) == 64)
-	    return SampleFormat::Double;
+	    return Kwave::SampleFormat::Double;
     } else if (snd_pcm_format_linear(fmt)) {
 	if (snd_pcm_format_signed(fmt) == 1)
-	    return SampleFormat::Signed;
+	    return Kwave::SampleFormat::Signed;
 	else if (snd_pcm_format_unsigned(fmt) == 1)
-	    return SampleFormat::Unsigned;
+	    return Kwave::SampleFormat::Unsigned;
     }
 
-    return SampleFormat::Unknown;
+    return Kwave::SampleFormat::Unknown;
 }
 
 //***************************************************************************
@@ -183,7 +185,7 @@ static int compression_of(snd_pcm_format_t fmt)
 	case SND_PCM_FORMAT_IMA_ADPCM:
 	    return AF_COMPRESSION_MS_ADPCM;
 	case SND_PCM_FORMAT_MPEG:
-	    return CompressionType::MPEG_LAYER_I;
+	    return Kwave::CompressionType::MPEG_LAYER_I;
 	case SND_PCM_FORMAT_GSM:
 	    return AF_COMPRESSION_GSM;
 	default:
@@ -197,7 +199,7 @@ RecordALSA::RecordALSA()
     :RecordDevice(), m_handle(0), m_hw_params(0),
      m_sw_params(0), m_open_result(0), m_tracks(0),
      m_rate(0.0), m_compression(0), m_bits_per_sample(0),
-     m_bytes_per_sample(0), m_sample_format(SampleFormat::Unknown),
+     m_bytes_per_sample(0), m_sample_format(Kwave::SampleFormat::Unknown),
      m_supported_formats(), m_initialized(false), m_buffer_size(0),
      m_chunk_size(0)
 {
@@ -249,8 +251,8 @@ void RecordALSA::detectSupportedFormats()
 	}
 	if (!fmt) continue;
 
-// 	CompressionType t;
-// 	SampleFormat::Map sf;
+// 	Kwave::CompressionType t;
+// 	Kwave::SampleFormat::Map sf;
 // 	qDebug("#%2u, %2d, %2u bit [%u byte], %s, '%s', '%s'",
 // 	    i,
 // 	    *fmt,
@@ -359,8 +361,8 @@ int RecordALSA::initialize()
                                    m_sample_format);
     Q_ASSERT(format_index >= 0);
     if (format_index < 0) {
-	CompressionType t;
-	SampleFormat::Map sf;
+	Kwave::CompressionType t;
+	Kwave::SampleFormat::Map sf;
 
 	qWarning("RecordkALSA::setFormat(): no matching format for "\
 	         "compression '%s', %d bits/sample, format '%s'",
@@ -790,7 +792,7 @@ double RecordALSA::sampleRate()
 
 //***************************************************************************
 int RecordALSA::mode2format(int compression, int bits,
-                            SampleFormat sample_format)
+                            Kwave::SampleFormat sample_format)
 {
     // loop over all supported formats and keep only those that are
     // compatible with the given compression, bits and sample format
@@ -828,7 +830,7 @@ QList<int> RecordALSA::detectCompressions()
 	// do not produce duplicates
 	if (list.contains(compression)) continue;
 
-	CompressionType t;
+// 	Kwave::CompressionType t;
 // 	qDebug("found compression %d '%s'", compression,
 // 	       t.name(t.findFromData(compression)).toLocal8Bit().data());
 	list.append(compression);
@@ -893,15 +895,15 @@ int RecordALSA::bitsPerSample()
 }
 
 //***************************************************************************
-QList<SampleFormat> RecordALSA::detectSampleFormats()
+QList<Kwave::SampleFormat> RecordALSA::detectSampleFormats()
 {
-    QList<SampleFormat> list;
+    QList<Kwave::SampleFormat> list;
 
     // try all known sample formats
     foreach(int it, m_supported_formats)
     {
 	const snd_pcm_format_t *fmt = &(_known_formats[it]);
-	const SampleFormat sample_format = sample_format_of(*fmt);
+	const Kwave::SampleFormat sample_format = sample_format_of(*fmt);
 
 	// only accept bits/sample if compression types
 	// and bits per sample match
@@ -912,7 +914,7 @@ QList<SampleFormat> RecordALSA::detectSampleFormats()
 	// do not produce duplicates
 	if (list.contains(sample_format)) continue;
 
-	SampleFormat::Map sf;
+// 	Kwave::SampleFormat::Map sf;
 // 	qDebug("found sample format %u ('%s')", (int)sample_format,
 // 		sf.name(sf.findFromData(sample_format)).toLocal8Bit().data());
 
@@ -923,7 +925,7 @@ QList<SampleFormat> RecordALSA::detectSampleFormats()
 }
 
 //***************************************************************************
-int RecordALSA::setSampleFormat(SampleFormat new_format)
+int RecordALSA::setSampleFormat(Kwave::SampleFormat new_format)
 {
     if (m_sample_format != new_format) m_initialized = false;
     m_sample_format = new_format;
@@ -931,7 +933,7 @@ int RecordALSA::setSampleFormat(SampleFormat new_format)
 }
 
 //***************************************************************************
-SampleFormat RecordALSA::sampleFormat()
+Kwave::SampleFormat RecordALSA::sampleFormat()
 {
     return m_sample_format;
 }

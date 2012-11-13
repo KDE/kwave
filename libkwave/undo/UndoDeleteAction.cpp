@@ -19,7 +19,6 @@
 #include <klocale.h>
 
 #include "libkwave/MultiTrackReader.h"
-#include "libkwave/SampleReader.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/undo/UndoAction.h"
 #include "libkwave/undo/UndoDeleteAction.h"
@@ -70,7 +69,7 @@ bool Kwave::UndoDeleteAction::store(Kwave::SignalManager &manager)
 {
     if (!m_length) return true; // shortcut: this is an empty action
 
-    MultiTrackReader reader(Kwave::SinglePassForward, manager,
+    Kwave::MultiTrackReader reader(Kwave::SinglePassForward, manager,
 	m_track_list, m_offset, m_offset + m_length - 1);
 
     // encode the data that will be deleted into a Kwave::MimeData container

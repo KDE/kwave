@@ -40,7 +40,7 @@ CompressionWidget::CompressionWidget(QWidget *parent)
     setupUi(this);
 
     // use well-known bitrates from MP3
-    const StandardBitrates &rates = StandardBitrates::instance();
+    const Kwave::StandardBitrates &rates = Kwave::StandardBitrates::instance();
     abrBitrate->allowRates(rates);
     abrHighestBitrate->allowRates(rates);
     abrLowestBitrate->allowRates(rates);
@@ -68,18 +68,18 @@ CompressionWidget::~CompressionWidget()
 }
 
 //***************************************************************************
-void CompressionWidget::init(FileInfo &info)
+void CompressionWidget::init(Kwave::FileInfo &info)
 {
     initInfo(lblCompressionNominalBitrate, abrBitrate,
-             INF_BITRATE_NOMINAL, info);
+             Kwave::INF_BITRATE_NOMINAL, info);
     initInfo(0, abrHighestBitrate,
-             INF_BITRATE_UPPER, info);
+             Kwave::INF_BITRATE_UPPER, info);
     initInfo(0, abrLowestBitrate,
-             INF_BITRATE_LOWER, info);
+             Kwave::INF_BITRATE_LOWER, info);
     initInfo(lblCompressionBaseQuality, sbBaseQuality,
-             INF_VBR_QUALITY, info);
+             Kwave::INF_VBR_QUALITY, info);
     initInfo(0, slBaseQuality,
-             INF_VBR_QUALITY, info);
+             Kwave::INF_VBR_QUALITY, info);
 }
 
 //***************************************************************************
@@ -93,8 +93,8 @@ void CompressionWidget::describeWidget(QWidget *widget, const QString &name,
 
 //***************************************************************************
 void CompressionWidget::initInfo(QLabel *label, QWidget *widget,
-                                 FileProperty property,
-                                 FileInfo &info)
+                                 Kwave::FileProperty property,
+                                 Kwave::FileInfo &info)
 {
     Q_ASSERT(widget);
     if (label) label->setText(i18n(info.name(property).toAscii()) + ":");

@@ -34,8 +34,9 @@ class ID3_Frame;
 class ID3_Tag;
 class QWidget;
 
-namespace Kwave {
-    class MP3Decoder: public Decoder
+namespace Kwave
+{
+    class MP3Decoder: public Kwave::Decoder
     {
     public:
 
@@ -46,7 +47,7 @@ namespace Kwave {
 	virtual ~MP3Decoder();
 
 	/** Returns a new instance of the decoder */
-	virtual Decoder *instance();
+	virtual Kwave::Decoder *instance();
 
 	/**
 	 * Opens the source and decodes the header information.

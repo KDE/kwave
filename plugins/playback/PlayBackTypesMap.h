@@ -21,12 +21,12 @@
 #include "libkwave/TypesMap.h"
 #include "PlayBackParam.h"
 
-class PlayBackTypesMap: public TypesMap<unsigned int, playback_method_t>
+class PlayBackTypesMap: public Kwave::TypesMap<unsigned int, playback_method_t>
 {
 public:
     /** Constructor */
     explicit PlayBackTypesMap()
-	:TypesMap<unsigned int, playback_method_t>()
+	:Kwave::TypesMap<unsigned int, playback_method_t>()
     {
 	fill();
     }

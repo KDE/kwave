@@ -19,19 +19,19 @@
 #include "Label.h"
 
 //***************************************************************************
-Label::Label()
+Kwave::Label::Label()
     :Kwave::MetaData() // must be empty, isNull() should return true
 {
 }
 
 //***************************************************************************
-Label::Label(const Kwave::MetaData &meta_data)
+Kwave::Label::Label(const Kwave::MetaData &meta_data)
     :Kwave::MetaData(meta_data)
 {
 }
 
 //***************************************************************************
-Label::Label(sample_index_t position, const QString &name)
+Kwave::Label::Label(sample_index_t position, const QString &name)
     :Kwave::MetaData(Kwave::MetaData::Position)
 {
     setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());
@@ -41,19 +41,19 @@ Label::Label(sample_index_t position, const QString &name)
 }
 
 //***************************************************************************
-Label::~Label()
+Kwave::Label::~Label()
 {
 }
 
 //***************************************************************************
-void Label::moveTo(sample_index_t position)
+void Kwave::Label::moveTo(sample_index_t position)
 {
     if (isNull()) setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());
     setProperty(Kwave::MetaData::STDPROP_POS, position);
 }
 
 //***************************************************************************
-sample_index_t Label::pos() const
+sample_index_t Kwave::Label::pos() const
 {
     return static_cast<sample_index_t>(
 	property(Kwave::MetaData::STDPROP_POS).toULongLong()
@@ -61,7 +61,7 @@ sample_index_t Label::pos() const
 }
 
 //***************************************************************************
-void Label::rename(const QString &name)
+void Kwave::Label::rename(const QString &name)
 {
     if (isNull()) setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());
     if (name.length())
@@ -71,7 +71,7 @@ void Label::rename(const QString &name)
 }
 
 //***************************************************************************
-QString Label::name() const
+QString Kwave::Label::name() const
 {
     return property(Kwave::MetaData::STDPROP_DESCRIPTION).toString();
 }

@@ -29,20 +29,24 @@
 #include "PlayBackParam.h"
 
 class QStringList;
-class PlaybackController;
-class PluginContext;
-class PlayBackDevice;
+
 class PlayBackDialog;
 
-namespace Kwave { class MixerMatrix; }
+namespace Kwave
+{
+    class PlaybackController;
+    class PlayBackDevice;
+    class PluginContext;
+    class MixerMatrix;
+}
 
-class PlayBackPlugin: public Kwave::Plugin, public PlaybackDeviceFactory
+class PlayBackPlugin: public Kwave::Plugin, public Kwave::PlaybackDeviceFactory
 {
     Q_OBJECT
 public:
 
     /** Constructor */
-    PlayBackPlugin(const PluginContext &c);
+    PlayBackPlugin(const Kwave::PluginContext &c);
 
     /** Destructor */
     virtual ~PlayBackPlugin();
@@ -150,7 +154,7 @@ protected:
      *               passed one is not possible
      * @return a new PlayBackDevice or 0 if failed
      */
-    PlayBackDevice *createDevice(playback_method_t &method);
+    Kwave::PlayBackDevice *createDevice(playback_method_t &method);
 
     /**
      * Opens and initializes the playback device. If the initialization
@@ -168,7 +172,7 @@ protected:
      *         failed
      * @see PlayBackDevice
      */
-    virtual PlayBackDevice *openDevice(const QString &name, int tracks,
+    virtual Kwave::PlayBackDevice *openDevice(const QString &name, int tracks,
 	const PlayBackParam *playback_params);
 
     /**
@@ -186,7 +190,7 @@ private:
     PlayBackDialog *m_dialog;
 
     /** The playback device used for playback */
-    PlayBackDevice *m_device;
+    Kwave::PlayBackDevice *m_device;
 
     /** Mutex for locking access to the playback device */
     QMutex m_lock_device;
@@ -195,7 +199,7 @@ private:
     PlayBackParam m_playback_params;
 
     /** reference to the playback controller */
-    PlaybackController &m_playback_controller;
+    Kwave::PlaybackController &m_playback_controller;
 
     /** Start of the selection when playback started */
     unsigned int m_old_first;

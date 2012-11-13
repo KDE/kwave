@@ -33,7 +33,7 @@ KWAVE_PLUGIN(LowPassPlugin, "lowpass", "2.1",
              I18N_NOOP("Low Pass Filter"), "Thomas Eschenbacher");
 
 //***************************************************************************
-LowPassPlugin::LowPassPlugin(const PluginContext &context)
+LowPassPlugin::LowPassPlugin(const Kwave::PluginContext &context)
     :Kwave::FilterPlugin(context),
      m_frequency(3500.0), m_last_freq(100)
 {
@@ -62,7 +62,7 @@ int LowPassPlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-KwavePluginSetupDialog *LowPassPlugin::createDialog(QWidget *parent)
+Kwave::PluginSetupDialog *LowPassPlugin::createDialog(QWidget *parent)
 {
     LowPassDialog *dialog = new LowPassDialog(parent, signalRate());
     Q_ASSERT(dialog);

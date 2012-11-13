@@ -33,9 +33,11 @@
 class QAction;
 class KMainWindow;
 class MenuManager;
-class PlaybackController;
 
-namespace Kwave {
+namespace Kwave
+{
+
+    class PlaybackController;
 
     class PlayerToolBar: public KToolBar
     {
@@ -49,7 +51,7 @@ namespace Kwave {
 	 * @param menu_manager the MenuManager
 	 */
 	PlayerToolBar(KMainWindow *parent, const QString &name,
-	              PlaybackController &playback,
+	              Kwave::PlaybackController &playback,
 	              MenuManager &menu_manager
 	);
 
@@ -158,13 +160,13 @@ namespace Kwave {
 	bool m_blink_on;
 
 	/** reference to a playback controller */
-	PlaybackController &m_playback;
+	Kwave::PlaybackController &m_playback;
 
 	/** reference to a menu manager */
 	MenuManager &m_menu_manager;
 
 	/** list of labels (sorted) */
-	LabelList m_labels;
+	Kwave::LabelList m_labels;
 
 	/** last number of tracks */
 	unsigned int m_last_tracks;

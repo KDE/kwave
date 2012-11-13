@@ -19,7 +19,6 @@
 #include "config.h"
 #include <klocale.h>
 
-#include "libkwave/Label.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/undo/UndoAddMetaDataAction.h"
 #include "libkwave/undo/UndoDeleteMetaDataAction.h"

@@ -57,7 +57,7 @@ KWAVE_PLUGIN(RecordPlugin, "record", "2.2",
              I18N_NOOP("Record"), "Thomas Eschenbacher");
 
 //***************************************************************************
-RecordPlugin::RecordPlugin(const PluginContext &context)
+RecordPlugin::RecordPlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context), m_method(), m_device_name(), m_controller(),
      m_state(REC_EMPTY), m_device(0),
      m_dialog(0), m_thread(0), m_decoder(0), m_prerecording_queue(),
@@ -120,9 +120,9 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     connect(m_dialog, SIGNAL(sigBitsPerSampleChanged(unsigned int)),
             this,     SLOT(changeBitsPerSample(unsigned int)));
     connect(m_dialog,
-	    SIGNAL(sigSampleFormatChanged(SampleFormat)),
+	    SIGNAL(sigSampleFormatChanged(Kwave::SampleFormat)),
             this,
-	    SLOT(changeSampleFormat(SampleFormat)));
+	    SLOT(changeSampleFormat(Kwave::SampleFormat)));
     connect(m_dialog, SIGNAL(sigBuffersChanged()),
             this,     SLOT(buffersChanged()));
     connect(this,     SIGNAL(sigRecordedSamples(unsigned int)),
@@ -195,7 +195,7 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     m_decoder = 0;
 
     if (m_dialog) {
-	FileInfo info(signalManager().metaData());
+	Kwave::FileInfo info(signalManager().metaData());
 	info.setLength(signalLength());
 	info.setTracks(m_dialog->params().tracks);
 	signalManager().setFileInfo(info, false);
@@ -546,7 +546,7 @@ void RecordPlugin::changeCompression(int new_compression)
     }
 
     // check the supported compressions
-    CompressionType types;
+    Kwave::CompressionType types;
     QList<int> supported_comps = m_device->detectCompressions();
     int compression = new_compression;
     if (!supported_comps.contains(compression) && (compression != 0)) {
@@ -576,7 +576,7 @@ void RecordPlugin::changeCompression(int new_compression)
 	compression = m_device->compression();
 
 	if (compression != m_device->compression()) {
-	    CompressionType types;
+	    Kwave::CompressionType types;
 	    const QString c1(types.name(types.findFromData(compression)));
 	    const QString c2(types.name(types.findFromData(
 	                 m_device->compression())));
@@ -601,7 +601,7 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
     if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
 	m_dialog->setBitsPerSample(0);
-	changeSampleFormat(SampleFormat::Unknown);
+	changeSampleFormat(Kwave::SampleFormat::Unknown);
 	return;
     }
 
@@ -641,7 +641,7 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 }
 
 //***************************************************************************
-void RecordPlugin::changeSampleFormat(SampleFormat new_format)
+void RecordPlugin::changeSampleFormat(Kwave::SampleFormat new_format)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
@@ -651,13 +651,14 @@ void RecordPlugin::changeSampleFormat(SampleFormat new_format)
 
     if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
-	m_dialog->setSampleFormat(SampleFormat::Unknown);
+	m_dialog->setSampleFormat(Kwave::SampleFormat::Unknown);
 	return;
     }
 
     // check the supported sample formats
-    QList<SampleFormat> supported_formats = m_device->detectSampleFormats();
-    SampleFormat format = new_format;
+    QList<Kwave::SampleFormat> supported_formats =
+	m_device->detectSampleFormats();
+    Kwave::SampleFormat format = new_format;
     if (!supported_formats.contains(format) && !supported_formats.isEmpty()) {
 	// use the device default instead
 	format = m_device->sampleFormat();
@@ -667,7 +668,7 @@ void RecordPlugin::changeSampleFormat(SampleFormat new_format)
 	    format = supported_formats.first(); // just take the first one :-o
 	}
 
-	SampleFormat::Map sf;
+	Kwave::SampleFormat::Map sf;
 	const QString s1 = sf.name(sf.findFromData(new_format));
 	const QString s2 = sf.name(sf.findFromData(format));
 	if (!(new_format == -1) && !(new_format == format)) {
@@ -683,7 +684,7 @@ void RecordPlugin::changeSampleFormat(SampleFormat new_format)
 	// use the device default instead
 	format = m_device->sampleFormat();
 
-	SampleFormat::Map sf;
+	Kwave::SampleFormat::Map sf;
 	const QString s1 = sf.name(sf.findFromData(new_format));
 	const QString s2 = sf.name(sf.findFromData(format));
 	if (format > 0) notice(
@@ -799,8 +800,8 @@ void RecordPlugin::setupRecordThread()
     switch (params.compression) {
 	case AF_COMPRESSION_NONE:
 	    switch (params.sample_format) {
-		case SampleFormat::Unsigned:
-		case SampleFormat::Signed:
+		case Kwave::SampleFormat::Unsigned:
+		case Kwave::SampleFormat::Signed:
 		    // decoder for all linear formats
 		    m_decoder = new SampleDecoderLinear(
 			m_device->sampleFormat(),
@@ -816,7 +817,7 @@ void RecordPlugin::setupRecordThread()
 	    break;
 	case AF_COMPRESSION_G711_ALAW:
 	case AF_COMPRESSION_G711_ULAW:
-	case CompressionType::MPEG_LAYER_II:
+	case Kwave::CompressionType::MPEG_LAYER_II:
 	case AF_COMPRESSION_MS_ADPCM:
 	default:
 	    notice(
@@ -886,7 +887,7 @@ void RecordPlugin::startRecording()
 	 */
 	if ((!m_writers) ||
 	    (m_writers->tracks() != tracks) ||
-	    (FileInfo(signalManager().metaData()).rate() != rate))
+	    (Kwave::FileInfo(signalManager().metaData()).rate() != rate))
 	{
 	    // create a new and empty signal
 
@@ -905,7 +906,8 @@ void RecordPlugin::startRecording()
 
 	    // create a sink for our audio data
 	    if (m_writers) delete m_writers;
-	    m_writers = new Kwave::MultiTrackWriter(signalManager(), Append);
+	    m_writers = new Kwave::MultiTrackWriter(signalManager(),
+	                                            Kwave::Append);
 	    Q_ASSERT(m_writers);
 	    Q_ASSERT((m_writers) && (m_writers->tracks() == tracks));
 	    if ((!m_writers) || (m_writers->tracks() != tracks)) {
@@ -917,14 +919,14 @@ void RecordPlugin::startRecording()
 	}
 
 	// initialize the file information
-	FileInfo fileInfo(signalManager().metaData());
+	Kwave::FileInfo fileInfo(signalManager().metaData());
 	fileInfo.setRate(rate);
 	fileInfo.setBits(bits);
 	fileInfo.setTracks(tracks);
-	fileInfo.set(INF_MIMETYPE, "audio/vnd.wave");
-	fileInfo.set(INF_SAMPLE_FORMAT,
+	fileInfo.set(Kwave::INF_MIMETYPE, "audio/vnd.wave");
+	fileInfo.set(Kwave::INF_SAMPLE_FORMAT,
 	    m_dialog->params().sample_format.toInt());
-	fileInfo.set(INF_COMPRESSION, m_dialog->params().compression);
+	fileInfo.set(Kwave::INF_COMPRESSION, m_dialog->params().compression);
 
 	// add our Kwave Software tag
 	const KAboutData *about_data =
@@ -935,7 +937,7 @@ void RecordPlugin::startRecording()
 			    i18n(KDE_VERSION_STRING);
 	qDebug("adding software tag: '%s'",
 		software.toLocal8Bit().data());
-	fileInfo.set(INF_SOFTWARE, software);
+	fileInfo.set(Kwave::INF_SOFTWARE, software);
 
 	// add a date tag, ISO format
 	QDate now(QDate::currentDate());
@@ -943,7 +945,7 @@ void RecordPlugin::startRecording()
 	date = date.sprintf("%04d-%02d-%02d",
 		now.year(), now.month(), now.day());
 	QVariant value = date.toUtf8();
-	fileInfo.set(INF_CREATION_DATE, value);
+	fileInfo.set(Kwave::INF_CREATION_DATE, value);
 	signalManager().setFileInfo(fileInfo, false);
     }
 
@@ -1286,7 +1288,7 @@ void RecordPlugin::flushPrerecordingQueue()
     if (!tracks || (tracks != m_writers->tracks())) return;
 
     for (unsigned int track=0; track < tracks; ++track) {
-	SampleFIFO &fifo = m_prerecording_queue[track];
+	Kwave::SampleFIFO &fifo = m_prerecording_queue[track];
 	Q_ASSERT(fifo.length());
 	if (!fifo.length()) continue;
 	fifo.crop(); // enforce the correct size

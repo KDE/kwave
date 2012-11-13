@@ -28,11 +28,10 @@
 #include "libkwave/InsertMode.h"
 #include "libkwave/SampleSink.h"
 
-class SampleReader;
-
-namespace Kwave {
-
+namespace Kwave
+{
     class SampleArray;
+    class SampleReader;
 
     class KDE_EXPORT Writer: public Kwave::SampleSink
     {
@@ -51,7 +50,7 @@ namespace Kwave {
 	 * @param right end of the input (only useful with overwrite mode)
 	 * @see InsertMode
 	 */
-	Writer(InsertMode mode,
+	Writer(Kwave::InsertMode mode,
 	       sample_index_t left = 0, sample_index_t right = 0);
 
 	/** Destructor */
@@ -73,7 +72,7 @@ namespace Kwave {
 	 * Fill the Writer with data from a SampleReader. If the reader
 	 * reaches EOF the writer will be filled up with zeroes.
 	 */
-	Writer &operator << (SampleReader &reader);
+	Writer &operator << (Kwave::SampleReader &reader);
 
 	/**
 	 * Flush the content of a buffer. Normally the buffer is the
@@ -114,7 +113,8 @@ namespace Kwave {
 	 * index of the last written sample when in insert/append mode.
 	 */
 	inline sample_index_t last() const {
-	    return ((m_mode == Append) ? (m_last + m_buffer_used) : m_last);
+	    return ((m_mode == Kwave::Append) ?
+		(m_last + m_buffer_used) : m_last);
 	}
 
 	/**
@@ -123,7 +123,7 @@ namespace Kwave {
 	inline sample_index_t position() const { return m_position; }
 
 	/** Returns the insert mode */
-	inline InsertMode mode() const { return m_mode; }
+	inline Kwave::InsertMode mode() const { return m_mode; }
 
     signals:
 
@@ -153,7 +153,7 @@ namespace Kwave {
 	sample_index_t m_last;
 
 	/** mode for input (insert, overwrite, ...) */
-	InsertMode m_mode;
+	Kwave::InsertMode m_mode;
 
 	/** current position within the track */
 	sample_index_t m_position;
@@ -175,3 +175,6 @@ namespace Kwave {
 Kwave::Writer &flush(Kwave::Writer &s) KDE_EXPORT;
 
 #endif /* _KWAVE_WRITER_H_ */
+
+//***************************************************************************
+//***************************************************************************

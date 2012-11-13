@@ -28,7 +28,8 @@
 #include "libkwave/MetaDataList.h"
 #include "libkwave/undo/UndoAction.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     /**
      * Undo action for modifying meta data

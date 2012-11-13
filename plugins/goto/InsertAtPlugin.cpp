@@ -26,7 +26,7 @@ KWAVE_PLUGIN(InsertAtPlugin, "insert_at", "2.1",
              I18N_NOOP("Insert At"), "Thomas Eschenbacher");
 
 //***************************************************************************
-InsertAtPlugin::InsertAtPlugin(const PluginContext &c)
+InsertAtPlugin::InsertAtPlugin(const Kwave::PluginContext &c)
     :GotoPluginBase(c)
 {
 }
@@ -41,9 +41,9 @@ QString InsertAtPlugin::command() const
 {
     return "insert_at";
 }
-   
+
 //***************************************************************************
-QString InsertAtPlugin::title() const 
+QString InsertAtPlugin::title() const
 {
     return i18n("Insert At...");
 }

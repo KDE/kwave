@@ -27,7 +27,6 @@
 #include <kdemacros.h>
 
 #include "libkwave/Curve.h"
-#include "libkwave/Interpolation.h"
 
 class QAction;
 class QMouseEvent;
@@ -65,7 +64,7 @@ public:
      * @param sy screen y coordinate, top is 0
      * @return the point of the curve or Curve::NoPoint if nothing found
      */
-    Curve::Point findPoint(int sx, int sy);
+    Kwave::Curve::Point findPoint(int sx, int sy);
 
 public slots:
 
@@ -136,7 +135,7 @@ private:
     int m_height;
 
     /** The curve to be edited */
-    Curve m_curve;
+    Kwave::Curve m_curve;
 
     /** Popup (context) menu for the right mouse button */
     QMenu *m_menu;
@@ -148,10 +147,10 @@ private:
     QMenu *m_preset_menu;
 
     /** Currently selected point or null if none selected */
-    Curve::Point m_current;
+    Kwave::Curve::Point m_current;
 
     /** Last selected point, remembered for deleting. */
-    Curve::Point m_last;
+    Kwave::Curve::Point m_last;
 
     /** State of the left mouse button (when moving points) */
     bool m_down;

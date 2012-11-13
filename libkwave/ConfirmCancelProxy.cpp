@@ -26,7 +26,7 @@
 #include "libkwave/MessageBox.h"
 
 //***************************************************************************
-ConfirmCancelProxy::ConfirmCancelProxy(QWidget *widget,
+Kwave::ConfirmCancelProxy::ConfirmCancelProxy(QWidget *widget,
     QObject *sender, const char *signal,
     QObject *receiver, const char *slot)
     :QObject(), m_widget(widget)
@@ -39,12 +39,12 @@ ConfirmCancelProxy::ConfirmCancelProxy(QWidget *widget,
 }
 
 //***************************************************************************
-ConfirmCancelProxy::~ConfirmCancelProxy()
+Kwave::ConfirmCancelProxy::~ConfirmCancelProxy()
 {
 }
 
 //***************************************************************************
-void ConfirmCancelProxy::cancel()
+void Kwave::ConfirmCancelProxy::cancel()
 {
     if (Kwave::MessageBox::questionYesNo(m_widget,
         i18n("Do you really want to abort the current action?"))
@@ -53,6 +53,7 @@ void ConfirmCancelProxy::cancel()
 }
 
 //***************************************************************************
+using namespace Kwave;
 #include "ConfirmCancelProxy.moc"
 //***************************************************************************
 //***************************************************************************

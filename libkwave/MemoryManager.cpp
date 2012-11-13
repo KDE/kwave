@@ -308,13 +308,13 @@ size_t Kwave::MemoryManager::virtualUsed()
 {
     size_t used = 0;
 
-    foreach (const SwapFile *swapfile, m_cached_swap.values())
+    foreach (const Kwave::SwapFile *swapfile, m_cached_swap.values())
 	used += (swapfile->size() >> 10) + 1;
 
-    foreach (const SwapFile *swapfile, m_mapped_swap.values())
+    foreach (const Kwave::SwapFile *swapfile, m_mapped_swap.values())
 	used += (swapfile->size() >> 10) + 1;
 
-    foreach (const SwapFile *swapfile, m_unmapped_swap.values())
+    foreach (const Kwave::SwapFile *swapfile, m_unmapped_swap.values())
 	used += (swapfile->size() >> 10) + 1;
 
     return (used >> 10);
@@ -356,7 +356,7 @@ Kwave::Handle Kwave::MemoryManager::allocateVirtual(size_t size)
     if (!handle) return 0; // out of handles :-(
 
     // try to allocate
-    SwapFile *swap = new SwapFile(nextSwapFileName(handle));
+    Kwave::SwapFile *swap = new Kwave::SwapFile(nextSwapFileName(handle));
     Q_ASSERT(swap);
     if (!swap) return 0; // out of memory :-(
 
@@ -395,7 +395,7 @@ bool Kwave::MemoryManager::convertToVirtual(Kwave::Handle handle,
     if (!temp_handle) return false;
 
     // copy old stuff to new location
-    SwapFile *swap = m_unmapped_swap[temp_handle];
+    Kwave::SwapFile *swap = m_unmapped_swap[temp_handle];
     swap->write(0, mem.m_data, mem.m_size);
 
     // free the old physical memory
@@ -423,7 +423,7 @@ bool Kwave::MemoryManager::convertToPhysical(Kwave::Handle handle,
     // check: it must be in physical space, otherwise the rest makes no sense
     Q_ASSERT(m_unmapped_swap.contains(handle));
     if (!m_unmapped_swap.contains(handle)) return false;
-    SwapFile *swap = m_unmapped_swap[handle];
+    Kwave::SwapFile *swap = m_unmapped_swap[handle];
     Q_ASSERT(swap);
     if (!swap) return false;
 
@@ -476,7 +476,7 @@ void Kwave::MemoryManager::tryToMakePhysical(Kwave::Handle handle)
     Q_ASSERT(m_unmapped_swap.contains(handle));
     if (!m_unmapped_swap.contains(handle)) return;
 
-    const SwapFile *swap = m_unmapped_swap[handle];
+    const Kwave::SwapFile *swap = m_unmapped_swap[handle];
     Q_ASSERT(swap);
     if (!swap) return;
 
@@ -579,7 +579,7 @@ bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
 // 	        static_cast<unsigned int>(size >> 20));
 
 	dump("resize");
-	SwapFile *swap = m_unmapped_swap[handle];
+	Kwave::SwapFile *swap = m_unmapped_swap[handle];
 	return swap->resize(size);
     }
 
@@ -617,7 +617,7 @@ void Kwave::MemoryManager::free(Kwave::Handle &handle)
 
     if (m_unmapped_swap.contains(handle)) {
 	// remove the pagefile
-	SwapFile *swap = m_unmapped_swap[handle];
+	Kwave::SwapFile *swap = m_unmapped_swap[handle];
 	m_unmapped_swap.remove(handle);
 	Q_ASSERT(!swap->mapCount());
 	delete swap;
@@ -653,7 +653,7 @@ void *Kwave::MemoryManager::map(Kwave::Handle handle)
 
     // if it is already in the cache -> shortcut !
     if (m_cached_swap.contains(handle)) {
-	SwapFile *swap = m_cached_swap[handle];
+	Kwave::SwapFile *swap = m_cached_swap[handle];
 	m_cached_swap.remove(handle);
 	m_mapped_swap.insert(handle, swap);
 // 	qDebug("Kwave::MemoryManager[%9d] - mmap -> cache hit", handle);
@@ -663,7 +663,7 @@ void *Kwave::MemoryManager::map(Kwave::Handle handle)
 
     // other simple case: already mapped
     if (m_mapped_swap.contains(handle)) {
-	SwapFile *swap = m_mapped_swap[handle];
+	Kwave::SwapFile *swap = m_mapped_swap[handle];
 	Q_ASSERT(swap->mapCount() >= 1);
 // 	qDebug("Kwave::MemoryManager[%9d] - mmap -> recursive(%d)",
 // 		handle, swap->mapCount());
@@ -673,7 +673,7 @@ void *Kwave::MemoryManager::map(Kwave::Handle handle)
     // more complicated case: unmapped swapfile
     if (m_unmapped_swap.contains(handle)) {
 	// map it into memory
-	SwapFile *swap = m_unmapped_swap[handle];
+	Kwave::SwapFile *swap = m_unmapped_swap[handle];
 	Q_ASSERT(!swap->mapCount());
 	void *mapped = swap->map();
 	if (!mapped) {
@@ -701,7 +701,7 @@ void Kwave::MemoryManager::unmapFromCache(Kwave::Handle handle)
 {
     if (m_cached_swap.contains(handle)) {
 // 	qDebug("Kwave::MemoryManager[%9d] - unmapFromCache", handle);
-	SwapFile *swap = m_cached_swap[handle];
+	Kwave::SwapFile *swap = m_cached_swap[handle];
 	Q_ASSERT(swap->mapCount() == 1);
 	swap->unmap();
 	Q_ASSERT(!swap->mapCount());
@@ -741,7 +741,7 @@ void Kwave::MemoryManager::unmap(Kwave::Handle handle)
     // must be a mapped swapfile: move it into the cache
     Q_ASSERT(m_mapped_swap.contains(handle));
     if (m_mapped_swap.contains(handle)) {
-	SwapFile *swap = m_mapped_swap[handle];
+	Kwave::SwapFile *swap = m_mapped_swap[handle];
 	Q_ASSERT(swap->mapCount());
 	if (swap->mapCount() > 1) {
 	    // only unmap and internally reduce the map count
@@ -788,7 +788,7 @@ int Kwave::MemoryManager::readFrom(Kwave::Handle handle, unsigned int offset,
 
     // still in the cache and mapped -> memcpy(...)
     if (m_cached_swap.contains(handle)) {
-	SwapFile *swap = m_cached_swap[handle];
+	Kwave::SwapFile *swap = m_cached_swap[handle];
 	Q_ASSERT(swap->mapCount() == 1);
 	char *data = reinterpret_cast<char *>(swap->address());
 	Q_ASSERT(data);
@@ -800,7 +800,7 @@ int Kwave::MemoryManager::readFrom(Kwave::Handle handle, unsigned int offset,
 
     // currently mmapped -> memcpy(...)
     if (m_mapped_swap.contains(handle)) {
-	SwapFile *swap = m_mapped_swap[handle];
+	Kwave::SwapFile *swap = m_mapped_swap[handle];
 	Q_ASSERT(swap->mapCount() >= 1);
 	char *data = reinterpret_cast<char *>(swap->address());
 	Q_ASSERT(data);
@@ -814,7 +814,7 @@ int Kwave::MemoryManager::readFrom(Kwave::Handle handle, unsigned int offset,
     Q_ASSERT(m_unmapped_swap.contains(handle));
     if (m_unmapped_swap.contains(handle)) {
 	qDebug("Kwave::MemoryManager[%9d] - readFrom -> unmapped swap", handle);
-	SwapFile *swap = m_unmapped_swap[handle];
+	Kwave::SwapFile *swap = m_unmapped_swap[handle];
 	length = swap->read(offset, buffer, length);
 	return length;
     }
@@ -858,7 +858,7 @@ int Kwave::MemoryManager::writeTo(Kwave::Handle handle, unsigned int offset,
     Q_ASSERT(m_unmapped_swap.contains(handle));
     if (m_unmapped_swap.contains(handle)) {
 	qDebug("Kwave::MemoryManager[%9d] - writeTo -> unmapped swap", handle);
-	SwapFile *swap = m_unmapped_swap[handle];
+	Kwave::SwapFile *swap = m_unmapped_swap[handle];
 	swap->write(offset, buffer, length);
 	return length;
     }

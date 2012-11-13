@@ -29,7 +29,8 @@
 
 class QWidget;
 
-namespace Kwave {
+namespace Kwave
+{
 
     class SignalManager;
 

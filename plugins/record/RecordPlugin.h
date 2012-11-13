@@ -49,7 +49,7 @@ class RecordPlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    RecordPlugin(const PluginContext &c);
+    RecordPlugin(const Kwave::PluginContext &c);
 
     /** Destructor */
     virtual ~RecordPlugin();
@@ -146,7 +146,7 @@ private slots:
     void changeBitsPerSample(unsigned int new_bits);
 
     /** select a new sample format */
-    void changeSampleFormat(SampleFormat new_format);
+    void changeSampleFormat(Kwave::SampleFormat new_format);
 
     /** process a raw audio buffer */
     void processBuffer();
@@ -249,7 +249,7 @@ private:
      * set of queues for buffering prerecording data, one for each
      * track
      */
-    QVector<SampleFIFO> m_prerecording_queue;
+    QVector<Kwave::SampleFIFO> m_prerecording_queue;
 
     /** sink for the audio data */
     Kwave::MultiTrackWriter *m_writers;

@@ -28,7 +28,9 @@
 class QString;
 class QVariant;
 
-namespace Kwave {
+namespace Kwave
+{
+
     class KDE_EXPORT StreamObject: public QObject
     {
 	Q_OBJECT

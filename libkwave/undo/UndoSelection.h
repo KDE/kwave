@@ -25,8 +25,8 @@
 #include "libkwave/Sample.h"
 #include "libkwave/undo/UndoAction.h"
 
-
-namespace Kwave {
+namespace Kwave
+{
 
     class SignalManager;
 
@@ -100,3 +100,6 @@ namespace Kwave {
 }
 
 #endif /* _UNDO_SELECTION_H_ */
+
+//***************************************************************************
+//***************************************************************************

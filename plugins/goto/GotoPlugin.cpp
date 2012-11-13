@@ -27,7 +27,7 @@ KWAVE_PLUGIN(GotoPlugin, "goto", "2.1",
              I18N_NOOP("Goto Position"), "Thomas Eschenbacher");
 
 //***************************************************************************
-GotoPlugin::GotoPlugin(const PluginContext &c)
+GotoPlugin::GotoPlugin(const Kwave::PluginContext &c)
     :GotoPluginBase(c)
 {
 }
@@ -39,12 +39,12 @@ GotoPlugin::~GotoPlugin()
 
 //***************************************************************************
 QString GotoPlugin::command() const
-{ 
+{
     return "goto";
 }
-    
+
 //***************************************************************************
-QString GotoPlugin::title() const 
+QString GotoPlugin::title() const
 {
     return i18n("Goto...");
 }

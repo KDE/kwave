@@ -19,7 +19,6 @@
 
 #include "klocalizedstring.h"
 
-#include "libkwave/Label.h"
 #include "libgui/LabelItem.h"
 
 //***************************************************************************
@@ -27,7 +26,7 @@ Kwave::ViewItem::ViewItem()
     :QObject()
 {
 }
-	
+
 //***************************************************************************
 Kwave::ViewItem::~ViewItem()
 {
@@ -43,7 +42,7 @@ Qt::ItemFlags Kwave::ViewItem::flags()
 QString Kwave::ViewItem::toolTip(sample_index_t ofs)
 {
     Q_UNUSED(ofs);
-    return QString(); 
+    return QString();
 }
 
 //***************************************************************************

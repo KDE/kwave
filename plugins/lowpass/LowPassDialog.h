@@ -33,7 +33,7 @@ class LowPassFilter;
 
 class LowPassDialog: public QDialog,
                      public Ui::LowPassDlg,
-                     public KwavePluginSetupDialog
+                     public Kwave::PluginSetupDialog
 {
     Q_OBJECT
 public:

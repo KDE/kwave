@@ -24,7 +24,9 @@
 #include "libkwave/SampleArray.h"
 #include "libkwave/modules/StreamObject.h"
 
-namespace Kwave {
+namespace Kwave
+{
+
     class SampleSink: public Kwave::StreamObject
     {
         Q_OBJECT
@@ -52,3 +54,6 @@ namespace Kwave {
 }
 
 #endif /* _SAMPLE_SINK_H_ */
+
+//***************************************************************************
+//***************************************************************************

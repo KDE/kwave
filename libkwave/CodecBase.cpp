@@ -28,26 +28,27 @@
 #include "CodecBase.h"
 
 /***************************************************************************/
-CodecBase::CodecBase()
+Kwave::CodecBase::CodecBase()
     :m_supported_mime_types(), m_supported_compression_types()
 {
 }
 
 /***************************************************************************/
-CodecBase::~CodecBase()
+Kwave::CodecBase::~CodecBase()
 {
     m_supported_mime_types.clear();
     m_supported_compression_types.clear();
 }
 
 /***************************************************************************/
-void CodecBase::addMimeType(const QString &name, const QString &description,
-                            const QString &patterns)
+void Kwave::CodecBase::addMimeType(const QString &name,
+                                   const QString &description,
+                                   const QString &patterns)
 {
     // check for duplicates
     if (supports(name)) return;
 
-    CodecBase::MimeType type;
+    Kwave::CodecBase::MimeType type;
     KMimeType::Ptr t = KMimeType::mimeType(name);
 
     if (!t || (t && t->isDefault())) {
@@ -76,7 +77,7 @@ void CodecBase::addMimeType(const QString &name, const QString &description,
 }
 
 /***************************************************************************/
-void CodecBase::addCompression(int compression)
+void Kwave::CodecBase::addCompression(int compression)
 {
     if (m_supported_compression_types.contains(compression)) return;
 
@@ -85,24 +86,24 @@ void CodecBase::addCompression(int compression)
 }
 
 /***************************************************************************/
-bool CodecBase::supports(const KMimeType &mimetype)
+bool Kwave::CodecBase::supports(const KMimeType &mimetype)
 {
     return supports(mimetype.name());
 }
 
 /***************************************************************************/
-bool CodecBase::supports(const QString &mimetype_name)
+bool Kwave::CodecBase::supports(const QString &mimetype_name)
 {
-    foreach (const CodecBase::MimeType &mime, m_supported_mime_types) {
+    foreach (const Kwave::CodecBase::MimeType &mime, m_supported_mime_types) {
 	if (mime.name == mimetype_name) return true;
     }
     return false;
 }
 
 /***************************************************************************/
-QStringList CodecBase::extensions(const QString &mimetype_name) const
+QStringList Kwave::CodecBase::extensions(const QString &mimetype_name) const
 {
-    foreach (const CodecBase::MimeType &mime, m_supported_mime_types) {
+    foreach (const Kwave::CodecBase::MimeType &mime, m_supported_mime_types) {
 	if (mime.name == mimetype_name) {
 	    return mime.patterns;
 	}
@@ -111,19 +112,19 @@ QStringList CodecBase::extensions(const QString &mimetype_name) const
 }
 
 /***************************************************************************/
-const QList<CodecBase::MimeType> CodecBase::mimeTypes()
+const QList<Kwave::CodecBase::MimeType> Kwave::CodecBase::mimeTypes()
 {
     return m_supported_mime_types;
 }
 
 /***************************************************************************/
-const QList<int> CodecBase::compressionTypes()
+const QList<int> Kwave::CodecBase::compressionTypes()
 {
     return m_supported_compression_types;
 }
 
 /***************************************************************************/
-QString CodecBase::whatContains(const KUrl &url)
+QString Kwave::CodecBase::whatContains(const KUrl &url)
 {
     // get the extension of the file
     QFileInfo file(url.fileName());
@@ -132,9 +133,9 @@ QString CodecBase::whatContains(const KUrl &url)
     suffix = "*."+suffix;
 
     // try to find in the list of supported mime types
-    QListIterator<CodecBase::MimeType> it(m_supported_mime_types);
+    QListIterator<Kwave::CodecBase::MimeType> it(m_supported_mime_types);
     while (it.hasNext()) {
-	CodecBase::MimeType mime_type = it.next();
+	Kwave::CodecBase::MimeType mime_type = it.next();
 	if (mime_type.patterns.contains(suffix))
 	    return mime_type.name;
     }

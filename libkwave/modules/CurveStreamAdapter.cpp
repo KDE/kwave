@@ -18,7 +18,7 @@
 #include "libkwave/modules/CurveStreamAdapter.h"
 
 /***************************************************************************/
-Kwave::CurveStreamAdapter::CurveStreamAdapter(Curve &curve,
+Kwave::CurveStreamAdapter::CurveStreamAdapter(Kwave::Curve &curve,
                                               unsigned int length)
     :Kwave::SampleSource(),
      m_position(0), m_length(length),

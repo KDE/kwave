@@ -25,70 +25,78 @@
 #include <kdemacros.h>
 
 #include "libkwave/CodecBase.h"
-#include "libkwave/FileInfo.h"
 #include "libkwave/MetaDataList.h"
 
 class QIODevice;
 class QWidget;
-namespace Kwave { class MultiWriter; }
 
-class KDE_EXPORT Decoder: public QObject, public CodecBase
+namespace Kwave
 {
-    Q_OBJECT
-public:
-    /** Constructor */
-    Decoder();
 
-    /** Destructor */
-    virtual ~Decoder();
+    class MultiWriter;
 
-    /** Returns a new instance of the decoder */
-    virtual Decoder *instance() = 0;
+    class KDE_EXPORT Decoder: public QObject, public Kwave::CodecBase
+    {
+	Q_OBJECT
+    public:
 
-    /**
-     * Opens the source and decodes the header information.
-     * @param widget a widget that can be used for displaying
-     *        message boxes or dialogs
-     * @param source file or other source with a stream of bytes
-     * @return true if succeeded, false on errors
-     */
-    virtual bool open(QWidget *widget, QIODevice &source) = 0;
+	/** Constructor */
+	Decoder();
 
-    /**
-     * Decodes a stream of bytes into a signal
-     * @param widget a widget that can be used for displaying
-     *        message boxes or dialogs
-     * @param dst writer that receives the audio data
-     * @return true if succeeded, false on errors
-     */
-    virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst) = 0;
+	/** Destructor */
+	virtual ~Decoder();
 
-    /**
-     * Closes the io device.
-     */
-    virtual void close() = 0;
+	/** Returns a new instance of the decoder */
+	virtual Decoder *instance() = 0;
 
-    /**
-     * Returns the meta data of the file, only valid after
-     * open() has successfully been called.
-     */
-    virtual inline Kwave::MetaDataList &metaData() { return m_meta_data; }
+	/**
+	 * Opens the source and decodes the header information.
+	 * @param widget a widget that can be used for displaying
+	 *        message boxes or dialogs
+	 * @param source file or other source with a stream of bytes
+	 * @return true if succeeded, false on errors
+	 */
+	virtual bool open(QWidget *widget, QIODevice &source) = 0;
 
-signals:
+	/**
+	 * Decodes a stream of bytes into a signal
+	 * @param widget a widget that can be used for displaying
+	 *        message boxes or dialogs
+	 * @param dst writer that receives the audio data
+	 * @return true if succeeded, false on errors
+	 */
+	virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst) = 0;
 
-    /**
-     * Can be used to signal the current position within the source
-     * when a stream without info about the resulting signal is
-     * processed.
-     * @param pos current position within the source, in bytes!
-     */
-    void sourceProcessed(quint64 pos);
+	/**
+	 * Closes the io device.
+	 */
+	virtual void close() = 0;
 
-protected:
+	/**
+	 * Returns the meta data of the file, only valid after
+	 * open() has successfully been called.
+	 */
+	virtual inline Kwave::MetaDataList &metaData() { return m_meta_data; }
 
-    /** meta data of the file */
-    Kwave::MetaDataList m_meta_data;
+    signals:
 
-};
+	/**
+	 * Can be used to signal the current position within the source
+	 * when a stream without info about the resulting signal is
+	 * processed.
+	 * @param pos current position within the source, in bytes!
+	 */
+	void sourceProcessed(quint64 pos);
+
+    protected:
+
+	/** meta data of the file */
+	Kwave::MetaDataList m_meta_data;
+
+    };
+}
 
 #endif /* _DECODER_H_ */
+
+//***************************************************************************
+//***************************************************************************

@@ -31,7 +31,7 @@ class NoisePlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    NoisePlugin(const PluginContext &c);
+    NoisePlugin(const Kwave::PluginContext &c);
 
     /** Destructor */
     virtual ~NoisePlugin() {};

@@ -28,8 +28,8 @@
 #define MIN_PROGRESS_INTERVAL 500
 
 //***************************************************************************
-Kwave::TrackWriter::TrackWriter(Kwave::Track &track, InsertMode mode,
-    sample_index_t left, sample_index_t right)
+Kwave::TrackWriter::TrackWriter(Kwave::Track &track, Kwave::InsertMode mode,
+                                sample_index_t left, sample_index_t right)
     :Kwave::Writer(mode, left, right),
      m_track(track), m_progress_time()
 {
@@ -48,7 +48,7 @@ Kwave::TrackWriter::~TrackWriter()
 bool Kwave::TrackWriter::write(const Kwave::SampleArray &buffer,
                                unsigned int &count)
 {
-    if ((m_mode == Overwrite) && (m_position + count > m_last + 1)) {
+    if ((m_mode == Kwave::Overwrite) && (m_position + count > m_last + 1)) {
 	// need clipping
 	count = m_last + 1 - m_position;
 // 	qDebug("TrackWriter::write() clipped to count=%u", count);
@@ -70,7 +70,7 @@ bool Kwave::TrackWriter::write(const Kwave::SampleArray &buffer,
 
     // fix m_last, this might be needed in Append and Insert mode
     Q_ASSERT(m_position >= 1);
-    if ((m_mode == Append) || (m_mode == Insert)) {
+    if ((m_mode == Kwave::Append) || (m_mode == Kwave::Insert)) {
 	if (m_position - 1 > m_last) m_last = m_position - 1;
     }
     count = 0;

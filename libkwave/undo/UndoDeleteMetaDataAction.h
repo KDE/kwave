@@ -25,7 +25,8 @@
 #include "libkwave/MetaDataList.h"
 #include "libkwave/undo/UndoAction.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     class SignalManager;
 
@@ -75,3 +76,6 @@ namespace Kwave {
 }
 
 #endif /* _UNDO_DELETE_META_DATA_ACTION_H_ */
+
+//***************************************************************************
+//***************************************************************************

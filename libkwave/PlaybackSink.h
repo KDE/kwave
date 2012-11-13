@@ -25,7 +25,8 @@
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleSink.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     class PlaybackSink: public Kwave::SampleSink
     {
@@ -55,3 +56,6 @@ namespace Kwave {
 }
 
 #endif /* _PLAYBACK_SINK_H_ */
+
+//***************************************************************************
+//***************************************************************************

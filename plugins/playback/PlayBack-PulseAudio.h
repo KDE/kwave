@@ -38,7 +38,7 @@
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/SampleArray.h"
 
-class PlayBackPulseAudio: public PlayBackDevice
+class PlayBackPulseAudio: public Kwave::PlayBackDevice
 {
 public:
 
@@ -46,7 +46,7 @@ public:
      * Constructor
      * @param info the current FileInfo with metadata
      */
-    PlayBackPulseAudio(const FileInfo &info);
+    PlayBackPulseAudio(const Kwave::FileInfo &info);
 
     /** Destructor */
     virtual ~PlayBackPulseAudio();
@@ -237,7 +237,7 @@ private:
 private:
 
     /** file info, for meta info like title, author, name etc. */
-    FileInfo m_info;
+    Kwave::FileInfo m_info;
 
     /** Playback rate [samples/second] */
     double m_rate;

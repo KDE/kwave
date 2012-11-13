@@ -25,7 +25,7 @@
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"
 
-class OggDecoder: public Decoder
+class OggDecoder: public Kwave::Decoder
 {
 public:
     /** Constructor */
@@ -35,7 +35,7 @@ public:
     virtual ~OggDecoder();
 
     /** Returns a new instance of the decoder */
-    virtual Decoder *instance();
+    virtual Kwave::Decoder *instance();
 
     /**
      * Opens the source and decodes the header information.
@@ -70,7 +70,8 @@ protected:
      * @param tag name of the field to search for
      * @param property specifies the FileProperty for storing the result
      */
-    void parseTag(FileInfo &info, const char *tag, FileProperty property);
+    void parseTag(Kwave::FileInfo &info, const char *tag,
+                  Kwave::FileProperty property);
 
     /**
      * Try to parse header frames.

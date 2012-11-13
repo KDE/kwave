@@ -70,11 +70,12 @@ private:
 };
 
 //***************************************************************************
-SonagramPlugin::SonagramPlugin(const PluginContext &c)
+SonagramPlugin::SonagramPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_sonagram_window(0), m_selected_channels(),
      m_first_sample(0), m_last_sample(0), m_stripes(0), m_fft_points(0),
-     m_window_type(WINDOW_FUNC_NONE), m_color(true), m_track_changes(true),
-     m_follow_selection(false), m_image(), m_overview_cache(0)
+     m_window_type(Kwave::WINDOW_FUNC_NONE), m_color(true),
+     m_track_changes(true), m_follow_selection(false), m_image(),
+     m_overview_cache(0)
 {
     connect(this, SIGNAL(stripeAvailable(StripeInfoPrivate *)),
             this, SLOT(insertStripe(StripeInfoPrivate *)),
@@ -131,7 +132,7 @@ int SonagramPlugin::interpreteParameters(QStringList &params)
     if (m_fft_points > 32767) m_fft_points=32767;
 
     param = params[1];
-    m_window_type = WindowFunction::findFromName(param);
+    m_window_type = Kwave::WindowFunction::findFromName(param);
     if (!ok) return -EINVAL;
 
     param = params[2];
@@ -230,7 +231,7 @@ void SonagramPlugin::run(QStringList /* params */)
     if (m_fft_points < 4)
 	return;
 
-    MultiTrackReader source(Kwave::SinglePassForward,
+    Kwave::MultiTrackReader source(Kwave::SinglePassForward,
 	signalManager(), selectedTracks(),
 	m_first_sample, m_last_sample);
 //    qDebug("SonagramPlugin::run(), first=%u, last=%u",m_first_sample,m_last_sample);
@@ -274,7 +275,7 @@ void SonagramPlugin::insertStripe(StripeInfoPrivate *stripe_info)
 }
 
 //***************************************************************************
-void SonagramPlugin::calculateStripe(MultiTrackReader &source,
+void SonagramPlugin::calculateStripe(Kwave::MultiTrackReader &source,
 	const int points, QByteArray &output)
 {
     double *in  = 0;
@@ -284,7 +285,7 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
     // first initialize the output to zeroes in case of errors
     output.fill(0);
 
-    WindowFunction func(m_window_type);
+    Kwave::WindowFunction func(m_window_type);
     QVector<double> windowfunction = func.points(points);
     Q_ASSERT(windowfunction.count() == points);
     if (windowfunction.count() != points) return;
@@ -316,7 +317,7 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
 	    unsigned int t;
 	    for (t=0; t < count; t++) {
 		sample_t s = 0;
-		SampleReader *reader = source[t];
+		Kwave::SampleReader *reader = source[t];
 		Q_ASSERT(reader);
 		if (reader) *reader >> s;
 		value += static_cast<double>(s);

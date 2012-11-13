@@ -23,7 +23,6 @@
 #include "libkwave/Plugin.h"
 
 class QStringList;
-class PluginContext;
 
 class AboutPlugin: public Kwave::Plugin
 {
@@ -32,7 +31,7 @@ class AboutPlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    AboutPlugin(const PluginContext &c);
+    AboutPlugin(const Kwave::PluginContext &c);
 
     /** Destructor */
     virtual ~AboutPlugin() {};

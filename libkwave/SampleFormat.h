@@ -26,67 +26,74 @@
 
 #include "TypesMap.h"
 
-class KDE_EXPORT SampleFormat
+namespace Kwave
 {
-public:
-    typedef enum {
-	Unknown  = -1,                   /**< unknown/invalid format */
-	Signed   = AF_SAMPFMT_TWOSCOMP,  /**< signed integer */
-	Unsigned = AF_SAMPFMT_UNSIGNED,  /**< unsigned integer */
-	Float    = AF_SAMPFMT_FLOAT,     /**< 32 bit floating point */
-	Double   = AF_SAMPFMT_DOUBLE     /**< 64 bit floating point */
-    } Format;
 
-    /** Default constructor */
-    SampleFormat() { assign(Unknown); }
-
-    /** Constructor, from SampleFormat::xxx */
-    SampleFormat(const Format x) { assign(x); }
-
-    /** Copy constructor */
-    SampleFormat(const SampleFormat &f) { assign(f); }
-
-    /** Destructor */
-    virtual ~SampleFormat() {}
-
-    /** conversion operator to sample_format_t */
-    inline operator Format() const { return m_format; }
-
-    /** assignment operator from sample_format_t */
-    inline void assign(Format f) { m_format = f; }
-
-    /** compare operator */
-    inline bool operator == (const Format &f) const {
-	return (f == m_format);
-    }
-
-    /** conversion to int */
-    inline int toInt() const { return static_cast<int>(m_format); }
-
-    /** conversion from int */
-    void fromInt(int i);
-
-private:
-
-    /** internal storage of the sample format, see sample_format_t */
-    Format m_format;
-
-public:
-
-    /** map for translating between index, sample format and name */
-    class KDE_EXPORT Map: public TypesMap<int, Format>
+    class KDE_EXPORT SampleFormat
     {
     public:
-	/** Constructor */
-	explicit Map();
+	typedef enum {
+	    Unknown  = -1,                   /**< unknown/invalid format */
+	    Signed   = AF_SAMPFMT_TWOSCOMP,  /**< signed integer */
+	    Unsigned = AF_SAMPFMT_UNSIGNED,  /**< unsigned integer */
+	    Float    = AF_SAMPFMT_FLOAT,     /**< 32 bit floating point */
+	    Double   = AF_SAMPFMT_DOUBLE     /**< 64 bit floating point */
+	} Format;
+
+	/** Default constructor */
+	SampleFormat() { assign(Unknown); }
+
+	/** Constructor, from SampleFormat::xxx */
+	SampleFormat(const Format x) { assign(x); }
+
+	/** Copy constructor */
+	SampleFormat(const SampleFormat &f) { assign(f); }
 
 	/** Destructor */
-	virtual ~Map();
+	virtual ~SampleFormat() {}
 
-	/** fills the list */
-	virtual void fill();
+	/** conversion operator to sample_format_t */
+	inline operator Format() const { return m_format; }
+
+	/** assignment operator from sample_format_t */
+	inline void assign(Format f) { m_format = f; }
+
+	/** compare operator */
+	inline bool operator == (const Format &f) const {
+	    return (f == m_format);
+	}
+
+	/** conversion to int */
+	inline int toInt() const { return static_cast<int>(m_format); }
+
+	/** conversion from int */
+	void fromInt(int i);
+
+    private:
+
+	/** internal storage of the sample format, see sample_format_t */
+	Format m_format;
+
+    public:
+
+	/** map for translating between index, sample format and name */
+	class KDE_EXPORT Map: public Kwave::TypesMap<int, Format>
+	{
+	public:
+	    /** Constructor */
+	    explicit Map();
+
+	    /** Destructor */
+	    virtual ~Map();
+
+	    /** fills the list */
+	    virtual void fill();
+	};
+
     };
-
-};
+}
 
 #endif /* _SAMPLE_FORMAT_H_ */
+
+//***************************************************************************
+//***************************************************************************

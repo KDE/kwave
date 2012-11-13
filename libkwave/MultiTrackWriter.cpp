@@ -34,7 +34,7 @@ Kwave::MultiTrackWriter::MultiTrackWriter()
 //***************************************************************************
 Kwave::MultiTrackWriter::MultiTrackWriter(Kwave::SignalManager &signal_manager,
                                           const QList<unsigned int> &track_list,
-                                          InsertMode mode,
+                                          Kwave::InsertMode mode,
                                           sample_index_t left,
                                           sample_index_t right)
     :Kwave::MultiWriter()
@@ -47,7 +47,7 @@ Kwave::MultiTrackWriter::MultiTrackWriter(Kwave::SignalManager &signal_manager,
 
 //***************************************************************************
 Kwave::MultiTrackWriter::MultiTrackWriter(Kwave::SignalManager &signal_manager,
-                                          InsertMode mode)
+                                          Kwave::InsertMode mode)
     :Kwave::MultiWriter()
 {
     QList<unsigned int> track_list = signal_manager.selectedTracks();
@@ -81,7 +81,7 @@ Kwave::MultiTrackWriter::~MultiTrackWriter()
 //***************************************************************************
 bool Kwave::MultiTrackWriter::init(Kwave::SignalManager &signal_manager,
                                    const QList<unsigned int> &track_list,
-                                   InsertMode mode,
+                                   Kwave::InsertMode mode,
                                    sample_index_t left,
                                    sample_index_t right)
 {
@@ -119,8 +119,8 @@ bool Kwave::MultiTrackWriter::init(Kwave::SignalManager &signal_manager,
     // create an undo action for the modification of the samples
     UndoAction *undo = 0;
     switch (mode) {
-	case Append:
-	case Insert: {
+	case Kwave::Append:
+	case Kwave::Insert: {
 	    undo = new Kwave::UndoInsertAction(
 		signal_manager.parentWidget(),
 		track_list,
@@ -138,7 +138,7 @@ bool Kwave::MultiTrackWriter::init(Kwave::SignalManager &signal_manager,
 	    }
 	    break;
 	}
-	case Overwrite: {
+	case Kwave::Overwrite: {
 	    foreach (unsigned int track, track_list) {
 		undo = new Kwave::UndoModifyAction(
 		    track, left, right - left + 1);
@@ -152,7 +152,9 @@ bool Kwave::MultiTrackWriter::init(Kwave::SignalManager &signal_manager,
 	}
     }
 
-    if ((mode != Overwrite) && !signal_manager.registerUndoAction(undo)) {
+    if ( (mode != Kwave::Overwrite) &&
+	 !signal_manager.registerUndoAction(undo) )
+    {
 	// aborted, do not continue without undo
 	clear();
 	return false;

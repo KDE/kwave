@@ -20,22 +20,28 @@
 
 #include "config.h"
 
-class TransmissionFunction
+namespace Kwave
 {
-public:
+    class TransmissionFunction
+    {
+    public:
 
-    /** Destructor */
-    virtual ~TransmissionFunction() {};
+	/** Destructor */
+	virtual ~TransmissionFunction() {};
 
-    /**
-     * Returns the value of the transmission function at a given
-     * frequency.
-     * @param f frequency, normed to be between 0 and PI
-     * @return amplitude at the given frequency, normed to 1.0
-     * @todo convert to a function that returns a complex value
-     *       with phase info
-     */
-    virtual double at(double f) = 0;
-};
+	/**
+	 * Returns the value of the transmission function at a given
+	 * frequency.
+	 * @param f frequency, normed to be between 0 and PI
+	 * @return amplitude at the given frequency, normed to 1.0
+	 * @todo convert to a function that returns a complex value
+	 *       with phase info
+	 */
+	virtual double at(double f) = 0;
+    };
+}
 
 #endif /* _TRANSMISSION_FUNCTION_H_ */
+
+//***************************************************************************
+//***************************************************************************

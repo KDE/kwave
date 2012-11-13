@@ -27,7 +27,7 @@
 
 //***************************************************************************
 PlayBackPhonon::PlayBackPhonon()
-    :PlayBackDevice(), m_buffer(), m_raw_buffer(), m_buffer_size(0),
+    :Kwave::PlayBackDevice(), m_buffer(), m_raw_buffer(), m_buffer_size(0),
      m_buffer_used(0), m_encoder(0),
      m_sem(0), m_output(0), m_path(), m_media_object(),
      m_media_source(this), m_first_write(true)
@@ -49,19 +49,19 @@ void PlayBackPhonon::createEncoder(unsigned int bits)
     switch (bits) {
 	case 8:
 	    m_encoder = new Kwave::SampleEncoderLinear(
-		SampleFormat::Unsigned, 8, LittleEndian);
+		Kwave::SampleFormat::Unsigned, 8, LittleEndian);
 	    break;
 	case 24:
 	    m_encoder = new Kwave::SampleEncoderLinear(
-	    SampleFormat::Signed, 24, LittleEndian);
+	    Kwave::SampleFormat::Signed, 24, LittleEndian);
 	    break;
 	case 32:
 	    m_encoder = new Kwave::SampleEncoderLinear(
-		SampleFormat::Signed, 32, LittleEndian);
+		Kwave::SampleFormat::Signed, 32, LittleEndian);
 	    break;
 	default:
 	    m_encoder = new Kwave::SampleEncoderLinear(
-		SampleFormat::Signed, 16, LittleEndian);
+		Kwave::SampleFormat::Signed, 16, LittleEndian);
 	    break;
     }
 }

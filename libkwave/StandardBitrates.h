@@ -24,25 +24,31 @@
 
 #include <QList>
 
-class KDE_EXPORT StandardBitrates: public QList<int>
+namespace Kwave
 {
-public:
-    /** Constructor */
-    StandardBitrates();
+    class KDE_EXPORT StandardBitrates: public QList<int>
+    {
+    public:
+	/** Constructor */
+	StandardBitrates();
 
-    /** Destructor */
-    virtual ~StandardBitrates();
+	/** Destructor */
+	virtual ~StandardBitrates();
 
-    /** returns a const reference to the list of bitrates */
-    static const StandardBitrates &instance();
+	/** returns a const reference to the list of bitrates */
+	static const StandardBitrates &instance();
 
-    /**
-     * Returns the standard bitrate that is nearest to the given one
-     * @param rate given rate in [bits/second]
-     * @return nearest bitrate in [bits/second]
-     */
-    virtual int nearest(int rate) const;
+	/**
+	 * Returns the standard bitrate that is nearest to the given one
+	 * @param rate given rate in [bits/second]
+	 * @return nearest bitrate in [bits/second]
+	 */
+	virtual int nearest(int rate) const;
 
-};
+    };
+}
 
 #endif /* _STANDARD_BITRATES_H_ */
+
+//***************************************************************************
+//***************************************************************************

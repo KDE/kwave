@@ -29,10 +29,15 @@
 class OverViewCache;
 class QImage;
 class QStringList;
-class MultiTrackReader;
-class PluginContext;
+
 class SonagramWindow;
 class StripeInfoPrivate;
+
+namespace Kwave
+{
+    class MultiTrackReader;
+    class PluginContext;
+}
 
 /**
  * plugin that shows a sonagram window
@@ -42,7 +47,7 @@ class SonagramPlugin: public Kwave::Plugin
     Q_OBJECT
 public:
     /** Constructor */
-    SonagramPlugin(const PluginContext &c);
+    SonagramPlugin(const Kwave::PluginContext &c);
 
     /** Destructor */
     virtual ~SonagramPlugin();
@@ -117,7 +122,7 @@ private:
      * @param points number of fft points
      * @param output reference to an array to receive the output
      */
-    void calculateStripe(MultiTrackReader &source, const int points,
+    void calculateStripe(Kwave::MultiTrackReader &source, const int points,
 	QByteArray &output);
 
 private:
@@ -141,7 +146,7 @@ private:
     unsigned int m_fft_points;
 
     /** index of the window function */
-    window_function_t m_window_type;
+    Kwave::window_function_t m_window_type;
 
     /** if true, use color display, else use greyscale */
     bool m_color;

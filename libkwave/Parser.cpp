@@ -20,7 +20,7 @@
 #include "libkwave/Parser.h"
 
 //***************************************************************************
-Parser::Parser (const QString &init)
+Kwave::Parser::Parser (const QString &init)
     :m_command(""), m_param(), m_current(0), m_commands()
 {
     QString line = init.trimmed();
@@ -79,12 +79,12 @@ Parser::Parser (const QString &init)
 }
 
 //***************************************************************************
-Parser::~Parser ()
+Kwave::Parser::~Parser ()
 {
 }
 
 //***************************************************************************
-QStringList Parser::splitCommands(QString &line)
+QStringList Kwave::Parser::splitCommands(QString &line)
 {
     // split a line into commands
     unsigned int level = 0;
@@ -123,14 +123,14 @@ QStringList Parser::splitCommands(QString &line)
 }
 
 //***************************************************************************
-const QString &Parser::firstParam()
+const QString &Kwave::Parser::firstParam()
 {
     m_current = 0;
     return nextParam();
 }
 
 //***************************************************************************
-const QString &Parser::nextParam()
+const QString &Kwave::Parser::nextParam()
 {
     static const QString empty("");
     if (m_current >= count()) return empty;
@@ -138,13 +138,13 @@ const QString &Parser::nextParam()
 }
 
 //***************************************************************************
-void Parser::skipParam()
+void Kwave::Parser::skipParam()
 {
     nextParam();
 }
 
 //***************************************************************************
-bool Parser::toBool()
+bool Kwave::Parser::toBool()
 {
     const QString &p = nextParam();
 
@@ -162,7 +162,7 @@ bool Parser::toBool()
 }
 
 //***************************************************************************
-int Parser::toInt ()
+int Kwave::Parser::toInt ()
 {
     const QString &p = nextParam();
     bool ok;
@@ -178,7 +178,7 @@ int Parser::toInt ()
 }
 
 //***************************************************************************
-unsigned int Parser::toUInt ()
+unsigned int Kwave::Parser::toUInt ()
 {
     const QString &p = nextParam();
     bool ok;
@@ -194,7 +194,7 @@ unsigned int Parser::toUInt ()
 }
 
 //***************************************************************************
-double Parser::toDouble()
+double Kwave::Parser::toDouble()
 {
     const QString &p = nextParam();
     bool ok;

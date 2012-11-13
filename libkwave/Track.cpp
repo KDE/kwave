@@ -107,7 +107,8 @@ void Kwave::Track::appendStripe(sample_index_t length)
 }
 
 //***************************************************************************
-Stripe Kwave::Track::splitStripe(Stripe &stripe, unsigned int offset)
+Kwave::Stripe Kwave::Track::splitStripe(Kwave::Stripe &stripe,
+                                        unsigned int offset)
 {
     Q_ASSERT(offset < stripe.length());
     Q_ASSERT(offset);
@@ -143,8 +144,9 @@ sample_index_t Kwave::Track::unlockedLength()
 }
 
 //***************************************************************************
-Kwave::Writer *Kwave::Track::openWriter(InsertMode mode,
-	sample_index_t left, sample_index_t right)
+Kwave::Writer *Kwave::Track::openWriter(Kwave::InsertMode mode,
+                                        sample_index_t left,
+                                        sample_index_t right)
 {
     // create the input stream
     Kwave::Writer *stream = new Kwave::TrackWriter(*this, mode, left, right);
@@ -154,7 +156,7 @@ Kwave::Writer *Kwave::Track::openWriter(InsertMode mode,
 }
 
 //***************************************************************************
-SampleReader *Kwave::Track::openSampleReader(Kwave::ReaderMode mode,
+Kwave::SampleReader *Kwave::Track::openSampleReader(Kwave::ReaderMode mode,
 	sample_index_t left, sample_index_t right)
 {
     QReadLocker lock(&m_lock);
@@ -176,7 +178,8 @@ SampleReader *Kwave::Track::openSampleReader(Kwave::ReaderMode mode,
     }
 
     // create the input stream
-    SampleReader *stream = new SampleReader(mode, stripes, left, right);
+    Kwave::SampleReader *stream =
+	new Kwave::SampleReader(mode, stripes, left, right);
     Q_ASSERT(stream);
     return stream;
 }
@@ -441,7 +444,7 @@ void Kwave::Track::moveRight(sample_index_t offset, sample_index_t shift)
 }
 
 //***************************************************************************
-bool Kwave::Track::writeSamples(InsertMode mode,
+bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
                                 sample_index_t offset,
                                 const Kwave::SampleArray &buffer,
                                 unsigned int buf_offset,
@@ -451,7 +454,7 @@ bool Kwave::Track::writeSamples(InsertMode mode,
     if (!length) return true; // nothing to do !?
 
     switch (mode) {
-	case Append: {
+	case Kwave::Append: {
 // 	    qDebug("writeSamples() - Append");
 	    bool appended;
 	    {
@@ -467,7 +470,7 @@ bool Kwave::Track::writeSamples(InsertMode mode,
 		return false; /* out of memory */
 	    break;
 	}
-	case Insert: {
+	case Kwave::Insert: {
 	    m_lock.lockForWrite();
 
 // 	    qDebug("Kwave::Track::writeSamples() - Insert @ %u, length=%u",
@@ -541,7 +544,7 @@ bool Kwave::Track::writeSamples(InsertMode mode,
 
 	    break;
 	}
-	case Overwrite: {
+	case Kwave::Overwrite: {
 // 	    const sample_index_t left  = offset;
 // 	    const sample_index_t right = offset + length - 1;
 // 	    qDebug("writeSamples() - Overwrite [%u - %u]", left, right);

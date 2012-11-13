@@ -22,7 +22,6 @@
 #include <klocale.h>
 #include <kmimetype.h>
 
-#include "libkwave/CompressionType.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
@@ -33,7 +32,7 @@
 
 //***************************************************************************
 AsciiDecoder::AsciiDecoder()
-    :Decoder(), m_source(0), m_dest(0)
+    :Kwave::Decoder(), m_source(0), m_dest(0)
 {
     LOAD_MIME_TYPES;
 }
@@ -45,7 +44,7 @@ AsciiDecoder::~AsciiDecoder()
 }
 
 //***************************************************************************
-Decoder *AsciiDecoder::instance()
+Kwave::Decoder *AsciiDecoder::instance()
 {
     return new AsciiDecoder();
 }
@@ -118,7 +117,7 @@ bool AsciiDecoder::decode(QWidget * /* widget */, Kwave::MultiWriter &dst)
     }
 
     m_dest = 0;
-    FileInfo info(metaData());
+    Kwave::FileInfo info(metaData());
     info.setLength(dst.last() ? (dst.last() + 1) : 0);
     metaData().replace(info);
 

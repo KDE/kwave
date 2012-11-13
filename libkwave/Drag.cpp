@@ -28,28 +28,28 @@
 #define WAVE_FORMAT_PCM "audio/vnd.wave" // ; codec=001"
 
 //***************************************************************************
-KwaveDrag::KwaveDrag(QWidget *dragSource)
+Kwave::Drag::Drag(QWidget *dragSource)
     :QDrag(dragSource)
 {
 }
 
 //***************************************************************************
-KwaveDrag::~KwaveDrag()
+Kwave::Drag::~Drag()
 {
 }
 
 //***************************************************************************
-bool KwaveDrag::canDecode(const QMimeData *data)
+bool Kwave::Drag::canDecode(const QMimeData *data)
 {
     if (!data) return false;
     foreach (QString format, data->formats())
-	if (CodecManager::canDecode(format)) return true;
+	if (Kwave::CodecManager::canDecode(format)) return true;
     return false;
 }
 
 //***************************************************************************
-bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src,
-                       const Kwave::MetaDataList &meta_data)
+bool Kwave::Drag::encode(QWidget *widget, Kwave::MultiTrackReader &src,
+                         const Kwave::MetaDataList &meta_data)
 {
     Q_ASSERT(src.tracks());
     if (!src.tracks()) return false;
@@ -73,8 +73,9 @@ bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src,
 }
 
 //***************************************************************************
-unsigned int KwaveDrag::decode(QWidget *widget, const QMimeData *e,
-                               Kwave::SignalManager &sig, sample_index_t pos)
+unsigned int Kwave::Drag::decode(QWidget *widget, const QMimeData *e,
+                                 Kwave::SignalManager &sig,
+                                 sample_index_t pos)
 {
     return Kwave::MimeData::decode(widget, e, sig, pos);
 }

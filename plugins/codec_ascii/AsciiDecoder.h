@@ -26,7 +26,7 @@
 class QIODevice;
 class QWidget;
 
-class AsciiDecoder: public Decoder
+class AsciiDecoder: public Kwave::Decoder
 {
 public:
     /** Constructor */
@@ -36,7 +36,7 @@ public:
     virtual ~AsciiDecoder();
 
     /** Returns a new instance of the decoder */
-    virtual Decoder *instance();
+    virtual Kwave::Decoder *instance();
 
     /**
      * Opens the source and decodes the header information.

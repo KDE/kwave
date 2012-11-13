@@ -35,17 +35,15 @@
 #include <klocale.h>
 #include <kuser.h>
 
-#include "libkwave/CompressionType.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/memcpy.h"
 #include "libkwave/SampleEncoderLinear.h"
-#include "libkwave/SampleFormat.h"
 
 #include "PlayBack-PulseAudio.h"
 
 //***************************************************************************
-PlayBackPulseAudio::PlayBackPulseAudio(const FileInfo &info)
-    :PlayBackDevice(), m_info(info), m_rate(0), m_channels(0),
+PlayBackPulseAudio::PlayBackPulseAudio(const Kwave::FileInfo &info)
+    :Kwave::PlayBackDevice(), m_info(info), m_rate(0), m_channels(0),
      m_bytes_per_sample(0), m_buffer(0), m_buffer_size(0), m_buffer_used(0),
      m_bufbase(10), m_pa_proplist(0), m_pa_mainloop(0), m_pa_context(0),
      m_pa_stream(0), m_device_list()
@@ -425,17 +423,17 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
     // build a property list for the stream
     pa_proplist *_proplist = pa_proplist_copy(m_pa_proplist);
     Q_ASSERT(_proplist);
-    SET_PROPERTY(PA_PROP_MEDIA_TITLE,     INF_NAME);
-    SET_PROPERTY(PA_PROP_MEDIA_ARTIST,    INF_AUTHOR);
+    SET_PROPERTY(PA_PROP_MEDIA_TITLE,     Kwave::INF_NAME);
+    SET_PROPERTY(PA_PROP_MEDIA_ARTIST,    Kwave::INF_AUTHOR);
 #ifdef PA_PROP_MEDIA_COPYRIGHT
-    SET_PROPERTY(PA_PROP_MEDIA_COPYRIGHT, INF_COPYRIGHT);
+    SET_PROPERTY(PA_PROP_MEDIA_COPYRIGHT, Kwave::INF_COPYRIGHT);
 #endif
 #ifdef PA_PROP_MEDIA_SOFTWARE
-    SET_PROPERTY(PA_PROP_MEDIA_SOFTWARE,  INF_SOFTWARE);
+    SET_PROPERTY(PA_PROP_MEDIA_SOFTWARE,  Kwave::INF_SOFTWARE);
 #endif
-//  SET_PROPERTY(PA_PROP_MEDIA_LANGUAGE,  INF_...);
-    SET_PROPERTY(PA_PROP_MEDIA_FILENAME,  INF_FILENAME);
-//  SET_PROPERTY(PA_PROP_MEDIA_ICON_NAME, INF_...);
+//  SET_PROPERTY(PA_PROP_MEDIA_LANGUAGE,  Kwave::INF_...);
+    SET_PROPERTY(PA_PROP_MEDIA_FILENAME,  Kwave::INF_FILENAME);
+//  SET_PROPERTY(PA_PROP_MEDIA_ICON_NAME, Kwave::INF_...);
 
     // use Kwave's internal sample format as output
     pa_sample_spec sample_spec;
@@ -449,10 +447,11 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
 
     // use the current title / filename or fixed string as stream name
     QString name;
-    if (m_info.contains(INF_NAME)) // first choice: title
-	name = m_info.get(INF_NAME).toString();
-    if (!name.length() && m_info.contains(INF_FILENAME)) // fallback: filename
-	name = m_info.get(INF_FILENAME).toString();
+    if (m_info.contains(Kwave::INF_NAME)) // first choice: title
+	name = m_info.get(Kwave::INF_NAME).toString();
+    // fallback: filename
+    if (!name.length() && m_info.contains(Kwave::INF_FILENAME))
+	name = m_info.get(Kwave::INF_FILENAME).toString();
     if (!name.length()) // last resort: fixed string
 	name = i18n("playback...");
 

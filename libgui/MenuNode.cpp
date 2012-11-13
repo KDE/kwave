@@ -400,7 +400,7 @@ bool MenuNode::specialCommand(const QString &command)
 
     if (command.startsWith("#icon(")) {
 	// --- give the item an icon ---
-	Parser parser(command);
+	Kwave::Parser parser(command);
 	const QString &filename = parser.firstParam();
 	if (filename.length()) {
 	    // try to load from standard dirs
@@ -429,7 +429,7 @@ bool MenuNode::specialCommand(const QString &command)
     }
 
     if (command.startsWith("#group(")) {
-	Parser parser(command);
+	Kwave::Parser parser(command);
 
 	QString group = parser.firstParam();
 	while (group.length()) {

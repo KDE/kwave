@@ -175,10 +175,12 @@ QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findItem(const QPoint &pos)
 
     // our display can contain labels -> find the nearest label
     double d_min = tolerance;
-    Label nearest_label;
+    Kwave::Label nearest_label;
     int  nearest_index = 0;
     int index = 0;
-    foreach (const Label &label, LabelList(m_signal_manager->metaData())) {
+    foreach (const Kwave::Label &label,
+	Kwave::LabelList(m_signal_manager->metaData()))
+    {
 	double pos = static_cast<double>(label.pos());
 	double d = (pos > offset) ? (pos - offset) : (offset - pos);
 	if (d < d_min) {
@@ -343,7 +345,9 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
 
 	int last_marker = -1;
 	const sample_index_t visible = pixels2samples(width);
-	foreach (const Label &label, LabelList(m_signal_manager->metaData())) {
+	foreach (const Kwave::Label &label,
+	         Kwave::LabelList(m_signal_manager->metaData()))
+	{
 	    sample_index_t pos = label.pos();
 	    if (pos < m_offset)           continue; // outside left
 	    if (pos > m_offset + visible) break;    // far outside right, done

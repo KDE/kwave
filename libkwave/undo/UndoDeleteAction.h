@@ -29,7 +29,8 @@
 
 class QWidget;
 
-namespace Kwave {
+namespace Kwave
+{
 
     class SignalManager;
 
@@ -106,3 +107,6 @@ namespace Kwave {
 }
 
 #endif /* _UNDO_DELETE_ACTION_H_ */
+
+//***************************************************************************
+//***************************************************************************

@@ -26,7 +26,7 @@
 
 //***************************************************************************
 NotchFilter::NotchFilter()
-    :Kwave::SampleSource(0), TransmissionFunction(),
+    :Kwave::SampleSource(0), Kwave::TransmissionFunction(),
      m_buffer(blockSize()), m_f_cutoff(M_PI), m_f_bw(M_PI / 2)
 {
     initFilter();

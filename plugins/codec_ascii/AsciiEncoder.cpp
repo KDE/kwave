@@ -41,7 +41,7 @@
 
 /***************************************************************************/
 AsciiEncoder::AsciiEncoder()
-    :Encoder(), m_dst()
+    :Kwave::Encoder(), m_dst()
 {
     m_dst.setCodec(QTextCodec::codecForName("UTF-8"));
     LOAD_MIME_TYPES;
@@ -53,21 +53,21 @@ AsciiEncoder::~AsciiEncoder()
 }
 
 /***************************************************************************/
-Encoder *AsciiEncoder::instance()
+Kwave::Encoder *AsciiEncoder::instance()
 {
     return new AsciiEncoder();
 }
 
 /***************************************************************************/
-QList<FileProperty> AsciiEncoder::supportedProperties()
+QList<Kwave::FileProperty> AsciiEncoder::supportedProperties()
 {
     // default is to support all known properties
-    FileInfo info;
+    Kwave::FileInfo info;
     return info.allKnownProperties();
 }
 
 /***************************************************************************/
-bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
+bool AsciiEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
                           QIODevice &dst,
                           const Kwave::MetaDataList &meta_data)
 {
@@ -76,7 +76,7 @@ bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
     qDebug("AsciiEncoder::encode()");
 
     // get info: tracks, sample rate
-    const FileInfo info(meta_data);
+    const Kwave::FileInfo info(meta_data);
     unsigned int tracks = info.tracks();
     unsigned int bits   = info.bits();
     sample_index_t length = info.length();
@@ -101,12 +101,12 @@ bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	m_dst << META_PREFIX << "'length'=" << length << endl;
 
 	// write out all other, non-standard properties that we have
-	QMap<FileProperty, QVariant> properties = info.properties();
-	QMap<FileProperty, QVariant>::Iterator it;
-	QList<FileProperty> supported = supportedProperties();
+	QMap<Kwave::FileProperty, QVariant> properties = info.properties();
+	QMap<Kwave::FileProperty, QVariant>::Iterator it;
+	QList<Kwave::FileProperty> supported = supportedProperties();
 	for (it=properties.begin(); it != properties.end(); ++it) {
-	    FileProperty p = it.key();
-	    QVariant     v = it.value();
+	    Kwave::FileProperty p = it.key();
+	    QVariant            v = it.value();
 
 	    if (!supported.contains(p))
 		continue;
@@ -123,7 +123,7 @@ bool AsciiEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	while (rest-- && !src.isCanceled()) {
 	    // write out one track per line
 	    for (unsigned int track=0; track < tracks; track++) {
-		SampleReader *reader = src[track];
+		Kwave::SampleReader *reader = src[track];
 		Q_ASSERT(reader);
 		if (!reader) break;
 

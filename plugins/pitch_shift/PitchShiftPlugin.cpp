@@ -32,7 +32,7 @@ KWAVE_PLUGIN(PitchShiftPlugin, "pitch_shift", "2.1",
              I18N_NOOP("Pitch Shift"), "Thomas Eschenbacher");
 
 //***************************************************************************
-PitchShiftPlugin::PitchShiftPlugin(const PluginContext &context)
+PitchShiftPlugin::PitchShiftPlugin(const Kwave::PluginContext &context)
     :Kwave::FilterPlugin(context),
      m_speed(1.0), m_frequency(5.0), m_percentage_mode(false),
      m_last_speed(0), m_last_freq(0)
@@ -72,7 +72,7 @@ int PitchShiftPlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-KwavePluginSetupDialog *PitchShiftPlugin::createDialog(QWidget *parent)
+Kwave::PluginSetupDialog *PitchShiftPlugin::createDialog(QWidget *parent)
 {
     PitchShiftDialog *dialog = new PitchShiftDialog(parent);
     Q_ASSERT(dialog);

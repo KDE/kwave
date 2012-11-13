@@ -25,7 +25,7 @@
  * map for finding the corresponding VirtualAudioFile
  * adapter to a AFvirtualfile from libaudiofile
  */
-static QMap<AFvirtualfile*,VirtualAudioFile*> *_adapter_map = 0;
+static QMap<AFvirtualfile*, Kwave::VirtualAudioFile*> *_adapter_map = 0;
 
 /** Last error number from libaudiofile. -1 if no error occurred */
 static long _last_audiofile_error = -1;
@@ -64,7 +64,7 @@ static long _lastAudiofileError()
 static ssize_t af_file_read(AFvirtualfile *vfile, void *data,
                             size_t nbytes)
 {
-    VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
+    Kwave::VirtualAudioFile *adapter = Kwave::VirtualAudioFile::adapter(vfile);
     return (adapter) ?
 	static_cast<ssize_t>(adapter->read(
 	    static_cast<char *>(data),
@@ -75,7 +75,7 @@ static ssize_t af_file_read(AFvirtualfile *vfile, void *data,
 //***************************************************************************
 static AFfileoffset af_file_length(AFvirtualfile *vfile)
 {
-    VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
+    Kwave::VirtualAudioFile *adapter = Kwave::VirtualAudioFile::adapter(vfile);
     return (adapter) ? static_cast<AFfileoffset>(adapter->length()) : -1;
 }
 
@@ -83,7 +83,7 @@ static AFfileoffset af_file_length(AFvirtualfile *vfile)
 static ssize_t af_file_write(AFvirtualfile *vfile, const void *data,
 	                     size_t nbytes)
 {
-    VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
+    Kwave::VirtualAudioFile *adapter = Kwave::VirtualAudioFile::adapter(vfile);
     return (adapter) ?
 	static_cast<ssize_t>(adapter->write(
 	    static_cast<const char *>(data),
@@ -97,10 +97,10 @@ static void af_file_destroy(AFvirtualfile */*vfile*/)
 }
 
 //***************************************************************************
-static AFfileoffset af_file_seek(AFvirtualfile *vfile, AFfileoffset offset, 
+static AFfileoffset af_file_seek(AFvirtualfile *vfile, AFfileoffset offset,
                                  int is_relative)
 {
-    VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
+    Kwave::VirtualAudioFile *adapter = Kwave::VirtualAudioFile::adapter(vfile);
     return (adapter) ?
 	static_cast<AFfileoffset>(adapter->seek(
 	    static_cast<qint64>(offset),
@@ -111,7 +111,7 @@ static AFfileoffset af_file_seek(AFvirtualfile *vfile, AFfileoffset offset,
 //***************************************************************************
 static AFfileoffset af_file_tell(AFvirtualfile *vfile)
 {
-    VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
+    Kwave::VirtualAudioFile *adapter = Kwave::VirtualAudioFile::adapter(vfile);
     return (adapter) ? static_cast<AFfileoffset>(adapter->tell()) : -1;
 }
 
@@ -131,7 +131,7 @@ static AFvirtualfile *__af_virtual_file_new(void)
 
 //***************************************************************************
 //***************************************************************************
-VirtualAudioFile::VirtualAudioFile(QIODevice &device)
+Kwave::VirtualAudioFile::VirtualAudioFile(QIODevice &device)
      :m_device(device), m_file_handle(0), m_virtual_file(0),
       m_last_error(-1), m_last_error_text()
 {
@@ -151,7 +151,8 @@ VirtualAudioFile::VirtualAudioFile(QIODevice &device)
 }
 
 //***************************************************************************
-void VirtualAudioFile::open(VirtualAudioFile *x, AFfilesetup setup)
+void Kwave::VirtualAudioFile::open(Kwave::VirtualAudioFile *x,
+                                   AFfilesetup setup)
 {
     // register ourself
     adapter(0); // dummy lookup, for creating a new map if needed
@@ -176,7 +177,7 @@ void VirtualAudioFile::open(VirtualAudioFile *x, AFfilesetup setup)
 }
 
 //***************************************************************************
-void VirtualAudioFile::close()
+void Kwave::VirtualAudioFile::close()
 {
     // close libaudiofile stuff
     afCloseFile(m_file_handle);
@@ -189,13 +190,13 @@ void VirtualAudioFile::close()
 }
 
 //***************************************************************************
-VirtualAudioFile::~VirtualAudioFile()
+Kwave::VirtualAudioFile::~VirtualAudioFile()
 {
     if (m_virtual_file) close();
 }
 
 //***************************************************************************
-unsigned int VirtualAudioFile::read(char *data, unsigned int nbytes)
+unsigned int Kwave::VirtualAudioFile::read(char *data, unsigned int nbytes)
 {
     Q_ASSERT(data);
     if (!data) return 0;
@@ -203,13 +204,14 @@ unsigned int VirtualAudioFile::read(char *data, unsigned int nbytes)
 }
 
 //***************************************************************************
-qint64 VirtualAudioFile::length()
+qint64 Kwave::VirtualAudioFile::length()
 {
     return m_device.size();
 }
 
 //***************************************************************************
-unsigned int VirtualAudioFile::write(const char *data, unsigned int nbytes)
+unsigned int Kwave::VirtualAudioFile::write(const char *data,
+                                            unsigned int nbytes)
 {
     Q_ASSERT(data);
     if (!data) return 0;
@@ -217,12 +219,12 @@ unsigned int VirtualAudioFile::write(const char *data, unsigned int nbytes)
 }
 
 //***************************************************************************
-void VirtualAudioFile::destroy()
+void Kwave::VirtualAudioFile::destroy()
 {
 }
 
 //***************************************************************************
-qint64 VirtualAudioFile::seek(qint64 offset, bool is_relative)
+qint64 Kwave::VirtualAudioFile::seek(qint64 offset, bool is_relative)
 {
     bool ok = (is_relative) ?
 	m_device.seek(m_device.pos() + offset) : m_device.seek(offset);
@@ -230,13 +232,13 @@ qint64 VirtualAudioFile::seek(qint64 offset, bool is_relative)
 }
 
 //***************************************************************************
-qint64 VirtualAudioFile::tell()
+qint64 Kwave::VirtualAudioFile::tell()
 {
     return m_device.pos();
 }
 
 //***************************************************************************
-VirtualAudioFile *VirtualAudioFile::adapter(AFvirtualfile *vfile)
+Kwave::VirtualAudioFile *Kwave::VirtualAudioFile::adapter(AFvirtualfile *vfile)
 {
     // create a new empty map if necessary
     if (!_adapter_map) _adapter_map =

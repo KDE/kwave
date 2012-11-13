@@ -36,7 +36,7 @@ class SaveBlocksPlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    SaveBlocksPlugin(const PluginContext &context);
+    SaveBlocksPlugin(const Kwave::PluginContext &context);
 
     /** Destructor */
     virtual ~SaveBlocksPlugin();

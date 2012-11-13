@@ -33,14 +33,15 @@
 #include "libkwave/Sample.h"
 #include "libkwave/WindowFunction.h"
 
-class MultiTrackReader;
-class SampleReader;
-namespace Kwave { class Track; }
-namespace Kwave { class Writer; }
 
 //**********************************************************************
+namespace Kwave
+{
 
-namespace Kwave {
+    class MultiTrackReader;
+    class SampleReader;
+    class Track;
+    class Writer;
 
     class KDE_EXPORT Signal: public QObject
     {
@@ -112,7 +113,7 @@ namespace Kwave {
 	 * @param right end of the input (only useful with overwrite mode)
 	 * @see InsertMode
 	 */
-	Kwave::Writer *openWriter(unsigned int track, InsertMode mode,
+	Kwave::Writer *openWriter(unsigned int track, Kwave::InsertMode mode,
 	    sample_index_t left = 0, sample_index_t right = 0);
 
 	/**
@@ -124,7 +125,7 @@ namespace Kwave {
 	 * @param left first offset to be read (default = 0)
 	 * @param right last position to read (default = UINT_MAX)
 	 */
-	SampleReader *openSampleReader(Kwave::ReaderMode mode,
+	Kwave::SampleReader *openSampleReader(Kwave::ReaderMode mode,
 	    unsigned int track, sample_index_t left = 0,
 	    sample_index_t right = SAMPLE_INDEX_MAX);
 
@@ -270,7 +271,9 @@ namespace Kwave {
 //        void replaceStutter (int, int);
 //        void delayRecursive (int, int);
 //        void delay (int, int);
-//        void movingFilter (Filter *filter, int tap, Curve *points, int low, int high);
+//        void movingFilter (Kwave::Filter *filter, int tap,
+//                           Kwave::Curve *points,
+// 	                     int low, int high);
 //
 //        //functions creating a new Object
 //
@@ -286,5 +289,7 @@ namespace Kwave {
     };
 }
 
-//**********************************************************************
 #endif  /* _SIGNAL_H_ */
+
+//***************************************************************************
+//***************************************************************************

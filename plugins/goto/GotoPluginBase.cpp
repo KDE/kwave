@@ -31,7 +31,7 @@
 #include "GotoDialog.h"
 
 //***************************************************************************
-GotoPluginBase::GotoPluginBase(const PluginContext &c)
+GotoPluginBase::GotoPluginBase(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_mode(SelectTimeWidget::bySamples), m_position(0)
 {
 }
@@ -58,7 +58,7 @@ QStringList *GotoPluginBase::setup(QStringList &previous_params)
 
     // set the title of the dialog, depending on the derived class
     dialog->setWindowTitle(title());
-    
+
     QStringList *list = new QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec()) {

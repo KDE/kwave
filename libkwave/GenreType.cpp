@@ -20,15 +20,15 @@
 #include "GenreType.h"
 
 //***************************************************************************
-QMap<int, const char *> GenreType::m_map;
+QMap<int, const char *> Kwave::GenreType::m_map;
 
 //***************************************************************************
-GenreType::GenreType()
+Kwave::GenreType::GenreType()
 {
 }
 
 //***************************************************************************
-QString GenreType::name(int id, bool localized)
+QString Kwave::GenreType::name(int id, bool localized)
 {
     fill();
 
@@ -39,7 +39,7 @@ QString GenreType::name(int id, bool localized)
 }
 
 //***************************************************************************
-int GenreType::fromID3(const QString &tag)
+int Kwave::GenreType::fromID3(const QString &tag)
 {
     fill();
 
@@ -57,7 +57,7 @@ int GenreType::fromID3(const QString &tag)
 }
 
 //***************************************************************************
-int GenreType::id(const QString &name)
+int Kwave::GenreType::id(const QString &name)
 {
     fill();
     QMap<int, const char *>::Iterator it;
@@ -72,7 +72,7 @@ int GenreType::id(const QString &name)
 }
 
 //***************************************************************************
-QStringList GenreType::allTypes()
+QStringList Kwave::GenreType::allTypes()
 {
     fill();
 
@@ -84,7 +84,7 @@ QStringList GenreType::allTypes()
 }
 
 //***************************************************************************
-void GenreType::fill()
+void Kwave::GenreType::fill()
 {
     if (m_map.count()) return;
     {

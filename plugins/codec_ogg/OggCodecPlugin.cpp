@@ -28,7 +28,7 @@ KWAVE_PLUGIN(OggCodecPlugin, "codec_ogg", "2.1",
              I18N_NOOP("Ogg Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
-OggCodecPlugin::OggCodecPlugin(const PluginContext &c)
+OggCodecPlugin::OggCodecPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
 {
 }
@@ -43,11 +43,11 @@ void OggCodecPlugin::load(QStringList &/* params */)
 {
     if (!m_encoder) m_encoder = new OggEncoder();
     Q_ASSERT(m_encoder);
-    if (m_encoder) CodecManager::registerEncoder(*m_encoder);
+    if (m_encoder) Kwave::CodecManager::registerEncoder(*m_encoder);
 
     if (!m_decoder) m_decoder = new OggDecoder();
     Q_ASSERT(m_decoder);
-    if (m_decoder) CodecManager::registerDecoder(*m_decoder);
+    if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
 }
 
 //***************************************************************************

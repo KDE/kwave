@@ -40,7 +40,7 @@ class ReversePlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    ReversePlugin(const PluginContext &c);
+    ReversePlugin(const Kwave::PluginContext &c);
 
     /** Destructor */
     virtual ~ReversePlugin();

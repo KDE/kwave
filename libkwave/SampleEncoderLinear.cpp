@@ -22,7 +22,6 @@
 
 #include <QtGlobal>
 
-#include "libkwave/CompressionType.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleFormat.h"
 
@@ -91,7 +90,7 @@ void encode_linear(const sample_t *src, u_int8_t *dst, unsigned int count)
 
 //***************************************************************************
 #define MAKE_ENCODER(bits)                             \
-if (sample_format != SampleFormat::Unsigned) {         \
+if (sample_format != Kwave::SampleFormat::Unsigned) {  \
     if (endianness != BigEndian) {                     \
 	m_encoder = encode_linear<bits, true, true>;   \
     } else {                                           \
@@ -107,7 +106,7 @@ if (sample_format != SampleFormat::Unsigned) {         \
 
 //***************************************************************************
 Kwave::SampleEncoderLinear::SampleEncoderLinear(
-    SampleFormat sample_format,
+    Kwave::SampleFormat sample_format,
     unsigned int bits_per_sample,
     byte_order_t endianness
 )
@@ -116,10 +115,10 @@ Kwave::SampleEncoderLinear::SampleEncoderLinear(
     m_encoder(encode_NULL)
 {
     // sanity checks: we support only signed/unsigned and big/little endian
-    Q_ASSERT((sample_format == SampleFormat::Signed) ||
-             (sample_format == SampleFormat::Unsigned));
-    if ((sample_format != SampleFormat::Signed) &&
-        (sample_format != SampleFormat::Unsigned)) return;
+    Q_ASSERT((sample_format == Kwave::SampleFormat::Signed) ||
+             (sample_format == Kwave::SampleFormat::Unsigned));
+    if ((sample_format != Kwave::SampleFormat::Signed) &&
+        (sample_format != Kwave::SampleFormat::Unsigned)) return;
 
     // allow unknown endianness only with 8 bits
     Q_ASSERT((endianness != UnknownEndian) || (m_bytes_per_sample == 1));
@@ -134,7 +133,8 @@ Kwave::SampleEncoderLinear::SampleEncoderLinear(
 
     qDebug("SampleEncoderLinear::SampleEncoderLinear(fmt=%s, "\
            "%u bit [%u bytes], endian=%s)",
-           (sample_format == SampleFormat::Signed) ? "signed" : "unsigned",
+           (sample_format == Kwave::SampleFormat::Signed) ?
+            "signed" : "unsigned",
            bits_per_sample, m_bytes_per_sample,
            (endianness == BigEndian) ? "BE" : "LE");
 

@@ -30,7 +30,6 @@
 #include <QTime>
 
 #include "libkwave/CompressionType.h"
-#include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/GenreType.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
@@ -45,7 +44,7 @@
 
 //***************************************************************************
 Kwave::MP3Decoder::MP3Decoder()
-    :Decoder(), m_property_map(), m_source(0), m_dest(0), m_buffer(0),
+    :Kwave::Decoder(), m_property_map(), m_source(0), m_dest(0), m_buffer(0),
      m_buffer_size(0), m_prepended_bytes(0), m_appended_bytes(0),
      m_failures(0), m_parent_widget(0)
 {
@@ -61,7 +60,7 @@ Kwave::MP3Decoder::~MP3Decoder()
 }
 
 //***************************************************************************
-Decoder *Kwave::MP3Decoder::instance()
+Kwave::Decoder *Kwave::MP3Decoder::instance()
 {
     return new MP3Decoder();
 }
@@ -70,7 +69,7 @@ Decoder *Kwave::MP3Decoder::instance()
 bool Kwave::MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header,
                                        QWidget *widget)
 {
-    FileInfo info(metaData());
+    Kwave::FileInfo info(metaData());
 
     /* first of all check CRC, it might be senseless if the file is broken */
     qDebug("crc = 0x%08X", header.crc);
@@ -92,19 +91,19 @@ bool Kwave::MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header,
     /* MPEG layer */
     switch (header.layer) {
 	case MPEGLAYER_I:
-	    info.set(INF_COMPRESSION,
-	             QVariant(CompressionType::MPEG_LAYER_I));
-	    info.set(INF_MPEG_LAYER, QVariant(1));
+	    info.set(Kwave::INF_COMPRESSION,
+	             QVariant(Kwave::CompressionType::MPEG_LAYER_I));
+	    info.set(Kwave::INF_MPEG_LAYER, QVariant(1));
 	    break;
 	case MPEGLAYER_II:
-	    info.set(INF_COMPRESSION,
-	             QVariant(CompressionType::MPEG_LAYER_II));
-	    info.set(INF_MPEG_LAYER, QVariant(2));
+	    info.set(Kwave::INF_COMPRESSION,
+	             QVariant(Kwave::CompressionType::MPEG_LAYER_II));
+	    info.set(Kwave::INF_MPEG_LAYER, QVariant(2));
 	    break;
 	case MPEGLAYER_III:
-	    info.set(INF_COMPRESSION,
-	             QVariant(CompressionType::MPEG_LAYER_III));
-	    info.set(INF_MPEG_LAYER, QVariant(3));
+	    info.set(Kwave::INF_COMPRESSION,
+	             QVariant(Kwave::CompressionType::MPEG_LAYER_III));
+	    info.set(Kwave::INF_MPEG_LAYER, QVariant(3));
 	    break;
 	default:
 	    qWarning("unknown mpeg layer '%d'", header.layer);
@@ -113,20 +112,20 @@ bool Kwave::MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header,
     /* MPEG version */
     switch (header.version) {
 	case MPEGVERSION_1:
-	    info.set(INF_MPEG_VERSION, QVariant(1));
+	    info.set(Kwave::INF_MPEG_VERSION, QVariant(1));
 	    break;
 	case MPEGVERSION_2:
-	    info.set(INF_MPEG_VERSION, QVariant(2));
+	    info.set(Kwave::INF_MPEG_VERSION, QVariant(2));
 	    break;
 	case MPEGVERSION_2_5:
-	    info.set(INF_MPEG_VERSION, QVariant(2.5));
+	    info.set(Kwave::INF_MPEG_VERSION, QVariant(2.5));
 	    break;
 	default:
 	    qWarning("unknown mpeg version '%d'", header.version);
     }
 
     /* bit rate */
-    if (header.bitrate > 0) info.set(INF_BITRATE_NOMINAL,
+    if (header.bitrate > 0) info.set(Kwave::INF_BITRATE_NOMINAL,
         QVariant(header.bitrate));
     // NOTE: this is an enum value in libid3, but can also be treated
     // as unsigned integer without problems!
@@ -169,7 +168,7 @@ bool Kwave::MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header,
     if (header.channelmode == MP3CHANNELMODE_JOINT_STEREO) {
 	int modeext = header.modeext;
 	if (header.layer >= 3) modeext += 4;
-	info.set(INF_MPEG_MODEEXT, modeext);
+	info.set(Kwave::INF_MPEG_MODEEXT, modeext);
     }
 
     /* Emphasis mode */
@@ -178,14 +177,14 @@ bool Kwave::MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header,
     // 2 = reserved
     // 3 = CCIT J.17
     if (header.emphasis > 0)
-        info.set(INF_MPEG_EMPHASIS, header.emphasis);
+        info.set(Kwave::INF_MPEG_EMPHASIS, header.emphasis);
 
 //  qDebug("framesize=%d", header.framesize);
 //  qDebug("frames = %u", header.frames);
 
-    if (header.privatebit)  info.set(INF_PRIVATE, header.privatebit);
-    if (header.copyrighted) info.set(INF_COPYRIGHTED, header.copyrighted);
-    if (header.original)    info.set(INF_ORIGINAL, header.original);
+    if (header.privatebit)  info.set(Kwave::INF_PRIVATE, header.privatebit);
+    if (header.copyrighted) info.set(Kwave::INF_COPYRIGHTED, header.copyrighted);
+    if (header.original)    info.set(Kwave::INF_ORIGINAL, header.original);
 
     info.setRate(header.frequency); // sample rate
     info.setBits(SAMPLE_BITS);      // fake Kwave's default resolution
@@ -209,10 +208,10 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 
     ID3_Tag::Iterator *it = tag.CreateIterator();
     ID3_Frame *frame;
-    FileInfo info(metaData());
+    Kwave::FileInfo info(metaData());
     while (it && (frame = it->GetNext())) {
 	const ID3_FrameID id = frame->GetID();
-	const FileProperty property = m_property_map.property(id);
+	const Kwave::FileProperty property = m_property_map.property(id);
 	const ID3_PropertyMap::Encoding encoding = m_property_map.encoding(id);
 	switch (encoding) {
 	    case ID3_PropertyMap::ENC_TEXT_PARTINSET:
@@ -227,8 +226,8 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		} else {
 		    cd = s.toInt();
 		}
-		if (cd  > 0) info.set(INF_CD , QVariant(cd));
-		if (cds > 0) info.set(INF_CDS, QVariant(cds));
+		if (cd  > 0) info.set(Kwave::INF_CD , QVariant(cd));
+		if (cds > 0) info.set(Kwave::INF_CDS, QVariant(cds));
 		break;
 	    }
 	    case ID3_PropertyMap::ENC_TRACK_NUM:
@@ -243,8 +242,8 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		} else {
 		    track = s.toInt();
 		}
-		if (track  > 0) info.set(INF_TRACK , QVariant(track));
-		if (tracks > 0) info.set(INF_TRACKS, QVariant(tracks));
+		if (track  > 0) info.set(Kwave::INF_TRACK , QVariant(track));
+		if (tracks > 0) info.set(Kwave::INF_TRACKS, QVariant(tracks));
 		break;
 	    }
 	    case ID3_PropertyMap::ENC_TERMS_OF_USE:
@@ -270,9 +269,9 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	    case ID3_PropertyMap::ENC_GENRE_TYPE:
 	    {
 		QString s = parseId3Frame2String(frame);
-		int id = GenreType::fromID3(s);
+		int id = Kwave::GenreType::fromID3(s);
 		if (id >= 0)
-		    s = GenreType::name(id, false);
+		    s = Kwave::GenreType::name(id, false);
 		info.set(property, QVariant(s));
 		break;
 	    }
@@ -368,14 +367,14 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
     if (creation_date.isValid() && creation_time.isValid()) {
 	// full date + time
 	QDateTime dt(creation_date, creation_time);
-	info.set(INF_CREATION_DATE, dt.toString("yyyy-MM-ddTHH:mm:ss"));
+	info.set(Kwave::INF_CREATION_DATE, dt.toString("yyyy-MM-ddTHH:mm:ss"));
     } else if (creation_date.isValid()) {
 	// date without time
-	info.set(INF_CREATION_DATE, creation_date.toString("yyyy-MM-dd"));
+	info.set(Kwave::INF_CREATION_DATE, creation_date.toString("yyyy-MM-dd"));
     } else if (year > 0) {
 	// only year
 	creation_date = QDate(year, 1, 1);
-	info.set(INF_CREATION_DATE, creation_date.toString("yyyy"));
+	info.set(Kwave::INF_CREATION_DATE, creation_date.toString("yyyy"));
     }
 
     metaData().replace(info);
@@ -445,8 +444,8 @@ bool Kwave::MP3Decoder::open(QWidget *widget, QIODevice &src)
 
     /* accept the source */
     m_source = &src;
-    FileInfo info(metaData());
-    info.set(INF_MIMETYPE, "audio/mpeg");
+    Kwave::FileInfo info(metaData());
+    info.set(Kwave::INF_MIMETYPE, "audio/mpeg");
     metaData().replace(info);
 
     // allocate a transfer buffer with 128 kB

@@ -29,7 +29,7 @@ KWAVE_PLUGIN(FileInfoPlugin, "fileinfo", "2.1",
              I18N_NOOP("File Info"), "Thomas Eschenbacher");
 
 //***************************************************************************
-FileInfoPlugin::FileInfoPlugin(const PluginContext &context)
+FileInfoPlugin::FileInfoPlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context)
 {
 }
@@ -42,7 +42,7 @@ FileInfoPlugin::~FileInfoPlugin()
 //***************************************************************************
 QStringList *FileInfoPlugin::setup(QStringList &)
 {
-    FileInfo oldInfo(signalManager().metaData());
+    Kwave::FileInfo oldInfo(signalManager().metaData());
 
     // create the setup dialog
     FileInfoDialog *dialog = new FileInfoDialog(parentWidget(), oldInfo);
@@ -65,9 +65,9 @@ QStringList *FileInfoPlugin::setup(QStringList &)
 }
 
 //***************************************************************************
-void FileInfoPlugin::apply(FileInfo &new_info)
+void FileInfoPlugin::apply(Kwave::FileInfo &new_info)
 {
-    FileInfo old_info(signalManager().metaData());
+    Kwave::FileInfo old_info(signalManager().metaData());
     if (old_info == new_info) return; // nothing to do
 
     /* sample rate */
@@ -86,7 +86,7 @@ void FileInfoPlugin::apply(FileInfo &new_info)
 	    i18n("&Set Rate"));
 	if (res == KMessageBox::Yes) {
 	    // Yes -> resample
-	    
+
 	    // take over all properties except the new sample rate, this will
 	    // be detected and changed in the sample rate plugin
 	    new_info.setRate(old_info.rate());

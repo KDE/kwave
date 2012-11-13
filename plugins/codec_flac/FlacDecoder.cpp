@@ -33,7 +33,7 @@
 
 //***************************************************************************
 FlacDecoder::FlacDecoder()
-    :Decoder(), FLAC::Decoder::Stream(), m_source(0), m_dest(0),
+    :Kwave::Decoder(), FLAC::Decoder::Stream(), m_source(0), m_dest(0),
      m_vorbis_comment_map()
 {
     REGISTER_MIME_TYPES;
@@ -47,7 +47,7 @@ FlacDecoder::~FlacDecoder()
 }
 
 //***************************************************************************
-Decoder *FlacDecoder::instance()
+Kwave::Decoder *FlacDecoder::instance()
 {
     return new FlacDecoder();
 }
@@ -95,7 +95,7 @@ Decoder *FlacDecoder::instance()
 
     const unsigned int samples = frame->header.blocksize;
 
-    const unsigned int tracks  = FileInfo(metaData()).tracks();
+    const unsigned int tracks  = Kwave::FileInfo(metaData()).tracks();
     Q_ASSERT(samples);
     Q_ASSERT(tracks);
     if (!samples || !tracks)
@@ -104,7 +104,7 @@ Decoder *FlacDecoder::instance()
     Kwave::SampleArray dst(samples);
 
     // expand the samples up to the correct number of bits
-    int shift = SAMPLE_BITS - FileInfo(metaData()).bits();
+    int shift = SAMPLE_BITS - Kwave::FileInfo(metaData()).bits();
     if (shift < 0) shift = 0;
     unsigned int mul = (1 << shift);
 
@@ -149,7 +149,7 @@ void FlacDecoder::parseStreamInfo(
     qDebug("\tmin_framesize   = %d", stream_info.get_min_framesize());
     qDebug("\tmax_framesize   = %d", stream_info.get_max_framesize());
 
-    FileInfo info(metaData());
+    Kwave::FileInfo info(metaData());
     info.setRate(stream_info.get_sample_rate());
     info.setTracks(stream_info.get_channels());
     info.setBits(stream_info.get_bits_per_sample());
@@ -165,14 +165,14 @@ void FlacDecoder::parseStreamInfo(
 void FlacDecoder::parseVorbisComments(
         const FLAC::Metadata::VorbisComment &vorbis_comments)
 {
-    FileInfo info(metaData());
+    Kwave::FileInfo info(metaData());
 
     // first of all: the vendor string, specifying the software
 #if defined(FLAC_API_VERSION_1_1_2) || defined(FLAC_API_VERSION_1_1_3)
     QString vendor = QString::fromUtf8(reinterpret_cast<const char *>(
 	vorbis_comments.get_vendor_string()));
     if (vendor.length()) {
-	info.set(INF_SOFTWARE, vendor);
+	info.set(Kwave::INF_SOFTWARE, vendor);
 	qDebug("Encoded by: '%s'\n\n", vendor.toLocal8Bit().data());
     }
 #else
@@ -194,20 +194,21 @@ void FlacDecoder::parseVorbisComments(
 	if (!m_vorbis_comment_map.contains(name)) continue;
 
 	// we have a known vorbis tag
-	FileProperty prop = m_vorbis_comment_map[name];
+	Kwave::FileProperty prop = m_vorbis_comment_map[name];
 	info.set(prop, value);
     }
 
     // convert the date property to a QDate
-    if (info.contains(INF_CREATION_DATE)) {
-	QString str_date  = QVariant(info.get(INF_CREATION_DATE)).toString();
+    if (info.contains(Kwave::INF_CREATION_DATE)) {
+	QString str_date =
+	    QVariant(info.get(Kwave::INF_CREATION_DATE)).toString();
 	QDate date;
 	date = QDate::fromString(str_date, Qt::ISODate);
 	if (!date.isValid()) {
 	    int year = str_date.toInt();
 	    date.setYMD(year, 1, 1);
 	}
-	if (date.isValid()) info.set(INF_CREATION_DATE, date);
+	if (date.isValid()) info.set(Kwave::INF_CREATION_DATE, date);
      }
 
      metaData().replace(info);
@@ -305,9 +306,9 @@ bool FlacDecoder::open(QWidget *widget, QIODevice &src)
     }
 
     // set some more standard properties
-    FileInfo info(metaData());
-    info.set(INF_MIMETYPE, DEFAULT_MIME_TYPE);
-    info.set(INF_COMPRESSION, CompressionType::FLAC);
+    Kwave::FileInfo info(metaData());
+    info.set(Kwave::INF_MIMETYPE, DEFAULT_MIME_TYPE);
+    info.set(Kwave::INF_COMPRESSION, Kwave::CompressionType::FLAC);
     metaData().replace(info);
 
     return true;
@@ -326,7 +327,7 @@ bool FlacDecoder::decode(QWidget * /* widget */, Kwave::MultiWriter &dst)
     process_until_end_of_stream();
 
     m_dest = 0;
-    FileInfo info(metaData());
+    Kwave::FileInfo info(metaData());
     info.setLength(dst.last() ? (dst.last() + 1) : 0);
     metaData().replace(info);
 

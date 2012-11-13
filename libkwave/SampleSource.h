@@ -29,8 +29,8 @@
 #include "libkwave/SampleArray.h"
 #include "libkwave/modules/StreamObject.h"
 
-
-namespace Kwave {
+namespace Kwave
+{
     class KDE_EXPORT SampleSource: public Kwave::StreamObject
     {
         Q_OBJECT
@@ -75,3 +75,6 @@ namespace Kwave {
 }
 
 #endif /* _SAMPLE_SOURCE_H_ */
+
+//***************************************************************************
+//***************************************************************************

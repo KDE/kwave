@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
+#include <klocale.h>
 
 #include "libkwave/CodecManager.h"
 
@@ -26,7 +27,7 @@ KWAVE_PLUGIN(AudiofileCodecPlugin, "codec_audiofile", "2.1",
              I18N_NOOP("Audiofile Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
-AudiofileCodecPlugin::AudiofileCodecPlugin(const PluginContext &c)
+AudiofileCodecPlugin::AudiofileCodecPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0)
 {
 }
@@ -41,7 +42,7 @@ void AudiofileCodecPlugin::load(QStringList &/* params */)
 {
     if (!m_decoder) m_decoder = new AudiofileDecoder();
     Q_ASSERT(m_decoder);
-    if (m_decoder) CodecManager::registerDecoder(*m_decoder);
+    if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
 }
 
 /***************************************************************************/

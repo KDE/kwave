@@ -31,8 +31,9 @@
 #define MIN_PROGRESS_INTERVAL 500
 
 //***************************************************************************
-SampleReader::SampleReader(Kwave::ReaderMode mode, QList<Stripe> stripes,
-                           sample_index_t left, sample_index_t right)
+Kwave::SampleReader::SampleReader(Kwave::ReaderMode mode,
+                                  QList<Kwave::Stripe> stripes,
+                                  sample_index_t left, sample_index_t right)
     :m_mode(mode), m_stripes(stripes),
      m_src_position(left), m_first(left), m_last(right),
      m_buffer(blockSize()),
@@ -43,12 +44,12 @@ SampleReader::SampleReader(Kwave::ReaderMode mode, QList<Stripe> stripes,
 }
 
 //***************************************************************************
-SampleReader::~SampleReader()
+Kwave::SampleReader::~SampleReader()
 {
 }
 
 //***************************************************************************
-void SampleReader::reset()
+void Kwave::SampleReader::reset()
 {
     m_src_position = m_first;
     m_buffer_used = 0;
@@ -70,7 +71,7 @@ static inline void padBuffer(Kwave::SampleArray &buffer,
 }
 
 //***************************************************************************
-void SampleReader::fillBuffer()
+void Kwave::SampleReader::fillBuffer()
 {
     Q_ASSERT(m_buffer_position >= m_buffer_used);
     m_buffer_used = 0;
@@ -98,14 +99,14 @@ void SampleReader::fillBuffer()
 }
 
 //***************************************************************************
-void SampleReader::minMax(sample_index_t first, sample_index_t last,
-                          sample_t &min, sample_t &max)
+void Kwave::SampleReader::minMax(sample_index_t first, sample_index_t last,
+                                 sample_t &min, sample_t &max)
 {
     bool empty = true;
     min = SAMPLE_MAX;
     max = SAMPLE_MIN;
 
-    foreach (Stripe s, m_stripes) {
+    foreach (Kwave::Stripe s, m_stripes) {
 	if (!s.length()) continue;
 	sample_index_t start = s.start();
 	sample_index_t end   = s.end();
@@ -130,8 +131,8 @@ void SampleReader::minMax(sample_index_t first, sample_index_t last,
 }
 
 //***************************************************************************
-unsigned int SampleReader::read(Kwave::SampleArray &buffer,
-                                unsigned int dstoff, unsigned int length)
+unsigned int Kwave::SampleReader::read(Kwave::SampleArray &buffer,
+                                       unsigned int dstoff, unsigned int length)
 {
     if (eof() || !length) return 0; // already done or nothing to do
 
@@ -205,7 +206,7 @@ unsigned int SampleReader::read(Kwave::SampleArray &buffer,
 }
 
 //***************************************************************************
-void SampleReader::skip(sample_index_t count)
+void Kwave::SampleReader::skip(sample_index_t count)
 {
     if (m_buffer_position + count < m_buffer_used) {
 	// skip within the buffer
@@ -219,7 +220,7 @@ void SampleReader::skip(sample_index_t count)
 }
 
 //***************************************************************************
-void SampleReader::seek(sample_index_t pos)
+void Kwave::SampleReader::seek(sample_index_t pos)
 {
     const sample_index_t current_pos = m_src_position +
 	m_buffer_position - m_buffer_used;
@@ -260,7 +261,7 @@ void SampleReader::seek(sample_index_t pos)
 }
 
 //***************************************************************************
-SampleReader &SampleReader::operator >> (sample_t &sample)
+Kwave::SampleReader &Kwave::SampleReader::operator >> (sample_t &sample)
 {
     // get new buffer if end of last buffer reached
     if (m_buffer_position >= m_buffer_used) fillBuffer();
@@ -270,7 +271,8 @@ SampleReader &SampleReader::operator >> (sample_t &sample)
 }
 
 //***************************************************************************
-SampleReader &SampleReader::operator >> (Kwave::SampleArray &buffer)
+Kwave::SampleReader &Kwave::SampleReader::operator >> (
+    Kwave::SampleArray &buffer)
 {
     unsigned int size = buffer.size();
     unsigned int count = read(buffer, 0, size);
@@ -279,7 +281,7 @@ SampleReader &SampleReader::operator >> (Kwave::SampleArray &buffer)
 }
 
 //***************************************************************************
-void SampleReader::goOn()
+void Kwave::SampleReader::goOn()
 {
     Kwave::SampleArray buffer(blockSize());
     read(buffer, 0, blockSize());
@@ -287,10 +289,10 @@ void SampleReader::goOn()
 }
 
 //***************************************************************************
-unsigned int SampleReader::readSamples(sample_index_t offset,
-                                       Kwave::SampleArray &buffer,
-                                       unsigned int buf_offset,
-                                       unsigned int length)
+unsigned int Kwave::SampleReader::readSamples(sample_index_t offset,
+                                              Kwave::SampleArray &buffer,
+                                              unsigned int buf_offset,
+                                              unsigned int length)
 {
     Q_ASSERT(length);
     if (!length) return 0; // nothing to do !?
@@ -300,7 +302,7 @@ unsigned int SampleReader::readSamples(sample_index_t offset,
     sample_index_t left  = offset;
     sample_index_t right = offset + length - 1;
 
-    foreach (Stripe s, m_stripes) {
+    foreach (Kwave::Stripe s, m_stripes) {
 	if (!s.length()) continue;
 	sample_index_t start = s.start();
 	sample_index_t end   = s.end();
@@ -352,6 +354,7 @@ unsigned int SampleReader::readSamples(sample_index_t offset,
 }
 
 //***************************************************************************
+using namespace Kwave;
 #include "SampleReader.moc"
 //***************************************************************************
 //***************************************************************************

@@ -32,7 +32,8 @@
 
 class QVariant;
 
-namespace Kwave {
+namespace Kwave
+{
 
     class KDE_EXPORT Mul: public Kwave::SampleSource
     {

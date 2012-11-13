@@ -38,13 +38,13 @@ class PitchShiftPlugin: public Kwave::FilterPlugin
 public:
 
     /** Constructor */
-    PitchShiftPlugin(const PluginContext &context);
+    PitchShiftPlugin(const Kwave::PluginContext &context);
 
     /** Destructor */
     virtual ~PitchShiftPlugin();
 
     /** Creates the setup dialog and connects it's signals */
-    virtual KwavePluginSetupDialog *createDialog(QWidget *parent);
+    virtual Kwave::PluginSetupDialog *createDialog(QWidget *parent);
 
     /**
      * Creates a multi-track filter with the given number of tracks

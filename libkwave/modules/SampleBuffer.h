@@ -26,7 +26,8 @@
 #include "libkwave/modules/StreamObject.h"
 
 //***************************************************************************
-namespace Kwave {
+namespace Kwave
+{
 
     class KDE_EXPORT SampleBuffer: public Kwave::StreamObject
     {
@@ -68,3 +69,6 @@ namespace Kwave {
 }
 
 #endif /* _SAMPLE_BUFFER_H_ */
+
+//***************************************************************************
+//***************************************************************************

@@ -29,9 +29,8 @@
 #include "libkwave/MultiTrackSink.h"
 #include "libkwave/Writer.h"
 
-class MultiTrackReader;
-
-namespace Kwave {
+namespace Kwave
+{
 
     /**
      * A MultiWriter encapsulates a set of <c>Writer</c>s for
@@ -107,3 +106,6 @@ namespace Kwave {
 }
 
 #endif /* _MULTI_WRITER_H_ */
+
+//***************************************************************************
+//***************************************************************************

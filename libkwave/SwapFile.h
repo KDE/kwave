@@ -26,114 +26,121 @@
 
 class QString;
 
-class SwapFile
+namespace Kwave
 {
-public:
-    /**
-     * Constructor
-     * @param name full path to the swap file, actually a template
-     *             that <b>must</b> contain 6 "X" characters at the end!
-     */
-    SwapFile(const QString &name);
 
-    /** Destructor */
-    virtual ~SwapFile();
+    class SwapFile
+    {
+    public:
+	/**
+	 * Constructor
+	 * @param name full path to the swap file, actually a template
+	 *             that <b>must</b> contain 6 "X" characters at the end!
+	 */
+	SwapFile(const QString &name);
 
-    /**
-     * Allocates virtual memory by creating an empty swap file.
-     * Must be mapped into memory before used.
-     *
-     * @param size number of bytes to allocate
-     * @return true if succeeded, false if failed
-     */
-    bool allocate(size_t size);
+	/** Destructor */
+	virtual ~SwapFile();
 
-    /**
-     * Returns the address of the allocated memory or 0 if
-     * nothing has been allocated.
-     */
-    inline void *address() const   { return m_address; }
+	/**
+	 * Allocates virtual memory by creating an empty swap file.
+	 * Must be mapped into memory before used.
+	 *
+	 * @param size number of bytes to allocate
+	 * @return true if succeeded, false if failed
+	 */
+	bool allocate(size_t size);
 
-    /**
-     * Returns the size of the allocated memory or 0 if
-     * nothing has been allocated.
-     */
-    inline size_t size() const     { return m_size; }
+	/**
+	 * Returns the address of the allocated memory or 0 if
+	 * nothing has been allocated.
+	 */
+	inline void *address() const   { return m_address; }
 
-    /** returns the map count */
-    inline int mapCount() const    { return m_map_count; }
+	/**
+	 * Returns the size of the allocated memory or 0 if
+	 * nothing has been allocated.
+	 */
+	inline size_t size() const     { return m_size; }
 
-    /**
-     * Returns the size of one storage unit in bytes
-     */
-    inline size_t pagesize() const { return m_pagesize; }
+	/** returns the map count */
+	inline int mapCount() const    { return m_map_count; }
 
-    /**
-     * Resizes the allocated swap file.
-     * @param size the new size
-     * @return true if successful or false if failed
-     */
-    bool resize(size_t size);
+	/**
+	 * Returns the size of one storage unit in bytes
+	 */
+	inline size_t pagesize() const { return m_pagesize; }
 
-    /**
-     * Map the memory and return the physical address.
-     *
-     * @return pointer to the mapped area or null if failed
-     */
-    void *map();
+	/**
+	 * Resizes the allocated swap file.
+	 * @param size the new size
+	 * @return true if successful or false if failed
+	 */
+	bool resize(size_t size);
 
-    /**
-     * Unmap a memory area, previously mapped with map()
-     *
-     * @return current reference count
-     */
-    int unmap();
+	/**
+	 * Map the memory and return the physical address.
+	 *
+	 * @return pointer to the mapped area or null if failed
+	 */
+	void *map();
 
-    /**
-     * Read bytes into a buffer
-     *
-     * @param offset offset within the file [bytes]
-     * @param buffer pointer to a buffer that is to be filled
-     * @param length number of bytes to read
-     * @return number of read bytes or < 0 if failed
-     */
-    int read(unsigned int offset, void *buffer, unsigned int length);
+	/**
+	 * Unmap a memory area, previously mapped with map()
+	 *
+	 * @return current reference count
+	 */
+	int unmap();
 
-    /**
-     * Write bytes from a buffer
-     *
-     * @param offset offset within the file [bytes]
-     * @param buffer pointer to a buffer with data
-     * @param length number of bytes to write
-     * @return number of written bytes or < 0 if failed
-     */
-    int write(unsigned int offset, const void *buffer, unsigned int length);
+	/**
+	 * Read bytes into a buffer
+	 *
+	 * @param offset offset within the file [bytes]
+	 * @param buffer pointer to a buffer that is to be filled
+	 * @param length number of bytes to read
+	 * @return number of read bytes or < 0 if failed
+	 */
+	int read(unsigned int offset, void *buffer, unsigned int length);
 
-private:
+	/**
+	 * Write bytes from a buffer
+	 *
+	 * @param offset offset within the file [bytes]
+	 * @param buffer pointer to a buffer with data
+	 * @param length number of bytes to write
+	 * @return number of written bytes or < 0 if failed
+	 */
+	int write(unsigned int offset, const void *buffer, unsigned int length);
 
-    /**
-     * Frees the allocated memory by unmapping and deleting
-     * the swap file.
-     */
-    void close();
+    private:
 
-private:
+	/**
+	 * Frees the allocated memory by unmapping and deleting
+	 * the swap file.
+	 */
+	void close();
 
-    /** file used for swapping */
-    QTemporaryFile m_file;
+    private:
 
-    /** address of the allocated virtual memory or 0 */
-    void *m_address;
+	/** file used for swapping */
+	QTemporaryFile m_file;
 
-    /** number of allocated bytes or 0 */
-    size_t m_size;
+	/** address of the allocated virtual memory or 0 */
+	void *m_address;
 
-    /** size of one storage unit */
-    size_t m_pagesize;
+	/** number of allocated bytes or 0 */
+	size_t m_size;
 
-    /** reference count for mmap [0...N] */
-    int m_map_count;
+	/** size of one storage unit */
+	size_t m_pagesize;
 
-};
+	/** reference count for mmap [0...N] */
+	int m_map_count;
+
+    };
+}
 
 #endif /* _SWAP_FILE_H_ */
+
+//***************************************************************************
+//***************************************************************************

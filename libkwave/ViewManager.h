@@ -19,9 +19,11 @@
 #define _VIEW_MANAGER_H_
 
 class QWidget;
-namespace Kwave { class SignalView; }
 
-namespace Kwave {
+namespace Kwave
+{
+
+    class SignalView;
 
     /**
      * Abstract interface for registering a SignalView in the main widget
@@ -43,3 +45,6 @@ namespace Kwave {
 }
 
 #endif /* _VIEW_MANAGER_H_ */
+
+//***************************************************************************
+//***************************************************************************

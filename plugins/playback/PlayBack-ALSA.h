@@ -39,7 +39,7 @@
 
 namespace Kwave { class SampleEncoder; }
 
-class PlayBackALSA: public PlayBackDevice
+class PlayBackALSA: public Kwave::PlayBackDevice
 {
 public:
 

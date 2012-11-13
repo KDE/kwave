@@ -585,13 +585,13 @@ void Kwave::MP3EncoderDialog::testSettings()
     Kwave::MetaDataList meta_data = manager.metaData();
 
     // add some dummy meta data, to cover all parameters of the encoder
-    FileInfo info(meta_data);
-    info.set(INF_BITRATE_NOMINAL, QVariant(128000));
-    info.set(INF_BITRATE_LOWER,   QVariant( 64000));
-    info.set(INF_BITRATE_UPPER,   QVariant(192000));
-    info.set(INF_MPEG_EMPHASIS,   QVariant(3));
-    info.set(INF_COPYRIGHTED,     QVariant(1));
-    info.set(INF_ORIGINAL,        QVariant(1));
+    Kwave::FileInfo info(meta_data);
+    info.set(Kwave::INF_BITRATE_NOMINAL, QVariant(128000));
+    info.set(Kwave::INF_BITRATE_LOWER,   QVariant( 64000));
+    info.set(Kwave::INF_BITRATE_UPPER,   QVariant(192000));
+    info.set(Kwave::INF_MPEG_EMPHASIS,   QVariant(3));
+    info.set(Kwave::INF_COPYRIGHTED,     QVariant(1));
+    info.set(Kwave::INF_ORIGINAL,        QVariant(1));
     meta_data.replace(info);
 
     // create a multi track reader
@@ -600,7 +600,7 @@ void Kwave::MP3EncoderDialog::testSettings()
     track_list.append(1);
     sample_index_t first = 0;
     sample_index_t last  = test_length - 1;
-    MultiTrackReader src(Kwave::SinglePassForward,
+    Kwave::MultiTrackReader src(Kwave::SinglePassForward,
 	manager, track_list, first, last);
 
     // create an encoder

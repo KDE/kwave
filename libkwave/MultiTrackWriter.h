@@ -29,7 +29,8 @@
 #include "libkwave/InsertMode.h"
 #include "libkwave/MultiWriter.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     class SignalManager;
 
@@ -56,7 +57,7 @@ namespace Kwave {
 	 */
 	MultiTrackWriter(Kwave::SignalManager &signal_manager,
 	                 const QList<unsigned int> &track_list,
-	                 InsertMode mode,
+	                 Kwave::InsertMode mode,
 	                 sample_index_t left, sample_index_t right);
 
 	/**
@@ -67,7 +68,8 @@ namespace Kwave {
 	 * @param signal_manager reference to a SignalManager
 	 * @param mode specifies where and how to insert
 	 */
-	MultiTrackWriter(Kwave::SignalManager &signal_manager, InsertMode mode);
+	MultiTrackWriter(Kwave::SignalManager &signal_manager,
+	                 Kwave::InsertMode mode);
 
 	/** Destructor */
 	virtual ~MultiTrackWriter();
@@ -86,10 +88,13 @@ namespace Kwave {
 	 */
 	bool init(Kwave::SignalManager &signal_manager,
 	          const QList<unsigned int> &track_list,
-	          InsertMode mode,
+	          Kwave::InsertMode mode,
 	          sample_index_t left, sample_index_t right);
 
     };
 }
 
 #endif /* _MULTI_TRACK_WRITER_H_ */
+
+//***************************************************************************
+//***************************************************************************

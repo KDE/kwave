@@ -42,13 +42,13 @@
 #include "libkwave/Encoder.h"
 #include "libkwave/FileProgress.h"
 #include "libkwave/InsertMode.h"
+#include "libkwave/LabelList.h"
 #include "libkwave/MemoryManager.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Parser.h"
 #include "libkwave/Sample.h"
-#include "libkwave/SampleReader.h"
 #include "libkwave/Signal.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Track.h"
@@ -122,7 +122,7 @@ Kwave::SignalManager::~SignalManager()
 int Kwave::SignalManager::loadFile(const KUrl &url)
 {
     int res = 0;
-    FileProgress *dialog = 0;
+    Kwave::FileProgress *dialog = 0;
 
     // enter and stay in not modified state
     enableModifiedChange(true);
@@ -132,11 +132,11 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
     // disable undo (discards all undo/redo data)
     disableUndo();
 
-    QString mimetype = CodecManager::whatContains(url);
+    QString mimetype = Kwave::CodecManager::whatContains(url);
     qDebug("SignalManager::loadFile(%s) - [%s]",
            url.prettyUrl().toLocal8Bit().data(),
            mimetype.toLocal8Bit().data());
-    Decoder *decoder = CodecManager::decoder(mimetype);
+    Kwave::Decoder *decoder = Kwave::CodecManager::decoder(mimetype);
     while (decoder) {
 	// be sure that the current signal is really closed
 	m_signal.close();
@@ -153,7 +153,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 
 	// get the initial meta data from the decoder
 	m_meta_data = decoder->metaData();
-	FileInfo info(m_meta_data);
+	Kwave::FileInfo info(m_meta_data);
 
 	// detect stream mode. if so, use one sample as display
 	bool streaming = (!info.length());
@@ -183,7 +183,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 
 	// create the multitrack writer as destination
 	// if length was zero -> append mode / decode a stream ?
-	InsertMode mode = (streaming) ? Append : Overwrite;
+	Kwave::InsertMode mode = (streaming) ? Kwave::Append : Kwave::Overwrite;
 	Kwave::MultiTrackWriter writers(*this, allTracks(), mode, 0,
 	    (length) ? length-1 : 0);
 
@@ -195,7 +195,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 	if (use_src_size) resulting_size = src.size();
 
 	//prepare and show the progress dialog
-	dialog = new FileProgress(m_parent_widget,
+	dialog = new Kwave::FileProgress(m_parent_widget,
 	    filename, resulting_size,
 	    info.length(), info.rate(), info.bits(), info.tracks());
 	Q_ASSERT(dialog);
@@ -223,7 +223,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 	    // read information back from the decoder, some settings
 	    // might have become available during the decoding process
 	    m_meta_data = decoder->metaData();
-	    info = FileInfo(m_meta_data);
+	    info = Kwave::FileInfo(m_meta_data);
 	}
 
 	decoder->close();
@@ -242,9 +242,9 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 
 	// enter the filename/mimetype and size into the file info
 	QFileInfo fi(src);
-	info.set(INF_FILENAME, fi.absoluteFilePath());
-	info.set(INF_FILESIZE, static_cast<unsigned int>(src.size()));
-	info.set(INF_MIMETYPE, mimetype);
+	info.set(Kwave::INF_FILENAME, fi.absoluteFilePath());
+	info.set(Kwave::INF_FILESIZE, static_cast<unsigned int>(src.size()));
+	info.set(Kwave::INF_MIMETYPE, mimetype);
 
 	// take over the decoded and updated file info
 	m_meta_data.replace(info);
@@ -311,25 +311,25 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
     }
 
     QString mimetype_name;
-    mimetype_name = CodecManager::whatContains(url);
+    mimetype_name = Kwave::CodecManager::whatContains(url);
     qDebug("SignalManager::save(%s) - [%s] (%d bit, selection=%d)",
 	url.prettyUrl().toLocal8Bit().data(),
 	mimetype_name.toLocal8Bit().data(),
 	bits, selection);
 
-    Encoder *encoder = CodecManager::encoder(mimetype_name);
-    FileInfo file_info(m_meta_data);
+    Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mimetype_name);
+    Kwave::FileInfo file_info(m_meta_data);
     if (encoder) {
 
 	// maybe we now have a new mime type
-	file_info.set(INF_MIMETYPE, mimetype_name);
+	file_info.set(Kwave::INF_MIMETYPE, mimetype_name);
 
 	// check if we lose information and ask the user if this would
 	// be acceptable if so
-	QList<FileProperty> supported = encoder->supportedProperties();
-	QMap<FileProperty, QVariant> properties(file_info.properties());
+	QList<Kwave::FileProperty> supported = encoder->supportedProperties();
+	QMap<Kwave::FileProperty, QVariant> properties(file_info.properties());
 	bool all_supported = true;
-	QMap<FileProperty, QVariant>::Iterator it;
+	QMap<Kwave::FileProperty, QVariant>::Iterator it;
 	QString lost_properties;
 	for (it = properties.begin(); it != properties.end(); ++it) {
 	    if ( (! supported.contains(it.key())) &&
@@ -365,7 +365,7 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 	QString filename = url.path();
 	QFile dst(filename);
 
-	MultiTrackReader src(Kwave::SinglePassForward, *this,
+	Kwave::MultiTrackReader src(Kwave::SinglePassForward, *this,
 	    (selection) ? selectedTracks() : allTracks(),
 	    ofs, ofs+len-1);
 
@@ -375,8 +375,8 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 	file_info.setBits(bits);
 	file_info.setTracks(tracks);
 
-	if (!file_info.contains(INF_SOFTWARE) &&
-	    encoder->supportedProperties().contains(INF_SOFTWARE))
+	if (!file_info.contains(Kwave::INF_SOFTWARE) &&
+	    encoder->supportedProperties().contains(Kwave::INF_SOFTWARE))
 	{
 	    // add our Kwave Software tag
 	    const KAboutData *about_data =
@@ -387,11 +387,11 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 			       i18n(KDE_VERSION_STRING);
 	    qDebug("adding software tag: '%s'",
 	           software.toLocal8Bit().data());
-	    file_info.set(INF_SOFTWARE, software);
+	    file_info.set(Kwave::INF_SOFTWARE, software);
 	}
 
-	if (!file_info.contains(INF_CREATION_DATE) &&
-	    encoder->supportedProperties().contains(INF_CREATION_DATE))
+	if (!file_info.contains(Kwave::INF_CREATION_DATE) &&
+	    encoder->supportedProperties().contains(Kwave::INF_CREATION_DATE))
 	{
 	    // add a date tag
 	    QDate now(QDate::currentDate());
@@ -401,11 +401,11 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 	    QVariant value = date.toUtf8();
 	    qDebug("adding date tag: '%s'",
 	           date.toLocal8Bit().data());
-	    file_info.set(INF_CREATION_DATE, value);
+	    file_info.set(Kwave::INF_CREATION_DATE, value);
 	}
 
 	// prepare and show the progress dialog
-	FileProgress *dialog = new FileProgress(m_parent_widget,
+	Kwave::FileProgress *dialog = new Kwave::FileProgress(m_parent_widget,
 	    filename, file_info.tracks() * file_info.length() *
 	    (file_info.bits() >> 3),
 	    file_info.length(), file_info.rate(), file_info.bits(),
@@ -433,14 +433,14 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 
 	    // set the filename in the copy of the fileinfo, the original
 	    // file which is currently open keeps it's name
-	    FileInfo info(meta);
-	    info.set(INF_FILENAME, filename);
+	    Kwave::FileInfo info(meta);
+	    info.set(Kwave::INF_FILENAME, filename);
 	    meta.replace(info);
 
 	    encoded = encoder->encode(m_parent_widget, src, dst, meta);
 	} else {
 	    // in case of a "save as" -> modify the current filename
-	    file_info.set(INF_FILENAME, filename);
+	    file_info.set(Kwave::INF_FILENAME, filename);
 	    m_meta_data.replace(file_info);
 	    encoded = encoder->encode(m_parent_widget, src, dst, m_meta_data);
 	}
@@ -493,7 +493,7 @@ void Kwave::SignalManager::newSignal(sample_index_t samples, double rate,
     disableUndo();
 
     m_meta_data.clear();
-    FileInfo file_info(m_meta_data);
+    Kwave::FileInfo file_info(m_meta_data);
     file_info.setRate(rate);
     file_info.setBits(bits);
     file_info.setTracks(tracks);
@@ -562,7 +562,7 @@ QString Kwave::SignalManager::signalName()
 {
     // if a file is loaded -> path of the URL if it has one
     KUrl url;
-    url = FileInfo(m_meta_data).get(INF_FILENAME).toString();
+    url = Kwave::FileInfo(m_meta_data).get(Kwave::INF_FILENAME).toString();
     if (url.isValid()) return url.path();
 
     // we have something, but no name yet
@@ -595,7 +595,7 @@ const QList<unsigned int> Kwave::SignalManager::allTracks()
 
 //***************************************************************************
 Kwave::Writer *Kwave::SignalManager::openWriter(unsigned int track,
-	InsertMode mode, sample_index_t left, sample_index_t right)
+	Kwave::InsertMode mode, sample_index_t left, sample_index_t right)
 {
     return m_signal.openWriter(track, mode, left, right);
 }
@@ -607,7 +607,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
     sample_index_t length = m_selection.length();
 
     if (!command.length()) return -EINVAL;
-    Parser parser(command);
+    Kwave::Parser parser(command);
 
     if (false) {
     // --- undo / redo ---
@@ -619,7 +619,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
     // --- copy & paste + clipboard ---
     CASE_COMMAND("copy")
 	if (length) {
-	    ClipBoard &clip = ClipBoard::instance();
+	    Kwave::ClipBoard &clip = Kwave::ClipBoard::instance();
 	    clip.copy(
 		m_parent_widget,
 		*this,
@@ -630,7 +630,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	    rememberCurrentSelection();
 	}
     CASE_COMMAND("insert_at")
-	ClipBoard &clip = ClipBoard::instance();
+	Kwave::ClipBoard &clip = Kwave::ClipBoard::instance();
 	if (clip.isEmpty()) return 0;
 	if (!selectedTracks().size()) return 0;
 	sample_index_t offset = parser.toUInt();
@@ -642,7 +642,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	clip.paste(m_parent_widget, *this, offset, 0);
 
     CASE_COMMAND("paste")
-	ClipBoard &clip = ClipBoard::instance();
+	Kwave::ClipBoard &clip = Kwave::ClipBoard::instance();
 	if (clip.isEmpty()) return 0;
 	if (!selectedTracks().size()) return 0;
 
@@ -653,7 +653,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	    // remember the last selection
 	    rememberCurrentSelection();
 
-	    ClipBoard &clip = ClipBoard::instance();
+	    Kwave::ClipBoard &clip = Kwave::ClipBoard::instance();
 	    clip.copy(
 		m_parent_widget,
 		*this,
@@ -665,7 +665,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	    selectRange(m_selection.offset(), 0);
 	}
     CASE_COMMAND("clipboard_flush")
-	ClipBoard::instance().clear();
+	Kwave::ClipBoard::instance().clear();
     CASE_COMMAND("crop")
 	Kwave::UndoTransactionGuard undo(*this, i18n("Crop"));
 	sample_index_t rest = this->length() - offset;
@@ -720,14 +720,14 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	                                 i18n("Expand Selection to Label"));
 	sample_index_t selection_left  = m_selection.first();
 	sample_index_t selection_right = m_selection.last();
-	LabelList labels(m_meta_data);
+	Kwave::LabelList labels(m_meta_data);
 	if (labels.isEmpty()) return false; // we need labels for this
-	Label label_left  = Label();
-	Label label_right = Label();
+	Kwave::Label label_left  = Kwave::Label();
+	Kwave::Label label_right = Kwave::Label();
 
 	// the last label <= selection start -> label_left
 	// the first label >= selection end  -> label_right
-	foreach (Label label, labels) {
+	foreach (Kwave::Label label, labels) {
 	    sample_index_t lp = label.pos();
 	    if (lp <= selection_left)
 		label_left = label;
@@ -749,9 +749,9 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	Kwave::UndoTransactionGuard undo(*this, i18n("Select Next Labels"));
 	sample_index_t selection_left;
 	sample_index_t selection_right = m_selection.last();
-	Label label_left  = Label();
-	Label label_right = Label();
-	LabelList labels(m_meta_data);
+	Kwave::Label label_left  = Kwave::Label();
+	Kwave::Label label_right = Kwave::Label();
+	Kwave::LabelList labels(m_meta_data);
 	if (labels.isEmpty()) return false; // we need labels for this
 
 	// special case: nothing selected -> select up to the first label
@@ -762,12 +762,12 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	    // find the first label starting after the current selection
 	    LabelListIterator it(labels);
 	    while (it.hasNext()) {
-		Label label = it.next();
+		Kwave::Label label = it.next();
 		if (label.pos() >= selection_right) {
 		    // take it as selection start
 		    label_left  = label;
 		    // and it's next one as selection end (might be null)
-		    label_right = it.hasNext() ? it.next() : Label();
+		    label_right = it.hasNext() ? it.next() : Kwave::Label();
 		    break;
 		}
 	    }
@@ -786,13 +786,13 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	Kwave::UndoTransactionGuard undo(*this, i18n("Select Previous Labels"));
 	sample_index_t selection_left  = selection().first();
 	sample_index_t selection_right = selection().last();
-	Label label_left  = Label();
-	Label label_right = Label();
-	LabelList labels(m_meta_data);
+	Kwave::Label label_left  = Kwave::Label();
+	Kwave::Label label_right = Kwave::Label();
+	Kwave::LabelList labels(m_meta_data);
 	if (labels.isEmpty()) return false; // we need labels for this
 
 	// find the last label before the start of the selection
-	foreach (Label label, labels) {
+	foreach (Kwave::Label label, labels) {
 	    if (label.pos() > selection_left)
 		break; // done
 	    label_left  = label_right;
@@ -812,11 +812,11 @@ int Kwave::SignalManager::executeCommand(const QString &command)
     CASE_COMMAND("add_track")
 	appendTrack();
     CASE_COMMAND("delete_track")
-	Parser parser(command);
+	Kwave::Parser parser(command);
 	unsigned int track = parser.toUInt();
 	deleteTrack(track);
     CASE_COMMAND("insert_track")
-	Parser parser(command);
+	Kwave::Parser parser(command);
 	unsigned int track = parser.toUInt();
 	insertTrack(track);
 
@@ -849,9 +849,9 @@ int Kwave::SignalManager::executeCommand(const QString &command)
     CASE_COMMAND("fileinfo")
 	QString property = parser.firstParam();
 	QString value    = parser.nextParam();
-	FileInfo info(m_meta_data);
+	Kwave::FileInfo info(m_meta_data);
 	bool found = false;
-	foreach (FileProperty p, info.allKnownProperties()) {
+	foreach (Kwave::FileProperty p, info.allKnownProperties()) {
 	    if (info.name(p) == property) {
 		info.set(p, QVariant(value));
 		found = true;
@@ -956,7 +956,7 @@ void Kwave::SignalManager::slotTrackInserted(unsigned int index,
 {
     setModified(true);
 
-    FileInfo file_info(m_meta_data);
+    Kwave::FileInfo file_info(m_meta_data);
     file_info.setTracks(tracks());
     m_meta_data.replace(file_info);
 
@@ -969,7 +969,7 @@ void Kwave::SignalManager::slotTrackDeleted(unsigned int index)
 {
     setModified(true);
 
-    FileInfo file_info(m_meta_data);
+    Kwave::FileInfo file_info(m_meta_data);
     file_info.setTracks(tracks());
     m_meta_data.replace(file_info);
 
@@ -994,7 +994,7 @@ void Kwave::SignalManager::slotSamplesInserted(unsigned int track,
 
     emit sigSamplesInserted(track, offset, length);
 
-    FileInfo info(m_meta_data);
+    Kwave::FileInfo info(m_meta_data);
     info.setLength(m_last_length);
     m_meta_data.replace(info);
     emit sigMetaDataChanged(m_meta_data);
@@ -1017,7 +1017,7 @@ void Kwave::SignalManager::slotSamplesDeleted(unsigned int track,
 
     emit sigSamplesDeleted(track, offset, length);
 
-    FileInfo info(m_meta_data);
+    Kwave::FileInfo info(m_meta_data);
     info.setLength(m_last_length);
     m_meta_data.replace(info);
     emit sigMetaDataChanged(m_meta_data);
@@ -1140,7 +1140,7 @@ void Kwave::SignalManager::selectTrack(unsigned int track, bool select)
 }
 
 //***************************************************************************
-PlaybackController &Kwave::SignalManager::playbackController()
+Kwave::PlaybackController &Kwave::SignalManager::playbackController()
 {
     return m_playback_controller;
 }
@@ -1756,14 +1756,14 @@ void Kwave::SignalManager::enableModifiedChange(bool en)
 }
 
 //***************************************************************************
-void Kwave::SignalManager::setFileInfo(FileInfo &new_info,
+void Kwave::SignalManager::setFileInfo(Kwave::FileInfo &new_info,
                                        bool with_undo)
 {
     if (m_undo_enabled && with_undo) {
 	/* save data for undo */
 	Kwave::UndoTransactionGuard undo_transaction(*this,
 	                                             i18n("Modify File Info"));
-	FileInfo old_inf(m_meta_data);
+	Kwave::FileInfo old_inf(m_meta_data);
 	if (!registerUndoAction(new Kwave::UndoModifyMetaDataAction(old_inf)))
 	    return;
     }
@@ -1775,21 +1775,21 @@ void Kwave::SignalManager::setFileInfo(FileInfo &new_info,
 }
 
 //***************************************************************************
-Label Kwave::SignalManager::findLabel(sample_index_t pos)
+Kwave::Label Kwave::SignalManager::findLabel(sample_index_t pos)
 {
-    LabelList labels(m_meta_data);
-    foreach (const Label &label, labels) {
+    Kwave::LabelList labels(m_meta_data);
+    foreach (const Kwave::Label &label, labels) {
 	if (label.pos() == pos) return label; // found it
     }
-    return Label(); // nothing found
+    return Kwave::Label(); // nothing found
 }
 
 //***************************************************************************
-int Kwave::SignalManager::labelIndex(const Label &label) const
+int Kwave::SignalManager::labelIndex(const Kwave::Label &label) const
 {
     int index = 0;
-    LabelList labels(m_meta_data);
-    foreach (const Label &l, labels) {
+    Kwave::LabelList labels(m_meta_data);
+    foreach (const Kwave::Label &l, labels) {
 	if (l == label) return index; // found it
 	index++;
     }
@@ -1797,20 +1797,20 @@ int Kwave::SignalManager::labelIndex(const Label &label) const
 }
 
 //***************************************************************************
-Label Kwave::SignalManager::addLabel(sample_index_t pos,
-                                     const QString &name)
+Kwave::Label Kwave::SignalManager::addLabel(sample_index_t pos,
+                                            const QString &name)
 {
     // if there already is a label at the given position, do nothing
-    if (!findLabel(pos).isNull()) return Label();
+    if (!findLabel(pos).isNull()) return Kwave::Label();
 
     // create a new label
-    Label label(pos, name);
+    Kwave::Label label(pos, name);
 
     // register the undo action
     if (m_undo_enabled) {
 	Kwave::UndoTransactionGuard undo(*this, i18n("Add Label"));
 	if (!registerUndoAction(new UndoAddMetaDataAction(label)))
-	    return Label();
+	    return Kwave::Label();
     }
 
     // put the label into the list
@@ -1827,7 +1827,7 @@ Label Kwave::SignalManager::addLabel(sample_index_t pos,
 //***************************************************************************
 void Kwave::SignalManager::deleteLabel(int index, bool with_undo)
 {
-    LabelList labels(m_meta_data);
+    Kwave::LabelList labels(m_meta_data);
 
     Q_ASSERT(index >= 0);
     Q_ASSERT(index < static_cast<int>(labels.count()));
@@ -1854,13 +1854,13 @@ void Kwave::SignalManager::deleteLabel(int index, bool with_undo)
 bool Kwave::SignalManager::modifyLabel(int index, sample_index_t pos,
                                        const QString &name)
 {
-    LabelList labels(m_meta_data);
+    Kwave::LabelList labels(m_meta_data);
     Q_ASSERT(index >= 0);
     Q_ASSERT(index < static_cast<int>(labels.count()));
     if ((index < 0) || (index >= static_cast<int>(labels.count())))
 	return false;
 
-    Label label = labels.at(index);
+    Kwave::Label label = labels.at(index);
 
     // check: if the label should be moved and there already is a label
     // at the new position -> fail
@@ -1913,7 +1913,7 @@ void Kwave::SignalManager::checkSelectionChange()
 // 	qDebug("    after : [%8u...%8u]", m_selection.first(),      m_selection.last());
 
 	// temporarily activate the previous selection (last stored)
-	Selection new_selection(m_selection);
+	Kwave::Selection new_selection(m_selection);
 	m_selection = m_last_selection;
 	selectTracks(m_last_track_selection);
 

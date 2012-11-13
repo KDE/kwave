@@ -25,12 +25,15 @@
 
 #include "libkwave/Encoder.h"
 
-class FileInfo;
 class QWidget;
-class MultiTrackReader;
-namespace Kwave { class MetaDataList; }
 
-class AsciiEncoder: public Encoder
+namespace Kwave
+{
+    class MultiTrackReader;
+    class MetaDataList;
+}
+
+class AsciiEncoder: public Kwave::Encoder
 {
 public:
     /** Constructor */
@@ -40,7 +43,7 @@ public:
     virtual ~AsciiEncoder();
 
     /** Returns a new instance of the encoder */
-    virtual Encoder *instance();
+    virtual Kwave::Encoder *instance();
 
     /**
      * Encodes a signal into a stream of bytes.
@@ -51,12 +54,12 @@ public:
      * @param meta_data meta information about the file to be saved
      * @return true if succeeded, false on errors
      */
-    virtual bool encode(QWidget *widget, MultiTrackReader &src,
+    virtual bool encode(QWidget *widget, Kwave::MultiTrackReader &src,
                         QIODevice &dst,
                         const Kwave::MetaDataList &meta_data);
 
     /** Returns a list of supported file properties */
-    virtual QList<FileProperty> supportedProperties();
+    virtual QList<Kwave::FileProperty> supportedProperties();
 
 private:
 

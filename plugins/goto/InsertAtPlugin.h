@@ -24,15 +24,15 @@
 
 #include "GotoPluginBase.h"
 
-class PluginContext;
+namespace Kwave { class PluginContext; }
 
 class InsertAtPlugin: public GotoPluginBase
 {
 public:
 
     /** Constructor */
-    InsertAtPlugin(const PluginContext &context);
- 
+    InsertAtPlugin(const Kwave::PluginContext &context);
+
     /** Destructor */
     virtual ~InsertAtPlugin();
 

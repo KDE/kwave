@@ -29,28 +29,29 @@
 #include "libgui/ViewItem.h"
 
 class QMenu;
-class Label;
 
 namespace Kwave {
- 
+
+    class Label;
+
     class KDE_EXPORT LabelItem: public Kwave::ViewItem
     {
 	Q_OBJECT
     public:
-	/** 
-	 * Constructor 
+	/**
+	 * Constructor
 	 * @param index the one-based index of the label
 	 * @param ms position of the label in ms
 	 * @param label reference to the label
 	 */
-	LabelItem(unsigned int index, double ms, const Label &label);
-	
+	LabelItem(unsigned int index, double ms, const Kwave::Label &label);
+
 	/** Destructor */
 	virtual ~LabelItem();
-	
+
 	/**
 	 * Returns flags describing the possible interactions with this object
-	 * @see Qt::ItemFlag 
+	 * @see Qt::ItemFlag
 	 */
 	virtual Qt::ItemFlags flags();
 
@@ -62,7 +63,7 @@ namespace Kwave {
 
 	/**
 	 * Can be overwritten to return a tooltip.
-	 * 
+	 *
 	 * @param ofs offset within the object the tooltip should refer to
 	 * @return an already localized tooltip
 	 */
@@ -89,10 +90,10 @@ namespace Kwave {
 
 	/** position of the label, sample index */
 	sample_index_t m_pos;
-	
+
 	/** position of the label, milliseconds */
 	double m_ms;
-	
+
 	/** description of the label */
 	QString m_description;
     };

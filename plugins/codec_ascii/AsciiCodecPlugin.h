@@ -21,8 +21,11 @@
 #include "config.h"
 #include "libkwave/Plugin.h"
 
-class Encoder;
-class Decoder;
+namespace Kwave
+{
+    class Decoder;
+    class Encoder;
+}
 
 class AsciiCodecPlugin: public Kwave::Plugin
 {
@@ -30,7 +33,7 @@ class AsciiCodecPlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    AsciiCodecPlugin(const PluginContext &c);
+    AsciiCodecPlugin(const Kwave::PluginContext &c);
 
     /** Destructor */
     virtual ~AsciiCodecPlugin();
@@ -48,10 +51,10 @@ public:
 
 private:
     /** decoder used as factory */
-    Decoder *m_decoder;
+    Kwave::Decoder *m_decoder;
 
     /** encoder used as factory */
-    Encoder *m_encoder;
+    Kwave::Encoder *m_encoder;
 };
 
 #define LOAD_MIME_TYPES { \

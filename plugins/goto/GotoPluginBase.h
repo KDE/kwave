@@ -36,7 +36,7 @@ class GotoPluginBase: public Kwave::Plugin
 public:
 
     /** Constructor */
-    GotoPluginBase(const PluginContext &context);
+    GotoPluginBase(const Kwave::PluginContext &context);
 
     /** Destructor */
     virtual ~GotoPluginBase();
@@ -58,7 +58,7 @@ protected:
 
     /** Returns the command to be emitted */
     virtual QString command() const = 0;
-    
+
     /** Returns the title of the dialog */
     virtual QString title() const = 0;
 

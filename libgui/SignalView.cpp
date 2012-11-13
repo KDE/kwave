@@ -615,7 +615,7 @@ void Kwave::SignalView::startDragging()
     const sample_index_t length = m_signal_manager->selection().length();
     if (!length) return;
 
-    KwaveDrag *d = new KwaveDrag(this);
+    Kwave::Drag *d = new Kwave::Drag(this);
     Q_ASSERT(d);
     if (!d) return;
 
@@ -624,13 +624,13 @@ void Kwave::SignalView::startDragging()
     const double         rate  = m_signal_manager->rate();
     const unsigned int   bits  = m_signal_manager->bits();
 
-    MultiTrackReader src(Kwave::SinglePassForward, *m_signal_manager,
+    Kwave::MultiTrackReader src(Kwave::SinglePassForward, *m_signal_manager,
 	m_signal_manager->selectedTracks(), first, last);
 
     // create the file info
     Kwave::MetaDataList meta = m_signal_manager->metaData().selectByTracks(
 	m_signal_manager->selectedTracks());
-    FileInfo info(meta);
+    Kwave::FileInfo info(meta);
     info.setLength(last - first + 1);
     info.setRate(rate);
     info.setBits(bits);
@@ -674,7 +674,7 @@ void Kwave::SignalView::dragEnterEvent(QDragEnterEvent *event)
         (event->proposedAction() != Qt::CopyAction))
         return; /* unsupported action */
 
-    if (KwaveFileDrag::canDecode(event->mimeData()))
+    if (Kwave::FileDrag::canDecode(event->mimeData()))
 	event->acceptProposedAction();
 }
 
@@ -693,13 +693,13 @@ void Kwave::SignalView::dropEvent(QDropEvent *event)
     Q_ASSERT(m_signal_manager);
     if (!m_signal_manager) return;
 
-    if (KwaveDrag::canDecode(event->mimeData())) {
+    if (Kwave::Drag::canDecode(event->mimeData())) {
 	Kwave::UndoTransactionGuard undo(*m_signal_manager,
 	                                 i18n("Drag and Drop"));
 	sample_index_t pos = m_offset + pixels2samples(event->pos().x());
 	sample_index_t len = 0;
 
-	if ((len = KwaveDrag::decode(this, event->mimeData(),
+	if ((len = Kwave::Drag::decode(this, event->mimeData(),
 	    *m_signal_manager, pos)))
 	{
 	    // set selection to the new area where the drop was done
@@ -713,8 +713,8 @@ void Kwave::SignalView::dropEvent(QDropEvent *event)
 	bool first = true;
 	foreach (QUrl url, event->mimeData()->urls()) {
 	    QString filename = url.toLocalFile();
-	    QString mimetype = CodecManager::whatContains(filename);
-	    if (CodecManager::canDecode(mimetype)) {
+	    QString mimetype = Kwave::CodecManager::whatContains(filename);
+	    if (Kwave::CodecManager::canDecode(mimetype)) {
 		if (first) {
 		    // first dropped URL -> open in this window
 		    emit sigCommand("open(" + filename + ")");
@@ -768,11 +768,11 @@ void Kwave::SignalView::dragMoveEvent(QDragMoveEvent* event)
 	r.setLeft(left);
 	r.setRight(right);
 	event->ignore(r);
-    } else if (KwaveDrag::canDecode(event->mimeData())) {
+    } else if (Kwave::Drag::canDecode(event->mimeData())) {
 	// accept if it is decodeable within the
 	// current range (if it's outside our own selection)
 	event->acceptProposedAction();
-    } else if (KwaveFileDrag::canDecode(event->mimeData())) {
+    } else if (Kwave::FileDrag::canDecode(event->mimeData())) {
 	// file drag
 	event->accept();
     } else event->ignore();

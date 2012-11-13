@@ -29,7 +29,7 @@ KWAVE_PLUGIN(AsciiCodecPlugin, "codec_ascii", "2.1",
              I18N_NOOP("ASCII Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
-AsciiCodecPlugin::AsciiCodecPlugin(const PluginContext &c)
+AsciiCodecPlugin::AsciiCodecPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
 {
 }
@@ -46,11 +46,11 @@ void AsciiCodecPlugin::load(QStringList &/* params */)
 {
     if (!m_encoder) m_encoder = new AsciiEncoder();
     Q_ASSERT(m_encoder);
-    if (m_encoder) CodecManager::registerEncoder(*m_encoder);
+    if (m_encoder) Kwave::CodecManager::registerEncoder(*m_encoder);
 
     if (!m_decoder) m_decoder = new AsciiDecoder();
     Q_ASSERT(m_decoder);
-    if (m_decoder) CodecManager::registerDecoder(*m_decoder);
+    if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
 }
 
 /***************************************************************************/

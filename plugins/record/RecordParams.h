@@ -96,7 +96,7 @@ public:
     double sample_rate;			/**< sample rate in samples/second */
     int compression;			/**< compression index or -1 */
     unsigned int bits_per_sample;	/**< resolution in bits per sample */
-    SampleFormat sample_format;         /**< sample format */
+    Kwave::SampleFormat sample_format;  /**< sample format */
 
     unsigned int buffer_count;		/**< number of buffers */
     unsigned int buffer_size;		/**< power of the record buffer size */

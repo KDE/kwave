@@ -28,7 +28,8 @@
 
 #include "libkwave/MultiWriter.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     /**
      * A MultiStreamWriter encapsulates a set of <c>StreamWriter</c>s for
@@ -50,3 +51,6 @@ namespace Kwave {
 }
 
 #endif /* _MULTI_STREAM_WRITER_H_ */
+
+//***************************************************************************
+//***************************************************************************

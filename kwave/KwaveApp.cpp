@@ -47,13 +47,15 @@ KwaveApp::KwaveApp()
     m_topwidget_list()
 {
     qRegisterMetaType<Kwave::SampleArray>("Kwave::SampleArray");
-    qRegisterMetaType<LabelList>("LabelList");
+    qRegisterMetaType<Kwave::LabelList>("Kwave::LabelList");
     qRegisterMetaType<sample_index_t>("sample_index_t");
     qRegisterMetaType<Kwave::MetaDataList>("Kwave::MetaDataList");
 
     // connect the clipboard
-    connect(QApplication::clipboard(), SIGNAL(changed(QClipboard::Mode)),
-	    &(ClipBoard::instance()), SLOT(slotChanged(QClipboard::Mode)));
+    connect(QApplication::clipboard(),
+            SIGNAL(changed(QClipboard::Mode)),
+            &(Kwave::ClipBoard::instance()),
+            SLOT(slotChanged(QClipboard::Mode)));
 }
 
 //***************************************************************************
@@ -99,7 +101,7 @@ bool KwaveApp::isOK()
 //***************************************************************************
 bool KwaveApp::executeCommand(const QString &command)
 {
-    Parser parser(command);
+    Kwave::Parser parser(command);
     if (parser.command() == "newwindow") {
 	if (parser.hasParams()) {
 	    newWindow(KUrl(parser.params().at(0)));

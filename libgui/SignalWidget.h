@@ -37,8 +37,6 @@
 
 #include "kdemacros.h"
 
-#include "libkwave/LabelList.h"
-#include "libkwave/PlaybackController.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 

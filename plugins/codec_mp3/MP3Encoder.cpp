@@ -51,7 +51,7 @@
 
 /***************************************************************************/
 Kwave::MP3Encoder::MP3Encoder()
-    :Encoder(), m_property_map(), m_lock(), m_dst(0), m_process(this),
+    :Kwave::Encoder(), m_property_map(), m_lock(), m_dst(0), m_process(this),
      m_program(), m_params()
 {
     REGISTER_MIME_TYPES;
@@ -67,13 +67,13 @@ Kwave::MP3Encoder::~MP3Encoder()
 }
 
 /***************************************************************************/
-Encoder *Kwave::MP3Encoder::instance()
+Kwave::Encoder *Kwave::MP3Encoder::instance()
 {
     return new MP3Encoder();
 }
 
 /***************************************************************************/
-QList<FileProperty> Kwave::MP3Encoder::supportedProperties()
+QList<Kwave::FileProperty> Kwave::MP3Encoder::supportedProperties()
 {
     return m_property_map.properties();
 }
@@ -82,21 +82,21 @@ QList<FileProperty> Kwave::MP3Encoder::supportedProperties()
 void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
                                       ID3_Tag &tag)
 {
-    const FileInfo info(meta_data);
+    const Kwave::FileInfo info(meta_data);
     ID3_FrameInfo frameInfo;
 
-    const QMap<FileProperty, QVariant> properties(info.properties());
-    QMap<FileProperty, QVariant>::const_iterator it;
+    const QMap<Kwave::FileProperty, QVariant> properties(info.properties());
+    QMap<Kwave::FileProperty, QVariant>::const_iterator it;
     for (it = properties.begin(); it != properties.end(); ++it) {
-	const FileProperty &property = it.key();
-	const QVariant     &value    = it.value();
+	const Kwave::FileProperty &property = it.key();
+	const QVariant            &value    = it.value();
 
 	ID3_FrameID id = m_property_map.findProperty(property);
 	if (id == ID3FID_NOFRAME) continue;
 
-	if (info.contains(INF_CD) && (property == INF_CDS))
+	if (info.contains(Kwave::INF_CD) && (property == Kwave::INF_CDS))
 	    continue; /* INF_CDS has already been handled by INF_CD */
-	if (info.contains(INF_TRACK) && (property == INF_TRACKS))
+	if (info.contains(Kwave::INF_TRACK) && (property == Kwave::INF_TRACKS))
 	    continue; /* INF_TRACKS has already been handled by INF_TRACK */
 
 	ID3_Frame *frame = new ID3_Frame;
@@ -126,7 +126,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 		field->SetEncoding(ID3TE_UTF16);
 
 		// if "number of CDs is available: append with "/"
-		int cds = info.get(INF_CDS).toInt();
+		int cds = info.get(Kwave::INF_CDS).toInt();
 		if (cds > 0)
 		    str_val += QString("/%1").arg(cds);
 
@@ -136,7 +136,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 	    case ID3_PropertyMap::ENC_TRACK_NUM:
 	    {
 		// if "number of tracks is available: append with "/"
-		int tracks = info.get(INF_TRACKS).toInt();
+		int tracks = info.get(Kwave::INF_TRACKS).toInt();
 		if (tracks > 0)
 		    str_val += QString("/%1").arg(tracks);
 
@@ -165,9 +165,9 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 	    }
 	    case ID3_PropertyMap::ENC_GENRE_TYPE:
 	    {
-		int id = GenreType::fromID3(str_val);
+		int id = Kwave::GenreType::fromID3(str_val);
 		if (id >= 0)
-		    str_val = GenreType::name(id, false);
+		    str_val = Kwave::GenreType::name(id, false);
 		// else: user defined genre type, take it as it is
 
 		field->SetEncoding(ID3TE_UTF16);
@@ -256,7 +256,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 	m_params.append(QString(settings.__field__.arg(__value__)).split(' '))
 
 /***************************************************************************/
-bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
+bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
                                QIODevice &dst,
                                const Kwave::MetaDataList &meta_data)
 {
@@ -269,7 +269,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
     ID3_TagType id3_tag_type = ID3TT_ID3V2;
     id3_tag.SetSpec(ID3V2_LATEST);
 
-    const FileInfo info(meta_data);
+    const Kwave::FileInfo info(meta_data);
 
     // get info: tracks, sample rate
     const unsigned int tracks     = src.tracks();
@@ -348,29 +348,29 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
     int bitrate_min =   8;
     int bitrate_max = 320;
     int bitrate_nom = 128;
-    if (info.contains(INF_BITRATE_NOMINAL)) {
+    if (info.contains(Kwave::INF_BITRATE_NOMINAL)) {
 	// nominal bitrate => use ABR mode
-	bitrate_nom = info.get(INF_BITRATE_NOMINAL).toInt() / 1000;
+	bitrate_nom = info.get(Kwave::INF_BITRATE_NOMINAL).toInt() / 1000;
 	bitrate_nom = qBound(bitrate_min, bitrate_nom, bitrate_max);
 	OPTION_P(m_quality.m_bitrate.m_avg, bitrate_nom);
     }
-    if (info.contains(INF_BITRATE_LOWER)) {
-	int bitrate = info.get(INF_BITRATE_LOWER).toInt() / 1000;
+    if (info.contains(Kwave::INF_BITRATE_LOWER)) {
+	int bitrate = info.get(Kwave::INF_BITRATE_LOWER).toInt() / 1000;
 	bitrate_min = qBound(bitrate_min, bitrate, bitrate_nom);
 	OPTION_P(m_quality.m_bitrate.m_min, bitrate_min);
     }
-    if (info.contains(INF_BITRATE_UPPER)) {
-	int bitrate = info.get(INF_BITRATE_UPPER).toInt() / 1000;
+    if (info.contains(Kwave::INF_BITRATE_UPPER)) {
+	int bitrate = info.get(Kwave::INF_BITRATE_UPPER).toInt() / 1000;
 	bitrate_max = qBound(bitrate_nom, bitrate, bitrate_max);
 	OPTION_P(m_quality.m_bitrate.m_max, bitrate_max);
     }
-    //  INF_MPEG_LAYER,          /**< MPEG Layer, I/II/III */
-    //  INF_MPEG_MODEEXT,        /**< MPEG mode extension */
-    //  INF_MPEG_VERSION,        /**< MPEG version */
+    //  Kwave::INF_MPEG_LAYER,          /**< MPEG Layer, I/II/III */
+    //  Kwave::INF_MPEG_MODEEXT,        /**< MPEG mode extension */
+    //  Kwave::INF_MPEG_VERSION,        /**< MPEG version */
 
     /* MPEG emphasis mode */
-    if (info.contains(INF_MPEG_EMPHASIS)) {
-	int emphasis = info.get(INF_MPEG_EMPHASIS).toInt();
+    if (info.contains(Kwave::INF_MPEG_EMPHASIS)) {
+	int emphasis = info.get(Kwave::INF_MPEG_EMPHASIS).toInt();
 	switch (emphasis) {
 	    case  1:
 		OPTION(m_encoding.m_emphasis.m_50_15ms);   // 1 = 50/15ms
@@ -388,11 +388,11 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
     OPTION(m_encoding.m_noise_shaping); // noise shaping settings
     OPTION(m_encoding.m_compatibility); // compatibility options
 
-    if (info.contains(INF_COPYRIGHTED) && info.get(INF_COPYRIGHTED).toBool()) {
+    if (info.contains(Kwave::INF_COPYRIGHTED) && info.get(Kwave::INF_COPYRIGHTED).toBool()) {
 	OPTION(m_flags.m_copyright);     // copyrighted
     }
 
-    if (info.contains(INF_ORIGINAL) && !info.get(INF_ORIGINAL).toBool()) {
+    if (info.contains(Kwave::INF_ORIGINAL) && !info.get(Kwave::INF_ORIGINAL).toBool()) {
 	OPTION(m_flags.m_original);     // original
     }
 
@@ -451,7 +451,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, MultiTrackReader &src,
 	    // fill input buffer with samples
 	    for (x = 0; x < tracks; x++) {
 		in_samples[x] = 0;
-		SampleReader *stream = src[x];
+		Kwave::SampleReader *stream = src[x];
 		Q_ASSERT(stream);
 		if (!stream) continue;
 

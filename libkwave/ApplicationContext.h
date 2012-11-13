@@ -29,7 +29,8 @@ class QWidget;
 class KwaveApp;
 class TopWidget;
 
-namespace Kwave {
+namespace Kwave
+{
 
     class PluginManager;
     class SignalManager;
@@ -88,3 +89,6 @@ namespace Kwave {
 }
 
 #endif /* _KWAVE_APPLICATION_CONTEXT_H_ */
+
+//***************************************************************************
+//***************************************************************************

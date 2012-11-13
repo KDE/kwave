@@ -28,7 +28,7 @@
 
 class QWidget;
 
-class OggEncoder: public Encoder
+class OggEncoder: public Kwave::Encoder
 {
 public:
     /** Constructor */
@@ -38,7 +38,7 @@ public:
     virtual ~OggEncoder();
 
     /** Returns a new instance of the encoder */
-    virtual Encoder *instance();
+    virtual Kwave::Encoder *instance();
 
     /**
      * Encodes a signal into a stream of bytes.
@@ -49,17 +49,17 @@ public:
      * @param meta_data meta data of the file to save
      * @return true if succeeded, false on errors
      */
-    virtual bool encode(QWidget *widget, MultiTrackReader &src,
+    virtual bool encode(QWidget *widget, Kwave::MultiTrackReader &src,
                         QIODevice &dst,
                         const Kwave::MetaDataList &meta_data);
 
     /** Returns a list of supported file properties */
-    virtual QList<FileProperty> supportedProperties();
+    virtual QList<Kwave::FileProperty> supportedProperties();
 
 private:
 
     /** Encodes all file properties into a vorbis comment */
-    void encodeProperties(const FileInfo &info, vorbis_comment *vc);
+    void encodeProperties(const Kwave::FileInfo &info, vorbis_comment *vc);
 
 };
 

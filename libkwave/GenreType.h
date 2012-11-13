@@ -26,45 +26,52 @@
 #include <QString>
 #include <QStringList>
 
-class KDE_EXPORT GenreType
+namespace Kwave
 {
-private:
 
-    /** private constructor */
-    GenreType();
+    class KDE_EXPORT GenreType
+    {
+    private:
 
-public:
+	/** private constructor */
+	GenreType();
 
-    /** Destructor */
-    virtual ~GenreType() {}
+    public:
 
-    /**
-     * get the localized name from the id
-     * @param id the numeric id of the genre type
-     * @param localized if true, return a localized name, otherwise raw (en)
-     * @return name of the genre
-     */
-    static QString name(int id, bool localized);
+	/** Destructor */
+	virtual ~GenreType() {}
 
-    /** parse the numeric id from an ID3 tag */
-    static int fromID3(const QString &tag);
+	/**
+	 * get the localized name from the id
+	 * @param id the numeric id of the genre type
+	 * @param localized if true, return a localized name, otherwise raw (en)
+	 * @return name of the genre
+	 */
+	static QString name(int id, bool localized);
 
-    /** try to find the numeric id from the name */
-    static int id(const QString &name);
+	/** parse the numeric id from an ID3 tag */
+	static int fromID3(const QString &tag);
 
-    /** returns a list with all known genre types (localized) */
-    static QStringList allTypes();
+	/** try to find the numeric id from the name */
+	static int id(const QString &name);
 
-protected:
+	/** returns a list with all known genre types (localized) */
+	static QStringList allTypes();
 
-    /** fills the map if it is empty */
-    static void fill();
+    protected:
 
-private:
+	/** fills the map if it is empty */
+	static void fill();
 
-    /** map with numeric ids and names */
-    static QMap<int, const char*> m_map;
+    private:
 
-};
+	/** map with numeric ids and names */
+	static QMap<int, const char*> m_map;
+
+    };
+}
 
 #endif /* _GENRE_TYPE_H_ */
+
+//***************************************************************************
+//***************************************************************************

@@ -72,7 +72,7 @@ public:
      * @param average reference to smoothing information
      * @param window_size length of the sliding window for volume detection
      */
-    GetMaxPowerJob(SampleReader &reader, average_t &average,
+    GetMaxPowerJob(Kwave::SampleReader &reader, average_t &average,
                    unsigned int window_size);
 
     /** Destructor */
@@ -87,7 +87,7 @@ public:
 private:
 
     /** reference to the SampleReader */
-    SampleReader &m_reader;
+    Kwave::SampleReader &m_reader;
 
     /** reference to the smoothing information */
     average_t &m_average;
@@ -98,7 +98,8 @@ private:
 };
 
 //***************************************************************************
-GetMaxPowerJob::GetMaxPowerJob(SampleReader &reader, average_t &average,
+GetMaxPowerJob::GetMaxPowerJob(Kwave::SampleReader &reader,
+                               average_t &average,
                                unsigned int window_size)
     :ThreadWeaver::Job(), m_reader(reader), m_average(average),
      m_window_size(window_size)
@@ -158,7 +159,7 @@ void GetMaxPowerJob::run()
 //***************************************************************************
 //***************************************************************************
 
-NormalizePlugin::NormalizePlugin(const PluginContext &context)
+NormalizePlugin::NormalizePlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context)
 {
 }
@@ -182,7 +183,7 @@ void NormalizePlugin::run(QStringList params)
     if (!length || tracks.isEmpty()) return;
 
     // get the list of affected tracks
-    MultiTrackReader source(Kwave::SinglePassForward,
+    Kwave::MultiTrackReader source(Kwave::SinglePassForward,
 	signalManager(), tracks, first, last);
 
     // connect the progress dialog
@@ -196,7 +197,7 @@ void NormalizePlugin::run(QStringList params)
     double level = getMaxPower(source);
 //     qDebug("NormalizePlugin: level is %g", level);
 
-    Kwave::MultiTrackWriter sink(signalManager(), tracks, Overwrite,
+    Kwave::MultiTrackWriter sink(signalManager(), tracks, Kwave::Overwrite,
 	first, last);
     Kwave::MultiTrackSource<Kwave::Normalizer, true> normalizer(
 	tracks.count(), this);
@@ -234,11 +235,11 @@ void NormalizePlugin::run(QStringList params)
 }
 
 //***************************************************************************
-double NormalizePlugin::getMaxPower(MultiTrackReader &source)
+double NormalizePlugin::getMaxPower(Kwave::MultiTrackReader &source)
 {
     double maxpow = 0.0;
     const unsigned int tracks = source.tracks();
-    const double rate = FileInfo(signalManager().metaData()).rate();
+    const double rate = Kwave::FileInfo(signalManager().metaData()).rate();
     const unsigned int window_size = static_cast<unsigned int>(rate / 100);
     if (!window_size) return 0;
 
@@ -260,7 +261,7 @@ double NormalizePlugin::getMaxPower(MultiTrackReader &source)
 
 	weaver.suspend();
 	for (unsigned int t = 0; t < tracks; t++) {
-	    SampleReader *reader = source[t];
+	    Kwave::SampleReader *reader = source[t];
 	    if (!reader) continue;
 	    if (reader->eof()) continue;
 

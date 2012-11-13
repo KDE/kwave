@@ -787,7 +787,7 @@ void RecordDialog::setSupportedCompressions(const QList<int> &comps)
     if (!cbFormatCompression) return;
 
     cbFormatCompression->clear();
-    CompressionType types;
+    Kwave::CompressionType types;
 
     if (comps.isEmpty()) {
 	// no compressions -> add "none" manually
@@ -818,7 +818,7 @@ void RecordDialog::setCompression(int compression)
 	m_params.compression = compression;
     }
 
-    CompressionType types;
+    Kwave::CompressionType types;
     int index = types.findFromData(compression);
     cbFormatCompression->setCurrentItem(types.name(index), true);
 }
@@ -826,7 +826,7 @@ void RecordDialog::setCompression(int compression)
 //***************************************************************************
 void RecordDialog::compressionChanged(const QString &name)
 {
-    CompressionType types;
+    Kwave::CompressionType types;
     int index = types.findFromName(name);
     int compression = types.data(index);
     if (compression == m_params.compression) return;
@@ -907,15 +907,15 @@ void RecordDialog::bitsPerSampleChanged(int bits)
 
 //***************************************************************************
 void RecordDialog::setSupportedSampleFormats(
-    const QList<SampleFormat> &formats)
+    const QList<Kwave::SampleFormat> &formats)
 {
     Q_ASSERT(cbFormatSampleFormat);
     if (!cbFormatSampleFormat) return;
 
     cbFormatSampleFormat->clear();
-    SampleFormat::Map types;
+    Kwave::SampleFormat::Map types;
 
-    foreach (SampleFormat format, formats) {
+    foreach (Kwave::SampleFormat format, formats) {
 	int index = types.findFromData(format);
 	cbFormatSampleFormat->addItem(types.name(index));
     }
@@ -925,12 +925,12 @@ void RecordDialog::setSupportedSampleFormats(
 }
 
 //***************************************************************************
-void RecordDialog::setSampleFormat(SampleFormat sample_format)
+void RecordDialog::setSampleFormat(Kwave::SampleFormat sample_format)
 {
     Q_ASSERT(cbFormatSampleFormat);
     if (!cbFormatSampleFormat) return;
 
-    if (sample_format == SampleFormat::Unknown) {
+    if (sample_format == Kwave::SampleFormat::Unknown) {
 	cbFormatSampleFormat->setEnabled(false);
 	return;
     } else {
@@ -939,7 +939,7 @@ void RecordDialog::setSampleFormat(SampleFormat sample_format)
 	m_params.sample_format = sample_format;
     }
 
-    SampleFormat::Map types;
+    Kwave::SampleFormat::Map types;
     int index = types.findFromData(sample_format);
     cbFormatSampleFormat->setCurrentItem(
         (sample_format != -1) ? types.name(index) : "", true);
@@ -948,9 +948,9 @@ void RecordDialog::setSampleFormat(SampleFormat sample_format)
 //***************************************************************************
 void RecordDialog::sampleFormatChanged(const QString &name)
 {
-    SampleFormat::Map types;
+    Kwave::SampleFormat::Map types;
     int index = types.findFromName(name);
-    SampleFormat format = types.data(index);
+    Kwave::SampleFormat format = types.data(index);
     if (format == m_params.sample_format) return;
 
     emit sigSampleFormatChanged(format);

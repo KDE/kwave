@@ -456,74 +456,75 @@ double RecordOSS::sampleRate()
 
 //***************************************************************************
 void RecordOSS::format2mode(int format, int &compression, int &bits,
-                            SampleFormat &sample_format)
+                            Kwave::SampleFormat &sample_format)
 {
 
     switch (format) {
 	case AFMT_MU_LAW:
 	    compression   = AF_COMPRESSION_G711_ULAW;
-	    sample_format = SampleFormat::Signed;
+	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_A_LAW:
 	    compression   = AF_COMPRESSION_G711_ALAW;
-	    sample_format = SampleFormat::Unsigned;
+	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 16;
 	    break;
 	case AFMT_IMA_ADPCM:
 	    compression   = AF_COMPRESSION_MS_ADPCM;
-	    sample_format = SampleFormat::Signed;
+	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_U8:
 	    compression   = AF_COMPRESSION_NONE;
-	    sample_format = SampleFormat::Unsigned;
+	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 8;
 	    break;
 	case AFMT_S16_LE:
 	case AFMT_S16_BE:
 	    compression   = AF_COMPRESSION_NONE;
-	    sample_format = SampleFormat::Signed;
+	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_S8:
 	    compression   = AF_COMPRESSION_NONE;
-	    sample_format = SampleFormat::Signed;
+	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 8;
 	    break;
 	case AFMT_U16_LE:
 	case AFMT_U16_BE:
 	    compression   = AF_COMPRESSION_NONE;
-	    sample_format = SampleFormat::Unsigned;
+	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 16;
 	    break;
 	case AFMT_MPEG:
-	    compression   = static_cast<int>(CompressionType::MPEG_LAYER_II);
-	    sample_format = SampleFormat::Signed;
+	    compression   = static_cast<int>(
+	                    Kwave::CompressionType::MPEG_LAYER_II);
+	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 #if 0
 	case AFMT_AC3: /* Dolby Digital AC3 */
 	    compression   = AF_COMPRESSION_NONE;
-	    sample_format = SampleFormat::Unknown;
+	    sample_format = Kwave::SampleFormat::Unknown;
 	    bits          = 16;
 	    break;
 #endif
 	case AFMT_S24_LE:
 	case AFMT_S24_BE:
 	    compression   = AF_COMPRESSION_NONE;
-	    sample_format = SampleFormat::Signed;
+	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 24;
 	    break;
 	case AFMT_S32_LE:
 	case AFMT_S32_BE:
 	    compression   = AF_COMPRESSION_NONE;
-	    sample_format = SampleFormat::Signed;
+	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 32;
 	    break;
 	default:
 	    compression   = -1;
-	    sample_format = SampleFormat::Unknown;
+	    sample_format = Kwave::SampleFormat::Unknown;
 	    bits          = -1;
     }
 
@@ -531,19 +532,19 @@ void RecordOSS::format2mode(int format, int &compression, int &bits,
 
 //***************************************************************************
 int RecordOSS::mode2format(int compression, int bits,
-                           SampleFormat sample_format)
+                           Kwave::SampleFormat sample_format)
 {
     // first level: compression
     if (compression == AF_COMPRESSION_G711_ULAW) return AFMT_MU_LAW;
     if (compression == AF_COMPRESSION_G711_ALAW) return AFMT_A_LAW;
     if (compression == AF_COMPRESSION_MS_ADPCM)  return AFMT_IMA_ADPCM;
-    if (compression == static_cast<int>(CompressionType::MPEG_LAYER_II))
+    if (compression == static_cast<int>(Kwave::CompressionType::MPEG_LAYER_II))
 	return AFMT_MPEG;
 
     // non-compressed: switch by sample format
-    if ((sample_format == SampleFormat::Unsigned) && (bits == 8))
+    if ((sample_format == Kwave::SampleFormat::Unsigned) && (bits == 8))
 	return AFMT_U8;
-    if ((sample_format == SampleFormat::Signed) && (bits == 8))
+    if ((sample_format == Kwave::SampleFormat::Signed) && (bits == 8))
         return AFMT_S8;
 
     // get supported modes, maybe one endianness is not supported
@@ -553,7 +554,7 @@ int RecordOSS::mode2format(int compression, int bits,
 
     // unsigned 16 bit mode
     // note: we prefer the machine's native endianness if both are supported !
-    if ((sample_format == SampleFormat::Unsigned) && (bits == 16)) {
+    if ((sample_format == Kwave::SampleFormat::Unsigned) && (bits == 16)) {
 	mask &= (AFMT_U16_LE | AFMT_U16_BE);
 	if (mask != (AFMT_U16_LE | AFMT_U16_BE)) return mask;
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
@@ -564,7 +565,7 @@ int RecordOSS::mode2format(int compression, int bits,
     }
 
     // signed 16 bit mode
-    if ((sample_format == SampleFormat::Signed) && (bits == 16)) {
+    if ((sample_format == Kwave::SampleFormat::Signed) && (bits == 16)) {
 	mask &= (AFMT_S16_LE | AFMT_S16_BE);
 	if (mask != (AFMT_S16_LE | AFMT_S16_BE)) return mask;
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
@@ -574,7 +575,7 @@ int RecordOSS::mode2format(int compression, int bits,
 #endif
     }
 
-    if ((sample_format == SampleFormat::Signed) && (bits == 24)) {
+    if ((sample_format == Kwave::SampleFormat::Signed) && (bits == 24)) {
 	mask &= (AFMT_S24_LE | AFMT_S24_BE);
 	if (mask != (AFMT_S24_LE | AFMT_S24_BE)) return mask;
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
@@ -584,7 +585,7 @@ int RecordOSS::mode2format(int compression, int bits,
 #endif
     }
 
-    if ((sample_format == SampleFormat::Signed) && (bits == 32)) {
+    if ((sample_format == Kwave::SampleFormat::Signed) && (bits == 32)) {
 	mask &= (AFMT_S32_LE | AFMT_S32_BE);
 	if (mask != (AFMT_S32_LE | AFMT_S32_BE)) return mask;
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
@@ -611,7 +612,7 @@ QList<int> RecordOSS::detectCompressions()
     if (err < 0) return compressions;
 
     if (mask & AFMT_MPEG)
-        compressions += static_cast<int>(CompressionType::MPEG_LAYER_II);
+        compressions += static_cast<int>(Kwave::CompressionType::MPEG_LAYER_II);
     if (mask & AFMT_A_LAW)     compressions += AF_COMPRESSION_G711_ALAW;
     if (mask & AFMT_MU_LAW)    compressions += AF_COMPRESSION_G711_ULAW;
     if (mask & AFMT_IMA_ADPCM) compressions += AF_COMPRESSION_MS_ADPCM;
@@ -628,7 +629,7 @@ int RecordOSS::setCompression(int new_compression)
 {
     Q_ASSERT(m_fd >= 0);
     int compression, bits, format = AFMT_QUERY;
-    SampleFormat sample_format;
+    Kwave::SampleFormat sample_format;
 
     // read back current format
     int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
@@ -657,7 +658,7 @@ int RecordOSS::compression()
     if (err < 0) return AF_COMPRESSION_NONE;
 
     int c, b;
-    SampleFormat s;
+    Kwave::SampleFormat s;
     format2mode(mask, c, b, s);
     return c;
 }
@@ -681,7 +682,7 @@ QList<unsigned int> RecordOSS::supportedBits()
 
 	// format is supported, split into compression, bits, sample format
 	int c, b;
-	SampleFormat s;
+	Kwave::SampleFormat s;
 	format2mode(1 << bit, c, b, s);
 	if (b < 0) continue; // unknown -> skip
 
@@ -704,7 +705,7 @@ int RecordOSS::setBitsPerSample(unsigned int new_bits)
 {
     Q_ASSERT(m_fd >= 0);
     int compression, bits, format = AFMT_QUERY;
-    SampleFormat sample_format;
+    Kwave::SampleFormat sample_format;
 
     // read back current format
     int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
@@ -733,16 +734,16 @@ int RecordOSS::bitsPerSample()
     if (err < 0) return err;
 
     int c, b;
-    SampleFormat s;
+    Kwave::SampleFormat s;
     format2mode(mask, c, b, s);
     return b;
 }
 
 //***************************************************************************
-QList<SampleFormat> RecordOSS::detectSampleFormats()
+QList<Kwave::SampleFormat> RecordOSS::detectSampleFormats()
 {
     Q_ASSERT(m_fd >= 0);
-    QList<SampleFormat> formats;
+    QList<Kwave::SampleFormat> formats;
     formats.clear();
     int err = 0;
     int mask = AFMT_QUERY;
@@ -759,7 +760,7 @@ QList<SampleFormat> RecordOSS::detectSampleFormats()
 
 	// format is supported, split into compression, bits, sample format
 	int c, b;
-	SampleFormat s;
+	Kwave::SampleFormat s;
 	format2mode(1 << bit, c, b, s);
 	if (c < 0) continue; // unknown -> skip
 
@@ -773,11 +774,11 @@ QList<SampleFormat> RecordOSS::detectSampleFormats()
 }
 
 //***************************************************************************
-int RecordOSS::setSampleFormat(SampleFormat new_format)
+int RecordOSS::setSampleFormat(Kwave::SampleFormat new_format)
 {
     Q_ASSERT(m_fd >= 0);
     int compression, bits, format = AFMT_QUERY;
-    SampleFormat sample_format;
+    Kwave::SampleFormat sample_format;
 
     // read back current format
     int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
@@ -798,15 +799,15 @@ int RecordOSS::setSampleFormat(SampleFormat new_format)
 }
 
 //***************************************************************************
-SampleFormat RecordOSS::sampleFormat()
+Kwave::SampleFormat RecordOSS::sampleFormat()
 {
     Q_ASSERT(m_fd >= 0);
     int mask = AFMT_QUERY;
     int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &mask);
-    if (err < 0) return SampleFormat::Unknown;
+    if (err < 0) return Kwave::SampleFormat::Unknown;
 
     int c, b;
-    SampleFormat s;
+    Kwave::SampleFormat s;
     format2mode(mask, c, b, s);
     return s;
 }

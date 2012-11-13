@@ -82,7 +82,7 @@
 
 //***************************************************************************
 PlayBackOSS::PlayBackOSS()
-    :PlayBackDevice(),
+    :Kwave::PlayBackDevice(),
     m_device_name(),
     m_handle(-1),
     m_rate(0),
@@ -220,26 +220,26 @@ QString PlayBackOSS::open(const QString &device, double rate,
     switch (m_bits) {
 	case 8:
 	    m_encoder = new Kwave::SampleEncoderLinear(
-		SampleFormat::Unsigned, 8, LittleEndian);
+		Kwave::SampleFormat::Unsigned, 8, LittleEndian);
 	    break;
 	case 24:
 	    if (m_oss_version >= 0x040000) {
 		m_encoder = new Kwave::SampleEncoderLinear(
-		SampleFormat::Signed, 24, LittleEndian);
+		Kwave::SampleFormat::Signed, 24, LittleEndian);
 		break;
 	    } // else:
 	    /* FALLTHROUGH */
 	case 32:
 	    if (m_oss_version >= 0x040000) {
 		m_encoder = new Kwave::SampleEncoderLinear(
-		    SampleFormat::Signed, 32, LittleEndian);
+		    Kwave::SampleFormat::Signed, 32, LittleEndian);
 		break;
 	    }
 	    // else:
 	    /* FALLTHROUGH */
 	default:
 	    m_encoder = new Kwave::SampleEncoderLinear(
-		SampleFormat::Signed, 16, LittleEndian);
+		Kwave::SampleFormat::Signed, 16, LittleEndian);
 	    break;
     }
 
@@ -412,54 +412,55 @@ QString PlayBackOSS::fileFilter()
 
 //***************************************************************************
 void PlayBackOSS::format2mode(int format, int &compression,
-                              int &bits, SampleFormat &sample_format)
+                              int &bits, Kwave::SampleFormat &sample_format)
 {
     switch (format) {
 	case AFMT_MU_LAW:
 	    compression   = AF_COMPRESSION_G711_ULAW;
-	    sample_format = SampleFormat::Signed;
+	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_A_LAW:
 	    compression   = AF_COMPRESSION_G711_ALAW;
-	    sample_format = SampleFormat::Unsigned;
+	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 16;
 	    break;
 	case AFMT_IMA_ADPCM:
 	    compression   = AF_COMPRESSION_MS_ADPCM;
-	    sample_format = SampleFormat::Signed;
+	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_U8:
 	    compression   = AF_COMPRESSION_NONE;
-	    sample_format = SampleFormat::Unsigned;
+	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 8;
 	    break;
 	case AFMT_S16_LE:
 	case AFMT_S16_BE:
 	    compression   = AF_COMPRESSION_NONE;
-	    sample_format = SampleFormat::Signed;
+	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_S8:
 	    compression   = AF_COMPRESSION_NONE;
-	    sample_format = SampleFormat::Signed;
+	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 8;
 	    break;
 	case AFMT_U16_LE:
 	case AFMT_U16_BE:
 	    compression   = AF_COMPRESSION_NONE;
-	    sample_format = SampleFormat::Unsigned;
+	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 16;
 	    break;
 	case AFMT_MPEG:
-	    compression   = static_cast<int>(CompressionType::MPEG_LAYER_II);
-	    sample_format = SampleFormat::Signed;
+	    compression   = static_cast<int>(
+	                    Kwave::CompressionType::MPEG_LAYER_II);
+	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 #if 0
 	case AFMT_AC3: /* Dolby Digital AC3 */
-	    compression   = SampleFormat::Unknown;
+	    compression   = Kwave::SampleFormat::Unknown;
 	    sample_format = 0;
 	    bits          = 16;
 	    break;
@@ -468,7 +469,7 @@ void PlayBackOSS::format2mode(int format, int &compression,
 	case AFMT_S24_BE:
 	    if (m_oss_version >= 0x040000) {
 		compression   = AF_COMPRESSION_NONE;
-		sample_format = SampleFormat::Signed;
+		sample_format = Kwave::SampleFormat::Signed;
 		bits          = 24;
 		break;
 	    }
@@ -476,13 +477,13 @@ void PlayBackOSS::format2mode(int format, int &compression,
 	case AFMT_S32_BE:
 	    if (m_oss_version >= 0x040000) {
 		compression   = AF_COMPRESSION_NONE;
-		sample_format = SampleFormat::Signed;
+		sample_format = Kwave::SampleFormat::Signed;
 		bits          = 32;
 		break;
 	    }
 	default:
 	    compression   = -1;
-	    sample_format = SampleFormat::Unknown;
+	    sample_format = Kwave::SampleFormat::Unknown;
 	    bits          = -1;
     }
 
@@ -558,7 +559,7 @@ QList<unsigned int> PlayBackOSS::supportedBits(const QString &device)
 
 	// format is supported, split into compression, bits, sample format
 	int c, b;
-	SampleFormat s;
+	Kwave::SampleFormat s;
 	format2mode(1 << bit, c, b, s);
 	if (b < 0) continue; // unknown -> skip
 

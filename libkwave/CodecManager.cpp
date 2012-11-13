@@ -27,61 +27,61 @@
 
 //***************************************************************************
 /* static initializers */
-QList<Encoder *> CodecManager::m_encoders;
-QList<Decoder *> CodecManager::m_decoders;
+QList<Kwave::Encoder *> Kwave::CodecManager::m_encoders;
+QList<Kwave::Decoder *> Kwave::CodecManager::m_decoders;
 
 //***************************************************************************
 //***************************************************************************
-CodecManager::CodecManager()
+Kwave::CodecManager::CodecManager()
 {
 }
 
 //***************************************************************************
-CodecManager::~CodecManager()
+Kwave::CodecManager::~CodecManager()
 {
     Q_ASSERT(m_encoders.isEmpty());
     Q_ASSERT(m_decoders.isEmpty());
 }
 
 //***************************************************************************
-void CodecManager::registerEncoder(Encoder &encoder)
+void Kwave::CodecManager::registerEncoder(Kwave::Encoder &encoder)
 {
     if (m_encoders.contains(&encoder)) return; /* already known */
     m_encoders.append(&encoder);
 }
 
 //***************************************************************************
-void CodecManager::registerDecoder(Decoder &decoder)
+void Kwave::CodecManager::registerDecoder(Kwave::Decoder &decoder)
 {
     if (m_decoders.contains(&decoder)) return; /* already known */
     m_decoders.append(&decoder);
 }
 
 //***************************************************************************
-bool CodecManager::canDecode(const KMimeType &mimetype)
+bool Kwave::CodecManager::canDecode(const KMimeType &mimetype)
 {
-    foreach (Decoder *d, m_decoders)
+    foreach (Kwave::Decoder *d, m_decoders)
 	if (d && d->supports(mimetype)) return true;
     return false;
 }
 
 //***************************************************************************
-bool CodecManager::canDecode(const QString &mimetype_name)
+bool Kwave::CodecManager::canDecode(const QString &mimetype_name)
 {
-    foreach (Decoder *d, m_decoders)
+    foreach (Kwave::Decoder *d, m_decoders)
 	if (d && d->supports(mimetype_name)) return true;
     return false;
 }
 
 //***************************************************************************
-QString CodecManager::whatContains(const KUrl &url)
+QString Kwave::CodecManager::whatContains(const KUrl &url)
 {
-    foreach (Decoder *d, m_decoders) {
+    foreach (Kwave::Decoder *d, m_decoders) {
 	if (!d) continue;
 	QString mime_type = d->whatContains(url);
 	if (mime_type != KMimeType::defaultMimeType()) return mime_type;
     }
-    foreach (Encoder *e, m_encoders) {
+    foreach (Kwave::Encoder *e, m_encoders) {
 	if (!e) continue;
 	QString mime_type = e->whatContains(url);
 	if (mime_type != KMimeType::defaultMimeType()) return mime_type;
@@ -90,12 +90,12 @@ QString CodecManager::whatContains(const KUrl &url)
 }
 
 //***************************************************************************
-QStringList CodecManager::encodingMimeTypes()
+QStringList Kwave::CodecManager::encodingMimeTypes()
 {
     QStringList list;
-    foreach (Encoder *e, m_encoders) {
+    foreach (Kwave::Encoder *e, m_encoders) {
 	if (!e) continue;
-	foreach (const CodecBase::MimeType &mime_type, e->mimeTypes()) {
+	foreach (const Kwave::CodecBase::MimeType &mime_type, e->mimeTypes()) {
 	    QString name = mime_type.name;
 	    if (list.isEmpty() || !list.contains(name))
 		list.append(name);
@@ -105,49 +105,49 @@ QStringList CodecManager::encodingMimeTypes()
 }
 
 //***************************************************************************
-Decoder *CodecManager::decoder(const QString &mimetype_name)
+Kwave::Decoder *Kwave::CodecManager::decoder(const QString &mimetype_name)
 {
-    foreach (Decoder *d, m_decoders)
+    foreach (Kwave::Decoder *d, m_decoders)
 	if (d && d->supports(mimetype_name)) return d->instance();
     return 0;
 }
 
 //***************************************************************************
-Decoder *CodecManager::decoder(const KMimeType &mimetype)
+Kwave::Decoder *Kwave::CodecManager::decoder(const KMimeType &mimetype)
 {
     return decoder(mimetype.name());
 }
 
 //***************************************************************************
-Decoder *CodecManager::decoder(const QMimeData *mime_data)
+Kwave::Decoder *Kwave::CodecManager::decoder(const QMimeData *mime_data)
 {
     if (!mime_data) return 0;
 
     foreach (QString format, mime_data->formats()) {
-	Decoder *d = decoder(format);
+	Kwave::Decoder *d = decoder(format);
 	if (d) return d;
     }
     return 0;
 }
 
 //***************************************************************************
-Encoder *CodecManager::encoder(const QString &mimetype_name)
+Kwave::Encoder *Kwave::CodecManager::encoder(const QString &mimetype_name)
 {
-    foreach (Encoder *e, m_encoders)
+    foreach (Kwave::Encoder *e, m_encoders)
 	if (e && e->supports(mimetype_name)) return e->instance();
     return 0;
 }
 
 //***************************************************************************
-QString CodecManager::encodingFilter()
+QString Kwave::CodecManager::encodingFilter()
 {
     QStringList list;
-    foreach (Encoder *e, m_encoders) {
+    foreach (Kwave::Encoder *e, m_encoders) {
 	// loop over all mime types that the encoder supports
-	QList<CodecBase::MimeType> types = e->mimeTypes();
-	QListIterator<CodecBase::MimeType> ti(types);
+	QList<Kwave::CodecBase::MimeType> types = e->mimeTypes();
+	QListIterator<Kwave::CodecBase::MimeType> ti(types);
 	while (ti.hasNext()) {
-	    CodecBase::MimeType type = ti.next();
+	    Kwave::CodecBase::MimeType type = ti.next();
 	    QString extensions = type.patterns.join(" ");
 
 	    // skip if extensions are already known/present
@@ -172,17 +172,17 @@ QString CodecManager::encodingFilter()
 }
 
 //***************************************************************************
-QString CodecManager::decodingFilter()
+QString Kwave::CodecManager::decodingFilter()
 {
     QStringList list;
     QStringList all_extensions;
 
-    foreach (Decoder *d, m_decoders) {
+    foreach (Kwave::Decoder *d, m_decoders) {
 	// loop over all mime types that the decoder supports
-	QList<CodecBase::MimeType> types = d->mimeTypes();
-	QListIterator<CodecBase::MimeType> ti(types);
+	QList<Kwave::CodecBase::MimeType> types = d->mimeTypes();
+	QListIterator<Kwave::CodecBase::MimeType> ti(types);
 	while (ti.hasNext()) {
-	    CodecBase::MimeType type = ti.next();
+	    Kwave::CodecBase::MimeType type = ti.next();
 	    QString extensions = type.patterns.join(" ");
 
 	    // skip if extensions are already known/present
@@ -217,6 +217,7 @@ QString CodecManager::decodingFilter()
 }
 
 //***************************************************************************
+using namespace Kwave;
 #include "CodecManager.moc"
 //***************************************************************************
 //***************************************************************************

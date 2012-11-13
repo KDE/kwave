@@ -32,9 +32,10 @@
 #include "libgui/LabelItem.h"
 
 //***************************************************************************
-Kwave::LabelItem::LabelItem(unsigned int index, double ms, const Label &label)
+Kwave::LabelItem::LabelItem(unsigned int index, double ms,
+                            const Kwave::Label &label)
     :Kwave::ViewItem(),
-     m_index(index), m_pos(label.pos()), m_ms(ms), 
+     m_index(index), m_pos(label.pos()), m_ms(ms),
      m_description(label.name())
 {
 }
@@ -84,7 +85,7 @@ void Kwave::LabelItem::appendContextMenu(QMenu *parent)
 {
     Q_ASSERT(parent);
     if (!parent) return;
-    
+
     // locate the "label" menu
     QMenu *label_menu = 0;
     foreach (const QAction *action, parent->actions()) {

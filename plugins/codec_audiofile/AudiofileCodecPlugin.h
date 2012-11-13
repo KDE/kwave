@@ -21,7 +21,10 @@
 #include "config.h"
 #include "libkwave/Plugin.h"
 
-class Decoder;
+namespace Kwave
+{
+    class Decoder;
+}
 
 class AudiofileCodecPlugin: public Kwave::Plugin
 {
@@ -29,7 +32,7 @@ class AudiofileCodecPlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    AudiofileCodecPlugin(const PluginContext &c);
+    AudiofileCodecPlugin(const Kwave::PluginContext &c);
 
     /** Destructor */
     virtual ~AudiofileCodecPlugin();
@@ -48,7 +51,7 @@ public:
 private:
 
     /** decoder used as factory */
-    Decoder *m_decoder;
+    Kwave::Decoder *m_decoder;
 
 };
 

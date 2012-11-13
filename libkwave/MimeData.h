@@ -30,12 +30,11 @@
 
 class QWidget;
 
-class MultiTrackReader;
-class FileInfo;
-
-namespace Kwave {
+namespace Kwave
+{
 
     class MetaDataList;
+    class MultiTrackReader;
     class SignalManager;
 
     class KDE_EXPORT MimeData: public QMimeData
@@ -59,7 +58,7 @@ namespace Kwave {
 	     * @return true if successful
 	     */
 	    virtual bool encode(QWidget *widget,
-	                        MultiTrackReader &src,
+	                        Kwave::MultiTrackReader &src,
 	                        const Kwave::MetaDataList &meta_data);
 
 	    /**
@@ -88,3 +87,6 @@ namespace Kwave {
 }
 
 #endif /* _MIME_DATA_H_ */
+
+//***************************************************************************
+//***************************************************************************

@@ -32,11 +32,11 @@
 #include "libkwave/SampleArray.h"
 #include "libkwave/Stripe.h"
 
-class SampleReader;
-
 //***************************************************************************
-namespace Kwave {
+namespace Kwave
+{
 
+    class SampleReader;
     class TrackWriter;
     class Writer;
 
@@ -76,7 +76,7 @@ namespace Kwave {
 	 * @param right end of the input (only useful with overwrite mode)
 	 * @see InsertMode
 	 */
-	Kwave::Writer *openWriter(InsertMode mode,
+	Kwave::Writer *openWriter(Kwave::InsertMode mode,
 	                          sample_index_t left = 0,
 	                          sample_index_t right = 0);
 
@@ -87,9 +87,9 @@ namespace Kwave {
 	 * @param left first offset to be read (default = 0)
 	 * @param right last position to read (default = UINT_MAX)
 	 */
-	SampleReader *openSampleReader(Kwave::ReaderMode mode,
-	                               sample_index_t left = 0,
-	                               sample_index_t right = SAMPLE_INDEX_MAX);
+	Kwave::SampleReader *openSampleReader(Kwave::ReaderMode mode,
+	    sample_index_t left = 0,
+            sample_index_t right = SAMPLE_INDEX_MAX);
 
 	/**
 	 * Deletes a range of samples
@@ -244,7 +244,7 @@ namespace Kwave {
 	 * @param length number of samples to write
 	 * @return true if successful, false if failed (e.g. out of memory)
 	 */
-	bool writeSamples(InsertMode mode,
+	bool writeSamples(Kwave::InsertMode mode,
 	                  sample_index_t offset,
 	                  const Kwave::SampleArray &buffer,
 	                  unsigned int buf_offset,
@@ -283,3 +283,6 @@ namespace Kwave {
 }
 
 #endif /* _TRACK_H_ */
+
+//***************************************************************************
+//***************************************************************************

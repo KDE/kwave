@@ -31,7 +31,9 @@
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/SampleArray.h"
 
-namespace Kwave {
+namespace Kwave
+{
+
     class KDE_EXPORT MultiPlaybackSink
 	:public Kwave::MultiTrackSink<Kwave::PlaybackSink>
     {
@@ -42,7 +44,7 @@ namespace Kwave {
 	 * @param tracks number of tracks for playback
 	 * @param device a PlayBackDevice
 	 */
-	MultiPlaybackSink(unsigned int tracks, PlayBackDevice *device);
+	MultiPlaybackSink(unsigned int tracks, Kwave::PlayBackDevice *device);
 
 	/** Destructor */
 	virtual ~MultiPlaybackSink();
@@ -62,7 +64,7 @@ namespace Kwave {
 	unsigned int m_tracks;
 
 	/** device used for playback */
-	PlayBackDevice *m_device;
+	Kwave::PlayBackDevice *m_device;
 
 	/** list of input buffers */
 	QVector< Kwave::SampleArray > m_in_buffer;
@@ -80,3 +82,6 @@ namespace Kwave {
 }
 
 #endif /* _MULTI_PLAYBACK_SINK_H_ */
+
+//***************************************************************************
+//***************************************************************************

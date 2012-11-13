@@ -31,7 +31,7 @@
 #include "libkwave/TransmissionFunction.h"
 
 class NotchFilter: public Kwave::SampleSource,
-                   public TransmissionFunction
+                   public Kwave::TransmissionFunction
 {
     Q_OBJECT
 public:

@@ -28,7 +28,7 @@ class FileInfoPlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    FileInfoPlugin(const PluginContext &context);
+    FileInfoPlugin(const Kwave::PluginContext &context);
 
     /** virtual Destructor */
     virtual ~FileInfoPlugin();
@@ -42,7 +42,7 @@ public:
 protected:
 
     /** Applies the new settings */
-    void apply(FileInfo &new_info);
+    void apply(Kwave::FileInfo &new_info);
 
 };
 

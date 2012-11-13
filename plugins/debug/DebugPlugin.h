@@ -40,7 +40,7 @@ class DebugPlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    DebugPlugin(const PluginContext &c);
+    DebugPlugin(const Kwave::PluginContext &c);
 
     /** Destructor */
     virtual ~DebugPlugin();

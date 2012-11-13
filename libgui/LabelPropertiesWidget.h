@@ -29,7 +29,9 @@
 #include "libgui/ui_LabelPropertiesWidgetBase.h"
 #include "libkwave/Sample.h"
 
-class Label;
+namespace Kwave {
+    class Label;
+}
 
 class KDE_EXPORT LabelPropertiesWidget
     :public QDialog,

@@ -23,102 +23,108 @@
 
 class QString;
 
-/**
- * @class Filter
- * Holds a set of parameters for a digital IIR or FIR filter.
- *
- * @todo use KIONetAccess in the load/save methods
- * @todo more error checks in load/save (current code is too optimistic)
- */
-class Filter
+namespace Kwave
 {
-public:
-    /**
-     * Constructor, creates an empty filter with a given sample rate.
-     * @param rate number of samples per second
-     */
-    Filter(int rate);
 
     /**
-     * Constructor, creates a filter from a Kwave command string.
-     * @param command part of the Kwave command with parameters
+     * @class Filter
+     * Holds a set of parameters for a digital IIR or FIR filter.
+     *
+     * @todo use KIONetAccess in the load/save methods
+     * @todo more error checks in load/save (current code is too optimistic)
      */
-    Filter(const QString &command);
+    class Filter
+    {
+    public:
+	/**
+	 * Constructor, creates an empty filter with a given sample rate.
+	 * @param rate number of samples per second
+	 */
+	Filter(int rate);
 
-    /** Destructor */
-    virtual ~Filter();
+	/**
+	 * Constructor, creates a filter from a Kwave command string.
+	 * @param command part of the Kwave command with parameters
+	 */
+	Filter(const QString &command);
 
-    /**
-     * Returns the Kwave command string from the
-     * current parameters.
-     */
-    QString command();
+	/** Destructor */
+	virtual ~Filter();
 
-    /**
-     * Resizes the filter to a new number of coefficients.
-     * @param newnum new number of coefficients [1..]
-     * @return new number of coefficients or zero if failed
-     */
-    unsigned int resize(unsigned int newnum);
+	/**
+	 * Returns the Kwave command string from the
+	 * current parameters.
+	 */
+	QString command();
 
-    /** Returns true if the filter is a FIR one, or false else */
-    inline bool isFIR() { return m_fir; }
+	/**
+	 * Resizes the filter to a new number of coefficients.
+	 * @param newnum new number of coefficients [1..]
+	 * @return new number of coefficients or zero if failed
+	 */
+	unsigned int resize(unsigned int newnum);
 
-    /** Returns the sample rate in samples/second */
-    inline int rate() {	return m_rate; }
+	/** Returns true if the filter is a FIR one, or false else */
+	inline bool isFIR() { return m_fir; }
 
-    /**
-     * Returns the number of coefficients and
-     * delay times (order) of the filter.
-     */
-    unsigned int count();
+	/** Returns the sample rate in samples/second */
+	inline int rate() {	return m_rate; }
 
-    /**
-     * Returns a filter coefficient.
-     * @param index internal index [0...count-1]
-     */
-    double coeff(unsigned int index);
+	/**
+	 * Returns the number of coefficients and
+	 * delay times (order) of the filter.
+	 */
+	unsigned int count();
 
-    /**
-     * Sets a filter coefficient to a new value.
-     * @param index internal index [0...count-1]
-     * @param newval new coefficient
-     */
-    void setCoeff(unsigned int index, double newval);
+	/**
+	 * Returns a filter coefficient.
+	 * @param index internal index [0...count-1]
+	 */
+	double coeff(unsigned int index);
 
-    /**
-     * Returns a delay time of the filter.
-     * @param index internal index [0...count-1]
-     */
-    unsigned int delay(unsigned int index);
+	/**
+	 * Sets a filter coefficient to a new value.
+	 * @param index internal index [0...count-1]
+	 * @param newval new coefficient
+	 */
+	void setCoeff(unsigned int index, double newval);
 
-    /**
-     * Sets a delay value to a new value.
-     * @param index internal index [0...count-1]
-     * @param newval new delay value
-     */
-    void setDelay(unsigned int index, unsigned int newval);
+	/**
+	 * Returns a delay time of the filter.
+	 * @param index internal index [0...count-1]
+	 */
+	unsigned int delay(unsigned int index);
 
-    /** Loads the filter parameters from a URL */
-    void load(const QString &filename);
+	/**
+	 * Sets a delay value to a new value.
+	 * @param index internal index [0...count-1]
+	 * @param newval new delay value
+	 */
+	void setDelay(unsigned int index, unsigned int newval);
 
-    /** Saves the filter parameters to a URL */
-    void save(const QString &filename);
+	/** Loads the filter parameters from a URL */
+	void load(const QString &filename);
 
-private:
-    /** boolean if filter is FIR or IIR */
-    bool m_fir;
+	/** Saves the filter parameters to a URL */
+	void save(const QString &filename);
 
-    /** sample rate in samples/second */
-    unsigned int m_rate;
+    private:
 
-    /** array of coefficients */
-    QVector<double> m_coeff;
+	/** boolean if filter is FIR or IIR */
+	bool m_fir;
 
-    /** array of delay times */
-    QVector<int> m_delay;
+	/** sample rate in samples/second */
+	unsigned int m_rate;
 
-};
+	/** array of coefficients */
+	QVector<double> m_coeff;
+
+	/** array of delay times */
+	QVector<int> m_delay;
+
+    };
+
+}
 
 #endif /* _FILTER_H_ */
 

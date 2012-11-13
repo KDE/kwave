@@ -96,7 +96,7 @@ bool MenuItem::specialCommand(const QString &command)
     }
 
     if (command.startsWith("#exclusive(")) {
-	Parser parser(command);
+	Kwave::Parser parser(command);
 
 	// join to a list of groups
 	QString group = parser.firstParam();

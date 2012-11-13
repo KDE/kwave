@@ -19,13 +19,12 @@
 #include <math.h>
 #include <klocale.h>
 
-#include "libkwave/TypesMap.h"
 #include "libkwave/WindowFunction.h"
 
 //***************************************************************************
 //***************************************************************************
 
-void WindowFunction::InitializedTypesMap::fill()
+void Kwave::WindowFunction::InitializedTypesMap::fill()
 {
     append(WINDOW_FUNC_NONE,       WINDOW_FUNC_NONE,
            "none", "None");
@@ -38,36 +37,31 @@ void WindowFunction::InitializedTypesMap::fill()
     append(WINDOW_FUNC_TRIANGULAR, WINDOW_FUNC_TRIANGULAR,
         "triangular", "Triangular");
 
-#undef NEVER_COMPILE_THIS
-#ifdef NEVER_COMPILE_THIS
-#error "this could produce problems in plugins and/or libs when \
-        loaded before the main application is up."
-    i18n("None");
-    i18n("Hamming");
-    i18n("Hanning");
-    i18n("Blackman");
-    i18n("Triangular");
-#endif
+    (void)I18N_NOOP("None");
+    (void)I18N_NOOP("Hamming");
+    (void)I18N_NOOP("Hanning");
+    (void)I18N_NOOP("Blackman");
+    (void)I18N_NOOP("Triangular");
 }
 
 //***************************************************************************
 // static initializer
-WindowFunction::InitializedTypesMap WindowFunction::m_types_map;
+Kwave::WindowFunction::InitializedTypesMap Kwave::WindowFunction::m_types_map;
 
 //***************************************************************************
 //***************************************************************************
-WindowFunction::WindowFunction(window_function_t type)
+Kwave::WindowFunction::WindowFunction(Kwave::window_function_t type)
     :m_type(type)
 {
 }
 
 //***************************************************************************
-WindowFunction::~WindowFunction()
+Kwave::WindowFunction::~WindowFunction()
 {
 }
 
 //***************************************************************************
-QVector<double> WindowFunction::points(unsigned int len) const
+QVector<double> Kwave::WindowFunction::points(unsigned int len) const
 {
     QVector<double> out(len);
     Q_ASSERT(out.count() == static_cast<int>(len));

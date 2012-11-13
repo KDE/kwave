@@ -31,7 +31,7 @@ static unsigned int g_instances = 0;
 #define BLOCK_SIZE (4 << 20)
 
 //***************************************************************************
-SwapFile::SwapFile(const QString &name)
+Kwave::SwapFile::SwapFile(const QString &name)
     :m_file(name), m_address(0), m_size(0), m_pagesize(0), m_map_count(0)
 {
     // determine the system's native page size
@@ -52,7 +52,7 @@ SwapFile::SwapFile(const QString &name)
 }
 
 //***************************************************************************
-SwapFile::~SwapFile()
+Kwave::SwapFile::~SwapFile()
 {
     close();
     g_instances--;
@@ -69,7 +69,7 @@ static inline unsigned int round_up(unsigned int size, unsigned int units)
 }
 
 //***************************************************************************
-bool SwapFile::allocate(size_t size)
+bool Kwave::SwapFile::allocate(size_t size)
 {
     Q_ASSERT(!m_address); // MUST NOT be mapped !
     if (m_address) return false;
@@ -127,7 +127,7 @@ bool SwapFile::allocate(size_t size)
 }
 
 //***************************************************************************
-bool SwapFile::resize(size_t size)
+bool Kwave::SwapFile::resize(size_t size)
 {
     Q_ASSERT(!m_address); // MUST NOT be mappped !
     Q_ASSERT(!m_map_count);
@@ -199,7 +199,7 @@ bool SwapFile::resize(size_t size)
 }
 
 //***************************************************************************
-void SwapFile::close()
+void Kwave::SwapFile::close()
 {
     Q_ASSERT(!m_map_count);
     if (m_address) m_file.unmap(static_cast<uchar *>(m_address));
@@ -219,7 +219,7 @@ void SwapFile::close()
 }
 
 //***************************************************************************
-void *SwapFile::map()
+void *Kwave::SwapFile::map()
 {
 //  qDebug("    SwapFile::map() - m_size=%u", m_size);
 
@@ -249,7 +249,7 @@ void *SwapFile::map()
 }
 
 //***************************************************************************
-int SwapFile::unmap()
+int Kwave::SwapFile::unmap()
 {
     Q_ASSERT(m_address);
     Q_ASSERT(m_size);
@@ -273,7 +273,8 @@ int SwapFile::unmap()
 }
 
 //***************************************************************************
-int SwapFile::read(unsigned int offset, void *buffer, unsigned int length)
+int Kwave::SwapFile::read(unsigned int offset, void *buffer,
+                          unsigned int length)
 {
     // seek to the given offset
     if (!m_file.seek(offset)) return -1;
@@ -284,8 +285,8 @@ int SwapFile::read(unsigned int offset, void *buffer, unsigned int length)
 }
 
 //***************************************************************************
-int SwapFile::write(unsigned int offset, const void *buffer,
-                    unsigned int length)
+int Kwave::SwapFile::write(unsigned int offset, const void *buffer,
+                           unsigned int length)
 {
     // seek to the given offset
     if (!m_file.seek(offset)) return -1;

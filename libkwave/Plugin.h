@@ -33,37 +33,41 @@
 #include "libkwave/PluginContext.h"
 #include "libkwave/Sample.h"
 
-class ConfirmCancelProxy;
-class FileInfo;
-class MultiTrackReader;
-class SampleReader;
-class TopWidget;
 class QStringList;
 class QProgressDialog;
 
-#define KWAVE_PLUGIN(__class__,__name__,__version__,                         \
-                     __description__,__author__)                             \
-                                                                             \
-    extern "C" Kwave::Plugin *load(const PluginContext *c) KDE_EXPORT;       \
-    extern "C" const char    *name                         KDE_EXPORT;       \
-    extern "C" const char    *version                      KDE_EXPORT;       \
-    extern "C" const char    *description                  KDE_EXPORT;       \
-    extern "C" const char    *author                       KDE_EXPORT;       \
-                                                                             \
-    extern "C" Kwave::Plugin *load(const PluginContext *c) {                 \
-	__class__ *np = (c) ? new __class__(*c) : 0;                         \
-	return np;                                                           \
-    }                                                                        \
-                                                                             \
-    const char *name        = __name__;                                      \
-    const char *version     = __version__;                                   \
-    const char *description = __description__;                               \
+namespace Kwave
+{
+    class ConfirmCancelProxy;
+}
+
+class TopWidget;
+
+#define KWAVE_PLUGIN(__class__,__name__,__version__,                          \
+                     __description__,__author__)                              \
+                                                                              \
+    extern "C" Kwave::Plugin *load(const Kwave::PluginContext *c) KDE_EXPORT; \
+    extern "C" const char    *name                         KDE_EXPORT;        \
+    extern "C" const char    *version                      KDE_EXPORT;        \
+    extern "C" const char    *description                  KDE_EXPORT;        \
+    extern "C" const char    *author                       KDE_EXPORT;        \
+                                                                              \
+    extern "C" Kwave::Plugin *load(const Kwave::PluginContext *c) {           \
+	__class__ *np = (c) ? new __class__(*c) : 0;                          \
+	return np;                                                            \
+    }                                                                         \
+                                                                              \
+    const char *name        = __name__;                                       \
+    const char *version     = __version__;                                    \
+    const char *description = __description__;                                \
     const char *author      = __author__
 
-namespace Kwave {
+namespace Kwave
+{
 
     class PluginWorkerThread;
     class PluginManager;
+    class SampleReader;
     class SignalManager;
 
     /**
@@ -81,7 +85,7 @@ namespace Kwave {
 	/**
 	 * Constructor
 	 */
-	Plugin(const PluginContext &c);
+	Plugin(const Kwave::PluginContext &c);
 
 	/**
 	 * Destructor.
@@ -359,7 +363,7 @@ namespace Kwave {
 	 * the main program.
 	 * @deprecated, should be eliminated soon!
 	 */
-	PluginContext m_context;
+	Kwave::PluginContext m_context;
 
 	/**
 	 * Thread that executes the run() member function.
@@ -382,7 +386,7 @@ namespace Kwave {
 	 * proxy dialog that asks for configmation if the user
 	 * pressed cancel in the progress dialog
 	 */
-	ConfirmCancelProxy *m_confirm_cancel;
+	Kwave::ConfirmCancelProxy *m_confirm_cancel;
 
 	/** Usage counter */
 	unsigned int m_usage_count;
@@ -405,4 +409,5 @@ namespace Kwave {
 
 #endif /* _PLUGIN_H_ */
 
-// end of Plugin.h
+//***************************************************************************
+//***************************************************************************

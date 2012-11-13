@@ -25,7 +25,7 @@
 #include "libkwave/Plugin.h"
 
 class QStringlist;
-class PluginContext;
+namespace Kwave { class PluginContext; }
 
 /**
  * @class MemoryPlugin
@@ -38,7 +38,7 @@ class MemoryPlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    MemoryPlugin(const PluginContext &c);
+    MemoryPlugin(const Kwave::PluginContext &c);
 
     /** Destructor */
     virtual ~MemoryPlugin();

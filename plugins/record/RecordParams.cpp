@@ -35,7 +35,7 @@ RecordParams::RecordParams()
     sample_rate(44100.0),
     compression(0),
     bits_per_sample(16),
-    sample_format(SampleFormat::Unknown),
+    sample_format(Kwave::SampleFormat::Unknown),
     buffer_count(32),
     buffer_size(13), /* (1 << 13) == 8192 bytes */
     display_level_meter(true),

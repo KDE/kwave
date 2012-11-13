@@ -27,7 +27,8 @@
 
 #include "libkwave/Writer.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     class SampleArray;
     class Track;
@@ -78,3 +79,6 @@ namespace Kwave {
 }
 
 #endif /* _STREAM_WRITER_H_ */
+
+//***************************************************************************
+//***************************************************************************

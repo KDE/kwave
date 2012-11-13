@@ -27,7 +27,8 @@
 #include "libkwave/modules/StreamObject.h"
 
 //***************************************************************************
-namespace Kwave {
+namespace Kwave
+{
 
     class Indexer :public Kwave::StreamObject
     {

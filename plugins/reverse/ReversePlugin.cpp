@@ -54,7 +54,7 @@ public:
     ReverseJob(
 	Kwave::SignalManager &manager, unsigned int track,
 	sample_index_t first, sample_index_t last, unsigned int block_size,
-	SampleReader *src_a, SampleReader *src_b
+	Kwave::SampleReader *src_a, Kwave::SampleReader *src_b
     );
 
     /** Destructor */
@@ -89,10 +89,10 @@ private:
     unsigned int m_block_size;
 
     /** reader for start of signal */
-    SampleReader *m_src_a;
+    Kwave::SampleReader *m_src_a;
 
     /** reader for end of signal */
-    SampleReader *m_src_b;
+    Kwave::SampleReader *m_src_b;
 
 };
 
@@ -100,7 +100,7 @@ private:
 ReverseJob::ReverseJob(
     Kwave::SignalManager &manager, unsigned int track,
     sample_index_t first, sample_index_t last, unsigned int block_size,
-    SampleReader *src_a, SampleReader *src_b)
+    Kwave::SampleReader *src_a, Kwave::SampleReader *src_b)
     :ThreadWeaver::Job(),
      m_manager(manager), m_track(track),
      m_first(first), m_last(last), m_block_size(block_size),
@@ -159,7 +159,7 @@ void ReverseJob::run()
 
 	// write back buffer from the end at the start
 	Kwave::Writer *dst_a = m_manager.openWriter(
-	    m_track, Overwrite,
+	    m_track, Kwave::Overwrite,
 	    start_a, start_a + m_block_size - 1);
 	Q_ASSERT(dst_a);
 	if (!dst_a) return;
@@ -169,7 +169,7 @@ void ReverseJob::run()
 
 	// write back buffer from the start at the end
 	Kwave::Writer *dst_b = m_manager.openWriter(
-	    m_track, Overwrite,
+	    m_track, Kwave::Overwrite,
 	    start_b, start_b + m_block_size - 1);
 	Q_ASSERT(dst_b);
 	if (!dst_b) return;
@@ -188,7 +188,7 @@ void ReverseJob::run()
 
 	// write back
 	Kwave::Writer *dst = m_manager.openWriter(
-	    m_track, Overwrite, m_first, m_last);
+	    m_track, Kwave::Overwrite, m_first, m_last);
 	if (!dst) return;
 	(*dst) << buffer << flush;
 	delete dst;
@@ -198,7 +198,7 @@ void ReverseJob::run()
 
 //***************************************************************************
 //***************************************************************************
-ReversePlugin::ReversePlugin(const PluginContext &context)
+ReversePlugin::ReversePlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context)
 {
 }
@@ -234,9 +234,9 @@ void ReversePlugin::run(QStringList params)
 	undo->store(signalManager());
     }
 
-    MultiTrackReader source_a(Kwave::SinglePassForward,
+    Kwave::MultiTrackReader source_a(Kwave::SinglePassForward,
 	signalManager(), tracks, first, last);
-    MultiTrackReader source_b(Kwave::SinglePassReverse,
+    Kwave::MultiTrackReader source_b(Kwave::SinglePassReverse,
 	signalManager(), tracks, first, last);
 
     // break if aborted

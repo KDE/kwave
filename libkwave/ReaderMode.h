@@ -18,7 +18,8 @@
 #ifndef _READER_MODE_H_
 #define _READER_MODE_H_
 
-namespace Kwave {
+namespace Kwave
+{
 
     /**
      * operation modes for Kwave's SampleReader
@@ -50,3 +51,6 @@ namespace Kwave {
 }
 
 #endif /* _READER_MODE_H_ */
+
+//***************************************************************************
+//***************************************************************************

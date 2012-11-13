@@ -18,19 +18,19 @@
 #include "CompressionType.h"
 
 //***************************************************************************
-CompressionType::CompressionType()
-    :TypesMap<int,int>()
+Kwave::CompressionType::CompressionType()
+    :Kwave::TypesMap<int,int>()
 {
     fill();
 }
 
 //***************************************************************************
-CompressionType::~CompressionType()
+Kwave::CompressionType::~CompressionType()
 {
 }
 
 //***************************************************************************
-void CompressionType::fill()
+void Kwave::CompressionType::fill()
 {
     int i=0;
 

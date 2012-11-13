@@ -27,7 +27,8 @@
 #include "libkwave/Track.h"
 #include "libkwave/undo/UndoAction.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     class Signal;
 
@@ -84,3 +85,6 @@ namespace Kwave {
 }
 
 #endif /* _UNDO_DELETE_TRACK_H_ */
+
+//***************************************************************************
+//***************************************************************************

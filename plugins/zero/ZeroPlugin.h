@@ -40,7 +40,7 @@ class ZeroPlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    ZeroPlugin(const PluginContext &c);
+    ZeroPlugin(const Kwave::PluginContext &c);
 
     /** Destructor */
     virtual ~ZeroPlugin();

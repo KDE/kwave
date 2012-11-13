@@ -33,7 +33,8 @@
 #include "libkwave/modules/SampleBuffer.h"
 
 //***************************************************************************
-namespace Kwave {
+namespace Kwave
+{
 
     class MixerMatrix;
 

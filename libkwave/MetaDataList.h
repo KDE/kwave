@@ -28,11 +28,11 @@
 
 #include <kdemacros.h>
 
-#include "libkwave/FileInfo.h"
 #include "libkwave/MetaData.h"
 #include "libkwave/Sample.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     class KDE_EXPORT MetaDataList: public QMap<QString, MetaData>
     {
@@ -48,9 +48,9 @@ namespace Kwave {
 	MetaDataList();
 
 	/**
-	 * Constructor, creates a meta data list with only one single meta 
+	 * Constructor, creates a meta data list with only one single meta
 	 * data item. In some cases you need to pass a meta data list to a
-	 * function but you have only a single meta data item, so this might 
+	 * function but you have only a single meta data item, so this might
 	 * be quite handy
 	 * @param meta const reference to a single meta data item
 	 */
@@ -60,10 +60,10 @@ namespace Kwave {
 	virtual ~MetaDataList();
 
 	/**
-	 * Create a simple list of meta data items, sorted by the position 
-	 * of the first sample. All meta data items that do not correspond 
+	 * Create a simple list of meta data items, sorted by the position
+	 * of the first sample. All meta data items that do not correspond
 	 * to a position or a "first" sample are mapped to the start (zero).
-	 * @return a QList of meta data, sorted by position 
+	 * @return a QList of meta data, sorted by position
 	 */
 	virtual QList<Kwave::MetaData> toSortedList() const;
 
@@ -91,7 +91,8 @@ namespace Kwave {
 	 * @param tracks list of track indices to select
 	 * @return list with found meta data objects
 	 */
-	virtual MetaDataList selectByTracks(const QList<unsigned int> &tracks) const;
+	virtual MetaDataList selectByTracks(
+	    const QList<unsigned int> &tracks) const;
 
 	/**
 	 * select elements from the meta data list that overlap a given
@@ -148,7 +149,7 @@ namespace Kwave {
 	 * of the objects in the passed list with newer versions. If an
 	 * object did not exist, it will be created. If an object is not
 	 * in the passed list, it will be deleted.
-	 * 
+	 *
 	 * @param list listof meta data objects that should be replaced
 	 * @note affects only objects with a type that was found in the
 	 *       passed list
@@ -288,9 +289,9 @@ namespace Kwave {
 	);
 
 	/**
-	 * makes place for a new track by adjusting the track indices of all 
+	 * makes place for a new track by adjusting the track indices of all
 	 * meta data items after that track by plus one
-	 * 
+	 *
 	 * @param track index of the track that is inserted
 	 */
 	virtual void insertTrack(unsigned int track);
@@ -299,7 +300,7 @@ namespace Kwave {
 	 * delete all meta data that was bound to a specific track and
 	 * adjust the track indices of all meta data items after that
 	 * track by minus one
-	 * 
+	 *
 	 * @param track index of the track that is to be deleted
 	 */
 	virtual void deleteTrack(unsigned int track);
@@ -324,3 +325,6 @@ namespace Kwave {
 }
 
 #endif /* _META_DATA_LIST_H_ */
+
+//***************************************************************************
+//***************************************************************************

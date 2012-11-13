@@ -32,7 +32,7 @@ KWAVE_PLUGIN(MemoryPlugin, "memory", "2.1",
              I18N_NOOP("Memory Settings"), "Thomas Eschenbacher");
 
 //***************************************************************************
-MemoryPlugin::MemoryPlugin(const PluginContext &c)
+MemoryPlugin::MemoryPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_physical_limited(true), m_physical_limit(256),
      m_virtual_enabled(true), m_virtual_limited(false), m_virtual_limit(512),
      m_virtual_directory("/var/tmp"), m_undo_limit(256)

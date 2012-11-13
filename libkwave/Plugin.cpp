@@ -33,9 +33,7 @@
 
 #include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/Plugin.h"
-#include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
-#include "libkwave/SampleReader.h"
 #include "libkwave/PluginContext.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/PluginWorkerThread.h"
@@ -68,7 +66,7 @@
  */
 
 //***************************************************************************
-Kwave::Plugin::Plugin(const PluginContext &c)
+Kwave::Plugin::Plugin(const Kwave::PluginContext &c)
     :m_context(c),
      m_thread(0),
      m_thread_lock(),
@@ -183,7 +181,7 @@ int Kwave::Plugin::start(QStringList &)
 
 	// use a "proxy" that asks for confirmation of cancel
 	if (!m_confirm_cancel) {
-	    m_confirm_cancel = new ConfirmCancelProxy(m_progress,
+	    m_confirm_cancel = new Kwave::ConfirmCancelProxy(m_progress,
 		0, 0, this, SLOT(cancel()));
 	    Q_ASSERT(m_confirm_cancel);
 	}

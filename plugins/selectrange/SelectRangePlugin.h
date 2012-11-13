@@ -36,7 +36,7 @@ class SelectRangePlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    SelectRangePlugin(const PluginContext &context);
+    SelectRangePlugin(const Kwave::PluginContext &context);
 
     /** Destructor */
     virtual ~SelectRangePlugin();

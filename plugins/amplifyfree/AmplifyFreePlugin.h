@@ -35,7 +35,7 @@ class AmplifyFreePlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    AmplifyFreePlugin(const PluginContext &context);
+    AmplifyFreePlugin(const Kwave::PluginContext &context);
 
     /** Destructor */
     virtual ~AmplifyFreePlugin();
@@ -76,7 +76,7 @@ private:
     QStringList m_params;
 
     /** curve used for interpolation */
-    Curve m_curve;
+    Kwave::Curve m_curve;
 
 };
 

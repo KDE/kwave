@@ -52,7 +52,7 @@ void FrequencyResponseWidget::init(double freq, int db_min, int db_max)
 }
 
 //***************************************************************************
-void FrequencyResponseWidget::setFilter(TransmissionFunction *func)
+void FrequencyResponseWidget::setFilter(Kwave::TransmissionFunction *func)
 {
     m_function = func;
     repaint();

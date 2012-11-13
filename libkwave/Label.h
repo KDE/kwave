@@ -27,61 +27,68 @@
 #include "libkwave/MetaData.h"
 #include "libkwave/Sample.h"
 
-class KDE_EXPORT Label: public Kwave::MetaData
+namespace Kwave
 {
-public:
 
-    /** Default constructor, creates an empty label */
-    Label();
+    class KDE_EXPORT Label: public Kwave::MetaData
+    {
+    public:
 
-    /**
-     * Constructor, takes over the identity of a MetaData object
-     * @param meta_data reference to a meta data object
-     */
-    Label(const Kwave::MetaData &meta_data);
+	/** Default constructor, creates an empty label */
+	Label();
 
-    /**
-     * Constructor
-     *
-     * @param position the label position [samples]
-     * @param name the name of the label, user defined
-     */
-    Label(sample_index_t position, const QString &name);
+	/**
+	 * Constructor, takes over the identity of a MetaData object
+	 * @param meta_data reference to a meta data object
+	 */
+	Label(const Kwave::MetaData &meta_data);
 
-    /** destructor */
-    virtual ~Label();
+	/**
+	 * Constructor
+	 *
+	 * @param position the label position [samples]
+	 * @param name the name of the label, user defined
+	 */
+	Label(sample_index_t position, const QString &name);
 
-    /** returns the identifier of the "type" of this meta data object */
-    static QString metaDataType() { return I18N_NOOP("Label"); };
+	/** destructor */
+	virtual ~Label();
 
-    /**
-     * Set a new position of the label
-     * @param position the new position [samples]
-     */
-    virtual void moveTo(sample_index_t position);
+	/** returns the identifier of the "type" of this meta data object */
+	static QString metaDataType() { return I18N_NOOP("Label"); };
 
-    /** Returns the label's position [samples] */
-    virtual sample_index_t pos() const;
+	/**
+	 * Set a new position of the label
+	 * @param position the new position [samples]
+	 */
+	virtual void moveTo(sample_index_t position);
 
-    /**
-     * change the name of the label
-     * @param name the new name, user defined
-     */
-    virtual void rename(const QString &name);
+	/** Returns the label's position [samples] */
+	virtual sample_index_t pos() const;
 
-    /** returns the name of the string */
-    virtual QString name() const;
+	/**
+	 * change the name of the label
+	 * @param name the new name, user defined
+	 */
+	virtual void rename(const QString &name);
 
-    /** less-than operator, needed for sorting the list */
-    inline bool operator < (const Label &other) const {
-	return (pos() < other.pos());
-    }
+	/** returns the name of the string */
+	virtual QString name() const;
 
-    /** equal operator */
-    inline bool operator == (const Label &other) const {
-	return ((pos() == other.pos()) && (name() == other.name()));
-    }
+	/** less-than operator, needed for sorting the list */
+	inline bool operator < (const Kwave::Label &other) const {
+	    return (pos() < other.pos());
+	}
 
-};
+	/** equal operator */
+	inline bool operator == (const Kwave::Label &other) const {
+	    return ((pos() == other.pos()) && (name() == other.name()));
+	}
+
+    };
+}
 
 #endif /* _LABEL_H_ */
+
+//***************************************************************************
+//***************************************************************************

@@ -30,7 +30,7 @@ KWAVE_PLUGIN(NotchFilterPlugin, "notch_filter", "2.1",
              I18N_NOOP("Notch Filter"), "Dave Flogeras");
 
 //***************************************************************************
-NotchFilterPlugin::NotchFilterPlugin(const PluginContext &context)
+NotchFilterPlugin::NotchFilterPlugin(const Kwave::PluginContext &context)
     :Kwave::FilterPlugin(context),
      m_frequency(3500.0), m_last_freq(100), m_bw(100), m_last_bw(200)
 {
@@ -64,7 +64,7 @@ int NotchFilterPlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-KwavePluginSetupDialog *NotchFilterPlugin::createDialog(QWidget *parent)
+Kwave::PluginSetupDialog *NotchFilterPlugin::createDialog(QWidget *parent)
 {
     NotchFilterDialog *dialog = new NotchFilterDialog(parent, signalRate());
     Q_ASSERT(dialog);

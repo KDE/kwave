@@ -25,7 +25,8 @@
 
 #include "libkwave/undo/UndoAction.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     class Signal;
 

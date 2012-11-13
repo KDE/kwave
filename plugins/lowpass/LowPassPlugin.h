@@ -39,13 +39,13 @@ class LowPassPlugin: public Kwave::FilterPlugin
 public:
 
     /** Constructor */
-    LowPassPlugin(const PluginContext &context);
+    LowPassPlugin(const Kwave::PluginContext &context);
 
     /** Destructor */
     virtual ~LowPassPlugin();
 
     /** Creates the setup dialog and connects it's signals */
-    virtual KwavePluginSetupDialog *createDialog(QWidget *parent);
+    virtual Kwave::PluginSetupDialog *createDialog(QWidget *parent);
 
     /**
      * Creates a multi-track filter with the given number of tracks

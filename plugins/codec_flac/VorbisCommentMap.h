@@ -25,7 +25,7 @@ VorbisCommentMap.h  -  map for translating properties to vorbis comments
 
 #include "libkwave/FileInfo.h"
 
-class VorbisCommentMap: public QMap<QString, FileProperty>
+class VorbisCommentMap: public QMap<QString, Kwave::FileProperty>
 {
 public:
     /** Default constructor, with initializing */
@@ -38,10 +38,10 @@ public:
      * Returns the vorbis comment name of a property or an empty string
      * if nothing found (reverse lookup).
      */
-    QString findProperty(const FileProperty property);
+    QString findProperty(const Kwave::FileProperty property);
 
     /** Returns true if the map contains a given property */
-    bool containsProperty(const FileProperty property);
+    bool containsProperty(const Kwave::FileProperty property);
 
 };
 

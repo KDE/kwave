@@ -56,7 +56,7 @@ public slots:
     void setPoints(int points);
 
     /** selects a window function */
-    void setWindowFunction(window_function_t type);
+    void setWindowFunction(Kwave::window_function_t type);
 
     /**
      * sets the color mode. Currently only black/white (0) and

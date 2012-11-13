@@ -45,7 +45,7 @@
 
 //***************************************************************************
 Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
-                                    PlaybackController &playback,
+                                    Kwave::PlaybackController &playback,
                                     MenuManager &menu_manager)
     :KToolBar(name, parent, true),
      m_action_prev(0),
@@ -405,7 +405,7 @@ void Kwave::PlayerToolBar::updatePlaybackPos(sample_index_t pos)
 int Kwave::PlayerToolBar::executeCommand(const QString &command)
 {
     int result = 0;
-    Parser parser(command);
+    Kwave::Parser parser(command);
 
     if (false) {
     CASE_COMMAND("prev")
@@ -436,7 +436,7 @@ int Kwave::PlayerToolBar::executeCommand(const QString &command)
 //***************************************************************************
 void Kwave::PlayerToolBar::metaDataChanged(Kwave::MetaDataList meta_data)
 {
-    const FileInfo info(meta_data);
+    const Kwave::FileInfo info(meta_data);
     sample_index_t length = info.length();
     unsigned int tracks   = info.tracks();
     bool playing          = m_playback.running();

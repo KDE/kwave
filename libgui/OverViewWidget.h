@@ -222,7 +222,7 @@ private:
     QTimer m_repaint_timer;
 
     /** list of labels */
-    LabelList m_labels;
+    Kwave::LabelList m_labels;
 
     /** worker thread for updates in background */
     WorkerThread m_worker_thread;

@@ -35,7 +35,7 @@
 
 //***************************************************************************
 //***************************************************************************
-Stripe::MappedArray::MappedArray(Stripe &stripe)
+Kwave::Stripe::MappedArray::MappedArray(Stripe &stripe)
     :m_stripe(stripe), m_storage(0), m_length(stripe.length())
 {
     m_storage = m_stripe.mapStorage();
@@ -44,15 +44,16 @@ Stripe::MappedArray::MappedArray(Stripe &stripe)
 }
 
 //***************************************************************************
-Stripe::MappedArray::~MappedArray()
+Kwave::Stripe::MappedArray::~MappedArray()
 {
     if (m_length) resetRawData();
     if (m_storage) m_stripe.unmapStorage();
 }
 
 //***************************************************************************
-unsigned int Stripe::MappedArray::copy(unsigned int dst, unsigned int src,
-                                       unsigned int cnt)
+unsigned int Kwave::Stripe::MappedArray::copy(unsigned int dst,
+                                              unsigned int src,
+                                              unsigned int cnt)
 {
 //  qDebug("    Stripe::MappedArray::copy(%u, %u, %u)", dst, src, cnt);
     if (!m_length) return 0;
@@ -73,7 +74,7 @@ unsigned int Stripe::MappedArray::copy(unsigned int dst, unsigned int src,
 }
 
 //***************************************************************************
-unsigned int Stripe::MappedArray::copy(unsigned int dst,
+unsigned int Kwave::Stripe::MappedArray::copy(unsigned int dst,
     const Kwave::SampleArray &source, unsigned int offset,
     unsigned int cnt)
 {
@@ -94,7 +95,7 @@ unsigned int Stripe::MappedArray::copy(unsigned int dst,
 }
 
 //***************************************************************************
-unsigned int Stripe::MappedArray::read(Kwave::SampleArray &buffer,
+unsigned int Kwave::Stripe::MappedArray::read(Kwave::SampleArray &buffer,
     unsigned int dstoff, unsigned int offset,  unsigned int length)
 {
 //  qDebug("    Stripe::MappedArray::read(..., %u, %u, %u)", dstoff,
@@ -117,14 +118,14 @@ unsigned int Stripe::MappedArray::read(Kwave::SampleArray &buffer,
 
 //***************************************************************************
 //***************************************************************************
-Stripe::StripeStorage::StripeStorage()
+Kwave::Stripe::StripeStorage::StripeStorage()
     :QSharedData(), m_start(0), m_length(0), m_storage(0), m_lock(),
      m_map_count(0), m_mapped_storage(0)
 {
 }
 
 //***************************************************************************
-Stripe::StripeStorage::StripeStorage(const StripeStorage &other)
+Kwave::Stripe::StripeStorage::StripeStorage(const StripeStorage &other)
     :QSharedData(other), m_start(other.m_start), m_length(other.m_length),
      m_storage(0), m_lock(), m_map_count(0), m_mapped_storage(0)
 {
@@ -158,7 +159,7 @@ Stripe::StripeStorage::StripeStorage(const StripeStorage &other)
 }
 
 //***************************************************************************
-sample_t *Stripe::StripeStorage::map()
+sample_t *Kwave::Stripe::StripeStorage::map()
 {
     QMutexLocker lock(&m_lock);
 
@@ -176,7 +177,7 @@ sample_t *Stripe::StripeStorage::map()
 }
 
 //***************************************************************************
-void Stripe::StripeStorage::unmap()
+void Kwave::Stripe::StripeStorage::unmap()
 {
     QMutexLocker lock(&m_lock);
 
@@ -192,7 +193,7 @@ void Stripe::StripeStorage::unmap()
 }
 
 //***************************************************************************
-Stripe::StripeStorage::~StripeStorage()
+Kwave::Stripe::StripeStorage::~StripeStorage()
 {
     Q_ASSERT(!m_map_count);
     Q_ASSERT(!m_mapped_storage);
@@ -204,27 +205,27 @@ Stripe::StripeStorage::~StripeStorage()
 
 //***************************************************************************
 //***************************************************************************
-Stripe::Stripe()
+Kwave::Stripe::Stripe()
     :m_lock(), m_data(new StripeStorage)
 {
 }
 
 //***************************************************************************
-Stripe::Stripe(const Stripe &other)
+Kwave::Stripe::Stripe(const Stripe &other)
     :m_lock(), m_data(0)
 {
     m_data = other.m_data;
 }
 
 //***************************************************************************
-Stripe::Stripe(sample_index_t start)
+Kwave::Stripe::Stripe(sample_index_t start)
     :m_lock(), m_data(new StripeStorage)
 {
     if (m_data) m_data->m_start = start;
 }
 
 //***************************************************************************
-Stripe::Stripe(sample_index_t start, const Kwave::SampleArray &samples)
+Kwave::Stripe::Stripe(sample_index_t start, const Kwave::SampleArray &samples)
     :m_lock(), m_data(new StripeStorage)
 {
     if (m_data) m_data->m_start = start;
@@ -232,7 +233,9 @@ Stripe::Stripe(sample_index_t start, const Kwave::SampleArray &samples)
 }
 
 //***************************************************************************
-Stripe::Stripe(sample_index_t start, Stripe &stripe, unsigned int offset)
+Kwave::Stripe::Stripe(sample_index_t start,
+                      Kwave::Stripe &stripe,
+                      unsigned int offset)
     :m_lock(), m_data(new StripeStorage)
 {
     if (!m_data) return;
@@ -254,19 +257,19 @@ Stripe::Stripe(sample_index_t start, Stripe &stripe, unsigned int offset)
 }
 
 //***************************************************************************
-Stripe::~Stripe()
+Kwave::Stripe::~Stripe()
 {
     QMutexLocker lock(&m_lock);
 }
 
 //***************************************************************************
-sample_index_t Stripe::start() const
+sample_index_t Kwave::Stripe::start() const
 {
     return (m_data) ? m_data->m_start : 0;
 }
 
 //***************************************************************************
-void Stripe::setStart(sample_index_t start)
+void Kwave::Stripe::setStart(sample_index_t start)
 {
     QMutexLocker lock(&m_lock);
     m_data.detach();
@@ -274,20 +277,20 @@ void Stripe::setStart(sample_index_t start)
 }
 
 //***************************************************************************
-unsigned int Stripe::length() const
+unsigned int Kwave::Stripe::length() const
 {
     return (m_data) ? m_data->m_length : 0;
 }
 
 //***************************************************************************
-sample_index_t Stripe::end() const
+sample_index_t Kwave::Stripe::end() const
 {
     return (m_data) ? (m_data->m_start +
 	((m_data->m_length) ? (m_data->m_length - 1) : 0)) : 0;
 }
 
 //***************************************************************************
-unsigned int Stripe::resizeStorage(unsigned int length)
+unsigned int Kwave::Stripe::resizeStorage(unsigned int length)
 {
     if (!m_data) return 0;
     m_data.detach();
@@ -339,7 +342,7 @@ unsigned int Stripe::resizeStorage(unsigned int length)
 }
 
 //***************************************************************************
-unsigned int Stripe::resize(unsigned int length, bool initialize)
+unsigned int Kwave::Stripe::resize(unsigned int length, bool initialize)
 {
     if (!m_data) return 0;
     m_data.detach();
@@ -386,7 +389,7 @@ unsigned int Stripe::resize(unsigned int length, bool initialize)
 }
 
 //***************************************************************************
-unsigned int Stripe::append(const Kwave::SampleArray &samples,
+unsigned int Kwave::Stripe::append(const Kwave::SampleArray &samples,
 	unsigned int offset,
 	unsigned int count)
 {
@@ -424,7 +427,7 @@ unsigned int Stripe::append(const Kwave::SampleArray &samples,
 }
 
 //***************************************************************************
-void Stripe::deleteRange(unsigned int offset, unsigned int length)
+void Kwave::Stripe::deleteRange(unsigned int offset, unsigned int length)
 {
 //     qDebug("    Stripe::deleteRange(offset=%u, length=%u)", offset, length);
     if (!length || !m_data) return; // nothing to do
@@ -469,7 +472,7 @@ void Stripe::deleteRange(unsigned int offset, unsigned int length)
 }
 
 //***************************************************************************
-void Stripe::overwrite(unsigned int offset,
+void Kwave::Stripe::overwrite(unsigned int offset,
 	const Kwave::SampleArray &source,
 	unsigned int srcoff, unsigned int srclen)
 {
@@ -485,8 +488,10 @@ void Stripe::overwrite(unsigned int offset,
 }
 
 //***************************************************************************
-unsigned int Stripe::read(Kwave::SampleArray &buffer, unsigned int dstoff,
-	unsigned int offset, unsigned int length)
+unsigned int Kwave::Stripe::read(Kwave::SampleArray &buffer,
+                                 unsigned int dstoff,
+                                 unsigned int offset,
+                                 unsigned int length)
 {
     if (!length || !m_data) return 0; // nothing to do !?
 
@@ -517,8 +522,8 @@ unsigned int Stripe::read(Kwave::SampleArray &buffer, unsigned int dstoff,
 }
 
 //***************************************************************************
-void Stripe::minMax(unsigned int first, unsigned int last,
-                    sample_t &min, sample_t &max)
+void Kwave::Stripe::minMax(unsigned int first, unsigned int last,
+                           sample_t &min, sample_t &max)
 {
     QMutexLocker lock(&m_lock);
 
@@ -556,7 +561,7 @@ void Stripe::minMax(unsigned int first, unsigned int last,
 }
 
 //***************************************************************************
-Stripe &Stripe::operator << (const Kwave::SampleArray &samples)
+Kwave::Stripe &Kwave::Stripe::operator << (const Kwave::SampleArray &samples)
 {
     unsigned int appended = append(samples, 0, samples.size());
     if (appended != samples.size()) {
@@ -566,27 +571,27 @@ Stripe &Stripe::operator << (const Kwave::SampleArray &samples)
 }
 
 //***************************************************************************
-bool Stripe::operator == (const Stripe &other) const
+bool Kwave::Stripe::operator == (const Kwave::Stripe &other) const
 {
     return ((start() == other.start()) &&
             (end()   == other.end()));
 }
 
 //***************************************************************************
-Stripe &Stripe::operator = (const Stripe &other)
+Kwave::Stripe &Kwave::Stripe::operator = (const Kwave::Stripe &other)
 {
     m_data = other.m_data;
     return *this;
 }
 
 //***************************************************************************
-sample_t *Stripe::mapStorage()
+sample_t *Kwave::Stripe::mapStorage()
 {
     return (m_data) ? m_data->map() : 0;
 }
 
 //***************************************************************************
-void Stripe::unmapStorage()
+void Kwave::Stripe::unmapStorage()
 {
     if (m_data) m_data->unmap();
 }

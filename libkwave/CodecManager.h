@@ -28,110 +28,119 @@
 #include <kdemacros.h>
 #include <kmimetype.h>
 
-class Decoder;
-class Encoder;
 class KMimeType;
 class QMimeData;
 
-class KDE_EXPORT CodecManager: public QObject
+namespace Kwave
 {
-    Q_OBJECT
-public:
-    /** Constructor */
-    CodecManager();
 
-    /** Destructor */
-    virtual ~CodecManager();
+    class Decoder;
+    class Encoder;
 
-    /**
-     * Registers a new encoder.
-     * @param encoder a KwaveEncoder that will be used as template for
-     *                creating new encoder instances (used as factory)
-     */
-    static void registerEncoder(Encoder &encoder);
+    class KDE_EXPORT CodecManager: public QObject
+    {
+	Q_OBJECT
+    public:
 
-    /**
-     * Registers a new decoder.
-     * @param decoder a KwaveDecoder that will be used as template for
-     *                creating new decoder instances (used as factory)
-     */
-    static void registerDecoder(Decoder &decoder);
+	/** Constructor */
+	CodecManager();
 
-    /**
-     * Returns true if a decoder for the given mime type is known.
-     * @param mimetype mime type describing the audio format
-     * @return true if format is supported, false if not
-     */
-    static bool canDecode(const KMimeType &mimetype);
+	/** Destructor */
+	virtual ~CodecManager();
 
-    /**
-     * Returns true if a decoder for the given mime type is known.
-     * @param mimetype_name name of the mime type
-     * @return true if format is supported, false if not
-     */
-    static bool canDecode(const QString &mimetype_name);
+	/**
+	 * Registers a new encoder.
+	 * @param encoder a KwaveEncoder that will be used as template for
+	 *                creating new encoder instances (used as factory)
+	 */
+	static void registerEncoder(Kwave::Encoder &encoder);
 
-    /**
-     * Tries to find a decoder that matches to a given mime type.
-     * @param mimetype mime type of the source
-     * @return a new decoder for the mime type or null if none found.
-     */
-    static Decoder *decoder(const KMimeType &mimetype);
+	/**
+	 * Registers a new decoder.
+	 * @param decoder a KwaveDecoder that will be used as template for
+	 *                creating new decoder instances (used as factory)
+	 */
+	static void registerDecoder(Kwave::Decoder &decoder);
 
-    /**
-     * Same as above, but takes the mime type as string.
-     * @param mimetype_name name of the mime type
-     * @return a new decoder for the mime type or null if none found.
-     */
-    static Decoder *decoder(const QString &mimetype_name);
+	/**
+	 * Returns true if a decoder for the given mime type is known.
+	 * @param mimetype mime type describing the audio format
+	 * @return true if format is supported, false if not
+	 */
+	static bool canDecode(const KMimeType &mimetype);
 
-    /**
-     * Same as above, but takes the mime info from a QMimeData.
-     * @param mime_source source with a mime type (null pointer is allowed)
-     * @return a new decoder for the mime type or null if none found.
-     */
-    static Decoder *decoder(const QMimeData *mime_source);
+	/**
+	 * Returns true if a decoder for the given mime type is known.
+	 * @param mimetype_name name of the mime type
+	 * @return true if format is supported, false if not
+	 */
+	static bool canDecode(const QString &mimetype_name);
 
-    /**
-     * Tries to find an encoder that matches to a given mime type.
-     * @param mimetype_name name of the mime type of the destination
-     * @return a new encoder for the mime type or null if none found.
-     */
-    static Encoder *encoder(const QString &mimetype_name);
+	/**
+	 * Tries to find a decoder that matches to a given mime type.
+	 * @param mimetype mime type of the source
+	 * @return a new decoder for the mime type or null if none found.
+	 */
+	static Kwave::Decoder *decoder(const KMimeType &mimetype);
 
-    /**
-     * Returns a string with a list of all file types that can be used
-     * for saving. The string is localized and can be used as a filter
-     * for a KFileDialog. The entries are unique (by file extension) but
-     * not sorted alphabetically.
-     */
-    static QString encodingFilter();
+	/**
+	 * Same as above, but takes the mime type as string.
+	 * @param mimetype_name name of the mime type
+	 * @return a new decoder for the mime type or null if none found.
+	 */
+	static Kwave::Decoder *decoder(const QString &mimetype_name);
 
-    /**
-     * Returns a string with a list of all file types that can be used
-     * for loading. The string is localized and can be used as a filter
-     * for a KFileDialog. The entries are unique (by file extension) but
-     * not sorted alphabetically.
-     */
-    static QString decodingFilter();
+	/**
+	 * Same as above, but takes the mime info from a QMimeData.
+	 * @param mime_source source with a mime type (null pointer is allowed)
+	 * @return a new decoder for the mime type or null if none found.
+	 */
+	static Kwave::Decoder *decoder(const QMimeData *mime_source);
 
-    /**
-     * Tries to find the name of a mime type of a decoder by a URL.
-     * If not found, it returns the default mime type, never an empty string.
-     * @param url a KUrl, only the filename's extension will be inspected
-     * @return name of the mime type or the default mime type
-     */
-    static QString whatContains(const KUrl &url);
+	/**
+	 * Tries to find an encoder that matches to a given mime type.
+	 * @param mimetype_name name of the mime type of the destination
+	 * @return a new encoder for the mime type or null if none found.
+	 */
+	static Kwave::Encoder *encoder(const QString &mimetype_name);
 
-    /** Returns a list of supported mime types for encoding */
-    static QStringList encodingMimeTypes();
+	/**
+	 * Returns a string with a list of all file types that can be used
+	 * for saving. The string is localized and can be used as a filter
+	 * for a KFileDialog. The entries are unique (by file extension) but
+	 * not sorted alphabetically.
+	 */
+	static QString encodingFilter();
 
-private:
-    /** list of all encoders */
-    static QList<Encoder *> m_encoders;
+	/**
+	 * Returns a string with a list of all file types that can be used
+	 * for loading. The string is localized and can be used as a filter
+	 * for a KFileDialog. The entries are unique (by file extension) but
+	 * not sorted alphabetically.
+	 */
+	static QString decodingFilter();
 
-    /** list of decoders */
-    static QList<Decoder *> m_decoders;
-};
+	/**
+	 * Tries to find the name of a mime type of a decoder by a URL.
+	 * If not found, it returns the default mime type, never an empty string.
+	 * @param url a KUrl, only the filename's extension will be inspected
+	 * @return name of the mime type or the default mime type
+	 */
+	static QString whatContains(const KUrl &url);
+
+	/** Returns a list of supported mime types for encoding */
+	static QStringList encodingMimeTypes();
+
+    private:
+	/** list of all encoders */
+	static QList<Kwave::Encoder *> m_encoders;
+
+	/** list of decoders */
+	static QList<Kwave::Decoder *> m_decoders;
+    };
+}
 
 #endif /* _CODEC_MANAGER_H_ */
+
+//***************************************************************************
+//***************************************************************************

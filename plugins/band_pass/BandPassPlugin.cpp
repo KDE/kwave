@@ -32,7 +32,7 @@ KWAVE_PLUGIN(BandPassPlugin, "band_pass", "2.1",
              I18N_NOOP("Band Pass Filter"), "Dave Flogeras");
 
 //***************************************************************************
-BandPassPlugin::BandPassPlugin(const PluginContext &context)
+BandPassPlugin::BandPassPlugin(const Kwave::PluginContext &context)
     :Kwave::FilterPlugin(context),
      m_frequency(3500.0), m_last_freq(100),m_bw(100),m_last_bw(200)
 {
@@ -69,7 +69,7 @@ int BandPassPlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-KwavePluginSetupDialog *BandPassPlugin::createDialog(QWidget *parent)
+Kwave::PluginSetupDialog *BandPassPlugin::createDialog(QWidget *parent)
 {
     BandPassDialog *dialog = new BandPassDialog(parent, signalRate());
     Q_ASSERT(dialog);

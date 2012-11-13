@@ -59,9 +59,9 @@ SonagramDialog::SonagramDialog(Kwave::Plugin &p)
 
     pointslider->setMaximum(m_length / 16);
 
-    window_function_t wf = WINDOW_FUNC_NONE;
-    for (unsigned int i=0; i < WindowFunction::count(); i++) {
-	windowtypebox->addItem(WindowFunction::description(wf, true));
+    Kwave::window_function_t wf = Kwave::WINDOW_FUNC_NONE;
+    for (unsigned int i=0; i < Kwave::WindowFunction::count(); i++) {
+	windowtypebox->addItem(Kwave::WindowFunction::description(wf, true));
 	++wf;
     }
 
@@ -110,9 +110,9 @@ void SonagramDialog::parameters(QStringList &list)
     list.append(param);
 
     // parameter #1: index of the window function
-    window_function_t wf = WindowFunction::findFromIndex(
+    Kwave::window_function_t wf = Kwave::WindowFunction::findFromIndex(
     	(windowtypebox) ? windowtypebox->currentIndex() : 0);
-    param = WindowFunction::name(wf);
+    param = Kwave::WindowFunction::name(wf);
     list.append(param);
 
     // parameter #2: flag: use color instead of greyscale
@@ -150,11 +150,11 @@ void SonagramDialog::setPoints(int points)
 }
 
 //***************************************************************************
-void SonagramDialog::setWindowFunction(window_function_t type)
+void SonagramDialog::setWindowFunction(Kwave::window_function_t type)
 {
     Q_ASSERT(windowtypebox);
     if (!windowtypebox) return;
-    windowtypebox->setCurrentIndex(WindowFunction::index(type));
+    windowtypebox->setCurrentIndex(Kwave::WindowFunction::index(type));
 }
 
 //***************************************************************************

@@ -24,14 +24,13 @@
 #include <QSpinBox>
 
 #include <klocale.h>
-#include "libkwave/Parser.h"
 #include "libgui/InvertableSpinBox.h"
 
 #include "PitchShiftDialog.h"
 
 //***************************************************************************
 PitchShiftDialog::PitchShiftDialog(QWidget *parent)
-    :QDialog(parent), Ui::PitchShiftDlg(), KwavePluginSetupDialog(),
+    :QDialog(parent), Ui::PitchShiftDlg(), Kwave::PluginSetupDialog(),
      m_speed(1.0), m_frequency(5.0), m_mode(MODE_FACTOR),
      m_enable_updates(true)
 {

@@ -27,7 +27,7 @@ extern "C" {
 #include <klocale.h>
 #include <kmimetype.h>
 
-#include "libkwave/ConfirmCancelProxy.h"
+#include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
@@ -40,7 +40,7 @@ extern "C" {
 
 //***************************************************************************
 AudiofileDecoder::AudiofileDecoder()
-    :Decoder(), m_source(0), m_src_adapter(0)
+    :Kwave::Decoder(), m_source(0), m_src_adapter(0)
 {
     /* defined in RFC 1521 */
     addMimeType("audio/basic",
@@ -67,7 +67,7 @@ AudiofileDecoder::~AudiofileDecoder()
 }
 
 //***************************************************************************
-Decoder *AudiofileDecoder::instance()
+Kwave::Decoder *AudiofileDecoder::instance()
 {
     return new AudiofileDecoder();
 }
@@ -87,7 +87,7 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 
     // source successfully opened
     m_source = &src;
-    m_src_adapter = new VirtualAudioFile(*m_source);
+    m_src_adapter = new Kwave::VirtualAudioFile(*m_source);
 
     Q_ASSERT(m_src_adapter);
     if (!m_src_adapter) return false;
@@ -170,7 +170,7 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 
     int compression = afGetCompression(fh, AF_DEFAULT_TRACK); // just for debug
 
-    FileInfo info(metaData());
+    Kwave::FileInfo info(metaData());
     info.setRate(rate);
     info.setBits(bits);
     info.setTracks(tracks);
@@ -223,8 +223,8 @@ bool AudiofileDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
     if (!buffer) return false;
 
     // read in from the audiofile source
-    const unsigned int tracks = FileInfo(metaData()).tracks();
-    sample_index_t rest = FileInfo(metaData()).length();
+    const unsigned int tracks = Kwave::FileInfo(metaData()).tracks();
+    sample_index_t rest = Kwave::FileInfo(metaData()).length();
     while (rest) {
 	unsigned int frames = buffer_frames;
 	if (frames > rest) frames = rest;

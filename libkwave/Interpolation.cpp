@@ -1,5 +1,5 @@
 /***************************************************************************
-      Interpolation.cpp  -  Interpolation types
+      Kwave::.cpp  -  Interpolation types
 			     -------------------
     begin                : Sat Feb 03 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
@@ -23,7 +23,7 @@
 
 //***************************************************************************
 //***************************************************************************
-void Interpolation::InterpolationMap::fill()
+void Kwave::Interpolation::InterpolationMap::fill()
 {
     append(INTPOL_LINEAR,      0, "linear",      "linear");
     append(INTPOL_SPLINE,      1, "spline",      "spline");
@@ -55,21 +55,21 @@ void Interpolation::InterpolationMap::fill()
 //***************************************************************************
 
 // static initializer
-Interpolation::InterpolationMap Interpolation::m_interpolation_map;
+Kwave::Interpolation::InterpolationMap Kwave::Interpolation::m_interpolation_map;
 
 //***************************************************************************
-Interpolation::Interpolation(interpolation_t type)
+Kwave::Interpolation::Interpolation(interpolation_t type)
     :m_curve(), m_x(), m_y(), m_der(), m_type(type)
 {
 }
 
 //***************************************************************************
-Interpolation::~Interpolation()
+Kwave::Interpolation::~Interpolation()
 {
 }
 
 //***************************************************************************
-QStringList Interpolation::descriptions(bool localized)
+QStringList Kwave::Interpolation::descriptions(bool localized)
 {
     QStringList list;
     unsigned int count = m_interpolation_map.count();
@@ -82,19 +82,19 @@ QStringList Interpolation::descriptions(bool localized)
 }
 
 //***************************************************************************
-QString Interpolation::name(interpolation_t type)
+QString Kwave::Interpolation::name(interpolation_t type)
 {
     return m_interpolation_map.name(type);
 }
 
 //***************************************************************************
-unsigned int Interpolation::count()
+unsigned int Kwave::Interpolation::count()
 {
     return (m_curve ? m_curve->count() : 0);
 }
 
 //***************************************************************************
-double Interpolation::singleInterpolation(double input)
+double Kwave::Interpolation::singleInterpolation(double input)
 {
     if (!count()) return 0.0; // no data ?
 
@@ -182,7 +182,7 @@ double Interpolation::singleInterpolation(double input)
 }
 
 //***************************************************************************
-bool Interpolation::prepareInterpolation(const Curve &points)
+bool Kwave::Interpolation::prepareInterpolation(const Kwave::Curve &points)
 {
     m_curve = &points;
     if (!count()) return false; // no data ?
@@ -192,9 +192,9 @@ bool Interpolation::prepareInterpolation(const Curve &points)
     m_der.resize(0);
 
     unsigned int c = 0;
-    Curve::ConstIterator it(points);
+    Kwave::Curve::ConstIterator it(points);
     while (it.hasNext()) {
-	Curve::Point p = it.next();
+	Kwave::Curve::Point p = it.next();
 	m_x[c] = p.x();
 	m_y[c] = p.y();
 	c++;
@@ -216,8 +216,8 @@ bool Interpolation::prepareInterpolation(const Curve &points)
 }
 
 //***************************************************************************
-QVector<double> Interpolation::limitedInterpolation(const Curve &points,
-                                                    unsigned int len)
+QVector<double> Kwave::Interpolation::limitedInterpolation(
+    const Kwave::Curve &points, unsigned int len)
 {
     QVector<double> y = interpolation(points, len);
     for (unsigned int i = 0; i < len; i++) {
@@ -228,8 +228,8 @@ QVector<double> Interpolation::limitedInterpolation(const Curve &points,
 }
 
 //***************************************************************************
-QVector<double> Interpolation::interpolation(const Curve &points,
-                                             unsigned int len)
+QVector<double> Kwave::Interpolation::interpolation(
+    const Kwave::Curve &points, unsigned int len)
 {
     Q_ASSERT(len);
     if (!len) return QVector<double>();
@@ -241,12 +241,12 @@ QVector<double> Interpolation::interpolation(const Curve &points,
     switch (m_type) {
 	case INTPOL_LINEAR:
 	{
-	    Curve::Point p;
+	    Kwave::Curve::Point p;
 	    double x0, y0, x1, y1;
-	    Curve::ConstIterator it(points);
+	    Kwave::Curve::ConstIterator it(points);
 
 	    if (it.hasNext()) {
-		Curve::Point p = it.next();
+		Kwave::Curve::Point p = it.next();
 		x0 = p.x();
 		y0 = p.y();
 
@@ -282,9 +282,9 @@ QVector<double> Interpolation::interpolation(const Curve &points,
 	    QVector<double> x(count + 1);
 	    QVector<double> y(count + 1);
 
-	    Curve::ConstIterator it(points);
+	    Kwave::Curve::ConstIterator it(points);
 	    while (it.hasNext()) {
-		Curve::Point p = it.next();
+		Kwave::Curve::Point p = it.next();
 		x[t] = p.x();
 		y[t] = p.y();
 		t++;
@@ -382,9 +382,9 @@ QVector<double> Interpolation::interpolation(const Curve &points,
 	{
 	    double x0, y0, x1, y1;
 
-	    Curve::ConstIterator it(points);
+	    Kwave::Curve::ConstIterator it(points);
 	    if (it.hasNext()) {
-		Curve::Point p = it.next();
+		Kwave::Curve::Point p = it.next();
 		x0 = p.x();
 		y0 = p.y();
 
@@ -408,7 +408,7 @@ QVector<double> Interpolation::interpolation(const Curve &points,
 }
 
 //***************************************************************************
-void Interpolation::createFullPolynom(const Curve &points,
+void Kwave::Interpolation::createFullPolynom(const Kwave::Curve &points,
 	QVector<double> &x, QVector<double> &y)
 {
     Q_ASSERT(!points.isEmpty());
@@ -420,9 +420,9 @@ void Interpolation::createFullPolynom(const Curve &points,
     if (points.count() != m_curve->count()) return;
 
     unsigned int count = 0;
-    Curve::ConstIterator it(points);
+    Kwave::Curve::ConstIterator it(points);
     while (it.hasNext()) {
-	Curve::Point p = it.next();
+	Kwave::Curve::Point p = it.next();
 	x[count] = p.x();
 	y[count] = p.y();
 	count++;
@@ -436,7 +436,7 @@ void Interpolation::createFullPolynom(const Curve &points,
 }
 
 //***************************************************************************
-void Interpolation::get2Derivate(const QVector<double> &x,
+void Kwave::Interpolation::get2Derivate(const QVector<double> &x,
 	const QVector<double> &y, QVector<double> &ab, unsigned int n)
 {
     Q_ASSERT(n);
@@ -468,14 +468,14 @@ void Interpolation::get2Derivate(const QVector<double> &x,
 }
 
 //***************************************************************************
-void Interpolation::createPolynom(const Curve &points,
-                                  QVector<double> &x, QVector<double> &y,
-                                  int pos, unsigned int degree)
+void Kwave::Interpolation::createPolynom(const Kwave::Curve &points,
+                                         QVector<double> &x, QVector<double> &y,
+                                         int pos, unsigned int degree)
 {
     unsigned int count = 0;
-    Curve::ConstIterator it(points);
+    Kwave::Curve::ConstIterator it(points);
     if (!it.hasNext()) return;
-    Curve::Point p = it.next();
+    Kwave::Curve::Point p = it.next();
 
     if (pos < 0) {
 	switch (pos) {

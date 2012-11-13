@@ -30,11 +30,12 @@
 
 #include "libkwave/byteswap.h"
 #include "libkwave/ConfirmCancelProxy.h"
-#include "libkwave/MultiWriter.h"
 #include "libkwave/Label.h"
+#include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MetaData.h"
 #include "libkwave/MetaDataList.h"
+#include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/VirtualAudioFile.h"
 #include "libkwave/Writer.h"
@@ -62,7 +63,7 @@
 
 //***************************************************************************
 WavDecoder::WavDecoder()
-    :Decoder(), m_source(0), m_src_adapter(0), m_known_chunks(),
+    :Kwave::Decoder(), m_source(0), m_src_adapter(0), m_known_chunks(),
      m_property_map()
 {
     REGISTER_MIME_TYPES;
@@ -104,7 +105,7 @@ WavDecoder::~WavDecoder()
 }
 
 //***************************************************************************
-Decoder *WavDecoder::instance()
+Kwave::Decoder *WavDecoder::instance()
 {
     return new WavDecoder();
 }
@@ -112,8 +113,8 @@ Decoder *WavDecoder::instance()
 //***************************************************************************
 bool WavDecoder::open(QWidget *widget, QIODevice &src)
 {
-    FileInfo info;
-    LabelList labels;
+    Kwave::FileInfo info;
+    Kwave::LabelList labels;
     metaData().clear();
 
     Q_ASSERT(!m_source);
@@ -148,7 +149,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
             &progress, SLOT(setValue(int)));
     connect(&parser,   SIGNAL(action(const QString &)),
             &progress, SLOT(setLabelText(const QString &)));
-    ConfirmCancelProxy confirm_cancel(widget,
+    Kwave::ConfirmCancelProxy confirm_cancel(widget,
                        &progress, SIGNAL(canceled()),
                        &parser,   SLOT(cancel()));
 
@@ -329,7 +330,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	repair(repair_list, root, fmt_chunk, data_chunk);
 	m_src_adapter = new RepairVirtualAudioFile(*m_source, repair_list);
     } else {
-	m_src_adapter = new VirtualAudioFile(*m_source);
+	m_src_adapter = new Kwave::VirtualAudioFile(*m_source);
     }
 
     Q_ASSERT(m_src_adapter);
@@ -393,8 +394,8 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     info.setBits(bits);
     info.setTracks(tracks);
     info.setLength(length);
-    info.set(INF_SAMPLE_FORMAT, sample_format);
-    info.set(INF_COMPRESSION, compression);
+    info.set(Kwave::INF_SAMPLE_FORMAT, sample_format);
+    info.set(Kwave::INF_COMPRESSION, compression);
 
     // read in all info from the LIST (INFO) chunk
     RIFFChunk *info_chunk = parser.findChunk("/RIFF:WAVE/LIST:INFO");
@@ -406,7 +407,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	    if (!m_property_map.containsChunk(chunk->name())) continue;
 
 	    // read the content into a QString
-	    FileProperty prop = m_property_map.property(chunk->name());
+	    Kwave::FileProperty prop = m_property_map.property(chunk->name());
 	    unsigned int offset = chunk->dataStart();
 	    unsigned int length = chunk->dataLength();
 	    QByteArray buffer(length+1, 0x00);
@@ -531,7 +532,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
 	    // put a new label into the list
 	    QString str = QString::fromUtf8(name);
-	    labels.append(Label(position, str));
+	    labels.append(Kwave::Label(position, str));
 	}
     }
     labels.sort();
@@ -584,8 +585,8 @@ bool WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
     if (!buffer) return false;
 
     // read in from the audiofile source
-    Q_ASSERT(tracks == FileInfo(metaData()).tracks());
-    sample_index_t rest = FileInfo(metaData()).length();
+    Q_ASSERT(tracks == Kwave::FileInfo(metaData()).tracks());
+    sample_index_t rest = Kwave::FileInfo(metaData()).length();
     while (rest) {
 	unsigned int frames = buffer_frames;
 	if (frames > rest) frames = rest;

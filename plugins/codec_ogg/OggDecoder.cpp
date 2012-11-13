@@ -40,7 +40,7 @@
 
 //***************************************************************************
 OggDecoder::OggDecoder()
-    :Decoder(), m_source(0)
+    :Kwave::Decoder(), m_source(0)
 {
     REGISTER_MIME_TYPES;
     REGISTER_COMPRESSION_TYPES;
@@ -53,13 +53,14 @@ OggDecoder::~OggDecoder()
 }
 
 //***************************************************************************
-Decoder *OggDecoder::instance()
+Kwave::Decoder *OggDecoder::instance()
 {
     return new OggDecoder();
 }
 
 //***************************************************************************
-void OggDecoder::parseTag(FileInfo &info, const char *tag, FileProperty property)
+void OggDecoder::parseTag(Kwave::FileInfo &info, const char *tag,
+                          Kwave::FileProperty property)
 {
     int count = vorbis_comment_query_count(&m_vc, const_cast<char *>(tag));
     if (count < 1) return;
@@ -224,24 +225,24 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     // read the header the first time
     if (parseHeader(widget) < 0) return false;
 
-    FileInfo info(metaData());
+    Kwave::FileInfo info(metaData());
 
     // get the standard properties
     info.setLength(0);         // use streaming
     info.setRate(m_vi.rate);
     info.setBits(SAMPLE_BITS); // use Kwave's internal resolution
     info.setTracks(m_vi.channels);
-    info.set(INF_MIMETYPE, DEFAULT_MIME_TYPE);
-    info.set(INF_COMPRESSION, CompressionType::OGG_VORBIS);
-    info.set(INF_SOURCE, QString(m_vc.vendor));
+    info.set(Kwave::INF_MIMETYPE, DEFAULT_MIME_TYPE);
+    info.set(Kwave::INF_COMPRESSION, Kwave::CompressionType::OGG_VORBIS);
+    info.set(Kwave::INF_SOURCE, QString(m_vc.vendor));
     if (m_vi.bitrate_nominal > 0)
-	info.set(INF_BITRATE_NOMINAL, QVariant(
+	info.set(Kwave::INF_BITRATE_NOMINAL, QVariant(
 	static_cast<int>(m_vi.bitrate_nominal)));
     if (m_vi.bitrate_lower > 0)
-	info.set(INF_BITRATE_LOWER, QVariant(
+	info.set(Kwave::INF_BITRATE_LOWER, QVariant(
 	static_cast<int>(m_vi.bitrate_lower)));
     if (m_vi.bitrate_upper > 0)
-	info.set(INF_BITRATE_UPPER, QVariant(
+	info.set(Kwave::INF_BITRATE_UPPER, QVariant(
 	static_cast<int>(m_vi.bitrate_upper)));
 
     // the first comment sometimes is used for the software version
@@ -249,43 +250,43 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
 	char **ptr = m_vc.user_comments;
 	QString s = *ptr;
 	if (s.length() && !s.contains('=')) {
-	    info.set(INF_SOFTWARE, s);
+	    info.set(Kwave::INF_SOFTWARE, s);
 	    qDebug("Bitstream is %d channel, %ldHz", m_vi.channels, m_vi.rate);
 	    qDebug("Encoded by: %s\n\n", m_vc.vendor);
 	}
     }
 
     /** convert the date property to a QDate */
-    parseTag(info, "DATE",         INF_CREATION_DATE);
-    if (info.contains(INF_CREATION_DATE)) {
+    parseTag(info, "DATE",         Kwave::INF_CREATION_DATE);
+    if (info.contains(Kwave::INF_CREATION_DATE)) {
 	QString str_date  = QVariant(info.get(
-	    INF_CREATION_DATE)).toString();
+	    Kwave::INF_CREATION_DATE)).toString();
 	QDate date;
 	date = QDate::fromString(str_date, Qt::ISODate);
 	if (!date.isValid()) {
 	    int year = str_date.toInt();
 	    date.setYMD(year, 1, 1);
 	}
-	if (date.isValid()) info.set(INF_CREATION_DATE, date);
+	if (date.isValid()) info.set(Kwave::INF_CREATION_DATE, date);
     }
 
     // parse all other (simple) properties
-    parseTag(info, "TITLE",        INF_NAME);
-    parseTag(info, "VERSION",      INF_VERSION);
-    parseTag(info, "ALBUM",        INF_ALBUM);
-    parseTag(info, "TRACKNUMBER",  INF_TRACK);
-    parseTag(info, "ARTIST",       INF_AUTHOR);
-    parseTag(info, "PERFORMER",    INF_PERFORMER);
-    parseTag(info, "COPYRIGHT",    INF_COPYRIGHT);
-    parseTag(info, "LICENSE",      INF_LICENSE);
-    parseTag(info, "ORGANIZATION", INF_ORGANIZATION);
-    parseTag(info, "DESCRIPTION",  INF_SUBJECT);
-    parseTag(info, "GENRE",        INF_GENRE);
-    parseTag(info, "LOCATION",     INF_SOURCE);
-    parseTag(info, "CONTACT",      INF_CONTACT);
-    parseTag(info, "ISRC",         INF_ISRC);
-    parseTag(info, "ENCODER",      INF_SOFTWARE);
-    parseTag(info, "VBR_QUALITY",  INF_VBR_QUALITY);
+    parseTag(info, "TITLE",        Kwave::INF_NAME);
+    parseTag(info, "VERSION",      Kwave::INF_VERSION);
+    parseTag(info, "ALBUM",        Kwave::INF_ALBUM);
+    parseTag(info, "TRACKNUMBER",  Kwave::INF_TRACK);
+    parseTag(info, "ARTIST",       Kwave::INF_AUTHOR);
+    parseTag(info, "PERFORMER",    Kwave::INF_PERFORMER);
+    parseTag(info, "COPYRIGHT",    Kwave::INF_COPYRIGHT);
+    parseTag(info, "LICENSE",      Kwave::INF_LICENSE);
+    parseTag(info, "ORGANIZATION", Kwave::INF_ORGANIZATION);
+    parseTag(info, "DESCRIPTION",  Kwave::INF_SUBJECT);
+    parseTag(info, "GENRE",        Kwave::INF_GENRE);
+    parseTag(info, "LOCATION",     Kwave::INF_SOURCE);
+    parseTag(info, "CONTACT",      Kwave::INF_CONTACT);
+    parseTag(info, "ISRC",         Kwave::INF_ISRC);
+    parseTag(info, "ENCODER",      Kwave::INF_SOFTWARE);
+    parseTag(info, "VBR_QUALITY",  Kwave::INF_VBR_QUALITY);
 
     metaData().replace(info);
 
@@ -430,8 +431,8 @@ bool OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
     // signal the current position
     emit sourceProcessed(m_source->pos());
 
-    if (!FileInfo(metaData()).contains(INF_BITRATE_NOMINAL) &&
-        !FileInfo(metaData()).contains(INF_VBR_QUALITY))
+    if (!Kwave::FileInfo(metaData()).contains(Kwave::INF_BITRATE_NOMINAL) &&
+        !Kwave::FileInfo(metaData()).contains(Kwave::INF_VBR_QUALITY))
     {
 	qWarning("file contains neither nominal bitrate (ABR mode) "\
 	         "nor quality (VBR mode)");
@@ -439,25 +440,25 @@ bool OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 	const unsigned int samples = dst.last();
 	int bitrate = DEFAULT_BITRATE;
 
-	if (static_cast<int>(FileInfo(metaData()).rate()) && samples) {
+	if (static_cast<int>(Kwave::FileInfo(metaData()).rate()) && samples) {
 	    // guess bitrates from the stream
 	    const unsigned int stream_end_pos = m_source->pos();
 	    const unsigned int stream_read = stream_end_pos -
 	                                     stream_start_pos + 1;
 	    double bits = static_cast<double>(stream_read) * 8.0;
 	    double seconds = static_cast<double>(samples) /
-		static_cast<double>(FileInfo(metaData()).rate());
+		static_cast<double>(Kwave::FileInfo(metaData()).rate());
 	    bitrate = static_cast<unsigned int>(bits / seconds);
 
 	    // round to neares standard bitrate
-	    bitrate = StandardBitrates::instance().nearest(bitrate);
+	    bitrate = Kwave::StandardBitrates::instance().nearest(bitrate);
 	    qDebug("-> using guessed bitrate %d bits/sec", bitrate);
 	} else {
 	    // guessing not possible -> use default
 	    qDebug("-> using default %d kBits/sec", bitrate);
 	}
-	FileInfo info(metaData());
-	info.set(INF_BITRATE_NOMINAL, QVariant(static_cast<int>(bitrate)));
+	Kwave::FileInfo info(metaData());
+	info.set(Kwave::INF_BITRATE_NOMINAL, QVariant(static_cast<int>(bitrate)));
 	metaData().replace(info);
     }
 

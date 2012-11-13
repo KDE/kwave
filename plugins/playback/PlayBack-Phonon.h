@@ -36,11 +36,10 @@
 
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/SampleArray.h"
-#include "libkwave/SampleFormat.h"
 
 namespace Kwave { class SampleEncoder; }
 
-class PlayBackPhonon: public PlayBackDevice,
+class PlayBackPhonon: public Kwave::PlayBackDevice,
                       public Phonon::AbstractMediaStream
 {
 public:

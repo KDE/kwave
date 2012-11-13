@@ -26,186 +26,192 @@
 
 #include "libkwave/Sample.h"
 
-/**
- * \class PlaybackController
- * Provides a generic interface for classes that can contol playback
- * with start, stop, pause and continue. This class is intended to be used
- * or derived in a class that is able to control a playback device by
- * simply startig or stopping playback and can be easily used by some
- * other part of the program that has nothing to do directly with
- * playback. The playback control functions all start with "playback"
- * and are slots that are intended to be connected to some simple
- * gui elements like toolbar buttons or menu entries.
- *
- * This class internally manages the logic and handling of the
- * playback position.
- */
-class KDE_EXPORT PlaybackController: public QObject
+namespace Kwave
 {
-Q_OBJECT
-
-public:
-
-    /** Default constructor */
-    PlaybackController();
-
-    /** Destructor */
-    virtual ~PlaybackController();
-
-public:
-
-    /** resets start, current position, loop, pause and running flag */
-    void reset();
-
-    /** returns the loop mode flag */
-    bool loop() const;
-
-    /** returns true if the playback is running */
-    bool running() const;
-
-    /** returns true if the playback is paused */
-    bool paused() const;
-
-    /** sets a new start position */
-    void setStartPos(sample_index_t pos);
-
-    /** sets a new end position */
-    void setEndPos(sample_index_t pos);
-
-    /** returns the position where the playback starts */
-    sample_index_t startPos() const;
-
-    /** returns the position where the playback ends */
-    sample_index_t endPos() const;
-
-    /** returns the current position of the playback pointer */
-    sample_index_t currentPos() const;
-
-public slots:
-
     /**
-     * (Re-)starts the playback. If playback has successfully been
-     * started, the signal sigPlaybackStarted() will be emitted.
+     * \class PlaybackController
+     * Provides a generic interface for classes that can contol playback
+     * with start, stop, pause and continue. This class is intended to be used
+     * or derived in a class that is able to control a playback device by
+     * simply startig or stopping playback and can be easily used by some
+     * other part of the program that has nothing to do directly with
+     * playback. The playback control functions all start with "playback"
+     * and are slots that are intended to be connected to some simple
+     * gui elements like toolbar buttons or menu entries.
+     *
+     * This class internally manages the logic and handling of the
+     * playback position.
      */
-    void playbackStart();
+    class KDE_EXPORT PlaybackController: public QObject
+    {
+    Q_OBJECT
 
-    /**
-     * (Re-)starts the playback in loop mode (like with playbackStart().
-     * Also emitts sigPlaybackStarted() if playback has successfully
-     * been started.
-     */
-    void playbackLoop();
+    public:
 
-    /**
-     * Pauses the playback. Causes sigPlaybackDone() to be emitted if
-     * the current buffer has played out. The current playback pointer
-     * will stay at it's current position.
-     */
-    void playbackPause();
+	/** Default constructor */
+	PlaybackController();
 
-    /**
-     * Continues the playback at the position where it has been stopped
-     * by the playbackPause() command. If the last playback pointer
-     * has become invalid or is not available (less 0), this function
-     * will do the same as playbackStart(). This also emits the
-     * signal sigPlaybackStarted().
-     */
-    void playbackContinue();
+	/** Destructor */
+	virtual ~PlaybackController();
 
-    /**
-     * Stopps playback / loop. Like playbackPause(), but resets the
-     * playback pointer back to the start.
-     */
-    void playbackStop();
+    public:
 
-    /**
-     * If playback is currently running, it will be paused and
-     * then restarted with current track and time selection.
-     */
-    void reload();
+	/** resets start, current position, loop, pause and running flag */
+	void reset();
 
-    /** Seeks to a new position */
-    void seekTo(sample_index_t pos);
+	/** returns the loop mode flag */
+	bool loop() const;
 
-    /** Called when the seek has finished */
-    void seekDone(sample_index_t pos);
+	/** returns true if the playback is running */
+	bool running() const;
 
-    /** Updates the current playback position */
-    void updatePlaybackPos(sample_index_t pos);
+	/** returns true if the playback is paused */
+	bool paused() const;
 
-    /** Updates the status if playback is done */
-    void playbackDone();
+	/** sets a new start position */
+	void setStartPos(sample_index_t pos);
 
-signals:
+	/** sets a new end position */
+	void setEndPos(sample_index_t pos);
 
-    /**
-     * Signals that playback should be started.
-     */
-    void sigDeviceStartPlayback();
+	/** returns the position where the playback starts */
+	sample_index_t startPos() const;
 
-    /**
-     * Signals that playback should be stopped.
-     */
-    void sigDeviceStopPlayback();
+	/** returns the position where the playback ends */
+	sample_index_t endPos() const;
 
-    /**
-     * Signals that the device should seek to a new position
-     */
-    void sigDeviceSeekTo(sample_index_t pos);
+	/** returns the current position of the playback pointer */
+	sample_index_t currentPos() const;
 
-    /**
-     * Signals that playback has started.
-     */
-    void sigPlaybackStarted();
+    public slots:
 
-    /**
-     * Signals that playback has been paused.
-     */
-    void sigPlaybackPaused();
+	/**
+	 * (Re-)starts the playback. If playback has successfully been
+	 * started, the signal sigPlaybackStarted() will be emitted.
+	 */
+	void playbackStart();
 
-    /**
-     * Signals that playback has stopped.
-     */
-    void sigPlaybackStopped();
+	/**
+	 * (Re-)starts the playback in loop mode (like with playbackStart().
+	 * Also emitts sigPlaybackStarted() if playback has successfully
+	 * been started.
+	 */
+	void playbackLoop();
 
-    /**
-     * Emits the current position of the playback pointer
-     */
-    void sigPlaybackPos(sample_index_t pos);
+	/**
+	 * Pauses the playback. Causes sigPlaybackDone() to be emitted if
+	 * the current buffer has played out. The current playback pointer
+	 * will stay at it's current position.
+	 */
+	void playbackPause();
 
-    /**
-     * Emits the current position after a seek operation
-     */
-    void sigSeekDone(sample_index_t pos);
+	/**
+	 * Continues the playback at the position where it has been stopped
+	 * by the playbackPause() command. If the last playback pointer
+	 * has become invalid or is not available (less 0), this function
+	 * will do the same as playbackStart(). This also emits the
+	 * signal sigPlaybackStarted().
+	 */
+	void playbackContinue();
 
-private:
+	/**
+	 * Stopps playback / loop. Like playbackPause(), but resets the
+	 * playback pointer back to the start.
+	 */
+	void playbackStop();
 
-    /**
-     * If true, we are in "reload" mode. In this mode the playback is
-     * paused and continued without emitting a sigPlaybackDone. This
-     * is useful if playback parameters or signal selection has changed
-     * during playback.
-     */
-    bool m_reload_mode;
+	/**
+	 * If playback is currently running, it will be paused and
+	 * then restarted with current track and time selection.
+	 */
+	void reload();
 
-    /** if set to true, the playback will be done in loop mode */
-    bool m_loop_mode;
+	/** Seeks to a new position */
+	void seekTo(sample_index_t pos);
 
-    /** if true, playback is only paused and can be continued */
-    bool m_paused;
+	/** Called when the seek has finished */
+	void seekDone(sample_index_t pos);
 
-    /** is set to true if the playback has been started */
-    bool m_playing;
+	/** Updates the current playback position */
+	void updatePlaybackPos(sample_index_t pos);
 
-    /** the current play position */
-    sample_index_t m_playback_position;
+	/** Updates the status if playback is done */
+	void playbackDone();
 
-    /** the start position for playback */
-    sample_index_t m_playback_start;
+    signals:
 
-    /** the end position for playback */
-    sample_index_t m_playback_end;
+	/**
+	 * Signals that playback should be started.
+	 */
+	void sigDeviceStartPlayback();
 
-};
+	/**
+	 * Signals that playback should be stopped.
+	 */
+	void sigDeviceStopPlayback();
+
+	/**
+	 * Signals that the device should seek to a new position
+	 */
+	void sigDeviceSeekTo(sample_index_t pos);
+
+	/**
+	 * Signals that playback has started.
+	 */
+	void sigPlaybackStarted();
+
+	/**
+	 * Signals that playback has been paused.
+	 */
+	void sigPlaybackPaused();
+
+	/**
+	 * Signals that playback has stopped.
+	 */
+	void sigPlaybackStopped();
+
+	/**
+	 * Emits the current position of the playback pointer
+	 */
+	void sigPlaybackPos(sample_index_t pos);
+
+	/**
+	 * Emits the current position after a seek operation
+	 */
+	void sigSeekDone(sample_index_t pos);
+
+    private:
+
+	/**
+	 * If true, we are in "reload" mode. In this mode the playback is
+	 * paused and continued without emitting a sigPlaybackDone. This
+	 * is useful if playback parameters or signal selection has changed
+	 * during playback.
+	 */
+	bool m_reload_mode;
+
+	/** if set to true, the playback will be done in loop mode */
+	bool m_loop_mode;
+
+	/** if true, playback is only paused and can be continued */
+	bool m_paused;
+
+	/** is set to true if the playback has been started */
+	bool m_playing;
+
+	/** the current play position */
+	sample_index_t m_playback_position;
+
+	/** the start position for playback */
+	sample_index_t m_playback_start;
+
+	/** the end position for playback */
+	sample_index_t m_playback_end;
+
+    };
+}
 
 #endif /* _PLAYBACK_CONTROLLER_H_ */
+
+//***************************************************************************
+//***************************************************************************

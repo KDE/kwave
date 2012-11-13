@@ -34,7 +34,7 @@ KWAVE_PLUGIN(DebugPlugin, "debug", "2.1",
     emitCommand(entry.arg(cmd).arg(i18n(txt)));
 
 //***************************************************************************
-DebugPlugin::DebugPlugin(const PluginContext &context)
+DebugPlugin::DebugPlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context), m_buffer()
 {
 }
@@ -105,10 +105,10 @@ void DebugPlugin::run(QStringList params)
 	QList<unsigned int> track_list;
 	track_list.append(signalManager().tracks() - 1);
 	writers = new Kwave::MultiTrackWriter(signalManager(), track_list,
-	                                      Overwrite, 0, last);
+	                                      Kwave::Overwrite, 0, last);
     } else {
 	// use all currently selected tracks
-	writers = new Kwave::MultiTrackWriter(signalManager(), Overwrite);
+	writers = new Kwave::MultiTrackWriter(signalManager(), Kwave::Overwrite);
     }
 
     Q_ASSERT(writers);
@@ -135,7 +135,7 @@ void DebugPlugin::run(QStringList params)
 	// sawtooth pattern from min to max
 	if (command == "sawtooth") {
 	    unsigned int shift = SAMPLE_BITS -
-		FileInfo(signalManager().metaData()).bits();
+		Kwave::FileInfo(signalManager().metaData()).bits();
 	    for (unsigned int i = 0; i < m_buffer.size(); i++) {
 		m_buffer[i] = v;
 		v += (1 << shift);

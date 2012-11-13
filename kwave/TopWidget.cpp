@@ -60,7 +60,6 @@
 #include "libkwave/MessageBox.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/Parser.h"
-#include "libkwave/PlaybackController.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Utils.h"
@@ -162,7 +161,7 @@ bool TopWidget::init()
     // connect clicked menu entries with main communication channel of kwave
     connect(m_menu_manager, SIGNAL(sigMenuCommand(const QString &)),
 	    this, SLOT(executeCommand(const QString &)));
-    connect(&ClipBoard::instance(), SIGNAL(clipboardChanged(bool)),
+    connect(&Kwave::ClipBoard::instance(), SIGNAL(clipboardChanged(bool)),
 	    this, SLOT(clipboardChanged(bool)));
 
     // load the menu from file
@@ -252,8 +251,8 @@ bool TopWidget::init()
 	icon_loader.loadIcon("edit-paste", KIconLoader::Toolbar),
 	i18n("Insert"),
 	this, SLOT(toolbarEditPaste()));
-    btPaste->setEnabled(!ClipBoard::instance().isEmpty());
-    connect(&ClipBoard::instance(), SIGNAL(clipboardChanged(bool)),
+    btPaste->setEnabled(!Kwave::ClipBoard::instance().isEmpty());
+    connect(&Kwave::ClipBoard::instance(), SIGNAL(clipboardChanged(bool)),
             btPaste, SLOT(setEnabled(bool)));
 
     toolbar_edit->addAction(
@@ -487,7 +486,7 @@ int TopWidget::executeCommand(const QString &line)
 
     // special case: if the command contains ";" it is a list of
     // commands -> macro !
-    Parser parse_list(command);
+    Kwave::Parser parse_list(command);
     if (parse_list.hasMultipleCommands()) {
 	QStringList macro = parse_list.commandList();
 	foreach (const QString &it, macro) {
@@ -513,7 +512,7 @@ int TopWidget::executeCommand(const QString &line)
     }
 
     // parse one single command
-    Parser parser(command);
+    Kwave::Parser parser(command);
 
     // exclude menu commands from the recorder
     if (parser.command() == "menu") use_recorder = false;
@@ -706,7 +705,7 @@ int TopWidget::parseCommands(QTextStream &stream)
 	    continue;
 	}
 
-	Parser parser(line);
+	Kwave::Parser parser(line);
 
 	// the "goto" command
 	if (line.split(' ').at(0) == "goto") {
@@ -879,14 +878,14 @@ int TopWidget::loadFile(const KUrl &url)
 //***************************************************************************
 int TopWidget::openRecent(const QString &str)
 {
-    Parser parser(str);
+    Kwave::Parser parser(str);
     return loadFile(parser.firstParam());
 }
 
 //***************************************************************************
 int TopWidget::openFile()
 {
-    QString filter = CodecManager::decodingFilter();
+    QString filter = Kwave::CodecManager::decodingFilter();
     KwaveFileDialog dlg("kfiledialog:///kwave_open_dir", filter, this, true);
     dlg.setMode(static_cast<KFile::Modes>(KFile::File | KFile::ExistingOnly));
     dlg.setOperationMode(KFileDialog::Opening);
@@ -937,14 +936,14 @@ int TopWidget::saveFileAs(bool selection)
     KUrl current_url;
     current_url = signalName();
 
-    QString what  = CodecManager::whatContains(current_url);
-    Encoder *encoder = CodecManager::encoder(what);
+    QString what  = Kwave::CodecManager::whatContains(current_url);
+    Kwave::Encoder *encoder = Kwave::CodecManager::encoder(what);
     QString extension; // = "*.wav";
     if (!encoder) {
 	// no extension selected yet, use mime type from file info
-	QString mime_type =
-	    FileInfo(signal_manager->metaData()).get(INF_MIMETYPE).toString();
-	encoder = CodecManager::encoder(mime_type);
+	QString mime_type = Kwave::FileInfo(
+	    signal_manager->metaData()).get(Kwave::INF_MIMETYPE).toString();
+	encoder = Kwave::CodecManager::encoder(mime_type);
 	if (encoder) {
 	    QStringList extensions = encoder->extensions(mime_type);
 	    if (!extensions.isEmpty()) {
@@ -959,7 +958,7 @@ int TopWidget::saveFileAs(bool selection)
 	}
     }
 
-    QString filter = CodecManager::encodingFilter();
+    QString filter = Kwave::CodecManager::encodingFilter();
     KwaveFileDialog dlg("kfiledialog:///kwave_save_as",
         filter, this, true, current_url.prettyUrl(), extension);
     dlg.setOperationMode(KFileDialog::Saving);
@@ -996,9 +995,10 @@ int TopWidget::saveFileAs(bool selection)
 
     // maybe we now have a new mime type
     QString previous_mimetype_name =
-	FileInfo(signal_manager->metaData()).get(INF_MIMETYPE).toString();
+	Kwave::FileInfo(signal_manager->metaData()).get(
+	    Kwave::INF_MIMETYPE).toString();
 
-    QString new_mimetype_name = CodecManager::whatContains(url);
+    QString new_mimetype_name = Kwave::CodecManager::whatContains(url);
 
     if (new_mimetype_name != previous_mimetype_name) {
 	// saving to a different mime type
@@ -1011,11 +1011,11 @@ int TopWidget::saveFileAs(bool selection)
 	    previous_mimetype_name.toLocal8Bit().data() );
 
 	// set the new mimetype
-	FileInfo info(signal_manager->metaData());
-	info.set(INF_MIMETYPE, new_mimetype_name);
+	Kwave::FileInfo info(signal_manager->metaData());
+	info.set(Kwave::INF_MIMETYPE, new_mimetype_name);
 	// save the old filename and set the new one
-	QString old_filename = info.get(INF_FILENAME).toString();
-	info.set(INF_FILENAME, url.prettyUrl());
+	QString old_filename = info.get(Kwave::INF_FILENAME).toString();
+	info.set(Kwave::INF_FILENAME, url.prettyUrl());
 	signal_manager->setFileInfo(info, false);
 
 	// now call the fileinfo plugin with the new filename and
@@ -1025,9 +1025,9 @@ int TopWidget::saveFileAs(bool selection)
 	    m_context.pluginManager()->setupPlugin("fileinfo") : -1;
 
 	// restore the mime type and the filename
-	info = FileInfo(signal_manager->metaData());
-	info.set(INF_MIMETYPE, previous_mimetype_name);
-	info.set(INF_FILENAME, url.prettyUrl());
+	info = Kwave::FileInfo(signal_manager->metaData());
+	info.set(Kwave::INF_MIMETYPE, previous_mimetype_name);
+	info.set(Kwave::INF_FILENAME, url.prettyUrl());
 	signal_manager->setFileInfo(info, false);
     }
 
@@ -1198,7 +1198,7 @@ void TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
     double ms;
     QString txt;
 
-    const FileInfo info(meta_data);
+    const Kwave::FileInfo info(meta_data);
     sample_index_t length = info.length();
     unsigned int tracks   = info.tracks();
     double rate           = info.rate();
@@ -1443,13 +1443,13 @@ void TopWidget::updateMenu()
     m_menu_manager->setItemEnabled("@NOT_CLOSED", have_file);
 
     // enable/disable all items that depend on having a label
-    LabelList labels(signal_manager->metaData());
+    Kwave::LabelList labels(signal_manager->metaData());
     bool have_labels = (!labels.isEmpty());
     m_menu_manager->setItemEnabled("@LABELS", have_labels);
 
     // enable/disable all items that depend on having something in the
     // clipboard
-    bool have_clipboard_data = !ClipBoard::instance().isEmpty();
+    bool have_clipboard_data = !Kwave::ClipBoard::instance().isEmpty();
     clipboardChanged(have_clipboard_data);
 }
 

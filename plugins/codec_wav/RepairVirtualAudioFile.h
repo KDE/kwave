@@ -25,7 +25,7 @@
 class RecoverySource;
 class QIODevice;
 
-class RepairVirtualAudioFile: public VirtualAudioFile
+class RepairVirtualAudioFile: public Kwave::VirtualAudioFile
 {
 public:
     /**

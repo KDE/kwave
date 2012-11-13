@@ -26,7 +26,6 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackSource.h"
 #include "libkwave/MultiTrackWriter.h"
-#include "libkwave/Parser.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/modules/Mul.h"
@@ -41,7 +40,7 @@ KWAVE_PLUGIN(VolumePlugin, "volume", "2.1",
              I18N_NOOP("Volume"), "Thomas Eschenbacher");
 
 //***************************************************************************
-VolumePlugin::VolumePlugin(const PluginContext &context)
+VolumePlugin::VolumePlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context), m_params(), m_factor(1.0), m_mode(0)
 {
 }
@@ -131,9 +130,9 @@ void VolumePlugin::run(QStringList params)
     Kwave::UndoTransactionGuard undo_guard(*this, i18n("Volume"));
 
     // create all objects
-    MultiTrackReader source(Kwave::SinglePassForward,
+    Kwave::MultiTrackReader source(Kwave::SinglePassForward,
 	signalManager(), selectedTracks(), first, last);
-    Kwave::MultiTrackWriter sink(signalManager(), tracks, Overwrite,
+    Kwave::MultiTrackWriter sink(signalManager(), tracks, Kwave::Overwrite,
 	first, last);
     Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks.count());
 

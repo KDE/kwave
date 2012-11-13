@@ -29,8 +29,8 @@
 #include <klocale.h>
 
 #include "libkwave/CodecManager.h"
-#include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
+#include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/SignalManager.h"
@@ -42,7 +42,7 @@ KWAVE_PLUGIN(SaveBlocksPlugin, "saveblocks", "2.1",
              I18N_NOOP("Save Blocks"), "Thomas Eschenbacher");
 
 //***************************************************************************
-SaveBlocksPlugin::SaveBlocksPlugin(const PluginContext &c)
+SaveBlocksPlugin::SaveBlocksPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_url(), m_pattern(), m_numbering_mode(CONTINUE),
      m_selection_only(true)
 {
@@ -73,7 +73,7 @@ QStringList *SaveBlocksPlugin::setup(QStringList &previous_params)
     bool enable_selection_only = selected_something && !selected_all;
 
     SaveBlocksDialog *dialog = new SaveBlocksDialog(
-	":<kwave_save_blocks>", CodecManager::encodingFilter(),
+	":<kwave_save_blocks>", Kwave::CodecManager::encodingFilter(),
 	parentWidget(), true,
 	url.prettyUrl(), "*.wav",
 	m_pattern,
@@ -229,9 +229,9 @@ int SaveBlocksPlugin::start(QStringList &params)
     // now we can loop over all blocks and save them
     sample_index_t block_start;
     sample_index_t block_end = 0;
-    LabelList labels(signalManager().metaData());
-    LabelListIterator it(labels);
-    Label label = it.hasNext() ? it.next() : Label();
+    Kwave::LabelList labels(signalManager().metaData());
+    Kwave::LabelListIterator it(labels);
+    Kwave::Label label = it.hasNext() ? it.next() : Kwave::Label();
 
     for (unsigned int index = first;;) {
 	block_start = block_end;
@@ -269,7 +269,7 @@ int SaveBlocksPlugin::start(QStringList &params)
 	    index++;
 	}
 	if (label.isNull()) break;
-	label = (it.hasNext()) ? it.next() : Label();
+	label = (it.hasNext()) ? it.next() : Kwave::Label();
     }
 
     // restore the previous selection
@@ -326,9 +326,9 @@ unsigned int SaveBlocksPlugin::blocksToSave(bool selection_only)
 
     sample_index_t block_start;
     sample_index_t block_end = 0;
-    LabelList labels(signalManager().metaData());
-    LabelListIterator it(labels);
-    Label label = (it.hasNext()) ? it.next() : Label();
+    Kwave::LabelList labels(signalManager().metaData());
+    Kwave::LabelListIterator it(labels);
+    Kwave::Label label = (it.hasNext()) ? it.next() : Kwave::Label();
 
     if (selection_only) {
 	selection(0, &selection_left, &selection_right, true);
@@ -342,7 +342,7 @@ unsigned int SaveBlocksPlugin::blocksToSave(bool selection_only)
 	if ((selection_left < block_end) && (selection_right > block_start))
 	    count++;
 	if (label.isNull()) break;
-	label = (it.hasNext()) ? it.next() : Label();
+	label = (it.hasNext()) ? it.next() : Kwave::Label();
     }
 
     return count;

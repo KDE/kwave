@@ -44,7 +44,7 @@ KWAVE_PLUGIN(SampleRatePlugin, "samplerate", "2.1",
              I18N_NOOP("Sample Rate Conversion"), "Thomas Eschenbacher");
 
 //***************************************************************************
-SampleRatePlugin::SampleRatePlugin(const PluginContext &context)
+SampleRatePlugin::SampleRatePlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context), m_params(), m_new_rate(0.0),
      m_whole_signal(false)
 {
@@ -95,7 +95,7 @@ void SampleRatePlugin::run(QStringList params)
     if (interpreteParameters(params) < 0)
 	return;
 
-    double old_rate = FileInfo(signalManager().metaData()).rate();
+    double old_rate = Kwave::FileInfo(signalManager().metaData()).rate();
     if ((old_rate <= 0) || (old_rate == m_new_rate)) return;
 
     Kwave::UndoTransactionGuard undo_guard(*this, i18n("Change sample rate"));
@@ -138,7 +138,7 @@ void SampleRatePlugin::run(QStringList params)
 	mgr.insertSpace(last + 1, new_length - length + 1, tracks);
     }
 
-    MultiTrackReader source(Kwave::SinglePassForward,
+    Kwave::MultiTrackReader source(Kwave::SinglePassForward,
 	mgr, tracks, first, last);
 
     // connect the progress dialog
@@ -157,7 +157,7 @@ void SampleRatePlugin::run(QStringList params)
     converter.setAttribute(SLOT(setRatio(const QVariant)), QVariant(ratio));
 
     // create the writer with the appropriate length
-    Kwave::MultiTrackWriter sink(mgr, tracks, Overwrite,
+    Kwave::MultiTrackWriter sink(mgr, tracks, Kwave::Overwrite,
 	first, first + new_length - 1);
 
     // connect the objects
@@ -241,7 +241,7 @@ void SampleRatePlugin::run(QStringList params)
 
     // set the sample rate if we modified the whole signal
     if (m_whole_signal) {
-	FileInfo info(signalManager().metaData());
+	Kwave::FileInfo info(signalManager().metaData());
 	info.setRate(m_new_rate);
 	mgr.setFileInfo(info, false);
     }

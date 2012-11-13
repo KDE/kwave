@@ -19,7 +19,6 @@
 
 #include "libkwave/SampleArray.h"
 #include "libkwave/PlaybackSink.h"
-#include "libkwave/PlayBackDevice.h"
 
 //***************************************************************************
 Kwave::PlaybackSink::PlaybackSink(unsigned int track)

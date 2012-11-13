@@ -19,11 +19,17 @@
 #define _FLAC_CODEC_PLUGIN_H_
 
 #include "config.h"
+
+#include "libkwave/CompressionType.h"
 #include "libkwave/Plugin.h"
 
 class QStringList;
-class Encoder;
-class Decoder;
+
+namespace Kwave
+{
+    class Decoder;
+    class Encoder;
+}
 
 class FlacCodecPlugin: public Kwave::Plugin
 {
@@ -31,7 +37,7 @@ class FlacCodecPlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    FlacCodecPlugin(const PluginContext &c);
+    FlacCodecPlugin(const Kwave::PluginContext &c);
 
     /** Destructor */
     virtual ~FlacCodecPlugin();
@@ -49,10 +55,10 @@ public:
 
 private:
     /** decoder used as factory */
-    Decoder *m_decoder;
+    Kwave::Decoder *m_decoder;
 
     /** encoder used as factory */
-    Encoder *m_encoder;
+    Kwave::Encoder *m_encoder;
 };
 
 #define REGISTER_MIME_TYPES { \
@@ -61,7 +67,7 @@ private:
 }
 
 #define REGISTER_COMPRESSION_TYPES { \
-    addCompression(CompressionType::FLAC);   \
+    addCompression(Kwave::CompressionType::FLAC);   \
 }
 
 #define DEFAULT_MIME_TYPE "audio/x-flac"

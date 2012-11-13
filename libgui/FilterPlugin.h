@@ -42,7 +42,7 @@ namespace Kwave {
     public:
 
 	/** Constructor */
-	FilterPlugin(const PluginContext &context);
+	FilterPlugin(const Kwave::PluginContext &context);
 
 	/** Destructor */
 	virtual ~FilterPlugin();
@@ -53,7 +53,7 @@ namespace Kwave {
 	/**
 	 * Creates a setup dialog an returns a pointer to it.
 	 */
-	virtual KwavePluginSetupDialog *createDialog(QWidget * /*parent*/) = 0;
+	virtual Kwave::PluginSetupDialog *createDialog(QWidget * /*parent*/) = 0;
 
 	/**
 	 * Creates a multi-track filter with the given number of tracks

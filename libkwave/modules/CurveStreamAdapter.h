@@ -25,7 +25,8 @@
 #include "libkwave/Curve.h"
 #include "libkwave/SampleSource.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     class KDE_EXPORT CurveStreamAdapter :public Kwave::SampleSource
     {
@@ -36,7 +37,7 @@ namespace Kwave {
 	* @param curve the curve from which we take the interpolation
 	* @param length number of samples of the interpolated range
 	*/
-	CurveStreamAdapter(Curve &curve, unsigned int length);
+	CurveStreamAdapter(Kwave::Curve &curve, unsigned int length);
 
 	/** Destructor */
 	virtual ~CurveStreamAdapter();
@@ -59,7 +60,7 @@ namespace Kwave {
 	unsigned int m_length;
 
 	/** the interpolation */
-	Interpolation &m_interpolation;
+	Kwave::Interpolation &m_interpolation;
 
 	/** array with the interpolated curve data */
 	Kwave::SampleArray m_buffer;
@@ -69,3 +70,5 @@ namespace Kwave {
 }
 #endif /* _CURVE_STREAM_ADAPTER_H_ */
 
+//***************************************************************************
+//***************************************************************************

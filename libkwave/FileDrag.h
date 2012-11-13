@@ -26,31 +26,35 @@
 
 #include "libkwave/CodecManager.h"
 
-namespace KwaveFileDrag
+namespace Kwave
 {
-    static inline bool canDecode(const QMimeData *source) {
-	if (!source) return false;
+    namespace FileDrag
+    {
+	static inline bool canDecode(const QMimeData *source) {
+	    if (!source) return false;
 
-	if (source->hasUrls()) {
-	    // dropping URLs
-	    foreach (QUrl url, source->urls()) {
-		QString filename = url.toLocalFile();
-		QString mimetype = CodecManager::whatContains(filename);
-		if (CodecManager::canDecode(mimetype)) {
+	    if (source->hasUrls()) {
+		// dropping URLs
+		foreach (QUrl url, source->urls()) {
+		    QString filename = url.toLocalFile();
+		    QString mimetype =
+			Kwave::CodecManager::whatContains(filename);
+		    if (Kwave::CodecManager::canDecode(mimetype)) {
+			return true;
+		    }
+		}
+	    }
+
+	    foreach (QString format, source->formats()) {
+		// dropping known mime type
+		if (Kwave::CodecManager::canDecode(format)) {
+		    qDebug("Kwave::FileDrag::canDecode(%s)",
+			format.toLocal8Bit().data());
 		    return true;
 		}
 	    }
+	    return false;
 	}
-
-	foreach (QString format, source->formats()) {
-	    // dropping known mime type
-	    if (CodecManager::canDecode(format)) {
-		qDebug("KwaveFileDrag::canDecode(%s)",
-		       format.toLocal8Bit().data());
-		return true;
-	    }
-	}
-	return false;
     }
 }
 

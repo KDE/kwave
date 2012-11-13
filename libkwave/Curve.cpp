@@ -27,33 +27,33 @@
 
 //***************************************************************************
 
-QPointF Curve::NoPoint(FLT_MAX, FLT_MAX);
+QPointF Kwave::Curve::NoPoint(FLT_MAX, FLT_MAX);
 
 //***************************************************************************
-Curve::Curve()
-    :m_interpolation(INTPOL_LINEAR)
+Kwave::Curve::Curve()
+    :m_interpolation(Kwave::INTPOL_LINEAR)
 {
 }
 
 //***************************************************************************
-Curve::Curve(const QString &command)
-    :m_interpolation(INTPOL_LINEAR)
+Kwave::Curve::Curve(const QString &command)
+    :m_interpolation(Kwave::INTPOL_LINEAR)
 {
     fromCommand(command);
 }
 
 //***************************************************************************
-Curve::~Curve()
+Kwave::Curve::~Curve()
 {
     clear();
 }
 
 //***************************************************************************
-void Curve::fromCommand(const QString &command)
+void Kwave::Curve::fromCommand(const QString &command)
 {
     clear();
 
-    Parser parse(command);
+    Kwave::Parser parse(command);
     QString t = parse.firstParam();
     setInterpolationType(m_interpolation.find(t));
 
@@ -67,7 +67,7 @@ void Curve::fromCommand(const QString &command)
 }
 
 //***************************************************************************
-QString Curve::getCommand()
+QString Kwave::Curve::getCommand()
 {
     QString cmd = "curve(";
     cmd += m_interpolation.name(m_interpolation.type());
@@ -81,33 +81,33 @@ QString Curve::getCommand()
 }
 
 //***************************************************************************
-Interpolation &Curve::interpolation()
+Kwave::Interpolation &Kwave::Curve::interpolation()
 {
     m_interpolation.prepareInterpolation(*this);
     return m_interpolation;
 }
 
 //***************************************************************************
-QVector<double> Curve::interpolation(unsigned int points)
+QVector<double> Kwave::Curve::interpolation(unsigned int points)
 {
     m_interpolation.prepareInterpolation(*this);
     return m_interpolation.interpolation(*this, points);
 }
 
 //***************************************************************************
-void Curve::setInterpolationType(interpolation_t type)
+void Kwave::Curve::setInterpolationType(Kwave::interpolation_t type)
 {
     m_interpolation.setType(type);
 }
 
 //***************************************************************************
-interpolation_t Curve::interpolationType()
+Kwave::interpolation_t Kwave::Curve::interpolationType()
 {
     return m_interpolation.type();
 }
 
 //***************************************************************************
-void Curve::deletePoint(Point p, bool check)
+void Kwave::Curve::deletePoint(Point p, bool check)
 {
     Iterator it(*this);
     if (!it.findNext(p)) return;
@@ -116,7 +116,7 @@ void Curve::deletePoint(Point p, bool check)
 }
 
 //***************************************************************************
-void Curve::secondHalf()
+void Kwave::Curve::secondHalf()
 {
     if (isEmpty()) return;
 
@@ -128,7 +128,7 @@ void Curve::secondHalf()
 }
 
 //***************************************************************************
-void Curve::deleteSecondPoint()
+void Kwave::Curve::deleteSecondPoint()
 {
     if (isEmpty()) return;
 
@@ -140,7 +140,7 @@ void Curve::deleteSecondPoint()
 }
 
 //***************************************************************************
-void Curve::insert(double x, double y)
+void Kwave::Curve::insert(double x, double y)
 {
     if ((x < 0.0) || (x > 1.0)) {
 	qWarning("Curve::insert(%0.2f,%0.2f): out of range !",x,y);
@@ -152,7 +152,7 @@ void Curve::insert(double x, double y)
 }
 
 //***************************************************************************
-void Curve::firstHalf()
+void Kwave::Curve::firstHalf()
 {
     if (isEmpty()) return;
 
@@ -163,7 +163,7 @@ void Curve::firstHalf()
 }
 
 //****************************************************************************
-void Curve::VFlip()
+void Kwave::Curve::VFlip()
 {
     if (isEmpty()) return;
 
@@ -173,7 +173,7 @@ void Curve::VFlip()
 }
 
 //***************************************************************************
-void Curve::HFlip()
+void Kwave::Curve::HFlip()
 {
     if (isEmpty()) return;
 
@@ -187,12 +187,12 @@ void Curve::HFlip()
 }
 
 //***************************************************************************
-void Curve::scaleFit(unsigned int range)
+void Kwave::Curve::scaleFit(unsigned int range)
 {
     double min = DBL_MAX;
     double max = DBL_MIN;
 
-    Interpolation interpolation(m_interpolation.type());
+    Kwave::Interpolation interpolation(m_interpolation.type());
 
     QVector<double> y = interpolation.interpolation(*this, range);
     foreach (double yi, y) {
@@ -211,7 +211,7 @@ void Curve::scaleFit(unsigned int range)
 }
 
 //***************************************************************************
-Curve::Point Curve::findPoint(double px, double py, double tol)
+Kwave::Curve::Point Kwave::Curve::findPoint(double px, double py, double tol)
 {
     Point best = NoPoint;
     double dist;
@@ -229,13 +229,13 @@ Curve::Point Curve::findPoint(double px, double py, double tol)
 }
 
 //***************************************************************************
-static bool compare_x(Curve::Point &a, Curve::Point &b)
+static bool compare_x(Kwave::Curve::Point &a, Kwave::Curve::Point &b)
 {
     return (a.x() < b.x());
 }
 
 //***************************************************************************
-void Curve::sort()
+void Kwave::Curve::sort()
 {
     qSort(begin(), end(), compare_x);
 }

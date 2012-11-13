@@ -20,7 +20,7 @@
 #include "libkwave/PlaybackController.h"
 
 //***************************************************************************
-PlaybackController::PlaybackController()
+Kwave::PlaybackController::PlaybackController()
     :m_reload_mode(false), m_loop_mode(false), m_paused(false),
      m_playing(false), m_playback_position(0), m_playback_start(0),
      m_playback_end(0)
@@ -28,13 +28,13 @@ PlaybackController::PlaybackController()
 }
 
 //***************************************************************************
-PlaybackController::~PlaybackController()
+Kwave::PlaybackController::~PlaybackController()
 {
     playbackStop();
 }
 
 //***************************************************************************
-void PlaybackController::playbackStart()
+void Kwave::PlaybackController::playbackStart()
 {
     // leave the reload mode in any case
     m_reload_mode = false;
@@ -58,7 +58,7 @@ void PlaybackController::playbackStart()
 }
 
 //***************************************************************************
-void PlaybackController::playbackLoop()
+void Kwave::PlaybackController::playbackLoop()
 {
     // leave the reload mode in any case
     m_reload_mode = false;
@@ -83,7 +83,7 @@ void PlaybackController::playbackLoop()
 }
 
 //***************************************************************************
-void PlaybackController::playbackPause()
+void Kwave::PlaybackController::playbackPause()
 {
     // leave the reload mode in any case
     m_reload_mode = false;
@@ -97,7 +97,7 @@ void PlaybackController::playbackPause()
 }
 
 //***************************************************************************
-void PlaybackController::playbackContinue()
+void Kwave::PlaybackController::playbackContinue()
 {
     // leave the reload mode in any case
     m_reload_mode = false;
@@ -118,7 +118,7 @@ void PlaybackController::playbackContinue()
 }
 
 //***************************************************************************
-void PlaybackController::playbackStop()
+void Kwave::PlaybackController::playbackStop()
 {
     // leave the reload mode in any case
     m_reload_mode = false;
@@ -134,7 +134,7 @@ void PlaybackController::playbackStop()
 }
 
 //***************************************************************************
-void PlaybackController::seekTo(sample_index_t pos)
+void Kwave::PlaybackController::seekTo(sample_index_t pos)
 {
     if (pos < m_playback_start) pos = m_playback_start;
     if (pos > m_playback_end)   pos = m_playback_end;
@@ -150,20 +150,20 @@ void PlaybackController::seekTo(sample_index_t pos)
 }
 
 //***************************************************************************
-void PlaybackController::seekDone(sample_index_t pos)
+void Kwave::PlaybackController::seekDone(sample_index_t pos)
 {
     emit sigSeekDone(pos);
 }
 
 //***************************************************************************
-void PlaybackController::updatePlaybackPos(sample_index_t pos)
+void Kwave::PlaybackController::updatePlaybackPos(sample_index_t pos)
 {
     m_playback_position = pos;
     emit sigPlaybackPos(m_playback_position);
 }
 
 //***************************************************************************
-void PlaybackController::playbackDone()
+void Kwave::PlaybackController::playbackDone()
 {
     if (m_reload_mode) {
 	// if we were in the reload mode, reset the
@@ -187,7 +187,7 @@ void PlaybackController::playbackDone()
 }
 
 //***************************************************************************
-void PlaybackController::reload()
+void Kwave::PlaybackController::reload()
 {
     if (!m_playing || m_paused) return; // no effect if not playing or paused
 
@@ -200,7 +200,7 @@ void PlaybackController::reload()
 }
 
 //***************************************************************************
-void PlaybackController::reset()
+void Kwave::PlaybackController::reset()
 {
     m_playback_start = 0;
     m_playback_position = 0;
@@ -214,55 +214,56 @@ void PlaybackController::reset()
 }
 
 //***************************************************************************
-bool PlaybackController::loop() const
+bool Kwave::PlaybackController::loop() const
 {
     return m_loop_mode;
 }
 
 //***************************************************************************
-bool PlaybackController::running() const
+bool Kwave::PlaybackController::running() const
 {
     return m_playing;
 }
 
 //***************************************************************************
-bool PlaybackController::paused() const
+bool Kwave::PlaybackController::paused() const
 {
     return m_paused;
 }
 
 //***************************************************************************
-void PlaybackController::setStartPos(sample_index_t pos)
+void Kwave::PlaybackController::setStartPos(sample_index_t pos)
 {
     m_playback_start = pos;
 }
 
 
 //***************************************************************************
-void PlaybackController::setEndPos(sample_index_t pos)
+void Kwave::PlaybackController::setEndPos(sample_index_t pos)
 {
     m_playback_end = pos;
 }
 
 //***************************************************************************
-sample_index_t PlaybackController::startPos() const
+sample_index_t Kwave::PlaybackController::startPos() const
 {
     return m_playback_start;
 }
 
 //***************************************************************************
-sample_index_t PlaybackController::endPos() const
+sample_index_t Kwave::PlaybackController::endPos() const
 {
     return m_playback_end;
 }
 
 //***************************************************************************
-sample_index_t PlaybackController::currentPos() const
+sample_index_t Kwave::PlaybackController::currentPos() const
 {
     return m_playback_position;
 }
 
 //***************************************************************************
+using namespace Kwave;
 #include "PlaybackController.moc"
 //***************************************************************************
 //***************************************************************************

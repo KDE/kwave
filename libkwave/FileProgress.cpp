@@ -37,7 +37,7 @@
 #include "libkwave/MessageBox.h"
 
 //***************************************************************************
-FileProgress::FileProgress(QWidget *parent,
+Kwave::FileProgress::FileProgress(QWidget *parent,
 	const QUrl &url, unsigned int size,
 	sample_index_t samples, double rate, unsigned int bits,
 	unsigned int tracks)
@@ -177,13 +177,13 @@ FileProgress::FileProgress(QWidget *parent,
 }
 
 //***************************************************************************
-void FileProgress::resizeEvent(QResizeEvent *)
+void Kwave::FileProgress::resizeEvent(QResizeEvent *)
 {
     fitUrlLabel();
 }
 
 //***************************************************************************
-void FileProgress::closeEvent(QCloseEvent *e)
+void Kwave::FileProgress::closeEvent(QCloseEvent *e)
 {
     Q_ASSERT(e);
     if (!e) return;
@@ -208,7 +208,7 @@ void FileProgress::closeEvent(QCloseEvent *e)
 }
 
 //***************************************************************************
-void FileProgress::fitUrlLabel()
+void Kwave::FileProgress::fitUrlLabel()
 {
     if (!m_lbl_url) return;
 
@@ -231,8 +231,8 @@ void FileProgress::fitUrlLabel()
 }
 
 //***************************************************************************
-QLabel *FileProgress::addInfoLabel(QGridLayout *layout, const QString text,
-	int row, int col)
+QLabel *Kwave::FileProgress::addInfoLabel(QGridLayout *layout,
+                                          const QString text, int row, int col)
 {
     QLabel *label = new QLabel(this);
     Q_ASSERT(label);
@@ -249,7 +249,8 @@ QLabel *FileProgress::addInfoLabel(QGridLayout *layout, const QString text,
 }
 
 //***************************************************************************
-void FileProgress::updateStatistics(double rate, double rest, quint64 pos)
+void Kwave::FileProgress::updateStatistics(double rate, double rest,
+                                           quint64 pos)
 {
     QString text;
     QString num;
@@ -293,7 +294,7 @@ void FileProgress::updateStatistics(double rate, double rest, quint64 pos)
 }
 
 //***************************************************************************
-void FileProgress::setValue(qreal percent)
+void Kwave::FileProgress::setValue(qreal percent)
 {
     // position is in samples, we need bytes
     quint64 pos = percent * qreal(m_size) / qreal(100.0);
@@ -301,7 +302,7 @@ void FileProgress::setValue(qreal percent)
 }
 
 //***************************************************************************
-void FileProgress::setBytePosition(quint64 pos)
+void Kwave::FileProgress::setBytePosition(quint64 pos)
 {
     if (!m_progress) return;
 
@@ -336,7 +337,7 @@ void FileProgress::setBytePosition(quint64 pos)
 }
 
 //***************************************************************************
-void FileProgress::setLength(quint64 samples)
+void Kwave::FileProgress::setLength(quint64 samples)
 {
     QString text;
 
@@ -355,13 +356,14 @@ void FileProgress::setLength(quint64 samples)
 }
 
 //***************************************************************************
-void FileProgress::cancel()
+void Kwave::FileProgress::cancel()
 {
     close();
     if (m_canceled) emit canceled();
 }
 
 //***************************************************************************
+using namespace Kwave;
 #include "FileProgress.moc"
 //***************************************************************************
 //***************************************************************************

@@ -133,7 +133,7 @@ void MenuManager::executeCommand(const QString &command)
     Q_ASSERT(m_menu_root);
     if (!m_menu_root) return; // makes no sense if no menu root
 
-    Parser parser(command);
+    Kwave::Parser parser(command);
 
     QKeySequence shortcut;  // keyboard shortcut (optional)
     QString id = 0;         // string id (optional)

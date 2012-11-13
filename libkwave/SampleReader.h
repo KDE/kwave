@@ -34,175 +34,182 @@
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleSource.h"
 
-class KDE_EXPORT SampleReader: public Kwave::SampleSource
+namespace Kwave
 {
-    Q_OBJECT
-public:
 
-    /**
-     * Constructor. Creates a stream for reading samples from a track.
-     * @param mode the reader mode, see Kwave::ReaderMode
-     * @param stripes list of stripes which contain data in the desired range
-     * @param left start of the input (only useful in insert and
-     *             overwrite mode)
-     * @param right end of the input (only useful with overwrite mode)
-     * @see InsertMode
-     */
-    SampleReader(Kwave::ReaderMode mode, QList<Stripe> stripes,
-                 sample_index_t left, sample_index_t right);
+    class KDE_EXPORT SampleReader: public Kwave::SampleSource
+    {
+	Q_OBJECT
+    public:
 
-    /** Destructor */
-    virtual ~SampleReader();
+	/**
+	 * Constructor. Creates a stream for reading samples from a track.
+	 * @param mode the reader mode, see Kwave::ReaderMode
+	 * @param stripes list of stripes which contain data in the desired range
+	 * @param left start of the input (only useful in insert and
+	 *             overwrite mode)
+	 * @param right end of the input (only useful with overwrite mode)
+	 * @see InsertMode
+	 */
+	SampleReader(Kwave::ReaderMode mode, QList<Kwave::Stripe> stripes,
+	             sample_index_t left, sample_index_t right);
 
-    /** Resets the stream to it's start */
-    void reset();
+	/** Destructor */
+	virtual ~SampleReader();
 
-    /**
-     * Each KwaveSampleSource has to derive this method for producing
-     * sample data. It then should emit a signal like this:
-     * "output(SampleArray &data)"
-     */
-    virtual void goOn();
+	/** Resets the stream to it's start */
+	void reset();
 
-    /** Checks if the last read operation has reached the end of input */
-    inline bool eof() const {
-	return (pos() > m_last);
-    }
+	/**
+	 * Each KwaveSampleSource has to derive this method for producing
+	 * sample data. It then should emit a signal like this:
+	 * "output(SampleArray &data)"
+	 */
+	virtual void goOn();
 
-    /**
-     * Returns true if the end of the source has been reached,
-     * e.g. at EOF of an input stream.
-     *
-     * @return true if it can produce more sample data, otherwise false
-     * @see eof()
-     */
-    virtual bool done() const { return eof(); }
+	/** Checks if the last read operation has reached the end of input */
+	inline bool eof() const {
+	    return (pos() > m_last);
+	}
 
-    /**
-     * Reads samples into a buffer.
-     * @param buffer the destination buffer to receive the samples
-     * @param dstoff offset within the destination buffer
-     * @param length number of samples to read
-     * @return number of read samples
-     */
-    unsigned int read(Kwave::SampleArray &buffer, unsigned int dstoff,
-	unsigned int length);
+	/**
+	 * Returns true if the end of the source has been reached,
+	 * e.g. at EOF of an input stream.
+	 *
+	 * @return true if it can produce more sample data, otherwise false
+	 * @see eof()
+	 */
+	virtual bool done() const { return eof(); }
 
-    /**
-     * Returns the minumum and maximum sample value within a range
-     * of samples.
-     * @param first index of the first sample
-     * @param last index of the last sample
-     * @param min receives the lowest value or 0 if no samples are in range
-     * @param max receives the highest value or 0 if no samples are in range
-     *
-     * @note min and max do not need to be initialized
-     */
-    void minMax(sample_index_t first, sample_index_t last,
-		sample_t &min, sample_t &max);
+	/**
+	 * Reads samples into a buffer.
+	 * @param buffer the destination buffer to receive the samples
+	 * @param dstoff offset within the destination buffer
+	 * @param length number of samples to read
+	 * @return number of read samples
+	 */
+	unsigned int read(Kwave::SampleArray &buffer, unsigned int dstoff,
+	                  unsigned int length);
 
-    /** Skips a number of samples. */
-    void skip(sample_index_t count);
+	/**
+	 * Returns the minumum and maximum sample value within a range
+	 * of samples.
+	 * @param first index of the first sample
+	 * @param last index of the last sample
+	 * @param min receives the lowest value or 0 if no samples are in range
+	 * @param max receives the highest value or 0 if no samples are in range
+	 *
+	 * @note min and max do not need to be initialized
+	 */
+	void minMax(sample_index_t first, sample_index_t last,
+	            sample_t &min, sample_t &max);
 
-    /** Seeks to a given position */
-    void seek(sample_index_t pos);
+	/** Skips a number of samples. */
+	void skip(sample_index_t count);
 
-    /**
-     * Returns the current read position.
-     */
-    inline sample_index_t pos() const {
-	return (m_src_position + m_buffer_position - m_buffer_used);
-    }
+	/** Seeks to a given position */
+	void seek(sample_index_t pos);
 
-    /** Returns the position of the first sample */
-    inline sample_index_t first() const {
-	return m_first;
-    }
+	/**
+	 * Returns the current read position.
+	 */
+	inline sample_index_t pos() const {
+	    return (m_src_position + m_buffer_position - m_buffer_used);
+	}
 
-    /** Returns the position of the last sample */
-    inline sample_index_t last() const {
-	return m_last;
-    }
+	/** Returns the position of the first sample */
+	inline sample_index_t first() const {
+	    return m_first;
+	}
 
-    /**
-     * Reads one single sample.
-     */
-    SampleReader& operator >> (sample_t &sample);
+	/** Returns the position of the last sample */
+	inline sample_index_t last() const {
+	    return m_last;
+	}
 
-    /**
-     * Reads a full buffer of samples. If the buffer cannot be filled,
-     * it will be shrinked to the number of samples that were really
-     * read.
-     */
-    SampleReader& operator >> (Kwave::SampleArray &sample);
+	/**
+	* Reads one single sample.
+	*/
+	SampleReader& operator >> (sample_t &sample);
 
-signals:
+	/**
+	 * Reads a full buffer of samples. If the buffer cannot be filled,
+	 * it will be shrinked to the number of samples that were really
+	 * read.
+	 */
+	SampleReader& operator >> (Kwave::SampleArray &sample);
 
-    /** Emitted when the internal buffer is filled or the reader is closed */
-    void proceeded();
+    signals:
 
-    /**
-     * Interface for the signal/slot based streaming API.
-     * @param data sample data that has been read
-     */
-    void output(Kwave::SampleArray data);
+	/** Emitted when the internal buffer is filled or the reader is closed */
+	void proceeded();
 
-protected:
+	/**
+	 * Interface for the signal/slot based streaming API.
+	 * @param data sample data that has been read
+	 */
+	void output(Kwave::SampleArray data);
 
-    /** Fills the sample buffer */
-    void fillBuffer();
+    protected:
 
-    /**
-     * Read a block of samples, with padding if necessary.
-     *
-     * @param offset position where to start the read operation
-     * @param buffer receives the samples
-     * @param buf_offset offset within the buffer
-     * @param length number of samples to read
-     * @return number of read samples
-     */
-    unsigned int readSamples(sample_index_t offset,
-                             Kwave::SampleArray &buffer,
-                             unsigned int buf_offset,
-                             unsigned int length);
+	/** Fills the sample buffer */
+	void fillBuffer();
 
-private:
+	/**
+	 * Read a block of samples, with padding if necessary.
+	 *
+	 * @param offset position where to start the read operation
+	 * @param buffer receives the samples
+	 * @param buf_offset offset within the buffer
+	 * @param length number of samples to read
+	 * @return number of read samples
+	 */
+	unsigned int readSamples(sample_index_t offset,
+	                         Kwave::SampleArray &buffer,
+	                         unsigned int buf_offset,
+	                         unsigned int length);
 
-    /** operation mode of the reader, see Kwave::ReaderMode */
-    Kwave::ReaderMode m_mode;
+    private:
 
-    /** list of stipes in range */
-    QList<Stripe> m_stripes;
+	/** operation mode of the reader, see Kwave::ReaderMode */
+	Kwave::ReaderMode m_mode;
 
-    /**
-     * Current sample position, related to the source of the samples. Does
-     * not reflect the position of the next sample to be read out due to
-     * internal buffering.
-     * @see pos() for the output position
-     */
-    sample_index_t m_src_position;
+	/** list of stipes in range */
+	QList<Kwave::Stripe> m_stripes;
 
-    /** first sample index */
-    sample_index_t m_first;
+	/**
+	 * Current sample position, related to the source of the samples. Does
+	 * not reflect the position of the next sample to be read out due to
+	 * internal buffering.
+	 * @see pos() for the output position
+	 */
+	sample_index_t m_src_position;
 
-    /** last sample index */
-    sample_index_t m_last;
+	/** first sample index */
+	sample_index_t m_first;
 
-    /** intermediate buffer for the input data */
-    Kwave::SampleArray m_buffer;
+	/** last sample index */
+	sample_index_t m_last;
 
-    /** number of used elements in the buffer */
-    unsigned int m_buffer_used;
+	/** intermediate buffer for the input data */
+	Kwave::SampleArray m_buffer;
 
-    /** read position within the buffer */
-    unsigned int m_buffer_position;
+	/** number of used elements in the buffer */
+	unsigned int m_buffer_used;
 
-    /** timer for limiting the number of progress signals per second */
-    QTime m_progress_time;
+	/** read position within the buffer */
+	unsigned int m_buffer_position;
 
-    /** last seek position, needed in SinglePassReverse mode */
-    sample_index_t m_last_seek_pos;
+	/** timer for limiting the number of progress signals per second */
+	QTime m_progress_time;
 
-};
+	/** last seek position, needed in SinglePassReverse mode */
+	sample_index_t m_last_seek_pos;
+
+    };
+}
 
 #endif /* _SAMPLE_READER_H_ */
+
+//***************************************************************************
+//***************************************************************************

@@ -26,7 +26,6 @@
 
 #include <klocale.h>
 
-#include "libkwave/Parser.h"
 #include "libgui/CurveWidget.h"
 #include "libgui/InvertableSpinBox.h"
 #include "libgui/ImageView.h"

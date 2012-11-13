@@ -129,21 +129,21 @@ static const snd_pcm_format_t _known_formats[] =
 
 //***************************************************************************
 /** find out the SampleFormat of an ALSA format */
-static SampleFormat sample_format_of(snd_pcm_format_t fmt)
+static Kwave::SampleFormat sample_format_of(snd_pcm_format_t fmt)
 {
     if (snd_pcm_format_float(fmt)) {
 	if (snd_pcm_format_width(fmt) == 32)
-	    return SampleFormat::Float;
+	    return Kwave::SampleFormat::Float;
 	if (snd_pcm_format_width(fmt) == 64)
-	    return SampleFormat::Double;
+	    return Kwave::SampleFormat::Double;
     } else if (snd_pcm_format_linear(fmt)) {
 	if (snd_pcm_format_signed(fmt) == 1)
-	    return SampleFormat::Signed;
+	    return Kwave::SampleFormat::Signed;
 	else if (snd_pcm_format_unsigned(fmt) == 1)
-	    return SampleFormat::Unsigned;
+	    return Kwave::SampleFormat::Unsigned;
     }
 
-    return SampleFormat::Unknown;
+    return Kwave::SampleFormat::Unknown;
 }
 
 //***************************************************************************
@@ -159,7 +159,7 @@ static byte_order_t endian_of(snd_pcm_format_t fmt)
 
 //***************************************************************************
 PlayBackALSA::PlayBackALSA()
-    :PlayBackDevice(),
+    :Kwave::PlayBackDevice(),
     m_device_name(),
     m_handle(0),
     m_rate(0),
@@ -290,8 +290,8 @@ QList<int> PlayBackALSA::detectSupportedFormats(const QString &device)
 	}
 	if (!fmt) continue;
 
-// 	CompressionType t;
-// 	SampleFormat::Map sf;
+// 	Kwave::CompressionType t;
+// 	Kwave::SampleFormat::Map sf;
 // 	qDebug("#%2u, %2d, %2u bit [%u byte], %s, '%s'",
 // 	    i,
 // 	    *fmt,

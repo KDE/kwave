@@ -22,7 +22,8 @@
 #include "config.h"
 #include <QString>
 
-namespace Kwave {
+namespace Kwave
+{
 
     class SignalManager;
 
@@ -108,3 +109,6 @@ namespace Kwave {
 }
 
 #endif /* _UNDO_ACTION_H_ */
+
+//***************************************************************************
+//***************************************************************************

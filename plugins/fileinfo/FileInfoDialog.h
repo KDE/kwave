@@ -31,13 +31,13 @@ class FileInfoDialog: public QDialog,
     Q_OBJECT
 public:
     /** Constructor */
-    FileInfoDialog(QWidget *parent, FileInfo &info);
+    FileInfoDialog(QWidget *parent, Kwave::FileInfo &info);
 
     /** Destructor */
     virtual ~FileInfoDialog();
 
     /** Returns the current file info */
-    FileInfo &info() { return m_info; };
+    Kwave::FileInfo &info() { return m_info; };
 
 public slots:
 
@@ -92,13 +92,15 @@ protected:
      * @param widget the control to get the tool tip
      * @param property the file property which it belongs to
      */
-    void initInfo(QLabel *label, QWidget *widget, FileProperty property);
+    void initInfo(QLabel *label, QWidget *widget,
+                  Kwave::FileProperty property);
 
     /**
      * Same as initInfo, but works only for text edit controls and sets
      * the current text
      */
-    void initInfoText(QLabel *label, QLineEdit *edit, FileProperty property);
+    void initInfoText(QLabel *label, QLineEdit *edit,
+                      Kwave::FileProperty property);
 
 private:
 
@@ -106,7 +108,7 @@ private:
      * takes the content of an edit field or similar into the current
      * info ore removes it if the text is zero-length
      */
-    void acceptEdit(FileProperty property, QString value);
+    void acceptEdit(Kwave::FileProperty property, QString value);
 
     /** initializes the "File" tab */
     void setupFileInfoTab();
@@ -133,7 +135,7 @@ private:
 private:
 
     /** FileInfo to be edited */
-    FileInfo m_info;
+    Kwave::FileInfo m_info;
 
     /** if true, we have an MPEG file */
     bool m_is_mpeg;

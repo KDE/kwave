@@ -31,7 +31,7 @@
 
 namespace Kwave { class SampleEncoder; }
 
-class PlayBackOSS: public PlayBackDevice
+class PlayBackOSS: public Kwave::PlayBackDevice
 {
 public:
 
@@ -103,7 +103,7 @@ protected:
      *        libaudiofile (signed or unsigned)
      */
     void format2mode(int format, int &compression,
-                     int &bits, SampleFormat &sample_format);
+                     int &bits, Kwave::SampleFormat &sample_format);
 
     /**
      * Opens a physical device and returns its file descriptor

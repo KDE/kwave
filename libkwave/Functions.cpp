@@ -19,7 +19,7 @@
 #include <math.h>
 
 #include <klocale.h>
-#include "Functions.h"
+#include "libkwave/Functions.h"
 
 //***************************************************************************
 double rect(double param)
@@ -85,7 +85,7 @@ double zero(double)
 //***************************************************************************
 
 //***************************************************************************
-void Functions::FunctionTypesMap::fill()
+void Kwave::Functions::FunctionTypesMap::fill()
 {
     append(0, &sin,    "sinus",            "Sinus");
     append(1, &rect,   "rectangular",      "Rectangular");
@@ -109,17 +109,17 @@ void Functions::FunctionTypesMap::fill()
 }
 
 //***************************************************************************
-Functions::Functions()
+Kwave::Functions::Functions()
 {
 }
 
 //***************************************************************************
-Functions::~Functions()
+Kwave::Functions::~Functions()
 {
 }
 
 //***************************************************************************
-QString Functions::name(unsigned int index)
+QString Kwave::Functions::name(unsigned int index)
 {
     Q_ASSERT(index < m_functions_map.count());
     if (index >= m_functions_map.count()) return "Zero";
@@ -127,9 +127,10 @@ QString Functions::name(unsigned int index)
 }
 
 //***************************************************************************
-Functions::periodic_function_t &Functions::function(unsigned int index)
+Kwave::Functions::periodic_function_t &Kwave::Functions::function(
+    unsigned int index)
 {
-    periodic_function_t *f = 0;
+    Kwave::Functions::periodic_function_t *f = 0;
 
     Q_ASSERT(index < m_functions_map.count());
     if (index < m_functions_map.count()) f = m_functions_map.data(index);
@@ -139,7 +140,7 @@ Functions::periodic_function_t &Functions::function(unsigned int index)
 }
 
 //***************************************************************************
-unsigned int Functions::count()
+unsigned int Kwave::Functions::count()
 {
     return m_functions_map.count();
 }

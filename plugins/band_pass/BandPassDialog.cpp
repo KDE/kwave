@@ -27,7 +27,6 @@
 #include <knuminput.h>
 #include <klocale.h>
 
-#include "libkwave/Parser.h"
 #include "libgui/ScaleWidget.h"
 #include "libgui/FrequencyResponseWidget.h"
 
@@ -36,7 +35,7 @@
 
 //***************************************************************************
 BandPassDialog::BandPassDialog(QWidget *parent, double sample_rate)
-    :QDialog(parent), KwavePluginSetupDialog(), Ui::BandPassDlg(),
+    :QDialog(parent), Kwave::PluginSetupDialog(), Ui::BandPassDlg(),
      m_frequency(3500),m_bw(100),
      m_sample_rate(sample_rate), m_filter(0)
 {

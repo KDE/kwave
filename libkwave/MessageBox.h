@@ -29,7 +29,9 @@
 
 class QWidget;
 
-namespace Kwave {
+namespace Kwave
+{
+
     class KDE_EXPORT MessageBox: public QObject
     {
     Q_OBJECT
@@ -192,3 +194,6 @@ namespace Kwave {
 }
 
 #endif /* _MESSAGE_BOX_H_ */
+
+//***************************************************************************
+//***************************************************************************

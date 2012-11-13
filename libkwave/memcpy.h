@@ -39,3 +39,6 @@ extern "C" void *(* xine_fast_memcpy)(void *to, const void *from, size_t len);
 #endif /* HAVE_OPTIMIZED_MEMCPY */
 
 #endif /* _MEMCPY_H_ */
+
+//***************************************************************************
+//***************************************************************************

@@ -39,7 +39,7 @@ class SampleRatePlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    SampleRatePlugin(const PluginContext &c);
+    SampleRatePlugin(const Kwave::PluginContext &c);
 
     /** Destructor */
     virtual ~SampleRatePlugin();

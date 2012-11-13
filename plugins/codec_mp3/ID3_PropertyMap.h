@@ -59,10 +59,10 @@ namespace Kwave {
 	 * Returns the frame ID of a property or an empty string
 	 * if nothing found (reverse lookup).
 	 */
-	ID3_FrameID findProperty(const FileProperty property) const;
+	ID3_FrameID findProperty(const Kwave::FileProperty property) const;
 
 	/** Returns true if the map contains a given property */
-	bool containsProperty(const FileProperty property) const;
+	bool containsProperty(const Kwave::FileProperty property) const;
 
 	/**
 	 * insert a new property / frame ID mapping
@@ -71,7 +71,7 @@ namespace Kwave {
 	 * @param id a ID3 frame ID
 	 * @param encoding the type of the encoding of the tag
 	 */
-	void insert(const FileProperty property, const ID3_FrameID id,
+	void insert(const Kwave::FileProperty property, const ID3_FrameID id,
 	            const Encoding encoding);
 
 	/**
@@ -99,10 +99,10 @@ namespace Kwave {
 	 * @param id a ID3 frame ID
 	 * @return a FileProperty
 	 */
-	FileProperty property(const ID3_FrameID id) const;
+	Kwave::FileProperty property(const ID3_FrameID id) const;
 
 	/** Returns a list with all supported properties */
-	QList<FileProperty> properties() const;
+	QList<Kwave::FileProperty> properties() const;
 
     private:
 
@@ -113,9 +113,9 @@ namespace Kwave {
 	/** container for one mapping */
 	typedef struct
 	{
-	    FileProperty m_property; /**< the Kwave property */
-	    ID3_FrameID  m_frame_id; /**< ID3 frame ID       */
-	    Encoding     m_encoding; /**< data encoding      */
+	    Kwave::FileProperty m_property; /**< the Kwave property */
+	    ID3_FrameID  m_frame_id;        /**< ID3 frame ID       */
+	    Encoding     m_encoding;        /**< data encoding      */
 	} Mapping;
 
 	/** list of mappings */

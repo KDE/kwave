@@ -27,43 +27,51 @@
 #include "libkwave/CodecBase.h"
 #include "libkwave/FileInfo.h"
 
-class MultiTrackReader;
 class QIODevice;
 class QWidget;
 
-class KDE_EXPORT Encoder: public QObject, public CodecBase
+namespace Kwave
 {
-    Q_OBJECT
-public:
-    /** Constructor */
-    Encoder();
 
-    /** Destructor */
-    virtual ~Encoder() {}
+    class MultiTrackReader;
 
-    /** Returns a new instance of the encoder */
-    virtual Encoder *instance() = 0;
+    class KDE_EXPORT Encoder: public QObject, public Kwave::CodecBase
+    {
+	Q_OBJECT
+    public:
+	/** Constructor */
+	Encoder();
 
-    /**
-     * Encodes a signal into a stream of bytes.
-     * @param widget a widget that can be used for displaying
-     *        message boxes or dialogs
-     * @param src MultiTrackReader used as source of the audio data
-     * @param dst file or other source to receive a stream of bytes
-     * @param meta_data meta data of the file to save
-     * @return true if succeeded, false on errors
-     */
-    virtual bool encode(QWidget *widget,
-                        MultiTrackReader &src,
-                        QIODevice &dst,
-                        const Kwave::MetaDataList &meta_data) = 0;
+	/** Destructor */
+	virtual ~Encoder() {}
 
-    /** Returns a list of supported file properties */
-    virtual QList<FileProperty> supportedProperties() {
-	QList<FileProperty> empty;
-	return empty;
-    }
+	/** Returns a new instance of the encoder */
+	virtual Encoder *instance() = 0;
 
-};
+	/**
+	 * Encodes a signal into a stream of bytes.
+	 * @param widget a widget that can be used for displaying
+	 *        message boxes or dialogs
+	 * @param src MultiTrackReader used as source of the audio data
+	 * @param dst file or other source to receive a stream of bytes
+	 * @param meta_data meta data of the file to save
+	 * @return true if succeeded, false on errors
+	 */
+	virtual bool encode(QWidget *widget,
+	                    Kwave::MultiTrackReader &src,
+	                    QIODevice &dst,
+	                    const Kwave::MetaDataList &meta_data) = 0;
+
+	/** Returns a list of supported file properties */
+	virtual QList<Kwave::FileProperty> supportedProperties() {
+	    QList<Kwave::FileProperty> empty;
+	    return empty;
+	}
+
+    };
+}
 
 #endif /* _ENCODER_H_ */
+
+//***************************************************************************
+//***************************************************************************

@@ -29,7 +29,8 @@
 #include "libkwave/SampleFIFO.h"
 #include "libkwave/SampleSource.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     class KDE_EXPORT Delay: public Kwave::SampleSource
     {
@@ -62,7 +63,7 @@ namespace Kwave {
 	private:
 
 	    /** buffer for delaying data */
-	    SampleFIFO m_fifo;
+	    Kwave::SampleFIFO m_fifo;
 
 	    /** buffer for output data */
 	    Kwave::SampleArray m_out_buffer;

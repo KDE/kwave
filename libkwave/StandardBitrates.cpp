@@ -20,10 +20,10 @@
 #include "StandardBitrates.h"
 
 /** the global static list of standard bitrates */
-static StandardBitrates g_bitrates;
+static Kwave::StandardBitrates g_bitrates;
 
 //***************************************************************************
-StandardBitrates::StandardBitrates()
+Kwave::StandardBitrates::StandardBitrates()
     :QList<int>()
 {
         // use well-known bitrates from MP3
@@ -53,18 +53,18 @@ StandardBitrates::StandardBitrates()
 }
 
 //***************************************************************************
-StandardBitrates::~StandardBitrates()
+Kwave::StandardBitrates::~StandardBitrates()
 {
 }
 
 //***************************************************************************
-const StandardBitrates &StandardBitrates::instance()
+const Kwave::StandardBitrates &Kwave::StandardBitrates::instance()
 {
     return g_bitrates;
 }
 
 //***************************************************************************
-int StandardBitrates::nearest(int rate) const
+int Kwave::StandardBitrates::nearest(int rate) const
 {
     int best = rate;
     int min_delta = INT_MAX;

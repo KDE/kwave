@@ -22,7 +22,6 @@
 
 #include <QtGlobal>
 
-#include "libkwave/CompressionType.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleFormat.h"
 
@@ -99,7 +98,7 @@ void decode_linear(const u_int8_t *src, sample_t *dst, unsigned int count)
 
 //***************************************************************************
 #define MAKE_DECODER(bits)                             \
-if (sample_format != SampleFormat::Unsigned) {         \
+if (sample_format != Kwave::SampleFormat::Unsigned) {  \
     if (endianness != BigEndian) {                     \
 	m_decoder = decode_linear<bits, true, true>;   \
     } else {                                           \
@@ -115,7 +114,7 @@ if (sample_format != SampleFormat::Unsigned) {         \
 
 //***************************************************************************
 SampleDecoderLinear::SampleDecoderLinear(
-    SampleFormat sample_format,
+    Kwave::SampleFormat sample_format,
     unsigned int bits_per_sample,
     byte_order_t endianness
 )
@@ -124,10 +123,10 @@ SampleDecoderLinear::SampleDecoderLinear(
     m_decoder(decode_NULL)
 {
     // sanity checks: we support only signed/unsigned and big/little endian
-    Q_ASSERT((sample_format == SampleFormat::Signed) ||
-             (sample_format == SampleFormat::Unsigned));
-    if ((sample_format != SampleFormat::Signed) &&
-        (sample_format != SampleFormat::Unsigned)) return;
+    Q_ASSERT((sample_format == Kwave::SampleFormat::Signed) ||
+             (sample_format == Kwave::SampleFormat::Unsigned));
+    if ((sample_format != Kwave::SampleFormat::Signed) &&
+        (sample_format != Kwave::SampleFormat::Unsigned)) return;
 
     // allow unknown endianness only with 8 bits
     Q_ASSERT((endianness != UnknownEndian) || (m_bytes_per_sample == 1));

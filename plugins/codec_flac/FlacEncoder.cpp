@@ -32,7 +32,6 @@
 
 #include <vorbis/vorbisenc.h>
 
-#include "libkwave/CompressionType.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/MessageBox.h"
@@ -45,7 +44,8 @@
 
 /***************************************************************************/
 FlacEncoder::FlacEncoder()
-    :Encoder(), FLAC::Encoder::Stream(), m_vorbis_comment_map(), m_dst(0)
+    :Kwave::Encoder(), FLAC::Encoder::Stream(),
+     m_vorbis_comment_map(), m_dst(0)
 {
     REGISTER_MIME_TYPES;
     REGISTER_COMPRESSION_TYPES;
@@ -57,13 +57,13 @@ FlacEncoder::~FlacEncoder()
 }
 
 /***************************************************************************/
-Encoder *FlacEncoder::instance()
+Kwave::Encoder *FlacEncoder::instance()
 {
     return new FlacEncoder();
 }
 
 /***************************************************************************/
-QList<FileProperty> FlacEncoder::supportedProperties()
+QList<Kwave::FileProperty> FlacEncoder::supportedProperties()
 {
     return m_vorbis_comment_map.values();
 }
@@ -148,7 +148,7 @@ FLAC__StreamMetadata *FlacEncoder::VorbisCommentContainer::data()
 }
 
 /***************************************************************************/
-void FlacEncoder::encodeMetaData(const FileInfo &info,
+void FlacEncoder::encodeMetaData(const Kwave::FileInfo &info,
     QVector<FLAC__StreamMetadata *> &flac_metadata)
 {
     // encode all Vorbis comments
@@ -170,14 +170,14 @@ void FlacEncoder::encodeMetaData(const FileInfo &info,
 }
 
 /***************************************************************************/
-bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
+bool FlacEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
                          QIODevice &dst,
                          const Kwave::MetaDataList &meta_data)
 {
     bool result = true;
 
     qDebug("FlacEncoder::encode()");
-    const FileInfo info(meta_data);
+    const Kwave::FileInfo info(meta_data);
     m_dst  = &dst;
 
     // get info: tracks, sample rate
@@ -282,7 +282,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
 	    // add all samples to one single buffer
 	    for (int track=0; track < tracks; track++) {
-		SampleReader *reader = src[track];
+		Kwave::SampleReader *reader = src[track];
 		Q_ASSERT(reader);
 		if (!reader) break;
 

@@ -23,24 +23,25 @@
 #include "libkwave/SignalManager.h"
 
 //***************************************************************************
-MultiTrackReader::MultiTrackReader()
-    :Kwave::MultiTrackSource<SampleReader, false>(0,0),
+Kwave::MultiTrackReader::MultiTrackReader()
+    :Kwave::MultiTrackSource<Kwave::SampleReader, false>(0,0),
      m_first(0), m_last(0), m_canceled(false)
 {
 }
 
 //***************************************************************************
-MultiTrackReader::MultiTrackReader(Kwave::ReaderMode mode,
-                                   Kwave::SignalManager &signal_manager,
-                                   const QList<unsigned int> &track_list,
-                                   sample_index_t first, sample_index_t last)
-    :Kwave::MultiTrackSource<SampleReader, false>(0),
+Kwave::MultiTrackReader::MultiTrackReader(Kwave::ReaderMode mode,
+                                          Kwave::SignalManager &signal_manager,
+                                          const QList<unsigned int> &track_list,
+                                          sample_index_t first,
+                                          sample_index_t last)
+    :Kwave::MultiTrackSource<Kwave::SampleReader, false>(0),
      m_first(first), m_last(last), m_canceled(false)
 {
     unsigned int index = 0;
 
     foreach(unsigned int track, track_list) {
-	SampleReader *s = signal_manager.openSampleReader(
+	Kwave::SampleReader *s = signal_manager.openSampleReader(
 	    mode, track, first, last);
 	if (!s) break;
 	insert(index++, s);
@@ -49,29 +50,29 @@ MultiTrackReader::MultiTrackReader(Kwave::ReaderMode mode,
 }
 
 //***************************************************************************
-MultiTrackReader::~MultiTrackReader()
+Kwave::MultiTrackReader::~MultiTrackReader()
 {
     clear();
 }
 
 //***************************************************************************
-sample_index_t MultiTrackReader::first() const
+sample_index_t Kwave::MultiTrackReader::first() const
 {
     return m_first;
 }
 
 //***************************************************************************
-sample_index_t MultiTrackReader::last() const
+sample_index_t Kwave::MultiTrackReader::last() const
 {
     return m_last;
 }
 
 //***************************************************************************
-bool MultiTrackReader::eof() const
+bool Kwave::MultiTrackReader::eof() const
 {
     const unsigned int c = tracks();
     for (unsigned int r = 0; r < c; r++) {
-	SampleReader *reader = at(r);
+	Kwave::SampleReader *reader = at(r);
 	Q_ASSERT(reader);
 	if (!reader) continue;
 	if (!reader->eof()) return false;
@@ -80,14 +81,14 @@ bool MultiTrackReader::eof() const
 }
 
 //***************************************************************************
-void MultiTrackReader::proceeded()
+void Kwave::MultiTrackReader::proceeded()
 {
     qreal sum = 0;
     qreal total = 0;
     unsigned int track;
     const unsigned int n_tracks = tracks();
     for (track = 0; track < n_tracks; ++track) {
-	SampleReader *r = at(track);
+	Kwave::SampleReader *r = at(track);
 	if (r) {
 	    sum   += (r->pos() - r->first());
 	    total += (r->last() - r->first() + 1);
@@ -98,19 +99,19 @@ void MultiTrackReader::proceeded()
 }
 
 //***************************************************************************
-void MultiTrackReader::reset()
+void Kwave::MultiTrackReader::reset()
 {
     unsigned int track;
     const unsigned int n_tracks = tracks();
     for (track=0; track < n_tracks; ++track) {
-	SampleReader *r = at(track);
+	Kwave::SampleReader *r = at(track);
 	if (r) r->reset();
     }
     emit progress(0);
 }
 
 //***************************************************************************
-bool MultiTrackReader::insert(unsigned int track, SampleReader *reader)
+bool Kwave::MultiTrackReader::insert(unsigned int track, Kwave::SampleReader *reader)
 {
     if (reader) {
         connect(
@@ -119,34 +120,34 @@ bool MultiTrackReader::insert(unsigned int track, SampleReader *reader)
 	    Qt::DirectConnection
 	);
     }
-    return Kwave::MultiTrackSource<SampleReader, false>::insert(
+    return Kwave::MultiTrackSource<Kwave::SampleReader, false>::insert(
         track, reader);
 }
 
 //***************************************************************************
-void MultiTrackReader::skip(sample_index_t count)
+void Kwave::MultiTrackReader::skip(sample_index_t count)
 {
     unsigned int track;
     const unsigned int n_tracks = tracks();
     for (track=0; track < n_tracks; ++track) {
-	SampleReader *r = at(track);
+	Kwave::SampleReader *r = at(track);
 	if (r) r->skip(count);
     }
 }
 
 //***************************************************************************
-void MultiTrackReader::seek(sample_index_t pos)
+void Kwave::MultiTrackReader::seek(sample_index_t pos)
 {
     unsigned int track;
     const unsigned int n_tracks = tracks();
     for (track=0; track < n_tracks; ++track) {
-	SampleReader *r = at(track);
+	Kwave::SampleReader *r = at(track);
 	if (r) r->seek(pos);
     }
 }
 
 //***************************************************************************
-void MultiTrackReader::cancel()
+void Kwave::MultiTrackReader::cancel()
 {
     m_canceled = true;
 }

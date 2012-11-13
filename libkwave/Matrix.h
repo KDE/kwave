@@ -25,7 +25,8 @@
 
 #include <QtGlobal>
 
-namespace Kwave {
+namespace Kwave
+{
 
     template <class T> class Matrix
     {
@@ -68,3 +69,6 @@ namespace Kwave {
 }
 
 #endif /* _MATRIX_H_ */
+
+//***************************************************************************
+//***************************************************************************

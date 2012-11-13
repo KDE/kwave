@@ -3,7 +3,14 @@ o cleanup: remove old FLAC API support
 
 o namespace cleanup
 
-o filename fixes in libkwave (remove prefix)
+o include Qt header files: add subsystem prefix
+
+o try to replace Qt classes which have KDE equivalent
+
+o find a replacement for libkwave/byteswap.h
+  -> see qFromBigEndian/qFromLittleEndian/qToLittleEndian...
+
+o TODO in MP3 plugin (ID3FID_MEDIATYPE)
 
 o support for OPUS codec (.opus, using Ogg as container)
 
@@ -13,7 +20,7 @@ o move label with mouse (drag&drop)
 
 o simplify loading/unloading of plugins
 
-o license change to GPL v3
+o license change to GPL v3 ?
 
 o new import/export plugin using ffmpeg/libavcodec
 

@@ -37,7 +37,7 @@ KWAVE_PLUGIN(ZeroPlugin, "zero", "2.1",
 #define ZERO_COUNT (64 * 1024)
 
 //***************************************************************************
-ZeroPlugin::ZeroPlugin(const PluginContext &context)
+ZeroPlugin::ZeroPlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context), m_zeroes()
 {
 }
@@ -98,9 +98,9 @@ void ZeroPlugin::run(QStringList params)
 
 	last  = first + length - 1;
 	writers = new Kwave::MultiTrackWriter(signalManager(),
-	    tracks, Insert, first, last);
+	    tracks, Kwave::Insert, first, last);
     } else {
-	writers = new Kwave::MultiTrackWriter(signalManager(), Overwrite);
+	writers = new Kwave::MultiTrackWriter(signalManager(), Kwave::Overwrite);
     }
 
     Q_ASSERT(writers);

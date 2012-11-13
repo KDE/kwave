@@ -18,20 +18,31 @@
 #include "Selection.h"
 
 //***************************************************************************
-Selection::Selection(sample_index_t offset, sample_index_t length)
+Kwave::Selection::Selection(sample_index_t offset, sample_index_t length)
     :QObject(), m_offset(offset), m_length(length)
 {
 }
 
 //***************************************************************************
-Selection::Selection(const Selection &other)
+Kwave::Selection::Selection(const Kwave::Selection &other)
     :QObject(), m_offset(other.offset()), m_length(other.length())
 {
 }
 
 //***************************************************************************
-Selection::~Selection()
+Kwave::Selection::~Selection()
 {
+}
+
+//***************************************************************************
+void Kwave::Selection::select(sample_index_t offset, sample_index_t length)
+{
+    if ((offset == m_offset) && (length == m_length))
+	return;
+
+    m_offset = offset;
+    m_length = length;
+    emit changed(m_offset, m_length);
 }
 
 //***************************************************************************

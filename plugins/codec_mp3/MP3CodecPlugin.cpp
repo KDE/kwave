@@ -28,7 +28,7 @@ KWAVE_PLUGIN(Kwave::MP3CodecPlugin, "codec_mp3", "2.1",
              I18N_NOOP("MP3 Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
-Kwave::MP3CodecPlugin::MP3CodecPlugin(const PluginContext &c)
+Kwave::MP3CodecPlugin::MP3CodecPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
 {
 }
@@ -45,11 +45,11 @@ void Kwave::MP3CodecPlugin::load(QStringList &/* params */)
 {
     if (!m_decoder) m_decoder = new Kwave::MP3Decoder();
     Q_ASSERT(m_decoder);
-    if (m_decoder) CodecManager::registerDecoder(*m_decoder);
+    if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
 
     if (!m_encoder) m_encoder = new Kwave::MP3Encoder();
     Q_ASSERT(m_encoder);
-    if (m_encoder) CodecManager::registerEncoder(*m_encoder);
+    if (m_encoder) Kwave::CodecManager::registerEncoder(*m_encoder);
 
     emitCommand(QString("menu (plugin:setup(codec_mp3), &Options/%1)").arg(
 	i18n("MP3 Encoder Setup")));

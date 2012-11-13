@@ -24,7 +24,8 @@
 
 #include "kdemacros.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     /**
      * Gives the control to the next thread. This can be called from
@@ -86,3 +87,6 @@ namespace Kwave {
 }
 
 #endif /* _KWAVE_UTILS_H_ */
+
+//***************************************************************************
+//***************************************************************************

@@ -64,12 +64,12 @@
 #define CONFIG_DEFAULT_SECTION "plugin fileinfo - setup dialog"
 
 //***************************************************************************
-FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
+FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
     :QDialog(parent), Ui::FileInfoDlg(), m_info(info)
 {
     setupUi(this);
 
-    QString mimetype = QVariant(m_info.get(INF_MIMETYPE)).toString();
+    QString mimetype = QVariant(m_info.get(Kwave::INF_MIMETYPE)).toString();
     if (!mimetype.length()) mimetype = "audio/x-wav"; // default mimetype
 
     m_is_mpeg = ((mimetype == "audio/x-mpga") ||
@@ -117,7 +117,7 @@ void FileInfoDialog::describeWidget(QWidget *widget, const QString &name,
 
 //***************************************************************************
 void FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
-                              FileProperty property)
+                              Kwave::FileProperty property)
 {
     if (label) label->setText(i18n(m_info.name(property).toAscii()) + ":");
     if (widget) describeWidget(widget, i18n(m_info.name(property).toAscii()),
@@ -126,7 +126,7 @@ void FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
 
 //***************************************************************************
 void FileInfoDialog::initInfoText(QLabel *label, QLineEdit *edit,
-                                  FileProperty property)
+                                  Kwave::FileProperty property)
 {
     initInfo(label, edit, property);
     if (edit) edit->setText(QVariant(m_info.get(property)).toString());
@@ -136,15 +136,15 @@ void FileInfoDialog::initInfoText(QLabel *label, QLineEdit *edit,
 void FileInfoDialog::setupFileInfoTab()
 {
     /* filename */
-    initInfo(lblFileName, edFileName, INF_FILENAME);
-    QFileInfo fi(QVariant(m_info.get(INF_FILENAME)).toString());
+    initInfo(lblFileName, edFileName, Kwave::INF_FILENAME);
+    QFileInfo fi(QVariant(m_info.get(Kwave::INF_FILENAME)).toString());
     edFileName->setText(fi.fileName());
     edFileName->setEnabled(fi.fileName().length() != 0);
 
     /* file size in bytes */
-    initInfo(lblFileSize, edFileSize, INF_FILESIZE);
-    if (m_info.contains(INF_FILESIZE)) {
-	unsigned int size = QVariant(m_info.get(INF_FILESIZE)).toUInt();
+    initInfo(lblFileSize, edFileSize, Kwave::INF_FILESIZE);
+    if (m_info.contains(Kwave::INF_FILESIZE)) {
+	unsigned int size = QVariant(m_info.get(Kwave::INF_FILESIZE)).toUInt();
 	QString dotted = Kwave::dottedNumber(size);
 	if (size < 10*1024) {
 	    edFileSize->setText(i18n("%1 bytes", dotted));
@@ -165,7 +165,7 @@ void FileInfoDialog::setupFileInfoTab()
           be fine, but doesn't work yet. Currently it gives
           only "Unknown" :-(
 */
-//    QString mimetype = QVariant(m_info.get(INF_MIMETYPE)).toString();
+//    QString mimetype = QVariant(m_info.get(Kwave::INF_MIMETYPE)).toString();
 //    lblFileFormat->setText(i18n("File format:");
 //    describeWidget(edFileFormat, lblFileFormat->text().left(
 //        lblFileFormat->text().length()-1),
@@ -180,7 +180,7 @@ void FileInfoDialog::setupFileInfoTab()
 //    edFileFormat->setText(format);
 
     // use mimetype instead
-    initInfoText(lblFileFormat,   edFileFormat,   INF_MIMETYPE);
+    initInfoText(lblFileFormat,   edFileFormat,   Kwave::INF_MIMETYPE);
 
     /* sample rate */
     lblSampleRate->setText(i18n("Sample rate:"));
@@ -231,11 +231,11 @@ void FileInfoDialog::setupFileInfoTab()
     }
 
     /* sample format */
-    SampleFormat::Map sf;
-    initInfo(lblSampleFormat, cbSampleFormat, INF_SAMPLE_FORMAT);
+    Kwave::SampleFormat::Map sf;
+    initInfo(lblSampleFormat, cbSampleFormat, Kwave::INF_SAMPLE_FORMAT);
     cbSampleFormat->insertItems(-1, sf.allNames());
-    SampleFormat format;
-    format.fromInt(QVariant(m_info.get(INF_SAMPLE_FORMAT)).toInt());
+    Kwave::SampleFormat format;
+    format.fromInt(QVariant(m_info.get(Kwave::INF_SAMPLE_FORMAT)).toInt());
     cbSampleFormat->setCurrentIndex(sf.findFromData(format));
 }
 
@@ -253,15 +253,15 @@ void FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
 
     /* compression */
     updateAvailableCompressions();
-    initInfo(lblCompression, cbCompression, INF_COMPRESSION);
+    initInfo(lblCompression, cbCompression, Kwave::INF_COMPRESSION);
 
     compressionWidget->init(m_info);
-    compressionWidget->setMode(m_info.contains(INF_VBR_QUALITY) ?
+    compressionWidget->setMode(m_info.contains(Kwave::INF_VBR_QUALITY) ?
         CompressionWidget::VBR_MODE : CompressionWidget::ABR_MODE);
 
     // enable/disable ABR/VBR controls, depending on mime type
-    bool lower = m_info.contains(INF_BITRATE_LOWER);
-    bool upper = m_info.contains(INF_BITRATE_UPPER);
+    bool lower = m_info.contains(Kwave::INF_BITRATE_LOWER);
+    bool upper = m_info.contains(Kwave::INF_BITRATE_UPPER);
     if (m_is_mpeg) {
 	// MPEG file
 	compressionWidget->enableABR(true, lower, upper);
@@ -277,20 +277,20 @@ void FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
     }
 
     // ABR bitrate settings
-    int abr_bitrate = m_info.contains(INF_BITRATE_NOMINAL) ?
-                  QVariant(m_info.get(INF_BITRATE_NOMINAL)).toInt() :
+    int abr_bitrate = m_info.contains(Kwave::INF_BITRATE_NOMINAL) ?
+                  QVariant(m_info.get(Kwave::INF_BITRATE_NOMINAL)).toInt() :
                   cfg.readEntry("default_abr_nominal_bitrate", -1);
-    int min_bitrate = m_info.contains(INF_BITRATE_LOWER) ?
-                  QVariant(m_info.get(INF_BITRATE_LOWER)).toInt() :
+    int min_bitrate = m_info.contains(Kwave::INF_BITRATE_LOWER) ?
+                  QVariant(m_info.get(Kwave::INF_BITRATE_LOWER)).toInt() :
                   cfg.readEntry("default_abr_lower_bitrate",-1);
-    int max_bitrate = m_info.contains(INF_BITRATE_UPPER) ?
-                  QVariant(m_info.get(INF_BITRATE_UPPER)).toInt() :
+    int max_bitrate = m_info.contains(Kwave::INF_BITRATE_UPPER) ?
+                  QVariant(m_info.get(Kwave::INF_BITRATE_UPPER)).toInt() :
                   cfg.readEntry("default_abr_upper_bitrate",-1);
     compressionWidget->setBitrates(abr_bitrate, min_bitrate, max_bitrate);
 
     // VBR base quality
-    int quality = m_info.contains(INF_VBR_QUALITY) ?
-              QVariant(m_info.get(INF_VBR_QUALITY)).toInt() :
+    int quality = m_info.contains(Kwave::INF_VBR_QUALITY) ?
+              QVariant(m_info.get(Kwave::INF_VBR_QUALITY)).toInt() :
               cfg.readEntry("default_vbr_quality", -1);
     compressionWidget->setQuality(quality);
 
@@ -311,16 +311,16 @@ void FileInfoDialog::setupMpegTab()
     InfoTab->setTabEnabled(2, m_is_mpeg);
 
     /* MPEG layer */
-    initInfo(lblMpegLayer,   cbMpegLayer,    INF_MPEG_LAYER);
-    int layer = m_info.get(INF_MPEG_LAYER).toInt();
+    initInfo(lblMpegLayer,   cbMpegLayer,    Kwave::INF_MPEG_LAYER);
+    int layer = m_info.get(Kwave::INF_MPEG_LAYER).toInt();
     if ((layer < 1) || (layer > 3))
 	layer = 3; // default = layer III
     cbMpegLayer->setCurrentIndex(layer - 1);
 
     /* MPEG version */
-    initInfo(lblMpegVersion, cbMpegVersion,  INF_MPEG_VERSION);
+    initInfo(lblMpegVersion, cbMpegVersion,  Kwave::INF_MPEG_VERSION);
     int ver = static_cast<int>(
-        (2.0 * QVariant(m_info.get(INF_MPEG_VERSION)).toDouble()));
+        (2.0 * QVariant(m_info.get(Kwave::INF_MPEG_VERSION)).toDouble()));
     // 1, 2, 2.5 -> 2, 4, 5
     if ((ver < 1) || (ver > 5)) ver = 4; // default = version 2
     if (ver > 3) ver++; // 2, 4, 6
@@ -330,7 +330,7 @@ void FileInfoDialog::setupMpegTab()
     cbMpegVersion->setCurrentIndex(ver);
 
     /* Mode extension */
-    initInfo(lblMpegModeExt, cbMpegModeExt, INF_MPEG_MODEEXT);
+    initInfo(lblMpegModeExt, cbMpegModeExt, Kwave::INF_MPEG_MODEEXT);
     // only in "Joint Stereo" mode, then depends on Layer
     //
     // Layer I+II          |  Layer III
@@ -340,7 +340,7 @@ void FileInfoDialog::setupMpegTab()
     // 1 - bands  8 to 31  |  on               off  -> 5
     // 2 - bands 12 to 31  |  off              on   -> 6
     // 3 - bands 16 to 31  |  on               on   -> 7
-    int modeext = QVariant(m_info.get(INF_MPEG_MODEEXT)).toInt();
+    int modeext = QVariant(m_info.get(Kwave::INF_MPEG_MODEEXT)).toInt();
     if ((modeext >= 0) && (modeext <= 3)) {
 	cbMpegModeExt->addItem(i18n("Bands 0 to 31"));
 	cbMpegModeExt->addItem(i18n("Bands 8 to 31"));
@@ -360,22 +360,22 @@ void FileInfoDialog::setupMpegTab()
     }
 
     /* Emphasis */
-    initInfo(lblMpegEmphasis, cbMpegEmphasis, INF_MPEG_EMPHASIS);
-    int emphasis = QVariant(m_info.get(INF_MPEG_EMPHASIS)).toInt();
+    initInfo(lblMpegEmphasis, cbMpegEmphasis, Kwave::INF_MPEG_EMPHASIS);
+    int emphasis = QVariant(m_info.get(Kwave::INF_MPEG_EMPHASIS)).toInt();
     if ((emphasis >= 0) && (emphasis <= 2))
 	cbMpegEmphasis->setCurrentIndex(emphasis);
     else
 	cbMpegEmphasis->setEnabled(false);
 
     /* Copyrighted */
-    initInfo(lblMpegCopyrighted, chkMpegCopyrighted, INF_COPYRIGHTED);
-    bool copyrighted = QVariant(m_info.get(INF_COPYRIGHTED)).toBool();
+    initInfo(lblMpegCopyrighted, chkMpegCopyrighted, Kwave::INF_COPYRIGHTED);
+    bool copyrighted = QVariant(m_info.get(Kwave::INF_COPYRIGHTED)).toBool();
     chkMpegCopyrighted->setChecked(copyrighted);
     chkMpegCopyrighted->setText((copyrighted) ? i18n("Yes") : i18n("No"));
 
     /* Original */
-    initInfo(lblMpegOriginal, chkMpegOriginal, INF_ORIGINAL);
-    bool original = QVariant(m_info.get(INF_ORIGINAL)).toBool();
+    initInfo(lblMpegOriginal, chkMpegOriginal, Kwave::INF_ORIGINAL);
+    bool original = QVariant(m_info.get(Kwave::INF_ORIGINAL)).toBool();
     chkMpegOriginal->setChecked(original);
     chkMpegOriginal->setText((original) ? i18n("Yes") : i18n("No"));
 
@@ -387,29 +387,29 @@ void FileInfoDialog::setupContentTab()
 {
     /* name, subject, version, genre, title, author, organization,
        copyright, license */
-    initInfoText(lblName,         edName,         INF_NAME);
-    initInfoText(lblSubject,      edSubject,      INF_SUBJECT);
-    initInfoText(lblVersion,      edVersion,      INF_VERSION);
+    initInfoText(lblName,         edName,         Kwave::INF_NAME);
+    initInfoText(lblSubject,      edSubject,      Kwave::INF_SUBJECT);
+    initInfoText(lblVersion,      edVersion,      Kwave::INF_VERSION);
 
     // genre type
-    cbGenre->addItems(GenreType::allTypes());
-    QString genre = m_info.get(INF_GENRE).toString();
-    int genre_id = GenreType::id(genre);
+    cbGenre->addItems(Kwave::GenreType::allTypes());
+    QString genre = m_info.get(Kwave::INF_GENRE).toString();
+    int genre_id = Kwave::GenreType::id(genre);
     if (genre_id >= 0) {
 	// well known genre type
-	genre = GenreType::name(genre_id, true);
+	genre = Kwave::GenreType::name(genre_id, true);
     } else {
 	// user defined genre type
 	cbGenre->addItem(genre);
     }
-    initInfo(lblGenre,            cbGenre,        INF_GENRE);
+    initInfo(lblGenre,            cbGenre,        Kwave::INF_GENRE);
     cbGenre->setCurrentIndex(cbGenre->findText(genre));
 
     /* date widget */
-    initInfo(lblDate, dateEdit, INF_CREATION_DATE);
+    initInfo(lblDate, dateEdit, Kwave::INF_CREATION_DATE);
     QDate date;
-    QString date_str = QVariant(m_info.get(INF_CREATION_DATE)).toString();
-    if (m_info.contains(INF_CREATION_DATE)) {
+    QString date_str = QVariant(m_info.get(Kwave::INF_CREATION_DATE)).toString();
+    if (m_info.contains(Kwave::INF_CREATION_DATE)) {
         if (date_str.length())
 	    date = QDate::fromString(date_str, Qt::ISODate);
     }
@@ -433,35 +433,35 @@ void FileInfoDialog::setupContentTab()
 void FileInfoDialog::setupSourceTab()
 {
     /* source, source form */
-    initInfoText(lblSource,     edSource,     INF_SOURCE);
-    initInfoText(lblSourceForm, edSourceForm, INF_SOURCE_FORM);
+    initInfoText(lblSource,     edSource,     Kwave::INF_SOURCE);
+    initInfoText(lblSourceForm, edSourceForm, Kwave::INF_SOURCE_FORM);
 
     /* Album, CD and track */
-    initInfoText(lblAlbum,      edAlbum,      INF_ALBUM);
-    initInfo(lblCD, sbCD, INF_CD);
-    int cd = (m_info.contains(INF_CD)) ?
-	QVariant(m_info.get(INF_CD)).toInt() : 0;
+    initInfoText(lblAlbum,      edAlbum,      Kwave::INF_ALBUM);
+    initInfo(lblCD, sbCD, Kwave::INF_CD);
+    int cd = (m_info.contains(Kwave::INF_CD)) ?
+	QVariant(m_info.get(Kwave::INF_CD)).toInt() : 0;
     sbCD->setValue(cd);
 
-    initInfo(0, sbCDs, INF_CDS);
-    int cds = (m_info.contains(INF_CDS)) ?
-	QVariant(m_info.get(INF_CDS)).toInt() : 0;
+    initInfo(0, sbCDs, Kwave::INF_CDS);
+    int cds = (m_info.contains(Kwave::INF_CDS)) ?
+	QVariant(m_info.get(Kwave::INF_CDS)).toInt() : 0;
     sbCDs->setValue(cds);
 
-    initInfo(lblTrack, sbTrack, INF_TRACK);
-    int track = (m_info.contains(INF_TRACK)) ?
-	QVariant(m_info.get(INF_TRACK)).toInt() : 0;
+    initInfo(lblTrack, sbTrack, Kwave::INF_TRACK);
+    int track = (m_info.contains(Kwave::INF_TRACK)) ?
+	QVariant(m_info.get(Kwave::INF_TRACK)).toInt() : 0;
     sbTrack->setValue(track);
 
-    initInfo(0, sbTracks, INF_TRACKS);
-    int tracks = (m_info.contains(INF_TRACKS)) ?
-	QVariant(m_info.get(INF_TRACKS)).toInt() : 0;
+    initInfo(0, sbTracks, Kwave::INF_TRACKS);
+    int tracks = (m_info.contains(Kwave::INF_TRACKS)) ?
+	QVariant(m_info.get(Kwave::INF_TRACKS)).toInt() : 0;
     sbTracks->setValue(tracks);
 
     /* software, engineer, technican */
-    initInfoText(lblSoftware,     edSoftware,     INF_SOFTWARE);
-    initInfoText(lblEngineer,     edEngineer,     INF_ENGINEER);
-    initInfoText(lblTechnican,    edTechnican,    INF_TECHNICAN);
+    initInfoText(lblSoftware,     edSoftware,     Kwave::INF_SOFTWARE);
+    initInfoText(lblEngineer,     edEngineer,     Kwave::INF_ENGINEER);
+    initInfoText(lblTechnican,    edTechnican,    Kwave::INF_TECHNICAN);
 
 }
 
@@ -469,31 +469,31 @@ void FileInfoDialog::setupSourceTab()
 void FileInfoDialog::setupAuthorCopyrightTab()
 {
     /* author organization, copyright, license, ISRC */
-    initInfoText(lblAuthor,       edAuthor,       INF_AUTHOR);
-    initInfoText(lblOrganization, edOrganization, INF_ORGANIZATION);
-    initInfoText(lblCopyright,    edCopyright,    INF_COPYRIGHT);
-    initInfoText(lblLicense,      edLicense,      INF_LICENSE);
-    initInfoText(lblISRC,         edISRC,         INF_ISRC);
+    initInfoText(lblAuthor,       edAuthor,       Kwave::INF_AUTHOR);
+    initInfoText(lblOrganization, edOrganization, Kwave::INF_ORGANIZATION);
+    initInfoText(lblCopyright,    edCopyright,    Kwave::INF_COPYRIGHT);
+    initInfoText(lblLicense,      edLicense,      Kwave::INF_LICENSE);
+    initInfoText(lblISRC,         edISRC,         Kwave::INF_ISRC);
 
     /* product, archival, contact */
-    initInfoText(lblProduct,  edProduct,  INF_PRODUCT);
-    initInfoText(lblArchival, edArchival, INF_ARCHIVAL);
-    initInfoText(lblContact,  edContact,  INF_CONTACT);
+    initInfoText(lblProduct,  edProduct,  Kwave::INF_PRODUCT);
+    initInfoText(lblArchival, edArchival, Kwave::INF_ARCHIVAL);
+    initInfoText(lblContact,  edContact,  Kwave::INF_CONTACT);
 }
 
 //***************************************************************************
 void FileInfoDialog::setupMiscellaneousTab()
 {
     /* commissioned */
-    initInfoText(lblCommissioned, edCommissioned, INF_COMMISSIONED);
+    initInfoText(lblCommissioned, edCommissioned, Kwave::INF_COMMISSIONED);
 
     /* list of keywords */
-    lblKeywords->setText(i18n(m_info.name(INF_KEYWORDS).toAscii()));
+    lblKeywords->setText(i18n(m_info.name(Kwave::INF_KEYWORDS).toAscii()));
     lstKeywords->setWhatsThis("<b>" +
-	i18n(m_info.name(INF_KEYWORDS).toAscii()) +
-	"</b><br>"+m_info.description(INF_KEYWORDS));
-    if (m_info.contains(INF_KEYWORDS)) {
-	QString keywords = QVariant(m_info.get(INF_KEYWORDS)).toString();
+	i18n(m_info.name(Kwave::INF_KEYWORDS).toAscii()) +
+	"</b><br>"+m_info.description(Kwave::INF_KEYWORDS));
+    if (m_info.contains(Kwave::INF_KEYWORDS)) {
+	QString keywords = QVariant(m_info.get(Kwave::INF_KEYWORDS)).toString();
 	lstKeywords->setKeywords(keywords.split(";"));
     }
     connect(lstKeywords, SIGNAL(autoGenerate()),
@@ -542,22 +542,22 @@ void FileInfoDialog::updateAvailableCompressions()
 {
     cbCompression->blockSignals(true);
 
-    CompressionType compressions;
+    Kwave::CompressionType compressions;
     QList<int> supported_compressions;
-    QString mime_type = m_info.get(INF_MIMETYPE).toString();
+    QString mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
 
     // switch by mime type:
     if (mime_type.length()) {
 	// mime type is present -> offer only matching compressions
-	Encoder *encoder = CodecManager::encoder(mime_type);
+	Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
 	if (encoder) supported_compressions = encoder->compressionTypes();
     } else {
 	// no mime type -> allow all mimetypes suitable for encoding
 	supported_compressions.append(AF_COMPRESSION_NONE);
 
-	QStringList mime_types = CodecManager::encodingMimeTypes();
+	QStringList mime_types = Kwave::CodecManager::encodingMimeTypes();
 	foreach (QString m, mime_types) {
-	    Encoder *encoder = CodecManager::encoder(m);
+	    Kwave::Encoder *encoder = Kwave::CodecManager::encoder(m);
 	    if (!encoder) continue;
 	    QList<int> comps = encoder->compressionTypes();
 	    foreach (int c, comps)
@@ -580,7 +580,7 @@ void FileInfoDialog::updateAvailableCompressions()
 
     cbCompression->blockSignals(false);
 
-    int c = QVariant(m_info.get(INF_COMPRESSION)).toInt();
+    int c = QVariant(m_info.get(Kwave::INF_COMPRESSION)).toInt();
     int old_index = cbCompression->currentIndex();
     int new_index = cbCompression->findData(c);
     if (new_index != old_index) {
@@ -605,13 +605,13 @@ void FileInfoDialog::compressionChanged()
 	cbCompression->currentIndex()).toInt();
 
     // selected compression -> mime type (edit field)
-    QString file_mime_type = m_info.get(INF_MIMETYPE).toString();
+    QString file_mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
     if (!file_mime_type.length()) {
 	// if mime type is given by file info -> keep it
 	// otherwise select one by evaluating the compression
-	QStringList mime_types = CodecManager::encodingMimeTypes();
+	QStringList mime_types = Kwave::CodecManager::encodingMimeTypes();
 	foreach (const QString &mime_type, mime_types) {
-	    Encoder *encoder = CodecManager::encoder(mime_type);
+	    Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
 	    if (!encoder) continue;
 	    QList<int> comps = encoder->compressionTypes();
 	    if (comps.contains(compression)) {
@@ -625,26 +625,26 @@ void FileInfoDialog::compressionChanged()
     int mpeg_layer = -1;
     switch (compression)
     {
-	case CompressionType::MPEG_LAYER_I:
+	case Kwave::CompressionType::MPEG_LAYER_I:
 	    mpeg_layer = 1;
 	    m_is_mpeg = true;
 	    m_is_ogg  = false;
 	    break;
-	case CompressionType::MPEG_LAYER_II:
+	case Kwave::CompressionType::MPEG_LAYER_II:
 	    mpeg_layer = 2;
 	    m_is_mpeg = true;
 	    m_is_ogg  = false;
 	    break;
-	case CompressionType::MPEG_LAYER_III:
+	case Kwave::CompressionType::MPEG_LAYER_III:
 	    mpeg_layer = 3;
 	    m_is_mpeg = true;
 	    m_is_ogg  = false;
 	    break;
-	case CompressionType::OGG_VORBIS:
+	case Kwave::CompressionType::OGG_VORBIS:
 	    m_is_mpeg = false;
 	    m_is_ogg  = true;
 	    break;
-	case CompressionType::FLAC:
+	case Kwave::CompressionType::FLAC:
 	case AF_COMPRESSION_NONE: /* FALLTHROUGH */
 	default:
 	    m_is_mpeg = false;
@@ -687,13 +687,13 @@ void FileInfoDialog::mpegLayerChanged()
     int compression = AF_COMPRESSION_NONE;
     switch (layer) {
 	case 1:
-	    compression = CompressionType::MPEG_LAYER_I;
+	    compression = Kwave::CompressionType::MPEG_LAYER_I;
 	    break;
 	case 2:
-	    compression = CompressionType::MPEG_LAYER_II;
+	    compression = Kwave::CompressionType::MPEG_LAYER_II;
 	    break;
 	case 3:
-	    compression = CompressionType::MPEG_LAYER_III;
+	    compression = Kwave::CompressionType::MPEG_LAYER_III;
 	    break;
     }
 
@@ -798,7 +798,7 @@ void FileInfoDialog::autoGenerateKeywords()
 }
 
 //***************************************************************************
-void FileInfoDialog::acceptEdit(FileProperty property, QString value)
+void FileInfoDialog::acceptEdit(Kwave::FileProperty property, QString value)
 {
     value = value.simplified();
     if (!m_info.contains(property) && !value.length()) return;
@@ -832,7 +832,7 @@ void FileInfoDialog::accept()
     m_info.dump();
 
     /* mime type */
-    m_info.set(INF_MIMETYPE, edFileFormat->text());
+    m_info.set(Kwave::INF_MIMETYPE, edFileFormat->text());
 
     /* bits per sample */
     m_info.setBits(sbResolution->value());
@@ -841,25 +841,25 @@ void FileInfoDialog::accept()
     m_info.setRate(cbSampleRate->currentText().toDouble());
 
     /* sample format */
-    SampleFormat::Map sample_formats;
-    SampleFormat sample_format =
+    Kwave::SampleFormat::Map sample_formats;
+    Kwave::SampleFormat sample_format =
 	sample_formats.data(cbSampleFormat->currentIndex());
-    if (m_info.contains(INF_SAMPLE_FORMAT) ||
+    if (m_info.contains(Kwave::INF_SAMPLE_FORMAT) ||
         (sample_format != sample_formats.data(0)))
     {
-	m_info.set(INF_SAMPLE_FORMAT, QVariant(sample_format.toInt()));
+	m_info.set(Kwave::INF_SAMPLE_FORMAT, QVariant(sample_format.toInt()));
     }
 
     /* compression */
-    CompressionType compressions;
+    Kwave::CompressionType compressions;
     int compression = compressions.data(cbCompression->currentIndex());
-    m_info.set(INF_COMPRESSION, (compression != AF_COMPRESSION_NONE) ?
+    m_info.set(Kwave::INF_COMPRESSION, (compression != AF_COMPRESSION_NONE) ?
         QVariant(compression) : QVariant());
 
     /* MPEG layer */
     if (m_is_mpeg) {
 	int layer = cbMpegLayer->currentIndex() + 1;
-	m_info.set(INF_MPEG_LAYER, layer);
+	m_info.set(Kwave::INF_MPEG_LAYER, layer);
     }
 
     /* bitrate in Ogg/Vorbis or MPEG mode */
@@ -874,21 +874,21 @@ void FileInfoDialog::accept()
 	        bool use_lowest  = compressionWidget->lowestEnabled();
 	        bool use_highest = compressionWidget->highestEnabled();
 
-	        m_info.set(INF_BITRATE_NOMINAL, QVariant(nominal));
-	        m_info.set(INF_BITRATE_LOWER,
+	        m_info.set(Kwave::INF_BITRATE_NOMINAL, QVariant(nominal));
+	        m_info.set(Kwave::INF_BITRATE_LOWER,
 	                   (use_lowest) ? QVariant(lower) : del);
-	        m_info.set(INF_BITRATE_UPPER,
+	        m_info.set(Kwave::INF_BITRATE_UPPER,
 	                   (use_highest) ? QVariant(upper) : del);
-	        m_info.set(INF_VBR_QUALITY, del);
+	        m_info.set(Kwave::INF_VBR_QUALITY, del);
 	        break;
 	    }
 	    case CompressionWidget::VBR_MODE: {
 	        int quality = compressionWidget->baseQuality();
 
-	        m_info.set(INF_BITRATE_NOMINAL, del);
-	        m_info.set(INF_BITRATE_LOWER, del);
-	        m_info.set(INF_BITRATE_UPPER, del);
-	        m_info.set(INF_VBR_QUALITY, QVariant(quality));
+	        m_info.set(Kwave::INF_BITRATE_NOMINAL, del);
+	        m_info.set(Kwave::INF_BITRATE_LOWER, del);
+	        m_info.set(Kwave::INF_BITRATE_UPPER, del);
+	        m_info.set(Kwave::INF_VBR_QUALITY, QVariant(quality));
 	        break;
 	    }
 	}
@@ -896,49 +896,52 @@ void FileInfoDialog::accept()
 
     /* name, subject, version, genre, title, author, organization,
        copyright */
-    acceptEdit(INF_NAME,         edName->text());
-    acceptEdit(INF_SUBJECT,      edSubject->text());
-    acceptEdit(INF_VERSION,      edVersion->text());
-    acceptEdit(INF_GENRE,        cbGenre->currentText());
-    acceptEdit(INF_AUTHOR,       edAuthor->text());
-    acceptEdit(INF_ORGANIZATION, edOrganization->text());
-    acceptEdit(INF_COPYRIGHT,    edCopyright->text());
-    acceptEdit(INF_LICENSE,      edLicense->text());
+    acceptEdit(Kwave::INF_NAME,         edName->text());
+    acceptEdit(Kwave::INF_SUBJECT,      edSubject->text());
+    acceptEdit(Kwave::INF_VERSION,      edVersion->text());
+    acceptEdit(Kwave::INF_GENRE,        cbGenre->currentText());
+    acceptEdit(Kwave::INF_AUTHOR,       edAuthor->text());
+    acceptEdit(Kwave::INF_ORGANIZATION, edOrganization->text());
+    acceptEdit(Kwave::INF_COPYRIGHT,    edCopyright->text());
+    acceptEdit(Kwave::INF_LICENSE,      edLicense->text());
 
     /* date */
     QDate date = dateEdit->date();
-    if ((date != QDate::currentDate()) || m_info.contains(INF_CREATION_DATE))
-	m_info.set(INF_CREATION_DATE, QVariant(date).toString());
+    if ( (date != QDate::currentDate()) ||
+	m_info.contains(Kwave::INF_CREATION_DATE) )
+    {
+	m_info.set(Kwave::INF_CREATION_DATE, QVariant(date).toString());
+    }
 
     /* source, source form, album */
-    acceptEdit(INF_SOURCE,      edSource->text());
-    acceptEdit(INF_SOURCE_FORM, edSourceForm->text());
-    acceptEdit(INF_ALBUM,       edAlbum->text());
+    acceptEdit(Kwave::INF_SOURCE,      edSource->text());
+    acceptEdit(Kwave::INF_SOURCE_FORM, edSourceForm->text());
+    acceptEdit(Kwave::INF_ALBUM,       edAlbum->text());
 
     /* CD and track */
     int cd     = sbCD->value();
     int cds    = sbCDs->value();
     int track  = sbTrack->value();
     int tracks = sbTracks->value();
-    m_info.set(INF_CD,     (cd     != 0) ? QVariant(cd)     : QVariant());
-    m_info.set(INF_CDS,    (cds    != 0) ? QVariant(cds)    : QVariant());
-    m_info.set(INF_TRACK,  (track  != 0) ? QVariant(track)  : QVariant());
-    m_info.set(INF_TRACKS, (tracks != 0) ? QVariant(tracks) : QVariant());
+    m_info.set(Kwave::INF_CD,     (cd     != 0) ? QVariant(cd)     : QVariant());
+    m_info.set(Kwave::INF_CDS,    (cds    != 0) ? QVariant(cds)    : QVariant());
+    m_info.set(Kwave::INF_TRACK,  (track  != 0) ? QVariant(track)  : QVariant());
+    m_info.set(Kwave::INF_TRACKS, (tracks != 0) ? QVariant(tracks) : QVariant());
 
     /* product, archival, contact */
-    acceptEdit(INF_PRODUCT,     edProduct->text());
-    acceptEdit(INF_ARCHIVAL,    edArchival->text());
-    acceptEdit(INF_CONTACT,     edContact->text());
+    acceptEdit(Kwave::INF_PRODUCT,     edProduct->text());
+    acceptEdit(Kwave::INF_ARCHIVAL,    edArchival->text());
+    acceptEdit(Kwave::INF_CONTACT,     edContact->text());
 
     /* software, engineer, technican, commissioned, ISRC, keywords */
-    acceptEdit(INF_SOFTWARE,    edSoftware->text());
-    acceptEdit(INF_ENGINEER,    edEngineer->text());
-    acceptEdit(INF_TECHNICAN,   edTechnican->text());
-    acceptEdit(INF_COMMISSIONED,edCommissioned->text());
-//  acceptEdit(INF_ISRC,        edISRC->text()); <- READ-ONLY
+    acceptEdit(Kwave::INF_SOFTWARE,    edSoftware->text());
+    acceptEdit(Kwave::INF_ENGINEER,    edEngineer->text());
+    acceptEdit(Kwave::INF_TECHNICAN,   edTechnican->text());
+    acceptEdit(Kwave::INF_COMMISSIONED,edCommissioned->text());
+//  acceptEdit(Kwave::INF_ISRC,        edISRC->text()); <- READ-ONLY
 
     // list of keywords
-    acceptEdit(INF_KEYWORDS,    lstKeywords->keywords().join("; "));
+    acceptEdit(Kwave::INF_KEYWORDS,    lstKeywords->keywords().join("; "));
 
     qDebug("FileInfoDialog::accept() --2--");
     m_info.dump();

@@ -26,7 +26,7 @@
 //***************************************************************************
 RepairVirtualAudioFile::RepairVirtualAudioFile(QIODevice &device,
     QList<RecoverySource *> *repair_list)
-    :VirtualAudioFile(device), m_position(0),
+    :Kwave::VirtualAudioFile(device), m_position(0),
      m_repair_list(repair_list)
 {
 }

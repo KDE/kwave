@@ -22,17 +22,19 @@
 #include "libkwave/CompressionType.h"
 #include "libkwave/Plugin.h"
 
-class Decoder;
-class Encoder;
+namespace Kwave
+{
 
-namespace Kwave {
+    class Decoder;
+    class Encoder;
+
     class MP3CodecPlugin: public Kwave::Plugin
     {
 	Q_OBJECT
     public:
 
 	/** Constructor */
-	MP3CodecPlugin(const PluginContext &c);
+	MP3CodecPlugin(const Kwave::PluginContext &c);
 
 	/** Destructor */
 	virtual ~MP3CodecPlugin();
@@ -60,10 +62,10 @@ namespace Kwave {
     private:
 
 	/** decoder used as factory */
-	Decoder *m_decoder;
+	Kwave::Decoder *m_decoder;
 
 	/** encoder used as factory */
-	Encoder *m_encoder;
+	Kwave::Encoder *m_encoder;
     };
 
 }
@@ -83,9 +85,9 @@ namespace Kwave {
 }
 
 #define REGISTER_COMPRESSION_TYPES {     \
-    addCompression(CompressionType::MPEG_LAYER_I);   \
-    addCompression(CompressionType::MPEG_LAYER_II);  \
-    addCompression(CompressionType::MPEG_LAYER_III); \
+    addCompression(Kwave::CompressionType::MPEG_LAYER_I);   \
+    addCompression(Kwave::CompressionType::MPEG_LAYER_II);  \
+    addCompression(Kwave::CompressionType::MPEG_LAYER_III); \
 }
 
 #endif /* _MP3_CODEC_PLUGIN_H_ */

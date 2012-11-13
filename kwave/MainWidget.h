@@ -298,7 +298,7 @@ namespace Kwave {
 	 * @return true if the dialog has been accepted,
 	 *         otherwise false (canceled)
 	 */
-	bool labelProperties(Label &label);
+	bool labelProperties(Kwave::Label &label);
 
     private:
 

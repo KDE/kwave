@@ -1,5 +1,5 @@
 /***************************************************************************
-            Drag.h  -  Drag&Drop container for Kwave's audio data
+                 Drag.h  -  Drag&Drop container for Kwave's audio data
 			     -------------------
     begin                : Jan 24 2002
     copyright            : (C) 2002 by Thomas Eschenbacher
@@ -32,63 +32,62 @@
 class QMimeData;
 class QWidget;
 
-class FileInfo;
-class MultiTrackReader;
-
-namespace Kwave {
+namespace Kwave
+{
 
     class MetaDataList;
+    class MultiTrackReader;
     class SignalManager;
+
+    /**
+     * Simple class for drag & drop of wav data.
+     * @todo the current storage mechanism is straight-forward and stupid, it
+     *       should be extended to use virtual memory
+     */
+    class KDE_EXPORT Drag: public QDrag
+    {
+	Q_OBJECT
+
+    public:
+	/**
+	 * Constructor
+	 * @see QDragObject
+	 */
+	Drag(QWidget *dragSource = 0);
+
+	/** Destructor */
+	virtual ~Drag();
+
+	/**
+	 * Encodes wave data received from a MultiTrackReader into a byte
+	 * array that is compatible with the format of a wav file.
+	 * @param widget the widget used for displaying error messages
+	 * @param src source of the samples
+	 * @param meta_data information about the signal, sample rate,
+	 *                  resolution and other meta data
+	 * @return true if successful
+	 */
+	bool encode(QWidget *widget, Kwave::MultiTrackReader &src,
+	            const Kwave::MetaDataList &meta_data);
+
+	/** Returns true if the mime type of the given source can be decoded */
+	static bool canDecode(const QMimeData *data);
+
+	/**
+	 * Decodes the encoded byte data of the given mime source and
+	 * initializes a MultiTrackReader.
+	 * @param widget the widget used for displaying error messages
+	 * @param e mime source
+	 * @param sig signal that receives the mime data
+	 * @param pos position within the signal where to insert the data
+	 * @return number of decoded samples if successful, zero if failed
+	 */
+	static unsigned int decode(QWidget *widget, const QMimeData *e,
+	                           Kwave::SignalManager &sig,
+	                           sample_index_t pos);
+
+    };
 }
-
-/**
- * Simple class for drag & drop of wav data.
- * @todo the current storage mechanism is straight-forward and stupid, it
- *       should be extended to use virtual memory
- */
-class KDE_EXPORT KwaveDrag: public QDrag
-{
-    Q_OBJECT
-
-public:
-    /**
-     * Constructor
-     * @see QDragObject
-     */
-    KwaveDrag(QWidget *dragSource = 0);
-
-    /** Destructor */
-    virtual ~KwaveDrag();
-
-    /**
-     * Encodes wave data received from a MultiTrackReader into a byte
-     * array that is compatible with the format of a wav file.
-     * @param widget the widget used for displaying error messages
-     * @param src source of the samples
-     * @param meta_data information about the signal, sample rate,
-     *                  resolution and other meta data
-     * @return true if successful
-     */
-    bool encode(QWidget *widget, MultiTrackReader &src,
-                const Kwave::MetaDataList &meta_data);
-
-    /** Returns true if the mime type of the given source can be decoded */
-    static bool canDecode(const QMimeData *data);
-
-    /**
-     * Decodes the encoded byte data of the given mime source and
-     * initializes a MultiTrackReader.
-     * @param widget the widget used for displaying error messages
-     * @param e mime source
-     * @param sig signal that receives the mime data
-     * @param pos position within the signal where to insert the data
-     * @return number of decoded samples if successful, zero if failed
-     */
-    static unsigned int decode(QWidget *widget, const QMimeData *e,
-                               Kwave::SignalManager &sig,
-                               sample_index_t pos);
-
-};
 
 #endif /* _DRAG_H_ */
 

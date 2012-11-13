@@ -38,13 +38,13 @@ class BandPassPlugin: public Kwave::FilterPlugin
 public:
 
     /** Constructor */
-    BandPassPlugin(const PluginContext &context);
+    BandPassPlugin(const Kwave::PluginContext &context);
 
     /** Destructor */
     virtual ~BandPassPlugin();
 
     /** Creates the setup dialog and connects it's signals */
-    virtual KwavePluginSetupDialog *createDialog(QWidget *parent);
+    virtual Kwave::PluginSetupDialog *createDialog(QWidget *parent);
 
     /**
      * Creates a multi-track filter with the given number of tracks

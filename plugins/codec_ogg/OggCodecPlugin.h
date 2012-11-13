@@ -19,10 +19,15 @@
 #define _OGG_CODEC_PLUGIN_H_
 
 #include "config.h"
+
+#include "libkwave/CompressionType.h"
 #include "libkwave/Plugin.h"
 
-class Encoder;
-class Decoder;
+namespace Kwave
+{
+    class Decoder;
+    class Encoder;
+}
 
 class OggCodecPlugin: public Kwave::Plugin
 {
@@ -30,7 +35,7 @@ class OggCodecPlugin: public Kwave::Plugin
 public:
 
     /** Constructor */
-    OggCodecPlugin(const PluginContext &c);
+    OggCodecPlugin(const Kwave::PluginContext &c);
 
     /** Destructor */
     virtual ~OggCodecPlugin();
@@ -48,10 +53,10 @@ public:
 
 private:
     /** decoder used as factory */
-    Decoder *m_decoder;
+    Kwave::Decoder *m_decoder;
 
     /** encoder used as factory */
-    Encoder *m_encoder;
+    Kwave::Encoder *m_encoder;
 };
 
 #define REGISTER_MIME_TYPES { \
@@ -66,7 +71,7 @@ private:
 }
 
 #define REGISTER_COMPRESSION_TYPES { \
-    addCompression(CompressionType::OGG_VORBIS);   \
+    addCompression(Kwave::CompressionType::OGG_VORBIS);   \
 }
 
 #define DEFAULT_MIME_TYPE "application/ogg"

@@ -814,6 +814,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
     CASE_COMMAND("delete_track")
 	Kwave::Parser parser(command);
 	unsigned int track = parser.toUInt();
+	if (track >= tracks()) return -EINVAL;
 	deleteTrack(track);
     CASE_COMMAND("insert_track")
 	Kwave::Parser parser(command);
@@ -834,15 +835,18 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	foreach (unsigned int track, allTracks())
 	    selectTrack(track, !trackSelected(track));
     CASE_COMMAND("select_track:on")
-	int track = parser.toInt();
+	unsigned int track = parser.toUInt();
+	if (track >= tracks()) return -EINVAL;
 	Kwave::UndoTransactionGuard undo(*this, i18n("Select Track"));
 	selectTrack(track, true);
     CASE_COMMAND("select_track:off")
-	int track = parser.toInt();
+	unsigned int track = parser.toUInt();
+	if (track >= tracks()) return -EINVAL;
 	Kwave::UndoTransactionGuard undo(*this, i18n("Deselect Track"));
 	selectTrack(track, false);
     CASE_COMMAND("select_track:toggle")
-	int track = parser.toInt();
+	unsigned int track = parser.toUInt();
+	if (track >= tracks()) return -EINVAL;
 	Kwave::UndoTransactionGuard undo(*this, i18n("Toggle Track Selection"));
 	selectTrack(track, !(trackSelected(track)));
 

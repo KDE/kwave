@@ -24,13 +24,13 @@
 #include "kwave/TopWidget.h"
 
 //***************************************************************************
-KwaveApp &Kwave::ApplicationContext::application()
+Kwave::App &Kwave::ApplicationContext::application()
 {
     return m_application;
 }
 
 //***************************************************************************
-TopWidget *Kwave::ApplicationContext::topWidget()
+Kwave::TopWidget *Kwave::ApplicationContext::topWidget()
 {
     Q_ASSERT(m_top_widget);
     return m_top_widget;

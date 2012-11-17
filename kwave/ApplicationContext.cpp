@@ -24,7 +24,7 @@
 #include "kwave/TopWidget.h"
 
 //***************************************************************************
-Kwave::ApplicationContext::ApplicationContext(KwaveApp &app)
+Kwave::ApplicationContext::ApplicationContext(Kwave::App &app)
     :m_application(app), m_top_widget(0), m_signal_manager(0),
      m_plugin_manager(0)
 {
@@ -41,7 +41,7 @@ Kwave::ApplicationContext::~ApplicationContext()
 //***************************************************************************
 bool Kwave::ApplicationContext::init()
 {
-    m_top_widget = new TopWidget(*this);
+    m_top_widget = new Kwave::TopWidget(*this);
     Q_ASSERT(m_top_widget);
     if (!m_top_widget) return false;
 

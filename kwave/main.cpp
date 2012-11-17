@@ -158,7 +158,7 @@ int main( int argc, char **argv )
     /* process all interesting commandline parameters */
     KCmdLineArgs::init(argc, argv, &about);
     KCmdLineArgs::addCmdLineOptions(options);
-    KwaveApp::addCmdLineOptions();
+    Kwave::App::addCmdLineOptions();
 
      /* check for an optimized version of memcpy() */
 #ifdef HAVE_OPTIMIZED_MEMCPY
@@ -171,8 +171,8 @@ int main( int argc, char **argv )
 	exit(0);
     }
 
-    KwaveApp app;
-    KwaveSplash splash("pics/kwave-splash.png");
+    Kwave::App app;
+    Kwave::Splash splash("pics/kwave-splash.png");
     splash.show();
 
     return app.exec();

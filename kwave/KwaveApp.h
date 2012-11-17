@@ -26,115 +26,123 @@
 #include <kuniqueapplication.h>
 #include <kapplication.h>
 
-class KUrl;
-class MemoryManager;
 class QString;
-class TopWidget;
+class KUrl;
 
-/**
- * This is the main application class for Kwave. It contains functions
- * for opening and saving files, opening new windows and holds global
- * configuration data.
- */
-class KwaveApp :public KUniqueApplication
+namespace Kwave
 {
-    Q_OBJECT
-public:
 
-    /** Constructor */
-    KwaveApp();
+    class MemoryManager;
+    class TopWidget;
 
     /**
-     * Returns true if this instance was successfully initialized, or
-     * false if something went wrong during initialization.
+     * This is the main application class for Kwave. It contains functions
+     * for opening and saving files, opening new windows and holds global
+     * configuration data.
      */
-    virtual bool isOK();
+    class App :public KUniqueApplication
+    {
+	Q_OBJECT
+    public:
 
-    /** Destructor. */
-    virtual ~KwaveApp();
+	/** Constructor */
+	App();
 
-    /**
-     * Adds a file to the top of the list of recent files. If it was
-     * already contained in the list the previous occourence is removed.
-     * @param filename path to the file
-     */
-    void addRecentFile(const QString &filename);
+	/**
+	 * Returns true if this instance was successfully initialized, or
+	 * false if something went wrong during initialization.
+	 */
+	virtual bool isOK();
 
-    /**
-     * Overwritten for unique application to open a new window.
-     */
-    virtual int newInstance();
+	/** Destructor. */
+	virtual ~App();
 
-    /**
-     * Opens a new toplevel window. If a filename is specified the will
-     * will be opened (should be a .wav-file).
-     * @param url URL of the file to be loaded, (optional, might be empty)
-     * @return true if succeeded
-     * @see #closeWindow()
-     * @see TopWidget
-     */
-    bool newWindow(const KUrl &url);
+	/**
+	 * Adds a file to the top of the list of recent files. If it was
+	 * already contained in the list the previous occourence is removed.
+	 * @param filename path to the file
+	 */
+	void addRecentFile(const QString &filename);
 
-    /**
-     * Closes a previously opened toplevel window.
-     * @param todel the toplevel window that closes down
-     * @return true if it was the last toplevel window
-     * @see #newWindow()
-     * @see TopWidget
-     */
-    bool closeWindow(TopWidget *todel);
+	/**
+	 * Overwritten for unique application to open a new window.
+	 */
+	virtual int newInstance();
 
-    /** Returns a reference to the list of recent files */
-    QStringList recentFiles() {
-	return m_recent_files;
-    }
+	/**
+	 * Opens a new toplevel window. If a filename is specified the will
+	 * will be opened (should be a .wav-file).
+	 * @param url URL of the file to be loaded, (optional, might be empty)
+	 * @return true if succeeded
+	 * @see #closeWindow()
+	 * @see TopWidget
+	 */
+	bool newWindow(const KUrl &url);
 
-signals:
-    /**
-     * Will be emitted if the list of recent files has changed. Can
-     * be used by toplevel widgets to update their menus.
-     */
-    void recentFilesChanged();
+	/**
+	 * Closes a previously opened toplevel window.
+	 * @param todel the toplevel window that closes down
+	 * @return true if it was the last toplevel window
+	 * @see #newWindow()
+	 * @see TopWidget
+	 */
+	bool closeWindow(Kwave::TopWidget *todel);
 
-protected:
-    friend class TopWidget;
+	/** Returns a reference to the list of recent files */
+	QStringList recentFiles() {
+	    return m_recent_files;
+	}
 
-    bool executeCommand(const QString &command);
+    signals:
+	/**
+	 * Will be emitted if the list of recent files has changed. Can
+	 * be used by toplevel widgets to update their menus.
+	 */
+	void recentFilesChanged();
 
-protected:
+    protected:
+	friend class Kwave::TopWidget;
 
-    /**
-     * Reads the configuration settings and the list of recent files,
-     * opposite of saveConfig().
-     * @see #saveConfig()
-     */
-    void readConfig();
+	bool executeCommand(const QString &command);
 
-    /**
-     * Saves the list of recent files to the kwave configuration file
-     * @see KConfig
-     */
-    void saveRecentFiles();
+    protected:
 
-    /**
-     * Saves the current configuration of kwave to the configuration file,
-     * opposite of readConfig(). Also saves the list of recent files.
-     * @see #saveRecentFiles()
-     */
-    void saveConfig();
+	/**
+	 * Reads the configuration settings and the list of recent files,
+	 * opposite of saveConfig().
+	 * @see #saveConfig()
+	 */
+	void readConfig();
 
-private:
+	/**
+	 * Saves the list of recent files to the kwave configuration file
+	 * @see KConfig
+	 */
+	void saveRecentFiles();
 
-    /**
-     * Local list of recent files. This list will be synchronized
-     * with the global list of recent files stored in the libkwave
-     * library whenever there is a change.
-     */
-    QStringList m_recent_files;
+	/**
+	 * Saves the current configuration of kwave to the configuration file,
+	 * opposite of readConfig(). Also saves the list of recent files.
+	 * @see #saveRecentFiles()
+	 */
+	void saveConfig();
 
-    /** list of toplevel widgets */
-    QList<TopWidget *> m_topwidget_list;
+    private:
 
-};
+	/**
+	 * Local list of recent files. This list will be synchronized
+	 * with the global list of recent files stored in the libkwave
+	 * library whenever there is a change.
+	 */
+	QStringList m_recent_files;
+
+	/** list of toplevel widgets */
+	QList<Kwave::TopWidget *> m_topwidget_list;
+
+    };
+}
 
 #endif // _KWAVE_APP_H_
+
+//***************************************************************************
+//***************************************************************************

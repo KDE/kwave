@@ -27,46 +27,52 @@
 class QMouseEvent;
 class QPaintEvent;
 
-class KwaveSplash : public QFrame
+namespace Kwave
 {
-Q_OBJECT
+    class Splash : public QFrame
+    {
+    Q_OBJECT
 
-public:
-    /**
-     * Constructor
-     * @param PNGImageFileName name of a file to be shown as splashscreen,
-     *        should be found in one of the "appdata" directories.
-     */
-    KwaveSplash(const QString &PNGImageFileName);
+    public:
+	/**
+	 * Constructor
+	 * @param PNGImageFileName name of a file to be shown as splashscreen,
+	 *        should be found in one of the "appdata" directories.
+	 */
+	Splash(const QString &PNGImageFileName);
 
-    /** Destructor */
-    virtual ~KwaveSplash();
+	/** Destructor */
+	virtual ~Splash();
 
-    /** wrapper for QSplashScreen::showMessage with only one parameter */
-    static void showMessage(const QString &message);
+	/** wrapper for QSplashScreen::showMessage with only one parameter */
+	static void showMessage(const QString &message);
 
-    /** handles the painting of this splash screen */
-    virtual void paintEvent(QPaintEvent *e);
-    
-    /** hides the splash screen on mouse click */
-    virtual void mousePressEvent(QMouseEvent *);
-    
-private slots:
+	/** handles the painting of this splash screen */
+	virtual void paintEvent(QPaintEvent *e);
 
-    /** called when the splashscreen timer elapsed */
-    void done();
+	/** hides the splash screen on mouse click */
+	virtual void mousePressEvent(QMouseEvent *);
 
-private:
+    private slots:
 
-    /** pixmap with the Kwave logo */
-    QPixmap m_pixmap;
- 
-    /** last status message */
-    QString  m_message;
- 
-    /** static instance */
-    static QPointer<KwaveSplash> m_splash;
+	/** called when the splashscreen timer elapsed */
+	void done();
 
-};
+    private:
+
+	/** pixmap with the Kwave logo */
+	QPixmap m_pixmap;
+
+	/** last status message */
+	QString  m_message;
+
+	/** static instance */
+	static QPointer<Kwave::Splash> m_splash;
+
+    };
+}
 
 #endif /* _KWAVE_SPLASH_H_ */
+
+//***************************************************************************
+//***************************************************************************

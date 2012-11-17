@@ -26,14 +26,14 @@
 
 class QApplication;
 class QWidget;
-class KwaveApp;
-class TopWidget;
 
 namespace Kwave
 {
 
+    class App;
     class PluginManager;
     class SignalManager;
+    class TopWidget;
 
     class KDE_EXPORT ApplicationContext
     {
@@ -44,7 +44,7 @@ namespace Kwave
 	 * @param app reference to the Kwave application
 	 * @note implementation is in kwave/ApplicationContext.cpp
 	 */
-	ApplicationContext(KwaveApp &app);
+	ApplicationContext(Kwave::App &app);
 
 	/**
 	 * Destructor
@@ -60,10 +60,10 @@ namespace Kwave
 	bool init();
 
 	/** returns a reference to the global Kwave application */
-	KwaveApp      &application();
+	Kwave::App      &application();
 
 	/** returns a pointer to the instance's toplevel window */
-	TopWidget     *topWidget();
+	Kwave::TopWidget     *topWidget();
 
 	/** returns a pointer to the instance's signal manager */
 	Kwave::SignalManager *signalManager();
@@ -74,10 +74,10 @@ namespace Kwave
     private:
 
 	/** reference to the global Kwave application object */
-	KwaveApp &m_application;
+	Kwave::App &m_application;
 
 	/** instance of our toplevel window */
-	QPointer<TopWidget> m_top_widget;
+	QPointer<Kwave::TopWidget> m_top_widget;
 
 	/** instance of our signal manager */
 	QPointer<Kwave::SignalManager> m_signal_manager;

@@ -35,10 +35,10 @@
 #include "KwaveSplash.h"
 
 // static pointer to the current instance
-QPointer<KwaveSplash> KwaveSplash::m_splash = 0;
- 
+QPointer<Kwave::Splash> Kwave::Splash::m_splash = 0;
+
 //***************************************************************************
-KwaveSplash::KwaveSplash(const QString &PNGImageFileName)
+Kwave::Splash::Splash(const QString &PNGImageFileName)
     :QFrame(0, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
      m_pixmap(KStandardDirs::locate("appdata", PNGImageFileName))
 {
@@ -98,20 +98,20 @@ KwaveSplash::KwaveSplash(const QString &PNGImageFileName)
 }
 
 //***************************************************************************
-void KwaveSplash::done()
+void Kwave::Splash::done()
 {
     m_splash = 0;
     close();
 }
 
 //***************************************************************************
-KwaveSplash::~KwaveSplash()
+Kwave::Splash::~Splash()
 {
     m_splash = 0;
 }
 
 //***************************************************************************
-void KwaveSplash::showMessage(const QString &message)
+void Kwave::Splash::showMessage(const QString &message)
 {
     if (!m_splash) return;
     m_splash->m_message = message;
@@ -120,17 +120,17 @@ void KwaveSplash::showMessage(const QString &message)
 }
 
 //***************************************************************************
-void KwaveSplash::paintEvent(QPaintEvent *)
+void Kwave::Splash::paintEvent(QPaintEvent *)
 {
     QRect rect(this->rect());
     const int border = 5;
     rect.setRect(
-	rect.x() + border, 
-	rect.y() + border, 
-	rect.width()  - (2 * border), 
+	rect.x() + border,
+	rect.y() + border,
+	rect.width()  - (2 * border),
 	rect.height() - (2 * border)
     );
- 
+
     QPainter p(this);
     p.drawPixmap(this->rect(), m_pixmap);
     p.setPen(Qt::black);
@@ -138,7 +138,7 @@ void KwaveSplash::paintEvent(QPaintEvent *)
 }
 
 //***************************************************************************
-void KwaveSplash::mousePressEvent(QMouseEvent *)
+void Kwave::Splash::mousePressEvent(QMouseEvent *)
 {
     hide();
 }

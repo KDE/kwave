@@ -101,7 +101,7 @@
 
 //***************************************************************************
 //***************************************************************************
-TopWidget::TopWidget(Kwave::ApplicationContext &context)
+Kwave::TopWidget::TopWidget(Kwave::ApplicationContext &context)
     :KMainWindow(), m_context(context),
      m_main_widget(0), m_toolbar_record_playback(0), m_zoomselect(0),
      m_menu_manager(0), m_action_undo(0), m_action_redo(0),
@@ -144,7 +144,7 @@ TopWidget::TopWidget(Kwave::ApplicationContext &context)
 }
 
 //***************************************************************************
-bool TopWidget::init()
+bool Kwave::TopWidget::init()
 {
     KIconLoader icon_loader;
     const int max_s = KIconLoader::SizeEnormous;
@@ -455,7 +455,7 @@ bool TopWidget::init()
 }
 
 //***************************************************************************
-TopWidget::~TopWidget()
+Kwave::TopWidget::~TopWidget()
 {
 
     // close the current file (no matter what the user wants)
@@ -471,7 +471,7 @@ TopWidget::~TopWidget()
 }
 
 //***************************************************************************
-int TopWidget::executeCommand(const QString &line)
+int Kwave::TopWidget::executeCommand(const QString &line)
 {
     int result = 0;
     bool use_recorder = true;
@@ -652,7 +652,7 @@ int TopWidget::executeCommand(const QString &line)
 }
 
 //***************************************************************************
-int TopWidget::loadBatch(const KUrl &url)
+int Kwave::TopWidget::loadBatch(const KUrl &url)
 {
     // open the URL, read-only mode is enough
     QFile file(url.path());
@@ -676,7 +676,7 @@ int TopWidget::loadBatch(const KUrl &url)
 }
 
 //***************************************************************************
-int TopWidget::parseCommands(QTextStream &stream)
+int Kwave::TopWidget::parseCommands(QTextStream &stream)
 {
     int result = 0;
     QMap<QString, qint64> labels;
@@ -757,7 +757,7 @@ int TopWidget::parseCommands(QTextStream &stream)
 }
 
 //***************************************************************************
-int TopWidget::revert()
+int Kwave::TopWidget::revert()
 {
     KUrl url(signalName());
     if (!url.isValid()) return -EINVAL;
@@ -766,7 +766,7 @@ int TopWidget::revert()
 }
 
 //***************************************************************************
-bool TopWidget::closeFile()
+bool Kwave::TopWidget::closeFile()
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Kwave::PluginManager *plugin_manager = m_context.pluginManager();
@@ -810,7 +810,7 @@ bool TopWidget::closeFile()
 }
 
 //***************************************************************************
-int TopWidget::loadFile(const KUrl &url)
+int Kwave::TopWidget::loadFile(const KUrl &url)
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
@@ -875,14 +875,14 @@ int TopWidget::loadFile(const KUrl &url)
 }
 
 //***************************************************************************
-int TopWidget::openRecent(const QString &str)
+int Kwave::TopWidget::openRecent(const QString &str)
 {
     Kwave::Parser parser(str);
     return loadFile(parser.firstParam());
 }
 
 //***************************************************************************
-int TopWidget::openFile()
+int Kwave::TopWidget::openFile()
 {
     QString filter = Kwave::CodecManager::decodingFilter();
     Kwave::FileDialog dlg("kfiledialog:///kwave_open_dir", filter, this, true);
@@ -896,7 +896,7 @@ int TopWidget::openFile()
 }
 
 //***************************************************************************
-int TopWidget::saveFile()
+int Kwave::TopWidget::saveFile()
 {
     int res = 0;
     Kwave::SignalManager *signal_manager = m_context.signalManager();
@@ -924,7 +924,7 @@ int TopWidget::saveFile()
 }
 
 //***************************************************************************
-int TopWidget::saveFileAs(bool selection)
+int Kwave::TopWidget::saveFileAs(bool selection)
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     int res = 0;
@@ -1046,8 +1046,8 @@ int TopWidget::saveFileAs(bool selection)
 }
 
 //***************************************************************************
-int TopWidget::newSignal(sample_index_t samples, double rate,
-                         unsigned int bits, unsigned int tracks)
+int Kwave::TopWidget::newSignal(sample_index_t samples, double rate,
+                                unsigned int bits, unsigned int tracks)
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
@@ -1067,7 +1067,7 @@ int TopWidget::newSignal(sample_index_t samples, double rate,
 }
 
 //***************************************************************************
-void TopWidget::selectZoom(int index)
+void Kwave::TopWidget::selectZoom(int index)
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
@@ -1100,7 +1100,7 @@ void TopWidget::selectZoom(int index)
 }
 
 //***************************************************************************
-void TopWidget::setZoomInfo(double zoom)
+void Kwave::TopWidget::setZoomInfo(double zoom)
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(zoom >= 0);
@@ -1189,7 +1189,7 @@ void TopWidget::setZoomInfo(double zoom)
 }
 
 //***************************************************************************
-void TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
+void Kwave::TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 {
     Q_ASSERT(statusBar());
     Q_ASSERT(m_menu_manager);
@@ -1251,7 +1251,8 @@ void TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 }
 
 //***************************************************************************
-void TopWidget::selectionChanged(sample_index_t offset, sample_index_t length)
+void Kwave::TopWidget::selectionChanged(sample_index_t offset,
+                                        sample_index_t length)
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
@@ -1316,7 +1317,7 @@ void TopWidget::selectionChanged(sample_index_t offset, sample_index_t length)
 }
 
 //***************************************************************************
-void TopWidget::updatePlaybackPos(sample_index_t offset)
+void Kwave::TopWidget::updatePlaybackPos(sample_index_t offset)
 {
     if (!m_context.pluginManager()) return;
     if (!m_main_widget) return;
@@ -1339,7 +1340,8 @@ void TopWidget::updatePlaybackPos(sample_index_t offset)
 }
 
 //***************************************************************************
-void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
+void Kwave::TopWidget::setUndoRedoInfo(const QString &undo,
+                                       const QString &redo)
 {
     QString txt;
     bool undo_enabled = (undo.length() != 0);
@@ -1386,7 +1388,7 @@ void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
 }
 
 //***************************************************************************
-void TopWidget::mouseChanged(Kwave::MouseMark::Mode mode)
+void Kwave::TopWidget::mouseChanged(Kwave::MouseMark::Mode mode)
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
@@ -1407,14 +1409,14 @@ void TopWidget::mouseChanged(Kwave::MouseMark::Mode mode)
 }
 
 //***************************************************************************
-void TopWidget::clipboardChanged(bool data_available)
+void Kwave::TopWidget::clipboardChanged(bool data_available)
 {
     if (!m_menu_manager) return;
     m_menu_manager->setItemEnabled("@CLIPBOARD", data_available);
 }
 
 //***************************************************************************
-void TopWidget::updateRecentFiles()
+void Kwave::TopWidget::updateRecentFiles()
 {
     Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
@@ -1429,7 +1431,7 @@ void TopWidget::updateRecentFiles()
 }
 
 //***************************************************************************
-void TopWidget::updateMenu()
+void Kwave::TopWidget::updateMenu()
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
@@ -1453,7 +1455,7 @@ void TopWidget::updateMenu()
 }
 
 //***************************************************************************
-void TopWidget::resetToolbarToDefaults()
+void Kwave::TopWidget::resetToolbarToDefaults()
 {
     KToolBar *toolbar_file        = toolBar(TOOLBAR_FILE);
     KToolBar *toolbar_edit        = toolBar(TOOLBAR_EDIT);
@@ -1493,7 +1495,7 @@ void TopWidget::resetToolbarToDefaults()
 }
 
 //***************************************************************************
-void TopWidget::updateToolbar()
+void Kwave::TopWidget::updateToolbar()
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
@@ -1516,13 +1518,13 @@ void TopWidget::updateToolbar()
 }
 
 //***************************************************************************
-void TopWidget::modifiedChanged(bool)
+void Kwave::TopWidget::modifiedChanged(bool)
 {
     updateCaption();
 }
 
 //***************************************************************************
-void TopWidget::updateCaption()
+void Kwave::TopWidget::updateCaption()
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
@@ -1546,29 +1548,29 @@ void TopWidget::updateCaption()
 }
 
 //***************************************************************************
-void TopWidget::closeEvent(QCloseEvent *e)
+void Kwave::TopWidget::closeEvent(QCloseEvent *e)
 {
     (closeFile()) ? e->accept() : e->ignore();
 }
 
 //***************************************************************************
-bool TopWidget::haveSignal()
+bool Kwave::TopWidget::haveSignal()
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     return (signal_manager) ? (signal_manager->tracks()) : false;
 }
 
 //***************************************************************************
-QString TopWidget::signalName() const
+QString Kwave::TopWidget::signalName() const
 {
     if (!m_context.pluginManager()) return QString();
     return m_context.pluginManager()->signalManager().signalName();
 }
 
 //***************************************************************************
-void TopWidget::showInSplashSreen(const QString &message)
+void Kwave::TopWidget::showInSplashSreen(const QString &message)
 {
-    KwaveSplash::showMessage(message);
+    Kwave::Splash::showMessage(message);
 }
 
 //***************************************************************************

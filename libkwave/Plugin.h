@@ -36,13 +36,6 @@
 class QStringList;
 class QProgressDialog;
 
-namespace Kwave
-{
-    class ConfirmCancelProxy;
-}
-
-class TopWidget;
-
 #define KWAVE_PLUGIN(__class__,__name__,__version__,                          \
                      __description__,__author__)                              \
                                                                               \
@@ -65,10 +58,12 @@ class TopWidget;
 namespace Kwave
 {
 
+    class ConfirmCancelProxy;
     class PluginWorkerThread;
     class PluginManager;
     class SampleReader;
     class SignalManager;
+    class TopWidget;
 
     /**
      * Generic class that should be used for all types of Kwave plugins.

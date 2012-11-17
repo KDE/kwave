@@ -388,10 +388,7 @@ void SonagramWindow::toSignal()
 //    gsl_fft_complex_wavetable_alloc (points, &table);
 //    gsl_fft_complex_init (points, &table);
 //
-//    TopWidget *win = new TopWidget(
-//	*((KwaveApp*)KApplication::getKApplication()),
-//	((KwaveApp*)KApplication::getKApplication())->getRecentFiles()
-//    );
+//    Kwave::TopWidget *win = new Kwave::TopWidget(...);
 //
 //    Q_ASSERT(win);
 //    if (win) {

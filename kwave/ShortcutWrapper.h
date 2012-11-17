@@ -29,7 +29,8 @@ class QKeySequence;
 /**
  * Wrapper for keyboard shortcuts, emits signal activated(id)
  */
-namespace Kwave {
+namespace Kwave
+{
     class ShortcutWrapper: public QShortcut
     {
     Q_OBJECT
@@ -65,3 +66,6 @@ namespace Kwave {
 }
 
 #endif /* _SHORTCUT_WRAPPER_H_ */
+
+//***************************************************************************
+//***************************************************************************

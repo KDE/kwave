@@ -41,7 +41,7 @@
 #include "KwaveSplash.h"
 
 //***************************************************************************
-KwaveApp::KwaveApp()
+Kwave::App::App()
    :KUniqueApplication(),
     m_recent_files(),
     m_topwidget_list()
@@ -59,13 +59,13 @@ KwaveApp::KwaveApp()
 }
 
 //***************************************************************************
-int KwaveApp::newInstance()
+int Kwave::App::newInstance()
 {
     static bool first_time = true;
     if (first_time) {
 	first_time = false;
 
-	KwaveSplash::showMessage(i18n("Reading configuration..."));
+	Kwave::Splash::showMessage(i18n("Reading configuration..."));
 	readConfig();
 
 	// close when the last window closed
@@ -93,13 +93,13 @@ int KwaveApp::newInstance()
 }
 
 //***************************************************************************
-bool KwaveApp::isOK()
+bool Kwave::App::isOK()
 {
     return (!m_topwidget_list.isEmpty());
 }
 
 //***************************************************************************
-bool KwaveApp::executeCommand(const QString &command)
+bool Kwave::App::executeCommand(const QString &command)
 {
     Kwave::Parser parser(command);
     if (parser.command() == "newwindow") {
@@ -117,7 +117,7 @@ bool KwaveApp::executeCommand(const QString &command)
 }
 
 //***************************************************************************
-void KwaveApp::addRecentFile(const QString &newfile)
+void Kwave::App::addRecentFile(const QString &newfile)
 {
     if (!newfile.length()) return;
 
@@ -139,9 +139,9 @@ void KwaveApp::addRecentFile(const QString &newfile)
 }
 
 //***************************************************************************
-bool KwaveApp::newWindow(const KUrl &url)
+bool Kwave::App::newWindow(const KUrl &url)
 {
-    KwaveSplash::showMessage(i18n("Opening main window..."));
+    Kwave::Splash::showMessage(i18n("Opening main window..."));
 
     Kwave::ApplicationContext *context = new Kwave::ApplicationContext(*this);
     if (!context) return false;
@@ -150,7 +150,7 @@ bool KwaveApp::newWindow(const KUrl &url)
 	return false;
     }
 
-    TopWidget *new_top_widget = context->topWidget();
+    Kwave::TopWidget *new_top_widget = context->topWidget();
     if (m_topwidget_list.isEmpty()) {
 	// the first widget is the main widget !
 	setTopWidget(new_top_widget); // sets geometry and other properties
@@ -171,17 +171,17 @@ bool KwaveApp::newWindow(const KUrl &url)
             new_top_widget, SLOT(updateRecentFiles()));
 
     if (!url.isEmpty()) {
-	KwaveSplash::showMessage(i18n("Loading file '%1'...",
+	Kwave::Splash::showMessage(i18n("Loading file '%1'...",
 	    url.prettyUrl()));
 	new_top_widget->loadFile(url);
     }
 
-    KwaveSplash::showMessage(i18n("Startup done"));
+    Kwave::Splash::showMessage(i18n("Startup done"));
     return true;
 }
 
 //***************************************************************************
-bool KwaveApp::closeWindow(TopWidget *todel)
+bool Kwave::App::closeWindow(Kwave::TopWidget *todel)
 {
     Q_ASSERT(todel);
 
@@ -195,7 +195,7 @@ bool KwaveApp::closeWindow(TopWidget *todel)
 }
 
 //***************************************************************************
-void KwaveApp::saveRecentFiles()
+void Kwave::App::saveRecentFiles()
 {
     KConfigGroup cfg = KGlobal::config()->group("Recent Files");
 
@@ -209,14 +209,14 @@ void KwaveApp::saveRecentFiles()
 }
 
 //***************************************************************************
-void KwaveApp::saveConfig()
+void Kwave::App::saveConfig()
 {
     // save the list of recent files
     saveRecentFiles();
 }
 
 //***************************************************************************
-void KwaveApp::readConfig()
+void Kwave::App::readConfig()
 {
     QString result;
     QString key;
@@ -238,12 +238,12 @@ void KwaveApp::readConfig()
 }
 
 //***************************************************************************
-KwaveApp::~KwaveApp()
+Kwave::App::~App()
 {
     saveConfig();
 
     while (!m_topwidget_list.isEmpty()) {
-	TopWidget *todel = m_topwidget_list.takeLast();
+	Kwave::TopWidget *todel = m_topwidget_list.takeLast();
 	if (todel) delete todel;
     }
     m_recent_files.clear();

@@ -489,7 +489,7 @@ void PlayBackDialog::selectPlaybackDevice()
 {
     QString filter = m_file_filter;
 
-    KwaveFileDialog dlg("kfiledialog:///kwave_playback_device", filter, this,
+    Kwave::FileDialog dlg("kfiledialog:///kwave_playback_device", filter, this,
 	true, "file:/dev");
     dlg.setKeepLocation(true);
     dlg.setOperationMode(KFileDialog::Opening);

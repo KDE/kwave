@@ -19,18 +19,18 @@
 #include "TreeWidgetWrapper.h"
 
 //***************************************************************************
-TreeWidgetWrapper::TreeWidgetWrapper(QWidget *widget)
+Kwave::TreeWidgetWrapper::TreeWidgetWrapper(QWidget *widget)
     :QTreeWidget(widget)
 {
 }
 
 //***************************************************************************
-TreeWidgetWrapper::~TreeWidgetWrapper()
+Kwave::TreeWidgetWrapper::~TreeWidgetWrapper()
 {
 }
 
 //***************************************************************************
-void TreeWidgetWrapper::focusOutEvent(QFocusEvent *event)
+void Kwave::TreeWidgetWrapper::focusOutEvent(QFocusEvent *event)
 {
     QTreeWidget::focusOutEvent(event);
     emit focusLost();

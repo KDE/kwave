@@ -22,8 +22,6 @@
 #include "libkwave/SignalManager.h"
 #include "libkwave/undo/UndoModifyMetaDataAction.h"
 
-#include "libgui/SignalWidget.h"
-
 //***************************************************************************
 Kwave::UndoModifyMetaDataAction::UndoModifyMetaDataAction(
     const Kwave::MetaDataList &meta_data)

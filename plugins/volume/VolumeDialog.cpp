@@ -35,7 +35,8 @@
 #include "VolumeDialog.h"
 
 //***************************************************************************
-VolumeDialog::VolumeDialog(QWidget *parent, OverViewCache *overview_cache)
+VolumeDialog::VolumeDialog(QWidget *parent,
+                           Kwave::OverViewCache *overview_cache)
     :QDialog(parent), Ui::VolumeDlg(), m_factor(1.0), m_mode(MODE_DECIBEL),
      m_enable_updates(true), m_overview_cache(overview_cache)
 {

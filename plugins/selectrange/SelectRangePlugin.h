@@ -62,10 +62,10 @@ protected:
 private:
 
     /** selected mode for start: by time, samples, percentage */
-    SelectTimeWidget::Mode m_start_mode;
+    Kwave::SelectTimeWidget::Mode m_start_mode;
 
     /** selected mode for range: by time, samples, percentage */
-    SelectTimeWidget::Mode m_range_mode;
+    Kwave::SelectTimeWidget::Mode m_range_mode;
 
     /** start in milliseconds, samples or percents */
     unsigned int m_start;

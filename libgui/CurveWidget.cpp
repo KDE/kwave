@@ -47,7 +47,7 @@
 #include "CurveWidget.h"
 
 //***************************************************************************
-CurveWidget::CurveWidget(QWidget *parent)
+Kwave::CurveWidget::CurveWidget(QWidget *parent)
     :QWidget(parent), m_width(0), m_height(0), m_curve(), m_menu(0),
      m_preset_menu(0), m_current(Kwave::Curve::NoPoint),
      m_last(Kwave::Curve::NoPoint),
@@ -140,26 +140,26 @@ CurveWidget::CurveWidget(QWidget *parent)
 }
 
 //***************************************************************************
-CurveWidget::~CurveWidget()
+Kwave::CurveWidget::~CurveWidget()
 {
     if (m_menu) delete m_menu;
 }
 
 //***************************************************************************
-QString CurveWidget::getCommand()
+QString Kwave::CurveWidget::getCommand()
 {
     return m_curve.getCommand();
 }
 
 //***************************************************************************
-void CurveWidget::setCurve(const QString &command)
+void Kwave::CurveWidget::setCurve(const QString &command)
 {
     m_curve.fromCommand(command);
     repaint();
 }
 
 //***************************************************************************
-void CurveWidget::selectInterpolationType(QAction *action)
+void Kwave::CurveWidget::selectInterpolationType(QAction *action)
 {
     if (!action) return;
 
@@ -172,7 +172,7 @@ void CurveWidget::selectInterpolationType(QAction *action)
 }
 
 //***************************************************************************
-void CurveWidget::savePreset()
+void Kwave::CurveWidget::savePreset()
 {
     KStandardDirs stddirs;
     stddirs.addResourceType("curves", 0, QString("presets") +
@@ -195,7 +195,7 @@ void CurveWidget::savePreset()
 }
 
 //***************************************************************************
-void CurveWidget::loadPresetList()
+void Kwave::CurveWidget::loadPresetList()
 {
     KStandardDirs stddirs;
     stddirs.addResourceType("curves", 0, QString("presets") +
@@ -215,7 +215,7 @@ void CurveWidget::loadPresetList()
 }
 
 //***************************************************************************
-void CurveWidget::loadPreset(QAction *action)
+void Kwave::CurveWidget::loadPreset(QAction *action)
 {
     Q_ASSERT(m_preset_menu);
     Q_ASSERT(action);
@@ -244,7 +244,7 @@ void CurveWidget::loadPreset(QAction *action)
 }
 
 //***************************************************************************
-void CurveWidget::secondHalf()
+void Kwave::CurveWidget::secondHalf()
 {
     m_curve.secondHalf ();
     m_last = Kwave::Curve::NoPoint;
@@ -252,7 +252,7 @@ void CurveWidget::secondHalf()
 }
 
 //***************************************************************************
-void CurveWidget::firstHalf()
+void Kwave::CurveWidget::firstHalf()
 {
     m_curve.firstHalf ();
     m_last = Kwave::Curve::NoPoint;
@@ -260,7 +260,7 @@ void CurveWidget::firstHalf()
 }
 
 //****************************************************************************
-void CurveWidget::deleteSecond()
+void Kwave::CurveWidget::deleteSecond()
 {
     m_curve.deleteSecondPoint();
     m_last = Kwave::Curve::NoPoint;
@@ -268,7 +268,7 @@ void CurveWidget::deleteSecond()
 }
 
 //****************************************************************************
-void CurveWidget::deleteLast()
+void Kwave::CurveWidget::deleteLast()
 {
     if (m_last != Kwave::Curve::NoPoint) {
 	m_curve.deletePoint(m_last, true);
@@ -278,28 +278,28 @@ void CurveWidget::deleteLast()
 }
 
 //***************************************************************************
-void CurveWidget::HFlip()
+void Kwave::CurveWidget::HFlip()
 {
     m_curve.HFlip();
     repaint();
 }
 
 //***************************************************************************
-void CurveWidget::VFlip()
+void Kwave::CurveWidget::VFlip()
 {
     m_curve.VFlip();
     repaint();
 }
 
 //***************************************************************************
-void CurveWidget::scaleFit()
+void Kwave::CurveWidget::scaleFit()
 {
     m_curve.scaleFit();
     repaint();
 }
 
 //***************************************************************************
-void CurveWidget::addPoint(double newx, double newy)
+void Kwave::CurveWidget::addPoint(double newx, double newy)
 {
     m_curve.insert(newx, newy);
     m_last = Kwave::Curve::NoPoint;
@@ -307,7 +307,7 @@ void CurveWidget::addPoint(double newx, double newy)
 }
 
 //***************************************************************************
-Kwave::Curve::Point CurveWidget::findPoint(int sx, int sy)
+Kwave::Curve::Point Kwave::CurveWidget::findPoint(int sx, int sy)
 // checks, if given coordinates fit to a control point in the list...
 {
     Q_ASSERT(m_width > 1);
@@ -319,7 +319,7 @@ Kwave::Curve::Point CurveWidget::findPoint(int sx, int sy)
 }
 
 //***************************************************************************
-void CurveWidget::mousePressEvent(QMouseEvent *e)
+void Kwave::CurveWidget::mousePressEvent(QMouseEvent *e)
 {
     Q_ASSERT(e);
     Q_ASSERT(m_width > 1);
@@ -346,7 +346,7 @@ void CurveWidget::mousePressEvent(QMouseEvent *e)
 }
 
 //***************************************************************************
-void CurveWidget::mouseReleaseEvent(QMouseEvent *)
+void Kwave::CurveWidget::mouseReleaseEvent(QMouseEvent *)
 {
     m_last = m_current;
     m_current = Kwave::Curve::NoPoint;
@@ -355,7 +355,7 @@ void CurveWidget::mouseReleaseEvent(QMouseEvent *)
 }
 
 //***************************************************************************
-void CurveWidget::mouseMoveEvent(QMouseEvent *e )
+void Kwave::CurveWidget::mouseMoveEvent(QMouseEvent *e )
 {
     Q_ASSERT(e);
     Q_ASSERT(m_width > 1);
@@ -405,7 +405,7 @@ void CurveWidget::mouseMoveEvent(QMouseEvent *e )
 }
 
 //***************************************************************************
-void CurveWidget::paintEvent(QPaintEvent *)
+void Kwave::CurveWidget::paintEvent(QPaintEvent *)
 {
 //    qDebug("CurveWidget::paintEvent (QPaintEvent *)");
     QPainter p;

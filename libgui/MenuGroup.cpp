@@ -27,18 +27,18 @@
 #include "MenuGroup.h"
 
 //*****************************************************************************
-MenuGroup::MenuGroup(MenuNode *parent, const QString &name)
-    :MenuNode(parent, name, 0, 0, name)
+Kwave::MenuGroup::MenuGroup(Kwave::MenuNode *parent, const QString &name)
+    :Kwave::MenuNode(parent, name, 0, 0, name)
 {
     if (parent) parent->registerChild(this);
 }
 
 //*****************************************************************************
-MenuGroup::~MenuGroup()
+Kwave::MenuGroup::~MenuGroup()
 {
     clear();
 
-    QHash<QString, MenuGroup *> &group_list = getGroupList();
+    QHash<QString, Kwave::MenuGroup *> &group_list = getGroupList();
     const QString key = name();
     if (group_list.contains(key)) {
 	group_list.remove(key);
@@ -46,19 +46,19 @@ MenuGroup::~MenuGroup()
 }
 
 //*****************************************************************************
-void MenuGroup::setEnabled(bool enable)
+void Kwave::MenuGroup::setEnabled(bool enable)
 {
-    foreach (MenuNode *child, m_children) {
+    foreach (Kwave::MenuNode *child, m_children) {
 	if (child) child->setEnabled(enable);
     }
 }
 
 //*****************************************************************************
-void MenuGroup::selectItem(const QString &uid)
+void Kwave::MenuGroup::selectItem(const QString &uid)
 {
-    MenuNode *new_selection = 0;
+    Kwave::MenuNode *new_selection = 0;
 
-    foreach (MenuNode *child, m_children) {
+    foreach (Kwave::MenuNode *child, m_children) {
 	if (child && (uid == child->uid()))
 	    new_selection = child;    // new selected child found !
 	else
@@ -71,7 +71,7 @@ void MenuGroup::selectItem(const QString &uid)
 }
 
 //*****************************************************************************
-void MenuGroup::clear()
+void Kwave::MenuGroup::clear()
 {
     // deregister all child nodes from us
     while (!m_children.isEmpty())

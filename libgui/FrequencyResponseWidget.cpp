@@ -28,7 +28,7 @@
 #include "FrequencyResponseWidget.h"
 
 //***************************************************************************
-FrequencyResponseWidget::FrequencyResponseWidget(QWidget *widget)
+Kwave::FrequencyResponseWidget::FrequencyResponseWidget(QWidget *widget)
     :QWidget(widget), m_f_max(0), m_db_min(0), m_db_max(0),
      m_decades(0), m_function(0)
 {
@@ -36,12 +36,12 @@ FrequencyResponseWidget::FrequencyResponseWidget(QWidget *widget)
 }
 
 //***************************************************************************
-FrequencyResponseWidget::~FrequencyResponseWidget()
+Kwave::FrequencyResponseWidget::~FrequencyResponseWidget()
 {
 }
 
 //***************************************************************************
-void FrequencyResponseWidget::init(double freq, int db_min, int db_max)
+void Kwave::FrequencyResponseWidget::init(double freq, int db_min, int db_max)
 {
     const int base = 10;
     m_decades = static_cast<int>(ceil(log(freq)/log(base)));
@@ -52,14 +52,15 @@ void FrequencyResponseWidget::init(double freq, int db_min, int db_max)
 }
 
 //***************************************************************************
-void FrequencyResponseWidget::setFilter(Kwave::TransmissionFunction *func)
+void Kwave::FrequencyResponseWidget::setFilter(
+    Kwave::TransmissionFunction *func)
 {
     m_function = func;
     repaint();
 }
 
 //***************************************************************************
-void FrequencyResponseWidget::paintEvent(QPaintEvent*)
+void Kwave::FrequencyResponseWidget::paintEvent(QPaintEvent*)
 {
 //  const int base = 10;
 //  const double m_frequency = m_f_max * 2/3;

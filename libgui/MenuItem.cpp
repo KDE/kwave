@@ -27,17 +27,16 @@
 #include "libkwave/Parser.h"
 
 #include "MenuNode.h"
-#include "MenuSub.h"
 #include "MenuGroup.h"
 #include "MenuItem.h"
 
 //*****************************************************************************
-MenuItem::MenuItem(MenuNode *parent,
-                   const QString &name,
-                   const QString &command,
-                   const QKeySequence &shortcut,
-                   const QString &uid)
-    :MenuNode(parent, name, command, shortcut, uid),
+Kwave::MenuItem::MenuItem(Kwave::MenuNode *parent,
+                          const QString &name,
+                          const QString &command,
+                          const QKeySequence &shortcut,
+                          const QString &uid)
+    :Kwave::MenuNode(parent, name, command, shortcut, uid),
      m_exclusive_group(), m_action(0)
 {
     Q_ASSERT(parent);
@@ -51,30 +50,33 @@ MenuItem::MenuItem(MenuNode *parent,
 }
 
 //*****************************************************************************
-MenuItem::~MenuItem()
+Kwave::MenuItem::~MenuItem()
 {
 }
 
 //*****************************************************************************
-void MenuItem::actionTriggered(bool checked)
+void Kwave::MenuItem::actionTriggered(bool checked)
 {
     Q_UNUSED(checked);
     actionSelected();
 }
 
 //*****************************************************************************
-void MenuItem::actionSelected()
+void Kwave::MenuItem::actionSelected()
 {
-    MenuGroup *group = 0;
+    Kwave::MenuGroup *group = 0;
 
     if (isCheckable()) {
 	if (m_exclusive_group.length()) {
-	    MenuNode *root = getRootNode();
-	    if (root) group =
-		static_cast<MenuGroup *>(root->findUID(m_exclusive_group));
+	    Kwave::MenuNode *root = getRootNode();
+	    if (root) {
+		group = qobject_cast<Kwave::MenuGroup *>(
+		    root->findUID(m_exclusive_group)
+		);
+	    }
 	}
 
-	if (group && (static_cast<MenuNode *>(group))->inherits("MenuGroup")) {
+	if (group) {
 	    // exclusive check == selection
 	    group->selectItem(uid());
 	} else {
@@ -83,11 +85,11 @@ void MenuItem::actionSelected()
 	}
     }
 
-    MenuNode::actionSelected();
+    Kwave::MenuNode::actionSelected();
 }
 
 //*****************************************************************************
-bool MenuItem::specialCommand(const QString &command)
+bool Kwave::MenuItem::specialCommand(const QString &command)
 {
 
     if (command.startsWith("#checkable")) {
@@ -118,54 +120,54 @@ bool MenuItem::specialCommand(const QString &command)
 	return true;
     }
 
-    return (MenuNode::specialCommand(command));
+    return (Kwave::MenuNode::specialCommand(command));
 }
 
 //*****************************************************************************
-bool MenuItem::isEnabled()
+bool Kwave::MenuItem::isEnabled()
 {
     if (!m_action.isEnabled()) return false;
-    return MenuNode::isEnabled();
+    return Kwave::MenuNode::isEnabled();
 }
 
 //*****************************************************************************
-void MenuItem::setEnabled(bool enable)
+void Kwave::MenuItem::setEnabled(bool enable)
 {
     m_action.setEnabled(enable);
 }
 
 //*****************************************************************************
-bool MenuItem::isCheckable()
+bool Kwave::MenuItem::isCheckable()
 {
     return m_action.isCheckable();
 }
 
 //*****************************************************************************
-void MenuItem::setCheckable(bool checkable)
+void Kwave::MenuItem::setCheckable(bool checkable)
 {
     m_action.setCheckable(checkable);
 }
 
 //*****************************************************************************
-void MenuItem::setChecked(bool check)
+void Kwave::MenuItem::setChecked(bool check)
 {
     m_action.setChecked(check);
 }
 
 //*****************************************************************************
-void MenuItem::setText(const QString &text)
+void Kwave::MenuItem::setText(const QString &text)
 {
     m_action.setText(text);
 }
 
 //*****************************************************************************
-const QIcon MenuItem::icon()
+const QIcon Kwave::MenuItem::icon()
 {
     return m_action.icon();
 }
 
 //*****************************************************************************
-void MenuItem::setIcon(const QIcon &icon)
+void Kwave::MenuItem::setIcon(const QIcon &icon)
 {
     m_action.setIcon(icon);
 }

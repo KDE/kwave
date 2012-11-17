@@ -32,7 +32,7 @@ class GotoDialog: public QDialog,
     Q_OBJECT
 public:
     /** shortcut typedef */
-    typedef SelectTimeWidget::Mode Mode;
+    typedef Kwave::SelectTimeWidget::Mode Mode;
 
     /**
      * Constructor
@@ -57,11 +57,11 @@ public:
      */
     Mode mode() {
         return select_pos ? select_pos->mode() :
-               SelectTimeWidget::bySamples;
+               Kwave::SelectTimeWidget::bySamples;
     }
 
     /** Set a new position mode */
-    void setMode(SelectTimeWidget::Mode new_mode);
+    void setMode(Kwave::SelectTimeWidget::Mode new_mode);
 
     /**
      * Returns the current position (byTime, bySamples, byPercents)

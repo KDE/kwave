@@ -49,7 +49,6 @@
 #include "libkwave/SignalManager.h"
 #include "libkwave/Track.h"
 
-#include "libgui/MultiStateWidget.h"
 // #include "libgui/ShortcutWrapper.h"
 #include "libgui/SignalView.h"
 #include "libgui/SignalWidget.h"
@@ -88,8 +87,10 @@
 #define REPAINT_INTERVAL 125
 
 //***************************************************************************
-SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
-                           QVBoxLayout *upper_dock, QVBoxLayout *lower_dock)
+Kwave::SignalWidget::SignalWidget(QWidget *parent,
+                                  Kwave::ApplicationContext &context,
+                                  QVBoxLayout *upper_dock,
+                                  QVBoxLayout *lower_dock)
     :QWidget(parent),
      m_context(context),
      m_views(),
@@ -136,31 +137,31 @@ SignalWidget::SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
 }
 
 //***************************************************************************
-bool SignalWidget::isOK()
+bool Kwave::SignalWidget::isOK()
 {
     return true;
 }
 
 //***************************************************************************
-SignalWidget::~SignalWidget()
+Kwave::SignalWidget::~SignalWidget()
 {
 }
 
 //***************************************************************************
-void SignalWidget::setZoomAndOffset(double zoom, sample_index_t offset)
+void Kwave::SignalWidget::setZoomAndOffset(double zoom, sample_index_t offset)
 {
     foreach (QPointer<Kwave::SignalView> view, m_views)
 	view->setZoomAndOffset(zoom, offset);
 }
 
 //***************************************************************************
-void SignalWidget::forwardCommand(const QString &command)
+void Kwave::SignalWidget::forwardCommand(const QString &command)
 {
     emit sigCommand(command);
 }
 
 //***************************************************************************
-void SignalWidget::requestRepaint(Kwave::SignalView *view)
+void Kwave::SignalWidget::requestRepaint(Kwave::SignalView *view)
 {
     // add the view to the repaint queue (if not already there)
     if (!m_repaint_queue.contains(view))
@@ -175,7 +176,7 @@ void SignalWidget::requestRepaint(Kwave::SignalView *view)
 }
 
 //***************************************************************************
-void SignalWidget::repaintTimerElapsed()
+void Kwave::SignalWidget::repaintTimerElapsed()
 {
     while (!m_repaint_queue.isEmpty())
     {
@@ -186,7 +187,7 @@ void SignalWidget::repaintTimerElapsed()
 }
 
 //***************************************************************************
-void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
+void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 {
     Q_ASSERT(e);
 
@@ -328,7 +329,7 @@ void SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 }
 
 //***************************************************************************
-void SignalWidget::wheelEvent(QWheelEvent *event)
+void Kwave::SignalWidget::wheelEvent(QWheelEvent *event)
 {
     if (!event) return;
 
@@ -353,7 +354,7 @@ void SignalWidget::wheelEvent(QWheelEvent *event)
 }
 
 //***************************************************************************
-void SignalWidget::setVerticalZoom(double zoom)
+void Kwave::SignalWidget::setVerticalZoom(double zoom)
 {
     if (zoom > VERTICAL_ZOOM_MAX) zoom = VERTICAL_ZOOM_MAX;
     if (zoom < VERTICAL_ZOOM_MIN) zoom = VERTICAL_ZOOM_MIN;
@@ -377,15 +378,15 @@ void SignalWidget::setVerticalZoom(double zoom)
 }
 
 //***************************************************************************
-int SignalWidget::viewPortWidth()
+int Kwave::SignalWidget::viewPortWidth()
 {
     if (m_views.isEmpty()) return width(); // if empty
     return m_layout.cellRect(0, 1).width();
 }
 
 //***************************************************************************
-void SignalWidget::insertRow(int index, Kwave::SignalView *view,
-                             QWidget *controls)
+void Kwave::SignalWidget::insertRow(int index, Kwave::SignalView *view,
+                                    QWidget *controls)
 {
     const int rows = m_layout.rowCount();
     const int cols = m_layout.columnCount();
@@ -415,7 +416,7 @@ void SignalWidget::insertRow(int index, Kwave::SignalView *view,
 }
 
 //***************************************************************************
-void SignalWidget::deleteRow(int index)
+void Kwave::SignalWidget::deleteRow(int index)
 {
     const int rows = m_layout.rowCount();
     const int cols = m_layout.columnCount();
@@ -437,7 +438,8 @@ void SignalWidget::deleteRow(int index)
 }
 
 //***************************************************************************
-void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
+void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
+                                     QWidget *controls)
 {
     Q_ASSERT(m_upper_dock);
     Q_ASSERT(m_lower_dock);
@@ -573,7 +575,8 @@ void SignalWidget::insertView(Kwave::SignalView *view, QWidget *controls)
 }
 
 //***************************************************************************
-void SignalWidget::slotTrackInserted(unsigned int index, Kwave::Track *track)
+void Kwave::SignalWidget::slotTrackInserted(unsigned int index,
+                                            Kwave::Track *track)
 {
     Q_ASSERT(track);
     if (!track) return;
@@ -605,7 +608,7 @@ void SignalWidget::slotTrackInserted(unsigned int index, Kwave::Track *track)
 }
 
 //***************************************************************************
-void SignalWidget::slotTrackDeleted(unsigned int index)
+void Kwave::SignalWidget::slotTrackDeleted(unsigned int index)
 {
     // loop over all views, delete those that are bound to this track
     // and adjust the index of the following ones
@@ -648,7 +651,7 @@ void SignalWidget::slotTrackDeleted(unsigned int index)
 }
 
 //***************************************************************************
-// void SignalWidget::parseKey(int key)
+// void Kwave::SignalWidget::parseKey(int key)
 // {
 //     if ((key < 0) || (key >= m_lamps.count()))
 // 	return;

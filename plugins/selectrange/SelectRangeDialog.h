@@ -33,7 +33,7 @@ class SelectRangeDialog: public QDialog,
     Q_OBJECT
 public:
     /** shortcut typedef */
-    typedef SelectTimeWidget::Mode Mode;
+    typedef Kwave::SelectTimeWidget::Mode Mode;
 
     /**
      * Constructor
@@ -61,7 +61,7 @@ public:
      */
     Mode startMode() {
         return select_start ? select_start->mode() :
-               SelectTimeWidget::bySamples;
+               Kwave::SelectTimeWidget::bySamples;
     };
 
     /**
@@ -70,11 +70,11 @@ public:
      */
     Mode rangeMode() {
         return select_range ? select_range->mode() :
-               SelectTimeWidget::bySamples;
+               Kwave::SelectTimeWidget::bySamples;
     };
 
     /** Set a new selection mode */
-    void setMode(SelectTimeWidget::Mode new_mode);
+    void setMode(Kwave::SelectTimeWidget::Mode new_mode);
 
     /**
      * Returns the current start position (byTime, bySamples, byPercents)

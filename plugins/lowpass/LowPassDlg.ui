@@ -113,7 +113,7 @@ frequencies will be cut off.</string>
       <number>0</number>
      </property>
      <item row="0" column="0" >
-      <widget class="ScaleWidget" native="1" name="scale_db" >
+      <widget class="Kwave::ScaleWidget" native="1" name="scale_db" >
        <property name="sizePolicy" >
         <sizepolicy vsizetype="MinimumExpanding" hsizetype="Minimum" >
          <horstretch>0</horstretch>
@@ -129,7 +129,7 @@ frequencies will be cut off.</string>
       </widget>
      </item>
      <item row="0" column="1" >
-      <widget class="FrequencyResponseWidget" native="1" name="freq_response" >
+      <widget class="Kwave::FrequencyResponseWidget" native="1" name="freq_response" >
        <property name="minimumSize" >
         <size>
          <width>400</width>
@@ -139,7 +139,7 @@ frequencies will be cut off.</string>
       </widget>
      </item>
      <item row="1" column="1" >
-      <widget class="ScaleWidget" native="1" name="scale_freq" >
+      <widget class="Kwave::ScaleWidget" native="1" name="scale_freq" >
        <property name="sizePolicy" >
         <sizepolicy vsizetype="Minimum" hsizetype="MinimumExpanding" >
          <horstretch>0</horstretch>
@@ -250,12 +250,12 @@ frequencies will be cut off.</string>
    <header>knuminput.h</header>
   </customwidget>
   <customwidget>
-   <class>ScaleWidget</class>
+   <class>Kwave::ScaleWidget</class>
    <extends>QWidget</extends>
    <header location="global" >libgui/ScaleWidget.h</header>
   </customwidget>
   <customwidget>
-   <class>FrequencyResponseWidget</class>
+   <class>Kwave::FrequencyResponseWidget</class>
    <extends>QWidget</extends>
    <header>libgui/FrequencyResponseWidget.h</header>
   </customwidget>

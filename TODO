@@ -7,6 +7,12 @@ o include Qt header files: add subsystem prefix
 
 o try to replace Qt classes which have KDE equivalent
 
+o no null pointer checks around "delete"
+
+o use K_GLOBAL_STATIC
+
+o compile with -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM_ASCII
+
 o find a replacement for libkwave/byteswap.h
   -> see qFromBigEndian/qFromLittleEndian/qToLittleEndian...
 

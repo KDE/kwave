@@ -28,101 +28,108 @@
 class QString;
 class QWidget;
 class KMenuBar;
-class MenuRoot;
 
-//*****************************************************************************
-/**
- * @class MenuManager
- * @brief Manager class for access to Kwave's menu subsystem.
- *
- * @note All commands must be emitted synchronously during X11 event
- *       processing instead of  immediately through normal signal
- *       handling. This avoids trouble when a signal handler within
- *       the MenuNode class causes an action that deletes that menu
- *       node. <em>It took me one week to find that bug!</em>
- */
-class KDE_EXPORT MenuManager: public QObject
+namespace Kwave
 {
-    Q_OBJECT
-public:
-    /**
-     * Constructor.
-     * @param parent the menu's parent widget
-     * @param bar reference to the menu bar
-     */
-    MenuManager(QWidget *parent, KMenuBar &bar);
 
-    /** Destructor. */
-    virtual ~MenuManager();
+    class MenuRoot;
 
     /**
-     * Executes menu commands.
-     * @param command string with the command
+     * @class MenuManager
+     * @brief Manager class for access to Kwave's menu subsystem.
+     *
+     * @note All commands must be emitted synchronously during X11 event
+     *       processing instead of immediately through normal signal
+     *       handling. This avoids trouble when a signal handler within
+     *       the MenuNode class causes an action that deletes that menu
+     *       node. <em>It took me one week to find that bug!</em>
      */
-    void executeCommand(const QString &command);
+    class KDE_EXPORT MenuManager: public QObject
+    {
+	Q_OBJECT
+    public:
+	/**
+	 * Constructor.
+	 * @param parent the menu's parent widget
+	 * @param bar reference to the menu bar
+	 */
+	MenuManager(QWidget *parent, KMenuBar &bar);
 
-    /**
-     * Deletes all entries of a numbered menu
-     * @param uid unique id string of the numbered menu
-     */
-    void clearNumberedMenu(const QString &uid);
+	/** Destructor. */
+	virtual ~MenuManager();
 
-    /**
-     * Add an entry to a numbered menu
-     * @param uid unique id string of the numbered menu
-     * @param entry name of the new entry (non-localized)
-     */
-    void addNumberedMenuEntry(const QString &uid, const QString &entry);
+	/**
+	 * Executes menu commands.
+	 * @param command string with the command
+	 */
+	void executeCommand(const QString &command);
 
-    /**
-     * Selects an menu item within a group of menu items. All other
-     * items will be deselected and the new one will become the only
-     * selected one. (exclusive one-of-n-selection)
-     * @param group name of the menu group
-     * @param uid unique id string specifying the new selection
-     */
-    void selectItem(const QString &group, const QString &uid);
+	/**
+	 * Deletes all entries of a numbered menu
+	 * @param uid unique id string of the numbered menu
+	 */
+	void clearNumberedMenu(const QString &uid);
 
-    /**
-     * Sets the text of a menu entry to a new value.
-     * @param uid unique id string of the menu node
-     * @param text the new text of the item
-     */
-    void setItemText(const QString &uid, const QString &text);
+	/**
+	 * Add an entry to a numbered menu
+	 * @param uid unique id string of the numbered menu
+	 * @param entry name of the new entry (non-localized)
+	 */
+	void addNumberedMenuEntry(const QString &uid, const QString &entry);
 
-public slots:
+	/**
+	 * Selects an menu item within a group of menu items. All other
+	 * items will be deselected and the new one will become the only
+	 * selected one. (exclusive one-of-n-selection)
+	 * @param group name of the menu group
+	 * @param uid unique id string specifying the new selection
+	 */
+	void selectItem(const QString &group, const QString &uid);
 
-    /**
-     * Checks/unchecks a menu node.
-     * @param uid unique id string of the menu node
-     * @param check true to set a checkmark, false to remove
-     */
-    void setItemChecked(const QString &uid, bool check);
+	/**
+	 * Sets the text of a menu entry to a new value.
+	 * @param uid unique id string of the menu node
+	 * @param text the new text of the item
+	 */
+	void setItemText(const QString &uid, const QString &text);
 
-    /**
-     * Enables/disables a menu node.
-     * @param uid unique id string of the menu node
-     * @param enable true to enable, false to disable
-     */
-    void setItemEnabled(const QString &uid, bool enable);
+    public slots:
 
-signals:
+	/**
+	 * Checks/unchecks a menu node.
+	 * @param uid unique id string of the menu node
+	 * @param check true to set a checkmark, false to remove
+	 */
+	void setItemChecked(const QString &uid, bool check);
 
-    /**
-     * Will be emitted if the command of a menu node
-     * should be executed.
-     * @see MenuNode.sigCommand()
-     */
-    void sigMenuCommand(const QString &command);
+	/**
+	 * Enables/disables a menu node.
+	 * @param uid unique id string of the menu node
+	 * @param enable true to enable, false to disable
+	 */
+	void setItemEnabled(const QString &uid, bool enable);
 
-private:
+    signals:
 
-    /** root node of the menu structure */
-    MenuRoot *m_menu_root;
+	/**
+	 * Will be emitted if the command of a menu node
+	 * should be executed.
+	 * @see MenuNode.sigCommand()
+	 */
+	void sigMenuCommand(const QString &command);
 
-    /** map of standard key names / key sequences */
-    static QMap<QString, QKeySequence> m_standard_keys;
+    private:
 
-};
+	/** root node of the menu structure */
+	Kwave::MenuRoot *m_menu_root;
+
+	/** map of standard key names / key sequences */
+	static QMap<QString, QKeySequence> m_standard_keys;
+
+    };
+}
 
 #endif // _MENU_MANAGER_H_
+
+//***************************************************************************
+//***************************************************************************

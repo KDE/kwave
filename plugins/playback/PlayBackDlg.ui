@@ -376,7 +376,7 @@ playback. Depending on the compilation options you can select one of the followi
        </widget>
       </item>
       <item row="2" column="0" colspan="4">
-       <widget class="TreeWidgetWrapper" name="listDevices">
+       <widget class="Kwave::TreeWidgetWrapper" name="listDevices">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -587,7 +587,7 @@ playback. Depending on the compilation options you can select one of the followi
    <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
-   <class>TreeWidgetWrapper</class>
+   <class>Kwave::TreeWidgetWrapper</class>
    <extends>QTreeWidget</extends>
    <header>libgui/TreeWidgetWrapper.h</header>
    <container>1</container>

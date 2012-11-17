@@ -26,53 +26,54 @@
 
 //***************************************************************************
 /** garbage collector for menu nodes */
-QList<MenuNode *> MenuRoot::m_garbage;
+QList<Kwave::MenuNode *> Kwave::MenuRoot::m_garbage;
 
 //***************************************************************************
-MenuRoot::MenuRoot(KMenuBar &bar)
-    :MenuNode(0, "(root)", 0, 0, 0), m_menu_bar(bar), m_group_list()
+Kwave::MenuRoot::MenuRoot(KMenuBar &bar)
+    :Kwave::MenuNode(0, "(root)", 0, 0, 0), m_menu_bar(bar), m_group_list()
 {
 }
 
 //***************************************************************************
-MenuRoot::~MenuRoot()
+Kwave::MenuRoot::~MenuRoot()
 {
     clear();
 }
 
 //***************************************************************************
-QHash<QString, MenuGroup *> &MenuRoot::getGroupList()
+QHash<QString, Kwave::MenuGroup *> &Kwave::MenuRoot::getGroupList()
 {
     return m_group_list;
 }
 
 //*****************************************************************************
-void MenuRoot::insertNode(const QString &name,
-                          const QString &position,
-                          const QString &command,
-                          const QKeySequence &shortcut,
-                          const QString &uid)
+void Kwave::MenuRoot::insertNode(const QString &name,
+                                 const QString &position,
+                                 const QString &command,
+                                 const QKeySequence &shortcut,
+                                 const QString &uid)
 {
-    MenuNode::insertNode(name, position, command, shortcut, uid);
+    Kwave::MenuNode::insertNode(name, position, command, shortcut, uid);
 
     // now delete all leafes that have been converted to branches
     while (!m_garbage.isEmpty()) {
-	MenuNode *node = m_garbage.takeFirst();
+	Kwave::MenuNode *node = m_garbage.takeFirst();
 	if (node) delete node;
     }
 }
 
 //***************************************************************************
-MenuSub *MenuRoot::insertBranch(const QString &name,
-                                const QString &command,
-                                const QKeySequence &shortcut,
-                                const QString &uid)
+Kwave::MenuSub *Kwave::MenuRoot::insertBranch(const QString &name,
+                                              const QString &command,
+                                              const QKeySequence &shortcut,
+                                              const QString &uid)
 {
     QMenu *menu = m_menu_bar.addMenu(name);
     Q_ASSERT(menu);
     if (!menu) return 0;
 
-    MenuSub *sub = new MenuSub(this, menu, name, command, shortcut, uid);
+    Kwave::MenuSub *sub =
+	new Kwave::MenuSub(this, menu, name, command, shortcut, uid);
     Q_ASSERT(sub);
     if (!sub) return 0;
 
@@ -82,12 +83,13 @@ MenuSub *MenuRoot::insertBranch(const QString &name,
 }
 
 //***************************************************************************
-MenuNode *MenuRoot::insertLeaf(const QString &name,
-                               const QString &command,
-                               const QKeySequence &shortcut,
-                               const QString &uid)
+Kwave::MenuNode *Kwave::MenuRoot::insertLeaf(const QString &name,
+                                             const QString &command,
+                                             const QKeySequence &shortcut,
+                                             const QString &uid)
 {
-    MenuItem *item = new MenuItem(this, name, command, shortcut, uid);
+    Kwave::MenuItem *item =
+	new Kwave::MenuItem(this, name, command, shortcut, uid);
     Q_ASSERT(item);
     if (!item) return 0;
 
@@ -98,24 +100,24 @@ MenuNode *MenuRoot::insertLeaf(const QString &name,
 }
 
 //***************************************************************************
-void MenuRoot::removeChild(MenuNode *child)
+void Kwave::MenuRoot::removeChild(Kwave::MenuNode *child)
 {
     Q_ASSERT(child);
     if (!child) return ;
     if (!m_children.contains(child)) return ;
 
-    QHash<QString, MenuGroup *> &group_list = getGroupList();
+    QHash<QString, Kwave::MenuGroup *> &group_list = getGroupList();
     if (!group_list.contains(child->name())) {
         // only remove what has been added to the menu bar,
         // but not menu groups
 	QAction *action = child->action();
 	if (action) m_menu_bar.removeAction(action);
     }
-    MenuNode::removeChild(child);
+    Kwave::MenuNode::removeChild(child);
 }
 
 //***************************************************************************
-bool MenuRoot::specialCommand(const QString &command)
+bool Kwave::MenuRoot::specialCommand(const QString &command)
 {
     Q_ASSERT(command.length());
     if (!command.length()) return false;
@@ -125,11 +127,11 @@ bool MenuRoot::specialCommand(const QString &command)
 	return true;
     }
 
-    return MenuNode::specialCommand(command);
+    return Kwave::MenuNode::specialCommand(command);
 }
 
 //***************************************************************************
-void MenuRoot::deleteLater(MenuNode *node)
+void Kwave::MenuRoot::deleteLater(Kwave::MenuNode *node)
 {
     if (node) m_garbage.append(node);
 }

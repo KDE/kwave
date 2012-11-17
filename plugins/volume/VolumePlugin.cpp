@@ -86,7 +86,7 @@ QStringList *VolumePlugin::setup(QStringList &previous_params)
     QList<unsigned int> tracks;
     sample_index_t first, last;
     sample_index_t length = selection(&tracks, &first, &last, true);
-    OverViewCache *overview_cache = new OverViewCache(mgr,
+    Kwave::OverViewCache *overview_cache = new Kwave::OverViewCache(mgr,
         first, length, tracks.isEmpty() ? 0 : &tracks);
     Q_ASSERT(overview_cache);
 

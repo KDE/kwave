@@ -182,7 +182,7 @@ int SonagramPlugin::start(QStringList &params)
 
     // set the overview
     Kwave::SignalManager &sig_mgr = manager().signalManager();
-    m_overview_cache = new OverViewCache(sig_mgr,
+    m_overview_cache = new Kwave::OverViewCache(sig_mgr,
         m_first_sample, input_length, &m_selected_channels);
     Q_ASSERT(m_overview_cache);
     if (!m_overview_cache) return -ENOMEM;

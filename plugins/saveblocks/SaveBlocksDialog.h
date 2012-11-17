@@ -30,7 +30,7 @@
 class KURL;
 class SaveBlocksWidget;
 
-class SaveBlocksDialog: public KwaveFileDialog
+class SaveBlocksDialog: public Kwave::FileDialog
 {
     Q_OBJECT
 public:

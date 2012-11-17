@@ -26,7 +26,6 @@
 #include "libkwave/Plugin.h"
 #include "libkwave/WindowFunction.h"
 
-class OverViewCache;
 class QImage;
 class QStringList;
 
@@ -36,6 +35,7 @@ class StripeInfoPrivate;
 namespace Kwave
 {
     class MultiTrackReader;
+    class OverViewCache;
     class PluginContext;
 }
 
@@ -161,7 +161,7 @@ private:
     QImage m_image;
 
     /** cache with the current signal overview */
-    OverViewCache *m_overview_cache;
+    Kwave::OverViewCache *m_overview_cache;
 
 };
 

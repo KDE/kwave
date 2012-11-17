@@ -21,50 +21,57 @@
 #include "config.h"
 #include "MenuNode.h"
 
-/**
- * A MenuGroup controls a group of menu nodes (items, submenus).
- * @author Thomas Eschenbacher
- */
-class MenuGroup : public MenuNode
+namespace Kwave
 {
-    Q_OBJECT
-
-public:
 
     /**
-     * Constructor.
-     * @param parent pointer to the group's parent (might be 0)
-     * @param name the unique name of the group
+     * A MenuGroup controls a group of menu nodes (items, submenus).
+     * @author Thomas Eschenbacher
      */
-    MenuGroup(MenuNode *parent, const QString &name);
+    class MenuGroup : public Kwave::MenuNode
+    {
+	Q_OBJECT
 
-    /**
-     * Destructor. cleans up.
-     * @see #clear()
-     */
-    virtual ~MenuGroup();
+    public:
 
-    /**
-     * Enables/disables all members of the group.
-     * @param enable true to enable the item, false to disable
-     */
-    virtual void setEnabled(bool enable);
+	/**
+	 * Constructor.
+	 * @param parent pointer to the group's parent (might be 0)
+	 * @param name the unique name of the group
+	 */
+	MenuGroup(Kwave::MenuNode *parent, const QString &name);
 
-    /**
-     * Resets all checkmarks of the group members except the one member
-     * that will get the new selected one. If no new member id is given
-     * no member will get selected. This method is useful for making
-     * exclusive selections of menu items.
-     * @param uid the unique id string of the member to be selected or 0
-     */
-    virtual void selectItem(const QString &uid);
+	/**
+	 * Destructor. cleans up.
+	 * @see #clear()
+	 */
+	virtual ~MenuGroup();
 
-    /**
-     * Deregisteres all child nodes from us and removes them from
-     * our internal list of child nodes.
-     */
-    virtual void clear();
+	/**
+	 * Enables/disables all members of the group.
+	 * @param enable true to enable the item, false to disable
+	 */
+	virtual void setEnabled(bool enable);
 
-};
+	/**
+	 * Resets all checkmarks of the group members except the one member
+	 * that will get the new selected one. If no new member id is given
+	 * no member will get selected. This method is useful for making
+	 * exclusive selections of menu items.
+	 * @param uid the unique id string of the member to be selected or 0
+	 */
+	virtual void selectItem(const QString &uid);
+
+	/**
+	 * Deregisteres all child nodes from us and removes them from
+	 * our internal list of child nodes.
+	 */
+	virtual void clear();
+
+    };
+}
 
 #endif // _MENU_GROUP_H_
+
+//***************************************************************************
+//***************************************************************************

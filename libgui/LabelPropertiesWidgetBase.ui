@@ -37,7 +37,7 @@
    <item>
     <layout class="QGridLayout" >
      <item row="1" column="1" >
-      <widget class="SelectTimeWidget" native="1" name="time" >
+      <widget class="Kwave::SelectTimeWidget" native="1" name="time" >
        <property name="minimumSize" >
         <size>
          <width>0</width>
@@ -181,7 +181,7 @@ This is just a numeric index of the label, starting with zero, sorted by positio
  <layoutdefault spacing="10" margin="10" />
  <customwidgets>
   <customwidget>
-   <class>SelectTimeWidget</class>
+   <class>Kwave::SelectTimeWidget</class>
    <extends>QWidget</extends>
    <header>libgui/SelectTimeWidget.h</header>
   </customwidget>

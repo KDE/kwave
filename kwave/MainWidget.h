@@ -31,11 +31,11 @@ class QDropEvent;
 class QScrollBar;
 class QWheelEvent;
 
-class OverViewWidget;
-
-namespace Kwave {
+namespace Kwave
+{
 
     class ApplicationContext;
+    class OverViewWidget;
     class SignalManager;
 
     //**************************************************************************
@@ -315,10 +315,10 @@ namespace Kwave {
 	QWidget m_view_port;
 
 	/** the widget that shows the signal, scrolled within the view port */
-	SignalWidget m_signal_widget;
+	Kwave::SignalWidget m_signal_widget;
 
 	/** overview widget */
-	OverViewWidget *m_overview;
+	Kwave::OverViewWidget *m_overview;
 
 	/** vertical scrollbar, only visible if tracks do not fit vertically */
 	QScrollBar *m_vertical_scrollbar;

@@ -25,109 +25,115 @@
 
 #include "MenuNode.h"
 
-/**
- * Base class for entries in a Menu. It is normally owned by a toplevel
- * menu or a submenu.
- * @author Thomas Eschenbacher
- */
-class MenuItem : public MenuNode
+namespace Kwave
 {
-    Q_OBJECT
-
-public:
 
     /**
-     * Constructor.
-     * @param parent pointer to the node's parent (might be 0)
-     * @param name the non-localized name of the node
-     * @param command the command to be sent when the node is
-     *                selected (optional, default=0)
-     * @param shortcut keyboard shortcut (optional, default=0)
-     * @param uid unique id string (optional, default=0)
+     * Base class for entries in a Menu. It is normally owned by a toplevel
+     * menu or a submenu.
      */
-    MenuItem(MenuNode *parent,
-             const QString &name,
-             const QString &command,
-             const QKeySequence &shortcut,
-             const QString &uid);
+    class MenuItem : public Kwave::MenuNode
+    {
+	Q_OBJECT
 
-    /** virtual destructor */
-    virtual ~MenuItem();
+    public:
 
-    /**
-     * Called to notify the item that it has been selected.
-     */
-    virtual void actionSelected();
+	/**
+	 * Constructor.
+	 * @param parent pointer to the node's parent (might be 0)
+	 * @param name the non-localized name of the node
+	 * @param command the command to be sent when the node is
+	 *                selected (optional, default=0)
+	 * @param shortcut keyboard shortcut (optional, default=0)
+	 * @param uid unique id string (optional, default=0)
+	 */
+	MenuItem(Kwave::MenuNode *parent,
+	         const QString &name,
+	         const QString &command,
+	         const QKeySequence &shortcut,
+	         const QString &uid);
 
-    /**
-     * Handles/interpretes special menu commands.
-     * @param command name of a menu node or command
-     * @return true if the name was recognized as a command and handled
-     */
-    virtual bool specialCommand(const QString &command);
+	/** virtual destructor */
+	virtual ~MenuItem();
 
-    /**
-     * Returns true if the node is enabled.
-     */
-    virtual bool isEnabled();
+	/**
+	 * Called to notify the item that it has been selected.
+	 */
+	virtual void actionSelected();
 
-    /**
-     * Enables/disables the current menu node.
-     * @param enable true to enable the item, false to disable
-     */
-    virtual void setEnabled(bool enable);
+	/**
+	 * Handles/interpretes special menu commands.
+	 * @param command name of a menu node or command
+	 * @return true if the name was recognized as a command and handled
+	 */
+	virtual bool specialCommand(const QString &command);
 
-    /**
-     * Enables/disabled checking/selecting the item
-     * @param checkable true to enable checking, false for disabling
-     */
-    virtual void setCheckable(bool checkable);
+	/**
+	 * Returns true if the node is enabled.
+	 */
+	virtual bool isEnabled();
 
-    /** Returns true if the node is checkable/selectable */
-    virtual bool isCheckable();
+	/**
+	 * Enables/disables the current menu node.
+	 * @param enable true to enable the item, false to disable
+	 */
+	virtual void setEnabled(bool enable);
 
-    /**
-     * Sets/removes the checkmark from the current menu item.
-     * @param check true to set the mark, false to remove
-     */
-    virtual void setChecked(bool check);
+	/**
+	 * Enables/disabled checking/selecting the item
+	 * @param checkable true to enable checking, false for disabling
+	 */
+	virtual void setCheckable(bool checkable);
 
-    /**
-     * Sets the visible text of an item to a new value. (Only useful
-     * for a MenuItem)
-     * @param text the new text
-     */
-    virtual void setText(const QString &text);
+	/** Returns true if the node is checkable/selectable */
+	virtual bool isCheckable();
 
-    /**
-     * Returns the menu nodes' icon.
-     */
-    virtual const QIcon icon();
+	/**
+	 * Sets/removes the checkmark from the current menu item.
+	 * @param check true to set the mark, false to remove
+	 */
+	virtual void setChecked(bool check);
 
-    /**
-     * Sets a new icon of a menu node.
-     * @param icon QPixmap with the icon
-     */
-    virtual void setIcon(const QIcon &icon);
+	/**
+	 * Sets the visible text of an item to a new value. (Only useful
+	 * for a MenuItem)
+	 * @param text the new text
+	 */
+	virtual void setText(const QString &text);
 
-    /** Returns the corresponding menu action */
-    virtual QAction *action() { return &m_action; }
+	/**
+	 * Returns the menu nodes' icon.
+	 */
+	virtual const QIcon icon();
 
-private slots:
+	/**
+	 * Sets a new icon of a menu node.
+	 * @param icon QPixmap with the icon
+	 */
+	virtual void setIcon(const QIcon &icon);
 
-    virtual void actionTriggered(bool checked);
+	/** Returns the corresponding menu action */
+	virtual QAction *action() { return &m_action; }
 
-private:
+    private slots:
 
-    /**
-     * name of a group for exclusive selection
-     * (optional, set by special command, default=0)
-     */
-    QString m_exclusive_group;
+	virtual void actionTriggered(bool checked);
 
-    /** the QAction behind this menu entry */
-    QAction m_action;
+    private:
 
-};
+	/**
+	 * name of a group for exclusive selection
+	 * (optional, set by special command, default=0)
+	 */
+	QString m_exclusive_group;
+
+	/** the QAction behind this menu entry */
+	QAction m_action;
+
+    };
+}
 
 #endif // _MENU_ITEM_H_
+
+//***************************************************************************
+//***************************************************************************

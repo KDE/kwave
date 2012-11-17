@@ -22,7 +22,8 @@
 
 #include "libkwave/Sample.h"
 
-namespace Kwave {
+namespace Kwave
+{
     /**
      * @class MouseMark
      * Simple class that can be used whenever the user selects something
@@ -99,5 +100,7 @@ namespace Kwave {
     };
 }
 
-//***********************************************************
 #endif /*_MOUSE_MARK_H_ */
+
+//***************************************************************************
+//***************************************************************************

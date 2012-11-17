@@ -30,7 +30,7 @@
 #include "FileDialog.h"
 
 //***************************************************************************
-KwaveFileDialog::KwaveFileDialog(const QString &startDir,
+Kwave::FileDialog::FileDialog(const QString &startDir,
     const QString &filter, QWidget *parent, bool modal,
     const QString last_url, const QString last_ext)
     :KFileDialog(startDir, filter, parent),
@@ -83,7 +83,7 @@ KwaveFileDialog::KwaveFileDialog(const QString &startDir,
 }
 
 //***************************************************************************
-void KwaveFileDialog::loadConfig(const QString &section)
+void Kwave::FileDialog::loadConfig(const QString &section)
 {
     if (!section.length()) return;
     const KConfigGroup cfg = KGlobal::config()->group(section);
@@ -106,7 +106,7 @@ void KwaveFileDialog::loadConfig(const QString &section)
 }
 
 //***************************************************************************
-void KwaveFileDialog::saveConfig()
+void Kwave::FileDialog::saveConfig()
 {
     if (!m_config_group.length()) return;
     if (!selectedUrl().fileName().length()) return; // aborted
@@ -143,7 +143,7 @@ void KwaveFileDialog::saveConfig()
 }
 
 //***************************************************************************
-QString KwaveFileDialog::selectedExtension()
+QString Kwave::FileDialog::selectedExtension()
 {
     QStringList ext_list = currentFilter().split("; ");
     return *(ext_list.begin());

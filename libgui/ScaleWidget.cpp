@@ -31,34 +31,34 @@
 #define FONTSIZE 6
 
 //***************************************************************************
-ScaleWidget::ScaleWidget(QWidget *parent)
+Kwave::ScaleWidget::ScaleWidget(QWidget *parent)
     :QWidget(parent), m_low(0), m_high(100), m_logmode(false),
      m_unittext("%")
 {
 }
 
 //***************************************************************************
-ScaleWidget::ScaleWidget(QWidget *parent, int low, int high,
-                         const QString &unit)
+Kwave::ScaleWidget::ScaleWidget(QWidget *parent, int low, int high,
+                                const QString &unit)
     :QWidget(parent), m_low(low), m_high(high), m_logmode(false),
      m_unittext(unit)
 {
 }
 
 //***************************************************************************
-ScaleWidget::~ScaleWidget()
+Kwave::ScaleWidget::~ScaleWidget()
 {
 }
 
 //***************************************************************************
-void ScaleWidget::setUnit(const QString &text)
+void Kwave::ScaleWidget::setUnit(const QString &text)
 {
     m_unittext = text;
     repaint();
 }
 
 //***************************************************************************
-void ScaleWidget::setLogMode(bool log)
+void Kwave::ScaleWidget::setLogMode(bool log)
 {
     if (m_logmode == log) return;
     m_logmode = log;
@@ -66,7 +66,7 @@ void ScaleWidget::setLogMode(bool log)
 }
 
 //***************************************************************************
-void ScaleWidget::setMinMax(int min, int max)
+void Kwave::ScaleWidget::setMinMax(int min, int max)
 {
     if ((m_low == min) && (m_high == max)) return;
     m_low  = min;
@@ -75,8 +75,8 @@ void ScaleWidget::setMinMax(int min, int max)
 }
 
 //***************************************************************************
-void ScaleWidget::paintText(QPainter &p, int x, int y,
-                            bool reverse, const QString &text)
+void Kwave::ScaleWidget::paintText(QPainter &p, int x, int y,
+                                   bool reverse, const QString &text)
 {
     QFont font;
     font.setStyleHint(QFont::SansSerif);
@@ -101,7 +101,7 @@ void ScaleWidget::paintText(QPainter &p, int x, int y,
 }
 
 //***************************************************************************
-void ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
+void Kwave::ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
 {
     // only use base 10 for now, tested with others too,
     // but not configurable through a property
@@ -158,7 +158,7 @@ void ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
 }
 
 //***************************************************************************
-void ScaleWidget::drawLinear(QPainter &p, int w, int h, bool inverse)
+void Kwave::ScaleWidget::drawLinear(QPainter &p, int w, int h, bool inverse)
 {
     int dir = (inverse) ? -1 : +1;
 
@@ -197,7 +197,7 @@ void ScaleWidget::drawLinear(QPainter &p, int w, int h, bool inverse)
 }
 
 //***************************************************************************
-void ScaleWidget::paintEvent(QPaintEvent *)
+void Kwave::ScaleWidget::paintEvent(QPaintEvent *)
 {
     bool inverse = false;
     int h = height();
@@ -225,13 +225,13 @@ void ScaleWidget::paintEvent(QPaintEvent *)
 }
 
 //***************************************************************************
-QSize ScaleWidget::sizeHint() const
+QSize Kwave::ScaleWidget::sizeHint() const
 {
     return QSize(4*FONTSIZE, 4*FONTSIZE);
 }
 
 //***************************************************************************
-QSize ScaleWidget::minimumSize() const
+QSize Kwave::ScaleWidget::minimumSize() const
 {
     return QSize(5*2*FONTSIZE, 5*2*FONTSIZE);
 }

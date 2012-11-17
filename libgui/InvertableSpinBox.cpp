@@ -23,7 +23,7 @@
 #include "InvertableSpinBox.h"
 
 //***************************************************************************
-InvertableSpinBox::InvertableSpinBox(QWidget *parent)
+Kwave::InvertableSpinBox::InvertableSpinBox(QWidget *parent)
     :QSpinBox(parent), m_inverse(false)
 {
     connect(this, SIGNAL(valueChanged(int)),
@@ -31,7 +31,7 @@ InvertableSpinBox::InvertableSpinBox(QWidget *parent)
 }
 
 //***************************************************************************
-void InvertableSpinBox::setInverse(bool inverse)
+void Kwave::InvertableSpinBox::setInverse(bool inverse)
 {
     if (m_inverse == inverse) return; // nothing to do
     m_inverse = inverse;
@@ -48,7 +48,7 @@ void InvertableSpinBox::setInverse(bool inverse)
 }
 
 //***************************************************************************
-void InvertableSpinBox::checkValueChange(int value)
+void Kwave::InvertableSpinBox::checkValueChange(int value)
 {
     if (m_inverse) {
 	// in this case the real limits are tighter by 1
@@ -58,7 +58,7 @@ void InvertableSpinBox::checkValueChange(int value)
 }
 
 //***************************************************************************
-void InvertableSpinBox::stepUp()
+void Kwave::InvertableSpinBox::stepUp()
 {
     if (m_inverse) {
 	if (value() > minimum() + 1) QSpinBox::stepDown();
@@ -68,7 +68,7 @@ void InvertableSpinBox::stepUp()
 }
 
 //***************************************************************************
-void InvertableSpinBox::stepDown()
+void Kwave::InvertableSpinBox::stepDown()
 {
     if (m_inverse) {
 	if (value() + 1 < maximum()) QSpinBox::stepUp();

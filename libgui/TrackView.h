@@ -36,7 +36,8 @@
 class QPaintEvent;
 class QResizeEvent;
 
-namespace Kwave {
+namespace Kwave
+{
 
     class SignalManager; // forward declaration
     class Track;
@@ -167,3 +168,6 @@ namespace Kwave {
 }
 
 #endif /* _TRACK_VIEW_H_ */
+
+//***************************************************************************
+//***************************************************************************

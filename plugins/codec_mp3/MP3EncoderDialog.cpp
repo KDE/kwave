@@ -554,7 +554,7 @@ void Kwave::MP3EncoderDialog::browseFile()
 #ifdef EXECUTABLE_SUFFIX
     mask += QString(EXECUTABLE_SUFFIX);
 #endif
-    KwaveFileDialog dlg("kfiledialog:///kwave_mp3_encoder", "", this,
+    Kwave::FileDialog dlg("kfiledialog:///kwave_mp3_encoder", "", this,
 	true, "file:/" + edPath->text().simplified(), mask);
     dlg.setKeepLocation(true);
     dlg.setOperationMode(KFileDialog::Opening);

@@ -233,7 +233,7 @@
     </widget>
    </item>
    <item row="1" column="1" >
-    <widget class="InvertableSpinBox" native="1" name="sbSpeed" >
+    <widget class="Kwave::InvertableSpinBox" native="1" name="sbSpeed" >
      <property name="toolTip" >
       <string>Speed</string>
      </property>
@@ -257,7 +257,7 @@
          <string>change speed by percentage</string>
         </property>
         <property name="whatsThis" >
-         <string>Sets the speed to a relative percentage of the original speed. 
+         <string>Sets the speed to a relative percentage of the original speed.
 For example: "50 %", "75%" or "125%"</string>
         </property>
         <property name="text" >
@@ -274,7 +274,7 @@ For example: "50 %", "75%" or "125%"</string>
          <string>change speed by a factor</string>
         </property>
         <property name="whatsThis" >
-         <string>Increments or decrements the speed by a factor. 
+         <string>Increments or decrements the speed by a factor.
 For example: "x1", "x2", "/ 4"</string>
         </property>
         <property name="text" >
@@ -290,7 +290,7 @@ For example: "x1", "x2", "/ 4"</string>
  <layoutdefault spacing="10" margin="10" />
  <customwidgets>
   <customwidget>
-   <class>InvertableSpinBox</class>
+   <class>Kwave::InvertableSpinBox</class>
    <extends>QWidget</extends>
    <header>libgui/InvertableSpinBox.h</header>
   </customwidget>

@@ -30,13 +30,13 @@
 
 #include "OverViewCache.h"
 
-#define CACHE_SIZE 8192           /* number of cache entries */
+#define CACHE_SIZE 8192           /**< number of cache entries */
 
 //***************************************************************************
-OverViewCache::OverViewCache(Kwave::SignalManager &signal,
-                             sample_index_t src_offset,
-                             sample_index_t src_length,
-                             const QList<unsigned int> *src_tracks)
+Kwave::OverViewCache::OverViewCache(Kwave::SignalManager &signal,
+                                    sample_index_t src_offset,
+                                    sample_index_t src_length,
+                                    const QList<unsigned int> *src_tracks)
     :m_signal(signal), m_min(), m_max(), m_state(), m_count(0), m_scale(1),
      m_lock(QMutex::Recursive), m_src_offset(src_offset),
      m_src_length(src_length), m_src_tracks(), m_src_deleted()
@@ -77,7 +77,7 @@ OverViewCache::OverViewCache(Kwave::SignalManager &signal,
 }
 
 //***************************************************************************
-OverViewCache::~OverViewCache()
+Kwave::OverViewCache::~OverViewCache()
 {
     QMutexLocker lock(&m_lock);
 
@@ -87,13 +87,13 @@ OverViewCache::~OverViewCache()
 }
 
 //***************************************************************************
-sample_index_t OverViewCache::sourceLength()
+sample_index_t Kwave::OverViewCache::sourceLength()
 {
     return (m_src_length) ? m_src_length : m_signal.length();
 }
 
 //***************************************************************************
-void OverViewCache::scaleUp()
+void Kwave::OverViewCache::scaleUp()
 {
     QMutexLocker lock(&m_lock);
 
@@ -159,7 +159,7 @@ void OverViewCache::scaleUp()
 }
 
 //***************************************************************************
-void OverViewCache::scaleDown()
+void Kwave::OverViewCache::scaleDown()
 {
     QMutexLocker lock(&m_lock);
 
@@ -176,7 +176,7 @@ void OverViewCache::scaleDown()
 }
 
 //***************************************************************************
-int OverViewCache::trackIndex(unsigned int track_nr)
+int Kwave::OverViewCache::trackIndex(unsigned int track_nr)
 {
     QMutexLocker lock(&m_lock);
 
@@ -188,8 +188,9 @@ int OverViewCache::trackIndex(unsigned int track_nr)
 }
 
 //***************************************************************************
-void OverViewCache::invalidateCache(unsigned int track, unsigned int first,
-                                    unsigned int last)
+void Kwave::OverViewCache::invalidateCache(unsigned int track,
+                                           unsigned int first,
+                                           unsigned int last)
 {
     QMutexLocker lock(&m_lock);
 
@@ -209,7 +210,7 @@ void OverViewCache::invalidateCache(unsigned int track, unsigned int first,
 }
 
 //***************************************************************************
-void OverViewCache::slotTrackInserted(unsigned int index, Kwave::Track *)
+void Kwave::OverViewCache::slotTrackInserted(unsigned int index, Kwave::Track *)
 {
     QMutexLocker lock(&m_lock);
 
@@ -272,7 +273,7 @@ void OverViewCache::slotTrackInserted(unsigned int index, Kwave::Track *)
 }
 
 //***************************************************************************
-void OverViewCache::slotTrackDeleted(unsigned int index)
+void Kwave::OverViewCache::slotTrackDeleted(unsigned int index)
 {
     QMutexLocker lock(&m_lock);
 
@@ -307,8 +308,9 @@ void OverViewCache::slotTrackDeleted(unsigned int index)
 }
 
 //***************************************************************************
-void OverViewCache::slotSamplesInserted(unsigned int track,
-    sample_index_t offset, sample_index_t length)
+void Kwave::OverViewCache::slotSamplesInserted(unsigned int track,
+                                               sample_index_t offset,
+                                               sample_index_t length)
 {
     QMutexLocker lock(&m_lock);
 
@@ -340,8 +342,9 @@ void OverViewCache::slotSamplesInserted(unsigned int track,
 }
 
 //***************************************************************************
-void OverViewCache::slotSamplesDeleted(unsigned int track,
-    sample_index_t offset, sample_index_t length)
+void Kwave::OverViewCache::slotSamplesDeleted(unsigned int track,
+                                              sample_index_t offset,
+                                              sample_index_t length)
 {
     QMutexLocker lock(&m_lock);
 
@@ -386,8 +389,9 @@ void OverViewCache::slotSamplesDeleted(unsigned int track,
 }
 
 //***************************************************************************
-void OverViewCache::slotSamplesModified(unsigned int track,
-    sample_index_t offset, sample_index_t length)
+void Kwave::OverViewCache::slotSamplesModified(unsigned int track,
+                                               sample_index_t offset,
+                                               sample_index_t length)
 {
     QMutexLocker lock(&m_lock);
 
@@ -417,9 +421,9 @@ void OverViewCache::slotSamplesModified(unsigned int track,
 }
 
 //***************************************************************************
-QImage OverViewCache::getOverView(int width, int height,
-                                  const QColor &fg, const QColor &bg,
-                                  double gain)
+QImage Kwave::OverViewCache::getOverView(int width, int height,
+                                         const QColor &fg, const QColor &bg,
+                                         double gain)
 {
     QMutexLocker lock(&m_lock);
 
@@ -549,7 +553,7 @@ QImage OverViewCache::getOverView(int width, int height,
 }
 
 //***************************************************************************
-void OverViewCache::dumpTracks()
+void Kwave::OverViewCache::dumpTracks()
 {
     QString list = "OverViewCache - selected:";
     foreach (unsigned int track, m_src_tracks)

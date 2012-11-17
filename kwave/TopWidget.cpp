@@ -66,7 +66,6 @@
 
 #include "libgui/FileDialog.h"
 #include "libgui/MenuManager.h"
-#include "libgui/SignalWidget.h" // for MouseMode
 
 #include "KwaveApp.h"
 #include "KwaveSplash.h"
@@ -154,7 +153,7 @@ bool TopWidget::init()
     KMenuBar *menubar = menuBar();
     Q_ASSERT(menubar);
     if (!menubar) return false;
-    m_menu_manager = new MenuManager(this, *menubar);
+    m_menu_manager = new Kwave::MenuManager(this, *menubar);
     Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return false;
 
@@ -886,7 +885,7 @@ int TopWidget::openRecent(const QString &str)
 int TopWidget::openFile()
 {
     QString filter = Kwave::CodecManager::decodingFilter();
-    KwaveFileDialog dlg("kfiledialog:///kwave_open_dir", filter, this, true);
+    Kwave::FileDialog dlg("kfiledialog:///kwave_open_dir", filter, this, true);
     dlg.setMode(static_cast<KFile::Modes>(KFile::File | KFile::ExistingOnly));
     dlg.setOperationMode(KFileDialog::Opening);
     dlg.setCaption(i18n("Open"));
@@ -959,7 +958,7 @@ int TopWidget::saveFileAs(bool selection)
     }
 
     QString filter = Kwave::CodecManager::encodingFilter();
-    KwaveFileDialog dlg("kfiledialog:///kwave_save_as",
+    Kwave::FileDialog dlg("kfiledialog:///kwave_save_as",
         filter, this, true, current_url.prettyUrl(), extension);
     dlg.setOperationMode(KFileDialog::Saving);
     dlg.setCaption(i18n("Save As"));

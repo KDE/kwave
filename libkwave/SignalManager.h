@@ -42,7 +42,6 @@
 class QBitmap;
 class QFile;
 class KUrl;
-class SignalWidget;
 
 #define NEW_FILENAME i18n("New File")
 
@@ -55,6 +54,7 @@ namespace Kwave
     class UndoTransactionGuard;
     class MultiTrackWriter;
     class SampleReader;
+    class SignalWidget;
     class Track;
     class Writer;
 

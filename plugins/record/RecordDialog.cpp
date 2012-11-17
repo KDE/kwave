@@ -598,7 +598,7 @@ void RecordDialog::selectRecordDevice()
     filter += QString("\nadsp*|") + i18n("ALSA record device (adsp*)");
     filter += QString("\n*|") + i18n("Any device (*)");
 
-    KwaveFileDialog dlg("kfiledialog:///kwave_record_device", filter, this,
+    Kwave::FileDialog dlg("kfiledialog:///kwave_record_device", filter, this,
 	true, "file:/dev");
     dlg.setKeepLocation(true);
     dlg.setOperationMode(KFileDialog::Opening);

@@ -71,12 +71,14 @@ void ZeroPlugin::run(QStringList params)
 	int mode = params[0].toInt(&ok);
 	Q_ASSERT(ok);
 	if (!ok) return;
-	Q_ASSERT((mode == static_cast<int>(SelectTimeWidget::byTime)) ||
-	         (mode == static_cast<int>(SelectTimeWidget::bySamples)) ||
-	         (mode == static_cast<int>(SelectTimeWidget::byPercents)));
-	if ((mode != static_cast<int>(SelectTimeWidget::byTime)) &&
-	    (mode != static_cast<int>(SelectTimeWidget::bySamples)) &&
-	    (mode != static_cast<int>(SelectTimeWidget::byPercents)))
+	Q_ASSERT(
+	    (mode == static_cast<int>(Kwave::SelectTimeWidget::byTime)) ||
+	    (mode == static_cast<int>(Kwave::SelectTimeWidget::bySamples)) ||
+	    (mode == static_cast<int>(Kwave::SelectTimeWidget::byPercents))
+	);
+	if ((mode != static_cast<int>(Kwave::SelectTimeWidget::byTime)) &&
+	    (mode != static_cast<int>(Kwave::SelectTimeWidget::bySamples)) &&
+	    (mode != static_cast<int>(Kwave::SelectTimeWidget::byPercents)))
 	{
 	    return;
 	}
@@ -87,8 +89,8 @@ void ZeroPlugin::run(QStringList params)
 	if (!ok) return;
 
 	// convert from time to samples
-	unsigned int length = SelectTimeWidget::timeToSamples(
-	    static_cast<SelectTimeWidget::Mode>(mode),
+	unsigned int length = Kwave::SelectTimeWidget::timeToSamples(
+	    static_cast<Kwave::SelectTimeWidget::Mode>(mode),
 	    time, signalRate(), signalLength());
 
 	// some sanity check

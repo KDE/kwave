@@ -31,7 +31,8 @@
 class QStringList;
 class QWidget;
 
-namespace Kwave {
+namespace Kwave
+{
 
     class SampleSource;
     class SampleSink;
@@ -136,3 +137,6 @@ namespace Kwave {
 }
 
 #endif /* _FILTER_PLUGIN_H_ */
+
+//***************************************************************************
+//***************************************************************************

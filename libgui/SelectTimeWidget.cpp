@@ -30,7 +30,7 @@
 #include "SelectTimeWidget.h"
 
 //***************************************************************************
-SelectTimeWidget::SelectTimeWidget(QWidget *widget)
+Kwave::SelectTimeWidget::SelectTimeWidget(QWidget *widget)
     :QGroupBox(widget), Ui::SelectTimeWidgetBase(),
      m_mode(bySamples), m_range(0), m_rate(1.0), m_offset(0), m_length(0),
      m_timer(this)
@@ -40,8 +40,9 @@ SelectTimeWidget::SelectTimeWidget(QWidget *widget)
 }
 
 //***************************************************************************
-void SelectTimeWidget::init(Mode mode, unsigned int range, double sample_rate,
-                            sample_index_t offset, sample_index_t signal_length)
+void Kwave::SelectTimeWidget::init(Mode mode, unsigned int range,
+                                   double sample_rate, sample_index_t offset,
+                                   sample_index_t signal_length)
 {
     m_mode  = mode;
     m_range = range;
@@ -135,12 +136,12 @@ void SelectTimeWidget::init(Mode mode, unsigned int range, double sample_rate,
 }
 
 //***************************************************************************
-SelectTimeWidget::~SelectTimeWidget()
+Kwave::SelectTimeWidget::~SelectTimeWidget()
 {
 }
 
 //***************************************************************************
-void SelectTimeWidget::connect()
+void Kwave::SelectTimeWidget::connect()
 {
     // connect the time controls
     QObject::connect(sbMilliseconds, SIGNAL(valueChanged(int)),
@@ -163,7 +164,7 @@ void SelectTimeWidget::connect()
 }
 
 //***************************************************************************
-void SelectTimeWidget::disconnect()
+void Kwave::SelectTimeWidget::disconnect()
 {
     // disconnect the time controls
     QObject::disconnect(sbMilliseconds, SIGNAL(valueChanged(int)),
@@ -186,7 +187,7 @@ void SelectTimeWidget::disconnect()
 }
 
 //***************************************************************************
-void SelectTimeWidget::setMode(Mode new_mode)
+void Kwave::SelectTimeWidget::setMode(Mode new_mode)
 {
     // enable the selected mode
     switch (new_mode) {
@@ -213,7 +214,7 @@ void SelectTimeWidget::setMode(Mode new_mode)
 }
 
 //***************************************************************************
-void SelectTimeWidget::modeChanged(bool checked)
+void Kwave::SelectTimeWidget::modeChanged(bool checked)
 {
     if (!checked) return; // ignore disabling of radio buttons
 
@@ -250,7 +251,7 @@ void SelectTimeWidget::modeChanged(bool checked)
 }
 
 //***************************************************************************
-void SelectTimeWidget::timeChanged(int)
+void Kwave::SelectTimeWidget::timeChanged(int)
 {
     if (m_mode != byTime) return;
     disconnect();
@@ -319,7 +320,7 @@ void SelectTimeWidget::timeChanged(int)
 }
 
 //***************************************************************************
-void SelectTimeWidget::checkNewSampleEdit()
+void Kwave::SelectTimeWidget::checkNewSampleEdit()
 {
     static int last_samples = -1;
     if (edSamples->value() != last_samples) {
@@ -329,7 +330,7 @@ void SelectTimeWidget::checkNewSampleEdit()
 }
 
 //***************************************************************************
-void SelectTimeWidget::samplesChanged(int)
+void Kwave::SelectTimeWidget::samplesChanged(int)
 {
     if (m_mode != bySamples) return;
     disconnect();
@@ -366,7 +367,7 @@ void SelectTimeWidget::samplesChanged(int)
 }
 
 //***************************************************************************
-void SelectTimeWidget::percentsChanged(int p)
+void Kwave::SelectTimeWidget::percentsChanged(int p)
 {
     if (m_mode != byPercents) return;
     disconnect();
@@ -404,13 +405,13 @@ void SelectTimeWidget::percentsChanged(int p)
 }
 
 //***************************************************************************
-void SelectTimeWidget::setTitle(const QString title)
+void Kwave::SelectTimeWidget::setTitle(const QString title)
 {
     QGroupBox::setTitle(title);
 }
 
 //***************************************************************************
-void SelectTimeWidget::setOffset(sample_index_t offset)
+void Kwave::SelectTimeWidget::setOffset(sample_index_t offset)
 {
     m_offset = offset;
     sample_index_t max_samples = m_length - m_offset;
@@ -451,28 +452,28 @@ void SelectTimeWidget::setOffset(sample_index_t offset)
 }
 
 //***************************************************************************
-sample_index_t SelectTimeWidget::samples() const
+sample_index_t Kwave::SelectTimeWidget::samples() const
 {
     return (edSamples) ? edSamples->value() : 0;
 }
 
 //***************************************************************************
-sample_index_t SelectTimeWidget::timeToSamples(
-    SelectTimeWidget::Mode mode, unsigned int time, double rate,
+sample_index_t Kwave::SelectTimeWidget::timeToSamples(
+    Kwave::SelectTimeWidget::Mode mode, unsigned int time, double rate,
     sample_index_t length)
 {
     sample_index_t pos = 0;
     switch (mode) {
-	case SelectTimeWidget::byTime:
+	case Kwave::SelectTimeWidget::byTime:
 	    // convert from ms to samples
 	    pos = static_cast<sample_index_t>(ceil(
 		static_cast<double>(time) * rate * 1E-3));
 	    break;
-	case SelectTimeWidget::bySamples:
+	case Kwave::SelectTimeWidget::bySamples:
 	    // simple case -> already in samples
 	    pos = time;
 	    break;
-	case SelectTimeWidget::byPercents:
+	case Kwave::SelectTimeWidget::byPercents:
 	    // by percentage of whole signal
 	    pos = static_cast<unsigned int>(rint(
 		static_cast<double>(length * (time / 100.0))));
@@ -484,22 +485,22 @@ sample_index_t SelectTimeWidget::timeToSamples(
 }
 
 //***************************************************************************
-unsigned int SelectTimeWidget::samplesToTime(
+unsigned int Kwave::SelectTimeWidget::samplesToTime(
     Mode mode, sample_index_t samples, double rate, sample_index_t length)
 {
     unsigned int time = 0;
 
     switch (mode) {
-	case SelectTimeWidget::byTime:
+	case Kwave::SelectTimeWidget::byTime:
 	    // convert from samples to ms
 	    time = static_cast<unsigned int>(
 		rint(static_cast<double>(samples) * 1E3 / rate));
 	    break;
-	case SelectTimeWidget::bySamples:
+	case Kwave::SelectTimeWidget::bySamples:
 	    // simple case -> already in samples
 	    time = samples;
 	    break;
-	case SelectTimeWidget::byPercents:
+	case Kwave::SelectTimeWidget::byPercents:
 	    // by percentage of whole signal
 	    time = static_cast<unsigned int>(100.0 *
 		static_cast<double>(samples) /

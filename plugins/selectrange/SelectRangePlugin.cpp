@@ -35,8 +35,8 @@ KWAVE_PLUGIN(SelectRangePlugin, "selectrange", "2.1",
 
 //***************************************************************************
 SelectRangePlugin::SelectRangePlugin(const Kwave::PluginContext &c)
-    :Kwave::Plugin(c), m_start_mode(SelectTimeWidget::bySamples),
-     m_range_mode(SelectTimeWidget::bySamples), m_range(0)
+    :Kwave::Plugin(c), m_start_mode(Kwave::SelectTimeWidget::bySamples),
+     m_range_mode(Kwave::SelectTimeWidget::bySamples), m_range(0)
 {
 }
 
@@ -95,11 +95,11 @@ int SelectRangePlugin::start(QStringList &params)
     if (result) return result;
 
     // get current offset of the signal
-    sample_index_t offset = SelectTimeWidget::timeToSamples(
+    sample_index_t offset = Kwave::SelectTimeWidget::timeToSamples(
 	m_start_mode, m_start, signalRate(), signalLength());
 
     // transform into offset and length [samples]
-    sample_index_t length = SelectTimeWidget::timeToSamples(
+    sample_index_t length = Kwave::SelectTimeWidget::timeToSamples(
 	m_range_mode, m_range, signalRate(), signalLength());
 
     // limit selection to end of signal
@@ -132,16 +132,18 @@ int SelectRangePlugin::interpreteParameters(QStringList &params)
     mode = param.toInt(&ok);
     Q_ASSERT(ok);
     if (!ok) return -EINVAL;
-    Q_ASSERT((mode == static_cast<int>(SelectTimeWidget::byTime)) ||
-           (mode == static_cast<int>(SelectTimeWidget::bySamples)) ||
-           (mode == static_cast<int>(SelectTimeWidget::byPercents)));
-    if ((mode != static_cast<int>(SelectTimeWidget::byTime)) &&
-        (mode != static_cast<int>(SelectTimeWidget::bySamples)) &&
-        (mode != static_cast<int>(SelectTimeWidget::byPercents)))
+    Q_ASSERT(
+        (mode == static_cast<int>(Kwave::SelectTimeWidget::byTime)) ||
+        (mode == static_cast<int>(Kwave::SelectTimeWidget::bySamples)) ||
+        (mode == static_cast<int>(Kwave::SelectTimeWidget::byPercents))
+    );
+    if ((mode != static_cast<int>(Kwave::SelectTimeWidget::byTime)) &&
+        (mode != static_cast<int>(Kwave::SelectTimeWidget::bySamples)) &&
+        (mode != static_cast<int>(Kwave::SelectTimeWidget::byPercents)))
     {
 	return -EINVAL;
     }
-    m_start_mode = static_cast<SelectTimeWidget::Mode>(mode);
+    m_start_mode = static_cast<Kwave::SelectTimeWidget::Mode>(mode);
 
 
     // selection mode
@@ -149,16 +151,18 @@ int SelectRangePlugin::interpreteParameters(QStringList &params)
     mode = param.toInt(&ok);
     Q_ASSERT(ok);
     if (!ok) return -EINVAL;
-    Q_ASSERT((mode == static_cast<int>(SelectTimeWidget::byTime)) ||
-           (mode == static_cast<int>(SelectTimeWidget::bySamples)) ||
-           (mode == static_cast<int>(SelectTimeWidget::byPercents)));
-    if ((mode != static_cast<int>(SelectTimeWidget::byTime)) &&
-        (mode != static_cast<int>(SelectTimeWidget::bySamples)) &&
-        (mode != static_cast<int>(SelectTimeWidget::byPercents)))
+    Q_ASSERT(
+        (mode == static_cast<int>(Kwave::SelectTimeWidget::byTime)) ||
+        (mode == static_cast<int>(Kwave::SelectTimeWidget::bySamples)) ||
+        (mode == static_cast<int>(Kwave::SelectTimeWidget::byPercents))
+    );
+    if ((mode != static_cast<int>(Kwave::SelectTimeWidget::byTime)) &&
+        (mode != static_cast<int>(Kwave::SelectTimeWidget::bySamples)) &&
+        (mode != static_cast<int>(Kwave::SelectTimeWidget::byPercents)))
     {
 	return -EINVAL;
     }
-    m_range_mode = static_cast<SelectTimeWidget::Mode>(mode);
+    m_range_mode = static_cast<Kwave::SelectTimeWidget::Mode>(mode);
 
     // offset in ms, samples or percent
     param = params[2];

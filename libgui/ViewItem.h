@@ -30,7 +30,7 @@
 
 class QMenu;
 
-namespace Kwave 
+namespace Kwave
 {
     class KDE_EXPORT ViewItem: public QObject
     {
@@ -45,7 +45,7 @@ namespace Kwave
 
 	/**
 	 * Returns flags describing the possible interactions with this object
-	 * @see Qt::ItemFlag 
+	 * @see Qt::ItemFlag
 	 */
 	virtual Qt::ItemFlags flags();
 
@@ -58,21 +58,21 @@ namespace Kwave
 	/**
 	 * Can be overwritten to return a tooltip. The default implementation
 	 * returns an empty string.
-	 * 
+	 *
 	 * @param ofs offset within the object the tooltip should refer to
 	 * @return an already localized tooltip
 	 */
 	virtual QString toolTip(sample_index_t ofs);
 
 	/**
-	 * Called to append entries to a context menu. The default 
+	 * Called to append entries to a context menu. The default
 	 * implementation does nothing.
 	 * @param parent context menu to add items
 	 */
 	virtual void appendContextMenu(QMenu *parent);
 
     signals:
-	
+
 	/** forward a sigCommand to the next layer */
 	void sigCommand(const QString &command);
 
@@ -80,3 +80,6 @@ namespace Kwave
 }
 
 #endif /* _VIEW_ITEM_H_ */
+
+//***************************************************************************
+//***************************************************************************

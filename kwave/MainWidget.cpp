@@ -134,7 +134,7 @@ Kwave::MainWidget::MainWidget(QWidget *parent,
 
     // -- overview widget --
 
-    m_overview = new OverViewWidget(*signal_manager, this);
+    m_overview = new Kwave::OverViewWidget(*signal_manager, this);
     Q_ASSERT(m_overview);
     if (!m_overview) return;
     m_overview->setMinimumHeight(m_overview->sizeHint().height());
@@ -963,7 +963,8 @@ bool Kwave::MainWidget::labelProperties(Kwave::Label &label)
     int old_index = -1;
     while (true) {
 	// create and prepare the dialog
-	LabelPropertiesWidget *dlg = new LabelPropertiesWidget(this);
+	Kwave::LabelPropertiesWidget *dlg =
+	    new Kwave::LabelPropertiesWidget(this);
 	Q_ASSERT(dlg);
 	if (!dlg) return false;
 	dlg->setLabelIndex(index);

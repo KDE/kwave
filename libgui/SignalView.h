@@ -43,7 +43,8 @@ class QMouseEvent;
 class QPaintEvent;
 class QPoint;
 
-namespace Kwave {
+namespace Kwave
+{
 
     class SignalManager; // forward declaration
 
@@ -419,3 +420,6 @@ namespace Kwave {
 }
 
 #endif /* _SIGNAL_VIEW_H_ */
+
+//***************************************************************************
+//***************************************************************************

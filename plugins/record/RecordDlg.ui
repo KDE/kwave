@@ -322,7 +322,7 @@
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="HMSTimeWidget" name="sbRecordTime" native="true">
+              <widget class="Kwave::HMSTimeWidget" name="sbRecordTime" native="true">
                <property name="enabled">
                 <bool>false</bool>
                </property>
@@ -1166,7 +1166,7 @@ recording. Depending on the compilation options you can select one of the follow
               </widget>
              </item>
              <item row="2" column="0" colspan="2">
-              <widget class="TreeWidgetWrapper" name="listDevices">
+              <widget class="Kwave::TreeWidgetWrapper" name="listDevices">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
                  <horstretch>0</horstretch>
@@ -1422,13 +1422,13 @@ recording. Depending on the compilation options you can select one of the follow
    <header>kdatetimewidget.h</header>
   </customwidget>
   <customwidget>
-   <class>TreeWidgetWrapper</class>
+   <class>Kwave::TreeWidgetWrapper</class>
    <extends>QTreeWidget</extends>
    <header>libgui/TreeWidgetWrapper.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>HMSTimeWidget</class>
+   <class>Kwave::HMSTimeWidget</class>
    <extends>QWidget</extends>
    <header>libgui/HMSTimeWidget.h</header>
    <container>1</container>

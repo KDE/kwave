@@ -42,7 +42,7 @@ GotoDialog::~GotoDialog()
 }
 
 //***************************************************************************
-void GotoDialog::setMode(SelectTimeWidget::Mode new_mode)
+void GotoDialog::setMode(Kwave::SelectTimeWidget::Mode new_mode)
 {
     if (select_pos) select_pos->setMode(new_mode);
 }

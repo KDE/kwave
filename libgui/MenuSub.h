@@ -1,5 +1,5 @@
 /***************************************************************************
-			  MenuSub.h  -  submenu
+              MenuSub.h  -  submenu
 			     -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -27,120 +27,125 @@
 
 #include "MenuNode.h"
 
-/**
- * This is the class for submenu entries in a Menu. It is normally owned by a
- * root menu node, a toplevel menu or another submenu.
- * @author Thomas Eschenbacher
- */
-class MenuSub : public MenuNode
+namespace Kwave
 {
-    Q_OBJECT
-
-public:
     /**
-     * Constructor.
-     * @param parent pointer to the node's parent (might be 0)
-     * @param menu the already generated QMenu
-     * @param name the non-localized name of the submenu
-     * @param command the command to be sent when the submenu is
-     *                selected (optional, default=0)
-     * @param shortcut keyboard shortcut, (optional, default=0)
-     * @param uid unique id string (optional, default=0)
+     * This is the class for submenu entries in a Menu. It is normally owned by a
+     * root menu node, a toplevel menu or another submenu.
      */
-    MenuSub(MenuNode *parent,
-            QMenu *menu,
-            const QString &name,
-            const QString &command,
-            const QKeySequence &shortcut,
-            const QString &uid);
+    class MenuSub : public Kwave::MenuNode
+    {
+	Q_OBJECT
 
-    /** Destructor */
-    virtual ~MenuSub();
+    public:
+	/**
+	 * Constructor.
+	 * @param parent pointer to the node's parent (might be 0)
+	 * @param menu the already generated QMenu
+	 * @param name the non-localized name of the submenu
+	 * @param command the command to be sent when the submenu is
+	 *                selected (optional, default=0)
+	 * @param shortcut keyboard shortcut, (optional, default=0)
+	 * @param uid unique id string (optional, default=0)
+	 */
+	MenuSub(Kwave::MenuNode *parent,
+	        QMenu *menu,
+	        const QString &name,
+	        const QString &command,
+	        const QKeySequence &shortcut,
+	        const QString &uid);
 
-    /**
-     * Always returns true, as the nodes of this type are branches.
-     */
-    virtual bool isBranch() const { return true; }
+	/** Destructor */
+	virtual ~MenuSub();
 
-    /**
-     * Inserts a new branch node under the submenu. The new node
-     * normally is (derived from) MenuSub.
-     * @param name non-localized name of the node
-     * @param command the command template used for creating commands of
-     *                submenus (leafes) that don't have an own command
-     *                but contain data for their parent's command.
-     *                Should contain a %s that will be replaced by some
-     *                data from a child entry. (this is used for
-     *                menus with data selection lists like "recent files)
-     *                If not used, pass 0.
-     * @param shortcut keyboard shortcut, 0 if unused
-     * @param uid unique id string (might be 0)
-     * @return pointer to the new branch node
-     */
-    virtual MenuSub *insertBranch(const QString &name,
-                                  const QString &command,
-                                  const QKeySequence &shortcut,
-                                  const QString &uid);
+	/**
+	 * Always returns true, as the nodes of this type are branches.
+	 */
+	virtual bool isBranch() const { return true; }
 
-    /**
-     * Inserts a new leaf node under the submenu. The new node
-     * normally is (derived from) MenuItem.
-     * @param name non-localized name of the node
-     * @param command the command to be sent when the node is
-     *                selected (might be 0)
-     * @param shortcut keyboard shortcut, 0 if unused
-     * @param uid unique id string (might be 0)
-     * @return pointer to the new leaf node
-     */
-    virtual MenuNode *insertLeaf(const QString &name,
-                                 const QString &command,
-                                 const QKeySequence &shortcut,
-                                 const QString &uid);
+	/**
+	 * Inserts a new branch node under the submenu. The new node
+	 * normally is (derived from) MenuSub.
+	 * @param name non-localized name of the node
+	 * @param command the command template used for creating commands of
+	 *                submenus (leafes) that don't have an own command
+	 *                but contain data for their parent's command.
+	 *                Should contain a %s that will be replaced by some
+	 *                data from a child entry. (this is used for
+	 *                menus with data selection lists like "recent files)
+	 *                If not used, pass 0.
+	 * @param shortcut keyboard shortcut, 0 if unused
+	 * @param uid unique id string (might be 0)
+	 * @return pointer to the new branch node
+	 */
+	virtual Kwave::MenuSub *insertBranch(const QString &name,
+	                                     const QString &command,
+	                                     const QKeySequence &shortcut,
+	                                     const QString &uid);
 
-    /** Returns the corresponding menu action */
-    virtual QAction *action() {
-	return (m_menu) ? m_menu->menuAction() : 0;
-    }
+	/**
+	 * Inserts a new leaf node under the submenu. The new node
+	 * normally is (derived from) MenuItem.
+	 * @param name non-localized name of the node
+	 * @param command the command to be sent when the node is
+	 *                selected (might be 0)
+	 * @param shortcut keyboard shortcut, 0 if unused
+	 * @param uid unique id string (might be 0)
+	 * @return pointer to the new leaf node
+	 */
+	virtual Kwave::MenuNode *insertLeaf(const QString &name,
+	                                    const QString &command,
+	                                    const QKeySequence &shortcut,
+	                                    const QString &uid);
 
-    /**
-     * Removes a child node of the curren node. If the child
-     * was not found or is already removed this does nothing.
-     * @param child pointer to the child node
-     */
-    virtual void removeChild(MenuNode *child);
+	/** Returns the corresponding menu action */
+	virtual QAction *action() {
+	    return (m_menu) ? m_menu->menuAction() : 0;
+	}
 
-    /**
-     * Handles/interpretes special menu commands.
-     * @param command name of a menu node or command
-     * @return true if the name was recognized as a command and handled
-     */
-    virtual bool specialCommand(const QString &command);
+	/**
+	 * Removes a child node of the curren node. If the child
+	 * was not found or is already removed this does nothing.
+	 * @param child pointer to the child node
+	 */
+	virtual void removeChild(Kwave::MenuNode *child);
 
-    /**
-     * Returns true if the node is enabled.
-     */
-    virtual bool isEnabled();
+	/**
+	 * Handles/interpretes special menu commands.
+	 * @param command name of a menu node or command
+	 * @return true if the name was recognized as a command and handled
+	 */
+	virtual bool specialCommand(const QString &command);
 
-    /**
-     * Enables/disables the current menu node.
-     * @param enable true to enable the item, false to disable
-     */
-    virtual void setEnabled(bool enable);
+	/**
+	 * Returns true if the node is enabled.
+	 */
+	virtual bool isEnabled();
 
-    /** Returns the menu nodes' icon. */
-    virtual const QIcon icon();
+	/**
+	 * Enables/disables the current menu node.
+	 * @param enable true to enable the item, false to disable
+	 */
+	virtual void setEnabled(bool enable);
 
-    /**
-     * Sets a new icon of a menu node.
-     * @param icon QPixmap with the icon
-     */
-    virtual void setIcon(const QIcon &icon);
+	/** Returns the menu nodes' icon. */
+	virtual const QIcon icon();
 
-private:
+	/**
+	 * Sets a new icon of a menu node.
+	 * @param icon QPixmap with the icon
+	 */
+	virtual void setIcon(const QIcon &icon);
 
-    /** the QMenu that is controlled */
-    QMenu *m_menu;
+    private:
 
-};
+	/** the QMenu that is controlled */
+	QMenu *m_menu;
+
+    };
+}
 
 #endif /* _MENU_SUB_H_ */
+
+//***************************************************************************
+//***************************************************************************

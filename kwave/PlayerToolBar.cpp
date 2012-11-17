@@ -46,7 +46,7 @@
 //***************************************************************************
 Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
                                     Kwave::PlaybackController &playback,
-                                    MenuManager &menu_manager)
+                                    Kwave::MenuManager &menu_manager)
     :KToolBar(name, parent, true),
      m_action_prev(0),
      m_action_rewind(0),

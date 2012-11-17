@@ -31,88 +31,95 @@ class QPaintEvent;
 class QMouseEvent;
 class QString;
 
-class KDE_EXPORT MultiStateWidget : public QWidget
+namespace Kwave
 {
-    Q_OBJECT
 
-public:
+    class KDE_EXPORT MultiStateWidget : public QWidget
+    {
+	Q_OBJECT
 
-    /**
-     * Constructor
-     * @param parent the parent widget
-     * @param id identifier
-     */
-    MultiStateWidget(QWidget *parent, int id);
+    public:
 
-    /** Destructor */
-    virtual ~MultiStateWidget();
+	/**
+	 * Constructor
+	 * @param parent the parent widget
+	 * @param id identifier
+	 */
+	MultiStateWidget(QWidget *parent, int id);
 
-    /**
-     * Sets the number that will passed as argument to the
-     * "clicked" signal.
-     * @param id new identifier
-     */
-    void setID(int id);
+	/** Destructor */
+	virtual ~MultiStateWidget();
 
-    /**
-     * Adds a the content of pixmap file as pixmap for the
-     * next state. The file is found through the KStandardDirs
-     * mechanism. Adding a file for a second or further time
-     * is not possible, in this case the pixmap will not be
-     * loaded and the return value will be the id of the
-     * existing version.
-     * @see KStandardDirs
-     * @param filename name of the file to be added, without
-     *        path.
-     */
-    void addPixmap(const QString &filename);
+	/**
+	 * Sets the number that will passed as argument to the
+	 * "clicked" signal.
+	 * @param id new identifier
+	 */
+	void setID(int id);
 
-public slots:
+	/**
+	 * Adds a the content of pixmap file as pixmap for the
+	 * next state. The file is found through the KStandardDirs
+	 * mechanism. Adding a file for a second or further time
+	 * is not possible, in this case the pixmap will not be
+	 * loaded and the return value will be the id of the
+	 * existing version.
+	 * @see KStandardDirs
+	 * @param filename name of the file to be added, without
+	 *        path.
+	 */
+	void addPixmap(const QString &filename);
 
-    /**
-     * Activates a new state, with wrap-around on overflows, limited
-     * to [ 0 ... m_pixmaps.count()-1 ].
-     * @param newstate index of the new state [0...N]
-     */
-    void setState(int newstate);
+    public slots:
 
-    /**
-     * For widgets that have only two states (on and off),
-     * this selects state 1 or 0
-     * @param on if true, switch on (state 1), otherwise
-     *           switch off (state 0)
-     */
-    void switchState(bool on);
+	/**
+	 * Activates a new state, with wrap-around on overflows, limited
+	 * to [ 0 ... m_pixmaps.count()-1 ].
+	 * @param newstate index of the new state [0...N]
+	 */
+	void setState(int newstate);
 
-    /** advance to the next state, with wrap-around to zero */
-    void nextState();
+	/**
+	 * For widgets that have only two states (on and off),
+	 * this selects state 1 or 0
+	 * @param on if true, switch on (state 1), otherwise
+	 *           switch off (state 0)
+	 */
+	void switchState(bool on);
 
-signals:
+	/** advance to the next state, with wrap-around to zero */
+	void nextState();
 
-    /**
-     * Signals that the widget has changed it's state.
-     * @param id identifier of this widget's instance
-     */
-    void clicked(int id);
+    signals:
 
-private:
+	/**
+	 * Signals that the widget has changed it's state.
+	 * @param id identifier of this widget's instance
+	 */
+	void clicked(int id);
 
-    /** reacts to the mouse release (click) */
-    virtual void mouseReleaseEvent(QMouseEvent *);
+    private:
 
-    /** repaints the pixmap */
-    virtual void paintEvent(QPaintEvent *);
+	/** reacts to the mouse release (click) */
+	virtual void mouseReleaseEvent(QMouseEvent *);
 
-private:
+	/** repaints the pixmap */
+	virtual void paintEvent(QPaintEvent *);
 
-    /** index of the current state */
-    int m_current_index;
+    private:
 
-    /** identifier used for the clicked() signal */
-    int m_identifier;
+	/** index of the current state */
+	int m_current_index;
 
-    /** list of QPixmaps */
-    QVector<QPixmap> m_pixmaps;
-};
+	/** identifier used for the clicked() signal */
+	int m_identifier;
+
+	/** list of QPixmaps */
+	QVector<QPixmap> m_pixmaps;
+    };
+}
 
 #endif  // _MULTI_STATE_WIDGET_H_
+
+//***************************************************************************
+//***************************************************************************

@@ -36,7 +36,7 @@ SelectRangeDialog::SelectRangeDialog(QWidget *widget,
     setModal(true);
 
     if (select_start) {
-        select_start->init(SelectTimeWidget::bySamples, offset,
+        select_start->init(Kwave::SelectTimeWidget::bySamples, offset,
                            sample_rate, 0, signal_length);
         select_start->setTitle(i18n("Start"));
         select_start->setMode(start_mode);
@@ -58,7 +58,7 @@ SelectRangeDialog::~SelectRangeDialog()
 }
 
 //***************************************************************************
-void SelectRangeDialog::setMode(SelectTimeWidget::Mode new_mode)
+void SelectRangeDialog::setMode(Kwave::SelectTimeWidget::Mode new_mode)
 {
     if (select_range) select_range->setMode(new_mode);
 }

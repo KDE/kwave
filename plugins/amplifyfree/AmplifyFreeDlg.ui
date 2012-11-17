@@ -29,7 +29,7 @@
       <number>0</number>
      </property>
      <item row="1" column="1" >
-      <widget class="ScaleWidget" native="1" name="xScale" >
+      <widget class="Kwave::ScaleWidget" native="1" name="xScale" >
        <property name="sizePolicy" >
         <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
          <horstretch>0</horstretch>
@@ -45,7 +45,7 @@
       </widget>
      </item>
      <item row="0" column="0" >
-      <widget class="ScaleWidget" native="1" name="yScale" >
+      <widget class="Kwave::ScaleWidget" native="1" name="yScale" >
        <property name="sizePolicy" >
         <sizepolicy vsizetype="Expanding" hsizetype="Fixed" >
          <horstretch>0</horstretch>
@@ -61,7 +61,7 @@
       </widget>
      </item>
      <item row="0" column="1" >
-      <widget class="CurveWidget" native="1" name="curveWidget" >
+      <widget class="Kwave::CurveWidget" native="1" name="curveWidget" >
        <property name="sizePolicy" >
         <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
          <horstretch>0</horstretch>
@@ -152,12 +152,12 @@
  <layoutdefault spacing="6" margin="11" />
  <customwidgets>
   <customwidget>
-   <class>CurveWidget</class>
+   <class>Kwave::CurveWidget</class>
    <extends>QWidget</extends>
    <header location="global" >libgui/CurveWidget.h</header>
   </customwidget>
   <customwidget>
-   <class>ScaleWidget</class>
+   <class>Kwave::ScaleWidget</class>
    <extends>QWidget</extends>
    <header location="global" >libgui/ScaleWidget.h</header>
   </customwidget>

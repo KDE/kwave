@@ -21,7 +21,7 @@
     <number>10</number>
    </property>
    <item row="0" column="0" >
-    <widget class="SelectTimeWidget" native="1" name="select_pos" >
+    <widget class="Kwave::SelectTimeWidget" native="1" name="select_pos" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
        <horstretch>0</horstretch>
@@ -94,7 +94,7 @@
  <layoutdefault spacing="10" margin="10" />
  <customwidgets>
   <customwidget>
-   <class>SelectTimeWidget</class>
+   <class>Kwave::SelectTimeWidget</class>
    <extends>QWidget</extends>
    <header>libgui/SelectTimeWidget.h</header>
    <container>1</container>

@@ -23,7 +23,7 @@
 #include "HMSTimeWidget.h"
 
 //***************************************************************************
-HMSTimeWidget::HMSTimeWidget(QWidget *parent)
+Kwave::HMSTimeWidget::HMSTimeWidget(QWidget *parent)
     :QWidget(parent), Ui::HMSTimeWidgetBase(),
      m_time(0), m_limit(INT_MAX)
 {
@@ -33,18 +33,18 @@ HMSTimeWidget::HMSTimeWidget(QWidget *parent)
 }
 
 //***************************************************************************
-HMSTimeWidget::~HMSTimeWidget()
+Kwave::HMSTimeWidget::~HMSTimeWidget()
 {
 }
 
 //***************************************************************************
-int HMSTimeWidget::value()
+int Kwave::HMSTimeWidget::value()
 {
     return m_time;
 }
 
 //***************************************************************************
-void HMSTimeWidget::setValue(int value)
+void Kwave::HMSTimeWidget::setValue(int value)
 {
     if (value < 0) value = 0;
     if (static_cast<unsigned int>(value) > m_limit) value = m_limit;
@@ -60,7 +60,7 @@ void HMSTimeWidget::setValue(int value)
 }
 
 //***************************************************************************
-void HMSTimeWidget::setLimit(unsigned int limit)
+void Kwave::HMSTimeWidget::setLimit(unsigned int limit)
 {
     Q_ASSERT(limit <= INT_MAX);
     if (limit > INT_MAX) limit = INT_MAX;
@@ -73,7 +73,7 @@ void HMSTimeWidget::setLimit(unsigned int limit)
 }
 
 //***************************************************************************
-void HMSTimeWidget::timeChanged(int)
+void Kwave::HMSTimeWidget::timeChanged(int)
 {
     // get current time and correct wrap-overs
     int seconds = sbSeconds->value();
@@ -107,7 +107,7 @@ void HMSTimeWidget::timeChanged(int)
 }
 
 //***************************************************************************
-void HMSTimeWidget::connect()
+void Kwave::HMSTimeWidget::connect()
 {
     QObject::connect(sbSeconds, SIGNAL(valueChanged(int)),
                      this, SLOT(timeChanged(int)));
@@ -118,7 +118,7 @@ void HMSTimeWidget::connect()
 }
 
 //***************************************************************************
-void HMSTimeWidget::disconnect()
+void Kwave::HMSTimeWidget::disconnect()
 {
     // disconnect the time controls
     QObject::disconnect(sbSeconds, SIGNAL(valueChanged(int)),

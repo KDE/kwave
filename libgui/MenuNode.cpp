@@ -30,18 +30,18 @@
 #include "MenuSub.h"
 
 //*****************************************************************************
-MenuNode::MenuNode(MenuNode *parent,
-                   const QString &name,
-                   const QString &command,
-                   const QKeySequence &shortcut,
-                   const QString &uid)
+Kwave::MenuNode::MenuNode(Kwave::MenuNode *parent,
+                          const QString &name,
+                          const QString &command,
+                          const QKeySequence &shortcut,
+                          const QString &uid)
     :QObject(), m_children(), m_groups(), m_uid(uid), m_shortcut(shortcut),
      m_name(name), m_command(command), m_parentNode(parent)
 {
 }
 
 //*****************************************************************************
-MenuNode::~MenuNode()
+Kwave::MenuNode::~MenuNode()
 {
     // leave all groups
     QStringList::iterator group = m_groups.begin();
@@ -58,7 +58,7 @@ MenuNode::~MenuNode()
 }
 
 //*****************************************************************************
-void MenuNode::emitCommand(const QString &command)
+void Kwave::MenuNode::emitCommand(const QString &command)
 {
     Q_ASSERT(command.length());
     if (!command.length()) return ;
@@ -68,42 +68,42 @@ void MenuNode::emitCommand(const QString &command)
 	emit sigCommand(command);
     } else {
 	// tell the root node to emit
-	MenuNode *root = getRootNode();
+	Kwave::MenuNode *root = getRootNode();
 	Q_ASSERT(root);
 	if (root) root->emitCommand(command);
     }
 }
 
 //*****************************************************************************
-void MenuNode::actionSelected()
+void Kwave::MenuNode::actionSelected()
 {
     if (m_command.length()) emitCommand(m_command);
 }
 
 //*****************************************************************************
-void MenuNode::clear()
+void Kwave::MenuNode::clear()
 {
     // remove all children
     while (!m_children.isEmpty()) {
-	MenuNode *child = m_children.takeLast();
+	Kwave::MenuNode *child = m_children.takeLast();
 	delete child;
     }
 }
 
 //*****************************************************************************
-MenuNode *MenuNode::parentNode()
+Kwave::MenuNode *Kwave::MenuNode::parentNode()
 {
     return m_parentNode;
 }
 
 //*****************************************************************************
-MenuNode *MenuNode::getRootNode()
+Kwave::MenuNode *Kwave::MenuNode::getRootNode()
 {
     return (m_parentNode) ? m_parentNode->getRootNode() : this;
 }
 
 //*****************************************************************************
-const QIcon MenuNode::icon()
+const QIcon Kwave::MenuNode::icon()
 {
     static QIcon dummy;
     Q_ASSERT(dummy.isNull());
@@ -111,26 +111,27 @@ const QIcon MenuNode::icon()
 }
 
 //*****************************************************************************
-void MenuNode::setIcon(const QIcon &icon)
+void Kwave::MenuNode::setIcon(const QIcon &icon)
 {
     qWarning("MenuNode(%s)::setIcon(%p)",
 	name().toLocal8Bit().data(), reinterpret_cast<const void *>(&icon));
 }
 
 //*****************************************************************************
-bool MenuNode::isEnabled()
+bool Kwave::MenuNode::isEnabled()
 {
     // evaluate our own (individual) enable and our parent's enable state
     if ((m_parentNode != 0) && !m_parentNode->isEnabled())
 	return false;
 
     // find  out if all our groups are enabled
-    MenuNode *root = getRootNode();
+    Kwave::MenuNode *root = getRootNode();
     if (root) {
 	foreach (QString group_name, m_groups) {
-	    MenuNode *group = root->findUID(group_name);
-	    if (group && group->inherits("MenuGroup")) {
-		if (!(static_cast<MenuGroup *>(group))->isEnabled()) {
+	    Kwave::MenuGroup *group =
+		qobject_cast<Kwave::MenuGroup *>(root->findUID(group_name));
+	    if (group) {
+		if (!(static_cast<Kwave::MenuGroup *>(group))->isEnabled()) {
 		    qDebug("MenuNode(%s).isEnabled(): group %s is disabled",
 			   name().toLocal8Bit().data(),
 			   group_name.toLocal8Bit().data());
@@ -145,42 +146,42 @@ bool MenuNode::isEnabled()
 }
 
 //*****************************************************************************
-void MenuNode::setEnabled(bool enable)
+void Kwave::MenuNode::setEnabled(bool enable)
 {
     Q_UNUSED(enable);
 }
 
 //*****************************************************************************
-void MenuNode::setChecked(bool check)
+void Kwave::MenuNode::setChecked(bool check)
 {
     Q_UNUSED(check);
 }
 
 //*****************************************************************************
-void MenuNode::setText(const QString &text)
+void Kwave::MenuNode::setText(const QString &text)
 {
     Q_UNUSED(text);
 }
 
 //*****************************************************************************
-void MenuNode::registerChild(MenuNode *node)
+void Kwave::MenuNode::registerChild(Kwave::MenuNode *node)
 {
     if (node) m_children.append(node);
 }
 
 //*****************************************************************************
-void MenuNode::setUID(const QString &uid)
+void Kwave::MenuNode::setUID(const QString &uid)
 {
     m_uid = uid;
 }
 
 //*****************************************************************************
-MenuNode *MenuNode::findUID(const QString &uid)
+Kwave::MenuNode *Kwave::MenuNode::findUID(const QString &uid)
 {
     if (m_uid == uid) return this;    // found ourself
 
-    foreach (MenuNode *child, m_children) {
-	MenuNode *node = (child) ? child->findUID(uid) : 0;
+    foreach (Kwave::MenuNode *child, m_children) {
+	Kwave::MenuNode *node = (child) ? child->findUID(uid) : 0;
 	if (node) return node;    // found in child
     }
 
@@ -188,11 +189,11 @@ MenuNode *MenuNode::findUID(const QString &uid)
 }
 
 //*****************************************************************************
-MenuNode *MenuNode::findChild(const QString &name)
+Kwave::MenuNode *Kwave::MenuNode::findChild(const QString &name)
 {
     Q_ASSERT(name.length());
 
-    foreach (MenuNode *child, m_children) {
+    foreach (Kwave::MenuNode *child, m_children) {
 	if (child && (name == child->name()))
 	    return child;
     }
@@ -200,17 +201,17 @@ MenuNode *MenuNode::findChild(const QString &name)
 }
 
 //*****************************************************************************
-void MenuNode::removeChild(MenuNode *child)
+void Kwave::MenuNode::removeChild(Kwave::MenuNode *child)
 {
     if (child && !m_children.isEmpty())
 	m_children.removeAll(child);
 }
 
 //*****************************************************************************
-MenuSub *MenuNode::insertBranch(const QString &name,
-                                const QString &command,
-                                const QKeySequence &shortcut,
-                                const QString &uid)
+Kwave::MenuSub *Kwave::MenuNode::insertBranch(const QString &name,
+                                              const QString &command,
+                                              const QKeySequence &shortcut,
+                                              const QString &uid)
 {
     Q_UNUSED(name);
     Q_UNUSED(command);
@@ -220,10 +221,10 @@ MenuSub *MenuNode::insertBranch(const QString &name,
 }
 
 //*****************************************************************************
-MenuNode *MenuNode::insertLeaf(const QString &name,
-                               const QString &command,
-                               const QKeySequence &shortcut,
-                               const QString &uid)
+Kwave::MenuNode *Kwave::MenuNode::insertLeaf(const QString &name,
+                                             const QString &command,
+                                             const QKeySequence &shortcut,
+                                             const QString &uid)
 {
     Q_UNUSED(name);
     Q_UNUSED(command);
@@ -233,11 +234,11 @@ MenuNode *MenuNode::insertLeaf(const QString &name,
 }
 
 //*****************************************************************************
-void MenuNode::insertNode(const QString &name,
-                          const QString &position,
-                          const QString &command,
-                          const QKeySequence &shortcut,
-                          const QString &uid)
+void Kwave::MenuNode::insertNode(const QString &name,
+                                 const QString &position,
+                                 const QString &command,
+                                 const QKeySequence &shortcut,
+                                 const QString &uid)
 {
     int pos = 0;
 
@@ -265,7 +266,7 @@ void MenuNode::insertNode(const QString &name,
 
     if ((!p.length()) || (p[0] == '#')) {
 	// end of the tree
-	MenuNode *sub = findChild(n);
+	Kwave::MenuNode *sub = findChild(n);
 	if (sub) {
 	    // a leaf with this name already exists
 	    // -> maybe we want to set new properties
@@ -277,7 +278,7 @@ void MenuNode::insertNode(const QString &name,
 	    return;
 	} else {
 	    // insert a new leaf
-	    MenuNode *leaf = insertLeaf(n, command, shortcut, uid);
+	    Kwave::MenuNode *leaf = insertLeaf(n, command, shortcut, uid);
 	    if (!leaf) return;
 
 	    if (p[0] == '#') leaf->specialCommand(p);
@@ -285,7 +286,7 @@ void MenuNode::insertNode(const QString &name,
 	}
     } else {
 	// somewhere in the tree
-	MenuNode *sub = findChild(n);
+	Kwave::MenuNode *sub = findChild(n);
 	if (!sub) {
 	    sub = insertBranch(n, command, shortcut, uid);
 	} else if ( !sub->isBranch() && (p[0] != '#')) {
@@ -308,7 +309,7 @@ void MenuNode::insertNode(const QString &name,
 }
 
 //*****************************************************************************
-MenuNode *MenuNode::leafToBranch(MenuNode *node)
+Kwave::MenuNode *Kwave::MenuNode::leafToBranch(Kwave::MenuNode *node)
 {
     Q_ASSERT(node);
     Q_ASSERT(node != this);
@@ -328,7 +329,7 @@ MenuNode *MenuNode::leafToBranch(MenuNode *node)
     removeChild(node);
 
     // insert the new branch
-    MenuSub *sub = insertBranch(name, command, old_shortcut, old_uid);
+    Kwave::MenuSub *sub = insertBranch(name, command, old_shortcut, old_uid);
     if (sub) {
 	// join it to the same groups
 	foreach (QString group, old_groups)
@@ -344,32 +345,32 @@ MenuNode *MenuNode::leafToBranch(MenuNode *node)
     // free the old node later.
     // IMPORTANT: we must not call "delete node" now, because we get called
     //            through leafToBranch(this) !
-    MenuRoot::deleteLater(node);
+    Kwave::MenuRoot::deleteLater(node);
 
     return sub;
 }
 
 //*****************************************************************************
-QHash<QString, MenuGroup *> &MenuNode::getGroupList()
+QHash<QString, Kwave::MenuGroup *> &Kwave::MenuNode::getGroupList()
 {
-    static QHash<QString, MenuGroup *> _empty_list;
+    static QHash<QString, Kwave::MenuGroup *> _empty_list;
     Q_ASSERT(m_parentNode);
     return (m_parentNode) ? m_parentNode->getGroupList() : _empty_list;
 }
 
 //*****************************************************************************
-void MenuNode::joinGroup(const QString &group)
+void Kwave::MenuNode::joinGroup(const QString &group)
 {
     if (m_groups.contains(group))
 	return ;    // already joined
 
-    QHash<QString, MenuGroup *> &group_list = getGroupList();
-    MenuGroup *grp = 0;
+    QHash<QString, Kwave::MenuGroup *> &group_list = getGroupList();
+    Kwave::MenuGroup *grp = 0;
     if (group_list.contains(group)) {
 	grp = group_list[group];
     } else {
 	// group does not already exist, create a new one
-	grp = new MenuGroup(getRootNode(), group);
+	grp = new Kwave::MenuGroup(getRootNode(), group);
 	if (grp) group_list.insert(group, grp);
     }
 
@@ -381,10 +382,10 @@ void MenuNode::joinGroup(const QString &group)
 }
 
 //*****************************************************************************
-void MenuNode::leaveGroup(const QString &group)
+void Kwave::MenuNode::leaveGroup(const QString &group)
 {
-    QHash<QString, MenuGroup *> &group_list = getGroupList();
-    MenuGroup *grp = (group_list.contains(group)) ?
+    QHash<QString, Kwave::MenuGroup *> &group_list = getGroupList();
+    Kwave::MenuGroup *grp = (group_list.contains(group)) ?
 	group_list.value(group) : 0;
 
     // remove the group from our list
@@ -395,7 +396,7 @@ void MenuNode::leaveGroup(const QString &group)
 }
 
 //*****************************************************************************
-bool MenuNode::specialCommand(const QString &command)
+bool Kwave::MenuNode::specialCommand(const QString &command)
 {
 
     if (command.startsWith("#icon(")) {
@@ -422,7 +423,7 @@ bool MenuNode::specialCommand(const QString &command)
 
     if (command.startsWith("#listmenu")) {
 	// insert an empty submenu for the list items
-	MenuNode *parent = parentNode();
+	Kwave::MenuNode *parent = parentNode();
 	if (parent) parent->leafToBranch(this);
 
 	return true;

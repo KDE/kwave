@@ -32,11 +32,11 @@
 
 class QAction;
 class KMainWindow;
-class MenuManager;
 
 namespace Kwave
 {
 
+    class MenuManager;
     class PlaybackController;
 
     class PlayerToolBar: public KToolBar
@@ -52,7 +52,7 @@ namespace Kwave
 	 */
 	PlayerToolBar(KMainWindow *parent, const QString &name,
 	              Kwave::PlaybackController &playback,
-	              MenuManager &menu_manager
+	              Kwave::MenuManager &menu_manager
 	);
 
 	/** Destructor */
@@ -163,7 +163,7 @@ namespace Kwave
 	Kwave::PlaybackController &m_playback;
 
 	/** reference to a menu manager */
-	MenuManager &m_menu_manager;
+	Kwave::MenuManager &m_menu_manager;
 
 	/** list of labels (sorted) */
 	Kwave::LabelList m_labels;

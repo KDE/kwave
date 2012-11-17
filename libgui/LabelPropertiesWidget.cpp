@@ -30,9 +30,9 @@
 #define CONFIG_SECTION "LabelProperties"
 
 //***************************************************************************
-LabelPropertiesWidget::LabelPropertiesWidget(QWidget *parent)
+Kwave::LabelPropertiesWidget::LabelPropertiesWidget(QWidget *parent)
     :QDialog(parent), LabelPropertiesWidgetBase(),
-    m_length(0), m_sample_rate(0)
+     m_length(0), m_sample_rate(0)
 {
     setupUi(this);
     Q_ASSERT(time);
@@ -41,19 +41,19 @@ LabelPropertiesWidget::LabelPropertiesWidget(QWidget *parent)
 }
 
 //***************************************************************************
-LabelPropertiesWidget::~LabelPropertiesWidget()
+Kwave::LabelPropertiesWidget::~LabelPropertiesWidget()
 {
 }
 
 //***************************************************************************
-void LabelPropertiesWidget::setLabelIndex(unsigned int index)
+void Kwave::LabelPropertiesWidget::setLabelIndex(unsigned int index)
 {
     Q_ASSERT(lblIndex);
     if (lblIndex) lblIndex->setText(QString::number(index));
 }
 
 //***************************************************************************
-void LabelPropertiesWidget::setLabelPosition(sample_index_t pos,
+void Kwave::LabelPropertiesWidget::setLabelPosition(sample_index_t pos,
 	sample_index_t length, double rate)
 {
     Q_ASSERT(time);
@@ -64,39 +64,39 @@ void LabelPropertiesWidget::setLabelPosition(sample_index_t pos,
     m_sample_rate = rate;
 
     // set the current position, always by samples
-    time->init(SelectTimeWidget::bySamples, pos, rate, 0, length);
+    time->init(Kwave::SelectTimeWidget::bySamples, pos, rate, 0, length);
 
     // restore the previous selection mode and set it
     const KConfigGroup cfg = KGlobal::config()->group(CONFIG_SECTION);
     bool ok;
     QString str = cfg.readEntry("mode");
     int m = str.toInt(&ok);
-    if (ok) time->setMode(static_cast<SelectTimeWidget::Mode>(m));
+    if (ok) time->setMode(static_cast<Kwave::SelectTimeWidget::Mode>(m));
 }
 
 //***************************************************************************
-void LabelPropertiesWidget::setLabelName(const QString &name)
+void Kwave::LabelPropertiesWidget::setLabelName(const QString &name)
 {
     Q_ASSERT(edDescription);
     if (edDescription) edDescription->setText(name);
 }
 
 //***************************************************************************
-sample_index_t LabelPropertiesWidget::labelPosition()
+sample_index_t Kwave::LabelPropertiesWidget::labelPosition()
 {
     Q_ASSERT(time);
     return (time) ? time->samples() : 0;
 }
 
 //***************************************************************************
-QString LabelPropertiesWidget::labelName()
+QString Kwave::LabelPropertiesWidget::labelName()
 {
     Q_ASSERT(edDescription);
     return (edDescription) ? edDescription->text() : "";
 }
 
 //***************************************************************************
-void LabelPropertiesWidget::saveSettings()
+void Kwave::LabelPropertiesWidget::saveSettings()
 {
     // restore the previous selection mode and set it
     KConfigGroup cfg = KGlobal::config()->group(CONFIG_SECTION);

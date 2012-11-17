@@ -68,7 +68,7 @@ protected:
 private:
 
     /** selected mode for position: by time, samples, percentage */
-    SelectTimeWidget::Mode m_mode;
+    Kwave::SelectTimeWidget::Mode m_mode;
 
     /** position in milliseconds, samples or percents */
     unsigned int m_position;

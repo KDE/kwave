@@ -71,7 +71,7 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
 	Q_ASSERT(layout);
 	if (!layout) return;
 
-	MultiStateWidget *msw = new MultiStateWidget(0, 0);
+	Kwave::MultiStateWidget *msw = new Kwave::MultiStateWidget(0, 0);
 	Q_ASSERT(msw);
 	if (!msw) {
 	    delete layout;

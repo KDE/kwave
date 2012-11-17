@@ -24,10 +24,16 @@
 
 #include <kmainwindow.h>
 
-class ImageView;
 class QBitmap;
 class QImage;
-class ScaleWidget;
+
+namespace Kwave
+{
+
+    class ImageView;
+    class ScaleWidget;
+
+}
 
 /**
  * Window for displaying a sonagram with scale, status bar and
@@ -160,10 +166,10 @@ private:
     int m_color_mode;
 
     /** an ImageView to display the m_image and fit it into our window */
-    ImageView *m_view;
+    Kwave::ImageView *m_view;
 
     /** short overview over the signal */
-    ImageView *m_overview;
+    Kwave::ImageView *m_overview;
 
     /** number of fft points */
     unsigned int m_points;
@@ -172,10 +178,10 @@ private:
     double m_rate;
 
     /** widget for the scale on the time (x) axis */
-    ScaleWidget *m_xscale;
+    Kwave::ScaleWidget *m_xscale;
 
     /** widget for the scale on the frequency (y) axis */
-    ScaleWidget *m_yscale;
+    Kwave::ScaleWidget *m_yscale;
 
     /** timer used for refreshing the view from time to time */
     QTimer m_refresh_timer;

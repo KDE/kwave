@@ -26,9 +26,14 @@
 
 #include "ui_VolumeDlg.h"
 
-class OverViewCache;
 class QStringList;
-class SignalManager;
+
+namespace Kwave
+{
+
+    class OverViewCache;
+
+}
 
 class VolumeDialog: public QDialog,
                     public Ui::VolumeDlg
@@ -37,7 +42,7 @@ class VolumeDialog: public QDialog,
 public:
 
     /** Constructor */
-    VolumeDialog(QWidget *parent, OverViewCache *overview_cache);
+    VolumeDialog(QWidget *parent, Kwave::OverViewCache *overview_cache);
 
     /** Destructor */
     virtual ~VolumeDialog();
@@ -91,7 +96,7 @@ private:
     bool m_enable_updates;
 
     /** overview cache for calculating the preview image */
-    OverViewCache *m_overview_cache;
+    Kwave::OverViewCache *m_overview_cache;
 
 };
 

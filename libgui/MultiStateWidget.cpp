@@ -27,26 +27,26 @@
 #include "MultiStateWidget.h"
 
 //***************************************************************************
-MultiStateWidget::MultiStateWidget(QWidget *parent, int id)
+Kwave::MultiStateWidget::MultiStateWidget(QWidget *parent, int id)
     :QWidget(parent), m_current_index(0), m_identifier(id), m_pixmaps()
 {
     resize(20, 20);
 }
 
 //***************************************************************************
-MultiStateWidget::~MultiStateWidget()
+Kwave::MultiStateWidget::~MultiStateWidget()
 {
     m_pixmaps.clear();
 }
 
 //***************************************************************************
-void MultiStateWidget::setID(int id)
+void Kwave::MultiStateWidget::setID(int id)
 {
     m_identifier = id;
 }
 
 //***************************************************************************
-void MultiStateWidget::addPixmap(const QString &filename)
+void Kwave::MultiStateWidget::addPixmap(const QString &filename)
 {
     QString file = KStandardDirs::locate(
 	"data", QString("kwave/pics/") + filename);
@@ -55,27 +55,27 @@ void MultiStateWidget::addPixmap(const QString &filename)
 }
 
 //***************************************************************************
-void MultiStateWidget::setState(int state)
+void Kwave::MultiStateWidget::setState(int state)
 {
     m_current_index = (state % m_pixmaps.count());
     repaint();
 }
 
 //***************************************************************************
-void MultiStateWidget::switchState(bool on)
+void Kwave::MultiStateWidget::switchState(bool on)
 {
     setState((on) ? 1 : 0);
 }
 
 //***************************************************************************
-void MultiStateWidget::nextState()
+void Kwave::MultiStateWidget::nextState()
 {
     setState(m_current_index + 1);
     emit clicked(m_identifier);
 }
 
 //***************************************************************************
-void MultiStateWidget::mouseReleaseEvent(QMouseEvent *e)
+void Kwave::MultiStateWidget::mouseReleaseEvent(QMouseEvent *e)
 {
     if (e && (e->button() == Qt::LeftButton)) {
 	nextState();
@@ -83,7 +83,7 @@ void MultiStateWidget::mouseReleaseEvent(QMouseEvent *e)
 }
 
 //***************************************************************************
-void MultiStateWidget::paintEvent(QPaintEvent *)
+void Kwave::MultiStateWidget::paintEvent(QPaintEvent *)
 {
     QPainter p(this);
     p.drawPixmap(0, 0, m_pixmaps[m_current_index]);

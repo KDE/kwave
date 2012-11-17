@@ -134,7 +134,7 @@ SonagramWindow::SonagramWindow(const QString &name)
     status->insertItem(i18n("Frequency: ------ Hz"), 2);
     status->insertItem(i18n("Amplitude: --- %"), 3);
 
-    m_view = new ImageView(mainwidget);
+    m_view = new Kwave::ImageView(mainwidget);
     Q_ASSERT(m_view);
     if (!m_view) return;
     top_layout->addWidget(m_view, 0, 1);
@@ -142,20 +142,20 @@ SonagramWindow::SonagramWindow(const QString &name)
     palette.setBrush(m_view->backgroundRole(), QBrush(background));
     m_view->setPalette(palette);
 
-    m_xscale = new ScaleWidget(mainwidget, 0, 100, "ms");
+    m_xscale = new Kwave::ScaleWidget(mainwidget, 0, 100, "ms");
     Q_ASSERT(m_xscale);
     if (!m_xscale) return;
     m_xscale->setFixedHeight(m_xscale->sizeHint().height());
     top_layout->addWidget(m_xscale, 1, 1);
 
-    m_yscale = new ScaleWidget(mainwidget, 0, 100, "Hz");
+    m_yscale = new Kwave::ScaleWidget(mainwidget, 0, 100, "Hz");
     Q_ASSERT(m_yscale);
     if (!m_yscale) return ;
     m_yscale->setFixedWidth(m_yscale->sizeHint().width());
     m_yscale->setMinimumHeight(9*6*5);
     top_layout->addWidget(m_yscale, 0, 0);
 
-    m_overview = new ImageView(mainwidget);
+    m_overview = new Kwave::ImageView(mainwidget);
     Q_ASSERT(m_overview);
     if (!m_overview) return;
     m_overview->setFixedHeight(30);
@@ -200,7 +200,7 @@ void SonagramWindow::save()
 {
     if (m_image.isNull()) return;
 
-    KwaveFileDialog dlg("kfiledialog:///kwave_sonagram", QString(),
+    Kwave::FileDialog dlg("kfiledialog:///kwave_sonagram", QString(),
         this, true, QString(), "*.bmp");
     dlg.setOperationMode(KFileDialog::Saving);
     dlg.setCaption(i18n("Save Sonagram"));

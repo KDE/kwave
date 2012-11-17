@@ -33,134 +33,140 @@ class QMouseEvent;
 class QPaintEvent;
 class QPixmap;
 
-class KDE_EXPORT CurveWidget: public QWidget
+namespace Kwave
 {
-    Q_OBJECT
-public:
+    class KDE_EXPORT CurveWidget: public QWidget
+    {
+	Q_OBJECT
+    public:
 
-    /** Constructor */
-    CurveWidget(QWidget *parent);
+	/** Constructor */
+	CurveWidget(QWidget *parent);
 
-    /** Destructor */
-    virtual ~CurveWidget();
+	/** Destructor */
+	virtual ~CurveWidget();
 
-    /** Returns a command string for the curve. */
-    QString getCommand();
+	/** Returns a command string for the curve. */
+	QString getCommand();
 
-    /** Sets the curve parameters/points from a command string. */
-    void setCurve(const QString &command);
+	/** Sets the curve parameters/points from a command string. */
+	void setCurve(const QString &command);
 
-    /**
-     * Adds a new point to the curve.
-     * @param x the point's x coordinate, should be [0.0...1.0]
-     * @param y the point's y coordinate, should be [0.0...1.0]
-     */
-    void addPoint(double x, double y);
+	/**
+	 * Adds a new point to the curve.
+	 * @param x the point's x coordinate, should be [0.0...1.0]
+	 * @param y the point's y coordinate, should be [0.0...1.0]
+	 */
+	void addPoint(double x, double y);
 
-    /**
-     * Tries to find a point that is nearest to the given widget coordinates
-     * and within a tolerance.
-     * @param sx screen x coordinate, left is 0
-     * @param sy screen y coordinate, top is 0
-     * @return the point of the curve or Curve::NoPoint if nothing found
-     */
-    Kwave::Curve::Point findPoint(int sx, int sy);
+	/**
+	 * Tries to find a point that is nearest to the given widget coordinates
+	 * and within a tolerance.
+	 * @param sx screen x coordinate, left is 0
+	 * @param sy screen y coordinate, top is 0
+	 * @return the point of the curve or Curve::NoPoint if nothing found
+	 */
+	Kwave::Curve::Point findPoint(int sx, int sy);
 
-public slots:
+    public slots:
 
-    /**
-     * Selects a new interpolation type by it's numeric index. Used from the
-     * mouse context menu.
-     */
-    void selectInterpolationType(QAction *action);
+	/**
+	 * Selects a new interpolation type by it's numeric index. Used from the
+	 * mouse context menu.
+	 */
+	void selectInterpolationType(QAction *action);
 
-    /**
-     * Scales the size of the curve so that all interpolated points are
-     * between 0.0 and 1.0 in x and y direction.
-     */
-    void scaleFit();
+	/**
+	 * Scales the size of the curve so that all interpolated points are
+	 * between 0.0 and 1.0 in x and y direction.
+	 */
+	void scaleFit();
 
-    /** Mirrors the curve on the y axis */
-    void VFlip();
+	/** Mirrors the curve on the y axis */
+	void VFlip();
 
-    /** Mirrors the curve on the y axis */
-    void HFlip();
+	/** Mirrors the curve on the y axis */
+	void HFlip();
 
-    /** Deletes the last point of the curve. */
-    void deleteLast();
+	/** Deletes the last point of the curve. */
+	void deleteLast();
 
-    /** Deletes the every second (even) point of the curve. */
-    void deleteSecond();
+	/** Deletes the every second (even) point of the curve. */
+	void deleteSecond();
 
-    /**
-     * Scales the x coordinates of all points to 50% so that the curve's
-     * points move into the first half of the curve. A new "last" point
-     * with the y value of the previous last point will be inserted at
-     * x coordinate 1.0.
-     */
-    void firstHalf();
+	/**
+	 * Scales the x coordinates of all points to 50% so that the curve's
+	 * points move into the first half of the curve. A new "last" point
+	 * with the y value of the previous last point will be inserted at
+	 * x coordinate 1.0.
+	 */
+	void firstHalf();
 
-    /** Like firstHalf(), but moves points to the right half. */
-    void secondHalf();
+	/** Like firstHalf(), but moves points to the right half. */
+	void secondHalf();
 
-    void savePreset();
+	void savePreset();
 
-    /**
-     * Loads an existing preset.
-     * @param action the menu actio of the corresponding menu entry
-     */
-    void loadPreset(QAction *action);
+	/**
+	 * Loads an existing preset.
+	 * @param action the menu actio of the corresponding menu entry
+	 */
+	void loadPreset(QAction *action);
 
-protected slots:
+    protected slots:
 
-    void mousePressEvent(QMouseEvent * );
-    void mouseReleaseEvent(QMouseEvent * );
-    void mouseMoveEvent(QMouseEvent * );
-    void paintEvent(QPaintEvent *);
+	void mousePressEvent(QMouseEvent * );
+	void mouseReleaseEvent(QMouseEvent * );
+	void mouseMoveEvent(QMouseEvent * );
+	void paintEvent(QPaintEvent *);
 
-protected:
+    protected:
 
-    /**
-     * (Re-)Loads the list of preset files and fills the popup
-     * menu with all preset files.
-     */
-    void loadPresetList();
+	/**
+	 * (Re-)Loads the list of preset files and fills the popup
+	 * menu with all preset files.
+	 */
+	void loadPresetList();
 
-private:
+    private:
 
-    /** Cached width of the widget */
-    int m_width;
+	/** Cached width of the widget */
+	int m_width;
 
-    /** Cached height of the widget */
-    int m_height;
+	/** Cached height of the widget */
+	int m_height;
 
-    /** The curve to be edited */
-    Kwave::Curve m_curve;
+	/** The curve to be edited */
+	Kwave::Curve m_curve;
 
-    /** Popup (context) menu for the right mouse button */
-    QMenu *m_menu;
+	/** Popup (context) menu for the right mouse button */
+	QMenu *m_menu;
 
-    /**
-     * Part of the popup (context) menu for the right
-     * mouse button with the list of preset files
-     */
-    QMenu *m_preset_menu;
+	/**
+	 * Part of the popup (context) menu for the right
+	 * mouse button with the list of preset files
+	 */
+	QMenu *m_preset_menu;
 
-    /** Currently selected point or null if none selected */
-    Kwave::Curve::Point m_current;
+	/** Currently selected point or null if none selected */
+	Kwave::Curve::Point m_current;
 
-    /** Last selected point, remembered for deleting. */
-    Kwave::Curve::Point m_last;
+	/** Last selected point, remembered for deleting. */
+	Kwave::Curve::Point m_last;
 
-    /** State of the left mouse button (when moving points) */
-    bool m_down;
+	/** State of the left mouse button (when moving points) */
+	bool m_down;
 
-    /** pixmap for the unselected knob */
-    QPixmap m_knob;
+	/** pixmap for the unselected knob */
+	QPixmap m_knob;
 
-    /** pixmap for the selected knob */
-    QPixmap m_selected_knob;
+	/** pixmap for the selected knob */
+	QPixmap m_selected_knob;
 
-};
-//***********************************************************************
+    };
+}
+
 #endif // _CURVE_WIDGET_H_
+
+//***************************************************************************
+//***************************************************************************

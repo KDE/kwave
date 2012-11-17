@@ -49,28 +49,30 @@
 
 //***************************************************************************
 //***************************************************************************
-OverViewWidget::WorkerThread::WorkerThread(OverViewWidget *overview)
+Kwave::OverViewWidget::WorkerThread::WorkerThread(
+    Kwave::OverViewWidget *overview)
     :QThread(), m_overview(overview)
 {
 }
 
 //***************************************************************************
-OverViewWidget::WorkerThread::~WorkerThread()
+Kwave::OverViewWidget::WorkerThread::~WorkerThread()
 {
     Q_ASSERT(!isRunning());
 }
 
 //***************************************************************************
-void OverViewWidget::WorkerThread::run()
+void Kwave::OverViewWidget::WorkerThread::run()
 {
     if (m_overview) m_overview->calculateBitmap();
 }
 
 //***************************************************************************
 //***************************************************************************
-OverViewWidget::OverViewWidget(Kwave::SignalManager &signal, QWidget *parent)
-    :ImageView(parent), m_view_offset(0), m_view_width(0), m_signal_length(0),
-     m_selection_start(0), m_selection_length(0),
+Kwave::OverViewWidget::OverViewWidget(Kwave::SignalManager &signal,
+                                      QWidget *parent)
+    :Kwave::ImageView(parent), m_view_offset(0), m_view_width(0),
+     m_signal_length(0), m_selection_start(0), m_selection_length(0),
      m_playback_position(0), m_last_offset(0), m_cache(signal),
      m_repaint_timer(), m_labels(), m_worker_thread(this)
 {
@@ -106,7 +108,7 @@ OverViewWidget::OverViewWidget(Kwave::SignalManager &signal, QWidget *parent)
 }
 
 //***************************************************************************
-OverViewWidget::~OverViewWidget()
+Kwave::OverViewWidget::~OverViewWidget()
 {
     // check: start() must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());
@@ -117,13 +119,13 @@ OverViewWidget::~OverViewWidget()
 }
 
 //***************************************************************************
-void OverViewWidget::mouseMoveEvent(QMouseEvent *e)
+void Kwave::OverViewWidget::mouseMoveEvent(QMouseEvent *e)
 {
     mousePressEvent(e);
 }
 
 //***************************************************************************
-void OverViewWidget::mousePressEvent(QMouseEvent *e)
+void Kwave::OverViewWidget::mousePressEvent(QMouseEvent *e)
 {
     Q_ASSERT(e);
     if (!e) return;
@@ -144,7 +146,7 @@ void OverViewWidget::mousePressEvent(QMouseEvent *e)
 }
 
 //***************************************************************************
-void OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
+void Kwave::OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
 {
     Q_ASSERT(e);
     if (!e) return;
@@ -172,7 +174,7 @@ void OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
 }
 
 //***************************************************************************
-sample_index_t OverViewWidget::pixels2offset(int pixels)
+sample_index_t Kwave::OverViewWidget::pixels2offset(int pixels)
 {
     int width = this->width();
     if (!width) return 0;
@@ -186,8 +188,9 @@ sample_index_t OverViewWidget::pixels2offset(int pixels)
 }
 
 //***************************************************************************
-void OverViewWidget::setRange(sample_index_t offset, sample_index_t viewport,
-                              sample_index_t total)
+void Kwave::OverViewWidget::setRange(sample_index_t offset,
+                                     sample_index_t viewport,
+                                     sample_index_t total)
 {
     m_view_offset   = offset;
     m_view_width    = viewport;
@@ -197,7 +200,8 @@ void OverViewWidget::setRange(sample_index_t offset, sample_index_t viewport,
 }
 
 //***************************************************************************
-void OverViewWidget::setSelection(sample_index_t offset, sample_index_t length)
+void Kwave::OverViewWidget::setSelection(sample_index_t offset,
+                                         sample_index_t length)
 {
     m_selection_start  = offset;
     m_selection_length = length;
@@ -206,25 +210,25 @@ void OverViewWidget::setSelection(sample_index_t offset, sample_index_t length)
 }
 
 //***************************************************************************
-void OverViewWidget::resizeEvent(QResizeEvent *)
+void Kwave::OverViewWidget::resizeEvent(QResizeEvent *)
 {
     refreshBitmap();
 }
 
 //***************************************************************************
-QSize OverViewWidget::minimumSize() const
+QSize Kwave::OverViewWidget::minimumSize() const
 {
     return QSize(30, 30);
 }
 
 //***************************************************************************
-QSize OverViewWidget::sizeHint() const
+QSize Kwave::OverViewWidget::sizeHint() const
 {
     return minimumSize();
 }
 
 //***************************************************************************
-void OverViewWidget::overviewChanged()
+void Kwave::OverViewWidget::overviewChanged()
 {
     // check: start() must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());
@@ -245,7 +249,7 @@ void OverViewWidget::overviewChanged()
 }
 
 //***************************************************************************
-void OverViewWidget::metaDataChanged(Kwave::MetaDataList meta)
+void Kwave::OverViewWidget::metaDataChanged(Kwave::MetaDataList meta)
 {
     // check: start() must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());
@@ -262,7 +266,7 @@ void OverViewWidget::metaDataChanged(Kwave::MetaDataList meta)
 }
 
 //***************************************************************************
-void OverViewWidget::playbackPositionChanged(sample_index_t pos)
+void Kwave::OverViewWidget::playbackPositionChanged(sample_index_t pos)
 {
     // check: start() must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());
@@ -300,13 +304,14 @@ void OverViewWidget::playbackPositionChanged(sample_index_t pos)
 }
 
 //***************************************************************************
-void OverViewWidget::playbackStopped()
+void Kwave::OverViewWidget::playbackStopped()
 {
     playbackPositionChanged(0);
 }
 
 //***************************************************************************
-void OverViewWidget::drawMark(QPainter &p, int x, int height, QColor color)
+void Kwave::OverViewWidget::drawMark(QPainter &p, int x, int height,
+                                     QColor color)
 {
     QPolygon mark;
     const int w = 5;
@@ -324,7 +329,7 @@ void OverViewWidget::drawMark(QPainter &p, int x, int height, QColor color)
 }
 
 //***************************************************************************
-void OverViewWidget::refreshBitmap()
+void Kwave::OverViewWidget::refreshBitmap()
 {
     // check: start() must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());
@@ -343,7 +348,7 @@ void OverViewWidget::refreshBitmap()
 }
 
 //***************************************************************************
-void OverViewWidget::calculateBitmap()
+void Kwave::OverViewWidget::calculateBitmap()
 {
     sample_index_t length = m_signal_length;
     if (m_view_offset + m_view_width > m_signal_length) {

@@ -33,10 +33,8 @@ namespace Kwave
     public:
 	/**
 	 * Constructor
-	 * @param parent a KMainWidget
-	 * @param name the name of the toolbar (for config)
-	 * @param playback the playback controller
-	 * @param menu_manager the MenuManager
+	 * @param inputs number of inputs
+	 * @param outputs number of outputs
 	 */
 	MixerMatrix(unsigned int inputs, unsigned int outputs);
 

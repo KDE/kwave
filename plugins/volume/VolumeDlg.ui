@@ -64,7 +64,7 @@
            <string>change volume by factor</string>
           </property>
           <property name="whatsThis">
-           <string>Increments or decrements the volume by a factor. 
+           <string>Increments or decrements the volume by a factor.
 For example: &quot;x1&quot;, &quot;x2&quot;, &quot;/ 4&quot;</string>
           </property>
           <property name="text">
@@ -84,7 +84,7 @@ For example: &quot;x1&quot;, &quot;x2&quot;, &quot;/ 4&quot;</string>
            <string>change volume by percentage</string>
           </property>
           <property name="whatsThis">
-           <string>Sets the volume to a relative percentage of the original level. 
+           <string>Sets the volume to a relative percentage of the original level.
 For example: &quot;50 %&quot;, &quot;75%&quot; or &quot;125%&quot;</string>
           </property>
           <property name="text">
@@ -104,7 +104,7 @@ For example: &quot;50 %&quot;, &quot;75%&quot; or &quot;125%&quot;</string>
            <string>change volume in dB</string>
           </property>
           <property name="whatsThis">
-           <string>Increments or decrements the volume in logarithmic scale (decibel). 
+           <string>Increments or decrements the volume in logarithmic scale (decibel).
 For example: &quot;+3 dB&quot;, &quot;+ 6 dB&quot;, &quot;-3 dB&quot;.</string>
           </property>
           <property name="text">
@@ -252,7 +252,7 @@ For example: &quot;+3 dB&quot;, &quot;+ 6 dB&quot;, &quot;-3 dB&quot;.</string>
       </layout>
      </item>
      <item>
-      <widget class="InvertableSpinBox" name="spinbox">
+      <widget class="Kwave::InvertableSpinBox" name="spinbox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -273,7 +273,7 @@ For example: &quot;+3 dB&quot;, &quot;+ 6 dB&quot;, &quot;-3 dB&quot;.</string>
     </layout>
    </item>
    <item row="1" column="0" colspan="3">
-    <widget class="ImageView" name="preview" native="true">
+    <widget class="Kwave::ImageView" name="preview" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -369,12 +369,12 @@ For example: &quot;+3 dB&quot;, &quot;+ 6 dB&quot;, &quot;-3 dB&quot;.</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>InvertableSpinBox</class>
+   <class>Kwave::InvertableSpinBox</class>
    <extends>QSpinBox</extends>
    <header>libgui/InvertableSpinBox.h</header>
   </customwidget>
   <customwidget>
-   <class>ImageView</class>
+   <class>Kwave::ImageView</class>
    <extends>QWidget</extends>
    <header>libgui/ImageView.h</header>
   </customwidget>

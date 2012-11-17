@@ -26,49 +26,56 @@
 
 class QWidget;
 
-class KDE_EXPORT InvertableSpinBox: public QSpinBox
+namespace Kwave
 {
-    Q_OBJECT
-public:
 
-    /** Constructor */
-    InvertableSpinBox(QWidget *parent);
-
-    /** Destructor */
-    virtual ~InvertableSpinBox()
+    class KDE_EXPORT InvertableSpinBox: public QSpinBox
     {
-    }
+	Q_OBJECT
+    public:
 
-    /** enable/disable inverse mode */
-    virtual void setInverse(bool inverse);
+	/** Constructor */
+	InvertableSpinBox(QWidget *parent);
 
-    /** returns the current inversion state */
-    virtual bool inverse() const { return m_inverse; }
+	/** Destructor */
+	virtual ~InvertableSpinBox()
+	{
+	}
 
-public slots:
+	/** enable/disable inverse mode */
+	virtual void setInverse(bool inverse);
 
-    /**
-     * calls QSpinBox::stepUp() in normal mode and
-     * QSpinBox::stepDown() in inverse mode
-     */
-    virtual void stepUp();
+	/** returns the current inversion state */
+	virtual bool inverse() const { return m_inverse; }
 
-    /**
-     * calls QSpinBox::stepDown() in normal mode and
-     * QSpinBox::stepUp() in inverse mode
-     */
-    virtual void stepDown();
+    public slots:
 
-protected slots:
+	/**
+	 * calls QSpinBox::stepUp() in normal mode and
+	 * QSpinBox::stepDown() in inverse mode
+	 */
+	virtual void stepUp();
 
-    /** checks for range in inverse mode */
-    void checkValueChange(int value);
+	/**
+	 * calls QSpinBox::stepDown() in normal mode and
+	 * QSpinBox::stepUp() in inverse mode
+	 */
+	virtual void stepDown();
 
-private:
+    protected slots:
 
-    /** if true, spin buttons work in inverse mode */
-    bool m_inverse;
+	/** checks for range in inverse mode */
+	void checkValueChange(int value);
 
-};
+    private:
+
+	/** if true, spin buttons work in inverse mode */
+	bool m_inverse;
+
+    };
+}
 
 #endif /* _INVERTABLE_SPIN_BOX_H_ */
+
+//***************************************************************************
+//***************************************************************************

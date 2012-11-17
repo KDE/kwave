@@ -28,56 +28,59 @@
 
 class QWidget;
 
-/**
- * @class KwaveFileDialog
- * An improved version of KFileDialog that does not forget the last
- * directory and pre-selects the last file extension.
- */
-class KDE_EXPORT KwaveFileDialog: public KFileDialog
+namespace Kwave
 {
-    Q_OBJECT
-public:
     /**
-     * Constructor.
-     * @see KFileFialog
+     * @class KwaveFileDialog
+     * An improved version of KFileDialog that does not forget the last
+     * directory and pre-selects the last file extension.
      */
-    KwaveFileDialog(const QString& startDir, const QString& filter,
-                    QWidget *parent, bool modal,
-                    const QString last_url = QString(),
-                    const QString last_ext = QString());
-
-    /** Destructor */
-    virtual ~KwaveFileDialog()
+    class KDE_EXPORT FileDialog: public KFileDialog
     {
-    }
+	Q_OBJECT
+    public:
+	/**
+	* Constructor.
+	* @see KFileFialog
+	*/
+	FileDialog(const QString& startDir, const QString& filter,
+	           QWidget *parent, bool modal,
+	           const QString last_url = QString(),
+	           const QString last_ext = QString());
 
-    /**
-     * Returns the last used extension, including "*."
-     */
-    QString selectedExtension();
+	/** Destructor */
+	virtual ~FileDialog()
+	{
+	}
 
-protected:
+	/**
+	 * Returns the last used extension, including "*."
+	 */
+	QString selectedExtension();
 
-    /** load last settings */
-    void loadConfig(const QString &section);
+    protected:
 
-protected slots:
+	/** load last settings */
+	void loadConfig(const QString &section);
 
-    /** save current settings */
-    void saveConfig();
+    protected slots:
 
-private:
+	/** save current settings */
+	void saveConfig();
 
-    /** name of the group in the config file */
-    QString m_config_group;
+    private:
 
-    /** last opened URL */
-    QString m_last_url;
+	/** name of the group in the config file */
+	QString m_config_group;
 
-    /** extension of the last selected single URL or file */
-    QString m_last_ext;
+	/** last opened URL */
+	QString m_last_url;
 
-};
+	/** extension of the last selected single URL or file */
+	QString m_last_ext;
+
+    };
+}
 
 #endif /* _FILE_DIALOG_H_ */
 

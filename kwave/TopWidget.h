@@ -44,11 +44,11 @@ class KDNDDropZone;
 class KStatusBar;
 
 class KwaveApp;
-class MenuManager;
 
 namespace Kwave {
 
     class MainWidget;
+    class MenuManager;
     class SignalManager;
     class PlayerToolBar;
     class PluginManager;
@@ -318,7 +318,7 @@ private:
     KComboBox *m_zoomselect;
 
     /** menu manager for this window */
-    MenuManager *m_menu_manager;
+    Kwave::MenuManager *m_menu_manager;
 
     /** action of the "edit undo" toolbar button */
     QAction *m_action_undo;

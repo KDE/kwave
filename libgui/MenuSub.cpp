@@ -25,13 +25,13 @@
 #include "MenuSub.h"
 
 //***************************************************************************
-MenuSub::MenuSub(MenuNode *parent,
-                 QMenu *menu,
-                 const QString &name,
-	         const QString &command,
-	         const QKeySequence &shortcut,
-	         const QString &uid)
-    :MenuNode(parent, name, command, shortcut, uid), m_menu(menu)
+Kwave::MenuSub::MenuSub(Kwave::MenuNode *parent,
+                        QMenu *menu,
+                        const QString &name,
+                        const QString &command,
+                        const QKeySequence &shortcut,
+                        const QString &uid)
+    :Kwave::MenuNode(parent, name, command, shortcut, uid), m_menu(menu)
 {
     QAction *act = action();
     Q_ASSERT(act);
@@ -42,46 +42,47 @@ MenuSub::MenuSub(MenuNode *parent,
 }
 
 //***************************************************************************
-MenuSub::~MenuSub()
+Kwave::MenuSub::~MenuSub()
 {
 }
 
 //*****************************************************************************
-bool MenuSub::isEnabled()
+bool Kwave::MenuSub::isEnabled()
 {
     if (m_menu && !m_menu->isEnabled()) return false;
-    return MenuNode::isEnabled();
+    return Kwave::MenuNode::isEnabled();
 }
 
 //*****************************************************************************
-void MenuSub::setEnabled(bool enable)
+void Kwave::MenuSub::setEnabled(bool enable)
 {
     if (m_menu) m_menu->setEnabled(enable);
 }
 
 //*****************************************************************************
-const QIcon MenuSub::icon()
+const QIcon Kwave::MenuSub::icon()
 {
     return (m_menu) ? m_menu->icon() : QIcon();
 }
 
 //*****************************************************************************
-void MenuSub::setIcon(const QIcon &icon)
+void Kwave::MenuSub::setIcon(const QIcon &icon)
 {
     if (m_menu) m_menu->setIcon(icon);
 }
 
 //***************************************************************************
-MenuSub *MenuSub::insertBranch(const QString &name,
-                               const QString &command,
-                               const QKeySequence &shortcut,
-                               const QString &uid)
+Kwave::MenuSub *Kwave::MenuSub::insertBranch(const QString &name,
+                                             const QString &command,
+                                             const QKeySequence &shortcut,
+                                             const QString &uid)
 {
     QMenu *menu = (m_menu) ? m_menu->addMenu(name) : 0;
     Q_ASSERT(menu);
     if (!menu) return 0;
 
-    MenuSub *sub = new MenuSub(this, menu, name, command, shortcut, uid);
+    Kwave::MenuSub *sub =
+	new Kwave::MenuSub(this, menu, name, command, shortcut, uid);
     Q_ASSERT(sub);
     if (!sub) return 0;
 
@@ -91,16 +92,17 @@ MenuSub *MenuSub::insertBranch(const QString &name,
 }
 
 //***************************************************************************
-MenuNode *MenuSub::insertLeaf(const QString &name,
-                              const QString &command,
-                              const QKeySequence &shortcut,
-                              const QString &uid)
+Kwave::MenuNode *Kwave::MenuSub::insertLeaf(const QString &name,
+                                            const QString &command,
+                                            const QKeySequence &shortcut,
+                                            const QString &uid)
 {
     Q_ASSERT(name.length());
     Q_ASSERT(m_menu);
     if (!name.length() || !m_menu) return 0;
 
-    MenuItem *item = new MenuItem(this, name, command, shortcut, uid);
+    Kwave::MenuItem *item =
+	new Kwave::MenuItem(this, name, command, shortcut, uid);
     Q_ASSERT(item);
     if (!item) return 0;
 
@@ -111,16 +113,16 @@ MenuNode *MenuSub::insertLeaf(const QString &name,
 }
 
 //***************************************************************************
-void MenuSub::removeChild(MenuNode *child)
+void Kwave::MenuSub::removeChild(Kwave::MenuNode *child)
 {
     QAction *act = action();
     if (act && m_menu) m_menu->removeAction(act);
 
-    MenuNode::removeChild(child);
+    Kwave::MenuNode::removeChild(child);
 }
 
 //***************************************************************************
-bool MenuSub::specialCommand(const QString &command)
+bool Kwave::MenuSub::specialCommand(const QString &command)
 {
     Q_ASSERT(command.length());
     if (!command.length()) return false;
@@ -134,7 +136,7 @@ bool MenuSub::specialCommand(const QString &command)
 	return true;
     }
 
-    return MenuNode::specialCommand(command);
+    return Kwave::MenuNode::specialCommand(command);
 }
 
 //***************************************************************************

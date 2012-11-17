@@ -27,24 +27,30 @@
 
 class QFocusEvent;
 
-class KDE_EXPORT TreeWidgetWrapper: public QTreeWidget
+namespace Kwave
 {
-    Q_OBJECT
-public:
-    /** Constructor */
-    TreeWidgetWrapper(QWidget *parent);
+    class KDE_EXPORT TreeWidgetWrapper: public QTreeWidget
+    {
+	Q_OBJECT
+    public:
+	/** Constructor */
+	TreeWidgetWrapper(QWidget *parent);
 
-    /** Destructor */
-    virtual ~TreeWidgetWrapper();
+	/** Destructor */
+	virtual ~TreeWidgetWrapper();
 
-    /** catches the "lost focus" event */
-    virtual void focusOutEvent(QFocusEvent *event);
+	/** catches the "lost focus" event */
+	virtual void focusOutEvent(QFocusEvent *event);
 
-signals:
+    signals:
 
-    /** emitted when the focus has been lost */
-    void focusLost();
+	/** emitted when the focus has been lost */
+	void focusLost();
 
-};
+    };
+}
 
 #endif /* _TREE_WIDGET_WRAPPER_H_ */
+
+//***************************************************************************
+//***************************************************************************

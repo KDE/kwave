@@ -36,8 +36,6 @@ Kwave::Writer::Writer()
      m_first(0), m_last(0), m_mode(Kwave::Insert), m_position(0),
      m_buffer(BUFFER_SIZE), m_buffer_size(BUFFER_SIZE), m_buffer_used(0)
 {
-    // use the internal buffer in raw mode, for better performance
-    m_buffer.setRawData(m_buffer.data(), m_buffer.size());
 }
 
 //***************************************************************************
@@ -47,8 +45,6 @@ Kwave::Writer::Writer(Kwave::InsertMode mode,
      m_first(left), m_last(right), m_mode(mode), m_position(left),
      m_buffer(BUFFER_SIZE), m_buffer_size(BUFFER_SIZE), m_buffer_used(0)
 {
-    // use the internal buffer in raw mode, for better performance
-    m_buffer.setRawData(m_buffer.data(), m_buffer.size());
 }
 
 //***************************************************************************
@@ -65,10 +61,6 @@ Kwave::Writer::~Writer()
 
     // inform others that we proceeded
     emit sigSamplesWritten(m_position - m_first);
-
-    // end the raw mode and reset the internal buffer
-    m_buffer.resetRawData();
-    m_buffer.resize(0);
 }
 
 //***************************************************************************

@@ -54,7 +54,7 @@ namespace Kwave
 	/** returns a const pointer to the raw data (non-mutable) */
 	inline const sample_t * data() const
 	{
-	    if (KDE_ISLIKELY(m_raw_data)) return m_raw_data;
+	    if (m_storage->m_raw_data) return m_storage->m_raw_data;
 	    if (KDE_ISUNLIKELY(!m_storage)) return 0;
 	    return m_storage->m_data;
 	}
@@ -62,7 +62,7 @@ namespace Kwave
 	/** returns a pointer to the raw data (mutable) */
 	inline sample_t *data()
 	{
-	    if (KDE_ISLIKELY(m_raw_data)) return m_raw_data;
+	    if (m_storage->m_raw_data) return m_storage->m_raw_data;
 	    if (KDE_ISUNLIKELY(!m_storage)) return 0;
 	    return m_storage->m_data;
 	}
@@ -145,15 +145,11 @@ namespace Kwave
 	    /** pointer to the area with the samples (allocated) */
 	    sample_t *m_data;
 
+	    /** pointer to some raw data that has been set */
+	    sample_t *m_raw_data;
 	};
 
 	QSharedDataPointer<SampleStorage> m_storage;
-
-	/** size of raw data in samples or zero if m_raw_data == 0 */
-	unsigned int m_raw_size;
-
-	/** pointer to some raw data that has been set */
-	sample_t *m_raw_data;
     };
 }
 

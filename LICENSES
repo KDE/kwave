@@ -330,8 +330,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Encoder.cpp				GPL2+
 	libkwave/Encoder.h				GPL2+
 	libkwave/FileDrag.h				GPL2+
-	libkwave/FileFormat.cpp				GPL2+
-	libkwave/FileFormat.h				GPL2+
 	libkwave/FileInfo.cpp				GPL2+
 	libkwave/FileInfo.h				GPL2+
 	libkwave/FileProgress.cpp			GPL2+

@@ -42,7 +42,6 @@ SET(libkwave_LIB_SRCS
     Encoder.cpp
     Filter.cpp
     FileInfo.cpp
-    FileFormat.cpp
     FileProgress.cpp
     Functions.cpp
     GenreType.cpp

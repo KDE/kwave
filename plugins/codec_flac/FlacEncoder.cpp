@@ -69,15 +69,9 @@ QList<Kwave::FileProperty> Kwave::FlacEncoder::supportedProperties()
 }
 
 /***************************************************************************/
-#if defined(FLAC_API_VERSION_1_1_2)
-::FLAC__StreamEncoderWriteStatus Kwave::FlacEncoder::write_callback(
-        const FLAC__byte buffer[], unsigned int bytes,
-        unsigned int /* samples */, unsigned int /* current_frame */)
-#else
 ::FLAC__StreamEncoderWriteStatus Kwave::FlacEncoder::write_callback(
         const FLAC__byte buffer[], size_t bytes,
         unsigned /* samples */, unsigned /* current_frame */)
-#endif
 {
     Q_ASSERT(m_dst);
     if (!m_dst) return FLAC__STREAM_ENCODER_WRITE_STATUS_FATAL_ERROR;
@@ -186,9 +180,7 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
     unsigned int bits   = info.bits();
     unsigned int length = info.length();
 
-#if defined(FLAC_API_VERSION_1_1_3) /* or above */
     set_compression_level(5); // @todo make the FLAC compression configurable
-#endif
     set_channels(static_cast<unsigned>(tracks));
     set_bits_per_sample(static_cast<unsigned>(bits));
     set_sample_rate(static_cast<unsigned>(info.rate()));
@@ -223,7 +215,6 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
 	}
 
 	// initialize the FLAC stream, this already writes some meta info
-#if defined(FLAC_API_VERSION_1_1_3) /* or above */
         FLAC__StreamEncoderInitStatus init_state = init();
         if (init_state != FLAC__STREAM_ENCODER_INIT_STATUS_OK) {
             qWarning("state = %d", static_cast<int>(init_state));
@@ -232,17 +223,6 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
             result = false;
             break;
         }
-#else
-	FLAC::Encoder::Stream::State init_state = init();
-	if (init_state != FLAC__STREAM_ENCODER_OK) {
-            qWarning("state = %s", init_state.as_cstring());
-            Kwave::MessageBox::error(widget,
-                i18n("Unable to open the FLAC encoder."));
-            m_info = 0;
-            result = false;
-            break;
-        }
-#endif
 
 	// allocate output buffers, with FLAC 32 bit format
 	unsigned int len = src.blockSize(); // samples

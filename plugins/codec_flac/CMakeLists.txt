@@ -55,6 +55,7 @@ IF (WITH_FLAC)
 ### - v1.1.4
 ### - v1.2.0
 ### - v1.2.1
+### (older ones are no longer supported)
 
     IF (NOT FLAC_API_FOUND)
         SET(_try_flac_1_1_3 "${_try_src_dir}/cmake_try_flac_v1_1_3.cpp")
@@ -149,48 +150,6 @@ IF (WITH_FLAC)
 #             MESSAGE(STATUS "FLAC API v1.1.3 does not work")
 #             MESSAGE(STATUS "${_out}")
         ENDIF (NOT FLAC_API_VERSION_1_1_3)
-    ENDIF (NOT FLAC_API_FOUND)
-
-#############################################################################
-### check for FLAC API v1.1.2 (older ones are no longer supported)        ###
-
-    IF (NOT FLAC_API_FOUND)
-        SET(_try_flac_1_1_2 "${_try_src_dir}/cmake_try_flac_v1_1_2.cpp")
-        WRITE_FILE("${_try_flac_1_1_2}" "
-            #include <FLAC/format.h>
-            #include <FLAC++/decoder.h>
-            #include <FLAC++/encoder.h>
-            #include <FLAC++/metadata.h>
-
-            int main(int, char **)
-            {
-                const FLAC::Metadata::VorbisComment vorbis_comments;
-                const FLAC__byte *vendor = vorbis_comments.get_vendor_string();
-                if (!vendor) return -1;
-
-                FLAC::Decoder::Stream *decoder = 0;
-                FLAC::Encoder::Stream *encoder = 0;
-                FLAC::Decoder::Stream::State init_state_d = decoder->init();
-                FLAC::Encoder::Stream::State init_state_e = encoder->init();
-
-                return 0;
-            }
-        ")
-
-        TRY_COMPILE(
-            FLAC_API_VERSION_1_1_2
-            ${CMAKE_BINARY_DIR}
-            ${_try_flac_1_1_2}
-            CMAKE_FLAGS -DLINK_LIBRARIES:STRING=FLAC++
-            OUTPUT_VARIABLE _out
-        )
-        IF (FLAC_API_VERSION_1_1_2)
-            MESSAGE(STATUS "Found FLAC API version 1.1.2")
-            SET(FLAC_API_FOUND BOOL ON)
-        ELSE (FLAC_API_VERSION_1_1_2)
-#             MESSAGE(STATUS "FLAC API v1.1.2 does not work")
-#             MESSAGE(STATUS "${_out}")
-        ENDIF (FLAC_API_VERSION_1_1_2)
     ENDIF (NOT FLAC_API_FOUND)
 
 #############################################################################

@@ -53,13 +53,8 @@ Kwave::Decoder *Kwave::FlacDecoder::instance()
 }
 
 //***************************************************************************
-#if defined(FLAC_API_VERSION_1_1_2)
-::FLAC__StreamDecoderReadStatus Kwave::FlacDecoder::read_callback(
-        FLAC__byte buffer[], unsigned *bytes)
-#else
 ::FLAC__StreamDecoderReadStatus Kwave::FlacDecoder::read_callback(
         FLAC__byte buffer[], size_t *bytes)
-#endif
 {
     Q_ASSERT(bytes);
     Q_ASSERT(m_source);
@@ -168,16 +163,12 @@ void Kwave::FlacDecoder::parseVorbisComments(
     Kwave::FileInfo info(metaData());
 
     // first of all: the vendor string, specifying the software
-#if defined(FLAC_API_VERSION_1_1_2) || defined(FLAC_API_VERSION_1_1_3)
     QString vendor = QString::fromUtf8(reinterpret_cast<const char *>(
 	vorbis_comments.get_vendor_string()));
     if (vendor.length()) {
 	info.set(Kwave::INF_SOFTWARE, vendor);
 	qDebug("Encoded by: '%s'\n\n", vendor.toLocal8Bit().data());
     }
-#else
-    #error "no usable FLAC API found"
-#endif
 
     // parse all vorbis comments into Kwave file properties
     for (unsigned int i=0; i < vorbis_comments.get_num_comments(); i++) {
@@ -279,21 +270,12 @@ bool Kwave::FlacDecoder::open(QWidget *widget, QIODevice &src)
     set_metadata_respond_all();
 
     // initialize the stream
-#if defined(FLAC_API_VERSION_1_1_3) /* or newer */
     FLAC__StreamDecoderInitStatus init_state = init();
     if (init_state > FLAC__STREAM_DECODER_INIT_STATUS_OK) {
         Kwave::MessageBox::error(widget, i18n(
            "Opening the FLAC bitstream failed."));
         return false;
     }
-#else /* API v1.1.2 and older */
-    FLAC::Decoder::Stream::State init_state = init();
-    if (init_state >= FLAC__STREAM_DECODER_END_OF_STREAM) {
-        Kwave::MessageBox::error(widget, i18n(
-           "Opening the FLAC bitstream failed."));
-        return false;
-    }
-#endif
 
     // read in all metadata
     process_until_end_of_metadata();

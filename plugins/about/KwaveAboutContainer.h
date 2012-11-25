@@ -34,63 +34,69 @@ class QString;
 class QLabel;
 class QWidget;
 
-/**
- * simplified clone of K3AboutContainer
- * @see K3AboutContainer
- */
-class KwaveAboutContainer: public QFrame
+namespace Kwave
 {
-Q_OBJECT
+    /**
+    * simplified clone of K3AboutContainer
+    * @see K3AboutContainer
+    */
+    class AboutContainer: public QFrame
+    {
+    Q_OBJECT
 
-public:
-    KwaveAboutContainer(QWidget *parent = 0);
+    public:
+	AboutContainer(QWidget *parent = 0);
 
-    virtual ~KwaveAboutContainer();
+	virtual ~AboutContainer();
 
-    void addPerson(const QString &name, const QString &email,
-		   const QString &url, const QString &task);
+	void addPerson(const QString &name, const QString &email,
+		    const QString &url, const QString &task);
 
-    virtual QSize sizeHint() const;
-    virtual QSize minimumSizeHint() const;
+	virtual QSize sizeHint() const;
+	virtual QSize minimumSizeHint() const;
 
-protected:
+    protected:
 
-    void addWidget(QWidget *widget);
+	void addWidget(QWidget *widget);
 
-private:
+    private:
 
-    QVBoxLayout *m_vbox;
-};
+	QVBoxLayout *m_vbox;
+    };
 
-/**
- * Used internally by KwaveAboutWidget
- * @see K3AboutContributor
- * @internal
- */
-class KwaveAboutContributor: public QFrame
-{
-  Q_OBJECT
+    /**
+     * Used internally by KwaveAboutWidget
+     * @see K3AboutContributor
+     * @internal
+     */
+    class AboutContributor: public QFrame
+    {
+    Q_OBJECT
 
-  public:
-    KwaveAboutContributor(QWidget *parent,
-                       const QString &username,
-                       const QString &email,
-                       const QString &url,
-                       const QString &work);
+    public:
+	AboutContributor(QWidget *parent,
+	                 const QString &username,
+	                 const QString &email,
+	                 const QString &url,
+	                 const QString &work);
 
-    virtual ~KwaveAboutContributor();
+	virtual ~AboutContributor();
 
-    virtual QSize sizeHint() const;
+	virtual QSize sizeHint() const;
 
-protected:
-    virtual void fontChange( const QFont &oldFont );
+    protected:
+	virtual void fontChange( const QFont &oldFont );
 
-    virtual void updateLayout();
+	virtual void updateLayout();
 
-private:
+    private:
 
-    QLabel *m_text[4];
+	QLabel *m_text[4];
 
-};
+    };
+}
 
 #endif /* _KWAVE_ABOUT_CONTAINER_H_ */
+
+//***************************************************************************
+//***************************************************************************

@@ -51,63 +51,66 @@
 /** target volume level [dB] */
 #define TARGET_LEVEL -12
 
-KWAVE_PLUGIN(NormalizePlugin, "normalize", "2.1",
+KWAVE_PLUGIN(Kwave::NormalizePlugin, "normalize", "2.1",
              I18N_NOOP("Normalizer"), "Thomas Eschenbacher");
 
 //***************************************************************************
-class GetMaxPowerJob: public ThreadWeaver::Job
+namespace Kwave
 {
-public:
-    typedef struct {
-	QVector<double> fifo; /**< FIFO for power values */
-	unsigned int    wp;   /**< FIFO write pointer */
-	unsigned int    n;    /**< number of elements in the FIFO */
-	double          sum;  /**< sum of queued power values */
-	double          max;  /**< maximum power value */
-    } average_t;
+    class GetMaxPowerJob: public ThreadWeaver::Job
+    {
+    public:
+	typedef struct {
+	    QVector<double> fifo; /**< FIFO for power values */
+	    unsigned int    wp;   /**< FIFO write pointer */
+	    unsigned int    n;    /**< number of elements in the FIFO */
+	    double          sum;  /**< sum of queued power values */
+	    double          max;  /**< maximum power value */
+	} average_t;
 
-    /**
-     * Constructor
-     * @param reader reference to a SampleReader to read from
-     * @param average reference to smoothing information
-     * @param window_size length of the sliding window for volume detection
-     */
-    GetMaxPowerJob(Kwave::SampleReader &reader, average_t &average,
-                   unsigned int window_size);
-
-    /** Destructor */
-    virtual ~GetMaxPowerJob();
-
-    /**
-	* overloaded 'run' function that runns goOn() in the context
-	* of the worker thread.
+	/**
+	* Constructor
+	* @param reader reference to a SampleReader to read from
+	* @param average reference to smoothing information
+	* @param window_size length of the sliding window for volume detection
 	*/
-    virtual void run();
+	GetMaxPowerJob(Kwave::SampleReader &reader, average_t &average,
+		    unsigned int window_size);
 
-private:
+	/** Destructor */
+	virtual ~GetMaxPowerJob();
 
-    /** reference to the SampleReader */
-    Kwave::SampleReader &m_reader;
+	/**
+	    * overloaded 'run' function that runns goOn() in the context
+	    * of the worker thread.
+	    */
+	virtual void run();
 
-    /** reference to the smoothing information */
-    average_t &m_average;
+    private:
 
-    /** size of a processing window */
-    unsigned int m_window_size;
+	/** reference to the SampleReader */
+	Kwave::SampleReader &m_reader;
 
-};
+	/** reference to the smoothing information */
+	average_t &m_average;
+
+	/** size of a processing window */
+	unsigned int m_window_size;
+
+    };
+}
 
 //***************************************************************************
-GetMaxPowerJob::GetMaxPowerJob(Kwave::SampleReader &reader,
-                               average_t &average,
-                               unsigned int window_size)
+Kwave::GetMaxPowerJob::GetMaxPowerJob(Kwave::SampleReader &reader,
+                                      average_t &average,
+                                      unsigned int window_size)
     :ThreadWeaver::Job(), m_reader(reader), m_average(average),
      m_window_size(window_size)
 {
 }
 
 //***************************************************************************
-GetMaxPowerJob::~GetMaxPowerJob()
+Kwave::GetMaxPowerJob::~GetMaxPowerJob()
 {
     int i = 0;
     while (!isFinished()) {
@@ -118,7 +121,7 @@ GetMaxPowerJob::~GetMaxPowerJob()
 }
 
 //***************************************************************************
-void GetMaxPowerJob::run()
+void Kwave::GetMaxPowerJob::run()
 {
     Kwave::SampleArray data(m_window_size);
     unsigned int round = 0;
@@ -159,18 +162,18 @@ void GetMaxPowerJob::run()
 //***************************************************************************
 //***************************************************************************
 
-NormalizePlugin::NormalizePlugin(const Kwave::PluginContext &context)
+Kwave::NormalizePlugin::NormalizePlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context)
 {
 }
 
 //***************************************************************************
-NormalizePlugin::~NormalizePlugin()
+Kwave::NormalizePlugin::~NormalizePlugin()
 {
 }
 
 //***************************************************************************
-void NormalizePlugin::run(QStringList params)
+void Kwave::NormalizePlugin::run(QStringList params)
 {
     Q_UNUSED(params);
     Kwave::UndoTransactionGuard undo_guard(*this, i18n("Normalize"));
@@ -235,7 +238,7 @@ void NormalizePlugin::run(QStringList params)
 }
 
 //***************************************************************************
-double NormalizePlugin::getMaxPower(Kwave::MultiTrackReader &source)
+double Kwave::NormalizePlugin::getMaxPower(Kwave::MultiTrackReader &source)
 {
     double maxpow = 0.0;
     const unsigned int tracks = source.tracks();
@@ -244,7 +247,7 @@ double NormalizePlugin::getMaxPower(Kwave::MultiTrackReader &source)
     if (!window_size) return 0;
 
     // set up smoothing window buffer
-    QVector<GetMaxPowerJob::average_t> average(tracks);
+    QVector<Kwave::GetMaxPowerJob::average_t> average(tracks);
     for (unsigned int t = 0; t < tracks; t++) {
 	average[t].fifo.resize(SMOOTHLEN);
 	average[t].fifo.fill(0.0);
@@ -265,7 +268,7 @@ double NormalizePlugin::getMaxPower(Kwave::MultiTrackReader &source)
 	    if (!reader) continue;
 	    if (reader->eof()) continue;
 
-	    GetMaxPowerJob *job = new GetMaxPowerJob(
+	    Kwave::GetMaxPowerJob *job = new Kwave::GetMaxPowerJob(
 		*reader, average[t], window_size
 	    );
 	    if (!job) continue;

@@ -37,196 +37,204 @@
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/SampleArray.h"
 
-namespace Kwave { class SampleEncoder; }
-
-class PlayBackALSA: public Kwave::PlayBackDevice
+namespace Kwave
 {
-public:
 
-    /** Default constructor */
-    PlayBackALSA();
+    class SampleEncoder;
 
-    /** Destructor */
-    virtual ~PlayBackALSA();
+    class PlayBackALSA: public Kwave::PlayBackDevice
+    {
+    public:
 
-    /**
-     * Opens the device for playback.
-     * @see PlayBackDevice::open
-     */
-    virtual QString open(const QString &device, double rate,
-                         unsigned int channels, unsigned int bits,
-                         unsigned int bufbase);
+	/** Default constructor */
+	PlayBackALSA();
 
-    /**
-     * Writes an array of samples to the output device.
-     * @see PlayBackDevice::write
-     */
-    virtual int write(const Kwave::SampleArray &samples);
+	/** Destructor */
+	virtual ~PlayBackALSA();
 
-    /**
-     * Closes the output device.
-     * @see PlayBackDevice::close
-     */
-    virtual int close();
+	/**
+	 * Opens the device for playback.
+	 * @see PlayBackDevice::open
+	 */
+	virtual QString open(const QString &device, double rate,
+	                     unsigned int channels, unsigned int bits,
+	                     unsigned int bufbase);
 
-    /** return a string list with supported device names */
-    virtual QStringList supportedDevices();
+	/**
+	 * Writes an array of samples to the output device.
+	 * @see PlayBackDevice::write
+	 */
+	virtual int write(const Kwave::SampleArray &samples);
 
-    /** return a string suitable for a "File Open..." dialog */
-    virtual QString fileFilter();
+	/**
+	 * Closes the output device.
+	 * @see PlayBackDevice::close
+	 */
+	virtual int close();
 
-    /**
-     * returns a list of supported bits per sample resolutions
-     * of a given device.
-     *
-     * @param device filename of the device
-     * @return list of supported bits per sample, or empty on errors
-     */
-    virtual QList<unsigned int> supportedBits(const QString &device);
+	/** return a string list with supported device names */
+	virtual QStringList supportedDevices();
 
-    /**
-     * Detect the minimum and maximum number of channels.
-     * If the detection fails, minimum and maximum are set to zero.
-     *
-     * @param device filename of the device
-     * @param min receives the lowest supported number of channels
-     * @param max receives the highest supported number of channels
-     * @return zero or positive number if ok, negative error number if failed
-     */
-    virtual int detectChannels(const QString &device,
-                               unsigned int &min, unsigned int &max);
+	/** return a string suitable for a "File Open..." dialog */
+	virtual QString fileFilter();
 
-protected:
+	/**
+	 * returns a list of supported bits per sample resolutions
+	 * of a given device.
+	 *
+	 * @param device filename of the device
+	 * @return list of supported bits per sample, or empty on errors
+	 */
+	virtual QList<unsigned int> supportedBits(const QString &device);
 
-    /**
-     * Opens a physical device and returns its file descriptor
-     * (short version, used for probing / detecting)
-     *
-     * @param device filename of the device
-     * @return pcm stream or null pointer on errors
-     */
-    snd_pcm_t *openDevice(const QString &device);
+	/**
+	 * Detect the minimum and maximum number of channels.
+	 * If the detection fails, minimum and maximum are set to zero.
+	 *
+	 * @param device filename of the device
+	 * @param min receives the lowest supported number of channels
+	 * @param max receives the highest supported number of channels
+	 * @return zero or positive number if ok,
+	 *         negative error number if failed
+	 */
+	virtual int detectChannels(const QString &device,
+	                           unsigned int &min, unsigned int &max);
 
-    /**
-     * Open the device and set all internal member variables that
-     * need to be initialized for playback.
-     *
-     * @param device name of the ALSA device
-     * @param rate sample rate, rounded as unsigned int
-     * @param channels number of tracks/channels to use
-     * @param bits number of bits per sample
-     * @return zero or positive if succeeded, or negative error
-     *         code if failed
-     */
-    int openDevice(const QString &device, unsigned int rate,
-                   unsigned int channels, unsigned int bits);
+    protected:
 
-    /**
-     * Used in "openDevice()" to set the member variables m_format,
-     * m_bytes_per_sample and m_bits according the the given
-     * resolution in bits per sample. The number of bits per sample
-     * will be rounded up to the next multiple of 8. m_handle must
-     * already be an opened device.
-     *
-     * @param hw_params valid ALSA hardware parameters
-     * @param bits number of bits per sample [1...32]
-     * @return zero or positive if succeeded, or negative error
-     *         code if failed
-     */
-    int setFormat(snd_pcm_hw_params_t *hw_params, unsigned int bits);
+	/**
+	 * Opens a physical device and returns its file descriptor
+	 * (short version, used for probing / detecting)
+	 *
+	 * @param device filename of the device
+	 * @return pcm stream or null pointer on errors
+	 */
+	snd_pcm_t *openDevice(const QString &device);
 
-    /** Writes the output buffer to the device */
-    int flush();
+	/**
+	 * Open the device and set all internal member variables that
+	 * need to be initialized for playback.
+	 *
+	 * @param device name of the ALSA device
+	 * @param rate sample rate, rounded as unsigned int
+	 * @param channels number of tracks/channels to use
+	 * @param bits number of bits per sample
+	 * @return zero or positive if succeeded, or negative error
+	 *         code if failed
+	 */
+	int openDevice(const QString &device, unsigned int rate,
+	               unsigned int channels, unsigned int bits);
 
-    /** scan all ALSA devices, re-creates m_device_list */
-    void scanDevices();
+	/**
+	 * Used in "openDevice()" to set the member variables m_format,
+	 * m_bytes_per_sample and m_bits according the the given
+	 * resolution in bits per sample. The number of bits per sample
+	 * will be rounded up to the next multiple of 8. m_handle must
+	 * already be an opened device.
+	 *
+	 * @param hw_params valid ALSA hardware parameters
+	 * @param bits number of bits per sample [1...32]
+	 * @return zero or positive if succeeded, or negative error
+	 *         code if failed
+	 */
+	int setFormat(snd_pcm_hw_params_t *hw_params, unsigned int bits);
 
-    /**
-     * Translate a verbose device name into a ALSA hardware device name.
-     *
-     * @param name verbose name of the device
-     * @return device name that can be used for snd_pcm_open()
-     */
-    QString alsaDeviceName(const QString &name);
+	/** Writes the output buffer to the device */
+	int flush();
 
-private:
+	/** scan all ALSA devices, re-creates m_device_list */
+	void scanDevices();
 
-    /**
-     * Walk through the list of all known formats and collect the
-     * ones that are supported into "m_supported_formats".
-     */
-    QList<int> detectSupportedFormats(const QString &device);
+	/**
+	 * Translate a verbose device name into a ALSA hardware device name.
+	 *
+	 * @param name verbose name of the device
+	 * @return device name that can be used for snd_pcm_open()
+	 */
+	QString alsaDeviceName(const QString &name);
 
-    /**
-     * create a ALSA device format (enum) from parameters.
-     * @param bits the number of bits per sample, related
-     *        to the decoded stream
-     * @return the index of the best matching format within the list
-     *         of known formats, or -1 if no match was found
-     */
-    int mode2format(int bits);
+    private:
 
-private:
+	/**
+	 * Walk through the list of all known formats and collect the
+	 * ones that are supported into "m_supported_formats".
+	 */
+	QList<int> detectSupportedFormats(const QString &device);
 
-    /** Name of the output device */
-    QString m_device_name;
+	/**
+	 * create a ALSA device format (enum) from parameters.
+	 * @param bits the number of bits per sample, related
+	 *        to the decoded stream
+	 * @return the index of the best matching format within the list
+	 *         of known formats, or -1 if no match was found
+	 */
+	int mode2format(int bits);
 
-    /** Handle of the output device */
-    snd_pcm_t *m_handle;
+    private:
 
-    /** Playback rate [samples/second] */
-    double m_rate;
+	/** Name of the output device */
+	QString m_device_name;
 
-    /** Number of channels */
-    unsigned int m_channels;
+	/** Handle of the output device */
+	snd_pcm_t *m_handle;
 
-    /** Resolution in bits per sample */
-    unsigned int m_bits;
+	/** Playback rate [samples/second] */
+	double m_rate;
 
-    /**
-     * Number of bytes per sample, already multiplied with
-     * the number of channels (m_channels)
-     */
-    unsigned int m_bytes_per_sample;
+	/** Number of channels */
+	unsigned int m_channels;
 
-    /** Exponent of the buffer size */
-    unsigned int m_bufbase;
+	/** Resolution in bits per sample */
+	unsigned int m_bits;
 
-    /** buffer with raw device data */
-    QByteArray m_buffer;
+	/**
+	* Number of bytes per sample, already multiplied with
+	* the number of channels (m_channels)
+	*/
+	unsigned int m_bytes_per_sample;
 
-    /** Buffer size on bytes */
-    unsigned int m_buffer_size;
+	/** Exponent of the buffer size */
+	unsigned int m_bufbase;
 
-    /** number of bytes in the buffer */
-    unsigned int m_buffer_used;
+	/** buffer with raw device data */
+	QByteArray m_buffer;
 
-    /** sample format, used for ALSA */
-    snd_pcm_format_t m_format;
+	/** Buffer size on bytes */
+	unsigned int m_buffer_size;
 
-    /** number of samples per period */
-    snd_pcm_uframes_t m_chunk_size;
+	/** number of bytes in the buffer */
+	unsigned int m_buffer_used;
 
-    /**
-     * dictionary for translating verbose device names
-     * into ALSA hardware device names
-     * (key = verbose name, data = ALSA hardware device name)
-     */
-    static QMap<QString, QString> m_device_list;
+	/** sample format, used for ALSA */
+	snd_pcm_format_t m_format;
 
-    /**
-     * list of supported formats of the current device, indices in
-     * the global list of known formats.
-     * Only valid after a successful call to "open()",
-     * otherwise empty
-     */
-    QList<int> m_supported_formats;
+	/** number of samples per period */
+	snd_pcm_uframes_t m_chunk_size;
 
-    /** encoder for conversion from samples to raw */
-    Kwave::SampleEncoder *m_encoder;
+	/**
+	 * dictionary for translating verbose device names
+	 * into ALSA hardware device names
+	 * (key = verbose name, data = ALSA hardware device name)
+	 */
+	static QMap<QString, QString> m_device_list;
 
-};
+	/**
+	 * list of supported formats of the current device, indices in
+	 * the global list of known formats.
+	 * Only valid after a successful call to "open()",
+	 * otherwise empty
+	 */
+	QList<int> m_supported_formats;
+
+	/** encoder for conversion from samples to raw */
+	Kwave::SampleEncoder *m_encoder;
+
+    };
+}
 
 #endif /* HAVE_ALSA_SUPPORT */
 
 #endif /* _PLAY_BACK_ALSA_H_ */
+
+//***************************************************************************
+//***************************************************************************

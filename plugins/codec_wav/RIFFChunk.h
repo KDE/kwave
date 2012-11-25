@@ -26,173 +26,179 @@
 #include <QList>
 #include <QString>
 
-class RIFFChunk;
-
-/** shortcut for list of RIFF chunks */
-typedef QList<RIFFChunk *> RIFFChunkList;
-
-/**
- * @class RIFFChunk
- * Stores information about a RIFF chunk, containing name, type, position
- * in the source and length.
- */
-class RIFFChunk
+namespace Kwave
 {
-public:
-    /**
-     * State of a chunk. Most are a sub-chunks. If one is known to contain
-     * further sub-chunks, it is marked as a main chunk. main and sub chunks
-     * always have a valid name and some length information, but might be
-     * truncated. If the name is not valid, the chunk is considered to
-     * contain only garbage. If the name is valid but there is no length
-     * information the chunk is marked as "empty".
-     */
-    typedef enum {
-        Root,    /**< virtual root node of the RIFF structure */
-        Main,    /**< contains sub-chunks */
-        Sub,     /**< valid/sane sub-chunk */
-        Garbage, /**< no or invalid name */
-        Empty    /**< valid name, but no size */
-    } ChunkType;
+
+    class RIFFChunk;
+
+    /** shortcut for list of RIFF chunks */
+    typedef QList<Kwave::RIFFChunk *> RIFFChunkList;
 
     /**
-     * Constructor.
-     * @param parent pointer to the parent node (or null if root node)
-     * @param name the 4-byte name of the chunk
-     * @param format the 4-byte format specifier, only valid for
-     *               main chunks, contains invalid data in sub-chunks
-     * @param length size of the chunk's data
-     * @param phys_offset start of the chunk name in the source
-     * @param phys_length length allocated in the source (file)
+     * Stores information about a RIFF chunk, containing name, type, position
+     * in the source and length.
      */
-    RIFFChunk(RIFFChunk *parent, const QByteArray &name,
-              const QByteArray &format, u_int32_t length,
-              u_int32_t phys_offset, u_int32_t phys_length);
+    class RIFFChunk
+    {
+    public:
+	/**
+	 * State of a chunk. Most are a sub-chunks. If one is known to contain
+	 * further sub-chunks, it is marked as a main chunk. main and sub chunks
+	 * always have a valid name and some length information, but might be
+	 * truncated. If the name is not valid, the chunk is considered to
+	 * contain only garbage. If the name is valid but there is no length
+	 * information the chunk is marked as "empty".
+	 */
+	typedef enum {
+	    Root,    /**< virtual root node of the RIFF structure */
+	    Main,    /**< contains sub-chunks */
+	    Sub,     /**< valid/sane sub-chunk */
+	    Garbage, /**< no or invalid name */
+	    Empty    /**< valid name, but no size */
+	} ChunkType;
 
-    /** Destructor */
-    virtual ~RIFFChunk();
+	/**
+	 * Constructor.
+	 * @param parent pointer to the parent node (or null if root node)
+	 * @param name the 4-byte name of the chunk
+	 * @param format the 4-byte format specifier, only valid for
+	 *               main chunks, contains invalid data in sub-chunks
+	 * @param length size of the chunk's data
+	 * @param phys_offset start of the chunk name in the source
+	 * @param phys_length length allocated in the source (file)
+	 */
+	RIFFChunk(Kwave::RIFFChunk *parent, const QByteArray &name,
+	          const QByteArray &format, u_int32_t length,
+	          u_int32_t phys_offset, u_int32_t phys_length);
 
-    /**
-     * Returns true if the file chunk no structural errors and
-     * no garbage or empty chunks.
-     */
-    bool isSane();
+	/** Destructor */
+	virtual ~RIFFChunk();
 
-    /**
-     * Returns the type of the chunk.
-     * @see ChunkType
-     */
-    inline ChunkType type() { return m_type; };
+	/**
+	 * Returns true if the file chunk no structural errors and
+	 * no garbage or empty chunks.
+	 */
+	bool isSane();
 
-    /** Sets the type of the chunk */
-    inline void setType(ChunkType type) { m_type = type;};
+	/**
+	 * Returns the type of the chunk.
+	 * @see ChunkType
+	 */
+	inline ChunkType type() { return m_type; };
 
-    /** Returns the 4-character name of the chunk */
-    inline const QByteArray &name() { return m_name; };
+	/** Sets the type of the chunk */
+	inline void setType(ChunkType type) { m_type = type;};
 
-    /**
-     * Returns the chunk's format string.
-     * @note Only valid for main chunk
-     */
-    inline const QByteArray &format() { return m_format; };
+	/** Returns the 4-character name of the chunk */
+	inline const QByteArray &name() { return m_name; };
 
-    /** Sets the format to a new value, without any error checking */
-    inline void setFormat(const QByteArray &format) { m_format = format; };
+	/**
+	 * Returns the chunk's format string.
+	 * @note Only valid for main chunk
+	 */
+	inline const QByteArray &format() { return m_format; };
 
-    /** Returns the pointer to the parent node */
-    inline RIFFChunk *parent() { return m_parent; };
+	/** Sets the format to a new value, without any error checking */
+	inline void setFormat(const QByteArray &format) { m_format = format; };
 
-    /**
-     * Returns the full path of this node. If the node is a "Main" chunk
-     * and has a format parameter, the format is appended, separated with
-     * a ":". If the chunk name is not unique within it's parents the
-     * zero based index is appended within round brackets.
-     */
-    const QByteArray path();
+	/** Returns the pointer to the parent node */
+	inline Kwave::RIFFChunk *parent() { return m_parent; };
 
-    /** Returns the offset where the chunk's data starts. */
-    u_int32_t dataStart();
+	/**
+	 * Returns the full path of this node. If the node is a "Main" chunk
+	 * and has a format parameter, the format is appended, separated with
+	 * a ":". If the chunk name is not unique within it's parents the
+	 * zero based index is appended within round brackets.
+	 */
+	const QByteArray path();
 
-    /** Returns the physical length of the chunk's data */
-    u_int32_t dataLength();
+	/** Returns the offset where the chunk's data starts. */
+	u_int32_t dataStart();
 
-    /**
-     * Returns the length of the chunk in bytes, like stated in the
-     * head of the chunk. Includes the format when it's a main chunk.
-     */
-    inline u_int32_t length() { return m_chunk_length; };
+	/** Returns the physical length of the chunk's data */
+	u_int32_t dataLength();
 
-    /**
-     * Sets the data and physical length of the chunk both to a
-     * new value.
-     */
-    void setLength(u_int32_t length);
+	/**
+	 * Returns the length of the chunk in bytes, like stated in the
+	 * head of the chunk. Includes the format when it's a main chunk.
+	 */
+	inline u_int32_t length() { return m_chunk_length; };
 
-    /**
-     * Returns the offset in the source (file) where the
-     * chunk (name) starts.
-     */
-    inline u_int32_t physStart() { return m_phys_offset; };
+	/**
+	 * Sets the data and physical length of the chunk both to a
+	 * new value.
+	 */
+	void setLength(u_int32_t length);
 
-    /**
-     * Returns the offset in the source (file) where the chunk ends.
-     */
-    u_int32_t physEnd();
+	/**
+	 * Returns the offset in the source (file) where the
+	 * chunk (name) starts.
+	 */
+	inline u_int32_t physStart() { return m_phys_offset; };
 
-    /**
-     * Returns the length of the chunk in the file. For some dubious
-     * reason this seems always to be rounded up for even numbers!
-     */
-    inline u_int32_t physLength() { return m_phys_length; };
+	/**
+	 * Returns the offset in the source (file) where the chunk ends.
+	 */
+	u_int32_t physEnd();
 
-    /**
-     * Returns a reference to the list of sub-chunks.
-     */
-    inline RIFFChunkList &subChunks() { return m_sub_chunks; };
+	/**
+	 * Returns the length of the chunk in the file. For some dubious
+	 * reason this seems always to be rounded up for even numbers!
+	 */
+	inline u_int32_t physLength() { return m_phys_length; };
 
-    /**
-     * Returns true if the given chunk is a parent of us.
-     */
-    bool isChildOf(RIFFChunk *chunk);
+	/**
+	 * Returns a reference to the list of sub-chunks.
+	 */
+	inline Kwave::RIFFChunkList &subChunks() { return m_sub_chunks; };
 
-    /**
-     * Fixes descrepancies in the size of the chunk. The new size will be
-     * computed as the size of all sub-chunks (that will be recursively
-     * fixed too) plus the own header.
-     */
-    void fixSize();
+	/**
+	 * Returns true if the given chunk is a parent of us.
+	 */
+	bool isChildOf(Kwave::RIFFChunk *chunk);
 
-    /**
-     * Dumps the structure of this chunks and all sub-chunks,
-     * useful for debugging.
-     */
-    void dumpStructure();
+	/**
+	 * Fixes descrepancies in the size of the chunk. The new size will be
+	 * computed as the size of all sub-chunks (that will be recursively
+	 * fixed too) plus the own header.
+	 */
+	void fixSize();
 
-private:
-    /** type of this chunk: main or sub chunk */
-    ChunkType m_type;
+	/**
+	 * Dumps the structure of this chunks and all sub-chunks,
+	 * useful for debugging.
+	 */
+	void dumpStructure();
 
-    /** chunk name, always 4 bytes ASCII */
-    QByteArray m_name;
+    private:
+	/** type of this chunk: main or sub chunk */
+	ChunkType m_type;
 
-    /** format of the chunk, only valid for main chunks */
-    QByteArray m_format;
+	/** chunk name, always 4 bytes ASCII */
+	QByteArray m_name;
 
-    /** path of the parent chunk */
-    RIFFChunk *m_parent;
+	/** format of the chunk, only valid for main chunks */
+	QByteArray m_format;
 
-    /** length of the chunk */
-    u_int32_t m_chunk_length;
+	/** path of the parent chunk */
+	Kwave::RIFFChunk *m_parent;
 
-    /** offset within the source (file) */
-    u_int32_t m_phys_offset;
+	/** length of the chunk */
+	u_int32_t m_chunk_length;
 
-    /** length used in the source (file) */
-    u_int32_t m_phys_length;
+	/** offset within the source (file) */
+	u_int32_t m_phys_offset;
 
-    /** list of sub-chunks, empty if none known */
-    RIFFChunkList m_sub_chunks;
+	/** length used in the source (file) */
+	u_int32_t m_phys_length;
 
-};
+	/** list of sub-chunks, empty if none known */
+	Kwave::RIFFChunkList m_sub_chunks;
+
+    };
+}
 
 #endif /* _RIFF_CHUNK_H_ */
+
+//***************************************************************************
+//***************************************************************************

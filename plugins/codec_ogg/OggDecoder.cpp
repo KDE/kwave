@@ -39,7 +39,7 @@
 #define DEFAULT_BITRATE 128000
 
 //***************************************************************************
-OggDecoder::OggDecoder()
+Kwave::OggDecoder::OggDecoder()
     :Kwave::Decoder(), m_source(0)
 {
     REGISTER_MIME_TYPES;
@@ -47,20 +47,20 @@ OggDecoder::OggDecoder()
 }
 
 //***************************************************************************
-OggDecoder::~OggDecoder()
+Kwave::OggDecoder::~OggDecoder()
 {
     if (m_source) close();
 }
 
 //***************************************************************************
-Kwave::Decoder *OggDecoder::instance()
+Kwave::Decoder *Kwave::OggDecoder::instance()
 {
-    return new OggDecoder();
+    return new Kwave::OggDecoder();
 }
 
 //***************************************************************************
-void OggDecoder::parseTag(Kwave::FileInfo &info, const char *tag,
-                          Kwave::FileProperty property)
+void Kwave::OggDecoder::parseTag(Kwave::FileInfo &info, const char *tag,
+                                 Kwave::FileProperty property)
 {
     int count = vorbis_comment_query_count(&m_vc, const_cast<char *>(tag));
     if (count < 1) return;
@@ -75,7 +75,7 @@ void OggDecoder::parseTag(Kwave::FileInfo &info, const char *tag,
 }
 
 //***************************************************************************
-int OggDecoder::parseHeader(QWidget *widget)
+int Kwave::OggDecoder::parseHeader(QWidget *widget)
 {
     int counter = 0;
 
@@ -203,7 +203,7 @@ int OggDecoder::parseHeader(QWidget *widget)
 }
 
 //***************************************************************************
-bool OggDecoder::open(QWidget *widget, QIODevice &src)
+bool Kwave::OggDecoder::open(QWidget *widget, QIODevice &src)
 {
     metaData().clear();
     Q_ASSERT(!m_source);
@@ -339,7 +339,7 @@ static inline int decodeFrame(float **pcm, unsigned int size,
 }
 
 //***************************************************************************
-bool OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
+bool Kwave::OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 {
     Q_ASSERT(m_source);
     if (!m_source) return false;
@@ -467,7 +467,7 @@ bool OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 }
 
 //***************************************************************************
-void OggDecoder::close()
+void Kwave::OggDecoder::close()
 {
     m_source = 0;
 }

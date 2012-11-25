@@ -35,7 +35,7 @@
 #include "LowPassFilter.h"
 
 //***************************************************************************
-LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
+Kwave::LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
     :QDialog(parent), Ui::LowPassDlg(), Kwave::PluginSetupDialog(),
      m_frequency(3500),
      m_sample_rate(sample_rate), m_filter(0)
@@ -63,7 +63,7 @@ LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
     freq_response->init(f_max, -24, +6);
 
     // set up the low pass filter dunction
-    m_filter = new LowPassFilter();
+    m_filter = new Kwave::LowPassFilter();
     freq_response->setFilter(m_filter);
 
     // initialize the controls and the curve display
@@ -94,7 +94,7 @@ LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
 }
 
 //***************************************************************************
-LowPassDialog::~LowPassDialog()
+Kwave::LowPassDialog::~LowPassDialog()
 {
     // better stop pre-listen now
     listenToggled(false);
@@ -104,7 +104,7 @@ LowPassDialog::~LowPassDialog()
 }
 
 //***************************************************************************
-void LowPassDialog::valueChanged(int pos)
+void Kwave::LowPassDialog::valueChanged(int pos)
 {
     if (static_cast<int>(m_frequency) != pos) {
 	m_frequency = pos;
@@ -115,7 +115,7 @@ void LowPassDialog::valueChanged(int pos)
 }
 
 //***************************************************************************
-QStringList LowPassDialog::params()
+QStringList Kwave::LowPassDialog::params()
 {
     QStringList list;
     list << QString::number(m_frequency);
@@ -123,7 +123,7 @@ QStringList LowPassDialog::params()
 }
 
 //***************************************************************************
-void LowPassDialog::setParams(QStringList &params)
+void Kwave::LowPassDialog::setParams(QStringList &params)
 {
     // evaluate the parameter list
     bool ok;
@@ -138,7 +138,7 @@ void LowPassDialog::setParams(QStringList &params)
 }
 
 //***************************************************************************
-void LowPassDialog::updateDisplay()
+void Kwave::LowPassDialog::updateDisplay()
 {
     double fs = m_sample_rate;
     if (m_filter && (fs > 0.0))
@@ -149,7 +149,7 @@ void LowPassDialog::updateDisplay()
 }
 
 //***************************************************************************
-void LowPassDialog::listenToggled(bool listen)
+void Kwave::LowPassDialog::listenToggled(bool listen)
 {
     Q_ASSERT(btListen);
     if (!btListen) return;
@@ -166,7 +166,7 @@ void LowPassDialog::listenToggled(bool listen)
 }
 
 //***************************************************************************
-void LowPassDialog::listenStopped()
+void Kwave::LowPassDialog::listenStopped()
 {
     if (!btListen) btListen->setChecked(false);
 }

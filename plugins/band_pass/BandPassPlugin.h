@@ -29,79 +29,86 @@
 
 #include "libgui/FilterPlugin.h"
 
-namespace Kwave { class KwaveSampleSource; }
-
-class BandPassPlugin: public Kwave::FilterPlugin
+namespace Kwave
 {
-    Q_OBJECT
+    class KwaveSampleSource;
 
-public:
+    class BandPassPlugin: public Kwave::FilterPlugin
+    {
+	Q_OBJECT
 
-    /** Constructor */
-    BandPassPlugin(const Kwave::PluginContext &context);
+    public:
 
-    /** Destructor */
-    virtual ~BandPassPlugin();
+	/** Constructor */
+	BandPassPlugin(const Kwave::PluginContext &context);
 
-    /** Creates the setup dialog and connects it's signals */
-    virtual Kwave::PluginSetupDialog *createDialog(QWidget *parent);
+	/** Destructor */
+	virtual ~BandPassPlugin();
 
-    /**
-     * Creates a multi-track filter with the given number of tracks
-     * @param tracks number of tracks that the filter should have
-     * @return pointer to the filter or null if failed
-     */
-    virtual Kwave::SampleSource *createFilter(unsigned int tracks);
+	/** Creates the setup dialog and connects it's signals */
+	virtual Kwave::PluginSetupDialog *createDialog(QWidget *parent);
 
-    /**
-     * Returns true if the parameters have changed during pre-listen.
-     */
-    virtual bool paramsChanged();
+	/**
+	 * Creates a multi-track filter with the given number of tracks
+	 * @param tracks number of tracks that the filter should have
+	 * @return pointer to the filter or null if failed
+	 */
+	virtual Kwave::SampleSource *createFilter(unsigned int tracks);
 
-    /**
-     * Update the filter with new parameters if it has changed
-     * changed during the pre-listen.
-     * @param filter the Kwave::SampleSource to be updated, should be the
-     *               same one as created with createFilter()
-     * @param force if true, even update if no settings have changed
-     */
-    virtual void updateFilter(Kwave::SampleSource *filter, bool force=0);
+	/**
+	 * Returns true if the parameters have changed during pre-listen.
+	 */
+	virtual bool paramsChanged();
 
-    /**
-     * Returns a verbose name of the performed action. Used for giving
-     * the undo action a readable name.
-     */
-    virtual QString actionName();
+	/**
+	 * Update the filter with new parameters if it has changed
+	 * changed during the pre-listen.
+	 * @param filter the Kwave::SampleSource to be updated, should be the
+	 *               same one as created with createFilter()
+	 * @param force if true, even update if no settings have changed
+	 */
+	virtual void updateFilter(Kwave::SampleSource *filter,
+	                          bool force = false);
 
-protected:
+	/**
+	 * Returns a verbose name of the performed action. Used for giving
+	 * the undo action a readable name.
+	 */
+	virtual QString actionName();
 
-    /** Reads values from the parameter list */
-    virtual int interpreteParameters(QStringList &params);
+    protected:
 
-protected slots:
+	/** Reads values from the parameter list */
+	virtual int interpreteParameters(QStringList &params);
 
-    /**
-     * Called when the parameter changed during pre-listen
-     * @param frequency the frequency parameter in Hz
-     */
-    void setFreqValue(double frequency);
+    protected slots:
 
-    void setBwValue(double bw);
+	/**
+	 * Called when the parameter changed during pre-listen
+	 * @param frequency the frequency parameter in Hz
+	 */
+	void setFreqValue(double frequency);
 
-private:
+	void setBwValue(double bw);
 
-    /** cutoff frequency [Hz] */
-    double m_frequency;
+    private:
 
-    /** last value of m_frequency */
-    double m_last_freq;
+	/** cutoff frequency [Hz] */
+	double m_frequency;
 
-    /** bandwidth value [Hz] */
-    double m_bw;
+	/** last value of m_frequency */
+	double m_last_freq;
 
-    /** last value of m_bw */
-    double m_last_bw;
+	/** bandwidth value [Hz] */
+	double m_bw;
 
-};
+	/** last value of m_bw */
+	double m_last_bw;
+
+    };
+}
 
 #endif /* _BAND_PASS_PLUGIN_H_ */
+
+//***************************************************************************
+//***************************************************************************

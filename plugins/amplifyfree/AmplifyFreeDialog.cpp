@@ -25,7 +25,7 @@
 #include "AmplifyFreeDialog.h"
 
 //***************************************************************************
-AmplifyFreeDialog::AmplifyFreeDialog(QWidget *parent)
+Kwave::AmplifyFreeDialog::AmplifyFreeDialog(QWidget *parent)
     :QDialog(parent), Ui::AmplifyFreeDlg()
 {
     setupUi(this);
@@ -44,12 +44,12 @@ AmplifyFreeDialog::AmplifyFreeDialog(QWidget *parent)
 }
 
 //***************************************************************************
-AmplifyFreeDialog::~AmplifyFreeDialog()
+Kwave::AmplifyFreeDialog::~AmplifyFreeDialog()
 {
 }
 
 //***************************************************************************
-QString AmplifyFreeDialog::getCommand()
+QString Kwave::AmplifyFreeDialog::getCommand()
 {
     QString cmd;
     Q_ASSERT(curveWidget);
@@ -66,7 +66,7 @@ QString AmplifyFreeDialog::getCommand()
 }
 
 //***************************************************************************
-void AmplifyFreeDialog::setParams(QStringList &params)
+void Kwave::AmplifyFreeDialog::setParams(QStringList &params)
 {
     QStringList::Iterator it;
     QString cmd = "curve(";

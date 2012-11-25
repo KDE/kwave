@@ -61,14 +61,14 @@
 #include "PlayBackDialog.h"
 #include "PlayBackPlugin.h"
 
-KWAVE_PLUGIN(PlayBackPlugin, "playback", "2.2",
+KWAVE_PLUGIN(Kwave::PlayBackPlugin, "playback", "2.2",
              I18N_NOOP("Playback"), "Thomas Eschenbacher");
 
 /** Sets the number of screen refreshes per second when in playback mode */
 #define SCREEN_REFRESHES_PER_SECOND 10
 
 //***************************************************************************
-PlayBackPlugin::PlayBackPlugin(const Kwave::PluginContext &context)
+Kwave::PlayBackPlugin::PlayBackPlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context), m_dialog(0),
     m_device(0), m_lock_device(), m_playback_params(),
     m_playback_controller(manager().playbackController()),
@@ -79,7 +79,7 @@ PlayBackPlugin::PlayBackPlugin(const Kwave::PluginContext &context)
 {
 #ifdef HAVE_ALSA_SUPPORT
     // set builtin defaults to ALSA
-    m_playback_params.method = PLAYBACK_ALSA;
+    m_playback_params.method = Kwave::PLAYBACK_ALSA;
     m_playback_params.device = "default";
 #endif /* HAVE_ALSA_SUPPORT */
 
@@ -100,7 +100,7 @@ PlayBackPlugin::PlayBackPlugin(const Kwave::PluginContext &context)
 }
 
 //***************************************************************************
-PlayBackPlugin::~PlayBackPlugin()
+Kwave::PlayBackPlugin::~PlayBackPlugin()
 {
     // make sure the dialog is gone
     if (m_dialog) delete m_dialog;
@@ -116,7 +116,7 @@ PlayBackPlugin::~PlayBackPlugin()
 }
 
 //***************************************************************************
-int PlayBackPlugin::interpreteParameters(QStringList &params)
+int Kwave::PlayBackPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;
     QString param;
@@ -129,8 +129,8 @@ int PlayBackPlugin::interpreteParameters(QStringList &params)
     unsigned int method = param.toUInt(&ok);
     Q_ASSERT(ok);
     if (!ok) return -EINVAL;
-    if (method >= PLAYBACK_INVALID) method = PLAYBACK_NONE;
-    m_playback_params.method = static_cast<playback_method_t>(method);
+    if (method >= Kwave::PLAYBACK_INVALID) method = Kwave::PLAYBACK_NONE;
+    m_playback_params.method = static_cast<Kwave::playback_method_t>(method);
 
     // parameter #1: playback device [/dev/dsp , ... ]
     param = params[1];
@@ -158,7 +158,7 @@ int PlayBackPlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-void PlayBackPlugin::load(QStringList &params)
+void Kwave::PlayBackPlugin::load(QStringList &params)
 {
     interpreteParameters(params);
 
@@ -171,7 +171,7 @@ void PlayBackPlugin::load(QStringList &params)
 }
 
 //***************************************************************************
-QStringList *PlayBackPlugin::setup(QStringList &previous_params)
+QStringList *Kwave::PlayBackPlugin::setup(QStringList &previous_params)
 {
     // sorry, cannot do setup while the playback is running
     if (isRunning()) {
@@ -190,12 +190,12 @@ QStringList *PlayBackPlugin::setup(QStringList &previous_params)
     Q_ASSERT(!m_dialog);
     if (m_dialog) delete m_dialog;
 
-    m_dialog = new PlayBackDialog(*this, m_playback_params);
+    m_dialog = new Kwave::PlayBackDialog(*this, m_playback_params);
     Q_ASSERT(m_dialog);
     if (!m_dialog) return 0;
 
-    connect(m_dialog, SIGNAL(sigMethodChanged(playback_method_t)),
-            this, SLOT(setMethod(playback_method_t)));
+    connect(m_dialog, SIGNAL(sigMethodChanged(Kwave::playback_method_t)),
+            this, SLOT(setMethod(Kwave::playback_method_t)));
     connect(m_dialog, SIGNAL(sigDeviceChanged(const QString &)),
             this, SLOT(setDevice(const QString &)));
     connect(m_dialog, SIGNAL(sigTestPlayback()),
@@ -246,7 +246,7 @@ QStringList *PlayBackPlugin::setup(QStringList &previous_params)
 }
 
 //***************************************************************************
-bool PlayBackPlugin::supportsDevice(const QString &name)
+bool Kwave::PlayBackPlugin::supportsDevice(const QString &name)
 {
     (void)name;
     // always return true, we are currently the one and only playback
@@ -255,30 +255,31 @@ bool PlayBackPlugin::supportsDevice(const QString &name)
 }
 
 //***************************************************************************
-Kwave::PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t &method)
+Kwave::PlayBackDevice *Kwave::PlayBackPlugin::createDevice(
+    Kwave::playback_method_t &method)
 {
     bool searching = false;
     do {
 	switch (method) {
 
 #ifdef HAVE_OSS_SUPPORT
-	    case PLAYBACK_OSS:
-		return new PlayBackOSS();
+	    case Kwave::PLAYBACK_OSS:
+		return new Kwave::PlayBackOSS();
 #endif /* HAVE_OSS_SUPPORT */
 
 #ifdef HAVE_ALSA_SUPPORT
-	    case PLAYBACK_ALSA:
-		return new PlayBackALSA();
+	    case Kwave::PLAYBACK_ALSA:
+		return new Kwave::PlayBackALSA();
 #endif /* HAVE_ALSA_SUPPORT */
 
 #ifdef HAVE_PHONON_SUPPORT
-	    case PLAYBACK_PHONON:
-		return new PlayBackPhonon();
+	    case Kwave::PLAYBACK_PHONON:
+		return new Kwave::PlayBackPhonon();
 #endif /* HAVE_PHONON_SUPPORT */
 
 #ifdef HAVE_PULSEAUDIO_SUPPORT
-	    case PLAYBACK_PULSEAUDIO:
-		return new PlayBackPulseAudio(
+	    case Kwave::PLAYBACK_PULSEAUDIO:
+		return new Kwave::PlayBackPulseAudio(
 		    Kwave::FileInfo(signalManager().metaData()));
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
@@ -288,7 +289,7 @@ Kwave::PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t &method)
 		if (!searching) {
 		    // start trying out all other methods
 		    searching = true;
-		    method = PLAYBACK_NONE;
+		    method = Kwave::PLAYBACK_NONE;
 		    ++method;
 		    continue;
 		} else {
@@ -297,7 +298,7 @@ Kwave::PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t &method)
 		}
 		qDebug("unsupported playback method - trying next (%d)",
 		    static_cast<int>(method));
-		if (method != PLAYBACK_INVALID) continue;
+		if (method != Kwave::PLAYBACK_INVALID) continue;
 	}
 	break;
     } while (true);
@@ -306,7 +307,7 @@ Kwave::PlayBackDevice *PlayBackPlugin::createDevice(playback_method_t &method)
 }
 
 //***************************************************************************
-void PlayBackPlugin::setMethod(playback_method_t method)
+void Kwave::PlayBackPlugin::setMethod(Kwave::playback_method_t method)
 {
     qDebug("PlayBackPlugin::setMethod(%d)", static_cast<int>(method));
     QString last_device_name = m_playback_params.device;
@@ -356,7 +357,7 @@ void PlayBackPlugin::setMethod(playback_method_t method)
     Q_ASSERT(m_device);
 
     // if we found no playback method
-    if (method == PLAYBACK_INVALID) {
+    if (method == Kwave::PLAYBACK_INVALID) {
 	qWarning("found no valid playback method");
     }
 
@@ -387,7 +388,7 @@ void PlayBackPlugin::setMethod(playback_method_t method)
 }
 
 //***************************************************************************
-void PlayBackPlugin::setDevice(const QString &device)
+void Kwave::PlayBackPlugin::setDevice(const QString &device)
 {
 //     qDebug("PlayBackPlugin::setDevice(%s)", device.toLocal8Bit().data());
 
@@ -422,11 +423,13 @@ void PlayBackPlugin::setDevice(const QString &device)
 }
 
 //***************************************************************************
-Kwave::PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
-    int tracks, const PlayBackParam *playback_params)
+Kwave::PlayBackDevice *Kwave::PlayBackPlugin::openDevice(
+    const QString &name,
+    int tracks,
+    const Kwave::PlayBackParam *playback_params)
 {
     QString device_name = name;
-    PlayBackParam params;
+    Kwave::PlayBackParam params;
     Kwave::PlayBackDevice *device = 0;
 
     qDebug("PlayBackPlugin::openDevice('%s',params)",name.toLocal8Bit().data());
@@ -484,7 +487,7 @@ Kwave::PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 }
 
 //***************************************************************************
-void PlayBackPlugin::closeDevice()
+void Kwave::PlayBackPlugin::closeDevice()
 {
     QMutexLocker lock_for_delete(&m_lock_device);
 
@@ -496,7 +499,7 @@ void PlayBackPlugin::closeDevice()
 }
 
 //***************************************************************************
-void PlayBackPlugin::startDevicePlayBack()
+void Kwave::PlayBackPlugin::startDevicePlayBack()
 {
     // set the real sample rate for playback from the signal itself
     m_playback_params.rate = signalRate();
@@ -569,7 +572,7 @@ void PlayBackPlugin::startDevicePlayBack()
 }
 
 //***************************************************************************
-void PlayBackPlugin::stopDevicePlayBack()
+void Kwave::PlayBackPlugin::stopDevicePlayBack()
 {
     cancel();
     if (!isRunning()) {
@@ -580,7 +583,7 @@ void PlayBackPlugin::stopDevicePlayBack()
 }
 
 //***************************************************************************
-void PlayBackPlugin::seekTo(sample_index_t pos)
+void Kwave::PlayBackPlugin::seekTo(sample_index_t pos)
 {
     QMutexLocker lock(&m_lock_playback);
     qDebug("seekTo(%llu)", pos);
@@ -589,14 +592,14 @@ void PlayBackPlugin::seekTo(sample_index_t pos)
 }
 
 //***************************************************************************
-void PlayBackPlugin::trackSelectionChanged()
+void Kwave::PlayBackPlugin::trackSelectionChanged()
 {
     QMutexLocker lock(&m_lock_playback);
     m_track_selection_changed = true;
 }
 
 //***************************************************************************
-void PlayBackPlugin::run(QStringList)
+void Kwave::PlayBackPlugin::run(QStringList)
 {
     Kwave::MixerMatrix *mixer = 0;
     unsigned int first = m_playback_controller.startPos();
@@ -736,7 +739,7 @@ void PlayBackPlugin::run(QStringList)
 }
 
 //***************************************************************************
-void PlayBackPlugin::testPlayBack()
+void Kwave::PlayBackPlugin::testPlayBack()
 {
     const float t_sweep        =   1.0; /* seconds per speaker */
     const double freq          = 440.0; /* test frequency [Hz] */
@@ -746,7 +749,7 @@ void PlayBackPlugin::testPlayBack()
 
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
-    PlayBackParam playback_params = m_dialog->params();
+    Kwave::PlayBackParam playback_params = m_dialog->params();
 
     // check if we really have selected a playback device
     if (!playback_params.device.length()) {

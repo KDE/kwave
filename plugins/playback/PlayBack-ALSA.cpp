@@ -51,7 +51,7 @@
 
 #include "PlayBack-ALSA.h"
 
-QMap<QString, QString> PlayBackALSA::m_device_list;
+QMap<QString, QString> Kwave::PlayBackALSA::m_device_list;
 
 /** gui name of the default device */
 #define DEFAULT_DEVICE (i18n("Default device") + QString("|sound_note"))
@@ -158,7 +158,7 @@ static byte_order_t endian_of(snd_pcm_format_t fmt)
 }
 
 //***************************************************************************
-PlayBackALSA::PlayBackALSA()
+Kwave::PlayBackALSA::PlayBackALSA()
     :Kwave::PlayBackDevice(),
     m_device_name(),
     m_handle(0),
@@ -178,13 +178,14 @@ PlayBackALSA::PlayBackALSA()
 }
 
 //***************************************************************************
-PlayBackALSA::~PlayBackALSA()
+Kwave::PlayBackALSA::~PlayBackALSA()
 {
     close();
 }
 
 //***************************************************************************
-int PlayBackALSA::setFormat(snd_pcm_hw_params_t *hw_params, unsigned int bits)
+int Kwave::PlayBackALSA::setFormat(snd_pcm_hw_params_t *hw_params,
+                                   unsigned int bits)
 {
     qDebug("PlayBackALSA::setFormat(..., bits=%u)", bits);
     m_format = SND_PCM_FORMAT_UNKNOWN;
@@ -227,7 +228,7 @@ int PlayBackALSA::setFormat(snd_pcm_hw_params_t *hw_params, unsigned int bits)
 }
 
 //***************************************************************************
-int PlayBackALSA::mode2format(int bits)
+int Kwave::PlayBackALSA::mode2format(int bits)
 {
     // loop over all supported formats and keep only those that are
     // compatible with the given compression, bits and sample format
@@ -249,7 +250,7 @@ int PlayBackALSA::mode2format(int bits)
 }
 
 //***************************************************************************
-QList<int> PlayBackALSA::detectSupportedFormats(const QString &device)
+QList<int> Kwave::PlayBackALSA::detectSupportedFormats(const QString &device)
 {
     // start with an empty list
     QList<int> supported_formats;
@@ -311,8 +312,8 @@ QList<int> PlayBackALSA::detectSupportedFormats(const QString &device)
 }
 
 //***************************************************************************
-int PlayBackALSA::openDevice(const QString &device, unsigned int rate,
-                             unsigned int channels, unsigned int bits)
+int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
+                                    unsigned int channels, unsigned int bits)
 {
     int err;
     snd_output_t *output = NULL;
@@ -526,9 +527,9 @@ int PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 }
 
 //***************************************************************************
-QString PlayBackALSA::open(const QString &device, double rate,
-                           unsigned int channels, unsigned int bits,
-                           unsigned int bufbase)
+QString Kwave::PlayBackALSA::open(const QString &device, double rate,
+                                  unsigned int channels, unsigned int bits,
+                                  unsigned int bufbase)
 {
     qDebug("PlayBackALSA::open(device=%s,rate=%0.1f,channels=%u,"\
 	"bits=%u, bufbase=%u)", device.toLocal8Bit().data(), rate, channels,
@@ -603,7 +604,7 @@ QString PlayBackALSA::open(const QString &device, double rate,
 }
 
 //***************************************************************************
-int PlayBackALSA::write(const Kwave::SampleArray &samples)
+int Kwave::PlayBackALSA::write(const Kwave::SampleArray &samples)
 {
     Q_ASSERT(m_encoder);
     if (!m_encoder) return -EIO;
@@ -629,7 +630,7 @@ int PlayBackALSA::write(const Kwave::SampleArray &samples)
 }
 
 //***************************************************************************
-int PlayBackALSA::flush()
+int Kwave::PlayBackALSA::flush()
 {
     if (!m_buffer_used) return 0; // nothing to do
     Q_ASSERT(m_channels);
@@ -710,7 +711,7 @@ int PlayBackALSA::flush()
 }
 
 //***************************************************************************
-int PlayBackALSA::close()
+int Kwave::PlayBackALSA::close()
 {
     flush();
 
@@ -729,7 +730,7 @@ int PlayBackALSA::close()
 }
 
 //***************************************************************************
-void PlayBackALSA::scanDevices()
+void Kwave::PlayBackALSA::scanDevices()
 {
     snd_ctl_t *handle;
     int card, err, dev;
@@ -856,7 +857,7 @@ next_card:
 }
 
 //***************************************************************************
-QString PlayBackALSA::alsaDeviceName(const QString &name)
+QString Kwave::PlayBackALSA::alsaDeviceName(const QString &name)
 {
     if (m_device_list.isEmpty() || (name.length() &&
         !m_device_list.contains(name)))
@@ -879,7 +880,7 @@ QString PlayBackALSA::alsaDeviceName(const QString &name)
 }
 
 //***************************************************************************
-QStringList PlayBackALSA::supportedDevices()
+QStringList Kwave::PlayBackALSA::supportedDevices()
 {
     // re-validate the list if necessary
     scanDevices();
@@ -898,13 +899,13 @@ QStringList PlayBackALSA::supportedDevices()
 }
 
 //***************************************************************************
-QString PlayBackALSA::fileFilter()
+QString Kwave::PlayBackALSA::fileFilter()
 {
     return "";
 }
 
 //***************************************************************************
-snd_pcm_t *PlayBackALSA::openDevice(const QString &device)
+snd_pcm_t *Kwave::PlayBackALSA::openDevice(const QString &device)
 {
     snd_pcm_t *pcm = m_handle;
 
@@ -937,7 +938,7 @@ snd_pcm_t *PlayBackALSA::openDevice(const QString &device)
 }
 
 //***************************************************************************
-QList<unsigned int> PlayBackALSA::supportedBits(const QString &device)
+QList<unsigned int> Kwave::PlayBackALSA::supportedBits(const QString &device)
 {
     QList<unsigned int> list;
     QList<int> supported_formats;
@@ -962,8 +963,8 @@ QList<unsigned int> PlayBackALSA::supportedBits(const QString &device)
 }
 
 //***************************************************************************
-int PlayBackALSA::detectChannels(const QString &device,
-                                 unsigned int &min, unsigned int &max)
+int Kwave::PlayBackALSA::detectChannels(const QString &device,
+                                        unsigned int &min, unsigned int &max)
 {
     min = max = 0;
     snd_pcm_hw_params_t *p;

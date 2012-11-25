@@ -21,33 +21,39 @@
 #include "config.h"
 #include "libkwave/SampleSource.h"
 
-class NoiseGenerator: public Kwave::SampleSource
+namespace Kwave
 {
-    Q_OBJECT
-public:
+    class NoiseGenerator: public Kwave::SampleSource
+    {
+	Q_OBJECT
+    public:
 
-    /** Constructor */
-    NoiseGenerator(QObject *parent = 0);
+	/** Constructor */
+	NoiseGenerator(QObject *parent = 0);
 
-    /** Destructor */
-    virtual ~NoiseGenerator();
+	/** Destructor */
+	virtual ~NoiseGenerator();
 
-    /**
-     * produces a block of noise,
-     * @see Kwave::SampleSource::goOn()
-     */
-    virtual void goOn();
+	/**
+	 * produces a block of noise,
+	 * @see Kwave::SampleSource::goOn()
+	 */
+	virtual void goOn();
 
-signals:
+    signals:
 
-    /** emits a block with noise */
-    void output(Kwave::SampleArray data);
+	/** emits a block with noise */
+	void output(Kwave::SampleArray data);
 
-private:
+    private:
 
-    /** array with noise, will be re-used */
-    Kwave::SampleArray m_noise;
+	/** array with noise, will be re-used */
+	Kwave::SampleArray m_noise;
 
-};
+    };
+}
 
 #endif /* _NOISE_GENERATOR_H_ */
+
+//***************************************************************************
+//***************************************************************************

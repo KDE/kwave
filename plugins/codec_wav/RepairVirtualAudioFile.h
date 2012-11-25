@@ -22,46 +22,53 @@
 #include <QList>
 #include "libkwave/VirtualAudioFile.h"
 
-class RecoverySource;
 class QIODevice;
 
-class RepairVirtualAudioFile: public Kwave::VirtualAudioFile
+namespace Kwave
 {
-public:
-    /**
-     * Constructor
-     * @param device QIODevice used as source
-     * @param repair_list list of RecoverySource objects for
-     *                    building the new file
-     */
-    RepairVirtualAudioFile(QIODevice &device,
-                           QList<RecoverySource *> *repair_list);
+    class RecoverySource;
 
-    /** Destructor */
-    virtual ~RepairVirtualAudioFile();
+    class RepairVirtualAudioFile: public Kwave::VirtualAudioFile
+    {
+    public:
+	/**
+	 * Constructor
+	 * @param device QIODevice used as source
+	 * @param repair_list list of RecoverySource objects for
+	 *                    building the new file
+	 */
+	RepairVirtualAudioFile(QIODevice &device,
+	                       QList<Kwave::RecoverySource *> *repair_list);
 
-    /** reads a block of data */
-    virtual unsigned int read(char *data, unsigned int nbytes);
+	/** Destructor */
+	virtual ~RepairVirtualAudioFile();
 
-    /** returns the length of the file */
-    virtual qint64 length();
+	/** reads a block of data */
+	virtual unsigned int read(char *data, unsigned int nbytes);
 
-    /** writes a block of data */
-    virtual unsigned int write(const char *data, unsigned int nbytes);
+	/** returns the length of the file */
+	virtual qint64 length();
 
-    /** seek to a file position */
-    virtual qint64 seek(qint64 offset, bool is_relative);
+	/** writes a block of data */
+	virtual unsigned int write(const char *data, unsigned int nbytes);
 
-    /** returns the file position */
-    virtual qint64 tell();
+	/** seek to a file position */
+	virtual qint64 seek(qint64 offset, bool is_relative);
 
-private:
+	/** returns the file position */
+	virtual qint64 tell();
 
-    /** position within the virtual file */
-    unsigned int m_position;
+    private:
 
-    /** list of sources for the recovered files */
-    QList<RecoverySource *> *m_repair_list;
-};
+	/** position within the virtual file */
+	unsigned int m_position;
+
+	/** list of sources for the recovered files */
+	QList<Kwave::RecoverySource *> *m_repair_list;
+    };
+}
 
 #endif /* _REPAIR_VIRTUAL_AUDIO_FILE_H_ */
+
+//***************************************************************************
+//***************************************************************************

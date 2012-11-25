@@ -40,23 +40,23 @@
 
 #include "SampleRatePlugin.h"
 
-KWAVE_PLUGIN(SampleRatePlugin, "samplerate", "2.1",
+KWAVE_PLUGIN(Kwave::SampleRatePlugin, "samplerate", "2.1",
              I18N_NOOP("Sample Rate Conversion"), "Thomas Eschenbacher");
 
 //***************************************************************************
-SampleRatePlugin::SampleRatePlugin(const Kwave::PluginContext &context)
+Kwave::SampleRatePlugin::SampleRatePlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context), m_params(), m_new_rate(0.0),
      m_whole_signal(false)
 {
 }
 
 //***************************************************************************
-SampleRatePlugin::~SampleRatePlugin()
+Kwave::SampleRatePlugin::~SampleRatePlugin()
 {
 }
 
 //***************************************************************************
-int SampleRatePlugin::interpreteParameters(QStringList &params)
+int Kwave::SampleRatePlugin::interpreteParameters(QStringList &params)
 {
     bool ok = false;
     QString param;
@@ -87,7 +87,7 @@ int SampleRatePlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-void SampleRatePlugin::run(QStringList params)
+void Kwave::SampleRatePlugin::run(QStringList params)
 {
     Kwave::SignalManager &mgr = signalManager();
 

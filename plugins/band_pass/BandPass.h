@@ -30,77 +30,84 @@
 #include "libkwave/SampleSource.h"
 #include "libkwave/TransmissionFunction.h"
 
-class BandPass: public Kwave::SampleSource,
-                public Kwave::TransmissionFunction
+namespace Kwave
 {
-    Q_OBJECT
-public:
 
-    /** Constructor */
-    BandPass();
+    class BandPass: public Kwave::SampleSource,
+                    public Kwave::TransmissionFunction
+    {
+	Q_OBJECT
+    public:
 
-    /** Destructor */
-    virtual ~BandPass();
+	/** Constructor */
+	BandPass();
 
-    /** does the calculation */
-    virtual void goOn();
+	/** Destructor */
+	virtual ~BandPass();
 
-    /** @see TransmissionFunction::at() */
-    virtual double at(double f);
+	/** does the calculation */
+	virtual void goOn();
 
-signals:
+	/** @see TransmissionFunction::at() */
+	virtual double at(double f);
 
-    /** emits a block with the filtered data */
-    void output(Kwave::SampleArray data);
+    signals:
 
-public slots:
+	/** emits a block with the filtered data */
+	void output(Kwave::SampleArray data);
 
-    /** receives input data */
-    void input(Kwave::SampleArray data);
+    public slots:
 
-    /**
-     * Sets the center frequency, normed to [0...2Pi]. The calculation is:
-     * fc = frequency [Hz] * 2 * Pi / f_sample [Hz].
-     * The default setting is 0.5.
-     */
-    void setFrequency(const QVariant fc);
+	/** receives input data */
+	void input(Kwave::SampleArray data);
 
-    /**
-     * Sets the bandwidth, normed to [0...2Pi]. The calculation is:
-     * bw = bandwidth [Hz] * 2 * Pi / f_sample [Hz].
-     * The default setting is 0.1.
-     */
-    void setBandwidth(const QVariant bw);
+	/**
+	 * Sets the center frequency, normed to [0...2Pi]. The calculation is:
+	 * fc = frequency [Hz] * 2 * Pi / f_sample [Hz].
+	 * The default setting is 0.5.
+	 */
+	void setFrequency(const QVariant fc);
 
-private:
+	/**
+	 * Sets the bandwidth, normed to [0...2Pi]. The calculation is:
+	 * bw = bandwidth [Hz] * 2 * Pi / f_sample [Hz].
+	 * The default setting is 0.1.
+	 */
+	void setBandwidth(const QVariant bw);
 
-    /** reset/initialize the filter coefficients */
-    void initFilter();
+    private:
 
-    /**
-     * set the coefficients for a given frequency
-     * @param freq normed frequency
-     * @param R normed bandwidth
-     */
-    void setfilter_2polebp(double freq, double R);
+	/** reset/initialize the filter coefficients */
+	void initFilter();
 
-private:
+	/**
+	 * set the coefficients for a given frequency
+	 * @param freq normed frequency
+	 * @param R normed bandwidth
+	 */
+	void setfilter_2polebp(double freq, double R);
 
-    /** buffer for input */
-    Kwave::SampleArray m_buffer;
+    private:
 
-    /** center frequency */
-    double m_frequency;
+	/** buffer for input */
+	Kwave::SampleArray m_buffer;
 
-    /** bandwidth */
-    double m_bandwidth;
+	/** center frequency */
+	double m_frequency;
 
-    /** structure with the filter coefficients */
-    struct {
-	double cx,cx1,cx2,cy1,cy2;
-	double x,x1,x2,y,y1,y2;
-    } m_filter;
+	/** bandwidth */
+	double m_bandwidth;
 
-};
+	/** structure with the filter coefficients */
+	struct {
+	    double cx,cx1,cx2,cy1,cy2;
+	    double x,x1,x2,y,y1,y2;
+	} m_filter;
+
+    };
+}
 
 #endif /* _BAND_PASS_H_ */
+
+//***************************************************************************
+//***************************************************************************

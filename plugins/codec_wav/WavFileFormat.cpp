@@ -23,7 +23,7 @@
 #include "WavFileFormat.h"
 
 //***************************************************************************
-QList<int> audiofileCompressionTypes()
+QList<int> Kwave::audiofileCompressionTypes()
 {
     QList<int> list;
 

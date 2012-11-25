@@ -49,7 +49,7 @@ static const float F_PEAK_RISE = (F_FAST_RISE);
 static const float F_PEAK_DECAY = (0.005);
 
 //***************************************************************************
-LevelMeter::LevelMeter(QWidget *parent)
+Kwave::LevelMeter::LevelMeter(QWidget *parent)
     :QWidget(parent),
     m_tracks(0), m_sample_rate(0), m_yf(), m_yp(),
     m_fast_queue(), m_peak_queue(),
@@ -66,25 +66,25 @@ LevelMeter::LevelMeter(QWidget *parent)
 }
 
 //***************************************************************************
-LevelMeter::~LevelMeter()
+Kwave::LevelMeter::~LevelMeter()
 {
     setTracks(0);
 }
 
 //***************************************************************************
-void LevelMeter::paintEvent(QPaintEvent *)
+void Kwave::LevelMeter::paintEvent(QPaintEvent *)
 {
     drawContents();
 }
 
 //***************************************************************************
-void LevelMeter::resizeEvent(QResizeEvent *)
+void Kwave::LevelMeter::resizeEvent(QResizeEvent *)
 {
     repaint();
 }
 
 //***************************************************************************
-void LevelMeter::setTracks(unsigned int tracks)
+void Kwave::LevelMeter::setTracks(unsigned int tracks)
 {
     if (static_cast<int>(tracks) == m_tracks) return;
     m_tracks = tracks;
@@ -92,14 +92,15 @@ void LevelMeter::setTracks(unsigned int tracks)
 }
 
 //***************************************************************************
-void LevelMeter::setSampleRate(double rate)
+void Kwave::LevelMeter::setSampleRate(double rate)
 {
     if (static_cast<float>(rate) == m_sample_rate) return;
     m_sample_rate = static_cast<float>(rate);
 }
 
 //***************************************************************************
-void LevelMeter::updateTrack(unsigned int track, Kwave::SampleArray &buffer)
+void Kwave::LevelMeter::updateTrack(unsigned int track,
+                                    Kwave::SampleArray &buffer)
 {
     Q_ASSERT(static_cast<int>(track) < m_tracks);
     if (static_cast<int>(track) >= m_tracks) return;
@@ -169,7 +170,7 @@ void LevelMeter::updateTrack(unsigned int track, Kwave::SampleArray &buffer)
 }
 
 //***************************************************************************
-void LevelMeter::reset()
+void Kwave::LevelMeter::reset()
 {
     if (m_timer && m_timer->isActive()) m_timer->stop();
 
@@ -187,8 +188,8 @@ void LevelMeter::reset()
 }
 
 //***************************************************************************
-void LevelMeter::enqueue(unsigned int track, float fast, float peak,
-                         unsigned int queue_depth)
+void Kwave::LevelMeter::enqueue(unsigned int track, float fast, float peak,
+                                unsigned int queue_depth)
 {
     Q_ASSERT(static_cast<int>(track) < m_tracks);
     Q_ASSERT(m_peak_queue.size() == m_fast_queue.size());
@@ -221,7 +222,7 @@ void LevelMeter::enqueue(unsigned int track, float fast, float peak,
 }
 
 //***************************************************************************
-bool LevelMeter::dequeue(unsigned int track, float &fast, float &peak)
+bool Kwave::LevelMeter::dequeue(unsigned int track, float &fast, float &peak)
 {
     Q_ASSERT(m_peak_queue.size() == m_fast_queue.size());
     Q_ASSERT(m_fast_queue.size() >= m_tracks);
@@ -245,7 +246,7 @@ bool LevelMeter::dequeue(unsigned int track, float &fast, float &peak)
 }
 
 //***************************************************************************
-void LevelMeter::timedUpdate()
+void Kwave::LevelMeter::timedUpdate()
 {
     float fast;
     float peak;
@@ -267,7 +268,7 @@ void LevelMeter::timedUpdate()
 }
 
 //***************************************************************************
-void LevelMeter::drawScale(QPainter &p)
+void Kwave::LevelMeter::drawScale(QPainter &p)
 {
     // draw the levels in 3dB steps, like -12dB -9dB  -6dB  -3dB and 0dB
     QFontMetrics fm = p.fontMetrics();
@@ -339,7 +340,7 @@ void LevelMeter::drawScale(QPainter &p)
   The above copyright notice and this permission notice shall be included in
   all copies or substantial portions of the Software.
 */
-void LevelMeter::drawContents()
+void Kwave::LevelMeter::drawContents()
 {
     QPainter p;
     unsigned int track;

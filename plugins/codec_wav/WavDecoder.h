@@ -30,85 +30,92 @@
 
 #include "WavPropertyMap.h"
 
-class RecoverySource;
-class RIFFChunk;
-class RIFFParser;
-
 class QCString;
 
-namespace Kwave { class VirtualAudioFile; }
-
-class WavDecoder: public Kwave::Decoder
+namespace Kwave
 {
-public:
-    /** Constructor */
-    WavDecoder();
 
-    /** Destructor */
-    virtual ~WavDecoder();
+    class RecoverySource;
+    class RIFFChunk;
+    class RIFFParser;
+    class VirtualAudioFile;
 
-    /** Returns a new instance of the decoder */
-    virtual Kwave::Decoder *instance();
+    class WavDecoder: public Kwave::Decoder
+    {
+    public:
+	/** Constructor */
+	WavDecoder();
 
-    /**
-     * Opens the source and decodes the header information.
-     * @param widget a widget that can be used for displaying
-     *        message boxes or dialogs
-     * @param source file or other source with a stream of bytes
-     * @return true if succeeded, false on errors
-     */
-    virtual bool open(QWidget *widget, QIODevice &source);
+	/** Destructor */
+	virtual ~WavDecoder();
 
-    /**
-     * Decodes a stream of bytes into a MultiWriter
-     * @param widget a widget that can be used for displaying
-     *        message boxes or dialogs
-     * @param dst MultiWriter that receives the audio data
-     * @return true if succeeded, false on errors
-     */
-    virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst);
+	/** Returns a new instance of the decoder */
+	virtual Kwave::Decoder *instance();
 
-    /**
-     * Closes the source.
-     */
-    virtual void close();
+	/**
+	 * Opens the source and decodes the header information.
+	 * @param widget a widget that can be used for displaying
+	 *        message boxes or dialogs
+	 * @param source file or other source with a stream of bytes
+	 * @return true if succeeded, false on errors
+	 */
+	virtual bool open(QWidget *widget, QIODevice &source);
 
-protected:
-    /**
-     * Fix all inconsistencies and create a repar list.
-     * @internal
-     */
-    bool repair(QList<RecoverySource *> *repair_list,
-                RIFFChunk *riff_chunk, RIFFChunk *fmt_chunk,
-                RIFFChunk *data_chunk);
+	/**
+	 * Decodes a stream of bytes into a MultiWriter
+	 * @param widget a widget that can be used for displaying
+	 *        message boxes or dialogs
+	 * @param dst MultiWriter that receives the audio data
+	 * @return true if succeeded, false on errors
+	 */
+	virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst);
 
-    /**
-     * Adds a chunk to a repair list
-     * @internal
-     */
-    bool repairChunk(QList<RecoverySource *> *repair_list, RIFFChunk *chunk,
-                     u_int32_t &offset);
+	/**
+	 * Closes the source.
+	 */
+	virtual void close();
 
-private:
+    protected:
+	/**
+	 * Fix all inconsistencies and create a repar list.
+	 * @internal
+	 */
+	bool repair(QList<Kwave::RecoverySource *> *repair_list,
+	            Kwave::RIFFChunk *riff_chunk,
+	            Kwave::RIFFChunk *fmt_chunk,
+	            Kwave::RIFFChunk *data_chunk);
 
-    /** adds an entry to m_known_chunks and to m_property_map */
-    void addPropertyChunk(const Kwave::FileProperty property,
-                          const QByteArray &chunk_name);
+	/**
+	 * Adds a chunk to a repair list
+	 * @internal
+	 */
+	bool repairChunk(QList<Kwave::RecoverySource *> *repair_list,
+	                 Kwave::RIFFChunk *chunk, u_int32_t &offset);
 
-private:
+    private:
 
-    /** source of the audio data */
-    QIODevice *m_source;
+	/** adds an entry to m_known_chunks and to m_property_map */
+	void addPropertyChunk(const Kwave::FileProperty property,
+	                      const QByteArray &chunk_name);
 
-    /** adapter for libaudiofile */
-    Kwave::VirtualAudioFile *m_src_adapter;
+    private:
 
-    /** list of all known chunk names */
-    QStringList m_known_chunks;
+	/** source of the audio data */
+	QIODevice *m_source;
 
-    /** map for translating chunk names to FileInfo properties */
-    WavPropertyMap m_property_map;
+	/** adapter for libaudiofile */
+	Kwave::VirtualAudioFile *m_src_adapter;
 
-};
+	/** list of all known chunk names */
+	QStringList m_known_chunks;
+
+	/** map for translating chunk names to FileInfo properties */
+	Kwave::WavPropertyMap m_property_map;
+
+    };
+}
 
 #endif /* _WAV_DECODER_H_ */
+
+//***************************************************************************
+//***************************************************************************

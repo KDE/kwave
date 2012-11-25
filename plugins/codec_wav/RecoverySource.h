@@ -20,44 +20,50 @@
 
 #include "config.h"
 
-class RecoverySource
+namespace Kwave
 {
-public:
-    /**
-     * Constructor
-     * @param offset position within the recovered file
-     * @param length number of bytes of the recovered area
-     */
-    RecoverySource(unsigned int offset, unsigned int length);
+    class RecoverySource
+    {
+    public:
+	/**
+	* Constructor
+	* @param offset position within the recovered file
+	* @param length number of bytes of the recovered area
+	*/
+	RecoverySource(unsigned int offset, unsigned int length);
 
-    /** Destructor */
-    virtual ~RecoverySource() {};
+	/** Destructor */
+	virtual ~RecoverySource() {};
 
-    /** Returns the start offset in the recovered file */
-    virtual unsigned int offset() const;
+	/** Returns the start offset in the recovered file */
+	virtual unsigned int offset() const;
 
-    /** Returns the number of bytes of the recovered range */
-    virtual unsigned int length() const;
+	/** Returns the number of bytes of the recovered range */
+	virtual unsigned int length() const;
 
-    /** Returns the end offset in the recovered file */
-    virtual unsigned int end() const;
+	/** Returns the end offset in the recovered file */
+	virtual unsigned int end() const;
 
-    /**
-     * Reads bytes from the recovered file into a buffer
-     * @param offset position within the recovered file
-     * @param data pointer to the buffer to be filled
-     * @param bytes number of bytes to read
-     * @return number of successfully read bytes
-     */
-    virtual unsigned int read(unsigned int offset, char *data,
-                              unsigned int bytes) = 0;
+	/**
+	* Reads bytes from the recovered file into a buffer
+	* @param offset position within the recovered file
+	* @param data pointer to the buffer to be filled
+	* @param bytes number of bytes to read
+	* @return number of successfully read bytes
+	*/
+	virtual unsigned int read(unsigned int offset, char *data,
+	                          unsigned int bytes) = 0;
 
-private:
-    /** offset in the file */
-    unsigned int m_offset;
+    private:
+	/** offset in the file */
+	unsigned int m_offset;
 
-    /** length in bytes */
-    unsigned int m_length;
-};
+	/** length in bytes */
+	unsigned int m_length;
+    };
+}
 
 #endif /* _RECOVERY_SOURCE_H_ */
+
+//***************************************************************************
+//***************************************************************************

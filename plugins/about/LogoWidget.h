@@ -30,51 +30,55 @@ class QTimer;
 /** number of sine waves */
 #define MAXSIN 5
 
-//**********************************************************
-class LogoWidget : public QWidget
+namespace Kwave
 {
-    Q_OBJECT
+    class LogoWidget : public QWidget
+    {
+	Q_OBJECT
 
-public:
-    /** Constructor */
-    LogoWidget(QWidget *parent);
+    public:
+	/** Constructor */
+	LogoWidget(QWidget *parent);
 
-    /** Destructor */
-    virtual ~LogoWidget();
+	/** Destructor */
+	virtual ~LogoWidget();
 
-public slots:
-    /** animates the next step of the logo */
-    void doAnim();
+    public slots:
+	/** animates the next step of the logo */
+	void doAnim();
 
-protected:
-    /** repaints */
-    void paintEvent(QPaintEvent *);
+    protected:
+	/** repaints */
+	void paintEvent(QPaintEvent *);
 
-private:
-    /** width of the widget */
-    int m_width;
+    private:
+	/** width of the widget */
+	int m_width;
 
-    /** height of the widget */
-    int m_height;
+	/** height of the widget */
+	int m_height;
 
-    /** set to true for repaint */
-    bool m_repaint;
+	/** set to true for repaint */
+	bool m_repaint;
 
-    /** phase of sinus for animation */
-    double m_deg[MAXSIN];
+	/** phase of sinus for animation */
+	double m_deg[MAXSIN];
 
-    /** QImage for drawing */
-    QImage *m_image;
+	/** QImage for drawing */
+	QImage *m_image;
 
-    /** image with the logo */
-    QPixmap m_logo;
+	/** image with the logo */
+	QPixmap m_logo;
 
-    /** timer for refresh */
-    QTimer *m_timer;
+	/** timer for refresh */
+	QTimer *m_timer;
 
-    /** "H" channel of the sine wave color */
-    double m_color_h;
-};
+	/** "H" channel of the sine wave color */
+	double m_color_h;
+    };
+}
 
 #endif  /* _LOGO_WIDGET_H_ */
 
+//***************************************************************************
+//***************************************************************************

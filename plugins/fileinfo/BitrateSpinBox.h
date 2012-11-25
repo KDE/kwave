@@ -24,39 +24,46 @@
 #include <QSpinBox>
 #include <QList>
 
-class BitrateSpinBox: public QSpinBox
+namespace Kwave
 {
-    Q_OBJECT
-public:
-    /** Constructor */
-    BitrateSpinBox(QWidget *parent);
 
-    /** Destructor */
-    virtual ~BitrateSpinBox();
+    class BitrateSpinBox: public QSpinBox
+    {
+	Q_OBJECT
+    public:
+	/** Constructor */
+	BitrateSpinBox(QWidget *parent);
 
-    /** sets a list of allowed bitrates */
-    virtual void allowRates(const QList<int> &list);
+	/** Destructor */
+	virtual ~BitrateSpinBox();
 
-signals:
+	/** sets a list of allowed bitrates */
+	virtual void allowRates(const QList<int> &list);
 
-    /** emitted when the value changed and snapped in to a bitrate */
-    void snappedIn(int bitrate);
+    signals:
 
-public slots:
+	/** emitted when the value changed and snapped in to a bitrate */
+	void snappedIn(int bitrate);
 
-    /** snaps in to a new value */
-    virtual void snapIn(int value);
+    public slots:
 
-protected:
+	/** snaps in to a new value */
+	virtual void snapIn(int value);
 
-    /** find the nearest bitrate index of a current position */
-    int nearestIndex(int rate);
+    protected:
 
-private:
+	/** find the nearest bitrate index of a current position */
+	int nearestIndex(int rate);
 
-    /** list of allowed bitrates, sorted ascending */
-    QList<int> m_rates;
+    private:
 
-};
+	/** list of allowed bitrates, sorted ascending */
+	QList<int> m_rates;
+
+    };
+}
 
 #endif /* _BITRATE_SPIN_BOX_H_ */
+
+//***************************************************************************
+//***************************************************************************

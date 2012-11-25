@@ -48,18 +48,17 @@
 #include "RecordDialog.h"
 #include "RecordPlugin.h"
 #include "RecordThread.h"
-#include "SampleDecoder.h"
 #include "SampleDecoderLinear.h"
 #include "Record-ALSA.h"
 #include "Record-OSS.h"
 
-KWAVE_PLUGIN(RecordPlugin, "record", "2.2",
+KWAVE_PLUGIN(Kwave::RecordPlugin, "record", "2.2",
              I18N_NOOP("Record"), "Thomas Eschenbacher");
 
 //***************************************************************************
-RecordPlugin::RecordPlugin(const Kwave::PluginContext &context)
+Kwave::RecordPlugin::RecordPlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context), m_method(), m_device_name(), m_controller(),
-     m_state(REC_EMPTY), m_device(0),
+     m_state(Kwave::REC_EMPTY), m_device(0),
      m_dialog(0), m_thread(0), m_decoder(0), m_prerecording_queue(),
      m_writers(0), m_buffers_recorded(0), m_inhibit_count(0),
      m_trigger_value()
@@ -67,7 +66,7 @@ RecordPlugin::RecordPlugin(const Kwave::PluginContext &context)
 }
 
 //***************************************************************************
-RecordPlugin::~RecordPlugin()
+Kwave::RecordPlugin::~RecordPlugin()
 {
     Q_ASSERT(!m_dialog);
     if (m_dialog) delete m_dialog;
@@ -86,18 +85,18 @@ RecordPlugin::~RecordPlugin()
 }
 
 //***************************************************************************
-QStringList *RecordPlugin::setup(QStringList &previous_params)
+QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
 {
     qDebug("RecordPlugin::setup");
 
     // create the setup dialog
-    m_dialog = new RecordDialog(parentWidget(), previous_params,
-                                &m_controller);
+    m_dialog = new Kwave::RecordDialog(parentWidget(), previous_params,
+                                       &m_controller);
     Q_ASSERT(m_dialog);
     if (!m_dialog) return 0;
 
     // create the lowlevel recording thread
-    m_thread = new RecordThread();
+    m_thread = new Kwave::RecordThread();
     Q_ASSERT(m_thread);
     if (!m_thread) {
 	delete m_dialog;
@@ -106,8 +105,8 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     }
 
     // connect some signals of the setup dialog
-    connect(m_dialog, SIGNAL(sigMethodChanged(record_method_t)),
-            this,     SLOT(setMethod(record_method_t)));
+    connect(m_dialog, SIGNAL(sigMethodChanged(Kwave::record_method_t)),
+            this,     SLOT(setMethod(Kwave::record_method_t)));
     connect(m_dialog, SIGNAL(sigDeviceChanged(const QString &)),
             this,     SLOT(setDevice(const QString &)));
 
@@ -148,8 +147,8 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
             this,          SLOT(startRecording()));
     connect(&m_controller, SIGNAL(sigStopRecord(int)),
             &m_controller, SLOT(deviceRecordStopped(int)));
-    connect(&m_controller, SIGNAL(stateChanged(RecordState)),
-            this,          SLOT(stateChanged(RecordState)));
+    connect(&m_controller, SIGNAL(stateChanged(Kwave::RecordState)),
+            this,          SLOT(stateChanged(Kwave::RecordState)));
 
     // connect record controller and record thread
     connect(m_thread,      SIGNAL(stopped(int)),
@@ -210,14 +209,14 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
 }
 
 //***************************************************************************
-void RecordPlugin::notice(QString message)
+void Kwave::RecordPlugin::notice(QString message)
 {
     Q_ASSERT(m_dialog);
     if (m_dialog) m_dialog->message(message);
 }
 
 //***************************************************************************
-void RecordPlugin::closeDevice()
+void Kwave::RecordPlugin::closeDevice()
 {
     if (m_device) {
 	m_device->close();
@@ -227,7 +226,7 @@ void RecordPlugin::closeDevice()
 }
 
 //***************************************************************************
-void RecordPlugin::setMethod(record_method_t method)
+void Kwave::RecordPlugin::setMethod(Kwave::record_method_t method)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
@@ -255,15 +254,15 @@ void RecordPlugin::setMethod(record_method_t method)
 	do {
 	    switch (method) {
 #ifdef HAVE_OSS_SUPPORT
-		case RECORD_OSS:
-		    m_device = new RecordOSS();
+		case Kwave::RECORD_OSS:
+		    m_device = new Kwave::RecordOSS();
 		    Q_ASSERT(m_device);
 		    break;
 #endif /* HAVE_OSS_SUPPORT */
 
 #ifdef HAVE_ALSA_SUPPORT
-		case RECORD_ALSA:
-		    m_device = new RecordALSA();
+		case Kwave::RECORD_ALSA:
+		    m_device = new Kwave::RecordALSA();
 		    Q_ASSERT(m_device);
 		    break;
 #endif /* HAVE_ALSA_SUPPORT */
@@ -273,7 +272,7 @@ void RecordPlugin::setMethod(record_method_t method)
 		    if (!searching) {
 			// start trying out all other methods
 			searching = true;
-			method = RECORD_NONE;
+			method = Kwave::RECORD_NONE;
 			++method;
 			continue;
 		    } else {
@@ -282,7 +281,7 @@ void RecordPlugin::setMethod(record_method_t method)
 		    }
 		    qDebug("unsupported recording method - trying next (%d)",
 		           static_cast<int>(method));
-		    if (method != RECORD_INVALID) continue;
+		    if (method != Kwave::RECORD_INVALID) continue;
 	    }
 	    break;
 	} while (true);
@@ -290,7 +289,7 @@ void RecordPlugin::setMethod(record_method_t method)
     Q_ASSERT(m_device);
 
     // if we found no recording method
-    if (method == RECORD_INVALID) {
+    if (method == Kwave::RECORD_INVALID) {
 	qWarning("found no valid recording method");
     }
 
@@ -318,7 +317,7 @@ void RecordPlugin::setMethod(record_method_t method)
 }
 
 //***************************************************************************
-void RecordPlugin::setDevice(const QString &device)
+void Kwave::RecordPlugin::setDevice(const QString &device)
 {
     Q_ASSERT(m_dialog);
     Q_ASSERT(m_device);
@@ -408,7 +407,7 @@ void RecordPlugin::setDevice(const QString &device)
 }
 
 //***************************************************************************
-void RecordPlugin::changeTracks(unsigned int new_tracks)
+void Kwave::RecordPlugin::changeTracks(unsigned int new_tracks)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
@@ -473,7 +472,7 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
 }
 
 //***************************************************************************
-void RecordPlugin::changeSampleRate(double new_rate)
+void Kwave::RecordPlugin::changeSampleRate(double new_rate)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
@@ -530,7 +529,7 @@ void RecordPlugin::changeSampleRate(double new_rate)
 }
 
 //***************************************************************************
-void RecordPlugin::changeCompression(int new_compression)
+void Kwave::RecordPlugin::changeCompression(int new_compression)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
@@ -590,7 +589,7 @@ void RecordPlugin::changeCompression(int new_compression)
 }
 
 //***************************************************************************
-void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
+void Kwave::RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
@@ -641,7 +640,7 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 }
 
 //***************************************************************************
-void RecordPlugin::changeSampleFormat(Kwave::SampleFormat new_format)
+void Kwave::RecordPlugin::changeSampleFormat(Kwave::SampleFormat new_format)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
@@ -694,14 +693,14 @@ void RecordPlugin::changeSampleFormat(Kwave::SampleFormat new_format)
 }
 
 //***************************************************************************
-void RecordPlugin::buffersChanged()
+void Kwave::RecordPlugin::buffersChanged()
 {
     InhibitRecordGuard _lock(*this); // don't record while settings change
     // this implicitely activates the new settings
 }
 
 //***************************************************************************
-void RecordPlugin::enterInhibit()
+void Kwave::RecordPlugin::enterInhibit()
 {
     m_inhibit_count++;
     if ((m_inhibit_count == 1) && m_thread) {
@@ -719,7 +718,7 @@ void RecordPlugin::enterInhibit()
 }
 
 //***************************************************************************
-void RecordPlugin::leaveInhibit()
+void Kwave::RecordPlugin::leaveInhibit()
 {
     Q_ASSERT(m_inhibit_count);
     Q_ASSERT(m_dialog);
@@ -748,19 +747,19 @@ void RecordPlugin::leaveInhibit()
 }
 
 //***************************************************************************
-bool RecordPlugin::paramsValid()
+bool Kwave::RecordPlugin::paramsValid()
 {
     if (!m_thread || !m_device || !m_dialog) return false;
     if (m_device_name.isNull()) return false;
 
-    const RecordParams &params = m_dialog->params();
+    const Kwave::RecordParams &params = m_dialog->params();
     if (params.tracks < 1) return false;
 
     return true;
 }
 
 //***************************************************************************
-void RecordPlugin::resetRecording(bool &accepted)
+void Kwave::RecordPlugin::resetRecording(bool &accepted)
 {
     InhibitRecordGuard _lock(*this);
 
@@ -776,7 +775,7 @@ void RecordPlugin::resetRecording(bool &accepted)
 }
 
 //***************************************************************************
-void RecordPlugin::setupRecordThread()
+void Kwave::RecordPlugin::setupRecordThread()
 {
     Q_ASSERT(m_thread);
     Q_ASSERT(m_dialog);
@@ -793,7 +792,7 @@ void RecordPlugin::setupRecordThread()
     m_decoder = 0;
 
     // our own reference to the record parameters
-    const RecordParams &params = m_dialog->params();
+    const Kwave::RecordParams &params = m_dialog->params();
     if (!paramsValid()) return;
 
     // create a decoder for the current sample format
@@ -803,7 +802,7 @@ void RecordPlugin::setupRecordThread()
 		case Kwave::SampleFormat::Unsigned:
 		case Kwave::SampleFormat::Signed:
 		    // decoder for all linear formats
-		    m_decoder = new SampleDecoderLinear(
+		    m_decoder = new Kwave::SampleDecoderLinear(
 			m_device->sampleFormat(),
 			m_device->bitsPerSample(),
 			m_device->endianness()
@@ -863,7 +862,7 @@ void RecordPlugin::setupRecordThread()
 }
 
 //***************************************************************************
-void RecordPlugin::startRecording()
+void Kwave::RecordPlugin::startRecording()
 {
     Q_ASSERT(m_dialog);
     Q_ASSERT(m_thread);
@@ -873,7 +872,7 @@ void RecordPlugin::startRecording()
     InhibitRecordGuard _lock(*this); // don't record while settings change
     qDebug("RecordPlugin::startRecording()");
 
-    if ((m_state != REC_PAUSED) || !m_decoder) {
+    if ((m_state != Kwave::REC_PAUSED) || !m_decoder) {
 	double rate = m_dialog->params().sample_rate;
 	unsigned int tracks = m_dialog->params().tracks;
 	unsigned int samples = 0;
@@ -954,7 +953,7 @@ void RecordPlugin::startRecording()
 }
 
 //***************************************************************************
-void RecordPlugin::recordStopped(int reason)
+void Kwave::RecordPlugin::recordStopped(int reason)
 {
     qDebug("RecordPlugin::recordStopped(%d)", reason);
     if (reason >= 0) return; // nothing to do
@@ -986,16 +985,16 @@ void RecordPlugin::recordStopped(int reason)
 }
 
 //***************************************************************************
-void RecordPlugin::stateChanged(RecordState state)
+void Kwave::RecordPlugin::stateChanged(Kwave::RecordState state)
 {
     qDebug("RecordPlugin::stateChanged(%s)", m_controller.stateName(state));
 
     m_state = state;
     switch (m_state) {
-	case REC_UNINITIALIZED:
-	case REC_EMPTY:
-	case REC_PAUSED:
-	case REC_DONE:
+	case Kwave::REC_UNINITIALIZED:
+	case Kwave::REC_EMPTY:
+	case Kwave::REC_PAUSED:
+	case Kwave::REC_DONE:
 	    // reset buffer status
 	    if (m_writers) {
 		m_writers->flush();
@@ -1011,7 +1010,7 @@ void RecordPlugin::stateChanged(RecordState state)
 }
 
 //***************************************************************************
-void RecordPlugin::updateBufferProgressBar()
+void Kwave::RecordPlugin::updateBufferProgressBar()
 {
     Q_ASSERT(m_dialog);
     Q_ASSERT(m_thread);
@@ -1020,8 +1019,8 @@ void RecordPlugin::updateBufferProgressBar()
     unsigned int buffers_total = m_dialog->params().buffer_count;
 
     // if we are still recording: update the progress bar
-    if ((m_state != REC_EMPTY) && (m_state != REC_PAUSED) &&
-        (m_state != REC_DONE))
+    if ((m_state != Kwave::REC_EMPTY) && (m_state != Kwave::REC_PAUSED) &&
+        (m_state != Kwave::REC_DONE))
     {
 	// count up the number of recorded buffers
 	m_buffers_recorded++;
@@ -1044,10 +1043,10 @@ void RecordPlugin::updateBufferProgressBar()
 }
 
 //***************************************************************************
-void RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
-                         unsigned int bytes_per_sample,
-                         unsigned int track,
-                         unsigned int tracks)
+void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
+                                unsigned int bytes_per_sample,
+                                unsigned int track,
+                                unsigned int tracks)
 {
     unsigned int samples = raw_data.size() / bytes_per_sample / tracks;
 
@@ -1168,8 +1167,8 @@ void RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 }
 
 //***************************************************************************
-bool RecordPlugin::checkTrigger(unsigned int track,
-                                Kwave::SampleArray &buffer)
+bool Kwave::RecordPlugin::checkTrigger(unsigned int track,
+                                       Kwave::SampleArray &buffer)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return false;
@@ -1257,8 +1256,8 @@ bool RecordPlugin::checkTrigger(unsigned int track,
 }
 
 //***************************************************************************
-void RecordPlugin::enqueuePrerecording(unsigned int track,
-                                       const Kwave::SampleArray &decoded)
+void Kwave::RecordPlugin::enqueuePrerecording(unsigned int track,
+                                              const Kwave::SampleArray &decoded)
 {
     Q_ASSERT(m_dialog);
     Q_ASSERT(static_cast<int>(track) < m_prerecording_queue.size());
@@ -1270,7 +1269,7 @@ void RecordPlugin::enqueuePrerecording(unsigned int track,
 }
 
 //***************************************************************************
-void RecordPlugin::flushPrerecordingQueue()
+void Kwave::RecordPlugin::flushPrerecordingQueue()
 {
     if (!m_prerecording_queue.size()) return;
     Q_ASSERT(m_dialog);
@@ -1278,7 +1277,7 @@ void RecordPlugin::flushPrerecordingQueue()
     Q_ASSERT(m_decoder);
     if (!m_dialog || !m_thread || !m_decoder) return;
 
-    const RecordParams &params = m_dialog->params();
+    const Kwave::RecordParams &params = m_dialog->params();
     const unsigned int tracks = params.tracks;
     Q_ASSERT(tracks);
     if (!tracks) return;
@@ -1320,7 +1319,7 @@ void RecordPlugin::flushPrerecordingQueue()
 }
 
 //***************************************************************************
-void RecordPlugin::processBuffer()
+void Kwave::RecordPlugin::processBuffer()
 {
     bool recording_done = false;
 
@@ -1335,7 +1334,7 @@ void RecordPlugin::processBuffer()
     // we received a buffer -> update the progress bar
     updateBufferProgressBar();
 
-    const RecordParams &params = m_dialog->params();
+    const Kwave::RecordParams &params = m_dialog->params();
     const unsigned int tracks = params.tracks;
     Q_ASSERT(tracks);
     if (!tracks) return;
@@ -1356,7 +1355,7 @@ void RecordPlugin::processBuffer()
 	    params.record_time * params.sample_rate));
 	if (already_recorded + samples >= limit) {
 	    // reached end of recording time, we are full
-	    if (m_state == REC_RECORDING) {
+	    if (m_state == Kwave::REC_RECORDING) {
 		samples = (limit > already_recorded) ?
 		          (limit - already_recorded) : 0;
 		buffer.resize(samples * tracks * bytes_per_sample);
@@ -1377,9 +1376,9 @@ void RecordPlugin::processBuffer()
     // check for trigger
     // note: this might change the state, which affects the
     //       processing of all tracks !
-    if ((m_state == REC_WAITING_FOR_TRIGGER) ||
-        ((m_state == REC_PRERECORDING) && (params.record_trigger_enabled)) ||
-        ((m_state == REC_PRERECORDING) && (params.start_time_enabled)))
+    if ((m_state == Kwave::REC_WAITING_FOR_TRIGGER) ||
+        ((m_state == Kwave::REC_PRERECORDING) && params.record_trigger_enabled) ||
+        ((m_state == Kwave::REC_PRERECORDING) && params.start_time_enabled))
     {
 	for (unsigned int track=0; track < tracks; ++track) {
 	    // split off and decode buffer with current track
@@ -1392,13 +1391,13 @@ void RecordPlugin::processBuffer()
 	}
     }
 
-    if ((m_state == REC_RECORDING) && (!m_prerecording_queue.isEmpty())) {
+    if ((m_state == Kwave::REC_RECORDING) && !m_prerecording_queue.isEmpty()) {
 	// flush all prerecorded buffers to the output
 	flushPrerecordingQueue();
     }
 
     // use a copy of the state, in case it changes below ;-)
-    RecordState state = m_state;
+    Kwave::RecordState state = m_state;
     for (unsigned int track=0; track < tracks; ++track) {
 	// decode and care for all special effects, meters and so on
 	// split off and decode buffer with current track
@@ -1411,7 +1410,7 @@ void RecordPlugin::processBuffer()
 	// if the first buffer is full -> leave REC_BUFFERING
 	// limit state transitions to a point before the first track is
 	// processed (avoid asymmetry)
-	if ((track == 0) && (m_state == REC_BUFFERING) &&
+	if ((track == 0) && (m_state == Kwave::REC_BUFFERING) &&
 	    (m_buffers_recorded > 1))
 	{
 	    m_controller.deviceBufferFull();
@@ -1419,19 +1418,19 @@ void RecordPlugin::processBuffer()
 	}
 
 	switch (state) {
-	    case REC_UNINITIALIZED:
-	    case REC_EMPTY:
-	    case REC_PAUSED:
-	    case REC_DONE:
-	    case REC_BUFFERING:
-	    case REC_WAITING_FOR_TRIGGER:
+	    case Kwave::REC_UNINITIALIZED:
+	    case Kwave::REC_EMPTY:
+	    case Kwave::REC_PAUSED:
+	    case Kwave::REC_DONE:
+	    case Kwave::REC_BUFFERING:
+	    case Kwave::REC_WAITING_FOR_TRIGGER:
 		// already handled before or nothing to do...
 		break;
-	    case REC_PRERECORDING:
+	    case Kwave::REC_PRERECORDING:
 		// enqueue the buffers into a FIFO
 		enqueuePrerecording(track, decoded);
 		break;
-	    case REC_RECORDING: {
+	    case Kwave::REC_RECORDING: {
 		// put the decoded track data into the buffer
 		Q_ASSERT(m_writers);
 		if (!m_writers) break;
@@ -1452,14 +1451,17 @@ void RecordPlugin::processBuffer()
     if (m_writers) emit sigRecordedSamples(m_writers->last()+1);
 
     // if this was the last received buffer, change state
-    if (recording_done && (m_state != REC_DONE) && (m_state != REC_EMPTY)) {
+    if (recording_done &&
+	(m_state != Kwave::REC_DONE) &&
+	(m_state != Kwave::REC_EMPTY))
+    {
 	m_controller.actionStop();
     }
 
 }
 
 //***************************************************************************
-void RecordPlugin::prerecordingChanged(bool enable)
+void Kwave::RecordPlugin::prerecordingChanged(bool enable)
 {
     (void)enable;
     InhibitRecordGuard _lock(*this); // activate the change

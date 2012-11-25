@@ -29,23 +29,23 @@
 #include "LowPassPlugin.h"
 #include "LowPassDialog.h"
 
-KWAVE_PLUGIN(LowPassPlugin, "lowpass", "2.1",
+KWAVE_PLUGIN(Kwave::LowPassPlugin, "lowpass", "2.1",
              I18N_NOOP("Low Pass Filter"), "Thomas Eschenbacher");
 
 //***************************************************************************
-LowPassPlugin::LowPassPlugin(const Kwave::PluginContext &context)
+Kwave::LowPassPlugin::LowPassPlugin(const Kwave::PluginContext &context)
     :Kwave::FilterPlugin(context),
      m_frequency(3500.0), m_last_freq(100)
 {
 }
 
 //***************************************************************************
-LowPassPlugin::~LowPassPlugin()
+Kwave::LowPassPlugin::~LowPassPlugin()
 {
 }
 
 //***************************************************************************
-int LowPassPlugin::interpreteParameters(QStringList &params)
+int Kwave::LowPassPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;
     QString param;
@@ -62,9 +62,10 @@ int LowPassPlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-Kwave::PluginSetupDialog *LowPassPlugin::createDialog(QWidget *parent)
+Kwave::PluginSetupDialog *Kwave::LowPassPlugin::createDialog(QWidget *parent)
 {
-    LowPassDialog *dialog = new LowPassDialog(parent, signalRate());
+    Kwave::LowPassDialog *dialog =
+	new Kwave::LowPassDialog(parent, signalRate());
     Q_ASSERT(dialog);
     if (!dialog) return 0;
 
@@ -76,19 +77,19 @@ Kwave::PluginSetupDialog *LowPassPlugin::createDialog(QWidget *parent)
 }
 
 //***************************************************************************
-Kwave::SampleSource *LowPassPlugin::createFilter(unsigned int tracks)
+Kwave::SampleSource *Kwave::LowPassPlugin::createFilter(unsigned int tracks)
 {
-    return new Kwave::MultiTrackSource<LowPassFilter, true>(tracks);
+    return new Kwave::MultiTrackSource<Kwave::LowPassFilter, true>(tracks);
 }
 
 //***************************************************************************
-bool LowPassPlugin::paramsChanged()
+bool Kwave::LowPassPlugin::paramsChanged()
 {
     return (m_frequency != m_last_freq);
 }
 
 //***************************************************************************
-void LowPassPlugin::updateFilter(Kwave::SampleSource *filter,
+void Kwave::LowPassPlugin::updateFilter(Kwave::SampleSource *filter,
                                  bool force)
 {
     double sr = signalRate();
@@ -103,13 +104,13 @@ void LowPassPlugin::updateFilter(Kwave::SampleSource *filter,
 }
 
 //***************************************************************************
-QString LowPassPlugin::actionName()
+QString Kwave::LowPassPlugin::actionName()
 {
     return i18n("Low Pass");
 }
 
 //***************************************************************************
-void LowPassPlugin::setValue(double frequency)
+void Kwave::LowPassPlugin::setValue(double frequency)
 {
     m_frequency = frequency;
 }

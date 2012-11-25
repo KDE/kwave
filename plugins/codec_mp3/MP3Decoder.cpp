@@ -587,10 +587,12 @@ enum mad_flow Kwave::MP3Decoder::fillInput(struct mad_stream *stream)
  * (copied from mpg231, mad.c)
  * @author Rob Leslie
  */
-struct audio_dither {
-    mad_fixed_t error[3];
-    mad_fixed_t random;
-};
+namespace Kwave {
+    typedef struct {
+	mad_fixed_t error[3];
+	mad_fixed_t random;
+    } audio_dither;
+}
 
 /**
  * 32-bit pseudo-random number generator
@@ -608,7 +610,7 @@ static inline unsigned long prng(unsigned long state)
  * @author Rob Leslie
  */
 static inline int32_t audio_linear_dither(unsigned int bits,
-    mad_fixed_t sample, struct audio_dither *dither)
+    mad_fixed_t sample, Kwave::audio_dither *dither)
 {
     unsigned int scalebits;
     mad_fixed_t output, mask, random;
@@ -659,7 +661,7 @@ static inline int32_t audio_linear_dither(unsigned int bits,
 enum mad_flow Kwave::MP3Decoder::processOutput(void */*data*/,
     struct mad_header const */*header*/, struct mad_pcm *pcm)
 {
-    static struct audio_dither dither;
+    static Kwave::audio_dither dither;
     int32_t sample;
     Kwave::SampleArray buffer(pcm->length);
 

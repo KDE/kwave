@@ -22,7 +22,7 @@
 #include "SelectDateDialog.h"
 
 //***************************************************************************
-SelectDateDialog::SelectDateDialog(QWidget *parent, QDate &date)
+Kwave::SelectDateDialog::SelectDateDialog(QWidget *parent, QDate &date)
     :QDialog(parent), Ui::SelectDateDlg(), m_date(date)
 {
     setupUi(this);
@@ -30,18 +30,18 @@ SelectDateDialog::SelectDateDialog(QWidget *parent, QDate &date)
 }
 
 //***************************************************************************
-SelectDateDialog::~SelectDateDialog()
+Kwave::SelectDateDialog::~SelectDateDialog()
 {
 }
 
 //***************************************************************************
-QDate SelectDateDialog::date()
+QDate Kwave::SelectDateDialog::date()
 {
     return m_date;
 }
 
 //***************************************************************************
-void SelectDateDialog::accept()
+void Kwave::SelectDateDialog::accept()
 {
     m_date = datePicker->date();
     QDialog::accept();

@@ -29,71 +29,78 @@
 
 class QWidget;
 
-namespace Kwave { class LabelList; }
-
-class WavEncoder: public Kwave::Encoder
+namespace Kwave
 {
-public:
-    /** Constructor */
-    WavEncoder();
 
-    /** Destructor */
-    virtual ~WavEncoder();
+    class LabelList;
 
-    /** Returns a new instance of the encoder */
-    virtual Encoder *instance();
+    class WavEncoder: public Kwave::Encoder
+    {
+    public:
+	/** Constructor */
+	WavEncoder();
 
-    /**
-     * Encodes a signal into a stream of bytes.
-     * @param widget a widget that can be used for displaying
-     *        message boxes or dialogs
-     * @param src MultiTrackReader used as source of the audio data
-     * @param dst file or other source to receive a stream of bytes
-     * @param meta_data meta data of the file to save
-     * @return true if succeeded, false on errors
-     */
-    virtual bool encode(QWidget *widget, Kwave::MultiTrackReader &src,
-                        QIODevice &dst, const Kwave::MetaDataList &meta_data);
+	/** Destructor */
+	virtual ~WavEncoder();
 
-    /** Returns a list of supported file properties */
-    virtual QList<Kwave::FileProperty> supportedProperties();
+	/** Returns a new instance of the encoder */
+	virtual Encoder *instance();
 
-private:
+	/**
+	 * Encodes a signal into a stream of bytes.
+	 * @param widget a widget that can be used for displaying
+	 *        message boxes or dialogs
+	 * @param src MultiTrackReader used as source of the audio data
+	 * @param dst file or other source to receive a stream of bytes
+	 * @param meta_data meta data of the file to save
+	 * @return true if succeeded, false on errors
+	 */
+	virtual bool encode(QWidget *widget, Kwave::MultiTrackReader &src,
+	                    QIODevice &dst, const Kwave::MetaDataList &meta_data);
 
-    /**
-     * write the INFO chunk with all known file properties
-     *
-     * @param dst file or other source to receive a stream of bytes
-     * @param info information about the file to be saved
-     */
-    void writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info);
+	/** Returns a list of supported file properties */
+	virtual QList<Kwave::FileProperty> supportedProperties();
 
-    /**
-     * write the 'cue list' and the label names (if any)
-     *
-     * @param dst file or other source to receive a stream of bytes
-     * @param labels a list of labels
-     */
-    void writeLabels(QIODevice &dst, const Kwave::LabelList &labels);
+    private:
 
-    /**
-     * Fix the size of the "data" and the "RIFF" chunk, as libaudiofile
-     * is sometimes really buggy due to internal calculations done
-     * with "float" as data type. This can lead to broken files as the
-     * data and also the RIFF chunk sizes are too small.
-     *
-     * @param dst file or other source to receive a stream of bytes
-     * @param info information about the file to be saved
-     * @param frame_size number of bytes per sample
-     */
-    void fixAudiofileBrokenHeaderBug(QIODevice &dst, Kwave::FileInfo &info,
-                                     unsigned int frame_size);
+	/**
+	 * write the INFO chunk with all known file properties
+	 *
+	 * @param dst file or other source to receive a stream of bytes
+	 * @param info information about the file to be saved
+	 */
+	void writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info);
 
-private:
+	/**
+	 * write the 'cue list' and the label names (if any)
+	 *
+	 * @param dst file or other source to receive a stream of bytes
+	 * @param labels a list of labels
+	 */
+	void writeLabels(QIODevice &dst, const Kwave::LabelList &labels);
 
-    /** map for translating chunk names to FileInfo properties */
-    WavPropertyMap m_property_map;
+	/**
+	 * Fix the size of the "data" and the "RIFF" chunk, as libaudiofile
+	 * is sometimes really buggy due to internal calculations done
+	 * with "float" as data type. This can lead to broken files as the
+	 * data and also the RIFF chunk sizes are too small.
+	 *
+	 * @param dst file or other source to receive a stream of bytes
+	 * @param info information about the file to be saved
+	 * @param frame_size number of bytes per sample
+	 */
+	void fixAudiofileBrokenHeaderBug(QIODevice &dst, Kwave::FileInfo &info,
+	                                 unsigned int frame_size);
 
-};
+    private:
+
+	/** map for translating chunk names to FileInfo properties */
+	Kwave::WavPropertyMap m_property_map;
+
+    };
+}
 
 #endif /* _WAV_ENCODER_H_ */
+
+//***************************************************************************
+//***************************************************************************

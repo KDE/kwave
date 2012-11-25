@@ -29,82 +29,90 @@
 #include "ui_LowPassDlg.h"
 
 class QStringList;
-class LowPassFilter;
 
-class LowPassDialog: public QDialog,
-                     public Ui::LowPassDlg,
-                     public Kwave::PluginSetupDialog
+namespace Kwave
 {
-    Q_OBJECT
-public:
 
-    /**
-     * Constructor.
-     * @param parent parent widget
-     * @param sample_rate sample rate of the audio data to be processed,
-     *                    needed for determining the allowed range of
-     *                    the cutoff frequency
-     */
-    LowPassDialog(QWidget *parent, double sample_rate);
+    class LowPassFilter;
 
-    /** Destructor */
-    virtual ~LowPassDialog();
+    class LowPassDialog: public QDialog,
+                         public Ui::LowPassDlg,
+                         public Kwave::PluginSetupDialog
+    {
+	Q_OBJECT
+    public:
 
-    /** Returns the parameters as string list */
-    virtual QStringList params();
+	/**
+	 * Constructor.
+	 * @param parent parent widget
+	 * @param sample_rate sample rate of the audio data to be processed,
+	 *                    needed for determining the allowed range of
+	 *                    the cutoff frequency
+	 */
+	LowPassDialog(QWidget *parent, double sample_rate);
 
-    /** Sets the from a list of parameters */
-    virtual void setParams(QStringList &params);
+	/** Destructor */
+	virtual ~LowPassDialog();
 
-    /** retruns a pointer to this as a QDialog */
-    virtual QDialog *dialog() { return this; };
+	/** Returns the parameters as string list */
+	virtual QStringList params();
 
-signals:
+	/** Sets the from a list of parameters */
+	virtual void setParams(QStringList &params);
 
-    /**
-     * Emitted whenever the frequency changes
-     * @param freq the frequency parameter in Hz
-     */
-    void changed(double freq);
+	/** retruns a pointer to this as a QDialog */
+	virtual QDialog *dialog() { return this; };
 
-    /** Pre-listen mode has been started */
-    void startPreListen();
+    signals:
 
-    /** Pre-listen mode has been stopped */
-    void stopPreListen();
+	/**
+	 * Emitted whenever the frequency changes
+	 * @param freq the frequency parameter in Hz
+	 */
+	void changed(double freq);
 
-protected slots:
+	/** Pre-listen mode has been started */
+	void startPreListen();
 
-    /** called when the spinbox or spinbox value has changed */
-    void valueChanged(int pos);
+	/** Pre-listen mode has been stopped */
+	void stopPreListen();
 
-    /**
-     * called when the "Listen" button has been toggled,
-     * to start or stop the pre-listen mode
-     */
-    void listenToggled(bool listen);
+    protected slots:
 
-    /**
-     * called when the pre-listen mode stopped/aborted
-     */
-    void listenStopped();
+	/** called when the spinbox or spinbox value has changed */
+	void valueChanged(int pos);
 
-protected:
+	/**
+	 * called when the "Listen" button has been toggled,
+	 * to start or stop the pre-listen mode
+	 */
+	void listenToggled(bool listen);
 
-    /** Update the graphic display */
-    void updateDisplay();
+	/**
+	* called when the pre-listen mode stopped/aborted
+	*/
+	void listenStopped();
 
-private:
+    protected:
 
-    /** the cutoff frequency in Hz */
-    double m_frequency;
+	/** Update the graphic display */
+	void updateDisplay();
 
-    /** sample rate of the signal in samples/sec */
-    double m_sample_rate;
+    private:
 
-    /** filter function for calculating the frequency response */
-    LowPassFilter *m_filter;
+	/** the cutoff frequency in Hz */
+	double m_frequency;
 
-};
+	/** sample rate of the signal in samples/sec */
+	double m_sample_rate;
+
+	/** filter function for calculating the frequency response */
+	Kwave::LowPassFilter *m_filter;
+
+    };
+}
 
 #endif /* _LOW_PASS_DIALOG_H_ */
+
+//***************************************************************************
+//***************************************************************************

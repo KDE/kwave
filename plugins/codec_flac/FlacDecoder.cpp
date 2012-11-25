@@ -32,7 +32,7 @@
 #include "FlacDecoder.h"
 
 //***************************************************************************
-FlacDecoder::FlacDecoder()
+Kwave::FlacDecoder::FlacDecoder()
     :Kwave::Decoder(), FLAC::Decoder::Stream(), m_source(0), m_dest(0),
      m_vorbis_comment_map()
 {
@@ -41,23 +41,23 @@ FlacDecoder::FlacDecoder()
 }
 
 //***************************************************************************
-FlacDecoder::~FlacDecoder()
+Kwave::FlacDecoder::~FlacDecoder()
 {
     if (m_source) close();
 }
 
 //***************************************************************************
-Kwave::Decoder *FlacDecoder::instance()
+Kwave::Decoder *Kwave::FlacDecoder::instance()
 {
-    return new FlacDecoder();
+    return new Kwave::FlacDecoder();
 }
 
 //***************************************************************************
 #if defined(FLAC_API_VERSION_1_1_2)
-::FLAC__StreamDecoderReadStatus FlacDecoder::read_callback(
+::FLAC__StreamDecoderReadStatus Kwave::FlacDecoder::read_callback(
         FLAC__byte buffer[], unsigned *bytes)
 #else
-::FLAC__StreamDecoderReadStatus FlacDecoder::read_callback(
+::FLAC__StreamDecoderReadStatus Kwave::FlacDecoder::read_callback(
         FLAC__byte buffer[], size_t *bytes)
 #endif
 {
@@ -83,7 +83,7 @@ Kwave::Decoder *FlacDecoder::instance()
 }
 
 //***************************************************************************
-::FLAC__StreamDecoderWriteStatus FlacDecoder::write_callback(
+::FLAC__StreamDecoderWriteStatus Kwave::FlacDecoder::write_callback(
         const ::FLAC__Frame *frame,
         const FLAC__int32 * const buffer[])
 {
@@ -140,7 +140,7 @@ Kwave::Decoder *FlacDecoder::instance()
 }
 
 //***************************************************************************
-void FlacDecoder::parseStreamInfo(
+void Kwave::FlacDecoder::parseStreamInfo(
     const FLAC::Metadata::StreamInfo &stream_info)
 {
     qDebug("FLAC stream info");
@@ -162,7 +162,7 @@ void FlacDecoder::parseStreamInfo(
 }
 
 //***************************************************************************
-void FlacDecoder::parseVorbisComments(
+void Kwave::FlacDecoder::parseVorbisComments(
         const FLAC::Metadata::VorbisComment &vorbis_comments)
 {
     Kwave::FileInfo info(metaData());
@@ -215,7 +215,8 @@ void FlacDecoder::parseVorbisComments(
 }
 
 //***************************************************************************
-void FlacDecoder::metadata_callback(const ::FLAC__StreamMetadata *metadata)
+void Kwave::FlacDecoder::metadata_callback(
+    const ::FLAC__StreamMetadata *metadata)
 {
     Q_ASSERT(metadata);
     if (!metadata) return;
@@ -252,13 +253,13 @@ void FlacDecoder::metadata_callback(const ::FLAC__StreamMetadata *metadata)
 }
 
 //***************************************************************************
-void FlacDecoder::error_callback(::FLAC__StreamDecoderErrorStatus status)
+void Kwave::FlacDecoder::error_callback(::FLAC__StreamDecoderErrorStatus status)
 {
     qDebug("FlacDecoder::error_callback: status=%d", status);
 }
 
 //***************************************************************************
-bool FlacDecoder::open(QWidget *widget, QIODevice &src)
+bool Kwave::FlacDecoder::open(QWidget *widget, QIODevice &src)
 {
     metaData().clear();
     Q_ASSERT(!m_source);
@@ -315,7 +316,8 @@ bool FlacDecoder::open(QWidget *widget, QIODevice &src)
 }
 
 //***************************************************************************
-bool FlacDecoder::decode(QWidget * /* widget */, Kwave::MultiWriter &dst)
+bool Kwave::FlacDecoder::decode(QWidget * /* widget */,
+                                Kwave::MultiWriter &dst)
 {
     Q_ASSERT(m_source);
     if (!m_source) return false;
@@ -336,7 +338,7 @@ bool FlacDecoder::decode(QWidget * /* widget */, Kwave::MultiWriter &dst)
 }
 
 //***************************************************************************
-void FlacDecoder::close()
+void Kwave::FlacDecoder::close()
 {
     finish();
     m_source = 0;

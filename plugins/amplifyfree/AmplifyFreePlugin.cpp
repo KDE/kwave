@@ -33,22 +33,22 @@
 #include "AmplifyFreePlugin.h"
 #include "AmplifyFreeDialog.h"
 
-KWAVE_PLUGIN(AmplifyFreePlugin, "amplifyfree", "2.1",
+KWAVE_PLUGIN(Kwave::AmplifyFreePlugin, "amplifyfree", "2.1",
              I18N_NOOP("Amplify Free"), "Thomas Eschenbacher");
 
 //***************************************************************************
-AmplifyFreePlugin::AmplifyFreePlugin(const Kwave::PluginContext &context)
+Kwave::AmplifyFreePlugin::AmplifyFreePlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context), m_action_name(""), m_params(), m_curve()
 {
 }
 
 //***************************************************************************
-AmplifyFreePlugin::~AmplifyFreePlugin()
+Kwave::AmplifyFreePlugin::~AmplifyFreePlugin()
 {
 }
 
 //***************************************************************************
-int AmplifyFreePlugin::interpreteParameters(QStringList &params)
+int Kwave::AmplifyFreePlugin::interpreteParameters(QStringList &params)
 {
     // store last parameters
     m_params = params;
@@ -76,13 +76,14 @@ int AmplifyFreePlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-QStringList *AmplifyFreePlugin::setup(QStringList &previous_params)
+QStringList *Kwave::AmplifyFreePlugin::setup(QStringList &previous_params)
 {
     // try to interprete the previous parameters
     interpreteParameters(previous_params);
 
     // create the setup dialog
-    AmplifyFreeDialog *dialog = new AmplifyFreeDialog(parentWidget());
+    Kwave::AmplifyFreeDialog *dialog =
+	new Kwave::AmplifyFreeDialog(parentWidget());
     Q_ASSERT(dialog);
     if (!dialog) return 0;
 
@@ -115,21 +116,21 @@ QStringList *AmplifyFreePlugin::setup(QStringList &previous_params)
 }
 
 //***************************************************************************
-QString AmplifyFreePlugin::progressText()
+QString Kwave::AmplifyFreePlugin::progressText()
 {
     return m_action_name.length() ?
 	i18n(m_action_name.toLocal8Bit()) : i18n("Amplify Free");
 }
 
 //***************************************************************************
-int AmplifyFreePlugin::start(QStringList &params)
+int Kwave::AmplifyFreePlugin::start(QStringList &params)
 {
     interpreteParameters(params);
     return Kwave::Plugin::start(params);
 }
 
 //***************************************************************************
-void AmplifyFreePlugin::run(QStringList params)
+void Kwave::AmplifyFreePlugin::run(QStringList params)
 {
     sample_index_t first, last;
     QList<unsigned int> track_list;

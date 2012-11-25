@@ -31,7 +31,6 @@ class QWidget;
 namespace Kwave
 {
     /**
-     * @class KwaveFileDialog
      * An improved version of KFileDialog that does not forget the last
      * directory and pre-selects the last file extension.
      */

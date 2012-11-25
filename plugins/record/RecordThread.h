@@ -25,78 +25,86 @@
 
 #include "libkwave/PluginWorkerThread.h"
 
-class RecordDevice;
-
-class RecordThread: public Kwave::PluginWorkerThread
+namespace Kwave
 {
-    Q_OBJECT
-public:
-    /** Constructor */
-    RecordThread();
 
-    /** Destructor */
-    virtual ~RecordThread();
+    class RecordDevice;
 
-    /** does the recording */
-    virtual void run();
+    class RecordThread: public Kwave::PluginWorkerThread
+    {
+	Q_OBJECT
+    public:
 
-    /**
-     * Select a new record device.
-     * @param device a RecordDevice that is opened and set up for reading
-     * @note this must not be called during recording
-     */
-    void setRecordDevice(RecordDevice *device);
+	/** Constructor */
+	RecordThread();
 
-    /**
-     * Set the number of buffers and their size
-     * @param count the number of buffer, minimum allowed is two
-     * @param size the number of bytes for each buffer
-     * @return number of allocated buffers or -ENOMEM if less than two
-     * @note this must not be called during recording
-     */
-    int setBuffers(unsigned int count, unsigned int size);
+	/** Destructor */
+	virtual ~RecordThread();
 
-    /** Returns the amount of remaining empty buffers */
-    unsigned int remainingBuffers();
+	/** does the recording */
+	virtual void run();
 
-    /** Returns the number of queued filled buffers */
-    unsigned int queuedBuffers();
+	/**
+	 * Select a new record device.
+	 * @param device a RecordDevice that is opened and set up for reading
+	 * @note this must not be called during recording
+	 */
+	void setRecordDevice(Kwave::RecordDevice *device);
 
-    /** De-queues a buffer from the m_full_queue. */
-    QByteArray dequeue();
+	/**
+	 * Set the number of buffers and their size
+	 * @param count the number of buffer, minimum allowed is two
+	 * @param size the number of bytes for each buffer
+	 * @return number of allocated buffers or -ENOMEM if less than two
+	 * @note this must not be called during recording
+	 */
+	int setBuffers(unsigned int count, unsigned int size);
 
-signals:
+	/** Returns the amount of remaining empty buffers */
+	unsigned int remainingBuffers();
 
-    /**
-     * emitted when a buffer was full and has been de-queued
-     * with dequeue()
-     */
-    void bufferFull();
+	/** Returns the number of queued filled buffers */
+	unsigned int queuedBuffers();
 
-    /**
-     * emitted when the recording stops or aborts
-     * @param errorcode zero if stopped normally or a negative
-     *        error code if aborted
-     */
-    void stopped(int errorcode);
+	/** De-queues a buffer from the m_full_queue. */
+	QByteArray dequeue();
 
-private:
+    signals:
 
-    /** the device used as source */
-    RecordDevice *m_device;
+	/**
+	 * emitted when a buffer was full and has been de-queued
+	 * with dequeue()
+	 */
+	void bufferFull();
 
-    /** queue with empty buffers for raw input data */
-    QQueue<QByteArray>m_empty_queue;
+	/**
+	 * emitted when the recording stops or aborts
+	 * @param errorcode zero if stopped normally or a negative
+	 *        error code if aborted
+	 */
+	void stopped(int errorcode);
 
-    /** queue with filled buffers with raw input data */
-    QQueue<QByteArray>m_full_queue;
+    private:
 
-    /** number of buffers to allocate */
-    unsigned int m_buffer_count;
+	/** the device used as source */
+	Kwave::RecordDevice *m_device;
 
-    /** size of m_buffer in bytes */
-    unsigned int m_buffer_size;
+	/** queue with empty buffers for raw input data */
+	QQueue<QByteArray>m_empty_queue;
 
-};
+	/** queue with filled buffers with raw input data */
+	QQueue<QByteArray>m_full_queue;
+
+	/** number of buffers to allocate */
+	unsigned int m_buffer_count;
+
+	/** size of m_buffer in bytes */
+	unsigned int m_buffer_size;
+
+    };
+}
 
 #endif /* _RECORD_THREAD_H_ */
+
+//***************************************************************************
+//***************************************************************************

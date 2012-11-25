@@ -24,22 +24,22 @@
 #include "AboutPlugin.h"
 #include "AboutKwaveDialog.h"
 
-KWAVE_PLUGIN(AboutPlugin, "about", "2.1",
+KWAVE_PLUGIN(Kwave::AboutPlugin, "about", "2.1",
              I18N_NOOP("About Kwave"), "Ralf Waspe & Gilles Caulier");
 
 //***************************************************************************
-AboutPlugin::AboutPlugin(const Kwave::PluginContext &c)
+Kwave::AboutPlugin::AboutPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c)
 {
 }
 
 //***************************************************************************
-int AboutPlugin::start(QStringList& params)
+int Kwave::AboutPlugin::start(QStringList& params)
 {
     Q_UNUSED(params);
 
     // create a new "about" dialog and show it
-    AboutKwaveDialog *dlg = new AboutKwaveDialog(
+    Kwave::AboutDialog *dlg = new Kwave::AboutDialog(
 	parentWidget(),
 	manager().pluginInfoList()
     );

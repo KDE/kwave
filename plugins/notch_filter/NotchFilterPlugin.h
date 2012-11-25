@@ -29,83 +29,90 @@
 #include "libgui/FilterPlugin.h"
 
 class QStringList;
-namespace Kwave { class KwaveSampleSource; }
-
-class NotchFilterPlugin: public Kwave::FilterPlugin
+namespace Kwave
 {
-    Q_OBJECT
 
-public:
+    class KwaveSampleSource;
 
-    /** Constructor */
-    NotchFilterPlugin(const Kwave::PluginContext &context);
+    class NotchFilterPlugin: public Kwave::FilterPlugin
+    {
+	Q_OBJECT
 
-    /** Destructor */
-    virtual ~NotchFilterPlugin();
+    public:
 
-    /** Creates the setup dialog and connects it's signals */
-    virtual Kwave::PluginSetupDialog *createDialog(QWidget *parent);
+	/** Constructor */
+	NotchFilterPlugin(const Kwave::PluginContext &context);
 
-    /**
-     * Creates a multi-track filter with the given number of tracks
-     * @param tracks number of tracks that the filter should have
-     * @return pointer to the filter or null if failed
-     */
-    virtual Kwave::SampleSource *createFilter(unsigned int tracks);
+	/** Destructor */
+	virtual ~NotchFilterPlugin();
 
-    /**
-     * Returns true if the parameters have changed during pre-listen.
-     */
-    virtual bool paramsChanged();
+	/** Creates the setup dialog and connects it's signals */
+	virtual Kwave::PluginSetupDialog *createDialog(QWidget *parent);
 
-    /**
-     * Update the filter with new parameters if it has changed
-     * changed during the pre-listen.
-     * @param filter the Kwave::SampleSource to be updated, should be the
-     *               same one as created with createFilter()
-     * @param force if true, even update if no settings have changed
-     */
-    virtual void updateFilter(Kwave::SampleSource *filter, bool force=0);
+	/**
+	 * Creates a multi-track filter with the given number of tracks
+	 * @param tracks number of tracks that the filter should have
+	 * @return pointer to the filter or null if failed
+	 */
+	virtual Kwave::SampleSource *createFilter(unsigned int tracks);
 
-    /**
-     * Returns a verbose name of the performed action. Used for giving
-     * the undo action a readable name.
-     */
-    virtual QString actionName();
+	/**
+	 * Returns true if the parameters have changed during pre-listen.
+	 */
+	virtual bool paramsChanged();
 
-protected:
+	/**
+	 * Update the filter with new parameters if it has changed
+	 * changed during the pre-listen.
+	 * @param filter the Kwave::SampleSource to be updated, should be the
+	 *               same one as created with createFilter()
+	 * @param force if true, even update if no settings have changed
+	 */
+	virtual void updateFilter(Kwave::SampleSource *filter, bool force=0);
 
-    /** Reads values from the parameter list */
-    virtual int interpreteParameters(QStringList &params);
+	/**
+	 * Returns a verbose name of the performed action. Used for giving
+	 * the undo action a readable name.
+	 */
+	virtual QString actionName();
 
-protected slots:
+    protected:
 
-    /**
-     * Called when the parameter changed during pre-listen
-     * @param frequency the frequency parameter in Hz
-     */
-    void setFreqValue(double frequency);
+	/** Reads values from the parameter list */
+	virtual int interpreteParameters(QStringList &params);
 
-    /**
-     * set a new bandwidth
-     * @param bw bandwidth [Hz]
-     */
-    void setBwValue(double bw);
+    protected slots:
 
-private:
+	/**
+	 * Called when the parameter changed during pre-listen
+	 * @param frequency the frequency parameter in Hz
+	 */
+	void setFreqValue(double frequency);
 
-    /** cutoff frequency [Hz] */
-    double m_frequency;
+	/**
+	 * set a new bandwidth
+	 * @param bw bandwidth [Hz]
+	 */
+	void setBwValue(double bw);
 
-    /** last value of m_frequency */
-    double m_last_freq;
+    private:
 
-    /** bandwidth value [Hz] */
-    double m_bw;
+	/** cutoff frequency [Hz] */
+	double m_frequency;
 
-    /** last value of m_bw */
-    double m_last_bw;
+	/** last value of m_frequency */
+	double m_last_freq;
 
-};
+	/** bandwidth value [Hz] */
+	double m_bw;
+
+	/** last value of m_bw */
+	double m_last_bw;
+
+    };
+}
 
 #endif /* _NOTCH_FILTER_PLUGIN_H_ */
+
+//***************************************************************************
+//***************************************************************************

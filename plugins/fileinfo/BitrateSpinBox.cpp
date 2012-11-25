@@ -22,7 +22,7 @@
 #include "BitrateSpinBox.h"
 
 /***************************************************************************/
-BitrateSpinBox::BitrateSpinBox(QWidget *parent)
+Kwave::BitrateSpinBox::BitrateSpinBox(QWidget *parent)
     :QSpinBox(parent), m_rates()
 {
     m_rates.append(0); // don't let it stay empty, that makes life easier
@@ -32,12 +32,12 @@ BitrateSpinBox::BitrateSpinBox(QWidget *parent)
 }
 
 /***************************************************************************/
-BitrateSpinBox::~BitrateSpinBox()
+Kwave::BitrateSpinBox::~BitrateSpinBox()
 {
 }
 
 /***************************************************************************/
-void BitrateSpinBox::snapIn(int value)
+void Kwave::BitrateSpinBox::snapIn(int value)
 {
     int index     = nearestIndex(value);
     int old_index = index;
@@ -59,7 +59,7 @@ void BitrateSpinBox::snapIn(int value)
 }
 
 /***************************************************************************/
-void BitrateSpinBox::allowRates(const QList<int> &list)
+void Kwave::BitrateSpinBox::allowRates(const QList<int> &list)
 {
     int old_value = value();
 
@@ -74,7 +74,7 @@ void BitrateSpinBox::allowRates(const QList<int> &list)
 }
 
 //***************************************************************************
-int BitrateSpinBox::nearestIndex(int rate)
+int Kwave::BitrateSpinBox::nearestIndex(int rate)
 {
     // find the nearest value
     int nearest = 0;

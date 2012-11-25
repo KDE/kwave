@@ -26,49 +26,55 @@
 class QIODevice;
 class QWidget;
 
-class AsciiDecoder: public Kwave::Decoder
+namespace Kwave
 {
-public:
-    /** Constructor */
-    AsciiDecoder();
+    class AsciiDecoder: public Kwave::Decoder
+    {
+    public:
+	/** Constructor */
+	AsciiDecoder();
 
-    /** Destructor */
-    virtual ~AsciiDecoder();
+	/** Destructor */
+	virtual ~AsciiDecoder();
 
-    /** Returns a new instance of the decoder */
-    virtual Kwave::Decoder *instance();
+	/** Returns a new instance of the decoder */
+	virtual Kwave::Decoder *instance();
 
-    /**
-     * Opens the source and decodes the header information.
-     * @param widget a widget that can be used for displaying
-     *        message boxes or dialogs
-     * @param source file or other source with a stream of bytes
-     * @return true if succeeded, false on errors
-     */
-    virtual bool open(QWidget *widget, QIODevice &source);
+	/**
+	 * Opens the source and decodes the header information.
+	 * @param widget a widget that can be used for displaying
+	 *        message boxes or dialogs
+	 * @param source file or other source with a stream of bytes
+	 * @return true if succeeded, false on errors
+	 */
+	virtual bool open(QWidget *widget, QIODevice &source);
 
-    /**
-     * Decodes a stream of bytes into a MultiWriter
-     * @param widget a widget that can be used for displaying
-     *        message boxes or dialogs
-     * @param dst MultiWriter that receives the audio data
-     * @return true if succeeded, false on errors
-     */
-    virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst);
+	/**
+	 * Decodes a stream of bytes into a MultiWriter
+	 * @param widget a widget that can be used for displaying
+	 *        message boxes or dialogs
+	 * @param dst MultiWriter that receives the audio data
+	 * @return true if succeeded, false on errors
+	 */
+	virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst);
 
-    /**
-     * Closes the source.
-     */
-    virtual void close();
+	/**
+	 * Closes the source.
+	 */
+	virtual void close();
 
-private:
+    private:
 
-    /** source of the audio data */
-    QIODevice *m_source;
+	/** source of the audio data */
+	QIODevice *m_source;
 
-    /** destination of the audio data */
-    Kwave::MultiWriter *m_dest;
+	/** destination of the audio data */
+	Kwave::MultiWriter *m_dest;
 
-};
+    };
+}
 
 #endif /* _ASCII_DECODER_H_ */
+
+//***************************************************************************
+//***************************************************************************

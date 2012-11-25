@@ -43,7 +43,7 @@
 #include "FlacEncoder.h"
 
 /***************************************************************************/
-FlacEncoder::FlacEncoder()
+Kwave::FlacEncoder::FlacEncoder()
     :Kwave::Encoder(), FLAC::Encoder::Stream(),
      m_vorbis_comment_map(), m_dst(0)
 {
@@ -52,29 +52,29 @@ FlacEncoder::FlacEncoder()
 }
 
 /***************************************************************************/
-FlacEncoder::~FlacEncoder()
+Kwave::FlacEncoder::~FlacEncoder()
 {
 }
 
 /***************************************************************************/
-Kwave::Encoder *FlacEncoder::instance()
+Kwave::Encoder *Kwave::FlacEncoder::instance()
 {
-    return new FlacEncoder();
+    return new Kwave::FlacEncoder();
 }
 
 /***************************************************************************/
-QList<Kwave::FileProperty> FlacEncoder::supportedProperties()
+QList<Kwave::FileProperty> Kwave::FlacEncoder::supportedProperties()
 {
     return m_vorbis_comment_map.values();
 }
 
 /***************************************************************************/
 #if defined(FLAC_API_VERSION_1_1_2)
-::FLAC__StreamEncoderWriteStatus FlacEncoder::write_callback(
+::FLAC__StreamEncoderWriteStatus Kwave::FlacEncoder::write_callback(
         const FLAC__byte buffer[], unsigned int bytes,
         unsigned int /* samples */, unsigned int /* current_frame */)
 #else
-::FLAC__StreamEncoderWriteStatus FlacEncoder::write_callback(
+::FLAC__StreamEncoderWriteStatus Kwave::FlacEncoder::write_callback(
         const FLAC__byte buffer[], size_t bytes,
         unsigned /* samples */, unsigned /* current_frame */)
 #endif
@@ -93,13 +93,13 @@ QList<Kwave::FileProperty> FlacEncoder::supportedProperties()
 }
 
 /***************************************************************************/
-void FlacEncoder::metadata_callback(const ::FLAC__StreamMetadata *)
+void Kwave::FlacEncoder::metadata_callback(const ::FLAC__StreamMetadata *)
 {
     /* we are not interested in the FLAC metadata */
 }
 
 /***************************************************************************/
-FlacEncoder::VorbisCommentContainer::VorbisCommentContainer()
+Kwave::FlacEncoder::VorbisCommentContainer::VorbisCommentContainer()
     :m_vc(0)
 {
     m_vc = FLAC__metadata_object_new(FLAC__METADATA_TYPE_VORBIS_COMMENT);
@@ -107,7 +107,7 @@ FlacEncoder::VorbisCommentContainer::VorbisCommentContainer()
 }
 
 /***************************************************************************/
-FlacEncoder::VorbisCommentContainer::~VorbisCommentContainer()
+Kwave::FlacEncoder::VorbisCommentContainer::~VorbisCommentContainer()
 {
     if (m_vc) {
         // clean up all vorbis comments
@@ -115,8 +115,8 @@ FlacEncoder::VorbisCommentContainer::~VorbisCommentContainer()
 }
 
 /***************************************************************************/
-void FlacEncoder::VorbisCommentContainer::add(const QString &tag,
-                                              const QString &value)
+void Kwave::FlacEncoder::VorbisCommentContainer::add(const QString &tag,
+                                                     const QString &value)
 {
     Q_ASSERT(m_vc);
     if (!m_vc) return;
@@ -142,13 +142,13 @@ void FlacEncoder::VorbisCommentContainer::add(const QString &tag,
 }
 
 /***************************************************************************/
-FLAC__StreamMetadata *FlacEncoder::VorbisCommentContainer::data()
+FLAC__StreamMetadata *Kwave::FlacEncoder::VorbisCommentContainer::data()
 {
     return m_vc;
 }
 
 /***************************************************************************/
-void FlacEncoder::encodeMetaData(const Kwave::FileInfo &info,
+void Kwave::FlacEncoder::encodeMetaData(const Kwave::FileInfo &info,
     QVector<FLAC__StreamMetadata *> &flac_metadata)
 {
     // encode all Vorbis comments
@@ -170,9 +170,10 @@ void FlacEncoder::encodeMetaData(const Kwave::FileInfo &info,
 }
 
 /***************************************************************************/
-bool FlacEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
-                         QIODevice &dst,
-                         const Kwave::MetaDataList &meta_data)
+bool Kwave::FlacEncoder::encode(QWidget *widget,
+                                Kwave::MultiTrackReader &src,
+                                QIODevice &dst,
+                                const Kwave::MetaDataList &meta_data)
 {
     bool result = true;
 

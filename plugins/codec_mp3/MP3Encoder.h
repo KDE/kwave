@@ -34,7 +34,8 @@ class ID3_Tag;
 class QIODevice;
 class QWidget;
 
-namespace Kwave {
+namespace Kwave
+{
 
     class MultiTrackReader;
 
@@ -122,3 +123,5 @@ namespace Kwave {
 
 #endif /* _MP3_ENCODER_H_ */
 
+//***************************************************************************
+//***************************************************************************

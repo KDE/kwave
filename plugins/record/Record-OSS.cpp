@@ -71,19 +71,19 @@
 #define MAX_CHANNELS 2 /**< highest available number of channels */
 
 //***************************************************************************
-RecordOSS::RecordOSS()
-    :RecordDevice(), m_fd(-1), m_oss_version(-1)
+Kwave::RecordOSS::RecordOSS()
+    :Kwave::RecordDevice(), m_fd(-1), m_oss_version(-1)
 {
 }
 
 //***************************************************************************
-RecordOSS::~RecordOSS()
+Kwave::RecordOSS::~RecordOSS()
 {
     close();
 }
 
 //***************************************************************************
-int RecordOSS::open(const QString &dev)
+int Kwave::RecordOSS::open(const QString &dev)
 {
     // close the device if it is still open
     if (m_fd >= 0) close();
@@ -107,7 +107,7 @@ int RecordOSS::open(const QString &dev)
 }
 
 //***************************************************************************
-int RecordOSS::read(QByteArray &buffer, unsigned int offset)
+int Kwave::RecordOSS::read(QByteArray &buffer, unsigned int offset)
 {
     fd_set rfds;
     struct timeval tv;
@@ -197,7 +197,7 @@ int RecordOSS::read(QByteArray &buffer, unsigned int offset)
 }
 
 //***************************************************************************
-int RecordOSS::close()
+int Kwave::RecordOSS::close()
 {
     if (m_fd < 0) return 0; // already closed
     ::close(m_fd);
@@ -262,7 +262,7 @@ static void scanDirectory(QStringList &list, const QString &dir)
 }
 
 //***************************************************************************
-QStringList RecordOSS::supportedDevices()
+QStringList Kwave::RecordOSS::supportedDevices()
 {
     QStringList list, dirlist;
 
@@ -278,7 +278,7 @@ QStringList RecordOSS::supportedDevices()
 }
 
 //***************************************************************************
-QString RecordOSS::fileFilter()
+QString Kwave::RecordOSS::fileFilter()
 {
     QString filter;
 
@@ -296,7 +296,7 @@ QString RecordOSS::fileFilter()
 }
 
 //***************************************************************************
-int RecordOSS::detectTracks(unsigned int &min, unsigned int &max)
+int Kwave::RecordOSS::detectTracks(unsigned int &min, unsigned int &max)
 {
     Q_ASSERT(m_fd >= 0);
     int t;
@@ -339,7 +339,7 @@ int RecordOSS::detectTracks(unsigned int &min, unsigned int &max)
 }
 
 //***************************************************************************
-int RecordOSS::setTracks(unsigned int &tracks)
+int Kwave::RecordOSS::setTracks(unsigned int &tracks)
 {
     Q_ASSERT(m_fd >= 0);
 
@@ -356,13 +356,13 @@ int RecordOSS::setTracks(unsigned int &tracks)
 }
 
 //***************************************************************************
-int RecordOSS::tracks()
+int Kwave::RecordOSS::tracks()
 {
     return m_tracks;
 }
 
 //***************************************************************************
-QList<double> RecordOSS::detectSampleRates()
+QList<double> Kwave::RecordOSS::detectSampleRates()
 {
     QList<double> list;
     Q_ASSERT(m_fd >= 0);
@@ -429,7 +429,7 @@ QList<double> RecordOSS::detectSampleRates()
 }
 
 //***************************************************************************
-int RecordOSS::setSampleRate(double &new_rate)
+int Kwave::RecordOSS::setSampleRate(double &new_rate)
 {
     Q_ASSERT(m_fd >= 0);
     // OSS supports only integer rates
@@ -447,7 +447,7 @@ int RecordOSS::setSampleRate(double &new_rate)
 }
 
 //***************************************************************************
-double RecordOSS::sampleRate()
+double Kwave::RecordOSS::sampleRate()
 {
     Q_ASSERT(m_fd >= 0);
 
@@ -455,8 +455,8 @@ double RecordOSS::sampleRate()
 }
 
 //***************************************************************************
-void RecordOSS::format2mode(int format, int &compression, int &bits,
-                            Kwave::SampleFormat &sample_format)
+void Kwave::RecordOSS::format2mode(int format, int &compression, int &bits,
+                                   Kwave::SampleFormat &sample_format)
 {
 
     switch (format) {
@@ -531,8 +531,8 @@ void RecordOSS::format2mode(int format, int &compression, int &bits,
 }
 
 //***************************************************************************
-int RecordOSS::mode2format(int compression, int bits,
-                           Kwave::SampleFormat sample_format)
+int Kwave::RecordOSS::mode2format(int compression, int bits,
+                                  Kwave::SampleFormat sample_format)
 {
     // first level: compression
     if (compression == AF_COMPRESSION_G711_ULAW) return AFMT_MU_LAW;
@@ -601,7 +601,7 @@ int RecordOSS::mode2format(int compression, int bits,
 }
 
 //***************************************************************************
-QList<int> RecordOSS::detectCompressions()
+QList<int> Kwave::RecordOSS::detectCompressions()
 {
     Q_ASSERT(m_fd >= 0);
     QList<int> compressions;
@@ -625,7 +625,7 @@ QList<int> RecordOSS::detectCompressions()
 }
 
 //***************************************************************************
-int RecordOSS::setCompression(int new_compression)
+int Kwave::RecordOSS::setCompression(int new_compression)
 {
     Q_ASSERT(m_fd >= 0);
     int compression, bits, format = AFMT_QUERY;
@@ -650,7 +650,7 @@ int RecordOSS::setCompression(int new_compression)
 }
 
 //***************************************************************************
-int RecordOSS::compression()
+int Kwave::RecordOSS::compression()
 {
     Q_ASSERT(m_fd >= 0);
     int mask = AFMT_QUERY;
@@ -664,7 +664,7 @@ int RecordOSS::compression()
 }
 
 //***************************************************************************
-QList<unsigned int> RecordOSS::supportedBits()
+QList<unsigned int> Kwave::RecordOSS::supportedBits()
 {
     Q_ASSERT(m_fd >= 0);
     QList<unsigned int> bits;
@@ -701,7 +701,7 @@ QList<unsigned int> RecordOSS::supportedBits()
 }
 
 //***************************************************************************
-int RecordOSS::setBitsPerSample(unsigned int new_bits)
+int Kwave::RecordOSS::setBitsPerSample(unsigned int new_bits)
 {
     Q_ASSERT(m_fd >= 0);
     int compression, bits, format = AFMT_QUERY;
@@ -726,7 +726,7 @@ int RecordOSS::setBitsPerSample(unsigned int new_bits)
 }
 
 //***************************************************************************
-int RecordOSS::bitsPerSample()
+int Kwave::RecordOSS::bitsPerSample()
 {
     Q_ASSERT(m_fd >= 0);
     int mask = AFMT_QUERY;
@@ -740,7 +740,7 @@ int RecordOSS::bitsPerSample()
 }
 
 //***************************************************************************
-QList<Kwave::SampleFormat> RecordOSS::detectSampleFormats()
+QList<Kwave::SampleFormat> Kwave::RecordOSS::detectSampleFormats()
 {
     Q_ASSERT(m_fd >= 0);
     QList<Kwave::SampleFormat> formats;
@@ -774,7 +774,7 @@ QList<Kwave::SampleFormat> RecordOSS::detectSampleFormats()
 }
 
 //***************************************************************************
-int RecordOSS::setSampleFormat(Kwave::SampleFormat new_format)
+int Kwave::RecordOSS::setSampleFormat(Kwave::SampleFormat new_format)
 {
     Q_ASSERT(m_fd >= 0);
     int compression, bits, format = AFMT_QUERY;
@@ -799,7 +799,7 @@ int RecordOSS::setSampleFormat(Kwave::SampleFormat new_format)
 }
 
 //***************************************************************************
-Kwave::SampleFormat RecordOSS::sampleFormat()
+Kwave::SampleFormat Kwave::RecordOSS::sampleFormat()
 {
     Q_ASSERT(m_fd >= 0);
     int mask = AFMT_QUERY;
@@ -813,7 +813,7 @@ Kwave::SampleFormat RecordOSS::sampleFormat()
 }
 
 //***************************************************************************
-byte_order_t RecordOSS::endianness()
+byte_order_t Kwave::RecordOSS::endianness()
 {
     Q_ASSERT(m_fd >= 0);
     int mask = AFMT_QUERY;

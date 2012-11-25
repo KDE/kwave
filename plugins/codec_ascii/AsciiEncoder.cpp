@@ -40,7 +40,7 @@
 #include "AsciiEncoder.h"
 
 /***************************************************************************/
-AsciiEncoder::AsciiEncoder()
+Kwave::AsciiEncoder::AsciiEncoder()
     :Kwave::Encoder(), m_dst()
 {
     m_dst.setCodec(QTextCodec::codecForName("UTF-8"));
@@ -48,18 +48,18 @@ AsciiEncoder::AsciiEncoder()
 }
 
 /***************************************************************************/
-AsciiEncoder::~AsciiEncoder()
+Kwave::AsciiEncoder::~AsciiEncoder()
 {
 }
 
 /***************************************************************************/
-Kwave::Encoder *AsciiEncoder::instance()
+Kwave::Encoder *Kwave::AsciiEncoder::instance()
 {
-    return new AsciiEncoder();
+    return new Kwave::AsciiEncoder();
 }
 
 /***************************************************************************/
-QList<Kwave::FileProperty> AsciiEncoder::supportedProperties()
+QList<Kwave::FileProperty> Kwave::AsciiEncoder::supportedProperties()
 {
     // default is to support all known properties
     Kwave::FileInfo info;
@@ -67,9 +67,10 @@ QList<Kwave::FileProperty> AsciiEncoder::supportedProperties()
 }
 
 /***************************************************************************/
-bool AsciiEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
-                          QIODevice &dst,
-                          const Kwave::MetaDataList &meta_data)
+bool Kwave::AsciiEncoder::encode(QWidget *widget,
+                                 Kwave::MultiTrackReader &src,
+                                 QIODevice &dst,
+                                 const Kwave::MetaDataList &meta_data)
 {
     bool result = true;
 

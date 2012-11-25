@@ -25,36 +25,39 @@ namespace Kwave
 {
     class Encoder;
     class Decoder;
+
+    class WavCodecPlugin: public Kwave::Plugin
+    {
+	Q_OBJECT
+    public:
+
+	/** Constructor */
+	WavCodecPlugin(const Kwave::PluginContext &c);
+
+	/** Destructor */
+	virtual ~WavCodecPlugin();
+
+	/**
+	 * This plugin needs to be unique!
+	 * @see Kwave::Plugin::isUnique()
+	 */
+	virtual bool isUnique() { return true; };
+
+	/**
+	 * Gets called when the plugin is first loaded.
+	 */
+	virtual void load(QStringList &/* params */);
+
+    private:
+	/** decoder used as factory */
+	Kwave::Decoder *m_decoder;
+
+	/** encoder used as factory */
+	Kwave::Encoder *m_encoder;
+    };
 }
 
-class WavCodecPlugin: public Kwave::Plugin
-{
-    Q_OBJECT
-public:
-
-    /** Constructor */
-    WavCodecPlugin(const Kwave::PluginContext &c);
-
-    /** Destructor */
-    virtual ~WavCodecPlugin();
-
-    /**
-     * This plugin needs to be unique!
-     * @see Kwave::Plugin::isUnique()
-     */
-    virtual bool isUnique() { return true; };
-
-    /**
-     * Gets called when the plugin is first loaded.
-     */
-    virtual void load(QStringList &/* params */);
-
-private:
-    /** decoder used as factory */
-    Kwave::Decoder *m_decoder;
-
-    /** encoder used as factory */
-    Kwave::Encoder *m_encoder;
-};
-
 #endif /* _WAV_CODEC_PLUGIN_H_ */
+
+//***************************************************************************
+//***************************************************************************

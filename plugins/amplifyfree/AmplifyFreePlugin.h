@@ -27,57 +27,63 @@
 #include "libkwave/Curve.h"
 #include "libkwave/Plugin.h"
 
-/** @todo add support for logarithmic scale */
-class AmplifyFreePlugin: public Kwave::Plugin
+namespace Kwave
 {
-    Q_OBJECT
+    /** @todo add support for logarithmic scale */
+    class AmplifyFreePlugin: public Kwave::Plugin
+    {
+	Q_OBJECT
 
-public:
+    public:
 
-    /** Constructor */
-    AmplifyFreePlugin(const Kwave::PluginContext &context);
+	/** Constructor */
+	AmplifyFreePlugin(const Kwave::PluginContext &context);
 
-    /** Destructor */
-    virtual ~AmplifyFreePlugin();
+	/** Destructor */
+	virtual ~AmplifyFreePlugin();
 
-    /**
-     * Shows a dialog for editing the amplification curve and emits a command
-     * for applying the curve if OK has been pressed.
-     * @see Kwave::Plugin::setup
-     */
-    virtual QStringList *setup(QStringList &previous_params);
+	/**
+	 * Shows a dialog for editing the amplification curve and emits a command
+	 * for applying the curve if OK has been pressed.
+	 * @see Kwave::Plugin::setup
+	 */
+	virtual QStringList *setup(QStringList &previous_params);
 
-    /** Does the fade operation */
-    virtual void run(QStringList);
+	/** Does the fade operation */
+	virtual void run(QStringList);
 
-    /**
-     * @see Kwave::Plugin::start(),
-     * overloaded to get the action name from the parameters
-     */
-    virtual int start(QStringList &params);
+	/**
+	 * @see Kwave::Plugin::start(),
+	 * overloaded to get the action name from the parameters
+	 */
+	virtual int start(QStringList &params);
 
-    /**
-     * Returns a text for the progress dialog if enabled.
-     * (already be localized)
-     */
-    virtual QString progressText();
+	/**
+	 * Returns a text for the progress dialog if enabled.
+	 * (already be localized)
+	 */
+	virtual QString progressText();
 
-protected:
+    protected:
 
-    /** Reads values from the parameter list */
-    int interpreteParameters(QStringList &params);
+	/** Reads values from the parameter list */
+	int interpreteParameters(QStringList &params);
 
-private:
+    private:
 
-    /** name of the action (untranslated) */
-    QString m_action_name;
+	/** name of the action (untranslated) */
+	QString m_action_name;
 
-    /** List of parameters */
-    QStringList m_params;
+	/** List of parameters */
+	QStringList m_params;
 
-    /** curve used for interpolation */
-    Kwave::Curve m_curve;
+	/** curve used for interpolation */
+	Kwave::Curve m_curve;
 
-};
+    };
+}
 
 #endif /* _AMPLIFY_FREE_PLUGIN_H_ */
+
+//***************************************************************************
+//***************************************************************************

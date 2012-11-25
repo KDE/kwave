@@ -42,7 +42,7 @@
 #include "PlayBack-PulseAudio.h"
 
 //***************************************************************************
-PlayBackPulseAudio::PlayBackPulseAudio(const Kwave::FileInfo &info)
+Kwave::PlayBackPulseAudio::PlayBackPulseAudio(const Kwave::FileInfo &info)
     :Kwave::PlayBackDevice(), m_info(info), m_rate(0), m_channels(0),
      m_bytes_per_sample(0), m_buffer(0), m_buffer_size(0), m_buffer_used(0),
      m_bufbase(10), m_pa_proplist(0), m_pa_mainloop(0), m_pa_context(0),
@@ -51,71 +51,73 @@ PlayBackPulseAudio::PlayBackPulseAudio(const Kwave::FileInfo &info)
 }
 
 //***************************************************************************
-PlayBackPulseAudio::~PlayBackPulseAudio()
+Kwave::PlayBackPulseAudio::~PlayBackPulseAudio()
 {
     close();
 }
 
 //***************************************************************************
-void PlayBackPulseAudio::pa_context_notify_cb(pa_context *c, void *data)
+void Kwave::PlayBackPulseAudio::pa_context_notify_cb(pa_context *c, void *data)
 {
-    PlayBackPulseAudio *playback_plugin =
-	reinterpret_cast<PlayBackPulseAudio *>(data);
+    Kwave::PlayBackPulseAudio *playback_plugin =
+	reinterpret_cast<Kwave::PlayBackPulseAudio *>(data);
     Q_ASSERT(playback_plugin);
     if (playback_plugin) playback_plugin->notifyContext(c);
 }
 
 //***************************************************************************
-void PlayBackPulseAudio::pa_sink_info_cb(pa_context *c,
-                                         const pa_sink_info *info,
-                                         int eol, void *userdata)
+void Kwave::PlayBackPulseAudio::pa_sink_info_cb(pa_context *c,
+                                                const pa_sink_info *info,
+                                                int eol, void *userdata)
 {
-    PlayBackPulseAudio *playback_plugin =
-	reinterpret_cast<PlayBackPulseAudio *>(userdata);
+    Kwave::PlayBackPulseAudio *playback_plugin =
+	reinterpret_cast<Kwave::PlayBackPulseAudio *>(userdata);
     Q_ASSERT(playback_plugin);
     if (playback_plugin) playback_plugin->notifySinkInfo(c, info, eol);
 }
 
 //***************************************************************************
-void PlayBackPulseAudio::pa_stream_state_cb(pa_stream *p, void *userdata)
+void Kwave::PlayBackPulseAudio::pa_stream_state_cb(pa_stream *p, void *userdata)
 {
-    PlayBackPulseAudio *playback_plugin =
-	reinterpret_cast<PlayBackPulseAudio *>(userdata);
+    Kwave::PlayBackPulseAudio *playback_plugin =
+	reinterpret_cast<Kwave::PlayBackPulseAudio *>(userdata);
     Q_ASSERT(playback_plugin);
     if (playback_plugin) playback_plugin->notifyStreamState(p);
 }
 
 //***************************************************************************
-void PlayBackPulseAudio::pa_write_cb(pa_stream *p, size_t nbytes,
-                                     void *userdata)
+void Kwave::PlayBackPulseAudio::pa_write_cb(pa_stream *p, size_t nbytes,
+                                            void *userdata)
 {
-    PlayBackPulseAudio *playback_plugin =
-	reinterpret_cast<PlayBackPulseAudio *>(userdata);
+    Kwave::PlayBackPulseAudio *playback_plugin =
+	reinterpret_cast<Kwave::PlayBackPulseAudio *>(userdata);
     Q_ASSERT(playback_plugin);
     if (playback_plugin) playback_plugin->notifyWrite(p, nbytes);
 }
 
 //***************************************************************************
-void PlayBackPulseAudio::pa_stream_success_cb(pa_stream *s, int success,
-                                              void *userdata)
+void Kwave::PlayBackPulseAudio::pa_stream_success_cb(pa_stream *s,
+                                                     int success,
+                                                     void *userdata)
 {
-    PlayBackPulseAudio *playback_plugin =
-	reinterpret_cast<PlayBackPulseAudio *>(userdata);
+    Kwave::PlayBackPulseAudio *playback_plugin =
+	reinterpret_cast<Kwave::PlayBackPulseAudio *>(userdata);
     Q_ASSERT(playback_plugin);
     if (playback_plugin) playback_plugin->notifySuccess(s, success);
 }
 
 //***************************************************************************
-void PlayBackPulseAudio::pa_stream_latency_cb(pa_stream *p, void *userdata)
+void Kwave::PlayBackPulseAudio::pa_stream_latency_cb(pa_stream *p,
+                                                     void *userdata)
 {
-    PlayBackPulseAudio *playback_plugin =
-	reinterpret_cast<PlayBackPulseAudio *>(userdata);
+    Kwave::PlayBackPulseAudio *playback_plugin =
+	reinterpret_cast<Kwave::PlayBackPulseAudio *>(userdata);
     Q_ASSERT(playback_plugin);
     if (playback_plugin) playback_plugin->notifyLatency(p);
 }
 
 //***************************************************************************
-void PlayBackPulseAudio::notifyContext(pa_context *c)
+void Kwave::PlayBackPulseAudio::notifyContext(pa_context *c)
 {
     Q_ASSERT(c == m_pa_context);
     switch (pa_context_get_state(c))
@@ -148,8 +150,9 @@ void PlayBackPulseAudio::notifyContext(pa_context *c)
 }
 
 //***************************************************************************
-void PlayBackPulseAudio::notifySinkInfo(pa_context *c,
-                                        const pa_sink_info *info, int eol)
+void Kwave::PlayBackPulseAudio::notifySinkInfo(pa_context *c,
+                                               const pa_sink_info *info,
+                                               int eol)
 {
     Q_UNUSED(c);
     Q_ASSERT(c == m_pa_context);
@@ -190,7 +193,7 @@ void PlayBackPulseAudio::notifySinkInfo(pa_context *c,
 }
 
 //***************************************************************************
-void PlayBackPulseAudio::notifyStreamState(pa_stream* stream)
+void Kwave::PlayBackPulseAudio::notifyStreamState(pa_stream* stream)
 {
     Q_ASSERT(stream);
     if (!stream || (stream != m_pa_stream)) return;
@@ -208,7 +211,7 @@ void PlayBackPulseAudio::notifyStreamState(pa_stream* stream)
 }
 
 //***************************************************************************
-void PlayBackPulseAudio::notifyWrite(pa_stream *stream, size_t nbytes)
+void Kwave::PlayBackPulseAudio::notifyWrite(pa_stream *stream, size_t nbytes)
 {
     Q_UNUSED(nbytes);
     Q_ASSERT(stream);
@@ -221,7 +224,7 @@ void PlayBackPulseAudio::notifyWrite(pa_stream *stream, size_t nbytes)
 }
 
 //***************************************************************************
-void PlayBackPulseAudio::notifyLatency(pa_stream *stream)
+void Kwave::PlayBackPulseAudio::notifyLatency(pa_stream *stream)
 {
     Q_ASSERT(stream);
     Q_ASSERT(stream = m_pa_stream);
@@ -233,7 +236,7 @@ void PlayBackPulseAudio::notifyLatency(pa_stream *stream)
 }
 
 //***************************************************************************
-void PlayBackPulseAudio::notifySuccess(pa_stream* stream, int success)
+void Kwave::PlayBackPulseAudio::notifySuccess(pa_stream* stream, int success)
 {
     Q_ASSERT(stream);
     Q_ASSERT(stream = m_pa_stream);
@@ -245,7 +248,7 @@ void PlayBackPulseAudio::notifySuccess(pa_stream* stream, int success)
 }
 
 //***************************************************************************
-bool PlayBackPulseAudio::connectToServer()
+bool Kwave::PlayBackPulseAudio::connectToServer()
 {
     if (m_pa_context) return true; // already connected
 
@@ -357,7 +360,7 @@ bool PlayBackPulseAudio::connectToServer()
 }
 
 //***************************************************************************
-void PlayBackPulseAudio::disconnectFromServer()
+void Kwave::PlayBackPulseAudio::disconnectFromServer()
 {
     // stop the main loop
     if (m_pa_mainloop) pa_threaded_mainloop_stop(m_pa_mainloop);
@@ -385,9 +388,10 @@ void PlayBackPulseAudio::disconnectFromServer()
 }
 
 //***************************************************************************
-QString PlayBackPulseAudio::open(const QString &device, double rate,
-                                 unsigned int channels, unsigned int bits,
-                                 unsigned int bufbase)
+QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
+                                        unsigned int channels,
+                                        unsigned int bits,
+                                        unsigned int bufbase)
 {
     #define SET_PROPERTY(__property__,__info__)              \
 	if (m_info.contains(__info__))                       \
@@ -519,7 +523,7 @@ QString PlayBackPulseAudio::open(const QString &device, double rate,
 }
 
 //***************************************************************************
-int PlayBackPulseAudio::write(const Kwave::SampleArray &samples)
+int Kwave::PlayBackPulseAudio::write(const Kwave::SampleArray &samples)
 {
     unsigned int bytes = m_bytes_per_sample;
 
@@ -584,7 +588,7 @@ int PlayBackPulseAudio::write(const Kwave::SampleArray &samples)
 }
 
 //***************************************************************************
-int PlayBackPulseAudio::flush()
+int Kwave::PlayBackPulseAudio::flush()
 {
     if (!m_buffer_used || !m_pa_mainloop || !m_buffer || !m_buffer_size)
 	return 0;
@@ -642,7 +646,7 @@ int PlayBackPulseAudio::flush()
 }
 
 //***************************************************************************
-int PlayBackPulseAudio::close()
+int Kwave::PlayBackPulseAudio::close()
 {
     // set hourglass cursor, we are waiting...
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -685,7 +689,7 @@ int PlayBackPulseAudio::close()
 }
 
 //***************************************************************************
-void PlayBackPulseAudio::scanDevices()
+void Kwave::PlayBackPulseAudio::scanDevices()
 {
     if (!m_pa_context) connectToServer();
     if (!m_pa_context) return;
@@ -760,7 +764,7 @@ void PlayBackPulseAudio::scanDevices()
 }
 
 //***************************************************************************
-QStringList PlayBackPulseAudio::supportedDevices()
+QStringList Kwave::PlayBackPulseAudio::supportedDevices()
 {
     QStringList list;
 
@@ -776,13 +780,13 @@ QStringList PlayBackPulseAudio::supportedDevices()
 }
 
 //***************************************************************************
-QString PlayBackPulseAudio::fileFilter()
+QString Kwave::PlayBackPulseAudio::fileFilter()
 {
     return "";
 }
 
 //***************************************************************************
-QList<unsigned int> PlayBackPulseAudio::supportedBits(const QString &device)
+QList<unsigned int> Kwave::PlayBackPulseAudio::supportedBits(const QString &device)
 {
     QList<unsigned int> list;
 
@@ -795,8 +799,9 @@ QList<unsigned int> PlayBackPulseAudio::supportedBits(const QString &device)
 }
 
 //***************************************************************************
-int PlayBackPulseAudio::detectChannels(const QString &device,
-                                       unsigned int &min, unsigned int &max)
+int Kwave::PlayBackPulseAudio::detectChannels(const QString &device,
+                                              unsigned int &min,
+                                              unsigned int &max)
 {
     min = max = 0;
 

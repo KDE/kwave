@@ -29,7 +29,7 @@
 #include "PitchShiftFilter.h"
 
 //***************************************************************************
-PitchShiftFilter::PitchShiftFilter()
+Kwave::PitchShiftFilter::PitchShiftFilter()
     :Kwave::SampleSource(0), m_buffer(blockSize()),
      m_speed(1.0), m_frequency(0.5), m_dbuffer(),
      m_lfopos(0), m_b1pos(0), m_b2pos(0), m_b1inc(0), m_b2inc(0),
@@ -39,18 +39,18 @@ PitchShiftFilter::PitchShiftFilter()
 }
 
 //***************************************************************************
-PitchShiftFilter::~PitchShiftFilter()
+Kwave::PitchShiftFilter::~PitchShiftFilter()
 {
 }
 
 //***************************************************************************
-void PitchShiftFilter::goOn()
+void Kwave::PitchShiftFilter::goOn()
 {
     emit output(m_buffer);
 }
 
 //***************************************************************************
-void PitchShiftFilter::initFilter()
+void Kwave::PitchShiftFilter::initFilter()
 {
     m_dbuffer.resize(MAXDELAY);
     for (m_dbpos = 0; m_dbpos < MAXDELAY; m_dbpos++)
@@ -70,7 +70,7 @@ void PitchShiftFilter::initFilter()
 }
 
 //***************************************************************************
-void PitchShiftFilter::input(Kwave::SampleArray data)
+void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
 {
     Q_ASSERT(data.size() == m_buffer.size());
 
@@ -185,7 +185,7 @@ void PitchShiftFilter::input(Kwave::SampleArray data)
 }
 
 //***************************************************************************
-void PitchShiftFilter::setSpeed(const QVariant speed)
+void Kwave::PitchShiftFilter::setSpeed(const QVariant speed)
 {
     double new_speed = QVariant(speed).toDouble();
     if (new_speed == m_speed) return; // nothing to do
@@ -195,7 +195,7 @@ void PitchShiftFilter::setSpeed(const QVariant speed)
 }
 
 //***************************************************************************
-void PitchShiftFilter::setFrequency(const QVariant freq)
+void Kwave::PitchShiftFilter::setFrequency(const QVariant freq)
 {
     double new_freq = QVariant(freq).toDouble();
     if (new_freq == m_frequency) return; // nothing to do

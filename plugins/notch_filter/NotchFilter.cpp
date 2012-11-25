@@ -25,7 +25,7 @@
 #include "NotchFilter.h"
 
 //***************************************************************************
-NotchFilter::NotchFilter()
+Kwave::NotchFilter::NotchFilter()
     :Kwave::SampleSource(0), Kwave::TransmissionFunction(),
      m_buffer(blockSize()), m_f_cutoff(M_PI), m_f_bw(M_PI / 2)
 {
@@ -33,18 +33,18 @@ NotchFilter::NotchFilter()
 }
 
 //***************************************************************************
-NotchFilter::~NotchFilter()
+Kwave::NotchFilter::~NotchFilter()
 {
 }
 
 //***************************************************************************
-void NotchFilter::goOn()
+void Kwave::NotchFilter::goOn()
 {
     emit output(m_buffer);
 }
 
 //***************************************************************************
-double NotchFilter::at(double f)
+double Kwave::NotchFilter::at(double f)
 {
     /*
      * filter function as extracted from the aRts code:
@@ -81,7 +81,7 @@ double NotchFilter::at(double f)
 }
 
 //***************************************************************************
-void NotchFilter::initFilter()
+void Kwave::NotchFilter::initFilter()
 {
     m_filter.x1 = 0.0;
     m_filter.x2 = 0.0;
@@ -95,7 +95,7 @@ void NotchFilter::initFilter()
  * Some JAES's article on ladder filter.
  * freq (Hz), gdb (dB), bw (Hz)
  */
-void NotchFilter::setfilter_peaknotch2(double freq, double bw)
+void Kwave::NotchFilter::setfilter_peaknotch2(double freq, double bw)
 {
     const double gdb = -100;
     double k, w, bwr, abw, gain;
@@ -117,7 +117,7 @@ void NotchFilter::setfilter_peaknotch2(double freq, double bw)
 }
 
 //***************************************************************************
-void NotchFilter::input(Kwave::SampleArray data)
+void Kwave::NotchFilter::input(Kwave::SampleArray data)
 {
     setfilter_peaknotch2(m_f_cutoff, m_f_bw);
 
@@ -142,7 +142,7 @@ void NotchFilter::input(Kwave::SampleArray data)
 }
 
 //***************************************************************************
-void NotchFilter::setFrequency(const QVariant fc)
+void Kwave::NotchFilter::setFrequency(const QVariant fc)
 {
     double new_freq = QVariant(fc).toDouble();
     if (new_freq == m_f_cutoff) return; // nothing to do
@@ -153,7 +153,7 @@ void NotchFilter::setFrequency(const QVariant fc)
 }
 
 //***************************************************************************
-void NotchFilter::setBandwidth(const QVariant bw)
+void Kwave::NotchFilter::setBandwidth(const QVariant bw)
 {
     double new_bw = QVariant(bw).toDouble();
     if (new_bw == m_f_bw) return; // nothing to do

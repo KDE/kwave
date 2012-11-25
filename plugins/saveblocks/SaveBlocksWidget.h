@@ -23,71 +23,77 @@
 #include "SaveBlocksPlugin.h"
 #include "ui_SaveBlocksWidgetBase.h"
 
-class SaveBlocksWidget: public QWidget,
-                        public Ui::SaveBlocksWidgetBase
+namespace Kwave
 {
-    Q_OBJECT
-public:
-
-    /**
-     * Constructor
-     * @param widget pointer to the parent widget
-     * @param filename_pattern the pattern used for generating the file names
-     * @param numbering_mode the way the numbers are given
-     * @param selection_only if true, save only the selection
-     * @param have_selection if true, there is a selection
-     */
-    SaveBlocksWidget(QWidget *widget,
-	QString filename_pattern,
-	SaveBlocksPlugin::numbering_mode_t numbering_mode,
-	bool selection_only,
-	bool have_selection
-    );
-
-    /** Destructor */
-    virtual ~SaveBlocksWidget();
-
-    /** @see KPreviewWidgetBase::showPreview() */
-    virtual void showPreview(const KUrl &url)
+    class SaveBlocksWidget: public QWidget,
+                            public Ui::SaveBlocksWidgetBase
     {
-	Q_UNUSED(url);
+	Q_OBJECT
+    public:
+
+	/**
+	 * Constructor
+	 * @param widget pointer to the parent widget
+	 * @param filename_pattern the pattern used for generating the file names
+	 * @param numbering_mode the way the numbers are given
+	 * @param selection_only if true, save only the selection
+	 * @param have_selection if true, there is a selection
+	 */
+	SaveBlocksWidget(QWidget *widget,
+	    QString filename_pattern,
+	    Kwave::SaveBlocksPlugin::numbering_mode_t numbering_mode,
+	    bool selection_only,
+	    bool have_selection
+	);
+
+	/** Destructor */
+	virtual ~SaveBlocksWidget();
+
+	/** @see KPreviewWidgetBase::showPreview() */
+	virtual void showPreview(const KUrl &url)
+	{
+	    Q_UNUSED(url);
+	}
+
+	/** @see KPreviewWidgetBase::clearPreview */
+	virtual void clearPreview()
+	{
+	}
+
+	/** returns the file name pattern */
+	QString pattern();
+
+	/** returns the numbering mode */
+	Kwave::SaveBlocksPlugin::numbering_mode_t numberingMode();
+
+	/** returns true if only the selection should be saved */
+	bool selectionOnly();
+
+    signals:
+
+	/** emitted whenever one of the input controls has changed */
+	void somethingChanged();
+
+    public slots:
+
+	/**
+	 * update the filename preview
+	 * @param example the example filename
+	 */
+	void setNewExample(const QString &example);
+
+    private slots:
+
+	/** calls somethingChanged() and ignores it's parameter */
+	void textChanged(const QString &);
+
+	/** calls somethingChanged() and ignores it's parameter */
+	void indexChanged(int);
+
     };
-
-    /** @see KPreviewWidgetBase::clearPreview */
-    virtual void clearPreview()
-    {
-    };
-
-    /** returns the file name pattern */
-    QString pattern();
-
-    /** returns the numbering mode */
-    SaveBlocksPlugin::numbering_mode_t numberingMode();
-
-    /** returns true if only the selection should be saved */
-    bool selectionOnly();
-
-signals:
-
-    /** emitted whenever one of the input controls has changed */
-    void somethingChanged();
-
-public slots:
-
-    /**
-     * update the filename preview
-     * @param example the example filename
-     */
-    void setNewExample(const QString &example);
-
-private slots:
-
-    /** calls somethingChanged() and ignores it's parameter */
-    void textChanged(const QString &);
-
-    /** calls somethingChanged() and ignores it's parameter */
-    void indexChanged(int);
-
-};
+}
 
 #endif /* _SAVE_BLOCKS_WIDGET_H_ */
+
+//***************************************************************************
+//***************************************************************************

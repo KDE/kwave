@@ -32,7 +32,7 @@ KwaveAboutContainer.cpp  -  Authors and thanks field in the about dialog
 #include "KwaveAboutContainer.h"
 
 //***************************************************************************
-KwaveAboutContainer::KwaveAboutContainer(QWidget *parent)
+Kwave::AboutContainer::AboutContainer(QWidget *parent)
     :QFrame(parent)
 {
     setFrameStyle(QFrame::NoFrame);
@@ -58,12 +58,12 @@ KwaveAboutContainer::KwaveAboutContainer(QWidget *parent)
 }
 
 //***************************************************************************
-KwaveAboutContainer::~KwaveAboutContainer()
+Kwave::AboutContainer::~AboutContainer()
 {
 }
 
 //***************************************************************************
-QSize KwaveAboutContainer::sizeHint(void) const
+QSize Kwave::AboutContainer::sizeHint(void) const
 {
     //
     // The size is computed by adding the sizeHint().height() of all
@@ -111,13 +111,13 @@ QSize KwaveAboutContainer::sizeHint(void) const
 }
 
 //***************************************************************************
-QSize KwaveAboutContainer::minimumSizeHint(void) const
+QSize Kwave::AboutContainer::minimumSizeHint(void) const
 {
     return sizeHint();
 }
 
 //***************************************************************************
-void KwaveAboutContainer::addWidget(QWidget *widget)
+void Kwave::AboutContainer::addWidget(QWidget *widget)
 {
     widget->setParent(this);
 
@@ -133,10 +133,10 @@ void KwaveAboutContainer::addWidget(QWidget *widget)
 }
 
 //***************************************************************************
-void KwaveAboutContainer::addPerson(const QString &_name, const QString &_email,
-				    const QString &_url, const QString &_task)
+void Kwave::AboutContainer::addPerson(const QString &_name, const QString &_email,
+				      const QString &_url, const QString &_task)
 {
-    KwaveAboutContributor * const cont = new KwaveAboutContributor(this,
+    Kwave::AboutContributor * const cont = new Kwave::AboutContributor(this,
 	_name, _email, _url, _task);
     Q_ASSERT(cont);
     if (!cont) return;
@@ -145,11 +145,11 @@ void KwaveAboutContainer::addPerson(const QString &_name, const QString &_email,
 }
 
 //***************************************************************************
-KwaveAboutContributor::KwaveAboutContributor(QWidget *_parent,
-                                             const QString &_name,
-                                             const QString &_email,
-                                             const QString &_url,
-                                             const QString &_work)
+Kwave::AboutContributor::AboutContributor(QWidget *_parent,
+                                          const QString &_name,
+                                          const QString &_email,
+                                          const QString &_url,
+                                          const QString &_work)
     :QFrame(_parent)
 {
     for (int i=0; i < 4; ++i) {
@@ -179,24 +179,24 @@ KwaveAboutContributor::KwaveAboutContributor(QWidget *_parent,
 }
 
 //***************************************************************************
-KwaveAboutContributor::~KwaveAboutContributor()
+Kwave::AboutContributor::~AboutContributor()
 {
 }
 
 //***************************************************************************
-void KwaveAboutContributor::fontChange(const QFont &/*oldFont*/)
+void Kwave::AboutContributor::fontChange(const QFont &/*oldFont*/)
 {
     update();
 }
 
 //***************************************************************************
-QSize KwaveAboutContributor::sizeHint(void) const
+QSize Kwave::AboutContributor::sizeHint(void) const
 {
     return minimumSizeHint();
 }
 
 //***************************************************************************
-void KwaveAboutContributor::updateLayout()
+void Kwave::AboutContributor::updateLayout()
 {
     if (layout()) delete layout();
 

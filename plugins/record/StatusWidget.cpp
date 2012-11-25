@@ -23,7 +23,7 @@
 #include "StatusWidget.h"
 
 //***************************************************************************
-StatusWidget::StatusWidget(QWidget *parent)
+Kwave::StatusWidget::StatusWidget(QWidget *parent)
     :QWidget(parent), m_pixmaps(), m_index(0), m_timer()
 {
     connect(&m_timer, SIGNAL(timeout()),
@@ -31,14 +31,14 @@ StatusWidget::StatusWidget(QWidget *parent)
 }
 
 //***************************************************************************
-StatusWidget::~StatusWidget()
+Kwave::StatusWidget::~StatusWidget()
 {
     m_timer.stop();
     m_pixmaps.clear();
 }
 
 //***************************************************************************
-void StatusWidget::paintEvent(QPaintEvent *)
+void Kwave::StatusWidget::paintEvent(QPaintEvent *)
 {
     if (!m_pixmaps.count()) return;
 
@@ -53,8 +53,8 @@ void StatusWidget::paintEvent(QPaintEvent *)
 }
 
 //***************************************************************************
-void StatusWidget::setPixmaps(const QVector<QPixmap> &pixmaps,
-                              unsigned int speed)
+void Kwave::StatusWidget::setPixmaps(const QVector<QPixmap> &pixmaps,
+                                     unsigned int speed)
 {
     m_timer.stop();
     m_pixmaps.clear();
@@ -68,7 +68,7 @@ void StatusWidget::setPixmaps(const QVector<QPixmap> &pixmaps,
 }
 
 //***************************************************************************
-void StatusWidget::nextPixmap()
+void Kwave::StatusWidget::nextPixmap()
 {
     m_index++;
     if (static_cast<int>(m_index) >= m_pixmaps.count())

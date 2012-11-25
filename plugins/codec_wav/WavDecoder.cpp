@@ -62,7 +62,7 @@
 #define CHECK(cond) Q_ASSERT(cond); if (!(cond)) { src.close(); return false; }
 
 //***************************************************************************
-WavDecoder::WavDecoder()
+Kwave::WavDecoder::WavDecoder()
     :Kwave::Decoder(), m_source(0), m_src_adapter(0), m_known_chunks(),
      m_property_map()
 {
@@ -98,20 +98,20 @@ WavDecoder::WavDecoder()
 }
 
 //***************************************************************************
-WavDecoder::~WavDecoder()
+Kwave::WavDecoder::~WavDecoder()
 {
     if (m_source) close();
     if (m_src_adapter) delete m_src_adapter;
 }
 
 //***************************************************************************
-Kwave::Decoder *WavDecoder::instance()
+Kwave::Decoder *Kwave::WavDecoder::instance()
 {
-    return new WavDecoder();
+    return new Kwave::WavDecoder();
 }
 
 //***************************************************************************
-bool WavDecoder::open(QWidget *widget, QIODevice &src)
+bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 {
     Kwave::FileInfo info;
     Kwave::LabelList labels;
@@ -134,7 +134,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     main_chunks.append("LIST"); /* additional information */
     main_chunks.append("adtl"); /* Associated Data */
 
-    RIFFParser parser(src, main_chunks, m_known_chunks);
+    Kwave::RIFFParser parser(src, main_chunks, m_known_chunks);
 
     // prepare a progress dialog
     QProgressDialog progress(widget);
@@ -162,9 +162,9 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 //     parser.dumpStructure();
 
     // check if there is a RIFF chunk at all...
-    RIFFChunk *riff_chunk = parser.findChunk("/RIFF:WAVE");
-    RIFFChunk *fmt_chunk  = parser.findChunk("/RIFF:WAVE/fmt ");
-    RIFFChunk *data_chunk = parser.findChunk("/RIFF:WAVE/data");
+    Kwave::RIFFChunk *riff_chunk = parser.findChunk("/RIFF:WAVE");
+    Kwave::RIFFChunk *fmt_chunk  = parser.findChunk("/RIFF:WAVE/fmt ");
+    Kwave::RIFFChunk *data_chunk = parser.findChunk("/RIFF:WAVE/data");
 
     if (!riff_chunk || !fmt_chunk || !data_chunk || !parser.isSane()) {
 	if (Kwave::MessageBox::warningContinueCancel(widget,
@@ -278,7 +278,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     m_source = &src;
 
     // read the wave header
-    wav_fmt_header_t header;
+    Kwave::wav_fmt_header_t header;
 
     unsigned int rate = 0;
     unsigned int bits = 0;
@@ -287,10 +287,10 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     // get the encoded block of data from the mime source
     CHECK(static_cast<unsigned int>(src.size()) >
-          sizeof(wav_header_t) + 8);
+          sizeof(Kwave::wav_header_t) + 8);
 
     // get the header
-    src.read(reinterpret_cast<char *>(&header), sizeof(wav_fmt_header_t));
+    src.read(reinterpret_cast<char *>(&header), sizeof(Kwave::wav_fmt_header_t));
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
     header.min.format      = bswap_16(header.min.format);
     header.min.channels    = bswap_16(header.min.channels);
@@ -303,7 +303,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     rate = header.min.samplerate;
     bits = header.min.bitwidth;
 
-    WavFormatMap known_formats;
+    Kwave::WavFormatMap known_formats;
     QString format_name = known_formats.findName(header.min.format);
 
 //     qDebug("-------------------------");
@@ -319,16 +319,17 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     // open the file through libaudiofile :)
     if (need_repair) {
-	QList<RecoverySource *> *repair_list = new QList<RecoverySource *>();
+	QList<Kwave::RecoverySource *> *repair_list =
+	    new QList<Kwave::RecoverySource *>();
 	Q_ASSERT(repair_list);
 	if (!repair_list) return false;
 
-	RIFFChunk *root = (riff_chunk) ? riff_chunk : parser.findChunk("");
+	Kwave::RIFFChunk *root = (riff_chunk) ? riff_chunk : parser.findChunk("");
 // 	parser.dumpStructure();
 //	qDebug("riff chunk = %p, parser.findChunk('')=%p", riff_chunk,
 //	    parser.findChunk(""));
 	repair(repair_list, root, fmt_chunk, data_chunk);
-	m_src_adapter = new RepairVirtualAudioFile(*m_source, repair_list);
+	m_src_adapter = new Kwave::RepairVirtualAudioFile(*m_source, repair_list);
     } else {
 	m_src_adapter = new Kwave::VirtualAudioFile(*m_source);
     }
@@ -398,11 +399,11 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     info.set(Kwave::INF_COMPRESSION, compression);
 
     // read in all info from the LIST (INFO) chunk
-    RIFFChunk *info_chunk = parser.findChunk("/RIFF:WAVE/LIST:INFO");
+    Kwave::RIFFChunk *info_chunk = parser.findChunk("/RIFF:WAVE/LIST:INFO");
     if (info_chunk) {
 	// found info chunk !
-	RIFFChunkList &list = info_chunk->subChunks();
-	foreach (RIFFChunk *chunk, list) {
+	Kwave::RIFFChunkList &list = info_chunk->subChunks();
+	foreach (Kwave::RIFFChunk *chunk, list) {
 	    if (!chunk) continue;
 	    if (!m_property_map.containsChunk(chunk->name())) continue;
 
@@ -421,7 +422,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     }
 
     // read in the Labels (cue list)
-    RIFFChunk *cue_chunk = parser.findChunk("/RIFF:WAVE/cue ");
+    Kwave::RIFFChunk *cue_chunk = parser.findChunk("/RIFF:WAVE/cue ");
     if (cue_chunk) {
 	// found a cue list chunk !
 	u_int32_t count;
@@ -484,11 +485,12 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
 	    // as we now have index and position, find out the name
 	    QByteArray name = "";
-	    RIFFChunk *adtl_chunk = parser.findChunk("/RIFF:WAVE/LIST:adtl");
+	    Kwave::RIFFChunk *adtl_chunk =
+		parser.findChunk("/RIFF:WAVE/LIST:adtl");
 	    if (adtl_chunk) {
-		RIFFChunk *labl_chunk = 0;
+		Kwave::RIFFChunk *labl_chunk = 0;
 		bool found = false;
-		QListIterator<RIFFChunk *> it(adtl_chunk->subChunks());
+		QListIterator<Kwave::RIFFChunk *> it(adtl_chunk->subChunks());
 		while (it.hasNext()) {
 		    u_int32_t data, labl_index;
 		    labl_chunk = it.next();
@@ -552,7 +554,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 }
 
 //***************************************************************************
-bool WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
+bool Kwave::WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
 {
     Q_ASSERT(m_src_adapter);
     Q_ASSERT(m_source);
@@ -626,8 +628,9 @@ bool WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
 }
 
 //***************************************************************************
-bool WavDecoder::repairChunk(QList<RecoverySource *> *repair_list,
-    RIFFChunk *chunk, u_int32_t &offset)
+bool Kwave::WavDecoder::repairChunk(
+    QList<Kwave::RecoverySource *> *repair_list,
+    Kwave::RIFFChunk *chunk, u_int32_t &offset)
 {
     Q_ASSERT(chunk);
     Q_ASSERT(m_source);
@@ -638,25 +641,25 @@ bool WavDecoder::repairChunk(QList<RecoverySource *> *repair_list,
 
     char buffer[16];
     u_int32_t length;
-    RecoverySource *repair = 0;
+    Kwave::RecoverySource *repair = 0;
 
     // create buffer with header
     strncpy(buffer, chunk->name().data(), 4);
-    length = (chunk->type() == RIFFChunk::Main) ? chunk->physLength() :
-                                                  chunk->dataLength();
+    length = (chunk->type() == Kwave::RIFFChunk::Main) ? chunk->physLength() :
+                                                         chunk->dataLength();
     buffer[4] = (length      ) & 0xFF;
     buffer[5] = (length >>  8) & 0xFF;
     buffer[6] = (length >> 16) & 0xFF;
     buffer[7] = (length >> 24) & 0xFF;
-    if (chunk->type() == RIFFChunk::Main) {
+    if (chunk->type() == Kwave::RIFFChunk::Main) {
 	strncpy(&(buffer[8]), chunk->format().data(), 4);
-	repair = new RecoveryBuffer(offset, 12, buffer);
+	repair = new Kwave::RecoveryBuffer(offset, 12, buffer);
 	qDebug("[0x%08X-0x%08X] - main header '%s' (%s), len=%u",
 	      offset, offset+11, chunk->name().data(),
 	      chunk->format().data(), length);
 	offset += 12;
     } else {
-	repair = new RecoveryBuffer(offset, 8, buffer);
+	repair = new Kwave::RecoveryBuffer(offset, 8, buffer);
 	qDebug("[0x%08X-0x%08X] - sub header '%s', len=%u",
 	      offset, offset+7, chunk->name().data(), length);
 	offset += 8;
@@ -666,11 +669,11 @@ bool WavDecoder::repairChunk(QList<RecoverySource *> *repair_list,
     repair_list->append(repair);
 
     // map the chunk's data if not main or root
-    if ((chunk->type() != RIFFChunk::Root) &&
-        (chunk->type() != RIFFChunk::Main))
+    if ((chunk->type() != Kwave::RIFFChunk::Root) &&
+        (chunk->type() != Kwave::RIFFChunk::Main))
     {
-	repair = new RecoveryMapping(offset, chunk->physLength(),
-	                             *m_source, chunk->dataStart());
+	repair = new Kwave::RecoveryMapping(offset, chunk->physLength(),
+	                                    *m_source, chunk->dataStart());
 	qDebug("[0x%08X-0x%08X] - restoring from offset 0x%08X (%u)",
 	      offset, offset+chunk->physLength()-1, chunk->dataStart(),
 	      chunk->physLength());
@@ -682,8 +685,8 @@ bool WavDecoder::repairChunk(QList<RecoverySource *> *repair_list,
     }
 
     // recursively go over all sub-chunks
-    RIFFChunkList &list = chunk->subChunks();
-    foreach (RIFFChunk *chunk, list) {
+    Kwave::RIFFChunkList &list = chunk->subChunks();
+    foreach (Kwave::RIFFChunk *chunk, list) {
 	if (!chunk) continue;
 	if (!repairChunk(repair_list, chunk, offset))
 	    return false;
@@ -693,8 +696,10 @@ bool WavDecoder::repairChunk(QList<RecoverySource *> *repair_list,
 }
 
 //***************************************************************************
-bool WavDecoder::repair(QList<RecoverySource *> *repair_list,
-    RIFFChunk *riff_chunk, RIFFChunk *fmt_chunk, RIFFChunk *data_chunk)
+bool Kwave::WavDecoder::repair(QList<Kwave::RecoverySource *> *repair_list,
+    Kwave::RIFFChunk *riff_chunk,
+    Kwave::RIFFChunk *fmt_chunk,
+    Kwave::RIFFChunk *data_chunk)
 {
     Q_ASSERT(fmt_chunk);
     Q_ASSERT(data_chunk);
@@ -703,18 +708,18 @@ bool WavDecoder::repair(QList<RecoverySource *> *repair_list,
     // --- first create a chunk tree for the structure ---
 
     // make a new "RIFF" chunk as root
-    RIFFChunk new_root(0, "RIFF", "WAVE", 0,0,0);
-    new_root.setType(RIFFChunk::Main);
+    Kwave::RIFFChunk new_root(0, "RIFF", "WAVE", 0,0,0);
+    new_root.setType(Kwave::RIFFChunk::Main);
 
     // create a new "fmt " chunk
-    RIFFChunk *new_fmt = new RIFFChunk(&new_root, "fmt ",0,0,
+    Kwave::RIFFChunk *new_fmt = new Kwave::RIFFChunk(&new_root, "fmt ",0,0,
 	fmt_chunk->physStart(), fmt_chunk->physLength());
     Q_ASSERT(new_fmt);
     if (!new_fmt) return false;
     new_root.subChunks().append(new_fmt);
 
     // create a new "data" chunk
-    RIFFChunk *new_data = new RIFFChunk(&new_root, "data",0,0,
+    Kwave::RIFFChunk *new_data = new Kwave::RIFFChunk(&new_root, "data",0,0,
 	data_chunk->physStart(), data_chunk->physLength());
     Q_ASSERT(new_data);
     if (!new_data) return false;
@@ -725,14 +730,14 @@ bool WavDecoder::repair(QList<RecoverySource *> *repair_list,
     // sizes and start positions.
     // NOTE: The sizes might be re-assigned and get invalid afterwards!!!
     if (riff_chunk) {
-	RIFFChunkList &list = riff_chunk->subChunks();
-	foreach (RIFFChunk *chunk, list) {
+	Kwave::RIFFChunkList &list = riff_chunk->subChunks();
+	foreach (Kwave::RIFFChunk *chunk, list) {
 	    if (!chunk) continue;
 	    if (chunk->name() == "fmt ") continue;
 	    if (chunk->name() == "data") continue;
 	    if (chunk->name() == "RIFF") continue;
-	    if (chunk->type() == RIFFChunk::Empty) continue;
-	    if (chunk->type() == RIFFChunk::Garbage) continue;
+	    if (chunk->type() == Kwave::RIFFChunk::Empty) continue;
+	    if (chunk->type() == Kwave::RIFFChunk::Garbage) continue;
 
 	    new_root.subChunks().append(chunk);
 	}
@@ -760,7 +765,7 @@ bool WavDecoder::repair(QList<RecoverySource *> *repair_list,
 }
 
 //***************************************************************************
-void WavDecoder::close()
+void Kwave::WavDecoder::close()
 {
     if (m_src_adapter) delete m_src_adapter;
     m_src_adapter = 0;

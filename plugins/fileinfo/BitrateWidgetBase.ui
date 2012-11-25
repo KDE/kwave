@@ -20,7 +20,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="BitrateSpinBox" native="1" name="spinbox" >
+    <widget class="Kwave::BitrateSpinBox" native="1" name="spinbox" >
      <property name="minimumSize" >
       <size>
        <width>90</width>
@@ -72,7 +72,7 @@
  <layoutdefault spacing="10" margin="10" />
  <customwidgets>
   <customwidget>
-   <class>BitrateSpinBox</class>
+   <class>Kwave::BitrateSpinBox</class>
    <extends>QWidget</extends>
    <header>BitrateSpinBox.h</header>
    <container>1</container>

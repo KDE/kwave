@@ -24,7 +24,7 @@
 #include "KeywordWidget.h"
 
 //***************************************************************************
-KeywordWidget::KeywordWidget(QWidget *parent)
+Kwave::KeywordWidget::KeywordWidget(QWidget *parent)
     :QWidget(parent), Ui::KeywordWidgetBase()
 {
     setupUi(this);
@@ -60,19 +60,19 @@ KeywordWidget::KeywordWidget(QWidget *parent)
 }
 
 //***************************************************************************
-KeywordWidget::~KeywordWidget()
+Kwave::KeywordWidget::~KeywordWidget()
 {
 }
 
 //***************************************************************************
-bool KeywordWidget::contained(const QString &item)
+bool Kwave::KeywordWidget::contained(const QString &item)
 {
     if (!item.length()) return false;
     return (!lstKeywords->findItems(item, Qt::MatchExactly).isEmpty());
 }
 
 //***************************************************************************
-QStringList KeywordWidget::keywords()
+QStringList Kwave::KeywordWidget::keywords()
 {
     QStringList list;
     unsigned int count = lstKeywords->count();
@@ -85,7 +85,7 @@ QStringList KeywordWidget::keywords()
 }
 
 //***************************************************************************
-void KeywordWidget::setKeywords(const QStringList &keywords)
+void Kwave::KeywordWidget::setKeywords(const QStringList &keywords)
 {
     lstKeywords->clear();
     edKeyword->clear();
@@ -104,7 +104,7 @@ void KeywordWidget::setKeywords(const QStringList &keywords)
 }
 
 //***************************************************************************
-void KeywordWidget::update()
+void Kwave::KeywordWidget::update()
 {
     QString edit = edKeyword->text().simplified();
 
@@ -125,7 +125,7 @@ void KeywordWidget::update()
 }
 
 //***************************************************************************
-void KeywordWidget::editChanged(const QString &edit)
+void Kwave::KeywordWidget::editChanged(const QString &edit)
 {
     QString text = edit.simplified();
     QList<QListWidgetItem *> matches =
@@ -140,13 +140,13 @@ void KeywordWidget::editChanged(const QString &edit)
 }
 
 //***************************************************************************
-void KeywordWidget::returnPressed(const QString &)
+void Kwave::KeywordWidget::returnPressed(const QString &)
 {
     add(); // means the same as pressing "Add"
 }
 
 //***************************************************************************
-void KeywordWidget::add()
+void Kwave::KeywordWidget::add()
 {
     QString text = edKeyword->text().simplified();
     if (!text.length()) return;
@@ -169,7 +169,7 @@ void KeywordWidget::add()
 }
 
 //***************************************************************************
-void KeywordWidget::remove()
+void Kwave::KeywordWidget::remove()
 {
     // remove the item from the list
     int index = lstKeywords->currentRow();
@@ -187,7 +187,7 @@ void KeywordWidget::remove()
 }
 
 //***************************************************************************
-void KeywordWidget::listClicked(QListWidgetItem *item)
+void Kwave::KeywordWidget::listClicked(QListWidgetItem *item)
 {
     if (!item) return;
     edKeyword->setText(item->text());
@@ -195,7 +195,7 @@ void KeywordWidget::listClicked(QListWidgetItem *item)
 }
 
 //***************************************************************************
-void KeywordWidget::autoClicked()
+void Kwave::KeywordWidget::autoClicked()
 {
     emit autoGenerate();
 }

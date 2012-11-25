@@ -51,7 +51,7 @@
 #endif
 
 /***************************************************************************/
-WavEncoder::WavEncoder()
+Kwave::WavEncoder::WavEncoder()
     :Kwave::Encoder(), m_property_map()
 {
     REGISTER_MIME_TYPES;
@@ -59,25 +59,26 @@ WavEncoder::WavEncoder()
 }
 
 /***************************************************************************/
-WavEncoder::~WavEncoder()
+Kwave::WavEncoder::~WavEncoder()
 {
 }
 
 /***************************************************************************/
-Kwave::Encoder *WavEncoder::instance()
+Kwave::Encoder *Kwave::WavEncoder::instance()
 {
-    return new WavEncoder();
+    return new Kwave::WavEncoder();
 }
 
 /***************************************************************************/
-QList<Kwave::FileProperty> WavEncoder::supportedProperties()
+QList<Kwave::FileProperty> Kwave::WavEncoder::supportedProperties()
 {
     return m_property_map.properties();
 }
 
 /***************************************************************************/
-void WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst, Kwave::FileInfo &info,
-                                             unsigned int frame_size)
+void Kwave::WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst,
+                                                    Kwave::FileInfo &info,
+                                                    unsigned int frame_size)
 {
     const unsigned int length = info.length();
     u_int32_t correct_size = length * frame_size;
@@ -126,7 +127,7 @@ void WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst, Kwave::FileInfo &in
 }
 
 /***************************************************************************/
-void WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
+void Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
 {
     // create a list of chunk names and properties for the INFO chunk
     QMap<Kwave::FileProperty, QVariant> properties(info.properties());
@@ -188,7 +189,8 @@ void WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
 }
 
 /***************************************************************************/
-void WavEncoder::writeLabels(QIODevice &dst, const Kwave::LabelList &labels)
+void Kwave::WavEncoder::writeLabels(QIODevice &dst,
+                                    const Kwave::LabelList &labels)
 {
     const unsigned int labels_count = labels.count();
     u_int32_t size, additional_size = 0, index, data;
@@ -308,8 +310,9 @@ void WavEncoder::writeLabels(QIODevice &dst, const Kwave::LabelList &labels)
 }
 
 /***************************************************************************/
-bool WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
-                        QIODevice &dst, const Kwave::MetaDataList &meta_data)
+bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
+                               QIODevice &dst,
+                               const Kwave::MetaDataList &meta_data)
 {
     Kwave::FileInfo info(meta_data);
 

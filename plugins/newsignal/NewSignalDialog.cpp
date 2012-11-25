@@ -38,7 +38,7 @@
 #include "NewSignalDialog.h"
 
 //***************************************************************************
-NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
+Kwave::NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
 	unsigned int rate, unsigned int bits, unsigned int tracks,
 	bool by_time)
     :QDialog(parent), Ui::NewSigDlg(), m_timer(this), m_recursive(false)
@@ -119,13 +119,13 @@ NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
 }
 
 //***************************************************************************
-unsigned int NewSignalDialog::samples()
+unsigned int Kwave::NewSignalDialog::samples()
 {
     return static_cast<unsigned int>(edSamples->value());
 }
 
 //***************************************************************************
-double NewSignalDialog::rate()
+double Kwave::NewSignalDialog::rate()
 {
     bool ok;
     double r = cbSampleRate->currentText().toDouble(&ok);
@@ -134,7 +134,7 @@ double NewSignalDialog::rate()
 }
 
 //***************************************************************************
-void NewSignalDialog::checkNewSampleEdit()
+void Kwave::NewSignalDialog::checkNewSampleEdit()
 {
     static int last_samples = -1;
     if (edSamples->value() != last_samples) {
@@ -144,13 +144,13 @@ void NewSignalDialog::checkNewSampleEdit()
 }
 
 //***************************************************************************
-unsigned int NewSignalDialog::tracks()
+unsigned int Kwave::NewSignalDialog::tracks()
 {
     return sbChannels->value();
 }
 
 //***************************************************************************
-unsigned int NewSignalDialog::bitsPerSample()
+unsigned int Kwave::NewSignalDialog::bitsPerSample()
 {
     int res = sbResolution->value();
     if (res < 8) res = 8;
@@ -158,13 +158,13 @@ unsigned int NewSignalDialog::bitsPerSample()
 }
 
 //***************************************************************************
-bool NewSignalDialog::byTime()
+bool Kwave::NewSignalDialog::byTime()
 {
     return rbTime->isChecked();
 }
 
 //***************************************************************************
-unsigned int NewSignalDialog::maxSamples()
+unsigned int Kwave::NewSignalDialog::maxSamples()
 {
     unsigned int bytes_per_sample = bitsPerSample() >> 3;
 
@@ -179,7 +179,7 @@ unsigned int NewSignalDialog::maxSamples()
 }
 
 //***************************************************************************
-void NewSignalDialog::rbTimeToggled(bool)
+void Kwave::NewSignalDialog::rbTimeToggled(bool)
 {
     if (rbTime->isChecked()) {
 	m_timer.stop();
@@ -191,13 +191,13 @@ void NewSignalDialog::rbTimeToggled(bool)
 }
 
 //***************************************************************************
-void NewSignalDialog::checkTimeAndLengthInfo(int)
+void Kwave::NewSignalDialog::checkTimeAndLengthInfo(int)
 {
     (rbTime->isChecked()) ? timeChanged(0) : samplesChanged(0);
 }
 
 //***************************************************************************
-void NewSignalDialog::timeChanged(int)
+void Kwave::NewSignalDialog::timeChanged(int)
 {
     if (m_recursive) return; // don't do recursive processing
     if (!rbTime->isChecked()) return;
@@ -260,7 +260,7 @@ void NewSignalDialog::timeChanged(int)
 }
 
 //***************************************************************************
-void NewSignalDialog::samplesChanged(int)
+void Kwave::NewSignalDialog::samplesChanged(int)
 {
     if (m_recursive) return; // don't do recursive processing
     if (!rbSamples->isChecked()) return;
@@ -287,13 +287,13 @@ void NewSignalDialog::samplesChanged(int)
 }
 
 //***************************************************************************
-void NewSignalDialog::sampleRateChanged(const QString&)
+void Kwave::NewSignalDialog::sampleRateChanged(const QString&)
 {
     checkTimeAndLengthInfo(0);
 }
 
 //***************************************************************************
-void NewSignalDialog::tracksChanged(int)
+void Kwave::NewSignalDialog::tracksChanged(int)
 {
     switch (tracks()) {
 	case 1:
@@ -313,7 +313,7 @@ void NewSignalDialog::tracksChanged(int)
 }
 
 //***************************************************************************
-void NewSignalDialog::updateFileSize()
+void Kwave::NewSignalDialog::updateFileSize()
 {
     double samples = static_cast<double>(edSamples->value());
     double mbytes = samples * static_cast<double>(tracks()) *
@@ -332,7 +332,7 @@ void NewSignalDialog::updateFileSize()
 }
 
 //***************************************************************************
-void NewSignalDialog::setLengthPercentage(int percent)
+void Kwave::NewSignalDialog::setLengthPercentage(int percent)
 {
     if (m_recursive) return; // don't do recursive processing
     if (rate() <= 0) return;
@@ -353,7 +353,7 @@ void NewSignalDialog::setLengthPercentage(int percent)
 }
 
 //***************************************************************************
-void NewSignalDialog::setHMS(const double &samples)
+void Kwave::NewSignalDialog::setHMS(const double &samples)
 {
     double rate = this->rate();
     if (rate <= 0.0) return;
@@ -369,7 +369,7 @@ void NewSignalDialog::setHMS(const double &samples)
 }
 
 //***************************************************************************
-void NewSignalDialog::invokeHelp()
+void Kwave::NewSignalDialog::invokeHelp()
 {
     KToolInvocation::invokeHelp("memory-setup");
 }

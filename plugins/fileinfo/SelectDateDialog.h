@@ -25,30 +25,37 @@
 
 class QWidget;
 
-class SelectDateDialog: public QDialog,
-                        public Ui::SelectDateDlg
+namespace Kwave
 {
-    Q_OBJECT
-public:
-    /** Constructor */
-    SelectDateDialog(QWidget *parent, QDate &date);
 
-    /** Destructor */
-    virtual ~SelectDateDialog();
+    class SelectDateDialog: public QDialog,
+                            public Ui::SelectDateDlg
+    {
+	Q_OBJECT
+    public:
+	/** Constructor */
+	SelectDateDialog(QWidget *parent, QDate &date);
 
-    /** Returns the selected date */
-    virtual QDate date();
+	/** Destructor */
+	virtual ~SelectDateDialog();
 
-public slots:
+	/** Returns the selected date */
+	virtual QDate date();
 
-    /** applies the settings and closes the dialog (OK button) */
-    virtual void accept();
+    public slots:
 
-private:
+	/** applies the settings and closes the dialog (OK button) */
+	virtual void accept();
 
-    /** stores the last known date */
-    QDate m_date;
+    private:
 
-};
+	/** stores the last known date */
+	QDate m_date;
+
+    };
+}
 
 #endif /* _SELECT_DATE_DIALOG_H_ */
+
+//***************************************************************************
+//***************************************************************************

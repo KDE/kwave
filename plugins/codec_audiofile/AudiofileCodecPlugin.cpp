@@ -23,24 +23,24 @@
 #include "AudiofileCodecPlugin.h"
 #include "AudiofileDecoder.h"
 
-KWAVE_PLUGIN(AudiofileCodecPlugin, "codec_audiofile", "2.1",
+KWAVE_PLUGIN(Kwave::AudiofileCodecPlugin, "codec_audiofile", "2.1",
              I18N_NOOP("Audiofile Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
-AudiofileCodecPlugin::AudiofileCodecPlugin(const Kwave::PluginContext &c)
+Kwave::AudiofileCodecPlugin::AudiofileCodecPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0)
 {
 }
 
 /***************************************************************************/
-AudiofileCodecPlugin::~AudiofileCodecPlugin()
+Kwave::AudiofileCodecPlugin::~AudiofileCodecPlugin()
 {
 }
 
 /***************************************************************************/
-void AudiofileCodecPlugin::load(QStringList &/* params */)
+void Kwave::AudiofileCodecPlugin::load(QStringList &/* params */)
 {
-    if (!m_decoder) m_decoder = new AudiofileDecoder();
+    if (!m_decoder) m_decoder = new Kwave::AudiofileDecoder();
     Q_ASSERT(m_decoder);
     if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
 }

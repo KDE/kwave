@@ -24,19 +24,19 @@
 #include "RepairVirtualAudioFile.h"
 
 //***************************************************************************
-RepairVirtualAudioFile::RepairVirtualAudioFile(QIODevice &device,
-    QList<RecoverySource *> *repair_list)
+Kwave::RepairVirtualAudioFile::RepairVirtualAudioFile(QIODevice &device,
+    QList<Kwave::RecoverySource *> *repair_list)
     :Kwave::VirtualAudioFile(device), m_position(0),
      m_repair_list(repair_list)
 {
 }
 
 //***************************************************************************
-RepairVirtualAudioFile::~RepairVirtualAudioFile()
+Kwave::RepairVirtualAudioFile::~RepairVirtualAudioFile()
 {
     if (m_repair_list) {
 	while (!m_repair_list->isEmpty()) {
-	    RecoverySource *src = m_repair_list->takeLast();
+	    Kwave::RecoverySource *src = m_repair_list->takeLast();
 	    if (src) delete src;
 	}
 	delete m_repair_list;
@@ -44,7 +44,8 @@ RepairVirtualAudioFile::~RepairVirtualAudioFile()
 }
 
 //***************************************************************************
-unsigned int RepairVirtualAudioFile::read(char *data, unsigned int nbytes)
+unsigned int Kwave::RepairVirtualAudioFile::read(char *data,
+                                                 unsigned int nbytes)
 {
     Q_ASSERT(m_repair_list);
     Q_ASSERT(data);
@@ -54,7 +55,7 @@ unsigned int RepairVirtualAudioFile::read(char *data, unsigned int nbytes)
 
     bzero(data, nbytes);
     size_t read_bytes = 0;
-    foreach (RecoverySource *src, *m_repair_list) {
+    foreach (Kwave::RecoverySource *src, *m_repair_list) {
 	Q_ASSERT(src);
 	if (!src) continue;
 	unsigned int len = src->read(m_position, data, nbytes);
@@ -71,11 +72,11 @@ unsigned int RepairVirtualAudioFile::read(char *data, unsigned int nbytes)
 }
 
 //***************************************************************************
-qint64 RepairVirtualAudioFile::length()
+qint64 Kwave::RepairVirtualAudioFile::length()
 {
     Q_ASSERT(m_repair_list);
     if (!m_repair_list) return 0;
-    RecoverySource *last = m_repair_list->last();
+    Kwave::RecoverySource *last = m_repair_list->last();
     Q_ASSERT(last);
     if (!last) return 0;
 
@@ -83,15 +84,15 @@ qint64 RepairVirtualAudioFile::length()
 }
 
 //***************************************************************************
-unsigned int RepairVirtualAudioFile::write(const char */*data*/,
-                                           unsigned int /*nbytes*/)
+unsigned int Kwave::RepairVirtualAudioFile::write(const char */*data*/,
+                                                  unsigned int /*nbytes*/)
 {
     qWarning("RepairVirtualAudioFile::write() is forbidden !");
     return 0;
 }
 
 //***************************************************************************
-qint64 RepairVirtualAudioFile::seek(qint64 offset, bool is_relative)
+qint64 Kwave::RepairVirtualAudioFile::seek(qint64 offset, bool is_relative)
 {
     if (is_relative)
 	m_position += offset;
@@ -102,7 +103,7 @@ qint64 RepairVirtualAudioFile::seek(qint64 offset, bool is_relative)
 }
 
 //***************************************************************************
-qint64 RepairVirtualAudioFile::tell()
+qint64 Kwave::RepairVirtualAudioFile::tell()
 {
     return static_cast<qint64>(m_position);
 }

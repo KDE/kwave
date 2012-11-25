@@ -64,7 +64,7 @@
 #define CONFIG_DEFAULT_SECTION "plugin fileinfo - setup dialog"
 
 //***************************************************************************
-FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
+Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
     :QDialog(parent), Ui::FileInfoDlg(), m_info(info)
 {
     setupUi(this);
@@ -102,13 +102,14 @@ FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
 }
 
 //***************************************************************************
-FileInfoDialog::~FileInfoDialog()
+Kwave::FileInfoDialog::~FileInfoDialog()
 {
 }
 
 //***************************************************************************
-void FileInfoDialog::describeWidget(QWidget *widget, const QString &name,
-                                    const QString &description)
+void Kwave::FileInfoDialog::describeWidget(QWidget *widget,
+                                           const QString &name,
+                                           const QString &description)
 {
     if (!widget) return;
     widget->setToolTip(description);
@@ -116,8 +117,8 @@ void FileInfoDialog::describeWidget(QWidget *widget, const QString &name,
 }
 
 //***************************************************************************
-void FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
-                              Kwave::FileProperty property)
+void Kwave::FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
+                                     Kwave::FileProperty property)
 {
     if (label) label->setText(i18n(m_info.name(property).toAscii()) + ":");
     if (widget) describeWidget(widget, i18n(m_info.name(property).toAscii()),
@@ -125,15 +126,15 @@ void FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
 }
 
 //***************************************************************************
-void FileInfoDialog::initInfoText(QLabel *label, QLineEdit *edit,
-                                  Kwave::FileProperty property)
+void Kwave::FileInfoDialog::initInfoText(QLabel *label, QLineEdit *edit,
+                                         Kwave::FileProperty property)
 {
     initInfo(label, edit, property);
     if (edit) edit->setText(QVariant(m_info.get(property)).toString());
 }
 
 //***************************************************************************
-void FileInfoDialog::setupFileInfoTab()
+void Kwave::FileInfoDialog::setupFileInfoTab()
 {
     /* filename */
     initInfo(lblFileName, edFileName, Kwave::INF_FILENAME);
@@ -240,7 +241,7 @@ void FileInfoDialog::setupFileInfoTab()
 }
 
 //***************************************************************************
-void FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
+void Kwave::FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
 {
 
     /*
@@ -257,7 +258,8 @@ void FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
 
     compressionWidget->init(m_info);
     compressionWidget->setMode(m_info.contains(Kwave::INF_VBR_QUALITY) ?
-        CompressionWidget::VBR_MODE : CompressionWidget::ABR_MODE);
+        Kwave::CompressionWidget::VBR_MODE :
+        Kwave::CompressionWidget::ABR_MODE);
 
     // enable/disable ABR/VBR controls, depending on mime type
     bool lower = m_info.contains(Kwave::INF_BITRATE_LOWER);
@@ -305,7 +307,7 @@ void FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
 }
 
 //***************************************************************************
-void FileInfoDialog::setupMpegTab()
+void Kwave::FileInfoDialog::setupMpegTab()
 {
     // the whole tab is only enabled in mpeg mode
     InfoTab->setTabEnabled(2, m_is_mpeg);
@@ -383,7 +385,7 @@ void FileInfoDialog::setupMpegTab()
 }
 
 //***************************************************************************
-void FileInfoDialog::setupContentTab()
+void Kwave::FileInfoDialog::setupContentTab()
 {
     /* name, subject, version, genre, title, author, organization,
        copyright, license */
@@ -430,7 +432,7 @@ void FileInfoDialog::setupContentTab()
 }
 
 //***************************************************************************
-void FileInfoDialog::setupSourceTab()
+void Kwave::FileInfoDialog::setupSourceTab()
 {
     /* source, source form */
     initInfoText(lblSource,     edSource,     Kwave::INF_SOURCE);
@@ -466,7 +468,7 @@ void FileInfoDialog::setupSourceTab()
 }
 
 //***************************************************************************
-void FileInfoDialog::setupAuthorCopyrightTab()
+void Kwave::FileInfoDialog::setupAuthorCopyrightTab()
 {
     /* author organization, copyright, license, ISRC */
     initInfoText(lblAuthor,       edAuthor,       Kwave::INF_AUTHOR);
@@ -482,7 +484,7 @@ void FileInfoDialog::setupAuthorCopyrightTab()
 }
 
 //***************************************************************************
-void FileInfoDialog::setupMiscellaneousTab()
+void Kwave::FileInfoDialog::setupMiscellaneousTab()
 {
     /* commissioned */
     initInfoText(lblCommissioned, edCommissioned, Kwave::INF_COMMISSIONED);
@@ -502,10 +504,10 @@ void FileInfoDialog::setupMiscellaneousTab()
 }
 
 //***************************************************************************
-void FileInfoDialog::selectDate()
+void Kwave::FileInfoDialog::selectDate()
 {
     QDate date(dateEdit->date());
-    SelectDateDialog date_dialog(this, date);
+    Kwave::SelectDateDialog date_dialog(this, date);
     if (date_dialog.exec() == QDialog::Accepted) {
 	date = date_dialog.date();
 	dateEdit->setDate(date);
@@ -513,13 +515,13 @@ void FileInfoDialog::selectDate()
 }
 
 //***************************************************************************
-void FileInfoDialog::setDateNow()
+void Kwave::FileInfoDialog::setDateNow()
 {
     dateEdit->setDate(QDate::currentDate());
 }
 
 //***************************************************************************
-void FileInfoDialog::tracksChanged(int tracks)
+void Kwave::FileInfoDialog::tracksChanged(int tracks)
 {
     switch (tracks) {
 	case 1:
@@ -538,7 +540,7 @@ void FileInfoDialog::tracksChanged(int tracks)
 }
 
 //***************************************************************************
-void FileInfoDialog::updateAvailableCompressions()
+void Kwave::FileInfoDialog::updateAvailableCompressions()
 {
     cbCompression->blockSignals(true);
 
@@ -596,7 +598,7 @@ void FileInfoDialog::updateAvailableCompressions()
 }
 
 //***************************************************************************
-void FileInfoDialog::compressionChanged()
+void Kwave::FileInfoDialog::compressionChanged()
 {
     if (!cbCompression || !edFileFormat) return;
 
@@ -665,7 +667,7 @@ void FileInfoDialog::compressionChanged()
 	// MPEG file
 	compressionWidget->enableABR(true, lower, upper);
 	compressionWidget->enableVBR(false);
-	compressionWidget->setMode(CompressionWidget::ABR_MODE);
+	compressionWidget->setMode(Kwave::CompressionWidget::ABR_MODE);
     } else if (m_is_ogg) {
 	// Ogg/Vorbis file
 	compressionWidget->enableABR(true, lower, upper);
@@ -679,7 +681,7 @@ void FileInfoDialog::compressionChanged()
 }
 
 //***************************************************************************
-void FileInfoDialog::mpegLayerChanged()
+void Kwave::FileInfoDialog::mpegLayerChanged()
 {
     if (!cbMpegLayer || !m_is_mpeg) return;
 
@@ -704,7 +706,7 @@ void FileInfoDialog::mpegLayerChanged()
 }
 
 //***************************************************************************
-void FileInfoDialog::autoGenerateKeywords()
+void Kwave::FileInfoDialog::autoGenerateKeywords()
 {
     // start with the current list
     QStringList list = lstKeywords->keywords();
@@ -798,7 +800,8 @@ void FileInfoDialog::autoGenerateKeywords()
 }
 
 //***************************************************************************
-void FileInfoDialog::acceptEdit(Kwave::FileProperty property, QString value)
+void Kwave::FileInfoDialog::acceptEdit(Kwave::FileProperty property,
+                                       QString value)
 {
     value = value.simplified();
     if (!m_info.contains(property) && !value.length()) return;
@@ -811,7 +814,7 @@ void FileInfoDialog::acceptEdit(Kwave::FileProperty property, QString value)
 }
 
 //***************************************************************************
-void FileInfoDialog::accept()
+void Kwave::FileInfoDialog::accept()
 {
     // save defaults for next time...
     KConfigGroup cfg = KGlobal::config()->group(CONFIG_DEFAULT_SECTION);
@@ -864,11 +867,11 @@ void FileInfoDialog::accept()
 
     /* bitrate in Ogg/Vorbis or MPEG mode */
     if (m_is_ogg || m_is_mpeg) {
-        CompressionWidget::Mode mode = compressionWidget->mode();
+        Kwave::CompressionWidget::Mode mode = compressionWidget->mode();
         QVariant del;
 
         switch (mode) {
-	    case CompressionWidget::ABR_MODE: {
+	    case Kwave::CompressionWidget::ABR_MODE: {
 	        int nominal, upper, lower;
 	        compressionWidget->getABRrates(nominal, lower, upper);
 	        bool use_lowest  = compressionWidget->lowestEnabled();
@@ -882,7 +885,7 @@ void FileInfoDialog::accept()
 	        m_info.set(Kwave::INF_VBR_QUALITY, del);
 	        break;
 	    }
-	    case CompressionWidget::VBR_MODE: {
+	    case Kwave::CompressionWidget::VBR_MODE: {
 	        int quality = compressionWidget->baseQuality();
 
 	        m_info.set(Kwave::INF_BITRATE_NOMINAL, del);
@@ -950,7 +953,7 @@ void FileInfoDialog::accept()
 }
 
 //***************************************************************************
-void FileInfoDialog::invokeHelp()
+void Kwave::FileInfoDialog::invokeHelp()
 {
     KToolInvocation::invokeHelp("fileinfo");
 }

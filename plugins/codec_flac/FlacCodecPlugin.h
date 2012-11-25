@@ -29,37 +29,37 @@ namespace Kwave
 {
     class Decoder;
     class Encoder;
+
+    class FlacCodecPlugin: public Kwave::Plugin
+    {
+	Q_OBJECT
+    public:
+
+	/** Constructor */
+	FlacCodecPlugin(const Kwave::PluginContext &c);
+
+	/** Destructor */
+	virtual ~FlacCodecPlugin();
+
+	/**
+	 * This plugin needs to be unique!
+	 * @see Kwave::Plugin::isUnique()
+	 */
+	virtual bool isUnique() { return true; };
+
+	/**
+	 * Gets called when the plugin is first loaded.
+	 */
+	virtual void load(QStringList &/* params */);
+
+    private:
+	/** decoder used as factory */
+	Kwave::Decoder *m_decoder;
+
+	/** encoder used as factory */
+	Kwave::Encoder *m_encoder;
+    };
 }
-
-class FlacCodecPlugin: public Kwave::Plugin
-{
-    Q_OBJECT
-public:
-
-    /** Constructor */
-    FlacCodecPlugin(const Kwave::PluginContext &c);
-
-    /** Destructor */
-    virtual ~FlacCodecPlugin();
-
-    /**
-     * This plugin needs to be unique!
-     * @see Kwave::Plugin::isUnique()
-     */
-    virtual bool isUnique() { return true; };
-
-    /**
-     * Gets called when the plugin is first loaded.
-     */
-    virtual void load(QStringList &/* params */);
-
-private:
-    /** decoder used as factory */
-    Kwave::Decoder *m_decoder;
-
-    /** encoder used as factory */
-    Kwave::Encoder *m_encoder;
-};
 
 #define REGISTER_MIME_TYPES { \
     /* included in KDE: */ \
@@ -73,3 +73,6 @@ private:
 #define DEFAULT_MIME_TYPE "audio/x-flac"
 
 #endif /* _FLAC_CODEC_PLUGIN_H_ */
+
+//***************************************************************************
+//***************************************************************************

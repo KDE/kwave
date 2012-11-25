@@ -20,8 +20,8 @@
 #include "GotoDialog.h"
 
 //***************************************************************************
-GotoDialog::GotoDialog(QWidget *widget, Mode mode, sample_index_t pos,
-                       double sample_rate, sample_index_t signal_length)
+Kwave::GotoDialog::GotoDialog(QWidget *widget, Mode mode, sample_index_t pos,
+                              double sample_rate, sample_index_t signal_length)
     :QDialog(widget), Ui::GotoDlg()
 {
     setupUi(this);
@@ -37,12 +37,12 @@ GotoDialog::GotoDialog(QWidget *widget, Mode mode, sample_index_t pos,
 }
 
 //***************************************************************************
-GotoDialog::~GotoDialog()
+Kwave::GotoDialog::~GotoDialog()
 {
 }
 
 //***************************************************************************
-void GotoDialog::setMode(Kwave::SelectTimeWidget::Mode new_mode)
+void Kwave::GotoDialog::setMode(Kwave::SelectTimeWidget::Mode new_mode)
 {
     if (select_pos) select_pos->setMode(new_mode);
 }

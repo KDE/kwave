@@ -25,11 +25,12 @@
 
 class QIODevice;
 
-namespace Kwave {
+namespace Kwave
+{
     /**
-    * @class ID3_QIODeviceWriter
-    * Adapter between QIODevice and ID3_Writer
-    */
+     * @class ID3_QIODeviceWriter
+     * Adapter between QIODevice and ID3_Writer
+     */
     class ID3_QIODeviceWriter: public ID3_Writer
     {
     public:
@@ -84,3 +85,6 @@ namespace Kwave {
 }
 
 #endif /* _ID3_QIODEVICE_WRITER_H_ */
+
+//***************************************************************************
+//***************************************************************************

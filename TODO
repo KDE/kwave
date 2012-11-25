@@ -1,9 +1,12 @@
 
-o cleanup: remove old FLAC API support
 
-o namespace cleanup
+o rename files matching "*Kwave*"
+
+o remove unused code: libkwave/FileFormat.*
 
 o include Qt header files: add subsystem prefix
+
+o use <stdint.h> instead of <sys/types.h> or qt int types (u_int32 -> uint32)
 
 o try to replace Qt classes which have KDE equivalent
 

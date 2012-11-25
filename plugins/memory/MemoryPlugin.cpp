@@ -28,11 +28,11 @@
 #include "MemoryPlugin.h"
 #include "MemoryDialog.h"
 
-KWAVE_PLUGIN(MemoryPlugin, "memory", "2.1",
+KWAVE_PLUGIN(Kwave::MemoryPlugin, "memory", "2.1",
              I18N_NOOP("Memory Settings"), "Thomas Eschenbacher");
 
 //***************************************************************************
-MemoryPlugin::MemoryPlugin(const Kwave::PluginContext &c)
+Kwave::MemoryPlugin::MemoryPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_physical_limited(true), m_physical_limit(256),
      m_virtual_enabled(true), m_virtual_limited(false), m_virtual_limit(512),
      m_virtual_directory("/var/tmp"), m_undo_limit(256)
@@ -40,12 +40,12 @@ MemoryPlugin::MemoryPlugin(const Kwave::PluginContext &c)
 }
 
 //***************************************************************************
-MemoryPlugin::~MemoryPlugin()
+Kwave::MemoryPlugin::~MemoryPlugin()
 {
 }
 
 //***************************************************************************
-int MemoryPlugin::interpreteParameters(QStringList &params)
+int Kwave::MemoryPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;
     QString param;
@@ -98,14 +98,14 @@ int MemoryPlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-void MemoryPlugin::load(QStringList &params)
+void Kwave::MemoryPlugin::load(QStringList &params)
 {
     interpreteParameters(params);
     applySettings();
 }
 
 //***************************************************************************
-void MemoryPlugin::applySettings()
+void Kwave::MemoryPlugin::applySettings()
 {
     Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
     mem.setPhysicalLimit(m_physical_limited ? m_physical_limit : 4096);
@@ -117,14 +117,15 @@ void MemoryPlugin::applySettings()
 }
 
 //***************************************************************************
-QStringList *MemoryPlugin::setup(QStringList &previous_params)
+QStringList *Kwave::MemoryPlugin::setup(QStringList &previous_params)
 {
     QStringList *result = 0;
 
     // try to interprete the list of previous parameters, ignore errors
     if (previous_params.count()) interpreteParameters(previous_params);
 
-    MemoryDialog *dlg = new MemoryDialog(parentWidget(), m_physical_limited,
+    Kwave::MemoryDialog *dlg = new Kwave::MemoryDialog(
+	parentWidget(), m_physical_limited,
 	m_physical_limit, m_virtual_enabled, m_virtual_limited,
 	m_virtual_limit, m_virtual_directory, m_undo_limit);
     Q_ASSERT(dlg);

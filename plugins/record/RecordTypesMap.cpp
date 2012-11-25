@@ -23,14 +23,14 @@
 #include "RecordTypesMap.h"
 
 //***************************************************************************
-void RecordTypesMap::fill()
+void Kwave::RecordTypesMap::fill()
 {
     unsigned int index = 0;
     QString name = "";
 
 #ifdef HAVE_ALSA_SUPPORT
     name = "ALSA (Advanced Linux Sound Architecture)";
-    append(index++, RECORD_ALSA, "alsa", name);
+    append(index++, Kwave::RECORD_ALSA, "alsa", name);
 #if 0
     i18n("ALSA (Advanced Linux Sound Architecture)");
 #endif
@@ -38,7 +38,7 @@ void RecordTypesMap::fill()
 
 #ifdef HAVE_OSS_SUPPORT
     name = "OSS (Open Sound System)";
-    append(index++, RECORD_OSS, "oss", name);
+    append(index++, Kwave::RECORD_OSS, "oss", name);
 #if 0
     i18n("OSS (Open Sound System)");
 #endif

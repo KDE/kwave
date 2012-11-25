@@ -23,33 +23,39 @@
 
 class QIODevice;
 
-class RecoveryMapping: public RecoverySource
+namespace Kwave
 {
-public:
-    /**
-     * Constructor
-     * @param offset position in the repaired file
-     * @param length number of recovered bytes
-     * @param dev damaged source/file
-     * @param dev_offset offset withing dev
-     */
-    RecoveryMapping(unsigned int offset, unsigned int length,
-                    QIODevice &dev, unsigned int dev_offset);
+    class RecoveryMapping: public Kwave::RecoverySource
+    {
+    public:
+	/**
+	 * Constructor
+	 * @param offset position in the repaired file
+	 * @param length number of recovered bytes
+	 * @param dev damaged source/file
+	 * @param dev_offset offset withing dev
+	 */
+	RecoveryMapping(unsigned int offset, unsigned int length,
+	                QIODevice &dev, unsigned int dev_offset);
 
-    /** Destructor */
-    virtual ~RecoveryMapping() {};
+	/** Destructor */
+	virtual ~RecoveryMapping() {};
 
-    /** implementation of Recoverysource::read */
-    virtual unsigned int read(unsigned int offset, char *data,
-                              unsigned int bytes);
+	/** implementation of Recoverysource::read */
+	virtual unsigned int read(unsigned int offset, char *data,
+	                          unsigned int bytes);
 
-private:
+    private:
 
-    /** source with the damaged file */
-    QIODevice &m_dev;
+	/** source with the damaged file */
+	QIODevice &m_dev;
 
-    /** start offset in the damaged file */
-    unsigned int m_dev_offset;
-};
+	/** start offset in the damaged file */
+	unsigned int m_dev_offset;
+    };
+}
 
 #endif /* _RECOVERY_MAPPING_H_ */
+
+//***************************************************************************
+//***************************************************************************

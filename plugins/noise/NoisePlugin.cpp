@@ -30,17 +30,17 @@
 #include "NoisePlugin.h"
 #include "NoiseGenerator.h"
 
-KWAVE_PLUGIN(NoisePlugin, "noise", "2.1",
+KWAVE_PLUGIN(Kwave::NoisePlugin, "noise", "2.1",
              I18N_NOOP("Noise Generator"), "Thomas Eschenbacher");
 
 //***************************************************************************
-NoisePlugin::NoisePlugin(const Kwave::PluginContext &context)
+Kwave::NoisePlugin::NoisePlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context)
 {
 }
 
 //***************************************************************************
-void NoisePlugin::run(QStringList)
+void Kwave::NoisePlugin::run(QStringList)
 {
     sample_index_t first, last;
     QList<unsigned int> tracks;
@@ -50,7 +50,7 @@ void NoisePlugin::run(QStringList)
     selection(&tracks, &first, &last, true);
 
     // create all objects
-    Kwave::MultiTrackSource<NoiseGenerator, true> source(tracks.count());
+    Kwave::MultiTrackSource<Kwave::NoiseGenerator, true> source(tracks.count());
     Kwave::MultiTrackWriter sink(signalManager(), tracks, Kwave::Overwrite,
         first, last);
 

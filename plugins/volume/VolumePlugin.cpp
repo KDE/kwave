@@ -36,22 +36,22 @@
 #include "VolumePlugin.h"
 #include "VolumeDialog.h"
 
-KWAVE_PLUGIN(VolumePlugin, "volume", "2.1",
+KWAVE_PLUGIN(Kwave::VolumePlugin, "volume", "2.1",
              I18N_NOOP("Volume"), "Thomas Eschenbacher");
 
 //***************************************************************************
-VolumePlugin::VolumePlugin(const Kwave::PluginContext &context)
+Kwave::VolumePlugin::VolumePlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context), m_params(), m_factor(1.0), m_mode(0)
 {
 }
 
 //***************************************************************************
-VolumePlugin::~VolumePlugin()
+Kwave::VolumePlugin::~VolumePlugin()
 {
 }
 
 //***************************************************************************
-int VolumePlugin::interpreteParameters(QStringList &params)
+int Kwave::VolumePlugin::interpreteParameters(QStringList &params)
 {
     bool ok;
     QString param;
@@ -76,7 +76,7 @@ int VolumePlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-QStringList *VolumePlugin::setup(QStringList &previous_params)
+QStringList *Kwave::VolumePlugin::setup(QStringList &previous_params)
 {
     // try to interprete the previous parameters
     interpreteParameters(previous_params);
@@ -91,7 +91,8 @@ QStringList *VolumePlugin::setup(QStringList &previous_params)
     Q_ASSERT(overview_cache);
 
     // create the setup dialog
-    VolumeDialog *dialog = new VolumeDialog(parentWidget(), overview_cache);
+    Kwave::VolumeDialog *dialog =
+	new Kwave::VolumeDialog(parentWidget(), overview_cache);
     if (!dialog) {
 	if (overview_cache) delete overview_cache;
 	return 0;
@@ -118,7 +119,7 @@ QStringList *VolumePlugin::setup(QStringList &previous_params)
 }
 
 //***************************************************************************
-void VolumePlugin::run(QStringList params)
+void Kwave::VolumePlugin::run(QStringList params)
 {
     QList<unsigned int> tracks;
     sample_index_t first, last;

@@ -1274,7 +1274,7 @@ recording. Depending on the compilation options you can select one of the follow
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="LevelMeter" name="level_meter" native="true">
+         <widget class="Kwave::LevelMeter" name="level_meter" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -1434,7 +1434,7 @@ recording. Depending on the compilation options you can select one of the follow
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>LevelMeter</class>
+   <class>Kwave::LevelMeter</class>
    <extends>QWidget</extends>
    <header>LevelMeter.h</header>
   </customwidget>

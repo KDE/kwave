@@ -25,54 +25,57 @@
 class QIODevice;
 class QWidget;
 
-class RecoverySource;
-class RIFFChunk;
-class RIFFParser;
-
-namespace Kwave { class VirtualAudioFile; }
-
-class AudiofileDecoder: public Kwave::Decoder
+namespace Kwave
 {
-public:
-    /** Constructor */
-    AudiofileDecoder();
 
-    /** Destructor */
-    virtual ~AudiofileDecoder();
+    class VirtualAudioFile;
 
-    /** Returns a new instance of the decoder */
-    virtual Kwave::Decoder *instance();
+    class AudiofileDecoder: public Kwave::Decoder
+    {
+    public:
+	/** Constructor */
+	AudiofileDecoder();
 
-    /**
-     * Opens the source and decodes the header information.
-     * @param widget a widget that can be used for displaying
-     *        message boxes or dialogs
-     * @param source file or other source with a stream of bytes
-     * @return true if succeeded, false on errors
-     */
-    virtual bool open(QWidget *widget, QIODevice &source);
+	/** Destructor */
+	virtual ~AudiofileDecoder();
 
-    /**
-     * Decodes a stream of bytes into a MultiWriter
-     * @param widget a widget that can be used for displaying
-     *        message boxes or dialogs
-     * @param dst MultiWriter that receives the audio data
-     * @return true if succeeded, false on errors
-     */
-    virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst);
+	/** Returns a new instance of the decoder */
+	virtual Kwave::Decoder *instance();
 
-    /**
-     * Closes the source.
-     */
-    virtual void close();
+	/**
+	 * Opens the source and decodes the header information.
+	 * @param widget a widget that can be used for displaying
+	 *        message boxes or dialogs
+	 * @param source file or other source with a stream of bytes
+	 * @return true if succeeded, false on errors
+	 */
+	virtual bool open(QWidget *widget, QIODevice &source);
 
-private:
+	/**
+	 * Decodes a stream of bytes into a MultiWriter
+	 * @param widget a widget that can be used for displaying
+	 *        message boxes or dialogs
+	 * @param dst MultiWriter that receives the audio data
+	 * @return true if succeeded, false on errors
+	 */
+	virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst);
 
-    /** source of the audio data */
-    QIODevice *m_source;
+	/**
+	 * Closes the source.
+	 */
+	virtual void close();
 
-    /** adapter for libaudiofile */
-    Kwave::VirtualAudioFile *m_src_adapter;
-};
+    private:
+
+	/** source of the audio data */
+	QIODevice *m_source;
+
+	/** adapter for libaudiofile */
+	Kwave::VirtualAudioFile *m_src_adapter;
+    };
+}
 
 #endif /* _AUDIOFILE_DECODER_H_ */
+
+//***************************************************************************
+//***************************************************************************

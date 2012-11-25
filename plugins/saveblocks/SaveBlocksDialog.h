@@ -28,88 +28,96 @@
 #include "SaveBlocksPlugin.h"
 
 class KURL;
-class SaveBlocksWidget;
 
-class SaveBlocksDialog: public Kwave::FileDialog
+namespace Kwave
 {
-    Q_OBJECT
-public:
 
-    /**
-     * Constructor.
-     * @see KFileFialog
-     * @param startDir the start directory
-     * @param filter string with a file type filter
-     * @param parent the parent widget
-     * @param modal if true, make the dialog modal
-     * @param last_url the last used URL
-     * @param last_ext the last used extension (preset only)
-     * @param filename_pattern the pattern used for generating the file names
-     * @param numbering_mode the way the numbers are given
-     * @param selection_only if true, save only the selection
-     * @param have_selection if true, there is a selection
-     */
-    SaveBlocksDialog(const QString &startDir,
-	const QString &filter,
-	QWidget *parent,
-	bool modal,
-	const QString last_url,
-	const QString last_ext,
-	QString filename_pattern,
-	SaveBlocksPlugin::numbering_mode_t numbering_mode,
-	bool selection_only,
-	bool have_selection
-    );
+    class SaveBlocksWidget;
 
-    /** Destructor */
-    virtual ~SaveBlocksDialog();
+    class SaveBlocksDialog: public Kwave::FileDialog
+    {
+	Q_OBJECT
+    public:
 
-    /** returns the file name pattern */
-    QString pattern();
+	/**
+	 * Constructor.
+	 * @see KFileFialog
+	 * @param startDir the start directory
+	 * @param filter string with a file type filter
+	 * @param parent the parent widget
+	 * @param modal if true, make the dialog modal
+	 * @param last_url the last used URL
+	 * @param last_ext the last used extension (preset only)
+	 * @param filename_pattern the pattern used for generating the file names
+	 * @param numbering_mode the way the numbers are given
+	 * @param selection_only if true, save only the selection
+	 * @param have_selection if true, there is a selection
+	 */
+	SaveBlocksDialog(const QString &startDir,
+	    const QString &filter,
+	    QWidget *parent,
+	    bool modal,
+	    const QString last_url,
+	    const QString last_ext,
+	    QString filename_pattern,
+	    Kwave::SaveBlocksPlugin::numbering_mode_t numbering_mode,
+	    bool selection_only,
+	    bool have_selection
+	);
 
-    /** returns the numbering mode */
-    SaveBlocksPlugin::numbering_mode_t numberingMode();
+	/** Destructor */
+	virtual ~SaveBlocksDialog();
 
-    /** returns true if only the selection should be saved */
-    bool selectionOnly();
+	/** returns the file name pattern */
+	QString pattern();
 
-signals:
+	/** returns the numbering mode */
+	Kwave::SaveBlocksPlugin::numbering_mode_t numberingMode();
 
-    /**
-     * emitted whenever the selection has changed and a new example
-     * has to be shown.
-     * @param filename the currently selected filename
-     * @param pattern the selected filename pattern
-     * @param mode the numbering mode
-     * @param selection_only if true: save only the selection
-     */
-    void sigSelectionChanged(
-	const QString &filename,
-	const QString &pattern,
-	SaveBlocksPlugin::numbering_mode_t mode,
-	bool selection_only);
+	/** returns true if only the selection should be saved */
+	bool selectionOnly();
 
-public slots:
+    signals:
 
-    /**
-     * update the filename preview
-     * @param example the example filename
-     */
-    void setNewExample(const QString &example);
+	/**
+	 * emitted whenever the selection has changed and a new example
+	 * has to be shown.
+	 * @param filename the currently selected filename
+	 * @param pattern the selected filename pattern
+	 * @param mode the numbering mode
+	 * @param selection_only if true: save only the selection
+	 */
+	void sigSelectionChanged(
+	    const QString &filename,
+	    const QString &pattern,
+	    Kwave::SaveBlocksPlugin::numbering_mode_t mode,
+	    bool selection_only);
 
-    /** collects all needed data and emits a sigSelectionChanged */
-    void emitUpdate();
+    public slots:
 
-protected slots:
+	/**
+	 * update the filename preview
+	 * @param example the example filename
+	 */
+	void setNewExample(const QString &example);
 
-    /** calls emitUpdate() and ignores it's parameter */
-    void textChanged(const QString &);
+	/** collects all needed data and emits a sigSelectionChanged */
+	void emitUpdate();
 
-private:
+    protected slots:
 
-    /** the widget with extra settings for saving the blocks */
-    SaveBlocksWidget *m_widget;
+	/** calls emitUpdate() and ignores it's parameter */
+	void textChanged(const QString &);
 
-};
+    private:
+
+	/** the widget with extra settings for saving the blocks */
+	Kwave::SaveBlocksWidget *m_widget;
+
+    };
+}
 
 #endif /* _SAVE_BLOCKS_DIALOG_H_ */
+
+//***************************************************************************
+//***************************************************************************

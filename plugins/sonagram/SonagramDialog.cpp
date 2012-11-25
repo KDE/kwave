@@ -43,7 +43,7 @@
 #include "SonagramDialog.h"
 
 //***************************************************************************
-SonagramDialog::SonagramDialog(Kwave::Plugin &p)
+Kwave::SonagramDialog::SonagramDialog(Kwave::Plugin &p)
     :QDialog(p.parentWidget()), Ui::SonagramDlg(),
     m_length(p.selection(0, 0, 0,true)), m_rate(p.signalRate())
 {
@@ -96,7 +96,7 @@ SonagramDialog::SonagramDialog(Kwave::Plugin &p)
 }
 
 //***************************************************************************
-void SonagramDialog::parameters(QStringList &list)
+void Kwave::SonagramDialog::parameters(QStringList &list)
 {
     Q_ASSERT(pointbox);
     Q_ASSERT(windowtypebox);
@@ -132,7 +132,7 @@ void SonagramDialog::parameters(QStringList &list)
 }
 
 //***************************************************************************
-void SonagramDialog::setPoints(int points)
+void Kwave::SonagramDialog::setPoints(int points)
 {
     Q_ASSERT(points >= 0);
     QString text;
@@ -150,7 +150,7 @@ void SonagramDialog::setPoints(int points)
 }
 
 //***************************************************************************
-void SonagramDialog::setWindowFunction(Kwave::window_function_t type)
+void Kwave::SonagramDialog::setWindowFunction(Kwave::window_function_t type)
 {
     Q_ASSERT(windowtypebox);
     if (!windowtypebox) return;
@@ -158,7 +158,7 @@ void SonagramDialog::setWindowFunction(Kwave::window_function_t type)
 }
 
 //***************************************************************************
-void SonagramDialog::setColorMode(int color)
+void Kwave::SonagramDialog::setColorMode(int color)
 {
     Q_ASSERT(rbColor);
     if (!rbColor) return;
@@ -168,7 +168,7 @@ void SonagramDialog::setColorMode(int color)
 }
 
 //***************************************************************************
-void SonagramDialog::setTrackChanges(bool track_changes)
+void Kwave::SonagramDialog::setTrackChanges(bool track_changes)
 {
     Q_ASSERT(cbTrackChanges);
     if (!cbTrackChanges) return;
@@ -176,7 +176,7 @@ void SonagramDialog::setTrackChanges(bool track_changes)
 }
 
 //***************************************************************************
-void SonagramDialog::setFollowSelection(bool follow_selection)
+void Kwave::SonagramDialog::setFollowSelection(bool follow_selection)
 {
     Q_ASSERT(cbFollowSelection);
     if (!cbFollowSelection) return;
@@ -184,7 +184,7 @@ void SonagramDialog::setFollowSelection(bool follow_selection)
 }
 
 //***************************************************************************
-void SonagramDialog::setBoxPoints(int num)
+void Kwave::SonagramDialog::setBoxPoints(int num)
 {
     Q_ASSERT(num >= 0);
     int points = pointbox->itemText(num).toInt();
@@ -192,12 +192,12 @@ void SonagramDialog::setBoxPoints(int num)
 }
 
 //***************************************************************************
-SonagramDialog::~SonagramDialog ()
+Kwave::SonagramDialog::~SonagramDialog ()
 {
 }
 
 //***************************************************************************
-void SonagramDialog::invokeHelp()
+void Kwave::SonagramDialog::invokeHelp()
 {
     KToolInvocation::invokeHelp("sonagram");
 }

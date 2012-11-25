@@ -24,28 +24,28 @@
 #include "OggEncoder.h"
 #include "OggDecoder.h"
 
-KWAVE_PLUGIN(OggCodecPlugin, "codec_ogg", "2.1",
+KWAVE_PLUGIN(Kwave::OggCodecPlugin, "codec_ogg", "2.1",
              I18N_NOOP("Ogg Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
-OggCodecPlugin::OggCodecPlugin(const Kwave::PluginContext &c)
+Kwave::OggCodecPlugin::OggCodecPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
 {
 }
 
 /***************************************************************************/
-OggCodecPlugin::~OggCodecPlugin()
+Kwave::OggCodecPlugin::~OggCodecPlugin()
 {
 }
 
 /***************************************************************************/
-void OggCodecPlugin::load(QStringList &/* params */)
+void Kwave::OggCodecPlugin::load(QStringList &/* params */)
 {
-    if (!m_encoder) m_encoder = new OggEncoder();
+    if (!m_encoder) m_encoder = new Kwave::OggEncoder();
     Q_ASSERT(m_encoder);
     if (m_encoder) Kwave::CodecManager::registerEncoder(*m_encoder);
 
-    if (!m_decoder) m_decoder = new OggDecoder();
+    if (!m_decoder) m_decoder = new Kwave::OggDecoder();
     Q_ASSERT(m_decoder);
     if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
 }

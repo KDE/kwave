@@ -25,91 +25,97 @@
 #include "libkwave/Plugin.h"
 
 class QStringlist;
-namespace Kwave { class PluginContext; }
-
-/**
- * @class MemoryPlugin
- * Setup plugin for Kwave's memory manager.
- */
-class MemoryPlugin: public Kwave::Plugin
+namespace Kwave
 {
-    Q_OBJECT
 
-public:
-
-    /** Constructor */
-    MemoryPlugin(const Kwave::PluginContext &c);
-
-    /** Destructor */
-    virtual ~MemoryPlugin();
+    class PluginContext;
 
     /**
-     * Gets called when the plugin is first loaded.
+     * Setup plugin for Kwave's memory manager.
      */
-    virtual void load(QStringList &params);
+    class MemoryPlugin: public Kwave::Plugin
+    {
+	Q_OBJECT
 
-    /** @see Kwave::Plugin::setup() */
-    virtual QStringList *setup(QStringList &previous_params);
+    public:
 
-    /**
-     * This plugin needs to be persistent!
-     * @see Kwave::Plugin::isPersistent()
-     */
-    virtual bool isPersistent() { return true; };
+	/** Constructor */
+	MemoryPlugin(const Kwave::PluginContext &c);
 
-protected:
+	/** Destructor */
+	virtual ~MemoryPlugin();
 
-    /**
-     * Interpretes a given parameter list and sets up internal
-     * parameters accordingly.
-     * @param params reference to a QStringList with parameters
-     * @return 0 if ok, or an error code if failed
-     */
-    int interpreteParameters(QStringList &params);
+	/**
+	 * Gets called when the plugin is first loaded.
+	 */
+	virtual void load(QStringList &params);
 
-    /**
-     * Applies the current settings by passing them to
-     * Kwave's global MemoryManager
-     */
-    void applySettings();
+	/** @see Kwave::Plugin::setup() */
+	virtual QStringList *setup(QStringList &previous_params);
 
-private:
+	/**
+	 * This plugin needs to be persistent!
+	 * @see Kwave::Plugin::isPersistent()
+	 */
+	virtual bool isPersistent() { return true; };
 
-    /** If true, the physical memory is limited */
-    bool m_physical_limited;
+    protected:
 
-    /**
-     * Maximum amount of physical memory [MB]. Only of interest if
-     * m_physical_limited is set to true, otherwise reflects the
-     * user's last setting.
-     */
-    unsigned int m_physical_limit;
+	/**
+	 * Interpretes a given parameter list and sets up internal
+	 * parameters accordingly.
+	 * @param params reference to a QStringList with parameters
+	 * @return 0 if ok, or an error code if failed
+	 */
+	int interpreteParameters(QStringList &params);
 
-    /** If true, virtual memory is enabled */
-    bool m_virtual_enabled;
+	/**
+	 * Applies the current settings by passing them to
+	 * Kwave's global MemoryManager
+	 */
+	void applySettings();
 
-    /**
-     * If true, virtual memory is limited. Only of interest if
-     * m_virtual_enabled is set to true, otherwise reflects the
-     * user's last setting.
-     */
-    bool m_virtual_limited;
+    private:
 
-    /**
-     * Maximum amount of virtual memory [MB]. Only of interest if
-     * m_virtual_enabled and m_virtual_limited are set to true, otherwise
-     * reflects the user's last setting.
-     */
-    unsigned int m_virtual_limit;
+	/** If true, the physical memory is limited */
+	bool m_physical_limited;
 
-    /** Directory for page files. Default = /tmp */
-    QString m_virtual_directory;
+	/**
+	 * Maximum amount of physical memory [MB]. Only of interest if
+	 * m_physical_limited is set to true, otherwise reflects the
+	 * user's last setting.
+	 */
+	unsigned int m_physical_limit;
 
-    /**
-     * Maximum amount of memory [MB] available for undo/redo
-     */
-    unsigned int m_undo_limit;
+	/** If true, virtual memory is enabled */
+	bool m_virtual_enabled;
 
-};
+	/**
+	 * If true, virtual memory is limited. Only of interest if
+	 * m_virtual_enabled is set to true, otherwise reflects the
+	 * user's last setting.
+	 */
+	bool m_virtual_limited;
+
+	/**
+	 * Maximum amount of virtual memory [MB]. Only of interest if
+	 * m_virtual_enabled and m_virtual_limited are set to true, otherwise
+	 * reflects the user's last setting.
+	 */
+	unsigned int m_virtual_limit;
+
+	/** Directory for page files. Default = /tmp */
+	QString m_virtual_directory;
+
+	/**
+	 * Maximum amount of memory [MB] available for undo/redo
+	 */
+	unsigned int m_undo_limit;
+
+    };
+}
 
 #endif /* _MEMORY_PLUGIN_H_ */
+
+//***************************************************************************
+//***************************************************************************

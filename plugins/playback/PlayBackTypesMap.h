@@ -21,21 +21,28 @@
 #include "libkwave/TypesMap.h"
 #include "PlayBackParam.h"
 
-class PlayBackTypesMap: public Kwave::TypesMap<unsigned int, playback_method_t>
+namespace Kwave
 {
-public:
-    /** Constructor */
-    explicit PlayBackTypesMap()
-	:Kwave::TypesMap<unsigned int, playback_method_t>()
+    class PlayBackTypesMap
+	:public Kwave::TypesMap<unsigned int, Kwave::playback_method_t>
     {
-	fill();
-    }
+    public:
+	/** Constructor */
+	explicit PlayBackTypesMap()
+	    :Kwave::TypesMap<unsigned int, Kwave::playback_method_t>()
+	{
+	    fill();
+	}
 
-    /** Destructor */
-    virtual ~PlayBackTypesMap() {};
+	/** Destructor */
+	virtual ~PlayBackTypesMap() {};
 
-    /** fill function for the map */
-    virtual void fill();
-};
+	/** fill function for the map */
+	virtual void fill();
+    };
+}
 
 #endif /* _PLAY_BACK_TYPES_MAP_H_ */
+
+//***************************************************************************
+//***************************************************************************

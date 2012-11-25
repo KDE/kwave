@@ -20,25 +20,25 @@
 #include "RecoverySource.h"
 
 //***************************************************************************
-RecoverySource::RecoverySource(unsigned int offset, unsigned int length)
+Kwave::RecoverySource::RecoverySource(unsigned int offset, unsigned int length)
     :m_offset(offset), m_length(length)
 {
 }
 
 //***************************************************************************
-unsigned int RecoverySource::offset() const
+unsigned int Kwave::RecoverySource::offset() const
 {
     return m_offset;
 }
 
 //***************************************************************************
-unsigned int RecoverySource::length() const
+unsigned int Kwave::RecoverySource::length() const
 {
     return m_length;
 }
 
 //***************************************************************************
-unsigned int RecoverySource::end() const
+unsigned int Kwave::RecoverySource::end() const
 {
     return m_offset + ((m_length) ? m_length-1 : 0);
 }

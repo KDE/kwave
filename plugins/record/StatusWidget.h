@@ -25,49 +25,56 @@
 #include <QVector>
 #include <QTimer>
 
-/**
- * Widget needed to display a little icon in the status bar
- */
-class StatusWidget: public QWidget
+namespace Kwave
 {
-    Q_OBJECT
-public:
-    /** Constructor */
-    StatusWidget(QWidget *parent = 0);
-
-    /** Destructor */
-    virtual ~StatusWidget();
-
     /**
-     * Set a new list of pixmaps
-     *
-     * @param pixmaps a list of pixmaps (can also have only one element)
-     * @param speed if multiple pixmaps are given, the time in milliseconds
-     *              between the pixmaps, for animation
-     */
-    void setPixmaps(const QVector<QPixmap> &pixmaps,
-                    unsigned int speed=150);
+    * Widget needed to display a little icon in the status bar
+    */
+    class StatusWidget: public QWidget
+    {
+	Q_OBJECT
+    public:
 
-protected:
-    /** repaint, see QWidget::paintEvent */
-    void paintEvent(QPaintEvent *);
+	/** Constructor */
+	StatusWidget(QWidget *parent = 0);
 
-private slots:
+	/** Destructor */
+	virtual ~StatusWidget();
 
-    /** switch to the next pixmap in the pixmaps list */
-    void nextPixmap();
+	/**
+	 * Set a new list of pixmaps
+	 *
+	 * @param pixmaps a list of pixmaps (can also have only one element)
+	 * @param speed if multiple pixmaps are given, the time in milliseconds
+	 *              between the pixmaps, for animation
+	 */
+	void setPixmaps(const QVector<QPixmap> &pixmaps,
+	                unsigned int speed = 150);
 
-private:
+    protected:
+	/** repaint, see QWidget::paintEvent */
+	void paintEvent(QPaintEvent *);
 
-    /** the pixmap to show */
-    QVector<QPixmap> m_pixmaps;
+    private slots:
 
-    /** index of the current pixmap */
-    unsigned int m_index;
+	/** switch to the next pixmap in the pixmaps list */
+	void nextPixmap();
 
-    /** timer for switching to the next pixmap */
-    QTimer m_timer;
+    private:
 
-};
+	/** the pixmap to show */
+	QVector<QPixmap> m_pixmaps;
+
+	/** index of the current pixmap */
+	unsigned int m_index;
+
+	/** timer for switching to the next pixmap */
+	QTimer m_timer;
+
+    };
+}
 
 #endif /* _STATUS_WIDGET_H_ */
+
+//***************************************************************************
+//***************************************************************************

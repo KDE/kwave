@@ -25,30 +25,30 @@
 #include "FlacEncoder.h"
 #include "FlacDecoder.h"
 
-KWAVE_PLUGIN(FlacCodecPlugin, "codec_flac", "2.1",
+KWAVE_PLUGIN(Kwave::FlacCodecPlugin, "codec_flac", "2.1",
              I18N_NOOP("FLAC Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
-FlacCodecPlugin::FlacCodecPlugin(const Kwave::PluginContext &c)
+Kwave::FlacCodecPlugin::FlacCodecPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
 {
 }
 
 /***************************************************************************/
-FlacCodecPlugin::~FlacCodecPlugin()
+Kwave::FlacCodecPlugin::~FlacCodecPlugin()
 {
     m_encoder = 0;
     m_decoder = 0;
 }
 
 /***************************************************************************/
-void FlacCodecPlugin::load(QStringList &/* params */)
+void Kwave::FlacCodecPlugin::load(QStringList &/* params */)
 {
-    if (!m_encoder) m_encoder = new FlacEncoder();
+    if (!m_encoder) m_encoder = new Kwave::FlacEncoder();
     Q_ASSERT(m_encoder);
     if (m_encoder) Kwave::CodecManager::registerEncoder(*m_encoder);
 
-    if (!m_decoder) m_decoder = new FlacDecoder();
+    if (!m_decoder) m_decoder = new Kwave::FlacDecoder();
     Q_ASSERT(m_decoder);
     if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
 }

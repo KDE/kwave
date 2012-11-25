@@ -28,7 +28,7 @@
 #include "Record-ALSA.h"
 
 /** initializer for the list of devices */
-QMap<QString, QString> RecordALSA::m_device_list;
+QMap<QString, QString> Kwave::RecordALSA::m_device_list;
 
 /** gui name of the default device */
 #define DEFAULT_DEVICE (i18n("DSNOOP plugin")+QString("|sound_note"))
@@ -195,8 +195,8 @@ static int compression_of(snd_pcm_format_t fmt)
 }
 
 //***************************************************************************
-RecordALSA::RecordALSA()
-    :RecordDevice(), m_handle(0), m_hw_params(0),
+Kwave::RecordALSA::RecordALSA()
+    :Kwave::RecordDevice(), m_handle(0), m_hw_params(0),
      m_sw_params(0), m_open_result(0), m_tracks(0),
      m_rate(0.0), m_compression(0), m_bits_per_sample(0),
      m_bytes_per_sample(0), m_sample_format(Kwave::SampleFormat::Unknown),
@@ -210,7 +210,7 @@ RecordALSA::RecordALSA()
 }
 
 //***************************************************************************
-RecordALSA::~RecordALSA()
+Kwave::RecordALSA::~RecordALSA()
 {
     close();
     snd_pcm_hw_params_free(m_hw_params);
@@ -218,7 +218,7 @@ RecordALSA::~RecordALSA()
 }
 
 //***************************************************************************
-void RecordALSA::detectSupportedFormats()
+void Kwave::RecordALSA::detectSupportedFormats()
 {
     // start with an empty list
     m_supported_formats.clear();
@@ -272,7 +272,7 @@ void RecordALSA::detectSupportedFormats()
 }
 
 //***************************************************************************
-int RecordALSA::open(const QString &device)
+int Kwave::RecordALSA::open(const QString &device)
 {
 //     qDebug("RecordALSA::open(%s)", device.toLocal8Bit().data());
 
@@ -311,7 +311,7 @@ int RecordALSA::open(const QString &device)
 }
 
 //***************************************************************************
-int RecordALSA::initialize()
+int Kwave::RecordALSA::initialize()
 {
     int err;
     snd_output_t *output = NULL;
@@ -524,7 +524,7 @@ int RecordALSA::initialize()
 }
 
 //***************************************************************************
-int RecordALSA::read(QByteArray &buffer, unsigned int offset)
+int Kwave::RecordALSA::read(QByteArray &buffer, unsigned int offset)
 {
     unsigned int length = buffer.size();
 
@@ -638,7 +638,7 @@ int RecordALSA::read(QByteArray &buffer, unsigned int offset)
 		return r;
 	    }
 	}
-	qWarning("PlayBackALSA::read(), after suspend: resuming");
+	qWarning("RecordALSA::read(), after suspend: resuming");
 	return -EAGAIN; // try again
     } else if (r < 0) {
 	qWarning("RecordALSA: read error: %s", snd_strerror(r));
@@ -655,7 +655,7 @@ int RecordALSA::read(QByteArray &buffer, unsigned int offset)
 }
 
 //***************************************************************************
-int RecordALSA::close()
+int Kwave::RecordALSA::close()
 {
     // close the device handle
 
@@ -677,7 +677,7 @@ int RecordALSA::close()
 }
 
 //***************************************************************************
-int RecordALSA::detectTracks(unsigned int &min, unsigned int &max)
+int Kwave::RecordALSA::detectTracks(unsigned int &min, unsigned int &max)
 {
     min = max = 0;
 
@@ -698,7 +698,7 @@ int RecordALSA::detectTracks(unsigned int &min, unsigned int &max)
 }
 
 //***************************************************************************
-int RecordALSA::setTracks(unsigned int &tracks)
+int Kwave::RecordALSA::setTracks(unsigned int &tracks)
 {
     if (tracks != m_tracks) m_initialized = false;
     m_tracks = tracks;
@@ -706,13 +706,13 @@ int RecordALSA::setTracks(unsigned int &tracks)
 }
 
 //***************************************************************************
-int RecordALSA::tracks()
+int Kwave::RecordALSA::tracks()
 {
     return m_tracks;
 }
 
 //***************************************************************************
-QList<double> RecordALSA::detectSampleRates()
+QList<double> Kwave::RecordALSA::detectSampleRates()
 {
     QList<double> list;
     int err;
@@ -777,7 +777,7 @@ QList<double> RecordALSA::detectSampleRates()
 }
 
 //***************************************************************************
-int RecordALSA::setSampleRate(double &new_rate)
+int Kwave::RecordALSA::setSampleRate(double &new_rate)
 {
     if (new_rate != m_rate) m_initialized = false;
     m_rate = new_rate;
@@ -785,14 +785,14 @@ int RecordALSA::setSampleRate(double &new_rate)
 }
 
 //***************************************************************************
-double RecordALSA::sampleRate()
+double Kwave::RecordALSA::sampleRate()
 {
     return m_rate;
 }
 
 //***************************************************************************
-int RecordALSA::mode2format(int compression, int bits,
-                            Kwave::SampleFormat sample_format)
+int Kwave::RecordALSA::mode2format(int compression, int bits,
+                                   Kwave::SampleFormat sample_format)
 {
     // loop over all supported formats and keep only those that are
     // compatible with the given compression, bits and sample format
@@ -817,7 +817,7 @@ int RecordALSA::mode2format(int compression, int bits,
 }
 
 //***************************************************************************
-QList<int> RecordALSA::detectCompressions()
+QList<int> Kwave::RecordALSA::detectCompressions()
 {
     QList<int> list;
 
@@ -840,7 +840,7 @@ QList<int> RecordALSA::detectCompressions()
 }
 
 //***************************************************************************
-int RecordALSA::setCompression(int new_compression)
+int Kwave::RecordALSA::setCompression(int new_compression)
 {
     if (m_compression != new_compression) m_initialized = false;
     m_compression = new_compression;
@@ -848,13 +848,13 @@ int RecordALSA::setCompression(int new_compression)
 }
 
 //***************************************************************************
-int RecordALSA::compression()
+int Kwave::RecordALSA::compression()
 {
     return m_compression;
 }
 
 //***************************************************************************
-QList<unsigned int> RecordALSA::supportedBits()
+QList<unsigned int> Kwave::RecordALSA::supportedBits()
 {
     QList<unsigned int> list;
 
@@ -881,7 +881,7 @@ QList<unsigned int> RecordALSA::supportedBits()
 }
 
 //***************************************************************************
-int RecordALSA::setBitsPerSample(unsigned int new_bits)
+int Kwave::RecordALSA::setBitsPerSample(unsigned int new_bits)
 {
     if (m_bits_per_sample != new_bits) m_initialized = false;
     m_bits_per_sample = new_bits;
@@ -889,13 +889,13 @@ int RecordALSA::setBitsPerSample(unsigned int new_bits)
 }
 
 //***************************************************************************
-int RecordALSA::bitsPerSample()
+int Kwave::RecordALSA::bitsPerSample()
 {
     return m_bits_per_sample;
 }
 
 //***************************************************************************
-QList<Kwave::SampleFormat> RecordALSA::detectSampleFormats()
+QList<Kwave::SampleFormat> Kwave::RecordALSA::detectSampleFormats()
 {
     QList<Kwave::SampleFormat> list;
 
@@ -925,7 +925,7 @@ QList<Kwave::SampleFormat> RecordALSA::detectSampleFormats()
 }
 
 //***************************************************************************
-int RecordALSA::setSampleFormat(Kwave::SampleFormat new_format)
+int Kwave::RecordALSA::setSampleFormat(Kwave::SampleFormat new_format)
 {
     if (m_sample_format != new_format) m_initialized = false;
     m_sample_format = new_format;
@@ -933,20 +933,20 @@ int RecordALSA::setSampleFormat(Kwave::SampleFormat new_format)
 }
 
 //***************************************************************************
-Kwave::SampleFormat RecordALSA::sampleFormat()
+Kwave::SampleFormat Kwave::RecordALSA::sampleFormat()
 {
     return m_sample_format;
 }
 
 //***************************************************************************
-byte_order_t RecordALSA::endianness()
+byte_order_t Kwave::RecordALSA::endianness()
 {
     int index = mode2format(m_compression, m_bits_per_sample, m_sample_format);
     return (index >= 0) ? endian_of(_known_formats[index]) : UnknownEndian;
 }
 
 //***************************************************************************
-QStringList RecordALSA::supportedDevices()
+QStringList Kwave::RecordALSA::supportedDevices()
 {
     // re-validate the list if necessary
     scanDevices();
@@ -962,7 +962,7 @@ QStringList RecordALSA::supportedDevices()
 }
 
 //***************************************************************************
-void RecordALSA::scanDevices()
+void Kwave::RecordALSA::scanDevices()
 {
     snd_ctl_t *handle = 0;
     int card, err, dev;
@@ -1093,7 +1093,7 @@ next_card:
 }
 
 //***************************************************************************
-QString RecordALSA::alsaDeviceName(const QString &name)
+QString Kwave::RecordALSA::alsaDeviceName(const QString &name)
 {
     if (m_device_list.isEmpty() || (name.length() &&
         !m_device_list.contains(name)))

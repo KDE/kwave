@@ -28,64 +28,69 @@
 class QString;
 class QWidget;
 
-/**
- * @class KeywordWidget
- * Re-implemented and slightly modified version of a KEditListBox. All
- * items in the list are unique and sorted alphabetically, leading and
- * trailing whitespaces are removed. An additional "Auto" button is
- * provided for populating the list with automatically generated entries.
- */
-class KeywordWidget: public QWidget,
-                     Ui::KeywordWidgetBase
+namespace Kwave
 {
-    Q_OBJECT
-public:
+    /**
+     * Re-implemented and slightly modified version of a KEditListBox. All
+     * items in the list are unique and sorted alphabetically, leading and
+     * trailing whitespaces are removed. An additional "Auto" button is
+     * provided for populating the list with automatically generated entries.
+     */
+    class KeywordWidget: public QWidget,
+                         Ui::KeywordWidgetBase
+    {
+	Q_OBJECT
+    public:
 
-    /** Constructor */
-    KeywordWidget(QWidget *parent);
+	/** Constructor */
+	KeywordWidget(QWidget *parent);
 
-    /** Destructor */
-    virtual ~KeywordWidget();
+	/** Destructor */
+	virtual ~KeywordWidget();
 
-    /** Returns the list of keywords (sorted) */
-    QStringList keywords();
+	/** Returns the list of keywords (sorted) */
+	QStringList keywords();
 
-    /** Sets/initializes the list of keywords */
-    void setKeywords(const QStringList &keywords);
+	/** Sets/initializes the list of keywords */
+	void setKeywords(const QStringList &keywords);
 
-signals:
+    signals:
 
-    /** emitted if the user pressed the "Auto" button */
-    void autoGenerate();
+	/** emitted if the user pressed the "Auto" button */
+	void autoGenerate();
 
-private slots:
+    private slots:
 
-    /** updates the controls if the text edit changed */
-    void editChanged(const QString &);
+	/** updates the controls if the text edit changed */
+	void editChanged(const QString &);
 
-    /** called if the user pressed return in the edit line */
-    void returnPressed(const QString &);
+	/** called if the user pressed return in the edit line */
+	void returnPressed(const QString &);
 
-    /** add an entry to the list */
-    void add();
+	/** add an entry to the list */
+	void add();
 
-    /** remove the currently selected item from the list */
-    void remove();
+	/** remove the currently selected item from the list */
+	void remove();
 
-    /** called when a new list entry has been selected */
-    void listClicked(QListWidgetItem *item);
+	/** called when a new list entry has been selected */
+	void listClicked(QListWidgetItem *item);
 
-    /** forwards the click of the "Auto" button */
-    void autoClicked();
+	/** forwards the click of the "Auto" button */
+	void autoClicked();
 
-protected:
+    protected:
 
-    /** returns true if the given string is contained in the list */
-    bool contained(const QString &item);
+	/** returns true if the given string is contained in the list */
+	bool contained(const QString &item);
 
-    /** update the enable state of the buttons */
-    void update();
+	/** update the enable state of the buttons */
+	void update();
 
-};
+    };
+}
 
 #endif /* _KEYWORD_WIDGET_H_ */
+
+//***************************************************************************
+//***************************************************************************

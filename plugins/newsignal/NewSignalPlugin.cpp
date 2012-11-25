@@ -23,23 +23,23 @@
 #include "NewSignalPlugin.h"
 #include "NewSignalDialog.h"
 
-KWAVE_PLUGIN(NewSignalPlugin, "newsignal", "2.1",
+KWAVE_PLUGIN(Kwave::NewSignalPlugin, "newsignal", "2.1",
              I18N_NOOP("New Signal"), "Thomas Eschenbacher");
 
 //***************************************************************************
-NewSignalPlugin::NewSignalPlugin(const Kwave::PluginContext &context)
+Kwave::NewSignalPlugin::NewSignalPlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context), m_samples(2646000), m_rate(44100),
     m_bits(16), m_tracks(2), m_bytime(true)
 {
 }
 
 //***************************************************************************
-NewSignalPlugin::~NewSignalPlugin()
+Kwave::NewSignalPlugin::~NewSignalPlugin()
 {
 }
 
 //***************************************************************************
-int NewSignalPlugin::interpreteParameters(QStringList &params)
+int Kwave::NewSignalPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;
     QString param;
@@ -76,14 +76,14 @@ int NewSignalPlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-QStringList *NewSignalPlugin::setup(QStringList &previous_params)
+QStringList *Kwave::NewSignalPlugin::setup(QStringList &previous_params)
 {
     // try to interprete the previous parameters
     interpreteParameters(previous_params);
 
     // create the setup dialog
-    NewSignalDialog *dialog = new NewSignalDialog(parentWidget(),
-        m_samples, m_rate, m_bits, m_tracks, m_bytime);
+    Kwave::NewSignalDialog *dialog = new Kwave::NewSignalDialog(
+	parentWidget(), m_samples, m_rate, m_bits, m_tracks, m_bytime);
     Q_ASSERT(dialog);
     if (!dialog) return 0;
 

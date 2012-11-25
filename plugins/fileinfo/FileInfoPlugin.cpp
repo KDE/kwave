@@ -25,27 +25,28 @@
 #include "FileInfoDialog.h"
 #include "FileInfoPlugin.h"
 
-KWAVE_PLUGIN(FileInfoPlugin, "fileinfo", "2.1",
+KWAVE_PLUGIN(Kwave::FileInfoPlugin, "fileinfo", "2.1",
              I18N_NOOP("File Info"), "Thomas Eschenbacher");
 
 //***************************************************************************
-FileInfoPlugin::FileInfoPlugin(const Kwave::PluginContext &context)
+Kwave::FileInfoPlugin::FileInfoPlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context)
 {
 }
 
 //***************************************************************************
-FileInfoPlugin::~FileInfoPlugin()
+Kwave::FileInfoPlugin::~FileInfoPlugin()
 {
 }
 
 //***************************************************************************
-QStringList *FileInfoPlugin::setup(QStringList &)
+QStringList *Kwave::FileInfoPlugin::setup(QStringList &)
 {
     Kwave::FileInfo oldInfo(signalManager().metaData());
 
     // create the setup dialog
-    FileInfoDialog *dialog = new FileInfoDialog(parentWidget(), oldInfo);
+    Kwave::FileInfoDialog *dialog =
+	new Kwave::FileInfoDialog(parentWidget(), oldInfo);
     Q_ASSERT(dialog);
     if (!dialog) return 0;
 
@@ -65,7 +66,7 @@ QStringList *FileInfoPlugin::setup(QStringList &)
 }
 
 //***************************************************************************
-void FileInfoPlugin::apply(Kwave::FileInfo &new_info)
+void Kwave::FileInfoPlugin::apply(Kwave::FileInfo &new_info)
 {
     Kwave::FileInfo old_info(signalManager().metaData());
     if (old_info == new_info) return; // nothing to do

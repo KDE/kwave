@@ -25,55 +25,62 @@
 
 #include "ui_BitrateWidgetBase.h"
 
-class BitrateWidget: public QWidget,
-                     public Ui::BitrateWidgetBase
+namespace Kwave
 {
-    Q_OBJECT
-public:
-    /** Constructor */
-    BitrateWidget(QWidget *parent);
 
-    /** Destructor */
-    virtual ~BitrateWidget();
+    class BitrateWidget: public QWidget,
+                         public Ui::BitrateWidgetBase
+    {
+	Q_OBJECT
+    public:
+	/** Constructor */
+	BitrateWidget(QWidget *parent);
 
-    /** sets a new current value */
-    virtual void setValue(int bitrate);
+	/** Destructor */
+	virtual ~BitrateWidget();
 
-    /** returns the currently selected value */
-    virtual int value();
+	/** sets a new current value */
+	virtual void setValue(int bitrate);
 
-    /** set a new special value text */
-    virtual void setSpecialValueText(const QString &text);
+	/** returns the currently selected value */
+	virtual int value();
 
-    /** sets a list of allowed bitrates */
-    virtual void allowRates(const QList<int> &list);
+	/** set a new special value text */
+	virtual void setSpecialValueText(const QString &text);
 
-signals:
+	/** sets a list of allowed bitrates */
+	virtual void allowRates(const QList<int> &list);
 
-    /** emitted whenever the bitrate setting has been modified */
-    void valueChanged(int value);
+    signals:
 
-protected slots:
+	/** emitted whenever the bitrate setting has been modified */
+	void valueChanged(int value);
 
-    /** slider of ABR bitrate changed */
-    void sliderChanged(int value);
+    protected slots:
 
-    /** spinbox of ABR bitrate changed */
-    void spinboxChanged(int value);
+	/** slider of ABR bitrate changed */
+	void sliderChanged(int value);
 
-    /** slider has been released -> snap to nearest available value */
-    void snapInSlider();
+	/** spinbox of ABR bitrate changed */
+	void spinboxChanged(int value);
 
-protected:
+	/** slider has been released -> snap to nearest available value */
+	void snapInSlider();
 
-    /** find the nearest bitrate index of a current position */
-    int nearestIndex(int rate);
+    protected:
 
-private:
+	/** find the nearest bitrate index of a current position */
+	int nearestIndex(int rate);
 
-    /** list of allowed bitrates, sorted ascending */
-    QList<int> m_rates;
+    private:
 
-};
+	/** list of allowed bitrates, sorted ascending */
+	QList<int> m_rates;
+
+    };
+}
 
 #endif /* _BITRATE_WIDGET_H_ */
+
+//***************************************************************************
+//***************************************************************************

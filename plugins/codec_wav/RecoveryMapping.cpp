@@ -22,15 +22,18 @@
 #include "RecoveryMapping.h"
 
 //***************************************************************************
-RecoveryMapping::RecoveryMapping(unsigned int offset, unsigned int length,
-                                 QIODevice &dev, unsigned int dev_offset)
-    :RecoverySource(offset, length), m_dev(dev), m_dev_offset(dev_offset)
+Kwave::RecoveryMapping::RecoveryMapping(unsigned int offset,
+                                        unsigned int length,
+                                        QIODevice &dev,
+                                        unsigned int dev_offset)
+    :Kwave::RecoverySource(offset, length),
+     m_dev(dev), m_dev_offset(dev_offset)
 {
 }
 
 //***************************************************************************
-unsigned int RecoveryMapping::read(unsigned int offset, char *data,
-                                   unsigned int bytes)
+unsigned int Kwave::RecoveryMapping::read(unsigned int offset, char *data,
+                                          unsigned int bytes)
 {
     if (offset < this->offset()) return 0;
     if (offset > end()) return 0;

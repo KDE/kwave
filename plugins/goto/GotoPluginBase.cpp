@@ -31,18 +31,18 @@
 #include "GotoDialog.h"
 
 //***************************************************************************
-GotoPluginBase::GotoPluginBase(const Kwave::PluginContext &c)
+Kwave::GotoPluginBase::GotoPluginBase(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_mode(Kwave::SelectTimeWidget::bySamples), m_position(0)
 {
 }
 
 //***************************************************************************
-GotoPluginBase::~GotoPluginBase()
+Kwave::GotoPluginBase::~GotoPluginBase()
 {
 }
 
 //***************************************************************************
-QStringList *GotoPluginBase::setup(QStringList &previous_params)
+QStringList *Kwave::GotoPluginBase::setup(QStringList &previous_params)
 {
     // try to interprete the previous parameters
     interpreteParameters(previous_params);
@@ -51,7 +51,7 @@ QStringList *GotoPluginBase::setup(QStringList &previous_params)
     double rate = signalRate();
     sample_index_t length = signalLength();
 
-    GotoDialog *dialog = new GotoDialog(parentWidget(),
+    Kwave::GotoDialog *dialog = new Kwave::GotoDialog(parentWidget(),
         m_mode, m_position, rate, length);
     Q_ASSERT(dialog);
     if (!dialog) return 0;
@@ -82,7 +82,7 @@ QStringList *GotoPluginBase::setup(QStringList &previous_params)
 }
 
 //***************************************************************************
-int GotoPluginBase::start(QStringList &params)
+int Kwave::GotoPluginBase::start(QStringList &params)
 {
     // interprete the parameters
     int result = interpreteParameters(params);
@@ -100,7 +100,7 @@ int GotoPluginBase::start(QStringList &params)
 }
 
 //***************************************************************************
-int GotoPluginBase::interpreteParameters(QStringList &params)
+int Kwave::GotoPluginBase::interpreteParameters(QStringList &params)
 {
     bool ok;
     QString param;

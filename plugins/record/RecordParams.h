@@ -26,85 +26,93 @@
 
 #include "libkwave/SampleFormat.h"
 
-/**
- * enum for the known recording methods
- * (sorted, preferred first)
- */
-typedef enum {
-    RECORD_NONE = 0, /**< none selected */
-    RECORD_JACK,     /**< Jack sound daemon */
-    RECORD_ALSA,     /**< ALSA native */
-    RECORD_OSS,      /**< OSS native or ALSA OSS emulation */
-    RECORD_INVALID   /**< (keep this the last entry, EOL delimiter) */
-} record_method_t;
-
-/** post-increment operator for the record method */
-inline record_method_t &operator ++(record_method_t &m) {
-    return (m = (m < RECORD_INVALID) ?
-                static_cast<record_method_t>(
-                static_cast<int>(m) + 1) : m);
-}
-
-class RecordParams {
-
-public:
-
-    /** Constructor, initializes everything with defaults */
-    RecordParams();
-
-    /** Destructor */
-    virtual ~RecordParams();
+namespace Kwave
+{
 
     /**
-     * Parse from a QStringList
-     * @param list the QStringList to parse
-     * @return zero or -EINVAL if failed
+     * enum for the known recording methods
+     * (sorted, preferred first)
      */
-    virtual int fromList(const QStringList &list);
+    typedef enum {
+	RECORD_NONE = 0, /**< none selected */
+	RECORD_JACK,     /**< Jack sound daemon */
+	RECORD_ALSA,     /**< ALSA native */
+	RECORD_OSS,      /**< OSS native or ALSA OSS emulation */
+	RECORD_INVALID   /**< (keep this the last entry, EOL delimiter) */
+    } record_method_t;
 
-    /** Parse into a QStringList */
-    virtual QStringList toList() const;
+    /** post-increment operator for the record method */
+    inline Kwave::record_method_t &operator ++(Kwave::record_method_t &m) {
+	return (m = (m < Kwave::RECORD_INVALID) ?
+		    static_cast<Kwave::record_method_t>(
+		    static_cast<int>(m) + 1) : m);
+    }
 
-    record_method_t method;             /** method/class for recording */
+    class RecordParams
+    {
 
-    bool pre_record_enabled;		/**< pre-record: feature enabled */
-    unsigned int pre_record_time;	/**< pre-record: time in seconds */
+    public:
 
-    bool record_time_limited;		/**< record time: limited */
-    unsigned int record_time;		/**< record time: limit in seconds */
+	/** Constructor, initializes everything with defaults */
+	RecordParams();
 
-    bool start_time_enabled;            /**< start time: feature enabled */
-    QDateTime start_time;               /**< start time: date & time */
+	/** Destructor */
+	virtual ~RecordParams();
 
-    bool record_trigger_enabled;	/**< record trigger: feature enabled */
-    unsigned int record_trigger;	/**< record trigger level in percent */
+	/**
+	 * Parse from a QStringList
+	 * @param list the QStringList to parse
+	 * @return zero or -EINVAL if failed
+	 */
+	virtual int fromList(const QStringList &list);
 
-    bool amplification_enabled;		/**< amplification: feature enabled */
-    int amplification;			/**< amplification: value in decibel */
+	/** Parse into a QStringList */
+	virtual QStringList toList() const;
 
-    bool agc_enabled;			/**< agc: feature enabled */
-    unsigned int agc_decay;		/**< agc: decay in milliseconds */
+	Kwave::record_method_t method;  /** method/class for recording */
 
-    bool fade_in_enabled;		/**< fade in: feature enabled */
-    unsigned int fade_in_time;		/**< fade in: time in milliseconds */
+	bool pre_record_enabled;	/**< pre-record: feature enabled */
+	unsigned int pre_record_time;	/**< pre-record: time in seconds */
 
-    bool fade_out_enabled;		/**< fade out: feature enabled */
-    unsigned int fade_out_time;		/**< fade out: time in milliseconds */
+	bool record_time_limited;	/**< record time: limited */
+	unsigned int record_time;	/**< record time: limit in seconds */
 
-    QString device_name;		/**< name of the input device */
-    unsigned int tracks;		/**< number of tracks */
-    double sample_rate;			/**< sample rate in samples/second */
-    int compression;			/**< compression index or -1 */
-    unsigned int bits_per_sample;	/**< resolution in bits per sample */
-    Kwave::SampleFormat sample_format;  /**< sample format */
+	bool start_time_enabled;        /**< start time: feature enabled */
+	QDateTime start_time;           /**< start time: date & time */
 
-    unsigned int buffer_count;		/**< number of buffers */
-    unsigned int buffer_size;		/**< power of the record buffer size */
+	bool record_trigger_enabled;	/**< record trigger: feature enabled */
+	unsigned int record_trigger;	/**< record trigger level in percent */
 
-    bool display_level_meter;		/**< enable level meter display */
-    bool display_oscilloscope;		/**< enable oscilloscope display */
-    bool display_fft;			/**< enable fft display */
-    bool display_overview;		/**< enable overview display */
-};
+	bool amplification_enabled;	/**< amplification: feature enabled */
+	int amplification;		/**< amplification: value in decibel */
+
+	bool agc_enabled;		/**< agc: feature enabled */
+	unsigned int agc_decay;		/**< agc: decay in milliseconds */
+
+	bool fade_in_enabled;		/**< fade in: feature enabled */
+	unsigned int fade_in_time;	/**< fade in: time in milliseconds */
+
+	bool fade_out_enabled;		/**< fade out: feature enabled */
+	unsigned int fade_out_time;	/**< fade out: time in milliseconds */
+
+	QString device_name;		/**< name of the input device */
+	unsigned int tracks;		/**< number of tracks */
+	double sample_rate;		/**< sample rate in samples/second */
+	int compression;		/**< compression index or -1 */
+	unsigned int bits_per_sample;	/**< resolution in bits per sample */
+	Kwave::SampleFormat sample_format;  /**< sample format */
+
+	unsigned int buffer_count;	/**< number of buffers */
+	unsigned int buffer_size;	/**< power of the record buffer size */
+
+	bool display_level_meter;	/**< enable level meter display */
+	bool display_oscilloscope;	/**< enable oscilloscope display */
+	bool display_fft;		/**< enable fft display */
+	bool display_overview;		/**< enable overview display */
+    };
+}
 
 #endif /* _RECORD_PARAMS_H_ */
+
+//***************************************************************************
+//***************************************************************************

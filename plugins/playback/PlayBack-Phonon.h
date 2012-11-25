@@ -37,137 +37,144 @@
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/SampleArray.h"
 
-namespace Kwave { class SampleEncoder; }
-
-class PlayBackPhonon: public Kwave::PlayBackDevice,
-                      public Phonon::AbstractMediaStream
+namespace Kwave
 {
-public:
 
-    /** Default constructor */
-    PlayBackPhonon();
+    class SampleEncoder;
 
-    /** Destructor */
-    virtual ~PlayBackPhonon();
+    class PlayBackPhonon: public Kwave::PlayBackDevice,
+                          public Phonon::AbstractMediaStream
+    {
+    public:
 
-    /**
-     * Opens the device for playback.
-     * @see PlayBackDevice::open
-     */
-    virtual QString open(const QString &device, double rate,
-                         unsigned int channels, unsigned int bits,
-                         unsigned int bufbase);
+	/** Default constructor */
+	PlayBackPhonon();
 
-    /**
-     * Writes an array of samples to the output device.
-     * @see PlayBackDevice::write
-     */
-    virtual int write(const Kwave::SampleArray &samples);
+	/** Destructor */
+	virtual ~PlayBackPhonon();
 
-    /**
-     * Closes the output device.
-     * @see PlayBackDevice::close
-     */
-    virtual int close();
+	/**
+	 * Opens the device for playback.
+	 * @see PlayBackDevice::open
+	 */
+	virtual QString open(const QString &device, double rate,
+	                     unsigned int channels, unsigned int bits,
+	                     unsigned int bufbase);
 
-    /** return a string list with supported device names */
-    virtual QStringList supportedDevices();
+	/**
+	 * Writes an array of samples to the output device.
+	 * @see PlayBackDevice::write
+	 */
+	virtual int write(const Kwave::SampleArray &samples);
 
-    /** return a string suitable for a "File Open..." dialog */
-    virtual QString fileFilter();
+	/**
+	 * Closes the output device.
+	 * @see PlayBackDevice::close
+	 */
+	virtual int close();
 
-    /**
-     * returns a list of supported bits per sample resolutions
-     * of a given device.
-     *
-     * @param device filename of the device
-     * @return list of supported bits per sample, or empty on errors
-     */
-    virtual QList<unsigned int> supportedBits(const QString &device);
+	/** return a string list with supported device names */
+	virtual QStringList supportedDevices();
 
-    /**
-     * Detect the minimum and maximum number of channels.
-     * If the detection fails, minimum and maximum are set to zero.
-     *
-     * @param device filename of the device
-     * @param min receives the lowest supported number of channels
-     * @param max receives the highest supported number of channels
-     * @return zero or positive number if ok, negative error number if failed
-     */
-    virtual int detectChannels(const QString &device,
-                               unsigned int &min, unsigned int &max);
+	/** return a string suitable for a "File Open..." dialog */
+	virtual QString fileFilter();
 
-    /** @see Phonon::AbstractMediaStream::reset */
-    virtual void reset();
+	/**
+	 * returns a list of supported bits per sample resolutions
+	 * of a given device.
+	 *
+	 * @param device filename of the device
+	 * @return list of supported bits per sample, or empty on errors
+	 */
+	virtual QList<unsigned int> supportedBits(const QString &device);
 
-    /** @see Phonon::AbstractMediaStream::needData */
-    virtual void needData();
+	/**
+	 * Detect the minimum and maximum number of channels.
+	 * If the detection fails, minimum and maximum are set to zero.
+	 *
+	 * @param device filename of the device
+	 * @param min receives the lowest supported number of channels
+	 * @param max receives the highest supported number of channels
+	 * @return zero or positive number if ok, negative error number if failed
+	 */
+	virtual int detectChannels(const QString &device,
+	                           unsigned int &min, unsigned int &max);
 
-private:
+	/** @see Phonon::AbstractMediaStream::reset */
+	virtual void reset();
 
-    /**
-     * creates a sample encoder for playback, for linear
-     * formats
-     * @param bits number of bits/sample (8, 16, 24 or 32)
-     */
-    void createEncoder(unsigned int bits);
+	/** @see Phonon::AbstractMediaStream::needData */
+	virtual void needData();
 
-    /**
-     * creates a dummy RIFF wav header for fooling Phonon
-     * @param rate sample rate [samples/second]
-     * @param channels number of channels [1...N]
-     * @param bits number of bits/sample (8, 16, 24 or 32)
-     */
-    void createHeader(double rate,
-                      unsigned int channels,
-                      unsigned int bits);
+    private:
 
-    /**
-     * writes the output buffer to the Phonon layer
-     * @return 0 if succeeded, -EAGAIN on timeout
-     */
-    int flush();
+	/**
+	 * creates a sample encoder for playback, for linear
+	 * formats
+	 * @param bits number of bits/sample (8, 16, 24 or 32)
+	 */
+	void createEncoder(unsigned int bits);
 
-private:
+	/**
+	 * creates a dummy RIFF wav header for fooling Phonon
+	 * @param rate sample rate [samples/second]
+	 * @param channels number of channels [1...N]
+	 * @param bits number of bits/sample (8, 16, 24 or 32)
+	 */
+	void createHeader(double rate,
+	                  unsigned int channels,
+	                  unsigned int bits);
 
-    /** buffer with samples data */
-    Kwave::SampleArray m_buffer;
+	/**
+	 * writes the output buffer to the Phonon layer
+	 * @return 0 if succeeded, -EAGAIN on timeout
+	 */
+	int flush();
 
-    /** buffer with raw data */
-    QByteArray m_raw_buffer;
+    private:
 
-    /** Buffer size on bytes */
-    unsigned int m_buffer_size;
+	/** buffer with samples data */
+	Kwave::SampleArray m_buffer;
 
-    /** number of bytes in the buffer */
-    unsigned int m_buffer_used;
+	/** buffer with raw data */
+	QByteArray m_raw_buffer;
 
-    /** encoder for converting from samples to raw format */
-    Kwave::SampleEncoder *m_encoder;
+	/** Buffer size on bytes */
+	unsigned int m_buffer_size;
 
-    /** semaphore for communication between phonon and Kwave */
-    QSemaphore m_sem;
+	/** number of bytes in the buffer */
+	unsigned int m_buffer_used;
 
-    /** audio output device for Phonon */
-    Phonon::AudioOutput *m_output;
+	/** encoder for converting from samples to raw format */
+	Kwave::SampleEncoder *m_encoder;
 
-    /** path from m_media_object to m_output */
-    Phonon::Path m_path;
+	/** semaphore for communication between phonon and Kwave */
+	QSemaphore m_sem;
 
-    /** media object that serves as container for the media source */
-    Phonon::MediaObject m_media_object;
+	/** audio output device for Phonon */
+	Phonon::AudioOutput *m_output;
 
-    /** media source, adapter for the playback stream */
-    Phonon::MediaSource m_media_source;
+	/** path from m_media_object to m_output */
+	Phonon::Path m_path;
 
-    /** if true, send a header in the first write */
-    bool m_first_write;
+	/** media object that serves as container for the media source */
+	Phonon::MediaObject m_media_object;
 
-    /** faked RIFF header for wav format */
-    QByteArray m_header;
+	/** media source, adapter for the playback stream */
+	Phonon::MediaSource m_media_source;
 
-};
+	/** if true, send a header in the first write */
+	bool m_first_write;
+
+	/** faked RIFF header for wav format */
+	QByteArray m_header;
+
+    };
+}
 
 #endif /* HAVE_PHONON_SUPPORT */
 
 #endif /* _PLAY_BACK_PHONON_H_ */
+
+//***************************************************************************
+//***************************************************************************

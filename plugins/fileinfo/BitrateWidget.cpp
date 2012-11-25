@@ -25,7 +25,7 @@
 #include "BitrateWidget.h"
 
 /***************************************************************************/
-BitrateWidget::BitrateWidget(QWidget *parent)
+Kwave::BitrateWidget::BitrateWidget(QWidget *parent)
     :QWidget(parent),
      Ui::BitrateWidgetBase(), m_rates()
 {
@@ -43,19 +43,19 @@ BitrateWidget::BitrateWidget(QWidget *parent)
 }
 
 /***************************************************************************/
-BitrateWidget::~BitrateWidget()
+Kwave::BitrateWidget::~BitrateWidget()
 {
 }
 
 /***************************************************************************/
-void BitrateWidget::setValue(int bitrate)
+void Kwave::BitrateWidget::setValue(int bitrate)
 {
     slider->setValue(bitrate);
     spinbox->setValue(bitrate);
 }
 
 /***************************************************************************/
-int BitrateWidget::value()
+int Kwave::BitrateWidget::value()
 {
     int value = slider->value();
     int index = nearestIndex(value);
@@ -63,13 +63,13 @@ int BitrateWidget::value()
 }
 
 /***************************************************************************/
-void BitrateWidget::setSpecialValueText(const QString &text)
+void Kwave::BitrateWidget::setSpecialValueText(const QString &text)
 {
     spinbox->setSpecialValueText(text);
 }
 
 /***************************************************************************/
-void BitrateWidget::allowRates(const QList<int> &list)
+void Kwave::BitrateWidget::allowRates(const QList<int> &list)
 {
     int old_value = value();
 
@@ -85,7 +85,7 @@ void BitrateWidget::allowRates(const QList<int> &list)
 }
 
 //***************************************************************************
-int BitrateWidget::nearestIndex(int rate)
+int Kwave::BitrateWidget::nearestIndex(int rate)
 {
     // find the nearest value
     int nearest = 0;
@@ -105,7 +105,7 @@ int BitrateWidget::nearestIndex(int rate)
 }
 
 //***************************************************************************
-void BitrateWidget::sliderChanged(int value)
+void Kwave::BitrateWidget::sliderChanged(int value)
 {
     int index = nearestIndex(value);
     spinbox->setValue(m_rates[index]);
@@ -114,13 +114,13 @@ void BitrateWidget::sliderChanged(int value)
 }
 
 //***************************************************************************
-void BitrateWidget::spinboxChanged(int value)
+void Kwave::BitrateWidget::spinboxChanged(int value)
 {
     emit valueChanged(value);
 }
 
 //***************************************************************************
-void BitrateWidget::snapInSlider()
+void Kwave::BitrateWidget::snapInSlider()
 {
     int value = slider->value();
     int index = nearestIndex(value);

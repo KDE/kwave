@@ -95,7 +95,7 @@
            <number>3</number>
           </property>
           <item>
-           <widget class="LogoWidget" name="logo_widget" native="true">
+           <widget class="Kwave::LogoWidget" name="logo_widget" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -333,7 +333,7 @@ and scroll capability.</string>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>LogoWidget</class>
+   <class>Kwave::LogoWidget</class>
    <extends>QWidget</extends>
    <header>LogoWidget.h</header>
   </customwidget>

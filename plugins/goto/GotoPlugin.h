@@ -24,26 +24,33 @@
 
 #include "GotoPluginBase.h"
 
-namespace Kwave { class PluginContext; }
-
-class GotoPlugin: public GotoPluginBase
+namespace Kwave
 {
-public:
 
-    /** Constructor */
-    GotoPlugin(const Kwave::PluginContext &context);
+    class PluginContext;
 
-    /** Destructor */
-    virtual ~GotoPlugin();
+    class GotoPlugin: public Kwave::GotoPluginBase
+    {
+    public:
 
-protected:
+	/** Constructor */
+	GotoPlugin(const Kwave::PluginContext &context);
 
-    /** Returns the command to be emitted */
-    virtual QString command() const;
+	/** Destructor */
+	virtual ~GotoPlugin();
 
-    /** Returns the title of the dialog */
-    virtual QString title() const;
+    protected:
 
-};
+	/** Returns the command to be emitted */
+	virtual QString command() const;
+
+	/** Returns the title of the dialog */
+	virtual QString title() const;
+
+    };
+}
 
 #endif /* _GOTO_PLUGIN_H_ */
+
+//***************************************************************************
+//***************************************************************************

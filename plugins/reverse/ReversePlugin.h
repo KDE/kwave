@@ -27,42 +27,44 @@
 #include "libkwave/SampleArray.h"
 #include "libkwave/Sample.h"
 
-//***************************************************************************
-/**
- * @class ReversePlugin
- * Reverts the current selection by exchanging blocks of samples
- * from front and back and reversing their content
- */
-class ReversePlugin: public Kwave::Plugin
+namespace Kwave
 {
-    Q_OBJECT
-
-public:
-
-    /** Constructor */
-    ReversePlugin(const Kwave::PluginContext &c);
-
-    /** Destructor */
-    virtual ~ReversePlugin();
-
-    /** reverses the selection */
-    virtual void run(QStringList);
-
     /**
-     * this plugin must be persistent so that the undo class that it
-     * contains survives after the plugin has finished running.
+     * @class ReversePlugin
+     * Reverts the current selection by exchanging blocks of samples
+     * from front and back and reversing their content
      */
-    virtual bool isPersistent() { return true; }
+    class ReversePlugin: public Kwave::Plugin
+    {
+	Q_OBJECT
 
-private slots:
+    public:
 
-    /**
-     * multiplies the progress by factor two and
-     * calls Kwave::Plugin::updateProgress
-     */
-    virtual void updateProgress(qreal progress);
+	/** Constructor */
+	ReversePlugin(const Kwave::PluginContext &c);
 
-};
+	/** Destructor */
+	virtual ~ReversePlugin();
+
+	/** reverses the selection */
+	virtual void run(QStringList);
+
+	/**
+	 * this plugin must be persistent so that the undo class that it
+	 * contains survives after the plugin has finished running.
+	 */
+	virtual bool isPersistent() { return true; }
+
+    private slots:
+
+	/**
+	 * multiplies the progress by factor two and
+	 * calls Kwave::Plugin::updateProgress
+	 */
+	virtual void updateProgress(qreal progress);
+
+    };
+}
 
 #endif /* _REVERSE_PLUGIN_H_ */
 

@@ -22,28 +22,28 @@
 #include "libkwave/Plugin.h"
 #include "InsertAtPlugin.h"
 
-KWAVE_PLUGIN(InsertAtPlugin, "insert_at", "2.1",
+KWAVE_PLUGIN(Kwave::InsertAtPlugin, "insert_at", "2.1",
              I18N_NOOP("Insert At"), "Thomas Eschenbacher");
 
 //***************************************************************************
-InsertAtPlugin::InsertAtPlugin(const Kwave::PluginContext &c)
-    :GotoPluginBase(c)
+Kwave::InsertAtPlugin::InsertAtPlugin(const Kwave::PluginContext &c)
+    :Kwave::GotoPluginBase(c)
 {
 }
 
 //***************************************************************************
-InsertAtPlugin::~InsertAtPlugin()
+Kwave::InsertAtPlugin::~InsertAtPlugin()
 {
 }
 
 //***************************************************************************
-QString InsertAtPlugin::command() const
+QString Kwave::InsertAtPlugin::command() const
 {
     return "insert_at";
 }
 
 //***************************************************************************
-QString InsertAtPlugin::title() const
+QString Kwave::InsertAtPlugin::title() const
 {
     return i18n("Insert At...");
 }

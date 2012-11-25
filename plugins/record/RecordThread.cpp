@@ -26,14 +26,14 @@
 #include "RecordThread.h"
 
 //***************************************************************************
-RecordThread::RecordThread()
+Kwave::RecordThread::RecordThread()
     :Kwave::PluginWorkerThread(0, QStringList()), m_device(0),
     m_empty_queue(), m_buffer_count(0), m_buffer_size(0)
 {
 }
 
 //***************************************************************************
-RecordThread::~RecordThread()
+Kwave::RecordThread::~RecordThread()
 {
     stop();
     m_full_queue.clear();
@@ -41,7 +41,7 @@ RecordThread::~RecordThread()
 }
 
 //***************************************************************************
-void RecordThread::setRecordDevice(RecordDevice *device)
+void Kwave::RecordThread::setRecordDevice(Kwave::RecordDevice *device)
 {
     Q_ASSERT(!isRunning());
     if (isRunning()) return;
@@ -50,7 +50,7 @@ void RecordThread::setRecordDevice(RecordDevice *device)
 }
 
 //***************************************************************************
-int RecordThread::setBuffers(unsigned int count, unsigned int size)
+int Kwave::RecordThread::setBuffers(unsigned int count, unsigned int size)
 {
 //     qDebug("RecordThread::setBuffers(%u,%u)", count, size);
     Q_ASSERT(!isRunning());
@@ -75,19 +75,19 @@ int RecordThread::setBuffers(unsigned int count, unsigned int size)
 }
 
 //***************************************************************************
-unsigned int RecordThread::remainingBuffers()
+unsigned int Kwave::RecordThread::remainingBuffers()
 {
     return (m_empty_queue.count());
 }
 
 //***************************************************************************
-unsigned int RecordThread::queuedBuffers()
+unsigned int Kwave::RecordThread::queuedBuffers()
 {
     return (m_full_queue.count());
 }
 
 //***************************************************************************
-QByteArray RecordThread::dequeue()
+QByteArray Kwave::RecordThread::dequeue()
 {
     if (m_full_queue.count()) {
 	// de-queue the buffer from the full list
@@ -105,7 +105,7 @@ QByteArray RecordThread::dequeue()
 }
 
 //***************************************************************************
-void RecordThread::run()
+void Kwave::RecordThread::run()
 {
     qDebug("RecordThread::run() - started (buffers: %u x %u byte)",
            m_buffer_count, m_buffer_size);

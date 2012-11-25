@@ -24,9 +24,9 @@
 #include "SaveBlocksWidget.h"
 
 //***************************************************************************
-SaveBlocksWidget::SaveBlocksWidget(QWidget *parent,
+Kwave::SaveBlocksWidget::SaveBlocksWidget(QWidget *parent,
 	QString filename_pattern,
-	SaveBlocksPlugin::numbering_mode_t numbering_mode,
+	Kwave::SaveBlocksPlugin::numbering_mode_t numbering_mode,
 	bool selection_only,
 	bool have_selection)
     :QWidget(parent), Ui::SaveBlocksWidgetBase()
@@ -82,47 +82,48 @@ SaveBlocksWidget::SaveBlocksWidget(QWidget *parent,
 }
 
 //***************************************************************************
-SaveBlocksWidget::~SaveBlocksWidget()
+Kwave::SaveBlocksWidget::~SaveBlocksWidget()
 {
 }
 
 //***************************************************************************
-QString SaveBlocksWidget::pattern()
+QString Kwave::SaveBlocksWidget::pattern()
 {
     Q_ASSERT(cbPattern);
     return (cbPattern) ? cbPattern->currentText() : "";
 }
 
 //***************************************************************************
-SaveBlocksPlugin::numbering_mode_t SaveBlocksWidget::numberingMode()
+Kwave::SaveBlocksPlugin::numbering_mode_t Kwave::SaveBlocksWidget::numberingMode()
 {
     Q_ASSERT(cbNumbering);
-    return (cbNumbering) ? static_cast<SaveBlocksPlugin::numbering_mode_t>(
-	cbNumbering->currentIndex()) : SaveBlocksPlugin::CONTINUE;
+    return (cbNumbering) ?
+	static_cast<Kwave::SaveBlocksPlugin::numbering_mode_t>(
+	cbNumbering->currentIndex()) : Kwave::SaveBlocksPlugin::CONTINUE;
 }
 
 //***************************************************************************
-bool SaveBlocksWidget::selectionOnly()
+bool Kwave::SaveBlocksWidget::selectionOnly()
 {
     Q_ASSERT(chkSelectionOnly);
     return (chkSelectionOnly) ? chkSelectionOnly->isChecked() : false;
 }
 
 //***************************************************************************
-void SaveBlocksWidget::setNewExample(const QString &example)
+void Kwave::SaveBlocksWidget::setNewExample(const QString &example)
 {
     Q_ASSERT(txtExample);
     if (txtExample) txtExample->setText(example);
 }
 
 //***************************************************************************
-void SaveBlocksWidget::textChanged(const QString &)
+void Kwave::SaveBlocksWidget::textChanged(const QString &)
 {
     emit somethingChanged();
 }
 
 //***************************************************************************
-void SaveBlocksWidget::indexChanged(int)
+void Kwave::SaveBlocksWidget::indexChanged(int)
 {
     emit somethingChanged();
 }

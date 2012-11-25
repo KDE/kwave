@@ -22,7 +22,8 @@
 
 #include <kdemacros.h>
 
-namespace Kwave {
+namespace Kwave
+{
 
     typedef struct MP3EncoderSettings
     {
@@ -88,3 +89,6 @@ namespace Kwave {
 }
 
 #endif /* _MP3_ENCODER_SETTINGS_H_ */
+
+//***************************************************************************
+//***************************************************************************

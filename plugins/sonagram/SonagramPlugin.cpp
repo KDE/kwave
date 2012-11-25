@@ -44,7 +44,7 @@
 #include "SonagramDialog.h"
 #include "SonagramWindow.h"
 
-KWAVE_PLUGIN(SonagramPlugin, "sonagram", "2.1",
+KWAVE_PLUGIN(Kwave::SonagramPlugin, "sonagram", "2.1",
              I18N_NOOP("Sonagram"), "Thomas Eschenbacher");
 
 #define MAX_QUEUE_USAGE 256
@@ -52,53 +52,55 @@ KWAVE_PLUGIN(SonagramPlugin, "sonagram", "2.1",
 /**
  * simple private container class for stripe number and data (TSS-safe)
  */
-class StripeInfoPrivate
-{
-public:
-    StripeInfoPrivate(unsigned int nr, const QByteArray &data)
-	:m_nr(nr), m_data(data)
-	{};
-    StripeInfoPrivate(const StripeInfoPrivate &copy)
-	:m_nr(copy.nr()), m_data(copy.data())
-	{};
-    virtual ~StripeInfoPrivate() {} ;
-    unsigned int nr() const { return m_nr; };
-    const QByteArray &data() const { return m_data; };
-private:
-    unsigned int m_nr;
-    QByteArray m_data;
-};
+namespace Kwave {
+    class StripeInfoPrivate
+    {
+    public:
+	StripeInfoPrivate(unsigned int nr, const QByteArray &data)
+	    :m_nr(nr), m_data(data)
+	    {};
+	StripeInfoPrivate(const StripeInfoPrivate &copy)
+	    :m_nr(copy.nr()), m_data(copy.data())
+	    {};
+	virtual ~StripeInfoPrivate() {} ;
+	unsigned int nr() const { return m_nr; };
+	const QByteArray &data() const { return m_data; };
+    private:
+	unsigned int m_nr;
+	QByteArray m_data;
+    };
+}
 
 //***************************************************************************
-SonagramPlugin::SonagramPlugin(const Kwave::PluginContext &c)
+Kwave::SonagramPlugin::SonagramPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_sonagram_window(0), m_selected_channels(),
      m_first_sample(0), m_last_sample(0), m_stripes(0), m_fft_points(0),
      m_window_type(Kwave::WINDOW_FUNC_NONE), m_color(true),
      m_track_changes(true), m_follow_selection(false), m_image(),
      m_overview_cache(0)
 {
-    connect(this, SIGNAL(stripeAvailable(StripeInfoPrivate *)),
-            this, SLOT(insertStripe(StripeInfoPrivate *)),
+    connect(this, SIGNAL(stripeAvailable(Kwave::StripeInfoPrivate *)),
+            this, SLOT(insertStripe(Kwave::StripeInfoPrivate *)),
             Qt::BlockingQueuedConnection);
     i18n("Sonagram");
 }
 
 //***************************************************************************
-SonagramPlugin::~SonagramPlugin()
+Kwave::SonagramPlugin::~SonagramPlugin()
 {
     if (m_sonagram_window) delete m_sonagram_window;
     m_sonagram_window = 0;
 }
 
 //***************************************************************************
-QStringList *SonagramPlugin::setup(QStringList &previous_params)
+QStringList *Kwave::SonagramPlugin::setup(QStringList &previous_params)
 {
     QStringList *result = 0;
 
     // try to interprete the list of previous parameters, ignore errors
     if (previous_params.count()) interpreteParameters(previous_params);
 
-    SonagramDialog *dlg = new SonagramDialog(*this);
+    Kwave::SonagramDialog *dlg = new Kwave::SonagramDialog(*this);
     Q_ASSERT(dlg);
     if (!dlg) return 0;
 
@@ -118,7 +120,7 @@ QStringList *SonagramPlugin::setup(QStringList &previous_params)
 }
 
 //***************************************************************************
-int SonagramPlugin::interpreteParameters(QStringList &params)
+int Kwave::SonagramPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;
     QString param;
@@ -151,14 +153,14 @@ int SonagramPlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-int SonagramPlugin::start(QStringList &params)
+int Kwave::SonagramPlugin::start(QStringList &params)
 {
     // interprete parameter list and abort if it contains invalid data
     int result = interpreteParameters(params);
     if (result) return result;
 
     // create an empty sonagram window
-    m_sonagram_window = new SonagramWindow(signalName());
+    m_sonagram_window = new Kwave::SonagramWindow(signalName());
     Q_ASSERT(m_sonagram_window);
     if (!m_sonagram_window) return -ENOMEM;
 
@@ -224,7 +226,7 @@ int SonagramPlugin::start(QStringList &params)
 }
 
 //***************************************************************************
-void SonagramPlugin::run(QStringList /* params */)
+void Kwave::SonagramPlugin::run(QStringList /* params */)
 {
 //    qDebug("SonagramPlugin::run()");
 
@@ -245,8 +247,8 @@ void SonagramPlugin::run(QStringList /* params */)
 	// calculate one stripe
 	calculateStripe(source, m_fft_points, stripe_data);
 
-	StripeInfoPrivate *stripe_info = new
-	    StripeInfoPrivate(stripe_nr, stripe_data);
+	Kwave::StripeInfoPrivate *stripe_info = new
+	    Kwave::StripeInfoPrivate(stripe_nr, stripe_data);
 	if (!stripe_info) break; // out of memory
 
 	// emit the stripe data to be synchronously inserted into
@@ -261,7 +263,7 @@ void SonagramPlugin::run(QStringList /* params */)
 }
 
 //***************************************************************************
-void SonagramPlugin::insertStripe(StripeInfoPrivate *stripe_info)
+void Kwave::SonagramPlugin::insertStripe(Kwave::StripeInfoPrivate *stripe_info)
 {
     Q_ASSERT(stripe_info);
     if (!stripe_info) return;
@@ -275,7 +277,7 @@ void SonagramPlugin::insertStripe(StripeInfoPrivate *stripe_info)
 }
 
 //***************************************************************************
-void SonagramPlugin::calculateStripe(Kwave::MultiTrackReader &source,
+void Kwave::SonagramPlugin::calculateStripe(Kwave::MultiTrackReader &source,
 	const int points, QByteArray &output)
 {
     double *in  = 0;
@@ -365,7 +367,7 @@ void SonagramPlugin::calculateStripe(Kwave::MultiTrackReader &source,
 }
 
 //***************************************************************************
-void SonagramPlugin::createNewImage(const unsigned int width,
+void Kwave::SonagramPlugin::createNewImage(const unsigned int width,
 	const unsigned int height)
 {
 //    qDebug("SonagramPlugin::createNewImage()");
@@ -404,7 +406,7 @@ void SonagramPlugin::createNewImage(const unsigned int width,
 }
 
 //***************************************************************************
-void SonagramPlugin::refreshOverview()
+void Kwave::SonagramPlugin::refreshOverview()
 {
     if (!m_overview_cache || !m_sonagram_window) return;
 
@@ -417,7 +419,7 @@ void SonagramPlugin::refreshOverview()
 }
 
 //***************************************************************************
-void SonagramPlugin::windowDestroyed()
+void Kwave::SonagramPlugin::windowDestroyed()
 {
     m_sonagram_window = 0; // closes itself !
     cancel();

@@ -25,7 +25,7 @@
 #include "LowPassFilter.h"
 
 //***************************************************************************
-LowPassFilter::LowPassFilter()
+Kwave::LowPassFilter::LowPassFilter()
     :Kwave::SampleSource(0), m_buffer(blockSize()),
     m_f_cutoff(M_PI)
 {
@@ -33,18 +33,18 @@ LowPassFilter::LowPassFilter()
 }
 
 //***************************************************************************
-LowPassFilter::~LowPassFilter()
+Kwave::LowPassFilter::~LowPassFilter()
 {
 }
 
 //***************************************************************************
-void LowPassFilter::goOn()
+void Kwave::LowPassFilter::goOn()
 {
     emit output(m_buffer);
 }
 
 //***************************************************************************
-void LowPassFilter::initFilter()
+void Kwave::LowPassFilter::initFilter()
 {
     m_filter.x1 = 0.0;
     m_filter.x2 = 0.0;
@@ -118,7 +118,7 @@ static void shelve(double cf, double boost,
 }
 
 //***************************************************************************
-void LowPassFilter::normed_setfilter_shelvelowpass(double freq)
+void Kwave::LowPassFilter::normed_setfilter_shelvelowpass(double freq)
 {
     double gain;
     double boost = 80.0;
@@ -135,7 +135,7 @@ void LowPassFilter::normed_setfilter_shelvelowpass(double freq)
 }
 
 //***************************************************************************
-void LowPassFilter::input(Kwave::SampleArray data)
+void Kwave::LowPassFilter::input(Kwave::SampleArray data)
 {
     normed_setfilter_shelvelowpass(m_f_cutoff);
     Q_ASSERT(data.size() == m_buffer.size());
@@ -159,7 +159,7 @@ void LowPassFilter::input(Kwave::SampleArray data)
 }
 
 //***************************************************************************
-double LowPassFilter::at(double f)
+double Kwave::LowPassFilter::at(double f)
 {
     /*
      * filter function as extracted from the aRts code:
@@ -196,7 +196,7 @@ double LowPassFilter::at(double f)
 }
 
 //***************************************************************************
-void LowPassFilter::setFrequency(const QVariant fc)
+void Kwave::LowPassFilter::setFrequency(const QVariant fc)
 {
 
     double new_freq = QVariant(fc).toDouble();

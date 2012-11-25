@@ -34,7 +34,7 @@
 #define COLOR_INCREMENT (static_cast<double>(0.001))
 
 //***************************************************************************
-LogoWidget::LogoWidget(QWidget *parent)
+Kwave::LogoWidget::LogoWidget(QWidget *parent)
     :QWidget(parent), m_width(-1), m_height(-1), m_repaint(false),
     m_image(0), m_logo(xpm_aboutlogo), m_timer(0),
     m_color_h(0.0)
@@ -56,7 +56,7 @@ LogoWidget::LogoWidget(QWidget *parent)
 }
 
 //***************************************************************************
-void LogoWidget::doAnim()
+void Kwave::LogoWidget::doAnim()
 {
     double mul = 0.04131211+m_deg[MAXSIN-1] / 75;
 
@@ -74,14 +74,14 @@ void LogoWidget::doAnim()
 }
 
 //***************************************************************************
-LogoWidget::~LogoWidget()
+Kwave::LogoWidget::~LogoWidget()
 {
     if (m_timer) delete m_timer;
     if (m_image) delete m_image;
 }
 
 //***************************************************************************
-void LogoWidget::paintEvent(QPaintEvent *)
+void Kwave::LogoWidget::paintEvent(QPaintEvent *)
 {
     // if image has to be resized ...
     if ((rect().height() != m_height) || (rect().width() != m_width)) {

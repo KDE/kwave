@@ -47,7 +47,7 @@ static bool pluginInfoDescriptionLessThan(
 }
 
 //***************************************************************************
-AboutKwaveDialog::AboutKwaveDialog(
+Kwave::AboutDialog::AboutDialog(
     QWidget *parent,
     const QList<Kwave::PluginManager::PluginInfo> &plugin_info
 )
@@ -67,7 +67,7 @@ AboutKwaveDialog::AboutKwaveDialog(
     header->setText(header_text);
 
     /* the frame containing the developer information */
-    KwaveAboutContainer *about = new KwaveAboutContainer(this);
+    Kwave::AboutContainer *about = new Kwave::AboutContainer(this);
     foreach (const KAboutPerson &author, about_data->authors()) {
 	about->addPerson(author.name(), author.emailAddress(),
 	    author.webAddress(), author.task());
@@ -76,7 +76,7 @@ AboutKwaveDialog::AboutKwaveDialog(
     authorframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     /* the frame containing the thanks to ... */
-    KwaveAboutContainer *contrib = new KwaveAboutContainer(this);
+    Kwave::AboutContainer *contrib = new Kwave::AboutContainer(this);
     foreach (const KAboutPerson &credit, about_data->credits()) {
 	contrib->addPerson(credit.name(), credit.emailAddress(),
 	    credit.webAddress(), credit.task());
@@ -127,7 +127,7 @@ AboutKwaveDialog::AboutKwaveDialog(
     kwave_url_label->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
 
     /* the frame containing the translators */
-    KwaveAboutContainer *trans = new KwaveAboutContainer(this);
+    Kwave::AboutContainer *trans = new Kwave::AboutContainer(this);
     QList<KAboutPerson> translators = about_data->translators();
     if ((translators.count() == 1) &&
         (translators.first().name() == "NAME OF TRANSLATORS")) {
@@ -165,7 +165,7 @@ AboutKwaveDialog::AboutKwaveDialog(
 }
 
 //***************************************************************************
-AboutKwaveDialog::~AboutKwaveDialog()
+Kwave::AboutDialog::~AboutDialog()
 {
 }
 

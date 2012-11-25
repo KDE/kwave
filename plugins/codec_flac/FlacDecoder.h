@@ -38,115 +38,116 @@
 class QWidget;
 class QIODevice;
 
-class FlacDecoder: public Kwave::Decoder,
-                   protected FLAC::Decoder::Stream
+namespace Kwave
 {
-public:
-    /** Constructor */
-    FlacDecoder();
+    class FlacDecoder: public Kwave::Decoder,
+                       protected FLAC::Decoder::Stream
+    {
+    public:
+	/** Constructor */
+	FlacDecoder();
 
-    /** Destructor */
-    virtual ~FlacDecoder();
+	/** Destructor */
+	virtual ~FlacDecoder();
 
-    /** Returns a new instance of the decoder */
-    virtual Kwave::Decoder *instance();
+	/** Returns a new instance of the decoder */
+	virtual Kwave::Decoder *instance();
 
-    /**
-     * Opens the source and decodes the header information.
-     * @param widget a widget that can be used for displaying
-     *        message boxes or dialogs
-     * @param source file or other source with a stream of bytes
-     * @return true if succeeded, false on errors
-     */
-    virtual bool open(QWidget *widget, QIODevice &source);
+	/**
+	 * Opens the source and decodes the header information.
+	 * @param widget a widget that can be used for displaying
+	 *        message boxes or dialogs
+	 * @param source file or other source with a stream of bytes
+	 * @return true if succeeded, false on errors
+	 */
+	virtual bool open(QWidget *widget, QIODevice &source);
 
-    /**
-     * Decodes a stream of bytes into a MultiWriter
-     * @param widget a widget that can be used for displaying
-     *        message boxes or dialogs
-     * @param dst MultiWriter that receives the audio data
-     * @return true if succeeded, false on errors
-     */
-    virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst);
+	/**
+	 * Decodes a stream of bytes into a MultiWriter
+	 * @param widget a widget that can be used for displaying
+	 *        message boxes or dialogs
+	 * @param dst MultiWriter that receives the audio data
+	 * @return true if succeeded, false on errors
+	 */
+	virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst);
 
-    /**
-     * Closes the source.
-     */
-    virtual void close();
+	/**
+	 * Closes the source.
+	 */
+	virtual void close();
 
-protected:
+    protected:
 
-    /**
-     * Parse information about the stream, like sample rate, resolution,
-     * channels etc...
-     *
-     * @param stream_info FLAC metadata with stream information
-     */
-    void parseStreamInfo(const FLAC::Metadata::StreamInfo &stream_info);
+	/**
+	 * Parse information about the stream, like sample rate, resolution,
+	 * channels etc...
+	 *
+	 * @param stream_info FLAC metadata with stream information
+	 */
+	void parseStreamInfo(const FLAC::Metadata::StreamInfo &stream_info);
 
-    /**
-     * Parse vorbis comments
-     *
-     * @param vorbis_comments list of vorbis comments, can be empty
-     */
-    void parseVorbisComments(
-        const FLAC::Metadata::VorbisComment &vorbis_comments);
+	/**
+	 * Parse vorbis comments
+	 *
+	 * @param vorbis_comments list of vorbis comments, can be empty
+	 */
+	void parseVorbisComments(
+	    const FLAC::Metadata::VorbisComment &vorbis_comments);
 
-    /**
-     * FLAC decoder interface: read callback.
-     *
-     * @param buffer the byte buffer to be filled
-     * @param bytes pointer with the number of bytes to be read,
-     *        can be modified
-     * @return read state
-     */
-#if defined(FLAC_API_VERSION_1_1_2)
-    virtual ::FLAC__StreamDecoderReadStatus read_callback(
-        FLAC__byte buffer[], unsigned int *bytes);
-#else
-    virtual ::FLAC__StreamDecoderReadStatus read_callback(
-        FLAC__byte buffer[], size_t *bytes);
-#endif
+	/**
+	 * FLAC decoder interface: read callback.
+	 *
+	 * @param buffer the byte buffer to be filled
+	 * @param bytes pointer with the number of bytes to be read,
+	 *        can be modified
+	 * @return read state
+	 */
+	virtual ::FLAC__StreamDecoderReadStatus read_callback(
+	    FLAC__byte buffer[], size_t *bytes);
 
-    /**
-     * FLAC decoder interface: write callback.
-     *
-     * @param frame a FLAC frame structure
-     * @param buffer a buffer that contains the decoded samples
-     * @return FLAC stream decoder write state
-     */
-    virtual ::FLAC__StreamDecoderWriteStatus write_callback(
-        const ::FLAC__Frame *frame,
-	const FLAC__int32 *const buffer[]);
+	/**
+	 * FLAC decoder interface: write callback.
+	 *
+	 * @param frame a FLAC frame structure
+	 * @param buffer a buffer that contains the decoded samples
+	 * @return FLAC stream decoder write state
+	 */
+	virtual ::FLAC__StreamDecoderWriteStatus write_callback(
+	    const ::FLAC__Frame *frame,
+	    const FLAC__int32 *const buffer[]);
 
-    /**
-     * FLAC decoder interface: callback for processing meta data.
-     *
-     * @param metadata the FLAC meta data to be parsed
-     */
-    virtual void metadata_callback(const ::FLAC__StreamMetadata *metadata);
+	/**
+	 * FLAC decoder interface: callback for processing meta data.
+	 *
+	 * @param metadata the FLAC meta data to be parsed
+	 */
+	virtual void metadata_callback(const ::FLAC__StreamMetadata *metadata);
 
-    /**
-     * FLAC decoder interface: error callback.
-     *
-     * @param status the FLAC status
-     */
-    virtual void error_callback(::FLAC__StreamDecoderErrorStatus status);
+	/**
+	 * FLAC decoder interface: error callback.
+	 *
+	 * @param status the FLAC status
+	 */
+	virtual void error_callback(::FLAC__StreamDecoderErrorStatus status);
 
-private:
+    private:
 
-    /** source of the audio data */
-    QIODevice *m_source;
+	/** source of the audio data */
+	QIODevice *m_source;
 
-    /** destination of the audio data */
-    Kwave::MultiWriter *m_dest;
+	/** destination of the audio data */
+	Kwave::MultiWriter *m_dest;
 
-    /** buffer for reading from the QIODevice */
-    char *m_buffer;
+	/** buffer for reading from the QIODevice */
+	char *m_buffer;
 
-    /** map for translating vorbis comments to FileInfo properties */
-    VorbisCommentMap m_vorbis_comment_map;
+	/** map for translating vorbis comments to FileInfo properties */
+	Kwave::VorbisCommentMap m_vorbis_comment_map;
 
-};
+    };
+}
 
 #endif /* _FLAC_DECODER_H_ */
+
+//***************************************************************************
+//***************************************************************************

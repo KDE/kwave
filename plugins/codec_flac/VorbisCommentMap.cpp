@@ -18,7 +18,7 @@ VorbisCommentMap.cpp  -  map for translating properties to vorbis comments
 #include "VorbisCommentMap.h"
 
 //***************************************************************************
-VorbisCommentMap::VorbisCommentMap()
+Kwave::VorbisCommentMap::VorbisCommentMap()
 {
     insert("DATE",         Kwave::INF_CREATION_DATE ); // creation date (iso)
     insert("TITLE",        Kwave::INF_NAME          ); // name
@@ -40,7 +40,8 @@ VorbisCommentMap::VorbisCommentMap()
 }
 
 //***************************************************************************
-QString VorbisCommentMap::findProperty(const Kwave::FileProperty property)
+QString Kwave::VorbisCommentMap::findProperty(
+    const Kwave::FileProperty property)
 {
     QMap<QString, Kwave::FileProperty>::Iterator it;
     for (it=begin(); it != end(); ++it) {
@@ -50,7 +51,8 @@ QString VorbisCommentMap::findProperty(const Kwave::FileProperty property)
 }
 
 //***************************************************************************
-bool VorbisCommentMap::containsProperty(const Kwave::FileProperty property)
+bool Kwave::VorbisCommentMap::containsProperty(
+    const Kwave::FileProperty property)
 {
     return (findProperty(property).length() != 0);
 }

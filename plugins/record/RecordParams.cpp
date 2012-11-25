@@ -20,8 +20,8 @@
 #include "RecordParams.h"
 
 //***************************************************************************
-RecordParams::RecordParams()
-   :method(RECORD_ALSA),
+Kwave::RecordParams::RecordParams()
+   :method(Kwave::RECORD_ALSA),
     pre_record_enabled(false),     pre_record_time(20),
     record_time_limited(false),    record_time(5*60),
     start_time_enabled(false),     start_time(QDateTime::currentDateTime()),
@@ -46,7 +46,7 @@ RecordParams::RecordParams()
 }
 
 //***************************************************************************
-RecordParams::~RecordParams()
+Kwave::RecordParams::~RecordParams()
 {
 }
 
@@ -56,7 +56,7 @@ RecordParams::~RecordParams()
 	if (!ok) return -EINVAL;
 
 //***************************************************************************
-int RecordParams::fromList(const QStringList &list)
+int Kwave::RecordParams::fromList(const QStringList &list)
 {
     bool ok;
     int index = 0;
@@ -142,8 +142,9 @@ int RecordParams::fromList(const QStringList &list)
     if (list.size() >= 27) {
 	unsigned int method_index;
 	GET(method_index, toUInt);
-	method = (method_index < RECORD_INVALID) ?
-	         static_cast<record_method_t>(method_index) : RECORD_INVALID;
+	method = (method_index < Kwave::RECORD_INVALID) ?
+	         static_cast<Kwave::record_method_t>(method_index) :
+	         Kwave::RECORD_INVALID;
     }
 
     return 0;
@@ -152,7 +153,7 @@ int RecordParams::fromList(const QStringList &list)
 #define PUT(value) list += param.setNum(value)
 
 //***************************************************************************
-QStringList RecordParams::toList() const
+QStringList Kwave::RecordParams::toList() const
 {
     QStringList list;
     QString param;

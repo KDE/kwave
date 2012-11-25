@@ -23,30 +23,30 @@
 #include "WavEncoder.h"
 #include "WavDecoder.h"
 
-KWAVE_PLUGIN(WavCodecPlugin, "codec_wav", "2.1",
+KWAVE_PLUGIN(Kwave::WavCodecPlugin, "codec_wav", "2.1",
              I18N_NOOP("WAV Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
-WavCodecPlugin::WavCodecPlugin(const Kwave::PluginContext &c)
+Kwave::WavCodecPlugin::WavCodecPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
 {
 }
 
 /***************************************************************************/
-WavCodecPlugin::~WavCodecPlugin()
+Kwave::WavCodecPlugin::~WavCodecPlugin()
 {
     m_encoder = 0;
     m_decoder = 0;
 }
 
 /***************************************************************************/
-void WavCodecPlugin::load(QStringList &/* params */)
+void Kwave::WavCodecPlugin::load(QStringList &/* params */)
 {
-    if (!m_encoder) m_encoder = new WavEncoder();
+    if (!m_encoder) m_encoder = new Kwave::WavEncoder();
     Q_ASSERT(m_encoder);
     if (m_encoder) Kwave::CodecManager::registerEncoder(*m_encoder);
 
-    if (!m_decoder) m_decoder = new WavDecoder();
+    if (!m_decoder) m_decoder = new Kwave::WavDecoder();
     Q_ASSERT(m_decoder);
     if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
 }

@@ -27,44 +27,45 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 
-//***************************************************************************
-/**
- * @class DebugPlugin
- * This plugin is intended to be used internally for debuggin and
- * verification purposes.
- */
-class DebugPlugin: public Kwave::Plugin
+namespace Kwave
 {
-    Q_OBJECT
-
-public:
-
-    /** Constructor */
-    DebugPlugin(const Kwave::PluginContext &c);
-
-    /** Destructor */
-    virtual ~DebugPlugin();
-
     /**
-     * This plugin needs to be persistent!
-     * @see Kwave::Plugin::isPersistent()
+     * This plugin is intended to be used internally for debuggin and
+     * verification purposes.
      */
-    virtual bool isPersistent() { return true; };
+    class DebugPlugin: public Kwave::Plugin
+    {
+	Q_OBJECT
 
-    /** @see Kwave::Plugin::isUnique() */
-    virtual bool isUnique() { return false; };
+    public:
 
-    /** @see Kwave::Plugin::load() */
-    virtual void load(QStringList &params);
+	/** Constructor */
+	DebugPlugin(const Kwave::PluginContext &c);
 
-    /** performs the special function */
-    virtual void run(QStringList);
+	/** Destructor */
+	virtual ~DebugPlugin();
 
-private:
+	/**
+	* This plugin needs to be persistent!
+	* @see Kwave::Plugin::isPersistent()
+	*/
+	virtual bool isPersistent() { return true; };
 
-    /** use an intermediate buffer for faster filling */
-    Kwave::SampleArray m_buffer;
-};
+	/** @see Kwave::Plugin::isUnique() */
+	virtual bool isUnique() { return false; };
+
+	/** @see Kwave::Plugin::load() */
+	virtual void load(QStringList &params);
+
+	/** performs the special function */
+	virtual void run(QStringList);
+
+    private:
+
+	/** use an intermediate buffer for faster filling */
+	Kwave::SampleArray m_buffer;
+    };
+}
 
 #endif /* _DEBUG_PLUGIN_H_ */
 

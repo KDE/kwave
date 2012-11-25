@@ -25,21 +25,26 @@
 
 #include "libkwave/Plugin.h"
 
-class NoisePlugin: public Kwave::Plugin
+namespace Kwave
 {
-    Q_OBJECT
-public:
+    class NoisePlugin: public Kwave::Plugin
+    {
+	Q_OBJECT
+    public:
 
-    /** Constructor */
-    NoisePlugin(const Kwave::PluginContext &c);
+	/** Constructor */
+	NoisePlugin(const Kwave::PluginContext &c);
 
-    /** Destructor */
-    virtual ~NoisePlugin() {};
+	/** Destructor */
+	virtual ~NoisePlugin() {}
 
-    /** Fills the selected area with noise */
-    virtual void run(QStringList);
+	/** Fills the selected area with noise */
+	virtual void run(QStringList);
 
-};
+    };
+}
 
 #endif /* _NOISE_PLUGIN_H_ */
 
+//***************************************************************************
+//***************************************************************************

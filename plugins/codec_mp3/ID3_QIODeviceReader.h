@@ -25,7 +25,8 @@
 
 class QIODevice;
 
-namespace Kwave {
+namespace Kwave
+{
     /**
      * @class ID3_QIODeviceReader
      * Adapter between QIODevice and ID3_Reader
@@ -73,3 +74,6 @@ namespace Kwave {
 }
 
 #endif /* _ID3_QIODEVICE_READER_H_ */
+
+//***************************************************************************
+//***************************************************************************

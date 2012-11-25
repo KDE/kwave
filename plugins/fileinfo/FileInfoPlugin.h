@@ -22,28 +22,34 @@
 #include <QObject>
 #include "libkwave/Plugin.h"
 
-class FileInfoPlugin: public Kwave::Plugin
+namespace Kwave
 {
-    Q_OBJECT
-public:
+    class FileInfoPlugin: public Kwave::Plugin
+    {
+	Q_OBJECT
+    public:
 
-    /** Constructor */
-    FileInfoPlugin(const Kwave::PluginContext &context);
+	/** Constructor */
+	FileInfoPlugin(const Kwave::PluginContext &context);
 
-    /** virtual Destructor */
-    virtual ~FileInfoPlugin();
+	/** virtual Destructor */
+	virtual ~FileInfoPlugin();
 
-    /**
-     * Shows a dialog for editing file properties.
-     * @see Kwave::Plugin::setup
-     */
-    virtual QStringList *setup(QStringList &);
+	/**
+	* Shows a dialog for editing file properties.
+	* @see Kwave::Plugin::setup
+	*/
+	virtual QStringList *setup(QStringList &);
 
-protected:
+    protected:
 
-    /** Applies the new settings */
-    void apply(Kwave::FileInfo &new_info);
+	/** Applies the new settings */
+	void apply(Kwave::FileInfo &new_info);
 
-};
+    };
+}
 
 #endif /* _FILE_INFO_PLUGIN_H_ */
+
+//***************************************************************************
+//***************************************************************************

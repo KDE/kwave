@@ -80,7 +80,7 @@ static const char *background[] = {
 };
 
 //****************************************************************************
-SonagramWindow::SonagramWindow(const QString &name)
+Kwave::SonagramWindow::SonagramWindow(const QString &name)
     :KMainWindow(), m_image(), m_color_mode(0), m_view(0), m_overview(0),
      m_points(0), m_rate(0), m_xscale(0), m_yscale(0), m_refresh_timer()
 {
@@ -190,13 +190,13 @@ SonagramWindow::SonagramWindow(const QString &name)
 }
 
 //****************************************************************************
-void SonagramWindow::close()
+void Kwave::SonagramWindow::close()
 {
     QWidget::close();
 }
 
 //****************************************************************************
-void SonagramWindow::save()
+void Kwave::SonagramWindow::save()
 {
     if (m_image.isNull()) return;
 
@@ -211,7 +211,7 @@ void SonagramWindow::save()
 }
 
 //****************************************************************************
-void SonagramWindow::load()
+void Kwave::SonagramWindow::load()
 {
 //    if (image) {
 //	QString filename = KFileDialog::getOpenFileName("", "*.bmp", this);
@@ -251,7 +251,7 @@ void SonagramWindow::load()
 }
 
 //****************************************************************************
-void SonagramWindow::setImage(QImage image)
+void Kwave::SonagramWindow::setImage(QImage image)
 {
     Q_ASSERT(m_view);
     if (!m_view) return;
@@ -274,13 +274,13 @@ void SonagramWindow::setImage(QImage image)
 }
 
 //****************************************************************************
-void SonagramWindow::setOverView(const QImage &overview)
+void Kwave::SonagramWindow::setOverView(const QImage &overview)
 {
     m_overview->setImage(overview);
 }
 
 //****************************************************************************
-void SonagramWindow::insertStripe(const unsigned int stripe_nr,
+void Kwave::SonagramWindow::insertStripe(const unsigned int stripe_nr,
 	const QByteArray &stripe)
 {
     Q_ASSERT(m_view);
@@ -322,7 +322,7 @@ void SonagramWindow::insertStripe(const unsigned int stripe_nr,
 }
 
 //****************************************************************************
-void SonagramWindow::adjustBrightness()
+void Kwave::SonagramWindow::adjustBrightness()
 {
     if (m_image.isNull()) return;
 
@@ -371,7 +371,7 @@ void SonagramWindow::adjustBrightness()
 }
 
 //****************************************************************************
-void SonagramWindow::refresh_view()
+void Kwave::SonagramWindow::refresh_view()
 {
     Q_ASSERT(m_view);
     if (!m_view) return;
@@ -380,7 +380,7 @@ void SonagramWindow::refresh_view()
 }
 
 //****************************************************************************
-void SonagramWindow::toSignal()
+void Kwave::SonagramWindow::toSignal()
 {
 /** @todo needs to be ported to fftw and re-activated */
 //    gsl_fft_complex_wavetable table;
@@ -443,7 +443,7 @@ void SonagramWindow::toSignal()
 }
 
 //***************************************************************************
-void SonagramWindow::translatePixels2TF(const QPoint p, double *ms, double *f)
+void Kwave::SonagramWindow::translatePixels2TF(const QPoint p, double *ms, double *f)
 {
     if (ms) {
 	// get the time coordinate [0...(N_samples-1)* (1/f_sample) ]
@@ -465,7 +465,7 @@ void SonagramWindow::translatePixels2TF(const QPoint p, double *ms, double *f)
 }
 
 //***************************************************************************
-void SonagramWindow::updateScaleWidgets()
+void Kwave::SonagramWindow::updateScaleWidgets()
 {
     double ms;
     double f;
@@ -477,12 +477,12 @@ void SonagramWindow::updateScaleWidgets()
 }
 
 //***************************************************************************
-SonagramWindow::~SonagramWindow()
+Kwave::SonagramWindow::~SonagramWindow()
 {
 }
 
 //***************************************************************************
-void SonagramWindow::setColorMode(int mode)
+void Kwave::SonagramWindow::setColorMode(int mode)
 {
     Q_ASSERT(mode >= 0);
     Q_ASSERT(mode <= 1);
@@ -494,7 +494,7 @@ void SonagramWindow::setColorMode(int mode)
 }
 
 //***************************************************************************
-void SonagramWindow::setName(const QString &name)
+void Kwave::SonagramWindow::setName(const QString &name)
 {
     setCaption((name.length()) ?
 	i18n("Sonagram of %1", name) :
@@ -503,7 +503,7 @@ void SonagramWindow::setName(const QString &name)
 }
 
 //****************************************************************************
-void SonagramWindow::cursorPosChanged(const QPoint pos)
+void Kwave::SonagramWindow::cursorPosChanged(const QPoint pos)
 {
     KStatusBar *status = statusBar();
     Q_ASSERT(status);
@@ -538,14 +538,14 @@ void SonagramWindow::cursorPosChanged(const QPoint pos)
 }
 
 //****************************************************************************
-void SonagramWindow::setPoints(unsigned int points)
+void Kwave::SonagramWindow::setPoints(unsigned int points)
 {
     m_points = points;
     updateScaleWidgets();
 }
 
 //****************************************************************************
-void SonagramWindow::setRate(double rate)
+void Kwave::SonagramWindow::setRate(double rate)
 {
     m_rate = rate;
     updateScaleWidgets();

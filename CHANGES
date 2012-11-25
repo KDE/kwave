@@ -5,6 +5,8 @@
  * reverted changes in sample writer due to problems in debug mode (commits
     ee54660d4380d264b7346a904eff9dd8d8d00a93 and
     6fba04db879ea7ae1fdf79141dd93d47f9c1d403)
+ * moved code into namespace "Kwave"
+ * cleanup: remove support for outdated FLAC API versions below 1.1.3
 
 0.8.9  [2012-11-06]
 

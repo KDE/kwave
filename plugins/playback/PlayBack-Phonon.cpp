@@ -26,7 +26,7 @@
 #include "PlayBack-Phonon.h"
 
 //***************************************************************************
-PlayBackPhonon::PlayBackPhonon()
+Kwave::PlayBackPhonon::PlayBackPhonon()
     :Kwave::PlayBackDevice(), m_buffer(), m_raw_buffer(), m_buffer_size(0),
      m_buffer_used(0), m_encoder(0),
      m_sem(0), m_output(0), m_path(), m_media_object(),
@@ -35,12 +35,12 @@ PlayBackPhonon::PlayBackPhonon()
 }
 
 //***************************************************************************
-PlayBackPhonon::~PlayBackPhonon()
+Kwave::PlayBackPhonon::~PlayBackPhonon()
 {
 }
 
 //***************************************************************************
-void PlayBackPhonon::createEncoder(unsigned int bits)
+void Kwave::PlayBackPhonon::createEncoder(unsigned int bits)
 {
     // create the sample encoder
     // we assume that OSS is always little endian
@@ -67,9 +67,9 @@ void PlayBackPhonon::createEncoder(unsigned int bits)
 }
 
 //***************************************************************************
-void PlayBackPhonon::createHeader(double rate,
-                                  unsigned int channels,
-                                  unsigned int bits)
+void Kwave::PlayBackPhonon::createHeader(double rate,
+                                         unsigned int channels,
+                                         unsigned int bits)
 {
     m_header.resize(44);
 
@@ -134,9 +134,9 @@ void PlayBackPhonon::createHeader(double rate,
 }
 
 //***************************************************************************
-QString PlayBackPhonon::open(const QString &device, double rate,
-                             unsigned int channels, unsigned int bits,
-                             unsigned int bufbase)
+QString Kwave::PlayBackPhonon::open(const QString &device, double rate,
+                                    unsigned int channels, unsigned int bits,
+                                    unsigned int bufbase)
 {
     // close the previous device
     if (m_output) delete m_output;
@@ -201,7 +201,7 @@ QString PlayBackPhonon::open(const QString &device, double rate,
 }
 
 //***************************************************************************
-int PlayBackPhonon::write(const Kwave::SampleArray &samples)
+int Kwave::PlayBackPhonon::write(const Kwave::SampleArray &samples)
 {
     Q_ASSERT (m_buffer_used <= m_buffer_size);
     if (m_buffer_used > m_buffer_size) {
@@ -237,7 +237,7 @@ int PlayBackPhonon::write(const Kwave::SampleArray &samples)
 }
 
 //***************************************************************************
-int PlayBackPhonon::flush()
+int Kwave::PlayBackPhonon::flush()
 {
     if (!m_buffer_used || !m_encoder) return 0; // nothing to do
 
@@ -258,7 +258,7 @@ int PlayBackPhonon::flush()
 }
 
 //***************************************************************************
-int PlayBackPhonon::close()
+int Kwave::PlayBackPhonon::close()
 {
     m_media_object.stop();
     m_media_object.clearQueue();
@@ -273,7 +273,7 @@ int PlayBackPhonon::close()
 }
 
 //***************************************************************************
-QStringList PlayBackPhonon::supportedDevices()
+QStringList Kwave::PlayBackPhonon::supportedDevices()
 {
     QStringList list;
 
@@ -297,13 +297,13 @@ QStringList PlayBackPhonon::supportedDevices()
 }
 
 //***************************************************************************
-QString PlayBackPhonon::fileFilter()
+QString Kwave::PlayBackPhonon::fileFilter()
 {
     return "";
 }
 
 //***************************************************************************
-QList<unsigned int> PlayBackPhonon::supportedBits(const QString &device)
+QList<unsigned int> Kwave::PlayBackPhonon::supportedBits(const QString &device)
 {
     qDebug("%s", __FUNCTION__);
     Q_UNUSED(device);
@@ -316,8 +316,8 @@ QList<unsigned int> PlayBackPhonon::supportedBits(const QString &device)
 }
 
 //***************************************************************************
-int PlayBackPhonon::detectChannels(const QString &device,
-                                   unsigned int &min, unsigned int &max)
+int Kwave::PlayBackPhonon::detectChannels(const QString &device,
+                                          unsigned int &min, unsigned int &max)
 {
     Q_UNUSED(device);
 
@@ -328,12 +328,12 @@ int PlayBackPhonon::detectChannels(const QString &device,
 }
 
 //***************************************************************************
-void PlayBackPhonon::reset()
+void Kwave::PlayBackPhonon::reset()
 {
 }
 
 //***************************************************************************
-void PlayBackPhonon::needData()
+void Kwave::PlayBackPhonon::needData()
 {
     if (m_first_write) {
 	m_first_write = false;

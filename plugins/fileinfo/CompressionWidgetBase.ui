@@ -35,7 +35,7 @@
         </property>
         <property name="whatsThis" >
          <string>&lt;b>Average Bitrate Mode&lt;/b>&lt;br>
-Bitrate is set to an average value, 
+Bitrate is set to an average value,
 with optional upper and lower limit.</string>
         </property>
         <property name="text" >
@@ -104,7 +104,7 @@ The bitrate is selected by an average quality.</string>
        </widget>
       </item>
       <item row="0" column="2" >
-       <widget class="BitrateWidget" native="1" name="abrBitrate" >
+       <widget class="Kwave::BitrateWidget" native="1" name="abrBitrate" >
         <property name="enabled" >
          <bool>false</bool>
         </property>
@@ -117,7 +117,7 @@ The bitrate is selected by an average quality.</string>
        </widget>
       </item>
       <item row="1" column="2" >
-       <widget class="BitrateWidget" native="1" name="abrHighestBitrate" >
+       <widget class="Kwave::BitrateWidget" native="1" name="abrHighestBitrate" >
         <property name="enabled" >
          <bool>false</bool>
         </property>
@@ -130,7 +130,7 @@ The bitrate is selected by an average quality.</string>
        </widget>
       </item>
       <item row="2" column="2" >
-       <widget class="BitrateWidget" native="1" name="abrLowestBitrate" >
+       <widget class="Kwave::BitrateWidget" native="1" name="abrLowestBitrate" >
         <property name="enabled" >
          <bool>false</bool>
         </property>
@@ -232,7 +232,7 @@ The bitrate is selected by an average quality.</string>
  <layoutdefault spacing="10" margin="10" />
  <customwidgets>
   <customwidget>
-   <class>BitrateWidget</class>
+   <class>Kwave::BitrateWidget</class>
    <extends>QWidget</extends>
    <header>BitrateWidget.h</header>
    <container>1</container>

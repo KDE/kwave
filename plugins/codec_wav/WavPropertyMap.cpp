@@ -18,7 +18,7 @@
 #include "WavPropertyMap.h"
 
 //***************************************************************************
-WavPropertyMap::WavPropertyMap()
+Kwave::WavPropertyMap::WavPropertyMap()
 {
     // NOTE #1: the left column is allowed to have multiple entries with the
     //          same property, when encoding the first one is used, when
@@ -68,15 +68,15 @@ WavPropertyMap::WavPropertyMap()
 }
 
 //***************************************************************************
-void WavPropertyMap::insert(const Kwave::FileProperty property,
-                            const QByteArray &chunk)
+void Kwave::WavPropertyMap::insert(const Kwave::FileProperty property,
+                                  const QByteArray &chunk)
 {
     Pair p(property, chunk);
     append(p);
 }
 
 //***************************************************************************
-QByteArray WavPropertyMap::findProperty(
+QByteArray Kwave::WavPropertyMap::findProperty(
 	const Kwave::FileProperty property) const
 {
     foreach(const Pair &p, QList<Pair>(*this)) {
@@ -87,7 +87,8 @@ QByteArray WavPropertyMap::findProperty(
 }
 
 //***************************************************************************
-bool WavPropertyMap::containsProperty(const Kwave::FileProperty property) const
+bool Kwave::WavPropertyMap::containsProperty(
+    const Kwave::FileProperty property) const
 {
     foreach(const Pair &p, QList<Pair>(*this)) {
 	if (p.first == property)
@@ -97,7 +98,7 @@ bool WavPropertyMap::containsProperty(const Kwave::FileProperty property) const
 }
 
 //***************************************************************************
-bool WavPropertyMap::containsChunk(const QByteArray &chunk) const
+bool Kwave::WavPropertyMap::containsChunk(const QByteArray &chunk) const
 {
     foreach(const Pair &p, QList<Pair>(*this)) {
 	if (p.second == chunk)
@@ -107,7 +108,7 @@ bool WavPropertyMap::containsChunk(const QByteArray &chunk) const
 }
 
 //***************************************************************************
-QList<QByteArray> WavPropertyMap::chunks() const
+QList<QByteArray> Kwave::WavPropertyMap::chunks() const
 {
     QList<QByteArray> list;
     foreach(const Pair &p, QList<Pair>(*this)) {
@@ -118,7 +119,8 @@ QList<QByteArray> WavPropertyMap::chunks() const
 }
 
 //***************************************************************************
-Kwave::FileProperty WavPropertyMap::property(const QByteArray &chunk) const
+Kwave::FileProperty Kwave::WavPropertyMap::property(
+    const QByteArray &chunk) const
 {
     foreach(const Pair &p, QList<Pair>(*this)) {
 	if (p.second == chunk) return p.first;
@@ -127,7 +129,7 @@ Kwave::FileProperty WavPropertyMap::property(const QByteArray &chunk) const
 }
 
 //***************************************************************************
-QList<Kwave::FileProperty> WavPropertyMap::properties() const
+QList<Kwave::FileProperty> Kwave::WavPropertyMap::properties() const
 {
     QList<Kwave::FileProperty> list;
     foreach(const Pair &p, QList<Pair>(*this)) {

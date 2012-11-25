@@ -43,7 +43,8 @@
 #include "PlayBackPlugin.h"
 
 //***************************************************************************
-PlayBackDialog::PlayBackDialog(Kwave::Plugin &p, const PlayBackParam &params)
+Kwave::PlayBackDialog::PlayBackDialog(Kwave::Plugin &p,
+                                      const Kwave::PlayBackParam &params)
     :QDialog(p.parentWidget()), PlayBackDlg(),
     m_playback_params(params), m_file_filter(""), m_devices_list_map(),
     m_enable_setDevice(true)
@@ -110,12 +111,12 @@ PlayBackDialog::PlayBackDialog(Kwave::Plugin &p, const PlayBackParam &params)
 }
 
 //***************************************************************************
-PlayBackDialog::~PlayBackDialog()
+Kwave::PlayBackDialog::~PlayBackDialog()
 {
 }
 
 //***************************************************************************
-void PlayBackDialog::setMethod(playback_method_t method)
+void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
 {
     m_playback_params.method = method;
     cbMethod->setCurrentIndex(m_methods_map.findFromData(
@@ -123,13 +124,13 @@ void PlayBackDialog::setMethod(playback_method_t method)
 }
 
 //***************************************************************************
-void PlayBackDialog::methodSelected(int index)
+void Kwave::PlayBackDialog::methodSelected(int index)
 {
-    playback_method_t method = m_methods_map.data(index);
-    Q_ASSERT(method > PLAYBACK_NONE);
-    Q_ASSERT(method < PLAYBACK_INVALID);
-    if (method <= PLAYBACK_NONE) return;
-    if (method >= PLAYBACK_INVALID) return;
+    Kwave::playback_method_t method = m_methods_map.data(index);
+    Q_ASSERT(method > Kwave::PLAYBACK_NONE);
+    Q_ASSERT(method < Kwave::PLAYBACK_INVALID);
+    if (method <= Kwave::PLAYBACK_NONE) return;
+    if (method >= Kwave::PLAYBACK_INVALID) return;
 
     if (method != m_playback_params.method) {
 	setMethod(method);
@@ -138,7 +139,7 @@ void PlayBackDialog::methodSelected(int index)
 }
 
 //***************************************************************************
-void PlayBackDialog::setSupportedDevices(QStringList devices)
+void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
 {
     Q_ASSERT(cbDevice);
     Q_ASSERT(listDevices);
@@ -281,8 +282,8 @@ void PlayBackDialog::setSupportedDevices(QStringList devices)
 }
 
 //***************************************************************************
-void PlayBackDialog::listEntrySelected(QTreeWidgetItem *current,
-                                       QTreeWidgetItem *previous)
+void Kwave::PlayBackDialog::listEntrySelected(QTreeWidgetItem *current,
+                                              QTreeWidgetItem *previous)
 {
     Q_ASSERT(listDevices);
     Q_UNUSED(previous);
@@ -293,21 +294,21 @@ void PlayBackDialog::listEntrySelected(QTreeWidgetItem *current,
 }
 
 //***************************************************************************
-void PlayBackDialog::listItemExpanded(QTreeWidgetItem *item)
+void Kwave::PlayBackDialog::listItemExpanded(QTreeWidgetItem *item)
 {
     Q_UNUSED(item);
     updateListSelection();
 }
 
 //***************************************************************************
-void PlayBackDialog::updateListSelection()
+void Kwave::PlayBackDialog::updateListSelection()
 {
     // set the current device again, otherwise nothing will be selected
     setDevice(m_playback_params.device);
 }
 
 //***************************************************************************
-void PlayBackDialog::setDevice(const QString &device)
+void Kwave::PlayBackDialog::setDevice(const QString &device)
 {
     Q_ASSERT(cbDevice);
     Q_ASSERT(listDevices);
@@ -346,7 +347,7 @@ void PlayBackDialog::setDevice(const QString &device)
 }
 
 //***************************************************************************
-void PlayBackDialog::setBufferSize(int exp)
+void Kwave::PlayBackDialog::setBufferSize(int exp)
 {
     Q_ASSERT(slBufferSize);
     Q_ASSERT(txtBufferSize);
@@ -373,7 +374,7 @@ void PlayBackDialog::setBufferSize(int exp)
 }
 
 //***************************************************************************
-void PlayBackDialog::setSupportedBits(const QList<unsigned int> &bits)
+void Kwave::PlayBackDialog::setSupportedBits(const QList<unsigned int> &bits)
 {
     Q_ASSERT(cbBitsPerSample);
     if (!cbBitsPerSample) return;
@@ -400,7 +401,7 @@ void PlayBackDialog::setSupportedBits(const QList<unsigned int> &bits)
 }
 
 //***************************************************************************
-void PlayBackDialog::bitsPerSampleSelected(const QString &text)
+void Kwave::PlayBackDialog::bitsPerSampleSelected(const QString &text)
 {
     bool ok = false;
     unsigned int bits = text.toUInt(&ok);
@@ -410,7 +411,7 @@ void PlayBackDialog::bitsPerSampleSelected(const QString &text)
 }
 
 //***************************************************************************
-void PlayBackDialog::setBitsPerSample(unsigned int bits)
+void Kwave::PlayBackDialog::setBitsPerSample(unsigned int bits)
 {
     Q_ASSERT(cbBitsPerSample);
     if (!cbBitsPerSample) return;
@@ -426,7 +427,7 @@ void PlayBackDialog::setBitsPerSample(unsigned int bits)
 }
 
 //***************************************************************************
-void PlayBackDialog::setSupportedChannels(unsigned int min, unsigned int max)
+void Kwave::PlayBackDialog::setSupportedChannels(unsigned int min, unsigned int max)
 {
     Q_ASSERT(sbChannels);
     if (!sbChannels) return;
@@ -444,7 +445,7 @@ void PlayBackDialog::setSupportedChannels(unsigned int min, unsigned int max)
 }
 
 //***************************************************************************
-void PlayBackDialog::setChannels(int channels)
+void Kwave::PlayBackDialog::setChannels(int channels)
 {
     Q_ASSERT(sbChannels);
     if (!sbChannels) return;
@@ -472,20 +473,20 @@ void PlayBackDialog::setChannels(int channels)
 }
 
 //***************************************************************************
-const PlayBackParam &PlayBackDialog::params()
+const Kwave::PlayBackParam &Kwave::PlayBackDialog::params()
 {
     return m_playback_params;
 }
 
 //***************************************************************************
-void PlayBackDialog::setFileFilter(const QString &filter)
+void Kwave::PlayBackDialog::setFileFilter(const QString &filter)
 {
     m_file_filter = filter;
     if (btSelectDevice) btSelectDevice->setEnabled(m_file_filter.length());
 }
 
 //***************************************************************************
-void PlayBackDialog::selectPlaybackDevice()
+void Kwave::PlayBackDialog::selectPlaybackDevice()
 {
     QString filter = m_file_filter;
 
@@ -507,7 +508,7 @@ void PlayBackDialog::selectPlaybackDevice()
 }
 
 //***************************************************************************
-void PlayBackDialog::invokeHelp()
+void Kwave::PlayBackDialog::invokeHelp()
 {
     KToolInvocation::invokeHelp("playback");
 }

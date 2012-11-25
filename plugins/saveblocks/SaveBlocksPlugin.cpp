@@ -38,23 +38,23 @@
 #include "SaveBlocksDialog.h"
 #include "SaveBlocksPlugin.h"
 
-KWAVE_PLUGIN(SaveBlocksPlugin, "saveblocks", "2.1",
+KWAVE_PLUGIN(Kwave::SaveBlocksPlugin, "saveblocks", "2.1",
              I18N_NOOP("Save Blocks"), "Thomas Eschenbacher");
 
 //***************************************************************************
-SaveBlocksPlugin::SaveBlocksPlugin(const Kwave::PluginContext &c)
+Kwave::SaveBlocksPlugin::SaveBlocksPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_url(), m_pattern(), m_numbering_mode(CONTINUE),
      m_selection_only(true)
 {
 }
 
 //***************************************************************************
-SaveBlocksPlugin::~SaveBlocksPlugin()
+Kwave::SaveBlocksPlugin::~SaveBlocksPlugin()
 {
 }
 
 //***************************************************************************
-QStringList *SaveBlocksPlugin::setup(QStringList &previous_params)
+QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 {
     // try to interprete the previous parameters
     interpreteParameters(previous_params);
@@ -72,7 +72,7 @@ QStringList *SaveBlocksPlugin::setup(QStringList &previous_params)
                          (selection_right + 1 >= signalLength()));
     bool enable_selection_only = selected_something && !selected_all;
 
-    SaveBlocksDialog *dialog = new SaveBlocksDialog(
+    Kwave::SaveBlocksDialog *dialog = new Kwave::SaveBlocksDialog(
 	":<kwave_save_blocks>", Kwave::CodecManager::encodingFilter(),
 	parentWidget(), true,
 	url.prettyUrl(), "*.wav",
@@ -86,9 +86,9 @@ QStringList *SaveBlocksPlugin::setup(QStringList &previous_params)
 
     // connect the signals/slots from the plugin and the dialog
     connect(dialog, SIGNAL(sigSelectionChanged(const QString &,
-	const QString &, SaveBlocksPlugin::numbering_mode_t, bool)),
+	const QString &, Kwave::SaveBlocksPlugin::numbering_mode_t, bool)),
 	this, SLOT(updateExample(const QString &, const QString &,
-	SaveBlocksPlugin::numbering_mode_t, bool)));
+	Kwave::SaveBlocksPlugin::numbering_mode_t, bool)));
     connect(this, SIGNAL(sigNewExample(const QString &)),
 	dialog, SLOT(setNewExample(const QString &)));
 
@@ -134,7 +134,7 @@ QStringList *SaveBlocksPlugin::setup(QStringList &previous_params)
 }
 
 //***************************************************************************
-int SaveBlocksPlugin::start(QStringList &params)
+int Kwave::SaveBlocksPlugin::start(QStringList &params)
 {
     qDebug("SaveBlocksPlugin::start()");
 
@@ -281,7 +281,7 @@ int SaveBlocksPlugin::start(QStringList &params)
 }
 
 //***************************************************************************
-int SaveBlocksPlugin::interpreteParameters(QStringList &params)
+int Kwave::SaveBlocksPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;
     QString param;
@@ -319,7 +319,7 @@ int SaveBlocksPlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-unsigned int SaveBlocksPlugin::blocksToSave(bool selection_only)
+unsigned int Kwave::SaveBlocksPlugin::blocksToSave(bool selection_only)
 {
     unsigned int count = 0;
     sample_index_t selection_left, selection_right;
@@ -349,7 +349,7 @@ unsigned int SaveBlocksPlugin::blocksToSave(bool selection_only)
 }
 
 //***************************************************************************
-QString SaveBlocksPlugin::createFileName(const QString &base,
+QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
     const QString &ext, const QString &pattern,
     unsigned int index, int count, int total)
 {
@@ -399,9 +399,9 @@ QString SaveBlocksPlugin::createFileName(const QString &base,
 }
 
 //***************************************************************************
-unsigned int SaveBlocksPlugin::firstIndex(const QString &path,
+unsigned int Kwave::SaveBlocksPlugin::firstIndex(const QString &path,
     const QString &base, const QString &ext, const QString &pattern,
-    SaveBlocksPlugin::numbering_mode_t mode, unsigned int count)
+    Kwave::SaveBlocksPlugin::numbering_mode_t mode, unsigned int count)
 {
     unsigned int first = 1;
     switch (mode) {
@@ -426,8 +426,8 @@ unsigned int SaveBlocksPlugin::firstIndex(const QString &path,
 }
 
 //***************************************************************************
-QString SaveBlocksPlugin::findBase(const QString &filename,
-                                   const QString &pattern)
+QString Kwave::SaveBlocksPlugin::findBase(const QString &filename,
+                                          const QString &pattern)
 {
     QFileInfo file(filename);
     QString path = file.absolutePath();
@@ -479,8 +479,8 @@ QString SaveBlocksPlugin::findBase(const QString &filename,
 }
 
 //***************************************************************************
-QString SaveBlocksPlugin::firstFileName(const QString &filename,
-    const QString &pattern, SaveBlocksPlugin::numbering_mode_t mode,
+QString Kwave::SaveBlocksPlugin::firstFileName(const QString &filename,
+    const QString &pattern, Kwave::SaveBlocksPlugin::numbering_mode_t mode,
     bool selection_only)
 {
     QFileInfo file(filename);
@@ -509,8 +509,8 @@ static QString unescape(const QString &s)
 }
 
 //***************************************************************************
-void SaveBlocksPlugin::updateExample(const QString &filename,
-    const QString &pattern, SaveBlocksPlugin::numbering_mode_t mode,
+void Kwave::SaveBlocksPlugin::updateExample(const QString &filename,
+    const QString &pattern, Kwave::SaveBlocksPlugin::numbering_mode_t mode,
     bool selection_only)
 {
     QString example = firstFileName(filename, pattern, mode, selection_only);

@@ -28,19 +28,19 @@
 #include "SaveBlocksWidget.h"
 
 //***************************************************************************
-SaveBlocksDialog::SaveBlocksDialog(const QString &startDir,
+Kwave::SaveBlocksDialog::SaveBlocksDialog(const QString &startDir,
     const QString &filter,
     QWidget *parent,
     bool modal,
     const QString last_url,
     const QString last_ext,
     QString filename_pattern,
-    SaveBlocksPlugin::numbering_mode_t numbering_mode,
+    Kwave::SaveBlocksPlugin::numbering_mode_t numbering_mode,
     bool selection_only,
     bool have_selection
 )
     :Kwave::FileDialog(startDir, filter, parent, modal, last_url, last_ext),
-     m_widget(new SaveBlocksWidget(this, filename_pattern,
+     m_widget(new Kwave::SaveBlocksWidget(this, filename_pattern,
 	numbering_mode, selection_only, have_selection))
 {
     Q_ASSERT(m_widget);
@@ -56,43 +56,43 @@ SaveBlocksDialog::SaveBlocksDialog(const QString &startDir,
 }
 
 //***************************************************************************
-SaveBlocksDialog::~SaveBlocksDialog()
+Kwave::SaveBlocksDialog::~SaveBlocksDialog()
 {
     if (m_widget) delete m_widget;
     m_widget = 0;
 }
 
 //***************************************************************************
-QString SaveBlocksDialog::pattern()
+QString Kwave::SaveBlocksDialog::pattern()
 {
     Q_ASSERT(m_widget);
     return (m_widget) ? m_widget->pattern() : "";
 }
 
 //***************************************************************************
-SaveBlocksPlugin::numbering_mode_t SaveBlocksDialog::numberingMode()
+Kwave::SaveBlocksPlugin::numbering_mode_t Kwave::SaveBlocksDialog::numberingMode()
 {
     Q_ASSERT(m_widget);
     return (m_widget) ? m_widget->numberingMode() :
-                        SaveBlocksPlugin::CONTINUE;
+                        Kwave::SaveBlocksPlugin::CONTINUE;
 }
 
 //***************************************************************************
-bool SaveBlocksDialog::selectionOnly()
+bool Kwave::SaveBlocksDialog::selectionOnly()
 {
     Q_ASSERT(m_widget);
     return (m_widget) ? m_widget->selectionOnly() : false;
 }
 
 //***************************************************************************
-void SaveBlocksDialog::setNewExample(const QString &example)
+void Kwave::SaveBlocksDialog::setNewExample(const QString &example)
 {
     Q_ASSERT(m_widget);
     if (m_widget) m_widget->setNewExample(example);
 }
 
 //***************************************************************************
-void SaveBlocksDialog::emitUpdate()
+void Kwave::SaveBlocksDialog::emitUpdate()
 {
     QString path = baseUrl().path(KUrl::AddTrailingSlash);
     QString filename = path + locationEdit()->currentText();
@@ -107,7 +107,7 @@ void SaveBlocksDialog::emitUpdate()
 }
 
 //***************************************************************************
-void SaveBlocksDialog::textChanged(const QString &)
+void Kwave::SaveBlocksDialog::textChanged(const QString &)
 {
     emitUpdate();
 }

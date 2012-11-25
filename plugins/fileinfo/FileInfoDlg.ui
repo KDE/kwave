@@ -722,7 +722,7 @@
         </spacer>
        </item>
        <item row="1" column="2">
-        <widget class="CompressionWidget" name="compressionWidget" native="true">
+        <widget class="Kwave::CompressionWidget" name="compressionWidget" native="true">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -2034,7 +2034,7 @@
         </spacer>
        </item>
        <item row="2" column="2">
-        <widget class="KeywordWidget" name="lstKeywords" native="true"/>
+        <widget class="Kwave::KeywordWidget" name="lstKeywords" native="true"/>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="lblKeywords">
@@ -2139,12 +2139,12 @@
    <header>knuminput.h</header>
   </customwidget>
   <customwidget>
-   <class>KeywordWidget</class>
+   <class>Kwave::KeywordWidget</class>
    <extends>QWidget</extends>
    <header>KeywordWidget.h</header>
   </customwidget>
   <customwidget>
-   <class>CompressionWidget</class>
+   <class>Kwave::CompressionWidget</class>
    <extends>QWidget</extends>
    <header>CompressionWidget.h</header>
    <container>1</container>

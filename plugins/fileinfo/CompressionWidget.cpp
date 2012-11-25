@@ -34,7 +34,7 @@
 #include "CompressionWidget.h"
 
 //***************************************************************************
-CompressionWidget::CompressionWidget(QWidget *parent)
+Kwave::CompressionWidget::CompressionWidget(QWidget *parent)
     :QWidget(parent), Ui::CompressionWidgetBase()
 {
     setupUi(this);
@@ -63,12 +63,12 @@ CompressionWidget::CompressionWidget(QWidget *parent)
 }
 
 //***************************************************************************
-CompressionWidget::~CompressionWidget()
+Kwave::CompressionWidget::~CompressionWidget()
 {
 }
 
 //***************************************************************************
-void CompressionWidget::init(Kwave::FileInfo &info)
+void Kwave::CompressionWidget::init(Kwave::FileInfo &info)
 {
     initInfo(lblCompressionNominalBitrate, abrBitrate,
              Kwave::INF_BITRATE_NOMINAL, info);
@@ -83,8 +83,9 @@ void CompressionWidget::init(Kwave::FileInfo &info)
 }
 
 //***************************************************************************
-void CompressionWidget::describeWidget(QWidget *widget, const QString &name,
-                                       const QString &description)
+void Kwave::CompressionWidget::describeWidget(QWidget *widget,
+                                              const QString &name,
+                                              const QString &description)
 {
     if (!widget) return;
     widget->setToolTip(description);
@@ -92,9 +93,9 @@ void CompressionWidget::describeWidget(QWidget *widget, const QString &name,
 }
 
 //***************************************************************************
-void CompressionWidget::initInfo(QLabel *label, QWidget *widget,
-                                 Kwave::FileProperty property,
-                                 Kwave::FileInfo &info)
+void Kwave::CompressionWidget::initInfo(QLabel *label, QWidget *widget,
+                                        Kwave::FileProperty property,
+                                        Kwave::FileInfo &info)
 {
     Q_ASSERT(widget);
     if (label) label->setText(i18n(info.name(property).toAscii()) + ":");
@@ -103,7 +104,7 @@ void CompressionWidget::initInfo(QLabel *label, QWidget *widget,
 }
 
 //***************************************************************************
-void CompressionWidget::enableABR(bool enable, bool lowest, bool highest)
+void Kwave::CompressionWidget::enableABR(bool enable, bool lowest, bool highest)
 {
     rbABR->setEnabled(enable);
     if (!enable) rbABR->setChecked(false);
@@ -121,7 +122,7 @@ void CompressionWidget::enableABR(bool enable, bool lowest, bool highest)
 }
 
 //***************************************************************************
-void CompressionWidget::enableVBR(bool enable)
+void Kwave::CompressionWidget::enableVBR(bool enable)
 {
     rbVBR->setEnabled(enable);
     if (!enable) rbVBR->setChecked(false);
@@ -134,14 +135,14 @@ void CompressionWidget::enableVBR(bool enable)
 }
 
 //***************************************************************************
-void CompressionWidget::selectABR(bool checked)
+void Kwave::CompressionWidget::selectABR(bool checked)
 {
     abrHighestBitrate->setEnabled(checked && chkHighestBitrate->isChecked());
     abrLowestBitrate->setEnabled( checked && chkLowestBitrate->isChecked());
 }
 
 //***************************************************************************
-void CompressionWidget::lowestToggled(bool on)
+void Kwave::CompressionWidget::lowestToggled(bool on)
 {
     if (on) {
 	// if previous state was off: transition off->on
@@ -155,7 +156,7 @@ void CompressionWidget::lowestToggled(bool on)
 
 
 //***************************************************************************
-void CompressionWidget::highestToggled(bool on)
+void Kwave::CompressionWidget::highestToggled(bool on)
 {
     if (on) {
 	// if previous state was off: transition off->on
@@ -169,7 +170,7 @@ void CompressionWidget::highestToggled(bool on)
 
 
 //***************************************************************************
-void CompressionWidget::abrChanged(int value)
+void Kwave::CompressionWidget::abrChanged(int value)
 {
     if (value < abrLowestBitrate->value())
 	abrLowestBitrate->setValue(value);
@@ -178,7 +179,7 @@ void CompressionWidget::abrChanged(int value)
 }
 
 //***************************************************************************
-void CompressionWidget::lowestChanged(int value)
+void Kwave::CompressionWidget::lowestChanged(int value)
 {
     if (value > abrBitrate->value())
 	abrBitrate->setValue(value);
@@ -187,7 +188,7 @@ void CompressionWidget::lowestChanged(int value)
 }
 
 //***************************************************************************
-void CompressionWidget::highestChanged(int value)
+void Kwave::CompressionWidget::highestChanged(int value)
 {
     if (value < abrLowestBitrate->value())
 	abrLowestBitrate->setValue(value);
@@ -196,7 +197,7 @@ void CompressionWidget::highestChanged(int value)
 }
 
 //***************************************************************************
-void CompressionWidget::setBitrates(int nominal, int lower, int upper)
+void Kwave::CompressionWidget::setBitrates(int nominal, int lower, int upper)
 {
     abrLowestBitrate->setValue(lower);
     abrHighestBitrate->setValue(upper);
@@ -204,19 +205,19 @@ void CompressionWidget::setBitrates(int nominal, int lower, int upper)
 }
 
 //***************************************************************************
-void CompressionWidget::setQuality(int quality)
+void Kwave::CompressionWidget::setQuality(int quality)
 {
     sbBaseQuality->setValue(quality);
 }
 
 //***************************************************************************
-CompressionWidget::Mode CompressionWidget::mode()
+Kwave::CompressionWidget::Mode Kwave::CompressionWidget::mode()
 {
     return (rbABR->isChecked()) ? ABR_MODE : VBR_MODE;
 }
 
 //***************************************************************************
-void CompressionWidget::setMode(CompressionWidget::Mode mode)
+void Kwave::CompressionWidget::setMode(Kwave::CompressionWidget::Mode mode)
 {
     bool abr = rbABR->isEnabled();
     bool vbr = rbVBR->isEnabled();
@@ -245,19 +246,20 @@ void CompressionWidget::setMode(CompressionWidget::Mode mode)
 }
 
 //***************************************************************************
-bool CompressionWidget::lowestEnabled()
+bool Kwave::CompressionWidget::lowestEnabled()
 {
     return chkLowestBitrate->isChecked();
 }
 
 //***************************************************************************
-bool CompressionWidget::highestEnabled()
+bool Kwave::CompressionWidget::highestEnabled()
 {
     return chkHighestBitrate->isChecked();
 }
 
 //***************************************************************************
-void CompressionWidget::getABRrates(int &nominal, int &lowest, int &highest)
+void Kwave::CompressionWidget::getABRrates(int &nominal,
+                                           int &lowest, int &highest)
 {
     nominal = abrBitrate->value();
     lowest  = abrLowestBitrate->value();
@@ -265,7 +267,7 @@ void CompressionWidget::getABRrates(int &nominal, int &lowest, int &highest)
 }
 
 //***************************************************************************
-int CompressionWidget::baseQuality()
+int Kwave::CompressionWidget::baseQuality()
 {
     return sbBaseQuality->value();
 }

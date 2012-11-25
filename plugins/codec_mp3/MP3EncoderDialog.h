@@ -31,7 +31,8 @@
 class QAbstractButton;
 class QWidget;
 
-namespace Kwave {
+namespace Kwave
+{
 
     class MP3EncoderDialog :public QDialog,
                             public Ui::MP3EncoderDialogBase
@@ -116,5 +117,7 @@ namespace Kwave {
     };
 }
 
-//*****************************************************************************
 #endif /* _MP3_ENCODER_DIALOG_H_ */
+
+//***************************************************************************
+//***************************************************************************

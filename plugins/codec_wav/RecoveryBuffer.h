@@ -19,31 +19,39 @@
 #define _RECOVERY_BUFFER_H_
 
 #include "config.h"
+
 #include <QByteArray>
+
 #include "RecoverySource.h"
 
-class RecoveryBuffer: public RecoverySource
+namespace Kwave
 {
-public:
-    /**
-     * Constructor
-     * @param offset position in the repaired file
-     * @param length number of recovered bytes
-     * @param buffer a buffer with 'length' bytes of data
-     */
-    RecoveryBuffer(unsigned int offset, unsigned int length, char *buffer);
+    class RecoveryBuffer: public Kwave::RecoverySource
+    {
+    public:
+	/**
+	 * Constructor
+	 * @param offset position in the repaired file
+	 * @param length number of recovered bytes
+	 * @param buffer a buffer with 'length' bytes of data
+	 */
+	RecoveryBuffer(unsigned int offset, unsigned int length, char *buffer);
 
-    /** Destructor */
-    virtual ~RecoveryBuffer() {};
+	/** Destructor */
+	virtual ~RecoveryBuffer() {};
 
-    /** implementation of RecoverySource::read */
-    virtual unsigned int read(unsigned int offset, char *data,
-                              unsigned int bytes);
+	/** implementation of RecoverySource::read */
+	virtual unsigned int read(unsigned int offset, char *data,
+	                          unsigned int bytes);
 
-private:
+    private:
 
-    /** buffer with recovered data */
-    QByteArray m_buffer;
-};
+	/** buffer with recovered data */
+	QByteArray m_buffer;
+    };
+}
 
 #endif /* _RECOVERY_BUFFER_H_ */
+
+//***************************************************************************
+//***************************************************************************

@@ -26,42 +26,48 @@
 
 #include "libkwave/Plugin.h"
 
-class VolumePlugin: public Kwave::Plugin
+namespace Kwave
 {
-    Q_OBJECT
+    class VolumePlugin: public Kwave::Plugin
+    {
+	Q_OBJECT
 
-public:
+    public:
 
-    /** Constructor */
-    VolumePlugin(const Kwave::PluginContext &context);
+	/** Constructor */
+	VolumePlugin(const Kwave::PluginContext &context);
 
-    /** Destructor */
-    virtual ~VolumePlugin();
+	/** Destructor */
+	virtual ~VolumePlugin();
 
-    /**
-     * Shows a dialog for selecting a volume.
-     * @see Kwave::Plugin::setup
-     */
-    virtual QStringList *setup(QStringList &previous_params);
+	/**
+	 * Shows a dialog for selecting a volume.
+	 * @see Kwave::Plugin::setup
+	 */
+	virtual QStringList *setup(QStringList &previous_params);
 
-    /** Does the amplification operation */
-    virtual void run(QStringList);
+	/** Does the amplification operation */
+	virtual void run(QStringList);
 
-protected:
+    protected:
 
-    /** Reads values from the parameter list */
-    int interpreteParameters(QStringList &params);
+	/** Reads values from the parameter list */
+	int interpreteParameters(QStringList &params);
 
-private:
-    /** List of parameters */
-    QStringList m_params;
+    private:
+	/** List of parameters */
+	QStringList m_params;
 
-    /** amplification factor */
-    float m_factor;
+	/** amplification factor */
+	float m_factor;
 
-    /** mode for amplification selection */
-    int m_mode;
+	/** mode for amplification selection */
+	int m_mode;
 
-};
+    };
+}
 
 #endif /* _VOLUME_PLUGIN_H_ */
+
+//***************************************************************************
+//***************************************************************************

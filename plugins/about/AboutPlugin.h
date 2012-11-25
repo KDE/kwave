@@ -24,26 +24,30 @@
 
 class QStringList;
 
-class AboutPlugin: public Kwave::Plugin
+namespace Kwave
 {
-    Q_OBJECT
+    class AboutPlugin: public Kwave::Plugin
+    {
+	Q_OBJECT
 
-public:
+    public:
 
-    /** Constructor */
-    AboutPlugin(const Kwave::PluginContext &c);
+	/** Constructor */
+	AboutPlugin(const Kwave::PluginContext &c);
 
-    /** Destructor */
-    virtual ~AboutPlugin() {};
+	/** Destructor */
+	virtual ~AboutPlugin() {};
 
-    /**
-     * shows the about dialog,
-     * @see Kwave::Plugin::start()
-     */
-    virtual int start(QStringList &params);
+	/**
+	* shows the about dialog,
+	* @see Kwave::Plugin::start()
+	*/
+	virtual int start(QStringList &params);
 
-};
+    };
+}
 
 #endif /* _ABOUT_PLUGIN_H_ */
 
-/* end of AboutPlugin.h */
+//***************************************************************************
+//***************************************************************************

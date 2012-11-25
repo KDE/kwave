@@ -30,28 +30,33 @@
 
 class QWidget;
 
-/**
- * @class AboutKwaveDialog
- * Dialog for Help/About
- */
-class AboutKwaveDialog: public QDialog,
-                        public Ui::KwaveAboutDialogBase
+namespace Kwave
 {
-    Q_OBJECT
-
-public:
-
     /**
-     * Constructor
-     * @param parent the parent widget
-     * @param plugin_info list of plugin info structures (unsorted)
-     */
-    AboutKwaveDialog(QWidget *parent,
-        const QList<Kwave::PluginManager::PluginInfo> &plugin_info);
+    * Dialog for Help/About
+    */
+    class AboutDialog: public QDialog,
+                       public Ui::KwaveAboutDialogBase
+    {
+	Q_OBJECT
 
-    /** Destructor */
-    virtual ~AboutKwaveDialog();
+    public:
 
-};
+	/**
+	* Constructor
+	* @param parent the parent widget
+	* @param plugin_info list of plugin info structures (unsorted)
+	*/
+	AboutDialog(QWidget *parent,
+	    const QList<Kwave::PluginManager::PluginInfo> &plugin_info);
+
+	/** Destructor */
+	virtual ~AboutDialog();
+
+    };
+}
 
 #endif  /* _ABOUT_KWAVE_DIALOG_H_ */
+
+//***************************************************************************
+//***************************************************************************

@@ -20,15 +20,16 @@
 #include "RecoveryBuffer.h"
 
 //***************************************************************************
-RecoveryBuffer::RecoveryBuffer(unsigned int offset, unsigned int length,
-                               char *buffer)
-    :RecoverySource(offset, length), m_buffer(buffer, length)
+Kwave::RecoveryBuffer::RecoveryBuffer(unsigned int offset,
+                                      unsigned int length,
+                                      char *buffer)
+    :Kwave::RecoverySource(offset, length), m_buffer(buffer, length)
 {
 }
 
 //***************************************************************************
-unsigned int RecoveryBuffer::read(unsigned int offset, char *data,
-                                  unsigned int bytes)
+unsigned int Kwave::RecoveryBuffer::read(unsigned int offset, char *data,
+                                         unsigned int bytes)
 {
     if (offset < this->offset()) return 0;
     if (offset > end()) return 0;

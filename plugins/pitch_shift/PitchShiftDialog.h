@@ -29,98 +29,105 @@
 
 class QStringList;
 
-class PitchShiftDialog: public QDialog,
-                        public Ui::PitchShiftDlg,
-                        public Kwave::PluginSetupDialog
+namespace Kwave
 {
-    Q_OBJECT
-public:
 
-    /** Constructor */
-    PitchShiftDialog(QWidget *parent);
+    class PitchShiftDialog: public QDialog,
+                            public Ui::PitchShiftDlg,
+                            public Kwave::PluginSetupDialog
+    {
+	Q_OBJECT
+    public:
 
-    /** Destructor */
-    virtual ~PitchShiftDialog();
+	/** Constructor */
+	PitchShiftDialog(QWidget *parent);
 
-    /** Returns the parameters as string list */
-    virtual QStringList params();
+	/** Destructor */
+	virtual ~PitchShiftDialog();
 
-    /** Sets the from a list of parameters */
-    virtual void setParams(QStringList &params);
+	/** Returns the parameters as string list */
+	virtual QStringList params();
 
-    /** retruns a pointer to this as a QDialog */
-    virtual QDialog *dialog() { return this; };
+	/** Sets the from a list of parameters */
+	virtual void setParams(QStringList &params);
 
-signals:
+	/** retruns a pointer to this as a QDialog */
+	virtual QDialog *dialog() { return this; };
 
-    /**
-     * Emitted whenever the speed or the frequency changes
-     * @param speed the speed factor, floating point
-     * @param freq the frequency parameter in Hz
-     */
-    void changed(double speed, double freq);
+    signals:
 
-    /** Pre-listen mode has been started */
-    void startPreListen();
+	/**
+	 * Emitted whenever the speed or the frequency changes
+	 * @param speed the speed factor, floating point
+	 * @param freq the frequency parameter in Hz
+	 */
+	void changed(double speed, double freq);
 
-    /** Pre-listen mode has been stopped */
-    void stopPreListen();
+	/** Pre-listen mode has been started */
+	void startPreListen();
 
-protected slots:
+	/** Pre-listen mode has been stopped */
+	void stopPreListen();
 
-    /** called when the mode radio buttons changed */
-    void modeChanged(bool);
+    protected slots:
 
-    /** called when the speed slider's position has changed */
-    void sliderChanged(int pos);
+	/** called when the mode radio buttons changed */
+	void modeChanged(bool);
 
-    /** called when the spped spinbox value has changed */
-    void spinboxChanged(int pos);
+	/** called when the speed slider's position has changed */
+	void sliderChanged(int pos);
 
-    /** called if the frequency sbinbox value has changed */
-    void frequencyChanged(int pos);
+	/** called when the spped spinbox value has changed */
+	void spinboxChanged(int pos);
 
-    /**
-     * called when the "Listen" button has been toggled,
-     * to start or stop the pre-listen mode
-     */
-    void listenToggled(bool listen);
+	/** called if the frequency sbinbox value has changed */
+	void frequencyChanged(int pos);
 
-    /**
-     * called when the pre-listen mode stopped/aborted
-     */
-    void listenStopped();
+	/**
+	 * called when the "Listen" button has been toggled,
+	 * to start or stop the pre-listen mode
+	 */
+	void listenToggled(bool listen);
 
-protected:
+	/**
+	 * called when the pre-listen mode stopped/aborted
+	 */
+	void listenStopped();
 
-    /**
-     * Mode for amplification selection
-     * by factor (x1, x2, x5,...) or by percentage
-     */
-    typedef enum {
-	MODE_FACTOR  = 0,
-	MODE_PERCENT = 1
-    } Mode;
+    protected:
 
-    /** Sets a new volume selection mode */
-    void setMode(Mode mode);
+	/**
+	 * Mode for amplification selection
+	 * by factor (x1, x2, x5,...) or by percentage
+	 */
+	typedef enum {
+	    MODE_FACTOR  = 0,
+	    MODE_PERCENT = 1
+	} Mode;
 
-    /** Update the speed slider position and the speed spinbox value */
-    void updateSpeed(double speed);
+	/** Sets a new volume selection mode */
+	void setMode(Mode mode);
 
-private:
+	/** Update the speed slider position and the speed spinbox value */
+	void updateSpeed(double speed);
 
-    /** speed factor */
-    double m_speed;
+    private:
 
-    /** base frequency, @see aRts documentation */
-    double m_frequency;
+	/** speed factor */
+	double m_speed;
 
-    /** mode for selecting speed (factor or percentage) */
-    Mode m_mode;
+	/** base frequency, @see aRts documentation */
+	double m_frequency;
 
-    /** if false, ignore the signals of slider and spinbox */
-    bool m_enable_updates;
-};
+	/** mode for selecting speed (factor or percentage) */
+	Mode m_mode;
+
+	/** if false, ignore the signals of slider and spinbox */
+	bool m_enable_updates;
+    };
+}
 
 #endif /* _PITCH_SHIFT_DIALOG_H_ */
+
+//***************************************************************************
+//***************************************************************************

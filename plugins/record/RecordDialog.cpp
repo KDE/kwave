@@ -98,11 +98,11 @@ enum {
 };
 
 //***************************************************************************
-RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
-                           RecordController *controller)
+Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
+                                  Kwave::RecordController *controller)
     :QDialog(parent), Ui::RecordDlg(), m_methods_map(),
      m_file_filter(), m_devices_list_map(),
-     m_state(REC_EMPTY), m_params(),
+     m_state(Kwave::REC_EMPTY), m_params(),
      m_supported_resolutions(), m_buffer_progress_count(0),
      m_buffer_progress_total(0), m_buffer_progress_timer(this),
      m_record_enabled(true), m_samples_recorded(0),
@@ -258,8 +258,8 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     connect(this, SIGNAL(accepted()), controller, SLOT(actionStop()));
 
     // connect the notifications/commands of the record controller
-    connect(controller, SIGNAL(stateChanged(RecordState)),
-            this, SLOT(setState(RecordState )));
+    connect(controller, SIGNAL(stateChanged(Kwave::RecordState)),
+            this, SLOT(setState(Kwave::RecordState )));
 
     // timer for updating the buffer progress bar
     connect(&m_buffer_progress_timer, SIGNAL(timeout()),
@@ -270,7 +270,7 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
             this,   SLOT(invokeHelp()));
 
     // status bar
-    m_state_icon_widget = new StatusWidget(this);
+    m_state_icon_widget = new Kwave::StatusWidget(this);
     Q_ASSERT(m_state_icon_widget);
     if (!m_state_icon_widget) return;
 
@@ -296,7 +296,7 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     m_state_icon_widget->setFixedSize(16, lbl_state->childrenRect().height());
 
     // set the initial state of the dialog to "Reset/Empty"
-    setState(REC_EMPTY);
+    setState(Kwave::REC_EMPTY);
 
     // disable the "level" tab, it is not implemented yet
     tabRecord->setCurrentIndex(1);
@@ -307,19 +307,19 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 }
 
 //***************************************************************************
-RecordDialog::~RecordDialog()
+Kwave::RecordDialog::~RecordDialog()
 {
     updateBufferState(0,0);
 }
 
 //***************************************************************************
-RecordParams &RecordDialog::params()
+Kwave::RecordParams &Kwave::RecordDialog::params()
 {
     return m_params;
 }
 
 //***************************************************************************
-void RecordDialog::setMethod(record_method_t method)
+void Kwave::RecordDialog::setMethod(Kwave::record_method_t method)
 {
     m_params.method = method;
     cbMethod->setCurrentIndex(m_methods_map.findFromData(
@@ -327,15 +327,15 @@ void RecordDialog::setMethod(record_method_t method)
 }
 
 //***************************************************************************
-void RecordDialog::methodSelected(int index)
+void Kwave::RecordDialog::methodSelected(int index)
 {
-    record_method_t method = m_methods_map.data(index);
+    Kwave::record_method_t method = m_methods_map.data(index);
 //     qDebug("RecordDialog::methodSelected(%d) - %d", index, (int)method);
 
-    Q_ASSERT(method > RECORD_NONE);
-    Q_ASSERT(method < RECORD_INVALID);
-    if (method <= RECORD_NONE) return;
-    if (method >= RECORD_INVALID) return;
+    Q_ASSERT(method > Kwave::RECORD_NONE);
+    Q_ASSERT(method < Kwave::RECORD_INVALID);
+    if (method <= Kwave::RECORD_NONE) return;
+    if (method >= Kwave::RECORD_INVALID) return;
 
     if (method != m_params.method) {
 	setMethod(method);
@@ -344,7 +344,7 @@ void RecordDialog::methodSelected(int index)
 }
 
 //***************************************************************************
-void RecordDialog::setSupportedDevices(QStringList devices)
+void Kwave::RecordDialog::setSupportedDevices(QStringList devices)
 {
 //     qDebug("RecordDialog::setSupportedDevices(QStringList devices)");
     Q_ASSERT(cbDevice);
@@ -488,8 +488,8 @@ void RecordDialog::setSupportedDevices(QStringList devices)
 }
 
 //***************************************************************************
-void RecordDialog::listEntrySelected(QTreeWidgetItem *current,
-                                       QTreeWidgetItem *previous)
+void Kwave::RecordDialog::listEntrySelected(QTreeWidgetItem *current,
+                                            QTreeWidgetItem *previous)
 {
     Q_ASSERT(listDevices);
     Q_UNUSED(previous);
@@ -500,21 +500,21 @@ void RecordDialog::listEntrySelected(QTreeWidgetItem *current,
 }
 
 //***************************************************************************
-void RecordDialog::listItemExpanded(QTreeWidgetItem *item)
+void Kwave::RecordDialog::listItemExpanded(QTreeWidgetItem *item)
 {
     Q_UNUSED(item);
     updateListSelection();
 }
 
 //***************************************************************************
-void RecordDialog::updateListSelection()
+void Kwave::RecordDialog::updateListSelection()
 {
     // set the current device again, otherwise nothing will be selected
     setDevice(m_params.device_name);
 }
 
 //***************************************************************************
-void RecordDialog::setDevice(const QString &device)
+void Kwave::RecordDialog::setDevice(const QString &device)
 {
     Q_ASSERT(cbDevice);
     Q_ASSERT(listDevices);
@@ -551,7 +551,7 @@ void RecordDialog::setDevice(const QString &device)
 }
 
 //***************************************************************************
-void RecordDialog::sourceBufferCountChanged(int value)
+void Kwave::RecordDialog::sourceBufferCountChanged(int value)
 {
     Q_ASSERT(value >=  4);
     Q_ASSERT(value <= 64);
@@ -564,7 +564,7 @@ void RecordDialog::sourceBufferCountChanged(int value)
 }
 
 //***************************************************************************
-void RecordDialog::sourceBufferSizeChanged(int value)
+void Kwave::RecordDialog::sourceBufferSizeChanged(int value)
 {
     Q_ASSERT(value >= 10);
     Q_ASSERT(value <= 18);
@@ -582,14 +582,14 @@ void RecordDialog::sourceBufferSizeChanged(int value)
 }
 
 //***************************************************************************
-void RecordDialog::setFileFilter(const QString &filter)
+void Kwave::RecordDialog::setFileFilter(const QString &filter)
 {
     m_file_filter = filter;
     if (btSourceSelect) btSourceSelect->setEnabled(m_file_filter.length());
 }
 
 //***************************************************************************
-void RecordDialog::selectRecordDevice()
+void Kwave::RecordDialog::selectRecordDevice()
 {
     if (!m_enable_setDevice) return;
 
@@ -615,7 +615,7 @@ void RecordDialog::selectRecordDevice()
 }
 
 //***************************************************************************
-QString RecordDialog::rate2string(double rate) const
+QString Kwave::RecordDialog::rate2string(double rate) const
 {
     const KLocale *locale = KGlobal::locale();
     Q_ASSERT(locale);
@@ -642,7 +642,7 @@ QString RecordDialog::rate2string(double rate) const
 }
 
 //***************************************************************************
-double RecordDialog::string2rate(const QString &rate) const
+double Kwave::RecordDialog::string2rate(const QString &rate) const
 {
     const KLocale *locale = KGlobal::locale();
     Q_ASSERT(locale);
@@ -660,7 +660,8 @@ double RecordDialog::string2rate(const QString &rate) const
 }
 
 //***************************************************************************
-void RecordDialog::setSupportedTracks(unsigned int min, unsigned int max)
+void Kwave::RecordDialog::setSupportedTracks(unsigned int min,
+                                             unsigned int max)
 {
     Q_ASSERT(sbFormatTracks);
     if (!sbFormatTracks) return;
@@ -682,7 +683,7 @@ void RecordDialog::setSupportedTracks(unsigned int min, unsigned int max)
 }
 
 //***************************************************************************
-void RecordDialog::setTracks(unsigned int tracks)
+void Kwave::RecordDialog::setTracks(unsigned int tracks)
 {
 //     qDebug("+++ RecordDialog::setTracks(%u)", tracks);
     Q_ASSERT(sbFormatTracks);
@@ -718,7 +719,7 @@ void RecordDialog::setTracks(unsigned int tracks)
 }
 
 //***************************************************************************
-void RecordDialog::tracksChanged(int tracks)
+void Kwave::RecordDialog::tracksChanged(int tracks)
 {
     if (tracks < 1) return; // no device
     if (tracks == static_cast<int>(m_params.tracks)) return;
@@ -728,7 +729,7 @@ void RecordDialog::tracksChanged(int tracks)
 }
 
 //***************************************************************************
-void RecordDialog::setSupportedSampleRates(const QList<double> &rates)
+void Kwave::RecordDialog::setSupportedSampleRates(const QList<double> &rates)
 {
     Q_ASSERT(cbFormatSampleRate);
     if (!cbFormatSampleRate) return;
@@ -749,7 +750,7 @@ void RecordDialog::setSupportedSampleRates(const QList<double> &rates)
 }
 
 //***************************************************************************
-void RecordDialog::setSampleRate(double new_rate)
+void Kwave::RecordDialog::setSampleRate(double new_rate)
 {
     Q_ASSERT(cbFormatSampleRate);
     if (!cbFormatSampleRate) return;
@@ -770,7 +771,7 @@ void RecordDialog::setSampleRate(double new_rate)
 }
 
 //***************************************************************************
-void RecordDialog::sampleRateChanged(const QString &rate)
+void Kwave::RecordDialog::sampleRateChanged(const QString &rate)
 {
     if (!rate.length()) return; // no rate selected, combo box clear
     double sample_rate = string2rate(rate);
@@ -781,7 +782,7 @@ void RecordDialog::sampleRateChanged(const QString &rate)
 }
 
 //***************************************************************************
-void RecordDialog::setSupportedCompressions(const QList<int> &comps)
+void Kwave::RecordDialog::setSupportedCompressions(const QList<int> &comps)
 {
     Q_ASSERT(cbFormatCompression);
     if (!cbFormatCompression) return;
@@ -804,7 +805,7 @@ void RecordDialog::setSupportedCompressions(const QList<int> &comps)
 }
 
 //***************************************************************************
-void RecordDialog::setCompression(int compression)
+void Kwave::RecordDialog::setCompression(int compression)
 {
     Q_ASSERT(cbFormatCompression);
     if (!cbFormatCompression) return;
@@ -824,7 +825,7 @@ void RecordDialog::setCompression(int compression)
 }
 
 //***************************************************************************
-void RecordDialog::compressionChanged(const QString &name)
+void Kwave::RecordDialog::compressionChanged(const QString &name)
 {
     Kwave::CompressionType types;
     int index = types.findFromName(name);
@@ -835,7 +836,7 @@ void RecordDialog::compressionChanged(const QString &name)
 }
 
 //***************************************************************************
-void RecordDialog::setSupportedBits(const QList<unsigned int> &bits)
+void Kwave::RecordDialog::setSupportedBits(const QList<unsigned int> &bits)
 {
     Q_ASSERT(sbFormatResolution);
     if (!sbFormatResolution) return;
@@ -851,7 +852,7 @@ void RecordDialog::setSupportedBits(const QList<unsigned int> &bits)
 }
 
 //***************************************************************************
-void RecordDialog::setBitsPerSample(unsigned int bits)
+void Kwave::RecordDialog::setBitsPerSample(unsigned int bits)
 {
     Q_ASSERT(sbFormatResolution);
     if (!sbFormatResolution) return;
@@ -869,7 +870,7 @@ void RecordDialog::setBitsPerSample(unsigned int bits)
 }
 
 //***************************************************************************
-void RecordDialog::bitsPerSampleChanged(int bits)
+void Kwave::RecordDialog::bitsPerSampleChanged(int bits)
 {
     if (bits < 1) return; // no device
     int last = m_params.bits_per_sample;
@@ -906,7 +907,7 @@ void RecordDialog::bitsPerSampleChanged(int bits)
 }
 
 //***************************************************************************
-void RecordDialog::setSupportedSampleFormats(
+void Kwave::RecordDialog::setSupportedSampleFormats(
     const QList<Kwave::SampleFormat> &formats)
 {
     Q_ASSERT(cbFormatSampleFormat);
@@ -925,7 +926,7 @@ void RecordDialog::setSupportedSampleFormats(
 }
 
 //***************************************************************************
-void RecordDialog::setSampleFormat(Kwave::SampleFormat sample_format)
+void Kwave::RecordDialog::setSampleFormat(Kwave::SampleFormat sample_format)
 {
     Q_ASSERT(cbFormatSampleFormat);
     if (!cbFormatSampleFormat) return;
@@ -946,7 +947,7 @@ void RecordDialog::setSampleFormat(Kwave::SampleFormat sample_format)
 }
 
 //***************************************************************************
-void RecordDialog::sampleFormatChanged(const QString &name)
+void Kwave::RecordDialog::sampleFormatChanged(const QString &name)
 {
     Kwave::SampleFormat::Map types;
     int index = types.findFromName(name);
@@ -957,7 +958,7 @@ void RecordDialog::sampleFormatChanged(const QString &name)
 }
 
 //***************************************************************************
-void RecordDialog::setState(RecordState state)
+void Kwave::RecordDialog::setState(Kwave::RecordState state)
 {
     bool enable_new = false;
     bool enable_pause = false;
@@ -971,7 +972,7 @@ void RecordDialog::setState(RecordState state)
 
     m_state = state;
     switch (state) {
-	case REC_UNINITIALIZED:
+	case Kwave::REC_UNINITIALIZED:
 	    state_text = i18n("Please check the source device settings...");
 	    enable_new      = true;
 	    enable_pause    = false;
@@ -983,7 +984,7 @@ void RecordDialog::setState(RecordState state)
 	    pixmaps.push_back(QPixmap(ledred_xpm));
 	    lbl_state->changeItem("", ID_TIME);
 	    break;
-	case REC_EMPTY:
+	case Kwave::REC_EMPTY:
 	    state_text = i18n("(empty)");
 	    enable_new      = true;
 	    enable_pause    = false;
@@ -994,7 +995,7 @@ void RecordDialog::setState(RecordState state)
 	    pixmaps.push_back(QPixmap(ledgreen_xpm));
 	    lbl_state->changeItem("", ID_TIME);
 	    break;
-	case REC_BUFFERING:
+	case Kwave::REC_BUFFERING:
 	    state_text = i18n("Buffering...");
 	    enable_new      = true; /* throw away current FIFO content */
 	    enable_pause    = false;
@@ -1005,7 +1006,7 @@ void RecordDialog::setState(RecordState state)
 	    pixmaps.push_back(QPixmap(ledgreen_xpm));
 	    pixmaps.push_back(QPixmap(ledlightgreen_xpm));
 	    break;
-	case REC_PRERECORDING:
+	case Kwave::REC_PRERECORDING:
 	    state_text = i18n("Prerecording...");
 	    enable_new      = false;
 	    enable_pause    = false;
@@ -1016,7 +1017,7 @@ void RecordDialog::setState(RecordState state)
 	    pixmaps.push_back(QPixmap(ledgreen_xpm));
 	    pixmaps.push_back(QPixmap(ledlightgreen_xpm));
 	    break;
-	case REC_WAITING_FOR_TRIGGER:
+	case Kwave::REC_WAITING_FOR_TRIGGER:
 	    state_text = i18n("Waiting for trigger...");
 	    enable_new      = false;
 	    enable_pause    = false;
@@ -1027,7 +1028,7 @@ void RecordDialog::setState(RecordState state)
 	    pixmaps.push_back(QPixmap(ledgreen_xpm));
 	    pixmaps.push_back(QPixmap(ledlightgreen_xpm));
 	    break;
-	case REC_RECORDING:
+	case Kwave::REC_RECORDING:
 	    state_text = i18n("Recording...");
 	    enable_new      = false;
 	    enable_pause    = true;
@@ -1045,7 +1046,7 @@ void RecordDialog::setState(RecordState state)
 	    pixmaps.push_back(QPixmap(walk_r8_xpm));
 	    animation_time = 100;
 	    break;
-	case REC_PAUSED:
+	case Kwave::REC_PAUSED:
 	    state_text = i18n("Paused");
 	    enable_new      = true; /* start again */
 	    enable_pause    = true; /* used for "continue" */
@@ -1056,7 +1057,7 @@ void RecordDialog::setState(RecordState state)
 	    pixmaps.push_back(QPixmap(ledgreen_xpm));
 	    pixmaps.push_back(QPixmap(ledyellow_xpm));
 	    break;
-	case REC_DONE:
+	case Kwave::REC_DONE:
 	    state_text = i18n("Done");
 	    enable_new      = true;
 	    enable_pause    = false;
@@ -1104,7 +1105,8 @@ void RecordDialog::setState(RecordState state)
 }
 
 //***************************************************************************
-void RecordDialog::updateBufferState(unsigned int count, unsigned int total)
+void Kwave::RecordDialog::updateBufferState(unsigned int count,
+                                            unsigned int total)
 {
     Q_ASSERT(progress_bar);
     if (!progress_bar) return;
@@ -1130,13 +1132,13 @@ void RecordDialog::updateBufferState(unsigned int count, unsigned int total)
     // update recording time
     QString txt;
     switch (m_state) {
-	case REC_UNINITIALIZED:
-	case REC_EMPTY:
-	case REC_BUFFERING:
-	case REC_PRERECORDING:
+	case Kwave::REC_UNINITIALIZED:
+	case Kwave::REC_EMPTY:
+	case Kwave::REC_BUFFERING:
+	case Kwave::REC_PRERECORDING:
 	    txt = "";
 	    break;
-	case REC_WAITING_FOR_TRIGGER: {
+	case Kwave::REC_WAITING_FOR_TRIGGER: {
 	    txt = "";
 	    QString state_text;
 	    QDateTime now     = QDateTime::currentDateTime();
@@ -1176,9 +1178,9 @@ void RecordDialog::updateBufferState(unsigned int count, unsigned int total)
 
 	    break;
 	}
-	case REC_RECORDING:
-	case REC_PAUSED:
-	case REC_DONE: {
+	case Kwave::REC_RECORDING:
+	case Kwave::REC_PAUSED:
+	case Kwave::REC_DONE: {
 	    if (m_samples_recorded > 1) {
 		double rate = m_params.sample_rate;
 		double ms = (rate) ?
@@ -1195,27 +1197,27 @@ void RecordDialog::updateBufferState(unsigned int count, unsigned int total)
 }
 
 //***************************************************************************
-void RecordDialog::preRecordingChecked(bool enabled)
+void Kwave::RecordDialog::preRecordingChecked(bool enabled)
 {
     m_params.pre_record_enabled = enabled;
     emit sigPreRecordingChanged(enabled);
 }
 
 //***************************************************************************
-void RecordDialog::preRecordingTimeChanged(int time)
+void Kwave::RecordDialog::preRecordingTimeChanged(int time)
 {
     m_params.pre_record_time = time;
 }
 
 //***************************************************************************
-void RecordDialog::recordTimeChecked(bool limited)
+void Kwave::RecordDialog::recordTimeChecked(bool limited)
 {
     m_params.record_time_limited = limited;
     emit sigRecordTimeChanged(limited ? sbRecordTime->value() : -1);
 }
 
 //***************************************************************************
-void RecordDialog::recordTimeChanged(int limit)
+void Kwave::RecordDialog::recordTimeChanged(int limit)
 {
     m_params.record_time = limit;
     emit sigRecordTimeChanged(chkRecordTime->isChecked() ?
@@ -1224,14 +1226,14 @@ void RecordDialog::recordTimeChanged(int limit)
 }
 
 //***************************************************************************
-void RecordDialog::startTimeChecked(bool enabled)
+void Kwave::RecordDialog::startTimeChecked(bool enabled)
 {
     m_params.start_time_enabled = enabled;
     emit sigTriggerChanged(enabled || m_params.record_trigger_enabled);
 }
 
 //***************************************************************************
-void RecordDialog::startTimeChanged(const QDateTime &datetime)
+void Kwave::RecordDialog::startTimeChanged(const QDateTime &datetime)
 {
     m_params.start_time = datetime;
 
@@ -1242,20 +1244,20 @@ void RecordDialog::startTimeChanged(const QDateTime &datetime)
 }
 
 //***************************************************************************
-void RecordDialog::triggerChecked(bool enabled)
+void Kwave::RecordDialog::triggerChecked(bool enabled)
 {
     m_params.record_trigger_enabled = enabled;
     emit sigTriggerChanged(enabled || m_params.start_time_enabled);
 }
 
 //***************************************************************************
-void RecordDialog::triggerChanged(int trigger)
+void Kwave::RecordDialog::triggerChanged(int trigger)
 {
     m_params.record_trigger = trigger;
 }
 
 //***************************************************************************
-void RecordDialog::displayLevelMeterChecked(bool enabled)
+void Kwave::RecordDialog::displayLevelMeterChecked(bool enabled)
 {
     m_params.display_level_meter = enabled;
 
@@ -1274,7 +1276,7 @@ void RecordDialog::displayLevelMeterChecked(bool enabled)
 }
 
 //***************************************************************************
-void RecordDialog::updateBufferProgressBar()
+void Kwave::RecordDialog::updateBufferProgressBar()
 {
     unsigned int count = m_buffer_progress_count;
     unsigned int total = m_buffer_progress_total;
@@ -1296,8 +1298,8 @@ void RecordDialog::updateBufferProgressBar()
 }
 
 //***************************************************************************
-void RecordDialog::updateEffects(unsigned int track,
-                                 Kwave::SampleArray &buffer)
+void Kwave::RecordDialog::updateEffects(unsigned int track,
+                                        Kwave::SampleArray &buffer)
 {
     if (!buffer.size()) return;
 
@@ -1310,7 +1312,7 @@ void RecordDialog::updateEffects(unsigned int track,
 }
 
 //***************************************************************************
-void RecordDialog::setRecordedSamples(unsigned int samples_recorded)
+void Kwave::RecordDialog::setRecordedSamples(unsigned int samples_recorded)
 {
     // if (!m_params.record_time_limited) return; // not of interest
     m_samples_recorded = samples_recorded;
@@ -1318,7 +1320,7 @@ void RecordDialog::setRecordedSamples(unsigned int samples_recorded)
 }
 
 //***************************************************************************
-void RecordDialog::updateRecordButton()
+void Kwave::RecordDialog::updateRecordButton()
 {
     bool old_enable = btRecord->isEnabled();
     bool new_enable;
@@ -1332,19 +1334,19 @@ void RecordDialog::updateRecordButton()
 }
 
 //***************************************************************************
-void RecordDialog::invokeHelp()
+void Kwave::RecordDialog::invokeHelp()
 {
     KToolInvocation::invokeHelp("recording");
 }
 
 //***************************************************************************
-void RecordDialog::message(const QString &message)
+void Kwave::RecordDialog::message(const QString &message)
 {
     if (lbl_state) lbl_state->showMessage(message, 3000);
 }
 
 //***************************************************************************
-void RecordDialog::showDevicePage()
+void Kwave::RecordDialog::showDevicePage()
 {
     if (tabRecord) tabRecord->setCurrentIndex(2);
 }

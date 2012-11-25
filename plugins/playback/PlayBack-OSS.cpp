@@ -81,7 +81,7 @@
 #endif
 
 //***************************************************************************
-PlayBackOSS::PlayBackOSS()
+Kwave::PlayBackOSS::PlayBackOSS()
     :Kwave::PlayBackDevice(),
     m_device_name(),
     m_handle(-1),
@@ -99,13 +99,13 @@ PlayBackOSS::PlayBackOSS()
 }
 
 //***************************************************************************
-PlayBackOSS::~PlayBackOSS()
+Kwave::PlayBackOSS::~PlayBackOSS()
 {
     close();
 }
 
 //***************************************************************************
-QString PlayBackOSS::open(const QString &device, double rate,
+QString Kwave::PlayBackOSS::open(const QString &device, double rate,
                           unsigned int channels, unsigned int bits,
                           unsigned int bufbase)
 {
@@ -257,7 +257,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
 }
 
 //***************************************************************************
-int PlayBackOSS::write(const Kwave::SampleArray &samples)
+int Kwave::PlayBackOSS::write(const Kwave::SampleArray &samples)
 {
     Q_ASSERT (m_buffer_used <= m_buffer_size);
     if (m_buffer_used > m_buffer_size) {
@@ -291,7 +291,7 @@ int PlayBackOSS::write(const Kwave::SampleArray &samples)
 }
 
 //***************************************************************************
-void PlayBackOSS::flush()
+void Kwave::PlayBackOSS::flush()
 {
     if (!m_buffer_used || !m_encoder) return; // nothing to do
 
@@ -308,7 +308,7 @@ void PlayBackOSS::flush()
 }
 
 //***************************************************************************
-int PlayBackOSS::close()
+int Kwave::PlayBackOSS::close()
 {
     flush();
 
@@ -377,7 +377,7 @@ static void scanDirectory(QStringList &list, const QString &dir)
 }
 
 //***************************************************************************
-QStringList PlayBackOSS::supportedDevices()
+QStringList Kwave::PlayBackOSS::supportedDevices()
 {
     QStringList list, dirlist;
 
@@ -394,7 +394,7 @@ QStringList PlayBackOSS::supportedDevices()
 }
 
 //***************************************************************************
-QString PlayBackOSS::fileFilter()
+QString Kwave::PlayBackOSS::fileFilter()
 {
     QString filter;
 
@@ -411,8 +411,9 @@ QString PlayBackOSS::fileFilter()
 }
 
 //***************************************************************************
-void PlayBackOSS::format2mode(int format, int &compression,
-                              int &bits, Kwave::SampleFormat &sample_format)
+void Kwave::PlayBackOSS::format2mode(int format, int &compression,
+                                     int &bits,
+                                     Kwave::SampleFormat &sample_format)
 {
     switch (format) {
 	case AFMT_MU_LAW:
@@ -490,7 +491,7 @@ void PlayBackOSS::format2mode(int format, int &compression,
 }
 
 //***************************************************************************
-int PlayBackOSS::openDevice(const QString &device)
+int Kwave::PlayBackOSS::openDevice(const QString &device)
 {
     int fd = m_handle;
 
@@ -526,7 +527,7 @@ int PlayBackOSS::openDevice(const QString &device)
 }
 
 //***************************************************************************
-QList<unsigned int> PlayBackOSS::supportedBits(const QString &device)
+QList<unsigned int> Kwave::PlayBackOSS::supportedBits(const QString &device)
 {
     QList<unsigned int> bits;
     bits.clear();
@@ -573,8 +574,8 @@ QList<unsigned int> PlayBackOSS::supportedBits(const QString &device)
 }
 
 //***************************************************************************
-int PlayBackOSS::detectChannels(const QString &device,
-                                unsigned int &min, unsigned int &max)
+int Kwave::PlayBackOSS::detectChannels(const QString &device,
+                                       unsigned int &min, unsigned int &max)
 {
     int fd, t, err;
 

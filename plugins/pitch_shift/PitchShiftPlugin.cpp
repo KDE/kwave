@@ -28,11 +28,11 @@
 #include "PitchShiftPlugin.h"
 #include "PitchShiftDialog.h"
 
-KWAVE_PLUGIN(PitchShiftPlugin, "pitch_shift", "2.1",
+KWAVE_PLUGIN(Kwave::PitchShiftPlugin, "pitch_shift", "2.1",
              I18N_NOOP("Pitch Shift"), "Thomas Eschenbacher");
 
 //***************************************************************************
-PitchShiftPlugin::PitchShiftPlugin(const Kwave::PluginContext &context)
+Kwave::PitchShiftPlugin::PitchShiftPlugin(const Kwave::PluginContext &context)
     :Kwave::FilterPlugin(context),
      m_speed(1.0), m_frequency(5.0), m_percentage_mode(false),
      m_last_speed(0), m_last_freq(0)
@@ -40,12 +40,12 @@ PitchShiftPlugin::PitchShiftPlugin(const Kwave::PluginContext &context)
 }
 
 //***************************************************************************
-PitchShiftPlugin::~PitchShiftPlugin()
+Kwave::PitchShiftPlugin::~PitchShiftPlugin()
 {
 }
 
 //***************************************************************************
-int PitchShiftPlugin::interpreteParameters(QStringList &params)
+int Kwave::PitchShiftPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;
     QString param;
@@ -72,9 +72,9 @@ int PitchShiftPlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-Kwave::PluginSetupDialog *PitchShiftPlugin::createDialog(QWidget *parent)
+Kwave::PluginSetupDialog *Kwave::PitchShiftPlugin::createDialog(QWidget *parent)
 {
-    PitchShiftDialog *dialog = new PitchShiftDialog(parent);
+    Kwave::PitchShiftDialog *dialog = new Kwave::PitchShiftDialog(parent);
     Q_ASSERT(dialog);
     if (!dialog) return 0;
 
@@ -86,20 +86,20 @@ Kwave::PluginSetupDialog *PitchShiftPlugin::createDialog(QWidget *parent)
 }
 
 //***************************************************************************
-Kwave::SampleSource *PitchShiftPlugin::createFilter(unsigned int tracks)
+Kwave::SampleSource *Kwave::PitchShiftPlugin::createFilter(unsigned int tracks)
 {
-    return new Kwave::MultiTrackSource<PitchShiftFilter, true>(tracks);
+    return new Kwave::MultiTrackSource<Kwave::PitchShiftFilter, true>(tracks);
 }
 
 //***************************************************************************
-bool PitchShiftPlugin::paramsChanged()
+bool Kwave::PitchShiftPlugin::paramsChanged()
 {
     return ((m_speed != m_last_speed) || (m_frequency != m_last_freq));
 }
 
 //***************************************************************************
-void PitchShiftPlugin::updateFilter(Kwave::SampleSource *filter,
-                                    bool force)
+void Kwave::PitchShiftPlugin::updateFilter(Kwave::SampleSource *filter,
+                                           bool force)
 {
     double sr = signalRate();
 
@@ -118,13 +118,13 @@ void PitchShiftPlugin::updateFilter(Kwave::SampleSource *filter,
 }
 
 //***************************************************************************
-QString PitchShiftPlugin::actionName()
+QString Kwave::PitchShiftPlugin::actionName()
 {
     return i18n("Pitch Shift");
 }
 
 //***************************************************************************
-void PitchShiftPlugin::setValues(double speed, double frequency)
+void Kwave::PitchShiftPlugin::setValues(double speed, double frequency)
 {
     m_frequency = frequency;
     m_speed     = speed;

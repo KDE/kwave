@@ -27,37 +27,37 @@ namespace Kwave
 {
     class Decoder;
     class Encoder;
+
+    class OggCodecPlugin: public Kwave::Plugin
+    {
+	Q_OBJECT
+    public:
+
+	/** Constructor */
+	OggCodecPlugin(const Kwave::PluginContext &c);
+
+	/** Destructor */
+	virtual ~OggCodecPlugin();
+
+	/**
+	 * This plugin needs to be unique!
+	 * @see Kwave::Plugin::isUnique()
+	 */
+	virtual bool isUnique() { return true; };
+
+	/**
+	 * Gets called when the plugin is first loaded.
+	 */
+	virtual void load(QStringList &/* params */);
+
+    private:
+	/** decoder used as factory */
+	Kwave::Decoder *m_decoder;
+
+	/** encoder used as factory */
+	Kwave::Encoder *m_encoder;
+    };
 }
-
-class OggCodecPlugin: public Kwave::Plugin
-{
-    Q_OBJECT
-public:
-
-    /** Constructor */
-    OggCodecPlugin(const Kwave::PluginContext &c);
-
-    /** Destructor */
-    virtual ~OggCodecPlugin();
-
-    /**
-     * This plugin needs to be unique!
-     * @see Kwave::Plugin::isUnique()
-     */
-    virtual bool isUnique() { return true; };
-
-    /**
-     * Gets called when the plugin is first loaded.
-     */
-    virtual void load(QStringList &/* params */);
-
-private:
-    /** decoder used as factory */
-    Kwave::Decoder *m_decoder;
-
-    /** encoder used as factory */
-    Kwave::Encoder *m_encoder;
-};
 
 #define REGISTER_MIME_TYPES { \
     /* original from Ogg Vorbis documentation: */ \
@@ -77,3 +77,6 @@ private:
 #define DEFAULT_MIME_TYPE "application/ogg"
 
 #endif /* _OGG_CODEC_PLUGIN_H_ */
+
+//***************************************************************************
+//***************************************************************************

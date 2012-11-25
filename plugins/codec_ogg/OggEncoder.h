@@ -28,39 +28,45 @@
 
 class QWidget;
 
-class OggEncoder: public Kwave::Encoder
+namespace Kwave
 {
-public:
-    /** Constructor */
-    OggEncoder();
+    class OggEncoder: public Kwave::Encoder
+    {
+    public:
+	/** Constructor */
+	OggEncoder();
 
-    /** Destructor */
-    virtual ~OggEncoder();
+	/** Destructor */
+	virtual ~OggEncoder();
 
-    /** Returns a new instance of the encoder */
-    virtual Kwave::Encoder *instance();
+	/** Returns a new instance of the encoder */
+	virtual Kwave::Encoder *instance();
 
-    /**
-     * Encodes a signal into a stream of bytes.
-     * @param widget a widget that can be used for displaying
-     *        message boxes or dialogs
-     * @param src MultiTrackReader used as source of the audio data
-     * @param dst file or other source to receive a stream of bytes
-     * @param meta_data meta data of the file to save
-     * @return true if succeeded, false on errors
-     */
-    virtual bool encode(QWidget *widget, Kwave::MultiTrackReader &src,
-                        QIODevice &dst,
-                        const Kwave::MetaDataList &meta_data);
+	/**
+	 * Encodes a signal into a stream of bytes.
+	 * @param widget a widget that can be used for displaying
+	 *        message boxes or dialogs
+	 * @param src MultiTrackReader used as source of the audio data
+	 * @param dst file or other source to receive a stream of bytes
+	 * @param meta_data meta data of the file to save
+	 * @return true if succeeded, false on errors
+	 */
+	virtual bool encode(QWidget *widget, Kwave::MultiTrackReader &src,
+	                    QIODevice &dst,
+	                    const Kwave::MetaDataList &meta_data);
 
-    /** Returns a list of supported file properties */
-    virtual QList<Kwave::FileProperty> supportedProperties();
+	/** Returns a list of supported file properties */
+	virtual QList<Kwave::FileProperty> supportedProperties();
 
-private:
+    private:
 
-    /** Encodes all file properties into a vorbis comment */
-    void encodeProperties(const Kwave::FileInfo &info, vorbis_comment *vc);
+	/** Encodes all file properties into a vorbis comment */
+	void encodeProperties(const Kwave::FileInfo &info, vorbis_comment *vc);
 
-};
+    };
+}
 
 #endif /* _OGG_ENCODER_H_ */
+
+//***************************************************************************
+//***************************************************************************

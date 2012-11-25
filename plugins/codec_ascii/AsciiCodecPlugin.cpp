@@ -25,30 +25,30 @@
 #include "AsciiEncoder.h"
 #include "AsciiDecoder.h"
 
-KWAVE_PLUGIN(AsciiCodecPlugin, "codec_ascii", "2.1",
+KWAVE_PLUGIN(Kwave::AsciiCodecPlugin, "codec_ascii", "2.1",
              I18N_NOOP("ASCII Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
-AsciiCodecPlugin::AsciiCodecPlugin(const Kwave::PluginContext &c)
+Kwave::AsciiCodecPlugin::AsciiCodecPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
 {
 }
 
 /***************************************************************************/
-AsciiCodecPlugin::~AsciiCodecPlugin()
+Kwave::AsciiCodecPlugin::~AsciiCodecPlugin()
 {
     m_encoder = 0;
     m_decoder = 0;
 }
 
 /***************************************************************************/
-void AsciiCodecPlugin::load(QStringList &/* params */)
+void Kwave::AsciiCodecPlugin::load(QStringList &/* params */)
 {
-    if (!m_encoder) m_encoder = new AsciiEncoder();
+    if (!m_encoder) m_encoder = new Kwave::AsciiEncoder();
     Q_ASSERT(m_encoder);
     if (m_encoder) Kwave::CodecManager::registerEncoder(*m_encoder);
 
-    if (!m_decoder) m_decoder = new AsciiDecoder();
+    if (!m_decoder) m_decoder = new Kwave::AsciiDecoder();
     Q_ASSERT(m_decoder);
     if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
 }

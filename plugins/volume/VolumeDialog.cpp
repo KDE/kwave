@@ -35,8 +35,8 @@
 #include "VolumeDialog.h"
 
 //***************************************************************************
-VolumeDialog::VolumeDialog(QWidget *parent,
-                           Kwave::OverViewCache *overview_cache)
+Kwave::VolumeDialog::VolumeDialog(QWidget *parent,
+                                  Kwave::OverViewCache *overview_cache)
     :QDialog(parent), Ui::VolumeDlg(), m_factor(1.0), m_mode(MODE_DECIBEL),
      m_enable_updates(true), m_overview_cache(overview_cache)
 {
@@ -77,14 +77,13 @@ VolumeDialog::VolumeDialog(QWidget *parent,
 }
 
 //***************************************************************************
-VolumeDialog::~VolumeDialog()
+Kwave::VolumeDialog::~VolumeDialog()
 {
 }
 
 //***************************************************************************
-void VolumeDialog::setMode(Mode mode)
+void Kwave::VolumeDialog::setMode(Mode mode)
 {
-//  qDebug("VolumeDialog::setMode(%d), f=%g", (int)mode, m_factor); // ###
     double value = m_factor;
     m_mode = mode;
     bool old_enable_updates = m_enable_updates;
@@ -131,7 +130,7 @@ void VolumeDialog::setMode(Mode mode)
 }
 
 //***************************************************************************
-void VolumeDialog::modeChanged(bool)
+void Kwave::VolumeDialog::modeChanged(bool)
 {
     bool old_enable_updates = m_enable_updates;
     m_enable_updates = false;
@@ -144,9 +143,8 @@ void VolumeDialog::modeChanged(bool)
 }
 
 //***************************************************************************
-void VolumeDialog::updateDisplay(double value)
+void Kwave::VolumeDialog::updateDisplay(double value)
 {
-//  qDebug("VolumeDialog::updateDisplay(%f)", value); // ###
     int new_spinbox_value = 0;
     int new_slider_value  = 0;
     bool old_enable_updates = m_enable_updates;
@@ -218,8 +216,6 @@ void VolumeDialog::updateDisplay(double value)
 
 		new_spinbox_value = new_value;
 		new_slider_value = new_value-1;
-
-//		qDebug("VolumeDialog::updateDisplay(): factor = x%d", new_value); // ###
 	    } else {
 		// less than one -> divide
 		int new_value = static_cast<int>(rint(-1.0 / value));
@@ -230,8 +226,6 @@ void VolumeDialog::updateDisplay(double value)
 
 		new_spinbox_value = -1*new_value;
 		new_slider_value  = (new_value+1);
-
-//		qDebug("VolumeDialog::updateDisplay(): factor = 1/%d", -1*new_value); // ###
 	    }
 
 	    m_enable_updates = old_enable_updates;
@@ -245,7 +239,6 @@ void VolumeDialog::updateDisplay(double value)
 	    spinbox->setPrefix("");
 	    spinbox->setSuffix("%");
 	    spinbox->setInverse(false);
-//	    qDebug("VolumeDialog::updateDisplay(): percent = %d", new_slider_value); // ###
 	    break;
 	}
 	case MODE_DECIBEL: {
@@ -260,7 +253,6 @@ void VolumeDialog::updateDisplay(double value)
 	    }
 	    spinbox->setSuffix(" dB");
 	    spinbox->setInverse(false);
-//	    qDebug("VolumeDialog::updateDisplay(): decibel = %d", new_spinbox_value); // ###
 	    break;
 	}
     }
@@ -276,7 +268,7 @@ void VolumeDialog::updateDisplay(double value)
 }
 
 //***************************************************************************
-void VolumeDialog::sliderChanged(int pos)
+void Kwave::VolumeDialog::sliderChanged(int pos)
 {
     if (!m_enable_updates) return;
 
@@ -308,7 +300,7 @@ void VolumeDialog::sliderChanged(int pos)
 }
 
 //***************************************************************************
-void VolumeDialog::spinboxChanged(int pos)
+void Kwave::VolumeDialog::spinboxChanged(int pos)
 {
     if (!m_enable_updates) return;
 //    qDebug("spinboxChanged(%d)",pos); // ###
@@ -346,7 +338,7 @@ void VolumeDialog::spinboxChanged(int pos)
 }
 
 //***************************************************************************
-QStringList VolumeDialog::params()
+QStringList Kwave::VolumeDialog::params()
 {
     QStringList list;
     list << QString::number(m_factor);
@@ -355,7 +347,7 @@ QStringList VolumeDialog::params()
 }
 
 //***************************************************************************
-void VolumeDialog::setParams(QStringList &params)
+void Kwave::VolumeDialog::setParams(QStringList &params)
 {
     // evaluate the parameter list
     double factor = params[0].toDouble();

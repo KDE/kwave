@@ -24,35 +24,38 @@
 namespace Kwave
 {
     class Decoder;
+
+    class AudiofileCodecPlugin: public Kwave::Plugin
+    {
+	Q_OBJECT
+    public:
+
+	/** Constructor */
+	AudiofileCodecPlugin(const Kwave::PluginContext &c);
+
+	/** Destructor */
+	virtual ~AudiofileCodecPlugin();
+
+	/**
+	 * This plugin needs to be unique!
+	 * @see Kwave::Plugin::isUnique()
+	 */
+	virtual bool isUnique() { return true; };
+
+	/**
+	 * Gets called when the plugin is first loaded.
+	 */
+	virtual void load(QStringList &/* params */);
+
+    private:
+
+	/** decoder used as factory */
+	Kwave::Decoder *m_decoder;
+
+    };
 }
 
-class AudiofileCodecPlugin: public Kwave::Plugin
-{
-    Q_OBJECT
-public:
-
-    /** Constructor */
-    AudiofileCodecPlugin(const Kwave::PluginContext &c);
-
-    /** Destructor */
-    virtual ~AudiofileCodecPlugin();
-
-    /**
-     * This plugin needs to be unique!
-     * @see Kwave::Plugin::isUnique()
-     */
-    virtual bool isUnique() { return true; };
-
-    /**
-     * Gets called when the plugin is first loaded.
-     */
-    virtual void load(QStringList &/* params */);
-
-private:
-
-    /** decoder used as factory */
-    Kwave::Decoder *m_decoder;
-
-};
-
 #endif /* _AUDIOFILE_CODEC_PLUGIN_H_ */
+
+//***************************************************************************
+//***************************************************************************

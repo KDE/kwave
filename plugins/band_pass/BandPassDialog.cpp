@@ -34,7 +34,7 @@
 #include "BandPass.h"
 
 //***************************************************************************
-BandPassDialog::BandPassDialog(QWidget *parent, double sample_rate)
+Kwave::BandPassDialog::BandPassDialog(QWidget *parent, double sample_rate)
     :QDialog(parent), Kwave::PluginSetupDialog(), Ui::BandPassDlg(),
      m_frequency(3500),m_bw(100),
      m_sample_rate(sample_rate), m_filter(0)
@@ -64,7 +64,7 @@ BandPassDialog::BandPassDialog(QWidget *parent, double sample_rate)
     freq_response->init(f_max, -24, +6);
 
     // set up the low pass filter dunction
-    m_filter = new BandPass();
+    m_filter = new Kwave::BandPass();
     freq_response->setFilter(m_filter);
 
     // initialize the controls and the curve display
@@ -100,7 +100,7 @@ BandPassDialog::BandPassDialog(QWidget *parent, double sample_rate)
 }
 
 //***************************************************************************
-BandPassDialog::~BandPassDialog()
+Kwave::BandPassDialog::~BandPassDialog()
 {
     // better stop pre-listen now
     listenToggled(false);
@@ -110,7 +110,7 @@ BandPassDialog::~BandPassDialog()
 }
 
 //***************************************************************************
-void BandPassDialog::freqValueChanged(int pos)
+void Kwave::BandPassDialog::freqValueChanged(int pos)
 {
     if (static_cast<int>(m_frequency) != pos) {
 	m_frequency = pos;
@@ -120,7 +120,7 @@ void BandPassDialog::freqValueChanged(int pos)
     }
 }
 //***************************************************************************
-void BandPassDialog::bwValueChanged(int pos)
+void Kwave::BandPassDialog::bwValueChanged(int pos)
 {
     if (static_cast<int>(m_bw) != pos) {
     	m_bw = pos;
@@ -130,7 +130,7 @@ void BandPassDialog::bwValueChanged(int pos)
     }
 }
 //***************************************************************************
-QStringList BandPassDialog::params()
+QStringList Kwave::BandPassDialog::params()
 {
     QStringList list;
     list << QString::number(m_frequency);
@@ -139,7 +139,7 @@ QStringList BandPassDialog::params()
 }
 
 //***************************************************************************
-void BandPassDialog::setParams(QStringList &params)
+void Kwave::BandPassDialog::setParams(QStringList &params)
 {
     // evaluate the parameter list
     bool ok;
@@ -161,7 +161,7 @@ void BandPassDialog::setParams(QStringList &params)
 }
 
 //***************************************************************************
-void BandPassDialog::updateDisplay()
+void Kwave::BandPassDialog::updateDisplay()
 {
     double fs = m_sample_rate;
     if (m_filter && (fs > 0.0))
@@ -173,7 +173,7 @@ void BandPassDialog::updateDisplay()
 }
 
 //***************************************************************************
-void BandPassDialog::listenToggled(bool listen)
+void Kwave::BandPassDialog::listenToggled(bool listen)
 {
     Q_ASSERT(btListen);
     if (!btListen) return;
@@ -190,7 +190,7 @@ void BandPassDialog::listenToggled(bool listen)
 }
 
 //***************************************************************************
-void BandPassDialog::listenStopped()
+void Kwave::BandPassDialog::listenStopped()
 {
     if (btListen) btListen->setChecked(false);
 }

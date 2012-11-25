@@ -28,23 +28,23 @@
 #include "BandPassPlugin.h"
 #include "BandPassDialog.h"
 
-KWAVE_PLUGIN(BandPassPlugin, "band_pass", "2.1",
+KWAVE_PLUGIN(Kwave::BandPassPlugin, "band_pass", "2.1",
              I18N_NOOP("Band Pass Filter"), "Dave Flogeras");
 
 //***************************************************************************
-BandPassPlugin::BandPassPlugin(const Kwave::PluginContext &context)
+Kwave::BandPassPlugin::BandPassPlugin(const Kwave::PluginContext &context)
     :Kwave::FilterPlugin(context),
      m_frequency(3500.0), m_last_freq(100),m_bw(100),m_last_bw(200)
 {
 }
 
 //***************************************************************************
-BandPassPlugin::~BandPassPlugin()
+Kwave::BandPassPlugin::~BandPassPlugin()
 {
 }
 
 //***************************************************************************
-int BandPassPlugin::interpreteParameters(QStringList &params)
+int Kwave::BandPassPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;
     QString param;
@@ -69,9 +69,10 @@ int BandPassPlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-Kwave::PluginSetupDialog *BandPassPlugin::createDialog(QWidget *parent)
+Kwave::PluginSetupDialog *Kwave::BandPassPlugin::createDialog(QWidget *parent)
 {
-    BandPassDialog *dialog = new BandPassDialog(parent, signalRate());
+    Kwave::BandPassDialog *dialog =
+	new Kwave::BandPassDialog(parent, signalRate());
     Q_ASSERT(dialog);
     if (!dialog) return 0;
 
@@ -84,20 +85,20 @@ Kwave::PluginSetupDialog *BandPassPlugin::createDialog(QWidget *parent)
 }
 
 //***************************************************************************
-Kwave::SampleSource *BandPassPlugin::createFilter(unsigned int tracks)
+Kwave::SampleSource *Kwave::BandPassPlugin::createFilter(unsigned int tracks)
 {
-    return new Kwave::MultiTrackSource<BandPass, true>(tracks);
+    return new Kwave::MultiTrackSource<Kwave::BandPass, true>(tracks);
 }
 
 //***************************************************************************
-bool BandPassPlugin::paramsChanged()
+bool Kwave::BandPassPlugin::paramsChanged()
 {
     return (m_frequency != m_last_freq) || (m_bw != m_last_bw);
 }
 
 //***************************************************************************
-void BandPassPlugin::updateFilter(Kwave::SampleSource *filter,
-                                  bool force)
+void Kwave::BandPassPlugin::updateFilter(Kwave::SampleSource *filter,
+                                         bool force)
 {
     double sr = signalRate();
 
@@ -116,19 +117,19 @@ void BandPassPlugin::updateFilter(Kwave::SampleSource *filter,
 }
 
 //***************************************************************************
-QString BandPassPlugin::actionName()
+QString Kwave::BandPassPlugin::actionName()
 {
     return i18n("Band Pass");
 }
 
 //***************************************************************************
-void BandPassPlugin::setFreqValue(double frequency)
+void Kwave::BandPassPlugin::setFreqValue(double frequency)
 {
     m_frequency = frequency;
 }
 
 //***************************************************************************
-void BandPassPlugin::setBwValue(double bw)
+void Kwave::BandPassPlugin::setBwValue(double bw)
 {
     m_bw = bw;
 }

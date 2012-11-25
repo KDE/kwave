@@ -27,63 +27,69 @@
 #include "libkwave/SampleSource.h"
 #include "libkwave/TransmissionFunction.h"
 
-class LowPassFilter: public Kwave::SampleSource,
-                     public Kwave::TransmissionFunction
+namespace Kwave
 {
-    Q_OBJECT
-public:
+    class LowPassFilter: public Kwave::SampleSource,
+                         public Kwave::TransmissionFunction
+    {
+	Q_OBJECT
+    public:
 
-    /** Constructor */
-    LowPassFilter();
+	/** Constructor */
+	LowPassFilter();
 
-    /** Destructor */
-    virtual ~LowPassFilter();
+	/** Destructor */
+	virtual ~LowPassFilter();
 
-    /** @see TransmissionFunction::at() */
-    virtual double at(double f);
+	/** @see TransmissionFunction::at() */
+	virtual double at(double f);
 
-    /** does the calculation */
-    virtual void goOn();
+	/** does the calculation */
+	virtual void goOn();
 
-signals:
+    signals:
 
-    /** emits a block with the filtered data */
-    void output(Kwave::SampleArray data);
+	/** emits a block with the filtered data */
+	void output(Kwave::SampleArray data);
 
-public slots:
+    public slots:
 
-    /** receives input data */
-    void input(Kwave::SampleArray data);
+	/** receives input data */
+	void input(Kwave::SampleArray data);
 
-    /**
-     * Sets the cutoff frequency, normed to [0...2Pi]. The calculation is:
-     * fc = frequency [Hz] * 2 * Pi / f_sample [Hz].
-     * The default setting is 0.5.
-     */
-    void setFrequency(const QVariant fc);
+	/**
+	 * Sets the cutoff frequency, normed to [0...2Pi]. The calculation is:
+	 * fc = frequency [Hz] * 2 * Pi / f_sample [Hz].
+	 * The default setting is 0.5.
+	 */
+	void setFrequency(const QVariant fc);
 
-private:
+    private:
 
-    /** reset/initialize the filter coefficients */
-    void initFilter();
+	/** reset/initialize the filter coefficients */
+	void initFilter();
 
-    /** calculate filter coefficients for a given frequency */
-    void normed_setfilter_shelvelowpass(double freq);
+	/** calculate filter coefficients for a given frequency */
+	void normed_setfilter_shelvelowpass(double freq);
 
-private:
+    private:
 
-    /** buffer for input */
-    Kwave::SampleArray m_buffer;
+	/** buffer for input */
+	Kwave::SampleArray m_buffer;
 
-    /** cutoff frequency [0...PI] */
-    double m_f_cutoff;
+	/** cutoff frequency [0...PI] */
+	double m_f_cutoff;
 
-    /** structure with the filter coefficients */
-    struct {
-	double cx,cx1,cx2,cy1,cy2;
-	double x,x1,x2,y,y1,y2;
-    } m_filter;
+	/** structure with the filter coefficients */
+	struct {
+	    double cx,cx1,cx2,cy1,cy2;
+	    double x,x1,x2,y,y1,y2;
+	} m_filter;
 
-};
+    };
+}
 
 #endif /* _LOW_PASS_FILTER_H_ */
+
+//***************************************************************************
+//***************************************************************************

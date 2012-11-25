@@ -28,23 +28,29 @@
 
 class QStringList;
 
-class AmplifyFreeDialog: public QDialog, public Ui::AmplifyFreeDlg
+namespace Kwave
 {
-    Q_OBJECT
-public:
+    class AmplifyFreeDialog: public QDialog, public Ui::AmplifyFreeDlg
+    {
+	Q_OBJECT
+    public:
 
-    /** Constructor */
-    AmplifyFreeDialog(QWidget *parent);
+	/** Constructor */
+	AmplifyFreeDialog(QWidget *parent);
 
-    /** Destructor */
-    virtual ~AmplifyFreeDialog();
+	/** Destructor */
+	virtual ~AmplifyFreeDialog();
 
-    /** Returns a command string for the curve */
-    QString getCommand();
+	/** Returns a command string for the curve */
+	QString getCommand();
 
-    /** Sets the curve parameters and points from a list of parameters */
-    void setParams(QStringList &params);
+	/** Sets the curve parameters and points from a list of parameters */
+	void setParams(QStringList &params);
 
-};
+    };
+}
 
 #endif /* _AMPLIFY_FREE_DIALOG_H_ */
+
+//***************************************************************************
+//***************************************************************************

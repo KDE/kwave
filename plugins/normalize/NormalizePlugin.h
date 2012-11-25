@@ -30,35 +30,36 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 
-//***************************************************************************
-/**
- * @class NormalizePlugin
- * This is a two-pass plugin that determines the average volume level
- * of a signal and then calls the volume plugin to adjust the volume.
- */
-class NormalizePlugin: public Kwave::Plugin
+namespace Kwave
 {
-    Q_OBJECT
-
-public:
-
-    /** Constructor */
-    NormalizePlugin(const Kwave::PluginContext &c);
-
-    /** Destructor */
-    virtual ~NormalizePlugin();
-
-    /** normalizes the volume */
-    virtual void run(QStringList);
-
-private:
-
     /**
-     * get the maximum power level of the input
+     * This is a two-pass plugin that determines the average volume level
+     * of a signal and then calls the volume plugin to adjust the volume.
      */
-    double getMaxPower(Kwave::MultiTrackReader &source);
+    class NormalizePlugin: public Kwave::Plugin
+    {
+	Q_OBJECT
 
-};
+    public:
+
+	/** Constructor */
+	NormalizePlugin(const Kwave::PluginContext &c);
+
+	/** Destructor */
+	virtual ~NormalizePlugin();
+
+	/** normalizes the volume */
+	virtual void run(QStringList);
+
+    private:
+
+	/**
+	 * get the maximum power level of the input
+	 */
+	double getMaxPower(Kwave::MultiTrackReader &source);
+
+    };
+}
 
 #endif /* _NORMALIZE_PLUGIN_H_ */
 

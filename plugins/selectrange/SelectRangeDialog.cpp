@@ -27,7 +27,7 @@
 #include "SelectRangeDialog.h"
 
 //***************************************************************************
-SelectRangeDialog::SelectRangeDialog(QWidget *widget,
+Kwave::SelectRangeDialog::SelectRangeDialog(QWidget *widget,
     Mode start_mode, Mode range_mode, unsigned int range, double sample_rate,
     sample_index_t offset, sample_index_t signal_length)
     :QDialog(widget), Ui::SelectRangeDlg()
@@ -53,12 +53,12 @@ SelectRangeDialog::SelectRangeDialog(QWidget *widget,
 }
 
 //***************************************************************************
-SelectRangeDialog::~SelectRangeDialog()
+Kwave::SelectRangeDialog::~SelectRangeDialog()
 {
 }
 
 //***************************************************************************
-void SelectRangeDialog::setMode(Kwave::SelectTimeWidget::Mode new_mode)
+void Kwave::SelectRangeDialog::setMode(Kwave::SelectTimeWidget::Mode new_mode)
 {
     if (select_range) select_range->setMode(new_mode);
 }

@@ -27,63 +27,69 @@
 #include "ui_SonagramDlg.h"
 
 class QStringList;
-namespace Kwave { class Plugin; }
 
-//*****************************************************************************
-class SonagramDialog : public QDialog,
-                       public Ui::SonagramDlg
+namespace Kwave
 {
-    Q_OBJECT
 
-public:
-    /** Constructor */
-    SonagramDialog(Kwave::Plugin &p);
+    class Plugin;
 
-    /** Destructor */
-    virtual ~SonagramDialog();
+    class SonagramDialog : public QDialog,
+                           public Ui::SonagramDlg
+    {
+	Q_OBJECT
 
-    /**
-     * Fills the current parameters into a parameter list.
-     * The list always is cleared before it gets filled.
-     * The first parameter will contain the number of fft points [1...n]
-     * The second parameter will contain the id of a window function
-     * or zero if no window function was selected ("<none>").
-     */
-    void parameters(QStringList &list);
+    public:
+	/** Constructor */
+	SonagramDialog(Kwave::Plugin &p);
 
-public slots:
-    /** sets the number of fft points */
-    void setPoints(int points);
+	/** Destructor */
+	virtual ~SonagramDialog();
 
-    /** selects a window function */
-    void setWindowFunction(Kwave::window_function_t type);
+	/**
+	 * Fills the current parameters into a parameter list.
+	 * The list always is cleared before it gets filled.
+	 * The first parameter will contain the number of fft points [1...n]
+	 * The second parameter will contain the id of a window function
+	 * or zero if no window function was selected ("<none>").
+	 */
+	void parameters(QStringList &list);
 
-    /**
-     * sets the color mode. Currently only black/white (0) and
-     * rainbow color (1) are supported.
-     */
-    void setColorMode(int color);
+    public slots:
 
-    /** enables/disables the "track changes" mode */
-    void setTrackChanges(bool track_changes);
+	/** sets the number of fft points */
+	void setPoints(int points);
 
-    /** enables/disables the "follow selection mode */
-    void setFollowSelection(bool follow_selection);
+	/** selects a window function */
+	void setWindowFunction(Kwave::window_function_t type);
 
-    void setBoxPoints(int num);
+	/**
+	 * sets the color mode. Currently only black/white (0) and
+	 * rainbow color (1) are supported.
+	 */
+	void setColorMode(int color);
 
-    /** invoke the online help */
-    void invokeHelp();
+	/** enables/disables the "track changes" mode */
+	void setTrackChanges(bool track_changes);
 
-private:
+	/** enables/disables the "follow selection mode */
+	void setFollowSelection(bool follow_selection);
 
-    /** length of the selection */
-    sample_index_t m_length;
+	void setBoxPoints(int num);
 
-    /** sample rate of the signal */
-    double m_rate;
-};
+	/** invoke the online help */
+	void invokeHelp();
+
+    private:
+
+	/** length of the selection */
+	sample_index_t m_length;
+
+	/** sample rate of the signal */
+	double m_rate;
+    };
+}
 
 #endif /* _SONAGRAM_DIALOG_H_ */
 
-/* end of SonagramDialog.h */
+//***************************************************************************
+//***************************************************************************

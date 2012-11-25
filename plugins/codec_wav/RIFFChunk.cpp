@@ -23,9 +23,9 @@
 #include "RIFFChunk.h"
 
 //***************************************************************************
-RIFFChunk::RIFFChunk(RIFFChunk *parent, const QByteArray &name,
-                     const QByteArray &format, u_int32_t length,
-                     u_int32_t phys_offset,  u_int32_t phys_length)
+Kwave::RIFFChunk::RIFFChunk(RIFFChunk *parent, const QByteArray &name,
+                            const QByteArray &format, u_int32_t length,
+                            u_int32_t phys_offset, u_int32_t phys_length)
     :m_type(Sub), m_name(name), m_format(format), m_parent(parent),
      m_chunk_length(length), m_phys_offset(phys_offset),
      m_phys_length(phys_length), m_sub_chunks()
@@ -33,10 +33,10 @@ RIFFChunk::RIFFChunk(RIFFChunk *parent, const QByteArray &name,
 }
 
 //***************************************************************************
-RIFFChunk::~RIFFChunk()
+Kwave::RIFFChunk::~RIFFChunk()
 {
     while (!m_sub_chunks.isEmpty()) {
-        RIFFChunk *chunk = m_sub_chunks.takeLast();
+        Kwave::RIFFChunk *chunk = m_sub_chunks.takeLast();
         if (chunk) delete chunk;
     }
 }
@@ -44,7 +44,7 @@ RIFFChunk::~RIFFChunk()
 //***************************************************************************
 // #define CHECK(x) Q_ASSERT(!(x)); if (x) return false;
 #define CHECK(x) if (x) return false;
-bool RIFFChunk::isSane()
+bool Kwave::RIFFChunk::isSane()
 {
     CHECK(m_type == Empty);
     CHECK(m_type == Garbage);
@@ -66,13 +66,13 @@ bool RIFFChunk::isSane()
 	return false;
     }
 
-    foreach (RIFFChunk *chunk, subChunks())
+    foreach (Kwave::RIFFChunk *chunk, subChunks())
         if (chunk && !chunk->isSane()) return false;
     return true;
 }
 
 //***************************************************************************
-u_int32_t RIFFChunk::physEnd()
+u_int32_t Kwave::RIFFChunk::physEnd()
 {
     u_int32_t end = m_phys_offset + m_phys_length;
     if (m_phys_length) --end;
@@ -81,7 +81,7 @@ u_int32_t RIFFChunk::physEnd()
 }
 
 //***************************************************************************
-const QByteArray RIFFChunk::path()
+const QByteArray Kwave::RIFFChunk::path()
 {
     QByteArray p = "";
 
@@ -90,10 +90,10 @@ const QByteArray RIFFChunk::path()
     if (m_type == Main) p += ":" + m_format;
 
     if (m_parent) {
-	QListIterator<RIFFChunk *> it(m_parent->subChunks());
+	QListIterator<Kwave::RIFFChunk *> it(m_parent->subChunks());
 	unsigned int before = 0;
 	unsigned int after  = 0;
-	RIFFChunk *chunk = 0;
+	Kwave::RIFFChunk *chunk = 0;
 	while (it.hasNext()) {
             chunk = it.next();
             if (!chunk) continue;
@@ -123,26 +123,26 @@ const QByteArray RIFFChunk::path()
 }
 
 //***************************************************************************
-u_int32_t RIFFChunk::dataStart()
+u_int32_t Kwave::RIFFChunk::dataStart()
 {
     return m_phys_offset + ((m_type == Main) ? 12 : 8);
 }
 
 //***************************************************************************
-u_int32_t RIFFChunk::dataLength()
+u_int32_t Kwave::RIFFChunk::dataLength()
 {
     return m_chunk_length - ((m_type == Main) ? 4 : 0);
 }
 
 //***************************************************************************
-void RIFFChunk::setLength(u_int32_t length)
+void Kwave::RIFFChunk::setLength(u_int32_t length)
 {
     m_chunk_length = length;
     m_phys_length  = length;
 }
 
 //***************************************************************************
-bool RIFFChunk::isChildOf(RIFFChunk *chunk)
+bool Kwave::RIFFChunk::isChildOf(Kwave::RIFFChunk *chunk)
 {
     if (!chunk) return (m_type == Root); // only root has null as parent
     if (chunk == m_parent) return true;
@@ -151,10 +151,10 @@ bool RIFFChunk::isChildOf(RIFFChunk *chunk)
 }
 
 //***************************************************************************
-void RIFFChunk::fixSize()
+void Kwave::RIFFChunk::fixSize()
 {
     // pass one: fix sizes of sub chunks recursively
-    foreach (RIFFChunk *chunk, subChunks())
+    foreach (Kwave::RIFFChunk *chunk, subChunks())
         if (chunk) chunk->fixSize();
 
     // pass two: sum up sub-chunks if type is main or root.
@@ -163,7 +163,7 @@ void RIFFChunk::fixSize()
 	m_phys_length = 0;
 	if (m_type == Main) m_phys_length += 4;
 
-        foreach (RIFFChunk *chunk, subChunks()) {
+        foreach (Kwave::RIFFChunk *chunk, subChunks()) {
             if (!chunk) continue;
 	    u_int32_t len = chunk->physEnd() -
 	                    chunk->physStart() + 1;
@@ -197,7 +197,7 @@ void RIFFChunk::fixSize()
 }
 
 //***************************************************************************
-void RIFFChunk::dumpStructure()
+void Kwave::RIFFChunk::dumpStructure()
 {
     // translate the type into a user-readable string
     QString t = "?";
@@ -216,7 +216,7 @@ void RIFFChunk::dumpStructure()
     );
 
     // recursively dump all sub-chunks
-    foreach (RIFFChunk *chunk, m_sub_chunks)
+    foreach (Kwave::RIFFChunk *chunk, m_sub_chunks)
         if (chunk) chunk->dumpStructure();
 
 }

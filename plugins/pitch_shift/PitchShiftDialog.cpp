@@ -29,7 +29,7 @@
 #include "PitchShiftDialog.h"
 
 //***************************************************************************
-PitchShiftDialog::PitchShiftDialog(QWidget *parent)
+Kwave::PitchShiftDialog::PitchShiftDialog(QWidget *parent)
     :QDialog(parent), Ui::PitchShiftDlg(), Kwave::PluginSetupDialog(),
      m_speed(1.0), m_frequency(5.0), m_mode(MODE_FACTOR),
      m_enable_updates(true)
@@ -74,14 +74,14 @@ PitchShiftDialog::PitchShiftDialog(QWidget *parent)
 }
 
 //***************************************************************************
-PitchShiftDialog::~PitchShiftDialog()
+Kwave::PitchShiftDialog::~PitchShiftDialog()
 {
     // better stop pre-listen now
     listenToggled(false);
 }
 
 //***************************************************************************
-void PitchShiftDialog::setMode(Mode mode)
+void Kwave::PitchShiftDialog::setMode(Mode mode)
 {
     double speed = m_speed;
     m_mode = mode;
@@ -124,7 +124,7 @@ void PitchShiftDialog::setMode(Mode mode)
 }
 
 //***************************************************************************
-void PitchShiftDialog::modeChanged(bool)
+void Kwave::PitchShiftDialog::modeChanged(bool)
 {
     bool old_enable_updates = m_enable_updates;
     m_enable_updates = false;
@@ -136,7 +136,7 @@ void PitchShiftDialog::modeChanged(bool)
 }
 
 //***************************************************************************
-void PitchShiftDialog::updateSpeed(double speed)
+void Kwave::PitchShiftDialog::updateSpeed(double speed)
 {
     int new_spinbox_value = 0;
     int new_slider_value  = 0;
@@ -195,7 +195,7 @@ void PitchShiftDialog::updateSpeed(double speed)
 }
 
 //***************************************************************************
-void PitchShiftDialog::sliderChanged(int pos)
+void Kwave::PitchShiftDialog::sliderChanged(int pos)
 {
     if (!m_enable_updates) return;
 
@@ -226,7 +226,7 @@ void PitchShiftDialog::sliderChanged(int pos)
 }
 
 //***************************************************************************
-void PitchShiftDialog::spinboxChanged(int pos)
+void Kwave::PitchShiftDialog::spinboxChanged(int pos)
 {
     if (!m_enable_updates) return;
 
@@ -262,7 +262,7 @@ void PitchShiftDialog::spinboxChanged(int pos)
 }
 
 //***************************************************************************
-void PitchShiftDialog::frequencyChanged(int pos)
+void Kwave::PitchShiftDialog::frequencyChanged(int pos)
 {
     // emit changes
     if (m_frequency != pos) {
@@ -272,7 +272,7 @@ void PitchShiftDialog::frequencyChanged(int pos)
 }
 
 //***************************************************************************
-QStringList PitchShiftDialog::params()
+QStringList Kwave::PitchShiftDialog::params()
 {
     QStringList list;
     list << QString::number(m_speed);
@@ -282,7 +282,7 @@ QStringList PitchShiftDialog::params()
 }
 
 //***************************************************************************
-void PitchShiftDialog::setParams(QStringList &params)
+void Kwave::PitchShiftDialog::setParams(QStringList &params)
 {
     // evaluate the parameter list
     double speed = params[0].toDouble();
@@ -303,7 +303,7 @@ void PitchShiftDialog::setParams(QStringList &params)
 }
 
 //***************************************************************************
-void PitchShiftDialog::listenToggled(bool listen)
+void Kwave::PitchShiftDialog::listenToggled(bool listen)
 {
     Q_ASSERT(btListen);
     if (!btListen) return;
@@ -320,7 +320,7 @@ void PitchShiftDialog::listenToggled(bool listen)
 }
 
 //***************************************************************************
-void PitchShiftDialog::listenStopped()
+void Kwave::PitchShiftDialog::listenStopped()
 {
     Q_ASSERT(btListen);
     if (!btListen) return;

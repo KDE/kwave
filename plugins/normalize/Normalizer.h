@@ -29,7 +29,8 @@
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleSource.h"
 
-namespace Kwave {
+namespace Kwave
+{
     class Normalizer: public Kwave::SampleSource
     {
 	Q_OBJECT
@@ -79,3 +80,6 @@ namespace Kwave {
 }
 
 #endif /* _NORMALIZER_H_ */
+
+//***************************************************************************
+//***************************************************************************

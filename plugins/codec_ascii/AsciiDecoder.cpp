@@ -31,26 +31,26 @@
 #include "AsciiDecoder.h"
 
 //***************************************************************************
-AsciiDecoder::AsciiDecoder()
+Kwave::AsciiDecoder::AsciiDecoder()
     :Kwave::Decoder(), m_source(0), m_dest(0)
 {
     LOAD_MIME_TYPES;
 }
 
 //***************************************************************************
-AsciiDecoder::~AsciiDecoder()
+Kwave::AsciiDecoder::~AsciiDecoder()
 {
     if (m_source) close();
 }
 
 //***************************************************************************
-Kwave::Decoder *AsciiDecoder::instance()
+Kwave::Decoder *Kwave::AsciiDecoder::instance()
 {
-    return new AsciiDecoder();
+    return new Kwave::AsciiDecoder();
 }
 
 //***************************************************************************
-bool AsciiDecoder::open(QWidget *widget, QIODevice &src)
+bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
 {
     metaData().clear();
     Q_ASSERT(!m_source);
@@ -98,7 +98,8 @@ bool AsciiDecoder::open(QWidget *widget, QIODevice &src)
 }
 
 //***************************************************************************
-bool AsciiDecoder::decode(QWidget * /* widget */, Kwave::MultiWriter &dst)
+bool Kwave::AsciiDecoder::decode(QWidget * /* widget */,
+                                 Kwave::MultiWriter &dst)
 {
     Q_ASSERT(m_source);
     if (!m_source) return false;
@@ -126,7 +127,7 @@ bool AsciiDecoder::decode(QWidget * /* widget */, Kwave::MultiWriter &dst)
 }
 
 //***************************************************************************
-void AsciiDecoder::close()
+void Kwave::AsciiDecoder::close()
 {
     m_source = 0;
 }

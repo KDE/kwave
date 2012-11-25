@@ -25,37 +25,37 @@ namespace Kwave
 {
     class Decoder;
     class Encoder;
+
+    class AsciiCodecPlugin: public Kwave::Plugin
+    {
+	Q_OBJECT
+    public:
+
+	/** Constructor */
+	AsciiCodecPlugin(const Kwave::PluginContext &c);
+
+	/** Destructor */
+	virtual ~AsciiCodecPlugin();
+
+	/**
+	 * This plugin needs to be unique!
+	 * @see Kwave::Plugin::isUnique()
+	 */
+	virtual bool isUnique() { return true; };
+
+	/**
+	 * Gets called when the plugin is first loaded.
+	 */
+	virtual void load(QStringList &/* params */);
+
+    private:
+	/** decoder used as factory */
+	Kwave::Decoder *m_decoder;
+
+	/** encoder used as factory */
+	Kwave::Encoder *m_encoder;
+    };
 }
-
-class AsciiCodecPlugin: public Kwave::Plugin
-{
-    Q_OBJECT
-public:
-
-    /** Constructor */
-    AsciiCodecPlugin(const Kwave::PluginContext &c);
-
-    /** Destructor */
-    virtual ~AsciiCodecPlugin();
-
-    /**
-     * This plugin needs to be unique!
-     * @see Kwave::Plugin::isUnique()
-     */
-    virtual bool isUnique() { return true; };
-
-    /**
-     * Gets called when the plugin is first loaded.
-     */
-    virtual void load(QStringList &/* params */);
-
-private:
-    /** decoder used as factory */
-    Kwave::Decoder *m_decoder;
-
-    /** encoder used as factory */
-    Kwave::Encoder *m_encoder;
-};
 
 #define LOAD_MIME_TYPES { \
     addMimeType("audio/x-audio-ascii", \
@@ -66,3 +66,6 @@ private:
 #define META_PREFIX "## "
 
 #endif /* _ASCII_CODEC_PLUGIN_H_ */
+
+//***************************************************************************
+//***************************************************************************

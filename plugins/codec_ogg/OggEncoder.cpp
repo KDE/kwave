@@ -70,7 +70,7 @@ static const struct {
 };
 
 /***************************************************************************/
-OggEncoder::OggEncoder()
+Kwave::OggEncoder::OggEncoder()
     :Kwave::Encoder()
 {
     REGISTER_MIME_TYPES;
@@ -78,18 +78,18 @@ OggEncoder::OggEncoder()
 }
 
 /***************************************************************************/
-OggEncoder::~OggEncoder()
+Kwave::OggEncoder::~OggEncoder()
 {
 }
 
 /***************************************************************************/
-Kwave::Encoder *OggEncoder::instance()
+Kwave::Encoder *Kwave::OggEncoder::instance()
 {
-    return new OggEncoder();
+    return new Kwave::OggEncoder();
 }
 
 /***************************************************************************/
-QList<Kwave::FileProperty> OggEncoder::supportedProperties()
+QList<Kwave::FileProperty> Kwave::OggEncoder::supportedProperties()
 {
     QList<Kwave::FileProperty> list;
 
@@ -103,8 +103,8 @@ QList<Kwave::FileProperty> OggEncoder::supportedProperties()
 }
 
 /***************************************************************************/
-void OggEncoder::encodeProperties(const Kwave::FileInfo &info,
-                                  vorbis_comment *vc)
+void Kwave::OggEncoder::encodeProperties(const Kwave::FileInfo &info,
+                                         vorbis_comment *vc)
 {
     for (unsigned int i=0; i < sizeof(supported_properties) /
                                sizeof(supported_properties[0]); ++i)
@@ -124,8 +124,9 @@ void OggEncoder::encodeProperties(const Kwave::FileInfo &info,
 }
 
 /***************************************************************************/
-bool OggEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
-                        QIODevice &dst, const Kwave::MetaDataList &meta_data)
+bool Kwave::OggEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
+                               QIODevice &dst,
+                               const Kwave::MetaDataList &meta_data)
 {
     #define BUFFER_SIZE 1024
 

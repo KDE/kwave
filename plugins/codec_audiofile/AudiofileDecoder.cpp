@@ -39,7 +39,7 @@ extern "C" {
 #define CHECK(cond) Q_ASSERT(cond); if (!(cond)) { src.close(); return false; }
 
 //***************************************************************************
-AudiofileDecoder::AudiofileDecoder()
+Kwave::AudiofileDecoder::AudiofileDecoder()
     :Kwave::Decoder(), m_source(0), m_src_adapter(0)
 {
     /* defined in RFC 1521 */
@@ -60,20 +60,20 @@ AudiofileDecoder::AudiofileDecoder()
 }
 
 //***************************************************************************
-AudiofileDecoder::~AudiofileDecoder()
+Kwave::AudiofileDecoder::~AudiofileDecoder()
 {
     if (m_source) close();
     if (m_src_adapter) delete m_src_adapter;
 }
 
 //***************************************************************************
-Kwave::Decoder *AudiofileDecoder::instance()
+Kwave::Decoder *Kwave::AudiofileDecoder::instance()
 {
-    return new AudiofileDecoder();
+    return new Kwave::AudiofileDecoder();
 }
 
 //***************************************************************************
-bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
+bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 {
     metaData().clear();
     Q_ASSERT(!m_source);
@@ -201,7 +201,8 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 }
 
 //***************************************************************************
-bool AudiofileDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
+bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
+                                     Kwave::MultiWriter &dst)
 {
     Q_ASSERT(m_src_adapter);
     Q_ASSERT(m_source);
@@ -264,7 +265,7 @@ bool AudiofileDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
 }
 
 //***************************************************************************
-void AudiofileDecoder::close()
+void Kwave::AudiofileDecoder::close()
 {
     if (m_src_adapter) delete m_src_adapter;
     m_src_adapter = 0;

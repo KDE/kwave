@@ -26,7 +26,7 @@
 #include "BandPass.h"
 
 //***************************************************************************
-BandPass::BandPass()
+Kwave::BandPass::BandPass()
     :Kwave::SampleSource(0), m_buffer(blockSize()),
     m_frequency(0.5), m_bandwidth(0.1)
 {
@@ -35,18 +35,18 @@ BandPass::BandPass()
 }
 
 //***************************************************************************
-BandPass::~BandPass()
+Kwave::BandPass::~BandPass()
 {
 }
 
 //***************************************************************************
-void BandPass::goOn()
+void Kwave::BandPass::goOn()
 {
     emit output(m_buffer);
 }
 
 //***************************************************************************
-double BandPass::at(double f)
+double Kwave::BandPass::at(double f)
 {
     /*
      * filter function as extracted from the aRts code:
@@ -83,7 +83,7 @@ double BandPass::at(double f)
 }
 
 //***************************************************************************
-void BandPass::initFilter()
+void Kwave::BandPass::initFilter()
 {
     m_filter.x1 = 0.0;
     m_filter.x2 = 0.0;
@@ -97,7 +97,7 @@ void BandPass::initFilter()
  * As in ''An introduction to digital filter theory'' by Julius O. Smith
  * and in Moore's book; I use the normalized version in Moore's book.
  */
-void BandPass::setfilter_2polebp(double freq, double R)
+void Kwave::BandPass::setfilter_2polebp(double freq, double R)
 {
     m_filter.cx  = 1.0 - R;
     m_filter.cx1 = 0.0;
@@ -107,7 +107,7 @@ void BandPass::setfilter_2polebp(double freq, double R)
 }
 
 //***************************************************************************
-void BandPass::input(Kwave::SampleArray data)
+void Kwave::BandPass::input(Kwave::SampleArray data)
 {
     setfilter_2polebp(m_frequency, m_bandwidth);
 
@@ -132,7 +132,7 @@ void BandPass::input(Kwave::SampleArray data)
 }
 
 //***************************************************************************
-void BandPass::setFrequency(const QVariant fc)
+void Kwave::BandPass::setFrequency(const QVariant fc)
 {
     double new_freq = QVariant(fc).toDouble();
     if (new_freq == m_frequency) return; // nothing to do
@@ -143,7 +143,7 @@ void BandPass::setFrequency(const QVariant fc)
 }
 
 //***************************************************************************
-void BandPass::setBandwidth(const QVariant bw)
+void Kwave::BandPass::setBandwidth(const QVariant bw)
 {
     double new_bw = QVariant(bw).toDouble();
     if (new_bw == m_bandwidth) return; // nothing to do

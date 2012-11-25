@@ -32,70 +32,76 @@
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleSource.h"
 
-class PitchShiftFilter: public Kwave::SampleSource
+namespace Kwave
 {
-    Q_OBJECT
-public:
 
-    /** Constructor */
-    PitchShiftFilter();
+    class PitchShiftFilter: public Kwave::SampleSource
+    {
+	Q_OBJECT
+    public:
 
-    /** Destructor */
-    virtual ~PitchShiftFilter();
+	/** Constructor */
+	PitchShiftFilter();
 
-    /** does the calculation */
-    virtual void goOn();
+	/** Destructor */
+	virtual ~PitchShiftFilter();
 
-signals:
+	/** does the calculation */
+	virtual void goOn();
 
-    /** emits a block with the filtered data */
-    void output(Kwave::SampleArray data);
+    signals:
 
-public slots:
+	/** emits a block with the filtered data */
+	void output(Kwave::SampleArray data);
 
-    /** receives input data */
-    void input(Kwave::SampleArray data);
+    public slots:
 
-    /**
-     * Sets the speed factor
-     * @param speed factor as a double
-     */
-    void setSpeed(const QVariant speed);
+	/** receives input data */
+	void input(Kwave::SampleArray data);
 
-    /**
-     * Sets the frequency parameter
-     * @param freq the normed frequency
-     */
-    void setFrequency(const QVariant freq);
+	/**
+	 * Sets the speed factor
+	 * @param speed factor as a double
+	 */
+	void setSpeed(const QVariant speed);
 
-private:
+	/**
+	 * Sets the frequency parameter
+	 * @param freq the normed frequency
+	 */
+	void setFrequency(const QVariant freq);
 
-    /** reset/initialize the filter and buffer */
-    void initFilter();
+    private:
 
-private:
+	/** reset/initialize the filter and buffer */
+	void initFilter();
 
-    /** buffer for input */
-    Kwave::SampleArray m_buffer;
+    private:
 
-    /** speed factor */
-    double m_speed;
+	/** buffer for input */
+	Kwave::SampleArray m_buffer;
 
-    /** base frequency */
-    double m_frequency;
+	/** speed factor */
+	double m_speed;
 
-    enum { MAXDELAY = 1000000 };
+	/** base frequency */
+	double m_frequency;
 
-    QVector<float> m_dbuffer;
-    float m_lfopos;
-    float m_b1pos;
-    float m_b2pos;
-    float m_b1inc;
-    float m_b2inc;
-    bool m_b1reset;
-    bool m_b2reset;
-    int m_dbpos;
-};
+	enum { MAXDELAY = 1000000 };
 
+	QVector<float> m_dbuffer;
+	float m_lfopos;
+	float m_b1pos;
+	float m_b2pos;
+	float m_b1inc;
+	float m_b2inc;
+	bool m_b1reset;
+	bool m_b2reset;
+	int m_dbpos;
+    };
+}
 
 #endif /* _PITCH_SHIFT_FILTER_H_ */
+
+//***************************************************************************
+//***************************************************************************

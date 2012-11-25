@@ -21,21 +21,28 @@
 #include "libkwave/TypesMap.h"
 #include "RecordParams.h"
 
-class RecordTypesMap: public Kwave::TypesMap<unsigned int, record_method_t>
+namespace Kwave
 {
-public:
-    /** Constructor */
-    explicit RecordTypesMap()
-	:Kwave::TypesMap<unsigned int, record_method_t>()
+    class RecordTypesMap
+	:public Kwave::TypesMap<unsigned int, Kwave::record_method_t>
     {
-	fill();
-    }
+    public:
+	/** Constructor */
+	explicit RecordTypesMap()
+	    :Kwave::TypesMap<unsigned int, Kwave::record_method_t>()
+	{
+	    fill();
+	}
 
-    /** Destructor */
-    virtual ~RecordTypesMap() {};
+	/** Destructor */
+	virtual ~RecordTypesMap() {};
 
-    /** fill function for the map */
-    virtual void fill();
-};
+	/** fill function for the map */
+	virtual void fill();
+    };
+}
 
 #endif /* _RECORD_TYPES_MAP_H_ */
+
+//***************************************************************************
+//***************************************************************************

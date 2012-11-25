@@ -26,23 +26,23 @@
 #include "NotchFilterPlugin.h"
 #include "NotchFilterDialog.h"
 
-KWAVE_PLUGIN(NotchFilterPlugin, "notch_filter", "2.1",
+KWAVE_PLUGIN(Kwave::NotchFilterPlugin, "notch_filter", "2.1",
              I18N_NOOP("Notch Filter"), "Dave Flogeras");
 
 //***************************************************************************
-NotchFilterPlugin::NotchFilterPlugin(const Kwave::PluginContext &context)
+Kwave::NotchFilterPlugin::NotchFilterPlugin(const Kwave::PluginContext &context)
     :Kwave::FilterPlugin(context),
      m_frequency(3500.0), m_last_freq(100), m_bw(100), m_last_bw(200)
 {
 }
 
 //***************************************************************************
-NotchFilterPlugin::~NotchFilterPlugin()
+Kwave::NotchFilterPlugin::~NotchFilterPlugin()
 {
 }
 
 //***************************************************************************
-int NotchFilterPlugin::interpreteParameters(QStringList &params)
+int Kwave::NotchFilterPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;
     QString param;
@@ -64,9 +64,10 @@ int NotchFilterPlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-Kwave::PluginSetupDialog *NotchFilterPlugin::createDialog(QWidget *parent)
+Kwave::PluginSetupDialog *Kwave::NotchFilterPlugin::createDialog(QWidget *parent)
 {
-    NotchFilterDialog *dialog = new NotchFilterDialog(parent, signalRate());
+    Kwave::NotchFilterDialog *dialog =
+	new Kwave::NotchFilterDialog(parent, signalRate());
     Q_ASSERT(dialog);
     if (!dialog) return 0;
 
@@ -79,20 +80,20 @@ Kwave::PluginSetupDialog *NotchFilterPlugin::createDialog(QWidget *parent)
 }
 
 //***************************************************************************
-Kwave::SampleSource *NotchFilterPlugin::createFilter(unsigned int tracks)
+Kwave::SampleSource *Kwave::NotchFilterPlugin::createFilter(unsigned int tracks)
 {
-    return new Kwave::MultiTrackSource<NotchFilter, true>(tracks);
+    return new Kwave::MultiTrackSource<Kwave::NotchFilter, true>(tracks);
 }
 
 //***************************************************************************
-bool NotchFilterPlugin::paramsChanged()
+bool Kwave::NotchFilterPlugin::paramsChanged()
 {
     return (m_frequency != m_last_freq) || (m_bw != m_last_bw);
 }
 
 //***************************************************************************
-void NotchFilterPlugin::updateFilter(Kwave::SampleSource *filter,
-                                     bool force)
+void Kwave::NotchFilterPlugin::updateFilter(Kwave::SampleSource *filter,
+                                            bool force)
 {
     double sr = signalRate();
 
@@ -111,19 +112,19 @@ void NotchFilterPlugin::updateFilter(Kwave::SampleSource *filter,
 }
 
 //***************************************************************************
-QString NotchFilterPlugin::actionName()
+QString Kwave::NotchFilterPlugin::actionName()
 {
     return i18n("Notch Filter");
 }
 
 //***************************************************************************
-void NotchFilterPlugin::setFreqValue(double frequency)
+void Kwave::NotchFilterPlugin::setFreqValue(double frequency)
 {
     m_frequency = frequency;
 }
 
 //***************************************************************************
-void NotchFilterPlugin::setBwValue(double bw)
+void Kwave::NotchFilterPlugin::setBwValue(double bw)
 {
     m_bw = bw;
 }

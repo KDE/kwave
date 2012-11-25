@@ -20,59 +20,66 @@
 
 #include <QString>
 
-/**
- * enum for the known playback methods
- * (sorted, preferred first)
- */
-typedef enum {
-    PLAYBACK_NONE = 0,   /**< none selected */
-    PLAYBACK_JACK,       /**< Jack sound daemon */
-    PLAYBACK_ALSA,       /**< ALSA native */
-    PLAYBACK_PULSEAUDIO, /**< PulseAudio Sound Server */
-    PLAYBACK_OSS,        /**< OSS native or ALSA OSS emulation */
-    PLAYBACK_PHONON,     /**< Phonon (KDE) */
-    PLAYBACK_INVALID     /**< (keep this the last entry, EOL delimiter) */
-} playback_method_t;
+namespace Kwave
+{
 
-/** post-increment operator for the playback method */
-inline playback_method_t &operator ++(playback_method_t &m) {
-    return (m = (m < PLAYBACK_INVALID) ?
-                static_cast<playback_method_t>(static_cast<int>(m) + 1) : m);
+    /**
+     * enum for the known playback methods
+     * (sorted, preferred first)
+     */
+    typedef enum {
+	PLAYBACK_NONE = 0,   /**< none selected */
+	PLAYBACK_JACK,       /**< Jack sound daemon */
+	PLAYBACK_ALSA,       /**< ALSA native */
+	PLAYBACK_PULSEAUDIO, /**< PulseAudio Sound Server */
+	PLAYBACK_OSS,        /**< OSS native or ALSA OSS emulation */
+	PLAYBACK_PHONON,     /**< Phonon (KDE) */
+	PLAYBACK_INVALID     /**< (keep this the last entry, EOL delimiter) */
+    } playback_method_t;
+
+    /** post-increment operator for the playback method */
+    inline Kwave::playback_method_t &operator ++(Kwave::playback_method_t &m) {
+	return (m = (m < Kwave::PLAYBACK_INVALID) ?
+	    static_cast<Kwave::playback_method_t>(static_cast<int>(m) + 1) : m);
+    }
+
+    /**
+     * A class that contains all necessary parameters for
+     * setting up (initializing) a playback device.
+     */
+    class PlayBackParam
+    {
+    public:
+	/** Default constructor */
+	PlayBackParam()
+	    :rate(44100), channels(2), bits_per_sample(16),
+	    device(""), bufbase(10),
+	    method(Kwave::PLAYBACK_NONE)
+	{
+	}
+
+	/** Sample rate [samples/second] */
+	double rate;
+
+	/** Number of channels. */
+	unsigned int channels;
+
+	/** Resolution [bits/sample] */
+	unsigned int bits_per_sample;
+
+	/** Path to the output device */
+	QString device;
+
+	/** base of the buffer size (buffer size will be 2^bufbase) */
+	unsigned int bufbase;
+
+	/** method/class to use for playback */
+	Kwave::playback_method_t method;
+
+    };
 }
 
-/**
- * A class that contains all necessary parameters for
- * setting up (initializing) a playback device.
- */
-class PlayBackParam
-{
-public:
-    /** Default constructor */
-    PlayBackParam()
-        :rate(44100), channels(2), bits_per_sample(16),
-        device(""), bufbase(10),
-        method(PLAYBACK_NONE)
-    {
-    };
-
-    /** Sample rate [samples/second] */
-    double rate;
-
-    /** Number of channels. */
-    unsigned int channels;
-
-    /** Resolution [bits/sample] */
-    unsigned int bits_per_sample;
-
-    /** Path to the output device */
-    QString device;
-
-    /** base of the buffer size (buffer size will be 2^bufbase) */
-    unsigned int bufbase;
-
-    /** method/class to use for playback */
-    playback_method_t method;
-
-};
-
 #endif /* _PLAY_BACK_PARAM_H_ */
+
+//***************************************************************************
+//***************************************************************************

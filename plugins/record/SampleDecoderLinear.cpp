@@ -113,14 +113,14 @@ if (sample_format != Kwave::SampleFormat::Unsigned) {  \
 }
 
 //***************************************************************************
-SampleDecoderLinear::SampleDecoderLinear(
+Kwave::SampleDecoderLinear::SampleDecoderLinear(
     Kwave::SampleFormat sample_format,
     unsigned int bits_per_sample,
     byte_order_t endianness
 )
-    :SampleDecoder(),
-    m_bytes_per_sample((bits_per_sample + 7) >> 3),
-    m_decoder(decode_NULL)
+    :Kwave::SampleDecoder(),
+     m_bytes_per_sample((bits_per_sample + 7) >> 3),
+     m_decoder(decode_NULL)
 {
     // sanity checks: we support only signed/unsigned and big/little endian
     Q_ASSERT((sample_format == Kwave::SampleFormat::Signed) ||
@@ -156,13 +156,13 @@ SampleDecoderLinear::SampleDecoderLinear(
 }
 
 //***************************************************************************
-SampleDecoderLinear::~SampleDecoderLinear()
+Kwave::SampleDecoderLinear::~SampleDecoderLinear()
 {
 }
 
 //***************************************************************************
-void SampleDecoderLinear::decode(QByteArray &raw_data,
-                                 Kwave::SampleArray &decoded)
+void Kwave::SampleDecoderLinear::decode(QByteArray &raw_data,
+                                        Kwave::SampleArray &decoded)
 {
     Q_ASSERT(m_decoder);
     if (!m_decoder) return;
@@ -175,7 +175,7 @@ void SampleDecoderLinear::decode(QByteArray &raw_data,
 }
 
 //***************************************************************************
-unsigned int SampleDecoderLinear::rawBytesPerSample()
+unsigned int Kwave::SampleDecoderLinear::rawBytesPerSample()
 {
     return m_bytes_per_sample;
 }

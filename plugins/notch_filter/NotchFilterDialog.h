@@ -27,94 +27,102 @@
 #include "ui_NotchFilterDlg.h"
 
 class QStringList;
-class NotchFilter;
 
-class NotchFilterDialog: public QDialog,
-                         public Kwave::PluginSetupDialog,
-                         public Ui::NotchFilterDlg
+namespace Kwave
 {
-    Q_OBJECT
-public:
 
-    /**
-     * Constructor.
-     * @param parent parent widget
-     * @param sample_rate sample rate of the audio data to be processed,
-     *                    needed for determining the allowed range of
-     *                    the cutoff frequency
-     */
-    NotchFilterDialog(QWidget *parent, double sample_rate);
+    class NotchFilter;
 
-    /** Destructor */
-    virtual ~NotchFilterDialog();
+    class NotchFilterDialog: public QDialog,
+                             public Kwave::PluginSetupDialog,
+                             public Ui::NotchFilterDlg
+    {
+	Q_OBJECT
+    public:
 
-    /** Returns the parameters as string list */
-    virtual QStringList params();
+	/**
+	 * Constructor.
+	 * @param parent parent widget
+	 * @param sample_rate sample rate of the audio data to be processed,
+	 *                    needed for determining the allowed range of
+	 *                    the cutoff frequency
+	 */
+	NotchFilterDialog(QWidget *parent, double sample_rate);
 
-    /** Sets the from a list of parameters */
-    virtual void setParams(QStringList &params);
+	/** Destructor */
+	virtual ~NotchFilterDialog();
 
-    /** retruns a pointer to this as a QDialog */
-    virtual QDialog *dialog() { return this; };
+	/** Returns the parameters as string list */
+	virtual QStringList params();
 
-signals:
+	/** Sets the from a list of parameters */
+	virtual void setParams(QStringList &params);
 
-    /**
-     * Emitted whenever the frequency changes
-     * @param freq the frequency parameter in Hz
-     */
-    void freqChanged(double freq);
+	/** retruns a pointer to this as a QDialog */
+	virtual QDialog *dialog() { return this; };
 
-    /**
-     * Emitted when the bandwidth selectio has changed
-     * @param bw the bandwidth parameter in Hz
-     */
-    void bwChanged(double bw);
+    signals:
 
-    /** Pre-listen mode has been started */
-    void startPreListen();
+	/**
+	 * Emitted whenever the frequency changes
+	 * @param freq the frequency parameter in Hz
+	 */
+	void freqChanged(double freq);
 
-    /** Pre-listen mode has been stopped */
-    void stopPreListen();
+	/**
+	 * Emitted when the bandwidth selectio has changed
+	 * @param bw the bandwidth parameter in Hz
+	 */
+	void bwChanged(double bw);
 
-protected slots:
+	/** Pre-listen mode has been started */
+	void startPreListen();
 
-    /** called when the freq spinbox or slider value has changed */
-    void freqValueChanged(int pos);
+	/** Pre-listen mode has been stopped */
+	void stopPreListen();
 
-    /** called when the bw spinbox or slider value has changed */
-    void bwValueChanged(int pos);
+    protected slots:
 
-    /**
-     * called when the "Listen" button has been toggled,
-     * to start or stop the pre-listen mode
-     */
-    void listenToggled(bool listen);
+	/** called when the freq spinbox or slider value has changed */
+	void freqValueChanged(int pos);
 
-    /**
-     * called when the pre-listen mode stopped/aborted
-     */
-    void listenStopped();
+	/** called when the bw spinbox or slider value has changed */
+	void bwValueChanged(int pos);
 
-protected:
+	/**
+	 * called when the "Listen" button has been toggled,
+	 * to start or stop the pre-listen mode
+	 */
+	void listenToggled(bool listen);
 
-    /** Update the graphic display */
-    void updateDisplay();
+	/**
+	 * called when the pre-listen mode stopped/aborted
+	 */
+	void listenStopped();
 
-private:
+    protected:
 
-    /** the cutoff frequency in Hz */
-    double m_frequency;
+	/** Update the graphic display */
+	void updateDisplay();
 
-    /** the bw in Hz */
-    double m_bw;
+    private:
 
-    /** sample rate of the signal in samples/sec */
-    double m_sample_rate;
+	/** the cutoff frequency in Hz */
+	double m_frequency;
 
-    /** filter function for calculating the frequency response */
-    NotchFilter *m_filter;
+	/** the bw in Hz */
+	double m_bw;
 
-};
+	/** sample rate of the signal in samples/sec */
+	double m_sample_rate;
+
+	/** filter function for calculating the frequency response */
+	Kwave::NotchFilter *m_filter;
+
+    };
+}
 
 #endif /* _NOTCH_FILTER_DIALOG_H_ */
+
+//***************************************************************************
+//***************************************************************************

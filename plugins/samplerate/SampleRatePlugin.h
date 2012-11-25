@@ -27,43 +27,45 @@
 #include "libkwave/SampleArray.h"
 #include "libkwave/Sample.h"
 
-//***************************************************************************
-/**
- * @class SampleRatePlugin
- * Change the sample rate of a signal
- */
-class SampleRatePlugin: public Kwave::Plugin
+namespace Kwave
 {
-    Q_OBJECT
+    /**
+     * @class SampleRatePlugin
+     * Change the sample rate of a signal
+     */
+    class SampleRatePlugin: public Kwave::Plugin
+    {
+	Q_OBJECT
 
-public:
+    public:
 
-    /** Constructor */
-    SampleRatePlugin(const Kwave::PluginContext &c);
+	/** Constructor */
+	SampleRatePlugin(const Kwave::PluginContext &c);
 
-    /** Destructor */
-    virtual ~SampleRatePlugin();
+	/** Destructor */
+	virtual ~SampleRatePlugin();
 
-    /** changes the sample rate */
-    virtual void run(QStringList);
+	/** changes the sample rate */
+	virtual void run(QStringList);
 
-protected:
+    protected:
 
-    /** reads values from the parameter list */
-    int interpreteParameters(QStringList &params);
+	/** reads values from the parameter list */
+	int interpreteParameters(QStringList &params);
 
-private:
+    private:
 
-    /** list of parameters */
-    QStringList m_params;
+	/** list of parameters */
+	QStringList m_params;
 
-    /** new sample rate */
-    double m_new_rate;
+	/** new sample rate */
+	double m_new_rate;
 
-    /** if true, ignore selection and change whole signal */
-    bool m_whole_signal;
+	/** if true, ignore selection and change whole signal */
+	bool m_whole_signal;
 
-};
+    };
+}
 
 #endif /* _SAMPLE_RATE_PLUGIN_H_ */
 

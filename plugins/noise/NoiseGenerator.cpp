@@ -22,19 +22,19 @@
 #include "NoiseGenerator.h"
 
 //***************************************************************************
-NoiseGenerator::NoiseGenerator(QObject *parent)
+Kwave::NoiseGenerator::NoiseGenerator(QObject *parent)
     :Kwave::SampleSource(parent),
-    m_noise(blockSize())
+     m_noise(blockSize())
 {
 }
 
 //***************************************************************************
-NoiseGenerator::~NoiseGenerator()
+Kwave::NoiseGenerator::~NoiseGenerator()
 {
 }
 
 //***************************************************************************
-void NoiseGenerator::goOn()
+void Kwave::NoiseGenerator::goOn()
 {
     const unsigned int size = m_noise.size();
     sample_t *p = m_noise.data();

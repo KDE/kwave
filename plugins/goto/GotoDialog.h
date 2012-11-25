@@ -26,48 +26,55 @@
 #include "libgui/SelectTimeWidget.h"
 #include "ui_GotoDlg.h"
 
-class GotoDialog: public QDialog,
-                         public Ui::GotoDlg
+namespace Kwave
 {
-    Q_OBJECT
-public:
-    /** shortcut typedef */
-    typedef Kwave::SelectTimeWidget::Mode Mode;
 
-    /**
-     * Constructor
-     * @param widget pointer to the parent widget
-     * @param mode selectionMode for the position,
-     *             byTime, bySamples, byPercents
-     * @param position position in ms, samples or percent
-     * @param sample_rate number of samples per second, needed for
-     *                    converting between samples and time
-     * @param signal_length length of the signal in samples, needed
-     *                      for converting samples to percentage
-     */
-    GotoDialog(QWidget *widget, Mode mode, sample_index_t position,
-               double sample_rate, sample_index_t signal_length);
+    class GotoDialog: public QDialog,
+                      public Ui::GotoDlg
+    {
+	Q_OBJECT
+    public:
+	/** shortcut typedef */
+	typedef Kwave::SelectTimeWidget::Mode Mode;
 
-    /** Destructor */
-    virtual ~GotoDialog();
+	/**
+	 * Constructor
+	 * @param widget pointer to the parent widget
+	 * @param mode selectionMode for the position,
+	 *             byTime, bySamples, byPercents
+	 * @param position position in ms, samples or percent
+	 * @param sample_rate number of samples per second, needed for
+	 *                    converting between samples and time
+	 * @param signal_length length of the signal in samples, needed
+	 *                      for converting samples to percentage
+	 */
+	GotoDialog(QWidget *widget, Mode mode, sample_index_t position,
+	           double sample_rate, sample_index_t signal_length);
 
-    /**
-     * Returns the current selection mode for the position
-     * (byTime, bySamples, byPercents)
-     */
-    Mode mode() {
-        return select_pos ? select_pos->mode() :
-               Kwave::SelectTimeWidget::bySamples;
-    }
+	/** Destructor */
+	virtual ~GotoDialog();
 
-    /** Set a new position mode */
-    void setMode(Kwave::SelectTimeWidget::Mode new_mode);
+	/**
+	 * Returns the current selection mode for the position
+	 * (byTime, bySamples, byPercents)
+	 */
+	Mode mode() {
+	    return select_pos ? select_pos->mode() :
+		Kwave::SelectTimeWidget::bySamples;
+	}
 
-    /**
-     * Returns the current position (byTime, bySamples, byPercents)
-     */
-    unsigned int pos() { return select_pos ? select_pos->time() : 0; }
+	/** Set a new position mode */
+	void setMode(Kwave::SelectTimeWidget::Mode new_mode);
 
-};
+	/**
+	 * Returns the current position (byTime, bySamples, byPercents)
+	 */
+	unsigned int pos() { return select_pos ? select_pos->time() : 0; }
+
+    };
+}
 
 #endif /* _GOTO_DIALOG_H_ */
+
+//***************************************************************************
+//***************************************************************************

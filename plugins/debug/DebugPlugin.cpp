@@ -23,7 +23,7 @@
 
 #include "DebugPlugin.h"
 
-KWAVE_PLUGIN(DebugPlugin, "debug", "2.1",
+KWAVE_PLUGIN(Kwave::DebugPlugin, "debug", "2.1",
              I18N_NOOP("Debug Functions"), "Thomas Eschenbacher");
 
 /** size of the internal buffer */
@@ -34,18 +34,18 @@ KWAVE_PLUGIN(DebugPlugin, "debug", "2.1",
     emitCommand(entry.arg(cmd).arg(i18n(txt)));
 
 //***************************************************************************
-DebugPlugin::DebugPlugin(const Kwave::PluginContext &context)
+Kwave::DebugPlugin::DebugPlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context), m_buffer()
 {
 }
 
 //***************************************************************************
-DebugPlugin::~DebugPlugin()
+Kwave::DebugPlugin::~DebugPlugin()
 {
 }
 
 //***************************************************************************
-void DebugPlugin::load(QStringList &params)
+void Kwave::DebugPlugin::load(QStringList &params)
 {
     Q_UNUSED(params);
 
@@ -64,7 +64,7 @@ void DebugPlugin::load(QStringList &params)
 }
 
 //***************************************************************************
-void DebugPlugin::run(QStringList params)
+void Kwave::DebugPlugin::run(QStringList params)
 {
     sample_index_t first = 0;
     sample_index_t last  = 0;

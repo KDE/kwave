@@ -27,33 +27,35 @@
 #include "libkwave/SampleArray.h"
 #include "libkwave/Sample.h"
 
-//***************************************************************************
-/**
- * @class ZeroPlugin
- * This is a very simple plugin that blanks the currently selected range of
- * samples with zeroes.
- */
-class ZeroPlugin: public Kwave::Plugin
+namespace Kwave
 {
-    Q_OBJECT
+    /**
+     * @class ZeroPlugin
+     * This is a very simple plugin that blanks the currently selected range of
+     * samples with zeroes.
+     */
+    class ZeroPlugin: public Kwave::Plugin
+    {
+	Q_OBJECT
 
-public:
+    public:
 
-    /** Constructor */
-    ZeroPlugin(const Kwave::PluginContext &c);
+	/** Constructor */
+	ZeroPlugin(const Kwave::PluginContext &c);
 
-    /** Destructor */
-    virtual ~ZeroPlugin();
+	/** Destructor */
+	virtual ~ZeroPlugin();
 
-    /** Fills the selected area with zeroes */
-    virtual void run(QStringList);
+	/** Fills the selected area with zeroes */
+	virtual void run(QStringList);
 
-private:
+    private:
 
-    /** use an array with zeroes for faster filling */
-    Kwave::SampleArray m_zeroes;
+	/** use an array with zeroes for faster filling */
+	Kwave::SampleArray m_zeroes;
 
-};
+    };
+}
 
 #endif /* _ZERO_PLUGIN_H_ */
 

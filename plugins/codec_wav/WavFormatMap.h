@@ -25,21 +25,27 @@
 
 #include "WavFileFormat.h"
 
-/**
- * list of known wav file formats
- */
-class WavFormatMap: public QMap<wav_format_id, QString>
+namespace Kwave
 {
-public:
-    /** Constructor, fills the map with all known types */
-    WavFormatMap();
+    /**
+     * list of known wav file formats
+     */
+    class WavFormatMap: public QMap<Kwave::wav_format_id, QString>
+    {
+    public:
+	/** Constructor, fills the map with all known types */
+	WavFormatMap();
 
-    /** Destructor */
-    virtual ~WavFormatMap() {};
+	/** Destructor */
+	virtual ~WavFormatMap() {};
 
-    /** Returns the name of an id, or "unknown" if not found. */
-    const QString &findName(unsigned int id);
+	/** Returns the name of an id, or "unknown" if not found. */
+	const QString &findName(unsigned int id);
 
-};
+    };
+}
 
 #endif /* _WAV_FORMAT_MAP_H_ */
+
+//***************************************************************************
+//***************************************************************************

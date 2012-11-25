@@ -18,13 +18,13 @@
 #ifndef _PLAYBACK_DEVICE_FACTORY_H_
 #define _PLAYBACK_DEVICE_FACTORY_H_
 
-// some forward declarations
-class PlayBackParam;
 class QString;
 
 namespace Kwave
 {
+
     class PlayBackDevice;
+    class PlayBackParam;
 
     class PlaybackDeviceFactory
     {
@@ -52,7 +52,7 @@ namespace Kwave
 	*/
 	virtual Kwave::PlayBackDevice *openDevice(const QString &name,
 	    int tracks = -1,
-	    const PlayBackParam *playback_params = 0) = 0;
+	    const Kwave::PlayBackParam *playback_params = 0) = 0;
 
 	/**
 	* Returns true if the given device name is supported

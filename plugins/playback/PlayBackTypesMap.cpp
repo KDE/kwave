@@ -23,44 +23,31 @@
 #include "PlayBackTypesMap.h"
 
 //***************************************************************************
-void PlayBackTypesMap::fill()
+void Kwave::PlayBackTypesMap::fill()
 {
     unsigned int index = 0;
     QString name = "";
 
 #ifdef HAVE_ALSA_SUPPORT
-    name = "ALSA (Advanced Linux Sound Architecture)";
-    append(index++, PLAYBACK_ALSA, "alsa", name);
-#if 0
-    i18n("ALSA (Advanced Linux Sound Architecture)");
-#endif
+    name = I18N_NOOP("ALSA (Advanced Linux Sound Architecture)");
+    append(index++, Kwave::PLAYBACK_ALSA, "alsa", name);
 #endif /* HAVE_ALSA_SUPPORT */
 
 #ifdef HAVE_OSS_SUPPORT
-    name = "OSS (Open Sound System)";
-    append(index++, PLAYBACK_OSS, "oss", name);
-#if 0
-    i18n("OSS (Open Sound System)");
-#endif
+    name = I18N_NOOP("OSS (Open Sound System)");
+    append(index++, Kwave::PLAYBACK_OSS, "oss", name);
 #endif /* HAVE_OSS_SUPPORT */
 
 #ifdef HAVE_PHONON_SUPPORT
-    name = "Phonon (KDE)";
-    append(index++, PLAYBACK_PHONON, "phonon", name);
-#if 0
-    i18n("Phonon (KDE)");
-#endif
+    name = I18N_NOOP("Phonon (KDE)");
+    append(index++, Kwave::PLAYBACK_PHONON, "phonon", name);
 #endif /* HAVE_PHONON_SUPPORT */
 
 #ifdef HAVE_PULSEAUDIO_SUPPORT
-    name = "Pulse Audio";
-    append(index++, PLAYBACK_PULSEAUDIO, "pulseaudio", name);
-#if 0
-    i18n("Pulse Audio");
-#endif
+    name = I18N_NOOP("Pulse Audio");
+    append(index++, Kwave::PLAYBACK_PULSEAUDIO, "pulseaudio", name);
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
-   Q_ASSERT(index);
    if (!index) qWarning("no playback method defined!");
 }
 

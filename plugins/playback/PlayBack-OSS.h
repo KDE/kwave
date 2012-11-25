@@ -29,130 +29,138 @@
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleFormat.h"
 
-namespace Kwave { class SampleEncoder; }
-
-class PlayBackOSS: public Kwave::PlayBackDevice
+namespace Kwave
 {
-public:
 
-    /** Default constructor */
-    PlayBackOSS();
+    class SampleEncoder;
 
-    /** Destructor */
-    virtual ~PlayBackOSS();
+    class PlayBackOSS: public Kwave::PlayBackDevice
+    {
+    public:
 
-    /**
-     * Opens the device for playback.
-     * @see PlayBackDevice::open
-     */
-    virtual QString open(const QString &device, double rate,
-                         unsigned int channels, unsigned int bits,
-                         unsigned int bufbase);
+	/** Default constructor */
+	PlayBackOSS();
 
-    /**
-     * Writes an array of samples to the output device.
-     * @see PlayBackDevice::write
-     */
-    virtual int write(const Kwave::SampleArray &samples);
+	/** Destructor */
+	virtual ~PlayBackOSS();
 
-    /**
-     * Closes the output device.
-     * @see PlayBackDevice::close
-     */
-    virtual int close();
+	/**
+	 * Opens the device for playback.
+	 * @see PlayBackDevice::open
+	 */
+	virtual QString open(const QString &device, double rate,
+	                     unsigned int channels, unsigned int bits,
+	                     unsigned int bufbase);
 
-    /** return a string list with supported device names */
-    virtual QStringList supportedDevices();
+	/**
+	 * Writes an array of samples to the output device.
+	 * @see PlayBackDevice::write
+	 */
+	virtual int write(const Kwave::SampleArray &samples);
 
-    /** return a string suitable for a "File Open..." dialog */
-    virtual QString fileFilter();
+	/**
+	 * Closes the output device.
+	 * @see PlayBackDevice::close
+	 */
+	virtual int close();
 
-    /**
-     * returns a list of supported bits per sample resolutions
-     * of a given device.
-     *
-     * @param device filename of the device
-     * @return list of supported bits per sample, or empty on errors
-     */
-    virtual QList<unsigned int> supportedBits(const QString &device);
+	/** return a string list with supported device names */
+	virtual QStringList supportedDevices();
 
-    /**
-     * Detect the minimum and maximum number of channels.
-     * If the detection fails, minimum and maximum are set to zero.
-     *
-     * @param device filename of the device
-     * @param min receives the lowest supported number of channels
-     * @param max receives the highest supported number of channels
-     * @return zero or positive number if ok, negative error number if failed
-     */
-    virtual int detectChannels(const QString &device,
-                               unsigned int &min, unsigned int &max);
+	/** return a string suitable for a "File Open..." dialog */
+	virtual QString fileFilter();
 
-protected:
+	/**
+	 * returns a list of supported bits per sample resolutions
+	 * of a given device.
+	 *
+	 * @param device filename of the device
+	 * @return list of supported bits per sample, or empty on errors
+	 */
+	virtual QList<unsigned int> supportedBits(const QString &device);
 
-    /**
-     * split a device format bitmask into its parameters.
-     * (copied from playback plugin)
-     *
-     * @param format the device specific format
-     * @param compression receives a compression type
-     * @see CompressionType
-     * @param bits receives the number of bits per sample, related
-     *        to the decoded stream
-     * @param sample_format receives the sample format, as defined in
-     *        libaudiofile (signed or unsigned)
-     */
-    void format2mode(int format, int &compression,
-                     int &bits, Kwave::SampleFormat &sample_format);
+	/**
+	 * Detect the minimum and maximum number of channels.
+	 * If the detection fails, minimum and maximum are set to zero.
+	 *
+	 * @param device filename of the device
+	 * @param min receives the lowest supported number of channels
+	 * @param max receives the highest supported number of channels
+	 * @return zero or positive number if ok,
+	 *         negative error number if failed
+	 */
+	virtual int detectChannels(const QString &device,
+	                           unsigned int &min, unsigned int &max);
 
-    /**
-     * Opens a physical device and returns its file descriptor
-     *
-     * @param device filename of the device
-     * @return file descriptor >= 0 or negative value on errors
-     */
-    int openDevice(const QString &device);
+    protected:
 
-    /** Writes the output buffer to the device */
-    void flush();
+	/**
+	 * split a device format bitmask into its parameters.
+	 * (copied from playback plugin)
+	 *
+	 * @param format the device specific format
+	 * @param compression receives a compression type
+	 * @see CompressionType
+	 * @param bits receives the number of bits per sample, related
+	 *        to the decoded stream
+	 * @param sample_format receives the sample format, as defined in
+	 *        libaudiofile (signed or unsigned)
+	 */
+	void format2mode(int format, int &compression,
+	                 int &bits, Kwave::SampleFormat &sample_format);
 
-    /** Name of the output device */
-    QString m_device_name;
+	/**
+	 * Opens a physical device and returns its file descriptor
+	 *
+	 * @param device filename of the device
+	 * @return file descriptor >= 0 or negative value on errors
+	 */
+	int openDevice(const QString &device);
 
-    /** Handle of the output device */
-    int m_handle;
+	/** Writes the output buffer to the device */
+	void flush();
 
-    /** Playback rate [samples/second] */
-    double m_rate;
+	/** Name of the output device */
+	QString m_device_name;
 
-    /** Number of channels */
-    unsigned int m_channels;
+	/** Handle of the output device */
+	int m_handle;
 
-    /** Resolution in bits per sample */
-    unsigned int m_bits;
+	/** Playback rate [samples/second] */
+	double m_rate;
 
-    /** Exponent of the buffer size */
-    unsigned int m_bufbase;
+	/** Number of channels */
+	unsigned int m_channels;
 
-    /** buffer with samples data */
-    Kwave::SampleArray m_buffer;
+	/** Resolution in bits per sample */
+	unsigned int m_bits;
 
-    /** buffer with raw data */
-    QByteArray m_raw_buffer;
+	/** Exponent of the buffer size */
+	unsigned int m_bufbase;
 
-    /** Buffer size on bytes */
-    unsigned int m_buffer_size;
+	/** buffer with samples data */
+	Kwave::SampleArray m_buffer;
 
-    /** number of bytes in the buffer */
-    unsigned int m_buffer_used;
+	/** buffer with raw data */
+	QByteArray m_raw_buffer;
 
-    /** encoder for converting from samples to raw format */
-    Kwave::SampleEncoder *m_encoder;
+	/** Buffer size on bytes */
+	unsigned int m_buffer_size;
 
-    /** OSS driver version */
-    int m_oss_version;
-};
+	/** number of bytes in the buffer */
+	unsigned int m_buffer_used;
+
+	/** encoder for converting from samples to raw format */
+	Kwave::SampleEncoder *m_encoder;
+
+	/** OSS driver version */
+	int m_oss_version;
+    };
+}
 
 #endif /* HAVE_OSS_SUPPORT */
 
 #endif /* _PLAY_BACK_OSS_H_ */
+
+//***************************************************************************
+//***************************************************************************

@@ -30,23 +30,23 @@
 #include "SelectRangePlugin.h"
 #include "SelectRangeDialog.h"
 
-KWAVE_PLUGIN(SelectRangePlugin, "selectrange", "2.1",
+KWAVE_PLUGIN(Kwave::SelectRangePlugin, "selectrange", "2.1",
              I18N_NOOP("Select Range"), "Thomas Eschenbacher");
 
 //***************************************************************************
-SelectRangePlugin::SelectRangePlugin(const Kwave::PluginContext &c)
+Kwave::SelectRangePlugin::SelectRangePlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_start_mode(Kwave::SelectTimeWidget::bySamples),
      m_range_mode(Kwave::SelectTimeWidget::bySamples), m_range(0)
 {
 }
 
 //***************************************************************************
-SelectRangePlugin::~SelectRangePlugin()
+Kwave::SelectRangePlugin::~SelectRangePlugin()
 {
 }
 
 //***************************************************************************
-QStringList *SelectRangePlugin::setup(QStringList &previous_params)
+QStringList *Kwave::SelectRangePlugin::setup(QStringList &previous_params)
 {
     // try to interprete the previous parameters
     interpreteParameters(previous_params);
@@ -56,8 +56,9 @@ QStringList *SelectRangePlugin::setup(QStringList &previous_params)
     sample_index_t offset = manager().selectionStart();
     sample_index_t length = signalLength();
 
-    SelectRangeDialog *dialog = new SelectRangeDialog(parentWidget(),
-        m_start_mode, m_range_mode, m_range, rate, offset, length);
+    Kwave::SelectRangeDialog *dialog =
+	new Kwave::SelectRangeDialog(parentWidget(),
+	    m_start_mode, m_range_mode, m_range, rate, offset, length);
     Q_ASSERT(dialog);
     if (!dialog) return 0;
 
@@ -88,7 +89,7 @@ QStringList *SelectRangePlugin::setup(QStringList &previous_params)
 }
 
 //***************************************************************************
-int SelectRangePlugin::start(QStringList &params)
+int Kwave::SelectRangePlugin::start(QStringList &params)
 {
     // interprete the parameters
     int result = interpreteParameters(params);
@@ -116,7 +117,7 @@ int SelectRangePlugin::start(QStringList &params)
 }
 
 //***************************************************************************
-int SelectRangePlugin::interpreteParameters(QStringList &params)
+int Kwave::SelectRangePlugin::interpreteParameters(QStringList &params)
 {
     bool ok;
     QString param;

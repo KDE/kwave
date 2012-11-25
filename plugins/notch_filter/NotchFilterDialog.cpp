@@ -35,7 +35,7 @@
 #include "NotchFilter.h"
 
 //***************************************************************************
-NotchFilterDialog::NotchFilterDialog(QWidget *parent, double sample_rate)
+Kwave::NotchFilterDialog::NotchFilterDialog(QWidget *parent, double sample_rate)
     :QDialog(parent), Kwave::PluginSetupDialog(),
      Ui::NotchFilterDlg(),
      m_frequency(3500),m_bw(100),
@@ -102,7 +102,7 @@ NotchFilterDialog::NotchFilterDialog(QWidget *parent, double sample_rate)
 }
 
 //***************************************************************************
-NotchFilterDialog::~NotchFilterDialog()
+Kwave::NotchFilterDialog::~NotchFilterDialog()
 {
     // better stop pre-listen now
     listenToggled(false);
@@ -112,7 +112,7 @@ NotchFilterDialog::~NotchFilterDialog()
 }
 
 //***************************************************************************
-void NotchFilterDialog::freqValueChanged(int pos)
+void Kwave::NotchFilterDialog::freqValueChanged(int pos)
 {
     if (static_cast<int>(m_frequency) != pos) {
 	m_frequency = pos;
@@ -123,7 +123,7 @@ void NotchFilterDialog::freqValueChanged(int pos)
 }
 
 //***************************************************************************
-void NotchFilterDialog::bwValueChanged(int pos)
+void Kwave::NotchFilterDialog::bwValueChanged(int pos)
 {
     if (static_cast<int>(m_bw) != pos) {
     	m_bw = pos;
@@ -134,7 +134,7 @@ void NotchFilterDialog::bwValueChanged(int pos)
 }
 
 //***************************************************************************
-QStringList NotchFilterDialog::params()
+QStringList Kwave::NotchFilterDialog::params()
 {
     QStringList list;
     list << QString::number(m_frequency);
@@ -143,7 +143,7 @@ QStringList NotchFilterDialog::params()
 }
 
 //***************************************************************************
-void NotchFilterDialog::setParams(QStringList &params)
+void Kwave::NotchFilterDialog::setParams(QStringList &params)
 {
     // evaluate the parameter list
     bool ok;
@@ -165,7 +165,7 @@ void NotchFilterDialog::setParams(QStringList &params)
 }
 
 //***************************************************************************
-void NotchFilterDialog::updateDisplay()
+void Kwave::NotchFilterDialog::updateDisplay()
 {
     double fs = m_sample_rate;
     if (m_filter && (fs > 0.0))
@@ -177,7 +177,7 @@ void NotchFilterDialog::updateDisplay()
 }
 
 //***************************************************************************
-void NotchFilterDialog::listenToggled(bool listen)
+void Kwave::NotchFilterDialog::listenToggled(bool listen)
 {
     Q_ASSERT(btListen);
     if (!btListen) return;
@@ -194,7 +194,7 @@ void NotchFilterDialog::listenToggled(bool listen)
 }
 
 //***************************************************************************
-void NotchFilterDialog::listenStopped()
+void Kwave::NotchFilterDialog::listenStopped()
 {
     if (btListen) btListen->setChecked(false);
 }

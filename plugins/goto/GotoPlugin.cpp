@@ -23,28 +23,28 @@
 #include "libkwave/Plugin.h"
 #include "GotoPlugin.h"
 
-KWAVE_PLUGIN(GotoPlugin, "goto", "2.1",
+KWAVE_PLUGIN(Kwave::GotoPlugin, "goto", "2.1",
              I18N_NOOP("Goto Position"), "Thomas Eschenbacher");
 
 //***************************************************************************
-GotoPlugin::GotoPlugin(const Kwave::PluginContext &c)
-    :GotoPluginBase(c)
+Kwave::GotoPlugin::GotoPlugin(const Kwave::PluginContext &c)
+    :Kwave::GotoPluginBase(c)
 {
 }
 
 //***************************************************************************
-GotoPlugin::~GotoPlugin()
+Kwave::GotoPlugin::~GotoPlugin()
 {
 }
 
 //***************************************************************************
-QString GotoPlugin::command() const
+QString Kwave::GotoPlugin::command() const
 {
     return "goto";
 }
 
 //***************************************************************************
-QString GotoPlugin::title() const
+QString Kwave::GotoPlugin::title() const
 {
     return i18n("Goto...");
 }

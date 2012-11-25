@@ -37,7 +37,7 @@
 #include "MemoryDialog.h"
 
 //***************************************************************************
-MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
+Kwave::MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
     unsigned int physical_limit, bool virtual_enabled, bool virtual_limited,
     unsigned int virtual_limit, const QString &virtual_dir,
     unsigned int undo_limit)
@@ -83,12 +83,12 @@ MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
 }
 
 //***************************************************************************
-MemoryDialog::~MemoryDialog()
+Kwave::MemoryDialog::~MemoryDialog()
 {
 }
 
 //***************************************************************************
-bool MemoryDialog::isOK()
+bool Kwave::MemoryDialog::isOK()
 {
     Q_ASSERT(chkEnableVirtual);
     Q_ASSERT(chkLimitPhysical);
@@ -105,7 +105,7 @@ bool MemoryDialog::isOK()
 }
 
 //***************************************************************************
-void MemoryDialog::params(QStringList &par)
+void Kwave::MemoryDialog::params(QStringList &par)
 {
     par.clear();
     par << QString::number(chkLimitPhysical->isChecked() ? 1 : 0);
@@ -118,7 +118,7 @@ void MemoryDialog::params(QStringList &par)
 }
 
 //***************************************************************************
-void MemoryDialog::virtualMemoryEnabled(bool enable)
+void Kwave::MemoryDialog::virtualMemoryEnabled(bool enable)
 {
     bool limit = enable && (chkLimitVirtual->isChecked());
 
@@ -132,7 +132,7 @@ void MemoryDialog::virtualMemoryEnabled(bool enable)
 }
 
 //***************************************************************************
-void MemoryDialog::searchSwapDir()
+void Kwave::MemoryDialog::searchSwapDir()
 {
     QString dir = KFileDialog::getExistingDirectory(
 	edDirectory->text(), this);
@@ -140,7 +140,7 @@ void MemoryDialog::searchSwapDir()
 }
 
 //***************************************************************************
-void MemoryDialog::invokeHelp()
+void Kwave::MemoryDialog::invokeHelp()
 {
     KToolInvocation::invokeHelp("memory-setup");
 }

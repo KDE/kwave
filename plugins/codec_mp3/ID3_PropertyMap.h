@@ -27,7 +27,8 @@
 
 #include "libkwave/FileInfo.h"
 
-namespace Kwave {
+namespace Kwave
+{
 
     class ID3_PropertyMap
     {
@@ -124,3 +125,6 @@ namespace Kwave {
 }
 
 #endif /* _ID3_PROPERTY_MAP_H_ */
+
+//***************************************************************************
+//***************************************************************************

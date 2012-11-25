@@ -40,64 +40,67 @@
 #include "ReversePlugin.h"
 #include "UndoReverseAction.h"
 
-KWAVE_PLUGIN(ReversePlugin, "reverse", "2.1",
+KWAVE_PLUGIN(Kwave::ReversePlugin, "reverse", "2.1",
              I18N_NOOP("Reverse"), "Thomas Eschenbacher");
 
 //***************************************************************************
-class ReverseJob: public ThreadWeaver::Job
+namespace Kwave
 {
-public:
+    class ReverseJob: public ThreadWeaver::Job
+    {
+    public:
 
-    /**
-     * Constructor
-     */
-    ReverseJob(
-	Kwave::SignalManager &manager, unsigned int track,
-	sample_index_t first, sample_index_t last, unsigned int block_size,
-	Kwave::SampleReader *src_a, Kwave::SampleReader *src_b
-    );
+	/**
+	 * Constructor
+	 */
+	ReverseJob(
+	    Kwave::SignalManager &manager, unsigned int track,
+	    sample_index_t first, sample_index_t last, unsigned int block_size,
+	    Kwave::SampleReader *src_a, Kwave::SampleReader *src_b
+	);
 
-    /** Destructor */
-    virtual ~ReverseJob();
+	/** Destructor */
+	virtual ~ReverseJob();
 
-    /**
-    * overloaded 'run' function that runns goOn() in the context
-    * of the worker thread.
-    */
-    virtual void run();
+	/**
+	 * overloaded 'run' function that runns goOn() in the context
+	 * of the worker thread.
+	 */
+	virtual void run();
 
-private:
+    private:
 
-    /** reverses the content of an array of samples */
-    void reverse(Kwave::SampleArray &buffer);
+	/** reverses the content of an array of samples */
+	void reverse(Kwave::SampleArray &buffer);
 
-private:
+    private:
 
-    /** signal manager, for opening a sample writer */
-    Kwave::SignalManager &m_manager;
+	/** signal manager, for opening a sample writer */
+	Kwave::SignalManager &m_manager;
 
-    /** index of the track */
-    unsigned int m_track;
+	/** index of the track */
+	unsigned int m_track;
 
-    /** first sample (from start) */
-    sample_index_t m_first;
+	/** first sample (from start) */
+	sample_index_t m_first;
 
-    /** last sample (from end) */
-    sample_index_t m_last;
+	/** last sample (from end) */
+	sample_index_t m_last;
 
-    /** block size in samples */
-    unsigned int m_block_size;
+	/** block size in samples */
+	unsigned int m_block_size;
 
-    /** reader for start of signal */
-    Kwave::SampleReader *m_src_a;
+	/** reader for start of signal */
+	Kwave::SampleReader *m_src_a;
 
-    /** reader for end of signal */
-    Kwave::SampleReader *m_src_b;
+	/** reader for end of signal */
+	Kwave::SampleReader *m_src_b;
 
-};
+    };
+}
 
 //***************************************************************************
-ReverseJob::ReverseJob(
+Kwave::ReverseJob::ReverseJob(
     Kwave::SignalManager &manager, unsigned int track,
     sample_index_t first, sample_index_t last, unsigned int block_size,
     Kwave::SampleReader *src_a, Kwave::SampleReader *src_b)
@@ -109,7 +112,7 @@ ReverseJob::ReverseJob(
 }
 
 //***************************************************************************
-ReverseJob::~ReverseJob()
+Kwave::ReverseJob::~ReverseJob()
 {
     int i = 0;
     while (!isFinished()) {
@@ -120,7 +123,7 @@ ReverseJob::~ReverseJob()
 }
 
 //***************************************************************************
-void ReverseJob::reverse(Kwave::SampleArray &buffer)
+void Kwave::ReverseJob::reverse(Kwave::SampleArray &buffer)
 {
     unsigned int count = buffer.size() >> 1;
     if (count <= 1) return;
@@ -135,7 +138,7 @@ void ReverseJob::reverse(Kwave::SampleArray &buffer)
 }
 
 //***************************************************************************
-void ReverseJob::run()
+void Kwave::ReverseJob::run()
 {
     sample_index_t start_a = m_first;
     sample_index_t start_b = (m_last >= m_block_size) ?
@@ -198,18 +201,18 @@ void ReverseJob::run()
 
 //***************************************************************************
 //***************************************************************************
-ReversePlugin::ReversePlugin(const Kwave::PluginContext &context)
+Kwave::ReversePlugin::ReversePlugin(const Kwave::PluginContext &context)
     :Kwave::Plugin(context)
 {
 }
 
 //***************************************************************************
-ReversePlugin::~ReversePlugin()
+Kwave::ReversePlugin::~ReversePlugin()
 {
 }
 
 //***************************************************************************
-void ReversePlugin::run(QStringList params)
+void Kwave::ReversePlugin::run(QStringList params)
 {
     QSharedPointer<Kwave::UndoTransactionGuard> undo_guard;
 
@@ -266,7 +269,7 @@ void ReversePlugin::run(QStringList params)
 	// loop over all tracks
 	for (int track = 0; track < tracks.count(); track++) {
 
-	    ReverseJob *job = new ReverseJob(
+	    Kwave::ReverseJob *job = new Kwave::ReverseJob(
 		signalManager(), tracks[track], first, last, block_size,
 		source_a[track], source_b[track]
 	    );
@@ -293,7 +296,7 @@ void ReversePlugin::run(QStringList params)
 }
 
 //***************************************************************************
-void ReversePlugin::updateProgress(qreal progress)
+void Kwave::ReversePlugin::updateProgress(qreal progress)
 {
     Kwave::Plugin::updateProgress(progress + progress);
 }

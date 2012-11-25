@@ -1,5 +1,5 @@
 /***************************************************************************
-   AboutKwaveDialog.cpp  -  dialog for Kwave's "Help-About"
+        AboutDialog.cpp  -  dialog for Kwave's "Help-About"
                              -------------------
     begin                : Sun Feb 10 2002
     copyright            : (C) 2002 by Ralf Waspe & Gilles Caulier
@@ -34,8 +34,8 @@
 #include <kurllabel.h>
 #include <kstandarddirs.h>
 
-#include "AboutKwaveDialog.h"
-#include "KwaveAboutContainer.h"
+#include "AboutDialog.h"
+#include "AboutContainer.h"
 #include "LogoWidget.h"
 
 //***************************************************************************
@@ -51,7 +51,7 @@ Kwave::AboutDialog::AboutDialog(
     QWidget *parent,
     const QList<Kwave::PluginManager::PluginInfo> &plugin_info
 )
-    :QDialog(parent), Ui::KwaveAboutDialogBase()
+    :QDialog(parent), Ui::AboutDialogBase()
 {
     setupUi(this);
 
@@ -170,6 +170,6 @@ Kwave::AboutDialog::~AboutDialog()
 }
 
 //***************************************************************************
-#include "AboutKwaveDialog.moc"
+#include "AboutDialog.moc"
 //***************************************************************************
 //***************************************************************************

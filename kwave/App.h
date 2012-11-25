@@ -1,5 +1,5 @@
 /***************************************************************************
-             KwaveApp.h  -  The Kwave main application
+                  App.h  -  The Kwave main application
                              -------------------
     begin                : Wed Feb 28 2001
     copyright            : (C) 2001 by Thomas Eschenbacher

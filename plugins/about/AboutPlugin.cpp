@@ -22,7 +22,7 @@
 #include "libkwave/PluginManager.h"
 
 #include "AboutPlugin.h"
-#include "AboutKwaveDialog.h"
+#include "AboutDialog.h"
 
 KWAVE_PLUGIN(Kwave::AboutPlugin, "about", "2.1",
              I18N_NOOP("About Kwave"), "Ralf Waspe & Gilles Caulier");

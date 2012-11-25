@@ -27,18 +27,6 @@
 /* use target optimized memcpy */
 #cmakedefine HAVE_OPTIMIZED_MEMCPY
 
-/* FLAC API of v1.1.1 and before */
-#cmakedefine FLAC_API_VERSION_1_1_1_OR_OLDER
-
-/* FLAC API of v1.1.2 */
-#cmakedefine FLAC_API_VERSION_1_1_2
-
-/* FLAC API of v1.1.3 */
-#cmakedefine FLAC_API_VERSION_1_1_3
-
-/* FLAC API of v1.1.4 */
-#cmakedefine FLAC_API_VERSION_1_1_4
-
 /* support playback/recording via ALSA */
 #cmakedefine HAVE_ALSA_SUPPORT
 

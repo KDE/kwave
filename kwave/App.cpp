@@ -1,5 +1,5 @@
 /***************************************************************************
-           KwaveApp.cpp  -  The Kwave main application
+                App.cpp  -  The Kwave main application
                              -------------------
     begin                : Wed Feb 28 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
@@ -37,8 +37,8 @@
 #include "libkwave/PluginManager.h"
 
 #include "TopWidget.h"
-#include "KwaveApp.h"
-#include "KwaveSplash.h"
+#include "App.h"
+#include "Splash.h"
 
 //***************************************************************************
 Kwave::App::App()
@@ -250,6 +250,6 @@ Kwave::App::~App()
 }
 
 //***************************************************************************
-#include "KwaveApp.moc"
+#include "App.moc"
 //***************************************************************************
 //***************************************************************************

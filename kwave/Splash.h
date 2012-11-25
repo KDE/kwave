@@ -1,5 +1,5 @@
 /*************************************************************************
-          KwaveSplash.h  -  splash screen for Kwave
+               Splash.h  -  splash screen for Kwave
                              -------------------
     begin                : Tue Jun 24 2003
     copyright            : Copyright (C) 2003 Gilles CAULIER

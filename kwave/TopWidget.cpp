@@ -67,8 +67,8 @@
 #include "libgui/FileDialog.h"
 #include "libgui/MenuManager.h"
 
-#include "KwaveApp.h"
-#include "KwaveSplash.h"
+#include "App.h"
+#include "Splash.h"
 #include "MainWidget.h"
 #include "PlayerToolBar.h"
 #include "TopWidget.h"

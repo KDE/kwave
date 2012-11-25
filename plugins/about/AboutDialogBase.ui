@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>KwaveAboutDialogBase</class>
- <widget class="QDialog" name="KwaveAboutDialogBase">
+ <class>AboutDialogBase</class>
+ <widget class="QDialog" name="AboutDialogBase">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -354,7 +354,7 @@ and scroll capability.</string>
   <connection>
    <sender>okbutton</sender>
    <signal>clicked()</signal>
-   <receiver>KwaveAboutDialogBase</receiver>
+   <receiver>AboutDialogBase</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -16,15 +16,15 @@
 #############################################################################
 
 SET(plugin_about_LIB_SRCS
-    AboutKwaveDialog.cpp
-    AboutKwaveDialog.h
+    AboutDialog.cpp
+    AboutDialog.h
     AboutPlugin.cpp
-    KwaveAboutContainer.cpp
+    AboutContainer.cpp
     LogoWidget.cpp
 )
 
 SET(plugin_about_LIB_UI
-    KwaveAboutDialogBase.ui
+    AboutDialogBase.ui
 )
 
 KWAVE_PLUGIN(about)

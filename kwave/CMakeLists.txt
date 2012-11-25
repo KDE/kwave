@@ -45,12 +45,12 @@ ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
 
 SET(kwave_SRCS
     ApplicationContext.cpp
+    App.cpp
     main.cpp
-    KwaveApp.cpp
-    KwaveSplash.cpp
     MainWidget.cpp
     PlayerToolBar.cpp
     ShortcutWrapper.cpp
+    Splash.cpp
     TopWidget.cpp
     ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
 )

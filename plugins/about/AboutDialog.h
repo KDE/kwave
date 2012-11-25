@@ -1,5 +1,5 @@
 /***************************************************************************
-     AboutKwaveDialog.h  -  dialog for Kwave's "Help-About"
+          AboutDialog.h  -  dialog for Kwave's "Help-About"
                              -------------------
     begin                : Sun Feb 10 2002
     copyright            : (C) 2002 by Ralf Waspe
@@ -26,7 +26,7 @@
 
 #include "libkwave/PluginManager.h"
 
-#include "ui_KwaveAboutDialogBase.h"
+#include "ui_AboutDialogBase.h"
 
 class QWidget;
 
@@ -36,7 +36,7 @@ namespace Kwave
     * Dialog for Help/About
     */
     class AboutDialog: public QDialog,
-                       public Ui::KwaveAboutDialogBase
+                       public Ui::AboutDialogBase
     {
 	Q_OBJECT
 

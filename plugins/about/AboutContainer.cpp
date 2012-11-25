@@ -1,5 +1,5 @@
 /***************************************************************************
-KwaveAboutContainer.cpp  -  Authors and thanks field in the about dialog
+     AboutContainer.cpp  -  Authors and thanks field in the about dialog
                               -------------------
     begin                : Sat Dec 29 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -29,7 +29,7 @@ KwaveAboutContainer.cpp  -  Authors and thanks field in the about dialog
 #include <klocale.h>
 #include <ktoolinvocation.h>
 
-#include "KwaveAboutContainer.h"
+#include "AboutContainer.h"
 
 //***************************************************************************
 Kwave::AboutContainer::AboutContainer(QWidget *parent)
@@ -257,6 +257,6 @@ void Kwave::AboutContributor::updateLayout()
 }
 
 //***************************************************************************
-#include "KwaveAboutContainer.moc"
+#include "AboutContainer.moc"
 //***************************************************************************
 //***************************************************************************

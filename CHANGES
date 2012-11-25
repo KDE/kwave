@@ -8,6 +8,7 @@
  * moved code into namespace "Kwave"
  * cleanup: remove support for outdated FLAC API versions below 1.1.3
  * removed unused code: libkwave/FileFormat.*
+ * renamed source files with "Kwave" in the name
 
 0.8.9  [2012-11-06]
 

@@ -1,5 +1,5 @@
 /*************************************************************************
-        KwaveSplash.cpp  -  splash screen for Kwave
+             Splash.cpp  -  splash screen for Kwave
                              -------------------
     begin                : Tue Jun 24 2003
     copyright            : Copyright (C) 2003 Gilles CAULIER
@@ -32,7 +32,7 @@
 #include <klocale.h>
 #include <kstandarddirs.h>
 
-#include "KwaveSplash.h"
+#include "Splash.h"
 
 // static pointer to the current instance
 QPointer<Kwave::Splash> Kwave::Splash::m_splash = 0;
@@ -144,6 +144,6 @@ void Kwave::Splash::mousePressEvent(QMouseEvent *)
 }
 
 //***************************************************************************
-#include "KwaveSplash.moc"
+#include "Splash.moc"
 //***************************************************************************
 //***************************************************************************

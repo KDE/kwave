@@ -28,8 +28,8 @@
 #include <klocale.h>
 #include <kcmdlineargs.h>
 
-#include "KwaveApp.h"
-#include "KwaveSplash.h"
+#include "App.h"
+#include "Splash.h"
 
 /**
  * add data concerning the developers and

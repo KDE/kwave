@@ -193,17 +193,17 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 
 	kwave/CMakeLists.txt				GPL2+
 	kwave/ApplicationContext.cpp			GPL2+
-	kwave/KwaveApp.cpp				GPL2+
-	kwave/KwaveApp.h				GPL2+
+	kwave/App.cpp					GPL2+
+	kwave/App.h					GPL2+
 	kwave/kwave.desktop				(should be GPL2+)
-	kwave/KwaveSplash.cpp				GPL2+ / Gilles Caulier
-	kwave/KwaveSplash.h				GPL2+ / Gilles Caulier
 	kwave/main.cpp					GPL2+ / Martin Wilz
 	kwave/MainWidget.cpp				GPL2+ / Martin Wilz
 	kwave/MainWidget.h				GPL2+ / Martin Wilz
 	kwave/menus.config				GPL2+
 	kwave/ShortcutWrapper.cpp			GPL2+
 	kwave/ShortcutWrapper.h				GPL2+
+	kwave/Splash.cpp				GPL2+ / Gilles Caulier
+	kwave/Splash.h					GPL2+ / Gilles Caulier
 	kwave/PlayerToolBar.cpp				GPL2+
 	kwave/PlayerToolBar.h				GPL2+
 	kwave/TopWidget.cpp				GPL2+ / Martin Wilz
@@ -483,14 +483,14 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 
 	plugins/CMakeLists.txt				GPL2+
 
-	plugins/about/AboutKwaveDialog.cpp		GPL2+ / Ralf Waspe & Gilles Caulier
-	plugins/about/AboutKwaveDialog.h		GPL2+ / Ralf Waspe
+	plugins/about/AboutContainer.cpp		GPL2+ / Mirko Boehm <mirko@kde.org> / Espen Sand <espen@kde.org>
+	plugins/about/AboutContainer.h			GPL2+ / Mirko Boehm <mirko@kde.org> / Espen Sand <espen@kde.org>
+	plugins/about/AboutDialogBase.ui		(should be GPL2+ / Ralf Waspe)
+	plugins/about/AboutDialog.cpp			GPL2+ / Ralf Waspe & Gilles Caulier
+	plugins/about/AboutDialog.h			GPL2+ / Ralf Waspe
 	plugins/about/AboutPlugin.cpp			GPL2+
 	plugins/about/AboutPlugin.h			GPL2+
 	plugins/about/CMakeLists.txt			GPL2+
-	plugins/about/KwaveAboutContainer.cpp		GPL2+ / Mirko Boehm <mirko@kde.org> / Espen Sand <espen@kde.org>
-	plugins/about/KwaveAboutContainer.h		GPL2+ / Mirko Boehm <mirko@kde.org> / Espen Sand <espen@kde.org>
-	plugins/about/KwaveAboutDialogBase.ui		(should be GPL2+ / Ralf Waspe)
 	plugins/about/LogoWidget.cpp			GPL2+ / Martin Wilz
 	plugins/about/LogoWidget.h			GPL2+ / Martin Wilz
 	plugins/about/logo.xpm				GPL2+ / Martin Wilz

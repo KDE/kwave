@@ -1,5 +1,5 @@
 /***************************************************************************
-  KwaveAboutContainer.h  -  Authors and thanks field in the about dialog
+       AboutContainer.h  -  Authors and thanks field in the about dialog
                              -------------------
     begin                : Sat Dec 29 2007
     copyright            : (C) 2007 by Thomas Eschenbacher

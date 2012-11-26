@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include <QDate>
+#include <QtCore/QDate>
 
 #include <klocale.h>
 #include <kmimetype.h>

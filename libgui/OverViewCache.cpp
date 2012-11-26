@@ -18,9 +18,9 @@
 #include "config.h"
 #include "math.h"
 
-#include <QMutableListIterator>
-#include <QColor>
-#include <QPainter>
+#include <QtCore/QMutableListIterator>
+#include <QtGui/QColor>
+#include <QtGui/QPainter>
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"

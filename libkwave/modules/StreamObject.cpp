@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QString>
-#include <QVariant>
+#include <QtCore/QString>
+#include <QtCore/QVariant>
 
 #include "libkwave/modules/StreamObject.h"
 

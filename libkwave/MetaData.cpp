@@ -17,10 +17,10 @@
 
 #include "config.h"
 
-#include <QApplication>
-#include <QDateTime>
-#include <QMutexLocker>
-#include <QUuid>
+#include <QtGui/QApplication>
+#include <QtCore/QDateTime>
+#include <QtCore/QMutexLocker>
+#include <QtCore/QUuid>
 
 #include "MetaData.h"
 

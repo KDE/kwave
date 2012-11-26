@@ -28,8 +28,8 @@
 #include <math.h>
 #include <errno.h>
 
-#include <QDir>
-#include <QFile>
+#include <QtCore/QDir>
+#include <QtCore/QFile>
 
 #include <klocale.h>
 

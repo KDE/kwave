@@ -23,13 +23,13 @@
 #include <stdlib.h>
 #include <errno.h>
 
-#include <QCursor>
-#include <QFile>
-#include <QMutex>
-#include <QMutexLocker>
-#include <QProgressDialog>
-#include <QString>
-#include <QDateTime>
+#include <QtGui/QCursor>
+#include <QtCore/QFile>
+#include <QtCore/QMutex>
+#include <QtCore/QMutexLocker>
+#include <QtGui/QProgressDialog>
+#include <QtCore/QString>
+#include <QtCore/QDateTime>
 
 #include <kapplication.h>
 #include <kconfig.h>

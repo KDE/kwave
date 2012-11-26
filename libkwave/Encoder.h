@@ -19,8 +19,8 @@
 #define _ENCODER_H_
 
 #include "config.h"
-#include <QList>
-#include <QObject>
+#include <QtCore/QList>
+#include <QtCore/QObject>
 
 #include <kdemacros.h>
 

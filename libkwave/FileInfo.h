@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QMap>
-#include <QString>
-#include <QVariant>
-#include <QList>
+#include <QtCore/QMap>
+#include <QtCore/QString>
+#include <QtCore/QVariant>
+#include <QtCore/QList>
 
 #include <kdemacros.h>
 

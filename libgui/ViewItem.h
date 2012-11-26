@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <Qt>
-#include <QString>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/Qt>
 
 #include "kdemacros.h"
 

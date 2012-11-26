@@ -20,7 +20,7 @@
 #define _UNDO_SELECTION_H_
 
 #include "config.h"
-#include <QList>
+#include <QtCore/QList>
 
 #include "libkwave/Sample.h"
 #include "libkwave/undo/UndoAction.h"

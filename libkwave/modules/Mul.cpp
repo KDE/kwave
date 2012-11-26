@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QMutexLocker>
-#include <QVariant>
+#include <QtCore/QMutexLocker>
+#include <QtCore/QVariant>
 
 #include "libkwave/modules/Mul.h"
 #include "libkwave/Sample.h"

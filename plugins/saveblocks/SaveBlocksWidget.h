@@ -18,7 +18,7 @@
 #ifndef _SAVE_BLOCKS_WIDGET_H_
 #define _SAVE_BLOCKS_WIDGET_H_
 
-#include <QWidget>
+#include <QtGui/QWidget>
 
 #include "SaveBlocksPlugin.h"
 #include "ui_SaveBlocksWidgetBase.h"

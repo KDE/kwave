@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <QList>
-#include <QTextCodec>
-#include <QVariant>
+#include <QtCore/QList>
+#include <QtCore/QTextCodec>
+#include <QtCore/QVariant>
 
 #include <klocale.h>
 #include <kmimetype.h>

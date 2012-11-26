@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <QCursor>
-#include <QImage>
-#include <QMouseEvent>
+#include <QtGui/QCursor>
+#include <QtGui/QImage>
+#include <QtGui/QMouseEvent>
 
 #include "libgui/ImageView.h"
 

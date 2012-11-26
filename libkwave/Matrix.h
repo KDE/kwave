@@ -23,7 +23,7 @@
 
 #include "config.h"
 
-#include <QtGlobal>
+#include <QtCore/QtGlobal>
 
 namespace Kwave
 {

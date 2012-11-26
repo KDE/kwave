@@ -20,20 +20,20 @@
 #include <math.h>
 #include <limits.h>
 
-#include <QCursor>
-#include <QDir>
-#include <QFile>
-#include <QFileInfo>
-#include <QKeySequence>
-#include <QMenu>
-#include <QMouseEvent>
-#include <QPainter>
-#include <QPaintEvent>
-#include <QPalette>
-#include <QShortcut>
-#include <QString>
-#include <QStringList>
-#include <QTextStream>
+#include <QtGui/QCursor>
+#include <QtCore/QDir>
+#include <QtCore/QFile>
+#include <QtCore/QFileInfo>
+#include <QtGui/QKeySequence>
+#include <QtGui/QMenu>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QPainter>
+#include <QtGui/QPaintEvent>
+#include <QtGui/QPalette>
+#include <QtGui/QShortcut>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtCore/QTextStream>
 
 #include <kstandarddirs.h>
 #include <klocale.h>

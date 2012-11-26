@@ -22,7 +22,7 @@ extern "C" {
 #include <audiofile.h>
 }
 
-#include <QtGlobal>
+#include <QtCore/QtGlobal>
 
 #include <klocale.h>
 #include <kmimetype.h>

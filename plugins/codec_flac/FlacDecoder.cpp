@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <qdatetime.h>
+#include <QtCore/QDateTime>
 
 #include <klocale.h>
 #include <kmimetype.h>

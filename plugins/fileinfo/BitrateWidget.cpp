@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <QtGlobal>
-#include <QSlider>
-#include <QSpinBox>
+#include <QtCore/QtGlobal>
+#include <QtGui/QSlider>
+#include <QtGui/QSpinBox>
 
 #include "BitrateSpinBox.h"
 #include "BitrateWidget.h"

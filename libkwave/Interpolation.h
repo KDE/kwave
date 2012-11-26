@@ -19,9 +19,9 @@
 
 #include "config.h"
 
-#include <QString>
-#include <QStringList>
-#include <QVector>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtCore/QVector>
 
 #include <kdemacros.h>
 

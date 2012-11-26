@@ -21,14 +21,14 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <QApplication>
-#include <QFrame>
-#include <QGridLayout>
-#include <QHBoxLayout>
-#include <QResizeEvent>
-#include <QScrollBar>
-#include <QtGlobal>
-#include <QWheelEvent>
+#include <QtGui/QApplication>
+#include <QtGui/QFrame>
+#include <QtGui/QGridLayout>
+#include <QtGui/QHBoxLayout>
+#include <QtGui/QResizeEvent>
+#include <QtGui/QScrollBar>
+#include <QtCore/QtGlobal>
+#include <QtGui/QWheelEvent>
 
 #include <klocale.h>
 

@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QList>
-#include <QString>
+#include <QtCore/QList>
+#include <QtCore/QString>
 
 #include "RIFFChunk.h"
 

@@ -19,7 +19,9 @@
 #define _FILE_INFO_DIALOG_H_
 
 #include "config.h"
-#include <qobject.h>
+
+#include <QtCore/QObject>
+
 #include "libkwave/FileInfo.h"
 #include "ui_FileInfoDlg.h"
 

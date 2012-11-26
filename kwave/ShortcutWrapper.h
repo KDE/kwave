@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <QShortcut>
+#include <QtCore/QObject>
+#include <QtGui/QShortcut>
 
 class QWidget;
 class QKeySequence;

@@ -24,8 +24,8 @@
 #include <kmimetype.h>
 #include <kglobal.h>
 
-#include <QByteArray>
-#include <QtGlobal>
+#include <QtCore/QByteArray>
+#include <QtCore/QtGlobal>
 
 #include "libkwave/byteswap.h"
 #include "libkwave/CompressionType.h"

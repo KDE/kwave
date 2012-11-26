@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <QString>
+#include <QtCore/QString>
 #include "libkwave/TypesMap.h"
 
 namespace Kwave

@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QList>
-#include <QString>
+#include <QtCore/QList>
+#include <QtCore/QString>
 
 #include "libkwave/MimeData.h"
 #include "libkwave/Sample.h"

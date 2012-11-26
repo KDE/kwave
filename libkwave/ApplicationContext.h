@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <QPointer>
+#include <QtCore/QPointer>
 
 #include <kdemacros.h>
 

@@ -17,18 +17,18 @@
 
 #include "config.h"
 
-#include <QPushButton>
-#include <QCheckBox>
-#include <QGroupBox>
-#include <QLabel>
-#include <QTreeView>
-#include <QPixmap>
-#include <QProgressBar>
-#include <QSlider>
-#include <QTabWidget>
-#include <QTreeWidget>
-#include <QTreeWidgetItem>
-#include <QStatusBar>
+#include <QtGui/QPushButton>
+#include <QtGui/QCheckBox>
+#include <QtGui/QGroupBox>
+#include <QtGui/QLabel>
+#include <QtGui/QTreeView>
+#include <QtGui/QPixmap>
+#include <QtGui/QProgressBar>
+#include <QtGui/QSlider>
+#include <QtGui/QTabWidget>
+#include <QtGui/QTreeWidget>
+#include <QtGui/QTreeWidgetItem>
+#include <QtGui/QStatusBar>
 
 #include <kcombobox.h>
 #include <kglobal.h>

@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QString>
-#include <QWidget>
+#include <QtCore/QString>
+#include <QtGui/QWidget>
 
 #include <kdemacros.h>
 

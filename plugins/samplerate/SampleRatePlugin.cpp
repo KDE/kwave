@@ -23,9 +23,9 @@
 #include <threadweaver/ThreadWeaver.h>
 #include <threadweaver/DebuggingAids.h>
 
-#include <QList>
-#include <QListIterator>
-#include <QStringList>
+#include <QtCore/QList>
+#include <QtCore/QListIterator>
+#include <QtCore/QStringList>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/Connect.h"

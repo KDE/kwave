@@ -20,13 +20,13 @@
 
 #include "config.h"
 
-#include <QList>
-#include <QListIterator>
-#include <QMutableListIterator>
-#include <QObject>
-#include <QPointF>
-#include <QString>
-#include <QtGlobal>
+#include <QtCore/QList>
+#include <QtCore/QListIterator>
+#include <QtCore/QMutableListIterator>
+#include <QtCore/QObject>
+#include <QtCore/QPointF>
+#include <QtCore/QString>
+#include <QtCore/QtGlobal>
 
 #include <kdemacros.h>
 

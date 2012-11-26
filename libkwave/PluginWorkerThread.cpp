@@ -21,7 +21,7 @@
 #include <sys/time.h>
 #include <stdio.h>
 
-#include <QtGlobal> // for qWarning()
+#include <QtCore/QtGlobal> // for qWarning()
 
 #undef DEBUG_FIND_DEADLOCKS
 #ifdef DEBUG_FIND_DEADLOCKS

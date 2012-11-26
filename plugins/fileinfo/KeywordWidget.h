@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <QStringList>
+#include <QtCore/QObject>
+#include <QtCore/QStringList>
 
 #include "ui_KeywordWidgetBase.h"
 

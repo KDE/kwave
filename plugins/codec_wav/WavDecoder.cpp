@@ -20,10 +20,10 @@
 
 #include <audiofile.h>
 
-#include <QApplication>
-#include <QList>
-#include <QProgressDialog>
-#include <QtGlobal>
+#include <QtGui/QApplication>
+#include <QtCore/QList>
+#include <QtGui/QProgressDialog>
+#include <QtCore/QtGlobal>
 
 #include <klocale.h>
 #include <kmimetype.h>

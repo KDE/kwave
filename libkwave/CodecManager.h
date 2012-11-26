@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <QList>
-#include <QString>
-#include <QStringList>
+#include <QtCore/QObject>
+#include <QtCore/QList>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 #include <kdemacros.h>
 #include <kmimetype.h>

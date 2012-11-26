@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QDialog>
-#include <QObject>
-#include <QTimer>
+#include <QtGui/QDialog>
+#include <QtCore/QObject>
+#include <QtCore/QTimer>
 
 #include "libgui/SelectTimeWidget.h"
 #include "ui_SelectRangeDlg.h"

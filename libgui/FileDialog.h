@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <QString>
+#include <QtCore/QObject>
+#include <QtCore/QString>
 
 #include <kdemacros.h>
 #include <kfiledialog.h>

@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <QApplication>
-#include <QThread>
-#include <QWidget>
+#include <QtGui/QApplication>
+#include <QtCore/QThread>
+#include <QtGui/QWidget>
 
 #include <kmessagebox.h>
 

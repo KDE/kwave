@@ -21,9 +21,9 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include <QByteArray>
-#include <QList>
-#include <QVarLengthArray>
+#include <QtCore/QByteArray>
+#include <QtCore/QList>
+#include <QtCore/QVarLengthArray>
 
 #include <klocale.h>
 #include <kmimetype.h>

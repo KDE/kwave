@@ -19,8 +19,8 @@
 #include <errno.h>
 #include <math.h>
 
-#include <QDialog>
-#include <QString>
+#include <QtGui/QDialog>
+#include <QtCore/QString>
 #include <klocale.h>
 
 #include "libkwave/Plugin.h"

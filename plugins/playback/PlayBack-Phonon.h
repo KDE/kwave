@@ -21,10 +21,10 @@
 #include "config.h"
 #ifdef HAVE_PHONON_SUPPORT
 
-#include <QByteArray>
-#include <QList>
-#include <QSemaphore>
-#include <QString>
+#include <QtCore/QByteArray>
+#include <QtCore/QList>
+#include <QtCore/QSemaphore>
+#include <QtCore/QString>
 
 #include <phonon/phononnamespace.h>
 #include <phonon/abstractmediastream.h>

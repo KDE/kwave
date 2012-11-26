@@ -19,12 +19,12 @@
 
 #include "config.h"
 
-#include <QList>
-#include <QMap>
-#include <QString>
-#include <QVariant>
-#include <QMapIterator>
-#include <QMutableMapIterator>
+#include <QtCore/QList>
+#include <QtCore/QMap>
+#include <QtCore/QString>
+#include <QtCore/QVariant>
+#include <QtCore/QMapIterator>
+#include <QtCore/QMutableMapIterator>
 
 #include <kdemacros.h>
 

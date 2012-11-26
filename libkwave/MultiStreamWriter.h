@@ -21,8 +21,8 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <QList>
+#include <QtCore/QObject>
+#include <QtCore/QList>
 
 #include <kdemacros.h>
 

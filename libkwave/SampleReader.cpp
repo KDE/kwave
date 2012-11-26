@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <QApplication>
+#include <QtGui/QApplication>
 
 #include "libkwave/memcpy.h"
 #include "libkwave/Sample.h"

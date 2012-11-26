@@ -18,11 +18,11 @@
 #ifndef _KWAVE_SPLASH_H_
 #define _KWAVE_SPLASH_H_
 
-#include <QFrame>
-#include <QObject>
-#include <QPixmap>
-#include <QPointer>
-#include <QString>
+#include <QtGui/QFrame>
+#include <QtCore/QObject>
+#include <QtGui/QPixmap>
+#include <QtCore/QPointer>
+#include <QtCore/QString>
 
 class QMouseEvent;
 class QPaintEvent;

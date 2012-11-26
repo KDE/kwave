@@ -18,8 +18,8 @@
 #include "config.h"
 #include <stdio.h>
 
-#include <QHash>
-#include <QObject>
+#include <QtCore/QHash>
+#include <QtCore/QObject>
 
 #include <kapplication.h>
 

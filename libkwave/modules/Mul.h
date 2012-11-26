@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QMutex>
-#include <QQueue>
-#include <QSemaphore>
+#include <QtCore/QMutex>
+#include <QtCore/QQueue>
+#include <QtCore/QSemaphore>
 
 #include <kdemacros.h>
 

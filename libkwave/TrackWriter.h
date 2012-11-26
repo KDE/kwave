@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <QTime>
+#include <QtCore/QObject>
+#include <QtCore/QTime>
 
 #include <kdemacros.h>
 

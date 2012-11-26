@@ -17,11 +17,11 @@
 
 #include "config.h"
 
-#include <QApplication>
-#include <QBuffer>
-#include <QMutableListIterator>
-#include <QVariant>
-#include <QWidget>
+#include <QtGui/QApplication>
+#include <QtCore/QBuffer>
+#include <QtCore/QMutableListIterator>
+#include <QtCore/QVariant>
+#include <QtGui/QWidget>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Decoder.h"

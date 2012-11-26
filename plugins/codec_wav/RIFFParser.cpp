@@ -20,12 +20,12 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <QIODevice>
-#include <QList>
-#include <QMutableListIterator>
-#include <QString>
-#include <QStringList>
-#include <QtGlobal>
+#include <QtCore/QIODevice>
+#include <QtCore/QList>
+#include <QtCore/QMutableListIterator>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtCore/QtGlobal>
 #include <klocale.h>
 
 #include "libkwave/byteswap.h"

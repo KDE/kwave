@@ -23,10 +23,10 @@
 #include <threadweaver/ThreadWeaver.h>
 #include <threadweaver/DebuggingAids.h>
 
-#include <QList>
-#include <QSharedPointer>
-#include <QStringList>
-#include <QThread>
+#include <QtCore/QList>
+#include <QtCore/QSharedPointer>
+#include <QtCore/QStringList>
+#include <QtCore/QThread>
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/PluginManager.h"

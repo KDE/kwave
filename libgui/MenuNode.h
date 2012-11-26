@@ -20,13 +20,13 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <QHash>
-#include <QIcon>
-#include <QKeySequence>
-#include <QPixmap>
-#include <QString>
-#include <QStringList>
+#include <QtCore/QObject>
+#include <QtCore/QHash>
+#include <QtGui/QIcon>
+#include <QtGui/QKeySequence>
+#include <QtGui/QPixmap>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 class QAction;
 

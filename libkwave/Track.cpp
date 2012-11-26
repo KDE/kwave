@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QReadLocker>
-#include <QWriteLocker>
+#include <QtCore/QReadLocker>
+#include <QtCore/QWriteLocker>
 
 #include "libkwave/SampleReader.h"
 #include "libkwave/Stripe.h"

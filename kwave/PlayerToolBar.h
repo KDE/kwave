@@ -21,8 +21,8 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <QTimer>
+#include <QtCore/QObject>
+#include <QtCore/QTimer>
 
 #include "ktoolbar.h"
 

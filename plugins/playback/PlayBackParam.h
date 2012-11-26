@@ -18,7 +18,7 @@
 #ifndef _PLAY_BACK_PARAM_H_
 #define _PLAY_BACK_PARAM_H_
 
-#include <QString>
+#include <QtCore/QString>
 
 namespace Kwave
 {

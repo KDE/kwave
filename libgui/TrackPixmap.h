@@ -22,12 +22,12 @@
 
 #include <math.h>
 
-#include <QBitArray>
-#include <QColor>
-#include <QMutex>
-#include <QObject>
-#include <QPixmap>
-#include <QVector>
+#include <QtCore/QBitArray>
+#include <QtGui/QColor>
+#include <QtCore/QMutex>
+#include <QtCore/QObject>
+#include <QtGui/QPixmap>
+#include <QtCore/QVector>
 
 #include <kdemacros.h>
 

@@ -18,12 +18,12 @@
 #include "config.h"
 #include "math.h"
 
-#include <QObject>
-#include <QPainter>
-#include <QPushButton>
-#include <QRadioButton>
-#include <QSlider>
-#include <QWidget>
+#include <QtCore/QObject>
+#include <QtGui/QPainter>
+#include <QtGui/QPushButton>
+#include <QtGui/QRadioButton>
+#include <QtGui/QSlider>
+#include <QtGui/QWidget>
 
 #include <knuminput.h>
 

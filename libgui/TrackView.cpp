@@ -17,12 +17,12 @@
 
 #include "config.h"
 
-#include <QMenu>
-#include <QPainter>
-#include <QPalette>
-#include <QResizeEvent>
-#include <QTime>
-#include <QVBoxLayout>
+#include <QtGui/QMenu>
+#include <QtGui/QPainter>
+#include <QtGui/QPalette>
+#include <QtGui/QResizeEvent>
+#include <QtCore/QTime>
+#include <QtGui/QVBoxLayout>
 
 #include <kiconloader.h>
 

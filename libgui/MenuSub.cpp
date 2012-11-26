@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <QPixmap>
+#include <QtGui/QPixmap>
 
 #include <klocale.h>
 

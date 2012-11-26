@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QByteArray>
-#include <QMimeData>
-#include <QObject>
+#include <QtCore/QByteArray>
+#include <QtCore/QMimeData>
+#include <QtCore/QObject>
 
 #include <kdemacros.h>
 

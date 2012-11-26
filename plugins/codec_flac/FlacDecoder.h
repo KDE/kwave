@@ -20,11 +20,11 @@
 
 #include "config.h"
 
-#include <QList>
-#include <QMap>
-#include <QString>
-#include <QStringList>
-#include <QObject>
+#include <QtCore/QList>
+#include <QtCore/QMap>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtCore/QObject>
 
 #include <FLAC/format.h>
 #include <FLAC++/decoder.h>

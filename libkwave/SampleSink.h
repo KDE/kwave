@@ -19,7 +19,7 @@
 #define _SAMPLE_SINK_H_
 
 #include "config.h"
-#include <QObject>
+#include <QtCore/QObject>
 
 #include "libkwave/SampleArray.h"
 #include "libkwave/modules/StreamObject.h"

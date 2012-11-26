@@ -19,9 +19,9 @@
 
 #include <math.h>
 
-#include <QAction>
-#include <QList>
-#include <QMenu>
+#include <QtGui/QAction>
+#include <QtCore/QList>
+#include <QtGui/QMenu>
 
 #include "kiconloader.h"
 #include "klocalizedstring.h"

@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <QThread>
+#include <QtCore/QThread>
 #include <threadweaver/Job.h>
 #include <threadweaver/ThreadWeaver.h>
 

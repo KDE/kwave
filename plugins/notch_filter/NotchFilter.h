@@ -23,8 +23,8 @@
 
 #include "config.h"
 
-#include <qobject.h>
-#include <qvariant.h>
+#include <QtCore/QObject>
+#include <QtCore/QVariant>
 
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleSource.h"

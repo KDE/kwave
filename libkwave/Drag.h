@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QByteArray>
-#include <QDrag>
-#include <QObject>
-#include <QString>
+#include <QtCore/QByteArray>
+#include <QtGui/QDrag>
+#include <QtCore/QObject>
+#include <QtCore/QString>
 
 #include <kdemacros.h>
 

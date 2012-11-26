@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QtGlobal>
-#include <QMutexLocker>
+#include <QtCore/QtGlobal>
+#include <QtCore/QMutexLocker>
 
 #include "libkwave/memcpy.h"
 #include "libkwave/MultiPlaybackSink.h"

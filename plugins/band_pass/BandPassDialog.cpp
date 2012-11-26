@@ -18,11 +18,11 @@
 #include "config.h"
 #include "math.h"
 
-#include <QPainter>
-#include <QPushButton>
-#include <QRadioButton>
-#include <QSlider>
-#include <QWidget>
+#include <QtGui/QPainter>
+#include <QtGui/QPushButton>
+#include <QtGui/QRadioButton>
+#include <QtGui/QSlider>
+#include <QtGui/QWidget>
 
 #include <knuminput.h>
 #include <klocale.h>

@@ -19,7 +19,7 @@
 
 #include <kdemacros.h>
 
-#include <QSpinBox>
+#include <QtGui/QSpinBox>
 
 #ifndef _INVERTABLE_SPIN_BOX_H_
 #define _INVERTABLE_SPIN_BOX_H_

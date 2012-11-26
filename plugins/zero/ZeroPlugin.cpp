@@ -19,8 +19,8 @@
 #include <math.h>
 #include <klocale.h> // for the i18n macro
 
-#include <QList>
-#include <QStringList>
+#include <QtCore/QList>
+#include <QtCore/QStringList>
 
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"

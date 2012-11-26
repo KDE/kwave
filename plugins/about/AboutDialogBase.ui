@@ -347,7 +347,7 @@ and scroll capability.</string>
   <include location="global">klocale.h</include>
   <include location="global">kurllabel.h</include>
   <include location="local">LogoWidget.h</include>
-  <include location="global">QScrollArea</include>
+  <include location="global">QtGui/QScrollArea</include>
  </includes>
  <resources/>
  <connections>

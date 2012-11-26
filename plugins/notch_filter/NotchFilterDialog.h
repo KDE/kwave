@@ -19,8 +19,8 @@
 #define _NOTCH_FILTER_DIALOG_H_
 
 #include "config.h"
-#include <QObject>
-#include <QString>
+#include <QtCore/QObject>
+#include <QtCore/QString>
 
 #include "libkwave/PluginSetupDialog.h"
 

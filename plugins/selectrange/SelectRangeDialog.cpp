@@ -18,8 +18,8 @@
 #include "config.h"
 #include <math.h>
 
-#include <QRadioButton>
-#include <QSlider>
+#include <QtGui/QRadioButton>
+#include <QtGui/QSlider>
 
 #include <klocale.h>
 #include <knuminput.h>

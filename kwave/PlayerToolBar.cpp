@@ -18,8 +18,8 @@
 
 #include "config.h"
 
-#include <qglobal.h>
-#include <QAction>
+#include <QtCore/QtGlobal>
+#include <QtGui/QAction>
 
 #include <kiconloader.h>
 #include <klocale.h>

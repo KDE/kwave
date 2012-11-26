@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <QDialog>
+#include <QtGui/QDialog>
 
 #include "libkwave/Sample.h"
 #include "libkwave/WindowFunction.h"

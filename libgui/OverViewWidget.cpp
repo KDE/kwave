@@ -19,12 +19,12 @@
 
 #include <math.h>
 
-#include <QApplication>
-#include <QPainter>
-#include <QResizeEvent>
-#include <QMouseEvent>
-#include <QPaintEvent>
-#include <QVBoxLayout>
+#include <QtGui/QApplication>
+#include <QtGui/QPainter>
+#include <QtGui/QResizeEvent>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QPaintEvent>
+#include <QtGui/QVBoxLayout>
 
 #include "libkwave/Label.h"
 #include "libkwave/MetaDataList.h"

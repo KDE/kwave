@@ -20,11 +20,11 @@
 
 #include "config.h"
 
-#include <QByteArray>
-#include <QList>
-#include <QString>
-#include <QStringList>
-#include <QVector>
+#include <QtCore/QByteArray>
+#include <QtCore/QList>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtCore/QVector>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/MultiTrackWriter.h"

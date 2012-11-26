@@ -19,7 +19,7 @@
 #include <float.h> // for FLT_MAX, DBL_MIN, DBL_MAX
 #include <math.h>
 
-#include <QtAlgorithms>
+#include <QtCore/QtAlgorithms>
 
 #include "Parser.h"
 #include "Interpolation.h"

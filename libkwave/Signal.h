@@ -23,8 +23,8 @@
 #include <limits.h>
 #include <pthread.h>
 
-#include <QReadWriteLock>
-#include <QList>
+#include <QtCore/QReadWriteLock>
+#include <QtCore/QList>
 
 #include <kdemacros.h>
 

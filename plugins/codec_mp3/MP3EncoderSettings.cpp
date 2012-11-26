@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <QDir>
+#include <QtCore/QDir>
 
 #include <kconfiggroup.h>
 #include <kglobal.h>

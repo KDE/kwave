@@ -18,7 +18,7 @@
 #include "config.h"
 #include "math.h"
 
-#include <QLineEdit>
+#include <QtGui/QLineEdit>
 
 #include <kapplication.h>
 #include <kconfig.h>

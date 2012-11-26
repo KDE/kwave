@@ -21,12 +21,12 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <QtGlobal>
-#include <QCursor>
-#include <QDateTime>
-#include <QStringList>
-#include <QList>
-#include <QVariant>
+#include <QtCore/QtGlobal>
+#include <QtGui/QCursor>
+#include <QtCore/QDateTime>
+#include <QtCore/QStringList>
+#include <QtCore/QList>
+#include <QtCore/QVariant>
 
 #include <kapplication.h>
 #include <kaboutdata.h>

@@ -17,17 +17,17 @@
 
 #include "config.h"
 
-#include <QAbstractButton>
-#include <QBuffer>
-#include <QCursor>
-#include <QDialogButtonBox>
-#include <QDir>
-#include <QFile>
-#include <QFileInfo>
-#include <QLineEdit>
-#include <QApplication>
-#include <QProcess>
-#include <QtGlobal>
+#include <QtGui/QAbstractButton>
+#include <QtCore/QBuffer>
+#include <QtGui/QCursor>
+#include <QtGui/QDialogButtonBox>
+#include <QtCore/QDir>
+#include <QtCore/QFile>
+#include <QtCore/QFileInfo>
+#include <QtGui/QLineEdit>
+#include <QtGui/QApplication>
+#include <QtCore/QProcess>
+#include <QtCore/QtGlobal>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"

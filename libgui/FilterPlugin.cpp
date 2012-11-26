@@ -19,9 +19,9 @@
 #include <errno.h>
 #include <unistd.h>
 
-#include <QApplication>
-#include <QDialog>
-#include <QStringList>
+#include <QtGui/QApplication>
+#include <QtGui/QDialog>
+#include <QtCore/QStringList>
 
 #include <klocale.h>
 

@@ -19,8 +19,10 @@
 #define _SELECT_DATE_DIALOG_H_
 
 #include "config.h"
-#include <qdatetime.h>
-#include <qobject.h>
+
+#include <QtCore/QDateTime>
+#include <QtCore/QObject>
+
 #include "ui_SelectDateDlg.h"
 
 class QWidget;

@@ -22,7 +22,7 @@
 
 #include <kdemacros.h>
 
-#include <QList>
+#include <QtCore/QList>
 
 namespace Kwave
 {

@@ -16,8 +16,8 @@
  ***************************************************************************/
 #include "config.h"
 
-#include <QDateTime>
-#include <QTextStream>
+#include <QtCore/QDateTime>
+#include <QtCore/QTextStream>
 
 #include <klocale.h>
 #include <kmimetype.h>

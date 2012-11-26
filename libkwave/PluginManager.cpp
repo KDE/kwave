@@ -22,8 +22,8 @@
 #include <pthread.h>
 #include <unistd.h>
 
-#include <QApplication>
-#include <QMutableListIterator>
+#include <QtGui/QApplication>
+#include <QtCore/QMutableListIterator>
 
 #include <kglobal.h>
 #include <kconfig.h>

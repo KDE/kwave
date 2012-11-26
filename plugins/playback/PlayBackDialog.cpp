@@ -19,12 +19,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <QIcon>
-#include <QLabel>
-#include <QTreeWidget>
-#include <QTreeWidgetItem>
-#include <QSlider>
-#include <QStringList>
+#include <QtGui/QIcon>
+#include <QtGui/QLabel>
+#include <QtGui/QTreeWidget>
+#include <QtGui/QTreeWidgetItem>
+#include <QtGui/QSlider>
+#include <QtCore/QStringList>
 
 #include <kcombobox.h>
 #include <kfiledialog.h>

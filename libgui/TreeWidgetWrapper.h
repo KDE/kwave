@@ -22,8 +22,8 @@
 
 #include <kdemacros.h>
 
-#include <QObject>
-#include <QTreeWidget>
+#include <QtCore/QObject>
+#include <QtGui/QTreeWidget>
 
 class QFocusEvent;
 

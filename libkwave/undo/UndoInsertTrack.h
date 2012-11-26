@@ -21,7 +21,7 @@
 
 #include "config.h"
 
-#include <QString>
+#include <QtCore/QString>
 
 #include "libkwave/undo/UndoAction.h"
 

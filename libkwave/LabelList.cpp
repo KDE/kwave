@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <QtAlgorithms>
+#include <QtCore/QtAlgorithms>
 
 #include "libkwave/LabelList.h"
 #include "libkwave/MetaData.h"

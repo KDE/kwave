@@ -19,8 +19,8 @@
 #define _MULTI_TRACK_SINK_H_
 
 #include "config.h"
-#include <QObject>
-#include <QVector>
+#include <QtCore/QObject>
+#include <QtCore/QVector>
 
 #include "libkwave/SampleSink.h"
 

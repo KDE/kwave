@@ -23,11 +23,11 @@
 #include <id3/tag.h>
 #include <id3/misc_support.h>
 
-#include <QByteArray>
-#include <QDate>
-#include <QDateTime>
-#include <QList>
-#include <QMap>
+#include <QtCore/QByteArray>
+#include <QtCore/QDate>
+#include <QtCore/QDateTime>
+#include <QtCore/QList>
+#include <QtCore/QMap>
 
 #include <klocale.h>
 #include <kmimetype.h>

@@ -20,11 +20,11 @@
 
 #include "config.h"
 
-#include <QImage>
-#include <QList>
-#include <QMutex>
-#include <QObject>
-#include <QVector>
+#include <QtGui/QImage>
+#include <QtCore/QList>
+#include <QtCore/QMutex>
+#include <QtCore/QObject>
+#include <QtCore/QVector>
 
 #include <kdemacros.h>
 

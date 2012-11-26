@@ -20,11 +20,11 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <QString>
-#include <QVector>
-#include <QPointer>
-#include <QQueue>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QVector>
+#include <QtCore/QPointer>
+#include <QtCore/QQueue>
 
 #include "libkwave/Connect.h"
 #include "libkwave/SampleSink.h"

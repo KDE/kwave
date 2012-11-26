@@ -29,10 +29,10 @@
 #include <pulse/stream.h>
 #include <pulse/thread-mainloop.h>
 
-#include <QList>
-#include <QMap>
-#include <QSemaphore>
-#include <QString>
+#include <QtCore/QList>
+#include <QtCore/QMap>
+#include <QtCore/QSemaphore>
+#include <QtCore/QString>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/PlayBackDevice.h"

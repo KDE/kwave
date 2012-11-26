@@ -21,9 +21,9 @@
 
 #include "config.h"
 
-#include <QPair>
-#include <QPointer>
-#include <QString>
+#include <QtCore/QPair>
+#include <QtCore/QPointer>
+#include <QtCore/QString>
 
 #include <kdemacros.h>
 #include <kmainwindow.h>

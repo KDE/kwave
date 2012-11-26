@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <QMap>
+#include <QtCore/QObject>
+#include <QtCore/QMap>
 
 #include <kdemacros.h>
 

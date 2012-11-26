@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <QMimeData>
+#include <QtCore/QMimeData>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Drag.h"

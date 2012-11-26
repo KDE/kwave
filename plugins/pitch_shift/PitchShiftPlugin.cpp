@@ -19,7 +19,7 @@
 #include <errno.h>
 #include <math.h>
 
-#include <QStringList>
+#include <QtCore/QStringList>
 
 #include <klocale.h>
 

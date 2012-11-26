@@ -22,8 +22,8 @@
 #include <stdlib.h>
 #include <dlfcn.h>
 
-#include <QReadLocker>
-#include <QWriteLocker>
+#include <QtCore/QReadLocker>
+#include <QtCore/QWriteLocker>
 
 #include <klocale.h>
 

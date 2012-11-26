@@ -19,7 +19,7 @@
 
 #include "config.h"
 
-#include <QString>
+#include <QtCore/QString>
 
 #include <kdemacros.h>
 #include <klocale.h>

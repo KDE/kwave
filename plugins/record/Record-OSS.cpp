@@ -27,9 +27,9 @@
 #include <math.h>
 #include <errno.h>
 
-#include <QDir>
-#include <QFile>
-#include <QtGlobal>
+#include <QtCore/QDir>
+#include <QtCore/QFile>
+#include <QtCore/QtGlobal>
 
 #include "libkwave/CompressionType.h"
 #include "libkwave/SampleFormat.h"

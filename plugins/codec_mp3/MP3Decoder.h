@@ -22,7 +22,7 @@
 
 #include <mad.h>		// needs libmad-devel package
 
-#include <QString>
+#include <QtCore/QString>
 
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"

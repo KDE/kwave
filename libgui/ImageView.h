@@ -22,9 +22,9 @@
 
 #include <kdemacros.h>
 
-#include <QWidget>
-#include <QPainter>
-#include <QImage>
+#include <QtGui/QWidget>
+#include <QtGui/QPainter>
+#include <QtGui/QImage>
 
 namespace Kwave
 {

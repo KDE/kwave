@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <QCheckBox>
-#include <QComboBox>
-#include <QLineEdit>
+#include <QtGui/QCheckBox>
+#include <QtGui/QComboBox>
+#include <QtGui/QLineEdit>
 
 #include "SaveBlocksWidget.h"
 

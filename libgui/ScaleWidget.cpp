@@ -21,10 +21,10 @@
 #include <math.h>
 #include <stdio.h>
 
-#include <QtGlobal>
-#include <QFont>
-#include <QPainter>
-#include <QPaintEvent>
+#include <QtCore/QtGlobal>
+#include <QtGui/QFont>
+#include <QtGui/QPainter>
+#include <QtGui/QPaintEvent>
 
 #include "ScaleWidget.h"
 

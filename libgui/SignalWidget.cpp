@@ -21,20 +21,20 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-#include <QBitmap>
-#include <QContextMenuEvent>
-#include <QDragLeaveEvent>
-#include <QEvent>
-#include <QFrame>
-#include <QDragEnterEvent>
-#include <QDragMoveEvent>
-#include <QDropEvent>
-#include <QMenu>
-#include <QMouseEvent>
-#include <QPaintEvent>
-#include <QResizeEvent>
-#include <QTime>
-#include <QToolTip>
+#include <QtGui/QBitmap>
+#include <QtGui/QContextMenuEvent>
+#include <QtGui/QDragLeaveEvent>
+#include <QtCore/QEvent>
+#include <QtGui/QFrame>
+#include <QtGui/QDragEnterEvent>
+#include <QtGui/QDragMoveEvent>
+#include <QtGui/QDropEvent>
+#include <QtGui/QMenu>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QPaintEvent>
+#include <QtGui/QResizeEvent>
+#include <QtCore/QTime>
+#include <QtGui/QToolTip>
 
 #include <kcursor.h>
 #include <kglobal.h>

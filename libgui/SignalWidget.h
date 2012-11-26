@@ -20,20 +20,20 @@
 
 #include "config.h"
 
-#include <QGridLayout>
-#include <QImage>
-#include <QLabel>
-#include <QList>
-#include <QObject>
-#include <QPainter>
-#include <QPixmap>
-#include <QPoint>
-#include <QPointer>
-#include <QPolygon>
-#include <QQueue>
-#include <QSize>
-#include <QTimer>
-#include <QWidget>
+#include <QtGui/QGridLayout>
+#include <QtGui/QImage>
+#include <QtGui/QLabel>
+#include <QtCore/QList>
+#include <QtCore/QObject>
+#include <QtGui/QPainter>
+#include <QtGui/QPixmap>
+#include <QtCore/QPoint>
+#include <QtCore/QPointer>
+#include <QtGui/QPolygon>
+#include <QtCore/QQueue>
+#include <QtCore/QSize>
+#include <QtCore/QTimer>
+#include <QtGui/QWidget>
 
 #include "kdemacros.h"
 

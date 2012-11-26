@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QPainter>
-#include <QPixmap>
+#include <QtGui/QPainter>
+#include <QtGui/QPixmap>
 
 #include "StatusWidget.h"
 

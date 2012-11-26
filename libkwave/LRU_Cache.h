@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QLinkedList>
-#include <QMutableLinkedListIterator>
-#include <QPair>
+#include <QtCore/QLinkedList>
+#include <QtCore/QMutableLinkedListIterator>
+#include <QtCore/QPair>
 
 namespace Kwave
 {

@@ -19,7 +19,7 @@
 #define _WAV_FILE_FORMAT_H_
 
 #include <stdint.h>
-#include <QList>
+#include <QtCore/QList>
 
 namespace Kwave
 {

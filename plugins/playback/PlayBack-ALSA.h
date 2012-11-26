@@ -30,9 +30,9 @@
 
 #include <alsa/asoundlib.h>
 
-#include <QString>
-#include <QMap>
-#include <QList>
+#include <QtCore/QString>
+#include <QtCore/QMap>
+#include <QtCore/QList>
 
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/SampleArray.h"

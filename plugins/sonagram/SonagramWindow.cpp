@@ -20,10 +20,10 @@
 #include <math.h>
 #include <limits.h>
 
-#include <QBitmap>
-#include <QImage>
-#include <QLayout>
-#include <QTimer>
+#include <QtGui/QBitmap>
+#include <QtGui/QImage>
+#include <QtGui/QLayout>
+#include <QtCore/QTimer>
 
 #include <kmenubar.h>
 #include <kfiledialog.h>

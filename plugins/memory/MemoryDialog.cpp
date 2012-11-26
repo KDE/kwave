@@ -19,15 +19,15 @@
 #include <limits.h>
 #include <unistd.h>
 
-#include <QCheckBox>
-#include <QLabel>
-#include <QLineEdit>
-#include <QObject>
-#include <QPushButton>
-#include <QSlider>
-#include <QString>
-#include <QStringList>
-#include <QSpinBox>
+#include <QtGui/QCheckBox>
+#include <QtGui/QLabel>
+#include <QtGui/QLineEdit>
+#include <QtCore/QObject>
+#include <QtGui/QPushButton>
+#include <QtGui/QSlider>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtGui/QSpinBox>
 
 #include <ktoolinvocation.h>
 #include <kfiledialog.h>

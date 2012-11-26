@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QBitArray>
-#include <QMutex>
-#include <QVector>
+#include <QtCore/QBitArray>
+#include <QtCore/QMutex>
+#include <QtCore/QVector>
 
 #include <kdemacros.h>
 

@@ -17,14 +17,14 @@
 
 #include "config.h"
 
-#include <QApplication>
-#include <QDesktopWidget>
-#include <QFont>
-#include <QLabel>
-#include <QPainter>
-#include <QPixmap>
-#include <QString>
-#include <QTimer>
+#include <QtGui/QApplication>
+#include <QtGui/QDesktopWidget>
+#include <QtGui/QFont>
+#include <QtGui/QLabel>
+#include <QtGui/QPainter>
+#include <QtGui/QPixmap>
+#include <QtCore/QString>
+#include <QtCore/QTimer>
 
 #include <kapplication.h>
 #include <kaboutdata.h>

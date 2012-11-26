@@ -21,9 +21,9 @@
 
 #include "config.h"
 
-#include <QList>
-#include <QObject>
-#include <QTime>
+#include <QtCore/QList>
+#include <QtCore/QObject>
+#include <QtCore/QTime>
 
 #include <kdemacros.h>
 

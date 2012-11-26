@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QMenu>
-#include <QString>
-#include <QWidget>
+#include <QtGui/QMenu>
+#include <QtCore/QString>
+#include <QtGui/QWidget>
 
 #include <kdemacros.h>
 

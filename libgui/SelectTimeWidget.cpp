@@ -20,9 +20,9 @@
 #include <math.h>
 #include <limits.h>
 
-#include <QRadioButton>
-#include <QSlider>
-#include <QWidget>
+#include <QtGui/QRadioButton>
+#include <QtGui/QSlider>
+#include <QtGui/QWidget>
 
 #include <klocale.h>
 #include <knuminput.h>

@@ -18,7 +18,7 @@
 
 #include "config.h"
 
-#include <QString>
+#include <QtCore/QString>
 
 #include <klocale.h>
 

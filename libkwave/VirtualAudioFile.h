@@ -22,7 +22,7 @@
 
 #include <kdemacros.h>
 
-#include <QMap>
+#include <QtCore/QMap>
 
 extern "C" {
 #include <audiofile.h>

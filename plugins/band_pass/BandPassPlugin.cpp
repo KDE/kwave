@@ -20,7 +20,7 @@
 #include <math.h>
 #include <errno.h>
 
-#include <QStringList>
+#include <QtCore/QStringList>
 #include <klocale.h>
 
 #include "libkwave/MultiTrackSource.h"

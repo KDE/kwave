@@ -18,11 +18,11 @@
 #include "config.h"
 #include "math.h"
 
-#include <QColor>
-#include <QPainter>
-#include <QRadioButton>
-#include <QSlider>
-#include <QSpinBox>
+#include <QtGui/QColor>
+#include <QtGui/QPainter>
+#include <QtGui/QRadioButton>
+#include <QtGui/QSlider>
+#include <QtGui/QSpinBox>
 
 #include <klocale.h>
 

@@ -25,9 +25,9 @@
 #include <id3/tag.h>
 #include <id3/misc_support.h>
 
-#include <QDate>
-#include <QDateTime>
-#include <QTime>
+#include <QtCore/QDate>
+#include <QtCore/QDateTime>
+#include <QtCore/QTime>
 
 #include "libkwave/CompressionType.h"
 #include "libkwave/GenreType.h"

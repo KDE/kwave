@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 
-#include <QtGlobal>
+#include <QtCore/QtGlobal>
 
 #include "libkwave/Sample.h"
 #include "libkwave/SampleFormat.h"

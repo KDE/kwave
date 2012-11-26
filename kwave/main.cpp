@@ -19,7 +19,7 @@
 
 #include <stdio.h>
 
-#include <QString>
+#include <QtCore/QString>
 
 #include <kaboutdata.h>
 #include <kuniqueapplication.h>

@@ -19,10 +19,10 @@
 
 #include <math.h>
 
-#include <QMutexLocker>
-#include <QPainter>
-#include <QPolygon>
-#include <QTime>
+#include <QtCore/QMutexLocker>
+#include <QtGui/QPainter>
+#include <QtGui/QPolygon>
+#include <QtCore/QTime>
 
 #include "libkwave/SampleReader.h"
 #include "libkwave/Track.h"

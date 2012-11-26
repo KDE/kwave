@@ -21,12 +21,12 @@
 #include <limits.h>
 #include <math.h>
 
-#include <QApplication>
-#include <QCursor>
-#include <QFile>
-#include <QFileInfo>
-#include <QMutexLocker>
-#include <QMutableListIterator>
+#include <QtGui/QApplication>
+#include <QtGui/QCursor>
+#include <QtCore/QFile>
+#include <QtCore/QFileInfo>
+#include <QtCore/QMutexLocker>
+#include <QtCore/QMutableListIterator>
 
 #include <kaboutdata.h>
 #include <kapplication.h>

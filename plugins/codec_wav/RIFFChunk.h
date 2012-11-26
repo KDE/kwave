@@ -22,9 +22,9 @@
 
 #include <sys/types.h>
 
-#include <QByteArray>
-#include <QList>
-#include <QString>
+#include <QtCore/QByteArray>
+#include <QtCore/QList>
+#include <QtCore/QString>
 
 namespace Kwave
 {

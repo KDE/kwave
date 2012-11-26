@@ -22,11 +22,11 @@
 #include <limits.h>
 #include <stdio.h>
 
-#include <QList>
-#include <QMap>
-#include <QMutex>
-#include <QObject>
-#include <QString>
+#include <QtCore/QList>
+#include <QtCore/QMap>
+#include <QtCore/QMutex>
+#include <QtCore/QObject>
+#include <QtCore/QString>
 
 #include <kdemacros.h>
 

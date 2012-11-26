@@ -20,13 +20,13 @@
 
 #include "config.h"
 
-#include <QList>
-#include <QMutex>
-#include <QObject>
-#include <QString>
-#include <QThread>
-#include <QTimer>
-#include <QVector>
+#include <QtCore/QList>
+#include <QtCore/QMutex>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QThread>
+#include <QtCore/QTimer>
+#include <QtCore/QVector>
 
 #include <kdemacros.h>
 

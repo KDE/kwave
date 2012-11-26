@@ -39,8 +39,8 @@
 #include <math.h>
 #include <errno.h>
 
-#include <QString>
-#include <QtGlobal>
+#include <QtCore/QString>
+#include <QtCore/QtGlobal>
 
 #include <klocale.h>
 

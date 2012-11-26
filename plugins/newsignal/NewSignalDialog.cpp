@@ -21,15 +21,15 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <QComboBox>
-#include <QLabel>
-#include <QLayout>
-#include <QPushButton>
-#include <QRadioButton>
-#include <QSlider>
-#include <QSpinBox>
-#include <QString>
-#include <QTimer>
+#include <QtGui/QComboBox>
+#include <QtGui/QLabel>
+#include <QtGui/QLayout>
+#include <QtGui/QPushButton>
+#include <QtGui/QRadioButton>
+#include <QtGui/QSlider>
+#include <QtGui/QSpinBox>
+#include <QtCore/QString>
+#include <QtCore/QTimer>
 
 #include <klocale.h>
 #include <knuminput.h>

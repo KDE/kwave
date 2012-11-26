@@ -19,12 +19,12 @@
 
 #include <errno.h>
 
-#include <QByteArray>
-#include <QDir>
-#include <QFile>
-#include <QFileInfo>
-#include <QStringList>
-#include <QRegExp>
+#include <QtCore/QByteArray>
+#include <QtCore/QDir>
+#include <QtCore/QFile>
+#include <QtCore/QFileInfo>
+#include <QtCore/QStringList>
+#include <QtCore/QRegExp>
 
 #include <klocale.h>
 

@@ -19,7 +19,7 @@
 #define _NEW_SIGNAL_PLUGIN_H_
 
 #include "config.h"
-#include <QObject>
+#include <QtCore/QObject>
 #include "libkwave/Plugin.h"
 
 class QStringList;

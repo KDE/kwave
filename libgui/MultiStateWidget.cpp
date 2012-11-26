@@ -18,9 +18,9 @@
  ***************************************************************************/
 #include "config.h"
 
-#include <QString>
-#include <QPainter>
-#include <QMouseEvent>
+#include <QtCore/QString>
+#include <QtGui/QPainter>
+#include <QtGui/QMouseEvent>
 
 #include <kstandarddirs.h>
 

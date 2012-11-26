@@ -17,25 +17,25 @@
 
 #include "config.h"
 
-#include <QtGlobal>
-#include <QCheckBox>
-#include <QComboBox>
-#include <QDateTime>
-#include <QDialog>
-#include <QFileInfo>
-#include <QLabel>
-#include <QLineEdit>
-#include <QListWidget>
-#include <QPushButton>
-#include <QRadioButton>
-#include <QSlider>
-#include <QSpinBox>
-#include <QString>
-#include <QStringList>
-#include <QTabWidget>
-#include <QToolTip>
-#include <QVector>
-#include <QWhatsThis>
+#include <QtCore/QtGlobal>
+#include <QtGui/QCheckBox>
+#include <QtGui/QComboBox>
+#include <QtCore/QDateTime>
+#include <QtGui/QDialog>
+#include <QtCore/QFileInfo>
+#include <QtGui/QLabel>
+#include <QtGui/QLineEdit>
+#include <QtGui/QListWidget>
+#include <QtGui/QPushButton>
+#include <QtGui/QRadioButton>
+#include <QtGui/QSlider>
+#include <QtGui/QSpinBox>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtGui/QTabWidget>
+#include <QtGui/QToolTip>
+#include <QtCore/QVector>
+#include <QtGui/QWhatsThis>
 
 #include <kglobal.h>
 #include <kconfig.h>

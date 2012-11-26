@@ -18,14 +18,14 @@
 #include "config.h"
 #include <math.h>
 
-#include <QApplication>
-#include <QCloseEvent>
-#include <QGridLayout>
-#include <QLabel>
-#include <QProgressBar>
-#include <QThread>
-#include <QTimer>
-#include <QVBoxLayout>
+#include <QtGui/QApplication>
+#include <QtGui/QCloseEvent>
+#include <QtGui/QGridLayout>
+#include <QtGui/QLabel>
+#include <QtGui/QProgressBar>
+#include <QtCore/QThread>
+#include <QtCore/QTimer>
+#include <QtGui/QVBoxLayout>
 
 #include <kpushbutton.h>
 #include <kglobal.h>

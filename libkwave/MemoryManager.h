@@ -21,10 +21,10 @@
 #include "config.h"
 #include <stddef.h>  // for size_t
 
-#include <QDir>
-#include <QHash>
-#include <QMutex>
-#include <QString>
+#include <QtCore/QDir>
+#include <QtCore/QHash>
+#include <QtCore/QMutex>
+#include <QtCore/QString>
 
 #include <kdemacros.h>
 

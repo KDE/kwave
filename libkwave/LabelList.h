@@ -19,8 +19,8 @@
 
 #include "config.h"
 
-#include <QList>
-#include <QListIterator>
+#include <QtCore/QList>
+#include <QtCore/QListIterator>
 
 #include <kdemacros.h>
 

@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <QObject>
+#include <QtCore/QObject>
 
 #include <kdemacros.h>
 #include <threadweaver/Job.h>

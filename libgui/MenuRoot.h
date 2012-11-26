@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <QList>
+#include <QtCore/QList>
 
 #include "MenuNode.h"
 

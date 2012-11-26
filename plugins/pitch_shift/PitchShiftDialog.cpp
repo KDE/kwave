@@ -18,10 +18,10 @@
 #include "config.h"
 #include "math.h"
 
-#include <QPushButton>
-#include <QRadioButton>
-#include <QSlider>
-#include <QSpinBox>
+#include <QtGui/QPushButton>
+#include <QtGui/QRadioButton>
+#include <QtGui/QSlider>
+#include <QtGui/QSpinBox>
 
 #include <klocale.h>
 #include "libgui/InvertableSpinBox.h"

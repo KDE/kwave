@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QKeySequence>
-#include <QObject>
+#include <QtGui/QKeySequence>
+#include <QtCore/QObject>
 
 #include "ShortcutWrapper.h"
 

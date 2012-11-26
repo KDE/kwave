@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QMutex>
-#include <QSharedData>
-#include <QExplicitlySharedDataPointer>
+#include <QtCore/QMutex>
+#include <QtCore/QSharedData>
+#include <QtCore/QExplicitlySharedDataPointer>
 
 #include <kdemacros.h>
 

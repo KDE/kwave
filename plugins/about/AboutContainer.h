@@ -26,9 +26,9 @@
 
 #include "config.h"
 
-#include <QFrame>
-#include <QSize>
-#include <QVBoxLayout>
+#include <QtGui/QFrame>
+#include <QtCore/QSize>
+#include <QtGui/QVBoxLayout>
 
 class QString;
 class QLabel;

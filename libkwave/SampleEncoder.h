@@ -22,7 +22,7 @@
 
 #include <kdemacros.h>
 
-#include <QByteArray>
+#include <QtCore/QByteArray>
 
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"

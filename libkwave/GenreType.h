@@ -22,9 +22,9 @@
 
 #include <kdemacros.h>
 
-#include <QMap>
-#include <QString>
-#include <QStringList>
+#include <QtCore/QMap>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 namespace Kwave
 {

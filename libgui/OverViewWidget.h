@@ -20,12 +20,12 @@
 
 #include "config.h"
 
-#include <QBitmap>
-#include <QColor>
-#include <QSize>
-#include <QThread>
-#include <QTimer>
-#include <QWidget>
+#include <QtGui/QBitmap>
+#include <QtGui/QColor>
+#include <QtCore/QSize>
+#include <QtCore/QThread>
+#include <QtCore/QTimer>
+#include <QtGui/QWidget>
 
 #include <kdemacros.h>
 

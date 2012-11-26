@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <QTimer>
+#include <QtCore/QTimer>
 
 #include <kmainwindow.h>
 

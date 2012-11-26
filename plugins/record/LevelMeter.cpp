@@ -20,14 +20,14 @@
 #include "config.h"
 #include <math.h>
 
-#include <QApplication>
-#include <QBrush>
-#include <QColor>
-#include <QFont>
-#include <QImage>
-#include <QPainter>
-#include <QPixmap>
-#include <QTimer>
+#include <QtGui/QApplication>
+#include <QtGui/QBrush>
+#include <QtGui/QColor>
+#include <QtGui/QFont>
+#include <QtGui/QImage>
+#include <QtGui/QPainter>
+#include <QtGui/QPixmap>
+#include <QtCore/QTimer>
 
 #include <klocale.h>
 

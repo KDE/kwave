@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <QSemaphore>
-#include <QString>
+#include <QtCore/QObject>
+#include <QtCore/QSemaphore>
+#include <QtCore/QString>
 
 #include <kdemacros.h>
 #include <kmessagebox.h>

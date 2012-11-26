@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QMimeData>
-#include <QString>
-#include <QUrl>
+#include <QtCore/QMimeData>
+#include <QtCore/QString>
+#include <QtCore/QUrl>
 
 #include "libkwave/CodecManager.h"
 

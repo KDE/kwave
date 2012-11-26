@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QComboBox>
-#include <QString>
+#include <QtGui/QComboBox>
+#include <QtCore/QString>
 
 #include <kabstractfilewidget.h>
 #include <kfiledialog.h>

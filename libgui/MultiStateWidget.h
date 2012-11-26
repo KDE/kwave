@@ -21,9 +21,9 @@
 
 #include "config.h"
 
-#include <QPixmap>
-#include <QVector>
-#include <QWidget>
+#include <QtGui/QPixmap>
+#include <QtCore/QVector>
+#include <QtGui/QWidget>
 
 #include <kdemacros.h>
 

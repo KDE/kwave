@@ -19,14 +19,14 @@
 
 #include "config.h"
 
-#include <QList>
-#include <QMap>
-#include <QMutex>
-#include <QString>
-#include <QSharedData>
-#include <QSharedDataPointer>
-#include <QStringList>
-#include <QVariant>
+#include <QtCore/QList>
+#include <QtCore/QMap>
+#include <QtCore/QMutex>
+#include <QtCore/QString>
+#include <QtCore/QSharedData>
+#include <QtCore/QSharedDataPointer>
+#include <QtCore/QStringList>
+#include <QtCore/QVariant>
 
 #include <kdemacros.h>
 

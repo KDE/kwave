@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <QFile>
-#include <QString>
-#include <QTextStream>
+#include <QtCore/QFile>
+#include <QtCore/QString>
+#include <QtCore/QTextStream>
 
 #include "Filter.h"
 #include "Parser.h"

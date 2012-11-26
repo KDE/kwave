@@ -22,10 +22,10 @@
 
 #include <math.h>
 
-#include <QList>
-#include <QStringList>
-#include <QThread>
-#include <QVector>
+#include <QtCore/QList>
+#include <QtCore/QStringList>
+#include <QtCore/QThread>
+#include <QtCore/QVector>
 
 #include <klocale.h> // for the i18n macro
 #include <threadweaver/Job.h>

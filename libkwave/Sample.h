@@ -22,7 +22,7 @@
 
 #include <sys/types.h>
 #include <limits.h>
-#include <QtGlobal>
+#include <QtCore/QtGlobal>
 
 /** use a unsigned integer for sample offset/count calculations */
 typedef qulonglong sample_index_t;

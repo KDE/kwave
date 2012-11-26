@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <QListIterator>
+#include <QtCore/QListIterator>
 
 #include "libkwave/undo/UndoAction.h"
 #include "libkwave/undo/UndoTransaction.h"

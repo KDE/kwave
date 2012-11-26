@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <QString>
+#include <QtCore/QObject>
+#include <QtCore/QString>
 
 #include "libkwave/Connect.h"
 #include "libkwave/SampleSink.h"

@@ -17,11 +17,11 @@
 
 #include "config.h"
 
-#include <QFileInfo>
-#include <QRegExp>
-#include <QString>
-#include <QStringList>
-#include <QUrl>
+#include <QtCore/QFileInfo>
+#include <QtCore/QRegExp>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtCore/QUrl>
 
 #include <kapplication.h>
 #include <kconfig.h>

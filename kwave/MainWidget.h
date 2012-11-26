@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QString>
-#include <QVBoxLayout>
-#include <QWidget>
+#include <QtCore/QString>
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QWidget>
 
 #include "libgui/SignalWidget.h"
 

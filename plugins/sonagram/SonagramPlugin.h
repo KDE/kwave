@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QList>
-#include <QString>
+#include <QtCore/QList>
+#include <QtCore/QString>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/WindowFunction.h"

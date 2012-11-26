@@ -22,7 +22,7 @@
 
 #include <vorbis/vorbisenc.h>
 
-#include <QList>
+#include <QtCore/QList>
 
 #include "libkwave/Encoder.h"
 

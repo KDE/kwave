@@ -21,10 +21,10 @@
 #include <unistd.h>
 #include <sys/types.h>
 
-#include <QFile>
-#include <QFileInfo>
-#include <QMutexLocker>
-#include <QString>
+#include <QtCore/QFile>
+#include <QtCore/QFileInfo>
+#include <QtCore/QMutexLocker>
+#include <QtCore/QString>
 
 #ifdef HAVE_SYSINFO
 #include <linux/kernel.h> // for struct sysinfo

@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QDateTime>
-#include <QString>
-#include <QStringList>
+#include <QtCore/QDateTime>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 #include "libkwave/SampleFormat.h"
 

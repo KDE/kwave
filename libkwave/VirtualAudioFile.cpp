@@ -18,7 +18,7 @@
 #include "config.h"
 #include <stdlib.h> // for calloc()
 #include <unistd.h>
-#include <QIODevice>
+#include <QtCore/QIODevice>
 #include "libkwave/VirtualAudioFile.h"
 
 /**

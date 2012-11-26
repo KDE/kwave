@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <QMutex>
+#include <QtCore/QObject>
+#include <QtCore/QMutex>
 
 #include <kdemacros.h>
 

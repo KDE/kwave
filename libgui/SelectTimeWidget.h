@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QGroupBox>
-#include <QObject>
-#include <QTimer>
+#include <QtGui/QGroupBox>
+#include <QtCore/QObject>
+#include <QtCore/QTimer>
 
 #include <kdemacros.h>
 

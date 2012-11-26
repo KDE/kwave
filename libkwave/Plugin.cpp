@@ -22,11 +22,11 @@
 #include <stdio.h>
 #include <dlfcn.h>
 
-#include <QProgressDialog>
-#include <QThread>
-#include <QTime>
-#include <QVector>
-#include <QWidget>
+#include <QtGui/QProgressDialog>
+#include <QtCore/QThread>
+#include <QtCore/QTime>
+#include <QtCore/QVector>
+#include <QtGui/QWidget>
 
 #include <kapplication.h>
 #include <klocale.h>

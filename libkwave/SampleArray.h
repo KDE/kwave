@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QSharedData>
-#include <QSharedDataPointer>
+#include <QtCore/QSharedData>
+#include <QtCore/QSharedDataPointer>
 
 #include <kdemacros.h>
 

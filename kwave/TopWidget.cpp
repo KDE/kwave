@@ -24,17 +24,17 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include <QCloseEvent>
-#include <QComboBox>
-#include <QDesktopWidget>
-#include <QFile>
-#include <QFrame>
-#include <QLabel>
-#include <QMap>
-#include <QPixmap>
-#include <QSizePolicy>
-#include <QStringList>
-#include <QTextStream>
+#include <QtGui/QCloseEvent>
+#include <QtGui/QComboBox>
+#include <QtGui/QDesktopWidget>
+#include <QtCore/QFile>
+#include <QtGui/QFrame>
+#include <QtGui/QLabel>
+#include <QtCore/QMap>
+#include <QtGui/QPixmap>
+#include <QtGui/QSizePolicy>
+#include <QtCore/QStringList>
+#include <QtCore/QTextStream>
 
 #include <kapplication.h>
 #include <kcombobox.h>

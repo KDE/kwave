@@ -17,14 +17,14 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <QCheckBox>
-#include <QLabel>
-#include <QRadioButton>
-#include <QSlider>
-#include <QToolTip>
-#include <QList>
-#include <QWhatsThis>
+#include <QtCore/QObject>
+#include <QtGui/QCheckBox>
+#include <QtGui/QLabel>
+#include <QtGui/QRadioButton>
+#include <QtGui/QSlider>
+#include <QtGui/QToolTip>
+#include <QtCore/QList>
+#include <QtGui/QWhatsThis>
 
 #include <klocale.h>
 #include <knuminput.h>

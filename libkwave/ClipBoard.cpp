@@ -18,11 +18,11 @@
 
 #include "config.h"
 
-#include <QApplication>
-#include <QClipboard>
-#include <QList>
-#include <QReadLocker>
-#include <QWriteLocker>
+#include <QtGui/QApplication>
+#include <QtGui/QClipboard>
+#include <QtCore/QList>
+#include <QtCore/QReadLocker>
+#include <QtCore/QWriteLocker>
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"

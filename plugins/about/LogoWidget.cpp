@@ -18,14 +18,14 @@
 #include "config.h"
 #include <math.h>
 
-#include <QBrush>
-#include <QColor>
-#include <QImage>
-#include <QObject>
-#include <QPainter>
-#include <QPalette>
-#include <QPolygon>
-#include <QTimer>
+#include <QtGui/QBrush>
+#include <QtGui/QColor>
+#include <QtGui/QImage>
+#include <QtCore/QObject>
+#include <QtGui/QPainter>
+#include <QtGui/QPalette>
+#include <QtGui/QPolygon>
+#include <QtCore/QTimer>
 
 #include "logo.xpm"
 #include "LogoWidget.h"

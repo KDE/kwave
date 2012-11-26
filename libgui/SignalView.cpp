@@ -19,16 +19,16 @@
 
 #include <math.h>
 
-#include <QApplication>
-#include <QBitmap>
-#include <QBrush>
-#include <QEvent>
-#include <QMimeData>
-#include <QMouseEvent>
-#include <QPainter>
-#include <QThread>
-#include <QToolTip>
-#include <QUrl>
+#include <QtGui/QApplication>
+#include <QtGui/QBitmap>
+#include <QtGui/QBrush>
+#include <QtCore/QEvent>
+#include <QtCore/QMimeData>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QPainter>
+#include <QtCore/QThread>
+#include <QtGui/QToolTip>
+#include <QtCore/QUrl>
 
 #include <kglobalsettings.h>
 

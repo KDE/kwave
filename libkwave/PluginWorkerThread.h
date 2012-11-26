@@ -21,10 +21,10 @@
 #include "config.h"
 #include <pthread.h>
 
-#include <QMutex>
-#include <QObject>
-#include <QStringList>
-#include <QThread>
+#include <QtCore/QMutex>
+#include <QtCore/QObject>
+#include <QtCore/QStringList>
+#include <QtCore/QThread>
 
 #include <kdemacros.h>
 

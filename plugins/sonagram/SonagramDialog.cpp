@@ -21,16 +21,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <QButtonGroup>
-#include <QCheckBox>
-#include <QComboBox>
-#include <QLabel>
-#include <QLayout>
-#include <QPushButton>
-#include <QRadioButton>
-#include <QSlider>
-#include <QString>
-#include <QStringList>
+#include <QtGui/QButtonGroup>
+#include <QtGui/QCheckBox>
+#include <QtGui/QComboBox>
+#include <QtGui/QLabel>
+#include <QtGui/QLayout>
+#include <QtGui/QPushButton>
+#include <QtGui/QRadioButton>
+#include <QtGui/QSlider>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 #include <kcombobox.h>
 #include <klocale.h>

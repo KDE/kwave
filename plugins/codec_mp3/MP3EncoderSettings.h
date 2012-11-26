@@ -18,7 +18,7 @@
 #ifndef _MP3_ENCODER_SETTINGS_H_
 #define _MP3_ENCODER_SETTINGS_H_
 
-#include <QString>
+#include <QtCore/QString>
 
 #include <kdemacros.h>
 

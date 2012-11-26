@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QString>
-#include <QMap>
+#include <QtCore/QString>
+#include <QtCore/QMap>
 
 #include "libgui/TreeWidgetWrapper.h"
 

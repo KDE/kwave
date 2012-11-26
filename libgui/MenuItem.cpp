@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QPixmap>
-#include <QMenu>
+#include <QtGui/QPixmap>
+#include <QtGui/QMenu>
 
 #include <kapplication.h>
 #include <kiconloader.h>

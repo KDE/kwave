@@ -21,8 +21,8 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <QClipboard>
+#include <QtCore/QObject>
+#include <QtGui/QClipboard>
 
 #include <kdemacros.h>
 

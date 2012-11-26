@@ -22,10 +22,10 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <QDate>
-#include <QDateTime>
-#include <QString>
-#include <QThread>
+#include <QtCore/QDate>
+#include <QtCore/QDateTime>
+#include <QtCore/QString>
+#include <QtCore/QThread>
 
 #include <kapplication.h>
 #include <kglobal.h>

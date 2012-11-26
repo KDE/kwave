@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QByteArray>
-#include <QList>
-#include <QString>
-#include <QStringList>
+#include <QtCore/QByteArray>
+#include <QtCore/QList>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 #include "libkwave/ByteOrder.h"
 #include "libkwave/SampleFormat.h"

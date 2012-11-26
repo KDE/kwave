@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QMutex>
-#include <QString>
+#include <QtCore/QMutex>
+#include <QtCore/QString>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/PlaybackDeviceFactory.h"

@@ -25,12 +25,12 @@
 #include <errno.h>
 #include <signal.h>
 
-#include <QApplication>
-#include <QCursor>
-#include <QFileInfo>
-#include <QLocale>
-#include <QString>
-#include <QtGlobal>
+#include <QtGui/QApplication>
+#include <QtGui/QCursor>
+#include <QtCore/QFileInfo>
+#include <QtCore/QLocale>
+#include <QtCore/QString>
+#include <QtCore/QtGlobal>
 
 #include <klocale.h>
 #include <kuser.h>

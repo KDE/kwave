@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QDialog>
-#include <QUrl>
-#include <QLabel>
-#include <QTime>
+#include <QtGui/QDialog>
+#include <QtCore/QUrl>
+#include <QtGui/QLabel>
+#include <QtCore/QTime>
 
 #include <kdemacros.h>
 #include "libkwave/Sample.h"

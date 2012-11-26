@@ -21,9 +21,9 @@
 #include "config.h"
 #include <limits.h>  // for UINT_MAX
 
-#include <QList>
-#include <QObject>
-#include <QReadWriteLock>
+#include <QtCore/QList>
+#include <QtCore/QObject>
+#include <QtCore/QReadWriteLock>
 
 #include <kdemacros.h>
 

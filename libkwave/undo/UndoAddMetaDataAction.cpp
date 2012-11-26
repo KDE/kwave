@@ -18,8 +18,8 @@
 
 #include "config.h"
 
-#include <QVariant>
-#include <QtAlgorithms>
+#include <QtCore/QVariant>
+#include <QtCore/QtAlgorithms>
 
 #include <klocale.h>
 

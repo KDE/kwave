@@ -19,10 +19,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <QKeySequence>
-#include <QRegExp>
-#include <QString>
-#include <QWidget>
+#include <QtGui/QKeySequence>
+#include <QtCore/QRegExp>
+#include <QtCore/QString>
+#include <QtGui/QWidget>
 
 #include <klocale.h>
 

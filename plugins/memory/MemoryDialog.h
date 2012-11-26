@@ -19,8 +19,8 @@
 #define _MEMORY_DIALOG_H_
 
 #include "config.h"
-#include <QDialog>
-#include <QObject>
+#include <QtGui/QDialog>
+#include <QtCore/QObject>
 #include "ui_MemDlg.h"
 
 class QStringList;

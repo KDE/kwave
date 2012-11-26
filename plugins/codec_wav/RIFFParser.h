@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QByteArray>
-#include <QList>
-#include <QObject>
-#include <QStringList>
+#include <QtCore/QByteArray>
+#include <QtCore/QList>
+#include <QtCore/QObject>
+#include <QtCore/QStringList>
 
 #include "RIFFChunk.h"
 

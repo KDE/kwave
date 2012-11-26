@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QObject>
-#include <QString>
-#include <QWidget>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtGui/QWidget>
 
 #include "libgui/FileDialog.h"
 #include "SaveBlocksPlugin.h"

@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QAction>
-#include <QString>
+#include <QtGui/QAction>
+#include <QtCore/QString>
 
 #include "MenuNode.h"
 

@@ -21,8 +21,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qnamespace.h>
-#include <QLabel>
+#include <QtCore/qnamespace.h>
+#include <QtGui/QLabel>
 
 #include <kapplication.h>
 #include <kdialog.h>

@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QDialog>
-#include <QObject>
-#include <QString>
-#include <QStringList>
+#include <QtGui/QDialog>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 #include "libkwave/PluginSetupDialog.h"
 #include "ui_BandPassDlg.h"

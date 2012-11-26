@@ -26,9 +26,9 @@
 #include <complex>
 #include <fftw3.h>
 
-#include <QColor>
-#include <QString>
-#include <QImage>
+#include <QtGui/QColor>
+#include <QtCore/QString>
+#include <QtGui/QImage>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/MultiTrackReader.h"

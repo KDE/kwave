@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <QStringList>
+#include <QtCore/QStringList>
 #include <klocale.h>
 
 #include "libkwave/Connect.h"

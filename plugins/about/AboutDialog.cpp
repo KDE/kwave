@@ -17,15 +17,15 @@
 
 #include "config.h"
 
-#include <QtAlgorithms>
-#include <QList>
-#include <QListIterator>
-#include <QHBoxLayout>
-#include <QString>
-#include <QTextEdit>
-#include <QTreeWidget>
-#include <QTreeWidgetItem>
-#include <QVBoxLayout>
+#include <QtCore/QtAlgorithms>
+#include <QtCore/QList>
+#include <QtCore/QListIterator>
+#include <QtGui/QHBoxLayout>
+#include <QtCore/QString>
+#include <QtGui/QTextEdit>
+#include <QtGui/QTreeWidget>
+#include <QtGui/QTreeWidgetItem>
+#include <QtGui/QVBoxLayout>
 
 #include <kaboutdata.h>
 #include <kapplication.h>

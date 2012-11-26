@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <QVector>
+#include <QtCore/QVector>
 
 #include <kdemacros.h>
 

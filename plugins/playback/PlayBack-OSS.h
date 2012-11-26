@@ -21,9 +21,9 @@
 #include "config.h"
 #ifdef HAVE_OSS_SUPPORT
 
-#include <QByteArray>
-#include <QList>
-#include <QString>
+#include <QtCore/QByteArray>
+#include <QtCore/QList>
+#include <QtCore/QString>
 
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/SampleArray.h"

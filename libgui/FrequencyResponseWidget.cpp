@@ -20,9 +20,9 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include <QBrush>
-#include <QPainter>
-#include <QPixmap>
+#include <QtGui/QBrush>
+#include <QtGui/QPainter>
+#include <QtGui/QPixmap>
 
 #include "libkwave/TransmissionFunction.h"
 #include "FrequencyResponseWidget.h"

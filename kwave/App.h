@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QList>
-#include <QStringList>
+#include <QtCore/QList>
+#include <QtCore/QStringList>
 
 #include <kuniqueapplication.h>
 #include <kapplication.h>

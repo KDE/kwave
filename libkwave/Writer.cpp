@@ -18,7 +18,7 @@
 
 #include "config.h"
 
-#include <QObject>
+#include <QtCore/QObject>
 
 #include "libkwave/memcpy.h"
 #include "libkwave/Writer.h"

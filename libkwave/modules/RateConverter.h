@@ -21,9 +21,9 @@
 #include "config.h"
 #ifdef HAVE_SAMPLERATE_SUPPORT
 
-#include <QObject>
-#include <QVariant>
-#include <QVarLengthArray>
+#include <QtCore/QObject>
+#include <QtCore/QVariant>
+#include <QtCore/QVarLengthArray>
 
 #include <kdemacros.h>
 

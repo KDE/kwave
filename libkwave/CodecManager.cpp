@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QMimeData>
-#include <QRegExp>
+#include <QtCore/QMimeData>
+#include <QtCore/QRegExp>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Decoder.h"

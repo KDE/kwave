@@ -1,7 +1,5 @@
 
 
-o include Qt header files: add subsystem prefix
-
 o use <stdint.h> instead of <sys/types.h> or qt int types (u_int32 -> uint32)
 
 o try to replace Qt classes which have KDE equivalent

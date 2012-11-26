@@ -21,7 +21,7 @@
 #include <errno.h>
 #include <math.h>
 
-#include <QtGlobal>
+#include <QtCore/QtGlobal>
 
 #include "libkwave/CompressionType.h"
 

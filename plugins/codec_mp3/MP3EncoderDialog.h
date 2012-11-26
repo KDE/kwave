@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QDialog>
-#include <QString>
-#include <QMap>
+#include <QtGui/QDialog>
+#include <QtCore/QString>
+#include <QtCore/QMap>
 
 #include "MP3EncoderSettings.h"
 

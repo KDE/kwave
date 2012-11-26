@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QFile>
-#include <QIODevice>
+#include <QtCore/QFile>
+#include <QtCore/QIODevice>
 
 #include "RecoverySource.h"
 #include "RepairVirtualAudioFile.h"

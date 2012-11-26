@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <QFile>
-#include <QString>
-#include <QMetaType>
+#include <QtCore/QFile>
+#include <QtCore/QString>
+#include <QtCore/QMetaType>
 
 #include <kcmdlineargs.h>
 #include <kconfig.h>

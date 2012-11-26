@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QDialog>
-#include <QTimer>
-#include <QWidget>
+#include <QtGui/QDialog>
+#include <QtCore/QTimer>
+#include <QtGui/QWidget>
 
 #include "ui_NewSigDlg.h"
 

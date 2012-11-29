@@ -81,7 +81,7 @@ void Kwave::WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst,
                                                     unsigned int frame_size)
 {
     const unsigned int length = info.length();
-    u_int32_t correct_size = length * frame_size;
+    quint32 correct_size = length * frame_size;
     const int compression = info.contains(Kwave::INF_COMPRESSION) ?
                       info.get(Kwave::INF_COMPRESSION).toInt() :
 	    AF_COMPRESSION_NONE;
@@ -101,7 +101,7 @@ void Kwave::WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst,
     }
 
     // read the data chunk size that libaudiofile has written
-    u_int32_t data_size;
+    quint32 data_size;
     dst.seek(40);
     dst.read(reinterpret_cast<char *>(&data_size), 4);
     data_size = LE32_TO_CPU(data_size);
@@ -120,7 +120,7 @@ void Kwave::WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst,
 
     // also fix the "RIFF" size
     dst.seek(4);
-    u_int32_t riff_size = dst.size() - 4 - 4;
+    quint32 riff_size = dst.size() - 4 - 4;
     riff_size = CPU_TO_LE32(riff_size);
     dst.write(reinterpret_cast<char *>(&riff_size), 4);
 
@@ -150,7 +150,7 @@ void Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
 
     // if there are properties to save, create a LIST chunk
     if (!info_chunks.isEmpty()) {
-	u_int32_t size;
+	quint32 size;
 
 	// enlarge the main RIFF chunk by the size of the LIST chunk
 	info_size += 4 + 4 + 4; // add the size of LIST(INFO)
@@ -175,7 +175,7 @@ void Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
 	    QByteArray value = it.value();
 
 	    dst.write(name.data(), 4); // chunk name
-	    u_int32_t size = value.length(); // length of the chunk
+	    quint32 size = value.length(); // length of the chunk
 	    if (size & 0x01) size++;
 	    size = CPU_TO_LE32(size);
 	    dst.write(reinterpret_cast<char *>(&size), 4);
@@ -193,7 +193,7 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
                                     const Kwave::LabelList &labels)
 {
     const unsigned int labels_count = labels.count();
-    u_int32_t size, additional_size = 0, index, data;
+    quint32 size, additional_size = 0, index, data;
 
     // shortcut: nothing to do if no labels present
     if (!labels_count) return;
@@ -248,12 +248,12 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
 	if (label.isNull()) continue;
 	/*
 	 * typedef struct {
-	 *     u_int32_t dwIdentifier; <- index
-	 *     u_int32_t dwPosition;   <- 0
-	 *     u_int32_t fccChunk;     <- 'data'
-	 *     u_int32_t dwChunkStart; <- 0
-	 *     u_int32_t dwBlockStart; <- 0
-	 *     u_int32_t dwSampleOffset; <- label.pos()
+	 *     quint32 dwIdentifier; <- index
+	 *     quint32 dwPosition;   <- 0
+	 *     quint32 fccChunk;     <- 'data'
+	 *     quint32 dwChunkStart; <- 0
+	 *     quint32 dwBlockStart; <- 0
+	 *     quint32 dwSampleOffset; <- label.pos()
 	 * } cue_list_entry_t;
 	 */
 	data = CPU_TO_LE32(index);
@@ -281,9 +281,9 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
 
 	    /*
 	     * typedef struct {
-	     *     u_int32_t dwChunkID;    <- 'labl'
-	     *     u_int32_t dwChunkSize;  (without padding !)
-	     *     u_int32_t dwIdentifier; <- index
+	     *     quint32 dwChunkID;    <- 'labl'
+	     *     quint32 dwChunkSize;  (without padding !)
+	     *     quint32 dwIdentifier; <- index
 	     *     char    dwText[];       <- label->name()
 	     * } label_list_entry_t;
 	     */
@@ -462,7 +462,7 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     const unsigned int virtual_frame_size = static_cast<const unsigned int>(
 	    afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
     const unsigned int buffer_frames = (8*1024);
-    int32_t *buffer = static_cast<int32_t *>(
+    qint32 *buffer = static_cast<qint32 *>(
 	malloc(buffer_frames * virtual_frame_size));
     Q_ASSERT(buffer);
     if (!buffer) return false;
@@ -471,7 +471,7 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     unsigned int rest = length;
     while (rest) {
 	// merge the tracks into the sample buffer
-	int32_t *p = buffer;
+	qint32 *p = buffer;
 	unsigned int count = buffer_frames;
 	if (rest < count) count = rest;
 

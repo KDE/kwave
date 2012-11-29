@@ -218,8 +218,8 @@ bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
 
     // allocate a buffer for input data
     const unsigned int buffer_frames = (8*1024);
-    int32_t *buffer =
-	static_cast<int32_t *>(malloc(buffer_frames * frame_size));
+    qint32 *buffer =
+	static_cast<qint32 *>(malloc(buffer_frames * frame_size));
     Q_ASSERT(buffer);
     if (!buffer) return false;
 
@@ -238,11 +238,11 @@ bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
 	rest -= buffer_used;
 
 	// split into the tracks
-	int32_t *p = buffer;
+	qint32 *p = buffer;
 	unsigned int count = buffer_used;
 	while (count--) {
 	    for (unsigned int track = 0; track < tracks; track++) {
-		int32_t s = *p++;
+		qint32 s = *p++;
 
 		// adjust precision
 		if (SAMPLE_STORAGE_BITS != SAMPLE_BITS) {
@@ -250,7 +250,7 @@ bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
 		}
 
 		// the following cast is only necessary if
-		// sample_t is not equal to a u_int32_t
+		// sample_t is not equal to a quint32
 		*(dst[track]) << static_cast<sample_t>(s);
 	    }
 	}

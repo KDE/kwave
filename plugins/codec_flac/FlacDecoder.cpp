@@ -114,7 +114,7 @@ Kwave::Decoder *Kwave::FlacDecoder::instance()
 
 	for (unsigned int sample = 0; sample < samples; sample++) {
 	    // the following cast is only necessary if
-	    // sample_t is not equal to a u_int32_t
+	    // sample_t is not equal to a quint32
 	    register sample_t s  = static_cast<sample_t>(*src++);
 
 	    // correct precision

@@ -31,7 +31,7 @@ typedef qulonglong sample_index_t;
 #define SAMPLE_INDEX_MAX UINT_MAX
 
 /** Currently a "sample" is defined as a 32 bit integer with 24 valid bits */
-typedef int32_t sample_t;
+typedef qint32 sample_t;
 
 /** number of significant bits per sample */
 #define SAMPLE_BITS 24

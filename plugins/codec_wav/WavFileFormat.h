@@ -18,7 +18,6 @@
 #ifndef _WAV_FILE_FORMAT_H_
 #define _WAV_FILE_FORMAT_H_
 
-#include <stdint.h>
 #include <QtCore/QList>
 
 namespace Kwave
@@ -88,108 +87,108 @@ namespace Kwave
 
     // header format for writing primitive canonical wav files
     typedef struct {
-	int8_t riffid[4];
-	uint32_t filelength;
-	int8_t wavid[4];
-	int8_t fmtid[4];
-	uint32_t fmtlength;
-	int16_t mode;
-	int16_t channels;
-	uint32_t rate;
-	uint32_t AvgBytesPerSec;
-	int16_t BlockAlign;
-	int16_t bitspersample;
+	qint8   riffid[4];
+	quint32 filelength;
+	qint8   wavid[4];
+	qint8   fmtid[4];
+	quint32 fmtlength;
+	qint16  mode;
+	qint16  channels;
+	quint32 rate;
+	quint32 AvgBytesPerSec;
+	qint16  BlockAlign;
+	qint16  bitspersample;
     } wav_header_t;
 
     //typedef struct {
-    //    int16_t mode;               // Format tag: 1 = PCM
-    //    int16_t channels;
-    //    u_int32_t rate;
-    //    u_int32_t AvgBytesPerSec;   // sample rate * block align
-    //    int16_t BlockAlign;         // channels * bits/sample / 8
-    //    int16_t bitspersample;
+    //    qint16 mode;               // Format tag: 1 = PCM
+    //    qint16 channels;
+    //    quint32 rate;
+    //    quint32 AvgBytesPerSec;   // sample rate * block align
+    //    qint16 BlockAlign;         // channels * bits/sample / 8
+    //    qint16 bitspersample;
     //} wav_fmt_header_t;
 
     typedef struct {
-	int16_t format;
-	int16_t channels;
-	uint32_t samplerate;
-	uint32_t bytespersec;
-	int16_t blockalign;
-	int16_t bitwidth;
+	qint16  format;
+	qint16  channels;
+	quint32 samplerate;
+	quint32 bytespersec;
+	qint16  blockalign;
+	qint16  bitwidth;
     } min_wav_header_t;
 
-    typedef struct {
-	int16_t format;
-	int16_t channels;
-	uint32_t samplerate;
-	uint32_t bytespersec;
-	int16_t blockalign;
-	int16_t bitwidth;
-	int16_t extrabytes;
-	int16_t dummy;
-    } wav_fmt_size20_header_t;
+//     typedef struct {
+// 	qint16  format;
+// 	qint16  channels;
+// 	quint32 samplerate;
+// 	quint32 bytespersec;
+// 	qint16  blockalign;
+// 	qint16  bitwidth;
+// 	qint16  extrabytes;
+// 	qint16  dummy;
+//     } wav_fmt_size20_header_t;
 
-    typedef struct {
-	int16_t format;
-	int16_t channels;
-	uint32_t samplerate;
-	uint32_t bytespersec;
-	int16_t blockalign;
-	int16_t bitwidth;
-	int16_t extrabytes;
-	int16_t samplesperblock;
-	int16_t numcoeffs;
-	struct {
-	    int16_t coeff1;
-	    int16_t coeff2;
-	}
-	coeffs [7];
-    } ms_adpcm_wav_header_t;
+//     typedef struct {
+// 	qint16  format;
+// 	qint16  channels;
+// 	quint32 samplerate;
+// 	quint32 bytespersec;
+// 	qint16  blockalign;
+// 	qint16  bitwidth;
+// 	qint16  extrabytes;
+// 	qint16  samplesperblock;
+// 	qint16  numcoeffs;
+// 	struct {
+// 	    qint16 coeff1;
+// 	    qint16 coeff2;
+// 	}
+// 	coeffs [7];
+//     } ms_adpcm_wav_header_t;
 
-    typedef struct {
-	int16_t format;
-	int16_t channels;
-	uint32_t samplerate;
-	uint32_t bytespersec;
-	int16_t blockalign;
-	int16_t bitwidth;
-	int16_t extrabytes;
-	int16_t samplesperblock;
-    } ima_adpcm_wav_header_t;
+//     typedef struct {
+// 	qint16  format;
+// 	qint16  channels;
+// 	quint32 samplerate;
+// 	quint32 bytespersec;
+// 	qint16  blockalign;
+// 	qint16  bitwidth;
+// 	qint16  extrabytes;
+// 	qint16  samplesperblock;
+//     } ima_adpcm_wav_header_t;
 
-    typedef struct {
-	uint32_t esf_field1;
-	int16_t esf_field2;
-	int16_t esf_field3;
-	uint8_t esf_field4 [8];
-    } ext_subformat_t;
+//     typedef struct {
+// 	quint32 esf_field1;
+// 	qint16  esf_field2;
+// 	qint16  esf_field3;
+// 	quint8  esf_field4 [8];
+//     } ext_subformat_t;
 
-    typedef struct {
-	int16_t format;
-	int16_t channels;
-	uint32_t samplerate;
-	uint32_t bytespersec;
-	int16_t blockalign;
-	int16_t bitwidth;
-	int16_t extrabytes;
-	int16_t validbits;
-	uint32_t channelmask;
-	Kwave::ext_subformat_t esf;
-    } extensible_wav_header_t;
+//     typedef struct {
+// 	qint16  format;
+// 	qint16  channels;
+// 	quint32 samplerate;
+// 	quint32 bytespersec;
+// 	qint16  blockalign;
+// 	qint16  bitwidth;
+// 	qint16  extrabytes;
+// 	qint16  validbits;
+// 	quint32 channelmask;
+// 	Kwave::ext_subformat_t esf;
+//     } extensible_wav_header_t;
 
     typedef union {
-	int16_t format;
+// 	qint16 format;
 	Kwave::min_wav_header_t        min;
-	Kwave::ima_adpcm_wav_header_t  ima;
-	Kwave::ms_adpcm_wav_header_t   msadpcm;
-	Kwave::extensible_wav_header_t ext;
-	Kwave::wav_fmt_size20_header_t size20;
-	uint8_t padding[512];
+// 	Kwave::ima_adpcm_wav_header_t  ima;
+// 	Kwave::ms_adpcm_wav_header_t   msadpcm;
+// 	Kwave::extensible_wav_header_t ext;
+// 	Kwave::wav_fmt_size20_header_t size20;
+	quint8 padding[512];
     } wav_fmt_header_t;
 
 //     typedef struct {
-// 	u_int32_t samples;
+// 	quint32 samples;
 //     } fact_chunk_t;
 
     /**

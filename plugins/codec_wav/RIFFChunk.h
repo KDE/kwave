@@ -68,8 +68,8 @@ namespace Kwave
 	 * @param phys_length length allocated in the source (file)
 	 */
 	RIFFChunk(Kwave::RIFFChunk *parent, const QByteArray &name,
-	          const QByteArray &format, u_int32_t length,
-	          u_int32_t phys_offset, u_int32_t phys_length);
+	          const QByteArray &format, quint32 length,
+	          quint32 phys_offset, quint32 phys_length);
 
 	/** Destructor */
 	virtual ~RIFFChunk();
@@ -113,39 +113,39 @@ namespace Kwave
 	const QByteArray path();
 
 	/** Returns the offset where the chunk's data starts. */
-	u_int32_t dataStart();
+	quint32 dataStart();
 
 	/** Returns the physical length of the chunk's data */
-	u_int32_t dataLength();
+	quint32 dataLength();
 
 	/**
 	 * Returns the length of the chunk in bytes, like stated in the
 	 * head of the chunk. Includes the format when it's a main chunk.
 	 */
-	inline u_int32_t length() { return m_chunk_length; };
+	inline quint32 length() { return m_chunk_length; };
 
 	/**
 	 * Sets the data and physical length of the chunk both to a
 	 * new value.
 	 */
-	void setLength(u_int32_t length);
+	void setLength(quint32 length);
 
 	/**
 	 * Returns the offset in the source (file) where the
 	 * chunk (name) starts.
 	 */
-	inline u_int32_t physStart() { return m_phys_offset; };
+	inline quint32 physStart() { return m_phys_offset; };
 
 	/**
 	 * Returns the offset in the source (file) where the chunk ends.
 	 */
-	u_int32_t physEnd();
+	quint32 physEnd();
 
 	/**
 	 * Returns the length of the chunk in the file. For some dubious
 	 * reason this seems always to be rounded up for even numbers!
 	 */
-	inline u_int32_t physLength() { return m_phys_length; };
+	inline quint32 physLength() { return m_phys_length; };
 
 	/**
 	 * Returns a reference to the list of sub-chunks.
@@ -184,13 +184,13 @@ namespace Kwave
 	Kwave::RIFFChunk *m_parent;
 
 	/** length of the chunk */
-	u_int32_t m_chunk_length;
+	quint32 m_chunk_length;
 
 	/** offset within the source (file) */
-	u_int32_t m_phys_offset;
+	quint32 m_phys_offset;
 
 	/** length used in the source (file) */
-	u_int32_t m_phys_length;
+	quint32 m_phys_length;
 
 	/** list of sub-chunks, empty if none known */
 	Kwave::RIFFChunkList m_sub_chunks;

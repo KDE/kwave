@@ -90,7 +90,7 @@ namespace Kwave
 	 * @internal
 	 */
 	bool repairChunk(QList<Kwave::RecoverySource *> *repair_list,
-	                 Kwave::RIFFChunk *chunk, u_int32_t &offset);
+	                 Kwave::RIFFChunk *chunk, quint32 &offset);
 
     private:
 

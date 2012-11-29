@@ -28,7 +28,7 @@
 #include "SampleEncoderLinear.h"
 
 //***************************************************************************
-void encode_NULL(const sample_t *src, u_int8_t *dst, unsigned int count)
+void encode_NULL(const sample_t *src, quint8 *dst, unsigned int count)
 {
     (void)src;
     (void)dst;
@@ -47,7 +47,7 @@ void encode_NULL(const sample_t *src, u_int8_t *dst, unsigned int count)
  */
 template<const unsigned int bits, const bool is_signed,
          const bool is_little_endian>
-void encode_linear(const sample_t *src, u_int8_t *dst, unsigned int count)
+void encode_linear(const sample_t *src, quint8 *dst, unsigned int count)
 {
     while (count--) {
 	// read from source buffer
@@ -181,7 +181,7 @@ void Kwave::SampleEncoderLinear::encode(const Kwave::SampleArray &samples,
 	static_cast<unsigned int>(raw_data.size())) return;
 
     const sample_t *src = samples.data();
-    u_int8_t *dst = reinterpret_cast<u_int8_t *>(raw_data.data());
+    quint8 *dst = reinterpret_cast<quint8 *>(raw_data.data());
 
     m_encoder(src, dst, count);
 }

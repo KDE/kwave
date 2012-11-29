@@ -103,11 +103,11 @@ void Kwave::RIFFParser::detectEndianness()
     emit action(i18n("Detecting endianness (standard search)..."));
     emit progress(0);
 
-    QList<u_int32_t> riff_offsets = scanForName("RIFF",
+    QList<quint32> riff_offsets = scanForName("RIFF",
 	m_root.physStart(), m_root.physLength(), 0, 2);
     if (m_cancel) return;
 
-    QList<u_int32_t> rifx_offsets = scanForName("RIFX",
+    QList<quint32> rifx_offsets = scanForName("RIFX",
 	m_root.physStart(), m_root.physLength(), 1, 2);
     if (m_cancel) return;
 
@@ -146,17 +146,17 @@ void Kwave::RIFFParser::detectEndianness()
     foreach (QString chunk_name, names) {
 	// scan all offsets where the name matches
 	QByteArray name = chunk_name.toAscii();
-	QList<u_int32_t> offsets = scanForName(name,
+	QList<quint32> offsets = scanForName(name,
 	    m_root.physStart(), m_root.physLength(),
 	    index, count);
 	if (m_cancel) return;
 
 	// loop over all found offsets
-	foreach (u_int32_t ofs, offsets) {
+	foreach (quint32 ofs, offsets) {
 	    m_dev.seek(ofs + 4);
 
 	    // read length, assuming little endian
-	    u_int32_t len = 0;
+	    quint32 len = 0;
 	    m_dev.read(reinterpret_cast<char *>(&len), 4);
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
 	    double dist_le = fabs(half - bswap_32(len));
@@ -191,7 +191,7 @@ void Kwave::RIFFParser::detectEndianness()
 }
 
 //***************************************************************************
-QByteArray Kwave::RIFFParser::read4ByteString(u_int32_t offset)
+QByteArray Kwave::RIFFParser::read4ByteString(quint32 offset)
 {
     char s[5];
 
@@ -221,8 +221,8 @@ bool Kwave::RIFFParser::parse()
 //***************************************************************************
 Kwave::RIFFChunk *Kwave::RIFFParser::addChunk(
     Kwave::RIFFChunk *parent, const QByteArray &name,
-    const QByteArray &format, u_int32_t length,
-    u_int32_t phys_offset, u_int32_t phys_length,
+    const QByteArray &format, quint32 length,
+    quint32 phys_offset, quint32 phys_length,
     Kwave::RIFFChunk::ChunkType type)
 {
     // do not add anything to garbage, use the garbage's parent instead
@@ -248,7 +248,7 @@ Kwave::RIFFChunk *Kwave::RIFFParser::addChunk(
     Kwave::RIFFChunkList &chunks = parent->subChunks();
     foreach (Kwave::RIFFChunk *c, chunks) {
 	if (!c) continue;
-	u_int32_t pos = c->physStart();
+	quint32 pos = c->physStart();
 	if (pos > phys_offset) {
 	    before = c;
 	    break;
@@ -263,8 +263,8 @@ Kwave::RIFFChunk *Kwave::RIFFParser::addChunk(
 
 //***************************************************************************
 bool Kwave::RIFFParser::addGarbageChunk(Kwave::RIFFChunk *parent,
-                                        u_int32_t offset,
-                                        u_int32_t length)
+                                        quint32 offset,
+                                        quint32 length)
 {
     qDebug("adding garbage chunk at 0x%08X, length=%u",offset,length);
 
@@ -279,7 +279,7 @@ bool Kwave::RIFFParser::addGarbageChunk(Kwave::RIFFChunk *parent,
 //***************************************************************************
 bool Kwave::RIFFParser::addEmptyChunk(Kwave::RIFFChunk *parent,
                                       const QByteArray &name,
-                                      u_int32_t offset)
+                                      quint32 offset)
 {
     // create the new chunk first
     Kwave::RIFFChunk *chunk = addChunk(parent, name, "----", 0, offset,
@@ -289,7 +289,7 @@ bool Kwave::RIFFParser::addEmptyChunk(Kwave::RIFFChunk *parent,
 
 //***************************************************************************
 bool Kwave::RIFFParser::parse(Kwave::RIFFChunk *parent,
-                              u_int32_t offset, u_int32_t length)
+                              quint32 offset, quint32 length)
 {
     bool error = false;
     Kwave::RIFFChunkList found_chunks;
@@ -347,7 +347,7 @@ bool Kwave::RIFFParser::parse(Kwave::RIFFChunk *parent,
 	}
 
 	// get the length stored in the chunk itself
-	u_int32_t len = 0;
+	quint32 len = 0;
 	if (length >= 8) {
 	    // length information present
 	    m_dev.read(reinterpret_cast<char *>(&len), 4);
@@ -372,7 +372,7 @@ bool Kwave::RIFFParser::parse(Kwave::RIFFChunk *parent,
 	QByteArray format = read4ByteString(m_dev.pos());
 
 	// calculate the physical length of the chunk
-	u_int32_t phys_len = (length - 8 < len) ? (length - 8) : len;
+	quint32 phys_len = (length - 8 < len) ? (length - 8) : len;
 	if (phys_len & 1) phys_len++;
 
 	// now create a new chunk, per default type is "sub-chunk"
@@ -469,13 +469,13 @@ unsigned int Kwave::RIFFParser::chunkCount(const QByteArray &path)
 }
 
 //***************************************************************************
-QList<u_int32_t> Kwave::RIFFParser::scanForName(const QByteArray &name,
-    u_int32_t offset, u_int32_t length,
+QList<quint32> Kwave::RIFFParser::scanForName(const QByteArray &name,
+    quint32 offset, quint32 length,
     int progress_start, int progress_count)
 {
-    QList<u_int32_t> matches;
+    QList<quint32> matches;
     if (length < 4) return matches;
-    u_int32_t end = offset + ((length > 4) ? (length - 4) : 0);
+    quint32 end = offset + ((length > 4) ? (length - 4) : 0);
     char buffer[5];
     memset(buffer, 0x00, sizeof(buffer));
 
@@ -484,7 +484,7 @@ QList<u_int32_t> Kwave::RIFFParser::scanForName(const QByteArray &name,
 
     qDebug("scannig for '%s' at [0x%08X...0x%08X] ...", name.data(),
 	offset, end);
-    u_int32_t pos;
+    quint32 pos;
     int next = 1;
     for (pos = offset; (pos <= end) && !m_cancel; ++pos) {
 	if (name == buffer) {
@@ -519,7 +519,7 @@ void Kwave::RIFFParser::listAllChunks(Kwave::RIFFChunk &parent,
 }
 
 //***************************************************************************
-Kwave::RIFFChunk *Kwave::RIFFParser::chunkAt(u_int32_t offset)
+Kwave::RIFFChunk *Kwave::RIFFParser::chunkAt(quint32 offset)
 {
     Kwave::RIFFChunkList list;
     listAllChunks(m_root, list);
@@ -548,16 +548,16 @@ Kwave::RIFFChunk *Kwave::RIFFParser::findMissingChunk(const QByteArray &name)
 	if (chunk->type() == Kwave::RIFFChunk::Garbage) {
 	    // search for the name
 	    qDebug("searching in garbage at 0x%08X", chunk->physStart());
-	    QList<u_int32_t> offsets = scanForName(name,
+	    QList<quint32> offsets = scanForName(name,
 		chunk->physStart(), chunk->physLength(),
 		index, count);
 	    if (offsets.count()) found_something = true;
 
 	    // process the results -> convert them into chunks
-	    u_int32_t end = chunk->physEnd();
-	    foreach (u_int32_t pos, offsets) {
+	    quint32 end = chunk->physEnd();
+	    foreach (quint32 pos, offsets) {
 		if (m_cancel) break;
-		u_int32_t len = end - pos + 1;
+		quint32 len = end - pos + 1;
 		qDebug("found at [0x%08X...0x%08X] len=%u", pos, end, len);
 		parse(chunk, pos, len);
 		qDebug("-------------------------------");
@@ -570,13 +570,13 @@ Kwave::RIFFChunk *Kwave::RIFFParser::findMissingChunk(const QByteArray &name)
     if (!found_something && !m_cancel) {
 	qDebug("brute-force search from 0x%08X to 0x%08X",
 	    0, m_root.physEnd());
-	QList<u_int32_t> offsets = scanForName(name, 0, m_root.physLength());
+	QList<quint32> offsets = scanForName(name, 0, m_root.physLength());
 
 	// process the results -> convert them into chunks
-	u_int32_t end = m_root.physEnd();
-	foreach (u_int32_t pos, offsets) {
+	quint32 end = m_root.physEnd();
+	foreach (quint32 pos, offsets) {
 	    if (m_cancel) break;
-	    u_int32_t len = end - pos + 1;
+	    quint32 len = end - pos + 1;
 	    qDebug("found at [0x%08X...0x%08X] len=%u", pos, end, len);
 	    parse(&m_root, pos, len);
 	    qDebug("-------------------------------");
@@ -644,8 +644,8 @@ void Kwave::RIFFParser::collectGarbage()
 	    }
 
 	    if (subchunks.count() && contains_only_garbage) {
-		u_int32_t start = chunk->physStart();
-		u_int32_t end   = chunk->physEnd();
+		quint32 start = chunk->physStart();
+		quint32 end   = chunk->physEnd();
 
 		qDebug("chunk at 0x%08X contains only garbage!", start);
 		// -> convert into a garbage chunk !
@@ -688,10 +688,10 @@ void Kwave::RIFFParser::fixGarbageEnds()
 	    if (c2->isChildOf(c1)) continue;
 
 	    // get ranges
-	    u_int32_t s1 = c1->physStart();
-	    u_int32_t e1 = c1->physEnd();
-	    u_int32_t s2 = c2->physStart();
-	    u_int32_t e2 = c2->physEnd();
+	    quint32 s1 = c1->physStart();
+	    quint32 e1 = c1->physEnd();
+	    quint32 s2 = c2->physStart();
+	    quint32 e2 = c2->physEnd();
 
 	    // check for overlaps
 	    if ((s2 <= e1) && (e2 >= s1)) {
@@ -704,7 +704,7 @@ void Kwave::RIFFParser::fixGarbageEnds()
 		if ((c1->type() == Kwave::RIFFChunk::Garbage) && (s1 < s2)) {
 		    // shorten garbage
 		    e1 = s2 - 1;
-		    u_int32_t len = e1 - s1 + 1;
+		    quint32 len = e1 - s1 + 1;
 		    qDebug("shortening garbage to %u bytes", len);
 		    c1->setLength(len);
 		}
@@ -752,7 +752,7 @@ bool Kwave::RIFFParser::joinGarbageToEmpty()
 	    if ((next->type() == Kwave::RIFFChunk::Garbage) ||
 		(!isKnownName(next->name())) )
 	    {
-		u_int32_t len = next->physLength() + 4;
+		quint32 len = next->physLength() + 4;
 		qDebug("joining garbage to empty chunk '%s' at 0x%08X, %u bytes",
 		    chunk->name().data(), chunk->physStart(), len);
 		chunk->setLength(len);

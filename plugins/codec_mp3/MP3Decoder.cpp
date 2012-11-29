@@ -609,7 +609,7 @@ static inline unsigned long prng(unsigned long state)
  * (copied from mpg231, mad.c)
  * @author Rob Leslie
  */
-static inline int32_t audio_linear_dither(unsigned int bits,
+static inline qint32 audio_linear_dither(unsigned int bits,
     mad_fixed_t sample, Kwave::audio_dither *dither)
 {
     unsigned int scalebits;
@@ -662,7 +662,7 @@ enum mad_flow Kwave::MP3Decoder::processOutput(void */*data*/,
     struct mad_header const */*header*/, struct mad_pcm *pcm)
 {
     static Kwave::audio_dither dither;
-    int32_t sample;
+    qint32 sample;
     Kwave::SampleArray buffer(pcm->length);
 
     // loop over all tracks
@@ -674,7 +674,7 @@ enum mad_flow Kwave::MP3Decoder::processOutput(void */*data*/,
 
 	// and render samples into Kwave's internal format
 	while (nsamples--) {
-	    sample = static_cast<int32_t>(audio_linear_dither(SAMPLE_BITS,
+	    sample = static_cast<qint32>(audio_linear_dither(SAMPLE_BITS,
 	             static_cast<mad_fixed_t>(*p++), &dither));
 	    buffer[ofs++] = static_cast<sample_t>(sample);
 	}

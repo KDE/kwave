@@ -69,7 +69,7 @@ namespace Kwave
 	 * @return true if passed without any error
 	 */
 	bool parse(Kwave::RIFFChunk *parent,
-	           u_int32_t offset, u_int32_t length);
+	           quint32 offset, quint32 length);
 
 	/**
 	 * Returns true if the source contains no structural errors and
@@ -132,7 +132,7 @@ namespace Kwave
 	 * @param offset position within the source, no range checks!
 	 * @return string with 4 bytes
 	 */
-	QByteArray read4ByteString(u_int32_t offset);
+	QByteArray read4ByteString(quint32 offset);
 
 	/**
 	 * Tries to find the chunk name in the list of known main
@@ -173,9 +173,9 @@ namespace Kwave
 	Kwave::RIFFChunk *addChunk(Kwave::RIFFChunk *parent,
 	                           const QByteArray &name,
 	                           const QByteArray &format,
-	                           u_int32_t length,
-	                           u_int32_t phys_offset,
-	                           u_int32_t phys_length,
+	                           quint32 length,
+	                           quint32 phys_offset,
+	                           quint32 phys_length,
 	                           Kwave::RIFFChunk::ChunkType type);
 
 	/**
@@ -187,8 +187,8 @@ namespace Kwave
 	 * @param length length of the garbage area in bytes
 	 * @return true if creation succeeded, false if out of memory
 	 */
-	bool addGarbageChunk(Kwave::RIFFChunk *parent, u_int32_t offset,
-	                     u_int32_t length);
+	bool addGarbageChunk(Kwave::RIFFChunk *parent, quint32 offset,
+	                     quint32 length);
 
 	/**
 	 * Adds a chunk with a valid name and no length information.
@@ -198,7 +198,7 @@ namespace Kwave
 	 * @return true if creation succeeded, false if out of memory
 	 */
 	bool addEmptyChunk(Kwave::RIFFChunk *parent, const QByteArray &name,
-	                   u_int32_t offset);
+	                   quint32 offset);
 
 	/**
 	 * Recursively creates a "flat" list of all chunks.
@@ -214,7 +214,7 @@ namespace Kwave
 	 * @param offset the start position (physical start)
 	 * @return pointer to the chunk or zero
 	 */
-	Kwave::RIFFChunk *chunkAt(u_int32_t offset);
+	Kwave::RIFFChunk *chunkAt(quint32 offset);
 
 	/**
 	 * Performs a scan for a 4-character chunk name over a range of the
@@ -227,10 +227,10 @@ namespace Kwave
 	 * @param progress_count number of progress sections
 	 * @return list of positions of where the name exists
 	 */
-	QList<u_int32_t> scanForName(const QByteArray &name, u_int32_t offset,
-	                             u_int32_t length,
-	                             int progress_start = 0,
-	                             int progress_count = 1);
+	QList<quint32> scanForName(const QByteArray &name, quint32 offset,
+	                           quint32 length,
+	                           int progress_start = 0,
+	                           int progress_count = 1);
 
     private:
 

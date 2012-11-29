@@ -146,7 +146,7 @@ int Kwave::RecordOSS::read(QByteArray &buffer, unsigned int offset)
 
     unsigned int timeout = (length / rate) * 2;
     if (timeout < 2) timeout = 2;
-    u_int8_t *buf = reinterpret_cast<u_int8_t *>(buffer.data()) + offset;
+    quint8 *buf = reinterpret_cast<quint8 *>(buffer.data()) + offset;
 
     int mask = 0;
     retval = ioctl(m_fd, SNDCTL_DSP_SETTRIGGER, &mask);

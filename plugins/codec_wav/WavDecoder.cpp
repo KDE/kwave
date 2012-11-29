@@ -218,12 +218,12 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 	need_repair = true;
     }
 
-    u_int32_t fmt_offset = 0;
+    quint32 fmt_offset = 0;
     if (fmt_chunk) fmt_offset = fmt_chunk->dataStart();
 //     qDebug("fmt chunk starts at 0x%08X", fmt_offset);
 
-//     u_int32_t data_offset = 0;
-    u_int32_t data_size = 0;
+//     quint32 data_offset = 0;
+    quint32 data_size = 0;
     if (data_chunk) {
 // 	data_offset = data_chunk->dataStart();
 	data_size   = data_chunk->physLength();
@@ -425,7 +425,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
     Kwave::RIFFChunk *cue_chunk = parser.findChunk("/RIFF:WAVE/cue ");
     if (cue_chunk) {
 	// found a cue list chunk !
-	u_int32_t count;
+	quint32 count;
 
 	src.seek(cue_chunk->dataStart());
 	src.read(reinterpret_cast<char *>(&count), 4);
@@ -435,16 +435,16 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 // 	    count, length, count * (6 * 4) + 4);
 
 	for (unsigned int i = 0; i < count; i++) {
-	    u_int32_t data, index, position;
+	    quint32 data, index, position;
 	    src.seek(cue_chunk->dataStart() + 4 + ((6 * 4) * i));
 	    /*
 	     * typedef struct {
-	     *     u_int32_t dwIdentifier; <- index
-	     *     u_int32_t dwPosition;   <- 0
-	     *     u_int32_t fccChunk;     <- 'data'
-	     *     u_int32_t dwChunkStart; <- 0
-	     *     u_int32_t dwBlockStart; <- 0
-	     *     u_int32_t dwSampleOffset; <- label.pos()
+	     *     quint32 dwIdentifier; <- index
+	     *     quint32 dwPosition;   <- 0
+	     *     quint32 fccChunk;     <- 'data'
+	     *     quint32 dwChunkStart; <- 0
+	     *     quint32 dwBlockStart; <- 0
+	     *     quint32 dwSampleOffset; <- label.pos()
 	     * } cue_list_entry_t;
 	     */
 
@@ -492,13 +492,13 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 		bool found = false;
 		QListIterator<Kwave::RIFFChunk *> it(adtl_chunk->subChunks());
 		while (it.hasNext()) {
-		    u_int32_t data, labl_index;
+		    quint32 data, labl_index;
 		    labl_chunk = it.next();
 		    /*
 		     * typedef struct {
-		     *     u_int32_t dwChunkID;    <- 'labl'
-		     *     u_int32_t dwChunkSize;  (without padding !)
-		     *     u_int32_t dwIdentifier; <- index
+		     *     quint32 dwChunkID;    <- 'labl'
+		     *     quint32 dwChunkSize;  (without padding !)
+		     *     quint32 dwIdentifier; <- index
 		     *     char    dwText[];       <- label->name()
 		     * } label_list_entry_t;
 		     */
@@ -581,7 +581,7 @@ bool Kwave::WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
 
     // allocate a buffer for input data
     const unsigned int buffer_frames = (8*1024);
-    int32_t *buffer = static_cast<int32_t *>(
+    qint32 *buffer = static_cast<qint32 *>(
 	malloc(buffer_frames * frame_size));
     Q_ASSERT(buffer);
     if (!buffer) return false;
@@ -600,11 +600,11 @@ bool Kwave::WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
 	rest -= buffer_used;
 
 	// split into the tracks
-	int32_t *p = buffer;
+	qint32 *p = buffer;
 	unsigned int count = buffer_used;
 	while (count--) {
 	    for (unsigned int track = 0; track < tracks; track++) {
-		int32_t s = *p++;
+		qint32 s = *p++;
 
 		// adjust precision
 		if (SAMPLE_STORAGE_BITS != SAMPLE_BITS) {
@@ -612,7 +612,7 @@ bool Kwave::WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
 		}
 
 		// the following cast is only necessary if
-		// sample_t is not equal to a u_int32_t
+		// sample_t is not equal to a quint32
 		Q_ASSERT(writer_fast[track]);
 		*(writer_fast[track]) << static_cast<sample_t>(s);
 	    }
@@ -630,7 +630,7 @@ bool Kwave::WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
 //***************************************************************************
 bool Kwave::WavDecoder::repairChunk(
     QList<Kwave::RecoverySource *> *repair_list,
-    Kwave::RIFFChunk *chunk, u_int32_t &offset)
+    Kwave::RIFFChunk *chunk, quint32 &offset)
 {
     Q_ASSERT(chunk);
     Q_ASSERT(m_source);
@@ -640,7 +640,7 @@ bool Kwave::WavDecoder::repairChunk(
     if (!repair_list) return false;
 
     char buffer[16];
-    u_int32_t length;
+    quint32 length;
     Kwave::RecoverySource *repair = 0;
 
     // create buffer with header
@@ -753,7 +753,7 @@ bool Kwave::WavDecoder::repair(QList<Kwave::RecoverySource *> *repair_list,
     // --- set up the repair list ---
 
     // RIFF chunk length
-    u_int32_t offset = 0;
+    quint32 offset = 0;
     bool repaired = repairChunk(repair_list, &new_root, offset);
 
     // clean up...

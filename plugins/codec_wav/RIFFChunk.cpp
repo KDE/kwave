@@ -24,8 +24,8 @@
 
 //***************************************************************************
 Kwave::RIFFChunk::RIFFChunk(RIFFChunk *parent, const QByteArray &name,
-                            const QByteArray &format, u_int32_t length,
-                            u_int32_t phys_offset, u_int32_t phys_length)
+                            const QByteArray &format, quint32 length,
+                            quint32 phys_offset, quint32 phys_length)
     :m_type(Sub), m_name(name), m_format(format), m_parent(parent),
      m_chunk_length(length), m_phys_offset(phys_offset),
      m_phys_length(phys_length), m_sub_chunks()
@@ -72,9 +72,9 @@ bool Kwave::RIFFChunk::isSane()
 }
 
 //***************************************************************************
-u_int32_t Kwave::RIFFChunk::physEnd()
+quint32 Kwave::RIFFChunk::physEnd()
 {
-    u_int32_t end = m_phys_offset + m_phys_length;
+    quint32 end = m_phys_offset + m_phys_length;
     if (m_phys_length) --end;
     if ((m_type != Root) && (m_type != Garbage)) end += 8;
     return end;
@@ -123,19 +123,19 @@ const QByteArray Kwave::RIFFChunk::path()
 }
 
 //***************************************************************************
-u_int32_t Kwave::RIFFChunk::dataStart()
+quint32 Kwave::RIFFChunk::dataStart()
 {
     return m_phys_offset + ((m_type == Main) ? 12 : 8);
 }
 
 //***************************************************************************
-u_int32_t Kwave::RIFFChunk::dataLength()
+quint32 Kwave::RIFFChunk::dataLength()
 {
     return m_chunk_length - ((m_type == Main) ? 4 : 0);
 }
 
 //***************************************************************************
-void Kwave::RIFFChunk::setLength(u_int32_t length)
+void Kwave::RIFFChunk::setLength(quint32 length)
 {
     m_chunk_length = length;
     m_phys_length  = length;
@@ -159,14 +159,13 @@ void Kwave::RIFFChunk::fixSize()
 
     // pass two: sum up sub-chunks if type is main or root.
     if ((m_type == Main) || (m_type == Root)) {
-	u_int32_t old_length = m_phys_length;
+	quint32 old_length = m_phys_length;
 	m_phys_length = 0;
 	if (m_type == Main) m_phys_length += 4;
 
         foreach (Kwave::RIFFChunk *chunk, subChunks()) {
             if (!chunk) continue;
-	    u_int32_t len = chunk->physEnd() -
-	                    chunk->physStart() + 1;
+	    quint32 len = chunk->physEnd() - chunk->physStart() + 1;
 	    m_phys_length += len;
 	}
 	if (m_phys_length != old_length) {

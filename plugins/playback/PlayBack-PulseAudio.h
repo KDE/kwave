@@ -234,7 +234,7 @@ namespace Kwave
 	    QString m_name;               /**< internal name of the sink  */
 	    QString m_description;        /**< verbose name of the sink   */
 	    QString m_driver;             /**< internal driver name       */
-	    uint32_t m_card;              /**< index of the card or -1    */
+	    quint32  m_card;              /**< index of the card or -1    */
 	    pa_sample_spec m_sample_spec; /**< accepted sample format     */
 	} sink_info_t;
 

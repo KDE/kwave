@@ -18,7 +18,6 @@
 #include "config.h"
 
 #include <stdio.h>
-#include <sys/types.h>
 
 #include <QtCore/QtGlobal>
 
@@ -28,7 +27,7 @@
 #include "SampleDecoderLinear.h"
 
 //***************************************************************************
-void decode_NULL(const u_int8_t *src, sample_t *dst, unsigned int count)
+void decode_NULL(const quint8 *src, sample_t *dst, unsigned int count)
 {
     while (count--) {
         printf("%02X ", static_cast<int>(*src));
@@ -39,7 +38,7 @@ void decode_NULL(const u_int8_t *src, sample_t *dst, unsigned int count)
 //***************************************************************************
 // this little function is provided as inline code to avaid a compiler
 // warning about negative shift value when included directly
-static inline u_int32_t shl(const u_int32_t v, const int s)
+static inline quint32 shl(const quint32 v, const int s)
 {
     if (!s)
 	return v;
@@ -60,25 +59,25 @@ static inline u_int32_t shl(const u_int32_t v, const int s)
  */
 template<const unsigned int bits, const bool is_signed,
          const bool is_little_endian>
-void decode_linear(const u_int8_t *src, sample_t *dst, unsigned int count)
+void decode_linear(const quint8 *src, sample_t *dst, unsigned int count)
 {
     const int shift = (SAMPLE_BITS - bits);
-    const u_int32_t sign = 1 << (SAMPLE_BITS-1);
-    const u_int32_t negative = ~(sign - 1);
-    const u_int32_t bytes = (bits+7) >> 3;
+    const quint32 sign = 1 << (SAMPLE_BITS-1);
+    const quint32 negative = ~(sign - 1);
+    const quint32 bytes = (bits+7) >> 3;
 
     while (count--) {
 	// read from source buffer
-	register u_int32_t s = 0;
+	register quint32 s = 0;
 	if (is_little_endian) {
 	    // little endian
 	    for (unsigned int byte = 0; byte < bytes; ++byte) {
-		s |= static_cast<u_int8_t>(*(src++)) << (byte << 3);
+		s |= static_cast<quint8>(*(src++)) << (byte << 3);
 	    }
 	} else {
 	    // big endian
 	    for (int byte = bytes - 1; byte >= 0; --byte) {
-		s |= static_cast<u_int8_t>(*(src++)) << (byte << 3);
+		s |= static_cast<quint8>(*(src++)) << (byte << 3);
 	    }
 	}
 
@@ -168,7 +167,7 @@ void Kwave::SampleDecoderLinear::decode(QByteArray &raw_data,
     if (!m_decoder) return;
 
     unsigned int samples = raw_data.size() / m_bytes_per_sample;
-    const u_int8_t *src  = reinterpret_cast<const u_int8_t *>(raw_data.data());
+    const quint8 *src  = reinterpret_cast<const quint8 *>(raw_data.data());
     sample_t *dst = decoded.data();
 
     m_decoder(src, dst, samples);

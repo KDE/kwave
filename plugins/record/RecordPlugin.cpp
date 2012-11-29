@@ -1058,7 +1058,7 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
     for (unsigned int s = 0; s < samples; s++) {
 	int v = saw[track];
 	for (unsigned int byte = 0; byte < bytes_per_sample; byte++) {
-	    u_int8_t x = (u_int8_t)v;
+	    quint8 x = (quint8)v;
 	    raw_data[(((s * tracks) + track) * bytes_per_sample) + byte] = x;
 	    v >>= 8;
 	}
@@ -1076,10 +1076,10 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 	switch (bytes_per_sample) {
 	    case 1: {
 		// 1...8 bits per sample, use 8 bit pointers
-		const u_int8_t *src =
-		    reinterpret_cast<u_int8_t *>(raw_data.data());
-		u_int8_t *dst =
-		    reinterpret_cast<u_int8_t *>(dest.data());
+		const quint8 *src =
+		    reinterpret_cast<quint8 *>(raw_data.data());
+		quint8 *dst =
+		    reinterpret_cast<quint8 *>(dest.data());
 		src += track;
 		while (samples--) {
 		    *dst = *src;
@@ -1090,10 +1090,10 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 	    }
 	    case 2: {
 		// 9...16 bits per sample, use 16 bit pointers
-		const u_int16_t *src =
-		    reinterpret_cast<const u_int16_t *>(raw_data.data());
-		u_int16_t *dst =
-		    reinterpret_cast<u_int16_t *>(dest.data());
+		const quint16 *src =
+		    reinterpret_cast<const quint16 *>(raw_data.data());
+		quint16 *dst =
+		    reinterpret_cast<quint16 *>(dest.data());
 		src += track;
 		while (samples--) {
 		    *dst = *src;
@@ -1104,10 +1104,10 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 	    }
 	    case 3: {
 		// 17...24 bits per sample, use 8 bit pointers, three times
-		const u_int8_t *src =
-		    reinterpret_cast<u_int8_t *>(raw_data.data());
-		u_int8_t *dst =
-		    reinterpret_cast<u_int8_t *>(dest.data());
+		const quint8 *src =
+		    reinterpret_cast<quint8 *>(raw_data.data());
+		quint8 *dst =
+		    reinterpret_cast<quint8 *>(dest.data());
 		src += track * 3;
 		while (samples--) {
 		    *(dst++) = *(src++);
@@ -1119,10 +1119,10 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 	    }
 	    case 4: {
 		// 24...32 bits per sample, use 32 bit pointers
-		const u_int32_t *src =
-		    reinterpret_cast<u_int32_t *>(raw_data.data());
-		u_int32_t *dst =
-		    reinterpret_cast<u_int32_t *>(dest.data());
+		const quint32 *src =
+		    reinterpret_cast<quint32 *>(raw_data.data());
+		quint32 *dst =
+		    reinterpret_cast<quint32 *>(dest.data());
 		src += track;
 		while (samples--) {
 		    *dst = *src;
@@ -1133,10 +1133,10 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 	    }
 	    case 8: {
 		// 64 bits per sample, use 64 bit pointers
-		const u_int64_t *src =
-		    reinterpret_cast<const u_int64_t *>(raw_data.data());
-		u_int64_t *dst =
-		    reinterpret_cast<u_int64_t *>(dest.data());
+		const quint64 *src =
+		    reinterpret_cast<const quint64 *>(raw_data.data());
+		quint64 *dst =
+		    reinterpret_cast<quint64 *>(dest.data());
 		src += track;
 		while (samples--) {
 		    *dst = *src;
@@ -1147,10 +1147,10 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 	    }
 	    default: {
 		// default: bytewise operation
-		const u_int8_t *src =
-		    reinterpret_cast<const u_int8_t *>(raw_data.data());
-		u_int8_t *dst =
-		    reinterpret_cast<u_int8_t *>(dest.data());
+		const quint8 *src =
+		    reinterpret_cast<const quint8 *>(raw_data.data());
+		quint8 *dst =
+		    reinterpret_cast<quint8 *>(dest.data());
 		src += (track * bytes_per_sample);
 		unsigned int increment = (tracks - 1) * bytes_per_sample;
 		while (samples--) {

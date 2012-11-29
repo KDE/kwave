@@ -447,7 +447,7 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
     sample_spec.format = PA_SAMPLE_S24_32LE;
 #endif
     sample_spec.channels = channels;
-    sample_spec.rate     = static_cast<uint32_t>(rate);
+    sample_spec.rate     = static_cast<quint32>(rate);
 
     // use the current title / filename or fixed string as stream name
     QString name;
@@ -578,7 +578,7 @@ int Kwave::PlayBackPulseAudio::write(const Kwave::SampleArray &samples)
     }
 
     // copy the samples
-    MEMCPY(reinterpret_cast<u_int8_t *>(m_buffer) + m_buffer_used,
+    MEMCPY(reinterpret_cast<quint8 *>(m_buffer) + m_buffer_used,
 	   samples.data(), bytes);
     m_buffer_used += bytes;
 
@@ -630,7 +630,7 @@ int Kwave::PlayBackPulseAudio::flush()
 	    return -EIO;
 	}
 
-	m_buffer       = reinterpret_cast<u_int8_t *>(m_buffer) + len;
+	m_buffer       = reinterpret_cast<quint8 *>(m_buffer) + len;
 	m_buffer_used -= len;
     }
 

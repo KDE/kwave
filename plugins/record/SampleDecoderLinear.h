@@ -61,7 +61,7 @@ namespace Kwave
 	unsigned int m_bytes_per_sample;
 
 	/** optimized function used for decoding the given format */
-	void(*m_decoder)(const u_int8_t *, sample_t*, unsigned int);
+	void(*m_decoder)(const quint8 *, sample_t*, unsigned int);
 
     };
 }

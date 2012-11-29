@@ -643,7 +643,7 @@ int Kwave::PlayBackALSA::flush()
 	unsigned int timeout = (m_rate > 0) ?
 	    3 * ((1000 * buffer_samples) /
 	    static_cast<unsigned int>(m_rate)) : 1000U;
-	u_int8_t *p = reinterpret_cast<u_int8_t *>(m_buffer.data());
+	quint8 *p = reinterpret_cast<quint8 *>(m_buffer.data());
 	int r;
 
 	// pad the buffer with silence if necessary

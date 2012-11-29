@@ -10,6 +10,7 @@
  * removed unused code: libkwave/FileFormat.*
  * renamed source files with "Kwave" in the name
  * added subsystem prefix to inclusion of Qt header files
+ * using bit types from qt (e.g. u_int32_t => quint32)
 
 0.8.9  [2012-11-06]
 

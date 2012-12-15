@@ -205,7 +205,7 @@ void Kwave::Filter::load(const QString &filename)
 	    i++;
 	} else {
 	    qDebug("Filter::load(%s): syntax error in line %d",
-		filename.toLocal8Bit().data(), linenr);
+	           DBG(filename), linenr);
 	}
     }
 }

@@ -352,8 +352,7 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	    {
 		QString s = parseId3Frame2String(frame);
 		qWarning("unsupported ID3 tag: %d, descr: '%s', text: '%s'",
-			 id, frame->GetDescription(),
-			 s.toLocal8Bit().data());
+			 id, frame->GetDescription(), DBG(s));
 		break;
 	    }
 	}

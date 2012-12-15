@@ -562,7 +562,7 @@ void Kwave::OverViewCache::dumpTracks()
     list += _(" --- deleted:");
     foreach (unsigned int track, m_src_deleted)
 	list += _(" ") + list.number(track);
-    qDebug("%s", list.toLocal8Bit().data());
+    qDebug("%s", DBG(list));
 }
 
 //***************************************************************************

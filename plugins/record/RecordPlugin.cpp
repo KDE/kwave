@@ -325,7 +325,7 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
     if (!m_dialog || !m_device) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-    qDebug("RecordPlugin::setDevice('%s')", device.toLocal8Bit().data());
+    qDebug("RecordPlugin::setDevice('%s')", DBG(device));
 
     // select the default device if this one is not supported
     QString dev = device;
@@ -334,8 +334,7 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
 	// use the first entry as default
 	dev = supported.first();
 	qDebug("RecordPlugin::setDevice(%s) -> fallback to '%s'",
-	    device.toLocal8Bit().data(),
-	    dev.toLocal8Bit().data());
+	    DBG(device), DBG(dev));
     }
 
     // open and initialize the device
@@ -357,8 +356,7 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
 
     if (result < 0) {
 	qWarning("RecordPlugin::openDevice('%s'): "\
-	         "opening the device failed. error=%d",
-	         dev.toLocal8Bit().data(), result);
+	         "opening the device failed. error=%d", DBG(dev), result);
 
 	m_controller.setInitialized(false);
 	m_dialog->showDevicePage();
@@ -939,8 +937,7 @@ void Kwave::RecordPlugin::startRecording()
 			    about_data->version() +
 			    i18n(" for KDE ") +
 			    i18n(KDE_VERSION_STRING);
-	qDebug("adding software tag: '%s'",
-		software.toLocal8Bit().data());
+	qDebug("adding software tag: '%s'", DBG(software));
 	fileInfo.set(Kwave::INF_SOFTWARE, software);
 
 	// add a date tag, ISO format
@@ -948,8 +945,7 @@ void Kwave::RecordPlugin::startRecording()
 	QString date;
 	date = date.sprintf("%04d-%02d-%02d",
 		now.year(), now.month(), now.day());
-	QVariant value = date.toUtf8();
-	fileInfo.set(Kwave::INF_CREATION_DATE, value);
+	fileInfo.set(Kwave::INF_CREATION_DATE, date);
 	signalManager().setFileInfo(fileInfo, false);
     }
 

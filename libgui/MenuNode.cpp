@@ -117,7 +117,7 @@ const QIcon Kwave::MenuNode::icon()
 void Kwave::MenuNode::setIcon(const QIcon &icon)
 {
     qWarning("MenuNode(%s)::setIcon(%p)",
-	name().toLocal8Bit().data(), reinterpret_cast<const void *>(&icon));
+	DBG(name()), reinterpret_cast<const void *>(&icon));
 }
 
 //*****************************************************************************
@@ -136,8 +136,7 @@ bool Kwave::MenuNode::isEnabled()
 	    if (group) {
 		if (!(static_cast<Kwave::MenuGroup *>(group))->isEnabled()) {
 		    qDebug("MenuNode(%s).isEnabled(): group %s is disabled",
-			   name().toLocal8Bit().data(),
-			   group_name.toLocal8Bit().data());
+			   DBG(name()), DBG(group_name));
 		    return false;
 		}
 	    }
@@ -417,8 +416,7 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
 		setIcon(icon);
 	    } else {
 		qWarning("MenuNode '%s': icon '%s' not found !",
-		    name().toLocal8Bit().data(),
-		    filename.toLocal8Bit().data());
+		    DBG(name()), DBG(filename));
 	    }
 	}
 	return true;

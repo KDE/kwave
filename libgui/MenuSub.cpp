@@ -38,7 +38,7 @@ Kwave::MenuSub::MenuSub(Kwave::MenuNode *parent,
     QAction *act = action();
     Q_ASSERT(act);
     if (act) {
-	act->setText(i18n(name.toUtf8()));
+	act->setText(i18n(__(name)));
 	if (shortcut) act->setShortcut(shortcut);
     }
 }

@@ -168,7 +168,7 @@ void Kwave::FlacDecoder::parseVorbisComments(
 	vorbis_comments.get_vendor_string()));
     if (vendor.length()) {
 	info.set(Kwave::INF_SOFTWARE, vendor);
-	qDebug("Encoded by: '%s'\n\n", vendor.toLocal8Bit().data());
+	qDebug("Encoded by: '%s'\n\n", DBG(vendor));
     }
 
     // parse all vorbis comments into Kwave file properties

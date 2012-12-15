@@ -103,7 +103,7 @@ QStringList *Kwave::AmplifyFreePlugin::setup(QStringList &previous_params)
 	Kwave::Parser p(cmd);
 	while (!p.isDone()) *list << p.nextParam();
 
-	qDebug("setup -> emitCommand('%s')",cmd.toLocal8Bit().data());
+	qDebug("setup -> emitCommand('%s')", DBG(cmd));
 	emitCommand(cmd);
     } else {
 	// user pressed "Cancel"
@@ -119,7 +119,7 @@ QStringList *Kwave::AmplifyFreePlugin::setup(QStringList &previous_params)
 QString Kwave::AmplifyFreePlugin::progressText()
 {
     return m_action_name.length() ?
-	i18n(m_action_name.toLocal8Bit()) : i18n("Amplify Free");
+	i18n(__(m_action_name)) : i18n("Amplify Free");
 }
 
 //***************************************************************************
@@ -137,7 +137,7 @@ void Kwave::AmplifyFreePlugin::run(QStringList params)
 
     interpreteParameters(params);
 
-    Kwave::UndoTransactionGuard undo_guard(*this, i18n(m_action_name.toLocal8Bit()));
+    Kwave::UndoTransactionGuard undo_guard(*this, i18n(__(m_action_name)));
 
     unsigned int input_length = selection(&track_list, &first, &last, true);
     unsigned int tracks = track_list.count();

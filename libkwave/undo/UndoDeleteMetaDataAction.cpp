@@ -138,11 +138,7 @@ void Kwave::UndoDeleteMetaDataAction::dump(const QString &indent)
 	    } else {
 		value = v.toString();
 	    }
-	    qDebug("%s    '%s' = '%s",
-		indent.toLocal8Bit().data(),
-		QString(key).toLocal8Bit().data(),
-		value.toLocal8Bit().data()
-	    );
+	    qDebug("%s    '%s' = '%s", DBG(indent), DBG(key), DBG(value));
 	}
     }
 }

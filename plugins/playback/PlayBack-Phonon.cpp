@@ -283,13 +283,13 @@ QStringList Kwave::PlayBackPhonon::supportedDevices()
 
     // get and use the device name(s) from the object description(s)
     foreach(Phonon::AudioOutputDevice device, devices) {
-// 	qDebug("name='%s'", device.name().toLocal8Bit().data());
+// 	qDebug("name='%s'", DBG(device.name()));
 	list << device.name();
 
 	// for debugging: list all properties
 // 	foreach (const char *property, device.propertyNames()) {
 // 	    qDebug("    '%s' = '%s'", property,
-// 		device.property(property).toString().toLocal8Bit().data());
+// 		DBG(device.property(property).toString()));
 // 	}
     }
 

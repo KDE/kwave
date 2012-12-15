@@ -167,8 +167,7 @@ QString Kwave::CodecManager::encodingFilter()
     QString str_list = list.join(_("\n"));
     Q_ASSERT(!str_list.contains(QLatin1Char('/')));
     if (str_list.contains(QLatin1Char('/'))) {
-	qWarning("CodecManager::encodingFilter() -> '%s'",
-	         str_list.toLocal8Bit().data());
+	qWarning("CodecManager::encodingFilter() -> '%s'", DBG(str_list));
     }
 
     return str_list;
@@ -215,8 +214,7 @@ QString Kwave::CodecManager::decodingFilter()
     QString str_list = list.join(_("\n"));
     Q_ASSERT(!str_list.contains(QLatin1Char('/')));
     if (str_list.contains(QLatin1Char('/'))) {
-	qWarning("CodecManager::decodingFilter() -> '%s'",
-	         str_list.toLocal8Bit().data());
+	qWarning("CodecManager::decodingFilter() -> '%s'", DBG(str_list));
     }
 
     return str_list;

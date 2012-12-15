@@ -82,7 +82,7 @@ Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
                 (mimetype == _("application/x-ogg")) ||
                 (mimetype == _("application/ogg")));
 
-    qDebug("mimetype = %s",mimetype.toLocal8Bit().data());
+    qDebug("mimetype = %s", DBG(mimetype));
 
     connect(cbCompression, SIGNAL(currentIndexChanged(int)),
             this, SLOT(compressionChanged()));

@@ -262,7 +262,7 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
 	    qDebug("saving %9lu...%9lu -> '%s'",
 		   static_cast<unsigned long int>(left),
 		   static_cast<unsigned long int>(right),
-		   filename.toLocal8Bit().data());
+		   DBG(filename));
 	    if (signalManager().save(url, true) < 0)
 		break;
 

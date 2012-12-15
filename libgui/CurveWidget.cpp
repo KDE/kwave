@@ -190,7 +190,7 @@ void Kwave::CurveWidget::savePreset()
     QFile out(name);
     out.open(QIODevice::WriteOnly);
     QString cmd = m_curve.getCommand();
-    out.write(cmd.toLocal8Bit().data(), cmd.length()+1);
+    out.write(DBG(cmd), cmd.length() + 1);
 
     // reload the list of known presets
     loadPresetList();

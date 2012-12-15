@@ -135,8 +135,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 
     QString mimetype = Kwave::CodecManager::whatContains(url);
     qDebug("SignalManager::loadFile(%s) - [%s]",
-           url.prettyUrl().toLocal8Bit().data(),
-           mimetype.toLocal8Bit().data());
+           DBG(url.prettyUrl()), DBG(mimetype));
     Kwave::Decoder *decoder = Kwave::CodecManager::decoder(mimetype);
     while (decoder) {
 	// be sure that the current signal is really closed
@@ -146,8 +145,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 	QString filename = url.path();
 	QFile src(filename);
 	if (!(res = decoder->open(m_parent_widget, src))) {
-	    qWarning("unable to open source: '%s'",
-	             url.prettyUrl().toLocal8Bit().data());
+	    qWarning("unable to open source: '%s'", DBG(url.prettyUrl()));
 	    res = -EIO;
 	    break;
 	}
@@ -314,9 +312,7 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
     QString mimetype_name;
     mimetype_name = Kwave::CodecManager::whatContains(url);
     qDebug("SignalManager::save(%s) - [%s] (%d bit, selection=%d)",
-	url.prettyUrl().toLocal8Bit().data(),
-	mimetype_name.toLocal8Bit().data(),
-	bits, selection);
+	DBG(url.prettyUrl()), DBG(mimetype_name), bits, selection);
 
     Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mimetype_name);
     Kwave::FileInfo file_info(m_meta_data);
@@ -337,10 +333,9 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
                  (file_info.canLoadSave(it.key())) )
 	    {
 		qWarning("SignalManager::save(): unsupported property '%s'",
-		    file_info.name(it.key()).toLocal8Bit().data());
+		    DBG(file_info.name(it.key())));
 		all_supported = false;
-		lost_properties += i18n("%1", file_info.name(it.key()))
-		    + _("\n");
+		lost_properties += i18n(__(file_info.name(it.key()))) + _("\n");
 	    }
 	}
 	if (!all_supported) {
@@ -386,8 +381,7 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 	                       about_data->version() +
 	                       i18n(" for KDE ") +
 			       i18n(KDE_VERSION_STRING);
-	    qDebug("adding software tag: '%s'",
-	           software.toLocal8Bit().data());
+	    qDebug("adding software tag: '%s'", DBG(software));
 	    file_info.set(Kwave::INF_SOFTWARE, software);
 	}
 
@@ -399,10 +393,8 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 	    QString date;
 	    date = date.sprintf("%04d-%02d-%02d",
 		now.year(), now.month(), now.day());
-	    QVariant value = date.toUtf8();
-	    qDebug("adding date tag: '%s'",
-	           date.toLocal8Bit().data());
-	    file_info.set(Kwave::INF_CREATION_DATE, value);
+	    qDebug("adding date tag: '%s'", DBG(date));
+	    file_info.set(Kwave::INF_CREATION_DATE, date);
 	}
 
 	// prepare and show the progress dialog
@@ -869,8 +861,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	else
 	    return -EINVAL;
     CASE_COMMAND("dump_metadata")
-	qDebug("DUMP OF META DATA => %s",
-	    parser.firstParam().toLocal8Bit().data());
+	qDebug("DUMP OF META DATA => %s", DBG(parser.firstParam()));
 	m_meta_data.dump();
     } else {
 	return -ENOSYS;

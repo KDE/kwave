@@ -486,7 +486,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
     bool use_recorder = true;
     QString command = line;
 
-//    qDebug("TopWidget::executeCommand(%s)", command.toLocal8Bit().data());
+//    qDebug("TopWidget::executeCommand(%s)", DBG(command));
     if (!command.length()) return 0; // empty line -> nothing to do
     if (command.trimmed().startsWith(_("#")))
 	return 0; // only a comment
@@ -503,7 +503,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	    Q_ASSERT(!result);
 	    if (result) {
 		qWarning("macro execution of '%s' failed: %d",
-		         it.toLocal8Bit().data(), result);
+		         DBG(it), result);
 		return result; // macro failed :-(
 	    }
 
@@ -548,16 +548,16 @@ int Kwave::TopWidget::executeCommand(const QString &line)
     // all others only if no plugin is currently running
     if (!allow_always && plugin_manager && plugin_manager->onePluginRunning())
     {
-	qWarning("TopWidget::executeCommand('%s') - currently not possible, "\
+	qWarning("TopWidget::executeCommand('%s') - currently not possible, "
 		 "a plugin is running :-(",
-		 parser.command().toLocal8Bit().data());
+		 DBG(parser.command()));
 	return -1;
     }
 
     if (use_recorder) {
 	// append the command to the macro recorder
 	// @TODO macro recording...
-	qDebug("# %s ", command.toLocal8Bit().data());
+	qDebug("# %s ", DBG(command));
     }
 
     if (m_context.application().executeCommand(command)) {
@@ -574,13 +574,11 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	if (cnt > 1) {
 	    while (cnt--) {
 		const QString &par = parser.nextParam();
-		qDebug("TopWidget::executeCommand(): %s",
-		    par.toLocal8Bit().data());
+		qDebug("TopWidget::executeCommand(): %s", DBG(par));
 		params.append(par);
 	    }
 	}
-	qDebug("TopWidget::executeCommand(): loading plugin '%s'",
-	       name.toLocal8Bit().data());
+	qDebug("TopWidget::executeCommand(): loading plugin '%s'", DBG(name));
 	qDebug("TopWidget::executeCommand(): with %d parameter(s)",
 		params.count());
 	Q_ASSERT(plugin_manager);
@@ -707,7 +705,7 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 	    // this line seems to be a "label"
 	    line = line.left(line.length() - 1).simplified();
 	    if (!labels.contains(line)) {
-		qDebug("new label '%s' at %u", line.toLocal8Bit().data(),
+		qDebug("new label '%s' at %u", DBG(line),
 		       static_cast<unsigned int>(stream.pos()));
 		labels[line] = stream.pos();
 	    }
@@ -721,11 +719,11 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 	    qDebug(">>> detected 'goto'");
 	    QString label = line.split(QLatin1Char(' ')).at(1).simplified();
 	    if (labels.contains(label)) {
-		qDebug(">>> goto '%s' @ offset %u", label.toLocal8Bit().data(),
+		qDebug(">>> goto '%s' @ offset %u", DBG(label),
 		       static_cast<unsigned int>(labels[label]));
 		stream.seek(labels[label]);
 	    } else {
-		qWarning("label '%s' not found", label.toLocal8Bit().data());
+		qWarning("label '%s' not found", DBG(label));
 		break;
 	    }
 	    continue;
@@ -749,7 +747,7 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 
 	// emit the command
 	result = executeCommand(line);
-// 	qDebug(">>> '%s' - result=%d", line.toLocal8Bit().data(), result);
+// 	qDebug(">>> '%s' - result=%d", DBG(line), result);
 
 	// synchronize after the command
 	if (m_context.pluginManager()) m_context.pluginManager()->sync();
@@ -1017,9 +1015,8 @@ int Kwave::TopWidget::saveFileAs(bool selection)
 	// has already been selected to satisfy the fileinfo
 	// plugin
 	qDebug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
-	    url.prettyUrl().toLocal8Bit().data(),
-	    new_mimetype_name.toLocal8Bit().data(),
-	    previous_mimetype_name.toLocal8Bit().data() );
+	    DBG(url.prettyUrl()), DBG(new_mimetype_name),
+	    DBG(previous_mimetype_name) );
 
 	// set the new mimetype
 	Kwave::FileInfo info(signal_manager->metaData());

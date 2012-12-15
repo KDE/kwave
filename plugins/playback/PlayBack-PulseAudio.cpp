@@ -401,7 +401,7 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
 	    m_info.get(__info__).toString().toUtf8().data())
 
     qDebug("PlayBackPulseAudio::open(device=%s,rate=%0.1f,channels=%u,"\
-	"bits=%u, bufbase=%u)", device.toLocal8Bit().data(), rate, channels,
+	"bits=%u, bufbase=%u)", DBG(device), rate, channels,
 	bits, bufbase);
 
     // close the previous device
@@ -757,7 +757,7 @@ void Kwave::PlayBackPulseAudio::scanDevices()
 	else
 	    description.append(_("|sound_note"));
 
-// 	qDebug("supported device: '%s'", description.toLocal8Bit().data());
+// 	qDebug("supported device: '%s'", DBG(description));
 	list.insert(description, m_device_list[sink]);
     }
 //     qDebug("----------------------------------------");

@@ -171,8 +171,8 @@ void Kwave::MenuManager::executeCommand(const QString &command)
 		param = param.replace(pos, stdname.length()+2, expanded);
 	    } else {
 		// unknown standard key sequence name?
-		qWarning("MenuManager::executeCommand: pos=%d, stdname='%s' "\
-		         "-> UNKNOWN ???", pos, stdname.toLocal8Bit().data());
+		qWarning("MenuManager::executeCommand: pos=%d, stdname='%s' "
+		         "-> UNKNOWN ???", pos, DBG(stdname));
 		break;
 	    }
 	}
@@ -212,8 +212,7 @@ void Kwave::MenuManager::addNumberedMenuEntry(const QString &uid,
 
 	node->insertLeaf(entry, command, 0, QString());
     } else
-	qWarning("MenuManager: could not find numbered Menu '%s'",
-	         uid.toLocal8Bit().data());
+	qWarning("MenuManager: could not find numbered Menu '%s'", DBG(uid));
 
 }
 
@@ -223,28 +222,26 @@ void Kwave::MenuManager::selectItem(const QString &group, const QString &uid)
     Q_ASSERT(m_menu_root);
 
     if (!group.length()) {
-	qWarning("MenuManager::selectItem('','%s'): no group!?",
-	         uid.toLocal8Bit().data());
+	qWarning("MenuManager::selectItem('','%s'): no group!?", DBG(uid));
 	return ;
     }
 
     if (group[0] != QLatin1Char('@')) {
-	qWarning("MenuManager::selectItem('%s','%s'): "\
+	qWarning("MenuManager::selectItem('%s','%s'): "
 		"invalid group name, does not start with '@'!",
-		group.toLocal8Bit().data(), uid.toLocal8Bit().data());
+		DBG(group), DBG(uid));
 	return ;
     }
 
     Kwave::MenuNode *node = (m_menu_root) ? m_menu_root->findUID(group) : 0;
     if (!node) {
 	qWarning("MenuManager::selectItem(): group '%s' not found!",
-	    group.toLocal8Bit().data());
+	         DBG(group));
 	return ;
     }
 
     if (!qobject_cast<Kwave::MenuGroup *>(node)) {
-	qWarning("MenuManager::selectItem(): '%s' is not a group!",
-	    group.toLocal8Bit().data());
+	qWarning("MenuManager::selectItem(): '%s' is not a group!", DBG(group));
 	return ;
     }
 
@@ -274,7 +271,7 @@ void Kwave::MenuManager::setItemEnabled(const QString &uid, bool enable)
     Kwave::MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     if (node) node->setEnabled(enable);
     else qWarning("MenuManager::setItemEnabled('%s', '%d'): uid not found!",
-		  uid.toLocal8Bit().data(), enable);
+		  DBG(uid), enable);
 }
 
 //***************************************************************************

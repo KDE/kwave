@@ -18,6 +18,7 @@
 #include "config.h"
 
 #include "libkwave/MetaDataList.h"
+#include "libkwave/String.h"
 
 //***************************************************************************
 Kwave::MetaDataList::MetaDataList()
@@ -1059,7 +1060,7 @@ void Kwave::MetaDataList::dump() const
     while (it.hasNext()) {
 	it.next();
 	const Kwave::MetaData &meta = it.value();
-	qDebug("* meta data #%s", it.key().toLocal8Bit().data());
+	qDebug("* meta data #%s", DBG(it.key()));
 	meta.dump();
     }
     qDebug("-----------------");

@@ -77,7 +77,7 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
     unsigned int linenr = 0;
     while (!source.atEnd()) {
 	QString line = source.readLine().simplified();
-	qDebug("META %5u %s", linenr++, line.toLocal8Bit().data());
+	qDebug("META %5u %s", linenr++, DBG(line));
 	if (!line.length())
 	    continue; // skip empty line
 	if (line.startsWith(QLatin1Char('#')) &&
@@ -115,7 +115,7 @@ bool Kwave::AsciiDecoder::decode(QWidget * /* widget */,
     unsigned int linenr = 0;
     while (!source.atEnd() && !dst.isCanceled()) {
 	QString line = source.readLine();
-	qDebug("DATA %5u %s", linenr++, line.toLocal8Bit().data());
+	qDebug("DATA %5u %s", linenr++, DBG(line));
 
 	if (linenr > 50) break;
     }

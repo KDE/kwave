@@ -429,7 +429,7 @@ void Kwave::FileInfo::dump() const
 //     qDebug("labels:");
 //     foreach (Kwave::Label label, m_labels) {
 // 	qDebug("   [%10lu] = '%s'", static_cast<unsigned long int>(label.pos()),
-// 	                           label.name().toLocal8Bit().data());
+// 	                           DBG(label.name()));
 //     }
 
     qDebug("other properties:");
@@ -438,8 +438,7 @@ void Kwave::FileInfo::dump() const
 	if (!contains(key)) continue;
 	QVariant val = get(key);
 	QString name = m_property_map.name(key);
-	qDebug("   '%s' = '%s'", name.toLocal8Bit().data(),
-	                         val.toString().toLocal8Bit().data());
+	qDebug("   '%s' = '%s'", DBG(name), DBG(val.toString()));
     }
     qDebug("-------------------------");
 }

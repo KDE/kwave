@@ -118,8 +118,7 @@ void Kwave::OggEncoder::encodeProperties(const Kwave::FileInfo &info,
 	if (!tag) continue;
 
 	QByteArray value = info.get(property).toString().toUtf8();
-	vorbis_comment_add_tag(vc, const_cast<char *>(tag),
-	    value.data());
+	vorbis_comment_add_tag(vc, const_cast<char *>(tag), value.data());
     }
 }
 

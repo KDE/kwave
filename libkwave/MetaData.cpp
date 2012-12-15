@@ -249,7 +249,7 @@ void Kwave::MetaData::dump() const
 	if (s & Range)    scope_list += _(" range");
 	if (s & Position) scope_list += _(" position");
     }
-    qDebug("    scope =%s", scope_list.toLocal8Bit().data());
+    qDebug("    scope =%s", DBG(scope_list));
     const QStringList props = keys();
     foreach (const QString &p, props) {
 	QVariant prop = property(p);

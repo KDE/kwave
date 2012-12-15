@@ -111,9 +111,8 @@ QString Kwave::PlayBackOSS::open(const QString &device, double rate,
                           unsigned int channels, unsigned int bits,
                           unsigned int bufbase)
 {
-    qDebug("PlayBackOSS::open(device=%s,rate=%0.1f,channels=%u,"\
-	"bits=%u, bufbase=%u)", device.toLocal8Bit().data(), rate, channels,
-	bits, bufbase);
+    qDebug("PlayBackOSS::open(device=%s,rate=%0.1f,channels=%u,"
+	   "bits=%u, bufbase=%u)", DBG(device), rate, channels, bits, bufbase);
 
     m_device_name = device;
     m_rate        = rate;
@@ -504,9 +503,8 @@ int Kwave::PlayBackOSS::openDevice(const QString &device)
 	// open the device in case it's not already open
 	fd = ::open(device.toLocal8Bit(), O_WRONLY | O_NONBLOCK);
 	if (fd <= 0) {
-	    qWarning("PlayBackOSS::openDevice('%s') - "\
-		 "failed, errno=%d (%s)",
-		 device.toLocal8Bit().data(),
+	    qWarning("PlayBackOSS::openDevice('%s') - failed, errno=%d (%s)",
+		 DBG(device),
 		 errno, strerror(errno));
 	} else {
 	    // we use blocking mode
@@ -519,10 +517,8 @@ int Kwave::PlayBackOSS::openDevice(const QString &device)
 	}
     }
     if (fd <= 0) {
-	qWarning("PlayBackOSS::openDevice('%s') - "\
-	         "failed, errno=%d (%s)",
-	         device.toLocal8Bit().data(),
-	         errno, strerror(errno));
+	qWarning("PlayBackOSS::openDevice('%s') - failed, errno=%d (%s)",
+	         DBG(device), errno, strerror(errno));
     }
 
     return fd;

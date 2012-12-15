@@ -124,15 +124,14 @@ namespace Kwave
 	    const QString &description, bool localized) const
 	{
 	    IDX it = IDX(0);
-	    QString dcr = (localized) ? i18n(description.toUtf8()) : description;
+	    QString dcr = (localized) ? i18n(__(description)) : description;
 	    unsigned int cnt = count();
 	    while (cnt--) {
 		if (localized) {
 		    if (m_list[it].third() == description)
 			return it;
 		} else {
-		    if (i18n(m_list[it].third().toUtf8()) ==
-			i18n(description.toUtf8()))
+		    if (i18n(__(m_list[it].third())) == i18n(__(description)))
 			return it;
 		}
 		++it;

@@ -99,10 +99,7 @@ namespace Kwave
 
 	/** dump, for debugging purposes */
 	virtual void dump(const QString &indent) {
-	    qDebug("%s%s",
-		indent.toLocal8Bit().data(),
-		description().toLocal8Bit().data()
-	    );
+	    qDebug("%s%s", DBG(indent), DBG(description()));
 	};
 
     };

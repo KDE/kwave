@@ -375,7 +375,7 @@ void Kwave::Plugin::run_wrapper(QStringList params)
     // evaluate the elapsed time
     double seconds = static_cast<double>(t.elapsed()) * 1E-3;
     qDebug("plugin %s done, running for %0.03g seconds",
-	QString(name()).toLocal8Bit().data(), seconds);
+           DBG(name()), seconds);
 
     // emit the "done" signal
     emit sigDone(this);

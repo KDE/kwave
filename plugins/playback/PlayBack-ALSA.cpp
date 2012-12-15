@@ -337,9 +337,9 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 
     // translate verbose name to internal ALSA name
     QString alsa_device = alsaDeviceName(device);
-    qDebug("PlayBackALSA::openDevice() - opening ALSA device '%s', "\
+    qDebug("PlayBackALSA::openDevice() - opening ALSA device '%s', "
            "%dHz %d channels, %u bit",
-           alsa_device.toLocal8Bit().data(), rate, channels, bits);
+           DBG(alsa_device), rate, channels, bits);
 
     // workaround for bug in ALSA
     // if the device name ends with "," -> invalid name
@@ -533,9 +533,8 @@ QString Kwave::PlayBackALSA::open(const QString &device, double rate,
                                   unsigned int channels, unsigned int bits,
                                   unsigned int bufbase)
 {
-    qDebug("PlayBackALSA::open(device=%s,rate=%0.1f,channels=%u,"\
-	"bits=%u, bufbase=%u)", device.toLocal8Bit().data(), rate, channels,
-	bits, bufbase);
+    qDebug("PlayBackALSA::open(device=%s,rate=%0.1f,channels=%u, bits=%u, "
+           "bufbase=%u)", DBG(device), rate, channels, bits, bufbase);
 
     m_device_name = device;
     m_rate        = rate;
@@ -819,9 +818,7 @@ void Kwave::PlayBackALSA::scanDevices()
 			    i18n("Subdevice %1: ", idx) + subdevice_name +
 			    _("|sound_subdevice")
 			);
-			qDebug("# '%s' -> '%s'",
-			    hwdev.toLocal8Bit().data(),
-			    name.toLocal8Bit().data());
+			qDebug("# '%s' -> '%s'", DBG(hwdev), DBG(name));
 			m_device_list.insert(name, hwdev);
 		    }
 		}
@@ -833,8 +830,7 @@ void Kwave::PlayBackALSA::scanDevices()
 		    i18n("Device %1: ", dev) +
 		          device_name + _("|sound_subdevice")
 		);
-		qDebug("# '%s' -> '%s'", hw_device.toLocal8Bit().data(),
-		    name.toLocal8Bit().data());
+		qDebug("# '%s' -> '%s'", DBG(hw_device), DBG(name));
 		m_device_list.insert(name, hw_device);
 	    }
 	}
@@ -875,8 +871,7 @@ QString Kwave::PlayBackALSA::alsaDeviceName(const QString &name)
 	foreach (QString n, m_device_list.values())
 	    if (n == name) return n;
 
-	qWarning("PlayBackALSA::alsaDeviceName('%s') - NOT FOUND",
-	    name.toLocal8Bit().data());
+	qWarning("PlayBackALSA::alsaDeviceName('%s') - NOT FOUND", DBG(name));
 	return _("");
     }
     return m_device_list[name];
@@ -930,10 +925,8 @@ snd_pcm_t *Kwave::PlayBackALSA::openDevice(const QString &device)
 	                       SND_PCM_NONBLOCK);
 	if (err < 0) {
 	    pcm = 0;
-	    qWarning("PlayBackALSA::openDevice('%s') - "\
-	             "failed, err=%d (%s)",
-	             alsa_device.toLocal8Bit().data(),
-	             err, snd_strerror(err));
+	    qWarning("PlayBackALSA::openDevice('%s') - failed, err=%d (%s)",
+	             DBG(alsa_device), err, snd_strerror(err));
 	}
     }
 

@@ -19,7 +19,8 @@
 
 #include <unistd.h>     // for unlink() and getpagesize()
 
-#include "SwapFile.h"
+#include "libkwave/String.h"
+#include "libkwave/SwapFile.h"
 
 // just for debugging: number of open swapfiles
 static unsigned int g_instances = 0;
@@ -80,7 +81,7 @@ bool Kwave::SwapFile::allocate(size_t size)
 
     // try to create the temporary file
     if (!m_file.open()) {
-	qWarning("SwapFile(%s) -> open failed", m_file.fileName().toLocal8Bit().data());
+	qWarning("SwapFile(%s) -> open failed", DBG(m_file.fileName()));
 	return false;
     }
 
@@ -211,8 +212,7 @@ void Kwave::SwapFile::close()
 
     if (m_file.exists(m_file.fileName())) {
 	if (!m_file.remove()) {
-	    qWarning("SwapFile(%s) -> remove FAILED",
-	             m_file.fileName().toLocal8Bit().data());
+	    qWarning("SwapFile(%s) -> remove FAILED", DBG(m_file.fileName()));
 	}
     }
 
@@ -241,8 +241,7 @@ void *Kwave::SwapFile::map()
     if (m_address) {
 	m_map_count++;
     } else {
-	qWarning("SwapFile(%s) -> map FAILED",
-	         m_file.fileName().toLocal8Bit().data());
+	qWarning("SwapFile(%s) -> map FAILED", DBG(m_file.fileName()));
     }
 
     return m_address;
@@ -263,8 +262,7 @@ int Kwave::SwapFile::unmap()
     if (m_size && m_address) {
 //	qDebug("      --- SwapFile::unmap() (%p)", this);
 	if (!m_file.unmap(static_cast<uchar *>(m_address))) {
-	    qWarning("SwapFile(%s) -> unmap FAILED",
-	             m_file.fileName().toLocal8Bit().data());
+	    qWarning("SwapFile(%s) -> unmap FAILED", DBG(m_file.fileName()));
 	}
     }
 

@@ -43,7 +43,7 @@ Kwave::MenuItem::MenuItem(Kwave::MenuNode *parent,
     Q_ASSERT(parent);
     if (!parent) return;
 
-    m_action.setText(i18n(name.toUtf8()));
+    m_action.setText(i18n(__(name)));
     if (shortcut) m_action.setShortcut(shortcut);
 
     connect(&m_action, SIGNAL(triggered(bool)),
@@ -108,10 +108,9 @@ bool Kwave::MenuItem::specialCommand(const QString &command)
 		m_exclusive_group = group;
 		joinGroup(group);
 	    } else if (m_exclusive_group != group) {
-		qWarning("menu item '%s' already member of "\
+		qWarning("menu item '%s' already member of "
 			"exclusive group '%s'",
-			name().toLocal8Bit().data(),
-			m_exclusive_group.toLocal8Bit().data());
+			DBG(name()), DBG(m_exclusive_group));
 	    }
 	    group = parser.nextParam();
 	}

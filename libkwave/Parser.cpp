@@ -79,8 +79,7 @@ Kwave::Parser::Parser (const QString &init)
 
     line = line.trimmed();
     if (line.length()) {
-	qWarning("Parser: trailing garbage after command: '%s'",
-	         line.toLocal8Bit().data());
+	qWarning("Parser: trailing garbage after command: '%s'", DBG(line));
     }
 }
 
@@ -163,7 +162,7 @@ bool Kwave::Parser::toBool()
     int value = p.toInt(&ok);
     if (ok) return (value != 0);
 
-    qWarning("Parser: invalid bool format: '%s'", p.toLocal8Bit().data());
+    qWarning("Parser: invalid bool format: '%s'", DBG(p));
     return false;
 }
 
@@ -175,8 +174,7 @@ int Kwave::Parser::toInt ()
     int value = p.toInt(&ok);
 
     if (!ok) {
-	qWarning("Parser: unable to parse int from '%s'",
-	         p.toLocal8Bit().data());
+	qWarning("Parser: unable to parse int from '%s'", DBG(p));
 	value = 0;
     }
 
@@ -191,8 +189,7 @@ unsigned int Kwave::Parser::toUInt ()
     unsigned int value = p.toUInt(&ok);
 
     if (!ok) {
-	qWarning("Parser: unable to parse unsigned int from '%s'",
-	         p.toLocal8Bit().data());
+	qWarning("Parser: unable to parse unsigned int from '%s'", DBG(p));
 	value = 0;
     }
 
@@ -207,8 +204,7 @@ double Kwave::Parser::toDouble()
     double value = p.toDouble(&ok);
 
     if (!ok) {
-	qWarning("Parser: unable to parse double from '%s'",
-	         p.toLocal8Bit().data());
+	qWarning("Parser: unable to parse double from '%s'", DBG(p));
 	value = 0.0;
     }
 

@@ -646,7 +646,7 @@ QString Kwave::MP3EncoderDialog::callWithParam(const QString &path,
     if (process.state() != QProcess::NotRunning) process.waitForFinished();
 
     QString text = QString::fromLocal8Bit(process.readAllStandardOutput());
-    qDebug("stdout output: %s", text.toLocal8Bit().data());
+    qDebug("stdout output: %s", DBG(text));
 
     // remove hourglass
     QApplication::restoreOverrideCursor();
@@ -693,7 +693,7 @@ QString Kwave::MP3EncoderDialog::searchPath(const QString &program)
 	p += f.fileName();
 
 	QFile f(p);
-	qDebug("testing '%s'", p.toLocal8Bit().data());
+	qDebug("testing '%s'", DBG(p));
 	if (f.exists() && (f.permissions() & executable)) {
 	    // found it :)
 	    return p;

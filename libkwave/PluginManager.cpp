@@ -145,8 +145,7 @@ Kwave::PluginManager::~PluginManager()
     while (!m_loaded_plugins.isEmpty()) {
 	KwavePluginPointer p = m_loaded_plugins.takeLast();
 	Q_ASSERT(p);
-	qWarning("RELEASING LOADED PLUGIN '%s'",
-	          QString(p->name()).toLocal8Bit().data());
+	qWarning("RELEASING LOADED PLUGIN '%s'", DBG(p->name()));
 	if (p) p->release();
 	this->sync();
     }
@@ -167,16 +166,16 @@ void Kwave::PluginManager::loadAllPlugins()
 // 	    if (plugin->isUnique()) state += "(unique)";
 // 	    if (!state.length()) state = "(normal)";
 // 	    qDebug("PluginManager::loadAllPlugins(): plugin '%s' %s",
-// 		   plugin->name().toLocal8Bit().data(),
-// 		   state.toLocal8Bit().data());
+// 		   DBG(plugin->name()),
+// 		   DBG(state));
 
 	    // reduce use count again, unique and persistent plugins
 	    // stay loaded with use count 1
 	    plugin->release();
 	} else {
 	    // loading failed => remove it from the list
-	    qWarning("PluginManager::loadAllPlugins(): removing '%s' "\
-	            "from list", QString(name).toLocal8Bit().data());
+	    qWarning("PluginManager::loadAllPlugins(): removing '%s' "
+	            "from list", DBG(name));
 	    m_found_plugins.remove(name);
 	}
     }
@@ -212,9 +211,9 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
     foreach (KwavePluginPointer p, m_loaded_plugins) {
 	Q_ASSERT(p);
 	if (p && p->isPersistent() && (p->name() == name)) {
-	    qDebug("PluginManager::loadPlugin('%s')"\
+	    qDebug("PluginManager::loadPlugin('%s')"
 	           "-> returning pointer to persistent",
-	           QString(name).toLocal8Bit().data());
+	           DBG(name));
 	    p->use();
 	    return p;
 	}
@@ -225,9 +224,9 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 	if (p && (p->name() == name)) {
 	    Q_ASSERT(p->isUnique());
 	    Q_ASSERT(p->isPersistent());
-	    qDebug("PluginManager::loadPlugin('%s')"\
+	    qDebug("PluginManager::loadPlugin('%s')"
 	           "-> returning pointer to unique+persistent",
-	           QString(name).toLocal8Bit().data());
+	           DBG(name));
 	    p->use();
 	    return p;
 	}
@@ -264,20 +263,18 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
     const char *sym_loader  = "load";
 
     // get the plugin's author
-    const char *author = "";
+    QString author = i18n("(Unknown)");
     const char **pauthor =
 	static_cast<const char **>(dlsym(handle, sym_author));
     Q_ASSERT(pauthor);
-    if (pauthor) author=*pauthor;
-    if (!author) author = i18n("(Unknown)").toLocal8Bit();
+    if (pauthor) author = _(*pauthor);
 
     // get the plugin's version string
-    const char *version = "";
+    QString version = i18n("(Unknown)");
     const char **pver =
 	static_cast<const char **>(dlsym(handle, sym_version));
     Q_ASSERT(pver);
-    if (pver) version=*pver;
-    if (!version) version = i18n("(Unknown)").toLocal8Bit();
+    if (pver) version = _(*pver);
 
     plugin_loader =
         reinterpret_cast<Kwave::Plugin *(*)(const Kwave::PluginContext *)>(
@@ -285,10 +282,10 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
     Q_ASSERT(plugin_loader);
     if (!plugin_loader) {
 	// plugin is null, out of memory or not found
-	qWarning("PluginManager::loadPlugin('%s'): "\
-		"plugin does not contain a loader, "\
+	qWarning("PluginManager::loadPlugin('%s'): "
+		"plugin does not contain a loader, "
 		"maybe it is damaged or the wrong version?",
-		QString(name).toLocal8Bit().data());
+		DBG(name));
 	dlclose(handle);
 	return 0;
     }
@@ -297,16 +294,15 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 	*this,
 	handle,
 	name,
-	_(version),
-	_(author)
+	version,
+	author
     );
 
     // call the loader function to create an instance
     Kwave::Plugin *plugin = (*plugin_loader)(&context);
     Q_ASSERT(plugin);
     if (!plugin) {
-	qWarning("PluginManager::loadPlugin('%s'): out of memory",
-	         QString(name).toLocal8Bit().data());
+	qWarning("PluginManager::loadPlugin('%s'): out of memory", DBG(name));
 	dlclose(handle);
 	return 0;
     }
@@ -510,11 +506,10 @@ QStringList Kwave::PluginManager::loadPluginDefaults(
 	return list;
     }
     if (!(def_version == version)) {
-	qDebug("PluginManager::loadPluginDefaults: "\
-	    "plugin '%s': defaults for version '%s' not loaded, found "\
-	    "old ones of version '%s'.", QString(name).toLocal8Bit().data(),
-	    QString(version).toLocal8Bit().data(),
-	    def_version.toLocal8Bit().data());
+	qDebug("PluginManager::loadPluginDefaults: "
+	    "plugin '%s': defaults for version '%s' not loaded, found "
+	    "old ones of version '%s'.",
+	    DBG(name), DBG(version), DBG(def_version));
 	return list;
     }
 
@@ -794,8 +789,7 @@ void Kwave::PluginManager::findPlugins()
 
 	    dlclose (handle);
 	} else {
-	    qWarning("error in '%s':\n\t %s",
-		file.toLocal8Bit().data(), dlerror());
+	    qWarning("error in '%s':\n\t %s", DBG(file), dlerror());
 	}
     }
 

@@ -310,7 +310,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 //     qDebug("-------------------------");
 //     qDebug("wav header:");
 //     qDebug("format      = 0x%04X, (%s)", header.min.format,
-//                                          format_name.toLocal8Bit().data());
+//                                          DBG(format_name));
 //     qDebug("channels    = %d", header.min.channels);
 //     qDebug("rate        = %u", header.min.samplerate);
 //     qDebug("bytes/s     = %u", header.min.bytespersec);

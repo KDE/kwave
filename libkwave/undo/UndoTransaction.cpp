@@ -107,8 +107,7 @@ void Kwave::UndoTransaction::abort()
 //***************************************************************************
 void Kwave::UndoTransaction::dump(const QString &indent)
 {
-    qDebug("%s [%s]", indent.toLocal8Bit().data(),
-	   description().toLocal8Bit().data());
+    qDebug("%s [%s]", DBG(indent), DBG(description()));
     if (isEmpty()) return;
 
     QListIterator<UndoAction *> it(*this);

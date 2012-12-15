@@ -390,7 +390,7 @@ void Kwave::PlayBackPlugin::setMethod(Kwave::playback_method_t method)
 //***************************************************************************
 void Kwave::PlayBackPlugin::setDevice(const QString &device)
 {
-//     qDebug("PlayBackPlugin::setDevice(%s)", device.toLocal8Bit().data());
+//     qDebug("PlayBackPlugin::setDevice(%s)", DBG(device));
 
     // select the default device if new one is not supported
     QString dev = device;
@@ -403,8 +403,7 @@ void Kwave::PlayBackPlugin::setDevice(const QString &device)
 	    // use the first entry as default
 	    dev = supported.first();
 	    qDebug("PlayBackPlugin::setDevice(%s) -> fallback to '%s'",
-		device.toLocal8Bit().data(),
-		dev.toLocal8Bit().data());
+		DBG(device), DBG(dev));
 	}
     }
 
@@ -432,7 +431,7 @@ Kwave::PlayBackDevice *Kwave::PlayBackPlugin::openDevice(
     Kwave::PlayBackParam params;
     Kwave::PlayBackDevice *device = 0;
 
-    qDebug("PlayBackPlugin::openDevice('%s',params)",name.toLocal8Bit().data());
+    qDebug("PlayBackPlugin::openDevice('%s',params)", DBG(name));
 
     if (!playback_params) {
 	// use default parameters if none given
@@ -516,7 +515,7 @@ void Kwave::PlayBackPlugin::startDevicePlayBack()
 
     // open the device and abort if not possible
     qDebug("PlayBackPlugin::startDevicePlayBack(), device='%s'",
-          m_playback_params.device.toLocal8Bit().data());
+          DBG(m_playback_params.device));
     m_device = openDevice(m_playback_params.device, -1, &m_playback_params);
     if (!m_device) {
 	// simulate a "playback done" on errors

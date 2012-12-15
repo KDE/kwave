@@ -261,10 +261,9 @@ void Kwave::RecordALSA::detectSupportedFormats()
 // 	    (snd_pcm_format_physical_width(*fmt)+7) >> 3,
 // 	    endian_of(*fmt) == CpuEndian ? "CPU" :
 // 	    (endian_of(*fmt) == LittleEndian ? "LE " : "BE "),
-// 	    sf.description(sf.findFromData(sample_format_of(
-// 		*fmt), true)).toLocal8Bit().data(),
-// 	    t.description(t.findFromData(compression_of(
-// 		*fmt), true)).toLocal8Bit().data());
+// 	    DBG(sf.description(sf.findFromData(sample_format_of(
+// 	    DBG(t.description(t.findFromData(compression_of(
+// 		*fmt), true))));
 
 	m_supported_formats.append(i);
     }
@@ -275,7 +274,7 @@ void Kwave::RecordALSA::detectSupportedFormats()
 //***************************************************************************
 int Kwave::RecordALSA::open(const QString &device)
 {
-//     qDebug("RecordALSA::open(%s)", device.toLocal8Bit().data());
+//     qDebug("RecordALSA::open(%s)", DBG(device));
 
     // close the previous device
     if (m_handle) close();
@@ -285,7 +284,7 @@ int Kwave::RecordALSA::open(const QString &device)
 
     // translate verbose name to internal ALSA name
     QString alsa_device = alsaDeviceName(device);
-    qDebug("RecordALSA::open -> '%s'", alsa_device.toLocal8Bit().data());
+    qDebug("RecordALSA::open -> '%s'", DBG(alsa_device));
 
     if (!alsa_device.length()) return -ENOENT;
 
@@ -300,7 +299,7 @@ int Kwave::RecordALSA::open(const QString &device)
     if (m_open_result < 0) {
 	m_handle = 0;
 	qWarning("RecordALSA::openDevice('%s') - failed, err=%d (%s)",
-	         alsa_device.toLocal8Bit().data(),
+	         DBG(alsa_device),
 	         m_open_result, snd_strerror(m_open_result));
 	return m_open_result;
     }
@@ -367,11 +366,9 @@ int Kwave::RecordALSA::initialize()
 
 	qWarning("RecordkALSA::setFormat(): no matching format for "\
 	         "compression '%s', %d bits/sample, format '%s'",
-	         sf.description(sf.findFromData(m_sample_format),
-	                                        true).toLocal8Bit().data(),
+	         DBG(sf.description(sf.findFromData(m_sample_format), true)),
 	         m_bits_per_sample,
-	         QString(t.name(
-		     t.findFromData(m_compression))).toLocal8Bit().data());
+	         DBG(t.name(t.findFromData(m_compression))));
 
 	snd_output_close(output);
 	return -EINVAL;
@@ -835,7 +832,7 @@ QList<int> Kwave::RecordALSA::detectCompressions()
 
 // 	Kwave::CompressionType t;
 // 	qDebug("found compression %d '%s'", compression,
-// 	       t.name(t.findFromData(compression)).toLocal8Bit().data());
+// 	       DBG(t.name(t.findFromData(compression))));
 	list.append(compression);
     }
 
@@ -919,7 +916,7 @@ QList<Kwave::SampleFormat> Kwave::RecordALSA::detectSampleFormats()
 
 // 	Kwave::SampleFormat::Map sf;
 // 	qDebug("found sample format %u ('%s')", (int)sample_format,
-// 		sf.name(sf.findFromData(sample_format)).toLocal8Bit().data());
+// 		DBG(sf.name(sf.findFromData(sample_format))));
 
 	list.append(sample_format);
     }
@@ -1052,8 +1049,7 @@ void Kwave::RecordALSA::scanDevices()
 			    _("|sound_device||") +
 			    i18n("Subdevice %1: ", subdevice_name) +
 			    _("|sound_subdevice");
-			qDebug("# '%s' -> '%s'", hwdev.toLocal8Bit().data(),
-			       name.toLocal8Bit().data());
+			qDebug("# '%s' -> '%s'", DBG(hwdev), DBG(name));
 			m_device_list.insert(name, hwdev);
 		    }
 		}
@@ -1110,8 +1106,7 @@ QString Kwave::RecordALSA::alsaDeviceName(const QString &name)
 	foreach (QString n, m_device_list.values())
 	    if (n == name) return n;
 
-	qWarning("RecordALSA::alsaDeviceName('%s') - NOT FOUND",
-	         name.toLocal8Bit().data());
+	qWarning("RecordALSA::alsaDeviceName('%s') - NOT FOUND", DBG(name));
 	return _("");
     }
     return m_device_list[name];

@@ -213,7 +213,7 @@ void Kwave::RIFFChunk::dumpStructure()
     // dump this chunk
     qDebug("[0x%08X-0x%08X] (%10u/%10u) %7s, '%s'",
           m_phys_offset, physEnd(), physLength(), length(),
-          t.toLocal8Bit().data(), path().data()
+          DBG(t), path().data()
     );
 
     // recursively dump all sub-chunks

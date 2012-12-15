@@ -108,8 +108,8 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 	QString str_val = value.toString();
 // 	qDebug("encoding ID3 tag #%02d, property='%s', value='%s'",
 // 	    static_cast<int>(id),
-// 	    info.name(property).toLocal8Bit().data(),
-// 	    str_val.toLocal8Bit().data()
+// 	    DBG(info.name(property)),
+// 	    DBG(str_val)
 // 	);
 
 	// encode in UCS16
@@ -224,7 +224,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 		} else {
 		    // date is invalid, unknown format
 		    qWarning("MP3Encoder::encodeID3Tags(): invalid date: '%s'",
-			     str_val.toLocal8Bit().data());
+			     DBG(str_val));
 		    delete frame;
 		    frame = 0;
 		}
@@ -418,7 +418,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     m_process.start(m_program, m_params);
     QString stdError;
     if (!m_process.waitForStarted()) {
-	qWarning("cannot start program '%s'", m_program.toLocal8Bit().data());
+	qWarning("cannot start program '%s'", DBG(m_program));
 	m_process.waitForFinished();
 	result = false;
     }
@@ -541,7 +541,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     if (!result || (exit_code != 0)) {
 	result = false;
 	stdError = QString::fromLocal8Bit(m_process.readAllStandardError());
-	qWarning("stderr output: %s", stdError.toLocal8Bit().data());
+	qWarning("stderr output: %s", DBG(stdError));
 
 	Kwave::MessageBox::error(widget,
 	    i18nc("%1=name of the external program, %2=stderr of the program",

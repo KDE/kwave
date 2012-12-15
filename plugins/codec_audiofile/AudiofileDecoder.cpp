@@ -175,7 +175,7 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     qDebug("length      = %lu samples",
 	   static_cast<unsigned long int>(info.length()));
     qDebug("format      = %d (%s)", af_sample_format,
-                                    sample_format_name.toLocal8Bit().data());
+                                    DBG(sample_format_name));
     qDebug("-------------------------");
 
     // set up libaudiofile to produce Kwave's internal sample format

@@ -50,7 +50,7 @@ QString Kwave::zoom2string(double percent)
     if (percent < 1.0) {
 	int digits = static_cast<int>(ceil(1.0 - log10(percent)));
 	QString format = _("%0.") + format.setNum(digits) + _("f %%");
-	result = format.sprintf(format.toUtf8(), percent);
+	result = format.sprintf(__(format), percent);
     } else if (percent < 10.0) {
 	result = result.sprintf("%0.1f %%", percent);
     } else if (percent < 1000.0) {
@@ -111,7 +111,7 @@ QString Kwave::ms2hms(double ms)
 	"time of label tooltip, %1=hour, %2=minute, %3=second, %4=milliseconds",
 	"%02u:%02u:%02u.%04u");
     QString hms;
-    hms.sprintf(hms_format.toUtf8().data(), h, m, s, tms);
+    hms.sprintf(__(hms_format), h, m, s, tms);
 
     return hms;
 }

@@ -25,6 +25,7 @@
 #include <QtCore/QUrl>
 
 #include "libkwave/CodecManager.h"
+#include "libkwave/String.h"
 
 namespace Kwave
 {
@@ -49,7 +50,7 @@ namespace Kwave
 		// dropping known mime type
 		if (Kwave::CodecManager::canDecode(format)) {
 		    qDebug("Kwave::FileDrag::canDecode(%s)",
-			format.toLocal8Bit().data());
+		            DBG(QString(format)));
 		    return true;
 		}
 	    }

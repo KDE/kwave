@@ -91,8 +91,7 @@ void Kwave::UndoInsertAction::setLength(sample_index_t length)
 //***************************************************************************
 void Kwave::UndoInsertAction::dump(const QString &indent)
 {
-    qDebug("%sundo insert from [%lu ... %lu] (%lu)",
-           indent.toLocal8Bit().data(),
+    qDebug("%sundo insert from [%lu ... %lu] (%lu)", DBG(indent),
            static_cast<unsigned long int>(m_offset),
            static_cast<unsigned long int>(m_offset + ((m_length) ?
                (m_length - 1) : m_length)),

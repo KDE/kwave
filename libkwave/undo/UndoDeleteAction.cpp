@@ -115,8 +115,7 @@ Kwave::UndoAction *Kwave::UndoDeleteAction::undo(Kwave::SignalManager &manager,
 //***************************************************************************
 void Kwave::UndoDeleteAction::dump(const QString &indent)
 {
-    qDebug("%sundo delete from [%lu ... %lu] (%lu)",
-           indent.toLocal8Bit().data(),
+    qDebug("%sundo delete from [%lu ... %lu] (%lu)", DBG(indent),
            static_cast<unsigned long int>(m_offset),
            static_cast<unsigned long int>(m_offset + ((m_length) ?
                (m_length - 1) : m_length)),
